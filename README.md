@@ -75,10 +75,10 @@ Safety:
 ## Limitations
 
 - No RCS. Android gives RCS access only to Google Messages and Samsung's stack; third-party apps cannot send or receive RCS. uMessage handles SMS and MMS only. If messages stop arriving after switching, turn off RCS/chat features in your previous messaging app.
-- Calls are not blocked (SMS only).
+- uMessage filters texts only. Numbers on Android's own block list are also stopped from calling you, because Android applies that list to calls as well.
 - MMS behaviour depends on your carrier; see the device checklist.
-- Distributed as an APK only for now (not Google Play).
-- English only.
+- Distributed as an APK on GitHub Releases. A Google Play version is in closed testing.
+- Translated into 19 languages besides English (including Persian and Arabic, right-to-left). Some translations are machine-made and not yet reviewed by native speakers.
 
 ## Privacy
 
