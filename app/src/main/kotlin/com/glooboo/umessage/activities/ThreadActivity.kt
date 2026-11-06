@@ -203,6 +203,13 @@ open class ThreadActivity : ComposeSimpleActivity() {
     @Volatile
     private var providerLoaded = false
 
+    /**
+     * True once the user really had this chat in front of them (see [isSeenByUser]). A quick open and Back can end
+     * before the provider load finishes; the load then still marks the chat read for this reason.
+     */
+    @Volatile
+    private var shownToUser = false
+
     private var isGroupMessageConfirmationVisible = false
     /** The failed message "Retry" put into the composer, resent in its place by the next Send. */
     private val resend = ResendTracker()
@@ -396,6 +403,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         vm.unreadResolved = false
         vm.unreadScrolled = false
         providerLoaded = false
+        shownToUser = false
         vm.loaded = false
         vm.title = ""
         vm.subtitle = null
@@ -480,7 +488,11 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
     private fun markReadIfSeen() {
         if (!isSeenByUser()) return
-        val thread = threadId
+        shownToUser = true
+        markThreadReadInBackground(threadId)
+    }
+
+    private fun markThreadReadInBackground(thread: Long) {
         notificationManager.cancel(thread.hashCode())
         ensureBackgroundThread {
             // I26: the unread messages are noted first; the build that does it marks them read itself.
@@ -489,6 +501,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
             runCatching { markThreadMessagesRead(thread) }
             repository.markAllRead(thread)
             bus?.post(Events.RefreshConversations(thread))
+            // A notification posted while the chat was being read would otherwise stay.
+            notificationManager.cancel(thread.hashCode())
         }
     }
 
@@ -715,8 +729,10 @@ open class ThreadActivity : ComposeSimpleActivity() {
             val cachedMessagesCode = messages.hashCode()
             if (!isRecycleBin) repository.loadNewest(threadId)
             providerLoaded = true
-            // The first mark-read attempt may have come before the messages were loaded.
-            runOnUiThread { markReadIfSeen() }
+            // The first mark-read attempt may have come before the messages were loaded. When the user already
+            // saw the chat but left before this point, nobody would ask again: mark it now.
+            val loadedThread = threadId
+            if (shownToUser) markThreadReadInBackground(loadedThread) else runOnUiThread { markReadIfSeen() }
 
             val providerParticipantsChanged = reconcileProviderParticipants()
             val hasParticipantWithoutName = recipients.contacts.any { contact ->
