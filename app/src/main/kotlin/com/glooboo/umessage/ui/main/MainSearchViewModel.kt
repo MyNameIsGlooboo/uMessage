@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.HiddenChats
+import com.glooboo.umessage.helpers.messageNotes
 import com.glooboo.umessage.models.SearchResult
 import com.glooboo.umessage.ui.components.displayTitle
 import com.glooboo.umessage.ui.components.formatListTimeStyled
@@ -28,6 +29,9 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
 
     /** Runs one search off the main thread. Tests replace it. */
     internal var runSearch: suspend (String) -> List<SearchResult> = ::searchDatabase
+
+    /** Finds the private notes that hold the text, off the main thread. Tests replace it. */
+    internal var runNoteSearch: suspend (String) -> List<NoteHit> = ::searchNotes
 
     private var searchJob: Job? = null
 
@@ -54,11 +58,13 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
         searchJob?.cancel()
         if (!isSearchable(text)) {
             state.results = emptyList()
+            state.noteHits = emptyList()
             return
         }
         searchJob = viewModelScope.launch {
             delay(SEARCH_DEBOUNCE_MS) // cancelled by the next key press (MC-17)
             state.results = runSearch(text)
+            state.noteHits = runNoteSearch(text)
         }
     }
 
@@ -91,6 +97,30 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
             query = text,
             displayName = { displayTitle(app, it) },
         )
+    }
+
+    /**
+     * The notes that hold [text], with the title of their chat. Nothing of a hidden chat is found (B06); a failing
+     * notes table gives no notes, never an error on the search page.
+     */
+    internal suspend fun searchNotes(text: String): List<NoteHit> = withContext(Dispatchers.IO) {
+        val app = getApplication<Application>()
+        try {
+            val notes = app.messageNotes
+            notes.relink()
+            val found = HiddenChats.get(app).withoutHidden(notes.search(text)) { it.threadId }
+            val chats = found.map { it.threadId }.distinct()
+                .mapNotNull { app.conversationsDB.getConversationWithThreadId(it) }
+            buildNoteHits(
+                notes = found,
+                conversations = chats.associateBy { it.threadId },
+                query = text,
+                formatDate = { seconds -> formatListTimeStyled(app, seconds * 1000L) },
+                displayName = { displayTitle(app, it) },
+            )
+        } catch (_: Exception) {
+            emptyList()
+        }
     }
 
     internal companion object {

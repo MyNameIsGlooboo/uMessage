@@ -14,6 +14,7 @@ import com.glooboo.umessage.interfaces.ConversationsDao
 import com.glooboo.umessage.interfaces.DraftsDao
 import com.glooboo.umessage.interfaces.LabelsDao
 import com.glooboo.umessage.interfaces.MessageAttachmentsDao
+import com.glooboo.umessage.interfaces.MessageNotesDao
 import com.glooboo.umessage.interfaces.MessageRemindersDao
 import com.glooboo.umessage.interfaces.MessagesDao
 import com.glooboo.umessage.interfaces.ScheduledRepeatsDao
@@ -25,6 +26,7 @@ import com.glooboo.umessage.models.Draft
 import com.glooboo.umessage.models.Label
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageAttachment
+import com.glooboo.umessage.models.MessageNote
 import com.glooboo.umessage.models.MessageReminder
 import com.glooboo.umessage.models.RecycleBinMessage
 import com.glooboo.umessage.models.ScheduledRepeat
@@ -43,7 +45,8 @@ import java.io.File
         ScheduledRepeat::class,
         Label::class,
         ConversationLabel::class,
-        MessageReminder::class
+        MessageReminder::class,
+        MessageNote::class
     ],
     version = MessagesDatabase.VERSION
 )
@@ -68,6 +71,8 @@ abstract class MessagesDatabase : RoomDatabase() {
 
     abstract fun MessageRemindersDao(): MessageRemindersDao
 
+    abstract fun MessageNotesDao(): MessageNotesDao
+
     companion object {
         internal const val DATABASE_NAME = "conversations.db"
 
@@ -86,7 +91,7 @@ abstract class MessagesDatabase : RoomDatabase() {
         }
 
         /** Must equal the `version` in [Database] above. */
-        internal const val VERSION = 13
+        internal const val VERSION = 14
 
         /** Builds the database exactly as the app opens it. Tests call this directly to get an unshared instance. */
         internal fun build(context: Context, name: String): MessagesDatabase {
@@ -99,7 +104,7 @@ abstract class MessagesDatabase : RoomDatabase() {
                 name = name
             )
                 // No destructive fallback on upgrade: this DB is the only copy of drafts, scheduled
-                // messages and recycle-bin entries. Every version 1..13 has a migration below, so no
+                // messages and recycle-bin entries. Every version 1..14 has a migration below, so no
                 // existing install needs one; a future bump without a migration must fail loudly in
                 // testing rather than silently wipe user data. The downgrade fallback only ever acts when
                 // moving a newer file aside failed: an empty cache beats crashing on every launch.
@@ -290,11 +295,29 @@ abstract class MessagesDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * Private notes on messages. A new table only, with the note key (see MessageNoteKey) as its primary key and an
+         * index on the chat. Like stars, notes live outside the rebuildable `messages` cache; MessagesDatabaseRecovery
+         * copies them.
+         */
+        private val MIGRATION_13_14 = object : Migration(13, 14) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `message_notes` (`note_key` TEXT NOT NULL, " +
+                        "`thread_id` INTEGER NOT NULL, `message_date` INTEGER NOT NULL, `note` TEXT NOT NULL, " +
+                        "`created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`note_key`))"
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_message_notes_thread_id` ON `message_notes` (`thread_id`)"
+                )
+            }
+        }
+
         /** Every migration, oldest first. Declared after them so none is still null when the array is built. */
         internal val ALL_MIGRATIONS: Array<Migration> = arrayOf(
             MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6,
             MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9, MIGRATION_9_10, MIGRATION_10_11, MIGRATION_11_12,
-            MIGRATION_12_13,
+            MIGRATION_12_13, MIGRATION_13_14,
         )
     }
 }

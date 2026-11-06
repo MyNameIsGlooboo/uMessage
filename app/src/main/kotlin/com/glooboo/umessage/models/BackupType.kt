@@ -10,4 +10,7 @@ enum class BackupType {
 
     @SerialName("mms")
     MMS,
+
+    @SerialName("umessage_notes")
+    NOTES,
 }

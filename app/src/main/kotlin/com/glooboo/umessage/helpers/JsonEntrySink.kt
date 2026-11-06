@@ -2,6 +2,7 @@ package com.glooboo.umessage.helpers
 
 import com.glooboo.umessage.models.MessagesBackup
 import com.glooboo.umessage.models.MmsBackup
+import com.glooboo.umessage.models.NotesBackup
 import com.glooboo.umessage.models.SmsBackup
 import kotlinx.serialization.json.Json
 import java.io.Writer
@@ -22,6 +23,7 @@ class JsonEntrySink(private val writer: Writer) : BackupEntrySink {
             when (entry) {
                 is SmsBackup -> json.encodeToString(SmsBackup.serializer(), entry)
                 is MmsBackup -> json.encodeToString(MmsBackup.serializer(), entry)
+                is NotesBackup -> json.encodeToString(NotesBackup.serializer(), entry)
             }
         )
     }

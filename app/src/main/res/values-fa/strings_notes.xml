@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note">یادداشت</string>
+    <string name="add_note">افزودن یادداشت</string>
+    <string name="edit_note">ویرایش یادداشت</string>
+    <string name="delete_note">حذف یادداشت</string>
+    <string name="note_hint">یادداشت خصوصی، فقط روی همین گوشی</string>
+    <string name="note_counter">%1$s/%2$s</string>
+    <string name="note_save">ذخیره</string>
+    <string name="note_cancel">انصراف</string>
+    <string name="has_notes">یادداشت دارد</string>
+    <string name="notes_section">یادداشت‌ها</string>
+    <string name="note_content_desc">یادداشت: %1$s</string>
+</resources>

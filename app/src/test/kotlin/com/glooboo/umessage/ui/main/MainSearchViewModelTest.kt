@@ -44,6 +44,7 @@ class MainSearchViewModelTest {
             searched += query
             listOf(result(query))
         }
+        runNoteSearch = { emptyList() }
     }
 
     @Test
@@ -59,6 +60,22 @@ class MainSearchViewModelTest {
         assertThat(searched).containsExactly("hell")
         assertThat(vm.state.query).isEqualTo("hell")
         assertThat(vm.state.results.map { it.title }).containsExactly("hell")
+    }
+
+    @Test
+    fun matchingNotesAreFoundWithTheMessagesAndClearedWithThem() = runTest(dispatcher) {
+        val vm = viewModel().apply {
+            runNoteSearch = { query ->
+                listOf(NoteHit("k1", 7, "Dad", "note about $query", "Mon", ""))
+            }
+        }
+        vm.onQueryChange("rent")
+        advanceUntilIdle()
+        assertThat(vm.state.noteHits.map { it.text }).containsExactly("note about rent")
+        assertThat(vm.state.noteHits.single().open().threadId).isEqualTo(7)
+
+        vm.onQueryChange("r")
+        assertThat(vm.state.noteHits).isEmpty()
     }
 
     @Test

@@ -219,6 +219,9 @@ class MainSearchState {
     var query by mutableStateOf("")
     var results by mutableStateOf<List<SearchResult>>(emptyList())
 
+    /** The private notes that hold [query]; the page lists them under "Notes". */
+    internal var noteHits by mutableStateOf<List<NoteHit>>(emptyList())
+
     /** N11: the filter picked with a tile. It outlives the search: the inbox keeps showing it. */
     var filter by mutableStateOf(InboxFilter.All)
 
@@ -232,5 +235,6 @@ class MainSearchState {
         active = false
         query = ""
         results = emptyList()
+        noteHits = emptyList()
     }
 }

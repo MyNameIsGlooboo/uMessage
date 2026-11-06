@@ -2,7 +2,9 @@ package com.glooboo.umessage.export
 
 import android.content.Context
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.messageNotes
 import com.glooboo.umessage.ui.thread.readWholeThread
+import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.text.SimpleDateFormat
 import java.time.ZoneId
@@ -37,7 +39,9 @@ class ConversationExportJob(private val context: Context) {
         val now = System.currentTimeMillis()
         val factory = ConversationExportFactory(context)
         val messages = range.filter(readWholeThread(context, threadId), now, ZoneId.systemDefault())
-        val export = factory.builder().build(messages, title, numbers)
+        val notes = runCatching { runBlocking { context.messageNotes.notesForThread(threadId) } }
+            .getOrDefault(emptyMap())
+        val export = factory.builder().build(messages, title, numbers, noteLines(context, notes))
         if (export.count == 0) return Result.Empty
         if (isCancelled()) return Result.Cancelled
         val file = newFile(format)

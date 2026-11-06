@@ -29,6 +29,8 @@ data class ConversationRow(
     val category: MessageCategory = MessageCategory.Other,
     /** The SIM badge's text: the nickname the user gave the SIM; empty shows "SIM n" ([simSlot]). */
     val simName: String = "",
+    /** The chat has at least one private note on a message: a small note mark shows in the row. */
+    val hasNotes: Boolean = false,
 )
 
 /** What the contextual selection bar may offer, derived from the current selection. */

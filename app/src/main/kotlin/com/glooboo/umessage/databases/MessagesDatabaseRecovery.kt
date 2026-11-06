@@ -10,16 +10,17 @@ import androidx.sqlite.db.SupportSQLiteDatabase
  * Downgrade policy of conversations.db.
  *
  * Most of this database is a cache of the telephony provider and is rebuilt from it. Only scheduled messages (with
- * the temporary threads that hold them), the recycle bin, drafts, stars, repeat rules, labels and reminders exist
- * nowhere else.
+ * the temporary threads that hold them), the recycle bin, drafts, stars, repeat rules, labels, reminders and
+ * notes exist nowhere else.
  *
  * - Downgrade (the file was written by a newer schema): [MessagesDatabase.build] moves the file aside as
  *   `conversations.db.v<N>-backup` and the older build starts from an empty database; the cache refills from the
  *   provider. It never crashes on open.
  * - Upgrade again (this callback, on every open): when a backup of schema N <= [MessagesDatabase.VERSION] exists,
  *   a copy of the newest one is migrated to the current schema and its scheduled messages, temporary threads,
- *   recycle-bin entries (with their messages), drafts, stars, repeat rules, labels (with their conversation links) and
- *   reminders are added wherever the live database lacks them; the live rows always win. The backup is then renamed
+ *   recycle-bin entries (with their messages), drafts, stars, repeat rules, labels (with their conversation links),
+ *   reminders and notes are added wherever the live database lacks them; the live rows always win. The backup is then
+ *   renamed
  *   `-restored`, so it is used once. App start re-arms the alarms of the restored scheduled messages
  *   (rescheduleAllScheduledMessages).
  *
@@ -48,6 +49,7 @@ internal class MessagesDatabaseRecovery(private val context: Context, private va
                 DatabaseBackups.copyRows(db, "labels")
                 DatabaseBackups.copyRows(db, "conversation_labels")
                 DatabaseBackups.copyRows(db, "message_reminders")
+                DatabaseBackups.copyRows(db, "message_notes")
             }
         }
         backups.forEach { DatabaseBackups.retire(it) }

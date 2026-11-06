@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Sharing into uMessage from another app now opens a "Share to" picker that starts with your recent chats (groups included) above the contacts; the search field filters both, and tapping a chat opens it with the shared text and files ready to send
+### Added
+- Private notes on messages (shown under the message, kept in backups, searchable)
 
 ## [0.3.0] - 2026-11-06
 ### Added

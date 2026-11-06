@@ -54,6 +54,9 @@ class ImportSummary {
 
     var entriesRead = 0
 
+    /** Private notes of the file that were taken (the entry for notes is not counted in [entriesRead]). */
+    var notesRestored = 0
+
     val reasons = linkedMapOf<String, Int>()
 
     fun record(result: WriteResult) {
@@ -81,7 +84,7 @@ class ImportSummary {
         "ImportSummary(added=$added, duplicates=$duplicates, repaired=$repaired, incomplete=$incomplete, " +
             "failed=$failed, damaged=$damaged, skippedByChoice=$skippedByChoice, unsupportedMms=$unsupportedMms, " +
             "stoppedEarly=$stoppedEarly, invalidFile=$invalidFile, wrongPassword=$wrongPassword, " +
-            "cancelled=$cancelled, reasons=$reasons)"
+            "cancelled=$cancelled, notesRestored=$notesRestored, reasons=$reasons)"
 
     companion object {
         const val MAX_REASONS = 5
@@ -104,10 +107,14 @@ class ExportSummary {
 
     var cancelled = false
 
+    /** Private notes written at the end of a JSON backup. */
+    var notes = 0
+
     val total get() = sms + mms
     val hasProblems get() = unreadableAttachments > 0 || unreadableConversations > 0 || unreadableMessages > 0
 
     override fun toString() =
         "ExportSummary(sms=$sms, mms=$mms, unreadableAttachments=$unreadableAttachments, " +
-            "unreadableConversations=$unreadableConversations, unreadableMessages=$unreadableMessages, cancelled=$cancelled)"
+            "unreadableConversations=$unreadableConversations, unreadableMessages=$unreadableMessages, " +
+            "cancelled=$cancelled, notes=$notes)"
 }

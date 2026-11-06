@@ -14,7 +14,7 @@ enum class ThreadMenuAction {
 }
 
 enum class SelectionAction {
-    Copy, Share, SaveAs, Forward, SelectText, Details, Delete, Restore, ReadAloud, Star, Remind, SaveText,
+    Copy, Share, SaveAs, Forward, SelectText, Details, Delete, Restore, ReadAloud, Star, Remind, SaveText, Note,
 }
 
 /**

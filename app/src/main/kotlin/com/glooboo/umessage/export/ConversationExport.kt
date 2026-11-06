@@ -4,6 +4,7 @@ import android.provider.Telephony.Sms
 import com.glooboo.umessage.extensions.toSortedMessages
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.ui.thread.ConversationTextFormatter
+import com.glooboo.umessage.ui.thread.MessageNoteLines
 import java.security.MessageDigest
 
 enum class ExportDirection { RECEIVED, SENT }
@@ -17,6 +18,8 @@ data class ExportRow(
     val status: String,
     val body: String,
     val attachments: List<String>,
+    /** The private note of the message as a ready line (`Note: text`), or null. */
+    val note: String? = null,
 )
 
 /** The status words of a message in the export. */
@@ -63,22 +66,28 @@ class ConversationExportBuilder(
     private val dateOf: (Message) -> String,
     private val rangeOf: (first: Message, last: Message) -> String,
 ) {
-    fun build(messages: List<Message>, title: String, numbers: List<String>): ConversationExport {
+    fun build(
+        messages: List<Message>,
+        title: String,
+        numbers: List<String>,
+        notes: MessageNoteLines? = null,
+    ): ConversationExport {
         val shown = messages.toSortedMessages().filter { it.body.isNotEmpty() || it.hasAttachments() }
-        val textBlock = ConversationTextFormatter(labels.me, labels.attachmentTag, dateOf).format(shown).text
+        val formatter = ConversationTextFormatter(labels.me, labels.attachmentTag, dateOf)
+        val textBlock = formatter.format(shown, notes = notes).text
         val first = shown.firstOrNull()
         val last = shown.lastOrNull()
         return ConversationExport(
             title = title,
             numbers = numbers,
             rangeText = if (first != null && last != null) rangeOf(first, last) else null,
-            rows = shown.map { row(it, numbers) },
+            rows = shown.map { row(it, numbers, notes) },
             textBlock = textBlock,
             sha256 = sha256(textBlock),
         )
     }
 
-    private fun row(message: Message, numbers: List<String>): ExportRow {
+    private fun row(message: Message, numbers: List<String>, notes: MessageNoteLines?): ExportRow {
         val received = message.isReceivedMessage()
         val attachments = message.attachment?.attachments.orEmpty().map {
             labels.attachmentLine(it.filename.ifBlank { labels.unnamedAttachment }, it.mimetype)
@@ -91,6 +100,7 @@ class ConversationExportBuilder(
             status = statusOf(message),
             body = message.body,
             attachments = attachments,
+            note = notes?.lineOf(message),
         )
     }
 
