@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 import com.glooboo.umessage.R
 import com.glooboo.umessage.activities.MainActivity
 import com.glooboo.umessage.activities.SettingsActivity
+import com.glooboo.umessage.helpers.Config
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.UnknownSenderMode
@@ -137,6 +138,9 @@ class OnboardingViewModel(app: Application) : AndroidViewModel(app) {
     val mode: StateFlow<UnknownSenderMode> = _mode.asStateFlow()
     private val _purgeDays = MutableStateFlow(SpamSettings().purgeAfterDays)
     val purgeDays: StateFlow<Int> = _purgeDays.asStateFlow()
+    private val config = Config.newInstance(app)
+    private val _deliveryReports = MutableStateFlow(config.enableDeliveryReports)
+    val deliveryReports: StateFlow<Boolean> = _deliveryReports.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -151,6 +155,12 @@ class OnboardingViewModel(app: Application) : AndroidViewModel(app) {
     fun setMode(mode: UnknownSenderMode) {
         _mode.value = mode
         persist()
+    }
+
+    /** Written to the preference at once, so rotation, process death and Settings all see the same value. */
+    fun setDeliveryReports(on: Boolean) {
+        config.enableDeliveryReports = on
+        _deliveryReports.value = on
     }
 
     fun setPurgeDays(days: Int) {
