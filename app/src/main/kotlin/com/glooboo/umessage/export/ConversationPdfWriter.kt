@@ -134,6 +134,7 @@ class ConversationPdfWriter(context: Context) {
         text.appendStyled(people, SMALL_SIZE, Color.DKGRAY, regular)
         if (row.body.isNotEmpty()) text.append('\n').append(isolate(row.body))
         row.attachments.forEach { text.append('\n').appendStyled(isolate(it), SMALL_SIZE, Color.DKGRAY, regular) }
+        row.note?.let { text.append('\n').appendStyled(isolate(it), SMALL_SIZE, Color.DKGRAY, bold) }
         return text
     }
 

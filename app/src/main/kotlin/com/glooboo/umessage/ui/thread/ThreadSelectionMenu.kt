@@ -32,6 +32,7 @@ internal fun selectionEntryIcon(action: SelectionAction): ImageVector = when (ac
     SelectionAction.Star -> Symbols.Keep
     SelectionAction.Remind -> Symbols.Notifications
     SelectionAction.SaveText -> Symbols.Keep
+    SelectionAction.Note -> Symbols.Edit
 }
 
 /** The leading icon of a sender-decision row in the selection bar's menu. */
@@ -49,7 +50,8 @@ data class SelectionEntries(val main: List<SelectionEntry>, val more: List<Selec
 
 /**
  * U37: Share, Select text, Message details and the save rows stay in the list; Read aloud and Remind me fold into
- * "More…". In the recycle bin Restore joins the list.
+ * "More…". In the recycle bin Restore joins the list. [noteLabel] is the note row's label (see [noteMenuLabel]),
+ * null when the row is not offered.
  */
 fun selectionEntries(
     hasText: Boolean,
@@ -58,6 +60,7 @@ fun selectionEntries(
     readAloudOk: Boolean,
     readAloudLabel: Int,
     isRecycleBin: Boolean,
+    noteLabel: Int? = null,
 ): SelectionEntries {
     fun pick(vararg entries: Triple<Boolean, Int, SelectionAction>) =
         entries.filter { it.first }.map { SelectionEntry(it.second, it.third) }
@@ -68,6 +71,7 @@ fun selectionEntries(
             Triple(single, R.string.thread_action_details, SelectionAction.Details),
             Triple(canSave, R.string.thread_action_save_as, SelectionAction.SaveAs),
             Triple(single && hasText && !isRecycleBin, R.string.n06_save_from_message, SelectionAction.SaveText),
+            Triple(noteLabel != null, noteLabel ?: R.string.add_note, SelectionAction.Note),
             Triple(isRecycleBin, R.string.thread_action_restore, SelectionAction.Restore),
         ),
         more = pick(

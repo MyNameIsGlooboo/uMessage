@@ -21,6 +21,7 @@ object BackupSerializer :
         return when (element.jsonObject["backupType"]?.jsonPrimitive?.content) {
             "sms" -> SmsBackup.serializer()
             "mms" -> MmsBackup.serializer()
+            "umessage_notes" -> NotesBackup.serializer()
             else -> throw SerializationException("ERROR: No Serializer found. Serialization failed.")
         }
     }

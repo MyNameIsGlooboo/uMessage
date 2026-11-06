@@ -69,6 +69,7 @@ import com.glooboo.umessage.helpers.EXTRA_VCARD_URI
 import com.glooboo.umessage.helpers.IS_LAUNCHED_FROM_SHORTCUT
 import com.glooboo.umessage.helpers.IS_RECYCLE_BIN
 import com.glooboo.umessage.helpers.SEARCHED_MESSAGE_ID
+import com.glooboo.umessage.helpers.messageNotes
 import com.glooboo.umessage.helpers.SEARCHED_MESSAGE_IS_MMS
 import com.glooboo.umessage.helpers.THREAD_ATTACHMENT_URI
 import com.glooboo.umessage.helpers.THREAD_ATTACHMENT_URIS
@@ -91,6 +92,7 @@ import com.glooboo.umessage.models.Events
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageKey
 import com.glooboo.umessage.models.ThreadItem
+import com.glooboo.umessage.ui.thread.MessageNoteStore
 import com.glooboo.umessage.ui.thread.AttachKind
 import com.glooboo.umessage.ui.thread.MediaSizes
 import com.glooboo.umessage.ui.thread.ThreadExportController
@@ -432,6 +434,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         refreshMenuItems()
         senderActions.observeRules()
         vm.stars.attach(this, lifecycleScope)
+        vm.notes.attach(MessageNoteStore(messageNotes), lifecycleScope)
         loadConversation(isFreshLaunch = savedInstanceState == null)
     }
 

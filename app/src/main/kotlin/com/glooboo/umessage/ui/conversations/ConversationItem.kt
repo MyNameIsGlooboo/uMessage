@@ -301,6 +301,8 @@ private fun RowPreviewLine(row: ConversationRow, colors: ColorScheme, align: Tex
                 modifier = Modifier.weight(1f, fill = false),
             )
         }
+        // A private note in the chat: the same 16dp mark as muted and pinned, so the row layout stays stable.
+        if (row.hasNotes) MarkerIcon(Symbols.Description, colors)
         if (row.muted) MarkerIcon(Symbols.NotificationsOff, colors)
         if (row.pinned) MarkerIcon(Symbols.KeepFilled, colors)
         row.simSlot?.let { slot ->
@@ -357,6 +359,7 @@ private fun rowDescription(row: ConversationRow, labels: List<RowLabel>): String
     parts += row.dateLabel
     if (row.pinned) parts += stringResource(R.string.convlist_pinned)
     if (row.muted) parts += stringResource(R.string.convlist_muted)
+    if (row.hasNotes) parts += stringResource(R.string.has_notes)
     row.simSlot?.let { parts += row.simName.ifEmpty { stringResource(R.string.convlist_sim, it) } }
     parts += labels.map { it.name }
     return parts.filter { it.isNotBlank() }.joinToString(", ")

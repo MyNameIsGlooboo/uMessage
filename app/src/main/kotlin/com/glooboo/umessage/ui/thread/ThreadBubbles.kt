@@ -367,6 +367,9 @@ private fun MessageBubbleRow(row: ThreadRow.Bubble, vm: ThreadViewModel, actions
             vm.reactions[message.getStableId()]?.let {
                 ReactionChip(it, Modifier.offset(y = (-8).dp).padding(horizontal = 8.dp))
             }
+            NoteUnderBubble(vm.notes.noteOf(message), maxBubbleWidth) {
+                if (vm.isSelecting) toggle() else vm.notes.startEdit(message)
+            }
             if (!sent && !vm.isSelecting && vm.copyChipMessageId == message.getStableId()) {
                 CopyChips(message.body)
             }

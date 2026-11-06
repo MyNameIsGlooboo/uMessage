@@ -5,6 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.models.Attachment
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageAttachment
+import com.glooboo.umessage.ui.thread.MessageNoteLines
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -115,6 +116,28 @@ class ConversationExportTest {
         assertThat(text).endsWith("SHA-256: ${export.sha256}")
         val block = text.removePrefix("Title\nLine\n\n").removeSuffix("\n\nSHA-256: ${export.sha256}")
         assertThat(ConversationExportBuilder.sha256(block)).isEqualTo(export.sha256)
+    }
+
+    @Test
+    fun aNote_isWrittenUnderItsMessageInTheRowAndTheHashedTextBlock() {
+        val notes = MessageNoteLines("Note") { if (it.id == 1L) "rent for March" else null }
+
+        val export = builder.build(sample, "Sam", numbers, notes)
+
+        assertThat(export.rows.map { it.note }).containsExactly("Note: rent for March", null, null).inOrder()
+        val lines = export.textBlock.lines()
+        val at = lines.indexOfFirst { it.contains("hello") }
+        assertThat(lines[at + 1]).contains("Note: rent for March")
+        assertThat(ConversationExportBuilder.sha256(export.textBlock)).isEqualTo(export.sha256)
+        assertThat(builder.build(sample, "Sam", numbers).sha256).isNotEqualTo(export.sha256)
+    }
+
+    @Test
+    fun withoutNotes_theExportIsAsItWas() {
+        val plain = builder.build(sample, "Sam", numbers)
+
+        assertThat(plain.rows.map { it.note }).containsExactly(null, null, null)
+        assertThat(plain.textBlock).doesNotContain("Note")
     }
 
     @Test

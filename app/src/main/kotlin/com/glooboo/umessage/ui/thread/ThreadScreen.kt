@@ -110,6 +110,7 @@ fun ThreadScreen(vm: ThreadViewModel, actions: ThreadActions) {
     // TH-05: a link tap opens the link sheet (domain, full address, Copy, Share, Open), never the browser at once.
     val linkHandler = remember(vm) { linkSheetUriHandler { vm.pendingLink = it } }
     vm.labelsFor?.let { LabelPickerDialog(listOf(it), onDismiss = { vm.labelsFor = null }) }
+    vm.notes.editing?.let { NoteEditDialog(vm.notes, it) }
     vm.pendingLink?.let { uri ->
         LinkSheet(
             uri = uri,
@@ -508,6 +509,7 @@ private fun SelectionTopBar(vm: ThreadViewModel, actions: ThreadActions) {
                 if (senderEntries.isNotEmpty()) HorizontalDivider()
                 val entries = selectionEntries(
                     hasText, single, canSave, readAloudOk, readAloudLabel, vm.isRecycleBin,
+                    noteLabel = noteMenuLabel(selected, vm.notes.byKey),
                 )
                 SelectionMenuRows(entries, actions, onSelectAll = vm::selectAll, close = close)
             }

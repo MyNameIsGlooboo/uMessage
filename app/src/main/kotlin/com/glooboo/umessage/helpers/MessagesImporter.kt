@@ -5,9 +5,11 @@ import android.util.Xml
 import com.glooboo.umessage.models.ImportSummary
 import com.glooboo.umessage.models.MessagesBackup
 import com.glooboo.umessage.models.MmsBackup
+import com.glooboo.umessage.models.NotesBackup
 import com.glooboo.umessage.models.SmsBackup
 import com.glooboo.umessage.models.WriteOutcome
 import com.glooboo.umessage.models.WriteResult
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.DecodeSequenceMode
 import kotlinx.serialization.json.Json
@@ -127,7 +129,12 @@ class MessagesImporter(
                 summary.damaged++
                 null
             }
-            if (backup != null) restore(backup, options, summary)
+            if (backup is NotesBackup) {
+                summary.entriesRead--
+                restoreNotes(backup, options, summary)
+            } else if (backup != null) {
+                restore(backup, options, summary)
+            }
             if (summary.entriesRead % PROGRESS_EVERY == 0) progress.update(summary.entriesRead, counting.count)
         }
     }
@@ -137,11 +144,23 @@ class MessagesImporter(
             when (backup) {
                 is SmsBackup -> if (options.sms) writer.writeSmsMessage(backup.forThisPhone()) else null
                 is MmsBackup -> if (options.mms) writer.writeMmsMessage(backup.forThisPhone()) else null
+                is NotesBackup -> null // handled by restoreNotes, never reaches here
             }
         } catch (e: Exception) {
             WriteResult(WriteOutcome.FAILED, e.javaClass.simpleName)
         }
         if (result == null) summary.skippedByChoice++ else summary.record(result)
+    }
+
+    /**
+     * Takes the notes of the file for the messages the user chose to restore (a key says SMS or MMS). A newer note
+     * on this phone wins, see [MessageNotes.restore]. A failure leaves the notes out and never stops the restore.
+     */
+    private fun restoreNotes(backup: NotesBackup, options: Options, summary: ImportSummary) {
+        val chosen = backup.notes
+            .filter { if (MessageNoteKey.isMms(it.key)) options.mms else options.sms }
+            .map { it.toNote() }
+        summary.notesRestored += runCatching { runBlocking { context.messageNotes.restore(chosen) } }.getOrDefault(0)
     }
 
     // Android 14 does not import messages whose subscription id is not one of this phone's (see Fossify #191).

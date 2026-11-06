@@ -20,6 +20,14 @@ import java.util.Locale
 data class SharedConversation(val text: String, val count: Int, val first: Message?, val last: Message?)
 
 /**
+ * The private notes under the messages of an export: [label] is the localized word for "Note" and [textOf] gives the
+ * note of a message, or null. A note is written as its own line under its message: `Note: text`.
+ */
+class MessageNoteLines(val label: String, val textOf: (Message) -> String?) {
+    fun lineOf(message: Message): String? = textOf(message)?.takeIf { it.isNotBlank() }?.let { "$label: $it" }
+}
+
+/**
  * Writes messages as plain text, one block per message: `[date] sender: text`, oldest first, with the conversation's
  * [title] on top when given. The date, sender and text are each wrapped in direction isolates, so a Persian name next
  * to an English text (or the other way round) does not reorder the brackets. A message with only an attachment says
@@ -32,7 +40,7 @@ class ConversationTextFormatter(
     private val attachmentLabel: String,
     private val dateOf: (Message) -> String,
 ) {
-    fun format(messages: List<Message>, title: String? = null): SharedConversation {
+    fun format(messages: List<Message>, title: String? = null, notes: MessageNoteLines? = null): SharedConversation {
         val shown = messages.toSortedMessages().filter { it.body.isNotEmpty() || it.hasAttachments() }
         val blocks = shown.map { message ->
             val sender = when {
@@ -43,7 +51,8 @@ class ConversationTextFormatter(
             val body = listOf(message.body, if (message.hasAttachments()) attachmentLabel else "")
                 .filter { it.isNotEmpty() }
                 .joinToString("\n")
-            "[${isolate(dateOf(message))}] ${isolate(sender)}: ${isolate(body)}"
+            val line = "[${isolate(dateOf(message))}] ${isolate(sender)}: ${isolate(body)}"
+            notes?.lineOf(message)?.let { "$line\n${isolate(it)}" } ?: line
         }
         val head = title?.takeIf { it.isNotBlank() }?.let { listOf(isolate(it)) }.orEmpty()
         val text = (head + blocks).joinToString("\n\n")

@@ -81,6 +81,17 @@ Settings > Privacy and security > **App lock** asks for a PIN, a pattern or your
 
 Notification privacy is a separate setting: choose whether the lock screen shows the sender, the message text or nothing.
 
+## Notes on messages
+
+Each message can carry one private note, for example to remember what a bank-transaction text was for.
+
+- Long-press a message to select it, then open the menu (the three dots) and choose **Add note**. If the message already has a note the row says **Edit note**.
+- The note appears in its own coloured box right under the message. Tap the box to change it.
+- In the note window type up to 500 characters. **Save** keeps it, **Cancel** closes the window, **Delete note** (shown only when a note exists) removes it. Saving an empty note also removes it.
+- A chat that has notes shows a small note mark in the conversation list.
+- The search page has a **Notes** section that lists notes containing your text. Tap one to open its chat.
+- Notes are stored only on your phone and are included in the message backups you create. A message that is still scheduled cannot have a note until it is sent. Persian and Arabic notes work right to left.
+
 ## Backup and restore
 
 uMessage is **not** included in Android or Google cloud backups, by design: your blocked messages and settings never leave the phone that way. Your normal (allowed) messages are in Android's own SMS storage.

@@ -12,7 +12,9 @@ import android.app.NotificationManager
 import android.telephony.SmsManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,6 +43,7 @@ import com.glooboo.umessage.helpers.MessageCategories
 import com.glooboo.umessage.helpers.MutePrefs
 import com.glooboo.umessage.helpers.OtpCodeExtractor
 import com.glooboo.umessage.helpers.W3cPrefs
+import com.glooboo.umessage.helpers.messageNotes
 import com.glooboo.umessage.helpers.stripControlCharacters
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
 import com.glooboo.umessage.models.Conversation
@@ -65,6 +68,12 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     private var sims: List<SimInfo> = emptyList()
     private var selected: Set<Long> = emptySet()
     private var newBlockedCount = 0
+
+    /** The chats that have private notes; their rows show a note mark. */
+    private var notesJob: Job? = null
+
+    @Volatile
+    private var noteThreads: Set<Long> = emptySet()
     private val blockedSeenAt = MutableStateFlow(0L)
     private var archiveAvailable = true
     private var hasData = false
@@ -103,6 +112,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
             }
         }
         observeBlockedCount()
+        observeNoteThreads()
         refreshSims()
         refreshDrafts()
     }
@@ -129,6 +139,31 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
                     requestRebuild()
                 }
         }
+    }
+
+    /** Keeps [noteThreads] up to date; a failing notes table leaves the marks off, it never breaks the list. */
+    private fun observeNoteThreads() {
+        notesJob = viewModelScope.launch {
+            try {
+                val notes = app.messageNotes
+                withContext(Dispatchers.IO) { runCatching { notes.relink() } }
+                notes.observeThreadsWithNotes()
+                    .catch { }
+                    .collect {
+                        noteThreads = it
+                        requestRebuild()
+                    }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (_: Exception) {
+                // A missing or closed notes table means no marks, never a crash.
+            }
+        }
+    }
+
+    /** Stops watching the notes table: when the model is cleared, and in tests before they close the database. */
+    internal fun stopObservingNotes() {
+        notesJob?.cancel()
     }
 
     // ---- Inputs from the host --------------------------------------------------------------------------
@@ -532,6 +567,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     }
 
     override fun onCleared() {
+        stopObservingNotes()
         refreshEvents.unregister()
         syncExecutor.shutdown()
         // Finish deletions whose undo window was still open; the scope is gone, so run them detached.
@@ -573,6 +609,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     private fun build(s: Snapshot): ConversationsUiState {
         val config = app.config
+        val withNotes = noteThreads
         val pinned = config.pinnedConversations
         val manager = app.notificationManager
         val customNotifications = config.customNotifications
@@ -640,6 +677,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
                     null
                 },
                 category = MessageCategories.classify(c.phoneNumber, c.snippet, isContact = isContact(c)),
+                hasNotes = c.threadId in withNotes,
             )
         }
 

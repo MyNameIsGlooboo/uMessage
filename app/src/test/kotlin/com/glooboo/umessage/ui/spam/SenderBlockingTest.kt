@@ -25,6 +25,7 @@ import com.glooboo.umessage.testing.FakeTelephonyProvider
 import com.glooboo.umessage.testing.SmsPdus
 import com.glooboo.umessage.testing.SpamTestWiring
 import com.glooboo.umessage.ui.conversations.ConversationsEvent
+import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.conversations.ConversationsViewModel
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CoroutineScope
@@ -48,6 +49,7 @@ import java.util.Collections
 class SenderBlockingTest {
 
     private val app: Application = ApplicationProvider.getApplicationContext()
+    private val listModels = mutableListOf<ConversationsViewModel>()
     private lateinit var telephony: FakeTelephonyProvider
     private lateinit var db: SpamDatabase
     private lateinit var repo: DefaultSpamRepository
@@ -79,13 +81,16 @@ class SenderBlockingTest {
     @After
     fun tearDown() {
         scope.cancel()
+        listModels.forEach { it.stopObservingNotes() }
         SpamTestWiring.uninstall()
         SpamTestWiring.clearSpamDatabase()
+        // The conversation list model watches the notes table, so it opens the shared messages database.
+        resetSharedMessagesDatabase()
     }
 
     @Test
     fun blockFromConversationList_addsUMessageRuleAndLeavesSystemListAlone() {
-        val vm = ConversationsViewModel(app)
+        val vm = ConversationsViewModel(app).also { listModels += it }
         val events = Collections.synchronizedList(mutableListOf<ConversationsEvent>())
         scope.launch { vm.events.collect { events += it } }
         vm.submit(listOf(conversation(1, SENDER)), cached = false, firstRun = false)

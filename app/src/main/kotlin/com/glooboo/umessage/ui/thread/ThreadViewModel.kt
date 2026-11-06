@@ -178,7 +178,13 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
     var menu by mutableStateOf(ThreadMenuState())
 
     /** The conversation on screen, so the title can show its labels; 0 until it is known. */
-    var threadId by mutableLongStateOf(0L)
+    var threadId: Long
+        get() = threadIdState
+        set(value) {
+            threadIdState = value
+            notes.follow(value)
+        }
+    private var threadIdState by mutableLongStateOf(0L)
 
     /** I29: the thread whose label picker is open; null while it is closed. */
     var labelsFor by mutableStateOf<Long?>(null)
@@ -340,6 +346,9 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
 
     /** I13: which messages are starred. */
     val stars = ThreadStars()
+
+    /** The private notes of the open chat, and the note being edited. */
+    val notes = ThreadNotes()
 
     /** I04: the "Not in your contacts" card. */
     val unknownCard = UnknownCardState()

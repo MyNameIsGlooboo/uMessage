@@ -12,7 +12,10 @@ import com.glooboo.umessage.models.MessagesBackup
 import com.glooboo.umessage.models.MmsAddress
 import com.glooboo.umessage.models.MmsBackup
 import com.glooboo.umessage.models.MmsPart
+import com.glooboo.umessage.models.NoteBackup
+import com.glooboo.umessage.models.NotesBackup
 import com.glooboo.umessage.models.SmsBackup
+import kotlinx.coroutines.runBlocking
 import java.io.OutputStream
 
 /**
@@ -62,8 +65,25 @@ class MessagesReader(private val context: Context) {
             if (mms) readThread(summary) { exportMms(threadId, summary, sink::write) }
             progress.update(summary.total, index + 1, conversationIds.size)
         }
+        if (format == ExportFormat.JSON && !summary.cancelled) writeNotes(sink, conversationIds, sms, mms, summary)
         sink.end()
         return summary
+    }
+
+    /**
+     * The private notes of the exported chats as the last entry of the JSON file (see [NotesBackup]). Notes whose chat
+     * is not known yet (restored, not yet matched) go along. A failure here never fails the backup of the messages.
+     */
+    private fun writeNotes(
+        sink: BackupEntrySink, conversationIds: List<Long>, sms: Boolean, mms: Boolean, summary: ExportSummary,
+    ) {
+        val wanted = conversationIds.toSet()
+        val notes = runCatching { runBlocking { context.messageNotes.exportAll() } }.getOrNull().orEmpty()
+            .filter { it.threadId == 0L || it.threadId in wanted }
+            .filter { if (MessageNoteKey.isMms(it.key)) mms else sms }
+        if (notes.isEmpty()) return
+        sink.write(NotesBackup(notes.map { NoteBackup.of(it) }))
+        summary.notes = notes.size
     }
 
     private fun countMessages(conversationIds: List<Long>, sms: Boolean, mms: Boolean): Int {

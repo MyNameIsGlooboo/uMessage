@@ -9,6 +9,7 @@ import com.glooboo.umessage.models.ConversationLabel
 import com.glooboo.umessage.models.Draft
 import com.glooboo.umessage.models.Label
 import com.glooboo.umessage.models.MessageKey
+import com.glooboo.umessage.models.MessageNote
 import com.glooboo.umessage.models.MessageReminder
 import com.glooboo.umessage.models.ScheduledRepeat
 import com.glooboo.umessage.models.StarredMessage
@@ -24,9 +25,9 @@ import org.junit.runner.RunWith
 /**
  * Upgrade and downgrade tests for conversations.db.
  *
- * Exported schemas exist only for versions 8 (restored from the upstream Fossify history), 11, 12 and 13 (current),
- * so the migrations 1..7 cannot be exercised here: there is no record of what those databases looked like. Room's own
- * validation after the run covers 8 -> 9 -> 10 -> 11 -> 12 -> 13.
+ * Exported schemas exist only for versions 8 (restored from the upstream Fossify history), 11, 12, 13 and 14
+ * (current), so the migrations 1..7 cannot be exercised here: there is no record of what those databases looked
+ * like. Room's own validation after the run covers 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14.
  */
 @RunWith(AndroidJUnit4::class)
 class MessagesDatabaseMigrationTest {
@@ -147,6 +148,36 @@ class MessagesDatabaseMigrationTest {
 
                     db.ScheduledRepeatsDao().insertOrUpdate(ScheduledRepeat(99, "WEEKLY", "JALALI", 3, 1))
                     assertThat(db.ScheduledRepeatsDao().getAllRepeating().map { it.messageId }).containsExactly(99L)
+                }
+            }
+        } finally {
+            db.close()
+        }
+    }
+
+    @Test
+    fun migrationToFourteenAddsTheNotesTableAndKeepsExistingRows() {
+        helper.createDatabase(TEST_DB, 13).use { db ->
+            db.execSQL(insertMessage(id = 57, mms = false, scheduled = false, body = "sms 57"))
+            db.execSQL("INSERT INTO starred_messages VALUES (57, 0, 7, '5550100', 1000, 42, 2000, 'sms 57')")
+        }
+
+        helper.runMigrationsAndValidate(TEST_DB, LATEST, true, *MessagesDatabase.ALL_MIGRATIONS).use { db ->
+            assertThat(rows(db, "SELECT id, body FROM messages")).containsExactly("57|sms 57")
+            assertThat(rows(db, "SELECT id FROM starred_messages")).containsExactly("57")
+            assertThat(rows(db, "SELECT COUNT(*) FROM message_notes")).containsExactly("0")
+            assertThat(rows(db, "SELECT name FROM sqlite_master WHERE type = 'index' AND tbl_name = 'message_notes'"))
+                .contains("index_message_notes_thread_id")
+        }
+
+        val db = MessagesDatabase.build(context, TEST_DB)
+        try {
+            offMainThread {
+                val note = MessageNote("v1|s|r|1000|5550100|2a", 7, 1000, "rent", 1, 2)
+                runBlocking {
+                    db.MessageNotesDao().upsert(note)
+                    assertThat(db.MessageNotesDao().get(note.key)).isEqualTo(note)
+                    assertThat(db.MessageNotesDao().getThreadIds()).containsExactly(7L)
                 }
             }
         } finally {

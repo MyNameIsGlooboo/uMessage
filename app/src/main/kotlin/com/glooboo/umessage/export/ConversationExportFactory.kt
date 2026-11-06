@@ -4,8 +4,11 @@ import android.content.Context
 import android.text.format.DateFormat
 import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.DateStyle
+import com.glooboo.umessage.helpers.MessageNoteKey
 import com.glooboo.umessage.helpers.w3cPrefs
 import com.glooboo.umessage.models.Message
+import com.glooboo.umessage.models.MessageNote
+import com.glooboo.umessage.ui.thread.MessageNoteLines
 import com.glooboo.umessage.ui.thread.fullDateLabel
 import com.glooboo.umessage.ui.thread.messageDetailsTime
 import java.time.Instant
@@ -82,3 +85,7 @@ class ConversationExportFactory(private val context: Context, private val zone: 
         return "${zone.id} (UTC$offset)"
     }
 }
+
+/** The notes of a chat (by note key, see MessageNotes.notesForThread) as the lines under the messages. */
+fun noteLines(context: Context, notes: Map<String, MessageNote>) =
+    MessageNoteLines(context.getString(R.string.note)) { notes[MessageNoteKey.of(it)]?.text }

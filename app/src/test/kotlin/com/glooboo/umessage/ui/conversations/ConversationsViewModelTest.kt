@@ -16,6 +16,9 @@ import com.glooboo.umessage.helpers.MuteDuration
 import com.glooboo.umessage.helpers.MutePrefs
 import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.models.Conversation
+import com.glooboo.umessage.models.MessageNote
+import com.glooboo.umessage.helpers.messageNotesDB
+import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SpamRepositoryProvider
@@ -53,7 +56,12 @@ class ConversationsViewModelTest {
     }
 
     @After
-    fun tearDown() = scope.cancel()
+    fun tearDown() {
+        scope.cancel()
+        vm.stopObservingNotes()
+        // The list model watches the notes table, so it opens the shared messages database.
+        resetSharedMessagesDatabase()
+    }
 
     @Test
     fun unarchivedChatComesBackToTheList() {
@@ -209,6 +217,23 @@ class ConversationsViewModelTest {
         val categories = vm.state.value.rows.associate { it.threadId to it.category }
         assertThat(categories[5L]).isEqualTo(MessageCategory.Transactions)
         assertThat(categories[6L]).isEqualTo(MessageCategory.Personal)
+    }
+
+    /** A chat with a private note on one of its messages shows the note mark; the others do not. */
+    @Test
+    fun aChatWithANoteShowsTheNoteMark() {
+        vm.submit(listOf(dad, mom), cached = false, firstRun = false)
+        awaitUntil { rowIds().size == 2 }
+        assertThat(vm.state.value.rows.none { it.hasNotes }).isTrue()
+
+        val note = MessageNote("v1|s|r|100|0001|1", mom.threadId, 100, "rent", createdAt = 1, updatedAt = 1)
+        runBlocking { app.messageNotesDB.upsert(note) }
+        awaitUntil { vm.state.value.rows.any { it.hasNotes } }
+        assertThat(vm.state.value.rows.single { it.threadId == mom.threadId }.hasNotes).isTrue()
+        assertThat(vm.state.value.rows.single { it.threadId == dad.threadId }.hasNotes).isFalse()
+
+        runBlocking { app.messageNotesDB.delete(note.key) }
+        awaitUntil { vm.state.value.rows.none { it.hasNotes } }
     }
 
     private fun rowIds() = vm.state.value.rows.map { it.threadId }

@@ -77,11 +77,20 @@ class ThreadSelectionActions(
             SelectionAction.Forward -> forward(selected.first())
             SelectionAction.Star -> vm.stars.toggle(selected)
             SelectionAction.SelectText -> selectText(selected.first().body)
+            else -> handleSingleOrRemove(action, selected)
+        }
+    }
+
+    /** The actions on the first selected message, then delete and restore. */
+    private fun handleSingleOrRemove(action: SelectionAction, selected: List<Message>) {
+        when (action) {
             SelectionAction.Details -> MessageDetailsDialog(activity, selected.first())
             SelectionAction.Remind -> askForReminder(activity, selected.first())
             SelectionAction.SaveText -> saveAsSavedText(activity, selected.first().body)
+            SelectionAction.Note -> vm.notes.startEdit(selected.first())
             SelectionAction.Delete -> askDelete(selected)
             SelectionAction.Restore -> askRestore(selected)
+            else -> Unit
         }
     }
 

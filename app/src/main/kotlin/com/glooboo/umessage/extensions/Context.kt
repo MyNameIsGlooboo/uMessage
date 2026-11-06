@@ -60,6 +60,8 @@ import com.glooboo.umessage.helpers.FILE_SIZE_NONE
 import com.glooboo.umessage.helpers.MAX_MESSAGE_LENGTH
 import com.glooboo.umessage.helpers.MESSAGES_LIMIT
 import com.glooboo.umessage.helpers.MessageCacheImport
+import com.glooboo.umessage.helpers.MessageNoteKey
+import com.glooboo.umessage.helpers.messageNotes
 import com.glooboo.umessage.helpers.MessagingCache
 import com.glooboo.umessage.helpers.NotificationHelper
 import com.glooboo.umessage.helpers.ShortcutHelper
@@ -1010,6 +1012,7 @@ fun Context.deleteConversation(threadId: Long) {
 
     conversationsDB.deleteThreadId(threadId)
     kotlinx.coroutines.runBlocking { labelsDB.removeAllFromConversation(threadId) }
+    kotlinx.coroutines.runBlocking { messageNotes.onThreadDeleted(threadId) }
     messagesDB.deleteThreadMessages(threadId)
     MessagingCache.participantsCache.remove(threadId)
 
@@ -1155,10 +1158,14 @@ fun Context.deleteMessage(id: Long, isMMS: Boolean) {
     val uri = if (isMMS) Mms.CONTENT_URI else Sms.CONTENT_URI
     val selection = "${Sms._ID} = ?"
     val selectionArgs = arrayOf(id.toString())
+    // The note key is built from the cached copy, so read it before the copy goes. A message that was never cached
+    // keeps its note (it is only dropped with the chat): nothing here can tell which note it had.
+    val noteKey = runCatching { messagesDB.getMessage(id, isMMS)?.let { MessageNoteKey.of(it) } }.getOrNull()
     try {
         contentResolver.delete(uri, selection, selectionArgs)
         messagesDB.delete(id, isMMS)
         cancelRemindersForMessage(MessageKey(id, isMMS))
+        noteKey?.let { kotlinx.coroutines.runBlocking { messageNotes.onMessageDeleted(it) } }
     } catch (e: Exception) {
         showErrorToast(e)
     }
