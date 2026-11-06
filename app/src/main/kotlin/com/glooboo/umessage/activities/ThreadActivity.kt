@@ -19,6 +19,7 @@ import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.snapshotFlow
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.net.toUri
@@ -391,7 +392,11 @@ open class ThreadActivity : ComposeSimpleActivity() {
      */
     private fun applyLaunchHints() {
         val hints = ThreadLaunchHints.take(intent)
-        hints.notice?.let { note -> lifecycleScope.launch { vm.snackbar.showSnackbar(note) } }
+        hints.notice?.let { note ->
+            lifecycleScope.launch {
+                vm.snackbar.showSnackbar(note, withDismissAction = true, duration = SnackbarDuration.Short)
+            }
+        }
         if (hints.focusComposer && !isRecycleBin && !isSpecialNumber()) {
             window.setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE or
