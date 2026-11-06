@@ -5,18 +5,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### Changed
-- Sharing into uMessage from another app now opens a "Share to" picker that starts with your recent chats (groups included) above the contacts; the search field filters both, and tapping a chat opens it with the shared text and files ready to send
+
+## [0.4.0] - 2026-11-07
 ### Added
-- Private notes on messages (shown under the message, kept in backups, searchable)
+- Private notes on messages: one note per message, shown under the message, kept in backups and exports, searchable, with a mark on chats that have notes
+- Sharing into uMessage from another app opens a "Share to" picker that starts with your recent chats (groups included) above the contacts; the search field filters both, and tapping a chat opens it with the shared text and files ready to send
+- A switch for delivery reports on the welcome screen
+
+### Changed
+- Not spam moves the messages and allows the sender in one step (Undo available); from a blocked chat it opens the normal chat with the keyboard ready, so you can reply at once
+- Delivery reports are on by default on new installs (existing installs keep their setting)
 
 ### Fixed
 - A chat opened and left quickly could stay shown as unread: the chat is marked read even when you leave before it finished loading, a list refresh that started earlier no longer turns it unread again, the list updates when you come back, and its notification is cleared
-- Not spam moves the messages and allows the sender in one step (Undo available); from a blocked chat it opens the normal chat so you can reply at once
 
 ### Removed
-- Also allow messages like this
-- Delivery reports are on by default on new installs and can be switched on or off on the welcome screen (existing installs keep their setting)
+- "Also allow messages like this" and the "Always allow?" question after Not spam
 
 ## [0.3.0] - 2026-11-06
 ### Added

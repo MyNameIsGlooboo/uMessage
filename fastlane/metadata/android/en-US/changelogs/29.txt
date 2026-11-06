@@ -1,0 +1,5 @@
+• Private notes on any message, shown under it and kept in backups
+• Share into uMessage: your recent chats come first, then contacts
+• Not spam is now one step, and from a blocked chat you can reply at once
+• Delivery reports on by default for new installs, with a switch on the welcome screen
+• Fix: a chat opened and left quickly could stay shown as unread
