@@ -2,6 +2,7 @@ package com.glooboo.umessage.activities
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
@@ -10,9 +11,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.lifecycleScope
 import com.glooboo.umessage.R
+import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.getPrivateContactsIfAvailable
 import com.glooboo.umessage.extensions.getSuggestedContacts
 import com.glooboo.umessage.extensions.getThreadId
+import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.SmsIntentParser
 import com.glooboo.umessage.helpers.THREAD_ATTACHMENT_URI
 import com.glooboo.umessage.helpers.THREAD_ATTACHMENT_URIS
@@ -20,7 +23,10 @@ import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.THREAD_NUMBER
 import com.glooboo.umessage.helpers.THREAD_TEXT
 import com.glooboo.umessage.helpers.THREAD_TITLE
+import com.glooboo.umessage.helpers.stripControlCharacters
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
+import com.glooboo.umessage.models.Conversation
+import com.glooboo.umessage.ui.components.displayTitle
 import com.glooboo.umessage.ui.newconversation.GroupRecipient
 import com.glooboo.umessage.ui.newconversation.NewConversationScreen
 import com.glooboo.umessage.ui.newconversation.loadPhoneContacts
@@ -41,6 +47,11 @@ class NewConversationActivity : ComposeSimpleActivity() {
     private var suggestions by mutableStateOf<List<SimpleContact>>(emptyList())
     private var loaded by mutableStateOf(false)
     private var hasContactsPermission by mutableStateOf(false)
+
+    /** Share mode only: the chats offered as share targets (the screen picks the newest and filters them). */
+    private var recentChats by mutableStateOf<List<Conversation>>(emptyList())
+    private val isShare: Boolean
+        get() = intent.action == Intent.ACTION_SEND || intent.action == Intent.ACTION_SEND_MULTIPLE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +75,9 @@ class NewConversationActivity : ComposeSimpleActivity() {
                 onSubmitAddress = ::submitAddress,
                 onPickNumber = { contact, number -> launchThreadActivity(number.normalizedNumber, contact.name) },
                 onStartGroup = ::startGroup,
+                shareMode = isShare,
+                recentChats = recentChats,
+                onPickRecent = ::openRecentChat,
             )
         }
 
@@ -72,6 +86,27 @@ class NewConversationActivity : ComposeSimpleActivity() {
             hasContactsPermission = it
             initContacts()
         }
+        if (isShare) loadRecentChats()
+    }
+
+    /** The saved chat list the main screen shows, read off the main thread; chats hidden by the lock stay out. */
+    private fun loadRecentChats() {
+        lifecycleScope.launch {
+            recentChats = withContext(Dispatchers.IO) {
+                runCatching {
+                    HiddenChats.get(this@NewConversationActivity)
+                        .withoutHidden(conversationsDB.getNonArchived()) { it.threadId }
+                }.onFailure { Log.w("NewConversation", "Recent chats not loaded", it) }.getOrDefault(emptyList())
+            }
+        }
+    }
+
+    /** A tap on a recent chat: its thread opens with the shared content, exactly as after picking a contact. */
+    private fun openRecentChat(chat: Conversation) {
+        hideKeyboard()
+        val number = if (chat.isGroupConversation) "" else chat.phoneNumber
+        startThread(chat.threadId, number, displayTitle(this, chat.title.stripControlCharacters()), "")
+        finish()
     }
 
     private fun initContacts() {
@@ -179,7 +214,7 @@ class NewConversationActivity : ComposeSimpleActivity() {
             putExtra(THREAD_ID, threadId)
             putExtra(THREAD_TITLE, name)
             putExtra(THREAD_TEXT, body.ifEmpty { intent.getStringExtra(Intent.EXTRA_TEXT) })
-            putExtra(THREAD_NUMBER, number)
+            if (number.isNotEmpty()) putExtra(THREAD_NUMBER, number)
 
             if (intent.action == Intent.ACTION_SEND && intent.extras?.containsKey(Intent.EXTRA_STREAM) == true) {
                 val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
