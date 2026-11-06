@@ -22,5 +22,5 @@ Releasing and stores:
 Other:
 
 - [branding/](branding): app icon source.
-- `screenshots/`: images used by the README.
+- The README images live in `fastlane/metadata/android/en-US/images/` (icon, feature graphic, phone screenshots), the same files the store listings use.
 - [archive/](archive): old plans, the October 2026 review and earlier icon rounds. Historical only; they may not match the app.

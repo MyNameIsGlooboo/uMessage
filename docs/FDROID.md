@@ -80,7 +80,7 @@ Until step 3 passes, submit without `binary:` (F-Droid signs it) and add reprodu
 ## Checklist before submitting
 
 - [ ] Tag `vX.Y.Z` is pushed and its commit has the store listing and `changelogs/<versionCode>.txt` for en-US and fa-IR.
-- [ ] `fastlane/metadata/android/en-US/images/icon.png` (512x512) and phone screenshots show uMessage (the Fossify images were removed and still need replacing).
+- [x] `fastlane/metadata/android/en-US/images/` has `icon.png` (512x512), `featureGraphic.png` and 8 phone screenshots of uMessage.
 - [ ] `./gradlew assembleFossRelease` succeeds from a clean clone with no `keystore.properties`.
 - [ ] `fdroid lint` and `fdroid build` pass locally with the draft metadata.
 - [ ] Decide on reproducible builds (above).

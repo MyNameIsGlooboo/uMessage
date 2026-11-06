@@ -1,5 +1,7 @@
 # uMessage
 
+<p align="center"><img src="fastlane/metadata/android/en-US/images/featureGraphic.png" alt="uMessage: Spam stays out. Your messages stay yours." width="720"></p>
+
 An Android SMS/MMS app whose main job is to stop spam. uMessage is a full default-SMS-app replacement (Poco, Redmi, Xiaomi, Samsung and any other Android phone) that, out of the box, holds back messages from senders you do not know: not in your contacts and never texted by you. It has a whitelist, a blacklist, keyword and regex rules, real dual-SIM support, and it is fully offline: the app does not request the INTERNET permission.
 
 uMessage is a fork of [Fossify Messages](https://github.com/FossifyOrg/Messages) (GPL-3.0).
@@ -18,9 +20,11 @@ uMessage is a fork of [Fossify Messages](https://github.com/FossifyOrg/Messages)
 
 ## Screenshots
 
-| Conversations | Blocked | Onboarding |
-|---|---|---|
-| ![Conversations](docs/screenshots/conversations.png) | ![Blocked messages](docs/screenshots/blocked.png) | ![Onboarding](docs/screenshots/onboarding.png) |
+<table>
+<tr><td align="center"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/01-inbox.png" alt="Inbox without the spam" width="200"></td><td align="center"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/02-blocked.png" alt="Spam held in the Blocked folder" width="200"></td><td align="center"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/05-rules.png" alt="Your own rules, with a test box" width="200"></td><td align="center"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/07-themes.png" alt="Light, dark and 11 themes" width="200"></td></tr>
+</table>
+
+More screenshots are in [`fastlane/metadata/android/en-US/images/phoneScreenshots`](fastlane/metadata/android/en-US/images/phoneScreenshots).
 
 ## Install
 
