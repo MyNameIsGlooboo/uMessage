@@ -32,6 +32,4 @@
         <item quantity="other">Zablokowane wiadomości są usuwane po %d dnia.</item>
     </plurals>
     <string name="r3b_info_purge_off">Zablokowane wiadomości pozostają, aż je usuniesz.</string>
-    <string name="r3b_allow_body_sender_one_message">Wiadomość i tak wróci do odebranych. Jeśli na stałe zezwolisz na wiadomości od %1$s, kolejne ominą wszystkie filtry, także twoje reguły blokowania.</string>
-    <string name="r3b_allow_body_sender_many_messages">Wiadomości i tak wrócą do odebranych. Jeśli na stałe zezwolisz na wiadomości od %1$s, kolejne ominą wszystkie filtry, także twoje reguły blokowania.</string>
 </resources>

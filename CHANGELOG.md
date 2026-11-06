@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Not spam moves the messages and allows the sender in one step (Undo available); from a blocked chat it opens the normal chat so you can reply at once
+
+### Removed
+- Also allow messages like this
 
 ## [0.3.0] - 2026-11-06
 ### Added

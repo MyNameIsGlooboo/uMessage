@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -121,7 +122,7 @@ internal fun blockedThreadItems(
 @Immutable
 class BlockedThreadActions(
     val onBack: () -> Unit = {},
-    /** "Move to inbox" for every message of the sender: the tab's Not spam, with "Always allow?" and Undo. */
+    /** "Not spam" for every message of the sender: moves them, allows the sender, and opens the normal chat. */
     val onMoveToInbox: () -> Unit = {},
     /** Deletes every message of the sender, with Undo. */
     val onDeleteAll: () -> Unit = {},
@@ -129,8 +130,6 @@ class BlockedThreadActions(
     val onReleaseOnce: (Long) -> Unit = {},
     val onDeleteMessage: (Long) -> Unit = {},
     val onOpenRules: () -> Unit = {},
-    val onAnswerAllow: (Long, Boolean) -> Unit = { _, _ -> },
-    val onIncludeSimilar: (Long, Boolean) -> Unit = { _, _ -> },
 )
 
 /**
@@ -147,16 +146,20 @@ fun BlockedThreadRoute(
     onBack: () -> Unit,
     onOpenRules: () -> Unit,
     viewModel: BlockedViewModel = viewModel(factory = BlockedViewModel.ThreadFactory),
+    threadIdOf: suspend (Context, String) -> Long = BlockedChat::threadIdOf,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackbar = remember { SnackbarHostState() }
     var closeWhenEmpty by rememberSaveable { mutableStateOf(false) }
     var seen by rememberSaveable { mutableStateOf(false) }
-    BlockedEvents(viewModel, snackbar, onOpenRules, onSettle = { committed -> closeWhenEmpty = committed })
+    // "Not spam" is working or has finished and the chat is about to open: the buttons wait, the rows stay.
+    var moving by rememberSaveable { mutableStateOf(false) }
+    BlockedEvents(viewModel, snackbar, onSettle = { committed -> closeWhenEmpty = committed })
+    OpenChatAfterNotSpam(viewModel, address, threadIdOf, onBack, onRetry = { moving = false })
     val hasMessages = state.groups.any { it.address == address }
     LaunchedEffect(hasMessages) { if (hasMessages) seen = true }
-    // A last snackbar (the "Always allow" rule made, a failure) is let finish before the screen goes.
-    val settled = !state.loading && !hasMessages && !state.hasPendingUndo && state.allowPrompt == null &&
+    // A last snackbar (a failure) is let finish before the screen goes. While the chat opens it never closes here.
+    val settled = !state.loading && !hasMessages && !state.hasPendingUndo && !moving &&
         snackbar.currentSnackbarData == null
     // Nothing (left) to show: either the sender's messages were already gone when the screen opened (purged, or
     // restored from another screen), or the user moved or deleted them and kept that.
@@ -167,16 +170,16 @@ fun BlockedThreadRoute(
     val actions = remember(viewModel, address, onBack, onOpenRules) {
         BlockedThreadActions(
             onBack = onBack,
-            onMoveToInbox = { viewModel.notSpam(setOf(address)) },
+            onMoveToInbox = {
+                if (!moving) moving = viewModel.notSpam(setOf(address), openChat = true)
+            },
             onDeleteAll = { viewModel.delete(setOf(address)) },
             onReleaseOnce = viewModel::releaseOnce,
             onDeleteMessage = { id -> viewModel.deleteMessages(setOf(id)) },
             onOpenRules = onOpenRules,
-            onAnswerAllow = viewModel::answerAllow,
-            onIncludeSimilar = viewModel::setIncludeSimilar,
         )
     }
-    BlockedThreadScreen(address, state, snackbar, actions)
+    BlockedThreadScreen(address, state, snackbar, actions, moving = moving)
 }
 
 /**
@@ -193,6 +196,8 @@ fun BlockedThreadScreen(
     snackbarHostState: SnackbarHostState,
     actions: BlockedThreadActions,
     modifier: Modifier = Modifier,
+    /** "Not spam" is working: the button shows progress and waits, and the rows stay until the chat opens. */
+    moving: Boolean = false,
 ) {
     val group = state.groups.firstOrNull { it.address == address }
     val shown = isolateNumbers(displayNumber(address))
@@ -205,13 +210,17 @@ fun BlockedThreadScreen(
         topBar = {
             UMessageTopBar(title = shown, onBack = actions.onBack, scrollBehavior = scrollBehavior)
         },
-        bottomBar = { if (group != null) HeldFooter(shown, actions) },
+        bottomBar = { if (group != null) HeldFooter(shown, actions, moving) },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { inner ->
         val content = Modifier.fillMaxSize().padding(inner)
         when {
             state.loading -> Box(content, contentAlignment = Alignment.Center) {
                 val label = stringResource(R.string.spam_loading)
+                CircularProgressIndicator(Modifier.semantics { contentDescription = label })
+            }
+            group == null && moving -> Box(content, contentAlignment = Alignment.Center) {
+                val label = stringResource(R.string.nsf_moving)
                 CircularProgressIndicator(Modifier.semantics { contentDescription = label })
             }
             group == null -> Box(content, contentAlignment = Alignment.Center) {
@@ -254,7 +263,6 @@ fun BlockedThreadScreen(
             WhyBlockedDialog(message, state, actions.onOpenRules, onDismiss = { whyId = null })
         }
     }
-    state.allowPrompt?.let { AllowDialog(it, actions.onAnswerAllow, actions.onIncludeSimilar) }
 }
 
 /**
@@ -262,7 +270,7 @@ fun BlockedThreadScreen(
  * label (U06): "Not spam" moves the sender to the inbox, "Delete" removes every message.
  */
 @Composable
-private fun HeldFooter(shown: String, actions: BlockedThreadActions) {
+private fun HeldFooter(shown: String, actions: BlockedThreadActions, moving: Boolean) {
     val colors = MaterialTheme.colorScheme
     val deleteAll = stringResource(R.string.r3b_thread_delete_all, shown)
     Surface(color = colors.surfaceContainer) {
@@ -285,11 +293,25 @@ private fun HeldFooter(shown: String, actions: BlockedThreadActions) {
             ) {
                 TextButton(
                     onClick = actions.onDeleteAll,
+                    enabled = !moving,
                     modifier = Modifier.heightIn(min = 48.dp).semantics { contentDescription = deleteAll },
                     colors = ButtonDefaults.textButtonColors(contentColor = colors.error),
                 ) { Text(stringResource(R.string.ux8c_delete), maxLines = 1) }
-                FilledTonalButton(onClick = actions.onMoveToInbox, modifier = Modifier.heightIn(min = 48.dp)) {
-                    Icon(Symbols.Inbox, contentDescription = null, modifier = Modifier.padding(end = 8.dp))
+                FilledTonalButton(
+                    onClick = actions.onMoveToInbox,
+                    enabled = !moving,
+                    modifier = Modifier.heightIn(min = 48.dp),
+                ) {
+                    if (moving) {
+                        val label = stringResource(R.string.nsf_moving)
+                        CircularProgressIndicator(
+                            modifier = Modifier.padding(end = 8.dp).size(20.dp)
+                                .semantics { contentDescription = label },
+                            strokeWidth = 2.dp,
+                        )
+                    } else {
+                        Icon(Symbols.Inbox, contentDescription = null, modifier = Modifier.padding(end = 8.dp))
+                    }
                     Text(stringResource(R.string.ux8c_not_spam), maxLines = 1)
                 }
             }

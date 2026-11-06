@@ -85,8 +85,6 @@ class BlockedViewModelRestoreTest {
     fun restoreRaisesTheRestoredCounterAndRefreshesTheChatList() {
         assertThat(vm.state.value.stats.restoredTotal).isEqualTo(0)
         vm.notSpam(setOf(SENDER))
-        awaitUntil { vm.state.value.allowPrompt != null }
-        vm.answerAllow(vm.state.value.allowPrompt!!.token, allow = false)
         awaitUntil { events.isNotEmpty() }
         vm.commitRestore((events.single() as BlockedEvent.Restored).token)
 
@@ -96,24 +94,20 @@ class BlockedViewModelRestoreTest {
 
     /**
      * The owner's bug: the messages left Blocked at once but reached the inbox only after the undo window, and
-     * closing the app meanwhile lost the restore. They are in the inbox before "Always allow?" is even answered.
+     * closing the app meanwhile lost the restore. They are in the inbox before the Undo window even opens.
      */
     @Test
-    fun notSpamPutsTheMessageInTheInboxBeforeTheAllowAnswer() {
+    fun notSpamPutsTheMessageInTheInboxAtOnce() {
         vm.notSpam(setOf(SENDER))
-        awaitUntil { vm.state.value.allowPrompt != null }
         awaitUntil { inbox.size == 1 }
         awaitUntil { vm.state.value.stats.restoredTotal == 1 }
         assertThat(runBlocking { db.spamDao().getAllBlocked() }).isEmpty()
-        assertThat(events).isEmpty()
     }
 
     /** Leaving the tab cancels the snackbar unanswered; the window closes on its own and nothing runs twice. */
     @Test
     fun theUndoWindowClosesWithoutTheSnackbar() {
         vm.notSpam(setOf(SENDER))
-        awaitUntil { vm.state.value.allowPrompt != null }
-        vm.answerAllow(vm.state.value.allowPrompt!!.token, allow = false)
         awaitUntil { events.isNotEmpty() }
         shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(BlockedViewModel.UNDO_WINDOW_MS + 100))
 
@@ -132,8 +126,6 @@ class BlockedViewModelRestoreTest {
     @Test
     fun undoTakesTheMessageOutOfTheInboxAndBackIntoBlocked() {
         vm.notSpam(setOf(SENDER))
-        awaitUntil { vm.state.value.allowPrompt != null }
-        vm.answerAllow(vm.state.value.allowPrompt!!.token, allow = false)
         awaitUntil { events.isNotEmpty() }
         assertThat(inbox).hasSize(1)
 

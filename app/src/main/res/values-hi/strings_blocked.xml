@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <plurals name="spam_allow_title" tools:ignore="ImpliedQuantity">
-        <item quantity="one">इस भेजने वाले को हमेशा अनुमति दें?</item>
-        <item quantity="other">इन %d भेजने वालों को हमेशा अनुमति दें?</item>
-    </plurals>
-    <string name="spam_allow_body_one">दोनों ही मामलों में मैसेज आपके इनबॉक्स में वापस आ जाएगा. अगर आप %1$s को हमेशा अनुमति देते हैं, तो उनके नए मैसेज पर कोई फ़िल्टर लागू नहीं होगा, आपके ब्लॉक करने के नियम भी नहीं.</string>
-    <string name="spam_allow_body_many">दोनों ही मामलों में मैसेज आपके इनबॉक्स में वापस आ जाएंगे. अगर आप इन भेजने वालों को हमेशा अनुमति देते हैं, तो उनके नए मैसेज पर कोई फ़िल्टर लागू नहीं होगा, आपके ब्लॉक करने के नियम भी नहीं.</string>
     <string name="spam_allow_spoof_warning">%1$s जैसे नाम से कोई भी मैसेज भेज सकता है. अनुमति देने पर उस नाम से भेजे गए नकली मैसेज भी आने लगेंगे.</string>
-    <string name="spam_allow_confirm">हमेशा अनुमति दें</string>
-    <string name="spam_allow_dismiss">अभी नहीं</string>
     <plurals name="spam_snack_restored_to_inbox" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d मैसेज इनबॉक्स में वापस लाया गया</item>
         <item quantity="other">%d मैसेज इनबॉक्स में वापस लाए गए</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed" tools:ignore="ImpliedQuantity">
-        <item quantity="one">वापस लाया गया. %d भेजने वाले को अब हमेशा अनुमति दी गई है.</item>
-        <item quantity="other">वापस लाए गए. %d भेजने वालों को अब हमेशा अनुमति दी गई है.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d भेजने वाले को अब हमेशा अनुमति दी गई है.</item>

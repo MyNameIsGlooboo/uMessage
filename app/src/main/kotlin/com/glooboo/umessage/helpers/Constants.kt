@@ -8,6 +8,12 @@ const val THREAD_ID = "thread_id"
 const val THREAD_TITLE = "thread_title"
 const val THREAD_TEXT = "thread_text"
 const val THREAD_NUMBER = "thread_number"
+
+/** Boolean extra of the chat screen: focus the composer and show the keyboard, once. */
+const val THREAD_FOCUS_COMPOSER = "thread_focus_composer"
+
+/** String extra of the chat screen: a short note shown once as a snackbar. */
+const val THREAD_NOTICE = "thread_notice"
 const val THREAD_ATTACHMENT_URI = "thread_attachment_uri"
 const val THREAD_ATTACHMENT_URIS = "thread_attachment_uris"
 const val SEARCHED_MESSAGE_ID = "searched_message_id"

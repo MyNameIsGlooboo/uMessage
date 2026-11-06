@@ -10,15 +10,6 @@
     <string name="e_restored_empty">今後、受信トレイに移したメッセージがここに30日間表示されます。</string>
     <string name="e_restored_when">受信トレイへの移動日時：%1$s</string>
     <string name="e_restored_open">%1$sとの会話を開く</string>
-    <string name="e_snack_allowed_one">両方のSIMで%1$sを常に許可しました。</string>
-    <plurals name="e_snack_allowed_many">
-        <item quantity="other">両方のSIMで%d件の送信者を常に許可しました。</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">%1$sを常に許可しました。</string>
-    <plurals name="e_snack_allowed_many_single_sim">
-        <item quantity="other">%d件の送信者を常に許可しました。</item>
-    </plurals>
-    <string name="e_view_rule">ルールを表示</string>
     <string name="e_rules_title">ルール</string>
     <string name="e_rules_menu_backup">バックアップと復元</string>
     <string name="e_note_blocked_by_you">自分でブロック済み</string>

@@ -29,6 +29,4 @@
         <item quantity="other">ブロック済みのメッセージは%d日後に削除されます。</item>
     </plurals>
     <string name="r3b_info_purge_off">ブロック済みのメッセージは、削除するまで保存されます。</string>
-    <string name="r3b_allow_body_sender_one_message">どちらを選んでも、メッセージは受信トレイに戻ります。%1$sを常に許可すると、今後のメッセージにはブロックルールを含むすべてのフィルターが適用されません。</string>
-    <string name="r3b_allow_body_sender_many_messages">どちらを選んでも、メッセージは受信トレイに戻ります。%1$sを常に許可すると、今後のメッセージにはブロックルールを含むすべてのフィルターが適用されません。</string>
 </resources>

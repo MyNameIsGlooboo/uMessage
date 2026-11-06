@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="other">この%d件の送信者を常に許可しますか？</item>
-    </plurals>
-    <string name="spam_allow_body_one">どちらを選んでも、メッセージは受信トレイに戻ります。%1$sを常に許可すると、今後のメッセージには、ブロックのルールを含むすべてのフィルターが適用されません。</string>
-    <string name="spam_allow_body_many">どちらを選んでも、メッセージは受信トレイに戻ります。これらの送信者を常に許可すると、今後のメッセージには、ブロックのルールを含むすべてのフィルターが適用されません。</string>
     <string name="spam_allow_spoof_warning">%1$sのような名前は誰でも使って送信できます。許可すると、その名前を使った偽のメッセージも届きます。</string>
-    <string name="spam_allow_confirm">常に許可</string>
-    <string name="spam_allow_dismiss">今はしない</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="other">%d件のメッセージを受信トレイに復元しました。</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="other">復元しました。%d件の送信者を常に許可しました。</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="other">%d件の送信者を常に許可しました。</item>

@@ -34,6 +34,4 @@
         <item quantity="other">تُحذف الرسائل المحظورة بعد %d يوم.</item>
     </plurals>
     <string name="r3b_info_purge_off">تبقى الرسائل المحظورة حتى تحذفها.</string>
-    <string name="r3b_allow_body_sender_one_message">ستعود الرسالة إلى الرسائل الواردة في الحالتين. إذا سمحت دائمًا لـ %1$s، فستتجاوز رسائله القادمة كل عوامل التصفية، بما فيها قواعد الحظر.</string>
-    <string name="r3b_allow_body_sender_many_messages">ستعود الرسائل إلى الرسائل الواردة في الحالتين. إذا سمحت دائمًا لـ %1$s، فستتجاوز رسائله القادمة كل عوامل التصفية، بما فيها قواعد الحظر.</string>
 </resources>

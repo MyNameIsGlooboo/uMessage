@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="one">¿Permitir siempre a este remitente?</item>
-        <item quantity="other">¿Permitir siempre a estos %d remitentes?</item>
-    </plurals>
-    <string name="spam_allow_body_one">El mensaje volverá a tu bandeja de entrada en cualquier caso. Si permites siempre a %1$s, sus próximos mensajes omitirán todos los filtros, incluidas tus reglas de bloqueo.</string>
-    <string name="spam_allow_body_many">Los mensajes volverán a tu bandeja de entrada en cualquier caso. Si permites siempre a estos remitentes, sus próximos mensajes omitirán todos los filtros, incluidas tus reglas de bloqueo.</string>
     <string name="spam_allow_spoof_warning">Cualquiera puede enviar un mensaje de texto con un nombre como %1$s. Permitirlo también dejará pasar mensajes falsos que usen ese nombre.</string>
-    <string name="spam_allow_confirm">Permitir siempre</string>
-    <string name="spam_allow_dismiss">Ahora no</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="one">%d mensaje restaurado en la bandeja de entrada</item>
         <item quantity="other">%d mensajes restaurados en la bandeja de entrada</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="one">Restaurado. Ahora se permite siempre a %d remitente.</item>
-        <item quantity="other">Restaurados. Ahora se permite siempre a %d remitentes.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="one">Ahora se permite siempre a %d remitente.</item>

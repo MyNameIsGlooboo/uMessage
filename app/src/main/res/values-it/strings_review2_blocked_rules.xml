@@ -11,17 +11,6 @@
     <string name="e_restored_empty">I messaggi che sposti in In arrivo da ora in poi restano in questo elenco per 30 giorni.</string>
     <string name="e_restored_when">Spostato in In arrivo %1$s</string>
     <string name="e_restored_open">Apri la conversazione con %1$s</string>
-    <string name="e_snack_allowed_one">%1$s è ora sempre consentito su entrambe le SIM</string>
-    <plurals name="e_snack_allowed_many">
-        <item quantity="one">%d mittente è ora sempre consentito su entrambe le SIM</item>
-        <item quantity="other">%d mittenti sono ora sempre consentiti su entrambe le SIM</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">%1$s è ora sempre consentito</string>
-    <plurals name="e_snack_allowed_many_single_sim">
-        <item quantity="one">%d mittente è ora sempre consentito</item>
-        <item quantity="other">%d mittenti sono ora sempre consentiti</item>
-    </plurals>
-    <string name="e_view_rule">Vedi regola</string>
     <string name="e_rules_title">Regole</string>
     <string name="e_rules_menu_backup">Backup e ripristino</string>
     <string name="e_note_blocked_by_you">Bloccato da te</string>

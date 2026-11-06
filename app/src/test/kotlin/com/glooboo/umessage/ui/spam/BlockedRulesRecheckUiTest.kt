@@ -128,17 +128,4 @@ class BlockedRulesRecheckUiTest {
         assertThat(opened).isEqualTo(address)
     }
 
-    @Test
-    fun theAllowedSnackbarMentionsBothSimsOnlyOnADualSimPhone() {
-        // Recheck bug 5.
-        val resources = context.resources
-        assertThat(allowedSnackText(resources, listOf("555"), dualSim = true))
-            .isEqualTo(str(R.string.e_snack_allowed_one, "555"))
-        assertThat(allowedSnackText(resources, listOf("555"), dualSim = false))
-            .isEqualTo(str(R.string.e_snack_allowed_one_single_sim, "555"))
-        assertThat(allowedSnackText(resources, listOf("1", "2"), dualSim = false))
-            .isEqualTo(resources.getQuantityString(R.plurals.e_snack_allowed_many_single_sim, 2, 2))
-        assertThat(allowedSnackText(resources, listOf("1", "2"), dualSim = true))
-            .isEqualTo(resources.getQuantityString(R.plurals.e_snack_allowed_many, 2, 2))
-    }
 }

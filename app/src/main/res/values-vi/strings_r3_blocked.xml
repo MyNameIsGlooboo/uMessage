@@ -29,6 +29,4 @@
         <item quantity="other">Tin nhắn đã chặn sẽ bị xóa sau %d ngày.</item>
     </plurals>
     <string name="r3b_info_purge_off">Tin nhắn đã chặn được giữ lại đến khi bạn xóa.</string>
-    <string name="r3b_allow_body_sender_one_message">Dù chọn cách nào, tin nhắn vẫn trở lại hộp thư đến của bạn. Nếu luôn cho phép %1$s, tin nhắn sau này của họ sẽ bỏ qua mọi bộ lọc, kể cả quy tắc chặn của bạn.</string>
-    <string name="r3b_allow_body_sender_many_messages">Dù chọn cách nào, các tin nhắn vẫn trở lại hộp thư đến của bạn. Nếu luôn cho phép %1$s, tin nhắn sau này của họ sẽ bỏ qua mọi bộ lọc, kể cả quy tắc chặn của bạn.</string>
 </resources>

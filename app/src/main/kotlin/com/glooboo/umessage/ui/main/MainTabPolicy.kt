@@ -45,6 +45,7 @@ object MainTabPolicy {
         com.glooboo.umessage.helpers.MainTabLinks.TAB_ARCHIVED -> MainTab.Archived
         com.glooboo.umessage.helpers.MainTabLinks.TAB_FORWARDED -> MainTab.Forwarded
         com.glooboo.umessage.helpers.MainTabLinks.TAB_BLOCKED -> MainTab.Blocked
+        com.glooboo.umessage.helpers.MainTabLinks.TAB_MESSAGES -> MainTab.Messages
         else -> null
     }
 }

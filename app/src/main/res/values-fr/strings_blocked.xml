@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <plurals name="spam_allow_title" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Toujours autoriser cet expéditeur ?</item>
-        <item quantity="other">Toujours autoriser ces %d expéditeurs ?</item>
-    </plurals>
-    <string name="spam_allow_body_one">Le message retourne dans votre boîte de réception dans tous les cas. Si vous autorisez toujours %1$s, ses prochains messages passeront tous les filtres, y compris vos règles de blocage.</string>
-    <string name="spam_allow_body_many">Les messages retournent dans votre boîte de réception dans tous les cas. Si vous autorisez toujours ces expéditeurs, leurs prochains messages passeront tous les filtres, y compris vos règles de blocage.</string>
     <string name="spam_allow_spoof_warning">N\'importe qui peut envoyer un SMS sous un nom comme %1$s. L\'autoriser laisse aussi passer les faux SMS utilisant ce nom.</string>
-    <string name="spam_allow_confirm">Toujours autoriser</string>
-    <string name="spam_allow_dismiss">Pas maintenant</string>
     <plurals name="spam_snack_restored_to_inbox" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d message restauré dans la boîte de réception</item>
         <item quantity="other">%d messages restaurés dans la boîte de réception</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Restauration effectuée. %d expéditeur est désormais toujours autorisé.</item>
-        <item quantity="other">Restauration effectuée. %d expéditeurs sont désormais toujours autorisés.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d expéditeur est désormais toujours autorisé.</item>

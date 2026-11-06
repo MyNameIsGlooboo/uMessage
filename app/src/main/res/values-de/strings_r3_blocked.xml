@@ -30,6 +30,4 @@
         <item quantity="other">Blockierte Nachrichten werden nach %d Tagen gelöscht.</item>
     </plurals>
     <string name="r3b_info_purge_off">Blockierte Nachrichten bleiben erhalten, bis du sie löschst.</string>
-    <string name="r3b_allow_body_sender_one_message">Die Nachricht kommt in jedem Fall zurück in deinen Posteingang. Wenn du %1$s immer erlaubst, umgehen künftige Nachrichten dieses Absenders alle Filter, auch deine Regeln zum Blockieren.</string>
-    <string name="r3b_allow_body_sender_many_messages">Die Nachrichten kommen in jedem Fall zurück in deinen Posteingang. Wenn du %1$s immer erlaubst, umgehen künftige Nachrichten dieses Absenders alle Filter, auch deine Regeln zum Blockieren.</string>
 </resources>

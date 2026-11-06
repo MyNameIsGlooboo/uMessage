@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <plurals name="spam_allow_title" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Завжди дозволити цього відправника?</item>
-        <item quantity="few">Завжди дозволити цих %d відправників?</item>
-        <item quantity="many">Завжди дозволити цих %d відправників?</item>
-        <item quantity="other">Завжди дозволити %d відправника?</item>
-    </plurals>
-    <string name="spam_allow_body_one">Повідомлення в будь-якому разі повернеться у вхідні. Якщо ви завжди дозволите повідомлення від %1$s, усі наступні повідомлення оминатимуть усі фільтри, зокрема ваші правила блокування.</string>
-    <string name="spam_allow_body_many">Повідомлення в будь-якому разі повернуться у вхідні. Якщо ви завжди дозволите цих відправників, їхні наступні повідомлення оминатимуть усі фільтри, зокрема ваші правила блокування.</string>
     <string name="spam_allow_spoof_warning">Будь-хто може надіслати повідомлення під іменем на кшталт %1$s. Якщо дозволити його, підроблені повідомлення з цим іменем теж проходитимуть.</string>
-    <string name="spam_allow_confirm">Завжди дозволити</string>
-    <string name="spam_allow_dismiss">Не зараз</string>
     <plurals name="spam_snack_restored_to_inbox" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d повідомлення відновлено у вхідних</item>
         <item quantity="few">%d повідомлення відновлено у вхідних</item>
         <item quantity="many">%d повідомлень відновлено у вхідних</item>
         <item quantity="other">%d повідомлення відновлено у вхідних</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Відновлено. Для %d відправника тепер завжди дозволено повідомлення.</item>
-        <item quantity="few">Відновлено. Для %d відправників тепер завжди дозволено повідомлення.</item>
-        <item quantity="many">Відновлено. Для %d відправників тепер завжди дозволено повідомлення.</item>
-        <item quantity="other">Відновлено. Для %d відправника тепер завжди дозволено повідомлення.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only" tools:ignore="ImpliedQuantity">
         <item quantity="one">Для %d відправника тепер завжди дозволено повідомлення.</item>

@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="other">발신자 %d명을 항상 허용할까요?</item>
-    </plurals>
-    <string name="spam_allow_body_one">어느 쪽을 선택해도 메시지는 받은 메시지함으로 복원돼요. 발신자 %1$s에 대해 항상 허용을 선택하면 앞으로 받는 메시지는 차단 규칙을 포함한 모든 필터를 건너뛰어요.</string>
-    <string name="spam_allow_body_many">어느 쪽을 선택해도 메시지는 받은 메시지함으로 복원돼요. 이 발신자들을 항상 허용하면 앞으로 받는 메시지는 차단 규칙을 포함한 모든 필터를 건너뛰어요.</string>
     <string name="spam_allow_spoof_warning">누구나 %1$s 같은 이름으로 문자를 보낼 수 있어요. 허용하면 그 이름을 사칭한 문자도 허용돼요.</string>
-    <string name="spam_allow_confirm">항상 허용</string>
-    <string name="spam_allow_dismiss">나중에</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="other">메시지 %d건을 받은 메시지함으로 복원했어요.</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="other">복원했어요. 이제 발신자 %d명을 항상 허용해요.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="other">이제 발신자 %d명을 항상 허용해요.</item>

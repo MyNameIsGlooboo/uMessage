@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="other">Selalu izinkan %d pengirim ini?</item>
-    </plurals>
-    <string name="spam_allow_body_one">Apa pun pilihan Anda, pesan tetap kembali ke kotak masuk. Jika %1$s selalu diizinkan, pesan berikutnya akan melewati semua filter, termasuk aturan blokir Anda.</string>
-    <string name="spam_allow_body_many">Apa pun pilihan Anda, pesan tetap kembali ke kotak masuk. Jika pengirim ini selalu diizinkan, pesan berikutnya akan melewati semua filter, termasuk aturan blokir Anda.</string>
     <string name="spam_allow_spoof_warning">Siapa pun dapat mengirim pesan dengan nama seperti %1$s. Mengizinkannya juga meloloskan pesan palsu yang memakai nama itu.</string>
-    <string name="spam_allow_confirm">Selalu izinkan</string>
-    <string name="spam_allow_dismiss">Lain kali</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="other">%d pesan dipulihkan ke kotak masuk</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="other">Dipulihkan. %d pengirim kini selalu diizinkan.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="other">%d pengirim kini selalu diizinkan.</item>

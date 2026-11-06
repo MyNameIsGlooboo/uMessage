@@ -15,7 +15,7 @@ uMessage is a full SMS and MMS app whose main job is to stop spam. Make it your 
 
 <b>Nothing is lost</b>
 • Blocked messages are kept in the Blocked tab with the reason each one was held, without a notification unless you turn one on.
-• Tap "Not spam" to move a message to your inbox and allow its sender from then on.
+• Tap "Not spam" to move a message to your inbox and allow its sender from then on, in one step with Undo. Delete the rule in Settings > Rules to stop allowing a sender.
 • Blocked messages are deleted after 30 days by default; you can change this or keep them forever.
 • Blocked MMS are not downloaded, so they cost no mobile data.
 

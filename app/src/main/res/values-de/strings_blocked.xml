@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="one">Diesen Absender immer erlauben?</item>
-        <item quantity="other">Diese %d Absender immer erlauben?</item>
-    </plurals>
-    <string name="spam_allow_body_one">Die Nachricht kommt in jedem Fall zurück in deinen Posteingang. Wenn du %1$s immer erlaubst, umgehen künftige Nachrichten dieses Absenders alle Filter, auch deine Regeln zum Blockieren.</string>
-    <string name="spam_allow_body_many">Die Nachrichten kommen in jedem Fall zurück in deinen Posteingang. Wenn du diese Absender immer erlaubst, umgehen ihre künftigen Nachrichten alle Filter, auch deine Regeln zum Blockieren.</string>
     <string name="spam_allow_spoof_warning">Jeder kann unter einem Namen wie %1$s Nachrichten senden. Wenn du ihn erlaubst, werden auch gefälschte Nachrichten mit diesem Namen durchgelassen.</string>
-    <string name="spam_allow_confirm">Immer erlauben</string>
-    <string name="spam_allow_dismiss">Nicht jetzt</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="one">%d Nachricht im Posteingang wiederhergestellt</item>
         <item quantity="other">%d Nachrichten im Posteingang wiederhergestellt</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="one">Wiederhergestellt. %d Absender ist jetzt immer erlaubt.</item>
-        <item quantity="other">Wiederhergestellt. %d Absender sind jetzt immer erlaubt.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="one">%d Absender ist jetzt immer erlaubt.</item>

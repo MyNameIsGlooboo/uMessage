@@ -11,17 +11,6 @@
     <string name="e_restored_empty">Los mensajes que muevas a la bandeja de entrada a partir de ahora aparecerán aquí durante 30 días.</string>
     <string name="e_restored_when">Movido a la bandeja de entrada: %1$s</string>
     <string name="e_restored_open">Abrir la conversación con %1$s</string>
-    <string name="e_snack_allowed_one">%1$s ahora está permitido siempre en ambas SIM</string>
-    <plurals name="e_snack_allowed_many">
-        <item quantity="one">%d remitente ahora está permitido siempre en ambas SIM</item>
-        <item quantity="other">%d remitentes ahora están permitidos siempre en ambas SIM</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">%1$s ahora está permitido siempre</string>
-    <plurals name="e_snack_allowed_many_single_sim">
-        <item quantity="one">%d remitente ahora está permitido siempre</item>
-        <item quantity="other">%d remitentes ahora están permitidos siempre</item>
-    </plurals>
-    <string name="e_view_rule">Ver regla</string>
     <string name="e_rules_title">Reglas</string>
     <string name="e_rules_menu_backup">Copia de seguridad y restauración</string>
     <string name="e_note_blocked_by_you">Bloqueado por ti</string>

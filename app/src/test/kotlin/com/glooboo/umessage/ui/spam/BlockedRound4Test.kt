@@ -1,6 +1,5 @@
 package com.glooboo.umessage.ui.spam
 
-import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.DateStyle
 import com.google.common.truth.Truth.assertThat
 import java.time.ZoneId
@@ -30,20 +29,5 @@ class BlockedRound4Test {
             .isEqualTo("Nov 2, 2026 (11 Aban 1405), 21:55")
         val persian = blockedReceivedTime(millis, zone, true, Locale.forLanguageTag("fa"), DateStyle.JALALI)
         assertThat(persian).isEqualTo("۱۱ آبان ۱۴۰۵، ۲۱:۵۵")
-    }
-
-    @Test
-    fun allowPromptSaysMessageOrMessagesByCount() {
-        assertThat(allowBodyForOneSender(1)).isEqualTo(R.string.r3b_allow_body_sender_one_message)
-        assertThat(allowBodyForOneSender(2)).isEqualTo(R.string.r3b_allow_body_sender_many_messages)
-    }
-
-    @Test
-    fun allowPromptCountsMessagesNotSenders() {
-        val prompt = AllowPrompt(1L, listOf("555-7023"), emptyList(), messageCount = 2)
-        assertThat(allowBodyForOneSender(prompt.messageCount))
-            .isEqualTo(R.string.r3b_allow_body_sender_many_messages)
-        // Built without a count, a prompt assumes one message per sender.
-        assertThat(AllowPrompt(1L, listOf("a", "b"), emptyList()).messageCount).isEqualTo(2)
     }
 }

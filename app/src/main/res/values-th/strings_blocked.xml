@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="other">อนุญาตผู้ส่ง %d รายนี้เสมอ?</item>
-    </plurals>
-    <string name="spam_allow_body_one">ข้อความจะกลับไปที่กล่องข้อความเข้าไม่ว่าจะเลือกแบบใด หากอนุญาต %1$s เสมอ ข้อความใหม่จากผู้ส่งรายนี้จะข้ามตัวกรองทั้งหมด รวมถึงกฎบล็อกของคุณ</string>
-    <string name="spam_allow_body_many">ข้อความจะกลับไปที่กล่องข้อความเข้าไม่ว่าจะเลือกแบบใด หากอนุญาตผู้ส่งเหล่านี้เสมอ ข้อความใหม่จากผู้ส่งเหล่านี้จะข้ามตัวกรองทั้งหมด รวมถึงกฎบล็อกของคุณ</string>
     <string name="spam_allow_spoof_warning">ใครก็ใช้ชื่ออย่าง %1$s ส่งข้อความได้ การอนุญาตชื่อนี้จะทำให้ข้อความปลอมที่ใช้ชื่อเดียวกันผ่านได้ด้วย</string>
-    <string name="spam_allow_confirm">อนุญาตเสมอ</string>
-    <string name="spam_allow_dismiss">ไว้ภายหลัง</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="other">กู้คืนข้อความ %d ข้อความไปยังกล่องข้อความเข้าแล้ว</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="other">กู้คืนแล้ว อนุญาตผู้ส่ง %d รายเสมอแล้ว</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="other">อนุญาตผู้ส่ง %d รายเสมอแล้ว</item>

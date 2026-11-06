@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="zero">السماح دائمًا لـ %d مرسل؟</item>
-        <item quantity="one">السماح لهذا المرسل دائمًا؟</item>
-        <item quantity="two">السماح لهذين المرسلين (%d) دائمًا؟</item>
-        <item quantity="few">السماح لهؤلاء المرسلين الـ %d دائمًا؟</item>
-        <item quantity="many">السماح دائمًا لـ %d مرسلًا؟</item>
-        <item quantity="other">السماح دائمًا لـ %d مرسل؟</item>
-    </plurals>
-    <string name="spam_allow_body_one">ستعود الرسالة إلى الرسائل الواردة في الحالتين. إذا سمحت دائمًا لـ %1$s، فستتجاوز رسائله القادمة كل عوامل التصفية، بما فيها قواعد الحظر.</string>
-    <string name="spam_allow_body_many">ستعود الرسائل إلى الرسائل الواردة في الحالتين. إذا سمحت لهؤلاء المرسلين دائمًا، فستتجاوز رسائلهم القادمة كل عوامل التصفية، بما فيها قواعد الحظر.</string>
     <string name="spam_allow_spoof_warning">يمكن لأي شخص إرسال رسالة باسم مثل %1$s. السماح به يتيح أيضًا وصول الرسائل المزيفة التي تستخدم هذا الاسم.</string>
-    <string name="spam_allow_confirm">اسمح دائمًا</string>
-    <string name="spam_allow_dismiss">ليس الآن</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="zero">استُعيدت %d رسالة إلى الرسائل الواردة</item>
         <item quantity="one">استُعيدت رسالة واحدة (%d) إلى الرسائل الواردة</item>
@@ -20,14 +8,6 @@
         <item quantity="few">استُعيدت %d رسائل إلى الرسائل الواردة</item>
         <item quantity="many">استُعيدت %d رسالة إلى الرسائل الواردة</item>
         <item quantity="other">استُعيدت %d رسالة إلى الرسائل الواردة</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="zero">تمت الاستعادة. أصبح %d مرسل مسموحًا لهم دائمًا.</item>
-        <item quantity="one">تمت الاستعادة. أصبح مرسل واحد (%d) مسموحًا له دائمًا.</item>
-        <item quantity="two">تمت الاستعادة. أصبح مرسلان (%d) مسموحًا لهما دائمًا.</item>
-        <item quantity="few">تمت الاستعادة. أصبح %d مرسلين مسموحًا لهم دائمًا.</item>
-        <item quantity="many">تمت الاستعادة. أصبح %d مرسلًا مسموحًا لهم دائمًا.</item>
-        <item quantity="other">تمت الاستعادة. أصبح %d مرسل مسموحًا لهم دائمًا.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="zero">أصبح %d مرسل مسموحًا لهم دائمًا.</item>

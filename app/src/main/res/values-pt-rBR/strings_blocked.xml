@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <plurals name="spam_allow_title" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Permita sempre este remetente?</item>
-        <item quantity="other">Permita sempre estes %d remetentes?</item>
-    </plurals>
-    <string name="spam_allow_body_one">A mensagem volta para sua caixa de entrada de qualquer forma. Se você sempre permitir %1$s, as próximas mensagens desse remetente passarão por todos os filtros, inclusive suas regras de bloqueio.</string>
-    <string name="spam_allow_body_many">As mensagens voltam para sua caixa de entrada de qualquer forma. Se você sempre permitir esses remetentes, as próximas mensagens deles passarão por todos os filtros, inclusive suas regras de bloqueio.</string>
     <string name="spam_allow_spoof_warning">Qualquer pessoa pode enviar uma mensagem usando um nome como %1$s. Permitir esse nome também deixa passar mensagens falsas que o usem.</string>
-    <string name="spam_allow_confirm">Permita sempre</string>
-    <string name="spam_allow_dismiss">Agora não</string>
     <plurals name="spam_snack_restored_to_inbox" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d mensagem restaurada na caixa de entrada</item>
         <item quantity="other">%d mensagens restauradas na caixa de entrada</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Restauração concluída. %d remetente agora é sempre permitido.</item>
-        <item quantity="other">Restauração concluída. %d remetentes agora são sempre permitidos.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d remetente agora é sempre permitido.</item>

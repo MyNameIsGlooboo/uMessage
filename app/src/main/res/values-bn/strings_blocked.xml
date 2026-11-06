@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <plurals name="spam_allow_title" tools:ignore="ImpliedQuantity">
-        <item quantity="one">এই প্রেরককে সবসময় অনুমতি দেবেন?</item>
-        <item quantity="other">এই %d জন প্রেরককে সবসময় অনুমতি দেবেন?</item>
-    </plurals>
-    <string name="spam_allow_body_one">যেটিই বেছে নিন, বার্তা আপনার ইনবক্সে ফিরে যাবে। %1$s-কে সবসময় অনুমতি দিলে তাঁর পরের বার্তা আপনার ব্লক করার নিয়মসহ সব ফিল্টার এড়িয়ে আসবে।</string>
-    <string name="spam_allow_body_many">যেটিই বেছে নিন, বার্তাগুলো আপনার ইনবক্সে ফিরে যাবে। এই প্রেরকদের সবসময় অনুমতি দিলে তাঁদের পরের বার্তা আপনার ব্লক করার নিয়মসহ সব ফিল্টার এড়িয়ে আসবে।</string>
     <string name="spam_allow_spoof_warning">%1$s-এর মতো নাম ব্যবহার করে যে কেউ বার্তা পাঠাতে পারে। অনুমতি দিলে সেই নাম ব্যবহার করা ভুয়া বার্তাও আসবে।</string>
-    <string name="spam_allow_confirm">সবসময় অনুমতি দিন</string>
-    <string name="spam_allow_dismiss">এখন নয়</string>
     <plurals name="spam_snack_restored_to_inbox" tools:ignore="ImpliedQuantity">
         <item quantity="one">%dটি বার্তা ইনবক্সে ফিরিয়ে আনা হয়েছে</item>
         <item quantity="other">%dটি বার্তা ইনবক্সে ফিরিয়ে আনা হয়েছে</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed" tools:ignore="ImpliedQuantity">
-        <item quantity="one">ফিরিয়ে আনা হয়েছে। %d জন প্রেরককে এখন সবসময় অনুমতি দেওয়া হয়েছে।</item>
-        <item quantity="other">ফিরিয়ে আনা হয়েছে। %d জন প্রেরককে এখন সবসময় অনুমতি দেওয়া হয়েছে।</item>
     </plurals>
     <plurals name="spam_snack_allowed_only" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d জন প্রেরককে এখন সবসময় অনুমতি দেওয়া হয়েছে।</item>

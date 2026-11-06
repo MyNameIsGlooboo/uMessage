@@ -169,8 +169,6 @@ fun RulesRoute(
     onOpenBackup: () -> Unit = {},
     /** Opens the "move older lists" dialog as soon as the lists are read (from the Android block list screen). */
     openMigration: Boolean = false,
-    /** I22: an allow rule to open the add sheet with (from the "Not spam" prompt). */
-    prefill: SimilarRuleSuggestion.Suggestion? = null,
 ) {
     val viewModel: RulesViewModel = viewModel(factory = RulesViewModel.Factory)
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -181,15 +179,6 @@ fun RulesRoute(
         if (openMigration && !migrationOpened && !state.legacy.isEmpty) {
             migrationOpened = true
             viewModel.openMigration()
-        }
-    }
-
-    var prefillOpened by rememberSaveable { mutableStateOf(false) }
-    LaunchedEffect(prefill) {
-        if (prefill != null && !prefillOpened) {
-            prefillOpened = true
-            viewModel.selectTab(ListKind.ALLOW)
-            viewModel.openExample(ListKind.ALLOW, prefill.type, prefill.pattern)
         }
     }
 

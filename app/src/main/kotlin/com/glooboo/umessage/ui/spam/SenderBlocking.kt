@@ -96,34 +96,17 @@ object SenderBlocking {
     data class AllowChange(val addedRuleIds: List<Long>, val removedBlockRules: List<SpamRule>)
 
     /**
-     * "Always allow" after "Not spam" on the Blocked screen: removes the senders' own block rules (they would be
+     * The allow rules of "Not spam" on the Blocked screen: removes the senders' own block rules (they would be
      * dead weight under an allow rule) and adds an allow rule for each.
      */
-    suspend fun alwaysAllow(
-        repository: SpamRepository,
-        addresses: Collection<String>,
-        similar: SimilarRuleSuggestion.Suggestion? = null,
-    ): AllowChange {
+    suspend fun alwaysAllow(repository: SpamRepository, addresses: Collection<String>): AllowChange {
         val removed = mutableListOf<SpamRule>()
         val added = mutableListOf<Long>()
         addresses.map { it.trim() }.filter { it.isNotEmpty() }.distinct().forEach { address ->
             removed += unblock(repository, address)
             added += allow(repository, address)
         }
-        similar?.let { allowSimilar(repository, it)?.let(added::add) }
         return AllowChange(added, removed)
-    }
-
-    /** I22: the "messages like this" allow rule; null when an allow rule with the same value exists already. */
-    private suspend fun allowSimilar(repository: SpamRepository, similar: SimilarRuleSuggestion.Suggestion): Long? {
-        val known = repository.rules.first().any {
-            it.kind == ListKind.ALLOW && it.type == similar.type &&
-                it.pattern.equals(similar.pattern, ignoreCase = true)
-        }
-        if (known) return null
-        return repository.addRule(
-            SpamRule(kind = ListKind.ALLOW, type = similar.type, pattern = similar.pattern, note = ALLOW_NOTE),
-        )
     }
 
     /** Reverses [alwaysAllow]. */
@@ -134,7 +117,7 @@ object SenderBlocking {
 
     /**
      * Whether [address] is an alphanumeric sender id ("BANK-X"). Anyone can send a text under any such name, so
-     * allowing one also lets fake texts with the same name through; the allow prompt warns about it.
+     * allowing one also lets fake texts with the same name through. "Not spam" adds no rule for such a sender.
      */
     fun isSpoofable(address: String): Boolean = planSpamReport(emptyList(), address).type == RuleType.SENDER_ID
 

@@ -79,6 +79,7 @@ object MainTabLinks {
     const val TAB_ARCHIVED = "archived"
     const val TAB_FORWARDED = "forwarded"
     const val TAB_BLOCKED = "blocked"
+    const val TAB_MESSAGES = "messages"
 
     fun intent(context: Context, tab: String): Intent = Intent(context, MainActivity::class.java)
         .putExtra(EXTRA_OPEN_TAB, tab)

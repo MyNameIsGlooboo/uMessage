@@ -30,6 +30,4 @@
         <item quantity="other">As mensagens bloqueadas são excluídas após %d dias.</item>
     </plurals>
     <string name="r3b_info_purge_off">As mensagens bloqueadas ficam guardadas até você excluí-las.</string>
-    <string name="r3b_allow_body_sender_one_message">A mensagem volta para sua caixa de entrada de qualquer forma. Se você sempre permitir %1$s, as próximas mensagens desse remetente passarão por todos os filtros, inclusive suas regras de bloqueio.</string>
-    <string name="r3b_allow_body_sender_many_messages">As mensagens voltam para sua caixa de entrada de qualquer forma. Se você sempre permitir %1$s, as próximas mensagens desse remetente passarão por todos os filtros, inclusive suas regras de bloqueio.</string>
 </resources>

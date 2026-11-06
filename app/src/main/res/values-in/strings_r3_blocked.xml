@@ -29,6 +29,4 @@
         <item quantity="other">Pesan yang diblokir dihapus setelah %d hari.</item>
     </plurals>
     <string name="r3b_info_purge_off">Pesan yang diblokir disimpan sampai Anda menghapusnya.</string>
-    <string name="r3b_allow_body_sender_one_message">Pesan tetap dikembalikan ke kotak masuk, apa pun pilihan Anda. Jika Anda selalu mengizinkan %1$s, pesan berikutnya akan melewati semua filter, termasuk aturan blokir Anda.</string>
-    <string name="r3b_allow_body_sender_many_messages">Pesan tetap dikembalikan ke kotak masuk, apa pun pilihan Anda. Jika Anda selalu mengizinkan %1$s, pesan berikutnya akan melewati semua filter, termasuk aturan blokir Anda.</string>
 </resources>

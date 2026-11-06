@@ -12,7 +12,7 @@ uMessage is a fork of [Fossify Messages](https://github.com/FossifyOrg/Messages)
 - Smart mode by default on new installs: messages from unknown senders go to a Blocked folder instead of your inbox, but verification codes without a link still arrive. Strict blocks codes too; Off turns unknown-sender filtering off.
 - Allowed rules always win; blocked rules support exact number, prefix, alphanumeric sender id (for example `ACME-BANK`), keyword and regex rules. Adding an allowed keyword or pattern warns that any message containing it skips every block.
 - Rules can be exported and imported (SIM and note included); an import shows what it will add before anything changes.
-- Blocked folder is reversible: "Not spam" restores the message to the real inbox and allows the sender. Blocked messages are purged after 30 days by default (configurable).
+- Blocked folder is reversible: "Not spam" restores the messages to the real inbox and adds an allow rule for the sender in one step, with one Undo; names that anyone can fake get no rule. Delete the rule in Settings > Rules to stop allowing a sender. Blocked messages are purged after 30 days by default (configurable).
 - Forward rules: send a copy of matching inbox messages (for example bank alerts) by SMS to up to three numbers. See [Forwarding](#forwarding). Only in the GitHub and F-Droid builds, not in the Google Play build.
 - Dual SIM: receive, send and rules per SIM.
 - Blocked MMS are not downloaded, so no mobile data is spent on them.
@@ -51,7 +51,7 @@ Every incoming SMS passes through these steps, in order, before anything is writ
 
 Nothing is held "for review": a message is either delivered or put in the Blocked folder. A message whose sender cannot be read goes to the inbox, and so does any message when the contacts lookup fails or contacts access is missing, so a failure never hides texts from people you know.
 
-Blocked messages are stored only inside uMessage, with no notification unless you turn one on. Open the Blocked folder to review them and tap "Not spam" to restore one. Details: [docs/FILTER_PIPELINE.md](docs/FILTER_PIPELINE.md).
+Blocked messages are stored only inside uMessage, with no notification unless you turn one on. Open the Blocked folder to review them and tap "Not spam" to restore one and allow its sender. Details: [docs/FILTER_PIPELINE.md](docs/FILTER_PIPELINE.md).
 
 Banks, delivery companies and one-time-code services usually message you from numbers that are not contacts. Smart lets their codes through; for the rest, use "Not spam" once per sender. In Strict mode their codes are blocked too.
 
