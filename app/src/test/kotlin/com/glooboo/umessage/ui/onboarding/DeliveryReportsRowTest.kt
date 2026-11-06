@@ -35,6 +35,8 @@ class DeliveryReportsRowTest {
     fun `the switch starts on for a new install and toggling it writes the preference`() {
         // A real fresh install: wipe the app's preferences, then let Config.init run its first-run step.
         app.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE).edit().clear().commit()
+        app.getSharedPreferences("umessage_install", Context.MODE_PRIVATE).edit().clear().commit()
+        app.getSharedPreferences("spamless_onboarding", Context.MODE_PRIVATE).edit().clear().commit()
         Config.newInstance(app)
         val vm = OnboardingViewModel(app)
         compose.setContent {

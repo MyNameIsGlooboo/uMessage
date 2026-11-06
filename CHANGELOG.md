@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - A chat opened and left quickly could stay shown as unread: the chat is marked read even when you leave before it finished loading, a list refresh that started earlier no longer turns it unread again, the list updates when you come back, and its notification is cleared
+- New installs now start with the intended defaults (recycle bin on, weekly summary off, delivery reports on); the app did not always recognise a new install.
 
 ### Removed
 - "Also allow messages like this" and the "Always allow?" question after Not spam

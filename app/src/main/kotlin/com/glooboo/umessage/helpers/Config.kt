@@ -19,7 +19,7 @@ class Config(context: Context) : BaseConfig(context) {
         if (firstRun) {
             prefs.edit().putBoolean(SYSTEM_THEME_PREF_KEY, false).apply()
         }
-        InstallDefaults.apply(context, prefs, firstRun)
+        InstallDefaults.apply(context, prefs)
     }
 
     fun saveUseSIMIdAtNumber(number: String, SIMId: Int) {
