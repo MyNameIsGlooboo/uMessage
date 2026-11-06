@@ -1280,20 +1280,34 @@ fun Context.showReceivedMessageNotification(
     subscriptionId: Int = SubscriptionManager.INVALID_SUBSCRIPTION_ID,
     notify: NotifyContext = NotifyContext(),
 ) {
-    Handler(Looper.getMainLooper()).post {
-        notificationHelper.showMessageNotification(
-            messageId = messageId,
-            isMms = isMms,
-            address = address,
-            body = body,
-            threadId = threadId,
-            bitmap = bitmap,
-            sender = senderName,
-            subscriptionId = subscriptionId,
-            notify = notify,
-        )
+    // The chat may have been opened and marked read between the delivery and this post; a notification posted
+    // now would outlive the cancel that came first and keep the chat looking unread. The database is read off the
+    // main thread, where Room refuses queries.
+    ensureBackgroundThread {
+        val alreadyRead = isMessageSavedAsRead(messageId, isMms)
+        Handler(Looper.getMainLooper()).post {
+            if (alreadyRead) {
+                notificationManager.cancel(threadId.hashCode())
+                return@post
+            }
+            notificationHelper.showMessageNotification(
+                messageId = messageId,
+                isMms = isMms,
+                address = address,
+                body = body,
+                threadId = threadId,
+                bitmap = bitmap,
+                sender = senderName,
+                subscriptionId = subscriptionId,
+                notify = notify,
+            )
+        }
     }
 }
+
+/** True when the saved copy of the message is already read (the chat was opened meanwhile). */
+internal fun Context.isMessageSavedAsRead(messageId: Long, isMms: Boolean): Boolean =
+    runCatching { messagesDB.getMessage(messageId, isMms)?.read == true }.getOrDefault(false)
 
 fun Context.getNameFromAddress(address: String, privateCursor: Cursor?): String {
     var sender = getNameAndPhotoFromPhoneNumber(address).name

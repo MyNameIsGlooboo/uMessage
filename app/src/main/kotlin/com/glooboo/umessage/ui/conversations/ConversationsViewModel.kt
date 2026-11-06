@@ -246,7 +246,11 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     fun syncChanged(threadId: Long?) = if (threadId != null) sync.requestThread(threadId) else sync.requestFull()
 
     /** The screen came back: chats with newer saved messages move up. */
-    fun syncResumed() = sync.requestBump()
+    fun syncResumed() {
+        sync.requestBump()
+        // The chat marked itself read while this list was away; its rows may have been published before that.
+        sync.requestRepublish()
+    }
 
     // ---- Selection -------------------------------------------------------------------------------------
 

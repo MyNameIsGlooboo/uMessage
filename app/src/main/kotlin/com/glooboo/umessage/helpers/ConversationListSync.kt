@@ -43,6 +43,7 @@ class ConversationListSync(
     private var cachedPending = false
     private var fullPending = false
     private var bumpPending = false
+    private var republishPending = false
     private val threadsPending = LinkedHashSet<Long>()
 
     /** Threads refreshed before the full pass; a bit more than a screenful. */
@@ -80,6 +81,12 @@ class ConversationListSync(
         schedule()
     }
 
+    /** The screen came back from another one (the chat): show the saved rows as they are now, read flags included. */
+    fun requestRepublish() {
+        synchronized(lock) { republishPending = true }
+        schedule()
+    }
+
     private fun schedule() {
         synchronized(lock) {
             if (running) return
@@ -98,19 +105,22 @@ class ConversationListSync(
             val cached: Boolean
             val full: Boolean
             val bump: Boolean
+            val republish: Boolean
             val threads: List<Long>
             synchronized(lock) {
-                if (!cachedPending && !fullPending && !bumpPending && threadsPending.isEmpty()) {
+                if (nothingPending()) {
                     running = false
                     return
                 }
                 cached = cachedPending
                 full = fullPending
                 bump = bumpPending
+                republish = republishPending
                 threads = threadsPending.toList()
                 cachedPending = false
                 fullPending = false
                 bumpPending = false
+                republishPending = false
                 threadsPending.clear()
             }
             step { if (cached) showCached() }
@@ -123,8 +133,12 @@ class ConversationListSync(
                 }
             }
             step { if (bump) bump() }
+            step { if (republish) publishSaved() }
         }
     }
+
+    private fun nothingPending() =
+        !(cachedPending || fullPending || bumpPending || republishPending) && threadsPending.isEmpty()
 
     private inline fun step(block: () -> Unit) {
         try {
@@ -182,7 +196,7 @@ class ConversationListSync(
             cached == null || !Conversation.areContentsTheSame(old = cached, new = fresh)
         }
         if (changed.isNotEmpty()) {
-            changed.forEach { context.insertOrUpdateConversation(it, cachedById[it.threadId]) }
+            changed.forEach { context.insertOrUpdateConversation(keepRead(it), cachedById[it.threadId]) }
             publish(saved(), true)
         }
 
@@ -221,7 +235,7 @@ class ConversationListSync(
             if (conv != null) {
                 // FIXME: Scheduled message date is being reset here. Conversations with scheduled messages will have
                 //  their original date.
-                context.insertOrUpdateConversation(conv)
+                context.insertOrUpdateConversation(keepRead(conv))
             }
         }
 
@@ -235,6 +249,16 @@ class ConversationListSync(
         } catch (e: Exception) {
             Log.w(TAG, "Message cache import not started", e)
         }
+    }
+
+    /**
+     * A snapshot read from the phone's store before the user opened a chat must not turn the row it was just marked
+     * read in back to unread: when the saved row is read now and the snapshot has nothing newer, the row stays read.
+     */
+    internal fun keepRead(fresh: Conversation): Conversation {
+        val now = context.conversationsDB.getConversationWithThreadId(fresh.threadId) ?: return fresh
+        val stale = now.read && !fresh.read && fresh.date <= now.date
+        return if (stale) fresh.copy(read = true, unreadCount = 0) else fresh
     }
 
     /** A chat whose newest saved message is newer than the chat row jumps to the top again. */

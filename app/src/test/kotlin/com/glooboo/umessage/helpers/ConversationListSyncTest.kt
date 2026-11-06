@@ -225,6 +225,57 @@ class ConversationListSyncTest {
         assertThat(published).isEmpty()
     }
 
+    @Test
+    fun aSnapshotTakenBeforeTheChatWasReadDoesNotMakeItUnreadAgain() {
+        val row = saved().single { it.threadId == 12L }
+        offMainThread {
+            context.conversationsDB.insertOrUpdate(row.copy(read = false, unreadCount = 3))
+            context.conversationsDB.markRead(12L)
+        }
+        val stale = row.copy(read = false, unreadCount = 3)
+
+        val written = offMainThread { sync.keepRead(stale) }
+
+        assertThat(written.read).isTrue()
+        assertThat(written.unreadCount).isEqualTo(0)
+    }
+
+    @Test
+    fun aNewerMessageInTheSnapshotStaysUnread() {
+        val row = saved().single { it.threadId == 13L }
+        offMainThread { context.conversationsDB.markRead(13L) }
+        val fresh = row.copy(read = false, unreadCount = 1, date = row.date + 60)
+
+        assertThat(offMainThread { sync.keepRead(fresh) }).isEqualTo(fresh)
+    }
+
+    @Test
+    fun aChatMarkedUnreadIsNotForcedReadBySnapshots() {
+        val row = saved().single { it.threadId == 14L }
+        offMainThread { context.conversationsDB.insertOrUpdate(row.copy(read = false, unreadCount = 1)) }
+        val fresh = row.copy(read = false, unreadCount = 1)
+
+        assertThat(offMainThread { sync.keepRead(fresh) }).isEqualTo(fresh)
+    }
+
+    @Test
+    fun comingBackToTheListShowsTheSavedReadFlags() {
+        val row = saved().single { it.threadId == 15L }
+        offMainThread { context.conversationsDB.insertOrUpdate(row.copy(read = false)) }
+        sync.requestRepublish()
+        idle()
+        assertThat(published.last().single { it.threadId == 15L }.read).isFalse()
+
+        // The chat marked itself read while the list was away.
+        offMainThread { context.conversationsDB.markRead(15L) }
+        published.clear()
+        sync.requestRepublish()
+        idle()
+
+        assertThat(published.last().single { it.threadId == 15L }.read).isTrue()
+        assertThat(provider.totalQueries()).isEqualTo(0)
+    }
+
     private fun message(id: Long, thread: Long, body: String, date: Int) = Message(
         id = id, body = body, type = 2, status = -1, participants = ArrayList(), date = date, read = true,
         threadId = thread, isMMS = false, attachment = null, senderPhoneNumber = "", senderName = "",

@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Private notes on messages (shown under the message, kept in backups, searchable)
 
+### Fixed
+- A chat opened and left quickly could stay shown as unread: the chat is marked read even when you leave before it finished loading, a list refresh that started earlier no longer turns it unread again, the list updates when you come back, and its notification is cleared
+
 ## [0.3.0] - 2026-11-06
 ### Added
 - Google Play build (`gplay` flavor) without automatic forwarding; GitHub and F-Droid builds keep it
