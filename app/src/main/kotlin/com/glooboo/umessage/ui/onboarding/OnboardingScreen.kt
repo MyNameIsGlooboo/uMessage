@@ -196,6 +196,7 @@ fun OnboardingScreen(
 
     val mode by viewModel.mode.collectAsStateWithLifecycle()
     val purgeDays by viewModel.purgeDays.collectAsStateWithLifecycle()
+    val deliveryReports by viewModel.deliveryReports.collectAsStateWithLifecycle()
     // Set by "Restore a backup" on the first page: Backup and restore opens after Finish, once uMessage can be default.
     var restoreAfter by rememberSaveable { mutableStateOf(false) }
 
@@ -318,6 +319,8 @@ fun OnboardingScreen(
                         onMode = viewModel::setMode,
                         purgeDays = purgeDays,
                         onPurgeDays = viewModel::setPurgeDays,
+                        deliveryReports = deliveryReports,
+                        onDeliveryReports = viewModel::setDeliveryReports,
                     )
 
                     OnboardingPage.KEEP_RUNNING ->
@@ -734,6 +737,8 @@ private fun ModePage(
     onMode: (UnknownSenderMode) -> Unit,
     purgeDays: Int,
     onPurgeDays: (Int) -> Unit,
+    deliveryReports: Boolean = true,
+    onDeliveryReports: (Boolean) -> Unit = {},
 ) {
     val options = listOf(
         Triple(UnknownSenderMode.STRICT, R.string.onb_mode_strict, R.string.onb_mode_strict_desc),
@@ -801,6 +806,7 @@ private fun ModePage(
                 }
             }
         }
+        DeliveryReportsRow(deliveryReports, onDeliveryReports)
     }
 }
 

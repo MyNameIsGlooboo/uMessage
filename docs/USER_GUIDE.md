@@ -7,6 +7,7 @@ uMessage is a messaging app for SMS and MMS that keeps spam out of your inbox. T
 1. Open uMessage and tap **Set as default SMS app**. uMessage can only receive and filter messages while it is your default SMS app.
 2. Allow SMS, Contacts, Phone and Notifications. Contacts access is how uMessage knows who you know. Without it, uMessage does not block unknown phone numbers at all, so that it never hides messages from family and friends.
 3. On Xiaomi, Redmi and Poco phones turn on **Autostart** and set **Battery saver** to "No restrictions" for uMessage. On Samsung, remove it from "Sleeping apps". Otherwise the phone may delay incoming messages.
+4. On the welcome screen, the **Delivery reports** switch is on by default and shows when your messages are delivered. Some carriers may charge for delivery reports, so switch it off there if yours does. You can change it later in Settings > Typing and sending > Sending > **Get delivery reports**.
 
 ## Who counts as known
 

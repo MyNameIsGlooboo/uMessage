@@ -51,4 +51,37 @@ class InstallDefaultsTest {
 
         assertThat(cleanup.digestOn).isFalse()
     }
+
+    @Test
+    fun aNewInstallStoresDeliveryReportsOn() {
+        InstallDefaults.apply(context, configPrefs, firstRun = true)
+
+        assertThat(configPrefs.getBoolean(ENABLE_DELIVERY_REPORTS, false)).isTrue()
+    }
+
+    @Test
+    fun theSecondLaunchOfANewInstallKeepsDeliveryReportsOn() {
+        InstallDefaults.apply(context, configPrefs, firstRun = true)
+        InstallDefaults.apply(context, configPrefs, firstRun = false)
+
+        assertThat(configPrefs.getBoolean(ENABLE_DELIVERY_REPORTS, false)).isTrue()
+    }
+
+    @Test
+    fun anOlderInstallThatNeverStoredDeliveryReportsKeepsThemOff() {
+        InstallDefaults.apply(context, configPrefs, firstRun = false)
+
+        assertThat(configPrefs.getBoolean(ENABLE_DELIVERY_REPORTS, true)).isFalse()
+    }
+
+    @Test
+    fun anOlderInstallKeepsAStoredDeliveryReportsChoice() {
+        listOf(true, false).forEach { stored ->
+            configPrefs.edit().putBoolean(ENABLE_DELIVERY_REPORTS, stored).apply()
+
+            InstallDefaults.apply(context, configPrefs, firstRun = false)
+
+            assertThat(configPrefs.getBoolean(ENABLE_DELIVERY_REPORTS, !stored)).isEqualTo(stored)
+        }
+    }
 }

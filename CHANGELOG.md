@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Delivery reports are on by default on new installs and can be switched on or off on the welcome screen (existing installs keep their setting)
 
 ## [0.3.0] - 2026-11-06
 ### Added
