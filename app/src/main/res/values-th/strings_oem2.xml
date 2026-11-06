@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">Vivo หรือ iQOO</string>
+    <string name="oem2_step_vivo">อนุญาตให้เริ่มอัตโนมัติและทำงานเบื้องหลัง</string>
+    <string name="oem2_step_vivo_desc">เปิดเริ่มอัตโนมัติสำหรับ uMessage แล้วอนุญาตให้ใช้พลังงานสูงขณะทำงานเบื้องหลังในการตั้งค่าแบตเตอรี่ของแอป</string>
+    <string name="oem2_xiaomi_autostart_desc">เปิดเริ่มอัตโนมัติสำหรับ uMessage เพื่อให้แอปเริ่มทำงานหลังรีสตาร์ทเครื่อง หากหน้าข้อมูลแอปเปิดขึ้น ให้เปิดสวิตช์เริ่มอัตโนมัติในหน้านั้น</string>
+    <string name="oem2_xiaomi_battery_desc">เลือกไม่มีข้อจำกัดสำหรับ uMessage หากรายการแอปเปิดขึ้น ให้แตะ uMessage ก่อน</string>
+    <string name="oem2_oppo_desc">เปิดอนุญาตให้เปิดอัตโนมัติและอนุญาตกิจกรรมเบื้องหลังสำหรับ uMessage ในโทรศัพท์รุ่นใหม่ ตัวเลือกเหล่านี้อยู่ในข้อมูลแอป ส่วนการใช้แบตเตอรี่</string>
+    <string name="oem2_ignore_battery_desc">เลือกไม่จำกัดหรือไม่เพิ่มประสิทธิภาพสำหรับ uMessage หากรายการเปิดขึ้น ให้เปลี่ยนเป็นแอปทั้งหมดก่อน</string>
+    <string name="oem2_state_done">เสร็จแล้ว</string>
+    <string name="oem2_state_marked">คุณทำเครื่องหมายว่าเสร็จแล้ว</string>
+    <string name="oem2_state_todo">ยังไม่เสร็จ</string>
+    <string name="oem2_state_limited">Android ยังจำกัดการทำงานเบื้องหลังของ uMessage</string>
+    <string name="oem2_open_again">เปิดอีกครั้ง</string>
+    <string name="oem2_undo">เลิกทำ</string>
+    <string name="oem2_undo_cd">ทำเครื่องหมาย %1$s ว่ายังไม่เสร็จ</string>
+</resources>

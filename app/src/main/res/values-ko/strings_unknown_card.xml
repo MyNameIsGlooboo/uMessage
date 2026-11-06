@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">연락처에 없는 발신자</string>
+    <string name="i04_card_caution">링크, 금전 요구, 코드를 주의하세요.</string>
+    <string name="i04_card_add_contact">연락처 추가</string>
+    <string name="i04_card_allow">항상 허용</string>
+    <string name="i04_card_block">차단</string>
+    <string name="i04_card_dismiss">닫기</string>
+</resources>

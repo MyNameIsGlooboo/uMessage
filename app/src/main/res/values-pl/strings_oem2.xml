@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">Vivo lub iQOO</string>
+    <string name="oem2_step_vivo">Zezwól na autostart i działanie w tle</string>
+    <string name="oem2_step_vivo_desc">Włącz autostart uMessage, a w ustawieniach baterii aplikacji zezwól na wysokie zużycie energii w tle.</string>
+    <string name="oem2_xiaomi_autostart_desc">Włącz autostart uMessage, by aplikacja uruchamiała się po ponownym włączeniu telefonu. Jeśli otworzy się ekran informacji o aplikacji, użyj przełącznika „Autostart”.</string>
+    <string name="oem2_xiaomi_battery_desc">Wybierz „Bez ograniczeń” dla uMessage. Jeśli otworzy się lista aplikacji, najpierw dotknij uMessage.</string>
+    <string name="oem2_oppo_desc">Włącz „Zezwól na automatyczne uruchamianie” i „Zezwól na aktywność w tle” dla uMessage. Na nowszych telefonach znajdziesz je w „Informacje o aplikacji”, w sekcji „Użycie baterii”.</string>
+    <string name="oem2_ignore_battery_desc">Wybierz „Bez ograniczeń” lub „Nie optymalizuj” dla uMessage. Jeśli otworzy się lista, najpierw przełącz ją na „Wszystkie aplikacje”.</string>
+    <string name="oem2_state_done">Gotowe</string>
+    <string name="oem2_state_marked">Oznaczone przez ciebie jako gotowe</string>
+    <string name="oem2_state_todo">Jeszcze niegotowe</string>
+    <string name="oem2_state_limited">Android nadal ogranicza działanie uMessage w tle</string>
+    <string name="oem2_open_again">Otwórz ponownie</string>
+    <string name="oem2_undo">Cofnij</string>
+    <string name="oem2_undo_cd">Oznacz jako niewykonane: %1$s</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_review_details_decision">판정</string>
+    <string name="thread_review_details_decision_allowed">허용됨: 받은 메시지함으로 전달됨</string>
+    <string name="thread_review_details_type">유형</string>
+    <string name="thread_review_details_type_sms">SMS</string>
+    <string name="thread_review_details_type_mms">MMS</string>
+    <string name="thread_review_sim_slot_name">SIM %1$d · %2$s</string>
+    <string name="thread_review_copy_code">코드 복사</string>
+    <string name="thread_review_copy_password">비밀번호 복사</string>
+    <string name="thread_review_copy_username">사용자 이름 복사</string>
+    <string name="thread_review_sim_label">SIM %1$s</string>
+    <string name="thread_review_sends_from">발신: %1$s</string>
+    <string name="thread_review_reply_disabled">이 발신자는 답장을 받을 수 없어요.</string>
+    <string name="thread_review_attach_camera">카메라</string>
+    <string name="thread_review_attach_voice">음성</string>
+    <string name="thread_review_schedule_in_hour">1시간 후</string>
+    <string name="thread_review_schedule_evening">오늘 저녁</string>
+    <string name="thread_review_schedule_tomorrow">내일 9:00</string>
+</resources>

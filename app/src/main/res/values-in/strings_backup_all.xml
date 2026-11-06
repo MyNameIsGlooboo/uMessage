@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n09_backup_contents">Semuanya kecuali pesan Anda: aturan izinkan, blokir, dan teruskan serta semua setelan. File ini tidak dienkripsi dan berisi nomor tujuan penerusan, jadi simpan di tempat pribadi. Aturan teruskan dipulihkan dalam keadaan nonaktif.</string>
+    <string name="n09_label_spam">Perlindungan spam</string>
+    <string name="n09_label_notifications">Notifikasi</string>
+    <string name="n09_label_chat">Chat dan daftar pesan</string>
+    <string name="n09_label_sending">Pengiriman</string>
+    <string name="n09_label_cleanup">Pembersihan dan penyimpanan</string>
+    <string name="n09_label_privacy">Privasi dan opsi kunci</string>
+    <string name="n09_restore_not_included">Tidak disertakan dalam file: pesan Anda, PIN kunci aplikasi, nama SIM, teks tersimpan, chat tersembunyi, dan waktu pembisuan.</string>
+    <string name="n09_restore_after">Jadikan uMessage aplikasi SMS default lagi dan atur kembali kunci aplikasi.</string>
+</resources>

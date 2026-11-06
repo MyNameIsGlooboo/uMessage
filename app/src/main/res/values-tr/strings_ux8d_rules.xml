@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">Her zaman izin verin</string>
+    <string name="ux8d_sheet_title_block">Her zaman engelleyin</string>
+    <string name="ux8d_match_label">Eşleşme ölçütü</string>
+    <string name="ux8d_match_number">Telefon numarası</string>
+    <string name="ux8d_match_sender">Banka gibi bir gönderen adı</string>
+    <string name="ux8d_match_word">Mesajdaki bir kelime</string>
+    <string name="ux8d_match_prefix">Şununla başlayan numaralar…</string>
+    <string name="ux8d_match_pattern">Düzenli ifade (gelişmiş)</string>
+    <string name="ux8d_match_more">Diğer eşleşme ölçütleri</string>
+    <string name="ux8d_action_label">Eşleştiğinde</string>
+    <string name="ux8d_more_options">Diğer seçenekler</string>
+    <string name="ux8d_row_type_number">Numara</string>
+    <string name="ux8d_row_type_prefix">Numara başlangıcı</string>
+    <string name="ux8d_row_type_sender">Gönderen adı</string>
+    <string name="ux8d_row_type_word">Mesajdaki kelime</string>
+    <string name="ux8d_row_type_pattern">Düzenli ifade</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

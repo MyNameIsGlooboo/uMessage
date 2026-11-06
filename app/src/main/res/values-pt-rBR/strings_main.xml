@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_search_hint">Pesquise conversas</string>
+    <string name="main_search_back">Feche a pesquisa</string>
+    <string name="main_search_clear">Limpe o texto da pesquisa</string>
+    <string name="main_search_type_more">Digite pelo menos 2 caracteres para pesquisar</string>
+    <string name="main_search_no_results">Nenhum resultado encontrado</string>
+    <string name="main_settings">Configurações</string>
+    <string name="main_tab_messages">Mensagens</string>
+    <string name="main_tab_blocked">Bloqueados</string>
+    <string name="main_tab_archived">Arquivadas</string>
+    <plurals name="main_tab_blocked_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Bloqueados, %d nova</item>
+        <item quantity="other">Bloqueados, %d novas</item>
+    </plurals>
+    <string name="main_permission_title">Permissão necessária</string>
+    <string name="main_permission_grant">Conceda permissão</string>
+    <string name="main_permission_notifications">Permita notificações para que o app possa mostrar as mensagens recebidas.</string>
+    <string name="main_sms_permission_title">O uMessage precisa de acesso aos SMS</string>
+    <string name="main_sms_permission_body">Sem permissão para ler e enviar SMS, o uMessage não pode mostrar suas mensagens, enviar SMS nem filtrar spam. Nada é excluído.</string>
+    <string name="main_sms_permission_settings">Abra as configurações do app</string>
+    <string name="main_not_default_banner">O uMessage não é seu app de SMS padrão, por isso não pode bloquear spam nem enviar mensagens.</string>
+    <string name="main_not_default_fix">Corrija</string>
+    <string name="main_not_default_fix_description">Defina o uMessage como app de SMS padrão</string>
+</resources>

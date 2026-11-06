@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_format_json">uMessage 파일 (문자와 사진)</string>
+    <string name="export_format_xml">SMS Backup &amp; Restore 파일 (다른 앱용)</string>
+    <string name="export_format_xml_hint">이 형식의 파일에서는 문자만 복원할 수 있어요.</string>
+    <string name="export_scope_all">모든 대화</string>
+    <string name="export_scope_choose">대화 선택</string>
+    <plurals name="export_scope_chosen">
+        <item quantity="other">대화 %1$d개 선택됨</item>
+    </plurals>
+    <string name="export_pick_title">대화 선택</string>
+    <string name="export_pick_search">검색</string>
+    <string name="export_pick_all">전체 선택</string>
+    <string name="export_pick_none">선택 해제</string>
+    <string name="export_pick_empty">대화가 없어요.</string>
+    <string name="export_pick_nothing_chosen">대화를 하나 이상 선택해 주세요.</string>
+</resources>

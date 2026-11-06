@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">Wysłać o dokładnej porze?</string>
+    <string name="schedule_exact_alarm_text">Aby zaplanowane wiadomości były wysyłane o dokładnej porze, zezwól uMessage na „Alarmy i przypomnienia” w ustawieniach systemowych. Bez tego wiadomości nadal będą wysyłane, ale mogą być opóźnione.</string>
+    <string name="schedule_exact_alarm_open_settings">Otwórz ustawienia</string>
+    <string name="schedule_exact_alarm_anyway">Zaplanuj mimo to</string>
+</resources>

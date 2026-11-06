@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_list_title">Запланированные сообщения</string>
+    <string name="scheduled_list_empty_title">Нет запланированных сообщений</string>
+    <string name="scheduled_list_empty_body">Здесь сообщения с запланированной отправкой ждут своего времени.</string>
+    <string name="scheduled_list_not_sent">Не отправлено</string>
+    <string name="scheduled_list_edit_time">Изменить время</string>
+    <string name="scheduled_list_send_now">Отправить сейчас</string>
+    <string name="scheduled_list_delete">Удалить</string>
+    <string name="scheduled_list_send_confirm">Отправить это сообщение получателю %1$s сейчас?</string>
+    <string name="scheduled_list_delete_confirm">Удалить запланированное сообщение для %1$s?</string>
+    <string name="scheduled_list_row_actions">Действия с сообщением для %1$s</string>
+</resources>

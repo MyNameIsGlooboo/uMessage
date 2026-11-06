@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- I25: the list of every scheduled message. -->
+    <string name="scheduled_list_title">Scheduled messages</string>
+    <string name="scheduled_list_empty_title">Nothing scheduled</string>
+    <string name="scheduled_list_empty_body">Messages you schedule wait here until they are sent.</string>
+    <string name="scheduled_list_not_sent">Not sent</string>
+    <string name="scheduled_list_edit_time">Change time</string>
+    <string name="scheduled_list_send_now">Send now</string>
+    <string name="scheduled_list_delete">Delete</string>
+    <string name="scheduled_list_send_confirm">Send this message to %1$s now?</string>
+    <string name="scheduled_list_delete_confirm">Delete the scheduled message to %1$s?</string>
+    <string name="scheduled_list_row_actions">Actions for the message to %1$s</string>
+</resources>

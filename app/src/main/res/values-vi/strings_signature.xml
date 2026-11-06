@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">Chữ ký</string>
+    <string name="i60_off">Tắt</string>
+    <string name="i60_dialog_note">Được thêm dưới mỗi tin nhắn bạn gửi. Để trống nếu không dùng.</string>
+</resources>

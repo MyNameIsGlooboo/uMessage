@@ -1,0 +1,1026 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>ComplexCondition:Activity.kt$contact.rawId &gt; 1000000 &amp;&amp; contact.contactId &gt; 1000000 &amp;&amp; contact.rawId == contact.contactId &amp;&amp; (isPackageInstalled(simpleContacts) || isPackageInstalled(simpleContactsDebug))</ID>
+    <ID>ComplexCondition:AppLockLogic.kt$PatternGeometry$x &lt; 0f || y &lt; 0f || col !in 0 until AppLockLogic.PATTERN_SIZE || row !in 0 until AppLockLogic.PATTERN_SIZE</ID>
+    <ID>ComplexCondition:ConversationListSync.kt$ConversationListSync$!cachedPending &amp;&amp; !fullPending &amp;&amp; !bumpPending &amp;&amp; threadsPending.isEmpty()</ID>
+    <ID>ComplexCondition:ConversationsScreen.kt$topThreadId != null &amp;&amp; previous != null &amp;&amp; previous != topThreadId &amp;&amp; userWasAtTop</ID>
+    <ID>ComplexCondition:RulesScreen.kt$!state.loading &amp;&amp; (state.current.isNotEmpty() || hasLegacy || state.filtering)</ID>
+    <ID>ComplexCondition:SettingsRows.kt$prev == null || prev.size != next.size || prev.indices.any { prev[it].y != next[it].y || prev[it].height != next[it].height }</ID>
+    <ID>ComplexCondition:TextNormalizer.kt$TextNormalizer$text.none { it in REMOVED || it in REPLACEMENTS || (it.isDigit() &amp;&amp; it !in '0'..'9') }</ID>
+    <ID>ComplexCondition:ThreadActivity.kt$ThreadActivity$!vm.longMmsNoted &amp;&amp; vm.attachments.isEmpty() &amp;&amp; messageString.isNotBlank() &amp;&amp; isLongMmsMessage(messageString)</ID>
+    <ID>ComplexCondition:ThreadActivity.kt$ThreadActivity$segments != null &amp;&amp; segments.unicode &amp;&amp; segments.isMultipart &amp;&amp; !vm.unicodePartsNoted &amp;&amp; !vm.isMms</ID>
+    <ID>ComplexCondition:ThreadAttachmentController.kt$(isGif || !isImage) &amp;&amp; sizeLimit != FILE_SIZE_NONE &amp;&amp; fileSize() &gt; sizeLimit</ID>
+    <ID>ComplexCondition:ThreadMediaSizes.kt$loadedWidth != null &amp;&amp; loadedHeight != null &amp;&amp; loadedWidth &gt; 0 &amp;&amp; loadedHeight &gt; 0</ID>
+    <ID>CompositionLocalAllowlist:AppBars.kt$LocalPageScrollBehavior</ID>
+    <ID>CyclomaticComplexMethod:AppLockDialog.kt$@Composable private fun PatternPad(mode: PadMode, enabled: Boolean, resetKey: Int, onComplete: (List&lt;Int&gt;) -&gt; Unit)</ID>
+    <ID>CyclomaticComplexMethod:AppLockDialog.kt$@Composable private fun PinTab(requiredHash: String, onSuccess: (hash: String) -&gt; Unit)</ID>
+    <ID>CyclomaticComplexMethod:BackupService.kt$BackupService$override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int</ID>
+    <ID>CyclomaticComplexMethod:BackupSummaryText.kt$BackupSummaryText$fun import(context: Context, summary: ImportSummary): String</ID>
+    <ID>CyclomaticComplexMethod:BlockedMmsContent.kt$BlockedMmsContent.Companion$fun parse(pdu: ByteArray?): BlockedMmsContent?</ID>
+    <ID>CyclomaticComplexMethod:BlockedNumbersScreen.kt$@Composable fun BlockedNumbersRoute(onBack: () -&gt; Unit)</ID>
+    <ID>CyclomaticComplexMethod:BlockedScreen.kt$@OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class) @Composable private fun SenderGroupItem( group: SenderGroup, sims: List&lt;SimInfo&gt;, rules: Map&lt;Long, SpamRule&gt;, purgeAfterDays: Int, selected: Boolean, expanded: Boolean, selecting: Boolean, reduceMotion: Boolean, actions: BlockedActions, modifier: Modifier = Modifier, )</ID>
+    <ID>CyclomaticComplexMethod:Context.kt$fun Context.getMMS( threadId: Long? = null, sortOrder: String? = null, dateFrom: Int = -1, uri: Uri = Mms.CONTENT_URI, ): ArrayList&lt;Message&gt;</ID>
+    <ID>CyclomaticComplexMethod:Context.kt$private fun Context.readConversations( threadId: Long?, privateContacts: ArrayList&lt;SimpleContact&gt;, limit: Int?, lookups: ConversationLookups, ): Pair&lt;ArrayList&lt;Conversation&gt;, Boolean&gt;</ID>
+    <ID>CyclomaticComplexMethod:ConversationItem.kt$@Composable fun ContactAvatar( title: String, photoUri: String, modifier: Modifier = Modifier, isGroup: Boolean = false, selected: Boolean = false, size: Dp = AvatarSize, )</ID>
+    <ID>CyclomaticComplexMethod:ConversationItem.kt$@Composable fun SwipeableConversation( row: ConversationRow, selected: Boolean, selecting: Boolean, canArchive: Boolean, callbacks: ConversationsCallbacks, modifier: Modifier = Modifier, )</ID>
+    <ID>CyclomaticComplexMethod:ConversationItem.kt$@OptIn(ExperimentalFoundationApi::class) @Composable fun ConversationItem( row: ConversationRow, selected: Boolean, selecting: Boolean, callbacks: ConversationsCallbacks, canArchive: Boolean, modifier: Modifier = Modifier, longPressEnabled: () -&gt; Boolean = { true }, )</ID>
+    <ID>CyclomaticComplexMethod:ConversationListSync.kt$ConversationListSync$private fun fullPass()</ID>
+    <ID>CyclomaticComplexMethod:ConversationsSelectionBar.kt$@Composable fun ConversationsSelectionBar( selection: SelectionActions, callbacks: ConversationsCallbacks, modifier: Modifier = Modifier, )</ID>
+    <ID>CyclomaticComplexMethod:ConversationsViewModel.kt$ConversationsViewModel$private fun build(s: Snapshot): ConversationsUiState</ID>
+    <ID>CyclomaticComplexMethod:CountingInboxProvider.kt$CountingInboxProvider$override fun query( uri: Uri, projection: Array&lt;out String&gt;?, selection: String?, selectionArgs: Array&lt;out String&gt;?, sortOrder: String?, ): Cursor?</ID>
+    <ID>CyclomaticComplexMethod:DefaultSpamFilter.kt$DefaultSpamFilter$override fun evaluate(message: IncomingMessage): FilterDecision</ID>
+    <ID>CyclomaticComplexMethod:FakeMessageStore.kt$FakeMessageStore$override fun query( uri: Uri, projection: Array&lt;out String&gt;?, selection: String?, selectionArgs: Array&lt;out String&gt;?, sortOrder: String?, ): Cursor?</ID>
+    <ID>CyclomaticComplexMethod:FakeThreadStore.kt$FakeThreadStore$override fun query( uri: Uri, projection: Array&lt;out String&gt;?, selection: String?, selectionArgs: Array&lt;out String&gt;?, sortOrder: String?, ): Cursor?</ID>
+    <ID>CyclomaticComplexMethod:ForwardPlanner.kt$ForwardPlanner$fun plan(message: ForwardCandidate, rules: List&lt;ForwardRule&gt;, senderDisplay: (String) -&gt; String): ForwardPlan</ID>
+    <ID>CyclomaticComplexMethod:ForwardRulesScreen.kt$@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class) @Composable fun ForwardSheet(form: ForwardForm, sims: List&lt;SimInfo&gt;, actions: ForwardActions)</ID>
+    <ID>CyclomaticComplexMethod:ImageCompressor.kt$ImageCompressor$fun compressImage(uri: Uri, compressSize: Long, lossy: Boolean = compressSize &lt; FILE_SIZE_1_MB, callback: (compressedFileUri: Uri?) -&gt; Unit)</ID>
+    <ID>CyclomaticComplexMethod:LockScreen.kt$@Composable private fun PatternPad(enabled: Boolean, wrongCount: Int, locked: Boolean, size: Dp, onComplete: (List&lt;Int&gt;) -&gt; Unit)</ID>
+    <ID>CyclomaticComplexMethod:MessagesImporter.kt$MessagesImporter$private fun importXml( stream: InputStream, options: Options, summary: ImportSummary, counting: CountingInputStream, progress: Progress, isCancelled: () -&gt; Boolean, )</ID>
+    <ID>CyclomaticComplexMethod:MessagesWriter.kt$MessagesWriter$private fun writeMms(backup: MmsBackup): WriteResult</ID>
+    <ID>CyclomaticComplexMethod:Messaging.kt$fun Context.sendMessageCompat( text: String, addresses: List&lt;String&gt;, subId: Int?, attachments: List&lt;Attachment&gt;, resend: MessageKey? = null, onFailure: () -&gt; Unit = {} ): Boolean</ID>
+    <ID>CyclomaticComplexMethod:MessagingUtils.kt$MessagingUtils$fun sendSmsMessage( text: String, addresses: Set&lt;String&gt;, subId: Int, requireDeliveryReport: Boolean, messageId: Long? = null )</ID>
+    <ID>CyclomaticComplexMethod:MmsPushGate.kt$MmsPushGate$fun parse(pushData: ByteArray?): MmsPushInfo?</ID>
+    <ID>CyclomaticComplexMethod:NewConversationScreen.kt$@OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class) @Composable fun NewConversationScreen( contacts: List&lt;SimpleContact&gt;, suggestions: List&lt;SimpleContact&gt;, loaded: Boolean, hasContactsPermission: Boolean, onBack: () -&gt; Unit, onRequestPermission: () -&gt; Unit, onSubmitAddress: (String) -&gt; Unit, onPickNumber: (contact: SimpleContact, number: PhoneNumber) -&gt; Unit, modifier: Modifier = Modifier, onStartGroup: (List&lt;GroupRecipient&gt;) -&gt; Unit = {}, )</ID>
+    <ID>CyclomaticComplexMethod:NotificationHelper.kt$NotificationHelper$@SuppressLint("NewApi") fun showMessageNotification( messageId: Long, isMms: Boolean, address: String, body: String, threadId: Long, bitmap: Bitmap?, sender: String?, alertOnlyOnce: Boolean = false, subscriptionId: Int = SubscriptionManager.INVALID_SUBSCRIPTION_ID, notify: NotifyContext = NotifyContext(), offerSmartReplies: Boolean = true, )</ID>
+    <ID>CyclomaticComplexMethod:NumberNormalizer.kt$NumberNormalizer$fun sameAddress(a: String, b: String): Boolean</ID>
+    <ID>CyclomaticComplexMethod:OnboardingScreen.kt$@Composable fun OnboardingScreen( viewModel: OnboardingViewModel, reduceMotion: Boolean, onFinish: (openBackup: Boolean) -&gt; Unit, )</ID>
+    <ID>CyclomaticComplexMethod:PersianTranslationTest.kt$PersianTranslationTest$private fun problems(resDir: File, requireComplete: Boolean): List&lt;String&gt;</ID>
+    <ID>CyclomaticComplexMethod:RegexGuard.kt$RegexGuard$internal fun hasNestedRepeat(p: String): Boolean</ID>
+    <ID>CyclomaticComplexMethod:RuleLogic.kt$RuleValidator$fun validate(kind: ListKind, type: RuleType, raw: String): RuleValidation</ID>
+    <ID>CyclomaticComplexMethod:RulesScreen.kt$@Composable fun RulesRoute(onBack: () -&gt; Unit, onOpenSystemBlockList: () -&gt; Unit = {}, onOpenAppLockSettings: () -&gt; Unit = {})</ID>
+    <ID>CyclomaticComplexMethod:RulesScreen.kt$@Composable private fun errorText(error: RuleValidation.Invalid): String</ID>
+    <ID>CyclomaticComplexMethod:RulesScreen.kt$@OptIn(ExperimentalLayoutApi::class, ExperimentalFoundationApi::class) @Composable private fun RuleRow( rule: SpamRule, shape: Shape, sims: List&lt;SimInfo&gt;, selected: Boolean, selecting: Boolean, actions: RulesActions, modifier: Modifier = Modifier, )</ID>
+    <ID>CyclomaticComplexMethod:RulesScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun RulesScreen( state: RulesUiState, snackbarHostState: SnackbarHostState, actions: RulesActions, forward: ForwardUiState = ForwardUiState(loading = false), forwardActions: ForwardActions = ForwardActions(), )</ID>
+    <ID>CyclomaticComplexMethod:RulesScreen.kt$@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class) @Composable fun AddRuleSheet(form: RuleForm, sims: List&lt;SimInfo&gt;, actions: RulesActions)</ID>
+    <ID>CyclomaticComplexMethod:ScheduleMessageDialog.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun ScheduleFlow( activity: BaseSimpleActivity, initial: LocalDateTime?, onConfirm: (LocalDateTime) -&gt; Unit, onDismiss: () -&gt; Unit, )</ID>
+    <ID>CyclomaticComplexMethod:ThreadItemsBuilder.kt$fun buildThreadItems( messages: List&lt;Message&gt;, simLabels: Map&lt;Int, String&gt;, seen: Boolean, deliveryReportsOn: Boolean = true, firstUnreadId: Long? = null, showTapbacks: Boolean = false, ): ThreadItems</ID>
+    <ID>CyclomaticComplexMethod:ThreadScreen.kt$@Composable private fun MessageList(vm: ThreadViewModel, actions: ThreadActions, modifier: Modifier)</ID>
+    <ID>CyclomaticComplexMethod:ThreadScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun SelectionTopBar(vm: ThreadViewModel, actions: ThreadActions)</ID>
+    <ID>CyclomaticComplexMethod:UMessageTheme.kt$internal fun resolveColorScheme( ctx: Context, presetId: PresetId, darkTheme: Boolean?, dynamicColor: Boolean?, systemDark: Boolean, ): ColorScheme</ID>
+    <ID>CyclomaticComplexMethod:ThreadActivity.kt$ThreadActivity$private fun handleMenuAction(action: ThreadMenuAction)</ID>
+    <ID>CyclomaticComplexMethod:ThreadActivity.kt$ThreadActivity$private fun setupThread(callback: () -&gt; Unit)</ID>
+    <ID>CyclomaticComplexMethod:ThreadBubbles.kt$@OptIn(ExperimentalFoundationApi::class) @Composable private fun MessageBubbleRow(row: ThreadRow.Bubble, vm: ThreadViewModel, actions: ThreadActions)</ID>
+    <ID>CyclomaticComplexMethod:ThreadMenuRules.kt$fun buildThreadMenu(input: ThreadMenuInput): ThreadMenuState</ID>
+    <ID>CyclomaticComplexMethod:ThreadRows.kt$fun buildThreadRows(items: List&lt;ThreadItem&gt;, isGroup: Boolean): List&lt;ThreadRow&gt;</ID>
+    <ID>ForbiddenComment:ConversationListSync.kt$ConversationListSync$// FIXME: Scheduled message date is being reset here. Conversations with scheduled messages will have</ID>
+    <ID>ForbiddenComment:ShortcutHelper.kt$ShortcutHelper$// TODO: verify that thread isn't in recycle bin</ID>
+    <ID>ForbiddenComment:SmsStatusDeliveredReceiver.kt$SmsStatusDeliveredReceiver$// TODO: Need to check whether SC still trying to deliver the SMS to destination and will send the report again?</ID>
+    <ID>FunctionParameterNaming:Config.kt$Config$SIMId: Int</ID>
+    <ID>LambdaParameterEventTrailing:OnboardingScreen.kt$onMode</ID>
+    <ID>LambdaParameterEventTrailing:OnboardingScreen.kt$onOpenSettings</ID>
+    <ID>LambdaParameterEventTrailing:OnboardingScreen.kt$onPurgeDays</ID>
+    <ID>LambdaParameterEventTrailing:ThemePresetsActivity.kt$onClick</ID>
+    <ID>LambdaParameterEventTrailing:ThreadComposer.kt$onClick</ID>
+    <ID>LargeClass:ThreadActivity.kt$ThreadActivity : ComposeSimpleActivity</ID>
+    <ID>LongMethod:NotificationHelper.kt$NotificationHelper$@SuppressLint("NewApi") fun showMessageNotification( messageId: Long, isMms: Boolean, address: String, body: String, threadId: Long, bitmap: Bitmap?, sender: String?, alertOnlyOnce: Boolean = false, subscriptionId: Int = SubscriptionManager.INVALID_SUBSCRIPTION_ID, notify: NotifyContext = NotifyContext(), offerSmartReplies: Boolean = true, )</ID>
+    <ID>LongParameterList:ConversationFolderScreen.kt$ConversationFolder$( val titleRes: Int, val emptyTitleRes: Int, val emptyBodyRes: Int, val restoreIcon: ImageVector, val restoreLabelRes: Int, /** Title and message (taking "N conversations") of the "bring back" confirmation. */ val restoreTitleRes: Int, val restoreMessageRes: Int, val emptyConfirmRes: Int, val emptyAllTitleRes: Int, )</ID>
+    <ID>LongParameterList:ConversationsViewModel.kt$ConversationsViewModel.Snapshot$( val source: List&lt;Conversation&gt;, val drafts: Map&lt;Long, String&gt;, val sims: List&lt;SimInfo&gt;, val selected: Set&lt;Long&gt;, val hidden: Set&lt;Long&gt;, val newBlockedCount: Int, val archiveAvailable: Boolean, val hasData: Boolean, val importing: Boolean, )</ID>
+    <ID>LongParameterList:ThreadConversationActions.kt$ThreadConversationActions$( private val activity: BaseSimpleActivity, private val threadId: () -&gt; Long, private val isRecycleBin: () -&gt; Boolean, private val recipients: () -&gt; ThreadRecipients, private val conversation: () -&gt; Conversation?, private val title: () -&gt; String, /** Shows a short note to the user (a snackbar). */ private val showMessage: (String) -&gt; Unit, /** Runs on the main thread with the renamed conversation. */ private val onRenamed: (Conversation) -&gt; Unit, )</ID>
+    <ID>LoopWithTooManyJumpStatements:BlockedMmsContent.kt$BlockedMmsContent.Companion$for</ID>
+    <ID>LoopWithTooManyJumpStatements:ConversationItem.kt$while</ID>
+    <ID>LoopWithTooManyJumpStatements:ForwardPlanner.kt$ForwardPlanner$for</ID>
+    <ID>LoopWithTooManyJumpStatements:MessagesWriter.kt$MessagesWriter$for</ID>
+    <ID>LoopWithTooManyJumpStatements:MessagingUtils.kt$MessagingUtils$for</ID>
+    <ID>LoopWithTooManyJumpStatements:PersianTranslationTest.kt$PersianTranslationTest$for</ID>
+    <ID>LoopWithTooManyJumpStatements:RegexGuard.kt$RegexGuard$while</ID>
+    <ID>MagicNumber:Activity.kt$1000000</ID>
+    <ID>MagicNumber:AppLockLogic.kt$PatternGeometry$0.5f</ID>
+    <ID>MagicNumber:AppLockOptions.kt$AppLockTimeouts$5</ID>
+    <ID>MagicNumber:AppLockOptions.kt$AppLockTimeouts$60_000L</ID>
+    <ID>MagicNumber:BackupService.kt$BackupService$100</ID>
+    <ID>MagicNumber:BackupService.kt$BackupService.Ticker$500</ID>
+    <ID>MagicNumber:BlockedNumbers.kt$BlockedNumberFormat$15</ID>
+    <ID>MagicNumber:BlockedNumbers.kt$BlockedNumberFormat$3</ID>
+    <ID>MagicNumber:BlockedNumbersScreen.kt$3</ID>
+    <ID>MagicNumber:BlockedNumbersScreen.kt$4</ID>
+    <ID>MagicNumber:BlockedScreen.kt$100</ID>
+    <ID>MagicNumber:BlockedScreen.kt$30</ID>
+    <ID>MagicNumber:BlockedScreen.kt$60_000L</ID>
+    <ID>MagicNumber:BlockedViewModel.kt$BlockedViewModel$5_000</ID>
+    <ID>MagicNumber:ColorUtils.kt$0.05</ID>
+    <ID>MagicNumber:ColorUtils.kt$1.05</ID>
+    <ID>MagicNumber:ContactsLoader.kt$3</ID>
+    <ID>MagicNumber:ContactsLoader.kt$4</ID>
+    <ID>MagicNumber:ContactsLoader.kt$5</ID>
+    <ID>MagicNumber:ContactsLoader.kt$6</ID>
+    <ID>MagicNumber:ContactsLoader.kt$7</ID>
+    <ID>MagicNumber:ContactsLoader.kt$8</ID>
+    <ID>MagicNumber:Context.kt$10</ID>
+    <ID>MagicNumber:ConversationListSync.kt$ConversationListSync$50</ID>
+    <ID>MagicNumber:DecisionLogActivity.kt$300_000</ID>
+    <ID>MagicNumber:DecisionLogActivity.kt$3_600_000</ID>
+    <ID>MagicNumber:DecisionLogActivity.kt$60_000</ID>
+    <ID>MagicNumber:DecisionLogActivity.kt$7_200_000</ID>
+    <ID>MagicNumber:DecisionLogActivity.kt$86_400_000</ID>
+    <ID>MagicNumber:FakeSpamRepository.kt$FakeSpamRepository$3</ID>
+    <ID>MagicNumber:FakeSpamRepository.kt$FakeSpamRepository$7L</ID>
+    <ID>MagicNumber:FakeSpamRepository.kt$SampleData$10</ID>
+    <ID>MagicNumber:FakeSpamRepository.kt$SampleData$3</ID>
+    <ID>MagicNumber:FakeSpamRepository.kt$SampleData$4</ID>
+    <ID>MagicNumber:FakeSpamRepository.kt$SampleData$5</ID>
+    <ID>MagicNumber:FakeSpamRepository.kt$SampleData$6</ID>
+    <ID>MagicNumber:FakeSpamRepository.kt$SampleData$7</ID>
+    <ID>MagicNumber:FakeSpamRepository.kt$SampleData$8</ID>
+    <ID>MagicNumber:FakeSpamRepository.kt$SampleData$9</ID>
+    <ID>MagicNumber:ForwardLogText.kt$ForwardLogText$3</ID>
+    <ID>MagicNumber:ForwardLogic.kt$60</ID>
+    <ID>MagicNumber:ForwardLogic.kt$ForwardForm$17</ID>
+    <ID>MagicNumber:ForwardLogic.kt$ForwardForm$60</ID>
+    <ID>MagicNumber:ForwardLogic.kt$ForwardForm$9</ID>
+    <ID>MagicNumber:ForwardLogic.kt$ForwardTargets$10</ID>
+    <ID>MagicNumber:ForwardPlanner.kt$ForwardPlanner$60</ID>
+    <ID>MagicNumber:ForwardRulesViewModel.kt$ForwardRulesViewModel$24</ID>
+    <ID>MagicNumber:ForwardRulesViewModel.kt$ForwardRulesViewModel$5_000</ID>
+    <ID>MagicNumber:ForwardRulesViewModel.kt$ForwardRulesViewModel$80</ID>
+    <ID>MagicNumber:ImageCompressor.kt$ImageCompressor$0.6f</ID>
+    <ID>MagicNumber:ImageCompressor.kt$ImageCompressor$100</ID>
+    <ID>MagicNumber:ImageCompressor.kt$ImageCompressor$180f</ID>
+    <ID>MagicNumber:ImageCompressor.kt$ImageCompressor$270f</ID>
+    <ID>MagicNumber:ImageCompressor.kt$ImageCompressor$3</ID>
+    <ID>MagicNumber:ImageCompressor.kt$ImageCompressor$30</ID>
+    <ID>MagicNumber:ImageCompressor.kt$ImageCompressor$56</ID>
+    <ID>MagicNumber:ImageCompressor.kt$ImageCompressor$6</ID>
+    <ID>MagicNumber:ImageCompressor.kt$ImageCompressor$8</ID>
+    <ID>MagicNumber:ImageCompressor.kt$ImageCompressor$90f</ID>
+    <ID>MagicNumber:MessagesImporter.kt$MessagesImporter$3</ID>
+    <ID>MagicNumber:MessagesWriter.kt$MessagesWriter$120</ID>
+    <ID>MagicNumber:MessagesWriter.kt$MessagesWriter$3</ID>
+    <ID>MagicNumber:MessagesWriter.kt$MessagesWriter$4</ID>
+    <ID>MagicNumber:MessagesWriter.kt$MessagesWriter$5</ID>
+    <ID>MagicNumber:MessagesWriter.kt$MessagesWriter$6</ID>
+    <ID>MagicNumber:MessagesWriter.kt$MessagesWriter.&lt;no name provided&gt;$0.75f</ID>
+    <ID>MagicNumber:MessagesWriter.kt$MessagesWriter.&lt;no name provided&gt;$16</ID>
+    <ID>MagicNumber:NumberQuery.kt$10</ID>
+    <ID>MagicNumber:NumberQuery.kt$3</ID>
+    <ID>MagicNumber:OtpDetector.kt$OtpDetector$10</ID>
+    <ID>MagicNumber:RegexGuard.kt$RegexGuard$1_000_000L</ID>
+    <ID>MagicNumber:RuleLogic.kt$RuleTextCodec$3</ID>
+    <ID>MagicNumber:RuleLogic.kt$RuleTextCodec$4</ID>
+    <ID>MagicNumber:RuleLogic.kt$RuleTextCodec$5</ID>
+    <ID>MagicNumber:RuleLogic.kt$RuleTextCodec$80</ID>
+    <ID>MagicNumber:RuleLogic.kt$RuleValidator$15</ID>
+    <ID>MagicNumber:RuleLogic.kt$RuleValidator$3</ID>
+    <ID>MagicNumber:RuleMatcher.kt$RuleMatcher.&lt;no name provided&gt;$0.75f</ID>
+    <ID>MagicNumber:RuleMatcher.kt$RuleMatcher.&lt;no name provided&gt;$16</ID>
+    <ID>MagicNumber:RulesViewModel.kt$RulesViewModel$5_000</ID>
+    <ID>MagicNumber:RulesViewModel.kt$RulesViewModel$80</ID>
+    <ID>MagicNumber:RulesViewModel.kt$RulesViewModel$8192</ID>
+    <ID>MagicNumber:ScheduleMessageDialog.kt$23</ID>
+    <ID>MagicNumber:ScheduleMessageDialog.kt$5</ID>
+    <ID>MagicNumber:ScheduleMessageDialog.kt$59</ID>
+    <ID>MagicNumber:ScheduledAttachments.kt$3</ID>
+    <ID>MagicNumber:ScheduledMessageReceiver.kt$60_000L</ID>
+    <ID>MagicNumber:SettingsActivity.kt$SettingsActivity$3</ID>
+    <ID>MagicNumber:SettingsActivity.kt$SettingsActivity$4</ID>
+    <ID>MagicNumber:SettingsActivity.kt$SettingsActivity$5</ID>
+    <ID>MagicNumber:SettingsActivity.kt$SettingsActivity$6</ID>
+    <ID>MagicNumber:SettingsActivity.kt$SettingsActivity$60_000L</ID>
+    <ID>MagicNumber:SettingsActivity.kt$SettingsActivity$7</ID>
+    <ID>MagicNumber:SettingsViewModel.kt$SettingsViewModel$5_000</ID>
+    <ID>MagicNumber:ShortcutHelper.kt$ShortcutHelper$99</ID>
+    <ID>MagicNumber:SmsStatusDeliveredReceiver.kt$SmsStatusDeliveredReceiver$0x03</ID>
+    <ID>MagicNumber:SmsStatusDeliveredReceiver.kt$SmsStatusDeliveredReceiver$0x3f</ID>
+    <ID>MagicNumber:SmsStatusDeliveredReceiver.kt$SmsStatusDeliveredReceiver$16</ID>
+    <ID>MagicNumber:SmsStatusDeliveredReceiver.kt$SmsStatusDeliveredReceiver$24</ID>
+    <ID>MagicNumber:SmsStatusDeliveredReceiver.kt$SmsStatusDeliveredReceiver$3</ID>
+    <ID>MagicNumber:SpamDatabase.kt$SpamDatabase.Companion.&lt;no name provided&gt;$3</ID>
+    <ID>MagicNumber:SpamDatabase.kt$SpamDatabase.Companion.&lt;no name provided&gt;$4</ID>
+    <ID>MagicNumber:SpamLog.kt$SpamLog.Companion$6</ID>
+    <ID>MagicNumber:StaleOutbox.kt$10</ID>
+    <ID>MagicNumber:TextNormalizer.kt$TextNormalizer$0x7F</ID>
+    <ID>MagicNumber:TextNormalizer.kt$TextNormalizer$10</ID>
+    <ID>MagicNumber:TextNormalizer.kt$TextNormalizer$9</ID>
+    <ID>MagicNumber:ThreadActivity.kt$ThreadActivity$30</ID>
+    <ID>MagicNumber:ThreadDates.kt$6</ID>
+    <ID>MagicNumber:ThreadItemsBuilder.kt$2</ID>
+    <ID>MagicNumber:ThreadPreviews.kt$3</ID>
+    <ID>MatchingDeclarationName:BlockedNumbersScreen.kt$BlockedNumbersActions</ID>
+    <ID>MatchingDeclarationName:ContactsLoader.kt$PhoneRow</ID>
+    <ID>MatchingDeclarationName:ConversationFolderScreen.kt$ConversationFolder</ID>
+    <ID>MatchingDeclarationName:ForwardRulesScreen.kt$ForwardActions</ID>
+    <ID>MatchingDeclarationName:GroupRecipients.kt$GroupRecipient</ID>
+    <ID>MatchingDeclarationName:NotificationsOffBanner.kt$NotificationsBlock</ID>
+    <ID>MatchingDeclarationName:RulesScreen.kt$RulesActions</ID>
+    <ID>MatchingDeclarationName:SettingsScreen.kt$SettingsActions</ID>
+    <ID>MatchingDeclarationName:SmsDelivery.kt$SmsInsertException : IllegalStateException</ID>
+    <ID>MatchingDeclarationName:UMessageTheme.kt$UMessageColors</ID>
+    <ID>MatchingDeclarationName:ThreadAttachments.kt$AttachmentGestures</ID>
+    <ID>MatchingDeclarationName:ThreadDates.kt$RelativeDateWords</ID>
+    <ID>MatchingDeclarationName:ThreadImages.kt$ImageLoad</ID>
+    <ID>MatchingDeclarationName:ThreadItems.kt$ThreadItem</ID>
+    <ID>MatchingDeclarationName:ThreadItemsBuilder.kt$ThreadItems</ID>
+    <ID>MatchingDeclarationName:ThreadLinks.kt$ConfirmingUriHandler : UriHandler</ID>
+    <ID>MatchingDeclarationName:ThreadMediaSizes.kt$MediaSizes</ID>
+    <ID>MatchingDeclarationName:ThreadMenuRules.kt$ThreadMenuInput</ID>
+    <ID>MatchingDeclarationName:ThreadMessageState.kt$ThreadMessageList</ID>
+    <ID>MatchingDeclarationName:ThreadSpamReport.kt$SpamReportPlan</ID>
+    <ID>MatchingDeclarationName:TimeFormat.kt$TimeBucket</ID>
+    <ID>MaxLineLength:AndroidSpamEnvironment.kt$SystemContactChecker$*</ID>
+    <ID>MaxLineLength:AndroidSpamEnvironment.kt$SystemContactChecker$/** The recipients when MMS [id] is sent or in the outbox, empty when it is incoming, null when gone or unreadable. */</ID>
+    <ID>MaxLineLength:AndroidSpamEnvironment.kt$SystemContactChecker$ContextCompat.checkSelfPermission(appContext, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED</ID>
+    <ID>MaxLineLength:AndroidSpamEnvironment.kt$SystemContactChecker$appContext.contentResolver.registerContentObserver(MyContactsContentProvider.CONTACTS_CONTENT_URI, true, observer)</ID>
+    <ID>MaxLineLength:AndroidSpamEnvironment.kt$SystemContactChecker$if (box != Telephony.Mms.MESSAGE_BOX_SENT &amp;&amp; box != Telephony.Mms.MESSAGE_BOX_OUTBOX) return@runCatching emptyList()</ID>
+    <ID>MaxLineLength:AndroidSpamEnvironment.kt$SystemContactChecker$if (cached != null &amp;&amp; System.currentTimeMillis() - privateCacheLoadedAt &lt; PRIVATE_CONTACTS_MAX_AGE_MS) return cached</ID>
+    <ID>MaxLineLength:AndroidSpamEnvironment.kt$SystemContactChecker$while (c.moveToNext()) c.getString(0)?.trim()?.takeIf { it.isNotEmpty() &amp;&amp; it != MMS_NO_ADDRESS }?.let(result::add)</ID>
+    <ID>MaxLineLength:AppBars.kt$/** [UMessageTopBar] that tints itself while the page scrolls underneath (pass the same behavior to the scroll container). */</ID>
+    <ID>MaxLineLength:AppDatabaseReset.kt$EventBus::class.java.getDeclaredField("executorService").apply { isAccessible = true }.get(EventBus.getDefault())</ID>
+    <ID>MaxLineLength:AppDatabaseReset.kt$System.err.println("Background work still running after ${timeoutMs} ms: ${running.map { it.name }}, eventBus=$busBusy")</ID>
+    <ID>MaxLineLength:AppLockDialog.kt$Column</ID>
+    <ID>MaxLineLength:AppLockDialog.kt$Icon(Symbols.Fingerprint, contentDescription = null, modifier = Modifier.size(64.dp), tint = MaterialTheme.colorScheme.primary)</ID>
+    <ID>MaxLineLength:AppLockDialog.kt$Lockout$AppLockLogic.lockoutSeconds(config.passwordRetryCount, config.passwordCountdownStartMs, System.currentTimeMillis())</ID>
+    <ID>MaxLineLength:AppLockDialog.kt$Lockout$fun</ID>
+    <ID>MaxLineLength:AppLockDialog.kt$Lockout$if (config.passwordRetryCount &gt;= AppLockLogic.MAX_RETRIES) config.passwordCountdownStartMs = System.currentTimeMillis()</ID>
+    <ID>MaxLineLength:AppLockDialog.kt$prompt = stringResource(if (repeating) R.string.dialogs_lock_repeat_pattern else R.string.dialogs_lock_draw_pattern)</ID>
+    <ID>MaxLineLength:AppLockDialog.kt$prompt = stringResource(if (repeating) R.string.dialogs_lock_repeat_pin else R.string.dialogs_lock_enter_pin)</ID>
+    <ID>MaxLineLength:AppLockDialog.kt$showTabIndex == PROTECTION_FINGERPRINT &amp;&amp; requiredHash.isNotEmpty() -&gt; listOf(PROTECTION_FINGERPRINT, PROTECTION_PIN)</ID>
+    <ID>MaxLineLength:AppLockDialog.kt$stringResource(if (registered) R.string.dialogs_lock_place_finger else R.string.dialogs_lock_no_fingerprints)</ID>
+    <ID>MaxLineLength:AppLockDialog.kt$text = { Text(tabTitle(type), maxLines = 1, softWrap = false, style = MaterialTheme.typography.labelLarge) }</ID>
+    <ID>MaxLineLength:AppLockDialog.kt$val cell = PatternGeometry.cellAt(position.x, position.y, size.width.toFloat(), size.height.toFloat())</ID>
+    <ID>MaxLineLength:AppLockDialog.kt$val shortText = pluralStringResource(R.plurals.dialogs_lock_short_pattern, AppLockLogic.MIN_PATTERN_DOTS, AppLockLogic.MIN_PATTERN_DOTS)</ID>
+    <ID>MaxLineLength:AppLockDialogTest.kt$AppLockDialogTest$ChoiceDialog(options = labels, selectedIndex = AppLockTimeouts.selectedIndex(30_000), onSelect = {}, onDismiss = {})</ID>
+    <ID>MaxLineLength:AppLockDialogTest.kt$AppLockDialogTest$assertEquals(R.string.lock_setup_done_no_screen_lock, lockSetupMessage(PROTECTION_PATTERN, deviceSecure = false))</ID>
+    <ID>MaxLineLength:AppLockLogic.kt$PatternGeometry$if (x &lt; 0f || y &lt; 0f || col !in 0 until AppLockLogic.PATTERN_SIZE || row !in 0 until AppLockLogic.PATTERN_SIZE) return null</ID>
+    <ID>MaxLineLength:AppLockLogicTest.kt$AppLockDialogTabsTest$assertEquals(listOf(PROTECTION_PIN, PROTECTION_PATTERN, PROTECTION_FINGERPRINT), dialogTabs(SHOW_ALL_TABS, "", true))</ID>
+    <ID>MaxLineLength:AppLockLogicTest.kt$CredentialStrengthTest$assertEquals(CredentialEntry.Result.TooShort, entry.submit(AppLockLogic.hashPattern(listOf(0, 1, 2)), length = 3))</ID>
+    <ID>MaxLineLength:AppLockSession.kt$AppLockSession$/** Checks the PIN typed so far and clears it, or returns null when nothing was typed. Runs PBKDF2: call off the main thread. */</ID>
+    <ID>MaxLineLength:AppLockSession.kt$AppLockSession$if (cells.isEmpty()) null else submit(AppLockLogic.hashPattern(cells), AppLockLogic.isWeak(PROTECTION_PATTERN, cells.size))</ID>
+    <ID>MaxLineLength:AppLockSettingsTest.kt$AppLockSettingsTest$show(SettingsUiState(appLock = true, appLockAdvice = AppLockAdvice.ChangeWeak), SettingsActions(onChangeAppLock = { changed = true }))</ID>
+    <ID>MaxLineLength:AppLockTimeoutTest.kt$AppLockTimeoutTest$assertEquals(30_000L, BaseConfig.newInstance(ApplicationProvider.getApplicationContext()).unlockTimeoutDurationMs)</ID>
+    <ID>MaxLineLength:ApproximateScheduledTest.kt$ApproximateScheduledTest$participants = arrayListOf(SimpleContact(1, 1, "111", "", arrayListOf(PhoneNumber("111", 0, "", "111")), ArrayList(), ArrayList()))</ID>
+    <ID>MaxLineLength:ArchivedRoute.kt$ArchivedViewModel$.</ID>
+    <ID>MaxLineLength:AutoCompleteTextViewAdapter.kt$AutoCompleteTextViewAdapter$class</ID>
+    <ID>MaxLineLength:AvailableContactsTest.kt$AvailableContactsTest$assertThat(contacts[0].phoneNumbers.map { it.normalizedNumber }).containsExactly("+447121111111", "+447122222222").inOrder()</ID>
+    <ID>MaxLineLength:AvailableContactsTest.kt$AvailableContactsTest.FakeAddressBook$override</ID>
+    <ID>MaxLineLength:AvailableContactsTest.kt$AvailableContactsTest.FakeAddressBook$people.filter { it.birthday != null }.forEach { row(mapOf("raw_contact_id" to it.rawId, "data1" to it.birthday)) }</ID>
+    <ID>MaxLineLength:AvailableContactsTest.kt$AvailableContactsTest.FakeAddressBook$row(mapOf("raw_contact_id" to it.rawId, "contact_id" to it.rawId, "data2" to it.given, "mimetype" to StructuredName.CONTENT_ITEM_TYPE))</ID>
+    <ID>MaxLineLength:AvailableContactsTest.kt$AvailableContactsTest.FakeAddressBook$row(mapOf("raw_contact_id" to p.rawId, "contact_id" to p.rawId, "data4" to n, "data1" to n, "data2" to 2))</ID>
+    <ID>MaxLineLength:BackupProgressContent.kt$LinearProgressIndicator(progress = { state.fraction }, modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp))</ID>
+    <ID>MaxLineLength:BackupService.kt$BackupService$.</ID>
+    <ID>MaxLineLength:BackupService.kt$BackupService.Companion$fun startExport(context: Context, uri: Uri, sms: Boolean, mms: Boolean)</ID>
+    <ID>MaxLineLength:BackupService.kt$BackupService.Companion$fun startImport(context: Context, uri: Uri, sms: Boolean, mms: Boolean)</ID>
+    <ID>MaxLineLength:BackupSummary.kt$ExportSummary$"unreadableConversations=$unreadableConversations, unreadableMessages=$unreadableMessages, cancelled=$cancelled)"</ID>
+    <ID>MaxLineLength:BackupSummaryText.kt$BackupSummaryText$if (summary.cancelled) lines += context.resources.getQuantityString(R.plurals.backup_cancelled_import, summary.entriesRead, summary.entriesRead)</ID>
+    <ID>MaxLineLength:BackupSummaryText.kt$BackupSummaryText$lines += context.resources.getQuantityString(R.plurals.backup_nothing_new, summary.duplicates, summary.duplicates)</ID>
+    <ID>MaxLineLength:BlockedDetailsTest.kt$BlockedDetailsTest$assertThat(ruleReasonText(resources, message(DecisionReason.BLOCK_RULE, 7), rules)).isEqualTo("Rule: keyword \"free\"")</ID>
+    <ID>MaxLineLength:BlockedDetailsTest.kt$BlockedDetailsTest$assertThat(ruleReasonText(resources, message(DecisionReason.BLOCK_RULE, 8), rules)).isEqualTo("Rule: numbers starting +91140")</ID>
+    <ID>MaxLineLength:BlockedDetailsTest.kt$BlockedDetailsTest$assertThat(ruleReasonText(resources, message(DecisionReason.BLOCK_RULE, 9), rules)).isEqualTo("Rule: sender AX-PROMOS")</ID>
+    <ID>MaxLineLength:BlockedDetailsTest.kt$BlockedDetailsTest$assertThat(ruleReasonText(resources, message(DecisionReason.BLOCK_RULE, 99), rules)).isEqualTo("Rule since removed")</ID>
+    <ID>MaxLineLength:BlockedKeywordsFormat.kt$BlockedKeywordsFormat$fun</ID>
+    <ID>MaxLineLength:BlockedKeywordsFormat.kt$BlockedKeywordsFormat$fun contains(existing: Collection&lt;String&gt;, keyword: String): Boolean</ID>
+    <ID>MaxLineLength:BlockedKeywordsFormatTest.kt$BlockedKeywordsFormatTest$assertThat(BlockedKeywordsFormat.parse("lottery,free gift,prize")).containsExactly("lottery", "free gift", "prize")</ID>
+    <ID>MaxLineLength:BlockedKeywordsImporter.kt$BlockedKeywordsImporter$config.blockedKeywords = keywords.fold(config.blockedKeywords) { set, keyword -&gt; BlockedKeywordsFormat.add(set, keyword) }</ID>
+    <ID>MaxLineLength:BlockedKeywordsScreen.kt$.</ID>
+    <ID>MaxLineLength:BlockedKeywordsScreen.kt$title = stringResource(if (original == null) R.string.add_a_blocked_keyword else R.string.screens_keywords_edit)</ID>
+    <ID>MaxLineLength:BlockedMmsDownloader.kt$BlockedMmsDownloader$return file.takeIf { it.parentFile?.canonicalPath == context.cacheDir.canonicalPath &amp;&amp; it.name.startsWith(FILE_PREFIX) }</ID>
+    <ID>MaxLineLength:BlockedMmsReceiveTest.kt$BlockedMmsReceiveTest$val shadow = Shadow.extract&lt;ShadowSmsManager&gt;(com.klinker.android.send_message.SmsManagerFactory.createSmsManager(1))</ID>
+    <ID>MaxLineLength:BlockedMmsRestoreTest.kt$BlockedMmsRestoreTest$assertThat(blockedBodyText(res, mms(body = MMS_PLACEHOLDER_BODY))).isEqualTo(res.getString(R.string.spam_mms_missing))</ID>
+    <ID>MaxLineLength:BlockedMmsRestoreTest.kt$BlockedMmsRestoreTest$assertThat(blockedBodyText(res, mms(media = MmsMedia.DOWNLOADING))).isEqualTo(res.getString(R.string.spam_mms_downloading))</ID>
+    <ID>MaxLineLength:BlockedMmsRestoreTest.kt$BlockedMmsRestoreTest$assertThat(blockedBodyText(res, mms(media = MmsMedia.STORED, file = FILE))).isEqualTo(res.getString(R.string.spam_mms_stored))</ID>
+    <ID>MaxLineLength:BlockedMmsStore.kt$BlockedMmsStore$*</ID>
+    <ID>MaxLineLength:BlockedMmsStore.kt$BlockedMmsStore$val</ID>
+    <ID>MaxLineLength:BlockedMmsStore.kt$BlockedMmsStore$while</ID>
+    <ID>MaxLineLength:BlockedNumberFormatTest.kt$BlockedNumberFormatTest$val result = BlockedNumberFormat.parseImportChecked("BLOCK,NUMBER,+44712 111 2222\nALLOW,KEYWORD,delivery code\n*\n12\n")</ID>
+    <ID>MaxLineLength:BlockedNumbersScreen.kt$BlockedNumbersList(state, actions, Modifier.padding(top = inner.calculateTopPadding()), inner.calculateBottomPadding())</ID>
+    <ID>MaxLineLength:BlockedNumbersScreen.kt$Box</ID>
+    <ID>MaxLineLength:BlockedNumbersScreen.kt$fun</ID>
+    <ID>MaxLineLength:BlockedNumbersScreen.kt$if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.TIRAMISU) scope.launch { snackbar.showSnackbar(copiedText) }</ID>
+    <ID>MaxLineLength:BlockedNumbersScreen.kt$item(key = "divider") { HorizontalDivider(Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.outlineVariant) }</ID>
+    <ID>MaxLineLength:BlockedNumbersScreen.kt$private</ID>
+    <ID>MaxLineLength:BlockedNumbersScreen.kt$resources.getQuantityString(R.plurals.blocknum_import_skipped, event.skipped, event.skipped)</ID>
+    <ID>MaxLineLength:BlockedNumbersScreen.kt$title = stringResource(if (dialog.original == null) R.string.blocknum_add_title else R.string.blocknum_edit_title)</ID>
+    <ID>MaxLineLength:BlockedNumbersScreen.kt$val</ID>
+    <ID>MaxLineLength:BlockedNumbersScreen.kt$val background by animateColorAsState(if (selected) colors.primaryContainer else colors.background, label = "numberRowBackground")</ID>
+    <ID>MaxLineLength:BlockedNumbersViewModel.kt$BlockedNumbersViewModel$private val mutableState = MutableStateFlow(BlockedNumbersUiState(blockUnknown = app.baseConfig.blockUnknownNumbers))</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$/** Tighter than the M3 default (24dp) so both labelled actions and the trailing delete fit one line at font scale 1.3. */</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$Icon(Symbols.Warning, contentDescription = null, tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(20.dp))</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$Text(it, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$Text(localizedNumber(stats.blockedLast7Days, uiLocale()), style = MaterialTheme.typography.headlineMedium)</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$colors = CardDefaults.cardColors(containerColor = colors.primaryContainer, contentColor = colors.onPrimaryContainer)</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$else -&gt; BlockedList(state, actions, Modifier.padding(top = inner.calculateTopPadding()), inner.calculateBottomPadding())</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$event.allowed &gt; 0 -&gt; resources.getQuantityString(R.plurals.spam_snack_allowed_only, event.allowed, event.allowed)</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$if (selecting) actions.onToggleSelected(group.address) else actions.onToggleExpanded(group.address)</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$message = resources.getQuantityString(R.plurals.spam_snack_blocked_kept, event.count, event.count)</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$message = resources.getQuantityString(R.plurals.spam_snack_deleted, event.count, event.count)</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$modifier = Modifier.fillMaxWidth().padding(start = TextStart, end = 4.dp, top = 4.dp, bottom = 8.dp)</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$private</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$state.loading</ID>
+    <ID>MaxLineLength:BlockedScreen.kt$stringResource(R.string.spam_reason_unknown_sender)</ID>
+    <ID>MaxLineLength:BlockedViewModel.kt$BlockedViewModel$combine(repository.settings, repository.rules, allowPrompt) { settings, rules, prompt -&gt; Triple(settings, rules, prompt) }</ID>
+    <ID>MaxLineLength:BlockedViewModel.kt$BlockedViewModel$runCatching { SenderBlocking.undo(repository, pending.change) }.onFailure { events.trySend(BlockedEvent.Failed) }</ID>
+    <ID>MaxLineLength:BlockedViewModel.kt$BlockedViewModel$val</ID>
+    <ID>MaxLineLength:BlockedViewModel.kt$BlockedViewModel.PendingRestore$fun event(token: Long)</ID>
+    <ID>MaxLineLength:Components.kt$Text(text = text, style = MaterialTheme.typography.labelSmall, color = content, maxLines = 1, overflow = TextOverflow.Ellipsis)</ID>
+    <ID>MaxLineLength:ContactChecker.kt$ContactChecker$fun</ID>
+    <ID>MaxLineLength:ContactNumberIndexTest.kt$ContactNumberIndexTest$for</ID>
+    <ID>MaxLineLength:ContactsLoader.kt$/** One contact per aggregate contact id, numbers de-duplicated, name falling back to the first number, sorted by name. */</ID>
+    <ID>MaxLineLength:ConversationDetailsScreen.kt$contentPadding = PaddingValues(top = padding.calculateTopPadding(), bottom = padding.calculateBottomPadding() + 8.dp)</ID>
+    <ID>MaxLineLength:ConversationDetailsScreen.kt$item(key = "notifications-header") { SectionHeader(stringResource(org.fossify.commons.R.string.notifications)) }</ID>
+    <ID>MaxLineLength:ConversationFolderScreen.kt$/** List row for a stored conversation. Archive and bin show no SIM chip, mute or pin state, only what identifies the thread. */</ID>
+    <ID>MaxLineLength:ConversationFolderScreen.kt$ConversationFolder$/** The two folders that hold conversations out of the main list; they differ only in labels, icon and the "bring back" action. */</ID>
+    <ID>MaxLineLength:ConversationFolderScreen.kt$onToggleSelect = { id -&gt; selected = if (id in visibleSelection) visibleSelection - id else visibleSelection + id }</ID>
+    <ID>MaxLineLength:ConversationFolderScreen.kt$val visibleSelection = remember(selected, rows) { selected.filterTo(HashSet()) { id -&gt; rows.any { it.threadId == id } } }</ID>
+    <ID>MaxLineLength:ConversationItem.kt$/** Round avatar: contact photo, else group icon, else initials on a tone picked from the title. [selected] shows a check. */</ID>
+    <ID>MaxLineLength:ConversationItem.kt$Icon(Symbols.PersonFilled, contentDescription = null, tint = content, modifier = Modifier.size(size * 0.55f))</ID>
+    <ID>MaxLineLength:ConversationItem.kt$contentAlignment = if (direction == SwipeToDismissBoxValue.StartToEnd) Alignment.CenterStart else Alignment.CenterEnd</ID>
+    <ID>MaxLineLength:ConversationItem.kt$parts += if (row.unreadCount &gt; 0) stringResource(R.string.convlist_unread_count, row.unreadCount) else stringResource(R.string.convlist_unread)</ID>
+    <ID>MaxLineLength:ConversationListSync.kt$ConversationListSync$val newest = context.getConversations(privateContacts = privateContacts, limit = firstPassSize, lookups = lookups)</ID>
+    <ID>MaxLineLength:ConversationListSyncTest.kt$ConversationListSyncTest$context.messagesDB.insertOrUpdate(message(100_000, thread = 7, body = "Your code is 4821", date = (dateMs / 1000).toInt()))</ID>
+    <ID>MaxLineLength:ConversationListSyncTest.kt$ConversationListSyncTest$context.messagesDB.insertOrUpdate(message(id = 500_000, thread = 11, body = "Sent from the chat", date = before.date + 60))</ID>
+    <ID>MaxLineLength:ConversationListSyncTest.kt$ConversationListSyncTest$provider.addThread(thread = THREADS + 1L, smsId = 900_000, body = "Hello from a new number", dateMs = CountingInboxProvider.BASE_MS + 999_000_000)</ID>
+    <ID>MaxLineLength:ConversationLookups.kt$ConversationLookups$result.add(number, entry) { existing -&gt; existing.photoUri.isEmpty() &amp;&amp; entry.photoUri.isNotEmpty() }</ID>
+    <ID>MaxLineLength:ConversationsDao.kt$ConversationsDao$"ORDER BY messages.date DESC, messages.id DESC LIMIT 1) AS new_snippet, * FROM conversations WHERE archived = 0"</ID>
+    <ID>MaxLineLength:ConversationsDao.kt$ConversationsDao$"ORDER BY messages.date DESC, messages.id DESC LIMIT 1) AS new_snippet, * FROM conversations WHERE archived = 1"</ID>
+    <ID>MaxLineLength:ConversationsDao.kt$ConversationsDao$/** Conversations whose title contains [text], read through [TextNormalizer.fold] on both sides ("علي" finds "علی"). */</ID>
+    <ID>MaxLineLength:ConversationsDao.kt$ConversationsDao$return getConversationsRaw(SimpleSQLiteQuery(sql, arrayOf(TextNormalizer.likeContains(TextNormalizer.fold(text)))))</ID>
+    <ID>MaxLineLength:ConversationsScreen.kt$// (a message was sent or received), LazyColumn would keep the old first row anchored and push the new one off screen.</ID>
+    <ID>MaxLineLength:ConversationsScreen.kt$Triple(listState.isScrollInProgress, listState.firstVisibleItemIndex, listState.firstVisibleItemScrollOffset)</ID>
+    <ID>MaxLineLength:ConversationsScreen.kt$val text = if (event.archived) R.plurals.convlist_reported_spam_archived else R.plurals.convlist_reported_spam</ID>
+    <ID>MaxLineLength:ConversationsViewModelTest.kt$ConversationsViewModelTest.AcceptingThreadsProvider$override fun query(uri: Uri, p: Array&lt;out String&gt;?, s: String?, a: Array&lt;out String&gt;?, o: String?): Cursor?</ID>
+    <ID>MaxLineLength:CountingInboxProvider.kt$CountingInboxProvider$db.insert("canonical_addresses", null, ContentValues().apply { put("_id", t); put("address", address(t)) })</ID>
+    <ID>MaxLineLength:CountingInboxProvider.kt$CountingInboxProvider$db.insert("canonical_addresses", null, ContentValues().apply { put("_id", thread); put("address", address(thread)) })</ID>
+    <ID>MaxLineLength:CountingInboxProvider.kt$CountingInboxProvider$override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array&lt;out String&gt;?): Int</ID>
+    <ID>MaxLineLength:DecisionLogActivity.kt$itemsIndexed(shown, key = { index, entry -&gt; "${entry.time}-$index" }) { _, entry -&gt; LogRow(entry, forwardRules) }</ID>
+    <ID>MaxLineLength:DecisionLogActivity.kt$val decision = if (forward) ForwardLogText.sentence(resources, entry.reason) else stringResource(decisionLabel(entry.decision))</ID>
+    <ID>MaxLineLength:DefaultSpamFilter.kt$DefaultSpamFilter$// The old Fossify "block unknown numbers" switch turns blocking on when the mode is Off, and otherwise leaves the</ID>
+    <ID>MaxLineLength:DefaultSpamFilter.kt$DefaultSpamFilter$if</ID>
+    <ID>MaxLineLength:DefaultSpamFilter.kt$DefaultSpamFilter$return message.address.isNotBlank() &amp;&amp; runCatching { legacy.isNumberBlocked(message.address) }.getOrDefault(false)</ID>
+    <ID>MaxLineLength:DefaultSpamFilter.kt$DefaultSpamFilter$val mode = settings().mode.let { if (it == UnknownSenderMode.OFF &amp;&amp; legacyUnknown) UnknownSenderMode.STRICT else it }</ID>
+    <ID>MaxLineLength:DefaultSpamFilterFailSafeTest.kt$DefaultSpamFilterFailSafeTest$private fun msg(address: String = "+919876543210", body: String = "Dinner at 8?")</ID>
+    <ID>MaxLineLength:DefaultSpamFilterTest.kt$DefaultSpamFilterTest$assertAllow(DecisionReason.MODE_OFF, f.evaluate(msg(body = "Your code 482915, confirm at https://example.test")))</ID>
+    <ID>MaxLineLength:DefaultSpamFilterTest.kt$DefaultSpamFilterTest$assertBlock(DecisionReason.UNKNOWN_SENDER, null, f.evaluate(msg(address = "+447121234567", body = "رمز پویا: ۱۲۳۴۵۶")))</ID>
+    <ID>MaxLineLength:DefaultSpamFilterTest.kt$DefaultSpamFilterTest$assertBlock(DecisionReason.UNKNOWN_SENDER, null, f.evaluate(msg(address = "VM-BANK", body = "Your OTP is 482915")))</ID>
+    <ID>MaxLineLength:DefaultSpamFilterTest.kt$DefaultSpamFilterTest$assertBlock(DecisionReason.UNKNOWN_SENDER, null, f.evaluate(msg(body = "Use promo code 2025 for 50% off today!")))</ID>
+    <ID>MaxLineLength:DefaultSpamFilterTest.kt$DefaultSpamFilterTest$assertBlock(DecisionReason.UNKNOWN_SENDER, null, f.evaluate(msg(body = "Your code 482913. Verify at mybank-secure.com")))</ID>
+    <ID>MaxLineLength:DefaultSpamFilterTest.kt$DefaultSpamFilterTest$assertBlock(DecisionReason.UNKNOWN_SENDER, null, strict.evaluate(msg(address = "VM-BANK", body = "Your OTP is 482915")))</ID>
+    <ID>MaxLineLength:DefaultSpamFilterTest.kt$DefaultSpamFilterTest${ rules }</ID>
+    <ID>MaxLineLength:DefaultSpamFilterTest.kt$DefaultSpamFilterTest.FakeContacts$return if (sent.any { normalizer.sameAddress(it, address) }) ContactLookup.FOUND else ContactLookup.NOT_FOUND</ID>
+    <ID>MaxLineLength:DefaultSpamRepository.kt$DefaultSpamRepository$body = BlockedLimits.limitBody(if (message.isMms &amp;&amp; message.body.isBlank()) MMS_PLACEHOLDER_BODY else message.body)</ID>
+    <ID>MaxLineLength:DefaultSpamRepository.kt$DefaultSpamRepository$private fun ruleTypeFor(address: String)</ID>
+    <ID>MaxLineLength:DefaultSpamRepositoryTest.kt$DefaultSpamRepositoryTest$val id = repo.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = "+447121234567", note = "old", createdAt = 5L))</ID>
+    <ID>MaxLineLength:DefaultSpamRepositoryTest.kt$DefaultSpamRepositoryTest$val result = repo.updateRule(SpamRule(id = b, kind = ListKind.BLOCK, type = RuleType.KEYWORD, pattern = "lottery"))</ID>
+    <ID>MaxLineLength:DefaultSpamRepositoryTest.kt$DefaultSpamRepositoryTest$val result = repo.updateRule(SpamRule(id = id, kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = "0712 765 4321", note = "new"))</ID>
+    <ID>MaxLineLength:DialogHelpers.kt$ChoiceItem(getString(R.string.ui_number_with_type, number.value, getPhoneNumberTypeText(number.type, number.label)), number)</ID>
+    <ID>MaxLineLength:Dialogs.kt$/** Yes/no question. [destructive] colours the confirm button as an error so the risky choice never looks like the default. */</ID>
+    <ID>MaxLineLength:Dialogs.kt$Text(label, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(start = 16.dp))</ID>
+    <ID>MaxLineLength:ExportMessagesDialog.kt$ExportMessagesDialog$running -&gt; TextButton(onClick = BackupJob::requestCancel) { Text(stringResource(R.string.backup_stop)) }</ID>
+    <ID>MaxLineLength:FakeMessageStore.kt$FakeMessageStore$"canonical-addresses" -&gt; db.query("canonical_addresses", projection, selection, selectionArgs?.toArgs(), null, null, sortOrder)</ID>
+    <ID>MaxLineLength:FakeMessageStore.kt$FakeMessageStore$"conversations" -&gt; db.query("threads_view", projection, selection, selectionArgs?.toArgs(), null, null, sortOrder)</ID>
+    <ID>MaxLineLength:FakeMessageStore.kt$FakeMessageStore$db.execSQL("CREATE TABLE threads (_id INTEGER PRIMARY KEY AUTOINCREMENT, recipient_ids TEXT, date INTEGER DEFAULT 0)")</ID>
+    <ID>MaxLineLength:FakeMessageStore.kt$FakeMessageStore$override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array&lt;out String&gt;?): Int</ID>
+    <ID>MaxLineLength:FakeMessageStore.kt$FakeMessageStore$put("m_type", if (box == 1) 132 else 128)</ID>
+    <ID>MaxLineLength:FakeMessageStore.kt$FakeMessageStore$val</ID>
+    <ID>MaxLineLength:FakeSmsMmsProvider.kt$FakeSmsMmsProvider$"date INTEGER, date_sent INTEGER, type INTEGER, status INTEGER DEFAULT -1, read INTEGER, seen INTEGER, "</ID>
+    <ID>MaxLineLength:FakeSpamRepository.kt$FakeSpamRepository$rulesState.update { list -&gt; list.map { if (it.id == rule.id) rule.copy(createdAt = current.createdAt) else it } }</ID>
+    <ID>MaxLineLength:FakeSpamRepository.kt$SampleData$BlockedMessage(1, "+14155550133", "You have won a free gift card! Claim now at example.test/claim", 1, false, now - 2 * HOUR, DecisionReason.UNKNOWN_SENDER)</ID>
+    <ID>MaxLineLength:FakeSpamRepository.kt$SampleData$BlockedMessage(2, "+14155550133", "Last chance: your reward expires tonight.", 1, false, now - 5 * HOUR, DecisionReason.UNKNOWN_SENDER)</ID>
+    <ID>MaxLineLength:FakeSpamRepository.kt$SampleData$BlockedMessage(3, "+14155550133", "Congratulations, you are selected.", 1, false, now - 1 * DAY, DecisionReason.UNKNOWN_SENDER)</ID>
+    <ID>MaxLineLength:FakeSpamRepository.kt$SampleData$BlockedMessage(4, "VM-HDFCBK", "123456 is your one time password. Do not share it with anyone.", 2, false, now - 3 * HOUR, DecisionReason.UNKNOWN_SENDER)</ID>
+    <ID>MaxLineLength:FakeSpamRepository.kt$SampleData$BlockedMessage(5, "AX-PROMOS", "Flat 70% off today only. Shop now.", 2, false, now - 2 * DAY, DecisionReason.BLOCK_RULE, 7)</ID>
+    <ID>MaxLineLength:FakeSpamRepository.kt$SampleData$BlockedMessage(6, "+919876543210", "Your parcel is held, pay a fee at example.test/pay", 1, false, now - 9 * DAY, DecisionReason.BLOCK_RULE, 8)</ID>
+    <ID>MaxLineLength:FakeTelephonyProvider.kt$FakeTelephonyProvider$db.execSQL("CREATE TABLE blocked (_id INTEGER PRIMARY KEY AUTOINCREMENT, original_number TEXT, e164_number TEXT)")</ID>
+    <ID>MaxLineLength:FakeTelephonyProvider.kt$FakeTelephonyProvider$fun</ID>
+    <ID>MaxLineLength:FakeThreadStore.kt$FakeThreadStore$db.execSQL("CREATE TABLE addr (_id INTEGER PRIMARY KEY AUTOINCREMENT, msg_id INTEGER, address TEXT, type INTEGER)")</ID>
+    <ID>MaxLineLength:FakeThreadStore.kt$FakeThreadStore$db.insert("part", null, ContentValues().apply { put("mid", id); put("ct", "text/plain"); put("text", text) })</ID>
+    <ID>MaxLineLength:FakeThreadStore.kt$FakeThreadStore$override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array&lt;out String&gt;?): Int</ID>
+    <ID>MaxLineLength:ForwardDelivery.kt$ForwardDelivery$SpamLogEntry(System.currentTimeMillis(), message.address, message.subscriptionId, decision, reason, SOURCE)</ID>
+    <ID>MaxLineLength:ForwardDelivery.kt$SystemForwardSender$*</ID>
+    <ID>MaxLineLength:ForwardLogText.kt$ForwardLogText$Outcome</ID>
+    <ID>MaxLineLength:ForwardLogText.kt$ForwardLogText$Parsed</ID>
+    <ID>MaxLineLength:ForwardLogText.kt$ForwardLogText$else -&gt; runCatching { Outcome.valueOf(code) }.getOrNull()?.takeIf { it != Outcome.UNKNOWN } ?: Outcome.UNKNOWN</ID>
+    <ID>MaxLineLength:ForwardLogText.kt$ForwardLogText$fun isForward(decision: String)</ID>
+    <ID>MaxLineLength:ForwardLogTextTest.kt$ForwardLogTextTest$ForwardRule(id = 1, senderType = RuleType.NUMBER, senderPattern = "07121234567", targets = listOf("5554999"), note = "Bank alerts")</ID>
+    <ID>MaxLineLength:ForwardLogTextTest.kt$ForwardLogTextTest$ForwardRule(id = 2, senderType = null, bodyType = RuleType.KEYWORD, bodyPattern = "deposit", targets = listOf("5554999"))</ID>
+    <ID>MaxLineLength:ForwardLogTextTest.kt$ForwardLogTextTest$assertThat(ForwardLogText.parse("#1 → 5554999 SENT")).isEqualTo(ForwardLogText.Parsed(Outcome.SENT, 1, "5554999"))</ID>
+    <ID>MaxLineLength:ForwardLogTextTest.kt$ForwardLogTextTest$assertThat(ForwardLogText.parse("→ 5554999 RADIO_FAILED")).isEqualTo(ForwardLogText.Parsed(Outcome.RADIO_FAILED, null, "5554999"))</ID>
+    <ID>MaxLineLength:ForwardLogTextTest.kt$ForwardLogTextTest$assertThat(ForwardLogText.sentence(res, "#1 CODE_EXCLUDED")).isEqualTo("Not forwarded: verification codes are off for this rule")</ID>
+    <ID>MaxLineLength:ForwardLogTextTest.kt$ForwardLogTextTest$assertThat(ForwardLogText.sentence(res, "#2 LOOP_FORWARD")).isEqualTo("Not forwarded: it was already a forwarded message")</ID>
+    <ID>MaxLineLength:ForwardLogic.kt$ForwardForm$get() = !noCondition &amp;&amp; senderError == null &amp;&amp; bodyError == null &amp;&amp; !noTargets &amp;&amp; targetErrors.all { it == null }</ID>
+    <ID>MaxLineLength:ForwardLogic.kt$ForwardForm$get() = bodyType?.let { type -&gt; (RuleValidator.validate(ListKind.BLOCK, type, bodyPattern) as? RuleValidation.Invalid)?.error }</ID>
+    <ID>MaxLineLength:ForwardLogic.kt$ForwardForm$get() = senderType?.let { type -&gt; (RuleValidator.validate(ListKind.BLOCK, type, senderPattern) as? RuleValidation.Invalid)?.error }</ID>
+    <ID>MaxLineLength:ForwardLogic.kt$ForwardForm$val cleanTargets: List&lt;String&gt; get() = targets.mapNotNull { ForwardTargets.clean(it) }.distinctBy { ForwardTargets.key(it) }</ID>
+    <ID>MaxLineLength:ForwardLogic.kt$ForwardGatePolicy$fun</ID>
+    <ID>MaxLineLength:ForwardPlanner.kt$ForwardPlanner$if</ID>
+    <ID>MaxLineLength:ForwardPlanner.kt$ForwardPlanner$if (rule.hasWindow &amp;&amp; !inWindow(rule.windowStart!!, rule.windowEnd!!, minuteOfDay(message.receivedAt))) return false</ID>
+    <ID>MaxLineLength:ForwardPlanner.kt$ForwardPlanner$val incoming = IncomingMessage(message.address, message.body, message.subscriptionId, message.isMms, message.receivedAt)</ID>
+    <ID>MaxLineLength:ForwardPlanner.kt$ForwardPlanner.Companion$/** [start] inclusive, [end] exclusive; a window that ends before it starts runs over midnight. Equal = all day. */</ID>
+    <ID>MaxLineLength:ForwardPlannerTest.kt$ForwardPlannerTest$assertThat(plan(message(sub = 11), rule(sendFrom = ForwardSim.SIM2)).sends.single().subscriptionId).isEqualTo(22)</ID>
+    <ID>MaxLineLength:ForwardPlannerTest.kt$ForwardPlannerTest$rule(id = 2, senderType = null, bodyType = RuleType.KEYWORD, body = "deposit", targets = listOf("15550001111", "+15550003333"))</ID>
+    <ID>MaxLineLength:ForwardRules.kt$DefaultForwardRepository$if (dao.update(ForwardRuleEntity.from(rule)) == 0) throw NoSuchElementException("Forward rule ${rule.id} is gone")</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) { TimePicker(state = state) }</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$FilterChip(selected = selected == null, onClick = { onType(null) }, label = { Text(stringResource(R.string.forward_sheet_any)) })</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$FilterChip(selected = selected == type, onClick = { onType(type) }, label = { Text(ruleTypeLabel(type)) })</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$FlowRow</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$Icon(Symbols.Close, contentDescription = stringResource(R.string.forward_sheet_remove_target, index + 1))</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$Icon(Symbols.Delete, contentDescription = stringResource(R.string.forward_delete_rule), tint = colors.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$Icon(Symbols.Info, contentDescription = null, modifier = Modifier.size(20.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$InfoChip(stringResource(R.string.forward_chip_window, formatMinutes(rule.windowStart!!), formatMinutes(rule.windowEnd!!)))</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$Modifier.size(40.dp).clip(CircleShape).background(if (rule.enabled) colors.primaryContainer else colors.surfaceVariant)</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$Text(it, style = MaterialTheme.typography.titleSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$Text(rule.note, style = MaterialTheme.typography.bodyMedium, color = colors.onSurfaceVariant, maxLines = 2)</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$Text(stringResource(R.string.forward_sheet_scope_label), style = MaterialTheme.typography.labelLarge)</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$Text(stringResource(R.string.forward_sheet_send_from_label), style = MaterialTheme.typography.labelLarge)</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$colors = CardDefaults.cardColors(containerColor = colors.secondaryContainer, contentColor = colors.onSecondaryContainer)</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$confirmButton = { TextButton(onClick = actions.onNoLockContinue) { Text(stringResource(R.string.forward_no_lock_continue)) } }</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$confirmButton = { TextButton(onClick = { onPick(state.hour * 60 + state.minute) }) { Text(stringResource(R.string.screens_ok)) } }</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$dismissButton = { TextButton(onClick = actions.onNoLockSetUp) { Text(stringResource(R.string.forward_no_lock_set_up)) } }</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$if (it == TargetError.INVALID) R.string.forward_err_target_invalid else R.string.forward_err_target_duplicate</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$if (rule.bodyType != null) add(stringResource(R.string.forward_row_text, "${ruleTypeLabel(rule.bodyType)} ${rule.bodyPattern}"))</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$if (sim.carrier.isBlank()) stringResource(R.string.spam_sim_label, sim.slot) else stringResource(R.string.spam_sim_named, sim.slot, sim.carrier)</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$keyboardType = if (selected == RuleType.NUMBER || selected == RuleType.PREFIX) KeyboardType.Phone else KeyboardType.Text</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$sims.firstOrNull { it.subscriptionId == id }?.let { InfoChip(stringResource(R.string.spam_sim_label, it.slot)) }</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$stringResource(if (form.isEdit) R.string.forward_sheet_title_edit else R.string.forward_sheet_title_add)</ID>
+    <ID>MaxLineLength:ForwardRulesScreen.kt$title = stringResource(if (which == START) R.string.forward_sheet_pick_start else R.string.forward_sheet_pick_end)</ID>
+    <ID>MaxLineLength:ForwardRulesViewModel.kt$ForwardRulesViewModel$fun</ID>
+    <ID>MaxLineLength:ForwardRulesViewModel.kt$ForwardRulesViewModel$if (change is ForwardChange.Save) ui.update { u -&gt; u.copy(form = u.form?.copy(saving = true, saveFailed = false)) }</ID>
+    <ID>MaxLineLength:ForwardRulesViewModel.kt$ForwardRulesViewModel$if (index !in form.targets.indices) form else form.copy(targets = form.targets.toMutableList().also { it[index] = value.take(24) })</ID>
+    <ID>MaxLineLength:ForwardRulesViewModel.kt$ForwardRulesViewModel$if (prompt == ForwardGatePrompt.NONE) apply(change) else ui.update { it.copy(prompt = prompt, pending = change) }</ID>
+    <ID>MaxLineLength:ForwardRulesViewModel.kt$ForwardRulesViewModel$is ForwardChange.Save -&gt; if (change.rule.id == 0L) repository.add(change.rule) else repository.update(change.rule)</ID>
+    <ID>MaxLineLength:ForwardRulesViewModelTest.kt$ForwardRulesViewModelTest$repo.state.value = listOf(ForwardRule(id = 7, senderType = RuleType.NUMBER, senderPattern = "1234567", targets = listOf("+15550001111")))</ID>
+    <ID>MaxLineLength:ForwardRulesViewModelTest.kt$ForwardRulesViewModelTest.Repo$override suspend fun update(rule: ForwardRule)</ID>
+    <ID>MaxLineLength:ForwardUiTest.kt$ForwardUiTest$onIncludeCodes = { on -&gt; form = if (on) form.copy(confirmingCodes = true) else form.copy(includeCodes = false) }</ID>
+    <ID>MaxLineLength:ForwardUiTest.kt$ForwardUiTest$private</ID>
+    <ID>MaxLineLength:Forwarding.kt$ForwardFormat$fun</ID>
+    <ID>MaxLineLength:GetMessagesMmsQueriesTest.kt$GetMessagesMmsQueriesTest$assertThat(received.attachment!!.attachments.map { it.uriString }).containsExactly("content://mms/part/${104 * 10 + 1}")</ID>
+    <ID>MaxLineLength:GetMessagesMmsQueriesTest.kt$GetMessagesMmsQueriesTest$mms.addMms(id = 100L + i, box = if (i % 2 == 0) Telephony.Mms.MESSAGE_BOX_INBOX else Telephony.Mms.MESSAGE_BOX_SENT)</ID>
+    <ID>MaxLineLength:GetMessagesMmsQueriesTest.kt$GetMessagesMmsQueriesTest.CountingMmsProvider$db.insert("part", null, ContentValues().apply { put("_id", id * 10 + 1); put("mid", id); put("ct", "image/jpeg") })</ID>
+    <ID>MaxLineLength:GetMessagesMmsQueriesTest.kt$GetMessagesMmsQueriesTest.CountingMmsProvider$db.insert("part", null, ContentValues().apply { put("_id", id * 10); put("mid", id); put("ct", "text/plain"); put("text", "photo $id") })</ID>
+    <ID>MaxLineLength:GetMessagesMmsQueriesTest.kt$GetMessagesMmsQueriesTest.CountingMmsProvider$db.query("part", projection?.map { it }?.toTypedArray(), selection, selectionArgs?.map { it }?.toTypedArray(), null, null, sortOrder)</ID>
+    <ID>MaxLineLength:GetMessagesMmsQueriesTest.kt$GetMessagesMmsQueriesTest.CountingMmsProvider$db.query("pdu", projection?.map { it }?.toTypedArray(), selection, selectionArgs?.map { it }?.toTypedArray(), null, null, order, limit)</ID>
+    <ID>MaxLineLength:GroupConversationTest.kt$GroupConversationTest$assertThat(ThreadRecipients.numbersFromExtra(started.getStringExtra(THREAD_NUMBER))).containsExactly("111", "222").inOrder()</ID>
+    <ID>MaxLineLength:GroupMessageSendDialog.kt$GroupMessageSendDialog$dismissButton = { TextButton(onClick = { finish(false) }) { Text(stringResource(R.string.separate_messages)) } }</ID>
+    <ID>MaxLineLength:GroupMessageSendDialog.kt$GroupMessageSendDialog$text = { Text(stringResource(R.string.group_message_send_description), style = MaterialTheme.typography.bodyMedium) }</ID>
+    <ID>MaxLineLength:GroupRecipientsTest.kt$GroupRecipientsTest$val saved = with(GroupRecipientsSaver) { androidx.compose.runtime.saveable.SaverScope { true }.save(listOf(sara, ali)) }</ID>
+    <ID>MaxLineLength:Gson.kt$private val gsonBuilder = GsonBuilder().registerTypeAdapter(object : TypeToken&lt;Map&lt;String, Any&gt;&gt;() {}.type, MapDeserializerDoubleAsIntFix())</ID>
+    <ID>MaxLineLength:ImageCompressor.kt$ImageCompressor$fun</ID>
+    <ID>MaxLineLength:ImageCompressor.kt$ImageCompressor$private</ID>
+    <ID>MaxLineLength:ImageCompressor.kt$ImageCompressor$var imageFile = File(outputDirectory, System.currentTimeMillis().toString().plus(mimeType.getExtensionFromMimeType()))</ID>
+    <ID>MaxLineLength:ImportMessagesDialog.kt$ImportMessagesDialog$Text(done?.let { BackupSummaryText.importTitle(context, it.summary) } ?: stringResource(R.string.import_messages))</ID>
+    <ID>MaxLineLength:ImportMessagesDialog.kt$ImportMessagesDialog$running -&gt; BackupRunningContent(job as? BackupJob.State.Running ?: BackupJob.State.Running(BackupJob.Kind.IMPORT, 0, null))</ID>
+    <ID>MaxLineLength:ImportMessagesDialog.kt$ImportMessagesDialog$running -&gt; TextButton(onClick = BackupJob::requestCancel) { Text(stringResource(R.string.backup_stop)) }</ID>
+    <ID>MaxLineLength:LegacyBlockLists.kt$LegacyMigration$if (rule.type == RuleType.NUMBER) RuleValidator.sameNumber(other.pattern, rule.pattern) else other.pattern == rule.pattern</ID>
+    <ID>MaxLineLength:LegacyBlockLists.kt$LegacyMigration$keywordRules += word to SpamRule(kind = ListKind.BLOCK, type = RuleType.KEYWORD, pattern = result.pattern, note = keywordNote)</ID>
+    <ID>MaxLineLength:LegacyBlockedNumberMatchingTest.kt$LegacyBlockedNumberMatchingTest$val senders = listOf("+1 555 123 4567", "+1-555-123-4567", "+1 (555) 123-4567", "+15551234567", "001 555 1234567")</ID>
+    <ID>MaxLineLength:LegacyBlockedNumberMatchingTest.kt$LegacyBlockedNumberMatchingTest$val senders = listOf("+447121234567", "+44 712 123 4567", "00447121234567", "07121234567", "0712 123 4567", "۰۷۱۲۱۲۳۴۵۶۷")</ID>
+    <ID>MaxLineLength:LockScreen.kt$@Preview(name = "PIN dark, locked out", showBackground = true, widthDp = 360, heightDp = 740, uiMode = Configuration.UI_MODE_NIGHT_YES)</ID>
+    <ID>MaxLineLength:LockScreen.kt$@Preview(name = "Pattern dark", showBackground = true, widthDp = 360, heightDp = 740, uiMode = Configuration.UI_MODE_NIGHT_YES)</ID>
+    <ID>MaxLineLength:LockScreen.kt$Box(contentAlignment = Alignment.Center, modifier = Modifier.alpha(if (enabled) 1f else DISABLED_ALPHA)) { content() }</ID>
+    <ID>MaxLineLength:LockScreen.kt$Icon(Symbols.Fingerprint, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(72.dp))</ID>
+    <ID>MaxLineLength:LockScreen.kt$Icon(Symbols.Lock, contentDescription = null, tint = colors.onPrimaryContainer, modifier = Modifier.size(32.dp))</ID>
+    <ID>MaxLineLength:LockScreen.kt$LockContent(LockUiState(PROTECTION_PIN, message = LockMessage.LockedOut, lockoutSeconds = 42, inputEnabled = false), LockCallbacks())</ID>
+    <ID>MaxLineLength:LockScreen.kt$LockFallback.Pin -&gt; TextButton(onClick = callbacks.onUsePin) { Text(stringResource(R.string.lock_use_pin_instead)) }</ID>
+    <ID>MaxLineLength:LockScreen.kt$PadKey</ID>
+    <ID>MaxLineLength:LockScreen.kt$Text(localizeDigits(digit.toString(), uiLocale()), style = MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.onSurface)</ID>
+    <ID>MaxLineLength:LockScreen.kt$if (next.size != drawn.size) haptic.performHapticFeedback(HapticFeedbackType.SegmentTick)</ID>
+    <ID>MaxLineLength:LockScreen.kt$stringResource(R.string.lock_try_again_in, DateUtils.formatElapsedTime(state.lockoutSeconds.toLong()))</ID>
+    <ID>MaxLineLength:LockScreen.kt$val cell = PatternGeometry.cellAt(position.x, position.y, this.size.width.toFloat(), this.size.height.toFloat())</ID>
+    <ID>MaxLineLength:LockScreen.kt$val wrong = stringResource(if (state.inputType == PROTECTION_PATTERN) R.string.lock_wrong_pattern else R.string.lock_wrong_pin)</ID>
+    <ID>MaxLineLength:LockScreenTest.kt$LockScreenTest$LockUiState(PROTECTION_FINGERPRINT, fallback = LockFallback.Pin, usingPin = true, message = LockMessage.BiometricsUnavailable)</ID>
+    <ID>MaxLineLength:LockScreenTest.kt$LockScreenTest$private fun dot(row: Int, col: Int)</ID>
+    <ID>MaxLineLength:LockScreenTest.kt$LockScreenTest$show(LockUiState(PROTECTION_FINGERPRINT, fallback = LockFallback.DeviceCredential), LockCallbacks(onScreenLock = { asked = true }))</ID>
+    <ID>MaxLineLength:LockScreenTest.kt$LockScreenTest$show(LockUiState(PROTECTION_FINGERPRINT, fallback = LockFallback.Open), LockCallbacks(onScreenLock = { opened = true }))</ID>
+    <ID>MaxLineLength:LockScreenTest.kt$LockScreenTest$show(LockUiState(PROTECTION_FINGERPRINT, fallback = LockFallback.Pin), LockCallbacks(onUsePin = { asked = true }))</ID>
+    <ID>MaxLineLength:LockScreenTest.kt$LockScreenTest$show(LockUiState(PROTECTION_PATTERN, screenLockAvailable = true), LockCallbacks(onScreenLock = { asked = true }))</ID>
+    <ID>MaxLineLength:MainActivityHostTest.kt$MainActivityHostTest$assertThat(compose.onAllNodesWithContentDescription(app.getString(R.string.main_search_back)).fetchSemanticsNodes())</ID>
+    <ID>MaxLineLength:MainActivityHostTest.kt$MainActivityHostTest$private fun refreshSubscribed()</ID>
+    <ID>MaxLineLength:MainRoutes.kt$MainRoutes$Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", activity.packageName, null))</ID>
+    <ID>MaxLineLength:MainScreen.kt$BadgedBox</ID>
+    <ID>MaxLineLength:MainScreen.kt$MainTab.Messages -&gt; MessagesTab(viewModel, callbacks, search, navigation, onQueryChange, onOpenResult)</ID>
+    <ID>MaxLineLength:MainScreen.kt$Text(result.date, style = MaterialTheme.typography.labelMedium, color = colors.onSurfaceVariant, maxLines = 1)</ID>
+    <ID>MaxLineLength:MainScreen.kt$val description = if (badge &gt; 0) pluralStringResource(R.plurals.main_tab_blocked_new, badge, badge) else label</ID>
+    <ID>MaxLineLength:MainSearch.kt$*</ID>
+    <ID>MaxLineLength:MessageDetailsDialog.kt$MessageDetailsDialog$return DateFormat.format(DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton), date * 1000L).toString()</ID>
+    <ID>MaxLineLength:MessagesBackupTest.kt$MessagesBackupTest$((if (i == 0) "[" else ",") + json.encodeToString(SmsBackup.serializer(), sms(date = i.toLong(), body = "m$i")))</ID>
+    <ID>MaxLineLength:MessagesBackupTest.kt$MessagesBackupTest$file(sms(date = 1), """{"backupType":"sms","address":"x"}""", """{"backupType":"fax"}""", sms(date = 2))</ID>
+    <ID>MaxLineLength:MessagesBackupTest.kt$MessagesBackupTest$val addresses = listOf(MmsAddress("+15550001", PduHeaders.FROM, 106), MmsAddress("+15559999", PduHeaders.TO, 106))</ID>
+    <ID>MaxLineLength:MessagesDatabase.kt$MessagesDatabase.Companion.&lt;no name provided&gt;$"CREATE TABLE `messages_new` (`id` INTEGER NOT NULL, `body` TEXT NOT NULL, `type` INTEGER NOT NULL, "</ID>
+    <ID>MaxLineLength:MessagesDatabase.kt$MessagesDatabase.Companion.&lt;no name provided&gt;$"INSERT OR IGNORE INTO conversations_new (thread_id, snippet, date, read, title, photo_uri, is_group_conversation, phone_number) "</ID>
+    <ID>MaxLineLength:MessagesDatabase.kt$MessagesDatabase.Companion.&lt;no name provided&gt;$"SELECT thread_id, snippet, date, read, title, photo_uri, is_group_conversation, phone_number FROM conversations"</ID>
+    <ID>MaxLineLength:MessagesDatabase.kt$MessagesDatabase.Companion.&lt;no name provided&gt;$execSQL("CREATE TABLE IF NOT EXISTS `attachments` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `message_id` INTEGER NOT NULL, `uri_string` TEXT NOT NULL, `mimetype` TEXT NOT NULL, `width` INTEGER NOT NULL, `height` INTEGER NOT NULL, `filename` TEXT NOT NULL)")</ID>
+    <ID>MaxLineLength:MessagesDatabase.kt$MessagesDatabase.Companion.&lt;no name provided&gt;$execSQL("CREATE TABLE IF NOT EXISTS `drafts` (`thread_id` INTEGER NOT NULL PRIMARY KEY, `body` TEXT NOT NULL, `date` INTEGER NOT NULL)")</ID>
+    <ID>MaxLineLength:MessagesDatabase.kt$MessagesDatabase.Companion.&lt;no name provided&gt;$execSQL("CREATE TABLE IF NOT EXISTS `message_attachments` (`id` INTEGER PRIMARY KEY NOT NULL, `text` TEXT NOT NULL, `attachments` TEXT NOT NULL)")</ID>
+    <ID>MaxLineLength:MessagesDatabase.kt$MessagesDatabase.Companion.&lt;no name provided&gt;$execSQL("CREATE TABLE IF NOT EXISTS `messages` (`id` INTEGER PRIMARY KEY NOT NULL, `body` TEXT NOT NULL, `type` INTEGER NOT NULL, `participants` TEXT NOT NULL, `date` INTEGER NOT NULL, `read` INTEGER NOT NULL, `thread_id` INTEGER NOT NULL, `is_mms` INTEGER NOT NULL, `attachment` TEXT, `sender_name` TEXT NOT NULL, `sender_photo_uri` TEXT NOT NULL, `subscription_id` INTEGER NOT NULL)")</ID>
+    <ID>MaxLineLength:MessagesDatabase.kt$MessagesDatabase.Companion.&lt;no name provided&gt;$execSQL("CREATE TABLE IF NOT EXISTS `recycle_bin_messages` (`id` INTEGER NOT NULL PRIMARY KEY, `deleted_ts` INTEGER NOT NULL)")</ID>
+    <ID>MaxLineLength:MessagesDatabase.kt$MessagesDatabase.Companion.&lt;no name provided&gt;$execSQL("CREATE TABLE conversations_new (`thread_id` INTEGER NOT NULL PRIMARY KEY, `snippet` TEXT NOT NULL, `date` INTEGER NOT NULL, `read` INTEGER NOT NULL, `title` TEXT NOT NULL, `photo_uri` TEXT NOT NULL, `is_group_conversation` INTEGER NOT NULL, `phone_number` TEXT NOT NULL)")</ID>
+    <ID>MaxLineLength:MessagesDatabase.kt$MessagesDatabase.Companion.&lt;no name provided&gt;$execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_conversations_id` ON `conversations` (`thread_id`)")</ID>
+    <ID>MaxLineLength:MessagesDatabase.kt$MessagesDatabase.Companion.&lt;no name provided&gt;$execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_recycle_bin_messages_id` ON `recycle_bin_messages` (`id`)")</ID>
+    <ID>MaxLineLength:MessagesDatabase.kt$MessagesDatabase.Companion.&lt;no name provided&gt;$val</ID>
+    <ID>MaxLineLength:MessagesReader.kt$MessagesReader$addresses += MmsAddress(c.string(Mms.Addr.ADDRESS).orEmpty(), c.int(Mms.Addr.TYPE), c.int(Mms.Addr.CHARSET))</ID>
+    <ID>MaxLineLength:MessagesWriter.kt$MessagesWriter$ownNumbers?.invoke() ?: runCatching { SimCards.load(context).mapNotNull { it.number } }.getOrDefault(emptyList())</ID>
+    <ID>MaxLineLength:MessagesWriter.kt$MessagesWriter$return</ID>
+    <ID>MaxLineLength:MessagesWriter.kt$MessagesWriter.&lt;no name provided&gt;$override fun removeEldestEntry(eldest: MutableMap.MutableEntry&lt;Long, MutableSet&lt;SmsKey&gt;&gt;?)</ID>
+    <ID>MaxLineLength:Messaging.kt$*</ID>
+    <ID>MaxLineLength:MessagingUtils.kt$MessagingUtils$(groupDate - RECIPIENT_ROW_WINDOW_MS).toString()</ID>
+    <ID>MaxLineLength:MessagingUtils.kt$MessagingUtils$context.showErrorToast(e.localizedMessage ?: context.getString(org.fossify.commons.R.string.unknown_error_occurred))</ID>
+    <ID>MaxLineLength:MessagingUtils.kt$MessagingUtils$phoneNumbers = arrayListOf(PhoneNumber(value = address, type = 0, label = "", normalizedNumber = address))</ID>
+    <ID>MaxLineLength:MessagingUtils.kt$MessagingUtils$private</ID>
+    <ID>MaxLineLength:MmsPart.kt$MmsPart$return !(text != null || contentType.lowercase().startsWith("text") || contentType.lowercase() == "application/smil")</ID>
+    <ID>MaxLineLength:MmsPduFixtures.kt$MmsPduFixtures$body.addPart(part("text/plain", "text.txt", it.toByteArray(Charsets.UTF_8)).apply { setCharset(CharacterSets.UTF_8) })</ID>
+    <ID>MaxLineLength:MmsPushGate.kt$MmsPushGate$contentLocation = info.contentLocation.takeIf { info.expiresAt == 0L || info.expiresAt &gt; now }.orEmpty()</ID>
+    <ID>MaxLineLength:MmsPushGateTest.kt$MmsPushGateTest$val action = MmsPushGate.decide(notificationInd("+15551234567"), 1, 0L) { FilterDecision.Allow(DecisionReason.CONTACT) }</ID>
+    <ID>MaxLineLength:NewConversationActivity.kt$NewConversationActivity$// READ_CONTACTS permission is not mandatory, but without it we won't be able to show any suggestions during typing</ID>
+    <ID>MaxLineLength:NewConversationActivity.kt$NewConversationActivity$WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE</ID>
+    <ID>MaxLineLength:NewConversationActivity.kt$NewConversationActivity$private</ID>
+    <ID>MaxLineLength:NewConversationActivity.kt$NewConversationActivity$val phoneContacts = if (canReadContacts) loadPhoneContacts(this@NewConversationActivity) else emptyList()</ID>
+    <ID>MaxLineLength:NewConversationScreen.kt$(numberForms != null &amp;&amp; (numberMatches(it.normalizedNumber, numberForms) || numberMatches(it.value, numberForms)))</ID>
+    <ID>MaxLineLength:NewConversationScreen.kt$Icon(Symbols.Close, contentDescription = null, modifier = Modifier.width(InputChipDefaults.IconSize))</ID>
+    <ID>MaxLineLength:NewConversationScreen.kt$Icon(Symbols.Close, contentDescription = stringResource(R.string.screens_new_clear_input))</ID>
+    <ID>MaxLineLength:NewConversationScreen.kt$contact.name.firstOrNull { it.isLetterOrDigit() }?.let { it.toString().normalizeString().uppercase().take(1) } ?: "#"</ID>
+    <ID>MaxLineLength:NewConversationScreen.kt$itemsIndexed</ID>
+    <ID>MaxLineLength:NewConversationScreen.kt$label = { Text(isolateNumbers(recipient.name), maxLines = 1, overflow = TextOverflow.Ellipsis) }</ID>
+    <ID>MaxLineLength:NewConversationScreen.kt$val base = "c-${contact.rawId}-${contact.contactId}-${contact.phoneNumbers.firstOrNull()?.normalizedNumber.orEmpty()}"</ID>
+    <ID>MaxLineLength:NotificationsOffBanner.kt$notificationsBlock(manager.areNotificationsEnabled(), manager.getNotificationChannel(NOTIFICATION_CHANNEL_ID)?.importance)</ID>
+    <ID>MaxLineLength:NotificationsOffTest.kt$NotificationsOffTest$assertThat(notificationsBlock(appEnabled = true, channelImportance = NotificationManager.IMPORTANCE_HIGH)).isNull()</ID>
+    <ID>MaxLineLength:NumberMatchingTest.kt$NumberMatchingTest$val prefixes = listOf("0712", "0712 ", "0 712", "۰۷۱۲", "+44712", "+44 712", "0044712", "44712", "712", "+۴۴ ۷۱۲")</ID>
+    <ID>MaxLineLength:NumberNormalizer.kt$NumberNormalizer$return region() == null &amp;&amp; unknown.digits.trimStart('0').let { it.length &gt;= MIN_NATIONAL &amp;&amp; it == known.national }</ID>
+    <ID>MaxLineLength:OemHelper.kt$OemHelper$component("com.coloros.safecenter", "com.coloros.safecenter.permission.startup.StartupAppListActivity")</ID>
+    <ID>MaxLineLength:OemHelper.kt$OemHelper$component("com.huawei.systemmanager", "com.huawei.systemmanager.appcontrol.activity.StartupAppControlActivity")</ID>
+    <ID>MaxLineLength:OemHelper.kt$OemHelper$component("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity")</ID>
+    <ID>MaxLineLength:OemHelper.kt$OemHelper$component("com.huawei.systemmanager", "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity")</ID>
+    <ID>MaxLineLength:OemHelper.kt$OemHelper$component("com.miui.powerkeeper", "com.miui.powerkeeper.ui.HiddenAppsContainerManagementActivity")</ID>
+    <ID>MaxLineLength:OemHelper.kt$OemHelper$component("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity")</ID>
+    <ID>MaxLineLength:OemHelper.kt$OemHelper$component("com.miui.securitycenter", "com.miui.permcenter.autostart.AutostartManagementActivity")</ID>
+    <ID>MaxLineLength:OemHelper.kt$OemHelper$component("com.oneplus.security", "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity")</ID>
+    <ID>MaxLineLength:OemHelper.kt$OemHelper$component("com.samsung.android.lool", "com.samsung.android.sm.battery.ui.usage.CheckableAppListActivity")</ID>
+    <ID>MaxLineLength:OemHelper.kt$OemHelper$component("com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.BgStartUpManagerActivity")</ID>
+    <ID>MaxLineLength:OnboardingScreen.kt$Text(stringResource(R.string.onb_mode_warning_body), style = MaterialTheme.typography.bodyMedium)</ID>
+    <ID>MaxLineLength:OnboardingScreen.kt$Text(stringResource(step.titleRes), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)</ID>
+    <ID>MaxLineLength:OnboardingScreen.kt$Text(stringResource(titleRes), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)</ID>
+    <ID>MaxLineLength:OnboardingScreen.kt$color = if (ok) MaterialTheme.colorScheme.success else MaterialTheme.colorScheme.onSurfaceVariant</ID>
+    <ID>MaxLineLength:OtpDetector.kt$OtpDetector$"tv"</ID>
+    <ID>MaxLineLength:OtpDetector.kt$OtpDetector$*</ID>
+    <ID>MaxLineLength:OtpDetector.kt$OtpDetector$/** The space inside a keyword is optional: Persian often writes "کد\u200Cتایید" with a ZWNJ, which folding drops. */</ID>
+    <ID>MaxLineLength:OtpDetectorTest.kt$OtpDetectorTest$assertFalse(otp("Your code will arrive soon. Meanwhile visit our store at the mall downtown on 4th street 12345"))</ID>
+    <ID>MaxLineLength:PendingSms.kt$PendingSmsQueue$expired -&gt; if (!alreadyBlocked(dao, row)) IncomingSmsProcessor.deliver(context, row, showNotification = true)</ID>
+    <ID>MaxLineLength:PendingSmsReplayTest.kt$PendingSmsReplayTest$DefaultSpamRepository(NoopPlatform(), SpamDatabase.getInstance(it), SpamSettingsStore(it), NumberNormalizer { "GB" })</ID>
+    <ID>MaxLineLength:PendingSmsReplayTest.kt$PendingSmsReplayTest$assertTrue(offMainThread { SpamEngine.storeBlocked(app, incoming, FilterDecision.Block(DecisionReason.UNKNOWN_SENDER)) })</ID>
+    <ID>MaxLineLength:PendingSmsReplayTest.kt$PendingSmsReplayTest.FakeSmsProvider$override</ID>
+    <ID>MaxLineLength:PendingSmsReplayTest.kt$PendingSmsReplayTest.FakeSmsProvider$row.getAsString(Telephony.Sms.BODY) == args[1]</ID>
+    <ID>MaxLineLength:PendingSmsRetryReceiver.kt$PendingSmsRetry$/** First retry after a minute, then doubling: 1, 2, 4, 8, 16, 32 minutes. After that app start and the next SMS replay. */</ID>
+    <ID>MaxLineLength:PersianDigitsTest.kt$PersianDigitsTest$BlockedUiState(loading = false, stats = SpamStats(blockedTotal = 12, blockedLast7Days = 3, restoredTotal = 1))</ID>
+    <ID>MaxLineLength:PersianDigitsTest.kt$PersianDigitsTest$onAllNodes(androidx.compose.ui.test.SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.Text))</ID>
+    <ID>MaxLineLength:PersianDigitsTest.kt$PersianDigitsTest$val label = relativeDateLabel(at, at + 60_000L, ZoneOffset.UTC, use24Hour = true, RelativeDateWords("امروز", "دیروز"), context.uiLocale)</ID>
+    <ID>MaxLineLength:PersianTranslationTest.kt$PersianTranslationTest$/** Keys are a string's name, name[quantity] for plurals and name#index for arrays. Untranslatable ones are left out. */</ID>
+    <ID>MaxLineLength:PersianTranslationTest.kt$PersianTranslationTest$if ("$name[one]" !in persian || "$name[other]" !in persian) problems += "$name: needs quantities one and other"</ID>
+    <ID>MaxLineLength:PrivateContacts.kt$return MyContactsContentProvider.getSimpleContacts(this, getMyContactsCursor(favoritesOnly = false, withPhoneNumbersOnly = true))</ID>
+    <ID>MaxLineLength:RecycleBinConversationsActivity.kt$RecycleBinConversationsActivity$.</ID>
+    <ID>MaxLineLength:RegexGuard.kt$RegexGuard$/** Matches a length-capped [body]. Any failure inside the regex engine, a timeout included, counts as "no match". */</ID>
+    <ID>MaxLineLength:RestoredMmsDelivery.kt$RestoredMmsDelivery$val</ID>
+    <ID>MaxLineLength:RestoredThreadDateTest.kt$RestoredThreadDateTest.StampingProvider$db.execSQL("INSERT OR REPLACE INTO threads (_id, date) VALUES (?, ?)", arrayOf(threadId, System.currentTimeMillis()))</ID>
+    <ID>MaxLineLength:Rows.kt$Text(body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:RuleLogic.kt$RuleSearch$(type == null || rule.type == type) &amp;&amp; matchesText(listOf(rule.pattern, rule.note), query, numeric = rule.type.isNumeric)</ID>
+    <ID>MaxLineLength:RuleLogic.kt$RuleTextCodec$is RuleValidation.Valid -&gt; SpamRule(kind = kind, type = type, pattern = result.pattern, subscriptionId = sim, note = note.take(80))</ID>
+    <ID>MaxLineLength:RuleLogic.kt$RuleValidator$/** Same checks the repository and the filter use ([RegexGuard]), so a pattern the form accepts is also stored and used. */</ID>
+    <ID>MaxLineLength:RuleLogic.kt$RuleValidator$fun</ID>
+    <ID>MaxLineLength:RuleLogic.kt$RuleValidator$if (kind == ListKind.ALLOW &amp;&amp; type == RuleType.KEYWORD &amp;&amp; isCommonWord(pattern)) result += RuleWarning.COMMON_WORD</ID>
+    <ID>MaxLineLength:RuleLogic.kt$RuleValidator$kind == ListKind.ALLOW &amp;&amp; trimmed.length &lt; MIN_ALLOW_KEYWORD -&gt; RuleValidation.Invalid(RuleError.ALLOW_KEYWORD_SHORT)</ID>
+    <ID>MaxLineLength:RuleLogic.kt$RuleValidator$return da.length &gt;= NUMBER_TAIL &amp;&amp; db.length &gt;= NUMBER_TAIL &amp;&amp; da.takeLast(NUMBER_TAIL) == db.takeLast(NUMBER_TAIL)</ID>
+    <ID>MaxLineLength:RuleMatcher.kt$RuleMatcher$// keyword also sees through spaced-out letters and leetspeak ("F R E E", "fr33"); an ALLOW keyword does not,</ID>
+    <ID>MaxLineLength:RuleMatcher.kt$RuleMatcher$RuleType.NUMBER -&gt; !normalizer.isSenderId(pattern) &amp;&amp; numbers.any { it.sameAddress(pattern, message.address) }</ID>
+    <ID>MaxLineLength:RuleMatcher.kt$RuleMatcher$RuleType.REGEX -&gt; regex(pattern)?.let { matchesRegex(pattern, it, TextNormalizer.fold(message.body)) } == true</ID>
+    <ID>MaxLineLength:RuleMatcher.kt$RuleMatcher$fun</ID>
+    <ID>MaxLineLength:RuleTextCodecTest.kt$RuleTextCodecTest$SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = "+44712", subscriptionId = 2, note = "Telemarketer, again")</ID>
+    <ID>MaxLineLength:RuleTextCodecTest.kt$RuleTextCodecTest$private fun comparable(rules: List&lt;SpamRule&gt;)</ID>
+    <ID>MaxLineLength:RuleTextCodecTest.kt$RuleTextCodecTest$val decoded = RuleTextCodec.decode("${RuleTextCodec.HEADER}\nBLOCK\tNUMBER\tsim2\t\t+44712\nBLOCK\tNUMBER\t\t\t+44713\n")</ID>
+    <ID>MaxLineLength:RuleTextCodecTest.kt$RuleTextCodecTest$val decoded = RuleTextCodec.decode("BLOCK,NUMBER,+44712\nallow,keyword,delivery, code\n# comment\n\nBLOCK,REGEX,(a+)+\nnonsense\n")</ID>
+    <ID>MaxLineLength:RuleTextCodecTest.kt$RuleTextCodecTest$val rules = listOf(SpamRule(kind = ListKind.BLOCK, type = RuleType.KEYWORD, pattern = "free gift", note = "a\tb\nc"))</ID>
+    <ID>MaxLineLength:RulesScreen.kt$(state.tab == ListKind.ALLOW || (state.visibleLegacyKeywords.isEmpty() &amp;&amp; state.visibleLegacyNumbers.isEmpty()))</ID>
+    <ID>MaxLineLength:RulesScreen.kt$/** Offer to move the old Fossify lists into rules (SU-33). "Not now" hides it for good; the Blocked tab keeps a Move button. */</ID>
+    <ID>MaxLineLength:RulesScreen.kt$?:</ID>
+    <ID>MaxLineLength:RulesScreen.kt$Column</ID>
+    <ID>MaxLineLength:RulesScreen.kt$FlowRow</ID>
+    <ID>MaxLineLength:RulesScreen.kt$Icon(ruleTypeIcon(type), contentDescription = null, tint = colors.onSurfaceVariant, modifier = Modifier.size(20.dp))</ID>
+    <ID>MaxLineLength:RulesScreen.kt$LegacyRow(word, RuleType.KEYWORD, stringResource(R.string.rules_legacy_chip_old_list), groupShape(index, keywords.size))</ID>
+    <ID>MaxLineLength:RulesScreen.kt$Modifier.size(40.dp).clip(CircleShape).background(if (selected) colors.primary else colors.primaryContainer)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$RuleType.KEYWORD -&gt; if (kind == ListKind.ALLOW) R.string.spam_type_keyword_allow_help else R.string.spam_type_keyword_help</ID>
+    <ID>MaxLineLength:RulesScreen.kt$Text(ruleLine(it), style = MaterialTheme.typography.bodyMedium, color = color, maxLines = 2, overflow = TextOverflow.Ellipsis)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$Text(value, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$TextButton(onClick = actions.onDismissLegacyBanner) { Text(stringResource(R.string.rules_legacy_banner_not_now)) }</ID>
+    <ID>MaxLineLength:RulesScreen.kt$TextButton(onClick = actions.onOpenMigration) { Text(stringResource(R.string.rules_legacy_banner_review)) }</ID>
+    <ID>MaxLineLength:RulesScreen.kt$add(resources.getQuantityString(R.plurals.rules_migrated_removed, event.removedFromSystem, event.removedFromSystem))</ID>
+    <ID>MaxLineLength:RulesScreen.kt$body = stringResource(if (allow) R.string.spam_rules_empty_allowed_body else R.string.spam_rules_empty_blocked_body)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$colors = CardDefaults.cardColors(containerColor = colors.errorContainer, contentColor = colors.onErrorContainer)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$colors = CardDefaults.cardColors(containerColor = colors.secondaryContainer, contentColor = colors.onSecondaryContainer)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$confirmLabel = stringResource(if (conflict) R.string.spam_confirm_remove_allowed else R.string.spam_confirm_save)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$if (!state.loading &amp;&amp; (state.current.isNotEmpty() || hasLegacy || state.filtering)) RulesSearch(state, actions)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$if (event.keywords &gt; 0) add(resources.getQuantityString(R.plurals.rules_migrated_keywords, event.keywords, event.keywords))</ID>
+    <ID>MaxLineLength:RulesScreen.kt$if (event.numbers &gt; 0) add(resources.getQuantityString(R.plurals.rules_migrated_numbers, event.numbers, event.numbers))</ID>
+    <ID>MaxLineLength:RulesScreen.kt$is RulesEvent.Migrated -&gt; snackbar.showSnackbar(migratedText(resources, event), duration = SnackbarDuration.Long)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$keyboardType = if (form.type == RuleType.NUMBER || form.type == RuleType.PREFIX) KeyboardType.Phone else KeyboardType.Text</ID>
+    <ID>MaxLineLength:RulesScreen.kt$resources.getQuantityString(R.plurals.rules_migrate_keywords, plan.keywordRules.size, plan.keywordRules.size)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$resources.getQuantityString(R.plurals.rules_migrate_keywords_kept, plan.keptKeywords.size, plan.keptKeywords.size)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$resources.getQuantityString(R.plurals.rules_migrate_numbers_kept, plan.keptNumbers.size, plan.keptNumbers.size)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$stringResource(if (rule.kind == ListKind.ALLOW) R.string.spam_rules_tab_allowed else R.string.spam_rules_tab_blocked)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$text = { Text(stringResource(R.string.ui_tab_with_count, stringResource(R.string.forward_tab), forwardCount)) }</ID>
+    <ID>MaxLineLength:RulesScreen.kt$text = { Text(stringResource(if (state.forwardTab) R.string.forward_add else R.string.spam_rules_add)) }</ID>
+    <ID>MaxLineLength:RulesScreen.kt$title = stringResource(if (allow) R.string.spam_rules_empty_allowed_title else R.string.spam_rules_empty_blocked_title)</ID>
+    <ID>MaxLineLength:RulesScreen.kt$val</ID>
+    <ID>MaxLineLength:RulesScreen.kt$val text = if (count == 1) deletedText else resources.getQuantityString(R.plurals.rules_deleted_many, count, count)</ID>
+    <ID>MaxLineLength:RulesUiTest.kt$RulesUiTest$UMessageTheme { ImportPreviewDialog(ImportPreview(rules, duplicates = 1, invalid = 0, risky = rules.drop(1)), RulesActions()) }</ID>
+    <ID>MaxLineLength:RulesUiTest.kt$RulesUiTest$compose.setContent { UMessageTheme { SettingsScreen(SettingsUiState(loading = false, settings = SpamSettings()), SettingsActions()) } }</ID>
+    <ID>MaxLineLength:RulesUiTest.kt$RulesUiTest$private</ID>
+    <ID>MaxLineLength:RulesUiTest.kt$RulesUiTest$private fun str(id: Int, vararg args: Any)</ID>
+    <ID>MaxLineLength:RulesUiTest.kt$RulesUiTest$val legacy = LegacyLists(keywords = listOf("free gift"), numbers = listOf(BlockedNumberItem(5, "+447120000000")))</ID>
+    <ID>MaxLineLength:RulesUiTest.kt$RulesUiTest$val warnings = (validation as? RuleValidation.Valid)?.let { RuleValidator.warnings(kind, type, it.pattern, existing, null) }.orEmpty()</ID>
+    <ID>MaxLineLength:RulesViewModel.kt$RulesEvent.Migrated$/** The old lists were moved: words and numbers now rules, numbers taken off the system list, entries left behind. */</ID>
+    <ID>MaxLineLength:RulesViewModel.kt$RulesUiState$legacy.numbers.filter { RuleSearch.matchesText(listOfNotNull(it.number, it.contactName), query, numeric = true) }</ID>
+    <ID>MaxLineLength:RulesViewModel.kt$RulesViewModel$/** The user accepted the warnings. For a block of an allowed value the allow rule is removed too, as the dialog says. */</ID>
+    <ID>MaxLineLength:RulesViewModel.kt$RulesViewModel$e.copy(migration = e.migration?.let { it.copy(importNumbers = enabled, removeFromSystem = enabled &amp;&amp; it.removeFromSystem) })</ID>
+    <ID>MaxLineLength:RulesViewModel.kt$RulesViewModel$events.trySend(if (duplicates == 0) RulesEvent.ImportEmpty else RulesEvent.Imported(0, duplicates + parsed.invalidLines))</ID>
+    <ID>MaxLineLength:RulesViewModel.kt$RulesViewModel$it?.copy(saving = false, validation = RuleValidation.Invalid(RuleError.DUPLICATE), warnings = emptyList())</ID>
+    <ID>MaxLineLength:RulesViewModel.kt$RulesViewModel$removed = withContext(io) { covered.count { runCatching { legacyStore.removeSystemNumber(it.id) }.getOrDefault(false) } }</ID>
+    <ID>MaxLineLength:RulesViewModel.kt$RulesViewModel$runCatching { repository.removeRule(rule.id) }.onSuccess { events.trySend(RulesEvent.Deleted(listOf(rule))) }</ID>
+    <ID>MaxLineLength:RulesViewModel.kt$RulesViewModel$runCatching { repository.removeRules(rules.map { it.id }) }.onSuccess { events.trySend(RulesEvent.Deleted(rules)) }</ID>
+    <ID>MaxLineLength:RulesViewModel.kt$RulesViewModel$val id = runCatching { if (editing != null) repository.updateRule(rule) else repository.addRule(rule) }.getOrNull()</ID>
+    <ID>MaxLineLength:RulesViewModelTest.kt$RulesViewModelTest$assertThat(vm.state.value.form!!.warnings).containsExactly(RuleWarning.ALLOW_SKIPS_BLOCKS, RuleWarning.COMMON_WORD)</ID>
+    <ID>MaxLineLength:RulesViewModelTest.kt$RulesViewModelTest$numbers = listOf(BlockedNumberItem(5, "+447120000000"), BlockedNumberItem(6, "+44735*"), BlockedNumberItem(7, "+44*12*"))</ID>
+    <ID>MaxLineLength:RulesViewModelTest.kt$RulesViewModelTest$private</ID>
+    <ID>MaxLineLength:RulesViewModelTest.kt$RulesViewModelTest.Legacy$private</ID>
+    <ID>MaxLineLength:RulesViewModelTest.kt$RulesViewModelTest.Repo$it.kind == rule.kind &amp;&amp; it.type == rule.type &amp;&amp; it.pattern == pattern &amp;&amp; it.subscriptionId == rule.subscriptionId</ID>
+    <ID>MaxLineLength:ScheduleMessageDialog.kt$PickerRow(Symbols.CalendarMonth, stringResource(R.string.screens_schedule_date), dateText) { step = Step.Date }</ID>
+    <ID>MaxLineLength:ScheduleMessageDialog.kt$PickerRow(Symbols.Schedule, stringResource(R.string.screens_schedule_time), timeText) { step = Step.Time }</ID>
+    <ID>MaxLineLength:ScheduleMessageDialog.kt$ScheduleMessageDialog$initial = initialMillis?.let { LocalDateTime.ofInstant(Instant.ofEpochMilli(it), ZoneId.systemDefault()) }</ID>
+    <ID>MaxLineLength:ScheduleMessageDialog.kt$Text(label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:ScheduleMessageDialog.kt$private</ID>
+    <ID>MaxLineLength:ScheduleMessageDialog.kt$private fun nextMinute(): Int</ID>
+    <ID>MaxLineLength:ScheduleMessageDialog.kt$val picked = Instant.ofEpochMilli(state.selectedDateMillis!!).atZone(ZoneOffset.UTC).toLocalDate()</ID>
+    <ID>MaxLineLength:ScheduledAlarmTest.kt$ScheduledAlarmTest$private</ID>
+    <ID>MaxLineLength:ScheduledForNewContactTest.kt$ScheduledForNewContactTest$Conversation(TEMP_THREAD, "See you at noon", message.date, true, "111", "", false, "111", isScheduled = true)</ID>
+    <ID>MaxLineLength:ScheduledForNewContactTest.kt$ScheduledForNewContactTest$val participant = SimpleContact(1, 1, "111", "", arrayListOf(PhoneNumber("111", 0, "", "111")), ArrayList(), ArrayList())</ID>
+    <ID>MaxLineLength:SendFailureNotificationTest.kt$SendFailureNotificationTest$date = (System.currentTimeMillis() / 1000).toInt()</ID>
+    <ID>MaxLineLength:SendFailureNotificationTest.kt$SendFailureNotificationTest$offMainThread { MmsSentReceiver().handle(context, Intent().putExtra("content_uri", uri.toString()), Activity.RESULT_OK) }</ID>
+    <ID>MaxLineLength:SenderBlocking.kt$SenderBlocking$added += repository.addRule(SpamRule(kind = ListKind.BLOCK, type = plan.type, pattern = address, note = NOTE))</ID>
+    <ID>MaxLineLength:SenderBlocking.kt$SenderBlocking$return repository.addRule(SpamRule(kind = ListKind.ALLOW, type = type, pattern = address.trim(), note = ALLOW_NOTE))</ID>
+    <ID>MaxLineLength:SentHistoryCachingTest.kt$SentHistoryCachingTest.CountingSmsProvider$override</ID>
+    <ID>MaxLineLength:SentHistoryCachingTest.kt$SentHistoryCachingTest.CountingSmsProvider$return db.delete("sms", "_id = ?", arrayOf(id.toString())).also { context!!.contentResolver.notifyChange(uri, null) }</ID>
+    <ID>MaxLineLength:SentHistoryCheckerTest.kt$SentHistoryCheckerTest.BrokenSmsProvider$override</ID>
+    <ID>MaxLineLength:SentParts.kt$SentParts$val next = if (partSent) progress.copy(sent = progress.sent + 1) else progress.copy(failed = progress.failed + 1)</ID>
+    <ID>MaxLineLength:SeparateGroupPreviewTest.kt$SeparateGroupPreviewTest$context.conversationsDB.insertOrUpdate(conversation(thread, snippet = "Dinner at 8?", date = 2_000_000_000))</ID>
+    <ID>MaxLineLength:SeparateGroupPreviewTest.kt$SeparateGroupPreviewTest$context.messagesDB.insertOrUpdate(message(id = 10L + i, thread = thread, body = "Old message", date = 1000))</ID>
+    <ID>MaxLineLength:SettingsActivity.kt$SettingsActivity$if (kind == BackupJob.Kind.IMPORT) R.string.backup_interrupted_import else R.string.backup_interrupted_export</ID>
+    <ID>MaxLineLength:SettingsRows.kt$Text(summary, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:SettingsRows.kt$if</ID>
+    <ID>MaxLineLength:SettingsRows.kt$val outline = slot.shape.createOutline(Size(size.width, slot.height.toFloat()), layoutDirection, this)</ID>
+    <ID>MaxLineLength:SettingsScreen.kt$Column</ID>
+    <ID>MaxLineLength:SettingsScreen.kt$ModeChoice(UnknownSenderMode.SMART, R.string.spam_mode_smart, R.string.spam_mode_smart_body, settings, actions)</ID>
+    <ID>MaxLineLength:SettingsScreen.kt$ModeChoice(UnknownSenderMode.STRICT, R.string.spam_mode_strict, R.string.spam_mode_strict_body, settings, actions)</ID>
+    <ID>MaxLineLength:SettingsScreen.kt$SettingsContent(state, actions, Modifier.padding(top = inner.calculateTopPadding()), inner.calculateBottomPadding())</ID>
+    <ID>MaxLineLength:SettingsScreen.kt$StrictWarning(onReview = actions.onOpenBlocked, modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp))</ID>
+    <ID>MaxLineLength:SettingsScreen.kt$colors = CardDefaults.cardColors(containerColor = colors.errorContainer, contentColor = colors.onErrorContainer)</ID>
+    <ID>MaxLineLength:SettingsScreen.kt$phoneDefault != null -&gt; stringResource(R.string.settings_sim_default_phone_value, describe(phoneDefault))</ID>
+    <ID>MaxLineLength:SettingsScreen.kt$private</ID>
+    <ID>MaxLineLength:SettingsScreen.kt$summary = stringResource(R.string.ui_two_sentences, current, stringResource(R.string.settings_sim_default_body))</ID>
+    <ID>MaxLineLength:ShadowRecordingSmsManager.kt$ShadowRecordingSmsManager$TextSend(destinationAddress, parts.toList(), sentIntents.orEmpty().toList(), deliveryIntents.orEmpty().filterNotNull())</ID>
+    <ID>MaxLineLength:ShortcutHelper.kt$ShortcutHelper.Companion$*</ID>
+    <ID>MaxLineLength:SmsReceiver.kt$SmsReceiver$logIssue(appContext, UNKNOWN_SENDER, "UNREADABLE_PDU_" + t.javaClass.simpleName, intent.receivingSubscriptionId())</ID>
+    <ID>MaxLineLength:SmsReceiverTest.kt$SmsReceiverTest$assertThat(shadowOf(alarms.single().operation).savedIntent.getIntExtra(PendingSmsRetryReceiver.EXTRA_ATTEMPT, -1))</ID>
+    <ID>MaxLineLength:SmsSender.kt$SmsSender$val intent = Intent(SendStatusReceiver.SMS_DELIVERED_ACTION, requestUri, app, SmsStatusDeliveredReceiver::class.java)</ID>
+    <ID>MaxLineLength:SmsStatusDeliveredReceiver.kt$SmsStatusDeliveredReceiver$// TODO: Need to check whether SC still trying to deliver the SMS to destination and will send the report again?</ID>
+    <ID>MaxLineLength:SpamDao.kt$SpamDao$@Query("SELECT * FROM spam_rules WHERE kind = :kind AND type = :type AND pattern = :pattern AND subscriptionId IS :subscriptionId LIMIT 1")</ID>
+    <ID>MaxLineLength:SpamDao.kt$SpamDao$@Query("SELECT id FROM blocked_messages WHERE address = :address AND body = :body AND isMms = :isMms AND receivedAt BETWEEN :from AND :to LIMIT 1")</ID>
+    <ID>MaxLineLength:SpamDatabase.kt$SpamDatabase.Companion.&lt;no name provided&gt;$"`address` TEXT NOT NULL, `subject` TEXT NOT NULL, `body` TEXT NOT NULL, `date` INTEGER NOT NULL, "</ID>
+    <ID>MaxLineLength:SpamDatabaseMigrationTest.kt$SpamDatabaseMigrationTest$db.query("SELECT COUNT(*) FROM forward_rules").use { assertThat(it.moveToFirst() &amp;&amp; it.getInt(0) == 0).isTrue() }</ID>
+    <ID>MaxLineLength:SpamDatabaseMigrationTest.kt$SpamDatabaseMigrationTest$db.query("SELECT COUNT(*) FROM spam_rules").use { assertThat(it.moveToFirst() &amp;&amp; it.getInt(0) == 1).isTrue() }</ID>
+    <ID>MaxLineLength:SpamDatabaseMigrationTest.kt$SpamDatabaseMigrationTest$db.spamDao().insertBlocked(blocked("1", "photo").copy(isMms = true, media = MmsMedia.STORED, mediaFile = FILE))</ID>
+    <ID>MaxLineLength:SpamDatabaseMigrationTest.kt$SpamDatabaseMigrationTest$db.spamDao().insertBlocked(blocked("2", "other").copy(isMms = true, media = MmsMedia.STORED, mediaFile = "aa$FILE"))</ID>
+    <ID>MaxLineLength:SpamDatabaseRecovery.kt$SpamDatabaseRecovery$"UPDATE $t SET `media` = (SELECT s.`media` $source LIMIT 1), `mediaFile` = (SELECT s.`mediaFile` $source LIMIT 1) "</ID>
+    <ID>MaxLineLength:SpamDatabaseRecovery.kt$SpamDatabaseRecovery$val where = if (hasMediaColumns(db)) "$reason AND ${known("media", MmsMedia.entries.toTypedArray())}" else reason</ID>
+    <ID>MaxLineLength:SpamEngine.kt$SpamEngine$(UMessage.repository(context) as? DefaultSpamRepository)?.attachDownloadedMedia(blockedId, mediaFile, text) == true</ID>
+    <ID>MaxLineLength:SpamEngine.kt$SpamEngine$SpamLogEntry(System.currentTimeMillis(), message.address, message.subscriptionId, decision, reason, source)</ID>
+    <ID>MaxLineLength:SpamEngine.kt$SpamEngine$record(context, message, if (decision is FilterDecision.Block) "BLOCK" else "ALLOW", decision.reason.name, where)</ID>
+    <ID>MaxLineLength:SpamEntities.kt$BlockedMessageEntity$fun toModel()</ID>
+    <ID>MaxLineLength:SpamEntities.kt$SpamRuleEntity$@Entity(tableName = "spam_rules", indices = [Index(value = ["kind", "type", "pattern", "subscriptionId"], unique = true)])</ID>
+    <ID>MaxLineLength:SpamLog.kt$SpamLog.Companion$listOf(e.time.toString(), clean(e.sender), e.subscriptionId.toString(), clean(e.decision), clean(e.reason), clean(e.source))</ID>
+    <ID>MaxLineLength:UMessageTheme.kt$val systemDark = (ctx.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES</ID>
+    <ID>MaxLineLength:SwipeGuard.kt$/** A row swipe only starts when the finger moves this close to horizontal; anything steeper is a scroll (Gmail uses about 35). */</ID>
+    <ID>MaxLineLength:SystemContactCheckerTest.kt$SystemContactCheckerTest.FakeContactsProvider$numbers.filter { wanted == null || it.filter(Char::isDigit).endsWith(wanted) }.forEach { cursor.addRow(arrayOf(it)) }</ID>
+    <ID>MaxLineLength:SystemContactCheckerTest.kt$SystemContactCheckerTest.FakeContactsProvider$override</ID>
+    <ID>MaxLineLength:TextDirections.kt$/** True when the first strong character of [text] is right-to-left (Persian, Arabic, Hebrew...); neutral text is LTR. */</ID>
+    <ID>MaxLineLength:TextNormalizer.kt$TextNormalizer$*</ID>
+    <ID>MaxLineLength:ThemePresets.kt$ThemePresets$ThemePreset(PresetId.AMOLED, R.string.preset_amoled, R.string.preset_amoled_desc, true, 0xFF000000.toInt(), 0xFFFFFFFF.toInt(), 0xFF8FA8FF.toInt(), 0xFF4ADE80.toInt())</ID>
+    <ID>MaxLineLength:ThemePresets.kt$ThemePresets$ThemePreset(PresetId.DARK, R.string.preset_dark, R.string.preset_dark_desc, true, 0xFF0B1220.toInt(), 0xFFE2E8F0.toInt(), 0xFF8FA8FF.toInt(), 0xFF4ADE80.toInt())</ID>
+    <ID>MaxLineLength:ThemePresets.kt$ThemePresets$ThemePreset(PresetId.FOREST, R.string.preset_forest, R.string.preset_forest_desc, true, 0xFF0B1F17.toInt(), 0xFFE6F4EC.toInt(), 0xFF4ADE80.toInt(), 0xFFFACC15.toInt())</ID>
+    <ID>MaxLineLength:ThemePresets.kt$ThemePresets$ThemePreset(PresetId.GRAPHITE, R.string.preset_graphite, R.string.preset_graphite_desc, true, 0xFF18181B.toInt(), 0xFFFAFAFA.toInt(), 0xFFF59E0B.toInt(), 0xFF4ADE80.toInt())</ID>
+    <ID>MaxLineLength:ThemePresets.kt$ThemePresets$ThemePreset(PresetId.LIGHT, R.string.preset_light, R.string.preset_light_desc, false, 0xFFF8FAFC.toInt(), 0xFF0F172A.toInt(), 0xFF1E3A8A.toInt(), 0xFF16A34A.toInt())</ID>
+    <ID>MaxLineLength:ThemePresets.kt$ThemePresets$ThemePreset(PresetId.SKY, R.string.preset_sky, R.string.preset_sky_desc, false, 0xFFE0F2FE.toInt(), 0xFF0C2A44.toInt(), 0xFF0369A1.toInt(), 0xFF16A34A.toInt(), followsSystemDark = true)</ID>
+    <ID>MaxLineLength:ThemePresets.kt$ThemePresets$ThemePreset(PresetId.SUNSET, R.string.preset_sunset, R.string.preset_sunset_desc, false, 0xFFFFF7ED.toInt(), 0xFF3B1D0A.toInt(), 0xFFC2410C.toInt(), 0xFF16A34A.toInt(), followsSystemDark = true)</ID>
+    <ID>MaxLineLength:ThemePresets.kt$ThemePresets$ThemePreset(PresetId.SYSTEM, R.string.preset_system, R.string.preset_system_desc, false, 0xFFF8FAFC.toInt(), 0xFF0F172A.toInt(), 0xFF1E3A8A.toInt(), 0xFF16A34A.toInt())</ID>
+    <ID>MaxLineLength:ThemePresetsActivity.kt$/** A tiny conversation list drawn in the preset's own colours, as it looks in the phone's current light or dark mode. */</ID>
+    <ID>MaxLineLength:ThemePresetsActivity.kt$// Cards at least 160dp wide, as many per row as fit. Rows rather than a lazy grid, so the cards in a row can</ID>
+    <ID>MaxLineLength:ThemePresetsActivity.kt$Box(Modifier.height(5.dp).fillMaxWidth(0.55f).clip(RoundedCornerShape(3.dp)).background(text.copy(alpha = 0.45f)))</ID>
+    <ID>MaxLineLength:ThemePresetsActivity.kt$Box(Modifier.height(5.dp).fillMaxWidth(0.8f).clip(RoundedCornerShape(3.dp)).background(text.copy(alpha = 0.45f)))</ID>
+    <ID>MaxLineLength:ThemePresetsActivity.kt$Box(Modifier.height(6.dp).weight(1f).clip(RoundedCornerShape(3.dp)).background(text.copy(alpha = 0.85f)))</ID>
+    <ID>MaxLineLength:ThemePresetsActivity.kt$Icon(Symbols.CheckCircleFilled, contentDescription = null, tint = colors.primary, modifier = Modifier.size(20.dp))</ID>
+    <ID>MaxLineLength:ThemePresetsActivity.kt$Row</ID>
+    <ID>MaxLineLength:ThemePresetsActivity.kt$contentPadding = PaddingValues(start = SidePadding, end = SidePadding, top = 8.dp, bottom = 16.dp + padding.calculateBottomPadding())</ID>
+    <ID>MaxLineLength:ThemePresetsActivity.kt$if (ThemePresets.wallpaperAvailable()) add(Option(PresetId.WALLPAPER, R.string.preset_wallpaper, R.string.preset_wallpaper_desc, null))</ID>
+    <ID>MaxLineLength:ThemePresetsActivity.kt$option.id == PresetId.SYSTEM -&gt; Brush.horizontalGradient(0f to Color(0xFFF8FAFC), 0.5f to Color(0xFFF8FAFC), 0.5f to Color(0xFF0B1220), 1f to Color(0xFF0B1220))</ID>
+    <ID>MaxLineLength:ThemePresetsActivity.kt$val columns = ((maxWidth - SidePadding * 2 + CardSpacing) / (MinCardWidth + CardSpacing)).toInt().coerceAtLeast(1)</ID>
+    <ID>MaxLineLength:ThreadActions.kt$ThreadMenuAction$Delete</ID>
+    <ID>MaxLineLength:ThreadActivity.kt$ThreadActivity$AttachKind.Photo -&gt; launchForResult(pickMedia, PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))</ID>
+    <ID>MaxLineLength:ThreadActivity.kt$ThreadActivity$AttachKind.Video -&gt; launchForResult(pickMedia, PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly))</ID>
+    <ID>MaxLineLength:ThreadActivity.kt$ThreadActivity$ThreadRecipients(ThreadRecipients.withIntentNumbers(getThreadParticipants(threadId, null), intentNumbers))</ID>
+    <ID>MaxLineLength:ThreadActivity.kt$ThreadActivity$if</ID>
+    <ID>MaxLineLength:ThreadActivity.kt$ThreadActivity$intent.getStringExtra(THREAD_TEXT)?.let { if (vm.text.text.isEmpty()) vm.text.setTextAndPlaceCursorAtEnd(it) }</ID>
+    <ID>MaxLineLength:ThreadActivity.kt$ThreadActivity$launchForResult(saveAttachmentsTarget, this, error = org.fossify.commons.R.string.system_service_disabled)</ID>
+    <ID>MaxLineLength:ThreadActivity.kt$ThreadActivity$messagesToRemove</ID>
+    <ID>MaxLineLength:ThreadActivity.kt$ThreadActivity$private</ID>
+    <ID>MaxLineLength:ThreadActivity.kt$ThreadActivity$privateContacts.firstOrNull { it.doesHavePhoneNumber(participant.phoneNumbers.first().normalizedNumber) }</ID>
+    <ID>MaxLineLength:ThreadActivity.kt$ThreadActivity$repository.newProviderRows(thread, limit = maxOf(1, attachments.size)).forEach { insertOrUpdateMessage(it) }</ID>
+    <ID>MaxLineLength:ThreadActivity.kt$ThreadActivity$val result = buildThreadItems(messages, simLabels, seen = isSeenByUser(), deliveryReportsOn = config.enableDeliveryReports)</ID>
+    <ID>MaxLineLength:ThreadAttachmentController.kt$ThreadAttachmentController$AttachmentCheck.TooLarge -&gt; activity.toast(R.string.attachment_sized_exceeds_max_limit, length = Toast.LENGTH_LONG)</ID>
+    <ID>MaxLineLength:ThreadAttachmentController.kt$ThreadAttachmentController$vm.attachments.mapTo(ArrayList()) { Attachment(null, messageId, it.uri.toString(), it.mimetype, 0, 0, it.filename) }</ID>
+    <ID>MaxLineLength:ThreadAttachmentRulesTest.kt$ThreadAttachmentRulesTest$val check = checkAttachment(alreadyAdded = false, mimeType = "image/jpeg", sizeLimit = 100) { error("not read") }</ID>
+    <ID>MaxLineLength:ThreadAttachments.kt$Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:ThreadAttachments.kt$val description = stringResource(if (isVideo) R.string.thread_video_attachment else R.string.thread_image_attachment)</ID>
+    <ID>MaxLineLength:ThreadAttachments.kt$withContext(Dispatchers.IO) { MediaSizes.store(context.applicationContext, key, bitmap.width, bitmap.height) }</ID>
+    <ID>MaxLineLength:ThreadBubbles.kt$ChatAvatar(name = message.senderName, photoUri = message.senderPhotoUri, onClick = { actions.onSenderClick(message) })</ID>
+    <ID>MaxLineLength:ThreadBubbles.kt$Icon(Symbols.PersonFilled, contentDescription = null, tint = colors.onPrimaryContainer, modifier = Modifier.size(size * 0.6f))</ID>
+    <ID>MaxLineLength:ThreadBubbles.kt$Image(bitmap.asImageBitmap(), contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.size(AvatarSize))</ID>
+    <ID>MaxLineLength:ThreadBubbles.kt$VCardAttachment(uri, gestures, onOpen = { actions.onOpenVCard(uri) }, modifier = Modifier.padding(6.dp))</ID>
+    <ID>MaxLineLength:ThreadBubbles.kt$else -&gt; DocumentAttachment(uri, attachment.filename, mimeType, gestures, onOpen = open, modifier = Modifier.padding(6.dp))</ID>
+    <ID>MaxLineLength:ThreadBubbles.kt$modifier = Modifier.padding(start = 14.dp, end = 14.dp, top = if (message.body.isEmpty()) 8.dp else 0.dp, bottom = 8.dp)</ID>
+    <ID>MaxLineLength:ThreadBubbles.kt$relativeDateLabel(row.date * 1000L, System.currentTimeMillis(), ZoneId.systemDefault(), use24Hour, words, locale)</ID>
+    <ID>MaxLineLength:ThreadComposer.kt$// Right-to-left text mirrors the whole field: it starts at the right edge and the SIM chip moves to the left.</ID>
+    <ID>MaxLineLength:ThreadComposer.kt$Box</ID>
+    <ID>MaxLineLength:ThreadComposer.kt$Icon(Symbols.Close, contentDescription = stringResource(R.string.cancel_schedule_send), modifier = Modifier.size(18.dp))</ID>
+    <ID>MaxLineLength:ThreadComposer.kt$Surface</ID>
+    <ID>MaxLineLength:ThreadComposer.kt$val height = with(LocalDensity.current) { (windowHeight * EMOJI_PANEL_HEIGHT_FRACTION).toDp() }.coerceAtMost(EmojiPanelMaxHeight)</ID>
+    <ID>MaxLineLength:ThreadComposer.kt$val parts = pluralStringResource(R.plurals.thread_counter_description, segments.parts, segments.parts, segments.remaining)</ID>
+    <ID>MaxLineLength:ThreadConversationActions.kt$ThreadConversationActions$if (fromRecycleBin) activity.emptyMessagesRecycleBinForConversation(thread) else activity.deleteConversation(thread)</ID>
+    <ID>MaxLineLength:ThreadItemsBuilder.kt$val isSentFromDifferentKnownSIM = prevSIMId != -1 &amp;&amp; message.subscriptionId != -1 &amp;&amp; prevSIMId != message.subscriptionId</ID>
+    <ID>MaxLineLength:ThreadMessagesRepository.kt$ThreadMessagesRepository$store.update { loaded -&gt; (loaded.filterNotInByKey(messages) { it.getStableId() } + messages).toSortedMessages() }</ID>
+    <ID>MaxLineLength:ThreadMessagesRepositoryTest.kt$ThreadMessagesRepositoryTest$assertThat(repository.current.map { it.key }).containsExactly(MessageKey(57, false), MessageKey(57, true)).inOrder()</ID>
+    <ID>MaxLineLength:ThreadMessagesRepositoryTest.kt$ThreadMessagesRepositoryTest$private</ID>
+    <ID>MaxLineLength:ThreadMessagesRepositoryTest.kt$ThreadMessagesRepositoryTest.FakeSource$override fun older(threadId: Long, cutoff: Int, loaded: List&lt;Message&gt;)</ID>
+    <ID>MaxLineLength:ThreadPeople.kt$Text(contact.name, style = MaterialTheme.typography.bodyLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)</ID>
+    <ID>MaxLineLength:ThreadPeople.kt$Text(stringResource(R.string.add_contact_or_number), style = style, color = colors.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:ThreadPreviews.kt$@Preview(name = "Thread - Persian text over one SMS", showBackground = true, widthDp = 360, heightDp = 640, locale = "fa")</ID>
+    <ID>MaxLineLength:ThreadPureRulesTest.kt$ThreadPureRulesTest$assertThat(chooseSimIndex(sims, userPreferredSimId = 0, lastReceivedSubscriptionId = 20, appDefaultId = 10, systemDefaultId = 10)).isEqualTo(1)</ID>
+    <ID>MaxLineLength:ThreadPureRulesTest.kt$ThreadPureRulesTest$assertThat(chooseSimIndex(sims, userPreferredSimId = 0, lastReceivedSubscriptionId = 99, appDefaultId = -1, systemDefaultId = -1)).isEqualTo(0)</ID>
+    <ID>MaxLineLength:ThreadPureRulesTest.kt$ThreadPureRulesTest$assertThat(chooseSimIndex(sims, userPreferredSimId = 0, lastReceivedSubscriptionId = null, appDefaultId = -1, systemDefaultId = 20)).isEqualTo(1)</ID>
+    <ID>MaxLineLength:ThreadPureRulesTest.kt$ThreadPureRulesTest$assertThat(chooseSimIndex(sims, userPreferredSimId = 0, lastReceivedSubscriptionId = null, appDefaultId = 30, systemDefaultId = 10)).isEqualTo(2)</ID>
+    <ID>MaxLineLength:ThreadPureRulesTest.kt$ThreadPureRulesTest$assertThat(chooseSimIndex(sims, userPreferredSimId = 30, lastReceivedSubscriptionId = 20, appDefaultId = 10, systemDefaultId = 10)).isEqualTo(2)</ID>
+    <ID>MaxLineLength:ThreadPureRulesTest.kt$ThreadPureRulesTest$assertThat(sendsAsMms(hasAttachments = false, recipientCount = 1, sendGroupAsMms = false, isLongText = true)).isTrue()</ID>
+    <ID>MaxLineLength:ThreadPureRulesTest.kt$ThreadPureRulesTest$assertThat(sendsAsMms(hasAttachments = false, recipientCount = 1, sendGroupAsMms = true, isLongText = false)).isFalse()</ID>
+    <ID>MaxLineLength:ThreadPureRulesTest.kt$ThreadPureRulesTest$assertThat(sendsAsMms(hasAttachments = false, recipientCount = 2, sendGroupAsMms = false, isLongText = false)).isFalse()</ID>
+    <ID>MaxLineLength:ThreadPureRulesTest.kt$ThreadPureRulesTest$assertThat(sendsAsMms(hasAttachments = false, recipientCount = 2, sendGroupAsMms = true, isLongText = false)).isTrue()</ID>
+    <ID>MaxLineLength:ThreadPureRulesTest.kt$ThreadPureRulesTest$assertThat(sendsAsMms(hasAttachments = true, recipientCount = 1, sendGroupAsMms = false, isLongText = false)).isTrue()</ID>
+    <ID>MaxLineLength:ThreadRecipients.kt$ThreadRecipients.Companion$ThreadRecipients(numbers.map { number -&gt; contactForNumber(number, if (numbers.size == 1) name.ifBlank { number } else number) })</ID>
+    <ID>MaxLineLength:ThreadRecipients.kt$ThreadRecipients.Companion$fun</ID>
+    <ID>MaxLineLength:ThreadRowsTest.kt$ThreadRowsTest$assertEquals(listOf(BubbleGroup.First, BubbleGroup.Last, BubbleGroup.Single, BubbleGroup.Single), bubbles.map { it.group })</ID>
+    <ID>MaxLineLength:ThreadScheduleUi.kt$ThreadScheduleUi$activity</ID>
+    <ID>MaxLineLength:ThreadScheduled.kt$createTemporaryThread(waiting.maxBy { it.date }, threadId, conversationsDB.getConversationWithThreadId(temporary.first()))</ID>
+    <ID>MaxLineLength:ThreadScheduled.kt$it.threadId != threadId &amp;&amp; sameAddresses(it.participants.getAddresses(), addresses) &amp;&amp; isTemporary(it.threadId)</ID>
+    <ID>MaxLineLength:ThreadScreen.kt$ConfirmingUriHandler(SafeUriHandler(context, delegate), trusted = { vm.linksTrusted }, onConfirm = { vm.pendingLink = it })</ID>
+    <ID>MaxLineLength:ThreadScreen.kt$Text(pluralStringResource(R.plurals.thread_selected_count, count, count), style = MaterialTheme.typography.titleLarge)</ID>
+    <ID>MaxLineLength:ThreadScreen.kt$if</ID>
+    <ID>MaxLineLength:ThreadScreen.kt$val showScrollToBottom by remember { derivedStateOf { listState.firstVisibleItemIndex &gt; SCROLL_TO_BOTTOM_FAB_LIMIT } }</ID>
+    <ID>MaxLineLength:ThreadSelectionActions.kt$ThreadSelectionActions$val text = copiedText(selected, { DateUtils.formatDateTime(activity, it.millis(), flags) }, activity.getString(R.string.me))</ID>
+    <ID>MaxLineLength:ThreadSendControllerTest.kt$ThreadSendControllerTest$assertThat(result).isEqualTo(ThreadSendController.Result(handedOff = false, clearComposer = false, completed = false))</ID>
+    <ID>MaxLineLength:ThreadSendControllerTest.kt$ThreadSendControllerTest$assertThat(result).isEqualTo(ThreadSendController.Result(handedOff = false, clearComposer = false, completed = true))</ID>
+    <ID>MaxLineLength:ThreadSendControllerTest.kt$ThreadSendControllerTest$assertThat(result).isEqualTo(ThreadSendController.Result(handedOff = true, clearComposer = true, completed = true))</ID>
+    <ID>MaxLineLength:ThreadSendControllerTest.kt$ThreadSendControllerTest$fun at(year: Int, month: Int = 6)</ID>
+    <ID>MaxLineLength:ThreadSendFlowTest.kt$ThreadSendFlowTest$*</ID>
+    <ID>MaxLineLength:ThreadSendFlowTest.kt$ThreadSendFlowTest$scenario!!.onActivity { ViewModelProvider(it)[ThreadViewModel::class.java].text.setTextAndPlaceCursorAtEnd(text) }</ID>
+    <ID>MaxLineLength:ThreadSenderActions.kt$ThreadSenderActions$message = activity.getString(if (addedId != null) R.string.thread_report_spam_done else R.string.thread_report_spam_already)</ID>
+    <ID>MaxLineLength:ThreadSenderActions.kt$ThreadSenderActions$private suspend</ID>
+    <ID>MaxLineLength:ThreadSenderActions.kt$ThreadSenderActions$repository.addRule(SpamRule(kind = ListKind.BLOCK, type = plan.type, pattern = address, note = activity.getString(R.string.thread_report_spam_rule_note)))</ID>
+    <ID>MaxLineLength:ThreadSimCacheTest.kt$ThreadSimCacheTest$provider.receive(id = 100_000, thread = 5, body = "Sent on SIM 2", dateMs = CountingInboxProvider.BASE_MS + 999_000_000, subId = 2)</ID>
+    <ID>MaxLineLength:ThreadViewModel.kt$ThreadViewModel$private val _scroll = MutableSharedFlow&lt;ScrollCommand&gt;(extraBufferCapacity = 8, onBufferOverflow = BufferOverflow.DROP_OLDEST)</ID>
+    <ID>MaxLineLength:TimeFormat.kt$TimeBucket$/** Which shape a timestamp takes in lists: Google Messages' compact style ("Now", "5 min", "6:33 AM", "Mon", "Oct 29"). */</ID>
+    <ID>MaxLineLength:Tones.kt$Tones$val y = 0.2126 * linear(argb shr 16 and 0xFF) + 0.7152 * linear(argb shr 8 and 0xFF) + 0.0722 * linear(argb and 0xFF)</ID>
+    <ID>MaxLineLength:Type.kt$*</ID>
+    <ID>MaxLineLength:Type.kt$FallbackTypefaceLoader$val style = android.graphics.fonts.FontStyle(font.weight.weight, android.graphics.fonts.FontStyle.FONT_SLANT_UPRIGHT)</ID>
+    <ID>MaxLineLength:VCard.kt$Telephone::class.java</ID>
+    <ID>MaxLineLength:VCard.kt$VCardPropertyWrapper.Companion$is Note -&gt; VCardPropertyWrapper(value, context.getString(org.fossify.commons.R.string.notes), property)</ID>
+    <ID>MaxLineLength:VCard.kt$VCardPropertyWrapper.Companion$is Telephone -&gt; VCardPropertyWrapper(text.normalizePhoneNumber(), getPropertyTypeString(context), property)</ID>
+    <ID>MaxLineLength:VCard.kt$VCardWrapper$data</ID>
+    <ID>MaxLineLength:VCardViewerScreen.kt$PropertyRow(property, actionable = isActionable(property), onClick = { onProperty(property) })</ID>
+    <ID>MaxLineLength:VCardViewerScreen.kt$contentPadding = PaddingValues(top = padding.calculateTopPadding(), bottom = padding.calculateBottomPadding() + 8.dp)</ID>
+    <ID>MaxLineLength:VCardViewerScreen.kt$itemsIndexed</ID>
+    <ID>MaxLineLength:VazirmatnMetricsTest.kt$VazirmatnMetricsTest$*</ID>
+    <ID>MaxLineLength:VazirmatnMetricsTest.kt$VazirmatnMetricsTest$assertEquals(name, roboto.copy(typoAscent = 0, typoDescent = 0), vazirmatn.copy(typoAscent = 0, typoDescent = 0))</ID>
+    <ID>MaxLineLength:VazirmatnMetricsTest.kt$VazirmatnMetricsTest.Metrics$private data</ID>
+    <ID>ModifierMissing:BlockedNumbersScreen.kt$BlockedNumbersScreen</ID>
+    <ID>ModifierMissing:BlockedScreen.kt$BlockedScreen</ID>
+    <ID>ModifierMissing:ForwardRulesScreen.kt$ForwardRulesContent</ID>
+    <ID>ModifierMissing:LockScreen.kt$LockScreen</ID>
+    <ID>ModifierMissing:MainScreen.kt$MainScreen</ID>
+    <ID>ModifierMissing:OnboardingScreen.kt$OnboardingScreen</ID>
+    <ID>ModifierMissing:RulesScreen.kt$ImportPreviewDialog</ID>
+    <ID>ModifierMissing:RulesScreen.kt$MigrationDialogContent</ID>
+    <ID>ModifierMissing:RulesScreen.kt$RulesScreen</ID>
+    <ID>ModifierMissing:SettingsScreen.kt$SettingsScreen</ID>
+    <ID>ModifierMissing:ThreadComposer.kt$ThreadComposer</ID>
+    <ID>ModifierMissing:ThreadPeople.kt$PeoplePanel</ID>
+    <ID>ModifierMissing:ThreadScreen.kt$ThreadScreen</ID>
+    <ID>ModifierWithoutDefault:AppBars.kt$modifier</ID>
+    <ID>ModifierWithoutDefault:BlockedNumbersScreen.kt$modifier</ID>
+    <ID>ModifierWithoutDefault:Components.kt$modifier</ID>
+    <ID>ModifierWithoutDefault:OnboardingScreen.kt$modifier</ID>
+    <ID>ModifierWithoutDefault:ThemePresetsActivity.kt$modifier</ID>
+    <ID>ModifierWithoutDefault:ThreadComposer.kt$modifier</ID>
+    <ID>ModifierWithoutDefault:ThreadScreen.kt$modifier</ID>
+    <ID>MultipleEmitters:MainScreen.kt$MainSearchBar</ID>
+    <ID>NestedBlockDepth:AttachmentUtils.kt$AttachmentUtils$private fun readBody(parser: XmlPullParser): List&lt;String&gt;</ID>
+    <ID>NestedBlockDepth:ConversationLookups.kt$ConversationLookups$private fun readContacts(): ContactNumberIndex&lt;ContactEntry&gt;?</ID>
+    <ID>NestedBlockDepth:MessagesImporter.kt$MessagesImporter$private fun importXml( stream: InputStream, options: Options, summary: ImportSummary, counting: CountingInputStream, progress: Progress, isCancelled: () -&gt; Boolean, )</ID>
+    <ID>NestedBlockDepth:MessagesReader.kt$MessagesReader$private fun getParts(mmsId: Long, summary: ExportSummary): List&lt;MmsPart&gt;</ID>
+    <ID>NestedBlockDepth:MessagesWriter.kt$MessagesWriter$internal fun mmsRecipients(backup: MmsBackup): Set&lt;String&gt;</ID>
+    <ID>NestedBlockDepth:MessagesWriter.kt$MessagesWriter$private fun writeMms(backup: MmsBackup): WriteResult</ID>
+    <ID>NestedBlockDepth:Messaging.kt$fun Context.sendMessageCompat( text: String, addresses: List&lt;String&gt;, subId: Int?, attachments: List&lt;Attachment&gt;, resend: MessageKey? = null, onFailure: () -&gt; Unit = {} ): Boolean</ID>
+    <ID>NestedBlockDepth:MessagingUtils.kt$MessagingUtils$@Deprecated("TODO: Move/rewrite MMS code into the app.") fun sendMmsMessage( text: String, addresses: List&lt;String&gt;, attachment: Attachment?, settings: Settings, messageId: Long? = null ): Boolean</ID>
+    <ID>NestedBlockDepth:MessagingUtils.kt$MessagingUtils$fun updateSmsMessageSendingStatus(messageUri: Uri?, type: Int)</ID>
+    <ID>NestedBlockDepth:MmsSubscriptions.kt$MmsSubscriptions$private fun findInProvider(context: Context, address: String): Int</ID>
+    <ID>NestedBlockDepth:RegexGuard.kt$RegexGuard$internal fun hasNestedRepeat(p: String): Boolean</ID>
+    <ID>NestedBlockDepth:SmsStatusDeliveredReceiver.kt$SmsStatusDeliveredReceiver$override fun updateAndroidDatabase(context: Context, intent: Intent, receiverResultCode: Int)</ID>
+    <ID>NestedBlockDepth:ThreadSimCache.kt$ThreadSimCache$@Synchronized fun load(context: Context, simCount: Int): Map&lt;Long, Int&gt;</ID>
+    <ID>ParameterNaming:SettingsScreen.kt$onOpenBlocked</ID>
+    <ID>PrintStackTrace:Context.kt$e</ID>
+    <ID>PrintStackTrace:ScheduledMessageReceiver.kt$ScheduledMessageReceiver$e</ID>
+    <ID>PrintStackTrace:SmsManager.kt$e</ID>
+    <ID>ReturnCount:DefaultSpamFilter.kt$DefaultSpamFilter$override fun evaluate(message: IncomingMessage): FilterDecision</ID>
+    <ID>ReturnCount:MapDeserializerDoubleAsIntFix.kt$MapDeserializerDoubleAsIntFix$fun read(element: JsonElement): Any?</ID>
+    <ID>ReturnCount:MessagesWriter.kt$MessagesWriter$fun writeSmsMessage(smsBackup: SmsBackup): WriteResult</ID>
+    <ID>ReturnCount:MessagesWriter.kt$MessagesWriter$private fun writeMms(backup: MmsBackup): WriteResult</ID>
+    <ID>ReturnCount:MessagesWriter.kt$MessagesWriter$private fun writePartData(uri: Uri, part: MmsPart): String?</ID>
+    <ID>ReturnCount:NumberNormalizer.kt$NumberNormalizer$private fun parse(raw: String): Parsed?</ID>
+    <ID>ReturnCount:RegexGuard.kt$RegexGuard$private fun check(raw: String): Pair&lt;RegexProblem?, Pattern?&gt;</ID>
+    <ID>ReturnCount:RuleLogic.kt$RuleSearch$fun matchesText(values: List&lt;String&gt;, query: String, numeric: Boolean): Boolean</ID>
+    <ID>ReturnCount:RuleLogic.kt$RuleTextCodec$private fun decodeV2(line: String): SpamRule?</ID>
+    <ID>ReturnCount:RuleLogic.kt$RuleValidator$private fun validateRegex(pattern: String): RuleValidation</ID>
+    <ID>SpreadOperator:MessagesDatabase.kt$MessagesDatabase.Companion$(*ALL_MIGRATIONS)</ID>
+    <ID>SpreadOperator:MessagesDatabaseRecovery.kt$MessagesDatabaseRecovery$(*MessagesDatabase.ALL_MIGRATIONS)</ID>
+    <ID>SpreadOperator:SpamDatabase.kt$SpamDatabase.Companion$(*ALL_MIGRATIONS)</ID>
+    <ID>SpreadOperator:SpamDatabaseRecovery.kt$SpamDatabaseRecovery$(*SpamDatabase.ALL_MIGRATIONS)</ID>
+    <ID>SpreadOperator:ThreadActivity.kt$ThreadActivity$(*currentMessages.toTypedArray())</ID>
+    <ID>SwallowedException:BlockSenderReceiver.kt$BlockSenderReceiver$t: Throwable</ID>
+    <ID>SwallowedException:BlockedKeywordsExporter.kt$BlockedKeywordsExporter$e: Exception</ID>
+    <ID>SwallowedException:BlockedMmsDownloadReceiver.kt$BlockedMmsDownloadReceiver$t: Throwable</ID>
+    <ID>SwallowedException:Context.kt$e: Exception</ID>
+    <ID>SwallowedException:ConversationListSync.kt$ConversationListSync$e: Exception</ID>
+    <ID>SwallowedException:DailyChecksReceiver.kt$DailyChecksReceiver$t: Throwable</ID>
+    <ID>SwallowedException:DeleteSmsReceiver.kt$DeleteSmsReceiver$t: Throwable</ID>
+    <ID>SwallowedException:DirectReplyReceiver.kt$DirectReplyReceiver$t: Throwable</ID>
+    <ID>SwallowedException:ImageCompressor.kt$ImageCompressor$e: Exception</ID>
+    <ID>SwallowedException:ImageCompressor.kt$ImageCompressor$e: OutOfMemoryError</ID>
+    <ID>SwallowedException:JsonElement.kt$e: Exception</ID>
+    <ID>SwallowedException:MarkAsReadReceiver.kt$MarkAsReadReceiver$t: Throwable</ID>
+    <ID>SwallowedException:MmsPushReceiver.kt$MmsPushReceiver$t: Throwable</ID>
+    <ID>SwallowedException:MmsReceiver.kt$MmsDownloadHandler$e: Exception</ID>
+    <ID>SwallowedException:MmsReceiver.kt$MmsReceiver$t: Throwable</ID>
+    <ID>SwallowedException:PendingSms.kt$PendingSmsQueue$t: Throwable</ID>
+    <ID>SwallowedException:PendingSmsRetryReceiver.kt$PendingSmsRetryReceiver$t: Throwable</ID>
+    <ID>SwallowedException:RescheduleAlarmsReceiver.kt$RescheduleAlarmsReceiver$t: Throwable</ID>
+    <ID>SwallowedException:SendStatusReceiver.kt$SendStatusReceiver$t: Throwable</ID>
+    <ID>SwallowedException:SimpleContact.kt$e: Exception</ID>
+    <ID>SwallowedException:SmsReceiver.kt$SmsReceiver$t: Throwable</ID>
+    <ID>SwallowedException:SmsStatusDeliveredReceiver.kt$SmsStatusDeliveredReceiver$e: NullPointerException</ID>
+    <ID>SwallowedException:ThreadActivity.kt$ThreadActivity$e: ActivityNotFoundException</ID>
+    <ID>SwallowedException:ThreadMessagesRepository.kt$ContextThreadMessageSource$e: Exception</ID>
+    <ID>SwallowedException:ThreadSimCache.kt$ThreadSimCache$e: Exception</ID>
+    <ID>SwallowedException:VCardParser.kt$e: Exception</ID>
+    <ID>ThrowingExceptionsWithoutMessageOrCause:AttachmentUtils.kt$AttachmentUtils$IllegalStateException()</ID>
+    <ID>ThrowsCount:MessagesImporter.kt$MessagesImporter$private fun XmlPullParser.readSms(): SmsBackup</ID>
+    <ID>ThrowsCount:SmsSender.kt$SmsSender$fun sendMessage( subId: Int, destination: String, body: String, serviceCenter: String?, requireDeliveryReport: Boolean, messageUri: Uri )</ID>
+    <ID>TooGenericExceptionCaught:Activity.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:BackupService.kt$BackupService$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:BackupService.kt$BackupService$e: Throwable</ID>
+    <ID>TooGenericExceptionCaught:BlockSenderReceiver.kt$BlockSenderReceiver$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:BlockedKeywordsExporter.kt$BlockedKeywordsExporter$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:BlockedKeywordsImporter.kt$BlockedKeywordsImporter$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:BlockedMmsDownloadReceiver.kt$BlockedMmsDownloadReceiver$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:BlockedMmsDownloadReceiver.kt$BlockedMmsDownloadReceiver.Companion$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:BlockedMmsDownloader.kt$BlockedMmsDownloader$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:Context.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ConversationListSync.kt$ConversationListSync$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:DailyChecksReceiver.kt$DailyChecksReceiver$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:DeleteSmsReceiver.kt$DeleteSmsReceiver$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:DirectReplyReceiver.kt$DirectReplyReceiver$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:DirectReplyReceiver.kt$DirectReplyReceiver$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:ExportMessagesDialog.kt$ExportMessagesDialog$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ForwardDelivery.kt$ForwardDelivery$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:ImageCompressor.kt$ImageCompressor$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ImportMessagesDialog.kt$ImportMessagesDialog$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:JsonElement.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ManageBlockedKeywordsActivity.kt$ManageBlockedKeywordsActivity$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:MarkAsReadReceiver.kt$MarkAsReadReceiver$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:MessagesImporter.kt$MessagesImporter$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:MessagesWriter.kt$MessagesWriter$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:Messaging.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:MessagingUtils.kt$MessagingUtils$e: Error</ID>
+    <ID>TooGenericExceptionCaught:MessagingUtils.kt$MessagingUtils$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:MmsPushReceiver.kt$MmsPushReceiver$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:MmsReceiver.kt$MmsDownloadHandler$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:MmsReceiver.kt$MmsDownloadHandler$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:MmsReceiver.kt$MmsReceiver$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:PendingSms.kt$IncomingSmsProcessor$first: Throwable</ID>
+    <ID>TooGenericExceptionCaught:PendingSms.kt$IncomingSmsProcessor$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:PendingSms.kt$PendingSmsQueue$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:PendingSmsRetryReceiver.kt$PendingSmsRetry$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:PendingSmsRetryReceiver.kt$PendingSmsRetryReceiver$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:RescheduleAlarmsReceiver.kt$RescheduleAlarmsReceiver$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:ScheduledAttachments.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ScheduledMessageReceiver.kt$ScheduledMessageReceiver$e: Error</ID>
+    <ID>TooGenericExceptionCaught:ScheduledMessageReceiver.kt$ScheduledMessageReceiver$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SendStatusReceiver.kt$SendStatusReceiver$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:SimpleContact.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SmsManager.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SmsReceiver.kt$SmsReceiver$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:SmsSender.kt$SmsSender$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SmsStatusDeliveredReceiver.kt$SmsStatusDeliveredReceiver$e: NullPointerException</ID>
+    <ID>TooGenericExceptionCaught:SpamEngine.kt$SpamEngine$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:ThreadActivity.kt$ThreadActivity$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ThreadAttachmentController.kt$ThreadAttachmentController$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ThreadMessagesRepository.kt$ContextThreadMessageSource$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ThreadScheduled.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ThreadSelectionActions.kt$ThreadSelectionActions$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ThreadSendController.kt$ThreadSendController$e: Error</ID>
+    <ID>TooGenericExceptionCaught:ThreadSendController.kt$ThreadSendController$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ThreadSimCache.kt$ThreadSimCache$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:VCardParser.kt$e: Exception</ID>
+    <ID>TooManyFunctions:AndroidSpamEnvironment.kt$SystemContactChecker : ContactChecker</ID>
+    <ID>TooManyFunctions:AppLockDialog.kt$com.glooboo.umessage.dialogs.AppLockDialog.kt</ID>
+    <ID>TooManyFunctions:BackupService.kt$BackupService : Service</ID>
+    <ID>TooManyFunctions:BlockedNumbersScreen.kt$com.glooboo.umessage.ui.spam.BlockedNumbersScreen.kt</ID>
+    <ID>TooManyFunctions:BlockedNumbersViewModel.kt$BlockedNumbersViewModel : AndroidViewModel</ID>
+    <ID>TooManyFunctions:BlockedScreen.kt$com.glooboo.umessage.ui.spam.BlockedScreen.kt</ID>
+    <ID>TooManyFunctions:BlockedViewModel.kt$BlockedViewModel : AndroidViewModel</ID>
+    <ID>TooManyFunctions:Config.kt$Config : BaseConfig</ID>
+    <ID>TooManyFunctions:Context.kt$com.glooboo.umessage.extensions.Context.kt</ID>
+    <ID>TooManyFunctions:ConversationListSync.kt$ConversationListSync</ID>
+    <ID>TooManyFunctions:ConversationsDao.kt$ConversationsDao</ID>
+    <ID>TooManyFunctions:ConversationsPreviews.kt$com.glooboo.umessage.ui.conversations.ConversationsPreviews.kt</ID>
+    <ID>TooManyFunctions:ConversationsViewModel.kt$ConversationsViewModel : AndroidViewModel</ID>
+    <ID>TooManyFunctions:DatabaseBackups.kt$DatabaseBackups</ID>
+    <ID>TooManyFunctions:DecisionLogActivity.kt$com.glooboo.umessage.ui.log.DecisionLogActivity.kt</ID>
+    <ID>TooManyFunctions:DefaultSpamRepository.kt$DefaultSpamRepository : SpamRepository</ID>
+    <ID>TooManyFunctions:ForwardRulesScreen.kt$com.glooboo.umessage.ui.spam.ForwardRulesScreen.kt</ID>
+    <ID>TooManyFunctions:ForwardRulesViewModel.kt$ForwardRulesViewModel : AndroidViewModel</ID>
+    <ID>TooManyFunctions:JsonObject.kt$com.glooboo.umessage.extensions.gson.JsonObject.kt</ID>
+    <ID>TooManyFunctions:LabelsDao.kt$LabelsDao</ID>
+    <ID>TooManyFunctions:LockScreen.kt$com.glooboo.umessage.ui.lock.LockScreen.kt</ID>
+    <ID>TooManyFunctions:LockViewModel.kt$LockViewModel : AndroidViewModel</ID>
+    <ID>TooManyFunctions:MessagesDao.kt$MessagesDao</ID>
+    <ID>TooManyFunctions:MessagesReader.kt$MessagesReader</ID>
+    <ID>TooManyFunctions:MessagesWriter.kt$MessagesWriter</ID>
+    <ID>TooManyFunctions:NotificationHelper.kt$NotificationHelper</ID>
+    <ID>TooManyFunctions:NumberNormalizer.kt$NumberNormalizer</ID>
+    <ID>TooManyFunctions:OnboardingScreen.kt$com.glooboo.umessage.ui.onboarding.OnboardingScreen.kt</ID>
+    <ID>TooManyFunctions:RulesScreen.kt$com.glooboo.umessage.ui.spam.RulesScreen.kt</ID>
+    <ID>TooManyFunctions:RulesViewModel.kt$RulesViewModel : AndroidViewModel</ID>
+    <ID>TooManyFunctions:ScheduleMessageDialog.kt$com.glooboo.umessage.dialogs.ScheduleMessageDialog.kt</ID>
+    <ID>TooManyFunctions:ScheduledAttachments.kt$com.glooboo.umessage.messaging.ScheduledAttachments.kt</ID>
+    <ID>TooManyFunctions:SettingsActivity.kt$SettingsActivity : ComposeSimpleActivity</ID>
+    <ID>TooManyFunctions:SettingsScreen.kt$com.glooboo.umessage.ui.settings.SettingsScreen.kt</ID>
+    <ID>TooManyFunctions:SettingsScreen.kt$com.glooboo.umessage.ui.spam.SettingsScreen.kt</ID>
+    <ID>TooManyFunctions:ShortcutHelper.kt$ShortcutHelper</ID>
+    <ID>TooManyFunctions:SpamContracts.kt$SpamRepository</ID>
+    <ID>TooManyFunctions:SpamDao.kt$SpamDao</ID>
+    <ID>TooManyFunctions:SpamDatabaseRecovery.kt$SpamDatabaseRecovery : Callback</ID>
+    <ID>TooManyFunctions:SpamEngine.kt$SpamEngine</ID>
+    <ID>TooManyFunctions:ThemePresets.kt$ThemePresets</ID>
+    <ID>TooManyFunctions:ThreadActivity.kt$ThreadActivity : ComposeSimpleActivity</ID>
+    <ID>TooManyFunctions:ThreadComposer.kt$com.glooboo.umessage.ui.thread.ThreadComposer.kt</ID>
+    <ID>TooManyFunctions:ThreadConversationActions.kt$ThreadConversationActions</ID>
+    <ID>TooManyFunctions:ThreadMessagesRepository.kt$ThreadMessagesRepository</ID>
+    <ID>TooManyFunctions:ThreadSelectionActions.kt$ThreadSelectionActions</ID>
+    <ID>TooManyFunctions:ThreadSenderActions.kt$ThreadSenderActions</ID>
+    <ID>TooManyFunctions:ThreadViewModel.kt$ThreadViewModel : ViewModel</ID>
+    <ID>TooManyFunctions:Tones.kt$Tones</ID>
+    <ID>UseCheckOrError:AttachmentUtils.kt$AttachmentUtils$throw IllegalStateException()</ID>
+    <ID>UseRequire:SmsSender.kt$SmsSender$throw IllegalArgumentException("SmsSender: empty text message")</ID>
+    <ID>VariableNaming:MainActivity.kt$MainActivity$private val MAKE_DEFAULT_APP_REQUEST = 1</ID>
+    <ID>ViewModelForwarding:MainScreen.kt$ConversationsRoute(viewModel, callbacks)</ID>
+    <ID>ViewModelForwarding:MainScreen.kt$MessagesTab(viewModel, callbacks, search, navigation, onQueryChange, onOpenResult)</ID>
+    <ID>ViewModelForwarding:SmartReplyChips.kt$SmartReplyRow(vm, modifier)</ID>
+    <ID>ViewModelForwarding:ThreadBubbles.kt$BubbleContent(message, vm, actions, contentColor, maxBubbleWidth)</ID>
+    <ID>ViewModelForwarding:ThreadBubbles.kt$MessageBubbleRow(row, vm, actions)</ID>
+    <ID>ViewModelForwarding:ThreadComposer.kt$AttachmentPreviews(vm, actions)</ID>
+    <ID>ViewModelForwarding:ThreadComposer.kt$FieldTrailing(vm)</ID>
+    <ID>ViewModelForwarding:ThreadComposer.kt$InputRow(vm, actions, focus)</ID>
+    <ID>ViewModelForwarding:ThreadComposer.kt$MessageField(vm, actions, modifier = Modifier.weight(1f))</ID>
+    <ID>ViewModelForwarding:ThreadComposer.kt$SendButton(vm, actions, scheduling)</ID>
+    <ID>ViewModelForwarding:ThreadComposer.kt$SendSlot(vm, actions, scheduling)</ID>
+    <ID>ViewModelForwarding:ThreadComposer.kt$SmartReplyChips(vm)</ID>
+    <ID>ViewModelForwarding:ThreadScreen.kt$MessageList(vm, actions, Modifier.padding(inner))</ID>
+    <ID>ViewModelForwarding:ThreadScreen.kt$PeoplePanel(vm, actions)</ID>
+    <ID>ViewModelForwarding:ThreadScreen.kt$SelectionTopBar(vm, actions)</ID>
+    <ID>ViewModelForwarding:ThreadScreen.kt$ThreadComposer(vm, actions)</ID>
+    <ID>ViewModelForwarding:ThreadScreen.kt$ThreadRowItem(rows[index], vm, actions)</ID>
+    <ID>ViewModelForwarding:ThreadScreen.kt$ThreadTitle(vm, actions)</ID>
+    <ID>ViewModelForwarding:ThreadScreen.kt$ThreadTopBar(vm, actions, scrollBehavior)</ID>
+    <ID>ViewModelForwarding:ThreadScreen.kt$UnknownCardHost(vm, actions)</ID>
+    <ID>ViewModelInjection:ArchivedRoute.kt$viewModel</ID>
+    <ID>ViewModelInjection:BlockedNumbersScreen.kt$viewModel</ID>
+    <ID>ViewModelInjection:BlockedScreen.kt$viewModel</ID>
+    <ID>ViewModelInjection:RulesScreen.kt$forwardViewModel</ID>
+    <ID>ViewModelInjection:RulesScreen.kt$viewModel</ID>
+    <ID>ViewModelInjection:SettingsScreen.kt$viewModel</ID>
+    <ID>WildcardImport:DirectReplyReceiver.kt$import com.glooboo.umessage.extensions.*</ID>
+    <ID>WildcardImport:JsonElement.kt$import com.google.gson.*</ID>
+    <ID>WildcardImport:VCard.kt$import ezvcard.property.*</ID>
+  </CurrentIssues>
+</SmellBaseline>

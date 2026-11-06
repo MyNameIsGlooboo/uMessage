@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3f_spam_summary_stopped">Заблоковано: %1$d</string>
+    <string name="r3f_spam_summary_restored">Відновлено: %1$d</string>
+    <string name="r3f_spam_summary_stopped_week">Заблоковано за 7 днів: %1$d</string>
+    <string name="r3f_spam_summary_total">Усього: %1$d</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">정확한 시간에 보낼까요?</string>
+    <string name="schedule_exact_alarm_text">예약 전송 메시지를 정확한 시간에 보내려면 시스템 설정에서 uMessage 앱의 \"알람 및 리마인더\" 권한을 허용해 주세요. 허용하지 않아도 전송되지만 늦어질 수 있어요.</string>
+    <string name="schedule_exact_alarm_open_settings">설정 열기</string>
+    <string name="schedule_exact_alarm_anyway">예약 전송</string>
+</resources>

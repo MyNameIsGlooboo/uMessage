@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="dialogs_yes">হ্যাঁ</string>
+    <string name="dialogs_no">না</string>
+    <string name="dialogs_permission_required">অনুমতি প্রয়োজন</string>
+    <string name="dialogs_grant_permission">অনুমতি দিন</string>
+    <string name="dialogs_date_time_format_title">তারিখ ও সময়ের বিন্যাস</string>
+    <string name="dialogs_use_24_hour">24 ঘণ্টার সময়ের বিন্যাস ব্যবহার করুন</string>
+    <string name="dialogs_lock_pattern">প্যাটার্ন</string>
+    <string name="dialogs_lock_pin">PIN</string>
+    <string name="dialogs_lock_biometrics">বায়োমেট্রিক্স</string>
+    <string name="dialogs_lock_fingerprint">আঙুলের ছাপ</string>
+    <string name="dialogs_lock_enter_pin">PIN লিখুন</string>
+    <string name="dialogs_lock_repeat_pin">আবার PIN লিখুন</string>
+    <string name="dialogs_lock_wrong_pin">ভুল PIN</string>
+    <string name="dialogs_lock_empty_pin">একটি PIN লিখুন</string>
+    <string name="dialogs_lock_short_pin">PIN অন্তত 4 সংখ্যার হতে হবে</string>
+    <string name="dialogs_lock_pin_suggestion">অন্তত 4 সংখ্যা। %d বা তার বেশি হলে আরও নিরাপদ।</string>
+    <plurals name="dialogs_lock_short_pattern" tools:ignore="ImpliedQuantity">
+        <item quantity="one">খুব ছোট। অন্তত %dটি বিন্দু যুক্ত করুন।</item>
+        <item quantity="other">খুব ছোট। অন্তত %dটি বিন্দু যুক্ত করুন।</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">প্যাটার্ন আঁকুন</string>
+    <string name="dialogs_lock_repeat_pattern">আবার প্যাটার্ন আঁকুন</string>
+    <string name="dialogs_lock_wrong_pattern">ভুল প্যাটার্ন</string>
+    <string name="dialogs_lock_locked_out">আনলক করতে অনেকবার ভুল হয়েছে।\n%d সেকেন্ড পরে আবার চেষ্টা করুন।</string>
+    <string name="dialogs_lock_pin_delete">শেষ সংখ্যাটি মুছুন</string>
+    <string name="dialogs_lock_pin_confirm">PIN নিশ্চিত করুন</string>
+    <string name="dialogs_lock_pin_entered">%dটি সংখ্যা লেখা হয়েছে</string>
+    <string name="dialogs_lock_pattern_pad">প্যাটার্ন আঁকার জায়গা</string>
+    <string name="dialogs_lock_biometric_hint">আপনার পরিচয় নিশ্চিত করতে আঙুলের ছাপ বা মুখ ব্যবহার করুন।</string>
+    <string name="dialogs_lock_biometric_open">বায়োমেট্রিক্স দিয়ে যাচাই করুন</string>
+    <string name="dialogs_lock_place_finger">আঙুলের ছাপের সেন্সরে আপনার আঙুল রাখুন।</string>
+    <string name="dialogs_lock_no_fingerprints">কোনো আঙুলের ছাপ নিবন্ধিত নেই। আপনার ডিভাইসের সেটিংসে একটি যোগ করুন।</string>
+    <string name="dialogs_lock_open_settings">ডিভাইসের সেটিংস খুলুন</string>
+    <string name="dialogs_lock_auth_failed">পরিচয় যাচাই করা যায়নি</string>
+    <string name="dialogs_lock_auth_blocked">পরিচয় যাচাই ব্লক করা হয়েছে, একটু পরে আবার চেষ্টা করুন</string>
+</resources>

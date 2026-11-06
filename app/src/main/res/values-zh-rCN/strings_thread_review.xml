@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_review_details_decision">判定结果</string>
+    <string name="thread_review_details_decision_allowed">已允许：已送达收件箱</string>
+    <string name="thread_review_details_type">类型</string>
+    <string name="thread_review_details_type_sms">短信</string>
+    <string name="thread_review_details_type_mms">彩信</string>
+    <string name="thread_review_sim_slot_name">SIM%1$d·%2$s</string>
+    <string name="thread_review_copy_code">复制验证码</string>
+    <string name="thread_review_copy_password">复制密码</string>
+    <string name="thread_review_copy_username">复制用户名</string>
+    <string name="thread_review_sim_label">SIM%1$s</string>
+    <string name="thread_review_sends_from">使用%1$s发送</string>
+    <string name="thread_review_reply_disabled">此发件人无法接收回复</string>
+    <string name="thread_review_attach_camera">相机</string>
+    <string name="thread_review_attach_voice">语音</string>
+    <string name="thread_review_schedule_in_hour">1小时后</string>
+    <string name="thread_review_schedule_evening">今晚</string>
+    <string name="thread_review_schedule_tomorrow">明天9：00</string>
+</resources>

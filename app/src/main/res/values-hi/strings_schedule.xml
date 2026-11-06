@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">बिल्कुल तय समय पर भेजें?</string>
+    <string name="schedule_exact_alarm_text">शेड्यूल किए गए मैसेज बिल्कुल तय समय पर भेजने के लिए, सिस्टम सेटिंग में uMessage को \"अलार्म और रिमाइंडर\" की अनुमति दें. इसके बिना भी मैसेज भेजे जाएंगे, लेकिन देर हो सकती है.</string>
+    <string name="schedule_exact_alarm_open_settings">सेटिंग खोलें</string>
+    <string name="schedule_exact_alarm_anyway">फिर भी शेड्यूल करें</string>
+</resources>

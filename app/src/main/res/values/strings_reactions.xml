@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- An emoji chip on a message: iPhone reactions sent as texts such as Liked "..." -->
+    <string name="thread_reactions_title">Sent from an iPhone as text</string>
+    <string name="thread_reactions_show_original">Show original text</string>
+</resources>

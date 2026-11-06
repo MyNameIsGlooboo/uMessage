@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="sim_messages_title">پیام‌های سیم‌کارت</string>
+    <string name="sim_messages_row_body">کپی پیام‌های ذخیره‌شده روی سیم‌کارت در گفتگوهای شما</string>
+    <string name="sim_messages_loading">در حال خواندن سیم‌کارت…</string>
+    <string name="sim_messages_unavailable">این گوشی به برنامه‌ها اجازهٔ خواندن سیم‌کارت را نمی‌دهد.</string>
+    <string name="sim_messages_empty">هیچ پیامی روی سیم‌کارت نیست.</string>
+    <plurals name="sim_messages_found" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d پیام روی سیم‌کارت ذخیره شده است. در گفتگوهای شما کپی شود؟ روی سیم‌کارت هم باقی می‌ماند.</item>
+        <item quantity="other">%1$d پیام روی سیم‌کارت ذخیره شده است. در گفتگوهای شما کپی شوند؟ روی سیم‌کارت هم باقی می‌مانند.</item>
+    </plurals>
+    <string name="sim_messages_import">کپی</string>
+    <string name="sim_messages_importing">در حال کپی پیام‌ها…</string>
+    <string name="sim_messages_done">%1$d پیام کپی شد. %2$d پیام از قبل در گفتگوهای شما بود.</string>
+    <string name="sim_messages_done_failed">%1$d پیام کپی شد. %2$d پیام از قبل در گفتگوهای شما بود و %3$d پیام کپی نشد.</string>
+</resources>

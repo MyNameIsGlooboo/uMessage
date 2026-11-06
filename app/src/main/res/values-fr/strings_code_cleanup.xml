@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="cleanup_codes_title">Supprimer les codes lus après</string>
+    <string name="cleanup_codes_summary">Les codes sont placés dans la corbeille</string>
+    <string name="cleanup_never">Jamais</string>
+    <string name="cleanup_24_hours">24 heures</string>
+    <plurals name="cleanup_days" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d jour</item>
+        <item quantity="other">%d jours</item>
+    </plurals>
+    <string name="cleanup_card_title">Supprimer les codes lus après 7 jours ?</string>
+    <string name="cleanup_card_body">Les codes de validation que vous avez lus sont placés dans la corbeille, où vous pouvez les récupérer.</string>
+    <string name="cleanup_card_yes">Activer</string>
+    <string name="cleanup_card_no">Non merci</string>
+</resources>

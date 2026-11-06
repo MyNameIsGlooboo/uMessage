@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">画面を点灯</string>
+    <string name="wake_screen_summary">新しいメッセージが届くと画面を点灯します。</string>
+    <string name="bubbles_title">会話のバブル</string>
+    <string name="bubbles_summary">会話を画面に浮かぶバブルで表示します。</string>
+    <string name="bubbles_locked">アプリロックがオンの間は利用できません。</string>
+    <string name="focus_codes_title">ライブ通知に認証コードを表示</string>
+    <string name="focus_codes_summary">Xiaomiのライブ通知に認証コードを表示します。</string>
+</resources>

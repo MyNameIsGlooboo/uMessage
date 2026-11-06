@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">Названия SIM-карт</string>
+    <string name="i34_setting_summary">Задайте название и номер для каждой SIM-карты</string>
+    <string name="i34_dialog_title">Названия SIM-карт</string>
+    <string name="i34_number_note">Операторы часто не передают номер приложениям, поэтому введите его здесь. Название и номер хранятся только на этом телефоне.</string>
+    <string name="i34_sim_heading">SIM-карта %1$d, %2$s</string>
+    <string name="i34_nickname">Название (например, «Работа»)</string>
+    <string name="i34_number">Номер</string>
+</resources>

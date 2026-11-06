@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">Denunciar spam</string>
+    <string name="carrier_report_row_title">Número del operador para denunciar spam</string>
+    <string name="carrier_report_row_summary">Denuncia spam a tu operador por SMS</string>
+    <string name="carrier_report_not_set">Sin configurar</string>
+    <string name="carrier_report_hint">Número de tu operador para denunciar spam. Las denuncias se envían por SMS y pueden tener un costo.</string>
+    <string name="carrier_report_invalid">Usa de 3 a 8 dígitos</string>
+    <string name="carrier_report_action">Denunciar al operador</string>
+    <string name="carrier_report_title">¿Denunciar a tu operador?</string>
+    <string name="carrier_report_body">Se enviará el último mensaje de este remitente al %1$s por SMS. Tu operador podría cobrarte por el envío.</string>
+    <string name="carrier_report_send">Enviar</string>
+    <string name="carrier_report_sent">Denuncia enviada a tu operador</string>
+    <string name="carrier_report_failed">No se pudo enviar la denuncia</string>
+</resources>

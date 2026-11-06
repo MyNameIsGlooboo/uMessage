@@ -1,0 +1,109 @@
+# Invented incoming texts. Format: EXPECTED|message. NONE means no chip may show.
+YES_NO|Are you at home?
+YES_NO|do you have the keys
+YES_NO|Did you sleep well?
+YES_NO|Have you eaten yet?
+YES_NO|Is it still on?
+YES_NO|Will you be there?
+YES_NO|is she coming?
+YES_NO|Are u home
+YES_NO|r u awake??
+YES_NO|You're coming tonight, right?
+YES_NO|The meeting is at 5, okay?
+YES_NO|Was it expensive?
+YES_NO|Can we talk later?
+YES_NO|Should I bring something?
+YES_NO|Hey are you busy?
+YES_NO|Is there parking nearby?
+YES_NO|Does he know about it?
+YES_NO|Want me to come along?
+YES_NO|you coming?
+YES_NO|Isn't it too late?
+YES_NO|Did you lock the door
+WHEN|When are you coming?
+WHEN|What time are you free?
+WHEN|when can we meet?
+WHEN|What time works for you?
+WHEN|When will you be back?
+WHEN|How long will you be?
+WHEN|What time shall we leave?
+WHEN|When r u free?
+WHERE|Where should we meet?
+WHERE|where shall we eat?
+WHERE|Where do you want to go?
+WHERE|Where are we meeting?
+WHERE|Where can we park?
+WHERE|where r we meeting?
+CHOICE:tea,coffee|Tea or coffee?
+CHOICE:pizza,pasta|Pizza or pasta?
+CHOICE:today,tomorrow|Today or tomorrow?
+CHOICE:train,bus|Train or bus?
+CHOICE:beach,mountains|Beach or mountains?
+CHOICE:call,text|Call or text?
+CHOICE:red,blue|red or blue?
+CHOICE:tea,coffee|Do you want tea or coffee?
+CHOICE:walk,drive|Should we walk or drive?
+REQUEST|Can you send me the address?
+REQUEST|Could you call me back?
+REQUEST|Please send the photo?
+REQUEST|can u bring some milk?
+REQUEST|Would you mind picking up the kids?
+REQUEST|Can you help me move on Sunday?
+REQUEST|Any chance you can drive me?
+REQUEST|Could you check the oven?
+REQUEST|Can you grab some bread?
+REQUEST|Do you mind waiting a bit?
+INVITE|Shall we go for a walk?
+INVITE|Let's grab lunch?
+INVITE|Wanna watch a movie?
+INVITE|Are you free tomorrow?
+INVITE|Would you like to join us for dinner?
+INVITE|How about Friday?
+INVITE|u free tonight?
+INVITE|Are you up for coffee?
+INVITE|Fancy a pizza tonight?
+INVITE|Lets go swimming tomorrow?
+# negatives: statements
+NONE|I'll be there at 6
+NONE|Thanks for the dinner last night
+NONE|The meeting moved to Friday
+NONE|Sorry, I can't make it tonight
+NONE|The shop is open until nine
+NONE|Never mind, forget it
+NONE|Haha that was so funny
+NONE|I wonder when you are coming
+NONE|I asked whether you are home
+NONE|Tell me when you arrive
+NONE|Let me know how it went
+NONE|We should meet some day
+# negatives: questions the engine must not answer
+NONE|Why are you late?
+NONE|How much does it cost?
+NONE|Who is coming tonight?
+NONE|What is the plan for tomorrow?
+NONE|What do you think about it?
+NONE|Which one do you like?
+NONE|How was your trip?
+NONE|What time is it?
+NONE|Why didn't you call me?
+NONE|Who told you that?
+NONE|Whose keys are these?
+NONE|Where is my charger?
+NONE|Where did you put it?
+NONE|When did you get back?
+NONE|How long is the movie?
+NONE|What's for dinner?
+NONE|How do I get there?
+NONE|Which bus goes there?
+NONE|Why not?
+NONE|Really?
+NONE|What?
+# negatives: gates
+NONE|Are you home? Are you coming?
+NONE|Where are you? When will you be back?
+NONE|Are you coming? Tell me quickly
+NONE|Are you coming to the party tonight because everyone is waiting for you and the music starts very soon
+NONE|Check this out www.example.com are you free?
+NONE|Your code is 482915, can you confirm?
+NONE|Can you send 200 dollars?
+NONE|Can you pay $50 today?

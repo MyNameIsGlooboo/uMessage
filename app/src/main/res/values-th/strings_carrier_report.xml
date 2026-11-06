@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">รายงานสแปม</string>
+    <string name="carrier_report_row_title">หมายเลขรายงานสแปมของผู้ให้บริการเครือข่าย</string>
+    <string name="carrier_report_row_summary">รายงานสแปมให้ผู้ให้บริการเครือข่ายทาง SMS</string>
+    <string name="carrier_report_not_set">ยังไม่ได้ตั้งค่า</string>
+    <string name="carrier_report_hint">หมายเลขรับรายงานสแปมของผู้ให้บริการเครือข่าย รายงานจะส่งเป็น SMS และอาจมีค่าใช้จ่าย</string>
+    <string name="carrier_report_invalid">ใช้ตัวเลข 3 ถึง 8 หลัก</string>
+    <string name="carrier_report_action">รายงานให้ผู้ให้บริการเครือข่าย</string>
+    <string name="carrier_report_title">รายงานให้ผู้ให้บริการเครือข่ายไหม?</string>
+    <string name="carrier_report_body">จะส่งข้อความล่าสุดจากผู้ส่งรายนี้ไปยัง %1$s เป็น SMS ผู้ให้บริการเครือข่ายอาจคิดค่าบริการ</string>
+    <string name="carrier_report_send">ส่ง</string>
+    <string name="carrier_report_sent">ส่งรายงานให้ผู้ให้บริการเครือข่ายแล้ว</string>
+    <string name="carrier_report_failed">ส่งรายงานไม่ได้</string>
+</resources>

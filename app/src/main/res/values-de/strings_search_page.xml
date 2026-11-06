@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">Chat starten</string>
+    <string name="search_page_show_more">Mehr anzeigen</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">Keine Unterhaltungen auf dieser SIM</string>
+    <string name="search_page_sim_empty_body">Hier erscheinen Unterhaltungen mit Nachrichten, die über diese SIM gesendet oder empfangen wurden.</string>
+</resources>

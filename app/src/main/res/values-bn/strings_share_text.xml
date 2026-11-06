@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="share_text_menu">কথোপকথন টেক্সট হিসেবে শেয়ার করুন</string>
+    <string name="share_text_scope_title">কোন বার্তাগুলো?</string>
+    <string name="share_text_scope_whole">পুরো কথোপকথন</string>
+    <string name="share_text_scope_last">শেষ 50টি বার্তা</string>
+    <string name="share_text_title">টেক্সট হিসেবে শেয়ার করুন</string>
+    <string name="share_text_warning">এতে ব্যক্তিগত টেক্সট অন্য অ্যাপে পাঠানো হবে। পরের ধাপে আপনি অ্যাপ বেছে নেবেন।</string>
+    <string name="share_text_action">শেয়ার করুন</string>
+    <string name="share_text_range">%1$s থেকে %2$s</string>
+    <string name="share_text_attachment">[সংযুক্তি]</string>
+    <string name="share_text_subject">uMessage থেকে বার্তা</string>
+    <string name="share_text_nothing">শেয়ার করার মতো কোনো বার্তা নেই</string>
+    <plurals name="share_text_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি বার্তা</item>
+        <item quantity="other">%1$dটি বার্তা</item>
+    </plurals>
+</resources>

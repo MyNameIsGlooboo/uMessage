@@ -1,0 +1,9 @@
+First release on Google Play.
+
+• Spam from unknown senders is held in a Blocked folder, with the reason
+• Strict, Smart and Off modes
+• Your own allow and block rules, with a box to test a message
+• Copy code button for verification codes
+• Light, dark and color themes
+• Fully offline: no internet permission, no ads, no tracking
+• Persian and Arabic support

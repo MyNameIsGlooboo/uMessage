@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">ارسال در زمان دقیق؟</string>
+    <string name="schedule_exact_alarm_text">برای ارسال پیام‌های زمان‌بندی‌شده در زمان دقیق، در تنظیمات سیستم به uMessage مجوز «زنگ‌ها و یادآوری‌ها» بدهید. بدون این مجوز هم پیام‌ها ارسال می‌شوند، اما ممکن است دیر برسند.</string>
+    <string name="schedule_exact_alarm_open_settings">باز کردن تنظیمات</string>
+    <string name="schedule_exact_alarm_anyway">زمان‌بندی در هر صورت</string>
+</resources>

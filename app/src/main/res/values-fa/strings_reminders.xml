@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">یادآوری کن</string>
+    <string name="reminder_dialog_title">یادآوری کن</string>
+    <string name="reminder_in_3_hours">۳ ساعت دیگر</string>
+    <string name="reminder_tomorrow_morning">فردا صبح</string>
+    <string name="reminder_pick_time">انتخاب تاریخ و ساعت</string>
+    <string name="reminder_set">یادآوری برای %1$s تنظیم شد</string>
+    <string name="reminder_set_approximate">یادآوری برای حدود %1$s تنظیم شد. ممکن است کمی دیر برسد.</string>
+    <string name="reminder_battery_hint">بعضی گوشی‌ها برنامه‌ها را در پس‌زمینه متوقف می‌کنند و یادآوری‌ها را به تأخیر می‌اندازند.</string>
+    <string name="reminder_battery_open">فعال نگه داشتن uMessage</string>
+    <string name="reminder_channel">یادآوری‌ها</string>
+    <string name="reminder_title">یادآوری</string>
+    <string name="reminder_title_named">یادآوری: %1$s</string>
+    <string name="reminder_open_hint">برای باز کردن پیام بزنید</string>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_checklist_title">Налаштуйте за 1 хвилину</string>
+    <string name="w3c_checklist_done_title">Усе готово</string>
+    <string name="w3c_checklist_basics_title">Основне налаштовано</string>
+    <string name="w3c_checklist_progress">%1$s із %2$s</string>
+    <string name="w3c_checklist_dismiss">Закрити список</string>
+    <string name="w3c_checklist_step_sms">Зробіть uMessage застосунком для SMS за умовчанням</string>
+    <string name="w3c_checklist_step_notifications">Увімкніть сповіщення</string>
+    <string name="w3c_checklist_step_blocked">Перегляньте вкладку «Заблоковані»</string>
+    <string name="w3c_checklist_step_forward">За бажанням: пересилайте повідомлення на інший номер</string>
+    <string name="w3c_checklist_step_done">Готово</string>
+    <string name="w3c_checklist_action_set">Установити</string>
+    <string name="w3c_checklist_action_open">Відкрити</string>
+    <string name="w3c_receipt_title">Спам заблоковано: натисніть для перегляду</string>
+    <string name="w3c_receipt_body">Повідомлення від невідомого відправника потрапило до розділу «Заблоковані». Воно не зникло: ви можете переглянути й відновити його будь-коли.</string>
+    <string name="w3c_receipt_review">Переглянути</string>
+    <string name="w3c_receipt_got_it">Зрозуміло</string>
+    <string name="w3c_search_codes">Останні коди</string>
+    <string name="w3c_search_code_copied">Код скопійовано</string>
+    <string name="w3c_search_code_description">Скопіювати код %1$s від %2$s</string>
+    <string name="w3c_new_paste">Вставити номер</string>
+    <string name="w3c_new_paste_none">У буфері обміну немає номера телефону</string>
+    <string name="w3c_details_allow">Завжди дозволяти цього відправника</string>
+    <string name="w3c_details_allow_hint">Повідомлення від цього відправника завжди потрапляють у вхідні</string>
+    <string name="w3c_details_allow_spoof_hint">Будь-хто може надсилати повідомлення під цим іменем, тож їх теж буде дозволено</string>
+    <string name="w3c_date_gregorian">Григоріанський</string>
+    <string name="w3c_date_gregorian_body">Дати на зразок 29 жовт.</string>
+    <string name="w3c_date_jalali">Джалалі</string>
+    <string name="w3c_date_jalali_body">Дати на зразок 7 абана</string>
+    <string name="w3c_date_both">Обидва</string>
+    <string name="w3c_date_both_body">Обидва календарі в чаті</string>
+    <string name="w3c_text_size">Розмір тексту</string>
+    <string name="w3c_text_small">Малий</string>
+    <string name="w3c_text_default">За умовчанням</string>
+    <string name="w3c_text_large">Великий</string>
+    <string name="w3c_text_largest">Найбільший</string>
+    <string name="w3c_text_size_sample">Зразок: ваш код — 482913.</string>
+    <string name="w3c_backup_settings">Резервне копіювання всіх налаштувань</string>
+    <string name="w3c_backup_settings_body">Зберігає правила, пересилання й налаштування у файл. Без тексту повідомлень.</string>
+    <string name="w3c_restore_settings">Відновити всі налаштування</string>
+    <string name="w3c_restore_settings_body">Завантажує правила й налаштування з файлу резервної копії</string>
+    <string name="w3c_backup_saved">Резервну копію збережено. Елементів: %1$d</string>
+    <string name="w3c_backup_failed">Не вдалося зберегти резервну копію</string>
+    <string name="w3c_restore_done">Відновлено елементів: %1$d</string>
+    <string name="w3c_restore_failed">Не вдалося відновити дані з цього файлу. Виберіть резервну копію налаштувань uMessage.</string>
+</resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_allow_title">
+        <item quantity="other">อนุญาตผู้ส่ง %d รายนี้เสมอ?</item>
+    </plurals>
+    <string name="spam_allow_body_one">ข้อความจะกลับไปที่กล่องข้อความเข้าไม่ว่าจะเลือกแบบใด หากอนุญาต %1$s เสมอ ข้อความใหม่จากผู้ส่งรายนี้จะข้ามตัวกรองทั้งหมด รวมถึงกฎบล็อกของคุณ</string>
+    <string name="spam_allow_body_many">ข้อความจะกลับไปที่กล่องข้อความเข้าไม่ว่าจะเลือกแบบใด หากอนุญาตผู้ส่งเหล่านี้เสมอ ข้อความใหม่จากผู้ส่งเหล่านี้จะข้ามตัวกรองทั้งหมด รวมถึงกฎบล็อกของคุณ</string>
+    <string name="spam_allow_spoof_warning">ใครก็ใช้ชื่ออย่าง %1$s ส่งข้อความได้ การอนุญาตชื่อนี้จะทำให้ข้อความปลอมที่ใช้ชื่อเดียวกันผ่านได้ด้วย</string>
+    <string name="spam_allow_confirm">อนุญาตเสมอ</string>
+    <string name="spam_allow_dismiss">ไว้ภายหลัง</string>
+    <plurals name="spam_snack_restored_to_inbox">
+        <item quantity="other">กู้คืนข้อความ %d ข้อความไปยังกล่องข้อความเข้าแล้ว</item>
+    </plurals>
+    <plurals name="spam_snack_restored_allowed">
+        <item quantity="other">กู้คืนแล้ว อนุญาตผู้ส่ง %d รายเสมอแล้ว</item>
+    </plurals>
+    <plurals name="spam_snack_allowed_only">
+        <item quantity="other">อนุญาตผู้ส่ง %d รายเสมอแล้ว</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost">
+        <item quantity="other">กู้คืนรูปภาพในข้อความ %d ข้อความไม่ได้</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost_nothing">
+        <item quantity="other">กู้คืนข้อความรูปภาพ %d ข้อความไม่ได้ จึงไม่ได้เพิ่มข้อความในกล่องข้อความเข้า</item>
+    </plurals>
+    <plurals name="spam_snack_restore_failed">
+        <item quantity="other">กู้คืนข้อความรูปภาพ %d ข้อความไม่ได้ ข้อความยังอยู่ที่นี่</item>
+    </plurals>
+    <string name="spam_mms_stored">ข้อความรูปภาพ</string>
+    <string name="spam_mms_downloading">ข้อความรูปภาพ กำลังดาวน์โหลด</string>
+    <string name="spam_mms_missing">ข้อความรูปภาพ ยังไม่ได้ดาวน์โหลด</string>
+    <string name="spam_mms_thumbnail">รูปภาพในข้อความที่บล็อก</string>
+    <string name="spam_reason_rule_keyword">กฎ: คำหลัก “%1$s”</string>
+    <string name="spam_reason_rule_regex">กฎ: รูปแบบ (regex) %1$s</string>
+    <string name="spam_reason_rule_number">กฎ: หมายเลข %1$s</string>
+    <string name="spam_reason_rule_prefix">กฎ: หมายเลขที่ขึ้นต้นด้วย %1$s</string>
+    <string name="spam_reason_rule_sender">กฎ: ผู้ส่ง %1$s</string>
+    <string name="spam_reason_rule_removed">กฎที่ถูกลบไปแล้ว</string>
+    <string name="spam_reason_open_rules">เปิดกฎ</string>
+    <plurals name="spam_purge_notice">
+        <item quantity="other">ข้อความที่บล็อกจะถูกลบหลังผ่านไป %d วัน</item>
+    </plurals>
+    <string name="spam_purge_notice_off">ข้อความที่บล็อกจะถูกเก็บไว้จนกว่าคุณจะลบ</string>
+    <plurals name="spam_purge_left">
+        <item quantity="other">จะถูกลบในอีก %d วัน</item>
+    </plurals>
+    <string name="spam_purge_left_today">จะถูกลบวันนี้</string>
+    <string name="convlist_report_spam">รายงานสแปม</string>
+    <plurals name="convlist_reported_spam_archived">
+        <item quantity="other">รายงานสแปมแล้ว %d แชท ข้อความใหม่จากผู้ส่งเหล่านี้จะไปที่หน้าที่บล็อก และแชทจะถูกเก็บถาวร</item>
+    </plurals>
+    <plurals name="convlist_reported_spam">
+        <item quantity="other">รายงานสแปมแล้ว %d แชท ข้อความใหม่จากผู้ส่งเหล่านี้จะไปที่หน้าที่บล็อก</item>
+    </plurals>
+    <string name="blocked_title">ที่บล็อก</string>
+    <string name="blocked_menu_rules">กฎ</string>
+    <string name="blocked_mode_group_cd">ผู้ส่งที่ไม่รู้จัก: %1$s, %2$d จาก %3$d</string>
+    <string name="blocked_mode_desc_strict">เข้มงวด: พักข้อความจากผู้ส่งที่ไม่รู้จักทุกราย รวมถึงรหัสยืนยัน</string>
+    <string name="blocked_mode_desc_smart">อัจฉริยะ: พักข้อความจากผู้ส่งที่ไม่รู้จัก แต่ให้รหัสที่ไม่มีลิงก์ผ่านได้</string>
+    <string name="blocked_mode_desc_off">ปิด: ข้อความจากผู้ส่งที่ไม่รู้จักจะเข้ากล่องข้อความเข้า กฎของคุณยังมีผล</string>
+    <string name="blocked_snack_mode">ตั้งค่าผู้ส่งที่ไม่รู้จักเป็น %1$s แล้ว</string>
+    <string name="blocked_off_title">หยุดพักข้อความจากผู้ส่งที่ไม่รู้จัก?</string>
+    <string name="blocked_off_body">ข้อความจากผู้ส่งที่ไม่รู้จักจะไปที่กล่องข้อความเข้าโดยตรง กฎของคุณยังมีผล</string>
+    <string name="blocked_off_confirm">ปิด</string>
+    <string name="blocked_stats_restored">คุณกู้คืนแล้ว %1$d</string>
+    <string name="blocked_reason_unknown_link">ผู้ส่งที่ไม่รู้จัก มีลิงก์</string>
+    <string name="blocked_may_be_important">อาจเป็นข้อความสำคัญ</string>
+    <string name="blocked_action_move_inbox">ย้ายไปกล่องข้อความเข้า</string>
+    <string name="blocked_swipe_not_spam">ปัดเพื่อย้ายไปกล่องข้อความเข้า</string>
+</resources>

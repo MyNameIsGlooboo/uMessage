@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i56_section">Medya ve bağlantılar</string>
+    <string name="i56_see_all">Tümünü görün</string>
+    <string name="i56_pictures">Resimler</string>
+    <string name="i56_links">Bağlantılar</string>
+    <string name="i56_empty_pictures">Bu görüşmede resim yok.</string>
+    <string name="i56_empty_links">Bu görüşmede bağlantı yok.</string>
+    <string name="i56_show_in_chat">Görüşmede gösterin</string>
+    <string name="i56_load_more">Daha fazla gösterin</string>
+    <string name="i56_picture_description">Resim. Açmak için dokunun.</string>
+    <plurals name="i56_count_pictures">
+        <item quantity="one">%d resim</item>
+        <item quantity="other">%d resim</item>
+    </plurals>
+    <plurals name="i56_count_links">
+        <item quantity="one">%d bağlantı</item>
+        <item quantity="other">%d bağlantı</item>
+    </plurals>
+</resources>

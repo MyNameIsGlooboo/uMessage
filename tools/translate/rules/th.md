@@ -1,0 +1,8 @@
+- Thai, short, natural and polite, like Google Messages and LINE.
+- Use a neutral polite register without sentence-ending particles: avoid ครับ, ค่ะ, นะคะ and นะครับ wherever the English works without them; never use slang or informal particles. Leave the subject out where Thai allows it; use "คุณ" only when a pronoun is needed.
+- Thai has no spaces between words. Put a space only between phrases or sentences, and between Thai and Latin letters, digits or placeholders when it reads better. Never insert spaces inside a word.
+- No full stop at the end of buttons, titles and one-line hints. Quotes: “ ”. Keep the brand name uMessage in Latin; keep "SMS", "MMS", "SIM" and "PIN" as they are.
+- Use Arabic digits (0-9), never Thai digits.
+- Plural ids: only other. Thai has no plural: write one text for every number and keep the number token.
+- Use "ข้อความ" for message, "ผู้ส่ง" for sender, "สแปม" for spam (one term everywhere), "บล็อก" for block.
+- Thai takes more characters than English: choose short words for buttons and chips.

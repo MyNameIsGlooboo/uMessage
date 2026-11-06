@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">Etykiety</string>
+    <string name="i29_picker_title">Etykiety</string>
+    <string name="i29_picker_empty">Nie masz jeszcze etykiet. Utwórz etykietę, by uporządkować rozmowy.</string>
+    <string name="i29_picker_new">Nowa etykieta</string>
+    <string name="i29_picker_manage">Zarządzaj etykietami</string>
+    <string name="i29_done">Gotowe</string>
+    <string name="i29_cancel">Anuluj</string>
+    <string name="i29_tiles_title">Twoje etykiety</string>
+    <string name="i29_tile_add">Dodaj etykietę</string>
+    <string name="i29_tiles_manage">Zarządzaj etykietami</string>
+    <string name="i29_manager_title">Zarządzaj etykietami</string>
+    <string name="i29_manager_note">Etykiety tworzysz samodzielnie. Są niezależne od automatycznych filtrów Transakcje i Oferty.</string>
+    <string name="i29_manager_edit">Edytuj etykietę %1$s</string>
+    <string name="i29_manager_delete">Usuń etykietę %1$s</string>
+    <string name="i29_edit_new_title">Nowa etykieta</string>
+    <string name="i29_edit_title">Edytuj etykietę</string>
+    <string name="i29_edit_name">Nazwa etykiety</string>
+    <string name="i29_edit_save">Zapisz</string>
+    <string name="i29_color_description">Kolor %1$d</string>
+    <string name="i29_error_duplicate">Masz już etykietę o tej nazwie.</string>
+    <string name="i29_error_limit">Możesz mieć maksymalnie %1$d etykiet.</string>
+    <string name="i29_delete_title">Usunąć tę etykietę?</string>
+    <string name="i29_delete_body">Etykieta „%1$s” zostanie usunięta. Twoje rozmowy i wiadomości pozostaną bez zmian.</string>
+    <string name="i29_delete_confirm">Usuń</string>
+    <string name="i29_empty_title">Nie ma tu rozmów</string>
+    <string name="i29_empty_body">Dotknij i przytrzymaj rozmowę, otwórz menu i wybierz Etykiety, aby ją dodać.</string>
+</resources>

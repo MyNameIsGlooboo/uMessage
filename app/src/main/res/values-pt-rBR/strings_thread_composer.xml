@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_emoji">Emoji</string>
+    <string name="thread_show_keyboard">Mostre o teclado</string>
+    <string name="thread_scheduled_not_sent">Mensagem com envio programado não enviada</string>
+    <string name="thread_edit_scheduled_replaces_draft">Editar a mensagem com envio programado substitui o que você está digitando. Continuar?</string>
+    <string name="thread_menu_report_spam">Marque como spam</string>
+    <string name="thread_report_spam_title">Marque como spam?</string>
+    <string name="thread_report_spam_message">As novas mensagens de %1$s vão para Mensagens bloqueadas em vez da sua caixa de entrada. As mensagens que já estão nesta conversa são mantidas.</string>
+    <string name="thread_report_spam_confirm">Marque como spam</string>
+    <string name="thread_report_spam_cancel">Cancele</string>
+    <string name="thread_report_spam_done">Marcado como spam</string>
+    <string name="thread_report_spam_rule_note">Denunciado como spam</string>
+    <string name="thread_report_spam_already">Já marcado como spam</string>
+    <string name="thread_report_spam_failed">Não foi possível marcar como spam</string>
+    <string name="thread_report_spam_undo">Desfaça</string>
+</resources>

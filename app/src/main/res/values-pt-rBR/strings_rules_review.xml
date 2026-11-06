@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="rules2_tab_allowed">Permita sempre</string>
+    <string name="rules2_tab_blocked">Bloqueie sempre</string>
+    <string name="rules2_menu_import">Importe regras de um arquivo</string>
+    <string name="rules2_menu_export">Exporte regras para um arquivo</string>
+    <string name="rules2_menu_system">Lista de bloqueio do Android</string>
+    <string name="rules2_import_scope">Um arquivo de regras contém apenas regras de permissão e bloqueio. Não contém mensagens nem regras de encaminhamento.</string>
+    <string name="rules2_meta">%1$s · %2$s</string>
+    <string name="rules2_empty_allowed_title">Nenhum remetente sempre permitido</string>
+    <string name="rules2_empty_allowed_body">Adicione um número, nome de remetente ou palavra que sempre deve chegar à sua caixa de entrada. Toque em Adicione regra abaixo.</string>
+    <string name="rules2_empty_blocked_title">Nenhum remetente sempre bloqueado</string>
+    <string name="rules2_empty_blocked_body">Adicione um número, nome de remetente, palavra ou padrão (expressão regular) para enviar a Bloqueados. Toque em Adicione regra abaixo.</string>
+    <string name="rules2_legacy_banner_title">Listas de bloqueio antigas encontradas</string>
+    <string name="rules2_legacy_banner_body">Mova essas listas para as regras para ver e restaurar as mensagens que elas bloqueiam.</string>
+    <string name="rules2_legacy_review">Revise</string>
+    <string name="rules2_system_header">Lista de bloqueio do Android (também bloqueia chamadas)</string>
+    <string name="rules2_system_body">O Android descarta mensagens desses números antes que o uMessage as receba. Por isso, elas nunca aparecem em Bloqueados e não podem ser restauradas.</string>
+    <string name="rules2_system_manage">Gerencie</string>
+    <string name="rules2_system_move">Mova para as regras do uMessage</string>
+    <string name="rules2_migrate_title">Mova para as regras do uMessage</string>
+    <string name="rules2_migrate_point_blocked">As mensagens passarão a ir para Bloqueados, onde você poderá restaurá-las.</string>
+    <string name="rules2_migrate_remove_needs_first">Marque primeiro a opção acima.</string>
+    <string name="rules2_migrate_nothing_selected">Nada selecionado</string>
+    <plurals name="rules2_migrate_confirm_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Mova %d item</item>
+        <item quantity="other">Mova %d itens</item>
+    </plurals>
+    <string name="rules2_sheet_list_label">Adicione à lista</string>
+    <string name="rules2_sheet_list_allow">Permita sempre</string>
+    <string name="rules2_sheet_list_block">Bloqueie sempre</string>
+    <string name="rules2_sheet_delete">Exclua regra</string>
+    <string name="rules2_sheet_hint_empty">Digite um valor para continuar</string>
+    <string name="rules2_sheet_hint_fix">Corrija o valor acima para continuar</string>
+    <string name="rules2_sheet_sim_help">Regras de um chip só se aplicam às mensagens recebidas nesse chip.</string>
+    <string name="rules2_type_number_help">Um número de telefone exato, como +15550001234 ou 05550001234. Números curtos, como 3000, também funcionam. Algarismos persas são aceitos.</string>
+    <string name="rules2_type_number_hint">+15550001234</string>
+    <string name="rules2_type_prefix_help">Qualquer número que comece assim, por exemplo, +1555 ou 0555.</string>
+    <string name="rules2_type_prefix_hint">+1555</string>
+    <string name="rules2_type_sender_id_help">Um remetente identificado por texto, como VM-HDFCBK ou Bank Melli. Não há diferença entre maiúsculas e minúsculas.</string>
+    <string name="rules2_type_regex_help">Avançado. Uma expressão regular comparada ao texto da mensagem. Teste abaixo antes de salvar.</string>
+    <string name="rules2_err_sender_id">Use letras, algarismos, espaços, pontos, hífens ou &amp; (até 32 caracteres, com pelo menos uma letra)</string>
+    <string name="rules2_err_sender_id_char">“%1$s” não pode ser usado no nome do remetente. Use letras, algarismos, espaços, pontos, hífens ou &amp;.</string>
+    <string name="rules2_test_label">Teste em uma mensagem de exemplo</string>
+    <string name="rules2_test_hint">Cole ou digite uma mensagem para testar esta regra</string>
+    <string name="rules2_test_match">Esta regra se aplicaria a essa mensagem</string>
+    <string name="rules2_test_no_match">Esta regra não se aplicaria a essa mensagem</string>
+    <string name="rules2_test_unusable">Não é possível testar este padrão (expressão regular). Confira acima.</string>
+    <string name="rules2_bn_title">Lista de bloqueio do Android</string>
+    <string name="rules2_bn_info">Armazenada no Android. Bloqueia chamadas e mensagens desses números. As regras do uMessage são separadas.</string>
+    <plurals name="rules2_bn_move" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Mova %1$d número para as regras</item>
+        <item quantity="other">Mova %1$d números para as regras</item>
+    </plurals>
+    <string name="forward2_intro_reassure">Só as mensagens que chegam à sua caixa de entrada são encaminhadas. Spam bloqueado nunca é encaminhado.</string>
+    <string name="forward2_empty_title">Ainda não há regras de encaminhamento</string>
+    <string name="forward2_empty_body">Envie uma cópia das mensagens que atendem à regra, como alertas bancários, para outro celular. Comece com uma destas opções.</string>
+    <string name="forward2_template_bank">Encaminhe alertas bancários</string>
+    <string name="forward2_template_bank_word">banco</string>
+    <string name="forward2_template_sender">Encaminhe mensagens de um remetente</string>
+    <string name="forward2_save">Salve a regra de encaminhamento</string>
+    <string name="forward2_hint_condition">Escolha um remetente ou texto para identificar as mensagens</string>
+    <string name="forward2_hint_target">Adicione um número de destino</string>
+    <string name="forward2_hint_fix">Corrija os campos marcados em vermelho</string>
+    <string name="forward2_condition_why">Não é permitido encaminhar todas as mensagens: cada encaminhamento custa um SMS.</string>
+    <string name="forward2_broad_title">Encaminhar muitas mensagens?</string>
+    <string name="forward2_broad_message">Esta regra se aplica a muitas mensagens e não restringe os remetentes. Cada mensagem que atende à regra é encaminhada como um SMS pago.</string>
+    <string name="forward2_broad_confirm">Salve mesmo assim</string>
+    <string name="forward2_broad_inline">Este texto é muito comum e vale para qualquer remetente. Isso pode encaminhar muitas mensagens e custar caro.</string>
+    <string name="forward2_target_own">Esse é um dos seus próprios números. Encaminhar para você criaria um ciclo sem fim.</string>
+    <string name="forward2_target_sender">Esse é o remetente definido nesta regra. Encaminhar para ele criaria um ciclo sem fim.</string>
+    <string name="forward2_target_ok">Número válido</string>
+    <string name="forward2_pick_contact">Escolha nos contatos</string>
+    <plurals name="forward2_cost_estimate" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d número: pelo menos 1 SMS por mensagem encaminhada.</item>
+        <item quantity="other">%1$d números: pelo menos %1$d SMS por mensagem encaminhada.</item>
+    </plurals>
+    <string name="forward2_window_help">Exemplo: das 22:00 às 06:00 encaminha durante a noite.</string>
+    <string name="forward2_window_summary">Encaminha todos os dias das %1$s às %2$s</string>
+    <string name="forward2_window_summary_night">Encaminha todas as noites das %1$s às %2$s</string>
+    <string name="forward2_scope_help">Em qual chip a mensagem deve chegar.</string>
+    <string name="forward2_send_help">“Mesmo chip” usa o chip que recebeu a mensagem para encaminhá-la. Um chip sem crédito não pode enviar.</string>
+    <string name="forward2_codes_title">Encaminhe códigos de verificação (OTP)</string>
+    <string name="forward2_codes_off">Desativado: códigos de acesso e de verificação nunca são encaminhados.</string>
+    <string name="forward2_codes_on">Ativado: os códigos também são encaminhados. Use apenas com seus próprios dispositivos, pois um código dá acesso a uma conta.</string>
+</resources>

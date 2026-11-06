@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">दोहराएं</string>
+    <string name="schedule_repeat_never">कभी नहीं</string>
+    <string name="schedule_repeat_daily">हर दिन</string>
+    <string name="schedule_repeat_weekly">हर हफ़्ते</string>
+    <string name="schedule_repeat_monthly">हर महीने</string>
+    <string name="schedule_repeat_yearly">हर साल</string>
+    <string name="schedule_repeat_jalali_note">महीने और साल जलाली कैलेंडर के अनुसार हैं.</string>
+    <string name="scheduled_repeats_daily">हर दिन दोहराया जाता है</string>
+    <string name="scheduled_repeats_weekly">हर हफ़्ते दोहराया जाता है</string>
+    <string name="scheduled_repeats_monthly">हर महीने दोहराया जाता है</string>
+    <string name="scheduled_repeats_yearly">हर साल दोहराया जाता है</string>
+    <string name="scheduled_repeats_paused">दोहराना रुका हुआ है</string>
+    <string name="scheduled_delete_repeating">दोहराया जाने वाला मैसेज मिटाएं</string>
+    <string name="scheduled_delete_this_one">सिर्फ़ यह मैसेज</string>
+    <string name="scheduled_delete_all_future">यह और इसके बाद के सभी</string>
+</resources>

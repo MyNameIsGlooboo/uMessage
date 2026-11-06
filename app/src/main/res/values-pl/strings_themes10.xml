@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">Łupek</string>
+    <string name="preset_slate_desc">Spokojny błękit z szarością</string>
+    <string name="preset_firouzeh">Firouzeh</string>
+    <string name="preset_firouzeh_desc">Turkus z odrobiną złota</string>
+    <string name="preset_pomegranate">Granat</string>
+    <string name="preset_pomegranate_desc">Ciepła czerwień z głęboką zielenią</string>
+    <string name="preset_harbor">Port</string>
+    <string name="preset_harbor_desc">Nocny błękit z delikatnym koralem</string>
+    <string name="preset_lavender">Lawenda</string>
+    <string name="preset_lavender_desc">Delikatny fiolet z morskim</string>
+    <string name="preset_ink">Atrament</string>
+    <string name="preset_ink_desc">Niemal czerń ze srebrem i złotem</string>
+    <string name="preset_contrast">Kontrast</string>
+    <string name="preset_contrast_desc">Czerń i biel z wyrazistymi akcentami</string>
+</resources>

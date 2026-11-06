@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_text_menu">Bagikan percakapan sebagai teks</string>
+    <string name="share_text_scope_title">Pesan mana?</string>
+    <string name="share_text_scope_whole">Seluruh percakapan</string>
+    <string name="share_text_scope_last">50 pesan terakhir</string>
+    <string name="share_text_title">Bagikan sebagai teks</string>
+    <string name="share_text_warning">Teks pribadi akan dikirim ke aplikasi lain. Pilih aplikasinya pada langkah berikutnya.</string>
+    <string name="share_text_action">Bagikan</string>
+    <string name="share_text_range">%1$s hingga %2$s</string>
+    <string name="share_text_attachment">[Lampiran]</string>
+    <string name="share_text_subject">Pesan dari uMessage</string>
+    <string name="share_text_nothing">Tidak ada pesan untuk dibagikan</string>
+    <plurals name="share_text_count">
+        <item quantity="other">%1$d pesan</item>
+    </plurals>
+</resources>

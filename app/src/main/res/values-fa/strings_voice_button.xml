@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i40_record_voice">ضبط پیام صوتی</string>
+    <string name="i40_setting_title">دکمهٔ پیام صوتی</string>
+    <string name="i40_setting_summary">وقتی کادر پیام خالی است نمایش داده می‌شود</string>
+</resources>

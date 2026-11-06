@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">Операції</string>
+    <string name="i11_filter_transactions_empty_title">Немає операцій</string>
+    <string name="i11_filter_transactions_empty_body">Тут з’являтимуться повідомлення вашого банку про надходження та списання коштів.</string>
+    <string name="i11_filter_offers">Пропозиції</string>
+    <string name="i11_filter_offers_empty_title">Немає пропозицій</string>
+    <string name="i11_filter_offers_empty_body">Тут з’являтимуться знижки та акції магазинів.</string>
+</resources>

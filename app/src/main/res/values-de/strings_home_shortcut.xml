@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">Zum Startbildschirm hinzufügen</string>
+    <string name="home_shortcut_requested">Dein Launcher wird gebeten, die Verknüpfung hinzuzufügen. Der Name wird auf dem Startbildschirm angezeigt. Falls nichts erscheint, erlaube „Startbildschirm-Verknüpfungen“ für uMessage in den App-Einstellungen deines Handys.</string>
+    <string name="home_shortcut_failed">Dein Launcher hat die Verknüpfung abgelehnt. Erlaube „Startbildschirm-Verknüpfungen“ für uMessage in den App-Einstellungen deines Handys.</string>
+</resources>

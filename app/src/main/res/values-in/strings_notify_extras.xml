@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">Nyalakan layar</string>
+    <string name="wake_screen_summary">Menyalakan layar saat ada pesan baru</string>
+    <string name="bubbles_title">Gelembung percakapan</string>
+    <string name="bubbles_summary">Menampilkan percakapan sebagai gelembung mengambang</string>
+    <string name="bubbles_locked">Tidak tersedia saat kunci aplikasi aktif</string>
+    <string name="focus_codes_title">Kode di notifikasi langsung</string>
+    <string name="focus_codes_summary">Menampilkan kode di notifikasi langsung Xiaomi</string>
+</resources>

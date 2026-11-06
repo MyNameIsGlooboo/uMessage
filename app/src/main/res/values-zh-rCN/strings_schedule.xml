@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">准时发送？</string>
+    <string name="schedule_exact_alarm_text">要让定时发送的消息准时发出，请在系统设置中授予uMessage“闹钟和提醒”权限。未授予此权限时，消息仍会发送，但可能延迟。</string>
+    <string name="schedule_exact_alarm_open_settings">打开设置</string>
+    <string name="schedule_exact_alarm_anyway">仍然定时发送</string>
+</resources>

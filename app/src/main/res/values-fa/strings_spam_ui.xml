@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="spam_ui_delete_all">حذف همه</string>
+    <string name="spam_ui_delete_all_title">همهٔ پیام‌های مسدودشده حذف شوند؟</string>
+    <plurals name="spam_ui_delete_all_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d پیام مسدودشده حذف می‌شود. بلافاصله پس از آن می‌توانید واگرد کنید.</item>
+        <item quantity="other">%1$d پیام مسدودشده حذف می‌شود. بلافاصله پس از آن می‌توانید واگرد کنید.</item>
+    </plurals>
+    <string name="declog_ui_clear_title">گزارش تصمیم‌ها پاک شود؟</string>
+    <string name="declog_ui_clear_message">همهٔ تصمیم‌های ثبت‌شده حذف می‌شوند. پیام‌های مسدودشده و قانون‌ها بدون تغییر می‌مانند.</string>
+    <string name="declog_ui_clear_action">پاک کردن</string>
+    <string name="ui_log_reason_contacts_unavailable">مخاطب‌ها قابل خواندن نیستند</string>
+    <string name="blocknum_title">شماره‌های مسدودشده</string>
+    <string name="blocknum_add">افزودن شماره</string>
+    <string name="blocknum_add_title">مسدود کردن شماره</string>
+    <string name="blocknum_edit_title">ویرایش شمارهٔ مسدودشده</string>
+    <string name="blocknum_field_label">شماره</string>
+    <string name="blocknum_field_help">از * به‌عنوان نویسهٔ عام استفاده کنید: +1555* هر شماره‌ای را که با +1555 شروع شود مسدود می‌کند</string>
+    <string name="blocknum_err_empty">شماره‌ای وارد کنید</string>
+    <string name="blocknum_err_invalid">شمارهٔ تلفن یا چند رقم همراه با * به‌عنوان نویسهٔ عام وارد کنید</string>
+    <string name="blocknum_copy">کپی شماره</string>
+    <string name="blocknum_unblock">رفع مسدودی</string>
+    <string name="blocknum_unblock_for">رفع مسدودی %1$s</string>
+    <string name="blocknum_edit_for">ویرایش %1$s</string>
+    <string name="blocknum_more_for">گزینه‌های بیشتر برای %1$s</string>
+    <string name="blocknum_pattern">الگوی نویسهٔ عام</string>
+    <string name="blocknum_copied">شماره کپی شد</string>
+    <plurals name="blocknum_unblocked" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d شماره رفع مسدودی شد</item>
+        <item quantity="other">%1$d شماره رفع مسدودی شد</item>
+    </plurals>
+    <string name="blocknum_import">وارد کردن</string>
+    <string name="blocknum_export">صادر کردن</string>
+    <plurals name="blocknum_imported" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d شماره وارد شد</item>
+        <item quantity="other">%1$d شماره وارد شد</item>
+    </plurals>
+    <string name="blocknum_import_empty">شماره‌ای در فایل پیدا نشد</string>
+    <plurals name="blocknum_import_skipped" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d مورد نادیده گرفته شد (شماره نیست یا از قبل مسدودشده است)</item>
+        <item quantity="other">%d مورد نادیده گرفته شد (شماره نیست یا از قبل مسدودشده است)</item>
+    </plurals>
+    <string name="blocknum_import_failed">خواندن فایل ممکن نشد</string>
+    <plurals name="blocknum_exported" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d شماره صادر شد</item>
+        <item quantity="other">%1$d شماره صادر شد</item>
+    </plurals>
+    <string name="blocknum_export_empty">شماره‌ای برای صادر کردن نیست</string>
+    <string name="blocknum_export_failed">ذخیرهٔ فایل ممکن نشد</string>
+    <string name="blocknum_failed">تغییر فهرست مسدودی ممکن نشد. دوباره امتحان کنید.</string>
+    <string name="blocknum_empty_title">کسی را مسدود نکرده‌اید</string>
+    <string name="blocknum_empty_body">شماره‌های مسدودشده نمی‌توانند به شما پیام بدهند یا با شما تماس بگیرند. این فهرست با برنامهٔ تلفن شما مشترک است.</string>
+    <string name="blocknum_unavailable_title">فهرست مسدودی در دسترس نیست</string>
+    <string name="blocknum_unavailable_body">برای دیدن و تغییر فهرست مسدودی سیستم، uMessage را برنامهٔ پیامک پیش‌فرض کنید.</string>
+    <string name="blocknum_unknown_title">مسدود کردن شماره‌های ناشناس</string>
+    <string name="blocknum_unknown_body">فقط وقتی حالت هرزنامه «خاموش» است کاربرد دارد: در این حالت، پیام‌های شماره‌های ناشناس مانند حالت «سخت‌گیرانه» به مسدودشده‌ها می‌روند. حالت‌های «سخت‌گیرانه» و «هوشمند» این گزینه را نادیده می‌گیرند.</string>
+    <string name="blocknum_contacts_denied">بدون دسترسی به مخاطب‌ها، تشخیص شماره‌های ناشناس ممکن نیست</string>
+    <string name="blocknum_section_numbers">شماره‌ها</string>
+</resources>

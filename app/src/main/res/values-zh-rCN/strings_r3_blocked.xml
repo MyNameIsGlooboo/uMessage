@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3b_info_button">屏蔽说明</string>
+    <string name="r3b_info_title">屏蔽说明</string>
+    <string name="r3b_info_modes">未知发件人</string>
+    <string name="r3b_info_mode_current">当前：%1$s</string>
+    <string name="r3b_info_messages">已屏蔽的消息</string>
+    <string name="r3b_info_open_sender">点按发件人即可阅读其消息。</string>
+    <string name="r3b_info_move">“移至收件箱”会将该发件人的所有消息移至收件箱，然后询问是否始终允许该发件人。</string>
+    <string name="r3b_info_release">“允许一次”（长按消息）只会将这条消息移至收件箱，不会将发件人设为已允许。</string>
+    <string name="r3b_info_swipe">将发件人所在行向右滑动，即可将其消息移至收件箱。</string>
+    <string name="r3b_open_sender">查看消息</string>
+    <string name="r3b_move_inbox_for">将%1$s的消息移至收件箱</string>
+    <string name="r3b_delete_for">删除%1$s的消息</string>
+    <string name="r3b_thread_note">uMessage已屏蔽这些消息，消息不在收件箱中。</string>
+    <string name="r3b_thread_delete_all">删除%1$s的所有消息</string>
+    <string name="r3b_thread_empty_title">这里已清空</string>
+    <string name="r3b_thread_empty_body">该发件人目前没有已屏蔽的消息。</string>
+    <string name="r3b_message_actions">消息操作</string>
+    <string name="r3b_why_blocked">屏蔽原因</string>
+    <string name="r3b_copy_text">复制文本</string>
+    <string name="r3b_text_copied">已复制文本</string>
+    <string name="r3b_delete_message">删除</string>
+    <string name="r3b_received">接收时间：%1$s</string>
+    <string name="r3b_info_mode_strict">严格：屏蔽所有未知发件人的消息，包括验证码。</string>
+    <string name="r3b_info_mode_smart">智能：屏蔽未知发件人的消息，但允许不含链接的验证码。</string>
+    <string name="r3b_info_mode_off">关闭：未知发件人的消息会进入收件箱，你的规则仍然有效。</string>
+    <plurals name="r3b_info_purge">
+        <item quantity="other">已屏蔽的消息将在%d天后删除。</item>
+    </plurals>
+    <string name="r3b_info_purge_off">已屏蔽的消息会一直保留，直到你将其删除。</string>
+    <string name="r3b_allow_body_sender_one_message">无论如何选择，这条消息都会回到收件箱。如果始终允许%1$s，该发件人今后的消息将跳过所有过滤，包括你的屏蔽规则。</string>
+    <string name="r3b_allow_body_sender_many_messages">无论如何选择，这些消息都会回到收件箱。如果始终允许%1$s，该发件人今后的消息将跳过所有过滤，包括你的屏蔽规则。</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="digest_channel">Ringkasan mingguan</string>
+    <string name="digest_title">Ringkasan mingguan</string>
+    <string name="digest_row_title">Ringkasan mingguan</string>
+    <string name="digest_row_summary">Seminggu sekali: jumlah pesan yang diblokir</string>
+    <plurals name="digest_held">
+        <item quantity="other">%d pesan ditahan minggu ini. Ketuk untuk meninjau.</item>
+    </plurals>
+    <plurals name="digest_held_important">
+        <item quantity="other">%1$d pesan ditahan minggu ini. Yang berisi kode atau pemberitahuan bank: %2$d.</item>
+    </plurals>
+</resources>

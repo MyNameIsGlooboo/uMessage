@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">Saved text</string>
+    <string name="n06_sheet_title">Saved texts</string>
+    <string name="n06_empty_hint">For example: your address or card number. Tap one to put it in your message.</string>
+    <string name="n06_add">Add saved text</string>
+    <string name="n06_edit">Change saved text</string>
+    <string name="n06_title_label">Title (optional)</string>
+    <string name="n06_text_label">Text</string>
+    <string name="n06_save">Save</string>
+    <string name="n06_delete">Delete</string>
+    <string name="n06_private_tip">Kept only on this phone, not encrypted. Do not save passwords or PINs.</string>
+    <string name="n06_save_from_message">Save to saved texts</string>
+    <string name="n06_saved_toast">Saved</string>
+    <string name="n06_save_full">The list is full. Delete one first.</string>
+    <string name="n06_save_duplicate">Already saved</string>
+</resources>

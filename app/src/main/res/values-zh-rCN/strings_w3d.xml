@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">遮盖转发消息中的验证码</string>
+    <string name="w3d_mask_codes_body">转发的验证码显示为****</string>
+    <string name="w3d_mask_keep_last">保留最后两位数字</string>
+    <string name="w3d_mask_keep_last_on">转发时显示为**34等形式。</string>
+    <string name="w3d_mask_keep_last_off">转发时隐藏完整验证码。</string>
+    <string name="w3d_daily_limit">每日转发上限</string>
+    <string name="w3d_daily_limit_body">每天最多转发次数</string>
+    <string name="w3d_hide_lock_codes">在锁屏上隐藏验证码</string>
+    <string name="w3d_hide_lock_codes_body">含验证码的消息在锁屏上显示为••••，解锁后可查看。</string>
+</resources>

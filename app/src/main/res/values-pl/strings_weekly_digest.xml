@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="digest_channel">Podsumowanie tygodnia</string>
+    <string name="digest_title">Podsumowanie tygodnia</string>
+    <string name="digest_row_title">Podsumowanie tygodnia</string>
+    <string name="digest_row_summary">Raz w tygodniu: liczba zablokowanych wiadomości</string>
+    <plurals name="digest_held">
+        <item quantity="one">Zatrzymano %d wiadomość w tym tygodniu. Dotknij, aby przejrzeć.</item>
+        <item quantity="few">Zatrzymano %d wiadomości w tym tygodniu. Dotknij, aby przejrzeć.</item>
+        <item quantity="many">Zatrzymano %d wiadomości w tym tygodniu. Dotknij, aby przejrzeć.</item>
+        <item quantity="other">Zatrzymano %d wiadomości w tym tygodniu. Dotknij, aby przejrzeć.</item>
+    </plurals>
+    <plurals name="digest_held_important">
+        <item quantity="one">Zatrzymano %1$d wiadomość w tym tygodniu. W tym z kodami lub powiadomieniami bankowymi: %2$d.</item>
+        <item quantity="few">Zatrzymano %1$d wiadomości w tym tygodniu. W tym z kodami lub powiadomieniami bankowymi: %2$d.</item>
+        <item quantity="many">Zatrzymano %1$d wiadomości w tym tygodniu. W tym z kodami lub powiadomieniami bankowymi: %2$d.</item>
+        <item quantity="other">Zatrzymano %1$d wiadomości w tym tygodniu. W tym z kodami lub powiadomieniami bankowymi: %2$d.</item>
+    </plurals>
+</resources>

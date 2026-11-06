@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">Wstrzymano: nieznany nadawca</string>
+    <string name="ux8c_held_unknown_link">Wstrzymano: nieznany nadawca, zawiera link</string>
+    <string name="ux8c_held_foreign">Wstrzymano: numer z innego kraju</string>
+    <string name="ux8c_held_rule">Wstrzymano przez twoją regułę</string>
+    <string name="ux8c_held_other">Wstrzymano przez filtr</string>
+    <string name="ux8c_not_spam">To nie spam</string>
+    <string name="ux8c_delete">Usuń</string>
+    <string name="ux8c_tip">Przesuń nadawcę, aby przenieść jego wiadomości do odebranych. Dotknij i przytrzymaj, aby zaznaczyć.</string>
+    <string name="ux8c_tip_dismiss">Rozumiem</string>
+    <string name="ux8c_sender_title">Ten nadawca</string>
+    <string name="ux8c_sender_normal">Standardowo</string>
+    <string name="ux8c_sender_allow">Zawsze zezwól</string>
+    <string name="ux8c_sender_block">Zablokuj</string>
+</resources>

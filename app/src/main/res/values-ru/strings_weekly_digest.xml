@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="digest_channel">Итоги недели</string>
+    <string name="digest_title">Итоги недели</string>
+    <string name="digest_row_title">Итоги недели</string>
+    <string name="digest_row_summary">Раз в неделю: сколько сообщений заблокировано</string>
+    <plurals name="digest_held" tools:ignore="ImpliedQuantity">
+        <item quantity="one">За неделю заблокировано %d сообщение. Нажмите для просмотра.</item>
+        <item quantity="few">За неделю заблокировано %d сообщения. Нажмите для просмотра.</item>
+        <item quantity="many">За неделю заблокировано %d сообщений. Нажмите для просмотра.</item>
+        <item quantity="other">За неделю заблокировано %d сообщения. Нажмите для просмотра.</item>
+    </plurals>
+    <plurals name="digest_held_important" tools:ignore="ImpliedQuantity">
+        <item quantity="one">За неделю заблокировано %1$d сообщение. Из них с кодами или уведомлениями банка: %2$d.</item>
+        <item quantity="few">За неделю заблокировано %1$d сообщения. Из них с кодами или уведомлениями банка: %2$d.</item>
+        <item quantity="many">За неделю заблокировано %1$d сообщений. Из них с кодами или уведомлениями банка: %2$d.</item>
+        <item quantity="other">За неделю заблокировано %1$d сообщения. Из них с кодами или уведомлениями банка: %2$d.</item>
+    </plurals>
+</resources>

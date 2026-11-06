@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_list_title">Messaggi programmati</string>
+    <string name="scheduled_list_empty_title">Nessun messaggio programmato</string>
+    <string name="scheduled_list_empty_body">I messaggi che programmi restano qui fino all\'invio.</string>
+    <string name="scheduled_list_not_sent">Non inviato</string>
+    <string name="scheduled_list_edit_time">Modifica ora</string>
+    <string name="scheduled_list_send_now">Invia ora</string>
+    <string name="scheduled_list_delete">Elimina</string>
+    <string name="scheduled_list_send_confirm">Inviare ora questo messaggio a %1$s?</string>
+    <string name="scheduled_list_delete_confirm">Eliminare il messaggio programmato per %1$s?</string>
+    <string name="scheduled_list_row_actions">Azioni per il messaggio a %1$s</string>
+</resources>

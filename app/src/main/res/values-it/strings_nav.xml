@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_tab_forwarded">Inoltrati</string>
+    <string name="nav_tab_forwarded_failed">Inoltrati, un inoltro non riuscito</string>
+    <string name="nav_tab_forwarded_paused">Inoltrati, inoltro in pausa</string>
+    <string name="nav_tab_archived_new">Archiviati, nuova chat archiviata</string>
+    <string name="nav_prompt_title">Regola salvata</string>
+    <string name="nav_prompt_body">Vuoi mostrare la scheda Inoltrati per vedere i messaggi inviati e riprovare gli inoltri non riusciti?</string>
+    <string name="nav_prompt_show">Mostra scheda</string>
+    <string name="nav_prompt_not_now">Non ora</string>
+    <string name="nav_fwd_paid_note">Ogni inoltro è un SMS a pagamento.</string>
+    <string name="nav_fwd_pause_all">Metti in pausa tutti gli inoltri</string>
+    <string name="nav_fwd_status_paused">Inoltro in pausa</string>
+    <string name="nav_fwd_paused_hint">I messaggi che corrispondono alle regole non vengono inviati. Disattiva per riprendere.</string>
+    <string name="nav_fwd_status_no_rule">Nessuna regola di inoltro attiva</string>
+    <plurals name="nav_fwd_status_on">
+        <item quantity="one">Inoltro attivo, %1$s regola</item>
+        <item quantity="other">Inoltro attivo, %1$s regole</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">Gestisci regole</string>
+    <string name="nav_fwd_empty_title">Ancora nessun messaggio inoltrato</string>
+    <string name="nav_fwd_empty_body">Qui appariranno i messaggi che corrispondono alle regole.</string>
+    <string name="nav_fwd_status_sent">Inviato</string>
+    <string name="nav_fwd_status_pending">In attesa</string>
+    <string name="nav_fwd_status_failed">Non riuscito</string>
+    <string name="nav_fwd_to">A %1$s</string>
+    <string name="nav_fwd_sim">SIM %1$d</string>
+    <string name="nav_fwd_rule_line">Regola: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">mittente %1$s</string>
+    <string name="nav_fwd_rule_any_sender">qualsiasi mittente</string>
+    <string name="nav_fwd_rule_text">testo %1$s</string>
+    <string name="nav_fwd_rule_any_text">qualsiasi testo</string>
+    <string name="nav_fwd_rule_deleted">Regola eliminata</string>
+    <string name="nav_fwd_open_details">Mostra dettagli</string>
+    <string name="nav_fwd_today">Oggi</string>
+    <string name="nav_fwd_yesterday">Ieri</string>
+    <plurals name="nav_fwd_failed_count">
+        <item quantity="one">%1$s inoltro non riuscito</item>
+        <item quantity="other">%1$s inoltri non riusciti</item>
+    </plurals>
+    <string name="nav_fwd_retry">Riprova</string>
+    <string name="nav_fwd_retry_all">Riprova tutti i non riusciti (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">Inviare di nuovo?</string>
+    <plurals name="nav_fwd_retry_all_message">
+        <item quantity="one">Verrà inviato di nuovo %1$s SMS. Ogni SMS è a pagamento.</item>
+        <item quantity="other">Verranno inviati di nuovo %1$s SMS. Ogni SMS è a pagamento.</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">Invia di nuovo</string>
+    <plurals name="nav_fwd_retry_sent">
+        <item quantity="one">%d inoltro inviato di nuovo</item>
+        <item quantity="other">%d inoltri inviati di nuovo</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">Invio di nuovo non riuscito. Controlla il segnale e il credito.</string>
+    <string name="nav_fwd_retry_missing">Il messaggio originale non c\'è più, quindi non può essere inviato di nuovo.</string>
+    <string name="nav_fwd_details_title">Dettagli dell\'inoltro</string>
+    <string name="nav_fwd_detail_from">Messaggio da</string>
+    <string name="nav_fwd_detail_to">Inoltrato a</string>
+    <string name="nav_fwd_detail_when">Ora</string>
+    <string name="nav_fwd_detail_sim">Inviato da</string>
+    <string name="nav_fwd_detail_rule">Regola corrispondente</string>
+    <string name="nav_fwd_detail_message">Messaggio originale</string>
+    <string name="nav_fwd_message_loading">Caricamento</string>
+    <string name="nav_fwd_message_gone">Il messaggio originale non è più salvato.</string>
+    <string name="nav_fwd_error_radio">La rete non ha consegnato il messaggio.</string>
+    <string name="nav_fwd_error_refused">Il telefono non è riuscito a inviarlo.</string>
+    <string name="nav_fwd_open_chat">Apri chat</string>
+    <string name="nav_archived_title">Archiviati</string>
+    <string name="nav_archived_back">Torna a Messaggi</string>
+    <string name="nav_archived_intro">Le chat archiviate non appaiono in Messaggi. Un nuovo messaggio riporta qui la chat, a meno che nelle Impostazioni sia attiva l\'opzione “Mantieni nascoste le chat archiviate”.</string>
+    <string name="nav_archived_intro_dismiss">Nascondi questa nota</string>
+    <plurals name="nav_archived_moved">
+        <item quantity="one">%d conversazione spostata in Messaggi</item>
+        <item quantity="other">%d conversazioni spostate in Messaggi</item>
+    </plurals>
+    <string name="nav_folder_more">Altre opzioni</string>
+    <string name="nav_folder_mark_all_read">Segna tutti come letti</string>
+    <string name="nav_folder_delete_all_count">%1$s verrà eliminato definitivamente.</string>
+</resources>

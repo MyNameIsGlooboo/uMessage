@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unotify_title">Unknown senders in your inbox</string>
+    <string name="unotify_notify">Notify</string>
+    <string name="unotify_silent">Notify silently</string>
+    <string name="unotify_none">No notification</string>
+    <string name="unotify_summary">Messages still arrive in your inbox</string>
+    <string name="unotify_channel_silent">Unknown senders (silent)</string>
+</resources>

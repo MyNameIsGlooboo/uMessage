@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">हमेशा अनुमति दें</string>
+    <string name="ux8d_sheet_title_block">हमेशा ब्लॉक करें</string>
+    <string name="ux8d_match_label">क्या मिलान करें</string>
+    <string name="ux8d_match_number">फ़ोन नंबर</string>
+    <string name="ux8d_match_sender">भेजने वाले का नाम, जैसे किसी बैंक का</string>
+    <string name="ux8d_match_word">मैसेज में कोई शब्द</string>
+    <string name="ux8d_match_prefix">इनसे शुरू होने वाले नंबर…</string>
+    <string name="ux8d_match_pattern">पैटर्न (रेगुलर एक्सप्रेशन) (एडवांस)</string>
+    <string name="ux8d_match_more">मिलान के और तरीके</string>
+    <string name="ux8d_action_label">मिलान होने पर</string>
+    <string name="ux8d_more_options">और विकल्प</string>
+    <string name="ux8d_row_type_number">नंबर</string>
+    <string name="ux8d_row_type_prefix">नंबर की शुरुआत</string>
+    <string name="ux8d_row_type_sender">भेजने वाले का नाम</string>
+    <string name="ux8d_row_type_word">मैसेज में शब्द</string>
+    <string name="ux8d_row_type_pattern">पैटर्न (रेगुलर एक्सप्रेशन)</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

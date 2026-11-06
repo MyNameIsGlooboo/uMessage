@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="dialogs_yes">Да</string>
+    <string name="dialogs_no">Нет</string>
+    <string name="dialogs_permission_required">Требуется разрешение</string>
+    <string name="dialogs_grant_permission">Предоставить разрешение</string>
+    <string name="dialogs_date_time_format_title">Формат даты и времени</string>
+    <string name="dialogs_use_24_hour">24-часовой формат времени</string>
+    <string name="dialogs_lock_pattern">Графический ключ</string>
+    <string name="dialogs_lock_pin">ПИН-код</string>
+    <string name="dialogs_lock_biometrics">Биометрия</string>
+    <string name="dialogs_lock_fingerprint">Отпечаток пальца</string>
+    <string name="dialogs_lock_enter_pin">Введите ПИН-код</string>
+    <string name="dialogs_lock_repeat_pin">Повторите ПИН-код</string>
+    <string name="dialogs_lock_wrong_pin">Неверный ПИН-код</string>
+    <string name="dialogs_lock_empty_pin">Введите ПИН-код</string>
+    <string name="dialogs_lock_short_pin">ПИН-код должен содержать не менее 4 цифр</string>
+    <string name="dialogs_lock_pin_suggestion">Не менее 4 цифр. Надежнее — %d и более.</string>
+    <plurals name="dialogs_lock_short_pattern" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Слишком короткий ключ. Соедините хотя бы %d точку.</item>
+        <item quantity="few">Слишком короткий ключ. Соедините хотя бы %d точки.</item>
+        <item quantity="many">Слишком короткий ключ. Соедините хотя бы %d точек.</item>
+        <item quantity="other">Слишком короткий ключ. Соедините хотя бы %d точки.</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">Нарисуйте графический ключ</string>
+    <string name="dialogs_lock_repeat_pattern">Повторите графический ключ</string>
+    <string name="dialogs_lock_wrong_pattern">Неверный графический ключ</string>
+    <string name="dialogs_lock_locked_out">Слишком много неудачных попыток разблокировки.\nПовторите через %d сек.</string>
+    <string name="dialogs_lock_pin_delete">Удалить последнюю цифру</string>
+    <string name="dialogs_lock_pin_confirm">Подтвердить ПИН-код</string>
+    <string name="dialogs_lock_pin_entered">Введено цифр: %d</string>
+    <string name="dialogs_lock_pattern_pad">Поле графического ключа</string>
+    <string name="dialogs_lock_biometric_hint">Подтвердите личность с помощью отпечатка пальца или лица.</string>
+    <string name="dialogs_lock_biometric_open">Подтвердить с помощью биометрии</string>
+    <string name="dialogs_lock_place_finger">Приложите палец к датчику отпечатков.</string>
+    <string name="dialogs_lock_no_fingerprints">Отпечатки пальцев не добавлены. Добавьте отпечаток в настройках устройства.</string>
+    <string name="dialogs_lock_open_settings">Открыть настройки устройства</string>
+    <string name="dialogs_lock_auth_failed">Не удалось подтвердить личность</string>
+    <string name="dialogs_lock_auth_blocked">Проверка личности заблокирована. Повторите чуть позже</string>
+</resources>

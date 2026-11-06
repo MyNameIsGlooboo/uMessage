@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">Wycisz</string>
+    <string name="unmute_menu">Wyłącz wyciszenie</string>
+    <string name="mute_title">Wycisz powiadomienia</string>
+    <string name="mute_1_hour">Na 1 godzinę</string>
+    <string name="mute_8_hours">Na 8 godzin</string>
+    <string name="mute_1_week">Na 1 tydzień</string>
+    <string name="mute_always">Zawsze</string>
+    <string name="mute_off">Wyłączone</string>
+    <string name="mute_until">Do %1$s</string>
+    <string name="mute_channel">Wyciszone rozmowy</string>
+</resources>

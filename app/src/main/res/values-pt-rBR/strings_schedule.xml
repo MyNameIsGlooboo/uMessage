@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">Deseja enviar na hora exata?</string>
+    <string name="schedule_exact_alarm_text">Para enviar mensagens programadas na hora exata, permita “Alarmes e lembretes” para o uMessage nas configurações do sistema. Sem isso, elas ainda serão enviadas, mas podem atrasar.</string>
+    <string name="schedule_exact_alarm_open_settings">Abra as configurações</string>
+    <string name="schedule_exact_alarm_anyway">Programe o envio mesmo assim</string>
+</resources>

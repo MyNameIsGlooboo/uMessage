@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_scope_title">Що блокувати</string>
+    <string name="lock_scope_whole">Увесь застосунок</string>
+    <string name="lock_scope_chosen">Лише вибрані розділи</string>
+    <string name="lock_scope_chosen_long">Лише вибрані розділи: вкладку «Заблоковані» та приховані чати</string>
+    <string name="lock_scope_blocked_title">Заблоковані повідомлення захищено</string>
+    <string name="lock_scope_blocked_body">Розблокуйте, щоб переглянути їх.</string>
+    <string name="lock_scope_unlock">Розблокувати</string>
+</resources>

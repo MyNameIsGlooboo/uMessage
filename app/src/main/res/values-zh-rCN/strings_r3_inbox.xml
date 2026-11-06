@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3_inbox_filter_show">显示筛选条件</string>
+    <string name="r3_inbox_filter_hide">隐藏筛选条件</string>
+    <string name="r3_inbox_filter_show_active">显示筛选条件。已启用%1$s筛选</string>
+    <string name="r3_inbox_filter_hide_active">隐藏筛选条件。已启用%1$s筛选</string>
+</resources>

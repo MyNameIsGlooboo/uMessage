@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">Arşivi boşaltın</string>
+    <string name="inbox_empty_bin_menu">Çöp kutusunu boşaltın</string>
+    <string name="inbox_archive_empty_body">Mesajlar bölümünden arşivlediğiniz görüşmeler burada görünür.</string>
+    <string name="inbox_details_view_contact">Kişiyi görüntüleyin</string>
+    <string name="inbox_details_more">Diğer</string>
+    <string name="inbox_details_search">Görüşmede arayın</string>
+    <string name="inbox_details_search_body">Bu görüşmede bir mesaj bulun</string>
+    <string name="inbox_details_forward">Bu gönderen için iletme kuralı</string>
+    <string name="inbox_details_forward_body">Bu gönderenin mesajlarının kopyalarını başka bir numaraya gönderin</string>
+    <string name="inbox_details_search_hint">Bu görüşmede arayın</string>
+</resources>

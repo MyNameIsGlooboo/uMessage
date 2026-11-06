@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">Zur genauen Uhrzeit senden?</string>
+    <string name="schedule_exact_alarm_text">Erlaube uMessage in den Systemeinstellungen „Wecker und Erinnerungen“, damit geplante Nachrichten zur genauen Uhrzeit gesendet werden. Ohne diese Berechtigung werden sie trotzdem gesendet, können aber später ankommen.</string>
+    <string name="schedule_exact_alarm_open_settings">Einstellungen öffnen</string>
+    <string name="schedule_exact_alarm_anyway">Trotzdem planen</string>
+</resources>

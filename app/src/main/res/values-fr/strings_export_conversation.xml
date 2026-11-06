@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="export_conv_menu">Exporter la conversation</string>
+    <string name="export_conv_title">Exporter la conversation</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">Texte brut</string>
+    <string name="export_conv_dates_all">Toutes les dates</string>
+    <string name="export_conv_dates_30">30 derniers jours</string>
+    <string name="export_conv_dates_pick">Choisir les dates</string>
+    <string name="export_conv_pick_from">À partir de quel jour ?</string>
+    <string name="export_conv_pick_to">Jusqu\'à quel jour ?</string>
+    <string name="export_conv_action">Exporter</string>
+    <string name="export_conv_preparing">Préparation du fichier…</string>
+    <string name="export_conv_nothing">Aucun message sur cette période</string>
+    <string name="export_conv_failed">Impossible de créer le fichier</string>
+    <string name="export_conv_subject">Export de conversation</string>
+    <string name="export_conv_share_text">Conversation avec %1$s, %2$s. SHA-256 du texte des messages : %3$s</string>
+    <string name="export_conv_attachment_label">[Pièce jointe]</string>
+    <string name="export_pdf_title">Export de conversation</string>
+    <string name="export_pdf_with">Conversation avec : %1$s</string>
+    <string name="export_pdf_numbers">Numéros : %1$s</string>
+    <string name="export_pdf_range">Période : %1$s</string>
+    <string name="export_pdf_zone">Les heures sont indiquées dans le fuseau horaire %1$s</string>
+    <string name="export_pdf_exported">Exporté le : %1$s</string>
+    <plurals name="export_pdf_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d message</item>
+        <item quantity="other">%1$d messages</item>
+    </plurals>
+    <string name="export_pdf_hash">SHA-256 du texte des messages : %1$s</string>
+    <string name="export_pdf_not_certified">Exporté depuis le téléphone ; document non certifié.</string>
+    <string name="export_pdf_page">Page %1$d sur %2$d</string>
+    <string name="export_pdf_from">De : %1$s</string>
+    <string name="export_pdf_to">À : %1$s</string>
+    <string name="export_pdf_attachment">Pièce jointe : %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">fichier sans nom</string>
+    <string name="export_status_received">Reçu</string>
+    <string name="export_status_sent">Envoyé</string>
+    <string name="export_status_delivered">Distribué</string>
+    <string name="export_status_failed">Échec</string>
+    <string name="export_status_sending">Envoi en cours</string>
+    <string name="export_status_draft">Brouillon</string>
+</resources>

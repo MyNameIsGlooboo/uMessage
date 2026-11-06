@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r4_banner_title">迷惑メッセージ対策</string>
+    <plurals name="r4_banner_stopped_week">
+        <item quantity="other">過去7日間にブロック</item>
+    </plurals>
+</resources>

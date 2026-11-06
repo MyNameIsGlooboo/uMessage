@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i09_setting_title">ছবি থেকে অবস্থান সরান</string>
+    <string name="i09_setting_summary">পাঠানোর আগে ছবি কোথায় তোলা হয়েছে তা লুকায়</string>
+</resources>

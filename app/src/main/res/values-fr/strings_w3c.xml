@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_checklist_title">Configurez en 1 minute</string>
+    <string name="w3c_checklist_done_title">Tout est prêt</string>
+    <string name="w3c_checklist_basics_title">L\'essentiel est configuré</string>
+    <string name="w3c_checklist_progress">%1$s sur %2$s</string>
+    <string name="w3c_checklist_dismiss">Fermer la liste</string>
+    <string name="w3c_checklist_step_sms">Définissez uMessage comme application SMS par défaut</string>
+    <string name="w3c_checklist_step_notifications">Activez les notifications</string>
+    <string name="w3c_checklist_step_blocked">Consultez l\'onglet Messages bloqués</string>
+    <string name="w3c_checklist_step_forward">Facultatif : transférez les messages vers un autre numéro</string>
+    <string name="w3c_checklist_step_done">Terminé</string>
+    <string name="w3c_checklist_action_set">Définir</string>
+    <string name="w3c_checklist_action_open">Ouvrir</string>
+    <string name="w3c_receipt_title">Spam bloqué : appuyez pour consulter</string>
+    <string name="w3c_receipt_body">Un message d\'un expéditeur inconnu a été bloqué dans Messages bloqués. Il n\'est pas perdu : vous pouvez le consulter et le restaurer à tout moment.</string>
+    <string name="w3c_receipt_review">Consulter</string>
+    <string name="w3c_receipt_got_it">Compris</string>
+    <string name="w3c_search_codes">Codes récents</string>
+    <string name="w3c_search_code_copied">Code copié</string>
+    <string name="w3c_search_code_description">Copier le code %1$s de %2$s</string>
+    <string name="w3c_new_paste">Coller le numéro</string>
+    <string name="w3c_new_paste_none">Aucun numéro de téléphone dans le presse-papiers</string>
+    <string name="w3c_details_allow">Toujours autoriser cet expéditeur</string>
+    <string name="w3c_details_allow_hint">Les messages de cet expéditeur arrivent toujours dans votre boîte de réception</string>
+    <string name="w3c_details_allow_spoof_hint">N\'importe qui peut envoyer des messages sous ce nom : ils seront aussi autorisés</string>
+    <string name="w3c_date_gregorian">Grégorien</string>
+    <string name="w3c_date_gregorian_body">Dates comme le 29 oct.</string>
+    <string name="w3c_date_jalali">Jalali</string>
+    <string name="w3c_date_jalali_body">Dates comme le 7 aban</string>
+    <string name="w3c_date_both">Les deux</string>
+    <string name="w3c_date_both_body">Les deux calendriers dans une conversation</string>
+    <string name="w3c_text_size">Taille du texte</string>
+    <string name="w3c_text_small">Petite</string>
+    <string name="w3c_text_default">Par défaut</string>
+    <string name="w3c_text_large">Grande</string>
+    <string name="w3c_text_largest">Très grande</string>
+    <string name="w3c_text_size_sample">Exemple : votre code est 482913.</string>
+    <string name="w3c_backup_settings">Sauvegarder tous les paramètres</string>
+    <string name="w3c_backup_settings_body">Enregistre les règles, les transferts et les paramètres dans un fichier. Sans le texte des messages.</string>
+    <string name="w3c_restore_settings">Restaurer tous les paramètres</string>
+    <string name="w3c_restore_settings_body">Charge les règles et les paramètres depuis un fichier de sauvegarde</string>
+    <string name="w3c_backup_saved">Sauvegarde enregistrée : %1$d éléments</string>
+    <string name="w3c_backup_failed">Impossible d\'enregistrer la sauvegarde</string>
+    <string name="w3c_restore_done">%1$d éléments restaurés</string>
+    <string name="w3c_restore_failed">Impossible de restaurer ce fichier. Choisissez une sauvegarde des paramètres uMessage.</string>
+</resources>

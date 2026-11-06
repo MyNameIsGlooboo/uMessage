@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">Cảnh báo, màn hình khóa, tóm tắt hằng tuần</string>
+    <string name="ux8e_nav_typing">Soạn và gửi</string>
+    <string name="ux8e_nav_typing_body">Phím Enter, báo cáo gửi tin, chữ ký</string>
+    <string name="ux8e_nav_storage">Bộ nhớ và dọn dẹp</string>
+    <string name="ux8e_nav_storage_body">Thùng rác, lưu trữ, tự động xóa</string>
+    <string name="ux8e_group_lock_screen">Màn hình khóa</string>
+    <string name="ux8e_group_recycle">Tin nhắn đã xóa</string>
+    <string name="ux8e_group_cleanup">Tự động dọn dẹp</string>
+    <string name="ux8e_group_archive">Lưu trữ</string>
+    <string name="ux8e_keep_deleted">Giữ tin nhắn đã xóa</string>
+    <string name="ux8e_keep_deleted_body">Tin nhắn được giữ trong thùng rác 30 ngày</string>
+    <string name="ux8e_recycle_bin">Thùng rác</string>
+    <string name="ux8e_backup_row">Sao lưu</string>
+    <string name="ux8e_backup_row_body">Lưu vào tệp</string>
+    <string name="ux8e_restore_row">Khôi phục</string>
+    <string name="ux8e_restore_row_body">Tải từ tệp</string>
+    <string name="ux8e_backup_what">Sao lưu nội dung nào?</string>
+    <string name="ux8e_restore_what">Khôi phục nội dung nào?</string>
+    <string name="ux8e_what_messages">Tin nhắn</string>
+    <string name="ux8e_what_settings">Quy tắc và cài đặt</string>
+    <string name="ux8e_backup_warning">Tệp sao lưu không được mã hóa.</string>
+    <string name="ux8e_calendar">Lịch</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_intro">Chọn giao diện cho uMessage: chế độ sáng hoặc tối và màu sắc.</string>
+    <string name="preset_system">Hệ thống</string>
+    <string name="preset_system_desc">Sáng hoặc tối theo điện thoại của bạn</string>
+    <string name="preset_light">Sáng</string>
+    <string name="preset_light_desc">Luôn dùng chế độ sáng</string>
+    <string name="preset_dark">Tối</string>
+    <string name="preset_dark_desc">Luôn dùng chế độ tối, dịu mắt</string>
+    <string name="preset_amoled">Đen</string>
+    <string name="preset_amoled_desc">Đen tuyền cho màn hình OLED</string>
+    <string name="preset_brand">Xanh hải quân</string>
+    <string name="preset_brand_desc">Xanh hải quân và vàng, giao diện uMessage cổ điển</string>
+    <string name="preset_coral">San hô</string>
+    <string name="preset_coral_desc">Màu san hô và xanh dương từ biểu tượng ứng dụng</string>
+    <string name="preset_sky">Bầu trời</string>
+    <string name="preset_sky_desc">Xanh dương nhạt và trắng</string>
+    <string name="preset_forest">Rừng xanh</string>
+    <string name="preset_forest_desc">Xanh lá với điểm nhấn vàng</string>
+    <string name="preset_sunset">Hoàng hôn</string>
+    <string name="preset_sunset_desc">Cam ấm và kem</string>
+    <string name="preset_graphite">Than chì</string>
+    <string name="preset_graphite_desc">Xám và vàng hổ phách</string>
+    <string name="preset_wallpaper">Hình nền</string>
+    <string name="preset_wallpaper_desc">Màu sắc lấy từ hình nền của bạn</string>
+</resources>

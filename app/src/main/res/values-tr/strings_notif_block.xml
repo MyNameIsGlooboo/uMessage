@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_block_action">Engelleyin</string>
+    <string name="notif_block_undo">Geri alın</string>
+    <string name="notif_block_done_title">Engellendi: %1$s</string>
+    <string name="notif_block_done_text">Yeni mesajlar Engellenenler bölümüne gider</string>
+    <string name="notif_block_channel">Engellenen gönderenler</string>
+</resources>

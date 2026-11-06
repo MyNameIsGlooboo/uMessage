@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Design review 2 fixes, group A: main tabs and app-wide visuals. -->
+<resources>
+    <!-- CL-13: inbox filter chip and its empty state. -->
+    <string name="r2a_filter_codes">Codes</string>
+    <string name="r2a_filter_codes_empty_title">No codes</string>
+    <string name="r2a_filter_codes_empty_body">Conversations whose latest message has a one-time code show here.</string>
+    <!-- ID-23: under "Recent codes" on the empty search page. -->
+    <string name="r2a_search_codes_window">From the last 24 hours</string>
+</resources>

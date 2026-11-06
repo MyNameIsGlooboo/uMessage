@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">Đá phiến</string>
+    <string name="preset_slate_desc">Xanh xám dịu mắt</string>
+    <string name="preset_firouzeh">Firouzeh</string>
+    <string name="preset_firouzeh_desc">Xanh ngọc điểm chút vàng kim</string>
+    <string name="preset_pomegranate">Lựu</string>
+    <string name="preset_pomegranate_desc">Đỏ ấm cùng xanh lá đậm</string>
+    <string name="preset_harbor">Bến cảng</string>
+    <string name="preset_harbor_desc">Xanh đêm cùng cam san hô dịu</string>
+    <string name="preset_lavender">Oải hương</string>
+    <string name="preset_lavender_desc">Tím dịu cùng xanh mòng két</string>
+    <string name="preset_ink">Mực</string>
+    <string name="preset_ink_desc">Gần đen cùng bạc và vàng kim</string>
+    <string name="preset_contrast">Tương phản</string>
+    <string name="preset_contrast_desc">Đen trắng với điểm nhấn tươi sáng</string>
+</resources>

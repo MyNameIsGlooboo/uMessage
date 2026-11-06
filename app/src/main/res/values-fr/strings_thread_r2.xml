@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">Motif</string>
+    <string name="thread_r2_details_rule">Règle</string>
+    <string name="thread_r2_details_forwarded">Transféré</string>
+    <string name="thread_r2_details_decision_restored">Bloqué, puis restauré dans votre boîte de réception</string>
+    <string name="thread_r2_details_copy">Copier %1$s</string>
+    <string name="thread_r2_menu_search">Rechercher dans la conversation</string>
+    <string name="thread_r2_menu_always_forward">Toujours transférer les messages de cet expéditeur</string>
+    <string name="thread_r2_block_hint">Les prochains messages iront dans Messages bloqués. Rien ne quitte votre téléphone.</string>
+    <string name="thread_r2_forward_message">Transférer ce message</string>
+    <string name="thread_r2_search_hint">Rechercher dans la conversation</string>
+    <string name="thread_r2_search_close">Fermer la recherche</string>
+    <string name="thread_r2_search_none">Aucun résultat</string>
+    <string name="thread_r2_search_count">%1$d sur %2$d</string>
+    <string name="thread_r2_search_older">Résultat plus ancien</string>
+    <string name="thread_r2_search_newer">Résultat plus récent</string>
+    <string name="thread_r2_link_copy">Copier le lien</string>
+    <string name="thread_r2_link_share">Partager</string>
+    <string name="thread_r2_schedule_pick_date">Choisissez une date</string>
+    <string name="thread_r2_calendar_previous">Mois précédent</string>
+    <string name="thread_r2_calendar_next">Mois suivant</string>
+</resources>

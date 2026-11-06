@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">SIM adları</string>
+    <string name="i34_setting_summary">Her SIM için bir ad ve numara girin</string>
+    <string name="i34_dialog_title">SIM adları</string>
+    <string name="i34_number_note">Operatörler genellikle numarayı uygulamalarla paylaşmaz, bu yüzden buraya yazın. Her iki bilgi de bu telefonda kalır.</string>
+    <string name="i34_sim_heading">SIM %1$d, %2$s</string>
+    <string name="i34_nickname">Ad (örneğin İş)</string>
+    <string name="i34_number">Numara</string>
+</resources>

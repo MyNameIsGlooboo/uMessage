@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_hint">会話を検索</string>
+    <string name="main_search_back">検索を閉じる</string>
+    <string name="main_search_clear">検索語を消去</string>
+    <string name="main_search_type_more">検索するには2文字以上入力してください。</string>
+    <string name="main_search_no_results">検索結果はありません</string>
+    <string name="main_settings">設定</string>
+    <string name="main_tab_messages">メッセージ</string>
+    <string name="main_tab_blocked">ブロック済み</string>
+    <string name="main_tab_archived">アーカイブ済み</string>
+    <plurals name="main_tab_blocked_new">
+        <item quantity="other">ブロック済み、新着%d件</item>
+    </plurals>
+    <string name="main_permission_title">権限が必要です</string>
+    <string name="main_permission_grant">権限を許可</string>
+    <string name="main_permission_notifications">通知を許可してください。許可しないと、受信したメッセージをアプリで通知できません。</string>
+    <string name="main_sms_permission_title">uMessageにはSMSへのアクセスが必要です</string>
+    <string name="main_sms_permission_body">SMSの読み取りと送信の権限がないと、uMessageでメッセージの表示や送信、迷惑メッセージの振り分けができません。データは削除されません。</string>
+    <string name="main_sms_permission_settings">アプリ設定を開く</string>
+    <string name="main_not_default_banner">uMessageはデフォルトのSMSアプリではないため、迷惑メッセージのブロックやメッセージの送信ができません。</string>
+    <string name="main_not_default_fix">変更</string>
+    <string name="main_not_default_fix_description">uMessageをデフォルトのSMSアプリに設定</string>
+</resources>

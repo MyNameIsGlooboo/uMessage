@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">알림 끄기</string>
+    <string name="unmute_menu">알림 켜기</string>
+    <string name="mute_title">알림 끄기</string>
+    <string name="mute_1_hour">1시간 동안</string>
+    <string name="mute_8_hours">8시간 동안</string>
+    <string name="mute_1_week">1주일 동안</string>
+    <string name="mute_always">항상</string>
+    <string name="mute_off">사용 안 함</string>
+    <string name="mute_until">%1$s까지</string>
+    <string name="mute_channel">알림을 끈 대화</string>
+</resources>

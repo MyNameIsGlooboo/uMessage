@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">Konum</string>
+    <string name="i52_permission_explanation">uMessage, mesajınıza harita bağlantısı eklemek için konumunuzu yalnızca şimdi, bir kez alır. Hiçbir şey kaydedilmez. Yaklaşık konumu seçebilirsiniz.</string>
+    <string name="i52_finding">Konumunuz bulunuyor…</string>
+    <string name="i52_denied">Konum izni verilmedi. Mesaj olduğu gibi kalacak.</string>
+    <string name="i52_no_fix">Konumunuz bulunamadı. Pencere yakınında veya dışarıda tekrar deneyin.</string>
+    <string name="i52_off_message">Bu telefonda konum kapalı. Bulunduğunuz yeri paylaşmak için konumu açın.</string>
+    <string name="i52_open_settings">Ayarları açın</string>
+</resources>

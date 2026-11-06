@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r4_banner_title">الحماية من الرسائل غير المرغوب فيها</string>
+    <plurals name="r4_banner_stopped_week">
+        <item quantity="zero">رسائل أُوقفت خلال آخر 7 أيام</item>
+        <item quantity="one">رسالة أُوقفت خلال آخر 7 أيام</item>
+        <item quantity="two">رسالتان أُوقفتا خلال آخر 7 أيام</item>
+        <item quantity="few">رسائل أُوقفت خلال آخر 7 أيام</item>
+        <item quantity="many">رسالة أُوقفت خلال آخر 7 أيام</item>
+        <item quantity="other">رسالة أُوقفت خلال آخر 7 أيام</item>
+    </plurals>
+</resources>

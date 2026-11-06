@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Read a message aloud with the phone's text-to-speech voice -->
+    <string name="read_aloud_action">Read aloud</string>
+    <string name="read_aloud_stop">Stop reading</string>
+    <string name="read_aloud_no_voice">No %1$s voice is installed on this phone</string>
+    <string name="read_aloud_install">Get voice</string>
+    <string name="read_aloud_install_missing">This phone has no way to install voices</string>
+    <string name="read_aloud_failed">Could not read the message aloud</string>
+</resources>

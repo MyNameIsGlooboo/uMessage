@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">Rozpocznij rozmowę</string>
+    <string name="search_page_show_more">Pokaż więcej</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">Brak rozmów na tej karcie SIM</string>
+    <string name="search_page_sim_empty_body">Tutaj pojawią się rozmowy z wiadomościami wysłanymi lub odebranymi na tej karcie SIM.</string>
+</resources>

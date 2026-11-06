@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="system_delete_item_title">Eliminare?</string>
+    <string name="system_delete_item_message">Eliminare %1$s? L\'operazione è irreversibile.</string>
+</resources>

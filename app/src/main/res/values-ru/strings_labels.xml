@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">Метки</string>
+    <string name="i29_picker_title">Метки</string>
+    <string name="i29_picker_empty">У вас пока нет меток. Создайте метку, чтобы упорядочить чаты.</string>
+    <string name="i29_picker_new">Новая метка</string>
+    <string name="i29_picker_manage">Управление метками</string>
+    <string name="i29_done">Готово</string>
+    <string name="i29_cancel">Отмена</string>
+    <string name="i29_tiles_title">Ваши метки</string>
+    <string name="i29_tile_add">Добавить метку</string>
+    <string name="i29_tiles_manage">Управление метками</string>
+    <string name="i29_manager_title">Управление метками</string>
+    <string name="i29_manager_note">Вы сами создаете метки. Они не связаны с автоматическими фильтрами «Операции» и «Предложения».</string>
+    <string name="i29_manager_edit">Изменить метку %1$s</string>
+    <string name="i29_manager_delete">Удалить метку %1$s</string>
+    <string name="i29_edit_new_title">Новая метка</string>
+    <string name="i29_edit_title">Изменить метку</string>
+    <string name="i29_edit_name">Название метки</string>
+    <string name="i29_edit_save">Сохранить</string>
+    <string name="i29_color_description">Цвет %1$d</string>
+    <string name="i29_error_duplicate">У вас уже есть метка с таким названием.</string>
+    <string name="i29_error_limit">Можно создать до %1$d меток.</string>
+    <string name="i29_delete_title">Удалить эту метку?</string>
+    <string name="i29_delete_body">Метка «%1$s» будет удалена. Ваши чаты и сообщения останутся без изменений.</string>
+    <string name="i29_delete_confirm">Удалить</string>
+    <string name="i29_empty_title">Здесь нет чатов</string>
+    <string name="i29_empty_body">Нажмите и удерживайте чат, откройте меню и выберите «Метки», чтобы добавить его.</string>
+</resources>

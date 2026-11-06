@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="font_title">Czcionka</string>
+    <string name="font_umessage">Czcionka uMessage</string>
+    <string name="font_system">Czcionka systemowa</string>
+</resources>

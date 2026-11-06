@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">Localisation</string>
+    <string name="i52_permission_explanation">uMessage accède à votre position une seule fois, maintenant, pour ajouter un lien vers une carte dans votre message. Rien n\'est enregistré. Vous pouvez choisir une position approximative.</string>
+    <string name="i52_finding">Recherche de votre position…</string>
+    <string name="i52_denied">La localisation n\'a pas été autorisée. Le message reste inchangé.</string>
+    <string name="i52_no_fix">Impossible de trouver votre position. Réessayez près d\'une fenêtre ou à l\'extérieur.</string>
+    <string name="i52_off_message">La localisation est désactivée sur ce téléphone. Activez-la pour partager votre position.</string>
+    <string name="i52_open_settings">Ouvrir les paramètres</string>
+</resources>

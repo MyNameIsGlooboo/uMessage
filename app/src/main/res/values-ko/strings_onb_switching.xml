@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_switch_title">uMessage 앱으로 바꾸시나요?</string>
+    <string name="onb_switch_body">다른 SMS 앱을 쓰고 계셨나요? 먼저 해당 앱의 채팅 기능을 꺼 주세요. 다른 휴대전화에서 옮겨 오셨나요? 설정을 마친 후 백업을 복원해 주세요.</string>
+    <string name="onb_switch_action">백업 복원</string>
+    <string name="onb_switch_done_note">설정을 마치면 백업 및 복원 화면이 열려요.</string>
+</resources>

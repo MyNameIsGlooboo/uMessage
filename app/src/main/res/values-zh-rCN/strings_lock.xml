@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_title">uMessage已锁定</string>
+    <string name="lock_enter_pin">输入PIN</string>
+    <string name="lock_draw_pattern">绘制解锁图案</string>
+    <string name="lock_use_biometrics">验证身份以打开uMessage</string>
+    <string name="lock_wrong_pin">PIN错误，请重试</string>
+    <string name="lock_wrong_pattern">图案错误，请重试</string>
+    <string name="lock_too_many">错误次数过多</string>
+    <string name="lock_try_again_in">%s后重试</string>
+    <string name="lock_key_delete">删除</string>
+    <string name="lock_key_confirm">确认</string>
+    <plurals name="lock_digits_entered">
+        <item quantity="other">已输入%d位数字</item>
+    </plurals>
+    <string name="lock_no_digits">尚未输入数字</string>
+    <string name="lock_pattern_pad">图案解锁区域，3行3列圆点</string>
+    <string name="lock_pattern_dot">第%1$d行第%2$d列的圆点</string>
+    <string name="lock_pattern_dot_selected">第%1$d行第%2$d列的圆点，图案中的第%3$d个点</string>
+    <string name="lock_pattern_done">完成</string>
+    <string name="lock_pattern_clear">清除</string>
+    <plurals name="lock_pattern_dots_selected">
+        <item quantity="other">已选择%d个圆点</item>
+    </plurals>
+    <string name="lock_use_pin_instead">改用PIN</string>
+    <string name="lock_use_biometrics_instead">改用生物识别</string>
+    <string name="lock_use_screen_lock">改用手机锁屏验证</string>
+    <string name="lock_biometrics_unavailable">生物识别不可用。请输入PIN。</string>
+    <string name="lock_screen_lock_title">打开uMessage</string>
+    <string name="lock_screen_lock_description">通过手机锁屏验证以打开uMessage</string>
+    <string name="lock_no_way_to_check">此手机已移除指纹和锁屏设置，uMessage无法验证你的身份。请打开应用，在设置中设置PIN。</string>
+    <string name="lock_open_anyway">打开uMessage</string>
+    <string name="lock_forgot">忘记了？使用手机锁屏验证</string>
+    <plurals name="lock_tries_left">
+        <item quantity="other">还可尝试%d次，之后需等待</item>
+    </plurals>
+    <string name="lock_setup_done">应用锁已开启。如果忘记PIN或图案，请在应用锁屏界面点按“忘记了？”，改用手机锁屏验证。</string>
+    <string name="lock_setup_done_biometric">应用锁已开启。如果生物识别失效，请使用备用PIN。如果也忘记了备用PIN，请点按“忘记了？”，使用手机锁屏验证。</string>
+    <string name="lock_setup_done_no_screen_lock">应用锁已开启。手机未设置锁屏，如果忘记PIN或图案，将无法通过其他方式解锁，只能在手机的应用设置中清除uMessage的数据。这会删除应用设置、垃圾短信列表和垃圾短信记录（短信仍保留在手机上）。请为手机设置锁屏，以便在忘记时解锁应用。</string>
+    <string name="settings_app_lock_timeout">离开应用后锁定</string>
+    <string name="settings_app_lock_timeout_immediately">立即</string>
+    <string name="settings_app_lock_timeout_30s">30秒后</string>
+    <string name="settings_app_lock_timeout_1m">1分钟后</string>
+    <string name="settings_app_lock_timeout_5m">5分钟后</string>
+    <string name="settings_app_lock_screenshots">屏蔽截屏</string>
+    <string name="settings_app_lock_screenshots_body">屏蔽截屏和录屏。最近使用的应用中始终隐藏消息。</string>
+    <string name="settings_app_lock_screenshots_body_old">屏蔽截屏和录屏。在此Android版本上，这也是在最近使用的应用中隐藏消息的唯一方式。</string>
+    <string name="settings_app_lock_change">更改PIN、图案或生物识别</string>
+    <string name="settings_app_lock_weak">PIN或图案容易被猜到</string>
+    <string name="settings_app_lock_weak_body">PIN过于简单，点按可更改</string>
+    <string name="settings_app_lock_add_pin">添加备用PIN</string>
+    <string name="settings_app_lock_add_pin_body">添加PIN作为备用验证方式</string>
+    <string name="settings_app_lock_now">立即锁定</string>
+    <string name="settings_app_lock_now_body">立即锁定uMessage</string>
+    <string name="settings_app_lock_changed">应用锁已更改</string>
+    <string name="dialogs_lock_backup_pin">请先设置备用PIN，生物识别失效时可使用。</string>
+</resources>

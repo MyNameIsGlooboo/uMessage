@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">会話を非表示</string>
+    <string name="hidden_chats_menu_unhide">会話を再表示</string>
+    <string name="hidden_chats_confirm">この会話を非表示にしますか？アプリロックで非表示の会話のロックを解除するまで、一覧や検索結果に表示されず、通知も届きません。</string>
+    <string name="hidden_chats_need_lock">会話を非表示にするにはアプリロックが必要です。今すぐ設定しますか？</string>
+    <string name="hidden_chats_set_lock">設定する</string>
+    <string name="hidden_chats_done">会話を非表示にしました。</string>
+    <string name="hidden_chats_show">非表示の会話</string>
+    <string name="hidden_chats_lock">非表示の会話をロック</string>
+</resources>

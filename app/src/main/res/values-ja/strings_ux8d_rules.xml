@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">常に許可</string>
+    <string name="ux8d_sheet_title_block">常にブロック</string>
+    <string name="ux8d_match_label">一致条件</string>
+    <string name="ux8d_match_number">電話番号</string>
+    <string name="ux8d_match_sender">銀行などの送信者名</string>
+    <string name="ux8d_match_word">メッセージ内の語句</string>
+    <string name="ux8d_match_prefix">指定の数字で始まる番号</string>
+    <string name="ux8d_match_pattern">パターン（正規表現）（上級者向け）</string>
+    <string name="ux8d_match_more">その他の一致条件</string>
+    <string name="ux8d_action_label">一致したときの動作</string>
+    <string name="ux8d_more_options">その他の設定</string>
+    <string name="ux8d_row_type_number">電話番号</string>
+    <string name="ux8d_row_type_prefix">電話番号の先頭</string>
+    <string name="ux8d_row_type_sender">送信者名</string>
+    <string name="ux8d_row_type_word">メッセージ内の語句</string>
+    <string name="ux8d_row_type_pattern">パターン（正規表現）</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_link_confirm_body">Người gửi này không có trong danh sách người liên hệ của bạn. Kiểm tra toàn bộ địa chỉ trước khi mở.</string>
+    <string name="thread_link_confirm_open">Mở</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">Respostas inteligentes</string>
+    <string name="smart_replies_summary">Respostas rápidas de uma lista no seu celular</string>
+    <string name="smart_replies_hide">Oculte as sugestões</string>
+</resources>

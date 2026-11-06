@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="lock_title">uMessage قفل است</string>
+    <string name="lock_enter_pin">پین خود را وارد کنید</string>
+    <string name="lock_draw_pattern">الگوی خود را بکشید</string>
+    <string name="lock_use_biometrics">برای باز کردن uMessage هویت خود را تأیید کنید</string>
+    <string name="lock_wrong_pin">پین نادرست است، دوباره تلاش کنید</string>
+    <string name="lock_wrong_pattern">الگو نادرست است، دوباره تلاش کنید</string>
+    <string name="lock_too_many">تلاش‌های نادرست بیش از حد</string>
+    <string name="lock_try_again_in">%s دیگر دوباره تلاش کنید</string>
+    <string name="lock_key_delete">حذف</string>
+    <string name="lock_key_confirm">تأیید</string>
+    <plurals name="lock_digits_entered" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d رقم وارد شد</item>
+        <item quantity="other">%d رقم وارد شد</item>
+    </plurals>
+    <string name="lock_no_digits">رقمی وارد نشده</string>
+    <string name="lock_pattern_pad">صفحهٔ الگو، نقطه‌های ۳ در ۳</string>
+    <string name="lock_pattern_dot">نقطهٔ ردیف %1$d، ستون %2$d</string>
+    <string name="lock_pattern_dot_selected">نقطهٔ ردیف %1$d، ستون %2$d، شمارهٔ %3$d در الگو</string>
+    <string name="lock_pattern_done">تمام</string>
+    <string name="lock_pattern_clear">پاک کردن</string>
+    <plurals name="lock_pattern_dots_selected" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d نقطه انتخاب شد</item>
+        <item quantity="other">%d نقطه انتخاب شد</item>
+    </plurals>
+    <string name="lock_use_pin_instead">استفاده از پین به‌جای آن</string>
+    <string name="lock_use_biometrics_instead">استفاده از زیست‌سنجی به‌جای آن</string>
+    <string name="lock_use_screen_lock">استفاده از قفل صفحهٔ گوشی به‌جای آن</string>
+    <string name="lock_biometrics_unavailable">زیست‌سنجی در دسترس نیست. پین خود را وارد کنید.</string>
+    <string name="lock_screen_lock_title">باز کردن uMessage</string>
+    <string name="lock_screen_lock_description">برای باز کردن uMessage، قفل صفحهٔ گوشی را تأیید کنید</string>
+    <string name="lock_no_way_to_check">این گوشی دیگر اثر انگشت یا قفل صفحه ندارد، پس uMessage نمی‌تواند هویت شما را تأیید کند. برنامه را باز کنید و در تنظیمات یک پین تعیین کنید.</string>
+    <string name="lock_open_anyway">باز کردن uMessage</string>
+    <string name="lock_forgot">فراموش کرده‌اید؟ از قفل صفحهٔ گوشی استفاده کنید</string>
+    <plurals name="lock_tries_left" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d بار دیگر می‌توانید تلاش کنید، سپس باید صبر کنید</item>
+        <item quantity="other">%d بار دیگر می‌توانید تلاش کنید، سپس باید صبر کنید</item>
+    </plurals>
+    <string name="lock_setup_done">قفل برنامه روشن است. اگر پین یا الگوی خود را فراموش کردید، در صفحهٔ قفل روی «فراموش کرده‌اید؟» بزنید و از قفل صفحهٔ گوشی استفاده کنید.</string>
+    <string name="lock_setup_done_biometric">قفل برنامه روشن است. اگر زیست‌سنجی از کار افتاد، از پین پشتیبان استفاده کنید. اگر آن را هم فراموش کردید، روی «فراموش کرده‌اید؟» بزنید و از قفل صفحهٔ گوشی استفاده کنید.</string>
+    <string name="lock_setup_done_no_screen_lock">قفل برنامه روشن است. گوشی شما قفل صفحه ندارد، پس اگر پین یا الگوی خود را فراموش کنید، راه دیگری برای ورود ندارید: باید داده‌های uMessage را از تنظیمات برنامه در گوشی پاک کنید. این کار تنظیمات، فهرست‌های هرزنامه و سابقهٔ هرزنامه را حذف می‌کند (پیام‌های متنی شما روی گوشی می‌مانند). برای داشتن راهی برای ورود دوباره، قفل صفحهٔ گوشی را فعال کنید.</string>
+    <string name="settings_app_lock_timeout">قفل پس از خروج از برنامه</string>
+    <string name="settings_app_lock_timeout_immediately">بلافاصله</string>
+    <string name="settings_app_lock_timeout_30s">پس از ۳۰ ثانیه</string>
+    <string name="settings_app_lock_timeout_1m">پس از ۱ دقیقه</string>
+    <string name="settings_app_lock_timeout_5m">پس از ۵ دقیقه</string>
+    <string name="settings_app_lock_screenshots">مسدود کردن ثبت تصویر صفحه</string>
+    <string name="settings_app_lock_screenshots_body">از ثبت تصویر و ضبط صفحه جلوگیری می‌کند. پیام‌ها همیشه در برنامه‌های اخیر پنهان هستند.</string>
+    <string name="settings_app_lock_screenshots_body_old">از ثبت تصویر و ضبط صفحه جلوگیری می‌کند. در این نسخهٔ Android، تنها راه پنهان کردن پیام‌ها در برنامه‌های اخیر هم همین است.</string>
+    <string name="settings_app_lock_change">تغییر پین، الگو یا زیست‌سنجی</string>
+    <string name="settings_app_lock_weak">حدس زدن پین یا الگوی شما آسان است</string>
+    <string name="settings_app_lock_weak_body">پین بسیار ضعیف است. برای تغییر بزنید</string>
+    <string name="settings_app_lock_add_pin">افزودن پین پشتیبان</string>
+    <string name="settings_app_lock_add_pin_body">یک پین به‌عنوان پشتیبان اضافه کنید</string>
+    <string name="settings_app_lock_now">قفل کردن اکنون</string>
+    <string name="settings_app_lock_now_body">uMessage را بلافاصله قفل می‌کند</string>
+    <string name="settings_app_lock_changed">قفل برنامه تغییر کرد</string>
+    <string name="dialogs_lock_backup_pin">ابتدا یک پین پشتیبان تعیین کنید. اگر زیست‌سنجی از کار افتاد، از آن استفاده می‌کنید.</string>
+</resources>

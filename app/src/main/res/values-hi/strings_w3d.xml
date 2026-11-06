@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">फ़ॉरवर्ड किए गए मैसेज में कोड छिपाएं</string>
+    <string name="w3d_mask_codes_body">फ़ॉरवर्ड किए गए कोड **** के रूप में दिखते हैं</string>
+    <string name="w3d_mask_keep_last">आखिरी दो अंक दिखाएं</string>
+    <string name="w3d_mask_keep_last_on">फ़ॉरवर्ड किए गए मैसेज में कोड **34 जैसा दिखता है.</string>
+    <string name="w3d_mask_keep_last_off">फ़ॉरवर्ड किए गए मैसेज में पूरा कोड छिपा रहता है.</string>
+    <string name="w3d_daily_limit">रोज़ फ़ॉरवर्ड करने की सीमा</string>
+    <string name="w3d_daily_limit_body">रोज़ ज़्यादा से ज़्यादा कितने मैसेज फ़ॉरवर्ड हों</string>
+    <string name="w3d_hide_lock_codes">लॉक स्क्रीन पर कोड छिपाएं</string>
+    <string name="w3d_hide_lock_codes_body">फ़ोन अनलॉक करने तक लॉक स्क्रीन पर कोड वाले मैसेज में •••• दिखता है.</string>
+</resources>

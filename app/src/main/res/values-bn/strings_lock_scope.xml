@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_scope_title">কী লক করবেন</string>
+    <string name="lock_scope_whole">পুরো অ্যাপ</string>
+    <string name="lock_scope_chosen">শুধু বেছে নেওয়া অংশ</string>
+    <string name="lock_scope_chosen_long">শুধু বেছে নেওয়া অংশ: ব্লক করা ট্যাব ও লুকানো কথোপকথন</string>
+    <string name="lock_scope_blocked_title">ব্লক করা বার্তা লক করা আছে</string>
+    <string name="lock_scope_blocked_body">এগুলো দেখতে লক খুলুন।</string>
+    <string name="lock_scope_unlock">লক খুলুন</string>
+</resources>

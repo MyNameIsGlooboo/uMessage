@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">التكرار</string>
+    <string name="schedule_repeat_never">أبدًا</string>
+    <string name="schedule_repeat_daily">كل يوم</string>
+    <string name="schedule_repeat_weekly">كل أسبوع</string>
+    <string name="schedule_repeat_monthly">كل شهر</string>
+    <string name="schedule_repeat_yearly">كل سنة</string>
+    <string name="schedule_repeat_jalali_note">تُحسب الأشهر والسنوات حسب التقويم الجلالي.</string>
+    <string name="scheduled_repeats_daily">تتكرر يوميًا</string>
+    <string name="scheduled_repeats_weekly">تتكرر أسبوعيًا</string>
+    <string name="scheduled_repeats_monthly">تتكرر شهريًا</string>
+    <string name="scheduled_repeats_yearly">تتكرر سنويًا</string>
+    <string name="scheduled_repeats_paused">التكرار متوقف مؤقتًا</string>
+    <string name="scheduled_delete_repeating">احذف رسالة متكررة</string>
+    <string name="scheduled_delete_this_one">هذه الرسالة فقط</string>
+    <string name="scheduled_delete_all_future">هذه وكل الرسائل اللاحقة</string>
+</resources>

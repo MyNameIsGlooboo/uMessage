@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_text_xsmall">صغير جدًا</string>
+    <string name="w3c_text_huge">ضخم</string>
+    <string name="w3c_text_giant">عملاق</string>
+</resources>

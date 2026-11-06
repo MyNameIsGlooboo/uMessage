@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="digest_channel">Resumen semanal</string>
+    <string name="digest_title">Resumen semanal</string>
+    <string name="digest_row_title">Resumen semanal</string>
+    <string name="digest_row_summary">Una vez por semana: cuántos mensajes se bloquearon</string>
+    <plurals name="digest_held">
+        <item quantity="one">%d mensaje retenido esta semana. Toca para revisarlo.</item>
+        <item quantity="other">%d mensajes retenidos esta semana. Toca para revisarlos.</item>
+    </plurals>
+    <plurals name="digest_held_important">
+        <item quantity="one">%1$d mensaje retenido esta semana. Con códigos o alertas bancarias: %2$d.</item>
+        <item quantity="other">%1$d mensajes retenidos esta semana. Con códigos o alertas bancarias: %2$d.</item>
+    </plurals>
+</resources>

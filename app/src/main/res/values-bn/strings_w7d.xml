@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="w7d_banner_stopped" tools:ignore="ImpliedQuantity">
+        <item quantity="one">এই সপ্তাহে %1$sটি আটকানো হয়েছে</item>
+        <item quantity="other">এই সপ্তাহে %1$sটি আটকানো হয়েছে</item>
+    </plurals>
+    <string name="w7d_banner_none">এই সপ্তাহে কিছু আটকানো হয়নি</string>
+    <string name="w7d_fwd_master_switch">ফরোয়ার্ড করা</string>
+    <string name="w7d_help_menu">শব্দ দিয়ে ব্লক করা কীভাবে কাজ করে</string>
+    <string name="w7d_help_title">শব্দ দিয়ে ব্লক করা কীভাবে কাজ করে</string>
+    <string name="w7d_help_words_head">শব্দ</string>
+    <string name="w7d_help_words_body">বার্তার যেকোনো জায়গায় শব্দটি থাকলে বার্তা ব্লক করা হয়।</string>
+    <string name="w7d_help_words_example">বিনামূল্যে পুরস্কার</string>
+    <string name="w7d_help_sender_head">প্রেরকের নাম</string>
+    <string name="w7d_help_sender_body">ওই নামের প্রেরকের বার্তা ব্লক করা হয়, যেমন কোনো দোকান।</string>
+    <string name="w7d_help_sender_example">PROMO</string>
+    <string name="w7d_help_number_head">নম্বরের শুরু</string>
+    <string name="w7d_help_number_body">এই অঙ্কগুলো দিয়ে শুরু হওয়া সব নম্বর ব্লক করা হয়।</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">অভিজ্ঞ ব্যবহারকারীদের জন্য প্যাটার্ন (রেগেক্স)</string>
+    <string name="w7d_help_pattern_body">একটি প্যাটার্ন (রেগেক্স) একাধিক বানানের সঙ্গে মিলতে পারে। সেভ করার আগে পরীক্ষা করুন।</string>
+    <string name="w7d_help_pattern_example">(বিনামূল্যে|জিতুন) পুরস্কার</string>
+    <string name="w7d_help_close">বন্ধ করুন</string>
+    <string name="w7d_bank_cards_title">ব্যাংকের বিজ্ঞপ্তির কার্ড</string>
+    <string name="w7d_bank_cards_summary">ব্যাংকের বার্তার নিচে টাকার পরিমাণ দেখায়</string>
+</resources>

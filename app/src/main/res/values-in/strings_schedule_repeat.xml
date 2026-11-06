@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">Ulangi</string>
+    <string name="schedule_repeat_never">Tidak pernah</string>
+    <string name="schedule_repeat_daily">Setiap hari</string>
+    <string name="schedule_repeat_weekly">Setiap minggu</string>
+    <string name="schedule_repeat_monthly">Setiap bulan</string>
+    <string name="schedule_repeat_yearly">Setiap tahun</string>
+    <string name="schedule_repeat_jalali_note">Bulan dan tahun mengikuti kalender Jalali.</string>
+    <string name="scheduled_repeats_daily">Berulang setiap hari</string>
+    <string name="scheduled_repeats_weekly">Berulang setiap minggu</string>
+    <string name="scheduled_repeats_monthly">Berulang setiap bulan</string>
+    <string name="scheduled_repeats_yearly">Berulang setiap tahun</string>
+    <string name="scheduled_repeats_paused">Pengulangan dijeda</string>
+    <string name="scheduled_delete_repeating">Hapus pesan berulang</string>
+    <string name="scheduled_delete_this_one">Pesan ini saja</string>
+    <string name="scheduled_delete_all_future">Pesan ini dan semua berikutnya</string>
+</resources>

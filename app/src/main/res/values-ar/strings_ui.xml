@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_time_now">الآن</string>
+    <plurals name="ui_time_minutes">
+        <item quantity="zero">%d دقائق</item>
+        <item quantity="one">دقيقة واحدة (%d)</item>
+        <item quantity="two">دقيقتان (%d)</item>
+        <item quantity="few">%d دقائق</item>
+        <item quantity="many">%d دقيقة</item>
+        <item quantity="other">%d دقيقة</item>
+    </plurals>
+    <string name="ui_bubble_sent">أنت، %1$s</string>
+    <string name="ui_bubble_received">%1$s, %2$s</string>
+    <string name="ui_bubble_received_unknown">مستلمة، %1$s</string>
+    <string name="ui_select_message">اختر رسالة</string>
+    <string name="ui_retry_send">أعد محاولة الإرسال</string>
+    <string name="ui_default_required_body">لا يمكن لـ uMessage استقبال الرسائل أو إرسالها أو تصفيتها حتى يصبح تطبيق الرسائل النصية الافتراضي. تبقى رسائلك في مكانها.</string>
+    <string name="ui_default_required_close">أغلق uMessage</string>
+    <string name="ui_add_contact_or_number">اكتب اسمًا أو رقم هاتف</string>
+    <string name="ui_show_dialpad">أظهر لوحة الاتصال</string>
+    <string name="ui_show_keyboard">أظهر لوحة المفاتيح</string>
+    <string name="ui_settings_group_block_lists">قوائم حظر أخرى</string>
+    <string name="ui_settings_system_block_list">قائمة الحظر في النظام</string>
+    <string name="ui_settings_system_block_list_body">أرقام محظورة في كل تطبيق على هذا الهاتف. يخفيها uMessage أيضًا.</string>
+    <string name="ui_settings_blocked_words">الكلمات المحظورة</string>
+    <string name="ui_settings_character_counter">أظهر عدّاد الأحرف</string>
+    <string name="ui_settings_simple_characters">أزل علامات النبر عند الإرسال</string>
+    <string name="ui_settings_send_on_enter">أرسل بمفتاح Enter</string>
+    <string name="ui_settings_delivery_reports">تلقَّ تقارير التسليم</string>
+    <string name="ui_settings_recycle_bin">انقل المحادثات المحذوفة إلى سلة المهملات</string>
+    <string name="ui_two_sentences">%1$s. %2$s</string>
+    <string name="ui_tab_with_count">%1$s (%2$d)</string>
+    <string name="ui_send_with_sim">%1$s, %2$s</string>
+    <string name="ui_number_with_type">%1$s (%2$s)</string>
+    <string name="ui_log_decision_allowed">مسموح</string>
+    <string name="ui_log_decision_blocked">محظور</string>
+    <string name="ui_log_decision_error">خطأ</string>
+    <string name="ui_log_reason_allow_rule">قاعدة سماح</string>
+    <string name="ui_log_reason_block_rule">قاعدة حظر</string>
+    <string name="ui_log_reason_contact">ضمن جهات الاتصال</string>
+    <string name="ui_log_reason_known_conversation">راسلته من قبل</string>
+    <string name="ui_log_reason_otp">رمز التحقق</string>
+    <string name="ui_log_reason_unknown_sender">مرسل غير معروف</string>
+    <string name="ui_log_reason_mode_off">وضع التصفية: متوقف</string>
+    <string name="ui_log_reason_no_match">لم تتطابق أي قاعدة</string>
+    <string name="ui_log_source_sms">SMS</string>
+    <string name="ui_log_source_mms">MMS</string>
+    <string name="ui_log_source_retry">أُعيدت المحاولة</string>
+</resources>

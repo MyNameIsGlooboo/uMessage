@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_codes_title">Okunan kodları silme süresi</string>
+    <string name="cleanup_codes_summary">Kodlar çöp kutusuna taşınır</string>
+    <string name="cleanup_never">Hiçbir zaman</string>
+    <string name="cleanup_24_hours">24 saat</string>
+    <plurals name="cleanup_days">
+        <item quantity="one">%d gün</item>
+        <item quantity="other">%d gün</item>
+    </plurals>
+    <string name="cleanup_card_title">Okunan kodlar 7 gün sonra silinsin mi?</string>
+    <string name="cleanup_card_body">Okuduğunuz doğrulama kodları çöp kutusuna taşınır. Buradan geri alabilirsiniz.</string>
+    <string name="cleanup_card_yes">Açın</string>
+    <string name="cleanup_card_no">Hayır, teşekkürler</string>
+</resources>

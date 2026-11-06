@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Share a conversation or selected messages as plain text -->
+    <string name="share_text_menu">Share conversation as text</string>
+    <string name="share_text_scope_title">Which messages?</string>
+    <string name="share_text_scope_whole">Whole conversation</string>
+    <string name="share_text_scope_last">Last 50 messages</string>
+    <string name="share_text_title">Share as text</string>
+    <string name="share_text_warning">This sends private text to another app. You choose the app next.</string>
+    <string name="share_text_action">Share</string>
+    <string name="share_text_range">%1$s to %2$s</string>
+    <string name="share_text_attachment">[Attachment]</string>
+    <string name="share_text_subject">Messages from uMessage</string>
+    <string name="share_text_nothing">There are no messages to share</string>
+    <plurals name="share_text_count">
+        <item quantity="one">%1$d message</item>
+        <item quantity="other">%1$d messages</item>
+    </plurals>
+</resources>

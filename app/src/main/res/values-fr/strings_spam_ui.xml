@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="spam_ui_delete_all">Tout supprimer</string>
+    <string name="spam_ui_delete_all_title">Supprimer tous les messages bloqués ?</string>
+    <plurals name="spam_ui_delete_all_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d message bloqué sera supprimé. Vous pourrez annuler juste après.</item>
+        <item quantity="other">%1$d messages bloqués seront supprimés. Vous pourrez annuler juste après.</item>
+    </plurals>
+    <string name="declog_ui_clear_title">Vider le journal des décisions ?</string>
+    <string name="declog_ui_clear_message">Toutes les décisions enregistrées seront effacées. Les messages bloqués et les règles resteront inchangés.</string>
+    <string name="declog_ui_clear_action">Vider</string>
+    <string name="ui_log_reason_contacts_unavailable">Contacts illisibles</string>
+    <string name="blocknum_title">Numéros bloqués</string>
+    <string name="blocknum_add">Ajouter un numéro</string>
+    <string name="blocknum_add_title">Bloquer un numéro</string>
+    <string name="blocknum_edit_title">Modifier le numéro bloqué</string>
+    <string name="blocknum_field_label">Numéro</string>
+    <string name="blocknum_field_help">Utilisez * comme caractère générique : +1555* bloque tous les numéros commençant par +1555</string>
+    <string name="blocknum_err_empty">Saisissez un numéro</string>
+    <string name="blocknum_err_invalid">Saisissez un numéro de téléphone ou des chiffres avec * comme caractère générique</string>
+    <string name="blocknum_copy">Copier le numéro</string>
+    <string name="blocknum_unblock">Débloquer</string>
+    <string name="blocknum_unblock_for">Débloquer %1$s</string>
+    <string name="blocknum_edit_for">Modifier %1$s</string>
+    <string name="blocknum_more_for">Plus d\'options pour %1$s</string>
+    <string name="blocknum_pattern">Modèle à caractères génériques</string>
+    <string name="blocknum_copied">Numéro copié</string>
+    <plurals name="blocknum_unblocked" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d numéro débloqué</item>
+        <item quantity="other">%1$d numéros débloqués</item>
+    </plurals>
+    <string name="blocknum_import">Importer</string>
+    <string name="blocknum_export">Exporter</string>
+    <plurals name="blocknum_imported" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d numéro importé</item>
+        <item quantity="other">%1$d numéros importés</item>
+    </plurals>
+    <string name="blocknum_import_empty">Aucun numéro trouvé dans le fichier</string>
+    <plurals name="blocknum_import_skipped" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d entrée ignorée (numéro invalide ou déjà bloqué)</item>
+        <item quantity="other">%d entrées ignorées (numéros invalides ou déjà bloqués)</item>
+    </plurals>
+    <string name="blocknum_import_failed">Impossible de lire le fichier</string>
+    <plurals name="blocknum_exported" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d numéro exporté</item>
+        <item quantity="other">%1$d numéros exportés</item>
+    </plurals>
+    <string name="blocknum_export_empty">Aucun numéro à exporter</string>
+    <string name="blocknum_export_failed">Impossible d\'enregistrer le fichier</string>
+    <string name="blocknum_failed">Impossible de modifier la liste de blocage. Réessayez.</string>
+    <string name="blocknum_empty_title">Aucun numéro bloqué</string>
+    <string name="blocknum_empty_body">Les numéros bloqués ne peuvent ni vous envoyer de messages ni vous appeler. Cette liste est partagée avec votre application Téléphone.</string>
+    <string name="blocknum_unavailable_title">Liste de blocage indisponible</string>
+    <string name="blocknum_unavailable_body">Définissez uMessage comme application SMS par défaut pour consulter et modifier la liste de blocage du système.</string>
+    <string name="blocknum_unknown_title">Bloquer les numéros inconnus</string>
+    <string name="blocknum_unknown_body">S\'applique uniquement si le mode de filtrage est désactivé : les messages des numéros inconnus vont alors dans Messages bloqués, comme en mode strict. Les modes strict et intelligent ignorent cette option.</string>
+    <string name="blocknum_contacts_denied">Sans accès aux contacts, les numéros inconnus ne peuvent pas être identifiés</string>
+    <string name="blocknum_section_numbers">Numéros</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_codes_title">Eliminar códigos leídos después de</string>
+    <string name="cleanup_codes_summary">Los códigos se mueven a la papelera</string>
+    <string name="cleanup_never">Nunca</string>
+    <string name="cleanup_24_hours">24 horas</string>
+    <plurals name="cleanup_days">
+        <item quantity="one">%d día</item>
+        <item quantity="other">%d días</item>
+    </plurals>
+    <string name="cleanup_card_title">¿Eliminar códigos leídos después de 7 días?</string>
+    <string name="cleanup_card_body">Los códigos de verificación que ya leíste se mueven a la papelera, donde puedes recuperarlos.</string>
+    <string name="cleanup_card_yes">Activar</string>
+    <string name="cleanup_card_no">No, gracias</string>
+</resources>

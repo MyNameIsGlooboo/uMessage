@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_review_details_decision">تصمیم</string>
+    <string name="thread_review_details_decision_allowed">مجاز: به صندوق ورودی شما تحویل داده شد</string>
+    <string name="thread_review_details_type">نوع</string>
+    <string name="thread_review_details_type_sms">SMS</string>
+    <string name="thread_review_details_type_mms">MMS</string>
+    <string name="thread_review_sim_slot_name">سیم‌کارت %1$d، %2$s</string>
+    <string name="thread_review_copy_code">کپی کد</string>
+    <string name="thread_review_copy_password">کپی گذرواژه</string>
+    <string name="thread_review_copy_username">کپی نام کاربری</string>
+    <string name="thread_review_sim_label">سیم‌کارت %1$s</string>
+    <string name="thread_review_sends_from">ارسال از %1$s</string>
+    <string name="thread_review_reply_disabled">این فرستنده نمی‌تواند پاسخ دریافت کند</string>
+    <string name="thread_review_attach_camera">دوربین</string>
+    <string name="thread_review_attach_voice">صدا</string>
+    <string name="thread_review_schedule_in_hour">۱ ساعت دیگر</string>
+    <string name="thread_review_schedule_evening">امروز عصر</string>
+    <string name="thread_review_schedule_tomorrow">فردا ساعت ۹:۰۰</string>
+</resources>

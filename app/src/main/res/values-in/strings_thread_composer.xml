@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_emoji">Emoji</string>
+    <string name="thread_show_keyboard">Tampilkan keyboard</string>
+    <string name="thread_scheduled_not_sent">Pesan terjadwal tidak terkirim</string>
+    <string name="thread_edit_scheduled_replaces_draft">Mengedit pesan terjadwal akan mengganti teks yang sedang diketik. Lanjutkan?</string>
+    <string name="thread_menu_report_spam">Tandai sebagai spam</string>
+    <string name="thread_report_spam_title">Tandai sebagai spam?</string>
+    <string name="thread_report_spam_message">Pesan baru dari %1$s akan masuk ke Pesan diblokir, bukan kotak masuk. Pesan yang sudah ada dalam percakapan ini tetap disimpan.</string>
+    <string name="thread_report_spam_confirm">Tandai sebagai spam</string>
+    <string name="thread_report_spam_cancel">Batal</string>
+    <string name="thread_report_spam_done">Ditandai sebagai spam</string>
+    <string name="thread_report_spam_rule_note">Dilaporkan sebagai spam</string>
+    <string name="thread_report_spam_already">Sudah ditandai sebagai spam</string>
+    <string name="thread_report_spam_failed">Tidak dapat menandai sebagai spam</string>
+    <string name="thread_report_spam_undo">Urungkan</string>
+</resources>

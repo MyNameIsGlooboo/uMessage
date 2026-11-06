@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="spam_allow_title" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Завжди дозволити цього відправника?</item>
+        <item quantity="few">Завжди дозволити цих %d відправників?</item>
+        <item quantity="many">Завжди дозволити цих %d відправників?</item>
+        <item quantity="other">Завжди дозволити %d відправника?</item>
+    </plurals>
+    <string name="spam_allow_body_one">Повідомлення в будь-якому разі повернеться у вхідні. Якщо ви завжди дозволите повідомлення від %1$s, усі наступні повідомлення оминатимуть усі фільтри, зокрема ваші правила блокування.</string>
+    <string name="spam_allow_body_many">Повідомлення в будь-якому разі повернуться у вхідні. Якщо ви завжди дозволите цих відправників, їхні наступні повідомлення оминатимуть усі фільтри, зокрема ваші правила блокування.</string>
+    <string name="spam_allow_spoof_warning">Будь-хто може надіслати повідомлення під іменем на кшталт %1$s. Якщо дозволити його, підроблені повідомлення з цим іменем теж проходитимуть.</string>
+    <string name="spam_allow_confirm">Завжди дозволити</string>
+    <string name="spam_allow_dismiss">Не зараз</string>
+    <plurals name="spam_snack_restored_to_inbox" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d повідомлення відновлено у вхідних</item>
+        <item quantity="few">%d повідомлення відновлено у вхідних</item>
+        <item quantity="many">%d повідомлень відновлено у вхідних</item>
+        <item quantity="other">%d повідомлення відновлено у вхідних</item>
+    </plurals>
+    <plurals name="spam_snack_restored_allowed" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Відновлено. Для %d відправника тепер завжди дозволено повідомлення.</item>
+        <item quantity="few">Відновлено. Для %d відправників тепер завжди дозволено повідомлення.</item>
+        <item quantity="many">Відновлено. Для %d відправників тепер завжди дозволено повідомлення.</item>
+        <item quantity="other">Відновлено. Для %d відправника тепер завжди дозволено повідомлення.</item>
+    </plurals>
+    <plurals name="spam_snack_allowed_only" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Для %d відправника тепер завжди дозволено повідомлення.</item>
+        <item quantity="few">Для %d відправників тепер завжди дозволено повідомлення.</item>
+        <item quantity="many">Для %d відправників тепер завжди дозволено повідомлення.</item>
+        <item quantity="other">Для %d відправника тепер завжди дозволено повідомлення.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Не вдалося відновити зображення в %d повідомленні.</item>
+        <item quantity="few">Не вдалося відновити зображення у %d повідомленнях.</item>
+        <item quantity="many">Не вдалося відновити зображення у %d повідомленнях.</item>
+        <item quantity="other">Не вдалося відновити зображення в %d повідомлення.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost_nothing" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Не вдалося відновити повідомлення із зображенням, тому до вхідних нічого не додано.</item>
+        <item quantity="few">Не вдалося відновити %d повідомлення із зображенням, тому до вхідних нічого не додано.</item>
+        <item quantity="many">Не вдалося відновити %d повідомлень із зображенням, тому до вхідних нічого не додано.</item>
+        <item quantity="other">Не вдалося відновити %d повідомлення із зображенням, тому до вхідних нічого не додано.</item>
+    </plurals>
+    <plurals name="spam_snack_restore_failed" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Не вдалося відновити %d повідомлення із зображенням. Воно залишається тут.</item>
+        <item quantity="few">Не вдалося відновити %d повідомлення із зображенням. Вони залишаються тут.</item>
+        <item quantity="many">Не вдалося відновити %d повідомлень із зображенням. Вони залишаються тут.</item>
+        <item quantity="other">Не вдалося відновити %d повідомлення із зображенням. Вони залишаються тут.</item>
+    </plurals>
+    <string name="spam_mms_stored">Повідомлення із зображенням</string>
+    <string name="spam_mms_downloading">Повідомлення із зображенням, завантажується</string>
+    <string name="spam_mms_missing">Повідомлення із зображенням, не завантажено</string>
+    <string name="spam_mms_thumbnail">Зображення в заблокованому повідомленні</string>
+    <string name="spam_reason_rule_keyword">Правило: ключове слово «%1$s»</string>
+    <string name="spam_reason_rule_regex">Правило: регулярний вираз %1$s</string>
+    <string name="spam_reason_rule_number">Правило: номер %1$s</string>
+    <string name="spam_reason_rule_prefix">Правило: номери, що починаються з %1$s</string>
+    <string name="spam_reason_rule_sender">Правило: відправник %1$s</string>
+    <string name="spam_reason_rule_removed">Правило вже видалено</string>
+    <string name="spam_reason_open_rules">Відкрити правила</string>
+    <plurals name="spam_purge_notice" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Заблоковані повідомлення видаляються через %d день</item>
+        <item quantity="few">Заблоковані повідомлення видаляються через %d дні</item>
+        <item quantity="many">Заблоковані повідомлення видаляються через %d днів</item>
+        <item quantity="other">Заблоковані повідомлення видаляються через %d дня</item>
+    </plurals>
+    <string name="spam_purge_notice_off">Заблоковані повідомлення зберігаються, доки ви їх не видалите</string>
+    <plurals name="spam_purge_left" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Буде видалено через %d день</item>
+        <item quantity="few">Буде видалено через %d дні</item>
+        <item quantity="many">Буде видалено через %d днів</item>
+        <item quantity="other">Буде видалено через %d дня</item>
+    </plurals>
+    <string name="spam_purge_left_today">Буде видалено сьогодні</string>
+    <string name="convlist_report_spam">Повідомити про спам</string>
+    <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Про спам повідомлено. Нові повідомлення від цього відправника потраплятимуть у «Заблоковані», а чат заархівовано.</item>
+        <item quantity="few">Повідомлено про спам у %d чатах. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані», а чати заархівовано.</item>
+        <item quantity="many">Повідомлено про спам у %d чатах. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані», а чати заархівовано.</item>
+        <item quantity="other">Повідомлено про спам у %d чату. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані», а чати заархівовано.</item>
+    </plurals>
+    <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Про спам повідомлено. Нові повідомлення від цього відправника потраплятимуть у «Заблоковані».</item>
+        <item quantity="few">Повідомлено про спам у %d чатах. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані».</item>
+        <item quantity="many">Повідомлено про спам у %d чатах. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані».</item>
+        <item quantity="other">Повідомлено про спам у %d чату. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані».</item>
+    </plurals>
+    <string name="blocked_title">Заблоковані</string>
+    <string name="blocked_menu_rules">Правила</string>
+    <string name="blocked_mode_group_cd">Невідомі відправники: %1$s, %2$d з %3$d</string>
+    <string name="blocked_mode_desc_strict">Суворий: затримує всі повідомлення від невідомих відправників, навіть коди підтвердження</string>
+    <string name="blocked_mode_desc_smart">Розумний: затримує повідомлення від невідомих відправників, але пропускає коди без посилань</string>
+    <string name="blocked_mode_desc_off">Вимкнено: повідомлення від невідомих відправників потрапляють у вхідні. Ваші правила діють</string>
+    <string name="blocked_snack_mode">Для невідомих відправників вибрано режим: %1$s</string>
+    <string name="blocked_off_title">Не затримувати повідомлення від невідомих відправників?</string>
+    <string name="blocked_off_body">Повідомлення від невідомих відправників потраплятимуть одразу у вхідні. Ваші правила діятимуть і надалі.</string>
+    <string name="blocked_off_confirm">Вимкнути</string>
+    <string name="blocked_stats_restored">Ви відновили: %1$d</string>
+    <string name="blocked_reason_unknown_link">Невідомий відправник, є посилання</string>
+    <string name="blocked_may_be_important">Може бути важливим</string>
+    <string name="blocked_action_move_inbox">Перемістити у вхідні</string>
+    <string name="blocked_swipe_not_spam">Проведіть, щоб перемістити у вхідні</string>
+</resources>

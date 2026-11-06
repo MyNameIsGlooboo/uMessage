@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">Sembunyikan chat ini</string>
+    <string name="hidden_chats_menu_unhide">Tampilkan chat ini</string>
+    <string name="hidden_chats_confirm">Sembunyikan chat ini? Chat tidak muncul di daftar, pencarian, dan notifikasi sampai Anda membuka chat tersembunyi dengan kunci aplikasi.</string>
+    <string name="hidden_chats_need_lock">Chat tersembunyi memerlukan kunci aplikasi. Siapkan sekarang?</string>
+    <string name="hidden_chats_set_lock">Siapkan</string>
+    <string name="hidden_chats_done">Chat disembunyikan</string>
+    <string name="hidden_chats_show">Chat tersembunyi</string>
+    <string name="hidden_chats_lock">Kunci chat tersembunyi</string>
+</resources>

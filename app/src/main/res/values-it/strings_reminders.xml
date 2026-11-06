@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">Ricordamelo</string>
+    <string name="reminder_dialog_title">Ricordamelo</string>
+    <string name="reminder_in_3_hours">Tra 3 ore</string>
+    <string name="reminder_tomorrow_morning">Domani mattina</string>
+    <string name="reminder_pick_time">Scegli data e ora</string>
+    <string name="reminder_set">Promemoria impostato per %1$s</string>
+    <string name="reminder_set_approximate">Promemoria impostato per circa %1$s. Potrebbe arrivare un po\' in ritardo.</string>
+    <string name="reminder_battery_hint">Alcuni telefoni interrompono le app in background e ritardano i promemoria.</string>
+    <string name="reminder_battery_open">Mantieni uMessage attivo</string>
+    <string name="reminder_channel">Promemoria</string>
+    <string name="reminder_title">Promemoria</string>
+    <string name="reminder_title_named">Promemoria: %1$s</string>
+    <string name="reminder_open_hint">Tocca per aprire il messaggio</string>
+</resources>

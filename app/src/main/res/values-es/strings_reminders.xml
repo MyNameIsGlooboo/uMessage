@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">Recordarme</string>
+    <string name="reminder_dialog_title">Recordarme</string>
+    <string name="reminder_in_3_hours">Dentro de 3 horas</string>
+    <string name="reminder_tomorrow_morning">Mañana por la mañana</string>
+    <string name="reminder_pick_time">Elegir fecha y hora</string>
+    <string name="reminder_set">Recordatorio programado para %1$s</string>
+    <string name="reminder_set_approximate">Recordatorio programado para aproximadamente %1$s. Puede llegar un poco tarde.</string>
+    <string name="reminder_battery_hint">Algunos teléfonos detienen las aplicaciones en segundo plano y retrasan los recordatorios.</string>
+    <string name="reminder_battery_open">Mantener uMessage en ejecución</string>
+    <string name="reminder_channel">Recordatorios</string>
+    <string name="reminder_title">Recordatorio</string>
+    <string name="reminder_title_named">Recordatorio: %1$s</string>
+    <string name="reminder_open_hint">Toca para abrir el mensaje</string>
+</resources>

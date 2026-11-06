@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">Bu görüşmeyi gizleyin</string>
+    <string name="hidden_chats_menu_unhide">Bu görüşmeyi görünür yapın</string>
+    <string name="hidden_chats_confirm">Bu görüşme gizlensin mi? Uygulama kilidinizle gizli görüşmelerin kilidini açana kadar listede, aramada ve bildirimlerde görünmez.</string>
+    <string name="hidden_chats_need_lock">Gizli görüşmeler için uygulama kilidi gerekir. Şimdi ayarlansın mı?</string>
+    <string name="hidden_chats_set_lock">Ayarlayın</string>
+    <string name="hidden_chats_done">Görüşme gizlendi</string>
+    <string name="hidden_chats_show">Gizli görüşmeler</string>
+    <string name="hidden_chats_lock">Gizli görüşmeleri kilitleyin</string>
+</resources>

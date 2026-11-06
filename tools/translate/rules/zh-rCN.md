@@ -1,0 +1,7 @@
+- Simplified Chinese (Mainland China, zh-CN). Short, natural and neutral, like Google Messages and the system text of Chinese phones. Never Traditional characters.
+- Keep the tone neutral: leave the subject out where Chinese allows it ("选择语言", "已保存"); when a pronoun is needed use "你" and "你的", never "您" unless the English is very formal.
+- Punctuation is full width: ，。、：；！？（） and quotes “ ” (inner ‘ ’). No full stop at the end of buttons, titles and one-line hints; use 。 at the end of full sentences.
+- No spaces between Chinese characters and Latin letters, digits or placeholders. Keep the brand name uMessage in Latin.
+- Plural ids: only other. Write one text for every number and keep the number token (use the counter 条 or 个 as it fits).
+- Chinese is much shorter than English: keep buttons to two to four characters ("删除", "屏蔽", "举报垃圾短信").
+- Use "短信" for SMS, "彩信" for MMS, "垃圾短信" for spam, "屏蔽" for block, "联系人" for contact; keep "SIM" and "PIN" in Latin.

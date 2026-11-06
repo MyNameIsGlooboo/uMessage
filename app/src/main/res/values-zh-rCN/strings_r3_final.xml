@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3f_spam_summary_stopped">已拦截%1$d条</string>
+    <string name="r3f_spam_summary_restored">已恢复%1$d条</string>
+    <string name="r3f_spam_summary_stopped_week">7天内已拦截%1$d条</string>
+    <string name="r3f_spam_summary_total">共%1$d条</string>
+</resources>

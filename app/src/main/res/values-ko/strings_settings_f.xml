@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_f_backup_row_body">메시지, 규칙 및 설정을 파일로 저장</string>
+    <string name="settings_f_backup_rules_group">규칙 및 설정</string>
+    <string name="settings_f_backup_rules_contents">파일에는 허용 및 차단 규칙, 전달 규칙과 설정이 저장돼요. 설정에는 스팸 차단, 알림, 날짜, 글자 크기, 테마, Enter 키 및 전달 한도가 포함돼요. 메시지 내용과 앱 잠금은 저장되지 않아요. 전달 규칙은 꺼진 상태로 복원돼요.</string>
+    <string name="settings_f_backup_messages_contents">메시지 내용과 사진은 별도 파일에 저장돼요.</string>
+    <string name="settings_f_restore_title">이 파일에서 복원할까요?</string>
+    <string name="settings_f_restore_rules">허용 규칙: %1$d개 · 차단 규칙: %2$d개. 이미 있는 규칙은 건너뛰어요.</string>
+    <string name="settings_f_restore_forwards">추가할 전달 규칙: %1$d개, 꺼진 상태예요. 규칙 › 전달에서 켜세요.</string>
+    <string name="settings_f_restore_forwards_skipped">건너뛴 전달 규칙: %1$d개(이미 있거나 수신 가능한 번호가 없어요).</string>
+    <string name="settings_f_restore_settings_changed">변경될 설정: %1$s</string>
+    <string name="settings_f_restore_settings_none">변경되는 설정이 없어요.</string>
+    <string name="settings_f_restore_action">복원</string>
+    <string name="settings_f_restore_done">추가된 규칙: %1$d개 · 추가된 전달 규칙: %2$d개. 전달 규칙은 직접 켜기 전까지 꺼진 상태로 유지돼요.</string>
+    <string name="settings_f_restore_done_rules">추가된 규칙: %1$d개예요.</string>
+    <string name="settings_f_restore_done_title">복원 완료</string>
+    <string name="settings_f_label_codes">알 수 없는 발신자의 인증 코드</string>
+    <string name="settings_f_list_separator">", "</string>
+    <string name="settings_f_group_display">화면</string>
+    <string name="settings_f_appearance">화면 꾸미기</string>
+    <string name="settings_f_language_system">시스템 기본값</string>
+    <string name="settings_f_group_rules">규칙 및 목록</string>
+    <string name="settings_f_spam_more">보관 기간 및 알림</string>
+    <string name="settings_f_spam_more_body">차단된 메시지의 보관 기간 및 알림</string>
+    <string name="settings_f_hide_lock_codes_body">잠금 화면에서 인증 코드를 ••••로 표시</string>
+    <string name="settings_f_code_alert">인증 코드 알림</string>
+    <string name="settings_f_code_alert_body">인증 코드 알림 소리</string>
+    <string name="settings_f_channel_codes">인증 코드</string>
+    <string name="settings_f_channel_codes_desc">인증 코드가 포함된 메시지</string>
+</resources>

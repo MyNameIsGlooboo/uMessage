@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="lock_title">uMessage est verrouillée</string>
+    <string name="lock_enter_pin">Saisissez votre code PIN</string>
+    <string name="lock_draw_pattern">Tracez votre schéma</string>
+    <string name="lock_use_biometrics">Confirmez votre identité pour ouvrir uMessage</string>
+    <string name="lock_wrong_pin">Code PIN incorrect, réessayez</string>
+    <string name="lock_wrong_pattern">Schéma incorrect, réessayez</string>
+    <string name="lock_too_many">Trop de tentatives incorrectes</string>
+    <string name="lock_try_again_in">Réessayez dans %s</string>
+    <string name="lock_key_delete">Supprimer</string>
+    <string name="lock_key_confirm">Confirmer</string>
+    <plurals name="lock_digits_entered" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d chiffre saisi</item>
+        <item quantity="other">%d chiffres saisis</item>
+    </plurals>
+    <string name="lock_no_digits">Aucun chiffre saisi</string>
+    <string name="lock_pattern_pad">Grille du schéma, 3 points sur 3</string>
+    <string name="lock_pattern_dot">Point à la ligne %1$d, colonne %2$d</string>
+    <string name="lock_pattern_dot_selected">Point à la ligne %1$d, colonne %2$d, numéro %3$d dans le schéma</string>
+    <string name="lock_pattern_done">Terminé</string>
+    <string name="lock_pattern_clear">Effacer</string>
+    <plurals name="lock_pattern_dots_selected" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d point sélectionné</item>
+        <item quantity="other">%d points sélectionnés</item>
+    </plurals>
+    <string name="lock_use_pin_instead">Utiliser le code PIN</string>
+    <string name="lock_use_biometrics_instead">Utiliser la biométrie</string>
+    <string name="lock_use_screen_lock">Utiliser le verrouillage du téléphone</string>
+    <string name="lock_biometrics_unavailable">La biométrie est indisponible. Saisissez votre code PIN.</string>
+    <string name="lock_screen_lock_title">Ouvrir uMessage</string>
+    <string name="lock_screen_lock_description">Utilisez le verrouillage de votre téléphone pour ouvrir uMessage</string>
+    <string name="lock_no_way_to_check">Ce téléphone n\'a plus d\'empreintes enregistrées ni de verrouillage d\'écran. uMessage ne peut donc pas vérifier votre identité. Ouvrez l\'application et définissez un code PIN dans les paramètres.</string>
+    <string name="lock_open_anyway">Ouvrir uMessage</string>
+    <string name="lock_forgot">Code ou schéma oublié ? Utilisez le verrouillage du téléphone</string>
+    <plurals name="lock_tries_left" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Encore %d tentative avant de devoir patienter</item>
+        <item quantity="other">Encore %d tentatives avant de devoir patienter</item>
+    </plurals>
+    <string name="lock_setup_done">Le verrouillage de l\'application est activé. Si vous oubliez votre code PIN ou votre schéma, appuyez sur « Code ou schéma oublié ? » sur l\'écran de verrouillage et utilisez le verrouillage de votre téléphone.</string>
+    <string name="lock_setup_done_biometric">Le verrouillage de l\'application est activé. Si la biométrie ne fonctionne plus, utilisez votre code PIN de secours. Si vous l\'oubliez aussi, appuyez sur « Code ou schéma oublié ? » et utilisez le verrouillage de votre téléphone.</string>
+    <string name="lock_setup_done_no_screen_lock">Le verrouillage de l\'application est activé. Votre téléphone n\'a pas de verrouillage d\'écran. Si vous oubliez votre code PIN ou votre schéma, le seul moyen de retrouver l\'accès sera d\'effacer les données de uMessage dans les paramètres des applications du téléphone. Cela supprimera ses paramètres, ses listes de spam et son historique de spam (vos messages resteront sur le téléphone). Ajoutez un verrouillage d\'écran à votre téléphone pour pouvoir retrouver l\'accès.</string>
+    <string name="settings_app_lock_timeout">Verrouiller après avoir quitté l\'application</string>
+    <string name="settings_app_lock_timeout_immediately">Immédiatement</string>
+    <string name="settings_app_lock_timeout_30s">Après 30 secondes</string>
+    <string name="settings_app_lock_timeout_1m">Après 1 minute</string>
+    <string name="settings_app_lock_timeout_5m">Après 5 minutes</string>
+    <string name="settings_app_lock_screenshots">Bloquer les captures d\'écran</string>
+    <string name="settings_app_lock_screenshots_body">Empêche les captures et l\'enregistrement de l\'écran. Les messages sont toujours masqués dans les applications récentes.</string>
+    <string name="settings_app_lock_screenshots_body_old">Empêche les captures et l\'enregistrement de l\'écran. Sur cette version d\'Android, c\'est aussi le seul moyen de masquer les messages dans les applications récentes.</string>
+    <string name="settings_app_lock_change">Modifier le code PIN, le schéma ou la biométrie</string>
+    <string name="settings_app_lock_weak">Votre code PIN ou votre schéma est facile à deviner</string>
+    <string name="settings_app_lock_weak_body">Code PIN trop faible. Appuyez pour le modifier</string>
+    <string name="settings_app_lock_add_pin">Ajouter un code PIN de secours</string>
+    <string name="settings_app_lock_add_pin_body">Ajouter un code PIN comme solution de secours</string>
+    <string name="settings_app_lock_now">Verrouiller maintenant</string>
+    <string name="settings_app_lock_now_body">Verrouille uMessage immédiatement</string>
+    <string name="settings_app_lock_changed">Verrouillage de l\'application modifié</string>
+    <string name="dialogs_lock_backup_pin">Définissez d\'abord un code PIN de secours. Vous l\'utiliserez si la biométrie ne fonctionne plus.</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2c_blocked_label">محظور</string>
+    <string name="w2c_log_blocked_by_rule">محظور بقاعدة: %1$s</string>
+    <string name="w2c_log_blocked_by_old_list">محظور بقائمة الحظر القديمة</string>
+    <string name="w2c_log_fwd_rate_limited">لم تتم إعادة التوجيه: بلغت هذه القاعدة حدها لكل ساعة</string>
+</resources>

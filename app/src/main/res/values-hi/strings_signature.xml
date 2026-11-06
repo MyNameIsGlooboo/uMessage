@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">हस्ताक्षर</string>
+    <string name="i60_off">बंद</string>
+    <string name="i60_dialog_note">आपके भेजे हर मैसेज के नीचे जोड़ा जाता है. नहीं जोड़ना हो तो खाली छोड़ें.</string>
+</resources>

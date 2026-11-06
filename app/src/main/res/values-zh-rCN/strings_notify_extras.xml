@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">唤醒屏幕</string>
+    <string name="wake_screen_summary">收到新消息时点亮屏幕</string>
+    <string name="bubbles_title">会话气泡</string>
+    <string name="bubbles_summary">以悬浮气泡显示会话</string>
+    <string name="bubbles_locked">开启应用锁后不可用</string>
+    <string name="focus_codes_title">焦点通知中的验证码</string>
+    <string name="focus_codes_summary">在小米焦点通知中显示验证码</string>
+</resources>

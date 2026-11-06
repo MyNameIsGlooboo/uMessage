@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="font_title">แบบอักษร</string>
+    <string name="font_umessage">แบบอักษร uMessage</string>
+    <string name="font_system">แบบอักษรของระบบ</string>
+</resources>

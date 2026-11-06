@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">Позначити зірочкою</string>
+    <string name="i13_unstar">Зняти зірочку</string>
+    <string name="i13_starred_mark">Із зірочкою</string>
+    <string name="i13_filter_starred">Із зірочкою</string>
+    <string name="i13_filter_starred_empty_title">Немає повідомлень із зірочкою</string>
+    <string name="i13_filter_starred_empty_body">Виберіть повідомлення в чаті й натисніть зірочку, щоб зберегти його тут.</string>
+    <string name="i13_starred_note">Зірочка зберігає копію тексту, навіть якщо чат видалено. Якщо зняти зірочку, копію буде видалено.</string>
+    <string name="i13_snapshot_gone">Цей чат видалено. Залишився лише збережений текст.</string>
+    <string name="i13_snapshot_close">Закрити</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">Noms des SIM</string>
+    <string name="i34_setting_summary">Donnez un nom et un numéro à chaque SIM</string>
+    <string name="i34_dialog_title">Noms des SIM</string>
+    <string name="i34_number_note">Les opérateurs ne communiquent souvent pas le numéro aux applications. Saisissez-le ici. Le nom et le numéro restent sur ce téléphone.</string>
+    <string name="i34_sim_heading">SIM %1$d, %2$s</string>
+    <string name="i34_nickname">Nom (par exemple Travail)</string>
+    <string name="i34_number">Numéro</string>
+</resources>

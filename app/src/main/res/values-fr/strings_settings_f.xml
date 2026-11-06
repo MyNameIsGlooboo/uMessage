@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_f_backup_row_body">Messages, règles et paramètres dans un fichier</string>
+    <string name="settings_f_backup_rules_group">Règles et paramètres</string>
+    <string name="settings_f_backup_rules_contents">Le fichier contient vos règles d\'autorisation, de blocage et de transfert, ainsi que vos paramètres : protection contre le spam, notifications, dates, taille du texte, thème, touche Entrée et limites de transfert. Jamais le texte des messages ni le verrouillage de l\'application. Les règles de transfert sont restaurées désactivées.</string>
+    <string name="settings_f_backup_messages_contents">Texte et images des messages, dans un fichier séparé.</string>
+    <string name="settings_f_restore_title">Restaurer depuis ce fichier ?</string>
+    <string name="settings_f_restore_rules">Règles d\'autorisation : %1$d · Règles de blocage : %2$d. Les règles déjà présentes sont ignorées.</string>
+    <string name="settings_f_restore_forwards">Règles de transfert à ajouter : %1$d, désactivées. Activez-les dans Règles › Transfert.</string>
+    <string name="settings_f_restore_forwards_skipped">Règles de transfert ignorées : %1$d (déjà présentes ou sans numéro pouvant recevoir les messages).</string>
+    <string name="settings_f_restore_settings_changed">Paramètres qui seront modifiés : %1$s</string>
+    <string name="settings_f_restore_settings_none">Aucun paramètre ne sera modifié.</string>
+    <string name="settings_f_restore_action">Restaurer</string>
+    <string name="settings_f_restore_done">Règles ajoutées : %1$d · Règles de transfert ajoutées : %2$d. Les règles de transfert restent désactivées jusqu\'à leur activation par vos soins.</string>
+    <string name="settings_f_restore_done_rules">Règles ajoutées : %1$d.</string>
+    <string name="settings_f_restore_done_title">Restauration terminée</string>
+    <string name="settings_f_label_codes">Codes d\'expéditeurs inconnus</string>
+    <string name="settings_f_list_separator">", "</string>
+    <string name="settings_f_group_display">Affichage</string>
+    <string name="settings_f_appearance">Apparence</string>
+    <string name="settings_f_language_system">Langue du système</string>
+    <string name="settings_f_group_rules">Règles et listes</string>
+    <string name="settings_f_spam_more">Conservation et alertes</string>
+    <string name="settings_f_spam_more_body">Durée de conservation des messages bloqués et alertes</string>
+    <string name="settings_f_hide_lock_codes_body">Les codes s\'affichent sous la forme •••• sur l\'écran de verrouillage</string>
+    <string name="settings_f_code_alert">Alerte de code</string>
+    <string name="settings_f_code_alert_body">Son des codes de validation</string>
+    <string name="settings_f_channel_codes">Codes de validation</string>
+    <string name="settings_f_channel_codes_desc">Messages contenant un code de validation</string>
+</resources>

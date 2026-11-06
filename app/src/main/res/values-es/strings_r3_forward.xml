@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3fwd_title">Reenvío</string>
+    <string name="r3fwd_options">Opciones de reenvío</string>
+    <string name="r3fwd_summary_none">Desactivado · Reenviar mensajes a otro número</string>
+    <string name="r3fwd_summary_off">Desactivado</string>
+    <string name="r3fwd_summary_paused">En pausa</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="one">%d regla activada</item>
+        <item quantity="other">%d reglas activadas</item>
+    </plurals>
+    <string name="r3fwd_paused_title">El reenvío está en pausa</string>
+    <string name="r3fwd_paused_body">Tus reglas están guardadas, pero no se reenviará nada hasta que vuelvas a activar el reenvío.</string>
+    <string name="r3fwd_paused_action">Abrir opciones</string>
+</resources>

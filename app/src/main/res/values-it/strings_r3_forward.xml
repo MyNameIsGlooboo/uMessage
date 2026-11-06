@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3fwd_title">Inoltro</string>
+    <string name="r3fwd_options">Opzioni di inoltro</string>
+    <string name="r3fwd_summary_none">Disattivato · Inoltra messaggi a un altro numero</string>
+    <string name="r3fwd_summary_off">Disattivato</string>
+    <string name="r3fwd_summary_paused">In pausa</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="one">%d regola attiva</item>
+        <item quantity="other">%d regole attive</item>
+    </plurals>
+    <string name="r3fwd_paused_title">L\'inoltro è in pausa</string>
+    <string name="r3fwd_paused_body">Le tue regole sono salvate, ma nessun messaggio verrà inoltrato finché non riattivi l\'inoltro.</string>
+    <string name="r3fwd_paused_action">Apri opzioni</string>
+</resources>

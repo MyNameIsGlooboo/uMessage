@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">Lire à voix haute</string>
+    <string name="read_aloud_stop">Arrêter la lecture</string>
+    <string name="read_aloud_no_voice">Aucune voix en %1$s n\'est installée sur ce téléphone</string>
+    <string name="read_aloud_install">Installer une voix</string>
+    <string name="read_aloud_install_missing">Ce téléphone ne permet pas d\'installer de voix</string>
+    <string name="read_aloud_failed">Impossible de lire le message à voix haute</string>
+</resources>

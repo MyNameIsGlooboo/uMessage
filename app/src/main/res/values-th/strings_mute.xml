@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">ปิดเสียง</string>
+    <string name="unmute_menu">เปิดเสียง</string>
+    <string name="mute_title">ปิดเสียงการแจ้งเตือน</string>
+    <string name="mute_1_hour">เป็นเวลา 1 ชั่วโมง</string>
+    <string name="mute_8_hours">เป็นเวลา 8 ชั่วโมง</string>
+    <string name="mute_1_week">เป็นเวลา 1 สัปดาห์</string>
+    <string name="mute_always">ตลอดเวลา</string>
+    <string name="mute_off">ปิด</string>
+    <string name="mute_until">จนถึง %1$s</string>
+    <string name="mute_channel">การสนทนาที่ปิดเสียง</string>
+</resources>

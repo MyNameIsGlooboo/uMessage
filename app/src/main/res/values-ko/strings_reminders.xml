@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">다시 알림</string>
+    <string name="reminder_dialog_title">다시 알림</string>
+    <string name="reminder_in_3_hours">3시간 후</string>
+    <string name="reminder_tomorrow_morning">내일 아침</string>
+    <string name="reminder_pick_time">날짜 및 시간 선택</string>
+    <string name="reminder_set">다시 알림을 설정했어요. 알림 시간: %1$s</string>
+    <string name="reminder_set_approximate">%1$s 무렵으로 다시 알림을 설정했어요. 알림이 조금 늦게 올 수 있어요.</string>
+    <string name="reminder_battery_hint">일부 휴대전화에서는 백그라운드 앱을 중지해 다시 알림이 늦게 올 수 있어요.</string>
+    <string name="reminder_battery_open">uMessage 계속 실행</string>
+    <string name="reminder_channel">다시 알림</string>
+    <string name="reminder_title">다시 알림</string>
+    <string name="reminder_title_named">다시 알림: %1$s</string>
+    <string name="reminder_open_hint">누르면 메시지가 열려요.</string>
+</resources>

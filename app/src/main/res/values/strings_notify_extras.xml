@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- I50: wake the screen -->
+    <string name="wake_screen_title">Wake the screen</string>
+    <string name="wake_screen_summary">Turns the screen on for a new message</string>
+    <!-- I53: chat bubbles -->
+    <string name="bubbles_title">Chat bubbles</string>
+    <string name="bubbles_summary">Shows chats as floating bubbles</string>
+    <string name="bubbles_locked">Not available while the app lock is on</string>
+    <!-- I27: Xiaomi Focus notification -->
+    <string name="focus_codes_title">Codes in live notification</string>
+    <string name="focus_codes_summary">Shows codes in Xiaomi\'s live notification</string>
+</resources>

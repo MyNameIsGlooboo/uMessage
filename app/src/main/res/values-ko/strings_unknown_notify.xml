@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unotify_title">받은 메시지함의 알 수 없는 발신자</string>
+    <string name="unotify_notify">알림 받기</string>
+    <string name="unotify_silent">조용히 알림 받기</string>
+    <string name="unotify_none">알림 없음</string>
+    <string name="unotify_summary">메시지는 받은 메시지함에 계속 도착해요.</string>
+    <string name="unotify_channel_silent">알 수 없는 발신자(무음)</string>
+</resources>

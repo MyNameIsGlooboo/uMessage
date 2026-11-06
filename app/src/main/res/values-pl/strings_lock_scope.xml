@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_scope_title">Co zablokować</string>
+    <string name="lock_scope_whole">Całą aplikację</string>
+    <string name="lock_scope_chosen">Tylko wybrane części</string>
+    <string name="lock_scope_chosen_long">Tylko wybrane części: karta Zablokowane i ukryte rozmowy</string>
+    <string name="lock_scope_blocked_title">Zablokowane wiadomości są chronione blokadą</string>
+    <string name="lock_scope_blocked_body">Odblokuj, aby je zobaczyć.</string>
+    <string name="lock_scope_unlock">Odblokuj</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">指定時刻に正確に送信しますか？</string>
+    <string name="schedule_exact_alarm_text">送信予約したメッセージを指定時刻に正確に送信するには、システム設定でuMessageの「アラームとリマインダー」を許可してください。許可しなくても送信されますが、遅れる場合があります。</string>
+    <string name="schedule_exact_alarm_open_settings">設定を開く</string>
+    <string name="schedule_exact_alarm_anyway">そのまま送信予約</string>
+</resources>

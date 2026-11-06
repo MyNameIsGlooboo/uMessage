@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="dialogs_yes">Так</string>
+    <string name="dialogs_no">Ні</string>
+    <string name="dialogs_permission_required">Потрібен дозвіл</string>
+    <string name="dialogs_grant_permission">Надати дозвіл</string>
+    <string name="dialogs_date_time_format_title">Формат дати й часу</string>
+    <string name="dialogs_use_24_hour">24-годинний формат часу</string>
+    <string name="dialogs_lock_pattern">Графічний ключ</string>
+    <string name="dialogs_lock_pin">PIN</string>
+    <string name="dialogs_lock_biometrics">Біометрія</string>
+    <string name="dialogs_lock_fingerprint">Відбиток пальця</string>
+    <string name="dialogs_lock_enter_pin">Введіть PIN</string>
+    <string name="dialogs_lock_repeat_pin">Повторіть PIN</string>
+    <string name="dialogs_lock_wrong_pin">Неправильний PIN</string>
+    <string name="dialogs_lock_empty_pin">Введіть PIN</string>
+    <string name="dialogs_lock_short_pin">PIN має містити щонайменше 4 цифри</string>
+    <string name="dialogs_lock_pin_suggestion">Щонайменше 4 цифри. %d або більше — безпечніше.</string>
+    <plurals name="dialogs_lock_short_pattern" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Закороткий ключ. З’єднайте щонайменше %d точку.</item>
+        <item quantity="few">Закороткий ключ. З’єднайте щонайменше %d точки.</item>
+        <item quantity="many">Закороткий ключ. З’єднайте щонайменше %d точок.</item>
+        <item quantity="other">Закороткий ключ. З’єднайте щонайменше %d точки.</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">Намалюйте графічний ключ</string>
+    <string name="dialogs_lock_repeat_pattern">Повторіть графічний ключ</string>
+    <string name="dialogs_lock_wrong_pattern">Неправильний графічний ключ</string>
+    <string name="dialogs_lock_locked_out">Забагато невдалих спроб розблокування.\nПовторіть спробу через %d с.</string>
+    <string name="dialogs_lock_pin_delete">Видалити останню цифру</string>
+    <string name="dialogs_lock_pin_confirm">Підтвердити PIN</string>
+    <string name="dialogs_lock_pin_entered">Введено цифр: %d</string>
+    <string name="dialogs_lock_pattern_pad">Поле графічного ключа</string>
+    <string name="dialogs_lock_biometric_hint">Підтвердьте особу за відбитком пальця або обличчям.</string>
+    <string name="dialogs_lock_biometric_open">Підтвердити за допомогою біометрії</string>
+    <string name="dialogs_lock_place_finger">Прикладіть палець до сканера відбитків.</string>
+    <string name="dialogs_lock_no_fingerprints">Немає збережених відбитків пальців. Додайте відбиток у налаштуваннях пристрою.</string>
+    <string name="dialogs_lock_open_settings">Відкрити налаштування пристрою</string>
+    <string name="dialogs_lock_auth_failed">Не вдалося підтвердити особу</string>
+    <string name="dialogs_lock_auth_blocked">Підтвердження особи заблоковано. Спробуйте трохи згодом</string>
+</resources>

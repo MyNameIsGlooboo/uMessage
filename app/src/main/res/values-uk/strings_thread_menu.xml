@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_menu_more">Ще…</string>
+    <string name="thread_menu_group_share">Поділитися та експортувати</string>
+    <string name="thread_menu_group_organize">Упорядкувати</string>
+    <string name="thread_menu_group_sender">Відправник</string>
+    <string name="thread_labels_chips_description">Мітки: %1$s. Натисніть, щоб змінити.</string>
+    <string name="thread_labels_more_chip">+%1$d</string>
+</resources>

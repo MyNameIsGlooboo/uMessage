@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_channel">สำรองข้อมูลและกู้คืน</string>
+    <string name="backup_restoring">กำลังกู้คืนข้อความ</string>
+    <string name="backup_exporting">กำลังสำรองข้อมูลข้อความ</string>
+    <plurals name="backup_progress_import">
+        <item quantity="other">อ่านแล้ว %1$d รายการ</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="other">อ่านแล้ว %1$d รายการ (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="other">บันทึกแล้ว %1$d ข้อความ</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="other">บันทึกแล้ว %1$d ข้อความ (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">ออกจากแอปได้ งานจะดำเนินต่อและแสดงความคืบหน้าในการแจ้งเตือน</string>
+    <string name="backup_stop">หยุด</string>
+    <string name="backup_hide">ซ่อน</string>
+    <string name="backup_already_running">กำลังสำรองข้อมูลหรือกู้คืนอยู่แล้ว</string>
+    <string name="backup_restore_finished">กู้คืนเสร็จแล้ว</string>
+    <string name="backup_restore_stopped">หยุดการกู้คืนแล้ว</string>
+    <string name="backup_restore_failed">กู้คืนไม่สำเร็จ</string>
+    <string name="backup_invalid_file">ไฟล์นี้ไม่ใช่ไฟล์สำรองข้อมูลข้อความ จึงไม่ได้กู้คืนข้อมูลใด</string>
+    <string name="backup_no_entries">ไฟล์สำรองข้อมูลไม่มีข้อความ</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="other">ไม่มีข้อความใหม่ให้นำเข้า ข้อความทั้ง %1$d ข้อความอยู่ในโทรศัพท์นี้แล้ว</item>
+    </plurals>
+    <string name="backup_line_added">เพิ่มแล้ว: %1$d</string>
+    <string name="backup_line_duplicates">มีในโทรศัพท์นี้แล้ว ข้ามไป: %1$d</string>
+    <string name="backup_line_repaired">เพิ่มไฟล์แนบที่ขาดให้ข้อความที่กู้คืนไว้ก่อนแล้ว: %1$d</string>
+    <string name="backup_line_incomplete">ข้อความรูปภาพที่กู้คืนโดยไม่มีไฟล์แนบบางส่วน: %1$d</string>
+    <string name="backup_line_failed">กู้คืนไม่ได้: %1$d</string>
+    <string name="backup_line_damaged">รายการในไฟล์เสียหาย ข้ามไป: %1$d</string>
+    <string name="backup_line_xml_mms">ข้อความรูปภาพในไฟล์สำรองข้อมูล XML นี้ไม่รองรับ ข้ามไป: %1$d</string>
+    <string name="backup_line_not_selected">ไม่ได้เลือกให้นำเข้า: %1$d</string>
+    <string name="backup_reasons">สาเหตุ:</string>
+    <string name="backup_reason_no_address">ข้อความไม่มีผู้ส่งหรือผู้รับ</string>
+    <string name="backup_reason_no_thread">โทรศัพท์เปิดการสนทนาของข้อความนี้ไม่ได้</string>
+    <string name="backup_reason_refused">โทรศัพท์ปฏิเสธการบันทึกข้อความ</string>
+    <string name="backup_reason_not_in_backup">ไม่มีไฟล์แนบในไฟล์สำรองข้อมูล</string>
+    <string name="backup_reason_damaged_attachment">ไฟล์แนบในไฟล์สำรองข้อมูลเสียหาย</string>
+    <string name="backup_reason_attachment_write">บันทึกไฟล์แนบไม่ได้</string>
+    <string name="backup_stopped_early">ไฟล์เสียหายหลังรายการที่ %1$d จึงอ่านรายการหลังจากนั้นไม่ได้</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="other">หยุดหลังประมวลผล %1$d รายการ กู้คืนอีกครั้งด้วยไฟล์เดิมเพื่อให้เสร็จ โดยจะข้ามข้อความที่กู้คืนแล้ว</item>
+    </plurals>
+    <string name="backup_retry_hint">กู้คืนอีกครั้งเพื่อลองรายการที่ไม่สำเร็จ โดยจะข้ามข้อความที่กู้คืนแล้ว</string>
+    <string name="backup_export_finished">สำรองข้อมูลเสร็จแล้ว</string>
+    <string name="backup_export_stopped">หยุดการสำรองข้อมูลแล้ว</string>
+    <string name="backup_export_failed">สำรองข้อมูลไม่สำเร็จ</string>
+    <string name="backup_export_error">เขียนไฟล์สำรองข้อมูลไม่ได้ และลบไฟล์ที่ไม่สมบูรณ์แล้ว %1$s</string>
+    <string name="backup_export_cancelled">หยุดการสำรองข้อมูลและลบไฟล์ที่ไม่สมบูรณ์แล้ว</string>
+    <string name="backup_export_nothing">ไม่มีข้อความให้สำรองข้อมูล</string>
+    <string name="backup_export_counts">บันทึก SMS %1$d ข้อความ และ MMS %2$d ข้อความแล้ว</string>
+    <string name="backup_export_unreadable_attachments">ไฟล์แนบที่อ่านไม่ได้ บันทึกโดยไม่มีรูปภาพ: %1$d</string>
+    <string name="backup_export_unreadable_messages">ข้อความที่อ่านไม่ได้ ไม่นำมารวม: %1$d</string>
+    <string name="backup_export_unreadable_conversations">การสนทนาที่อ่านไม่ได้ ไม่นำมารวม: %1$d</string>
+    <string name="backup_export_incomplete">ข้อมูลสำรองนี้ไม่สมบูรณ์</string>
+    <string name="backup_interrupted_import">การกู้คืนครั้งล่าสุดหยุดก่อนเสร็จ อาจเป็นเพราะโทรศัพท์ปิดแอป กู้คืนอีกครั้งด้วยไฟล์เดิม โดยจะข้ามข้อความที่กู้คืนแล้ว</string>
+    <string name="backup_interrupted_export">การสำรองข้อมูลครั้งล่าสุดหยุดก่อนเสร็จ ไฟล์จึงไม่สมบูรณ์ โปรดสำรองข้อมูลใหม่</string>
+</resources>

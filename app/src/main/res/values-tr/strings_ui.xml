@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_time_now">Şimdi</string>
+    <plurals name="ui_time_minutes">
+        <item quantity="one">%d dk</item>
+        <item quantity="other">%d dk</item>
+    </plurals>
+    <string name="ui_bubble_sent">Siz, %1$s</string>
+    <string name="ui_bubble_received">%1$s, %2$s</string>
+    <string name="ui_bubble_received_unknown">Alındı, %1$s</string>
+    <string name="ui_select_message">Mesaj seçin</string>
+    <string name="ui_retry_send">Göndermeyi tekrar deneyin</string>
+    <string name="ui_default_required_body">uMessage, varsayılan SMS uygulamanız olana kadar mesaj alamaz, gönderemez veya filtreleyemez. Mesajlarınız olduğu yerde kalır.</string>
+    <string name="ui_default_required_close">uMessage uygulamasını kapatın</string>
+    <string name="ui_add_contact_or_number">Ad veya telefon numarası yazın</string>
+    <string name="ui_show_dialpad">Arama tuşlarını gösterin</string>
+    <string name="ui_show_keyboard">Klavyeyi gösterin</string>
+    <string name="ui_settings_group_block_lists">Diğer engellenenler listeleri</string>
+    <string name="ui_settings_system_block_list">Sistemin engellenenler listesi</string>
+    <string name="ui_settings_system_block_list_body">Bu telefondaki tüm uygulamalarda engellenen numaralar. uMessage da bunları gizler.</string>
+    <string name="ui_settings_blocked_words">Engellenen kelimeler</string>
+    <string name="ui_settings_character_counter">Karakter sayacını gösterin</string>
+    <string name="ui_settings_simple_characters">Gönderirken aksan işaretlerini kaldırın</string>
+    <string name="ui_settings_send_on_enter">Enter tuşuyla gönderin</string>
+    <string name="ui_settings_delivery_reports">İletim raporları alın</string>
+    <string name="ui_settings_recycle_bin">Silinen görüşmeleri çöp kutusuna taşıyın</string>
+    <string name="ui_two_sentences">%1$s. %2$s</string>
+    <string name="ui_tab_with_count">%1$s (%2$d)</string>
+    <string name="ui_send_with_sim">%1$s, %2$s</string>
+    <string name="ui_number_with_type">%1$s (%2$s)</string>
+    <string name="ui_log_decision_allowed">İzin verildi</string>
+    <string name="ui_log_decision_blocked">Engellendi</string>
+    <string name="ui_log_decision_error">Hata</string>
+    <string name="ui_log_reason_allow_rule">İzin verme kuralı</string>
+    <string name="ui_log_reason_block_rule">Engelleme kuralı</string>
+    <string name="ui_log_reason_contact">Kişilerde kayıtlı</string>
+    <string name="ui_log_reason_known_conversation">Daha önce mesaj gönderdiniz</string>
+    <string name="ui_log_reason_otp">Doğrulama kodu</string>
+    <string name="ui_log_reason_unknown_sender">Bilinmeyen gönderen</string>
+    <string name="ui_log_reason_mode_off">Filtreleme kapalı</string>
+    <string name="ui_log_reason_no_match">Eşleşen kural yok</string>
+    <string name="ui_log_source_sms">SMS</string>
+    <string name="ui_log_source_mms">MMS</string>
+    <string name="ui_log_source_retry">Tekrar denendi</string>
+</resources>

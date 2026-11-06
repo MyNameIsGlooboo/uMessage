@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="cleanup_codes_title">पढ़े गए कोड कब मिटाएं</string>
+    <string name="cleanup_codes_summary">कोड रीसायकल बिन में चले जाएंगे</string>
+    <string name="cleanup_never">कभी नहीं</string>
+    <string name="cleanup_24_hours">24 घंटे</string>
+    <plurals name="cleanup_days" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d दिन</item>
+        <item quantity="other">%d दिन</item>
+    </plurals>
+    <string name="cleanup_card_title">पढ़े गए कोड 7 दिन बाद मिटाएं?</string>
+    <string name="cleanup_card_body">आपने पुष्टि करने के जो कोड पढ़ लिए हैं, वे रीसायकल बिन में चले जाएंगे, जहां से आप उन्हें वापस ला सकते हैं.</string>
+    <string name="cleanup_card_yes">चालू करें</string>
+    <string name="cleanup_card_no">नहीं, धन्यवाद</string>
+</resources>

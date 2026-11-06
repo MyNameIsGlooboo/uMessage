@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">判定记录</string>
+    <string name="declog_clear">清空记录</string>
+    <string name="declog_empty_title">暂无判定记录</string>
+    <string name="declog_empty_body">过滤器检查过的每条消息及其判定原因都会显示在这里。消息正文不会保存。</string>
+    <plurals name="declog_kept_for">
+        <item quantity="other">每条判定记录会在%d天后删除。消息正文不会保存。</item>
+    </plurals>
+    <string name="declog_sim">SIM%1$s</string>
+    <string name="declog_today">今天</string>
+    <string name="declog_yesterday">昨天</string>
+    <string name="declog_allowed_by_rule">已根据规则允许：%1$s</string>
+    <string name="declog_filter_all">全部</string>
+    <string name="declog_filter_blocked">已屏蔽</string>
+    <string name="declog_filter_allowed">已允许</string>
+    <string name="declog_filter_empty">没有符合此筛选条件的判定记录</string>
+    <plurals name="declog_times">
+        <item quantity="other">%1$s次</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="other">连续%1$s次作出相同判定</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="other">分享%d条判定记录</item>
+    </plurals>
+    <string name="declog_csv_subject">uMessage判定记录</string>
+    <string name="declog_share_failed">无法分享判定记录</string>
+    <string name="declog_details_title">判定详情</string>
+    <string name="declog_open_details">查看%1$s的详情</string>
+    <string name="declog_fixed_allowed">你已通过判定记录允许此发件人</string>
+    <string name="declog_fixed_blocked">你已通过判定记录屏蔽此发件人</string>
+    <string name="declog_fixed_restored">你已通过判定记录恢复此消息</string>
+    <string name="declog_restored">已恢复</string>
+    <string name="declog_blocked_message">消息仍在“已屏蔽”中</string>
+    <string name="declog_restore">恢复消息</string>
+    <string name="declog_restore_done">消息已恢复至收件箱</string>
+    <string name="declog_restore_text_only">文字已恢复至收件箱。图片无法恢复。</string>
+    <string name="declog_restore_nothing">无法恢复：此彩信未保留</string>
+    <string name="declog_restore_failed">无法恢复消息</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

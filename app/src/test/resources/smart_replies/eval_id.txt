@@ -1,0 +1,151 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|Halo!
+greeting|Hai semua
+greeting|Halo kak
+salam|Assalamualaikum
+salam|Assalamualaikum wr wb
+good_morning|Selamat pagi!
+good_morning|Pagi kak ☀️
+good_morning|Met pagi
+good_afternoon|Selamat siang
+good_afternoon|Selamat sore semua
+good_evening|Selamat malam
+good_evening|Malam kak
+good_night|Selamat tidur
+good_night|Mimpi indah 😴
+good_night|Aku tidur dulu ya
+good_night|Tidur nyenyak ya
+how_are_you|Apa kabar?
+how_are_you|Halo, apa kabar?
+how_are_you|Gimana kabarmu?
+how_are_you|Apa kabar kak
+how_are_you|Bagaimana kabarmu
+thanks|Terima kasih!
+thanks|Makasih ya
+thanks|Makasih banyak
+thanks|Terima kasih banyak 🙏
+thanks|Makasih infonya
+thanks|Thanks
+youre_welcome|Sama-sama
+youre_welcome|Tidak masalah
+youre_welcome|Santai aja
+youre_welcome|Gak apa-apa kok
+where_are_you|Kamu di mana?
+where_are_you|Lagi dimana
+where_are_you|Udah sampai mana?
+on_my_way|Otw
+on_my_way|Aku lagi di jalan
+on_my_way|Sebentar lagi sampai
+on_my_way|Aku berangkat sekarang
+on_my_way|Hampir sampai
+arrived|Aku sudah sampai
+arrived|Aku di depan
+arrived|Udah di bawah
+arrived|Aku di luar
+arrived_home|Aku sudah sampai rumah
+arrived_home|Udah di rumah
+arrived_home|Sudah pulang
+did_you_arrive|Sudah sampai belum?
+did_you_arrive|Kamu udah sampai rumah?
+did_you_arrive|Selamat sampai
+are_you_coming|Kamu datang nggak?
+are_you_coming|Kamu bisa datang besok?
+are_you_coming|Jadi ikut?
+call_me|Telepon aku
+call_me|Telpon aku ya
+call_me|Hubungi aku nanti
+call_me|Bisa telepon aku?
+can_you_talk|Bisa bicara sekarang?
+can_you_talk|Boleh telepon?
+can_you_talk|Ada waktu sebentar?
+are_you_free|Kamu senggang hari ini?
+are_you_free|Kamu free nggak?
+are_you_free|Kamu lagi sibuk besok?
+what_time|Jam berapa?
+what_time|Jam berapa kita ketemu?
+what_time|Kapan kita berangkat?
+where_to_meet|Ketemu di mana?
+where_to_meet|Kita ke mana?
+where_to_meet|Lokasinya di mana?
+ok_confirm|Oke
+ok_confirm|Siap
+ok_confirm|Sip
+ok_confirm|Baik, makasih
+ok_confirm|Noted
+ok_confirm|Mantap
+bye|Dadah
+bye|Sampai jumpa
+bye|Sampai besok
+bye|Hati-hati ya
+bye|Jaga diri
+congrats|Selamat ya!
+congrats|Selamat ulang tahun
+congrats|Selamat atas pekerjaan barumu
+congrats|Happy birthday
+holiday_eid|Selamat Idul Fitri
+holiday_eid|Minal aidin wal faizin
+holiday_new_year|Selamat tahun baru!
+holiday_christmas|Selamat Natal
+holiday_other|Selamat hari ibu
+holiday_other|Selamat hari kemerdekaan
+good_luck|Semoga berhasil
+good_luck|Semoga sukses ya
+good_luck|Semoga lancar besok
+good_luck|Good luck
+sorry_late|Maaf telat
+sorry_late|Maaf baru balas
+sorry_late|Maaf lama balasnya
+sorry_late|Maaf aku terlambat
+missed_call|Maaf nggak keangkat
+missed_call|Aku lihat panggilan tak terjawab
+missed_call|Maaf tidak terangkat
+NONE|Kamu datang kembali ke kantor besok?
+NONE|Siapa yang datang nanti malam?
+NONE|Aku tidak datang
+NONE|Kenapa kamu tidak membalas?
+NONE|Terima kasih, tapi aku sudah bayar lima puluh ribu
+NONE|Kode verifikasi kamu adalah 482913
+NONE|Kunjungi www.contoh.com untuk hadiah gratis
+NONE|Kamu mau pergi ke mana?
+NONE|Kamu berasal dari mana?
+NONE|Telepon aku besok pagi, aku perlu bahas kontrak dengan klien
+NONE|Sekarang jam berapa?
+NONE|Jam berapa kamu pulang kemarin?
+NONE|Halo?
+NONE|Oke?
+NONE|Boleh, tapi menurutku lebih baik tunggu sampai Senin
+NONE|Siap, aku jemput anak-anak dulu baru kita keluar
+NONE|Aku sedang menuju rumah sakit
+NONE|Aku sudah sampai rumah tapi listriknya mati, gimana ya?
+NONE|Turut berduka cita
+NONE|Maaf
+NONE|Selamat ulang tahun untuk adikku, hari ini dia berumur tiga puluh
+NONE|Jangan telepon aku lagi
+NONE|Bisa jemput aku?
+NONE|Kamu senggang untuk bantu aku pindahan hari Sabtu?
+NONE|Kamu di mana semalam?
+NONE|Gimana perasaanmu setelah operasi?
+NONE|Makasih sudah bantu soal pinjaman
+NONE|Kamu boleh ikut kapan saja
+NONE|Bisa kembali nanti?
+NONE|Semua orang datang?
+NONE|Aku tidak yakin bisa datang besok
+NONE|Kamu lagi ngapain malam ini?
+NONE|Halo Sari, apa kabar?
+NONE|Tolong transfer 500 ribu ke rekeningku
+NONE|Ibu masuk rumah sakit, telepon aku
+NONE|Selamat malam semuanya, terima kasih untuk malam yang indah
+NONE|Hola, necesito hablar contigo mañana por la mañana
+NONE|Bonjour, je voudrais réserver une table pour demain soir
+NONE|Guten Morgen, wie geht es dir?
+NONE|Ciao, ci vediamo domani alla stazione alle nove
+NONE|Makasih nggak jadi
+NONE|Keren!
+NONE|😂😂
+NONE|Hehe terserah kamu aja
+NONE|Paham, aku kirim filenya besok pagi
+NONE|Selamat, kamu memenangkan hadiah! Balas YA untuk klaim
+NONE|Sori
+NONE|Kamu datang dan jam berapa aku harus bawa mobil?
+NONE|Kapan kamu pulang ke rumah?

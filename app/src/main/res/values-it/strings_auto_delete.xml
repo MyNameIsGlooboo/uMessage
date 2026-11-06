@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">Conserva i messaggi per</string>
+    <string name="cleanup_old_summary">I più vecchi vengono spostati nel cestino</string>
+    <string name="cleanup_forever">Sempre</string>
+    <string name="cleanup_one_year">1 anno</string>
+    <string name="cleanup_bin_title">Attivare il cestino?</string>
+    <string name="cleanup_bin_body">I messaggi eliminati restano lì per 30 giorni, così puoi ripristinarli. Il cestino serve per la pulizia automatica.</string>
+    <string name="cleanup_bin_confirm">Attiva</string>
+    <string name="cleanup_old_confirm_title">Spostare i vecchi messaggi?</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="one">%d messaggio è più vecchio del periodo scelto e verrà spostato nel cestino ora. I messaggi speciali e da leggere e le conversazioni fissate restano.</item>
+        <item quantity="other">%d messaggi sono più vecchi del periodo scelto e verranno spostati nel cestino ora. I messaggi speciali e da leggere e le conversazioni fissate restano.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">Nessun messaggio è ancora così vecchio. I più vecchi verranno spostati automaticamente nel cestino. I messaggi speciali e da leggere e le conversazioni fissate restano.</string>
+    <string name="cleanup_old_confirm_action">Sposta</string>
+</resources>

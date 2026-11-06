@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_purge_question">ब्लॉक किए गए मैसेज कितने समय तक रखें?</string>
+    <string name="onb_done_summary_purge">ब्लॉक किए गए मैसेज रखें</string>
+</resources>

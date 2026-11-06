@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- U06: why a message sits in Blocked, above each bubble of the sender thread. -->
+    <string name="ux8c_held_unknown">Held: unknown sender</string>
+    <string name="ux8c_held_unknown_link">Held: unknown sender, has a link</string>
+    <string name="ux8c_held_foreign">Held: number from another country</string>
+    <string name="ux8c_held_rule">Held by your rule</string>
+    <string name="ux8c_held_other">Held by the filter</string>
+    <!-- U06: the thread's buttons. -->
+    <string name="ux8c_not_spam">Not spam</string>
+    <string name="ux8c_delete">Delete</string>
+    <!-- U18: one-time tip above the Blocked list. -->
+    <string name="ux8c_tip">Swipe a sender to move it to your inbox. Touch and hold to select.</string>
+    <string name="ux8c_tip_dismiss">Got it</string>
+    <!-- U15: one choice for what happens to a sender's texts. -->
+    <string name="ux8c_sender_title">This sender</string>
+    <string name="ux8c_sender_normal">Normal</string>
+    <string name="ux8c_sender_allow">Always allow</string>
+    <string name="ux8c_sender_block">Block</string>
+</resources>

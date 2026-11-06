@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">Maschera i codici nei messaggi inoltrati</string>
+    <string name="w3d_mask_codes_body">I codici inoltrati appaiono come ****</string>
+    <string name="w3d_mask_keep_last">Mantieni le ultime due cifre</string>
+    <string name="w3d_mask_keep_last_on">Nei messaggi inoltrati appare ad esempio **34.</string>
+    <string name="w3d_mask_keep_last_off">Nei messaggi inoltrati il codice è nascosto per intero.</string>
+    <string name="w3d_daily_limit">Limite giornaliero di inoltri</string>
+    <string name="w3d_daily_limit_body">Numero massimo di inoltri al giorno</string>
+    <string name="w3d_hide_lock_codes">Nascondi i codici nella schermata di blocco</string>
+    <string name="w3d_hide_lock_codes_body">Un messaggio con un codice mostra •••• nella schermata di blocco finché non sblocchi il telefono.</string>
+</resources>

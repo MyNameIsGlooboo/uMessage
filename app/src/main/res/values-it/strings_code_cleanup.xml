@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_codes_title">Elimina i codici letti dopo</string>
+    <string name="cleanup_codes_summary">I codici vengono spostati nel cestino</string>
+    <string name="cleanup_never">Mai</string>
+    <string name="cleanup_24_hours">24 ore</string>
+    <plurals name="cleanup_days">
+        <item quantity="one">%d giorno</item>
+        <item quantity="other">%d giorni</item>
+    </plurals>
+    <string name="cleanup_card_title">Eliminare i codici letti dopo 7 giorni?</string>
+    <string name="cleanup_card_body">I codici di verifica che hai letto vengono spostati nel cestino, da cui puoi recuperarli.</string>
+    <string name="cleanup_card_yes">Attiva</string>
+    <string name="cleanup_card_no">No, grazie</string>
+</resources>

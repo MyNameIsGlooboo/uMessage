@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3fwd_title">İletme</string>
+    <string name="r3fwd_options">İletme seçenekleri</string>
+    <string name="r3fwd_summary_none">Kapalı · Mesajları başka bir numaraya iletin</string>
+    <string name="r3fwd_summary_off">Kapalı</string>
+    <string name="r3fwd_summary_paused">Duraklatıldı</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="one">%d kural etkin</item>
+        <item quantity="other">%d kural etkin</item>
+    </plurals>
+    <string name="r3fwd_paused_title">İletme duraklatıldı</string>
+    <string name="r3fwd_paused_body">Kurallarınız kayıtlı, ancak iletmeyi yeniden açana kadar hiçbir mesaj iletilmez.</string>
+    <string name="r3fwd_paused_action">Seçenekleri açın</string>
+</resources>

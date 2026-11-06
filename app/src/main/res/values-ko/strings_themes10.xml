@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">슬레이트</string>
+    <string name="preset_slate_desc">차분한 청회색</string>
+    <string name="preset_firouzeh">피루제</string>
+    <string name="preset_firouzeh_desc">금빛이 살짝 감도는 청록색</string>
+    <string name="preset_pomegranate">석류</string>
+    <string name="preset_pomegranate_desc">따뜻한 빨강과 짙은 초록</string>
+    <string name="preset_harbor">항구</string>
+    <string name="preset_harbor_desc">밤바다의 파랑과 부드러운 산호색</string>
+    <string name="preset_lavender">라벤더</string>
+    <string name="preset_lavender_desc">은은한 보라와 청록색</string>
+    <string name="preset_ink">잉크</string>
+    <string name="preset_ink_desc">검정에 가까운 색과 은빛, 금빛</string>
+    <string name="preset_contrast">대비</string>
+    <string name="preset_contrast_desc">흑백과 선명한 강조색</string>
+</resources>

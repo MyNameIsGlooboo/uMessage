@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_open_link_action">링크 열기</string>
+    <string name="notif_open_link_title">링크 열기 버튼</string>
+    <string name="notif_open_link_summary">연락처와 허용된 발신자의 알림에 표시</string>
+</resources>

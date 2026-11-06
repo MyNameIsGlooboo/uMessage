@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">Mit Stern markieren</string>
+    <string name="i13_unstar">Stern entfernen</string>
+    <string name="i13_starred_mark">Mit Stern markiert</string>
+    <string name="i13_filter_starred">Mit Stern markiert</string>
+    <string name="i13_filter_starred_empty_title">Keine Nachrichten mit Stern</string>
+    <string name="i13_filter_starred_empty_body">Wähle eine Nachricht in einer Unterhaltung aus und tippe auf den Stern, um sie hier zu speichern.</string>
+    <string name="i13_starred_note">Ein Stern speichert eine Kopie des Textes, auch wenn die Unterhaltung gelöscht wird. Entfernst du den Stern, wird die Kopie gelöscht.</string>
+    <string name="i13_snapshot_gone">Diese Unterhaltung wurde gelöscht. Nur der gespeicherte Text ist noch da.</string>
+    <string name="i13_snapshot_close">Schließen</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="digest_channel">Підсумки тижня</string>
+    <string name="digest_title">Підсумки тижня</string>
+    <string name="digest_row_title">Підсумки тижня</string>
+    <string name="digest_row_summary">Раз на тиждень: скільки повідомлень заблоковано</string>
+    <plurals name="digest_held" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Цього тижня заблоковано %d повідомлення. Натисніть, щоб переглянути.</item>
+        <item quantity="few">Цього тижня заблоковано %d повідомлення. Натисніть, щоб переглянути.</item>
+        <item quantity="many">Цього тижня заблоковано %d повідомлень. Натисніть, щоб переглянути.</item>
+        <item quantity="other">Цього тижня заблоковано %d повідомлення. Натисніть, щоб переглянути.</item>
+    </plurals>
+    <plurals name="digest_held_important" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Цього тижня заблоковано %1$d повідомлення. Із кодами чи банківськими сповіщеннями: %2$d.</item>
+        <item quantity="few">Цього тижня заблоковано %1$d повідомлення. Із кодами чи банківськими сповіщеннями: %2$d.</item>
+        <item quantity="many">Цього тижня заблоковано %1$d повідомлень. Із кодами чи банківськими сповіщеннями: %2$d.</item>
+        <item quantity="other">Цього тижня заблоковано %1$d повідомлення. Із кодами чи банківськими сповіщеннями: %2$d.</item>
+    </plurals>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">Alertas, pantalla de bloqueo, resumen semanal</string>
+    <string name="ux8e_nav_typing">Escritura y envío</string>
+    <string name="ux8e_nav_typing_body">Tecla Intro, informes de entrega, firma</string>
+    <string name="ux8e_nav_storage">Almacenamiento y limpieza</string>
+    <string name="ux8e_nav_storage_body">Papelera, archivar, eliminación automática</string>
+    <string name="ux8e_group_lock_screen">Pantalla de bloqueo</string>
+    <string name="ux8e_group_recycle">Mensajes eliminados</string>
+    <string name="ux8e_group_cleanup">Limpieza automática</string>
+    <string name="ux8e_group_archive">Archivar</string>
+    <string name="ux8e_keep_deleted">Conservar mensajes eliminados</string>
+    <string name="ux8e_keep_deleted_body">Permanecen en la papelera durante 30 días</string>
+    <string name="ux8e_recycle_bin">Papelera</string>
+    <string name="ux8e_backup_row">Crear copia de seguridad</string>
+    <string name="ux8e_backup_row_body">Guardar en un archivo</string>
+    <string name="ux8e_restore_row">Restaurar</string>
+    <string name="ux8e_restore_row_body">Cargar desde un archivo</string>
+    <string name="ux8e_backup_what">¿De qué quieres hacer una copia de seguridad?</string>
+    <string name="ux8e_restore_what">¿Qué quieres restaurar?</string>
+    <string name="ux8e_what_messages">Mensajes</string>
+    <string name="ux8e_what_settings">Reglas y configuración</string>
+    <string name="ux8e_backup_warning">Los archivos de copia de seguridad no están cifrados.</string>
+    <string name="ux8e_calendar">Calendario</string>
+</resources>

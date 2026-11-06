@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">메시지 보관 기간</string>
+    <string name="cleanup_old_summary">기간이 지난 메시지는 휴지통으로 이동해요.</string>
+    <string name="cleanup_forever">계속 보관</string>
+    <string name="cleanup_one_year">1년</string>
+    <string name="cleanup_bin_title">휴지통을 사용할까요?</string>
+    <string name="cleanup_bin_body">삭제한 메시지는 휴지통에 30일 동안 보관되어 복원할 수 있어요. 자동 정리를 사용하려면 휴지통이 필요해요.</string>
+    <string name="cleanup_bin_confirm">켜기</string>
+    <string name="cleanup_old_confirm_title">오래된 메시지를 이동할까요?</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="other">보관 기간이 지난 메시지 %d건이 지금 휴지통으로 이동해요. 별표 표시한 메시지, 읽지 않은 메시지, 고정한 대화는 그대로 유지돼요.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">아직 보관 기간이 지난 메시지가 없어요. 기간이 지나면 자동으로 휴지통으로 이동해요. 별표 표시한 메시지, 읽지 않은 메시지, 고정한 대화는 그대로 유지돼요.</string>
+    <string name="cleanup_old_confirm_action">이동</string>
+</resources>

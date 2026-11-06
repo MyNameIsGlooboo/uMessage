@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">หินชนวน</string>
+    <string name="preset_slate_desc">สีฟ้าเทาโทนสงบ</string>
+    <string name="preset_firouzeh">ฟิรูเซห์</string>
+    <string name="preset_firouzeh_desc">สีเทอร์ควอยซ์แต้มสีทอง</string>
+    <string name="preset_pomegranate">ทับทิม</string>
+    <string name="preset_pomegranate_desc">สีแดงอบอุ่นคู่สีเขียวเข้ม</string>
+    <string name="preset_harbor">ท่าเรือ</string>
+    <string name="preset_harbor_desc">สีน้ำเงินยามค่ำคู่สีคอรัลอ่อน</string>
+    <string name="preset_lavender">ลาเวนเดอร์</string>
+    <string name="preset_lavender_desc">สีม่วงอ่อนคู่สีเขียวอมฟ้า</string>
+    <string name="preset_ink">หมึก</string>
+    <string name="preset_ink_desc">สีเกือบดำคู่สีเงินและสีทอง</string>
+    <string name="preset_contrast">คอนทราสต์</string>
+    <string name="preset_contrast_desc">สีดำและสีขาวแต้มสีสด</string>
+</resources>

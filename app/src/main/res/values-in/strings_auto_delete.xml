@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">Simpan pesan selama</string>
+    <string name="cleanup_old_summary">Pesan yang lebih lama dipindahkan ke sampah</string>
+    <string name="cleanup_forever">Selamanya</string>
+    <string name="cleanup_one_year">1 tahun</string>
+    <string name="cleanup_bin_title">Aktifkan sampah?</string>
+    <string name="cleanup_bin_body">Pesan yang dihapus disimpan di sana selama 30 hari agar dapat dipulihkan. Fitur ini diperlukan untuk pembersihan otomatis.</string>
+    <string name="cleanup_bin_confirm">Aktifkan</string>
+    <string name="cleanup_old_confirm_title">Pindahkan pesan lama?</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="other">%d pesan lebih lama dari batas tersebut dan akan dipindahkan ke sampah sekarang. Pesan berbintang, pesan yang belum dibaca, dan percakapan yang disematkan tetap disimpan.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">Belum ada pesan yang selama itu. Pesan yang lebih lama akan dipindahkan ke sampah secara otomatis. Pesan berbintang, pesan yang belum dibaca, dan percakapan yang disematkan tetap disimpan.</string>
+    <string name="cleanup_old_confirm_action">Pindahkan</string>
+</resources>

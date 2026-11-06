@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">Peringatan, layar kunci, ringkasan mingguan</string>
+    <string name="ux8e_nav_typing">Mengetik dan mengirim</string>
+    <string name="ux8e_nav_typing_body">Tombol Enter, laporan pengiriman, tanda tangan</string>
+    <string name="ux8e_nav_storage">Penyimpanan dan pembersihan</string>
+    <string name="ux8e_nav_storage_body">Sampah, arsipkan, hapus otomatis</string>
+    <string name="ux8e_group_lock_screen">Layar kunci</string>
+    <string name="ux8e_group_recycle">Pesan yang dihapus</string>
+    <string name="ux8e_group_cleanup">Pembersihan otomatis</string>
+    <string name="ux8e_group_archive">Arsipkan</string>
+    <string name="ux8e_keep_deleted">Simpan pesan yang dihapus</string>
+    <string name="ux8e_keep_deleted_body">Pesan disimpan di sampah selama 30 hari</string>
+    <string name="ux8e_recycle_bin">Sampah</string>
+    <string name="ux8e_backup_row">Cadangkan</string>
+    <string name="ux8e_backup_row_body">Simpan ke file</string>
+    <string name="ux8e_restore_row">Pulihkan</string>
+    <string name="ux8e_restore_row_body">Muat dari file</string>
+    <string name="ux8e_backup_what">Apa yang ingin dicadangkan?</string>
+    <string name="ux8e_restore_what">Apa yang ingin dipulihkan?</string>
+    <string name="ux8e_what_messages">Pesan</string>
+    <string name="ux8e_what_settings">Aturan dan setelan</string>
+    <string name="ux8e_backup_warning">File pencadangan tidak dienkripsi.</string>
+    <string name="ux8e_calendar">Kalender</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">Répéter</string>
+    <string name="schedule_repeat_never">Jamais</string>
+    <string name="schedule_repeat_daily">Tous les jours</string>
+    <string name="schedule_repeat_weekly">Toutes les semaines</string>
+    <string name="schedule_repeat_monthly">Tous les mois</string>
+    <string name="schedule_repeat_yearly">Tous les ans</string>
+    <string name="schedule_repeat_jalali_note">Les mois et les années suivent le calendrier jalali.</string>
+    <string name="scheduled_repeats_daily">Répété tous les jours</string>
+    <string name="scheduled_repeats_weekly">Répété toutes les semaines</string>
+    <string name="scheduled_repeats_monthly">Répété tous les mois</string>
+    <string name="scheduled_repeats_yearly">Répété tous les ans</string>
+    <string name="scheduled_repeats_paused">Répétition en pause</string>
+    <string name="scheduled_delete_repeating">Supprimer un message récurrent</string>
+    <string name="scheduled_delete_this_one">Ce message uniquement</string>
+    <string name="scheduled_delete_all_future">Ce message et tous les suivants</string>
+</resources>

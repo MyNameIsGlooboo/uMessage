@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="cleanup_old_title">Conserver les messages pendant</string>
+    <string name="cleanup_old_summary">Les plus anciens sont déplacés dans la corbeille</string>
+    <string name="cleanup_forever">Toujours</string>
+    <string name="cleanup_one_year">1 an</string>
+    <string name="cleanup_bin_title">Activer la corbeille ?</string>
+    <string name="cleanup_bin_body">Les messages supprimés y restent 30 jours pour vous permettre de les restaurer. La corbeille est nécessaire au nettoyage automatique.</string>
+    <string name="cleanup_bin_confirm">Activer</string>
+    <string name="cleanup_old_confirm_title">Déplacer les anciens messages ?</string>
+    <plurals name="cleanup_old_confirm_body" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d message dépasse cette durée et sera déplacé dans la corbeille maintenant. Les messages favoris ou non lus et les conversations épinglées sont conservés.</item>
+        <item quantity="other">%d messages dépassent cette durée et seront déplacés dans la corbeille maintenant. Les messages favoris ou non lus et les conversations épinglées sont conservés.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">Aucun message n\'est encore aussi ancien. Les plus anciens seront automatiquement déplacés dans la corbeille. Les messages favoris ou non lus et les conversations épinglées sont conservés.</string>
+    <string name="cleanup_old_confirm_action">Déplacer</string>
+</resources>

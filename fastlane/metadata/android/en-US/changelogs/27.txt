@@ -1,0 +1,18 @@
+Added:
+
+• Bottom navigation: Messages, Blocked and Archived
+• New amber icon, new lock screen, emoji picker
+
+Changed:
+
+• Material 3 redesign
+• Conversation list loads about 10x faster; app opens straight to it
+• Smart is the default mode for new installs
+• Blocking settings open from the Blocked screen
+
+Fixed:
+
+• Threads stuck as unread on some phones
+• "Mark unread" on threads with only sent messages
+
+App data is no longer included in backups.

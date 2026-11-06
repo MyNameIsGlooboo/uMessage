@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">Firma</string>
+    <string name="i60_off">Disattivata</string>
+    <string name="i60_dialog_note">Aggiunta sotto ogni messaggio che invii. Lascia vuoto per non usarla.</string>
+</resources>

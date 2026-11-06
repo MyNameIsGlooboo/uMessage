@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">Zawsze zezwól</string>
+    <string name="ux8d_sheet_title_block">Zawsze zablokuj</string>
+    <string name="ux8d_match_label">Co dopasować</string>
+    <string name="ux8d_match_number">Numer telefonu</string>
+    <string name="ux8d_match_sender">Nazwa nadawcy, np. banku</string>
+    <string name="ux8d_match_word">Słowo w wiadomości</string>
+    <string name="ux8d_match_prefix">Numery zaczynające się od…</string>
+    <string name="ux8d_match_pattern">Wzorzec (zaawansowane)</string>
+    <string name="ux8d_match_more">Więcej sposobów dopasowania</string>
+    <string name="ux8d_action_label">Po dopasowaniu</string>
+    <string name="ux8d_more_options">Więcej opcji</string>
+    <string name="ux8d_row_type_number">Numer</string>
+    <string name="ux8d_row_type_prefix">Numer zaczyna się od</string>
+    <string name="ux8d_row_type_sender">Nazwa nadawcy</string>
+    <string name="ux8d_row_type_word">Słowo w wiadomości</string>
+    <string name="ux8d_row_type_pattern">Wzorzec</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

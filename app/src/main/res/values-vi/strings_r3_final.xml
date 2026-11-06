@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3f_spam_summary_stopped">Đã chặn %1$d</string>
+    <string name="r3f_spam_summary_restored">Đã khôi phục %1$d</string>
+    <string name="r3f_spam_summary_stopped_week">Đã chặn %1$d trong 7 ngày</string>
+    <string name="r3f_spam_summary_total">Tổng cộng %1$d</string>
+</resources>

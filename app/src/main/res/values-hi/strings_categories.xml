@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">लेन-देन</string>
+    <string name="i11_filter_transactions_empty_title">कोई लेन-देन नहीं</string>
+    <string name="i11_filter_transactions_empty_body">पैसे आने और जाने के बारे में आपके बैंक के मैसेज यहां दिखेंगे.</string>
+    <string name="i11_filter_offers">ऑफ़र</string>
+    <string name="i11_filter_offers_empty_title">कोई ऑफ़र नहीं</string>
+    <string name="i11_filter_offers_empty_body">दुकानों से मिलने वाली छूट और प्रचार के मैसेज यहां दिखेंगे.</string>
+</resources>

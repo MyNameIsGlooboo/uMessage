@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_format_json">ملف uMessage (نصوص وصور)</string>
+    <string name="export_format_xml">ملف SMS Backup &amp; Restore (لتطبيقات أخرى)</string>
+    <string name="export_format_xml_hint">يستعيد uMessage النصوص فقط من هذا النوع من الملفات.</string>
+    <string name="export_scope_all">كل المحادثات</string>
+    <string name="export_scope_choose">اختر المحادثات</string>
+    <plurals name="export_scope_chosen">
+        <item quantity="zero">%1$d محادثة مختارة</item>
+        <item quantity="one">محادثة واحدة مختارة (%1$d)</item>
+        <item quantity="two">محادثتان مختارتان (%1$d)</item>
+        <item quantity="few">%1$d محادثات مختارة</item>
+        <item quantity="many">%1$d محادثة مختارة</item>
+        <item quantity="other">%1$d محادثة مختارة</item>
+    </plurals>
+    <string name="export_pick_title">اختر المحادثات</string>
+    <string name="export_pick_search">ابحث</string>
+    <string name="export_pick_all">حدّد الكل</string>
+    <string name="export_pick_none">ألغِ التحديد</string>
+    <string name="export_pick_empty">لا توجد محادثات</string>
+    <string name="export_pick_nothing_chosen">اختر محادثة واحدة على الأقل</string>
+</resources>

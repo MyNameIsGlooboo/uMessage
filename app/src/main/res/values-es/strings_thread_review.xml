@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_review_details_decision">Decisión</string>
+    <string name="thread_review_details_decision_allowed">Permitido: entregado en tu bandeja de entrada</string>
+    <string name="thread_review_details_type">Tipo</string>
+    <string name="thread_review_details_type_sms">SMS</string>
+    <string name="thread_review_details_type_mms">MMS</string>
+    <string name="thread_review_sim_slot_name">SIM %1$d · %2$s</string>
+    <string name="thread_review_copy_code">Copiar código</string>
+    <string name="thread_review_copy_password">Copiar contraseña</string>
+    <string name="thread_review_copy_username">Copiar nombre de usuario</string>
+    <string name="thread_review_sim_label">SIM %1$s</string>
+    <string name="thread_review_sends_from">Se envía desde %1$s</string>
+    <string name="thread_review_reply_disabled">Este remitente no puede recibir respuestas</string>
+    <string name="thread_review_attach_camera">Cámara</string>
+    <string name="thread_review_attach_voice">Voz</string>
+    <string name="thread_review_schedule_in_hour">En 1 hora</string>
+    <string name="thread_review_schedule_evening">Esta tarde</string>
+    <string name="thread_review_schedule_tomorrow">Mañana a las 9:00</string>
+</resources>

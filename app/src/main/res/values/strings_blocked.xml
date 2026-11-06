@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- "Always allow?" after Not spam on the Blocked screen. The messages are restored either way. -->
+    <plurals name="spam_allow_title">
+        <item quantity="one">Always allow this sender?</item>
+        <item quantity="other">Always allow these %d senders?</item>
+    </plurals>
+    <!-- %1$s is the sender's number or name. -->
+    <string name="spam_allow_body_one">The message goes back to your inbox either way. If you always allow %1$s, their future messages skip every filter, including your block rules.</string>
+    <string name="spam_allow_body_many">The messages go back to your inbox either way. If you always allow these senders, their future messages skip every filter, including your block rules.</string>
+    <!-- %1$s lists sender names such as "BANK-X". -->
+    <string name="spam_allow_spoof_warning">Anyone can send a text under a name like %1$s. Allowing it also lets fake texts using that name through.</string>
+    <string name="spam_allow_confirm">Always allow</string>
+    <string name="spam_allow_dismiss">Not now</string>
+    <plurals name="spam_snack_restored_to_inbox">
+        <item quantity="one">%d message restored to the inbox</item>
+        <item quantity="other">%d messages restored to the inbox</item>
+    </plurals>
+    <plurals name="spam_snack_restored_allowed">
+        <item quantity="one">Restored. %d sender is now always allowed.</item>
+        <item quantity="other">Restored. %d senders are now always allowed.</item>
+    </plurals>
+    <!-- After Not spam when nothing could be put in the inbox, but the senders were allowed. -->
+    <plurals name="spam_snack_allowed_only">
+        <item quantity="one">%d sender is now always allowed.</item>
+        <item quantity="other">%d senders are now always allowed.</item>
+    </plurals>
+    <!-- Added after the restored text when some picture messages (MMS) came back without their pictures. -->
+    <plurals name="spam_snack_media_lost">
+        <item quantity="one">The picture could not be recovered for %d message.</item>
+        <item quantity="other">The pictures could not be recovered for %d messages.</item>
+    </plurals>
+    <!-- After Not spam when the picture messages had no text and their pictures were not downloaded. -->
+    <plurals name="spam_snack_media_lost_nothing">
+        <item quantity="one">The picture message could not be recovered, so nothing was added to the inbox.</item>
+        <item quantity="other">%d picture messages could not be recovered, so nothing was added to the inbox.</item>
+    </plurals>
+    <!-- A kept picture message could not be written to the inbox; it stays on the Blocked screen. -->
+    <plurals name="spam_snack_restore_failed">
+        <item quantity="one">%d picture message could not be restored. It is still here.</item>
+        <item quantity="other">%d picture messages could not be restored. They are still here.</item>
+    </plurals>
+
+    <!-- What is kept of a blocked picture message (MMS), shown on its row. -->
+    <string name="spam_mms_stored">Picture message</string>
+    <string name="spam_mms_downloading">Picture message, downloading</string>
+    <string name="spam_mms_missing">Picture message, not downloaded</string>
+    <string name="spam_mms_thumbnail">Picture in the blocked message</string>
+
+    <!-- Why a message was blocked (SU-22). %1$s is the rule's text. -->
+    <string name="spam_reason_rule_keyword">Rule: keyword \"%1$s\"</string>
+    <string name="spam_reason_rule_regex">Rule: pattern %1$s</string>
+    <string name="spam_reason_rule_number">Rule: number %1$s</string>
+    <string name="spam_reason_rule_prefix">Rule: numbers starting %1$s</string>
+    <string name="spam_reason_rule_sender">Rule: sender %1$s</string>
+    <string name="spam_reason_rule_removed">Rule since removed</string>
+    <string name="spam_reason_open_rules">Open rules</string>
+
+    <!-- Auto-delete of blocked messages (SU-23). -->
+    <plurals name="spam_purge_notice">
+        <item quantity="one">Blocked messages are deleted after %d day</item>
+        <item quantity="other">Blocked messages are deleted after %d days</item>
+    </plurals>
+    <string name="spam_purge_notice_off">Blocked messages are kept until you delete them</string>
+    <plurals name="spam_purge_left">
+        <item quantity="one">Deleted in %d day</item>
+        <item quantity="other">Deleted in %d days</item>
+    </plurals>
+    <string name="spam_purge_left_today">Deleted today</string>
+
+    <!-- "Report spam" in the conversation list selection (MC-37). -->
+    <string name="convlist_report_spam">Report spam</string>
+    <plurals name="convlist_reported_spam_archived">
+        <item quantity="one">Reported. New texts from this sender go to Blocked, and the chat is archived.</item>
+        <item quantity="other">%d chats reported. New texts from them go to Blocked, and the chats are archived.</item>
+    </plurals>
+    <plurals name="convlist_reported_spam">
+        <item quantity="one">Reported. New texts from this sender go to Blocked.</item>
+        <item quantity="other">%d chats reported. New texts from them go to Blocked.</item>
+    </plurals>
+
+    <!-- Blocked tab and screen, design review 2 (BR-*, P1-*). -->
+    <string name="blocked_title">Blocked</string>
+    <string name="blocked_menu_rules">Rules</string>
+    <!-- Group name for the mode selector: "Unknown senders: Smart, 2 of 3". -->
+    <string name="blocked_mode_group_cd">Unknown senders: %1$s, %2$d of %3$d</string>
+    <string name="blocked_mode_desc_strict">Strict: holds every unknown sender, verification codes too</string>
+    <string name="blocked_mode_desc_smart">Smart: holds unknown senders, but lets codes without a link through</string>
+    <string name="blocked_mode_desc_off">Off: unknown senders reach your inbox. Your rules still apply</string>
+    <!-- %1$s is the new mode name. -->
+    <string name="blocked_snack_mode">Unknown senders set to %1$s</string>
+    <string name="blocked_off_title">Stop holding unknown senders?</string>
+    <string name="blocked_off_body">Messages from unknown senders go straight to your inbox. Your rules still apply.</string>
+    <string name="blocked_off_confirm">Turn off</string>
+    <string name="blocked_stats_restored">%1$d restored by you</string>
+    <string name="blocked_reason_unknown_link">Unknown sender, with a link</string>
+    <string name="blocked_may_be_important">May be important</string>
+    <string name="blocked_action_move_inbox">Move to inbox</string>
+    <string name="blocked_swipe_not_spam">Swipe to move to inbox</string>
+</resources>

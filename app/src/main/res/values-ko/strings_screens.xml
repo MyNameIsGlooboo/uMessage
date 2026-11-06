@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screens_back">뒤로</string>
+    <string name="screens_ok">확인</string>
+    <string name="screens_cancel">취소</string>
+    <string name="screens_delete">삭제</string>
+    <string name="screens_clear_selection">선택 해제</string>
+    <plurals name="screens_selected_count">
+        <item quantity="other">%d개 선택됨</item>
+    </plurals>
+    <string name="screens_loading">불러오는 중…</string>
+    <string name="screens_more_options">옵션 더보기</string>
+    <string name="screens_select_all">전체 선택</string>
+    <string name="screens_copy">복사</string>
+    <string name="screens_grant_permission">접근 허용</string>
+    <string name="screens_delete_forever_title">영구 삭제할까요?</string>
+    <string name="screens_delete_conversations_message">%1$s 항목을 영구 삭제할까요? 실행 취소할 수 없어요.</string>
+    <string name="screens_restore_title">복원할까요?</string>
+    <string name="screens_empty_archive_title">보관함을 비울까요?</string>
+    <string name="screens_empty_bin_title">휴지통을 비울까요?</string>
+    <string name="screens_empty_action">비우기</string>
+    <string name="screens_archive_empty_title">보관된 항목이 없어요.</string>
+    <string name="screens_bin_empty_title">휴지통이 비어 있어요.</string>
+    <string name="screens_bin_empty_body">삭제한 메시지는 휴지통을 비울 때까지 여기에 보관돼요.</string>
+    <string name="screens_new_to_hint">받는 사람</string>
+    <string name="screens_new_start">대화 시작: %1$s</string>
+    <string name="screens_new_clear_input">지우기</string>
+    <string name="screens_new_no_matches">일치하는 연락처가 없어요. 화살표를 누르면 입력한 번호로 메시지를 보낼 수 있어요.</string>
+    <string name="screens_new_contacts">연락처</string>
+    <string name="screens_new_create_group">그룹 만들기</string>
+    <string name="screens_new_group_title">새 그룹</string>
+    <string name="screens_new_group_next">다음</string>
+    <string name="screens_new_group_add">%1$s 추가</string>
+    <string name="screens_new_group_remove">%1$s 제외</string>
+    <string name="screens_new_group_selected">선택됨</string>
+    <string name="screens_details_edit_name">대화 이름 수정</string>
+    <string name="screens_keywords_add">키워드 추가</string>
+    <string name="screens_keywords_menu_export">내보내기</string>
+    <string name="screens_keywords_menu_import">가져오기</string>
+    <string name="screens_keywords_edit">수정</string>
+    <string name="screens_keywords_duplicate">이미 목록에 있는 키워드예요.</string>
+    <string name="screens_keywords_help">메시지 어디에든 해당 문구가 있으면 일치해요. 긴 단어의 일부여도 일치하며, 대소문자는 구분하지 않아요.</string>
+    <string name="screens_keywords_empty_title">차단된 키워드가 없어요.</string>
+    <plurals name="screens_keywords_deleted">
+        <item quantity="other">키워드 %d개를 삭제했어요.</item>
+    </plurals>
+    <string name="screens_vcard_title">연락처</string>
+    <string name="screens_vcard_add_contact">연락처 추가</string>
+    <string name="screens_vcard_expand">상세 보기</string>
+    <string name="screens_vcard_collapse">상세 숨기기</string>
+    <string name="screens_vcard_empty">이 파일에 연락처가 없어요.</string>
+    <string name="screens_dialog_filename">파일 이름</string>
+    <string name="screens_schedule_date">날짜</string>
+    <string name="screens_schedule_time">시간</string>
+    <string name="screens_schedule_pick_time">시간 선택</string>
+    <string name="screens_schedule_next">다음</string>
+    <string name="screens_delete_skip_bin">휴지통을 거치지 않고 바로 삭제</string>
+    <string name="screens_select_text_title">텍스트 선택</string>
+</resources>

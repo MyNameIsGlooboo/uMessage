@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Language choice on the first onboarding screen -->
+    <string name="onb_lang_phone">Phone language</string>
+    <string name="lang_picker_cd">Language, %1$s</string>
+</resources>

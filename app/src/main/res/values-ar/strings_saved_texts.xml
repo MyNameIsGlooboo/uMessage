@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">نص محفوظ</string>
+    <string name="n06_sheet_title">النصوص المحفوظة</string>
+    <string name="n06_empty_hint">مثل عنوانك أو رقم بطاقتك. انقر على نص لإضافته إلى رسالتك.</string>
+    <string name="n06_add">أضف نصًا محفوظًا</string>
+    <string name="n06_edit">عدّل النص المحفوظ</string>
+    <string name="n06_title_label">العنوان (اختياري)</string>
+    <string name="n06_text_label">النص</string>
+    <string name="n06_save">احفظ</string>
+    <string name="n06_delete">احذف</string>
+    <string name="n06_private_tip">تُحفظ على هذا الهاتف فقط دون تشفير. لا تحفظ كلمات المرور أو أرقام التعريف الشخصي.</string>
+    <string name="n06_save_from_message">احفظ كنص محفوظ</string>
+    <string name="n06_saved_toast">تم الحفظ</string>
+    <string name="n06_save_full">القائمة ممتلئة. احذف نصًا أولًا.</string>
+    <string name="n06_save_duplicate">محفوظ مسبقًا</string>
+</resources>

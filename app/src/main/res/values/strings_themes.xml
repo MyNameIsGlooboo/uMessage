@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_intro">Choose how uMessage looks: a mode for light or dark, and the colors.</string>
+    <string name="preset_system">System</string>
+    <string name="preset_system_desc">Light or dark, to match your phone</string>
+    <string name="preset_light">Light</string>
+    <string name="preset_light_desc">Always light</string>
+    <string name="preset_dark">Dark</string>
+    <string name="preset_dark_desc">Always dark, easy on the eyes</string>
+    <string name="preset_amoled">Black</string>
+    <string name="preset_amoled_desc">Pure black for OLED screens</string>
+    <string name="preset_brand">Navy</string>
+    <string name="preset_brand_desc">Navy and gold, the classic uMessage look</string>
+    <string name="preset_coral">Coral</string>
+    <string name="preset_coral_desc">Coral and blue, from the app icon</string>
+    <string name="preset_sky">Sky</string>
+    <string name="preset_sky_desc">Soft blue and white</string>
+    <string name="preset_forest">Forest</string>
+    <string name="preset_forest_desc">Green with a yellow accent</string>
+    <string name="preset_sunset">Sunset</string>
+    <string name="preset_sunset_desc">Warm orange and cream</string>
+    <string name="preset_graphite">Amber</string>
+    <string name="preset_graphite_desc">Gray with amber</string>
+    <string name="preset_wallpaper">Wallpaper</string>
+    <string name="preset_wallpaper_desc">Colors taken from your wallpaper</string>
+</resources>

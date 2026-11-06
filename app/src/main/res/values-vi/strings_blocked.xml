@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_allow_title">
+        <item quantity="other">Luôn cho phép %d người gửi này?</item>
+    </plurals>
+    <string name="spam_allow_body_one">Dù bạn chọn cách nào, tin nhắn vẫn trở về hộp thư đến của bạn. Nếu bạn luôn cho phép %1$s, tin nhắn sau này của họ sẽ bỏ qua mọi bộ lọc, kể cả quy tắc chặn của bạn.</string>
+    <string name="spam_allow_body_many">Dù bạn chọn cách nào, tin nhắn vẫn trở về hộp thư đến của bạn. Nếu bạn luôn cho phép những người gửi này, tin nhắn sau này của họ sẽ bỏ qua mọi bộ lọc, kể cả quy tắc chặn của bạn.</string>
+    <string name="spam_allow_spoof_warning">Ai cũng có thể gửi tin nhắn bằng tên như %1$s. Cho phép tên này cũng cho phép tin nhắn giả mạo dùng tên đó đi qua.</string>
+    <string name="spam_allow_confirm">Luôn cho phép</string>
+    <string name="spam_allow_dismiss">Để sau</string>
+    <plurals name="spam_snack_restored_to_inbox">
+        <item quantity="other">Đã khôi phục %d tin nhắn vào hộp thư đến</item>
+    </plurals>
+    <plurals name="spam_snack_restored_allowed">
+        <item quantity="other">Đã khôi phục. %d người gửi giờ luôn được cho phép.</item>
+    </plurals>
+    <plurals name="spam_snack_allowed_only">
+        <item quantity="other">%d người gửi giờ luôn được cho phép.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost">
+        <item quantity="other">Không thể khôi phục hình ảnh trong %d tin nhắn.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost_nothing">
+        <item quantity="other">Không thể khôi phục %d tin nhắn hình ảnh nên không có gì được thêm vào hộp thư đến.</item>
+    </plurals>
+    <plurals name="spam_snack_restore_failed">
+        <item quantity="other">Không thể khôi phục %d tin nhắn hình ảnh. Tin nhắn vẫn ở đây.</item>
+    </plurals>
+    <string name="spam_mms_stored">Tin nhắn hình ảnh</string>
+    <string name="spam_mms_downloading">Tin nhắn hình ảnh, đang tải</string>
+    <string name="spam_mms_missing">Tin nhắn hình ảnh, chưa tải</string>
+    <string name="spam_mms_thumbnail">Hình ảnh trong tin nhắn đã chặn</string>
+    <string name="spam_reason_rule_keyword">Quy tắc: từ khóa “%1$s”</string>
+    <string name="spam_reason_rule_regex">Quy tắc: biểu thức chính quy %1$s</string>
+    <string name="spam_reason_rule_number">Quy tắc: số %1$s</string>
+    <string name="spam_reason_rule_prefix">Quy tắc: số bắt đầu bằng %1$s</string>
+    <string name="spam_reason_rule_sender">Quy tắc: người gửi %1$s</string>
+    <string name="spam_reason_rule_removed">Quy tắc đã bị xóa</string>
+    <string name="spam_reason_open_rules">Mở quy tắc</string>
+    <plurals name="spam_purge_notice">
+        <item quantity="other">Tin nhắn đã chặn sẽ bị xóa sau %d ngày</item>
+    </plurals>
+    <string name="spam_purge_notice_off">Tin nhắn đã chặn được giữ đến khi bạn xóa</string>
+    <plurals name="spam_purge_left">
+        <item quantity="other">Sẽ xóa sau %d ngày</item>
+    </plurals>
+    <string name="spam_purge_left_today">Sẽ xóa hôm nay</string>
+    <string name="convlist_report_spam">Báo cáo tin nhắn rác</string>
+    <plurals name="convlist_reported_spam_archived">
+        <item quantity="other">Đã báo cáo %d cuộc trò chuyện. Tin nhắn mới từ họ sẽ vào mục Đã chặn và các cuộc trò chuyện được lưu trữ.</item>
+    </plurals>
+    <plurals name="convlist_reported_spam">
+        <item quantity="other">Đã báo cáo %d cuộc trò chuyện. Tin nhắn mới từ họ sẽ vào mục Đã chặn.</item>
+    </plurals>
+    <string name="blocked_title">Đã chặn</string>
+    <string name="blocked_menu_rules">Quy tắc</string>
+    <string name="blocked_mode_group_cd">Người gửi không xác định: %1$s, %2$d trên %3$d</string>
+    <string name="blocked_mode_desc_strict">Chế độ lọc nghiêm ngặt: giữ mọi tin nhắn từ người gửi không xác định, kể cả mã xác minh</string>
+    <string name="blocked_mode_desc_smart">Thông minh: giữ tin nhắn từ người gửi không xác định, nhưng cho phép mã không có liên kết đi qua</string>
+    <string name="blocked_mode_desc_off">Tắt: tin nhắn từ người gửi không xác định vào hộp thư đến. Quy tắc của bạn vẫn áp dụng</string>
+    <string name="blocked_snack_mode">Đã đặt chế độ cho người gửi không xác định thành %1$s</string>
+    <string name="blocked_off_title">Ngừng giữ tin nhắn từ người gửi không xác định?</string>
+    <string name="blocked_off_body">Tin nhắn từ người gửi không xác định sẽ vào thẳng hộp thư đến của bạn. Quy tắc của bạn vẫn áp dụng.</string>
+    <string name="blocked_off_confirm">Tắt</string>
+    <string name="blocked_stats_restored">Bạn đã khôi phục %1$d</string>
+    <string name="blocked_reason_unknown_link">Người gửi không xác định, có liên kết</string>
+    <string name="blocked_may_be_important">Có thể quan trọng</string>
+    <string name="blocked_action_move_inbox">Chuyển vào hộp thư đến</string>
+    <string name="blocked_swipe_not_spam">Vuốt để chuyển vào hộp thư đến</string>
+</resources>

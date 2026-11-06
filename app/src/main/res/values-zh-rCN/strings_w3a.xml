@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3a_forward_limit_channel">转发上限</string>
+    <string name="w3a_forward_limit_title">今日转发已暂停</string>
+    <string name="w3a_forward_limit_text">已达到%d次转发的上限，明天继续转发。</string>
+</resources>

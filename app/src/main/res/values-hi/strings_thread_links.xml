@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_link_confirm_body">यह भेजने वाला आपके संपर्कों में नहीं है. खोलने से पहले पूरा पता जांच लें.</string>
+    <string name="thread_link_confirm_open">खोलें</string>
+</resources>

@@ -1,0 +1,102 @@
+# Invented incoming texts. Format: EXPECTED|message. NONE means no chip may show. Never add real messages.
+# YES_NO
+YES_NO|Você vem hoje?
+YES_NO|Você pode amanhã?
+YES_NO|Vc vai na festa?
+YES_NO|Você tem tempo?
+YES_NO|Já chegou?
+YES_NO|Já comeu?
+YES_NO|Tem como ir amanhã?
+YES_NO|Dá pra ir de carro?
+YES_NO|Posso ligar agora?
+YES_NO|Será que vai chover?
+YES_NO|Você chegou bem, né?
+YES_NO|Amanhã às nove, combinado?
+YES_NO|O senhor está em casa?
+YES_NO|A senhora vai à reunião?
+YES_NO|Você vai viajar sábado
+YES_NO|Posso entrar
+YES_NO|Tudo certo pra amanhã, ok?
+YES_NO|Tá em casa?
+YES_NO|Vai ter reunião hoje?
+YES_NO|Você prefere sair mais cedo?
+# WHEN
+WHEN|Quando você chega?
+WHEN|A que horas a gente se encontra?
+WHEN|Que dia vc volta?
+WHEN|Qdo vai sair?
+WHEN|Você vem quando
+WHEN|Até quando você fica?
+WHEN|Qual horário vc consegue?
+# WHERE
+WHERE|Onde você está?
+WHERE|Cadê você?
+WHERE|Onde a gente se encontra?
+WHERE|Onde vc tá?
+WHERE|Onde vamos jantar?
+WHERE|Onde a senhora está?
+# INVITE
+INVITE|Vamos ao cinema?
+INVITE|Bora tomar um café?
+INVITE|Quer ir comigo?
+INVITE|Você topa jantar hoje?
+INVITE|Vc está livre hoje à noite?
+INVITE|Que tal um churrasco no sábado?
+INVITE|Quer vir aqui em casa?
+INVITE|Vamos sair sábado, topa?
+# REQUEST
+REQUEST|Pode me mandar a foto?
+REQUEST|Você pode me ligar depois?
+REQUEST|Poderia enviar o endereço?
+REQUEST|Me manda o endereço?
+REQUEST|Pode trazer pão?
+REQUEST|Por favor me avisa se chegar antes?
+REQUEST|Consegue me buscar na estação?
+REQUEST|Tem como me ajudar com isso?
+REQUEST|O senhor poderia me enviar o documento?
+# CHOICE
+CHOICE:pizza,hamburguer|Pizza ou hambúrguer?
+CHOICE:cafe,cha|Café ou chá?
+CHOICE:hoje,amanha|Hoje ou amanhã?
+CHOICE:praia,montanha|Praia ou montanha?
+CHOICE:carro,onibus|Carro ou ônibus?
+CHOICE:cinema,teatro|Cinema ou teatro?
+CHOICE:sabado,domingo|Sábado ou domingo?
+# NONE
+NONE|Por que você não veio?
+NONE|Quanto custa isso?
+NONE|Quem é aquele cara?
+NONE|O que você fez hoje?
+NONE|Qual é o seu nome?
+NONE|Como foi o dia?
+NONE|Estou chegando em casa
+NONE|Vou ligar mais tarde
+NONE|Você viu o vídeo? Gostou?
+NONE|Você vem hoje? Ou fica em casa?
+NONE|Olha esse link https://exemplo.com/foto
+NONE|Meu código é 482913, não passe pra ninguém
+NONE|Você sabe quanto custou?
+NONE|Onde comprou essa camisa?
+NONE|De onde você é?
+NONE|Que horas são?
+NONE|Qual a capital da França?
+NONE|Quantos anos você tem?
+NONE|Aquele filme é bom demais
+NONE|Hoje foi um dia muito cansativo, acordei cedo, trabalhei bastante e ainda resolvi um monte de coisa em casa
+NONE|Fui ao mercado agora
+NONE|Estou com fome
+NONE|Pode me mandar R$ 80?
+NONE|Quem vai comigo?
+NONE|Qual desses você prefere?
+NONE|Pode ser que chova amanhã
+NONE|Como faço para chegar aí?
+NONE|Qual é a senha do wifi?
+NONE|Acho que não vai dar
+NONE|Por que não?
+NONE|Quem ganhou o jogo ontem?
+NONE|Como assim?
+NONE|O que aconteceu?
+NONE|Quanto tempo você ainda vai ficar aí?
+NONE|Tem quantos irmãos?
+NONE|Qual é o seu horário de trabalho?
+NONE|Isso foi ontem

@@ -1,0 +1,152 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|Cześć!
+greeting|Hej hej
+greeting|Siema
+greeting|Witam
+greeting|Dzień dobry!
+good_morning|Dobry ranek
+good_afternoon|Dobre popołudnie
+good_evening|Dobry wieczór!
+good_evening|Miłego wieczoru
+good_night|Dobranoc
+good_night|Dobranoc, śpij dobrze 😴
+good_night|Słodkich snów
+good_night|Idę spać
+how_are_you|Co słychać?
+how_are_you|Jak się masz?
+how_are_you|Cześć, co u Ciebie?
+how_are_you|Jak leci
+how_are_you|Co tam?
+thanks|Dziękuję!
+thanks|Dzięki
+thanks|Dzięki wielkie
+thanks|Bardzo dziękuję 🙏
+thanks|Dzięki za pomoc
+thanks|Dziękuję za informację
+youre_welcome|Nie ma za co
+youre_welcome|Nie ma sprawy
+youre_welcome|Drobiazg
+youre_welcome|Proszę bardzo
+where_are_you|Gdzie jesteś?
+where_are_you|Gdzie jesteś teraz?
+where_are_you|Gdzie się podziewasz
+on_my_way|Jadę
+on_my_way|Jestem w drodze
+on_my_way|Już wychodzę
+on_my_way|Będę za 10 minut
+on_my_way|Jestem prawie na miejscu
+arrived|Jestem na miejscu
+arrived|Jestem pod domem
+arrived|Czekam na dole
+arrived|Jestem na zewnątrz
+arrived_home|Jestem w domu
+arrived_home|Dotarłem do domu
+arrived_home|Wróciłam do domu
+did_you_arrive|Dotarłeś?
+did_you_arrive|Dojechałaś bezpiecznie?
+did_you_arrive|Jesteś już w domu?
+are_you_coming|Przyjdziesz dziś?
+are_you_coming|Czy przyjedziesz jutro?
+are_you_coming|Wpadniesz wieczorem?
+call_me|Zadzwoń
+call_me|Zadzwoń do mnie
+call_me|Oddzwoń jak możesz
+call_me|Możesz do mnie zadzwonić?
+can_you_talk|Możesz rozmawiać?
+can_you_talk|Masz chwilę?
+can_you_talk|Czy mogę zadzwonić?
+are_you_free|Jesteś wolny?
+are_you_free|Czy jesteś dziś wolna?
+are_you_free|Masz czas jutro?
+what_time|O której?
+what_time|O której godzinie?
+what_time|O której się spotkamy?
+where_to_meet|Gdzie się spotkamy?
+where_to_meet|Gdzie idziemy?
+where_to_meet|Gdzie wolisz?
+ok_confirm|Ok
+ok_confirm|Okej
+ok_confirm|Jasne
+ok_confirm|Spoko
+ok_confirm|Super
+ok_confirm|Zgoda
+ok_confirm|W porządku
+ok_confirm|Dobrze, dzięki
+bye|Pa pa
+bye|Na razie
+bye|Do zobaczenia!
+bye|Do jutra
+bye|Trzymaj się
+bye|Miłego dnia
+congrats|Gratulacje!
+congrats|Sto lat!
+congrats|Wszystkiego najlepszego
+congrats|Gratuluję z okazji awansu
+congrats|Brawo
+holiday_eid|Eid Mubarak
+holiday_new_year|Szczęśliwego Nowego Roku!
+holiday_christmas|Wesołych Świąt!
+holiday_christmas|Wesołych świąt Bożego Narodzenia
+holiday_other|Wesołego Alleluja
+holiday_other|Szczęśliwych walentynek
+good_luck|Powodzenia!
+good_luck|Trzymam kciuki
+good_luck|Powodzenia jutro na egzaminie
+good_luck|Dasz radę
+sorry_late|Przepraszam za opóźnienie
+sorry_late|Sorry, dopiero teraz zobaczyłem
+sorry_late|Przepraszam, spóźnię się
+sorry_late|Moja wina
+missed_call|Nie odebrałem
+missed_call|Przepraszam, nie odebrałam telefonu
+missed_call|Widziałem nieodebrane połączenie
+NONE|Przyjdziesz jutro z powrotem do pracy?
+NONE|Kto przyjdzie dziś wieczorem?
+NONE|Nie przyjdę
+NONE|Dlaczego nie odpisujesz?
+NONE|Dziękuję, ale już zapłaciłem 50 złotych
+NONE|Twój kod weryfikacyjny to 482913
+NONE|Wejdź na www.przyklad.pl i odbierz nagrodę
+NONE|Dokąd idziesz?
+NONE|Skąd jesteś?
+NONE|Zadzwoń do mnie jutro rano, muszę omówić umowę z klientem
+NONE|Która godzina?
+NONE|O której wyszedłeś wczoraj?
+NONE|Cześć?
+NONE|Ok?
+NONE|Dobrze, ale myślę, że lepiej poczekać do poniedziałku
+NONE|Jasne, odbiorę dzieci, a potem gdzieś wyjdziemy
+NONE|Jadę do szpitala
+NONE|Jestem w domu i nie mam prądu, co robić?
+NONE|Przykro mi z powodu straty
+NONE|Przepraszam
+NONE|Wszystkiego najlepszego dla mojego brata, kończy dziś trzydzieści lat
+NONE|Nie dzwoń do mnie więcej
+NONE|Możesz mnie odebrać?
+NONE|Jesteś wolny, żeby pomóc mi w sobotę w przeprowadzce?
+NONE|Gdzie byłeś wczoraj wieczorem?
+NONE|Jak się czujesz po operacji?
+NONE|Dzięki za pomoc z pożyczką
+NONE|Możesz do nas dołączyć w każdej chwili
+NONE|Możesz wrócić później?
+NONE|Czy wszyscy przyjdą?
+NONE|Nie jestem pewien, czy dam radę jutro
+NONE|Co robisz dziś wieczorem?
+NONE|Cześć Ania, jak się masz?
+NONE|Przelej 500 na moje konto proszę
+NONE|Mama jest w szpitalu, zadzwoń do mnie
+NONE|Dobranoc wszystkim, dziękuję za wspaniały wieczór
+NONE|Hola, necesito hablar contigo mañana por la mañana
+NONE|Bonjour, je voudrais réserver une table pour demain soir
+NONE|Guten Morgen, wie geht es dir?
+NONE|Dzięki za nic
+NONE|Ale bomba!
+NONE|😂😂
+NONE|Haha dobra, jak chcesz
+NONE|Rozumiem, wyślę pliki jutro rano
+NONE|Gratulacje, wygrałeś nagrodę! Odpowiedz TAK aby odebrać
+NONE|Sorry
+NONE|Przyjdziesz i o której mam przywieźć samochód?
+NONE|Kiedy wracasz do domu?
+NONE|Ciao, ci vediamo domani alla stazione alle nove

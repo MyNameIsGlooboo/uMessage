@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_conv_menu">ส่งออกการสนทนา</string>
+    <string name="export_conv_title">ส่งออกการสนทนา</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">ข้อความล้วน</string>
+    <string name="export_conv_dates_all">ทุกวันที่</string>
+    <string name="export_conv_dates_30">30 วันที่ผ่านมา</string>
+    <string name="export_conv_dates_pick">เลือกวันที่</string>
+    <string name="export_conv_pick_from">ตั้งแต่วันไหน?</string>
+    <string name="export_conv_pick_to">ถึงวันไหน?</string>
+    <string name="export_conv_action">ส่งออก</string>
+    <string name="export_conv_preparing">กำลังเตรียมไฟล์…</string>
+    <string name="export_conv_nothing">ไม่มีข้อความในช่วงวันที่นี้</string>
+    <string name="export_conv_failed">สร้างไฟล์ไม่ได้</string>
+    <string name="export_conv_subject">การสนทนาที่ส่งออก</string>
+    <string name="export_conv_share_text">การสนทนากับ %1$s, %2$s ค่า SHA-256 ของข้อความ: %3$s</string>
+    <string name="export_conv_attachment_label">[ไฟล์แนบ]</string>
+    <string name="export_pdf_title">การสนทนาที่ส่งออก</string>
+    <string name="export_pdf_with">การสนทนากับ: %1$s</string>
+    <string name="export_pdf_numbers">หมายเลข: %1$s</string>
+    <string name="export_pdf_range">ช่วงวันที่: %1$s</string>
+    <string name="export_pdf_zone">เวลาแสดงตามเขตเวลา %1$s</string>
+    <string name="export_pdf_exported">ส่งออกเมื่อ: %1$s</string>
+    <plurals name="export_pdf_count">
+        <item quantity="other">%1$d ข้อความ</item>
+    </plurals>
+    <string name="export_pdf_hash">ค่า SHA-256 ของข้อความ: %1$s</string>
+    <string name="export_pdf_not_certified">ส่งออกจากโทรศัพท์ เป็นบันทึกที่ไม่ได้รับการรับรอง</string>
+    <string name="export_pdf_page">หน้า %1$d จาก %2$d</string>
+    <string name="export_pdf_from">จาก: %1$s</string>
+    <string name="export_pdf_to">ถึง: %1$s</string>
+    <string name="export_pdf_attachment">ไฟล์แนบ: %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">ไฟล์ไม่มีชื่อ</string>
+    <string name="export_status_received">ได้รับแล้ว</string>
+    <string name="export_status_sent">ส่งแล้ว</string>
+    <string name="export_status_delivered">ส่งถึงแล้ว</string>
+    <string name="export_status_failed">ไม่สำเร็จ</string>
+    <string name="export_status_sending">กำลังส่ง</string>
+    <string name="export_status_draft">ฉบับร่าง</string>
+</resources>

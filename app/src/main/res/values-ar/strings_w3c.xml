@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_checklist_title">أكمل الإعداد في 1 دقيقة</string>
+    <string name="w3c_checklist_done_title">كل شيء جاهز</string>
+    <string name="w3c_checklist_basics_title">اكتمل الإعداد الأساسي</string>
+    <string name="w3c_checklist_progress">%1$s من %2$s</string>
+    <string name="w3c_checklist_dismiss">أغلق قائمة المهام</string>
+    <string name="w3c_checklist_step_sms">اجعل uMessage تطبيق الرسائل النصية الافتراضي</string>
+    <string name="w3c_checklist_step_notifications">فعّل الإشعارات</string>
+    <string name="w3c_checklist_step_blocked">اطّلع على تبويب «المحظورة»</string>
+    <string name="w3c_checklist_step_forward">اختياري: أعد توجيه الرسائل إلى رقم آخر</string>
+    <string name="w3c_checklist_step_done">تم</string>
+    <string name="w3c_checklist_action_set">عيّن</string>
+    <string name="w3c_checklist_action_open">افتح</string>
+    <string name="w3c_receipt_title">احتُجزت رسائل غير مرغوب فيها: اضغط للمراجعة</string>
+    <string name="w3c_receipt_body">احتُجزت رسالة من مرسل غير معروف في «المحظورة». لم تُفقد: يمكنك مراجعتها واستعادتها في أي وقت.</string>
+    <string name="w3c_receipt_review">راجع</string>
+    <string name="w3c_receipt_got_it">فهمت</string>
+    <string name="w3c_search_codes">الرموز الأخيرة</string>
+    <string name="w3c_search_code_copied">تم نسخ الرمز</string>
+    <string name="w3c_search_code_description">انسخ الرمز %1$s من %2$s</string>
+    <string name="w3c_new_paste">الصق الرقم</string>
+    <string name="w3c_new_paste_none">لا يوجد رقم هاتف في الحافظة</string>
+    <string name="w3c_details_allow">اسمح لهذا المرسل دائمًا</string>
+    <string name="w3c_details_allow_hint">تصل رسائل هذا المرسل دائمًا إلى الرسائل الواردة</string>
+    <string name="w3c_details_allow_spoof_hint">يمكن لأي شخص إرسال رسائل بهذا الاسم، لذا يُسمح بها أيضًا</string>
+    <string name="w3c_date_gregorian">ميلادي</string>
+    <string name="w3c_date_gregorian_body">تواريخ مثل 29 أكتوبر</string>
+    <string name="w3c_date_jalali">جلالي</string>
+    <string name="w3c_date_jalali_body">تواريخ مثل 7 آبان</string>
+    <string name="w3c_date_both">كلاهما</string>
+    <string name="w3c_date_both_body">كلا التقويمين في المحادثة</string>
+    <string name="w3c_text_size">حجم النص</string>
+    <string name="w3c_text_small">صغير</string>
+    <string name="w3c_text_default">افتراضي</string>
+    <string name="w3c_text_large">كبير</string>
+    <string name="w3c_text_largest">الأكبر</string>
+    <string name="w3c_text_size_sample">مثال: رمزك هو 482913.</string>
+    <string name="w3c_backup_settings">انسخ كل الإعدادات احتياطيًا</string>
+    <string name="w3c_backup_settings_body">يحفظ القواعد وإعادة التوجيه والإعدادات في ملف، دون نصوص الرسائل.</string>
+    <string name="w3c_restore_settings">استعد كل الإعدادات</string>
+    <string name="w3c_restore_settings_body">يحمّل القواعد والإعدادات من ملف نسخة احتياطية</string>
+    <string name="w3c_backup_saved">حُفظت النسخة الاحتياطية: %1$d من العناصر</string>
+    <string name="w3c_backup_failed">تعذّر حفظ النسخة الاحتياطية</string>
+    <string name="w3c_restore_done">تمت استعادة %1$d من العناصر</string>
+    <string name="w3c_restore_failed">تعذّرت استعادة هذا الملف. اختر نسخة احتياطية لإعدادات uMessage.</string>
+</resources>

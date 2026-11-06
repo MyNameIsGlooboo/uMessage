@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_codes_title">Xóa mã xác minh đã đọc sau</string>
+    <string name="cleanup_codes_summary">Mã xác minh được chuyển vào thùng rác</string>
+    <string name="cleanup_never">Không bao giờ</string>
+    <string name="cleanup_24_hours">24 giờ</string>
+    <plurals name="cleanup_days">
+        <item quantity="other">%d ngày</item>
+    </plurals>
+    <string name="cleanup_card_title">Xóa mã xác minh đã đọc sau 7 ngày?</string>
+    <string name="cleanup_card_body">Mã xác minh bạn đã đọc sẽ được chuyển vào thùng rác, nơi bạn có thể khôi phục chúng.</string>
+    <string name="cleanup_card_yes">Bật</string>
+    <string name="cleanup_card_no">Không, cảm ơn</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_hint">Search conversations</string>
+    <string name="main_search_back">Close search</string>
+    <string name="main_search_clear">Clear search text</string>
+    <string name="main_search_type_more">Type at least 2 characters to search</string>
+    <string name="main_search_no_results">No results found</string>
+    <string name="main_settings">Settings</string>
+    <!-- Bottom navigation bar tabs; keep them short. -->
+    <string name="main_tab_messages">Messages</string>
+    <string name="main_tab_blocked">Blocked</string>
+    <string name="main_tab_archived">Archived</string>
+    <plurals name="main_tab_blocked_new">
+        <item quantity="one">Blocked, %d new</item>
+        <item quantity="other">Blocked, %d new</item>
+    </plurals>
+    <string name="main_permission_title">Permission required</string>
+    <string name="main_permission_grant">Grant permission</string>
+    <string name="main_permission_notifications">Allow notifications, otherwise the app cannot show incoming messages.</string>
+    <!-- Shown instead of the list when SMS permission was denied (MC-04). -->
+    <string name="main_sms_permission_title">uMessage needs SMS access</string>
+    <string name="main_sms_permission_body">Without permission to read and send SMS, uMessage can\'t show your messages, send texts or filter spam. Nothing is deleted.</string>
+    <string name="main_sms_permission_settings">Open app settings</string>
+    <!-- Banner above the bottom bar when another app is the default SMS app (CM-05). -->
+    <string name="main_not_default_banner">uMessage isn\'t your default SMS app, so it can\'t block spam or send messages.</string>
+    <string name="main_not_default_fix">Fix</string>
+    <string name="main_not_default_fix_description">Set uMessage as the default SMS app</string>
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_tab_forwarded">已转发</string>
+    <string name="nav_tab_forwarded_failed">已转发，有转发失败</string>
+    <string name="nav_tab_forwarded_paused">已转发，转发已暂停</string>
+    <string name="nav_tab_archived_new">已归档，有新归档的会话</string>
+    <string name="nav_prompt_title">规则已保存</string>
+    <string name="nav_prompt_body">是否显示“已转发”标签页，以查看已发送的消息并重试失败的转发？</string>
+    <string name="nav_prompt_show">显示标签页</string>
+    <string name="nav_prompt_not_now">暂不</string>
+    <string name="nav_fwd_paid_note">每次转发都会产生短信费用。</string>
+    <string name="nav_fwd_pause_all">暂停所有转发</string>
+    <string name="nav_fwd_status_paused">转发已暂停</string>
+    <string name="nav_fwd_paused_hint">符合规则的消息不会转发。关闭此开关即可恢复。</string>
+    <string name="nav_fwd_status_no_rule">未启用任何转发规则</string>
+    <plurals name="nav_fwd_status_on">
+        <item quantity="other">转发已开启，%1$s条规则</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">管理规则</string>
+    <string name="nav_fwd_empty_title">暂无转发记录</string>
+    <string name="nav_fwd_empty_body">符合规则的消息会显示在这里。</string>
+    <string name="nav_fwd_status_sent">已发送</string>
+    <string name="nav_fwd_status_pending">待发送</string>
+    <string name="nav_fwd_status_failed">失败</string>
+    <string name="nav_fwd_to">发至%1$s</string>
+    <string name="nav_fwd_sim">SIM%1$d</string>
+    <string name="nav_fwd_rule_line">规则：%1$s，%2$s</string>
+    <string name="nav_fwd_rule_sender">发件人%1$s</string>
+    <string name="nav_fwd_rule_any_sender">任意发件人</string>
+    <string name="nav_fwd_rule_text">文本%1$s</string>
+    <string name="nav_fwd_rule_any_text">任意文本</string>
+    <string name="nav_fwd_rule_deleted">规则已删除</string>
+    <string name="nav_fwd_open_details">查看详情</string>
+    <string name="nav_fwd_today">今天</string>
+    <string name="nav_fwd_yesterday">昨天</string>
+    <plurals name="nav_fwd_failed_count">
+        <item quantity="other">%1$s条消息转发失败</item>
+    </plurals>
+    <string name="nav_fwd_retry">重试</string>
+    <string name="nav_fwd_retry_all">重试所有失败项（%1$s）</string>
+    <string name="nav_fwd_retry_all_title">重新发送？</string>
+    <plurals name="nav_fwd_retry_all_message">
+        <item quantity="other">将重新发送%1$s条短信，每条都会产生短信费用。</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">重新发送</string>
+    <plurals name="nav_fwd_retry_sent">
+        <item quantity="other">已重新转发%d条消息</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">再次失败。请检查信号和话费余额。</string>
+    <string name="nav_fwd_retry_missing">原消息已不存在，无法重新发送。</string>
+    <string name="nav_fwd_details_title">转发详情</string>
+    <string name="nav_fwd_detail_from">消息来自</string>
+    <string name="nav_fwd_detail_to">转发至</string>
+    <string name="nav_fwd_detail_when">时间</string>
+    <string name="nav_fwd_detail_sim">发送所用SIM</string>
+    <string name="nav_fwd_detail_rule">匹配规则</string>
+    <string name="nav_fwd_detail_message">原消息</string>
+    <string name="nav_fwd_message_loading">加载中</string>
+    <string name="nav_fwd_message_gone">原消息已不再保存。</string>
+    <string name="nav_fwd_error_radio">网络未能送达此消息。</string>
+    <string name="nav_fwd_error_refused">手机未能发送此消息。</string>
+    <string name="nav_fwd_open_chat">打开会话</string>
+    <string name="nav_archived_title">已归档</string>
+    <string name="nav_archived_back">返回消息</string>
+    <string name="nav_archived_intro">已归档的会话不会显示在“消息”中。收到新消息后，会话会重新显示，除非在设置中开启“已归档的会话保持隐藏”。</string>
+    <string name="nav_archived_intro_dismiss">隐藏此提示</string>
+    <plurals name="nav_archived_moved">
+        <item quantity="other">已将%d个会话移至“消息”</item>
+    </plurals>
+    <string name="nav_folder_more">更多选项</string>
+    <string name="nav_folder_mark_all_read">全部标为已读</string>
+    <string name="nav_folder_delete_all_count">这将永久删除%1$s。</string>
+</resources>

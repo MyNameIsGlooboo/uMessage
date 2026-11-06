@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">เริ่มการสนทนา</string>
+    <string name="search_page_show_more">แสดงเพิ่มเติม</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">ไม่มีการสนทนาใน SIM นี้</string>
+    <string name="search_page_sim_empty_body">การสนทนาที่มีข้อความส่งหรือรับผ่าน SIM นี้จะแสดงที่นี่</string>
+</resources>

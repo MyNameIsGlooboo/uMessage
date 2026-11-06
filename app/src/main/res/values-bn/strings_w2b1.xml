@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="w2b1_archived_find" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি আর্কাইভ করা হয়েছে। “আর্কাইভ করা” ট্যাবে পাবেন</item>
+        <item quantity="other">%dটি আর্কাইভ করা হয়েছে। “আর্কাইভ করা” ট্যাবে পাবেন</item>
+    </plurals>
+    <string name="w2b1_search_recent">সাম্প্রতিক সার্চ</string>
+    <string name="w2b1_search_recent_clear">সাফ করুন</string>
+    <string name="w2b1_search_recent_clear_description">সাম্প্রতিক সার্চ সাফ করুন</string>
+    <string name="w2b1_search_digits_note">ফারসি ও লাতিন অঙ্ক দুটোই মেলে: 123 খুঁজলে ۱۲۳-ও পাওয়া যায়।</string>
+    <string name="w2b1_search_section_conversations">কথোপকথন</string>
+    <string name="w2b1_search_section_messages">বার্তা</string>
+    <plurals name="w2b1_search_matches" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি মিল</item>
+        <item quantity="other">%dটি মিল</item>
+    </plurals>
+    <string name="w2b1_filter_all">সব</string>
+    <string name="w2b1_filter_unread">না পড়া</string>
+    <string name="w2b1_filter_unread_empty_title">না পড়া কোনো কথোপকথন নেই</string>
+    <string name="w2b1_filter_unread_empty_body">সব পড়া হয়েছে।</string>
+    <string name="w2b1_swipe_block">প্রেরককে ব্লক করুন</string>
+</resources>

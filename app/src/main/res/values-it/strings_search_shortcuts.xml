@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">Sconosciuti</string>
+    <string name="i28_filter_unknown_empty_title">Nessun mittente sconosciuto</string>
+    <string name="i28_filter_unknown_empty_body">Qui trovi le conversazioni con persone che non sono nei tuoi contatti e a cui non hai mai scritto.</string>
+    <string name="i28_filter_images">Immagini</string>
+    <string name="i28_filter_images_empty_title">Nessuna immagine</string>
+    <string name="i28_filter_images_empty_body">Qui trovi i messaggi con un\'immagine.</string>
+    <string name="i28_filter_links">Link</string>
+    <string name="i28_filter_links_empty_title">Nessun link</string>
+    <string name="i28_filter_links_empty_body">Qui trovi i messaggi con un link web.</string>
+    <string name="i28_hit_picture">Immagine</string>
+</resources>

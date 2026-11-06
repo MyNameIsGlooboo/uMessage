@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_emoji">絵文字</string>
+    <string name="thread_show_keyboard">キーボードを表示</string>
+    <string name="thread_scheduled_not_sent">送信予約したメッセージを送信できませんでした。</string>
+    <string name="thread_edit_scheduled_replaces_draft">送信予約したメッセージを編集すると、入力中の内容が置き換わります。続けてもよろしいですか？</string>
+    <string name="thread_menu_report_spam">迷惑メッセージを報告</string>
+    <string name="thread_report_spam_title">迷惑メッセージを報告してもよろしいですか？</string>
+    <string name="thread_report_spam_message">%1$sからの新しいメッセージは、受信トレイの代わりに「ブロック済み」に届きます。この会話にあるメッセージは残ります。</string>
+    <string name="thread_report_spam_confirm">迷惑メッセージを報告</string>
+    <string name="thread_report_spam_cancel">キャンセル</string>
+    <string name="thread_report_spam_done">迷惑メッセージを報告しました。</string>
+    <string name="thread_report_spam_rule_note">迷惑メッセージとして報告済み</string>
+    <string name="thread_report_spam_already">すでに迷惑メッセージとして報告済みです。</string>
+    <string name="thread_report_spam_failed">迷惑メッセージを報告できませんでした。</string>
+    <string name="thread_report_spam_undo">元に戻す</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_intro">ظاهر uMessage را انتخاب کنید: حالت روشن یا تیره و رنگ‌ها.</string>
+    <string name="preset_system">سیستم</string>
+    <string name="preset_system_desc">روشن یا تیره، هماهنگ با گوشی شما</string>
+    <string name="preset_light">روشن</string>
+    <string name="preset_light_desc">همیشه روشن</string>
+    <string name="preset_dark">تیره</string>
+    <string name="preset_dark_desc">همیشه تیره، ملایم برای چشم‌ها</string>
+    <string name="preset_amoled">مشکی</string>
+    <string name="preset_amoled_desc">مشکی خالص برای نمایشگرهای OLED</string>
+    <string name="preset_brand">سرمه‌ای</string>
+    <string name="preset_brand_desc">سرمه‌ای و طلایی، ظاهر کلاسیک uMessage</string>
+    <string name="preset_coral">مرجانی</string>
+    <string name="preset_coral_desc">مرجانی و آبی، برگرفته از نماد برنامه</string>
+    <string name="preset_sky">آسمان</string>
+    <string name="preset_sky_desc">آبی ملایم و سفید</string>
+    <string name="preset_forest">جنگل</string>
+    <string name="preset_forest_desc">سبز با رگه‌هایی از زرد</string>
+    <string name="preset_sunset">غروب</string>
+    <string name="preset_sunset_desc">نارنجی گرم و کرم</string>
+    <string name="preset_graphite">کهربایی</string>
+    <string name="preset_graphite_desc">خاکستری و کهربایی</string>
+    <string name="preset_wallpaper">تصویر زمینه</string>
+    <string name="preset_wallpaper_desc">رنگ‌های برگرفته از تصویر زمینهٔ شما</string>
+</resources>

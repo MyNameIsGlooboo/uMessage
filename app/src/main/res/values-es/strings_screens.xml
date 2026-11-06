@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screens_back">Atrás</string>
+    <string name="screens_ok">Aceptar</string>
+    <string name="screens_cancel">Cancelar</string>
+    <string name="screens_delete">Eliminar</string>
+    <string name="screens_clear_selection">Quitar selección</string>
+    <plurals name="screens_selected_count">
+        <item quantity="one">%d seleccionado</item>
+        <item quantity="other">%d seleccionados</item>
+    </plurals>
+    <string name="screens_loading">Cargando…</string>
+    <string name="screens_more_options">Más opciones</string>
+    <string name="screens_select_all">Seleccionar todo</string>
+    <string name="screens_copy">Copiar</string>
+    <string name="screens_grant_permission">Permitir acceso</string>
+    <string name="screens_delete_forever_title">¿Eliminar definitivamente?</string>
+    <string name="screens_delete_conversations_message">¿Eliminar %1$s definitivamente? Esta acción no se puede deshacer.</string>
+    <string name="screens_restore_title">¿Restaurar?</string>
+    <string name="screens_empty_archive_title">¿Vaciar el archivo?</string>
+    <string name="screens_empty_bin_title">¿Vaciar la papelera?</string>
+    <string name="screens_empty_action">Vaciar</string>
+    <string name="screens_archive_empty_title">No hay nada archivado</string>
+    <string name="screens_bin_empty_title">La papelera está vacía</string>
+    <string name="screens_bin_empty_body">Los mensajes eliminados permanecen aquí hasta que se vacíe la papelera.</string>
+    <string name="screens_new_to_hint">Para</string>
+    <string name="screens_new_start">Iniciar conversación con %1$s</string>
+    <string name="screens_new_clear_input">Borrar</string>
+    <string name="screens_new_no_matches">No hay contactos que coincidan. Toca la flecha para enviar un mensaje al número que escribiste.</string>
+    <string name="screens_new_contacts">Contactos</string>
+    <string name="screens_new_create_group">Crear grupo</string>
+    <string name="screens_new_group_title">Nuevo grupo</string>
+    <string name="screens_new_group_next">Siguiente</string>
+    <string name="screens_new_group_add">Agregar a %1$s</string>
+    <string name="screens_new_group_remove">Quitar a %1$s</string>
+    <string name="screens_new_group_selected">Seleccionados</string>
+    <string name="screens_details_edit_name">Editar nombre de la conversación</string>
+    <string name="screens_keywords_add">Agregar palabra clave</string>
+    <string name="screens_keywords_menu_export">Exportar</string>
+    <string name="screens_keywords_menu_import">Importar</string>
+    <string name="screens_keywords_edit">Editar</string>
+    <string name="screens_keywords_duplicate">Esta palabra clave ya está en la lista</string>
+    <string name="screens_keywords_help">Busca el texto en cualquier parte del mensaje, incluso dentro de una palabra más larga. No distingue entre mayúsculas y minúsculas.</string>
+    <string name="screens_keywords_empty_title">No hay palabras clave bloqueadas</string>
+    <plurals name="screens_keywords_deleted">
+        <item quantity="one">%d palabra clave eliminada</item>
+        <item quantity="other">%d palabras clave eliminadas</item>
+    </plurals>
+    <string name="screens_vcard_title">Contacto</string>
+    <string name="screens_vcard_add_contact">Agregar a contactos</string>
+    <string name="screens_vcard_expand">Mostrar detalles</string>
+    <string name="screens_vcard_collapse">Ocultar detalles</string>
+    <string name="screens_vcard_empty">No se encontró ningún contacto en este archivo</string>
+    <string name="screens_dialog_filename">Nombre del archivo</string>
+    <string name="screens_schedule_date">Fecha</string>
+    <string name="screens_schedule_time">Hora</string>
+    <string name="screens_schedule_pick_time">Elegir hora</string>
+    <string name="screens_schedule_next">Siguiente</string>
+    <string name="screens_delete_skip_bin">Eliminar directamente sin pasar por la papelera</string>
+    <string name="screens_select_text_title">Seleccionar texto</string>
+</resources>

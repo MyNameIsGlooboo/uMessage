@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="fwdfix_status_limit">আজকের জন্য স্থগিত: সীমা পূর্ণ</string>
+    <string name="fwdfix_limit_hint">আজ %2$sটির মধ্যে %1$sটি ফরোয়ার্ড করা হয়েছে। আগামীকাল আবার ফরোয়ার্ড করা শুরু হবে।</string>
+    <string name="fwdfix_status_skipped">বাদ দেওয়া হয়েছে (সীমা)</string>
+    <string name="fwdfix_error_daily_limit">পাঠানো হয়নি: দৈনিক ফরোয়ার্ডের সীমা পূর্ণ হয়েছে।</string>
+    <string name="fwdfix_error_rate_limited">পাঠানো হয়নি: এই নিয়মে গত এক ঘণ্টায় ইতিমধ্যে %1$sটি বার্তা ফরোয়ার্ড করা হয়েছে।</string>
+    <string name="fwdfix_retry_all_recent">শুধু গত 24 ঘণ্টার ফরোয়ার্ডগুলো অন্তর্ভুক্ত।</string>
+    <plurals name="fwdfix_retry_not_sent_paused" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$sটি পাঠানো হয়নি: ফরোয়ার্ড করা স্থগিত আছে।</item>
+        <item quantity="other">%1$sটি পাঠানো হয়নি: ফরোয়ার্ড করা স্থগিত আছে।</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$sটি পাঠানো হয়নি: এর নিয়ম বন্ধ আছে বা মুছে ফেলা হয়েছে।</item>
+        <item quantity="other">%1$sটি পাঠানো হয়নি: এগুলোর নিয়ম বন্ধ আছে বা মুছে ফেলা হয়েছে।</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$sটি পাঠানো হয়নি: দৈনিক সীমা বা এর নিয়মের ঘণ্টাপ্রতি সীমা পূর্ণ হয়েছে।</item>
+        <item quantity="other">%1$sটি পাঠানো হয়নি: দৈনিক সীমা বা কোনো নিয়মের ঘণ্টাপ্রতি সীমা পূর্ণ হয়েছে।</item>
+    </plurals>
+    <string name="fwdfix_card_last">শেষ ফরোয়ার্ড %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week" tools:ignore="ImpliedQuantity">
+        <item quantity="one">এই সপ্তাহে %1$sটি</item>
+        <item quantity="other">এই সপ্তাহে %1$sটি</item>
+    </plurals>
+    <string name="fwdfix_card_never">এখনও কিছু ফরোয়ার্ড করা হয়নি</string>
+    <string name="fwdfix_card_sent">পাঠানো হয়েছে</string>
+    <string name="fwdfix_card_pending">পাঠানো হচ্ছে</string>
+    <string name="fwdfix_card_failed">ব্যর্থ</string>
+    <string name="fwdfix_card_skipped">বাদ দেওয়া হয়েছে (সীমা)</string>
+    <string name="fwdfix_delete_rule">নিয়ম মুছুন</string>
+    <string name="fwdfix_deleted">ফরোয়ার্ডের নিয়ম মুছে ফেলা হয়েছে</string>
+    <string name="fwdfix_test_button">পরীক্ষামূলক SMS পাঠান</string>
+    <string name="fwdfix_test_title">পরীক্ষামূলক SMS পাঠাবেন?</string>
+    <plurals name="fwdfix_test_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">ওপরের নম্বরে %1$sটি পরীক্ষামূলক SMS যাবে। এর জন্য খরচ হবে।</item>
+        <item quantity="other">ওপরের %1$sটি নম্বরের প্রতিটিতে একটি করে পরীক্ষামূলক SMS যাবে। প্রতিটি SMS-এর জন্য খরচ হবে।</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">পাঠান</string>
+    <string name="fwdfix_test_text">uMessage থেকে পরীক্ষা: ফরোয়ার্ড করা কাজ করছে।</string>
+    <string name="fwdfix_test_sending">পরীক্ষামূলক SMS পাঠানো হচ্ছে…</string>
+    <string name="fwdfix_test_sent">পরীক্ষামূলক SMS পাঠানো হয়েছে। অন্য ফোনটি দেখুন।</string>
+    <string name="fwdfix_test_failed">পরীক্ষামূলক SMS পাঠানো যায়নি। আপনার সিগন্যাল ও ব্যালেন্স দেখুন।</string>
+    <string name="fwdfix_cost_persian">%1$s অক্ষরের ফারসি লেখা: %2$s অংশ × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">%1$s অক্ষরের ইংরেজি লেখা: %2$s অংশ × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">এখন কিছু পাঠানো যাবে না</string>
+    <plurals name="fwdfix_retry_blocked_paused" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$sটি পাঠানো হবে না: ফরোয়ার্ড করা স্থগিত আছে।</item>
+        <item quantity="other">%1$sটি পাঠানো হবে না: ফরোয়ার্ড করা স্থগিত আছে।</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$sটি পাঠানো হবে না: এর নিয়ম বন্ধ আছে বা মুছে ফেলা হয়েছে।</item>
+        <item quantity="other">%1$sটি পাঠানো হবে না: এগুলোর নিয়ম বন্ধ আছে বা মুছে ফেলা হয়েছে।</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$sটি পাঠানো হবে না: দৈনিক সীমা বা এর নিয়মের ঘণ্টাপ্রতি সীমা পূর্ণ হয়েছে।</item>
+        <item quantity="other">%1$sটি পাঠানো হবে না: দৈনিক সীমা বা কোনো নিয়মের ঘণ্টাপ্রতি সীমা পূর্ণ হয়েছে।</item>
+    </plurals>
+</resources>

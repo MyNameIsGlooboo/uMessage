@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">Thêm vào màn hình chính</string>
+    <string name="home_shortcut_requested">Đang yêu cầu trình khởi chạy thêm lối tắt. Màn hình chính sẽ hiển thị tên cuộc trò chuyện. Nếu không thấy lối tắt, hãy cho phép “Lối tắt màn hình chính” cho uMessage trong cài đặt ứng dụng trên điện thoại của bạn.</string>
+    <string name="home_shortcut_failed">Trình khởi chạy không chấp nhận lối tắt. Cho phép “Lối tắt màn hình chính” cho uMessage trong cài đặt ứng dụng trên điện thoại của bạn.</string>
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Generic -->
+    <string name="dialogs_yes">Yes</string>
+    <string name="dialogs_no">No</string>
+    <string name="dialogs_permission_required">Permission required</string>
+    <string name="dialogs_grant_permission">Grant permission</string>
+
+    <!-- Date and time format -->
+    <string name="dialogs_date_time_format_title">Date and time format</string>
+    <string name="dialogs_use_24_hour">Use 24-hour time format</string>
+
+    <!-- App lock -->
+    <string name="dialogs_lock_pattern">Pattern</string>
+    <string name="dialogs_lock_pin">PIN</string>
+    <string name="dialogs_lock_biometrics">Biometrics</string>
+    <string name="dialogs_lock_fingerprint">Fingerprint</string>
+    <string name="dialogs_lock_enter_pin">Enter PIN</string>
+    <string name="dialogs_lock_repeat_pin">Repeat PIN</string>
+    <string name="dialogs_lock_wrong_pin">Wrong PIN</string>
+    <string name="dialogs_lock_empty_pin">Please enter a PIN</string>
+    <string name="dialogs_lock_short_pin">PIN must be at least 4 digits long</string>
+    <!-- %d is the suggested number of digits, 6 -->
+    <string name="dialogs_lock_pin_suggestion">At least 4 digits. %d or more is safer.</string>
+    <!-- %d is the minimum number of dots, 4 -->
+    <plurals name="dialogs_lock_short_pattern">
+        <item quantity="one">Too short. Connect at least %d dot.</item>
+        <item quantity="other">Too short. Connect at least %d dots.</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">Draw pattern</string>
+    <string name="dialogs_lock_repeat_pattern">Repeat pattern</string>
+    <string name="dialogs_lock_wrong_pattern">Wrong pattern</string>
+    <string name="dialogs_lock_locked_out">Too many incorrect unlock attempts.\nTry again in %d seconds.</string>
+    <string name="dialogs_lock_pin_delete">Delete last digit</string>
+    <string name="dialogs_lock_pin_confirm">Confirm PIN</string>
+    <string name="dialogs_lock_pin_entered">%d digits entered</string>
+    <string name="dialogs_lock_pattern_pad">Pattern pad</string>
+    <string name="dialogs_lock_biometric_hint">Use your fingerprint or face to confirm it\'s you.</string>
+    <string name="dialogs_lock_biometric_open">Verify with biometrics</string>
+    <string name="dialogs_lock_place_finger">Place your finger on the fingerprint sensor.</string>
+    <string name="dialogs_lock_no_fingerprints">No fingerprints are registered. Add one in your device settings.</string>
+    <string name="dialogs_lock_open_settings">Open device settings</string>
+    <string name="dialogs_lock_auth_failed">Authentication failed</string>
+    <string name="dialogs_lock_auth_blocked">Authentication blocked, try again in a moment</string>
+</resources>

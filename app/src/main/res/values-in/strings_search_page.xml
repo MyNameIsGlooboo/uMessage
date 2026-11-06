@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">Mulai chat</string>
+    <string name="search_page_show_more">Tampilkan lainnya</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">Tidak ada percakapan di SIM ini</string>
+    <string name="search_page_sim_empty_body">Percakapan dengan pesan yang dikirim atau diterima melalui SIM ini muncul di sini.</string>
+</resources>

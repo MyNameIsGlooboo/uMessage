@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sim_messages_title">Pesan kartu SIM</string>
+    <string name="sim_messages_row_body">Salin pesan yang tersimpan di kartu SIM ke percakapan Anda</string>
+    <string name="sim_messages_loading">Membaca kartu SIM…</string>
+    <string name="sim_messages_unavailable">Ponsel ini tidak mengizinkan aplikasi membaca kartu SIM.</string>
+    <string name="sim_messages_empty">Tidak ada pesan di kartu SIM.</string>
+    <plurals name="sim_messages_found">
+        <item quantity="other">%1$d pesan tersimpan di kartu SIM. Salin ke percakapan Anda? Pesan juga tetap tersimpan di kartu SIM.</item>
+    </plurals>
+    <string name="sim_messages_import">Salin</string>
+    <string name="sim_messages_importing">Menyalin pesan…</string>
+    <string name="sim_messages_done">%1$d pesan disalin. %2$d sudah ada di percakapan Anda.</string>
+    <string name="sim_messages_done_failed">%1$d pesan disalin. %2$d sudah ada di percakapan Anda dan %3$d tidak dapat disalin.</string>
+</resources>

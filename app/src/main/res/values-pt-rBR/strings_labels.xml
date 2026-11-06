@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">Etiquetas</string>
+    <string name="i29_picker_title">Etiquetas</string>
+    <string name="i29_picker_empty">Você ainda não tem etiquetas. Crie uma para organizar suas conversas.</string>
+    <string name="i29_picker_new">Nova etiqueta</string>
+    <string name="i29_picker_manage">Gerencie etiquetas</string>
+    <string name="i29_done">Conclua</string>
+    <string name="i29_cancel">Cancele</string>
+    <string name="i29_tiles_title">Suas etiquetas</string>
+    <string name="i29_tile_add">Adicione uma etiqueta</string>
+    <string name="i29_tiles_manage">Gerencie etiquetas</string>
+    <string name="i29_manager_title">Gerencie etiquetas</string>
+    <string name="i29_manager_note">Você cria suas próprias etiquetas. Elas são separadas dos filtros automáticos de transações e ofertas.</string>
+    <string name="i29_manager_edit">Edite a etiqueta %1$s</string>
+    <string name="i29_manager_delete">Exclua a etiqueta %1$s</string>
+    <string name="i29_edit_new_title">Nova etiqueta</string>
+    <string name="i29_edit_title">Edite a etiqueta</string>
+    <string name="i29_edit_name">Nome da etiqueta</string>
+    <string name="i29_edit_save">Salve</string>
+    <string name="i29_color_description">Cor %1$d</string>
+    <string name="i29_error_duplicate">Você já tem uma etiqueta com este nome.</string>
+    <string name="i29_error_limit">Você pode ter até %1$d etiquetas.</string>
+    <string name="i29_delete_title">Excluir esta etiqueta?</string>
+    <string name="i29_delete_body">A etiqueta \"%1$s\" será removida. Suas conversas e mensagens ficam como estão.</string>
+    <string name="i29_delete_confirm">Exclua</string>
+    <string name="i29_empty_title">Nenhuma conversa aqui</string>
+    <string name="i29_empty_body">Toque e segure uma conversa, abra o menu e escolha Etiquetas para adicioná-la.</string>
+</resources>

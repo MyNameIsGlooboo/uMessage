@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w2b1_archived_find">
+        <item quantity="one">%d conversación archivada. Encuéntrala en la pestaña Archivados</item>
+        <item quantity="other">%d conversaciones archivadas. Encuéntralas en la pestaña Archivados</item>
+    </plurals>
+    <string name="w2b1_search_recent">Búsquedas recientes</string>
+    <string name="w2b1_search_recent_clear">Limpiar</string>
+    <string name="w2b1_search_recent_clear_description">Limpiar búsquedas recientes</string>
+    <string name="w2b1_search_digits_note">Los dígitos persas y latinos coinciden: 123 también encuentra ۱۲۳.</string>
+    <string name="w2b1_search_section_conversations">Conversaciones</string>
+    <string name="w2b1_search_section_messages">Mensajes</string>
+    <plurals name="w2b1_search_matches">
+        <item quantity="one">%d coincidencia</item>
+        <item quantity="other">%d coincidencias</item>
+    </plurals>
+    <string name="w2b1_filter_all">Todas</string>
+    <string name="w2b1_filter_unread">No leídas</string>
+    <string name="w2b1_filter_unread_empty_title">No hay conversaciones sin leer</string>
+    <string name="w2b1_filter_unread_empty_body">Todo está leído.</string>
+    <string name="w2b1_swipe_block">Bloquear remitente</string>
+</resources>

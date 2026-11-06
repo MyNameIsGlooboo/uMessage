@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_conv_menu">Eksport rozmowy</string>
+    <string name="export_conv_title">Eksport rozmowy</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">Zwykły tekst</string>
+    <string name="export_conv_dates_all">Wszystkie daty</string>
+    <string name="export_conv_dates_30">Ostatnie 30 dni</string>
+    <string name="export_conv_dates_pick">Wybierz daty</string>
+    <string name="export_conv_pick_from">Od którego dnia?</string>
+    <string name="export_conv_pick_to">Do którego dnia?</string>
+    <string name="export_conv_action">Eksport</string>
+    <string name="export_conv_preparing">Przygotowywanie pliku…</string>
+    <string name="export_conv_nothing">Brak wiadomości w tym okresie</string>
+    <string name="export_conv_failed">Nie udało się utworzyć pliku</string>
+    <string name="export_conv_subject">Eksport rozmowy</string>
+    <string name="export_conv_share_text">Rozmowa z %1$s, %2$s. SHA-256 tekstu wiadomości: %3$s</string>
+    <string name="export_conv_attachment_label">[Załącznik]</string>
+    <string name="export_pdf_title">Eksport rozmowy</string>
+    <string name="export_pdf_with">Rozmowa z: %1$s</string>
+    <string name="export_pdf_numbers">Numery: %1$s</string>
+    <string name="export_pdf_range">Zakres dat: %1$s</string>
+    <string name="export_pdf_zone">Godziny podano w strefie czasowej %1$s</string>
+    <string name="export_pdf_exported">Data eksportu: %1$s</string>
+    <plurals name="export_pdf_count">
+        <item quantity="one">%1$d wiadomość</item>
+        <item quantity="few">%1$d wiadomości</item>
+        <item quantity="many">%1$d wiadomości</item>
+        <item quantity="other">%1$d wiadomości</item>
+    </plurals>
+    <string name="export_pdf_hash">SHA-256 tekstu wiadomości: %1$s</string>
+    <string name="export_pdf_not_certified">Wyeksportowano z telefonu; zapis nie jest poświadczony.</string>
+    <string name="export_pdf_page">Strona %1$d z %2$d</string>
+    <string name="export_pdf_from">Od: %1$s</string>
+    <string name="export_pdf_to">Do: %1$s</string>
+    <string name="export_pdf_attachment">Załącznik: %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">plik bez nazwy</string>
+    <string name="export_status_received">Odebrano</string>
+    <string name="export_status_sent">Wysłano</string>
+    <string name="export_status_delivered">Dostarczono</string>
+    <string name="export_status_failed">Niepowodzenie</string>
+    <string name="export_status_sending">Wysyłanie</string>
+    <string name="export_status_draft">Wersja robocza</string>
+</resources>

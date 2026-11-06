@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">পুনরাবৃত্তি</string>
+    <string name="schedule_repeat_never">কখনো নয়</string>
+    <string name="schedule_repeat_daily">প্রতিদিন</string>
+    <string name="schedule_repeat_weekly">প্রতি সপ্তাহে</string>
+    <string name="schedule_repeat_monthly">প্রতি মাসে</string>
+    <string name="schedule_repeat_yearly">প্রতি বছর</string>
+    <string name="schedule_repeat_jalali_note">মাস ও বছর জালালি ক্যালেন্ডার অনুযায়ী গণনা করা হয়।</string>
+    <string name="scheduled_repeats_daily">প্রতিদিন পুনরাবৃত্তি হয়</string>
+    <string name="scheduled_repeats_weekly">প্রতি সপ্তাহে পুনরাবৃত্তি হয়</string>
+    <string name="scheduled_repeats_monthly">প্রতি মাসে পুনরাবৃত্তি হয়</string>
+    <string name="scheduled_repeats_yearly">প্রতি বছর পুনরাবৃত্তি হয়</string>
+    <string name="scheduled_repeats_paused">পুনরাবৃত্তি সাময়িক বন্ধ</string>
+    <string name="scheduled_delete_repeating">পুনরাবৃত্ত বার্তা মুছুন</string>
+    <string name="scheduled_delete_this_one">শুধু এই বার্তা</string>
+    <string name="scheduled_delete_all_future">এটি ও পরের সব বার্তা</string>
+</resources>

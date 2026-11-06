@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="r3fwd_title">Пересилання</string>
+    <string name="r3fwd_options">Параметри пересилання</string>
+    <string name="r3fwd_summary_none">Вимкнено · Пересилання повідомлень на інший номер</string>
+    <string name="r3fwd_summary_off">Вимкнено</string>
+    <string name="r3fwd_summary_paused">Призупинено</string>
+    <plurals name="r3fwd_summary_on" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Увімкнено %d правило</item>
+        <item quantity="few">Увімкнено %d правила</item>
+        <item quantity="many">Увімкнено %d правил</item>
+        <item quantity="other">Увімкнено %d правила</item>
+    </plurals>
+    <string name="r3fwd_paused_title">Пересилання призупинено</string>
+    <string name="r3fwd_paused_body">Ваші правила збережено, але повідомлення не пересилатимуться, доки ви знову не ввімкнете пересилання.</string>
+    <string name="r3fwd_paused_action">Відкрити параметри</string>
+</resources>

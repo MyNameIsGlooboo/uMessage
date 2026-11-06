@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="rules_sheet_title_edit_allow">Изменить правило разрешения</string>
+    <string name="rules_sheet_title_edit_block">Изменить правило блокировки</string>
+    <string name="rules_sheet_save">Сохранить изменения</string>
+    <string name="rules_edit_rule">Изменить %1$s</string>
+    <string name="rules_search_hint">Поиск правил и заметок</string>
+    <string name="rules_search_clear">Очистить поиск</string>
+    <string name="rules_filter_all_types">Все типы</string>
+    <string name="rules_search_empty_title">Правила не найдены</string>
+    <string name="rules_search_empty_body">Попробуйте другие слова или выберите все типы.</string>
+    <string name="rules_export_selected">Экспорт выбранного</string>
+    <string name="rules_delete_selected">Удалить выбранное</string>
+    <plurals name="rules_deleted_many" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Удалено %d правило</item>
+        <item quantity="few">Удалено %d правила</item>
+        <item quantity="many">Удалено %d правил</item>
+        <item quantity="other">Удалено %d правила</item>
+    </plurals>
+    <string name="rules_system_block_list">Системный список заблокированных (включая звонки)</string>
+    <string name="rules_legacy_note_keyword">Из старого списка заблокированных слов</string>
+    <string name="rules_legacy_note_number">Из системного списка заблокированных</string>
+    <string name="rules_legacy_banner_title">Найдены старые списки заблокированных</string>
+    <string name="rules_legacy_banner_body">Некоторые слова и номера заблокированы вне этих правил. Перенесите их сюда, чтобы просматривать и менять все в одном месте.</string>
+    <string name="rules_legacy_banner_review">Посмотреть</string>
+    <string name="rules_legacy_banner_not_now">Не сейчас</string>
+    <string name="rules_legacy_section_keywords">Старый список заблокированных слов</string>
+    <string name="rules_legacy_section_keywords_body">Используется для фильтрации, пока вы не перенесете эти слова в правила. После этого старый список перестанет действовать.</string>
+    <string name="rules_legacy_section_system_body">Android удаляет сообщения с этих номеров до того, как их получит uMessage, поэтому они не попадают в «Заблокированные». Это общий список с приложением «Телефон», он также блокирует звонки.</string>
+    <string name="rules_legacy_chip_old_list">Старый список</string>
+    <string name="rules_legacy_chip_system">Системный, включая звонки</string>
+    <string name="rules_legacy_move">Перенести в правила</string>
+    <string name="rules_legacy_open_system">Открыть системный список заблокированных</string>
+    <string name="rules_migrate_title">Перенести старые списки заблокированных в правила</string>
+    <string name="rules_migrate_nothing">Все записи из старых списков уже есть в ваших правилах.</string>
+    <plurals name="rules_migrate_keywords" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d слово из старого списка заблокированных слов станет правилом блокировки по ключевому слову. После этого старый список перестанет действовать.</item>
+        <item quantity="few">%d слова из старого списка заблокированных слов станут правилами блокировки по ключевым словам. После этого старый список перестанет действовать.</item>
+        <item quantity="many">%d слов из старого списка заблокированных слов станут правилами блокировки по ключевым словам. После этого старый список перестанет действовать.</item>
+        <item quantity="other">В правила блокировки по ключевым словам будет перенесено %d слова из старого списка заблокированных слов. После этого старый список перестанет действовать.</item>
+    </plurals>
+    <plurals name="rules_migrate_keywords_kept" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d слово не подходит для правила (одна буква, несколько строк или слишком длинное) и останется в старом списке.</item>
+        <item quantity="few">%d слова не подходят для правил (одна буква, несколько строк или слишком длинные) и останутся в старом списке.</item>
+        <item quantity="many">%d слов не подходят для правил (одна буква, несколько строк или слишком длинные) и останутся в старом списке.</item>
+        <item quantity="other">В старом списке останется %d слова: они не подходят для правил (одна буква, несколько строк или слишком длинные).</item>
+    </plurals>
+    <plurals name="rules_migrate_numbers" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Также добавить %d номер из системного списка заблокированных как правило блокировки</item>
+        <item quantity="few">Также добавить %d номера из системного списка заблокированных как правила блокировки</item>
+        <item quantity="many">Также добавить %d номеров из системного списка заблокированных как правила блокировки</item>
+        <item quantity="other">Также добавить %d номера из системного списка заблокированных как правила блокировки</item>
+    </plurals>
+    <string name="rules_migrate_numbers_body">Android удаляет сообщения с номеров из системного списка заблокированных, поэтому uMessage их не получает. С правилами uMessage эти сообщения смогут попадать в «Заблокированные», где их можно прочитать и восстановить, но только после удаления номеров из системного списка.</string>
+    <string name="rules_migrate_remove">Также удалить их из системного списка заблокированных</string>
+    <string name="rules_migrate_remove_body">Системный список также блокирует звонки. После удаления из него номера смогут снова вам звонить. uMessage фильтрует только сообщения.</string>
+    <plurals name="rules_migrate_numbers_kept" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d запись с подстановочным символом не подходит для правила и останется в системном списке.</item>
+        <item quantity="few">%d записи с подстановочными символами не подходят для правил и останутся в системном списке.</item>
+        <item quantity="many">%d записей с подстановочными символами не подходят для правил и останутся в системном списке.</item>
+        <item quantity="other">В системном списке останется %d записи с подстановочными символами: они не подходят для правил.</item>
+    </plurals>
+    <string name="rules_migrate_confirm">Перенести</string>
+    <plurals name="rules_migrated_keywords" tools:ignore="ImpliedQuantity">
+        <item quantity="one">В правила перенесено %d слово</item>
+        <item quantity="few">В правила перенесено %d слова</item>
+        <item quantity="many">В правила перенесено %d слов</item>
+        <item quantity="other">В правила перенесено %d слова</item>
+    </plurals>
+    <plurals name="rules_migrated_numbers" tools:ignore="ImpliedQuantity">
+        <item quantity="one">В правила добавлен %d номер</item>
+        <item quantity="few">В правила добавлено %d номера</item>
+        <item quantity="many">В правила добавлено %d номеров</item>
+        <item quantity="other">В правила добавлено %d номера</item>
+    </plurals>
+    <plurals name="rules_migrated_removed" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Из системного списка заблокированных удален %d номер</item>
+        <item quantity="few">Из системного списка заблокированных удалено %d номера</item>
+        <item quantity="many">Из системного списка заблокированных удалено %d номеров</item>
+        <item quantity="other">Из системного списка заблокированных удалено %d номера</item>
+    </plurals>
+    <plurals name="rules_migrated_kept" tools:ignore="ImpliedQuantity">
+        <item quantity="one">В старых списках осталась %d запись</item>
+        <item quantity="few">В старых списках осталось %d записи</item>
+        <item quantity="many">В старых списках осталось %d записей</item>
+        <item quantity="other">В старых списках осталось %d записи</item>
+    </plurals>
+    <string name="rules_migrated_nothing">Ничего не перенесено.</string>
+    <string name="settings_system_block_list_body_calls">Блокирует звонки и сообщения на всем телефоне. Android удаляет эти сообщения до того, как их получит uMessage. Вы можете перенести номера в раздел «Разрешенные и заблокированные».</string>
+    <string name="settings_old_blocked_words">Старый список заблокированных слов</string>
+    <string name="settings_old_blocked_words_body">Перенос в раздел «Разрешенные и заблокированные»</string>
+</resources>

@@ -1,0 +1,1 @@
+SMS app that keeps spam from unknown senders out of your inbox. Fully offline.

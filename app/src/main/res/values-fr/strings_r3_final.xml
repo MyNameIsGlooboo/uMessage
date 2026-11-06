@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3f_spam_summary_stopped">%1$d bloqués</string>
+    <string name="r3f_spam_summary_restored">%1$d restaurés</string>
+    <string name="r3f_spam_summary_stopped_week">%1$d bloqués en 7 jours</string>
+    <string name="r3f_spam_summary_total">%1$d au total</string>
+</resources>

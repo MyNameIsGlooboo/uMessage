@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fixes_unarchive_title">संग्रह से निकालें?</string>
+    <string name="fixes_unarchive_message">%1$s को आपकी बातचीत की सूची में वापस ले जाएं?</string>
+</resources>

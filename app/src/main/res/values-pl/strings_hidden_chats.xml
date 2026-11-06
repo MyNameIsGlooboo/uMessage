@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">Ukryj tę rozmowę</string>
+    <string name="hidden_chats_menu_unhide">Odkryj tę rozmowę</string>
+    <string name="hidden_chats_confirm">Ukryć tę rozmowę? Zniknie z listy, wyszukiwania i powiadomień, dopóki nie odblokujesz ukrytych rozmów za pomocą blokady aplikacji.</string>
+    <string name="hidden_chats_need_lock">Ukryte rozmowy wymagają blokady aplikacji. Skonfigurować ją teraz?</string>
+    <string name="hidden_chats_set_lock">Skonfiguruj</string>
+    <string name="hidden_chats_done">Rozmowa ukryta</string>
+    <string name="hidden_chats_show">Ukryte rozmowy</string>
+    <string name="hidden_chats_lock">Zablokuj ukryte rozmowy</string>
+</resources>

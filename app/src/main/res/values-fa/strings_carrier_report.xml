@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">گزارش هرزنامه</string>
+    <string name="carrier_report_row_title">شمارهٔ گزارش هرزنامه به اپراتور</string>
+    <string name="carrier_report_row_summary">گزارش هرزنامه به اپراتور با SMS</string>
+    <string name="carrier_report_not_set">تنظیم نشده</string>
+    <string name="carrier_report_hint">شمارهٔ گزارش هرزنامه به اپراتور شما. گزارش‌ها با SMS ارسال می‌شوند و ممکن است هزینه داشته باشند.</string>
+    <string name="carrier_report_invalid">۳ تا ۸ رقم وارد کنید</string>
+    <string name="carrier_report_action">گزارش به اپراتور</string>
+    <string name="carrier_report_title">به اپراتور گزارش می‌دهید؟</string>
+    <string name="carrier_report_body">آخرین پیام این فرستنده با SMS به %1$s ارسال می‌شود. اپراتور ممکن است بابت آن هزینه بگیرد.</string>
+    <string name="carrier_report_send">ارسال</string>
+    <string name="carrier_report_sent">گزارش به اپراتور ارسال شد</string>
+    <string name="carrier_report_failed">گزارش ارسال نشد</string>
+</resources>

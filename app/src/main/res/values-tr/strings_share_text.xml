@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_text_menu">Görüşmeyi metin olarak paylaşın</string>
+    <string name="share_text_scope_title">Hangi mesajlar?</string>
+    <string name="share_text_scope_whole">Tüm görüşme</string>
+    <string name="share_text_scope_last">Son 50 mesaj</string>
+    <string name="share_text_title">Metin olarak paylaşın</string>
+    <string name="share_text_warning">Bu işlem özel metinleri başka bir uygulamaya gönderir. Sonraki adımda uygulamayı seçersiniz.</string>
+    <string name="share_text_action">Paylaşın</string>
+    <string name="share_text_range">%1$s – %2$s</string>
+    <string name="share_text_attachment">[Ek]</string>
+    <string name="share_text_subject">uMessage mesajları</string>
+    <string name="share_text_nothing">Paylaşılacak mesaj yok</string>
+    <plurals name="share_text_count">
+        <item quantity="one">%1$d mesaj</item>
+        <item quantity="other">%1$d mesaj</item>
+    </plurals>
+</resources>

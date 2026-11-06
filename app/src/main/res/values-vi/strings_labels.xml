@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">Nhãn</string>
+    <string name="i29_picker_title">Nhãn</string>
+    <string name="i29_picker_empty">Bạn chưa có nhãn nào. Tạo nhãn để phân loại cuộc trò chuyện.</string>
+    <string name="i29_picker_new">Nhãn mới</string>
+    <string name="i29_picker_manage">Quản lý nhãn</string>
+    <string name="i29_done">Xong</string>
+    <string name="i29_cancel">Hủy</string>
+    <string name="i29_tiles_title">Nhãn của bạn</string>
+    <string name="i29_tile_add">Thêm nhãn</string>
+    <string name="i29_tiles_manage">Quản lý nhãn</string>
+    <string name="i29_manager_title">Quản lý nhãn</string>
+    <string name="i29_manager_note">Nhãn do bạn tự tạo, tách biệt với các bộ lọc tự động Giao dịch và Ưu đãi.</string>
+    <string name="i29_manager_edit">Sửa nhãn %1$s</string>
+    <string name="i29_manager_delete">Xóa nhãn %1$s</string>
+    <string name="i29_edit_new_title">Nhãn mới</string>
+    <string name="i29_edit_title">Sửa nhãn</string>
+    <string name="i29_edit_name">Tên nhãn</string>
+    <string name="i29_edit_save">Lưu</string>
+    <string name="i29_color_description">Màu %1$d</string>
+    <string name="i29_error_duplicate">Bạn đã có nhãn mang tên này.</string>
+    <string name="i29_error_limit">Bạn có thể tạo tối đa %1$d nhãn.</string>
+    <string name="i29_delete_title">Xóa nhãn này?</string>
+    <string name="i29_delete_body">Nhãn “%1$s” sẽ bị xóa. Các cuộc trò chuyện và tin nhắn của bạn vẫn giữ nguyên.</string>
+    <string name="i29_delete_confirm">Xóa</string>
+    <string name="i29_empty_title">Chưa có cuộc trò chuyện nào</string>
+    <string name="i29_empty_body">Nhấn giữ một cuộc trò chuyện, mở trình đơn rồi chọn Nhãn để thêm.</string>
+</resources>

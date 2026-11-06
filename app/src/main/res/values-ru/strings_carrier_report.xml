@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">Пожаловаться на спам</string>
+    <string name="carrier_report_row_title">Номер оператора для жалоб на спам</string>
+    <string name="carrier_report_row_summary">Пожаловаться на спам оператору по SMS</string>
+    <string name="carrier_report_not_set">Не задан</string>
+    <string name="carrier_report_hint">Номер оператора для жалоб на спам. Жалобы отправляются по SMS и могут быть платными.</string>
+    <string name="carrier_report_invalid">Введите от 3 до 8 цифр</string>
+    <string name="carrier_report_action">Пожаловаться оператору</string>
+    <string name="carrier_report_title">Пожаловаться оператору?</string>
+    <string name="carrier_report_body">Последнее сообщение от этого отправителя будет отправлено по SMS на номер %1$s. Оператор может взимать за это плату.</string>
+    <string name="carrier_report_send">Отправить</string>
+    <string name="carrier_report_sent">Жалоба отправлена оператору</string>
+    <string name="carrier_report_failed">Не удалось отправить жалобу</string>
+</resources>

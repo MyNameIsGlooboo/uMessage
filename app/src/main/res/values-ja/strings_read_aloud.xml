@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">読み上げ</string>
+    <string name="read_aloud_stop">読み上げ停止</string>
+    <string name="read_aloud_no_voice">この端末には%1$sの音声がインストールされていません。</string>
+    <string name="read_aloud_install">音声を取得</string>
+    <string name="read_aloud_install_missing">この端末では音声をインストールできません。</string>
+    <string name="read_aloud_failed">メッセージを読み上げられませんでした。</string>
+</resources>

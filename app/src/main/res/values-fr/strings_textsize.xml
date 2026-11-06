@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_text_xsmall">Très petit</string>
+    <string name="w3c_text_huge">Très grand</string>
+    <string name="w3c_text_giant">Géant</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">始终允许</string>
+    <string name="ux8d_sheet_title_block">始终屏蔽</string>
+    <string name="ux8d_match_label">匹配内容</string>
+    <string name="ux8d_match_number">电话号码</string>
+    <string name="ux8d_match_sender">发件人名称，如银行名称</string>
+    <string name="ux8d_match_word">消息中的词语</string>
+    <string name="ux8d_match_prefix">以…开头的号码</string>
+    <string name="ux8d_match_pattern">正则表达式（高级）</string>
+    <string name="ux8d_match_more">更多匹配方式</string>
+    <string name="ux8d_action_label">匹配时</string>
+    <string name="ux8d_more_options">更多选项</string>
+    <string name="ux8d_row_type_number">号码</string>
+    <string name="ux8d_row_type_prefix">号码开头</string>
+    <string name="ux8d_row_type_sender">发件人名称</string>
+    <string name="ux8d_row_type_word">消息中的词语</string>
+    <string name="ux8d_row_type_pattern">正则表达式</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

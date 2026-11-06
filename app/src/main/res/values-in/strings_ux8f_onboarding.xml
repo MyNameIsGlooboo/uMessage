@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">Lebih banyak fitur</string>
+    <string name="ux8f_onb_less">Lebih sedikit fitur</string>
+    <string name="ux8f_onb_battery_body">Android dapat menghentikan uMessage di latar belakang dan menunda pesan Anda. Izinkan aplikasi tetap berjalan.</string>
+    <string name="ux8f_onb_battery_action">Izinkan penggunaan latar belakang</string>
+    <string name="ux8f_onb_vendor_hint">Ponsel %1$s memerlukan satu langkah lagi.</string>
+    <string name="ux8f_onb_unfinished">Masih perlu diselesaikan. Anda bisa menyelesaikannya nanti di setelan Android.</string>
+</resources>

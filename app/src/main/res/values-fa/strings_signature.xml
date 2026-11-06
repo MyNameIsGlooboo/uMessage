@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">امضا</string>
+    <string name="i60_off">خاموش</string>
+    <string name="i60_dialog_note">زیر هر پیامی که می‌فرستید اضافه می‌شود. اگر امضا نمی‌خواهید، خالی بگذارید.</string>
+</resources>

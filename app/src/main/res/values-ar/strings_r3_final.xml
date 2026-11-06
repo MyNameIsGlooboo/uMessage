@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3f_spam_summary_stopped">تم إيقاف %1$d</string>
+    <string name="r3f_spam_summary_restored">تمت استعادة %1$d</string>
+    <string name="r3f_spam_summary_stopped_week">تم إيقاف %1$d خلال 7 أيام</string>
+    <string name="r3f_spam_summary_total">%1$d إجمالًا</string>
+</resources>

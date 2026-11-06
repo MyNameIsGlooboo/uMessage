@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i56_section">Multimedia i linki</string>
+    <string name="i56_see_all">Zobacz wszystkie</string>
+    <string name="i56_pictures">Zdjęcia</string>
+    <string name="i56_links">Linki</string>
+    <string name="i56_empty_pictures">Brak zdjęć w tej rozmowie.</string>
+    <string name="i56_empty_links">Brak linków w tej rozmowie.</string>
+    <string name="i56_show_in_chat">Pokaż w rozmowie</string>
+    <string name="i56_load_more">Pokaż więcej</string>
+    <string name="i56_picture_description">Zdjęcie. Dotknij, aby otworzyć.</string>
+    <plurals name="i56_count_pictures">
+        <item quantity="one">%d zdjęcie</item>
+        <item quantity="few">%d zdjęcia</item>
+        <item quantity="many">%d zdjęć</item>
+        <item quantity="other">%d zdjęcia</item>
+    </plurals>
+    <plurals name="i56_count_links">
+        <item quantity="one">%d link</item>
+        <item quantity="few">%d linki</item>
+        <item quantity="many">%d linków</item>
+        <item quantity="other">%d linku</item>
+    </plurals>
+</resources>

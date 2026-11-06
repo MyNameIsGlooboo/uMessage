@@ -1,0 +1,7 @@
+- German, short, natural and friendly, like Google Messages and modern German apps (WhatsApp, Telegram).
+- Address the user with the informal "du": imperatives "Wähle", "Aktiviere", "Tippe"; possessive "dein", "deine". Never "Sie". Write "du" and "dein" in lowercase.
+- Nouns are capitalised as in standard German. Titles, buttons and chips use sentence style: only the first word and the nouns are capitalised (no English-style Title Case).
+- Quotes: „Wort“ (low opening, high closing). German has no apostrophe in plurals or genitives.
+- Use "Nachricht/Nachrichten" for message, "Absender" for sender; keep "SMS", "MMS" and "PIN" as they are.
+- Plural ids: one (1), other (all other numbers). Keep the number token in both.
+- German runs 20-30% longer than English and compounds get long: choose short words for buttons and chips ("Löschen", "Sperren") and avoid long compound words in labels.

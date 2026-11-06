@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_checklist_title">Siapkan dalam 1 menit</string>
+    <string name="w3c_checklist_done_title">Semua siap</string>
+    <string name="w3c_checklist_basics_title">Penyiapan dasar selesai</string>
+    <string name="w3c_checklist_progress">%1$s dari %2$s</string>
+    <string name="w3c_checklist_dismiss">Tutup daftar periksa</string>
+    <string name="w3c_checklist_step_sms">Jadikan uMessage aplikasi SMS default</string>
+    <string name="w3c_checklist_step_notifications">Aktifkan notifikasi</string>
+    <string name="w3c_checklist_step_blocked">Lihat tab Diblokir</string>
+    <string name="w3c_checklist_step_forward">Opsional: teruskan pesan ke nomor lain</string>
+    <string name="w3c_checklist_step_done">Selesai</string>
+    <string name="w3c_checklist_action_set">Atur</string>
+    <string name="w3c_checklist_action_open">Buka</string>
+    <string name="w3c_receipt_title">Spam ditahan: ketuk untuk meninjau</string>
+    <string name="w3c_receipt_body">Pesan dari pengirim tidak dikenal ditahan di tab Diblokir. Pesan tidak hilang: Anda dapat meninjau dan memulihkannya kapan saja.</string>
+    <string name="w3c_receipt_review">Tinjau</string>
+    <string name="w3c_receipt_got_it">Mengerti</string>
+    <string name="w3c_search_codes">Kode terbaru</string>
+    <string name="w3c_search_code_copied">Kode disalin</string>
+    <string name="w3c_search_code_description">Salin kode %1$s dari %2$s</string>
+    <string name="w3c_new_paste">Tempel nomor</string>
+    <string name="w3c_new_paste_none">Tidak ada nomor telepon di papan klip</string>
+    <string name="w3c_details_allow">Selalu izinkan pengirim ini</string>
+    <string name="w3c_details_allow_hint">Pesan dari pengirim ini selalu masuk ke kotak masuk</string>
+    <string name="w3c_details_allow_spoof_hint">Siapa pun bisa mengirim pesan dengan nama ini, jadi pesan mereka juga diizinkan</string>
+    <string name="w3c_date_gregorian">Masehi</string>
+    <string name="w3c_date_gregorian_body">Tanggal seperti 29 Okt</string>
+    <string name="w3c_date_jalali">Jalali</string>
+    <string name="w3c_date_jalali_body">Tanggal seperti 7 Aban</string>
+    <string name="w3c_date_both">Keduanya</string>
+    <string name="w3c_date_both_body">Kedua kalender dalam percakapan</string>
+    <string name="w3c_text_size">Ukuran teks</string>
+    <string name="w3c_text_small">Kecil</string>
+    <string name="w3c_text_default">Default</string>
+    <string name="w3c_text_large">Besar</string>
+    <string name="w3c_text_largest">Paling besar</string>
+    <string name="w3c_text_size_sample">Contoh: Kode Anda adalah 482913.</string>
+    <string name="w3c_backup_settings">Cadangkan semua setelan</string>
+    <string name="w3c_backup_settings_body">Menyimpan aturan, penerusan, dan setelan ke file. Tanpa teks pesan.</string>
+    <string name="w3c_restore_settings">Pulihkan semua setelan</string>
+    <string name="w3c_restore_settings_body">Memuat aturan dan setelan dari file cadangan</string>
+    <string name="w3c_backup_saved">Cadangan disimpan: %1$d item</string>
+    <string name="w3c_backup_failed">Cadangan tidak dapat disimpan</string>
+    <string name="w3c_restore_done">%1$d item dipulihkan</string>
+    <string name="w3c_restore_failed">File ini tidak dapat dipulihkan. Pilih cadangan setelan uMessage.</string>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3b_info_button">كيف يعمل الحظر</string>
+    <string name="r3b_info_title">كيف يعمل الحظر</string>
+    <string name="r3b_info_modes">المرسلون غير المعروفين</string>
+    <string name="r3b_info_mode_current">الآن: %1$s</string>
+    <string name="r3b_info_messages">الرسائل المحظورة</string>
+    <string name="r3b_info_open_sender">اضغط على مرسل لقراءة رسائله.</string>
+    <string name="r3b_info_move">ينقل خيار «انقل إلى الرسائل الواردة» كل رسائل المرسل إلى الرسائل الواردة، ثم يسألك إن كنت تريد السماح له دائمًا.</string>
+    <string name="r3b_info_release">ينقل خيار «اسمح بالوصول مرة واحدة» (اضغط مطولًا على رسالة) هذه الرسالة وحدها إلى الرسائل الواردة. يبقى المرسل غير مسموح له.</string>
+    <string name="r3b_info_swipe">اسحب صف المرسل باتجاه نهايته لنقل رسائله إلى الرسائل الواردة.</string>
+    <string name="r3b_open_sender">افتح الرسائل</string>
+    <string name="r3b_move_inbox_for">انقل إلى الرسائل الواردة، %1$s</string>
+    <string name="r3b_delete_for">احذف، %1$s</string>
+    <string name="r3b_thread_note">احتجز uMessage هذه الرسائل. ليست ضمن الرسائل الواردة.</string>
+    <string name="r3b_thread_delete_all">احذف كل رسائل %1$s</string>
+    <string name="r3b_thread_empty_title">لم يبقَ شيء هنا</string>
+    <string name="r3b_thread_empty_body">لا توجد رسائل محظورة لهذا المرسل الآن.</string>
+    <string name="r3b_message_actions">إجراءات الرسالة</string>
+    <string name="r3b_why_blocked">سبب الحظر</string>
+    <string name="r3b_copy_text">انسخ النص</string>
+    <string name="r3b_text_copied">نُسخ النص</string>
+    <string name="r3b_delete_message">احذف</string>
+    <string name="r3b_received">استُلمت في %1$s</string>
+    <string name="r3b_info_mode_strict">صارم: يحتجز رسائل كل مرسل غير معروف، حتى رموز التحقق.</string>
+    <string name="r3b_info_mode_smart">ذكي: يحتجز رسائل المرسلين غير المعروفين، ويسمح برموز التحقق بلا روابط.</string>
+    <string name="r3b_info_mode_off">متوقف: تصل رسائل المرسلين غير المعروفين إلى الرسائل الواردة. تبقى قواعدك سارية.</string>
+    <plurals name="r3b_info_purge">
+        <item quantity="zero">تُحذف الرسائل المحظورة بعد %d يوم.</item>
+        <item quantity="one">تُحذف الرسائل المحظورة بعد يوم واحد (%d).</item>
+        <item quantity="two">تُحذف الرسائل المحظورة بعد يومين (%d).</item>
+        <item quantity="few">تُحذف الرسائل المحظورة بعد %d أيام.</item>
+        <item quantity="many">تُحذف الرسائل المحظورة بعد %d يومًا.</item>
+        <item quantity="other">تُحذف الرسائل المحظورة بعد %d يوم.</item>
+    </plurals>
+    <string name="r3b_info_purge_off">تبقى الرسائل المحظورة حتى تحذفها.</string>
+    <string name="r3b_allow_body_sender_one_message">ستعود الرسالة إلى الرسائل الواردة في الحالتين. إذا سمحت دائمًا لـ %1$s، فستتجاوز رسائله القادمة كل عوامل التصفية، بما فيها قواعد الحظر.</string>
+    <string name="r3b_allow_body_sender_many_messages">ستعود الرسائل إلى الرسائل الواردة في الحالتين. إذا سمحت دائمًا لـ %1$s، فستتجاوز رسائله القادمة كل عوامل التصفية، بما فيها قواعد الحظر.</string>
+</resources>

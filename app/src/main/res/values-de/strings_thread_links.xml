@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_link_confirm_body">Dieser Absender ist nicht in deinen Kontakten. Prüfe die vollständige Adresse, bevor du sie öffnest.</string>
+    <string name="thread_link_confirm_open">Öffnen</string>
+</resources>

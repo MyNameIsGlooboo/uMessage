@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">한도에 도달해 오늘 전달 중지</string>
+    <string name="fwdfix_limit_hint">오늘 전달 한도 %2$s건 중 %1$s건을 보냈어요. 내일 다시 전달을 시작해요.</string>
+    <string name="fwdfix_status_skipped">건너뜀 (한도)</string>
+    <string name="fwdfix_error_daily_limit">일일 전달 한도에 도달해 보내지 않았어요.</string>
+    <string name="fwdfix_error_rate_limited">이 규칙으로 지난 1시간 동안 이미 메시지 %1$s건을 전달해 보내지 않았어요.</string>
+    <string name="fwdfix_retry_all_recent">최근 24시간 이내의 전달만 포함해요.</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="other">전달이 일시 중지되어 %1$s건을 보내지 않았어요.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="other">해당 규칙이 꺼져 있거나 삭제되어 %1$s건을 보내지 않았어요.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="other">일일 한도나 규칙의 시간당 한도에 도달해 %1$s건을 보내지 않았어요.</item>
+    </plurals>
+    <string name="fwdfix_card_last">최근 전달 %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="other">이번 주 %1$s건</item>
+    </plurals>
+    <string name="fwdfix_card_never">아직 전달 내역 없음</string>
+    <string name="fwdfix_card_sent">전송됨</string>
+    <string name="fwdfix_card_pending">전송 중</string>
+    <string name="fwdfix_card_failed">실패</string>
+    <string name="fwdfix_card_skipped">건너뜀 (한도)</string>
+    <string name="fwdfix_delete_rule">규칙 삭제</string>
+    <string name="fwdfix_deleted">전달 규칙을 삭제했어요.</string>
+    <string name="fwdfix_test_button">시험 전송</string>
+    <string name="fwdfix_test_title">테스트 SMS 문자를 보낼까요?</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="other">위의 번호 %1$s개로 테스트 SMS 문자를 한 건씩 보내요. 각 문자에 SMS 요금이 부과돼요.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">전송</string>
+    <string name="fwdfix_test_text">uMessage 테스트: 전달 기능이 정상적으로 작동해요.</string>
+    <string name="fwdfix_test_sending">테스트 문자를 보내고 있어요.</string>
+    <string name="fwdfix_test_sent">테스트 문자를 보냈어요. 받는 휴대전화를 확인해 주세요.</string>
+    <string name="fwdfix_test_failed">테스트 문자를 보내지 못했어요. 통신 신호와 잔액을 확인해 주세요.</string>
+    <string name="fwdfix_cost_persian">페르시아어 %1$s글자 문자: %2$s건 × %3$s = SMS %4$s건</string>
+    <string name="fwdfix_cost_english">영어 %1$s글자 문자: %2$s건 × %3$s = SMS %4$s건</string>
+    <string name="fwdfix_retry_none_title">지금 보낼 수 있는 메시지가 없어요.</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="other">전달이 일시 중지되어 %1$s건은 보내지 않아요.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="other">해당 규칙이 꺼져 있거나 삭제되어 %1$s건은 보내지 않아요.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="other">일일 한도나 규칙의 시간당 한도에 도달해 %1$s건은 보내지 않아요.</item>
+    </plurals>
+</resources>

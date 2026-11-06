@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2c_blocked_label">차단됨</string>
+    <string name="w2c_log_blocked_by_rule">규칙에 따라 차단됨: %1$s</string>
+    <string name="w2c_log_blocked_by_old_list">기존 차단 목록에 따라 차단됨</string>
+    <string name="w2c_log_fwd_rate_limited">전달 안 됨: 이 규칙의 시간당 한도에 도달했어요.</string>
+</resources>

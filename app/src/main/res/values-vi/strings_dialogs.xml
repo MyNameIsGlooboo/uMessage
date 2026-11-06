@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialogs_yes">Có</string>
+    <string name="dialogs_no">Không</string>
+    <string name="dialogs_permission_required">Cần cấp quyền</string>
+    <string name="dialogs_grant_permission">Cấp quyền</string>
+    <string name="dialogs_date_time_format_title">Định dạng ngày và giờ</string>
+    <string name="dialogs_use_24_hour">Dùng định dạng 24 giờ</string>
+    <string name="dialogs_lock_pattern">Hình mở khóa</string>
+    <string name="dialogs_lock_pin">PIN</string>
+    <string name="dialogs_lock_biometrics">Sinh trắc học</string>
+    <string name="dialogs_lock_fingerprint">Vân tay</string>
+    <string name="dialogs_lock_enter_pin">Nhập PIN</string>
+    <string name="dialogs_lock_repeat_pin">Nhập lại PIN</string>
+    <string name="dialogs_lock_wrong_pin">Sai PIN</string>
+    <string name="dialogs_lock_empty_pin">Vui lòng nhập PIN</string>
+    <string name="dialogs_lock_short_pin">PIN phải có ít nhất 4 chữ số</string>
+    <string name="dialogs_lock_pin_suggestion">Ít nhất 4 chữ số. Từ %d chữ số trở lên sẽ an toàn hơn.</string>
+    <plurals name="dialogs_lock_short_pattern">
+        <item quantity="other">Quá ngắn. Nối ít nhất %d điểm.</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">Vẽ hình mở khóa</string>
+    <string name="dialogs_lock_repeat_pattern">Vẽ lại hình mở khóa</string>
+    <string name="dialogs_lock_wrong_pattern">Sai hình mở khóa</string>
+    <string name="dialogs_lock_locked_out">Bạn đã mở khóa sai quá nhiều lần.\nThử lại sau %d giây.</string>
+    <string name="dialogs_lock_pin_delete">Xóa chữ số cuối</string>
+    <string name="dialogs_lock_pin_confirm">Xác nhận PIN</string>
+    <string name="dialogs_lock_pin_entered">Đã nhập %d chữ số</string>
+    <string name="dialogs_lock_pattern_pad">Vùng vẽ hình mở khóa</string>
+    <string name="dialogs_lock_biometric_hint">Dùng vân tay hoặc khuôn mặt để xác nhận danh tính của bạn.</string>
+    <string name="dialogs_lock_biometric_open">Xác minh bằng sinh trắc học</string>
+    <string name="dialogs_lock_place_finger">Đặt ngón tay lên cảm biến vân tay.</string>
+    <string name="dialogs_lock_no_fingerprints">Chưa đăng ký vân tay. Thêm vân tay trong cài đặt thiết bị của bạn.</string>
+    <string name="dialogs_lock_open_settings">Mở cài đặt thiết bị</string>
+    <string name="dialogs_lock_auth_failed">Xác thực thất bại</string>
+    <string name="dialogs_lock_auth_blocked">Xác thực bị chặn, thử lại sau ít phút</string>
+</resources>

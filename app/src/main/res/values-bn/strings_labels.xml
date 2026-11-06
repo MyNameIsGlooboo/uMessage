@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">লেবেল</string>
+    <string name="i29_picker_title">লেবেল</string>
+    <string name="i29_picker_empty">আপনার এখনও কোনো লেবেল নেই। কথোপকথন সাজাতে একটি তৈরি করুন।</string>
+    <string name="i29_picker_new">নতুন লেবেল</string>
+    <string name="i29_picker_manage">লেবেল পরিচালনা করুন</string>
+    <string name="i29_done">হয়ে গেছে</string>
+    <string name="i29_cancel">বাতিল</string>
+    <string name="i29_tiles_title">আপনার লেবেল</string>
+    <string name="i29_tile_add">লেবেল যোগ করুন</string>
+    <string name="i29_tiles_manage">লেবেল পরিচালনা করুন</string>
+    <string name="i29_manager_title">লেবেল পরিচালনা করুন</string>
+    <string name="i29_manager_note">লেবেল আপনার নিজের তৈরি। এগুলো স্বয়ংক্রিয় লেনদেন ও অফার ফিল্টার থেকে আলাদা।</string>
+    <string name="i29_manager_edit">%1$s লেবেল সম্পাদনা করুন</string>
+    <string name="i29_manager_delete">%1$s লেবেল মুছুন</string>
+    <string name="i29_edit_new_title">নতুন লেবেল</string>
+    <string name="i29_edit_title">লেবেল সম্পাদনা করুন</string>
+    <string name="i29_edit_name">লেবেলের নাম</string>
+    <string name="i29_edit_save">সেভ করুন</string>
+    <string name="i29_color_description">রং %1$d</string>
+    <string name="i29_error_duplicate">এই নামে আপনার ইতিমধ্যে একটি লেবেল আছে।</string>
+    <string name="i29_error_limit">আপনি সর্বোচ্চ %1$dটি লেবেল রাখতে পারবেন।</string>
+    <string name="i29_delete_title">এই লেবেল মুছবেন?</string>
+    <string name="i29_delete_body">“%1$s” লেবেলটি সরানো হবে। আপনার কথোপকথন ও বার্তা যেমন আছে তেমনই থাকবে।</string>
+    <string name="i29_delete_confirm">মুছুন</string>
+    <string name="i29_empty_title">এখানে কোনো কথোপকথন নেই</string>
+    <string name="i29_empty_body">যোগ করতে কোনো কথোপকথন চেপে ধরে রাখুন, মেনু খুলে লেবেল নির্বাচন করুন।</string>
+</resources>

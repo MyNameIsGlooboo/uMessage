@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="ui_time_now">अभी</string>
+    <plurals name="ui_time_minutes" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d मिनट</item>
+        <item quantity="other">%d मिनट</item>
+    </plurals>
+    <string name="ui_bubble_sent">आप, %1$s</string>
+    <string name="ui_bubble_received">%1$s, %2$s</string>
+    <string name="ui_bubble_received_unknown">मिला, %1$s</string>
+    <string name="ui_select_message">मैसेज चुनें</string>
+    <string name="ui_retry_send">फिर से भेजें</string>
+    <string name="ui_default_required_body">जब तक uMessage आपका डिफ़ॉल्ट एसएमएस ऐप नहीं बनता, यह मैसेज पा, भेज या फ़िल्टर नहीं कर सकता. आपके मैसेज जहां हैं, वहीं रहते हैं.</string>
+    <string name="ui_default_required_close">uMessage बंद करें</string>
+    <string name="ui_add_contact_or_number">नाम या फ़ोन नंबर लिखें</string>
+    <string name="ui_show_dialpad">डायल पैड दिखाएं</string>
+    <string name="ui_show_keyboard">कीबोर्ड दिखाएं</string>
+    <string name="ui_settings_group_block_lists">अन्य ब्लॉक सूचियां</string>
+    <string name="ui_settings_system_block_list">सिस्टम की ब्लॉक सूची</string>
+    <string name="ui_settings_system_block_list_body">इस फ़ोन के हर ऐप में ब्लॉक किए गए नंबर. uMessage भी इन्हें छिपाता है.</string>
+    <string name="ui_settings_blocked_words">ब्लॉक किए गए शब्द</string>
+    <string name="ui_settings_character_counter">अक्षरों की गिनती दिखाएं</string>
+    <string name="ui_settings_simple_characters">भेजते समय उच्चारण चिह्न हटाएं</string>
+    <string name="ui_settings_send_on_enter">Enter कुंजी से भेजें</string>
+    <string name="ui_settings_delivery_reports">डिलीवरी रिपोर्ट पाएं</string>
+    <string name="ui_settings_recycle_bin">मिटाई गई बातचीत रीसायकल बिन में भेजें</string>
+    <string name="ui_two_sentences">%1$s. %2$s</string>
+    <string name="ui_tab_with_count">%1$s (%2$d)</string>
+    <string name="ui_send_with_sim">%1$s, %2$s</string>
+    <string name="ui_number_with_type">%1$s (%2$s)</string>
+    <string name="ui_log_decision_allowed">अनुमति दी गई</string>
+    <string name="ui_log_decision_blocked">ब्लॉक किया गया</string>
+    <string name="ui_log_decision_error">गड़बड़ी</string>
+    <string name="ui_log_reason_allow_rule">अनुमति देने का नियम</string>
+    <string name="ui_log_reason_block_rule">ब्लॉक करने का नियम</string>
+    <string name="ui_log_reason_contact">संपर्कों में है</string>
+    <string name="ui_log_reason_known_conversation">आपने पहले इन्हें मैसेज भेजा है</string>
+    <string name="ui_log_reason_otp">पुष्टि करने का कोड</string>
+    <string name="ui_log_reason_unknown_sender">अनजान भेजने वाला</string>
+    <string name="ui_log_reason_mode_off">फ़िल्टर बंद</string>
+    <string name="ui_log_reason_no_match">कोई नियम लागू नहीं हुआ</string>
+    <string name="ui_log_source_sms">SMS</string>
+    <string name="ui_log_source_mms">MMS</string>
+    <string name="ui_log_source_retry">फिर कोशिश की गई</string>
+</resources>

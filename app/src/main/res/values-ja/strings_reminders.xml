@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">リマインダー</string>
+    <string name="reminder_dialog_title">リマインダー</string>
+    <string name="reminder_in_3_hours">3時間後</string>
+    <string name="reminder_tomorrow_morning">明日の朝</string>
+    <string name="reminder_pick_time">日時を選択</string>
+    <string name="reminder_set">%1$sにリマインダーを設定しました。</string>
+    <string name="reminder_set_approximate">%1$s頃にリマインダーを設定しました。通知が少し遅れる場合があります。</string>
+    <string name="reminder_battery_hint">一部の端末ではバックグラウンドのアプリが停止され、リマインダーが遅れる場合があります。</string>
+    <string name="reminder_battery_open">uMessageの動作を維持</string>
+    <string name="reminder_channel">リマインダー</string>
+    <string name="reminder_title">リマインダー</string>
+    <string name="reminder_title_named">リマインダー：%1$s</string>
+    <string name="reminder_open_hint">タップするとメッセージが開きます。</string>
+</resources>

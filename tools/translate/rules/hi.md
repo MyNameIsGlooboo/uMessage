@@ -1,0 +1,5 @@
+- Hindi in Devanagari, simple everyday words, like Google Messages and Indian banking apps. Words that Indian users say in English may be written in Devanagari ("मैसेज", "ब्लॉक", "स्पैम", "सिम", "पिन", "ओटीपी") if that is how apps write them; follow the glossary.
+- Address the user with the polite "आप" form: imperatives "चुनें", "चालू करें"; never "तू" or "तुम".
+- Keep Western digits 0-9 as the tokens and English text give them.
+- Punctuation: full stop "." and "?" as in modern Hindi apps, used consistently (no mix of "." and "।").
+- Plural ids: "one" (covers 0 and 1) and "other".

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_switch_title">تنتقل إلى uMessage؟</string>
+    <string name="onb_switch_body">تنتقل من تطبيق SMS آخر؟ عطّل ميزات الدردشة فيه أولًا. تنتقل من هاتف آخر؟ استعد نسختك الاحتياطية بعد إكمال الإعداد.</string>
+    <string name="onb_switch_action">استعد نسخة احتياطية</string>
+    <string name="onb_switch_done_note">بعد الانتهاء، ستفتح شاشة النسخ الاحتياطي والاستعادة.</string>
+</resources>

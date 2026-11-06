@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Message details (TH-13, TH-16) -->
+    <string name="thread_r2_details_reason">Reason</string>
+    <string name="thread_r2_details_rule">Rule</string>
+    <string name="thread_r2_details_forwarded">Forwarded</string>
+    <string name="thread_r2_details_decision_restored">Blocked, then restored to your inbox</string>
+    <string name="thread_r2_details_copy">Copy %1$s</string>
+
+    <!-- Menus (TH-11, TH-12, TH-18, TH-20) -->
+    <string name="thread_r2_menu_search">Search in conversation</string>
+    <string name="thread_r2_menu_always_forward">Always forward from this sender</string>
+    <string name="thread_r2_block_hint">Future texts go to Blocked. Nothing leaves your phone.</string>
+    <string name="thread_r2_forward_message">Forward this message</string>
+
+    <!-- Search in conversation (TH-20) -->
+    <string name="thread_r2_search_hint">Search in conversation</string>
+    <string name="thread_r2_search_close">Close search</string>
+    <string name="thread_r2_search_none">No matches</string>
+    <string name="thread_r2_search_count">%1$d of %2$d</string>
+    <string name="thread_r2_search_older">Older match</string>
+    <string name="thread_r2_search_newer">Newer match</string>
+
+    <!-- Link sheet (TH-05) -->
+    <string name="thread_r2_link_copy">Copy link</string>
+    <string name="thread_r2_link_share">Share</string>
+
+    <!-- Schedule date picker (TH-24, TH-26) -->
+    <string name="thread_r2_schedule_pick_date">Pick a date</string>
+    <string name="thread_r2_calendar_previous">Previous month</string>
+    <string name="thread_r2_calendar_next">Next month</string>
+</resources>

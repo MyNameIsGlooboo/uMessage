@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Backup and restore of messages: progress, notification and the result summary. -->
+    <string name="backup_channel">Backup and restore</string>
+    <string name="backup_restoring">Restoring messages</string>
+    <string name="backup_exporting">Backing up messages</string>
+    <plurals name="backup_progress_import">
+        <item quantity="one">%1$d entry read</item>
+        <item quantity="other">%1$d entries read</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="one">%1$d entry read (%2$d%%)</item>
+        <item quantity="other">%1$d entries read (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="one">%1$d message saved</item>
+        <item quantity="other">%1$d messages saved</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="one">%1$d message saved (%2$d%%)</item>
+        <item quantity="other">%1$d messages saved (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">You can leave the app: this keeps running and shows its progress in a notification.</string>
+    <string name="backup_stop">Stop</string>
+    <string name="backup_hide">Hide</string>
+    <string name="backup_already_running">A backup or restore is already running.</string>
+
+    <string name="backup_restore_finished">Restore finished</string>
+    <string name="backup_restore_stopped">Restore stopped</string>
+    <string name="backup_restore_failed">Restore failed</string>
+    <string name="backup_invalid_file">This file is not a message backup, so nothing was restored.</string>
+    <string name="backup_no_entries">The backup file has no messages.</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="one">Nothing new to import: the message is already on this phone.</item>
+        <item quantity="other">Nothing new to import: all %1$d messages are already on this phone.</item>
+    </plurals>
+    <string name="backup_line_added">Added: %1$d</string>
+    <string name="backup_line_duplicates">Already on this phone, skipped: %1$d</string>
+    <string name="backup_line_repaired">Missing attachments added to messages restored before: %1$d</string>
+    <string name="backup_line_incomplete">Picture messages restored without some attachments: %1$d</string>
+    <string name="backup_line_failed">Could not be restored: %1$d</string>
+    <string name="backup_line_damaged">Damaged entries in the file, skipped: %1$d</string>
+    <string name="backup_line_xml_mms">Picture messages in this XML backup, not supported and skipped: %1$d</string>
+    <string name="backup_line_not_selected">Not selected for import: %1$d</string>
+    <string name="backup_reasons">Why:</string>
+    <string name="backup_reason_no_address">the message has no sender or recipient</string>
+    <string name="backup_reason_no_thread">the phone could not open its conversation</string>
+    <string name="backup_reason_refused">the phone refused to save it</string>
+    <string name="backup_reason_not_in_backup">the attachment is not in the backup file</string>
+    <string name="backup_reason_damaged_attachment">the attachment in the backup file is damaged</string>
+    <string name="backup_reason_attachment_write">the attachment could not be saved</string>
+    <string name="backup_stopped_early">The file is damaged after entry %1$d, so nothing after it could be read.</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="one">Stopped after %1$d entry. Run the restore again with the same file to finish: messages already restored are skipped.</item>
+        <item quantity="other">Stopped after %1$d entries. Run the restore again with the same file to finish: messages already restored are skipped.</item>
+    </plurals>
+    <string name="backup_retry_hint">Run the restore again to retry what failed: messages already restored are skipped.</string>
+
+    <string name="backup_export_finished">Backup finished</string>
+    <string name="backup_export_stopped">Backup stopped</string>
+    <string name="backup_export_failed">Backup failed</string>
+    <string name="backup_export_error">The backup could not be written, and the incomplete file was deleted. %1$s</string>
+    <string name="backup_export_cancelled">The backup was stopped and the incomplete file was deleted.</string>
+    <string name="backup_export_nothing">There are no messages to back up.</string>
+    <string name="backup_export_counts">Saved %1$d SMS and %2$d MMS.</string>
+    <string name="backup_export_unreadable_attachments">Attachments that could not be read, saved without their picture: %1$d</string>
+    <string name="backup_export_unreadable_messages">Messages that could not be read, left out: %1$d</string>
+    <string name="backup_export_unreadable_conversations">Conversations that could not be read, left out: %1$d</string>
+    <string name="backup_export_incomplete">This backup is not complete.</string>
+
+    <string name="backup_interrupted_import">The last restore stopped before it finished, perhaps because the phone closed the app. Run it again with the same file: messages already restored are skipped.</string>
+    <string name="backup_interrupted_export">The last backup stopped before it finished, so its file is incomplete. Please make a new backup.</string>
+</resources>

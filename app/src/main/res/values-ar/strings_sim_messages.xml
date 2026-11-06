@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sim_messages_title">رسائل شريحة SIM</string>
+    <string name="sim_messages_row_body">انسخ الرسائل المخزنة على شريحة SIM إلى محادثاتك</string>
+    <string name="sim_messages_loading">جارٍ قراءة شريحة SIM…</string>
+    <string name="sim_messages_unavailable">لا يسمح هذا الهاتف للتطبيقات بقراءة شريحة SIM.</string>
+    <string name="sim_messages_empty">لا توجد رسائل على شريحة SIM.</string>
+    <plurals name="sim_messages_found">
+        <item quantity="zero">توجد %1$d رسائل على شريحة SIM. هل تريد نسخها إلى محادثاتك؟ ستبقى على شريحة SIM أيضًا.</item>
+        <item quantity="one">توجد رسالة واحدة (%1$d) على شريحة SIM. هل تريد نسخها إلى محادثاتك؟ ستبقى على شريحة SIM أيضًا.</item>
+        <item quantity="two">توجد رسالتان (%1$d) على شريحة SIM. هل تريد نسخهما إلى محادثاتك؟ ستبقيان على شريحة SIM أيضًا.</item>
+        <item quantity="few">توجد %1$d رسائل على شريحة SIM. هل تريد نسخها إلى محادثاتك؟ ستبقى على شريحة SIM أيضًا.</item>
+        <item quantity="many">توجد %1$d رسالة على شريحة SIM. هل تريد نسخها إلى محادثاتك؟ ستبقى على شريحة SIM أيضًا.</item>
+        <item quantity="other">توجد %1$d رسالة على شريحة SIM. هل تريد نسخها إلى محادثاتك؟ ستبقى على شريحة SIM أيضًا.</item>
+    </plurals>
+    <string name="sim_messages_import">انسخ</string>
+    <string name="sim_messages_importing">جارٍ نسخ الرسائل…</string>
+    <string name="sim_messages_done">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك.</string>
+    <string name="sim_messages_done_failed">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك وتعذّر نسخ %3$d منها.</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">Ditahan: pengirim tidak dikenal</string>
+    <string name="ux8c_held_unknown_link">Ditahan: pengirim tidak dikenal, berisi tautan</string>
+    <string name="ux8c_held_foreign">Ditahan: nomor dari negara lain</string>
+    <string name="ux8c_held_rule">Ditahan oleh aturan Anda</string>
+    <string name="ux8c_held_other">Ditahan oleh filter</string>
+    <string name="ux8c_not_spam">Bukan spam</string>
+    <string name="ux8c_delete">Hapus</string>
+    <string name="ux8c_tip">Geser pengirim untuk memindahkannya ke kotak masuk. Sentuh lama untuk memilih.</string>
+    <string name="ux8c_tip_dismiss">Mengerti</string>
+    <string name="ux8c_sender_title">Pengirim ini</string>
+    <string name="ux8c_sender_normal">Normal</string>
+    <string name="ux8c_sender_allow">Selalu izinkan</string>
+    <string name="ux8c_sender_block">Blokir</string>
+</resources>

@@ -1,0 +1,2 @@
+json_key_file("fastlane/fastlane.json") # Play service account key, never committed; see https://docs.fastlane.tools/actions/supply/#setup
+package_name("com.glooboo.spamless")

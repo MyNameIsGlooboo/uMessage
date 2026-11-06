@@ -1,0 +1,109 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|Hallo!
+greeting|Hallo zusammen
+greeting|Moin moin
+greeting|Servus
+good_morning|Guten Morgen!
+good_morning|Guten Morgen zusammen
+good_afternoon|Schönen Nachmittag noch
+good_afternoon|Mahlzeit
+good_evening|Guten Abend
+good_evening|Schönen Feierabend
+good_night|Gute Nacht
+good_night|Schlaf gut und süße Träume
+good_night|Gute Nacht, bis morgen
+how_are_you|Wie geht's?
+how_are_you|Wie geht es dir?
+how_are_you|Hallo, wie gehts dir heute?
+how_are_you|Was gibt's Neues?
+thanks|Danke!
+thanks|Vielen Dank
+thanks|Danke dir sehr 🙏
+thanks|Danke für die Info
+youre_welcome|Gern geschehen
+youre_welcome|Kein Problem
+youre_welcome|Keine Ursache
+youre_welcome|Bitte schön
+where_are_you|Wo bist du?
+where_are_you|Wo steckst du denn?
+where_are_you|Wo seid ihr gerade?
+on_my_way|Bin unterwegs
+on_my_way|Ich bin gleich da
+on_my_way|Ich bin auf dem Weg
+on_my_way|Komme gleich
+arrived|Ich bin da
+arrived|Ich bin draußen
+arrived|Wir sind angekommen
+arrived|Stehe vor der Tür
+arrived_home|Bin gut zuhause angekommen
+arrived_home|Ich bin daheim
+arrived_home|Wir sind sicher angekommen
+did_you_arrive|Bist du gut angekommen?
+did_you_arrive|Seid ihr schon zuhause?
+are_you_coming|Kommst du heute Abend?
+are_you_coming|Kommt ihr auch?
+call_me|Ruf mich an
+call_me|Ruf mich bitte zurück
+call_me|Kannst du mich anrufen?
+can_you_talk|Hast du kurz Zeit?
+can_you_talk|Können wir kurz reden?
+are_you_free|Bist du morgen frei?
+are_you_free|Hast du heute Abend Zeit?
+what_time|Um wie viel Uhr treffen wir uns?
+what_time|Wann kommst du?
+where_to_meet|Wo treffen wir uns?
+where_to_meet|Wohin gehen wir heute Abend?
+ok_confirm|Alles klar
+ok_confirm|Passt
+ok_confirm|Perfekt, danke
+ok_confirm|Okay verstanden
+bye|Tschüss!
+bye|Bis später
+bye|Bis morgen
+bye|Mach's gut
+congrats|Herzlichen Glückwunsch!
+congrats|Alles Gute zum Geburtstag
+congrats|Gut gemacht
+holiday_eid|Frohes Zuckerfest
+holiday_new_year|Frohes neues Jahr!
+holiday_christmas|Frohe Weihnachten
+holiday_other|Frohe Ostern
+holiday_other|Schönen Urlaub
+good_luck|Viel Glück!
+good_luck|Ich drück dir die Daumen
+sorry_late|Sorry für die Verspätung
+sorry_late|Entschuldigung für die späte Antwort
+missed_call|Ich habe deinen Anruf verpasst
+missed_call|Sorry, hab deinen Anruf nicht gehört
+NONE|Hallo, ich wollte dir nur sagen, dass wir morgen zu meiner Tante fahren und danach noch im Park spazieren gehen
+NONE|Wann kommst du uns mal besuchen?
+NONE|Woher kommst du eigentlich?
+NONE|Dein Sicherheitscode lautet 482913
+NONE|Ihr Paket kommt morgen https://beispiel.de/status
+NONE|Danke, kannst du mir 50 Euro überweisen?
+NONE|Ich brauche Geld, kannst du mir was leihen?
+NONE|Kein Problem mit dem Passwort
+NONE|Danke, aber ich komme nicht
+NONE|Ich bin morgen nicht frei
+NONE|Warum kommst du nicht?
+NONE|Um wie viel Uhr fährt dein Zug morgen früh ab?
+NONE|Hallo, kannst du mich anrufen? Es ist dringend
+NONE|Wie geht's dir? Kommst du heute Abend?
+NONE|Erinnerung: Zahnarzttermin morgen um neun Uhr
+NONE|Ruf den Arzt so schnell wie möglich an
+NONE|Mein Vater ist gestern gestorben
+NONE|Ich bin zuhause bei meiner kranken Mutter
+NONE|Merci danke gracias
+NONE|Dank je wel voor alles
+NONE|Goedemorgen allemaal
+NONE|Tack så mycket för hjälpen
+NONE|Děkuji mnohokrát
+NONE|Köszönöm szépen
+NONE|Mulțumesc frumos
+NONE|Kiitos paljon
+NONE|Ob ich schon angekommen bin, weiß ich nicht
+NONE|Wenn du kommst, komme ich auch
+NONE|Bist du auch der Meinung, dass das Buch gut ist?
+NONE|Wer ist denn diese Nummer?
+NONE|Gestern war ich schon wieder zuhause, als du geschrieben hast

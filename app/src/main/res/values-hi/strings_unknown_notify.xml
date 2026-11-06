@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unotify_title">आपके इनबॉक्स में अनजान भेजने वाले</string>
+    <string name="unotify_notify">सूचना दें</string>
+    <string name="unotify_silent">बिना आवाज़ के सूचना दें</string>
+    <string name="unotify_none">कोई सूचना नहीं</string>
+    <string name="unotify_summary">मैसेज फिर भी आपके इनबॉक्स में आते हैं</string>
+    <string name="unotify_channel_silent">अनजान भेजने वाले (बिना आवाज़)</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3fwd_title">การส่งต่อ</string>
+    <string name="r3fwd_options">ตัวเลือกการส่งต่อ</string>
+    <string name="r3fwd_summary_none">ปิด · ส่งต่อข้อความไปยังหมายเลขอื่น</string>
+    <string name="r3fwd_summary_off">ปิด</string>
+    <string name="r3fwd_summary_paused">หยุดชั่วคราว</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="other">เปิดอยู่ %d กฎ</item>
+    </plurals>
+    <string name="r3fwd_paused_title">หยุดส่งต่อชั่วคราวอยู่</string>
+    <string name="r3fwd_paused_body">บันทึกกฎไว้แล้ว แต่จะไม่ส่งต่อข้อความจนกว่าจะเปิดการส่งต่ออีกครั้ง</string>
+    <string name="r3fwd_paused_action">เปิดตัวเลือก</string>
+</resources>

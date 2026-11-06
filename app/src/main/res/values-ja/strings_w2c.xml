@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2c_blocked_label">ブロック済み</string>
+    <string name="w2c_log_blocked_by_rule">ルールでブロック済み：%1$s</string>
+    <string name="w2c_log_blocked_by_old_list">旧ブロックリストでブロック済み</string>
+    <string name="w2c_log_fwd_rate_limited">転送されませんでした。このルールの1時間あたりの上限に達しました。</string>
+</resources>

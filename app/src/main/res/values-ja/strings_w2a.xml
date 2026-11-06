@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">キーワードを検索</string>
+    <string name="w2a_keywords_search_clear">検索をクリア</string>
+    <string name="w2a_keywords_no_match_title">一致するキーワードなし</string>
+    <string name="w2a_keywords_no_match_body">別の語句で検索するか、検索をクリアしてください。</string>
+</resources>

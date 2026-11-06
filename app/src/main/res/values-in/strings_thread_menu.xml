@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_menu_more">Lainnya…</string>
+    <string name="thread_menu_group_share">Bagikan dan ekspor</string>
+    <string name="thread_menu_group_organize">Kelola</string>
+    <string name="thread_menu_group_sender">Pengirim</string>
+    <string name="thread_labels_chips_description">Label: %1$s. Ketuk untuk mengubah.</string>
+    <string name="thread_labels_more_chip">+%1$d</string>
+</resources>

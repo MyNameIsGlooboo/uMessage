@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_codes_title">Gelesene Codes löschen nach</string>
+    <string name="cleanup_codes_summary">Codes werden in den Papierkorb verschoben</string>
+    <string name="cleanup_never">Nie</string>
+    <string name="cleanup_24_hours">24 Stunden</string>
+    <plurals name="cleanup_days">
+        <item quantity="one">%d Tag</item>
+        <item quantity="other">%d Tage</item>
+    </plurals>
+    <string name="cleanup_card_title">Gelesene Codes nach 7 Tagen löschen?</string>
+    <string name="cleanup_card_body">Gelesene Bestätigungscodes werden in den Papierkorb verschoben. Dort kannst du sie wiederherstellen.</string>
+    <string name="cleanup_card_yes">Aktivieren</string>
+    <string name="cleanup_card_no">Nein danke</string>
+</resources>

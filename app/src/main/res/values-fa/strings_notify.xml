@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">پیام زمان‌بندی‌شده با تأخیر ارسال شد</string>
+    <string name="scheduled_sent_late_exact_off">پیام شما به %1$s با %2$d دقیقه تأخیر ارسال شد. به «زنگ‌ها و یادآورها» برای uMessage اجازه دهید تا پیام‌های زمان‌بندی‌شده به‌موقع ارسال شوند.</string>
+    <string name="scheduled_sent_late_idle">پیام شما به %1$s با %2$d دقیقه تأخیر ارسال شد: گوشی در زمان تعیین‌شده خاموش یا در حالت ذخیرهٔ باتری بود.</string>
+    <string name="scheduled_sent_late_channel">پیام‌های زمان‌بندی‌شده</string>
+    <string name="notifications_off_title">اعلان‌ها خاموش‌اند</string>
+    <string name="notifications_off_body">از پیام‌های جدید باخبر نمی‌شوید.</string>
+    <string name="notifications_off_fix">روشن کردن</string>
+</resources>

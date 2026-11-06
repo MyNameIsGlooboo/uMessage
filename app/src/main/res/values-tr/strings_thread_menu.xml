@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_menu_more">Diğer…</string>
+    <string name="thread_menu_group_share">Paylaşın ve dışa aktarın</string>
+    <string name="thread_menu_group_organize">Düzenleyin</string>
+    <string name="thread_menu_group_sender">Gönderen</string>
+    <string name="thread_labels_chips_description">Etiketler: %1$s. Değiştirmek için dokunun.</string>
+    <string name="thread_labels_more_chip">+%1$d</string>
+</resources>

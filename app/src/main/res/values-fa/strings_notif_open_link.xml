@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_open_link_action">باز کردن پیوند</string>
+    <string name="notif_open_link_title">نمایش «باز کردن پیوند» در اعلان‌ها</string>
+    <string name="notif_open_link_summary">در اعلان‌های مخاطبان و فرستنده‌های مجاز</string>
+</resources>

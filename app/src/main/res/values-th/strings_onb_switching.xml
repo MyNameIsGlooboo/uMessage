@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_switch_title">กำลังเปลี่ยนมาใช้ uMessage?</string>
+    <string name="onb_switch_body">ย้ายจากแอป SMS อื่น? ปิดฟีเจอร์แชทของแอปนั้นก่อน ย้ายจากโทรศัพท์เครื่องอื่น? กู้คืนข้อมูลที่สำรองไว้หลังตั้งค่าเสร็จ</string>
+    <string name="onb_switch_action">กู้คืนข้อมูลที่สำรองไว้</string>
+    <string name="onb_switch_done_note">เมื่อตั้งค่าเสร็จ หน้าสำรองข้อมูลและกู้คืนจะเปิดขึ้น</string>
+</resources>

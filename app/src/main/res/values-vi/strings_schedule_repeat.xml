@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">Lặp lại</string>
+    <string name="schedule_repeat_never">Không bao giờ</string>
+    <string name="schedule_repeat_daily">Mỗi ngày</string>
+    <string name="schedule_repeat_weekly">Mỗi tuần</string>
+    <string name="schedule_repeat_monthly">Mỗi tháng</string>
+    <string name="schedule_repeat_yearly">Mỗi năm</string>
+    <string name="schedule_repeat_jalali_note">Tháng và năm tính theo lịch Jalali.</string>
+    <string name="scheduled_repeats_daily">Lặp lại hằng ngày</string>
+    <string name="scheduled_repeats_weekly">Lặp lại hằng tuần</string>
+    <string name="scheduled_repeats_monthly">Lặp lại hằng tháng</string>
+    <string name="scheduled_repeats_yearly">Lặp lại hằng năm</string>
+    <string name="scheduled_repeats_paused">Đã tạm dừng lặp lại</string>
+    <string name="scheduled_delete_repeating">Xóa tin nhắn lặp lại</string>
+    <string name="scheduled_delete_this_one">Chỉ tin nhắn này</string>
+    <string name="scheduled_delete_all_future">Tin nhắn này và tất cả lần sau</string>
+</resources>

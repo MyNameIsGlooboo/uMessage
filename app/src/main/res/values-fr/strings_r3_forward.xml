@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="r3fwd_title">Transfert</string>
+    <string name="r3fwd_options">Options de transfert</string>
+    <string name="r3fwd_summary_none">Désactivé · Transférer les messages vers un autre numéro</string>
+    <string name="r3fwd_summary_off">Désactivé</string>
+    <string name="r3fwd_summary_paused">En pause</string>
+    <plurals name="r3fwd_summary_on" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d règle active</item>
+        <item quantity="other">%d règles actives</item>
+    </plurals>
+    <string name="r3fwd_paused_title">Le transfert est en pause</string>
+    <string name="r3fwd_paused_body">Vos règles sont enregistrées, mais aucun message n\'est transféré tant que vous ne réactivez pas le transfert.</string>
+    <string name="r3fwd_paused_action">Ouvrir les options</string>
+</resources>

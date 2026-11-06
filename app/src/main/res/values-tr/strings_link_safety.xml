@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">Kısaltılmış bağlantı: nereye gittiğini göremezsiniz.</string>
+    <string name="i07_punycode">Ad kodlanmış ve içerdiğinden farklı harflerle görünebilir.</string>
+    <string name="i07_mixed_script">Ad, farklı alfabelerden harfler içeriyor. Sahte siteler bunu sıkça yapar.</string>
+    <string name="i07_raw_ip">Adres, bir web sitesi adı yerine bir sayıdan oluşuyor.</string>
+    <string name="i07_http_only">Şifrelenmemiş (https yerine http).</string>
+    <string name="i07_lookalike">Ad şu ada benziyor: %1$s. Yazılışını kontrol edin.</string>
+    <string name="i07_user_info">\@ işaretinden önceki bölüm web sitesi değildir.</string>
+    <string name="i07_locked">Riskli bağlantılar burada açılamaz. Bağlantıyı kopyalayabilirsiniz.</string>
+    <string name="i07_lock_title">Riskli bağlantılar açılamaz</string>
+    <string name="i07_lock_summary">Bu durumda bağlantı panelinde yalnızca kopyalama ve paylaşma kullanılabilir</string>
+    <string name="i07_group_title">Bağlantılar</string>
+</resources>

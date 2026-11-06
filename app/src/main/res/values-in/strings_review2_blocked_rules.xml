@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="e_day_today">Hari ini</string>
+    <string name="e_day_yesterday">Kemarin</string>
+    <plurals name="e_blocked_stats_total">
+        <item quantity="other">Total %d dihentikan</item>
+    </plurals>
+    <string name="e_restored_title">Baru dipulihkan</string>
+    <string name="e_restored_body">Pesan yang Anda pindahkan ke kotak masuk dalam 30 hari terakhir. Ketuk pesan untuk membuka percakapan.</string>
+    <string name="e_restored_empty">Pesan yang Anda pindahkan ke kotak masuk mulai sekarang akan tercantum di sini selama 30 hari.</string>
+    <string name="e_restored_when">Dipindahkan ke kotak masuk %1$s</string>
+    <string name="e_restored_open">Buka percakapan dengan %1$s</string>
+    <string name="e_snack_allowed_one">%1$s kini selalu diizinkan di kedua SIM</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="other">%d pengirim kini selalu diizinkan di kedua SIM</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$s kini selalu diizinkan</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="other">%d pengirim kini selalu diizinkan</item>
+    </plurals>
+    <string name="e_view_rule">Lihat aturan</string>
+    <string name="e_rules_title">Aturan</string>
+    <string name="e_rules_menu_backup">Cadangkan dan pulihkan</string>
+    <string name="e_note_blocked_by_you">Diblokir oleh Anda</string>
+    <string name="e_note_allowed_by_you">Diizinkan oleh Anda</string>
+    <string name="e_note_blocked_from_message">Diblokir dari pesan</string>
+    <string name="e_note_blocked_from_keyword">Diblokir dari kata kunci</string>
+    <string name="e_note_reported_spam">Dilaporkan sebagai spam</string>
+    <string name="e_note_old_word_list">Dari daftar kata yang diblokir versi lama</string>
+    <string name="e_note_system_list">Dari daftar blokir Android</string>
+    <string name="e_note_quoted">“%1$s”</string>
+    <string name="e_example_block_cancel_word">Blokir pesan yang berisi لغو۱۱</string>
+    <string name="e_example_block_ad_prefix">Blokir nomor iklan yang diawali 3000</string>
+    <string name="e_example_allow_number">Selalu izinkan nomor, misalnya kantor pos Anda</string>
+    <string name="e_sheet_sender_label">Pengirim</string>
+    <string name="e_sheet_text_label">Teks pesan</string>
+    <string name="e_value_number">Nomor telepon</string>
+    <string name="e_value_prefix">Nomor diawali dengan</string>
+    <string name="e_value_sender">Nama pengirim</string>
+    <string name="e_value_keyword">Teks yang dicari</string>
+    <string name="e_value_pattern">Pola (regex)</string>
+    <string name="e_pattern_blocks_label">Mulai dari</string>
+    <string name="e_pattern_link">Berisi tautan</string>
+    <string name="e_pattern_long_number">Angka 5 digit atau lebih</string>
+    <string name="e_pattern_starts_with">Diawali dengan</string>
+    <string name="e_pattern_any_of">Berisi salah satu dari</string>
+    <string name="e_pattern_link_sentence">Mencocokkan pesan yang berisi tautan.</string>
+    <string name="e_pattern_long_number_sentence">Mencocokkan pesan yang berisi angka 5 digit atau lebih.</string>
+    <string name="e_pattern_starts_with_sentence">Mencocokkan pesan yang diawali teks yang Anda ketik setelah ^.</string>
+    <string name="e_pattern_any_of_sentence">Mencocokkan pesan yang berisi salah satu kata dalam tanda kurung. Pisahkan dengan |.</string>
+    <plurals name="e_migrate_title_numbers">
+        <item quantity="other">Pindahkan %d nomor ke aturan uMessage</item>
+    </plurals>
+    <string name="e_migrate_point_blocked">• Pesan mereka akan masuk ke Diblokir, tempat Anda dapat membaca dan memulihkannya.</string>
+    <string name="e_migrate_point_android">• Android tetap membuang pesan mereka sampai nomornya dihapus dari daftar Android.</string>
+    <string name="e_migrate_calls_note">Daftar Android juga memblokir panggilan. Nomor yang Anda hapus dari daftar itu dapat menelepon Anda lagi.</string>
+    <string name="e_bn_unknown_body">Hanya berlaku saat Pengirim tidak dikenal disetel ke Nonaktif.</string>
+    <string name="e_bn_row_calls_texts">Memblokir panggilan dan pesan</string>
+    <string name="e_bn_row_short_code">Nomor pendek: uMessage tidak pernah menerima pesannya</string>
+    <string name="e_bn_move_one">Pindahkan ke aturan uMessage</string>
+    <string name="e_bn_moved">%1$s kini menjadi aturan uMessage. Pesannya masuk ke Diblokir, dan panggilannya tidak lagi diblokir.</string>
+    <string name="e_bn_field_help">Misalnya +15550001234, atau +1555* untuk semua nomor yang diawali +1555</string>
+    <string name="e_bn_short_code_warning">Ini tampaknya nomor pendek. Android membuang pesannya sebelum diterima uMessage, jadi Anda tidak akan bisa memulihkan pesan tersebut, misalnya kode atau pemberitahuan bank.</string>
+    <string name="e_bn_add_as_rule">Tambahkan sebagai aturan uMessage saja</string>
+    <string name="e_bn_added_as_rule">%1$s ditambahkan sebagai aturan uMessage. Pesannya masuk ke Diblokir.</string>
+</resources>

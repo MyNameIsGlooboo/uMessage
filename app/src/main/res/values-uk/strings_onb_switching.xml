@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_switch_title">Переходите на uMessage?</string>
+    <string name="onb_switch_body">Переходите з іншого застосунку для SMS? Спершу вимкніть у ньому функції чату. Змінюєте телефон? Відновіть резервну копію після завершення налаштування.</string>
+    <string name="onb_switch_action">Відновити резервну копію</string>
+    <string name="onb_switch_done_note">Після завершення відкриється розділ «Резервне копіювання та відновлення».</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">Включать экран</string>
+    <string name="wake_screen_summary">Включает экран при новом сообщении</string>
+    <string name="bubbles_title">Всплывающие чаты</string>
+    <string name="bubbles_summary">Показывает чаты в виде плавающих значков</string>
+    <string name="bubbles_locked">Недоступно, пока включена блокировка приложения</string>
+    <string name="focus_codes_title">Коды в живом уведомлении</string>
+    <string name="focus_codes_summary">Показывает коды в живом уведомлении Xiaomi</string>
+</resources>

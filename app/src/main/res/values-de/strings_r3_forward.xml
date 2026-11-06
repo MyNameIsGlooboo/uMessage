@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3fwd_title">Weiterleitung</string>
+    <string name="r3fwd_options">Optionen zur Weiterleitung</string>
+    <string name="r3fwd_summary_none">Aus · Nachrichten an eine andere Nummer weiterleiten</string>
+    <string name="r3fwd_summary_off">Aus</string>
+    <string name="r3fwd_summary_paused">Pausiert</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="one">%d Regel aktiv</item>
+        <item quantity="other">%d Regeln aktiv</item>
+    </plurals>
+    <string name="r3fwd_paused_title">Weiterleitung pausiert</string>
+    <string name="r3fwd_paused_body">Deine Regeln sind gespeichert. Nachrichten werden erst wieder weitergeleitet, wenn du die Weiterleitung einschaltest.</string>
+    <string name="r3fwd_paused_action">Optionen öffnen</string>
+</resources>

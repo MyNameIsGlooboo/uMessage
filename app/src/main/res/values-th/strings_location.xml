@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">ตำแหน่ง</string>
+    <string name="i52_permission_explanation">uMessage จะอ่านตำแหน่งเพียงครั้งเดียวในตอนนี้ เพื่อใส่ลิงก์แผนที่ในข้อความ โดยไม่บันทึกข้อมูลใดๆ เลือกใช้ตำแหน่งโดยประมาณได้</string>
+    <string name="i52_finding">กำลังค้นหาตำแหน่ง…</string>
+    <string name="i52_denied">ไม่ได้รับอนุญาตให้เข้าถึงตำแหน่ง ข้อความยังอยู่เหมือนเดิม</string>
+    <string name="i52_no_fix">ค้นหาตำแหน่งไม่ได้ ลองอีกครั้งใกล้หน้าต่างหรือกลางแจ้ง</string>
+    <string name="i52_off_message">โทรศัพท์ปิดตำแหน่งอยู่ เปิดเพื่อแชร์ตำแหน่งที่อยู่</string>
+    <string name="i52_open_settings">เปิดการตั้งค่า</string>
+</resources>

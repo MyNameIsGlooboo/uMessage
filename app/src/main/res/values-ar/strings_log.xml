@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">سجل القرارات</string>
+    <string name="declog_clear">امسح السجل</string>
+    <string name="declog_empty_title">لا توجد قرارات بعد</string>
+    <string name="declog_empty_body">تظهر هنا كل رسالة تفحصها التصفية مع السبب. لا يُحفظ نص الرسالة أبدًا.</string>
+    <plurals name="declog_kept_for">
+        <item quantity="zero">يُحذف كل قرار بعد %d أيام. لا يُحفظ نص الرسالة أبدًا.</item>
+        <item quantity="one">يُحذف كل قرار بعد يوم واحد (%d). لا يُحفظ نص الرسالة أبدًا.</item>
+        <item quantity="two">يُحذف كل قرار بعد يومين (%d). لا يُحفظ نص الرسالة أبدًا.</item>
+        <item quantity="few">يُحذف كل قرار بعد %d أيام. لا يُحفظ نص الرسالة أبدًا.</item>
+        <item quantity="many">يُحذف كل قرار بعد %d يومًا. لا يُحفظ نص الرسالة أبدًا.</item>
+        <item quantity="other">يُحذف كل قرار بعد %d يوم. لا يُحفظ نص الرسالة أبدًا.</item>
+    </plurals>
+    <string name="declog_sim">شريحة SIM %1$s</string>
+    <string name="declog_today">اليوم</string>
+    <string name="declog_yesterday">أمس</string>
+    <string name="declog_allowed_by_rule">مسموح بموجب القاعدة: %1$s</string>
+    <string name="declog_filter_all">الكل</string>
+    <string name="declog_filter_blocked">المحظورة</string>
+    <string name="declog_filter_allowed">المسموح بها</string>
+    <string name="declog_filter_empty">لا توجد قرارات تطابق هذه التصفية</string>
+    <plurals name="declog_times">
+        <item quantity="zero">%1$s مرات</item>
+        <item quantity="one">مرة واحدة (%1$s)</item>
+        <item quantity="two">مرتان (%1$s)</item>
+        <item quantity="few">%1$s مرات</item>
+        <item quantity="many">%1$s مرة</item>
+        <item quantity="other">%1$s مرة</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="zero">اتُّخذ القرار نفسه %1$s مرات متتالية</item>
+        <item quantity="one">اتُّخذ القرار نفسه مرة واحدة (%1$s) على التوالي</item>
+        <item quantity="two">اتُّخذ القرار نفسه مرتين متتاليتين (%1$s)</item>
+        <item quantity="few">اتُّخذ القرار نفسه %1$s مرات متتالية</item>
+        <item quantity="many">اتُّخذ القرار نفسه %1$s مرة متتالية</item>
+        <item quantity="other">اتُّخذ القرار نفسه %1$s مرة متتالية</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="zero">شارك %d قرارات</item>
+        <item quantity="one">شارك قرارًا واحدًا (%d)</item>
+        <item quantity="two">شارك قرارين (%d)</item>
+        <item quantity="few">شارك %d قرارات</item>
+        <item quantity="many">شارك %d قرارًا</item>
+        <item quantity="other">شارك %d قرار</item>
+    </plurals>
+    <string name="declog_csv_subject">سجل القرارات في uMessage</string>
+    <string name="declog_share_failed">تعذّرت مشاركة السجل</string>
+    <string name="declog_details_title">تفاصيل القرار</string>
+    <string name="declog_open_details">افتح تفاصيل %1$s</string>
+    <string name="declog_fixed_allowed">سمحت لهذا المرسل من السجل</string>
+    <string name="declog_fixed_blocked">حظرت هذا المرسل من السجل</string>
+    <string name="declog_fixed_restored">استعدت هذه الرسالة من السجل</string>
+    <string name="declog_restored">تمت الاستعادة</string>
+    <string name="declog_blocked_message">الرسالة، لا تزال في «المحظورة»</string>
+    <string name="declog_restore">استعد الرسالة</string>
+    <string name="declog_restore_done">تمت استعادة الرسالة إلى الرسائل الواردة</string>
+    <string name="declog_restore_text_only">تمت استعادة النص إلى الرسائل الواردة. تعذّرت استعادة الصور.</string>
+    <string name="declog_restore_nothing">لا شيء لاستعادته: لم تُحفظ هذه الرسالة المصورة</string>
+    <string name="declog_restore_failed">تعذّرت استعادة الرسالة</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

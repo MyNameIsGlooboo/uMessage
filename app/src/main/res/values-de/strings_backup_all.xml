@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n09_backup_contents">Alles außer deinen Nachrichten: Regeln zum Erlauben, Blockieren und Weiterleiten sowie alle Einstellungen. Die Datei ist unverschlüsselt und enthält die Telefonnummern, an die du weiterleitest. Bewahre sie daher an einem geschützten Ort auf. Regeln zum Weiterleiten sind nach dem Wiederherstellen deaktiviert.</string>
+    <string name="n09_label_spam">Spam-Schutz</string>
+    <string name="n09_label_notifications">Benachrichtigungen</string>
+    <string name="n09_label_chat">Chat und Nachrichtenliste</string>
+    <string name="n09_label_sending">Senden</string>
+    <string name="n09_label_cleanup">Aufräumen und Speicher</string>
+    <string name="n09_label_privacy">Datenschutz und Sperroptionen</string>
+    <string name="n09_restore_not_included">Nicht in der Datei enthalten: deine Nachrichten, die PIN der App-Sperre, SIM-Namen, gespeicherte Texte, ausgeblendete Chats und Stummschaltzeiten.</string>
+    <string name="n09_restore_after">Lege uMessage wieder als Standard-SMS-App fest und richte deine App-Sperre erneut ein.</string>
+</resources>

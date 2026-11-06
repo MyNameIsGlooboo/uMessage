@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">Умные ответы</string>
+    <string name="smart_replies_summary">Быстрые ответы из списка на телефоне</string>
+    <string name="smart_replies_hide">Скрыть подсказки</string>
+</resources>

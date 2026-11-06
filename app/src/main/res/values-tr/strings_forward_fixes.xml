@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">Bugün duraklatıldı: sınıra ulaşıldı</string>
+    <string name="fwdfix_limit_hint">Bugün %2$s iletme hakkından %1$s kullanıldı. İletme yarın yeniden başlayacak.</string>
+    <string name="fwdfix_status_skipped">Atlandı (sınır)</string>
+    <string name="fwdfix_error_daily_limit">Gönderilmedi: günlük iletme sınırına ulaşıldı.</string>
+    <string name="fwdfix_error_rate_limited">Gönderilmedi: bu kural son bir saatte zaten %1$s mesaj iletti.</string>
+    <string name="fwdfix_retry_all_recent">Yalnızca son 24 saatteki iletmeler dahildir.</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="one">%1$s mesaj gönderilmedi: iletme duraklatıldı.</item>
+        <item quantity="other">%1$s mesaj gönderilmedi: iletme duraklatıldı.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="one">%1$s mesaj gönderilmedi: kuralı kapalı veya silinmiş.</item>
+        <item quantity="other">%1$s mesaj gönderilmedi: kuralları kapalı veya silinmiş.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="one">%1$s mesaj gönderilmedi: günlük sınıra veya kuralın saatlik sınırına ulaşıldı.</item>
+        <item quantity="other">%1$s mesaj gönderilmedi: günlük sınıra veya bir kuralın saatlik sınırına ulaşıldı.</item>
+    </plurals>
+    <string name="fwdfix_card_last">Son iletme: %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="one">Bu hafta %1$s</item>
+        <item quantity="other">Bu hafta %1$s</item>
+    </plurals>
+    <string name="fwdfix_card_never">Henüz hiçbir şey iletilmedi</string>
+    <string name="fwdfix_card_sent">gönderildi</string>
+    <string name="fwdfix_card_pending">gönderiliyor</string>
+    <string name="fwdfix_card_failed">başarısız</string>
+    <string name="fwdfix_card_skipped">atlandı (sınır)</string>
+    <string name="fwdfix_delete_rule">Kuralı silin</string>
+    <string name="fwdfix_deleted">İletme kuralı silindi</string>
+    <string name="fwdfix_test_button">Test gönderin</string>
+    <string name="fwdfix_test_title">Test SMS\'i gönderilsin mi?</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="one">Yukarıdaki numaraya %1$s test SMS\'i gönderilecek. Bu SMS ücretlidir.</item>
+        <item quantity="other">Yukarıdaki %1$s numaranın her birine bir test SMS\'i gönderilecek. Her SMS ücretlidir.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">Gönderin</string>
+    <string name="fwdfix_test_text">uMessage testi: iletme çalışıyor.</string>
+    <string name="fwdfix_test_sending">Test gönderiliyor…</string>
+    <string name="fwdfix_test_sent">Test gönderildi. Diğer telefonu kontrol edin.</string>
+    <string name="fwdfix_test_failed">Test gönderilemedi. Sinyalinizi ve bakiyenizi kontrol edin.</string>
+    <string name="fwdfix_cost_persian">%1$s harflik Farsça metin: %2$s parça × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">%1$s harflik İngilizce metin: %2$s parça × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">Şu anda hiçbir şey gönderilemiyor</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="one">%1$s mesaj gönderilmeyecek: iletme duraklatıldı.</item>
+        <item quantity="other">%1$s mesaj gönderilmeyecek: iletme duraklatıldı.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="one">%1$s mesaj gönderilmeyecek: kuralı kapalı veya silinmiş.</item>
+        <item quantity="other">%1$s mesaj gönderilmeyecek: kuralları kapalı veya silinmiş.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="one">%1$s mesaj gönderilmeyecek: günlük sınıra veya kuralın saatlik sınırına ulaşıldı.</item>
+        <item quantity="other">%1$s mesaj gönderilmeyecek: günlük sınıra veya bir kuralın saatlik sınırına ulaşıldı.</item>
+    </plurals>
+</resources>

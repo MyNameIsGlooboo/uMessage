@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_tab_forwarded">Weitergeleitet</string>
+    <string name="nav_tab_forwarded_failed">Weitergeleitet, eine Weiterleitung fehlgeschlagen</string>
+    <string name="nav_tab_forwarded_paused">Weitergeleitet, Weiterleitung pausiert</string>
+    <string name="nav_tab_archived_new">Archiviert, neuer Chat archiviert</string>
+    <string name="nav_prompt_title">Regel gespeichert</string>
+    <string name="nav_prompt_body">Tab „Weitergeleitet“ anzeigen, um gesendete Nachrichten zu sehen und fehlgeschlagene Weiterleitungen erneut zu versuchen?</string>
+    <string name="nav_prompt_show">Tab anzeigen</string>
+    <string name="nav_prompt_not_now">Jetzt nicht</string>
+    <string name="nav_fwd_paid_note">Jede Weiterleitung ist eine kostenpflichtige SMS.</string>
+    <string name="nav_fwd_pause_all">Alle Weiterleitungen pausieren</string>
+    <string name="nav_fwd_status_paused">Weiterleitung pausiert</string>
+    <string name="nav_fwd_paused_hint">Passende Nachrichten werden nicht gesendet. Schalte die Pause aus, um fortzufahren.</string>
+    <string name="nav_fwd_status_no_rule">Keine Regel zum Weiterleiten aktiv</string>
+    <plurals name="nav_fwd_status_on">
+        <item quantity="one">Weiterleitung aktiv, %1$s Regel</item>
+        <item quantity="other">Weiterleitung aktiv, %1$s Regeln</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">Regeln verwalten</string>
+    <string name="nav_fwd_empty_title">Noch nichts weitergeleitet</string>
+    <string name="nav_fwd_empty_body">Passende Nachrichten erscheinen hier.</string>
+    <string name="nav_fwd_status_sent">Gesendet</string>
+    <string name="nav_fwd_status_pending">Ausstehend</string>
+    <string name="nav_fwd_status_failed">Fehlgeschlagen</string>
+    <string name="nav_fwd_to">An %1$s</string>
+    <string name="nav_fwd_sim">SIM %1$d</string>
+    <string name="nav_fwd_rule_line">Regel: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">Absender %1$s</string>
+    <string name="nav_fwd_rule_any_sender">Beliebiger Absender</string>
+    <string name="nav_fwd_rule_text">Text %1$s</string>
+    <string name="nav_fwd_rule_any_text">Beliebiger Text</string>
+    <string name="nav_fwd_rule_deleted">Regel gelöscht</string>
+    <string name="nav_fwd_open_details">Details anzeigen</string>
+    <string name="nav_fwd_today">Heute</string>
+    <string name="nav_fwd_yesterday">Gestern</string>
+    <plurals name="nav_fwd_failed_count">
+        <item quantity="one">%1$s Weiterleitung fehlgeschlagen</item>
+        <item quantity="other">%1$s Weiterleitungen fehlgeschlagen</item>
+    </plurals>
+    <string name="nav_fwd_retry">Erneut versuchen</string>
+    <string name="nav_fwd_retry_all">Alle fehlgeschlagenen erneut versuchen (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">Erneut senden?</string>
+    <plurals name="nav_fwd_retry_all_message">
+        <item quantity="one">%1$s SMS wird erneut gesendet. Jede SMS ist kostenpflichtig.</item>
+        <item quantity="other">%1$s SMS werden erneut gesendet. Jede SMS ist kostenpflichtig.</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">Erneut senden</string>
+    <plurals name="nav_fwd_retry_sent">
+        <item quantity="one">%d Weiterleitung erneut gesendet</item>
+        <item quantity="other">%d Weiterleitungen erneut gesendet</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">Erneut fehlgeschlagen. Prüfe deinen Empfang und dein Guthaben.</string>
+    <string name="nav_fwd_retry_missing">Die ursprüngliche Nachricht ist nicht mehr da und kann nicht erneut gesendet werden.</string>
+    <string name="nav_fwd_details_title">Details zur Weiterleitung</string>
+    <string name="nav_fwd_detail_from">Nachricht von</string>
+    <string name="nav_fwd_detail_to">Weitergeleitet an</string>
+    <string name="nav_fwd_detail_when">Zeitpunkt</string>
+    <string name="nav_fwd_detail_sim">Gesendet über</string>
+    <string name="nav_fwd_detail_rule">Passende Regel</string>
+    <string name="nav_fwd_detail_message">Ursprüngliche Nachricht</string>
+    <string name="nav_fwd_message_loading">Wird geladen</string>
+    <string name="nav_fwd_message_gone">Die ursprüngliche Nachricht ist nicht mehr gespeichert.</string>
+    <string name="nav_fwd_error_radio">Das Netz hat die Nachricht nicht zugestellt.</string>
+    <string name="nav_fwd_error_refused">Das Telefon konnte die Nachricht nicht senden.</string>
+    <string name="nav_fwd_open_chat">Chat öffnen</string>
+    <string name="nav_archived_title">Archiviert</string>
+    <string name="nav_archived_back">Zurück zu Nachrichten</string>
+    <string name="nav_archived_intro">Archivierte Chats erscheinen nicht unter „Nachrichten“. Eine neue Nachricht bringt einen Chat zurück, außer „Archivierte Chats bleiben ausgeblendet“ ist in den Einstellungen aktiviert.</string>
+    <string name="nav_archived_intro_dismiss">Hinweis ausblenden</string>
+    <plurals name="nav_archived_moved">
+        <item quantity="one">%d Unterhaltung nach „Nachrichten“ verschoben</item>
+        <item quantity="other">%d Unterhaltungen nach „Nachrichten“ verschoben</item>
+    </plurals>
+    <string name="nav_folder_more">Weitere Optionen</string>
+    <string name="nav_folder_mark_all_read">Alle als gelesen markieren</string>
+    <string name="nav_folder_delete_all_count">Dadurch wird %1$s endgültig gelöscht.</string>
+</resources>

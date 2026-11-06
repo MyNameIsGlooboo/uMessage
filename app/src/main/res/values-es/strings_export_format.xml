@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_format_json">Archivo de uMessage (textos e imágenes)</string>
+    <string name="export_format_xml">Archivo de SMS Backup &amp; Restore (para otras aplicaciones)</string>
+    <string name="export_format_xml_hint">uMessage solo restaura los textos de este tipo de archivo.</string>
+    <string name="export_scope_all">Todas las conversaciones</string>
+    <string name="export_scope_choose">Elegir conversaciones</string>
+    <plurals name="export_scope_chosen">
+        <item quantity="one">%1$d conversación elegida</item>
+        <item quantity="other">%1$d conversaciones elegidas</item>
+    </plurals>
+    <string name="export_pick_title">Elegir conversaciones</string>
+    <string name="export_pick_search">Buscar</string>
+    <string name="export_pick_all">Seleccionar todo</string>
+    <string name="export_pick_none">Quitar selección</string>
+    <string name="export_pick_empty">No hay conversaciones</string>
+    <string name="export_pick_nothing_chosen">Elige al menos una conversación</string>
+</resources>

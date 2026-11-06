@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="spam_ui_delete_all">সব মুছুন</string>
+    <string name="spam_ui_delete_all_title">ব্লক করা সব বার্তা মুছবেন?</string>
+    <plurals name="spam_ui_delete_all_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">ব্লক করা %1$dটি বার্তা মুছে যাবে। এর পরই আপনি আগের অবস্থায় ফিরতে পারবেন।</item>
+        <item quantity="other">ব্লক করা %1$dটি বার্তা মুছে যাবে। এর পরই আপনি আগের অবস্থায় ফিরতে পারবেন।</item>
+    </plurals>
+    <string name="declog_ui_clear_title">সিদ্ধান্তের লগ সাফ করবেন?</string>
+    <string name="declog_ui_clear_message">লগে থাকা সব সিদ্ধান্ত মুছে যাবে। ব্লক করা বার্তা ও নিয়ম যেমন আছে তেমনই থাকবে।</string>
+    <string name="declog_ui_clear_action">সাফ করুন</string>
+    <string name="ui_log_reason_contacts_unavailable">পরিচিতি পড়া যাচ্ছে না</string>
+    <string name="blocknum_title">ব্লক করা নম্বর</string>
+    <string name="blocknum_add">নম্বর যোগ করুন</string>
+    <string name="blocknum_add_title">একটি নম্বর ব্লক করুন</string>
+    <string name="blocknum_edit_title">ব্লক করা নম্বর বদলান</string>
+    <string name="blocknum_field_label">নম্বর</string>
+    <string name="blocknum_field_help">ওয়াইল্ডকার্ড হিসেবে * ব্যবহার করুন: +1555* দিয়ে +1555 দিয়ে শুরু হওয়া সব নম্বর ব্লক করা হয়</string>
+    <string name="blocknum_err_empty">একটি নম্বর লিখুন</string>
+    <string name="blocknum_err_invalid">ফোন নম্বর লিখুন, অথবা সংখ্যার সঙ্গে ওয়াইল্ডকার্ড হিসেবে * দিন</string>
+    <string name="blocknum_copy">নম্বর কপি করুন</string>
+    <string name="blocknum_unblock">ব্লক সরান</string>
+    <string name="blocknum_unblock_for">%1$s থেকে ব্লক সরান</string>
+    <string name="blocknum_edit_for">%1$s বদলান</string>
+    <string name="blocknum_more_for">%1$s-এর আরও বিকল্প</string>
+    <string name="blocknum_pattern">ওয়াইল্ডকার্ড প্যাটার্ন</string>
+    <string name="blocknum_copied">নম্বর কপি করা হয়েছে</string>
+    <plurals name="blocknum_unblocked" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি নম্বর থেকে ব্লক সরানো হয়েছে</item>
+        <item quantity="other">%1$dটি নম্বর থেকে ব্লক সরানো হয়েছে</item>
+    </plurals>
+    <string name="blocknum_import">ইমপোর্ট</string>
+    <string name="blocknum_export">এক্সপোর্ট</string>
+    <plurals name="blocknum_imported" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি নম্বর ইমপোর্ট করা হয়েছে</item>
+        <item quantity="other">%1$dটি নম্বর ইমপোর্ট করা হয়েছে</item>
+    </plurals>
+    <string name="blocknum_import_empty">ফাইলে কোনো নম্বর পাওয়া যায়নি</string>
+    <plurals name="blocknum_import_skipped" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি এন্ট্রি বাদ দেওয়া হয়েছে (নম্বর নয় বা আগে থেকেই ব্লক করা)</item>
+        <item quantity="other">%dটি এন্ট্রি বাদ দেওয়া হয়েছে (নম্বর নয় বা আগে থেকেই ব্লক করা)</item>
+    </plurals>
+    <string name="blocknum_import_failed">ফাইল পড়া যায়নি</string>
+    <plurals name="blocknum_exported" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি নম্বর এক্সপোর্ট করা হয়েছে</item>
+        <item quantity="other">%1$dটি নম্বর এক্সপোর্ট করা হয়েছে</item>
+    </plurals>
+    <string name="blocknum_export_empty">এক্সপোর্ট করার মতো নম্বর নেই</string>
+    <string name="blocknum_export_failed">ফাইল সেভ করা যায়নি</string>
+    <string name="blocknum_failed">ব্লক তালিকা বদলানো যায়নি। আবার চেষ্টা করুন।</string>
+    <string name="blocknum_empty_title">কাউকে ব্লক করা নেই</string>
+    <string name="blocknum_empty_body">ব্লক করা নম্বর থেকে আপনাকে বার্তা পাঠানো বা কল করা যাবে না। আপনার ফোন অ্যাপও এই তালিকা ব্যবহার করে।</string>
+    <string name="blocknum_unavailable_title">ব্লক তালিকা পাওয়া যাচ্ছে না</string>
+    <string name="blocknum_unavailable_body">সিস্টেমের ব্লক তালিকা দেখতে ও বদলাতে uMessage-কে আপনার ডিফল্ট SMS অ্যাপ করুন।</string>
+    <string name="blocknum_unknown_title">অচেনা নম্বর ব্লক করুন</string>
+    <string name="blocknum_unknown_body">শুধু স্প্যাম মোড বন্ধ থাকলে এটি কাজ করে: তখন কঠোর মোডের মতো অচেনা নম্বরের বার্তা ব্লক করা বিভাগে যায়। কঠোর ও স্মার্ট মোডে এই সুইচের প্রভাব নেই।</string>
+    <string name="blocknum_contacts_denied">পরিচিতি ব্যবহারের অনুমতি ছাড়া অচেনা নম্বর শনাক্ত করা যায় না</string>
+    <string name="blocknum_section_numbers">নম্বর</string>
+</resources>

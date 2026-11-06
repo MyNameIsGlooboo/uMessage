@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r2a_filter_codes">Codici</string>
+    <string name="r2a_filter_codes_empty_title">Nessun codice</string>
+    <string name="r2a_filter_codes_empty_body">Qui trovi le conversazioni il cui ultimo messaggio contiene un codice monouso.</string>
+    <string name="r2a_search_codes_window">Delle ultime 24 ore</string>
+</resources>

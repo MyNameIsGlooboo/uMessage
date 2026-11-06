@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">कीवर्ड खोजें</string>
+    <string name="w2a_keywords_search_clear">खोज साफ़ करें</string>
+    <string name="w2a_keywords_no_match_title">कोई कीवर्ड नहीं मिला</string>
+    <string name="w2a_keywords_no_match_body">कोई और शब्द आज़माएं या खोज साफ़ करें.</string>
+</resources>

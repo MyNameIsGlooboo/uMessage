@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="system_delete_item_title">Excluir?</string>
+    <string name="system_delete_item_message">Excluir %1$s? Não é possível desfazer.</string>
+</resources>

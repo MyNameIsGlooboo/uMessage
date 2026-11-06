@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">예약 전송 메시지 지연 전송됨</string>
+    <string name="scheduled_sent_late_exact_off">받는 사람 %1$s에게 메시지가 %2$d분 늦게 전송됐어요. 예약 전송 메시지가 제시간에 전송되도록 uMessage 앱의 \"알람 및 리마인더\" 권한을 허용해 주세요.</string>
+    <string name="scheduled_sent_late_idle">받는 사람 %1$s에게 메시지가 %2$d분 늦게 전송됐어요. 예약 시간에 휴대전화가 꺼져 있거나 절전 모드였어요.</string>
+    <string name="scheduled_sent_late_channel">예약 전송 메시지</string>
+    <string name="notifications_off_title">알림 꺼짐</string>
+    <string name="notifications_off_body">새 메시지가 와도 알림을 받을 수 없어요.</string>
+    <string name="notifications_off_fix">켜기</string>
+</resources>

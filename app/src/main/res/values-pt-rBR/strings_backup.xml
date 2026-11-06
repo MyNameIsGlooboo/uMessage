@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="backup_channel">Backup e restauração</string>
+    <string name="backup_restoring">Restaurando mensagens</string>
+    <string name="backup_exporting">Fazendo backup das mensagens</string>
+    <plurals name="backup_progress_import" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d registro lido</item>
+        <item quantity="other">%1$d registros lidos</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d registro lido (%2$d%%)</item>
+        <item quantity="other">%1$d registros lidos (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d mensagem salva</item>
+        <item quantity="other">%1$d mensagens salvas</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d mensagem salva (%2$d%%)</item>
+        <item quantity="other">%1$d mensagens salvas (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">Você pode sair do app: a operação continua e mostra o progresso em uma notificação.</string>
+    <string name="backup_stop">Pare</string>
+    <string name="backup_hide">Oculte</string>
+    <string name="backup_already_running">Já há um backup ou uma restauração em andamento.</string>
+    <string name="backup_restore_finished">Restauração concluída</string>
+    <string name="backup_restore_stopped">Restauração interrompida</string>
+    <string name="backup_restore_failed">Falha na restauração</string>
+    <string name="backup_invalid_file">Este arquivo não é um backup de mensagens, então nada foi restaurado.</string>
+    <string name="backup_no_entries">O arquivo de backup não tem mensagens.</string>
+    <plurals name="backup_nothing_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Nada novo para importar: a mensagem já está neste celular.</item>
+        <item quantity="other">Nada novo para importar: todas as %1$d mensagens já estão neste celular.</item>
+    </plurals>
+    <string name="backup_line_added">Adicionadas: %1$d</string>
+    <string name="backup_line_duplicates">Já estão neste celular, ignoradas: %1$d</string>
+    <string name="backup_line_repaired">Anexos ausentes adicionados a mensagens restauradas antes: %1$d</string>
+    <string name="backup_line_incomplete">Mensagens com imagem restauradas sem alguns anexos: %1$d</string>
+    <string name="backup_line_failed">Não foi possível restaurar: %1$d</string>
+    <string name="backup_line_damaged">Registros danificados no arquivo, ignorados: %1$d</string>
+    <string name="backup_line_xml_mms">Mensagens com imagem neste backup XML, não compatíveis e ignoradas: %1$d</string>
+    <string name="backup_line_not_selected">Não selecionadas para importação: %1$d</string>
+    <string name="backup_reasons">Motivos:</string>
+    <string name="backup_reason_no_address">a mensagem não tem remetente ou destinatário</string>
+    <string name="backup_reason_no_thread">o celular não conseguiu abrir a conversa</string>
+    <string name="backup_reason_refused">o celular se recusou a salvar a mensagem</string>
+    <string name="backup_reason_not_in_backup">o anexo não está no arquivo de backup</string>
+    <string name="backup_reason_damaged_attachment">o anexo no arquivo de backup está danificado</string>
+    <string name="backup_reason_attachment_write">não foi possível salvar o anexo</string>
+    <string name="backup_stopped_early">O arquivo está danificado após o registro %1$d, então nada depois dele pôde ser lido.</string>
+    <plurals name="backup_cancelled_import" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Interrompido após %1$d registro. Repita a restauração com o mesmo arquivo para concluir: as mensagens já restauradas serão ignoradas.</item>
+        <item quantity="other">Interrompido após %1$d registros. Repita a restauração com o mesmo arquivo para concluir: as mensagens já restauradas serão ignoradas.</item>
+    </plurals>
+    <string name="backup_retry_hint">Repita a restauração para tentar recuperar o que falhou: as mensagens já restauradas serão ignoradas.</string>
+    <string name="backup_export_finished">Backup concluído</string>
+    <string name="backup_export_stopped">Backup interrompido</string>
+    <string name="backup_export_failed">Falha no backup</string>
+    <string name="backup_export_error">Não foi possível gravar o backup, e o arquivo incompleto foi excluído. %1$s</string>
+    <string name="backup_export_cancelled">O backup foi interrompido e o arquivo incompleto foi excluído.</string>
+    <string name="backup_export_nothing">Não há mensagens para fazer backup.</string>
+    <string name="backup_export_counts">Foram salvos %1$d SMS e %2$d MMS.</string>
+    <string name="backup_export_unreadable_attachments">Anexos que não puderam ser lidos, salvos sem a imagem: %1$d</string>
+    <string name="backup_export_unreadable_messages">Mensagens que não puderam ser lidas, não incluídas: %1$d</string>
+    <string name="backup_export_unreadable_conversations">Conversas que não puderam ser lidas, não incluídas: %1$d</string>
+    <string name="backup_export_incomplete">Este backup está incompleto.</string>
+    <string name="backup_interrupted_import">A última restauração foi interrompida antes de terminar, talvez porque o celular tenha fechado o app. Repita com o mesmo arquivo: as mensagens já restauradas serão ignoradas.</string>
+    <string name="backup_interrupted_export">O último backup foi interrompido antes de terminar, então o arquivo está incompleto. Faça um novo backup.</string>
+</resources>

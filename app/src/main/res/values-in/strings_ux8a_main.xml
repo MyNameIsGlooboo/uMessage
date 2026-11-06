@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8a_checklist_show">Tampilkan langkah</string>
+    <string name="ux8a_checklist_hide">Sembunyikan langkah</string>
+    <string name="ux8a_menu_recycle_bin">Sampah</string>
+    <string name="ux8a_selection_block">Blokir</string>
+</resources>

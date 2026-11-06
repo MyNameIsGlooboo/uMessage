@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- "Keep uMessage running" guide, fixed deep links and done ticks -->
+    <string name="oem2_vivo">Vivo or iQOO</string>
+    <string name="oem2_step_vivo">Allow autostart and background use</string>
+    <string name="oem2_step_vivo_desc">Turn on Autostart for uMessage, and in its Battery settings allow high background power use.</string>
+    <string name="oem2_xiaomi_autostart_desc">Turn on Autostart for uMessage so it starts after a reboot. If the app info page opens, use its Autostart switch.</string>
+    <string name="oem2_xiaomi_battery_desc">Choose No restrictions for uMessage. If a list of apps opens, tap uMessage first.</string>
+    <string name="oem2_oppo_desc">Turn on Allow auto launch and Allow background activity for uMessage. On newer phones they are in App info, Battery usage.</string>
+    <string name="oem2_ignore_battery_desc">Choose Unrestricted, or Don\'t optimize, for uMessage. If a list opens, switch it to All apps first.</string>
+    <string name="oem2_state_done">Done</string>
+    <string name="oem2_state_marked">Marked done by you</string>
+    <string name="oem2_state_todo">Not done yet</string>
+    <string name="oem2_state_limited">Android still limits uMessage in the background</string>
+    <string name="oem2_open_again">Open again</string>
+    <string name="oem2_undo">Undo</string>
+    <string name="oem2_undo_cd">Mark %1$s as not done</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">SIM名称</string>
+    <string name="i34_setting_summary">为每张SIM设置名称和号码</string>
+    <string name="i34_dialog_title">SIM名称</string>
+    <string name="i34_number_note">运营商通常不会向应用提供号码，请在此输入。名称和号码都只保存在此手机上。</string>
+    <string name="i34_sim_heading">SIM%1$d，%2$s</string>
+    <string name="i34_nickname">名称（例如：工作）</string>
+    <string name="i34_number">号码</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">Задержано: неизвестный отправитель</string>
+    <string name="ux8c_held_unknown_link">Задержано: неизвестный отправитель, есть ссылка</string>
+    <string name="ux8c_held_foreign">Задержано: номер из другой страны</string>
+    <string name="ux8c_held_rule">Задержано по вашему правилу</string>
+    <string name="ux8c_held_other">Задержано фильтром</string>
+    <string name="ux8c_not_spam">Не спам</string>
+    <string name="ux8c_delete">Удалить</string>
+    <string name="ux8c_tip">Смахните отправителя, чтобы переместить его во входящие. Нажмите и удерживайте, чтобы выбрать.</string>
+    <string name="ux8c_tip_dismiss">Понятно</string>
+    <string name="ux8c_sender_title">Этот отправитель</string>
+    <string name="ux8c_sender_normal">Обычный режим</string>
+    <string name="ux8c_sender_allow">Всегда разрешать</string>
+    <string name="ux8c_sender_block">Заблокировать</string>
+</resources>

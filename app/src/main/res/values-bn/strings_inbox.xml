@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">আর্কাইভ খালি করুন</string>
+    <string name="inbox_empty_bin_menu">রিসাইকেল বিন খালি করুন</string>
+    <string name="inbox_archive_empty_body">বার্তা থেকে যে কথোপকথনগুলো আর্কাইভ করেন, সেগুলো এখানে দেখা যাবে।</string>
+    <string name="inbox_details_view_contact">পরিচিতি দেখুন</string>
+    <string name="inbox_details_more">আরও</string>
+    <string name="inbox_details_search">কথোপকথনে খুঁজুন</string>
+    <string name="inbox_details_search_body">এই কথোপকথনে কোনো বার্তা খুঁজুন</string>
+    <string name="inbox_details_forward">এই প্রেরকের জন্য ফরোয়ার্ডের নিয়ম</string>
+    <string name="inbox_details_forward_body">এই প্রেরকের বার্তার কপি অন্য নম্বরে পাঠান</string>
+    <string name="inbox_details_search_hint">এই কথোপকথনে খুঁজুন</string>
+</resources>

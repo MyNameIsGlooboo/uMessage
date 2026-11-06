@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r2a_filter_codes">Kode</string>
+    <string name="r2a_filter_codes_empty_title">Tidak ada kode</string>
+    <string name="r2a_filter_codes_empty_body">Percakapan dengan kode sekali pakai di pesan terakhir muncul di sini.</string>
+    <string name="r2a_search_codes_window">Dari 24 jam terakhir</string>
+</resources>

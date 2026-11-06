@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">সময় নির্ধারণ করা বার্তা দেরিতে পাঠানো হয়েছে</string>
+    <string name="scheduled_sent_late_exact_off">%1$s-কে আপনার বার্তা %2$d মিনিট দেরিতে পাঠানো হয়েছে। নির্ধারিত সময়ে বার্তা পাঠাতে uMessage-কে “অ্যালার্ম ও রিমাইন্ডার” ব্যবহারের অনুমতি দিন।</string>
+    <string name="scheduled_sent_late_idle">%1$s-কে আপনার বার্তা %2$d মিনিট দেরিতে পাঠানো হয়েছে: নির্ধারিত সময়ে ফোন বন্ধ ছিল বা ব্যাটারি সাশ্রয় করছিল।</string>
+    <string name="scheduled_sent_late_channel">সময় নির্ধারণ করা বার্তা</string>
+    <string name="notifications_off_title">বিজ্ঞপ্তি বন্ধ আছে</string>
+    <string name="notifications_off_body">নতুন বার্তা এলে আপনাকে জানানো হবে না।</string>
+    <string name="notifications_off_fix">চালু করুন</string>
+</resources>

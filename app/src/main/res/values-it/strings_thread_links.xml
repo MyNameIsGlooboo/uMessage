@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_link_confirm_body">Questo mittente non è tra i tuoi contatti. Controlla l\'indirizzo completo prima di aprirlo.</string>
+    <string name="thread_link_confirm_open">Apri</string>
+</resources>

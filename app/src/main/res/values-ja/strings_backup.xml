@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_channel">バックアップと復元</string>
+    <string name="backup_restoring">メッセージを復元中</string>
+    <string name="backup_exporting">メッセージをバックアップ中</string>
+    <plurals name="backup_progress_import">
+        <item quantity="other">%1$d件読み込み済み</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="other">%1$d件読み込み済み（%2$d%%）</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="other">メッセージ%1$d件保存済み</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="other">メッセージ%1$d件保存済み（%2$d%%）</item>
+    </plurals>
+    <string name="backup_runs_in_background">アプリを離れても処理は続きます。進行状況は通知で確認できます。</string>
+    <string name="backup_stop">停止</string>
+    <string name="backup_hide">非表示</string>
+    <string name="backup_already_running">バックアップまたは復元を実行中です。</string>
+    <string name="backup_restore_finished">復元完了</string>
+    <string name="backup_restore_stopped">復元停止</string>
+    <string name="backup_restore_failed">復元失敗</string>
+    <string name="backup_invalid_file">このファイルはメッセージのバックアップではないため、何も復元されませんでした。</string>
+    <string name="backup_no_entries">バックアップファイルにメッセージがありません。</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="other">新しくインポートするメッセージはありません。%1$d件すべてがこの端末にあります。</item>
+    </plurals>
+    <string name="backup_line_added">追加：%1$d</string>
+    <string name="backup_line_duplicates">この端末にあるためスキップ：%1$d</string>
+    <string name="backup_line_repaired">以前復元したメッセージに不足していた添付ファイルを追加：%1$d</string>
+    <string name="backup_line_incomplete">一部の添付ファイルなしで復元した画像メッセージ：%1$d</string>
+    <string name="backup_line_failed">復元できなかった件数：%1$d</string>
+    <string name="backup_line_damaged">ファイル内のデータが破損しているためスキップ：%1$d</string>
+    <string name="backup_line_xml_mms">このXMLバックアップ内の画像メッセージは未対応のためスキップ：%1$d</string>
+    <string name="backup_line_not_selected">インポート対象外：%1$d</string>
+    <string name="backup_reasons">理由：</string>
+    <string name="backup_reason_no_address">メッセージに送信者または宛先がありません。</string>
+    <string name="backup_reason_no_thread">端末で会話を開けませんでした。</string>
+    <string name="backup_reason_refused">端末が保存を拒否しました。</string>
+    <string name="backup_reason_not_in_backup">バックアップファイルに添付ファイルがありません。</string>
+    <string name="backup_reason_damaged_attachment">バックアップファイル内の添付ファイルが破損しています。</string>
+    <string name="backup_reason_attachment_write">添付ファイルを保存できませんでした。</string>
+    <string name="backup_stopped_early">%1$d件目より後のファイルデータが破損しているため、それ以降は読み込めませんでした。</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="other">%1$d件を処理して停止しました。同じファイルでもう一度復元すると完了できます。復元済みのメッセージはスキップされます。</item>
+    </plurals>
+    <string name="backup_retry_hint">もう一度復元すると、失敗した分を再試行できます。復元済みのメッセージはスキップされます。</string>
+    <string name="backup_export_finished">バックアップ完了</string>
+    <string name="backup_export_stopped">バックアップ停止</string>
+    <string name="backup_export_failed">バックアップ失敗</string>
+    <string name="backup_export_error">バックアップを書き込めなかったため、不完全なファイルを削除しました。%1$s</string>
+    <string name="backup_export_cancelled">バックアップを停止し、不完全なファイルを削除しました。</string>
+    <string name="backup_export_nothing">バックアップするメッセージがありません。</string>
+    <string name="backup_export_counts">SMSを%1$d件、MMSを%2$d件保存しました。</string>
+    <string name="backup_export_unreadable_attachments">読み込めず、画像なしで保存した添付ファイル：%1$d</string>
+    <string name="backup_export_unreadable_messages">読み込めず、除外したメッセージ：%1$d</string>
+    <string name="backup_export_unreadable_conversations">読み込めず、除外した会話：%1$d</string>
+    <string name="backup_export_incomplete">このバックアップは不完全です。</string>
+    <string name="backup_interrupted_import">前回の復元は途中で停止しました。端末がアプリを終了した可能性があります。同じファイルでもう一度復元してください。復元済みのメッセージはスキップされます。</string>
+    <string name="backup_interrupted_export">前回のバックアップは途中で停止したため、ファイルが不完全です。新しくバックアップを作成してください。</string>
+</resources>

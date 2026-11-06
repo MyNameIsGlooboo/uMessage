@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i56_section">Media dan tautan</string>
+    <string name="i56_see_all">Lihat semua</string>
+    <string name="i56_pictures">Gambar</string>
+    <string name="i56_links">Tautan</string>
+    <string name="i56_empty_pictures">Tidak ada gambar dalam percakapan ini.</string>
+    <string name="i56_empty_links">Tidak ada tautan dalam percakapan ini.</string>
+    <string name="i56_show_in_chat">Tampilkan dalam percakapan</string>
+    <string name="i56_load_more">Tampilkan lainnya</string>
+    <string name="i56_picture_description">Gambar. Ketuk untuk membuka.</string>
+    <plurals name="i56_count_pictures">
+        <item quantity="other">%d gambar</item>
+    </plurals>
+    <plurals name="i56_count_links">
+        <item quantity="other">%d tautan</item>
+    </plurals>
+</resources>

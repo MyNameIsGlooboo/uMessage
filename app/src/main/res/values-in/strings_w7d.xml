@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w7d_banner_stopped">
+        <item quantity="other">%1$s diblokir minggu ini</item>
+    </plurals>
+    <string name="w7d_banner_none">Tidak ada yang diblokir minggu ini</string>
+    <string name="w7d_fwd_master_switch">Penerusan</string>
+    <string name="w7d_help_menu">Cara kerja blokir kata</string>
+    <string name="w7d_help_title">Cara kerja blokir kata</string>
+    <string name="w7d_help_words_head">Kata</string>
+    <string name="w7d_help_words_body">Memblokir pesan yang memuat kata tersebut di bagian mana pun.</string>
+    <string name="w7d_help_words_example">hadiah gratis</string>
+    <string name="w7d_help_sender_head">Nama pengirim</string>
+    <string name="w7d_help_sender_body">Memblokir pesan dari pengirim dengan nama tersebut, misalnya toko.</string>
+    <string name="w7d_help_sender_example">PROMO</string>
+    <string name="w7d_help_number_head">Awalan nomor</string>
+    <string name="w7d_help_number_body">Memblokir semua nomor yang diawali deretan angka ini.</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">Pola (regex), untuk pengguna mahir</string>
+    <string name="w7d_help_pattern_body">Satu pola (regex) bisa cocok dengan berbagai ejaan. Uji sebelum disimpan.</string>
+    <string name="w7d_help_pattern_example">hadiah (gratis|menang)</string>
+    <string name="w7d_help_close">Tutup</string>
+    <string name="w7d_bank_cards_title">Kartu untuk pemberitahuan bank</string>
+    <string name="w7d_bank_cards_summary">Menampilkan nominal di bawah pesan bank</string>
+</resources>

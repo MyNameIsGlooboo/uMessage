@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_text_menu">แชร์การสนทนาเป็นข้อความ</string>
+    <string name="share_text_scope_title">แชร์ข้อความใด?</string>
+    <string name="share_text_scope_whole">ทั้งการสนทนา</string>
+    <string name="share_text_scope_last">50 ข้อความล่าสุด</string>
+    <string name="share_text_title">แชร์เป็นข้อความ</string>
+    <string name="share_text_warning">การดำเนินการนี้จะส่งข้อความส่วนตัวไปยังแอปอื่น คุณจะเลือกแอปในขั้นตอนถัดไป</string>
+    <string name="share_text_action">แชร์</string>
+    <string name="share_text_range">%1$s ถึง %2$s</string>
+    <string name="share_text_attachment">[ไฟล์แนบ]</string>
+    <string name="share_text_subject">ข้อความจาก uMessage</string>
+    <string name="share_text_nothing">ไม่มีข้อความให้แชร์</string>
+    <plurals name="share_text_count">
+        <item quantity="other">%1$d ข้อความ</item>
+    </plurals>
+</resources>

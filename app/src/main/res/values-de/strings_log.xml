@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">Filterprotokoll</string>
+    <string name="declog_clear">Protokoll leeren</string>
+    <string name="declog_empty_title">Noch keine Entscheidungen</string>
+    <string name="declog_empty_body">Jede vom Filter geprüfte Nachricht erscheint hier mit der Begründung. Der Nachrichtentext wird nie gespeichert.</string>
+    <plurals name="declog_kept_for">
+        <item quantity="one">Jede Entscheidung wird nach %d Tag gelöscht. Der Nachrichtentext wird nie gespeichert.</item>
+        <item quantity="other">Jede Entscheidung wird nach %d Tagen gelöscht. Der Nachrichtentext wird nie gespeichert.</item>
+    </plurals>
+    <string name="declog_sim">SIM %1$s</string>
+    <string name="declog_today">Heute</string>
+    <string name="declog_yesterday">Gestern</string>
+    <string name="declog_allowed_by_rule">Durch Regel erlaubt: %1$s</string>
+    <string name="declog_filter_all">Alle</string>
+    <string name="declog_filter_blocked">Blockiert</string>
+    <string name="declog_filter_allowed">Erlaubt</string>
+    <string name="declog_filter_empty">Keine Entscheidungen für diesen Filter</string>
+    <plurals name="declog_times">
+        <item quantity="one">%1$s Mal</item>
+        <item quantity="other">%1$s Mal</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="one">Dieselbe Entscheidung wurde %1$s Mal in Folge getroffen</item>
+        <item quantity="other">Dieselbe Entscheidung wurde %1$s Mal in Folge getroffen</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="one">%d Entscheidung teilen</item>
+        <item quantity="other">%d Entscheidungen teilen</item>
+    </plurals>
+    <string name="declog_csv_subject">uMessage-Filterprotokoll</string>
+    <string name="declog_share_failed">Protokoll konnte nicht geteilt werden</string>
+    <string name="declog_details_title">Details zur Entscheidung</string>
+    <string name="declog_open_details">Details zu %1$s öffnen</string>
+    <string name="declog_fixed_allowed">Du hast diesen Absender im Protokoll erlaubt</string>
+    <string name="declog_fixed_blocked">Du hast diesen Absender im Protokoll blockiert</string>
+    <string name="declog_fixed_restored">Du hast diese Nachricht im Protokoll wiederhergestellt</string>
+    <string name="declog_restored">Wiederhergestellt</string>
+    <string name="declog_blocked_message">Die Nachricht ist noch unter „Blockiert“</string>
+    <string name="declog_restore">Nachricht wiederherstellen</string>
+    <string name="declog_restore_done">Nachricht im Posteingang wiederhergestellt</string>
+    <string name="declog_restore_text_only">Text im Posteingang wiederhergestellt. Die Bilder konnten nicht wiederhergestellt werden.</string>
+    <string name="declog_restore_nothing">Nichts zum Wiederherstellen: Diese Bildnachricht wurde nicht aufbewahrt</string>
+    <string name="declog_restore_failed">Nachricht konnte nicht wiederhergestellt werden</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

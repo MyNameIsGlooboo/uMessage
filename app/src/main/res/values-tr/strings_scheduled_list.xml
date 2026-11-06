@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_list_title">Planlanan mesajlar</string>
+    <string name="scheduled_list_empty_title">Planlanan mesaj yok</string>
+    <string name="scheduled_list_empty_body">Gönderimini planladığınız mesajlar gönderilene kadar burada bekler.</string>
+    <string name="scheduled_list_not_sent">Gönderilmedi</string>
+    <string name="scheduled_list_edit_time">Saati değiştirin</string>
+    <string name="scheduled_list_send_now">Şimdi gönderin</string>
+    <string name="scheduled_list_delete">Silin</string>
+    <string name="scheduled_list_send_confirm">Alıcısı %1$s olan bu mesaj şimdi gönderilsin mi?</string>
+    <string name="scheduled_list_delete_confirm">Alıcısı %1$s olan planlanan mesaj silinsin mi?</string>
+    <string name="scheduled_list_row_actions">Alıcısı %1$s olan mesaj için işlemler</string>
+</resources>

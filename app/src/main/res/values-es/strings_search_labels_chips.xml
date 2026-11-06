@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_labels_chip_edit">Editar</string>
+    <string name="search_labels_chip_delete">Eliminar</string>
+    <string name="search_labels_chip_options">Opciones de etiqueta</string>
+</resources>

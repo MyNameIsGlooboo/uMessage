@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- I62: texts stored on the SIM card, copied into the conversations. -->
+    <string name="sim_messages_title">SIM card messages</string>
+    <string name="sim_messages_row_body">Copy texts stored on the SIM card into your conversations</string>
+    <string name="sim_messages_loading">Reading the SIM card…</string>
+    <string name="sim_messages_unavailable">This phone does not let apps read the SIM card.</string>
+    <string name="sim_messages_empty">There are no messages on the SIM card.</string>
+    <plurals name="sim_messages_found">
+        <item quantity="one">%1$d message is stored on the SIM card. Copy it into your conversations? It stays on the SIM card too.</item>
+        <item quantity="other">%1$d messages are stored on the SIM card. Copy them into your conversations? They stay on the SIM card too.</item>
+    </plurals>
+    <string name="sim_messages_import">Copy</string>
+    <string name="sim_messages_importing">Copying messages…</string>
+    <string name="sim_messages_done">Copied %1$d messages. %2$d were already in your conversations.</string>
+    <string name="sim_messages_done_failed">Copied %1$d messages. %2$d were already in your conversations and %3$d could not be copied.</string>
+</resources>

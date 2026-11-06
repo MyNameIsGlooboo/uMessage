@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">อนุญาตเสมอ</string>
+    <string name="ux8d_sheet_title_block">บล็อกเสมอ</string>
+    <string name="ux8d_match_label">สิ่งที่ต้องการจับคู่</string>
+    <string name="ux8d_match_number">หมายเลขโทรศัพท์</string>
+    <string name="ux8d_match_sender">ชื่อผู้ส่ง เช่น ธนาคาร</string>
+    <string name="ux8d_match_word">คำในข้อความ</string>
+    <string name="ux8d_match_prefix">หมายเลขที่ขึ้นต้นด้วย…</string>
+    <string name="ux8d_match_pattern">รูปแบบ (regex) (ขั้นสูง)</string>
+    <string name="ux8d_match_more">วิธีจับคู่เพิ่มเติม</string>
+    <string name="ux8d_action_label">เมื่อจับคู่ได้</string>
+    <string name="ux8d_more_options">ตัวเลือกเพิ่มเติม</string>
+    <string name="ux8d_row_type_number">หมายเลข</string>
+    <string name="ux8d_row_type_prefix">หมายเลขขึ้นต้นด้วย</string>
+    <string name="ux8d_row_type_sender">ชื่อผู้ส่ง</string>
+    <string name="ux8d_row_type_word">คำในข้อความ</string>
+    <string name="ux8d_row_type_pattern">รูปแบบ (regex)</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

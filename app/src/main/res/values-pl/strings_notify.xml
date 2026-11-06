@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">Zaplanowana wiadomość wysłana z opóźnieniem</string>
+    <string name="scheduled_sent_late_exact_off">Wiadomość do %1$s wysłano z opóźnieniem %2$d min. Zezwól uMessage na „Alarmy i przypomnienia”, by zaplanowane wiadomości były wysyłane na czas.</string>
+    <string name="scheduled_sent_late_idle">Wiadomość do %1$s wysłano z opóźnieniem %2$d min: o zaplanowanej porze telefon był wyłączony lub oszczędzał baterię.</string>
+    <string name="scheduled_sent_late_channel">Zaplanowane wiadomości</string>
+    <string name="notifications_off_title">Powiadomienia wyłączone</string>
+    <string name="notifications_off_body">Nie otrzymasz powiadomień o nowych wiadomościach.</string>
+    <string name="notifications_off_fix">Włącz</string>
+</resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_time_now">Sekarang</string>
+    <plurals name="ui_time_minutes">
+        <item quantity="other">%d mnt</item>
+    </plurals>
+    <string name="ui_bubble_sent">Anda, %1$s</string>
+    <string name="ui_bubble_received">%1$s, %2$s</string>
+    <string name="ui_bubble_received_unknown">Diterima, %1$s</string>
+    <string name="ui_select_message">Pilih pesan</string>
+    <string name="ui_retry_send">Coba kirim lagi</string>
+    <string name="ui_default_required_body">uMessage tidak dapat menerima, mengirim, atau memfilter pesan sebelum dijadikan aplikasi SMS default. Pesan Anda tetap di tempatnya.</string>
+    <string name="ui_default_required_close">Tutup uMessage</string>
+    <string name="ui_add_contact_or_number">Ketik nama atau nomor telepon</string>
+    <string name="ui_show_dialpad">Tampilkan papan nomor</string>
+    <string name="ui_show_keyboard">Tampilkan keyboard</string>
+    <string name="ui_settings_group_block_lists">Daftar blokir lainnya</string>
+    <string name="ui_settings_system_block_list">Daftar blokir sistem</string>
+    <string name="ui_settings_system_block_list_body">Nomor yang diblokir untuk semua aplikasi di ponsel ini. uMessage juga menyembunyikannya.</string>
+    <string name="ui_settings_blocked_words">Kata yang diblokir</string>
+    <string name="ui_settings_character_counter">Tampilkan penghitung karakter</string>
+    <string name="ui_settings_simple_characters">Hapus aksen saat mengirim</string>
+    <string name="ui_settings_send_on_enter">Kirim dengan tombol Enter</string>
+    <string name="ui_settings_delivery_reports">Dapatkan laporan pengiriman</string>
+    <string name="ui_settings_recycle_bin">Pindahkan percakapan yang dihapus ke sampah</string>
+    <string name="ui_two_sentences">%1$s. %2$s</string>
+    <string name="ui_tab_with_count">%1$s (%2$d)</string>
+    <string name="ui_send_with_sim">%1$s, %2$s</string>
+    <string name="ui_number_with_type">%1$s (%2$s)</string>
+    <string name="ui_log_decision_allowed">Diizinkan</string>
+    <string name="ui_log_decision_blocked">Diblokir</string>
+    <string name="ui_log_decision_error">Kesalahan</string>
+    <string name="ui_log_reason_allow_rule">Aturan izinkan</string>
+    <string name="ui_log_reason_block_rule">Aturan blokir</string>
+    <string name="ui_log_reason_contact">Ada di kontak</string>
+    <string name="ui_log_reason_known_conversation">Pernah Anda kirimi pesan</string>
+    <string name="ui_log_reason_otp">Kode verifikasi</string>
+    <string name="ui_log_reason_unknown_sender">Pengirim tidak dikenal</string>
+    <string name="ui_log_reason_mode_off">Filter nonaktif</string>
+    <string name="ui_log_reason_no_match">Tidak ada aturan yang cocok</string>
+    <string name="ui_log_source_sms">SMS</string>
+    <string name="ui_log_source_mms">MMS</string>
+    <string name="ui_log_source_retry">Dicoba ulang</string>
+</resources>

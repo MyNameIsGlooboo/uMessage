@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">Скорочене посилання: не видно, куди воно веде.</string>
+    <string name="i07_punycode">Назву закодовано: видимі літери можуть відрізнятися від справжніх.</string>
+    <string name="i07_mixed_script">У назві змішано різні абетки. Так часто роблять підроблені сайти.</string>
+    <string name="i07_raw_ip">Адреса містить число замість назви сайту.</string>
+    <string name="i07_http_only">Без шифрування (http замість https).</string>
+    <string name="i07_lookalike">Назва схожа на %1$s. Перевірте написання.</string>
+    <string name="i07_user_info">Частина перед @ — це не адреса сайту.</string>
+    <string name="i07_locked">Небезпечні посилання тут відкрити не можна. Ви можете скопіювати посилання.</string>
+    <string name="i07_lock_title">Небезпечні посилання не відкриваються</string>
+    <string name="i07_lock_summary">У меню посилання можна лише скопіювати його або поділитися ним</string>
+    <string name="i07_group_title">Посилання</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- uMessage brand palette (design-system/umessage/MASTER.md). -->
+    <color name="umessage_navy">#0F172A</color>
+    <!-- Launcher icon background, also the circle behind the splash mark. -->
+    <color name="umessage_icon_background">#E0503C</color>
+    <color name="umessage_sky">#E0F2FE</color>
+    <color name="umessage_blue">#1E3A8A</color>
+    <color name="umessage_gold">#A16207</color>
+    <color name="umessage_gold_light">#FBBF24</color>
+    <color name="umessage_surface">#F8FAFC</color>
+
+    <!-- Translucent bubble tint: stays readable on any user-chosen background/text color. -->
+    <color name="bubble_received">#3A7B8BA8</color>
+
+    <!-- Override Fossify commons first-run defaults (user customization still wins: these are only
+         read when no value is stored). Dark variants live in values-night. -->
+    <color name="color_primary">@color/umessage_blue</color>
+    <color name="default_primary_color">@color/umessage_blue</color>
+    <color name="default_accent_color">@color/umessage_gold</color>
+    <color name="default_background_color">@color/umessage_surface</color>
+    <color name="default_text_color">@color/umessage_navy</color>
+    <!-- MUST stay the commons default: the enabled launcher alias ("Green") is matched against it,
+         changing it would disable every alias and hide the app from the launcher. -->
+    <color name="default_app_icon_color">@color/md_green_900</color>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_open_link_action">リンクを開く</string>
+    <string name="notif_open_link_title">「リンクを開く」ボタン</string>
+    <string name="notif_open_link_summary">連絡先と許可済みの送信者からの通知に表示</string>
+</resources>

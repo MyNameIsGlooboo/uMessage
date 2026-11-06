@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w7d_banner_stopped">
+        <item quantity="one">Bu hafta %1$s mesaj engellendi</item>
+        <item quantity="other">Bu hafta %1$s mesaj engellendi</item>
+    </plurals>
+    <string name="w7d_banner_none">Bu hafta hiçbir mesaj engellenmedi</string>
+    <string name="w7d_fwd_master_switch">İletme</string>
+    <string name="w7d_help_menu">Kelimelerle engelleme nasıl çalışır?</string>
+    <string name="w7d_help_title">Kelimelerle engelleme nasıl çalışır?</string>
+    <string name="w7d_help_words_head">Kelimeler</string>
+    <string name="w7d_help_words_body">Herhangi bir yerinde bu kelime geçen mesajları engeller.</string>
+    <string name="w7d_help_words_example">ücretsiz ödül</string>
+    <string name="w7d_help_sender_head">Gönderen adları</string>
+    <string name="w7d_help_sender_body">Bu adı kullanan bir gönderenden, örneğin bir mağazadan gelen mesajları engeller.</string>
+    <string name="w7d_help_sender_example">KAMPANYA</string>
+    <string name="w7d_help_number_head">Numara başlangıçları</string>
+    <string name="w7d_help_number_body">Bu rakamlarla başlayan tüm numaraları engeller.</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">İleri düzey kullanıcılar için düzenli ifadeler</string>
+    <string name="w7d_help_pattern_body">Tek bir düzenli ifade birçok farklı yazımla eşleşebilir. Kaydetmeden önce test edin.</string>
+    <string name="w7d_help_pattern_example">(ücretsiz|kazanın) ödül</string>
+    <string name="w7d_help_close">Kapatın</string>
+    <string name="w7d_bank_cards_title">Banka bildirimleri için kartlar</string>
+    <string name="w7d_bank_cards_summary">Banka mesajının altında tutarı gösterir</string>
+</resources>

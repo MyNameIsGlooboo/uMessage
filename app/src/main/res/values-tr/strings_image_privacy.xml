@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i09_setting_title">Resimlerden konum bilgisini kaldırın</string>
+    <string name="i09_setting_summary">Fotoğraf gönderilmeden önce çekildiği yeri gizler</string>
+</resources>

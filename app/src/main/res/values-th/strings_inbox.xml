@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">ล้างข้อความที่เก็บถาวร</string>
+    <string name="inbox_empty_bin_menu">ล้างถังขยะ</string>
+    <string name="inbox_archive_empty_body">การสนทนาที่เก็บถาวรจากหน้าข้อความจะแสดงที่นี่</string>
+    <string name="inbox_details_view_contact">ดูรายชื่อติดต่อ</string>
+    <string name="inbox_details_more">เพิ่มเติม</string>
+    <string name="inbox_details_search">ค้นหาในการสนทนา</string>
+    <string name="inbox_details_search_body">ค้นหาข้อความในการสนทนานี้</string>
+    <string name="inbox_details_forward">กฎส่งต่อสำหรับผู้ส่งนี้</string>
+    <string name="inbox_details_forward_body">ส่งสำเนาข้อความจากผู้ส่งนี้ไปยังหมายเลขอื่น</string>
+    <string name="inbox_details_search_hint">ค้นหาในการสนทนานี้</string>
+</resources>

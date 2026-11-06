@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">Wiederholen</string>
+    <string name="schedule_repeat_never">Nie</string>
+    <string name="schedule_repeat_daily">Jeden Tag</string>
+    <string name="schedule_repeat_weekly">Jede Woche</string>
+    <string name="schedule_repeat_monthly">Jeden Monat</string>
+    <string name="schedule_repeat_yearly">Jedes Jahr</string>
+    <string name="schedule_repeat_jalali_note">Monate und Jahre richten sich nach dem Dschalali-Kalender.</string>
+    <string name="scheduled_repeats_daily">Wird täglich wiederholt</string>
+    <string name="scheduled_repeats_weekly">Wird wöchentlich wiederholt</string>
+    <string name="scheduled_repeats_monthly">Wird monatlich wiederholt</string>
+    <string name="scheduled_repeats_yearly">Wird jährlich wiederholt</string>
+    <string name="scheduled_repeats_paused">Wiederholung pausiert</string>
+    <string name="scheduled_delete_repeating">Wiederkehrende Nachricht löschen</string>
+    <string name="scheduled_delete_this_one">Nur diese Nachricht</string>
+    <string name="scheduled_delete_all_future">Diese und alle folgenden</string>
+</resources>

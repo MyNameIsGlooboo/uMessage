@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">ميّز بنجمة</string>
+    <string name="i13_unstar">أزل النجمة</string>
+    <string name="i13_starred_mark">مميزة بنجمة</string>
+    <string name="i13_filter_starred">المميزة بنجمة</string>
+    <string name="i13_filter_starred_empty_title">لا توجد رسائل مميزة بنجمة</string>
+    <string name="i13_filter_starred_empty_body">اختر رسالة في محادثة واضغط على النجمة للاحتفاظ بها هنا.</string>
+    <string name="i13_starred_note">تحتفظ النجمة بنسخة من النص حتى عند حذف المحادثة. إزالة النجمة تحذف النسخة.</string>
+    <string name="i13_snapshot_gone">حُذفت هذه المحادثة. لم يبقَ سوى النص المحفوظ.</string>
+    <string name="i13_snapshot_close">أغلق</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i40_record_voice">वॉइस मैसेज रिकॉर्ड करें</string>
+    <string name="i40_setting_title">वॉइस बटन</string>
+    <string name="i40_setting_summary">मैसेज का खाना खाली होने पर दिखता है</string>
+</resources>

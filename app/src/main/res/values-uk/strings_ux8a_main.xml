@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8a_checklist_show">Показати кроки</string>
+    <string name="ux8a_checklist_hide">Приховати кроки</string>
+    <string name="ux8a_menu_recycle_bin">Кошик</string>
+    <string name="ux8a_selection_block">Заблокувати</string>
+</resources>

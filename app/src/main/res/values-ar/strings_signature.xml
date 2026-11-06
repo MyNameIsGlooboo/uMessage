@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">التوقيع</string>
+    <string name="i60_off">متوقف</string>
+    <string name="i60_dialog_note">يُضاف أسفل كل رسالة ترسلها. اتركه فارغًا لعدم إضافة توقيع.</string>
+</resources>

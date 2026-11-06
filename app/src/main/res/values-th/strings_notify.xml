@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">ข้อความที่กำหนดเวลาส่งถูกส่งล่าช้า</string>
+    <string name="scheduled_sent_late_exact_off">ข้อความถึง %1$s ถูกส่งช้าไป %2$d นาที อนุญาต “นาฬิกาปลุกและการช่วยเตือน” สำหรับ uMessage เพื่อให้ข้อความที่กำหนดเวลาส่งถูกส่งตรงเวลา</string>
+    <string name="scheduled_sent_late_idle">ข้อความถึง %1$s ถูกส่งช้าไป %2$d นาที เพราะโทรศัพท์ปิดอยู่หรืออยู่ในโหมดประหยัดแบตเตอรี่เมื่อถึงเวลาส่ง</string>
+    <string name="scheduled_sent_late_channel">ข้อความที่กำหนดเวลาส่ง</string>
+    <string name="notifications_off_title">ปิดการแจ้งเตือนอยู่</string>
+    <string name="notifications_off_body">จะไม่มีการแจ้งเตือนเมื่อมีข้อความใหม่</string>
+    <string name="notifications_off_fix">เปิด</string>
+</resources>

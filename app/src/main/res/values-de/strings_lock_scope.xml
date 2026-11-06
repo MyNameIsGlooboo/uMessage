@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_scope_title">Was soll gesperrt werden?</string>
+    <string name="lock_scope_whole">Ganze App</string>
+    <string name="lock_scope_chosen">Nur ausgewählte Bereiche</string>
+    <string name="lock_scope_chosen_long">Nur ausgewählte Bereiche: der Tab „Blockiert“ und verborgene Chats</string>
+    <string name="lock_scope_blocked_title">Blockierte Nachrichten sind gesperrt</string>
+    <string name="lock_scope_blocked_body">Entsperre sie, um sie anzusehen.</string>
+    <string name="lock_scope_unlock">Entsperren</string>
+</resources>

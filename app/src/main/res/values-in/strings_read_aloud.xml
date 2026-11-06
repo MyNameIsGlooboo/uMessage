@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">Bacakan</string>
+    <string name="read_aloud_stop">Berhenti membaca</string>
+    <string name="read_aloud_no_voice">Suara %1$s belum terinstal di ponsel ini</string>
+    <string name="read_aloud_install">Unduh suara</string>
+    <string name="read_aloud_install_missing">Ponsel ini tidak menyediakan cara untuk menginstal suara</string>
+    <string name="read_aloud_failed">Tidak dapat membacakan pesan</string>
+</resources>

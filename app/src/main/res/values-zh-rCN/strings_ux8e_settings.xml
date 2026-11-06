@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">提醒、锁屏、每周摘要</string>
+    <string name="ux8e_nav_typing">输入与发送</string>
+    <string name="ux8e_nav_typing_body">回车键、送达报告、签名</string>
+    <string name="ux8e_nav_storage">存储与清理</string>
+    <string name="ux8e_nav_storage_body">回收站、归档、自动删除</string>
+    <string name="ux8e_group_lock_screen">锁屏</string>
+    <string name="ux8e_group_recycle">已删除的消息</string>
+    <string name="ux8e_group_cleanup">自动清理</string>
+    <string name="ux8e_group_archive">归档</string>
+    <string name="ux8e_keep_deleted">保留已删除的消息</string>
+    <string name="ux8e_keep_deleted_body">在回收站中保留30天</string>
+    <string name="ux8e_recycle_bin">回收站</string>
+    <string name="ux8e_backup_row">备份</string>
+    <string name="ux8e_backup_row_body">保存到文件</string>
+    <string name="ux8e_restore_row">恢复</string>
+    <string name="ux8e_restore_row_body">从文件加载</string>
+    <string name="ux8e_backup_what">备份哪些内容？</string>
+    <string name="ux8e_restore_what">恢复哪些内容？</string>
+    <string name="ux8e_what_messages">消息</string>
+    <string name="ux8e_what_settings">规则与设置</string>
+    <string name="ux8e_backup_warning">备份文件未加密。</string>
+    <string name="ux8e_calendar">日历</string>
+</resources>

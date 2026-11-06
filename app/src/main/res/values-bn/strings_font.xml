@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="font_title">ফন্ট</string>
+    <string name="font_umessage">uMessage ফন্ট</string>
+    <string name="font_system">সিস্টেম ফন্ট</string>
+</resources>

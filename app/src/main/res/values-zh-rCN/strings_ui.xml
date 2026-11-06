@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_time_now">刚刚</string>
+    <plurals name="ui_time_minutes">
+        <item quantity="other">%d分钟前</item>
+    </plurals>
+    <string name="ui_bubble_sent">你，%1$s</string>
+    <string name="ui_bubble_received">%1$s, %2$s</string>
+    <string name="ui_bubble_received_unknown">收到，%1$s</string>
+    <string name="ui_select_message">选择消息</string>
+    <string name="ui_retry_send">重新发送</string>
+    <string name="ui_default_required_body">将uMessage设为默认短信应用后，才能接收、发送或过滤消息。现有消息会保留在原处。</string>
+    <string name="ui_default_required_close">关闭uMessage</string>
+    <string name="ui_add_contact_or_number">输入姓名或手机号码</string>
+    <string name="ui_show_dialpad">显示拨号键盘</string>
+    <string name="ui_show_keyboard">显示键盘</string>
+    <string name="ui_settings_group_block_lists">其他屏蔽列表</string>
+    <string name="ui_settings_system_block_list">系统屏蔽列表</string>
+    <string name="ui_settings_system_block_list_body">这些号码在此手机的所有应用中均已屏蔽。uMessage也会隐藏这些号码的消息。</string>
+    <string name="ui_settings_blocked_words">屏蔽词</string>
+    <string name="ui_settings_character_counter">显示字符数</string>
+    <string name="ui_settings_simple_characters">发送时移除重音符号</string>
+    <string name="ui_settings_send_on_enter">按回车键发送</string>
+    <string name="ui_settings_delivery_reports">获取送达报告</string>
+    <string name="ui_settings_recycle_bin">将删除的会话移至回收站</string>
+    <string name="ui_two_sentences">%1$s. %2$s</string>
+    <string name="ui_tab_with_count">%1$s (%2$d)</string>
+    <string name="ui_send_with_sim">%1$s, %2$s</string>
+    <string name="ui_number_with_type">%1$s (%2$s)</string>
+    <string name="ui_log_decision_allowed">已允许</string>
+    <string name="ui_log_decision_blocked">已屏蔽</string>
+    <string name="ui_log_decision_error">错误</string>
+    <string name="ui_log_reason_allow_rule">允许规则</string>
+    <string name="ui_log_reason_block_rule">屏蔽规则</string>
+    <string name="ui_log_reason_contact">在联系人中</string>
+    <string name="ui_log_reason_known_conversation">你曾向对方发过短信</string>
+    <string name="ui_log_reason_otp">验证码</string>
+    <string name="ui_log_reason_unknown_sender">未知发件人</string>
+    <string name="ui_log_reason_mode_off">过滤已关闭</string>
+    <string name="ui_log_reason_no_match">未匹配任何规则</string>
+    <string name="ui_log_source_sms">短信</string>
+    <string name="ui_log_source_mms">彩信</string>
+    <string name="ui_log_source_retry">已重试</string>
+</resources>

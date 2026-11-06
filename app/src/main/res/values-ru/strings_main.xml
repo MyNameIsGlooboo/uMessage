@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_search_hint">Поиск чатов</string>
+    <string name="main_search_back">Закрыть поиск</string>
+    <string name="main_search_clear">Очистить текст поиска</string>
+    <string name="main_search_type_more">Введите не менее 2 символов для поиска</string>
+    <string name="main_search_no_results">Ничего не найдено</string>
+    <string name="main_settings">Настройки</string>
+    <string name="main_tab_messages">Сообщения</string>
+    <string name="main_tab_blocked">Заблокированные</string>
+    <string name="main_tab_archived">В архиве</string>
+    <plurals name="main_tab_blocked_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Заблокированные, %d новое</item>
+        <item quantity="few">Заблокированные, %d новых</item>
+        <item quantity="many">Заблокированные, %d новых</item>
+        <item quantity="other">Заблокированные, %d нового</item>
+    </plurals>
+    <string name="main_permission_title">Требуется разрешение</string>
+    <string name="main_permission_grant">Предоставить разрешение</string>
+    <string name="main_permission_notifications">Разрешите уведомления, иначе приложение не сможет показывать входящие сообщения.</string>
+    <string name="main_sms_permission_title">uMessage нужен доступ к SMS</string>
+    <string name="main_sms_permission_body">Без разрешения на чтение и отправку SMS uMessage не сможет показывать ваши сообщения, отправлять SMS и фильтровать спам. Ничего не удаляется.</string>
+    <string name="main_sms_permission_settings">Открыть настройки приложения</string>
+    <string name="main_not_default_banner">uMessage не выбрано приложением для SMS по умолчанию, поэтому не может блокировать спам и отправлять сообщения.</string>
+    <string name="main_not_default_fix">Исправить</string>
+    <string name="main_not_default_fix_description">Выбрать uMessage приложением для SMS по умолчанию</string>
+</resources>

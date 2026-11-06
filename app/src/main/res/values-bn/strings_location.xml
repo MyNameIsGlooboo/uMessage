@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">অবস্থান</string>
+    <string name="i52_permission_explanation">আপনার বার্তায় মানচিত্রের লিঙ্ক দিতে uMessage শুধু এখন একবার আপনার অবস্থান জানবে। কিছু সংরক্ষণ করা হবে না। আপনি আনুমানিক অবস্থান বেছে নিতে পারেন।</string>
+    <string name="i52_finding">আপনার অবস্থান খোঁজা হচ্ছে…</string>
+    <string name="i52_denied">অবস্থানের অনুমতি দেওয়া হয়নি। বার্তা যেমন আছে তেমনই থাকবে।</string>
+    <string name="i52_no_fix">আপনার অবস্থান পাওয়া যায়নি। জানালার কাছে বা বাইরে গিয়ে আবার চেষ্টা করুন।</string>
+    <string name="i52_off_message">এই ফোনে অবস্থান বন্ধ আছে। আপনি কোথায় আছেন তা শেয়ার করতে এটি চালু করুন।</string>
+    <string name="i52_open_settings">সেটিংস খুলুন</string>
+</resources>

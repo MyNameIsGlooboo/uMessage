@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.UMessage.Screen" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/umessage_window_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:windowAnimationStyle">@style/Animation.UMessage.Activity</item>
+        <!-- Transparent 3-button navigation bar without the system's translucent scrim. -->
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:enforceStatusBarContrast">false</item>
+    </style>
+</resources>

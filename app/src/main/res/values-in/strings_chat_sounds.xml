@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i65_setting_title">Suara dalam chat</string>
+    <string name="i65_setting_summary">Suara singkat saat pesan dikirim dan diterima</string>
+</resources>

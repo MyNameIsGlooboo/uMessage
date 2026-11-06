@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">এই কথোপকথন লুকান</string>
+    <string name="hidden_chats_menu_unhide">এই কথোপকথন আবার দেখান</string>
+    <string name="hidden_chats_confirm">এই কথোপকথন লুকাবেন? আপনার অ্যাপ লক দিয়ে লুকানো কথোপকথনের লক না খোলা পর্যন্ত এটি তালিকা, সার্চ ও বিজ্ঞপ্তিতে দেখা যাবে না।</string>
+    <string name="hidden_chats_need_lock">কথোপকথন লুকাতে অ্যাপ লক দরকার। এখন সেট আপ করবেন?</string>
+    <string name="hidden_chats_set_lock">সেট আপ করুন</string>
+    <string name="hidden_chats_done">কথোপকথন লুকানো হয়েছে</string>
+    <string name="hidden_chats_show">লুকানো কথোপকথন</string>
+    <string name="hidden_chats_lock">লুকানো কথোপকথন লক করুন</string>
+</resources>

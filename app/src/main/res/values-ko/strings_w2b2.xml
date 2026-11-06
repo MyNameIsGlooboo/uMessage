@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2b2_thread_menu_allow">이 발신자 항상 허용</string>
+    <string name="w2b2_thread_menu_why">왜 이렇게 판정했나요?</string>
+    <string name="w2b2_thread_chip_allowed">항상 허용됨</string>
+    <string name="w2b2_thread_chip_blocked">규칙에 따라 차단됨</string>
+    <string name="w2b2_settings_group_dates">날짜</string>
+    <string name="w2b2_settings_jalali">잘랄리력 날짜</string>
+    <string name="w2b2_settings_jalali_body">대화와 예약 전송 메시지의 날짜를 페르시아력으로 표시해요.</string>
+    <string name="w2b2_lock_pattern_hint">점을 %d개 이상 연결한 뒤 같은 패턴을 다시 그려 확인하세요.</string>
+    <string name="w2b2_lock_recovery_hint">패턴을 잊어도 잠금 화면에서 휴대전화의 화면 잠금 방식으로 다시 들어갈 수 있어요.</string>
+</resources>

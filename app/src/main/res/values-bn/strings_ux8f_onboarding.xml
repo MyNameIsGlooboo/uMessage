@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">আরও ফিচার</string>
+    <string name="ux8f_onb_less">কম ফিচার</string>
+    <string name="ux8f_onb_battery_body">Android ব্যাকগ্রাউন্ডে uMessage বন্ধ করে দিতে পারে, ফলে আপনার বার্তা পেতে দেরি হতে পারে। এটি চালু থাকার অনুমতি দিন।</string>
+    <string name="ux8f_onb_battery_action">ব্যাকগ্রাউন্ডে চলার অনুমতি দিন</string>
+    <string name="ux8f_onb_vendor_hint">%1$s ফোনে আরও একটি ধাপ দরকার।</string>
+    <string name="ux8f_onb_unfinished">এখনও বাকি আছে। পরে Android সেটিংস থেকে এগুলো শেষ করতে পারবেন।</string>
+</resources>

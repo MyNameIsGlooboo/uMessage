@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_list_title">الرسائل المجدولة</string>
+    <string name="scheduled_list_empty_title">لا توجد رسائل مجدولة</string>
+    <string name="scheduled_list_empty_body">تنتظر الرسائل التي تجدوِلها هنا حتى تُرسل.</string>
+    <string name="scheduled_list_not_sent">لم تُرسل</string>
+    <string name="scheduled_list_edit_time">غيّر الوقت</string>
+    <string name="scheduled_list_send_now">أرسل الآن</string>
+    <string name="scheduled_list_delete">احذف</string>
+    <string name="scheduled_list_send_confirm">هل تريد إرسال هذه الرسالة إلى %1$s الآن؟</string>
+    <string name="scheduled_list_delete_confirm">هل تريد حذف الرسالة المجدولة إلى %1$s؟</string>
+    <string name="scheduled_list_row_actions">إجراءات الرسالة إلى %1$s</string>
+</resources>

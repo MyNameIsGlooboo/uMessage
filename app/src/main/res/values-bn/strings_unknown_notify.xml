@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unotify_title">আপনার ইনবক্সে অচেনা প্রেরক</string>
+    <string name="unotify_notify">বিজ্ঞপ্তি দিন</string>
+    <string name="unotify_silent">নীরবে বিজ্ঞপ্তি দিন</string>
+    <string name="unotify_none">বিজ্ঞপ্তি নয়</string>
+    <string name="unotify_summary">বার্তা আপনার ইনবক্সে আসতেই থাকবে</string>
+    <string name="unotify_channel_silent">অচেনা প্রেরক (নীরব)</string>
+</resources>

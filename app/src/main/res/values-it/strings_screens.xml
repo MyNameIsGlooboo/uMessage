@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screens_back">Indietro</string>
+    <string name="screens_ok">OK</string>
+    <string name="screens_cancel">Annulla</string>
+    <string name="screens_delete">Elimina</string>
+    <string name="screens_clear_selection">Deseleziona</string>
+    <plurals name="screens_selected_count">
+        <item quantity="one">%d selezionato</item>
+        <item quantity="other">%d selezionati</item>
+    </plurals>
+    <string name="screens_loading">Caricamento…</string>
+    <string name="screens_more_options">Altre opzioni</string>
+    <string name="screens_select_all">Seleziona tutto</string>
+    <string name="screens_copy">Copia</string>
+    <string name="screens_grant_permission">Consenti accesso</string>
+    <string name="screens_delete_forever_title">Eliminare definitivamente?</string>
+    <string name="screens_delete_conversations_message">Eliminare definitivamente %1$s? L\'operazione non può essere annullata.</string>
+    <string name="screens_restore_title">Ripristinare?</string>
+    <string name="screens_empty_archive_title">Svuotare l\'archivio?</string>
+    <string name="screens_empty_bin_title">Svuotare il cestino?</string>
+    <string name="screens_empty_action">Svuota</string>
+    <string name="screens_archive_empty_title">Nessun elemento archiviato</string>
+    <string name="screens_bin_empty_title">Il cestino è vuoto</string>
+    <string name="screens_bin_empty_body">I messaggi eliminati restano qui finché non svuoti il cestino.</string>
+    <string name="screens_new_to_hint">A</string>
+    <string name="screens_new_start">Avvia conversazione con %1$s</string>
+    <string name="screens_new_clear_input">Cancella</string>
+    <string name="screens_new_no_matches">Nessun contatto corrispondente. Tocca la freccia per inviare un messaggio al numero inserito.</string>
+    <string name="screens_new_contacts">Contatti</string>
+    <string name="screens_new_create_group">Crea gruppo</string>
+    <string name="screens_new_group_title">Nuovo gruppo</string>
+    <string name="screens_new_group_next">Avanti</string>
+    <string name="screens_new_group_add">Aggiungi %1$s</string>
+    <string name="screens_new_group_remove">Rimuovi %1$s</string>
+    <string name="screens_new_group_selected">Selezionati</string>
+    <string name="screens_details_edit_name">Modifica nome conversazione</string>
+    <string name="screens_keywords_add">Aggiungi parola chiave</string>
+    <string name="screens_keywords_menu_export">Esporta</string>
+    <string name="screens_keywords_menu_import">Importa</string>
+    <string name="screens_keywords_edit">Modifica</string>
+    <string name="screens_keywords_duplicate">Questa parola chiave è già nell\'elenco</string>
+    <string name="screens_keywords_help">Trova il testo in qualsiasi punto del messaggio, anche all\'interno di una parola più lunga. Non distingue tra maiuscole e minuscole.</string>
+    <string name="screens_keywords_empty_title">Nessuna parola chiave bloccata</string>
+    <plurals name="screens_keywords_deleted">
+        <item quantity="one">%d parola chiave eliminata</item>
+        <item quantity="other">%d parole chiave eliminate</item>
+    </plurals>
+    <string name="screens_vcard_title">Contatto</string>
+    <string name="screens_vcard_add_contact">Aggiungi ai contatti</string>
+    <string name="screens_vcard_expand">Mostra dettagli</string>
+    <string name="screens_vcard_collapse">Nascondi dettagli</string>
+    <string name="screens_vcard_empty">Nessun contatto trovato in questo file</string>
+    <string name="screens_dialog_filename">Nome file</string>
+    <string name="screens_schedule_date">Data</string>
+    <string name="screens_schedule_time">Ora</string>
+    <string name="screens_schedule_pick_time">Scegli ora</string>
+    <string name="screens_schedule_next">Avanti</string>
+    <string name="screens_delete_skip_bin">Elimina direttamente senza passare dal cestino</string>
+    <string name="screens_select_text_title">Seleziona testo</string>
+</resources>

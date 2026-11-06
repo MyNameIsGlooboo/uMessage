@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- P3-02: says where archived chats went; the snackbar keeps Undo as its only action. -->
+    <plurals name="w2b1_archived_find">
+        <item quantity="one">%d archived. Find it in the Archived tab</item>
+        <item quantity="other">%d archived. Find them in the Archived tab</item>
+    </plurals>
+    <!-- Search panel (CL-14, CL-15). -->
+    <string name="w2b1_search_recent">Recent searches</string>
+    <string name="w2b1_search_recent_clear">Clear</string>
+    <string name="w2b1_search_recent_clear_description">Clear recent searches</string>
+    <string name="w2b1_search_digits_note">Persian and Latin digits both match: 123 finds ۱۲۳ too.</string>
+    <string name="w2b1_search_section_conversations">Conversations</string>
+    <string name="w2b1_search_section_messages">Messages</string>
+    <plurals name="w2b1_search_matches">
+        <item quantity="one">%d match</item>
+        <item quantity="other">%d matches</item>
+    </plurals>
+    <!-- Filter chips above the conversation list (CL-13). -->
+    <string name="w2b1_filter_all">All</string>
+    <string name="w2b1_filter_unread">Unread</string>
+    <string name="w2b1_filter_unread_empty_title">No unread conversations</string>
+    <string name="w2b1_filter_unread_empty_body">Everything is read.</string>
+    <!-- Swipe actions (CL-12): the label under the icon while the row is dragged. -->
+    <string name="w2b1_swipe_block">Block sender</string>
+</resources>

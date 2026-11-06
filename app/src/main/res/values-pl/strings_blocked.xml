@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_allow_title">
+        <item quantity="one">Zawsze zezwalać na wiadomości od tego nadawcy?</item>
+        <item quantity="few">Zawsze zezwalać na wiadomości od tych %d nadawców?</item>
+        <item quantity="many">Zawsze zezwalać na wiadomości od tych %d nadawców?</item>
+        <item quantity="other">Zawsze zezwalać na wiadomości od %d nadawcy?</item>
+    </plurals>
+    <string name="spam_allow_body_one">Wiadomość i tak wróci do odebranych. Jeśli na stałe zezwolisz na wiadomości od %1$s, kolejne ominą wszystkie filtry, także twoje reguły blokowania.</string>
+    <string name="spam_allow_body_many">Wiadomości i tak wrócą do odebranych. Jeśli na stałe zezwolisz na wiadomości od tych nadawców, kolejne ominą wszystkie filtry, także twoje reguły blokowania.</string>
+    <string name="spam_allow_spoof_warning">Każdy może wysłać SMS pod nazwą taką jak %1$s. Zezwolenie na nią przepuści też fałszywe wiadomości używające tej nazwy.</string>
+    <string name="spam_allow_confirm">Zawsze zezwalaj</string>
+    <string name="spam_allow_dismiss">Nie teraz</string>
+    <plurals name="spam_snack_restored_to_inbox">
+        <item quantity="one">Przywrócono %d wiadomość do odebranych</item>
+        <item quantity="few">Przywrócono %d wiadomości do odebranych</item>
+        <item quantity="many">Przywrócono %d wiadomości do odebranych</item>
+        <item quantity="other">Przywrócono %d wiadomości do odebranych</item>
+    </plurals>
+    <plurals name="spam_snack_restored_allowed">
+        <item quantity="one">Przywrócono. Na stałe zezwolono na wiadomości od %d nadawcy.</item>
+        <item quantity="few">Przywrócono. Na stałe zezwolono na wiadomości od %d nadawców.</item>
+        <item quantity="many">Przywrócono. Na stałe zezwolono na wiadomości od %d nadawców.</item>
+        <item quantity="other">Przywrócono. Na stałe zezwolono na wiadomości od %d nadawcy.</item>
+    </plurals>
+    <plurals name="spam_snack_allowed_only">
+        <item quantity="one">Na stałe zezwolono na wiadomości od %d nadawcy.</item>
+        <item quantity="few">Na stałe zezwolono na wiadomości od %d nadawców.</item>
+        <item quantity="many">Na stałe zezwolono na wiadomości od %d nadawców.</item>
+        <item quantity="other">Na stałe zezwolono na wiadomości od %d nadawcy.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost">
+        <item quantity="one">Nie udało się odzyskać zdjęcia z %d wiadomości.</item>
+        <item quantity="few">Nie udało się odzyskać zdjęć z %d wiadomości.</item>
+        <item quantity="many">Nie udało się odzyskać zdjęć z %d wiadomości.</item>
+        <item quantity="other">Nie udało się odzyskać zdjęć z %d wiadomości.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost_nothing">
+        <item quantity="one">Nie udało się odzyskać wiadomości ze zdjęciem, więc nic nie dodano do odebranych.</item>
+        <item quantity="few">Nie udało się odzyskać %d wiadomości ze zdjęciem, więc nic nie dodano do odebranych.</item>
+        <item quantity="many">Nie udało się odzyskać %d wiadomości ze zdjęciem, więc nic nie dodano do odebranych.</item>
+        <item quantity="other">Nie udało się odzyskać %d wiadomości ze zdjęciem, więc nic nie dodano do odebranych.</item>
+    </plurals>
+    <plurals name="spam_snack_restore_failed">
+        <item quantity="one">Nie udało się przywrócić %d wiadomości ze zdjęciem. Nadal tu jest.</item>
+        <item quantity="few">Nie udało się przywrócić %d wiadomości ze zdjęciem. Nadal tu są.</item>
+        <item quantity="many">Nie udało się przywrócić %d wiadomości ze zdjęciem. Nadal tu są.</item>
+        <item quantity="other">Nie udało się przywrócić %d wiadomości ze zdjęciem. Nadal tu są.</item>
+    </plurals>
+    <string name="spam_mms_stored">Wiadomość ze zdjęciem</string>
+    <string name="spam_mms_downloading">Wiadomość ze zdjęciem, pobieranie</string>
+    <string name="spam_mms_missing">Wiadomość ze zdjęciem, niepobrana</string>
+    <string name="spam_mms_thumbnail">Zdjęcie w zablokowanej wiadomości</string>
+    <string name="spam_reason_rule_keyword">Reguła: słowo kluczowe „%1$s”</string>
+    <string name="spam_reason_rule_regex">Reguła: wzorzec %1$s</string>
+    <string name="spam_reason_rule_number">Reguła: numer %1$s</string>
+    <string name="spam_reason_rule_prefix">Reguła: numery zaczynające się od %1$s</string>
+    <string name="spam_reason_rule_sender">Reguła: nadawca %1$s</string>
+    <string name="spam_reason_rule_removed">Reguła została usunięta</string>
+    <string name="spam_reason_open_rules">Otwórz reguły</string>
+    <plurals name="spam_purge_notice">
+        <item quantity="one">Zablokowane wiadomości są usuwane po %d dniu</item>
+        <item quantity="few">Zablokowane wiadomości są usuwane po %d dniach</item>
+        <item quantity="many">Zablokowane wiadomości są usuwane po %d dniach</item>
+        <item quantity="other">Zablokowane wiadomości są usuwane po %d dnia</item>
+    </plurals>
+    <string name="spam_purge_notice_off">Zablokowane wiadomości pozostają, aż je usuniesz</string>
+    <plurals name="spam_purge_left">
+        <item quantity="one">Usunięcie za %d dzień</item>
+        <item quantity="few">Usunięcie za %d dni</item>
+        <item quantity="many">Usunięcie za %d dni</item>
+        <item quantity="other">Usunięcie za %d dnia</item>
+    </plurals>
+    <string name="spam_purge_left_today">Usunięcie dzisiaj</string>
+    <string name="convlist_report_spam">Zgłoś spam</string>
+    <plurals name="convlist_reported_spam_archived">
+        <item quantity="one">Zgłoszono. Nowe wiadomości od tego nadawcy trafią do zablokowanych, a rozmowa została zarchiwizowana.</item>
+        <item quantity="few">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do zablokowanych, a rozmowy zostały zarchiwizowane.</item>
+        <item quantity="many">Zgłoszono %d rozmów. Nowe wiadomości od tych nadawców trafią do zablokowanych, a rozmowy zostały zarchiwizowane.</item>
+        <item quantity="other">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do zablokowanych, a rozmowy zostały zarchiwizowane.</item>
+    </plurals>
+    <plurals name="convlist_reported_spam">
+        <item quantity="one">Zgłoszono. Nowe wiadomości od tego nadawcy trafią do zablokowanych.</item>
+        <item quantity="few">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do zablokowanych.</item>
+        <item quantity="many">Zgłoszono %d rozmów. Nowe wiadomości od tych nadawców trafią do zablokowanych.</item>
+        <item quantity="other">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do zablokowanych.</item>
+    </plurals>
+    <string name="blocked_title">Zablokowane</string>
+    <string name="blocked_menu_rules">Reguły</string>
+    <string name="blocked_mode_group_cd">Nieznani nadawcy: %1$s, %2$d z %3$d</string>
+    <string name="blocked_mode_desc_strict">Ścisły: zatrzymuje wiadomości od wszystkich nieznanych nadawców, także kody weryfikacyjne</string>
+    <string name="blocked_mode_desc_smart">Inteligentny: zatrzymuje wiadomości od nieznanych nadawców, ale przepuszcza kody bez linku</string>
+    <string name="blocked_mode_desc_off">Wyłączony: wiadomości od nieznanych nadawców trafiają do odebranych. Twoje reguły nadal działają</string>
+    <string name="blocked_snack_mode">Tryb dla nieznanych nadawców: %1$s</string>
+    <string name="blocked_off_title">Przestać zatrzymywać wiadomości od nieznanych nadawców?</string>
+    <string name="blocked_off_body">Wiadomości od nieznanych nadawców trafią prosto do odebranych. Twoje reguły nadal działają.</string>
+    <string name="blocked_off_confirm">Wyłącz</string>
+    <string name="blocked_stats_restored">Przywrócone przez ciebie: %1$d</string>
+    <string name="blocked_reason_unknown_link">Nieznany nadawca, wiadomość z linkiem</string>
+    <string name="blocked_may_be_important">Może być ważne</string>
+    <string name="blocked_action_move_inbox">Przenieś do odebranych</string>
+    <string name="blocked_swipe_not_spam">Przesuń, by przenieść do odebranych</string>
+</resources>

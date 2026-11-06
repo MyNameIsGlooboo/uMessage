@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">ミュート</string>
+    <string name="unmute_menu">ミュート解除</string>
+    <string name="mute_title">通知をミュート</string>
+    <string name="mute_1_hour">1時間</string>
+    <string name="mute_8_hours">8時間</string>
+    <string name="mute_1_week">1週間</string>
+    <string name="mute_always">常に</string>
+    <string name="mute_off">オフ</string>
+    <string name="mute_until">%1$sまで</string>
+    <string name="mute_channel">ミュート中の会話</string>
+</resources>

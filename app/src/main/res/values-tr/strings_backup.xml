@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_channel">Yedekleme ve geri yükleme</string>
+    <string name="backup_restoring">Mesajlar geri yükleniyor</string>
+    <string name="backup_exporting">Mesajlar yedekleniyor</string>
+    <plurals name="backup_progress_import">
+        <item quantity="one">%1$d kayıt okundu</item>
+        <item quantity="other">%1$d kayıt okundu</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="one">%1$d kayıt okundu (%2$d%%)</item>
+        <item quantity="other">%1$d kayıt okundu (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="one">%1$d mesaj kaydedildi</item>
+        <item quantity="other">%1$d mesaj kaydedildi</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="one">%1$d mesaj kaydedildi (%2$d%%)</item>
+        <item quantity="other">%1$d mesaj kaydedildi (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">Uygulamadan çıkabilirsiniz: işlem devam eder ve ilerleme bir bildirimde gösterilir.</string>
+    <string name="backup_stop">Durdurun</string>
+    <string name="backup_hide">Gizleyin</string>
+    <string name="backup_already_running">Bir yedekleme veya geri yükleme işlemi zaten sürüyor.</string>
+    <string name="backup_restore_finished">Geri yükleme tamamlandı</string>
+    <string name="backup_restore_stopped">Geri yükleme durduruldu</string>
+    <string name="backup_restore_failed">Geri yükleme başarısız oldu</string>
+    <string name="backup_invalid_file">Bu dosya bir mesaj yedeği değil, bu yüzden hiçbir şey geri yüklenmedi.</string>
+    <string name="backup_no_entries">Yedek dosyasında mesaj yok.</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="one">İçe aktarılacak yeni mesaj yok: mesaj zaten bu telefonda.</item>
+        <item quantity="other">İçe aktarılacak yeni mesaj yok: %1$d mesajın tamamı zaten bu telefonda.</item>
+    </plurals>
+    <string name="backup_line_added">Eklenen: %1$d</string>
+    <string name="backup_line_duplicates">Zaten bu telefonda olduğu için atlanan: %1$d</string>
+    <string name="backup_line_repaired">Daha önce geri yüklenen mesajlara eklenen eksik ekler: %1$d</string>
+    <string name="backup_line_incomplete">Bazı ekleri olmadan geri yüklenen resimli mesajlar: %1$d</string>
+    <string name="backup_line_failed">Geri yüklenemeyen: %1$d</string>
+    <string name="backup_line_damaged">Dosyada bozuk olduğu için atlanan kayıtlar: %1$d</string>
+    <string name="backup_line_xml_mms">Bu XML yedeğinde desteklenmediği için atlanan resimli mesajlar: %1$d</string>
+    <string name="backup_line_not_selected">İçe aktarmak için seçilmeyen: %1$d</string>
+    <string name="backup_reasons">Nedenler:</string>
+    <string name="backup_reason_no_address">mesajın göndereni veya alıcısı yok</string>
+    <string name="backup_reason_no_thread">telefon mesajın görüşmesini açamadı</string>
+    <string name="backup_reason_refused">telefon mesajı kaydetmeyi reddetti</string>
+    <string name="backup_reason_not_in_backup">ek, yedek dosyasında yok</string>
+    <string name="backup_reason_damaged_attachment">yedek dosyasındaki ek bozuk</string>
+    <string name="backup_reason_attachment_write">ek kaydedilemedi</string>
+    <string name="backup_stopped_early">Dosyada %1$d numaralı kayıttan sonrası bozuk olduğundan sonraki kayıtlar okunamadı.</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="one">%1$d kayıttan sonra durduruldu. Tamamlamak için aynı dosyayla geri yüklemeyi yeniden başlatın: geri yüklenen mesajlar atlanır.</item>
+        <item quantity="other">%1$d kayıttan sonra durduruldu. Tamamlamak için aynı dosyayla geri yüklemeyi yeniden başlatın: geri yüklenen mesajlar atlanır.</item>
+    </plurals>
+    <string name="backup_retry_hint">Başarısız olanları yeniden denemek için geri yüklemeyi tekrar başlatın: geri yüklenen mesajlar atlanır.</string>
+    <string name="backup_export_finished">Yedekleme tamamlandı</string>
+    <string name="backup_export_stopped">Yedekleme durduruldu</string>
+    <string name="backup_export_failed">Yedekleme başarısız oldu</string>
+    <string name="backup_export_error">Yedek yazılamadı ve eksik dosya silindi. %1$s</string>
+    <string name="backup_export_cancelled">Yedekleme durduruldu ve eksik dosya silindi.</string>
+    <string name="backup_export_nothing">Yedeklenecek mesaj yok.</string>
+    <string name="backup_export_counts">%1$d SMS ve %2$d MMS kaydedildi.</string>
+    <string name="backup_export_unreadable_attachments">Okunamadığı için resmi olmadan kaydedilen ekler: %1$d</string>
+    <string name="backup_export_unreadable_messages">Okunamadığı için dışarıda bırakılan mesajlar: %1$d</string>
+    <string name="backup_export_unreadable_conversations">Okunamadığı için dışarıda bırakılan görüşmeler: %1$d</string>
+    <string name="backup_export_incomplete">Bu yedek eksik.</string>
+    <string name="backup_interrupted_import">Son geri yükleme tamamlanmadan durdu. Telefon uygulamayı kapatmış olabilir. Aynı dosyayla yeniden başlatın: geri yüklenen mesajlar atlanır.</string>
+    <string name="backup_interrupted_export">Son yedekleme tamamlanmadan durduğu için dosyası eksik. Lütfen yeni bir yedek oluşturun.</string>
+</resources>

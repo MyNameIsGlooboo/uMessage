@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Settings, review 2 fixes: backup page, restore summary, language, notifications -->
+    <string name="settings_f_backup_row_body">Messages, rules and settings to a file</string>
+    <string name="settings_f_backup_rules_group">Rules and settings</string>
+    <string name="settings_f_backup_rules_contents">The file holds your allow and block rules, forward rules and settings: spam protection, notifications, dates, text size, theme, Enter key and forwarding limits. Never message text or your app lock. Forward rules come back switched off.</string>
+    <string name="settings_f_backup_messages_contents">Message text and pictures, in a separate file.</string>
+
+    <string name="settings_f_restore_title">Restore from this file?</string>
+    <string name="settings_f_restore_rules">Allow rules: %1$d · Block rules: %2$d. Rules you already have are skipped.</string>
+    <string name="settings_f_restore_forwards">Forward rules to add: %1$d, switched off. Turn them on in Rules › Forwarding.</string>
+    <string name="settings_f_restore_forwards_skipped">Forward rules skipped: %1$d (already here, or no number that can receive them).</string>
+    <string name="settings_f_restore_settings_changed">Settings that change: %1$s</string>
+    <string name="settings_f_restore_settings_none">No setting changes.</string>
+    <string name="settings_f_restore_action">Restore</string>
+    <string name="settings_f_restore_done">Rules added: %1$d · Forward rules added: %2$d. Forward rules stay off until you turn them on.</string>
+    <string name="settings_f_restore_done_rules">Rules added: %1$d.</string>
+    <string name="settings_f_restore_done_title">Restore finished</string>
+    <string name="settings_f_label_codes">Codes from unknown senders</string>
+    <string name="settings_f_list_separator">", "</string>
+
+    <string name="settings_f_group_display">Display</string>
+    <string name="settings_f_appearance">Appearance</string>
+    <string name="settings_f_language_system">System default</string>
+    <string name="settings_f_language_en" translatable="false">English</string>
+    <string name="settings_f_language_fa" translatable="false">فارسی</string>
+
+    <string name="settings_f_group_rules">Rules and lists</string>
+    <string name="settings_f_spam_more">Retention and alerts</string>
+    <string name="settings_f_spam_more_body">How long blocked messages are kept, and alerts</string>
+
+    <string name="settings_f_hide_lock_codes_body">Codes show as •••• on the lock screen</string>
+    <string name="settings_f_code_alert">Code alert</string>
+    <string name="settings_f_code_alert_body">Sound for verification codes</string>
+    <string name="settings_f_channel_codes">Verification codes</string>
+    <string name="settings_f_channel_codes_desc">Messages that contain a verification code</string>
+</resources>

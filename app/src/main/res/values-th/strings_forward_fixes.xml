@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">หยุดชั่วคราววันนี้: ครบขีดจำกัดแล้ว</string>
+    <string name="fwdfix_limit_hint">วันนี้ส่งต่อแล้ว %1$s จาก %2$s ครั้ง จะเริ่มส่งต่ออีกครั้งพรุ่งนี้</string>
+    <string name="fwdfix_status_skipped">ข้าม (ครบขีดจำกัด)</string>
+    <string name="fwdfix_error_daily_limit">ไม่ได้ส่ง: ครบขีดจำกัดการส่งต่อรายวันแล้ว</string>
+    <string name="fwdfix_error_rate_limited">ไม่ได้ส่ง: กฎนี้ส่งต่อไปแล้ว %1$s ข้อความในชั่วโมงที่ผ่านมา</string>
+    <string name="fwdfix_retry_all_recent">รวมเฉพาะการส่งต่อในช่วง 24 ชั่วโมงที่ผ่านมา</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="other">ไม่ได้ส่ง %1$s ข้อความ: หยุดการส่งต่อชั่วคราว</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="other">ไม่ได้ส่ง %1$s ข้อความ: กฎที่เกี่ยวข้องปิดอยู่หรือถูกลบแล้ว</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="other">ไม่ได้ส่ง %1$s ข้อความ: ครบขีดจำกัดรายวันหรือขีดจำกัดรายชั่วโมงของกฎแล้ว</item>
+    </plurals>
+    <string name="fwdfix_card_last">ส่งต่อล่าสุด %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="other">%1$s ครั้งในสัปดาห์นี้</item>
+    </plurals>
+    <string name="fwdfix_card_never">ยังไม่ได้ส่งต่อข้อความ</string>
+    <string name="fwdfix_card_sent">ส่งแล้ว</string>
+    <string name="fwdfix_card_pending">กำลังส่ง</string>
+    <string name="fwdfix_card_failed">ไม่สำเร็จ</string>
+    <string name="fwdfix_card_skipped">ข้าม (ครบขีดจำกัด)</string>
+    <string name="fwdfix_delete_rule">ลบกฎ</string>
+    <string name="fwdfix_deleted">ลบกฎการส่งต่อแล้ว</string>
+    <string name="fwdfix_test_button">ส่งทดสอบ</string>
+    <string name="fwdfix_test_title">ส่ง SMS ทดสอบ?</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="other">จะส่ง SMS ทดสอบไปยังทั้ง %1$s หมายเลขข้างต้น หมายเลขละ 1 ข้อความ โดยมีค่าบริการ SMS ทุกข้อความ</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">ส่ง</string>
+    <string name="fwdfix_test_text">ทดสอบจาก uMessage: การส่งต่อทำงานได้</string>
+    <string name="fwdfix_test_sending">กำลังส่งข้อความทดสอบ…</string>
+    <string name="fwdfix_test_sent">ส่งข้อความทดสอบแล้ว ตรวจสอบโทรศัพท์อีกเครื่อง</string>
+    <string name="fwdfix_test_failed">ส่งข้อความทดสอบไม่ได้ ตรวจสอบสัญญาณและยอดเงินคงเหลือ</string>
+    <string name="fwdfix_cost_persian">ข้อความภาษาเปอร์เซีย %1$s อักขระ: %2$s ส่วน × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">ข้อความภาษาอังกฤษ %1$s อักขระ: %2$s ส่วน × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">ตอนนี้ไม่มีข้อความที่ส่งได้</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="other">จะไม่ส่ง %1$s ข้อความ: หยุดการส่งต่อชั่วคราว</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="other">จะไม่ส่ง %1$s ข้อความ: กฎที่เกี่ยวข้องปิดอยู่หรือถูกลบแล้ว</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="other">จะไม่ส่ง %1$s ข้อความ: ครบขีดจำกัดรายวันหรือขีดจำกัดรายชั่วโมงของกฎแล้ว</item>
+    </plurals>
+</resources>

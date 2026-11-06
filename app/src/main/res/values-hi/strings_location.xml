@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">लोकेशन</string>
+    <string name="i52_permission_explanation">आपके मैसेज में नक्शे का लिंक जोड़ने के लिए uMessage सिर्फ़ अभी, एक बार आपकी लोकेशन लेता है. कुछ भी सेव नहीं होता. आप अनुमानित लोकेशन चुन सकते हैं.</string>
+    <string name="i52_finding">आपकी लोकेशन खोजी जा रही है…</string>
+    <string name="i52_denied">लोकेशन की अनुमति नहीं दी गई. मैसेज वैसा ही रहेगा.</string>
+    <string name="i52_no_fix">आपकी लोकेशन नहीं मिल सकी. खिड़की के पास या बाहर फिर कोशिश करें.</string>
+    <string name="i52_off_message">इस फ़ोन पर लोकेशन बंद है. आप कहां हैं यह शेयर करने के लिए इसे चालू करें.</string>
+    <string name="i52_open_settings">सेटिंग खोलें</string>
+</resources>

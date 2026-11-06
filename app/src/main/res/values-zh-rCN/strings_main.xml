@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_hint">搜索会话</string>
+    <string name="main_search_back">关闭搜索</string>
+    <string name="main_search_clear">清除搜索文字</string>
+    <string name="main_search_type_more">至少输入2个字符以搜索</string>
+    <string name="main_search_no_results">未找到结果</string>
+    <string name="main_settings">设置</string>
+    <string name="main_tab_messages">消息</string>
+    <string name="main_tab_blocked">已屏蔽</string>
+    <string name="main_tab_archived">已归档</string>
+    <plurals name="main_tab_blocked_new">
+        <item quantity="other">已屏蔽，%d条新消息</item>
+    </plurals>
+    <string name="main_permission_title">需要权限</string>
+    <string name="main_permission_grant">授予权限</string>
+    <string name="main_permission_notifications">请允许通知，否则应用无法显示新收到的消息。</string>
+    <string name="main_sms_permission_title">uMessage需要短信权限</string>
+    <string name="main_sms_permission_body">没有读取和发送短信的权限，uMessage就无法显示消息、发送短信或过滤垃圾短信。不会删除任何内容。</string>
+    <string name="main_sms_permission_settings">打开应用设置</string>
+    <string name="main_not_default_banner">uMessage不是默认短信应用，无法屏蔽垃圾短信或发送消息。</string>
+    <string name="main_not_default_fix">修复</string>
+    <string name="main_not_default_fix_description">将uMessage设为默认短信应用</string>
+</resources>

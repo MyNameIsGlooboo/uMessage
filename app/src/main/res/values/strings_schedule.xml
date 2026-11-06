@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">Send at the exact time?</string>
+    <string name="schedule_exact_alarm_text">To send scheduled messages at the exact time, allow \"Alarms &amp; reminders\" for uMessage in system settings. Without it, they are still sent, but may be late.</string>
+    <string name="schedule_exact_alarm_open_settings">Open settings</string>
+    <string name="schedule_exact_alarm_anyway">Schedule anyway</string>
+</resources>

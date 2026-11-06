@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">Ajouter aux favoris</string>
+    <string name="i13_unstar">Retirer des favoris</string>
+    <string name="i13_starred_mark">Favori</string>
+    <string name="i13_filter_starred">Favoris</string>
+    <string name="i13_filter_starred_empty_title">Aucun message favori</string>
+    <string name="i13_filter_starred_empty_body">Sélectionnez un message dans une conversation et appuyez sur l\'étoile pour le conserver ici.</string>
+    <string name="i13_starred_note">L\'étoile conserve une copie du texte, même si la conversation est supprimée. Retirer le favori supprime la copie.</string>
+    <string name="i13_snapshot_gone">Cette conversation a été supprimée. Seul le texte enregistré reste disponible.</string>
+    <string name="i13_snapshot_close">Fermer</string>
+</resources>

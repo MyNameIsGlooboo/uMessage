@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="screens_back">بازگشت</string>
+    <string name="screens_ok">تأیید</string>
+    <string name="screens_cancel">لغو</string>
+    <string name="screens_delete">حذف</string>
+    <string name="screens_clear_selection">لغو انتخاب</string>
+    <plurals name="screens_selected_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d مورد انتخاب شده</item>
+        <item quantity="other">%d مورد انتخاب شده</item>
+    </plurals>
+    <string name="screens_loading">در حال بارگیری…</string>
+    <string name="screens_more_options">گزینه‌های بیشتر</string>
+    <string name="screens_select_all">انتخاب همه</string>
+    <string name="screens_copy">کپی</string>
+    <string name="screens_grant_permission">اجازه دادن به دسترسی</string>
+    <string name="screens_delete_forever_title">برای همیشه حذف شود؟</string>
+    <string name="screens_delete_conversations_message">%1$s برای همیشه حذف شود؟ این کار قابل واگرد نیست.</string>
+    <string name="screens_restore_title">بازیابی شود؟</string>
+    <string name="screens_empty_archive_title">بایگانی خالی شود؟</string>
+    <string name="screens_empty_bin_title">سطل بازیافت خالی شود؟</string>
+    <string name="screens_empty_action">خالی کردن</string>
+    <string name="screens_archive_empty_title">چیزی بایگانی نشده</string>
+    <string name="screens_bin_empty_title">سطل بازیافت خالی است</string>
+    <string name="screens_bin_empty_body">پیام‌های حذف‌شده تا زمان خالی کردن سطل بازیافت اینجا می‌مانند.</string>
+    <string name="screens_new_to_hint">به</string>
+    <string name="screens_new_start">شروع گفتگو با %1$s</string>
+    <string name="screens_new_clear_input">پاک کردن</string>
+    <string name="screens_new_no_matches">مخاطب مطابقی پیدا نشد. برای پیام دادن به شماره‌ای که وارد کرده‌اید، روی پیکان بزنید.</string>
+    <string name="screens_new_contacts">مخاطبان</string>
+    <string name="screens_new_create_group">ایجاد گروه</string>
+    <string name="screens_new_group_title">گروه جدید</string>
+    <string name="screens_new_group_next">بعدی</string>
+    <string name="screens_new_group_add">افزودن %1$s</string>
+    <string name="screens_new_group_remove">حذف %1$s</string>
+    <string name="screens_new_group_selected">انتخاب‌شده</string>
+    <string name="screens_details_edit_name">ویرایش نام گفتگو</string>
+    <string name="screens_keywords_add">افزودن کلیدواژه</string>
+    <string name="screens_keywords_menu_export">صادر کردن</string>
+    <string name="screens_keywords_menu_import">وارد کردن</string>
+    <string name="screens_keywords_edit">ویرایش</string>
+    <string name="screens_keywords_duplicate">این کلیدواژه از قبل در فهرست است</string>
+    <string name="screens_keywords_help">متن را در هر جای پیام، حتی درون واژه‌ای بلندتر، پیدا می‌کند. بزرگی و کوچکی حروف مهم نیست.</string>
+    <string name="screens_keywords_empty_title">کلیدواژهٔ مسدودشده‌ای نیست</string>
+    <plurals name="screens_keywords_deleted" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d کلیدواژه حذف شد</item>
+        <item quantity="other">%d کلیدواژه حذف شد</item>
+    </plurals>
+    <string name="screens_vcard_title">مخاطب</string>
+    <string name="screens_vcard_add_contact">افزودن به مخاطبان</string>
+    <string name="screens_vcard_expand">نمایش جزئیات</string>
+    <string name="screens_vcard_collapse">پنهان کردن جزئیات</string>
+    <string name="screens_vcard_empty">مخاطبی در این فایل پیدا نشد</string>
+    <string name="screens_dialog_filename">نام فایل</string>
+    <string name="screens_schedule_date">تاریخ</string>
+    <string name="screens_schedule_time">ساعت</string>
+    <string name="screens_schedule_pick_time">انتخاب ساعت</string>
+    <string name="screens_schedule_next">بعدی</string>
+    <string name="screens_delete_skip_bin">حذف مستقیم بدون انتقال به سطل بازیافت</string>
+    <string name="screens_select_text_title">انتخاب متن</string>
+</resources>

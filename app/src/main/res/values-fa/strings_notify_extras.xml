@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">روشن کردن صفحه</string>
+    <string name="wake_screen_summary">با رسیدن پیام جدید، صفحه را روشن می‌کند</string>
+    <string name="bubbles_title">حباب‌های گفتگو</string>
+    <string name="bubbles_summary">گفتگوها را به‌شکل حباب‌های شناور نمایش می‌دهد</string>
+    <string name="bubbles_locked">وقتی قفل برنامه روشن است، در دسترس نیست</string>
+    <string name="focus_codes_title">کدها در اعلان زنده</string>
+    <string name="focus_codes_summary">کدها را در اعلان زندهٔ Xiaomi نمایش می‌دهد</string>
+</resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_time_now">Bây giờ</string>
+    <plurals name="ui_time_minutes">
+        <item quantity="other">%d phút</item>
+    </plurals>
+    <string name="ui_bubble_sent">Bạn, %1$s</string>
+    <string name="ui_bubble_received">%1$s, %2$s</string>
+    <string name="ui_bubble_received_unknown">Đã nhận, %1$s</string>
+    <string name="ui_select_message">Chọn tin nhắn</string>
+    <string name="ui_retry_send">Gửi lại</string>
+    <string name="ui_default_required_body">uMessage chưa thể nhận, gửi hoặc lọc tin nhắn cho đến khi được đặt làm ứng dụng SMS mặc định của bạn. Tin nhắn của bạn vẫn ở nguyên chỗ cũ.</string>
+    <string name="ui_default_required_close">Đóng uMessage</string>
+    <string name="ui_add_contact_or_number">Nhập tên hoặc số điện thoại</string>
+    <string name="ui_show_dialpad">Hiện bàn phím số</string>
+    <string name="ui_show_keyboard">Hiện bàn phím</string>
+    <string name="ui_settings_group_block_lists">Danh sách chặn khác</string>
+    <string name="ui_settings_system_block_list">Danh sách chặn của hệ thống</string>
+    <string name="ui_settings_system_block_list_body">Các số bị chặn trong mọi ứng dụng trên điện thoại này. uMessage cũng ẩn các số này.</string>
+    <string name="ui_settings_blocked_words">Từ bị chặn</string>
+    <string name="ui_settings_character_counter">Hiện bộ đếm ký tự</string>
+    <string name="ui_settings_simple_characters">Bỏ dấu khi gửi</string>
+    <string name="ui_settings_send_on_enter">Gửi bằng phím Enter</string>
+    <string name="ui_settings_delivery_reports">Nhận báo cáo chuyển phát</string>
+    <string name="ui_settings_recycle_bin">Chuyển cuộc trò chuyện đã xóa vào thùng rác</string>
+    <string name="ui_two_sentences">%1$s. %2$s</string>
+    <string name="ui_tab_with_count">%1$s (%2$d)</string>
+    <string name="ui_send_with_sim">%1$s, %2$s</string>
+    <string name="ui_number_with_type">%1$s (%2$s)</string>
+    <string name="ui_log_decision_allowed">Đã cho phép</string>
+    <string name="ui_log_decision_blocked">Đã chặn</string>
+    <string name="ui_log_decision_error">Lỗi</string>
+    <string name="ui_log_reason_allow_rule">Quy tắc cho phép</string>
+    <string name="ui_log_reason_block_rule">Quy tắc chặn</string>
+    <string name="ui_log_reason_contact">Có trong người liên hệ</string>
+    <string name="ui_log_reason_known_conversation">Bạn đã từng nhắn tin cho họ</string>
+    <string name="ui_log_reason_otp">Mã xác minh</string>
+    <string name="ui_log_reason_unknown_sender">Người gửi không xác định</string>
+    <string name="ui_log_reason_mode_off">Đã tắt bộ lọc</string>
+    <string name="ui_log_reason_no_match">Không khớp quy tắc nào</string>
+    <string name="ui_log_source_sms">SMS</string>
+    <string name="ui_log_source_mms">MMS</string>
+    <string name="ui_log_source_retry">Đã thử lại</string>
+</resources>

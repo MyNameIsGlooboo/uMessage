@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="cleanup_codes_title">Удалять прочитанные коды через</string>
+    <string name="cleanup_codes_summary">Коды перемещаются в корзину</string>
+    <string name="cleanup_never">Никогда</string>
+    <string name="cleanup_24_hours">24 часа</string>
+    <plurals name="cleanup_days" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d день</item>
+        <item quantity="few">%d дня</item>
+        <item quantity="many">%d дней</item>
+        <item quantity="other">%d дня</item>
+    </plurals>
+    <string name="cleanup_card_title">Удалять прочитанные коды через 7 дней?</string>
+    <string name="cleanup_card_body">Прочитанные коды подтверждения будут перемещаться в корзину, откуда их можно восстановить.</string>
+    <string name="cleanup_card_yes">Включить</string>
+    <string name="cleanup_card_no">Нет, спасибо</string>
+</resources>

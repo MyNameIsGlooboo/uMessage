@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allow_similar_title">এমন বার্তাকেও অনুমতি দিন</string>
+    <string name="allow_similar_sender">%1$s নামের যেকোনো প্রেরক</string>
+    <string name="allow_similar_prefix">%1$s দিয়ে শুরু যেকোনো নম্বর</string>
+    <string name="allow_similar_keyword">“%1$s” শব্দ থাকা যেকোনো লেখা</string>
+    <string name="allow_similar_risk_sender">এমন নাম ব্যবহার করে যে কেউ বার্তা পাঠাতে পারে।</string>
+    <string name="allow_similar_risk_prefix">একইভাবে শুরু হওয়া অন্য নম্বরের বার্তাও আসবে।</string>
+    <string name="allow_similar_risk_keyword">যে কেউ এই শব্দ লিখতে পারে, তাই এটি থাকা স্প্যামও আসবে।</string>
+    <string name="allow_similar_edit">এই নিয়ম সম্পাদনা করুন</string>
+</resources>

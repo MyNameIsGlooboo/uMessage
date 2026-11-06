@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="fwdfix_status_limit">Призупинено до завтра: досягнуто ліміту</string>
+    <string name="fwdfix_limit_hint">Сьогодні переслано %1$s із %2$s повідомлень. Пересилання відновиться завтра.</string>
+    <string name="fwdfix_status_skipped">Пропущено (ліміт)</string>
+    <string name="fwdfix_error_daily_limit">Не надіслано: досягнуто денного ліміту пересилання.</string>
+    <string name="fwdfix_error_rate_limited">Не надіслано: за цим правилом уже переслано %1$s повідомлень за останню годину.</string>
+    <string name="fwdfix_retry_all_recent">Враховано лише пересилання за останні 24 години.</string>
+    <plurals name="fwdfix_retry_not_sent_paused" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s повідомлення не надіслано: пересилання призупинено.</item>
+        <item quantity="few">%1$s повідомлення не надіслано: пересилання призупинено.</item>
+        <item quantity="many">%1$s повідомлень не надіслано: пересилання призупинено.</item>
+        <item quantity="other">%1$s повідомлення не надіслано: пересилання призупинено.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s повідомлення не надіслано: його правило вимкнено або видалено.</item>
+        <item quantity="few">%1$s повідомлення не надіслано: їхні правила вимкнено або видалено.</item>
+        <item quantity="many">%1$s повідомлень не надіслано: їхні правила вимкнено або видалено.</item>
+        <item quantity="other">%1$s повідомлення не надіслано: відповідні правила вимкнено або видалено.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s повідомлення не надіслано: досягнуто денного ліміту або годинного ліміту його правила.</item>
+        <item quantity="few">%1$s повідомлення не надіслано: досягнуто денного ліміту або годинного ліміту правила.</item>
+        <item quantity="many">%1$s повідомлень не надіслано: досягнуто денного ліміту або годинного ліміту правила.</item>
+        <item quantity="other">%1$s повідомлення не надіслано: досягнуто денного ліміту або годинного ліміту правила.</item>
+    </plurals>
+    <string name="fwdfix_card_last">Останнє пересилання: %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s за цей тиждень</item>
+        <item quantity="few">%1$s за цей тиждень</item>
+        <item quantity="many">%1$s за цей тиждень</item>
+        <item quantity="other">%1$s за цей тиждень</item>
+    </plurals>
+    <string name="fwdfix_card_never">Ще нічого не переслано</string>
+    <string name="fwdfix_card_sent">надіслано</string>
+    <string name="fwdfix_card_pending">надсилання</string>
+    <string name="fwdfix_card_failed">помилка</string>
+    <string name="fwdfix_card_skipped">пропущено (ліміт)</string>
+    <string name="fwdfix_delete_rule">Видалити правило</string>
+    <string name="fwdfix_deleted">Правило пересилання видалено</string>
+    <string name="fwdfix_test_button">Надіслати тест</string>
+    <string name="fwdfix_test_title">Надіслати тестове SMS?</string>
+    <plurals name="fwdfix_test_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">На вказаний вище номер буде надіслано %1$s тестове SMS. Це платне SMS.</item>
+        <item quantity="few">На кожен із %1$s номерів вище буде надіслано одне тестове SMS. Кожне SMS платне.</item>
+        <item quantity="many">На кожен із %1$s номерів вище буде надіслано одне тестове SMS. Кожне SMS платне.</item>
+        <item quantity="other">На кожен із %1$s номера вище буде надіслано одне тестове SMS. Кожне SMS платне.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">Надіслати</string>
+    <string name="fwdfix_test_text">Тест від uMessage: пересилання працює.</string>
+    <string name="fwdfix_test_sending">Надсилання тесту…</string>
+    <string name="fwdfix_test_sent">Тест надіслано. Перевірте інший телефон.</string>
+    <string name="fwdfix_test_failed">Не вдалося надіслати тест. Перевірте сигнал мережі та баланс.</string>
+    <string name="fwdfix_cost_persian">Текст перською на %1$s символів: %2$s частин × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">Текст англійською на %1$s символів: %2$s частин × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">Зараз нічого надіслати не можна</string>
+    <plurals name="fwdfix_retry_blocked_paused" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s повідомлення не буде надіслано: пересилання призупинено.</item>
+        <item quantity="few">%1$s повідомлення не буде надіслано: пересилання призупинено.</item>
+        <item quantity="many">%1$s повідомлень не буде надіслано: пересилання призупинено.</item>
+        <item quantity="other">%1$s повідомлення не буде надіслано: пересилання призупинено.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s повідомлення не буде надіслано: його правило вимкнено або видалено.</item>
+        <item quantity="few">%1$s повідомлення не буде надіслано: їхні правила вимкнено або видалено.</item>
+        <item quantity="many">%1$s повідомлень не буде надіслано: їхні правила вимкнено або видалено.</item>
+        <item quantity="other">%1$s повідомлення не буде надіслано: відповідні правила вимкнено або видалено.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s повідомлення не буде надіслано: досягнуто денного ліміту або годинного ліміту його правила.</item>
+        <item quantity="few">%1$s повідомлення не буде надіслано: досягнуто денного ліміту або годинного ліміту правила.</item>
+        <item quantity="many">%1$s повідомлень не буде надіслано: досягнуто денного ліміту або годинного ліміту правила.</item>
+        <item quantity="other">%1$s повідомлення не буде надіслано: досягнуто денного ліміту або годинного ліміту правила.</item>
+    </plurals>
+</resources>

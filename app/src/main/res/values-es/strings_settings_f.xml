@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_f_backup_row_body">Mensajes, reglas y configuración en un archivo</string>
+    <string name="settings_f_backup_rules_group">Reglas y configuración</string>
+    <string name="settings_f_backup_rules_contents">El archivo incluye tus reglas para permitir y bloquear, las reglas de reenvío y la configuración: protección contra spam, notificaciones, fechas, tamaño del texto, tema, tecla Intro y límites de reenvío. Nunca incluye el texto de los mensajes ni el bloqueo de la aplicación. Las reglas de reenvío se restauran desactivadas.</string>
+    <string name="settings_f_backup_messages_contents">Texto e imágenes de los mensajes, en un archivo separado.</string>
+    <string name="settings_f_restore_title">¿Restaurar desde este archivo?</string>
+    <string name="settings_f_restore_rules">Reglas para permitir: %1$d · Reglas para bloquear: %2$d. Se omiten las reglas que ya tienes.</string>
+    <string name="settings_f_restore_forwards">Reglas de reenvío por agregar: %1$d, desactivadas. Actívalas en Reglas › Reenvío.</string>
+    <string name="settings_f_restore_forwards_skipped">Reglas de reenvío omitidas: %1$d (ya existen o no tienen un número que pueda recibir los mensajes).</string>
+    <string name="settings_f_restore_settings_changed">Configuración que cambiará: %1$s</string>
+    <string name="settings_f_restore_settings_none">Sin cambios en la configuración.</string>
+    <string name="settings_f_restore_action">Restaurar</string>
+    <string name="settings_f_restore_done">Reglas agregadas: %1$d · Reglas de reenvío agregadas: %2$d. Las reglas de reenvío siguen desactivadas hasta que las actives.</string>
+    <string name="settings_f_restore_done_rules">Reglas agregadas: %1$d.</string>
+    <string name="settings_f_restore_done_title">Restauración completada</string>
+    <string name="settings_f_label_codes">Códigos de remitentes desconocidos</string>
+    <string name="settings_f_list_separator">", "</string>
+    <string name="settings_f_group_display">Pantalla</string>
+    <string name="settings_f_appearance">Apariencia</string>
+    <string name="settings_f_language_system">Predeterminado del sistema</string>
+    <string name="settings_f_group_rules">Reglas y listas</string>
+    <string name="settings_f_spam_more">Conservación y alertas</string>
+    <string name="settings_f_spam_more_body">Tiempo de conservación de los mensajes bloqueados y alertas</string>
+    <string name="settings_f_hide_lock_codes_body">Los códigos se muestran como •••• en la pantalla de bloqueo</string>
+    <string name="settings_f_code_alert">Alerta de código</string>
+    <string name="settings_f_code_alert_body">Sonido para los códigos de verificación</string>
+    <string name="settings_f_channel_codes">Códigos de verificación</string>
+    <string name="settings_f_channel_codes_desc">Mensajes que contienen un código de verificación</string>
+</resources>

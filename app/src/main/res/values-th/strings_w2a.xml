@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">ค้นหาคำหลัก</string>
+    <string name="w2a_keywords_search_clear">ล้างการค้นหา</string>
+    <string name="w2a_keywords_no_match_title">ไม่พบคำหลักที่ตรงกัน</string>
+    <string name="w2a_keywords_no_match_body">ลองใช้คำอื่น หรือล้างการค้นหา</string>
+</resources>

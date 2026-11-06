@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="cleanup_codes_title">পড়া কোড কতদিন পর মুছবেন</string>
+    <string name="cleanup_codes_summary">কোড রিসাইকেল বিনে যাবে</string>
+    <string name="cleanup_never">কখনো নয়</string>
+    <string name="cleanup_24_hours">24 ঘণ্টা</string>
+    <plurals name="cleanup_days" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d দিন</item>
+        <item quantity="other">%d দিন</item>
+    </plurals>
+    <string name="cleanup_card_title">পড়া কোড 7 দিন পর মুছবেন?</string>
+    <string name="cleanup_card_body">আপনার পড়া যাচাইকরণ কোড রিসাইকেল বিনে যাবে, যেখান থেকে আপনি সেগুলো ফিরিয়ে আনতে পারবেন।</string>
+    <string name="cleanup_card_yes">চালু করুন</string>
+    <string name="cleanup_card_no">না, ধন্যবাদ</string>
+</resources>

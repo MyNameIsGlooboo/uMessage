@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_list_title">Tin nhắn đã lên lịch gửi</string>
+    <string name="scheduled_list_empty_title">Chưa có tin nhắn lên lịch gửi</string>
+    <string name="scheduled_list_empty_body">Tin nhắn bạn lên lịch gửi sẽ chờ ở đây cho đến khi được gửi.</string>
+    <string name="scheduled_list_not_sent">Chưa gửi</string>
+    <string name="scheduled_list_edit_time">Đổi giờ</string>
+    <string name="scheduled_list_send_now">Gửi ngay</string>
+    <string name="scheduled_list_delete">Xóa</string>
+    <string name="scheduled_list_send_confirm">Gửi tin nhắn này cho %1$s ngay?</string>
+    <string name="scheduled_list_delete_confirm">Xóa tin nhắn đã lên lịch gửi cho %1$s?</string>
+    <string name="scheduled_list_row_actions">Thao tác với tin nhắn gửi cho %1$s</string>
+</resources>

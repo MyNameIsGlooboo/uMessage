@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">Завжди дозволяти</string>
+    <string name="ux8d_sheet_title_block">Завжди блокувати</string>
+    <string name="ux8d_match_label">Що перевіряти</string>
+    <string name="ux8d_match_number">Номер телефону</string>
+    <string name="ux8d_match_sender">Ім’я відправника, наприклад банку</string>
+    <string name="ux8d_match_word">Слово в повідомленні</string>
+    <string name="ux8d_match_prefix">Номери, що починаються з…</string>
+    <string name="ux8d_match_pattern">Регулярний вираз (розширено)</string>
+    <string name="ux8d_match_more">Інші способи перевірки</string>
+    <string name="ux8d_action_label">Якщо є збіг</string>
+    <string name="ux8d_more_options">Інші параметри</string>
+    <string name="ux8d_row_type_number">Номер</string>
+    <string name="ux8d_row_type_prefix">Номер починається з</string>
+    <string name="ux8d_row_type_sender">Ім’я відправника</string>
+    <string name="ux8d_row_type_word">Слово в повідомленні</string>
+    <string name="ux8d_row_type_pattern">Регулярний вираз</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

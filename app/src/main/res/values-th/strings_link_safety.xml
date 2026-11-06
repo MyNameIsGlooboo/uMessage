@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">ลิงก์แบบย่อ: มองไม่เห็นว่าลิงก์ไปที่ไหน</string>
+    <string name="i07_punycode">ชื่อนี้ผ่านการเข้ารหัส และอาจแสดงตัวอักษรต่างจากตัวอักษรจริงในชื่อ</string>
+    <string name="i07_mixed_script">ชื่อนี้ผสมตัวอักษรหลายภาษา ซึ่งเว็บไซต์ปลอมมักใช้</string>
+    <string name="i07_raw_ip">ที่อยู่นี้เป็นตัวเลข ไม่ใช่ชื่อเว็บไซต์</string>
+    <string name="i07_http_only">ไม่ได้เข้ารหัส (ใช้ http แทน https)</string>
+    <string name="i07_lookalike">ชื่อนี้ดูคล้าย %1$s ตรวจสอบการสะกด</string>
+    <string name="i07_user_info">ส่วนที่อยู่หน้า @ ไม่ใช่เว็บไซต์</string>
+    <string name="i07_locked">เปิดลิงก์ที่เสี่ยงที่นี่ไม่ได้ แต่คัดลอกลิงก์ได้</string>
+    <string name="i07_lock_title">เปิดลิงก์ที่เสี่ยงไม่ได้</string>
+    <string name="i07_lock_summary">เมนูลิงก์จะให้คัดลอกและแชร์ได้เท่านั้น</string>
+    <string name="i07_group_title">ลิงก์</string>
+</resources>

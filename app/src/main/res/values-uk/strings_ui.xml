@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="ui_time_now">Зараз</string>
+    <plurals name="ui_time_minutes" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d хв</item>
+        <item quantity="few">%d хв</item>
+        <item quantity="many">%d хв</item>
+        <item quantity="other">%d хв</item>
+    </plurals>
+    <string name="ui_bubble_sent">ви, %1$s</string>
+    <string name="ui_bubble_received">%1$s, %2$s</string>
+    <string name="ui_bubble_received_unknown">Отримано, %1$s</string>
+    <string name="ui_select_message">Вибрати повідомлення</string>
+    <string name="ui_retry_send">Повторити надсилання</string>
+    <string name="ui_default_required_body">uMessage не може отримувати, надсилати чи фільтрувати повідомлення, доки не стане вашим застосунком для SMS за умовчанням. Ваші повідомлення залишаться на місці.</string>
+    <string name="ui_default_required_close">Закрити uMessage</string>
+    <string name="ui_add_contact_or_number">Введіть ім’я або номер телефону</string>
+    <string name="ui_show_dialpad">Показати панель набору</string>
+    <string name="ui_show_keyboard">Показати клавіатуру</string>
+    <string name="ui_settings_group_block_lists">Інші списки заблокованих</string>
+    <string name="ui_settings_system_block_list">Системний список заблокованих</string>
+    <string name="ui_settings_system_block_list_body">Номери, заблоковані для всіх застосунків на цьому телефоні. uMessage також їх приховує.</string>
+    <string name="ui_settings_blocked_words">Заблоковані слова</string>
+    <string name="ui_settings_character_counter">Показувати лічильник символів</string>
+    <string name="ui_settings_simple_characters">Прибирати діакритичні знаки під час надсилання</string>
+    <string name="ui_settings_send_on_enter">Надсилати клавішею Enter</string>
+    <string name="ui_settings_delivery_reports">Отримувати звіти про доставку</string>
+    <string name="ui_settings_recycle_bin">Переміщувати видалені чати в кошик</string>
+    <string name="ui_two_sentences">%1$s. %2$s</string>
+    <string name="ui_tab_with_count">%1$s (%2$d)</string>
+    <string name="ui_send_with_sim">%1$s, %2$s</string>
+    <string name="ui_number_with_type">%1$s (%2$s)</string>
+    <string name="ui_log_decision_allowed">Дозволено</string>
+    <string name="ui_log_decision_blocked">Заблоковано</string>
+    <string name="ui_log_decision_error">Помилка</string>
+    <string name="ui_log_reason_allow_rule">Правило дозволу</string>
+    <string name="ui_log_reason_block_rule">Правило блокування</string>
+    <string name="ui_log_reason_contact">Є в контактах</string>
+    <string name="ui_log_reason_known_conversation">ви вже писали цьому відправнику</string>
+    <string name="ui_log_reason_otp">Код підтвердження</string>
+    <string name="ui_log_reason_unknown_sender">Невідомий відправник</string>
+    <string name="ui_log_reason_mode_off">Фільтр вимкнено</string>
+    <string name="ui_log_reason_no_match">Жодне правило не підійшло</string>
+    <string name="ui_log_source_sms">SMS</string>
+    <string name="ui_log_source_mms">MMS</string>
+    <string name="ui_log_source_retry">Повторна спроба</string>
+</resources>

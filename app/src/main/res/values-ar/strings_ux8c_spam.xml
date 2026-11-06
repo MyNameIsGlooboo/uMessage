@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">محتجزة: مرسل غير معروف</string>
+    <string name="ux8c_held_unknown_link">محتجزة: مرسل غير معروف، وتحتوي على رابط</string>
+    <string name="ux8c_held_foreign">محتجزة: رقم من بلد آخر</string>
+    <string name="ux8c_held_rule">محتجزة وفق قاعدتك</string>
+    <string name="ux8c_held_other">محتجزة بواسطة التصفية</string>
+    <string name="ux8c_not_spam">ليست غير مرغوب فيها</string>
+    <string name="ux8c_delete">احذف</string>
+    <string name="ux8c_tip">اسحب المرسل لنقله إلى الرسائل الواردة. اضغط مطولًا للتحديد.</string>
+    <string name="ux8c_tip_dismiss">فهمت</string>
+    <string name="ux8c_sender_title">هذا المرسل</string>
+    <string name="ux8c_sender_normal">عادي</string>
+    <string name="ux8c_sender_allow">اسمح دائمًا</string>
+    <string name="ux8c_sender_block">احظر</string>
+</resources>

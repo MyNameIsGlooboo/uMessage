@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_list_title">Geplante Nachrichten</string>
+    <string name="scheduled_list_empty_title">Nichts geplant</string>
+    <string name="scheduled_list_empty_body">Geplante Nachrichten warten hier, bis sie gesendet werden.</string>
+    <string name="scheduled_list_not_sent">Nicht gesendet</string>
+    <string name="scheduled_list_edit_time">Uhrzeit ändern</string>
+    <string name="scheduled_list_send_now">Jetzt senden</string>
+    <string name="scheduled_list_delete">Löschen</string>
+    <string name="scheduled_list_send_confirm">Diese Nachricht jetzt an %1$s senden?</string>
+    <string name="scheduled_list_delete_confirm">Geplante Nachricht an %1$s löschen?</string>
+    <string name="scheduled_list_row_actions">Aktionen für die Nachricht an %1$s</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3a_forward_limit_channel">ফরোয়ার্ড করার সীমা</string>
+    <string name="w3a_forward_limit_title">আজকের জন্য ফরোয়ার্ড করা স্থগিত</string>
+    <string name="w3a_forward_limit_text">%d বার ফরোয়ার্ড করার সীমা পূর্ণ হয়েছে। আগামীকাল আবার ফরোয়ার্ড করা চলবে।</string>
+</resources>

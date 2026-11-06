@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2c_blocked_label">Bloqueado</string>
+    <string name="w2c_log_blocked_by_rule">Bloqueado por regra: %1$s</string>
+    <string name="w2c_log_blocked_by_old_list">Bloqueado pela lista de bloqueio antiga</string>
+    <string name="w2c_log_fwd_rate_limited">Não encaminhado: esta regra atingiu o limite por hora</string>
+</resources>

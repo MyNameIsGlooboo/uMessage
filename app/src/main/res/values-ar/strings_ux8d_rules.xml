@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">اسمح دائمًا</string>
+    <string name="ux8d_sheet_title_block">احظر دائمًا</string>
+    <string name="ux8d_match_label">ما الذي تريد مطابقته؟</string>
+    <string name="ux8d_match_number">رقم هاتف</string>
+    <string name="ux8d_match_sender">اسم مرسل، مثل اسم بنك</string>
+    <string name="ux8d_match_word">كلمة في الرسالة</string>
+    <string name="ux8d_match_prefix">أرقام تبدأ بـ…</string>
+    <string name="ux8d_match_pattern">تعبير نمطي (متقدم)</string>
+    <string name="ux8d_match_more">طرق أخرى للمطابقة</string>
+    <string name="ux8d_action_label">عند المطابقة</string>
+    <string name="ux8d_more_options">خيارات أخرى</string>
+    <string name="ux8d_row_type_number">رقم</string>
+    <string name="ux8d_row_type_prefix">رقم يبدأ بـ</string>
+    <string name="ux8d_row_type_sender">اسم المرسل</string>
+    <string name="ux8d_row_type_word">كلمة في الرسالة</string>
+    <string name="ux8d_row_type_pattern">تعبير نمطي</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

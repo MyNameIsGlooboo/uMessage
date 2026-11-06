@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r2a_filter_codes">验证码</string>
+    <string name="r2a_filter_codes_empty_title">暂无验证码</string>
+    <string name="r2a_filter_codes_empty_body">最新消息包含一次性验证码的会话会显示在这里。</string>
+    <string name="r2a_search_codes_window">过去24小时内</string>
+</resources>

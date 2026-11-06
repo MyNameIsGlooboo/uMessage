@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">Thời gian giữ tin nhắn</string>
+    <string name="cleanup_old_summary">Tin nhắn cũ hơn sẽ chuyển vào thùng rác</string>
+    <string name="cleanup_forever">Mãi mãi</string>
+    <string name="cleanup_one_year">1 năm</string>
+    <string name="cleanup_bin_title">Bật thùng rác?</string>
+    <string name="cleanup_bin_body">Tin nhắn đã xóa được giữ ở đó trong 30 ngày để bạn có thể khôi phục. Cần bật thùng rác để dọn dẹp tự động.</string>
+    <string name="cleanup_bin_confirm">Bật</string>
+    <string name="cleanup_old_confirm_title">Chuyển tin nhắn cũ?</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="other">%d tin nhắn cũ hơn thời hạn này sẽ chuyển vào thùng rác ngay. Tin nhắn gắn sao, tin nhắn chưa đọc và cuộc trò chuyện đã ghim được giữ lại.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">Chưa có tin nhắn nào cũ đến vậy. Tin nhắn cũ hơn sẽ tự chuyển vào thùng rác. Tin nhắn gắn sao, tin nhắn chưa đọc và cuộc trò chuyện đã ghim được giữ lại.</string>
+    <string name="cleanup_old_confirm_action">Chuyển</string>
+</resources>

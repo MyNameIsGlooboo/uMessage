@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_reactions_title">iPhone से टेक्स्ट के तौर पर भेजा गया</string>
+    <string name="thread_reactions_show_original">मूल टेक्स्ट दिखाएं</string>
+</resources>

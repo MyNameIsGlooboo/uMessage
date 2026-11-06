@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">Standort</string>
+    <string name="i52_permission_explanation">uMessage ermittelt deinen Standort nur jetzt einmalig, um einen Kartenlink in deine Nachricht einzufügen. Es wird nichts gespeichert. Du kannst den ungefähren Standort wählen.</string>
+    <string name="i52_finding">Dein Standort wird ermittelt…</string>
+    <string name="i52_denied">Standortzugriff nicht erlaubt. Die Nachricht bleibt unverändert.</string>
+    <string name="i52_no_fix">Dein Standort konnte nicht ermittelt werden. Versuche es am Fenster oder draußen erneut.</string>
+    <string name="i52_off_message">Die Standortermittlung ist auf diesem Handy ausgeschaltet. Aktiviere sie, um deinen Standort zu teilen.</string>
+    <string name="i52_open_settings">Einstellungen öffnen</string>
+</resources>

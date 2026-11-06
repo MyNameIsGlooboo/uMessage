@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">Diğer ülkeler</string>
+    <string name="region_title">Diğer ülkelerden gelen mesajları bekletin</string>
+    <string name="region_summary">Kişilerinizden ve mesaj yazdığınız kişilerden gelen mesajlar bekletilmez</string>
+    <string name="region_off">Kapalı</string>
+    <string name="region_picker_title">Yaşadığınız ülke</string>
+    <string name="region_picker_body">Kişileriniz ve mesaj yazdığınız kişiler hariç, diğer ülkelerdeki numaralardan gelen mesajlar Engellenenler\'de bekletilir. Kişilerinizde kayıtlı olmayan yurt dışındaki bir akrabanızın mesajları da bekletilir.</string>
+    <string name="region_picker_search">Arayın</string>
+    <string name="region_reason_foreign">Başka bir ülkeye ait numara</string>
+</resources>

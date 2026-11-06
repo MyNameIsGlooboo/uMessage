@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spam_ui_delete_all">Xóa tất cả</string>
+    <string name="spam_ui_delete_all_title">Xóa tất cả tin nhắn đã chặn?</string>
+    <plurals name="spam_ui_delete_all_message">
+        <item quantity="other">%1$d tin nhắn đã chặn sẽ bị xóa. Bạn có thể hoàn tác ngay sau đó.</item>
+    </plurals>
+    <string name="declog_ui_clear_title">Xóa nhật ký quyết định?</string>
+    <string name="declog_ui_clear_message">Mọi quyết định đã ghi sẽ bị xóa. Tin nhắn đã chặn và quy tắc vẫn được giữ nguyên.</string>
+    <string name="declog_ui_clear_action">Xóa</string>
+    <string name="ui_log_reason_contacts_unavailable">Không đọc được người liên hệ</string>
+    <string name="blocknum_title">Số đã chặn</string>
+    <string name="blocknum_add">Thêm số</string>
+    <string name="blocknum_add_title">Chặn số điện thoại</string>
+    <string name="blocknum_edit_title">Sửa số đã chặn</string>
+    <string name="blocknum_field_label">Số điện thoại</string>
+    <string name="blocknum_field_help">Dùng * làm ký tự đại diện: +1555* chặn mọi số bắt đầu bằng +1555</string>
+    <string name="blocknum_err_empty">Nhập số điện thoại</string>
+    <string name="blocknum_err_invalid">Nhập số điện thoại hoặc dãy chữ số có * làm ký tự đại diện</string>
+    <string name="blocknum_copy">Sao chép số</string>
+    <string name="blocknum_unblock">Bỏ chặn</string>
+    <string name="blocknum_unblock_for">Bỏ chặn %1$s</string>
+    <string name="blocknum_edit_for">Sửa %1$s</string>
+    <string name="blocknum_more_for">Tùy chọn khác cho %1$s</string>
+    <string name="blocknum_pattern">Mẫu ký tự đại diện</string>
+    <string name="blocknum_copied">Đã sao chép số</string>
+    <plurals name="blocknum_unblocked">
+        <item quantity="other">Đã bỏ chặn %1$d số</item>
+    </plurals>
+    <string name="blocknum_import">Nhập</string>
+    <string name="blocknum_export">Xuất</string>
+    <plurals name="blocknum_imported">
+        <item quantity="other">Đã nhập %1$d số</item>
+    </plurals>
+    <string name="blocknum_import_empty">Không tìm thấy số điện thoại trong tệp</string>
+    <plurals name="blocknum_import_skipped">
+        <item quantity="other">Đã bỏ qua %d mục (không phải số điện thoại hoặc đã chặn)</item>
+    </plurals>
+    <string name="blocknum_import_failed">Không đọc được tệp</string>
+    <plurals name="blocknum_exported">
+        <item quantity="other">Đã xuất %1$d số</item>
+    </plurals>
+    <string name="blocknum_export_empty">Không có số để xuất</string>
+    <string name="blocknum_export_failed">Không lưu được tệp</string>
+    <string name="blocknum_failed">Không thay đổi được danh sách chặn. Vui lòng thử lại.</string>
+    <string name="blocknum_empty_title">Chưa chặn ai</string>
+    <string name="blocknum_empty_body">Số đã chặn không thể nhắn tin hoặc gọi cho bạn. Danh sách này được dùng chung với ứng dụng điện thoại của bạn.</string>
+    <string name="blocknum_unavailable_title">Danh sách chặn không khả dụng</string>
+    <string name="blocknum_unavailable_body">Đặt uMessage làm ứng dụng SMS mặc định để xem và thay đổi danh sách chặn của hệ thống.</string>
+    <string name="blocknum_unknown_title">Chặn số không xác định</string>
+    <string name="blocknum_unknown_body">Chỉ có tác dụng khi chế độ lọc tin nhắn rác là Tắt: tin nhắn từ số không xác định sẽ vào Đã chặn, như trong chế độ lọc nghiêm ngặt. Chế độ lọc nghiêm ngặt và Thông minh không dùng tùy chọn này.</string>
+    <string name="blocknum_contacts_denied">Không thể nhận diện số không xác định nếu không có quyền truy cập người liên hệ</string>
+    <string name="blocknum_section_numbers">Số điện thoại</string>
+</resources>

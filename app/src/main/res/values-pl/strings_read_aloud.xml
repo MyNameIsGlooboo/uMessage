@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">Czytaj na głos</string>
+    <string name="read_aloud_stop">Zatrzymaj czytanie</string>
+    <string name="read_aloud_no_voice">Na tym telefonie nie ma głosu dla języka: %1$s</string>
+    <string name="read_aloud_install">Pobierz głos</string>
+    <string name="read_aloud_install_missing">Ten telefon nie umożliwia instalowania głosów</string>
+    <string name="read_aloud_failed">Nie udało się przeczytać wiadomości na głos</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="sim_messages_title">Mensagens do chip</string>
+    <string name="sim_messages_row_body">Copie as mensagens salvas no chip para suas conversas</string>
+    <string name="sim_messages_loading">Lendo o chip…</string>
+    <string name="sim_messages_unavailable">Este celular não permite que apps leiam o chip.</string>
+    <string name="sim_messages_empty">Não há mensagens no chip.</string>
+    <plurals name="sim_messages_found" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d mensagem está salva no chip. Deseja copiá-la para suas conversas? Ela também continuará no chip.</item>
+        <item quantity="other">%1$d mensagens estão salvas no chip. Deseja copiá-las para suas conversas? Elas também continuarão no chip.</item>
+    </plurals>
+    <string name="sim_messages_import">Copie</string>
+    <string name="sim_messages_importing">Copiando mensagens…</string>
+    <string name="sim_messages_done">%1$d mensagens copiadas. %2$d já estavam nas suas conversas.</string>
+    <string name="sim_messages_done_failed">%1$d mensagens copiadas. %2$d já estavam nas suas conversas e %3$d não puderam ser copiadas.</string>
+</resources>

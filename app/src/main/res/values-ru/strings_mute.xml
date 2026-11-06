@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">Без звука</string>
+    <string name="unmute_menu">Включить звук</string>
+    <string name="mute_title">Отключить звук уведомлений</string>
+    <string name="mute_1_hour">На 1 час</string>
+    <string name="mute_8_hours">На 8 часов</string>
+    <string name="mute_1_week">На 1 неделю</string>
+    <string name="mute_always">Всегда</string>
+    <string name="mute_off">Выкл.</string>
+    <string name="mute_until">До %1$s</string>
+    <string name="mute_channel">Чаты без звука</string>
+</resources>

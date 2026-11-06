@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_channel">Backup e ripristino</string>
+    <string name="backup_restoring">Ripristino dei messaggi</string>
+    <string name="backup_exporting">Backup dei messaggi</string>
+    <plurals name="backup_progress_import">
+        <item quantity="one">%1$d voce letta</item>
+        <item quantity="other">%1$d voci lette</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="one">%1$d voce letta (%2$d%%)</item>
+        <item quantity="other">%1$d voci lette (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="one">%1$d messaggio salvato</item>
+        <item quantity="other">%1$d messaggi salvati</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="one">%1$d messaggio salvato (%2$d%%)</item>
+        <item quantity="other">%1$d messaggi salvati (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">Puoi uscire dall\'app: l\'operazione continua e mostra l\'avanzamento in una notifica.</string>
+    <string name="backup_stop">Interrompi</string>
+    <string name="backup_hide">Nascondi</string>
+    <string name="backup_already_running">È già in corso un backup o un ripristino.</string>
+    <string name="backup_restore_finished">Ripristino completato</string>
+    <string name="backup_restore_stopped">Ripristino interrotto</string>
+    <string name="backup_restore_failed">Ripristino non riuscito</string>
+    <string name="backup_invalid_file">Questo file non è un backup dei messaggi, quindi non è stato ripristinato nulla.</string>
+    <string name="backup_no_entries">Il file di backup non contiene messaggi.</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="one">Nulla di nuovo da importare: il messaggio è già su questo telefono.</item>
+        <item quantity="other">Nulla di nuovo da importare: tutti i %1$d messaggi sono già su questo telefono.</item>
+    </plurals>
+    <string name="backup_line_added">Aggiunti: %1$d</string>
+    <string name="backup_line_duplicates">Già su questo telefono, ignorati: %1$d</string>
+    <string name="backup_line_repaired">Allegati mancanti aggiunti ai messaggi già ripristinati: %1$d</string>
+    <string name="backup_line_incomplete">Messaggi con immagine ripristinati senza alcuni allegati: %1$d</string>
+    <string name="backup_line_failed">Non è stato possibile ripristinare: %1$d</string>
+    <string name="backup_line_damaged">Voci danneggiate nel file, ignorate: %1$d</string>
+    <string name="backup_line_xml_mms">Messaggi con immagine in questo backup XML, non supportati e ignorati: %1$d</string>
+    <string name="backup_line_not_selected">Non selezionati per l\'importazione: %1$d</string>
+    <string name="backup_reasons">Motivi:</string>
+    <string name="backup_reason_no_address">il messaggio non ha un mittente o un destinatario</string>
+    <string name="backup_reason_no_thread">il telefono non ha potuto aprire la conversazione</string>
+    <string name="backup_reason_refused">il telefono ha rifiutato di salvarlo</string>
+    <string name="backup_reason_not_in_backup">l\'allegato non è nel file di backup</string>
+    <string name="backup_reason_damaged_attachment">l\'allegato nel file di backup è danneggiato</string>
+    <string name="backup_reason_attachment_write">non è stato possibile salvare l\'allegato</string>
+    <string name="backup_stopped_early">Il file è danneggiato dopo la voce %1$d, quindi non è stato possibile leggere le voci successive.</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="one">Interrotto dopo %1$d voce. Ripeti il ripristino con lo stesso file per completarlo: i messaggi già ripristinati vengono ignorati.</item>
+        <item quantity="other">Interrotto dopo %1$d voci. Ripeti il ripristino con lo stesso file per completarlo: i messaggi già ripristinati vengono ignorati.</item>
+    </plurals>
+    <string name="backup_retry_hint">Ripeti il ripristino per recuperare ciò che non è riuscito: i messaggi già ripristinati vengono ignorati.</string>
+    <string name="backup_export_finished">Backup completato</string>
+    <string name="backup_export_stopped">Backup interrotto</string>
+    <string name="backup_export_failed">Backup non riuscito</string>
+    <string name="backup_export_error">Non è stato possibile salvare il backup e il file incompleto è stato eliminato. %1$s</string>
+    <string name="backup_export_cancelled">Il backup è stato interrotto e il file incompleto è stato eliminato.</string>
+    <string name="backup_export_nothing">Non ci sono messaggi di cui fare il backup.</string>
+    <string name="backup_export_counts">Salvati %1$d SMS e %2$d MMS.</string>
+    <string name="backup_export_unreadable_attachments">Allegati non leggibili, salvati senza immagine: %1$d</string>
+    <string name="backup_export_unreadable_messages">Messaggi non leggibili, esclusi: %1$d</string>
+    <string name="backup_export_unreadable_conversations">Conversazioni non leggibili, escluse: %1$d</string>
+    <string name="backup_export_incomplete">Questo backup è incompleto.</string>
+    <string name="backup_interrupted_import">L\'ultimo ripristino si è interrotto prima di finire, forse perché il telefono ha chiuso l\'app. Ripetilo con lo stesso file: i messaggi già ripristinati vengono ignorati.</string>
+    <string name="backup_interrupted_export">L\'ultimo backup si è interrotto prima di finire, quindi il file è incompleto. Crea un nuovo backup.</string>
+</resources>

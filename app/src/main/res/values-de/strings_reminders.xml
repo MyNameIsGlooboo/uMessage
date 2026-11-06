@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">Mich erinnern</string>
+    <string name="reminder_dialog_title">Mich erinnern</string>
+    <string name="reminder_in_3_hours">In 3 Stunden</string>
+    <string name="reminder_tomorrow_morning">Morgen früh</string>
+    <string name="reminder_pick_time">Datum und Uhrzeit wählen</string>
+    <string name="reminder_set">Erinnerung für %1$s eingestellt</string>
+    <string name="reminder_set_approximate">Erinnerung für etwa %1$s eingestellt. Sie kann etwas später kommen.</string>
+    <string name="reminder_battery_hint">Manche Smartphones beenden Apps im Hintergrund und verzögern so Erinnerungen.</string>
+    <string name="reminder_battery_open">uMessage weiterlaufen lassen</string>
+    <string name="reminder_channel">Erinnerungen</string>
+    <string name="reminder_title">Erinnerung</string>
+    <string name="reminder_title_named">Erinnerung: %1$s</string>
+    <string name="reminder_open_hint">Tippe, um die Nachricht zu öffnen</string>
+</resources>

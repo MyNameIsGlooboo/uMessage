@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">Signaler comme spam</string>
+    <string name="carrier_report_row_title">Numéro antispam de l\'opérateur</string>
+    <string name="carrier_report_row_summary">Signalez les spams à votre opérateur par SMS</string>
+    <string name="carrier_report_not_set">Non défini</string>
+    <string name="carrier_report_hint">Numéro de votre opérateur pour signaler les spams. Les signalements sont envoyés par SMS et peuvent être payants.</string>
+    <string name="carrier_report_invalid">Saisissez 3 à 8 chiffres</string>
+    <string name="carrier_report_action">Signaler à l\'opérateur</string>
+    <string name="carrier_report_title">Signaler à votre opérateur ?</string>
+    <string name="carrier_report_body">Le dernier message de cet expéditeur sera envoyé au %1$s par SMS. Votre opérateur peut vous facturer cet envoi.</string>
+    <string name="carrier_report_send">Envoyer</string>
+    <string name="carrier_report_sent">Signalement envoyé à votre opérateur</string>
+    <string name="carrier_report_failed">Le signalement n\'a pas pu être envoyé</string>
+</resources>

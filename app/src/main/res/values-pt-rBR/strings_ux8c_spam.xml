@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">Retida: remetente desconhecido</string>
+    <string name="ux8c_held_unknown_link">Retida: remetente desconhecido, contém link</string>
+    <string name="ux8c_held_foreign">Retida: número de outro país</string>
+    <string name="ux8c_held_rule">Retida pela sua regra</string>
+    <string name="ux8c_held_other">Retida pelo filtro</string>
+    <string name="ux8c_not_spam">Não é spam</string>
+    <string name="ux8c_delete">Exclua</string>
+    <string name="ux8c_tip">Deslize um remetente para movê-lo para a caixa de entrada. Toque e segure para selecionar.</string>
+    <string name="ux8c_tip_dismiss">Entendi</string>
+    <string name="ux8c_sender_title">Este remetente</string>
+    <string name="ux8c_sender_normal">Normal</string>
+    <string name="ux8c_sender_allow">Permita sempre</string>
+    <string name="ux8c_sender_block">Bloqueie</string>
+</resources>

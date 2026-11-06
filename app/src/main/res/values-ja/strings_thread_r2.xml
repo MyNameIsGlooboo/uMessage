@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">理由</string>
+    <string name="thread_r2_details_rule">ルール</string>
+    <string name="thread_r2_details_forwarded">転送済み</string>
+    <string name="thread_r2_details_decision_restored">ブロック後、受信トレイに復元済み</string>
+    <string name="thread_r2_details_copy">%1$sをコピー</string>
+    <string name="thread_r2_menu_search">会話内を検索</string>
+    <string name="thread_r2_menu_always_forward">この送信者からは常に転送</string>
+    <string name="thread_r2_block_hint">今後のメッセージは「ブロック済み」に届きます。スマートフォンの外部には何も送信されません。</string>
+    <string name="thread_r2_forward_message">このメッセージを転送</string>
+    <string name="thread_r2_search_hint">会話内を検索</string>
+    <string name="thread_r2_search_close">検索を閉じる</string>
+    <string name="thread_r2_search_none">一致する結果はありません。</string>
+    <string name="thread_r2_search_count">%2$d件中%1$d件目</string>
+    <string name="thread_r2_search_older">古い検索結果へ</string>
+    <string name="thread_r2_search_newer">新しい検索結果へ</string>
+    <string name="thread_r2_link_copy">リンクをコピー</string>
+    <string name="thread_r2_link_share">共有</string>
+    <string name="thread_r2_schedule_pick_date">日付を選択</string>
+    <string name="thread_r2_calendar_previous">前の月</string>
+    <string name="thread_r2_calendar_next">次の月</string>
+</resources>

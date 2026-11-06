@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_allow_title">
+        <item quantity="zero">السماح دائمًا لـ %d مرسل؟</item>
+        <item quantity="one">السماح لهذا المرسل دائمًا؟</item>
+        <item quantity="two">السماح لهذين المرسلين (%d) دائمًا؟</item>
+        <item quantity="few">السماح لهؤلاء المرسلين الـ %d دائمًا؟</item>
+        <item quantity="many">السماح دائمًا لـ %d مرسلًا؟</item>
+        <item quantity="other">السماح دائمًا لـ %d مرسل؟</item>
+    </plurals>
+    <string name="spam_allow_body_one">ستعود الرسالة إلى الرسائل الواردة في الحالتين. إذا سمحت دائمًا لـ %1$s، فستتجاوز رسائله القادمة كل عوامل التصفية، بما فيها قواعد الحظر.</string>
+    <string name="spam_allow_body_many">ستعود الرسائل إلى الرسائل الواردة في الحالتين. إذا سمحت لهؤلاء المرسلين دائمًا، فستتجاوز رسائلهم القادمة كل عوامل التصفية، بما فيها قواعد الحظر.</string>
+    <string name="spam_allow_spoof_warning">يمكن لأي شخص إرسال رسالة باسم مثل %1$s. السماح به يتيح أيضًا وصول الرسائل المزيفة التي تستخدم هذا الاسم.</string>
+    <string name="spam_allow_confirm">اسمح دائمًا</string>
+    <string name="spam_allow_dismiss">ليس الآن</string>
+    <plurals name="spam_snack_restored_to_inbox">
+        <item quantity="zero">استُعيدت %d رسالة إلى الرسائل الواردة</item>
+        <item quantity="one">استُعيدت رسالة واحدة (%d) إلى الرسائل الواردة</item>
+        <item quantity="two">استُعيدت رسالتان (%d) إلى الرسائل الواردة</item>
+        <item quantity="few">استُعيدت %d رسائل إلى الرسائل الواردة</item>
+        <item quantity="many">استُعيدت %d رسالة إلى الرسائل الواردة</item>
+        <item quantity="other">استُعيدت %d رسالة إلى الرسائل الواردة</item>
+    </plurals>
+    <plurals name="spam_snack_restored_allowed">
+        <item quantity="zero">تمت الاستعادة. أصبح %d مرسل مسموحًا لهم دائمًا.</item>
+        <item quantity="one">تمت الاستعادة. أصبح مرسل واحد (%d) مسموحًا له دائمًا.</item>
+        <item quantity="two">تمت الاستعادة. أصبح مرسلان (%d) مسموحًا لهما دائمًا.</item>
+        <item quantity="few">تمت الاستعادة. أصبح %d مرسلين مسموحًا لهم دائمًا.</item>
+        <item quantity="many">تمت الاستعادة. أصبح %d مرسلًا مسموحًا لهم دائمًا.</item>
+        <item quantity="other">تمت الاستعادة. أصبح %d مرسل مسموحًا لهم دائمًا.</item>
+    </plurals>
+    <plurals name="spam_snack_allowed_only">
+        <item quantity="zero">أصبح %d مرسل مسموحًا لهم دائمًا.</item>
+        <item quantity="one">أصبح مرسل واحد (%d) مسموحًا له دائمًا.</item>
+        <item quantity="two">أصبح مرسلان (%d) مسموحًا لهما دائمًا.</item>
+        <item quantity="few">أصبح %d مرسلين مسموحًا لهم دائمًا.</item>
+        <item quantity="many">أصبح %d مرسلًا مسموحًا لهم دائمًا.</item>
+        <item quantity="other">أصبح %d مرسل مسموحًا لهم دائمًا.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost">
+        <item quantity="zero">تعذّرت استعادة صور %d رسالة.</item>
+        <item quantity="one">تعذّرت استعادة صورة رسالة واحدة (%d).</item>
+        <item quantity="two">تعذّرت استعادة صور رسالتين (%d).</item>
+        <item quantity="few">تعذّرت استعادة صور %d رسائل.</item>
+        <item quantity="many">تعذّرت استعادة صور %d رسالة.</item>
+        <item quantity="other">تعذّرت استعادة صور %d رسالة.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost_nothing">
+        <item quantity="zero">تعذّرت استعادة %d رسالة مصورة، فلم يُضف شيء إلى الرسائل الواردة.</item>
+        <item quantity="one">تعذّرت استعادة الرسالة المصورة، فلم يُضف شيء إلى الرسائل الواردة.</item>
+        <item quantity="two">تعذّرت استعادة رسالتين مصورتين (%d)، فلم يُضف شيء إلى الرسائل الواردة.</item>
+        <item quantity="few">تعذّرت استعادة %d رسائل مصورة، فلم يُضف شيء إلى الرسائل الواردة.</item>
+        <item quantity="many">تعذّرت استعادة %d رسالة مصورة، فلم يُضف شيء إلى الرسائل الواردة.</item>
+        <item quantity="other">تعذّرت استعادة %d رسالة مصورة، فلم يُضف شيء إلى الرسائل الواردة.</item>
+    </plurals>
+    <plurals name="spam_snack_restore_failed">
+        <item quantity="zero">تعذّرت استعادة %d رسالة مصورة. ما زالت هنا.</item>
+        <item quantity="one">تعذّرت استعادة رسالة مصورة واحدة (%d). ما زالت هنا.</item>
+        <item quantity="two">تعذّرت استعادة رسالتين مصورتين (%d). ما زالتا هنا.</item>
+        <item quantity="few">تعذّرت استعادة %d رسائل مصورة. ما زالت هنا.</item>
+        <item quantity="many">تعذّرت استعادة %d رسالة مصورة. ما زالت هنا.</item>
+        <item quantity="other">تعذّرت استعادة %d رسالة مصورة. ما زالت هنا.</item>
+    </plurals>
+    <string name="spam_mms_stored">رسالة مصورة</string>
+    <string name="spam_mms_downloading">رسالة مصورة، جارٍ تنزيلها</string>
+    <string name="spam_mms_missing">رسالة مصورة، لم تُنزّل</string>
+    <string name="spam_mms_thumbnail">صورة في الرسالة المحظورة</string>
+    <string name="spam_reason_rule_keyword">قاعدة: الكلمة الرئيسية «%1$s»</string>
+    <string name="spam_reason_rule_regex">قاعدة: التعبير النمطي %1$s</string>
+    <string name="spam_reason_rule_number">قاعدة: الرقم %1$s</string>
+    <string name="spam_reason_rule_prefix">قاعدة: أرقام تبدأ بـ %1$s</string>
+    <string name="spam_reason_rule_sender">قاعدة: المرسل %1$s</string>
+    <string name="spam_reason_rule_removed">قاعدة أُزيلت لاحقًا</string>
+    <string name="spam_reason_open_rules">افتح القواعد</string>
+    <plurals name="spam_purge_notice">
+        <item quantity="zero">تُحذف الرسائل المحظورة بعد %d يوم</item>
+        <item quantity="one">تُحذف الرسائل المحظورة بعد يوم واحد (%d)</item>
+        <item quantity="two">تُحذف الرسائل المحظورة بعد يومين (%d)</item>
+        <item quantity="few">تُحذف الرسائل المحظورة بعد %d أيام</item>
+        <item quantity="many">تُحذف الرسائل المحظورة بعد %d يومًا</item>
+        <item quantity="other">تُحذف الرسائل المحظورة بعد %d يوم</item>
+    </plurals>
+    <string name="spam_purge_notice_off">تبقى الرسائل المحظورة حتى تحذفها</string>
+    <plurals name="spam_purge_left">
+        <item quantity="zero">تُحذف بعد %d يوم</item>
+        <item quantity="one">تُحذف بعد يوم واحد (%d)</item>
+        <item quantity="two">تُحذف بعد يومين (%d)</item>
+        <item quantity="few">تُحذف بعد %d أيام</item>
+        <item quantity="many">تُحذف بعد %d يومًا</item>
+        <item quantity="other">تُحذف بعد %d يوم</item>
+    </plurals>
+    <string name="spam_purge_left_today">تُحذف اليوم</string>
+    <string name="convlist_report_spam">أبلغ عن رسالة غير مرغوب فيها</string>
+    <plurals name="convlist_reported_spam_archived">
+        <item quantity="zero">تم الإبلاغ عن %d محادثة. ستنتقل رسائل مرسليها الجديدة إلى «المحظورة»، وأُرشفت المحادثات.</item>
+        <item quantity="one">تم الإبلاغ. ستنتقل رسائل هذا المرسل الجديدة إلى «المحظورة»، وأُرشفت المحادثة.</item>
+        <item quantity="two">تم الإبلاغ عن محادثتين (%d). ستنتقل رسائل مرسليهما الجديدة إلى «المحظورة»، وأُرشفت المحادثتان.</item>
+        <item quantity="few">تم الإبلاغ عن %d محادثات. ستنتقل رسائل مرسليها الجديدة إلى «المحظورة»، وأُرشفت المحادثات.</item>
+        <item quantity="many">تم الإبلاغ عن %d محادثة. ستنتقل رسائل مرسليها الجديدة إلى «المحظورة»، وأُرشفت المحادثات.</item>
+        <item quantity="other">تم الإبلاغ عن %d محادثة. ستنتقل رسائل مرسليها الجديدة إلى «المحظورة»، وأُرشفت المحادثات.</item>
+    </plurals>
+    <plurals name="convlist_reported_spam">
+        <item quantity="zero">تم الإبلاغ عن %d محادثة. ستنتقل رسائل مرسليها الجديدة إلى «المحظورة».</item>
+        <item quantity="one">تم الإبلاغ. ستنتقل رسائل هذا المرسل الجديدة إلى «المحظورة».</item>
+        <item quantity="two">تم الإبلاغ عن محادثتين (%d). ستنتقل رسائل مرسليهما الجديدة إلى «المحظورة».</item>
+        <item quantity="few">تم الإبلاغ عن %d محادثات. ستنتقل رسائل مرسليها الجديدة إلى «المحظورة».</item>
+        <item quantity="many">تم الإبلاغ عن %d محادثة. ستنتقل رسائل مرسليها الجديدة إلى «المحظورة».</item>
+        <item quantity="other">تم الإبلاغ عن %d محادثة. ستنتقل رسائل مرسليها الجديدة إلى «المحظورة».</item>
+    </plurals>
+    <string name="blocked_title">المحظورة</string>
+    <string name="blocked_menu_rules">القواعد</string>
+    <string name="blocked_mode_group_cd">مرسلون غير معروفين: %1$s، %2$d من %3$d</string>
+    <string name="blocked_mode_desc_strict">صارم: يحتجز رسائل كل مرسل غير معروف، حتى رموز التحقق</string>
+    <string name="blocked_mode_desc_smart">ذكي: يحتجز رسائل المرسلين غير المعروفين، ويسمح برموز التحقق بلا روابط</string>
+    <string name="blocked_mode_desc_off">متوقف: تصل رسائل المرسلين غير المعروفين إلى الرسائل الواردة. تبقى قواعدك سارية</string>
+    <string name="blocked_snack_mode">ضُبط وضع المرسلين غير المعروفين على %1$s</string>
+    <string name="blocked_off_title">إيقاف احتجاز رسائل المرسلين غير المعروفين؟</string>
+    <string name="blocked_off_body">تصل رسائل المرسلين غير المعروفين مباشرةً إلى الرسائل الواردة. تبقى قواعدك سارية.</string>
+    <string name="blocked_off_confirm">أوقف</string>
+    <string name="blocked_stats_restored">استعدت %1$d</string>
+    <string name="blocked_reason_unknown_link">مرسل غير معروف، مع رابط</string>
+    <string name="blocked_may_be_important">قد تكون مهمة</string>
+    <string name="blocked_action_move_inbox">انقل إلى الرسائل الواردة</string>
+    <string name="blocked_swipe_not_spam">اسحب للنقل إلى الرسائل الواردة</string>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spam_ui_delete_all">Elimina tutti</string>
+    <string name="spam_ui_delete_all_title">Eliminare tutti i messaggi bloccati?</string>
+    <plurals name="spam_ui_delete_all_message">
+        <item quantity="one">Verrà eliminato %1$d messaggio bloccato. Puoi annullare subito dopo.</item>
+        <item quantity="other">Verranno eliminati %1$d messaggi bloccati. Puoi annullare subito dopo.</item>
+    </plurals>
+    <string name="declog_ui_clear_title">Svuotare il registro delle decisioni?</string>
+    <string name="declog_ui_clear_message">Tutte le decisioni registrate verranno eliminate. I messaggi bloccati e le regole restano invariati.</string>
+    <string name="declog_ui_clear_action">Svuota</string>
+    <string name="ui_log_reason_contacts_unavailable">Contatti non leggibili</string>
+    <string name="blocknum_title">Numeri bloccati</string>
+    <string name="blocknum_add">Aggiungi numero</string>
+    <string name="blocknum_add_title">Blocca un numero</string>
+    <string name="blocknum_edit_title">Modifica numero bloccato</string>
+    <string name="blocknum_field_label">Numero</string>
+    <string name="blocknum_field_help">Usa * come carattere jolly: +1555* blocca tutti i numeri che iniziano con +1555</string>
+    <string name="blocknum_err_empty">Inserisci un numero</string>
+    <string name="blocknum_err_invalid">Inserisci un numero di telefono o cifre con * come carattere jolly</string>
+    <string name="blocknum_copy">Copia numero</string>
+    <string name="blocknum_unblock">Sblocca</string>
+    <string name="blocknum_unblock_for">Sblocca %1$s</string>
+    <string name="blocknum_edit_for">Modifica %1$s</string>
+    <string name="blocknum_more_for">Altre opzioni per %1$s</string>
+    <string name="blocknum_pattern">Schema con caratteri jolly</string>
+    <string name="blocknum_copied">Numero copiato</string>
+    <plurals name="blocknum_unblocked">
+        <item quantity="one">%1$d numero sbloccato</item>
+        <item quantity="other">%1$d numeri sbloccati</item>
+    </plurals>
+    <string name="blocknum_import">Importa</string>
+    <string name="blocknum_export">Esporta</string>
+    <plurals name="blocknum_imported">
+        <item quantity="one">%1$d numero importato</item>
+        <item quantity="other">%1$d numeri importati</item>
+    </plurals>
+    <string name="blocknum_import_empty">Nessun numero trovato nel file</string>
+    <plurals name="blocknum_import_skipped">
+        <item quantity="one">%d voce ignorata (non è un numero o è già bloccato)</item>
+        <item quantity="other">%d voci ignorate (non sono numeri o sono già bloccati)</item>
+    </plurals>
+    <string name="blocknum_import_failed">Impossibile leggere il file</string>
+    <plurals name="blocknum_exported">
+        <item quantity="one">%1$d numero esportato</item>
+        <item quantity="other">%1$d numeri esportati</item>
+    </plurals>
+    <string name="blocknum_export_empty">Nessun numero da esportare</string>
+    <string name="blocknum_export_failed">Impossibile salvare il file</string>
+    <string name="blocknum_failed">Impossibile modificare i mittenti bloccati. Riprova.</string>
+    <string name="blocknum_empty_title">Nessun numero bloccato</string>
+    <string name="blocknum_empty_body">I numeri bloccati non possono inviarti messaggi né chiamarti. Questo elenco è condiviso con l\'app Telefono.</string>
+    <string name="blocknum_unavailable_title">Mittenti bloccati non disponibili</string>
+    <string name="blocknum_unavailable_body">Imposta uMessage come app SMS predefinita per vedere e modificare i mittenti bloccati di sistema.</string>
+    <string name="blocknum_unknown_title">Blocca numeri sconosciuti</string>
+    <string name="blocknum_unknown_body">Vale solo con la modalità filtro disattivata: i messaggi da numeri sconosciuti vanno in Messaggi bloccati, come nella modalità rigorosa. Le modalità rigorosa e intelligente ignorano questa opzione.</string>
+    <string name="blocknum_contacts_denied">Senza accesso ai contatti, non è possibile riconoscere i numeri sconosciuti</string>
+    <string name="blocknum_section_numbers">Numeri</string>
+</resources>

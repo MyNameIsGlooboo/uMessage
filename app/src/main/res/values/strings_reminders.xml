@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- I51: "Remind me" on a message. -->
+    <string name="reminder_action">Remind me</string>
+    <string name="reminder_dialog_title">Remind me</string>
+    <string name="reminder_in_3_hours">In 3 hours</string>
+    <string name="reminder_tomorrow_morning">Tomorrow morning</string>
+    <string name="reminder_pick_time">Pick date and time</string>
+    <string name="reminder_set">Reminder set for %1$s</string>
+    <string name="reminder_set_approximate">Reminder set for about %1$s. It may come a little late.</string>
+    <string name="reminder_battery_hint">Some phones stop apps in the background and delay reminders.</string>
+    <string name="reminder_battery_open">Keep uMessage running</string>
+    <string name="reminder_channel">Reminders</string>
+    <string name="reminder_title">Reminder</string>
+    <string name="reminder_title_named">Reminder: %1$s</string>
+    <string name="reminder_open_hint">Tap to open the message</string>
+</resources>

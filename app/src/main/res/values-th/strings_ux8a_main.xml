@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8a_checklist_show">แสดงขั้นตอน</string>
+    <string name="ux8a_checklist_hide">ซ่อนขั้นตอน</string>
+    <string name="ux8a_menu_recycle_bin">ถังขยะ</string>
+    <string name="ux8a_selection_block">บล็อก</string>
+</resources>

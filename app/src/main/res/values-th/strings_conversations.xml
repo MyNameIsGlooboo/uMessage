@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="convlist_loading">กำลังโหลดข้อความ</string>
+    <string name="convlist_empty_title">ยังไม่มีการสนทนา</string>
+    <string name="convlist_empty_body">ข้อความที่ส่งและรับจะแสดงที่นี่</string>
+    <string name="convlist_start_conversation">เริ่มการสนทนา</string>
+    <string name="convlist_new_conversation">การสนทนาใหม่</string>
+    <string name="convlist_draft">ฉบับร่าง</string>
+    <string name="convlist_pinned">ปักหมุดแล้ว</string>
+    <string name="convlist_muted">ปิดการแจ้งเตือน</string>
+    <string name="convlist_unread">ยังไม่ได้อ่าน</string>
+    <string name="convlist_unread_count">ยังไม่ได้อ่าน %1$d ข้อความ</string>
+    <string name="convlist_group">การสนทนากลุ่ม</string>
+    <string name="convlist_selected">เลือกแล้ว</string>
+    <string name="convlist_sim">SIM %1$d</string>
+    <string name="convlist_scroll_handle">เลื่อนอย่างรวดเร็ว</string>
+    <plurals name="convlist_blocked_banner">
+        <item quantity="other">ข้อความที่บล็อก %d ข้อความ</item>
+    </plurals>
+    <string name="convlist_blocked_banner_title">ข้อความที่บล็อก</string>
+    <string name="convlist_blocked_banner_cd">ข้อความที่บล็อก %1$d ข้อความ เปิดโฟลเดอร์ที่บล็อก</string>
+    <string name="convlist_archive">เก็บถาวร</string>
+    <string name="convlist_delete">ลบ</string>
+    <string name="convlist_pin">ปักหมุดไว้บนสุด</string>
+    <string name="convlist_unpin">เลิกปักหมุด</string>
+    <string name="convlist_mark_read">ทำเครื่องหมายว่าอ่านแล้ว</string>
+    <string name="convlist_mark_unread">ทำเครื่องหมายว่ายังไม่ได้อ่าน</string>
+    <string name="convlist_block_number">บล็อกหมายเลข</string>
+    <string name="convlist_add_contact">เพิ่มหมายเลขในรายชื่อติดต่อ</string>
+    <string name="convlist_copy_number">คัดลอกหมายเลข</string>
+    <string name="convlist_dial">โทร</string>
+    <string name="convlist_rename">เปลี่ยนชื่อการสนทนา</string>
+    <string name="convlist_details">รายละเอียดการสนทนา</string>
+    <string name="convlist_select_all">เลือกทั้งหมด</string>
+    <string name="convlist_more_options">ตัวเลือกเพิ่มเติม</string>
+    <string name="convlist_close_selection">ยกเลิกการเลือก</string>
+    <plurals name="convlist_selected_count">
+        <item quantity="other">เลือกแล้ว %d รายการ</item>
+    </plurals>
+    <string name="convlist_undo">เลิกทำ</string>
+    <plurals name="convlist_deleted">
+        <item quantity="other">ลบแล้ว %d การสนทนา</item>
+    </plurals>
+    <plurals name="convlist_archived">
+        <item quantity="other">เก็บถาวรแล้ว %d การสนทนา</item>
+    </plurals>
+    <plurals name="convlist_blocked_done">
+        <item quantity="other">บล็อกผู้ส่งแล้ว %d ราย ข้อความใหม่จะไปที่ข้อความที่บล็อก</item>
+    </plurals>
+    <string name="convlist_action_failed">เกิดข้อผิดพลาด</string>
+    <string name="convlist_block_title">บล็อกหมายเลขไหม?</string>
+    <string name="convlist_block_message">บล็อก %1$s ไหม? ข้อความใหม่จากหมายเลขนี้จะไปที่ข้อความที่บล็อกแทนกล่องข้อความเข้า โดยยังอ่านหรือกู้คืนได้</string>
+    <string name="convlist_block_confirm">บล็อก</string>
+    <string name="convlist_rename_title">เปลี่ยนชื่อการสนทนา</string>
+    <string name="convlist_rename_hint">ชื่อการสนทนา</string>
+    <string name="convlist_ok">ตกลง</string>
+    <string name="convlist_cancel">ยกเลิก</string>
+</resources>

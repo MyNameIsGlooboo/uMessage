@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">短縮リンクのため、リンク先を確認できません。</string>
+    <string name="i07_punycode">名前が符号化されており、実際とは異なる文字で表示される場合があります。</string>
+    <string name="i07_mixed_script">名前に複数の文字体系が混在しています。偽サイトでよく使われる手法です。</string>
+    <string name="i07_raw_ip">アドレスがサイト名ではなく数値になっています。</string>
+    <string name="i07_http_only">暗号化されていません（httpsではなくhttpです）。</string>
+    <string name="i07_lookalike">名前が%1$sに似ています。つづりを確認してください。</string>
+    <string name="i07_user_info">\@より前の部分はサイトのアドレスではありません。</string>
+    <string name="i07_locked">危険なリンクはここでは開けません。リンクのコピーはできます。</string>
+    <string name="i07_lock_title">危険なリンクは開けません</string>
+    <string name="i07_lock_summary">リンクのメニューではコピーと共有のみ使えます。</string>
+    <string name="i07_group_title">リンク</string>
+</resources>

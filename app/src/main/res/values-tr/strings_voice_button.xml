@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i40_record_voice">Sesli mesaj kaydedin</string>
+    <string name="i40_setting_title">Ses düğmesi</string>
+    <string name="i40_setting_summary">Mesaj alanı boşken gösterilir</string>
+</resources>

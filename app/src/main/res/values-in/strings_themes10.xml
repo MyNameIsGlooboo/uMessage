@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">Batu sabak</string>
+    <string name="preset_slate_desc">Biru keabu-abuan yang tenang</string>
+    <string name="preset_firouzeh">Firouzeh</string>
+    <string name="preset_firouzeh_desc">Toska dengan sentuhan emas</string>
+    <string name="preset_pomegranate">Delima</string>
+    <string name="preset_pomegranate_desc">Merah hangat dengan hijau tua</string>
+    <string name="preset_harbor">Pelabuhan</string>
+    <string name="preset_harbor_desc">Biru malam dengan koral lembut</string>
+    <string name="preset_lavender">Lavender</string>
+    <string name="preset_lavender_desc">Ungu lembut dengan hijau kebiruan</string>
+    <string name="preset_ink">Tinta</string>
+    <string name="preset_ink_desc">Hampir hitam dengan perak dan emas</string>
+    <string name="preset_contrast">Kontras</string>
+    <string name="preset_contrast_desc">Hitam putih dengan aksen cerah</string>
+</resources>

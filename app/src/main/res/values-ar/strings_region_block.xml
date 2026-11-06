@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">بلدان أخرى</string>
+    <string name="region_title">احتجاز رسائل الأرقام من بلدان أخرى</string>
+    <string name="region_summary">لا تُحتجز رسائل جهات الاتصال ومن راسلتهم</string>
+    <string name="region_off">متوقف</string>
+    <string name="region_picker_title">بلدك</string>
+    <string name="region_picker_body">تُحتجز رسائل الأرقام من بلدان أخرى ضمن الرسائل المحظورة، باستثناء جهات الاتصال ومن راسلتهم. وتُحتجز أيضًا رسائل قريبك في الخارج إذا لم يكن ضمن جهات الاتصال.</string>
+    <string name="region_picker_search">ابحث</string>
+    <string name="region_reason_foreign">رقم من بلد آخر</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="share_text_menu">Поделиться чатом как текстом</string>
+    <string name="share_text_scope_title">Какие сообщения?</string>
+    <string name="share_text_scope_whole">Весь чат</string>
+    <string name="share_text_scope_last">Последние 50 сообщений</string>
+    <string name="share_text_title">Поделиться как текстом</string>
+    <string name="share_text_warning">Личный текст будет передан в другое приложение. На следующем шаге вы выберете приложение.</string>
+    <string name="share_text_action">Поделиться</string>
+    <string name="share_text_range">С %1$s по %2$s</string>
+    <string name="share_text_attachment">[Вложение]</string>
+    <string name="share_text_subject">Сообщения из uMessage</string>
+    <string name="share_text_nothing">Нет сообщений, которыми можно поделиться</string>
+    <plurals name="share_text_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d сообщение</item>
+        <item quantity="few">%1$d сообщения</item>
+        <item quantity="many">%1$d сообщений</item>
+        <item quantity="other">%1$d сообщения</item>
+    </plurals>
+</resources>

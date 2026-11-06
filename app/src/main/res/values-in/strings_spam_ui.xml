@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spam_ui_delete_all">Hapus semua</string>
+    <string name="spam_ui_delete_all_title">Hapus semua pesan diblokir?</string>
+    <plurals name="spam_ui_delete_all_message">
+        <item quantity="other">%1$d pesan yang diblokir akan dihapus. Anda bisa langsung mengurungkannya setelah itu.</item>
+    </plurals>
+    <string name="declog_ui_clear_title">Kosongkan log keputusan?</string>
+    <string name="declog_ui_clear_message">Semua keputusan yang tercatat akan dihapus. Pesan yang diblokir dan aturan tetap seperti semula.</string>
+    <string name="declog_ui_clear_action">Kosongkan</string>
+    <string name="ui_log_reason_contacts_unavailable">Kontak tidak dapat dibaca</string>
+    <string name="blocknum_title">Nomor diblokir</string>
+    <string name="blocknum_add">Tambah nomor</string>
+    <string name="blocknum_add_title">Blokir nomor</string>
+    <string name="blocknum_edit_title">Edit nomor diblokir</string>
+    <string name="blocknum_field_label">Nomor</string>
+    <string name="blocknum_field_help">Gunakan * sebagai karakter pengganti: +1555* memblokir semua nomor yang diawali +1555</string>
+    <string name="blocknum_err_empty">Masukkan nomor</string>
+    <string name="blocknum_err_invalid">Masukkan nomor telepon, atau angka dengan * sebagai karakter pengganti</string>
+    <string name="blocknum_copy">Salin nomor</string>
+    <string name="blocknum_unblock">Buka blokir</string>
+    <string name="blocknum_unblock_for">Buka blokir %1$s</string>
+    <string name="blocknum_edit_for">Edit %1$s</string>
+    <string name="blocknum_more_for">Opsi lainnya untuk %1$s</string>
+    <string name="blocknum_pattern">Pola karakter pengganti</string>
+    <string name="blocknum_copied">Nomor disalin</string>
+    <plurals name="blocknum_unblocked">
+        <item quantity="other">Blokir %1$d nomor dibuka</item>
+    </plurals>
+    <string name="blocknum_import">Impor</string>
+    <string name="blocknum_export">Ekspor</string>
+    <plurals name="blocknum_imported">
+        <item quantity="other">%1$d nomor diimpor</item>
+    </plurals>
+    <string name="blocknum_import_empty">Tidak ada nomor dalam file</string>
+    <plurals name="blocknum_import_skipped">
+        <item quantity="other">%d entri dilewati (bukan nomor atau sudah diblokir)</item>
+    </plurals>
+    <string name="blocknum_import_failed">Tidak dapat membaca file</string>
+    <plurals name="blocknum_exported">
+        <item quantity="other">%1$d nomor diekspor</item>
+    </plurals>
+    <string name="blocknum_export_empty">Tidak ada nomor untuk diekspor</string>
+    <string name="blocknum_export_failed">Tidak dapat menyimpan file</string>
+    <string name="blocknum_failed">Tidak dapat mengubah daftar blokir. Coba lagi.</string>
+    <string name="blocknum_empty_title">Belum ada nomor diblokir</string>
+    <string name="blocknum_empty_body">Nomor yang diblokir tidak bisa mengirim pesan atau menelepon Anda. Daftar ini juga digunakan oleh aplikasi telepon.</string>
+    <string name="blocknum_unavailable_title">Daftar blokir tidak tersedia</string>
+    <string name="blocknum_unavailable_body">Jadikan uMessage aplikasi SMS default untuk melihat dan mengubah daftar blokir sistem.</string>
+    <string name="blocknum_unknown_title">Blokir nomor tidak dikenal</string>
+    <string name="blocknum_unknown_body">Hanya berlaku saat mode spam Nonaktif: pesan dari nomor tidak dikenal masuk ke Diblokir, seperti dalam mode filter ketat. Mode filter ketat dan Cerdas mengabaikan tombol ini.</string>
+    <string name="blocknum_contacts_denied">Tanpa akses kontak, nomor tidak dikenal tidak bisa dikenali</string>
+    <string name="blocknum_section_numbers">Nomor</string>
+</resources>

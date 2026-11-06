@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">Etiketler</string>
+    <string name="i29_picker_title">Etiketler</string>
+    <string name="i29_picker_empty">Henüz etiketiniz yok. Görüşmelerinizi düzenlemek için bir etiket oluşturun.</string>
+    <string name="i29_picker_new">Yeni etiket</string>
+    <string name="i29_picker_manage">Etiketleri yönetin</string>
+    <string name="i29_done">Bitti</string>
+    <string name="i29_cancel">İptal edin</string>
+    <string name="i29_tiles_title">Etiketleriniz</string>
+    <string name="i29_tile_add">Etiket ekleyin</string>
+    <string name="i29_tiles_manage">Etiketleri yönetin</string>
+    <string name="i29_manager_title">Etiketleri yönetin</string>
+    <string name="i29_manager_note">Etiketler size özeldir. Otomatik İşlemler ve Teklifler filtrelerinden ayrıdır.</string>
+    <string name="i29_manager_edit">Etiketi düzenleyin: %1$s</string>
+    <string name="i29_manager_delete">Etiketi silin: %1$s</string>
+    <string name="i29_edit_new_title">Yeni etiket</string>
+    <string name="i29_edit_title">Etiketi düzenleyin</string>
+    <string name="i29_edit_name">Etiket adı</string>
+    <string name="i29_edit_save">Kaydedin</string>
+    <string name="i29_color_description">Renk %1$d</string>
+    <string name="i29_error_duplicate">Bu adda bir etiketiniz zaten var.</string>
+    <string name="i29_error_limit">En fazla %1$d etiketiniz olabilir.</string>
+    <string name="i29_delete_title">Bu etiket silinsin mi?</string>
+    <string name="i29_delete_body">“%1$s” etiketi kaldırılacak. Görüşmeleriniz ve mesajlarınız olduğu gibi kalacak.</string>
+    <string name="i29_delete_confirm">Silin</string>
+    <string name="i29_empty_title">Burada görüşme yok</string>
+    <string name="i29_empty_body">Eklemek için bir görüşmeye basılı tutun, menüyü açın ve Etiketler\'i seçin.</string>
+</resources>

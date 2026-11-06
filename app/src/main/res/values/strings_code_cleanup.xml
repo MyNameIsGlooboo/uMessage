@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- I02: delete read verification codes after a while. -->
+    <string name="cleanup_codes_title">Delete read codes after</string>
+    <string name="cleanup_codes_summary">Codes move to the recycle bin</string>
+    <string name="cleanup_never">Never</string>
+    <string name="cleanup_24_hours">24 hours</string>
+    <plurals name="cleanup_days">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+    <string name="cleanup_card_title">Delete read codes after 7 days?</string>
+    <string name="cleanup_card_body">Verification codes you have read move to the recycle bin, where you can get them back.</string>
+    <string name="cleanup_card_yes">Turn on</string>
+    <string name="cleanup_card_no">No thanks</string>
+</resources>

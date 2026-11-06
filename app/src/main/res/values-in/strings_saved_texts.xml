@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">Teks tersimpan</string>
+    <string name="n06_sheet_title">Teks tersimpan</string>
+    <string name="n06_empty_hint">Misalnya: alamat atau nomor kartu Anda. Ketuk salah satu untuk memasukkannya ke pesan.</string>
+    <string name="n06_add">Tambah teks tersimpan</string>
+    <string name="n06_edit">Ubah teks tersimpan</string>
+    <string name="n06_title_label">Judul (opsional)</string>
+    <string name="n06_text_label">Teks</string>
+    <string name="n06_save">Simpan</string>
+    <string name="n06_delete">Hapus</string>
+    <string name="n06_private_tip">Hanya disimpan di ponsel ini, tanpa enkripsi. Jangan simpan sandi atau PIN.</string>
+    <string name="n06_save_from_message">Simpan sebagai teks tersimpan</string>
+    <string name="n06_saved_toast">Disimpan</string>
+    <string name="n06_save_full">Daftar penuh. Hapus salah satu terlebih dahulu.</string>
+    <string name="n06_save_duplicate">Sudah disimpan</string>
+</resources>

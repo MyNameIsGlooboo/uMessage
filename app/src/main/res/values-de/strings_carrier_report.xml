@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">Spam melden</string>
+    <string name="carrier_report_row_title">Spam-Meldenummer des Mobilfunkanbieters</string>
+    <string name="carrier_report_row_summary">Spam per SMS an deinen Mobilfunkanbieter melden</string>
+    <string name="carrier_report_not_set">Nicht festgelegt</string>
+    <string name="carrier_report_hint">Die Spam-Meldenummer deines Mobilfunkanbieters. Meldungen werden als SMS gesendet und können kostenpflichtig sein.</string>
+    <string name="carrier_report_invalid">Gib 3 bis 8 Ziffern ein</string>
+    <string name="carrier_report_action">An Mobilfunkanbieter melden</string>
+    <string name="carrier_report_title">An deinen Mobilfunkanbieter melden?</string>
+    <string name="carrier_report_body">Die neueste Nachricht dieses Absenders wird als SMS an %1$s gesendet. Dein Mobilfunkanbieter kann dafür Gebühren berechnen.</string>
+    <string name="carrier_report_send">Senden</string>
+    <string name="carrier_report_sent">Meldung an deinen Mobilfunkanbieter gesendet</string>
+    <string name="carrier_report_failed">Die Meldung konnte nicht gesendet werden</string>
+</resources>

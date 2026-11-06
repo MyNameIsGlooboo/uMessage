@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_text_xsmall">เล็กพิเศษ</string>
+    <string name="w3c_text_huge">ใหญ่พิเศษ</string>
+    <string name="w3c_text_giant">ใหญ่ที่สุด</string>
+</resources>

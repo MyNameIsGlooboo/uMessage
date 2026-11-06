@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fixes_unarchive_title">Розархівувати?</string>
+    <string name="fixes_unarchive_message">Повернути %1$s до вашого списку чатів?</string>
+</resources>

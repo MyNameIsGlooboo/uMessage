@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">Neden</string>
+    <string name="thread_r2_details_rule">Kural</string>
+    <string name="thread_r2_details_forwarded">İletildi</string>
+    <string name="thread_r2_details_decision_restored">Engellendi, ardından gelen kutunuza geri yüklendi</string>
+    <string name="thread_r2_details_copy">%1$s kopyalayın</string>
+    <string name="thread_r2_menu_search">Görüşmede arayın</string>
+    <string name="thread_r2_menu_always_forward">Bu gönderenden gelenleri her zaman iletin</string>
+    <string name="thread_r2_block_hint">Bundan sonraki mesajlar Engellenenler bölümüne gider. Hiçbir veri telefonunuzdan çıkmaz.</string>
+    <string name="thread_r2_forward_message">Bu mesajı iletin</string>
+    <string name="thread_r2_search_hint">Görüşmede arayın</string>
+    <string name="thread_r2_search_close">Aramayı kapatın</string>
+    <string name="thread_r2_search_none">Eşleşme yok</string>
+    <string name="thread_r2_search_count">%1$d / %2$d</string>
+    <string name="thread_r2_search_older">Daha eski eşleşme</string>
+    <string name="thread_r2_search_newer">Daha yeni eşleşme</string>
+    <string name="thread_r2_link_copy">Bağlantıyı kopyalayın</string>
+    <string name="thread_r2_link_share">Paylaşın</string>
+    <string name="thread_r2_schedule_pick_date">Tarih seçin</string>
+    <string name="thread_r2_calendar_previous">Önceki ay</string>
+    <string name="thread_r2_calendar_next">Sonraki ay</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">Сокращенная ссылка: не видно, куда она ведет.</string>
+    <string name="i07_punycode">Имя закодировано: видимые буквы могут отличаться от тех, из которых оно состоит.</string>
+    <string name="i07_mixed_script">В имени смешаны алфавиты — так часто делают поддельные сайты.</string>
+    <string name="i07_raw_ip">Адрес указан числом, а не именем сайта.</string>
+    <string name="i07_http_only">Без шифрования (http вместо https).</string>
+    <string name="i07_lookalike">Имя похоже на %1$s. Проверьте написание.</string>
+    <string name="i07_user_info">Часть перед @ — не адрес сайта.</string>
+    <string name="i07_locked">Здесь нельзя открывать опасные ссылки. Вы можете скопировать ссылку.</string>
+    <string name="i07_lock_title">Запрет открытия опасных ссылок</string>
+    <string name="i07_lock_summary">В меню ссылки можно будет только скопировать ее или поделиться</string>
+    <string name="i07_group_title">Ссылки</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3_inbox_filter_show">Показать фильтры</string>
+    <string name="r3_inbox_filter_hide">Скрыть фильтры</string>
+    <string name="r3_inbox_filter_show_active">Показать фильтры. Включен фильтр «%1$s»</string>
+    <string name="r3_inbox_filter_hide_active">Скрыть фильтры. Включен фильтр «%1$s»</string>
+</resources>

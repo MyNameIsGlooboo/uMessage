@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">清空归档</string>
+    <string name="inbox_empty_bin_menu">清空回收站</string>
+    <string name="inbox_archive_empty_body">从“消息”中归档的会话会显示在这里。</string>
+    <string name="inbox_details_view_contact">查看联系人</string>
+    <string name="inbox_details_more">更多</string>
+    <string name="inbox_details_search">在会话中搜索</string>
+    <string name="inbox_details_search_body">查找此会话中的消息</string>
+    <string name="inbox_details_forward">此发件人的转发规则</string>
+    <string name="inbox_details_forward_body">将此发件人的短信副本发送到其他号码</string>
+    <string name="inbox_details_search_hint">搜索此会话</string>
+</resources>

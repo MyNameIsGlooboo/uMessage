@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">SIMの名前</string>
+    <string name="i34_setting_summary">各SIMに名前と番号を設定</string>
+    <string name="i34_dialog_title">SIMの名前</string>
+    <string name="i34_number_note">通信事業者からアプリに電話番号が提供されないことが多いため、ここに入力します。名前と番号はこのスマートフォン内にのみ保存されます。</string>
+    <string name="i34_sim_heading">SIM%1$d、%2$s</string>
+    <string name="i34_nickname">名前（例：仕事用）</string>
+    <string name="i34_number">電話番号</string>
+</resources>

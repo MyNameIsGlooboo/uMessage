@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_review_details_decision">判定</string>
+    <string name="thread_review_details_decision_allowed">許可済み：受信トレイに配信済み</string>
+    <string name="thread_review_details_type">種類</string>
+    <string name="thread_review_details_type_sms">SMS</string>
+    <string name="thread_review_details_type_mms">MMS</string>
+    <string name="thread_review_sim_slot_name">SIM%1$d・%2$s</string>
+    <string name="thread_review_copy_code">コードをコピー</string>
+    <string name="thread_review_copy_password">パスワードをコピー</string>
+    <string name="thread_review_copy_username">ユーザー名をコピー</string>
+    <string name="thread_review_sim_label">SIM%1$s</string>
+    <string name="thread_review_sends_from">%1$sから送信</string>
+    <string name="thread_review_reply_disabled">この送信者は返信を受信できません。</string>
+    <string name="thread_review_attach_camera">カメラ</string>
+    <string name="thread_review_attach_voice">音声</string>
+    <string name="thread_review_schedule_in_hour">1時間後</string>
+    <string name="thread_review_schedule_evening">今日の夕方</string>
+    <string name="thread_review_schedule_tomorrow">明日9：00</string>
+</resources>

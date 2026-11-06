@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">تکرار</string>
+    <string name="schedule_repeat_never">هرگز</string>
+    <string name="schedule_repeat_daily">هر روز</string>
+    <string name="schedule_repeat_weekly">هر هفته</string>
+    <string name="schedule_repeat_monthly">هر ماه</string>
+    <string name="schedule_repeat_yearly">هر سال</string>
+    <string name="schedule_repeat_jalali_note">ماه‌ها و سال‌ها بر اساس تقویم جلالی هستند.</string>
+    <string name="scheduled_repeats_daily">هر روز تکرار می‌شود</string>
+    <string name="scheduled_repeats_weekly">هر هفته تکرار می‌شود</string>
+    <string name="scheduled_repeats_monthly">هر ماه تکرار می‌شود</string>
+    <string name="scheduled_repeats_yearly">هر سال تکرار می‌شود</string>
+    <string name="scheduled_repeats_paused">تکرار متوقف است</string>
+    <string name="scheduled_delete_repeating">حذف پیام تکرارشونده</string>
+    <string name="scheduled_delete_this_one">فقط همین پیام</string>
+    <string name="scheduled_delete_all_future">این پیام و همهٔ تکرارهای بعدی</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialogs_yes">はい</string>
+    <string name="dialogs_no">いいえ</string>
+    <string name="dialogs_permission_required">権限が必要です</string>
+    <string name="dialogs_grant_permission">権限を付与</string>
+    <string name="dialogs_date_time_format_title">日時の表示形式</string>
+    <string name="dialogs_use_24_hour">24時間表示を使用</string>
+    <string name="dialogs_lock_pattern">パターン</string>
+    <string name="dialogs_lock_pin">PIN</string>
+    <string name="dialogs_lock_biometrics">生体認証</string>
+    <string name="dialogs_lock_fingerprint">指紋</string>
+    <string name="dialogs_lock_enter_pin">PINを入力</string>
+    <string name="dialogs_lock_repeat_pin">PINを再入力</string>
+    <string name="dialogs_lock_wrong_pin">PINが違います。</string>
+    <string name="dialogs_lock_empty_pin">PINを入力してください。</string>
+    <string name="dialogs_lock_short_pin">PINは4桁以上にしてください。</string>
+    <string name="dialogs_lock_pin_suggestion">4桁以上にしてください。%d桁以上にするとより安全です。</string>
+    <plurals name="dialogs_lock_short_pattern">
+        <item quantity="other">短すぎます。%d個以上の点をつないでください。</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">パターンを描く</string>
+    <string name="dialogs_lock_repeat_pattern">パターンを再入力</string>
+    <string name="dialogs_lock_wrong_pattern">パターンが違います。</string>
+    <string name="dialogs_lock_locked_out">ロック解除の試行回数が上限に達しました。\n%d秒後にもう一度お試しください。</string>
+    <string name="dialogs_lock_pin_delete">末尾の数字を削除</string>
+    <string name="dialogs_lock_pin_confirm">PINを確定</string>
+    <string name="dialogs_lock_pin_entered">%d桁入力済み</string>
+    <string name="dialogs_lock_pattern_pad">パターン入力欄</string>
+    <string name="dialogs_lock_biometric_hint">指紋または顔で本人確認をしてください。</string>
+    <string name="dialogs_lock_biometric_open">生体認証で確認</string>
+    <string name="dialogs_lock_place_finger">指紋センサーに指を置いてください。</string>
+    <string name="dialogs_lock_no_fingerprints">指紋が登録されていません。端末の設定で追加してください。</string>
+    <string name="dialogs_lock_open_settings">端末の設定を開く</string>
+    <string name="dialogs_lock_auth_failed">認証に失敗しました。</string>
+    <string name="dialogs_lock_auth_blocked">認証がブロックされました。しばらくしてからもう一度お試しください。</string>
+</resources>

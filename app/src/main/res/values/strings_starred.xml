@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">Star</string>
+    <string name="i13_unstar">Unstar</string>
+    <string name="i13_starred_mark">Starred</string>
+    <string name="i13_filter_starred">Starred</string>
+    <string name="i13_filter_starred_empty_title">No starred messages</string>
+    <string name="i13_filter_starred_empty_body">Select a message in a chat and tap the star to keep it here.</string>
+    <string name="i13_starred_note">A star keeps a copy of the text, even if the chat is deleted. Unstar removes the copy.</string>
+    <string name="i13_snapshot_gone">This chat was deleted. Only the saved text is left.</string>
+    <string name="i13_snapshot_close">Close</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="digest_channel">हफ़्ते का सारांश</string>
+    <string name="digest_title">हफ़्ते का सारांश</string>
+    <string name="digest_row_title">हफ़्ते का सारांश</string>
+    <string name="digest_row_summary">हफ़्ते में एक बार: कितने मैसेज ब्लॉक किए गए</string>
+    <plurals name="digest_held" tools:ignore="ImpliedQuantity">
+        <item quantity="one">इस हफ़्ते %d मैसेज रोका गया. देखने के लिए टैप करें.</item>
+        <item quantity="other">इस हफ़्ते %d मैसेज रोके गए. देखने के लिए टैप करें.</item>
+    </plurals>
+    <plurals name="digest_held_important" tools:ignore="ImpliedQuantity">
+        <item quantity="one">इस हफ़्ते %1$d मैसेज रोका गया. इनमें कोड या बैंक अलर्ट: %2$d.</item>
+        <item quantity="other">इस हफ़्ते %1$d मैसेज रोके गए. इनमें कोड या बैंक अलर्ट: %2$d.</item>
+    </plurals>
+</resources>

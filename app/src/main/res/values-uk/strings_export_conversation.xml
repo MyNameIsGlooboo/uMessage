@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="export_conv_menu">Експорт чату</string>
+    <string name="export_conv_title">Експорт чату</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">Звичайний текст</string>
+    <string name="export_conv_dates_all">За весь час</string>
+    <string name="export_conv_dates_30">За останні 30 днів</string>
+    <string name="export_conv_dates_pick">Вибрати дати</string>
+    <string name="export_conv_pick_from">З якого дня?</string>
+    <string name="export_conv_pick_to">До якого дня?</string>
+    <string name="export_conv_action">Експорт</string>
+    <string name="export_conv_preparing">Підготовка файлу…</string>
+    <string name="export_conv_nothing">За цей період немає повідомлень</string>
+    <string name="export_conv_failed">Не вдалося створити файл</string>
+    <string name="export_conv_subject">Експорт чату</string>
+    <string name="export_conv_share_text">Чат із %1$s, %2$s. SHA-256 тексту повідомлень: %3$s</string>
+    <string name="export_conv_attachment_label">[Вкладення]</string>
+    <string name="export_pdf_title">Експорт чату</string>
+    <string name="export_pdf_with">Чат із: %1$s</string>
+    <string name="export_pdf_numbers">Номери: %1$s</string>
+    <string name="export_pdf_range">Період: %1$s</string>
+    <string name="export_pdf_zone">Час указано в часовому поясі %1$s</string>
+    <string name="export_pdf_exported">Експортовано: %1$s</string>
+    <plurals name="export_pdf_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d повідомлення</item>
+        <item quantity="few">%1$d повідомлення</item>
+        <item quantity="many">%1$d повідомлень</item>
+        <item quantity="other">%1$d повідомлення</item>
+    </plurals>
+    <string name="export_pdf_hash">SHA-256 тексту повідомлень: %1$s</string>
+    <string name="export_pdf_not_certified">Експортовано з телефона; не є засвідченим документом.</string>
+    <string name="export_pdf_page">Сторінка %1$d із %2$d</string>
+    <string name="export_pdf_from">Від: %1$s</string>
+    <string name="export_pdf_to">Кому: %1$s</string>
+    <string name="export_pdf_attachment">Вкладення: %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">файл без назви</string>
+    <string name="export_status_received">Отримано</string>
+    <string name="export_status_sent">Надіслано</string>
+    <string name="export_status_delivered">Доставлено</string>
+    <string name="export_status_failed">Не вдалося надіслати</string>
+    <string name="export_status_sending">Надсилання</string>
+    <string name="export_status_draft">Чернетка</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allow_similar_title">อนุญาตข้อความแบบนี้ด้วย</string>
+    <string name="allow_similar_sender">ผู้ส่งทุกรายที่ชื่อ %1$s</string>
+    <string name="allow_similar_prefix">ทุกหมายเลขที่ขึ้นต้นด้วย %1$s</string>
+    <string name="allow_similar_keyword">ทุกข้อความที่มีคำว่า “%1$s”</string>
+    <string name="allow_similar_risk_sender">ใครก็ใช้ชื่อแบบนี้ส่งข้อความได้</string>
+    <string name="allow_similar_risk_prefix">หมายเลขอื่นที่ขึ้นต้นเหมือนกันจะผ่านได้ด้วย</string>
+    <string name="allow_similar_risk_keyword">ใครก็ใช้คำนี้ได้ สแปมที่มีคำนี้จึงผ่านได้ด้วย</string>
+    <string name="allow_similar_edit">แก้ไขกฎนี้</string>
+</resources>

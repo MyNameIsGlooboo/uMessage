@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="e_day_today">Hôm nay</string>
+    <string name="e_day_yesterday">Hôm qua</string>
+    <plurals name="e_blocked_stats_total">
+        <item quantity="other">Đã chặn tổng cộng %d tin nhắn</item>
+    </plurals>
+    <string name="e_restored_title">Đã khôi phục gần đây</string>
+    <string name="e_restored_body">Tin nhắn bạn đã chuyển vào hộp thư đến trong 30 ngày qua. Nhấn vào một tin nhắn để mở cuộc trò chuyện.</string>
+    <string name="e_restored_empty">Từ giờ, tin nhắn bạn chuyển vào hộp thư đến sẽ được liệt kê ở đây trong 30 ngày.</string>
+    <string name="e_restored_when">Đã chuyển vào hộp thư đến %1$s</string>
+    <string name="e_restored_open">Mở cuộc trò chuyện với %1$s</string>
+    <string name="e_snack_allowed_one">Đã luôn cho phép %1$s trên cả hai SIM</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="other">Đã luôn cho phép %d người gửi trên cả hai SIM</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">Đã luôn cho phép %1$s</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="other">Đã luôn cho phép %d người gửi</item>
+    </plurals>
+    <string name="e_view_rule">Xem quy tắc</string>
+    <string name="e_rules_title">Quy tắc</string>
+    <string name="e_rules_menu_backup">Sao lưu và khôi phục</string>
+    <string name="e_note_blocked_by_you">Đã chặn theo lựa chọn của bạn</string>
+    <string name="e_note_allowed_by_you">Đã cho phép theo lựa chọn của bạn</string>
+    <string name="e_note_blocked_from_message">Đã chặn từ một tin nhắn</string>
+    <string name="e_note_blocked_from_keyword">Đã chặn từ một từ khóa</string>
+    <string name="e_note_reported_spam">Đã báo cáo tin nhắn rác</string>
+    <string name="e_note_old_word_list">Từ danh sách từ bị chặn cũ</string>
+    <string name="e_note_system_list">Từ danh sách chặn của Android</string>
+    <string name="e_note_quoted">“%1$s”</string>
+    <string name="e_example_block_cancel_word">Chặn tin nhắn chứa لغو۱۱</string>
+    <string name="e_example_block_ad_prefix">Chặn số quảng cáo bắt đầu bằng 3000</string>
+    <string name="e_example_allow_number">Luôn cho phép một số, như số bưu điện của bạn</string>
+    <string name="e_sheet_sender_label">Người gửi</string>
+    <string name="e_sheet_text_label">Nội dung tin nhắn</string>
+    <string name="e_value_number">Số điện thoại</string>
+    <string name="e_value_prefix">Số bắt đầu bằng</string>
+    <string name="e_value_sender">Tên người gửi</string>
+    <string name="e_value_keyword">Nội dung cần tìm</string>
+    <string name="e_value_pattern">Biểu thức chính quy</string>
+    <string name="e_pattern_blocks_label">Bắt đầu từ</string>
+    <string name="e_pattern_link">Chứa liên kết</string>
+    <string name="e_pattern_long_number">Số có từ 5 chữ số</string>
+    <string name="e_pattern_starts_with">Bắt đầu bằng</string>
+    <string name="e_pattern_any_of">Chứa một trong các từ</string>
+    <string name="e_pattern_link_sentence">Khớp với tin nhắn có liên kết.</string>
+    <string name="e_pattern_long_number_sentence">Khớp với tin nhắn chứa số có từ 5 chữ số trở lên.</string>
+    <string name="e_pattern_starts_with_sentence">Khớp với tin nhắn bắt đầu bằng nội dung bạn nhập sau ^.</string>
+    <string name="e_pattern_any_of_sentence">Khớp với tin nhắn chứa một trong các từ trong ngoặc. Ngăn cách các từ bằng |.</string>
+    <plurals name="e_migrate_title_numbers">
+        <item quantity="other">Chuyển %d số vào quy tắc uMessage</item>
+    </plurals>
+    <string name="e_migrate_point_blocked">• Tin nhắn từ các số này sẽ vào mục Đã chặn để bạn đọc và khôi phục.</string>
+    <string name="e_migrate_point_android">• Android vẫn loại bỏ tin nhắn từ các số này cho đến khi chúng được xóa khỏi danh sách của Android.</string>
+    <string name="e_migrate_calls_note">Danh sách của Android cũng chặn cuộc gọi. Các số bạn xóa khỏi danh sách có thể gọi lại cho bạn.</string>
+    <string name="e_bn_unknown_body">Chỉ áp dụng khi mục Người gửi không xác định được đặt thành Tắt.</string>
+    <string name="e_bn_row_calls_texts">Chặn cuộc gọi và tin nhắn</string>
+    <string name="e_bn_row_short_code">Số ngắn: uMessage không bao giờ nhận được tin nhắn từ số này</string>
+    <string name="e_bn_move_one">Chuyển vào quy tắc uMessage</string>
+    <string name="e_bn_moved">Đã thêm %1$s vào quy tắc uMessage. Tin nhắn từ số này vào mục Đã chặn, còn cuộc gọi không bị chặn nữa.</string>
+    <string name="e_bn_field_help">Ví dụ: +15550001234 hoặc +1555* cho mọi số bắt đầu bằng +1555</string>
+    <string name="e_bn_short_code_warning">Đây có vẻ là số ngắn. Android loại bỏ tin nhắn từ số này trước khi uMessage nhận được, nên bạn không thể khôi phục bất kỳ tin nhắn nào, như mã hoặc thông báo ngân hàng.</string>
+    <string name="e_bn_add_as_rule">Thêm vào quy tắc uMessage thay thế</string>
+    <string name="e_bn_added_as_rule">Đã thêm %1$s vào quy tắc uMessage. Tin nhắn từ số này vào mục Đã chặn.</string>
+</resources>

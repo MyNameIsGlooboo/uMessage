@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_switch_title">准备改用uMessage？</string>
+    <string name="onb_switch_body">从其他短信应用切换过来？请先关闭原应用的聊天功能。换了手机？完成设置后即可恢复备份。</string>
+    <string name="onb_switch_action">恢复备份</string>
+    <string name="onb_switch_done_note">完成后将打开“备份与恢复”。</string>
+</resources>

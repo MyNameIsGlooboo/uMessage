@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_scope_title">Qué bloquear</string>
+    <string name="lock_scope_whole">Toda la aplicación</string>
+    <string name="lock_scope_chosen">Solo las secciones elegidas</string>
+    <string name="lock_scope_chosen_long">Solo las secciones elegidas: la pestaña Bloqueados y las conversaciones ocultas</string>
+    <string name="lock_scope_blocked_title">Los mensajes bloqueados están protegidos</string>
+    <string name="lock_scope_blocked_body">Desbloquea para verlos.</string>
+    <string name="lock_scope_unlock">Desbloquear</string>
+</resources>

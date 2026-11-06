@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">Отправлять точно в срок?</string>
+    <string name="schedule_exact_alarm_text">Чтобы запланированные сообщения отправлялись точно в срок, дайте uMessage разрешение «Будильники и напоминания» в настройках системы. Без него сообщения тоже отправятся, но могут задержаться.</string>
+    <string name="schedule_exact_alarm_open_settings">Открыть настройки</string>
+    <string name="schedule_exact_alarm_anyway">Все равно запланировать отправку</string>
+</resources>

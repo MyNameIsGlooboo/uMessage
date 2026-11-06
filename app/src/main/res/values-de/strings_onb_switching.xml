@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_switch_title">Wechselst du zu uMessage?</string>
+    <string name="onb_switch_body">Kommst du von einer anderen SMS-App? Deaktiviere zuerst deren Chatfunktionen. Wechselst du von einem anderen Smartphone? Stelle nach der Einrichtung deine gesicherten Daten wieder her.</string>
+    <string name="onb_switch_action">Gesicherte Daten wiederherstellen</string>
+    <string name="onb_switch_done_note">Nach Abschluss öffnet sich „Sichern und wiederherstellen“.</string>
+</resources>

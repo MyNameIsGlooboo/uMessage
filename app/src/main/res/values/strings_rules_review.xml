@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <!-- Design review 2: Rules screen, rule editors, forward editor, Android block list -->
+
+    <!-- Tabs -->
+    <string name="rules2_tab_allowed">Always allow</string>
+    <string name="rules2_tab_blocked">Always block</string>
+
+    <!-- Overflow menu -->
+    <string name="rules2_menu_import">Import rules from file</string>
+    <string name="rules2_menu_export">Export rules to file</string>
+    <string name="rules2_menu_system">Blocked numbers (phone)</string>
+    <string name="rules2_import_scope">A rules file holds allow and block rules only. It has no messages and no forward rules.</string>
+
+    <!-- Rule rows -->
+    <string name="rules2_meta">%1$s · %2$s</string>
+
+    <!-- Empty states -->
+    <string name="rules2_empty_allowed_title">No senders always allowed</string>
+    <string name="rules2_empty_allowed_body">Add a number, sender name or word that must always reach your inbox.</string>
+    <string name="rules2_empty_blocked_title">No senders always blocked</string>
+    <string name="rules2_empty_blocked_body">Add a number, sender name, word or pattern to send to Blocked.</string>
+
+    <!-- Older block lists banner and the Android block list section -->
+    <string name="rules2_legacy_banner_title">Found older block lists</string>
+    <string name="rules2_legacy_banner_body">Move them into rules to see and restore what they block.</string>
+    <string name="rules2_legacy_review">Review</string>
+    <string name="rules2_system_header">Android block list (also blocks calls)</string>
+    <string name="rules2_system_body">Android drops texts from these numbers before uMessage sees them, so they never appear in Blocked and cannot be restored.</string>
+    <string name="rules2_system_manage">Manage</string>
+    <string name="rules2_system_move">Move to uMessage rules</string>
+
+    <!-- Move older lists dialog -->
+    <string name="rules2_migrate_title">Move to uMessage rules</string>
+    <string name="rules2_migrate_point_blocked">Texts then go to Blocked, where you can restore them.</string>
+    <string name="rules2_migrate_remove_needs_first">Tick the option above first.</string>
+    <string name="rules2_migrate_nothing_selected">Nothing selected</string>
+    <plurals name="rules2_migrate_confirm_count">
+        <item quantity="one">Move %d item</item>
+        <item quantity="other">Move %d items</item>
+    </plurals>
+
+    <!-- Add and edit rule sheet -->
+    <string name="rules2_sheet_list_label">Add to list</string>
+    <string name="rules2_sheet_list_allow">Always allow</string>
+    <string name="rules2_sheet_list_block">Always block</string>
+    <string name="rules2_sheet_delete">Delete rule</string>
+    <string name="rules2_sheet_hint_empty">Enter a value to continue</string>
+    <string name="rules2_sheet_hint_fix">Fix the value above to continue</string>
+    <string name="rules2_sheet_sim_help">Rules for one SIM only apply to messages that arrive on that SIM.</string>
+    <string name="rules2_type_number_help">An exact phone number, for example +15550001234 or 05550001234. Short codes such as 3000 work too. Persian digits are fine.</string>
+    <string name="rules2_type_number_hint">+15550001234</string>
+    <string name="rules2_type_prefix_help">Every number that starts with this, for example +1555 or 0555.</string>
+    <string name="rules2_type_prefix_hint">+1555</string>
+    <string name="rules2_type_sender_id_help">A text sender such as VM-HDFCBK or Bank Melli. Capital letters do not matter.</string>
+    <string name="rules2_type_regex_help">Advanced. A regular expression matched against the message text. Test it below before you save.</string>
+    <string name="rules2_err_sender_id">Use letters, digits, spaces, dots, dashes or &amp; (up to 32 characters, at least one letter)</string>
+    <string name="rules2_err_sender_id_char">“%1$s” cannot be used in a sender name. Use letters, digits, spaces, dots, dashes or &amp;.</string>
+
+    <!-- Test a keyword or pattern on a sample message -->
+    <string name="rules2_test_label">Test on a sample message</string>
+    <string name="rules2_test_hint">Paste or type a message to try this rule on</string>
+    <string name="rules2_test_match">This rule would match that message</string>
+    <string name="rules2_test_no_match">This rule would not match that message</string>
+    <string name="rules2_test_unusable">This pattern cannot be tried. Check it above.</string>
+
+    <!-- Android block list screen -->
+    <string name="rules2_bn_title">Android block list</string>
+    <string name="rules2_bn_info">Stored in Android. Blocks calls and texts from these numbers. uMessage rules are separate.</string>
+    <plurals name="rules2_bn_move">
+        <item quantity="one">Move %1$d number to rules</item>
+        <item quantity="other">Move %1$d numbers to rules</item>
+    </plurals>
+
+    <!-- Forward tab and editor -->
+    <string name="forward2_intro_reassure">Only messages that reach your inbox are forwarded. Blocked spam never is.</string>
+    <string name="forward2_empty_title">No forward rules yet</string>
+    <string name="forward2_empty_body">Send a copy of matching messages, such as bank alerts, to another phone. Start from one of these.</string>
+    <string name="forward2_template_bank">Forward bank alerts</string>
+    <string name="forward2_template_bank_word">bank</string>
+    <string name="forward2_template_sender">Forward one sender</string>
+    <string name="forward2_save">Save forward rule</string>
+    <string name="forward2_hint_condition">Choose a sender or a text to match</string>
+    <string name="forward2_hint_target">Add a phone number to forward to</string>
+    <string name="forward2_hint_fix">Fix the fields marked in red</string>
+    <string name="forward2_condition_why">Forwarding every message is not allowed: each forward costs an SMS.</string>
+    <string name="forward2_broad_title">Forward a lot of messages?</string>
+    <string name="forward2_broad_message">This rule matches very many messages and has no sender limit. Every message it matches is sent on as a paid SMS.</string>
+    <string name="forward2_broad_confirm">Save anyway</string>
+    <string name="forward2_broad_inline">This text is very common and any sender counts. It can forward many messages and cost a lot.</string>
+    <string name="forward2_target_own">That is one of your own numbers. Forwarding to yourself would loop.</string>
+    <string name="forward2_target_sender">That is the sender this rule watches. Forwarding to it would loop.</string>
+    <string name="forward2_target_ok">Valid number</string>
+    <string name="forward2_pick_contact">Pick from contacts</string>
+    <plurals name="forward2_cost_estimate">
+        <item quantity="one">%1$d number: at least 1 SMS for every forwarded message.</item>
+        <item quantity="other">%1$d numbers: at least %1$d SMS for every forwarded message.</item>
+    </plurals>
+    <string name="forward2_window_help">Example: 22:00 to 06:00 forwards overnight.</string>
+    <string name="forward2_window_summary">Forwards every day from %1$s to %2$s</string>
+    <string name="forward2_window_summary_night">Forwards every night from %1$s to %2$s</string>
+    <string name="forward2_scope_help">Which SIM the message must arrive on.</string>
+    <string name="forward2_send_help">“Same SIM” sends the forward from the SIM the message arrived on. A SIM without credit cannot send.</string>
+    <string name="forward2_codes_title">Forward verification codes (OTP)</string>
+    <string name="forward2_codes_off">Off: sign-in and verification codes are never forwarded.</string>
+    <string name="forward2_codes_on">On: codes are forwarded too. Only use this for your own devices, a code gives access to an account.</string>
+</resources>

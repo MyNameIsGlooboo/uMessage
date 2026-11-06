@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialogs_yes">예</string>
+    <string name="dialogs_no">아니요</string>
+    <string name="dialogs_permission_required">권한 필요</string>
+    <string name="dialogs_grant_permission">권한 허용</string>
+    <string name="dialogs_date_time_format_title">날짜 및 시간 형식</string>
+    <string name="dialogs_use_24_hour">24시간 형식 사용</string>
+    <string name="dialogs_lock_pattern">패턴</string>
+    <string name="dialogs_lock_pin">PIN</string>
+    <string name="dialogs_lock_biometrics">생체 인증</string>
+    <string name="dialogs_lock_fingerprint">지문</string>
+    <string name="dialogs_lock_enter_pin">PIN 입력</string>
+    <string name="dialogs_lock_repeat_pin">PIN 재입력</string>
+    <string name="dialogs_lock_wrong_pin">PIN 불일치</string>
+    <string name="dialogs_lock_empty_pin">PIN 번호를 입력해 주세요.</string>
+    <string name="dialogs_lock_short_pin">PIN 번호는 4자리 이상이어야 해요.</string>
+    <string name="dialogs_lock_pin_suggestion">최소 4자리로 설정해 주세요. %d자리 이상이면 더 안전해요.</string>
+    <plurals name="dialogs_lock_short_pattern">
+        <item quantity="other">너무 짧아요. 점을 %d개 이상 연결해 주세요.</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">패턴 그리기</string>
+    <string name="dialogs_lock_repeat_pattern">패턴 다시 그리기</string>
+    <string name="dialogs_lock_wrong_pattern">패턴이 일치하지 않아요.</string>
+    <string name="dialogs_lock_locked_out">잠금 해제를 너무 많이 틀렸어요.\n%d초 후에 다시 시도해 주세요.</string>
+    <string name="dialogs_lock_pin_delete">마지막 숫자 삭제</string>
+    <string name="dialogs_lock_pin_confirm">PIN 확인</string>
+    <string name="dialogs_lock_pin_entered">%d자리 입력됨</string>
+    <string name="dialogs_lock_pattern_pad">패턴 입력 영역</string>
+    <string name="dialogs_lock_biometric_hint">지문이나 얼굴로 본인임을 확인해 주세요.</string>
+    <string name="dialogs_lock_biometric_open">생체 인증</string>
+    <string name="dialogs_lock_place_finger">지문 센서에 손가락을 올려 주세요.</string>
+    <string name="dialogs_lock_no_fingerprints">등록된 지문이 없어요. 기기 설정에서 지문을 추가해 주세요.</string>
+    <string name="dialogs_lock_open_settings">기기 설정 열기</string>
+    <string name="dialogs_lock_auth_failed">인증에 실패했어요.</string>
+    <string name="dialogs_lock_auth_blocked">인증이 차단됐어요. 잠시 후 다시 시도해 주세요.</string>
+</resources>

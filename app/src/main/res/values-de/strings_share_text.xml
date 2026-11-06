@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_text_menu">Unterhaltung als Text teilen</string>
+    <string name="share_text_scope_title">Welche Nachrichten?</string>
+    <string name="share_text_scope_whole">Ganze Unterhaltung</string>
+    <string name="share_text_scope_last">Letzte 50 Nachrichten</string>
+    <string name="share_text_title">Als Text teilen</string>
+    <string name="share_text_warning">Dabei wird privater Text an eine andere App gesendet. Die App wählst du im nächsten Schritt.</string>
+    <string name="share_text_action">Teilen</string>
+    <string name="share_text_range">%1$s bis %2$s</string>
+    <string name="share_text_attachment">[Anhang]</string>
+    <string name="share_text_subject">Nachrichten aus uMessage</string>
+    <string name="share_text_nothing">Keine Nachrichten zum Teilen vorhanden</string>
+    <plurals name="share_text_count">
+        <item quantity="one">%1$d Nachricht</item>
+        <item quantity="other">%1$d Nachrichten</item>
+    </plurals>
+</resources>

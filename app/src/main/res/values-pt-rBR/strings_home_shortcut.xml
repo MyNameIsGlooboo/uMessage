@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">Adicione à tela inicial</string>
+    <string name="home_shortcut_requested">Solicitando ao seu app de tela inicial que adicione o atalho. O nome aparecerá na tela inicial. Se nada aparecer, permita “Atalhos na tela inicial” para o uMessage nas configurações de apps do celular.</string>
+    <string name="home_shortcut_failed">Seu app de tela inicial não aceitou o atalho. Permita “Atalhos na tela inicial” para o uMessage nas configurações de apps do celular.</string>
+</resources>

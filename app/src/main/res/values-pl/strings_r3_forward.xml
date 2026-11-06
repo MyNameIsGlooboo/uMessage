@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3fwd_title">Przekazywanie</string>
+    <string name="r3fwd_options">Opcje przekazywania</string>
+    <string name="r3fwd_summary_none">Wyłączone · Przekazuj wiadomości na inny numer</string>
+    <string name="r3fwd_summary_off">Wyłączone</string>
+    <string name="r3fwd_summary_paused">Wstrzymane</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="one">%d włączona reguła</item>
+        <item quantity="few">%d włączone reguły</item>
+        <item quantity="many">%d włączonych reguł</item>
+        <item quantity="other">%d włączonej reguły</item>
+    </plurals>
+    <string name="r3fwd_paused_title">Przekazywanie wstrzymane</string>
+    <string name="r3fwd_paused_body">Reguły są zapisane, ale wiadomości nie będą przekazywane, dopóki nie włączysz ponownie przekazywania.</string>
+    <string name="r3fwd_paused_action">Otwórz opcje</string>
+</resources>

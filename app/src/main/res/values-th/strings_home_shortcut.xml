@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">เพิ่มในหน้าจอหลัก</string>
+    <string name="home_shortcut_requested">กำลังขอให้แอปหน้าจอหลักเพิ่มทางลัด ชื่อการสนทนาจะแสดงบนหน้าจอหลัก หากไม่มีอะไรปรากฏ ให้เปิดอนุญาต “ทางลัดหน้าจอหลัก” สำหรับ uMessage ในการตั้งค่าแอปของโทรศัพท์</string>
+    <string name="home_shortcut_failed">แอปหน้าจอหลักไม่ยอมรับทางลัด ให้เปิดอนุญาต “ทางลัดหน้าจอหลัก” สำหรับ uMessage ในการตั้งค่าแอปของโทรศัพท์</string>
+</resources>

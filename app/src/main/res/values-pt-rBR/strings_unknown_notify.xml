@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unotify_title">Remetentes desconhecidos na caixa de entrada</string>
+    <string name="unotify_notify">Notifique</string>
+    <string name="unotify_silent">Notifique silenciosamente</string>
+    <string name="unotify_none">Sem notificação</string>
+    <string name="unotify_summary">As mensagens continuam chegando à caixa de entrada</string>
+    <string name="unotify_channel_silent">Remetentes desconhecidos (silencioso)</string>
+</resources>

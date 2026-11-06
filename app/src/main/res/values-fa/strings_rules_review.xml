@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="rules2_tab_allowed">همیشه اجازه دادن</string>
+    <string name="rules2_tab_blocked">همیشه مسدود کردن</string>
+    <string name="rules2_menu_import">وارد کردن قانون‌ها از فایل</string>
+    <string name="rules2_menu_export">صادر کردن قانون‌ها به فایل</string>
+    <string name="rules2_menu_system">شماره‌های مسدودشده (گوشی)</string>
+    <string name="rules2_import_scope">فایل قانون‌ها فقط شامل قانون‌های اجازه دادن و مسدود کردن است. هیچ پیام یا قانون بازارسالی ندارد.</string>
+    <string name="rules2_meta">%1$s، %2$s</string>
+    <string name="rules2_empty_allowed_title">هیچ فرستنده‌ای همیشه مجاز نیست</string>
+    <string name="rules2_empty_allowed_body">شماره، نام فرستنده یا واژه‌ای اضافه کنید که پیام‌هایش همیشه باید به صندوق ورودی شما برسد.</string>
+    <string name="rules2_empty_blocked_title">هیچ فرستنده‌ای همیشه مسدودشده نیست</string>
+    <string name="rules2_empty_blocked_body">شماره، نام فرستنده، واژه یا الگویی اضافه کنید تا پیام‌هایش به مسدودشده‌ها برود.</string>
+    <string name="rules2_legacy_banner_title">فهرست‌های مسدودی قدیمی پیدا شد</string>
+    <string name="rules2_legacy_banner_body">آن‌ها را به قانون‌ها منتقل کنید تا پیام‌های مسدودشده را ببینید و بازیابی کنید.</string>
+    <string name="rules2_legacy_review">بررسی</string>
+    <string name="rules2_system_header">فهرست مسدودی Android (تماس‌ها را هم مسدود می‌کند)</string>
+    <string name="rules2_system_body">Android پیام‌های این شماره‌ها را پیش از رسیدن به uMessage حذف می‌کند؛ پس هرگز در مسدودشده‌ها دیده نمی‌شوند و قابل بازیابی نیستند.</string>
+    <string name="rules2_system_manage">مدیریت</string>
+    <string name="rules2_system_move">انتقال به قانون‌های uMessage</string>
+    <string name="rules2_migrate_title">انتقال به قانون‌های uMessage</string>
+    <string name="rules2_migrate_point_blocked">پس از آن، پیام‌ها به مسدودشده‌ها می‌روند و می‌توانید آن‌ها را بازیابی کنید.</string>
+    <string name="rules2_migrate_remove_needs_first">ابتدا گزینهٔ بالا را علامت بزنید.</string>
+    <string name="rules2_migrate_nothing_selected">چیزی انتخاب نشده</string>
+    <plurals name="rules2_migrate_confirm_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">انتقال %d مورد</item>
+        <item quantity="other">انتقال %d مورد</item>
+    </plurals>
+    <string name="rules2_sheet_list_label">افزودن به فهرست</string>
+    <string name="rules2_sheet_list_allow">همیشه اجازه دادن</string>
+    <string name="rules2_sheet_list_block">همیشه مسدود کردن</string>
+    <string name="rules2_sheet_delete">حذف قانون</string>
+    <string name="rules2_sheet_hint_empty">برای ادامه، مقداری وارد کنید</string>
+    <string name="rules2_sheet_hint_fix">برای ادامه، مقدار بالا را اصلاح کنید</string>
+    <string name="rules2_sheet_sim_help">قانون‌های یک سیم‌کارت فقط روی پیام‌های دریافتی همان سیم‌کارت اعمال می‌شوند.</string>
+    <string name="rules2_type_number_help">یک شماره تلفن دقیق، مانند +15550001234 یا 05550001234. شماره‌های کوتاهی مثل 3000 هم پذیرفته می‌شوند. رقم‌های فارسی هم قابل استفاده‌اند.</string>
+    <string name="rules2_type_number_hint">+15550001234</string>
+    <string name="rules2_type_prefix_help">هر شماره‌ای که با این مقدار شروع شود، مثلاً +1555 یا 0555.</string>
+    <string name="rules2_type_prefix_hint">+1555</string>
+    <string name="rules2_type_sender_id_help">فرستنده‌ای با نام متنی، مانند VM-HDFCBK یا Bank Melli. بزرگی و کوچکی حروف مهم نیست.</string>
+    <string name="rules2_type_regex_help">پیشرفته. یک عبارت منظم که با متن پیام تطبیق داده می‌شود. پیش از ذخیره، آن را در پایین آزمایش کنید.</string>
+    <string name="rules2_err_sender_id">از حروف، رقم‌ها، فاصله، نقطه، خط تیره یا &amp; استفاده کنید (حداکثر ۳۲ نویسه، با حداقل یک حرف)</string>
+    <string name="rules2_err_sender_id_char">«%1$s» در نام فرستنده قابل استفاده نیست. از حروف، رقم‌ها، فاصله، نقطه، خط تیره یا &amp; استفاده کنید.</string>
+    <string name="rules2_test_label">آزمایش روی یک پیام نمونه</string>
+    <string name="rules2_test_hint">برای آزمایش این قانون، پیامی بچسبانید یا بنویسید</string>
+    <string name="rules2_test_match">این قانون با آن پیام مطابقت دارد</string>
+    <string name="rules2_test_no_match">این قانون با آن پیام مطابقت ندارد</string>
+    <string name="rules2_test_unusable">این الگو قابل آزمایش نیست. آن را در بالا بررسی کنید.</string>
+    <string name="rules2_bn_title">فهرست مسدودی Android</string>
+    <string name="rules2_bn_info">در Android ذخیره شده است. تماس‌ها و پیام‌های این شماره‌ها را مسدود می‌کند. قانون‌های uMessage جدا هستند.</string>
+    <plurals name="rules2_bn_move" tools:ignore="ImpliedQuantity">
+        <item quantity="one">انتقال %1$d شماره به قانون‌ها</item>
+        <item quantity="other">انتقال %1$d شماره به قانون‌ها</item>
+    </plurals>
+    <string name="forward2_intro_reassure">فقط پیام‌هایی که به صندوق ورودی شما می‌رسند بازارسال می‌شوند. هرزنامه‌های مسدودشده هرگز بازارسال نمی‌شوند.</string>
+    <string name="forward2_empty_title">هنوز قانون بازارسالی ندارید</string>
+    <string name="forward2_empty_body">یک نسخه از پیام‌های مطابق با قانون، مثل هشدارهای بانکی، به گوشی دیگری بفرستید. با یکی از این گزینه‌ها شروع کنید.</string>
+    <string name="forward2_template_bank">بازارسال هشدارهای بانکی</string>
+    <string name="forward2_template_bank_word">بانک</string>
+    <string name="forward2_template_sender">بازارسال پیام‌های یک فرستنده</string>
+    <string name="forward2_save">ذخیرهٔ قانون بازارسال</string>
+    <string name="forward2_hint_condition">فرستنده یا متنی برای تطبیق انتخاب کنید</string>
+    <string name="forward2_hint_target">شماره تلفنی برای مقصد بازارسال اضافه کنید</string>
+    <string name="forward2_hint_fix">کادرهای قرمزرنگ را اصلاح کنید</string>
+    <string name="forward2_condition_why">بازارسال همهٔ پیام‌ها مجاز نیست: هر بازارسال هزینهٔ یک SMS را دارد.</string>
+    <string name="forward2_broad_title">پیام‌های زیادی بازارسال شوند؟</string>
+    <string name="forward2_broad_message">این قانون با پیام‌های بسیار زیادی مطابقت دارد و فرستنده را محدود نمی‌کند. هر پیام مطابق با آن، به‌صورت SMS و با هزینه بازارسال می‌شود.</string>
+    <string name="forward2_broad_confirm">بااین‌حال ذخیره شود</string>
+    <string name="forward2_broad_inline">این متن بسیار رایج است و پیام هر فرستنده‌ای را شامل می‌شود. ممکن است پیام‌های زیادی بازارسال کند و هزینهٔ زیادی داشته باشد.</string>
+    <string name="forward2_target_own">این یکی از شماره‌های خودتان است. بازارسال به خودتان باعث تکرار بی‌پایان می‌شود.</string>
+    <string name="forward2_target_sender">این همان فرستنده‌ای است که قانون بررسی می‌کند. بازارسال به آن باعث تکرار بی‌پایان می‌شود.</string>
+    <string name="forward2_target_ok">شماره معتبر است</string>
+    <string name="forward2_pick_contact">انتخاب از مخاطبان</string>
+    <plurals name="forward2_cost_estimate" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d شماره: حداقل ۱ SMS برای هر پیام بازارسال‌شده.</item>
+        <item quantity="other">%1$d شماره: حداقل %1$d SMS برای هر پیام بازارسال‌شده.</item>
+    </plurals>
+    <string name="forward2_window_help">مثال: از ۲۲:۰۰ تا ۰۶:۰۰، پیام‌ها در طول شب بازارسال می‌شوند.</string>
+    <string name="forward2_window_summary">هر روز از %1$s تا %2$s بازارسال می‌کند</string>
+    <string name="forward2_window_summary_night">هر شب از %1$s تا %2$s بازارسال می‌کند</string>
+    <string name="forward2_scope_help">پیام باید روی کدام سیم‌کارت دریافت شود.</string>
+    <string name="forward2_send_help">«همان سیم‌کارت» پیام را با سیم‌کارتی بازارسال می‌کند که پیام روی آن دریافت شده است. سیم‌کارت بدون اعتبار نمی‌تواند پیام بفرستد.</string>
+    <string name="forward2_codes_title">بازارسال کدهای تأیید (OTP)</string>
+    <string name="forward2_codes_off">خاموش: کدهای ورود و تأیید هرگز بازارسال نمی‌شوند.</string>
+    <string name="forward2_codes_on">روشن: کدها هم بازارسال می‌شوند. فقط برای دستگاه‌های خودتان استفاده کنید؛ کد امکان دسترسی به حساب را می‌دهد.</string>
+</resources>

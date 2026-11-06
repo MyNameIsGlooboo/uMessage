@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_search_hint">কথোপকথন খুঁজুন</string>
+    <string name="main_search_back">খোঁজা বন্ধ করুন</string>
+    <string name="main_search_clear">খোঁজার লেখা মুছুন</string>
+    <string name="main_search_type_more">খুঁজতে অন্তত 2টি অক্ষর লিখুন</string>
+    <string name="main_search_no_results">কোনো ফলাফল পাওয়া যায়নি</string>
+    <string name="main_settings">সেটিংস</string>
+    <string name="main_tab_messages">বার্তা</string>
+    <string name="main_tab_blocked">ব্লক করা</string>
+    <string name="main_tab_archived">আর্কাইভ করা</string>
+    <plurals name="main_tab_blocked_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">ব্লক করা, %dটি নতুন</item>
+        <item quantity="other">ব্লক করা, %dটি নতুন</item>
+    </plurals>
+    <string name="main_permission_title">অনুমতি প্রয়োজন</string>
+    <string name="main_permission_grant">অনুমতি দিন</string>
+    <string name="main_permission_notifications">বিজ্ঞপ্তির অনুমতি দিন, নইলে অ্যাপ নতুন বার্তা দেখাতে পারবে না।</string>
+    <string name="main_sms_permission_title">uMessage-এর SMS ব্যবহারের অনুমতি প্রয়োজন</string>
+    <string name="main_sms_permission_body">SMS পড়া ও পাঠানোর অনুমতি ছাড়া uMessage আপনার বার্তা দেখাতে, বার্তা পাঠাতে বা স্প্যাম ফিল্টার করতে পারবে না। কিছুই মুছে যাবে না।</string>
+    <string name="main_sms_permission_settings">অ্যাপের সেটিংস খুলুন</string>
+    <string name="main_not_default_banner">uMessage আপনার ডিফল্ট SMS অ্যাপ নয়, তাই এটি স্প্যাম ব্লক করতে বা বার্তা পাঠাতে পারবে না।</string>
+    <string name="main_not_default_fix">ঠিক করুন</string>
+    <string name="main_not_default_fix_description">uMessage-কে ডিফল্ট SMS অ্যাপ করুন</string>
+</resources>

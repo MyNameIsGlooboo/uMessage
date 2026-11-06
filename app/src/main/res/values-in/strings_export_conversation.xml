@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_conv_menu">Ekspor percakapan</string>
+    <string name="export_conv_title">Ekspor percakapan</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">Teks biasa</string>
+    <string name="export_conv_dates_all">Semua tanggal</string>
+    <string name="export_conv_dates_30">30 hari terakhir</string>
+    <string name="export_conv_dates_pick">Pilih tanggal</string>
+    <string name="export_conv_pick_from">Dari tanggal berapa?</string>
+    <string name="export_conv_pick_to">Sampai tanggal berapa?</string>
+    <string name="export_conv_action">Ekspor</string>
+    <string name="export_conv_preparing">Menyiapkan file…</string>
+    <string name="export_conv_nothing">Tidak ada pesan dalam rentang tersebut</string>
+    <string name="export_conv_failed">File tidak dapat dibuat</string>
+    <string name="export_conv_subject">Ekspor percakapan</string>
+    <string name="export_conv_share_text">Percakapan dengan %1$s, %2$s. SHA-256 teks pesan: %3$s</string>
+    <string name="export_conv_attachment_label">[Lampiran]</string>
+    <string name="export_pdf_title">Ekspor percakapan</string>
+    <string name="export_pdf_with">Percakapan dengan: %1$s</string>
+    <string name="export_pdf_numbers">Nomor: %1$s</string>
+    <string name="export_pdf_range">Rentang tanggal: %1$s</string>
+    <string name="export_pdf_zone">Waktu menggunakan zona waktu %1$s</string>
+    <string name="export_pdf_exported">Diekspor: %1$s</string>
+    <plurals name="export_pdf_count">
+        <item quantity="other">%1$d pesan</item>
+    </plurals>
+    <string name="export_pdf_hash">SHA-256 teks pesan: %1$s</string>
+    <string name="export_pdf_not_certified">Diekspor dari ponsel; bukan catatan tersertifikasi.</string>
+    <string name="export_pdf_page">Halaman %1$d dari %2$d</string>
+    <string name="export_pdf_from">Dari: %1$s</string>
+    <string name="export_pdf_to">Ke: %1$s</string>
+    <string name="export_pdf_attachment">Lampiran: %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">file tanpa nama</string>
+    <string name="export_status_received">Diterima</string>
+    <string name="export_status_sent">Terkirim</string>
+    <string name="export_status_delivered">Sampai ke penerima</string>
+    <string name="export_status_failed">Gagal</string>
+    <string name="export_status_sending">Mengirim</string>
+    <string name="export_status_draft">Draf</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">Firma</string>
+    <string name="i60_off">Desactivada</string>
+    <string name="i60_dialog_note">Se agrega debajo de cada mensaje que envías. Deja el campo vacío para no usar firma.</string>
+</resources>

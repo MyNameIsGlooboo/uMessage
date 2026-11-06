@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_scope_title">ما تريد قفله</string>
+    <string name="lock_scope_whole">التطبيق بالكامل</string>
+    <string name="lock_scope_chosen">أجزاء محددة فقط</string>
+    <string name="lock_scope_chosen_long">أجزاء محددة فقط: تبويب «المحظورة» والمحادثات المخفية</string>
+    <string name="lock_scope_blocked_title">الرسائل المحظورة مقفلة</string>
+    <string name="lock_scope_blocked_body">افتح القفل لرؤيتها.</string>
+    <string name="lock_scope_unlock">افتح القفل</string>
+</resources>

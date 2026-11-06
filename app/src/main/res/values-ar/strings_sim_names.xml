@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">أسماء شرائح SIM</string>
+    <string name="i34_setting_summary">حدّد اسمًا ورقمًا لكل شريحة SIM</string>
+    <string name="i34_dialog_title">أسماء شرائح SIM</string>
+    <string name="i34_number_note">غالبًا لا يتيح مشغّلو شبكة الجوال الرقم للتطبيقات، لذا اكتبه هنا. يبقى الاسم والرقم على هذا الهاتف.</string>
+    <string name="i34_sim_heading">شريحة SIM %1$d، %2$s</string>
+    <string name="i34_nickname">الاسم (مثل العمل)</string>
+    <string name="i34_number">الرقم</string>
+</resources>

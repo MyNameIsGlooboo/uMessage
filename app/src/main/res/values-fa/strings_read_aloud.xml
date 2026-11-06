@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">خواندن با صدای بلند</string>
+    <string name="read_aloud_stop">توقف خواندن</string>
+    <string name="read_aloud_no_voice">هیچ صدایی برای زبان %1$s روی این گوشی نصب نیست</string>
+    <string name="read_aloud_install">دریافت صدا</string>
+    <string name="read_aloud_install_missing">این گوشی امکان نصب صدا ندارد</string>
+    <string name="read_aloud_failed">خواندن پیام با صدای بلند ممکن نشد</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">其他国家</string>
+    <string name="region_title">屏蔽其他国家的号码</string>
+    <string name="region_summary">不会屏蔽联系人和你发过短信的人</string>
+    <string name="region_off">关闭</string>
+    <string name="region_picker_title">你所在的国家</string>
+    <string name="region_picker_body">其他国家号码的消息会进入“已屏蔽”，联系人和你发过短信的人除外。不在联系人中的海外亲属也会被屏蔽。</string>
+    <string name="region_picker_search">搜索</string>
+    <string name="region_reason_foreign">来自其他国家的号码</string>
+</resources>

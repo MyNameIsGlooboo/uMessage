@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3a_forward_limit_channel">Límite de reenvíos</string>
+    <string name="w3a_forward_limit_title">Reenvíos en pausa por hoy</string>
+    <string name="w3a_forward_limit_text">Se alcanzó el límite de %d reenvíos. Los reenvíos continuarán mañana.</string>
+</resources>

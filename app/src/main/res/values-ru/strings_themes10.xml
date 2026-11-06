@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">Сланец</string>
+    <string name="preset_slate_desc">Спокойный серо-голубой</string>
+    <string name="preset_firouzeh">Бирюза</string>
+    <string name="preset_firouzeh_desc">Бирюзовый с оттенком золота</string>
+    <string name="preset_pomegranate">Гранат</string>
+    <string name="preset_pomegranate_desc">Теплый красный с глубоким зеленым</string>
+    <string name="preset_harbor">Гавань</string>
+    <string name="preset_harbor_desc">Ночной синий с мягким коралловым</string>
+    <string name="preset_lavender">Лаванда</string>
+    <string name="preset_lavender_desc">Нежный фиолетовый с сине-зеленым</string>
+    <string name="preset_ink">Чернила</string>
+    <string name="preset_ink_desc">Почти черный с серебром и золотом</string>
+    <string name="preset_contrast">Контраст</string>
+    <string name="preset_contrast_desc">Черно-белый с яркими акцентами</string>
+</resources>

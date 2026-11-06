@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="r4_banner_title">स्पैम से सुरक्षा</string>
+    <plurals name="r4_banner_stopped_week" tools:ignore="ImpliedQuantity">
+        <item quantity="one">पिछले 7 दिनों में रोका गया</item>
+        <item quantity="other">पिछले 7 दिनों में रोके गए</item>
+    </plurals>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_search_hint">Пошук чатів</string>
+    <string name="main_search_back">Закрити пошук</string>
+    <string name="main_search_clear">Очистити текст пошуку</string>
+    <string name="main_search_type_more">Введіть щонайменше 2 символи для пошуку</string>
+    <string name="main_search_no_results">Нічого не знайдено</string>
+    <string name="main_settings">Налаштування</string>
+    <string name="main_tab_messages">Повідомлення</string>
+    <string name="main_tab_blocked">Заблоковані</string>
+    <string name="main_tab_archived">Заархівовано</string>
+    <plurals name="main_tab_blocked_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Заблоковані, %d нове</item>
+        <item quantity="few">Заблоковані, %d нові</item>
+        <item quantity="many">Заблоковані, %d нових</item>
+        <item quantity="other">Заблоковані, %d нового</item>
+    </plurals>
+    <string name="main_permission_title">Потрібен дозвіл</string>
+    <string name="main_permission_grant">Надати дозвіл</string>
+    <string name="main_permission_notifications">Дозвольте сповіщення, інакше застосунок не зможе показувати вхідні повідомлення.</string>
+    <string name="main_sms_permission_title">uMessage потрібен доступ до SMS</string>
+    <string name="main_sms_permission_body">Без дозволу на читання й надсилання SMS uMessage не може показувати ваші повідомлення, надсилати SMS або фільтрувати спам. Нічого не видаляється.</string>
+    <string name="main_sms_permission_settings">Відкрити налаштування застосунку</string>
+    <string name="main_not_default_banner">uMessage не є вашим застосунком для SMS за умовчанням, тому не може блокувати спам або надсилати повідомлення.</string>
+    <string name="main_not_default_fix">Виправити</string>
+    <string name="main_not_default_fix_description">Зробити uMessage застосунком для SMS за умовчанням</string>
+</resources>

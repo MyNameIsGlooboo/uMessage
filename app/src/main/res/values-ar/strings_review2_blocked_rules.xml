@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="e_day_today">اليوم</string>
+    <string name="e_day_yesterday">أمس</string>
+    <plurals name="e_blocked_stats_total">
+        <item quantity="zero">تم إيقاف %d رسالة إجمالًا</item>
+        <item quantity="one">تم إيقاف رسالة واحدة (%d) إجمالًا</item>
+        <item quantity="two">تم إيقاف رسالتين (%d) إجمالًا</item>
+        <item quantity="few">تم إيقاف %d رسائل إجمالًا</item>
+        <item quantity="many">تم إيقاف %d رسالة إجمالًا</item>
+        <item quantity="other">تم إيقاف %d رسالة إجمالًا</item>
+    </plurals>
+    <string name="e_restored_title">المستعادة مؤخرًا</string>
+    <string name="e_restored_body">الرسائل التي نقلتها إلى الرسائل الواردة خلال آخر 30 يومًا. اضغط على إحداها لفتح المحادثة.</string>
+    <string name="e_restored_empty">الرسائل التي تنقلها إلى الرسائل الواردة من الآن ستظهر هنا لمدة 30 يومًا.</string>
+    <string name="e_restored_when">نُقلت إلى الرسائل الواردة %1$s</string>
+    <string name="e_restored_open">افتح المحادثة مع %1$s</string>
+    <string name="e_snack_allowed_one">أصبح %1$s مسموحًا دائمًا على شريحتي SIM</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="zero">أصبح %d مرسل مسموحًا دائمًا على شريحتي SIM</item>
+        <item quantity="one">أصبح مرسل واحد (%d) مسموحًا دائمًا على شريحتي SIM</item>
+        <item quantity="two">أصبح مرسلان (%d) مسموحين دائمًا على شريحتي SIM</item>
+        <item quantity="few">أصبح %d مرسلين مسموحين دائمًا على شريحتي SIM</item>
+        <item quantity="many">أصبح %d مرسلًا مسموحًا دائمًا على شريحتي SIM</item>
+        <item quantity="other">أصبح %d مرسل مسموحًا دائمًا على شريحتي SIM</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">أصبح %1$s مسموحًا دائمًا</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="zero">أصبح %d مرسل مسموحًا دائمًا</item>
+        <item quantity="one">أصبح مرسل واحد (%d) مسموحًا دائمًا</item>
+        <item quantity="two">أصبح مرسلان (%d) مسموحين دائمًا</item>
+        <item quantity="few">أصبح %d مرسلين مسموحين دائمًا</item>
+        <item quantity="many">أصبح %d مرسلًا مسموحًا دائمًا</item>
+        <item quantity="other">أصبح %d مرسل مسموحًا دائمًا</item>
+    </plurals>
+    <string name="e_view_rule">اعرض القاعدة</string>
+    <string name="e_rules_title">القواعد</string>
+    <string name="e_rules_menu_backup">انسخ احتياطيًا واستعد</string>
+    <string name="e_note_blocked_by_you">محظور بواسطتك</string>
+    <string name="e_note_allowed_by_you">مسموح بواسطتك</string>
+    <string name="e_note_blocked_from_message">محظور من رسالة</string>
+    <string name="e_note_blocked_from_keyword">محظور من كلمة مفتاحية</string>
+    <string name="e_note_reported_spam">أُبلغ عنها كرسالة غير مرغوب فيها</string>
+    <string name="e_note_old_word_list">من قائمة الكلمات المحظورة القديمة</string>
+    <string name="e_note_system_list">من قائمة الحظر في Android</string>
+    <string name="e_note_quoted">“%1$s”</string>
+    <string name="e_example_block_cancel_word">احظر الرسائل التي تحتوي على لغو۱۱</string>
+    <string name="e_example_block_ad_prefix">احظر أرقام الإعلانات التي تبدأ بـ 3000</string>
+    <string name="e_example_allow_number">اسمح دائمًا برقم، مثل رقم مكتب البريد</string>
+    <string name="e_sheet_sender_label">المرسل</string>
+    <string name="e_sheet_text_label">نص الرسالة</string>
+    <string name="e_value_number">رقم الهاتف</string>
+    <string name="e_value_prefix">يبدأ الرقم بـ</string>
+    <string name="e_value_sender">اسم المرسل</string>
+    <string name="e_value_keyword">النص المطلوب البحث عنه</string>
+    <string name="e_value_pattern">تعبير نمطي</string>
+    <string name="e_pattern_blocks_label">ابدأ من</string>
+    <string name="e_pattern_link">يحتوي على رابط</string>
+    <string name="e_pattern_long_number">عدد من 5 خانات أو أكثر</string>
+    <string name="e_pattern_starts_with">يبدأ بـ</string>
+    <string name="e_pattern_any_of">يحتوي على أي من</string>
+    <string name="e_pattern_link_sentence">يطابق الرسائل التي تحتوي على رابط.</string>
+    <string name="e_pattern_long_number_sentence">يطابق الرسائل التي تحتوي على عدد من 5 خانات أو أكثر.</string>
+    <string name="e_pattern_starts_with_sentence">يطابق الرسائل التي تبدأ بالنص الذي تكتبه بعد ^.</string>
+    <string name="e_pattern_any_of_sentence">يطابق الرسائل التي تحتوي على أي كلمة بين القوسين. افصل بينها بعلامة |.</string>
+    <plurals name="e_migrate_title_numbers">
+        <item quantity="zero">انقل %d رقم إلى قواعد uMessage</item>
+        <item quantity="one">انقل رقمًا واحدًا (%d) إلى قواعد uMessage</item>
+        <item quantity="two">انقل رقمين (%d) إلى قواعد uMessage</item>
+        <item quantity="few">انقل %d أرقام إلى قواعد uMessage</item>
+        <item quantity="many">انقل %d رقمًا إلى قواعد uMessage</item>
+        <item quantity="other">انقل %d رقم إلى قواعد uMessage</item>
+    </plurals>
+    <string name="e_migrate_point_blocked">• ستصل رسائلها إلى «المحظورة»، حيث يمكنك قراءتها واستعادتها.</string>
+    <string name="e_migrate_point_android">• سيظل Android يتخلص من رسائلها حتى تُزال من قائمته.</string>
+    <string name="e_migrate_calls_note">تحظر قائمة Android المكالمات أيضًا. يمكن للأرقام التي تزيلها منها الاتصال بك مجددًا.</string>
+    <string name="e_bn_unknown_body">يسري فقط عندما يكون خيار «المرسلون غير المعروفين» متوقفًا.</string>
+    <string name="e_bn_row_calls_texts">يحظر المكالمات والرسائل</string>
+    <string name="e_bn_row_short_code">رقم مختصر: لا تصل رسائله إلى uMessage مطلقًا</string>
+    <string name="e_bn_move_one">انقل إلى قواعد uMessage</string>
+    <string name="e_bn_moved">أصبح %1$s قاعدة في uMessage. تصل رسائله إلى «المحظورة»، ولم تعد مكالماته محظورة.</string>
+    <string name="e_bn_field_help">مثلًا +15550001234، أو +1555* لكل رقم يبدأ بـ +1555</string>
+    <string name="e_bn_short_code_warning">يبدو هذا رقمًا مختصرًا. يتخلص Android من رسائله قبل وصولها إلى uMessage، لذا لن تتمكن من استعادة أي منها، مثل رمز أو إشعار بنكي.</string>
+    <string name="e_bn_add_as_rule">أضف كقاعدة في uMessage بدلًا من ذلك</string>
+    <string name="e_bn_added_as_rule">أُضيف %1$s كقاعدة في uMessage. تصل رسائله إلى «المحظورة».</string>
+</resources>

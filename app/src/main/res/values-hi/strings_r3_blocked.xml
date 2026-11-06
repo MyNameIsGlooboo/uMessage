@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="r3b_info_button">ब्लॉक करना कैसे काम करता है</string>
+    <string name="r3b_info_title">ब्लॉक करना कैसे काम करता है</string>
+    <string name="r3b_info_modes">अनजान भेजने वाले</string>
+    <string name="r3b_info_mode_current">अभी: %1$s</string>
+    <string name="r3b_info_messages">ब्लॉक किए गए मैसेज</string>
+    <string name="r3b_info_open_sender">मैसेज पढ़ने के लिए भेजने वाले पर टैप करें.</string>
+    <string name="r3b_info_move">\'इनबॉक्स में ले जाएं\' से भेजने वाले के सभी मैसेज आपके इनबॉक्स में आ जाते हैं. फिर पूछा जाता है कि क्या उन्हें हमेशा अनुमति देनी है.</string>
+    <string name="r3b_info_release">\'एक बार के लिए छोड़ें\' (मैसेज को दबाकर रखें) से सिर्फ़ वही मैसेज आपके इनबॉक्स में आता है. भेजने वाले को अनुमति नहीं दी जाती.</string>
+    <string name="r3b_info_swipe">मैसेज इनबॉक्स में लाने के लिए भेजने वाले की पंक्ति को उसके आख़िरी सिरे की ओर स्वाइप करें.</string>
+    <string name="r3b_open_sender">मैसेज खोलें</string>
+    <string name="r3b_move_inbox_for">इनबॉक्स में ले जाएं, %1$s</string>
+    <string name="r3b_delete_for">मिटाएं, %1$s</string>
+    <string name="r3b_thread_note">uMessage ने ये मैसेज रोककर रखे हैं. ये आपके इनबॉक्स में नहीं हैं.</string>
+    <string name="r3b_thread_delete_all">%1$s के सभी मैसेज मिटाएं</string>
+    <string name="r3b_thread_empty_title">यहां अब कुछ नहीं है</string>
+    <string name="r3b_thread_empty_body">इस भेजने वाले का अब कोई ब्लॉक किया गया मैसेज नहीं है.</string>
+    <string name="r3b_message_actions">मैसेज के विकल्प</string>
+    <string name="r3b_why_blocked">ब्लॉक क्यों किया गया</string>
+    <string name="r3b_copy_text">टेक्स्ट कॉपी करें</string>
+    <string name="r3b_text_copied">टेक्स्ट कॉपी किया गया</string>
+    <string name="r3b_delete_message">मिटाएं</string>
+    <string name="r3b_received">%1$s को मिला</string>
+    <string name="r3b_info_mode_strict">सख़्त: हर अनजान भेजने वाले के मैसेज रोकता है, पुष्टि करने के कोड भी.</string>
+    <string name="r3b_info_mode_smart">स्मार्ट: अनजान भेजने वालों के मैसेज रोकता है, लेकिन बिना लिंक वाले कोड आने देता है.</string>
+    <string name="r3b_info_mode_off">बंद: अनजान भेजने वालों के मैसेज आपके इनबॉक्स में आते हैं. आपके नियम फिर भी लागू रहते हैं.</string>
+    <plurals name="r3b_info_purge" tools:ignore="ImpliedQuantity">
+        <item quantity="one">ब्लॉक किए गए मैसेज %d दिन बाद मिटा दिए जाते हैं.</item>
+        <item quantity="other">ब्लॉक किए गए मैसेज %d दिन बाद मिटा दिए जाते हैं.</item>
+    </plurals>
+    <string name="r3b_info_purge_off">ब्लॉक किए गए मैसेज आपके मिटाने तक रखे जाते हैं.</string>
+    <string name="r3b_allow_body_sender_one_message">आप जो भी चुनें, मैसेज आपके इनबॉक्स में वापस आ जाएगा. अगर आप %1$s को हमेशा अनुमति देते हैं, तो आगे उनके मैसेज पर कोई फ़िल्टर लागू नहीं होगा, आपके ब्लॉक करने के नियम भी नहीं.</string>
+    <string name="r3b_allow_body_sender_many_messages">आप जो भी चुनें, मैसेज आपके इनबॉक्स में वापस आ जाएंगे. अगर आप %1$s को हमेशा अनुमति देते हैं, तो आगे उनके मैसेज पर कोई फ़िल्टर लागू नहीं होगा, आपके ब्लॉक करने के नियम भी नहीं.</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2b2_thread_menu_allow">この送信者を常に許可</string>
+    <string name="w2b2_thread_menu_why">判定の理由</string>
+    <string name="w2b2_thread_chip_allowed">常に許可済み</string>
+    <string name="w2b2_thread_chip_blocked">ルールでブロック済み</string>
+    <string name="w2b2_settings_group_dates">日付</string>
+    <string name="w2b2_settings_jalali">ペルシャ暦の日付</string>
+    <string name="w2b2_settings_jalali_body">会話と送信予約したメッセージの日付をペルシャ暦で表示します。</string>
+    <string name="w2b2_lock_pattern_hint">%d個以上の点をつなぎ、確認のため同じパターンをもう一度描いてください。</string>
+    <string name="w2b2_lock_recovery_hint">忘れた場合は、ロック画面で端末の画面ロックを使って解除できます。</string>
+</resources>

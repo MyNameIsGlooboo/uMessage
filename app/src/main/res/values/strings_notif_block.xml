@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_block_action">Block</string>
+    <string name="notif_block_undo">Undo</string>
+    <string name="notif_block_done_title">Blocked %1$s</string>
+    <string name="notif_block_done_text">New messages go to Blocked messages</string>
+    <string name="notif_block_channel">Blocked senders</string>
+</resources>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="convlist_loading">جارٍ تحميل الرسائل</string>
+    <string name="convlist_empty_title">لا توجد محادثات بعد</string>
+    <string name="convlist_empty_body">ستظهر هنا الرسائل التي ترسلها وتتلقاها.</string>
+    <string name="convlist_start_conversation">ابدأ محادثة</string>
+    <string name="convlist_new_conversation">محادثة جديدة</string>
+    <string name="convlist_draft">مسودة</string>
+    <string name="convlist_pinned">مثبّتة</string>
+    <string name="convlist_muted">الإشعارات متوقفة</string>
+    <string name="convlist_unread">غير مقروءة</string>
+    <string name="convlist_unread_count">%1$d غير مقروءة</string>
+    <string name="convlist_group">محادثة جماعية</string>
+    <string name="convlist_selected">محددة</string>
+    <string name="convlist_sim">شريحة SIM %1$d</string>
+    <string name="convlist_scroll_handle">تمرير سريع</string>
+    <plurals name="convlist_blocked_banner">
+        <item quantity="zero">%d رسالة محظورة</item>
+        <item quantity="one">رسالة واحدة محظورة (%d)</item>
+        <item quantity="two">رسالتان محظورتان (%d)</item>
+        <item quantity="few">%d رسائل محظورة</item>
+        <item quantity="many">%d رسالة محظورة</item>
+        <item quantity="other">%d رسالة محظورة</item>
+    </plurals>
+    <string name="convlist_blocked_banner_title">الرسائل المحظورة</string>
+    <string name="convlist_blocked_banner_cd">%1$d من الرسائل محظورة. افتح مجلد الرسائل المحظورة.</string>
+    <string name="convlist_archive">أرشف</string>
+    <string name="convlist_delete">احذف</string>
+    <string name="convlist_pin">ثبّت في الأعلى</string>
+    <string name="convlist_unpin">ألغِ التثبيت</string>
+    <string name="convlist_mark_read">علّم كمقروءة</string>
+    <string name="convlist_mark_unread">علّم كغير مقروءة</string>
+    <string name="convlist_block_number">احظر الرقم</string>
+    <string name="convlist_add_contact">أضف الرقم إلى جهة اتصال</string>
+    <string name="convlist_copy_number">انسخ الرقم</string>
+    <string name="convlist_dial">اتصل</string>
+    <string name="convlist_rename">غيّر اسم المحادثة</string>
+    <string name="convlist_details">تفاصيل المحادثة</string>
+    <string name="convlist_select_all">حدّد الكل</string>
+    <string name="convlist_more_options">خيارات إضافية</string>
+    <string name="convlist_close_selection">ألغِ التحديد</string>
+    <plurals name="convlist_selected_count">
+        <item quantity="zero">%d محادثة محددة</item>
+        <item quantity="one">محادثة واحدة محددة (%d)</item>
+        <item quantity="two">محادثتان محددتان (%d)</item>
+        <item quantity="few">%d محادثات محددة</item>
+        <item quantity="many">%d محادثة محددة</item>
+        <item quantity="other">%d محادثة محددة</item>
+    </plurals>
+    <string name="convlist_undo">تراجع</string>
+    <plurals name="convlist_deleted">
+        <item quantity="zero">حُذفت %d محادثة</item>
+        <item quantity="one">حُذفت محادثة واحدة (%d)</item>
+        <item quantity="two">حُذفت محادثتان (%d)</item>
+        <item quantity="few">حُذفت %d محادثات</item>
+        <item quantity="many">حُذفت %d محادثة</item>
+        <item quantity="other">حُذفت %d محادثة</item>
+    </plurals>
+    <plurals name="convlist_archived">
+        <item quantity="zero">%d محادثة مؤرشفة</item>
+        <item quantity="one">محادثة واحدة مؤرشفة (%d)</item>
+        <item quantity="two">محادثتان مؤرشفتان (%d)</item>
+        <item quantity="few">%d محادثات مؤرشفة</item>
+        <item quantity="many">%d محادثة مؤرشفة</item>
+        <item quantity="other">%d محادثة مؤرشفة</item>
+    </plurals>
+    <plurals name="convlist_blocked_done">
+        <item quantity="zero">%d مرسل محظور. ستنتقل الرسائل الجديدة إلى الرسائل المحظورة</item>
+        <item quantity="one">المرسل محظور. ستنتقل الرسائل الجديدة إلى الرسائل المحظورة</item>
+        <item quantity="two">مرسلان محظوران (%d). ستنتقل الرسائل الجديدة إلى الرسائل المحظورة</item>
+        <item quantity="few">%d مرسلين محظورون. ستنتقل الرسائل الجديدة إلى الرسائل المحظورة</item>
+        <item quantity="many">%d مرسلًا محظورًا. ستنتقل الرسائل الجديدة إلى الرسائل المحظورة</item>
+        <item quantity="other">%d مرسل محظور. ستنتقل الرسائل الجديدة إلى الرسائل المحظورة</item>
+    </plurals>
+    <string name="convlist_action_failed">حدث خطأ</string>
+    <string name="convlist_block_title">حظر الرقم؟</string>
+    <string name="convlist_block_message">حظر %1$s؟ ستنتقل رسائله الجديدة إلى الرسائل المحظورة بدلًا من الرسائل الواردة، ويمكنك قراءتها أو استعادتها هناك.</string>
+    <string name="convlist_block_confirm">احظر</string>
+    <string name="convlist_rename_title">غيّر اسم المحادثة</string>
+    <string name="convlist_rename_hint">اسم المحادثة</string>
+    <string name="convlist_ok">حسنًا</string>
+    <string name="convlist_cancel">ألغِ</string>
+</resources>

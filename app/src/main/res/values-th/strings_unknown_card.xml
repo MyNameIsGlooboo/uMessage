@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">ไม่อยู่ในรายชื่อติดต่อ</string>
+    <string name="i04_card_caution">ระวังเรื่องลิงก์ เงิน และรหัส</string>
+    <string name="i04_card_add_contact">เพิ่มรายชื่อติดต่อ</string>
+    <string name="i04_card_allow">อนุญาตเสมอ</string>
+    <string name="i04_card_block">บล็อก</string>
+    <string name="i04_card_dismiss">ปิด</string>
+</resources>

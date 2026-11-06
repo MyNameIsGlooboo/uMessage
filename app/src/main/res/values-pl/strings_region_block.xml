@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">Inne kraje</string>
+    <string name="region_title">Zatrzymuj wiadomości z innych krajów</string>
+    <string name="region_summary">Wiadomości od kontaktów i osób, do których piszesz, nie są zatrzymywane</string>
+    <string name="region_off">Wyłączone</string>
+    <string name="region_picker_title">Twój kraj</string>
+    <string name="region_picker_body">Wiadomości z numerów z innych krajów trafiają do zablokowanych wiadomości, z wyjątkiem kontaktów i osób, do których piszesz. Wiadomości od krewnego za granicą też są zatrzymywane, jeśli nie ma go w kontaktach.</string>
+    <string name="region_picker_search">Szukaj</string>
+    <string name="region_reason_foreign">Numer z innego kraju</string>
+</resources>

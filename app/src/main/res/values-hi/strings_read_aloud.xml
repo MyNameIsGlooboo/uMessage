@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">बोलकर पढ़ें</string>
+    <string name="read_aloud_stop">पढ़ना बंद करें</string>
+    <string name="read_aloud_no_voice">इस फ़ोन पर %1$s की कोई आवाज़ इंस्टॉल नहीं है</string>
+    <string name="read_aloud_install">आवाज़ डाउनलोड करें</string>
+    <string name="read_aloud_install_missing">इस फ़ोन पर आवाज़ें इंस्टॉल करने की सुविधा नहीं है</string>
+    <string name="read_aloud_failed">मैसेज बोलकर नहीं पढ़ा जा सका</string>
+</resources>

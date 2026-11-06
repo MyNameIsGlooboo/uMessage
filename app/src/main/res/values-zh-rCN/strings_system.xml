@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="system_delete_item_title">删除？</string>
+    <string name="system_delete_item_message">删除%1$s？此操作无法撤销。</string>
+</resources>

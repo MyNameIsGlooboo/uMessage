@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">SIM-এর নাম</string>
+    <string name="i34_setting_summary">প্রতিটি SIM-এর নাম ও নম্বর দিন</string>
+    <string name="i34_dialog_title">SIM-এর নাম</string>
+    <string name="i34_number_note">মোবাইল অপারেটর প্রায়ই অ্যাপকে নম্বর জানায় না, তাই এখানে লিখুন। নাম ও নম্বর দুটোই এই ফোনে থাকবে।</string>
+    <string name="i34_sim_heading">SIM %1$d, %2$s</string>
+    <string name="i34_nickname">নাম (যেমন অফিস)</string>
+    <string name="i34_number">নম্বর</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3_inbox_filter_show">필터 표시</string>
+    <string name="r3_inbox_filter_hide">필터 숨기기</string>
+    <string name="r3_inbox_filter_show_active">필터 표시. 사용 중인 필터: %1$s</string>
+    <string name="r3_inbox_filter_hide_active">필터 숨기기. 사용 중인 필터: %1$s</string>
+</resources>

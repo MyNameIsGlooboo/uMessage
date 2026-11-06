@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_language_phone_note">スマートフォンの言語に従います。変更はスマートフォンの設定で行えます。</string>
+</resources>

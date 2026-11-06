@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">افزودن به صفحهٔ اصلی</string>
+    <string name="home_shortcut_requested">درخواست افزودن به راه‌انداز ارسال شد. نام گفتگو در صفحهٔ اصلی نمایش داده می‌شود. اگر چیزی ظاهر نشد، در تنظیمات برنامهٔ uMessage در گوشی، «میان‌برهای صفحهٔ اصلی» را مجاز کنید.</string>
+    <string name="home_shortcut_failed">راه‌انداز شما میان‌بر را نپذیرفت. در تنظیمات برنامهٔ uMessage در گوشی، «میان‌برهای صفحهٔ اصلی» را مجاز کنید.</string>
+</resources>

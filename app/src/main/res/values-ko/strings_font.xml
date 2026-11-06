@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="font_title">글꼴</string>
+    <string name="font_umessage">uMessage 글꼴</string>
+    <string name="font_system">시스템 글꼴</string>
+</resources>

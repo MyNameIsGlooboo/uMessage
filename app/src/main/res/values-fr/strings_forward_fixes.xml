@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="fwdfix_status_limit">En pause pour aujourd\'hui : limite atteinte</string>
+    <string name="fwdfix_limit_hint">%1$s transferts sur %2$s envoyés aujourd\'hui. Les transferts reprendront demain.</string>
+    <string name="fwdfix_status_skipped">Ignoré (limite)</string>
+    <string name="fwdfix_error_daily_limit">Non envoyé : la limite quotidienne de transferts est atteinte.</string>
+    <string name="fwdfix_error_rate_limited">Non envoyé : cette règle a déjà transféré %1$s messages au cours de la dernière heure.</string>
+    <string name="fwdfix_retry_all_recent">Seuls les transferts des dernières 24 heures sont inclus.</string>
+    <plurals name="fwdfix_retry_not_sent_paused" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s non envoyé : les transferts sont en pause.</item>
+        <item quantity="other">%1$s non envoyés : les transferts sont en pause.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s non envoyé : sa règle est désactivée ou supprimée.</item>
+        <item quantity="other">%1$s non envoyés : leurs règles sont désactivées ou supprimées.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s non envoyé : la limite quotidienne ou la limite horaire de sa règle est atteinte.</item>
+        <item quantity="other">%1$s non envoyés : la limite quotidienne ou la limite horaire d\'une règle est atteinte.</item>
+    </plurals>
+    <string name="fwdfix_card_last">Dernier transfert %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s cette semaine</item>
+        <item quantity="other">%1$s cette semaine</item>
+    </plurals>
+    <string name="fwdfix_card_never">Aucun transfert pour le moment</string>
+    <string name="fwdfix_card_sent">envoyé</string>
+    <string name="fwdfix_card_pending">envoi en cours</string>
+    <string name="fwdfix_card_failed">échec</string>
+    <string name="fwdfix_card_skipped">ignoré (limite)</string>
+    <string name="fwdfix_delete_rule">Supprimer la règle</string>
+    <string name="fwdfix_deleted">Règle de transfert supprimée</string>
+    <string name="fwdfix_test_button">Envoyer un test</string>
+    <string name="fwdfix_test_title">Envoyer un SMS de test ?</string>
+    <plurals name="fwdfix_test_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s SMS de test sera envoyé au numéro ci-dessus. Ce SMS est payant.</item>
+        <item quantity="other">Un SMS de test sera envoyé à chacun des %1$s numéros ci-dessus. Chaque SMS est payant.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">Envoyer</string>
+    <string name="fwdfix_test_text">Test de uMessage : le transfert fonctionne.</string>
+    <string name="fwdfix_test_sending">Envoi du test…</string>
+    <string name="fwdfix_test_sent">Test envoyé. Vérifiez sur l\'autre téléphone.</string>
+    <string name="fwdfix_test_failed">Impossible d\'envoyer le test. Vérifiez votre réseau et votre crédit.</string>
+    <string name="fwdfix_cost_persian">Texte en persan de %1$s caractères : %2$s parties × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">Texte en anglais de %1$s caractères : %2$s parties × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">Aucun envoi possible pour le moment</string>
+    <plurals name="fwdfix_retry_blocked_paused" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s ne sera pas envoyé : les transferts sont en pause.</item>
+        <item quantity="other">%1$s ne seront pas envoyés : les transferts sont en pause.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s ne sera pas envoyé : sa règle est désactivée ou supprimée.</item>
+        <item quantity="other">%1$s ne seront pas envoyés : leurs règles sont désactivées ou supprimées.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s ne sera pas envoyé : la limite quotidienne ou la limite horaire de sa règle est atteinte.</item>
+        <item quantity="other">%1$s ne seront pas envoyés : la limite quotidienne ou la limite horaire d\'une règle est atteinte.</item>
+    </plurals>
+</resources>

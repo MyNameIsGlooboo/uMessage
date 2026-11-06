@@ -1,0 +1,7 @@
+- Italian, short, natural and friendly, like Google Messages, WhatsApp and Telegram in Italian.
+- Address the user with the informal "tu": imperatives "Scegli", "Attiva", "Tocca"; possessive "tuo", "tua". Never "Lei" or "voi".
+- Sentence case: only the first word and proper nouns are capitalised (no English-style Title Case). Months and days are lowercase.
+- Quotes: “parola”. Use the real apostrophe (l'app, un'altra) and write accents correctly (è, é, à, ù).
+- Plural ids: one (1), other (all other numbers). Do not write a "many" form. Keep the number token in both.
+- Keep "SMS", "MMS", "PIN" and "Wi-Fi" as they are. Use "messaggio/messaggi", "mittente", "conversazione".
+- Italian runs 15-25% longer than English: choose short verbs for buttons and chips.

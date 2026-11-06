@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_tab_forwarded">ফরোয়ার্ড করা</string>
+    <string name="nav_tab_forwarded_failed">ফরোয়ার্ড করা, একটি ফরোয়ার্ড ব্যর্থ হয়েছে</string>
+    <string name="nav_tab_forwarded_paused">ফরোয়ার্ড করা, ফরোয়ার্ড করা স্থগিত আছে</string>
+    <string name="nav_tab_archived_new">আর্কাইভ করা, নতুন চ্যাট আর্কাইভ করা হয়েছে</string>
+    <string name="nav_prompt_title">নিয়ম সংরক্ষণ করা হয়েছে</string>
+    <string name="nav_prompt_body">কী পাঠানো হয়েছে দেখতে ও ব্যর্থ হলে আবার চেষ্টা করতে “ফরোয়ার্ড করা” ট্যাব দেখাবেন?</string>
+    <string name="nav_prompt_show">ট্যাব দেখান</string>
+    <string name="nav_prompt_not_now">এখন নয়</string>
+    <string name="nav_fwd_paid_note">প্রতিটি ফরোয়ার্ডের জন্য SMS-এর খরচ লাগে।</string>
+    <string name="nav_fwd_pause_all">সব ফরোয়ার্ড স্থগিত করুন</string>
+    <string name="nav_fwd_status_paused">ফরোয়ার্ড করা স্থগিত আছে</string>
+    <string name="nav_fwd_paused_hint">নিয়মের সঙ্গে মেলা বার্তা পাঠানো হচ্ছে না। আবার শুরু করতে সুইচ বন্ধ করুন।</string>
+    <string name="nav_fwd_status_no_rule">ফরোয়ার্ডের কোনো নিয়ম চালু নেই</string>
+    <plurals name="nav_fwd_status_on" tools:ignore="ImpliedQuantity">
+        <item quantity="one">ফরোয়ার্ড করা চালু আছে, %1$sটি নিয়ম</item>
+        <item quantity="other">ফরোয়ার্ড করা চালু আছে, %1$sটি নিয়ম</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">নিয়ম পরিচালনা করুন</string>
+    <string name="nav_fwd_empty_title">এখনও কিছু ফরোয়ার্ড করা হয়নি</string>
+    <string name="nav_fwd_empty_body">নিয়মের সঙ্গে মেলা বার্তা এখানে দেখা যাবে।</string>
+    <string name="nav_fwd_status_sent">পাঠানো হয়েছে</string>
+    <string name="nav_fwd_status_pending">অপেক্ষায় আছে</string>
+    <string name="nav_fwd_status_failed">ব্যর্থ হয়েছে</string>
+    <string name="nav_fwd_to">প্রাপক %1$s</string>
+    <string name="nav_fwd_sim">SIM %1$d</string>
+    <string name="nav_fwd_rule_line">নিয়ম: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">প্রেরক %1$s</string>
+    <string name="nav_fwd_rule_any_sender">যেকোনো প্রেরক</string>
+    <string name="nav_fwd_rule_text">লেখা %1$s</string>
+    <string name="nav_fwd_rule_any_text">যেকোনো লেখা</string>
+    <string name="nav_fwd_rule_deleted">নিয়ম মুছে ফেলা হয়েছে</string>
+    <string name="nav_fwd_open_details">বিবরণ দেখান</string>
+    <string name="nav_fwd_today">আজ</string>
+    <string name="nav_fwd_yesterday">গতকাল</string>
+    <plurals name="nav_fwd_failed_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$sটি ফরোয়ার্ড ব্যর্থ হয়েছে</item>
+        <item quantity="other">%1$sটি ফরোয়ার্ড ব্যর্থ হয়েছে</item>
+    </plurals>
+    <string name="nav_fwd_retry">আবার চেষ্টা করুন</string>
+    <string name="nav_fwd_retry_all">সব ব্যর্থ ফরোয়ার্ড আবার পাঠান (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">আবার পাঠাবেন?</string>
+    <plurals name="nav_fwd_retry_all_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$sটি SMS আবার পাঠানো হবে। প্রতিটি SMS-এর জন্য খরচ লাগবে।</item>
+        <item quantity="other">%1$sটি SMS আবার পাঠানো হবে। প্রতিটি SMS-এর জন্য খরচ লাগবে।</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">আবার পাঠান</string>
+    <plurals name="nav_fwd_retry_sent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি ফরোয়ার্ড আবার পাঠানো হয়েছে</item>
+        <item quantity="other">%dটি ফরোয়ার্ড আবার পাঠানো হয়েছে</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">আবার ব্যর্থ হয়েছে। আপনার সিগন্যাল ও ব্যালেন্স দেখুন।</string>
+    <string name="nav_fwd_retry_missing">মূল বার্তাটি আর নেই, তাই আবার পাঠানো যাবে না।</string>
+    <string name="nav_fwd_details_title">ফরোয়ার্ডের বিবরণ</string>
+    <string name="nav_fwd_detail_from">বার্তার প্রেরক</string>
+    <string name="nav_fwd_detail_to">ফরোয়ার্ডের প্রাপক</string>
+    <string name="nav_fwd_detail_when">সময়</string>
+    <string name="nav_fwd_detail_sim">যেখান থেকে পাঠানো হয়েছে</string>
+    <string name="nav_fwd_detail_rule">যে নিয়ম মিলেছে</string>
+    <string name="nav_fwd_detail_message">মূল বার্তা</string>
+    <string name="nav_fwd_message_loading">লোড হচ্ছে</string>
+    <string name="nav_fwd_message_gone">মূল বার্তাটি আর সংরক্ষিত নেই।</string>
+    <string name="nav_fwd_error_radio">নেটওয়ার্ক বার্তাটি পৌঁছে দিতে পারেনি।</string>
+    <string name="nav_fwd_error_refused">ফোন বার্তাটি পাঠাতে পারেনি।</string>
+    <string name="nav_fwd_open_chat">চ্যাট খুলুন</string>
+    <string name="nav_archived_title">আর্কাইভ করা</string>
+    <string name="nav_archived_back">বার্তা বিভাগে ফিরুন</string>
+    <string name="nav_archived_intro">আর্কাইভ করা চ্যাট বার্তা বিভাগে দেখা যায় না। নতুন বার্তা এলে চ্যাট আবার ফিরে আসে, যদি সেটিংসে “আর্কাইভ করা চ্যাট লুকিয়ে রাখুন” চালু না থাকে।</string>
+    <string name="nav_archived_intro_dismiss">এই নোট লুকান</string>
+    <plurals name="nav_archived_moved" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি কথোপকথন বার্তা বিভাগে সরানো হয়েছে</item>
+        <item quantity="other">%dটি কথোপকথন বার্তা বিভাগে সরানো হয়েছে</item>
+    </plurals>
+    <string name="nav_folder_more">আরও বিকল্প</string>
+    <string name="nav_folder_mark_all_read">সব পড়া হয়েছে বলে চিহ্নিত করুন</string>
+    <string name="nav_folder_delete_all_count">এতে %1$s স্থায়ীভাবে মুছে যাবে।</string>
+</resources>

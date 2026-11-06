@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">Oznacz gwiazdką</string>
+    <string name="i13_unstar">Usuń gwiazdkę</string>
+    <string name="i13_starred_mark">Z gwiazdką</string>
+    <string name="i13_filter_starred">Z gwiazdką</string>
+    <string name="i13_filter_starred_empty_title">Brak wiadomości z gwiazdką</string>
+    <string name="i13_filter_starred_empty_body">Zaznacz wiadomość w rozmowie i dotknij gwiazdki, aby ją tu zachować.</string>
+    <string name="i13_starred_note">Gwiazdka zachowuje kopię tekstu nawet po usunięciu rozmowy. Usunięcie gwiazdki usuwa tę kopię.</string>
+    <string name="i13_snapshot_gone">Ta rozmowa została usunięta. Pozostał tylko zapisany tekst.</string>
+    <string name="i13_snapshot_close">Zamknij</string>
+</resources>

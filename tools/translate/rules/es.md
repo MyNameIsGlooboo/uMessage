@@ -1,0 +1,5 @@
+- Neutral Latin American Spanish, understandable everywhere; no Spain-only words (prefer "teléfono" over "móvil" or "celular").
+- Address the user with the informal "tú" imperative as Google Messages does ("Elige", "Activa"), never "vosotros" and not "usted"; stay consistent.
+- Use inverted ¿ and ¡, « » or " " for quotes, and sentence case (only the first word capitalised, no English-style Title Case).
+- Plural ids: "one" and "other" (do not write "many").
+- Gender: avoid forms that need the user's gender; reword.

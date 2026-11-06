@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">Oculte códigos nas mensagens encaminhadas</string>
+    <string name="w3d_mask_codes_body">Códigos encaminhados aparecem como ****</string>
+    <string name="w3d_mask_keep_last">Mantenha os dois últimos dígitos</string>
+    <string name="w3d_mask_keep_last_on">Mensagens encaminhadas mostram, por exemplo, **34.</string>
+    <string name="w3d_mask_keep_last_off">Mensagens encaminhadas ocultam todo o código.</string>
+    <string name="w3d_daily_limit">Limite diário de encaminhamentos</string>
+    <string name="w3d_daily_limit_body">Máximo de encaminhamentos por dia</string>
+    <string name="w3d_hide_lock_codes">Oculte códigos na tela de bloqueio</string>
+    <string name="w3d_hide_lock_codes_body">Mensagens com código mostram •••• na tela de bloqueio até você desbloquear o celular.</string>
+</resources>

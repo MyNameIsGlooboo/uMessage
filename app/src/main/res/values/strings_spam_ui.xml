@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Blocked messages -->
+    <string name="spam_ui_delete_all">Delete all</string>
+    <string name="spam_ui_delete_all_title">Delete all blocked messages?</string>
+    <plurals name="spam_ui_delete_all_message">
+        <item quantity="one">%1$d blocked message will be deleted. You can undo right after.</item>
+        <item quantity="other">%1$d blocked messages will be deleted. You can undo right after.</item>
+    </plurals>
+
+    <!-- Decision log -->
+    <string name="declog_ui_clear_title">Clear the decision log?</string>
+    <string name="declog_ui_clear_message">Every logged decision is removed. Blocked messages and rules stay as they are.</string>
+    <string name="declog_ui_clear_action">Clear</string>
+    <string name="ui_log_reason_contacts_unavailable">Contacts not readable</string>
+
+    <!-- Blocked numbers (system block list) -->
+    <string name="blocknum_title">Blocked numbers</string>
+    <string name="blocknum_add">Add number</string>
+    <string name="blocknum_add_title">Block a number</string>
+    <string name="blocknum_edit_title">Edit blocked number</string>
+    <string name="blocknum_field_label">Number</string>
+    <string name="blocknum_field_help">Use * as a wildcard: +1555* blocks every number that starts with +1555</string>
+    <string name="blocknum_err_empty">Enter a number</string>
+    <string name="blocknum_err_invalid">Enter a phone number, or digits with * as a wildcard</string>
+    <string name="blocknum_copy">Copy number</string>
+    <string name="blocknum_unblock">Unblock</string>
+    <string name="blocknum_unblock_for">Unblock %1$s</string>
+    <string name="blocknum_edit_for">Edit %1$s</string>
+    <string name="blocknum_more_for">More options for %1$s</string>
+    <string name="blocknum_pattern">Wildcard pattern</string>
+    <string name="blocknum_copied">Number copied</string>
+    <plurals name="blocknum_unblocked">
+        <item quantity="one">%1$d number unblocked</item>
+        <item quantity="other">%1$d numbers unblocked</item>
+    </plurals>
+    <string name="blocknum_import">Import</string>
+    <string name="blocknum_export">Export</string>
+    <plurals name="blocknum_imported">
+        <item quantity="one">%1$d number imported</item>
+        <item quantity="other">%1$d numbers imported</item>
+    </plurals>
+    <string name="blocknum_import_empty">No numbers found in the file</string>
+    <plurals name="blocknum_import_skipped">
+        <item quantity="one">%d entry skipped (not a number or already blocked)</item>
+        <item quantity="other">%d entries skipped (not a number or already blocked)</item>
+    </plurals>
+    <string name="blocknum_import_failed">Couldn\'t read the file</string>
+    <plurals name="blocknum_exported">
+        <item quantity="one">%1$d number exported</item>
+        <item quantity="other">%1$d numbers exported</item>
+    </plurals>
+    <string name="blocknum_export_empty">No numbers to export</string>
+    <string name="blocknum_export_failed">Couldn\'t save the file</string>
+    <string name="blocknum_failed">Couldn\'t change the block list. Please try again.</string>
+    <string name="blocknum_empty_title">Not blocking anyone</string>
+    <string name="blocknum_empty_body">Blocked numbers can\'t message or call you. This list is shared with your phone app.</string>
+    <string name="blocknum_unavailable_title">Block list not available</string>
+    <string name="blocknum_unavailable_body">Make uMessage your default SMS app to see and change the system block list.</string>
+    <string name="blocknum_unknown_title">Block unknown numbers</string>
+    <string name="blocknum_unknown_body">Only used when the spam mode is Off: then messages from unknown numbers go to Blocked, as in Strict. Strict and Smart ignore this switch.</string>
+    <string name="blocknum_contacts_denied">Without contacts access, unknown numbers can\'t be recognized</string>
+    <string name="blocknum_section_numbers">Numbers</string>
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="backup_channel">ব্যাকআপ ও ফিরিয়ে আনা</string>
+    <string name="backup_restoring">বার্তা ফিরিয়ে আনা হচ্ছে</string>
+    <string name="backup_exporting">বার্তার ব্যাকআপ নেওয়া হচ্ছে</string>
+    <plurals name="backup_progress_import" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি এন্ট্রি পড়া হয়েছে</item>
+        <item quantity="other">%1$dটি এন্ট্রি পড়া হয়েছে</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি এন্ট্রি পড়া হয়েছে (%2$d%%)</item>
+        <item quantity="other">%1$dটি এন্ট্রি পড়া হয়েছে (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি বার্তা সেভ হয়েছে</item>
+        <item quantity="other">%1$dটি বার্তা সেভ হয়েছে</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি বার্তা সেভ হয়েছে (%2$d%%)</item>
+        <item quantity="other">%1$dটি বার্তা সেভ হয়েছে (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">আপনি অ্যাপ থেকে বের হতে পারেন: কাজ চলতে থাকবে এবং বিজ্ঞপ্তিতে অগ্রগতি দেখাবে।</string>
+    <string name="backup_stop">থামান</string>
+    <string name="backup_hide">লুকান</string>
+    <string name="backup_already_running">ইতিমধ্যে ব্যাকআপ নেওয়া বা ফিরিয়ে আনার কাজ চলছে।</string>
+    <string name="backup_restore_finished">ফিরিয়ে আনা শেষ</string>
+    <string name="backup_restore_stopped">ফিরিয়ে আনা থেমেছে</string>
+    <string name="backup_restore_failed">ফিরিয়ে আনা যায়নি</string>
+    <string name="backup_invalid_file">এই ফাইলটি বার্তার ব্যাকআপ নয়, তাই কিছুই ফিরিয়ে আনা হয়নি।</string>
+    <string name="backup_no_entries">ব্যাকআপ ফাইলে কোনো বার্তা নেই।</string>
+    <plurals name="backup_nothing_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">ইমপোর্ট করার মতো নতুন কিছু নেই: বার্তাটি এই ফোনে আগে থেকেই আছে।</item>
+        <item quantity="other">ইমপোর্ট করার মতো নতুন কিছু নেই: সব %1$dটি বার্তা এই ফোনে আগে থেকেই আছে।</item>
+    </plurals>
+    <string name="backup_line_added">যোগ হয়েছে: %1$d</string>
+    <string name="backup_line_duplicates">এই ফোনে আগে থেকেই আছে, বাদ দেওয়া হয়েছে: %1$d</string>
+    <string name="backup_line_repaired">আগে ফিরিয়ে আনা বার্তায় অনুপস্থিত সংযুক্তি যোগ হয়েছে: %1$d</string>
+    <string name="backup_line_incomplete">কিছু সংযুক্তি ছাড়া ফিরিয়ে আনা ছবির বার্তা: %1$d</string>
+    <string name="backup_line_failed">ফিরিয়ে আনা যায়নি: %1$d</string>
+    <string name="backup_line_damaged">ফাইলে নষ্ট এন্ট্রি, বাদ দেওয়া হয়েছে: %1$d</string>
+    <string name="backup_line_xml_mms">এই XML ব্যাকআপের ছবির বার্তা, সমর্থিত নয় বলে বাদ দেওয়া হয়েছে: %1$d</string>
+    <string name="backup_line_not_selected">ইমপোর্টের জন্য নির্বাচন করা হয়নি: %1$d</string>
+    <string name="backup_reasons">কারণ:</string>
+    <string name="backup_reason_no_address">বার্তায় প্রেরক বা প্রাপক নেই</string>
+    <string name="backup_reason_no_thread">ফোন বার্তাটির কথোপকথন খুলতে পারেনি</string>
+    <string name="backup_reason_refused">ফোন বার্তাটি সেভ করতে দেয়নি</string>
+    <string name="backup_reason_not_in_backup">সংযুক্তিটি ব্যাকআপ ফাইলে নেই</string>
+    <string name="backup_reason_damaged_attachment">ব্যাকআপ ফাইলের সংযুক্তিটি নষ্ট</string>
+    <string name="backup_reason_attachment_write">সংযুক্তিটি সেভ করা যায়নি</string>
+    <string name="backup_stopped_early">%1$d নম্বর এন্ট্রির পর থেকে ফাইলটি নষ্ট, তাই এর পরের কিছু পড়া যায়নি।</string>
+    <plurals name="backup_cancelled_import" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি এন্ট্রির পর থেমেছে। শেষ করতে একই ফাইল দিয়ে আবার ফিরিয়ে আনুন: আগে ফিরিয়ে আনা বার্তাগুলো বাদ দেওয়া হবে।</item>
+        <item quantity="other">%1$dটি এন্ট্রির পর থেমেছে। শেষ করতে একই ফাইল দিয়ে আবার ফিরিয়ে আনুন: আগে ফিরিয়ে আনা বার্তাগুলো বাদ দেওয়া হবে।</item>
+    </plurals>
+    <string name="backup_retry_hint">যেগুলো ফিরিয়ে আনা যায়নি, সেগুলোর জন্য আবার চেষ্টা করুন: আগে ফিরিয়ে আনা বার্তাগুলো বাদ দেওয়া হবে।</string>
+    <string name="backup_export_finished">ব্যাকআপ শেষ</string>
+    <string name="backup_export_stopped">ব্যাকআপ থেমেছে</string>
+    <string name="backup_export_failed">ব্যাকআপ নেওয়া যায়নি</string>
+    <string name="backup_export_error">ব্যাকআপ সেভ করা যায়নি এবং অসম্পূর্ণ ফাইলটি মুছে ফেলা হয়েছে। %1$s</string>
+    <string name="backup_export_cancelled">ব্যাকআপ থামানো হয়েছে এবং অসম্পূর্ণ ফাইলটি মুছে ফেলা হয়েছে।</string>
+    <string name="backup_export_nothing">ব্যাকআপ নেওয়ার মতো কোনো বার্তা নেই।</string>
+    <string name="backup_export_counts">%1$dটি SMS ও %2$dটি MMS সেভ হয়েছে।</string>
+    <string name="backup_export_unreadable_attachments">পড়া যায়নি বলে ছবি ছাড়া সেভ করা সংযুক্তি: %1$d</string>
+    <string name="backup_export_unreadable_messages">পড়া যায়নি বলে বাদ দেওয়া বার্তা: %1$d</string>
+    <string name="backup_export_unreadable_conversations">পড়া যায়নি বলে বাদ দেওয়া কথোপকথন: %1$d</string>
+    <string name="backup_export_incomplete">এই ব্যাকআপটি অসম্পূর্ণ।</string>
+    <string name="backup_interrupted_import">গতবার ফিরিয়ে আনার কাজ শেষ হওয়ার আগেই থেমে গেছে, হয়তো ফোন অ্যাপটি বন্ধ করে দিয়েছিল। একই ফাইল দিয়ে আবার ফিরিয়ে আনুন: আগে ফিরিয়ে আনা বার্তাগুলো বাদ দেওয়া হবে।</string>
+    <string name="backup_interrupted_export">গতবার ব্যাকআপ শেষ হওয়ার আগেই থেমে গেছে, তাই ফাইলটি অসম্পূর্ণ। নতুন ব্যাকআপ নিন।</string>
+</resources>

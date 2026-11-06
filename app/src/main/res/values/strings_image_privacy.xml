@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i09_setting_title">Remove location from pictures</string>
+    <string name="i09_setting_summary">Hides where a photo was taken before it is sent</string>
+</resources>

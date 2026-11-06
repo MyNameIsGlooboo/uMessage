@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="convlist_loading">Carregando mensagens</string>
+    <string name="convlist_empty_title">Ainda não há conversas</string>
+    <string name="convlist_empty_body">As mensagens que você enviar e receber aparecerão aqui.</string>
+    <string name="convlist_start_conversation">Inicie uma conversa</string>
+    <string name="convlist_new_conversation">Nova conversa</string>
+    <string name="convlist_draft">Rascunho</string>
+    <string name="convlist_pinned">Fixada</string>
+    <string name="convlist_muted">Notificações desativadas</string>
+    <string name="convlist_unread">Não lida</string>
+    <string name="convlist_unread_count">%1$d não lidas</string>
+    <string name="convlist_group">Conversa em grupo</string>
+    <string name="convlist_selected">Selecionada</string>
+    <string name="convlist_sim">Chip %1$d</string>
+    <string name="convlist_scroll_handle">Rolagem rápida</string>
+    <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d mensagem bloqueada</item>
+        <item quantity="other">%d mensagens bloqueadas</item>
+    </plurals>
+    <string name="convlist_blocked_banner_title">Mensagens bloqueadas</string>
+    <string name="convlist_blocked_banner_cd">%1$d mensagens bloqueadas. Abra a pasta de bloqueados.</string>
+    <string name="convlist_archive">Arquive</string>
+    <string name="convlist_delete">Exclua</string>
+    <string name="convlist_pin">Fixe no topo</string>
+    <string name="convlist_unpin">Desafixe</string>
+    <string name="convlist_mark_read">Marque como lida</string>
+    <string name="convlist_mark_unread">Marque como não lida</string>
+    <string name="convlist_block_number">Bloqueie o número</string>
+    <string name="convlist_add_contact">Adicione o número a um contato</string>
+    <string name="convlist_copy_number">Copie o número</string>
+    <string name="convlist_dial">Ligue</string>
+    <string name="convlist_rename">Renomeie a conversa</string>
+    <string name="convlist_details">Detalhes da conversa</string>
+    <string name="convlist_select_all">Selecione tudo</string>
+    <string name="convlist_more_options">Mais opções</string>
+    <string name="convlist_close_selection">Cancele a seleção</string>
+    <plurals name="convlist_selected_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d selecionada</item>
+        <item quantity="other">%d selecionadas</item>
+    </plurals>
+    <string name="convlist_undo">Desfaça</string>
+    <plurals name="convlist_deleted" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d conversa excluída</item>
+        <item quantity="other">%d conversas excluídas</item>
+    </plurals>
+    <plurals name="convlist_archived" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d conversa arquivada</item>
+        <item quantity="other">%d conversas arquivadas</item>
+    </plurals>
+    <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Bloqueado. Novas mensagens irão para Mensagens bloqueadas</item>
+        <item quantity="other">%d remetentes bloqueados. Novas mensagens irão para Mensagens bloqueadas</item>
+    </plurals>
+    <string name="convlist_action_failed">Algo deu errado</string>
+    <string name="convlist_block_title">Bloquear número?</string>
+    <string name="convlist_block_message">Bloquear %1$s? Novas mensagens desse número irão para Mensagens bloqueadas em vez da caixa de entrada. Lá, você ainda poderá ler ou restaurar as mensagens.</string>
+    <string name="convlist_block_confirm">Bloqueie</string>
+    <string name="convlist_rename_title">Renomeie a conversa</string>
+    <string name="convlist_rename_hint">Nome da conversa</string>
+    <string name="convlist_ok">OK</string>
+    <string name="convlist_cancel">Cancele</string>
+</resources>

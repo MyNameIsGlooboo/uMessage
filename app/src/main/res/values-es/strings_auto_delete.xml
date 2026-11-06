@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">Conservar mensajes durante</string>
+    <string name="cleanup_old_summary">Los más antiguos se mueven a la papelera</string>
+    <string name="cleanup_forever">Siempre</string>
+    <string name="cleanup_one_year">1 año</string>
+    <string name="cleanup_bin_title">¿Activar la papelera?</string>
+    <string name="cleanup_bin_body">Los mensajes eliminados permanecen allí durante 30 días para que puedas recuperarlos. La limpieza automática necesita la papelera.</string>
+    <string name="cleanup_bin_confirm">Activar</string>
+    <string name="cleanup_old_confirm_title">¿Mover los mensajes antiguos?</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="one">%d mensaje supera ese tiempo y se moverá a la papelera ahora. Se conservan los mensajes destacados y no leídos y las conversaciones fijadas.</item>
+        <item quantity="other">%d mensajes superan ese tiempo y se moverán a la papelera ahora. Se conservan los mensajes destacados y no leídos y las conversaciones fijadas.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">Todavía ningún mensaje supera ese tiempo. Los más antiguos se moverán a la papelera automáticamente. Se conservan los mensajes destacados y no leídos y las conversaciones fijadas.</string>
+    <string name="cleanup_old_confirm_action">Mover</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_emoji">Емодзі</string>
+    <string name="thread_show_keyboard">Показати клавіатуру</string>
+    <string name="thread_scheduled_not_sent">Заплановане повідомлення не надіслано</string>
+    <string name="thread_edit_scheduled_replaces_draft">Редагування запланованого повідомлення замінить текст, який ви зараз вводите. Продовжити?</string>
+    <string name="thread_menu_report_spam">Позначити як спам</string>
+    <string name="thread_report_spam_title">Позначити як спам?</string>
+    <string name="thread_report_spam_message">Нові повідомлення від %1$s потраплятимуть у «Заблоковані повідомлення» замість «Вхідних». Наявні повідомлення в цьому чаті збережуться.</string>
+    <string name="thread_report_spam_confirm">Позначити як спам</string>
+    <string name="thread_report_spam_cancel">Скасувати</string>
+    <string name="thread_report_spam_done">Позначено як спам</string>
+    <string name="thread_report_spam_rule_note">Повідомлено про спам</string>
+    <string name="thread_report_spam_already">Уже позначено як спам</string>
+    <string name="thread_report_spam_failed">Не вдалося позначити як спам</string>
+    <string name="thread_report_spam_undo">Скасувати</string>
+</resources>

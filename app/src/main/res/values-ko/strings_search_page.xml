@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">대화 시작</string>
+    <string name="search_page_show_more">더보기</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">이 SIM 사용 대화가 없어요.</string>
+    <string name="search_page_sim_empty_body">이 SIM 카드로 메시지를 주고받은 대화가 여기에 표시돼요.</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">التصنيفات</string>
+    <string name="i29_picker_title">التصنيفات</string>
+    <string name="i29_picker_empty">لا توجد تصنيفات بعد. أنشئ تصنيفًا لتنظيم محادثاتك.</string>
+    <string name="i29_picker_new">تصنيف جديد</string>
+    <string name="i29_picker_manage">إدارة التصنيفات</string>
+    <string name="i29_done">تم</string>
+    <string name="i29_cancel">إلغاء</string>
+    <string name="i29_tiles_title">تصنيفاتك</string>
+    <string name="i29_tile_add">أضف تصنيفًا</string>
+    <string name="i29_tiles_manage">إدارة التصنيفات</string>
+    <string name="i29_manager_title">إدارة التصنيفات</string>
+    <string name="i29_manager_note">التصنيفات خاصة بك، وهي مستقلة عن تصفية المعاملات والعروض التلقائية.</string>
+    <string name="i29_manager_edit">عدّل التصنيف %1$s</string>
+    <string name="i29_manager_delete">احذف التصنيف %1$s</string>
+    <string name="i29_edit_new_title">تصنيف جديد</string>
+    <string name="i29_edit_title">تعديل التصنيف</string>
+    <string name="i29_edit_name">اسم التصنيف</string>
+    <string name="i29_edit_save">احفظ</string>
+    <string name="i29_color_description">اللون %1$d</string>
+    <string name="i29_error_duplicate">لديك تصنيف بهذا الاسم بالفعل.</string>
+    <string name="i29_error_limit">يمكنك إنشاء ما يصل إلى %1$d تصنيفًا.</string>
+    <string name="i29_delete_title">هل تريد حذف هذا التصنيف؟</string>
+    <string name="i29_delete_body">سيُحذف التصنيف «%1$s». ستبقى محادثاتك ورسائلك كما هي.</string>
+    <string name="i29_delete_confirm">احذف</string>
+    <string name="i29_empty_title">لا توجد محادثات هنا</string>
+    <string name="i29_empty_body">اضغط مطولًا على محادثة، ثم افتح القائمة واختر «التصنيفات» لإضافتها.</string>
+</resources>

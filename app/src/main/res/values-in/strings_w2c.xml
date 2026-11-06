@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2c_blocked_label">Diblokir</string>
+    <string name="w2c_log_blocked_by_rule">Diblokir oleh aturan: %1$s</string>
+    <string name="w2c_log_blocked_by_old_list">Diblokir oleh daftar blokir lama</string>
+    <string name="w2c_log_fwd_rate_limited">Tidak diteruskan: aturan ini mencapai batas per jam</string>
+</resources>

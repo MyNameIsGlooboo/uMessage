@@ -1,0 +1,86 @@
+# Invented incoming texts for the question engine. Format: EXPECTED|message. NONE means no chip may show.
+# Never add real messages.
+YES_NO|Bist du schon zu Hause?
+YES_NO|Hast du das Paket bekommen?
+YES_NO|Ist das Büro heute offen
+YES_NO|Hast du schon gegessen?
+YES_NO|Kommst du?
+YES_NO|Seid ihr gut angekommen?
+YES_NO|Kannst du gerade reden?
+YES_NO|Haben Sie meine Nachricht erhalten?
+YES_NO|Bist du noch wach
+YES_NO|Weißt du ob der Laden noch aufhat?
+YES_NO|Kennst du die Adresse?
+YES_NO|Stimmt das so?
+YES_NO|Hast du gut geschlafen?
+YES_NO|Ist alles in Ordnung bei dir?
+YES_NO|Das Treffen bleibt bestehen, einverstanden?
+INVITE|Hast du Lust auf Kino heute Abend?
+INVITE|Hast du morgen Zeit?
+INVITE|Wollen wir am Samstag grillen?
+INVITE|Habt ihr Bock auf einen Spieleabend?
+INVITE|Bist du heute Abend frei?
+INVITE|Sollen wir was essen gehen
+INVITE|Kommst du mit zum Konzert?
+INVITE|Kommt ihr auch vorbei?
+INVITE|Lass uns mal wieder treffen
+WHEN|Wann treffen wir uns?
+WHEN|Um wie viel Uhr kommst du?
+WHEN|Wann kommst du heim?
+WHEN|Bis wann brauchst du es?
+WHEN|Welchen Tag meinst du?
+WHEN|Wann genau fängt es an?
+WHERE|Wo bist du?
+WHERE|Wo seid ihr gerade?
+WHERE|Wo treffen wir uns?
+WHERE|Wo parkst du?
+WHERE|Wo steckst du denn?
+CHOICE:pizza,sushi|Pizza oder Sushi?
+CHOICE:kaffee,tee|Kaffee oder Tee?
+CHOICE:samstag,sonntag|Samstag oder Sonntag?
+CHOICE:zug,auto|Zug oder Auto?
+CHOICE:mit,ohne zwiebeln|Mit oder ohne Zwiebeln?
+CHOICE:meer,berge|Meer oder Berge?
+CHOICE:kino,restaurant|Kino oder Restaurant?
+REQUEST|Kannst du mir die Adresse schicken?
+REQUEST|Kannst du mich später anrufen?
+REQUEST|Könnten Sie mir das Angebot senden?
+REQUEST|Könntest du Brot mitbringen?
+REQUEST|Kannst du mal kurz nachschauen
+REQUEST|Würdest du mir bitte den Schlüssel bringen?
+REQUEST|Bringst du mir was mit?
+REQUEST|Könnt ihr bitte Bescheid geben?
+NONE|Warum bist du nicht gekommen?
+NONE|Wie viel kostet das?
+NONE|Wer hat das Spiel gewonnen?
+NONE|Was ist deine Adresse?
+NONE|Wie geht es jetzt weiter?
+NONE|Ich bin zu Hause.
+NONE|Ich komme in zehn Minuten
+NONE|Er ist gestern Abend angekommen
+NONE|Kannst du mir den Code 482913 schicken?
+NONE|Kannst du 50 € überweisen?
+NONE|Hast du das gesehen https://beispiel.de/foto?
+NONE|Wie du willst?
+NONE|Kommst du? Bleibst du?
+NONE|Kommst du? Das bezweifle ich
+NONE|Danke für gestern, war super
+NONE|Wie alt bist du?
+NONE|Was machst du gerade?
+NONE|Wer bist du?
+NONE|Woher kommst du?
+NONE|Wohin gehst du?
+NONE|Welche Farbe hat sein Auto?
+NONE|Wie heißt du?
+NONE|Viel Glück für morgen!
+NONE|Welches ist größer?
+NONE|Wie lange bleibst du?
+NONE|Warum nicht?
+NONE|Ich möchte wissen, ob du kommen könntest, aber ich weiß nicht, wie ich dich höflich fragen soll
+NONE|Der Film beginnt heute um zwanzig Uhr im Kino
+NONE|Es regnet hier
+NONE|Ich rufe dich morgen früh an
+NONE|Vergiss deinen Regenschirm nicht
+NONE|Was soll das heißen?
+NONE|Hallo, wie geht's?
+NONE|Wie viele Leute kommen?

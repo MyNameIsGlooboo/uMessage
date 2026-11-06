@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">Tên SIM</string>
+    <string name="i34_setting_summary">Đặt tên và nhập số điện thoại cho từng SIM</string>
+    <string name="i34_dialog_title">Tên SIM</string>
+    <string name="i34_number_note">Nhà mạng thường không cung cấp số điện thoại cho ứng dụng, nên bạn hãy nhập tại đây. Cả tên và số chỉ được lưu trên điện thoại này.</string>
+    <string name="i34_sim_heading">SIM %1$d, %2$s</string>
+    <string name="i34_nickname">Tên (ví dụ: Công việc)</string>
+    <string name="i34_number">Số điện thoại</string>
+</resources>

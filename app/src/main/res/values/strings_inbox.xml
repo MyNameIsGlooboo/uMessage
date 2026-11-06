@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Design review 2, group B: inbox rows, Archived, search, Details. -->
+    <!-- CL-31: menu items are actions; the question stays in the confirmation dialog. -->
+    <string name="inbox_empty_archive_menu">Empty archive</string>
+    <string name="inbox_empty_bin_menu">Empty Recycle Bin</string>
+    <!-- B13: one sentence under "Nothing archived" that adds something instead of repeating it. -->
+    <string name="inbox_archive_empty_body">Chats you archive from Messages show up here.</string>
+
+    <!-- B6: Details header action for a sender who is already a saved contact. -->
+    <string name="inbox_details_view_contact">View contact</string>
+    <!-- CL-23 / ID-50: Details rows. -->
+    <string name="inbox_details_more">More</string>
+    <string name="inbox_details_search">Search in conversation</string>
+    <string name="inbox_details_search_body">Find a message in this chat</string>
+    <string name="inbox_details_forward">Forward rule for this sender</string>
+    <string name="inbox_details_forward_body">Send copies of this sender\'s texts to another number</string>
+    <string name="inbox_details_search_hint">Search this conversation</string>
+</resources>

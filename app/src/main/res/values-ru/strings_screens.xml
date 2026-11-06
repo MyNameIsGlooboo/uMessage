@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="screens_back">Назад</string>
+    <string name="screens_ok">ОК</string>
+    <string name="screens_cancel">Отмена</string>
+    <string name="screens_delete">Удалить</string>
+    <string name="screens_clear_selection">Снять выделение</string>
+    <plurals name="screens_selected_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Выбрано: %d</item>
+        <item quantity="few">Выбрано: %d</item>
+        <item quantity="many">Выбрано: %d</item>
+        <item quantity="other">Выбрано: %d</item>
+    </plurals>
+    <string name="screens_loading">Загрузка…</string>
+    <string name="screens_more_options">Другие действия</string>
+    <string name="screens_select_all">Выбрать все</string>
+    <string name="screens_copy">Копировать</string>
+    <string name="screens_grant_permission">Разрешить доступ</string>
+    <string name="screens_delete_forever_title">Удалить навсегда?</string>
+    <string name="screens_delete_conversations_message">Удалить %1$s навсегда? Это действие нельзя отменить.</string>
+    <string name="screens_restore_title">Восстановить?</string>
+    <string name="screens_empty_archive_title">Очистить архив?</string>
+    <string name="screens_empty_bin_title">Очистить корзину?</string>
+    <string name="screens_empty_action">Очистить</string>
+    <string name="screens_archive_empty_title">В архиве пусто</string>
+    <string name="screens_bin_empty_title">Корзина пуста</string>
+    <string name="screens_bin_empty_body">Удаленные сообщения хранятся здесь до очистки корзины.</string>
+    <string name="screens_new_to_hint">Кому</string>
+    <string name="screens_new_start">Начать чат с %1$s</string>
+    <string name="screens_new_clear_input">Очистить</string>
+    <string name="screens_new_no_matches">Контакты не найдены. Нажмите на стрелку, чтобы написать на введенный номер.</string>
+    <string name="screens_new_contacts">Контакты</string>
+    <string name="screens_new_create_group">Создать группу</string>
+    <string name="screens_new_group_title">Новая группа</string>
+    <string name="screens_new_group_next">Далее</string>
+    <string name="screens_new_group_add">Добавить %1$s</string>
+    <string name="screens_new_group_remove">Убрать %1$s</string>
+    <string name="screens_new_group_selected">Выбрано</string>
+    <string name="screens_details_edit_name">Изменить название чата</string>
+    <string name="screens_keywords_add">Добавить ключевое слово</string>
+    <string name="screens_keywords_menu_export">Экспорт</string>
+    <string name="screens_keywords_menu_import">Импорт</string>
+    <string name="screens_keywords_edit">Изменить</string>
+    <string name="screens_keywords_duplicate">Это ключевое слово уже есть в списке</string>
+    <string name="screens_keywords_help">Ищет текст в любой части сообщения, даже внутри более длинного слова. Регистр букв не учитывается.</string>
+    <string name="screens_keywords_empty_title">Нет заблокированных ключевых слов</string>
+    <plurals name="screens_keywords_deleted" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Удалено %d ключевое слово</item>
+        <item quantity="few">Удалено %d ключевых слова</item>
+        <item quantity="many">Удалено %d ключевых слов</item>
+        <item quantity="other">Удалено %d ключевого слова</item>
+    </plurals>
+    <string name="screens_vcard_title">Контакт</string>
+    <string name="screens_vcard_add_contact">Добавить в контакты</string>
+    <string name="screens_vcard_expand">Показать сведения</string>
+    <string name="screens_vcard_collapse">Скрыть сведения</string>
+    <string name="screens_vcard_empty">В этом файле нет контакта</string>
+    <string name="screens_dialog_filename">Имя файла</string>
+    <string name="screens_schedule_date">Дата</string>
+    <string name="screens_schedule_time">Время</string>
+    <string name="screens_schedule_pick_time">Выберите время</string>
+    <string name="screens_schedule_next">Далее</string>
+    <string name="screens_delete_skip_bin">Удалить сразу, минуя корзину</string>
+    <string name="screens_select_text_title">Выделить текст</string>
+</resources>

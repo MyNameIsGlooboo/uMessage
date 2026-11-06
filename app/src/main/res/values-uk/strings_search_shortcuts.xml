@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">Невідомі</string>
+    <string name="i28_filter_unknown_empty_title">Немає невідомих відправників</string>
+    <string name="i28_filter_unknown_empty_body">Тут з’являються чати з людьми, яких немає у ваших контактах і яким ви ніколи не писали.</string>
+    <string name="i28_filter_images">Зображення</string>
+    <string name="i28_filter_images_empty_title">Немає зображень</string>
+    <string name="i28_filter_images_empty_body">Тут з’являються повідомлення із зображенням.</string>
+    <string name="i28_filter_links">Посилання</string>
+    <string name="i28_filter_links_empty_title">Немає посилань</string>
+    <string name="i28_filter_links_empty_body">Тут з’являються повідомлення з вебпосиланням.</string>
+    <string name="i28_hit_picture">Зображення</string>
+</resources>

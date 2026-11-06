@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">Nhật ký quyết định</string>
+    <string name="declog_clear">Xóa nhật ký</string>
+    <string name="declog_empty_title">Chưa có quyết định nào</string>
+    <string name="declog_empty_body">Mỗi tin nhắn được bộ lọc kiểm tra đều hiện ở đây kèm lý do. Nội dung tin nhắn không bao giờ được lưu.</string>
+    <plurals name="declog_kept_for">
+        <item quantity="other">Mỗi quyết định được xóa sau %d ngày. Nội dung tin nhắn không bao giờ được lưu.</item>
+    </plurals>
+    <string name="declog_sim">SIM %1$s</string>
+    <string name="declog_today">Hôm nay</string>
+    <string name="declog_yesterday">Hôm qua</string>
+    <string name="declog_allowed_by_rule">Đã cho phép theo quy tắc: %1$s</string>
+    <string name="declog_filter_all">Tất cả</string>
+    <string name="declog_filter_blocked">Đã chặn</string>
+    <string name="declog_filter_allowed">Đã cho phép</string>
+    <string name="declog_filter_empty">Không có quyết định nào khớp với bộ lọc này</string>
+    <plurals name="declog_times">
+        <item quantity="other">%1$s lần</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="other">Cùng một quyết định được đưa ra %1$s lần liên tiếp</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="other">Chia sẻ %d quyết định</item>
+    </plurals>
+    <string name="declog_csv_subject">Nhật ký quyết định của uMessage</string>
+    <string name="declog_share_failed">Không thể chia sẻ nhật ký</string>
+    <string name="declog_details_title">Chi tiết quyết định</string>
+    <string name="declog_open_details">Mở chi tiết cho %1$s</string>
+    <string name="declog_fixed_allowed">Bạn đã cho phép người gửi này từ nhật ký</string>
+    <string name="declog_fixed_blocked">Bạn đã chặn người gửi này từ nhật ký</string>
+    <string name="declog_fixed_restored">Bạn đã khôi phục tin nhắn này từ nhật ký</string>
+    <string name="declog_restored">Đã khôi phục</string>
+    <string name="declog_blocked_message">Tin nhắn vẫn ở mục Đã chặn</string>
+    <string name="declog_restore">Khôi phục tin nhắn</string>
+    <string name="declog_restore_done">Đã khôi phục tin nhắn vào hộp thư đến</string>
+    <string name="declog_restore_text_only">Đã khôi phục nội dung văn bản vào hộp thư đến. Không thể khôi phục hình ảnh.</string>
+    <string name="declog_restore_nothing">Không có gì để khôi phục: tin nhắn hình ảnh này không được lưu lại</string>
+    <string name="declog_restore_failed">Không thể khôi phục tin nhắn</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

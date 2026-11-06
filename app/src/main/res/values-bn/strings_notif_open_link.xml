@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_open_link_action">লিঙ্ক খুলুন</string>
+    <string name="notif_open_link_title">লিঙ্ক খোলার বোতাম</string>
+    <string name="notif_open_link_summary">পরিচিতি ও অনুমতি দেওয়া প্রেরকদের বিজ্ঞপ্তিতে</string>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screens_back">Quay lại</string>
+    <string name="screens_ok">OK</string>
+    <string name="screens_cancel">Hủy</string>
+    <string name="screens_delete">Xóa</string>
+    <string name="screens_clear_selection">Bỏ chọn</string>
+    <plurals name="screens_selected_count">
+        <item quantity="other">Đã chọn %d</item>
+    </plurals>
+    <string name="screens_loading">Đang tải…</string>
+    <string name="screens_more_options">Tùy chọn khác</string>
+    <string name="screens_select_all">Chọn tất cả</string>
+    <string name="screens_copy">Sao chép</string>
+    <string name="screens_grant_permission">Cho phép truy cập</string>
+    <string name="screens_delete_forever_title">Xóa vĩnh viễn?</string>
+    <string name="screens_delete_conversations_message">Xóa vĩnh viễn %1$s? Không thể hoàn tác thao tác này.</string>
+    <string name="screens_restore_title">Khôi phục?</string>
+    <string name="screens_empty_archive_title">Dọn sạch mục lưu trữ?</string>
+    <string name="screens_empty_bin_title">Dọn sạch thùng rác?</string>
+    <string name="screens_empty_action">Dọn sạch</string>
+    <string name="screens_archive_empty_title">Chưa có gì được lưu trữ</string>
+    <string name="screens_bin_empty_title">Thùng rác trống</string>
+    <string name="screens_bin_empty_body">Tin nhắn đã xóa sẽ ở đây cho đến khi bạn dọn sạch thùng rác.</string>
+    <string name="screens_new_to_hint">Đến</string>
+    <string name="screens_new_start">Bắt đầu cuộc trò chuyện với %1$s</string>
+    <string name="screens_new_clear_input">Xóa</string>
+    <string name="screens_new_no_matches">Không có người liên hệ phù hợp. Nhấn mũi tên để nhắn tin đến số bạn đã nhập.</string>
+    <string name="screens_new_contacts">Người liên hệ</string>
+    <string name="screens_new_create_group">Tạo nhóm</string>
+    <string name="screens_new_group_title">Nhóm mới</string>
+    <string name="screens_new_group_next">Tiếp</string>
+    <string name="screens_new_group_add">Thêm %1$s</string>
+    <string name="screens_new_group_remove">Bỏ %1$s</string>
+    <string name="screens_new_group_selected">Đã chọn</string>
+    <string name="screens_details_edit_name">Sửa tên cuộc trò chuyện</string>
+    <string name="screens_keywords_add">Thêm từ khóa</string>
+    <string name="screens_keywords_menu_export">Xuất</string>
+    <string name="screens_keywords_menu_import">Nhập</string>
+    <string name="screens_keywords_edit">Chỉnh sửa</string>
+    <string name="screens_keywords_duplicate">Từ khóa này đã có trong danh sách</string>
+    <string name="screens_keywords_help">Khớp với văn bản ở bất kỳ đâu trong tin nhắn, kể cả trong một từ dài hơn. Không phân biệt chữ hoa, chữ thường.</string>
+    <string name="screens_keywords_empty_title">Chưa có từ khóa bị chặn</string>
+    <plurals name="screens_keywords_deleted">
+        <item quantity="other">Đã xóa %d từ khóa</item>
+    </plurals>
+    <string name="screens_vcard_title">Người liên hệ</string>
+    <string name="screens_vcard_add_contact">Thêm vào người liên hệ</string>
+    <string name="screens_vcard_expand">Hiện chi tiết</string>
+    <string name="screens_vcard_collapse">Ẩn chi tiết</string>
+    <string name="screens_vcard_empty">Không tìm thấy người liên hệ trong tệp này</string>
+    <string name="screens_dialog_filename">Tên tệp</string>
+    <string name="screens_schedule_date">Ngày</string>
+    <string name="screens_schedule_time">Giờ</string>
+    <string name="screens_schedule_pick_time">Chọn giờ</string>
+    <string name="screens_schedule_next">Tiếp</string>
+    <string name="screens_delete_skip_bin">Xóa trực tiếp, bỏ qua thùng rác</string>
+    <string name="screens_select_text_title">Chọn văn bản</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i09_setting_title">फ़ोटो से लोकेशन हटाएं</string>
+    <string name="i09_setting_summary">भेजने से पहले छिपाता है कि फ़ोटो कहां ली गई थी</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allow_similar_title">Ähnliche Nachrichten auch erlauben</string>
+    <string name="allow_similar_sender">Alle Absender namens %1$s</string>
+    <string name="allow_similar_prefix">Alle Nummern, die mit %1$s beginnen</string>
+    <string name="allow_similar_keyword">Alle Texte mit dem Wort „%1$s“</string>
+    <string name="allow_similar_risk_sender">Jeder kann unter einem solchen Namen senden.</string>
+    <string name="allow_similar_risk_prefix">Andere Nummern, die genauso beginnen, werden ebenfalls durchgelassen.</string>
+    <string name="allow_similar_risk_keyword">Jeder kann dieses Wort verwenden. So wird auch Spam mit diesem Wort durchgelassen.</string>
+    <string name="allow_similar_edit">Diese Regel bearbeiten</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w2b1_archived_find">
+        <item quantity="other">대화 %d개를 보관했어요. 보관됨 탭에서 확인하세요.</item>
+    </plurals>
+    <string name="w2b1_search_recent">최근 검색어</string>
+    <string name="w2b1_search_recent_clear">지우기</string>
+    <string name="w2b1_search_recent_clear_description">최근 검색어 지우기</string>
+    <string name="w2b1_search_digits_note">페르시아 숫자와 아라비아 숫자를 모두 검색해요. 123으로 ۱۲۳도 찾을 수 있어요.</string>
+    <string name="w2b1_search_section_conversations">대화</string>
+    <string name="w2b1_search_section_messages">메시지</string>
+    <plurals name="w2b1_search_matches">
+        <item quantity="other">검색 결과 %d건</item>
+    </plurals>
+    <string name="w2b1_filter_all">전체</string>
+    <string name="w2b1_filter_unread">읽지 않음</string>
+    <string name="w2b1_filter_unread_empty_title">읽지 않은 대화 없음</string>
+    <string name="w2b1_filter_unread_empty_body">모두 읽었어요.</string>
+    <string name="w2b1_swipe_block">발신자 차단</string>
+</resources>

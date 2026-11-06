@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">Ekranı uyandırın</string>
+    <string name="wake_screen_summary">Yeni mesaj geldiğinde ekranı açar</string>
+    <string name="bubbles_title">Görüşme baloncukları</string>
+    <string name="bubbles_summary">Görüşmeleri yüzen baloncuklar olarak gösterir</string>
+    <string name="bubbles_locked">Uygulama kilidi açıkken kullanılamaz</string>
+    <string name="focus_codes_title">Canlı bildirimde kodlar</string>
+    <string name="focus_codes_summary">Kodları Xiaomi canlı bildiriminde gösterir</string>
+</resources>

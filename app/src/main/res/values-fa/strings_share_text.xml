@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="share_text_menu">هم‌رسانی گفتگو به‌صورت متن</string>
+    <string name="share_text_scope_title">کدام پیام‌ها؟</string>
+    <string name="share_text_scope_whole">کل گفتگو</string>
+    <string name="share_text_scope_last">۵۰ پیام آخر</string>
+    <string name="share_text_title">هم‌رسانی به‌صورت متن</string>
+    <string name="share_text_warning">این کار متن خصوصی را به برنامه‌ای دیگر می‌فرستد. در مرحلهٔ بعد برنامه را انتخاب می‌کنید.</string>
+    <string name="share_text_action">هم‌رسانی</string>
+    <string name="share_text_range">%1$s تا %2$s</string>
+    <string name="share_text_attachment">[پیوست]</string>
+    <string name="share_text_subject">پیام‌ها از uMessage</string>
+    <string name="share_text_nothing">پیامی برای هم‌رسانی نیست</string>
+    <plurals name="share_text_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d پیام</item>
+        <item quantity="other">%1$d پیام</item>
+    </plurals>
+</resources>

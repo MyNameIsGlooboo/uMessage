@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chrome -->
+    <string name="onb_step_of">Step %1$d of %2$d</string>
+    <string name="onb_back">Back</string>
+    <string name="onb_next">Next</string>
+    <string name="onb_skip">Skip for now</string>
+    <string name="onb_finish">Start messaging</string>
+    <string name="onb_open">Open</string>
+    <string name="onb_hero_description">uMessage shield with a check mark</string>
+
+    <!-- Welcome -->
+    <string name="onb_welcome_title">Welcome to uMessage</string>
+    <string name="onb_welcome_intro">Better messaging, less spam.</string>
+    <string name="onb_welcome_spam">Spam stays out</string>
+    <string name="onb_welcome_spam_desc">Unknown senders wait in Blocked, never lost. You choose Strict, Smart or Off.</string>
+    <string name="onb_welcome_codes">One-tap codes</string>
+    <string name="onb_welcome_codes_desc">Copy verification codes right from the notification.</string>
+    <string name="onb_welcome_copy">Copy just what you need</string>
+    <string name="onb_welcome_copy_desc">Select part of a message and copy only that piece.</string>
+    <string name="onb_welcome_rules">Your own rules</string>
+    <string name="onb_welcome_rules_desc">Always allow or always block senders, words or patterns.</string>
+    <string name="onb_welcome_forwarding">Auto-forwarding</string>
+    <string name="onb_welcome_forwarding_desc">Send chosen messages to another number, protected by your PIN.</string>
+    <string name="onb_welcome_schedule">Schedule and dual SIM</string>
+    <string name="onb_welcome_schedule_desc">Send later, and pick the SIM for each chat.</string>
+    <string name="onb_welcome_lock">App lock and backup</string>
+    <string name="onb_welcome_lock_desc">Lock with a PIN or fingerprint, and back up to a file.</string>
+    <string name="onb_welcome_private">Private by design</string>
+    <string name="onb_welcome_private_desc">No account, no ads, no cloud. Everything stays on your phone.</string>
+    <string name="onb_welcome_start">Get started</string>
+
+    <!-- Default SMS -->
+    <string name="onb_default_title">Make uMessage your SMS app</string>
+    <string name="onb_default_body">Android only lets the default SMS app receive and filter messages. Without this, uMessage cannot protect your inbox.</string>
+    <string name="onb_default_status_yes">uMessage is your default SMS app</string>
+    <string name="onb_default_status_no">uMessage is not your default SMS app yet</string>
+    <string name="onb_default_action">Set as default</string>
+    <string name="onb_default_denied">The request was declined. You can try again, or continue and set it later in Android settings.</string>
+    <string name="onb_default_unavailable">Your phone could not open the default app dialog. Open Android settings, Apps, Default apps, SMS app, and choose uMessage.</string>
+    <string name="onb_default_open_settings">Open default apps</string>
+
+    <!-- Permissions -->
+    <string name="onb_perm_title">Allow what uMessage needs</string>
+    <string name="onb_perm_body">Each permission has one purpose. You can change them any time in Android settings.</string>
+    <string name="onb_perm_contacts">Contacts</string>
+    <string name="onb_perm_contacts_reason">Lets contacts through the filter and shows their names.</string>
+    <string name="onb_perm_sms">Messages</string>
+    <string name="onb_perm_sms_reason">Reads, receives and sends your text messages.</string>
+    <string name="onb_perm_phone">Phone state</string>
+    <string name="onb_perm_phone_reason">Detects your SIM cards so dual-SIM phones can pick the right one.</string>
+    <string name="onb_perm_notifications">Notifications</string>
+    <string name="onb_perm_notifications_reason">Alerts you to new messages, with reply and copy code buttons.</string>
+    <string name="onb_perm_allowed">Allowed</string>
+    <string name="onb_perm_not_allowed">Not allowed yet</string>
+    <string name="onb_perm_blocked">Blocked in settings</string>
+    <string name="onb_perm_allow">Allow</string>
+    <string name="onb_perm_allow_all">Allow all</string>
+    <string name="onb_perm_open_settings">Open settings</string>
+    <string name="onb_perm_state_cd">%1$s: %2$s</string>
+
+    <!-- Unknown sender mode -->
+    <string name="onb_mode_title">Choose how to treat unknown senders</string>
+    <string name="onb_mode_body">An unknown sender is a number that is not in your contacts and that you have never texted.</string>
+    <string name="onb_mode_strict">Strict</string>
+    <string name="onb_mode_strict_desc">Hold every message from unknown senders in Blocked, verification codes too.</string>
+    <string name="onb_mode_smart">Smart</string>
+    <string name="onb_mode_smart_desc">Hold messages from unknown senders in Blocked, but let verification codes through when they have no link. Recommended.</string>
+    <string name="onb_mode_off">Off</string>
+    <string name="onb_mode_off_desc">Do not filter unknown senders. Your own blocked rules still apply.</string>
+    <string name="onb_mode_warning_title">Heads up about bank and code messages</string>
+    <string name="onb_mode_warning_body">In Strict mode, bank alerts, delivery updates and one-time passcodes from unknown senders are held in Blocked, codes included. You will not get a notification, so check Blocked when you expect one.</string>
+
+    <!-- OEM guide -->
+    <string name="onb_oem_title">Keep uMessage running</string>
+    <string name="onb_oem_body_known">%1$s phones often stop apps in the background, which delays messages. Do these steps once.</string>
+    <string name="onb_oem_body_generic">Some phones stop apps in the background, which delays messages. Allow uMessage to run unrestricted.</string>
+    <string name="onb_oem_manual_hint">If a screen does not open, search your Settings for the name shown.</string>
+    <string name="onb_oem_xiaomi">Xiaomi, Redmi or Poco</string>
+    <string name="onb_oem_samsung" translatable="false">Samsung</string>
+    <string name="onb_oem_huawei">Huawei or Honor</string>
+    <string name="onb_oem_oppo">Oppo, Realme or OnePlus</string>
+    <string name="onb_oem_step_autostart">Allow autostart</string>
+    <string name="onb_oem_step_battery_xiaomi">Set battery saver to No restrictions</string>
+    <string name="onb_oem_step_samsung_sleep">Remove uMessage from sleeping apps</string>
+    <string name="onb_oem_step_samsung_sleep_desc">In Battery, Background usage limits, make sure uMessage is not in Sleeping or Deep sleeping apps.</string>
+    <string name="onb_oem_step_huawei_launch">Manage launch manually</string>
+    <string name="onb_oem_step_huawei_launch_desc">In App launch, set uMessage to Manage manually and enable all three switches.</string>
+    <string name="onb_oem_step_oppo_startup">Allow startup and background activity</string>
+    <string name="onb_oem_step_ignore_battery">Ignore battery optimization</string>
+    <string name="onb_oem_step_app_info">Check app settings</string>
+    <string name="onb_oem_step_app_info_desc">Open the uMessage app page to review battery and permissions.</string>
+
+    <!-- Done -->
+    <string name="onb_done_title">You are all set</string>
+    <string name="onb_done_body">uMessage is ready. Held messages appear in Blocked, where you can allow a sender in one tap.</string>
+    <string name="onb_done_summary_default">Default SMS app</string>
+    <string name="onb_done_summary_permissions">Permissions</string>
+    <string name="onb_done_summary_mode">Unknown senders</string>
+    <string name="onb_done_ok">Done</string>
+    <string name="onb_done_todo">Needs attention</string>
+
+    <!-- Notifications -->
+    <string name="onb_notif_copy_code">Copy code</string>
+    <string name="onb_notif_code_copied">Code copied</string>
+    <string name="onb_notif_clip_label">Verification code</string>
+    <string name="onb_channel_sim">Received SMS, SIM %1$d (%2$s)</string>
+    <string name="onb_channel_sim_nocarrier">Received SMS, SIM %1$d</string>
+</resources>

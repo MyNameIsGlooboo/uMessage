@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_time_now">지금</string>
+    <plurals name="ui_time_minutes">
+        <item quantity="other">%d분</item>
+    </plurals>
+    <string name="ui_bubble_sent">나, %1$s</string>
+    <string name="ui_bubble_received">%1$s, %2$s</string>
+    <string name="ui_bubble_received_unknown">받은 메시지, %1$s</string>
+    <string name="ui_select_message">메시지 선택</string>
+    <string name="ui_retry_send">다시 전송</string>
+    <string name="ui_default_required_body">uMessage 앱을 기본 SMS 앱으로 설정해야 메시지를 받고 보내거나 필터링할 수 있어요. 기존 메시지는 그대로 유지돼요.</string>
+    <string name="ui_default_required_close">uMessage 닫기</string>
+    <string name="ui_add_contact_or_number">이름 또는 전화번호 입력</string>
+    <string name="ui_show_dialpad">숫자 키패드</string>
+    <string name="ui_show_keyboard">키보드 표시</string>
+    <string name="ui_settings_group_block_lists">기타 차단 목록</string>
+    <string name="ui_settings_system_block_list">시스템 차단 목록</string>
+    <string name="ui_settings_system_block_list_body">이 휴대전화의 모든 앱에서 차단된 번호예요. uMessage 앱에서도 숨겨져요.</string>
+    <string name="ui_settings_blocked_words">차단 단어</string>
+    <string name="ui_settings_character_counter">글자 수 표시</string>
+    <string name="ui_settings_simple_characters">전송 시 악센트 제거</string>
+    <string name="ui_settings_send_on_enter">Enter 키로 전송</string>
+    <string name="ui_settings_delivery_reports">전달 결과 받기</string>
+    <string name="ui_settings_recycle_bin">삭제한 대화를 휴지통으로 이동</string>
+    <string name="ui_two_sentences">%1$s. %2$s</string>
+    <string name="ui_tab_with_count">%1$s (%2$d)</string>
+    <string name="ui_send_with_sim">%1$s, %2$s</string>
+    <string name="ui_number_with_type">%1$s (%2$s)</string>
+    <string name="ui_log_decision_allowed">허용됨</string>
+    <string name="ui_log_decision_blocked">차단됨</string>
+    <string name="ui_log_decision_error">오류</string>
+    <string name="ui_log_reason_allow_rule">허용 규칙</string>
+    <string name="ui_log_reason_block_rule">차단 규칙</string>
+    <string name="ui_log_reason_contact">연락처에 있음</string>
+    <string name="ui_log_reason_known_conversation">이전에 문자를 보낸 상대</string>
+    <string name="ui_log_reason_otp">인증 코드</string>
+    <string name="ui_log_reason_unknown_sender">알 수 없는 발신자</string>
+    <string name="ui_log_reason_mode_off">필터 사용 안 함</string>
+    <string name="ui_log_reason_no_match">일치하는 규칙 없음</string>
+    <string name="ui_log_source_sms">SMS</string>
+    <string name="ui_log_source_mms">MMS</string>
+    <string name="ui_log_source_retry">재시도됨</string>
+</resources>

@@ -1,0 +1,108 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|¡Hola!
+greeting|Hola a todos
+greeting|Muy buenas
+greeting|Saludos
+good_morning|Buenos días
+good_morning|Buen día a todos
+good_afternoon|Buenas tardes
+good_afternoon|Que tengas una buena tarde
+good_evening|Que pases una buena noche
+good_night|Buenas noches
+good_night|Que descanses
+good_night|Dulces sueños
+how_are_you|¿Cómo estás?
+how_are_you|Hola, ¿qué tal?
+how_are_you|¿Cómo va todo?
+how_are_you|¿Qué cuentas?
+thanks|Gracias
+thanks|Muchas gracias
+thanks|Mil gracias 🙏
+thanks|Gracias por la información
+youre_welcome|De nada
+youre_welcome|No hay de qué
+youre_welcome|Con gusto
+youre_welcome|No pasa nada
+where_are_you|¿Dónde estás?
+where_are_you|¿Dónde andas ahorita?
+where_are_you|¿Por dónde vas?
+on_my_way|Voy en camino
+on_my_way|Ya casi llego
+on_my_way|Salgo ahora mismo
+on_my_way|Llego en cinco minutos
+arrived|Ya llegué
+arrived|Estoy afuera
+arrived|Estoy en la puerta
+arrived|Te espero abajo
+arrived_home|Ya llegué a casa
+arrived_home|Llegué bien
+arrived_home|Ya estoy en casa
+did_you_arrive|¿Ya llegaste?
+did_you_arrive|¿Llegaste bien a casa?
+are_you_coming|¿Vienes esta noche?
+are_you_coming|¿Vendrás mañana?
+call_me|Llámame
+call_me|Llámame cuando puedas
+call_me|¿Me puedes llamar?
+can_you_talk|¿Puedes hablar?
+can_you_talk|¿Tienes un minuto?
+are_you_free|¿Estás libre mañana?
+are_you_free|¿Tienes planes esta noche?
+what_time|¿A qué hora nos vemos?
+what_time|A qué hora llegas
+where_to_meet|¿Dónde quedamos?
+where_to_meet|¿Dónde nos vemos mañana?
+ok_confirm|Vale
+ok_confirm|De acuerdo
+ok_confirm|Perfecto, gracias
+ok_confirm|Está bien
+bye|Hasta luego
+bye|Nos vemos mañana
+bye|Adiós
+bye|Cuídate
+congrats|¡Felicidades!
+congrats|Feliz cumpleaños
+congrats|Enhorabuena
+holiday_eid|Feliz Eid
+holiday_new_year|Feliz año nuevo
+holiday_christmas|Feliz Navidad
+holiday_other|Felices fiestas
+holiday_other|Feliz día de la madre
+good_luck|Mucha suerte
+good_luck|Que te vaya bien
+sorry_late|Perdón por la demora
+sorry_late|Disculpa la tardanza
+missed_call|No vi tu llamada
+missed_call|Perdón, perdí tu llamada
+NONE|Hola, quería contarte que mañana vamos a casa de mi tía a comer y después daremos un paseo por el parque
+NONE|¿Cuándo vienes a visitarnos?
+NONE|¿De dónde vienes?
+NONE|Tu código de seguridad es 482913
+NONE|Tu paquete llega mañana https://ejemplo.es/seguimiento
+NONE|Gracias, ¿me puedes transferir 50 euros?
+NONE|Necesito dinero, ¿me puedes prestar?
+NONE|No hay problema con la contraseña
+NONE|Gracias, pero no voy
+NONE|Mañana no estoy libre
+NONE|¿Por qué no vienes?
+NONE|¿A qué hora sale tu tren mañana por la mañana?
+NONE|Hola, ¿me puedes llamar? Es urgente
+NONE|¿Cómo estás? ¿Vienes esta noche?
+NONE|Recordatorio: cita con el dentista mañana a las nueve
+NONE|Llama al médico lo antes posible
+NONE|Mi padre murió ayer
+NONE|Estoy en casa con mi madre enferma
+NONE|Merci danke gracias
+NONE|Dank je wel voor alles
+NONE|Goedemorgen allemaal
+NONE|Tack så mycket för hjälpen
+NONE|Děkuji mnohokrát
+NONE|Köszönöm szépen
+NONE|Mulțumesc frumos
+NONE|Kiitos paljon
+NONE|No sé si ya llegué
+NONE|Si vienes, voy yo también
+NONE|¿Quién es este número?
+NONE|Ayer ya estaba en casa cuando escribiste
+NONE|¿Sabes a qué hora llega el vuelo de mi hermana?

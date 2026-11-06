@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_review_details_decision">Keputusan</string>
+    <string name="thread_review_details_decision_allowed">Diizinkan: dikirim ke kotak masuk</string>
+    <string name="thread_review_details_type">Jenis</string>
+    <string name="thread_review_details_type_sms">SMS</string>
+    <string name="thread_review_details_type_mms">MMS</string>
+    <string name="thread_review_sim_slot_name">SIM %1$d · %2$s</string>
+    <string name="thread_review_copy_code">Salin kode</string>
+    <string name="thread_review_copy_password">Salin sandi</string>
+    <string name="thread_review_copy_username">Salin nama pengguna</string>
+    <string name="thread_review_sim_label">SIM %1$s</string>
+    <string name="thread_review_sends_from">Dikirim dari %1$s</string>
+    <string name="thread_review_reply_disabled">Pengirim ini tidak dapat menerima balasan</string>
+    <string name="thread_review_attach_camera">Kamera</string>
+    <string name="thread_review_attach_voice">Suara</string>
+    <string name="thread_review_schedule_in_hour">1 jam lagi</string>
+    <string name="thread_review_schedule_evening">Malam ini</string>
+    <string name="thread_review_schedule_tomorrow">Besok pukul 09.00</string>
+</resources>

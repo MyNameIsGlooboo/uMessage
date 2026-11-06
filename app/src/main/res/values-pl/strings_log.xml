@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">Historia decyzji</string>
+    <string name="declog_clear">Wyczyść historię</string>
+    <string name="declog_empty_title">Brak decyzji</string>
+    <string name="declog_empty_body">Każda wiadomość sprawdzona przez filtr pojawia się tutaj wraz z uzasadnieniem. Treść wiadomości nigdy nie jest zapisywana.</string>
+    <plurals name="declog_kept_for">
+        <item quantity="one">Każda decyzja jest usuwana po %d dniu. Treść wiadomości nigdy nie jest zapisywana.</item>
+        <item quantity="few">Każda decyzja jest usuwana po %d dniach. Treść wiadomości nigdy nie jest zapisywana.</item>
+        <item quantity="many">Każda decyzja jest usuwana po %d dniach. Treść wiadomości nigdy nie jest zapisywana.</item>
+        <item quantity="other">Każda decyzja jest usuwana po %d dnia. Treść wiadomości nigdy nie jest zapisywana.</item>
+    </plurals>
+    <string name="declog_sim">SIM %1$s</string>
+    <string name="declog_today">Dzisiaj</string>
+    <string name="declog_yesterday">Wczoraj</string>
+    <string name="declog_allowed_by_rule">Dozwolone przez regułę: %1$s</string>
+    <string name="declog_filter_all">Wszystkie</string>
+    <string name="declog_filter_blocked">Zablokowane</string>
+    <string name="declog_filter_allowed">Dozwolone</string>
+    <string name="declog_filter_empty">Brak decyzji pasujących do tego filtra</string>
+    <plurals name="declog_times">
+        <item quantity="one">%1$s raz</item>
+        <item quantity="few">%1$s razy</item>
+        <item quantity="many">%1$s razy</item>
+        <item quantity="other">%1$s raza</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="one">Tę samą decyzję podjęto %1$s raz z rzędu</item>
+        <item quantity="few">Tę samą decyzję podjęto %1$s razy z rzędu</item>
+        <item quantity="many">Tę samą decyzję podjęto %1$s razy z rzędu</item>
+        <item quantity="other">Tę samą decyzję podjęto %1$s raza z rzędu</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="one">Udostępnij %d decyzję</item>
+        <item quantity="few">Udostępnij %d decyzje</item>
+        <item quantity="many">Udostępnij %d decyzji</item>
+        <item quantity="other">Udostępnij %d decyzji</item>
+    </plurals>
+    <string name="declog_csv_subject">Historia decyzji uMessage</string>
+    <string name="declog_share_failed">Nie udało się udostępnić historii</string>
+    <string name="declog_details_title">Szczegóły decyzji</string>
+    <string name="declog_open_details">Otwórz szczegóły: %1$s</string>
+    <string name="declog_fixed_allowed">Nadawca jest dozwolony dzięki twojej zmianie w historii decyzji</string>
+    <string name="declog_fixed_blocked">Nadawca został zablokowany przez ciebie z poziomu historii decyzji</string>
+    <string name="declog_fixed_restored">Wiadomość została przywrócona przez ciebie z poziomu historii decyzji</string>
+    <string name="declog_restored">Przywrócono</string>
+    <string name="declog_blocked_message">Wiadomość nadal w Zablokowanych</string>
+    <string name="declog_restore">Przywróć wiadomość</string>
+    <string name="declog_restore_done">Przywrócono wiadomość do Odebranych</string>
+    <string name="declog_restore_text_only">Przywrócono tekst do Odebranych. Nie udało się odzyskać zdjęć.</string>
+    <string name="declog_restore_nothing">Nie ma czego przywrócić: ta wiadomość ze zdjęciem nie została zachowana</string>
+    <string name="declog_restore_failed">Nie udało się przywrócić wiadomości</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

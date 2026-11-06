@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fixes_unarchive_title">আর্কাইভ থেকে সরাবেন?</string>
+    <string name="fixes_unarchive_message">%1$s আবার আপনার কথোপকথনের তালিকায় ফেরাবেন?</string>
+</resources>

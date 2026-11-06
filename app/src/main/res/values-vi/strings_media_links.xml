@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i56_section">Nội dung đa phương tiện và liên kết</string>
+    <string name="i56_see_all">Xem tất cả</string>
+    <string name="i56_pictures">Hình ảnh</string>
+    <string name="i56_links">Liên kết</string>
+    <string name="i56_empty_pictures">Không có hình ảnh trong cuộc trò chuyện này.</string>
+    <string name="i56_empty_links">Không có liên kết trong cuộc trò chuyện này.</string>
+    <string name="i56_show_in_chat">Xem trong cuộc trò chuyện</string>
+    <string name="i56_load_more">Xem thêm</string>
+    <string name="i56_picture_description">Hình ảnh. Nhấn để mở.</string>
+    <plurals name="i56_count_pictures">
+        <item quantity="other">%d hình ảnh</item>
+    </plurals>
+    <plurals name="i56_count_links">
+        <item quantity="other">%d liên kết</item>
+    </plurals>
+</resources>

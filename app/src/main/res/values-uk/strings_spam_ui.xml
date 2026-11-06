@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="spam_ui_delete_all">Видалити все</string>
+    <string name="spam_ui_delete_all_title">Видалити всі заблоковані повідомлення?</string>
+    <plurals name="spam_ui_delete_all_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Буде видалено %1$d заблоковане повідомлення. Одразу після цього дію можна скасувати.</item>
+        <item quantity="few">Буде видалено %1$d заблоковані повідомлення. Одразу після цього дію можна скасувати.</item>
+        <item quantity="many">Буде видалено %1$d заблокованих повідомлень. Одразу після цього дію можна скасувати.</item>
+        <item quantity="other">Буде видалено %1$d заблокованого повідомлення. Одразу після цього дію можна скасувати.</item>
+    </plurals>
+    <string name="declog_ui_clear_title">Очистити журнал рішень?</string>
+    <string name="declog_ui_clear_message">Усі записані рішення буде видалено. Заблоковані повідомлення та правила залишаться без змін.</string>
+    <string name="declog_ui_clear_action">Очистити</string>
+    <string name="ui_log_reason_contacts_unavailable">Не вдалося прочитати контакти</string>
+    <string name="blocknum_title">Заблоковані номери</string>
+    <string name="blocknum_add">Додати номер</string>
+    <string name="blocknum_add_title">Заблокувати номер</string>
+    <string name="blocknum_edit_title">Змінити заблокований номер</string>
+    <string name="blocknum_field_label">Номер</string>
+    <string name="blocknum_field_help">Використовуйте * як символ підстановки: +1555* блокує всі номери, що починаються з +1555</string>
+    <string name="blocknum_err_empty">Введіть номер</string>
+    <string name="blocknum_err_invalid">Введіть номер телефону або цифри із символом підстановки *</string>
+    <string name="blocknum_copy">Копіювати номер</string>
+    <string name="blocknum_unblock">Розблокувати</string>
+    <string name="blocknum_unblock_for">Розблокувати %1$s</string>
+    <string name="blocknum_edit_for">Змінити %1$s</string>
+    <string name="blocknum_more_for">Інші дії для %1$s</string>
+    <string name="blocknum_pattern">Шаблон із символом підстановки</string>
+    <string name="blocknum_copied">Номер скопійовано</string>
+    <plurals name="blocknum_unblocked" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Розблоковано %1$d номер</item>
+        <item quantity="few">Розблоковано %1$d номери</item>
+        <item quantity="many">Розблоковано %1$d номерів</item>
+        <item quantity="other">Розблоковано %1$d номера</item>
+    </plurals>
+    <string name="blocknum_import">Імпорт</string>
+    <string name="blocknum_export">Експорт</string>
+    <plurals name="blocknum_imported" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Імпортовано %1$d номер</item>
+        <item quantity="few">Імпортовано %1$d номери</item>
+        <item quantity="many">Імпортовано %1$d номерів</item>
+        <item quantity="other">Імпортовано %1$d номера</item>
+    </plurals>
+    <string name="blocknum_import_empty">У файлі не знайдено номерів</string>
+    <plurals name="blocknum_import_skipped" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Пропущено %d запис (не номер або вже заблоковано)</item>
+        <item quantity="few">Пропущено %d записи (не номери або вже заблоковано)</item>
+        <item quantity="many">Пропущено %d записів (не номери або вже заблоковано)</item>
+        <item quantity="other">Пропущено %d запису (не номер або вже заблоковано)</item>
+    </plurals>
+    <string name="blocknum_import_failed">Не вдалося прочитати файл</string>
+    <plurals name="blocknum_exported" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Експортовано %1$d номер</item>
+        <item quantity="few">Експортовано %1$d номери</item>
+        <item quantity="many">Експортовано %1$d номерів</item>
+        <item quantity="other">Експортовано %1$d номера</item>
+    </plurals>
+    <string name="blocknum_export_empty">Немає номерів для експорту</string>
+    <string name="blocknum_export_failed">Не вдалося зберегти файл</string>
+    <string name="blocknum_failed">Не вдалося змінити список заблокованих. Спробуйте ще раз.</string>
+    <string name="blocknum_empty_title">Нікого не заблоковано</string>
+    <string name="blocknum_empty_body">Із заблокованих номерів вам не зможуть писати чи телефонувати. Цей список спільний із застосунком для дзвінків.</string>
+    <string name="blocknum_unavailable_title">Список заблокованих недоступний</string>
+    <string name="blocknum_unavailable_body">Зробіть uMessage застосунком для SMS за умовчанням, щоб переглядати та змінювати системний список заблокованих.</string>
+    <string name="blocknum_unknown_title">Блокувати невідомі номери</string>
+    <string name="blocknum_unknown_body">Діє лише в режимі фільтрації «вимкнено»: повідомлення з невідомих номерів потрапляють у «Заблоковані», як у суворому режимі. У суворому та розумному режимах цей перемикач не діє.</string>
+    <string name="blocknum_contacts_denied">Без доступу до контактів неможливо визначити невідомі номери</string>
+    <string name="blocknum_section_numbers">Номери</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">المعاملات</string>
+    <string name="i11_filter_transactions_empty_title">لا توجد معاملات</string>
+    <string name="i11_filter_transactions_empty_body">تظهر هنا رسائل البنك عن الإيداعات والسحوبات.</string>
+    <string name="i11_filter_offers">العروض</string>
+    <string name="i11_filter_offers_empty_title">لا توجد عروض</string>
+    <string name="i11_filter_offers_empty_body">تظهر هنا الخصومات والعروض الترويجية من المتاجر.</string>
+</resources>

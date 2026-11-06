@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="conversation_avatar_size">48dp</dimen>
+    <dimen name="bubble_corner_radius">20dp</dimen>
+    <dimen name="bubble_tail_radius">6dp</dimen>
+    <dimen name="bubble_padding_horizontal">14dp</dimen>
+    <dimen name="bubble_padding_vertical">10dp</dimen>
+</resources>

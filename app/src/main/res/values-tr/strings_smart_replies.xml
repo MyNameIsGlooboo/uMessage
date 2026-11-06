@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">Akıllı yanıtlar</string>
+    <string name="smart_replies_summary">Telefonunuzdaki listeden hızlı yanıtlar</string>
+    <string name="smart_replies_hide">Önerileri gizleyin</string>
+</resources>

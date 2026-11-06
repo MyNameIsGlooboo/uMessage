@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">Etichette</string>
+    <string name="i29_picker_title">Etichette</string>
+    <string name="i29_picker_empty">Non hai ancora etichette. Creane una per organizzare le tue conversazioni.</string>
+    <string name="i29_picker_new">Nuova etichetta</string>
+    <string name="i29_picker_manage">Gestisci etichette</string>
+    <string name="i29_done">Fine</string>
+    <string name="i29_cancel">Annulla</string>
+    <string name="i29_tiles_title">Le tue etichette</string>
+    <string name="i29_tile_add">Aggiungi etichetta</string>
+    <string name="i29_tiles_manage">Gestisci etichette</string>
+    <string name="i29_manager_title">Gestisci etichette</string>
+    <string name="i29_manager_note">Le etichette sono personali. Sono separate dai filtri automatici Transazioni e Offerte.</string>
+    <string name="i29_manager_edit">Modifica etichetta %1$s</string>
+    <string name="i29_manager_delete">Elimina etichetta %1$s</string>
+    <string name="i29_edit_new_title">Nuova etichetta</string>
+    <string name="i29_edit_title">Modifica etichetta</string>
+    <string name="i29_edit_name">Nome etichetta</string>
+    <string name="i29_edit_save">Salva</string>
+    <string name="i29_color_description">Colore %1$d</string>
+    <string name="i29_error_duplicate">Hai già un\'etichetta con questo nome.</string>
+    <string name="i29_error_limit">Puoi avere fino a %1$d etichette.</string>
+    <string name="i29_delete_title">Eliminare questa etichetta?</string>
+    <string name="i29_delete_body">L\'etichetta “%1$s” verrà rimossa. Le tue conversazioni e i tuoi messaggi resteranno invariati.</string>
+    <string name="i29_delete_confirm">Elimina</string>
+    <string name="i29_empty_title">Nessuna conversazione qui</string>
+    <string name="i29_empty_body">Tieni premuta una conversazione, apri il menu e scegli Etichette per aggiungerla.</string>
+</resources>

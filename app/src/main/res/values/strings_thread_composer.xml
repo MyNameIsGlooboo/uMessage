@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Composer shortcuts -->
+    <string name="thread_emoji">Emoji</string>
+    <string name="thread_show_keyboard">Show keyboard</string>
+    <string name="thread_scheduled_not_sent">Scheduled message not sent</string>
+    <string name="thread_edit_scheduled_replaces_draft">Editing the scheduled message replaces what you are typing. Continue?</string>
+
+    <!-- Report spam -->
+    <string name="thread_menu_report_spam">Mark as spam</string>
+    <string name="thread_report_spam_title">Mark as spam?</string>
+    <string name="thread_report_spam_message">New messages from %1$s will go to Blocked messages instead of your inbox. Messages already in this conversation are kept.</string>
+    <string name="thread_report_spam_confirm">Mark as spam</string>
+    <string name="thread_report_spam_cancel">Cancel</string>
+    <string name="thread_report_spam_done">Marked as spam</string>
+    <!-- Note on the block rule "Report spam" adds -->
+    <string name="thread_report_spam_rule_note">Reported as spam</string>
+    <string name="thread_report_spam_already">Already marked as spam</string>
+    <string name="thread_report_spam_failed">Couldn\'t mark as spam</string>
+    <string name="thread_report_spam_undo">Undo</string>
+</resources>

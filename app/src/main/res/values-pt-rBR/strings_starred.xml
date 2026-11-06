@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">Marque com estrela</string>
+    <string name="i13_unstar">Remova a estrela</string>
+    <string name="i13_starred_mark">Com estrela</string>
+    <string name="i13_filter_starred">Com estrela</string>
+    <string name="i13_filter_starred_empty_title">Nenhuma mensagem com estrela</string>
+    <string name="i13_filter_starred_empty_body">Selecione uma mensagem em uma conversa e toque na estrela para guardá-la aqui.</string>
+    <string name="i13_starred_note">A estrela guarda uma cópia do texto, mesmo se a conversa for excluída. Remover a estrela apaga a cópia.</string>
+    <string name="i13_snapshot_gone">Esta conversa foi excluída. Só restou o texto salvo.</string>
+    <string name="i13_snapshot_close">Feche</string>
+</resources>

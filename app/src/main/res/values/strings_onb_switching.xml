@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Switching help on the welcome step -->
+    <string name="onb_switch_title">Switching to uMessage?</string>
+    <string name="onb_switch_body">Coming from another SMS app? Turn off its chat features first. Moving from another phone? Restore your backup once setup is done.</string>
+    <string name="onb_switch_action">Restore a backup</string>
+    <string name="onb_switch_done_note">After you finish, Backup and restore opens.</string>
+</resources>

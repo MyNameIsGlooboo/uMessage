@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_conv_menu">Görüşmeyi dışa aktarın</string>
+    <string name="export_conv_title">Görüşmeyi dışa aktarın</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">Düz metin</string>
+    <string name="export_conv_dates_all">Tüm tarihler</string>
+    <string name="export_conv_dates_30">Son 30 gün</string>
+    <string name="export_conv_dates_pick">Tarih seçin</string>
+    <string name="export_conv_pick_from">Hangi günden itibaren?</string>
+    <string name="export_conv_pick_to">Hangi güne kadar?</string>
+    <string name="export_conv_action">Dışa aktarın</string>
+    <string name="export_conv_preparing">Dosya hazırlanıyor…</string>
+    <string name="export_conv_nothing">Bu tarih aralığında mesaj yok</string>
+    <string name="export_conv_failed">Dosya oluşturulamadı</string>
+    <string name="export_conv_subject">Dışa aktarılan görüşme</string>
+    <string name="export_conv_share_text">%1$s ile görüşme, %2$s. Mesaj metninin SHA-256 değeri: %3$s</string>
+    <string name="export_conv_attachment_label">[Ek]</string>
+    <string name="export_pdf_title">Dışa aktarılan görüşme</string>
+    <string name="export_pdf_with">Görüşülen kişi: %1$s</string>
+    <string name="export_pdf_numbers">Numaralar: %1$s</string>
+    <string name="export_pdf_range">Tarih aralığı: %1$s</string>
+    <string name="export_pdf_zone">Saatlerin gösterildiği saat dilimi: %1$s</string>
+    <string name="export_pdf_exported">Dışa aktarma tarihi: %1$s</string>
+    <plurals name="export_pdf_count">
+        <item quantity="one">%1$d mesaj</item>
+        <item quantity="other">%1$d mesaj</item>
+    </plurals>
+    <string name="export_pdf_hash">Mesaj metninin SHA-256 değeri: %1$s</string>
+    <string name="export_pdf_not_certified">Telefondan dışa aktarılmıştır; onaylı bir kayıt değildir.</string>
+    <string name="export_pdf_page">Sayfa %1$d / %2$d</string>
+    <string name="export_pdf_from">Gönderen: %1$s</string>
+    <string name="export_pdf_to">Alıcı: %1$s</string>
+    <string name="export_pdf_attachment">Ek: %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">adsız dosya</string>
+    <string name="export_status_received">Alındı</string>
+    <string name="export_status_sent">Gönderildi</string>
+    <string name="export_status_delivered">Teslim edildi</string>
+    <string name="export_status_failed">Başarısız</string>
+    <string name="export_status_sending">Gönderiliyor</string>
+    <string name="export_status_draft">Taslak</string>
+</resources>

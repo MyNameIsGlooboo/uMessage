@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_codes_title">Hapus kode yang sudah dibaca setelah</string>
+    <string name="cleanup_codes_summary">Kode dipindahkan ke sampah</string>
+    <string name="cleanup_never">Jangan pernah</string>
+    <string name="cleanup_24_hours">24 jam</string>
+    <plurals name="cleanup_days">
+        <item quantity="other">%d hari</item>
+    </plurals>
+    <string name="cleanup_card_title">Hapus kode yang sudah dibaca setelah 7 hari?</string>
+    <string name="cleanup_card_body">Kode verifikasi yang sudah dibaca dipindahkan ke sampah dan bisa dipulihkan dari sana.</string>
+    <string name="cleanup_card_yes">Aktifkan</string>
+    <string name="cleanup_card_no">Tidak, terima kasih</string>
+</resources>

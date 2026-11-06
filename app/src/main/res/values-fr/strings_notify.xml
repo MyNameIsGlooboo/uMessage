@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">Message programmé envoyé en retard</string>
+    <string name="scheduled_sent_late_exact_off">Votre message à %1$s a été envoyé avec %2$d min de retard. Autorisez « Alarmes et rappels » pour uMessage afin que les messages programmés partent à l\'heure.</string>
+    <string name="scheduled_sent_late_idle">Votre message à %1$s a été envoyé avec %2$d min de retard : le téléphone était éteint ou en mode économie d\'énergie à l\'heure prévue.</string>
+    <string name="scheduled_sent_late_channel">Messages programmés</string>
+    <string name="notifications_off_title">Notifications désactivées</string>
+    <string name="notifications_off_body">Vous ne recevrez aucune notification pour les nouveaux messages.</string>
+    <string name="notifications_off_fix">Activer</string>
+</resources>

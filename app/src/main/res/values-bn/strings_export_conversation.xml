@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="export_conv_menu">কথোপকথন এক্সপোর্ট করুন</string>
+    <string name="export_conv_title">কথোপকথন এক্সপোর্ট করুন</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">সাধারণ টেক্সট</string>
+    <string name="export_conv_dates_all">সব তারিখ</string>
+    <string name="export_conv_dates_30">গত 30 দিন</string>
+    <string name="export_conv_dates_pick">তারিখ বেছে নিন</string>
+    <string name="export_conv_pick_from">কোন দিন থেকে?</string>
+    <string name="export_conv_pick_to">কোন দিন পর্যন্ত?</string>
+    <string name="export_conv_action">এক্সপোর্ট</string>
+    <string name="export_conv_preparing">ফাইল তৈরি হচ্ছে…</string>
+    <string name="export_conv_nothing">ওই সময়ের মধ্যে কোনো বার্তা নেই</string>
+    <string name="export_conv_failed">ফাইল তৈরি করা যায়নি</string>
+    <string name="export_conv_subject">কথোপকথনের এক্সপোর্ট</string>
+    <string name="export_conv_share_text">%1$s-এর সঙ্গে কথোপকথন, %2$s। বার্তার লেখার SHA-256: %3$s</string>
+    <string name="export_conv_attachment_label">[সংযুক্তি]</string>
+    <string name="export_pdf_title">কথোপকথনের এক্সপোর্ট</string>
+    <string name="export_pdf_with">যাঁর সঙ্গে কথোপকথন: %1$s</string>
+    <string name="export_pdf_numbers">নম্বর: %1$s</string>
+    <string name="export_pdf_range">তারিখের সীমা: %1$s</string>
+    <string name="export_pdf_zone">সময়গুলো %1$s সময় অঞ্চল অনুযায়ী</string>
+    <string name="export_pdf_exported">এক্সপোর্ট করা হয়েছে: %1$s</string>
+    <plurals name="export_pdf_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি বার্তা</item>
+        <item quantity="other">%1$dটি বার্তা</item>
+    </plurals>
+    <string name="export_pdf_hash">বার্তার লেখার SHA-256: %1$s</string>
+    <string name="export_pdf_not_certified">ফোন থেকে এক্সপোর্ট করা হয়েছে; এটি প্রত্যয়িত নথি নয়।</string>
+    <string name="export_pdf_page">%2$d পৃষ্ঠার মধ্যে %1$d</string>
+    <string name="export_pdf_from">প্রেরক: %1$s</string>
+    <string name="export_pdf_to">প্রাপক: %1$s</string>
+    <string name="export_pdf_attachment">সংযুক্তি: %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">নামহীন ফাইল</string>
+    <string name="export_status_received">পাওয়া গেছে</string>
+    <string name="export_status_sent">পাঠানো হয়েছে</string>
+    <string name="export_status_delivered">পৌঁছেছে</string>
+    <string name="export_status_failed">ব্যর্থ</string>
+    <string name="export_status_sending">পাঠানো হচ্ছে</string>
+    <string name="export_status_draft">খসড়া</string>
+</resources>

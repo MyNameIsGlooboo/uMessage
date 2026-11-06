@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_checklist_title">ตั้งค่าใน 1 นาที</string>
+    <string name="w3c_checklist_done_title">พร้อมใช้งานแล้ว</string>
+    <string name="w3c_checklist_basics_title">ตั้งค่าพื้นฐานแล้ว</string>
+    <string name="w3c_checklist_progress">%1$s จาก %2$s</string>
+    <string name="w3c_checklist_dismiss">ปิดรายการตรวจสอบ</string>
+    <string name="w3c_checklist_step_sms">ตั้ง uMessage เป็นแอป SMS เริ่มต้น</string>
+    <string name="w3c_checklist_step_notifications">เปิดการแจ้งเตือน</string>
+    <string name="w3c_checklist_step_blocked">ดูแท็บที่บล็อก</string>
+    <string name="w3c_checklist_step_forward">ไม่บังคับ: ส่งต่อข้อความไปยังหมายเลขอื่น</string>
+    <string name="w3c_checklist_step_done">เสร็จแล้ว</string>
+    <string name="w3c_checklist_action_set">ตั้งค่า</string>
+    <string name="w3c_checklist_action_open">เปิด</string>
+    <string name="w3c_receipt_title">พักสแปมไว้แล้ว: แตะเพื่อตรวจดู</string>
+    <string name="w3c_receipt_body">ข้อความจากผู้ส่งที่ไม่รู้จักถูกพักไว้ในที่บล็อก ข้อความยังอยู่ สามารถตรวจดูและกู้คืนได้ทุกเมื่อ</string>
+    <string name="w3c_receipt_review">ตรวจดู</string>
+    <string name="w3c_receipt_got_it">เข้าใจแล้ว</string>
+    <string name="w3c_search_codes">รหัสล่าสุด</string>
+    <string name="w3c_search_code_copied">คัดลอกรหัสแล้ว</string>
+    <string name="w3c_search_code_description">คัดลอกรหัส %1$s จาก %2$s</string>
+    <string name="w3c_new_paste">วางหมายเลข</string>
+    <string name="w3c_new_paste_none">ไม่มีหมายเลขโทรศัพท์ในคลิปบอร์ด</string>
+    <string name="w3c_details_allow">อนุญาตผู้ส่งนี้เสมอ</string>
+    <string name="w3c_details_allow_hint">ข้อความจากผู้ส่งนี้จะถึงกล่องข้อความเข้าเสมอ</string>
+    <string name="w3c_details_allow_spoof_hint">ใครก็ส่งข้อความในชื่อนี้ได้ ข้อความเหล่านั้นจึงได้รับอนุญาตด้วย</string>
+    <string name="w3c_date_gregorian">เกรกอเรียน</string>
+    <string name="w3c_date_gregorian_body">วันที่ เช่น 29 ต.ค.</string>
+    <string name="w3c_date_jalali">จาลาลี</string>
+    <string name="w3c_date_jalali_body">วันที่ เช่น 7 อาบาน</string>
+    <string name="w3c_date_both">ทั้งสองแบบ</string>
+    <string name="w3c_date_both_body">แสดงทั้งสองปฏิทินในการสนทนา</string>
+    <string name="w3c_text_size">ขนาดข้อความ</string>
+    <string name="w3c_text_small">เล็ก</string>
+    <string name="w3c_text_default">ค่าเริ่มต้น</string>
+    <string name="w3c_text_large">ใหญ่</string>
+    <string name="w3c_text_largest">ใหญ่ที่สุด</string>
+    <string name="w3c_text_size_sample">ตัวอย่าง: รหัสของคุณคือ 482913 ⁧نمونه: کد شما 482913 است.⁩</string>
+    <string name="w3c_backup_settings">สำรองข้อมูลการตั้งค่าทั้งหมด</string>
+    <string name="w3c_backup_settings_body">บันทึกกฎ การส่งต่อ และการตั้งค่าเป็นไฟล์ ไม่รวมเนื้อหาข้อความ</string>
+    <string name="w3c_restore_settings">กู้คืนการตั้งค่าทั้งหมด</string>
+    <string name="w3c_restore_settings_body">โหลดกฎและการตั้งค่าจากไฟล์สำรองข้อมูล</string>
+    <string name="w3c_backup_saved">สำรองข้อมูลแล้ว: %1$d รายการ</string>
+    <string name="w3c_backup_failed">บันทึกข้อมูลสำรองไม่ได้</string>
+    <string name="w3c_restore_done">กู้คืนแล้ว %1$d รายการ</string>
+    <string name="w3c_restore_failed">กู้คืนจากไฟล์นี้ไม่ได้ เลือกไฟล์สำรองข้อมูลการตั้งค่า uMessage</string>
+</resources>

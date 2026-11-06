@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">لوح</string>
+    <string name="preset_slate_desc">خاکستریِ آبیِ آرام</string>
+    <string name="preset_firouzeh">فیروزه</string>
+    <string name="preset_firouzeh_desc">فیروزه‌ای با رگه‌ای از طلایی</string>
+    <string name="preset_pomegranate">انار</string>
+    <string name="preset_pomegranate_desc">قرمز گرم با سبز تیره</string>
+    <string name="preset_harbor">بندر</string>
+    <string name="preset_harbor_desc">آبی شب با مرجانی ملایم</string>
+    <string name="preset_lavender">اطلسی</string>
+    <string name="preset_lavender_desc">بنفش ملایم با سبزآبی</string>
+    <string name="preset_ink">جوهر</string>
+    <string name="preset_ink_desc">تقریباً مشکی با نقره‌ای و طلایی</string>
+    <string name="preset_contrast">کنتراست</string>
+    <string name="preset_contrast_desc">سیاه و سفید با رنگ‌های روشن</string>
+</resources>

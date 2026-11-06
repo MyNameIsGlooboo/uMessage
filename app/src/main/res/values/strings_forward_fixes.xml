@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Design review 2 fixes: forwarding engine, Forwarded tab and forward rule screens. -->
+<resources>
+    <!-- Forwarded tab: the daily limit and skipped forwards (bug 9) -->
+    <string name="fwdfix_status_limit">Paused for today: limit reached</string>
+    <string name="fwdfix_limit_hint">%1$s of %2$s forwards sent today. Forwarding starts again tomorrow.</string>
+    <string name="fwdfix_status_skipped">Skipped (limit)</string>
+    <string name="fwdfix_error_daily_limit">Not sent: the daily forward limit was reached.</string>
+    <string name="fwdfix_error_rate_limited">Not sent: this rule already forwarded %1$s messages in the last hour.</string>
+    <string name="fwdfix_retry_all_recent">Only forwards from the last 24 hours are included.</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="one">%1$s not sent: forwarding is paused.</item>
+        <item quantity="other">%1$s not sent: forwarding is paused.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="one">%1$s not sent: its rule is off or deleted.</item>
+        <item quantity="other">%1$s not sent: their rules are off or deleted.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="one">%1$s not sent: the daily limit or the hourly limit of its rule is reached.</item>
+        <item quantity="other">%1$s not sent: the daily limit or the hourly limit of a rule is reached.</item>
+    </plurals>
+
+    <!-- Forward rule cards: the last forward (ID-04) -->
+    <string name="fwdfix_card_last">Last forward %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="one">%1$s this week</item>
+        <item quantity="other">%1$s this week</item>
+    </plurals>
+    <string name="fwdfix_card_never">Nothing forwarded yet</string>
+    <string name="fwdfix_card_sent">sent</string>
+    <string name="fwdfix_card_pending">sending</string>
+    <string name="fwdfix_card_failed">failed</string>
+    <string name="fwdfix_card_skipped">skipped (limit)</string>
+
+    <!-- Forward editor: delete with Undo (VS-14) -->
+    <string name="fwdfix_delete_rule">Delete rule</string>
+    <string name="fwdfix_deleted">Forward rule deleted</string>
+
+    <!-- Forward editor: send a test (ID-07) -->
+    <string name="fwdfix_test_button">Send test</string>
+    <string name="fwdfix_test_title">Send a test SMS?</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="one">%1$s test SMS goes to the number above. It is a paid SMS.</item>
+        <item quantity="other">One test SMS goes to each of the %1$s numbers above. Each one is a paid SMS.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">Send</string>
+    <string name="fwdfix_test_text">Test from uMessage: forwarding works.</string>
+    <string name="fwdfix_test_sending">Sending the test…</string>
+    <string name="fwdfix_test_sent">Test sent. Check the other phone.</string>
+    <string name="fwdfix_test_failed">The test could not be sent. Check your signal and balance.</string>
+
+    <!-- Forward editor: the cost estimate (BR-41) -->
+    <string name="fwdfix_cost_persian">A %1$s-letter Persian text: %2$s parts × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">A %1$s-letter English text: %2$s parts × %3$s = %4$s SMS</string>
+
+
+    <!-- Round 2: "Send again?" counts only what goes out, and says why the rest does not -->
+    <string name="fwdfix_retry_none_title">Nothing can be sent now</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="one">%1$s will not be sent: forwarding is paused.</item>
+        <item quantity="other">%1$s will not be sent: forwarding is paused.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="one">%1$s will not be sent: its rule is off or deleted.</item>
+        <item quantity="other">%1$s will not be sent: their rules are off or deleted.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="one">%1$s will not be sent: the daily limit or the hourly limit of its rule is reached.</item>
+        <item quantity="other">%1$s will not be sent: the daily limit or the hourly limit of a rule is reached.</item>
+    </plurals>
+</resources>

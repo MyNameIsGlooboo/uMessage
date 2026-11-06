@@ -1,0 +1,7 @@
+- Modern Standard Arabic in a simple, neutral register that every Arab country understands; no dialect, no stiff officialese.
+- Address the user in the polite, neutral imperative (for example "اختر", "فعّل"); do not mix address forms.
+- Digits: keep the digits exactly as the English text and tokens give them (Western digits 0-9); never write Arabic-Indic digits yourself.
+- Punctuation: ، ؟ ؛ and « » for quotes.
+- Use plain Arabic letters ي and ك (not the Persian ی and ک).
+- Every plural id needs its own form: zero, one, two, few, many, other. For "one" and "two" you may write the noun without a number token ("رسالة واحدة", "رسالتان"); few, many and other keep the number token.
+- Keep the text short enough for buttons; Arabic text should not be much longer than the English.

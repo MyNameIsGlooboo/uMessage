@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- I45: keep messages for a while, older ones move to the recycle bin. -->
+    <string name="cleanup_old_title">Keep messages for</string>
+    <string name="cleanup_old_summary">Older ones move to the recycle bin</string>
+    <string name="cleanup_forever">Forever</string>
+    <string name="cleanup_one_year">1 year</string>
+    <string name="cleanup_bin_title">Turn on the recycle bin?</string>
+    <string name="cleanup_bin_body">Deleted messages wait there for 30 days, so you can get them back. Automatic cleanup needs it.</string>
+    <string name="cleanup_bin_confirm">Turn on</string>
+    <string name="cleanup_old_confirm_title">Move old messages?</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="one">%d message is older than that and moves to the recycle bin now. Starred and unread messages and pinned chats stay.</item>
+        <item quantity="other">%d messages are older than that and move to the recycle bin now. Starred and unread messages and pinned chats stay.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">No message is that old yet. Older ones will move to the recycle bin by themselves. Starred and unread messages and pinned chats stay.</string>
+    <string name="cleanup_old_confirm_action">Move</string>
+</resources>

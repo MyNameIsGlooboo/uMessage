@@ -1,0 +1,5 @@
+- Brazilian Portuguese (not European): "mensagem", "celular", "arquivo", "tela", "você" form.
+- Address the user with the imperative of "você" ("Escolha", "Ative"), never "tu" or "vós"; stay consistent.
+- Sentence case: only the first word is capitalised (no English-style Title Case).
+- Plural ids: "one" (covers 0 and 1: "0 mensagem", "1 mensagem") and "other". Do not write "many".
+- Gender: avoid forms that need the user's gender; reword.

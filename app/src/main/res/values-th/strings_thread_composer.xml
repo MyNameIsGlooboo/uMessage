@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_emoji">อีโมจิ</string>
+    <string name="thread_show_keyboard">แสดงแป้นพิมพ์</string>
+    <string name="thread_scheduled_not_sent">ไม่ได้ส่งข้อความที่กำหนดเวลาส่ง</string>
+    <string name="thread_edit_scheduled_replaces_draft">การแก้ไขข้อความที่กำหนดเวลาส่งจะแทนที่ข้อความที่กำลังพิมพ์ ดำเนินการต่อ?</string>
+    <string name="thread_menu_report_spam">ทำเครื่องหมายว่าเป็นสแปม</string>
+    <string name="thread_report_spam_title">ทำเครื่องหมายว่าเป็นสแปม?</string>
+    <string name="thread_report_spam_message">ข้อความใหม่จาก %1$s จะไปที่ข้อความที่บล็อกแทนกล่องข้อความเข้า ข้อความเดิมในการสนทนานี้จะยังอยู่</string>
+    <string name="thread_report_spam_confirm">ทำเครื่องหมายว่าเป็นสแปม</string>
+    <string name="thread_report_spam_cancel">ยกเลิก</string>
+    <string name="thread_report_spam_done">ทำเครื่องหมายว่าเป็นสแปมแล้ว</string>
+    <string name="thread_report_spam_rule_note">รายงานสแปมแล้ว</string>
+    <string name="thread_report_spam_already">ทำเครื่องหมายว่าเป็นสแปมไว้แล้ว</string>
+    <string name="thread_report_spam_failed">ทำเครื่องหมายว่าเป็นสแปมไม่ได้</string>
+    <string name="thread_report_spam_undo">เลิกทำ</string>
+</resources>

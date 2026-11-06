@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="font_title">Font</string>
+    <string name="font_umessage">Font uMessage</string>
+    <string name="font_system">Font sistem</string>
+</resources>

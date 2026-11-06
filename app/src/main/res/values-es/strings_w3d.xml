@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">Ocultar códigos en mensajes reenviados</string>
+    <string name="w3d_mask_codes_body">Los códigos reenviados se muestran como ****</string>
+    <string name="w3d_mask_keep_last">Conservar los últimos dos dígitos</string>
+    <string name="w3d_mask_keep_last_on">Los mensajes reenviados muestran, por ejemplo, **34.</string>
+    <string name="w3d_mask_keep_last_off">Los mensajes reenviados ocultan el código completo.</string>
+    <string name="w3d_daily_limit">Límite diario de reenvíos</string>
+    <string name="w3d_daily_limit_body">Máximo de reenvíos por día</string>
+    <string name="w3d_hide_lock_codes">Ocultar códigos en la pantalla de bloqueo</string>
+    <string name="w3d_hide_lock_codes_body">Un mensaje con código muestra •••• en la pantalla de bloqueo hasta que desbloquees el teléfono.</string>
+</resources>

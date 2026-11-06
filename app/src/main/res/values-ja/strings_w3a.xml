@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3a_forward_limit_channel">転送の上限</string>
+    <string name="w3a_forward_limit_title">本日の転送を一時停止</string>
+    <string name="w3a_forward_limit_text">転送の上限%d件に達しました。明日、転送を再開します。</string>
+</resources>

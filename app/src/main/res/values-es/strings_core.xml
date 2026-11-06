@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_message_inexact">Programado. Puede enviarse con unos minutos de retraso.</string>
+</resources>

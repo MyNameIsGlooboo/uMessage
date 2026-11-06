@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">Всегда разрешать</string>
+    <string name="ux8d_sheet_title_block">Всегда блокировать</string>
+    <string name="ux8d_match_label">Что проверять</string>
+    <string name="ux8d_match_number">Номер телефона</string>
+    <string name="ux8d_match_sender">Имя отправителя, например банка</string>
+    <string name="ux8d_match_word">Слово в сообщении</string>
+    <string name="ux8d_match_prefix">Номера, начинающиеся с…</string>
+    <string name="ux8d_match_pattern">Регулярное выражение (для опытных)</string>
+    <string name="ux8d_match_more">Другие условия</string>
+    <string name="ux8d_action_label">При совпадении</string>
+    <string name="ux8d_more_options">Другие параметры</string>
+    <string name="ux8d_row_type_number">Номер</string>
+    <string name="ux8d_row_type_prefix">Номер начинается с</string>
+    <string name="ux8d_row_type_sender">Имя отправителя</string>
+    <string name="ux8d_row_type_word">Слово в сообщении</string>
+    <string name="ux8d_row_type_pattern">Регулярное выражение</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

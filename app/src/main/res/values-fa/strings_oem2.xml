@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">Vivo یا iQOO</string>
+    <string name="oem2_step_vivo">اجازه دادن به شروع خودکار و اجرا در پس‌زمینه</string>
+    <string name="oem2_step_vivo_desc">«شروع خودکار» را برای uMessage روشن کنید و در تنظیمات باتری آن، به مصرف بالای انرژی در پس‌زمینه اجازه دهید.</string>
+    <string name="oem2_xiaomi_autostart_desc">«شروع خودکار» را برای uMessage روشن کنید تا پس از راه‌اندازی مجدد اجرا شود. اگر صفحهٔ اطلاعات برنامه باز شد، از کلید «شروع خودکار» در آن استفاده کنید.</string>
+    <string name="oem2_xiaomi_battery_desc">برای uMessage گزینهٔ «بدون محدودیت» را انتخاب کنید. اگر فهرست برنامه‌ها باز شد، ابتدا روی uMessage ضربه بزنید.</string>
+    <string name="oem2_oppo_desc">گزینه‌های «اجازه دادن به راه‌اندازی خودکار» و «اجازه دادن به فعالیت در پس‌زمینه» را برای uMessage روشن کنید. در گوشی‌های جدیدتر، این گزینه‌ها در «اطلاعات برنامه»، بخش «مصرف باتری» هستند.</string>
+    <string name="oem2_ignore_battery_desc">برای uMessage گزینهٔ «نامحدود» یا «بهینه‌سازی نشود» را انتخاب کنید. اگر فهرستی باز شد، ابتدا آن را روی «همهٔ برنامه‌ها» بگذارید.</string>
+    <string name="oem2_state_done">انجام شد</string>
+    <string name="oem2_state_marked">شما آن را انجام‌شده علامت زدید</string>
+    <string name="oem2_state_todo">هنوز انجام نشده</string>
+    <string name="oem2_state_limited">Android هنوز اجرای uMessage در پس‌زمینه را محدود می‌کند</string>
+    <string name="oem2_open_again">باز کردن دوباره</string>
+    <string name="oem2_undo">واگرد</string>
+    <string name="oem2_undo_cd">علامت‌گذاری %1$s به‌عنوان انجام‌نشده</string>
+</resources>

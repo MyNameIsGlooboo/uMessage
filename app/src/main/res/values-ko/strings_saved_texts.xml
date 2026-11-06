@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">저장한 문구</string>
+    <string name="n06_sheet_title">저장한 문구</string>
+    <string name="n06_empty_hint">주소나 카드 번호 등을 저장해 보세요. 문구를 누르면 메시지에 입력돼요.</string>
+    <string name="n06_add">문구 추가</string>
+    <string name="n06_edit">문구 수정</string>
+    <string name="n06_title_label">제목 (선택)</string>
+    <string name="n06_text_label">내용</string>
+    <string name="n06_save">저장</string>
+    <string name="n06_delete">삭제</string>
+    <string name="n06_private_tip">이 휴대전화에만 저장되며 암호화되지 않아요. 비밀번호나 PIN 번호는 저장하지 마세요.</string>
+    <string name="n06_save_from_message">문구로 저장</string>
+    <string name="n06_saved_toast">저장했어요.</string>
+    <string name="n06_save_full">목록이 가득 찼어요. 먼저 문구 하나를 삭제해 주세요.</string>
+    <string name="n06_save_duplicate">이미 저장된 문구예요.</string>
+</resources>

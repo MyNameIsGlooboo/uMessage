@@ -1,0 +1,111 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|Hey!
+greeting|Hello there
+greeting|hiii
+good_morning|Good morning!!
+good_morning|Morning :)
+good_night|Goodnight 😴
+good_night|Sleep tight
+how_are_you|Hey, how are you?
+how_are_you|How's it going?
+how_are_you|What's up
+thanks|Thanks a lot!
+thanks|Thank you so much 🙏
+thanks|thx
+youre_welcome|No problem
+youre_welcome|You're welcome!
+where_are_you|Where are you?
+where_are_you|where r u
+on_my_way|On my way!
+on_my_way|I'm on my way
+on_my_way|omw
+arrived|I'm outside
+arrived|We're here
+arrived_home|Got home safe
+arrived_home|I made it home
+did_you_arrive|Did you get home safe?
+did_you_arrive|Have you arrived?
+are_you_coming|Are you coming tonight?
+are_you_coming|Hey are you coming?
+are_you_coming|Can you come tomorrow?
+are_you_coming|Are you guys coming to dinner tonight?
+call_me|Call me when you can
+call_me|Can you call me?
+call_me|Please call me back
+can_you_talk|Can you talk now?
+can_you_talk|Do you have a minute?
+are_you_free|Are you free tonight?
+what_time|What time?
+what_time|What time should we meet?
+where_to_meet|Where should we meet?
+ok_confirm|Ok thanks
+ok_confirm|Sounds good
+ok_confirm|Okay
+bye|See you tomorrow
+bye|Talk to you later
+bye|Have a great day!
+congrats|Congratulations!
+congrats|Happy birthday!
+congrats|Congrats on the new job
+holiday_eid|Eid Mubarak!
+holiday_new_year|Happy New Year!
+holiday_christmas|Merry Christmas!
+good_luck|Good luck!
+sorry_late|Sorry for the late reply
+sorry_late|My bad
+missed_call|I missed your call
+missed_call|Sorry, I missed your call
+missed_call|Hi, just saw that you called me earlier
+NONE|Are you coming back tomorrow?
+NONE|Who is coming tonight?
+NONE|I'm not coming
+NONE|Are you not coming?
+NONE|Why are you not answering?
+NONE|Thanks but no thanks
+NONE|Thanks, but I already paid 50 dollars
+NONE|Your verification code is 482913
+NONE|Your account balance is $120.50
+NONE|Visit www.example.com for a free gift
+NONE|Where are you going?
+NONE|Where are you from?
+NONE|Call me maybe
+NONE|Call me a taxi
+NONE|I'll call you when I get there
+NONE|Good morning team, the meeting starts at nine and everyone must attend without exception
+NONE|What time is it?
+NONE|What time did you leave yesterday?
+NONE|hello?
+NONE|ok?
+NONE|Okay but I think we should wait until Monday
+NONE|Sure, I'll pick up the kids and then we can go out
+NONE|I'm on my way to the hospital
+NONE|On my way home from work
+NONE|See you at the party, bring snacks
+NONE|Sorry for your loss
+NONE|I'm sorry
+NONE|Happy birthday to my sister, she turns 30 today
+NONE|Don't call me again
+NONE|Can you pick me up?
+NONE|Are you free to help me move on Saturday?
+NONE|Where were you last night?
+NONE|How are you feeling after the surgery?
+NONE|Thank you for your help with the loan
+NONE|You are welcome to join us anytime
+NONE|Can you come back later?
+NONE|Is everyone coming?
+NONE|I am not sure if I can come tomorrow
+NONE|What are you doing tonight?
+NONE|Hi Sara, how are you?
+NONE|Call me at 5551234
+NONE|Transfer 500 to my account please
+NONE|Mom is in the hospital, call me please
+NONE|Good night everyone, thanks for the lovely evening
+NONE|Thanks for nothing
+NONE|Nice!
+NONE|😂😂
+NONE|Lol ok, whatever you say
+NONE|Got it, I'll send the files tomorrow morning
+NONE|Congratulations, you have won a prize! Reply YES to claim
+NONE|Sorry
+NONE|Are you coming and what time should I bring the car?

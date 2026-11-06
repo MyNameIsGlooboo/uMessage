@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i31_card_deposit">Зарахування</string>
+    <string name="i31_card_withdrawal">Списання</string>
+    <string name="i31_card_balance_title">Баланс</string>
+    <string name="i31_card_title">%1$s: %2$s</string>
+    <string name="i31_card_balance">Баланс: %1$s</string>
+    <string name="i31_money">%1$s %2$s</string>
+    <string name="i31_card_hint_card">Картка із закінченням %1$s</string>
+    <string name="i31_card_hint_account">Рахунок із закінченням %1$s</string>
+    <string name="i31_card_hint_other">Закінчення %1$s</string>
+    <string name="i31_currency_rial">Ріал</string>
+    <string name="i31_currency_toman">Томан</string>
+    <string name="i31_currency_usd">USD</string>
+    <string name="i31_currency_eur">EUR</string>
+    <string name="i31_currency_gbp">GBP</string>
+    <string name="i31_currency_aed">AED</string>
+</resources>

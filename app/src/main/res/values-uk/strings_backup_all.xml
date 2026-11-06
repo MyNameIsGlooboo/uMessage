@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n09_backup_contents">Усе, крім ваших повідомлень: правила дозволу, блокування й пересилання та всі налаштування. Файл не зашифрований і містить номери телефонів для пересилання, тому зберігайте його в захищеному місці. Правила пересилання відновлюються вимкненими.</string>
+    <string name="n09_label_spam">Захист від спаму</string>
+    <string name="n09_label_notifications">Сповіщення</string>
+    <string name="n09_label_chat">Чат і список повідомлень</string>
+    <string name="n09_label_sending">Надсилання</string>
+    <string name="n09_label_cleanup">Очищення та зберігання</string>
+    <string name="n09_label_privacy">Конфіденційність і блокування</string>
+    <string name="n09_restore_not_included">Файл не містить ваших повідомлень, PIN для блокування застосунку, назв SIM, збережених текстів, прихованих чатів і часу вимкнення сповіщень.</string>
+    <string name="n09_restore_after">Знову зробіть uMessage застосунком для SMS за умовчанням і налаштуйте блокування застосунку.</string>
+</resources>

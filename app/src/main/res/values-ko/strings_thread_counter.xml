@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_counter_parts">%1$d · SMS %2$d건</string>
+    <plurals name="thread_counter_description">
+        <item quantity="other">문자 %1$d건, 마지막 문자에 %2$d글자 남음</item>
+    </plurals>
+    <string name="thread_counter_unicode_description">%1$s. 페르시아어 등 라틴 문자 이외의 글자는 문자 한 건당 %2$d글자까지 들어가요.</string>
+    <string name="thread_unicode_parts_note">페르시아어는 SMS 한 건당 70글자까지 들어가므로, 이 메시지는 SMS %1$d건으로 나뉘어 전송돼요.</string>
+    <string name="thread_long_text_as_mms">이 긴 메시지는 MMS 형식으로 전송되며, SMS 요금보다 더 나올 수 있어요.</string>
+</resources>

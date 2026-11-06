@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i40_record_voice">سجّل رسالة صوتية</string>
+    <string name="i40_setting_title">زر الرسائل الصوتية</string>
+    <string name="i40_setting_summary">يظهر عندما يكون حقل الرسالة فارغًا</string>
+</resources>

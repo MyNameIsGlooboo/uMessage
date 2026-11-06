@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2c_blocked_label">บล็อกแล้ว</string>
+    <string name="w2c_log_blocked_by_rule">บล็อกแล้วตามกฎ: %1$s</string>
+    <string name="w2c_log_blocked_by_old_list">บล็อกแล้วตามรายการบล็อกเดิม</string>
+    <string name="w2c_log_fwd_rate_limited">ไม่ได้ส่งต่อ: กฎนี้ถึงขีดจำกัดรายชั่วโมงแล้ว</string>
+</resources>

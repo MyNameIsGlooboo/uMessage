@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_reactions_title">Inviata da un iPhone come testo</string>
+    <string name="thread_reactions_show_original">Mostra testo originale</string>
+</resources>

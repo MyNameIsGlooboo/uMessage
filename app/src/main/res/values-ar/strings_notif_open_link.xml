@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_open_link_action">افتح الرابط</string>
+    <string name="notif_open_link_title">زر فتح الرابط</string>
+    <string name="notif_open_link_summary">في إشعارات جهات الاتصال والمرسلين المسموح لهم</string>
+</resources>

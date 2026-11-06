@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_hint">대화 검색</string>
+    <string name="main_search_back">검색 닫기</string>
+    <string name="main_search_clear">검색어 지우기</string>
+    <string name="main_search_type_more">검색하려면 2글자 이상 입력해 주세요.</string>
+    <string name="main_search_no_results">검색 결과가 없어요.</string>
+    <string name="main_settings">설정</string>
+    <string name="main_tab_messages">메시지</string>
+    <string name="main_tab_blocked">차단함</string>
+    <string name="main_tab_archived">보관됨</string>
+    <plurals name="main_tab_blocked_new">
+        <item quantity="other">차단함, 새 메시지 %d건</item>
+    </plurals>
+    <string name="main_permission_title">권한 필요</string>
+    <string name="main_permission_grant">권한 허용</string>
+    <string name="main_permission_notifications">알림을 허용해 주세요. 허용하지 않으면 앱에서 새로 받은 메시지를 알려드릴 수 없어요.</string>
+    <string name="main_sms_permission_title">uMessage SMS 접근 권한 필요</string>
+    <string name="main_sms_permission_body">SMS 읽기 및 보내기 권한이 없으면 uMessage 앱에서 메시지를 표시하거나 문자를 보내거나 스팸을 걸러낼 수 없어요. 삭제되는 내용은 없어요.</string>
+    <string name="main_sms_permission_settings">앱 설정 열기</string>
+    <string name="main_not_default_banner">uMessage 앱이 기본 SMS 앱이 아니어서 스팸을 차단하거나 메시지를 보낼 수 없어요.</string>
+    <string name="main_not_default_fix">해결</string>
+    <string name="main_not_default_fix_description">uMessage 앱을 기본 SMS 앱으로 설정</string>
+</resources>

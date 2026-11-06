@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_text_menu">Udostępnij rozmowę jako tekst</string>
+    <string name="share_text_scope_title">Które wiadomości?</string>
+    <string name="share_text_scope_whole">Cała rozmowa</string>
+    <string name="share_text_scope_last">Ostatnie 50 wiadomości</string>
+    <string name="share_text_title">Udostępnij jako tekst</string>
+    <string name="share_text_warning">Prywatny tekst trafi do innej aplikacji. Wybierzesz ją w następnym kroku.</string>
+    <string name="share_text_action">Udostępnij</string>
+    <string name="share_text_range">Od %1$s do %2$s</string>
+    <string name="share_text_attachment">[Załącznik]</string>
+    <string name="share_text_subject">Wiadomości z uMessage</string>
+    <string name="share_text_nothing">Brak wiadomości do udostępnienia</string>
+    <plurals name="share_text_count">
+        <item quantity="one">%1$d wiadomość</item>
+        <item quantity="few">%1$d wiadomości</item>
+        <item quantity="many">%1$d wiadomości</item>
+        <item quantity="other">%1$d wiadomości</item>
+    </plurals>
+</resources>

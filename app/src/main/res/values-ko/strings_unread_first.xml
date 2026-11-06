@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i36_unread_first">읽지 않은 대화 먼저</string>
+    <string name="i36_unread_first_body">읽지 않은 대화를 맨 위에 표시해요.</string>
+</resources>

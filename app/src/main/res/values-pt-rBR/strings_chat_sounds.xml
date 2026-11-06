@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i65_setting_title">Sons na conversa</string>
+    <string name="i65_setting_summary">Um som curto para mensagens enviadas e recebidas</string>
+</resources>

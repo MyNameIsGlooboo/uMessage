@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_tab_forwarded">फ़ॉरवर्ड किए गए</string>
+    <string name="nav_tab_forwarded_failed">फ़ॉरवर्ड किए गए, एक मैसेज फ़ॉरवर्ड नहीं हुआ</string>
+    <string name="nav_tab_forwarded_paused">फ़ॉरवर्ड किए गए, फ़ॉरवर्ड करना रुका हुआ है</string>
+    <string name="nav_tab_archived_new">संग्रहित, नई चैट संग्रहित की गई</string>
+    <string name="nav_prompt_title">नियम सेव किया गया</string>
+    <string name="nav_prompt_body">भेजे गए मैसेज देखने और न भेजे गए मैसेज फिर से भेजने के लिए फ़ॉरवर्ड किए गए टैब दिखाएं?</string>
+    <string name="nav_prompt_show">टैब दिखाएं</string>
+    <string name="nav_prompt_not_now">अभी नहीं</string>
+    <string name="nav_fwd_paid_note">हर फ़ॉरवर्ड किए गए SMS का शुल्क लगता है.</string>
+    <string name="nav_fwd_pause_all">सभी मैसेज फ़ॉरवर्ड करना रोकें</string>
+    <string name="nav_fwd_status_paused">फ़ॉरवर्ड करना रुका हुआ है</string>
+    <string name="nav_fwd_paused_hint">मेल खाने वाले मैसेज नहीं भेजे जा रहे हैं. फिर शुरू करने के लिए स्विच बंद करें.</string>
+    <string name="nav_fwd_status_no_rule">फ़ॉरवर्ड करने का कोई नियम चालू नहीं है</string>
+    <plurals name="nav_fwd_status_on" tools:ignore="ImpliedQuantity">
+        <item quantity="one">फ़ॉरवर्ड करना चालू है, %1$s नियम</item>
+        <item quantity="other">फ़ॉरवर्ड करना चालू है, %1$s नियम</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">नियम मैनेज करें</string>
+    <string name="nav_fwd_empty_title">अभी कुछ फ़ॉरवर्ड नहीं हुआ</string>
+    <string name="nav_fwd_empty_body">मेल खाने वाले मैसेज यहां दिखेंगे.</string>
+    <string name="nav_fwd_status_sent">भेजा गया</string>
+    <string name="nav_fwd_status_pending">बाकी है</string>
+    <string name="nav_fwd_status_failed">नहीं भेजा जा सका</string>
+    <string name="nav_fwd_to">%1$s को</string>
+    <string name="nav_fwd_sim">सिम %1$d</string>
+    <string name="nav_fwd_rule_line">नियम: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">भेजने वाला %1$s</string>
+    <string name="nav_fwd_rule_any_sender">कोई भी भेजने वाला</string>
+    <string name="nav_fwd_rule_text">टेक्स्ट %1$s</string>
+    <string name="nav_fwd_rule_any_text">कोई भी टेक्स्ट</string>
+    <string name="nav_fwd_rule_deleted">नियम मिटाया गया</string>
+    <string name="nav_fwd_open_details">जानकारी दिखाएं</string>
+    <string name="nav_fwd_today">आज</string>
+    <string name="nav_fwd_yesterday">कल</string>
+    <plurals name="nav_fwd_failed_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s मैसेज फ़ॉरवर्ड नहीं हुआ</item>
+        <item quantity="other">%1$s मैसेज फ़ॉरवर्ड नहीं हुए</item>
+    </plurals>
+    <string name="nav_fwd_retry">फिर कोशिश करें</string>
+    <string name="nav_fwd_retry_all">सभी न भेजे गए मैसेज फिर भेजें (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">फिर से भेजें?</string>
+    <plurals name="nav_fwd_retry_all_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s SMS फिर से भेजा जाएगा. हर SMS का शुल्क लगता है.</item>
+        <item quantity="other">%1$s SMS फिर से भेजे जाएंगे. हर SMS का शुल्क लगता है.</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">फिर से भेजें</string>
+    <plurals name="nav_fwd_retry_sent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d मैसेज फिर से फ़ॉरवर्ड किया गया</item>
+        <item quantity="other">%d मैसेज फिर से फ़ॉरवर्ड किए गए</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">फिर से नहीं भेजा जा सका. अपना सिग्नल और बैलेंस जांचें.</string>
+    <string name="nav_fwd_retry_missing">मूल मैसेज अब मौजूद नहीं है, इसलिए उसे फिर से नहीं भेजा जा सकता.</string>
+    <string name="nav_fwd_details_title">फ़ॉरवर्ड करने की जानकारी</string>
+    <string name="nav_fwd_detail_from">मैसेज भेजने वाला</string>
+    <string name="nav_fwd_detail_to">इन्हें फ़ॉरवर्ड किया गया</string>
+    <string name="nav_fwd_detail_when">समय</string>
+    <string name="nav_fwd_detail_sim">इससे भेजा गया</string>
+    <string name="nav_fwd_detail_rule">इससे मेल खाया</string>
+    <string name="nav_fwd_detail_message">मूल मैसेज</string>
+    <string name="nav_fwd_message_loading">लोड हो रहा है</string>
+    <string name="nav_fwd_message_gone">मूल मैसेज अब सेव नहीं है.</string>
+    <string name="nav_fwd_error_radio">नेटवर्क मैसेज नहीं पहुंचा सका.</string>
+    <string name="nav_fwd_error_refused">फ़ोन मैसेज नहीं भेज सका.</string>
+    <string name="nav_fwd_open_chat">चैट खोलें</string>
+    <string name="nav_archived_title">संग्रहित</string>
+    <string name="nav_archived_back">मैसेज पर वापस जाएं</string>
+    <string name="nav_archived_intro">संग्रहित चैट मैसेज में नहीं दिखती हैं. नया मैसेज आने पर चैट वापस आ जाती है, जब तक सेटिंग में “संग्रहित चैट छिपी रहें” चालू न हो.</string>
+    <string name="nav_archived_intro_dismiss">यह नोट छिपाएं</string>
+    <plurals name="nav_archived_moved" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d बातचीत मैसेज में ले जाई गई</item>
+        <item quantity="other">%d बातचीत मैसेज में ले जाई गईं</item>
+    </plurals>
+    <string name="nav_folder_more">और विकल्प</string>
+    <string name="nav_folder_mark_all_read">सभी को पढ़ा गया के तौर पर मार्क करें</string>
+    <string name="nav_folder_delete_all_count">इससे %1$s हमेशा के लिए मिट जाएंगे.</string>
+</resources>

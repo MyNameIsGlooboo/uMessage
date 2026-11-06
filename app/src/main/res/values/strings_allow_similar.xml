@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allow_similar_title">Also allow messages like this</string>
+    <string name="allow_similar_sender">Any sender named %1$s</string>
+    <string name="allow_similar_prefix">Any number starting with %1$s</string>
+    <string name="allow_similar_keyword">Any text with the word \"%1$s\"</string>
+    <string name="allow_similar_risk_sender">Anyone can send under a name like this.</string>
+    <string name="allow_similar_risk_prefix">Other numbers that start the same get through too.</string>
+    <string name="allow_similar_risk_keyword">Anyone can write this word, so spam with it gets through.</string>
+    <string name="allow_similar_edit">Edit this rule</string>
+</resources>

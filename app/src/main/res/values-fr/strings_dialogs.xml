@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="dialogs_yes">Oui</string>
+    <string name="dialogs_no">Non</string>
+    <string name="dialogs_permission_required">Autorisation requise</string>
+    <string name="dialogs_grant_permission">Accorder l\'autorisation</string>
+    <string name="dialogs_date_time_format_title">Format de la date et de l\'heure</string>
+    <string name="dialogs_use_24_hour">Utiliser le format 24 heures</string>
+    <string name="dialogs_lock_pattern">Schéma</string>
+    <string name="dialogs_lock_pin">Code PIN</string>
+    <string name="dialogs_lock_biometrics">Biométrie</string>
+    <string name="dialogs_lock_fingerprint">Empreinte digitale</string>
+    <string name="dialogs_lock_enter_pin">Saisissez le code PIN</string>
+    <string name="dialogs_lock_repeat_pin">Saisissez à nouveau le code PIN</string>
+    <string name="dialogs_lock_wrong_pin">Code PIN incorrect</string>
+    <string name="dialogs_lock_empty_pin">Saisissez un code PIN</string>
+    <string name="dialogs_lock_short_pin">Le code PIN doit contenir au moins 4 chiffres</string>
+    <string name="dialogs_lock_pin_suggestion">Au moins 4 chiffres. %d ou plus pour plus de sécurité.</string>
+    <plurals name="dialogs_lock_short_pattern" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Trop court. Reliez au moins %d point.</item>
+        <item quantity="other">Trop court. Reliez au moins %d points.</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">Dessinez le schéma</string>
+    <string name="dialogs_lock_repeat_pattern">Dessinez à nouveau le schéma</string>
+    <string name="dialogs_lock_wrong_pattern">Schéma incorrect</string>
+    <string name="dialogs_lock_locked_out">Trop de tentatives de déverrouillage incorrectes.\nRéessayez dans %d secondes.</string>
+    <string name="dialogs_lock_pin_delete">Supprimer le dernier chiffre</string>
+    <string name="dialogs_lock_pin_confirm">Confirmer le code PIN</string>
+    <string name="dialogs_lock_pin_entered">%d chiffres saisis</string>
+    <string name="dialogs_lock_pattern_pad">Grille du schéma</string>
+    <string name="dialogs_lock_biometric_hint">Utilisez votre empreinte digitale ou votre visage pour confirmer votre identité.</string>
+    <string name="dialogs_lock_biometric_open">Vérifier par biométrie</string>
+    <string name="dialogs_lock_place_finger">Posez votre doigt sur le capteur d\'empreintes.</string>
+    <string name="dialogs_lock_no_fingerprints">Aucune empreinte enregistrée. Ajoutez-en une dans les paramètres de votre appareil.</string>
+    <string name="dialogs_lock_open_settings">Ouvrir les paramètres de l\'appareil</string>
+    <string name="dialogs_lock_auth_failed">Échec de l\'authentification</string>
+    <string name="dialogs_lock_auth_blocked">Authentification bloquée, réessayez dans un instant</string>
+</resources>

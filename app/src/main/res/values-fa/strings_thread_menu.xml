@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wave 7: the thread menu keeps a short list; "More..." opens the grouped sheet. -->
+    <string name="thread_menu_more">بیشتر…</string>
+    <string name="thread_menu_group_share">اشتراک‌گذاری و خروجی</string>
+    <string name="thread_menu_group_organize">سازمان‌دهی</string>
+    <string name="thread_menu_group_sender">فرستنده</string>
+    <!-- The conversation's labels as chips under the title; %1$s lists their names. -->
+    <string name="thread_labels_chips_description">برچسب‌ها: %1$s. برای تغییر ضربه بزنید.</string>
+    <string name="thread_labels_more_chip">+%1$d</string>
+</resources>

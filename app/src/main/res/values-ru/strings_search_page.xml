@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">Начать чат</string>
+    <string name="search_page_show_more">Показать еще</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">Нет чатов на этой SIM-карте</string>
+    <string name="search_page_sim_empty_body">Здесь появятся чаты с сообщениями, отправленными или полученными через эту SIM-карту.</string>
+</resources>

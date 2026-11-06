@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">已暂存：未知发件人</string>
+    <string name="ux8c_held_unknown_link">已暂存：未知发件人，含链接</string>
+    <string name="ux8c_held_foreign">已暂存：来自其他国家的号码</string>
+    <string name="ux8c_held_rule">已按你的规则暂存</string>
+    <string name="ux8c_held_other">已由过滤器暂存</string>
+    <string name="ux8c_not_spam">不是垃圾短信</string>
+    <string name="ux8c_delete">删除</string>
+    <string name="ux8c_tip">滑动发件人可将其消息移至收件箱。长按可选择。</string>
+    <string name="ux8c_tip_dismiss">知道了</string>
+    <string name="ux8c_sender_title">此发件人</string>
+    <string name="ux8c_sender_normal">正常</string>
+    <string name="ux8c_sender_allow">始终允许</string>
+    <string name="ux8c_sender_block">屏蔽</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_switch_title">Beralih ke uMessage?</string>
+    <string name="onb_switch_body">Beralih dari aplikasi SMS lain? Nonaktifkan fitur chat-nya terlebih dahulu. Pindah dari ponsel lain? Pulihkan cadangan setelah penyiapan selesai.</string>
+    <string name="onb_switch_action">Pulihkan cadangan</string>
+    <string name="onb_switch_done_note">Setelah selesai, Cadangkan dan pulihkan akan terbuka.</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i31_card_deposit">واریز</string>
+    <string name="i31_card_withdrawal">برداشت</string>
+    <string name="i31_card_balance_title">موجودی</string>
+    <string name="i31_card_title">%1$s: %2$s</string>
+    <string name="i31_card_balance">موجودی: %1$s</string>
+    <string name="i31_money">%1$s %2$s</string>
+    <string name="i31_card_hint_card">کارت با ارقام پایانی %1$s</string>
+    <string name="i31_card_hint_account">حساب با ارقام پایانی %1$s</string>
+    <string name="i31_card_hint_other">با ارقام پایانی %1$s</string>
+    <string name="i31_currency_rial">ریال</string>
+    <string name="i31_currency_toman">تومان</string>
+    <string name="i31_currency_usd">USD</string>
+    <string name="i31_currency_eur">EUR</string>
+    <string name="i31_currency_gbp">GBP</string>
+    <string name="i31_currency_aed">AED</string>
+</resources>

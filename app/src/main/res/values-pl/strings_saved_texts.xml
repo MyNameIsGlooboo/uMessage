@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">Zapisany tekst</string>
+    <string name="n06_sheet_title">Zapisane teksty</string>
+    <string name="n06_empty_hint">Na przykład: twój adres lub numer karty. Dotknij tekstu, by wstawić go do wiadomości.</string>
+    <string name="n06_add">Dodaj zapisany tekst</string>
+    <string name="n06_edit">Zmień zapisany tekst</string>
+    <string name="n06_title_label">Tytuł (opcjonalnie)</string>
+    <string name="n06_text_label">Tekst</string>
+    <string name="n06_save">Zapisz</string>
+    <string name="n06_delete">Usuń</string>
+    <string name="n06_private_tip">Przechowywane tylko na tym telefonie, bez szyfrowania. Nie zapisuj haseł ani kodów PIN.</string>
+    <string name="n06_save_from_message">Dodaj do zapisanych tekstów</string>
+    <string name="n06_saved_toast">Zapisano</string>
+    <string name="n06_save_full">Lista jest pełna. Najpierw usuń jeden tekst.</string>
+    <string name="n06_save_duplicate">Już zapisano</string>
+</resources>

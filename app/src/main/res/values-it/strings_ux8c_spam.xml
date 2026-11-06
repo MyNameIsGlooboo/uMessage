@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">Trattenuto: mittente sconosciuto</string>
+    <string name="ux8c_held_unknown_link">Trattenuto: mittente sconosciuto, contiene un link</string>
+    <string name="ux8c_held_foreign">Trattenuto: numero di un altro paese</string>
+    <string name="ux8c_held_rule">Trattenuto dalla tua regola</string>
+    <string name="ux8c_held_other">Trattenuto dal filtro</string>
+    <string name="ux8c_not_spam">Non è spam</string>
+    <string name="ux8c_delete">Elimina</string>
+    <string name="ux8c_tip">Scorri su un mittente per spostarlo in In arrivo. Tocca e tieni premuto per selezionarlo.</string>
+    <string name="ux8c_tip_dismiss">Ho capito</string>
+    <string name="ux8c_sender_title">Questo mittente</string>
+    <string name="ux8c_sender_normal">Normale</string>
+    <string name="ux8c_sender_allow">Consenti sempre</string>
+    <string name="ux8c_sender_block">Blocca</string>
+</resources>

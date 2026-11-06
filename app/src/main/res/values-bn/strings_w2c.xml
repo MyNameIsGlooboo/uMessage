@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2c_blocked_label">ব্লক করা</string>
+    <string name="w2c_log_blocked_by_rule">নিয়ম অনুযায়ী ব্লক করা: %1$s</string>
+    <string name="w2c_log_blocked_by_old_list">পুরোনো ব্লক তালিকা অনুযায়ী ব্লক করা</string>
+    <string name="w2c_log_fwd_rate_limited">ফরোয়ার্ড করা হয়নি: এই নিয়মের ঘণ্টাপ্রতি সীমা পূর্ণ হয়েছে</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">Приховати цей чат</string>
+    <string name="hidden_chats_menu_unhide">Показати цей чат</string>
+    <string name="hidden_chats_confirm">Приховати цей чат? Він зникне зі списку, пошуку та сповіщень, доки ви не відкриєте приховані чати через блокування застосунку.</string>
+    <string name="hidden_chats_need_lock">Для прихованих чатів потрібне блокування застосунку. Налаштувати зараз?</string>
+    <string name="hidden_chats_set_lock">Налаштувати</string>
+    <string name="hidden_chats_done">Чат приховано</string>
+    <string name="hidden_chats_show">Приховані чати</string>
+    <string name="hidden_chats_lock">Заблокувати приховані чати</string>
+</resources>

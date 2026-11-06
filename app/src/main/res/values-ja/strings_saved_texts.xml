@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">定型文</string>
+    <string name="n06_sheet_title">定型文</string>
+    <string name="n06_empty_hint">住所やカード番号などを保存できます。タップするとメッセージに挿入できます。</string>
+    <string name="n06_add">定型文を追加</string>
+    <string name="n06_edit">定型文を変更</string>
+    <string name="n06_title_label">タイトル（任意）</string>
+    <string name="n06_text_label">本文</string>
+    <string name="n06_save">保存</string>
+    <string name="n06_delete">削除</string>
+    <string name="n06_private_tip">この端末にのみ保存され、暗号化されません。パスワードやPINは保存しないでください。</string>
+    <string name="n06_save_from_message">定型文に保存</string>
+    <string name="n06_saved_toast">保存しました。</string>
+    <string name="n06_save_full">保存件数が上限に達しています。先に1件削除してください。</string>
+    <string name="n06_save_duplicate">保存済みです。</string>
+</resources>

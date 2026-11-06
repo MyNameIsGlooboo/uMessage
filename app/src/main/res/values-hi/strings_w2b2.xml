@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2b2_thread_menu_allow">इस भेजने वाले को हमेशा अनुमति दें</string>
+    <string name="w2b2_thread_menu_why">यह फ़ैसला क्यों लिया गया?</string>
+    <string name="w2b2_thread_chip_allowed">हमेशा अनुमति दी गई</string>
+    <string name="w2b2_thread_chip_blocked">नियम से ब्लॉक किया गया</string>
+    <string name="w2b2_settings_group_dates">तारीखें</string>
+    <string name="w2b2_settings_jalali">जलाली तारीखें</string>
+    <string name="w2b2_settings_jalali_body">बातचीत और शेड्यूल किए गए मैसेज की तारीखें फ़ारसी कैलेंडर में दिखाएं</string>
+    <string name="w2b2_lock_pattern_hint">कम से कम %d बिंदु जोड़ें, फिर पुष्टि करने के लिए वही पैटर्न दोबारा बनाएं.</string>
+    <string name="w2b2_lock_recovery_hint">अगर आप इसे भूल जाएं, तो लॉक स्क्रीन पर अपने फ़ोन के स्क्रीन लॉक से फिर अंदर जा सकते हैं.</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">ホーム画面に追加</string>
+    <string name="home_shortcut_requested">ランチャーに追加をリクエストしています。ホーム画面には会話の名前が表示されます。何も表示されない場合は、スマートフォンのアプリ設定でuMessageの「ホーム画面のショートカット」を許可してください。</string>
+    <string name="home_shortcut_failed">ランチャーがショートカットを受け付けませんでした。スマートフォンのアプリ設定でuMessageの「ホーム画面のショートカット」を許可してください。</string>
+</resources>

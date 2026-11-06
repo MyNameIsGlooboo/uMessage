@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">ชื่อ SIM</string>
+    <string name="i34_setting_summary">ตั้งชื่อและหมายเลขให้แต่ละ SIM</string>
+    <string name="i34_dialog_title">ชื่อ SIM</string>
+    <string name="i34_number_note">ผู้ให้บริการเครือข่ายมักไม่แจ้งหมายเลขให้แอป จึงต้องกรอกที่นี่ ทั้งชื่อและหมายเลขจะเก็บไว้ในโทรศัพท์นี้</string>
+    <string name="i34_sim_heading">SIM %1$d, %2$s</string>
+    <string name="i34_nickname">ชื่อ (เช่น งาน)</string>
+    <string name="i34_number">หมายเลข</string>
+</resources>

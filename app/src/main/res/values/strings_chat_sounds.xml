@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i65_setting_title">In-chat sounds</string>
+    <string name="i65_setting_summary">A short sound for sent and received messages</string>
+</resources>

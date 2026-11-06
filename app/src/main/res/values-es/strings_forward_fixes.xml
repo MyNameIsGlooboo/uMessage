@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">En pausa por hoy: límite alcanzado</string>
+    <string name="fwdfix_limit_hint">%1$s de %2$s reenvíos enviados hoy. El reenvío se reanuda mañana.</string>
+    <string name="fwdfix_status_skipped">Omitido (límite)</string>
+    <string name="fwdfix_error_daily_limit">No se envió: se alcanzó el límite diario de reenvíos.</string>
+    <string name="fwdfix_error_rate_limited">No se envió: esta regla ya reenvió %1$s mensajes en la última hora.</string>
+    <string name="fwdfix_retry_all_recent">Solo se incluyen los reenvíos de las últimas 24 horas.</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="one">%1$s sin enviar: el reenvío está en pausa.</item>
+        <item quantity="other">%1$s sin enviar: el reenvío está en pausa.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="one">%1$s sin enviar: su regla está desactivada o se eliminó.</item>
+        <item quantity="other">%1$s sin enviar: sus reglas están desactivadas o se eliminaron.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="one">%1$s sin enviar: se alcanzó el límite diario o el límite por hora de su regla.</item>
+        <item quantity="other">%1$s sin enviar: se alcanzó el límite diario o el límite por hora de una regla.</item>
+    </plurals>
+    <string name="fwdfix_card_last">Último reenvío %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="one">%1$s esta semana</item>
+        <item quantity="other">%1$s esta semana</item>
+    </plurals>
+    <string name="fwdfix_card_never">Aún no hay reenvíos</string>
+    <string name="fwdfix_card_sent">enviado</string>
+    <string name="fwdfix_card_pending">enviando</string>
+    <string name="fwdfix_card_failed">fallido</string>
+    <string name="fwdfix_card_skipped">omitido (límite)</string>
+    <string name="fwdfix_delete_rule">Eliminar regla</string>
+    <string name="fwdfix_deleted">Regla de reenvío eliminada</string>
+    <string name="fwdfix_test_button">Enviar prueba</string>
+    <string name="fwdfix_test_title">¿Enviar un SMS de prueba?</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="one">Se enviará %1$s SMS de prueba al número de arriba. Este SMS tiene costo.</item>
+        <item quantity="other">Se enviará un SMS de prueba a cada uno de los %1$s números de arriba. Cada SMS tiene costo.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">Enviar</string>
+    <string name="fwdfix_test_text">Prueba de uMessage: el reenvío funciona.</string>
+    <string name="fwdfix_test_sending">Enviando la prueba…</string>
+    <string name="fwdfix_test_sent">Prueba enviada. Revisa el otro teléfono.</string>
+    <string name="fwdfix_test_failed">No se pudo enviar la prueba. Revisa tu señal y saldo.</string>
+    <string name="fwdfix_cost_persian">Texto en persa de %1$s letras: %2$s partes × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">Texto en inglés de %1$s letras: %2$s partes × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">No se puede enviar nada ahora</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="one">%1$s no se enviará: el reenvío está en pausa.</item>
+        <item quantity="other">%1$s no se enviarán: el reenvío está en pausa.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="one">%1$s no se enviará: su regla está desactivada o se eliminó.</item>
+        <item quantity="other">%1$s no se enviarán: sus reglas están desactivadas o se eliminaron.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="one">%1$s no se enviará: se alcanzó el límite diario o el límite por hora de su regla.</item>
+        <item quantity="other">%1$s no se enviarán: se alcanzó el límite diario o el límite por hora de una regla.</item>
+    </plurals>
+</resources>

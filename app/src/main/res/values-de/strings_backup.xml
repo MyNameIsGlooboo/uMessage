@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_channel">Sichern und wiederherstellen</string>
+    <string name="backup_restoring">Nachrichten werden wiederhergestellt</string>
+    <string name="backup_exporting">Nachrichten werden gesichert</string>
+    <plurals name="backup_progress_import">
+        <item quantity="one">%1$d Eintrag gelesen</item>
+        <item quantity="other">%1$d Einträge gelesen</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="one">%1$d Eintrag gelesen (%2$d%%)</item>
+        <item quantity="other">%1$d Einträge gelesen (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="one">%1$d Nachricht gespeichert</item>
+        <item quantity="other">%1$d Nachrichten gespeichert</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="one">%1$d Nachricht gespeichert (%2$d%%)</item>
+        <item quantity="other">%1$d Nachrichten gespeichert (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">Du kannst die App verlassen: Der Vorgang läuft weiter. Eine Benachrichtigung zeigt den Fortschritt.</string>
+    <string name="backup_stop">Stoppen</string>
+    <string name="backup_hide">Ausblenden</string>
+    <string name="backup_already_running">Sichern oder Wiederherstellen läuft bereits.</string>
+    <string name="backup_restore_finished">Wiederherstellen abgeschlossen</string>
+    <string name="backup_restore_stopped">Wiederherstellen gestoppt</string>
+    <string name="backup_restore_failed">Wiederherstellen fehlgeschlagen</string>
+    <string name="backup_invalid_file">Diese Datei ist keine Nachrichtensicherung. Es wurde nichts wiederhergestellt.</string>
+    <string name="backup_no_entries">Die Sicherungsdatei enthält keine Nachrichten.</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="one">Nichts Neues zu importieren: Die Nachricht ist bereits auf diesem Telefon.</item>
+        <item quantity="other">Nichts Neues zu importieren: Alle %1$d Nachrichten sind bereits auf diesem Telefon.</item>
+    </plurals>
+    <string name="backup_line_added">Hinzugefügt: %1$d</string>
+    <string name="backup_line_duplicates">Bereits auf diesem Telefon, übersprungen: %1$d</string>
+    <string name="backup_line_repaired">Fehlende Anhänge bei zuvor wiederhergestellten Nachrichten ergänzt: %1$d</string>
+    <string name="backup_line_incomplete">Bildnachrichten mit fehlenden Anhängen wiederhergestellt: %1$d</string>
+    <string name="backup_line_failed">Nicht wiederhergestellt: %1$d</string>
+    <string name="backup_line_damaged">Beschädigte Einträge in der Datei, übersprungen: %1$d</string>
+    <string name="backup_line_xml_mms">Bildnachrichten in dieser XML-Sicherung, nicht unterstützt und übersprungen: %1$d</string>
+    <string name="backup_line_not_selected">Nicht zum Importieren ausgewählt: %1$d</string>
+    <string name="backup_reasons">Gründe:</string>
+    <string name="backup_reason_no_address">die Nachricht hat keinen Absender oder Empfänger</string>
+    <string name="backup_reason_no_thread">das Telefon konnte die zugehörige Unterhaltung nicht öffnen</string>
+    <string name="backup_reason_refused">das Telefon hat das Speichern verweigert</string>
+    <string name="backup_reason_not_in_backup">der Anhang fehlt in der Sicherungsdatei</string>
+    <string name="backup_reason_damaged_attachment">der Anhang in der Sicherungsdatei ist beschädigt</string>
+    <string name="backup_reason_attachment_write">der Anhang konnte nicht gespeichert werden</string>
+    <string name="backup_stopped_early">Die Datei ist nach Eintrag %1$d beschädigt. Alles danach konnte nicht gelesen werden.</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="one">Nach %1$d Eintrag gestoppt. Starte das Wiederherstellen mit derselben Datei erneut, um es abzuschließen: Bereits wiederhergestellte Nachrichten werden übersprungen.</item>
+        <item quantity="other">Nach %1$d Einträgen gestoppt. Starte das Wiederherstellen mit derselben Datei erneut, um es abzuschließen: Bereits wiederhergestellte Nachrichten werden übersprungen.</item>
+    </plurals>
+    <string name="backup_retry_hint">Starte das Wiederherstellen erneut, um fehlgeschlagene Einträge noch einmal zu versuchen: Bereits wiederhergestellte Nachrichten werden übersprungen.</string>
+    <string name="backup_export_finished">Sichern abgeschlossen</string>
+    <string name="backup_export_stopped">Sichern gestoppt</string>
+    <string name="backup_export_failed">Sichern fehlgeschlagen</string>
+    <string name="backup_export_error">Die Sicherung konnte nicht gespeichert werden. Die unvollständige Datei wurde gelöscht. %1$s</string>
+    <string name="backup_export_cancelled">Das Sichern wurde gestoppt und die unvollständige Datei gelöscht.</string>
+    <string name="backup_export_nothing">Es gibt keine Nachrichten zum Sichern.</string>
+    <string name="backup_export_counts">%1$d SMS und %2$d MMS gespeichert.</string>
+    <string name="backup_export_unreadable_attachments">Nicht lesbare Anhänge, ohne Bild gespeichert: %1$d</string>
+    <string name="backup_export_unreadable_messages">Nicht lesbare Nachrichten, ausgelassen: %1$d</string>
+    <string name="backup_export_unreadable_conversations">Nicht lesbare Unterhaltungen, ausgelassen: %1$d</string>
+    <string name="backup_export_incomplete">Diese Sicherung ist unvollständig.</string>
+    <string name="backup_interrupted_import">Das letzte Wiederherstellen wurde vorzeitig gestoppt, vielleicht weil das Telefon die App geschlossen hat. Starte es mit derselben Datei erneut: Bereits wiederhergestellte Nachrichten werden übersprungen.</string>
+    <string name="backup_interrupted_export">Das letzte Sichern wurde vorzeitig gestoppt. Die Datei ist daher unvollständig. Erstelle bitte eine neue Sicherung.</string>
+</resources>

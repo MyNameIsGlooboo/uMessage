@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n09_backup_contents">Wszystko oprócz wiadomości: reguły zezwalania, blokowania i przekazywania dalej oraz wszystkie ustawienia. Plik nie jest zaszyfrowany i zawiera numery, na które przekazujesz wiadomości, więc przechowuj go w prywatnym miejscu. Przywrócone reguły przekazywania dalej będą wyłączone.</string>
+    <string name="n09_label_spam">Ochrona przed spamem</string>
+    <string name="n09_label_notifications">Powiadomienia</string>
+    <string name="n09_label_chat">Czat i lista wiadomości</string>
+    <string name="n09_label_sending">Wysyłanie</string>
+    <string name="n09_label_cleanup">Porządkowanie i pamięć</string>
+    <string name="n09_label_privacy">Prywatność i opcje blokady</string>
+    <string name="n09_restore_not_included">Plik nie zawiera: wiadomości, PIN-u blokady aplikacji, nazw kart SIM, zapisanych tekstów, ukrytych czatów ani czasu wyciszenia.</string>
+    <string name="n09_restore_after">Ponownie ustaw uMessage jako domyślną aplikację do SMS-ów i skonfiguruj blokadę aplikacji.</string>
+</resources>

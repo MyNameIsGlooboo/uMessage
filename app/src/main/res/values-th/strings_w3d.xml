@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">ปิดบังรหัสในข้อความที่ส่งต่อ</string>
+    <string name="w3d_mask_codes_body">รหัสที่ส่งต่อจะแสดงเป็น ****</string>
+    <string name="w3d_mask_keep_last">แสดง 2 หลักสุดท้าย</string>
+    <string name="w3d_mask_keep_last_on">ข้อความที่ส่งต่อจะแสดงรหัสเป็น เช่น **34</string>
+    <string name="w3d_mask_keep_last_off">ข้อความที่ส่งต่อจะซ่อนรหัสทั้งหมด</string>
+    <string name="w3d_daily_limit">ขีดจำกัดการส่งต่อรายวัน</string>
+    <string name="w3d_daily_limit_body">จำนวนครั้งสูงสุดที่ส่งต่อได้ต่อวัน</string>
+    <string name="w3d_hide_lock_codes">ซ่อนรหัสบนหน้าจอล็อก</string>
+    <string name="w3d_hide_lock_codes_body">ข้อความที่มีรหัสจะแสดง •••• บนหน้าจอล็อกจนกว่าจะปลดล็อก</string>
+</resources>

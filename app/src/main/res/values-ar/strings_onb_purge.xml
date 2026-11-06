@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_purge_question">ما مدة الاحتفاظ بالرسائل المحظورة؟</string>
+    <string name="onb_done_summary_purge">الاحتفاظ بالرسائل المحظورة</string>
+</resources>

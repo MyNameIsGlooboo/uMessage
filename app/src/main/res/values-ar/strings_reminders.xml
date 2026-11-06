@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">ذكّرني</string>
+    <string name="reminder_dialog_title">ذكّرني</string>
+    <string name="reminder_in_3_hours">بعد 3 ساعات</string>
+    <string name="reminder_tomorrow_morning">غدًا صباحًا</string>
+    <string name="reminder_pick_time">اختر التاريخ والوقت</string>
+    <string name="reminder_set">ضُبط التذكير على %1$s</string>
+    <string name="reminder_set_approximate">ضُبط التذكير على %1$s تقريبًا. قد يتأخر قليلًا.</string>
+    <string name="reminder_battery_hint">توقف بعض الهواتف التطبيقات في الخلفية، مما يؤخر التذكيرات.</string>
+    <string name="reminder_battery_open">أبقِ uMessage قيد التشغيل</string>
+    <string name="reminder_channel">التذكيرات</string>
+    <string name="reminder_title">تذكير</string>
+    <string name="reminder_title_named">تذكير: %1$s</string>
+    <string name="reminder_open_hint">انقر لفتح الرسالة</string>
+</resources>

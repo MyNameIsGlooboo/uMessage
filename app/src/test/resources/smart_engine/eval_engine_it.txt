@@ -1,0 +1,87 @@
+# Invented incoming texts for the question engine. Format: EXPECTED|message. NONE means no chip may show.
+# Never add real messages.
+YES_NO|Sei a casa?
+YES_NO|Hai fame?
+YES_NO|Hai ricevuto il mio messaggio?
+YES_NO|Sei già arrivato?
+YES_NO|Sai se è aperto?
+YES_NO|Sei sveglia?
+YES_NO|Hai mangiato già
+YES_NO|Sei sicuro?
+YES_NO|Hai il numero di Marco?
+YES_NO|Avete un tavolo per tre?
+YES_NO|Vuoi un passaggio?
+YES_NO|Puoi parlare adesso?
+YES_NO|Domani alle dieci, va bene?
+YES_NO|Hai tempo adesso?
+YES_NO|Ha lei un attimo di tempo?
+INVITE|Ti va di andare al cinema stasera?
+INVITE|Ci vediamo domani?
+INVITE|Sei libero sabato?
+INVITE|Vieni a cena da noi?
+INVITE|Vi va una grigliata domenica
+INVITE|Puoi venire alla festa?
+INVITE|Usciamo a bere qualcosa?
+INVITE|Hai voglia di uscire stasera?
+WHEN|Quando ci vediamo?
+WHEN|A che ora arrivi?
+WHEN|Che giorno ti viene comodo?
+WHEN|Quando torni a casa?
+WHEN|Fino a quando ti serve?
+WHEN|Quando arrivano gli ospiti?
+WHEN|Per quando serve?
+WHERE|Dove sei?
+WHERE|Dove ci vediamo?
+WHERE|Dove siete adesso?
+WHERE|Dove ci troviamo stavolta?
+WHERE|Dove sei finita?
+CHOICE:pizza,sushi|Pizza o sushi?
+CHOICE:caffe,te|Caffè o tè?
+CHOICE:sabato,domenica|Sabato o domenica?
+CHOICE:treno,auto|Treno o auto?
+CHOICE:con,senza cipolla|Con o senza cipolla?
+CHOICE:mare,montagna|Mare o montagna?
+CHOICE:cinema,ristorante|Cinema oppure ristorante?
+REQUEST|Puoi mandarmi l'indirizzo?
+REQUEST|Mi puoi richiamare dopo?
+REQUEST|Potresti inviarmi il preventivo?
+REQUEST|Puoi portare il pane
+REQUEST|Mi avvisi appena esci?
+REQUEST|Puoi confermare l'orario?
+REQUEST|Potresti passarmi le chiavi
+REQUEST|Potrebbe confermare la prenotazione?
+NONE|Perché non sei venuto?
+NONE|Quanto costa?
+NONE|Chi ha vinto la partita?
+NONE|Qual è il tuo indirizzo?
+NONE|Come andrà a finire?
+NONE|Sono a casa.
+NONE|Arrivo tra dieci minuti
+NONE|È arrivato ieri sera
+NONE|Puoi passarmi il codice 482913?
+NONE|Puoi pagare 50 €?
+NONE|Hai visto https://esempio.it/foto?
+NONE|Quando vuoi?
+NONE|Vieni? Resti?
+NONE|Vieni? Ne dubito
+NONE|Grazie per ieri, è stato fantastico
+NONE|Quanti anni hai?
+NONE|Che fai?
+NONE|Chi sei?
+NONE|Di che città sei?
+NONE|Dove vai?
+NONE|Di che colore è la sua macchina?
+NONE|Come ti chiami?
+NONE|In bocca al lupo per domani!
+NONE|Qual è più grande?
+NONE|Quanto tempo resti?
+NONE|E perché no?
+NONE|Volevo sapere se potresti venire ma non so come chiedertelo con garbo
+NONE|Il film inizia alle otto di sera al cinema
+NONE|Qui piove
+NONE|Ti chiamo domani mattina
+NONE|Non dimenticare l'ombrello
+NONE|Che cosa vuol dire?
+NONE|Ciao, come stai?
+NONE|Quante persone vengono?
+NONE|Hai ragione

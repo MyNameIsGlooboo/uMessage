@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">Vivo ou iQOO</string>
+    <string name="oem2_step_vivo">Autoriser le démarrage automatique et l\'utilisation en arrière-plan</string>
+    <string name="oem2_step_vivo_desc">Activez le démarrage automatique pour uMessage et autorisez une consommation élevée en arrière-plan dans ses paramètres de batterie.</string>
+    <string name="oem2_xiaomi_autostart_desc">Activez le démarrage automatique pour uMessage afin que l\'application se lance après un redémarrage. Si la page d\'informations de l\'application s\'ouvre, activez-y le démarrage automatique.</string>
+    <string name="oem2_xiaomi_battery_desc">Choisissez « Aucune restriction » pour uMessage. Si une liste d\'applications s\'ouvre, appuyez d\'abord sur uMessage.</string>
+    <string name="oem2_oppo_desc">Activez « Autoriser le lancement automatique » et « Autoriser l\'activité en arrière-plan » pour uMessage. Sur les téléphones récents, ces options se trouvent dans « Informations sur l\'application », puis « Utilisation de la batterie ».</string>
+    <string name="oem2_ignore_battery_desc">Choisissez « Sans restriction » ou « Ne pas optimiser » pour uMessage. Si une liste s\'ouvre, sélectionnez d\'abord « Toutes les applications ».</string>
+    <string name="oem2_state_done">Terminé</string>
+    <string name="oem2_state_marked">Marqué comme terminé par vous</string>
+    <string name="oem2_state_todo">Pas encore terminé</string>
+    <string name="oem2_state_limited">Android limite encore uMessage en arrière-plan</string>
+    <string name="oem2_open_again">Rouvrir</string>
+    <string name="oem2_undo">Annuler</string>
+    <string name="oem2_undo_cd">Marquer %1$s comme non terminé</string>
+</resources>

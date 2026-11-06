@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Asked before opening a link from a sender who is not a saved contact (TU-29). -->
+    <string name="thread_link_confirm_body">This sender is not in your contacts. Check the full address before you open it.</string>
+    <string name="thread_link_confirm_open">Open</string>
+</resources>

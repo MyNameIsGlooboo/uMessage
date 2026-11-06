@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Shown when a message is scheduled without the "Alarms &amp; reminders" access, so the alarm is inexact. -->
+    <string name="scheduled_message_inexact">Scheduled. It may go out a few minutes late.</string>
+</resources>

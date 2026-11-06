@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">Unbekannt</string>
+    <string name="i28_filter_unknown_empty_title">Keine unbekannten Absender</string>
+    <string name="i28_filter_unknown_empty_body">Hier erscheinen Chats mit Personen, die nicht in deinen Kontakten sind und denen du noch nie geschrieben hast.</string>
+    <string name="i28_filter_images">Bilder</string>
+    <string name="i28_filter_images_empty_title">Keine Bilder</string>
+    <string name="i28_filter_images_empty_body">Hier erscheinen Nachrichten mit einem Bild.</string>
+    <string name="i28_filter_links">Links</string>
+    <string name="i28_filter_links_empty_title">Keine Links</string>
+    <string name="i28_filter_links_empty_body">Hier erscheinen Nachrichten mit einem Link zu einer Webseite.</string>
+    <string name="i28_hit_picture">Bild</string>
+</resources>

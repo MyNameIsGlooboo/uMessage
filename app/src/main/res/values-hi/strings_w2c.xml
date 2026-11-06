@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2c_blocked_label">ब्लॉक किए गए</string>
+    <string name="w2c_log_blocked_by_rule">इस नियम से ब्लॉक किया गया: %1$s</string>
+    <string name="w2c_log_blocked_by_old_list">पुरानी ब्लॉक सूची से ब्लॉक किया गया</string>
+    <string name="w2c_log_fwd_rate_limited">फ़ॉरवर्ड नहीं किया गया: इस नियम की प्रति घंटे की सीमा पूरी हो गई</string>
+</resources>

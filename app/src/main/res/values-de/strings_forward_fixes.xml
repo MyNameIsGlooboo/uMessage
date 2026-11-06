@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">Für heute pausiert: Limit erreicht</string>
+    <string name="fwdfix_limit_hint">Heute %1$s von %2$s Weiterleitungen gesendet. Morgen wird wieder weitergeleitet.</string>
+    <string name="fwdfix_status_skipped">Übersprungen (Limit)</string>
+    <string name="fwdfix_error_daily_limit">Nicht gesendet: Das Tageslimit für Weiterleitungen ist erreicht.</string>
+    <string name="fwdfix_error_rate_limited">Nicht gesendet: Diese Regel hat in der letzten Stunde bereits %1$s Nachrichten weitergeleitet.</string>
+    <string name="fwdfix_retry_all_recent">Nur Weiterleitungen der letzten 24 Stunden werden berücksichtigt.</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="one">%1$s nicht gesendet: Die Weiterleitung ist pausiert.</item>
+        <item quantity="other">%1$s nicht gesendet: Die Weiterleitung ist pausiert.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="one">%1$s nicht gesendet: Die zugehörige Regel ist deaktiviert oder gelöscht.</item>
+        <item quantity="other">%1$s nicht gesendet: Die zugehörigen Regeln sind deaktiviert oder gelöscht.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="one">%1$s nicht gesendet: Das Tageslimit oder das Stundenlimit der zugehörigen Regel ist erreicht.</item>
+        <item quantity="other">%1$s nicht gesendet: Das Tageslimit oder das Stundenlimit einer Regel ist erreicht.</item>
+    </plurals>
+    <string name="fwdfix_card_last">Letzte Weiterleitung %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="one">%1$s diese Woche</item>
+        <item quantity="other">%1$s diese Woche</item>
+    </plurals>
+    <string name="fwdfix_card_never">Noch nichts weitergeleitet</string>
+    <string name="fwdfix_card_sent">Gesendet</string>
+    <string name="fwdfix_card_pending">Wird gesendet</string>
+    <string name="fwdfix_card_failed">Fehlgeschlagen</string>
+    <string name="fwdfix_card_skipped">Übersprungen (Limit)</string>
+    <string name="fwdfix_delete_rule">Regel löschen</string>
+    <string name="fwdfix_deleted">Regel zur Weiterleitung gelöscht</string>
+    <string name="fwdfix_test_button">Test senden</string>
+    <string name="fwdfix_test_title">Test-SMS senden?</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="one">%1$s Test-SMS wird an die obige Nummer gesendet. Sie ist kostenpflichtig.</item>
+        <item quantity="other">An jede der %1$s obigen Nummern wird eine Test-SMS gesendet. Jede ist kostenpflichtig.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">Senden</string>
+    <string name="fwdfix_test_text">Test von uMessage: Die Weiterleitung funktioniert.</string>
+    <string name="fwdfix_test_sending">Test wird gesendet…</string>
+    <string name="fwdfix_test_sent">Test gesendet. Sieh auf dem anderen Handy nach.</string>
+    <string name="fwdfix_test_failed">Der Test konnte nicht gesendet werden. Prüfe deinen Empfang und dein Guthaben.</string>
+    <string name="fwdfix_cost_persian">Persischer Text mit %1$s Zeichen: %2$s Teile × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">Englischer Text mit %1$s Zeichen: %2$s Teile × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">Zurzeit kann nichts gesendet werden</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="one">%1$s wird nicht gesendet: Die Weiterleitung ist pausiert.</item>
+        <item quantity="other">%1$s werden nicht gesendet: Die Weiterleitung ist pausiert.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="one">%1$s wird nicht gesendet: Die zugehörige Regel ist deaktiviert oder gelöscht.</item>
+        <item quantity="other">%1$s werden nicht gesendet: Die zugehörigen Regeln sind deaktiviert oder gelöscht.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="one">%1$s wird nicht gesendet: Das Tageslimit oder das Stundenlimit der zugehörigen Regel ist erreicht.</item>
+        <item quantity="other">%1$s werden nicht gesendet: Das Tageslimit oder das Stundenlimit einer Regel ist erreicht.</item>
+    </plurals>
+</resources>

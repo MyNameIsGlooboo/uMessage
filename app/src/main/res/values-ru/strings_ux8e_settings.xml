@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">Оповещения, экран блокировки, сводка за неделю</string>
+    <string name="ux8e_nav_typing">Ввод и отправка</string>
+    <string name="ux8e_nav_typing_body">Клавиша Enter, отчеты о доставке, подпись</string>
+    <string name="ux8e_nav_storage">Хранилище и очистка</string>
+    <string name="ux8e_nav_storage_body">Корзина, архив, автоудаление</string>
+    <string name="ux8e_group_lock_screen">Экран блокировки</string>
+    <string name="ux8e_group_recycle">Удаленные сообщения</string>
+    <string name="ux8e_group_cleanup">Автоматическая очистка</string>
+    <string name="ux8e_group_archive">Архив</string>
+    <string name="ux8e_keep_deleted">Хранить удаленные сообщения</string>
+    <string name="ux8e_keep_deleted_body">Они хранятся в корзине 30 дней</string>
+    <string name="ux8e_recycle_bin">Корзина</string>
+    <string name="ux8e_backup_row">Резервное копирование</string>
+    <string name="ux8e_backup_row_body">Сохранить в файл</string>
+    <string name="ux8e_restore_row">Восстановить</string>
+    <string name="ux8e_restore_row_body">Загрузить из файла</string>
+    <string name="ux8e_backup_what">Что сохранить при резервном копировании?</string>
+    <string name="ux8e_restore_what">Что восстановить?</string>
+    <string name="ux8e_what_messages">Сообщения</string>
+    <string name="ux8e_what_settings">Правила и настройки</string>
+    <string name="ux8e_backup_warning">Файлы резервного копирования не зашифрованы.</string>
+    <string name="ux8e_calendar">Календарь</string>
+</resources>

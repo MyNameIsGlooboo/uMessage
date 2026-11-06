@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">Busque palavras-chave</string>
+    <string name="w2a_keywords_search_clear">Limpe a busca</string>
+    <string name="w2a_keywords_no_match_title">Nenhuma palavra-chave encontrada</string>
+    <string name="w2a_keywords_no_match_body">Tente outra palavra ou limpe a busca.</string>
+</resources>

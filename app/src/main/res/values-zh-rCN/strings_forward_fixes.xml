@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">今日已暂停：已达上限</string>
+    <string name="fwdfix_limit_hint">今日已转发%1$s条，上限为%2$s条。明天恢复转发。</string>
+    <string name="fwdfix_status_skipped">已跳过（达到上限）</string>
+    <string name="fwdfix_error_daily_limit">未发送：已达每日转发上限。</string>
+    <string name="fwdfix_error_rate_limited">未发送：此规则在过去一小时内已转发%1$s条消息。</string>
+    <string name="fwdfix_retry_all_recent">仅包含过去24小时内的转发消息。</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="other">%1$s条未发送：转发已暂停。</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="other">%1$s条未发送：对应规则已关闭或删除。</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="other">%1$s条未发送：已达每日上限或规则的每小时上限。</item>
+    </plurals>
+    <string name="fwdfix_card_last">上次转发：%1$s，%2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="other">本周%1$s条</item>
+    </plurals>
+    <string name="fwdfix_card_never">尚未转发任何消息</string>
+    <string name="fwdfix_card_sent">已发送</string>
+    <string name="fwdfix_card_pending">正在发送</string>
+    <string name="fwdfix_card_failed">失败</string>
+    <string name="fwdfix_card_skipped">已跳过（达到上限）</string>
+    <string name="fwdfix_delete_rule">删除规则</string>
+    <string name="fwdfix_deleted">已删除转发规则</string>
+    <string name="fwdfix_test_button">发送测试</string>
+    <string name="fwdfix_test_title">发送测试短信？</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="other">将向以上%1$s个号码各发送一条测试短信。每条都会产生短信费用。</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">发送</string>
+    <string name="fwdfix_test_text">来自uMessage的测试：转发功能正常。</string>
+    <string name="fwdfix_test_sending">正在发送测试短信…</string>
+    <string name="fwdfix_test_sent">测试短信已发送。请查看另一部手机。</string>
+    <string name="fwdfix_test_failed">无法发送测试短信。请检查信号和话费余额。</string>
+    <string name="fwdfix_cost_persian">%1$s个字符的波斯语文本：%2$s条×%3$s＝%4$s条短信</string>
+    <string name="fwdfix_cost_english">%1$s个字符的英语文本：%2$s条×%3$s＝%4$s条短信</string>
+    <string name="fwdfix_retry_none_title">目前没有可发送的消息</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="other">%1$s条将不会发送：转发已暂停。</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="other">%1$s条将不会发送：对应规则已关闭或删除。</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="other">%1$s条将不会发送：已达每日上限或规则的每小时上限。</item>
+    </plurals>
+</resources>

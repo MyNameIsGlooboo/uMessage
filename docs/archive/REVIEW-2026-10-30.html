@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spamless Review</title>
+<style>
+  :root { --bg:#fbfcfe; --fg:#1a1c1e; --muted:#5d6168; --line:#dde2ea; --card:#ffffff; --accent:#0b57d0;
+          --ok:#146c2e; --warn:#8a5300; --bad:#b3261e; --chip:#eef2f8; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#111316; --fg:#e3e3e6; --muted:#a4a8b0; --line:#2c3036;
+          --card:#1a1c20; --accent:#a8c7fa; --ok:#6dd58c; --warn:#ffb951; --bad:#f2b8b5; --chip:#24282e; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.55 system-ui, "Segoe UI", Roboto, sans-serif; }
+  main { max-width:980px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:28px; margin:0 0 4px; } h2 { font-size:20px; margin:36px 0 10px; border-bottom:1px solid var(--line); padding-bottom:6px; }
+  h3 { font-size:16px; margin:22px 0 6px; } p.meta { color:var(--muted); margin:0 0 18px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; }
+  .stat { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:12px 14px; }
+  .stat b { display:block; font-size:24px; } .stat span { color:var(--muted); font-size:13px; }
+  ul { padding-left:20px; margin:6px 0; } li { margin:3px 0; }
+  code { background:var(--chip); padding:1px 5px; border-radius:6px; font-size:13px; }
+  .tag { display:inline-block; font-size:11px; font-weight:600; padding:1px 7px; border-radius:99px; margin-right:6px; vertical-align:1px; }
+  .high { background:color-mix(in srgb,var(--bad) 18%,transparent); color:var(--bad); }
+  .med { background:color-mix(in srgb,var(--warn) 18%,transparent); color:var(--warn); }
+  .low { background:var(--chip); color:var(--muted); }
+  .done { color:var(--ok); font-weight:600; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:6px 16px 12px; margin:10px 0; }
+  table { width:100%; border-collapse:collapse; font-size:14px; } td, th { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--muted); font-weight:600; }
+</style>
+</head>
+<body>
+<div style="background:#fff3cd;color:#5c4400;border:1px solid #e0c060;padding:10px 14px;margin:0 0 16px;font:14px/1.4 sans-serif">Archived on 2 November 2026. This page is a historical record and may not match the current app. For current behaviour see docs/FILTER_PIPELINE.md and the README.</div>
+<main>
+<h1>Spamless — full review</h1>
+<p class="meta">30 October 2026 · branch <code>review-fixes</code> (not pushed, not merged to <code>main</code>)</p>
+
+<div class="grid">
+  <div class="stat"><b>~150</b><span>findings from 4 parallel reviews</span></div>
+  <div class="stat"><b>5</b><span>fix agents, one area each</span></div>
+  <div class="stat"><b>~100</b><span>findings fixed</span></div>
+  <div class="stat"><b>0</b><span>lint errors (was 8)</span></div>
+  <div class="stat"><b>150+</b><span>unit tests, all passing (was 114)</span></div>
+</div>
+
+<h2>How it was done</h2>
+<ul>
+  <li>Four reviewers in parallel: core receive/send path and spam engine; Compose UI code; build, manifest and security; live UI on the emulator (the phone was locked, so the live pass ran on the <code>spamless35</code> emulator).</li>
+  <li>Five fix agents in separate git worktrees with non-overlapping files: receivers/messaging, spam engine, theme/thread/app lock, screens/accessibility/UX, manifest/build/CI. Their branches were merged into <code>review-fixes</code> with no conflicts, plus one integration commit.</li>
+  <li>Checks on the merged branch: <code>assembleFossDebug</code>, <code>assembleFossRelease</code> (minified), <code>testFossDebugUnitTest</code>, <code>lintFossDebug</code>: all pass.</li>
+</ul>
+
+<h2>Fixed — bugs</h2>
+<div class="card"><h3>Message safety (receive, send, schedule)</h3><ul>
+  <li><span class="tag high">high</span>Incoming SMS could be lost when the provider insert failed silently; the safety copy is now kept and replayed.</li>
+  <li><span class="tag high">high</span>Incoming SMS could be inserted twice by the fallback path; only the provider insert can fail now.</li>
+  <li><span class="tag high">high</span>Inline reply could go out on the wrong SIM (subscription id read as a list index).</li>
+  <li><span class="tag high">high</span>Scheduled messages could be deleted without being sent; they are sent on a worker and deleted only after success.</li>
+  <li><span class="tag med">med</span>Exact-alarm permission missing on Android 12+ silently dropped scheduled messages; inexact fallback plus permission-change handling.</li>
+  <li><span class="tag med">med</span>MMS content filter used the default SIM, not the receiving SIM.</li>
+  <li><span class="tag med">med</span>MMS push could be lost when the broadcast finished before the library task ran.</li>
+  <li><span class="tag med">med</span>A filter crash (<code>Error</code>) could lose every SMS for 7 days; the engine now fails open and expired rows are delivered, not deleted.</li>
+  <li><span class="tag med">med</span>Blocked MMS lost its text; "Not spam" now restores the text when it was downloaded.</li>
+  <li><span class="tag med">med</span>Missing <code>goAsync()</code> in reply, send-status, mark-read and delete receivers.</li>
+  <li><span class="tag med">med</span>Conversations DB used destructive migration fallback (would wipe drafts and scheduled messages); removed, instance made <code>@Volatile</code>.</li>
+  <li><span class="tag low">low</span>Race between replay and a slow receiver; "Not spam" double tap; respond-via-message URI parsing; MmsSent null URI; cursor leaks; notification Delete ignored the recycle bin; XML import on the main thread and wrong sent date; legacy SIM extra.</li>
+</ul></div>
+<div class="card"><h3>Spam filter accuracy</h3><ul>
+  <li><span class="tag med">med</span>Without the contacts permission, STRICT mode blocked every contact silently; now it skips unknown-sender blocking and logs <code>CONTACTS_UNAVAILABLE</code>.</li>
+  <li><span class="tag med">med</span>OTP detection: Persian/Arabic digits and keywords, 4–8 digit codes next to a keyword, whole-word matching, links never auto-allowed in SMART.</li>
+  <li><span class="tag low">low</span>Numbers normalised with the receiving SIM's country; regex rules validated (no catastrophic backtracking), body capped, cache bounded; purge throttled; 7-day stats window no longer stale.</li>
+</ul></div>
+<div class="card"><h3>UI bugs</h3><ul>
+  <li><span class="tag high">high</span>Camera photo lost if the app was killed while the camera was open.</li>
+  <li><span class="tag high">high</span>Cancelling the default-SMS dialog closed the app; now an explanation screen with "Set as default".</li>
+  <li><span class="tag med">med</span>"No contacts found" in New conversation; contacts read from the system provider off the main thread.</li>
+  <li><span class="tag med">med</span>OTP notification showed three copy buttons; now one.</li>
+  <li><span class="tag med">med</span>Restored ("Not spam") message jumped its thread to the top of the list.</li>
+  <li><span class="tag med">med</span>"Use English" force-closed the app; now per-app language (<code>AppCompatDelegate</code>).</li>
+  <li><span class="tag med">med</span>State lost on rotation: typed recipient, search query, selections, dialog text.</li>
+  <li><span class="tag low">low</span>Thread menu offered "Add to contact" for saved numbers; thread <code>onNewIntent</code> restarted the screen and could drop the draft.</li>
+</ul></div>
+
+<h2>Fixed — security and privacy</h2>
+<ul>
+  <li><span class="tag high">high</span>Backups copied blocked messages, the decision log and the PIN hash; app storage is now excluded from cloud backup and device transfer.</li>
+  <li><span class="tag high">high</span><code>MmsReceiver</code> was exported with no permission (fake MMS injection); now not exported.</li>
+  <li><span class="tag high">high</span>App lock bypass on six screens; lock now enforced centrally for every screen.</li>
+  <li><span class="tag med">med</span>PIN stored as unsalted SHA-1 with a 5 s reset; now salted PBKDF2 (100k rounds, migrated on next unlock) with persistent exponential backoff.</li>
+  <li><span class="tag med">med</span>Recents thumbnail hidden while app lock is on; fingerprint unlock works again (<code>USE_BIOMETRIC</code> restored).</li>
+  <li><span class="tag low">low</span>Mutable PendingIntents made immutable; lock-screen notifications default to sender only for new installs; blocked notification hides spam text on the lock screen; unused permissions removed; three activities no longer exported.</li>
+</ul>
+
+<h2>Fixed — native / Google standard</h2>
+<ul>
+  <li>Material You dynamic colour is the default on Android 12+; presets set every M3 colour role (no purple leaks); theme changes apply live.</li>
+  <li>System predictive back works on all screens (the commons always-on back handler was the blocker); custom transitions removed so platform transitions apply and RTL is correct.</li>
+  <li>Chat screen uses the same theme as the rest of the app.</li>
+  <li>Activity Result APIs, system Photo Picker, M3 <code>SearchBar</code>, M3 <code>Badge</code>, scroll-aware top bars, <code>BackHandler</code> instead of overrides.</li>
+  <li>Accessibility: labelled FAB (hidden in selection mode), one TalkBack node per bubble, 48 dp touch targets, selected state on theme cards, badges scale with font size.</li>
+  <li>Consistent time formats following the system 12/24 h setting; person avatar for number-only senders; M3 colour roles instead of custom amber; aligned settings rows, clearer block-list grouping; both swipes archive (as in Google Messages); plurals and translatable decision-log labels.</li>
+  <li>Build: Compose BOM 2025.09 → 2026.06, <code>core-splashscreen</code> added, Room schemas committed, Gradle caches on, JitPack restricted, <code>mavenLocal</code> removed, lint/detekt baselines pruned, CI builds and lints the minified release, release workflow refuses unsigned APKs.</li>
+  <li>Repo: CODEOWNERS, issue templates and CONTRIBUTING point to this project; PRIVACY, ARCHITECTURE, FILTER_PIPELINE and CHANGELOG updated.</li>
+</ul>
+
+<h2>Behaviour changes to confirm</h2>
+<table>
+  <tr><th>Change</th><th>Effect</th></tr>
+  <tr><td>Both swipe directions archive</td><td>Applies to existing users too (there was no saved swipe setting).</td></tr>
+  <tr><td>Material You default</td><td>Users whose stored theme was "System" move to Material You; other presets kept.</td></tr>
+  <tr><td>Inline reply and "Copy code" in "sender only" lock-screen mode</td><td>Shown on the private notification; the secure lock screen still shows the public version.</td></tr>
+  <tr><td>Backups off for app storage</td><td>App settings, rules and blocked messages are not in Google backup. SMS themselves stay in the system store.</td></tr>
+  <tr><td>Per-SIM notification channels keyed by slot</td><td>Custom sounds on those channels reset once.</td></tr>
+</table>
+
+<h2>Not done — larger work (recommended next)</h2>
+<table>
+  <tr><th>Item</th><th>Why it matters</th></tr>
+  <tr><td><span class="tag high">high</span>Move data work out of <code>MainActivity</code>/<code>ThreadActivity</code> (1,900 lines) into ViewModels + repositories with Flow; drop EventBus</td><td>Standard architecture; no reload on rotation; testable.</td></tr>
+  <tr><td><span class="tag high">high</span>Replace <code>showComposeDialog</code> (≈45 call sites) with state-driven dialogs</td><td>Dialogs and their input still vanish on rotation.</td></tr>
+  <tr><td><span class="tag med">med</span>Remove the Fossify Commons dependency</td><td>Pulls Reprint, PatternLockView, joda-time, Gson, Glide, Material Components, Compose 1.7.6 and Jetifier.</td></tr>
+  <tr><td><span class="tag med">med</span>Adaptive layout: window size classes, list-detail pane for tablets and foldables</td><td>Google Messages has a two-pane layout.</td></tr>
+  <tr><td><span class="tag med">med</span>Room <code>messages</code> table keyed by id only (SMS and MMS ids collide)</td><td>Needs a composite key and a migration.</td></tr>
+  <tr><td><span class="tag med">med</span>Install SDK 37 and move to Compose BOM 2026.09 / M3 Expressive</td><td>Latest Google components and motion.</td></tr>
+  <tr><td><span class="tag med">med</span>Tests: SpamEngine coordination, DAO and migration tests, receivers, <code>androidTest</code></td><td>Only pure logic is covered today.</td></tr>
+  <tr><td><span class="tag low">low</span>Single-activity Navigation Compose</td><td>Optional; current multi-activity setup works with predictive back.</td></tr>
+  <tr><td><span class="tag low">low</span>Baseline profile module</td><td>Cold start logged 73 skipped frames on the emulator.</td></tr>
+</table>
+
+<h2>Not done — smaller items</h2>
+<ul>
+  <li>Splash: migrate <code>SplashActivity</code> to the SplashScreen API (dependency already added).</li>
+  <li>"Not spam" on a never-downloaded MMS only allows the sender; downloading on restore needs the content location stored.</li>
+  <li>Incoming SMS metadata (<code>DATE_SENT</code>, service centre) not stored; needs a pending-queue migration.</li>
+  <li>"You:" prefix for sent messages in the list (model change); swipe-action setting.</li>
+  <li><code>CALL_PHONE</code> can go if calling always uses <code>ACTION_DIAL</code>.</li>
+  <li>Notification avatar still shows the first digit for number-only senders.</li>
+  <li>Composer: emoji and gallery shortcuts, hide Send when empty; thread header avatar; "Report spam" in the thread menu.</li>
+  <li>Polish: onboarding dot alignment, blocked-item expanded gap, three duplicated selection bars, more previews, date/time format setting now mostly redundant.</li>
+  <li>Detekt has ~400 findings outside the baseline (runs report-only in CI).</li>
+  <li>Repo: fastlane metadata still describes Fossify Messages (28 locales); <code>.claude/skills</code> (172 files, 4.3 MB) is committed; untracked stale schema folders under <code>app/schemas/org.fossify.*</code>.</li>
+</ul>
+
+<h2>Device verification</h2>
+<div id="verify">
+<p>Debug build of <code>review-fixes</code> (commit <code>135e7459</code>), installed over the previous build with <code>adb install -r</code>. No crashes on either device (no <code>FATAL EXCEPTION</code> in logcat).</p>
+<h3>Emulator (API 35, test data only)</h3>
+<ul>
+  <li><b>Pass</b> — Upgrade keeps data and the default-SMS role; the role prompt, cancel path and "not default" explanation screen all work.</li>
+  <li><b>Pass</b> — Theme picker applies presets live; Material You preset follows system dark mode on every screen (list, chat, recents).</li>
+  <li><b>Pass</b> — Spam filter: unknown-sender spam blocked; English and Persian verification codes allowed when "Allow verification codes" is on; contact allowed; decision log shows the reason per message.</li>
+  <li><b>Pass</b> — OTP notification shows Reply, one "Copy code" and Mark as read (no duplicate system copy action); blocked-message notification opens the Blocked screen.</li>
+  <li><b>Pass</b> — "Not spam" restores the message and shows a snackbar with Undo.</li>
+  <li><b>Pass</b> — New conversation (suggestions, contacts, number entry), conversation search, search text kept across rotation.</li>
+  <li><b>Pass</b> — Chat screen: M3 top bar, bubbles, date header, attach and send controls.</li>
+  <li><b>Pass</b> — App lock: cold start shows the lock screen, correct PIN unlocks, Recents thumbnail is blank while the lock is on. Re-lock after leaving the app follows the 30-second grace period (Fossify default).</li>
+  <li><b>Pass</b> — Settings screens and grouping.</li>
+</ul>
+<h3>Phone (Android 16, HyperOS, real data — read-only)</h3>
+<ul>
+  <li><b>Pass</b> — Upgrade install keeps all conversations, the blocked count and the default-SMS role; the main list opens in 1.3 s in dark Material You with SIM badges. Nothing was sent, opened, changed or deleted.</li>
+</ul>
+<h3>Found during verification (not fixed)</h3>
+<ul>
+  <li><b>Fixed after verification:</b> "Allow verification codes" is now on by default for new installs (<code>SpamSettings.otpExemption = true</code>; onboarding starts from the same default). Users who already saved spam settings keep their choice. With it on, a code message that also contains a link is allowed in both modes, as before for opted-in users.</li>
+  <li>Fixed theme presets (Sky and the others) stay light when the system is in dark mode. Material standard is a light and a dark scheme per preset.</li>
+  <li>Fossify lock screen (<code>AppLockActivity</code>, legacy XML) ignores dark mode and the Material You preset, and its PIN pad's confirm key has no content description and its clear key reads only "C" to TalkBack.</li>
+  <li>When Recents is opened straight from the app, the live preview still shows content (OS behaviour; the stored thumbnail is blank). Add <code>FLAG_SECURE</code> as well if that also needs hiding.</li>
+</ul>
+</div>
+</main>
+</body>
+</html>

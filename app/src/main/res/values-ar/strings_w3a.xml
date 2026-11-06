@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3a_forward_limit_channel">حد إعادة التوجيه</string>
+    <string name="w3a_forward_limit_title">توقفت إعادة التوجيه لبقية اليوم</string>
+    <string name="w3a_forward_limit_text">تم بلوغ الحد البالغ %d من عمليات إعادة التوجيه. تُستأنف إعادة التوجيه غدًا.</string>
+</resources>

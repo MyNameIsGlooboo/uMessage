@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3b_info_button">Jak działa blokowanie</string>
+    <string name="r3b_info_title">Jak działa blokowanie</string>
+    <string name="r3b_info_modes">Nieznani nadawcy</string>
+    <string name="r3b_info_mode_current">Teraz: %1$s</string>
+    <string name="r3b_info_messages">Zablokowane wiadomości</string>
+    <string name="r3b_info_open_sender">Dotknij nadawcy, by przeczytać jego wiadomości.</string>
+    <string name="r3b_info_move">Opcja „Przenieś do odebranych” przenosi tam wszystkie wiadomości nadawcy, a potem pyta, czy zawsze na nie zezwalać.</string>
+    <string name="r3b_info_release">Opcja „Przepuść jednorazowo” (dotknij i przytrzymaj wiadomość) przenosi tylko tę wiadomość do odebranych. Nie zezwala na kolejne wiadomości od nadawcy.</string>
+    <string name="r3b_info_swipe">Przesuń wiersz nadawcy w stronę jego końca, by przenieść wiadomości do odebranych.</string>
+    <string name="r3b_open_sender">Otwórz wiadomości</string>
+    <string name="r3b_move_inbox_for">Przenieś do odebranych, %1$s</string>
+    <string name="r3b_delete_for">Usuń, %1$s</string>
+    <string name="r3b_thread_note">uMessage zatrzymał te wiadomości. Nie ma ich w odebranych.</string>
+    <string name="r3b_thread_delete_all">Usuń wszystkie wiadomości od %1$s</string>
+    <string name="r3b_thread_empty_title">Nic tu już nie ma</string>
+    <string name="r3b_thread_empty_body">Ten nadawca nie ma teraz zablokowanych wiadomości.</string>
+    <string name="r3b_message_actions">Działania na wiadomości</string>
+    <string name="r3b_why_blocked">Powód zablokowania</string>
+    <string name="r3b_copy_text">Kopiuj tekst</string>
+    <string name="r3b_text_copied">Skopiowano tekst</string>
+    <string name="r3b_delete_message">Usuń</string>
+    <string name="r3b_received">Odebrano %1$s</string>
+    <string name="r3b_info_mode_strict">Ścisły: zatrzymuje wiadomości od wszystkich nieznanych nadawców, także kody weryfikacyjne.</string>
+    <string name="r3b_info_mode_smart">Inteligentny: zatrzymuje wiadomości od nieznanych nadawców, ale przepuszcza kody bez linku.</string>
+    <string name="r3b_info_mode_off">Wyłączony: wiadomości od nieznanych nadawców trafiają do odebranych. Twoje reguły nadal działają.</string>
+    <plurals name="r3b_info_purge">
+        <item quantity="one">Zablokowane wiadomości są usuwane po %d dniu.</item>
+        <item quantity="few">Zablokowane wiadomości są usuwane po %d dniach.</item>
+        <item quantity="many">Zablokowane wiadomości są usuwane po %d dniach.</item>
+        <item quantity="other">Zablokowane wiadomości są usuwane po %d dnia.</item>
+    </plurals>
+    <string name="r3b_info_purge_off">Zablokowane wiadomości pozostają, aż je usuniesz.</string>
+    <string name="r3b_allow_body_sender_one_message">Wiadomość i tak wróci do odebranych. Jeśli na stałe zezwolisz na wiadomości od %1$s, kolejne ominą wszystkie filtry, także twoje reguły blokowania.</string>
+    <string name="r3b_allow_body_sender_many_messages">Wiadomości i tak wrócą do odebranych. Jeśli na stałe zezwolisz na wiadomości od %1$s, kolejne ominą wszystkie filtry, także twoje reguły blokowania.</string>
+</resources>

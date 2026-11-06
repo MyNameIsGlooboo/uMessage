@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- What a screen reader says for a SIM tile of the search page: its name, then its slot -->
+    <string name="sim_tile_description">%1$s, SIM %2$s</string>
+</resources>

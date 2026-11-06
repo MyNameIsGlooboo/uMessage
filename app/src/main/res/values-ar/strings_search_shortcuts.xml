@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">مرسل غير معروف</string>
+    <string name="i28_filter_unknown_empty_title">لا يوجد مرسلون غير معروفين</string>
+    <string name="i28_filter_unknown_empty_body">تظهر هنا المحادثات مع أشخاص ليسوا في جهات اتصالك ولم تراسلهم من قبل.</string>
+    <string name="i28_filter_images">الصور</string>
+    <string name="i28_filter_images_empty_title">لا توجد صور</string>
+    <string name="i28_filter_images_empty_body">تظهر هنا الرسائل التي تحتوي على صورة.</string>
+    <string name="i28_filter_links">الروابط</string>
+    <string name="i28_filter_links_empty_title">لا توجد روابط</string>
+    <string name="i28_filter_links_empty_body">تظهر هنا الرسائل التي تحتوي على رابط ويب.</string>
+    <string name="i28_hit_picture">صورة</string>
+</resources>

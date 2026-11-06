@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="e_day_today">今日</string>
+    <string name="e_day_yesterday">昨日</string>
+    <plurals name="e_blocked_stats_total">
+        <item quantity="other">合計%d件をブロック</item>
+    </plurals>
+    <string name="e_restored_title">最近復元したメッセージ</string>
+    <string name="e_restored_body">過去30日間に受信トレイに移したメッセージです。タップすると会話が開きます。</string>
+    <string name="e_restored_empty">今後、受信トレイに移したメッセージがここに30日間表示されます。</string>
+    <string name="e_restored_when">受信トレイへの移動日時：%1$s</string>
+    <string name="e_restored_open">%1$sとの会話を開く</string>
+    <string name="e_snack_allowed_one">両方のSIMで%1$sを常に許可しました。</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="other">両方のSIMで%d件の送信者を常に許可しました。</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$sを常に許可しました。</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="other">%d件の送信者を常に許可しました。</item>
+    </plurals>
+    <string name="e_view_rule">ルールを表示</string>
+    <string name="e_rules_title">ルール</string>
+    <string name="e_rules_menu_backup">バックアップと復元</string>
+    <string name="e_note_blocked_by_you">自分でブロック済み</string>
+    <string name="e_note_allowed_by_you">自分で許可済み</string>
+    <string name="e_note_blocked_from_message">メッセージからブロック済み</string>
+    <string name="e_note_blocked_from_keyword">キーワードからブロック済み</string>
+    <string name="e_note_reported_spam">迷惑メッセージとして報告済み</string>
+    <string name="e_note_old_word_list">旧ブロック単語リストから移行</string>
+    <string name="e_note_system_list">Androidのブロックリストから移行</string>
+    <string name="e_note_quoted">“%1$s”</string>
+    <string name="e_example_block_cancel_word">لغو۱۱を含むメッセージをブロック</string>
+    <string name="e_example_block_ad_prefix">3000で始まる広告の番号をブロック</string>
+    <string name="e_example_allow_number">郵便局などの番号を常に許可</string>
+    <string name="e_sheet_sender_label">送信者</string>
+    <string name="e_sheet_text_label">メッセージ本文</string>
+    <string name="e_value_number">電話番号</string>
+    <string name="e_value_prefix">番号の先頭</string>
+    <string name="e_value_sender">送信者名</string>
+    <string name="e_value_keyword">検索する文字列</string>
+    <string name="e_value_pattern">パターン（正規表現）</string>
+    <string name="e_pattern_blocks_label">ひな形を選択</string>
+    <string name="e_pattern_link">リンクを含む</string>
+    <string name="e_pattern_long_number">5桁以上の数字</string>
+    <string name="e_pattern_starts_with">先頭が一致</string>
+    <string name="e_pattern_any_of">いずれかを含む</string>
+    <string name="e_pattern_link_sentence">リンクを含むメッセージに一致します。</string>
+    <string name="e_pattern_long_number_sentence">5桁以上の数字を含むメッセージに一致します。</string>
+    <string name="e_pattern_starts_with_sentence">^の後に入力した文字列で始まるメッセージに一致します。</string>
+    <string name="e_pattern_any_of_sentence">括弧内のいずれかの単語を含むメッセージに一致します。単語は|で区切ります。</string>
+    <plurals name="e_migrate_title_numbers">
+        <item quantity="other">%d件の番号をuMessageのルールに移行</item>
+    </plurals>
+    <string name="e_migrate_point_blocked">•メッセージは「ブロック済み」に届き、読むことも復元することもできます。</string>
+    <string name="e_migrate_point_android">•Androidのリストから削除するまでは、メッセージは引き続きAndroidによって破棄されます。</string>
+    <string name="e_migrate_calls_note">Androidのリストは着信もブロックします。リストから削除した番号からは、再び着信できるようになります。</string>
+    <string name="e_bn_unknown_body">「不明な送信者」がオフのときのみ適用されます。</string>
+    <string name="e_bn_row_calls_texts">着信とメッセージをブロック</string>
+    <string name="e_bn_row_short_code">ショートコード：メッセージはuMessageに届きません。</string>
+    <string name="e_bn_move_one">uMessageのルールに移行</string>
+    <string name="e_bn_moved">%1$sをuMessageのルールに移行しました。メッセージは「ブロック済み」に届き、着信はブロックされなくなりました。</string>
+    <string name="e_bn_field_help">例：+15550001234、または+1555で始まるすべての番号なら+1555*</string>
+    <string name="e_bn_short_code_warning">ショートコードのようです。uMessageに届く前にAndroidがメッセージを破棄するため、認証コードや銀行からの通知なども復元できなくなります。</string>
+    <string name="e_bn_add_as_rule">代わりにuMessageのルールに追加</string>
+    <string name="e_bn_added_as_rule">%1$sをuMessageのルールに追加しました。メッセージは「ブロック済み」に届きます。</string>
+</resources>

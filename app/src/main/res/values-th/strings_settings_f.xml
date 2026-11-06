@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_f_backup_row_body">บันทึกข้อความ กฎ และการตั้งค่าลงไฟล์</string>
+    <string name="settings_f_backup_rules_group">กฎและการตั้งค่า</string>
+    <string name="settings_f_backup_rules_contents">ไฟล์นี้เก็บกฎการอนุญาตและบล็อก กฎการส่งต่อ และการตั้งค่า: การป้องกันสแปม การแจ้งเตือน วันที่ ขนาดข้อความ ธีม ปุ่ม Enter และขีดจำกัดการส่งต่อ ไม่เก็บเนื้อหาข้อความหรือการล็อกแอป กฎการส่งต่อที่กู้คืนจะปิดไว้</string>
+    <string name="settings_f_backup_messages_contents">เนื้อหาข้อความและรูปภาพในไฟล์แยก</string>
+    <string name="settings_f_restore_title">กู้คืนจากไฟล์นี้ไหม?</string>
+    <string name="settings_f_restore_rules">กฎการอนุญาต: %1$d · กฎการบล็อก: %2$d จะข้ามกฎที่มีอยู่แล้ว</string>
+    <string name="settings_f_restore_forwards">กฎการส่งต่อที่จะเพิ่ม: %1$d โดยปิดไว้ เปิดได้ใน กฎ › การส่งต่อ</string>
+    <string name="settings_f_restore_forwards_skipped">กฎการส่งต่อที่ข้าม: %1$d (มีอยู่แล้ว หรือไม่มีหมายเลขที่รับข้อความได้)</string>
+    <string name="settings_f_restore_settings_changed">การตั้งค่าที่จะเปลี่ยน: %1$s</string>
+    <string name="settings_f_restore_settings_none">ไม่มีการเปลี่ยนการตั้งค่า</string>
+    <string name="settings_f_restore_action">กู้คืน</string>
+    <string name="settings_f_restore_done">เพิ่มกฎแล้ว: %1$d · เพิ่มกฎการส่งต่อแล้ว: %2$d กฎการส่งต่อจะปิดไว้จนกว่าจะเปิดเอง</string>
+    <string name="settings_f_restore_done_rules">เพิ่มกฎแล้ว: %1$d</string>
+    <string name="settings_f_restore_done_title">กู้คืนเสร็จแล้ว</string>
+    <string name="settings_f_label_codes">รหัสจากผู้ส่งที่ไม่รู้จัก</string>
+    <string name="settings_f_list_separator">", "</string>
+    <string name="settings_f_group_display">การแสดงผล</string>
+    <string name="settings_f_appearance">รูปลักษณ์</string>
+    <string name="settings_f_language_system">ค่าเริ่มต้นของระบบ</string>
+    <string name="settings_f_group_rules">กฎและรายการ</string>
+    <string name="settings_f_spam_more">ระยะเวลาเก็บและการเตือน</string>
+    <string name="settings_f_spam_more_body">ระยะเวลาเก็บข้อความที่บล็อกและการเตือน</string>
+    <string name="settings_f_hide_lock_codes_body">แสดงรหัสเป็น •••• บนหน้าจอล็อก</string>
+    <string name="settings_f_code_alert">การเตือนรหัส</string>
+    <string name="settings_f_code_alert_body">เสียงสำหรับรหัสยืนยัน</string>
+    <string name="settings_f_channel_codes">รหัสยืนยัน</string>
+    <string name="settings_f_channel_codes_desc">ข้อความที่มีรหัสยืนยัน</string>
+</resources>

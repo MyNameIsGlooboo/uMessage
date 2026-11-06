@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="e_day_today">امروز</string>
+    <string name="e_day_yesterday">دیروز</string>
+    <plurals name="e_blocked_stats_total" tools:ignore="ImpliedQuantity">
+        <item quantity="one">در مجموع %d پیام مسدودشده</item>
+        <item quantity="other">در مجموع %d پیام مسدودشده</item>
+    </plurals>
+    <string name="e_restored_title">بازیابی‌شده‌های اخیر</string>
+    <string name="e_restored_body">پیام‌هایی که در ۳۰ روز گذشته به صندوق ورودی منتقل کرده‌اید. برای باز کردن گفتگو، روی یکی بزنید.</string>
+    <string name="e_restored_empty">پیام‌هایی که از این پس به صندوق ورودی منتقل کنید، به‌مدت ۳۰ روز اینجا فهرست می‌شوند.</string>
+    <string name="e_restored_when">انتقال به صندوق ورودی در %1$s</string>
+    <string name="e_restored_open">باز کردن گفتگو با %1$s</string>
+    <string name="e_snack_allowed_one">%1$s اکنون در هر دو سیم‌کارت همیشه مجاز است</string>
+    <plurals name="e_snack_allowed_many" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d فرستنده اکنون در هر دو سیم‌کارت همیشه مجاز است</item>
+        <item quantity="other">%d فرستنده اکنون در هر دو سیم‌کارت همیشه مجاز هستند</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$s اکنون همیشه مجاز است</string>
+    <plurals name="e_snack_allowed_many_single_sim" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d فرستنده اکنون همیشه مجاز است</item>
+        <item quantity="other">%d فرستنده اکنون همیشه مجاز هستند</item>
+    </plurals>
+    <string name="e_view_rule">مشاهدهٔ قانون</string>
+    <string name="e_rules_title">قانون‌ها</string>
+    <string name="e_rules_menu_backup">پشتیبان‌گیری از قانون‌ها</string>
+    <string name="e_note_blocked_by_you">مسدودشده توسط شما</string>
+    <string name="e_note_allowed_by_you">مجاز با اجازهٔ شما</string>
+    <string name="e_note_blocked_from_message">مسدودشده از طریق پیام</string>
+    <string name="e_note_blocked_from_keyword">مسدودشده از روی کلمهٔ کلیدی</string>
+    <string name="e_note_reported_spam">گزارش‌شده به‌عنوان هرزنامه</string>
+    <string name="e_note_old_word_list">از فهرست قدیمی واژه‌های مسدودشده</string>
+    <string name="e_note_system_list">از فهرست مسدودی Android</string>
+    <string name="e_note_quoted">“%1$s”</string>
+    <string name="e_example_block_cancel_word">مسدود کردن پیام‌های دارای لغو۱۱</string>
+    <string name="e_example_block_ad_prefix">مسدود کردن شماره‌های تبلیغاتی با پیش‌شمارهٔ 3000</string>
+    <string name="e_example_allow_number">اجازه دادن همیشگی به یک شماره، مثل ادارهٔ پست</string>
+    <string name="e_sheet_sender_label">فرستنده</string>
+    <string name="e_sheet_text_label">متن پیام</string>
+    <string name="e_value_number">شماره تلفن</string>
+    <string name="e_value_prefix">شماره شروع می‌شود با</string>
+    <string name="e_value_sender">نام فرستنده</string>
+    <string name="e_value_keyword">متن مورد جستجو</string>
+    <string name="e_value_pattern">الگو</string>
+    <string name="e_pattern_blocks_label">شروع از</string>
+    <string name="e_pattern_link">دارای پیوند</string>
+    <string name="e_pattern_long_number">عدد ۵ رقمی یا بیشتر</string>
+    <string name="e_pattern_starts_with">شروع با</string>
+    <string name="e_pattern_any_of">دارای یکی از</string>
+    <string name="e_pattern_link_sentence">با پیام‌های دارای پیوند مطابقت دارد.</string>
+    <string name="e_pattern_long_number_sentence">با پیام‌های دارای عدد ۵ رقمی یا بیشتر مطابقت دارد.</string>
+    <string name="e_pattern_starts_with_sentence">با پیام‌هایی مطابقت دارد که با متن واردشده پس از ^ شروع می‌شوند.</string>
+    <string name="e_pattern_any_of_sentence">با پیام‌های دارای هرکدام از واژه‌های داخل پرانتز مطابقت دارد. واژه‌ها را با | جدا کنید.</string>
+    <plurals name="e_migrate_title_numbers" tools:ignore="ImpliedQuantity">
+        <item quantity="one">انتقال %d شماره به قانون‌های uMessage</item>
+        <item quantity="other">انتقال %d شماره به قانون‌های uMessage</item>
+    </plurals>
+    <string name="e_migrate_point_blocked">• پیام‌هایشان به مسدودشده‌ها می‌روند؛ آنجا می‌توانید آن‌ها را بخوانید و بازیابی کنید.</string>
+    <string name="e_migrate_point_android">• تا زمانی که از فهرست Android خارج نشوند، Android همچنان پیام‌هایشان را دور می‌اندازد.</string>
+    <string name="e_migrate_calls_note">فهرست Android تماس‌ها را هم مسدود می‌کند. شماره‌هایی که از آن حذف کنید، دوباره می‌توانند با شما تماس بگیرند.</string>
+    <string name="e_bn_unknown_body">فقط زمانی اعمال می‌شود که «فرستنده‌های ناشناس» خاموش باشد.</string>
+    <string name="e_bn_row_calls_texts">تماس‌ها و پیام‌ها را مسدود می‌کند</string>
+    <string name="e_bn_row_short_code">شمارهٔ کوتاه: پیام‌هایش هرگز به uMessage نمی‌رسند</string>
+    <string name="e_bn_move_one">انتقال به قانون‌های uMessage</string>
+    <string name="e_bn_moved">%1$s اکنون یکی از قانون‌های uMessage است. پیام‌هایش به مسدودشده‌ها می‌روند و تماس‌هایش دیگر مسدود نمی‌شوند.</string>
+    <string name="e_bn_field_help">مثلاً +15550001234، یا +1555* برای هر شماره‌ای که با +1555 شروع می‌شود</string>
+    <string name="e_bn_short_code_warning">این یک شمارهٔ کوتاه به نظر می‌رسد. Android پیام‌هایش را پیش از رسیدن به uMessage دور می‌اندازد؛ پس هرگز نمی‌توانید آن‌ها، مثلاً یک کد یا اطلاعیهٔ بانکی، را بازیابی کنید.</string>
+    <string name="e_bn_add_as_rule">افزودن به‌عنوان قانون uMessage به‌جای آن</string>
+    <string name="e_bn_added_as_rule">%1$s به‌عنوان قانون uMessage اضافه شد. پیام‌هایش به مسدودشده‌ها می‌روند.</string>
+</resources>

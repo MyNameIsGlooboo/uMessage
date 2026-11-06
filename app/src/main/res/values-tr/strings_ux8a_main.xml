@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8a_checklist_show">Adımları gösterin</string>
+    <string name="ux8a_checklist_hide">Adımları gizleyin</string>
+    <string name="ux8a_menu_recycle_bin">Çöp kutusu</string>
+    <string name="ux8a_selection_block">Engelleyin</string>
+</resources>

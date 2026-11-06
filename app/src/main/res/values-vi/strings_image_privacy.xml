@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i09_setting_title">Xóa vị trí khỏi hình ảnh</string>
+    <string name="i09_setting_summary">Ẩn vị trí chụp ảnh trước khi gửi</string>
+</resources>

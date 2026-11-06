@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fixes_unarchive_title">ยกเลิกการเก็บถาวร?</string>
+    <string name="fixes_unarchive_message">ย้าย %1$s กลับไปที่รายการการสนทนา?</string>
+</resources>

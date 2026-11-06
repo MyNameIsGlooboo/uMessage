@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">Balasan cerdas</string>
+    <string name="smart_replies_summary">Balasan cepat dari daftar di ponsel Anda</string>
+    <string name="smart_replies_hide">Sembunyikan saran</string>
+</resources>

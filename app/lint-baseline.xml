@@ -1,0 +1,2046 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 9.4.1" type="baseline" client="gradle" dependencies="false" name="AGP (9.4.1)" variant="all" version="9.4.1">
+
+    <issue
+        id="ExifInterface"
+        message="Avoid using `android.media.ExifInterface`; use `androidx.exifinterface.media.ExifInterface` instead"
+        errorLine1="import android.media.ExifInterface"
+        errorLine2="       ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/ImageCompressor.kt"
+            line="7"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="ExifInterface"
+        message="Avoid using `android.media.ExifInterface`; use `androidx.exifinterface.media.ExifInterface` instead"
+        errorLine1="        val exif = ExifInterface(imageFile.absolutePath)"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/ImageCompressor.kt"
+            line="140"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="OldTargetApi"
+        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details."
+        errorLine1="app-build-targetSDK = &quot;36&quot;"
+        errorLine2="                      ~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="32"
+            column="23"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `enableOnBackInvokedCallback` is only used in API level 33 and higher (current min is 26)"
+        errorLine1="        android:enableOnBackInvokedCallback=&quot;true&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="34"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="BatteryLife"
+        message="Use of `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` violates the Play Store Content Policy regarding acceptable use cases, as described in https://developer.android.com/training/monitoring-device-state/doze-standby.html"
+        errorLine1="                            Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/OemHelper.kt"
+            line="126"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.application than 9.4.1 is available: 9.5.0"
+        errorLine1="gradlePlugins-agp = &quot;9.4.1&quot;"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="29"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-process than 2.10.0 is available: 2.11.0"
+        errorLine1="androidx-lifecycleprocess = &quot;2.10.0&quot;"
+        errorLine2="                            ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="13"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.compose:compose-bom than 2026.06.01 is available: 2026.09.00"
+        errorLine1="compose-bom = &quot;2026.06.01&quot;"
+        errorLine2="              ~~~~~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="22"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.activity:activity-compose than 1.11.0 is available: 1.13.0"
+        errorLine1="androidx-activity-compose = &quot;1.11.0&quot;"
+        errorLine2="                            ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="23"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-runtime-compose than 2.10.0 is available: 2.11.0"
+        errorLine1="androidx-lifecycle-compose = &quot;2.10.0&quot;"
+        errorLine2="                             ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="24"
+            column="30"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-viewmodel-compose than 2.10.0 is available: 2.11.0"
+        errorLine1="androidx-lifecycle-compose = &quot;2.10.0&quot;"
+        errorLine2="                             ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="24"
+            column="30"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of `app-build-compileSDKVersion` than 36 is available: 37"
+        errorLine1="app-build-compileSDKVersion = &quot;36&quot;"
+        errorLine2="                              ~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="31"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlin.plugin.compose than 2.4.20 is available: 2.4.21"
+        errorLine1="kotlin = &quot;2.4.20&quot;"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="3"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlin.plugin.serialization than 2.4.20 is available: 2.4.21"
+        errorLine1="kotlin = &quot;2.4.20&quot;"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="3"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.11.0 is available: 1.12.0"
+        errorLine1="kotlinxSerializationJson = &quot;1.11.0&quot;"
+        errorLine2="                           ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="4"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlinx:kotlinx-coroutines-android than 1.10.2 is available: 1.11.0"
+        errorLine1="kotlinxCoroutines = &quot;1.10.2&quot;"
+        errorLine2="                    ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="5"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlinx:kotlinx-coroutines-test than 1.10.2 is available: 1.11.0"
+        errorLine1="kotlinxCoroutines = &quot;1.10.2&quot;"
+        errorLine2="                    ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="5"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of io.nlopez.compose.rules:detekt than 0.4.28 is available: 0.6.8"
+        errorLine1="detektCompose = &quot;0.4.28&quot;"
+        errorLine2="                ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="10"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.googlecode.libphonenumber:libphonenumber than 8.13.50 is available: 9.0.42"
+        errorLine1="libphonenumber = &quot;8.13.50&quot;"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="38"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="VisibleForTests"
+        message="This method should only be accessed from tests or within private scope"
+        errorLine1="class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emptyMap())) : ViewModel() {"
+        errorLine2="                                                            ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/ui/thread/ThreadViewModel.kt"
+            line="57"
+            column="61"/>
+    </issue>
+
+    <issue
+        id="VisibleForTests"
+        message="This method should only be accessed from tests or within private scope"
+        errorLine1="class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emptyMap())) : ViewModel() {"
+        errorLine2="                                                            ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/ui/thread/ThreadViewModel.kt"
+            line="57"
+            column="61"/>
+    </issue>
+
+    <issue
+        id="ConfigurationScreenWidthHeight"
+        message="Using Configuration.screenWidthDp instead of LocalWindowInfo.current.containerSize"
+        errorLine1="    val maxBubbleWidth = (LocalConfiguration.current.screenWidthDp * BUBBLE_WIDTH_FRACTION).dp"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/ui/thread/ThreadBubbles.kt"
+            line="249"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="LocalContextResourcesRead"
+        message="Reading Resources using LocalContext.current.resources"
+        errorLine1="    val resources = LocalContext.current.resources"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/dialogs/AppLockDialog.kt"
+            line="266"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="LocalContextResourcesRead"
+        message="Reading Resources using LocalContext.current.resources"
+        errorLine1="    val resources = LocalContext.current.resources"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/dialogs/AppLockDialog.kt"
+            line="411"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="LocalContextResourcesRead"
+        message="Reading Resources using LocalContext.current.resources"
+        errorLine1="    val resources = LocalContext.current.resources"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/ui/conversations/ConversationsScreen.kt"
+            line="98"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="LocalContextResourcesRead"
+        message="Reading Resources using LocalContext.current.resources"
+        errorLine1="    val resources = LocalContext.current.resources"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/ui/spam/RulesScreen.kt"
+            line="207"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="LocalContextResourcesRead"
+        message="Reading Resources using LocalContext.current.resources"
+        errorLine1="    val density = context.resources.displayMetrics.density"
+        errorLine2="                  ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/ui/thread/ThreadAttachments.kt"
+            line="108"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="LocalContextResourcesRead"
+        message="Reading Resources using LocalContext.current.resources"
+        errorLine1="    val density = LocalContext.current.resources.displayMetrics.density"
+        errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/ui/thread/ThreadAttachments.kt"
+            line="395"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="LocalContextResourcesRead"
+        message="Reading Resources using LocalContext.current.resources"
+        errorLine1="    val density = LocalContext.current.resources.displayMetrics.density"
+        errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/ui/thread/ThreadBubbles.kt"
+            line="126"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="SwitchIntDef"
+        message="Switch statement on an `int` with known associated constant missing case `Cursor.FIELD_TYPE_BLOB`"
+        errorLine1="        when (getType(i)) {"
+        errorLine2="        ~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/extensions/Cursor.kt"
+            line="12"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;unread&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;convlist_unread_count&quot;>%1$d unread&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_conversations.xml"
+            line="14"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;blocked&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;convlist_blocked_banner_cd&quot;>%1$d blocked messages. Open the blocked folder.&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_conversations.xml"
+            line="24"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;seconds&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;dialogs_lock_locked_out&quot;>Too many incorrect unlock attempts.\nTry again in %d seconds.&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_dialogs.xml"
+            line="33"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;digits&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;dialogs_lock_pin_entered&quot;>%d digits entered&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_dialogs.xml"
+            line="36"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;stopped&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;settings_spam_stats&quot;>%1$d stopped in the last 7 days, %2$d in total, %3$d restored&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_settings.xml"
+            line="12"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;stopped&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;spam_blocked_stats_totals&quot;>%1$d stopped in total, %2$d restored&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_spam.xml"
+            line="22"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;spam&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;spam_blocked_header_cd&quot;>%1$d spam stopped, last 7 days. %2$d stopped in total, %3$d restored.&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_spam.xml"
+            line="23"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;lines&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;spam_rules_import_skipped&quot;>%d lines skipped (invalid or already added)&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_spam.xml"
+            line="80"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;blocked&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;spam_import_summary&quot;>%1$s: %2$d blocked, %3$d allowed&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_spam.xml"
+            line="152"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;days&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;spam_purge_days&quot;>%d days&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_spam.xml"
+            line="184"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;characters&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;thread_counter_unicode_description&quot;>%1$s. Persian and other non-Latin letters fit %2$d characters per text message.&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_thread_counter.xml"
+            line="10"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnsafeProtectedBroadcastReceiver"
+        message="This broadcast receiver declares an intent-filter for a protected broadcast action string, which can only be sent by the system, not third-party applications. However, the receiver&apos;s onReceive method does not appear to call getAction to ensure that the received Intent&apos;s action string matches the expected value, potentially making it possible for another actor to send a spoofed intent with no action string or a different action string and cause undesired behavior. In this case, it is possible that the onReceive method passed the received Intent to another method that checked the action string. If so, this finding can safely be ignored."
+        errorLine1="    override fun onReceive(context: Context, intent: Intent) {"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/receivers/MmsPushReceiver.kt"
+            line="27"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="UnsafeProtectedBroadcastReceiver"
+        message="This broadcast receiver declares an intent-filter for a protected broadcast action string, which can only be sent by the system, not third-party applications. However, the receiver&apos;s `onReceive` method does not appear to call `getAction` to ensure that the received Intent&apos;s action string matches the expected value, potentially making it possible for another actor to send a spoofed intent with no action string or a different action string and cause undesired behavior."
+        errorLine1="    override fun onReceive(context: Context, intent: Intent) {"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/receivers/RescheduleAlarmsReceiver.kt"
+            line="16"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="UnsafeProtectedBroadcastReceiver"
+        message="This broadcast receiver declares an intent-filter for a protected broadcast action string, which can only be sent by the system, not third-party applications. However, the receiver&apos;s onReceive method does not appear to call getAction to ensure that the received Intent&apos;s action string matches the expected value, potentially making it possible for another actor to send a spoofed intent with no action string or a different action string and cause undesired behavior. In this case, it is possible that the onReceive method passed the received Intent to another method that checked the action string. If so, this finding can safely be ignored."
+        errorLine1="    override fun onReceive(context: Context, intent: Intent) {"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/receivers/SmsReceiver.kt"
+            line="19"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="SystemPermissionTypo"
+        message="Did you mean `android.permission.WRITE_OBB`?"
+        errorLine1="    &lt;uses-permission android:name=&quot;android.permission.WRITE_SMS&quot; />"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="6"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 26"
+        errorLine1="                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/OemHelper.kt"
+            line="124"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="This folder configuration (`v26`) is unnecessary; `minSdkVersion` is 26. Merge all the resources in this folder into `mipmap-anydpi`.">
+        <location
+            file="src/main/res/mipmap-anydpi-v26"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.bool.show_donate_in_about` appears to be unused"
+        errorLine1="    &lt;bool name=&quot;show_donate_in_about&quot;>true&lt;/bool>"
+        errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/foss/res/values/bools.xml"
+            line="3"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.bool.is_google_play_build` appears to be unused"
+        errorLine1="    &lt;bool name=&quot;is_google_play_build&quot;>false&lt;/bool>"
+        errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/foss/res/values/bools.xml"
+            line="4"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.umessage_navy` appears to be unused"
+        errorLine1="    &lt;color name=&quot;umessage_navy&quot;>#0F172A&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="4"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.umessage_sky` appears to be unused"
+        errorLine1="    &lt;color name=&quot;umessage_sky&quot;>#E0F2FE&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="7"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.umessage_blue` appears to be unused"
+        errorLine1="    &lt;color name=&quot;umessage_blue&quot;>#1E3A8A&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="8"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.umessage_gold` appears to be unused"
+        errorLine1="    &lt;color name=&quot;umessage_gold&quot;>#A16207&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="9"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.umessage_gold_light` appears to be unused"
+        errorLine1="    &lt;color name=&quot;umessage_gold_light&quot;>#FBBF24&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="10"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.umessage_surface` appears to be unused"
+        errorLine1="    &lt;color name=&quot;umessage_surface&quot;>#F8FAFC&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="11"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.bubble_received` appears to be unused"
+        errorLine1="    &lt;color name=&quot;bubble_received&quot;>#3A7B8BA8&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="14"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.color_primary` appears to be unused"
+        errorLine1="    &lt;color name=&quot;color_primary&quot;>@color/umessage_blue&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="18"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.default_primary_color` appears to be unused"
+        errorLine1="    &lt;color name=&quot;default_primary_color&quot;>@color/umessage_blue&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="19"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.default_accent_color` appears to be unused"
+        errorLine1="    &lt;color name=&quot;default_accent_color&quot;>@color/umessage_gold&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="20"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.default_background_color` appears to be unused"
+        errorLine1="    &lt;color name=&quot;default_background_color&quot;>@color/umessage_surface&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="21"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.default_text_color` appears to be unused"
+        errorLine1="    &lt;color name=&quot;default_text_color&quot;>@color/umessage_navy&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="22"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.default_app_icon_color` appears to be unused"
+        errorLine1="    &lt;color name=&quot;default_app_icon_color&quot;>@color/md_green_900&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="25"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.bigger_avatar_size` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;bigger_avatar_size&quot;>64dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="4"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.pin_icon_size` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;pin_icon_size&quot;>15dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="5"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.vcard_property_start_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;vcard_property_start_margin&quot;>64dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="6"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.medium_icon_size` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;medium_icon_size&quot;>36dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="7"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.package_name` appears to be unused"
+        errorLine1="    &lt;string name=&quot;package_name&quot;>com.glooboo.spamless&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/donottranslate.xml"
+            line="2"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.sms` appears to be unused"
+        errorLine1="    &lt;string name=&quot;sms&quot;>SMS&lt;/string>"
+        errorLine2="            ~~~~~~~~~~">
+        <location
+            file="src/main/res/values/donottranslate.xml"
+            line="11"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_music_vector` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_music_vector.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_unarchive_vector` appears to be unused"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:viewportHeight=&quot;24&quot; android:viewportWidth=&quot;24&quot; android:width=&quot;24dp&quot; xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_unarchive_vector.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.linear_layout_horizontal_divider` appears to be unused"
+        errorLine1="&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/linear_layout_horizontal_divider.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.xml.searchable` appears to be unused"
+        errorLine1="&lt;searchable"
+        errorLine2="^">
+        <location
+            file="src/main/res/xml/searchable.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.conversation_avatar_size` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;conversation_avatar_size&quot;>48dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/umessage_dimens.xml"
+            line="3"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.bubble_corner_radius` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;bubble_corner_radius&quot;>20dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/umessage_dimens.xml"
+            line="4"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.bubble_tail_radius` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;bubble_tail_radius&quot;>6dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/umessage_dimens.xml"
+            line="5"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.bubble_padding_horizontal` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;bubble_padding_horizontal&quot;>14dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/umessage_dimens.xml"
+            line="6"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.bubble_padding_vertical` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;bubble_padding_vertical&quot;>10dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/umessage_dimens.xml"
+            line="7"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.message_not_sent_touch_retry` appears to be unused"
+        errorLine1="    &lt;string name=&quot;message_not_sent_touch_retry&quot;>Not sent. Touch to retry.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="6"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.add_person` appears to be unused"
+        errorLine1="    &lt;string name=&quot;add_person&quot;>Add Person&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="9"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.show_character_counter` appears to be unused"
+        errorLine1="    &lt;string name=&quot;show_character_counter&quot;>Show a character counter at writing messages&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="12"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.no_reply_support` appears to be unused"
+        errorLine1="    &lt;string name=&quot;no_reply_support&quot;>Sender doesn\&apos;t support replies&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="13"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.sending` appears to be unused"
+        errorLine1="    &lt;string name=&quot;sending&quot;>Sending…&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="14"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.forward_message` appears to be unused"
+        errorLine1="    &lt;string name=&quot;forward_message&quot;>Forward&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="15"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.schedule_send` appears to be unused"
+        errorLine1="    &lt;string name=&quot;schedule_send&quot;>Schedule send&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="37"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.empty_archive` appears to be unused"
+        errorLine1="    &lt;string name=&quot;empty_archive&quot;>Delete all archived conversations&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="57"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.restore_all_messages` appears to be unused"
+        errorLine1="    &lt;string name=&quot;restore_all_messages&quot;>Restore all messages&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="65"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.skip_the_recycle_bin_messages` appears to be unused"
+        errorLine1="    &lt;string name=&quot;skip_the_recycle_bin_messages&quot;>Skip the Recycle Bin, delete messages directly&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="67"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.archive_confirmation` appears to be unused"
+        errorLine1="    &lt;string name=&quot;archive_confirmation&quot;>Are you sure you want to archive %s?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="70"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.restore_whole_conversation_confirmation` appears to be unused"
+        errorLine1="    &lt;string name=&quot;restore_whole_conversation_confirmation&quot;>Are you sure you want to restore all messages of this conversation?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="71"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.manage_blocked_keywords` appears to be unused"
+        errorLine1="    &lt;string name=&quot;manage_blocked_keywords&quot;>Manage blocked keywords&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="86"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.enable_delivery_reports` appears to be unused"
+        errorLine1="    &lt;string name=&quot;enable_delivery_reports&quot;>Enable delivery reports&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="92"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.use_simple_characters` appears to be unused"
+        errorLine1="    &lt;string name=&quot;use_simple_characters&quot;>Remove accents and diacritics at sending messages&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="93"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.send_on_enter` appears to be unused"
+        errorLine1="    &lt;string name=&quot;send_on_enter&quot;>Send message on pressing Enter&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="94"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.outgoing_messages` appears to be unused"
+        errorLine1="    &lt;string name=&quot;outgoing_messages&quot;>Outgoing messages&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="97"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.keywords` appears to be unused"
+        errorLine1="    &lt;string name=&quot;keywords&quot;>Keywords&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="106"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.import_blocked_keywords` appears to be unused"
+        errorLine1="    &lt;string name=&quot;import_blocked_keywords&quot;>Import blocked keywords&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="116"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.faq_1_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;faq_1_title&quot;>Why does the app require access to the internet?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="169"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.faq_1_text` appears to be unused"
+        errorLine1="    &lt;string name=&quot;faq_1_text&quot;>Sadly it is needed for sending MMS attachments. Not being able to send MMS would be a really huge disadvantage compared to other apps, so we decided to go this way."
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="170"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.faq_2_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;faq_2_title&quot;>The other end is not receiving my MMS, is there anything I can do about it?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="172"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.faq_2_text` appears to be unused"
+        errorLine1="    &lt;string name=&quot;faq_2_text&quot;>MMS size is limited by carriers, you can try setting a smaller limit in the app settings.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="173"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.faq_3_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;faq_3_title&quot;>Does the app support scheduled messages?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="174"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.faq_3_text` appears to be unused"
+        errorLine1="    &lt;string name=&quot;faq_3_text&quot;>Yes, you can schedule messages to be sent in the future by long pressing the Send button and picking the desired date and time.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="175"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.faq_4_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;faq_4_title&quot;>Why do my group message replies appear as individual texts to recipients?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="176"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.faq_4_text` appears to be unused"
+        errorLine1="    &lt;string name=&quot;faq_4_text&quot;>You need to enable \&quot;Send group messages as MMS\&quot; in the app settings. This will ensure that group messages are sent as proper MMS, allowing all participants to see each other\&apos;s replies.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="177"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.convlist_group` appears to be unused"
+        errorLine1="    &lt;string name=&quot;convlist_group&quot;>Group conversation&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_conversations.xml"
+            line="15"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.plurals.convlist_blocked_banner` appears to be unused"
+        errorLine1="    &lt;plurals name=&quot;convlist_blocked_banner&quot;>"
+        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_conversations.xml"
+            line="19"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.convlist_blocked_banner_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;convlist_blocked_banner_title&quot;>Blocked messages&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_conversations.xml"
+            line="23"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.convlist_blocked_banner_cd` appears to be unused"
+        errorLine1="    &lt;string name=&quot;convlist_blocked_banner_cd&quot;>%1$d blocked messages. Open the blocked folder.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_conversations.xml"
+            line="24"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.convlist_close_selection` appears to be unused"
+        errorLine1="    &lt;string name=&quot;convlist_close_selection&quot;>Cancel selection&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_conversations.xml"
+            line="41"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.plurals.convlist_selected_count` appears to be unused"
+        errorLine1="    &lt;plurals name=&quot;convlist_selected_count&quot;>"
+        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_conversations.xml"
+            line="42"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.dialogs_date_time_format_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;dialogs_date_time_format_title&quot;>Date and time format&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_dialogs.xml"
+            line="10"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.dialogs_use_24_hour` appears to be unused"
+        errorLine1="    &lt;string name=&quot;dialogs_use_24_hour&quot;>Use 24-hour time format&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_dialogs.xml"
+            line="11"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.main_permission_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;main_permission_title&quot;>Permission required&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_main.xml"
+            line="17"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_back` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_back&quot;>Back&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_settings.xml"
+            line="5"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_deprecated` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_deprecated&quot;>Deprecated&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_settings.xml"
+            line="6"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_spam_blocked_numbers_body` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_spam_blocked_numbers_body&quot;>Numbers blocked through the system block list&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_settings.xml"
+            line="20"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_spam_blocked_keywords_body` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_spam_blocked_keywords_body&quot;>Hide messages that contain these words&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_settings.xml"
+            line="21"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_notifications_lock_body` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_notifications_lock_body&quot;>What notifications show on the lock screen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_settings.xml"
+            line="45"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_material_you` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_material_you&quot;>Material You colors&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_settings.xml"
+            line="51"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_material_you_body` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_material_you_body&quot;>Use the colors of your wallpaper&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_settings.xml"
+            line="52"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_font_size_body` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_font_size_body&quot;>Text size in conversations and lists&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_settings.xml"
+            line="53"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_date_format_body` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_date_format_body&quot;>How times show in conversations&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_settings.xml"
+            line="54"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_language_body` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_language_body&quot;>Language of the app&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_settings.xml"
+            line="55"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_mms_limit_body` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_mms_limit_body&quot;>Largest attachment size that is sent&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_settings.xml"
+            line="66"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_empty_recycle_bin_body` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_empty_recycle_bin_body&quot;>Permanently remove everything in the recycle bin&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_settings.xml"
+            line="69"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.spam_back` appears to be unused"
+        errorLine1="    &lt;string name=&quot;spam_back&quot;>Back&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_spam.xml"
+            line="5"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.spam_action_clear_selection` appears to be unused"
+        errorLine1="    &lt;string name=&quot;spam_action_clear_selection&quot;>Clear selection&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_spam.xml"
+            line="31"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.spam_rules_tab_count` appears to be unused"
+        errorLine1="    &lt;string name=&quot;spam_rules_tab_count&quot;>%1$s, %2$d&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_spam.xml"
+            line="88"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.spam_engine_regex_nested_repeat` appears to be unused"
+        errorLine1="    &lt;string name=&quot;spam_engine_regex_nested_repeat&quot;>This pattern repeats a group that already repeats, which can freeze message filtering. Simplify it.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_spam_engine.xml"
+            line="13"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.spam_engine_regex_matches_empty` appears to be unused"
+        errorLine1="    &lt;string name=&quot;spam_engine_regex_matches_empty&quot;>This pattern matches every message.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_spam_engine.xml"
+            line="14"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.spam_engine_regex_invalid` appears to be unused"
+        errorLine1="    &lt;string name=&quot;spam_engine_regex_invalid&quot;>This is not a valid pattern.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_spam_engine.xml"
+            line="15"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.ui_settings_system_block_list` appears to be unused"
+        errorLine1="    &lt;string name=&quot;ui_settings_system_block_list&quot;>System block list&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_ui.xml"
+            line="28"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.ui_settings_system_block_list_body` appears to be unused"
+        errorLine1="    &lt;string name=&quot;ui_settings_system_block_list_body&quot;>Numbers blocked for every app on this phone. uMessage also hides them.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_ui.xml"
+            line="29"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.ui_settings_blocked_words` appears to be unused"
+        errorLine1="    &lt;string name=&quot;ui_settings_blocked_words&quot;>Blocked words&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_ui.xml"
+            line="30"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.roundedImageView` appears to be unused"
+        errorLine1="    &lt;style name=&quot;roundedImageView&quot; parent=&quot;&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="11"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnnecessaryRequiredFeature"
+        message="Consider whether this feature (`android.hardware.telephony`) really is required for the app to function; you can set `android:required=&quot;false&quot;` to indicate that the feature is used but not required"
+        errorLine1="    &lt;uses-feature android:name=&quot;android.hardware.telephony&quot; />"
+        errorLine2="                                ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="27"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="            Uri.parse(&quot;content://mms/$id/addr&quot;),"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/spam/engine/AndroidSpamEnvironment.kt"
+            line="183"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs(context).edit().putString(KEY_RUNNING, kind.name).apply()"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/BackupJob.kt"
+            line="46"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs(context).edit().remove(KEY_RUNNING).apply()"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/BackupJob.kt"
+            line="55"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit().remove(KEY_RUNNING).apply()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/BackupJob.kt"
+            line="73"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="            prefs.edit().putBoolean(SYSTEM_THEME_PREF_KEY, false).apply()"
+        errorLine2="            ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="19"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit().putInt(USE_SIM_ID_PREFIX + number, SIMId).apply()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="24"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(value) = prefs.edit().putInt(DEFAULT_SIM_ID, value).apply()"
+        errorLine2="                     ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="41"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(showCharacterCounter) = prefs.edit()"
+        errorLine2="                                    ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="45"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(useSimpleCharacters) = prefs.edit()"
+        errorLine2="                                   ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="50"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(sendOnEnter) = prefs.edit().putBoolean(SEND_ON_ENTER, sendOnEnter).apply()"
+        errorLine2="                           ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="55"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(enableDeliveryReports) = prefs.edit()"
+        errorLine2="                                     ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="59"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(sendLongMessageMMS) = prefs.edit().putBoolean(SEND_LONG_MESSAGE_MMS, sendLongMessageMMS)"
+        errorLine2="                                  ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="64"
+            column="35"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(sendGroupMessageMMS) = prefs.edit()"
+        errorLine2="                                   ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="69"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(lockScreenVisibilitySetting) = prefs.edit()"
+        errorLine2="                                           ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="93"
+            column="44"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(mmsFileSizeLimit) = prefs.edit().putLong(MMS_FILE_SIZE_LIMIT, mmsFileSizeLimit).apply()"
+        errorLine2="                                ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="100"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(pinnedConversations) = prefs.edit()"
+        errorLine2="                                   ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="104"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(ids) = prefs.edit().putStringSet(INEXACT_SCHEDULED_MESSAGES, ids).apply()"
+        errorLine2="                   ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="130"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(markedUnreadThreads) = prefs.edit()"
+        errorLine2="                                   ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="144"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(blockedKeywords) = prefs.edit().putStringSet(BLOCKED_KEYWORDS, blockedKeywords).apply()"
+        errorLine2="                               ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="157"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(value) = prefs.edit().putBoolean(LEGACY_BLOCK_OFFER_DISMISSED, value).apply()"
+        errorLine2="                     ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="162"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(exportSms) = prefs.edit().putBoolean(EXPORT_SMS, exportSms).apply()"
+        errorLine2="                         ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="175"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(exportMms) = prefs.edit().putBoolean(EXPORT_MMS, exportMms).apply()"
+        errorLine2="                         ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="179"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(importSms) = prefs.edit().putBoolean(IMPORT_SMS, importSms).apply()"
+        errorLine2="                         ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="183"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(importMms) = prefs.edit().putBoolean(IMPORT_MMS, importMms).apply()"
+        errorLine2="                         ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="187"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(wasDbCleared) = prefs.edit().putBoolean(WAS_DB_CLEARED, wasDbCleared).apply()"
+        errorLine2="                            ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="191"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(keyboardHeight) = prefs.edit().putInt(SOFT_KEYBOARD_HEIGHT, keyboardHeight).apply()"
+        errorLine2="                              ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="195"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(useRecycleBin) = prefs.edit().putBoolean(USE_RECYCLE_BIN, useRecycleBin).apply()"
+        errorLine2="                             ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="199"
+            column="30"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(lastRecycleBinCheck) = prefs.edit().putLong(LAST_RECYCLE_BIN_CHECK, lastRecycleBinCheck)"
+        errorLine2="                                   ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="203"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(isArchiveAvailable) = prefs.edit().putBoolean(IS_ARCHIVE_AVAILABLE, isArchiveAvailable)"
+        errorLine2="                                  ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="208"
+            column="35"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(blockedSeenAt) = prefs.edit().putLong(BLOCKED_SEEN_AT, blockedSeenAt).apply()"
+        errorLine2="                             ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="214"
+            column="30"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(customNotifications) = prefs.edit()"
+        errorLine2="                                   ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="218"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(lastBlockedNumbersExportPath) = prefs.edit()"
+        errorLine2="                                            ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="231"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(keepConversationsArchived) = prefs.edit()"
+        errorLine2="                                         ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/Config.kt"
+            line="236"
+            column="42"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="            Uri.parse(&quot;content://mms/$mmsId/part&quot;), projection, &quot;${Mms.Part.MSG_ID} = ?&quot;, arrayOf(mmsId.toString()),"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/MessagesReader.kt"
+            line="161"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="        context.contentResolver.openInputStream(Uri.parse(&quot;content://mms/part/$partId&quot;))?.use { stream ->"
+        errorLine2="                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/MessagesReader.kt"
+            line="196"
+            column="49"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="            Uri.parse(&quot;content://mms/$messageId/addr&quot;), arrayOf(Mms.Addr.ADDRESS, Mms.Addr.TYPE, Mms.Addr.CHARSET),"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/MessagesReader.kt"
+            line="206"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="            val partUri = contentResolver.insert(Uri.parse(&quot;content://mms/$messageId/part&quot;), values)"
+        errorLine2="                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/MessagesWriter.kt"
+            line="140"
+            column="50"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="            Uri.parse(&quot;content://mms/$messageId/part&quot;),"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/MessagesWriter.kt"
+            line="239"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="    private fun partUri(partId: Long) = Uri.parse(&quot;content://mms/part/$partId&quot;)"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/MessagesWriter.kt"
+            line="298"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="    private fun addrUri(messageId: Long) = Uri.parse(&quot;content://mms/$messageId/addr&quot;)"
+        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/MessagesWriter.kt"
+            line="299"
+            column="44"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="                    Uri.parse(&quot;${Sms.CONTENT_URI}/${messageId}&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/messaging/MessagingUtils.kt"
+            line="71"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="            Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse(&quot;package:${context.packageName}&quot;))"
+        errorLine2="                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/NotificationHelper.kt"
+            line="305"
+            column="66"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="                Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse(&quot;package:${context.packageName}&quot;))"
+        errorLine2="                                                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/ui/main/NotificationsOffBanner.kt"
+            line="116"
+            column="70"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="                                .setData(Uri.parse(&quot;package:$pkg&quot;)),"
+        errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/OemHelper.kt"
+            line="127"
+            column="42"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse(&quot;package:$pkg&quot;))"
+        errorLine2="                                                                     ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/helpers/OemHelper.kt"
+            line="180"
+            column="70"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="                .setData(Uri.parse(&quot;package:$packageName&quot;))"
+        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/ui/onboarding/OnboardingScreen.kt"
+            line="163"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))"
+        errorLine2="                                                ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/activities/SettingsActivity.kt"
+            line="309"
+            column="49"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/spam/data/SpamSettingsStore.kt"
+            line="33"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `Int.toDrawable` instead?"
+        errorLine1="        window.setBackgroundDrawable(ColorDrawable(background.toArgb()))"
+        errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/ui/theme/UMessageTheme.kt"
+            line="222"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `Int.toDrawable` instead?"
+        errorLine1="    window.setBackgroundDrawable(ColorDrawable(scheme.background.toArgb()))"
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/glooboo/umessage/ui/theme/UMessageWindow.kt"
+            line="21"
+            column="34"/>
+    </issue>
+
+</issues>

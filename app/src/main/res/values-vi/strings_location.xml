@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">Vị trí</string>
+    <string name="i52_permission_explanation">uMessage chỉ lấy vị trí của bạn một lần ngay lúc này để thêm liên kết bản đồ vào tin nhắn. Không lưu thông tin nào. Bạn có thể chọn vị trí gần đúng.</string>
+    <string name="i52_finding">Đang tìm vị trí của bạn…</string>
+    <string name="i52_denied">Chưa được cho phép truy cập vị trí. Tin nhắn vẫn giữ nguyên.</string>
+    <string name="i52_no_fix">Không tìm được vị trí của bạn. Thử lại gần cửa sổ hoặc ngoài trời.</string>
+    <string name="i52_off_message">Vị trí đang tắt trên điện thoại này. Bật để chia sẻ vị trí của bạn.</string>
+    <string name="i52_open_settings">Mở cài đặt</string>
+</resources>

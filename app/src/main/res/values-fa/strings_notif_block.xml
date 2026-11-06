@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_block_action">مسدود کردن</string>
+    <string name="notif_block_undo">واگرد</string>
+    <string name="notif_block_done_title">%1$s مسدود شد</string>
+    <string name="notif_block_done_text">پیام‌های جدید به پیام‌های مسدودشده می‌روند</string>
+    <string name="notif_block_channel">فرستنده‌های مسدودشده</string>
+</resources>

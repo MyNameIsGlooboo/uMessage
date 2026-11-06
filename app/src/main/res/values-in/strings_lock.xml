@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_title">uMessage terkunci</string>
+    <string name="lock_enter_pin">Masukkan PIN</string>
+    <string name="lock_draw_pattern">Gambar pola</string>
+    <string name="lock_use_biometrics">Verifikasi identitas Anda untuk membuka uMessage</string>
+    <string name="lock_wrong_pin">PIN salah, coba lagi</string>
+    <string name="lock_wrong_pattern">Pola salah, coba lagi</string>
+    <string name="lock_too_many">Terlalu banyak percobaan yang salah</string>
+    <string name="lock_try_again_in">Coba lagi dalam %s</string>
+    <string name="lock_key_delete">Hapus</string>
+    <string name="lock_key_confirm">Konfirmasi</string>
+    <plurals name="lock_digits_entered">
+        <item quantity="other">%d digit dimasukkan</item>
+    </plurals>
+    <string name="lock_no_digits">Belum ada digit yang dimasukkan</string>
+    <string name="lock_pattern_pad">Papan pola, 3 kali 3 titik</string>
+    <string name="lock_pattern_dot">Titik di baris %1$d, kolom %2$d</string>
+    <string name="lock_pattern_dot_selected">Titik di baris %1$d, kolom %2$d, urutan %3$d dalam pola</string>
+    <string name="lock_pattern_done">Selesai</string>
+    <string name="lock_pattern_clear">Bersihkan</string>
+    <plurals name="lock_pattern_dots_selected">
+        <item quantity="other">%d titik dipilih</item>
+    </plurals>
+    <string name="lock_use_pin_instead">Gunakan PIN</string>
+    <string name="lock_use_biometrics_instead">Gunakan biometrik</string>
+    <string name="lock_use_screen_lock">Gunakan kunci layar ponsel</string>
+    <string name="lock_biometrics_unavailable">Biometrik tidak tersedia. Masukkan PIN.</string>
+    <string name="lock_screen_lock_title">Buka uMessage</string>
+    <string name="lock_screen_lock_description">Verifikasi dengan kunci layar ponsel untuk membuka uMessage</string>
+    <string name="lock_no_way_to_check">Ponsel ini tidak lagi memiliki sidik jari atau kunci layar, jadi uMessage tidak dapat memverifikasi identitas Anda. Buka aplikasi dan atur PIN di Setelan.</string>
+    <string name="lock_open_anyway">Buka uMessage</string>
+    <string name="lock_forgot">Lupa? Gunakan kunci layar ponsel</string>
+    <plurals name="lock_tries_left">
+        <item quantity="other">%d percobaan lagi sebelum harus menunggu</item>
+    </plurals>
+    <string name="lock_setup_done">Kunci aplikasi aktif. Jika lupa PIN atau pola, ketuk \"Lupa?\" di layar kunci lalu gunakan kunci layar ponsel.</string>
+    <string name="lock_setup_done_biometric">Kunci aplikasi aktif. Jika biometrik tidak berfungsi, gunakan PIN cadangan. Jika PIN itu juga terlupa, ketuk \"Lupa?\" lalu gunakan kunci layar ponsel.</string>
+    <string name="lock_setup_done_no_screen_lock">Kunci aplikasi aktif. Ponsel ini tidak memiliki kunci layar, jadi jika lupa PIN atau pola, satu-satunya cara masuk adalah menghapus data uMessage di setelan aplikasi ponsel. Tindakan ini menghapus setelan, daftar spam, dan riwayat spam (pesan tetap tersimpan di ponsel). Tambahkan kunci layar ponsel agar bisa masuk kembali.</string>
+    <string name="settings_app_lock_timeout">Kunci setelah keluar dari aplikasi</string>
+    <string name="settings_app_lock_timeout_immediately">Segera</string>
+    <string name="settings_app_lock_timeout_30s">Setelah 30 detik</string>
+    <string name="settings_app_lock_timeout_1m">Setelah 1 menit</string>
+    <string name="settings_app_lock_timeout_5m">Setelah 5 menit</string>
+    <string name="settings_app_lock_screenshots">Blokir tangkapan layar</string>
+    <string name="settings_app_lock_screenshots_body">Mencegah tangkapan dan perekaman layar. Pesan selalu disembunyikan di daftar aplikasi terbaru.</string>
+    <string name="settings_app_lock_screenshots_body_old">Mencegah tangkapan dan perekaman layar. Pada versi Android ini, ini juga satu-satunya cara menyembunyikan pesan di daftar aplikasi terbaru.</string>
+    <string name="settings_app_lock_change">Ubah PIN, pola, atau biometrik</string>
+    <string name="settings_app_lock_weak">PIN atau pola Anda mudah ditebak</string>
+    <string name="settings_app_lock_weak_body">PIN terlalu lemah. Ketuk untuk mengubah</string>
+    <string name="settings_app_lock_add_pin">Tambahkan PIN cadangan</string>
+    <string name="settings_app_lock_add_pin_body">Tambahkan PIN sebagai cadangan</string>
+    <string name="settings_app_lock_now">Kunci sekarang</string>
+    <string name="settings_app_lock_now_body">Langsung mengunci uMessage</string>
+    <string name="settings_app_lock_changed">Kunci aplikasi diubah</string>
+    <string name="dialogs_lock_backup_pin">Atur PIN cadangan terlebih dahulu. PIN ini digunakan jika biometrik tidak berfungsi.</string>
+</resources>

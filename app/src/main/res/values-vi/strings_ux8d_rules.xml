@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">Luôn cho phép</string>
+    <string name="ux8d_sheet_title_block">Luôn chặn</string>
+    <string name="ux8d_match_label">Điều kiện khớp</string>
+    <string name="ux8d_match_number">Một số điện thoại</string>
+    <string name="ux8d_match_sender">Tên người gửi, như tên ngân hàng</string>
+    <string name="ux8d_match_word">Một từ trong tin nhắn</string>
+    <string name="ux8d_match_prefix">Số bắt đầu bằng…</string>
+    <string name="ux8d_match_pattern">Biểu thức chính quy (nâng cao)</string>
+    <string name="ux8d_match_more">Thêm cách khớp</string>
+    <string name="ux8d_action_label">Khi khớp</string>
+    <string name="ux8d_more_options">Tùy chọn khác</string>
+    <string name="ux8d_row_type_number">Số điện thoại</string>
+    <string name="ux8d_row_type_prefix">Số bắt đầu bằng</string>
+    <string name="ux8d_row_type_sender">Tên người gửi</string>
+    <string name="ux8d_row_type_word">Từ trong tin nhắn</string>
+    <string name="ux8d_row_type_pattern">Biểu thức chính quy</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

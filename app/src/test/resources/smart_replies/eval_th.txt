@@ -1,0 +1,149 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|สวัสดีครับ
+greeting|สวัสดีค่ะ
+greeting|หวัดดี
+greeting|สวัสดีทุกคน
+good_morning|อรุณสวัสดิ์
+good_morning|สวัสดีตอนเช้านะ
+good_morning|สวัสดีตอนเช้าค่ะ ☀️
+good_afternoon|สวัสดีตอนบ่ายครับ
+good_evening|สวัสดีตอนเย็นค่ะ
+good_night|ราตรีสวัสดิ์
+good_night|ฝันดีนะ
+good_night|ฝันดีค่ะ
+good_night|ไปนอนก่อนนะ
+good_night|นอนก่อนนะครับ
+how_are_you|สบายดีไหม
+how_are_you|สบายดีมั้ยคะ
+how_are_you|เป็นไงบ้าง
+how_are_you|ช่วงนี้เป็นยังไงบ้างครับ
+how_are_you|ว่าไง
+thanks|ขอบคุณครับ
+thanks|ขอบคุณค่ะ
+thanks|ขอบคุณมากๆ
+thanks|ขอบคุณนะ 🙏
+thanks|ขอบใจนะ
+thanks|ขอบคุณมากเลยค่ะ
+youre_welcome|ไม่เป็นไรค่ะ
+youre_welcome|ยินดีครับ
+youre_welcome|ไม่เป็นไรนะ
+youre_welcome|ไม่ต้องเกรงใจครับ
+youre_welcome|ไม่มีปัญหา
+where_are_you|อยู่ไหน
+where_are_you|อยู่ไหนแล้วครับ
+where_are_you|ถึงไหนแล้วคะ
+where_are_you|ตอนนี้อยู่ที่ไหน
+on_my_way|กำลังไป
+on_my_way|กำลังไปแล้วครับ
+on_my_way|ใกล้ถึงแล้วนะ
+on_my_way|ออกจากบ้านแล้วค่ะ
+on_my_way|เดี๋ยวไปเลย
+arrived|ถึงแล้ว
+arrived|ถึงแล้วค่ะ
+arrived|อยู่ข้างล่างแล้วนะ
+arrived|ถึงหน้าบ้านแล้วครับ
+arrived_home|ถึงบ้านแล้ว
+arrived_home|ถึงบ้านแล้วค่ะ
+arrived_home|ถึงบ้านปลอดภัยแล้วครับ
+arrived_home|กลับถึงบ้านแล้วนะ
+did_you_arrive|ถึงหรือยัง
+did_you_arrive|ถึงบ้านหรือยังคะ
+did_you_arrive|ถึงบ้านปลอดภัยไหม
+did_you_arrive|ถึงรึยังครับ
+are_you_coming|พรุ่งนี้มาไหม
+are_you_coming|คืนนี้มาได้ไหมคะ
+are_you_coming|มาหรือเปล่าครับ
+are_you_coming|วันเสาร์ไปไหม
+call_me|โทรกลับหน่อย
+call_me|โทรกลับด้วยนะ
+call_me|ว่างแล้วโทรมา
+call_me|ช่วยโทรหาหน่อยค่ะ
+can_you_talk|คุยได้ไหม
+can_you_talk|ตอนนี้สะดวกคุยไหมคะ
+can_you_talk|รับสายได้ไหมครับ
+can_you_talk|ขอคุยหน่อยได้ไหม
+are_you_free|ว่างไหม
+are_you_free|วันนี้ว่างมั้ยคะ
+are_you_free|คืนนี้ว่างหรือเปล่าครับ
+are_you_free|ตอนนี้ยุ่งไหม
+what_time|กี่โมง
+what_time|เจอกันกี่โมงดี
+what_time|กี่โมงสะดวกคะ
+what_time|เมื่อไหร่ดี
+where_to_meet|เจอกันที่ไหน
+where_to_meet|เจอกันที่ไหนดีครับ
+where_to_meet|นัดตรงไหนดี
+where_to_meet|ไปกินที่ไหนดี
+ok_confirm|โอเค
+ok_confirm|โอเคค่ะ
+ok_confirm|ได้เลย
+ok_confirm|รับทราบครับ
+ok_confirm|ตกลงนะ
+ok_confirm|เข้าใจแล้วค่ะ
+ok_confirm|โอเคขอบคุณครับ
+bye|ลาก่อนนะ
+bye|แล้วเจอกันครับ
+bye|บายค่ะ
+bye|เจอกันพรุ่งนี้นะ
+bye|ไว้คุยกันใหม่นะ
+congrats|ยินดีด้วยนะ
+congrats|ขอแสดงความยินดีด้วยค่ะ
+congrats|สุขสันต์วันเกิดนะ 🎂
+congrats|ขอแสดงความยินดีกับการเลื่อนตำแหน่ง
+holiday_new_year|สวัสดีปีใหม่
+holiday_new_year|สุขสันต์วันปีใหม่ค่ะ
+holiday_new_year|สวัสดีปีใหม่ครับ
+holiday_christmas|เมอร์รี่คริสต์มาส
+holiday_christmas|สุขสันต์วันคริสต์มาสค่ะ
+holiday_other|สุขสันต์วันสงกรานต์
+holiday_other|สุขสันต์วันหยุดนะ
+holiday_other|แฮปปี้วาเลนไทน์
+good_luck|โชคดีนะ
+good_luck|ขอให้โชคดีค่ะ
+good_luck|สู้ๆ นะ
+good_luck|ขอให้สอบผ่านนะครับ
+good_luck|เป็นกำลังใจให้นะ
+sorry_late|ขอโทษที่ตอบช้า
+sorry_late|ขอโทษที่ตอบช้านะคะ
+sorry_late|ขอโทษที่มาช้าครับ
+sorry_late|โทษทีที่ให้รอนาน
+sorry_late|เพิ่งเห็นข้อความ ขอโทษนะ
+missed_call|ขอโทษที่รับสายไม่ทัน
+missed_call|ขอโทษที่ไม่ได้รับสายค่ะ
+missed_call|เมื่อกี้รับสายไม่ทัน
+missed_call|เห็นมิสคอลแล้วนะ
+NONE|ทำไมไม่ตอบข้อความ?
+NONE|ใครมา?
+NONE|ไม่ไปแล้วนะ ขอโทษ
+NONE|ไม่ว่างเลยวันนี้
+NONE|คุณยายเสียชีวิตแล้ว
+NONE|อยู่โรงพยาบาลมาได้ไหม
+NONE|โอนเงินให้หน่อยด่วน
+NONE|บอกรหัสบัตรหน่อย
+NONE|รหัสยืนยันคือ 5821
+NONE|ขอบคุณที่โอนเงินให้ 200 บาท
+NONE|ดูอันนี้ https://example.com/a
+NONE|กลับมาเมื่อไหร่ แม่ถามหา
+NONE|อยู่ไหน เจอกันที่ไหนดี
+NONE|555555
+NONE|😂😂😂
+NONE|123
+NONE|thanks ขอบคุณ
+NONE|วันนี้อากาศดีนะ
+NONE|พรุ่งนี้ประชุมกี่โมงแล้วที่ไหนครับ
+NONE|ถ้าว่างไปดูหนังด้วยกันไหม
+NONE|วันนี้โกรธมากเลย
+NONE|ยินดีด้วยแต่เสียใจนะ
+NONE|ไม่ไปไหมเนี่ย
+NONE|มาไหมหรือว่าไม่มา
+NONE|เห็นกุญแจฉันไหม
+NONE|ช่วยด้วย
+NONE|ขอโทษ ทำไม่ได้จริงๆ
+NONE|คิดถึงนะ
+NONE|ได้ แต่ไม่รู้ว่าจะไหวไหม
+NONE|เจออุบัติเหตุระหว่างทาง
+NONE|ถึงบ้านแล้วจะโทรไปนะ
+NONE|ถึงแล้วจะติดต่อกลับนะครับ
+NONE|ได้ยินว่าคืนนี้มีปาร์ตี้ที่บ้านเธอ จริงหรือเปล่า
+NONE|ก่อนนอนขอไปอาบน้ำก่อน

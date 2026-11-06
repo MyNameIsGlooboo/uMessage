@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="thread_counter_parts">%1$d · %2$d SMS</string>
+    <plurals name="thread_counter_description" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d текстове повідомлення, залишок символів: %2$d</item>
+        <item quantity="few">%1$d текстові повідомлення, залишок символів в останньому: %2$d</item>
+        <item quantity="many">%1$d текстових повідомлень, залишок символів в останньому: %2$d</item>
+        <item quantity="other">%1$d текстового повідомлення, залишок символів в останньому: %2$d</item>
+    </plurals>
+    <string name="thread_counter_unicode_description">%1$s. Для перських та інших нелатинських літер ліміт символів на текстове повідомлення — %2$d.</string>
+    <string name="thread_unicode_parts_note">Одне SMS вміщує 70 символів перського тексту, тому це повідомлення буде надіслано як %1$d SMS.</string>
+    <string name="thread_long_text_as_mms">Це довге повідомлення буде надіслано як MMS, що може коштувати дорожче за SMS.</string>
+</resources>

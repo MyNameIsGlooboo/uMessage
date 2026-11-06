@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">거래</string>
+    <string name="i11_filter_transactions_empty_title">거래 내역 없음</string>
+    <string name="i11_filter_transactions_empty_body">은행에서 보낸 입출금 메시지가 여기에 표시돼요.</string>
+    <string name="i11_filter_offers">혜택</string>
+    <string name="i11_filter_offers_empty_title">혜택 없음</string>
+    <string name="i11_filter_offers_empty_body">매장에서 보낸 할인 및 행사 안내가 여기에 표시돼요.</string>
+</resources>

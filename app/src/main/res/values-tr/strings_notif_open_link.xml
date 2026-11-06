@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_open_link_action">Bağlantıyı açın</string>
+    <string name="notif_open_link_title">Bağlantıyı açın düğmesi</string>
+    <string name="notif_open_link_summary">Kişilerden ve izin verilen gönderenlerden gelen bildirimlerde</string>
+</resources>

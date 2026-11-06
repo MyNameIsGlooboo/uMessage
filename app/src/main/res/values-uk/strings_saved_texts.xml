@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">Збережений текст</string>
+    <string name="n06_sheet_title">Збережені тексти</string>
+    <string name="n06_empty_hint">Наприклад, ваша адреса або номер картки. Натисніть на текст, щоб вставити його в повідомлення.</string>
+    <string name="n06_add">Додати збережений текст</string>
+    <string name="n06_edit">Змінити збережений текст</string>
+    <string name="n06_title_label">Назва (необов’язково)</string>
+    <string name="n06_text_label">Текст</string>
+    <string name="n06_save">Зберегти</string>
+    <string name="n06_delete">Видалити</string>
+    <string name="n06_private_tip">Зберігаються лише на цьому телефоні без шифрування. Не зберігайте паролі чи PIN.</string>
+    <string name="n06_save_from_message">Додати до збережених текстів</string>
+    <string name="n06_saved_toast">Збережено</string>
+    <string name="n06_save_full">Список заповнений. Спершу видаліть один текст.</string>
+    <string name="n06_save_duplicate">Уже збережено</string>
+</resources>

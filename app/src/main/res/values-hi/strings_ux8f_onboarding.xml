@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">ज़्यादा सुविधाएं</string>
+    <string name="ux8f_onb_less">कम सुविधाएं</string>
+    <string name="ux8f_onb_battery_body">Android बैकग्राउंड में uMessage को रोक सकता है, जिससे आपके मैसेज देर से मिल सकते हैं. इसे चलते रहने की अनुमति दें.</string>
+    <string name="ux8f_onb_battery_action">बैकग्राउंड में चलने की अनुमति दें</string>
+    <string name="ux8f_onb_vendor_hint">%1$s फ़ोन पर एक और चरण ज़रूरी है.</string>
+    <string name="ux8f_onb_unfinished">अभी बाकी है. आप इन्हें बाद में Android की सेटिंग में पूरा कर सकते हैं.</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_switch_title">Vous passez à uMessage ?</string>
+    <string name="onb_switch_body">Vous utilisiez une autre application SMS ? Désactivez d\'abord ses fonctions de chat. Vous changez de téléphone ? Restaurez votre sauvegarde une fois la configuration terminée.</string>
+    <string name="onb_switch_action">Restaurer une sauvegarde</string>
+    <string name="onb_switch_done_note">Une fois la configuration terminée, Sauvegarde et restauration s\'ouvrira.</string>
+</resources>

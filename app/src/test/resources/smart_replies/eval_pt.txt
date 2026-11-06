@@ -1,0 +1,147 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|Oi!
+greeting|Olá, pessoal
+greeting|Eae
+greeting|Oie
+good_morning|Bom dia!
+good_morning|Bom dia, amiga ☀️
+good_morning|Bom diaaa
+good_afternoon|Boa tarde!
+good_afternoon|Boa tarde pra você
+good_evening|Boa noite!
+good_evening|Boa noite gente
+good_night|Durma bem
+good_night|Bons sonhos 😴
+good_night|Vou dormir, boa noite
+how_are_you|Tudo bem?
+how_are_you|Oi, tudo bem com você?
+how_are_you|Como vai você?
+how_are_you|E aí, beleza?
+how_are_you|Como você está?
+thanks|Obrigado!
+thanks|Obrigada pela ajuda
+thanks|Valeu mesmo
+thanks|Muito obrigada 🙏
+thanks|Vlw
+thanks|Obg
+youre_welcome|De nada
+youre_welcome|Imagina!
+youre_welcome|Sem problema
+youre_welcome|Tmj
+where_are_you|Cadê você?
+where_are_you|Onde você está?
+where_are_you|Onde vc ta agora
+on_my_way|Estou a caminho
+on_my_way|Tô chegando
+on_my_way|Já saí
+on_my_way|Chego em 10 minutos
+arrived|Cheguei
+arrived|Estou na porta
+arrived|Tô lá embaixo
+arrived|Estou aqui fora
+arrived_home|Cheguei em casa
+arrived_home|Já estou em casa
+arrived_home|Cheguei bem em casa
+did_you_arrive|Chegou bem?
+did_you_arrive|Você já chegou em casa?
+did_you_arrive|Vc conseguiu chegar?
+are_you_coming|Você vem hoje?
+are_you_coming|Vc vem pra festa?
+are_you_coming|Você vai poder vir amanhã?
+call_me|Me liga
+call_me|Me liga quando puder
+call_me|Pode me ligar?
+call_me|Liga pra mim depois
+can_you_talk|Pode falar agora?
+can_you_talk|Tem um minuto?
+can_you_talk|Posso te ligar?
+are_you_free|Você está livre hoje?
+are_you_free|Vc ta livre amanhã?
+are_you_free|Você tem tempo agora?
+what_time|Que horas?
+what_time|A que horas a gente se encontra?
+what_time|Que horas você chega?
+where_to_meet|Onde nos encontramos?
+where_to_meet|Onde vamos hoje?
+where_to_meet|Onde fica melhor pra você?
+ok_confirm|Ok
+ok_confirm|Beleza
+ok_confirm|Combinado
+ok_confirm|Fechado
+ok_confirm|Tá bom, valeu
+ok_confirm|Show de bola
+bye|Tchau!
+bye|Até logo
+bye|Até amanhã
+bye|Se cuida
+bye|Flw
+congrats|Parabéns!
+congrats|Feliz aniversário!
+congrats|Parabéns pelo novo emprego
+congrats|Muitas felicidades
+holiday_eid|Eid Mubarak
+holiday_new_year|Feliz Ano Novo!
+holiday_christmas|Feliz Natal!
+holiday_christmas|Boas festas
+holiday_other|Feliz Páscoa
+holiday_other|Feliz Dia das Mães
+good_luck|Boa sorte!
+good_luck|Boa sorte amanhã
+good_luck|Sucesso na entrevista
+sorry_late|Desculpa a demora
+sorry_late|Foi mal
+sorry_late|Desculpa só vi agora
+sorry_late|Mil desculpas pela demora
+missed_call|Perdi sua ligação
+missed_call|Vi que você ligou
+missed_call|Desculpa, perdi a chamada
+NONE|Você vem amanhã de volta do trabalho?
+NONE|Quem vem hoje à noite?
+NONE|Eu não vou
+NONE|Por que você não responde?
+NONE|Obrigado, mas já paguei 50 reais
+NONE|Seu código de verificação é 482913
+NONE|Acesse www.exemplo.com para ganhar um prêmio
+NONE|Onde você está indo?
+NONE|De onde você é?
+NONE|Me liga mais tarde se der, preciso falar sobre o contrato com o cliente
+NONE|Que horas são agora?
+NONE|Que horas você saiu ontem?
+NONE|Oi?
+NONE|Ok?
+NONE|Tudo bem, mas acho melhor esperar até segunda
+NONE|Claro, vou buscar as crianças e depois a gente sai
+NONE|Estou a caminho do hospital
+NONE|Cheguei em casa e a luz está apagada, o que faço?
+NONE|Sinto muito pela sua perda
+NONE|Me desculpe
+NONE|Parabéns pro meu irmão, hoje ele faz 30 anos
+NONE|Não me ligue mais
+NONE|Pode me buscar?
+NONE|Você está livre para me ajudar na mudança sábado?
+NONE|Onde você estava ontem à noite?
+NONE|Como você está se sentindo depois da cirurgia?
+NONE|Obrigado pela ajuda com o empréstimo
+NONE|Você é bem-vindo para ir com a gente
+NONE|Pode voltar mais tarde?
+NONE|Todo mundo vem?
+NONE|Não tenho certeza se posso ir amanhã
+NONE|O que você vai fazer hoje à noite?
+NONE|Oi Ana, tudo bem?
+NONE|Transfere 500 pra minha conta por favor
+NONE|Minha mãe está no hospital, me liga
+NONE|Boa noite a todos, obrigado pela noite maravilhosa
+NONE|Guten Morgen, wie geht es dir?
+NONE|Valeu por nada
+NONE|Nossa!
+NONE|😂😂
+NONE|Kkkk tá bom, o que você quiser
+NONE|Entendi, mando os arquivos amanhã de manhã
+NONE|Parabéns, você ganhou um prêmio! Responda SIM para resgatar
+NONE|Desculpa
+NONE|Você vem e a que horas devo levar o carro?
+NONE|Quando você chega em casa?
+NONE|Hola, necesito hablar contigo mañana por la mañana
+NONE|Bonjour, je voudrais réserver une table pour demain soir
+NONE|Ciao, ci vediamo domani alla stazione alle nove

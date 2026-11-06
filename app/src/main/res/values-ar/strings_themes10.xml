@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">أردوازي</string>
+    <string name="preset_slate_desc">أزرق رمادي هادئ</string>
+    <string name="preset_firouzeh">فيروزي</string>
+    <string name="preset_firouzeh_desc">فيروزي بلمسة ذهبية</string>
+    <string name="preset_pomegranate">رمان</string>
+    <string name="preset_pomegranate_desc">أحمر دافئ مع أخضر داكن</string>
+    <string name="preset_harbor">ميناء</string>
+    <string name="preset_harbor_desc">أزرق ليلي مع مرجاني ناعم</string>
+    <string name="preset_lavender">خزامى</string>
+    <string name="preset_lavender_desc">بنفسجي ناعم مع أخضر مزرق</string>
+    <string name="preset_ink">حبر</string>
+    <string name="preset_ink_desc">أسود تقريبًا مع فضي وذهبي</string>
+    <string name="preset_contrast">تباين</string>
+    <string name="preset_contrast_desc">أسود وأبيض مع لمسات زاهية</string>
+</resources>

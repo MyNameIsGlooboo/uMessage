@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Export messages: file type, which conversations -->
+    <string name="export_format_json">uMessage file (texts and pictures)</string>
+    <string name="export_format_xml">SMS Backup &amp; Restore file (for other apps)</string>
+    <string name="export_format_xml_hint">uMessage restores only the texts from this type of file.</string>
+    <string name="export_scope_all">All conversations</string>
+    <string name="export_scope_choose">Choose conversations</string>
+    <plurals name="export_scope_chosen">
+        <item quantity="one">%1$d conversation chosen</item>
+        <item quantity="other">%1$d conversations chosen</item>
+    </plurals>
+    <string name="export_pick_title">Choose conversations</string>
+    <string name="export_pick_search">Search</string>
+    <string name="export_pick_all">Select all</string>
+    <string name="export_pick_none">Clear</string>
+    <string name="export_pick_empty">There are no conversations</string>
+    <string name="export_pick_nothing_chosen">Choose at least one conversation</string>
+</resources>

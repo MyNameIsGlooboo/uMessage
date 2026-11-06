@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">添加到主屏幕</string>
+    <string name="home_shortcut_requested">正在请求桌面启动器添加快捷方式。主屏幕上会显示会话名称。如果没有出现，请在手机的应用设置中允许uMessage创建“主屏幕快捷方式”。</string>
+    <string name="home_shortcut_failed">桌面启动器未接受此快捷方式。请在手机的应用设置中允许uMessage创建“主屏幕快捷方式”。</string>
+</resources>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rules_sheet_title_edit_allow">Regel zum Erlauben bearbeiten</string>
+    <string name="rules_sheet_title_edit_block">Regel zum Blockieren bearbeiten</string>
+    <string name="rules_sheet_save">Änderungen speichern</string>
+    <string name="rules_edit_rule">%1$s bearbeiten</string>
+    <string name="rules_search_hint">Regeln und Notizen durchsuchen</string>
+    <string name="rules_search_clear">Suche leeren</string>
+    <string name="rules_filter_all_types">Alle Typen</string>
+    <string name="rules_search_empty_title">Keine passenden Regeln</string>
+    <string name="rules_search_empty_body">Versuche andere Wörter oder zeige alle Typen an.</string>
+    <string name="rules_export_selected">Ausgewählte exportieren</string>
+    <string name="rules_delete_selected">Ausgewählte löschen</string>
+    <plurals name="rules_deleted_many">
+        <item quantity="one">%d Regel gelöscht</item>
+        <item quantity="other">%d Regeln gelöscht</item>
+    </plurals>
+    <string name="rules_system_block_list">System-Blockierliste (blockiert auch Anrufe)</string>
+    <string name="rules_legacy_note_keyword">Aus der alten Liste blockierter Wörter</string>
+    <string name="rules_legacy_note_number">Aus der System-Blockierliste</string>
+    <string name="rules_legacy_banner_title">Ältere Blockierlisten gefunden</string>
+    <string name="rules_legacy_banner_body">Einige Wörter und Nummern werden außerhalb dieser Regeln blockiert. Übernimm sie hierher, um alles an einem Ort zu sehen und zu ändern.</string>
+    <string name="rules_legacy_banner_review">Prüfen</string>
+    <string name="rules_legacy_banner_not_now">Nicht jetzt</string>
+    <string name="rules_legacy_section_keywords">Alte Liste blockierter Wörter</string>
+    <string name="rules_legacy_section_keywords_body">Wird weiter zum Filtern verwendet, bis du diese Wörter in Regeln übernimmst. Danach wird die alte Liste nicht mehr verwendet.</string>
+    <string name="rules_legacy_section_system_body">Android verwirft Nachrichten dieser Nummern, bevor sie uMessage erreichen. Sie erscheinen daher nie unter „Blockiert“. Diese Liste wird auch von der Telefon-App verwendet und blockiert auch Anrufe.</string>
+    <string name="rules_legacy_chip_old_list">Alte Liste</string>
+    <string name="rules_legacy_chip_system">System, auch Anrufe</string>
+    <string name="rules_legacy_move">In Regeln übernehmen</string>
+    <string name="rules_legacy_open_system">System-Blockierliste öffnen</string>
+    <string name="rules_migrate_title">Ältere Blockierlisten in Regeln übernehmen</string>
+    <string name="rules_migrate_nothing">Alle Einträge der älteren Listen sind bereits in deinen Regeln.</string>
+    <plurals name="rules_migrate_keywords">
+        <item quantity="one">%d Wort aus der alten Liste blockierter Wörter wird als Schlüsselwort in eine Regel zum Blockieren übernommen. Danach wird die alte Liste nicht mehr verwendet.</item>
+        <item quantity="other">%d Wörter aus der alten Liste blockierter Wörter werden als Schlüsselwörter in Regeln zum Blockieren übernommen. Danach wird die alte Liste nicht mehr verwendet.</item>
+    </plurals>
+    <plurals name="rules_migrate_keywords_kept">
+        <item quantity="one">%d Wort kann nicht als Regel übernommen werden (ein Buchstabe, mehrere Zeilen oder zu lang) und bleibt auf der alten Liste.</item>
+        <item quantity="other">%d Wörter können nicht als Regeln übernommen werden (ein Buchstabe, mehrere Zeilen oder zu lang) und bleiben auf der alten Liste.</item>
+    </plurals>
+    <plurals name="rules_migrate_numbers">
+        <item quantity="one">Auch die %d Nummer auf der System-Blockierliste als Regel zum Blockieren hinzufügen</item>
+        <item quantity="other">Auch die %d Nummern auf der System-Blockierliste als Regeln zum Blockieren hinzufügen</item>
+    </plurals>
+    <string name="rules_migrate_numbers_body">Android verwirft Nachrichten von Nummern auf der System-Blockierliste. Sie erreichen uMessage daher nie. Mit uMessage-Regeln können ihre Nachrichten stattdessen unter „Blockiert“ landen, wo du sie lesen und wiederherstellen kannst. Dazu müssen die Nummern aber erst aus der Systemliste entfernt werden.</string>
+    <string name="rules_migrate_remove">Auch aus der System-Blockierliste entfernen</string>
+    <string name="rules_migrate_remove_body">Die Systemliste blockiert auch Anrufe. Nummern, die du daraus entfernst, können dich wieder anrufen. uMessage filtert nur Nachrichten.</string>
+    <plurals name="rules_migrate_numbers_kept">
+        <item quantity="one">%d Eintrag mit Platzhalter kann nicht als Regel übernommen werden und bleibt auf der Systemliste.</item>
+        <item quantity="other">%d Einträge mit Platzhaltern können nicht als Regeln übernommen werden und bleiben auf der Systemliste.</item>
+    </plurals>
+    <string name="rules_migrate_confirm">Übernehmen</string>
+    <plurals name="rules_migrated_keywords">
+        <item quantity="one">%d Wort in Regeln übernommen</item>
+        <item quantity="other">%d Wörter in Regeln übernommen</item>
+    </plurals>
+    <plurals name="rules_migrated_numbers">
+        <item quantity="one">%d Nummer als Regel hinzugefügt</item>
+        <item quantity="other">%d Nummern als Regeln hinzugefügt</item>
+    </plurals>
+    <plurals name="rules_migrated_removed">
+        <item quantity="one">%d aus der System-Blockierliste entfernt</item>
+        <item quantity="other">%d aus der System-Blockierliste entfernt</item>
+    </plurals>
+    <plurals name="rules_migrated_kept">
+        <item quantity="one">%d Eintrag bleibt auf den älteren Listen</item>
+        <item quantity="other">%d Einträge bleiben auf den älteren Listen</item>
+    </plurals>
+    <string name="rules_migrated_nothing">Es wurde nichts übernommen.</string>
+    <string name="settings_system_block_list_body_calls">Blockiert Anrufe und Nachrichten auf dem gesamten Telefon. Android verwirft diese Nachrichten, bevor sie uMessage erreichen. Du kannst die Nummern nach „Erlaubt und blockiert“ übernehmen.</string>
+    <string name="settings_old_blocked_words">Alte Liste blockierter Wörter</string>
+    <string name="settings_old_blocked_words_body">Wird nach „Erlaubt und blockiert“ übernommen</string>
+</resources>

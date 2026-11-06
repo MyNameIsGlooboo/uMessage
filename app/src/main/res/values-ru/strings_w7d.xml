@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="w7d_banner_stopped" tools:ignore="ImpliedQuantity">
+        <item quantity="one">На этой неделе заблокировано %1$s сообщение</item>
+        <item quantity="few">На этой неделе заблокировано %1$s сообщения</item>
+        <item quantity="many">На этой неделе заблокировано %1$s сообщений</item>
+        <item quantity="other">На этой неделе заблокировано %1$s сообщения</item>
+    </plurals>
+    <string name="w7d_banner_none">На этой неделе ничего не заблокировано</string>
+    <string name="w7d_fwd_master_switch">Пересылка</string>
+    <string name="w7d_help_menu">Как работает блокировка по словам</string>
+    <string name="w7d_help_title">Как работает блокировка по словам</string>
+    <string name="w7d_help_words_head">Слова</string>
+    <string name="w7d_help_words_body">Блокирует сообщение, если слово встречается в любой его части.</string>
+    <string name="w7d_help_words_example">бесплатный приз</string>
+    <string name="w7d_help_sender_head">Имена отправителей</string>
+    <string name="w7d_help_sender_body">Блокирует сообщения от отправителя с этим именем, например магазина.</string>
+    <string name="w7d_help_sender_example">ПРОМО</string>
+    <string name="w7d_help_number_head">Начало номера</string>
+    <string name="w7d_help_number_body">Блокирует все номера, которые начинаются с этих цифр.</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">Регулярные выражения для опытных пользователей</string>
+    <string name="w7d_help_pattern_body">Одно регулярное выражение может охватывать разные варианты написания. Проверьте его перед сохранением.</string>
+    <string name="w7d_help_pattern_example">(бесплатный|денежный) приз</string>
+    <string name="w7d_help_close">Закрыть</string>
+    <string name="w7d_bank_cards_title">Карточки банковских уведомлений</string>
+    <string name="w7d_bank_cards_summary">Показывает сумму под сообщением от банка</string>
+</resources>

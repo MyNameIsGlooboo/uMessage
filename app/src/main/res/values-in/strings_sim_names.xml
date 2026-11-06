@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">Nama SIM</string>
+    <string name="i34_setting_summary">Beri nama dan nomor untuk setiap SIM</string>
+    <string name="i34_dialog_title">Nama SIM</string>
+    <string name="i34_number_note">Operator sering tidak memberikan nomor ke aplikasi, jadi ketik di sini. Nama dan nomor hanya disimpan di ponsel ini.</string>
+    <string name="i34_sim_heading">SIM %1$d, %2$s</string>
+    <string name="i34_nickname">Nama (misalnya Kantor)</string>
+    <string name="i34_number">Nomor</string>
+</resources>

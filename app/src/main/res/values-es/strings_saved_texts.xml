@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">Texto guardado</string>
+    <string name="n06_sheet_title">Textos guardados</string>
+    <string name="n06_empty_hint">Por ejemplo: tu dirección o número de tarjeta. Toca uno para insertarlo en tu mensaje.</string>
+    <string name="n06_add">Agregar texto guardado</string>
+    <string name="n06_edit">Cambiar texto guardado</string>
+    <string name="n06_title_label">Título (opcional)</string>
+    <string name="n06_text_label">Texto</string>
+    <string name="n06_save">Guardar</string>
+    <string name="n06_delete">Eliminar</string>
+    <string name="n06_private_tip">Se guardan solo en este teléfono, sin cifrar. No guardes contraseñas ni PIN.</string>
+    <string name="n06_save_from_message">Guardar como texto guardado</string>
+    <string name="n06_saved_toast">Guardado</string>
+    <string name="n06_save_full">La lista está llena. Primero elimina un texto.</string>
+    <string name="n06_save_duplicate">Ya está guardado</string>
+</resources>

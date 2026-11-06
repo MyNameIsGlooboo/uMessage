@@ -1,0 +1,89 @@
+# Invented incoming texts for the question engine. Format: EXPECTED|message. NONE means no chip may show.
+# Never add real messages.
+YES_NO|Est-ce que tu es à la maison ?
+YES_NO|Tu peux parler maintenant ?
+YES_NO|Est-ce que c'est ouvert aujourd'hui
+YES_NO|Tu as faim ?
+YES_NO|Tu viens ?
+YES_NO|T'es rentré ?
+YES_NO|Avez-vous bien reçu mon message ?
+YES_NO|As-tu fini le dossier ?
+YES_NO|Tu as vu le message d'Hugo ?
+YES_NO|Tu as bien dormi
+YES_NO|Tu es sûr ?
+YES_NO|Tu peux ?
+YES_NO|Puis-je passer par la porte du fond ?
+YES_NO|Le colis est arrivé, d'accord ?
+YES_NO|Tu travailles aujourd'hui ?
+INVITE|Ça te dit un ciné ce soir ?
+INVITE|On se voit ce week-end ?
+INVITE|T'es dispo demain soir ?
+INVITE|Tu veux venir au resto avec nous ?
+INVITE|Ça vous dit de dîner samedi
+INVITE|Tu es libre ce soir ?
+INVITE|Es-tu libre demain ?
+INVITE|Tu viens boire un verre ?
+WHEN|Quand est-ce qu'on se voit ?
+WHEN|À quelle heure tu arrives ?
+WHEN|Quel jour ça t'arrange ?
+WHEN|Quand est-ce que tu rentres ?
+WHEN|Tu arrives vers quelle heure ?
+WHEN|A quelle heure deja ?
+WHEN|Tu rentres quand ?
+WHEN|C'est quand la réunion ?
+WHERE|Où es-tu ?
+WHERE|Vous êtes où ?
+WHERE|Ou on se retrouve ?
+CHOICE:pizza,sushi|Pizza ou sushi ?
+CHOICE:cafe,the|Café ou thé ?
+CHOICE:samedi,dimanche|Samedi ou dimanche ?
+CHOICE:train,voiture|Train ou voiture ?
+CHOICE:avec,sans oignons|Avec ou sans oignons ?
+CHOICE:mer,montagne|Mer ou montagne ?
+CHOICE:cinema,restaurant|Cinéma ou restaurant ?
+REQUEST|Tu peux m'envoyer l'adresse ?
+REQUEST|Peux-tu me rappeler plus tard ?
+REQUEST|Pourriez-vous m'envoyer le devis ?
+REQUEST|Tu pourrais passer chercher le pain ?
+REQUEST|Tu peux me ramener des clés
+REQUEST|Tu peux m'appeler quand tu arrives ?
+REQUEST|Pouvez-vous me confirmer l'horaire ?
+REQUEST|Envoie-moi la photo, tu peux ?
+NONE|Pourquoi tu n'es pas venu ?
+NONE|Combien ça coûte ?
+NONE|Qui a gagné le match ?
+NONE|C'est quoi ton adresse ?
+NONE|Comment ça va se passer ?
+NONE|Je suis chez moi.
+NONE|J'arrive dans dix minutes
+NONE|Il est arrivé hier soir
+NONE|Tu peux me passer le code 482913 ?
+NONE|Tu peux payer 50 € ?
+NONE|Tu as vu https://exemple.fr/photo ?
+NONE|Quand tu veux ?
+NONE|Tu viens ? Tu restes ?
+NONE|Tu viens ? Ça m'étonnerait
+NONE|Merci pour hier, c'était génial
+NONE|Tu as quel âge ?
+NONE|Tu fais quoi ?
+NONE|Tu vas où ?
+NONE|Tu es qui ?
+NONE|Où ça ?
+NONE|Ça va ?
+NONE|Bonne chance pour demain !
+NONE|Il y a quelqu'un ?
+NONE|Lequel tu préfères ?
+NONE|C'est combien le taxi ?
+NONE|Tu veux quoi pour ton anniversaire ?
+NONE|Il pleut ici
+NONE|Je t'appelle demain matin
+NONE|N'oublie pas ton parapluie
+NONE|Vous avez dit quoi ?
+NONE|Combien de temps tu restes ?
+NONE|Pourquoi pas ?
+NONE|Je voudrais savoir si tu pourrais venir mais je ne sais pas comment te le demander poliment
+NONE|Le film commence à vingt heures ce soir
+NONE|Le nombre d'invités n'est pas encore connu ?
+NONE|Quelle est la couleur de sa voiture ?
+NONE|Comment tu t'appelles ?
+NONE|Lequel est le plus grand ?

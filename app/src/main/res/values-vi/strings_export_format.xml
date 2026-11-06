@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_format_json">Tệp uMessage (văn bản và hình ảnh)</string>
+    <string name="export_format_xml">Tệp SMS Backup &amp; Restore (cho ứng dụng khác)</string>
+    <string name="export_format_xml_hint">uMessage chỉ khôi phục phần văn bản từ loại tệp này.</string>
+    <string name="export_scope_all">Tất cả cuộc trò chuyện</string>
+    <string name="export_scope_choose">Chọn cuộc trò chuyện</string>
+    <plurals name="export_scope_chosen">
+        <item quantity="other">Đã chọn %1$d cuộc trò chuyện</item>
+    </plurals>
+    <string name="export_pick_title">Chọn cuộc trò chuyện</string>
+    <string name="export_pick_search">Tìm kiếm</string>
+    <string name="export_pick_all">Chọn tất cả</string>
+    <string name="export_pick_none">Bỏ chọn</string>
+    <string name="export_pick_empty">Không có cuộc trò chuyện nào</string>
+    <string name="export_pick_nothing_chosen">Chọn ít nhất một cuộc trò chuyện</string>
+</resources>

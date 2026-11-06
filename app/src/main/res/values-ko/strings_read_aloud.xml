@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">읽어주기</string>
+    <string name="read_aloud_stop">읽기 중지</string>
+    <string name="read_aloud_no_voice">이 휴대전화에 설치된 음성이 없어요. 언어: %1$s</string>
+    <string name="read_aloud_install">음성 설치</string>
+    <string name="read_aloud_install_missing">이 휴대전화에서는 음성을 설치할 수 없어요.</string>
+    <string name="read_aloud_failed">메시지를 소리 내어 읽지 못했어요.</string>
+</resources>

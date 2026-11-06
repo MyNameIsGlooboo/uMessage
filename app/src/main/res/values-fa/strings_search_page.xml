@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">شروع گفتگو</string>
+    <string name="search_page_show_more">نمایش بیشتر</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">گفتگویی روی این سیم‌کارت نیست</string>
+    <string name="search_page_sim_empty_body">گفتگوهایی که روی این سیم‌کارت پیامی در آن‌ها فرستاده یا دریافت شده است اینجا نشان داده می‌شوند.</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">เหตุผล</string>
+    <string name="thread_r2_details_rule">กฎ</string>
+    <string name="thread_r2_details_forwarded">ส่งต่อแล้ว</string>
+    <string name="thread_r2_details_decision_restored">บล็อกแล้ว จากนั้นกู้คืนไปยังกล่องข้อความเข้า</string>
+    <string name="thread_r2_details_copy">คัดลอก %1$s</string>
+    <string name="thread_r2_menu_search">ค้นหาในการสนทนา</string>
+    <string name="thread_r2_menu_always_forward">ส่งต่อจากผู้ส่งนี้เสมอ</string>
+    <string name="thread_r2_block_hint">ข้อความใหม่จะไปที่ “ที่บล็อก” ไม่มีข้อมูลออกจากโทรศัพท์</string>
+    <string name="thread_r2_forward_message">ส่งต่อข้อความนี้</string>
+    <string name="thread_r2_search_hint">ค้นหาในการสนทนา</string>
+    <string name="thread_r2_search_close">ปิดการค้นหา</string>
+    <string name="thread_r2_search_none">ไม่พบผลลัพธ์</string>
+    <string name="thread_r2_search_count">%1$d จาก %2$d</string>
+    <string name="thread_r2_search_older">ผลลัพธ์ที่เก่ากว่า</string>
+    <string name="thread_r2_search_newer">ผลลัพธ์ที่ใหม่กว่า</string>
+    <string name="thread_r2_link_copy">คัดลอกลิงก์</string>
+    <string name="thread_r2_link_share">แชร์</string>
+    <string name="thread_r2_schedule_pick_date">เลือกวันที่</string>
+    <string name="thread_r2_calendar_previous">เดือนก่อน</string>
+    <string name="thread_r2_calendar_next">เดือนถัดไป</string>
+</resources>

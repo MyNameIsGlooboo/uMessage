@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">Bisukan</string>
+    <string name="unmute_menu">Bunyikan</string>
+    <string name="mute_title">Bisukan notifikasi</string>
+    <string name="mute_1_hour">Selama 1 jam</string>
+    <string name="mute_8_hours">Selama 8 jam</string>
+    <string name="mute_1_week">Selama 1 minggu</string>
+    <string name="mute_always">Selalu</string>
+    <string name="mute_off">Nonaktif</string>
+    <string name="mute_until">Hingga %1$s</string>
+    <string name="mute_channel">Percakapan yang dibisukan</string>
+</resources>

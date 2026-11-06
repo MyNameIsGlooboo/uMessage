@@ -1,0 +1,8 @@
+- Bengali (Bangla), modern spoken-standard style ("চলিত"), short, natural and polite, like Google Messages and Bengali Android apps. Never the old literary "সাধু" style.
+- Address the user with the polite "আপনি": polite imperatives ("নির্বাচন করুন", "চালু করুন", "ট্যাপ করুন") and the possessive "আপনার". Never "তুমি" or "তুই".
+- Use normal Unicode Bengali script with correct conjuncts and vowel signs; never add spaces or zero-width characters inside words.
+- Use Western digits (0-9) in text, never Bengali digits. The full stop "।" ends a sentence; no full stop at the end of buttons, titles and one-line hints.
+- Quotes: “ ”. Keep the brand name uMessage in Latin; keep "SMS", "MMS", "SIM" and "PIN" in Latin.
+- Plural ids: one (0 and 1), other (all other numbers). Keep the number token in both; use the classifier "টি" only where it is natural.
+- Use "বার্তা" for message, "প্রেরক" for sender, "স্প্যাম" for spam (one term everywhere), "ব্লক" for block.
+- Bengali takes more characters than English: choose short words for buttons and chips.

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3fwd_title">转发</string>
+    <string name="r3fwd_options">转发选项</string>
+    <string name="r3fwd_summary_none">已关闭·将消息转发至其他号码</string>
+    <string name="r3fwd_summary_off">已关闭</string>
+    <string name="r3fwd_summary_paused">已暂停</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="other">已启用%d条规则</item>
+    </plurals>
+    <string name="r3fwd_paused_title">转发已暂停</string>
+    <string name="r3fwd_paused_body">规则已保存，重新开启转发后才会继续转发消息。</string>
+    <string name="r3fwd_paused_action">打开选项</string>
+</resources>

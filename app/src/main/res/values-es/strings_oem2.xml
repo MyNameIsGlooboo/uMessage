@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">Vivo o iQOO</string>
+    <string name="oem2_step_vivo">Permitir inicio automático y uso en segundo plano</string>
+    <string name="oem2_step_vivo_desc">Activa el inicio automático de uMessage y, en su configuración de batería, permite un consumo alto de energía en segundo plano.</string>
+    <string name="oem2_xiaomi_autostart_desc">Activa el inicio automático de uMessage para que se inicie después de reiniciar el teléfono. Si se abre la información de la aplicación, usa el interruptor de inicio automático.</string>
+    <string name="oem2_xiaomi_battery_desc">Elige Sin restricciones para uMessage. Si se abre una lista de aplicaciones, toca uMessage primero.</string>
+    <string name="oem2_oppo_desc">Activa Permitir inicio automático y Permitir actividad en segundo plano para uMessage. En los teléfonos más recientes, están en Información de la aplicación, Uso de batería.</string>
+    <string name="oem2_ignore_battery_desc">Elige Sin restricciones o No optimizar para uMessage. Si se abre una lista, cambia primero a Todas las aplicaciones.</string>
+    <string name="oem2_state_done">Listo</string>
+    <string name="oem2_state_marked">Lo marcaste como listo</string>
+    <string name="oem2_state_todo">Aún no está listo</string>
+    <string name="oem2_state_limited">Android aún limita uMessage en segundo plano</string>
+    <string name="oem2_open_again">Abrir de nuevo</string>
+    <string name="oem2_undo">Deshacer</string>
+    <string name="oem2_undo_cd">Marcar %1$s como pendiente</string>
+</resources>

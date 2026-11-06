@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">স্লেট</string>
+    <string name="preset_slate_desc">শান্ত নীলচে ধূসর</string>
+    <string name="preset_firouzeh">ফিরোজা</string>
+    <string name="preset_firouzeh_desc">সোনালির ছোঁয়ায় ফিরোজা</string>
+    <string name="preset_pomegranate">ডালিম</string>
+    <string name="preset_pomegranate_desc">গাঢ় সবুজের সঙ্গে উষ্ণ লাল</string>
+    <string name="preset_harbor">বন্দর</string>
+    <string name="preset_harbor_desc">হালকা প্রবাল রঙের সঙ্গে রাতের নীল</string>
+    <string name="preset_lavender">ল্যাভেন্ডার</string>
+    <string name="preset_lavender_desc">নীলচে সবুজের সঙ্গে কোমল বেগুনি</string>
+    <string name="preset_ink">কালি</string>
+    <string name="preset_ink_desc">রুপালি ও সোনালির সঙ্গে প্রায় কালো</string>
+    <string name="preset_contrast">কনট্রাস্ট</string>
+    <string name="preset_contrast_desc">উজ্জ্বল রঙের ছোঁয়ায় সাদা-কালো</string>
+</resources>

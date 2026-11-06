@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_title">uMessageはロックされています</string>
+    <string name="lock_enter_pin">PINを入力してください。</string>
+    <string name="lock_draw_pattern">パターンを描いてください。</string>
+    <string name="lock_use_biometrics">uMessageを開くには本人確認が必要です。</string>
+    <string name="lock_wrong_pin">PINが違います。もう一度お試しください。</string>
+    <string name="lock_wrong_pattern">パターンが違います。もう一度お試しください。</string>
+    <string name="lock_too_many">試行回数の上限に達しました。</string>
+    <string name="lock_try_again_in">%s後にもう一度お試しください。</string>
+    <string name="lock_key_delete">削除</string>
+    <string name="lock_key_confirm">確認</string>
+    <plurals name="lock_digits_entered">
+        <item quantity="other">%d桁入力済み</item>
+    </plurals>
+    <string name="lock_no_digits">数字は未入力です。</string>
+    <string name="lock_pattern_pad">パターン入力欄、縦3列・横3列の点</string>
+    <string name="lock_pattern_dot">%1$d行%2$d列の点</string>
+    <string name="lock_pattern_dot_selected">%1$d行%2$d列の点、パターンの%3$d番目</string>
+    <string name="lock_pattern_done">完了</string>
+    <string name="lock_pattern_clear">クリア</string>
+    <plurals name="lock_pattern_dots_selected">
+        <item quantity="other">%d個の点を選択済み</item>
+    </plurals>
+    <string name="lock_use_pin_instead">PINを使う</string>
+    <string name="lock_use_biometrics_instead">生体認証を使う</string>
+    <string name="lock_use_screen_lock">画面ロックを使う</string>
+    <string name="lock_biometrics_unavailable">生体認証を利用できません。PINを入力してください。</string>
+    <string name="lock_screen_lock_title">uMessageを開く</string>
+    <string name="lock_screen_lock_description">uMessageを開くにはスマートフォンの画面ロックで認証してください。</string>
+    <string name="lock_no_way_to_check">このスマートフォンの指紋認証と画面ロックが解除されたため、uMessageで本人確認ができません。アプリを開き、設定でPINを設定してください。</string>
+    <string name="lock_open_anyway">uMessageを開く</string>
+    <string name="lock_forgot">お忘れですか？画面ロックを使う</string>
+    <plurals name="lock_tries_left">
+        <item quantity="other">あと%d回間違えると、しばらく操作できなくなります。</item>
+    </plurals>
+    <string name="lock_setup_done">アプリロックがオンになりました。PINやパターンを忘れた場合は、ロック画面で「お忘れですか？」をタップし、スマートフォンの画面ロックで認証してください。</string>
+    <string name="lock_setup_done_biometric">アプリロックがオンになりました。生体認証が使えなくなった場合は、予備のPINを使ってください。PINも忘れた場合は、「お忘れですか？」をタップし、スマートフォンの画面ロックで認証してください。</string>
+    <string name="lock_setup_done_no_screen_lock">アプリロックがオンになりました。このスマートフォンには画面ロックがないため、PINやパターンを忘れると他の方法では開けません。その場合は、スマートフォンのアプリ設定でuMessageのデータを消去する必要があります。設定、迷惑メッセージのリスト、迷惑メッセージの履歴は削除されます（メッセージはスマートフォンに残ります）。再び開けるように、スマートフォンに画面ロックを設定してください。</string>
+    <string name="settings_app_lock_timeout">アプリを離れてからロックするまで</string>
+    <string name="settings_app_lock_timeout_immediately">すぐに</string>
+    <string name="settings_app_lock_timeout_30s">30秒後</string>
+    <string name="settings_app_lock_timeout_1m">1分後</string>
+    <string name="settings_app_lock_timeout_5m">5分後</string>
+    <string name="settings_app_lock_screenshots">スクリーンショットをブロック</string>
+    <string name="settings_app_lock_screenshots_body">スクリーンショットと画面録画を防ぎます。最近使ったアプリでは、メッセージは常に非表示になります。</string>
+    <string name="settings_app_lock_screenshots_body_old">スクリーンショットと画面録画を防ぎます。このバージョンのAndroidでは、最近使ったアプリでメッセージを非表示にする唯一の方法でもあります。</string>
+    <string name="settings_app_lock_change">PIN・パターン・生体認証を変更</string>
+    <string name="settings_app_lock_weak">PINまたはパターンが推測されやすい状態です。</string>
+    <string name="settings_app_lock_weak_body">PINが単純すぎます。タップして変更できます。</string>
+    <string name="settings_app_lock_add_pin">予備のPINを追加</string>
+    <string name="settings_app_lock_add_pin_body">予備の認証方法としてPINを追加します。</string>
+    <string name="settings_app_lock_now">今すぐロック</string>
+    <string name="settings_app_lock_now_body">uMessageをすぐにロックします。</string>
+    <string name="settings_app_lock_changed">アプリロックを変更しました。</string>
+    <string name="dialogs_lock_backup_pin">まず予備のPINを設定してください。生体認証が使えなくなった場合に使用します。</string>
+</resources>

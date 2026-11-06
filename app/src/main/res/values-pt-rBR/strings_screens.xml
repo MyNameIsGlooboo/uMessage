@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="screens_back">Volte</string>
+    <string name="screens_ok">OK</string>
+    <string name="screens_cancel">Cancele</string>
+    <string name="screens_delete">Exclua</string>
+    <string name="screens_clear_selection">Limpe a seleção</string>
+    <plurals name="screens_selected_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d selecionado</item>
+        <item quantity="other">%d selecionados</item>
+    </plurals>
+    <string name="screens_loading">Carregando…</string>
+    <string name="screens_more_options">Mais opções</string>
+    <string name="screens_select_all">Selecione tudo</string>
+    <string name="screens_copy">Copie</string>
+    <string name="screens_grant_permission">Permita o acesso</string>
+    <string name="screens_delete_forever_title">Deseja excluir para sempre?</string>
+    <string name="screens_delete_conversations_message">Deseja excluir %1$s permanentemente? Não é possível desfazer.</string>
+    <string name="screens_restore_title">Deseja restaurar?</string>
+    <string name="screens_empty_archive_title">Deseja esvaziar o arquivo?</string>
+    <string name="screens_empty_bin_title">Deseja esvaziar a lixeira?</string>
+    <string name="screens_empty_action">Esvazie</string>
+    <string name="screens_archive_empty_title">Nada arquivado</string>
+    <string name="screens_bin_empty_title">A lixeira está vazia</string>
+    <string name="screens_bin_empty_body">As mensagens excluídas ficam aqui até a lixeira ser esvaziada.</string>
+    <string name="screens_new_to_hint">Para</string>
+    <string name="screens_new_start">Inicie uma conversa com %1$s</string>
+    <string name="screens_new_clear_input">Limpe</string>
+    <string name="screens_new_no_matches">Nenhum contato encontrado. Toque na seta para enviar uma mensagem ao número digitado.</string>
+    <string name="screens_new_contacts">Contatos</string>
+    <string name="screens_new_create_group">Crie um grupo</string>
+    <string name="screens_new_group_title">Novo grupo</string>
+    <string name="screens_new_group_next">Avance</string>
+    <string name="screens_new_group_add">Adicione %1$s</string>
+    <string name="screens_new_group_remove">Remova %1$s</string>
+    <string name="screens_new_group_selected">Selecionado</string>
+    <string name="screens_details_edit_name">Edite o nome da conversa</string>
+    <string name="screens_keywords_add">Adicione uma palavra-chave</string>
+    <string name="screens_keywords_menu_export">Exporte</string>
+    <string name="screens_keywords_menu_import">Importe</string>
+    <string name="screens_keywords_edit">Edite</string>
+    <string name="screens_keywords_duplicate">Esta palavra-chave já está na lista</string>
+    <string name="screens_keywords_help">Encontra o texto em qualquer parte da mensagem, até dentro de uma palavra maior. Não diferencia maiúsculas de minúsculas.</string>
+    <string name="screens_keywords_empty_title">Nenhuma palavra-chave bloqueada</string>
+    <plurals name="screens_keywords_deleted" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d palavra-chave excluída</item>
+        <item quantity="other">%d palavras-chave excluídas</item>
+    </plurals>
+    <string name="screens_vcard_title">Contato</string>
+    <string name="screens_vcard_add_contact">Adicione aos contatos</string>
+    <string name="screens_vcard_expand">Mostre os detalhes</string>
+    <string name="screens_vcard_collapse">Oculte os detalhes</string>
+    <string name="screens_vcard_empty">Nenhum contato encontrado neste arquivo</string>
+    <string name="screens_dialog_filename">Nome do arquivo</string>
+    <string name="screens_schedule_date">Data</string>
+    <string name="screens_schedule_time">Hora</string>
+    <string name="screens_schedule_pick_time">Escolha a hora</string>
+    <string name="screens_schedule_next">Avance</string>
+    <string name="screens_delete_skip_bin">Exclua diretamente, sem passar pela lixeira</string>
+    <string name="screens_select_text_title">Selecione o texto</string>
+</resources>

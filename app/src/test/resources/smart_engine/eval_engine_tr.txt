@@ -1,0 +1,115 @@
+# Invented incoming texts. Format: EXPECTED|message. NONE means no chip may show.
+# KNOWN GAPS (not asserted, the data cannot express them, the engine needs a rule): a choice written with two
+# question particles ("Çay mı kahve mi?") and an acknowledgement with a particle ("Öyle mi?", "Gerçekten mi?").
+YES_NO|Eve geldin mi?
+YES_NO|Yemek yedin mi?
+YES_NO|Hazır mısın?
+YES_NO|Uyudun mu?
+YES_NO|Orada mısın?
+YES_NO|Var mı?
+YES_NO|Olur mu?
+YES_NO|Biliyor musun
+YES_NO|Bugün okula gidiyor musun?
+YES_NO|Yarın geliyor musun?
+YES_NO|Toplantı beşte, tamam mı?
+YES_NO|Bu doğru mu?
+YES_NO|Kapıyı kilitledin mi?
+YES_NO|Siz geliyor musunuz?
+YES_NO|Paketi aldınız mı?
+YES_NO|Fatura geldi mi?
+YES_NO|Arabayı yıkadın mı??
+YES_NO|Bunu biliyor muydun?
+YES_NO|Sen gelecek misin
+YES_NO|yarin geliyormusun?
+WHEN|Ne zaman gelirsin?
+WHEN|Saat kaçta buluşalım?
+WHEN|Kaçta çıkıyorsun?
+WHEN|Ne zaman müsaitsin?
+WHEN|Ne zaman gidiyoruz?
+WHEN|Hangi gün uygun?
+WHEN|Saat kaç gibi geliyorsun?
+WHEN|ne zaman varirsin?
+WHEN|Kaçta?
+WHEN|Ne zaman döneceksin?
+WHEN|Ne zaman görüşürüz?
+WHERE|Nerede buluşalım?
+WHERE|Nereye gidelim?
+WHERE|Nerede yiyelim?
+WHERE|Nereye geleyim?
+WHERE|Nerede bekleyeyim?
+WHERE|Hangi kafede buluşuyoruz?
+WHERE|Nerede oturalım?
+WHERE|nerede bulusuyoruz?
+CHOICE:çay,kahve|Çay veya kahve?
+CHOICE:bugün,yarın|Bugün ya da yarın?
+CHOICE:otobüs,metro|Otobüs yoksa metro?
+CHOICE:deniz,dağ|Deniz veya dağ?
+CHOICE:kırmızı,mavi|Kırmızı ya da mavi?
+CHOICE:pizza,makarna|Pizza veya makarna?
+CHOICE:arayayım,yazayım|Arayayım yoksa yazayım?
+CHOICE:yürüyerek,arabayla|Yürüyerek ya da arabayla?
+REQUEST|Adresi gönderir misin?
+REQUEST|Beni geri arayabilir misin?
+REQUEST|Biraz ekmek getirir misin?
+REQUEST|Dosyayı atar mısın?
+REQUEST|Rica etsem kapıyı açar mısınız?
+REQUEST|Fotoğrafı yollayabilir misin?
+REQUEST|Bana haber verirsen olur mu?
+REQUEST|Lütfen bekler misiniz?
+REQUEST|Şunu kontrol edebilir misin?
+REQUEST|Zahmet olmazsa biraz bekleyebilir misiniz?
+REQUEST|Marketten süt alır mısın?
+REQUEST|Bir şey rica edebilir miyim?
+INVITE|Sinemaya gidelim mi?
+INVITE|Kahve içelim mi?
+INVITE|Bu akşam müsait misin?
+INVITE|Yarın boş musun?
+INVITE|Bize gelir misin?
+INVITE|Yemeğe çıkalım mı?
+INVITE|Bizimle gelmek ister misin?
+INVITE|Yürüyüşe çıkalım mı?
+INVITE|Hadi gidelim?
+INVITE|Bize gelsene?
+INVITE|Cuma günü vaktin var mı?
+INVITE|Pizza yiyelim mi?
+# negatives: statements
+NONE|Yarın geliyorum
+NONE|Akşam görüşürüz
+NONE|Toplantı cumaya kaldı
+NONE|Bu akşam çok yorgunum
+NONE|Eve geç döneceğim
+NONE|Market kapalıydı
+NONE|Nerede olduğunu bilmiyorum
+NONE|Ne zaman geleceğini söyle
+NONE|Haber verirsen sevinirim
+NONE|Çok güzel bir gündü
+# negatives: questions the engine must not answer
+NONE|Neden gelmedin?
+NONE|Bu ne kadar?
+NONE|Kim arıyor?
+NONE|Bu nedir?
+NONE|Hangisini alayım?
+NONE|Nasıl gidiyoruz?
+NONE|Ne yapıyorsun?
+NONE|Saat kaç?
+NONE|Ne zaman başladı?
+NONE|Dün gece nerede kaldın?
+NONE|Kimin anahtarı bu?
+NONE|Kaç kişiyiz?
+NONE|Bu ne demek?
+NONE|Ne yedin?
+NONE|Hangi otobüs gidiyor?
+NONE|Neden olmasın?
+NONE|Nereden aldın?
+NONE|Şarj aleti nerede?
+NONE|Kaç para?
+NONE|Ne oldu?
+NONE|Nasıl yani?
+NONE|Bunu kim yaptı?
+# negatives: gates
+NONE|Geldin mi? Aradım seni
+NONE|Kaçta geliyorsun? Nerede buluşuyoruz?
+NONE|Şuna bak www.ornek.com müsait misin?
+NONE|Doğrulama kodun 482915, geldi mi?
+NONE|500 lira gönderir misin?
+NONE|Yarın sabah arabayla gelip bizi alır mısın çünkü hepimiz hazırız ve çok geç kaldık

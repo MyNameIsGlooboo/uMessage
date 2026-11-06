@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">अनजान</string>
+    <string name="i28_filter_unknown_empty_title">कोई अनजान भेजने वाला नहीं है</string>
+    <string name="i28_filter_unknown_empty_body">उन लोगों से बातचीत यहां दिखेगी जो आपके संपर्कों में नहीं हैं और जिन्हें आपने कभी मैसेज नहीं भेजा.</string>
+    <string name="i28_filter_images">फ़ोटो</string>
+    <string name="i28_filter_images_empty_title">कोई फ़ोटो नहीं</string>
+    <string name="i28_filter_images_empty_body">फ़ोटो वाले मैसेज यहां दिखेंगे.</string>
+    <string name="i28_filter_links">लिंक</string>
+    <string name="i28_filter_links_empty_title">कोई लिंक नहीं</string>
+    <string name="i28_filter_links_empty_body">वेब लिंक वाले मैसेज यहां दिखेंगे.</string>
+    <string name="i28_hit_picture">फ़ोटो</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">Che mã trong tin nhắn chuyển tiếp</string>
+    <string name="w3d_mask_codes_body">Mã được chuyển tiếp hiển thị thành ****</string>
+    <string name="w3d_mask_keep_last">Giữ hai chữ số cuối</string>
+    <string name="w3d_mask_keep_last_on">Tin nhắn chuyển tiếp hiển thị mã như **34.</string>
+    <string name="w3d_mask_keep_last_off">Tin nhắn chuyển tiếp ẩn toàn bộ mã.</string>
+    <string name="w3d_daily_limit">Giới hạn chuyển tiếp mỗi ngày</string>
+    <string name="w3d_daily_limit_body">Số lượt chuyển tiếp tối đa mỗi ngày</string>
+    <string name="w3d_hide_lock_codes">Ẩn mã trên màn hình khóa</string>
+    <string name="w3d_hide_lock_codes_body">Tin nhắn có mã hiển thị •••• trên màn hình khóa cho đến khi bạn mở khóa.</string>
+</resources>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="rules2_tab_allowed">Toujours autoriser</string>
+    <string name="rules2_tab_blocked">Toujours bloquer</string>
+    <string name="rules2_menu_import">Importer des règles depuis un fichier</string>
+    <string name="rules2_menu_export">Exporter les règles dans un fichier</string>
+    <string name="rules2_menu_system">Liste de blocage Android</string>
+    <string name="rules2_import_scope">Un fichier de règles contient uniquement des règles d\'autorisation et de blocage. Il ne contient aucun message ni aucune règle de transfert.</string>
+    <string name="rules2_meta">%1$s · %2$s</string>
+    <string name="rules2_empty_allowed_title">Aucun expéditeur toujours autorisé</string>
+    <string name="rules2_empty_allowed_body">Ajoutez un numéro, un nom d\'expéditeur ou un mot dont les messages doivent toujours arriver dans votre boîte de réception. Appuyez sur Ajouter une règle ci-dessous.</string>
+    <string name="rules2_empty_blocked_title">Aucun expéditeur toujours bloqué</string>
+    <string name="rules2_empty_blocked_body">Ajoutez un numéro, un nom d\'expéditeur, un mot ou une expression régulière pour envoyer les messages correspondants dans Messages bloqués. Appuyez sur Ajouter une règle ci-dessous.</string>
+    <string name="rules2_legacy_banner_title">Anciennes listes de blocage détectées</string>
+    <string name="rules2_legacy_banner_body">Convertissez-les en règles pour voir et restaurer les messages qu\'elles bloquent.</string>
+    <string name="rules2_legacy_review">Examiner</string>
+    <string name="rules2_system_header">Liste de blocage Android (bloque aussi les appels)</string>
+    <string name="rules2_system_body">Android supprime les SMS de ces numéros avant que uMessage les reçoive. Ils n\'apparaissent donc jamais dans Messages bloqués et ne peuvent pas être restaurés.</string>
+    <string name="rules2_system_manage">Gérer</string>
+    <string name="rules2_system_move">Convertir en règles uMessage</string>
+    <string name="rules2_migrate_title">Convertir en règles uMessage</string>
+    <string name="rules2_migrate_point_blocked">Les SMS arrivent alors dans Messages bloqués, où vous pouvez les restaurer.</string>
+    <string name="rules2_migrate_remove_needs_first">Cochez d\'abord l\'option ci-dessus.</string>
+    <string name="rules2_migrate_nothing_selected">Aucune sélection</string>
+    <plurals name="rules2_migrate_confirm_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Déplacer %d élément</item>
+        <item quantity="other">Déplacer %d éléments</item>
+    </plurals>
+    <string name="rules2_sheet_list_label">Ajouter à la liste</string>
+    <string name="rules2_sheet_list_allow">Toujours autoriser</string>
+    <string name="rules2_sheet_list_block">Toujours bloquer</string>
+    <string name="rules2_sheet_delete">Supprimer la règle</string>
+    <string name="rules2_sheet_hint_empty">Saisissez une valeur pour continuer</string>
+    <string name="rules2_sheet_hint_fix">Corrigez la valeur ci-dessus pour continuer</string>
+    <string name="rules2_sheet_sim_help">Les règles propres à une SIM s\'appliquent uniquement aux messages reçus sur cette SIM.</string>
+    <string name="rules2_type_number_help">Un numéro de téléphone exact, par exemple +15550001234 ou 05550001234. Les numéros courts comme 3000 fonctionnent aussi. Les chiffres persans sont acceptés.</string>
+    <string name="rules2_type_number_hint">+15550001234</string>
+    <string name="rules2_type_prefix_help">Tous les numéros commençant par ces chiffres, par exemple +1555 ou 0555.</string>
+    <string name="rules2_type_prefix_hint">+1555</string>
+    <string name="rules2_type_sender_id_help">Un nom d\'expéditeur comme VM-HDFCBK ou Bank Melli. Les majuscules et minuscules sont équivalentes.</string>
+    <string name="rules2_type_regex_help">Avancé. Une expression régulière appliquée au texte du message. Testez-la ci-dessous avant d\'enregistrer.</string>
+    <string name="rules2_err_sender_id">Utilisez des lettres, chiffres, espaces, points, tirets ou &amp; (32 caractères maximum, dont au moins une lettre)</string>
+    <string name="rules2_err_sender_id_char">« %1$s » n\'est pas autorisé dans un nom d\'expéditeur. Utilisez des lettres, chiffres, espaces, points, tirets ou &amp;.</string>
+    <string name="rules2_test_label">Tester sur un exemple de message</string>
+    <string name="rules2_test_hint">Collez ou saisissez un message pour tester cette règle</string>
+    <string name="rules2_test_match">Cette règle s\'appliquerait à ce message</string>
+    <string name="rules2_test_no_match">Cette règle ne s\'appliquerait pas à ce message</string>
+    <string name="rules2_test_unusable">Cette expression régulière ne peut pas être testée. Vérifiez-la ci-dessus.</string>
+    <string name="rules2_bn_title">Liste de blocage Android</string>
+    <string name="rules2_bn_info">Enregistrée dans Android. Bloque les appels et les SMS de ces numéros. Les règles uMessage sont distinctes.</string>
+    <plurals name="rules2_bn_move" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Convertir %1$d numéro en règle</item>
+        <item quantity="other">Convertir %1$d numéros en règles</item>
+    </plurals>
+    <string name="forward2_intro_reassure">Seuls les messages qui arrivent dans votre boîte de réception sont transférés. Le spam bloqué ne l\'est jamais.</string>
+    <string name="forward2_empty_title">Aucune règle de transfert pour le moment</string>
+    <string name="forward2_empty_body">Envoyez une copie des messages correspondants, comme les alertes bancaires, vers un autre téléphone. Commencez par l\'un de ces modèles.</string>
+    <string name="forward2_template_bank">Transférer les alertes bancaires</string>
+    <string name="forward2_template_bank_word">banque</string>
+    <string name="forward2_template_sender">Transférer les messages d\'un expéditeur</string>
+    <string name="forward2_save">Enregistrer la règle de transfert</string>
+    <string name="forward2_hint_condition">Choisissez un expéditeur ou un texte à rechercher</string>
+    <string name="forward2_hint_target">Ajoutez un numéro destinataire du transfert</string>
+    <string name="forward2_hint_fix">Corrigez les champs en rouge</string>
+    <string name="forward2_condition_why">Transférer tous les messages n\'est pas autorisé : chaque transfert coûte un SMS.</string>
+    <string name="forward2_broad_title">Transférer beaucoup de messages ?</string>
+    <string name="forward2_broad_message">Cette règle s\'applique à un très grand nombre de messages, sans restriction d\'expéditeur. Chaque message correspondant est transféré sous forme de SMS payant.</string>
+    <string name="forward2_broad_confirm">Enregistrer quand même</string>
+    <string name="forward2_broad_inline">Ce texte est très courant et tous les expéditeurs sont concernés. Cela peut transférer de nombreux messages et coûter cher.</string>
+    <string name="forward2_target_own">C\'est l\'un de vos propres numéros. Un transfert vers vous-même créerait une boucle.</string>
+    <string name="forward2_target_sender">C\'est l\'expéditeur ciblé par cette règle. Un transfert vers ce numéro créerait une boucle.</string>
+    <string name="forward2_target_ok">Numéro valide</string>
+    <string name="forward2_pick_contact">Choisir dans les contacts</string>
+    <plurals name="forward2_cost_estimate" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d numéro : au moins 1 SMS par message transféré.</item>
+        <item quantity="other">%1$d numéros : au moins %1$d SMS par message transféré.</item>
+    </plurals>
+    <string name="forward2_window_help">Exemple : de 22:00 à 06:00 pour transférer les messages la nuit.</string>
+    <string name="forward2_window_summary">Transfert tous les jours de %1$s à %2$s</string>
+    <string name="forward2_window_summary_night">Transfert toutes les nuits de %1$s à %2$s</string>
+    <string name="forward2_scope_help">La SIM sur laquelle le message doit être reçu.</string>
+    <string name="forward2_send_help">« Même SIM » utilise la SIM qui a reçu le message pour le transférer. Une SIM sans crédit ne peut rien envoyer.</string>
+    <string name="forward2_codes_title">Transférer les codes de validation (OTP)</string>
+    <string name="forward2_codes_off">Désactivé : les codes de connexion et de validation ne sont jamais transférés.</string>
+    <string name="forward2_codes_on">Activé : les codes sont aussi transférés. Utilisez cette option uniquement pour vos propres appareils, car un code donne accès à un compte.</string>
+</resources>

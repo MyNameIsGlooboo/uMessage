@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_review_details_decision">Решение</string>
+    <string name="thread_review_details_decision_allowed">Разрешено: доставлено во входящие</string>
+    <string name="thread_review_details_type">Тип</string>
+    <string name="thread_review_details_type_sms">SMS</string>
+    <string name="thread_review_details_type_mms">MMS</string>
+    <string name="thread_review_sim_slot_name">SIM-карта %1$d · %2$s</string>
+    <string name="thread_review_copy_code">Копировать код</string>
+    <string name="thread_review_copy_password">Копировать пароль</string>
+    <string name="thread_review_copy_username">Копировать имя пользователя</string>
+    <string name="thread_review_sim_label">SIM-карта %1$s</string>
+    <string name="thread_review_sends_from">Отправка с %1$s</string>
+    <string name="thread_review_reply_disabled">Этот отправитель не принимает ответы</string>
+    <string name="thread_review_attach_camera">Камера</string>
+    <string name="thread_review_attach_voice">Голос</string>
+    <string name="thread_review_schedule_in_hour">Через 1 час</string>
+    <string name="thread_review_schedule_evening">Сегодня вечером</string>
+    <string name="thread_review_schedule_tomorrow">Завтра в 9:00</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">स्टार लगाएं</string>
+    <string name="i13_unstar">स्टार हटाएं</string>
+    <string name="i13_starred_mark">स्टार लगाया गया</string>
+    <string name="i13_filter_starred">स्टार वाले</string>
+    <string name="i13_filter_starred_empty_title">कोई स्टार वाला मैसेज नहीं</string>
+    <string name="i13_filter_starred_empty_body">चैट में कोई मैसेज चुनें और उसे यहां रखने के लिए स्टार पर टैप करें.</string>
+    <string name="i13_starred_note">स्टार लगाने से टेक्स्ट की एक कॉपी रहती है, भले ही चैट मिटा दी जाए. स्टार हटाने से यह कॉपी हट जाती है.</string>
+    <string name="i13_snapshot_gone">यह चैट मिटा दी गई है. सिर्फ़ सेव किया गया टेक्स्ट बचा है.</string>
+    <string name="i13_snapshot_close">बंद करें</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i65_setting_title">チャット内の効果音</string>
+    <string name="i65_setting_summary">メッセージの送受信時に短い音が鳴ります。</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">অন্য দেশ</string>
+    <string name="region_title">অন্য দেশের নম্বরের বার্তা আটকে রাখুন</string>
+    <string name="region_summary">পরিচিতি ও আপনি যাঁদের বার্তা পাঠিয়েছেন, তাঁদের বার্তা আটকানো হয় না</string>
+    <string name="region_off">বন্ধ</string>
+    <string name="region_picker_title">আপনার নিজ দেশ</string>
+    <string name="region_picker_body">পরিচিতি ও আপনি যাঁদের বার্তা পাঠিয়েছেন তাঁরা ছাড়া, অন্য দেশের নম্বরের বার্তা “ব্লক করা বার্তা”-তে আটকে রাখা হয়। বিদেশে থাকা আত্মীয় পরিচিতিতে না থাকলে তাঁর বার্তাও আটকানো হয়।</string>
+    <string name="region_picker_search">খুঁজুন</string>
+    <string name="region_reason_foreign">অন্য দেশের নম্বর</string>
+</resources>

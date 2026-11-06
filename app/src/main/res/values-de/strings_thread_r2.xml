@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">Grund</string>
+    <string name="thread_r2_details_rule">Regel</string>
+    <string name="thread_r2_details_forwarded">Weitergeleitet</string>
+    <string name="thread_r2_details_decision_restored">Blockiert, dann in deinem Posteingang wiederhergestellt</string>
+    <string name="thread_r2_details_copy">%1$s kopieren</string>
+    <string name="thread_r2_menu_search">In Unterhaltung suchen</string>
+    <string name="thread_r2_menu_always_forward">Nachrichten dieses Absenders immer weiterleiten</string>
+    <string name="thread_r2_block_hint">Neue Nachrichten landen unter „Blockiert“. Nichts verlässt dein Handy.</string>
+    <string name="thread_r2_forward_message">Diese Nachricht weiterleiten</string>
+    <string name="thread_r2_search_hint">In Unterhaltung suchen</string>
+    <string name="thread_r2_search_close">Suche schließen</string>
+    <string name="thread_r2_search_none">Keine Treffer</string>
+    <string name="thread_r2_search_count">%1$d von %2$d</string>
+    <string name="thread_r2_search_older">Älterer Treffer</string>
+    <string name="thread_r2_search_newer">Neuerer Treffer</string>
+    <string name="thread_r2_link_copy">Link kopieren</string>
+    <string name="thread_r2_link_share">Teilen</string>
+    <string name="thread_r2_schedule_pick_date">Datum wählen</string>
+    <string name="thread_r2_calendar_previous">Vorheriger Monat</string>
+    <string name="thread_r2_calendar_next">Nächster Monat</string>
+</resources>

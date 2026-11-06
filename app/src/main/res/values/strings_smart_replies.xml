@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">Smart replies</string>
+    <string name="smart_replies_summary">Suggested replies like Thanks or OK, from a built-in list. Nothing is sent until you tap.</string>
+    <string name="smart_replies_hide">Hide suggestions</string>
+    <string name="smart_replies_notif_title">Smart replies in notifications</string>
+    <string name="smart_replies_notif_summary">Show a suggested reply as a button on the notification. Tapping it sends the text.</string>
+</resources>

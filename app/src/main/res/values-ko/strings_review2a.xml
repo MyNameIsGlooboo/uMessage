@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r2a_filter_codes">코드</string>
+    <string name="r2a_filter_codes_empty_title">코드가 없어요.</string>
+    <string name="r2a_filter_codes_empty_body">최근 메시지에 일회용 코드가 있는 대화가 여기에 표시돼요.</string>
+    <string name="r2a_search_codes_window">최근 24시간</string>
+</resources>

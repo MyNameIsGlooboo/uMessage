@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sim_messages_title">SIM 카드 메시지</string>
+    <string name="sim_messages_row_body">SIM 카드에 저장된 문자를 대화로 복사</string>
+    <string name="sim_messages_loading">SIM 카드 읽는 중…</string>
+    <string name="sim_messages_unavailable">이 휴대전화에서는 앱이 SIM 카드를 읽을 수 없어요.</string>
+    <string name="sim_messages_empty">SIM 카드에 메시지가 없어요.</string>
+    <plurals name="sim_messages_found">
+        <item quantity="other">SIM 카드에 메시지 %1$d개가 저장되어 있어요. 대화로 복사할까요? SIM 카드에도 그대로 남아요.</item>
+    </plurals>
+    <string name="sim_messages_import">복사</string>
+    <string name="sim_messages_importing">메시지 복사 중…</string>
+    <string name="sim_messages_done">메시지 %1$d개를 복사했어요. %2$d개는 이미 대화에 있어요.</string>
+    <string name="sim_messages_done_failed">메시지 %1$d개를 복사했어요. %2$d개는 이미 대화에 있고, %3$d개는 복사하지 못했어요.</string>
+</resources>

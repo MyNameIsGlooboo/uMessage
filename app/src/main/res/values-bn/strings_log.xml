@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="declog_title">সিদ্ধান্তের লগ</string>
+    <string name="declog_clear">লগ মুছুন</string>
+    <string name="declog_empty_title">এখনও কোনো সিদ্ধান্ত নেই</string>
+    <string name="declog_empty_body">ফিল্টার যে বার্তাগুলি পরীক্ষা করে, সেগুলি কারণসহ এখানে দেখা যায়। বার্তার লেখা কখনও সংরক্ষণ করা হয় না।</string>
+    <plurals name="declog_kept_for" tools:ignore="ImpliedQuantity">
+        <item quantity="one">প্রতিটি সিদ্ধান্ত %d দিন পর মুছে যায়। বার্তার লেখা কখনও সংরক্ষণ করা হয় না।</item>
+        <item quantity="other">প্রতিটি সিদ্ধান্ত %d দিন পর মুছে যায়। বার্তার লেখা কখনও সংরক্ষণ করা হয় না।</item>
+    </plurals>
+    <string name="declog_sim">SIM %1$s</string>
+    <string name="declog_today">আজ</string>
+    <string name="declog_yesterday">গতকাল</string>
+    <string name="declog_allowed_by_rule">নিয়ম অনুযায়ী অনুমতি দেওয়া: %1$s</string>
+    <string name="declog_filter_all">সব</string>
+    <string name="declog_filter_blocked">ব্লক করা</string>
+    <string name="declog_filter_allowed">অনুমতি দেওয়া</string>
+    <string name="declog_filter_empty">এই ফিল্টারে কোনো সিদ্ধান্ত পাওয়া যায়নি</string>
+    <plurals name="declog_times" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s বার</item>
+        <item quantity="other">%1$s বার</item>
+    </plurals>
+    <plurals name="declog_repeated" tools:ignore="ImpliedQuantity">
+        <item quantity="one">টানা %1$s বার একই সিদ্ধান্ত নেওয়া হয়েছে</item>
+        <item quantity="other">টানা %1$s বার একই সিদ্ধান্ত নেওয়া হয়েছে</item>
+    </plurals>
+    <plurals name="declog_share_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি সিদ্ধান্ত শেয়ার করুন</item>
+        <item quantity="other">%dটি সিদ্ধান্ত শেয়ার করুন</item>
+    </plurals>
+    <string name="declog_csv_subject">uMessage সিদ্ধান্তের লগ</string>
+    <string name="declog_share_failed">লগ শেয়ার করা যায়নি</string>
+    <string name="declog_details_title">সিদ্ধান্তের বিবরণ</string>
+    <string name="declog_open_details">%1$s-এর বিবরণ খুলুন</string>
+    <string name="declog_fixed_allowed">আপনি লগ থেকে এই প্রেরককে অনুমতি দিয়েছেন</string>
+    <string name="declog_fixed_blocked">আপনি লগ থেকে এই প্রেরককে ব্লক করেছেন</string>
+    <string name="declog_fixed_restored">আপনি লগ থেকে এই বার্তাটি ফিরিয়ে এনেছেন</string>
+    <string name="declog_restored">ফিরিয়ে আনা হয়েছে</string>
+    <string name="declog_blocked_message">বার্তাটি এখনও ব্লক করা বিভাগে আছে</string>
+    <string name="declog_restore">বার্তা ফিরিয়ে আনুন</string>
+    <string name="declog_restore_done">বার্তা ইনবক্সে ফিরিয়ে আনা হয়েছে</string>
+    <string name="declog_restore_text_only">লেখা ইনবক্সে ফিরিয়ে আনা হয়েছে। ছবিগুলি উদ্ধার করা যায়নি।</string>
+    <string name="declog_restore_nothing">ফিরিয়ে আনার কিছু নেই: এই ছবির বার্তাটি রাখা হয়নি</string>
+    <string name="declog_restore_failed">বার্তাটি ফিরিয়ে আনা যায়নি</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

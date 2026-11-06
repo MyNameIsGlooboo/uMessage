@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Pin a conversation to the home screen; the shortcut shows the conversation's name -->
+    <string name="home_shortcut_menu">Add to home screen</string>
+    <string name="home_shortcut_requested">Asking your launcher to add it. The home screen will show the name. If nothing appears, allow “Home screen shortcuts” for uMessage in your phone\'s app settings.</string>
+    <string name="home_shortcut_failed">Your launcher did not accept the shortcut. Allow “Home screen shortcuts” for uMessage in your phone\'s app settings.</string>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="e_day_today">วันนี้</string>
+    <string name="e_day_yesterday">เมื่อวาน</string>
+    <plurals name="e_blocked_stats_total">
+        <item quantity="other">บล็อกทั้งหมด %d ข้อความ</item>
+    </plurals>
+    <string name="e_restored_title">กู้คืนล่าสุด</string>
+    <string name="e_restored_body">ข้อความที่ย้ายไปยังกล่องข้อความเข้าในช่วง 30 วันที่ผ่านมา แตะข้อความเพื่อเปิดการสนทนา</string>
+    <string name="e_restored_empty">ข้อความที่ย้ายไปยังกล่องข้อความเข้านับจากนี้จะแสดงที่นี่เป็นเวลา 30 วัน</string>
+    <string name="e_restored_when">ย้ายไปกล่องข้อความเข้าเมื่อ %1$s</string>
+    <string name="e_restored_open">เปิดการสนทนากับ %1$s</string>
+    <string name="e_snack_allowed_one">อนุญาต %1$s เสมอแล้วทั้ง 2 SIM</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="other">อนุญาตผู้ส่ง %d รายเสมอแล้วทั้ง 2 SIM</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">อนุญาต %1$s เสมอแล้ว</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="other">อนุญาตผู้ส่ง %d รายเสมอแล้ว</item>
+    </plurals>
+    <string name="e_view_rule">ดูกฎ</string>
+    <string name="e_rules_title">กฎ</string>
+    <string name="e_rules_menu_backup">สำรองข้อมูลและกู้คืน</string>
+    <string name="e_note_blocked_by_you">คุณบล็อกแล้ว</string>
+    <string name="e_note_allowed_by_you">คุณอนุญาตแล้ว</string>
+    <string name="e_note_blocked_from_message">บล็อกจากข้อความ</string>
+    <string name="e_note_blocked_from_keyword">บล็อกจากคำสำคัญ</string>
+    <string name="e_note_reported_spam">รายงานสแปมแล้ว</string>
+    <string name="e_note_old_word_list">จากรายการคำที่บล็อกเดิม</string>
+    <string name="e_note_system_list">จากรายการบล็อกของ Android</string>
+    <string name="e_note_quoted">“%1$s”</string>
+    <string name="e_example_block_cancel_word">บล็อกข้อความที่มี لغو۱۱</string>
+    <string name="e_example_block_ad_prefix">บล็อกหมายเลขโฆษณาที่ขึ้นต้นด้วย 3000</string>
+    <string name="e_example_allow_number">อนุญาตหมายเลขเสมอ เช่น ที่ทำการไปรษณีย์</string>
+    <string name="e_sheet_sender_label">ผู้ส่ง</string>
+    <string name="e_sheet_text_label">เนื้อหาข้อความ</string>
+    <string name="e_value_number">หมายเลขโทรศัพท์</string>
+    <string name="e_value_prefix">หมายเลขขึ้นต้นด้วย</string>
+    <string name="e_value_sender">ชื่อผู้ส่ง</string>
+    <string name="e_value_keyword">ข้อความที่ต้องการค้นหา</string>
+    <string name="e_value_pattern">รูปแบบ (regex)</string>
+    <string name="e_pattern_blocks_label">เริ่มจาก</string>
+    <string name="e_pattern_link">มีลิงก์</string>
+    <string name="e_pattern_long_number">ตัวเลข 5 หลักขึ้นไป</string>
+    <string name="e_pattern_starts_with">ขึ้นต้นด้วย</string>
+    <string name="e_pattern_any_of">มีคำใดคำหนึ่ง</string>
+    <string name="e_pattern_link_sentence">ตรงกับข้อความที่มีลิงก์</string>
+    <string name="e_pattern_long_number_sentence">ตรงกับข้อความที่มีตัวเลขตั้งแต่ 5 หลักขึ้นไป</string>
+    <string name="e_pattern_starts_with_sentence">ตรงกับข้อความที่ขึ้นต้นด้วยข้อความที่พิมพ์หลัง ^</string>
+    <string name="e_pattern_any_of_sentence">ตรงกับข้อความที่มีคำใดคำหนึ่งในวงเล็บ ใช้ | คั่นแต่ละคำ</string>
+    <plurals name="e_migrate_title_numbers">
+        <item quantity="other">ย้าย %d หมายเลขไปยังกฎของ uMessage</item>
+    </plurals>
+    <string name="e_migrate_point_blocked">• ข้อความจากหมายเลขเหล่านี้จะไปอยู่ในที่บล็อก ซึ่งคุณอ่านและกู้คืนได้</string>
+    <string name="e_migrate_point_android">• Android จะยังทิ้งข้อความจากหมายเลขเหล่านี้จนกว่าจะนำออกจากรายการ</string>
+    <string name="e_migrate_calls_note">รายการของ Android บล็อกสายโทรเข้าด้วย หมายเลขที่นำออกจากรายการจะโทรหาคุณได้อีกครั้ง</string>
+    <string name="e_bn_unknown_body">มีผลเฉพาะเมื่อปิดผู้ส่งที่ไม่รู้จัก</string>
+    <string name="e_bn_row_calls_texts">บล็อกสายโทรเข้าและข้อความ</string>
+    <string name="e_bn_row_short_code">หมายเลขสั้น: uMessage จะไม่ได้รับข้อความจากหมายเลขนี้เลย</string>
+    <string name="e_bn_move_one">ย้ายไปยังกฎของ uMessage</string>
+    <string name="e_bn_moved">เพิ่ม %1$s เป็นกฎของ uMessage แล้ว ข้อความจะไปอยู่ในที่บล็อก และไม่บล็อกสายโทรเข้าอีกต่อไป</string>
+    <string name="e_bn_field_help">เช่น +15550001234 หรือ +1555* สำหรับทุกหมายเลขที่ขึ้นต้นด้วย +1555</string>
+    <string name="e_bn_short_code_warning">หมายเลขนี้ดูเหมือนหมายเลขสั้น Android จะทิ้งข้อความก่อนที่ uMessage จะได้รับ จึงกู้คืนข้อความไม่ได้เลย เช่น รหัสหรือข้อความแจ้งเตือนจากธนาคาร</string>
+    <string name="e_bn_add_as_rule">เพิ่มเป็นกฎของ uMessage แทน</string>
+    <string name="e_bn_added_as_rule">เพิ่ม %1$s เป็นกฎของ uMessage แล้ว ข้อความจะไปอยู่ในที่บล็อก</string>
+</resources>

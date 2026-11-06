@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">Powtarzaj</string>
+    <string name="schedule_repeat_never">Nigdy</string>
+    <string name="schedule_repeat_daily">Codziennie</string>
+    <string name="schedule_repeat_weekly">Co tydzień</string>
+    <string name="schedule_repeat_monthly">Co miesiąc</string>
+    <string name="schedule_repeat_yearly">Co rok</string>
+    <string name="schedule_repeat_jalali_note">Miesiące i lata są liczone według kalendarza perskiego.</string>
+    <string name="scheduled_repeats_daily">Powtarza się codziennie</string>
+    <string name="scheduled_repeats_weekly">Powtarza się co tydzień</string>
+    <string name="scheduled_repeats_monthly">Powtarza się co miesiąc</string>
+    <string name="scheduled_repeats_yearly">Powtarza się co rok</string>
+    <string name="scheduled_repeats_paused">Powtarzanie wstrzymane</string>
+    <string name="scheduled_delete_repeating">Usuń powtarzaną wiadomość</string>
+    <string name="scheduled_delete_this_one">Tylko tę wiadomość</string>
+    <string name="scheduled_delete_all_future">Tę i wszystkie kolejne</string>
+</resources>

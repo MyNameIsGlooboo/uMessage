@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2b2_thread_menu_allow">Selalu izinkan pengirim ini</string>
+    <string name="w2b2_thread_menu_why">Mengapa keputusan ini diambil?</string>
+    <string name="w2b2_thread_chip_allowed">Selalu diizinkan</string>
+    <string name="w2b2_thread_chip_blocked">Diblokir oleh aturan</string>
+    <string name="w2b2_settings_group_dates">Tanggal</string>
+    <string name="w2b2_settings_jalali">Tanggal Jalali</string>
+    <string name="w2b2_settings_jalali_body">Tampilkan tanggal percakapan dan pesan terjadwal dalam kalender Persia</string>
+    <string name="w2b2_lock_pattern_hint">Hubungkan minimal %d titik, lalu gambar pola yang sama lagi untuk mengonfirmasi.</string>
+    <string name="w2b2_lock_recovery_hint">Jika lupa, gunakan kunci layar ponsel di layar kunci aplikasi untuk masuk kembali.</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_labels_chip_edit">عدّل</string>
+    <string name="search_labels_chip_delete">احذف</string>
+    <string name="search_labels_chip_options">خيارات التصنيف</string>
+</resources>

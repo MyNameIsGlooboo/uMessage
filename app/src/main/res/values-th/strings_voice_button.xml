@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i40_record_voice">พิมพ์ด้วยเสียง</string>
+    <string name="i40_setting_title">พิมพ์ด้วยเสียง</string>
+    <string name="i40_setting_summary">พูดแทนการพิมพ์</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">Tắt thông báo</string>
+    <string name="unmute_menu">Bật thông báo</string>
+    <string name="mute_title">Tắt thông báo</string>
+    <string name="mute_1_hour">Trong 1 giờ</string>
+    <string name="mute_8_hours">Trong 8 giờ</string>
+    <string name="mute_1_week">Trong 1 tuần</string>
+    <string name="mute_always">Luôn luôn</string>
+    <string name="mute_off">Tắt</string>
+    <string name="mute_until">Đến %1$s</string>
+    <string name="mute_channel">Cuộc trò chuyện đã tắt thông báo</string>
+</resources>

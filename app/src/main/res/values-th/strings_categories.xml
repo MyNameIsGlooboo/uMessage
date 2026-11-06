@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">ธุรกรรม</string>
+    <string name="i11_filter_transactions_empty_title">ไม่มีธุรกรรม</string>
+    <string name="i11_filter_transactions_empty_body">ข้อความจากธนาคารเกี่ยวกับเงินเข้าและเงินออกจะแสดงที่นี่</string>
+    <string name="i11_filter_offers">ข้อเสนอ</string>
+    <string name="i11_filter_offers_empty_title">ไม่มีข้อเสนอ</string>
+    <string name="i11_filter_offers_empty_body">ส่วนลดและโปรโมชันจากร้านค้าจะแสดงที่นี่</string>
+</resources>

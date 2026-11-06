@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">Додати на головний екран</string>
+    <string name="home_shortcut_requested">Надіслано запит на додавання ярлика. На головному екрані буде видно назву чату. Якщо ярлик не з’явиться, дозвольте «Ярлики на головному екрані» для uMessage в налаштуваннях застосунків телефона.</string>
+    <string name="home_shortcut_failed">Не вдалося додати ярлик. Дозвольте «Ярлики на головному екрані» для uMessage в налаштуваннях застосунків телефона.</string>
+</resources>

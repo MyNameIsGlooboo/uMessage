@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_open_link_action">लिंक खोलें</string>
+    <string name="notif_open_link_title">लिंक खोलें बटन</string>
+    <string name="notif_open_link_summary">संपर्कों और अनुमति दिए गए भेजने वालों की सूचनाओं पर</string>
+</resources>

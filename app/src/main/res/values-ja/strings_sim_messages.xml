@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sim_messages_title">SIMカードのメッセージ</string>
+    <string name="sim_messages_row_body">SIMカードに保存されたメッセージを会話にコピー</string>
+    <string name="sim_messages_loading">SIMカードを読み込み中…</string>
+    <string name="sim_messages_unavailable">このスマートフォンでは、アプリからSIMカードを読み取れません。</string>
+    <string name="sim_messages_empty">SIMカードにメッセージがありません。</string>
+    <plurals name="sim_messages_found">
+        <item quantity="other">SIMカードに%1$d件のメッセージが保存されています。会話にコピーしますか？SIMカードにも残ります。</item>
+    </plurals>
+    <string name="sim_messages_import">コピー</string>
+    <string name="sim_messages_importing">メッセージをコピー中…</string>
+    <string name="sim_messages_done">メッセージを%1$d件コピーしました。%2$d件はすでに会話にありました。</string>
+    <string name="sim_messages_done_failed">メッセージを%1$d件コピーしました。%2$d件はすでに会話にあり、%3$d件はコピーできませんでした。</string>
+</resources>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spam_ui_delete_all">احذف الكل</string>
+    <string name="spam_ui_delete_all_title">حذف كل الرسائل المحظورة؟</string>
+    <plurals name="spam_ui_delete_all_message">
+        <item quantity="zero">ستُحذف %1$d رسائل محظورة. يمكنك التراجع فورًا بعد ذلك.</item>
+        <item quantity="one">ستُحذف رسالة واحدة محظورة (%1$d). يمكنك التراجع فورًا بعد ذلك.</item>
+        <item quantity="two">ستُحذف رسالتان محظورتان (%1$d). يمكنك التراجع فورًا بعد ذلك.</item>
+        <item quantity="few">ستُحذف %1$d رسائل محظورة. يمكنك التراجع فورًا بعد ذلك.</item>
+        <item quantity="many">ستُحذف %1$d رسالة محظورة. يمكنك التراجع فورًا بعد ذلك.</item>
+        <item quantity="other">ستُحذف %1$d رسالة محظورة. يمكنك التراجع فورًا بعد ذلك.</item>
+    </plurals>
+    <string name="declog_ui_clear_title">مسح سجل القرارات؟</string>
+    <string name="declog_ui_clear_message">ستُمسح كل القرارات المسجلة. ستبقى الرسائل المحظورة والقواعد كما هي.</string>
+    <string name="declog_ui_clear_action">امسح</string>
+    <string name="ui_log_reason_contacts_unavailable">تعذّرت قراءة جهات الاتصال</string>
+    <string name="blocknum_title">الأرقام المحظورة</string>
+    <string name="blocknum_add">أضف رقمًا</string>
+    <string name="blocknum_add_title">احظر رقمًا</string>
+    <string name="blocknum_edit_title">عدّل الرقم المحظور</string>
+    <string name="blocknum_field_label">الرقم</string>
+    <string name="blocknum_field_help">استخدم * كحرف بدل: يحظر +1555* كل رقم يبدأ بـ +1555</string>
+    <string name="blocknum_err_empty">أدخل رقمًا</string>
+    <string name="blocknum_err_invalid">أدخل رقم هاتف، أو أرقامًا مع * كحرف بدل</string>
+    <string name="blocknum_copy">انسخ الرقم</string>
+    <string name="blocknum_unblock">ألغِ الحظر</string>
+    <string name="blocknum_unblock_for">ألغِ حظر %1$s</string>
+    <string name="blocknum_edit_for">عدّل %1$s</string>
+    <string name="blocknum_more_for">خيارات أخرى لـ %1$s</string>
+    <string name="blocknum_pattern">نمط بحرف بدل</string>
+    <string name="blocknum_copied">تم نسخ الرقم</string>
+    <plurals name="blocknum_unblocked">
+        <item quantity="zero">تم إلغاء حظر %1$d أرقام</item>
+        <item quantity="one">تم إلغاء حظر رقم واحد (%1$d)</item>
+        <item quantity="two">تم إلغاء حظر رقمين (%1$d)</item>
+        <item quantity="few">تم إلغاء حظر %1$d أرقام</item>
+        <item quantity="many">تم إلغاء حظر %1$d رقمًا</item>
+        <item quantity="other">تم إلغاء حظر %1$d رقم</item>
+    </plurals>
+    <string name="blocknum_import">استورد</string>
+    <string name="blocknum_export">صدّر</string>
+    <plurals name="blocknum_imported">
+        <item quantity="zero">تم استيراد %1$d أرقام</item>
+        <item quantity="one">تم استيراد رقم واحد (%1$d)</item>
+        <item quantity="two">تم استيراد رقمين (%1$d)</item>
+        <item quantity="few">تم استيراد %1$d أرقام</item>
+        <item quantity="many">تم استيراد %1$d رقمًا</item>
+        <item quantity="other">تم استيراد %1$d رقم</item>
+    </plurals>
+    <string name="blocknum_import_empty">لا توجد أرقام في الملف</string>
+    <plurals name="blocknum_import_skipped">
+        <item quantity="zero">تم تخطي %d إدخالات (ليست أرقامًا أو محظورة مسبقًا)</item>
+        <item quantity="one">تم تخطي إدخال واحد (%d) (ليس رقمًا أو محظور مسبقًا)</item>
+        <item quantity="two">تم تخطي إدخالين (%d) (ليسا رقمين أو محظوران مسبقًا)</item>
+        <item quantity="few">تم تخطي %d إدخالات (ليست أرقامًا أو محظورة مسبقًا)</item>
+        <item quantity="many">تم تخطي %d إدخالًا (ليست أرقامًا أو محظورة مسبقًا)</item>
+        <item quantity="other">تم تخطي %d إدخال (ليست أرقامًا أو محظورة مسبقًا)</item>
+    </plurals>
+    <string name="blocknum_import_failed">تعذّرت قراءة الملف</string>
+    <plurals name="blocknum_exported">
+        <item quantity="zero">تم تصدير %1$d أرقام</item>
+        <item quantity="one">تم تصدير رقم واحد (%1$d)</item>
+        <item quantity="two">تم تصدير رقمين (%1$d)</item>
+        <item quantity="few">تم تصدير %1$d أرقام</item>
+        <item quantity="many">تم تصدير %1$d رقمًا</item>
+        <item quantity="other">تم تصدير %1$d رقم</item>
+    </plurals>
+    <string name="blocknum_export_empty">لا توجد أرقام لتصديرها</string>
+    <string name="blocknum_export_failed">تعذّر حفظ الملف</string>
+    <string name="blocknum_failed">تعذّر تعديل قائمة الحظر. حاول مجددًا.</string>
+    <string name="blocknum_empty_title">لا توجد أرقام محظورة</string>
+    <string name="blocknum_empty_body">لا تستطيع الأرقام المحظورة مراسلتك أو الاتصال بك. هذه القائمة مشتركة مع تطبيق الهاتف.</string>
+    <string name="blocknum_unavailable_title">قائمة الحظر غير متاحة</string>
+    <string name="blocknum_unavailable_body">اجعل uMessage تطبيق الرسائل النصية الافتراضي لعرض قائمة الحظر في النظام وتعديلها.</string>
+    <string name="blocknum_unknown_title">احظر الأرقام غير المعروفة</string>
+    <string name="blocknum_unknown_body">يُستخدم فقط عندما يكون وضع التصفية متوقفًا: تنتقل رسائل الأرقام غير المعروفة إلى المحظورة، كما في الوضع الصارم. يتجاهل الوضعان الصارم والذكي هذا الخيار.</string>
+    <string name="blocknum_contacts_denied">لا يمكن تمييز الأرقام غير المعروفة دون الوصول إلى جهات الاتصال</string>
+    <string name="blocknum_section_numbers">الأرقام</string>
+</resources>

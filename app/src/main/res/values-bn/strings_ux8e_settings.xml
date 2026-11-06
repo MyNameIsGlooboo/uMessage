@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">সতর্কতা, লক স্ক্রিন, সাপ্তাহিক সারাংশ</string>
+    <string name="ux8e_nav_typing">লেখা ও পাঠানো</string>
+    <string name="ux8e_nav_typing_body">Enter কী, পৌঁছানোর রিপোর্ট, স্বাক্ষর</string>
+    <string name="ux8e_nav_storage">স্টোরেজ ও পরিষ্কার</string>
+    <string name="ux8e_nav_storage_body">রিসাইকেল বিন, আর্কাইভ করা, স্বয়ংক্রিয়ভাবে মোছা</string>
+    <string name="ux8e_group_lock_screen">লক স্ক্রিন</string>
+    <string name="ux8e_group_recycle">মুছে ফেলা বার্তা</string>
+    <string name="ux8e_group_cleanup">স্বয়ংক্রিয় পরিষ্কার</string>
+    <string name="ux8e_group_archive">আর্কাইভ করা</string>
+    <string name="ux8e_keep_deleted">মুছে ফেলা বার্তা রাখুন</string>
+    <string name="ux8e_keep_deleted_body">রিসাইকেল বিনে 30 দিন থাকবে</string>
+    <string name="ux8e_recycle_bin">রিসাইকেল বিন</string>
+    <string name="ux8e_backup_row">ব্যাকআপ নিন</string>
+    <string name="ux8e_backup_row_body">ফাইলে সংরক্ষণ করুন</string>
+    <string name="ux8e_restore_row">ফিরিয়ে আনুন</string>
+    <string name="ux8e_restore_row_body">ফাইল থেকে লোড করুন</string>
+    <string name="ux8e_backup_what">কীসের ব্যাকআপ নেবেন?</string>
+    <string name="ux8e_restore_what">কী ফিরিয়ে আনবেন?</string>
+    <string name="ux8e_what_messages">বার্তা</string>
+    <string name="ux8e_what_settings">নিয়ম ও সেটিংস</string>
+    <string name="ux8e_backup_warning">ব্যাকআপ ফাইল এনক্রিপ্ট করা হয় না।</string>
+    <string name="ux8e_calendar">ক্যালেন্ডার</string>
+</resources>

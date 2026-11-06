@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Owner notes round 3, Blocked tab: the "i" button on the banner and the guide it opens -->
+    <string name="r3b_info_button">How blocking works</string>
+    <string name="r3b_info_title">How blocking works</string>
+    <string name="r3b_info_modes">Unknown senders</string>
+    <!-- %1$s is the current mode name (Strict, Smart or Off). -->
+    <string name="r3b_info_mode_current">Now: %1$s</string>
+    <string name="r3b_info_messages">Blocked messages</string>
+    <string name="r3b_info_open_sender">Tap a sender to read their messages.</string>
+    <string name="r3b_info_move">Move to inbox puts all of a sender\'s messages in your inbox, then asks whether to always allow them.</string>
+    <string name="r3b_info_release">Release once (touch and hold a message) puts only that message in your inbox. The sender is not allowed.</string>
+    <string name="r3b_info_swipe">Swipe a sender toward the end of the row to move their messages to the inbox.</string>
+
+    <!-- The Blocked list rows -->
+    <string name="r3b_open_sender">Open messages</string>
+    <!-- %1$s is the sender's number or name. -->
+    <string name="r3b_move_inbox_for">Move to inbox, %1$s</string>
+    <!-- %1$s is the sender's number or name. -->
+    <string name="r3b_delete_for">Delete, %1$s</string>
+
+    <!-- The sender thread opened from the Blocked list -->
+    <string name="r3b_thread_note">uMessage held these messages. They are not in your inbox.</string>
+    <!-- %1$s is the sender's number or name. -->
+    <string name="r3b_thread_delete_all">Delete all messages from %1$s</string>
+    <string name="r3b_thread_empty_title">Nothing left here</string>
+    <string name="r3b_thread_empty_body">This sender has no blocked messages now.</string>
+    <string name="r3b_message_actions">Message actions</string>
+    <string name="r3b_why_blocked">Why blocked</string>
+    <string name="r3b_copy_text">Copy text</string>
+    <string name="r3b_text_copied">Text copied</string>
+    <string name="r3b_delete_message">Delete</string>
+    <!-- %1$s is the date and time the message arrived. -->
+    <string name="r3b_received">Received %1$s</string>
+
+    <!-- Round 4 (emulator check): the guide's lines are full sentences, each ending in a period -->
+    <string name="r3b_info_mode_strict">Strict: holds every unknown sender, verification codes too.</string>
+    <string name="r3b_info_mode_smart">Smart: holds unknown senders, but lets codes without a link through.</string>
+    <string name="r3b_info_mode_off">Off: unknown senders reach your inbox. Your rules still apply.</string>
+    <plurals name="r3b_info_purge">
+        <item quantity="one">Blocked messages are deleted after %d day.</item>
+        <item quantity="other">Blocked messages are deleted after %d days.</item>
+    </plurals>
+    <string name="r3b_info_purge_off">Blocked messages are kept until you delete them.</string>
+
+    <!-- "Always allow?" after Move to inbox for one sender; picked by how many of their messages went back (two strings, not plurals: Persian "one" also covers zero). %1$s is the sender's number or name. -->
+    <string name="r3b_allow_body_sender_one_message">The message goes back to your inbox either way. If you always allow %1$s, their future messages skip every filter, including your block rules.</string>
+    <string name="r3b_allow_body_sender_many_messages">The messages go back to your inbox either way. If you always allow %1$s, their future messages skip every filter, including your block rules.</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="w7d_banner_stopped" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Заблоковано %1$s повідомлення за тиждень</item>
+        <item quantity="few">Заблоковано %1$s повідомлення за тиждень</item>
+        <item quantity="many">Заблоковано %1$s повідомлень за тиждень</item>
+        <item quantity="other">Заблоковано %1$s повідомлення за тиждень</item>
+    </plurals>
+    <string name="w7d_banner_none">Цього тижня нічого не заблоковано</string>
+    <string name="w7d_fwd_master_switch">Пересилання</string>
+    <string name="w7d_help_menu">Як працює блокування за словами</string>
+    <string name="w7d_help_title">Як працює блокування за словами</string>
+    <string name="w7d_help_words_head">Слова</string>
+    <string name="w7d_help_words_body">Заблоковує повідомлення, якщо це слово є будь-де в тексті.</string>
+    <string name="w7d_help_words_example">безкоштовний приз</string>
+    <string name="w7d_help_sender_head">Імена відправників</string>
+    <string name="w7d_help_sender_body">Заблоковує повідомлення від відправника з таким іменем, наприклад магазину.</string>
+    <string name="w7d_help_sender_example">PROMO</string>
+    <string name="w7d_help_number_head">Початок номера</string>
+    <string name="w7d_help_number_body">Заблоковує всі номери, що починаються з цих цифр.</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">Регулярні вирази для досвідчених користувачів</string>
+    <string name="w7d_help_pattern_body">Один регулярний вираз може охоплювати різні варіанти написання. Перевірте його перед збереженням.</string>
+    <string name="w7d_help_pattern_example">(безкоштовний|виграшний) приз</string>
+    <string name="w7d_help_close">Закрити</string>
+    <string name="w7d_bank_cards_title">Картки банківських сповіщень</string>
+    <string name="w7d_bank_cards_summary">Показує суму під повідомленням від банку</string>
+</resources>

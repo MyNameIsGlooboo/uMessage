@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">Schiefer</string>
+    <string name="preset_slate_desc">Ruhiges Blaugrau</string>
+    <string name="preset_firouzeh">Firouzeh</string>
+    <string name="preset_firouzeh_desc">Türkis mit einem Hauch Gold</string>
+    <string name="preset_pomegranate">Granatapfel</string>
+    <string name="preset_pomegranate_desc">Warmes Rot mit tiefem Grün</string>
+    <string name="preset_harbor">Hafen</string>
+    <string name="preset_harbor_desc">Nachtblau mit sanftem Korallrot</string>
+    <string name="preset_lavender">Lavendel</string>
+    <string name="preset_lavender_desc">Sanftes Violett mit Petrol</string>
+    <string name="preset_ink">Tinte</string>
+    <string name="preset_ink_desc">Fast Schwarz mit Silber und Gold</string>
+    <string name="preset_contrast">Kontrast</string>
+    <string name="preset_contrast_desc">Schwarz und Weiß mit kräftigen Akzenten</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">重复</string>
+    <string name="schedule_repeat_never">不重复</string>
+    <string name="schedule_repeat_daily">每天</string>
+    <string name="schedule_repeat_weekly">每周</string>
+    <string name="schedule_repeat_monthly">每月</string>
+    <string name="schedule_repeat_yearly">每年</string>
+    <string name="schedule_repeat_jalali_note">月份和年份按波斯历计算。</string>
+    <string name="scheduled_repeats_daily">每天重复</string>
+    <string name="scheduled_repeats_weekly">每周重复</string>
+    <string name="scheduled_repeats_monthly">每月重复</string>
+    <string name="scheduled_repeats_yearly">每年重复</string>
+    <string name="scheduled_repeats_paused">重复已暂停</string>
+    <string name="scheduled_delete_repeating">删除重复发送的消息</string>
+    <string name="scheduled_delete_this_one">仅此条消息</string>
+    <string name="scheduled_delete_all_future">此条及之后所有消息</string>
+</resources>

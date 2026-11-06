@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">Нагадати</string>
+    <string name="reminder_dialog_title">Нагадати</string>
+    <string name="reminder_in_3_hours">Через 3 години</string>
+    <string name="reminder_tomorrow_morning">Завтра вранці</string>
+    <string name="reminder_pick_time">Вибрати дату й час</string>
+    <string name="reminder_set">Нагадування встановлено на %1$s</string>
+    <string name="reminder_set_approximate">Нагадування встановлено приблизно на %1$s. Воно може надійти трохи пізніше.</string>
+    <string name="reminder_battery_hint">Деякі телефони зупиняють застосунки у фоні та затримують нагадування.</string>
+    <string name="reminder_battery_open">Забезпечити роботу uMessage</string>
+    <string name="reminder_channel">Нагадування</string>
+    <string name="reminder_title">Нагадування</string>
+    <string name="reminder_title_named">Нагадування: %1$s</string>
+    <string name="reminder_open_hint">Натисніть, щоб відкрити повідомлення</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">¿Enviar a la hora exacta?</string>
+    <string name="schedule_exact_alarm_text">Para enviar los mensajes programados a la hora exacta, permite «Alarmas y recordatorios» para uMessage en la configuración del sistema. Sin este permiso, se enviarán de todos modos, pero podrían retrasarse.</string>
+    <string name="schedule_exact_alarm_open_settings">Abrir configuración</string>
+    <string name="schedule_exact_alarm_anyway">Programar de todos modos</string>
+</resources>

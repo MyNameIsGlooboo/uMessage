@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="sim_messages_title">सिम कार्ड के मैसेज</string>
+    <string name="sim_messages_row_body">सिम कार्ड पर सेव मैसेज अपनी बातचीत में कॉपी करें</string>
+    <string name="sim_messages_loading">सिम कार्ड पढ़ा जा रहा है…</string>
+    <string name="sim_messages_unavailable">यह फ़ोन ऐप को सिम कार्ड पढ़ने की अनुमति नहीं देता.</string>
+    <string name="sim_messages_empty">सिम कार्ड पर कोई मैसेज नहीं है.</string>
+    <plurals name="sim_messages_found" tools:ignore="ImpliedQuantity">
+        <item quantity="one">सिम कार्ड पर %1$d मैसेज सेव है. इसे अपनी बातचीत में कॉपी करें? यह सिम कार्ड पर भी रहेगा.</item>
+        <item quantity="other">सिम कार्ड पर %1$d मैसेज सेव हैं. इन्हें अपनी बातचीत में कॉपी करें? ये सिम कार्ड पर भी रहेंगे.</item>
+    </plurals>
+    <string name="sim_messages_import">कॉपी करें</string>
+    <string name="sim_messages_importing">मैसेज कॉपी हो रहे हैं…</string>
+    <string name="sim_messages_done">%1$d मैसेज कॉपी किए गए. %2$d पहले से आपकी बातचीत में थे.</string>
+    <string name="sim_messages_done_failed">%1$d मैसेज कॉपी किए गए. %2$d पहले से आपकी बातचीत में थे और %3$d कॉपी नहीं किए जा सके.</string>
+</resources>

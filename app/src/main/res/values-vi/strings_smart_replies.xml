@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">Trả lời thông minh</string>
+    <string name="smart_replies_summary">Trả lời nhanh từ danh sách trên điện thoại của bạn</string>
+    <string name="smart_replies_hide">Ẩn gợi ý</string>
+</resources>

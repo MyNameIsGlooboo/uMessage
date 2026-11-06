@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_scope_title">چه بخش‌هایی قفل شوند</string>
+    <string name="lock_scope_whole">کل برنامه</string>
+    <string name="lock_scope_chosen">فقط بخش‌های انتخاب‌شده</string>
+    <string name="lock_scope_chosen_long">فقط بخش‌های انتخاب‌شده: زبانهٔ مسدودشده‌ها و گفتگوهای پنهان</string>
+    <string name="lock_scope_blocked_title">پیام‌های مسدودشده قفل هستند</string>
+    <string name="lock_scope_blocked_body">برای دیدن آن‌ها قفل را باز کنید.</string>
+    <string name="lock_scope_unlock">باز کردن قفل</string>
+</resources>

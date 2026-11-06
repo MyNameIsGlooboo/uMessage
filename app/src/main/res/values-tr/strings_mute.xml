@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">Sessize alın</string>
+    <string name="unmute_menu">Sesi açın</string>
+    <string name="mute_title">Bildirimleri sessize alın</string>
+    <string name="mute_1_hour">1 saat boyunca</string>
+    <string name="mute_8_hours">8 saat boyunca</string>
+    <string name="mute_1_week">1 hafta boyunca</string>
+    <string name="mute_always">Her zaman</string>
+    <string name="mute_off">Kapalı</string>
+    <string name="mute_until">Şu zamana kadar: %1$s</string>
+    <string name="mute_channel">Sessize alınan görüşmeler</string>
+</resources>

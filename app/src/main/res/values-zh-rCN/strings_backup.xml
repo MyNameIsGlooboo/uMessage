@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_channel">备份与恢复</string>
+    <string name="backup_restoring">正在恢复消息</string>
+    <string name="backup_exporting">正在备份消息</string>
+    <plurals name="backup_progress_import">
+        <item quantity="other">已读取%1$d条记录</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="other">已读取%1$d条记录（%2$d%%）</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="other">已保存%1$d条消息</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="other">已保存%1$d条消息（%2$d%%）</item>
+    </plurals>
+    <string name="backup_runs_in_background">可以离开应用，任务会继续运行，并在通知中显示进度。</string>
+    <string name="backup_stop">停止</string>
+    <string name="backup_hide">隐藏</string>
+    <string name="backup_already_running">已有备份或恢复任务正在运行。</string>
+    <string name="backup_restore_finished">恢复完成</string>
+    <string name="backup_restore_stopped">恢复已停止</string>
+    <string name="backup_restore_failed">恢复失败</string>
+    <string name="backup_invalid_file">此文件不是消息备份，未恢复任何内容。</string>
+    <string name="backup_no_entries">备份文件中没有消息。</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="other">没有新消息可导入：全部%1$d条消息已在此手机上。</item>
+    </plurals>
+    <string name="backup_line_added">已添加：%1$d</string>
+    <string name="backup_line_duplicates">此手机上已有，已跳过：%1$d</string>
+    <string name="backup_line_repaired">已为之前恢复的消息补全缺失附件：%1$d</string>
+    <string name="backup_line_incomplete">已恢复但缺少部分附件的彩信：%1$d</string>
+    <string name="backup_line_failed">无法恢复：%1$d</string>
+    <string name="backup_line_damaged">文件中已损坏的记录，已跳过：%1$d</string>
+    <string name="backup_line_xml_mms">此XML备份中不支持恢复的彩信，已跳过：%1$d</string>
+    <string name="backup_line_not_selected">未选中导入：%1$d</string>
+    <string name="backup_reasons">原因：</string>
+    <string name="backup_reason_no_address">消息没有发件人或收件人</string>
+    <string name="backup_reason_no_thread">手机无法打开对应会话</string>
+    <string name="backup_reason_refused">手机拒绝保存消息</string>
+    <string name="backup_reason_not_in_backup">备份文件中没有此附件</string>
+    <string name="backup_reason_damaged_attachment">备份文件中的附件已损坏</string>
+    <string name="backup_reason_attachment_write">无法保存附件</string>
+    <string name="backup_stopped_early">文件在第%1$d条记录之后损坏，无法读取后续内容。</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="other">处理%1$d条记录后已停止。使用同一文件再次恢复即可完成，已恢复的消息会跳过。</item>
+    </plurals>
+    <string name="backup_retry_hint">再次恢复可重试失败的内容，已恢复的消息会跳过。</string>
+    <string name="backup_export_finished">备份完成</string>
+    <string name="backup_export_stopped">备份已停止</string>
+    <string name="backup_export_failed">备份失败</string>
+    <string name="backup_export_error">无法写入备份，已删除不完整的文件。%1$s</string>
+    <string name="backup_export_cancelled">备份已停止，已删除不完整的文件。</string>
+    <string name="backup_export_nothing">没有可备份的消息。</string>
+    <string name="backup_export_counts">已保存%1$d条短信和%2$d条彩信。</string>
+    <string name="backup_export_unreadable_attachments">无法读取的附件，已保存但不含图片：%1$d</string>
+    <string name="backup_export_unreadable_messages">无法读取的消息，未备份：%1$d</string>
+    <string name="backup_export_unreadable_conversations">无法读取的会话，未备份：%1$d</string>
+    <string name="backup_export_incomplete">此备份不完整。</string>
+    <string name="backup_interrupted_import">上次恢复未完成就停止了，可能是手机关闭了应用。使用同一文件再次恢复即可，已恢复的消息会跳过。</string>
+    <string name="backup_interrupted_export">上次备份未完成就停止了，文件不完整。请重新备份。</string>
+</resources>

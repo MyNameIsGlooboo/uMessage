@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_MMS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- BiometricPrompt (androidx.biometric, used by the app lock) needs this on API 28+.
+         The vendored commons manifest removes it; declaring it here overrides that. -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+
+    <queries>
+        <!-- OEM background settings the "Keep uMessage running" guide opens (helpers/OemIntents.kt). Resolving them
+             needs package visibility on Android 11+; OemIntentsTest keeps this list in sync with the code. -->
+        <package android:name="com.miui.securitycenter" />
+        <package android:name="com.miui.powerkeeper" />
+        <package android:name="com.samsung.android.lool" />
+        <package android:name="com.samsung.android.sm_cn" />
+        <package android:name="com.samsung.android.sm" />
+        <package android:name="com.huawei.systemmanager" />
+        <package android:name="com.hihonor.systemmanager" />
+        <package android:name="com.coloros.safecenter" />
+        <package android:name="com.oppo.safe" />
+        <package android:name="com.oneplus.security" />
+        <package android:name="com.vivo.permissionmanager" />
+        <package android:name="com.iqoo.secure" />
+        <intent>
+            <action android:name="android.settings.VIEW_ADVANCED_POWER_USAGE_DETAIL" />
+            <data android:scheme="package" />
+        </intent>
+        <intent>
+            <action android:name="android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS" />
+        </intent>
+        <intent>
+            <action android:name="android.settings.APPLICATION_DETAILS_SETTINGS" />
+            <data android:scheme="package" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+        <intent>
+            <action android:name="android.speech.action.RECOGNIZE_SPEECH" />
+        </intent>
+    </queries>
+
+    <uses-feature android:name="android.hardware.telephony" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-feature android:name="android.hardware.location" android:required="false" />
+    <uses-feature android:name="android.hardware.location.gps" android:required="false" />
+    <uses-feature android:name="android.hardware.location.network" android:required="false" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:enableOnBackInvokedCallback="true"
+        android:appCategory="productivity"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_launcher_name"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
+
+        <activity
+            android:name=".activities.SplashActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UMessage.Splash" />
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:theme="@style/Theme.UMessage.Splash" />
+
+        <activity
+            android:name=".activities.RecycleBinConversationsActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="@string/recycle_bin"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
+            android:name=".activities.ThreadActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.UMessage.Screen"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".activities.BubbleThreadActivity"
+            android:allowEmbedded="true"
+            android:configChanges="orientation"
+            android:documentLaunchMode="always"
+            android:exported="false"
+            android:resizeableActivity="true"
+            android:theme="@style/Theme.UMessage.Screen"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".activities.NewConversationActivity"
+            android:configChanges="orientation"
+            android:exported="true"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.UMessage.Screen">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SENDTO" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="*/*" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:configChanges="orientation"
+            android:exported="true"
+            android:label="@string/settings"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.UMessage.Screen">
+
+            <intent-filter>
+                <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.spam.BlockedNumbersActivity"
+            android:exported="false"
+            android:label="@string/blocknum_title"
+            android:parentActivityName=".activities.SettingsActivity"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
+            android:name=".activities.ManageBlockedKeywordsActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="@string/blocked_keywords"
+            android:parentActivityName=".activities.SettingsActivity"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
+            android:name=".activities.VCardViewerActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="@string/contact_details"
+            android:parentActivityName=".activities.ThreadActivity"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
+            android:name=".activities.ConversationDetailsActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="@string/conversation_details"
+            android:parentActivityName=".activities.ThreadActivity"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
+            android:name=".ui.spam.BlockedMessagesActivity"
+            android:exported="false"
+            android:label="@string/w2c_blocked_label"
+            android:theme="@android:style/Theme.NoDisplay" />
+
+        <activity
+            android:name=".ui.spam.BlockedThreadActivity"
+            android:exported="false"
+            android:label="@string/blocked_title"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
+            android:name=".ui.spam.RulesActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
+            android:name=".ui.spam.ForwardingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
+            android:name=".activities.ScheduledListActivity"
+            android:exported="false"
+            android:label="@string/scheduled_list_title"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
+            android:name=".ui.spam.SpamSettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
+            android:name=".ui.theme.ThemePresetsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
+            android:name=".ui.lock.LockActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
+            android:name=".ui.log.DecisionLogActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
+            android:name=".ui.onboarding.OnboardingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <service
+            android:name=".services.HeadlessSmsSendService"
+            android:exported="true"
+            android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE">
+            <intent-filter>
+                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </service>
+
+        <service android:name="com.android.mms.transaction.TransactionService" />
+
+        <!-- Message backup and restore: keeps running with a progress notification when the app is left. -->
+        <service
+            android:name=".services.BackupService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <receiver android:name=".receivers.SmsStatusSentReceiver" />
+
+        <receiver android:name=".receivers.SmsStatusDeliveredReceiver" />
+
+        <receiver
+            android:name=".receivers.SmsReceiver"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_DELIVER" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".receivers.PendingSmsRetryReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".receivers.MmsPushReceiver"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_WAP_PUSH">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.WAP_PUSH_DELIVER" />
+
+                <data android:mimeType="application/vnd.wap.mms-message" />
+                <data android:mimeType="application/vnd.wap.sic" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".receivers.MmsSentReceiver"
+            android:exported="false"
+            android:taskAffinity="com.klinker.android.messaging.MMS_SENT" />
+
+        <receiver
+            android:name=".receivers.MmsReceiver"
+            android:exported="false"
+            android:taskAffinity="com.klinker.android.messaging.MMS_RECEIVED" />
+
+        <!-- Download results of blocked MMS (SE-29); reached only through the app's own PendingIntent. -->
+        <receiver
+            android:name=".receivers.BlockedMmsDownloadReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".receivers.MarkAsReadReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name=".receivers.DirectReplyReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!-- The notification "Copy code" action (N6): invisible, in its own empty task, so it never brings the app
+             or its lock screen forward; reached only through the app's own PendingIntent. -->
+        <activity
+            android:name=".activities.CopyCodeActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- The old "Copy code" broadcast (N6), kept for notifications posted before CopyCodeActivity. -->
+        <receiver
+            android:name=".receivers.CopyCodeReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".receivers.DeleteSmsReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!-- The notification "Block" button and the Undo of its notice (I06); reached only through the app's own
+             PendingIntents. -->
+        <receiver
+            android:name=".receivers.BlockSenderReceiver"
+            android:exported="false" />
+
+        <!-- The notification "Open link" action (I67): a translucent link sheet in its own task. -->
+        <activity
+            android:name=".activities.LinkOpenActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <receiver
+            android:name=".receivers.ScheduledMessageReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".receivers.ReminderReceiver"
+            android:exported="false" />
+
+        <!-- The daily alarm of the automatic cleanup and the weekly summary of blocked messages (I02, I45, I08). -->
+        <receiver
+            android:name=".receivers.DailyChecksReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".receivers.RescheduleAlarmsReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <!-- Lets AppCompatDelegate persist the per-app language on API 32 and lower.
+             The locale list itself is generated (androidResources.generateLocaleConfig). -->
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
+
+        <!-- The launcher entry keeps its pre-rename component name (the Kotlin package moved from
+             com.glooboo.spamless to com.glooboo.umessage; the application id did not change). Home-screen icons
+             and widgets are pinned by component name, and commons enables this alias by
+             "<applicationId>.activities.SplashActivity.Green", so this name must not follow the package. -->
+        <activity-alias
+            android:name="com.glooboo.spamless.activities.SplashActivity.Green"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:roundIcon="@mipmap/ic_launcher"
+            android:targetActivity=".activities.MainActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <!-- Pre-rename component names of activities that something outside the running app may still hold by
+             name after the in-place update: pinned and dynamic conversation shortcuts (ThreadActivity), the launcher
+             "New conversation" shortcut (NewConversationActivity), and the content intents of notifications posted
+             before the update (ThreadActivity, MainActivity, BlockedMessagesActivity, SettingsActivity). Not
+             exported: shortcuts and PendingIntents start them as the app itself. -->
+        <activity-alias
+            android:name="com.glooboo.spamless.activities.MainActivity"
+            android:exported="false"
+            android:targetActivity=".activities.MainActivity" />
+
+        <activity-alias
+            android:name="com.glooboo.spamless.activities.ThreadActivity"
+            android:exported="false"
+            android:targetActivity=".activities.ThreadActivity" />
+
+        <activity-alias
+            android:name="com.glooboo.spamless.activities.NewConversationActivity"
+            android:exported="false"
+            android:targetActivity=".activities.NewConversationActivity" />
+
+        <activity-alias
+            android:name="com.glooboo.spamless.activities.SettingsActivity"
+            android:exported="false"
+            android:targetActivity=".activities.SettingsActivity" />
+
+        <activity-alias
+            android:name="com.glooboo.spamless.ui.spam.BlockedMessagesActivity"
+            android:exported="false"
+            android:targetActivity=".ui.spam.BlockedMessagesActivity" />
+
+    </application>
+</manifest>

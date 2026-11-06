@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">Повторення</string>
+    <string name="schedule_repeat_never">Ніколи</string>
+    <string name="schedule_repeat_daily">Щодня</string>
+    <string name="schedule_repeat_weekly">Щотижня</string>
+    <string name="schedule_repeat_monthly">Щомісяця</string>
+    <string name="schedule_repeat_yearly">Щороку</string>
+    <string name="schedule_repeat_jalali_note">Місяці та роки — за календарем Джалалі.</string>
+    <string name="scheduled_repeats_daily">Повторюється щодня</string>
+    <string name="scheduled_repeats_weekly">Повторюється щотижня</string>
+    <string name="scheduled_repeats_monthly">Повторюється щомісяця</string>
+    <string name="scheduled_repeats_yearly">Повторюється щороку</string>
+    <string name="scheduled_repeats_paused">Повторення призупинено</string>
+    <string name="scheduled_delete_repeating">Видалити повторюване повідомлення</string>
+    <string name="scheduled_delete_this_one">Лише це повідомлення</string>
+    <string name="scheduled_delete_all_future">Це й усі наступні</string>
+</resources>

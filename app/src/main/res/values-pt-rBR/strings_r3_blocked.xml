@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="r3b_info_button">Como funciona o bloqueio</string>
+    <string name="r3b_info_title">Como funciona o bloqueio</string>
+    <string name="r3b_info_modes">Remetentes desconhecidos</string>
+    <string name="r3b_info_mode_current">Agora: %1$s</string>
+    <string name="r3b_info_messages">Mensagens bloqueadas</string>
+    <string name="r3b_info_open_sender">Toque em um remetente para ler suas mensagens.</string>
+    <string name="r3b_info_move">Mover para a caixa de entrada coloca todas as mensagens de um remetente na sua caixa de entrada e pergunta se você quer sempre permitir esse remetente.</string>
+    <string name="r3b_info_release">Liberar uma vez (toque e segure uma mensagem) coloca só essa mensagem na sua caixa de entrada. O remetente não fica permitido.</string>
+    <string name="r3b_info_swipe">Deslize um remetente em direção ao fim da linha para mover suas mensagens para a caixa de entrada.</string>
+    <string name="r3b_open_sender">Abra as mensagens</string>
+    <string name="r3b_move_inbox_for">Mova para a caixa de entrada, %1$s</string>
+    <string name="r3b_delete_for">Exclua, %1$s</string>
+    <string name="r3b_thread_note">O uMessage reteve estas mensagens. Elas não estão na sua caixa de entrada.</string>
+    <string name="r3b_thread_delete_all">Exclua todas as mensagens de %1$s</string>
+    <string name="r3b_thread_empty_title">Não há mais nada aqui</string>
+    <string name="r3b_thread_empty_body">Este remetente não tem mensagens bloqueadas agora.</string>
+    <string name="r3b_message_actions">Ações da mensagem</string>
+    <string name="r3b_why_blocked">Motivo do bloqueio</string>
+    <string name="r3b_copy_text">Copie o texto</string>
+    <string name="r3b_text_copied">Texto copiado</string>
+    <string name="r3b_delete_message">Exclua</string>
+    <string name="r3b_received">Recebida em %1$s</string>
+    <string name="r3b_info_mode_strict">Rigoroso: retém todos os remetentes desconhecidos, inclusive códigos de verificação.</string>
+    <string name="r3b_info_mode_smart">Inteligente: retém remetentes desconhecidos, mas deixa passar códigos sem link.</string>
+    <string name="r3b_info_mode_off">Desativado: remetentes desconhecidos chegam à sua caixa de entrada. Suas regras continuam valendo.</string>
+    <plurals name="r3b_info_purge" tools:ignore="ImpliedQuantity">
+        <item quantity="one">As mensagens bloqueadas são excluídas após %d dia.</item>
+        <item quantity="other">As mensagens bloqueadas são excluídas após %d dias.</item>
+    </plurals>
+    <string name="r3b_info_purge_off">As mensagens bloqueadas ficam guardadas até você excluí-las.</string>
+    <string name="r3b_allow_body_sender_one_message">A mensagem volta para sua caixa de entrada de qualquer forma. Se você sempre permitir %1$s, as próximas mensagens desse remetente passarão por todos os filtros, inclusive suas regras de bloqueio.</string>
+    <string name="r3b_allow_body_sender_many_messages">As mensagens voltam para sua caixa de entrada de qualquer forma. Se você sempre permitir %1$s, as próximas mensagens desse remetente passarão por todos os filtros, inclusive suas regras de bloqueio.</string>
+</resources>

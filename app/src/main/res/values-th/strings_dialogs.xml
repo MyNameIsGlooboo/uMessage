@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialogs_yes">ใช่</string>
+    <string name="dialogs_no">ไม่</string>
+    <string name="dialogs_permission_required">ต้องใช้สิทธิ์</string>
+    <string name="dialogs_grant_permission">ให้สิทธิ์</string>
+    <string name="dialogs_date_time_format_title">รูปแบบวันที่และเวลา</string>
+    <string name="dialogs_use_24_hour">ใช้รูปแบบเวลา 24 ชั่วโมง</string>
+    <string name="dialogs_lock_pattern">รูปแบบ</string>
+    <string name="dialogs_lock_pin">PIN</string>
+    <string name="dialogs_lock_biometrics">ไบโอเมตริก</string>
+    <string name="dialogs_lock_fingerprint">ลายนิ้วมือ</string>
+    <string name="dialogs_lock_enter_pin">ป้อน PIN</string>
+    <string name="dialogs_lock_repeat_pin">ป้อน PIN อีกครั้ง</string>
+    <string name="dialogs_lock_wrong_pin">PIN ไม่ถูกต้อง</string>
+    <string name="dialogs_lock_empty_pin">โปรดป้อน PIN</string>
+    <string name="dialogs_lock_short_pin">PIN ต้องมีอย่างน้อย 4 หลัก</string>
+    <string name="dialogs_lock_pin_suggestion">อย่างน้อย 4 หลัก ใช้ %d หลักขึ้นไปจะปลอดภัยกว่า</string>
+    <plurals name="dialogs_lock_short_pattern">
+        <item quantity="other">สั้นเกินไป เชื่อมต่ออย่างน้อย %d จุด</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">วาดรูปแบบ</string>
+    <string name="dialogs_lock_repeat_pattern">วาดรูปแบบอีกครั้ง</string>
+    <string name="dialogs_lock_wrong_pattern">รูปแบบไม่ถูกต้อง</string>
+    <string name="dialogs_lock_locked_out">ปลดล็อกผิดหลายครั้งเกินไป\nลองอีกครั้งใน %d วินาที</string>
+    <string name="dialogs_lock_pin_delete">ลบตัวเลขหลักสุดท้าย</string>
+    <string name="dialogs_lock_pin_confirm">ยืนยัน PIN</string>
+    <string name="dialogs_lock_pin_entered">ป้อนแล้ว %d หลัก</string>
+    <string name="dialogs_lock_pattern_pad">พื้นที่วาดรูปแบบ</string>
+    <string name="dialogs_lock_biometric_hint">ใช้ลายนิ้วมือหรือใบหน้าเพื่อยืนยันตัวตน</string>
+    <string name="dialogs_lock_biometric_open">ยืนยันตัวตนด้วยไบโอเมตริก</string>
+    <string name="dialogs_lock_place_finger">วางนิ้วบนเซ็นเซอร์ลายนิ้วมือ</string>
+    <string name="dialogs_lock_no_fingerprints">ยังไม่ได้ลงทะเบียนลายนิ้วมือ เพิ่มได้ในการตั้งค่าอุปกรณ์</string>
+    <string name="dialogs_lock_open_settings">เปิดการตั้งค่าอุปกรณ์</string>
+    <string name="dialogs_lock_auth_failed">ยืนยันตัวตนไม่สำเร็จ</string>
+    <string name="dialogs_lock_auth_blocked">การยืนยันตัวตนถูกบล็อก ลองอีกครั้งในอีกสักครู่</string>
+</resources>

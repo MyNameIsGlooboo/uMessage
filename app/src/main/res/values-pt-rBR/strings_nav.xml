@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_tab_forwarded">Encaminhadas</string>
+    <string name="nav_tab_forwarded_failed">Encaminhadas, houve falha em um encaminhamento</string>
+    <string name="nav_tab_forwarded_paused">Encaminhadas, encaminhamento pausado</string>
+    <string name="nav_tab_archived_new">Arquivadas, nova conversa arquivada</string>
+    <string name="nav_prompt_title">Regra salva</string>
+    <string name="nav_prompt_body">Mostrar a aba Encaminhadas para ver o que foi enviado e tentar de novo em caso de falha?</string>
+    <string name="nav_prompt_show">Mostre a aba</string>
+    <string name="nav_prompt_not_now">Agora não</string>
+    <string name="nav_fwd_paid_note">Cada encaminhamento é um SMS pago.</string>
+    <string name="nav_fwd_pause_all">Pause todos os encaminhamentos</string>
+    <string name="nav_fwd_status_paused">Encaminhamento pausado</string>
+    <string name="nav_fwd_paused_hint">As mensagens que correspondem às regras não são enviadas. Desative para retomar.</string>
+    <string name="nav_fwd_status_no_rule">Nenhuma regra de encaminhamento ativa</string>
+    <plurals name="nav_fwd_status_on" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Encaminhamento ativo, %1$s regra</item>
+        <item quantity="other">Encaminhamento ativo, %1$s regras</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">Gerencie as regras</string>
+    <string name="nav_fwd_empty_title">Nada encaminhado ainda</string>
+    <string name="nav_fwd_empty_body">As mensagens que correspondem às regras aparecerão aqui.</string>
+    <string name="nav_fwd_status_sent">Enviada</string>
+    <string name="nav_fwd_status_pending">Pendente</string>
+    <string name="nav_fwd_status_failed">Falha</string>
+    <string name="nav_fwd_to">Para %1$s</string>
+    <string name="nav_fwd_sim">Chip %1$d</string>
+    <string name="nav_fwd_rule_line">Regra: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">remetente %1$s</string>
+    <string name="nav_fwd_rule_any_sender">qualquer remetente</string>
+    <string name="nav_fwd_rule_text">texto %1$s</string>
+    <string name="nav_fwd_rule_any_text">qualquer texto</string>
+    <string name="nav_fwd_rule_deleted">Regra excluída</string>
+    <string name="nav_fwd_open_details">Mostre os detalhes</string>
+    <string name="nav_fwd_today">Hoje</string>
+    <string name="nav_fwd_yesterday">Ontem</string>
+    <plurals name="nav_fwd_failed_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s encaminhamento com falha</item>
+        <item quantity="other">%1$s encaminhamentos com falha</item>
+    </plurals>
+    <string name="nav_fwd_retry">Tente de novo</string>
+    <string name="nav_fwd_retry_all">Tente de novo todas as falhas (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">Enviar de novo?</string>
+    <plurals name="nav_fwd_retry_all_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s SMS será enviado de novo. Cada SMS é pago.</item>
+        <item quantity="other">%1$s SMS serão enviados de novo. Cada SMS é pago.</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">Envie de novo</string>
+    <plurals name="nav_fwd_retry_sent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d encaminhamento enviado de novo</item>
+        <item quantity="other">%d encaminhamentos enviados de novo</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">Falhou de novo. Verifique o sinal e seu saldo.</string>
+    <string name="nav_fwd_retry_missing">A mensagem original não está mais disponível e não pode ser enviada de novo.</string>
+    <string name="nav_fwd_details_title">Detalhes do encaminhamento</string>
+    <string name="nav_fwd_detail_from">Mensagem de</string>
+    <string name="nav_fwd_detail_to">Encaminhada para</string>
+    <string name="nav_fwd_detail_when">Horário</string>
+    <string name="nav_fwd_detail_sim">Enviada pelo</string>
+    <string name="nav_fwd_detail_rule">Regra correspondente</string>
+    <string name="nav_fwd_detail_message">Mensagem original</string>
+    <string name="nav_fwd_message_loading">Carregando</string>
+    <string name="nav_fwd_message_gone">A mensagem original não está mais salva.</string>
+    <string name="nav_fwd_error_radio">A rede não entregou a mensagem.</string>
+    <string name="nav_fwd_error_refused">O celular não conseguiu enviar a mensagem.</string>
+    <string name="nav_fwd_open_chat">Abra a conversa</string>
+    <string name="nav_archived_title">Arquivadas</string>
+    <string name="nav_archived_back">Volte para Mensagens</string>
+    <string name="nav_archived_intro">Conversas arquivadas ficam fora de Mensagens. Uma nova mensagem traz a conversa de volta, a menos que “Manter conversas arquivadas ocultas” esteja ativado nas configurações.</string>
+    <string name="nav_archived_intro_dismiss">Oculte este aviso</string>
+    <plurals name="nav_archived_moved" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d conversa movida para Mensagens</item>
+        <item quantity="other">%d conversas movidas para Mensagens</item>
+    </plurals>
+    <string name="nav_folder_more">Mais opções</string>
+    <string name="nav_folder_mark_all_read">Marque todas como lidas</string>
+    <string name="nav_folder_delete_all_count">Isso remove %1$s permanentemente.</string>
+</resources>

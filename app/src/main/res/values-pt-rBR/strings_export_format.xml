@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="export_format_json">Arquivo do uMessage (textos e imagens)</string>
+    <string name="export_format_xml">Arquivo do SMS Backup &amp; Restore (para outros apps)</string>
+    <string name="export_format_xml_hint">O uMessage restaura apenas os textos desse tipo de arquivo.</string>
+    <string name="export_scope_all">Todas as conversas</string>
+    <string name="export_scope_choose">Escolha as conversas</string>
+    <plurals name="export_scope_chosen" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d conversa escolhida</item>
+        <item quantity="other">%1$d conversas escolhidas</item>
+    </plurals>
+    <string name="export_pick_title">Escolha as conversas</string>
+    <string name="export_pick_search">Pesquise</string>
+    <string name="export_pick_all">Selecione todas</string>
+    <string name="export_pick_none">Limpe</string>
+    <string name="export_pick_empty">Não há conversas</string>
+    <string name="export_pick_nothing_chosen">Escolha pelo menos uma conversa</string>
+</resources>

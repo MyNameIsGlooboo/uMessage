@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_title">uMessage đang bị khóa</string>
+    <string name="lock_enter_pin">Nhập PIN của bạn</string>
+    <string name="lock_draw_pattern">Vẽ hình mở khóa của bạn</string>
+    <string name="lock_use_biometrics">Xác nhận danh tính của bạn để mở uMessage</string>
+    <string name="lock_wrong_pin">Sai PIN, thử lại</string>
+    <string name="lock_wrong_pattern">Sai hình mở khóa, thử lại</string>
+    <string name="lock_too_many">Đã thử sai quá nhiều lần</string>
+    <string name="lock_try_again_in">Thử lại sau %s</string>
+    <string name="lock_key_delete">Xóa</string>
+    <string name="lock_key_confirm">Xác nhận</string>
+    <plurals name="lock_digits_entered">
+        <item quantity="other">Đã nhập %d chữ số</item>
+    </plurals>
+    <string name="lock_no_digits">Chưa nhập chữ số nào</string>
+    <string name="lock_pattern_pad">Bảng vẽ hình mở khóa, 3 hàng và 3 cột chấm</string>
+    <string name="lock_pattern_dot">Chấm ở hàng %1$d, cột %2$d</string>
+    <string name="lock_pattern_dot_selected">Chấm ở hàng %1$d, cột %2$d, thứ %3$d trong hình mở khóa</string>
+    <string name="lock_pattern_done">Xong</string>
+    <string name="lock_pattern_clear">Xóa</string>
+    <plurals name="lock_pattern_dots_selected">
+        <item quantity="other">Đã chọn %d chấm</item>
+    </plurals>
+    <string name="lock_use_pin_instead">Dùng PIN thay thế</string>
+    <string name="lock_use_biometrics_instead">Dùng sinh trắc học thay thế</string>
+    <string name="lock_use_screen_lock">Dùng khóa màn hình điện thoại thay thế</string>
+    <string name="lock_biometrics_unavailable">Sinh trắc học không khả dụng. Nhập PIN của bạn.</string>
+    <string name="lock_screen_lock_title">Mở uMessage</string>
+    <string name="lock_screen_lock_description">Xác thực bằng khóa màn hình điện thoại để mở uMessage</string>
+    <string name="lock_no_way_to_check">Điện thoại này không còn vân tay hay khóa màn hình, nên uMessage không thể xác nhận danh tính của bạn. Mở ứng dụng và đặt PIN trong Cài đặt.</string>
+    <string name="lock_open_anyway">Mở uMessage</string>
+    <string name="lock_forgot">Bạn quên rồi? Dùng khóa màn hình điện thoại</string>
+    <plurals name="lock_tries_left">
+        <item quantity="other">Còn %d lần thử trước khi bạn phải chờ</item>
+    </plurals>
+    <string name="lock_setup_done">Đã bật khóa ứng dụng. Nếu quên PIN hoặc hình mở khóa, nhấn “Bạn quên rồi?” trên màn hình khóa và dùng khóa màn hình điện thoại thay thế.</string>
+    <string name="lock_setup_done_biometric">Đã bật khóa ứng dụng. Nếu sinh trắc học không hoạt động, dùng PIN dự phòng. Nếu bạn cũng quên PIN, nhấn “Bạn quên rồi?” và dùng khóa màn hình điện thoại.</string>
+    <string name="lock_setup_done_no_screen_lock">Đã bật khóa ứng dụng. Điện thoại của bạn chưa có khóa màn hình, nên nếu quên PIN hoặc hình mở khóa, bạn sẽ không còn cách nào khác để vào: bạn phải xóa dữ liệu uMessage trong phần cài đặt ứng dụng của điện thoại. Thao tác này xóa cài đặt, danh sách tin nhắn rác và lịch sử tin nhắn rác của ứng dụng (tin nhắn của bạn vẫn còn trên điện thoại). Thêm khóa màn hình cho điện thoại để có cách vào lại.</string>
+    <string name="settings_app_lock_timeout">Khóa sau khi rời ứng dụng</string>
+    <string name="settings_app_lock_timeout_immediately">Ngay lập tức</string>
+    <string name="settings_app_lock_timeout_30s">Sau 30 giây</string>
+    <string name="settings_app_lock_timeout_1m">Sau 1 phút</string>
+    <string name="settings_app_lock_timeout_5m">Sau 5 phút</string>
+    <string name="settings_app_lock_screenshots">Chặn chụp màn hình</string>
+    <string name="settings_app_lock_screenshots_body">Chặn chụp và quay màn hình. Tin nhắn luôn được ẩn trong ứng dụng gần đây.</string>
+    <string name="settings_app_lock_screenshots_body_old">Chặn chụp và quay màn hình. Trên phiên bản Android này, đây cũng là cách duy nhất để ẩn tin nhắn trong ứng dụng gần đây.</string>
+    <string name="settings_app_lock_change">Đổi PIN, hình mở khóa hoặc sinh trắc học</string>
+    <string name="settings_app_lock_weak">PIN hoặc hình mở khóa của bạn dễ đoán</string>
+    <string name="settings_app_lock_weak_body">PIN quá yếu. Nhấn để đổi</string>
+    <string name="settings_app_lock_add_pin">Thêm PIN dự phòng</string>
+    <string name="settings_app_lock_add_pin_body">Thêm PIN để dùng dự phòng</string>
+    <string name="settings_app_lock_now">Khóa ngay</string>
+    <string name="settings_app_lock_now_body">Khóa uMessage ngay lập tức</string>
+    <string name="settings_app_lock_changed">Đã thay đổi khóa ứng dụng</string>
+    <string name="dialogs_lock_backup_pin">Trước tiên, đặt PIN dự phòng. Bạn sẽ dùng PIN này nếu sinh trắc học không hoạt động.</string>
+</resources>

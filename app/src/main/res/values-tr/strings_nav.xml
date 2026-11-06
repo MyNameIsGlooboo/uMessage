@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_tab_forwarded">İletilenler</string>
+    <string name="nav_tab_forwarded_failed">İletilenler, bir iletme başarısız oldu</string>
+    <string name="nav_tab_forwarded_paused">İletilenler, iletme duraklatıldı</string>
+    <string name="nav_tab_archived_new">Arşivlendi, yeni görüşme arşivlendi</string>
+    <string name="nav_prompt_title">Kural kaydedildi</string>
+    <string name="nav_prompt_body">Gönderilenleri görmek ve başarısız olanları yeniden denemek için İletilenler sekmesi gösterilsin mi?</string>
+    <string name="nav_prompt_show">Sekmeyi gösterin</string>
+    <string name="nav_prompt_not_now">Şimdi değil</string>
+    <string name="nav_fwd_paid_note">Her iletme ücretli bir SMS\'tir.</string>
+    <string name="nav_fwd_pause_all">Tüm iletmeleri duraklatın</string>
+    <string name="nav_fwd_status_paused">İletme duraklatıldı</string>
+    <string name="nav_fwd_paused_hint">Eşleşen mesajlar gönderilmez. Devam etmek için bu seçeneği kapatın.</string>
+    <string name="nav_fwd_status_no_rule">Etkin iletme kuralı yok</string>
+    <plurals name="nav_fwd_status_on">
+        <item quantity="one">İletme açık, %1$s kural</item>
+        <item quantity="other">İletme açık, %1$s kural</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">Kuralları yönetin</string>
+    <string name="nav_fwd_empty_title">Henüz hiçbir şey iletilmedi</string>
+    <string name="nav_fwd_empty_body">Eşleşen mesajlar burada görünecek.</string>
+    <string name="nav_fwd_status_sent">Gönderildi</string>
+    <string name="nav_fwd_status_pending">Bekliyor</string>
+    <string name="nav_fwd_status_failed">Başarısız</string>
+    <string name="nav_fwd_to">Alıcı: %1$s</string>
+    <string name="nav_fwd_sim">SIM %1$d</string>
+    <string name="nav_fwd_rule_line">Kural: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">gönderen %1$s</string>
+    <string name="nav_fwd_rule_any_sender">herhangi bir gönderen</string>
+    <string name="nav_fwd_rule_text">metin %1$s</string>
+    <string name="nav_fwd_rule_any_text">herhangi bir metin</string>
+    <string name="nav_fwd_rule_deleted">Kural silindi</string>
+    <string name="nav_fwd_open_details">Ayrıntıları gösterin</string>
+    <string name="nav_fwd_today">Bugün</string>
+    <string name="nav_fwd_yesterday">Dün</string>
+    <plurals name="nav_fwd_failed_count">
+        <item quantity="one">%1$s iletme başarısız oldu</item>
+        <item quantity="other">%1$s iletme başarısız oldu</item>
+    </plurals>
+    <string name="nav_fwd_retry">Yeniden deneyin</string>
+    <string name="nav_fwd_retry_all">Başarısız olanları yeniden deneyin (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">Yeniden gönderilsin mi?</string>
+    <plurals name="nav_fwd_retry_all_message">
+        <item quantity="one">%1$s SMS yeniden gönderilecek. Her biri ücretli bir SMS\'tir.</item>
+        <item quantity="other">%1$s SMS yeniden gönderilecek. Her biri ücretli bir SMS\'tir.</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">Yeniden gönderin</string>
+    <plurals name="nav_fwd_retry_sent">
+        <item quantity="one">%d iletme yeniden gönderildi</item>
+        <item quantity="other">%d iletme yeniden gönderildi</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">Yine başarısız oldu. Sinyalinizi ve bakiyenizi kontrol edin.</string>
+    <string name="nav_fwd_retry_missing">Asıl mesaj artık yok, bu yüzden yeniden gönderilemez.</string>
+    <string name="nav_fwd_details_title">İletme ayrıntıları</string>
+    <string name="nav_fwd_detail_from">Mesajın göndereni</string>
+    <string name="nav_fwd_detail_to">İletilen alıcı</string>
+    <string name="nav_fwd_detail_when">Zaman</string>
+    <string name="nav_fwd_detail_sim">Gönderilen SIM</string>
+    <string name="nav_fwd_detail_rule">Eşleşen kural</string>
+    <string name="nav_fwd_detail_message">Asıl mesaj</string>
+    <string name="nav_fwd_message_loading">Yükleniyor</string>
+    <string name="nav_fwd_message_gone">Asıl mesaj artık kayıtlı değil.</string>
+    <string name="nav_fwd_error_radio">Şebeke mesajı teslim edemedi.</string>
+    <string name="nav_fwd_error_refused">Telefon mesajı gönderemedi.</string>
+    <string name="nav_fwd_open_chat">Görüşmeyi açın</string>
+    <string name="nav_archived_title">Arşivlendi</string>
+    <string name="nav_archived_back">Mesajlara dönün</string>
+    <string name="nav_archived_intro">Arşivlenen görüşmeler Mesajlar bölümünde görünmez. Ayarlar\'da “Arşivlenen görüşmeler gizli kalsın” açık değilse yeni mesaj geldiğinde görüşme geri döner.</string>
+    <string name="nav_archived_intro_dismiss">Bu notu gizleyin</string>
+    <plurals name="nav_archived_moved">
+        <item quantity="one">%d görüşme Mesajlar bölümüne taşındı</item>
+        <item quantity="other">%d görüşme Mesajlar bölümüne taşındı</item>
+    </plurals>
+    <string name="nav_folder_more">Diğer seçenekler</string>
+    <string name="nav_folder_mark_all_read">Tümünü okundu olarak işaretleyin</string>
+    <string name="nav_folder_delete_all_count">Kalıcı olarak silinecek: %1$s.</string>
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="dialogs_yes">Sim</string>
+    <string name="dialogs_no">Não</string>
+    <string name="dialogs_permission_required">Permissão necessária</string>
+    <string name="dialogs_grant_permission">Conceda a permissão</string>
+    <string name="dialogs_date_time_format_title">Formato de data e hora</string>
+    <string name="dialogs_use_24_hour">Use o formato de 24 horas</string>
+    <string name="dialogs_lock_pattern">Padrão</string>
+    <string name="dialogs_lock_pin">PIN</string>
+    <string name="dialogs_lock_biometrics">Biometria</string>
+    <string name="dialogs_lock_fingerprint">Impressão digital</string>
+    <string name="dialogs_lock_enter_pin">Digite o PIN</string>
+    <string name="dialogs_lock_repeat_pin">Repita o PIN</string>
+    <string name="dialogs_lock_wrong_pin">PIN incorreto</string>
+    <string name="dialogs_lock_empty_pin">Digite um PIN</string>
+    <string name="dialogs_lock_short_pin">O PIN deve ter pelo menos 4 dígitos</string>
+    <string name="dialogs_lock_pin_suggestion">Pelo menos 4 dígitos. %d ou mais é mais seguro.</string>
+    <plurals name="dialogs_lock_short_pattern" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Muito curto. Conecte pelo menos %d ponto.</item>
+        <item quantity="other">Muito curto. Conecte pelo menos %d pontos.</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">Desenhe o padrão</string>
+    <string name="dialogs_lock_repeat_pattern">Repita o padrão</string>
+    <string name="dialogs_lock_wrong_pattern">Padrão incorreto</string>
+    <string name="dialogs_lock_locked_out">Muitas tentativas incorretas de desbloqueio.\nTente novamente em %d segundos.</string>
+    <string name="dialogs_lock_pin_delete">Exclua o último dígito</string>
+    <string name="dialogs_lock_pin_confirm">Confirme o PIN</string>
+    <string name="dialogs_lock_pin_entered">%d dígitos digitados</string>
+    <string name="dialogs_lock_pattern_pad">Área de desenho do padrão</string>
+    <string name="dialogs_lock_biometric_hint">Use sua impressão digital ou seu rosto para confirmar sua identidade.</string>
+    <string name="dialogs_lock_biometric_open">Verifique com biometria</string>
+    <string name="dialogs_lock_place_finger">Coloque o dedo no sensor de impressão digital.</string>
+    <string name="dialogs_lock_no_fingerprints">Nenhuma impressão digital cadastrada. Adicione uma nas configurações do celular.</string>
+    <string name="dialogs_lock_open_settings">Abra as configurações do celular</string>
+    <string name="dialogs_lock_auth_failed">Falha na autenticação</string>
+    <string name="dialogs_lock_auth_blocked">Autenticação bloqueada. Tente novamente em instantes</string>
+</resources>

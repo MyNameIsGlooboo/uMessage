@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="r3fwd_title">Encaminhamento</string>
+    <string name="r3fwd_options">Opções de encaminhamento</string>
+    <string name="r3fwd_summary_none">Desativado · Encaminhe mensagens para outro número</string>
+    <string name="r3fwd_summary_off">Desativado</string>
+    <string name="r3fwd_summary_paused">Pausado</string>
+    <plurals name="r3fwd_summary_on" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d regra ativa</item>
+        <item quantity="other">%d regras ativas</item>
+    </plurals>
+    <string name="r3fwd_paused_title">Encaminhamento pausado</string>
+    <string name="r3fwd_paused_body">Suas regras estão salvas, mas nada será encaminhado até você reativar o encaminhamento.</string>
+    <string name="r3fwd_paused_action">Abra as opções</string>
+</resources>

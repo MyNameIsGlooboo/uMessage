@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">আপনার পরিচিতিতে নেই</string>
+    <string name="i04_card_caution">লিঙ্ক, টাকা ও কোডের ব্যাপারে সতর্ক থাকুন।</string>
+    <string name="i04_card_add_contact">পরিচিতি যোগ করুন</string>
+    <string name="i04_card_allow">সবসময় অনুমতি দিন</string>
+    <string name="i04_card_block">ব্লক করুন</string>
+    <string name="i04_card_dismiss">সরিয়ে দিন</string>
+</resources>

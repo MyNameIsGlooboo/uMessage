@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="backup_channel">Резервное копирование и восстановление</string>
+    <string name="backup_restoring">Восстановление сообщений</string>
+    <string name="backup_exporting">Резервное копирование сообщений</string>
+    <plurals name="backup_progress_import" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Прочитана %1$d запись</item>
+        <item quantity="few">Прочитаны %1$d записи</item>
+        <item quantity="many">Прочитано %1$d записей</item>
+        <item quantity="other">Прочитано %1$d записи</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Прочитана %1$d запись (%2$d%%)</item>
+        <item quantity="few">Прочитаны %1$d записи (%2$d%%)</item>
+        <item quantity="many">Прочитано %1$d записей (%2$d%%)</item>
+        <item quantity="other">Прочитано %1$d записи (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Сохранено %1$d сообщение</item>
+        <item quantity="few">Сохранены %1$d сообщения</item>
+        <item quantity="many">Сохранено %1$d сообщений</item>
+        <item quantity="other">Сохранено %1$d сообщения</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Сохранено %1$d сообщение (%2$d%%)</item>
+        <item quantity="few">Сохранены %1$d сообщения (%2$d%%)</item>
+        <item quantity="many">Сохранено %1$d сообщений (%2$d%%)</item>
+        <item quantity="other">Сохранено %1$d сообщения (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">Можете выйти из приложения: процесс продолжится, а ход выполнения будет виден в уведомлении.</string>
+    <string name="backup_stop">Остановить</string>
+    <string name="backup_hide">Скрыть</string>
+    <string name="backup_already_running">Резервное копирование или восстановление уже выполняется.</string>
+    <string name="backup_restore_finished">Восстановление завершено</string>
+    <string name="backup_restore_stopped">Восстановление остановлено</string>
+    <string name="backup_restore_failed">Не удалось восстановить сообщения</string>
+    <string name="backup_invalid_file">Этот файл не содержит резервную копию сообщений. Ничего не восстановлено.</string>
+    <string name="backup_no_entries">В файле резервной копии нет сообщений.</string>
+    <plurals name="backup_nothing_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Нет новых данных для импорта: сообщение уже есть на этом телефоне.</item>
+        <item quantity="few">Нет новых данных для импорта: все %1$d сообщения уже есть на этом телефоне.</item>
+        <item quantity="many">Нет новых данных для импорта: все %1$d сообщений уже есть на этом телефоне.</item>
+        <item quantity="other">Нет новых данных для импорта: %1$d сообщения уже есть на этом телефоне.</item>
+    </plurals>
+    <string name="backup_line_added">Добавлено: %1$d</string>
+    <string name="backup_line_duplicates">Уже есть на этом телефоне, пропущено: %1$d</string>
+    <string name="backup_line_repaired">Добавлены недостающие вложения в ранее восстановленные сообщения: %1$d</string>
+    <string name="backup_line_incomplete">MMS-сообщения, восстановленные без части вложений: %1$d</string>
+    <string name="backup_line_failed">Не удалось восстановить: %1$d</string>
+    <string name="backup_line_damaged">Поврежденные записи в файле, пропущено: %1$d</string>
+    <string name="backup_line_xml_mms">MMS-сообщения в этой XML-копии не поддерживаются, пропущено: %1$d</string>
+    <string name="backup_line_not_selected">Не выбрано для импорта: %1$d</string>
+    <string name="backup_reasons">Причины:</string>
+    <string name="backup_reason_no_address">у сообщения нет отправителя или получателя</string>
+    <string name="backup_reason_no_thread">телефону не удалось открыть чат сообщения</string>
+    <string name="backup_reason_refused">телефон отклонил сохранение сообщения</string>
+    <string name="backup_reason_not_in_backup">вложения нет в файле резервной копии</string>
+    <string name="backup_reason_damaged_attachment">вложение в файле резервной копии повреждено</string>
+    <string name="backup_reason_attachment_write">не удалось сохранить вложение</string>
+    <string name="backup_stopped_early">Файл поврежден после записи %1$d. Данные после нее прочитать не удалось.</string>
+    <plurals name="backup_cancelled_import" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Остановлено после %1$d записи. Чтобы завершить восстановление, запустите его снова с тем же файлом: уже восстановленные сообщения будут пропущены.</item>
+        <item quantity="few">Остановлено после %1$d записей. Чтобы завершить восстановление, запустите его снова с тем же файлом: уже восстановленные сообщения будут пропущены.</item>
+        <item quantity="many">Остановлено после %1$d записей. Чтобы завершить восстановление, запустите его снова с тем же файлом: уже восстановленные сообщения будут пропущены.</item>
+        <item quantity="other">Остановлено после обработки %1$d записи. Чтобы завершить восстановление, запустите его снова с тем же файлом: уже восстановленные сообщения будут пропущены.</item>
+    </plurals>
+    <string name="backup_retry_hint">Запустите восстановление снова, чтобы повторить неудавшиеся попытки: уже восстановленные сообщения будут пропущены.</string>
+    <string name="backup_export_finished">Резервное копирование завершено</string>
+    <string name="backup_export_stopped">Резервное копирование остановлено</string>
+    <string name="backup_export_failed">Не удалось выполнить резервное копирование</string>
+    <string name="backup_export_error">Не удалось записать резервную копию. Неполный файл удален. %1$s</string>
+    <string name="backup_export_cancelled">Резервное копирование остановлено. Неполный файл удален.</string>
+    <string name="backup_export_nothing">Нет сообщений для резервного копирования.</string>
+    <string name="backup_export_counts">Сохранено %1$d SMS и %2$d MMS.</string>
+    <string name="backup_export_unreadable_attachments">Вложения, которые не удалось прочитать, сохранены без изображения: %1$d</string>
+    <string name="backup_export_unreadable_messages">Сообщения, которые не удалось прочитать, пропущены: %1$d</string>
+    <string name="backup_export_unreadable_conversations">Чаты, которые не удалось прочитать, пропущены: %1$d</string>
+    <string name="backup_export_incomplete">Эта резервная копия неполная.</string>
+    <string name="backup_interrupted_import">Последнее восстановление прервалось, возможно, потому что телефон закрыл приложение. Запустите его снова с тем же файлом: уже восстановленные сообщения будут пропущены.</string>
+    <string name="backup_interrupted_export">Последнее резервное копирование прервалось, поэтому файл неполный. Создайте новую резервную копию.</string>
+</resources>

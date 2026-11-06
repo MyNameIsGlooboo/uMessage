@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">提醒我</string>
+    <string name="reminder_dialog_title">提醒我</string>
+    <string name="reminder_in_3_hours">3小时后</string>
+    <string name="reminder_tomorrow_morning">明天早上</string>
+    <string name="reminder_pick_time">选择日期和时间</string>
+    <string name="reminder_set">已设为%1$s提醒</string>
+    <string name="reminder_set_approximate">已设为%1$s左右提醒，可能会稍有延迟。</string>
+    <string name="reminder_battery_hint">部分手机会停止应用后台运行，导致提醒延迟。</string>
+    <string name="reminder_battery_open">保持uMessage运行</string>
+    <string name="reminder_channel">提醒</string>
+    <string name="reminder_title">提醒</string>
+    <string name="reminder_title_named">提醒：%1$s</string>
+    <string name="reminder_open_hint">点按打开消息</string>
+</resources>

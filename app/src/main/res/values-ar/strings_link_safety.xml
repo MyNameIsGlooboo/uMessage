@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">رابط مختصر: لا يمكنك معرفة وجهته.</string>
+    <string name="i07_punycode">الاسم مرمّز وقد يظهر بحروف تختلف عن حروفه الأصلية.</string>
+    <string name="i07_mixed_script">الاسم يمزج حروفًا من أبجديات مختلفة، كما تفعل المواقع المزيفة غالبًا.</string>
+    <string name="i07_raw_ip">العنوان رقم وليس اسم موقع.</string>
+    <string name="i07_http_only">غير مشفّر (http وليس https).</string>
+    <string name="i07_lookalike">الاسم يشبه %1$s. تحقّق من تهجئته.</string>
+    <string name="i07_user_info">الجزء الذي يسبق @ ليس عنوان الموقع.</string>
+    <string name="i07_locked">لا يمكن فتح الروابط الخطرة هنا. يمكنك نسخ الرابط.</string>
+    <string name="i07_lock_title">لا يمكن فتح الروابط الخطرة</string>
+    <string name="i07_lock_summary">تتيح لوحة الرابط عندها النسخ والمشاركة فقط</string>
+    <string name="i07_group_title">الروابط</string>
+</resources>

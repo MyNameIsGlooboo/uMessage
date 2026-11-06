@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">أُرسلت الرسالة المجدولة متأخرة</string>
+    <string name="scheduled_sent_late_exact_off">أُرسلت رسالتك إلى %1$s متأخرة بمقدار %2$d دقيقة. اسمح بإذن «المنبّهات والتذكيرات» لتطبيق uMessage لتُرسل الرسائل المجدولة في موعدها.</string>
+    <string name="scheduled_sent_late_idle">أُرسلت رسالتك إلى %1$s متأخرة بمقدار %2$d دقيقة: كان الهاتف مغلقًا أو في وضع توفير البطارية في الموعد المحدد.</string>
+    <string name="scheduled_sent_late_channel">الرسائل المجدولة</string>
+    <string name="notifications_off_title">الإشعارات متوقفة</string>
+    <string name="notifications_off_body">لن تتلقى إشعارات بالرسائل الجديدة.</string>
+    <string name="notifications_off_fix">فعّل</string>
+</resources>

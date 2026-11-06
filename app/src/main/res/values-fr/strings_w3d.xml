@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">Masquer les codes dans les messages transférés</string>
+    <string name="w3d_mask_codes_body">Les codes transférés s\'affichent sous la forme ****</string>
+    <string name="w3d_mask_keep_last">Garder les deux derniers chiffres</string>
+    <string name="w3d_mask_keep_last_on">Les messages transférés affichent par exemple **34.</string>
+    <string name="w3d_mask_keep_last_off">Les messages transférés masquent tout le code.</string>
+    <string name="w3d_daily_limit">Limite quotidienne de transferts</string>
+    <string name="w3d_daily_limit_body">Nombre maximal de transferts par jour</string>
+    <string name="w3d_hide_lock_codes">Masquer les codes sur l\'écran de verrouillage</string>
+    <string name="w3d_hide_lock_codes_body">Un message contenant un code affiche •••• sur l\'écran de verrouillage jusqu\'au déverrouillage.</string>
+</resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_allow_title">
+        <item quantity="other">この%d件の送信者を常に許可しますか？</item>
+    </plurals>
+    <string name="spam_allow_body_one">どちらを選んでも、メッセージは受信トレイに戻ります。%1$sを常に許可すると、今後のメッセージには、ブロックのルールを含むすべてのフィルターが適用されません。</string>
+    <string name="spam_allow_body_many">どちらを選んでも、メッセージは受信トレイに戻ります。これらの送信者を常に許可すると、今後のメッセージには、ブロックのルールを含むすべてのフィルターが適用されません。</string>
+    <string name="spam_allow_spoof_warning">%1$sのような名前は誰でも使って送信できます。許可すると、その名前を使った偽のメッセージも届きます。</string>
+    <string name="spam_allow_confirm">常に許可</string>
+    <string name="spam_allow_dismiss">今はしない</string>
+    <plurals name="spam_snack_restored_to_inbox">
+        <item quantity="other">%d件のメッセージを受信トレイに復元しました。</item>
+    </plurals>
+    <plurals name="spam_snack_restored_allowed">
+        <item quantity="other">復元しました。%d件の送信者を常に許可しました。</item>
+    </plurals>
+    <plurals name="spam_snack_allowed_only">
+        <item quantity="other">%d件の送信者を常に許可しました。</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost">
+        <item quantity="other">%d件のメッセージの画像を復元できませんでした。</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost_nothing">
+        <item quantity="other">%d件の画像メッセージを復元できなかったため、受信トレイには何も追加されませんでした。</item>
+    </plurals>
+    <plurals name="spam_snack_restore_failed">
+        <item quantity="other">%d件の画像メッセージを復元できませんでした。引き続きここに保存されています。</item>
+    </plurals>
+    <string name="spam_mms_stored">画像メッセージ</string>
+    <string name="spam_mms_downloading">画像メッセージ、ダウンロード中</string>
+    <string name="spam_mms_missing">画像メッセージ、未ダウンロード</string>
+    <string name="spam_mms_thumbnail">ブロック済みのメッセージ内の画像</string>
+    <string name="spam_reason_rule_keyword">ルール：キーワード「%1$s」</string>
+    <string name="spam_reason_rule_regex">ルール：パターン（正規表現）%1$s</string>
+    <string name="spam_reason_rule_number">ルール：番号%1$s</string>
+    <string name="spam_reason_rule_prefix">ルール：%1$sで始まる番号</string>
+    <string name="spam_reason_rule_sender">ルール：送信者%1$s</string>
+    <string name="spam_reason_rule_removed">判定に使ったルールは削除済み</string>
+    <string name="spam_reason_open_rules">ルールを開く</string>
+    <plurals name="spam_purge_notice">
+        <item quantity="other">ブロック済みのメッセージは%d日後に削除されます。</item>
+    </plurals>
+    <string name="spam_purge_notice_off">ブロック済みのメッセージは、削除するまで保存されます。</string>
+    <plurals name="spam_purge_left">
+        <item quantity="other">%d日後に削除されます。</item>
+    </plurals>
+    <string name="spam_purge_left_today">今日削除されます。</string>
+    <string name="convlist_report_spam">迷惑メッセージを報告</string>
+    <plurals name="convlist_reported_spam_archived">
+        <item quantity="other">%d件の会話を報告しました。今後のメッセージは「ブロック済み」に入り、会話はアーカイブされます。</item>
+    </plurals>
+    <plurals name="convlist_reported_spam">
+        <item quantity="other">%d件の会話を報告しました。今後のメッセージは「ブロック済み」に入ります。</item>
+    </plurals>
+    <string name="blocked_title">ブロック済み</string>
+    <string name="blocked_menu_rules">ルール</string>
+    <string name="blocked_mode_group_cd">不明な送信者：%1$s、%3$d項目中%2$d番目</string>
+    <string name="blocked_mode_desc_strict">厳格：不明な送信者からのメッセージは、認証コードも含めてすべて保留します。</string>
+    <string name="blocked_mode_desc_smart">スマート：不明な送信者からのメッセージを保留しますが、リンクのない認証コードは受信します。</string>
+    <string name="blocked_mode_desc_off">オフ：不明な送信者からのメッセージも受信トレイに届きます。設定したルールは適用されます。</string>
+    <string name="blocked_snack_mode">不明な送信者の設定を「%1$s」に変更しました。</string>
+    <string name="blocked_off_title">不明な送信者の保留をオフにしますか？</string>
+    <string name="blocked_off_body">不明な送信者からのメッセージが受信トレイに直接届きます。設定したルールは適用されます。</string>
+    <string name="blocked_off_confirm">オフにする</string>
+    <string name="blocked_stats_restored">自分で復元した件数：%1$d</string>
+    <string name="blocked_reason_unknown_link">不明な送信者、リンクあり</string>
+    <string name="blocked_may_be_important">重要な可能性があります。</string>
+    <string name="blocked_action_move_inbox">受信トレイへ移動</string>
+    <string name="blocked_swipe_not_spam">スワイプで受信トレイへ移動</string>
+</resources>

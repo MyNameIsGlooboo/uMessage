@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="backup_channel">बैकअप और वापस लाना</string>
+    <string name="backup_restoring">मैसेज वापस लाए जा रहे हैं</string>
+    <string name="backup_exporting">मैसेज का बैकअप लिया जा रहा है</string>
+    <plurals name="backup_progress_import" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d एंट्री पढ़ी गई</item>
+        <item quantity="other">%1$d एंट्री पढ़ी गईं</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d एंट्री पढ़ी गई (%2$d%%)</item>
+        <item quantity="other">%1$d एंट्री पढ़ी गईं (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d मैसेज सेव हुआ</item>
+        <item quantity="other">%1$d मैसेज सेव हुए</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d मैसेज सेव हुआ (%2$d%%)</item>
+        <item quantity="other">%1$d मैसेज सेव हुए (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">आप ऐप से बाहर जा सकते हैं: काम चलता रहेगा और उसकी प्रगति सूचना में दिखेगी.</string>
+    <string name="backup_stop">रोकें</string>
+    <string name="backup_hide">छिपाएं</string>
+    <string name="backup_already_running">बैकअप लेने या वापस लाने का काम पहले से चल रहा है.</string>
+    <string name="backup_restore_finished">वापस लाने का काम पूरा हुआ</string>
+    <string name="backup_restore_stopped">वापस लाने का काम रुक गया</string>
+    <string name="backup_restore_failed">वापस लाने का काम विफल रहा</string>
+    <string name="backup_invalid_file">यह फ़ाइल मैसेज का बैकअप नहीं है, इसलिए कुछ भी वापस नहीं लाया गया.</string>
+    <string name="backup_no_entries">बैकअप फ़ाइल में कोई मैसेज नहीं है.</string>
+    <plurals name="backup_nothing_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">इंपोर्ट करने के लिए कुछ नया नहीं है: मैसेज इस फ़ोन पर पहले से मौजूद है.</item>
+        <item quantity="other">इंपोर्ट करने के लिए कुछ नया नहीं है: सभी %1$d मैसेज इस फ़ोन पर पहले से मौजूद हैं.</item>
+    </plurals>
+    <string name="backup_line_added">जोड़े गए: %1$d</string>
+    <string name="backup_line_duplicates">इस फ़ोन पर पहले से मौजूद, छोड़ दिए गए: %1$d</string>
+    <string name="backup_line_repaired">पहले वापस लाए गए मैसेज में छूटे हुए अटैचमेंट जोड़े गए: %1$d</string>
+    <string name="backup_line_incomplete">कुछ अटैचमेंट के बिना वापस लाए गए फ़ोटो मैसेज: %1$d</string>
+    <string name="backup_line_failed">वापस नहीं लाए जा सके: %1$d</string>
+    <string name="backup_line_damaged">फ़ाइल में खराब एंट्री, छोड़ दी गईं: %1$d</string>
+    <string name="backup_line_xml_mms">इस XML बैकअप में फ़ोटो मैसेज, सपोर्ट न होने के कारण छोड़ दिए गए: %1$d</string>
+    <string name="backup_line_not_selected">इंपोर्ट करने के लिए नहीं चुने गए: %1$d</string>
+    <string name="backup_reasons">वजह:</string>
+    <string name="backup_reason_no_address">मैसेज में भेजने वाले या पाने वाले की जानकारी नहीं है</string>
+    <string name="backup_reason_no_thread">फ़ोन इसकी बातचीत नहीं खोल सका</string>
+    <string name="backup_reason_refused">फ़ोन ने इसे सेव करने से मना कर दिया</string>
+    <string name="backup_reason_not_in_backup">अटैचमेंट बैकअप फ़ाइल में नहीं है</string>
+    <string name="backup_reason_damaged_attachment">बैकअप फ़ाइल में अटैचमेंट खराब है</string>
+    <string name="backup_reason_attachment_write">अटैचमेंट सेव नहीं हो सका</string>
+    <string name="backup_stopped_early">%1$d एंट्री के बाद फ़ाइल खराब है, इसलिए उसके आगे कुछ भी पढ़ा नहीं जा सका.</string>
+    <plurals name="backup_cancelled_import" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d एंट्री के बाद काम रुक गया. पूरा करने के लिए उसी फ़ाइल से दोबारा वापस लाएं: पहले वापस लाए गए मैसेज छोड़ दिए जाएंगे.</item>
+        <item quantity="other">%1$d एंट्री के बाद काम रुक गया. पूरा करने के लिए उसी फ़ाइल से दोबारा वापस लाएं: पहले वापस लाए गए मैसेज छोड़ दिए जाएंगे.</item>
+    </plurals>
+    <string name="backup_retry_hint">जो वापस नहीं आ सके, उन्हें दोबारा वापस लाएं: पहले वापस लाए गए मैसेज छोड़ दिए जाएंगे.</string>
+    <string name="backup_export_finished">बैकअप पूरा हुआ</string>
+    <string name="backup_export_stopped">बैकअप रुक गया</string>
+    <string name="backup_export_failed">बैकअप विफल रहा</string>
+    <string name="backup_export_error">बैकअप लिखा नहीं जा सका और अधूरी फ़ाइल मिटा दी गई. %1$s</string>
+    <string name="backup_export_cancelled">बैकअप रोक दिया गया और अधूरी फ़ाइल मिटा दी गई.</string>
+    <string name="backup_export_nothing">बैकअप लेने के लिए कोई मैसेज नहीं है.</string>
+    <string name="backup_export_counts">%1$d SMS और %2$d MMS सेव हुए.</string>
+    <string name="backup_export_unreadable_attachments">जो अटैचमेंट पढ़े नहीं जा सके, उन्हें उनकी फ़ोटो के बिना सेव किया गया: %1$d</string>
+    <string name="backup_export_unreadable_messages">जो मैसेज पढ़े नहीं जा सके, उन्हें छोड़ दिया गया: %1$d</string>
+    <string name="backup_export_unreadable_conversations">जो बातचीत पढ़ी नहीं जा सकीं, उन्हें छोड़ दिया गया: %1$d</string>
+    <string name="backup_export_incomplete">यह बैकअप अधूरा है.</string>
+    <string name="backup_interrupted_import">पिछली बार वापस लाने का काम बीच में रुक गया था, शायद फ़ोन ने ऐप बंद कर दिया था. उसी फ़ाइल से दोबारा वापस लाएं: पहले वापस लाए गए मैसेज छोड़ दिए जाएंगे.</string>
+    <string name="backup_interrupted_export">पिछला बैकअप बीच में रुक गया था, इसलिए उसकी फ़ाइल अधूरी है. कृपया नया बैकअप लें.</string>
+</resources>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_tab_forwarded">بازارسال‌شده</string>
+    <string name="nav_tab_forwarded_failed">بازارسال‌شده، یک بازارسال ناموفق</string>
+    <string name="nav_tab_forwarded_paused">بازارسال‌شده، بازارسال متوقف است</string>
+    <string name="nav_tab_archived_new">بایگانی‌شده، گفتگوی جدیدی بایگانی شد</string>
+    <string name="nav_prompt_title">قانون ذخیره شد</string>
+    <string name="nav_prompt_body">زبانهٔ «بازارسال‌شده» نمایش داده شود تا پیام‌های ارسال‌شده را ببینید و موارد ناموفق را دوباره بفرستید؟</string>
+    <string name="nav_prompt_show">نمایش زبانه</string>
+    <string name="nav_prompt_not_now">فعلاً نه</string>
+    <string name="nav_fwd_paid_note">هر بازارسال هزینهٔ یک SMS را دارد.</string>
+    <string name="nav_fwd_pause_all">توقف همهٔ بازارسال‌ها</string>
+    <string name="nav_fwd_status_paused">بازارسال متوقف است</string>
+    <string name="nav_fwd_paused_hint">پیام‌های مطابق با قانون‌ها ارسال نمی‌شوند. برای ادامه، این گزینه را خاموش کنید.</string>
+    <string name="nav_fwd_status_no_rule">هیچ قانون بازارسالی روشن نیست</string>
+    <plurals name="nav_fwd_status_on" tools:ignore="ImpliedQuantity">
+        <item quantity="one">بازارسال روشن است، %1$s قانون</item>
+        <item quantity="other">بازارسال روشن است، %1$s قانون</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">مدیریت قانون‌ها</string>
+    <string name="nav_fwd_empty_title">هنوز چیزی بازارسال نشده</string>
+    <string name="nav_fwd_empty_body">پیام‌های مطابق با قانون‌ها اینجا نمایش داده می‌شوند.</string>
+    <string name="nav_fwd_status_sent">ارسال‌شده</string>
+    <string name="nav_fwd_status_pending">در انتظار</string>
+    <string name="nav_fwd_status_failed">ناموفق</string>
+    <string name="nav_fwd_to">به %1$s</string>
+    <string name="nav_fwd_sim">سیم‌کارت %1$d</string>
+    <string name="nav_fwd_rule_line">قانون: %1$s، %2$s</string>
+    <string name="nav_fwd_rule_sender">فرستنده %1$s</string>
+    <string name="nav_fwd_rule_any_sender">هر فرستنده</string>
+    <string name="nav_fwd_rule_text">متن %1$s</string>
+    <string name="nav_fwd_rule_any_text">هر متن</string>
+    <string name="nav_fwd_rule_deleted">قانون حذف شد</string>
+    <string name="nav_fwd_open_details">نمایش جزئیات</string>
+    <string name="nav_fwd_today">امروز</string>
+    <string name="nav_fwd_yesterday">دیروز</string>
+    <plurals name="nav_fwd_failed_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s بازارسال ناموفق</item>
+        <item quantity="other">%1$s بازارسال ناموفق</item>
+    </plurals>
+    <string name="nav_fwd_retry">تلاش دوباره</string>
+    <string name="nav_fwd_retry_all">تلاش دوباره برای همهٔ موارد ناموفق (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">دوباره ارسال شود؟</string>
+    <plurals name="nav_fwd_retry_all_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s SMS دوباره ارسال می‌شود. هر کدام هزینهٔ یک SMS را دارد.</item>
+        <item quantity="other">%1$s SMS دوباره ارسال می‌شود. هر کدام هزینهٔ یک SMS را دارد.</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">ارسال دوباره</string>
+    <plurals name="nav_fwd_retry_sent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d بازارسال دوباره ارسال شد</item>
+        <item quantity="other">%d بازارسال دوباره ارسال شد</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">دوباره ناموفق بود. آنتن و اعتبارتان را بررسی کنید.</string>
+    <string name="nav_fwd_retry_missing">پیام اصلی دیگر موجود نیست و نمی‌توان آن را دوباره ارسال کرد.</string>
+    <string name="nav_fwd_details_title">جزئیات بازارسال</string>
+    <string name="nav_fwd_detail_from">پیام از</string>
+    <string name="nav_fwd_detail_to">بازارسال به</string>
+    <string name="nav_fwd_detail_when">زمان</string>
+    <string name="nav_fwd_detail_sim">ارسال از</string>
+    <string name="nav_fwd_detail_rule">مطابق با</string>
+    <string name="nav_fwd_detail_message">پیام اصلی</string>
+    <string name="nav_fwd_message_loading">در حال بارگیری</string>
+    <string name="nav_fwd_message_gone">پیام اصلی دیگر ذخیره نیست.</string>
+    <string name="nav_fwd_error_radio">شبکه آن را تحویل نداد.</string>
+    <string name="nav_fwd_error_refused">گوشی نتوانست آن را ارسال کند.</string>
+    <string name="nav_fwd_open_chat">باز کردن گفتگو</string>
+    <string name="nav_archived_title">بایگانی‌شده</string>
+    <string name="nav_archived_back">بازگشت به پیام‌ها</string>
+    <string name="nav_archived_intro">گفتگوهای بایگانی‌شده در پیام‌ها نمایش داده نمی‌شوند. با رسیدن پیام جدید، گفتگو برمی‌گردد، مگر اینکه گزینهٔ «گفتگوهای بایگانی‌شده پنهان بمانند» در تنظیمات روشن باشد.</string>
+    <string name="nav_archived_intro_dismiss">پنهان کردن این یادداشت</string>
+    <plurals name="nav_archived_moved" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d گفتگو به پیام‌ها منتقل شد</item>
+        <item quantity="other">%d گفتگو به پیام‌ها منتقل شد</item>
+    </plurals>
+    <string name="nav_folder_more">گزینه‌های بیشتر</string>
+    <string name="nav_folder_mark_all_read">علامت‌گذاری همه به‌عنوان خوانده‌شده</string>
+    <string name="nav_folder_delete_all_count">با این کار %1$s برای همیشه حذف می‌شود.</string>
+</resources>

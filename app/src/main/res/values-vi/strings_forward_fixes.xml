@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">Tạm dừng hôm nay: đã đạt giới hạn</string>
+    <string name="fwdfix_limit_hint">Đã chuyển tiếp %1$s/%2$s lần hôm nay. Chuyển tiếp sẽ tiếp tục vào ngày mai.</string>
+    <string name="fwdfix_status_skipped">Đã bỏ qua (giới hạn)</string>
+    <string name="fwdfix_error_daily_limit">Chưa gửi: đã đạt giới hạn chuyển tiếp hằng ngày.</string>
+    <string name="fwdfix_error_rate_limited">Chưa gửi: quy tắc này đã chuyển tiếp %1$s tin nhắn trong một giờ qua.</string>
+    <string name="fwdfix_retry_all_recent">Chỉ bao gồm các lượt chuyển tiếp trong 24 giờ qua.</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="other">%1$s tin nhắn chưa gửi: chuyển tiếp đang tạm dừng.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="other">%1$s tin nhắn chưa gửi: quy tắc tương ứng đã tắt hoặc bị xóa.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="other">%1$s tin nhắn chưa gửi: đã đạt giới hạn hằng ngày hoặc giới hạn mỗi giờ của quy tắc.</item>
+    </plurals>
+    <string name="fwdfix_card_last">Chuyển tiếp gần nhất %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="other">%1$s lượt tuần này</item>
+    </plurals>
+    <string name="fwdfix_card_never">Chưa chuyển tiếp tin nhắn nào</string>
+    <string name="fwdfix_card_sent">đã gửi</string>
+    <string name="fwdfix_card_pending">đang gửi</string>
+    <string name="fwdfix_card_failed">thất bại</string>
+    <string name="fwdfix_card_skipped">đã bỏ qua (giới hạn)</string>
+    <string name="fwdfix_delete_rule">Xóa quy tắc</string>
+    <string name="fwdfix_deleted">Đã xóa quy tắc chuyển tiếp</string>
+    <string name="fwdfix_test_button">Gửi thử</string>
+    <string name="fwdfix_test_title">Gửi SMS thử?</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="other">Một SMS thử sẽ được gửi đến từng số trong %1$s số ở trên. Mỗi SMS đều có tính phí.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">Gửi</string>
+    <string name="fwdfix_test_text">Tin nhắn thử từ uMessage: chuyển tiếp hoạt động.</string>
+    <string name="fwdfix_test_sending">Đang gửi thử…</string>
+    <string name="fwdfix_test_sent">Đã gửi thử. Kiểm tra điện thoại nhận.</string>
+    <string name="fwdfix_test_failed">Không thể gửi thử. Kiểm tra sóng và số dư của bạn.</string>
+    <string name="fwdfix_cost_persian">Văn bản tiếng Ba Tư dài %1$s ký tự: %2$s phần × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">Văn bản tiếng Anh dài %1$s ký tự: %2$s phần × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">Hiện không có tin nhắn nào có thể gửi</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="other">%1$s tin nhắn sẽ không được gửi: chuyển tiếp đang tạm dừng.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="other">%1$s tin nhắn sẽ không được gửi: quy tắc tương ứng đã tắt hoặc bị xóa.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="other">%1$s tin nhắn sẽ không được gửi: đã đạt giới hạn hằng ngày hoặc giới hạn mỗi giờ của quy tắc.</item>
+    </plurals>
+</resources>

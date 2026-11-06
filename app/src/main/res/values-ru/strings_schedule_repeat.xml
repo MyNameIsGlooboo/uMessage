@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">Повтор</string>
+    <string name="schedule_repeat_never">Никогда</string>
+    <string name="schedule_repeat_daily">Каждый день</string>
+    <string name="schedule_repeat_weekly">Каждую неделю</string>
+    <string name="schedule_repeat_monthly">Каждый месяц</string>
+    <string name="schedule_repeat_yearly">Каждый год</string>
+    <string name="schedule_repeat_jalali_note">Месяцы и годы отсчитываются по календарю Джалали.</string>
+    <string name="scheduled_repeats_daily">Повтор каждый день</string>
+    <string name="scheduled_repeats_weekly">Повтор каждую неделю</string>
+    <string name="scheduled_repeats_monthly">Повтор каждый месяц</string>
+    <string name="scheduled_repeats_yearly">Повтор каждый год</string>
+    <string name="scheduled_repeats_paused">Повтор приостановлен</string>
+    <string name="scheduled_delete_repeating">Удалить повторяющееся сообщение</string>
+    <string name="scheduled_delete_this_one">Только это сообщение</string>
+    <string name="scheduled_delete_all_future">Это и все последующие</string>
+</resources>

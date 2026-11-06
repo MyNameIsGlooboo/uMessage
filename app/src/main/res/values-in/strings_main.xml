@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_hint">Cari percakapan</string>
+    <string name="main_search_back">Tutup pencarian</string>
+    <string name="main_search_clear">Hapus teks pencarian</string>
+    <string name="main_search_type_more">Ketik minimal 2 karakter untuk mencari</string>
+    <string name="main_search_no_results">Tidak ada hasil</string>
+    <string name="main_settings">Setelan</string>
+    <string name="main_tab_messages">Pesan</string>
+    <string name="main_tab_blocked">Diblokir</string>
+    <string name="main_tab_archived">Diarsipkan</string>
+    <plurals name="main_tab_blocked_new">
+        <item quantity="other">Diblokir, %d baru</item>
+    </plurals>
+    <string name="main_permission_title">Izin diperlukan</string>
+    <string name="main_permission_grant">Berikan izin</string>
+    <string name="main_permission_notifications">Izinkan notifikasi agar aplikasi dapat menampilkan pesan masuk.</string>
+    <string name="main_sms_permission_title">uMessage memerlukan akses SMS</string>
+    <string name="main_sms_permission_body">Tanpa izin membaca dan mengirim SMS, uMessage tidak dapat menampilkan pesan, mengirim pesan, atau memfilter spam. Tidak ada yang dihapus.</string>
+    <string name="main_sms_permission_settings">Buka setelan aplikasi</string>
+    <string name="main_not_default_banner">uMessage bukan aplikasi SMS default, jadi tidak dapat memblokir spam atau mengirim pesan.</string>
+    <string name="main_not_default_fix">Perbaiki</string>
+    <string name="main_not_default_fix_description">Jadikan uMessage aplikasi SMS default</string>
+</resources>

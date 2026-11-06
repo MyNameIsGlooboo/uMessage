@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="export_format_json">Файл uMessage (тексти й зображення)</string>
+    <string name="export_format_xml">Файл SMS Backup &amp; Restore (для інших застосунків)</string>
+    <string name="export_format_xml_hint">З файлів цього типу uMessage відновлює лише тексти.</string>
+    <string name="export_scope_all">Усі чати</string>
+    <string name="export_scope_choose">Вибрати чати</string>
+    <plurals name="export_scope_chosen" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Вибрано %1$d чат</item>
+        <item quantity="few">Вибрано %1$d чати</item>
+        <item quantity="many">Вибрано %1$d чатів</item>
+        <item quantity="other">Вибрано %1$d чату</item>
+    </plurals>
+    <string name="export_pick_title">Вибрати чати</string>
+    <string name="export_pick_search">Пошук</string>
+    <string name="export_pick_all">Вибрати все</string>
+    <string name="export_pick_none">Скасувати вибір</string>
+    <string name="export_pick_empty">Немає чатів</string>
+    <string name="export_pick_nothing_chosen">Виберіть хоча б один чат</string>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w2b1_archived_find">
+        <item quantity="one">%d archiviert. Du findest sie im Tab „Archiviert“</item>
+        <item quantity="other">%d archiviert. Du findest sie im Tab „Archiviert“</item>
+    </plurals>
+    <string name="w2b1_search_recent">Letzte Suchanfragen</string>
+    <string name="w2b1_search_recent_clear">Löschen</string>
+    <string name="w2b1_search_recent_clear_description">Letzte Suchanfragen löschen</string>
+    <string name="w2b1_search_digits_note">Persische und lateinische Ziffern werden gleichermaßen erkannt: 123 findet auch ۱۲۳.</string>
+    <string name="w2b1_search_section_conversations">Unterhaltungen</string>
+    <string name="w2b1_search_section_messages">Nachrichten</string>
+    <plurals name="w2b1_search_matches">
+        <item quantity="one">%d Treffer</item>
+        <item quantity="other">%d Treffer</item>
+    </plurals>
+    <string name="w2b1_filter_all">Alle</string>
+    <string name="w2b1_filter_unread">Ungelesen</string>
+    <string name="w2b1_filter_unread_empty_title">Keine ungelesenen Unterhaltungen</string>
+    <string name="w2b1_filter_unread_empty_body">Alles gelesen.</string>
+    <string name="w2b1_swipe_block">Absender blockieren</string>
+</resources>

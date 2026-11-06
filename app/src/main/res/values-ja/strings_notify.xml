@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">送信予約したメッセージが遅れて送信されました。</string>
+    <string name="scheduled_sent_late_exact_off">%1$sへのメッセージが%2$d分遅れて送信されました。送信予約したメッセージを時間どおりに送信するには、uMessageの「アラームとリマインダー」を許可してください。</string>
+    <string name="scheduled_sent_late_idle">%1$sへのメッセージが%2$d分遅れて送信されました。予約時刻に端末の電源がオフか、省電力モードになっていました。</string>
+    <string name="scheduled_sent_late_channel">送信予約したメッセージ</string>
+    <string name="notifications_off_title">通知がオフになっています。</string>
+    <string name="notifications_off_body">新しいメッセージが届いても通知されません。</string>
+    <string name="notifications_off_fix">オンにする</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">أبلغ عن رسالة غير مرغوب فيها</string>
+    <string name="carrier_report_row_title">رقم مشغّل شبكة الجوال للإبلاغ عن الرسائل غير المرغوب فيها</string>
+    <string name="carrier_report_row_summary">أبلغ عن رسالة غير مرغوب فيها لدى مشغّل شبكة الجوال عبر SMS</string>
+    <string name="carrier_report_not_set">غير محدد</string>
+    <string name="carrier_report_hint">رقم مشغّل شبكة الجوال للإبلاغ عن الرسائل غير المرغوب فيها. تُرسل البلاغات عبر SMS وقد تُفرض رسوم.</string>
+    <string name="carrier_report_invalid">استخدم من 3 إلى 8 أرقام</string>
+    <string name="carrier_report_action">أبلغ مشغّل شبكة الجوال</string>
+    <string name="carrier_report_title">هل تريد إبلاغ مشغّل شبكة الجوال؟</string>
+    <string name="carrier_report_body">ستُرسل آخر رسالة من هذا المرسل إلى %1$s عبر SMS. قد يفرض مشغّل شبكة الجوال رسومًا عليها.</string>
+    <string name="carrier_report_send">أرسل</string>
+    <string name="carrier_report_sent">تم إرسال البلاغ إلى مشغّل شبكة الجوال</string>
+    <string name="carrier_report_failed">تعذر إرسال البلاغ</string>
+</resources>

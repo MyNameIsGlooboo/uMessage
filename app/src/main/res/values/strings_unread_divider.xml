@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The line above the first message that was unread when the conversation opened -->
+    <string name="thread_unread_divider">Unread messages</string>
+</resources>

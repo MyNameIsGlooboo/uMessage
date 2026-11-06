@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_conv_menu">Exportar conversación</string>
+    <string name="export_conv_title">Exportar conversación</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">Texto sin formato</string>
+    <string name="export_conv_dates_all">Todas las fechas</string>
+    <string name="export_conv_dates_30">Últimos 30 días</string>
+    <string name="export_conv_dates_pick">Elegir fechas</string>
+    <string name="export_conv_pick_from">¿Desde qué día?</string>
+    <string name="export_conv_pick_to">¿Hasta qué día?</string>
+    <string name="export_conv_action">Exportar</string>
+    <string name="export_conv_preparing">Preparando el archivo…</string>
+    <string name="export_conv_nothing">No hay mensajes en ese período</string>
+    <string name="export_conv_failed">No se pudo crear el archivo</string>
+    <string name="export_conv_subject">Exportación de conversación</string>
+    <string name="export_conv_share_text">Conversación con %1$s, %2$s. SHA-256 del texto de los mensajes: %3$s</string>
+    <string name="export_conv_attachment_label">[Archivo adjunto]</string>
+    <string name="export_pdf_title">Exportación de conversación</string>
+    <string name="export_pdf_with">Conversación con: %1$s</string>
+    <string name="export_pdf_numbers">Números: %1$s</string>
+    <string name="export_pdf_range">Período: %1$s</string>
+    <string name="export_pdf_zone">Las horas corresponden a la zona horaria %1$s</string>
+    <string name="export_pdf_exported">Exportado: %1$s</string>
+    <plurals name="export_pdf_count">
+        <item quantity="one">%1$d mensaje</item>
+        <item quantity="other">%1$d mensajes</item>
+    </plurals>
+    <string name="export_pdf_hash">SHA-256 del texto de los mensajes: %1$s</string>
+    <string name="export_pdf_not_certified">Exportado desde el teléfono; no es un registro certificado.</string>
+    <string name="export_pdf_page">Página %1$d de %2$d</string>
+    <string name="export_pdf_from">De: %1$s</string>
+    <string name="export_pdf_to">Para: %1$s</string>
+    <string name="export_pdf_attachment">Archivo adjunto: %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">archivo sin nombre</string>
+    <string name="export_status_received">Recibido</string>
+    <string name="export_status_sent">Enviado</string>
+    <string name="export_status_delivered">Entregado</string>
+    <string name="export_status_failed">Fallido</string>
+    <string name="export_status_sending">Enviando</string>
+    <string name="export_status_draft">Borrador</string>
+</resources>

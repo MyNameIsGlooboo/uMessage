@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">繰り返し</string>
+    <string name="schedule_repeat_never">繰り返さない</string>
+    <string name="schedule_repeat_daily">毎日</string>
+    <string name="schedule_repeat_weekly">毎週</string>
+    <string name="schedule_repeat_monthly">毎月</string>
+    <string name="schedule_repeat_yearly">毎年</string>
+    <string name="schedule_repeat_jalali_note">月と年はジャラリー暦に従います。</string>
+    <string name="scheduled_repeats_daily">毎日繰り返し</string>
+    <string name="scheduled_repeats_weekly">毎週繰り返し</string>
+    <string name="scheduled_repeats_monthly">毎月繰り返し</string>
+    <string name="scheduled_repeats_yearly">毎年繰り返し</string>
+    <string name="scheduled_repeats_paused">繰り返しを一時停止中</string>
+    <string name="scheduled_delete_repeating">繰り返しメッセージを削除</string>
+    <string name="scheduled_delete_this_one">このメッセージのみ</string>
+    <string name="scheduled_delete_all_future">このメッセージと以降すべて</string>
+</resources>

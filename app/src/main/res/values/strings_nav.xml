@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Design review 2: the bottom bar (Forwarded and Archived tabs), the Forwarded tab and the Archived tab. -->
+<resources>
+    <string name="main_tab_forwarded">Forwarded</string>
+    <string name="nav_tab_forwarded_failed">Forwarded, a forward failed</string>
+    <string name="nav_tab_forwarded_paused">Forwarded, forwarding is paused</string>
+    <string name="nav_tab_archived_new">Archived, new chat archived</string>
+
+    <!-- Question after the first forward rule is saved -->
+    <string name="nav_prompt_title">Rule saved</string>
+    <string name="nav_prompt_body">Show a Forwarded tab to see what was sent and retry failures?</string>
+    <string name="nav_prompt_show">Show tab</string>
+    <string name="nav_prompt_not_now">Not now</string>
+
+    <!-- Forwarded tab -->
+    <string name="nav_fwd_paid_note">Each forward is a paid SMS.</string>
+    <string name="nav_fwd_pause_all">Pause all forwarding</string>
+    <string name="nav_fwd_status_paused">Forwarding is paused</string>
+    <string name="nav_fwd_paused_hint">Matching messages are not sent. Switch off to resume.</string>
+    <string name="nav_fwd_status_no_rule">No forward rule is on</string>
+    <plurals name="nav_fwd_status_on">
+        <item quantity="one">Forwarding is on, %1$s rule</item>
+        <item quantity="other">Forwarding is on, %1$s rules</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">Manage rules</string>
+    <string name="nav_fwd_empty_title">Nothing forwarded yet</string>
+    <string name="nav_fwd_empty_body">Matching messages will show up here.</string>
+    <string name="nav_fwd_status_sent">Sent</string>
+    <string name="nav_fwd_status_pending">Pending</string>
+    <string name="nav_fwd_status_failed">Failed</string>
+    <string name="nav_fwd_to">To %1$s</string>
+    <string name="nav_fwd_sim">SIM %1$d</string>
+    <string name="nav_fwd_rule_line">Rule: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">sender %1$s</string>
+    <string name="nav_fwd_rule_any_sender">any sender</string>
+    <string name="nav_fwd_rule_text">text %1$s</string>
+    <string name="nav_fwd_rule_any_text">any text</string>
+    <string name="nav_fwd_rule_deleted">Rule deleted</string>
+    <string name="nav_fwd_open_details">Show details</string>
+    <string name="nav_fwd_today">Today</string>
+    <string name="nav_fwd_yesterday">Yesterday</string>
+    <plurals name="nav_fwd_failed_count">
+        <item quantity="one">%1$s forward failed</item>
+        <item quantity="other">%1$s forwards failed</item>
+    </plurals>
+    <string name="nav_fwd_retry">Retry</string>
+    <string name="nav_fwd_retry_all">Retry all failed (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">Send again?</string>
+    <plurals name="nav_fwd_retry_all_message">
+        <item quantity="one">%1$s SMS will be sent again. Each one is a paid SMS.</item>
+        <item quantity="other">%1$s SMS will be sent again. Each one is a paid SMS.</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">Send again</string>
+    <plurals name="nav_fwd_retry_sent">
+        <item quantity="one">%d forward sent again</item>
+        <item quantity="other">%d forwards sent again</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">It failed again. Check your signal and balance.</string>
+    <string name="nav_fwd_retry_missing">The original message is gone, so it cannot be sent again.</string>
+    <string name="nav_fwd_details_title">Forward details</string>
+    <string name="nav_fwd_detail_from">Message from</string>
+    <string name="nav_fwd_detail_to">Forwarded to</string>
+    <string name="nav_fwd_detail_when">Time</string>
+    <string name="nav_fwd_detail_sim">Sent from</string>
+    <string name="nav_fwd_detail_rule">Matched</string>
+    <string name="nav_fwd_detail_message">Original message</string>
+    <string name="nav_fwd_message_loading">Loading</string>
+    <string name="nav_fwd_message_gone">The original message is no longer saved.</string>
+    <string name="nav_fwd_error_radio">The network did not deliver it.</string>
+    <string name="nav_fwd_error_refused">The phone could not send it.</string>
+    <string name="nav_fwd_open_chat">Open chat</string>
+
+    <!-- Archived tab and screen -->
+    <string name="nav_archived_title">Archived</string>
+    <string name="nav_archived_back">Back to Messages</string>
+    <string name="nav_archived_intro">Archived chats stay out of Messages. A new message brings a chat back unless “Archived chats stay hidden” is on in Settings.</string>
+    <string name="nav_archived_intro_dismiss">Hide this note</string>
+    <plurals name="nav_archived_moved">
+        <item quantity="one">%d conversation moved to Messages</item>
+        <item quantity="other">%d conversations moved to Messages</item>
+    </plurals>
+    <string name="nav_folder_more">More options</string>
+    <string name="nav_folder_mark_all_read">Mark all read</string>
+    <string name="nav_folder_delete_all_count">This removes %1$s for good.</string>
+</resources>

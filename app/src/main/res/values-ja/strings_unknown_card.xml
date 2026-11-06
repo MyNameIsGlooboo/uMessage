@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">連絡先に未登録</string>
+    <string name="i04_card_caution">リンクやお金、コードの扱いにご注意ください。</string>
+    <string name="i04_card_add_contact">連絡先を追加</string>
+    <string name="i04_card_allow">常に許可</string>
+    <string name="i04_card_block">ブロック</string>
+    <string name="i04_card_dismiss">閉じる</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">Arduvaz</string>
+    <string name="preset_slate_desc">Sakin mavi-gri</string>
+    <string name="preset_firouzeh">Firuze</string>
+    <string name="preset_firouzeh_desc">Altın dokunuşlu turkuaz</string>
+    <string name="preset_pomegranate">Nar</string>
+    <string name="preset_pomegranate_desc">Koyu yeşille sıcak kırmızı</string>
+    <string name="preset_harbor">Liman</string>
+    <string name="preset_harbor_desc">Yumuşak mercanla gece mavisi</string>
+    <string name="preset_lavender">Lavanta</string>
+    <string name="preset_lavender_desc">Petrol yeşiliyle yumuşak mor</string>
+    <string name="preset_ink">Mürekkep</string>
+    <string name="preset_ink_desc">Gümüş ve altınla siyaha yakın ton</string>
+    <string name="preset_contrast">Kontrast</string>
+    <string name="preset_contrast_desc">Canlı vurgularla siyah beyaz</string>
+</resources>

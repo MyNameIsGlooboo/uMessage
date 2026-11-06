@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">Không có trong danh sách người liên hệ của bạn</string>
+    <string name="i04_card_caution">Cẩn thận với liên kết, tiền và mã.</string>
+    <string name="i04_card_add_contact">Thêm người liên hệ</string>
+    <string name="i04_card_allow">Luôn cho phép</string>
+    <string name="i04_card_block">Chặn</string>
+    <string name="i04_card_dismiss">Bỏ qua</string>
+</resources>

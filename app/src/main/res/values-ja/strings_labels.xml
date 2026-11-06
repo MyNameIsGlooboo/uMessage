@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">ラベル</string>
+    <string name="i29_picker_title">ラベル</string>
+    <string name="i29_picker_empty">ラベルはまだありません。作成して会話を整理できます。</string>
+    <string name="i29_picker_new">ラベル作成</string>
+    <string name="i29_picker_manage">ラベル管理</string>
+    <string name="i29_done">完了</string>
+    <string name="i29_cancel">キャンセル</string>
+    <string name="i29_tiles_title">マイラベル</string>
+    <string name="i29_tile_add">ラベル追加</string>
+    <string name="i29_tiles_manage">ラベル管理</string>
+    <string name="i29_manager_title">ラベル管理</string>
+    <string name="i29_manager_note">ラベルは自由に作成できます。自動フィルターの「取引」「特典」とは別の機能です。</string>
+    <string name="i29_manager_edit">ラベル「%1$s」を編集</string>
+    <string name="i29_manager_delete">ラベル「%1$s」を削除</string>
+    <string name="i29_edit_new_title">ラベル作成</string>
+    <string name="i29_edit_title">ラベル編集</string>
+    <string name="i29_edit_name">ラベル名</string>
+    <string name="i29_edit_save">保存</string>
+    <string name="i29_color_description">色：%1$d</string>
+    <string name="i29_error_duplicate">同じ名前のラベルがすでにあります。</string>
+    <string name="i29_error_limit">ラベルは%1$d個まで作成できます。</string>
+    <string name="i29_delete_title">このラベルを削除してもよいですか？</string>
+    <string name="i29_delete_body">ラベル「%1$s」を削除します。会話やメッセージはそのまま残ります。</string>
+    <string name="i29_delete_confirm">削除</string>
+    <string name="i29_empty_title">会話はありません</string>
+    <string name="i29_empty_body">会話を長押しし、メニューの「ラベル」から追加できます。</string>
+</resources>

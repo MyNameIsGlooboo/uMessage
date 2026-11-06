@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">होम स्क्रीन पर जोड़ें</string>
+    <string name="home_shortcut_requested">इसे जोड़ने के लिए आपके लॉन्चर से अनुरोध किया जा रहा है. होम स्क्रीन पर नाम दिखेगा. अगर कुछ न दिखे, तो फ़ोन की ऐप सेटिंग में uMessage के लिए “होम स्क्रीन शॉर्टकट” की अनुमति दें.</string>
+    <string name="home_shortcut_failed">आपके लॉन्चर ने शॉर्टकट स्वीकार नहीं किया. फ़ोन की ऐप सेटिंग में uMessage के लिए “होम स्क्रीन शॉर्टकट” की अनुमति दें.</string>
+</resources>

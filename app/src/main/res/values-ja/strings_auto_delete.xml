@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">メッセージの保存期間</string>
+    <string name="cleanup_old_summary">保存期間を過ぎたメッセージはゴミ箱に移動します。</string>
+    <string name="cleanup_forever">無期限</string>
+    <string name="cleanup_one_year">1年</string>
+    <string name="cleanup_bin_title">ゴミ箱を有効にしてもよろしいですか？</string>
+    <string name="cleanup_bin_body">削除したメッセージはゴミ箱に30日間保存され、その間は復元できます。自動整理にはゴミ箱が必要です。</string>
+    <string name="cleanup_bin_confirm">有効にする</string>
+    <string name="cleanup_old_confirm_title">古いメッセージを移動してもよろしいですか？</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="other">保存期間を過ぎた%d件のメッセージを今すぐゴミ箱に移動します。スター付きや未読のメッセージ、固定した会話はそのまま残ります。</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">保存期間を過ぎたメッセージはまだありません。保存期間を過ぎると自動でゴミ箱に移動します。スター付きや未読のメッセージ、固定した会話はそのまま残ります。</string>
+    <string name="cleanup_old_confirm_action">移動</string>
+</resources>

@@ -1,0 +1,134 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|नमस्ते!
+greeting|हेलो जी
+greeting|नमस्कार दोस्त
+greeting|हाय
+good_morning|सुप्रभात
+good_morning|गुड मॉर्निंग जी
+good_afternoon|शुभ दोपहर
+good_evening|शुभ संध्या
+good_night|शुभ रात्रि 😴
+good_night|गुड नाइट
+good_night|मीठे सपने
+how_are_you|आप कैसे हैं?
+how_are_you|क्या हाल है
+how_are_you|कैसे हो भाई
+how_are_you|क्या चल रहा है
+thanks|धन्यवाद
+thanks|बहुत बहुत शुक्रिया
+thanks|थैंक यू 🙏
+thanks|बताने के लिए धन्यवाद
+youre_welcome|कोई बात नहीं
+youre_welcome|आपका स्वागत है
+youre_welcome|कोई दिक्कत नहीं
+youre_welcome|नो प्रॉब्लम
+where_are_you|कहाँ हो?
+where_are_you|आप कहां हैं
+where_are_you|कहाँ पहुंचे
+on_my_way|आ रहा हूँ
+on_my_way|मैं निकल गई
+on_my_way|मैं रास्ते में हूँ
+on_my_way|बस आ रही हूं
+arrived|पहुँच गया
+arrived|मैं बाहर हूँ
+arrived|नीचे खड़ी हूँ
+arrived|हम आ गए
+arrived_home|घर पहुँच गई
+arrived_home|मैं घर पर हूँ
+arrived_home|सही सलामत घर पहुँच गया
+arrived_home|अभी घर आया
+did_you_arrive|क्या आप पहुँच गए?
+did_you_arrive|पहुँच गए क्या
+did_you_arrive|घर पहुँचे क्या
+are_you_coming|तुम आओगे ना
+are_you_coming|आप आएँगे?
+are_you_coming|क्या तुम आ रहे हो
+call_me|कॉल करो
+call_me|मुझे फोन करना
+call_me|मुझे वापस कॉल करो
+call_me|आप कॉल कर सकते हैं
+can_you_talk|बात कर सकते हो?
+can_you_talk|क्या अभी बात हो सकती है
+can_you_talk|एक मिनट है?
+are_you_free|फ्री हो?
+are_you_free|आज फ्री हो
+are_you_free|क्या आप कल फ्री हैं
+what_time|कितने बजे
+what_time|कब मिलना है
+what_time|कल कितने बजे
+where_to_meet|कहाँ मिलें?
+where_to_meet|कहां मिलते हैं
+where_to_meet|आज कहाँ चलें
+ok_confirm|ठीक है
+ok_confirm|ओके
+ok_confirm|बहुत बढ़िया
+ok_confirm|समझ गया
+ok_confirm|पक्का जी
+bye|बाय
+bye|फिर मिलेंगे
+bye|अपना ख्याल रखना
+bye|कल बात करते हैं
+bye|अलविदा
+congrats|बधाई हो
+congrats|जन्मदिन मुबारक
+congrats|हैप्पी बर्थडे
+congrats|नौकरी के लिए बधाई
+holiday_eid|ईद मुबारक
+holiday_eid|आपको ईद मुबारक
+holiday_new_year|नया साल मुबारक
+holiday_new_year|हैप्पी न्यू ईयर
+holiday_christmas|मेरी क्रिसमस
+holiday_other|हैप्पी दिवाली
+holiday_other|होली की शुभकामनाएं
+good_luck|शुभकामनाएं
+good_luck|गुड लक
+good_luck|ऑल द बेस्ट
+sorry_late|देर के लिए माफ़ करना
+sorry_late|सॉरी
+sorry_late|अभी मैसेज देखा
+missed_call|कॉल मिस हो गया
+missed_call|आपकी मिस्ड कॉल देखी
+missed_call|सॉरी फोन नहीं उठा पाया
+NONE|तुम कल रात कहाँ थे और फोन क्यों नहीं उठा रहे थे मुझे बहुत चिंता हो रही थी
+NONE|मुझे कॉल करो, मेरा कोड 5821 है
+NONE|इस नंबर पर कॉल करो 8800 555
+NONE|धन्यवाद, कल मुझे पैसे भेज देना
+NONE|नमस्ते, कृपया अपना पिन किसी को न बताएं
+NONE|www.example.com पर जाकर कॉल करो
+NONE|नमस्ते, कैसे हो? क्या कर रहे हो?
+NONE|तुम कब आओगे
+NONE|तुम आओगे, क्या लाना है
+NONE|धन्यवाद, लेकिन मुझे यह पसंद नहीं आया
+NONE|नमस्ते, मुझे तुरंत मदद चाहिए
+NONE|मैं अस्पताल में हूँ, कॉल करो
+NONE|आज सुबह दादी का निधन हो गया
+NONE|हम आज रात शहर के बीच में कहाँ खाना खाएंगे चारों मिलकर
+NONE|कल तुम्हारी दिल्ली की फ्लाइट कितने बजे है?
+NONE|मम्मी को फोन करो वो परेशान हैं
+NONE|मैं आज नहीं आऊंगा
+NONE|नहीं, धन्यवाद
+NONE|आपसे मिलकर बहुत खुशी हुई
+NONE|अभी पता नहीं, बाद में बताता हूँ
+NONE|तुमने मेरी चाबी कहीं देखी क्या?
+NONE|ठीक है, लेकिन मुझे कल तक सोचना होगा
+NONE|नमस्ते, यह डिलीवरी सर्विस से बोल रहे हैं
+NONE|नमस्ते! मैं अनीता हूँ, याद है मैं कौन हूँ?
+NONE|वाईफाई का पासवर्ड कागज़ पर लिखा है
+NONE|भुगतान सफल रहा
+NONE|लोन मंज़ूर हो गया, बैंक में कॉल करें
+NONE|मुझे वेरिफिकेशन कोड मिला
+NONE|बधाई, लेकिन दिल से नहीं
+NONE|नई गाड़ी के लिए बधाई, गारंटी मत भूलना
+NONE|तुम आओगे? वो आएगी?
+NONE|मैं सोमवार को आऊंगा
+NONE|हम कल दिल्ली पहुँचे थे
+NONE|चलो काम के बारे में बात करते हैं
+NONE|बताओ तुम कितने बजे पहुँचोगे, मैं लेने आऊंगा
+NONE|क्या वो आज फ्री है?
+NONE|हम शनिवार को थिएटर जा रहे हैं
+NONE|नमस्ते https://t.me/example
+NONE|आज सुबह से ऑफिस में हूँ, फिर माता पिता के घर जाऊंगा, सब्ज़ी खरीदेंगे, खाना बनाएंगे, फिल्म देखेंगे और जल्दी सो जाएंगे क्योंकि कल सुबह जल्दी उठकर शहर के दूसरे छोर पर जाना है
+NONE|धन्यवाद, नमस्ते, बाय
+NONE|Hello, कैसे हो
+NONE|मुझे कॉल करो, मैंने टैक्सी पर 500 रुपये खर्च किए

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">Anahtar kelime arayın</string>
+    <string name="w2a_keywords_search_clear">Aramayı temizleyin</string>
+    <string name="w2a_keywords_no_match_title">Eşleşen anahtar kelime yok</string>
+    <string name="w2a_keywords_no_match_body">Başka bir kelime deneyin veya aramayı temizleyin.</string>
+</resources>

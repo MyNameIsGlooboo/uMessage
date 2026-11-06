@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">Mehr Funktionen</string>
+    <string name="ux8f_onb_less">Weniger Funktionen</string>
+    <string name="ux8f_onb_battery_body">Android kann uMessage im Hintergrund beenden und deine Nachrichten verzögern. Erlaube der App, weiterzulaufen.</string>
+    <string name="ux8f_onb_battery_action">Hintergrundnutzung erlauben</string>
+    <string name="ux8f_onb_vendor_hint">Bei Smartphones von %1$s ist ein weiterer Schritt nötig.</string>
+    <string name="ux8f_onb_unfinished">Noch offen. Du kannst diese Schritte später in den Android-Einstellungen abschließen.</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3_inbox_filter_show">Hiện bộ lọc</string>
+    <string name="r3_inbox_filter_hide">Ẩn bộ lọc</string>
+    <string name="r3_inbox_filter_show_active">Hiện bộ lọc. Bộ lọc %1$s đang bật</string>
+    <string name="r3_inbox_filter_hide_active">Ẩn bộ lọc. Bộ lọc %1$s đang bật</string>
+</resources>

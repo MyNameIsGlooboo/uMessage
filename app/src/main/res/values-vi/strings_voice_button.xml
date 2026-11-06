@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i40_record_voice">Nhập bằng giọng nói</string>
+    <string name="i40_setting_title">Nhập bằng giọng nói</string>
+    <string name="i40_setting_summary">Nói thay vì gõ</string>
+</resources>

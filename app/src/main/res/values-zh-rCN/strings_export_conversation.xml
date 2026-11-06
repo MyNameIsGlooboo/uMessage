@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_conv_menu">导出会话</string>
+    <string name="export_conv_title">导出会话</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">纯文本</string>
+    <string name="export_conv_dates_all">全部日期</string>
+    <string name="export_conv_dates_30">最近30天</string>
+    <string name="export_conv_dates_pick">选择日期</string>
+    <string name="export_conv_pick_from">从哪一天开始？</string>
+    <string name="export_conv_pick_to">到哪一天结束？</string>
+    <string name="export_conv_action">导出</string>
+    <string name="export_conv_preparing">正在准备文件…</string>
+    <string name="export_conv_nothing">该时间段内没有消息</string>
+    <string name="export_conv_failed">无法生成文件</string>
+    <string name="export_conv_subject">会话导出</string>
+    <string name="export_conv_share_text">与%1$s的会话，%2$s。消息文本的SHA-256：%3$s</string>
+    <string name="export_conv_attachment_label">［附件］</string>
+    <string name="export_pdf_title">会话导出</string>
+    <string name="export_pdf_with">会话对象：%1$s</string>
+    <string name="export_pdf_numbers">号码：%1$s</string>
+    <string name="export_pdf_range">日期范围：%1$s</string>
+    <string name="export_pdf_zone">时间均采用%1$s时区</string>
+    <string name="export_pdf_exported">导出时间：%1$s</string>
+    <plurals name="export_pdf_count">
+        <item quantity="other">%1$d条消息</item>
+    </plurals>
+    <string name="export_pdf_hash">消息文本的SHA-256：%1$s</string>
+    <string name="export_pdf_not_certified">从手机导出，未经认证。</string>
+    <string name="export_pdf_page">第%1$d页，共%2$d页</string>
+    <string name="export_pdf_from">发件人：%1$s</string>
+    <string name="export_pdf_to">收件人：%1$s</string>
+    <string name="export_pdf_attachment">附件：%1$s（%2$s）</string>
+    <string name="export_pdf_attachment_unnamed">未命名文件</string>
+    <string name="export_status_received">已接收</string>
+    <string name="export_status_sent">已发送</string>
+    <string name="export_status_delivered">已送达</string>
+    <string name="export_status_failed">失败</string>
+    <string name="export_status_sending">正在发送</string>
+    <string name="export_status_draft">草稿</string>
+</resources>

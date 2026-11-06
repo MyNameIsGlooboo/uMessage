@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_scope_title">Что блокировать</string>
+    <string name="lock_scope_whole">Все приложение</string>
+    <string name="lock_scope_chosen">Только выбранные разделы</string>
+    <string name="lock_scope_chosen_long">Только выбранные разделы: вкладку «Заблокированные» и скрытые чаты</string>
+    <string name="lock_scope_blocked_title">Заблокированные сообщения защищены</string>
+    <string name="lock_scope_blocked_body">Разблокируйте, чтобы просмотреть их.</string>
+    <string name="lock_scope_unlock">Разблокировать</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">Bildschirm aktivieren</string>
+    <string name="wake_screen_summary">Schaltet den Bildschirm bei einer neuen Nachricht ein</string>
+    <string name="bubbles_title">Chatblasen</string>
+    <string name="bubbles_summary">Zeigt Chats als schwebende Blasen an</string>
+    <string name="bubbles_locked">Bei aktiver App-Sperre nicht verfügbar</string>
+    <string name="focus_codes_title">Codes in Live-Benachrichtigung</string>
+    <string name="focus_codes_summary">Zeigt Codes in der Live-Benachrichtigung von Xiaomi an</string>
+</resources>

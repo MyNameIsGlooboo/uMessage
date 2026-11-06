@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n09_backup_contents">Tudo, exceto suas mensagens: regras de permissão, bloqueio e encaminhamento e todas as configurações. O arquivo não é criptografado e contém os números para os quais você encaminha mensagens, então guarde-o em um local privado. As regras de encaminhamento são restauradas desativadas.</string>
+    <string name="n09_label_spam">Proteção contra spam</string>
+    <string name="n09_label_notifications">Notificações</string>
+    <string name="n09_label_chat">Conversa e lista de mensagens</string>
+    <string name="n09_label_sending">Envio</string>
+    <string name="n09_label_cleanup">Limpeza e armazenamento</string>
+    <string name="n09_label_privacy">Privacidade e opções de bloqueio</string>
+    <string name="n09_restore_not_included">Não incluídos no arquivo: suas mensagens, o PIN do bloqueio do app, nomes dos chips, textos salvos, conversas ocultas e períodos sem notificações.</string>
+    <string name="n09_restore_after">Defina o uMessage como app de SMS padrão novamente e configure o bloqueio do app de novo.</string>
+</resources>

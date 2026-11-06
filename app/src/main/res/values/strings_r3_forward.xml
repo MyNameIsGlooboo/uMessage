@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Round 3: forwarding has its own screen, reached from Settings (no longer a tab of Rules). -->
+    <string name="r3fwd_title">Forwarding</string>
+    <string name="r3fwd_options">Forwarding options</string>
+    <!-- Summary of the Settings row. -->
+    <string name="r3fwd_summary_none">Off · Forward messages to another number</string>
+    <string name="r3fwd_summary_off">Off</string>
+    <string name="r3fwd_summary_paused">Paused</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="one">%d rule on</item>
+        <item quantity="other">%d rules on</item>
+    </plurals>
+    <!-- Card above the rules while "Pause all forwarding" is on. -->
+    <string name="r3fwd_paused_title">Forwarding is paused</string>
+    <string name="r3fwd_paused_body">Your rules are saved, but nothing is forwarded until you turn forwarding back on.</string>
+    <string name="r3fwd_paused_action">Open options</string>
+</resources>

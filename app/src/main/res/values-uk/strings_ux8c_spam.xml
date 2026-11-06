@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">Затримано: невідомий відправник</string>
+    <string name="ux8c_held_unknown_link">Затримано: невідомий відправник, є посилання</string>
+    <string name="ux8c_held_foreign">Затримано: номер з іншої країни</string>
+    <string name="ux8c_held_rule">Затримано за вашим правилом</string>
+    <string name="ux8c_held_other">Затримано фільтром</string>
+    <string name="ux8c_not_spam">Не спам</string>
+    <string name="ux8c_delete">Видалити</string>
+    <string name="ux8c_tip">Проведіть по відправнику, щоб перемістити його до вхідних. Натисніть і утримуйте, щоб вибрати.</string>
+    <string name="ux8c_tip_dismiss">Зрозуміло</string>
+    <string name="ux8c_sender_title">Цей відправник</string>
+    <string name="ux8c_sender_normal">Звичайний</string>
+    <string name="ux8c_sender_allow">Завжди дозволяти</string>
+    <string name="ux8c_sender_block">Заблокувати</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">Laporkan spam</string>
+    <string name="carrier_report_row_title">Nomor laporan spam operator</string>
+    <string name="carrier_report_row_summary">Laporkan spam ke operator melalui SMS</string>
+    <string name="carrier_report_not_set">Belum diatur</string>
+    <string name="carrier_report_hint">Nomor laporan spam operator Anda. Laporan dikirim melalui SMS dan mungkin dikenai biaya.</string>
+    <string name="carrier_report_invalid">Gunakan 3 hingga 8 digit</string>
+    <string name="carrier_report_action">Laporkan ke operator</string>
+    <string name="carrier_report_title">Laporkan ke operator?</string>
+    <string name="carrier_report_body">Pesan terbaru dari pengirim ini akan dikirim ke %1$s melalui SMS. Operator mungkin mengenakan biaya.</string>
+    <string name="carrier_report_send">Kirim</string>
+    <string name="carrier_report_sent">Laporan dikirim ke operator</string>
+    <string name="carrier_report_failed">Laporan tidak dapat dikirim</string>
+</resources>

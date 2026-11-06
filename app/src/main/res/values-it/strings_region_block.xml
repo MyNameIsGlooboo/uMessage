@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">Altri paesi</string>
+    <string name="region_title">Trattieni i numeri di altri paesi</string>
+    <string name="region_summary">I contatti e le persone a cui hai scritto non vengono trattenuti</string>
+    <string name="region_off">Disattivata</string>
+    <string name="region_picker_title">Il tuo paese</string>
+    <string name="region_picker_body">I numeri di altri paesi vengono trattenuti in Messaggi bloccati, tranne i contatti e le persone a cui hai scritto. Anche un parente all\'estero che non è tra i contatti viene trattenuto.</string>
+    <string name="region_picker_search">Cerca</string>
+    <string name="region_reason_foreign">Numero di un altro paese</string>
+</resources>

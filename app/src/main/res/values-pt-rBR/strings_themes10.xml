@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">Ardósia</string>
+    <string name="preset_slate_desc">Azul acinzentado suave</string>
+    <string name="preset_firouzeh">Firouzeh</string>
+    <string name="preset_firouzeh_desc">Turquesa com um toque de dourado</string>
+    <string name="preset_pomegranate">Romã</string>
+    <string name="preset_pomegranate_desc">Vermelho quente com verde intenso</string>
+    <string name="preset_harbor">Porto</string>
+    <string name="preset_harbor_desc">Azul noturno com coral suave</string>
+    <string name="preset_lavender">Lavanda</string>
+    <string name="preset_lavender_desc">Violeta suave com verde-azulado</string>
+    <string name="preset_ink">Tinta</string>
+    <string name="preset_ink_desc">Quase preto com prata e dourado</string>
+    <string name="preset_contrast">Contraste</string>
+    <string name="preset_contrast_desc">Preto e branco com detalhes vibrantes</string>
+</resources>

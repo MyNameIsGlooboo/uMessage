@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">برچسب‌ها</string>
+    <string name="i29_picker_title">برچسب‌ها</string>
+    <string name="i29_picker_empty">هنوز برچسبی ندارید. برای دسته‌بندی گفتگوهایتان برچسب بسازید.</string>
+    <string name="i29_picker_new">برچسب جدید</string>
+    <string name="i29_picker_manage">مدیریت برچسب‌ها</string>
+    <string name="i29_done">تمام</string>
+    <string name="i29_cancel">لغو</string>
+    <string name="i29_tiles_title">برچسب‌های شما</string>
+    <string name="i29_tile_add">افزودن برچسب</string>
+    <string name="i29_tiles_manage">مدیریت برچسب‌ها</string>
+    <string name="i29_manager_title">مدیریت برچسب‌ها</string>
+    <string name="i29_manager_note">برچسب‌ها شخصی هستند و از فیلترهای خودکار تراکنش‌ها و پیشنهادها جدا هستند.</string>
+    <string name="i29_manager_edit">ویرایش برچسب %1$s</string>
+    <string name="i29_manager_delete">حذف برچسب %1$s</string>
+    <string name="i29_edit_new_title">برچسب جدید</string>
+    <string name="i29_edit_title">ویرایش برچسب</string>
+    <string name="i29_edit_name">نام برچسب</string>
+    <string name="i29_edit_save">ذخیره</string>
+    <string name="i29_color_description">رنگ %1$d</string>
+    <string name="i29_error_duplicate">از قبل برچسبی با این نام دارید.</string>
+    <string name="i29_error_limit">می‌توانید حداکثر %1$d برچسب داشته باشید.</string>
+    <string name="i29_delete_title">این برچسب حذف شود؟</string>
+    <string name="i29_delete_body">برچسب «%1$s» حذف می‌شود. گفتگوها و پیام‌های شما بدون تغییر می‌مانند.</string>
+    <string name="i29_delete_confirm">حذف</string>
+    <string name="i29_empty_title">اینجا گفتگویی نیست</string>
+    <string name="i29_empty_body">گفتگویی را لمس کنید و نگه دارید، منو را باز کنید و برای افزودن آن «برچسب‌ها» را انتخاب کنید.</string>
+</resources>

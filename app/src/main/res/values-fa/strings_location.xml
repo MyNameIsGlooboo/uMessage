@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">موقعیت مکانی</string>
+    <string name="i52_permission_explanation">uMessage فقط همین حالا یک بار موقعیت شما را می‌خواند تا پیوند نقشه را در پیامتان بگذارد. چیزی ذخیره نمی‌شود. می‌توانید موقعیت تقریبی را انتخاب کنید.</string>
+    <string name="i52_finding">در حال یافتن موقعیت شما…</string>
+    <string name="i52_denied">اجازهٔ دسترسی به موقعیت داده نشد. پیام بدون تغییر می‌ماند.</string>
+    <string name="i52_no_fix">موقعیت شما پیدا نشد. کنار پنجره یا در فضای باز دوباره تلاش کنید.</string>
+    <string name="i52_off_message">موقعیت مکانی در این گوشی خاموش است. برای هم‌رسانی موقعیت خود، آن را روشن کنید.</string>
+    <string name="i52_open_settings">باز کردن تنظیمات</string>
+</resources>

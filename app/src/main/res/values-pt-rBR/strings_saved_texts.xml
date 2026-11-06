@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">Texto salvo</string>
+    <string name="n06_sheet_title">Textos salvos</string>
+    <string name="n06_empty_hint">Por exemplo: seu endereço ou número do cartão. Toque em um texto para inseri-lo na mensagem.</string>
+    <string name="n06_add">Adicione um texto salvo</string>
+    <string name="n06_edit">Altere o texto salvo</string>
+    <string name="n06_title_label">Título (opcional)</string>
+    <string name="n06_text_label">Texto</string>
+    <string name="n06_save">Salve</string>
+    <string name="n06_delete">Exclua</string>
+    <string name="n06_private_tip">Salvo apenas neste celular, sem criptografia. Não salve senhas nem PINs.</string>
+    <string name="n06_save_from_message">Salve como texto salvo</string>
+    <string name="n06_saved_toast">Salvo</string>
+    <string name="n06_save_full">A lista está cheia. Exclua um texto primeiro.</string>
+    <string name="n06_save_duplicate">Já está salvo</string>
+</resources>

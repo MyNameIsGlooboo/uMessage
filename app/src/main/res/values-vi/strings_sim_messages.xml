@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sim_messages_title">Tin nhắn trên thẻ SIM</string>
+    <string name="sim_messages_row_body">Sao chép tin nhắn lưu trên thẻ SIM vào các cuộc trò chuyện của bạn</string>
+    <string name="sim_messages_loading">Đang đọc thẻ SIM…</string>
+    <string name="sim_messages_unavailable">Điện thoại này không cho phép ứng dụng đọc thẻ SIM.</string>
+    <string name="sim_messages_empty">Không có tin nhắn trên thẻ SIM.</string>
+    <plurals name="sim_messages_found">
+        <item quantity="other">Có %1$d tin nhắn lưu trên thẻ SIM. Sao chép vào các cuộc trò chuyện của bạn? Tin nhắn vẫn được giữ trên thẻ SIM.</item>
+    </plurals>
+    <string name="sim_messages_import">Sao chép</string>
+    <string name="sim_messages_importing">Đang sao chép tin nhắn…</string>
+    <string name="sim_messages_done">Đã sao chép %1$d tin nhắn. %2$d tin nhắn đã có trong các cuộc trò chuyện của bạn.</string>
+    <string name="sim_messages_done_failed">Đã sao chép %1$d tin nhắn. %2$d tin nhắn đã có trong các cuộc trò chuyện của bạn và %3$d tin nhắn không thể sao chép.</string>
+</resources>

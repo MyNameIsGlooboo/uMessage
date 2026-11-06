@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialogs_yes">Ya</string>
+    <string name="dialogs_no">Tidak</string>
+    <string name="dialogs_permission_required">Izin diperlukan</string>
+    <string name="dialogs_grant_permission">Berikan izin</string>
+    <string name="dialogs_date_time_format_title">Format tanggal dan waktu</string>
+    <string name="dialogs_use_24_hour">Gunakan format waktu 24 jam</string>
+    <string name="dialogs_lock_pattern">Pola</string>
+    <string name="dialogs_lock_pin">PIN</string>
+    <string name="dialogs_lock_biometrics">Biometrik</string>
+    <string name="dialogs_lock_fingerprint">Sidik jari</string>
+    <string name="dialogs_lock_enter_pin">Masukkan PIN</string>
+    <string name="dialogs_lock_repeat_pin">Ulangi PIN</string>
+    <string name="dialogs_lock_wrong_pin">PIN salah</string>
+    <string name="dialogs_lock_empty_pin">Masukkan PIN</string>
+    <string name="dialogs_lock_short_pin">PIN harus terdiri dari minimal 4 digit</string>
+    <string name="dialogs_lock_pin_suggestion">Minimal 4 digit. %d digit atau lebih akan lebih aman.</string>
+    <plurals name="dialogs_lock_short_pattern">
+        <item quantity="other">Terlalu pendek. Hubungkan minimal %d titik.</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">Gambar pola</string>
+    <string name="dialogs_lock_repeat_pattern">Ulangi pola</string>
+    <string name="dialogs_lock_wrong_pattern">Pola salah</string>
+    <string name="dialogs_lock_locked_out">Terlalu banyak percobaan membuka kunci yang salah.\nCoba lagi dalam %d detik.</string>
+    <string name="dialogs_lock_pin_delete">Hapus digit terakhir</string>
+    <string name="dialogs_lock_pin_confirm">Konfirmasi PIN</string>
+    <string name="dialogs_lock_pin_entered">%d digit dimasukkan</string>
+    <string name="dialogs_lock_pattern_pad">Area pola</string>
+    <string name="dialogs_lock_biometric_hint">Gunakan sidik jari atau wajah untuk memverifikasi identitas Anda.</string>
+    <string name="dialogs_lock_biometric_open">Verifikasi dengan biometrik</string>
+    <string name="dialogs_lock_place_finger">Letakkan jari pada sensor sidik jari.</string>
+    <string name="dialogs_lock_no_fingerprints">Belum ada sidik jari yang terdaftar. Tambahkan di setelan perangkat.</string>
+    <string name="dialogs_lock_open_settings">Buka setelan perangkat</string>
+    <string name="dialogs_lock_auth_failed">Autentikasi gagal</string>
+    <string name="dialogs_lock_auth_blocked">Autentikasi diblokir, coba lagi sebentar lagi</string>
+</resources>

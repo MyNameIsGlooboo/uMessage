@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">Nadawcy nie ma w twoich kontaktach</string>
+    <string name="i04_card_caution">Uważaj na linki, pieniądze i kody.</string>
+    <string name="i04_card_add_contact">Dodaj kontakt</string>
+    <string name="i04_card_allow">Zawsze zezwalaj</string>
+    <string name="i04_card_block">Zablokuj</string>
+    <string name="i04_card_dismiss">Ukryj</string>
+</resources>

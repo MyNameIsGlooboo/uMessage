@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="screens_back">Retour</string>
+    <string name="screens_ok">OK</string>
+    <string name="screens_cancel">Annuler</string>
+    <string name="screens_delete">Supprimer</string>
+    <string name="screens_clear_selection">Annuler la sélection</string>
+    <plurals name="screens_selected_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d sélectionné</item>
+        <item quantity="other">%d sélectionnés</item>
+    </plurals>
+    <string name="screens_loading">Chargement…</string>
+    <string name="screens_more_options">Plus d\'options</string>
+    <string name="screens_select_all">Tout sélectionner</string>
+    <string name="screens_copy">Copier</string>
+    <string name="screens_grant_permission">Autoriser l\'accès</string>
+    <string name="screens_delete_forever_title">Supprimer définitivement ?</string>
+    <string name="screens_delete_conversations_message">Supprimer définitivement %1$s ? Cette action est irréversible.</string>
+    <string name="screens_restore_title">Restaurer ?</string>
+    <string name="screens_empty_archive_title">Vider les archives ?</string>
+    <string name="screens_empty_bin_title">Vider la corbeille ?</string>
+    <string name="screens_empty_action">Vider</string>
+    <string name="screens_archive_empty_title">Aucun élément archivé</string>
+    <string name="screens_bin_empty_title">La corbeille est vide</string>
+    <string name="screens_bin_empty_body">Les messages supprimés restent ici jusqu\'à ce que la corbeille soit vidée.</string>
+    <string name="screens_new_to_hint">À</string>
+    <string name="screens_new_start">Démarrer une conversation avec %1$s</string>
+    <string name="screens_new_clear_input">Effacer</string>
+    <string name="screens_new_no_matches">Aucun contact correspondant. Appuyez sur la flèche pour envoyer un message au numéro saisi.</string>
+    <string name="screens_new_contacts">Contacts</string>
+    <string name="screens_new_create_group">Créer un groupe</string>
+    <string name="screens_new_group_title">Nouveau groupe</string>
+    <string name="screens_new_group_next">Suivant</string>
+    <string name="screens_new_group_add">Ajouter %1$s</string>
+    <string name="screens_new_group_remove">Retirer %1$s</string>
+    <string name="screens_new_group_selected">Sélectionné</string>
+    <string name="screens_details_edit_name">Modifier le nom de la conversation</string>
+    <string name="screens_keywords_add">Ajouter un mot-clé</string>
+    <string name="screens_keywords_menu_export">Exporter</string>
+    <string name="screens_keywords_menu_import">Importer</string>
+    <string name="screens_keywords_edit">Modifier</string>
+    <string name="screens_keywords_duplicate">Ce mot-clé figure déjà dans la liste</string>
+    <string name="screens_keywords_help">Détecte le texte partout dans un message, même dans un mot plus long. Les majuscules et minuscules ne font aucune différence.</string>
+    <string name="screens_keywords_empty_title">Aucun mot-clé bloqué</string>
+    <plurals name="screens_keywords_deleted" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d mot-clé supprimé</item>
+        <item quantity="other">%d mots-clés supprimés</item>
+    </plurals>
+    <string name="screens_vcard_title">Contact</string>
+    <string name="screens_vcard_add_contact">Ajouter aux contacts</string>
+    <string name="screens_vcard_expand">Afficher les détails</string>
+    <string name="screens_vcard_collapse">Masquer les détails</string>
+    <string name="screens_vcard_empty">Aucun contact trouvé dans ce fichier</string>
+    <string name="screens_dialog_filename">Nom du fichier</string>
+    <string name="screens_schedule_date">Date</string>
+    <string name="screens_schedule_time">Heure</string>
+    <string name="screens_schedule_pick_time">Choisir l\'heure</string>
+    <string name="screens_schedule_next">Suivant</string>
+    <string name="screens_delete_skip_bin">Supprimer directement sans passer par la corbeille</string>
+    <string name="screens_select_text_title">Sélectionner le texte</string>
+</resources>

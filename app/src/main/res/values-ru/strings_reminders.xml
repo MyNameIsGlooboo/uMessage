@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">Напомнить</string>
+    <string name="reminder_dialog_title">Напомнить</string>
+    <string name="reminder_in_3_hours">Через 3 часа</string>
+    <string name="reminder_tomorrow_morning">Завтра утром</string>
+    <string name="reminder_pick_time">Выбрать дату и время</string>
+    <string name="reminder_set">Напоминание установлено на %1$s</string>
+    <string name="reminder_set_approximate">Напоминание установлено примерно на %1$s. Оно может прийти чуть позже.</string>
+    <string name="reminder_battery_hint">Некоторые телефоны останавливают приложения в фоне, из-за чего напоминания приходят позже.</string>
+    <string name="reminder_battery_open">Обеспечить работу uMessage в фоне</string>
+    <string name="reminder_channel">Напоминания</string>
+    <string name="reminder_title">Напоминание</string>
+    <string name="reminder_title_named">Напоминание: %1$s</string>
+    <string name="reminder_open_hint">Нажмите, чтобы открыть сообщение</string>
+</resources>

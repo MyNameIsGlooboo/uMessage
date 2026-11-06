@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">Alasan</string>
+    <string name="thread_r2_details_rule">Aturan</string>
+    <string name="thread_r2_details_forwarded">Diteruskan</string>
+    <string name="thread_r2_details_decision_restored">Diblokir, lalu dipulihkan ke kotak masuk</string>
+    <string name="thread_r2_details_copy">Salin %1$s</string>
+    <string name="thread_r2_menu_search">Cari dalam percakapan</string>
+    <string name="thread_r2_menu_always_forward">Selalu teruskan pesan dari pengirim ini</string>
+    <string name="thread_r2_block_hint">Pesan berikutnya masuk ke Diblokir. Tidak ada data yang keluar dari ponsel.</string>
+    <string name="thread_r2_forward_message">Teruskan pesan ini</string>
+    <string name="thread_r2_search_hint">Cari dalam percakapan</string>
+    <string name="thread_r2_search_close">Tutup pencarian</string>
+    <string name="thread_r2_search_none">Tidak ada hasil</string>
+    <string name="thread_r2_search_count">%1$d dari %2$d</string>
+    <string name="thread_r2_search_older">Hasil lebih lama</string>
+    <string name="thread_r2_search_newer">Hasil lebih baru</string>
+    <string name="thread_r2_link_copy">Salin tautan</string>
+    <string name="thread_r2_link_share">Bagikan</string>
+    <string name="thread_r2_schedule_pick_date">Pilih tanggal</string>
+    <string name="thread_r2_calendar_previous">Bulan sebelumnya</string>
+    <string name="thread_r2_calendar_next">Bulan berikutnya</string>
+</resources>

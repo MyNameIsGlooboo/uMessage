@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8a_checklist_show">단계 보기</string>
+    <string name="ux8a_checklist_hide">단계 숨기기</string>
+    <string name="ux8a_menu_recycle_bin">휴지통</string>
+    <string name="ux8a_selection_block">차단</string>
+</resources>

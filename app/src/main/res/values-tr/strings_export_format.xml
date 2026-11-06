@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_format_json">uMessage dosyası (metinler ve resimler)</string>
+    <string name="export_format_xml">SMS Backup &amp; Restore dosyası (diğer uygulamalar için)</string>
+    <string name="export_format_xml_hint">uMessage bu dosya türünden yalnızca metinleri geri yükler.</string>
+    <string name="export_scope_all">Tüm görüşmeler</string>
+    <string name="export_scope_choose">Görüşme seçin</string>
+    <plurals name="export_scope_chosen">
+        <item quantity="one">%1$d görüşme seçildi</item>
+        <item quantity="other">%1$d görüşme seçildi</item>
+    </plurals>
+    <string name="export_pick_title">Görüşme seçin</string>
+    <string name="export_pick_search">Arayın</string>
+    <string name="export_pick_all">Tümünü seçin</string>
+    <string name="export_pick_none">Seçimi temizleyin</string>
+    <string name="export_pick_empty">Görüşme yok</string>
+    <string name="export_pick_nothing_chosen">En az bir görüşme seçin</string>
+</resources>

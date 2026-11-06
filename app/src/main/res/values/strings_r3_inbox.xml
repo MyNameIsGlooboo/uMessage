@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Owner notes round 3, Messages tab: the filter button in the search pill (content descriptions) -->
+    <string name="r3_inbox_filter_show">Show filters</string>
+    <string name="r3_inbox_filter_hide">Hide filters</string>
+    <!-- %1$s is the filter that is on: "Unread" or "Codes" -->
+    <string name="r3_inbox_filter_show_active">Show filters. %1$s filter is on</string>
+    <string name="r3_inbox_filter_hide_active">Hide filters. %1$s filter is on</string>
+</resources>

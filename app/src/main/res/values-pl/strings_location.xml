@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">Lokalizacja</string>
+    <string name="i52_permission_explanation">uMessage odczyta twoją lokalizację tylko raz, teraz, by dodać link do mapy do wiadomości. Nic nie zostanie zapisane. Możesz wybrać przybliżoną lokalizację.</string>
+    <string name="i52_finding">Ustalanie lokalizacji…</string>
+    <string name="i52_denied">Nie zezwolono na dostęp do lokalizacji. Wiadomość pozostaje bez zmian.</string>
+    <string name="i52_no_fix">Nie udało się ustalić lokalizacji. Spróbuj ponownie przy oknie lub na zewnątrz.</string>
+    <string name="i52_off_message">Lokalizacja jest wyłączona w tym telefonie. Włącz ją, by udostępnić miejsce, w którym jesteś.</string>
+    <string name="i52_open_settings">Otwórz ustawienia</string>
+</resources>

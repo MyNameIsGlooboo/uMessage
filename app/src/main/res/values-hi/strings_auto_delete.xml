@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="cleanup_old_title">मैसेज रखने की अवधि</string>
+    <string name="cleanup_old_summary">पुराने मैसेज रीसायकल बिन में चले जाते हैं</string>
+    <string name="cleanup_forever">हमेशा</string>
+    <string name="cleanup_one_year">1 साल</string>
+    <string name="cleanup_bin_title">रीसायकल बिन चालू करें?</string>
+    <string name="cleanup_bin_body">मिटाए गए मैसेज वहां 30 दिनों तक रहते हैं, ताकि आप उन्हें वापस ला सकें. अपने-आप सफ़ाई के लिए इसका चालू होना ज़रूरी है.</string>
+    <string name="cleanup_bin_confirm">चालू करें</string>
+    <string name="cleanup_old_confirm_title">पुराने मैसेज हटाएं?</string>
+    <plurals name="cleanup_old_confirm_body" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d मैसेज इस अवधि से पुराना है और अब रीसायकल बिन में चला जाएगा. स्टार लगाए गए और नहीं पढ़े गए मैसेज और पिन की गई चैट बनी रहेंगी.</item>
+        <item quantity="other">%d मैसेज इस अवधि से पुराने हैं और अब रीसायकल बिन में चले जाएंगे. स्टार लगाए गए और नहीं पढ़े गए मैसेज और पिन की गई चैट बनी रहेंगी.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">अभी कोई मैसेज इतना पुराना नहीं है. पुराने मैसेज अपने-आप रीसायकल बिन में चले जाएंगे. स्टार लगाए गए और नहीं पढ़े गए मैसेज और पिन की गई चैट बनी रहेंगी.</string>
+    <string name="cleanup_old_confirm_action">हटाएं</string>
+</resources>

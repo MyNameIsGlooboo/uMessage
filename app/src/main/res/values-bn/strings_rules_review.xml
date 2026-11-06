@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="rules2_tab_allowed">সবসময় অনুমতি দিন</string>
+    <string name="rules2_tab_blocked">সবসময় ব্লক করুন</string>
+    <string name="rules2_menu_import">ফাইল থেকে নিয়ম ইমপোর্ট করুন</string>
+    <string name="rules2_menu_export">ফাইলে নিয়ম এক্সপোর্ট করুন</string>
+    <string name="rules2_menu_system">Android ব্লক তালিকা</string>
+    <string name="rules2_import_scope">নিয়মের ফাইলে শুধু অনুমতি দেওয়া ও ব্লক করার নিয়ম থাকে। এতে কোনো বার্তা বা ফরোয়ার্ড করার নিয়ম থাকে না।</string>
+    <string name="rules2_meta">%1$s · %2$s</string>
+    <string name="rules2_empty_allowed_title">কোনো প্রেরককে সবসময় অনুমতি দেওয়া নেই</string>
+    <string name="rules2_empty_allowed_body">যেসব বার্তা সবসময় আপনার ইনবক্সে আসবে, সেগুলোর নম্বর, প্রেরকের নাম বা শব্দ যোগ করুন। নিচে “নিয়ম যোগ করুন”-এ ট্যাপ করুন।</string>
+    <string name="rules2_empty_blocked_title">কোনো প্রেরককে সবসময় ব্লক করা নেই</string>
+    <string name="rules2_empty_blocked_body">বার্তা “ব্লক করা”-তে পাঠাতে নম্বর, প্রেরকের নাম, শব্দ বা প্যাটার্ন (রেগেক্স) যোগ করুন। নিচে “নিয়ম যোগ করুন”-এ ট্যাপ করুন।</string>
+    <string name="rules2_legacy_banner_title">পুরোনো ব্লক তালিকা পাওয়া গেছে</string>
+    <string name="rules2_legacy_banner_body">ব্লক করা বার্তা দেখতে ও ফিরিয়ে আনতে তালিকাগুলো নিয়মে সরান।</string>
+    <string name="rules2_legacy_review">পর্যালোচনা করুন</string>
+    <string name="rules2_system_header">Android ব্লক তালিকা (কলও ব্লক করে)</string>
+    <string name="rules2_system_body">uMessage দেখার আগেই Android এই নম্বরগুলোর বার্তা বাদ দেয়। তাই সেগুলো “ব্লক করা”-তে দেখা যায় না এবং ফিরিয়ে আনা যায় না।</string>
+    <string name="rules2_system_manage">পরিচালনা করুন</string>
+    <string name="rules2_system_move">uMessage-এর নিয়মে সরান</string>
+    <string name="rules2_migrate_title">uMessage-এর নিয়মে সরান</string>
+    <string name="rules2_migrate_point_blocked">তখন বার্তা “ব্লক করা”-তে যাবে, যেখান থেকে আপনি সেগুলো ফিরিয়ে আনতে পারবেন।</string>
+    <string name="rules2_migrate_remove_needs_first">আগে ওপরের বিকল্পে টিক দিন।</string>
+    <string name="rules2_migrate_nothing_selected">কিছু নির্বাচন করা হয়নি</string>
+    <plurals name="rules2_migrate_confirm_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি আইটেম সরান</item>
+        <item quantity="other">%dটি আইটেম সরান</item>
+    </plurals>
+    <string name="rules2_sheet_list_label">তালিকায় যোগ করুন</string>
+    <string name="rules2_sheet_list_allow">সবসময় অনুমতি দিন</string>
+    <string name="rules2_sheet_list_block">সবসময় ব্লক করুন</string>
+    <string name="rules2_sheet_delete">নিয়ম মুছুন</string>
+    <string name="rules2_sheet_hint_empty">এগিয়ে যেতে একটি মান লিখুন</string>
+    <string name="rules2_sheet_hint_fix">এগিয়ে যেতে ওপরের মান ঠিক করুন</string>
+    <string name="rules2_sheet_sim_help">একটি SIM-এর নিয়ম শুধু সেই SIM-এ আসা বার্তায় প্রযোজ্য।</string>
+    <string name="rules2_type_number_help">পুরো ফোন নম্বর, যেমন +15550001234 বা 05550001234। 3000-এর মতো শর্ট কোডও চলবে। ফারসি অঙ্কও ব্যবহার করা যাবে।</string>
+    <string name="rules2_type_number_hint">+15550001234</string>
+    <string name="rules2_type_prefix_help">এটি দিয়ে শুরু হওয়া সব নম্বর, যেমন +1555 বা 0555।</string>
+    <string name="rules2_type_prefix_hint">+1555</string>
+    <string name="rules2_type_sender_id_help">নাম দিয়ে চেনা প্রেরক, যেমন VM-HDFCBK বা Bank Melli। বড় ও ছোট হাতের অক্ষরে পার্থক্য হয় না।</string>
+    <string name="rules2_type_regex_help">অভিজ্ঞদের জন্য। বার্তার লেখার সঙ্গে মিলিয়ে দেখা হয় এমন রেগুলার এক্সপ্রেশন। সেভ করার আগে নিচে পরীক্ষা করুন।</string>
+    <string name="rules2_err_sender_id">অক্ষর, অঙ্ক, স্পেস, ডট, ড্যাশ বা &amp; ব্যবহার করুন (সর্বোচ্চ 32 অক্ষর, অন্তত একটি বর্ণ)</string>
+    <string name="rules2_err_sender_id_char">প্রেরকের নামে “%1$s” ব্যবহার করা যাবে না। অক্ষর, অঙ্ক, স্পেস, ডট, ড্যাশ বা &amp; ব্যবহার করুন।</string>
+    <string name="rules2_test_label">নমুনা বার্তায় পরীক্ষা করুন</string>
+    <string name="rules2_test_hint">এই নিয়ম পরীক্ষা করতে একটি বার্তা পেস্ট করুন বা লিখুন</string>
+    <string name="rules2_test_match">এই নিয়মের সঙ্গে বার্তাটি মিলবে</string>
+    <string name="rules2_test_no_match">এই নিয়মের সঙ্গে বার্তাটি মিলবে না</string>
+    <string name="rules2_test_unusable">এই প্যাটার্ন (রেগেক্স) পরীক্ষা করা যাচ্ছে না। ওপরে যাচাই করুন।</string>
+    <string name="rules2_bn_title">Android ব্লক তালিকা</string>
+    <string name="rules2_bn_info">Android-এ সংরক্ষিত। এই নম্বরগুলোর কল ও বার্তা ব্লক করে। uMessage-এর নিয়ম আলাদা।</string>
+    <plurals name="rules2_bn_move" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি নম্বর নিয়মে সরান</item>
+        <item quantity="other">%1$dটি নম্বর নিয়মে সরান</item>
+    </plurals>
+    <string name="forward2_intro_reassure">শুধু আপনার ইনবক্সে আসা বার্তাই ফরোয়ার্ড করা হয়। ব্লক করা স্প্যাম কখনোই ফরোয়ার্ড করা হয় না।</string>
+    <string name="forward2_empty_title">এখনো ফরোয়ার্ড করার নিয়ম নেই</string>
+    <string name="forward2_empty_body">নিয়মের সঙ্গে মিলে যাওয়া বার্তার কপি, যেমন ব্যাংকের সতর্কবার্তা, অন্য ফোনে পাঠান। এগুলোর একটি দিয়ে শুরু করুন।</string>
+    <string name="forward2_template_bank">ব্যাংকের সতর্কবার্তা ফরোয়ার্ড করুন</string>
+    <string name="forward2_template_bank_word">ব্যাংক</string>
+    <string name="forward2_template_sender">এক প্রেরকের বার্তা ফরোয়ার্ড করুন</string>
+    <string name="forward2_save">ফরোয়ার্ড করার নিয়ম সেভ করুন</string>
+    <string name="forward2_hint_condition">মিলিয়ে দেখার জন্য প্রেরক বা লেখা বেছে নিন</string>
+    <string name="forward2_hint_target">যে নম্বরে ফরোয়ার্ড করবেন, সেটি যোগ করুন</string>
+    <string name="forward2_hint_fix">লাল চিহ্নিত ঘরগুলো ঠিক করুন</string>
+    <string name="forward2_condition_why">সব বার্তা ফরোয়ার্ড করার অনুমতি নেই: প্রতিবার ফরোয়ার্ড করতে একটি SMS-এর খরচ হয়।</string>
+    <string name="forward2_broad_title">অনেক বার্তা ফরোয়ার্ড করবেন?</string>
+    <string name="forward2_broad_message">এই নিয়মের সঙ্গে অনেক বার্তা মেলে এবং প্রেরকের কোনো সীমা নেই। মিলে যাওয়া প্রতিটি বার্তা খরচ দিয়ে SMS হিসেবে ফরোয়ার্ড করা হয়।</string>
+    <string name="forward2_broad_confirm">তবুও সেভ করুন</string>
+    <string name="forward2_broad_inline">এই লেখা খুব সাধারণ এবং যেকোনো প্রেরকের বার্তায় মিল খোঁজা হবে। এতে অনেক বার্তা ফরোয়ার্ড হতে পারে ও অনেক খরচ হতে পারে।</string>
+    <string name="forward2_target_own">এটি আপনার নিজেরই একটি নম্বর। নিজেকে ফরোয়ার্ড করলে বার্তা বারবার ঘুরে আসবে।</string>
+    <string name="forward2_target_sender">এই নিয়মে যে প্রেরকের বার্তা দেখা হয়, এটি তারই নম্বর। এতে ফরোয়ার্ড করলে বার্তা বারবার ঘুরে আসবে।</string>
+    <string name="forward2_target_ok">সঠিক নম্বর</string>
+    <string name="forward2_pick_contact">পরিচিতি থেকে বেছে নিন</string>
+    <plurals name="forward2_cost_estimate" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি নম্বর: প্রতিটি বার্তা ফরোয়ার্ড করতে অন্তত 1টি SMS।</item>
+        <item quantity="other">%1$dটি নম্বর: প্রতিটি বার্তা ফরোয়ার্ড করতে অন্তত %1$dটি SMS।</item>
+    </plurals>
+    <string name="forward2_window_help">উদাহরণ: 22:00 থেকে 06:00 দিলে রাতভর ফরোয়ার্ড হবে।</string>
+    <string name="forward2_window_summary">প্রতিদিন %1$s থেকে %2$s পর্যন্ত ফরোয়ার্ড করে</string>
+    <string name="forward2_window_summary_night">প্রতি রাতে %1$s থেকে %2$s পর্যন্ত ফরোয়ার্ড করে</string>
+    <string name="forward2_scope_help">কোন SIM-এ বার্তা আসতে হবে</string>
+    <string name="forward2_send_help">“একই SIM” বেছে নিলে যে SIM-এ বার্তা এসেছে, সেটি দিয়েই ফরোয়ার্ড করা হয়। ব্যালেন্স না থাকলে সেই SIM দিয়ে পাঠানো যাবে না।</string>
+    <string name="forward2_codes_title">যাচাইকরণ কোড (OTP) ফরোয়ার্ড করুন</string>
+    <string name="forward2_codes_off">বন্ধ: সাইন-ইন ও যাচাইকরণ কোড কখনো ফরোয়ার্ড করা হয় না।</string>
+    <string name="forward2_codes_on">চালু: কোডও ফরোয়ার্ড করা হয়। শুধু আপনার নিজের ডিভাইসের জন্য এটি ব্যবহার করুন, কারণ কোড দিয়ে অ্যাকাউন্টে ঢোকা যায়।</string>
+</resources>

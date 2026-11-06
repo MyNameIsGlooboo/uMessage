@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_intro">Выберите оформление uMessage: светлый или темный режим и цвета.</string>
+    <string name="preset_system">Системная</string>
+    <string name="preset_system_desc">Светлая или темная, как на телефоне</string>
+    <string name="preset_light">Светлая</string>
+    <string name="preset_light_desc">Всегда светлая</string>
+    <string name="preset_dark">Темная</string>
+    <string name="preset_dark_desc">Всегда темная, комфортная для глаз</string>
+    <string name="preset_amoled">Черная</string>
+    <string name="preset_amoled_desc">Чистый черный для OLED-экранов</string>
+    <string name="preset_brand">Темно-синяя</string>
+    <string name="preset_brand_desc">Темно-синий и золотой — классические цвета uMessage</string>
+    <string name="preset_coral">Коралловая</string>
+    <string name="preset_coral_desc">Коралловый и синий, как на значке приложения</string>
+    <string name="preset_sky">Небо</string>
+    <string name="preset_sky_desc">Нежно-голубой и белый</string>
+    <string name="preset_forest">Лес</string>
+    <string name="preset_forest_desc">Зеленый с желтым акцентом</string>
+    <string name="preset_sunset">Закат</string>
+    <string name="preset_sunset_desc">Теплый оранжевый и кремовый</string>
+    <string name="preset_graphite">Янтарь</string>
+    <string name="preset_graphite_desc">Серый с янтарным</string>
+    <string name="preset_wallpaper">Обои</string>
+    <string name="preset_wallpaper_desc">Цвета ваших обоев</string>
+</resources>

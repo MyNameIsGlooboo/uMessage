@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Shared design-system components -->
+    <string name="system_delete_item_title">Delete?</string>
+    <string name="system_delete_item_message">Delete %1$s? This can\'t be undone.</string>
+</resources>

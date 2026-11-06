@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_emoji">ইমোজি</string>
+    <string name="thread_show_keyboard">কিবোর্ড দেখান</string>
+    <string name="thread_scheduled_not_sent">সময় নির্ধারণ করা বার্তা পাঠানো হয়নি</string>
+    <string name="thread_edit_scheduled_replaces_draft">সময় নির্ধারণ করা বার্তা বদলালে আপনি এখন যা লিখছেন তা মুছে যাবে। এগিয়ে যাবেন?</string>
+    <string name="thread_menu_report_spam">স্প্যাম হিসেবে চিহ্নিত করুন</string>
+    <string name="thread_report_spam_title">স্প্যাম হিসেবে চিহ্নিত করবেন?</string>
+    <string name="thread_report_spam_message">%1$s-এর নতুন বার্তা আপনার ইনবক্সের বদলে ব্লক করা বার্তার বিভাগে যাবে। এই কথোপকথনে আগে থেকে থাকা বার্তা রাখা হবে।</string>
+    <string name="thread_report_spam_confirm">স্প্যাম হিসেবে চিহ্নিত করুন</string>
+    <string name="thread_report_spam_cancel">বাতিল করুন</string>
+    <string name="thread_report_spam_done">স্প্যাম হিসেবে চিহ্নিত করা হয়েছে</string>
+    <string name="thread_report_spam_rule_note">স্প্যাম রিপোর্ট করা হয়েছে</string>
+    <string name="thread_report_spam_already">আগেই স্প্যাম হিসেবে চিহ্নিত করা হয়েছে</string>
+    <string name="thread_report_spam_failed">স্প্যাম হিসেবে চিহ্নিত করা যায়নি</string>
+    <string name="thread_report_spam_undo">আগের অবস্থায় ফিরুন</string>
+</resources>

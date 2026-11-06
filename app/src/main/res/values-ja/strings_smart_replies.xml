@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">スマート返信</string>
+    <string name="smart_replies_summary">スマートフォン内のリストからすばやく返信</string>
+    <string name="smart_replies_hide">候補を隠す</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">Подпись</string>
+    <string name="i60_off">Выкл.</string>
+    <string name="i60_dialog_note">Добавляется под каждым отправленным сообщением. Оставьте поле пустым, чтобы не добавлять подпись.</string>
+</resources>

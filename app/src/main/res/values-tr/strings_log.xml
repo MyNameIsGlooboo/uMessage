@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">Karar günlüğü</string>
+    <string name="declog_clear">Günlüğü temizleyin</string>
+    <string name="declog_empty_title">Henüz karar yok</string>
+    <string name="declog_empty_body">Filtrenin kontrol ettiği her mesaj, gerekçesiyle burada görünür. Mesaj metni asla kaydedilmez.</string>
+    <plurals name="declog_kept_for">
+        <item quantity="one">Her karar %d gün sonra silinir. Mesaj metni asla kaydedilmez.</item>
+        <item quantity="other">Her karar %d gün sonra silinir. Mesaj metni asla kaydedilmez.</item>
+    </plurals>
+    <string name="declog_sim">SIM %1$s</string>
+    <string name="declog_today">Bugün</string>
+    <string name="declog_yesterday">Dün</string>
+    <string name="declog_allowed_by_rule">Kuralla izin verildi: %1$s</string>
+    <string name="declog_filter_all">Tümü</string>
+    <string name="declog_filter_blocked">Engellendi</string>
+    <string name="declog_filter_allowed">İzin verildi</string>
+    <string name="declog_filter_empty">Bu filtreyle eşleşen karar yok</string>
+    <plurals name="declog_times">
+        <item quantity="one">%1$s kez</item>
+        <item quantity="other">%1$s kez</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="one">Aynı karar art arda %1$s kez verildi</item>
+        <item quantity="other">Aynı karar art arda %1$s kez verildi</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="one">%d kararı paylaşın</item>
+        <item quantity="other">%d kararı paylaşın</item>
+    </plurals>
+    <string name="declog_csv_subject">uMessage karar günlüğü</string>
+    <string name="declog_share_failed">Günlük paylaşılamadı</string>
+    <string name="declog_details_title">Karar ayrıntıları</string>
+    <string name="declog_open_details">%1$s için ayrıntıları açın</string>
+    <string name="declog_fixed_allowed">Bu gönderene günlükten izin verdiniz</string>
+    <string name="declog_fixed_blocked">Bu göndereni günlükten engellediniz</string>
+    <string name="declog_fixed_restored">Bu mesajı günlükten geri yüklediniz</string>
+    <string name="declog_restored">Geri yüklendi</string>
+    <string name="declog_blocked_message">Mesaj hâlâ Engellenenler bölümünde</string>
+    <string name="declog_restore">Mesajı geri yükleyin</string>
+    <string name="declog_restore_done">Mesaj gelen kutusuna geri yüklendi</string>
+    <string name="declog_restore_text_only">Metin gelen kutusuna geri yüklendi. Resimler kurtarılamadı.</string>
+    <string name="declog_restore_nothing">Geri yüklenecek bir şey yok: bu resimli mesaj saklanmadı</string>
+    <string name="declog_restore_failed">Mesaj geri yüklenemedi</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

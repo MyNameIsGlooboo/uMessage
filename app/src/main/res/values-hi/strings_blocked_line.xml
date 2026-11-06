@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="blocked_line_strict">सख़्त सुरक्षा</string>
+    <string name="blocked_line_smart">स्मार्ट सुरक्षा</string>
+    <string name="blocked_line_off">सुरक्षा बंद</string>
+    <string name="blocked_line_join">%1$s · %2$s</string>
+    <string name="blocked_line_cd">%1$s, %2$s</string>
+</resources>

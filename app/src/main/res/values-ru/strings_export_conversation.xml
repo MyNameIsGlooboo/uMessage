@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="export_conv_menu">Экспорт чата</string>
+    <string name="export_conv_title">Экспорт чата</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">Обычный текст</string>
+    <string name="export_conv_dates_all">За все время</string>
+    <string name="export_conv_dates_30">За последние 30 дней</string>
+    <string name="export_conv_dates_pick">Выбрать даты</string>
+    <string name="export_conv_pick_from">С какого дня?</string>
+    <string name="export_conv_pick_to">По какой день?</string>
+    <string name="export_conv_action">Экспорт</string>
+    <string name="export_conv_preparing">Подготовка файла…</string>
+    <string name="export_conv_nothing">За этот период нет сообщений</string>
+    <string name="export_conv_failed">Не удалось создать файл</string>
+    <string name="export_conv_subject">Экспорт чата</string>
+    <string name="export_conv_share_text">Чат с %1$s, %2$s. SHA-256 текста сообщений: %3$s</string>
+    <string name="export_conv_attachment_label">[Вложение]</string>
+    <string name="export_pdf_title">Экспорт чата</string>
+    <string name="export_pdf_with">Чат с: %1$s</string>
+    <string name="export_pdf_numbers">Номера: %1$s</string>
+    <string name="export_pdf_range">Период: %1$s</string>
+    <string name="export_pdf_zone">Время указано для часового пояса %1$s</string>
+    <string name="export_pdf_exported">Дата экспорта: %1$s</string>
+    <plurals name="export_pdf_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d сообщение</item>
+        <item quantity="few">%1$d сообщения</item>
+        <item quantity="many">%1$d сообщений</item>
+        <item quantity="other">%1$d сообщения</item>
+    </plurals>
+    <string name="export_pdf_hash">SHA-256 текста сообщений: %1$s</string>
+    <string name="export_pdf_not_certified">Экспорт с телефона; не является заверенной копией.</string>
+    <string name="export_pdf_page">Страница %1$d из %2$d</string>
+    <string name="export_pdf_from">От: %1$s</string>
+    <string name="export_pdf_to">Кому: %1$s</string>
+    <string name="export_pdf_attachment">Вложение: %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">файл без имени</string>
+    <string name="export_status_received">Получено</string>
+    <string name="export_status_sent">Отправлено</string>
+    <string name="export_status_delivered">Доставлено</string>
+    <string name="export_status_failed">Ошибка</string>
+    <string name="export_status_sending">Отправка</string>
+    <string name="export_status_draft">Черновик</string>
+</resources>

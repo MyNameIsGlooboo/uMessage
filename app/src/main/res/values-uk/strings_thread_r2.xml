@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">Причина</string>
+    <string name="thread_r2_details_rule">Правило</string>
+    <string name="thread_r2_details_forwarded">Переслано</string>
+    <string name="thread_r2_details_decision_restored">Заблоковано, потім відновлено у вхідних</string>
+    <string name="thread_r2_details_copy">Копіювати %1$s</string>
+    <string name="thread_r2_menu_search">Пошук у чаті</string>
+    <string name="thread_r2_menu_always_forward">Завжди пересилати від цього відправника</string>
+    <string name="thread_r2_block_hint">Нові повідомлення потраплятимуть у «Заблоковані». Нічого не залишає ваш телефон.</string>
+    <string name="thread_r2_forward_message">Переслати це повідомлення</string>
+    <string name="thread_r2_search_hint">Пошук у чаті</string>
+    <string name="thread_r2_search_close">Закрити пошук</string>
+    <string name="thread_r2_search_none">Збігів немає</string>
+    <string name="thread_r2_search_count">%1$d із %2$d</string>
+    <string name="thread_r2_search_older">Старіший збіг</string>
+    <string name="thread_r2_search_newer">Новіший збіг</string>
+    <string name="thread_r2_link_copy">Копіювати посилання</string>
+    <string name="thread_r2_link_share">Поділитися</string>
+    <string name="thread_r2_schedule_pick_date">Виберіть дату</string>
+    <string name="thread_r2_calendar_previous">Попередній місяць</string>
+    <string name="thread_r2_calendar_next">Наступний місяць</string>
+</resources>

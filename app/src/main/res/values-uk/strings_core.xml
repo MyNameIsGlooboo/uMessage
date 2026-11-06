@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_message_inexact">Надсилання заплановано. Повідомлення може надійти на кілька хвилин пізніше.</string>
+</resources>

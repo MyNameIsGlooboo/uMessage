@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">入出金</string>
+    <string name="i11_filter_transactions_empty_title">入出金の通知なし</string>
+    <string name="i11_filter_transactions_empty_body">銀行からの入出金に関するメッセージがここに表示されます。</string>
+    <string name="i11_filter_offers">お得情報</string>
+    <string name="i11_filter_offers_empty_title">お得情報なし</string>
+    <string name="i11_filter_offers_empty_body">お店からの割引やキャンペーン情報がここに表示されます。</string>
+</resources>

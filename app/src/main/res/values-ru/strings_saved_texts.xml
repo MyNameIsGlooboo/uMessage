@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">Сохраненный текст</string>
+    <string name="n06_sheet_title">Сохраненные тексты</string>
+    <string name="n06_empty_hint">Например, ваш адрес или номер карты. Нажмите на текст, чтобы вставить его в сообщение.</string>
+    <string name="n06_add">Добавить сохраненный текст</string>
+    <string name="n06_edit">Изменить сохраненный текст</string>
+    <string name="n06_title_label">Название (необязательно)</string>
+    <string name="n06_text_label">Текст</string>
+    <string name="n06_save">Сохранить</string>
+    <string name="n06_delete">Удалить</string>
+    <string name="n06_private_tip">Хранятся только на этом телефоне без шифрования. Не сохраняйте пароли и ПИН-коды.</string>
+    <string name="n06_save_from_message">Добавить в сохраненные тексты</string>
+    <string name="n06_saved_toast">Сохранено</string>
+    <string name="n06_save_full">Список заполнен. Сначала удалите один текст.</string>
+    <string name="n06_save_duplicate">Уже сохранено</string>
+</resources>

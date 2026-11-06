@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">보관함 비우기</string>
+    <string name="inbox_empty_bin_menu">휴지통 비우기</string>
+    <string name="inbox_archive_empty_body">메시지에서 보관한 대화가 여기에 표시돼요.</string>
+    <string name="inbox_details_view_contact">연락처 보기</string>
+    <string name="inbox_details_more">더보기</string>
+    <string name="inbox_details_search">대화에서 검색</string>
+    <string name="inbox_details_search_body">이 대화에서 메시지를 찾아요.</string>
+    <string name="inbox_details_forward">이 발신자의 전달 규칙</string>
+    <string name="inbox_details_forward_body">이 발신자의 문자를 다른 번호로도 보내요.</string>
+    <string name="inbox_details_search_hint">이 대화 검색</string>
+</resources>

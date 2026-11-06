@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">Signatur</string>
+    <string name="i60_off">Aus</string>
+    <string name="i60_dialog_note">Wird unter jede gesendete Nachricht gesetzt. Lass das Feld leer, wenn du keine Signatur möchtest.</string>
+</resources>

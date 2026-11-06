@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">Labels</string>
+    <string name="i29_picker_title">Labels</string>
+    <string name="i29_picker_empty">You have no labels yet. Make one to sort your conversations.</string>
+    <string name="i29_picker_new">New label</string>
+    <string name="i29_picker_manage">Manage labels</string>
+    <string name="i29_done">Done</string>
+    <string name="i29_cancel">Cancel</string>
+    <string name="i29_tiles_title">Your labels</string>
+    <string name="i29_tile_add">Add label</string>
+    <string name="i29_tiles_manage">Manage labels</string>
+    <string name="i29_manager_title">Manage labels</string>
+    <string name="i29_manager_note">Labels are your own. They are separate from the automatic Transactions and Offers filters.</string>
+    <string name="i29_manager_edit">Edit label %1$s</string>
+    <string name="i29_manager_delete">Delete label %1$s</string>
+    <string name="i29_edit_new_title">New label</string>
+    <string name="i29_edit_title">Edit label</string>
+    <string name="i29_edit_name">Label name</string>
+    <string name="i29_edit_save">Save</string>
+    <string name="i29_color_description">Color %1$d</string>
+    <string name="i29_error_duplicate">You already have a label with this name.</string>
+    <string name="i29_error_limit">You can have up to %1$d labels.</string>
+    <string name="i29_delete_title">Delete this label?</string>
+    <string name="i29_delete_body">The label \"%1$s\" will be removed. Your conversations and messages stay as they are.</string>
+    <string name="i29_delete_confirm">Delete</string>
+    <string name="i29_empty_title">No conversations here</string>
+    <string name="i29_empty_body">Touch and hold a conversation, open the menu and choose Labels to add it.</string>
+</resources>

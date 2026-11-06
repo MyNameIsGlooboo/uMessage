@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">举报垃圾短信</string>
+    <string name="carrier_report_row_title">运营商垃圾短信举报号码</string>
+    <string name="carrier_report_row_summary">通过短信向运营商举报垃圾短信</string>
+    <string name="carrier_report_not_set">未设置</string>
+    <string name="carrier_report_hint">运营商的垃圾短信举报号码。举报将通过短信发送，可能产生费用。</string>
+    <string name="carrier_report_invalid">请输入3至8位数字</string>
+    <string name="carrier_report_action">向运营商举报</string>
+    <string name="carrier_report_title">向运营商举报？</string>
+    <string name="carrier_report_body">将把此发件人的最新一条消息以短信形式发送至%1$s。运营商可能会收取费用。</string>
+    <string name="carrier_report_send">发送</string>
+    <string name="carrier_report_sent">已向运营商发送举报</string>
+    <string name="carrier_report_failed">举报发送失败</string>
+</resources>

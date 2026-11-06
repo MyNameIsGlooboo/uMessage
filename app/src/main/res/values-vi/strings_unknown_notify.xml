@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unotify_title">Người gửi không xác định trong hộp thư đến của bạn</string>
+    <string name="unotify_notify">Thông báo</string>
+    <string name="unotify_silent">Thông báo im lặng</string>
+    <string name="unotify_none">Không thông báo</string>
+    <string name="unotify_summary">Tin nhắn vẫn đến hộp thư đến của bạn</string>
+    <string name="unotify_channel_silent">Người gửi không xác định (im lặng)</string>
+</resources>

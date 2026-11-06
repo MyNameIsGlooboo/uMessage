@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">短链接：无法看出它指向哪里。</string>
+    <string name="i07_punycode">域名经过编码，显示的字母可能与实际字母不同。</string>
+    <string name="i07_mixed_script">域名混用了不同文字的字母，仿冒网站常用这种做法。</string>
+    <string name="i07_raw_ip">地址是数字，而非网站域名。</string>
+    <string name="i07_http_only">未加密（使用http，而非https）。</string>
+    <string name="i07_lookalike">域名看起来像%1$s。请核对拼写。</string>
+    <string name="i07_user_info">\@前面的部分并非网站地址。</string>
+    <string name="i07_locked">无法在此打开风险链接。你可以复制链接。</string>
+    <string name="i07_lock_title">禁止打开风险链接</string>
+    <string name="i07_lock_summary">开启后，链接面板仅支持复制和分享</string>
+    <string name="i07_group_title">链接</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i56_section">미디어 및 링크</string>
+    <string name="i56_see_all">전체 보기</string>
+    <string name="i56_pictures">사진</string>
+    <string name="i56_links">링크</string>
+    <string name="i56_empty_pictures">이 대화에는 사진이 없어요.</string>
+    <string name="i56_empty_links">이 대화에는 링크가 없어요.</string>
+    <string name="i56_show_in_chat">대화에서 보기</string>
+    <string name="i56_load_more">더보기</string>
+    <string name="i56_picture_description">사진이에요. 누르면 열려요.</string>
+    <plurals name="i56_count_pictures">
+        <item quantity="other">사진 %d장</item>
+    </plurals>
+    <plurals name="i56_count_links">
+        <item quantity="other">링크 %d개</item>
+    </plurals>
+</resources>

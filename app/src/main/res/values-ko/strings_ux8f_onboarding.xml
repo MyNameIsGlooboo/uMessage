@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">기능 더 보기</string>
+    <string name="ux8f_onb_less">기능 접기</string>
+    <string name="ux8f_onb_battery_body">Android에서 백그라운드 실행을 중지하면 uMessage 메시지가 늦게 도착할 수 있어요. 계속 실행할 수 있도록 허용해 주세요.</string>
+    <string name="ux8f_onb_battery_action">백그라운드 사용 허용</string>
+    <string name="ux8f_onb_vendor_hint">%1$s 휴대전화에서는 한 단계가 더 필요해요.</string>
+    <string name="ux8f_onb_unfinished">아직 완료하지 않은 항목이 있어요. 나중에 Android 설정에서 완료할 수 있어요.</string>
+</resources>

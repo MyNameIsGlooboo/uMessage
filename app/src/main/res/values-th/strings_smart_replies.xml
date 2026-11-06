@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">คำตอบอัจฉริยะ</string>
+    <string name="smart_replies_summary">ตอบด่วนจากรายการในโทรศัพท์</string>
+    <string name="smart_replies_hide">ซ่อนคำแนะนำ</string>
+</resources>

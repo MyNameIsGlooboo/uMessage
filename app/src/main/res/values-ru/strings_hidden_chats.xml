@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">Скрыть чат</string>
+    <string name="hidden_chats_menu_unhide">Показать чат</string>
+    <string name="hidden_chats_confirm">Скрыть чат? Он исчезнет из списка, поиска и уведомлений, пока вы не откроете скрытые чаты с помощью блокировки приложения.</string>
+    <string name="hidden_chats_need_lock">Для скрытых чатов нужна блокировка приложения. Настроить ее сейчас?</string>
+    <string name="hidden_chats_set_lock">Настроить</string>
+    <string name="hidden_chats_done">Чат скрыт</string>
+    <string name="hidden_chats_show">Скрытые чаты</string>
+    <string name="hidden_chats_lock">Заблокировать скрытые чаты</string>
+</resources>

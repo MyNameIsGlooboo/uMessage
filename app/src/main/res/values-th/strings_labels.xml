@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">ป้ายกำกับ</string>
+    <string name="i29_picker_title">ป้ายกำกับ</string>
+    <string name="i29_picker_empty">ยังไม่มีป้ายกำกับ สร้างป้ายกำกับเพื่อจัดหมวดหมู่การสนทนา</string>
+    <string name="i29_picker_new">ป้ายกำกับใหม่</string>
+    <string name="i29_picker_manage">จัดการป้ายกำกับ</string>
+    <string name="i29_done">เสร็จสิ้น</string>
+    <string name="i29_cancel">ยกเลิก</string>
+    <string name="i29_tiles_title">ป้ายกำกับของคุณ</string>
+    <string name="i29_tile_add">เพิ่มป้ายกำกับ</string>
+    <string name="i29_tiles_manage">จัดการป้ายกำกับ</string>
+    <string name="i29_manager_title">จัดการป้ายกำกับ</string>
+    <string name="i29_manager_note">ป้ายกำกับเป็นสิ่งที่คุณกำหนดเอง แยกจากตัวกรองธุรกรรมและข้อเสนอที่ทำงานอัตโนมัติ</string>
+    <string name="i29_manager_edit">แก้ไขป้ายกำกับ %1$s</string>
+    <string name="i29_manager_delete">ลบป้ายกำกับ %1$s</string>
+    <string name="i29_edit_new_title">ป้ายกำกับใหม่</string>
+    <string name="i29_edit_title">แก้ไขป้ายกำกับ</string>
+    <string name="i29_edit_name">ชื่อป้ายกำกับ</string>
+    <string name="i29_edit_save">บันทึก</string>
+    <string name="i29_color_description">สี %1$d</string>
+    <string name="i29_error_duplicate">มีป้ายกำกับชื่อนี้อยู่แล้ว</string>
+    <string name="i29_error_limit">มีป้ายกำกับได้สูงสุด %1$d ป้าย</string>
+    <string name="i29_delete_title">ลบป้ายกำกับนี้ไหม</string>
+    <string name="i29_delete_body">ป้ายกำกับ “%1$s” จะถูกลบ การสนทนาและข้อความจะยังอยู่เหมือนเดิม</string>
+    <string name="i29_delete_confirm">ลบ</string>
+    <string name="i29_empty_title">ไม่มีการสนทนาที่นี่</string>
+    <string name="i29_empty_body">แตะการสนทนาค้างไว้ เปิดเมนูแล้วเลือกป้ายกำกับเพื่อเพิ่ม</string>
+</resources>

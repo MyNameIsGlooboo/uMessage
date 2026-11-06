@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">Добавить на главный экран</string>
+    <string name="home_shortcut_requested">Запрос на добавление отправлен лаунчеру. На главном экране будет видно имя чата. Если ярлык не появился, разрешите «Ярлыки на главном экране» для uMessage в настройках приложения на телефоне.</string>
+    <string name="home_shortcut_failed">Лаунчер отклонил ярлык. Разрешите «Ярлыки на главном экране» для uMessage в настройках приложения на телефоне.</string>
+</resources>

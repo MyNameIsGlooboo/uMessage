@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">Gespeicherter Text</string>
+    <string name="n06_sheet_title">Gespeicherte Texte</string>
+    <string name="n06_empty_hint">Zum Beispiel deine Adresse oder Kartennummer. Tippe auf einen Text, um ihn in deine Nachricht einzufügen.</string>
+    <string name="n06_add">Text hinzufügen</string>
+    <string name="n06_edit">Gespeicherten Text ändern</string>
+    <string name="n06_title_label">Titel (optional)</string>
+    <string name="n06_text_label">Text</string>
+    <string name="n06_save">Speichern</string>
+    <string name="n06_delete">Löschen</string>
+    <string name="n06_private_tip">Nur auf diesem Smartphone gespeichert, unverschlüsselt. Speichere keine Passwörter oder PINs.</string>
+    <string name="n06_save_from_message">Als gespeicherten Text ablegen</string>
+    <string name="n06_saved_toast">Gespeichert</string>
+    <string name="n06_save_full">Die Liste ist voll. Lösche zuerst einen Text.</string>
+    <string name="n06_save_duplicate">Bereits gespeichert</string>
+</resources>

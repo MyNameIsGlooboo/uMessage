@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="digest_channel">Résumé hebdomadaire</string>
+    <string name="digest_title">Résumé hebdomadaire</string>
+    <string name="digest_row_title">Résumé hebdomadaire</string>
+    <string name="digest_row_summary">Une fois par semaine : le nombre de messages bloqués</string>
+    <plurals name="digest_held" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d message bloqué cette semaine. Appuyez pour consulter.</item>
+        <item quantity="other">%d messages bloqués cette semaine. Appuyez pour consulter.</item>
+    </plurals>
+    <plurals name="digest_held_important" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d message bloqué cette semaine. Dont codes ou alertes bancaires : %2$d.</item>
+        <item quantity="other">%1$d messages bloqués cette semaine. Dont codes ou alertes bancaires : %2$d.</item>
+    </plurals>
+</resources>

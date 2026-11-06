@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">Codes in weitergeleiteten Nachrichten verbergen</string>
+    <string name="w3d_mask_codes_body">Weitergeleitete Codes erscheinen als ****</string>
+    <string name="w3d_mask_keep_last">Letzte zwei Ziffern beibehalten</string>
+    <string name="w3d_mask_keep_last_on">Weiterleitungen zeigen zum Beispiel **34.</string>
+    <string name="w3d_mask_keep_last_off">Weiterleitungen verbergen den gesamten Code.</string>
+    <string name="w3d_daily_limit">Tägliches Limit für Weiterleitungen</string>
+    <string name="w3d_daily_limit_body">Maximale Anzahl an Weiterleitungen pro Tag</string>
+    <string name="w3d_hide_lock_codes">Codes auf dem Sperrbildschirm verbergen</string>
+    <string name="w3d_hide_lock_codes_body">Nachrichten mit einem Code zeigen auf dem Sperrbildschirm ••••, bis du das Gerät entsperrst.</string>
+</resources>

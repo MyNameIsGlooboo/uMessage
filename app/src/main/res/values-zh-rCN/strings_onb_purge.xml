@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_purge_question">已屏蔽的消息保留多久？</string>
+    <string name="onb_done_summary_purge">保留已屏蔽的消息</string>
+</resources>

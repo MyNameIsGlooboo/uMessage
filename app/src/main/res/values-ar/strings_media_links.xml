@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i56_section">الوسائط والروابط</string>
+    <string name="i56_see_all">اعرض الكل</string>
+    <string name="i56_pictures">الصور</string>
+    <string name="i56_links">الروابط</string>
+    <string name="i56_empty_pictures">لا توجد صور في هذه المحادثة.</string>
+    <string name="i56_empty_links">لا توجد روابط في هذه المحادثة.</string>
+    <string name="i56_show_in_chat">اعرض في المحادثة</string>
+    <string name="i56_load_more">اعرض المزيد</string>
+    <string name="i56_picture_description">صورة. اضغط لفتحها.</string>
+    <plurals name="i56_count_pictures">
+        <item quantity="zero">%d صور</item>
+        <item quantity="one">صورة واحدة (%d)</item>
+        <item quantity="two">صورتان (%d)</item>
+        <item quantity="few">%d صور</item>
+        <item quantity="many">%d صورة</item>
+        <item quantity="other">%d صورة</item>
+    </plurals>
+    <plurals name="i56_count_links">
+        <item quantity="zero">%d روابط</item>
+        <item quantity="one">رابط واحد (%d)</item>
+        <item quantity="two">رابطان (%d)</item>
+        <item quantity="few">%d روابط</item>
+        <item quantity="many">%d رابطًا</item>
+        <item quantity="other">%d رابط</item>
+    </plurals>
+</resources>

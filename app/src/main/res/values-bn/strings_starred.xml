@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">তারা দিন</string>
+    <string name="i13_unstar">তারা সরান</string>
+    <string name="i13_starred_mark">তারা দেওয়া</string>
+    <string name="i13_filter_starred">তারা দেওয়া</string>
+    <string name="i13_filter_starred_empty_title">তারা দেওয়া কোনো বার্তা নেই</string>
+    <string name="i13_filter_starred_empty_body">এখানে রাখতে কথোপকথনের একটি বার্তা নির্বাচন করে তারায় ট্যাপ করুন।</string>
+    <string name="i13_starred_note">তারা দিলে বার্তার লেখার একটি কপি থাকে, কথোপকথন মুছে ফেললেও। তারা সরালে কপিটি মুছে যায়।</string>
+    <string name="i13_snapshot_gone">এই কথোপকথন মুছে ফেলা হয়েছে। শুধু সংরক্ষিত লেখাটুকু আছে।</string>
+    <string name="i13_snapshot_close">বন্ধ করুন</string>
+</resources>

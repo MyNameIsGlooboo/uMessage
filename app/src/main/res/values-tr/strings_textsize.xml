@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_text_xsmall">Çok küçük</string>
+    <string name="w3c_text_huge">Çok büyük</string>
+    <string name="w3c_text_giant">Dev</string>
+</resources>

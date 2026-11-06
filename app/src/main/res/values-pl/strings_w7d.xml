@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w7d_banner_stopped">
+        <item quantity="one">Zablokowano %1$s wiadomość w tym tygodniu</item>
+        <item quantity="few">Zablokowano %1$s wiadomości w tym tygodniu</item>
+        <item quantity="many">Zablokowano %1$s wiadomości w tym tygodniu</item>
+        <item quantity="other">Zablokowano %1$s wiadomości w tym tygodniu</item>
+    </plurals>
+    <string name="w7d_banner_none">Nic nie zablokowano w tym tygodniu</string>
+    <string name="w7d_fwd_master_switch">Przekazywanie dalej</string>
+    <string name="w7d_help_menu">Jak działa blokowanie słów</string>
+    <string name="w7d_help_title">Jak działa blokowanie słów</string>
+    <string name="w7d_help_words_head">Słowa</string>
+    <string name="w7d_help_words_body">Zablokuje wiadomość, jeśli zawiera dane słowo w dowolnym miejscu.</string>
+    <string name="w7d_help_words_example">darmowa nagroda</string>
+    <string name="w7d_help_sender_head">Nazwy nadawców</string>
+    <string name="w7d_help_sender_body">Zablokuje wiadomości od nadawcy o tej nazwie, np. sklepu.</string>
+    <string name="w7d_help_sender_example">PROMO</string>
+    <string name="w7d_help_number_head">Początek numeru</string>
+    <string name="w7d_help_number_body">Zablokuje każdy numer zaczynający się od tych cyfr.</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">Wzorce (regex) dla zaawansowanych</string>
+    <string name="w7d_help_pattern_body">Jeden wzorzec może pasować do różnych zapisów. Przetestuj go przed zapisaniem.</string>
+    <string name="w7d_help_pattern_example">(darmowa|wygrana) nagroda</string>
+    <string name="w7d_help_close">Zamknij</string>
+    <string name="w7d_bank_cards_title">Karty powiadomień bankowych</string>
+    <string name="w7d_bank_cards_summary">Pokazuje kwotę pod wiadomością z banku</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_hint">Görüşmelerde arayın</string>
+    <string name="main_search_back">Aramayı kapatın</string>
+    <string name="main_search_clear">Arama metnini temizleyin</string>
+    <string name="main_search_type_more">Aramak için en az 2 karakter yazın</string>
+    <string name="main_search_no_results">Sonuç bulunamadı</string>
+    <string name="main_settings">Ayarlar</string>
+    <string name="main_tab_messages">Mesajlar</string>
+    <string name="main_tab_blocked">Engellenenler</string>
+    <string name="main_tab_archived">Arşivlendi</string>
+    <plurals name="main_tab_blocked_new">
+        <item quantity="one">Engellenenler, %d yeni</item>
+        <item quantity="other">Engellenenler, %d yeni</item>
+    </plurals>
+    <string name="main_permission_title">İzin gerekli</string>
+    <string name="main_permission_grant">İzin verin</string>
+    <string name="main_permission_notifications">Bildirimlere izin verin, aksi hâlde uygulama gelen mesajları gösteremez.</string>
+    <string name="main_sms_permission_title">uMessage için SMS erişimi gerekli</string>
+    <string name="main_sms_permission_body">SMS okuma ve gönderme izni olmadan uMessage mesajlarınızı gösteremez, mesaj gönderemez veya spam filtreleyemez. Hiçbir şey silinmez.</string>
+    <string name="main_sms_permission_settings">Uygulama ayarlarını açın</string>
+    <string name="main_not_default_banner">uMessage varsayılan SMS uygulamanız olmadığı için spam engelleyemez veya mesaj gönderemez.</string>
+    <string name="main_not_default_fix">Düzeltin</string>
+    <string name="main_not_default_fix_description">uMessage uygulamasını varsayılan SMS uygulaması yapın</string>
+</resources>

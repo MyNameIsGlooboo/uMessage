@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_open_link_action">Otwórz link</string>
+    <string name="notif_open_link_title">Przycisk „Otwórz link”</string>
+    <string name="notif_open_link_summary">W powiadomieniach od kontaktów i dozwolonych nadawców</string>
+</resources>

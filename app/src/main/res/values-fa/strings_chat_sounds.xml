@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i65_setting_title">صداهای داخل گفتگو</string>
+    <string name="i65_setting_summary">صدایی کوتاه برای پیام‌های ارسالی و دریافتی</string>
+</resources>

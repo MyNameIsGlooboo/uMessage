@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i09_setting_title">사진 위치 정보 삭제</string>
+    <string name="i09_setting_summary">사진을 보내기 전에 촬영 위치를 숨겨요.</string>
+</resources>

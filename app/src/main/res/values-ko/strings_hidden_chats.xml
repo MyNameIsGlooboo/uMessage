@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">대화 숨기기</string>
+    <string name="hidden_chats_menu_unhide">숨기기 해제</string>
+    <string name="hidden_chats_confirm">이 대화를 숨길까요? 앱 잠금으로 숨긴 대화의 잠금을 해제할 때까지 목록, 검색, 알림에 표시되지 않아요.</string>
+    <string name="hidden_chats_need_lock">대화를 숨기려면 앱 잠금이 필요해요. 지금 설정할까요?</string>
+    <string name="hidden_chats_set_lock">설정</string>
+    <string name="hidden_chats_done">대화를 숨겼어요.</string>
+    <string name="hidden_chats_show">숨긴 대화</string>
+    <string name="hidden_chats_lock">숨긴 대화 잠금</string>
+</resources>

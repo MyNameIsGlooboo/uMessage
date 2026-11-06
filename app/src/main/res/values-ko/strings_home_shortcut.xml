@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">홈 화면에 추가</string>
+    <string name="home_shortcut_requested">런처에 추가를 요청하고 있어요. 홈 화면에 대화 이름이 표시돼요. 아무것도 나타나지 않으면 휴대전화의 앱 설정에서 uMessage 앱의 \"홈 화면 바로가기\"를 허용해 주세요.</string>
+    <string name="home_shortcut_failed">런처에서 바로가기 추가를 허용하지 않았어요. 휴대전화의 앱 설정에서 uMessage 앱의 \"홈 화면 바로가기\"를 허용해 주세요.</string>
+</resources>

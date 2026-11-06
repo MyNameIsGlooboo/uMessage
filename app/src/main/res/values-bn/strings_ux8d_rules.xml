@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">সবসময় অনুমতি দিন</string>
+    <string name="ux8d_sheet_title_block">সবসময় ব্লক করুন</string>
+    <string name="ux8d_match_label">কী মেলাবেন</string>
+    <string name="ux8d_match_number">একটি ফোন নম্বর</string>
+    <string name="ux8d_match_sender">প্রেরকের নাম, যেমন কোনো ব্যাংক</string>
+    <string name="ux8d_match_word">বার্তার কোনো শব্দ</string>
+    <string name="ux8d_match_prefix">যেসব নম্বর শুরু হয়…</string>
+    <string name="ux8d_match_pattern">একটি প্যাটার্ন (উন্নত)</string>
+    <string name="ux8d_match_more">মেলানোর আরও উপায়</string>
+    <string name="ux8d_action_label">মিলে গেলে</string>
+    <string name="ux8d_more_options">আরও বিকল্প</string>
+    <string name="ux8d_row_type_number">নম্বর</string>
+    <string name="ux8d_row_type_prefix">নম্বরের শুরুতে আছে</string>
+    <string name="ux8d_row_type_sender">প্রেরকের নাম</string>
+    <string name="ux8d_row_type_word">বার্তার শব্দ</string>
+    <string name="ux8d_row_type_pattern">প্যাটার্ন</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

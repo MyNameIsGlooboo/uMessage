@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">Bilinmeyen</string>
+    <string name="i28_filter_unknown_empty_title">Bilinmeyen gönderen yok</string>
+    <string name="i28_filter_unknown_empty_body">Kişilerinizde olmayan ve daha önce mesaj yazmadığınız kişilerle görüşmeler burada görünür.</string>
+    <string name="i28_filter_images">Resimler</string>
+    <string name="i28_filter_images_empty_title">Resim yok</string>
+    <string name="i28_filter_images_empty_body">Resim içeren mesajlar burada görünür.</string>
+    <string name="i28_filter_links">Bağlantılar</string>
+    <string name="i28_filter_links_empty_title">Bağlantı yok</string>
+    <string name="i28_filter_links_empty_body">Web bağlantısı içeren mesajlar burada görünür.</string>
+    <string name="i28_hit_picture">Resim</string>
+</resources>

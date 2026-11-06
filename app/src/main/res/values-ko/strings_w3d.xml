@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">전달 메시지의 코드 가리기</string>
+    <string name="w3d_mask_codes_body">전달된 코드는 ****로 표시해요.</string>
+    <string name="w3d_mask_keep_last">마지막 두 자리 표시</string>
+    <string name="w3d_mask_keep_last_on">전달할 때 **34처럼 표시해요.</string>
+    <string name="w3d_mask_keep_last_off">전달할 때 코드 전체를 가려요.</string>
+    <string name="w3d_daily_limit">일일 전달 한도</string>
+    <string name="w3d_daily_limit_body">하루에 전달할 최대 건수</string>
+    <string name="w3d_hide_lock_codes">잠금 화면에서 코드 숨기기</string>
+    <string name="w3d_hide_lock_codes_body">잠금을 해제할 때까지 코드가 있는 메시지를 잠금 화면에 ••••로 표시해요.</string>
+</resources>

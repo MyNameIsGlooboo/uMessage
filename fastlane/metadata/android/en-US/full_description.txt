@@ -1,0 +1,38 @@
+uMessage is a full SMS and MMS app whose main job is to stop spam. Make it your default messaging app and, out of the box, messages from senders you do not know go to a separate Blocked folder instead of your inbox.
+
+<b>How it decides</b>
+• Senders in your contacts, and numbers you have texted before, always reach your inbox.
+• Smart mode (the default): messages from unknown senders are blocked, but verification codes without a link still arrive.
+• Strict mode: every unknown sender is blocked, verification codes included.
+• Off: no unknown-sender filtering; your own rules still apply.
+
+<b>Your rules</b>
+• Allow or block an exact number, a number prefix, a sender name such as ACME-BANK, a keyword or a pattern.
+• Allowed rules always win over blocked rules.
+• A test box lets you type a message and see what your rules would do with it.
+• On dual-SIM phones each rule can apply to one SIM or both.
+• Export your rules to a file and import them on another phone, with a preview before anything changes.
+
+<b>Nothing is lost</b>
+• Blocked messages are kept in the Blocked tab with the reason each one was held, without a notification unless you turn one on.
+• Tap "Not spam" to move a message to your inbox and allow its sender from then on.
+• Blocked messages are deleted after 30 days by default; you can change this or keep them forever.
+• Blocked MMS are not downloaded, so they cost no mobile data.
+
+<b>A complete messaging app</b>
+• Group messages, photos and video, search, drafts, scheduled sending and an emoji picker.
+• Dual SIM: choose a default SIM or pick one for each message.
+• Optional app lock with a PIN or your fingerprint.
+• Choose what notifications show on the lock screen: sender, text or nothing.
+• Export and import your messages as a backup.
+• Material You design with light, dark and color themes.
+• A Copy code button on messages that contain a verification code.
+• Persian and Arabic text displays right-to-left in the Vazirmatn font, and Persian verification codes are recognized.
+
+<b>Private by design</b>
+uMessage does not request the internet permission, so it cannot send anything off your phone. No ads, no analytics, no accounts, no tracking. Your messages, rules and blocked messages stay on your device and are left out of cloud backups.
+
+uMessage does not support RCS (only Google Messages and Samsung Messages can use it). It filters texts only. Numbers on Android's own block list, which you can view in Settings, are also stopped from calling you, because Android applies that list to calls as well.
+
+uMessage is free and open-source software under the GNU GPL v3, based on Fossify Messages. It is not affiliated with the Fossify project.
+Source code: https://github.com/MyNameIsGlooboo/uMessage

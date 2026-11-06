@@ -1,0 +1,107 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|Bonjour !
+greeting|Salut tout le monde
+greeting|Coucou
+greeting|Bonjour à tous
+good_morning|Bonne matinée !
+good_afternoon|Bon après-midi à toi
+good_evening|Bonsoir à tous
+good_evening|Bonne soirée à vous
+good_night|Bonne nuit, dors bien
+good_night|Fais de beaux rêves
+how_are_you|Salut, ça va ?
+how_are_you|Comment vas-tu ?
+how_are_you|Quoi de neuf ?
+how_are_you|Comment allez-vous ?
+thanks|Merci beaucoup !
+thanks|Mille mercis
+thanks|Merci pour l'info
+thanks|Merci bien 🙏
+youre_welcome|De rien !
+youre_welcome|Pas de souci
+youre_welcome|Avec plaisir
+youre_welcome|Je t'en prie
+where_are_you|T'es où ?
+where_are_you|Où es-tu ?
+where_are_you|Tu es où là ?
+on_my_way|J'arrive !
+on_my_way|Je suis en route
+on_my_way|J'arrive dans cinq minutes
+on_my_way|On arrive bientôt
+arrived|Je suis devant chez toi
+arrived|Je suis en bas
+arrived|On est là
+arrived_home|Je suis bien rentré
+arrived_home|Bien arrivée à la maison
+arrived_home|Je suis rentrée
+did_you_arrive|Tu es bien arrivé ?
+did_you_arrive|T'es bien rentrée ?
+are_you_coming|Tu viens ce soir ?
+are_you_coming|Vous venez demain ?
+call_me|Appelle-moi quand tu peux
+call_me|Rappelle moi stp
+can_you_talk|Tu as une minute ?
+can_you_talk|On peut parler ?
+are_you_free|Tu es libre demain ?
+are_you_free|T'es dispo ce soir ?
+what_time|À quelle heure on se retrouve ?
+what_time|A quelle heure tu arrives ?
+where_to_meet|Où on se retrouve ?
+where_to_meet|Ou on se voit demain ?
+ok_confirm|D'accord merci
+ok_confirm|Ça marche
+ok_confirm|Parfait
+ok_confirm|Très bien
+bye|À demain !
+bye|Bonne journée
+bye|À plus tard
+bye|Prends soin de toi
+congrats|Félicitations !
+congrats|Joyeux anniversaire !
+congrats|Bravo à toi
+holiday_eid|Aïd Moubarak !
+holiday_new_year|Bonne année à toi
+holiday_christmas|Joyeux Noël !
+holiday_other|Joyeuses Pâques
+holiday_other|Bonnes vacances
+good_luck|Bonne chance pour demain
+good_luck|Bon courage !
+sorry_late|Désolé pour le retard
+sorry_late|Désolée pour l'attente
+missed_call|J'ai raté ton appel
+missed_call|Désolé, j'ai manqué ton appel
+NONE|Salut, je voulais te dire que demain on va chez ma tante pour le déjeuner et ensuite on ira se promener au parc
+NONE|Quand est-ce que tu viens nous voir ?
+NONE|Tu viens d'où ?
+NONE|Ton code de sécurité est 482913
+NONE|Votre colis arrive demain https://exemple.fr/suivi
+NONE|Merci de me virer 50 euros
+NONE|J'ai besoin d'argent, tu peux me prêter ?
+NONE|Pas de souci pour le code de la carte
+NONE|Merci de ne plus m'écrire
+NONE|Je ne suis pas libre demain
+NONE|Je n'arrive pas à venir
+NONE|Pourquoi tu ne viens pas ?
+NONE|À quelle heure est ton train demain matin ?
+NONE|Bonjour, tu peux m'appeler ? C'est urgent
+NONE|Salut ça va ? Tu viens ce soir ?
+NONE|Rappel : rendez-vous chez le dentiste demain à neuf heures
+NONE|Appelle le médecin dès que possible
+NONE|Mon père est mort hier
+NONE|Je suis à la maison avec ma mère malade
+NONE|Joyeux anniversaire de mariage à mes parents, ils fêtent leurs quarante ans de mariage aujourd'hui
+NONE|Merci danke gracias
+NONE|Dank je wel voor alles
+NONE|Goedemorgen allemaal
+NONE|Tack så mycket för hjälpen
+NONE|Děkuji mnohokrát
+NONE|Köszönöm szépen
+NONE|Mulțumesc frumos
+NONE|Kiitos paljon
+NONE|Si tu viens, je viens aussi
+NONE|Je ne sais pas si je suis rentré
+NONE|Tu es arrivé où exactement dans le livre ?
+NONE|Bravo pour les deux euros économisés ?
+NONE|Hier soir j'étais déjà bien rentré quand tu as écrit
+NONE|C'est qui, ce numéro ?

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">ফরোয়ার্ড করা বার্তায় কোড আড়াল করুন</string>
+    <string name="w3d_mask_codes_body">ফরোয়ার্ড করা কোড **** হিসেবে দেখায়</string>
+    <string name="w3d_mask_keep_last">শেষ দুই অঙ্ক রাখুন</string>
+    <string name="w3d_mask_keep_last_on">ফরোয়ার্ড করা বার্তায় যেমন **34 দেখায়।</string>
+    <string name="w3d_mask_keep_last_off">ফরোয়ার্ড করা বার্তায় পুরো কোড আড়াল থাকে।</string>
+    <string name="w3d_daily_limit">দৈনিক ফরোয়ার্ডের সীমা</string>
+    <string name="w3d_daily_limit_body">দিনে সর্বোচ্চ যতটি ফরোয়ার্ড করা যাবে</string>
+    <string name="w3d_hide_lock_codes">লক স্ক্রিনে কোড লুকান</string>
+    <string name="w3d_hide_lock_codes_body">আপনি আনলক না করা পর্যন্ত কোড থাকা বার্তায় লক স্ক্রিনে •••• দেখায়।</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">Daha fazla özellik</string>
+    <string name="ux8f_onb_less">Daha az özellik</string>
+    <string name="ux8f_onb_battery_body">Android, uMessage uygulamasını arka planda durdurup mesajlarınızı geciktirebilir. Çalışmaya devam etmesine izin verin.</string>
+    <string name="ux8f_onb_battery_action">Arka planda kullanıma izin verin</string>
+    <string name="ux8f_onb_vendor_hint">%1$s telefonlarda bir adım daha gerekir.</string>
+    <string name="ux8f_onb_unfinished">Tamamlanmadı. Bunları daha sonra Android ayarlarından tamamlayabilirsiniz.</string>
+</resources>

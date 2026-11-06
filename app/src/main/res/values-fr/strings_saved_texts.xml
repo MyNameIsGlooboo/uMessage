@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">Texte enregistré</string>
+    <string name="n06_sheet_title">Textes enregistrés</string>
+    <string name="n06_empty_hint">Par exemple : votre adresse ou votre numéro de carte. Appuyez sur un texte pour l\'insérer dans votre message.</string>
+    <string name="n06_add">Ajouter un texte enregistré</string>
+    <string name="n06_edit">Modifier le texte enregistré</string>
+    <string name="n06_title_label">Titre (facultatif)</string>
+    <string name="n06_text_label">Texte</string>
+    <string name="n06_save">Enregistrer</string>
+    <string name="n06_delete">Supprimer</string>
+    <string name="n06_private_tip">Conservés uniquement sur ce téléphone, sans chiffrement. N\'enregistrez pas de mots de passe ni de codes PIN.</string>
+    <string name="n06_save_from_message">Ajouter aux textes enregistrés</string>
+    <string name="n06_saved_toast">Enregistré</string>
+    <string name="n06_save_full">La liste est pleine. Supprimez d\'abord un texte.</string>
+    <string name="n06_save_duplicate">Déjà enregistré</string>
+</resources>

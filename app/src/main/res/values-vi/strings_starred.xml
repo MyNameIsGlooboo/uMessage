@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">Gắn sao</string>
+    <string name="i13_unstar">Bỏ gắn sao</string>
+    <string name="i13_starred_mark">Đã gắn sao</string>
+    <string name="i13_filter_starred">Đã gắn sao</string>
+    <string name="i13_filter_starred_empty_title">Chưa có tin nhắn gắn sao</string>
+    <string name="i13_filter_starred_empty_body">Chọn một tin nhắn trong cuộc trò chuyện rồi nhấn ngôi sao để giữ lại ở đây.</string>
+    <string name="i13_starred_note">Gắn sao sẽ giữ một bản sao văn bản, kể cả khi cuộc trò chuyện bị xóa. Bỏ gắn sao sẽ xóa bản sao.</string>
+    <string name="i13_snapshot_gone">Cuộc trò chuyện này đã bị xóa. Chỉ còn văn bản đã lưu.</string>
+    <string name="i13_snapshot_close">Đóng</string>
+</resources>

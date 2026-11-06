@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">متن ذخیره‌شده</string>
+    <string name="n06_sheet_title">متن‌های ذخیره‌شده</string>
+    <string name="n06_empty_hint">مثلاً نشانی یا شماره کارت شما. روی یک متن بزنید تا در پیامتان قرار بگیرد.</string>
+    <string name="n06_add">افزودن متن ذخیره‌شده</string>
+    <string name="n06_edit">تغییر متن ذخیره‌شده</string>
+    <string name="n06_title_label">عنوان (اختیاری)</string>
+    <string name="n06_text_label">متن</string>
+    <string name="n06_save">ذخیره</string>
+    <string name="n06_delete">حذف</string>
+    <string name="n06_private_tip">فقط روی این گوشی و بدون رمزگذاری نگهداری می‌شود. گذرواژه یا پین ذخیره نکنید.</string>
+    <string name="n06_save_from_message">ذخیره در متن‌های ذخیره‌شده</string>
+    <string name="n06_saved_toast">ذخیره شد</string>
+    <string name="n06_save_full">فهرست پر است. ابتدا یک مورد را حذف کنید.</string>
+    <string name="n06_save_duplicate">قبلاً ذخیره شده</string>
+</resources>

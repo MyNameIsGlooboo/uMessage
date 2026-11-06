@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">Transaksi</string>
+    <string name="i11_filter_transactions_empty_title">Tidak ada transaksi</string>
+    <string name="i11_filter_transactions_empty_body">Pesan dari bank tentang uang masuk dan keluar muncul di sini.</string>
+    <string name="i11_filter_offers">Penawaran</string>
+    <string name="i11_filter_offers_empty_title">Tidak ada penawaran</string>
+    <string name="i11_filter_offers_empty_body">Diskon dan promosi dari toko muncul di sini.</string>
+</resources>

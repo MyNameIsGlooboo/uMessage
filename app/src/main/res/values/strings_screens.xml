@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Shared controls -->
+    <string name="screens_back">Back</string>
+    <string name="screens_ok">OK</string>
+    <string name="screens_cancel">Cancel</string>
+    <string name="screens_delete">Delete</string>
+    <string name="screens_clear_selection">Clear selection</string>
+    <plurals name="screens_selected_count">
+        <item quantity="one">%d selected</item>
+        <item quantity="other">%d selected</item>
+    </plurals>
+    <string name="screens_loading">Loading…</string>
+    <string name="screens_more_options">More options</string>
+    <string name="screens_select_all">Select all</string>
+    <string name="screens_copy">Copy</string>
+    <string name="screens_grant_permission">Allow access</string>
+
+    <!-- Archive / Recycle Bin -->
+    <string name="screens_delete_forever_title">Delete forever?</string>
+    <string name="screens_delete_conversations_message">Delete %1$s permanently? This can\'t be undone.</string>
+    <string name="screens_restore_title">Restore?</string>
+    <string name="screens_empty_archive_title">Empty the archive?</string>
+    <string name="screens_empty_bin_title">Empty the Recycle Bin?</string>
+    <string name="screens_empty_action">Empty</string>
+    <string name="screens_archive_empty_title">Nothing archived</string>
+    <string name="screens_bin_empty_title">Recycle Bin is empty</string>
+    <string name="screens_bin_empty_body">Deleted messages stay here until the bin is emptied.</string>
+
+    <!-- New conversation -->
+    <string name="screens_new_to_hint">To</string>
+    <string name="screens_new_start">Start conversation with %1$s</string>
+    <string name="screens_new_clear_input">Clear</string>
+    <string name="screens_new_no_matches">No matching contacts. Press the arrow to message the number you typed.</string>
+    <string name="screens_new_contacts">Contacts</string>
+    <!-- MC-13: group conversations. "Create group" switches the picker to picking several people. -->
+    <string name="screens_new_create_group">Create group</string>
+    <string name="screens_new_group_title">New group</string>
+    <string name="screens_new_group_next">Next</string>
+    <string name="screens_new_group_add">Add %1$s</string>
+    <string name="screens_new_group_remove">Remove %1$s</string>
+    <string name="screens_new_group_selected">Selected</string>
+
+    <!-- Conversation details -->
+    <string name="screens_details_edit_name">Edit conversation name</string>
+
+    <!-- Blocked keywords -->
+    <string name="screens_keywords_add">Add keyword</string>
+    <string name="screens_keywords_menu_export">Export</string>
+    <string name="screens_keywords_menu_import">Import</string>
+    <string name="screens_keywords_edit">Edit</string>
+    <string name="screens_keywords_duplicate">This keyword is already in the list</string>
+    <string name="screens_keywords_help">Matches the text anywhere in a message, even inside a longer word. Capital letters do not matter.</string>
+    <string name="screens_keywords_empty_title">No blocked keywords</string>
+    <plurals name="screens_keywords_deleted">
+        <item quantity="one">%d keyword deleted</item>
+        <item quantity="other">%d keywords deleted</item>
+    </plurals>
+
+    <!-- vCard -->
+    <string name="screens_vcard_title">Contact</string>
+    <string name="screens_vcard_add_contact">Add to contacts</string>
+    <string name="screens_vcard_expand">Show details</string>
+    <string name="screens_vcard_collapse">Hide details</string>
+    <string name="screens_vcard_empty">No contact found in this file</string>
+
+    <!-- Dialogs -->
+    <string name="screens_dialog_filename">File name</string>
+    <string name="screens_schedule_date">Date</string>
+    <string name="screens_schedule_time">Time</string>
+    <string name="screens_schedule_pick_time">Pick time</string>
+    <string name="screens_schedule_next">Next</string>
+    <string name="screens_delete_skip_bin">Skip the Recycle Bin, delete directly</string>
+    <string name="screens_select_text_title">Select text</string>
+</resources>

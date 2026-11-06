@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unotify_title">Pengirim tidak dikenal di kotak masuk</string>
+    <string name="unotify_notify">Beri notifikasi</string>
+    <string name="unotify_silent">Beri notifikasi tanpa suara</string>
+    <string name="unotify_none">Tanpa notifikasi</string>
+    <string name="unotify_summary">Pesan tetap masuk ke kotak masuk</string>
+    <string name="unotify_channel_silent">Pengirim tidak dikenal (tanpa suara)</string>
+</resources>

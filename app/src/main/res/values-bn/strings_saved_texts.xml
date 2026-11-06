@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">সেভ করা টেক্সট</string>
+    <string name="n06_sheet_title">সেভ করা টেক্সট</string>
+    <string name="n06_empty_hint">যেমন: আপনার ঠিকানা বা কার্ড নম্বর। বার্তায় বসাতে কোনো একটিতে ট্যাপ করুন।</string>
+    <string name="n06_add">সেভ করা টেক্সট যোগ করুন</string>
+    <string name="n06_edit">সেভ করা টেক্সট বদলান</string>
+    <string name="n06_title_label">শিরোনাম (ঐচ্ছিক)</string>
+    <string name="n06_text_label">টেক্সট</string>
+    <string name="n06_save">সেভ করুন</string>
+    <string name="n06_delete">মুছুন</string>
+    <string name="n06_private_tip">শুধু এই ফোনে রাখা হয়, এনক্রিপ্ট করা হয় না। পাসওয়ার্ড বা PIN সেভ করবেন না।</string>
+    <string name="n06_save_from_message">সেভ করা টেক্সটে রাখুন</string>
+    <string name="n06_saved_toast">সেভ করা হয়েছে</string>
+    <string name="n06_save_full">তালিকা পূর্ণ। আগে একটি মুছুন।</string>
+    <string name="n06_save_duplicate">আগেই সেভ করা আছে</string>
+</resources>

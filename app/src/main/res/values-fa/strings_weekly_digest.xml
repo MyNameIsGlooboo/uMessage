@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="digest_channel">خلاصهٔ هفتگی</string>
+    <string name="digest_title">خلاصهٔ هفتگی</string>
+    <string name="digest_row_title">خلاصهٔ هفتگی</string>
+    <string name="digest_row_summary">هفته‌ای یک بار: تعداد پیام‌های مسدودشده</string>
+    <plurals name="digest_held" tools:ignore="ImpliedQuantity">
+        <item quantity="one">این هفته %d پیام نگه داشته شد. برای بررسی بزنید.</item>
+        <item quantity="other">این هفته %d پیام نگه داشته شد. برای بررسی بزنید.</item>
+    </plurals>
+    <plurals name="digest_held_important" tools:ignore="ImpliedQuantity">
+        <item quantity="one">این هفته %1$d پیام نگه داشته شد. تعداد کدها یا هشدارهای بانکی در میان آن‌ها: %2$d.</item>
+        <item quantity="other">این هفته %1$d پیام نگه داشته شد. تعداد کدها یا هشدارهای بانکی در میان آن‌ها: %2$d.</item>
+    </plurals>
+</resources>

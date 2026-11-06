@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="font_title">Police</string>
+    <string name="font_umessage">Police uMessage</string>
+    <string name="font_system">Police du système</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">Tidak dikenal</string>
+    <string name="i28_filter_unknown_empty_title">Tidak ada pengirim tidak dikenal</string>
+    <string name="i28_filter_unknown_empty_body">Percakapan dengan orang yang tidak ada di kontak dan belum pernah Anda kirimi pesan muncul di sini.</string>
+    <string name="i28_filter_images">Gambar</string>
+    <string name="i28_filter_images_empty_title">Tidak ada gambar</string>
+    <string name="i28_filter_images_empty_body">Pesan dengan gambar muncul di sini.</string>
+    <string name="i28_filter_links">Tautan</string>
+    <string name="i28_filter_links_empty_title">Tidak ada tautan</string>
+    <string name="i28_filter_links_empty_body">Pesan dengan tautan web muncul di sini.</string>
+    <string name="i28_hit_picture">Gambar</string>
+</resources>

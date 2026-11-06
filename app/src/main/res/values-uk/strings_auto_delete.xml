@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="cleanup_old_title">Термін зберігання повідомлень</string>
+    <string name="cleanup_old_summary">Старіші повідомлення потрапляють до кошика</string>
+    <string name="cleanup_forever">Назавжди</string>
+    <string name="cleanup_one_year">1 рік</string>
+    <string name="cleanup_bin_title">Увімкнути кошик?</string>
+    <string name="cleanup_bin_body">Видалені повідомлення зберігаються там 30 днів, щоб ви могли їх відновити. Кошик потрібен для автоматичного очищення.</string>
+    <string name="cleanup_bin_confirm">Увімкнути</string>
+    <string name="cleanup_old_confirm_title">Перемістити старі повідомлення?</string>
+    <plurals name="cleanup_old_confirm_body" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d повідомлення старіше за цей термін буде переміщено до кошика зараз. Повідомлення із зірочкою, непрочитані повідомлення й закріплені чати залишаться.</item>
+        <item quantity="few">%d повідомлення старіші за цей термін буде переміщено до кошика зараз. Повідомлення із зірочкою, непрочитані повідомлення й закріплені чати залишаться.</item>
+        <item quantity="many">%d повідомлень старіших за цей термін буде переміщено до кошика зараз. Повідомлення із зірочкою, непрочитані повідомлення й закріплені чати залишаться.</item>
+        <item quantity="other">%d повідомлення старішого за цей термін буде переміщено до кошика зараз. Повідомлення із зірочкою, непрочитані повідомлення й закріплені чати залишаться.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">Таких старих повідомлень ще немає. Старіші повідомлення автоматично потраплятимуть до кошика. Повідомлення із зірочкою, непрочитані повідомлення й закріплені чати залишаться.</string>
+    <string name="cleanup_old_confirm_action">Перемістити</string>
+</resources>

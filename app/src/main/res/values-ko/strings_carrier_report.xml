@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">스팸 신고</string>
+    <string name="carrier_report_row_title">통신사 스팸 신고 번호</string>
+    <string name="carrier_report_row_summary">통신사에 SMS로 스팸 신고</string>
+    <string name="carrier_report_not_set">설정 안 됨</string>
+    <string name="carrier_report_hint">통신사의 스팸 신고 번호예요. 신고는 SMS로 전송되며 요금이 부과될 수 있어요.</string>
+    <string name="carrier_report_invalid">숫자 3~8자리를 입력해 주세요.</string>
+    <string name="carrier_report_action">통신사에 신고</string>
+    <string name="carrier_report_title">통신사에 신고할까요?</string>
+    <string name="carrier_report_body">이 발신자의 최신 메시지를 SMS로 전송해요. 받는 번호는 %1$s이며, 통신사에서 요금을 부과할 수 있어요.</string>
+    <string name="carrier_report_send">전송</string>
+    <string name="carrier_report_sent">통신사에 신고를 전송했어요.</string>
+    <string name="carrier_report_failed">신고를 전송하지 못했어요.</string>
+</resources>

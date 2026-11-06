@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w7d_banner_stopped">
+        <item quantity="other">สัปดาห์นี้บล็อกแล้ว %1$s ข้อความ</item>
+    </plurals>
+    <string name="w7d_banner_none">สัปดาห์นี้ยังไม่มีข้อความที่บล็อก</string>
+    <string name="w7d_fwd_master_switch">การส่งต่อ</string>
+    <string name="w7d_help_menu">การบล็อกด้วยคำทำงานอย่างไร</string>
+    <string name="w7d_help_title">การบล็อกด้วยคำทำงานอย่างไร</string>
+    <string name="w7d_help_words_head">คำ</string>
+    <string name="w7d_help_words_body">บล็อกข้อความที่มีคำนั้นอยู่ในส่วนใดก็ได้</string>
+    <string name="w7d_help_words_example">รางวัลฟรี</string>
+    <string name="w7d_help_sender_head">ชื่อผู้ส่ง</string>
+    <string name="w7d_help_sender_body">บล็อกข้อความจากผู้ส่งที่ใช้ชื่อนั้น เช่น ร้านค้า</string>
+    <string name="w7d_help_sender_example">PROMO</string>
+    <string name="w7d_help_number_head">เลขขึ้นต้น</string>
+    <string name="w7d_help_number_body">บล็อกทุกหมายเลขที่ขึ้นต้นด้วยตัวเลขเหล่านี้</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">รูปแบบ (regex) สำหรับผู้ใช้ขั้นสูง</string>
+    <string name="w7d_help_pattern_body">รูปแบบ (regex) เดียวจับคู่คำได้หลายแบบ ทดสอบก่อนบันทึก</string>
+    <string name="w7d_help_pattern_example">รางวัล(ฟรี|ใหญ่)</string>
+    <string name="w7d_help_close">ปิด</string>
+    <string name="w7d_bank_cards_title">การ์ดสำหรับข้อความแจ้งเตือนจากธนาคาร</string>
+    <string name="w7d_bank_cards_summary">แสดงยอดเงินใต้ข้อความจากธนาคาร</string>
+</resources>

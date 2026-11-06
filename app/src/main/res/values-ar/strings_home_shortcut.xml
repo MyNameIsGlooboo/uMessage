@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">أضف إلى الشاشة الرئيسية</string>
+    <string name="home_shortcut_requested">جارٍ طلب الإضافة من مشغّل الشاشة الرئيسية. سيظهر الاسم على الشاشة الرئيسية. إذا لم يظهر شيء، اسمح بخيار «اختصارات الشاشة الرئيسية» لتطبيق uMessage في إعدادات التطبيقات بهاتفك.</string>
+    <string name="home_shortcut_failed">لم يقبل مشغّل الشاشة الرئيسية الاختصار. اسمح بخيار «اختصارات الشاشة الرئيسية» لتطبيق uMessage في إعدادات التطبيقات بهاتفك.</string>
+</resources>

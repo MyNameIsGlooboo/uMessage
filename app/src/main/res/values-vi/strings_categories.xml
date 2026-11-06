@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">Giao dịch</string>
+    <string name="i11_filter_transactions_empty_title">Chưa có giao dịch</string>
+    <string name="i11_filter_transactions_empty_body">Tin nhắn từ ngân hàng về tiền vào và tiền ra sẽ hiện ở đây.</string>
+    <string name="i11_filter_offers">Ưu đãi</string>
+    <string name="i11_filter_offers_empty_title">Chưa có ưu đãi</string>
+    <string name="i11_filter_offers_empty_body">Giảm giá và khuyến mãi từ các cửa hàng sẽ hiện ở đây.</string>
+</resources>

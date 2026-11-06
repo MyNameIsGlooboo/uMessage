@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="r3fwd_title">ফরোয়ার্ড করা</string>
+    <string name="r3fwd_options">ফরোয়ার্ড করার বিকল্প</string>
+    <string name="r3fwd_summary_none">বন্ধ · অন্য নম্বরে বার্তা ফরোয়ার্ড করুন</string>
+    <string name="r3fwd_summary_off">বন্ধ</string>
+    <string name="r3fwd_summary_paused">সাময়িক বন্ধ</string>
+    <plurals name="r3fwd_summary_on" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি নিয়ম চালু</item>
+        <item quantity="other">%dটি নিয়ম চালু</item>
+    </plurals>
+    <string name="r3fwd_paused_title">ফরোয়ার্ড করা সাময়িক বন্ধ</string>
+    <string name="r3fwd_paused_body">আপনার নিয়ম সেভ আছে, তবে আবার চালু না করা পর্যন্ত কোনো বার্তা ফরোয়ার্ড করা হবে না।</string>
+    <string name="r3fwd_paused_action">বিকল্প খুলুন</string>
+</resources>

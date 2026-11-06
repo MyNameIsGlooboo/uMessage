@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">加星标</string>
+    <string name="i13_unstar">取消星标</string>
+    <string name="i13_starred_mark">已加星标</string>
+    <string name="i13_filter_starred">已加星标</string>
+    <string name="i13_filter_starred_empty_title">暂无星标消息</string>
+    <string name="i13_filter_starred_empty_body">在会话中选择一条消息，点按星标即可将其保存在这里。</string>
+    <string name="i13_starred_note">加星标会保存一份文本副本，即使删除会话也会保留。取消星标会移除副本。</string>
+    <string name="i13_snapshot_gone">此会话已删除，仅保留已保存的文本。</string>
+    <string name="i13_snapshot_close">关闭</string>
+</resources>

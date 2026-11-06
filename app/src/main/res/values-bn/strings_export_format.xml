@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="export_format_json">uMessage ফাইল (লেখা ও ছবি)</string>
+    <string name="export_format_xml">SMS Backup &amp; Restore ফাইল (অন্য অ্যাপের জন্য)</string>
+    <string name="export_format_xml_hint">এই ধরনের ফাইল থেকে uMessage শুধু লেখাগুলো ফিরিয়ে আনে।</string>
+    <string name="export_scope_all">সব কথোপকথন</string>
+    <string name="export_scope_choose">কথোপকথন বেছে নিন</string>
+    <plurals name="export_scope_chosen" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি কথোপকথন বেছে নেওয়া হয়েছে</item>
+        <item quantity="other">%1$dটি কথোপকথন বেছে নেওয়া হয়েছে</item>
+    </plurals>
+    <string name="export_pick_title">কথোপকথন বেছে নিন</string>
+    <string name="export_pick_search">খুঁজুন</string>
+    <string name="export_pick_all">সব নির্বাচন করুন</string>
+    <string name="export_pick_none">নির্বাচন সরান</string>
+    <string name="export_pick_empty">কোনো কথোপকথন নেই</string>
+    <string name="export_pick_nothing_chosen">অন্তত একটি কথোপকথন বেছে নিন</string>
+</resources>

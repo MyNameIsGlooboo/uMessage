@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">Vivo أو iQOO</string>
+    <string name="oem2_step_vivo">اسمح بالتشغيل التلقائي والعمل في الخلفية</string>
+    <string name="oem2_step_vivo_desc">فعّل التشغيل التلقائي لتطبيق uMessage، واسمح باستهلاك مرتفع للطاقة في الخلفية من إعدادات البطارية الخاصة به.</string>
+    <string name="oem2_xiaomi_autostart_desc">فعّل التشغيل التلقائي لتطبيق uMessage ليعمل بعد إعادة تشغيل الهاتف. إذا فُتحت صفحة معلومات التطبيق، فعّل خيار التشغيل التلقائي فيها.</string>
+    <string name="oem2_xiaomi_battery_desc">اختر «بلا قيود» لتطبيق uMessage. إذا فُتحت قائمة التطبيقات، اضغط على uMessage أولًا.</string>
+    <string name="oem2_oppo_desc">فعّل «السماح بالتشغيل التلقائي» و«السماح بالنشاط في الخلفية» لتطبيق uMessage. في الهواتف الأحدث، ستجدهما في «معلومات التطبيق»، ثم «استخدام البطارية».</string>
+    <string name="oem2_ignore_battery_desc">اختر «غير مقيّد» أو «عدم التحسين» لتطبيق uMessage. إذا فُتحت قائمة، اختر «كل التطبيقات» أولًا.</string>
+    <string name="oem2_state_done">مكتمل</string>
+    <string name="oem2_state_marked">علّمتها كمكتملة</string>
+    <string name="oem2_state_todo">لم تكتمل بعد</string>
+    <string name="oem2_state_limited">لا يزال Android يقيّد عمل uMessage في الخلفية</string>
+    <string name="oem2_open_again">افتح مجددًا</string>
+    <string name="oem2_undo">تراجع</string>
+    <string name="oem2_undo_cd">علّم %1$s كغير مكتمل</string>
+</resources>

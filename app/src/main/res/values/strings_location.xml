@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">Location</string>
+    <string name="i52_permission_explanation">uMessage reads your position once, only now, to put a map link in your message. Nothing is stored. You can choose approximate.</string>
+    <string name="i52_finding">Finding your location…</string>
+    <string name="i52_denied">Location was not allowed. The message stays as it is.</string>
+    <string name="i52_no_fix">Could not find your location. Try again near a window or outside.</string>
+    <string name="i52_off_message">Location is turned off on this phone. Turn it on to share where you are.</string>
+    <string name="i52_open_settings">Open settings</string>
+</resources>

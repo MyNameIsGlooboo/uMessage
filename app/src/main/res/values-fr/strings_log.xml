@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="declog_title">Journal des décisions</string>
+    <string name="declog_clear">Effacer le journal</string>
+    <string name="declog_empty_title">Aucune décision pour le moment</string>
+    <string name="declog_empty_body">Chaque message vérifié par le filtre apparaît ici avec le motif de la décision. Le texte des messages n\'est jamais enregistré.</string>
+    <plurals name="declog_kept_for" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Chaque décision est supprimée après %d jour. Le texte des messages n\'est jamais enregistré.</item>
+        <item quantity="other">Chaque décision est supprimée après %d jours. Le texte des messages n\'est jamais enregistré.</item>
+    </plurals>
+    <string name="declog_sim">SIM %1$s</string>
+    <string name="declog_today">Aujourd\'hui</string>
+    <string name="declog_yesterday">Hier</string>
+    <string name="declog_allowed_by_rule">Autorisé par la règle : %1$s</string>
+    <string name="declog_filter_all">Tout</string>
+    <string name="declog_filter_blocked">Bloqués</string>
+    <string name="declog_filter_allowed">Autorisés</string>
+    <string name="declog_filter_empty">Aucune décision ne correspond à ce filtre</string>
+    <plurals name="declog_times" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s fois</item>
+        <item quantity="other">%1$s fois</item>
+    </plurals>
+    <plurals name="declog_repeated" tools:ignore="ImpliedQuantity">
+        <item quantity="one">La même décision a été prise %1$s fois de suite</item>
+        <item quantity="other">La même décision a été prise %1$s fois de suite</item>
+    </plurals>
+    <plurals name="declog_share_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Partager %d décision</item>
+        <item quantity="other">Partager %d décisions</item>
+    </plurals>
+    <string name="declog_csv_subject">Journal des décisions uMessage</string>
+    <string name="declog_share_failed">Impossible de partager le journal</string>
+    <string name="declog_details_title">Détails de la décision</string>
+    <string name="declog_open_details">Ouvrir les détails de %1$s</string>
+    <string name="declog_fixed_allowed">Vous avez autorisé cet expéditeur depuis le journal</string>
+    <string name="declog_fixed_blocked">Vous avez bloqué cet expéditeur depuis le journal</string>
+    <string name="declog_fixed_restored">Vous avez restauré ce message depuis le journal</string>
+    <string name="declog_restored">Restauré</string>
+    <string name="declog_blocked_message">Le message, toujours dans Messages bloqués</string>
+    <string name="declog_restore">Restaurer le message</string>
+    <string name="declog_restore_done">Message restauré dans la boîte de réception</string>
+    <string name="declog_restore_text_only">Texte restauré dans la boîte de réception. Les images n\'ont pas pu être récupérées.</string>
+    <string name="declog_restore_nothing">Rien à restaurer : ce MMS n\'a pas été conservé</string>
+    <string name="declog_restore_failed">Impossible de restaurer le message</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

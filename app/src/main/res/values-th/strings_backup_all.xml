@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n09_backup_contents">ทุกอย่างยกเว้นข้อความ ได้แก่ กฎอนุญาต บล็อก และส่งต่อ รวมถึงการตั้งค่าทั้งหมด ไฟล์ไม่ได้เข้ารหัสและมีหมายเลขโทรศัพท์ที่ส่งต่อไป จึงควรเก็บไว้ในที่ส่วนตัว กฎส่งต่อจะปิดอยู่เมื่อกู้คืน</string>
+    <string name="n09_label_spam">การป้องกันสแปม</string>
+    <string name="n09_label_notifications">การแจ้งเตือน</string>
+    <string name="n09_label_chat">แชทและรายการข้อความ</string>
+    <string name="n09_label_sending">การส่ง</string>
+    <string name="n09_label_cleanup">การล้างข้อมูลและพื้นที่จัดเก็บ</string>
+    <string name="n09_label_privacy">ความเป็นส่วนตัวและตัวเลือกการล็อก</string>
+    <string name="n09_restore_not_included">สิ่งที่ไม่มีในไฟล์: ข้อความ, PIN ล็อกแอป, ชื่อ SIM, ข้อความที่บันทึกไว้, แชทที่ซ่อน และช่วงเวลาปิดเสียง</string>
+    <string name="n09_restore_after">ตั้ง uMessage เป็นแอป SMS เริ่มต้นและตั้งค่าล็อกแอปอีกครั้ง</string>
+</resources>

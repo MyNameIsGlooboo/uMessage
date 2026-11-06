@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_switch_title">uMessageに切り替えますか？</string>
+    <string name="onb_switch_body">別のSMSアプリから切り替える場合は、先にそのアプリのチャット機能をオフにしてください。別の端末から移行する場合は、設定完了後にバックアップを復元してください。</string>
+    <string name="onb_switch_action">バックアップを復元</string>
+    <string name="onb_switch_done_note">設定が完了すると「バックアップと復元」が開きます。</string>
+</resources>

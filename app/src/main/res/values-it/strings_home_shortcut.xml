@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">Aggiungi alla schermata Home</string>
+    <string name="home_shortcut_requested">Richiesta di aggiunta inviata al launcher. Il nome apparirà nella schermata Home. Se non appare nulla, consenti “Collegamenti nella schermata Home” per uMessage nelle impostazioni app del telefono.</string>
+    <string name="home_shortcut_failed">Il launcher non ha accettato il collegamento. Consenti “Collegamenti nella schermata Home” per uMessage nelle impostazioni app del telefono.</string>
+</resources>

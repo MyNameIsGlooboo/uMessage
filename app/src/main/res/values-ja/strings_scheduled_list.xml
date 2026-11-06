@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_list_title">送信予約メッセージ</string>
+    <string name="scheduled_list_empty_title">送信予約なし</string>
+    <string name="scheduled_list_empty_body">送信予約したメッセージは、送信されるまでここに表示されます。</string>
+    <string name="scheduled_list_not_sent">未送信</string>
+    <string name="scheduled_list_edit_time">時刻を変更</string>
+    <string name="scheduled_list_send_now">今すぐ送信</string>
+    <string name="scheduled_list_delete">削除</string>
+    <string name="scheduled_list_send_confirm">%1$sに今すぐこのメッセージを送信しますか？</string>
+    <string name="scheduled_list_delete_confirm">%1$s宛ての送信予約メッセージを削除しますか？</string>
+    <string name="scheduled_list_row_actions">%1$s宛てのメッセージの操作</string>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_text_menu">شارك المحادثة كنص</string>
+    <string name="share_text_scope_title">أي رسائل؟</string>
+    <string name="share_text_scope_whole">المحادثة كاملة</string>
+    <string name="share_text_scope_last">آخر 50 رسالة</string>
+    <string name="share_text_title">شارك كنص</string>
+    <string name="share_text_warning">سيرسل هذا نصًا خاصًا إلى تطبيق آخر. اختر التطبيق في الخطوة التالية.</string>
+    <string name="share_text_action">شارك</string>
+    <string name="share_text_range">من %1$s إلى %2$s</string>
+    <string name="share_text_attachment">[مرفق]</string>
+    <string name="share_text_subject">رسائل من uMessage</string>
+    <string name="share_text_nothing">لا توجد رسائل لمشاركتها</string>
+    <plurals name="share_text_count">
+        <item quantity="zero">%1$d رسائل</item>
+        <item quantity="one">رسالة واحدة (%1$d)</item>
+        <item quantity="two">رسالتان (%1$d)</item>
+        <item quantity="few">%1$d رسائل</item>
+        <item quantity="many">%1$d رسالة</item>
+        <item quantity="other">%1$d رسالة</item>
+    </plurals>
+</resources>

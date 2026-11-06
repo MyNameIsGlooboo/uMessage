@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">ลายเซ็น</string>
+    <string name="i60_off">ปิด</string>
+    <string name="i60_dialog_note">เพิ่มท้ายทุกข้อความที่ส่ง เว้นว่างไว้หากไม่ต้องการ</string>
+</resources>

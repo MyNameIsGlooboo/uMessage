@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screens_back">Wstecz</string>
+    <string name="screens_ok">OK</string>
+    <string name="screens_cancel">Anuluj</string>
+    <string name="screens_delete">Usuń</string>
+    <string name="screens_clear_selection">Wyczyść zaznaczenie</string>
+    <plurals name="screens_selected_count">
+        <item quantity="one">Zaznaczono: %d</item>
+        <item quantity="few">Zaznaczono: %d</item>
+        <item quantity="many">Zaznaczono: %d</item>
+        <item quantity="other">Zaznaczono: %d</item>
+    </plurals>
+    <string name="screens_loading">Wczytywanie…</string>
+    <string name="screens_more_options">Więcej opcji</string>
+    <string name="screens_select_all">Zaznacz wszystko</string>
+    <string name="screens_copy">Kopiuj</string>
+    <string name="screens_grant_permission">Zezwól na dostęp</string>
+    <string name="screens_delete_forever_title">Usunąć na zawsze?</string>
+    <string name="screens_delete_conversations_message">Usunąć %1$s na stałe? Tej czynności nie można cofnąć.</string>
+    <string name="screens_restore_title">Przywrócić?</string>
+    <string name="screens_empty_archive_title">Opróżnić archiwum?</string>
+    <string name="screens_empty_bin_title">Opróżnić kosz?</string>
+    <string name="screens_empty_action">Opróżnij</string>
+    <string name="screens_archive_empty_title">Brak zarchiwizowanych wiadomości</string>
+    <string name="screens_bin_empty_title">Kosz jest pusty</string>
+    <string name="screens_bin_empty_body">Usunięte wiadomości pozostają tu do opróżnienia kosza.</string>
+    <string name="screens_new_to_hint">Do</string>
+    <string name="screens_new_start">Rozpocznij rozmowę z %1$s</string>
+    <string name="screens_new_clear_input">Wyczyść</string>
+    <string name="screens_new_no_matches">Brak pasujących kontaktów. Dotknij strzałki, aby wysłać wiadomość na wpisany numer.</string>
+    <string name="screens_new_contacts">Kontakty</string>
+    <string name="screens_new_create_group">Utwórz grupę</string>
+    <string name="screens_new_group_title">Nowa grupa</string>
+    <string name="screens_new_group_next">Dalej</string>
+    <string name="screens_new_group_add">Dodaj %1$s</string>
+    <string name="screens_new_group_remove">Usuń %1$s</string>
+    <string name="screens_new_group_selected">Wybrane</string>
+    <string name="screens_details_edit_name">Edytuj nazwę rozmowy</string>
+    <string name="screens_keywords_add">Dodaj słowo kluczowe</string>
+    <string name="screens_keywords_menu_export">Eksport</string>
+    <string name="screens_keywords_menu_import">Import</string>
+    <string name="screens_keywords_edit">Edytuj</string>
+    <string name="screens_keywords_duplicate">To słowo kluczowe jest już na liście</string>
+    <string name="screens_keywords_help">Wyszukuje tekst w dowolnym miejscu wiadomości, także w dłuższym słowie. Wielkość liter nie ma znaczenia.</string>
+    <string name="screens_keywords_empty_title">Brak zablokowanych słów kluczowych</string>
+    <plurals name="screens_keywords_deleted">
+        <item quantity="one">Usunięto %d słowo kluczowe</item>
+        <item quantity="few">Usunięto %d słowa kluczowe</item>
+        <item quantity="many">Usunięto %d słów kluczowych</item>
+        <item quantity="other">Usunięto %d słowa kluczowego</item>
+    </plurals>
+    <string name="screens_vcard_title">Kontakt</string>
+    <string name="screens_vcard_add_contact">Dodaj do kontaktów</string>
+    <string name="screens_vcard_expand">Pokaż szczegóły</string>
+    <string name="screens_vcard_collapse">Ukryj szczegóły</string>
+    <string name="screens_vcard_empty">Nie znaleziono kontaktu w tym pliku</string>
+    <string name="screens_dialog_filename">Nazwa pliku</string>
+    <string name="screens_schedule_date">Data</string>
+    <string name="screens_schedule_time">Godzina</string>
+    <string name="screens_schedule_pick_time">Wybierz godzinę</string>
+    <string name="screens_schedule_next">Dalej</string>
+    <string name="screens_delete_skip_bin">Pomiń kosz i usuń od razu</string>
+    <string name="screens_select_text_title">Zaznacz tekst</string>
+</resources>

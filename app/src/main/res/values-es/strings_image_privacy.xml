@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i09_setting_title">Eliminar ubicación de las imágenes</string>
+    <string name="i09_setting_summary">Oculta dónde se tomó la foto antes de enviarla</string>
+</resources>

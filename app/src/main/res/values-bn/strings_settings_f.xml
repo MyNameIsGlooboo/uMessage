@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_f_backup_row_body">বার্তা, নিয়ম ও সেটিংস একটি ফাইলে</string>
+    <string name="settings_f_backup_rules_group">নিয়ম ও সেটিংস</string>
+    <string name="settings_f_backup_rules_contents">ফাইলে আপনার অনুমতি দেওয়ার, ব্লক করার ও ফরোয়ার্ড করার নিয়ম এবং সেটিংস থাকে: স্প্যাম থেকে সুরক্ষা, বিজ্ঞপ্তি, তারিখ, লেখার আকার, থিম, Enter কী ও ফরোয়ার্ড করার সীমা। বার্তার লেখা বা আপনার অ্যাপ লক কখনোই থাকে না। ফিরিয়ে আনার পর ফরোয়ার্ড করার নিয়ম বন্ধ থাকে।</string>
+    <string name="settings_f_backup_messages_contents">বার্তার লেখা ও ছবি, আলাদা একটি ফাইলে।</string>
+    <string name="settings_f_restore_title">এই ফাইল থেকে ফিরিয়ে আনবেন?</string>
+    <string name="settings_f_restore_rules">অনুমতি দেওয়ার নিয়ম: %1$d · ব্লক করার নিয়ম: %2$d। আগে থেকে থাকা নিয়ম বাদ দেওয়া হবে।</string>
+    <string name="settings_f_restore_forwards">যোগ হবে এমন ফরোয়ার্ড করার নিয়ম: %1$d, বন্ধ অবস্থায়। নিয়ম › ফরোয়ার্ড করা থেকে এগুলো চালু করুন।</string>
+    <string name="settings_f_restore_forwards_skipped">বাদ দেওয়া ফরোয়ার্ড করার নিয়ম: %1$d (আগে থেকেই আছে, বা বার্তা গ্রহণ করতে পারে এমন নম্বর নেই)।</string>
+    <string name="settings_f_restore_settings_changed">যেসব সেটিংস বদলাবে: %1$s</string>
+    <string name="settings_f_restore_settings_none">কোনো সেটিংস বদলাবে না।</string>
+    <string name="settings_f_restore_action">ফিরিয়ে আনুন</string>
+    <string name="settings_f_restore_done">যোগ করা নিয়ম: %1$d · যোগ করা ফরোয়ার্ড করার নিয়ম: %2$d। আপনি চালু না করা পর্যন্ত ফরোয়ার্ড করার নিয়ম বন্ধ থাকবে।</string>
+    <string name="settings_f_restore_done_rules">যোগ করা নিয়ম: %1$d।</string>
+    <string name="settings_f_restore_done_title">ফিরিয়ে আনা শেষ</string>
+    <string name="settings_f_label_codes">অচেনা প্রেরকের কোড</string>
+    <string name="settings_f_list_separator">", "</string>
+    <string name="settings_f_group_display">ডিসপ্লে</string>
+    <string name="settings_f_appearance">চেহারা</string>
+    <string name="settings_f_language_system">সিস্টেমের ডিফল্ট</string>
+    <string name="settings_f_group_rules">নিয়ম ও তালিকা</string>
+    <string name="settings_f_spam_more">রাখার মেয়াদ ও সতর্কতা</string>
+    <string name="settings_f_spam_more_body">ব্লক করা বার্তা কতদিন রাখা হবে ও সতর্কতা</string>
+    <string name="settings_f_hide_lock_codes_body">লক স্ক্রিনে কোড •••• হিসেবে দেখানো হবে</string>
+    <string name="settings_f_code_alert">কোডের সতর্কতা</string>
+    <string name="settings_f_code_alert_body">যাচাইকরণ কোডের শব্দ</string>
+    <string name="settings_f_channel_codes">যাচাইকরণ কোড</string>
+    <string name="settings_f_channel_codes_desc">যাচাইকরণ কোড থাকা বার্তা</string>
+</resources>

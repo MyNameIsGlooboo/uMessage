@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i36_unread_first">Unread first</string>
+    <string name="i36_unread_first_body">Unread chats stay at the top</string>
+</resources>

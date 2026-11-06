@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">서명</string>
+    <string name="i60_off">사용 안 함</string>
+    <string name="i60_dialog_note">보내는 모든 메시지 아래에 추가돼요. 사용하지 않으려면 비워 두세요.</string>
+</resources>

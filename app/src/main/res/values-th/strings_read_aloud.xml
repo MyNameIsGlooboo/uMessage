@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">อ่านออกเสียง</string>
+    <string name="read_aloud_stop">หยุดอ่าน</string>
+    <string name="read_aloud_no_voice">โทรศัพท์นี้ยังไม่ได้ติดตั้งเสียง %1$s</string>
+    <string name="read_aloud_install">ดาวน์โหลดเสียง</string>
+    <string name="read_aloud_install_missing">โทรศัพท์นี้ไม่มีวิธีติดตั้งเสียง</string>
+    <string name="read_aloud_failed">อ่านออกเสียงข้อความไม่ได้</string>
+</resources>

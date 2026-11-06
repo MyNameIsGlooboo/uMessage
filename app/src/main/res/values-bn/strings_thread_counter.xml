@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="thread_counter_parts">%1$d · %2$d SMS</string>
+    <plurals name="thread_counter_description" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$dটি বার্তা, আর %2$dটি অক্ষর লেখা যাবে</item>
+        <item quantity="other">%1$dটি বার্তা, শেষটিতে আর %2$dটি অক্ষর লেখা যাবে</item>
+    </plurals>
+    <string name="thread_counter_unicode_description">%1$s। ফারসি ও অন্যান্য অ-লাতিন অক্ষর ব্যবহার করলে প্রতি বার্তায় %2$dটি অক্ষর লেখা যায়।</string>
+    <string name="thread_unicode_parts_note">ফারসি লেখায় প্রতি SMS-এ 70টি অক্ষর লেখা যায়, তাই এই বার্তা এখন %1$dটি SMS হিসেবে যাবে।</string>
+    <string name="thread_long_text_as_mms">এই দীর্ঘ বার্তা MMS হিসেবে যাবে, যার খরচ SMS-এর চেয়ে বেশি হতে পারে।</string>
+</resources>

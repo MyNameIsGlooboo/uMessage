@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="convlist_loading">Mesajlar yükleniyor</string>
+    <string name="convlist_empty_title">Henüz görüşme yok</string>
+    <string name="convlist_empty_body">Gönderdiğiniz ve aldığınız mesajlar burada görünür.</string>
+    <string name="convlist_start_conversation">Görüşme başlatın</string>
+    <string name="convlist_new_conversation">Yeni görüşme</string>
+    <string name="convlist_draft">Taslak</string>
+    <string name="convlist_pinned">Sabitlendi</string>
+    <string name="convlist_muted">Bildirimler kapalı</string>
+    <string name="convlist_unread">Okunmadı</string>
+    <string name="convlist_unread_count">%1$d okunmamış</string>
+    <string name="convlist_group">Grup görüşmesi</string>
+    <string name="convlist_selected">Seçildi</string>
+    <string name="convlist_sim">SIM %1$d</string>
+    <string name="convlist_scroll_handle">Hızlı kaydırma</string>
+    <plurals name="convlist_blocked_banner">
+        <item quantity="one">%d mesaj engellendi</item>
+        <item quantity="other">%d mesaj engellendi</item>
+    </plurals>
+    <string name="convlist_blocked_banner_title">Engellenenler</string>
+    <string name="convlist_blocked_banner_cd">%1$d mesaj engellendi. Engellenenler klasörünü açın.</string>
+    <string name="convlist_archive">Arşivleyin</string>
+    <string name="convlist_delete">Silin</string>
+    <string name="convlist_pin">En üste sabitleyin</string>
+    <string name="convlist_unpin">Sabitlemeyi kaldırın</string>
+    <string name="convlist_mark_read">Okundu olarak işaretleyin</string>
+    <string name="convlist_mark_unread">Okunmadı olarak işaretleyin</string>
+    <string name="convlist_block_number">Numarayı engelleyin</string>
+    <string name="convlist_add_contact">Numarayı kişiye ekleyin</string>
+    <string name="convlist_copy_number">Numarayı kopyalayın</string>
+    <string name="convlist_dial">Arayın</string>
+    <string name="convlist_rename">Görüşmeyi yeniden adlandırın</string>
+    <string name="convlist_details">Görüşme ayrıntıları</string>
+    <string name="convlist_select_all">Tümünü seçin</string>
+    <string name="convlist_more_options">Diğer seçenekler</string>
+    <string name="convlist_close_selection">Seçimi iptal edin</string>
+    <plurals name="convlist_selected_count">
+        <item quantity="one">%d seçildi</item>
+        <item quantity="other">%d seçildi</item>
+    </plurals>
+    <string name="convlist_undo">Geri alın</string>
+    <plurals name="convlist_deleted">
+        <item quantity="one">%d görüşme silindi</item>
+        <item quantity="other">%d görüşme silindi</item>
+    </plurals>
+    <plurals name="convlist_archived">
+        <item quantity="one">%d görüşme arşivlendi</item>
+        <item quantity="other">%d görüşme arşivlendi</item>
+    </plurals>
+    <plurals name="convlist_blocked_done">
+        <item quantity="one">Engellendi. Yeni mesajlar Engellenenler klasörüne gider</item>
+        <item quantity="other">%d gönderen engellendi. Yeni mesajlar Engellenenler klasörüne gider</item>
+    </plurals>
+    <string name="convlist_action_failed">Bir sorun oluştu</string>
+    <string name="convlist_block_title">Numara engellensin mi?</string>
+    <string name="convlist_block_message">%1$s engellensin mi? Bu gönderenden gelen yeni mesajlar gelen kutusu yerine Engellenenler klasörüne gider. Mesajları orada okuyabilir veya geri yükleyebilirsiniz.</string>
+    <string name="convlist_block_confirm">Engelleyin</string>
+    <string name="convlist_rename_title">Görüşmeyi yeniden adlandırın</string>
+    <string name="convlist_rename_hint">Görüşme adı</string>
+    <string name="convlist_ok">Tamam</string>
+    <string name="convlist_cancel">İptal edin</string>
+</resources>

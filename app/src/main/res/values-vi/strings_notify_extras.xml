@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">Bật sáng màn hình</string>
+    <string name="wake_screen_summary">Bật màn hình khi có tin nhắn mới</string>
+    <string name="bubbles_title">Bong bóng trò chuyện</string>
+    <string name="bubbles_summary">Hiện cuộc trò chuyện dưới dạng bong bóng nổi</string>
+    <string name="bubbles_locked">Không dùng được khi bật khóa ứng dụng</string>
+    <string name="focus_codes_title">Mã trong thông báo trực tiếp</string>
+    <string name="focus_codes_summary">Hiện mã trong thông báo trực tiếp của Xiaomi</string>
+</resources>

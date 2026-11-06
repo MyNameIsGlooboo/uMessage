@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_checklist_title">Configure em 1 minuto</string>
+    <string name="w3c_checklist_done_title">Tudo pronto</string>
+    <string name="w3c_checklist_basics_title">O básico está pronto</string>
+    <string name="w3c_checklist_progress">%1$s de %2$s</string>
+    <string name="w3c_checklist_dismiss">Feche a lista de tarefas</string>
+    <string name="w3c_checklist_step_sms">Defina o uMessage como seu app de SMS padrão</string>
+    <string name="w3c_checklist_step_notifications">Ative as notificações</string>
+    <string name="w3c_checklist_step_blocked">Veja a aba Bloqueados</string>
+    <string name="w3c_checklist_step_forward">Opcional: encaminhe mensagens para outro número</string>
+    <string name="w3c_checklist_step_done">Concluído</string>
+    <string name="w3c_checklist_action_set">Defina</string>
+    <string name="w3c_checklist_action_open">Abra</string>
+    <string name="w3c_receipt_title">Spam retido: toque para revisar</string>
+    <string name="w3c_receipt_body">Uma mensagem de um remetente desconhecido foi retida em Bloqueados. Ela não se perdeu: você pode revisá-la e restaurá-la a qualquer momento.</string>
+    <string name="w3c_receipt_review">Revise</string>
+    <string name="w3c_receipt_got_it">Entendi</string>
+    <string name="w3c_search_codes">Códigos recentes</string>
+    <string name="w3c_search_code_copied">Código copiado</string>
+    <string name="w3c_search_code_description">Copie o código %1$s de %2$s</string>
+    <string name="w3c_new_paste">Cole o número</string>
+    <string name="w3c_new_paste_none">Nenhum número de telefone na área de transferência</string>
+    <string name="w3c_details_allow">Permita sempre este remetente</string>
+    <string name="w3c_details_allow_hint">As mensagens deste remetente sempre chegam à sua caixa de entrada</string>
+    <string name="w3c_details_allow_spoof_hint">Qualquer pessoa pode enviar mensagens com este nome, e elas também serão permitidas</string>
+    <string name="w3c_date_gregorian">Gregoriano</string>
+    <string name="w3c_date_gregorian_body">Datas como 29 de out.</string>
+    <string name="w3c_date_jalali">Jalali</string>
+    <string name="w3c_date_jalali_body">Datas como 7 de Aban</string>
+    <string name="w3c_date_both">Ambos</string>
+    <string name="w3c_date_both_body">Os dois calendários na conversa</string>
+    <string name="w3c_text_size">Tamanho do texto</string>
+    <string name="w3c_text_small">Pequeno</string>
+    <string name="w3c_text_default">Padrão</string>
+    <string name="w3c_text_large">Grande</string>
+    <string name="w3c_text_largest">Muito grande</string>
+    <string name="w3c_text_size_sample">Exemplo: seu código é 482913.</string>
+    <string name="w3c_backup_settings">Faça backup de todas as configurações</string>
+    <string name="w3c_backup_settings_body">Salva regras, encaminhamentos e configurações em um arquivo. Sem o texto das mensagens.</string>
+    <string name="w3c_restore_settings">Restaure todas as configurações</string>
+    <string name="w3c_restore_settings_body">Carrega regras e configurações de um arquivo de backup</string>
+    <string name="w3c_backup_saved">Backup salvo: %1$d itens</string>
+    <string name="w3c_backup_failed">Não foi possível salvar o backup</string>
+    <string name="w3c_restore_done">%1$d itens restaurados</string>
+    <string name="w3c_restore_failed">Não foi possível restaurar este arquivo. Escolha um backup das configurações do uMessage.</string>
+</resources>

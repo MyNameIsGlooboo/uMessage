@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_intro">اختر مظهر uMessage: الوضع الفاتح أو الداكن، والألوان.</string>
+    <string name="preset_system">النظام</string>
+    <string name="preset_system_desc">فاتح أو داكن حسب إعداد هاتفك</string>
+    <string name="preset_light">فاتح</string>
+    <string name="preset_light_desc">فاتح دائمًا</string>
+    <string name="preset_dark">داكن</string>
+    <string name="preset_dark_desc">داكن دائمًا ومريح للعينين</string>
+    <string name="preset_amoled">أسود</string>
+    <string name="preset_amoled_desc">أسود خالص لشاشات OLED</string>
+    <string name="preset_brand">كحلي</string>
+    <string name="preset_brand_desc">كحلي وذهبي، مظهر uMessage الكلاسيكي</string>
+    <string name="preset_coral">مرجاني</string>
+    <string name="preset_coral_desc">مرجاني وأزرق من أيقونة التطبيق</string>
+    <string name="preset_sky">سماء</string>
+    <string name="preset_sky_desc">أزرق هادئ وأبيض</string>
+    <string name="preset_forest">غابة</string>
+    <string name="preset_forest_desc">أخضر بلمسة صفراء</string>
+    <string name="preset_sunset">غروب</string>
+    <string name="preset_sunset_desc">برتقالي دافئ وكريمي</string>
+    <string name="preset_graphite">كهرماني</string>
+    <string name="preset_graphite_desc">رمادي مع كهرماني</string>
+    <string name="preset_wallpaper">الخلفية</string>
+    <string name="preset_wallpaper_desc">ألوان مستمدة من خلفية هاتفك</string>
+</resources>

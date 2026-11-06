@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">الموقع</string>
+    <string name="i52_permission_explanation">يحدّد uMessage موقعك مرة واحدة الآن فقط لإضافة رابط خريطة إلى رسالتك. لا يُخزّن أي شيء. يمكنك اختيار الموقع التقريبي.</string>
+    <string name="i52_finding">جارٍ تحديد موقعك…</string>
+    <string name="i52_denied">لم يُسمح بالوصول إلى الموقع. ستبقى الرسالة كما هي.</string>
+    <string name="i52_no_fix">تعذّر تحديد موقعك. حاول مجددًا قرب نافذة أو في الخارج.</string>
+    <string name="i52_off_message">الموقع متوقف على هذا الهاتف. فعّله لمشاركة مكانك.</string>
+    <string name="i52_open_settings">افتح الإعدادات</string>
+</resources>

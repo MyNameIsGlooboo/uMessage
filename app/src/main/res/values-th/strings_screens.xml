@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screens_back">กลับ</string>
+    <string name="screens_ok">ตกลง</string>
+    <string name="screens_cancel">ยกเลิก</string>
+    <string name="screens_delete">ลบ</string>
+    <string name="screens_clear_selection">ยกเลิกการเลือก</string>
+    <plurals name="screens_selected_count">
+        <item quantity="other">เลือกแล้ว %d รายการ</item>
+    </plurals>
+    <string name="screens_loading">กำลังโหลด…</string>
+    <string name="screens_more_options">ตัวเลือกเพิ่มเติม</string>
+    <string name="screens_select_all">เลือกทั้งหมด</string>
+    <string name="screens_copy">คัดลอก</string>
+    <string name="screens_grant_permission">อนุญาตให้เข้าถึง</string>
+    <string name="screens_delete_forever_title">ลบถาวรไหม?</string>
+    <string name="screens_delete_conversations_message">ลบ %1$s ถาวรไหม? การดำเนินการนี้เลิกทำไม่ได้</string>
+    <string name="screens_restore_title">กู้คืนไหม?</string>
+    <string name="screens_empty_archive_title">ล้างข้อความที่เก็บถาวรไหม?</string>
+    <string name="screens_empty_bin_title">ล้างถังขยะไหม?</string>
+    <string name="screens_empty_action">ล้าง</string>
+    <string name="screens_archive_empty_title">ไม่มีข้อความที่เก็บถาวร</string>
+    <string name="screens_bin_empty_title">ถังขยะว่างเปล่า</string>
+    <string name="screens_bin_empty_body">ข้อความที่ลบจะอยู่ที่นี่จนกว่าจะล้างถังขยะ</string>
+    <string name="screens_new_to_hint">ถึง</string>
+    <string name="screens_new_start">เริ่มการสนทนากับ %1$s</string>
+    <string name="screens_new_clear_input">ล้าง</string>
+    <string name="screens_new_no_matches">ไม่พบรายชื่อติดต่อที่ตรงกัน กดลูกศรเพื่อส่งข้อความถึงหมายเลขที่พิมพ์</string>
+    <string name="screens_new_contacts">รายชื่อติดต่อ</string>
+    <string name="screens_new_create_group">สร้างกลุ่ม</string>
+    <string name="screens_new_group_title">กลุ่มใหม่</string>
+    <string name="screens_new_group_next">ถัดไป</string>
+    <string name="screens_new_group_add">เพิ่ม %1$s</string>
+    <string name="screens_new_group_remove">นำ %1$s ออก</string>
+    <string name="screens_new_group_selected">เลือกแล้ว</string>
+    <string name="screens_details_edit_name">แก้ไขชื่อการสนทนา</string>
+    <string name="screens_keywords_add">เพิ่มคำหลัก</string>
+    <string name="screens_keywords_menu_export">ส่งออก</string>
+    <string name="screens_keywords_menu_import">นำเข้า</string>
+    <string name="screens_keywords_edit">แก้ไข</string>
+    <string name="screens_keywords_duplicate">มีคำหลักนี้ในรายการแล้ว</string>
+    <string name="screens_keywords_help">ตรวจหาข้อความที่ตรงกันทุกตำแหน่ง แม้อยู่ในคำที่ยาวกว่า โดยไม่แยกตัวพิมพ์ใหญ่หรือเล็ก</string>
+    <string name="screens_keywords_empty_title">ไม่มีคำหลักที่บล็อก</string>
+    <plurals name="screens_keywords_deleted">
+        <item quantity="other">ลบคำหลักแล้ว %d คำ</item>
+    </plurals>
+    <string name="screens_vcard_title">รายชื่อติดต่อ</string>
+    <string name="screens_vcard_add_contact">เพิ่มในรายชื่อติดต่อ</string>
+    <string name="screens_vcard_expand">แสดงรายละเอียด</string>
+    <string name="screens_vcard_collapse">ซ่อนรายละเอียด</string>
+    <string name="screens_vcard_empty">ไม่พบรายชื่อติดต่อในไฟล์นี้</string>
+    <string name="screens_dialog_filename">ชื่อไฟล์</string>
+    <string name="screens_schedule_date">วันที่</string>
+    <string name="screens_schedule_time">เวลา</string>
+    <string name="screens_schedule_pick_time">เลือกเวลา</string>
+    <string name="screens_schedule_next">ถัดไป</string>
+    <string name="screens_delete_skip_bin">ลบโดยตรงโดยไม่ย้ายไปถังขยะ</string>
+    <string name="screens_select_text_title">เลือกข้อความ</string>
+</resources>

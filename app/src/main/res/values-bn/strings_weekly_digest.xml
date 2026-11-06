@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="digest_channel">সাপ্তাহিক সারাংশ</string>
+    <string name="digest_title">সাপ্তাহিক সারাংশ</string>
+    <string name="digest_row_title">সাপ্তাহিক সারাংশ</string>
+    <string name="digest_row_summary">সপ্তাহে একবার: কতটি ব্লক করা হয়েছে</string>
+    <plurals name="digest_held" tools:ignore="ImpliedQuantity">
+        <item quantity="one">এই সপ্তাহে %dটি বার্তা আটকানো হয়েছে। দেখতে ট্যাপ করুন।</item>
+        <item quantity="other">এই সপ্তাহে %dটি বার্তা আটকানো হয়েছে। দেখতে ট্যাপ করুন।</item>
+    </plurals>
+    <plurals name="digest_held_important" tools:ignore="ImpliedQuantity">
+        <item quantity="one">এই সপ্তাহে %1$dটি বার্তা আটকানো হয়েছে। এর মধ্যে কোড বা ব্যাংকের বিজ্ঞপ্তি: %2$d।</item>
+        <item quantity="other">এই সপ্তাহে %1$dটি বার্তা আটকানো হয়েছে। এর মধ্যে কোড বা ব্যাংকের বিজ্ঞপ্তি: %2$d।</item>
+    </plurals>
+</resources>

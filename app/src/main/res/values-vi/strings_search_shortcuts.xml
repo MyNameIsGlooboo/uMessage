@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">Người gửi không xác định</string>
+    <string name="i28_filter_unknown_empty_title">Không có người gửi không xác định</string>
+    <string name="i28_filter_unknown_empty_body">Cuộc trò chuyện với những người không có trong người liên hệ của bạn và bạn chưa từng nhắn tin sẽ hiện ở đây.</string>
+    <string name="i28_filter_images">Hình ảnh</string>
+    <string name="i28_filter_images_empty_title">Chưa có hình ảnh</string>
+    <string name="i28_filter_images_empty_body">Tin nhắn có hình ảnh sẽ hiện ở đây.</string>
+    <string name="i28_filter_links">Liên kết</string>
+    <string name="i28_filter_links_empty_title">Chưa có liên kết</string>
+    <string name="i28_filter_links_empty_body">Tin nhắn có liên kết web sẽ hiện ở đây.</string>
+    <string name="i28_hit_picture">Hình ảnh</string>
+</resources>

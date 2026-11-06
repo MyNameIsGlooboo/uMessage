@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3a_forward_limit_channel">سقف بازارسال</string>
+    <string name="w3a_forward_limit_title">بازارسال برای امروز متوقف شد</string>
+    <string name="w3a_forward_limit_text">سقف %d بازارسال تکمیل شد. بازارسال فردا ادامه می‌یابد.</string>
+</resources>

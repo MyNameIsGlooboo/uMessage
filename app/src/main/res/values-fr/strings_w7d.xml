@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="w7d_banner_stopped" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s bloqué cette semaine</item>
+        <item quantity="other">%1$s bloqués cette semaine</item>
+    </plurals>
+    <string name="w7d_banner_none">Aucun message bloqué cette semaine</string>
+    <string name="w7d_fwd_master_switch">Transfert</string>
+    <string name="w7d_help_menu">Comment fonctionne le blocage par mots</string>
+    <string name="w7d_help_title">Comment fonctionne le blocage par mots</string>
+    <string name="w7d_help_words_head">Mots</string>
+    <string name="w7d_help_words_body">Bloque un message contenant ce mot, où qu\'il se trouve.</string>
+    <string name="w7d_help_words_example">lot gratuit</string>
+    <string name="w7d_help_sender_head">Noms d\'expéditeurs</string>
+    <string name="w7d_help_sender_body">Bloque les messages d\'un expéditeur portant ce nom, comme un magasin.</string>
+    <string name="w7d_help_sender_example">PROMO</string>
+    <string name="w7d_help_number_head">Débuts de numéros</string>
+    <string name="w7d_help_number_body">Bloque tous les numéros commençant par ces chiffres.</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">Expressions régulières, pour utilisateurs avancés</string>
+    <string name="w7d_help_pattern_body">Une expression régulière peut couvrir plusieurs orthographes. Testez-la avant de l\'enregistrer.</string>
+    <string name="w7d_help_pattern_example">lot (gratuit|gagné)</string>
+    <string name="w7d_help_close">Fermer</string>
+    <string name="w7d_bank_cards_title">Cartes pour les alertes bancaires</string>
+    <string name="w7d_bank_cards_summary">Affiche le montant sous un message bancaire</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">Mute</string>
+    <string name="unmute_menu">Unmute</string>
+    <string name="mute_title">Mute notifications</string>
+    <string name="mute_1_hour">For 1 hour</string>
+    <string name="mute_8_hours">For 8 hours</string>
+    <string name="mute_1_week">For 1 week</string>
+    <string name="mute_always">Always</string>
+    <string name="mute_off">Off</string>
+    <!-- %1$s is a date and time, e.g. Nov 4, 6:30 PM -->
+    <string name="mute_until">Until %1$s</string>
+    <string name="mute_channel">Muted conversations</string>
+</resources>

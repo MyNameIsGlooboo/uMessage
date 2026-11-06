@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="convlist_loading">Đang tải tin nhắn</string>
+    <string name="convlist_empty_title">Chưa có cuộc trò chuyện</string>
+    <string name="convlist_empty_body">Tin nhắn bạn gửi và nhận sẽ hiện ở đây.</string>
+    <string name="convlist_start_conversation">Bắt đầu cuộc trò chuyện</string>
+    <string name="convlist_new_conversation">Cuộc trò chuyện mới</string>
+    <string name="convlist_draft">Bản nháp</string>
+    <string name="convlist_pinned">Đã ghim</string>
+    <string name="convlist_muted">Đã tắt thông báo</string>
+    <string name="convlist_unread">Chưa đọc</string>
+    <string name="convlist_unread_count">%1$d chưa đọc</string>
+    <string name="convlist_group">Cuộc trò chuyện nhóm</string>
+    <string name="convlist_selected">Đã chọn</string>
+    <string name="convlist_sim">SIM %1$d</string>
+    <string name="convlist_scroll_handle">Cuộn nhanh</string>
+    <plurals name="convlist_blocked_banner">
+        <item quantity="other">%d tin nhắn đã chặn</item>
+    </plurals>
+    <string name="convlist_blocked_banner_title">Tin nhắn đã chặn</string>
+    <string name="convlist_blocked_banner_cd">%1$d tin nhắn đã chặn. Mở thư mục Đã chặn.</string>
+    <string name="convlist_archive">Lưu trữ</string>
+    <string name="convlist_delete">Xóa</string>
+    <string name="convlist_pin">Ghim lên đầu</string>
+    <string name="convlist_unpin">Bỏ ghim</string>
+    <string name="convlist_mark_read">Đánh dấu đã đọc</string>
+    <string name="convlist_mark_unread">Đánh dấu chưa đọc</string>
+    <string name="convlist_block_number">Chặn số</string>
+    <string name="convlist_add_contact">Thêm số vào người liên hệ</string>
+    <string name="convlist_copy_number">Sao chép số</string>
+    <string name="convlist_dial">Gọi</string>
+    <string name="convlist_rename">Đổi tên cuộc trò chuyện</string>
+    <string name="convlist_details">Chi tiết cuộc trò chuyện</string>
+    <string name="convlist_select_all">Chọn tất cả</string>
+    <string name="convlist_more_options">Tùy chọn khác</string>
+    <string name="convlist_close_selection">Hủy chọn</string>
+    <plurals name="convlist_selected_count">
+        <item quantity="other">Đã chọn %d</item>
+    </plurals>
+    <string name="convlist_undo">Hoàn tác</string>
+    <plurals name="convlist_deleted">
+        <item quantity="other">Đã xóa %d cuộc trò chuyện</item>
+    </plurals>
+    <plurals name="convlist_archived">
+        <item quantity="other">Đã lưu trữ %d cuộc trò chuyện</item>
+    </plurals>
+    <plurals name="convlist_blocked_done">
+        <item quantity="other">Đã chặn %d người gửi. Tin nhắn mới sẽ vào Tin nhắn đã chặn</item>
+    </plurals>
+    <string name="convlist_action_failed">Đã xảy ra lỗi</string>
+    <string name="convlist_block_title">Chặn số?</string>
+    <string name="convlist_block_message">Chặn %1$s? Tin nhắn mới từ số này sẽ vào Tin nhắn đã chặn thay vì hộp thư đến của bạn. Bạn vẫn có thể đọc hoặc khôi phục chúng ở đó.</string>
+    <string name="convlist_block_confirm">Chặn</string>
+    <string name="convlist_rename_title">Đổi tên cuộc trò chuyện</string>
+    <string name="convlist_rename_hint">Tên cuộc trò chuyện</string>
+    <string name="convlist_ok">OK</string>
+    <string name="convlist_cancel">Hủy</string>
+</resources>

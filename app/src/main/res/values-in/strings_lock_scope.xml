@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_scope_title">Bagian yang dikunci</string>
+    <string name="lock_scope_whole">Seluruh aplikasi</string>
+    <string name="lock_scope_chosen">Hanya bagian yang dipilih</string>
+    <string name="lock_scope_chosen_long">Hanya bagian yang dipilih: tab Diblokir dan percakapan tersembunyi</string>
+    <string name="lock_scope_blocked_title">Pesan yang diblokir terkunci</string>
+    <string name="lock_scope_blocked_body">Buka kunci untuk melihatnya.</string>
+    <string name="lock_scope_unlock">Buka kunci</string>
+</resources>

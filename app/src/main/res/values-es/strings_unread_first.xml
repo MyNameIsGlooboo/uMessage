@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i36_unread_first">No leídas primero</string>
+    <string name="i36_unread_first_body">Las conversaciones no leídas se mantienen arriba</string>
+</resources>

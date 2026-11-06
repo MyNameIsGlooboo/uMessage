@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screens_back">Kembali</string>
+    <string name="screens_ok">Oke</string>
+    <string name="screens_cancel">Batal</string>
+    <string name="screens_delete">Hapus</string>
+    <string name="screens_clear_selection">Batalkan pilihan</string>
+    <plurals name="screens_selected_count">
+        <item quantity="other">%d dipilih</item>
+    </plurals>
+    <string name="screens_loading">Memuat…</string>
+    <string name="screens_more_options">Opsi lainnya</string>
+    <string name="screens_select_all">Pilih semua</string>
+    <string name="screens_copy">Salin</string>
+    <string name="screens_grant_permission">Izinkan akses</string>
+    <string name="screens_delete_forever_title">Hapus permanen?</string>
+    <string name="screens_delete_conversations_message">Hapus %1$s secara permanen? Tindakan ini tidak dapat diurungkan.</string>
+    <string name="screens_restore_title">Pulihkan?</string>
+    <string name="screens_empty_archive_title">Kosongkan arsip?</string>
+    <string name="screens_empty_bin_title">Kosongkan sampah?</string>
+    <string name="screens_empty_action">Kosongkan</string>
+    <string name="screens_archive_empty_title">Belum ada yang diarsipkan</string>
+    <string name="screens_bin_empty_title">Sampah kosong</string>
+    <string name="screens_bin_empty_body">Pesan yang dihapus tetap di sini hingga sampah dikosongkan.</string>
+    <string name="screens_new_to_hint">Kepada</string>
+    <string name="screens_new_start">Mulai percakapan dengan %1$s</string>
+    <string name="screens_new_clear_input">Kosongkan</string>
+    <string name="screens_new_no_matches">Tidak ada kontak yang cocok. Tekan panah untuk mengirim pesan ke nomor yang Anda ketik.</string>
+    <string name="screens_new_contacts">Kontak</string>
+    <string name="screens_new_create_group">Buat grup</string>
+    <string name="screens_new_group_title">Grup baru</string>
+    <string name="screens_new_group_next">Berikutnya</string>
+    <string name="screens_new_group_add">Tambahkan %1$s</string>
+    <string name="screens_new_group_remove">Hapus %1$s</string>
+    <string name="screens_new_group_selected">Dipilih</string>
+    <string name="screens_details_edit_name">Edit nama percakapan</string>
+    <string name="screens_keywords_add">Tambahkan kata kunci</string>
+    <string name="screens_keywords_menu_export">Ekspor</string>
+    <string name="screens_keywords_menu_import">Impor</string>
+    <string name="screens_keywords_edit">Edit</string>
+    <string name="screens_keywords_duplicate">Kata kunci ini sudah ada dalam daftar</string>
+    <string name="screens_keywords_help">Mencocokkan teks di bagian mana pun dalam pesan, termasuk dalam kata yang lebih panjang. Huruf besar dan kecil tidak dibedakan.</string>
+    <string name="screens_keywords_empty_title">Tidak ada kata kunci yang diblokir</string>
+    <plurals name="screens_keywords_deleted">
+        <item quantity="other">%d kata kunci dihapus</item>
+    </plurals>
+    <string name="screens_vcard_title">Kontak</string>
+    <string name="screens_vcard_add_contact">Tambahkan ke kontak</string>
+    <string name="screens_vcard_expand">Tampilkan detail</string>
+    <string name="screens_vcard_collapse">Sembunyikan detail</string>
+    <string name="screens_vcard_empty">Tidak ada kontak dalam file ini</string>
+    <string name="screens_dialog_filename">Nama file</string>
+    <string name="screens_schedule_date">Tanggal</string>
+    <string name="screens_schedule_time">Waktu</string>
+    <string name="screens_schedule_pick_time">Pilih waktu</string>
+    <string name="screens_schedule_next">Berikutnya</string>
+    <string name="screens_delete_skip_bin">Langsung hapus tanpa memindahkan ke sampah</string>
+    <string name="screens_select_text_title">Pilih teks</string>
+</resources>

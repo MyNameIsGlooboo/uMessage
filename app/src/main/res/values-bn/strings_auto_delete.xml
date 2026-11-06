@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="cleanup_old_title">বার্তা রাখার মেয়াদ</string>
+    <string name="cleanup_old_summary">এর চেয়ে পুরোনো বার্তা রিসাইকেল বিনে যাবে</string>
+    <string name="cleanup_forever">চিরকাল</string>
+    <string name="cleanup_one_year">1 বছর</string>
+    <string name="cleanup_bin_title">রিসাইকেল বিন চালু করবেন?</string>
+    <string name="cleanup_bin_body">মুছে ফেলা বার্তা সেখানে 30 দিন থাকে, যাতে আপনি সেগুলি ফিরিয়ে আনতে পারেন। স্বয়ংক্রিয়ভাবে পুরোনো বার্তা সরাতে এটি চালু থাকা দরকার।</string>
+    <string name="cleanup_bin_confirm">চালু করুন</string>
+    <string name="cleanup_old_confirm_title">পুরোনো বার্তা সরাবেন?</string>
+    <plurals name="cleanup_old_confirm_body" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি বার্তা এর চেয়ে পুরোনো এবং এখন রিসাইকেল বিনে যাবে। তারকাচিহ্নিত ও পড়া হয়নি এমন বার্তা এবং পিন করা কথোপকথন থেকে যাবে।</item>
+        <item quantity="other">%dটি বার্তা এর চেয়ে পুরোনো এবং এখন রিসাইকেল বিনে যাবে। তারকাচিহ্নিত ও পড়া হয়নি এমন বার্তা এবং পিন করা কথোপকথন থেকে যাবে।</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">এখনও কোনো বার্তা এত পুরোনো হয়নি। পুরোনো হলে বার্তা নিজে থেকেই রিসাইকেল বিনে যাবে। তারকাচিহ্নিত ও পড়া হয়নি এমন বার্তা এবং পিন করা কথোপকথন থেকে যাবে।</string>
+    <string name="cleanup_old_confirm_action">সরান</string>
+</resources>

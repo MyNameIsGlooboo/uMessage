@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="e_day_today">आज</string>
+    <string name="e_day_yesterday">कल</string>
+    <plurals name="e_blocked_stats_total" tools:ignore="ImpliedQuantity">
+        <item quantity="one">कुल %d रोका गया</item>
+        <item quantity="other">कुल %d रोके गए</item>
+    </plurals>
+    <string name="e_restored_title">हाल में वापस लाए गए</string>
+    <string name="e_restored_body">पिछले 30 दिनों में आपके इनबॉक्स में लाए गए मैसेज. बातचीत खोलने के लिए किसी मैसेज पर टैप करें.</string>
+    <string name="e_restored_empty">अब से आप जिन मैसेज को इनबॉक्स में लाएंगे, वे यहां 30 दिनों तक दिखेंगे.</string>
+    <string name="e_restored_when">%1$s को इनबॉक्स में लाया गया</string>
+    <string name="e_restored_open">%1$s के साथ बातचीत खोलें</string>
+    <string name="e_snack_allowed_one">अब %1$s को दोनों सिम पर हमेशा अनुमति दी गई है</string>
+    <plurals name="e_snack_allowed_many" tools:ignore="ImpliedQuantity">
+        <item quantity="one">अब %d भेजने वाले को दोनों सिम पर हमेशा अनुमति दी गई है</item>
+        <item quantity="other">अब %d भेजने वालों को दोनों सिम पर हमेशा अनुमति दी गई है</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">अब %1$s को हमेशा अनुमति दी गई है</string>
+    <plurals name="e_snack_allowed_many_single_sim" tools:ignore="ImpliedQuantity">
+        <item quantity="one">अब %d भेजने वाले को हमेशा अनुमति दी गई है</item>
+        <item quantity="other">अब %d भेजने वालों को हमेशा अनुमति दी गई है</item>
+    </plurals>
+    <string name="e_view_rule">नियम देखें</string>
+    <string name="e_rules_title">नियम</string>
+    <string name="e_rules_menu_backup">बैकअप और वापस लाएं</string>
+    <string name="e_note_blocked_by_you">आपने ब्लॉक किया</string>
+    <string name="e_note_allowed_by_you">आपने अनुमति दी</string>
+    <string name="e_note_blocked_from_message">मैसेज से ब्लॉक किया गया</string>
+    <string name="e_note_blocked_from_keyword">कीवर्ड से ब्लॉक किया गया</string>
+    <string name="e_note_reported_spam">स्पैम की शिकायत की गई</string>
+    <string name="e_note_old_word_list">ब्लॉक किए गए शब्दों की पुरानी सूची से</string>
+    <string name="e_note_system_list">Android की ब्लॉक सूची से</string>
+    <string name="e_note_quoted">“%1$s”</string>
+    <string name="e_example_block_cancel_word">لغو۱۱ वाले मैसेज ब्लॉक करें</string>
+    <string name="e_example_block_ad_prefix">3000 से शुरू होने वाले विज्ञापन नंबर ब्लॉक करें</string>
+    <string name="e_example_allow_number">किसी नंबर को हमेशा अनुमति दें, जैसे आपके डाकघर का नंबर</string>
+    <string name="e_sheet_sender_label">भेजने वाला</string>
+    <string name="e_sheet_text_label">मैसेज का टेक्स्ट</string>
+    <string name="e_value_number">फ़ोन नंबर</string>
+    <string name="e_value_prefix">नंबर की शुरुआत</string>
+    <string name="e_value_sender">भेजने वाले का नाम</string>
+    <string name="e_value_keyword">खोजने के लिए टेक्स्ट</string>
+    <string name="e_value_pattern">पैटर्न (रेगुलर एक्सप्रेशन)</string>
+    <string name="e_pattern_blocks_label">इससे शुरू करें</string>
+    <string name="e_pattern_link">लिंक शामिल है</string>
+    <string name="e_pattern_long_number">5+ अंकों का नंबर</string>
+    <string name="e_pattern_starts_with">इससे शुरू होता है</string>
+    <string name="e_pattern_any_of">इनमें से कोई शामिल है</string>
+    <string name="e_pattern_link_sentence">लिंक वाले मैसेज से मेल खाता है.</string>
+    <string name="e_pattern_long_number_sentence">5 या उससे ज़्यादा अंकों के नंबर वाले मैसेज से मेल खाता है.</string>
+    <string name="e_pattern_starts_with_sentence">उन मैसेज से मेल खाता है जो ^ के बाद आपके लिखे टेक्स्ट से शुरू होते हैं.</string>
+    <string name="e_pattern_any_of_sentence">उन मैसेज से मेल खाता है जिनमें कोष्ठक के अंदर का कोई भी शब्द हो. शब्दों के बीच | लगाएं.</string>
+    <plurals name="e_migrate_title_numbers" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d नंबर uMessage के नियमों में ले जाएं</item>
+        <item quantity="other">%d नंबर uMessage के नियमों में ले जाएं</item>
+    </plurals>
+    <string name="e_migrate_point_blocked">• उनके मैसेज \'ब्लॉक किए गए\' में जाएंगे, जहां आप उन्हें पढ़ और वापस ला सकते हैं.</string>
+    <string name="e_migrate_point_android">• जब तक वे Android की सूची में हैं, Android उनके मैसेज मिटाता रहेगा.</string>
+    <string name="e_migrate_calls_note">Android की सूची कॉल भी ब्लॉक करती है. इससे हटाए गए नंबर आपको फिर से कॉल कर सकेंगे.</string>
+    <string name="e_bn_unknown_body">सिर्फ़ तब लागू होता है जब \'अनजान भेजने वाले\' बंद हो.</string>
+    <string name="e_bn_row_calls_texts">कॉल और मैसेज ब्लॉक करता है</string>
+    <string name="e_bn_row_short_code">शॉर्ट कोड: इसके मैसेज uMessage को कभी नहीं मिलते</string>
+    <string name="e_bn_move_one">uMessage के नियमों में ले जाएं</string>
+    <string name="e_bn_moved">%1$s अब uMessage का नियम है. इसके मैसेज \'ब्लॉक किए गए\' में जाते हैं और इसकी कॉल अब ब्लॉक नहीं होतीं.</string>
+    <string name="e_bn_field_help">जैसे +15550001234, या +1555 से शुरू होने वाले हर नंबर के लिए +1555*</string>
+    <string name="e_bn_short_code_warning">यह शॉर्ट कोड लगता है. इसके मैसेज uMessage को मिलने से पहले ही Android उन्हें मिटा देता है. इसलिए आप कोई भी मैसेज वापस नहीं ला सकेंगे, जैसे कोई कोड या बैंक की सूचना.</string>
+    <string name="e_bn_add_as_rule">इसके बजाय uMessage के नियम के तौर पर जोड़ें</string>
+    <string name="e_bn_added_as_rule">%1$s को uMessage के नियम के तौर पर जोड़ा गया. इसके मैसेज \'ब्लॉक किए गए\' में जाते हैं.</string>
+</resources>

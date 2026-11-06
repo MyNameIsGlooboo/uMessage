@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">Avvia conversazione</string>
+    <string name="search_page_show_more">Mostra altro</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">Nessuna conversazione su questa SIM</string>
+    <string name="search_page_sim_empty_body">Qui trovi le conversazioni con un messaggio inviato o ricevuto su questa SIM.</string>
+</resources>

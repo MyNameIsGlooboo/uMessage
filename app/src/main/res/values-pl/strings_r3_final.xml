@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3f_spam_summary_stopped">Zatrzymano: %1$d</string>
+    <string name="r3f_spam_summary_restored">Przywrócono: %1$d</string>
+    <string name="r3f_spam_summary_stopped_week">Zatrzymano w ciągu 7 dni: %1$d</string>
+    <string name="r3f_spam_summary_total">Łącznie: %1$d</string>
+</resources>

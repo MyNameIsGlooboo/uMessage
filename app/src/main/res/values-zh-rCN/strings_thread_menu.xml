@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_menu_more">更多…</string>
+    <string name="thread_menu_group_share">分享与导出</string>
+    <string name="thread_menu_group_organize">整理</string>
+    <string name="thread_menu_group_sender">发件人</string>
+    <string name="thread_labels_chips_description">标签：%1$s。点按可更改。</string>
+    <string name="thread_labels_more_chip">+%1$d</string>
+</resources>

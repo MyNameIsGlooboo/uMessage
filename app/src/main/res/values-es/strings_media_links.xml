@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i56_section">Multimedia y enlaces</string>
+    <string name="i56_see_all">Ver todo</string>
+    <string name="i56_pictures">Imágenes</string>
+    <string name="i56_links">Enlaces</string>
+    <string name="i56_empty_pictures">No hay imágenes en este chat.</string>
+    <string name="i56_empty_links">No hay enlaces en este chat.</string>
+    <string name="i56_show_in_chat">Mostrar en el chat</string>
+    <string name="i56_load_more">Mostrar más</string>
+    <string name="i56_picture_description">Imagen. Toca para abrir.</string>
+    <plurals name="i56_count_pictures">
+        <item quantity="one">%d imagen</item>
+        <item quantity="other">%d imágenes</item>
+    </plurals>
+    <plurals name="i56_count_links">
+        <item quantity="one">%d enlace</item>
+        <item quantity="other">%d enlaces</item>
+    </plurals>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_intro">uMessage görünümünü seçin: açık veya koyu mod ve renkler.</string>
+    <string name="preset_system">Sistem</string>
+    <string name="preset_system_desc">Telefonunuza göre açık veya koyu</string>
+    <string name="preset_light">Açık</string>
+    <string name="preset_light_desc">Her zaman açık</string>
+    <string name="preset_dark">Koyu</string>
+    <string name="preset_dark_desc">Her zaman koyu, gözleri yormaz</string>
+    <string name="preset_amoled">Siyah</string>
+    <string name="preset_amoled_desc">OLED ekranlar için tam siyah</string>
+    <string name="preset_brand">Lacivert</string>
+    <string name="preset_brand_desc">Lacivert ve altın sarısı, klasik uMessage görünümü</string>
+    <string name="preset_coral">Mercan</string>
+    <string name="preset_coral_desc">Uygulama simgesinden mercan ve mavi</string>
+    <string name="preset_sky">Gökyüzü</string>
+    <string name="preset_sky_desc">Yumuşak mavi ve beyaz</string>
+    <string name="preset_forest">Orman</string>
+    <string name="preset_forest_desc">Sarı vurgulu yeşil</string>
+    <string name="preset_sunset">Gün batımı</string>
+    <string name="preset_sunset_desc">Sıcak turuncu ve krem</string>
+    <string name="preset_graphite">Kehribar</string>
+    <string name="preset_graphite_desc">Gri ve kehribar</string>
+    <string name="preset_wallpaper">Duvar kağıdı</string>
+    <string name="preset_wallpaper_desc">Duvar kağıdınızdan alınan renkler</string>
+</resources>

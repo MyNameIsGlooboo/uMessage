@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_tab_forwarded">Diteruskan</string>
+    <string name="nav_tab_forwarded_failed">Diteruskan, ada yang gagal diteruskan</string>
+    <string name="nav_tab_forwarded_paused">Diteruskan, penerusan dijeda</string>
+    <string name="nav_tab_archived_new">Diarsipkan, percakapan baru diarsipkan</string>
+    <string name="nav_prompt_title">Aturan disimpan</string>
+    <string name="nav_prompt_body">Tampilkan tab Diteruskan untuk melihat pesan terkirim dan mencoba lagi yang gagal?</string>
+    <string name="nav_prompt_show">Tampilkan tab</string>
+    <string name="nav_prompt_not_now">Nanti saja</string>
+    <string name="nav_fwd_paid_note">Setiap penerusan dikenai biaya SMS.</string>
+    <string name="nav_fwd_pause_all">Jeda semua penerusan</string>
+    <string name="nav_fwd_status_paused">Penerusan dijeda</string>
+    <string name="nav_fwd_paused_hint">Pesan yang cocok tidak dikirim. Nonaktifkan untuk melanjutkan.</string>
+    <string name="nav_fwd_status_no_rule">Tidak ada aturan penerusan yang aktif</string>
+    <plurals name="nav_fwd_status_on">
+        <item quantity="other">Penerusan aktif, %1$s aturan</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">Kelola aturan</string>
+    <string name="nav_fwd_empty_title">Belum ada pesan diteruskan</string>
+    <string name="nav_fwd_empty_body">Pesan yang cocok akan muncul di sini.</string>
+    <string name="nav_fwd_status_sent">Terkirim</string>
+    <string name="nav_fwd_status_pending">Menunggu</string>
+    <string name="nav_fwd_status_failed">Gagal</string>
+    <string name="nav_fwd_to">Ke %1$s</string>
+    <string name="nav_fwd_sim">SIM %1$d</string>
+    <string name="nav_fwd_rule_line">Aturan: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">pengirim %1$s</string>
+    <string name="nav_fwd_rule_any_sender">pengirim mana pun</string>
+    <string name="nav_fwd_rule_text">teks %1$s</string>
+    <string name="nav_fwd_rule_any_text">teks apa pun</string>
+    <string name="nav_fwd_rule_deleted">Aturan dihapus</string>
+    <string name="nav_fwd_open_details">Tampilkan detail</string>
+    <string name="nav_fwd_today">Hari ini</string>
+    <string name="nav_fwd_yesterday">Kemarin</string>
+    <plurals name="nav_fwd_failed_count">
+        <item quantity="other">%1$s pesan gagal diteruskan</item>
+    </plurals>
+    <string name="nav_fwd_retry">Coba lagi</string>
+    <string name="nav_fwd_retry_all">Coba lagi semua yang gagal (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">Kirim ulang?</string>
+    <plurals name="nav_fwd_retry_all_message">
+        <item quantity="other">%1$s SMS akan dikirim ulang. Setiap SMS dikenai biaya.</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">Kirim ulang</string>
+    <plurals name="nav_fwd_retry_sent">
+        <item quantity="other">%d pesan diteruskan ulang</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">Gagal lagi. Periksa sinyal dan pulsa.</string>
+    <string name="nav_fwd_retry_missing">Pesan asli sudah tidak ada, jadi tidak dapat dikirim ulang.</string>
+    <string name="nav_fwd_details_title">Detail penerusan</string>
+    <string name="nav_fwd_detail_from">Pesan dari</string>
+    <string name="nav_fwd_detail_to">Diteruskan ke</string>
+    <string name="nav_fwd_detail_when">Waktu</string>
+    <string name="nav_fwd_detail_sim">Dikirim dari</string>
+    <string name="nav_fwd_detail_rule">Cocok dengan</string>
+    <string name="nav_fwd_detail_message">Pesan asli</string>
+    <string name="nav_fwd_message_loading">Memuat</string>
+    <string name="nav_fwd_message_gone">Pesan asli tidak lagi tersimpan.</string>
+    <string name="nav_fwd_error_radio">Jaringan gagal mengirim pesan.</string>
+    <string name="nav_fwd_error_refused">Ponsel tidak dapat mengirim pesan.</string>
+    <string name="nav_fwd_open_chat">Buka percakapan</string>
+    <string name="nav_archived_title">Diarsipkan</string>
+    <string name="nav_archived_back">Kembali ke Pesan</string>
+    <string name="nav_archived_intro">Percakapan yang diarsipkan tidak muncul di Pesan. Pesan baru akan mengembalikan percakapan, kecuali “Percakapan yang diarsipkan tetap tersembunyi” aktif di Setelan.</string>
+    <string name="nav_archived_intro_dismiss">Sembunyikan catatan ini</string>
+    <plurals name="nav_archived_moved">
+        <item quantity="other">%d percakapan dipindahkan ke Pesan</item>
+    </plurals>
+    <string name="nav_folder_more">Opsi lainnya</string>
+    <string name="nav_folder_mark_all_read">Tandai semua sudah dibaca</string>
+    <string name="nav_folder_delete_all_count">Ini akan menghapus %1$s secara permanen.</string>
+</resources>

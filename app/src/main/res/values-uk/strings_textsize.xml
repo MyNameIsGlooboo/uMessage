@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_text_xsmall">Дуже малий</string>
+    <string name="w3c_text_huge">Величезний</string>
+    <string name="w3c_text_giant">Гігантський</string>
+</resources>

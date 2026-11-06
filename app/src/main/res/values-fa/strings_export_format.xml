@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="export_format_json">فایل uMessage (متن و تصویر)</string>
+    <string name="export_format_xml">فایل SMS Backup &amp; Restore (برای برنامه‌های دیگر)</string>
+    <string name="export_format_xml_hint">uMessage فقط متن‌ها را از این نوع فایل بازیابی می‌کند.</string>
+    <string name="export_scope_all">همهٔ گفتگوها</string>
+    <string name="export_scope_choose">انتخاب گفتگوها</string>
+    <plurals name="export_scope_chosen" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d گفتگو انتخاب شده</item>
+        <item quantity="other">%1$d گفتگو انتخاب شده</item>
+    </plurals>
+    <string name="export_pick_title">انتخاب گفتگوها</string>
+    <string name="export_pick_search">جستجو</string>
+    <string name="export_pick_all">انتخاب همه</string>
+    <string name="export_pick_none">لغو انتخاب</string>
+    <string name="export_pick_empty">هیچ گفتگویی وجود ندارد</string>
+    <string name="export_pick_nothing_chosen">دست‌کم یک گفتگو انتخاب کنید</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">İmza</string>
+    <string name="i60_off">Kapalı</string>
+    <string name="i60_dialog_note">Gönderdiğiniz her mesajın altına eklenir. İmza istemiyorsanız boş bırakın.</string>
+</resources>

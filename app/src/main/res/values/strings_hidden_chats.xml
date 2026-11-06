@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">Hide this chat</string>
+    <string name="hidden_chats_menu_unhide">Unhide this chat</string>
+    <string name="hidden_chats_confirm">Hide this chat? It leaves the list, search and notifications until you unlock hidden chats with your app lock.</string>
+    <string name="hidden_chats_need_lock">Hidden chats need an app lock. Set one up now?</string>
+    <string name="hidden_chats_set_lock">Set up</string>
+    <string name="hidden_chats_done">Chat hidden</string>
+    <string name="hidden_chats_show">Hidden chats</string>
+    <string name="hidden_chats_lock">Lock hidden chats</string>
+</resources>

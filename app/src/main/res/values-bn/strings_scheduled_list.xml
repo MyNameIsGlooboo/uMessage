@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_list_title">সময় নির্ধারণ করা বার্তা</string>
+    <string name="scheduled_list_empty_title">কোনো বার্তার সময় নির্ধারণ করা নেই</string>
+    <string name="scheduled_list_empty_body">যেসব বার্তার সময় আপনি নির্ধারণ করেন, পাঠানো পর্যন্ত সেগুলো এখানে থাকে।</string>
+    <string name="scheduled_list_not_sent">পাঠানো হয়নি</string>
+    <string name="scheduled_list_edit_time">সময় বদলান</string>
+    <string name="scheduled_list_send_now">এখনই পাঠান</string>
+    <string name="scheduled_list_delete">মুছুন</string>
+    <string name="scheduled_list_send_confirm">এখনই %1$s-কে এই বার্তা পাঠাবেন?</string>
+    <string name="scheduled_list_delete_confirm">%1$s-কে পাঠানোর জন্য সময় নির্ধারণ করা বার্তাটি মুছবেন?</string>
+    <string name="scheduled_list_row_actions">%1$s-কে পাঠানোর বার্তার বিকল্প</string>
+</resources>

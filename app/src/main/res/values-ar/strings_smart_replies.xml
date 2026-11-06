@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">الردود الذكية</string>
+    <string name="smart_replies_summary">ردود سريعة من قائمة على هاتفك</string>
+    <string name="smart_replies_hide">أخفِ الاقتراحات</string>
+</resources>

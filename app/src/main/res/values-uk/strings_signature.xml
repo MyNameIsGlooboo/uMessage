@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">Підпис</string>
+    <string name="i60_off">Вимкнено</string>
+    <string name="i60_dialog_note">Додається під кожним надісланим повідомленням. Залиште поле порожнім, щоб не додавати підпис.</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">Masquer cette conversation</string>
+    <string name="hidden_chats_menu_unhide">Afficher cette conversation</string>
+    <string name="hidden_chats_confirm">Masquer cette conversation ? Elle disparaîtra de la liste, des recherches et des notifications jusqu\'au déverrouillage des conversations masquées avec le verrouillage de l\'application.</string>
+    <string name="hidden_chats_need_lock">Les conversations masquées nécessitent le verrouillage de l\'application. Le configurer maintenant ?</string>
+    <string name="hidden_chats_set_lock">Configurer</string>
+    <string name="hidden_chats_done">Conversation masquée</string>
+    <string name="hidden_chats_show">Conversations masquées</string>
+    <string name="hidden_chats_lock">Verrouiller les conversations masquées</string>
+</resources>

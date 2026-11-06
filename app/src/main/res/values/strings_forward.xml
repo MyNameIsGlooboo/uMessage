@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Forward rules (wave 8): the Forward tab of the Rules screen, its sheet and dialogs, and the decision log. -->
+<resources>
+    <!-- Decision log -->
+    <string name="ui_log_decision_forwarded">Forwarded</string>
+    <string name="ui_log_decision_forward_failed">Forward failed</string>
+    <string name="ui_log_decision_forward_skipped">Not forwarded</string>
+    <string name="ui_log_source_forward">Forward</string>
+    <string name="declog_fwd_sent">Forwarded to %1$s (sent)</string>
+    <string name="declog_fwd_failed">Forwarded to %1$s (failed)</string>
+    <string name="declog_fwd_radio_failed">Forward to %1$s failed: the network did not deliver it</string>
+    <string name="declog_fwd_code_excluded">Not forwarded: verification codes are off for this rule</string>
+    <string name="declog_fwd_loop_forward">Not forwarded: it was already a forwarded message</string>
+    <string name="declog_fwd_loop_sender">Not forwarded to %1$s: it is the number the message came from</string>
+    <string name="declog_fwd_sim_fallback">Sent from the receiving SIM: the chosen SIM is not in the phone</string>
+    <string name="declog_fwd_error">Not forwarded: an error stopped it (%1$s)</string>
+    <string name="declog_fwd_rule">Rule: %1$s</string>
+    <string name="declog_fwd_rule_deleted">a deleted rule</string>
+
+    <!-- App lock screen, when it confirms a change to the forward rules -->
+    <string name="lock_confirm_title">Confirm it\'s you</string>
+
+    <!-- Forward tab -->
+    <string name="forward_tab">Forward</string>
+    <string name="forward_add">Add forward</string>
+    <string name="forward_intro">Messages that reach your inbox and match a rule are sent on by SMS. Blocked spam is never forwarded.</string>
+    <string name="forward_paid_note">Each forward is a paid SMS.</string>
+    <string name="forward_empty_title">No forward rules</string>
+    <string name="forward_empty_body">Send a copy of matching messages, such as bank alerts, to another phone.</string>
+    <string name="forward_row_from">From: %1$s</string>
+    <string name="forward_row_text">Text: %1$s</string>
+    <string name="forward_row_any_sender">Any sender</string>
+    <string name="forward_row_to">To: %1$s</string>
+    <string name="forward_chip_codes">Codes included</string>
+    <string name="forward_chip_window">%1$s to %2$s</string>
+    <string name="forward_chip_send_from">Sends from SIM %1$d</string>
+    <string name="forward_rule_switch">Forward with this rule</string>
+    <string name="forward_edit_rule">Edit forward rule</string>
+    <string name="forward_delete_rule">Delete forward rule</string>
+    <string name="forward_change_failed">The change could not be saved. Try again.</string>
+
+    <!-- Add and edit sheet -->
+    <string name="forward_sheet_title_add">New forward rule</string>
+    <string name="forward_sheet_title_edit">Edit forward rule</string>
+    <string name="forward_sheet_sender_label">Sender</string>
+    <string name="forward_sheet_text_label">Message text</string>
+    <string name="forward_sheet_any">Any</string>
+    <string name="forward_sheet_sender_value">Sender</string>
+    <string name="forward_sheet_text_value">Text to look for</string>
+    <string name="forward_sheet_condition_needed">Choose a sender or a text to look for.</string>
+    <string name="forward_sheet_targets_label">Send to (up to 3 numbers)</string>
+    <string name="forward_sheet_target_n">Number %1$d</string>
+    <string name="forward_sheet_add_target">Add number</string>
+    <string name="forward_sheet_remove_target">Remove number %1$d</string>
+    <string name="forward_sheet_target_needed">Add at least one number to forward to.</string>
+    <string name="forward_err_target_invalid">Enter a phone number with 7 to 15 digits</string>
+    <string name="forward_err_target_duplicate">This number is already in the list</string>
+    <string name="forward_sheet_window">Only at certain times</string>
+    <string name="forward_sheet_window_body">Forward only between these times. An end before the start runs past midnight.</string>
+    <string name="forward_sheet_start">Start %1$s</string>
+    <string name="forward_sheet_end">End %1$s</string>
+    <string name="forward_sheet_pick_start">Start time</string>
+    <string name="forward_sheet_pick_end">End time</string>
+    <string name="forward_sheet_scope_label">Received on</string>
+    <string name="forward_sheet_send_from_label">Send from</string>
+    <string name="forward_sim_same">Same SIM</string>
+    <string name="forward_sheet_codes">Include verification codes</string>
+    <string name="forward_sheet_codes_body">When off, messages that look like sign-in or verification codes are not forwarded.</string>
+    <string name="forward_sheet_paid">Each forward is a paid SMS. Long messages are sent in several parts.</string>
+
+    <!-- Dialogs -->
+    <string name="forward_codes_title">Forward verification codes?</string>
+    <string name="forward_codes_message">Forwarding codes lets the recipient sign in to your accounts. Scammers use this: they talk people into forwarding their messages to steal codes. Only turn this on for a phone you own.</string>
+    <string name="forward_codes_confirm">Include codes</string>
+    <string name="forward_delete_title">Delete forward rule?</string>
+    <string name="forward_delete_message">Messages will no longer be forwarded by this rule.</string>
+    <string name="forward_no_lock_title">Protect forwarding with an app lock</string>
+    <string name="forward_no_lock_message">Forward rules send your messages to other phones, so anyone holding your unlocked phone could add one. With an app lock, changing forward rules asks for your PIN or fingerprint.</string>
+    <string name="forward_no_lock_continue">Continue</string>
+    <string name="forward_no_lock_set_up">Set up app lock</string>
+</resources>

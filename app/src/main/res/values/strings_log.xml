@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">Recent activity</string>
+    <string name="declog_clear">Clear log</string>
+    <string name="declog_empty_title">No decisions yet</string>
+    <string name="declog_empty_body">Every message the filter checks shows up here with the reason. Message text is never saved.</string>
+    <plurals name="declog_kept_for">
+        <item quantity="one">Each decision is deleted after %d day. Message text is never saved.</item>
+        <item quantity="other">Each decision is deleted after %d days. Message text is never saved.</item>
+    </plurals>
+    <string name="declog_sim">SIM %1$s</string>
+    <string name="declog_today">Today</string>
+    <string name="declog_yesterday">Yesterday</string>
+    <string name="declog_allowed_by_rule">Allowed by rule: %1$s</string>
+    <string name="declog_filter_all">All</string>
+    <string name="declog_filter_blocked">Blocked</string>
+    <string name="declog_filter_allowed">Allowed</string>
+    <string name="declog_filter_empty">No decisions match this filter</string>
+    <plurals name="declog_times">
+        <item quantity="one">%1$s time</item>
+        <item quantity="other">%1$s times</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="one">The same decision was made %1$s time in a row</item>
+        <item quantity="other">The same decision was made %1$s times in a row</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="one">Share %d decision</item>
+        <item quantity="other">Share %d decisions</item>
+    </plurals>
+    <string name="declog_csv_subject">uMessage decision log</string>
+    <string name="declog_share_failed">Could not share the log</string>
+    <string name="declog_details_title">Details</string>
+    <string name="declog_open_details">Open details for %1$s</string>
+    <string name="declog_fixed_allowed">You allowed this sender from the log</string>
+    <string name="declog_fixed_blocked">You blocked this sender from the log</string>
+    <string name="declog_fixed_restored">You restored this message from the log</string>
+    <string name="declog_restored">Restored</string>
+    <string name="declog_blocked_message">The message, still in Blocked</string>
+    <string name="declog_restore">Restore message</string>
+    <string name="declog_restore_done">Message restored to the inbox</string>
+    <string name="declog_restore_text_only">Text restored to the inbox. The pictures could not be recovered.</string>
+    <string name="declog_restore_nothing">Nothing to restore: this picture message was not kept</string>
+    <string name="declog_restore_failed">Could not restore the message</string>
+    <!-- Between the parts of a log row: "Blocked · 2 times · Unknown sender". -->
+    <string name="declog_separator">" · "</string>
+    <!-- Separator between short parts of one line (date and time, time and SIM). In Persian a middle dot next to digits reads like a zero. -->
+    <string name="ui_separator">" · "</string>
+</resources>

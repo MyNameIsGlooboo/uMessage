@@ -1,0 +1,137 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|Привет!
+greeting|Здравствуйте
+greeting|приветик
+greeting|Всем привет
+good_morning|Доброе утро!
+good_morning|С добрым утром всех
+good_afternoon|Добрый день
+good_afternoon|Добрый день вам
+good_evening|Добрый вечер!
+good_night|Спокойной ночи 😴
+good_night|Сладких снов
+good_night|Доброй ночи тебе
+how_are_you|Привет, как дела?
+how_are_you|Как жизнь?
+how_are_you|Что нового
+how_are_you|Как прошёл день?
+thanks|Спасибо большое!
+thanks|Благодарю
+thanks|спс
+thanks|Спасибо за информацию
+thanks|Огромное спасибо 🙏
+youre_welcome|Пожалуйста
+youre_welcome|Обращайся
+youre_welcome|Нет проблем
+youre_welcome|Рада помочь
+where_are_you|Ты где?
+where_are_you|Где вы сейчас?
+where_are_you|Ты далеко?
+on_my_way|Уже выезжаю
+on_my_way|Скоро приеду
+on_my_way|Бегу к тебе
+on_my_way|Буду через пять минут
+on_my_way|Я уже близко
+arrived|Я на месте
+arrived|Жду внизу
+arrived|Я у подъезда
+arrived|Мы приехали
+arrived_home|Я дома
+arrived_home|Добрался домой
+arrived_home|Мы добрались благополучно
+arrived_home|Только что пришла домой
+did_you_arrive|Ты доехал?
+did_you_arrive|Вы уже дома?
+did_you_arrive|Как добралась?
+are_you_coming|Ты придёшь сегодня?
+are_you_coming|Придёте завтра вечером?
+are_you_coming|Сможешь приехать?
+call_me|Позвони мне
+call_me|Перезвони, пожалуйста
+call_me|Можешь позвонить?
+call_me|Позвони когда сможешь
+can_you_talk|Можешь говорить?
+can_you_talk|Есть минутка?
+can_you_talk|Можно позвонить?
+are_you_free|Ты свободна сегодня?
+are_you_free|Есть время завтра?
+are_you_free|Вы заняты?
+what_time|Во сколько встречаемся?
+what_time|В котором часу
+what_time|Когда лучше встретиться?
+where_to_meet|Где встретимся?
+where_to_meet|Куда пойдём вечером?
+where_to_meet|Где тебе удобно
+ok_confirm|Окей
+ok_confirm|Договорились
+ok_confirm|Понял, спасибо
+ok_confirm|Хорошо!
+ok_confirm|Отлично, принято
+bye|Пока!
+bye|До встречи
+bye|Хорошего дня
+bye|Созвонимся завтра
+bye|Береги себя
+congrats|Поздравляю!
+congrats|С днём рождения!
+congrats|Поздравляю с победой
+congrats|Отличная работа
+holiday_eid|Ид Мубарак
+holiday_eid|Поздравляю с Ураза байрамом
+holiday_new_year|С Новым годом!
+holiday_new_year|С наступающим
+holiday_christmas|С Рождеством
+holiday_other|С праздником!
+holiday_other|Хороших праздников вам
+good_luck|Удачи!
+good_luck|Ни пуха ни пера
+good_luck|Успехов тебе
+sorry_late|Извини за задержку
+sorry_late|Прости, только увидел
+sorry_late|Простите
+missed_call|Я пропустила твой звонок
+missed_call|Вижу пропущенный звонок
+missed_call|Не успел ответить
+NONE|Где ты был вчера вечером и почему не отвечал на звонки ночью?
+NONE|Перезвони мне, мой код 5821
+NONE|Позвони по номеру 8800 555
+NONE|Спасибо, переведи мне деньги завтра
+NONE|Привет, подтверждение никому не говори
+NONE|Зайди на www.example.com и позвони
+NONE|Привет, как дела? Что делаешь?
+NONE|Ты придёшь когда?
+NONE|Ты придёшь, что принести?
+NONE|Спасибо, но мне это не подходит
+NONE|Привет, мне срочно нужна помощь
+NONE|Я в больнице, позвони
+NONE|Сегодня умерла бабушка
+NONE|Где мы сегодня будем ужинать вчетвером в центре города
+NONE|Во сколько у тебя самолёт в Москву завтра?
+NONE|Позвони маме, она волнуется
+NONE|Я не приду сегодня
+NONE|Нет, спасибо
+NONE|Очень рад познакомиться
+NONE|Пока не знаю, потом скажу
+NONE|Ты где-то видел мои ключи?
+NONE|Хорошо, но мне нужно подумать до завтра
+NONE|Добрый день, это служба доставки
+NONE|Привет! Это Анна из бухгалтерии, помнишь меня?
+NONE|Пароль от вайфая записан на бумаге
+NONE|Оплата прошла успешно
+NONE|Кредит одобрен, позвоните в банк
+NONE|Мне пришёл код подтверждения
+NONE|Поздравляю, но не от всей души
+NONE|Поздравляю с покупкой, не забудь про гарантию
+NONE|Ты придёшь? Она придёт?
+NONE|Я приеду в понедельник
+NONE|Мы приехали в Питер вчера
+NONE|Давайте поговорим о работе
+NONE|Скажи, во сколько прилетаешь, встречу
+NONE|Он свободен сегодня?
+NONE|Мы выходим в субботу в театр
+NONE|Привет https://t.me/example
+NONE|Сегодня с утра на работе, потом заеду к родителям, купим продукты, приготовим ужин, посмотрим фильм и ляжем спать пораньше, потому что завтра рано вставать и ехать на другой конец города по делам
+NONE|Спасибо, Привет, пока
+NONE|Hello, как дела
+NONE|Позвони мне, я потратил 500 рублей на такси

@@ -1,0 +1,100 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|سلام
+greeting|سلاااام
+greeting|درود
+good_morning|صبح بخیر
+good_morning|صبح‌بخیر عزیزم
+good_night|شب بخیر
+good_night|شبت خوش
+how_are_you|سلام خوبی؟
+how_are_you|چطوری؟
+how_are_you|حالتون چطوره
+how_are_you|چه خبر
+thanks|مرسی
+thanks|ممنونم
+thanks|خیلی ممنون
+thanks|دستت درد نکنه
+thanks|ممنون که اومدی
+youre_welcome|خواهش می‌کنم
+youre_welcome|قابلی نداشت
+where_are_you|کجایی؟
+where_are_you|الان کجایید
+where_are_you|کجایی پس
+on_my_way|تو راهم
+on_my_way|دارم میام
+on_my_way|راه افتادم
+arrived|دم در هستم
+arrived|پایینم
+arrived_home|رسیدم خونه
+arrived_home|سالم رسیدم
+did_you_arrive|رسیدی؟
+did_you_arrive|رسیدین خونه؟
+are_you_coming|فردا میای؟
+are_you_coming|امشب میای؟
+are_you_coming|میای بریم سینما؟
+call_me|زنگ بزن
+call_me|یه زنگ بزن بهم
+call_me|لطفا تماس بگیرید
+can_you_talk|الان میتونی صحبت کنی؟
+can_you_talk|میشه زنگ بزنم؟
+are_you_free|سرت شلوغه؟
+are_you_free|امشب آزادی؟
+what_time|ساعت چند؟
+what_time|ساعت چند بیام؟
+where_to_meet|کجا همدیگه رو ببینیم؟
+ok_confirm|باشه
+ok_confirm|اوکی
+ok_confirm|چشم
+bye|خداحافظ
+bye|فعلا
+bye|بعدا میبینمت
+congrats|تبریک میگم
+congrats|تولدت مبارک
+holiday_eid|عیدت مبارک
+holiday_new_year|سال نو مبارک
+holiday_yalda|شب یلدا مبارک
+good_luck|موفق باشی
+sorry_late|ببخشید دیر شد
+sorry_late|شرمنده دیر جواب دادم
+missed_call|تماستون رو از دست دادم
+NONE|کی میای؟
+NONE|چرا دیر کردی؟
+NONE|کد تأیید شما ۴۸۲۹۱ است
+NONE|موجودی حساب شما ۱۲۰٬۰۰۰ ریال است
+NONE|سلام، من علی هستم و می‌خواستم درباره اون کار با شما صحبت کنم
+NONE|ممنون ولی من قبلا پولش رو دادم
+NONE|مادرم تو بیمارستانه، زنگ بزن لطفا
+NONE|کجا میری؟
+NONE|ساعت چنده؟
+NONE|ساعت چند شد؟
+NONE|فردا میرم مسافرت
+NONE|دستت درد نکنه ولی این کار رو نکردی
+NONE|باشه ولی فردا نمیتونم بیام
+NONE|سلام علی جان خوبی؟
+NONE|خوبم ممنون
+NONE|زنگ نزن لطفا
+NONE|زنگ زدم جواب ندادی
+NONE|ببخشید، ایستگاه کجاست؟
+NONE|عیدت مبارک؟
+NONE|رسیدم؟
+NONE|سلام؟
+NONE|مبارک نیست
+NONE|https://example.com لینک رو ببین
+NONE|نه ممنون
+NONE|شب بخیر بچه ها امشب خیلی خوش گذشت
+NONE|تبریک نگفتی بهم؟
+NONE|۵۰۰ هزار تومان واریز کن لطفا
+NONE|فردا ساعت ۵ میام
+NONE|ممنون از شما برای کمک مالی
+NONE|😂😂
+NONE|خسته نباشی
+NONE|سلام، فردا جلسه داریم یادت نره
+NONE|کجایی بابا؟
+NONE|باشه فردا حرف می‌زنیم
+NONE|تو نمیای
+NONE|چرا نمیای؟
+NONE|اگه میای بگو
+NONE|ببخشید
+NONE|شرمنده
+NONE|تبریک! برنده شدید، برای دریافت جایزه پاسخ بدهید

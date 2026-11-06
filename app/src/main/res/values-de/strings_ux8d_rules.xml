@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">Immer erlauben</string>
+    <string name="ux8d_sheet_title_block">Immer blockieren</string>
+    <string name="ux8d_match_label">Worauf soll die Regel zutreffen?</string>
+    <string name="ux8d_match_number">Eine Telefonnummer</string>
+    <string name="ux8d_match_sender">Ein Absendername, etwa eine Bank</string>
+    <string name="ux8d_match_word">Ein Wort in der Nachricht</string>
+    <string name="ux8d_match_prefix">Nummern, die beginnen mit…</string>
+    <string name="ux8d_match_pattern">Ein Muster (Regex, erweitert)</string>
+    <string name="ux8d_match_more">Weitere Kriterien</string>
+    <string name="ux8d_action_label">Bei Übereinstimmung</string>
+    <string name="ux8d_more_options">Weitere Optionen</string>
+    <string name="ux8d_row_type_number">Nummer</string>
+    <string name="ux8d_row_type_prefix">Nummer beginnt mit</string>
+    <string name="ux8d_row_type_sender">Absendername</string>
+    <string name="ux8d_row_type_word">Wort in Nachricht</string>
+    <string name="ux8d_row_type_pattern">Muster (Regex)</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

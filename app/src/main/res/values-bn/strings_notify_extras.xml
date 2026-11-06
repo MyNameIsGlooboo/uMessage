@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">স্ক্রিন জ্বালান</string>
+    <string name="wake_screen_summary">নতুন বার্তা এলে স্ক্রিন জ্বলে ওঠে</string>
+    <string name="bubbles_title">চ্যাট বাবল</string>
+    <string name="bubbles_summary">চ্যাট ভাসমান বাবল হিসেবে দেখায়</string>
+    <string name="bubbles_locked">অ্যাপ লক চালু থাকলে ব্যবহার করা যায় না</string>
+    <string name="focus_codes_title">লাইভ বিজ্ঞপ্তিতে কোড</string>
+    <string name="focus_codes_summary">Xiaomi-এর লাইভ বিজ্ঞপ্তিতে কোড দেখায়</string>
+</resources>

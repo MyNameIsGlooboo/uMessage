@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">कारण</string>
+    <string name="thread_r2_details_rule">नियम</string>
+    <string name="thread_r2_details_forwarded">फ़ॉरवर्ड किया गया</string>
+    <string name="thread_r2_details_decision_restored">ब्लॉक किया गया, फिर आपके इनबॉक्स में वापस लाया गया</string>
+    <string name="thread_r2_details_copy">%1$s कॉपी करें</string>
+    <string name="thread_r2_menu_search">बातचीत में खोजें</string>
+    <string name="thread_r2_menu_always_forward">इस भेजने वाले के मैसेज हमेशा फ़ॉरवर्ड करें</string>
+    <string name="thread_r2_block_hint">आगे आने वाले मैसेज ब्लॉक किए गए में जाएंगे. आपके फ़ोन से कुछ भी बाहर नहीं जाता.</string>
+    <string name="thread_r2_forward_message">यह मैसेज फ़ॉरवर्ड करें</string>
+    <string name="thread_r2_search_hint">बातचीत में खोजें</string>
+    <string name="thread_r2_search_close">खोज बंद करें</string>
+    <string name="thread_r2_search_none">कोई नतीजा नहीं मिला</string>
+    <string name="thread_r2_search_count">%2$d में से %1$d</string>
+    <string name="thread_r2_search_older">पुराना नतीजा</string>
+    <string name="thread_r2_search_newer">नया नतीजा</string>
+    <string name="thread_r2_link_copy">लिंक कॉपी करें</string>
+    <string name="thread_r2_link_share">शेयर करें</string>
+    <string name="thread_r2_schedule_pick_date">तारीख चुनें</string>
+    <string name="thread_r2_calendar_previous">पिछला महीना</string>
+    <string name="thread_r2_calendar_next">अगला महीना</string>
+</resources>

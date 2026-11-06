@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_text_menu">Chia sẻ cuộc trò chuyện dạng văn bản</string>
+    <string name="share_text_scope_title">Chia sẻ tin nhắn nào?</string>
+    <string name="share_text_scope_whole">Toàn bộ cuộc trò chuyện</string>
+    <string name="share_text_scope_last">50 tin nhắn gần nhất</string>
+    <string name="share_text_title">Chia sẻ dạng văn bản</string>
+    <string name="share_text_warning">Thao tác này gửi văn bản riêng tư sang ứng dụng khác. Bạn sẽ chọn ứng dụng ở bước tiếp theo.</string>
+    <string name="share_text_action">Chia sẻ</string>
+    <string name="share_text_range">%1$s đến %2$s</string>
+    <string name="share_text_attachment">[Tệp đính kèm]</string>
+    <string name="share_text_subject">Tin nhắn từ uMessage</string>
+    <string name="share_text_nothing">Không có tin nhắn để chia sẻ</string>
+    <plurals name="share_text_count">
+        <item quantity="other">%1$d tin nhắn</item>
+    </plurals>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">Надіслати точно вчасно?</string>
+    <string name="schedule_exact_alarm_text">Щоб заплановані повідомлення надсилалися точно вчасно, надайте uMessage дозвіл «Будильники й нагадування» в системних налаштуваннях. Без нього повідомлення теж надсилатимуться, але можуть запізнюватися.</string>
+    <string name="schedule_exact_alarm_open_settings">Відкрити налаштування</string>
+    <string name="schedule_exact_alarm_anyway">Усе одно запланувати надсилання</string>
+</resources>

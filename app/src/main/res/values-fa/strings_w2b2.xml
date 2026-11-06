@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2b2_thread_menu_allow">همیشه به این فرستنده اجازه دادن</string>
+    <string name="w2b2_thread_menu_why">چرا این تصمیم گرفته شد؟</string>
+    <string name="w2b2_thread_chip_allowed">همیشه مجاز</string>
+    <string name="w2b2_thread_chip_blocked">مسدودشده طبق قانون</string>
+    <string name="w2b2_settings_group_dates">تاریخ‌ها</string>
+    <string name="w2b2_settings_jalali">تاریخ‌های شمسی</string>
+    <string name="w2b2_settings_jalali_body">نمایش تاریخ‌ها در گفتگوها و پیام‌های زمان‌بندی‌شده با تقویم شمسی</string>
+    <string name="w2b2_lock_pattern_hint">حداقل %d نقطه را به هم وصل کنید، سپس همان الگو را برای تأیید دوباره بکشید.</string>
+    <string name="w2b2_lock_recovery_hint">اگر آن را فراموش کنید، در صفحهٔ قفل می‌توانید با قفل صفحهٔ گوشی خود دوباره وارد شوید.</string>
+</resources>

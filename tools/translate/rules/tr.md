@@ -1,0 +1,5 @@
+- Turkish, natural and short, like Google Messages and Turkish banking apps.
+- Address the user with the polite "siz" form: imperatives end in -in/-ın/-un/-ün ("Seçin", "Açın"); avoid "sen".
+- Sentence case: only the first word of a title or button is capitalised (no English-style Title Case).
+- Do not stack long agglutinated suffixes; prefer a short phrase. Never attach a suffix directly to a token: reword the sentence instead.
+- Plural ids: "one" and "other". After a number Turkish nouns stay singular ("5 mesaj").

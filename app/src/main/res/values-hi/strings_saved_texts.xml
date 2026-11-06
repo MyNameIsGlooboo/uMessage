@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">सेव किया गया टेक्स्ट</string>
+    <string name="n06_sheet_title">सेव किए गए टेक्स्ट</string>
+    <string name="n06_empty_hint">जैसे: आपका पता या कार्ड नंबर. मैसेज में डालने के लिए किसी एक पर टैप करें.</string>
+    <string name="n06_add">सेव किया गया टेक्स्ट जोड़ें</string>
+    <string name="n06_edit">सेव किया गया टेक्स्ट बदलें</string>
+    <string name="n06_title_label">शीर्षक (वैकल्पिक)</string>
+    <string name="n06_text_label">टेक्स्ट</string>
+    <string name="n06_save">सेव करें</string>
+    <string name="n06_delete">मिटाएं</string>
+    <string name="n06_private_tip">सिर्फ़ इस फ़ोन पर रखा जाता है, एन्क्रिप्ट नहीं किया जाता. पासवर्ड या पिन सेव न करें.</string>
+    <string name="n06_save_from_message">सेव किए गए टेक्स्ट में जोड़ें</string>
+    <string name="n06_saved_toast">सेव किया गया</string>
+    <string name="n06_save_full">सूची भर गई है. पहले एक मिटाएं.</string>
+    <string name="n06_save_duplicate">पहले से सेव है</string>
+</resources>

@@ -1,0 +1,6 @@
+- French (France), short and natural, like Google Messages and French banking apps.
+- Address the user with the polite plural "vous": imperatives "Choisissez", "Activez"; never "tu".
+- Sentence case: only the first word is capitalised (no English-style Title Case).
+- French typography: put a no-break space (U+00A0) before ? ! : ; and inside « » quotes. Use a plain apostrophe.
+- Plural ids: "one" (covers 0 and 1: "0 message", "1 message") and "other". Do not write "many".
+- Gender: avoid forms that need the user's gender; reword.

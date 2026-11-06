@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_allow_title">
+        <item quantity="other">始终允许这%d个发件人？</item>
+    </plurals>
+    <string name="spam_allow_body_one">无论是否允许，消息都会恢复到收件箱。如果始终允许%1$s，该发件人今后的消息将跳过所有过滤，包括你的屏蔽规则。</string>
+    <string name="spam_allow_body_many">无论是否允许，消息都会恢复到收件箱。如果始终允许这些发件人，他们今后的消息将跳过所有过滤，包括你的屏蔽规则。</string>
+    <string name="spam_allow_spoof_warning">任何人都能使用%1$s这样的名称发送短信。允许此名称后，冒用该名称的虚假短信也能通过。</string>
+    <string name="spam_allow_confirm">始终允许</string>
+    <string name="spam_allow_dismiss">暂不</string>
+    <plurals name="spam_snack_restored_to_inbox">
+        <item quantity="other">已将%d条消息恢复到收件箱</item>
+    </plurals>
+    <plurals name="spam_snack_restored_allowed">
+        <item quantity="other">已恢复。已设为始终允许%d个发件人。</item>
+    </plurals>
+    <plurals name="spam_snack_allowed_only">
+        <item quantity="other">已设为始终允许%d个发件人。</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost">
+        <item quantity="other">%d条消息中的图片无法恢复。</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost_nothing">
+        <item quantity="other">%d条彩信无法恢复，因此未向收件箱添加任何消息。</item>
+    </plurals>
+    <plurals name="spam_snack_restore_failed">
+        <item quantity="other">%d条彩信无法恢复，仍保留在这里。</item>
+    </plurals>
+    <string name="spam_mms_stored">彩信</string>
+    <string name="spam_mms_downloading">彩信，正在下载</string>
+    <string name="spam_mms_missing">彩信，未下载</string>
+    <string name="spam_mms_thumbnail">已屏蔽消息中的图片</string>
+    <string name="spam_reason_rule_keyword">规则：关键词“%1$s”</string>
+    <string name="spam_reason_rule_regex">规则：正则表达式%1$s</string>
+    <string name="spam_reason_rule_number">规则：号码%1$s</string>
+    <string name="spam_reason_rule_prefix">规则：以%1$s开头的号码</string>
+    <string name="spam_reason_rule_sender">规则：发件人%1$s</string>
+    <string name="spam_reason_rule_removed">规则已移除</string>
+    <string name="spam_reason_open_rules">打开规则</string>
+    <plurals name="spam_purge_notice">
+        <item quantity="other">已屏蔽的消息将在%d天后删除</item>
+    </plurals>
+    <string name="spam_purge_notice_off">已屏蔽的消息会一直保留，直到手动删除</string>
+    <plurals name="spam_purge_left">
+        <item quantity="other">%d天后删除</item>
+    </plurals>
+    <string name="spam_purge_left_today">今天删除</string>
+    <string name="convlist_report_spam">举报垃圾短信</string>
+    <plurals name="convlist_reported_spam_archived">
+        <item quantity="other">已举报%d个会话。相关发件人的新短信将进入“已屏蔽”，会话已归档。</item>
+    </plurals>
+    <plurals name="convlist_reported_spam">
+        <item quantity="other">已举报%d个会话。相关发件人的新短信将进入“已屏蔽”。</item>
+    </plurals>
+    <string name="blocked_title">已屏蔽</string>
+    <string name="blocked_menu_rules">规则</string>
+    <string name="blocked_mode_group_cd">未知发件人：%1$s，第%2$d项，共%3$d项</string>
+    <string name="blocked_mode_desc_strict">严格：屏蔽所有未知发件人的消息，包括验证码</string>
+    <string name="blocked_mode_desc_smart">智能：屏蔽未知发件人的消息，但允许不含链接的验证码通过</string>
+    <string name="blocked_mode_desc_off">关闭：未知发件人的消息直接进入收件箱。你的规则仍然生效</string>
+    <string name="blocked_snack_mode">未知发件人的过滤模式已设为%1$s</string>
+    <string name="blocked_off_title">停止屏蔽未知发件人？</string>
+    <string name="blocked_off_body">未知发件人的消息将直接进入收件箱。你的规则仍然生效。</string>
+    <string name="blocked_off_confirm">关闭</string>
+    <string name="blocked_stats_restored">你已恢复%1$d条</string>
+    <string name="blocked_reason_unknown_link">未知发件人，含链接</string>
+    <string name="blocked_may_be_important">可能很重要</string>
+    <string name="blocked_action_move_inbox">移至收件箱</string>
+    <string name="blocked_swipe_not_spam">滑动移至收件箱</string>
+</resources>

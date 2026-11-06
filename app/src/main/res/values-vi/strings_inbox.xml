@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">Dọn sạch mục lưu trữ</string>
+    <string name="inbox_empty_bin_menu">Dọn sạch thùng rác</string>
+    <string name="inbox_archive_empty_body">Các cuộc trò chuyện bạn lưu trữ từ mục Tin nhắn sẽ hiện ở đây.</string>
+    <string name="inbox_details_view_contact">Xem người liên hệ</string>
+    <string name="inbox_details_more">Thêm</string>
+    <string name="inbox_details_search">Tìm trong cuộc trò chuyện</string>
+    <string name="inbox_details_search_body">Tìm tin nhắn trong cuộc trò chuyện này</string>
+    <string name="inbox_details_forward">Quy tắc chuyển tiếp cho người gửi này</string>
+    <string name="inbox_details_forward_body">Gửi bản sao tin nhắn của người gửi này đến số khác</string>
+    <string name="inbox_details_search_hint">Tìm trong cuộc trò chuyện này</string>
+</resources>

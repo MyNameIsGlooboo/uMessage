@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screens_back">Zurück</string>
+    <string name="screens_ok">OK</string>
+    <string name="screens_cancel">Abbrechen</string>
+    <string name="screens_delete">Löschen</string>
+    <string name="screens_clear_selection">Auswahl aufheben</string>
+    <plurals name="screens_selected_count">
+        <item quantity="one">%d ausgewählt</item>
+        <item quantity="other">%d ausgewählt</item>
+    </plurals>
+    <string name="screens_loading">Wird geladen…</string>
+    <string name="screens_more_options">Weitere Optionen</string>
+    <string name="screens_select_all">Alle auswählen</string>
+    <string name="screens_copy">Kopieren</string>
+    <string name="screens_grant_permission">Zugriff erlauben</string>
+    <string name="screens_delete_forever_title">Endgültig löschen?</string>
+    <string name="screens_delete_conversations_message">%1$s endgültig löschen? Das lässt sich nicht rückgängig machen.</string>
+    <string name="screens_restore_title">Wiederherstellen?</string>
+    <string name="screens_empty_archive_title">Archiv leeren?</string>
+    <string name="screens_empty_bin_title">Papierkorb leeren?</string>
+    <string name="screens_empty_action">Leeren</string>
+    <string name="screens_archive_empty_title">Nichts archiviert</string>
+    <string name="screens_bin_empty_title">Papierkorb ist leer</string>
+    <string name="screens_bin_empty_body">Gelöschte Nachrichten bleiben hier, bis der Papierkorb geleert wird.</string>
+    <string name="screens_new_to_hint">An</string>
+    <string name="screens_new_start">Unterhaltung mit %1$s starten</string>
+    <string name="screens_new_clear_input">Leeren</string>
+    <string name="screens_new_no_matches">Keine passenden Kontakte. Tippe auf den Pfeil, um der eingegebenen Nummer zu schreiben.</string>
+    <string name="screens_new_contacts">Kontakte</string>
+    <string name="screens_new_create_group">Gruppe erstellen</string>
+    <string name="screens_new_group_title">Neue Gruppe</string>
+    <string name="screens_new_group_next">Weiter</string>
+    <string name="screens_new_group_add">%1$s hinzufügen</string>
+    <string name="screens_new_group_remove">%1$s entfernen</string>
+    <string name="screens_new_group_selected">Ausgewählt</string>
+    <string name="screens_details_edit_name">Name der Unterhaltung ändern</string>
+    <string name="screens_keywords_add">Schlüsselwort hinzufügen</string>
+    <string name="screens_keywords_menu_export">Exportieren</string>
+    <string name="screens_keywords_menu_import">Importieren</string>
+    <string name="screens_keywords_edit">Bearbeiten</string>
+    <string name="screens_keywords_duplicate">Dieses Schlüsselwort steht bereits in der Liste</string>
+    <string name="screens_keywords_help">Findet den Text überall in einer Nachricht, auch innerhalb eines längeren Wortes. Groß- und Kleinschreibung spielt keine Rolle.</string>
+    <string name="screens_keywords_empty_title">Keine blockierten Schlüsselwörter</string>
+    <plurals name="screens_keywords_deleted">
+        <item quantity="one">%d Schlüsselwort gelöscht</item>
+        <item quantity="other">%d Schlüsselwörter gelöscht</item>
+    </plurals>
+    <string name="screens_vcard_title">Kontakt</string>
+    <string name="screens_vcard_add_contact">Zu Kontakten hinzufügen</string>
+    <string name="screens_vcard_expand">Details anzeigen</string>
+    <string name="screens_vcard_collapse">Details ausblenden</string>
+    <string name="screens_vcard_empty">Kein Kontakt in dieser Datei gefunden</string>
+    <string name="screens_dialog_filename">Dateiname</string>
+    <string name="screens_schedule_date">Datum</string>
+    <string name="screens_schedule_time">Uhrzeit</string>
+    <string name="screens_schedule_pick_time">Uhrzeit wählen</string>
+    <string name="screens_schedule_next">Weiter</string>
+    <string name="screens_delete_skip_bin">Papierkorb überspringen, direkt löschen</string>
+    <string name="screens_select_text_title">Text auswählen</string>
+</resources>

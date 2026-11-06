@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">Sesli okuyun</string>
+    <string name="read_aloud_stop">Okumayı durdurun</string>
+    <string name="read_aloud_no_voice">Bu telefonda şu dil için ses yüklü değil: %1$s</string>
+    <string name="read_aloud_install">Ses indirin</string>
+    <string name="read_aloud_install_missing">Bu telefonda ses yükleme seçeneği yok</string>
+    <string name="read_aloud_failed">Mesaj sesli okunamadı</string>
+</resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="declog_title">Журнал рішень</string>
+    <string name="declog_clear">Очистити журнал</string>
+    <string name="declog_empty_title">Рішень поки немає</string>
+    <string name="declog_empty_body">Тут відображається кожне повідомлення, перевірене фільтром, із зазначенням причини рішення. Текст повідомлень ніколи не зберігається.</string>
+    <plurals name="declog_kept_for" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Кожне рішення видаляється через %d день. Текст повідомлень ніколи не зберігається.</item>
+        <item quantity="few">Кожне рішення видаляється через %d дні. Текст повідомлень ніколи не зберігається.</item>
+        <item quantity="many">Кожне рішення видаляється через %d днів. Текст повідомлень ніколи не зберігається.</item>
+        <item quantity="other">Кожне рішення видаляється через %d дня. Текст повідомлень ніколи не зберігається.</item>
+    </plurals>
+    <string name="declog_sim">SIM %1$s</string>
+    <string name="declog_today">Сьогодні</string>
+    <string name="declog_yesterday">Учора</string>
+    <string name="declog_allowed_by_rule">Дозволено за правилом: %1$s</string>
+    <string name="declog_filter_all">Усі</string>
+    <string name="declog_filter_blocked">Заблоковано</string>
+    <string name="declog_filter_allowed">Дозволено</string>
+    <string name="declog_filter_empty">Немає рішень за цим фільтром</string>
+    <plurals name="declog_times" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s раз</item>
+        <item quantity="few">%1$s рази</item>
+        <item quantity="many">%1$s разів</item>
+        <item quantity="other">%1$s раза</item>
+    </plurals>
+    <plurals name="declog_repeated" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Те саме рішення ухвалено %1$s раз поспіль</item>
+        <item quantity="few">Те саме рішення ухвалено %1$s рази поспіль</item>
+        <item quantity="many">Те саме рішення ухвалено %1$s разів поспіль</item>
+        <item quantity="other">Те саме рішення ухвалено %1$s раза поспіль</item>
+    </plurals>
+    <plurals name="declog_share_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Поділитися %d рішенням</item>
+        <item quantity="few">Поділитися %d рішеннями</item>
+        <item quantity="many">Поділитися %d рішеннями</item>
+        <item quantity="other">Поділитися %d рішення</item>
+    </plurals>
+    <string name="declog_csv_subject">Журнал рішень uMessage</string>
+    <string name="declog_share_failed">Не вдалося поділитися журналом</string>
+    <string name="declog_details_title">Докладніше про рішення</string>
+    <string name="declog_open_details">Відкрити подробиці: %1$s</string>
+    <string name="declog_fixed_allowed">Ви дозволили цього відправника через журнал</string>
+    <string name="declog_fixed_blocked">Ви заблокували цього відправника через журнал</string>
+    <string name="declog_fixed_restored">Ви відновили це повідомлення через журнал</string>
+    <string name="declog_restored">Відновлено</string>
+    <string name="declog_blocked_message">Повідомлення досі в розділі «Заблоковані»</string>
+    <string name="declog_restore">Відновити повідомлення</string>
+    <string name="declog_restore_done">Повідомлення відновлено у вхідних</string>
+    <string name="declog_restore_text_only">Текст відновлено у вхідних. Не вдалося відновити зображення.</string>
+    <string name="declog_restore_nothing">Немає що відновлювати: це повідомлення із зображенням не збережено</string>
+    <string name="declog_restore_failed">Не вдалося відновити повідомлення</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

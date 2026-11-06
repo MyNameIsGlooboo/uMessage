@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3f_spam_summary_stopped">%1$d 차단</string>
+    <string name="r3f_spam_summary_restored">%1$d 복원</string>
+    <string name="r3f_spam_summary_stopped_week">7일간 %1$d 차단</string>
+    <string name="r3f_spam_summary_total">총 %1$d</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">হোম স্ক্রিনে যোগ করুন</string>
+    <string name="home_shortcut_requested">এটি যোগ করতে আপনার লঞ্চারকে অনুরোধ করা হচ্ছে। হোম স্ক্রিনে নামটি দেখা যাবে। কিছু দেখা না গেলে, ফোনের অ্যাপ সেটিংসে uMessage-এর জন্য “হোম স্ক্রিন শর্টকাট”-এর অনুমতি দিন।</string>
+    <string name="home_shortcut_failed">আপনার লঞ্চার শর্টকাটটি গ্রহণ করেনি। ফোনের অ্যাপ সেটিংসে uMessage-এর জন্য “হোম স্ক্রিন শর্টকাট”-এর অনুমতি দিন।</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">ฟีเจอร์เพิ่มเติม</string>
+    <string name="ux8f_onb_less">ฟีเจอร์น้อยลง</string>
+    <string name="ux8f_onb_battery_body">Android อาจหยุด uMessage ในเบื้องหลัง ทำให้ข้อความมาช้า อนุญาตให้แอปทำงานต่อได้</string>
+    <string name="ux8f_onb_battery_action">อนุญาตให้ทำงานในเบื้องหลัง</string>
+    <string name="ux8f_onb_vendor_hint">โทรศัพท์ %1$s ต้องทำอีกขั้นตอน</string>
+    <string name="ux8f_onb_unfinished">ยังมีขั้นตอนที่ต้องทำ สามารถทำให้เสร็จภายหลังได้ในการตั้งค่า Android</string>
+</resources>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="e_day_today">Dzisiaj</string>
+    <string name="e_day_yesterday">Wczoraj</string>
+    <plurals name="e_blocked_stats_total">
+        <item quantity="one">Łącznie zatrzymano %d wiadomość</item>
+        <item quantity="few">Łącznie zatrzymano %d wiadomości</item>
+        <item quantity="many">Łącznie zatrzymano %d wiadomości</item>
+        <item quantity="other">Łącznie zatrzymano %d wiadomości</item>
+    </plurals>
+    <string name="e_restored_title">Ostatnio przywrócone</string>
+    <string name="e_restored_body">Wiadomości przeniesione do odebranych w ciągu ostatnich 30 dni. Dotknij wiadomości, aby otworzyć rozmowę.</string>
+    <string name="e_restored_empty">Wiadomości, które od teraz przeniesiesz do odebranych, będą tu widoczne przez 30 dni.</string>
+    <string name="e_restored_when">Przeniesiono do odebranych %1$s</string>
+    <string name="e_restored_open">Otwórz rozmowę z %1$s</string>
+    <string name="e_snack_allowed_one">Nadawca %1$s jest teraz zawsze dozwolony na obu kartach SIM</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="one">%d nadawca jest teraz zawsze dozwolony na obu kartach SIM</item>
+        <item quantity="few">%d nadawcy są teraz zawsze dozwoleni na obu kartach SIM</item>
+        <item quantity="many">%d nadawców jest teraz zawsze dozwolonych na obu kartach SIM</item>
+        <item quantity="other">%d nadawcy jest teraz zawsze dozwolone na obu kartach SIM</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">Nadawca %1$s jest teraz zawsze dozwolony</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="one">%d nadawca jest teraz zawsze dozwolony</item>
+        <item quantity="few">%d nadawcy są teraz zawsze dozwoleni</item>
+        <item quantity="many">%d nadawców jest teraz zawsze dozwolonych</item>
+        <item quantity="other">%d nadawcy jest teraz zawsze dozwolone</item>
+    </plurals>
+    <string name="e_view_rule">Zobacz regułę</string>
+    <string name="e_rules_title">Reguły</string>
+    <string name="e_rules_menu_backup">Kopia zapasowa i przywracanie</string>
+    <string name="e_note_blocked_by_you">Zablokowane przez ciebie</string>
+    <string name="e_note_allowed_by_you">Dozwolone przez ciebie</string>
+    <string name="e_note_blocked_from_message">Zablokowane z poziomu wiadomości</string>
+    <string name="e_note_blocked_from_keyword">Zablokowane przez słowo kluczowe</string>
+    <string name="e_note_reported_spam">Zgłoszone jako spam</string>
+    <string name="e_note_old_word_list">Ze starej listy blokowanych słów</string>
+    <string name="e_note_system_list">Z listy blokowanych w Androidzie</string>
+    <string name="e_note_quoted">“%1$s”</string>
+    <string name="e_example_block_cancel_word">Zablokuj wiadomości zawierające لغو۱۱</string>
+    <string name="e_example_block_ad_prefix">Zablokuj numery reklamowe zaczynające się od 3000</string>
+    <string name="e_example_allow_number">Zawsze zezwól na numer, np. twojej poczty</string>
+    <string name="e_sheet_sender_label">Nadawca</string>
+    <string name="e_sheet_text_label">Treść wiadomości</string>
+    <string name="e_value_number">Numer telefonu</string>
+    <string name="e_value_prefix">Numer zaczyna się od</string>
+    <string name="e_value_sender">Nazwa nadawcy</string>
+    <string name="e_value_keyword">Szukany tekst</string>
+    <string name="e_value_pattern">Wzorzec</string>
+    <string name="e_pattern_blocks_label">Zacznij od</string>
+    <string name="e_pattern_link">Zawiera link</string>
+    <string name="e_pattern_long_number">Liczba z co najmniej 5 cyfr</string>
+    <string name="e_pattern_starts_with">Zaczyna się od</string>
+    <string name="e_pattern_any_of">Zawiera dowolne z</string>
+    <string name="e_pattern_link_sentence">Pasuje do wiadomości z linkiem.</string>
+    <string name="e_pattern_long_number_sentence">Pasuje do wiadomości z liczbą mającą co najmniej 5 cyfr.</string>
+    <string name="e_pattern_starts_with_sentence">Pasuje do wiadomości zaczynających się od tekstu wpisanego po ^.</string>
+    <string name="e_pattern_any_of_sentence">Pasuje do wiadomości z dowolnym ze słów w nawiasach. Oddziel słowa znakiem |.</string>
+    <plurals name="e_migrate_title_numbers">
+        <item quantity="one">Przenieś %d numer do reguł uMessage</item>
+        <item quantity="few">Przenieś %d numery do reguł uMessage</item>
+        <item quantity="many">Przenieś %d numerów do reguł uMessage</item>
+        <item quantity="other">Przenieś %d numeru do reguł uMessage</item>
+    </plurals>
+    <string name="e_migrate_point_blocked">• Wiadomości z tych numerów trafią do zakładki „Zablokowane”, gdzie możesz je przeczytać i przywrócić.</string>
+    <string name="e_migrate_point_android">• Android nadal odrzuca wiadomości z tych numerów, dopóki są na jego liście.</string>
+    <string name="e_migrate_calls_note">Lista Androida blokuje też połączenia. Numery, które z niej usuniesz, znów będą mogły do ciebie dzwonić.</string>
+    <string name="e_bn_unknown_body">Działa tylko wtedy, gdy opcja „Nieznani nadawcy” jest wyłączona.</string>
+    <string name="e_bn_row_calls_texts">Blokuje połączenia i wiadomości</string>
+    <string name="e_bn_row_short_code">Krótki numer: jego wiadomości nigdy nie docierają do uMessage</string>
+    <string name="e_bn_move_one">Przenieś do reguł uMessage</string>
+    <string name="e_bn_moved">%1$s jest teraz regułą uMessage. Wiadomości z tego numeru trafiają do zakładki „Zablokowane”, a połączenia nie są już blokowane.</string>
+    <string name="e_bn_field_help">Na przykład +15550001234 lub +1555* dla wszystkich numerów zaczynających się od +1555</string>
+    <string name="e_bn_short_code_warning">To wygląda na krótki numer. Android odrzuca jego wiadomości, zanim dotrą do uMessage, więc nigdy nie przywrócisz żadnej z nich, np. kodu lub powiadomienia z banku.</string>
+    <string name="e_bn_add_as_rule">Dodaj jako regułę uMessage</string>
+    <string name="e_bn_added_as_rule">Dodano %1$s jako regułę uMessage. Wiadomości z tego numeru trafiają do zakładki „Zablokowane”.</string>
+</resources>

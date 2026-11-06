@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">転送するメッセージのコードを伏せる</string>
+    <string name="w3d_mask_codes_body">転送するコードを****で表示します。</string>
+    <string name="w3d_mask_keep_last">末尾2桁を表示</string>
+    <string name="w3d_mask_keep_last_on">転送時に**34のように表示します。</string>
+    <string name="w3d_mask_keep_last_off">転送時にコード全体を隠します。</string>
+    <string name="w3d_daily_limit">1日の転送上限</string>
+    <string name="w3d_daily_limit_body">1日に転送できる最大件数</string>
+    <string name="w3d_hide_lock_codes">ロック画面でコードを非表示</string>
+    <string name="w3d_hide_lock_codes_body">コードを含むメッセージは、ロックを解除するまでロック画面に••••と表示します。</string>
+</resources>

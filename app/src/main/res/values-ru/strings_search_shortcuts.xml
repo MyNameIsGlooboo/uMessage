@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">Неизвестные</string>
+    <string name="i28_filter_unknown_empty_title">Нет неизвестных отправителей</string>
+    <string name="i28_filter_unknown_empty_body">Здесь появятся чаты с теми, кого нет в ваших контактах и кому вы никогда не писали.</string>
+    <string name="i28_filter_images">Изображения</string>
+    <string name="i28_filter_images_empty_title">Нет изображений</string>
+    <string name="i28_filter_images_empty_body">Здесь появятся сообщения с изображениями.</string>
+    <string name="i28_filter_links">Ссылки</string>
+    <string name="i28_filter_links_empty_title">Нет ссылок</string>
+    <string name="i28_filter_links_empty_body">Здесь появятся сообщения со ссылками на сайты.</string>
+    <string name="i28_hit_picture">Изображение</string>
+</resources>

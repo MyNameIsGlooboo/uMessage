@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2c_blocked_label">已屏蔽</string>
+    <string name="w2c_log_blocked_by_rule">已按规则屏蔽：%1$s</string>
+    <string name="w2c_log_blocked_by_old_list">已按旧屏蔽列表屏蔽</string>
+    <string name="w2c_log_fwd_rate_limited">未转发：此规则已达到每小时上限</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">スターを付ける</string>
+    <string name="i13_unstar">スターを外す</string>
+    <string name="i13_starred_mark">スター付き</string>
+    <string name="i13_filter_starred">スター付き</string>
+    <string name="i13_filter_starred_empty_title">スター付きのメッセージなし</string>
+    <string name="i13_filter_starred_empty_body">会話内でメッセージを選択し、スターをタップすると、ここに保存できます。</string>
+    <string name="i13_starred_note">スターを付けるとテキストのコピーが保存され、会話を削除しても残ります。スターを外すとコピーが削除されます。</string>
+    <string name="i13_snapshot_gone">この会話は削除されました。保存したテキストのみ残っています。</string>
+    <string name="i13_snapshot_close">閉じる</string>
+</resources>

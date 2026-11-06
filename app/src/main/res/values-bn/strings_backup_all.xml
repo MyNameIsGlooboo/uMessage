@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n09_backup_contents">আপনার বার্তা ছাড়া সবকিছু: অনুমতি দেওয়ার, ব্লক করার ও ফরোয়ার্ড করার নিয়ম এবং সব সেটিংস। ফাইলটি এনক্রিপ্ট করা নয় এবং এতে আপনি যেসব নম্বরে ফরোয়ার্ড করেন সেগুলো থাকে, তাই এটি ব্যক্তিগত কোনো জায়গায় রাখুন। ফিরিয়ে আনার পর ফরোয়ার্ড করার নিয়ম বন্ধ থাকবে।</string>
+    <string name="n09_label_spam">স্প্যাম থেকে সুরক্ষা</string>
+    <string name="n09_label_notifications">বিজ্ঞপ্তি</string>
+    <string name="n09_label_chat">চ্যাট ও বার্তার তালিকা</string>
+    <string name="n09_label_sending">পাঠানো</string>
+    <string name="n09_label_cleanup">পরিষ্কার ও স্টোরেজ</string>
+    <string name="n09_label_privacy">গোপনীয়তা ও লকের বিকল্প</string>
+    <string name="n09_restore_not_included">ফাইলে নেই: আপনার বার্তা, অ্যাপ লকের PIN, SIM-এর নাম, সেভ করা লেখা, লুকানো চ্যাট ও বিজ্ঞপ্তি বন্ধ রাখার সময়।</string>
+    <string name="n09_restore_after">uMessage-কে আবার ডিফল্ট SMS অ্যাপ করুন এবং আপনার অ্যাপ লক আবার সেট করুন।</string>
+</resources>

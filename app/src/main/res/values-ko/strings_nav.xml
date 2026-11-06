@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_tab_forwarded">전달</string>
+    <string name="nav_tab_forwarded_failed">전달, 전달 실패 있음</string>
+    <string name="nav_tab_forwarded_paused">전달, 전달 일시 중지됨</string>
+    <string name="nav_tab_archived_new">보관됨, 새 대화 보관됨</string>
+    <string name="nav_prompt_title">규칙 저장됨</string>
+    <string name="nav_prompt_body">전달한 메시지를 확인하고 실패한 메시지를 다시 보낼 수 있도록 전달 탭을 표시할까요?</string>
+    <string name="nav_prompt_show">탭 표시</string>
+    <string name="nav_prompt_not_now">나중에</string>
+    <string name="nav_fwd_paid_note">전달할 때마다 SMS 요금이 부과돼요.</string>
+    <string name="nav_fwd_pause_all">모든 전달 일시 중지</string>
+    <string name="nav_fwd_status_paused">전달 일시 중지됨</string>
+    <string name="nav_fwd_paused_hint">규칙에 맞는 메시지를 전달하지 않아요. 다시 전달하려면 이 옵션을 꺼 주세요.</string>
+    <string name="nav_fwd_status_no_rule">켜진 전달 규칙 없음</string>
+    <plurals name="nav_fwd_status_on">
+        <item quantity="other">전달 켜짐, 규칙 %1$s개</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">규칙 관리</string>
+    <string name="nav_fwd_empty_title">아직 전달한 메시지가 없어요.</string>
+    <string name="nav_fwd_empty_body">규칙에 맞는 메시지가 여기에 표시돼요.</string>
+    <string name="nav_fwd_status_sent">전송됨</string>
+    <string name="nav_fwd_status_pending">대기 중</string>
+    <string name="nav_fwd_status_failed">실패</string>
+    <string name="nav_fwd_to">받는 사람: %1$s</string>
+    <string name="nav_fwd_sim">SIM %1$d</string>
+    <string name="nav_fwd_rule_line">규칙: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">발신자 %1$s</string>
+    <string name="nav_fwd_rule_any_sender">모든 발신자</string>
+    <string name="nav_fwd_rule_text">내용 %1$s</string>
+    <string name="nav_fwd_rule_any_text">모든 내용</string>
+    <string name="nav_fwd_rule_deleted">규칙 삭제됨</string>
+    <string name="nav_fwd_open_details">상세 보기</string>
+    <string name="nav_fwd_today">오늘</string>
+    <string name="nav_fwd_yesterday">어제</string>
+    <plurals name="nav_fwd_failed_count">
+        <item quantity="other">전달 %1$s건 실패</item>
+    </plurals>
+    <string name="nav_fwd_retry">다시 시도</string>
+    <string name="nav_fwd_retry_all">실패한 항목 모두 재시도 (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">다시 보낼까요?</string>
+    <plurals name="nav_fwd_retry_all_message">
+        <item quantity="other">SMS %1$s건을 다시 보내요. 한 건마다 SMS 요금이 부과돼요.</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">다시 보내기</string>
+    <plurals name="nav_fwd_retry_sent">
+        <item quantity="other">메시지 %d건을 다시 전달했어요.</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">다시 실패했어요. 통신 신호와 잔액을 확인해 주세요.</string>
+    <string name="nav_fwd_retry_missing">원본 메시지가 없어 다시 보낼 수 없어요.</string>
+    <string name="nav_fwd_details_title">전달 상세 정보</string>
+    <string name="nav_fwd_detail_from">원본 발신자</string>
+    <string name="nav_fwd_detail_to">전달받은 사람</string>
+    <string name="nav_fwd_detail_when">시간</string>
+    <string name="nav_fwd_detail_sim">전송에 사용한 SIM</string>
+    <string name="nav_fwd_detail_rule">일치한 규칙</string>
+    <string name="nav_fwd_detail_message">원본 메시지</string>
+    <string name="nav_fwd_message_loading">불러오는 중</string>
+    <string name="nav_fwd_message_gone">원본 메시지가 더 이상 저장되어 있지 않아요.</string>
+    <string name="nav_fwd_error_radio">네트워크에서 메시지를 전송하지 못했어요.</string>
+    <string name="nav_fwd_error_refused">휴대전화에서 메시지를 보내지 못했어요.</string>
+    <string name="nav_fwd_open_chat">대화 열기</string>
+    <string name="nav_archived_title">보관됨</string>
+    <string name="nav_archived_back">메시지로 돌아가기</string>
+    <string name="nav_archived_intro">보관된 대화는 메시지 목록에 표시되지 않아요. 설정에서 \"보관된 대화 계속 숨기기\"를 켜지 않으면 새 메시지가 올 때 대화가 다시 표시돼요.</string>
+    <string name="nav_archived_intro_dismiss">안내 숨기기</string>
+    <plurals name="nav_archived_moved">
+        <item quantity="other">대화 %d개를 메시지 목록으로 옮겼어요.</item>
+    </plurals>
+    <string name="nav_folder_more">더보기</string>
+    <string name="nav_folder_mark_all_read">모두 읽음으로 표시</string>
+    <string name="nav_folder_delete_all_count">영구 삭제할 항목: %1$s.</string>
+</resources>

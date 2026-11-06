@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sim_messages_title">Nachrichten auf der SIM-Karte</string>
+    <string name="sim_messages_row_body">Kopiere Nachrichten von der SIM-Karte in deine Unterhaltungen</string>
+    <string name="sim_messages_loading">SIM-Karte wird gelesen…</string>
+    <string name="sim_messages_unavailable">Dieses Smartphone lässt Apps nicht auf die SIM-Karte zugreifen.</string>
+    <string name="sim_messages_empty">Auf der SIM-Karte sind keine Nachrichten.</string>
+    <plurals name="sim_messages_found">
+        <item quantity="one">%1$d Nachricht ist auf der SIM-Karte gespeichert. In deine Unterhaltungen kopieren? Sie bleibt auch auf der SIM-Karte.</item>
+        <item quantity="other">%1$d Nachrichten sind auf der SIM-Karte gespeichert. In deine Unterhaltungen kopieren? Sie bleiben auch auf der SIM-Karte.</item>
+    </plurals>
+    <string name="sim_messages_import">Kopieren</string>
+    <string name="sim_messages_importing">Nachrichten werden kopiert…</string>
+    <string name="sim_messages_done">%1$d Nachrichten kopiert. %2$d waren bereits in deinen Unterhaltungen.</string>
+    <string name="sim_messages_done_failed">%1$d Nachrichten kopiert. %2$d waren bereits in deinen Unterhaltungen und %3$d konnten nicht kopiert werden.</string>
+</resources>

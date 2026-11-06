@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- N02: each language is named in its own language and script, in every app language. -->
+    <string name="settings_f_language_ar" translatable="false">العربية</string>
+    <string name="settings_f_language_tr" translatable="false">Türkçe</string>
+    <string name="settings_f_language_es" translatable="false">Español</string>
+    <string name="settings_f_language_ru" translatable="false">Русский</string>
+    <string name="settings_f_language_hi" translatable="false">हिन्दी</string>
+    <string name="settings_f_language_id" translatable="false">Bahasa Indonesia</string>
+    <string name="settings_f_language_pt_br" translatable="false">Português (Brasil)</string>
+    <string name="settings_f_language_fr" translatable="false">Français</string>
+</resources>

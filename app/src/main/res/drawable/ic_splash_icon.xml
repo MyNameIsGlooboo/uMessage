@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Splash icon: the launcher foreground (already scaled to 0.883) inset 7.5% per side, so the mark ends up
+     at 0.883 x 0.85 = 0.75 of its full size, the same size the earlier 12.5% inset gave, and sits well inside
+     the splash's circular icon background. -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_launcher_foreground"
+    android:inset="7.5%" />

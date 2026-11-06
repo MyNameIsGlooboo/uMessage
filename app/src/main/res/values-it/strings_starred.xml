@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">Aggiungi agli speciali</string>
+    <string name="i13_unstar">Rimuovi dagli speciali</string>
+    <string name="i13_starred_mark">Speciale</string>
+    <string name="i13_filter_starred">Speciali</string>
+    <string name="i13_filter_starred_empty_title">Nessun messaggio speciale</string>
+    <string name="i13_filter_starred_empty_body">Seleziona un messaggio in una chat e tocca la stella per conservarlo qui.</string>
+    <string name="i13_starred_note">La stella conserva una copia del testo, anche se elimini la chat. Rimuovendola, elimini la copia.</string>
+    <string name="i13_snapshot_gone">Questa chat è stata eliminata. Resta solo il testo salvato.</string>
+    <string name="i13_snapshot_close">Chiudi</string>
+</resources>

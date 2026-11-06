@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">Log keputusan</string>
+    <string name="declog_clear">Hapus log</string>
+    <string name="declog_empty_title">Belum ada keputusan</string>
+    <string name="declog_empty_body">Setiap pesan yang diperiksa filter muncul di sini beserta alasannya. Teks pesan tidak pernah disimpan.</string>
+    <plurals name="declog_kept_for">
+        <item quantity="other">Setiap keputusan dihapus setelah %d hari. Teks pesan tidak pernah disimpan.</item>
+    </plurals>
+    <string name="declog_sim">SIM %1$s</string>
+    <string name="declog_today">Hari ini</string>
+    <string name="declog_yesterday">Kemarin</string>
+    <string name="declog_allowed_by_rule">Diizinkan oleh aturan: %1$s</string>
+    <string name="declog_filter_all">Semua</string>
+    <string name="declog_filter_blocked">Diblokir</string>
+    <string name="declog_filter_allowed">Diizinkan</string>
+    <string name="declog_filter_empty">Tidak ada keputusan yang cocok dengan filter ini</string>
+    <plurals name="declog_times">
+        <item quantity="other">%1$s kali</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="other">Keputusan yang sama dibuat %1$s kali berturut-turut</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="other">Bagikan %d keputusan</item>
+    </plurals>
+    <string name="declog_csv_subject">Log keputusan uMessage</string>
+    <string name="declog_share_failed">Tidak dapat membagikan log</string>
+    <string name="declog_details_title">Detail keputusan</string>
+    <string name="declog_open_details">Buka detail untuk %1$s</string>
+    <string name="declog_fixed_allowed">Anda mengizinkan pengirim ini dari log</string>
+    <string name="declog_fixed_blocked">Anda memblokir pengirim ini dari log</string>
+    <string name="declog_fixed_restored">Anda memulihkan pesan ini dari log</string>
+    <string name="declog_restored">Dipulihkan</string>
+    <string name="declog_blocked_message">Pesan masih ada di Diblokir</string>
+    <string name="declog_restore">Pulihkan pesan</string>
+    <string name="declog_restore_done">Pesan dipulihkan ke kotak masuk</string>
+    <string name="declog_restore_text_only">Teks dipulihkan ke kotak masuk. Gambar tidak dapat dipulihkan.</string>
+    <string name="declog_restore_nothing">Tidak ada yang dapat dipulihkan: pesan gambar ini tidak disimpan</string>
+    <string name="declog_restore_failed">Tidak dapat memulihkan pesan</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

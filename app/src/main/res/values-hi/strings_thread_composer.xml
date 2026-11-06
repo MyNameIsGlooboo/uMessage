@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_emoji">इमोजी</string>
+    <string name="thread_show_keyboard">कीबोर्ड दिखाएं</string>
+    <string name="thread_scheduled_not_sent">शेड्यूल किया गया मैसेज भेजा नहीं गया</string>
+    <string name="thread_edit_scheduled_replaces_draft">शेड्यूल किया गया मैसेज बदलने पर आपका अभी लिखा जा रहा टेक्स्ट हट जाएगा. जारी रखें?</string>
+    <string name="thread_menu_report_spam">स्पैम के तौर पर मार्क करें</string>
+    <string name="thread_report_spam_title">स्पैम के तौर पर मार्क करें?</string>
+    <string name="thread_report_spam_message">%1$s के नए मैसेज आपके इनबॉक्स के बजाय ब्लॉक किए गए मैसेज में जाएंगे. इस बातचीत में पहले से मौजूद मैसेज बने रहेंगे.</string>
+    <string name="thread_report_spam_confirm">स्पैम के तौर पर मार्क करें</string>
+    <string name="thread_report_spam_cancel">रद्द करें</string>
+    <string name="thread_report_spam_done">स्पैम के तौर पर मार्क किया गया</string>
+    <string name="thread_report_spam_rule_note">स्पैम की शिकायत की गई</string>
+    <string name="thread_report_spam_already">पहले से स्पैम के तौर पर मार्क किया गया है</string>
+    <string name="thread_report_spam_failed">स्पैम के तौर पर मार्क नहीं किया जा सका</string>
+    <string name="thread_report_spam_undo">पहले जैसा करें</string>
+</resources>

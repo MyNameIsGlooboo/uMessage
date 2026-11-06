@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8a_checklist_show">نمایش مراحل</string>
+    <string name="ux8a_checklist_hide">پنهان کردن مراحل</string>
+    <string name="ux8a_menu_recycle_bin">سطل بازیافت</string>
+    <string name="ux8a_selection_block">مسدود کردن</string>
+</resources>

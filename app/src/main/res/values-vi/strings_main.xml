@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_hint">Tìm cuộc trò chuyện</string>
+    <string name="main_search_back">Đóng tìm kiếm</string>
+    <string name="main_search_clear">Xóa nội dung tìm kiếm</string>
+    <string name="main_search_type_more">Nhập ít nhất 2 ký tự để tìm kiếm</string>
+    <string name="main_search_no_results">Không tìm thấy kết quả</string>
+    <string name="main_settings">Cài đặt</string>
+    <string name="main_tab_messages">Tin nhắn</string>
+    <string name="main_tab_blocked">Đã chặn</string>
+    <string name="main_tab_archived">Đã lưu trữ</string>
+    <plurals name="main_tab_blocked_new">
+        <item quantity="other">Đã chặn, %d tin nhắn mới</item>
+    </plurals>
+    <string name="main_permission_title">Cần cấp quyền</string>
+    <string name="main_permission_grant">Cấp quyền</string>
+    <string name="main_permission_notifications">Cho phép thông báo, nếu không ứng dụng sẽ không thể hiển thị tin nhắn đến.</string>
+    <string name="main_sms_permission_title">uMessage cần quyền truy cập SMS</string>
+    <string name="main_sms_permission_body">Nếu không có quyền đọc và gửi SMS, uMessage không thể hiển thị tin nhắn của bạn, gửi tin nhắn hay lọc tin nhắn rác. Không có gì bị xóa.</string>
+    <string name="main_sms_permission_settings">Mở cài đặt ứng dụng</string>
+    <string name="main_not_default_banner">uMessage chưa phải ứng dụng SMS mặc định của bạn nên không thể chặn tin nhắn rác hay gửi tin nhắn.</string>
+    <string name="main_not_default_fix">Khắc phục</string>
+    <string name="main_not_default_fix_description">Đặt uMessage làm ứng dụng SMS mặc định</string>
+</resources>

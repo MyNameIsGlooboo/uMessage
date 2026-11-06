@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Scheduled message that went out late (RM-27) -->
+    <string name="scheduled_sent_late_title">Scheduled message sent late</string>
+    <string name="scheduled_sent_late_exact_off">Your message to %1$s went out %2$d min late. Allow \"Alarms &amp; reminders\" for uMessage so scheduled messages go out on time.</string>
+    <string name="scheduled_sent_late_idle">Your message to %1$s went out %2$d min late: the phone was off or saving battery at the scheduled time.</string>
+    <string name="scheduled_sent_late_channel">Scheduled messages</string>
+
+    <!-- Notifications turned off (RM-34) -->
+    <string name="notifications_off_title">Notifications are off</string>
+    <string name="notifications_off_body">You won\'t be told about new messages.</string>
+    <string name="notifications_off_fix">Turn on</string>
+</resources>

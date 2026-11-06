@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_purge_question">ブロック済みのメッセージを何日間保存しますか？</string>
+    <string name="onb_done_summary_purge">ブロック済みのメッセージの保存期間</string>
+</resources>

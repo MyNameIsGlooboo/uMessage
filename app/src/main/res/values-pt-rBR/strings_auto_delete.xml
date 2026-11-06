@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="cleanup_old_title">Mantenha as mensagens por</string>
+    <string name="cleanup_old_summary">As mais antigas vão para a lixeira</string>
+    <string name="cleanup_forever">Sempre</string>
+    <string name="cleanup_one_year">1 ano</string>
+    <string name="cleanup_bin_title">Ativar a lixeira?</string>
+    <string name="cleanup_bin_body">As mensagens excluídas ficam lá por 30 dias para que você possa restaurá-las. A limpeza automática precisa da lixeira.</string>
+    <string name="cleanup_bin_confirm">Ative</string>
+    <string name="cleanup_old_confirm_title">Mover mensagens antigas?</string>
+    <plurals name="cleanup_old_confirm_body" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d mensagem é anterior a esse período e vai para a lixeira agora. Mensagens com estrela e não lidas e conversas fixadas ficam.</item>
+        <item quantity="other">%d mensagens são anteriores a esse período e vão para a lixeira agora. Mensagens com estrela e não lidas e conversas fixadas ficam.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">Nenhuma mensagem é tão antiga ainda. As mais antigas irão para a lixeira automaticamente. Mensagens com estrela e não lidas e conversas fixadas ficam.</string>
+    <string name="cleanup_old_confirm_action">Mova</string>
+</resources>

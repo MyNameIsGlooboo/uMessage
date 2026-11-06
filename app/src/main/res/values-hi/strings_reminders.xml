@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">याद दिलाएं</string>
+    <string name="reminder_dialog_title">याद दिलाएं</string>
+    <string name="reminder_in_3_hours">3 घंटे बाद</string>
+    <string name="reminder_tomorrow_morning">कल सुबह</string>
+    <string name="reminder_pick_time">तारीख और समय चुनें</string>
+    <string name="reminder_set">%1$s के लिए रिमाइंडर सेट किया गया</string>
+    <string name="reminder_set_approximate">लगभग %1$s के लिए रिमाइंडर सेट किया गया. यह थोड़ी देर से आ सकता है.</string>
+    <string name="reminder_battery_hint">कुछ फ़ोन बैकग्राउंड में ऐप बंद कर देते हैं, जिससे रिमाइंडर देर से आते हैं.</string>
+    <string name="reminder_battery_open">uMessage को चालू रखें</string>
+    <string name="reminder_channel">रिमाइंडर</string>
+    <string name="reminder_title">रिमाइंडर</string>
+    <string name="reminder_title_named">रिमाइंडर: %1$s</string>
+    <string name="reminder_open_hint">मैसेज खोलने के लिए टैप करें</string>
+</resources>

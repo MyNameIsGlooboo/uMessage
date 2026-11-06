@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">Bloqué : expéditeur inconnu</string>
+    <string name="ux8c_held_unknown_link">Bloqué : expéditeur inconnu, contient un lien</string>
+    <string name="ux8c_held_foreign">Bloqué : numéro d\'un autre pays</string>
+    <string name="ux8c_held_rule">Bloqué par votre règle</string>
+    <string name="ux8c_held_other">Bloqué par le filtre</string>
+    <string name="ux8c_not_spam">Non-spam</string>
+    <string name="ux8c_delete">Supprimer</string>
+    <string name="ux8c_tip">Balayez un expéditeur pour le déplacer vers votre boîte de réception. Appuyez longuement pour sélectionner.</string>
+    <string name="ux8c_tip_dismiss">Compris</string>
+    <string name="ux8c_sender_title">Cet expéditeur</string>
+    <string name="ux8c_sender_normal">Normal</string>
+    <string name="ux8c_sender_allow">Toujours autoriser</string>
+    <string name="ux8c_sender_block">Bloquer</string>
+</resources>

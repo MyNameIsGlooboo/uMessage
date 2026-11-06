@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3fwd_title">Penerusan</string>
+    <string name="r3fwd_options">Opsi penerusan</string>
+    <string name="r3fwd_summary_none">Nonaktif · Teruskan pesan ke nomor lain</string>
+    <string name="r3fwd_summary_off">Nonaktif</string>
+    <string name="r3fwd_summary_paused">Dijeda</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="other">%d aturan aktif</item>
+    </plurals>
+    <string name="r3fwd_paused_title">Penerusan dijeda</string>
+    <string name="r3fwd_paused_body">Aturan Anda tersimpan, tetapi tidak ada pesan yang diteruskan hingga penerusan diaktifkan kembali.</string>
+    <string name="r3fwd_paused_action">Buka opsi</string>
+</resources>

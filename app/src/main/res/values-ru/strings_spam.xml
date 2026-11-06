@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="spam_back">Назад</string>
+    <string name="spam_cancel">Отмена</string>
+    <string name="spam_undo">Отменить</string>
+    <string name="spam_more_options">Другие действия</string>
+    <string name="spam_loading">Загрузка</string>
+    <string name="spam_blocked_title">Заблокированные сообщения</string>
+    <string name="spam_blocked_open_rules">Правила разрешения и блокировки</string>
+    <string name="spam_blocked_open_settings">Настройки блокировки</string>
+    <string name="spam_blocked_mode_line">Неизвестные отправители: %1$s</string>
+    <string name="spam_blocked_mode_change">Изменить</string>
+    <string name="spam_blocked_stats_totals">Всего заблокировано: %1$d, восстановлено: %2$d</string>
+    <string name="spam_blocked_header_cd">Спам за последние 7 дней: заблокировано %1$d. Всего заблокировано: %2$d, восстановлено: %3$d.</string>
+    <string name="spam_blocked_empty_title">Пока ничего не заблокировано</string>
+    <string name="spam_blocked_empty_body">Здесь хранятся сообщения, заблокированные вашими фильтрами. Любое из них можно восстановить одним нажатием.</string>
+    <string name="spam_action_delete">Удалить</string>
+    <string name="spam_select">Выбрать</string>
+    <string name="spam_action_select_all">Выбрать все</string>
+    <string name="spam_action_clear_selection">Снять выделение</string>
+    <plurals name="spam_message_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d сообщение</item>
+        <item quantity="few">%d сообщения</item>
+        <item quantity="many">%d сообщений</item>
+        <item quantity="other">%d сообщения</item>
+    </plurals>
+    <string name="spam_state_selected">Выбрано</string>
+    <string name="spam_state_not_selected">Не выбрано</string>
+    <plurals name="spam_snack_deleted" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Удалено %d сообщение</item>
+        <item quantity="few">Удалено %d сообщения</item>
+        <item quantity="many">Удалено %d сообщений</item>
+        <item quantity="other">Удалено %d сообщения</item>
+    </plurals>
+    <string name="spam_snack_failed">Что-то пошло не так. Попробуйте еще раз.</string>
+    <string name="spam_reason_block_rule">Правило блокировки</string>
+    <string name="spam_reason_unknown_sender">Неизвестный отправитель</string>
+    <string name="spam_reason_other">Отфильтровано</string>
+    <string name="spam_sim_label">SIM-карта %d</string>
+    <string name="spam_sim_generic">SIM-карта</string>
+    <string name="spam_sim_both">Обе SIM-карты</string>
+    <string name="spam_sim_missing">SIM-карты нет в телефоне</string>
+    <string name="spam_sim_named">SIM-карта %1$d, %2$s</string>
+    <string name="spam_rules_title">Разрешенные и заблокированные</string>
+    <string name="spam_rules_tab_allowed">Разрешенные</string>
+    <string name="spam_rules_tab_blocked">Заблокированные</string>
+    <string name="spam_rules_add">Добавить правило</string>
+    <string name="spam_rules_import">Импорт правил</string>
+    <string name="spam_rules_export">Экспорт правил</string>
+    <string name="spam_rules_empty_allowed_title">Нет правил разрешения</string>
+    <string name="spam_rules_empty_allowed_body">Все, что вы разрешили, всегда попадает во входящие, даже в строгом режиме. Добавьте номер, имя отправителя или ключевое слово.</string>
+    <string name="spam_rules_empty_blocked_title">Нет правил блокировки</string>
+    <string name="spam_rules_empty_blocked_body">Заблокируйте номер, префикс, имя отправителя, ключевое слово или регулярное выражение. Заблокированные сообщения попадают в папку «Заблокированные».</string>
+    <string name="spam_rules_delete_rule">Удалить правило %s</string>
+    <string name="spam_rules_deleted">Правило удалено</string>
+    <plurals name="spam_rules_imported" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Импортировано %d правило</item>
+        <item quantity="few">Импортировано %d правила</item>
+        <item quantity="many">Импортировано %d правил</item>
+        <item quantity="other">Импортировано %d правила</item>
+    </plurals>
+    <string name="spam_rules_import_skipped">Пропущено строк: %d (некорректные или уже добавлены)</string>
+    <string name="spam_rules_import_failed">Не удалось прочитать файл</string>
+    <string name="spam_rules_import_empty">В файле нет корректных правил</string>
+    <plurals name="spam_rules_exported" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Экспортировано %d правило</item>
+        <item quantity="few">Экспортировано %d правила</item>
+        <item quantity="many">Экспортировано %d правил</item>
+        <item quantity="other">Экспортировано %d правила</item>
+    </plurals>
+    <string name="spam_rules_export_failed">Не удалось записать файл</string>
+    <string name="spam_rules_tab_count">%1$s, %2$d</string>
+    <string name="spam_type_number">Номер</string>
+    <string name="spam_type_prefix">Префикс</string>
+    <string name="spam_type_sender_id">Имя отправителя</string>
+    <string name="spam_type_keyword">Ключевое слово</string>
+    <string name="spam_type_regex">Регулярное выражение</string>
+    <string name="spam_type_number_help">Точный номер телефона, например +919876543210.</string>
+    <string name="spam_type_prefix_help">Все номера, которые начинаются с этих цифр, например +91140.</string>
+    <string name="spam_type_sender_id_help">Текстовое имя отправителя, например VM-HDFCBK. Регистр букв не важен.</string>
+    <string name="spam_type_keyword_help">Любое сообщение с этим текстом, даже внутри другого слова: «приз» найдется и в слове «сюрприз». Регистр букв не важен. Отправитель тоже блокируется, если его нет в ваших контактах.</string>
+    <string name="spam_type_keyword_allow_help">Любое сообщение с этим текстом обходит все ваши блокировки, независимо от отправителя. Используйте длинную и точную фразу.</string>
+    <string name="spam_type_regex_help">Для опытных пользователей. Регулярное выражение для проверки текста сообщения. Отправитель тоже блокируется, если его нет в ваших контактах.</string>
+    <string name="spam_type_number_hint">+919876543210</string>
+    <string name="spam_type_prefix_hint">+91140</string>
+    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_keyword_hint">бесплатный подарок</string>
+    <string name="spam_type_regex_hint">win\\s+\\d+</string>
+    <string name="spam_sheet_title_allow">Добавить в разрешенные</string>
+    <string name="spam_sheet_title_block">Добавить в заблокированные</string>
+    <string name="spam_sheet_type_label">Что проверять</string>
+    <string name="spam_sheet_pattern_label">Значение</string>
+    <string name="spam_sheet_sim_label">Применять к</string>
+    <string name="spam_sheet_note_label">Примечание (необязательно)</string>
+    <string name="spam_sheet_add">Добавить правило</string>
+    <string name="spam_sheet_clear_value">Очистить значение</string>
+    <string name="spam_err_empty">Введите значение</string>
+    <string name="spam_err_number">Введите корректный номер телефона: от 3 до 15 цифр, можно с + в начале</string>
+    <string name="spam_err_prefix">Введите от 1 до 15 цифр, можно с + в начале</string>
+    <string name="spam_err_sender_id">Используйте буквы, цифры, дефисы или точки, хотя бы одну букву (до 16 символов)</string>
+    <string name="spam_err_keyword_short">Введите не менее 2 символов</string>
+    <string name="spam_err_too_long">Слишком длинное значение</string>
+    <string name="spam_err_multiline">Введите текст в одну строку</string>
+    <string name="spam_err_regex_invalid">Некорректное регулярное выражение: %s</string>
+    <string name="spam_err_regex_invalid_plain">Некорректное регулярное выражение</string>
+    <string name="spam_err_regex_empty_match">Это регулярное выражение совпадает с любым сообщением. Уточните его.</string>
+    <string name="spam_err_duplicate">Такое правило уже есть</string>
+    <string name="spam_err_regex_unsafe">В этом регулярном выражении повторяется группа с повторением внутри. Это может привести к зависанию фильтрации сообщений. Упростите выражение.</string>
+    <string name="spam_err_regex_matches_all">Это регулярное выражение совпадает с любым сообщением. Уточните его.</string>
+    <string name="spam_err_allow_keyword_short">Разрешенные слова должны содержать не менее 4 символов: любое сообщение с ними обходит все ваши блокировки</string>
+    <string name="spam_sheet_save_failed">Не удалось сохранить правило. Попробуйте еще раз.</string>
+    <string name="spam_warn_allow_skips_blocks">Любое сообщение с этим текстом обходит все ваши блокировки, даже если номер отправителя заблокирован.</string>
+    <string name="spam_warn_common_word">Это короткое или частое слово. Оно легко может встретиться в спаме.</string>
+    <string name="spam_warn_broad">Это часто встречается в обычном тексте, поэтому под правило попадет много обычных сообщений.</string>
+    <string name="spam_warn_allowed_conflict">Это уже есть в списке разрешенных. Правила разрешения всегда важнее, поэтому эта блокировка никогда не сработает.</string>
+    <string name="spam_confirm_title">Сохранить правило?</string>
+    <string name="spam_confirm_save">Все равно сохранить</string>
+    <string name="spam_confirm_remove_allowed">Убрать из разрешенных и заблокировать</string>
+    <string name="spam_confirm_remove_allowed_detail">При сохранении соответствующее правило также будет удалено из списка разрешенных.</string>
+    <string name="spam_import_title">Импортировать правила?</string>
+    <plurals name="spam_import_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d новое правило</item>
+        <item quantity="few">%d новых правила</item>
+        <item quantity="many">%d новых правил</item>
+        <item quantity="other">%d нового правила</item>
+    </plurals>
+    <string name="spam_import_summary">%1$s: для блокировки — %2$d, для разрешения — %3$d</string>
+    <plurals name="spam_import_skipped" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Будет пропущена %d строка (уже добавлена или некорректна)</item>
+        <item quantity="few">Будут пропущены %d строки (уже добавлены или некорректны)</item>
+        <item quantity="many">Будет пропущено %d строк (уже добавлены или некорректны)</item>
+        <item quantity="other">Будет пропущено %d строки (уже добавлены или некорректны)</item>
+    </plurals>
+    <string name="spam_import_examples">Например</string>
+    <string name="spam_import_risky_title">Сначала проверьте эти правила</string>
+    <string name="spam_import_risky_body">Разрешенные ключевые слова и регулярные выражения позволяют любому сообщению с ними обходить все ваши блокировки. Слишком общие правила могут затронуть обычные сообщения.</string>
+    <string name="spam_import_rule_line">%1$s, %2$s: %3$s</string>
+    <plurals name="spam_import_more" tools:ignore="ImpliedQuantity">
+        <item quantity="one">и еще %d</item>
+        <item quantity="few">и еще %d</item>
+        <item quantity="many">и еще %d</item>
+        <item quantity="other">и еще %d</item>
+    </plurals>
+    <string name="spam_import_confirm">Импорт</string>
+    <string name="spam_settings_title">Настройки спама</string>
+    <string name="spam_settings_unknown_title">Сообщения от неизвестных отправителей</string>
+    <string name="spam_settings_unknown_body">Отправители, которых нет в ваших контактах, которым вы никогда не писали и которых нет в списке разрешенных.</string>
+    <string name="spam_mode_strict">Строгий</string>
+    <string name="spam_mode_strict_body">Блокирует всех неизвестных отправителей, включая коды</string>
+    <string name="spam_mode_smart">Умный</string>
+    <string name="spam_mode_smart_body">Блокирует неизвестных отправителей, пропускает сообщения только с кодами</string>
+    <string name="spam_mode_off">Выкл.</string>
+    <string name="spam_mode_off_body">Неизвестные отправители не блокируются</string>
+    <string name="spam_strict_warning_title">Строгий режим может скрыть важные сообщения</string>
+    <string name="spam_strict_warning_body">Сообщения от банков и служб доставки, а также одноразовые коды обычно приходят от отправителей, которых нет в ваших контактах. В строгом режиме они попадают в папку «Заблокированные», включая коды. Выберите умный режим, чтобы пропускать коды, или один раз разрешите этих отправителей.</string>
+    <string name="spam_strict_warning_action">Посмотреть заблокированные сообщения</string>
+    <string name="spam_settings_cleanup_title">Очистка</string>
+    <string name="spam_purge_title">Удалять заблокированные сообщения через</string>
+    <string name="spam_purge_body">Старые заблокированные сообщения удаляются автоматически.</string>
+    <string name="spam_purge_days">%d дней</string>
+    <string name="spam_purge_forever">Никогда</string>
+    <string name="spam_settings_notify_title">Уведомления</string>
+    <string name="spam_notify_title">Уведомлять о блокировке сообщения</string>
+    <string name="spam_notify_body">Показывать уведомление без звука. По умолчанию выключено, чтобы спам не беспокоил.</string>
+    <string name="spam_settings_rules_row">Правила разрешения и блокировки</string>
+    <string name="spam_settings_rules_row_body">Номера, отправители, ключевые слова и регулярные выражения</string>
+    <string name="spam_settings_blocked_row">Заблокированные сообщения</string>
+    <string name="spam_settings_blocked_row_body">Просмотр, восстановление и удаление</string>
+</resources>

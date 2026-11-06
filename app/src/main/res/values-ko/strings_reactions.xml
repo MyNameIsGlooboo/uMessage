@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_reactions_title">iPhone에서 문자로 보낸 반응</string>
+    <string name="thread_reactions_show_original">원본 문자 보기</string>
+</resources>

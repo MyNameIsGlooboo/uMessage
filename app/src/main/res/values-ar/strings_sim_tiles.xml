@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sim_tile_description">%1$s، شريحة SIM %2$s</string>
+</resources>

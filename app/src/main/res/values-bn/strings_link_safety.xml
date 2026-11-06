@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">ছোট করা লিঙ্ক: কোথায় নিয়ে যাবে বোঝা যাচ্ছে না।</string>
+    <string name="i07_punycode">নামটি কোডে লেখা, তাই আসল অক্ষরের বদলে অন্য অক্ষর দেখা যেতে পারে।</string>
+    <string name="i07_mixed_script">নামটিতে একাধিক লিপির অক্ষর মেশানো আছে, যা ভুয়া সাইটে প্রায়ই দেখা যায়।</string>
+    <string name="i07_raw_ip">ঠিকানাটি একটি সংখ্যা, কোনো ওয়েবসাইটের নাম নয়।</string>
+    <string name="i07_http_only">এনক্রিপ্ট করা নেই (http, https নয়)।</string>
+    <string name="i07_lookalike">নামটি %1$s-এর মতো দেখাচ্ছে। বানান দেখে নিন।</string>
+    <string name="i07_user_info">\@-এর আগের অংশটি ওয়েবসাইটের ঠিকানা নয়।</string>
+    <string name="i07_locked">ঝুঁকিপূর্ণ লিঙ্ক এখানে খোলা যায় না। আপনি লিঙ্কটি কপি করতে পারেন।</string>
+    <string name="i07_lock_title">ঝুঁকিপূর্ণ লিঙ্ক খোলা যায় না</string>
+    <string name="i07_lock_summary">তখন লিঙ্কের প্যানেলে শুধু কপি ও শেয়ার করা যাবে</string>
+    <string name="i07_group_title">লিঙ্ক</string>
+</resources>

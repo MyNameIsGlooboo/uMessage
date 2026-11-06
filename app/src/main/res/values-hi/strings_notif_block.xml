@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_block_action">ब्लॉक करें</string>
+    <string name="notif_block_undo">पहले जैसा करें</string>
+    <string name="notif_block_done_title">%1$s को ब्लॉक किया गया</string>
+    <string name="notif_block_done_text">नए मैसेज \'ब्लॉक किए गए मैसेज\' में जाएंगे</string>
+    <string name="notif_block_channel">ब्लॉक किए गए भेजने वाले</string>
+</resources>

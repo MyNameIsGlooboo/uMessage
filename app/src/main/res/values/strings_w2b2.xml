@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Thread: sender decisions (TH-11, TH-12) -->
+    <string name="w2b2_thread_menu_allow">Always allow this sender</string>
+    <string name="w2b2_thread_menu_why">Why was this decided?</string>
+    <string name="w2b2_thread_chip_allowed">Always allowed</string>
+    <string name="w2b2_thread_chip_blocked">Blocked by rule</string>
+
+    <!-- Settings: dates (TH-03, TH-24) -->
+    <string name="w2b2_settings_group_dates">Dates</string>
+    <string name="w2b2_settings_jalali">Jalali dates</string>
+    <string name="w2b2_settings_jalali_body">Show dates in conversations and scheduled messages in the Persian calendar</string>
+
+    <!-- App lock setup hints -->
+    <!-- %d is the minimum number of dots, 4 -->
+    <string name="w2b2_lock_pattern_hint">Connect at least %d dots, then draw the same pattern again to confirm.</string>
+    <string name="w2b2_lock_recovery_hint">If you forget it, the lock screen offers your phone\'s screen lock as a way back in.</string>
+</resources>

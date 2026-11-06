@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">Localização</string>
+    <string name="i52_permission_explanation">O uMessage consulta sua localização uma única vez, só agora, para incluir um link do mapa na mensagem. Nada é armazenado. Você pode escolher a localização aproximada.</string>
+    <string name="i52_finding">Buscando sua localização…</string>
+    <string name="i52_denied">O acesso à localização não foi permitido. A mensagem fica como está.</string>
+    <string name="i52_no_fix">Não foi possível encontrar sua localização. Tente novamente perto de uma janela ou ao ar livre.</string>
+    <string name="i52_off_message">A localização está desativada neste celular. Ative para compartilhar onde você está.</string>
+    <string name="i52_open_settings">Abra as configurações</string>
+</resources>

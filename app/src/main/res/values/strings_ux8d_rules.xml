@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wave 8 (UX review U17): the add-rule sheet asks what to match, then allow or block -->
+    <string name="ux8d_sheet_title_allow">Always allow</string>
+    <string name="ux8d_sheet_title_block">Always block</string>
+    <string name="ux8d_match_label">What to match</string>
+    <string name="ux8d_match_number">A phone number</string>
+    <string name="ux8d_match_sender">A sender name, like a bank</string>
+    <string name="ux8d_match_word">A word in the message</string>
+    <string name="ux8d_match_prefix">Numbers that start with…</string>
+    <string name="ux8d_match_pattern">A pattern (advanced)</string>
+    <string name="ux8d_match_more">More ways to match</string>
+    <string name="ux8d_action_label">When it matches</string>
+    <string name="ux8d_more_options">More options</string>
+
+    <!-- U29: the type, said in words, under each rule -->
+    <string name="ux8d_row_type_number">Number</string>
+    <string name="ux8d_row_type_prefix">Number starts with</string>
+    <string name="ux8d_row_type_sender">Sender name</string>
+    <string name="ux8d_row_type_word">Word in message</string>
+    <string name="ux8d_row_type_pattern">Pattern</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

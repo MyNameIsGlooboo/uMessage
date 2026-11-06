@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">ผู้ส่งที่ไม่รู้จัก</string>
+    <string name="i28_filter_unknown_empty_title">ไม่มีผู้ส่งที่ไม่รู้จัก</string>
+    <string name="i28_filter_unknown_empty_body">การสนทนากับผู้ที่ไม่อยู่ในรายชื่อติดต่อและคุณไม่เคยส่งข้อความถึงจะแสดงที่นี่</string>
+    <string name="i28_filter_images">รูปภาพ</string>
+    <string name="i28_filter_images_empty_title">ไม่มีรูปภาพ</string>
+    <string name="i28_filter_images_empty_body">ข้อความที่มีรูปภาพจะแสดงที่นี่</string>
+    <string name="i28_filter_links">ลิงก์</string>
+    <string name="i28_filter_links_empty_title">ไม่มีลิงก์</string>
+    <string name="i28_filter_links_empty_body">ข้อความที่มีลิงก์เว็บจะแสดงที่นี่</string>
+    <string name="i28_hit_picture">รูปภาพ</string>
+</resources>

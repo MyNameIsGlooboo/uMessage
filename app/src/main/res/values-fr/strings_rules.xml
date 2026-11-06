@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="rules_sheet_title_edit_allow">Modifier la règle d\'autorisation</string>
+    <string name="rules_sheet_title_edit_block">Modifier la règle de blocage</string>
+    <string name="rules_sheet_save">Enregistrer les modifications</string>
+    <string name="rules_edit_rule">Modifier %1$s</string>
+    <string name="rules_search_hint">Rechercher dans les règles et les notes</string>
+    <string name="rules_search_clear">Effacer la recherche</string>
+    <string name="rules_filter_all_types">Tous les types</string>
+    <string name="rules_search_empty_title">Aucune règle correspondante</string>
+    <string name="rules_search_empty_body">Essayez d\'autres mots ou affichez tous les types.</string>
+    <string name="rules_export_selected">Exporter la sélection</string>
+    <string name="rules_delete_selected">Supprimer la sélection</string>
+    <plurals name="rules_deleted_many" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d règle supprimée</item>
+        <item quantity="other">%d règles supprimées</item>
+    </plurals>
+    <string name="rules_system_block_list">Liste de blocage du système (bloque aussi les appels)</string>
+    <string name="rules_legacy_note_keyword">Issu de l\'ancienne liste de mots bloqués</string>
+    <string name="rules_legacy_note_number">Issu de la liste de blocage du système</string>
+    <string name="rules_legacy_banner_title">Anciennes listes de blocage détectées</string>
+    <string name="rules_legacy_banner_body">Certains mots et numéros sont bloqués en dehors de ces règles. Déplacez-les ici pour tout consulter et modifier au même endroit.</string>
+    <string name="rules_legacy_banner_review">Examiner</string>
+    <string name="rules_legacy_banner_not_now">Pas maintenant</string>
+    <string name="rules_legacy_section_keywords">Ancienne liste de mots bloqués</string>
+    <string name="rules_legacy_section_keywords_body">Cette liste sert encore au filtrage tant que vous n\'avez pas déplacé ces mots vers les règles. Elle sera ensuite désactivée.</string>
+    <string name="rules_legacy_section_system_body">Android supprime les messages de ces numéros avant que uMessage les reçoive. Ils n\'apparaissent donc jamais dans Messages bloqués. Cette liste est partagée avec l\'application Téléphone et bloque aussi les appels.</string>
+    <string name="rules_legacy_chip_old_list">Ancienne liste</string>
+    <string name="rules_legacy_chip_system">Système, appels aussi</string>
+    <string name="rules_legacy_move">Déplacer vers les règles</string>
+    <string name="rules_legacy_open_system">Ouvrir la liste de blocage du système</string>
+    <string name="rules_migrate_title">Déplacer les anciennes listes de blocage vers les règles</string>
+    <string name="rules_migrate_nothing">Tout le contenu des anciennes listes figure déjà dans vos règles.</string>
+    <plurals name="rules_migrate_keywords" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d mot de l\'ancienne liste de mots bloqués devient une règle de blocage par mot-clé. L\'ancienne liste est ensuite désactivée.</item>
+        <item quantity="other">%d mots de l\'ancienne liste de mots bloqués deviennent des règles de blocage par mot-clé. L\'ancienne liste est ensuite désactivée.</item>
+    </plurals>
+    <plurals name="rules_migrate_keywords_kept" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d mot ne peut pas devenir une règle (une seule lettre, plusieurs lignes ou trop long) et reste dans l\'ancienne liste.</item>
+        <item quantity="other">%d mots ne peuvent pas devenir des règles (une seule lettre, plusieurs lignes ou trop longs) et restent dans l\'ancienne liste.</item>
+    </plurals>
+    <plurals name="rules_migrate_numbers" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Ajouter aussi le %d numéro de la liste de blocage du système comme règle de blocage</item>
+        <item quantity="other">Ajouter aussi les %d numéros de la liste de blocage du système comme règles de blocage</item>
+    </plurals>
+    <string name="rules_migrate_numbers_body">Android supprime les messages des numéros de la liste de blocage du système. uMessage ne les reçoit donc jamais. Avec des règles uMessage, leurs messages peuvent aller dans Messages bloqués, où vous pouvez les lire et les restaurer, mais seulement après le retrait de ces numéros de la liste du système.</string>
+    <string name="rules_migrate_remove">Les retirer aussi de la liste de blocage du système</string>
+    <string name="rules_migrate_remove_body">La liste du système bloque aussi les appels. Les numéros que vous en retirez peuvent à nouveau vous appeler. uMessage filtre uniquement les messages.</string>
+    <plurals name="rules_migrate_numbers_kept" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d entrée avec caractère générique ne peut pas devenir une règle et reste dans la liste du système.</item>
+        <item quantity="other">%d entrées avec caractère générique ne peuvent pas devenir des règles et restent dans la liste du système.</item>
+    </plurals>
+    <string name="rules_migrate_confirm">Déplacer</string>
+    <plurals name="rules_migrated_keywords" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d mot déplacé vers les règles</item>
+        <item quantity="other">%d mots déplacés vers les règles</item>
+    </plurals>
+    <plurals name="rules_migrated_numbers" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d numéro ajouté comme règle</item>
+        <item quantity="other">%d numéros ajoutés comme règles</item>
+    </plurals>
+    <plurals name="rules_migrated_removed" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d retiré de la liste de blocage du système</item>
+        <item quantity="other">%d retirés de la liste de blocage du système</item>
+    </plurals>
+    <plurals name="rules_migrated_kept" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d entrée reste dans les anciennes listes</item>
+        <item quantity="other">%d entrées restent dans les anciennes listes</item>
+    </plurals>
+    <string name="rules_migrated_nothing">Aucun élément déplacé.</string>
+    <string name="settings_system_block_list_body_calls">Bloque les appels et les messages sur tout ce téléphone. Android supprime ces messages avant que uMessage les reçoive. Vous pouvez déplacer les numéros vers Autorisés et bloqués.</string>
+    <string name="settings_old_blocked_words">Ancienne liste de mots bloqués</string>
+    <string name="settings_old_blocked_words_body">Transfert vers Autorisés et bloqués</string>
+</resources>

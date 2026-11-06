@@ -1,0 +1,97 @@
+# Invented incoming texts. Format: EXPECTED|message. NONE means no chip may show. Never add real messages.
+# YES_NO
+YES_NO|Apakah kamu sudah makan?
+YES_NO|Kamu bisa datang besok?
+YES_NO|Kamu jadi ikut?
+YES_NO|Udah sampai?
+YES_NO|Sudah pulang?
+YES_NO|Bisa besok?
+YES_NO|Boleh masuk?
+YES_NO|Apa bapak ada di kantor?
+YES_NO|Ibu sudah makan siang?
+YES_NO|Besok kamu datang nggak?
+YES_NO|Kamu masih di sini?
+YES_NO|Hasilnya sudah keluar belum?
+YES_NO|Jam delapan, oke?
+YES_NO|Kita berangkat pagi, setuju?
+YES_NO|Apakah anda sudah menerima pesannya
+YES_NO|Udah makan belum?
+YES_NO|Kamu lagi sibuk?
+YES_NO|Jadi gak besok?
+# WHEN
+WHEN|Kapan kamu pulang?
+WHEN|Jam berapa kita ketemu?
+WHEN|Kamu datang kapan?
+WHEN|Kpn bisa ketemu?
+WHEN|Jam berapa kamu berangkat besok?
+WHEN|Kapan selesainya?
+WHEN|Kamu pulang kapan
+# WHERE
+WHERE|Kamu di mana?
+WHERE|Lagi dimana?
+WHERE|Kita ketemu di mana?
+WHERE|Dimana kita makan?
+WHERE|Posisi dimana sekarang?
+WHERE|Kamu dmn?
+# INVITE
+INVITE|Yuk makan bareng?
+INVITE|Ayo main ke rumahku?
+INVITE|Mau ikut nonton?
+INVITE|Kamu lagi bebas nggak?
+INVITE|Gimana kalau kita jalan sore ini?
+INVITE|Besok free nggak?
+INVITE|Ada waktu malam ini?
+# REQUEST
+REQUEST|Bisa tolong kirim fotonya?
+REQUEST|Tolong kabari aku kalau sudah sampai?
+REQUEST|Bisa kirim alamatnya?
+REQUEST|Bisa bantu saya sebentar?
+REQUEST|Boleh minta nomornya?
+REQUEST|Bisa jemput aku di stasiun?
+REQUEST|Mohon konfirmasi kehadiran Bapak?
+REQUEST|Tolong beliin roti ya?
+# CHOICE
+CHOICE:nasi,mie|Nasi atau mie?
+CHOICE:kopi,teh|Kopi atau teh?
+CHOICE:hari ini,besok|Hari ini atau besok?
+CHOICE:pantai,gunung|Pantai atau gunung?
+CHOICE:mobil,motor|Mobil atau motor?
+CHOICE:bioskop,konser|Bioskop atau konser?
+CHOICE:sabtu,minggu|Sabtu ato minggu?
+# NONE
+NONE|Kenapa kamu tidak datang?
+NONE|Berapa harganya?
+NONE|Siapa itu?
+NONE|Apa yang kamu lakukan?
+NONE|Bagaimana harimu?
+NONE|Ini nomor siapa?
+NONE|Aku sudah di jalan
+NONE|Nanti aku telepon
+NONE|Kamu sudah lihat videonya? Bagus kan?
+NONE|Kamu mau ke mana? Aku ikut ya?
+NONE|Lihat ini https://contoh.com/foto
+NONE|Kode kamu 482913
+NONE|Mau makan apa?
+NONE|Kamu dari mana?
+NONE|Siapa yang bisa datang?
+NONE|Berapa lama lagi?
+NONE|Kamu umur berapa?
+NONE|Hari ini capek banget, aku bangun pagi terus kerja seharian dan masih harus beres-beres rumah sebelum tidur nanti malam
+NONE|Aku lapar
+NONE|Apa maksudnya?
+NONE|Kamu kenapa?
+NONE|Ini apa?
+NONE|Mengapa begitu?
+NONE|Warna apa yang kamu suka?
+NONE|Film apa yang kamu tonton semalam?
+NONE|Lagi apa?
+NONE|Bagaimana cara ke stasiun?
+NONE|Berapa orang yang datang?
+NONE|Kamu tinggal di mana?
+NONE|Kamu pesan apa?
+NONE|Aku mau pulang
+NONE|Aku bisa datang besok
+NONE|Pesan dari bank: transfer Rp 500.000 ya?
+NONE|Ini jam berapa?
+NONE|Hari apa sekarang?
+NONE|Siapa yang menang kemarin?

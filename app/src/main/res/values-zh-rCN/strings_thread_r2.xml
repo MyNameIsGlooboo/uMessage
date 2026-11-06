@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">原因</string>
+    <string name="thread_r2_details_rule">规则</string>
+    <string name="thread_r2_details_forwarded">已转发</string>
+    <string name="thread_r2_details_decision_restored">已屏蔽，随后恢复至收件箱</string>
+    <string name="thread_r2_details_copy">复制%1$s</string>
+    <string name="thread_r2_menu_search">搜索会话</string>
+    <string name="thread_r2_menu_always_forward">始终转发此发件人的消息</string>
+    <string name="thread_r2_block_hint">以后的短信将移至“已屏蔽”。所有内容都留在手机上。</string>
+    <string name="thread_r2_forward_message">转发此消息</string>
+    <string name="thread_r2_search_hint">搜索会话</string>
+    <string name="thread_r2_search_close">关闭搜索</string>
+    <string name="thread_r2_search_none">无匹配结果</string>
+    <string name="thread_r2_search_count">第%1$d项，共%2$d项</string>
+    <string name="thread_r2_search_older">较早的匹配结果</string>
+    <string name="thread_r2_search_newer">较新的匹配结果</string>
+    <string name="thread_r2_link_copy">复制链接</string>
+    <string name="thread_r2_link_share">分享</string>
+    <string name="thread_r2_schedule_pick_date">选择日期</string>
+    <string name="thread_r2_calendar_previous">上个月</string>
+    <string name="thread_r2_calendar_next">下个月</string>
+</resources>

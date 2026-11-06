@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spam_ui_delete_all">Tümünü silin</string>
+    <string name="spam_ui_delete_all_title">Engellenen tüm mesajlar silinsin mi?</string>
+    <plurals name="spam_ui_delete_all_message">
+        <item quantity="one">Engellenen %1$d mesaj silinecek. Hemen ardından geri alabilirsiniz.</item>
+        <item quantity="other">Engellenen %1$d mesaj silinecek. Hemen ardından geri alabilirsiniz.</item>
+    </plurals>
+    <string name="declog_ui_clear_title">Karar günlüğü temizlensin mi?</string>
+    <string name="declog_ui_clear_message">Kaydedilen tüm kararlar kaldırılır. Engellenen mesajlar ve kurallar olduğu gibi kalır.</string>
+    <string name="declog_ui_clear_action">Temizleyin</string>
+    <string name="ui_log_reason_contacts_unavailable">Kişiler okunamıyor</string>
+    <string name="blocknum_title">Engellenen numaralar</string>
+    <string name="blocknum_add">Numara ekleyin</string>
+    <string name="blocknum_add_title">Bir numarayı engelleyin</string>
+    <string name="blocknum_edit_title">Engellenen numarayı düzenleyin</string>
+    <string name="blocknum_field_label">Numara</string>
+    <string name="blocknum_field_help">Joker karakter olarak * kullanın: +1555*, +1555 ile başlayan tüm numaraları engeller</string>
+    <string name="blocknum_err_empty">Bir numara girin</string>
+    <string name="blocknum_err_invalid">Bir telefon numarası veya * joker karakteri içeren rakamlar girin</string>
+    <string name="blocknum_copy">Numarayı kopyalayın</string>
+    <string name="blocknum_unblock">Engellemeyi kaldırın</string>
+    <string name="blocknum_unblock_for">%1$s için engellemeyi kaldırın</string>
+    <string name="blocknum_edit_for">Düzenleyin: %1$s</string>
+    <string name="blocknum_more_for">%1$s için diğer seçenekler</string>
+    <string name="blocknum_pattern">Joker karakterli ifade</string>
+    <string name="blocknum_copied">Numara kopyalandı</string>
+    <plurals name="blocknum_unblocked">
+        <item quantity="one">%1$d numaranın engellemesi kaldırıldı</item>
+        <item quantity="other">%1$d numaranın engellemesi kaldırıldı</item>
+    </plurals>
+    <string name="blocknum_import">İçe aktarın</string>
+    <string name="blocknum_export">Dışa aktarın</string>
+    <plurals name="blocknum_imported">
+        <item quantity="one">%1$d numara içe aktarıldı</item>
+        <item quantity="other">%1$d numara içe aktarıldı</item>
+    </plurals>
+    <string name="blocknum_import_empty">Dosyada numara bulunamadı</string>
+    <plurals name="blocknum_import_skipped">
+        <item quantity="one">%d kayıt atlandı (numara değil veya zaten engellendi)</item>
+        <item quantity="other">%d kayıt atlandı (numara değil veya zaten engellendi)</item>
+    </plurals>
+    <string name="blocknum_import_failed">Dosya okunamadı</string>
+    <plurals name="blocknum_exported">
+        <item quantity="one">%1$d numara dışa aktarıldı</item>
+        <item quantity="other">%1$d numara dışa aktarıldı</item>
+    </plurals>
+    <string name="blocknum_export_empty">Dışa aktarılacak numara yok</string>
+    <string name="blocknum_export_failed">Dosya kaydedilemedi</string>
+    <string name="blocknum_failed">Engellenenler listesi değiştirilemedi. Lütfen tekrar deneyin.</string>
+    <string name="blocknum_empty_title">Engellenen numara yok</string>
+    <string name="blocknum_empty_body">Engellenen numaralar size mesaj gönderemez veya sizi arayamaz. Bu liste telefon uygulamanızla ortaktır.</string>
+    <string name="blocknum_unavailable_title">Engellenenler listesine erişilemiyor</string>
+    <string name="blocknum_unavailable_body">Sistemin engellenenler listesini görmek ve değiştirmek için uMessage uygulamasını varsayılan SMS uygulamanız yapın.</string>
+    <string name="blocknum_unknown_title">Bilinmeyen numaraları engelleyin</string>
+    <string name="blocknum_unknown_body">Yalnızca spam modu Kapalı olduğunda kullanılır: bilinmeyen numaralardan gelen mesajlar, Sıkı modda olduğu gibi Engellenenler bölümüne gider. Sıkı ve Akıllı modlar bu ayarı dikkate almaz.</string>
+    <string name="blocknum_contacts_denied">Kişilere erişim olmadan bilinmeyen numaralar belirlenemez</string>
+    <string name="blocknum_section_numbers">Numaralar</string>
+</resources>

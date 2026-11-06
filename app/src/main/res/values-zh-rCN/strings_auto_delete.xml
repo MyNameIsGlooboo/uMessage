@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">消息保留时间</string>
+    <string name="cleanup_old_summary">超期消息将移入回收站</string>
+    <string name="cleanup_forever">永久</string>
+    <string name="cleanup_one_year">1年</string>
+    <string name="cleanup_bin_title">开启回收站？</string>
+    <string name="cleanup_bin_body">删除的消息会在回收站中保留30天，期间可随时恢复。自动清理需要开启回收站。</string>
+    <string name="cleanup_bin_confirm">开启</string>
+    <string name="cleanup_old_confirm_title">移入超期消息？</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="other">%d条消息已超出保留时间，将立即移入回收站。星标消息、未读消息和置顶会话将保留。</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">暂无超期消息。之后超期的消息会自动移入回收站。星标消息、未读消息和置顶会话将保留。</string>
+    <string name="cleanup_old_confirm_action">移入</string>
+</resources>

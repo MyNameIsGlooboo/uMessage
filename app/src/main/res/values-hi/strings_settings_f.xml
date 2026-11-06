@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_f_backup_row_body">मैसेज, नियम और सेटिंग एक फ़ाइल में</string>
+    <string name="settings_f_backup_rules_group">नियम और सेटिंग</string>
+    <string name="settings_f_backup_rules_contents">फ़ाइल में अनुमति देने और ब्लॉक करने के नियम, फ़ॉरवर्ड करने के नियम और सेटिंग रहती हैं: स्पैम से सुरक्षा, सूचनाएं, तारीखें, टेक्स्ट का आकार, थीम, Enter कुंजी और फ़ॉरवर्ड करने की सीमाएं. मैसेज का टेक्स्ट या आपका ऐप लॉक कभी शामिल नहीं होता. फ़ॉरवर्ड करने के नियम वापस आने पर बंद रहते हैं.</string>
+    <string name="settings_f_backup_messages_contents">मैसेज का टेक्स्ट और फ़ोटो, एक अलग फ़ाइल में.</string>
+    <string name="settings_f_restore_title">इस फ़ाइल से वापस लाएं?</string>
+    <string name="settings_f_restore_rules">अनुमति देने के नियम: %1$d · ब्लॉक करने के नियम: %2$d. पहले से मौजूद नियम छोड़ दिए जाते हैं.</string>
+    <string name="settings_f_restore_forwards">जोड़ने के लिए फ़ॉरवर्ड करने के नियम: %1$d, बंद रहेंगे. इन्हें नियम › फ़ॉरवर्ड करें में चालू करें.</string>
+    <string name="settings_f_restore_forwards_skipped">छोड़े गए फ़ॉरवर्ड करने के नियम: %1$d (पहले से मौजूद हैं या मैसेज पाने वाला कोई नंबर नहीं है).</string>
+    <string name="settings_f_restore_settings_changed">बदलने वाली सेटिंग: %1$s</string>
+    <string name="settings_f_restore_settings_none">सेटिंग में कोई बदलाव नहीं.</string>
+    <string name="settings_f_restore_action">वापस लाएं</string>
+    <string name="settings_f_restore_done">जोड़े गए नियम: %1$d · फ़ॉरवर्ड करने के जोड़े गए नियम: %2$d. फ़ॉरवर्ड करने के नियम आपके चालू करने तक बंद रहेंगे.</string>
+    <string name="settings_f_restore_done_rules">जोड़े गए नियम: %1$d.</string>
+    <string name="settings_f_restore_done_title">वापस लाने का काम पूरा हुआ</string>
+    <string name="settings_f_label_codes">अनजान भेजने वालों के कोड</string>
+    <string name="settings_f_list_separator">", "</string>
+    <string name="settings_f_group_display">डिसप्ले</string>
+    <string name="settings_f_appearance">रंग-रूप</string>
+    <string name="settings_f_language_system">सिस्टम की डिफ़ॉल्ट भाषा</string>
+    <string name="settings_f_group_rules">नियम और सूचियां</string>
+    <string name="settings_f_spam_more">रखने की अवधि और अलर्ट</string>
+    <string name="settings_f_spam_more_body">ब्लॉक किए गए मैसेज कितने समय तक रखे जाएं, और अलर्ट</string>
+    <string name="settings_f_hide_lock_codes_body">लॉक स्क्रीन पर कोड •••• के रूप में दिखते हैं</string>
+    <string name="settings_f_code_alert">कोड का अलर्ट</string>
+    <string name="settings_f_code_alert_body">पुष्टि करने के कोड के लिए आवाज़</string>
+    <string name="settings_f_channel_codes">पुष्टि करने के कोड</string>
+    <string name="settings_f_channel_codes_desc">पुष्टि करने के कोड वाले मैसेज</string>
+</resources>

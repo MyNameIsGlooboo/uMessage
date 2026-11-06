@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">Tekrar</string>
+    <string name="schedule_repeat_never">Asla</string>
+    <string name="schedule_repeat_daily">Her gün</string>
+    <string name="schedule_repeat_weekly">Her hafta</string>
+    <string name="schedule_repeat_monthly">Her ay</string>
+    <string name="schedule_repeat_yearly">Her yıl</string>
+    <string name="schedule_repeat_jalali_note">Aylar ve yıllar Celali takvimine göredir.</string>
+    <string name="scheduled_repeats_daily">Her gün tekrarlanır</string>
+    <string name="scheduled_repeats_weekly">Her hafta tekrarlanır</string>
+    <string name="scheduled_repeats_monthly">Her ay tekrarlanır</string>
+    <string name="scheduled_repeats_yearly">Her yıl tekrarlanır</string>
+    <string name="scheduled_repeats_paused">Tekrar duraklatıldı</string>
+    <string name="scheduled_delete_repeating">Tekrarlanan mesajı silin</string>
+    <string name="scheduled_delete_this_one">Yalnızca bu mesaj</string>
+    <string name="scheduled_delete_all_future">Bu ve sonraki tüm mesajlar</string>
+</resources>

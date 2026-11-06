@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i56_section">สื่อและลิงก์</string>
+    <string name="i56_see_all">ดูทั้งหมด</string>
+    <string name="i56_pictures">รูปภาพ</string>
+    <string name="i56_links">ลิงก์</string>
+    <string name="i56_empty_pictures">ไม่มีรูปภาพในการสนทนานี้</string>
+    <string name="i56_empty_links">ไม่มีลิงก์ในการสนทนานี้</string>
+    <string name="i56_show_in_chat">แสดงในการสนทนา</string>
+    <string name="i56_load_more">แสดงเพิ่มเติม</string>
+    <string name="i56_picture_description">รูปภาพ แตะเพื่อเปิด</string>
+    <plurals name="i56_count_pictures">
+        <item quantity="other">%d รูป</item>
+    </plurals>
+    <plurals name="i56_count_links">
+        <item quantity="other">%d ลิงก์</item>
+    </plurals>
+</resources>

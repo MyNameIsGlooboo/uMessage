@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">vivo或iQOO</string>
+    <string name="oem2_step_vivo">允许自启动和后台运行</string>
+    <string name="oem2_step_vivo_desc">开启uMessage的“自启动”，并在其电池设置中允许后台高耗电。</string>
+    <string name="oem2_xiaomi_autostart_desc">开启uMessage的“自启动”，以便手机重启后自动启动。如果打开的是应用信息页面，请开启其中的“自启动”开关。</string>
+    <string name="oem2_xiaomi_battery_desc">为uMessage选择“无限制”。如果打开的是应用列表，请先点按uMessage。</string>
+    <string name="oem2_oppo_desc">为uMessage开启“允许自启动”和“允许后台活动”。较新的手机可在“应用信息”的“耗电管理”中找到这些选项。</string>
+    <string name="oem2_ignore_battery_desc">为uMessage选择“不受限制”或“不优化”。如果打开的是列表，请先切换到“所有应用”。</string>
+    <string name="oem2_state_done">已完成</string>
+    <string name="oem2_state_marked">你已标记为完成</string>
+    <string name="oem2_state_todo">尚未完成</string>
+    <string name="oem2_state_limited">Android仍在限制uMessage后台运行</string>
+    <string name="oem2_open_again">重新打开</string>
+    <string name="oem2_undo">撤销</string>
+    <string name="oem2_undo_cd">将%1$s标记为未完成</string>
+</resources>

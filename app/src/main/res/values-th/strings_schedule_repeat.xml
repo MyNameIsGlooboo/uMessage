@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">ส่งซ้ำ</string>
+    <string name="schedule_repeat_never">ไม่ส่งซ้ำ</string>
+    <string name="schedule_repeat_daily">ทุกวัน</string>
+    <string name="schedule_repeat_weekly">ทุกสัปดาห์</string>
+    <string name="schedule_repeat_monthly">ทุกเดือน</string>
+    <string name="schedule_repeat_yearly">ทุกปี</string>
+    <string name="schedule_repeat_jalali_note">เดือนและปีอิงตามปฏิทินจาลาลี</string>
+    <string name="scheduled_repeats_daily">ส่งซ้ำทุกวัน</string>
+    <string name="scheduled_repeats_weekly">ส่งซ้ำทุกสัปดาห์</string>
+    <string name="scheduled_repeats_monthly">ส่งซ้ำทุกเดือน</string>
+    <string name="scheduled_repeats_yearly">ส่งซ้ำทุกปี</string>
+    <string name="scheduled_repeats_paused">หยุดส่งซ้ำชั่วคราว</string>
+    <string name="scheduled_delete_repeating">ลบข้อความที่ส่งซ้ำ</string>
+    <string name="scheduled_delete_this_one">เฉพาะข้อความนี้</string>
+    <string name="scheduled_delete_all_future">ข้อความนี้และทุกข้อความหลังจากนี้</string>
+</resources>

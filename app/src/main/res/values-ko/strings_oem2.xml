@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">Vivo 또는 iQOO</string>
+    <string name="oem2_step_vivo">자동 시작 및 백그라운드 사용 허용</string>
+    <string name="oem2_step_vivo_desc">uMessage 앱의 자동 시작을 켜고, 배터리 설정에서 백그라운드의 높은 전력 사용을 허용해 주세요.</string>
+    <string name="oem2_xiaomi_autostart_desc">재부팅 후에도 실행되도록 uMessage 앱의 자동 시작을 켜 주세요. 앱 정보 화면이 열리면 자동 시작 스위치를 켜 주세요.</string>
+    <string name="oem2_xiaomi_battery_desc">uMessage 앱에 \"제한 없음\"을 선택해 주세요. 앱 목록이 열리면 먼저 uMessage 앱을 눌러 주세요.</string>
+    <string name="oem2_oppo_desc">uMessage 앱의 \"자동 실행 허용\"과 \"백그라운드 활동 허용\"을 켜 주세요. 최신 휴대전화에서는 앱 정보의 배터리 사용량에 있어요.</string>
+    <string name="oem2_ignore_battery_desc">uMessage 앱에 \"제한 없음\" 또는 \"최적화 안 함\"을 선택해 주세요. 목록이 열리면 먼저 \"모든 앱\"으로 바꿔 주세요.</string>
+    <string name="oem2_state_done">완료</string>
+    <string name="oem2_state_marked">직접 완료로 표시함</string>
+    <string name="oem2_state_todo">아직 완료하지 않음</string>
+    <string name="oem2_state_limited">Android 시스템이 여전히 uMessage 앱의 백그라운드 실행을 제한하고 있어요.</string>
+    <string name="oem2_open_again">다시 열기</string>
+    <string name="oem2_undo">실행 취소</string>
+    <string name="oem2_undo_cd">미완료로 표시: %1$s</string>
+</resources>

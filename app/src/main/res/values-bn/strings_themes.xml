@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_intro">uMessage কেমন দেখাবে বেছে নিন: হালকা বা গাঢ় মোড এবং রং।</string>
+    <string name="preset_system">সিস্টেম</string>
+    <string name="preset_system_desc">আপনার ফোনের সঙ্গে মিলিয়ে হালকা বা গাঢ়</string>
+    <string name="preset_light">হালকা</string>
+    <string name="preset_light_desc">সবসময় হালকা</string>
+    <string name="preset_dark">গাঢ়</string>
+    <string name="preset_dark_desc">সবসময় গাঢ়, চোখের জন্য আরামদায়ক</string>
+    <string name="preset_amoled">কালো</string>
+    <string name="preset_amoled_desc">OLED স্ক্রিনের জন্য পুরো কালো</string>
+    <string name="preset_brand">নেভি</string>
+    <string name="preset_brand_desc">নেভি ও সোনালি, uMessage-এর চেনা রূপ</string>
+    <string name="preset_coral">কোরাল</string>
+    <string name="preset_coral_desc">অ্যাপ আইকনের কোরাল ও নীল</string>
+    <string name="preset_sky">আকাশ</string>
+    <string name="preset_sky_desc">হালকা নীল ও সাদা</string>
+    <string name="preset_forest">বন</string>
+    <string name="preset_forest_desc">সবুজের সঙ্গে হলুদের ছোঁয়া</string>
+    <string name="preset_sunset">সূর্যাস্ত</string>
+    <string name="preset_sunset_desc">উষ্ণ কমলা ও ক্রিম</string>
+    <string name="preset_graphite">গ্রাফাইট</string>
+    <string name="preset_graphite_desc">ধূসরের সঙ্গে অ্যাম্বার</string>
+    <string name="preset_wallpaper">ওয়ালপেপার</string>
+    <string name="preset_wallpaper_desc">আপনার ওয়ালপেপার থেকে নেওয়া রং</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="blocked_line_strict">Protezione rigorosa</string>
+    <string name="blocked_line_smart">Protezione intelligente</string>
+    <string name="blocked_line_off">Protezione disattivata</string>
+    <string name="blocked_line_join">%1$s · %2$s</string>
+    <string name="blocked_line_cd">%1$s, %2$s</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">शेड्यूल किया गया मैसेज देर से भेजा गया</string>
+    <string name="scheduled_sent_late_exact_off">%1$s को आपका मैसेज %2$d मिनट देर से भेजा गया. शेड्यूल किए गए मैसेज समय पर भेजने के लिए uMessage को “अलार्म और रिमाइंडर” की अनुमति दें.</string>
+    <string name="scheduled_sent_late_idle">%1$s को आपका मैसेज %2$d मिनट देर से भेजा गया: तय समय पर फ़ोन बंद था या बैटरी बचा रहा था.</string>
+    <string name="scheduled_sent_late_channel">शेड्यूल किए गए मैसेज</string>
+    <string name="notifications_off_title">सूचनाएं बंद हैं</string>
+    <string name="notifications_off_body">आपको नए मैसेज की सूचना नहीं मिलेगी.</string>
+    <string name="notifications_off_fix">चालू करें</string>
+</resources>

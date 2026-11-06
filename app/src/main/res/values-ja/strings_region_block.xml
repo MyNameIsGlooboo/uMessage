@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">他の国</string>
+    <string name="region_title">他の国の番号を保留</string>
+    <string name="region_summary">連絡先や送信履歴のある相手は保留しません。</string>
+    <string name="region_off">オフ</string>
+    <string name="region_picker_title">お住まいの国</string>
+    <string name="region_picker_body">他の国の番号からのメッセージは「ブロック済み」に保留されます。連絡先や送信履歴のある相手は対象外です。海外の親族でも、連絡先に登録されていなければ保留されます。</string>
+    <string name="region_picker_search">検索</string>
+    <string name="region_reason_foreign">他の国の番号</string>
+</resources>

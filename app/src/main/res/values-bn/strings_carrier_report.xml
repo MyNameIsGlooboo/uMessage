@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">স্প্যাম রিপোর্ট করুন</string>
+    <string name="carrier_report_row_title">মোবাইল অপারেটরের স্প্যাম রিপোর্ট নম্বর</string>
+    <string name="carrier_report_row_summary">SMS দিয়ে আপনার মোবাইল অপারেটরকে স্প্যাম রিপোর্ট করুন</string>
+    <string name="carrier_report_not_set">সেট করা হয়নি</string>
+    <string name="carrier_report_hint">আপনার মোবাইল অপারেটরের স্প্যাম রিপোর্ট করার নম্বর। রিপোর্ট SMS হিসেবে পাঠানো হয় এবং এতে খরচ হতে পারে।</string>
+    <string name="carrier_report_invalid">3 থেকে 8টি সংখ্যা ব্যবহার করুন</string>
+    <string name="carrier_report_action">মোবাইল অপারেটরকে রিপোর্ট করুন</string>
+    <string name="carrier_report_title">আপনার মোবাইল অপারেটরকে রিপোর্ট করবেন?</string>
+    <string name="carrier_report_body">এতে এই প্রেরকের সর্বশেষ বার্তাটি SMS হিসেবে %1$s নম্বরে পাঠানো হবে। আপনার মোবাইল অপারেটর এর জন্য টাকা কাটতে পারে।</string>
+    <string name="carrier_report_send">পাঠান</string>
+    <string name="carrier_report_sent">আপনার মোবাইল অপারেটরকে রিপোর্ট পাঠানো হয়েছে</string>
+    <string name="carrier_report_failed">রিপোর্ট পাঠানো যায়নি</string>
+</resources>

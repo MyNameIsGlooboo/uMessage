@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">การแจ้งเตือน หน้าจอล็อก สรุปรายสัปดาห์</string>
+    <string name="ux8e_nav_typing">การพิมพ์และการส่ง</string>
+    <string name="ux8e_nav_typing_body">ปุ่ม Enter รายงานการส่ง ลายเซ็น</string>
+    <string name="ux8e_nav_storage">พื้นที่จัดเก็บและการล้างข้อมูล</string>
+    <string name="ux8e_nav_storage_body">ถังขยะ เก็บถาวร ลบอัตโนมัติ</string>
+    <string name="ux8e_group_lock_screen">หน้าจอล็อก</string>
+    <string name="ux8e_group_recycle">ข้อความที่ลบแล้ว</string>
+    <string name="ux8e_group_cleanup">ล้างข้อมูลอัตโนมัติ</string>
+    <string name="ux8e_group_archive">เก็บถาวร</string>
+    <string name="ux8e_keep_deleted">เก็บข้อความที่ลบแล้ว</string>
+    <string name="ux8e_keep_deleted_body">เก็บไว้ในถังขยะเป็นเวลา 30 วัน</string>
+    <string name="ux8e_recycle_bin">ถังขยะ</string>
+    <string name="ux8e_backup_row">สำรองข้อมูล</string>
+    <string name="ux8e_backup_row_body">บันทึกเป็นไฟล์</string>
+    <string name="ux8e_restore_row">กู้คืน</string>
+    <string name="ux8e_restore_row_body">โหลดจากไฟล์</string>
+    <string name="ux8e_backup_what">ต้องการสำรองข้อมูลอะไร?</string>
+    <string name="ux8e_restore_what">ต้องการกู้คืนอะไร?</string>
+    <string name="ux8e_what_messages">ข้อความ</string>
+    <string name="ux8e_what_settings">กฎและการตั้งค่า</string>
+    <string name="ux8e_backup_warning">ไฟล์สำรองข้อมูลไม่ได้เข้ารหัส</string>
+    <string name="ux8e_calendar">ปฏิทิน</string>
+</resources>

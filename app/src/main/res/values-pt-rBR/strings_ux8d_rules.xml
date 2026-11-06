@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">Permita sempre</string>
+    <string name="ux8d_sheet_title_block">Bloqueie sempre</string>
+    <string name="ux8d_match_label">O que identificar</string>
+    <string name="ux8d_match_number">Um número de telefone</string>
+    <string name="ux8d_match_sender">Um nome de remetente, como um banco</string>
+    <string name="ux8d_match_word">Uma palavra na mensagem</string>
+    <string name="ux8d_match_prefix">Números que começam com…</string>
+    <string name="ux8d_match_pattern">Um padrão (avançado)</string>
+    <string name="ux8d_match_more">Mais formas de identificar</string>
+    <string name="ux8d_action_label">Quando corresponder</string>
+    <string name="ux8d_more_options">Mais opções</string>
+    <string name="ux8d_row_type_number">Número</string>
+    <string name="ux8d_row_type_prefix">Número começa com</string>
+    <string name="ux8d_row_type_sender">Nome do remetente</string>
+    <string name="ux8d_row_type_word">Palavra na mensagem</string>
+    <string name="ux8d_row_type_pattern">Padrão</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

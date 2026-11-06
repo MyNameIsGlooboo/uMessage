@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_search_hint">Rechercher dans les conversations</string>
+    <string name="main_search_back">Fermer la recherche</string>
+    <string name="main_search_clear">Effacer le texte de recherche</string>
+    <string name="main_search_type_more">Saisissez au moins 2 caractères pour rechercher</string>
+    <string name="main_search_no_results">Aucun résultat</string>
+    <string name="main_settings">Paramètres</string>
+    <string name="main_tab_messages">Messages</string>
+    <string name="main_tab_blocked">Messages bloqués</string>
+    <string name="main_tab_archived">Archivés</string>
+    <plurals name="main_tab_blocked_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Messages bloqués, %d nouveau</item>
+        <item quantity="other">Messages bloqués, %d nouveaux</item>
+    </plurals>
+    <string name="main_permission_title">Autorisation requise</string>
+    <string name="main_permission_grant">Accorder l\'autorisation</string>
+    <string name="main_permission_notifications">Autorisez les notifications pour que l\'application puisse afficher les messages reçus.</string>
+    <string name="main_sms_permission_title">uMessage a besoin d\'accéder aux SMS</string>
+    <string name="main_sms_permission_body">Sans l\'autorisation de lire et d\'envoyer des SMS, uMessage ne peut ni afficher vos messages, ni envoyer de SMS, ni filtrer le spam. Rien n\'est supprimé.</string>
+    <string name="main_sms_permission_settings">Ouvrir les paramètres de l\'application</string>
+    <string name="main_not_default_banner">uMessage n\'est pas votre application SMS par défaut et ne peut donc ni bloquer le spam ni envoyer de messages.</string>
+    <string name="main_not_default_fix">Corriger</string>
+    <string name="main_not_default_fix_description">Définir uMessage comme application SMS par défaut</string>
+</resources>

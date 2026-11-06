@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">هل تريد الإرسال في الوقت المحدد بدقة؟</string>
+    <string name="schedule_exact_alarm_text">لإرسال الرسائل المجدولة في الوقت المحدد بدقة، اسمح لـ uMessage باستخدام «المنبّهات والتذكيرات» في إعدادات النظام. ستُرسل الرسائل دون هذا الإذن، لكنها قد تتأخر.</string>
+    <string name="schedule_exact_alarm_open_settings">افتح الإعدادات</string>
+    <string name="schedule_exact_alarm_anyway">جدوِل على أي حال</string>
+</resources>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_channel">النسخ الاحتياطي والاستعادة</string>
+    <string name="backup_restoring">جارٍ استعادة الرسائل</string>
+    <string name="backup_exporting">جارٍ نسخ الرسائل احتياطيًا</string>
+    <plurals name="backup_progress_import">
+        <item quantity="zero">تمت قراءة %1$d سجل</item>
+        <item quantity="one">تمت قراءة سجل واحد (%1$d)</item>
+        <item quantity="two">تمت قراءة سجلين (%1$d)</item>
+        <item quantity="few">تمت قراءة %1$d سجلات</item>
+        <item quantity="many">تمت قراءة %1$d سجلًا</item>
+        <item quantity="other">تمت قراءة %1$d سجل</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="zero">تمت قراءة %1$d سجل (%2$d%%)</item>
+        <item quantity="one">تمت قراءة سجل واحد (%1$d) (%2$d%%)</item>
+        <item quantity="two">تمت قراءة سجلين (%1$d) (%2$d%%)</item>
+        <item quantity="few">تمت قراءة %1$d سجلات (%2$d%%)</item>
+        <item quantity="many">تمت قراءة %1$d سجلًا (%2$d%%)</item>
+        <item quantity="other">تمت قراءة %1$d سجل (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="zero">تم حفظ %1$d رسالة</item>
+        <item quantity="one">تم حفظ رسالة واحدة (%1$d)</item>
+        <item quantity="two">تم حفظ رسالتين (%1$d)</item>
+        <item quantity="few">تم حفظ %1$d رسائل</item>
+        <item quantity="many">تم حفظ %1$d رسالة</item>
+        <item quantity="other">تم حفظ %1$d رسالة</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="zero">تم حفظ %1$d رسالة (%2$d%%)</item>
+        <item quantity="one">تم حفظ رسالة واحدة (%1$d) (%2$d%%)</item>
+        <item quantity="two">تم حفظ رسالتين (%1$d) (%2$d%%)</item>
+        <item quantity="few">تم حفظ %1$d رسائل (%2$d%%)</item>
+        <item quantity="many">تم حفظ %1$d رسالة (%2$d%%)</item>
+        <item quantity="other">تم حفظ %1$d رسالة (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">يمكنك مغادرة التطبيق: ستستمر العملية ويظهر تقدمها في إشعار.</string>
+    <string name="backup_stop">أوقف</string>
+    <string name="backup_hide">أخفِ</string>
+    <string name="backup_already_running">هناك عملية نسخ احتياطي أو استعادة جارية بالفعل.</string>
+    <string name="backup_restore_finished">اكتملت الاستعادة</string>
+    <string name="backup_restore_stopped">توقفت الاستعادة</string>
+    <string name="backup_restore_failed">فشلت الاستعادة</string>
+    <string name="backup_invalid_file">هذا الملف ليس نسخة احتياطية للرسائل، لذا لم تتم استعادة أي شيء.</string>
+    <string name="backup_no_entries">لا يحتوي ملف النسخة الاحتياطية على رسائل.</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="zero">لا جديد لاستيراده: الرسائل وعددها %1$d موجودة بالفعل على هذا الهاتف.</item>
+        <item quantity="one">لا جديد لاستيراده: الرسالة موجودة بالفعل على هذا الهاتف.</item>
+        <item quantity="two">لا جديد لاستيراده: الرسالتان (%1$d) موجودتان بالفعل على هذا الهاتف.</item>
+        <item quantity="few">لا جديد لاستيراده: الرسائل الـ%1$d كلها موجودة بالفعل على هذا الهاتف.</item>
+        <item quantity="many">لا جديد لاستيراده: الرسائل وعددها %1$d رسالة موجودة كلها بالفعل على هذا الهاتف.</item>
+        <item quantity="other">لا جديد لاستيراده: الرسائل وعددها %1$d رسالة موجودة كلها بالفعل على هذا الهاتف.</item>
+    </plurals>
+    <string name="backup_line_added">تمت إضافتها: %1$d</string>
+    <string name="backup_line_duplicates">موجودة بالفعل على هذا الهاتف، تم تخطيها: %1$d</string>
+    <string name="backup_line_repaired">أُضيفت المرفقات الناقصة إلى رسائل استُعيدت سابقًا: %1$d</string>
+    <string name="backup_line_incomplete">رسائل مصورة استُعيدت دون بعض المرفقات: %1$d</string>
+    <string name="backup_line_failed">تعذرت استعادتها: %1$d</string>
+    <string name="backup_line_damaged">سجلات تالفة في الملف، تم تخطيها: %1$d</string>
+    <string name="backup_line_xml_mms">رسائل مصورة في نسخة XML هذه غير مدعومة، تم تخطيها: %1$d</string>
+    <string name="backup_line_not_selected">لم تُحدّد للاستيراد: %1$d</string>
+    <string name="backup_reasons">الأسباب:</string>
+    <string name="backup_reason_no_address">لا يوجد مرسل أو مستلم للرسالة</string>
+    <string name="backup_reason_no_thread">تعذر على الهاتف فتح محادثتها</string>
+    <string name="backup_reason_refused">رفض الهاتف حفظها</string>
+    <string name="backup_reason_not_in_backup">المرفق غير موجود في ملف النسخة الاحتياطية</string>
+    <string name="backup_reason_damaged_attachment">المرفق في ملف النسخة الاحتياطية تالف</string>
+    <string name="backup_reason_attachment_write">تعذر حفظ المرفق</string>
+    <string name="backup_stopped_early">الملف تالف بعد السجل %1$d، لذا تعذرت قراءة ما بعده.</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="zero">توقفت العملية بعد %1$d سجل. استعد الرسائل مجددًا من الملف نفسه لإكمالها: سيتم تخطي الرسائل المستعادة سابقًا.</item>
+        <item quantity="one">توقفت العملية بعد سجل واحد (%1$d). استعد الرسائل مجددًا من الملف نفسه لإكمالها: سيتم تخطي الرسائل المستعادة سابقًا.</item>
+        <item quantity="two">توقفت العملية بعد سجلين (%1$d). استعد الرسائل مجددًا من الملف نفسه لإكمالها: سيتم تخطي الرسائل المستعادة سابقًا.</item>
+        <item quantity="few">توقفت العملية بعد %1$d سجلات. استعد الرسائل مجددًا من الملف نفسه لإكمالها: سيتم تخطي الرسائل المستعادة سابقًا.</item>
+        <item quantity="many">توقفت العملية بعد %1$d سجلًا. استعد الرسائل مجددًا من الملف نفسه لإكمالها: سيتم تخطي الرسائل المستعادة سابقًا.</item>
+        <item quantity="other">توقفت العملية بعد %1$d سجل. استعد الرسائل مجددًا من الملف نفسه لإكمالها: سيتم تخطي الرسائل المستعادة سابقًا.</item>
+    </plurals>
+    <string name="backup_retry_hint">استعد الرسائل مجددًا لإعادة محاولة ما فشل: سيتم تخطي الرسائل المستعادة سابقًا.</string>
+    <string name="backup_export_finished">اكتمل النسخ الاحتياطي</string>
+    <string name="backup_export_stopped">توقف النسخ الاحتياطي</string>
+    <string name="backup_export_failed">فشل النسخ الاحتياطي</string>
+    <string name="backup_export_error">تعذرت كتابة النسخة الاحتياطية، وتم حذف الملف غير المكتمل. %1$s</string>
+    <string name="backup_export_cancelled">توقف النسخ الاحتياطي وتم حذف الملف غير المكتمل.</string>
+    <string name="backup_export_nothing">لا توجد رسائل لنسخها احتياطيًا.</string>
+    <string name="backup_export_counts">تم حفظ %1$d من رسائل SMS و%2$d من رسائل MMS.</string>
+    <string name="backup_export_unreadable_attachments">مرفقات تعذرت قراءتها، تم حفظها دون صورتها: %1$d</string>
+    <string name="backup_export_unreadable_messages">رسائل تعذرت قراءتها، تم استبعادها: %1$d</string>
+    <string name="backup_export_unreadable_conversations">محادثات تعذرت قراءتها، تم استبعادها: %1$d</string>
+    <string name="backup_export_incomplete">هذه النسخة الاحتياطية غير مكتملة.</string>
+    <string name="backup_interrupted_import">توقفت الاستعادة الأخيرة قبل اكتمالها، ربما لأن الهاتف أغلق التطبيق. استعد الرسائل مجددًا من الملف نفسه: سيتم تخطي الرسائل المستعادة سابقًا.</string>
+    <string name="backup_interrupted_export">توقف النسخ الاحتياطي الأخير قبل اكتماله، لذا ملفه غير مكتمل. انسخ احتياطيًا من جديد.</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">Silencie</string>
+    <string name="unmute_menu">Reative as notificações</string>
+    <string name="mute_title">Silencie as notificações</string>
+    <string name="mute_1_hour">Por 1 hora</string>
+    <string name="mute_8_hours">Por 8 horas</string>
+    <string name="mute_1_week">Por 1 semana</string>
+    <string name="mute_always">Sempre</string>
+    <string name="mute_off">Desativado</string>
+    <string name="mute_until">Até %1$s</string>
+    <string name="mute_channel">Conversas silenciadas</string>
+</resources>

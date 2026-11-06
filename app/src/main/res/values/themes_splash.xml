@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Launch theme for the AndroidX SplashScreen API (system splash on Android 12+, the same look below it):
+         the white launcher icon mark on the coral icon-background circle, over the window color every screen starts with, so the
+         hand-over to the first screen shows no color change. -->
+    <style name="Theme.UMessage.Splash" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenBackground">@color/umessage_window_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_icon</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/umessage_icon_background</item>
+        <item name="postSplashScreenTheme">@style/Theme.UMessage.Screen</item>
+    </style>
+</resources>

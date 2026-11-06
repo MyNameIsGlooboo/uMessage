@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">이유</string>
+    <string name="thread_r2_details_rule">규칙</string>
+    <string name="thread_r2_details_forwarded">전달됨</string>
+    <string name="thread_r2_details_decision_restored">차단 후 받은 메시지함으로 복원됨</string>
+    <string name="thread_r2_details_copy">%1$s 복사</string>
+    <string name="thread_r2_menu_search">대화에서 검색</string>
+    <string name="thread_r2_menu_always_forward">이 발신자의 메시지 항상 전달</string>
+    <string name="thread_r2_block_hint">앞으로 오는 문자는 차단함으로 이동해요. 어떤 정보도 휴대전화 밖으로 전송되지 않아요.</string>
+    <string name="thread_r2_forward_message">이 메시지 전달</string>
+    <string name="thread_r2_search_hint">대화에서 검색</string>
+    <string name="thread_r2_search_close">검색 닫기</string>
+    <string name="thread_r2_search_none">검색 결과가 없어요.</string>
+    <string name="thread_r2_search_count">%2$d건 중 %1$d번째</string>
+    <string name="thread_r2_search_older">이전 검색 결과</string>
+    <string name="thread_r2_search_newer">다음 검색 결과</string>
+    <string name="thread_r2_link_copy">링크 복사</string>
+    <string name="thread_r2_link_share">공유</string>
+    <string name="thread_r2_schedule_pick_date">날짜 선택</string>
+    <string name="thread_r2_calendar_previous">이전 달</string>
+    <string name="thread_r2_calendar_next">다음 달</string>
+</resources>

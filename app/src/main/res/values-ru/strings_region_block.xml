@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">Другие страны</string>
+    <string name="region_title">Блокировать номера из других стран</string>
+    <string name="region_summary">Контакты и те, кому вы писали, не блокируются</string>
+    <string name="region_off">Выкл.</string>
+    <string name="region_picker_title">Ваша страна</string>
+    <string name="region_picker_body">Сообщения с номеров из других стран попадают в «Заблокированные», кроме сообщений от контактов и тех, кому вы писали. Родственник за границей тоже будет заблокирован, если его нет в контактах.</string>
+    <string name="region_picker_search">Поиск</string>
+    <string name="region_reason_foreign">Номер из другой страны</string>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spam_ui_delete_all">Alle löschen</string>
+    <string name="spam_ui_delete_all_title">Alle blockierten Nachrichten löschen?</string>
+    <plurals name="spam_ui_delete_all_message">
+        <item quantity="one">%1$d blockierte Nachricht wird gelöscht. Du kannst das direkt danach rückgängig machen.</item>
+        <item quantity="other">%1$d blockierte Nachrichten werden gelöscht. Du kannst das direkt danach rückgängig machen.</item>
+    </plurals>
+    <string name="declog_ui_clear_title">Filterprotokoll leeren?</string>
+    <string name="declog_ui_clear_message">Alle protokollierten Entscheidungen werden entfernt. Blockierte Nachrichten und Regeln bleiben unverändert.</string>
+    <string name="declog_ui_clear_action">Leeren</string>
+    <string name="ui_log_reason_contacts_unavailable">Kontakte nicht lesbar</string>
+    <string name="blocknum_title">Blockierte Nummern</string>
+    <string name="blocknum_add">Nummer hinzufügen</string>
+    <string name="blocknum_add_title">Nummer blockieren</string>
+    <string name="blocknum_edit_title">Blockierte Nummer bearbeiten</string>
+    <string name="blocknum_field_label">Nummer</string>
+    <string name="blocknum_field_help">Nutze * als Platzhalter: +1555* blockiert alle Nummern, die mit +1555 beginnen</string>
+    <string name="blocknum_err_empty">Gib eine Nummer ein</string>
+    <string name="blocknum_err_invalid">Gib eine Telefonnummer oder Ziffern mit * als Platzhalter ein</string>
+    <string name="blocknum_copy">Nummer kopieren</string>
+    <string name="blocknum_unblock">Blockierung aufheben</string>
+    <string name="blocknum_unblock_for">Blockierung für %1$s aufheben</string>
+    <string name="blocknum_edit_for">%1$s bearbeiten</string>
+    <string name="blocknum_more_for">Weitere Optionen für %1$s</string>
+    <string name="blocknum_pattern">Muster mit Platzhalter</string>
+    <string name="blocknum_copied">Nummer kopiert</string>
+    <plurals name="blocknum_unblocked">
+        <item quantity="one">Blockierung für %1$d Nummer aufgehoben</item>
+        <item quantity="other">Blockierung für %1$d Nummern aufgehoben</item>
+    </plurals>
+    <string name="blocknum_import">Importieren</string>
+    <string name="blocknum_export">Exportieren</string>
+    <plurals name="blocknum_imported">
+        <item quantity="one">%1$d Nummer importiert</item>
+        <item quantity="other">%1$d Nummern importiert</item>
+    </plurals>
+    <string name="blocknum_import_empty">Keine Nummern in der Datei gefunden</string>
+    <plurals name="blocknum_import_skipped">
+        <item quantity="one">%d Eintrag übersprungen (keine Nummer oder bereits blockiert)</item>
+        <item quantity="other">%d Einträge übersprungen (keine Nummer oder bereits blockiert)</item>
+    </plurals>
+    <string name="blocknum_import_failed">Datei konnte nicht gelesen werden</string>
+    <plurals name="blocknum_exported">
+        <item quantity="one">%1$d Nummer exportiert</item>
+        <item quantity="other">%1$d Nummern exportiert</item>
+    </plurals>
+    <string name="blocknum_export_empty">Keine Nummern zum Exportieren</string>
+    <string name="blocknum_export_failed">Datei konnte nicht gespeichert werden</string>
+    <string name="blocknum_failed">Blockierliste konnte nicht geändert werden. Versuche es bitte erneut.</string>
+    <string name="blocknum_empty_title">Niemand blockiert</string>
+    <string name="blocknum_empty_body">Blockierte Nummern können dir keine Nachrichten senden und dich nicht anrufen. Diese Liste wird auch von deiner Telefon-App verwendet.</string>
+    <string name="blocknum_unavailable_title">Blockierliste nicht verfügbar</string>
+    <string name="blocknum_unavailable_body">Lege uMessage als Standard-SMS-App fest, um die Blockierliste des Systems anzusehen und zu ändern.</string>
+    <string name="blocknum_unknown_title">Unbekannte Nummern blockieren</string>
+    <string name="blocknum_unknown_body">Gilt nur, wenn der Filtermodus auf „Aus“ steht: Nachrichten unbekannter Nummern landen dann unter „Blockiert“, wie bei „Streng“. „Streng“ und „Intelligent“ ignorieren diesen Schalter.</string>
+    <string name="blocknum_contacts_denied">Ohne Zugriff auf Kontakte lassen sich unbekannte Nummern nicht erkennen</string>
+    <string name="blocknum_section_numbers">Nummern</string>
+</resources>

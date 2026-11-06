@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">搜索关键词</string>
+    <string name="w2a_keywords_search_clear">清除搜索</string>
+    <string name="w2a_keywords_no_match_title">没有匹配的关键词</string>
+    <string name="w2a_keywords_no_match_body">试试其他词，或清除搜索。</string>
+</resources>

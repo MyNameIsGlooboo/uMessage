@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="default_primary_color">#8FA8FF</color>
+    <color name="default_accent_color">#FFC970</color>
+    <color name="default_background_color">#0B1220</color>
+    <color name="default_text_color">#E2E8F0</color>
+    <color name="bubble_received">#4D8B9BBA</color>
+</resources>

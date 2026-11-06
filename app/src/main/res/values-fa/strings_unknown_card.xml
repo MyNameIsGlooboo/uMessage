@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">در مخاطبان شما نیست</string>
+    <string name="i04_card_caution">دربارهٔ پیوندها، پول و کدها احتیاط کنید.</string>
+    <string name="i04_card_add_contact">افزودن مخاطب</string>
+    <string name="i04_card_allow">همیشه اجازه دادن</string>
+    <string name="i04_card_block">مسدود کردن</string>
+    <string name="i04_card_dismiss">بستن</string>
+</resources>

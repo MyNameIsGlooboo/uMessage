@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">Registro delle decisioni</string>
+    <string name="declog_clear">Svuota registro</string>
+    <string name="declog_empty_title">Ancora nessuna decisione</string>
+    <string name="declog_empty_body">Qui trovi ogni messaggio controllato dal filtro e il motivo della decisione. Il testo dei messaggi non viene mai salvato.</string>
+    <plurals name="declog_kept_for">
+        <item quantity="one">Ogni decisione viene eliminata dopo %d giorno. Il testo dei messaggi non viene mai salvato.</item>
+        <item quantity="other">Ogni decisione viene eliminata dopo %d giorni. Il testo dei messaggi non viene mai salvato.</item>
+    </plurals>
+    <string name="declog_sim">SIM %1$s</string>
+    <string name="declog_today">Oggi</string>
+    <string name="declog_yesterday">Ieri</string>
+    <string name="declog_allowed_by_rule">Consentito dalla regola: %1$s</string>
+    <string name="declog_filter_all">Tutte</string>
+    <string name="declog_filter_blocked">Bloccati</string>
+    <string name="declog_filter_allowed">Consentiti</string>
+    <string name="declog_filter_empty">Nessuna decisione corrisponde a questo filtro</string>
+    <plurals name="declog_times">
+        <item quantity="one">%1$s volta</item>
+        <item quantity="other">%1$s volte</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="one">La stessa decisione è stata presa %1$s volta di seguito</item>
+        <item quantity="other">La stessa decisione è stata presa %1$s volte di seguito</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="one">Condividi %d decisione</item>
+        <item quantity="other">Condividi %d decisioni</item>
+    </plurals>
+    <string name="declog_csv_subject">Registro delle decisioni di uMessage</string>
+    <string name="declog_share_failed">Impossibile condividere il registro</string>
+    <string name="declog_details_title">Dettagli della decisione</string>
+    <string name="declog_open_details">Apri i dettagli di %1$s</string>
+    <string name="declog_fixed_allowed">Hai consentito questo mittente dal registro</string>
+    <string name="declog_fixed_blocked">Hai bloccato questo mittente dal registro</string>
+    <string name="declog_fixed_restored">Hai ripristinato questo messaggio dal registro</string>
+    <string name="declog_restored">Ripristinato</string>
+    <string name="declog_blocked_message">Il messaggio, ancora in Messaggi bloccati</string>
+    <string name="declog_restore">Ripristina messaggio</string>
+    <string name="declog_restore_done">Messaggio ripristinato in In arrivo</string>
+    <string name="declog_restore_text_only">Testo ripristinato in In arrivo. Impossibile recuperare le immagini.</string>
+    <string name="declog_restore_nothing">Nulla da ripristinare: questo messaggio con immagine non è stato conservato</string>
+    <string name="declog_restore_failed">Impossibile ripristinare il messaggio</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

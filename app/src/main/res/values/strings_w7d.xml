@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Wave 7: the compact card on the Blocked tab -->
+    <plurals name="w7d_banner_stopped">
+        <item quantity="one">%1$s stopped this week</item>
+        <item quantity="other">%1$s stopped this week</item>
+    </plurals>
+    <string name="w7d_banner_none">Nothing stopped this week</string>
+
+    <!-- Forwarded tab: the on/off switch of the status card (on = forwarding runs) -->
+    <string name="w7d_fwd_master_switch">Forwarding</string>
+
+    <!-- Rules menu: the short guide to blocking words -->
+    <string name="w7d_help_menu">How blocking words work</string>
+    <string name="w7d_help_title">How blocking words work</string>
+    <string name="w7d_help_words_head">Words</string>
+    <string name="w7d_help_words_body">Blocks a message that has the word anywhere in it.</string>
+    <string name="w7d_help_words_example">free prize</string>
+    <string name="w7d_help_sender_head">Sender names</string>
+    <string name="w7d_help_sender_body">Blocks texts from a sender with that name, like a shop.</string>
+    <string name="w7d_help_sender_example">PROMO</string>
+    <string name="w7d_help_number_head">Number starts</string>
+    <string name="w7d_help_number_body">Blocks every number that begins with these digits.</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">Patterns, for advanced users</string>
+    <string name="w7d_help_pattern_body">One pattern can match many spellings. Test it before you save.</string>
+    <string name="w7d_help_pattern_example">(free|win) prize</string>
+    <string name="w7d_help_close">Close</string>
+
+    <!-- Settings > Messages -->
+    <string name="w7d_bank_cards_title">Cards for bank alerts</string>
+    <string name="w7d_bank_cards_summary">Shows the amount under a bank text</string>
+</resources>

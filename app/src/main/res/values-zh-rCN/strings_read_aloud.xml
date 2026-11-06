@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">朗读</string>
+    <string name="read_aloud_stop">停止朗读</string>
+    <string name="read_aloud_no_voice">此手机未安装%1$s语音</string>
+    <string name="read_aloud_install">获取语音</string>
+    <string name="read_aloud_install_missing">此手机无法安装语音</string>
+    <string name="read_aloud_failed">无法朗读消息</string>
+</resources>

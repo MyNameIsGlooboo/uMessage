@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Window color shown before the first frame of any screen. Matches UMessageTheme's background for the
+         system light/dark presets; applyUMessageWindow() replaces it with the exact color of the chosen preset. -->
+    <color name="umessage_window_background">#F8FAFC</color>
+
+    <!-- Platform default activity transitions. On Android 14+ these are the system's own predictive-back
+         cross-activity animations, which follow RTL; a custom set would replace them. Kept as a named style because
+         AppTheme (styles.xml) points at it. -->
+    <style name="Animation.UMessage.Activity" parent="@android:style/Animation.Activity" />
+
+    <!-- Base for every Compose-only screen: day/night aware, transparent bars (edge-to-edge), no action bar. -->
+    <style name="Theme.UMessage.Screen" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/umessage_window_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/Animation.UMessage.Activity</item>
+    </style>
+</resources>

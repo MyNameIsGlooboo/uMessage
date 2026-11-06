@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">إضاءة الشاشة</string>
+    <string name="wake_screen_summary">يضيء الشاشة عند وصول رسالة جديدة</string>
+    <string name="bubbles_title">فقاعات المحادثات</string>
+    <string name="bubbles_summary">يعرض المحادثات كفقاعات عائمة</string>
+    <string name="bubbles_locked">غير متاح أثناء تفعيل قفل التطبيق</string>
+    <string name="focus_codes_title">الرموز في الإشعار المباشر</string>
+    <string name="focus_codes_summary">يعرض الرموز في إشعار Xiaomi المباشر</string>
+</resources>

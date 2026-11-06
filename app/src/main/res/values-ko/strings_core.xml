@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_message_inexact">예약 전송을 설정했어요. 몇 분 늦게 전송될 수 있어요.</string>
+</resources>

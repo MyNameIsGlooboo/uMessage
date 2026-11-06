@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fixes_unarchive_title">Archivierung aufheben?</string>
+    <string name="fixes_unarchive_message">%1$s zurück in deine Liste der Unterhaltungen verschieben?</string>
+</resources>

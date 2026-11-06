@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w7d_banner_stopped">
+        <item quantity="other">今週%1$s件をブロック</item>
+    </plurals>
+    <string name="w7d_banner_none">今週のブロックはありません。</string>
+    <string name="w7d_fwd_master_switch">転送</string>
+    <string name="w7d_help_menu">単語によるブロックの仕組み</string>
+    <string name="w7d_help_title">単語によるブロックの仕組み</string>
+    <string name="w7d_help_words_head">単語</string>
+    <string name="w7d_help_words_body">本文のどこかに指定した単語が含まれるメッセージをブロックします。</string>
+    <string name="w7d_help_words_example">無料の賞品</string>
+    <string name="w7d_help_sender_head">送信者名</string>
+    <string name="w7d_help_sender_body">お店など、指定した名前の送信者からのメッセージをブロックします。</string>
+    <string name="w7d_help_sender_example">キャンペーン</string>
+    <string name="w7d_help_number_head">番号の先頭</string>
+    <string name="w7d_help_number_body">指定した数字で始まるすべての番号をブロックします。</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">パターン（正規表現）・上級者向け</string>
+    <string name="w7d_help_pattern_body">1つのパターン（正規表現）でさまざまな表記に一致させられます。保存前にテストしてください。</string>
+    <string name="w7d_help_pattern_example">(無料|当選)の賞品</string>
+    <string name="w7d_help_close">閉じる</string>
+    <string name="w7d_bank_cards_title">銀行通知のカード</string>
+    <string name="w7d_bank_cards_summary">銀行からのメッセージの下に金額を表示します。</string>
+</resources>

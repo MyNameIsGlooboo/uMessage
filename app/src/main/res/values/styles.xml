@@ -1,0 +1,15 @@
+<resources>
+
+    <style name="AppTheme" parent="AppTheme.Base">
+        <!-- Day/night aware first-frame color instead of the commons base's dark default (no dark flash on light themes). -->
+        <item name="android:windowBackground">@color/umessage_window_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/Animation.UMessage.Activity</item>
+    </style>
+
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/normal_margin</item>
+    </style>
+</resources>

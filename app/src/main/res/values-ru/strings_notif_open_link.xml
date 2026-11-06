@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_open_link_action">Открыть ссылку</string>
+    <string name="notif_open_link_title">Кнопка «Открыть ссылку»</string>
+    <string name="notif_open_link_summary">В уведомлениях от контактов и разрешенных отправителей</string>
+</resources>

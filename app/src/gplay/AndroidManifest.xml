@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application>
+        <!-- The Google Play build has no automatic forwarding: the screen cannot be started at all. -->
+        <activity
+            android:name=".ui.spam.ForwardingActivity"
+            android:enabled="false"
+            tools:node="merge" />
+    </application>
+</manifest>

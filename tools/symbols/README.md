@@ -1,0 +1,1 @@
+`generate_symbols.py` downloads the Material Symbols Outlined (400, grade 0, 24px) Android vectors from google/material-design-icons (Apache-2.0) and regenerates `app/src/main/kotlin/com/glooboo/umessage/ui/icons/Symbols.kt`. Edit the `ICONS` list, then run `python tools/symbols/generate_symbols.py`.

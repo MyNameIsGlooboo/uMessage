@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_codes_title">احذف رموز التحقق المقروءة بعد</string>
+    <string name="cleanup_codes_summary">تُنقل رموز التحقق إلى سلة المهملات</string>
+    <string name="cleanup_never">أبدًا</string>
+    <string name="cleanup_24_hours">24 ساعة</string>
+    <plurals name="cleanup_days">
+        <item quantity="zero">%d يوم</item>
+        <item quantity="one">يوم واحد (%d)</item>
+        <item quantity="two">يومين (%d)</item>
+        <item quantity="few">%d أيام</item>
+        <item quantity="many">%d يومًا</item>
+        <item quantity="other">%d يوم</item>
+    </plurals>
+    <string name="cleanup_card_title">هل تريد حذف رموز التحقق المقروءة بعد 7 أيام؟</string>
+    <string name="cleanup_card_body">تُنقل رموز التحقق التي قرأتها إلى سلة المهملات، حيث يمكنك استعادتها.</string>
+    <string name="cleanup_card_yes">فعّل</string>
+    <string name="cleanup_card_no">لا، شكرًا</string>
+</resources>

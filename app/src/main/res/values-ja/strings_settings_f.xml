@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_f_backup_row_body">メッセージ、ルール、設定をファイルに保存</string>
+    <string name="settings_f_backup_rules_group">ルールと設定</string>
+    <string name="settings_f_backup_rules_contents">許可・ブロックのルール、転送ルールと設定をファイルに保存します。対象は迷惑メッセージ対策、通知、日付、文字サイズ、テーマ、Enterキー、転送制限です。メッセージ本文やアプリロックは含まれません。転送ルールはオフの状態で復元されます。</string>
+    <string name="settings_f_backup_messages_contents">メッセージ本文と画像を別のファイルに保存します。</string>
+    <string name="settings_f_restore_title">このファイルから復元しますか？</string>
+    <string name="settings_f_restore_rules">許可ルール：%1$d件、ブロックルール：%2$d件。既存のルールはスキップします。</string>
+    <string name="settings_f_restore_forwards">追加する転送ルール：%1$d件。オフの状態で追加します。「ルール」の「転送」でオンにしてください。</string>
+    <string name="settings_f_restore_forwards_skipped">スキップした転送ルール：%1$d件（追加済み、または受信可能な電話番号がありません）。</string>
+    <string name="settings_f_restore_settings_changed">変更される設定：%1$s</string>
+    <string name="settings_f_restore_settings_none">設定の変更はありません。</string>
+    <string name="settings_f_restore_action">復元</string>
+    <string name="settings_f_restore_done">ルールを%1$d件、転送ルールを%2$d件追加しました。転送ルールは手動でオンにするまでオフのままです。</string>
+    <string name="settings_f_restore_done_rules">ルールを%1$d件追加しました。</string>
+    <string name="settings_f_restore_done_title">復元完了</string>
+    <string name="settings_f_label_codes">不明な送信者からの認証コード</string>
+    <string name="settings_f_list_separator">", "</string>
+    <string name="settings_f_group_display">表示</string>
+    <string name="settings_f_appearance">デザイン</string>
+    <string name="settings_f_language_system">システムのデフォルト</string>
+    <string name="settings_f_group_rules">ルールとリスト</string>
+    <string name="settings_f_spam_more">保存期間と通知</string>
+    <string name="settings_f_spam_more_body">ブロック済みメッセージの保存期間と通知</string>
+    <string name="settings_f_hide_lock_codes_body">ロック画面では認証コードを••••と表示します。</string>
+    <string name="settings_f_code_alert">認証コードの通知</string>
+    <string name="settings_f_code_alert_body">認証コードの通知音</string>
+    <string name="settings_f_channel_codes">認証コード</string>
+    <string name="settings_f_channel_codes_desc">認証コードを含むメッセージ</string>
+</resources>

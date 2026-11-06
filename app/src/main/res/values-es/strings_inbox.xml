@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">Vaciar archivados</string>
+    <string name="inbox_empty_bin_menu">Vaciar papelera</string>
+    <string name="inbox_archive_empty_body">Aquí aparecen las conversaciones que archivas desde Mensajes.</string>
+    <string name="inbox_details_view_contact">Ver contacto</string>
+    <string name="inbox_details_more">Más</string>
+    <string name="inbox_details_search">Buscar en la conversación</string>
+    <string name="inbox_details_search_body">Busca un mensaje en esta conversación</string>
+    <string name="inbox_details_forward">Regla de reenvío para este remitente</string>
+    <string name="inbox_details_forward_body">Envía copias de los mensajes de este remitente a otro número</string>
+    <string name="inbox_details_search_hint">Buscar en esta conversación</string>
+</resources>

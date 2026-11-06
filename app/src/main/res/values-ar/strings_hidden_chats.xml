@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">أخفِ هذه المحادثة</string>
+    <string name="hidden_chats_menu_unhide">أظهر هذه المحادثة</string>
+    <string name="hidden_chats_confirm">هل تريد إخفاء هذه المحادثة؟ ستختفي من القائمة والبحث والإشعارات حتى تفتح المحادثات المخفية بقفل التطبيق.</string>
+    <string name="hidden_chats_need_lock">تتطلب المحادثات المخفية قفل التطبيق. هل تريد إعداده الآن؟</string>
+    <string name="hidden_chats_set_lock">أعدّ القفل</string>
+    <string name="hidden_chats_done">أُخفيت المحادثة</string>
+    <string name="hidden_chats_show">المحادثات المخفية</string>
+    <string name="hidden_chats_lock">اقفل المحادثات المخفية</string>
+</resources>

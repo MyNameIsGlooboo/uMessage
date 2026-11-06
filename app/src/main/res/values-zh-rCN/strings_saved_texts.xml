@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">常用文本</string>
+    <string name="n06_sheet_title">常用文本</string>
+    <string name="n06_empty_hint">例如：你的地址或卡号。点按一条即可插入消息。</string>
+    <string name="n06_add">添加常用文本</string>
+    <string name="n06_edit">修改常用文本</string>
+    <string name="n06_title_label">标题（选填）</string>
+    <string name="n06_text_label">文本</string>
+    <string name="n06_save">保存</string>
+    <string name="n06_delete">删除</string>
+    <string name="n06_private_tip">仅保存在此手机上，未经加密。请勿保存密码或PIN。</string>
+    <string name="n06_save_from_message">保存为常用文本</string>
+    <string name="n06_saved_toast">已保存</string>
+    <string name="n06_save_full">列表已满，请先删除一条。</string>
+    <string name="n06_save_duplicate">已保存过</string>
+</resources>

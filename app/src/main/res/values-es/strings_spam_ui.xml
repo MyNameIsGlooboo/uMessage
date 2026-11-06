@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spam_ui_delete_all">Eliminar todos</string>
+    <string name="spam_ui_delete_all_title">¿Eliminar todos los mensajes bloqueados?</string>
+    <plurals name="spam_ui_delete_all_message">
+        <item quantity="one">Se eliminará %1$d mensaje bloqueado. Puedes deshacerlo justo después.</item>
+        <item quantity="other">Se eliminarán %1$d mensajes bloqueados. Puedes deshacerlo justo después.</item>
+    </plurals>
+    <string name="declog_ui_clear_title">¿Vaciar el registro de decisiones?</string>
+    <string name="declog_ui_clear_message">Se eliminarán todas las decisiones registradas. Los mensajes bloqueados y las reglas seguirán igual.</string>
+    <string name="declog_ui_clear_action">Vaciar</string>
+    <string name="ui_log_reason_contacts_unavailable">No se pueden leer los contactos</string>
+    <string name="blocknum_title">Números bloqueados</string>
+    <string name="blocknum_add">Agregar número</string>
+    <string name="blocknum_add_title">Bloquear un número</string>
+    <string name="blocknum_edit_title">Editar número bloqueado</string>
+    <string name="blocknum_field_label">Número</string>
+    <string name="blocknum_field_help">Usa * como comodín: +1555* bloquea todos los números que empiezan con +1555</string>
+    <string name="blocknum_err_empty">Ingresa un número</string>
+    <string name="blocknum_err_invalid">Ingresa un número de teléfono o dígitos con * como comodín</string>
+    <string name="blocknum_copy">Copiar número</string>
+    <string name="blocknum_unblock">Desbloquear</string>
+    <string name="blocknum_unblock_for">Desbloquear %1$s</string>
+    <string name="blocknum_edit_for">Editar %1$s</string>
+    <string name="blocknum_more_for">Más opciones para %1$s</string>
+    <string name="blocknum_pattern">Patrón con comodín</string>
+    <string name="blocknum_copied">Número copiado</string>
+    <plurals name="blocknum_unblocked">
+        <item quantity="one">%1$d número desbloqueado</item>
+        <item quantity="other">%1$d números desbloqueados</item>
+    </plurals>
+    <string name="blocknum_import">Importar</string>
+    <string name="blocknum_export">Exportar</string>
+    <plurals name="blocknum_imported">
+        <item quantity="one">%1$d número importado</item>
+        <item quantity="other">%1$d números importados</item>
+    </plurals>
+    <string name="blocknum_import_empty">No se encontraron números en el archivo</string>
+    <plurals name="blocknum_import_skipped">
+        <item quantity="one">%d entrada omitida (no es un número o ya está bloqueado)</item>
+        <item quantity="other">%d entradas omitidas (no son números o ya están bloqueados)</item>
+    </plurals>
+    <string name="blocknum_import_failed">No se pudo leer el archivo</string>
+    <plurals name="blocknum_exported">
+        <item quantity="one">%1$d número exportado</item>
+        <item quantity="other">%1$d números exportados</item>
+    </plurals>
+    <string name="blocknum_export_empty">No hay números para exportar</string>
+    <string name="blocknum_export_failed">No se pudo guardar el archivo</string>
+    <string name="blocknum_failed">No se pudo cambiar la lista de bloqueados. Inténtalo de nuevo.</string>
+    <string name="blocknum_empty_title">No hay números bloqueados</string>
+    <string name="blocknum_empty_body">Los números bloqueados no pueden enviarte mensajes ni llamarte. Esta lista se comparte con tu aplicación de teléfono.</string>
+    <string name="blocknum_unavailable_title">Lista de bloqueados no disponible</string>
+    <string name="blocknum_unavailable_body">Establece uMessage como tu aplicación de SMS predeterminada para ver y cambiar la lista de bloqueados del sistema.</string>
+    <string name="blocknum_unknown_title">Bloquear números desconocidos</string>
+    <string name="blocknum_unknown_body">Solo se usa cuando el modo de spam está desactivado: los mensajes de números desconocidos van a Bloqueados, como en el modo estricto. Los modos estricto e inteligente ignoran esta opción.</string>
+    <string name="blocknum_contacts_denied">Sin acceso a los contactos, no se pueden reconocer los números desconocidos</string>
+    <string name="blocknum_section_numbers">Números</string>
+</resources>

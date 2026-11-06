@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">কারণ</string>
+    <string name="thread_r2_details_rule">নিয়ম</string>
+    <string name="thread_r2_details_forwarded">ফরোয়ার্ড করা হয়েছে</string>
+    <string name="thread_r2_details_decision_restored">ব্লক করা হয়েছিল, পরে আপনার ইনবক্সে ফিরিয়ে আনা হয়েছে</string>
+    <string name="thread_r2_details_copy">%1$s কপি করুন</string>
+    <string name="thread_r2_menu_search">কথোপকথনে খুঁজুন</string>
+    <string name="thread_r2_menu_always_forward">এই প্রেরকের বার্তা সবসময় ফরোয়ার্ড করুন</string>
+    <string name="thread_r2_block_hint">পরের বার্তাগুলো ব্লক করা বিভাগে যাবে। আপনার ফোনের বাইরে কিছু যায় না।</string>
+    <string name="thread_r2_forward_message">এই বার্তা ফরোয়ার্ড করুন</string>
+    <string name="thread_r2_search_hint">কথোপকথনে খুঁজুন</string>
+    <string name="thread_r2_search_close">খোঁজা বন্ধ করুন</string>
+    <string name="thread_r2_search_none">কোনো মিল নেই</string>
+    <string name="thread_r2_search_count">%2$dটির মধ্যে %1$d</string>
+    <string name="thread_r2_search_older">আগের মিল</string>
+    <string name="thread_r2_search_newer">পরের মিল</string>
+    <string name="thread_r2_link_copy">লিঙ্ক কপি করুন</string>
+    <string name="thread_r2_link_share">শেয়ার করুন</string>
+    <string name="thread_r2_schedule_pick_date">তারিখ নির্বাচন করুন</string>
+    <string name="thread_r2_calendar_previous">আগের মাস</string>
+    <string name="thread_r2_calendar_next">পরের মাস</string>
+</resources>

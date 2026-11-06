@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8a_checklist_show">Mostre as etapas</string>
+    <string name="ux8a_checklist_hide">Oculte as etapas</string>
+    <string name="ux8a_menu_recycle_bin">Lixeira</string>
+    <string name="ux8a_selection_block">Bloqueie</string>
+</resources>

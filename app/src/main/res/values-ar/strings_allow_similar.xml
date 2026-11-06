@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allow_similar_title">اسمح أيضًا برسائل مشابهة</string>
+    <string name="allow_similar_sender">أي مرسل باسم %1$s</string>
+    <string name="allow_similar_prefix">أي رقم يبدأ بـ %1$s</string>
+    <string name="allow_similar_keyword">أي نص يتضمن كلمة «%1$s»</string>
+    <string name="allow_similar_risk_sender">يمكن لأي شخص الإرسال باسم كهذا.</string>
+    <string name="allow_similar_risk_prefix">ستمرّ أيضًا رسائل الأرقام الأخرى التي تبدأ بالبداية نفسها.</string>
+    <string name="allow_similar_risk_keyword">يمكن لأي شخص كتابة هذه الكلمة، لذا ستمرّ الرسائل غير المرغوب فيها التي تتضمنها.</string>
+    <string name="allow_similar_edit">عدّل هذه القاعدة</string>
+</resources>

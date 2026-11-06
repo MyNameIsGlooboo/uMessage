@@ -1,0 +1,7 @@
+- Polish, short, natural and friendly, like Google Messages and modern Polish apps.
+- Address the user informally, as "ty" implied: second person imperatives ("Wybierz", "Włącz", "Dotknij") and the possessives "twój", "twoja" in lowercase when needed. Never "Pan/Pani" or "Państwo".
+- Sentence case: only the first word and proper nouns are capitalised (no English-style Title Case).
+- Quotes: „słowo” (low opening, high closing). Write all Polish letters correctly (ą ć ę ł ń ó ś ź ż).
+- Plural ids: one (1), few (2-4, 22-24, 102-104), many (0, 5-21, 25-31, 105-121), other (fractions). Each needs the correct noun form (1 wiadomość, 2 wiadomości, 5 wiadomości); the number token stays in all four.
+- Use "wiadomość/wiadomości" for message, "nadawca" for sender, "spam" for spam, "zablokuj/zablokowane" for block; keep "SMS", "MMS", "SIM" and "PIN" as they are.
+- Polish runs 15-25% longer than English: choose short verbs for buttons and chips.

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">Vivo বা iQOO</string>
+    <string name="oem2_step_vivo">স্বয়ংক্রিয়ভাবে চালু হওয়ার ও ব্যাকগ্রাউন্ডে চলার অনুমতি দিন</string>
+    <string name="oem2_step_vivo_desc">uMessage-এর জন্য “স্বয়ংক্রিয়ভাবে চালু” চালু করুন এবং এর ব্যাটারি সেটিংসে ব্যাকগ্রাউন্ডে বেশি শক্তি ব্যবহারের অনুমতি দিন।</string>
+    <string name="oem2_xiaomi_autostart_desc">ফোন আবার চালু হলে uMessage চালু করতে এর জন্য “স্বয়ংক্রিয়ভাবে চালু” চালু করুন। অ্যাপের তথ্যের পৃষ্ঠা খুললে সেখানে “স্বয়ংক্রিয়ভাবে চালু” সুইচটি ব্যবহার করুন।</string>
+    <string name="oem2_xiaomi_battery_desc">uMessage-এর জন্য “কোনো বিধিনিষেধ নেই” নির্বাচন করুন। অ্যাপের তালিকা খুললে প্রথমে uMessage-এ ট্যাপ করুন।</string>
+    <string name="oem2_oppo_desc">uMessage-এর জন্য “স্বয়ংক্রিয়ভাবে চালু হওয়ার অনুমতি দিন” ও “ব্যাকগ্রাউন্ডে চলার অনুমতি দিন” চালু করুন। নতুন ফোনে এগুলি অ্যাপের তথ্যের “ব্যাটারি ব্যবহার” বিভাগে থাকে।</string>
+    <string name="oem2_ignore_battery_desc">uMessage-এর জন্য “সীমাহীন” বা “অপ্টিমাইজ করবেন না” নির্বাচন করুন। তালিকা খুললে প্রথমে “সব অ্যাপ” নির্বাচন করুন।</string>
+    <string name="oem2_state_done">সম্পন্ন</string>
+    <string name="oem2_state_marked">আপনি সম্পন্ন বলে চিহ্নিত করেছেন</string>
+    <string name="oem2_state_todo">এখনও সম্পন্ন হয়নি</string>
+    <string name="oem2_state_limited">Android এখনও ব্যাকগ্রাউন্ডে uMessage-এর ব্যবহার সীমিত করছে</string>
+    <string name="oem2_open_again">আবার খুলুন</string>
+    <string name="oem2_undo">আগের অবস্থায় ফিরুন</string>
+    <string name="oem2_undo_cd">%1$s অসম্পন্ন বলে চিহ্নিত করুন</string>
+</resources>

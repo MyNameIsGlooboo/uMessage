@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sim_messages_title">Wiadomości na karcie SIM</string>
+    <string name="sim_messages_row_body">Skopiuj wiadomości z karty SIM do swoich rozmów</string>
+    <string name="sim_messages_loading">Odczytywanie karty SIM…</string>
+    <string name="sim_messages_unavailable">Ten telefon nie pozwala aplikacjom odczytywać karty SIM.</string>
+    <string name="sim_messages_empty">Na karcie SIM nie ma wiadomości.</string>
+    <plurals name="sim_messages_found">
+        <item quantity="one">Na karcie SIM jest %1$d wiadomość. Skopiować ją do twoich rozmów? Pozostanie też na karcie SIM.</item>
+        <item quantity="few">Na karcie SIM są %1$d wiadomości. Skopiować je do twoich rozmów? Pozostaną też na karcie SIM.</item>
+        <item quantity="many">Na karcie SIM jest %1$d wiadomości. Skopiować je do twoich rozmów? Pozostaną też na karcie SIM.</item>
+        <item quantity="other">Na karcie SIM jest %1$d wiadomości. Skopiować je do twoich rozmów? Pozostaną też na karcie SIM.</item>
+    </plurals>
+    <string name="sim_messages_import">Kopiuj</string>
+    <string name="sim_messages_importing">Kopiowanie wiadomości…</string>
+    <string name="sim_messages_done">Skopiowano %1$d wiadomości. W twoich rozmowach było już %2$d.</string>
+    <string name="sim_messages_done_failed">Skopiowano %1$d wiadomości. W twoich rozmowach było już %2$d, a %3$d nie udało się skopiować.</string>
+</resources>

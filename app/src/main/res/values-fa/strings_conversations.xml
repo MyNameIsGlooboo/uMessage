@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="convlist_loading">در حال بارگیری پیام‌ها</string>
+    <string name="convlist_empty_title">هنوز گفتگویی ندارید</string>
+    <string name="convlist_empty_body">پیام‌هایی که می‌فرستید و دریافت می‌کنید اینجا نمایش داده می‌شوند.</string>
+    <string name="convlist_start_conversation">شروع گفتگو</string>
+    <string name="convlist_new_conversation">گفتگوی جدید</string>
+    <string name="convlist_draft">پیش‌نویس</string>
+    <string name="convlist_pinned">سنجاق‌شده</string>
+    <string name="convlist_muted">اعلان‌ها خاموش</string>
+    <string name="convlist_unread">خوانده‌نشده</string>
+    <string name="convlist_unread_count">%1$d خوانده‌نشده</string>
+    <string name="convlist_group">گفتگوی گروهی</string>
+    <string name="convlist_selected">انتخاب‌شده</string>
+    <string name="convlist_sim">سیم‌کارت %1$d</string>
+    <string name="convlist_scroll_handle">پیمایش سریع</string>
+    <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d پیام مسدودشده</item>
+        <item quantity="other">%d پیام مسدودشده</item>
+    </plurals>
+    <string name="convlist_blocked_banner_title">پیام‌های مسدودشده</string>
+    <string name="convlist_blocked_banner_cd">%1$d پیام مسدودشده. پوشهٔ مسدودشده‌ها را باز کنید.</string>
+    <string name="convlist_archive">بایگانی کردن</string>
+    <string name="convlist_delete">حذف</string>
+    <string name="convlist_pin">سنجاق کردن به بالا</string>
+    <string name="convlist_unpin">برداشتن سنجاق</string>
+    <string name="convlist_mark_read">علامت‌گذاری به‌عنوان خوانده‌شده</string>
+    <string name="convlist_mark_unread">علامت‌گذاری به‌عنوان خوانده‌نشده</string>
+    <string name="convlist_block_number">مسدود کردن شماره</string>
+    <string name="convlist_add_contact">افزودن شماره به مخاطب</string>
+    <string name="convlist_copy_number">کپی شماره</string>
+    <string name="convlist_dial">تماس</string>
+    <string name="convlist_rename">تغییر نام گفتگو</string>
+    <string name="convlist_details">جزئیات گفتگو</string>
+    <string name="convlist_select_all">انتخاب همه</string>
+    <string name="convlist_more_options">گزینه‌های بیشتر</string>
+    <string name="convlist_close_selection">لغو انتخاب</string>
+    <plurals name="convlist_selected_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d انتخاب‌شده</item>
+        <item quantity="other">%d انتخاب‌شده</item>
+    </plurals>
+    <string name="convlist_undo">واگرد</string>
+    <plurals name="convlist_deleted" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d گفتگو حذف شد</item>
+        <item quantity="other">%d گفتگو حذف شد</item>
+    </plurals>
+    <plurals name="convlist_archived" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d گفتگو بایگانی شد</item>
+        <item quantity="other">%d گفتگو بایگانی شد</item>
+    </plurals>
+    <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
+        <item quantity="one">مسدود شد. پیام‌های جدید به پیام‌های مسدودشده می‌روند</item>
+        <item quantity="other">%d فرستنده مسدود شدند. پیام‌های جدید به پیام‌های مسدودشده می‌روند</item>
+    </plurals>
+    <string name="convlist_action_failed">مشکلی پیش آمد</string>
+    <string name="convlist_block_title">شماره مسدود شود؟</string>
+    <string name="convlist_block_message">%1$s مسدود شود؟ پیام‌های جدید این فرستنده به‌جای صندوق ورودی به پیام‌های مسدودشده می‌روند؛ آنجا همچنان می‌توانید آن‌ها را بخوانید یا بازیابی کنید.</string>
+    <string name="convlist_block_confirm">مسدود کردن</string>
+    <string name="convlist_rename_title">تغییر نام گفتگو</string>
+    <string name="convlist_rename_hint">نام گفتگو</string>
+    <string name="convlist_ok">تأیید</string>
+    <string name="convlist_cancel">لغو</string>
+</resources>

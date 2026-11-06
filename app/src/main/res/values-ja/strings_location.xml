@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">位置情報</string>
+    <string name="i52_permission_explanation">uMessageはメッセージに地図リンクを追加するため、今回だけ位置情報を取得します。位置情報は保存しません。おおよその位置情報も選べます。</string>
+    <string name="i52_finding">現在地を取得しています…</string>
+    <string name="i52_denied">位置情報が許可されませんでした。メッセージはそのままです。</string>
+    <string name="i52_no_fix">現在地を取得できませんでした。窓の近くか屋外でもう一度お試しください。</string>
+    <string name="i52_off_message">このスマートフォンの位置情報はオフです。現在地を共有するにはオンにしてください。</string>
+    <string name="i52_open_settings">設定を開く</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">เตือนฉัน</string>
+    <string name="reminder_dialog_title">เตือนฉัน</string>
+    <string name="reminder_in_3_hours">อีก 3 ชั่วโมง</string>
+    <string name="reminder_tomorrow_morning">พรุ่งนี้เช้า</string>
+    <string name="reminder_pick_time">เลือกวันที่และเวลา</string>
+    <string name="reminder_set">ตั้งการช่วยเตือนไว้สำหรับ %1$s แล้ว</string>
+    <string name="reminder_set_approximate">ตั้งการช่วยเตือนไว้ประมาณ %1$s แล้ว อาจเตือนช้าเล็กน้อย</string>
+    <string name="reminder_battery_hint">โทรศัพท์บางรุ่นหยุดแอปที่ทำงานเบื้องหลัง ทำให้การช่วยเตือนล่าช้า</string>
+    <string name="reminder_battery_open">ให้ uMessage ทำงานต่อ</string>
+    <string name="reminder_channel">การช่วยเตือน</string>
+    <string name="reminder_title">การช่วยเตือน</string>
+    <string name="reminder_title_named">การช่วยเตือน: %1$s</string>
+    <string name="reminder_open_hint">แตะเพื่อเปิดข้อความ</string>
+</resources>

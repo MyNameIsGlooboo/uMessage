@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">Slate</string>
+    <string name="preset_slate_desc">Calm blue-grey</string>
+    <string name="preset_firouzeh">Firouzeh</string>
+    <string name="preset_firouzeh_desc">Turquoise with a touch of gold</string>
+    <string name="preset_pomegranate">Pomegranate</string>
+    <string name="preset_pomegranate_desc">Warm red with deep green</string>
+    <string name="preset_harbor">Harbor</string>
+    <string name="preset_harbor_desc">Night blue with soft coral</string>
+    <string name="preset_lavender">Lavender</string>
+    <string name="preset_lavender_desc">Gentle violet with teal</string>
+    <string name="preset_ink">Ink</string>
+    <string name="preset_ink_desc">Near-black with silver and gold</string>
+    <string name="preset_contrast">Contrast</string>
+    <string name="preset_contrast_desc">Black and white with bright accents</string>
+</resources>

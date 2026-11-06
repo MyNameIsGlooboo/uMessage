@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_codes_title">既読の認証コードを削除するまでの期間</string>
+    <string name="cleanup_codes_summary">認証コードをゴミ箱に移動します。</string>
+    <string name="cleanup_never">削除しない</string>
+    <string name="cleanup_24_hours">24時間</string>
+    <plurals name="cleanup_days">
+        <item quantity="other">%d日</item>
+    </plurals>
+    <string name="cleanup_card_title">既読の認証コードを7日後に削除しますか？</string>
+    <string name="cleanup_card_body">既読の認証コードをゴミ箱に移動します。ゴミ箱から復元できます。</string>
+    <string name="cleanup_card_yes">有効にする</string>
+    <string name="cleanup_card_no">今はしない</string>
+</resources>

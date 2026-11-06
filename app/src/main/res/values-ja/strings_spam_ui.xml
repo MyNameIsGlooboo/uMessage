@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spam_ui_delete_all">すべて削除</string>
+    <string name="spam_ui_delete_all_title">ブロック済みメッセージをすべて削除しますか？</string>
+    <plurals name="spam_ui_delete_all_message">
+        <item quantity="other">ブロック済みメッセージ%1$d件を削除します。削除直後なら元に戻せます。</item>
+    </plurals>
+    <string name="declog_ui_clear_title">判定履歴を消去しますか？</string>
+    <string name="declog_ui_clear_message">記録された判定をすべて削除します。ブロック済みメッセージとルールはそのまま残ります。</string>
+    <string name="declog_ui_clear_action">消去</string>
+    <string name="ui_log_reason_contacts_unavailable">連絡先を読み取れません。</string>
+    <string name="blocknum_title">ブロック済みの電話番号</string>
+    <string name="blocknum_add">番号を追加</string>
+    <string name="blocknum_add_title">電話番号をブロック</string>
+    <string name="blocknum_edit_title">ブロック済みの電話番号を編集</string>
+    <string name="blocknum_field_label">電話番号</string>
+    <string name="blocknum_field_help">*をワイルドカードとして使えます。+1555*は、+1555で始まるすべての電話番号をブロックします。</string>
+    <string name="blocknum_err_empty">電話番号を入力してください。</string>
+    <string name="blocknum_err_invalid">電話番号、またはワイルドカードの*を含む数字を入力してください。</string>
+    <string name="blocknum_copy">番号をコピー</string>
+    <string name="blocknum_unblock">ブロック解除</string>
+    <string name="blocknum_unblock_for">%1$sのブロック解除</string>
+    <string name="blocknum_edit_for">%1$sを編集</string>
+    <string name="blocknum_more_for">%1$sのその他の操作</string>
+    <string name="blocknum_pattern">ワイルドカード形式</string>
+    <string name="blocknum_copied">電話番号をコピーしました。</string>
+    <plurals name="blocknum_unblocked">
+        <item quantity="other">電話番号%1$d件のブロックを解除しました。</item>
+    </plurals>
+    <string name="blocknum_import">インポート</string>
+    <string name="blocknum_export">エクスポート</string>
+    <plurals name="blocknum_imported">
+        <item quantity="other">電話番号を%1$d件インポートしました。</item>
+    </plurals>
+    <string name="blocknum_import_empty">ファイルに電話番号がありません。</string>
+    <plurals name="blocknum_import_skipped">
+        <item quantity="other">電話番号ではないか、ブロック済みの%d件をスキップしました。</item>
+    </plurals>
+    <string name="blocknum_import_failed">ファイルを読み込めませんでした。</string>
+    <plurals name="blocknum_exported">
+        <item quantity="other">電話番号を%1$d件エクスポートしました。</item>
+    </plurals>
+    <string name="blocknum_export_empty">エクスポートする電話番号がありません。</string>
+    <string name="blocknum_export_failed">ファイルを保存できませんでした。</string>
+    <string name="blocknum_failed">ブロックリストを変更できませんでした。もう一度お試しください。</string>
+    <string name="blocknum_empty_title">ブロック中の電話番号はありません</string>
+    <string name="blocknum_empty_body">ブロックした電話番号からのメッセージや着信は届きません。このリストは電話アプリと共有されます。</string>
+    <string name="blocknum_unavailable_title">ブロックリストを利用できません</string>
+    <string name="blocknum_unavailable_body">システムのブロックリストを表示・変更するには、uMessageをデフォルトのSMSアプリに設定してください。</string>
+    <string name="blocknum_unknown_title">不明な電話番号をブロック</string>
+    <string name="blocknum_unknown_body">迷惑メッセージのフィルターモードがオフの場合のみ適用されます。不明な電話番号からのメッセージは、厳格モードと同様に「ブロック済み」に入ります。厳格・スマートモードでは、この設定は適用されません。</string>
+    <string name="blocknum_contacts_denied">連絡先へのアクセスがないと、不明な電話番号を判別できません。</string>
+    <string name="blocknum_section_numbers">電話番号</string>
+</resources>

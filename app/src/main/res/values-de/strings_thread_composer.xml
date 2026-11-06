@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_emoji">Emoji</string>
+    <string name="thread_show_keyboard">Tastatur anzeigen</string>
+    <string name="thread_scheduled_not_sent">Geplante Nachricht nicht gesendet</string>
+    <string name="thread_edit_scheduled_replaces_draft">Wenn du die geplante Nachricht bearbeitest, wird dein aktueller Text ersetzt. Fortfahren?</string>
+    <string name="thread_menu_report_spam">Als Spam markieren</string>
+    <string name="thread_report_spam_title">Als Spam markieren?</string>
+    <string name="thread_report_spam_message">Neue Nachrichten von %1$s landen bei den blockierten Nachrichten statt in deinem Posteingang. Bisherige Nachrichten in dieser Unterhaltung bleiben erhalten.</string>
+    <string name="thread_report_spam_confirm">Als Spam markieren</string>
+    <string name="thread_report_spam_cancel">Abbrechen</string>
+    <string name="thread_report_spam_done">Als Spam markiert</string>
+    <string name="thread_report_spam_rule_note">Als Spam gemeldet</string>
+    <string name="thread_report_spam_already">Bereits als Spam markiert</string>
+    <string name="thread_report_spam_failed">Konnte nicht als Spam markiert werden</string>
+    <string name="thread_report_spam_undo">Rückgängig</string>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_conv_menu">Xuất cuộc trò chuyện</string>
+    <string name="export_conv_title">Xuất cuộc trò chuyện</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">Văn bản thuần túy</string>
+    <string name="export_conv_dates_all">Tất cả ngày</string>
+    <string name="export_conv_dates_30">30 ngày qua</string>
+    <string name="export_conv_dates_pick">Chọn ngày</string>
+    <string name="export_conv_pick_from">Từ ngày nào?</string>
+    <string name="export_conv_pick_to">Đến ngày nào?</string>
+    <string name="export_conv_action">Xuất</string>
+    <string name="export_conv_preparing">Đang chuẩn bị tệp…</string>
+    <string name="export_conv_nothing">Không có tin nhắn trong khoảng thời gian này</string>
+    <string name="export_conv_failed">Không thể tạo tệp</string>
+    <string name="export_conv_subject">Bản xuất cuộc trò chuyện</string>
+    <string name="export_conv_share_text">Cuộc trò chuyện với %1$s, %2$s. SHA-256 của nội dung tin nhắn: %3$s</string>
+    <string name="export_conv_attachment_label">[Tệp đính kèm]</string>
+    <string name="export_pdf_title">Bản xuất cuộc trò chuyện</string>
+    <string name="export_pdf_with">Cuộc trò chuyện với: %1$s</string>
+    <string name="export_pdf_numbers">Số điện thoại: %1$s</string>
+    <string name="export_pdf_range">Khoảng ngày: %1$s</string>
+    <string name="export_pdf_zone">Thời gian theo múi giờ %1$s</string>
+    <string name="export_pdf_exported">Đã xuất: %1$s</string>
+    <plurals name="export_pdf_count">
+        <item quantity="other">%1$d tin nhắn</item>
+    </plurals>
+    <string name="export_pdf_hash">SHA-256 của nội dung tin nhắn: %1$s</string>
+    <string name="export_pdf_not_certified">Xuất từ điện thoại; không phải bản ghi được chứng thực.</string>
+    <string name="export_pdf_page">Trang %1$d trên %2$d</string>
+    <string name="export_pdf_from">Từ: %1$s</string>
+    <string name="export_pdf_to">Đến: %1$s</string>
+    <string name="export_pdf_attachment">Tệp đính kèm: %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">tệp không tên</string>
+    <string name="export_status_received">Đã nhận</string>
+    <string name="export_status_sent">Đã gửi</string>
+    <string name="export_status_delivered">Đã chuyển đến</string>
+    <string name="export_status_failed">Thất bại</string>
+    <string name="export_status_sending">Đang gửi</string>
+    <string name="export_status_draft">Bản nháp</string>
+</resources>

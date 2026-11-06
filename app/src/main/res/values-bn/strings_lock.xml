@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="lock_title">uMessage লক করা আছে</string>
+    <string name="lock_enter_pin">আপনার PIN দিন</string>
+    <string name="lock_draw_pattern">আপনার প্যাটার্ন আঁকুন</string>
+    <string name="lock_use_biometrics">uMessage খুলতে আপনার পরিচয় নিশ্চিত করুন</string>
+    <string name="lock_wrong_pin">ভুল PIN, আবার চেষ্টা করুন</string>
+    <string name="lock_wrong_pattern">ভুল প্যাটার্ন, আবার চেষ্টা করুন</string>
+    <string name="lock_too_many">অনেকবার ভুল চেষ্টা হয়েছে</string>
+    <string name="lock_try_again_in">%s পরে আবার চেষ্টা করুন</string>
+    <string name="lock_key_delete">মুছুন</string>
+    <string name="lock_key_confirm">নিশ্চিত করুন</string>
+    <plurals name="lock_digits_entered" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি অঙ্ক দেওয়া হয়েছে</item>
+        <item quantity="other">%dটি অঙ্ক দেওয়া হয়েছে</item>
+    </plurals>
+    <string name="lock_no_digits">কোনো অঙ্ক দেওয়া হয়নি</string>
+    <string name="lock_pattern_pad">প্যাটার্ন আঁকার প্যাড, 3 সারি ও 3 কলামে বিন্দু</string>
+    <string name="lock_pattern_dot">%1$d নম্বর সারি, %2$d নম্বর কলামের বিন্দু</string>
+    <string name="lock_pattern_dot_selected">%1$d নম্বর সারি, %2$d নম্বর কলামের বিন্দু, প্যাটার্নে %3$d নম্বরে</string>
+    <string name="lock_pattern_done">হয়ে গেছে</string>
+    <string name="lock_pattern_clear">সাফ করুন</string>
+    <plurals name="lock_pattern_dots_selected" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি বিন্দু বেছে নেওয়া হয়েছে</item>
+        <item quantity="other">%dটি বিন্দু বেছে নেওয়া হয়েছে</item>
+    </plurals>
+    <string name="lock_use_pin_instead">পরিবর্তে PIN ব্যবহার করুন</string>
+    <string name="lock_use_biometrics_instead">পরিবর্তে বায়োমেট্রিক্স ব্যবহার করুন</string>
+    <string name="lock_use_screen_lock">পরিবর্তে ফোনের স্ক্রিন লক ব্যবহার করুন</string>
+    <string name="lock_biometrics_unavailable">বায়োমেট্রিক্স ব্যবহার করা যাচ্ছে না। আপনার PIN দিন।</string>
+    <string name="lock_screen_lock_title">uMessage খুলুন</string>
+    <string name="lock_screen_lock_description">uMessage খুলতে আপনার ফোনের স্ক্রিন লক দিয়ে পরিচয় নিশ্চিত করুন</string>
+    <string name="lock_no_way_to_check">এই ফোনে এখন আর আঙুলের ছাপ বা স্ক্রিন লক নেই, তাই uMessage আপনার পরিচয় যাচাই করতে পারছে না। অ্যাপ খুলে সেটিংসে একটি PIN সেট করুন।</string>
+    <string name="lock_open_anyway">uMessage খুলুন</string>
+    <string name="lock_forgot">ভুলে গেছেন? ফোনের স্ক্রিন লক ব্যবহার করুন</string>
+    <plurals name="lock_tries_left" tools:ignore="ImpliedQuantity">
+        <item quantity="one">আর %d বার চেষ্টা করার পর অপেক্ষা করতে হবে</item>
+        <item quantity="other">আর %d বার চেষ্টা করার পর অপেক্ষা করতে হবে</item>
+    </plurals>
+    <string name="lock_setup_done">অ্যাপ লক চালু আছে। আপনার PIN বা প্যাটার্ন ভুলে গেলে, লক স্ক্রিনে “ভুলে গেছেন?” ট্যাপ করে আপনার ফোনের স্ক্রিন লক ব্যবহার করুন।</string>
+    <string name="lock_setup_done_biometric">অ্যাপ লক চালু আছে। বায়োমেট্রিক্স কাজ না করলে, আপনার ব্যাকআপ PIN ব্যবহার করুন। সেটিও ভুলে গেলে, “ভুলে গেছেন?” ট্যাপ করে আপনার ফোনের স্ক্রিন লক ব্যবহার করুন।</string>
+    <string name="lock_setup_done_no_screen_lock">অ্যাপ লক চালু আছে। আপনার ফোনে স্ক্রিন লক নেই, তাই PIN বা প্যাটার্ন ভুলে গেলে অ্যাপ খোলার আর কোনো উপায় থাকবে না: ফোনের অ্যাপ সেটিংসে গিয়ে uMessage-এর ডেটা মুছতে হবে। এতে এর সেটিংস, স্প্যাম তালিকা ও স্প্যামের ইতিহাস মুছে যাবে (আপনার বার্তা ফোনেই থাকবে)। আবার অ্যাপ খোলার বিকল্প উপায় রাখতে ফোনে স্ক্রিন লক যোগ করুন।</string>
+    <string name="settings_app_lock_timeout">অ্যাপ থেকে বের হওয়ার পর লক করুন</string>
+    <string name="settings_app_lock_timeout_immediately">সঙ্গে সঙ্গে</string>
+    <string name="settings_app_lock_timeout_30s">30 সেকেন্ড পরে</string>
+    <string name="settings_app_lock_timeout_1m">1 মিনিট পরে</string>
+    <string name="settings_app_lock_timeout_5m">5 মিনিট পরে</string>
+    <string name="settings_app_lock_screenshots">স্ক্রিনশট ব্লক করুন</string>
+    <string name="settings_app_lock_screenshots_body">স্ক্রিনশট ও স্ক্রিন রেকর্ডিং বন্ধ রাখে। সাম্প্রতিক অ্যাপের তালিকায় বার্তা সবসময় লুকানো থাকে।</string>
+    <string name="settings_app_lock_screenshots_body_old">স্ক্রিনশট ও স্ক্রিন রেকর্ডিং বন্ধ রাখে। Android-এর এই সংস্করণে সাম্প্রতিক অ্যাপের তালিকায় বার্তা লুকানোর এটিই একমাত্র উপায়।</string>
+    <string name="settings_app_lock_change">PIN, প্যাটার্ন বা বায়োমেট্রিক্স বদলান</string>
+    <string name="settings_app_lock_weak">আপনার PIN বা প্যাটার্ন সহজেই অনুমান করা যায়</string>
+    <string name="settings_app_lock_weak_body">PIN খুব দুর্বল। বদলাতে ট্যাপ করুন</string>
+    <string name="settings_app_lock_add_pin">ব্যাকআপ PIN যোগ করুন</string>
+    <string name="settings_app_lock_add_pin_body">ব্যাকআপ হিসেবে একটি PIN যোগ করুন</string>
+    <string name="settings_app_lock_now">এখনই লক করুন</string>
+    <string name="settings_app_lock_now_body">সঙ্গে সঙ্গে uMessage লক করে</string>
+    <string name="settings_app_lock_changed">অ্যাপ লক বদলানো হয়েছে</string>
+    <string name="dialogs_lock_backup_pin">প্রথমে একটি ব্যাকআপ PIN সেট করুন। বায়োমেট্রিক্স কাজ না করলে এটি ব্যবহার করবেন।</string>
+</resources>

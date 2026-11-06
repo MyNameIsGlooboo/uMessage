@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">Tambahkan ke layar utama</string>
+    <string name="home_shortcut_requested">Meminta peluncur menambahkan pintasan. Nama percakapan akan muncul di layar utama. Jika tidak muncul, izinkan “Pintasan layar utama” untuk uMessage di setelan aplikasi ponsel.</string>
+    <string name="home_shortcut_failed">Peluncur tidak menerima pintasan. Izinkan “Pintasan layar utama” untuk uMessage di setelan aplikasi ponsel.</string>
+</resources>

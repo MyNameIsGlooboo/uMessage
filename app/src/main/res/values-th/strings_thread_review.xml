@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_review_details_decision">ผลการกรอง</string>
+    <string name="thread_review_details_decision_allowed">อนุญาตแล้ว: ส่งถึงกล่องข้อความเข้า</string>
+    <string name="thread_review_details_type">ประเภท</string>
+    <string name="thread_review_details_type_sms">SMS</string>
+    <string name="thread_review_details_type_mms">MMS</string>
+    <string name="thread_review_sim_slot_name">SIM %1$d · %2$s</string>
+    <string name="thread_review_copy_code">คัดลอกรหัส</string>
+    <string name="thread_review_copy_password">คัดลอกรหัสผ่าน</string>
+    <string name="thread_review_copy_username">คัดลอกชื่อผู้ใช้</string>
+    <string name="thread_review_sim_label">SIM %1$s</string>
+    <string name="thread_review_sends_from">ส่งจาก %1$s</string>
+    <string name="thread_review_reply_disabled">ผู้ส่งนี้รับข้อความตอบกลับไม่ได้</string>
+    <string name="thread_review_attach_camera">กล้อง</string>
+    <string name="thread_review_attach_voice">เสียง</string>
+    <string name="thread_review_schedule_in_hour">อีก 1 ชั่วโมง</string>
+    <string name="thread_review_schedule_evening">เย็นนี้</string>
+    <string name="thread_review_schedule_tomorrow">พรุ่งนี้ 9:00</string>
+</resources>

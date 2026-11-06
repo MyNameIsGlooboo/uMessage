@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3fwd_title">Chuyển tiếp</string>
+    <string name="r3fwd_options">Tùy chọn chuyển tiếp</string>
+    <string name="r3fwd_summary_none">Tắt · Chuyển tiếp tin nhắn đến số khác</string>
+    <string name="r3fwd_summary_off">Tắt</string>
+    <string name="r3fwd_summary_paused">Đã tạm dừng</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="other">Đang bật %d quy tắc</item>
+    </plurals>
+    <string name="r3fwd_paused_title">Đang tạm dừng chuyển tiếp</string>
+    <string name="r3fwd_paused_body">Quy tắc của bạn đã được lưu, nhưng tin nhắn chỉ được chuyển tiếp khi bạn bật lại tính năng này.</string>
+    <string name="r3fwd_paused_action">Mở tùy chọn</string>
+</resources>

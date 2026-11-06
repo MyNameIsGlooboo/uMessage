@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i09_setting_title">أزل الموقع من الصور</string>
+    <string name="i09_setting_summary">يخفي مكان التقاط الصورة قبل إرسالها</string>
+</resources>

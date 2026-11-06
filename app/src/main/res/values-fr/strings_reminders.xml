@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">Me le rappeler</string>
+    <string name="reminder_dialog_title">Me le rappeler</string>
+    <string name="reminder_in_3_hours">Dans 3 heures</string>
+    <string name="reminder_tomorrow_morning">Demain matin</string>
+    <string name="reminder_pick_time">Choisir la date et l\'heure</string>
+    <string name="reminder_set">Rappel prévu pour %1$s</string>
+    <string name="reminder_set_approximate">Rappel prévu vers %1$s. Il peut arriver avec un peu de retard.</string>
+    <string name="reminder_battery_hint">Certains téléphones arrêtent les applications en arrière-plan et retardent les rappels.</string>
+    <string name="reminder_battery_open">Garder uMessage actif</string>
+    <string name="reminder_channel">Rappels</string>
+    <string name="reminder_title">Rappel</string>
+    <string name="reminder_title_named">Rappel : %1$s</string>
+    <string name="reminder_open_hint">Appuyez pour ouvrir le message</string>
+</resources>

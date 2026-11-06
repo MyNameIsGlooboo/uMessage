@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">화면 켜기</string>
+    <string name="wake_screen_summary">새 메시지가 오면 화면을 켜요.</string>
+    <string name="bubbles_title">대화 버블</string>
+    <string name="bubbles_summary">대화를 화면 위에 떠 있는 버블로 표시해요.</string>
+    <string name="bubbles_locked">앱 잠금이 켜져 있으면 사용할 수 없어요.</string>
+    <string name="focus_codes_title">실시간 알림에 코드 표시</string>
+    <string name="focus_codes_summary">Xiaomi 실시간 알림에 코드를 표시해요.</string>
+</resources>

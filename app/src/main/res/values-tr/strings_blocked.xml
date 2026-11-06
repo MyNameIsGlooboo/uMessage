@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_allow_title">
+        <item quantity="one">Bu gönderene her zaman izin verilsin mi?</item>
+        <item quantity="other">Bu %d gönderene her zaman izin verilsin mi?</item>
+    </plurals>
+    <string name="spam_allow_body_one">Her iki durumda da mesaj gelen kutunuza geri döner. %1$s adlı gönderene her zaman izin verirseniz sonraki mesajları, engelleme kurallarınız dahil tüm filtreleri atlar.</string>
+    <string name="spam_allow_body_many">Her iki durumda da mesajlar gelen kutunuza geri döner. Bu gönderenlere her zaman izin verirseniz sonraki mesajları, engelleme kurallarınız dahil tüm filtreleri atlar.</string>
+    <string name="spam_allow_spoof_warning">Herkes %1$s gibi bir adla mesaj gönderebilir. Bu ada izin verirseniz aynı adı kullanan sahte mesajlar da filtreden geçer.</string>
+    <string name="spam_allow_confirm">Her zaman izin verin</string>
+    <string name="spam_allow_dismiss">Şimdi değil</string>
+    <plurals name="spam_snack_restored_to_inbox">
+        <item quantity="one">%d mesaj gelen kutusuna geri yüklendi</item>
+        <item quantity="other">%d mesaj gelen kutusuna geri yüklendi</item>
+    </plurals>
+    <plurals name="spam_snack_restored_allowed">
+        <item quantity="one">Geri yüklendi. Artık %d gönderene her zaman izin verildi.</item>
+        <item quantity="other">Geri yüklendi. Artık %d gönderene her zaman izin verildi.</item>
+    </plurals>
+    <plurals name="spam_snack_allowed_only">
+        <item quantity="one">Artık %d gönderene her zaman izin verildi.</item>
+        <item quantity="other">Artık %d gönderene her zaman izin verildi.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost">
+        <item quantity="one">%d mesajdaki resim kurtarılamadı.</item>
+        <item quantity="other">%d mesajdaki resimler kurtarılamadı.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost_nothing">
+        <item quantity="one">Resimli mesaj kurtarılamadığı için gelen kutusuna hiçbir şey eklenmedi.</item>
+        <item quantity="other">%d resimli mesaj kurtarılamadığı için gelen kutusuna hiçbir şey eklenmedi.</item>
+    </plurals>
+    <plurals name="spam_snack_restore_failed">
+        <item quantity="one">%d resimli mesaj geri yüklenemedi. Hâlâ burada.</item>
+        <item quantity="other">%d resimli mesaj geri yüklenemedi. Hâlâ buradalar.</item>
+    </plurals>
+    <string name="spam_mms_stored">Resimli mesaj</string>
+    <string name="spam_mms_downloading">Resimli mesaj, indiriliyor</string>
+    <string name="spam_mms_missing">Resimli mesaj, indirilmedi</string>
+    <string name="spam_mms_thumbnail">Engellenen mesajdaki resim</string>
+    <string name="spam_reason_rule_keyword">Kural: anahtar kelime “%1$s”</string>
+    <string name="spam_reason_rule_regex">Kural: düzenli ifade %1$s</string>
+    <string name="spam_reason_rule_number">Kural: numara %1$s</string>
+    <string name="spam_reason_rule_prefix">Kural: %1$s ile başlayan numaralar</string>
+    <string name="spam_reason_rule_sender">Kural: gönderen %1$s</string>
+    <string name="spam_reason_rule_removed">Kural daha sonra kaldırıldı</string>
+    <string name="spam_reason_open_rules">Kuralları açın</string>
+    <plurals name="spam_purge_notice">
+        <item quantity="one">Engellenen mesajlar %d gün sonra silinir</item>
+        <item quantity="other">Engellenen mesajlar %d gün sonra silinir</item>
+    </plurals>
+    <string name="spam_purge_notice_off">Engellenen mesajlar siz silene kadar saklanır</string>
+    <plurals name="spam_purge_left">
+        <item quantity="one">%d gün sonra silinecek</item>
+        <item quantity="other">%d gün sonra silinecek</item>
+    </plurals>
+    <string name="spam_purge_left_today">Bugün silinecek</string>
+    <string name="convlist_report_spam">Spam olarak bildirin</string>
+    <plurals name="convlist_reported_spam_archived">
+        <item quantity="one">Bildirildi. Bu gönderenden gelen yeni mesajlar Engellenenler bölümüne gider. Görüşme arşivlendi.</item>
+        <item quantity="other">%d görüşme bildirildi. Bu gönderenlerden gelen yeni mesajlar Engellenenler bölümüne gider. Görüşmeler arşivlendi.</item>
+    </plurals>
+    <plurals name="convlist_reported_spam">
+        <item quantity="one">Bildirildi. Bu gönderenden gelen yeni mesajlar Engellenenler bölümüne gider.</item>
+        <item quantity="other">%d görüşme bildirildi. Bu gönderenlerden gelen yeni mesajlar Engellenenler bölümüne gider.</item>
+    </plurals>
+    <string name="blocked_title">Engellenenler</string>
+    <string name="blocked_menu_rules">Kurallar</string>
+    <string name="blocked_mode_group_cd">Bilinmeyen gönderenler: %1$s, seçenek %2$d / %3$d</string>
+    <string name="blocked_mode_desc_strict">Sıkı: doğrulama kodları dahil tüm bilinmeyen gönderenleri tutar</string>
+    <string name="blocked_mode_desc_smart">Akıllı: bilinmeyen gönderenleri tutar, bağlantı içermeyen kodları geçirir</string>
+    <string name="blocked_mode_desc_off">Kapalı: bilinmeyen gönderenler gelen kutunuza ulaşır. Kurallarınız geçerli kalır</string>
+    <string name="blocked_snack_mode">Bilinmeyen gönderenler için seçilen mod: %1$s</string>
+    <string name="blocked_off_title">Bilinmeyen gönderenleri tutma kapatılsın mı?</string>
+    <string name="blocked_off_body">Bilinmeyen gönderenlerden gelen mesajlar doğrudan gelen kutunuza gider. Kurallarınız geçerli kalır.</string>
+    <string name="blocked_off_confirm">Kapatın</string>
+    <string name="blocked_stats_restored">%1$d tanesini geri yüklediniz</string>
+    <string name="blocked_reason_unknown_link">Bilinmeyen gönderen, bağlantı içeriyor</string>
+    <string name="blocked_may_be_important">Önemli olabilir</string>
+    <string name="blocked_action_move_inbox">Gelen kutusuna taşıyın</string>
+    <string name="blocked_swipe_not_spam">Gelen kutusuna taşımak için kaydırın</string>
+</resources>

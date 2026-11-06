@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_conv_menu">대화 내보내기</string>
+    <string name="export_conv_title">대화 내보내기</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">일반 텍스트</string>
+    <string name="export_conv_dates_all">전체 기간</string>
+    <string name="export_conv_dates_30">최근 30일</string>
+    <string name="export_conv_dates_pick">기간 선택</string>
+    <string name="export_conv_pick_from">언제부터 내보낼까요?</string>
+    <string name="export_conv_pick_to">언제까지 내보낼까요?</string>
+    <string name="export_conv_action">내보내기</string>
+    <string name="export_conv_preparing">파일을 준비하고 있어요.</string>
+    <string name="export_conv_nothing">해당 기간에 메시지가 없어요.</string>
+    <string name="export_conv_failed">파일을 만들지 못했어요.</string>
+    <string name="export_conv_subject">내보낸 대화</string>
+    <string name="export_conv_share_text">대화 상대: %1$s, %2$s. 메시지 본문의 SHA-256: %3$s</string>
+    <string name="export_conv_attachment_label">[첨부파일]</string>
+    <string name="export_pdf_title">내보낸 대화</string>
+    <string name="export_pdf_with">대화 상대: %1$s</string>
+    <string name="export_pdf_numbers">번호: %1$s</string>
+    <string name="export_pdf_range">기간: %1$s</string>
+    <string name="export_pdf_zone">모든 시간은 다음 시간대를 기준으로 해요: %1$s</string>
+    <string name="export_pdf_exported">내보낸 날짜: %1$s</string>
+    <plurals name="export_pdf_count">
+        <item quantity="other">메시지 %1$d건</item>
+    </plurals>
+    <string name="export_pdf_hash">메시지 본문의 SHA-256: %1$s</string>
+    <string name="export_pdf_not_certified">휴대전화에서 내보낸 자료이며, 인증된 기록이 아니에요.</string>
+    <string name="export_pdf_page">전체 %2$d페이지 중 %1$d페이지</string>
+    <string name="export_pdf_from">보낸 사람: %1$s</string>
+    <string name="export_pdf_to">받는 사람: %1$s</string>
+    <string name="export_pdf_attachment">첨부파일: %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">이름 없는 파일</string>
+    <string name="export_status_received">수신됨</string>
+    <string name="export_status_sent">전송됨</string>
+    <string name="export_status_delivered">수신 확인됨</string>
+    <string name="export_status_failed">실패</string>
+    <string name="export_status_sending">전송 중</string>
+    <string name="export_status_draft">임시 저장</string>
+</resources>

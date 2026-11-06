@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="font_title">الخط</string>
+    <string name="font_umessage">خط uMessage</string>
+    <string name="font_system">خط النظام</string>
+</resources>

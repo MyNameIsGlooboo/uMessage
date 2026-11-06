@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">판정 기록</string>
+    <string name="declog_clear">기록 지우기</string>
+    <string name="declog_empty_title">아직 판정 기록 없음</string>
+    <string name="declog_empty_body">필터가 확인한 모든 메시지가 판정 이유와 함께 여기에 표시돼요. 메시지 내용은 저장하지 않아요.</string>
+    <plurals name="declog_kept_for">
+        <item quantity="other">각 판정 기록은 %d일 후에 삭제돼요. 메시지 내용은 저장하지 않아요.</item>
+    </plurals>
+    <string name="declog_sim">SIM %1$s</string>
+    <string name="declog_today">오늘</string>
+    <string name="declog_yesterday">어제</string>
+    <string name="declog_allowed_by_rule">규칙에 따라 허용됨: %1$s</string>
+    <string name="declog_filter_all">전체</string>
+    <string name="declog_filter_blocked">차단됨</string>
+    <string name="declog_filter_allowed">허용됨</string>
+    <string name="declog_filter_empty">이 필터에 맞는 판정 기록이 없어요.</string>
+    <plurals name="declog_times">
+        <item quantity="other">%1$s회</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="other">같은 판정이 %1$s회 연속으로 나왔어요.</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="other">판정 기록 %d건 공유</item>
+    </plurals>
+    <string name="declog_csv_subject">uMessage 판정 기록</string>
+    <string name="declog_share_failed">기록을 공유하지 못했어요.</string>
+    <string name="declog_details_title">판정 상세 정보</string>
+    <string name="declog_open_details">상세 정보 열기: %1$s</string>
+    <string name="declog_fixed_allowed">기록에서 이 발신자를 허용했어요.</string>
+    <string name="declog_fixed_blocked">기록에서 이 발신자를 차단했어요.</string>
+    <string name="declog_fixed_restored">기록에서 이 메시지를 복원했어요.</string>
+    <string name="declog_restored">복원됨</string>
+    <string name="declog_blocked_message">아직 차단함에 있는 메시지</string>
+    <string name="declog_restore">메시지 복원</string>
+    <string name="declog_restore_done">메시지를 받은 메시지함으로 복원했어요.</string>
+    <string name="declog_restore_text_only">텍스트를 받은 메시지함으로 복원했어요. 사진은 복원하지 못했어요.</string>
+    <string name="declog_restore_nothing">이 사진 메시지는 저장되지 않아 복원할 내용이 없어요.</string>
+    <string name="declog_restore_failed">메시지를 복원하지 못했어요.</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

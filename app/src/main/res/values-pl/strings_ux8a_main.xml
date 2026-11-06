@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8a_checklist_show">Pokaż kroki</string>
+    <string name="ux8a_checklist_hide">Ukryj kroki</string>
+    <string name="ux8a_menu_recycle_bin">Kosz</string>
+    <string name="ux8a_selection_block">Zablokuj</string>
+</resources>

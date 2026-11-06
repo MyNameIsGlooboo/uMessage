@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">تنبيهات، شاشة القفل، ملخص أسبوعي</string>
+    <string name="ux8e_nav_typing">الكتابة والإرسال</string>
+    <string name="ux8e_nav_typing_body">مفتاح الإدخال، تقارير التسليم، التوقيع</string>
+    <string name="ux8e_nav_storage">التخزين والتنظيف</string>
+    <string name="ux8e_nav_storage_body">سلة المهملات، الأرشفة، الحذف التلقائي</string>
+    <string name="ux8e_group_lock_screen">شاشة القفل</string>
+    <string name="ux8e_group_recycle">الرسائل المحذوفة</string>
+    <string name="ux8e_group_cleanup">التنظيف التلقائي</string>
+    <string name="ux8e_group_archive">الأرشفة</string>
+    <string name="ux8e_keep_deleted">الاحتفاظ بالرسائل المحذوفة</string>
+    <string name="ux8e_keep_deleted_body">تبقى في سلة المهملات لمدة 30 يومًا</string>
+    <string name="ux8e_recycle_bin">سلة المهملات</string>
+    <string name="ux8e_backup_row">انسخ احتياطيًا</string>
+    <string name="ux8e_backup_row_body">حفظ في ملف</string>
+    <string name="ux8e_restore_row">استعد</string>
+    <string name="ux8e_restore_row_body">تحميل من ملف</string>
+    <string name="ux8e_backup_what">ما الذي تريد نسخه احتياطيًا؟</string>
+    <string name="ux8e_restore_what">ما الذي تريد استعادته؟</string>
+    <string name="ux8e_what_messages">الرسائل</string>
+    <string name="ux8e_what_settings">القواعد والإعدادات</string>
+    <string name="ux8e_backup_warning">ملفات النسخ الاحتياطي غير مشفرة.</string>
+    <string name="ux8e_calendar">التقويم</string>
+</resources>

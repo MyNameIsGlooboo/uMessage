@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">Bekletildi: bilinmeyen gönderen</string>
+    <string name="ux8c_held_unknown_link">Bekletildi: bilinmeyen gönderen, bağlantı içeriyor</string>
+    <string name="ux8c_held_foreign">Bekletildi: başka ülkeden numara</string>
+    <string name="ux8c_held_rule">Kuralınız nedeniyle bekletildi</string>
+    <string name="ux8c_held_other">Filtre nedeniyle bekletildi</string>
+    <string name="ux8c_not_spam">Spam değil</string>
+    <string name="ux8c_delete">Silin</string>
+    <string name="ux8c_tip">Bir göndereni gelen kutunuza taşımak için kaydırın. Seçmek için basılı tutun.</string>
+    <string name="ux8c_tip_dismiss">Anladım</string>
+    <string name="ux8c_sender_title">Bu gönderen</string>
+    <string name="ux8c_sender_normal">Normal</string>
+    <string name="ux8c_sender_allow">Her zaman izin verin</string>
+    <string name="ux8c_sender_block">Engelleyin</string>
+</resources>

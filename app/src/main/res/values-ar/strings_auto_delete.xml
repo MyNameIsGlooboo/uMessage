@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">مدة الاحتفاظ بالرسائل</string>
+    <string name="cleanup_old_summary">تُنقل الرسائل الأقدم إلى سلة المهملات</string>
+    <string name="cleanup_forever">للأبد</string>
+    <string name="cleanup_one_year">1 سنة</string>
+    <string name="cleanup_bin_title">هل تريد تفعيل سلة المهملات؟</string>
+    <string name="cleanup_bin_body">تبقى الرسائل المحذوفة فيها لمدة 30 يومًا لتتمكن من استعادتها. يتطلب التنظيف التلقائي تفعيلها.</string>
+    <string name="cleanup_bin_confirm">فعّل</string>
+    <string name="cleanup_old_confirm_title">هل تريد نقل الرسائل القديمة؟</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="zero">هناك %d رسائل أقدم من هذه المدة ستُنقل الآن إلى سلة المهملات. ستبقى الرسائل المميزة بنجمة وغير المقروءة والمحادثات المثبّتة.</item>
+        <item quantity="one">هناك رسالة واحدة (%d) أقدم من هذه المدة ستُنقل الآن إلى سلة المهملات. ستبقى الرسائل المميزة بنجمة وغير المقروءة والمحادثات المثبّتة.</item>
+        <item quantity="two">هناك رسالتان (%d) أقدم من هذه المدة ستُنقلان الآن إلى سلة المهملات. ستبقى الرسائل المميزة بنجمة وغير المقروءة والمحادثات المثبّتة.</item>
+        <item quantity="few">هناك %d رسائل أقدم من هذه المدة ستُنقل الآن إلى سلة المهملات. ستبقى الرسائل المميزة بنجمة وغير المقروءة والمحادثات المثبّتة.</item>
+        <item quantity="many">هناك %d رسالة أقدم من هذه المدة ستُنقل الآن إلى سلة المهملات. ستبقى الرسائل المميزة بنجمة وغير المقروءة والمحادثات المثبّتة.</item>
+        <item quantity="other">هناك %d رسالة أقدم من هذه المدة ستُنقل الآن إلى سلة المهملات. ستبقى الرسائل المميزة بنجمة وغير المقروءة والمحادثات المثبّتة.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">لا توجد رسائل بهذا القِدم بعد. ستُنقل الرسائل الأقدم تلقائيًا إلى سلة المهملات. ستبقى الرسائل المميزة بنجمة وغير المقروءة والمحادثات المثبّتة.</string>
+    <string name="cleanup_old_confirm_action">انقل</string>
+</resources>

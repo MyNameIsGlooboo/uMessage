@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">Mesaj saklama süresi</string>
+    <string name="cleanup_old_summary">Daha eski mesajlar çöp kutusuna taşınır</string>
+    <string name="cleanup_forever">Süresiz</string>
+    <string name="cleanup_one_year">1 yıl</string>
+    <string name="cleanup_bin_title">Çöp kutusu açılsın mı?</string>
+    <string name="cleanup_bin_body">Silinen mesajlar 30 gün boyunca burada bekler, böylece onları geri yükleyebilirsiniz. Otomatik temizlik için çöp kutusu gereklidir.</string>
+    <string name="cleanup_bin_confirm">Açın</string>
+    <string name="cleanup_old_confirm_title">Eski mesajlar taşınsın mı?</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="one">%d mesaj bu süreden daha eski ve şimdi çöp kutusuna taşınacak. Yıldızlı ve okunmamış mesajlar ile sabitlenen görüşmeler kalacak.</item>
+        <item quantity="other">%d mesaj bu süreden daha eski ve şimdi çöp kutusuna taşınacak. Yıldızlı ve okunmamış mesajlar ile sabitlenen görüşmeler kalacak.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">Henüz bu kadar eski mesaj yok. Daha eski mesajlar otomatik olarak çöp kutusuna taşınacak. Yıldızlı ve okunmamış mesajlar ile sabitlenen görüşmeler kalacak.</string>
+    <string name="cleanup_old_confirm_action">Taşıyın</string>
+</resources>

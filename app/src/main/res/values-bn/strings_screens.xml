@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="screens_back">ফিরুন</string>
+    <string name="screens_ok">ঠিক আছে</string>
+    <string name="screens_cancel">বাতিল</string>
+    <string name="screens_delete">মুছুন</string>
+    <string name="screens_clear_selection">নির্বাচন বাতিল করুন</string>
+    <plurals name="screens_selected_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি নির্বাচিত</item>
+        <item quantity="other">%dটি নির্বাচিত</item>
+    </plurals>
+    <string name="screens_loading">লোড হচ্ছে…</string>
+    <string name="screens_more_options">আরও বিকল্প</string>
+    <string name="screens_select_all">সব নির্বাচন করুন</string>
+    <string name="screens_copy">কপি করুন</string>
+    <string name="screens_grant_permission">অ্যাক্সেসের অনুমতি দিন</string>
+    <string name="screens_delete_forever_title">চিরতরে মুছবেন?</string>
+    <string name="screens_delete_conversations_message">%1$s চিরতরে মুছবেন? এরপর আর আগের অবস্থায় ফিরতে পারবেন না।</string>
+    <string name="screens_restore_title">ফিরিয়ে আনবেন?</string>
+    <string name="screens_empty_archive_title">আর্কাইভ খালি করবেন?</string>
+    <string name="screens_empty_bin_title">রিসাইকেল বিন খালি করবেন?</string>
+    <string name="screens_empty_action">খালি করুন</string>
+    <string name="screens_archive_empty_title">কিছু আর্কাইভ করা নেই</string>
+    <string name="screens_bin_empty_title">রিসাইকেল বিন খালি</string>
+    <string name="screens_bin_empty_body">রিসাইকেল বিন খালি না করা পর্যন্ত মুছে ফেলা বার্তা এখানে থাকে।</string>
+    <string name="screens_new_to_hint">প্রাপক</string>
+    <string name="screens_new_start">%1$s-এর সঙ্গে কথোপকথন শুরু করুন</string>
+    <string name="screens_new_clear_input">সাফ করুন</string>
+    <string name="screens_new_no_matches">মিলে যায় এমন পরিচিতি নেই। আপনার লেখা নম্বরে বার্তা পাঠাতে তীর বোতাম চাপুন।</string>
+    <string name="screens_new_contacts">পরিচিতি</string>
+    <string name="screens_new_create_group">গ্রুপ তৈরি করুন</string>
+    <string name="screens_new_group_title">নতুন গ্রুপ</string>
+    <string name="screens_new_group_next">পরবর্তী</string>
+    <string name="screens_new_group_add">%1$s-কে যোগ করুন</string>
+    <string name="screens_new_group_remove">%1$s-কে সরান</string>
+    <string name="screens_new_group_selected">নির্বাচিত</string>
+    <string name="screens_details_edit_name">কথোপকথনের নাম বদলান</string>
+    <string name="screens_keywords_add">কিওয়ার্ড যোগ করুন</string>
+    <string name="screens_keywords_menu_export">এক্সপোর্ট</string>
+    <string name="screens_keywords_menu_import">ইমপোর্ট</string>
+    <string name="screens_keywords_edit">সম্পাদনা করুন</string>
+    <string name="screens_keywords_duplicate">এই কিওয়ার্ডটি আগেই তালিকায় আছে</string>
+    <string name="screens_keywords_help">বার্তার যেকোনো জায়গায় এই টেক্সট খোঁজে, এমনকি বড় কোনো শব্দের ভেতরেও। বড় ও ছোট হাতের অক্ষরে পার্থক্য করে না।</string>
+    <string name="screens_keywords_empty_title">ব্লক করা কোনো কিওয়ার্ড নেই</string>
+    <plurals name="screens_keywords_deleted" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি কিওয়ার্ড মুছে ফেলা হয়েছে</item>
+        <item quantity="other">%dটি কিওয়ার্ড মুছে ফেলা হয়েছে</item>
+    </plurals>
+    <string name="screens_vcard_title">পরিচিতি</string>
+    <string name="screens_vcard_add_contact">পরিচিতিতে যোগ করুন</string>
+    <string name="screens_vcard_expand">বিস্তারিত দেখান</string>
+    <string name="screens_vcard_collapse">বিস্তারিত লুকান</string>
+    <string name="screens_vcard_empty">এই ফাইলে কোনো পরিচিতি পাওয়া যায়নি</string>
+    <string name="screens_dialog_filename">ফাইলের নাম</string>
+    <string name="screens_schedule_date">তারিখ</string>
+    <string name="screens_schedule_time">সময়</string>
+    <string name="screens_schedule_pick_time">সময় বেছে নিন</string>
+    <string name="screens_schedule_next">পরবর্তী</string>
+    <string name="screens_delete_skip_bin">রিসাইকেল বিনে না রেখে সরাসরি মুছুন</string>
+    <string name="screens_select_text_title">টেক্সট নির্বাচন করুন</string>
+</resources>

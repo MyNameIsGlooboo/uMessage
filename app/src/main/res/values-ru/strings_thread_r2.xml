@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">Причина</string>
+    <string name="thread_r2_details_rule">Правило</string>
+    <string name="thread_r2_details_forwarded">Переслано</string>
+    <string name="thread_r2_details_decision_restored">Заблокировано, затем восстановлено во входящих</string>
+    <string name="thread_r2_details_copy">Копировать %1$s</string>
+    <string name="thread_r2_menu_search">Поиск в чате</string>
+    <string name="thread_r2_menu_always_forward">Всегда пересылать от этого отправителя</string>
+    <string name="thread_r2_block_hint">Новые сообщения попадут в «Заблокированные». Данные не покидают ваш телефон.</string>
+    <string name="thread_r2_forward_message">Переслать это сообщение</string>
+    <string name="thread_r2_search_hint">Поиск в чате</string>
+    <string name="thread_r2_search_close">Закрыть поиск</string>
+    <string name="thread_r2_search_none">Совпадений нет</string>
+    <string name="thread_r2_search_count">%1$d из %2$d</string>
+    <string name="thread_r2_search_older">Более раннее совпадение</string>
+    <string name="thread_r2_search_newer">Более позднее совпадение</string>
+    <string name="thread_r2_link_copy">Копировать ссылку</string>
+    <string name="thread_r2_link_share">Поделиться</string>
+    <string name="thread_r2_schedule_pick_date">Выберите дату</string>
+    <string name="thread_r2_calendar_previous">Предыдущий месяц</string>
+    <string name="thread_r2_calendar_next">Следующий месяц</string>
+</resources>

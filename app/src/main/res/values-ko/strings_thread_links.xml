@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_link_confirm_body">연락처에 없는 발신자예요. 링크를 열기 전에 전체 주소를 확인해요.</string>
+    <string name="thread_link_confirm_open">열기</string>
+</resources>

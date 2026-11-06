@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">Shortened link: you cannot see where it goes.</string>
+    <string name="i07_punycode">The name is coded and may show other letters than it is made of.</string>
+    <string name="i07_mixed_script">The name mixes alphabets, which fake sites often do.</string>
+    <string name="i07_raw_ip">The address is a number, not a website name.</string>
+    <string name="i07_http_only">Not encrypted (http, not https).</string>
+    <string name="i07_lookalike">The name looks like %1$s. Check the spelling.</string>
+    <string name="i07_user_info">The part before the @ is not the website.</string>
+    <string name="i07_locked">Risky links cannot be opened here. You can copy the link.</string>
+    <string name="i07_lock_title">Block risky links</string>
+    <string name="i07_lock_summary">The link sheet then only copies and shares</string>
+    <string name="i07_group_title">Links</string>
+</resources>

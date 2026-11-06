@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_text_menu">Condividi conversazione come testo</string>
+    <string name="share_text_scope_title">Quali messaggi?</string>
+    <string name="share_text_scope_whole">Intera conversazione</string>
+    <string name="share_text_scope_last">Ultimi 50 messaggi</string>
+    <string name="share_text_title">Condividi come testo</string>
+    <string name="share_text_warning">Il testo privato verrà inviato a un\'altra app. Sceglierai l\'app nel passaggio successivo.</string>
+    <string name="share_text_action">Condividi</string>
+    <string name="share_text_range">Da %1$s a %2$s</string>
+    <string name="share_text_attachment">[Allegato]</string>
+    <string name="share_text_subject">Messaggi da uMessage</string>
+    <string name="share_text_nothing">Nessun messaggio da condividere</string>
+    <plurals name="share_text_count">
+        <item quantity="one">%1$d messaggio</item>
+        <item quantity="other">%1$d messaggi</item>
+    </plurals>
+</resources>

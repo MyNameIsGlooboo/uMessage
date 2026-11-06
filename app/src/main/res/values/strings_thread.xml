@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Top bar -->
+    <string name="thread_today">Today</string>
+    <string name="thread_yesterday">Yesterday</string>
+    <string name="thread_back">Back</string>
+    <string name="thread_call">Call</string>
+    <string name="thread_more_options">More options</string>
+    <string name="thread_sim">SIM %1$d</string>
+    <plurals name="thread_people">
+        <item quantity="one">%d person</item>
+        <item quantity="other">%d people</item>
+    </plurals>
+
+    <!-- Overflow menu -->
+    <string name="thread_menu_delete">Delete conversation</string>
+    <string name="thread_menu_restore_all">Restore all messages</string>
+    <string name="thread_menu_archive">Archive</string>
+    <string name="thread_menu_unarchive">Unarchive</string>
+    <string name="thread_menu_rename">Rename conversation</string>
+    <string name="thread_menu_details">Conversation details</string>
+    <string name="thread_menu_block">Block sender</string>
+    <string name="thread_menu_unblock">Unblock sender</string>
+    <string name="thread_block_title">Block sender?</string>
+    <string name="thread_block_message">Block %1$s? New messages from this sender will go to Blocked messages instead of your inbox, where you can still read or restore them. Nothing is sent to anyone. Messages already in this conversation are kept.</string>
+    <string name="thread_block_confirm">Block</string>
+    <string name="thread_block_done">Blocked. New messages will go to Blocked messages</string>
+    <string name="thread_block_failed">Couldn\'t block this sender</string>
+    <string name="thread_unblock_done">Unblocked. New messages will reach your inbox</string>
+    <string name="thread_unblock_done_system">Unblocked in uMessage. This number is also on your phone\'s block list, so Android still blocks its messages</string>
+    <string name="thread_unblock_done_filtered">Unblocked. Messages from this number are filtered like other unknown senders</string>
+    <string name="thread_unblock_always_allow">Always allow</string>
+    <string name="thread_always_allow_done">Always allowed. New messages will reach your inbox</string>
+    <string name="thread_always_allow_failed">Couldn\'t allow this number</string>
+    <string name="thread_unblock_failed">Couldn\'t unblock this number</string>
+    <string name="thread_menu_add_people">Add people</string>
+    <string name="thread_menu_mark_unread">Mark as unread</string>
+    <string name="thread_menu_add_contact">Add number to contact</string>
+    <string name="thread_menu_copy_number">Copy number</string>
+
+    <!-- Selection -->
+    <plurals name="thread_selected_count">
+        <item quantity="one">%d selected</item>
+        <item quantity="other">%d selected</item>
+    </plurals>
+    <string name="thread_clear_selection">Clear selection</string>
+    <string name="thread_action_copy">Copy</string>
+    <string name="thread_action_share">Share</string>
+    <string name="thread_action_save_as">Save attachment</string>
+    <string name="thread_action_select_text">Select text</string>
+    <string name="thread_action_details">Message details</string>
+    <string name="thread_action_delete">Delete</string>
+    <string name="thread_action_restore">Restore</string>
+    <string name="thread_action_select_all">Select all</string>
+
+    <!-- Messages -->
+    <string name="thread_status_sending">Sending…</string>
+    <string name="thread_status_sent">Sent</string>
+    <string name="thread_status_delivered">Delivered</string>
+    <string name="thread_status_failed">Not sent. Tap to retry.</string>
+    <string name="thread_scheduled_message">Scheduled message</string>
+    <!-- Under a scheduled message whose alarm is inexact (no "Alarms & reminders" access): it may go out a little late. -->
+    <string name="thread_scheduled_approximate">Approximate time</string>
+    <!-- Above the message field of a group conversation: how a message goes out (Settings, "group messages as MMS"). -->
+    <string name="thread_group_note_mms">Group message: sent as one MMS, everyone sees the replies</string>
+    <string name="thread_group_note_separate">Sent as a separate text to each person</string>
+    <string name="thread_scroll_to_latest">Scroll to latest message</string>
+    <string name="thread_empty_title">No messages yet</string>
+    <string name="thread_empty_body">Type below to start the conversation.</string>
+    <string name="thread_no_app">No app found to open this link</string>
+    <string name="thread_sender_photo">Open contact for %1$s</string>
+
+    <!-- Attachments -->
+    <string name="thread_image_attachment">Image attachment</string>
+    <string name="thread_video_attachment">Video attachment</string>
+    <string name="thread_contact_unreadable">Couldn\'t read this contact card</string>
+    <string name="thread_remove_attachment">Remove attachment</string>
+    <string name="thread_audio_error">Couldn\'t play this audio</string>
+
+    <!-- Composer -->
+    <string name="thread_attach">Attach</string>
+    <string name="thread_send">Send</string>
+    <string name="thread_send_scheduled">Schedule send</string>
+    <string name="thread_scheduled_for">Scheduled for %1$s</string>
+    <string name="thread_change_sim">Choose SIM</string>
+    <string name="thread_more_info">More information</string>
+
+    <!-- Attachment sheet -->
+    <string name="thread_attach_photo">Photo</string>
+    <string name="thread_attach_take_photo">Take photo</string>
+    <string name="thread_attach_record_video">Record video</string>
+    <string name="thread_attach_record_audio">Record audio</string>
+    <string name="thread_attach_file">File</string>
+    <string name="thread_attach_contact">Contact</string>
+    <string name="thread_attach_schedule">Schedule message</string>
+
+    <!-- Add people -->
+    <string name="thread_people_confirm">Done</string>
+    <string name="thread_people_add_number">Add this number</string>
+    <string name="thread_people_remove">Remove %1$s</string>
+</resources>

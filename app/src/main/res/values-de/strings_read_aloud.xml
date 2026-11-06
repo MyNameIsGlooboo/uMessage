@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">Vorlesen</string>
+    <string name="read_aloud_stop">Vorlesen beenden</string>
+    <string name="read_aloud_no_voice">Auf diesem Smartphone ist keine Stimme für %1$s installiert</string>
+    <string name="read_aloud_install">Stimme installieren</string>
+    <string name="read_aloud_install_missing">Auf diesem Smartphone lassen sich keine Stimmen installieren</string>
+    <string name="read_aloud_failed">Nachricht konnte nicht vorgelesen werden</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">Hatırlatın</string>
+    <string name="reminder_dialog_title">Hatırlatın</string>
+    <string name="reminder_in_3_hours">3 saat sonra</string>
+    <string name="reminder_tomorrow_morning">Yarın sabah</string>
+    <string name="reminder_pick_time">Tarih ve saat seçin</string>
+    <string name="reminder_set">Hatırlatıcı ayarlandı: %1$s</string>
+    <string name="reminder_set_approximate">Hatırlatıcı yaklaşık şu zamana ayarlandı: %1$s. Biraz gecikebilir.</string>
+    <string name="reminder_battery_hint">Bazı telefonlar arka plandaki uygulamaları durdurur ve hatırlatıcıları geciktirir.</string>
+    <string name="reminder_battery_open">uMessage çalışmaya devam etsin</string>
+    <string name="reminder_channel">Hatırlatıcılar</string>
+    <string name="reminder_title">Hatırlatıcı</string>
+    <string name="reminder_title_named">Hatırlatıcı: %1$s</string>
+    <string name="reminder_open_hint">Mesajı açmak için dokunun</string>
+</resources>

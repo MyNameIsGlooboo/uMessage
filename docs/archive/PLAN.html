@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spamless – Project Plan</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#14161f;--mute:#5b6072;--line:#e3e5ee;--brand:#4f46e5;--ok:#0f9d6b;--warn:#c27803;--bad:#d03b3b;--chip:#eef0ff}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1117;--card:#181b25;--ink:#eceef6;--mute:#9aa0b5;--line:#2a2e3d;--brand:#8b85ff;--chip:#23264a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:980px;margin:0 auto;padding:32px 16px 80px}
+h1{font-size:2.1rem;margin:0 0 4px}
+h2{margin:40px 0 12px;font-size:1.4rem;border-bottom:2px solid var(--line);padding-bottom:6px}
+h3{margin:22px 0 6px;font-size:1.05rem}
+p,li{color:var(--ink)}
+.sub{color:var(--mute);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.93rem}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--chip);font-weight:600}
+tr:last-child td{border-bottom:0}
+code{background:var(--chip);padding:1px 6px;border-radius:5px;font-size:.88em}
+.tag{display:inline-block;background:var(--chip);color:var(--brand);border-radius:999px;padding:1px 10px;font-size:.78rem;font-weight:600;margin-right:4px}
+.warn{border-left:4px solid var(--warn)}
+.ok{border-left:4px solid var(--ok)}
+.bad{border-left:4px solid var(--bad)}
+ul{padding-left:20px;margin:6px 0}
+.q li{margin:6px 0}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto;font-size:.85rem}
+</style>
+</head>
+<body>
+<div style="background:#fff3cd;color:#5c4400;border:1px solid #e0c060;padding:10px 14px;margin:0 0 16px;font:14px/1.4 sans-serif">Archived on 2 November 2026. This page is a historical record and may not match the current app. For current behaviour see docs/FILTER_PIPELINE.md and the README.</div>
+<main>
+
+<h1>Spamless</h1>
+<p class="sub">Native Android SMS/MMS app whose main job is to stop spam. Plan v1 · 2026-10-29 · awaiting approval</p>
+
+<div class="card">
+<b>One-line pitch:</b> a full default-SMS-app replacement (Poco / Redmi / Xiaomi / Samsung / any Android) that, out of the box, blocks every message from numbers not in your phonebook, with whitelist, blacklist, rules, dual-SIM support and a polished Material 3 UI. Fully offline: the app declares no <code>INTERNET</code> permission.
+</div>
+
+<div class="card ok">
+<b>v2 update (approved 2026-10-29): build on a fork, not from scratch.</b>
+<ul>
+<li>Base: <a href="https://github.com/FossifyOrg/Messages">FossifyOrg/Messages</a> (Kotlin, Room, GPL-3.0, active, 1.6k stars). It already ships SMS/MMS, group messaging, dual SIM, default-app role and blocking. Alternatives rejected: QUIK (older Conductor/RxJava architecture), QKSMS and Simple SMS Messenger (unmaintained).</li>
+<li>Decisions: private repo <code>Glooboo/Spamless</code> now, public later (GPL-3.0 applies once distributed; source must then be public) · minSdk 26 · Strict mode default, OTP exemption off · MMS included (inherited) · English only · GitHub APK only.</li>
+<li>Upstream git history kept; remote <code>upstream</code> = Fossify. Full rebrand (name, package id, icon). Credit in README.</li>
+<li>Work shifts: telephony/MMS agents mostly replaced by an <b>audit + hook</b> agent. Main new work = spam engine (section 2), Blocked folder, rules UI, per-SIM rules, and a Compose redesign of the screens following the ui-ux-pro-max <code>MASTER.md</code>, migrated screen by screen so the app always builds.</li>
+<li>Phase 1 agents (revised): A audit+rebrand+filter hook · B spam engine + DB · C design system (Compose theme, components) · D conversations + thread screens · E spam/blocked/rules screens · F settings + onboarding + OEM guide · G notifications (OTP copy, per-SIM) · H QA/CI/docs. Section 8 below is the original from-scratch layout; read it with this change applied.</li>
+</ul>
+</div>
+
+<h2>1. Goals and non-goals</h2>
+<div class="grid">
+<div class="card ok"><b>Goals</b>
+<ul>
+<li>Complete messaging app: SMS, MMS, group threads, search, notifications with inline reply, drafts, scheduled send, backup/restore.</li>
+<li>Core feature: <b>Block unknown senders</b> (not in contacts).</li>
+<li>Whitelist / blacklist with number, prefix, alphanumeric sender, keyword and regex rules.</li>
+<li>Real dual-SIM support (receive, send, per-SIM settings and rules).</li>
+<li>Works well on MIUI / HyperOS (Xiaomi, Redmi, Poco) and One UI (Samsung).</li>
+<li>Best-in-class UI built with design guidance from the ui-ux-pro-max skill.</li>
+<li>Private: all data on device, no analytics, no network.</li>
+</ul></div>
+<div class="card warn"><b>Non-goals / honest limits</b>
+<ul>
+<li><b>RCS</b>: Android gives RCS access only to Google Messages and the Samsung stack. Third-party apps cannot send or receive RCS. Spamless is SMS/MMS only.</li>
+<li><b>Call blocking</b> is out of scope (SMS only).</li>
+<li>Google Play requires a special declaration for default-SMS apps. Distribution plan is GitHub Releases APK first; Play Store is a later, separate step.</li>
+<li>I cannot test on a physical dual-SIM phone from this PC. Logic is unit-tested; final device tests are done by you with a checklist I will provide.</li>
+</ul></div>
+</div>
+
+<h2>2. Spam-blocking design (the heart of the app)</h2>
+<h3>2.1 Filter pipeline (runs inside the SMS_DELIVER receiver, before anything touches the system inbox)</h3>
+<pre>incoming SMS PDUs
+  → assemble multipart, read sender + subscriptionId (SIM)
+  → normalize sender (libphonenumber, region from SIM country)
+  1. Whitelist match?            → ALLOW  (always wins)
+  2. Blacklist match?            → BLOCK  (number / prefix / keyword / regex / alphanumeric)
+  3. Sender in contacts?         → ALLOW
+  4. Exemption rules match?      → ALLOW  (e.g. OTP keywords, allowed short-codes, "replied before")
+  5. Unknown-sender mode:        STRICT = BLOCK · SMART = quarantine/allow by heuristics · OFF = ALLOW
+  ALLOW → write to Telephony provider, notify
+  BLOCK → store only in Spamless DB (Blocked folder), silent, no notification (optional badge)</pre>
+<h3>2.2 Modes</h3>
+<table>
+<tr><th>Mode</th><th>Behavior</th></tr>
+<tr><td><b>Strict</b> (default, as requested)</td><td>Everything from non-contacts is blocked unless whitelisted or exempted.</td></tr>
+<tr><td>Smart</td><td>Strict + built-in heuristics (OTP/verification code patterns, known alphanumeric bank/delivery senders you approve) go to an "Unknown" tab instead of being dropped.</td></tr>
+<tr><td>Off</td><td>No filtering by unknown status. Lists and rules still apply.</td></tr>
+</table>
+<h3>2.3 Important edge cases (handled explicitly)</h3>
+<ul>
+<li><b>Bank / OTP / delivery messages</b> come from non-contacts (e.g. <code>VM-HDFCBK</code>, short codes). Strict mode would hide them. Mitigation: first-run explanation, "Allow this sender" in one tap from the Blocked folder, optional OTP exemption toggle, and a "Recently blocked" quick banner.</li>
+<li><b>Blocked is reversible</b>: blocked messages are kept (auto-purge after N days, configurable). "Not spam" restores the message into the real inbox and whitelists the sender.</li>
+<li><b>Number formats</b>: <code>+91…</code>, <code>0…</code>, spaces, dashes, local vs international all normalize to one key.</li>
+<li><b>Contacts change</b>: ContentObserver keeps a cached contact set in Room, so filtering is instant and works in the background.</li>
+<li><b>Per-SIM rules</b>: each rule and mode can apply to SIM 1, SIM 2 or both.</li>
+<li><b>Blocked MMS</b>: same pipeline on WAP_PUSH_DELIVER; blocked MMS are not downloaded, so no data is spent.</li>
+<li><b>Never lose a message</b>: receiver is fast, uses <code>goAsync()</code>, and persists to the Spamless DB first (write-ahead), so a crash cannot drop an SMS.</li>
+</ul>
+
+<h2>3. Feature list</h2>
+<table>
+<tr><th>Area</th><th>Features</th></tr>
+<tr><td>Messaging</td><td>Conversation list, thread view, send/receive SMS and MMS (images, video, audio, vCard), group MMS, long-SMS splitting, delivery/sent status, retry, drafts, scheduled send, search (in-thread and global), pin, archive, mute, delete, mark read/unread, swipe actions, select-multiple, share/copy/forward message, link and phone detection, new-message compose with contact picker.</td></tr>
+<tr><td>Spam</td><td>Block unknown, whitelist, blacklist, prefix and regex rules, keyword rules, Blocked folder, restore/"Not spam", stats ("412 spam stopped"), import/export lists, per-SIM scope, auto-purge.</td></tr>
+<tr><td>Dual SIM</td><td>SIM detection with carrier name and slot colors, SIM picker on compose, per-thread default SIM, SIM badge on each message, per-SIM filter mode and notification channel, correct handling when a SIM is swapped or disabled.</td></tr>
+<tr><td>Notifications</td><td>Per-conversation, grouped, inline reply, mark-as-read, copy-OTP action, quiet hours, per-SIM channels, private mode (hide content on lock screen).</td></tr>
+<tr><td>Personalization</td><td>Material You dynamic color + custom brand theme, light/dark/AMOLED, font scale, bubble styles, haptics, language (English first, RTL-ready, Persian-ready strings).</td></tr>
+<tr><td>Data</td><td>Local backup/restore (JSON, optional encryption), import existing messages from the system provider on first run, export blocked list.</td></tr>
+<tr><td>Onboarding</td><td>Welcome → set as default SMS app (RoleManager) → permissions with plain-language reasons → pick unknown-sender mode → OEM setup guide (autostart, battery, notifications) for Xiaomi/Samsung.</td></tr>
+</table>
+
+<h2>4. Technical architecture</h2>
+<table>
+<tr><th>Item</th><th>Choice</th></tr>
+<tr><td>Language / UI</td><td>Kotlin, Jetpack Compose, Material 3, Navigation Compose, animations via Compose Animation</td></tr>
+<tr><td>Architecture</td><td>MVVM + unidirectional state, clean layering, Hilt DI, Coroutines + Flow</td></tr>
+<tr><td>Storage</td><td>Room (Spamless DB: blocked messages, rules, contact cache, settings index), DataStore (preferences). Telephony provider remains the source of truth for allowed messages so other apps and backups stay compatible.</td></tr>
+<tr><td>Phone numbers</td><td>libphonenumber (Android port)</td></tr>
+<tr><td>Background</td><td>WorkManager (purge, scheduled send, retry), foreground-safe receivers</td></tr>
+<tr><td>Images</td><td>Coil</td></tr>
+<tr><td>SDK levels</td><td><code>minSdk 26</code> (Android 8, ~99% of devices), <code>targetSdk 36</code>. <code>RoleManager</code> on 29+, legacy default-app intent on 26–28.</td></tr>
+<tr><td>Build</td><td>Gradle Kotlin DSL, version catalog, R8 minify on release, multi-module</td></tr>
+<tr><td>Quality</td><td>JUnit + Turbine + MockK unit tests (filter engine heavily covered), Room tests, Compose UI tests, ktlint/detekt, GitHub Actions CI</td></tr>
+<tr><td>Fonts / assets</td><td>Fonts bundled in the APK (no network). Icon and branding designed in-repo as vector assets.</td></tr>
+</table>
+
+<h3>4.1 Default-SMS-app requirements (all will be implemented)</h3>
+<ul>
+<li>Receiver for <code>SMS_DELIVER</code> (permission <code>BROADCAST_SMS</code>) and <code>WAP_PUSH_DELIVER</code> (<code>BROADCAST_WAP_PUSH</code>, MIME <code>application/vnd.wap.mms-message</code>).</li>
+<li>Activity handling <code>SEND</code>/<code>SENDTO</code> with <code>sms:</code>, <code>smsto:</code>, <code>mms:</code>, <code>mmsto:</code>.</li>
+<li>Service handling <code>RESPOND_VIA_MESSAGE</code> (permission <code>SEND_RESPOND_VIA_MESSAGE</code>), used by the dialer's "reply with message".</li>
+<li>Permissions: <code>READ_SMS, SEND_SMS, RECEIVE_SMS, RECEIVE_MMS, READ_CONTACTS, READ_PHONE_STATE, READ_PHONE_NUMBERS, POST_NOTIFICATIONS, CHANGE_NETWORK_STATE, WAKE_LOCK, VIBRATE, RECEIVE_BOOT_COMPLETED, SCHEDULE_EXACT_ALARM (scheduled send)</code>. No <code>INTERNET</code>.</li>
+<li>MMS via platform <code>SmsManager.sendMultimediaMessage</code> / <code>downloadMultimediaMessage</code> with per-SIM subscription and own PDU build/parse.</li>
+</ul>
+
+<h3>4.2 Dual SIM</h3>
+<ul>
+<li><code>SubscriptionManager</code> for active SIM list, slot index, carrier, color; listener for SIM changes.</li>
+<li>Incoming: subscription id taken from the SMS broadcast extras; stored on each message.</li>
+<li>Outgoing: <code>SmsManager.createForSubscriptionId(id)</code>; compose bar shows SIM chip; default = last used in that thread, else system default SMS SIM.</li>
+</ul>
+
+<h3>4.3 Module layout (so agents never edit the same files)</h3>
+<pre>spamless/
+  app/                      application, manifest, navigation host, DI wiring
+  core/model/               pure Kotlin domain models + repository interfaces (the contract)
+  core/database/            Room entities, DAOs, migrations
+  core/datastore/           preferences
+  core/telephony/           SMS/MMS send+receive, provider access, SIM manager, default-role
+  core/filter/              spam engine, contact cache, number normalization, rules
+  core/notifications/       channels, builders, inline reply, OTP action
+  core/designsystem/        theme, tokens, typography, shared components, icons, motion
+  feature/conversations/    list, search, archive, selection
+  feature/thread/           thread, composer, attachments, SIM picker
+  feature/spam/             Blocked folder, whitelist, blacklist, rules, stats
+  feature/settings/         settings, backup/restore, theme, per-SIM
+  feature/onboarding/       default-app flow, permissions, OEM guide
+  docs/  .github/workflows/</pre>
+
+<h2>5. UI / UX direction</h2>
+<ul>
+<li>Install the <b>ui-ux-pro-max</b> skill (<code>nextlevelbuilder/ui-ux-pro-max-skill</code>, MIT; Jetpack Compose is a supported stack). Run its design-system generator for "SMS spam-blocker messaging app" and save the result to <code>design-system/spamless/MASTER.md</code>. That file becomes the binding spec (palette, type pair, style, anti-patterns, checklist) for every UI agent.</li>
+<li>Look: calm, trustworthy "shield" identity; Material 3 with expressive shapes, generous spacing, soft elevation, smooth shared-element and list animations, haptics.</li>
+<li>Key screens: Onboarding · Conversations (tabs: <i>Inbox · Unknown · Blocked</i>) · Thread · Compose · Blocked folder with one-tap "Not spam" · Lists &amp; Rules editor · Stats · Settings · SIM management.</li>
+<li>Accessibility: 48dp targets, contrast AA, TalkBack labels, font scaling, reduced-motion respect, RTL support.</li>
+<li>Pre-delivery UI checklist from the skill is run on every screen; screenshots from Compose previews/emulator are reviewed before merge.</li>
+</ul>
+
+<h2>6. Device compatibility plan (Xiaomi / Poco / Redmi / Samsung)</h2>
+<table>
+<tr><th>Platform</th><th>Known problem</th><th>Plan</th></tr>
+<tr><td>MIUI / HyperOS</td><td>Aggressive background kill, autostart off, "Notification SMS" classification, lock-screen notification hidden, display-over-apps and battery saver restrictions.</td><td>Detect Xiaomi, show a step-by-step in-app guide with deep links to Autostart and Battery settings; mark notification channels as high importance; test the receiver path with the app force-stopped.</td></tr>
+<tr><td>Samsung One UI</td><td>Samsung Messages is protected; changing default needs the role dialog; "Sleeping apps" kill background work; RCS tied to Samsung/Google apps.</td><td>Role request flow tested; guide to remove from sleeping apps; clear RCS limitation note in onboarding.</td></tr>
+<tr><td>All</td><td>Dual SIM quirks, vendor-specific ContentProvider behavior.</td><td>Defensive provider reads, fallbacks, and a built-in diagnostics screen (exportable log) to debug issues on user devices.</td></tr>
+</table>
+
+<h2>7. Build and delivery</h2>
+<ul>
+<li><b>Environment:</b> this PC has no JDK or Android SDK. I will install JDK 17 and the Android command-line tools (SDK 36, build-tools, platform-tools, emulator + one system image) via winget / sdkmanager, so I can build and run unit tests locally.</li>
+<li><b>Repo:</b> <code>Glooboo/Spamless</code> on GitHub (account <code>MyNameIsGlooboo</code>; the active gh login is currently another account, so I will switch to it for creating the repo and pushing).</li>
+<li><b>CI:</b> GitHub Actions builds debug + signed release APK on every push; tagged releases publish the APK on GitHub Releases.</li>
+<li><b>Branching:</b> <code>main</code> protected by CI; each agent works on its own branch/worktree and merges after gates pass.</li>
+<li><b>Docs:</b> README with screenshots, install guide (with the "Android blocks sideloaded SMS apps → allow" notes), architecture doc, privacy statement, device test checklist.</li>
+</ul>
+
+<h2>8. Execution plan with multiple sub-agents (after your approval)</h2>
+<h3>Phase 0 – Foundation (me, sequential, ~first)</h3>
+<ul>
+<li>Create repo, install toolchain, install ui-ux-pro-max, generate and commit <code>MASTER.md</code> design system.</li>
+<li>Scaffold Gradle multi-module project, version catalog, Hilt, CI, lint config.</li>
+<li>Write the <b>contracts</b>: domain models and repository interfaces in <code>core/model</code>, Room schema v1. Everyone codes against these.</li>
+</ul>
+<h3>Phase 1 – Parallel build (8 agents, disjoint modules)</h3>
+<table>
+<tr><th>#</th><th>Agent</th><th>Owns</th><th>Delivers</th></tr>
+<tr><td>A</td><td>Telephony engine</td><td><code>core/telephony</code></td><td>Receivers, default-role, SMS send/receive, provider read/write, status/delivery, SIM manager, dual-SIM routing, RespondViaMessage</td></tr>
+<tr><td>B</td><td>MMS</td><td><code>core/telephony/mms</code></td><td>MMS PDU build/parse, send, download, attachments storage, group MMS</td></tr>
+<tr><td>C</td><td>Spam engine</td><td><code>core/filter</code>, <code>core/database</code></td><td>Pipeline, contact cache + observer, number normalization, rules, modes, per-SIM scope, blocked store, heavy unit tests</td></tr>
+<tr><td>D</td><td>Design system</td><td><code>core/designsystem</code></td><td>Theme, tokens from MASTER.md, typography, shared components, icons/logo, motion, previews</td></tr>
+<tr><td>E</td><td>Conversations + Thread UI</td><td><code>feature/conversations</code>, <code>feature/thread</code></td><td>List, search, thread, composer, SIM picker, attachments UI, selection actions</td></tr>
+<tr><td>F</td><td>Spam + Settings UI</td><td><code>feature/spam</code>, <code>feature/settings</code>, <code>core/datastore</code></td><td>Blocked folder, lists/rules editor, stats, settings, backup/restore, theme options</td></tr>
+<tr><td>G</td><td>Onboarding + Notifications</td><td><code>feature/onboarding</code>, <code>core/notifications</code></td><td>Default-app flow, permissions, OEM guides, channels, inline reply, OTP copy, quiet hours</td></tr>
+<tr><td>H</td><td>QA + CI + Docs</td><td><code>.github</code>, <code>docs</code>, test infra</td><td>CI, test fixtures, SMS injection scripts for emulator (<code>adb emu sms send</code>), device test checklist, README</td></tr>
+</table>
+<h3>Phase 2 – Integration (me)</h3>
+<ul><li>Merge branches, wire <code>app</code> module, fix seams, run full build + all tests, emulator smoke test (receive SMS from unknown vs contact number, see block/allow).</li></ul>
+<h3>Phase 3 – Review and polish</h3>
+<ul>
+<li>Independent code-review agent (security, correctness, receiver reliability), UI review agent against <code>MASTER.md</code> checklist and screenshots, performance pass (large inboxes via Paging 3).</li>
+<li>Release candidate APK on GitHub Releases + device test checklist handed to you for your Poco/Samsung phones.</li>
+</ul>
+
+<h2>9. Verification gates</h2>
+<ul>
+<li>Filter engine: 100% of pipeline branches covered by unit tests (contact, whitelist-wins, blacklist, OTP exemption, formats, per-SIM).</li>
+<li>Build green, lint clean, no <code>INTERNET</code> permission in merged manifest (CI check).</li>
+<li>Emulator: unknown number SMS is blocked and appears only in Blocked; contact number SMS arrives and notifies; restore works.</li>
+<li>Your real-device checklist: default role grant, SIM 1 and SIM 2 receive/send, Xiaomi background receive with app closed, MMS on your carrier.</li>
+</ul>
+
+<h2>10. Risks</h2>
+<table>
+<tr><th>Risk</th><th>Mitigation</th></tr>
+<tr><td>MMS differs by carrier/APN</td><td>Use platform MMS APIs (carrier config handled by OS), diagnostics log, ship SMS-first and MMS as a flagged beta if device tests fail.</td></tr>
+<tr><td>Strict mode hides wanted OTP/bank SMS</td><td>Exemptions, one-tap allow, clear onboarding, Blocked folder is never auto-deleted before 30 days by default.</td></tr>
+<tr><td>OEM kills app</td><td>Receivers are manifest-declared and system-woken for the default SMS role; OEM guide covers the rest.</td></tr>
+<tr><td>Parallel agents conflict</td><td>Disjoint module ownership + frozen contracts from Phase 0 + separate branches.</td></tr>
+<tr><td>No physical dual-SIM test here</td><td>SIM layer behind an interface with fakes; real-device checklist for you.</td></tr>
+</table>
+
+<h2>11. Decisions I need from you</h2>
+<div class="card q">
+<ol>
+<li><b>Repo visibility</b>: public or private? (Recommendation: public, MIT license, APKs on Releases.)</li>
+<li><b>minSdk 26</b> okay? (Android 8+.)</li>
+<li><b>Default unknown-sender mode</b>: Strict as you asked, with OTP exemption <i>off</i> by default? Or on?</li>
+<li><b>Include MMS</b> in v1 (more work, more risk) or SMS-only v1 then MMS in v1.1? (Recommendation: include, since "complete" was requested.)</li>
+<li><b>Languages</b>: English only for v1, or English + Persian?</li>
+<li><b>Play Store</b> later, or GitHub APK only?</li>
+</ol>
+<p>If you reply "approved", I will use the recommended defaults: public repo, minSdk 26, Strict with OTP exemption off, MMS included, English + Persian, GitHub APK only.</p>
+</div>
+
+</main>
+</body>
+</html>

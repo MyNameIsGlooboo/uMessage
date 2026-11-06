@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r4_banner_title">Perlindungan spam</string>
+    <plurals name="r4_banner_stopped_week">
+        <item quantity="other">dicegah dalam 7 hari terakhir</item>
+    </plurals>
+</resources>

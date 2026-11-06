@@ -1,0 +1,98 @@
+# Invented incoming texts. Format: EXPECTED|message. NONE means no chip may show. Never add real messages.
+# YES_NO
+YES_NO|Czy przyjdziesz jutro?
+YES_NO|Czy możesz jutro?
+YES_NO|Mozesz w piatek?
+YES_NO|Idziesz na zajęcia?
+YES_NO|Jesteś już w domu?
+YES_NO|Dasz radę?
+YES_NO|Zdążysz na pociąg?
+YES_NO|Czy pani będzie jutro w biurze?
+YES_NO|Czy pan dostał wiadomość?
+YES_NO|Pamiętasz o spotkaniu?
+YES_NO|Będziesz w domu wieczorem, dobrze?
+YES_NO|Jutro o dziesiątej, w porządku?
+YES_NO|Dojechałeś już, prawda?
+YES_NO|Czy już po wszystkim
+YES_NO|Mogę zadzwonić?
+YES_NO|Da się to zrobić?
+YES_NO|Dojechalas juz?
+YES_NO|Czy ona wie
+YES_NO|Zadzwonisz do mnie?
+# WHEN
+WHEN|Kiedy wracasz?
+WHEN|O której będziesz?
+WHEN|Na kiedy to potrzebujesz?
+WHEN|Do kiedy możesz?
+WHEN|Przyjdziesz kiedy?
+WHEN|O ktorej konczysz?
+# WHERE
+WHERE|Gdzie jesteś?
+WHERE|Gdzie sie spotykamy?
+WHERE|Gdzie teraz jesteś?
+WHERE|Gdzie mam przyjść?
+WHERE|Gdzie idziemy jutro?
+WHERE|Gdzie się widzimy, na dworcu?
+# INVITE
+INVITE|Chcesz iść do kina?
+INVITE|Idziemy na pizzę?
+INVITE|Masz ochotę na kawę?
+INVITE|Wpadniesz do nas wieczorem?
+INVITE|Co powiesz na spacer?
+INVITE|Chodź na piwo?
+INVITE|Jesteś dziś wolny?
+INVITE|Spotkamy się w sobotę?
+# REQUEST
+REQUEST|Możesz mi wysłać zdjęcie?
+REQUEST|Możesz kupić chleb?
+REQUEST|Mógłbyś mi pomóc?
+REQUEST|Wyślij mi adres?
+REQUEST|Czy mógłby pan przesłać dokument?
+REQUEST|Daj znać, jak dojedziesz?
+REQUEST|Pomożesz mi z tym?
+REQUEST|Moglabys mi pomoc?
+# CHOICE
+CHOICE:kawa,herbata|Kawa czy herbata?
+CHOICE:pizza,sushi|Pizza albo sushi?
+CHOICE:dzis,jutro|Dziś czy jutro?
+CHOICE:kino,teatr|Kino albo teatr?
+CHOICE:autobusem,pociagiem|Autobusem czy pociągiem?
+CHOICE:sobota,niedziela|Sobota czy niedziela?
+CHOICE:morze,gory|Morze czy góry?
+# NONE
+NONE|Dlaczego nie przyszedłeś?
+NONE|Ile to kosztuje?
+NONE|Kto to był?
+NONE|Co robisz?
+NONE|Jak ci minął dzień?
+NONE|Jaki masz numer buta?
+NONE|Jestem już w drodze
+NONE|Zadzwonię później
+NONE|Widziałeś film? Podobał ci się?
+NONE|Przyjdziesz dziś? A może zostaniesz w domu?
+NONE|Zobacz https://example.com/zdjecie
+NONE|Twój kod to 482913
+NONE|Skąd jesteś?
+NONE|Która godzina?
+NONE|Z kim idziesz?
+NONE|Jak się nazywa ten film?
+NONE|Jestem głodny
+NONE|Wczoraj byłem u lekarza i opowiadał mi o wszystkim co się wydarzyło w pracy przez ostatni miesiąc więc nie mam siły
+NONE|Dlaczego nie?
+NONE|Czemu nikt nie odpowiada?
+NONE|Pożyczysz mi 200 zł?
+NONE|Czego szukasz?
+NONE|Jak dojechać na dworzec?
+NONE|Co to znaczy?
+NONE|Mam dziś dużo pracy
+NONE|Pojechałem do sklepu
+NONE|Kto przyjdzie?
+NONE|Gdzie jest moja kurtka?
+NONE|Ile masz lat?
+NONE|Co będzie na obiad?
+NONE|Który film obejrzeliśmy wczoraj?
+NONE|Do czego to służy?
+NONE|Jaka jest pogoda?
+NONE|Po co ci to?
+NONE|Pan Kowalski wyszedł wcześniej
+NONE|Ile osób przyjdzie?

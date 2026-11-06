@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">保留：不明な送信者</string>
+    <string name="ux8c_held_unknown_link">保留：不明な送信者、リンクあり</string>
+    <string name="ux8c_held_foreign">保留：海外の電話番号</string>
+    <string name="ux8c_held_rule">設定したルールにより保留</string>
+    <string name="ux8c_held_other">フィルターにより保留</string>
+    <string name="ux8c_not_spam">ブロック解除</string>
+    <string name="ux8c_delete">削除</string>
+    <string name="ux8c_tip">送信者をスワイプすると受信トレイに移動できます。長押しすると選択できます。</string>
+    <string name="ux8c_tip_dismiss">確認</string>
+    <string name="ux8c_sender_title">この送信者</string>
+    <string name="ux8c_sender_normal">通常</string>
+    <string name="ux8c_sender_allow">常に許可</string>
+    <string name="ux8c_sender_block">ブロック</string>
+</resources>

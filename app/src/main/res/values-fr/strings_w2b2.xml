@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2b2_thread_menu_allow">Toujours autoriser cet expéditeur</string>
+    <string name="w2b2_thread_menu_why">Pourquoi cette décision ?</string>
+    <string name="w2b2_thread_chip_allowed">Toujours autorisé</string>
+    <string name="w2b2_thread_chip_blocked">Bloqué par une règle</string>
+    <string name="w2b2_settings_group_dates">Dates</string>
+    <string name="w2b2_settings_jalali">Dates du calendrier persan</string>
+    <string name="w2b2_settings_jalali_body">Afficher les dates des conversations et des messages programmés selon le calendrier persan</string>
+    <string name="w2b2_lock_pattern_hint">Reliez au moins %d points, puis tracez à nouveau le même schéma pour confirmer.</string>
+    <string name="w2b2_lock_recovery_hint">En cas d\'oubli, l\'écran de verrouillage vous permet d\'utiliser le verrouillage de votre téléphone pour accéder à l\'application.</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">ابحث في الكلمات الرئيسية</string>
+    <string name="w2a_keywords_search_clear">امسح البحث</string>
+    <string name="w2a_keywords_no_match_title">لا توجد كلمات رئيسية مطابقة</string>
+    <string name="w2a_keywords_no_match_body">جرّب كلمة أخرى، أو امسح البحث.</string>
+</resources>

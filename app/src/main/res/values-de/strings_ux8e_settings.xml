@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">Hinweise, Sperrbildschirm, Wochenübersicht</string>
+    <string name="ux8e_nav_typing">Schreiben und Senden</string>
+    <string name="ux8e_nav_typing_body">Eingabetaste, Zustellberichte, Signatur</string>
+    <string name="ux8e_nav_storage">Speicher und Bereinigung</string>
+    <string name="ux8e_nav_storage_body">Papierkorb, Archivieren, automatisches Löschen</string>
+    <string name="ux8e_group_lock_screen">Sperrbildschirm</string>
+    <string name="ux8e_group_recycle">Gelöschte Nachrichten</string>
+    <string name="ux8e_group_cleanup">Automatische Bereinigung</string>
+    <string name="ux8e_group_archive">Archivieren</string>
+    <string name="ux8e_keep_deleted">Gelöschte Nachrichten behalten</string>
+    <string name="ux8e_keep_deleted_body">Sie bleiben 30 Tage im Papierkorb</string>
+    <string name="ux8e_recycle_bin">Papierkorb</string>
+    <string name="ux8e_backup_row">Sichern</string>
+    <string name="ux8e_backup_row_body">In einer Datei speichern</string>
+    <string name="ux8e_restore_row">Wiederherstellen</string>
+    <string name="ux8e_restore_row_body">Aus einer Datei laden</string>
+    <string name="ux8e_backup_what">Was möchtest du sichern?</string>
+    <string name="ux8e_restore_what">Was möchtest du wiederherstellen?</string>
+    <string name="ux8e_what_messages">Nachrichten</string>
+    <string name="ux8e_what_settings">Regeln und Einstellungen</string>
+    <string name="ux8e_backup_warning">Sicherungsdateien sind nicht verschlüsselt.</string>
+    <string name="ux8e_calendar">Kalender</string>
+</resources>

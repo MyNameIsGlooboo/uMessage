@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">लेबल</string>
+    <string name="i29_picker_title">लेबल</string>
+    <string name="i29_picker_empty">अभी आपका कोई लेबल नहीं है. अपनी बातचीत व्यवस्थित करने के लिए एक बनाएं.</string>
+    <string name="i29_picker_new">नया लेबल</string>
+    <string name="i29_picker_manage">लेबल मैनेज करें</string>
+    <string name="i29_done">हो गया</string>
+    <string name="i29_cancel">रद्द करें</string>
+    <string name="i29_tiles_title">आपके लेबल</string>
+    <string name="i29_tile_add">लेबल जोड़ें</string>
+    <string name="i29_tiles_manage">लेबल मैनेज करें</string>
+    <string name="i29_manager_title">लेबल मैनेज करें</string>
+    <string name="i29_manager_note">लेबल आपके अपने हैं. ये अपने-आप काम करने वाले लेन-देन और ऑफ़र फ़िल्टर से अलग हैं.</string>
+    <string name="i29_manager_edit">%1$s लेबल में बदलाव करें</string>
+    <string name="i29_manager_delete">%1$s लेबल मिटाएं</string>
+    <string name="i29_edit_new_title">नया लेबल</string>
+    <string name="i29_edit_title">लेबल में बदलाव करें</string>
+    <string name="i29_edit_name">लेबल का नाम</string>
+    <string name="i29_edit_save">सेव करें</string>
+    <string name="i29_color_description">रंग %1$d</string>
+    <string name="i29_error_duplicate">इस नाम का लेबल आपके पास पहले से है.</string>
+    <string name="i29_error_limit">आप ज़्यादा से ज़्यादा %1$d लेबल रख सकते हैं.</string>
+    <string name="i29_delete_title">यह लेबल मिटाएं?</string>
+    <string name="i29_delete_body">“%1$s” लेबल हटा दिया जाएगा. आपकी बातचीत और मैसेज वैसे ही रहेंगे.</string>
+    <string name="i29_delete_confirm">मिटाएं</string>
+    <string name="i29_empty_title">यहां कोई बातचीत नहीं है</string>
+    <string name="i29_empty_body">बातचीत जोड़ने के लिए उसे दबाकर रखें, मेन्यू खोलें और लेबल चुनें.</string>
+</resources>

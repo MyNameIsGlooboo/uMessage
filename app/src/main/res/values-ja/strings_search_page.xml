@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">会話を開始</string>
+    <string name="search_page_show_more">もっと見る</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">このSIMでの会話なし</string>
+    <string name="search_page_sim_empty_body">このSIMでメッセージを送受信した会話がここに表示されます。</string>
+</resources>

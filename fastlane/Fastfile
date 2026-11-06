@@ -1,0 +1,30 @@
+# Plain fastlane actions only (the Fossify plugin is gone). Store listings live in fastlane/metadata/android.
+# Releases themselves are built and signed by .github/workflows/release.yml; these lanes are for local use.
+default_platform(:android)
+
+platform :android do
+  desc 'Run the unit tests, lint and detekt'
+  lane :test do
+    gradle(tasks: ['testFossDebugUnitTest', 'lintFossDebug', 'detekt'])
+  end
+
+  desc 'Build the signed gplay AAB and upload it with its metadata to the internal track of Google Play'
+  lane :deploy do
+    gradle(task: 'bundle', flavor: 'gplay', build_type: 'Release')
+    upload_to_play_store(
+      track: 'internal',
+      aab: lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH],
+      skip_upload_apk: true,
+      skip_upload_changelogs: false,
+    )
+  end
+
+  desc 'Upload the Play Store listing (text, images, changelogs) without a new build'
+  lane :metadata do
+    upload_to_play_store(
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_changelogs: true,
+    )
+  end
+end

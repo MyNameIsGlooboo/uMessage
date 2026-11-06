@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialogs_yes">Sì</string>
+    <string name="dialogs_no">No</string>
+    <string name="dialogs_permission_required">Autorizzazione necessaria</string>
+    <string name="dialogs_grant_permission">Concedi autorizzazione</string>
+    <string name="dialogs_date_time_format_title">Formato di data e ora</string>
+    <string name="dialogs_use_24_hour">Usa il formato a 24 ore</string>
+    <string name="dialogs_lock_pattern">Sequenza</string>
+    <string name="dialogs_lock_pin">PIN</string>
+    <string name="dialogs_lock_biometrics">Autenticazione biometrica</string>
+    <string name="dialogs_lock_fingerprint">Impronta digitale</string>
+    <string name="dialogs_lock_enter_pin">Inserisci il PIN</string>
+    <string name="dialogs_lock_repeat_pin">Ripeti il PIN</string>
+    <string name="dialogs_lock_wrong_pin">PIN errato</string>
+    <string name="dialogs_lock_empty_pin">Inserisci un PIN</string>
+    <string name="dialogs_lock_short_pin">Il PIN deve avere almeno 4 cifre</string>
+    <string name="dialogs_lock_pin_suggestion">Almeno 4 cifre. Con %d o più è più sicuro.</string>
+    <plurals name="dialogs_lock_short_pattern">
+        <item quantity="one">Troppo corta. Collega almeno %d punto.</item>
+        <item quantity="other">Troppo corta. Collega almeno %d punti.</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">Disegna la sequenza</string>
+    <string name="dialogs_lock_repeat_pattern">Ripeti la sequenza</string>
+    <string name="dialogs_lock_wrong_pattern">Sequenza errata</string>
+    <string name="dialogs_lock_locked_out">Troppi tentativi di sblocco errati.\nRiprova tra %d secondi.</string>
+    <string name="dialogs_lock_pin_delete">Elimina l\'ultima cifra</string>
+    <string name="dialogs_lock_pin_confirm">Conferma il PIN</string>
+    <string name="dialogs_lock_pin_entered">%d cifre inserite</string>
+    <string name="dialogs_lock_pattern_pad">Area della sequenza</string>
+    <string name="dialogs_lock_biometric_hint">Usa l\'impronta o il volto per confermare la tua identità.</string>
+    <string name="dialogs_lock_biometric_open">Verifica con autenticazione biometrica</string>
+    <string name="dialogs_lock_place_finger">Appoggia il dito sul sensore di impronte digitali.</string>
+    <string name="dialogs_lock_no_fingerprints">Nessuna impronta registrata. Aggiungine una nelle impostazioni del dispositivo.</string>
+    <string name="dialogs_lock_open_settings">Apri le impostazioni del dispositivo</string>
+    <string name="dialogs_lock_auth_failed">Autenticazione non riuscita</string>
+    <string name="dialogs_lock_auth_blocked">Autenticazione bloccata, riprova tra poco</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Archived conversations: confirm moving the selection back to the main list -->
+    <string name="fixes_unarchive_title">Unarchive?</string>
+    <!-- %1$s is "1 conversation" / "5 conversations" -->
+    <string name="fixes_unarchive_message">Move %1$s back to your conversation list?</string>
+</resources>

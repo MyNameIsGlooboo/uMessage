@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">Mask codes in forwarded messages</string>
+    <string name="w3d_mask_codes_body">Forwarded codes show as ****</string>
+    <string name="w3d_mask_keep_last">Keep the last two digits</string>
+    <string name="w3d_mask_keep_last_on">Forwards show for example **34.</string>
+    <string name="w3d_mask_keep_last_off">Forwards hide the whole code.</string>
+    <string name="w3d_daily_limit">Daily forward limit</string>
+    <string name="w3d_daily_limit_body">Most forwards per day</string>
+    <string name="w3d_hide_lock_codes">Hide codes on the lock screen</string>
+    <string name="w3d_hide_lock_codes_body">A message with a code shows •••• on the lock screen until you unlock.</string>
+</resources>

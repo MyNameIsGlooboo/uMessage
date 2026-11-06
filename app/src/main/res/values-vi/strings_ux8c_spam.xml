@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">Tạm giữ: người gửi không xác định</string>
+    <string name="ux8c_held_unknown_link">Tạm giữ: người gửi không xác định, có liên kết</string>
+    <string name="ux8c_held_foreign">Tạm giữ: số từ quốc gia khác</string>
+    <string name="ux8c_held_rule">Tạm giữ theo quy tắc của bạn</string>
+    <string name="ux8c_held_other">Tạm giữ bởi bộ lọc</string>
+    <string name="ux8c_not_spam">Không phải tin nhắn rác</string>
+    <string name="ux8c_delete">Xóa</string>
+    <string name="ux8c_tip">Vuốt người gửi để chuyển vào hộp thư đến của bạn. Nhấn giữ để chọn.</string>
+    <string name="ux8c_tip_dismiss">Đã hiểu</string>
+    <string name="ux8c_sender_title">Người gửi này</string>
+    <string name="ux8c_sender_normal">Bình thường</string>
+    <string name="ux8c_sender_allow">Luôn cho phép</string>
+    <string name="ux8c_sender_block">Chặn</string>
+</resources>

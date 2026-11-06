@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">Alertes, écran de verrouillage, résumé hebdomadaire</string>
+    <string name="ux8e_nav_typing">Saisie et envoi</string>
+    <string name="ux8e_nav_typing_body">Touche Entrée, accusés de réception, signature</string>
+    <string name="ux8e_nav_storage">Stockage et nettoyage</string>
+    <string name="ux8e_nav_storage_body">Corbeille, archivage, suppression automatique</string>
+    <string name="ux8e_group_lock_screen">Écran de verrouillage</string>
+    <string name="ux8e_group_recycle">Messages supprimés</string>
+    <string name="ux8e_group_cleanup">Nettoyage automatique</string>
+    <string name="ux8e_group_archive">Archiver</string>
+    <string name="ux8e_keep_deleted">Conserver les messages supprimés</string>
+    <string name="ux8e_keep_deleted_body">Ils restent dans la corbeille pendant 30 jours</string>
+    <string name="ux8e_recycle_bin">Corbeille</string>
+    <string name="ux8e_backup_row">Sauvegarder</string>
+    <string name="ux8e_backup_row_body">Enregistrer dans un fichier</string>
+    <string name="ux8e_restore_row">Restaurer</string>
+    <string name="ux8e_restore_row_body">Charger depuis un fichier</string>
+    <string name="ux8e_backup_what">Que sauvegarder ?</string>
+    <string name="ux8e_restore_what">Que restaurer ?</string>
+    <string name="ux8e_what_messages">Messages</string>
+    <string name="ux8e_what_settings">Règles et paramètres</string>
+    <string name="ux8e_backup_warning">Les fichiers de sauvegarde ne sont pas chiffrés.</string>
+    <string name="ux8e_calendar">Calendrier</string>
+</resources>

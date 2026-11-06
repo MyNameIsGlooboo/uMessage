@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">隐藏此会话</string>
+    <string name="hidden_chats_menu_unhide">取消隐藏此会话</string>
+    <string name="hidden_chats_confirm">隐藏此会话？在使用应用锁解锁隐藏会话之前，此会话不会出现在列表、搜索结果或通知中。</string>
+    <string name="hidden_chats_need_lock">隐藏会话需要应用锁。现在设置？</string>
+    <string name="hidden_chats_set_lock">设置</string>
+    <string name="hidden_chats_done">会话已隐藏</string>
+    <string name="hidden_chats_show">隐藏会话</string>
+    <string name="hidden_chats_lock">锁定隐藏会话</string>
+</resources>

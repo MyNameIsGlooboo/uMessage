@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_conv_menu">صدّر المحادثة</string>
+    <string name="export_conv_title">صدّر المحادثة</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">نص عادي</string>
+    <string name="export_conv_dates_all">كل التواريخ</string>
+    <string name="export_conv_dates_30">آخر 30 يومًا</string>
+    <string name="export_conv_dates_pick">اختر التواريخ</string>
+    <string name="export_conv_pick_from">من أي يوم؟</string>
+    <string name="export_conv_pick_to">حتى أي يوم؟</string>
+    <string name="export_conv_action">صدّر</string>
+    <string name="export_conv_preparing">جارٍ إعداد الملف…</string>
+    <string name="export_conv_nothing">لا توجد رسائل في هذه الفترة</string>
+    <string name="export_conv_failed">تعذّر إنشاء الملف</string>
+    <string name="export_conv_subject">تصدير المحادثة</string>
+    <string name="export_conv_share_text">محادثة مع %1$s، %2$s. بصمة SHA-256 لنص الرسائل: %3$s</string>
+    <string name="export_conv_attachment_label">[مرفق]</string>
+    <string name="export_pdf_title">تصدير المحادثة</string>
+    <string name="export_pdf_with">محادثة مع: %1$s</string>
+    <string name="export_pdf_numbers">الأرقام: %1$s</string>
+    <string name="export_pdf_range">الفترة: %1$s</string>
+    <string name="export_pdf_zone">الأوقات حسب المنطقة الزمنية %1$s</string>
+    <string name="export_pdf_exported">تاريخ التصدير: %1$s</string>
+    <plurals name="export_pdf_count">
+        <item quantity="zero">%1$d رسالة</item>
+        <item quantity="one">رسالة واحدة (%1$d)</item>
+        <item quantity="two">رسالتان (%1$d)</item>
+        <item quantity="few">%1$d رسائل</item>
+        <item quantity="many">%1$d رسالة</item>
+        <item quantity="other">%1$d رسالة</item>
+    </plurals>
+    <string name="export_pdf_hash">بصمة SHA-256 لنص الرسائل: %1$s</string>
+    <string name="export_pdf_not_certified">صُدّر من الهاتف؛ ليس سجلًا معتمدًا.</string>
+    <string name="export_pdf_page">صفحة %1$d من %2$d</string>
+    <string name="export_pdf_from">من: %1$s</string>
+    <string name="export_pdf_to">إلى: %1$s</string>
+    <string name="export_pdf_attachment">مرفق: %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">ملف بلا اسم</string>
+    <string name="export_status_received">مستلمة</string>
+    <string name="export_status_sent">مرسلة</string>
+    <string name="export_status_delivered">تم التسليم</string>
+    <string name="export_status_failed">فشل الإرسال</string>
+    <string name="export_status_sending">جارٍ الإرسال</string>
+    <string name="export_status_draft">مسودة</string>
+</resources>

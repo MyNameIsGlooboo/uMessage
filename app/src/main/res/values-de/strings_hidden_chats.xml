@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">Diesen Chat verbergen</string>
+    <string name="hidden_chats_menu_unhide">Diesen Chat wieder anzeigen</string>
+    <string name="hidden_chats_confirm">Diesen Chat verbergen? Er wird in der Liste, der Suche und den Benachrichtigungen ausgeblendet, bis du verborgene Chats mit deiner App-Sperre entsperrst.</string>
+    <string name="hidden_chats_need_lock">Für verborgene Chats brauchst du eine App-Sperre. Jetzt einrichten?</string>
+    <string name="hidden_chats_set_lock">Einrichten</string>
+    <string name="hidden_chats_done">Chat verborgen</string>
+    <string name="hidden_chats_show">Verborgene Chats</string>
+    <string name="hidden_chats_lock">Verborgene Chats sperren</string>
+</resources>

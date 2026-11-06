@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">रोका गया: अनजान भेजने वाला</string>
+    <string name="ux8c_held_unknown_link">रोका गया: अनजान भेजने वाला, लिंक मौजूद है</string>
+    <string name="ux8c_held_foreign">रोका गया: दूसरे देश का नंबर</string>
+    <string name="ux8c_held_rule">आपके नियम से रोका गया</string>
+    <string name="ux8c_held_other">फ़िल्टर से रोका गया</string>
+    <string name="ux8c_not_spam">स्पैम नहीं है</string>
+    <string name="ux8c_delete">मिटाएं</string>
+    <string name="ux8c_tip">भेजने वाले को इनबॉक्स में ले जाने के लिए स्वाइप करें. चुनने के लिए दबाकर रखें.</string>
+    <string name="ux8c_tip_dismiss">समझ गए</string>
+    <string name="ux8c_sender_title">यह भेजने वाला</string>
+    <string name="ux8c_sender_normal">सामान्य</string>
+    <string name="ux8c_sender_allow">हमेशा अनुमति दें</string>
+    <string name="ux8c_sender_block">ब्लॉक करें</string>
+</resources>

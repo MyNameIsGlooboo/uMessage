@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="e_day_today">Сьогодні</string>
+    <string name="e_day_yesterday">Учора</string>
+    <plurals name="e_blocked_stats_total" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Усього заблоковано %d</item>
+        <item quantity="few">Усього заблоковано %d</item>
+        <item quantity="many">Усього заблоковано %d</item>
+        <item quantity="other">Усього заблоковано %d</item>
+    </plurals>
+    <string name="e_restored_title">Нещодавно відновлені</string>
+    <string name="e_restored_body">Повідомлення, які ви перемістили у «Вхідні» за останні 30 днів. Натисніть на повідомлення, щоб відкрити чат.</string>
+    <string name="e_restored_empty">Повідомлення, які ви відтепер переміщуватимете у «Вхідні», будуть у цьому списку протягом 30 днів.</string>
+    <string name="e_restored_when">Переміщено у «Вхідні» %1$s</string>
+    <string name="e_restored_open">Відкрити чат із %1$s</string>
+    <string name="e_snack_allowed_one">%1$s тепер завжди дозволено на обох SIM</string>
+    <plurals name="e_snack_allowed_many" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Тепер завжди дозволено %d відправника на обох SIM</item>
+        <item quantity="few">Тепер завжди дозволено %d відправників на обох SIM</item>
+        <item quantity="many">Тепер завжди дозволено %d відправників на обох SIM</item>
+        <item quantity="other">Тепер завжди дозволено %d відправника на обох SIM</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$s тепер завжди дозволено</string>
+    <plurals name="e_snack_allowed_many_single_sim" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Тепер завжди дозволено %d відправника</item>
+        <item quantity="few">Тепер завжди дозволено %d відправників</item>
+        <item quantity="many">Тепер завжди дозволено %d відправників</item>
+        <item quantity="other">Тепер завжди дозволено %d відправника</item>
+    </plurals>
+    <string name="e_view_rule">Переглянути правило</string>
+    <string name="e_rules_title">Правила</string>
+    <string name="e_rules_menu_backup">Резервне копіювання та відновлення</string>
+    <string name="e_note_blocked_by_you">Заблоковано вами</string>
+    <string name="e_note_allowed_by_you">Дозволено вами</string>
+    <string name="e_note_blocked_from_message">Заблоковано з повідомлення</string>
+    <string name="e_note_blocked_from_keyword">Заблоковано за ключовим словом</string>
+    <string name="e_note_reported_spam">Повідомлено про спам</string>
+    <string name="e_note_old_word_list">Зі старого списку заблокованих слів</string>
+    <string name="e_note_system_list">Зі списку заблокованих Android</string>
+    <string name="e_note_quoted">“%1$s”</string>
+    <string name="e_example_block_cancel_word">Заблокувати повідомлення з لغو۱۱</string>
+    <string name="e_example_block_ad_prefix">Заблокувати рекламні номери, що починаються з 3000</string>
+    <string name="e_example_allow_number">Завжди дозволяти номер, наприклад вашої пошти</string>
+    <string name="e_sheet_sender_label">Відправник</string>
+    <string name="e_sheet_text_label">Текст повідомлення</string>
+    <string name="e_value_number">Номер телефону</string>
+    <string name="e_value_prefix">Номер починається з</string>
+    <string name="e_value_sender">Ім’я відправника</string>
+    <string name="e_value_keyword">Текст для пошуку</string>
+    <string name="e_value_pattern">Регулярний вираз</string>
+    <string name="e_pattern_blocks_label">Почати з</string>
+    <string name="e_pattern_link">Містить посилання</string>
+    <string name="e_pattern_long_number">Число з 5 або більше цифр</string>
+    <string name="e_pattern_starts_with">Починається з</string>
+    <string name="e_pattern_any_of">Містить будь-яке з</string>
+    <string name="e_pattern_link_sentence">Знаходить повідомлення з посиланням.</string>
+    <string name="e_pattern_long_number_sentence">Знаходить повідомлення з числом із 5 або більше цифр.</string>
+    <string name="e_pattern_starts_with_sentence">Знаходить повідомлення, що починаються з тексту, який ви введете після ^.</string>
+    <string name="e_pattern_any_of_sentence">Знаходить повідомлення з будь-яким зі слів у дужках. Розділяйте їх знаком |.</string>
+    <plurals name="e_migrate_title_numbers" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Перемістити %d номер до правил uMessage</item>
+        <item quantity="few">Перемістити %d номери до правил uMessage</item>
+        <item quantity="many">Перемістити %d номерів до правил uMessage</item>
+        <item quantity="other">Перемістити %d номера до правил uMessage</item>
+    </plurals>
+    <string name="e_migrate_point_blocked">• Повідомлення з цих номерів потраплятимуть у «Заблоковані», де ви зможете їх прочитати й відновити.</string>
+    <string name="e_migrate_point_android">• Android видалятиме повідомлення з цих номерів, доки вони є в його списку.</string>
+    <string name="e_migrate_calls_note">Список Android також блокує дзвінки. Номери, які ви вилучите з нього, знову зможуть вам телефонувати.</string>
+    <string name="e_bn_unknown_body">Діє, лише коли параметр «Невідомі відправники» вимкнено.</string>
+    <string name="e_bn_row_calls_texts">Блокує дзвінки й повідомлення</string>
+    <string name="e_bn_row_short_code">Короткий номер: uMessage не отримує повідомлень із нього</string>
+    <string name="e_bn_move_one">Перемістити до правил uMessage</string>
+    <string name="e_bn_moved">%1$s тепер у правилах uMessage. Повідомлення з цього номера потрапляють у «Заблоковані», а дзвінки більше не блокуються.</string>
+    <string name="e_bn_field_help">Наприклад, +15550001234 або +1555* для всіх номерів, що починаються з +1555</string>
+    <string name="e_bn_short_code_warning">Схоже, це короткий номер. Android видаляє повідомлення з нього ще до того, як їх отримає uMessage, тож ви не зможете відновити їх, наприклад код чи сповіщення від банку.</string>
+    <string name="e_bn_add_as_rule">Натомість додати як правило uMessage</string>
+    <string name="e_bn_added_as_rule">%1$s додано як правило uMessage. Повідомлення з цього номера потрапляють у «Заблоковані».</string>
+</resources>

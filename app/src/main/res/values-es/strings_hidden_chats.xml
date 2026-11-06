@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">Ocultar esta conversación</string>
+    <string name="hidden_chats_menu_unhide">Mostrar esta conversación</string>
+    <string name="hidden_chats_confirm">¿Ocultar esta conversación? Dejará de aparecer en la lista, las búsquedas y las notificaciones hasta que desbloquees las conversaciones ocultas con el bloqueo de la aplicación.</string>
+    <string name="hidden_chats_need_lock">Las conversaciones ocultas requieren un bloqueo de la aplicación. ¿Quieres configurarlo ahora?</string>
+    <string name="hidden_chats_set_lock">Configurar</string>
+    <string name="hidden_chats_done">Conversación oculta</string>
+    <string name="hidden_chats_show">Conversaciones ocultas</string>
+    <string name="hidden_chats_lock">Bloquear conversaciones ocultas</string>
+</resources>

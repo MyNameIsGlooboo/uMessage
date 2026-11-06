@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w2b1_archived_find">
+        <item quantity="other">已归档%d个会话，可在“已归档”标签页查看</item>
+    </plurals>
+    <string name="w2b1_search_recent">最近搜索</string>
+    <string name="w2b1_search_recent_clear">清空</string>
+    <string name="w2b1_search_recent_clear_description">清空最近搜索</string>
+    <string name="w2b1_search_digits_note">波斯数字和拉丁数字均可匹配：搜索123也能找到۱۲۳。</string>
+    <string name="w2b1_search_section_conversations">会话</string>
+    <string name="w2b1_search_section_messages">消息</string>
+    <plurals name="w2b1_search_matches">
+        <item quantity="other">%d个匹配结果</item>
+    </plurals>
+    <string name="w2b1_filter_all">全部</string>
+    <string name="w2b1_filter_unread">未读</string>
+    <string name="w2b1_filter_unread_empty_title">没有未读会话</string>
+    <string name="w2b1_filter_unread_empty_body">全部已读。</string>
+    <string name="w2b1_swipe_block">屏蔽发件人</string>
+</resources>

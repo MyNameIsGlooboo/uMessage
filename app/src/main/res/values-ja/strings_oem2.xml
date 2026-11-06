@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">VivoまたはiQOO</string>
+    <string name="oem2_step_vivo">自動起動とバックグラウンドでの動作を許可</string>
+    <string name="oem2_step_vivo_desc">uMessageの「自動起動」をオンにし、バッテリー設定でバックグラウンドでの高電力消費を許可してください。</string>
+    <string name="oem2_xiaomi_autostart_desc">再起動後にuMessageが起動するように、「自動起動」をオンにしてください。アプリ情報画面が開いた場合は、その画面の「自動起動」スイッチを使ってください。</string>
+    <string name="oem2_xiaomi_battery_desc">uMessageで「制限なし」を選んでください。アプリの一覧が開いた場合は、まずuMessageをタップしてください。</string>
+    <string name="oem2_oppo_desc">uMessageの「自動起動を許可」と「バックグラウンドアクティビティを許可」をオンにしてください。新しい端末では「アプリ情報」の「バッテリー使用量」にあります。</string>
+    <string name="oem2_ignore_battery_desc">uMessageで「制限なし」または「最適化しない」を選んでください。一覧が開いた場合は、まず「すべてのアプリ」に切り替えてください。</string>
+    <string name="oem2_state_done">完了</string>
+    <string name="oem2_state_marked">手動で完了に設定済み</string>
+    <string name="oem2_state_todo">未完了</string>
+    <string name="oem2_state_limited">AndroidがuMessageのバックグラウンド動作をまだ制限しています。</string>
+    <string name="oem2_open_again">もう一度開く</string>
+    <string name="oem2_undo">元に戻す</string>
+    <string name="oem2_undo_cd">%1$sを未完了にする</string>
+</resources>

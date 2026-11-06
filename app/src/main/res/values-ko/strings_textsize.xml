@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_text_xsmall">매우 작게</string>
+    <string name="w3c_text_huge">매우 크게</string>
+    <string name="w3c_text_giant">최대로 크게</string>
+</resources>

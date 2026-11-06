@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_hint">Buscar conversaciones</string>
+    <string name="main_search_back">Cerrar búsqueda</string>
+    <string name="main_search_clear">Borrar texto de búsqueda</string>
+    <string name="main_search_type_more">Escribe al menos 2 caracteres para buscar</string>
+    <string name="main_search_no_results">No se encontraron resultados</string>
+    <string name="main_settings">Configuración</string>
+    <string name="main_tab_messages">Mensajes</string>
+    <string name="main_tab_blocked">Bloqueados</string>
+    <string name="main_tab_archived">Archivados</string>
+    <plurals name="main_tab_blocked_new">
+        <item quantity="one">Bloqueados, %d nuevo</item>
+        <item quantity="other">Bloqueados, %d nuevos</item>
+    </plurals>
+    <string name="main_permission_title">Se requiere permiso</string>
+    <string name="main_permission_grant">Dar permiso</string>
+    <string name="main_permission_notifications">Permite las notificaciones para que la aplicación pueda mostrar los mensajes entrantes.</string>
+    <string name="main_sms_permission_title">uMessage necesita acceso a los SMS</string>
+    <string name="main_sms_permission_body">Sin permiso para leer y enviar SMS, uMessage no puede mostrar tus mensajes, enviar mensajes de texto ni filtrar spam. No se elimina nada.</string>
+    <string name="main_sms_permission_settings">Abrir configuración de la aplicación</string>
+    <string name="main_not_default_banner">uMessage no es tu aplicación de SMS predeterminada, por lo que no puede bloquear spam ni enviar mensajes.</string>
+    <string name="main_not_default_fix">Solucionar</string>
+    <string name="main_not_default_fix_description">Establecer uMessage como aplicación de SMS predeterminada</string>
+</resources>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Settings main page (P4): short rows that open sub-pages -->
+    <string name="settings_nav_group_protection">Protection</string>
+    <string name="settings_nav_group_messages">Messages</string>
+    <string name="settings_nav_group_privacy_about">Privacy and about</string>
+    <string name="settings_nav_spam_row">Spam protection</string>
+    <string name="settings_nav_spam_page_title">Spam protection</string>
+    <string name="settings_nav_android_block_list">Android block list</string>
+    <string name="settings_nav_android_block_list_body">Also blocks calls</string>
+    <string name="settings_nav_decision_log">Recent activity</string>
+    <string name="settings_nav_decision_log_body">What uMessage did with each message, and why</string>
+
+    <string name="settings_nav_forwarding">Forwarding</string>
+    <string name="settings_nav_forwarded_tab">Show Forwarded tab</string>
+    <string name="settings_nav_forwarded_tab_body">A tab in the conversation list for forwarded messages</string>
+    <string name="settings_nav_forward_pause">Pause all forwarding</string>
+    <string name="settings_nav_forward_pause_body">Rules stay saved, nothing is forwarded</string>
+
+    <string name="settings_nav_messages_row">Typing, sending and storage</string>
+    <string name="settings_nav_messages_title">Messages</string>
+    <string name="settings_nav_group_typing">Typing</string>
+    <string name="settings_nav_group_sending">Sending</string>
+    <string name="settings_nav_group_storage">Storage</string>
+    <string name="settings_nav_simple_chars">Simplify special letters</string>
+    <string name="settings_nav_simple_chars_body">Plain letters (é becomes e), fewer parts</string>
+    <string name="settings_nav_long_mms">Long text as MMS</string>
+    <string name="settings_nav_group_mms">Group as MMS</string>
+    <string name="settings_nav_mms_size">Image size limit</string>
+    <string name="settings_nav_archived">Archived conversations</string>
+    <string name="settings_nav_keep_archived">Archived chats stay hidden</string>
+    <string name="settings_nav_keep_archived_body">New messages keep chats archived</string>
+    <string name="settings_nav_recycle_bin">Use recycle bin</string>
+    <string name="settings_nav_recycle_bin_body">Deleted messages wait in the recycle bin first</string>
+
+    <string name="settings_nav_default_sim_value">SIM %1$d · %2$s</string>
+    <string name="settings_nav_default_sim_ask">Ask every time</string>
+
+    <string name="settings_nav_open_android_settings">Opens Android settings</string>
+    <string name="settings_nav_lock_screen">Lock screen privacy</string>
+
+    <string name="settings_nav_theme">Theme</string>
+    <string name="settings_nav_theme_body">Light, dark and colors</string>
+
+    <string name="settings_nav_app_lock">App lock</string>
+    <string name="settings_nav_app_lock_body">Ask for a PIN, pattern or fingerprint</string>
+    <string name="settings_nav_on_with">On · %1$s</string>
+    <string name="settings_nav_off">Off</string>
+
+    <string name="settings_nav_about_row">About</string>
+    <string name="settings_nav_about_body">Version, source code and licenses</string>
+    <string name="settings_nav_privacy_body">Works offline</string>
+    <string name="settings_nav_version_body">Tap to copy the full build</string>
+    <string name="settings_nav_version_copied">Build copied</string>
+    <string name="settings_nav_source_body">Open on GitHub</string>
+    <string name="settings_nav_licenses_row">Open-source licenses</string>
+    <string name="settings_nav_licenses_body">uMessage, fonts, icons and libraries</string>
+    <string name="settings_nav_licenses_title">Open-source licenses</string>
+    <string name="settings_nav_license_app_link">Read the full GPL-3.0 text</string>
+    <string name="settings_nav_license_ofl_link">Read the full OFL-1.1 text</string>
+    <string name="settings_nav_license_apache_link">Read the full Apache-2.0 text</string>
+    <string name="settings_nav_license_fonts_body">Google Sans Flex (copyright the Google Sans Flex Project Authors) and Vazirmatn (copyright the Vazirmatn Project Authors) are licensed under the SIL Open Font License, Version 1.1: you may use, study, copy, embed and redistribute them, including in commercial products, but not sell them on their own, and modified versions must not use the reserved font names. Roboto (copyright Google LLC) is licensed under the Apache License, Version 2.0. The fonts are provided as is, without warranty.</string>
+    <string name="settings_nav_license_icons_body">Material Symbols (copyright Google LLC) are licensed under the Apache License, Version 2.0. The icons are provided as is, without warranty.</string>
+
+    <!-- Spam settings page -->
+    <string name="settings_nav_recommended">Recommended</string>
+    <string name="settings_nav_strict_confirm_title">Block verification codes too?</string>
+    <string name="settings_nav_strict_confirm_body">In Strict mode, codes from senders who are not in your contacts go to Blocked with everything else. Banks and delivery companies are held back too.</string>
+    <string name="settings_nav_strict_confirm_action">Use Strict</string>
+    <string name="settings_nav_strict_confirm_cancel">Keep current mode</string>
+    <string name="settings_nav_purge_row">Delete blocked messages after</string>
+    <string name="settings_nav_group_alerts">Alerts</string>
+    <string name="settings_nav_notify_body">A quiet notification for each blocked message</string>
+    <string name="settings_nav_theme_title">Appearance</string>
+    <string name="settings_nav_theme_intro">Choose how uMessage looks. The app icon stays the same.</string>
+    <string name="settings_nav_theme_modes">Mode</string>
+    <string name="settings_nav_theme_colours">Colors</string>
+</resources>

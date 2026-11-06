@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">اقرأ بصوت عالٍ</string>
+    <string name="read_aloud_stop">أوقف القراءة</string>
+    <string name="read_aloud_no_voice">لا يوجد صوت للغة %1$s مثبّت على هذا الهاتف</string>
+    <string name="read_aloud_install">نزّل صوتًا</string>
+    <string name="read_aloud_install_missing">لا تتوفر وسيلة لتثبيت الأصوات على هذا الهاتف</string>
+    <string name="read_aloud_failed">تعذّرت قراءة الرسالة بصوت عالٍ</string>
+</resources>

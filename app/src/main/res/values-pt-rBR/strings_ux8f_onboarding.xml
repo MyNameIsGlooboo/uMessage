@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">Mais recursos</string>
+    <string name="ux8f_onb_less">Menos recursos</string>
+    <string name="ux8f_onb_battery_body">O Android pode interromper o uMessage em segundo plano e atrasar suas mensagens. Permita que ele continue funcionando.</string>
+    <string name="ux8f_onb_battery_action">Permita o uso em segundo plano</string>
+    <string name="ux8f_onb_vendor_hint">Celulares %1$s precisam de mais uma etapa.</string>
+    <string name="ux8f_onb_unfinished">Ainda há etapas pendentes. Você pode concluí-las depois nas configurações do Android.</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">نام سیم‌کارت‌ها</string>
+    <string name="i34_setting_summary">برای هر سیم‌کارت نام و شماره تعیین کنید</string>
+    <string name="i34_dialog_title">نام سیم‌کارت‌ها</string>
+    <string name="i34_number_note">اپراتورها معمولاً شماره را در اختیار برنامه‌ها نمی‌گذارند، پس آن را اینجا وارد کنید. نام و شماره فقط روی این گوشی می‌مانند.</string>
+    <string name="i34_sim_heading">سیم‌کارت %1$d، %2$s</string>
+    <string name="i34_nickname">نام (مثلاً کاری)</string>
+    <string name="i34_number">شماره</string>
+</resources>

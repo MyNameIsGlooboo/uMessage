@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">চ্যাট শুরু করুন</string>
+    <string name="search_page_show_more">আরও দেখান</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">এই SIM-এ কোনো কথোপকথন নেই</string>
+    <string name="search_page_sim_empty_body">এই SIM দিয়ে বার্তা পাঠানো বা পাওয়া হয়েছে এমন কথোপকথন এখানে দেখাবে।</string>
+</resources>

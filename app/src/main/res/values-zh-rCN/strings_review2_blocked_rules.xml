@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="e_day_today">今天</string>
+    <string name="e_day_yesterday">昨天</string>
+    <plurals name="e_blocked_stats_total">
+        <item quantity="other">累计屏蔽%d条</item>
+    </plurals>
+    <string name="e_restored_title">最近恢复</string>
+    <string name="e_restored_body">过去30天内移至收件箱的消息。点按消息即可打开会话。</string>
+    <string name="e_restored_empty">从现在起，移至收件箱的消息会在这里显示30天。</string>
+    <string name="e_restored_when">移至收件箱的时间：%1$s</string>
+    <string name="e_restored_open">打开与%1$s的会话</string>
+    <string name="e_snack_allowed_one">已在两张SIM卡上始终允许%1$s</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="other">已在两张SIM卡上始终允许%d个发件人</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">已始终允许%1$s</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="other">已始终允许%d个发件人</item>
+    </plurals>
+    <string name="e_view_rule">查看规则</string>
+    <string name="e_rules_title">规则</string>
+    <string name="e_rules_menu_backup">备份与恢复</string>
+    <string name="e_note_blocked_by_you">你已屏蔽</string>
+    <string name="e_note_allowed_by_you">你已允许</string>
+    <string name="e_note_blocked_from_message">通过消息屏蔽</string>
+    <string name="e_note_blocked_from_keyword">通过关键词屏蔽</string>
+    <string name="e_note_reported_spam">已举报垃圾短信</string>
+    <string name="e_note_old_word_list">来自旧版屏蔽词列表</string>
+    <string name="e_note_system_list">来自Android屏蔽列表</string>
+    <string name="e_note_quoted">“%1$s”</string>
+    <string name="e_example_block_cancel_word">屏蔽包含لغو۱۱的消息</string>
+    <string name="e_example_block_ad_prefix">屏蔽以3000开头的广告号码</string>
+    <string name="e_example_allow_number">始终允许某个号码，例如邮局号码</string>
+    <string name="e_sheet_sender_label">发件人</string>
+    <string name="e_sheet_text_label">消息正文</string>
+    <string name="e_value_number">电话号码</string>
+    <string name="e_value_prefix">号码开头</string>
+    <string name="e_value_sender">发件人名称</string>
+    <string name="e_value_keyword">要查找的文本</string>
+    <string name="e_value_pattern">正则表达式</string>
+    <string name="e_pattern_blocks_label">选择起始模板</string>
+    <string name="e_pattern_link">包含链接</string>
+    <string name="e_pattern_long_number">5位及以上数字</string>
+    <string name="e_pattern_starts_with">开头为</string>
+    <string name="e_pattern_any_of">包含任意一项</string>
+    <string name="e_pattern_link_sentence">匹配包含链接的消息。</string>
+    <string name="e_pattern_long_number_sentence">匹配包含5位及以上数字的消息。</string>
+    <string name="e_pattern_starts_with_sentence">匹配以你在^后输入的文本开头的消息。</string>
+    <string name="e_pattern_any_of_sentence">匹配包含括号中任意词语的消息。用|分隔词语。</string>
+    <plurals name="e_migrate_title_numbers">
+        <item quantity="other">将%d个号码移至uMessage规则</item>
+    </plurals>
+    <string name="e_migrate_point_blocked">•这些号码的短信将进入“已屏蔽”，你可以在那里阅读和恢复。</string>
+    <string name="e_migrate_point_android">•在这些号码移出Android屏蔽列表前，Android仍会丢弃其短信。</string>
+    <string name="e_migrate_calls_note">Android屏蔽列表还会屏蔽来电。从中移除的号码将能再次拨打你的电话。</string>
+    <string name="e_bn_unknown_body">仅在“未知发件人”设为“关闭”时生效。</string>
+    <string name="e_bn_row_calls_texts">屏蔽来电和短信</string>
+    <string name="e_bn_row_short_code">短号码：uMessage无法收到其短信</string>
+    <string name="e_bn_move_one">移至uMessage规则</string>
+    <string name="e_bn_moved">%1$s已添加为uMessage规则。其短信会进入“已屏蔽”，来电不再被屏蔽。</string>
+    <string name="e_bn_field_help">例如+15550001234，或用+1555*表示所有以+1555开头的号码</string>
+    <string name="e_bn_short_code_warning">这似乎是短号码。Android会在uMessage收到其短信前将其丢弃，因此你将无法恢复其中任何短信，包括验证码或银行通知。</string>
+    <string name="e_bn_add_as_rule">改为添加为uMessage规则</string>
+    <string name="e_bn_added_as_rule">%1$s已添加为uMessage规则。其短信会进入“已屏蔽”。</string>
+</resources>

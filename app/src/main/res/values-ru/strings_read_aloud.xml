@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">Прочитать вслух</string>
+    <string name="read_aloud_stop">Остановить чтение</string>
+    <string name="read_aloud_no_voice">На телефоне не установлен голос для языка «%1$s»</string>
+    <string name="read_aloud_install">Скачать голос</string>
+    <string name="read_aloud_install_missing">На этом телефоне нельзя установить голоса</string>
+    <string name="read_aloud_failed">Не удалось прочитать сообщение вслух</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_review_details_decision">القرار</string>
+    <string name="thread_review_details_decision_allowed">مسموح بها: وصلت إلى الرسائل الواردة</string>
+    <string name="thread_review_details_type">النوع</string>
+    <string name="thread_review_details_type_sms">SMS</string>
+    <string name="thread_review_details_type_mms">MMS</string>
+    <string name="thread_review_sim_slot_name">شريحة SIM %1$d · %2$s</string>
+    <string name="thread_review_copy_code">انسخ الرمز</string>
+    <string name="thread_review_copy_password">انسخ كلمة المرور</string>
+    <string name="thread_review_copy_username">انسخ اسم المستخدم</string>
+    <string name="thread_review_sim_label">شريحة SIM %1$s</string>
+    <string name="thread_review_sends_from">الإرسال من %1$s</string>
+    <string name="thread_review_reply_disabled">لا يمكن لهذا المرسل تلقّي الردود</string>
+    <string name="thread_review_attach_camera">الكاميرا</string>
+    <string name="thread_review_attach_voice">صوت</string>
+    <string name="thread_review_schedule_in_hour">بعد 1 ساعة</string>
+    <string name="thread_review_schedule_evening">هذا المساء</string>
+    <string name="thread_review_schedule_tomorrow">غدًا 9:00</string>
+</resources>

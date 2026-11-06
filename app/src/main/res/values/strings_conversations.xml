@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- List -->
+    <string name="convlist_loading">Loading messages</string>
+    <string name="convlist_empty_title">No conversations yet</string>
+    <string name="convlist_empty_body">Messages you send and receive will appear here.</string>
+    <string name="convlist_start_conversation">Start a conversation</string>
+    <string name="convlist_new_conversation">New conversation</string>
+    <string name="convlist_draft">Draft</string>
+    <string name="convlist_pinned">Pinned</string>
+    <string name="convlist_muted">Notifications off</string>
+    <string name="convlist_unread">Unread</string>
+    <string name="convlist_unread_count">%1$d unread</string>
+    <string name="convlist_group">Group conversation</string>
+    <string name="convlist_selected">Selected</string>
+    <string name="convlist_sim">SIM %1$d</string>
+    <string name="convlist_scroll_handle">Fast scroll</string>
+    <plurals name="convlist_blocked_banner">
+        <item quantity="one">%d blocked message</item>
+        <item quantity="other">%d blocked messages</item>
+    </plurals>
+    <string name="convlist_blocked_banner_title">Blocked messages</string>
+    <string name="convlist_blocked_banner_cd">%1$d blocked messages. Open the blocked folder.</string>
+
+    <!-- Actions -->
+    <string name="convlist_archive">Archive</string>
+    <string name="convlist_delete">Delete</string>
+    <string name="convlist_pin">Pin to the top</string>
+    <string name="convlist_unpin">Unpin</string>
+    <string name="convlist_mark_read">Mark as read</string>
+    <string name="convlist_mark_unread">Mark as unread</string>
+    <string name="convlist_block_number">Block number</string>
+    <string name="convlist_add_contact">Add number to contact</string>
+    <string name="convlist_copy_number">Copy number</string>
+    <string name="convlist_dial">Call</string>
+    <string name="convlist_rename">Rename conversation</string>
+    <string name="convlist_details">Conversation details</string>
+    <string name="convlist_select_all">Select all</string>
+    <string name="convlist_more_options">More options</string>
+    <string name="convlist_close_selection">Cancel selection</string>
+    <plurals name="convlist_selected_count">
+        <item quantity="one">%d selected</item>
+        <item quantity="other">%d selected</item>
+    </plurals>
+
+    <!-- Feedback -->
+    <string name="convlist_undo">Undo</string>
+    <plurals name="convlist_deleted">
+        <item quantity="one">%d conversation deleted</item>
+        <item quantity="other">%d conversations deleted</item>
+    </plurals>
+    <plurals name="convlist_archived">
+        <item quantity="one">%d conversation archived</item>
+        <item quantity="other">%d conversations archived</item>
+    </plurals>
+    <plurals name="convlist_blocked_done">
+        <item quantity="one">Blocked. New messages will go to Blocked messages</item>
+        <item quantity="other">%d senders blocked. New messages will go to Blocked messages</item>
+    </plurals>
+    <string name="convlist_action_failed">Something went wrong</string>
+
+    <!-- Dialogs -->
+    <string name="convlist_block_title">Block number?</string>
+    <string name="convlist_block_message">Block %1$s? New messages from it will go to Blocked messages instead of your inbox, where you can still read or restore them.</string>
+    <string name="convlist_block_confirm">Block</string>
+    <string name="convlist_rename_title">Rename conversation</string>
+    <string name="convlist_rename_hint">Conversation name</string>
+    <string name="convlist_ok">OK</string>
+    <string name="convlist_cancel">Cancel</string>
+</resources>

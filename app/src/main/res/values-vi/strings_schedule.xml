@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">Gửi đúng giờ?</string>
+    <string name="schedule_exact_alarm_text">Để tin nhắn lên lịch gửi được gửi đúng giờ, hãy cho phép “Báo thức và lời nhắc” cho uMessage trong cài đặt hệ thống. Nếu không, tin nhắn vẫn được gửi nhưng có thể trễ.</string>
+    <string name="schedule_exact_alarm_open_settings">Mở cài đặt</string>
+    <string name="schedule_exact_alarm_anyway">Vẫn lên lịch gửi</string>
+</resources>

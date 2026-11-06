@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unotify_title">Expéditeurs inconnus dans votre boîte de réception</string>
+    <string name="unotify_notify">Notifier</string>
+    <string name="unotify_silent">Notifier sans son</string>
+    <string name="unotify_none">Aucune notification</string>
+    <string name="unotify_summary">Les messages arrivent toujours dans votre boîte de réception</string>
+    <string name="unotify_channel_silent">Expéditeurs inconnus (sans son)</string>
+</resources>

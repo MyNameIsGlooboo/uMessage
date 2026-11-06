@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i69_show_recent">Показать недавние фото</string>
+    <string name="i69_photo_description">Недавнее фото. Нажмите, чтобы прикрепить.</string>
+</resources>

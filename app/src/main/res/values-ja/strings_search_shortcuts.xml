@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">不明な送信者</string>
+    <string name="i28_filter_unknown_empty_title">不明な送信者なし</string>
+    <string name="i28_filter_unknown_empty_body">連絡先に登録されておらず、一度もメッセージを送っていない相手との会話がここに表示されます。</string>
+    <string name="i28_filter_images">画像</string>
+    <string name="i28_filter_images_empty_title">画像なし</string>
+    <string name="i28_filter_images_empty_body">画像を含むメッセージがここに表示されます。</string>
+    <string name="i28_filter_links">リンク</string>
+    <string name="i28_filter_links_empty_title">リンクなし</string>
+    <string name="i28_filter_links_empty_body">ウェブリンクを含むメッセージがここに表示されます。</string>
+    <string name="i28_hit_picture">画像</string>
+</resources>

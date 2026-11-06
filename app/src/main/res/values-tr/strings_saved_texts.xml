@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">Kayıtlı metin</string>
+    <string name="n06_sheet_title">Kayıtlı metinler</string>
+    <string name="n06_empty_hint">Örneğin adresiniz veya kart numaranız. Mesajınıza eklemek için birine dokunun.</string>
+    <string name="n06_add">Kayıtlı metin ekleyin</string>
+    <string name="n06_edit">Kayıtlı metni değiştirin</string>
+    <string name="n06_title_label">Başlık (isteğe bağlı)</string>
+    <string name="n06_text_label">Metin</string>
+    <string name="n06_save">Kaydedin</string>
+    <string name="n06_delete">Silin</string>
+    <string name="n06_private_tip">Yalnızca bu telefonda tutulur, şifrelenmez. Parola veya PIN kaydetmeyin.</string>
+    <string name="n06_save_from_message">Kayıtlı metin olarak kaydedin</string>
+    <string name="n06_saved_toast">Kaydedildi</string>
+    <string name="n06_save_full">Liste dolu. Önce bir metni silin.</string>
+    <string name="n06_save_duplicate">Zaten kayıtlı</string>
+</resources>

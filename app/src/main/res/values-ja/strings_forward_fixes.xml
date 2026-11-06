@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">上限に達したため本日は停止中</string>
+    <string name="fwdfix_limit_hint">本日は上限%2$s件のうち%1$s件を転送しました。明日、転送を再開します。</string>
+    <string name="fwdfix_status_skipped">スキップ（上限）</string>
+    <string name="fwdfix_error_daily_limit">送信しませんでした。1日の転送上限に達しました。</string>
+    <string name="fwdfix_error_rate_limited">送信しませんでした。このルールでは過去1時間にすでに%1$s件のメッセージを転送しています。</string>
+    <string name="fwdfix_retry_all_recent">過去24時間の転送のみが対象です。</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="other">%1$s件を送信しませんでした。転送が一時停止中です。</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="other">%1$s件を送信しませんでした。対応するルールがオフか、削除されています。</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="other">%1$s件を送信しませんでした。1日の転送上限か、ルールの1時間あたりの上限に達しています。</item>
+    </plurals>
+    <string name="fwdfix_card_last">前回の転送：%1$s、%2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="other">今週%1$s件</item>
+    </plurals>
+    <string name="fwdfix_card_never">まだ転送していません。</string>
+    <string name="fwdfix_card_sent">送信済み</string>
+    <string name="fwdfix_card_pending">送信中</string>
+    <string name="fwdfix_card_failed">失敗</string>
+    <string name="fwdfix_card_skipped">スキップ（上限）</string>
+    <string name="fwdfix_delete_rule">ルールを削除</string>
+    <string name="fwdfix_deleted">転送ルールを削除しました。</string>
+    <string name="fwdfix_test_button">テスト送信</string>
+    <string name="fwdfix_test_title">テストSMSを送信しますか？</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="other">上記%1$s件の番号にテストSMSを1通ずつ送信します。それぞれにSMS送信料がかかります。</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">送信</string>
+    <string name="fwdfix_test_text">uMessageからのテストです。転送は正常に機能しています。</string>
+    <string name="fwdfix_test_sending">テストを送信しています…</string>
+    <string name="fwdfix_test_sent">テストを送信しました。転送先のスマートフォンを確認してください。</string>
+    <string name="fwdfix_test_failed">テストを送信できませんでした。電波状況と残高を確認してください。</string>
+    <string name="fwdfix_cost_persian">%1$s文字のペルシャ語の本文：%2$s分割×%3$s＝SMS%4$s通</string>
+    <string name="fwdfix_cost_english">%1$s文字の英語の本文：%2$s分割×%3$s＝SMS%4$s通</string>
+    <string name="fwdfix_retry_none_title">今は送信できるものがありません</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="other">%1$s件は送信されません。転送が一時停止中です。</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="other">%1$s件は送信されません。対応するルールがオフか、削除されています。</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="other">%1$s件は送信されません。1日の転送上限か、ルールの1時間あたりの上限に達しています。</item>
+    </plurals>
+</resources>

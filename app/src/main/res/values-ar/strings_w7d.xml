@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w7d_banner_stopped">
+        <item quantity="zero">حُظرت %1$s رسائل هذا الأسبوع</item>
+        <item quantity="one">حُظرت رسالة واحدة (%1$s) هذا الأسبوع</item>
+        <item quantity="two">حُظرت رسالتان (%1$s) هذا الأسبوع</item>
+        <item quantity="few">حُظرت %1$s رسائل هذا الأسبوع</item>
+        <item quantity="many">حُظرت %1$s رسالة هذا الأسبوع</item>
+        <item quantity="other">حُظرت %1$s رسالة هذا الأسبوع</item>
+    </plurals>
+    <string name="w7d_banner_none">لم تُحظر أي رسالة هذا الأسبوع</string>
+    <string name="w7d_fwd_master_switch">إعادة التوجيه</string>
+    <string name="w7d_help_menu">كيف يعمل الحظر بالكلمات</string>
+    <string name="w7d_help_title">كيف يعمل الحظر بالكلمات</string>
+    <string name="w7d_help_words_head">الكلمات</string>
+    <string name="w7d_help_words_body">يحظر أي رسالة تحتوي على الكلمة في أي موضع.</string>
+    <string name="w7d_help_words_example">جائزة مجانية</string>
+    <string name="w7d_help_sender_head">أسماء المرسلين</string>
+    <string name="w7d_help_sender_body">يحظر رسائل المرسل الذي يحمل هذا الاسم، مثل اسم متجر.</string>
+    <string name="w7d_help_sender_example">عروض</string>
+    <string name="w7d_help_number_head">بداية الرقم</string>
+    <string name="w7d_help_number_body">يحظر كل رقم يبدأ بهذه الأرقام.</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">التعبيرات النمطية، للمستخدمين المتقدمين</string>
+    <string name="w7d_help_pattern_body">يمكن لتعبير نمطي واحد مطابقة صيغ متعددة للكلمة. اختبره قبل الحفظ.</string>
+    <string name="w7d_help_pattern_example">جائزة (مجانية|مضمونة)</string>
+    <string name="w7d_help_close">أغلق</string>
+    <string name="w7d_bank_cards_title">بطاقات للتنبيهات البنكية</string>
+    <string name="w7d_bank_cards_summary">يعرض المبلغ أسفل الرسالة البنكية</string>
+</resources>

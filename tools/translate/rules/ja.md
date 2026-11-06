@@ -1,0 +1,8 @@
+- Japanese, short, natural and polite, like Google Messages and LINE: polite です/ます style (丁寧語), never the plain or casual style and never heavy keigo.
+- Buttons and titles use the noun or dictionary form without a full stop ("削除", "ブロック", "設定を開く"). Sentences end with です/ます and 。 Questions end with ですか？ (full-width ？).
+- Punctuation is full width: 、。！？（）：. Quotes are 「 」 (inner 『 』). Write katakana long vowels as in the standard spelling (メッセージ, ユーザー).
+- No spaces between Japanese and Latin letters, digits or placeholders. Keep the brand name uMessage in Latin.
+- The text must be Japanese (hiragana, katakana and kanji), never Chinese.
+- Plural ids: only other. Write one text for every number and keep the number token (件, 通 or 個 as the counter fits).
+- Use "メッセージ" for message, "SMS" and "MMS" as they are, "迷惑メッセージ" for spam (one term everywhere), "ブロック" for block.
+- Japanese is short: keep buttons to two to six characters.

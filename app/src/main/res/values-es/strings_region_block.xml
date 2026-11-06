@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">Otros países</string>
+    <string name="region_title">Retener números de otros países</string>
+    <string name="region_summary">No se retienen mensajes de contactos ni de personas a quienes escribiste</string>
+    <string name="region_off">Desactivado</string>
+    <string name="region_picker_title">Tu país de residencia</string>
+    <string name="region_picker_body">Los mensajes de números de otros países se retienen en Mensajes bloqueados, excepto los de contactos y personas a quienes escribiste. También se retienen los de un familiar en el extranjero si no está en tus contactos.</string>
+    <string name="region_picker_search">Buscar</string>
+    <string name="region_reason_foreign">Número de otro país</string>
+</resources>

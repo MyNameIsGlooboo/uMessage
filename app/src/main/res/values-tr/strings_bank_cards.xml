@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i31_card_deposit">Para yatırma</string>
+    <string name="i31_card_withdrawal">Para çekme</string>
+    <string name="i31_card_balance_title">Bakiye</string>
+    <string name="i31_card_title">%1$s: %2$s</string>
+    <string name="i31_card_balance">Bakiye: %1$s</string>
+    <string name="i31_money">%1$s %2$s</string>
+    <string name="i31_card_hint_card">Sonu %1$s olan kart</string>
+    <string name="i31_card_hint_account">Sonu %1$s olan hesap</string>
+    <string name="i31_card_hint_other">Sonu %1$s</string>
+    <string name="i31_currency_rial">Riyal</string>
+    <string name="i31_currency_toman">Tümen</string>
+    <string name="i31_currency_usd">USD</string>
+    <string name="i31_currency_eur">EUR</string>
+    <string name="i31_currency_gbp">GBP</string>
+    <string name="i31_currency_aed">AED</string>
+</resources>

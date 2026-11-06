@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">Plus de fonctionnalités</string>
+    <string name="ux8f_onb_less">Moins de fonctionnalités</string>
+    <string name="ux8f_onb_battery_body">Android peut arrêter uMessage en arrière-plan et retarder vos messages. Autorisez son fonctionnement en arrière-plan.</string>
+    <string name="ux8f_onb_battery_action">Autoriser l\'utilisation en arrière-plan</string>
+    <string name="ux8f_onb_vendor_hint">Les téléphones %1$s nécessitent une étape supplémentaire.</string>
+    <string name="ux8f_onb_unfinished">Il reste des étapes. Vous pouvez les terminer plus tard dans les paramètres Android.</string>
+</resources>

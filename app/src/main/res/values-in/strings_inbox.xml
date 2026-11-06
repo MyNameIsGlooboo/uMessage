@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">Kosongkan arsip</string>
+    <string name="inbox_empty_bin_menu">Kosongkan sampah</string>
+    <string name="inbox_archive_empty_body">Percakapan yang diarsipkan dari Pesan akan muncul di sini.</string>
+    <string name="inbox_details_view_contact">Lihat kontak</string>
+    <string name="inbox_details_more">Lainnya</string>
+    <string name="inbox_details_search">Cari dalam percakapan</string>
+    <string name="inbox_details_search_body">Temukan pesan dalam percakapan ini</string>
+    <string name="inbox_details_forward">Aturan penerusan untuk pengirim ini</string>
+    <string name="inbox_details_forward_body">Kirim salinan pesan pengirim ini ke nomor lain</string>
+    <string name="inbox_details_search_hint">Cari dalam percakapan ini</string>
+</resources>

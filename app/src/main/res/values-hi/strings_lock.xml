@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="lock_title">uMessage लॉक है</string>
+    <string name="lock_enter_pin">अपना पिन डालें</string>
+    <string name="lock_draw_pattern">अपना पैटर्न बनाएं</string>
+    <string name="lock_use_biometrics">uMessage खोलने के लिए अपनी पहचान की पुष्टि करें</string>
+    <string name="lock_wrong_pin">गलत पिन, फिर कोशिश करें</string>
+    <string name="lock_wrong_pattern">गलत पैटर्न, फिर कोशिश करें</string>
+    <string name="lock_too_many">बहुत बार गलत कोशिश की गई</string>
+    <string name="lock_try_again_in">%s बाद फिर कोशिश करें</string>
+    <string name="lock_key_delete">मिटाएं</string>
+    <string name="lock_key_confirm">पुष्टि करें</string>
+    <plurals name="lock_digits_entered" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d अंक डाला गया</item>
+        <item quantity="other">%d अंक डाले गए</item>
+    </plurals>
+    <string name="lock_no_digits">कोई अंक नहीं डाला गया</string>
+    <string name="lock_pattern_pad">पैटर्न पैड, 3 पंक्तियों और 3 कॉलम में बिंदु</string>
+    <string name="lock_pattern_dot">पंक्ति %1$d, कॉलम %2$d का बिंदु</string>
+    <string name="lock_pattern_dot_selected">पंक्ति %1$d, कॉलम %2$d का बिंदु, पैटर्न में क्रमांक %3$d</string>
+    <string name="lock_pattern_done">हो गया</string>
+    <string name="lock_pattern_clear">साफ़ करें</string>
+    <plurals name="lock_pattern_dots_selected" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d बिंदु चुना गया</item>
+        <item quantity="other">%d बिंदु चुने गए</item>
+    </plurals>
+    <string name="lock_use_pin_instead">इसके बजाय पिन इस्तेमाल करें</string>
+    <string name="lock_use_biometrics_instead">इसके बजाय बायोमेट्रिक्स इस्तेमाल करें</string>
+    <string name="lock_use_screen_lock">इसके बजाय फ़ोन का स्क्रीन लॉक इस्तेमाल करें</string>
+    <string name="lock_biometrics_unavailable">बायोमेट्रिक्स उपलब्ध नहीं हैं. अपना पिन डालें.</string>
+    <string name="lock_screen_lock_title">uMessage खोलें</string>
+    <string name="lock_screen_lock_description">uMessage खोलने के लिए फ़ोन के स्क्रीन लॉक से पुष्टि करें</string>
+    <string name="lock_no_way_to_check">इस फ़ोन पर अब फ़िंगरप्रिंट या स्क्रीन लॉक नहीं है, इसलिए uMessage आपकी पहचान की पुष्टि नहीं कर सकता. इसे खोलें और सेटिंग में पिन सेट करें.</string>
+    <string name="lock_open_anyway">uMessage खोलें</string>
+    <string name="lock_forgot">भूल गए? फ़ोन का स्क्रीन लॉक इस्तेमाल करें</string>
+    <plurals name="lock_tries_left" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d और कोशिश के बाद इंतज़ार करना होगा</item>
+        <item quantity="other">%d और कोशिशों के बाद इंतज़ार करना होगा</item>
+    </plurals>
+    <string name="lock_setup_done">ऐप लॉक चालू है. पिन या पैटर्न भूल जाएं, तो लॉक स्क्रीन पर “भूल गए?” पर टैप करें और फ़ोन का स्क्रीन लॉक इस्तेमाल करें.</string>
+    <string name="lock_setup_done_biometric">ऐप लॉक चालू है. बायोमेट्रिक्स काम करना बंद कर दें, तो अपना बैकअप पिन इस्तेमाल करें. वह भी भूल जाएं, तो “भूल गए?” पर टैप करें और फ़ोन का स्क्रीन लॉक इस्तेमाल करें.</string>
+    <string name="lock_setup_done_no_screen_lock">ऐप लॉक चालू है. आपके फ़ोन पर स्क्रीन लॉक नहीं है, इसलिए पिन या पैटर्न भूलने पर ऐप खोलने का कोई दूसरा तरीका नहीं होगा: आपको फ़ोन की ऐप सेटिंग में uMessage का डेटा साफ़ करना होगा. इससे इसकी सेटिंग, स्पैम सूचियां और स्पैम का इतिहास मिट जाएगा (आपके मैसेज फ़ोन पर रहेंगे). दोबारा ऐप खोल पाने के लिए फ़ोन पर स्क्रीन लॉक लगाएं.</string>
+    <string name="settings_app_lock_timeout">ऐप से बाहर आने के बाद लॉक करें</string>
+    <string name="settings_app_lock_timeout_immediately">तुरंत</string>
+    <string name="settings_app_lock_timeout_30s">30 सेकंड बाद</string>
+    <string name="settings_app_lock_timeout_1m">1 मिनट बाद</string>
+    <string name="settings_app_lock_timeout_5m">5 मिनट बाद</string>
+    <string name="settings_app_lock_screenshots">स्क्रीनशॉट ब्लॉक करें</string>
+    <string name="settings_app_lock_screenshots_body">स्क्रीनशॉट और स्क्रीन रिकॉर्डिंग रोकता है. हाल के ऐप्स में मैसेज हमेशा छिपे रहते हैं.</string>
+    <string name="settings_app_lock_screenshots_body_old">स्क्रीनशॉट और स्क्रीन रिकॉर्डिंग रोकता है. Android के इस वर्शन पर हाल के ऐप्स में मैसेज छिपाने का भी यही एक तरीका है.</string>
+    <string name="settings_app_lock_change">पिन, पैटर्न या बायोमेट्रिक्स बदलें</string>
+    <string name="settings_app_lock_weak">आपके पिन या पैटर्न का अंदाज़ा लगाना आसान है</string>
+    <string name="settings_app_lock_weak_body">पिन बहुत कमज़ोर है. बदलने के लिए टैप करें</string>
+    <string name="settings_app_lock_add_pin">बैकअप पिन जोड़ें</string>
+    <string name="settings_app_lock_add_pin_body">बैकअप के लिए पिन जोड़ें</string>
+    <string name="settings_app_lock_now">अभी लॉक करें</string>
+    <string name="settings_app_lock_now_body">uMessage को तुरंत लॉक करता है</string>
+    <string name="settings_app_lock_changed">ऐप लॉक बदल दिया गया</string>
+    <string name="dialogs_lock_backup_pin">पहले बैकअप पिन सेट करें. बायोमेट्रिक्स काम करना बंद कर दें, तो आप इसे इस्तेमाल करेंगे.</string>
+</resources>

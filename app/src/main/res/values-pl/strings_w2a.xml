@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">Szukaj słów kluczowych</string>
+    <string name="w2a_keywords_search_clear">Wyczyść wyszukiwanie</string>
+    <string name="w2a_keywords_no_match_title">Brak pasujących słów kluczowych</string>
+    <string name="w2a_keywords_no_match_body">Spróbuj innego słowa lub wyczyść wyszukiwanie.</string>
+</resources>

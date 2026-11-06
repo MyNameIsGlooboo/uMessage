@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">Dijeda hari ini: batas tercapai</string>
+    <string name="fwdfix_limit_hint">%1$s dari %2$s penerusan terkirim hari ini. Penerusan dimulai lagi besok.</string>
+    <string name="fwdfix_status_skipped">Dilewati (batas)</string>
+    <string name="fwdfix_error_daily_limit">Tidak terkirim: batas penerusan harian tercapai.</string>
+    <string name="fwdfix_error_rate_limited">Tidak terkirim: aturan ini sudah meneruskan %1$s pesan dalam satu jam terakhir.</string>
+    <string name="fwdfix_retry_all_recent">Hanya penerusan dari 24 jam terakhir yang disertakan.</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="other">%1$s tidak terkirim: penerusan dijeda.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="other">%1$s tidak terkirim: aturannya nonaktif atau sudah dihapus.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="other">%1$s tidak terkirim: batas harian atau batas per jam suatu aturan tercapai.</item>
+    </plurals>
+    <string name="fwdfix_card_last">Penerusan terakhir %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="other">%1$s minggu ini</item>
+    </plurals>
+    <string name="fwdfix_card_never">Belum ada yang diteruskan</string>
+    <string name="fwdfix_card_sent">terkirim</string>
+    <string name="fwdfix_card_pending">mengirim</string>
+    <string name="fwdfix_card_failed">gagal</string>
+    <string name="fwdfix_card_skipped">dilewati (batas)</string>
+    <string name="fwdfix_delete_rule">Hapus aturan</string>
+    <string name="fwdfix_deleted">Aturan penerusan dihapus</string>
+    <string name="fwdfix_test_button">Kirim uji coba</string>
+    <string name="fwdfix_test_title">Kirim SMS uji coba?</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="other">Satu SMS uji coba dikirim ke masing-masing dari %1$s nomor di atas. Setiap SMS dikenai biaya.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">Kirim</string>
+    <string name="fwdfix_test_text">Uji coba dari uMessage: penerusan berfungsi.</string>
+    <string name="fwdfix_test_sending">Mengirim uji coba…</string>
+    <string name="fwdfix_test_sent">Uji coba terkirim. Periksa ponsel lainnya.</string>
+    <string name="fwdfix_test_failed">Uji coba tidak dapat dikirim. Periksa sinyal dan pulsa.</string>
+    <string name="fwdfix_cost_persian">Teks Persia %1$s karakter: %2$s bagian × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">Teks Inggris %1$s karakter: %2$s bagian × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">Tidak ada yang bisa dikirim sekarang</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="other">%1$s tidak akan dikirim: penerusan dijeda.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="other">%1$s tidak akan dikirim: aturannya nonaktif atau sudah dihapus.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="other">%1$s tidak akan dikirim: batas harian atau batas per jam suatu aturan tercapai.</item>
+    </plurals>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">Spam olarak bildirin</string>
+    <string name="carrier_report_row_title">Operatörün spam bildirim numarası</string>
+    <string name="carrier_report_row_summary">Operatörünüze SMS ile spam olarak bildirin</string>
+    <string name="carrier_report_not_set">Ayarlanmadı</string>
+    <string name="carrier_report_hint">Operatörünüzün spam bildirim numarası. Bildirimler SMS olarak gönderilir ve ücretli olabilir.</string>
+    <string name="carrier_report_invalid">3 ila 8 rakam kullanın</string>
+    <string name="carrier_report_action">Operatöre bildirin</string>
+    <string name="carrier_report_title">Operatörünüze bildirilsin mi?</string>
+    <string name="carrier_report_body">Bu gönderenden gelen son mesaj, %1$s numarasına SMS olarak gönderilir. Operatörünüz bunun için ücret alabilir.</string>
+    <string name="carrier_report_send">Gönderin</string>
+    <string name="carrier_report_sent">Operatörünüze bildirim gönderildi</string>
+    <string name="carrier_report_failed">Bildirim gönderilemedi</string>
+</resources>

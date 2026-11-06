@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">Tanda tangan</string>
+    <string name="i60_off">Nonaktif</string>
+    <string name="i60_dialog_note">Ditambahkan di bawah setiap pesan yang Anda kirim. Kosongkan jika tidak ingin menggunakannya.</string>
+</resources>

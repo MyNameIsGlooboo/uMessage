@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">Geplante Nachricht verspätet gesendet</string>
+    <string name="scheduled_sent_late_exact_off">Deine Nachricht an %1$s wurde %2$d Min. zu spät gesendet. Erlaube „Wecker und Erinnerungen“ für uMessage, damit geplante Nachrichten pünktlich gesendet werden.</string>
+    <string name="scheduled_sent_late_idle">Deine Nachricht an %1$s wurde %2$d Min. zu spät gesendet: Das Telefon war zur geplanten Zeit ausgeschaltet oder im Energiesparmodus.</string>
+    <string name="scheduled_sent_late_channel">Geplante Nachrichten</string>
+    <string name="notifications_off_title">Benachrichtigungen sind aus</string>
+    <string name="notifications_off_body">Du wirst nicht über neue Nachrichten benachrichtigt.</string>
+    <string name="notifications_off_fix">Aktivieren</string>
+</resources>

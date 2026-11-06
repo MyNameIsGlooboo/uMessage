@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="digest_channel">Tổng kết hằng tuần</string>
+    <string name="digest_title">Tổng kết hằng tuần</string>
+    <string name="digest_row_title">Tổng kết hằng tuần</string>
+    <string name="digest_row_summary">Số tin nhắn đã chặn mỗi tuần</string>
+    <plurals name="digest_held">
+        <item quantity="other">Đã giữ lại %d tin nhắn tuần này. Nhấn để xem lại.</item>
+    </plurals>
+    <plurals name="digest_held_important">
+        <item quantity="other">Đã giữ lại %1$d tin nhắn tuần này. Trong đó có %2$d tin nhắn chứa mã hoặc thông báo ngân hàng.</item>
+    </plurals>
+</resources>

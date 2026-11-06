@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">Yıldız ekleyin</string>
+    <string name="i13_unstar">Yıldızı kaldırın</string>
+    <string name="i13_starred_mark">Yıldızlı</string>
+    <string name="i13_filter_starred">Yıldızlı</string>
+    <string name="i13_filter_starred_empty_title">Yıldızlı mesaj yok</string>
+    <string name="i13_filter_starred_empty_body">Bir görüşmede mesaj seçin ve burada saklamak için yıldıza dokunun.</string>
+    <string name="i13_starred_note">Yıldız eklemek, görüşme silinse bile metnin bir kopyasını saklar. Yıldızı kaldırmak kopyayı siler.</string>
+    <string name="i13_snapshot_gone">Bu görüşme silindi. Yalnızca kaydedilen metin kaldı.</string>
+    <string name="i13_snapshot_close">Kapatın</string>
+</resources>

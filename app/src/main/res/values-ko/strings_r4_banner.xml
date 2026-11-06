@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r4_banner_title">스팸 차단</string>
+    <plurals name="r4_banner_stopped_week">
+        <item quantity="other">지난 7일간 차단</item>
+    </plurals>
+</resources>

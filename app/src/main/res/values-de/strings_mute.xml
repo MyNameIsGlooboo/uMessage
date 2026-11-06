@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">Stummschalten</string>
+    <string name="unmute_menu">Stummschaltung aufheben</string>
+    <string name="mute_title">Benachrichtigungen stummschalten</string>
+    <string name="mute_1_hour">Für 1 Stunde</string>
+    <string name="mute_8_hours">Für 8 Stunden</string>
+    <string name="mute_1_week">Für 1 Woche</string>
+    <string name="mute_always">Immer</string>
+    <string name="mute_off">Aus</string>
+    <string name="mute_until">Bis %1$s</string>
+    <string name="mute_channel">Stummgeschaltete Unterhaltungen</string>
+</resources>

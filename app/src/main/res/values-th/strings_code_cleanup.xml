@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_codes_title">ลบรหัสยืนยันที่อ่านแล้วหลังจาก</string>
+    <string name="cleanup_codes_summary">รหัสยืนยันจะย้ายไปที่ถังขยะ</string>
+    <string name="cleanup_never">ไม่ลบ</string>
+    <string name="cleanup_24_hours">24 ชั่วโมง</string>
+    <plurals name="cleanup_days">
+        <item quantity="other">%d วัน</item>
+    </plurals>
+    <string name="cleanup_card_title">ลบรหัสยืนยันที่อ่านแล้วหลังจาก 7 วันไหม?</string>
+    <string name="cleanup_card_body">รหัสยืนยันที่อ่านแล้วจะย้ายไปที่ถังขยะ ซึ่งกู้คืนได้</string>
+    <string name="cleanup_card_yes">เปิด</string>
+    <string name="cleanup_card_no">ไม่ ขอบคุณ</string>
+</resources>

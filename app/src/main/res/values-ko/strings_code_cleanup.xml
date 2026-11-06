@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_codes_title">읽은 인증 코드 삭제 시점</string>
+    <string name="cleanup_codes_summary">인증 코드는 휴지통으로 이동해요.</string>
+    <string name="cleanup_never">삭제 안 함</string>
+    <string name="cleanup_24_hours">24시간</string>
+    <plurals name="cleanup_days">
+        <item quantity="other">%d일</item>
+    </plurals>
+    <string name="cleanup_card_title">읽은 인증 코드를 7일 후에 삭제할까요?</string>
+    <string name="cleanup_card_body">읽은 인증 코드는 휴지통으로 이동하며, 휴지통에서 복원할 수 있어요.</string>
+    <string name="cleanup_card_yes">켜기</string>
+    <string name="cleanup_card_no">괜찮아요</string>
+</resources>

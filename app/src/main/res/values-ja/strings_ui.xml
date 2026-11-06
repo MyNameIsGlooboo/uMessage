@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_time_now">たった今</string>
+    <plurals name="ui_time_minutes">
+        <item quantity="other">%d分前</item>
+    </plurals>
+    <string name="ui_bubble_sent">自分、%1$s</string>
+    <string name="ui_bubble_received">%1$s, %2$s</string>
+    <string name="ui_bubble_received_unknown">受信、%1$s</string>
+    <string name="ui_select_message">メッセージを選択</string>
+    <string name="ui_retry_send">再送信</string>
+    <string name="ui_default_required_body">uMessageをデフォルトのSMSアプリに設定するまで、メッセージの送受信やフィルタリングはできません。メッセージはそのまま残ります。</string>
+    <string name="ui_default_required_close">uMessageを閉じる</string>
+    <string name="ui_add_contact_or_number">名前か電話番号を入力</string>
+    <string name="ui_show_dialpad">ダイヤルパッドを表示</string>
+    <string name="ui_show_keyboard">キーボードを表示</string>
+    <string name="ui_settings_group_block_lists">その他のブロックリスト</string>
+    <string name="ui_settings_system_block_list">システムのブロックリスト</string>
+    <string name="ui_settings_system_block_list_body">このスマートフォンのすべてのアプリでブロックされている番号です。uMessageでも非表示になります。</string>
+    <string name="ui_settings_blocked_words">ブロックする単語</string>
+    <string name="ui_settings_character_counter">文字数を表示</string>
+    <string name="ui_settings_simple_characters">送信時にアクセント記号を除去</string>
+    <string name="ui_settings_send_on_enter">Enterキーで送信</string>
+    <string name="ui_settings_delivery_reports">配信レポートを受信</string>
+    <string name="ui_settings_recycle_bin">削除した会話をゴミ箱に移動</string>
+    <string name="ui_two_sentences">%1$s. %2$s</string>
+    <string name="ui_tab_with_count">%1$s (%2$d)</string>
+    <string name="ui_send_with_sim">%1$s, %2$s</string>
+    <string name="ui_number_with_type">%1$s (%2$s)</string>
+    <string name="ui_log_decision_allowed">許可済み</string>
+    <string name="ui_log_decision_blocked">ブロック済み</string>
+    <string name="ui_log_decision_error">エラー</string>
+    <string name="ui_log_reason_allow_rule">許可ルール</string>
+    <string name="ui_log_reason_block_rule">ブロックルール</string>
+    <string name="ui_log_reason_contact">連絡先に登録済み</string>
+    <string name="ui_log_reason_known_conversation">メッセージの送信履歴あり</string>
+    <string name="ui_log_reason_otp">認証コード</string>
+    <string name="ui_log_reason_unknown_sender">不明な送信者</string>
+    <string name="ui_log_reason_mode_off">フィルターがオフ</string>
+    <string name="ui_log_reason_no_match">一致するルールなし</string>
+    <string name="ui_log_source_sms">SMS</string>
+    <string name="ui_log_source_mms">MMS</string>
+    <string name="ui_log_source_retry">再試行済み</string>
+</resources>

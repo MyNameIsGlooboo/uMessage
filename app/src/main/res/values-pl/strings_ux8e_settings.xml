@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">Alerty, ekran blokady, podsumowanie tygodnia</string>
+    <string name="ux8e_nav_typing">Pisanie i wysyłanie</string>
+    <string name="ux8e_nav_typing_body">Klawisz Enter, raporty doręczenia, podpis</string>
+    <string name="ux8e_nav_storage">Pamięć i czyszczenie</string>
+    <string name="ux8e_nav_storage_body">Kosz, zarchiwizowane, automatyczne usuwanie</string>
+    <string name="ux8e_group_lock_screen">Ekran blokady</string>
+    <string name="ux8e_group_recycle">Usunięte wiadomości</string>
+    <string name="ux8e_group_cleanup">Automatyczne czyszczenie</string>
+    <string name="ux8e_group_archive">Zarchiwizowane</string>
+    <string name="ux8e_keep_deleted">Zachowuj usunięte wiadomości</string>
+    <string name="ux8e_keep_deleted_body">Pozostają w koszu przez 30 dni</string>
+    <string name="ux8e_recycle_bin">Kosz</string>
+    <string name="ux8e_backup_row">Utwórz kopię zapasową</string>
+    <string name="ux8e_backup_row_body">Zapisz do pliku</string>
+    <string name="ux8e_restore_row">Przywróć</string>
+    <string name="ux8e_restore_row_body">Wczytaj z pliku</string>
+    <string name="ux8e_backup_what">Co zapisać w kopii zapasowej?</string>
+    <string name="ux8e_restore_what">Co przywrócić?</string>
+    <string name="ux8e_what_messages">Wiadomości</string>
+    <string name="ux8e_what_settings">Reguły i ustawienia</string>
+    <string name="ux8e_backup_warning">Pliki kopii zapasowych nie są szyfrowane.</string>
+    <string name="ux8e_calendar">Kalendarz</string>
+</resources>

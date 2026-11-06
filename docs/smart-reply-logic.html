@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>uMessage smart reply logic</title>
+<style>
+:root{--bg:#fbf8f4;--card:#fff;--ink:#2a2622;--mute:#6b645c;--line:#e4ddd4;--coral:#e0503c;--green:#2e7d4f;--red:#b3392b;--blue:#2f6db5;--amber:#b7791f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,"Segoe UI",Tahoma,sans-serif;padding:24px 16px 64px}
+main{max-width:860px;margin:auto}
+h1{font-size:26px;margin:0 0 4px}
+h2{font-size:19px;margin:36px 0 12px;border-bottom:2px solid var(--coral);padding-bottom:4px}
+.lang{display:flex;gap:8px;margin:12px 0 20px}
+button{border:1px solid var(--line);background:var(--card);padding:6px 16px;border-radius:20px;cursor:pointer;font:inherit}
+button.on{background:var(--coral);color:#fff;border-color:var(--coral)}
+.box{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:12px 16px;margin:0 auto}
+.arrow{text-align:center;color:var(--mute);font-size:22px;line-height:1.2;margin:4px 0}
+.flow{display:flex;flex-direction:column;gap:2px}
+.start{border-color:var(--blue)}
+.gate{border-color:var(--amber)}
+.l1{border-color:var(--green)}
+.l2{border-color:var(--coral)}
+.stop{border-color:var(--red);background:#fdf1ef}
+.ok{border-color:var(--green);background:#eef7f1}
+.tag{display:inline-block;font-size:12px;font-weight:700;border-radius:8px;padding:1px 8px;margin-inline-end:6px;color:#fff}
+.t-blue{background:var(--blue)}.t-amber{background:var(--amber)}.t-green{background:var(--green)}.t-coral{background:var(--coral)}.t-red{background:var(--red)}
+ul{margin:6px 0 0;padding-inline-start:22px}
+li{margin:2px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip{border:1.5px solid var(--ink);border-radius:18px;padding:3px 14px;font-size:15px;background:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:8px}
+.mini{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font-size:15px}
+.mini b{display:block;margin-bottom:2px}
+.note{color:var(--mute);font-size:14px}
+code{background:#f1ebe3;border-radius:4px;padding:0 5px;font-size:14px}
+table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+td,th{border:1px solid var(--line);padding:6px 10px;text-align:start;vertical-align:top}
+th{background:#f4eee6}
+.fa{display:none}
+body.fa-on .fa{display:block}body.fa-on .en{display:none}
+body.fa-on span.fa,body.fa-on li .fa{display:inline}
+body.fa-on{direction:rtl}
+body.fa-on b.fa,body.fa-on i.fa{display:inline}
+.dir{unicode-bidi:plaintext}
+</style>
+</head>
+<body>
+<main>
+<div class="lang"><button id="bEn" class="on">English</button><button id="bFa">فارسی</button></div>
+
+<h1><span class="en">How uMessage smart replies work</span><span class="fa">منطق پاسخ‌های هوشمند uMessage</span></h1>
+<p class="note"><span class="en">Everything runs on the phone. No internet, no AI service, no message leaves the device. It is rules and word lists, not a language model.</span><span class="fa">همه‌چیز روی خود گوشی اجرا می‌شود. بدون اینترنت، بدون سرویس هوش مصنوعی، هیچ پیامی از دستگاه بیرون نمی‌رود. این سیستم قانون و فهرست کلمات است، نه مدل زبانی.</span></p>
+
+<h2><span class="en">1. The whole path of one incoming message</span><span class="fa">۱. مسیر کامل یک پیام ورودی</span></h2>
+<div class="flow">
+  <div class="box start"><span class="tag t-blue">0</span><b class="en">Incoming SMS arrives</b><b class="fa">پیامک جدید می‌رسد</b></div>
+  <div class="arrow">↓</div>
+  <div class="box gate"><span class="tag t-amber">1</span><b class="en">Gate: is a reply allowed at all?</b><b class="fa">دروازه: اصلاً اجازهٔ پیشنهاد هست؟</b>
+    <ul class="en">
+      <li>Smart replies switch is ON (default ON)</li>
+      <li>One person chat, not a group, not MMS</li>
+      <li>Sender is a saved contact, not a service name (bank, shop)</li>
+      <li>Newest message, received less than 6 hours ago</li>
+      <li>Short: at most 10 words and 160 characters</li>
+      <li>No link, no run of 4+ digits (codes), no money amount</li>
+      <li>Chat is not hidden</li>
+    </ul>
+    <ul class="fa">
+      <li>کلید پاسخ هوشمند روشن باشد (پیش‌فرض روشن)</li>
+      <li>گفتگوی یک‌نفره، نه گروه، نه MMS</li>
+      <li>فرستنده مخاطب ذخیره‌شده باشد، نه نام سرویس (بانک، فروشگاه)</li>
+      <li>تازه‌ترین پیام و کمتر از ۶ ساعت از دریافتش گذشته باشد</li>
+      <li>کوتاه: حداکثر ۱۰ کلمه و ۱۶۰ حرف</li>
+      <li>بدون لینک، بدون عدد ۴ رقمی یا بیشتر (کد)، بدون مبلغ پول</li>
+      <li>گفتگو مخفی نباشد</li>
+    </ul>
+  </div>
+  <div class="arrow">↓ <span class="note en">pass</span><span class="note fa">قبول</span></div>
+  <div class="box l1"><span class="tag t-green">2</span><b class="en">Layer 1: phrase tables (short fixed phrases)</b><b class="fa">لایه ۱: جدول عبارت‌ها (عبارت‌های کوتاه ثابت)</b>
+    <p class="en" style="margin:6px 0 0">Text is cleaned (case, accents, Arabic look-alike letters, ZWNJ, digits). The script is detected (Latin, Arabic/Persian, Chinese, Japanese, Korean, Thai, Hindi, Bengali, Cyrillic) so a Persian message is never read with English words. Then it is matched against intents: <i>thanks, ok, on my way, good morning, sorry, ...</i></p>
+    <p class="fa" style="margin:6px 0 0">متن پاک‌سازی می‌شود (حروف بزرگ/کوچک، اعراب، حروف شبیه عربی، نیم‌فاصله، ارقام). خط نوشتار تشخیص داده می‌شود (لاتین، فارسی/عربی، چینی، ژاپنی، کره‌ای، تایلندی، هندی، بنگالی، سیریلیک) تا پیام فارسی هرگز با کلمات انگلیسی خوانده نشود. بعد با «نیت‌ها» تطبیق می‌خورد: <i>ممنون، باشه، دارم میام، صبح بخیر، ببخشید، ...</i></p>
+  </div>
+  <div class="arrow">↓ <span class="note en">found? yes → step 4 &nbsp;|&nbsp; no ↓</span><span class="note fa">پیدا شد؟ بله ← مرحلهٔ ۴ &nbsp;|&nbsp; نه ↓</span></div>
+  <div class="box l2"><span class="tag t-coral">3</span><b class="en">Layer 2: question engine (understands what is asked)</b><b class="fa">لایه ۲: موتور سؤال (می‌فهمد چه پرسیده شده)</b>
+    <p class="en" style="margin:6px 0 0">Runs only when layer 1 found nothing. Message must be a single question. Type is picked in this order: <b>Choice → When → Where → Invite → Request → Yes/No</b>. First cue that matches wins. Details in section 3.</p>
+    <p class="fa" style="margin:6px 0 0">فقط وقتی اجرا می‌شود که لایه ۱ چیزی پیدا نکرده باشد. پیام باید یک سؤال تنها باشد. نوع به این ترتیب انتخاب می‌شود: <b>انتخابی ← زمان ← مکان ← دعوت ← درخواست ← بله/خیر</b>. اولین نشانه‌ای که جور شود برنده است. جزئیات در بخش ۳.</p>
+  </div>
+  <div class="arrow">↓ <span class="note en">nothing found → no chips (a wrong chip is worse than none)</span><span class="note fa">چیزی پیدا نشد ← هیچ چیپی نشان داده نمی‌شود (چیپ غلط بدتر از بی‌چیپ است)</span></div>
+  <div class="box ok"><span class="tag t-green">4</span><b class="en">Pick 3 replies and show them</b><b class="fa">انتخاب ۳ پاسخ و نمایش</b>
+    <ul class="en">
+      <li>Replies come from a pool of 1–8 variants per intent; a seeded shuffle rotates them, so "Thanks", "Thank you", "Cheers" take turns</li>
+      <li><b>In the notification:</b> as chips under the message (the Reply input choices)</li>
+      <li><b>In the thread:</b> as chips above the message box</li>
+      <li>A tap sends the text at once, same SIM and same path as typing a reply</li>
+    </ul>
+    <ul class="fa">
+      <li>پاسخ‌ها از یک مجموعهٔ ۱ تا ۸ تایی برای هر نیت می‌آیند؛ ترتیب تصادفیِ دارای seed آن‌ها را می‌چرخاند، پس «ممنون»، «مرسی»، «دمت گرم» نوبتی می‌آیند</li>
+      <li><b>در نوتیفیکیشن:</b> به شکل چیپ زیر پیام</li>
+      <li><b>در گفتگو:</b> به شکل چیپ بالای کادر پیام</li>
+      <li>لمس چیپ بلافاصله ارسال می‌کند، با همان سیم‌کارت و همان مسیرِ تایپ دستی</li>
+    </ul>
+    <div class="chips"><span class="chip dir">Okay</span><span class="chip dir">Thanks</span><span class="chip dir">Sounds good</span><span class="chip dir">باشه</span><span class="chip dir">ممنون</span></div>
+  </div>
+</div>
+
+<h2><span class="en">2. Layer 1 in detail: phrase tables</span><span class="fa">۲. جزئیات لایه ۱: جدول عبارت‌ها</span></h2>
+<div class="grid">
+  <div class="mini"><b class="en">Data</b><b class="fa">داده</b><span class="en">One file per language: <code>assets/smart_replies/&lt;lang&gt;.json</code>. 20 languages.</span><span class="fa">یک فایل برای هر زبان: <code>assets/smart_replies/&lt;lang&gt;.json</code>. ۲۰ زبان.</span></div>
+  <div class="mini"><b class="en">Intent</b><b class="fa">نیت</b><span class="en">Exact phrases and "contains" phrases, plus a reply pool of up to 8 texts (each at most 60 characters).</span><span class="fa">عبارت‌های دقیق و «شامل»، به‌علاوهٔ مجموعهٔ پاسخ تا ۸ متن (هرکدام حداکثر ۶۰ حرف).</span></div>
+  <div class="mini"><b class="en">Filler and veto</b><b class="fa">حشو و وتو</b><span class="en">Fillers ("please", "hey") are ignored. Veto words silence the match ("thanks, but no" is not a thanks).</span><span class="fa">حشو («لطفاً»، «سلام») نادیده گرفته می‌شود. کلمات وتو تطبیق را خاموش می‌کنند («ممنون ولی نه» تشکر نیست).</span></div>
+  <div class="mini"><b class="en">Language tie-break</b><b class="fa">انتخاب زبان</b><span class="en">Same script, many languages (Latin): the app language wins ties.</span><span class="fa">یک خط، چند زبان (لاتین): زبان برنامه تساوی را حل می‌کند.</span></div>
+  <div class="mini"><b class="en">Confidence</b><b class="fa">اطمینان</b><span class="en">Each language has a minimum confidence. Below it: nothing is shown.</span><span class="fa">هر زبان یک حداقل اطمینان دارد. کمتر از آن: چیزی نشان داده نمی‌شود.</span></div>
+  <div class="mini"><b class="en">Emoji</b><b class="fa">ایموجی</b><span class="en">Not used today.</span><span class="fa">امروز استفاده نمی‌شود.</span></div>
+</div>
+
+<h2><span class="en">3. Layer 2 in detail: the question engine</span><span class="fa">۳. جزئیات لایه ۲: موتور سؤال</span></h2>
+<p class="note en">Message must end with a question mark (or start like a yes/no question). Two questions in one message give nothing.</p>
+<p class="note fa">پیام باید با علامت سؤال تمام شود (یا مثل سؤال بله/خیر شروع شود). دو سؤال در یک پیام = هیچ پیشنهادی.</p>
+<table>
+<tr><th><span class="en">Type</span><span class="fa">نوع</span></th><th><span class="en">Example question</span><span class="fa">نمونه سؤال</span></th><th><span class="en">Chips shown</span><span class="fa">چیپ‌ها</span></th></tr>
+<tr><td><span class="en">Choice</span><span class="fa">انتخابی</span></td><td class="dir">Pizza or burger?<br>چای یا قهوه؟</td><td class="dir"><span class="en">"Pizza", "Burger", "Either is fine"</span><span class="fa">«چای»، «قهوه»، «هر دو خوبه»</span></td></tr>
+<tr><td><span class="en">When</span><span class="fa">زمان</span></td><td class="dir">What time are we meeting?<br>کی می‌رسی؟</td><td class="dir"><span class="en">"Tonight", "In an hour", "Tomorrow"</span><span class="fa">«امشب»، «یک ساعت دیگه»، «فردا»</span></td></tr>
+<tr><td><span class="en">Where</span><span class="fa">مکان</span></td><td class="dir">Where are you?<br>کجایی؟</td><td class="dir"><span class="en">"At home", "On my way", "I'll send the location"</span><span class="fa">«خونه‌ام»، «تو راهم»، «لوکیشن می‌فرستم»</span></td></tr>
+<tr><td><span class="en">Invite</span><span class="fa">دعوت</span></td><td class="dir">Want to grab lunch?<br>می‌خوای ناهار بریم؟</td><td class="dir"><span class="en">Yes / No / Later</span><span class="fa">بله / نه / بعداً</span></td></tr>
+<tr><td><span class="en">Request</span><span class="fa">درخواست</span></td><td class="dir">Can you send me the file?<br>فایل رو می‌فرستی؟</td><td class="dir"><span class="en">"Sure", "OK, will do", "Give me a minute"</span><span class="fa">«حتماً»، «باشه، می‌فرستم»، «یه لحظه»</span></td></tr>
+<tr><td><span class="en">Yes / No</span><span class="fa">بله / خیر</span></td><td class="dir">Are you home?<br>خونه‌ای؟</td><td class="dir"><span class="en">Yes / No / Let me check</span><span class="fa">بله / نه / بذار ببینم</span></td></tr>
+</table>
+<p class="note en" style="margin-top:10px"><b>Register:</b> a formal sender (Persian "شما", German "Sie", French "vous", ...) gets formal chips; an informal one gets casual chips. <b>Not answered:</b> "why", "how much", "who", messages with links, codes, money.</p>
+<p class="note fa" style="margin-top:10px"><b>رسمی/صمیمی:</b> فرستندهٔ رسمی (مثلاً «شما» در فارسی) چیپ رسمی می‌گیرد و فرستندهٔ صمیمی چیپ صمیمی. <b>پاسخ داده نمی‌شود:</b> «چرا»، «چقدر»، «کی (چه کسی)»، پیام‌های دارای لینک، کد یا مبلغ.</p>
+
+<h2><span class="en">4. Where the chips appear</span><span class="fa">۴. چیپ‌ها کجا دیده می‌شوند</span></h2>
+<div class="grid">
+  <div class="mini"><b class="en">Notification</b><b class="fa">نوتیفیکیشن</b><span class="en">Chips under the message, then Mark as read and Reply. Switch: Settings → Smart replies → "In notifications" (default ON). Hidden chats never get chips.</span><span class="fa">چیپ‌ها زیر پیام، بعد «Mark as read» و «Reply». کلید: تنظیمات ← پاسخ هوشمند ← «در نوتیفیکیشن» (پیش‌فرض روشن). گفتگوهای مخفی هرگز چیپ نمی‌گیرند.</span></div>
+  <div class="mini"><b class="en">Thread screen</b><b class="fa">صفحهٔ گفتگو</b><span class="en">Chips above the message box, same gate and same tables.</span><span class="fa">چیپ‌ها بالای کادر پیام، با همان دروازه و همان جدول‌ها.</span></div>
+</div>
+
+<h2><span class="en">5. Honest limits</span><span class="fa">۵. محدودیت‌های صادقانه</span></h2>
+<ul class="en">
+  <li>Rules and word lists, not an AI. Odd or long messages get no chips, by design.</li>
+  <li>Tables for 18 languages are machine written and have no native review yet; English and Persian are the most careful.</li>
+  <li>No emoji chips today. Google Messages shows some (a smile, a sad face); adding them is possible: emoji replies for thanks, congrats, sad news.</li>
+  <li>Choice options are cut from the message words, so a long or odd phrase may give no chip.</li>
+</ul>
+<ul class="fa">
+  <li>قانون و فهرست کلمات است، نه هوش مصنوعی. پیام عجیب یا بلند عمداً چیپ نمی‌گیرد.</li>
+  <li>جدول ۱۸ زبان با ماشین نوشته شده و هنوز بازبینی بومی نشده؛ انگلیسی و فارسی با دقت بیشتری نوشته شده‌اند.</li>
+  <li>امروز چیپ ایموجی نداریم. Google Messages بعضی را نشان می‌دهد (لبخند، ناراحت)؛ اضافه‌کردنش شدنی است: ایموجی برای تشکر، تبریک، خبر ناراحت‌کننده.</li>
+  <li>گزینه‌های سؤال انتخابی از کلمات خود پیام بریده می‌شوند، پس عبارت بلند یا عجیب ممکن است چیپ نگیرد.</li>
+</ul>
+</main>
+<script>
+const b=document.body,en=document.getElementById('bEn'),fa=document.getElementById('bFa');
+function set(f){b.classList.toggle('fa-on',f);document.documentElement.lang=f?'fa':'en';en.classList.toggle('on',!f);fa.classList.toggle('on',f)}
+en.onclick=()=>set(false);fa.onclick=()=>set(true);
+</script>
+</body>
+</html>

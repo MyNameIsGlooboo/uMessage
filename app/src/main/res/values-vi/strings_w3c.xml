@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_checklist_title">Thiết lập trong 1 phút</string>
+    <string name="w3c_checklist_done_title">Bạn đã sẵn sàng</string>
+    <string name="w3c_checklist_basics_title">Đã xong các bước cơ bản</string>
+    <string name="w3c_checklist_progress">%1$s trên %2$s</string>
+    <string name="w3c_checklist_dismiss">Đóng danh sách kiểm tra</string>
+    <string name="w3c_checklist_step_sms">Đặt uMessage làm ứng dụng SMS mặc định của bạn</string>
+    <string name="w3c_checklist_step_notifications">Bật thông báo</string>
+    <string name="w3c_checklist_step_blocked">Xem thẻ Đã chặn</string>
+    <string name="w3c_checklist_step_forward">Tùy chọn: chuyển tiếp tin nhắn đến số khác</string>
+    <string name="w3c_checklist_step_done">Xong</string>
+    <string name="w3c_checklist_action_set">Thiết lập</string>
+    <string name="w3c_checklist_action_open">Mở</string>
+    <string name="w3c_receipt_title">Tin nhắn rác bị giữ lại: nhấn để xem lại</string>
+    <string name="w3c_receipt_body">Một tin nhắn từ người gửi không xác định đã bị giữ lại trong Đã chặn. Tin nhắn không bị mất: bạn có thể xem lại và khôi phục bất cứ lúc nào.</string>
+    <string name="w3c_receipt_review">Xem lại</string>
+    <string name="w3c_receipt_got_it">Đã hiểu</string>
+    <string name="w3c_search_codes">Mã gần đây</string>
+    <string name="w3c_search_code_copied">Đã sao chép mã</string>
+    <string name="w3c_search_code_description">Sao chép mã %1$s từ %2$s</string>
+    <string name="w3c_new_paste">Dán số</string>
+    <string name="w3c_new_paste_none">Không có số điện thoại trong bảng nhớ tạm</string>
+    <string name="w3c_details_allow">Luôn cho phép người gửi này</string>
+    <string name="w3c_details_allow_hint">Tin nhắn từ người gửi này luôn vào hộp thư đến của bạn</string>
+    <string name="w3c_details_allow_spoof_hint">Bất kỳ ai cũng có thể gửi tin nhắn dưới tên này, nên những tin nhắn đó cũng được cho phép</string>
+    <string name="w3c_date_gregorian">Lịch Gregory</string>
+    <string name="w3c_date_gregorian_body">Ngày như 29 tháng 10</string>
+    <string name="w3c_date_jalali">Lịch Jalali</string>
+    <string name="w3c_date_jalali_body">Ngày như 7 Aban</string>
+    <string name="w3c_date_both">Cả hai</string>
+    <string name="w3c_date_both_body">Cả hai lịch trong cuộc trò chuyện</string>
+    <string name="w3c_text_size">Cỡ chữ</string>
+    <string name="w3c_text_small">Nhỏ</string>
+    <string name="w3c_text_default">Mặc định</string>
+    <string name="w3c_text_large">Lớn</string>
+    <string name="w3c_text_largest">Lớn nhất</string>
+    <string name="w3c_text_size_sample">Ví dụ: Mã của bạn là 482913. ⁧نمونه: کد شما ۴۸۲۹۱۳ است.⁩</string>
+    <string name="w3c_backup_settings">Sao lưu tất cả cài đặt</string>
+    <string name="w3c_backup_settings_body">Lưu quy tắc, thiết lập chuyển tiếp và cài đặt vào tệp. Không gồm nội dung tin nhắn.</string>
+    <string name="w3c_restore_settings">Khôi phục tất cả cài đặt</string>
+    <string name="w3c_restore_settings_body">Tải quy tắc và cài đặt từ tệp sao lưu</string>
+    <string name="w3c_backup_saved">Đã lưu bản sao lưu: %1$d mục</string>
+    <string name="w3c_backup_failed">Không thể lưu bản sao lưu</string>
+    <string name="w3c_restore_done">Đã khôi phục %1$d mục</string>
+    <string name="w3c_restore_failed">Không thể khôi phục tệp này. Chọn bản sao lưu cài đặt uMessage.</string>
+</resources>

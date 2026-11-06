@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">Inicie uma conversa</string>
+    <string name="search_page_show_more">Mostre mais</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">Nenhuma conversa neste chip</string>
+    <string name="search_page_sim_empty_body">Conversas com mensagens enviadas ou recebidas neste chip aparecem aqui.</string>
+</resources>

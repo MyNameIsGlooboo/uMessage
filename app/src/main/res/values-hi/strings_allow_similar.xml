@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allow_similar_title">ऐसे मैसेज को भी अनुमति दें</string>
+    <string name="allow_similar_sender">%1$s नाम का कोई भी भेजने वाला</string>
+    <string name="allow_similar_prefix">%1$s से शुरू होने वाला कोई भी नंबर</string>
+    <string name="allow_similar_keyword">कोई भी मैसेज जिसमें \"%1$s\" शब्द हो</string>
+    <string name="allow_similar_risk_sender">इस तरह के नाम से कोई भी मैसेज भेज सकता है.</string>
+    <string name="allow_similar_risk_prefix">इसी तरह शुरू होने वाले दूसरे नंबरों के मैसेज भी आने लगेंगे.</string>
+    <string name="allow_similar_risk_keyword">यह शब्द कोई भी लिख सकता है, इसलिए इस शब्द वाला स्पैम भी आ जाएगा.</string>
+    <string name="allow_similar_edit">यह नियम बदलें</string>
+</resources>

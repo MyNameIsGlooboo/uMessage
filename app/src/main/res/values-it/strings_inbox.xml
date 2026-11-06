@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">Svuota archivio</string>
+    <string name="inbox_empty_bin_menu">Svuota cestino</string>
+    <string name="inbox_archive_empty_body">Le conversazioni che archivi da Messaggi appaiono qui.</string>
+    <string name="inbox_details_view_contact">Visualizza contatto</string>
+    <string name="inbox_details_more">Altro</string>
+    <string name="inbox_details_search">Cerca nella conversazione</string>
+    <string name="inbox_details_search_body">Trova un messaggio in questa conversazione</string>
+    <string name="inbox_details_forward">Regola di inoltro per questo mittente</string>
+    <string name="inbox_details_forward_body">Invia copie dei messaggi di questo mittente a un altro numero</string>
+    <string name="inbox_details_search_hint">Cerca in questa conversazione</string>
+</resources>

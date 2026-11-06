@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">Tìm từ khóa</string>
+    <string name="w2a_keywords_search_clear">Xóa tìm kiếm</string>
+    <string name="w2a_keywords_no_match_title">Không có từ khóa phù hợp</string>
+    <string name="w2a_keywords_no_match_body">Thử từ khác hoặc xóa tìm kiếm.</string>
+</resources>

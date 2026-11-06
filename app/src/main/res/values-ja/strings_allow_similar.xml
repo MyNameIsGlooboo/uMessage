@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allow_similar_title">同じ条件のメッセージも許可</string>
+    <string name="allow_similar_sender">名前が%1$sのすべての送信者</string>
+    <string name="allow_similar_prefix">%1$sで始まるすべての番号</string>
+    <string name="allow_similar_keyword">「%1$s」という単語を含むすべてのメッセージ</string>
+    <string name="allow_similar_risk_sender">このような名前は誰でも使って送信できます。</string>
+    <string name="allow_similar_risk_prefix">同じ数字で始まる他の番号からのメッセージも届きます。</string>
+    <string name="allow_similar_risk_keyword">この単語は誰でも使えるため、単語を含む迷惑メッセージも届きます。</string>
+    <string name="allow_similar_edit">ルールを編集</string>
+</resources>

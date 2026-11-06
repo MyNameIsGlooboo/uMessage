@@ -1,0 +1,134 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|হ্যালো!
+greeting|নমস্কার
+greeting|আসসালামু আলাইকুম
+greeting|হাই ভাই
+good_morning|শুভ সকাল
+good_morning|সুপ্রভাত
+good_afternoon|শুভ দুপুর
+good_evening|শুভ সন্ধ্যা
+good_night|শুভ রাত্রি 😴
+good_night|গুড নাইট
+good_night|ভালো ঘুম হোক
+how_are_you|কেমন আছেন?
+how_are_you|কী খবর
+how_are_you|তুমি কেমন আছো
+how_are_you|কেমন চলছে
+thanks|ধন্যবাদ
+thanks|অনেক ধন্যবাদ
+thanks|থ্যাংক ইউ 🙏
+thanks|জানানোর জন্য ধন্যবাদ
+youre_welcome|স্বাগতম
+youre_welcome|কোনো সমস্যা নেই
+youre_welcome|কোনো ব্যাপার না
+youre_welcome|যেকোনো সময়
+where_are_you|তুমি কোথায়?
+where_are_you|আপনি এখন কোথায়
+where_are_you|কোথায় আছো
+on_my_way|আসছি
+on_my_way|রওনা হয়েছি
+on_my_way|আমি পথে আছি
+on_my_way|প্রায় পৌঁছে গেছি
+arrived|আমি এসেছি
+arrived|আমি বাইরে আছি
+arrived|নিচে আছি
+arrived|পৌঁছে গেছি
+arrived_home|বাসায় পৌঁছেছি
+arrived_home|নিরাপদে পৌঁছেছি
+arrived_home|আমি বাসায় ফিরেছি
+arrived_home|আমরা বাসায় আছি
+did_you_arrive|পৌঁছেছেন?
+did_you_arrive|বাসায় পৌঁছেছ
+did_you_arrive|নিরাপদে পৌঁছেছেন কি
+are_you_coming|তুমি আসবে?
+are_you_coming|আপনি আসবেন
+are_you_coming|আসতে পারবে?
+call_me|ফোন করো
+call_me|আমাকে কল করুন
+call_me|সময় পেলে ফোন দিও
+call_me|একটু ফোন দিন
+can_you_talk|কথা বলা যাবে?
+can_you_talk|এখন কথা বলতে পারবেন
+can_you_talk|এক মিনিট সময় হবে?
+are_you_free|ফ্রি আছো?
+are_you_free|আজ ফ্রি আছেন
+are_you_free|আপনি ফ্রি?
+what_time|কয়টায়?
+what_time|কখন দেখা হবে
+what_time|কাল কয়টায়
+where_to_meet|কোথায় দেখা করব?
+where_to_meet|কোথায় যাব
+where_to_meet|আমরা কোথায় যাব
+ok_confirm|ঠিক আছে
+ok_confirm|ওকে
+ok_confirm|আচ্ছা বুঝেছি
+ok_confirm|দারুণ
+ok_confirm|জি ঠিক আছে
+bye|বিদায়
+bye|আবার দেখা হবে
+bye|ভালো থেকো
+bye|পরে কথা হবে
+bye|আল্লাহ হাফেজ
+congrats|অভিনন্দন
+congrats|শুভ জন্মদিন
+congrats|হ্যাপি বার্থডে
+congrats|চাকরির জন্য অভিনন্দন
+holiday_eid|ঈদ মোবারক
+holiday_eid|ঈদের শুভেচ্ছা
+holiday_new_year|শুভ নববর্ষ
+holiday_new_year|হ্যাপি নিউ ইয়ার
+holiday_christmas|শুভ বড়দিন
+holiday_other|শুভ দীপাবলি
+holiday_other|শুভ বিজয়া
+good_luck|শুভকামনা
+good_luck|গুড লাক
+good_luck|সফল হও
+sorry_late|দেরির জন্য দুঃখিত
+sorry_late|সরি
+sorry_late|এইমাত্র দেখলাম
+missed_call|আপনার ফোন মিস করেছি
+missed_call|মিসড কল দেখলাম
+missed_call|সরি ফোন ধরতে পারিনি
+NONE|তুমি কাল রাতে কোথায় ছিলে আর ফোন ধরছিলে না কেন আমি খুব চিন্তায় ছিলাম
+NONE|আমাকে ফোন করো, আমার কোড 5821
+NONE|এই নম্বরে কল করো 8800 555
+NONE|ধন্যবাদ, কাল আমাকে টাকা পাঠিয়ে দিও
+NONE|হ্যালো, দয়া করে আপনার পিন কাউকে বলবেন না
+NONE|www.example.com এ গিয়ে ফোন করো
+NONE|হ্যালো, কেমন আছো? কী করছো?
+NONE|তুমি কখন আসবে
+NONE|তুমি আসবে, কী আনতে হবে
+NONE|ধন্যবাদ, কিন্তু এটা আমার পছন্দ হয়নি
+NONE|হ্যালো, আমার এখনই সাহায্য করো দরকার
+NONE|আমি হাসপাতালে আছি, ফোন করো
+NONE|আজ সকালে দাদির মৃত্যু হয়েছে
+NONE|আমরা আজ রাতে শহরের মাঝখানে কোথায় খাব চারজন মিলে
+NONE|কাল তোমার ঢাকার ফ্লাইট কয়টায়?
+NONE|মাকে ফোন করো সে চিন্তা করছে
+NONE|আমি আজ আসব না
+NONE|না, ধন্যবাদ
+NONE|আপনার সঙ্গে দেখা হয়ে খুব ভালো লাগল
+NONE|এখনো জানি না, পরে জানাব
+NONE|তুমি কি আমার চাবি কোথাও দেখেছ?
+NONE|ঠিক আছে, কিন্তু কাল পর্যন্ত ভাবতে হবে
+NONE|হ্যালো, ডেলিভারি সার্ভিস থেকে বলছি
+NONE|হ্যালো! আমি আনিকা, মনে আছে আমাকে?
+NONE|ওয়াইফাইয়ের পাসওয়ার্ড কাগজে লেখা আছে
+NONE|পেমেন্ট সফল হয়েছে
+NONE|ঋণ অনুমোদিত হয়েছে, ব্যাংকে ফোন করুন
+NONE|আমি ভেরিফিকেশন কোড পেয়েছি
+NONE|অভিনন্দন, কিন্তু মন থেকে নয়
+NONE|নতুন গাড়ির জন্য অভিনন্দন, ওয়ারেন্টি ভুলো না
+NONE|তুমি আসবে? সে আসবে?
+NONE|আমি সোমবার আসব
+NONE|আমরা কাল ঢাকা পৌঁছেছিলাম
+NONE|চলো কাজ নিয়ে কথা বলি
+NONE|বলো তুমি কয়টায় পৌঁছাবে, আমি নিতে আসব
+NONE|সে কি আজ ফ্রি আছে?
+NONE|আমরা শনিবার থিয়েটারে যাচ্ছি
+NONE|হ্যালো https://t.me/example
+NONE|আজ সকাল থেকে অফিসে আছি, তারপর বাবা মায়ের বাসায় যাব, বাজার করব, রান্না করব, সিনেমা দেখব আর তাড়াতাড়ি ঘুমিয়ে পড়ব কারণ কাল ভোরে উঠে শহরের অন্য প্রান্তে যেতে হবে
+NONE|ধন্যবাদ, হ্যালো, বাই
+NONE|Hello, কেমন আছো
+NONE|আমাকে ফোন করো, ট্যাক্সিতে 500 টাকা খরচ হয়েছে

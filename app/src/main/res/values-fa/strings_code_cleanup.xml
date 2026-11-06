@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="cleanup_codes_title">حذف کدهای خوانده‌شده پس از</string>
+    <string name="cleanup_codes_summary">کدها به سطل بازیافت منتقل می‌شوند</string>
+    <string name="cleanup_never">هرگز</string>
+    <string name="cleanup_24_hours">۲۴ ساعت</string>
+    <plurals name="cleanup_days" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d روز</item>
+        <item quantity="other">%d روز</item>
+    </plurals>
+    <string name="cleanup_card_title">کدهای خوانده‌شده پس از ۷ روز حذف شوند؟</string>
+    <string name="cleanup_card_body">کدهای تأییدی که خوانده‌اید به سطل بازیافت منتقل می‌شوند و می‌توانید آن‌ها را از آنجا بازیابی کنید.</string>
+    <string name="cleanup_card_yes">روشن کردن</string>
+    <string name="cleanup_card_no">نه، ممنون</string>
+</resources>

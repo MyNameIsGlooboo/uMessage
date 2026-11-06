@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">Nieznani</string>
+    <string name="i28_filter_unknown_empty_title">Brak nieznanych nadawców</string>
+    <string name="i28_filter_unknown_empty_body">Tutaj pojawią się rozmowy z osobami spoza twoich kontaktów, do których jeszcze nie pisano.</string>
+    <string name="i28_filter_images">Zdjęcia</string>
+    <string name="i28_filter_images_empty_title">Brak zdjęć</string>
+    <string name="i28_filter_images_empty_body">Tutaj pojawią się wiadomości ze zdjęciem.</string>
+    <string name="i28_filter_links">Linki</string>
+    <string name="i28_filter_links_empty_title">Brak linków</string>
+    <string name="i28_filter_links_empty_body">Tutaj pojawią się wiadomości z linkiem do strony.</string>
+    <string name="i28_hit_picture">Zdjęcie</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="digest_channel">每周摘要</string>
+    <string name="digest_title">每周摘要</string>
+    <string name="digest_row_title">每周摘要</string>
+    <string name="digest_row_summary">每周汇总已屏蔽的消息数量</string>
+    <plurals name="digest_held">
+        <item quantity="other">本周已暂存%d条消息。点按查看。</item>
+    </plurals>
+    <plurals name="digest_held_important">
+        <item quantity="other">本周已暂存%1$d条消息。其中验证码或银行提醒消息有%2$d条。</item>
+    </plurals>
+</resources>

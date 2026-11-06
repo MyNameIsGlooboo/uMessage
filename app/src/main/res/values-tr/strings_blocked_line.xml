@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="blocked_line_strict">Sıkı koruma</string>
+    <string name="blocked_line_smart">Akıllı koruma</string>
+    <string name="blocked_line_off">Koruma kapalı</string>
+    <string name="blocked_line_join">%1$s · %2$s</string>
+    <string name="blocked_line_cd">%1$s, %2$s</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i65_setting_title">চ্যাটের ভেতরের শব্দ</string>
+    <string name="i65_setting_summary">বার্তা পাঠালে ও পেলে ছোট একটি শব্দ</string>
+</resources>

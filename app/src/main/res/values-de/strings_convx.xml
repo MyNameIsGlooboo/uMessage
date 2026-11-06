@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="convx_code_chip">Code %1$s</string>
+    <string name="convx_code_copy">Kopieren</string>
+    <string name="convx_block_archive">Blockieren und archivieren</string>
+    <string name="convx_block_archive_hint">Künftige Nachrichten landen unter „Blockiert“. Nichts verlässt dein Smartphone.</string>
+    <string name="convx_name_label">Name</string>
+    <string name="convx_clear">Leeren</string>
+    <string name="convx_reset_name">Standardnamen wiederherstellen</string>
+    <string name="convx_save">Speichern</string>
+    <string name="convx_details_call">Anrufen</string>
+    <string name="convx_details_copy">Nummer kopieren</string>
+    <string name="convx_details_add_contact">Kontakt hinzufügen</string>
+    <string name="convx_details_tap_to_rename">Zum Umbenennen tippen</string>
+    <string name="convx_details_notifications_hint">Wähle einen Ton und eine Priorität nur für diesen Absender</string>
+    <string name="convx_details_block">Diesen Absender blockieren</string>
+    <string name="convx_details_block_hint">Neue Nachrichten landen bei den blockierten Nachrichten. Nichts verlässt dein Smartphone.</string>
+    <string name="convx_details_status">Status</string>
+    <string name="convx_new_send_to">An %1$s senden</string>
+    <string name="convx_new_group_hint">Wähle die Personen für die Gruppe. Gruppennachrichten benötigen eventuell mobile Daten und MMS-Einstellungen.</string>
+</resources>

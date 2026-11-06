@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3f_spam_summary_stopped">%1$d engellendi</string>
+    <string name="r3f_spam_summary_restored">%1$d geri yüklendi</string>
+    <string name="r3f_spam_summary_stopped_week">7 günde %1$d engellendi</string>
+    <string name="r3f_spam_summary_total">Toplam %1$d</string>
+</resources>

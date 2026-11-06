@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_title">uMessage está bloqueado</string>
+    <string name="lock_enter_pin">Ingresa tu PIN</string>
+    <string name="lock_draw_pattern">Dibuja tu patrón</string>
+    <string name="lock_use_biometrics">Confirma tu identidad para abrir uMessage</string>
+    <string name="lock_wrong_pin">PIN incorrecto, inténtalo de nuevo</string>
+    <string name="lock_wrong_pattern">Patrón incorrecto, inténtalo de nuevo</string>
+    <string name="lock_too_many">Demasiados intentos incorrectos</string>
+    <string name="lock_try_again_in">Inténtalo de nuevo en %s</string>
+    <string name="lock_key_delete">Eliminar</string>
+    <string name="lock_key_confirm">Confirmar</string>
+    <plurals name="lock_digits_entered">
+        <item quantity="one">%d dígito ingresado</item>
+        <item quantity="other">%d dígitos ingresados</item>
+    </plurals>
+    <string name="lock_no_digits">Ningún dígito ingresado</string>
+    <string name="lock_pattern_pad">Panel de patrón, 3 por 3 puntos</string>
+    <string name="lock_pattern_dot">Punto en la fila %1$d, columna %2$d</string>
+    <string name="lock_pattern_dot_selected">Punto en la fila %1$d, columna %2$d, número %3$d del patrón</string>
+    <string name="lock_pattern_done">Listo</string>
+    <string name="lock_pattern_clear">Borrar</string>
+    <plurals name="lock_pattern_dots_selected">
+        <item quantity="one">%d punto seleccionado</item>
+        <item quantity="other">%d puntos seleccionados</item>
+    </plurals>
+    <string name="lock_use_pin_instead">Usar PIN en su lugar</string>
+    <string name="lock_use_biometrics_instead">Usar biometría en su lugar</string>
+    <string name="lock_use_screen_lock">Usar el bloqueo de pantalla del teléfono</string>
+    <string name="lock_biometrics_unavailable">La biometría no está disponible. Ingresa tu PIN.</string>
+    <string name="lock_screen_lock_title">Abrir uMessage</string>
+    <string name="lock_screen_lock_description">Usa el bloqueo de pantalla de tu teléfono para abrir uMessage</string>
+    <string name="lock_no_way_to_check">Este teléfono ya no tiene huellas registradas ni bloqueo de pantalla, así que uMessage no puede confirmar tu identidad. Abre la aplicación y configura un PIN en Configuración.</string>
+    <string name="lock_open_anyway">Abrir uMessage</string>
+    <string name="lock_forgot">¿Lo olvidaste? Usa el bloqueo de pantalla de tu teléfono</string>
+    <plurals name="lock_tries_left">
+        <item quantity="one">%d intento más antes de tener que esperar</item>
+        <item quantity="other">%d intentos más antes de tener que esperar</item>
+    </plurals>
+    <string name="lock_setup_done">El bloqueo de la aplicación está activado. Si olvidas tu PIN o patrón, toca «¿Lo olvidaste?» en la pantalla de bloqueo y usa el bloqueo de pantalla de tu teléfono.</string>
+    <string name="lock_setup_done_biometric">El bloqueo de la aplicación está activado. Si la biometría deja de funcionar, usa tu PIN de respaldo. Si también lo olvidas, toca «¿Lo olvidaste?» y usa el bloqueo de pantalla de tu teléfono.</string>
+    <string name="lock_setup_done_no_screen_lock">El bloqueo de la aplicación está activado. Tu teléfono no tiene bloqueo de pantalla, así que, si olvidas tu PIN o patrón, no habrá otra forma de entrar: tendrás que borrar los datos de uMessage en la configuración de aplicaciones del teléfono. Esto elimina su configuración, listas de spam e historial de spam (tus mensajes de texto quedan en el teléfono). Agrega un bloqueo de pantalla a tu teléfono para poder recuperar el acceso.</string>
+    <string name="settings_app_lock_timeout">Bloquear al salir de la aplicación</string>
+    <string name="settings_app_lock_timeout_immediately">De inmediato</string>
+    <string name="settings_app_lock_timeout_30s">Después de 30 segundos</string>
+    <string name="settings_app_lock_timeout_1m">Después de 1 minuto</string>
+    <string name="settings_app_lock_timeout_5m">Después de 5 minutos</string>
+    <string name="settings_app_lock_screenshots">Bloquear capturas de pantalla</string>
+    <string name="settings_app_lock_screenshots_body">Impide las capturas y la grabación de pantalla. Los mensajes siempre se ocultan en las aplicaciones recientes.</string>
+    <string name="settings_app_lock_screenshots_body_old">Impide las capturas y la grabación de pantalla. En esta versión de Android, también es la única forma de ocultar los mensajes en las aplicaciones recientes.</string>
+    <string name="settings_app_lock_change">Cambiar PIN, patrón o biometría</string>
+    <string name="settings_app_lock_weak">Tu PIN o patrón es fácil de adivinar</string>
+    <string name="settings_app_lock_weak_body">PIN poco seguro. Toca para cambiarlo</string>
+    <string name="settings_app_lock_add_pin">Agregar un PIN de respaldo</string>
+    <string name="settings_app_lock_add_pin_body">Agrega un PIN como respaldo</string>
+    <string name="settings_app_lock_now">Bloquear ahora</string>
+    <string name="settings_app_lock_now_body">Bloquea uMessage de inmediato</string>
+    <string name="settings_app_lock_changed">Bloqueo de la aplicación modificado</string>
+    <string name="dialogs_lock_backup_pin">Primero configura un PIN de respaldo. Lo usarás si la biometría deja de funcionar.</string>
+</resources>

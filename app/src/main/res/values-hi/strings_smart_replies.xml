@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">स्मार्ट जवाब</string>
+    <string name="smart_replies_summary">फ़ोन पर मौजूद सूची से झटपट जवाब</string>
+    <string name="smart_replies_hide">सुझाव छिपाएं</string>
+</resources>

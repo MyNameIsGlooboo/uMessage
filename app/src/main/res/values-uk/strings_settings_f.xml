@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_f_backup_row_body">Повідомлення, правила й налаштування у файл</string>
+    <string name="settings_f_backup_rules_group">Правила й налаштування</string>
+    <string name="settings_f_backup_rules_contents">Файл містить ваші правила дозволу, блокування й пересилання та налаштування: захист від спаму, сповіщення, дати, розмір тексту, тему, клавішу Enter і ліміти пересилання. Текст повідомлень і блокування застосунку не зберігаються. Правила пересилання відновлюються вимкненими.</string>
+    <string name="settings_f_backup_messages_contents">Текст повідомлень і зображення в окремому файлі.</string>
+    <string name="settings_f_restore_title">Відновити з цього файлу?</string>
+    <string name="settings_f_restore_rules">Правила дозволу: %1$d · Правила блокування: %2$d. Наявні правила буде пропущено.</string>
+    <string name="settings_f_restore_forwards">Буде додано правил пересилання: %1$d, вимкненими. Увімкніть їх у розділі «Правила › Пересилання».</string>
+    <string name="settings_f_restore_forwards_skipped">Пропущено правил пересилання: %1$d (уже є або немає номера, який може отримувати повідомлення).</string>
+    <string name="settings_f_restore_settings_changed">Налаштування, які зміняться: %1$s</string>
+    <string name="settings_f_restore_settings_none">Налаштування не зміняться.</string>
+    <string name="settings_f_restore_action">Відновити</string>
+    <string name="settings_f_restore_done">Додано правил: %1$d · Правил пересилання: %2$d. Правила пересилання залишаться вимкненими, доки ви їх не ввімкнете.</string>
+    <string name="settings_f_restore_done_rules">Додано правил: %1$d.</string>
+    <string name="settings_f_restore_done_title">Відновлення завершено</string>
+    <string name="settings_f_label_codes">Коди від невідомих відправників</string>
+    <string name="settings_f_list_separator">", "</string>
+    <string name="settings_f_group_display">Відображення</string>
+    <string name="settings_f_appearance">Вигляд</string>
+    <string name="settings_f_language_system">Як у системі</string>
+    <string name="settings_f_group_rules">Правила й списки</string>
+    <string name="settings_f_spam_more">Термін зберігання та сповіщення</string>
+    <string name="settings_f_spam_more_body">Термін зберігання заблокованих повідомлень і сповіщення</string>
+    <string name="settings_f_hide_lock_codes_body">На екрані блокування коди показуються як ••••</string>
+    <string name="settings_f_code_alert">Сповіщення про код</string>
+    <string name="settings_f_code_alert_body">Звук для кодів підтвердження</string>
+    <string name="settings_f_channel_codes">Коди підтвердження</string>
+    <string name="settings_f_channel_codes_desc">Повідомлення з кодом підтвердження</string>
+</resources>

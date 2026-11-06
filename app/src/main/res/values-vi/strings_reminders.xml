@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">Nhắc tôi</string>
+    <string name="reminder_dialog_title">Nhắc tôi</string>
+    <string name="reminder_in_3_hours">Sau 3 giờ</string>
+    <string name="reminder_tomorrow_morning">Sáng mai</string>
+    <string name="reminder_pick_time">Chọn ngày và giờ</string>
+    <string name="reminder_set">Đã đặt lời nhắc vào %1$s</string>
+    <string name="reminder_set_approximate">Đã đặt lời nhắc vào khoảng %1$s. Lời nhắc có thể đến hơi trễ.</string>
+    <string name="reminder_battery_hint">Một số điện thoại dừng ứng dụng chạy nền và làm trễ lời nhắc.</string>
+    <string name="reminder_battery_open">Giữ uMessage chạy</string>
+    <string name="reminder_channel">Lời nhắc</string>
+    <string name="reminder_title">Lời nhắc</string>
+    <string name="reminder_title_named">Lời nhắc: %1$s</string>
+    <string name="reminder_open_hint">Nhấn để mở tin nhắn</string>
+</resources>

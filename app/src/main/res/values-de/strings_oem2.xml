@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">Vivo oder iQOO</string>
+    <string name="oem2_step_vivo">Autostart und Hintergrundnutzung erlauben</string>
+    <string name="oem2_step_vivo_desc">Aktiviere den Autostart für uMessage und erlaube in den Akkueinstellungen der App einen hohen Stromverbrauch im Hintergrund.</string>
+    <string name="oem2_xiaomi_autostart_desc">Aktiviere den Autostart für uMessage, damit die App nach einem Neustart startet. Falls sich die App-Info öffnet, aktiviere dort den Autostart.</string>
+    <string name="oem2_xiaomi_battery_desc">Wähle „Keine Einschränkungen“ für uMessage. Falls sich eine App-Liste öffnet, tippe zuerst auf uMessage.</string>
+    <string name="oem2_oppo_desc">Aktiviere „Automatischen Start erlauben“ und „Hintergrundaktivität erlauben“ für uMessage. Auf neueren Telefonen findest du sie unter „App-Info“, „Akkunutzung“.</string>
+    <string name="oem2_ignore_battery_desc">Wähle „Uneingeschränkt“ oder „Nicht optimieren“ für uMessage. Falls sich eine Liste öffnet, wechsle zuerst zu „Alle Apps“.</string>
+    <string name="oem2_state_done">Erledigt</string>
+    <string name="oem2_state_marked">Von dir als erledigt markiert</string>
+    <string name="oem2_state_todo">Noch nicht erledigt</string>
+    <string name="oem2_state_limited">Android schränkt uMessage im Hintergrund weiterhin ein</string>
+    <string name="oem2_open_again">Erneut öffnen</string>
+    <string name="oem2_undo">Rückgängig</string>
+    <string name="oem2_undo_cd">%1$s als nicht erledigt markieren</string>
+</resources>

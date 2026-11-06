@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">أفرغ الأرشيف</string>
+    <string name="inbox_empty_bin_menu">أفرغ سلة المهملات</string>
+    <string name="inbox_archive_empty_body">تظهر هنا المحادثات التي تؤرشفها من «الرسائل».</string>
+    <string name="inbox_details_view_contact">اعرض جهة الاتصال</string>
+    <string name="inbox_details_more">المزيد</string>
+    <string name="inbox_details_search">ابحث في المحادثة</string>
+    <string name="inbox_details_search_body">اعثر على رسالة في هذه المحادثة</string>
+    <string name="inbox_details_forward">قاعدة إعادة توجيه لهذا المرسل</string>
+    <string name="inbox_details_forward_body">أرسل نسخًا من رسائل هذا المرسل إلى رقم آخر</string>
+    <string name="inbox_details_search_hint">ابحث في هذه المحادثة</string>
+</resources>

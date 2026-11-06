@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- N09: the settings file carries everything except messages -->
+    <string name="n09_backup_contents">Everything except your messages: allow, block and forward rules and all settings. The file is not encrypted and holds the phone numbers you forward to, so keep it somewhere private. Forward rules come back switched off.</string>
+    <string name="n09_label_spam">Spam protection</string>
+    <string name="n09_label_notifications">Notifications</string>
+    <string name="n09_label_chat">Chat and message list</string>
+    <string name="n09_label_sending">Sending</string>
+    <string name="n09_label_cleanup">Cleanup and storage</string>
+    <string name="n09_label_privacy">Privacy and lock options</string>
+    <string name="n09_restore_not_included">Not in the file: your messages, the app lock PIN, SIM names, saved texts, hidden chats and mute times.</string>
+    <string name="n09_restore_after">Make uMessage the default SMS app again and set your app lock again.</string>
+</resources>

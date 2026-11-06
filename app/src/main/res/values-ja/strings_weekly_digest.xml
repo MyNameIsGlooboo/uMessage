@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="digest_channel">1週間のまとめ</string>
+    <string name="digest_title">1週間のまとめ</string>
+    <string name="digest_row_title">1週間のまとめ</string>
+    <string name="digest_row_summary">週1回、ブロック件数をお知らせします。</string>
+    <plurals name="digest_held">
+        <item quantity="other">今週%d件のメッセージを保留しました。タップして確認してください。</item>
+    </plurals>
+    <plurals name="digest_held_important">
+        <item quantity="other">今週%1$d件のメッセージを保留しました。うち認証コードや銀行からの通知は%2$d件です。</item>
+    </plurals>
+</resources>

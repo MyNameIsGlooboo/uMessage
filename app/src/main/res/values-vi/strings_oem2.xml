@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">Vivo hoặc iQOO</string>
+    <string name="oem2_step_vivo">Cho phép tự khởi động và chạy nền</string>
+    <string name="oem2_step_vivo_desc">Bật Tự khởi động cho uMessage và cho phép tiêu thụ nhiều pin khi chạy nền trong cài đặt Pin của ứng dụng.</string>
+    <string name="oem2_xiaomi_autostart_desc">Bật Tự khởi động cho uMessage để ứng dụng chạy sau khi khởi động lại máy. Nếu trang thông tin ứng dụng mở ra, hãy bật công tắc Tự khởi động ở đó.</string>
+    <string name="oem2_xiaomi_battery_desc">Chọn Không hạn chế cho uMessage. Nếu danh sách ứng dụng mở ra, hãy nhấn vào uMessage trước.</string>
+    <string name="oem2_oppo_desc">Bật Cho phép tự khởi chạy và Cho phép hoạt động nền cho uMessage. Trên điện thoại mới hơn, các mục này nằm trong Thông tin ứng dụng, Mức sử dụng pin.</string>
+    <string name="oem2_ignore_battery_desc">Chọn Không hạn chế hoặc Không tối ưu hóa cho uMessage. Nếu danh sách mở ra, hãy chuyển sang Tất cả ứng dụng trước.</string>
+    <string name="oem2_state_done">Đã xong</string>
+    <string name="oem2_state_marked">Bạn đã đánh dấu là xong</string>
+    <string name="oem2_state_todo">Chưa xong</string>
+    <string name="oem2_state_limited">Android vẫn hạn chế uMessage chạy nền</string>
+    <string name="oem2_open_again">Mở lại</string>
+    <string name="oem2_undo">Hoàn tác</string>
+    <string name="oem2_undo_cd">Đánh dấu %1$s là chưa xong</string>
+</resources>

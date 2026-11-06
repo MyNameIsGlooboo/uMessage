@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screens_back">Geri</string>
+    <string name="screens_ok">Tamam</string>
+    <string name="screens_cancel">İptal</string>
+    <string name="screens_delete">Silin</string>
+    <string name="screens_clear_selection">Seçimi temizleyin</string>
+    <plurals name="screens_selected_count">
+        <item quantity="one">%d seçildi</item>
+        <item quantity="other">%d seçildi</item>
+    </plurals>
+    <string name="screens_loading">Yükleniyor…</string>
+    <string name="screens_more_options">Diğer seçenekler</string>
+    <string name="screens_select_all">Tümünü seçin</string>
+    <string name="screens_copy">Kopyalayın</string>
+    <string name="screens_grant_permission">Erişime izin verin</string>
+    <string name="screens_delete_forever_title">Kalıcı olarak silinsin mi?</string>
+    <string name="screens_delete_conversations_message">%1$s kalıcı olarak silinsin mi? Bu işlem geri alınamaz.</string>
+    <string name="screens_restore_title">Geri yüklensin mi?</string>
+    <string name="screens_empty_archive_title">Arşiv boşaltılsın mı?</string>
+    <string name="screens_empty_bin_title">Çöp kutusu boşaltılsın mı?</string>
+    <string name="screens_empty_action">Boşaltın</string>
+    <string name="screens_archive_empty_title">Arşivlenen öğe yok</string>
+    <string name="screens_bin_empty_title">Çöp kutusu boş</string>
+    <string name="screens_bin_empty_body">Silinen mesajlar, çöp kutusu boşaltılana kadar burada kalır.</string>
+    <string name="screens_new_to_hint">Alıcı</string>
+    <string name="screens_new_start">%1$s ile görüşme başlatın</string>
+    <string name="screens_new_clear_input">Temizleyin</string>
+    <string name="screens_new_no_matches">Eşleşen kişi yok. Yazdığınız numaraya mesaj göndermek için oka basın.</string>
+    <string name="screens_new_contacts">Kişiler</string>
+    <string name="screens_new_create_group">Grup oluşturun</string>
+    <string name="screens_new_group_title">Yeni grup</string>
+    <string name="screens_new_group_next">İleri</string>
+    <string name="screens_new_group_add">Ekleyin: %1$s</string>
+    <string name="screens_new_group_remove">Kaldırın: %1$s</string>
+    <string name="screens_new_group_selected">Seçildi</string>
+    <string name="screens_details_edit_name">Görüşme adını düzenleyin</string>
+    <string name="screens_keywords_add">Anahtar kelime ekleyin</string>
+    <string name="screens_keywords_menu_export">Dışa aktarın</string>
+    <string name="screens_keywords_menu_import">İçe aktarın</string>
+    <string name="screens_keywords_edit">Düzenleyin</string>
+    <string name="screens_keywords_duplicate">Bu anahtar kelime zaten listede</string>
+    <string name="screens_keywords_help">Metni mesajın her yerinde, daha uzun bir kelimenin içinde bile eşleştirir. Büyük ve küçük harf ayrımı yapmaz.</string>
+    <string name="screens_keywords_empty_title">Engellenen anahtar kelime yok</string>
+    <plurals name="screens_keywords_deleted">
+        <item quantity="one">%d anahtar kelime silindi</item>
+        <item quantity="other">%d anahtar kelime silindi</item>
+    </plurals>
+    <string name="screens_vcard_title">Kişi</string>
+    <string name="screens_vcard_add_contact">Kişilere ekleyin</string>
+    <string name="screens_vcard_expand">Ayrıntıları gösterin</string>
+    <string name="screens_vcard_collapse">Ayrıntıları gizleyin</string>
+    <string name="screens_vcard_empty">Bu dosyada kişi bulunamadı</string>
+    <string name="screens_dialog_filename">Dosya adı</string>
+    <string name="screens_schedule_date">Tarih</string>
+    <string name="screens_schedule_time">Saat</string>
+    <string name="screens_schedule_pick_time">Saat seçin</string>
+    <string name="screens_schedule_next">İleri</string>
+    <string name="screens_delete_skip_bin">Çöp kutusuna taşımadan doğrudan silin</string>
+    <string name="screens_select_text_title">Metin seçin</string>
+</resources>

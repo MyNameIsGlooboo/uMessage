@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_channel">Copia de seguridad y restauración</string>
+    <string name="backup_restoring">Restaurando mensajes</string>
+    <string name="backup_exporting">Creando copia de seguridad de los mensajes</string>
+    <plurals name="backup_progress_import">
+        <item quantity="one">%1$d registro leído</item>
+        <item quantity="other">%1$d registros leídos</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="one">%1$d registro leído (%2$d%%)</item>
+        <item quantity="other">%1$d registros leídos (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="one">%1$d mensaje guardado</item>
+        <item quantity="other">%1$d mensajes guardados</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="one">%1$d mensaje guardado (%2$d%%)</item>
+        <item quantity="other">%1$d mensajes guardados (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">Puedes salir de la aplicación: el proceso continúa y muestra su progreso en una notificación.</string>
+    <string name="backup_stop">Detener</string>
+    <string name="backup_hide">Ocultar</string>
+    <string name="backup_already_running">Ya hay una copia de seguridad o restauración en curso.</string>
+    <string name="backup_restore_finished">Restauración finalizada</string>
+    <string name="backup_restore_stopped">Restauración detenida</string>
+    <string name="backup_restore_failed">Error al restaurar</string>
+    <string name="backup_invalid_file">Este archivo no es una copia de seguridad de mensajes, así que no se restauró nada.</string>
+    <string name="backup_no_entries">El archivo de copia de seguridad no contiene mensajes.</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="one">No hay nada nuevo que importar: el mensaje ya está en este teléfono.</item>
+        <item quantity="other">No hay nada nuevo que importar: los %1$d mensajes ya están en este teléfono.</item>
+    </plurals>
+    <string name="backup_line_added">Agregados: %1$d</string>
+    <string name="backup_line_duplicates">Omitidos porque ya están en este teléfono: %1$d</string>
+    <string name="backup_line_repaired">Archivos adjuntos faltantes agregados a mensajes restaurados antes: %1$d</string>
+    <string name="backup_line_incomplete">Mensajes con imagen restaurados sin algunos archivos adjuntos: %1$d</string>
+    <string name="backup_line_failed">No se pudieron restaurar: %1$d</string>
+    <string name="backup_line_damaged">Registros dañados del archivo que se omitieron: %1$d</string>
+    <string name="backup_line_xml_mms">Mensajes con imagen de esta copia de seguridad XML omitidos por no ser compatibles: %1$d</string>
+    <string name="backup_line_not_selected">No seleccionados para importar: %1$d</string>
+    <string name="backup_reasons">Motivos:</string>
+    <string name="backup_reason_no_address">el mensaje no tiene remitente ni destinatario</string>
+    <string name="backup_reason_no_thread">el teléfono no pudo abrir su conversación</string>
+    <string name="backup_reason_refused">el teléfono no permitió guardarlo</string>
+    <string name="backup_reason_not_in_backup">el archivo adjunto no está en el archivo de copia de seguridad</string>
+    <string name="backup_reason_damaged_attachment">el archivo adjunto de la copia de seguridad está dañado</string>
+    <string name="backup_reason_attachment_write">no se pudo guardar el archivo adjunto</string>
+    <string name="backup_stopped_early">El archivo está dañado después del registro %1$d, así que no se pudo leer nada más.</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="one">Se detuvo después de %1$d registro. Vuelve a restaurar con el mismo archivo para terminar: se omiten los mensajes ya restaurados.</item>
+        <item quantity="other">Se detuvo después de %1$d registros. Vuelve a restaurar con el mismo archivo para terminar: se omiten los mensajes ya restaurados.</item>
+    </plurals>
+    <string name="backup_retry_hint">Vuelve a restaurar para reintentar lo que falló: se omiten los mensajes ya restaurados.</string>
+    <string name="backup_export_finished">Copia de seguridad finalizada</string>
+    <string name="backup_export_stopped">Copia de seguridad detenida</string>
+    <string name="backup_export_failed">Error al crear la copia de seguridad</string>
+    <string name="backup_export_error">No se pudo guardar la copia de seguridad y se eliminó el archivo incompleto. %1$s</string>
+    <string name="backup_export_cancelled">Se detuvo la copia de seguridad y se eliminó el archivo incompleto.</string>
+    <string name="backup_export_nothing">No hay mensajes para crear una copia de seguridad.</string>
+    <string name="backup_export_counts">Se guardaron %1$d SMS y %2$d MMS.</string>
+    <string name="backup_export_unreadable_attachments">Archivos adjuntos que no se pudieron leer y se guardaron sin su imagen: %1$d</string>
+    <string name="backup_export_unreadable_messages">Mensajes omitidos porque no se pudieron leer: %1$d</string>
+    <string name="backup_export_unreadable_conversations">Conversaciones omitidas porque no se pudieron leer: %1$d</string>
+    <string name="backup_export_incomplete">Esta copia de seguridad está incompleta.</string>
+    <string name="backup_interrupted_import">La última restauración se detuvo antes de terminar, quizás porque el teléfono cerró la aplicación. Vuelve a restaurar con el mismo archivo: se omiten los mensajes ya restaurados.</string>
+    <string name="backup_interrupted_export">La última copia de seguridad se detuvo antes de terminar, así que su archivo está incompleto. Crea una nueva copia de seguridad.</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i40_record_voice">Rekam pesan suara</string>
+    <string name="i40_setting_title">Tombol suara</string>
+    <string name="i40_setting_summary">Ditampilkan saat kolom pesan kosong</string>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">In pausa per oggi: limite raggiunto</string>
+    <string name="fwdfix_limit_hint">%1$s inoltri su %2$s inviati oggi. L\'inoltro riprende domani.</string>
+    <string name="fwdfix_status_skipped">Saltato (limite)</string>
+    <string name="fwdfix_error_daily_limit">Non inviato: raggiunto il limite giornaliero di inoltri.</string>
+    <string name="fwdfix_error_rate_limited">Non inviato: questa regola ha già inoltrato %1$s messaggi nell\'ultima ora.</string>
+    <string name="fwdfix_retry_all_recent">Sono inclusi solo gli inoltri delle ultime 24 ore.</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="one">%1$s non inviato: l\'inoltro è in pausa.</item>
+        <item quantity="other">%1$s non inviati: l\'inoltro è in pausa.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="one">%1$s non inviato: la sua regola è disattivata o eliminata.</item>
+        <item quantity="other">%1$s non inviati: le loro regole sono disattivate o eliminate.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="one">%1$s non inviato: raggiunto il limite giornaliero o quello orario della sua regola.</item>
+        <item quantity="other">%1$s non inviati: raggiunto il limite giornaliero o quello orario di una regola.</item>
+    </plurals>
+    <string name="fwdfix_card_last">Ultimo inoltro %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="one">%1$s questa settimana</item>
+        <item quantity="other">%1$s questa settimana</item>
+    </plurals>
+    <string name="fwdfix_card_never">Ancora nessun inoltro</string>
+    <string name="fwdfix_card_sent">inviato</string>
+    <string name="fwdfix_card_pending">invio in corso</string>
+    <string name="fwdfix_card_failed">non riuscito</string>
+    <string name="fwdfix_card_skipped">saltato (limite)</string>
+    <string name="fwdfix_delete_rule">Elimina regola</string>
+    <string name="fwdfix_deleted">Regola di inoltro eliminata</string>
+    <string name="fwdfix_test_button">Invia prova</string>
+    <string name="fwdfix_test_title">Inviare un SMS di prova?</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="one">%1$s SMS di prova verrà inviato al numero qui sopra. L\'SMS è a pagamento.</item>
+        <item quantity="other">Un SMS di prova verrà inviato a ciascuno dei %1$s numeri qui sopra. Ogni SMS è a pagamento.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">Invia</string>
+    <string name="fwdfix_test_text">Prova da uMessage: l\'inoltro funziona.</string>
+    <string name="fwdfix_test_sending">Invio della prova…</string>
+    <string name="fwdfix_test_sent">Prova inviata. Controlla l\'altro telefono.</string>
+    <string name="fwdfix_test_failed">Impossibile inviare la prova. Controlla il segnale e il credito.</string>
+    <string name="fwdfix_cost_persian">Testo in persiano di %1$s caratteri: %2$s parti × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">Testo in inglese di %1$s caratteri: %2$s parti × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">Nessun invio possibile ora</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="one">%1$s non verrà inviato: l\'inoltro è in pausa.</item>
+        <item quantity="other">%1$s non verranno inviati: l\'inoltro è in pausa.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="one">%1$s non verrà inviato: la sua regola è disattivata o eliminata.</item>
+        <item quantity="other">%1$s non verranno inviati: le loro regole sono disattivate o eliminate.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="one">%1$s non verrà inviato: raggiunto il limite giornaliero o quello orario della sua regola.</item>
+        <item quantity="other">%1$s non verranno inviati: raggiunto il limite giornaliero o quello orario di una regola.</item>
+    </plurals>
+</resources>

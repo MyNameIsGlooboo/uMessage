@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="digest_channel">ملخص أسبوعي</string>
+    <string name="digest_title">ملخص أسبوعي</string>
+    <string name="digest_row_title">ملخص أسبوعي</string>
+    <string name="digest_row_summary">مرة أسبوعيًا: عدد الرسائل المحظورة</string>
+    <plurals name="digest_held">
+        <item quantity="zero">احتُجزت %d رسالة هذا الأسبوع. اضغط للمراجعة.</item>
+        <item quantity="one">احتُجزت رسالة واحدة (%d) هذا الأسبوع. اضغط للمراجعة.</item>
+        <item quantity="two">احتُجزت رسالتان (%d) هذا الأسبوع. اضغط للمراجعة.</item>
+        <item quantity="few">احتُجزت %d رسائل هذا الأسبوع. اضغط للمراجعة.</item>
+        <item quantity="many">احتُجزت %d رسالة هذا الأسبوع. اضغط للمراجعة.</item>
+        <item quantity="other">احتُجزت %d رسالة هذا الأسبوع. اضغط للمراجعة.</item>
+    </plurals>
+    <plurals name="digest_held_important">
+        <item quantity="zero">احتُجزت %1$d رسالة هذا الأسبوع. منها رموز أو تنبيهات مصرفية: %2$d.</item>
+        <item quantity="one">احتُجزت رسالة واحدة (%1$d) هذا الأسبوع. منها رموز أو تنبيهات مصرفية: %2$d.</item>
+        <item quantity="two">احتُجزت رسالتان (%1$d) هذا الأسبوع. منهما رموز أو تنبيهات مصرفية: %2$d.</item>
+        <item quantity="few">احتُجزت %1$d رسائل هذا الأسبوع. منها رموز أو تنبيهات مصرفية: %2$d.</item>
+        <item quantity="many">احتُجزت %1$d رسالة هذا الأسبوع. منها رموز أو تنبيهات مصرفية: %2$d.</item>
+        <item quantity="other">احتُجزت %1$d رسالة هذا الأسبوع. منها رموز أو تنبيهات مصرفية: %2$d.</item>
+    </plurals>
+</resources>

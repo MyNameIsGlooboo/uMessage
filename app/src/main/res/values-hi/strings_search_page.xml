@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">चैट शुरू करें</string>
+    <string name="search_page_show_more">और दिखाएं</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">इस सिम पर कोई बातचीत नहीं है</string>
+    <string name="search_page_sim_empty_body">इस सिम से भेजे या पाए गए मैसेज वाली बातचीत यहां दिखती है.</string>
+</resources>

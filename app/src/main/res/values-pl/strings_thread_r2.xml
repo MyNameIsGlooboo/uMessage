@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">Powód</string>
+    <string name="thread_r2_details_rule">Reguła</string>
+    <string name="thread_r2_details_forwarded">Przekazano dalej</string>
+    <string name="thread_r2_details_decision_restored">Zablokowano, a następnie przywrócono do odebranych</string>
+    <string name="thread_r2_details_copy">Kopiuj %1$s</string>
+    <string name="thread_r2_menu_search">Szukaj w rozmowie</string>
+    <string name="thread_r2_menu_always_forward">Zawsze przekazuj dalej od tego nadawcy</string>
+    <string name="thread_r2_block_hint">Kolejne wiadomości trafią do sekcji Zablokowane. Nic nie opuszcza twojego telefonu.</string>
+    <string name="thread_r2_forward_message">Przekaż dalej tę wiadomość</string>
+    <string name="thread_r2_search_hint">Szukaj w rozmowie</string>
+    <string name="thread_r2_search_close">Zamknij wyszukiwanie</string>
+    <string name="thread_r2_search_none">Brak wyników</string>
+    <string name="thread_r2_search_count">%1$d z %2$d</string>
+    <string name="thread_r2_search_older">Starszy wynik</string>
+    <string name="thread_r2_search_newer">Nowszy wynik</string>
+    <string name="thread_r2_link_copy">Kopiuj link</string>
+    <string name="thread_r2_link_share">Udostępnij</string>
+    <string name="thread_r2_schedule_pick_date">Wybierz datę</string>
+    <string name="thread_r2_calendar_previous">Poprzedni miesiąc</string>
+    <string name="thread_r2_calendar_next">Następny miesiąc</string>
+</resources>

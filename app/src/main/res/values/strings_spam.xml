@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Common -->
+    <string name="spam_back">Back</string>
+    <string name="spam_cancel">Cancel</string>
+    <string name="spam_undo">Undo</string>
+    <string name="spam_more_options">More options</string>
+    <string name="spam_loading">Loading</string>
+
+    <!-- Blocked messages -->
+    <string name="spam_blocked_title">Blocked messages</string>
+    <string name="spam_blocked_open_rules">Rules</string>
+    <string name="spam_blocked_open_settings">Spam protection</string>
+    <!-- Stats card line, e.g. "Unknown senders: Smart". %1$s is the mode name (spam_mode_strict/smart/off). -->
+    <string name="spam_blocked_mode_line">Unknown senders: %1$s</string>
+    <string name="spam_blocked_mode_change">Change</string>
+    <string name="spam_blocked_stats_totals">%1$d stopped in total, %2$d restored</string>
+    <string name="spam_blocked_header_cd">%1$d spam stopped, last 7 days. %2$d stopped in total, %3$d restored.</string>
+    <string name="spam_blocked_empty_title">Nothing blocked yet</string>
+    <string name="spam_blocked_empty_body">Messages stopped by your filters wait here, so you can restore any of them with one tap.</string>
+    <string name="spam_action_delete">Delete</string>
+    <string name="spam_select">Select</string>
+    <string name="spam_action_select_all">Select all</string>
+    <string name="spam_action_clear_selection">Clear selection</string>
+    <plurals name="spam_message_count">
+        <item quantity="one">%d message</item>
+        <item quantity="other">%d messages</item>
+    </plurals>
+    <string name="spam_state_selected">Selected</string>
+    <string name="spam_state_not_selected">Not selected</string>
+    <plurals name="spam_snack_deleted">
+        <item quantity="one">%d message deleted</item>
+        <item quantity="other">%d messages deleted</item>
+    </plurals>
+    <string name="spam_snack_failed">Something went wrong. Please try again.</string>
+
+    <!-- Reasons -->
+    <string name="spam_reason_block_rule">Blocked rule</string>
+    <string name="spam_reason_unknown_sender">Unknown sender</string>
+    <string name="spam_reason_other">Filtered</string>
+
+    <!-- SIM -->
+    <string name="spam_sim_label">SIM %d</string>
+    <string name="spam_sim_generic">SIM</string>
+    <string name="spam_sim_both">Both SIMs</string>
+    <!-- Shown on a rule made for a SIM that is no longer in the phone, so the rule does not apply. -->
+    <string name="spam_sim_missing">SIM not in phone</string>
+    <string name="spam_sim_named">SIM %1$d, %2$s</string>
+
+    <!-- Rules -->
+    <string name="spam_rules_title">Allowed and blocked</string>
+    <string name="spam_rules_tab_allowed">Allowed</string>
+    <string name="spam_rules_tab_blocked">Blocked</string>
+    <string name="spam_rules_add">Add rule</string>
+    <string name="spam_rules_import">Import rules</string>
+    <string name="spam_rules_export">Export rules</string>
+    <string name="spam_rules_empty_allowed_title">No allowed rules</string>
+    <string name="spam_rules_empty_allowed_body">Anything you allow always reaches your inbox, even in Strict mode. Add a number, a sender name or a keyword.</string>
+    <string name="spam_rules_empty_blocked_title">No blocked rules</string>
+    <string name="spam_rules_empty_blocked_body">Block a number, a prefix, a sender name, a keyword or a pattern. Blocked messages land in the Blocked folder.</string>
+    <string name="spam_rules_delete_rule">Delete rule %s</string>
+    <string name="spam_rules_deleted">Rule deleted</string>
+    <plurals name="spam_rules_imported">
+        <item quantity="one">Imported %d rule</item>
+        <item quantity="other">Imported %d rules</item>
+    </plurals>
+    <string name="spam_rules_import_skipped">%d lines skipped (invalid or already added)</string>
+    <string name="spam_rules_import_failed">Could not read that file</string>
+    <string name="spam_rules_import_empty">No valid rules found in that file</string>
+    <plurals name="spam_rules_exported">
+        <item quantity="one">Exported %d rule</item>
+        <item quantity="other">Exported %d rules</item>
+    </plurals>
+    <string name="spam_rules_export_failed">Could not write the file</string>
+    <string name="spam_rules_tab_count">%1$s, %2$d</string>
+
+    <!-- Rule types -->
+    <string name="spam_type_number">Number</string>
+    <string name="spam_type_prefix">Prefix</string>
+    <string name="spam_type_sender_id">Sender name</string>
+    <string name="spam_type_keyword">Keyword</string>
+    <string name="spam_type_regex">Pattern</string>
+    <string name="spam_type_number_help">An exact phone number, for example +919876543210.</string>
+    <string name="spam_type_prefix_help">Every number that starts with this, for example +91140.</string>
+    <string name="spam_type_sender_id_help">A text sender such as VM-HDFCBK. Capital letters do not matter.</string>
+    <string name="spam_type_keyword_help">Any message that contains this text, even inside a longer word: “win” also matches “window”. Capital letters do not matter. The sender is blocked too, unless they are in your contacts.</string>
+    <string name="spam_type_keyword_allow_help">Any message that contains this text skips all your blocks, from any sender. Use a long, exact phrase.</string>
+    <string name="spam_type_regex_help">Advanced. A regular expression matched against the message text. The sender is blocked too, unless they are in your contacts.</string>
+    <string name="spam_type_number_hint">+919876543210</string>
+    <string name="spam_type_prefix_hint">+91140</string>
+    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_keyword_hint">free gift</string>
+    <string name="spam_type_regex_hint">win\\s+\\d+</string>
+
+    <!-- Add rule sheet -->
+    <string name="spam_sheet_title_allow">Add to allowed</string>
+    <string name="spam_sheet_title_block">Add to blocked</string>
+    <string name="spam_sheet_type_label">What to match</string>
+    <string name="spam_sheet_pattern_label">Value</string>
+    <string name="spam_sheet_sim_label">Applies to</string>
+    <string name="spam_sheet_note_label">Note (optional)</string>
+    <string name="spam_sheet_add">Add rule</string>
+    <string name="spam_sheet_clear_value">Clear value</string>
+
+    <!-- Rule validation -->
+    <string name="spam_err_empty">Enter a value</string>
+    <string name="spam_err_number">Enter a valid phone number: 3 to 15 digits, optionally starting with +</string>
+    <string name="spam_err_prefix">Enter 1 to 15 digits, optionally starting with +</string>
+    <string name="spam_err_sender_id">Use letters, digits, dashes or dots, with at least one letter (up to 16 characters)</string>
+    <string name="spam_err_keyword_short">Use at least 2 characters</string>
+    <string name="spam_err_too_long">That is too long</string>
+    <string name="spam_err_multiline">Use a single line</string>
+    <string name="spam_err_regex_invalid">Not a valid pattern: %s</string>
+    <string name="spam_err_regex_invalid_plain">Not a valid pattern</string>
+    <string name="spam_err_regex_empty_match">This pattern matches every message. Make it more specific.</string>
+    <string name="spam_err_duplicate">This rule already exists</string>
+    <string name="spam_err_regex_unsafe">This pattern repeats a group that already repeats, which can freeze message filtering. Simplify it.</string>
+    <string name="spam_err_regex_matches_all">This pattern matches every message. Make it more specific.</string>
+    <string name="spam_err_allow_keyword_short">Allowed words need at least 4 characters, because any message that contains them skips all your blocks</string>
+    <string name="spam_sheet_save_failed">Could not save the rule. Try again.</string>
+
+    <!-- Rule warnings: shown in the sheet and in the confirmation dialog before saving -->
+    <string name="spam_warn_allow_skips_blocks">Any message that contains this skips all your blocks, from any sender, even numbers you blocked.</string>
+    <string name="spam_warn_common_word">This is a short or common word. Spam can easily include it.</string>
+    <string name="spam_warn_broad">This matches a lot of ordinary text, so it will catch many normal messages.</string>
+    <string name="spam_warn_allowed_conflict">This is on your Allowed list. Allowed rules always win, so this block would never apply.</string>
+    <string name="spam_confirm_title">Save this rule?</string>
+    <string name="spam_confirm_save">Save anyway</string>
+    <string name="spam_confirm_remove_allowed">Remove from Allowed and block</string>
+    <string name="spam_confirm_remove_allowed_detail">Saving also removes the matching rule from your Allowed list.</string>
+
+    <!-- Import preview: shown after picking a rules file, before anything is added -->
+    <string name="spam_import_title">Import rules?</string>
+    <plurals name="spam_import_new">
+        <item quantity="one">%d new rule</item>
+        <item quantity="other">%d new rules</item>
+    </plurals>
+    <!-- e.g. "12 new rules: 10 blocked, 2 allowed". %1$s is spam_import_new, %2$d blocked rules, %3$d allowed rules -->
+    <string name="spam_import_summary">%1$s: %2$d blocked, %3$d allowed</string>
+    <plurals name="spam_import_skipped">
+        <item quantity="one">%d line will be skipped (already added or not valid)</item>
+        <item quantity="other">%d lines will be skipped (already added or not valid)</item>
+    </plurals>
+    <string name="spam_import_examples">For example</string>
+    <string name="spam_import_risky_title">Check these first</string>
+    <string name="spam_import_risky_body">Allowed keywords and patterns let any message that contains them skip all your blocks. Broad rules can catch normal messages.</string>
+    <!-- One rule in the import preview, e.g. "Blocked, Keyword: free gift". %1$s list, %2$s type, %3$s value -->
+    <string name="spam_import_rule_line">%1$s, %2$s: %3$s</string>
+    <plurals name="spam_import_more">
+        <item quantity="one">and %d more</item>
+        <item quantity="other">and %d more</item>
+    </plurals>
+    <string name="spam_import_confirm">Import</string>
+
+    <!-- Settings -->
+    <string name="spam_settings_title">Spam protection</string>
+    <string name="spam_settings_unknown_title">Messages from unknown senders</string>
+    <string name="spam_settings_unknown_body">Senders that are not in your contacts, that you have never texted, and that are not on your allowed list.</string>
+    <string name="spam_mode_strict">Strict</string>
+    <string name="spam_mode_strict_body">Blocks all unknown senders, codes too</string>
+    <string name="spam_mode_smart">Smart</string>
+    <string name="spam_mode_smart_body">Blocks unknown senders, lets plain codes in</string>
+    <string name="spam_mode_off">Off</string>
+    <string name="spam_mode_off_body">No unknown-sender blocking</string>
+    <string name="spam_strict_warning_title">Strict can hide important messages</string>
+    <string name="spam_strict_warning_body">Banks, delivery companies and one-time passcodes usually come from senders who are not in your contacts. In Strict mode they go to the Blocked folder, codes included. Choose Smart to let codes through, or allow those senders once.</string>
+    <string name="spam_strict_warning_action">Review blocked messages</string>
+    <string name="spam_settings_cleanup_title">Clean up</string>
+    <string name="spam_purge_title">Delete blocked messages after</string>
+    <string name="spam_purge_body">Old blocked messages are removed automatically.</string>
+    <string name="spam_purge_days">%d days</string>
+    <string name="spam_purge_forever">Never</string>
+    <string name="spam_settings_notify_title">Notifications</string>
+    <string name="spam_notify_title">Notify when a message is blocked</string>
+    <string name="spam_notify_body">Show a quiet notification. Off by default so spam stays silent.</string>
+    <string name="spam_settings_rules_row">Rules</string>
+    <string name="spam_settings_rules_row_body">Numbers, senders, keywords and patterns</string>
+    <string name="spam_settings_blocked_row">Blocked messages</string>
+    <string name="spam_settings_blocked_row_body">Review, restore or delete</string>
+</resources>

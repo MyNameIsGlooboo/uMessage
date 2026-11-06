@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_text_xsmall">Sangat kecil</string>
+    <string name="w3c_text_huge">Sangat besar</string>
+    <string name="w3c_text_giant">Ekstra besar</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">संग्रहित मैसेज खाली करें</string>
+    <string name="inbox_empty_bin_menu">रीसायकल बिन खाली करें</string>
+    <string name="inbox_archive_empty_body">मैसेज से संग्रहित की गई चैट यहां दिखती हैं.</string>
+    <string name="inbox_details_view_contact">संपर्क देखें</string>
+    <string name="inbox_details_more">और</string>
+    <string name="inbox_details_search">बातचीत में खोजें</string>
+    <string name="inbox_details_search_body">इस चैट में कोई मैसेज खोजें</string>
+    <string name="inbox_details_forward">इस भेजने वाले के लिए फ़ॉरवर्ड करने का नियम</string>
+    <string name="inbox_details_forward_body">इस भेजने वाले के मैसेज की कॉपी दूसरे नंबर पर भेजें</string>
+    <string name="inbox_details_search_hint">इस बातचीत में खोजें</string>
+</resources>

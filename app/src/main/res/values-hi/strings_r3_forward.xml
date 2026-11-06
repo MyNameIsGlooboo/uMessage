@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="r3fwd_title">फ़ॉरवर्ड करना</string>
+    <string name="r3fwd_options">फ़ॉरवर्ड करने के विकल्प</string>
+    <string name="r3fwd_summary_none">बंद · मैसेज दूसरे नंबर पर फ़ॉरवर्ड करें</string>
+    <string name="r3fwd_summary_off">बंद</string>
+    <string name="r3fwd_summary_paused">रुका हुआ</string>
+    <plurals name="r3fwd_summary_on" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d नियम चालू</item>
+        <item quantity="other">%d नियम चालू</item>
+    </plurals>
+    <string name="r3fwd_paused_title">मैसेज फ़ॉरवर्ड करना रुका हुआ है</string>
+    <string name="r3fwd_paused_body">आपके नियम सेव हैं, लेकिन दोबारा चालू करने तक कोई मैसेज फ़ॉरवर्ड नहीं होगा.</string>
+    <string name="r3fwd_paused_action">विकल्प खोलें</string>
+</resources>

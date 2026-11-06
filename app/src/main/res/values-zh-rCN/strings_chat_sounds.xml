@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i65_setting_title">聊天音效</string>
+    <string name="i65_setting_summary">发送和接收消息时播放简短音效</string>
+</resources>

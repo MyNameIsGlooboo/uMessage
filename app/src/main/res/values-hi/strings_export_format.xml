@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="export_format_json">uMessage फ़ाइल (टेक्स्ट और फ़ोटो)</string>
+    <string name="export_format_xml">SMS Backup &amp; Restore फ़ाइल (दूसरे ऐप के लिए)</string>
+    <string name="export_format_xml_hint">uMessage इस तरह की फ़ाइल से सिर्फ़ टेक्स्ट वापस लाता है.</string>
+    <string name="export_scope_all">सभी बातचीत</string>
+    <string name="export_scope_choose">बातचीत चुनें</string>
+    <plurals name="export_scope_chosen" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d बातचीत चुनी गई</item>
+        <item quantity="other">%1$d बातचीत चुनी गईं</item>
+    </plurals>
+    <string name="export_pick_title">बातचीत चुनें</string>
+    <string name="export_pick_search">खोजें</string>
+    <string name="export_pick_all">सभी चुनें</string>
+    <string name="export_pick_none">चयन हटाएं</string>
+    <string name="export_pick_empty">कोई बातचीत नहीं है</string>
+    <string name="export_pick_nothing_chosen">कम से कम एक बातचीत चुनें</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">Liên kết rút gọn: bạn không thể biết sẽ dẫn đến đâu.</string>
+    <string name="i07_punycode">Tên được mã hóa và có thể hiển thị các chữ cái khác với tên thật.</string>
+    <string name="i07_mixed_script">Tên trộn nhiều bảng chữ cái, cách thường thấy ở các trang giả mạo.</string>
+    <string name="i07_raw_ip">Địa chỉ là dãy số, không phải tên trang web.</string>
+    <string name="i07_http_only">Không được mã hóa (http, không phải https).</string>
+    <string name="i07_lookalike">Tên trông giống %1$s. Hãy kiểm tra chính tả.</string>
+    <string name="i07_user_info">Phần trước dấu @ không phải là trang web.</string>
+    <string name="i07_locked">Không thể mở liên kết rủi ro ở đây. Bạn có thể sao chép liên kết.</string>
+    <string name="i07_lock_title">Không thể mở liên kết rủi ro</string>
+    <string name="i07_lock_summary">Khi đó, bảng tùy chọn liên kết chỉ cho sao chép và chia sẻ</string>
+    <string name="i07_group_title">Liên kết</string>
+</resources>

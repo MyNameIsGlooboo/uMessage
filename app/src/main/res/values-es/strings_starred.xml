@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">Destacar</string>
+    <string name="i13_unstar">Quitar de destacados</string>
+    <string name="i13_starred_mark">Destacado</string>
+    <string name="i13_filter_starred">Destacados</string>
+    <string name="i13_filter_starred_empty_title">No hay mensajes destacados</string>
+    <string name="i13_filter_starred_empty_body">Selecciona un mensaje en una conversación y toca la estrella para guardarlo aquí.</string>
+    <string name="i13_starred_note">La estrella guarda una copia del texto, aunque se elimine la conversación. Al quitarla, se elimina la copia.</string>
+    <string name="i13_snapshot_gone">Esta conversación se eliminó. Solo queda el texto guardado.</string>
+    <string name="i13_snapshot_close">Cerrar</string>
+</resources>

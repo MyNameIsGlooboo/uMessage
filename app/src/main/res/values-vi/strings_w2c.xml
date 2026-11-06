@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2c_blocked_label">Đã chặn</string>
+    <string name="w2c_log_blocked_by_rule">Đã chặn theo quy tắc: %1$s</string>
+    <string name="w2c_log_blocked_by_old_list">Đã chặn theo danh sách chặn cũ</string>
+    <string name="w2c_log_fwd_rate_limited">Không chuyển tiếp: quy tắc này đã đạt giới hạn mỗi giờ</string>
+</resources>

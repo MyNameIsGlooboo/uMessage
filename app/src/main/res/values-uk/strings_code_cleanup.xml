@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="cleanup_codes_title">Видаляти прочитані коди через</string>
+    <string name="cleanup_codes_summary">Коди переміщуються в кошик</string>
+    <string name="cleanup_never">Ніколи</string>
+    <string name="cleanup_24_hours">24 години</string>
+    <plurals name="cleanup_days" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d день</item>
+        <item quantity="few">%d дні</item>
+        <item quantity="many">%d днів</item>
+        <item quantity="other">%d дня</item>
+    </plurals>
+    <string name="cleanup_card_title">Видаляти прочитані коди через 7 днів?</string>
+    <string name="cleanup_card_body">Прочитані коди підтвердження переміщуються в кошик, звідки їх можна відновити.</string>
+    <string name="cleanup_card_yes">Увімкнути</string>
+    <string name="cleanup_card_no">Ні, дякую</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">Cerca parole chiave</string>
+    <string name="w2a_keywords_search_clear">Cancella ricerca</string>
+    <string name="w2a_keywords_no_match_title">Nessuna parola chiave corrispondente</string>
+    <string name="w2a_keywords_no_match_body">Prova un\'altra parola o cancella la ricerca.</string>
+</resources>

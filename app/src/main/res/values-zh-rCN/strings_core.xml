@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_message_inexact">已设为定时发送，可能会延迟几分钟发送。</string>
+</resources>

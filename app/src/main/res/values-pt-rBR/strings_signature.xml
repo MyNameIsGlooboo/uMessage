@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">Assinatura</string>
+    <string name="i60_off">Desativada</string>
+    <string name="i60_dialog_note">Adicionada abaixo de cada mensagem que você envia. Deixe em branco para não usar.</string>
+</resources>

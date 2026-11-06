@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_list_title">ข้อความที่กำหนดเวลาส่ง</string>
+    <string name="scheduled_list_empty_title">ยังไม่ได้กำหนดเวลาส่ง</string>
+    <string name="scheduled_list_empty_body">ข้อความที่กำหนดเวลาส่งจะรออยู่ที่นี่จนกว่าจะส่ง</string>
+    <string name="scheduled_list_not_sent">ยังไม่ได้ส่ง</string>
+    <string name="scheduled_list_edit_time">เปลี่ยนเวลา</string>
+    <string name="scheduled_list_send_now">ส่งตอนนี้</string>
+    <string name="scheduled_list_delete">ลบ</string>
+    <string name="scheduled_list_send_confirm">ส่งข้อความนี้ถึง %1$s ตอนนี้ไหม?</string>
+    <string name="scheduled_list_delete_confirm">ลบข้อความที่กำหนดเวลาส่งถึง %1$s ไหม?</string>
+    <string name="scheduled_list_row_actions">ตัวเลือกสำหรับข้อความถึง %1$s</string>
+</resources>

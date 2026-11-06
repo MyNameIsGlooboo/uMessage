@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">Skrócony link: nie widać, dokąd prowadzi.</string>
+    <string name="i07_punycode">Nazwa jest zakodowana i może wyświetlać inne litery niż te, z których się składa.</string>
+    <string name="i07_mixed_script">Nazwa łączy różne alfabety, co często zdarza się na fałszywych stronach.</string>
+    <string name="i07_raw_ip">Adres to numer, a nie nazwa strony.</string>
+    <string name="i07_http_only">Brak szyfrowania (http zamiast https).</string>
+    <string name="i07_lookalike">Nazwa przypomina %1$s. Sprawdź pisownię.</string>
+    <string name="i07_user_info">Część przed @ nie jest adresem strony.</string>
+    <string name="i07_locked">Nie można tu otwierać ryzykownych linków. Możesz skopiować link.</string>
+    <string name="i07_lock_title">Nie można otwierać ryzykownych linków</string>
+    <string name="i07_lock_summary">Panel linku pozwala wtedy tylko kopiować i udostępniać</string>
+    <string name="i07_group_title">Linki</string>
+</resources>

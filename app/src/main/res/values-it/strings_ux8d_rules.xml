@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">Consenti sempre</string>
+    <string name="ux8d_sheet_title_block">Blocca sempre</string>
+    <string name="ux8d_match_label">Cosa cercare</string>
+    <string name="ux8d_match_number">Un numero di telefono</string>
+    <string name="ux8d_match_sender">Il nome di un mittente, come una banca</string>
+    <string name="ux8d_match_word">Una parola nel messaggio</string>
+    <string name="ux8d_match_prefix">Numeri che iniziano con…</string>
+    <string name="ux8d_match_pattern">Un\'espressione regolare (avanzato)</string>
+    <string name="ux8d_match_more">Altri criteri di ricerca</string>
+    <string name="ux8d_action_label">Quando c\'è una corrispondenza</string>
+    <string name="ux8d_more_options">Altre opzioni</string>
+    <string name="ux8d_row_type_number">Numero</string>
+    <string name="ux8d_row_type_prefix">Il numero inizia con</string>
+    <string name="ux8d_row_type_sender">Nome del mittente</string>
+    <string name="ux8d_row_type_word">Parola nel messaggio</string>
+    <string name="ux8d_row_type_pattern">Espressione regolare</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

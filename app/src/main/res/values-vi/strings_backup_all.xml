@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n09_backup_contents">Mọi thứ trừ tin nhắn của bạn: quy tắc cho phép, chặn, chuyển tiếp và toàn bộ cài đặt. Tệp không được mã hóa và chứa các số điện thoại bạn chuyển tiếp đến, nên hãy lưu ở nơi riêng tư. Các quy tắc chuyển tiếp sẽ ở trạng thái tắt sau khi khôi phục.</string>
+    <string name="n09_label_spam">Chống tin nhắn rác</string>
+    <string name="n09_label_notifications">Thông báo</string>
+    <string name="n09_label_chat">Trò chuyện và danh sách tin nhắn</string>
+    <string name="n09_label_sending">Gửi tin nhắn</string>
+    <string name="n09_label_cleanup">Dọn dẹp và bộ nhớ</string>
+    <string name="n09_label_privacy">Quyền riêng tư và tùy chọn khóa</string>
+    <string name="n09_restore_not_included">Không có trong tệp: tin nhắn của bạn, PIN khóa ứng dụng, tên SIM, văn bản đã lưu, cuộc trò chuyện đã ẩn và thời gian tắt thông báo.</string>
+    <string name="n09_restore_after">Đặt lại uMessage làm ứng dụng SMS mặc định và thiết lập lại khóa ứng dụng.</string>
+</resources>

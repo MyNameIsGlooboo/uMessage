@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">Maskuj kody w wiadomościach przekazywanych dalej</string>
+    <string name="w3d_mask_codes_body">Kody przekazywane dalej mają postać ****</string>
+    <string name="w3d_mask_keep_last">Zachowaj dwie ostatnie cyfry</string>
+    <string name="w3d_mask_keep_last_on">Wiadomości przekazywane dalej pokazują np. **34.</string>
+    <string name="w3d_mask_keep_last_off">Wiadomości przekazywane dalej ukrywają cały kod.</string>
+    <string name="w3d_daily_limit">Dzienny limit przekazywania dalej</string>
+    <string name="w3d_daily_limit_body">Maksymalna liczba wiadomości przekazywanych dalej dziennie</string>
+    <string name="w3d_hide_lock_codes">Ukrywaj kody na ekranie blokady</string>
+    <string name="w3d_hide_lock_codes_body">Wiadomość z kodem pokazuje •••• na ekranie blokady, dopóki nie odblokujesz telefonu.</string>
+</resources>

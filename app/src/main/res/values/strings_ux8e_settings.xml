@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">Alerts, lock screen, weekly summary</string>
+    <string name="ux8e_nav_typing">Typing and sending</string>
+    <string name="ux8e_nav_typing_body">Enter key, delivery reports, signature</string>
+    <string name="ux8e_nav_storage">Storage and cleanup</string>
+    <string name="ux8e_nav_storage_body">Recycle bin, archive, auto-delete</string>
+    <string name="ux8e_group_lock_screen">Lock screen</string>
+    <string name="ux8e_group_recycle">Deleted messages</string>
+    <string name="ux8e_group_cleanup">Automatic cleanup</string>
+    <string name="ux8e_group_archive">Archive</string>
+    <string name="ux8e_keep_deleted">Keep deleted messages</string>
+    <string name="ux8e_keep_deleted_body">They wait in the recycle bin for 30 days</string>
+    <string name="ux8e_recycle_bin">Recycle bin</string>
+    <string name="ux8e_backup_row">Back up</string>
+    <string name="ux8e_backup_row_body">Save to a file</string>
+    <string name="ux8e_restore_row">Restore</string>
+    <string name="ux8e_restore_row_body">Load from a file</string>
+    <string name="ux8e_backup_what">Back up what?</string>
+    <string name="ux8e_restore_what">Restore what?</string>
+    <string name="ux8e_what_messages">Messages</string>
+    <string name="ux8e_what_settings">Rules and settings</string>
+    <string name="ux8e_backup_warning">Backup files are not encrypted.</string>
+    <string name="ux8e_calendar">Calendar</string>
+</resources>

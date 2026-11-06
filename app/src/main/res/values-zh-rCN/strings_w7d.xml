@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w7d_banner_stopped">
+        <item quantity="other">本周已屏蔽%1$s条消息</item>
+    </plurals>
+    <string name="w7d_banner_none">本周未屏蔽任何消息</string>
+    <string name="w7d_fwd_master_switch">转发</string>
+    <string name="w7d_help_menu">词语屏蔽说明</string>
+    <string name="w7d_help_title">词语屏蔽说明</string>
+    <string name="w7d_help_words_head">词语</string>
+    <string name="w7d_help_words_body">消息中任意位置包含该词语，就会被屏蔽。</string>
+    <string name="w7d_help_words_example">免费领奖</string>
+    <string name="w7d_help_sender_head">发件人名称</string>
+    <string name="w7d_help_sender_body">屏蔽指定名称的发件人发来的短信，例如某家商店。</string>
+    <string name="w7d_help_sender_example">促销</string>
+    <string name="w7d_help_number_head">号码开头</string>
+    <string name="w7d_help_number_body">屏蔽所有以这些数字开头的号码。</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">正则表达式（适合高级用户）</string>
+    <string name="w7d_help_pattern_body">一个正则表达式可匹配多种写法，请先测试再保存。</string>
+    <string name="w7d_help_pattern_example">(免费|中奖)领奖</string>
+    <string name="w7d_help_close">关闭</string>
+    <string name="w7d_bank_cards_title">银行通知卡片</string>
+    <string name="w7d_bank_cards_summary">在银行短信下方显示金额</string>
+</resources>

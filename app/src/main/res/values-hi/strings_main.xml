@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_search_hint">बातचीत खोजें</string>
+    <string name="main_search_back">खोज बंद करें</string>
+    <string name="main_search_clear">खोज का टेक्स्ट मिटाएं</string>
+    <string name="main_search_type_more">खोजने के लिए कम से कम 2 अक्षर लिखें</string>
+    <string name="main_search_no_results">कोई नतीजा नहीं मिला</string>
+    <string name="main_settings">सेटिंग</string>
+    <string name="main_tab_messages">मैसेज</string>
+    <string name="main_tab_blocked">ब्लॉक किए गए</string>
+    <string name="main_tab_archived">संग्रहित</string>
+    <plurals name="main_tab_blocked_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">ब्लॉक किए गए, %d नया</item>
+        <item quantity="other">ब्लॉक किए गए, %d नए</item>
+    </plurals>
+    <string name="main_permission_title">अनुमति चाहिए</string>
+    <string name="main_permission_grant">अनुमति दें</string>
+    <string name="main_permission_notifications">सूचनाओं की अनुमति दें, वरना ऐप आने वाले मैसेज नहीं दिखा पाएगा.</string>
+    <string name="main_sms_permission_title">uMessage को SMS का ऐक्सेस चाहिए</string>
+    <string name="main_sms_permission_body">SMS पढ़ने और भेजने की अनुमति के बिना, uMessage आपके मैसेज नहीं दिखा सकता, मैसेज नहीं भेज सकता और स्पैम फ़िल्टर नहीं कर सकता. कुछ भी मिटाया नहीं जाता.</string>
+    <string name="main_sms_permission_settings">ऐप की सेटिंग खोलें</string>
+    <string name="main_not_default_banner">uMessage आपका डिफ़ॉल्ट एसएमएस ऐप नहीं है, इसलिए यह स्पैम ब्लॉक नहीं कर सकता और मैसेज नहीं भेज सकता.</string>
+    <string name="main_not_default_fix">ठीक करें</string>
+    <string name="main_not_default_fix_description">uMessage को डिफ़ॉल्ट एसएमएस ऐप बनाएं</string>
+</resources>

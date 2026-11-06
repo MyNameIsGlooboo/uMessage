@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3fwd_title">إعادة التوجيه</string>
+    <string name="r3fwd_options">خيارات إعادة التوجيه</string>
+    <string name="r3fwd_summary_none">متوقف · أعد توجيه الرسائل إلى رقم آخر</string>
+    <string name="r3fwd_summary_off">متوقف</string>
+    <string name="r3fwd_summary_paused">متوقف مؤقتًا</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="zero">%d قواعد مفعّلة</item>
+        <item quantity="one">قاعدة واحدة مفعّلة (%d)</item>
+        <item quantity="two">قاعدتان مفعّلتان (%d)</item>
+        <item quantity="few">%d قواعد مفعّلة</item>
+        <item quantity="many">%d قاعدة مفعّلة</item>
+        <item quantity="other">%d قاعدة مفعّلة</item>
+    </plurals>
+    <string name="r3fwd_paused_title">إعادة التوجيه متوقفة مؤقتًا</string>
+    <string name="r3fwd_paused_body">قواعدك محفوظة، لكن لن تُعاد توجيه أي رسائل حتى تفعّل إعادة التوجيه مجددًا.</string>
+    <string name="r3fwd_paused_action">افتح الخيارات</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n09_backup_contents">メッセージ以外のすべてが含まれます。許可、ブロック、転送のルールと、すべての設定です。ファイルは暗号化されず、転送先の電話番号が含まれるため、他の人がアクセスできない場所に保管してください。転送ルールはオフの状態で復元されます。</string>
+    <string name="n09_label_spam">迷惑メッセージ対策</string>
+    <string name="n09_label_notifications">通知</string>
+    <string name="n09_label_chat">チャットとメッセージ一覧</string>
+    <string name="n09_label_sending">送信</string>
+    <string name="n09_label_cleanup">整理とストレージ</string>
+    <string name="n09_label_privacy">プライバシーとロック設定</string>
+    <string name="n09_restore_not_included">メッセージ、アプリロックのPIN、SIM名、保存した定型文、非表示のチャット、通知のミュート時間はファイルに含まれません。</string>
+    <string name="n09_restore_after">uMessageをもう一度デフォルトのSMSアプリにし、アプリロックを設定し直してください。</string>
+</resources>

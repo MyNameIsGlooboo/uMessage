@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_checklist_title">In 1 Minute eingerichtet</string>
+    <string name="w3c_checklist_done_title">Alles bereit</string>
+    <string name="w3c_checklist_basics_title">Das Wichtigste ist eingerichtet</string>
+    <string name="w3c_checklist_progress">%1$s von %2$s</string>
+    <string name="w3c_checklist_dismiss">Checkliste schließen</string>
+    <string name="w3c_checklist_step_sms">Lege uMessage als Standard-SMS-App fest</string>
+    <string name="w3c_checklist_step_notifications">Aktiviere Benachrichtigungen</string>
+    <string name="w3c_checklist_step_blocked">Sieh dir den Tab „Blockiert“ an</string>
+    <string name="w3c_checklist_step_forward">Optional: Nachrichten an eine andere Nummer weiterleiten</string>
+    <string name="w3c_checklist_step_done">Erledigt</string>
+    <string name="w3c_checklist_action_set">Festlegen</string>
+    <string name="w3c_checklist_action_open">Öffnen</string>
+    <string name="w3c_receipt_title">Spam zurückgehalten: Zum Prüfen tippen</string>
+    <string name="w3c_receipt_body">Eine Nachricht von einem unbekannten Absender wurde unter „Blockiert“ zurückgehalten. Sie ist nicht verloren: Du kannst sie jederzeit prüfen und wiederherstellen.</string>
+    <string name="w3c_receipt_review">Prüfen</string>
+    <string name="w3c_receipt_got_it">Verstanden</string>
+    <string name="w3c_search_codes">Letzte Codes</string>
+    <string name="w3c_search_code_copied">Code kopiert</string>
+    <string name="w3c_search_code_description">Code %1$s von %2$s kopieren</string>
+    <string name="w3c_new_paste">Nummer einfügen</string>
+    <string name="w3c_new_paste_none">Keine Telefonnummer in der Zwischenablage</string>
+    <string name="w3c_details_allow">Diesen Absender immer erlauben</string>
+    <string name="w3c_details_allow_hint">Nachrichten von diesem Absender erreichen immer deinen Posteingang</string>
+    <string name="w3c_details_allow_spoof_hint">Jeder kann unter diesem Namen Nachrichten senden. Auch diese werden erlaubt</string>
+    <string name="w3c_date_gregorian">Gregorianisch</string>
+    <string name="w3c_date_gregorian_body">Datumsangaben wie 29. Okt.</string>
+    <string name="w3c_date_jalali">Dschalali</string>
+    <string name="w3c_date_jalali_body">Datumsangaben wie 7. Aban</string>
+    <string name="w3c_date_both">Beide</string>
+    <string name="w3c_date_both_body">Beide Kalender in einer Unterhaltung</string>
+    <string name="w3c_text_size">Textgröße</string>
+    <string name="w3c_text_small">Klein</string>
+    <string name="w3c_text_default">Standard</string>
+    <string name="w3c_text_large">Groß</string>
+    <string name="w3c_text_largest">Sehr groß</string>
+    <string name="w3c_text_size_sample">Beispiel: Dein Code ist 482913.</string>
+    <string name="w3c_backup_settings">Alle Einstellungen sichern</string>
+    <string name="w3c_backup_settings_body">Speichert Regeln, Weiterleitungen und Einstellungen in einer Datei. Keine Nachrichtentexte.</string>
+    <string name="w3c_restore_settings">Alle Einstellungen wiederherstellen</string>
+    <string name="w3c_restore_settings_body">Lädt Regeln und Einstellungen aus einer Sicherungsdatei</string>
+    <string name="w3c_backup_saved">Sicherung gespeichert: %1$d Einträge</string>
+    <string name="w3c_backup_failed">Die Sicherung konnte nicht gespeichert werden</string>
+    <string name="w3c_restore_done">%1$d Einträge wiederhergestellt</string>
+    <string name="w3c_restore_failed">Diese Datei konnte nicht wiederhergestellt werden. Wähle eine Sicherung der uMessage-Einstellungen.</string>
+</resources>

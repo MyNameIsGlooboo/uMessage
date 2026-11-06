@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">Podpis</string>
+    <string name="i60_off">Wyłączony</string>
+    <string name="i60_dialog_note">Dodawany pod każdą wysyłaną wiadomością. Zostaw puste pole, aby nie dodawać podpisu.</string>
+</resources>

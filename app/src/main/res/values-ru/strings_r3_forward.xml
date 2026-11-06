@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="r3fwd_title">Пересылка</string>
+    <string name="r3fwd_options">Параметры пересылки</string>
+    <string name="r3fwd_summary_none">Выкл. · Пересылка сообщений на другой номер</string>
+    <string name="r3fwd_summary_off">Выкл.</string>
+    <string name="r3fwd_summary_paused">Приостановлена</string>
+    <plurals name="r3fwd_summary_on" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Включено %d правило</item>
+        <item quantity="few">Включено %d правила</item>
+        <item quantity="many">Включено %d правил</item>
+        <item quantity="other">Включено %d правила</item>
+    </plurals>
+    <string name="r3fwd_paused_title">Пересылка приостановлена</string>
+    <string name="r3fwd_paused_body">Правила сохранены, но сообщения не пересылаются, пока вы снова не включите пересылку.</string>
+    <string name="r3fwd_paused_action">Открыть параметры</string>
+</resources>

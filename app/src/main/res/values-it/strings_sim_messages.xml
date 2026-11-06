@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sim_messages_title">Messaggi sulla SIM</string>
+    <string name="sim_messages_row_body">Copia i messaggi sulla SIM nelle tue conversazioni</string>
+    <string name="sim_messages_loading">Lettura della SIM…</string>
+    <string name="sim_messages_unavailable">Questo telefono non consente alle app di leggere la SIM.</string>
+    <string name="sim_messages_empty">Non ci sono messaggi sulla SIM.</string>
+    <plurals name="sim_messages_found">
+        <item quantity="one">Sulla SIM c\'è %1$d messaggio. Vuoi copiarlo nelle tue conversazioni? Resterà anche sulla SIM.</item>
+        <item quantity="other">Sulla SIM ci sono %1$d messaggi. Vuoi copiarli nelle tue conversazioni? Resteranno anche sulla SIM.</item>
+    </plurals>
+    <string name="sim_messages_import">Copia</string>
+    <string name="sim_messages_importing">Copia dei messaggi…</string>
+    <string name="sim_messages_done">Copiati %1$d messaggi. %2$d erano già nelle tue conversazioni.</string>
+    <string name="sim_messages_done_failed">Copiati %1$d messaggi. %2$d erano già nelle tue conversazioni e non è stato possibile copiarne %3$d.</string>
+</resources>

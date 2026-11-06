@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i31_card_deposit">Deposit</string>
+    <string name="i31_card_withdrawal">Withdrawal</string>
+    <string name="i31_card_balance_title">Balance</string>
+    <string name="i31_card_title">%1$s: %2$s</string>
+    <string name="i31_card_balance">Balance: %1$s</string>
+    <string name="i31_money">%1$s %2$s</string>
+    <string name="i31_card_hint_card">Card ending %1$s</string>
+    <string name="i31_card_hint_account">Account ending %1$s</string>
+    <string name="i31_card_hint_other">Ending %1$s</string>
+    <string name="i31_currency_rial">Rial</string>
+    <string name="i31_currency_toman">Toman</string>
+    <string name="i31_currency_usd">USD</string>
+    <string name="i31_currency_eur">EUR</string>
+    <string name="i31_currency_gbp">GBP</string>
+    <string name="i31_currency_aed">AED</string>
+</resources>

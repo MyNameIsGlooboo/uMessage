@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">Nicht in deinen Kontakten</string>
+    <string name="i04_card_caution">Sei vorsichtig mit Links, Geld und Codes.</string>
+    <string name="i04_card_add_contact">Kontakt hinzufügen</string>
+    <string name="i04_card_allow">Immer erlauben</string>
+    <string name="i04_card_block">Blockieren</string>
+    <string name="i04_card_dismiss">Ausblenden</string>
+</resources>

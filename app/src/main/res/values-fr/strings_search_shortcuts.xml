@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">Expéditeurs inconnus</string>
+    <string name="i28_filter_unknown_empty_title">Aucun expéditeur inconnu</string>
+    <string name="i28_filter_unknown_empty_body">Les conversations avec des personnes absentes de vos contacts et à qui vous n\'avez jamais écrit s\'affichent ici.</string>
+    <string name="i28_filter_images">Images</string>
+    <string name="i28_filter_images_empty_title">Aucune image</string>
+    <string name="i28_filter_images_empty_body">Les messages contenant une image s\'affichent ici.</string>
+    <string name="i28_filter_links">Liens</string>
+    <string name="i28_filter_links_empty_title">Aucun lien</string>
+    <string name="i28_filter_links_empty_body">Les messages contenant un lien web s\'affichent ici.</string>
+    <string name="i28_hit_picture">Image</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_scope_title">Kilitlenecek bölümler</string>
+    <string name="lock_scope_whole">Uygulamanın tamamı</string>
+    <string name="lock_scope_chosen">Yalnızca seçilen bölümler</string>
+    <string name="lock_scope_chosen_long">Yalnızca seçilen bölümler: Engellenenler sekmesi ve gizli görüşmeler</string>
+    <string name="lock_scope_blocked_title">Engellenen mesajlar kilitli</string>
+    <string name="lock_scope_blocked_body">Görmek için kilidi açın.</string>
+    <string name="lock_scope_unlock">Kilidi açın</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rules_sheet_title_edit_allow">許可ルールを編集</string>
+    <string name="rules_sheet_title_edit_block">ブロックルールを編集</string>
+    <string name="rules_sheet_save">変更を保存</string>
+    <string name="rules_edit_rule">%1$sを編集</string>
+    <string name="rules_search_hint">ルールとメモを検索</string>
+    <string name="rules_search_clear">検索をクリア</string>
+    <string name="rules_filter_all_types">すべての種類</string>
+    <string name="rules_search_empty_title">一致するルールはありません</string>
+    <string name="rules_search_empty_body">別の単語で検索するか、すべての種類を表示してください。</string>
+    <string name="rules_export_selected">選択項目をエクスポート</string>
+    <string name="rules_delete_selected">選択項目を削除</string>
+    <plurals name="rules_deleted_many">
+        <item quantity="other">%d件のルールを削除しました。</item>
+    </plurals>
+    <string name="rules_system_block_list">システムのブロックリスト（着信もブロック）</string>
+    <string name="rules_legacy_note_keyword">旧ブロック単語リストから移行</string>
+    <string name="rules_legacy_note_number">システムのブロックリストから移行</string>
+    <string name="rules_legacy_banner_title">以前のブロックリストが見つかりました</string>
+    <string name="rules_legacy_banner_body">一部の単語や番号は、このルール以外でブロックされています。ここに移行すると、すべてをまとめて確認・変更できます。</string>
+    <string name="rules_legacy_banner_review">確認</string>
+    <string name="rules_legacy_banner_not_now">後で</string>
+    <string name="rules_legacy_section_keywords">旧ブロック単語リスト</string>
+    <string name="rules_legacy_section_keywords_body">これらの単語をルールに移行するまで、引き続きフィルターに使われます。移行後は旧リストを使わなくなります。</string>
+    <string name="rules_legacy_section_system_body">これらの番号からのメッセージは、uMessageに届く前にAndroidが破棄するため、「ブロック済み」には表示されません。このリストは電話アプリと共有され、着信もブロックします。</string>
+    <string name="rules_legacy_chip_old_list">旧リスト</string>
+    <string name="rules_legacy_chip_system">システム・着信も対象</string>
+    <string name="rules_legacy_move">ルールに移行</string>
+    <string name="rules_legacy_open_system">システムのブロックリストを開く</string>
+    <string name="rules_migrate_title">以前のブロックリストをルールに移行</string>
+    <string name="rules_migrate_nothing">以前のリストの項目は、すべてルールに登録済みです。</string>
+    <plurals name="rules_migrate_keywords">
+        <item quantity="other">旧ブロック単語リストの%d語を、キーワードのブロックルールに移行します。移行後は旧リストを使わなくなります。</item>
+    </plurals>
+    <plurals name="rules_migrate_keywords_kept">
+        <item quantity="other">%d語はルールにできないため（1文字、複数行、長すぎるもの）、旧リストに残ります。</item>
+    </plurals>
+    <plurals name="rules_migrate_numbers">
+        <item quantity="other">システムのブロックリストの番号%d件もブロックルールに追加</item>
+    </plurals>
+    <string name="rules_migrate_numbers_body">システムのブロックリストにある番号からのメッセージはAndroidが破棄するため、uMessageには届きません。uMessageのルールにすると「ブロック済み」で読んだり復元したりできますが、先にシステムのリストから削除する必要があります。</string>
+    <string name="rules_migrate_remove">システムのブロックリストからも削除</string>
+    <string name="rules_migrate_remove_body">システムのリストは着信もブロックします。リストから削除した番号からは、再び着信できるようになります。uMessageがフィルターするのはメッセージのみです。</string>
+    <plurals name="rules_migrate_numbers_kept">
+        <item quantity="other">ワイルドカードを含む%d件はルールにできないため、システムのリストに残ります。</item>
+    </plurals>
+    <string name="rules_migrate_confirm">移行</string>
+    <plurals name="rules_migrated_keywords">
+        <item quantity="other">%d語をルールに移行しました。</item>
+    </plurals>
+    <plurals name="rules_migrated_numbers">
+        <item quantity="other">%d件の番号をルールに追加しました。</item>
+    </plurals>
+    <plurals name="rules_migrated_removed">
+        <item quantity="other">システムのブロックリストから%d件を削除しました。</item>
+    </plurals>
+    <plurals name="rules_migrated_kept">
+        <item quantity="other">%d件は以前のリストに残ります。</item>
+    </plurals>
+    <string name="rules_migrated_nothing">移行した項目はありません。</string>
+    <string name="settings_system_block_list_body_calls">このスマートフォン全体で着信とメッセージをブロックします。メッセージはuMessageに届く前にAndroidが破棄します。番号は「許可済みとブロック済み」に移行できます。</string>
+    <string name="settings_old_blocked_words">旧ブロック単語リスト</string>
+    <string name="settings_old_blocked_words_body">「許可済みとブロック済み」に移行中</string>
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialogs_yes">Evet</string>
+    <string name="dialogs_no">Hayır</string>
+    <string name="dialogs_permission_required">İzin gerekli</string>
+    <string name="dialogs_grant_permission">İzin verin</string>
+    <string name="dialogs_date_time_format_title">Tarih ve saat biçimi</string>
+    <string name="dialogs_use_24_hour">24 saat biçimini kullanın</string>
+    <string name="dialogs_lock_pattern">Desen</string>
+    <string name="dialogs_lock_pin">PIN</string>
+    <string name="dialogs_lock_biometrics">Biyometri</string>
+    <string name="dialogs_lock_fingerprint">Parmak izi</string>
+    <string name="dialogs_lock_enter_pin">PIN girin</string>
+    <string name="dialogs_lock_repeat_pin">PIN\'i tekrar girin</string>
+    <string name="dialogs_lock_wrong_pin">Yanlış PIN</string>
+    <string name="dialogs_lock_empty_pin">Lütfen bir PIN girin</string>
+    <string name="dialogs_lock_short_pin">PIN en az 4 haneli olmalıdır</string>
+    <string name="dialogs_lock_pin_suggestion">En az 4 hane. %d veya daha fazla hane daha güvenlidir.</string>
+    <plurals name="dialogs_lock_short_pattern">
+        <item quantity="one">Çok kısa. En az %d nokta birleştirin.</item>
+        <item quantity="other">Çok kısa. En az %d nokta birleştirin.</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">Desen çizin</string>
+    <string name="dialogs_lock_repeat_pattern">Deseni tekrar çizin</string>
+    <string name="dialogs_lock_wrong_pattern">Yanlış desen</string>
+    <string name="dialogs_lock_locked_out">Çok fazla hatalı kilit açma denemesi.\n%d saniye sonra tekrar deneyin.</string>
+    <string name="dialogs_lock_pin_delete">Son haneyi silin</string>
+    <string name="dialogs_lock_pin_confirm">PIN\'i onaylayın</string>
+    <string name="dialogs_lock_pin_entered">%d hane girildi</string>
+    <string name="dialogs_lock_pattern_pad">Desen çizme alanı</string>
+    <string name="dialogs_lock_biometric_hint">Kimliğinizi parmak iziniz veya yüzünüzle doğrulayın.</string>
+    <string name="dialogs_lock_biometric_open">Biyometri ile doğrulayın</string>
+    <string name="dialogs_lock_place_finger">Parmağınızı parmak izi sensörüne yerleştirin.</string>
+    <string name="dialogs_lock_no_fingerprints">Kayıtlı parmak izi yok. Cihaz ayarlarından ekleyin.</string>
+    <string name="dialogs_lock_open_settings">Cihaz ayarlarını açın</string>
+    <string name="dialogs_lock_auth_failed">Kimlik doğrulanamadı</string>
+    <string name="dialogs_lock_auth_blocked">Kimlik doğrulama engellendi, biraz sonra tekrar deneyin</string>
+</resources>

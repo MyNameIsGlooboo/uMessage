@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="backup_channel">پشتیبان و بازیابی</string>
+    <string name="backup_restoring">در حال بازیابی پیام‌ها</string>
+    <string name="backup_exporting">در حال تهیهٔ پشتیبان پیام‌ها</string>
+    <plurals name="backup_progress_import" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d مورد خوانده شد</item>
+        <item quantity="other">%1$d مورد خوانده شد</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d مورد خوانده شد (%2$d%%)</item>
+        <item quantity="other">%1$d مورد خوانده شد (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d پیام ذخیره شد</item>
+        <item quantity="other">%1$d پیام ذخیره شد</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d پیام ذخیره شد (%2$d%%)</item>
+        <item quantity="other">%1$d پیام ذخیره شد (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">می‌توانید از برنامه خارج شوید؛ کار ادامه می‌یابد و پیشرفت آن در یک اعلان نمایش داده می‌شود.</string>
+    <string name="backup_stop">توقف</string>
+    <string name="backup_hide">پنهان کردن</string>
+    <string name="backup_already_running">تهیهٔ پشتیبان یا بازیابی از قبل در حال انجام است.</string>
+    <string name="backup_restore_finished">بازیابی پایان یافت</string>
+    <string name="backup_restore_stopped">بازیابی متوقف شد</string>
+    <string name="backup_restore_failed">بازیابی ناموفق بود</string>
+    <string name="backup_invalid_file">این فایل پشتیبان پیام‌ها نیست، بنابراین چیزی بازیابی نشد.</string>
+    <string name="backup_no_entries">فایل پشتیبان هیچ پیامی ندارد.</string>
+    <plurals name="backup_nothing_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">چیز تازه‌ای برای وارد کردن نیست؛ این پیام از قبل در این گوشی است.</item>
+        <item quantity="other">چیز تازه‌ای برای وارد کردن نیست؛ هر %1$d پیام از قبل در این گوشی هستند.</item>
+    </plurals>
+    <string name="backup_line_added">اضافه شد: %1$d</string>
+    <string name="backup_line_duplicates">از قبل در این گوشی بود و رد شد: %1$d</string>
+    <string name="backup_line_repaired">پیوست‌های جاافتاده به پیام‌های قبلاً بازیابی‌شده اضافه شد: %1$d</string>
+    <string name="backup_line_incomplete">پیام‌های تصویری بازیابی‌شده بدون برخی پیوست‌ها: %1$d</string>
+    <string name="backup_line_failed">بازیابی نشد: %1$d</string>
+    <string name="backup_line_damaged">موارد آسیب‌دیدهٔ فایل که رد شدند: %1$d</string>
+    <string name="backup_line_xml_mms">پیام‌های تصویری این پشتیبان XML که پشتیبانی نمی‌شوند و رد شدند: %1$d</string>
+    <string name="backup_line_not_selected">برای وارد کردن انتخاب نشد: %1$d</string>
+    <string name="backup_reasons">دلیل:</string>
+    <string name="backup_reason_no_address">پیام فرستنده یا گیرنده ندارد</string>
+    <string name="backup_reason_no_thread">گوشی نتوانست گفتگوی آن را باز کند</string>
+    <string name="backup_reason_refused">گوشی اجازهٔ ذخیرهٔ آن را نداد</string>
+    <string name="backup_reason_not_in_backup">پیوست در فایل پشتیبان نیست</string>
+    <string name="backup_reason_damaged_attachment">پیوست موجود در فایل پشتیبان آسیب دیده است</string>
+    <string name="backup_reason_attachment_write">پیوست ذخیره نشد</string>
+    <string name="backup_stopped_early">فایل پس از مورد %1$d آسیب دیده است، بنابراین موارد بعدی خوانده نشدند.</string>
+    <plurals name="backup_cancelled_import" tools:ignore="ImpliedQuantity">
+        <item quantity="one">پس از %1$d مورد متوقف شد. برای تکمیل، بازیابی را با همین فایل دوباره اجرا کنید؛ پیام‌های قبلاً بازیابی‌شده رد می‌شوند.</item>
+        <item quantity="other">پس از %1$d مورد متوقف شد. برای تکمیل، بازیابی را با همین فایل دوباره اجرا کنید؛ پیام‌های قبلاً بازیابی‌شده رد می‌شوند.</item>
+    </plurals>
+    <string name="backup_retry_hint">برای تلاش دوباره جهت بازیابی موارد ناموفق، بازیابی را دوباره اجرا کنید؛ پیام‌های قبلاً بازیابی‌شده رد می‌شوند.</string>
+    <string name="backup_export_finished">تهیهٔ پشتیبان پایان یافت</string>
+    <string name="backup_export_stopped">تهیهٔ پشتیبان متوقف شد</string>
+    <string name="backup_export_failed">تهیهٔ پشتیبان ناموفق بود</string>
+    <string name="backup_export_error">پشتیبان ذخیره نشد و فایل ناقص حذف شد. %1$s</string>
+    <string name="backup_export_cancelled">تهیهٔ پشتیبان متوقف شد و فایل ناقص حذف شد.</string>
+    <string name="backup_export_nothing">پیامی برای تهیهٔ پشتیبان وجود ندارد.</string>
+    <string name="backup_export_counts">%1$d SMS و %2$d MMS ذخیره شد.</string>
+    <string name="backup_export_unreadable_attachments">پیوست‌هایی که خوانده نشدند و بدون تصویر ذخیره شدند: %1$d</string>
+    <string name="backup_export_unreadable_messages">پیام‌هایی که خوانده نشدند و کنار گذاشته شدند: %1$d</string>
+    <string name="backup_export_unreadable_conversations">گفتگوهایی که خوانده نشدند و کنار گذاشته شدند: %1$d</string>
+    <string name="backup_export_incomplete">این پشتیبان کامل نیست.</string>
+    <string name="backup_interrupted_import">آخرین بازیابی پیش از پایان متوقف شد؛ شاید گوشی برنامه را بسته باشد. آن را با همین فایل دوباره اجرا کنید؛ پیام‌های قبلاً بازیابی‌شده رد می‌شوند.</string>
+    <string name="backup_interrupted_export">تهیهٔ آخرین پشتیبان پیش از پایان متوقف شد، بنابراین فایل آن ناقص است. لطفاً پشتیبان تازه‌ای تهیه کنید.</string>
+</resources>

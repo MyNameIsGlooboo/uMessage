@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="sim_messages_title">Messages de la carte SIM</string>
+    <string name="sim_messages_row_body">Copier les messages stockés sur la carte SIM dans vos conversations</string>
+    <string name="sim_messages_loading">Lecture de la carte SIM…</string>
+    <string name="sim_messages_unavailable">Ce téléphone ne permet pas aux applications de lire la carte SIM.</string>
+    <string name="sim_messages_empty">Aucun message sur la carte SIM.</string>
+    <plurals name="sim_messages_found" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d message est stocké sur la carte SIM. Le copier dans vos conversations ? Il restera aussi sur la carte SIM.</item>
+        <item quantity="other">%1$d messages sont stockés sur la carte SIM. Les copier dans vos conversations ? Ils resteront aussi sur la carte SIM.</item>
+    </plurals>
+    <string name="sim_messages_import">Copier</string>
+    <string name="sim_messages_importing">Copie des messages…</string>
+    <string name="sim_messages_done">%1$d messages copiés. %2$d figuraient déjà dans vos conversations.</string>
+    <string name="sim_messages_done_failed">%1$d messages copiés. %2$d figuraient déjà dans vos conversations et %3$d n\'ont pas pu être copiés.</string>
+</resources>

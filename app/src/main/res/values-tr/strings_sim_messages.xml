@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sim_messages_title">SIM kart mesajları</string>
+    <string name="sim_messages_row_body">SIM kartta kayıtlı metinleri görüşmelerinize kopyalayın</string>
+    <string name="sim_messages_loading">SIM kart okunuyor…</string>
+    <string name="sim_messages_unavailable">Bu telefon, uygulamaların SIM kartı okumasına izin vermiyor.</string>
+    <string name="sim_messages_empty">SIM kartta mesaj yok.</string>
+    <plurals name="sim_messages_found">
+        <item quantity="one">SIM kartta %1$d mesaj kayıtlı. Görüşmelerinize kopyalansın mı? Mesaj SIM kartta da kalır.</item>
+        <item quantity="other">SIM kartta %1$d mesaj kayıtlı. Görüşmelerinize kopyalansın mı? Mesajlar SIM kartta da kalır.</item>
+    </plurals>
+    <string name="sim_messages_import">Kopyalayın</string>
+    <string name="sim_messages_importing">Mesajlar kopyalanıyor…</string>
+    <string name="sim_messages_done">%1$d mesaj kopyalandı. %2$d mesaj zaten görüşmelerinizde vardı.</string>
+    <string name="sim_messages_done_failed">%1$d mesaj kopyalandı. %2$d mesaj zaten görüşmelerinizde vardı ve %3$d mesaj kopyalanamadı.</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">Bắt đầu trò chuyện</string>
+    <string name="search_page_show_more">Xem thêm</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">Chưa có cuộc trò chuyện trên SIM này</string>
+    <string name="search_page_sim_empty_body">Cuộc trò chuyện có tin nhắn được gửi hoặc nhận qua SIM này sẽ hiện ở đây.</string>
+</resources>

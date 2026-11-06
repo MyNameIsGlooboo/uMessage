@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_menu_more">Más…</string>
+    <string name="thread_menu_group_share">Compartir y exportar</string>
+    <string name="thread_menu_group_organize">Organizar</string>
+    <string name="thread_menu_group_sender">Remitente</string>
+    <string name="thread_labels_chips_description">Etiquetas: %1$s. Toca para cambiarlas.</string>
+    <string name="thread_labels_more_chip">+%1$d</string>
+</resources>

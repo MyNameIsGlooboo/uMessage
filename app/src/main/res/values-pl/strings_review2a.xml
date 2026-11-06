@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r2a_filter_codes">Kody</string>
+    <string name="r2a_filter_codes_empty_title">Brak kodów</string>
+    <string name="r2a_filter_codes_empty_body">Tutaj pojawią się rozmowy, których ostatnia wiadomość zawiera kod jednorazowy.</string>
+    <string name="r2a_search_codes_window">Z ostatnich 24 godzin</string>
+</resources>

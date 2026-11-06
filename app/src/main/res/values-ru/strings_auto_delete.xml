@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="cleanup_old_title">Срок хранения сообщений</string>
+    <string name="cleanup_old_summary">Более старые сообщения перемещаются в корзину</string>
+    <string name="cleanup_forever">Всегда</string>
+    <string name="cleanup_one_year">1 год</string>
+    <string name="cleanup_bin_title">Включить корзину?</string>
+    <string name="cleanup_bin_body">Удаленные сообщения хранятся там 30 дней, чтобы вы могли их восстановить. Корзина нужна для автоматической очистки.</string>
+    <string name="cleanup_bin_confirm">Включить</string>
+    <string name="cleanup_old_confirm_title">Переместить старые сообщения?</string>
+    <plurals name="cleanup_old_confirm_body" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d сообщение старше этого срока будет перемещено в корзину сейчас. Сообщения со звездочкой, непрочитанные сообщения и закрепленные чаты останутся.</item>
+        <item quantity="few">%d сообщения старше этого срока будут перемещены в корзину сейчас. Сообщения со звездочкой, непрочитанные сообщения и закрепленные чаты останутся.</item>
+        <item quantity="many">%d сообщений старше этого срока будут перемещены в корзину сейчас. Сообщения со звездочкой, непрочитанные сообщения и закрепленные чаты останутся.</item>
+        <item quantity="other">%d сообщения старше этого срока будет перемещено в корзину сейчас. Сообщения со звездочкой, непрочитанные сообщения и закрепленные чаты останутся.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">Пока нет сообщений старше этого срока. Более старые сообщения будут автоматически перемещаться в корзину. Сообщения со звездочкой, непрочитанные сообщения и закрепленные чаты останутся.</string>
+    <string name="cleanup_old_confirm_action">Переместить</string>
+</resources>

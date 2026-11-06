@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">متوقفة اليوم: تم بلوغ الحد</string>
+    <string name="fwdfix_limit_hint">أُرسلت %1$s من %2$s عمليات إعادة توجيه اليوم. تُستأنف إعادة التوجيه غدًا.</string>
+    <string name="fwdfix_status_skipped">تم التخطي (الحد)</string>
+    <string name="fwdfix_error_daily_limit">لم تُرسل: تم بلوغ الحد اليومي لإعادة التوجيه.</string>
+    <string name="fwdfix_error_rate_limited">لم تُرسل: أعادت هذه القاعدة توجيه %1$s رسالة خلال الساعة الماضية.</string>
+    <string name="fwdfix_retry_all_recent">تشمل فقط عمليات إعادة التوجيه خلال آخر 24 ساعة.</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="zero">لم تُرسل %1$s رسالة: إعادة التوجيه متوقفة مؤقتًا.</item>
+        <item quantity="one">لم تُرسل رسالة واحدة (%1$s): إعادة التوجيه متوقفة مؤقتًا.</item>
+        <item quantity="two">لم تُرسل رسالتان (%1$s): إعادة التوجيه متوقفة مؤقتًا.</item>
+        <item quantity="few">لم تُرسل %1$s رسائل: إعادة التوجيه متوقفة مؤقتًا.</item>
+        <item quantity="many">لم تُرسل %1$s رسالة: إعادة التوجيه متوقفة مؤقتًا.</item>
+        <item quantity="other">لم تُرسل %1$s رسالة: إعادة التوجيه متوقفة مؤقتًا.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="zero">لم تُرسل %1$s رسالة: قواعدها معطّلة أو محذوفة.</item>
+        <item quantity="one">لم تُرسل رسالة واحدة (%1$s): قاعدتها معطّلة أو محذوفة.</item>
+        <item quantity="two">لم تُرسل رسالتان (%1$s): قواعدهما معطّلة أو محذوفة.</item>
+        <item quantity="few">لم تُرسل %1$s رسائل: قواعدها معطّلة أو محذوفة.</item>
+        <item quantity="many">لم تُرسل %1$s رسالة: قواعدها معطّلة أو محذوفة.</item>
+        <item quantity="other">لم تُرسل %1$s رسالة: قواعدها معطّلة أو محذوفة.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="zero">لم تُرسل %1$s رسالة: تم بلوغ الحد اليومي أو الحد بالساعة لإحدى القواعد.</item>
+        <item quantity="one">لم تُرسل رسالة واحدة (%1$s): تم بلوغ الحد اليومي أو الحد بالساعة لقاعدتها.</item>
+        <item quantity="two">لم تُرسل رسالتان (%1$s): تم بلوغ الحد اليومي أو الحد بالساعة لإحدى القواعد.</item>
+        <item quantity="few">لم تُرسل %1$s رسائل: تم بلوغ الحد اليومي أو الحد بالساعة لإحدى القواعد.</item>
+        <item quantity="many">لم تُرسل %1$s رسالة: تم بلوغ الحد اليومي أو الحد بالساعة لإحدى القواعد.</item>
+        <item quantity="other">لم تُرسل %1$s رسالة: تم بلوغ الحد اليومي أو الحد بالساعة لإحدى القواعد.</item>
+    </plurals>
+    <string name="fwdfix_card_last">آخر إعادة توجيه %1$s، %2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="zero">%1$s رسالة هذا الأسبوع</item>
+        <item quantity="one">رسالة واحدة (%1$s) هذا الأسبوع</item>
+        <item quantity="two">رسالتان (%1$s) هذا الأسبوع</item>
+        <item quantity="few">%1$s رسائل هذا الأسبوع</item>
+        <item quantity="many">%1$s رسالة هذا الأسبوع</item>
+        <item quantity="other">%1$s رسالة هذا الأسبوع</item>
+    </plurals>
+    <string name="fwdfix_card_never">لم تُعَد توجيه أي رسالة بعد</string>
+    <string name="fwdfix_card_sent">أُرسلت</string>
+    <string name="fwdfix_card_pending">جارٍ الإرسال</string>
+    <string name="fwdfix_card_failed">فشل الإرسال</string>
+    <string name="fwdfix_card_skipped">تم التخطي (الحد)</string>
+    <string name="fwdfix_delete_rule">احذف القاعدة</string>
+    <string name="fwdfix_deleted">حُذفت قاعدة إعادة التوجيه</string>
+    <string name="fwdfix_test_button">أرسل اختبارًا</string>
+    <string name="fwdfix_test_title">هل تريد إرسال رسالة SMS تجريبية؟</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="zero">ستُرسل رسالة SMS تجريبية إلى كل رقم من الأرقام أعلاه وعددها %1$s. كل رسالة SMS مدفوعة.</item>
+        <item quantity="one">ستُرسل رسالة SMS تجريبية واحدة (%1$s) إلى الرقم أعلاه. وهي رسالة SMS مدفوعة.</item>
+        <item quantity="two">ستُرسل رسالة SMS تجريبية إلى كل من الرقمين أعلاه (%1$s). كل رسالة SMS مدفوعة.</item>
+        <item quantity="few">ستُرسل رسالة SMS تجريبية إلى كل رقم من الأرقام أعلاه وعددها %1$s. كل رسالة SMS مدفوعة.</item>
+        <item quantity="many">ستُرسل رسالة SMS تجريبية إلى كل رقم من الأرقام أعلاه وعددها %1$s. كل رسالة SMS مدفوعة.</item>
+        <item quantity="other">ستُرسل رسالة SMS تجريبية إلى كل رقم من الأرقام أعلاه وعددها %1$s. كل رسالة SMS مدفوعة.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">أرسل</string>
+    <string name="fwdfix_test_text">اختبار من uMessage: إعادة التوجيه تعمل.</string>
+    <string name="fwdfix_test_sending">جارٍ إرسال الاختبار…</string>
+    <string name="fwdfix_test_sent">أُرسل الاختبار. تحقّق من الهاتف الآخر.</string>
+    <string name="fwdfix_test_failed">تعذّر إرسال الاختبار. تحقّق من الإشارة والرصيد.</string>
+    <string name="fwdfix_cost_persian">نص فارسي من %1$s حرف: %2$s أجزاء × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">نص إنجليزي من %1$s حرف: %2$s أجزاء × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">لا يمكن إرسال أي شيء الآن</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="zero">لن تُرسل %1$s رسالة: إعادة التوجيه متوقفة مؤقتًا.</item>
+        <item quantity="one">لن تُرسل رسالة واحدة (%1$s): إعادة التوجيه متوقفة مؤقتًا.</item>
+        <item quantity="two">لن تُرسل رسالتان (%1$s): إعادة التوجيه متوقفة مؤقتًا.</item>
+        <item quantity="few">لن تُرسل %1$s رسائل: إعادة التوجيه متوقفة مؤقتًا.</item>
+        <item quantity="many">لن تُرسل %1$s رسالة: إعادة التوجيه متوقفة مؤقتًا.</item>
+        <item quantity="other">لن تُرسل %1$s رسالة: إعادة التوجيه متوقفة مؤقتًا.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="zero">لن تُرسل %1$s رسالة: قواعدها معطّلة أو محذوفة.</item>
+        <item quantity="one">لن تُرسل رسالة واحدة (%1$s): قاعدتها معطّلة أو محذوفة.</item>
+        <item quantity="two">لن تُرسل رسالتان (%1$s): قواعدهما معطّلة أو محذوفة.</item>
+        <item quantity="few">لن تُرسل %1$s رسائل: قواعدها معطّلة أو محذوفة.</item>
+        <item quantity="many">لن تُرسل %1$s رسالة: قواعدها معطّلة أو محذوفة.</item>
+        <item quantity="other">لن تُرسل %1$s رسالة: قواعدها معطّلة أو محذوفة.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="zero">لن تُرسل %1$s رسالة: تم بلوغ الحد اليومي أو الحد بالساعة لإحدى القواعد.</item>
+        <item quantity="one">لن تُرسل رسالة واحدة (%1$s): تم بلوغ الحد اليومي أو الحد بالساعة لقاعدتها.</item>
+        <item quantity="two">لن تُرسل رسالتان (%1$s): تم بلوغ الحد اليومي أو الحد بالساعة لإحدى القواعد.</item>
+        <item quantity="few">لن تُرسل %1$s رسائل: تم بلوغ الحد اليومي أو الحد بالساعة لإحدى القواعد.</item>
+        <item quantity="many">لن تُرسل %1$s رسالة: تم بلوغ الحد اليومي أو الحد بالساعة لإحدى القواعد.</item>
+        <item quantity="other">لن تُرسل %1$s رسالة: تم بلوغ الحد اليومي أو الحد بالساعة لإحدى القواعد.</item>
+    </plurals>
+</resources>

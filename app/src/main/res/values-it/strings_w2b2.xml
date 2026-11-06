@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2b2_thread_menu_allow">Consenti sempre questo mittente</string>
+    <string name="w2b2_thread_menu_why">Perché questa decisione?</string>
+    <string name="w2b2_thread_chip_allowed">Sempre consentito</string>
+    <string name="w2b2_thread_chip_blocked">Bloccato da una regola</string>
+    <string name="w2b2_settings_group_dates">Date</string>
+    <string name="w2b2_settings_jalali">Date del calendario Jalali</string>
+    <string name="w2b2_settings_jalali_body">Mostra le date di conversazioni e messaggi programmati nel calendario persiano</string>
+    <string name="w2b2_lock_pattern_hint">Collega almeno %d punti, poi ripeti la stessa sequenza per confermare.</string>
+    <string name="w2b2_lock_recovery_hint">Se la dimentichi, puoi accedere dalla schermata di blocco usando il blocco schermo del telefono.</string>
+</resources>

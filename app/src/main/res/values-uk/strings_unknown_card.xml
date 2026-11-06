@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">Немає у ваших контактах</string>
+    <string name="i04_card_caution">Будьте обережні з посиланнями, грошима та кодами.</string>
+    <string name="i04_card_add_contact">Додати контакт</string>
+    <string name="i04_card_allow">Завжди дозволяти</string>
+    <string name="i04_card_block">Заблокувати</string>
+    <string name="i04_card_dismiss">Приховати</string>
+</resources>

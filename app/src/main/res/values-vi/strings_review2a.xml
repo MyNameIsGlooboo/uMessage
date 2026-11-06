@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r2a_filter_codes">Mã</string>
+    <string name="r2a_filter_codes_empty_title">Không có mã</string>
+    <string name="r2a_filter_codes_empty_body">Cuộc trò chuyện có mã dùng một lần trong tin nhắn mới nhất sẽ hiện ở đây.</string>
+    <string name="r2a_search_codes_window">Trong 24 giờ qua</string>
+</resources>

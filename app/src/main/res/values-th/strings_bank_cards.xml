@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i31_card_deposit">เงินเข้า</string>
+    <string name="i31_card_withdrawal">เงินออก</string>
+    <string name="i31_card_balance_title">ยอดคงเหลือ</string>
+    <string name="i31_card_title">%1$s: %2$s</string>
+    <string name="i31_card_balance">ยอดคงเหลือ: %1$s</string>
+    <string name="i31_money">%1$s %2$s</string>
+    <string name="i31_card_hint_card">บัตรลงท้าย %1$s</string>
+    <string name="i31_card_hint_account">บัญชีลงท้าย %1$s</string>
+    <string name="i31_card_hint_other">ลงท้าย %1$s</string>
+    <string name="i31_currency_rial">เรียล</string>
+    <string name="i31_currency_toman">โตมัน</string>
+    <string name="i31_currency_usd">USD</string>
+    <string name="i31_currency_eur">EUR</string>
+    <string name="i31_currency_gbp">GBP</string>
+    <string name="i31_currency_aed">AED</string>
+</resources>

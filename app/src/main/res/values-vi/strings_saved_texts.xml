@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">Văn bản đã lưu</string>
+    <string name="n06_sheet_title">Văn bản đã lưu</string>
+    <string name="n06_empty_hint">Ví dụ: địa chỉ hoặc số thẻ của bạn. Nhấn vào một mục để chèn vào tin nhắn.</string>
+    <string name="n06_add">Thêm văn bản đã lưu</string>
+    <string name="n06_edit">Sửa văn bản đã lưu</string>
+    <string name="n06_title_label">Tiêu đề (không bắt buộc)</string>
+    <string name="n06_text_label">Văn bản</string>
+    <string name="n06_save">Lưu</string>
+    <string name="n06_delete">Xóa</string>
+    <string name="n06_private_tip">Chỉ lưu trên điện thoại này, không được mã hóa. Không lưu mật khẩu hoặc PIN.</string>
+    <string name="n06_save_from_message">Lưu vào văn bản đã lưu</string>
+    <string name="n06_saved_toast">Đã lưu</string>
+    <string name="n06_save_full">Danh sách đã đầy. Hãy xóa một mục trước.</string>
+    <string name="n06_save_duplicate">Đã lưu rồi</string>
+</resources>

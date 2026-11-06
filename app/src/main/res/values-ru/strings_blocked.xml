@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="spam_allow_title" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Всегда разрешать этого отправителя?</item>
+        <item quantity="few">Всегда разрешать этих %d отправителей?</item>
+        <item quantity="many">Всегда разрешать этих %d отправителей?</item>
+        <item quantity="other">Всегда разрешать %d отправителя?</item>
+    </plurals>
+    <string name="spam_allow_body_one">Сообщение в любом случае вернется во входящие. Если всегда разрешать %1$s, новые сообщения этого отправителя будут обходить все фильтры, включая ваши правила блокировки.</string>
+    <string name="spam_allow_body_many">Сообщения в любом случае вернутся во входящие. Если всегда разрешать этих отправителей, их новые сообщения будут обходить все фильтры, включая ваши правила блокировки.</string>
+    <string name="spam_allow_spoof_warning">Любой может отправить сообщение под именем вроде %1$s. Если разрешить это имя, поддельные сообщения с ним тоже будут проходить.</string>
+    <string name="spam_allow_confirm">Всегда разрешать</string>
+    <string name="spam_allow_dismiss">Не сейчас</string>
+    <plurals name="spam_snack_restored_to_inbox" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d сообщение восстановлено во входящих</item>
+        <item quantity="few">%d сообщения восстановлены во входящих</item>
+        <item quantity="many">%d сообщений восстановлено во входящих</item>
+        <item quantity="other">%d сообщения восстановлено во входящих</item>
+    </plurals>
+    <plurals name="spam_snack_restored_allowed" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Восстановлено. %d отправитель теперь всегда разрешен.</item>
+        <item quantity="few">Восстановлено. %d отправителя теперь всегда разрешены.</item>
+        <item quantity="many">Восстановлено. %d отправителей теперь всегда разрешены.</item>
+        <item quantity="other">Восстановлено. Теперь всегда разрешено %d отправителя.</item>
+    </plurals>
+    <plurals name="spam_snack_allowed_only" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d отправитель теперь всегда разрешен.</item>
+        <item quantity="few">%d отправителя теперь всегда разрешены.</item>
+        <item quantity="many">%d отправителей теперь всегда разрешены.</item>
+        <item quantity="other">Теперь всегда разрешено %d отправителя.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Не удалось восстановить изображение в %d сообщении.</item>
+        <item quantity="few">Не удалось восстановить изображения в %d сообщениях.</item>
+        <item quantity="many">Не удалось восстановить изображения в %d сообщениях.</item>
+        <item quantity="other">Не удалось восстановить изображения: %d сообщения.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost_nothing" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Не удалось восстановить MMS-сообщение, поэтому во входящие ничего не добавлено.</item>
+        <item quantity="few">Не удалось восстановить %d MMS-сообщения, поэтому во входящие ничего не добавлено.</item>
+        <item quantity="many">Не удалось восстановить %d MMS-сообщений, поэтому во входящие ничего не добавлено.</item>
+        <item quantity="other">Не удалось восстановить %d MMS-сообщения, поэтому во входящие ничего не добавлено.</item>
+    </plurals>
+    <plurals name="spam_snack_restore_failed" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Не удалось восстановить %d MMS-сообщение. Оно осталось здесь.</item>
+        <item quantity="few">Не удалось восстановить %d MMS-сообщения. Они остались здесь.</item>
+        <item quantity="many">Не удалось восстановить %d MMS-сообщений. Они остались здесь.</item>
+        <item quantity="other">Не удалось восстановить %d MMS-сообщения. Они остались здесь.</item>
+    </plurals>
+    <string name="spam_mms_stored">MMS-сообщение</string>
+    <string name="spam_mms_downloading">MMS-сообщение, загружается</string>
+    <string name="spam_mms_missing">MMS-сообщение, не загружено</string>
+    <string name="spam_mms_thumbnail">Изображение в заблокированном сообщении</string>
+    <string name="spam_reason_rule_keyword">Правило: ключевое слово «%1$s»</string>
+    <string name="spam_reason_rule_regex">Правило: регулярное выражение %1$s</string>
+    <string name="spam_reason_rule_number">Правило: номер %1$s</string>
+    <string name="spam_reason_rule_prefix">Правило: номера, начинающиеся с %1$s</string>
+    <string name="spam_reason_rule_sender">Правило: отправитель %1$s</string>
+    <string name="spam_reason_rule_removed">Правило уже удалено</string>
+    <string name="spam_reason_open_rules">Открыть правила</string>
+    <plurals name="spam_purge_notice" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Заблокированные сообщения удаляются через %d день</item>
+        <item quantity="few">Заблокированные сообщения удаляются через %d дня</item>
+        <item quantity="many">Заблокированные сообщения удаляются через %d дней</item>
+        <item quantity="other">Заблокированные сообщения удаляются через %d дня</item>
+    </plurals>
+    <string name="spam_purge_notice_off">Заблокированные сообщения хранятся, пока вы их не удалите</string>
+    <plurals name="spam_purge_left" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Удаление через %d день</item>
+        <item quantity="few">Удаление через %d дня</item>
+        <item quantity="many">Удаление через %d дней</item>
+        <item quantity="other">Удаление через %d дня</item>
+    </plurals>
+    <string name="spam_purge_left_today">Удаление сегодня</string>
+    <string name="convlist_report_spam">Пожаловаться на спам</string>
+    <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Вы пожаловались на спам. Новые сообщения этого отправителя попадут в «Заблокированные». Чат в архиве.</item>
+        <item quantity="few">Вы пожаловались на спам: %d чата. Новые сообщения этих отправителей попадут в «Заблокированные». Чаты в архиве.</item>
+        <item quantity="many">Вы пожаловались на спам: %d чатов. Новые сообщения этих отправителей попадут в «Заблокированные». Чаты в архиве.</item>
+        <item quantity="other">Вы пожаловались на спам: %d чата. Новые сообщения этих отправителей попадут в «Заблокированные». Чаты в архиве.</item>
+    </plurals>
+    <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Вы пожаловались на спам. Новые сообщения этого отправителя попадут в «Заблокированные».</item>
+        <item quantity="few">Вы пожаловались на спам: %d чата. Новые сообщения этих отправителей попадут в «Заблокированные».</item>
+        <item quantity="many">Вы пожаловались на спам: %d чатов. Новые сообщения этих отправителей попадут в «Заблокированные».</item>
+        <item quantity="other">Вы пожаловались на спам: %d чата. Новые сообщения этих отправителей попадут в «Заблокированные».</item>
+    </plurals>
+    <string name="blocked_title">Заблокированные</string>
+    <string name="blocked_menu_rules">Правила</string>
+    <string name="blocked_mode_group_cd">Неизвестные отправители: %1$s, %2$d из %3$d</string>
+    <string name="blocked_mode_desc_strict">Строгий: блокирует сообщения всех неизвестных отправителей, включая коды подтверждения</string>
+    <string name="blocked_mode_desc_smart">Умный: блокирует сообщения неизвестных отправителей, но пропускает коды без ссылок</string>
+    <string name="blocked_mode_desc_off">Выкл.: сообщения неизвестных отправителей попадают во входящие. Ваши правила действуют</string>
+    <string name="blocked_snack_mode">Режим для неизвестных отправителей: %1$s</string>
+    <string name="blocked_off_title">Не блокировать неизвестных отправителей?</string>
+    <string name="blocked_off_body">Сообщения неизвестных отправителей будут сразу попадать во входящие. Ваши правила продолжат действовать.</string>
+    <string name="blocked_off_confirm">Выключить</string>
+    <string name="blocked_stats_restored">Восстановлено вами: %1$d</string>
+    <string name="blocked_reason_unknown_link">Неизвестный отправитель, есть ссылка</string>
+    <string name="blocked_may_be_important">Может быть важным</string>
+    <string name="blocked_action_move_inbox">Переместить во входящие</string>
+    <string name="blocked_swipe_not_spam">Смахните, чтобы переместить во входящие</string>
+</resources>

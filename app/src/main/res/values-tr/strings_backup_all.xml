@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n09_backup_contents">Mesajlarınız dışında her şey: izin verme, engelleme ve iletme kuralları ile tüm ayarlar. Dosya şifrelenmez ve iletme için kullandığınız telefon numaralarını içerir. Bu yüzden dosyayı özel bir yerde saklayın. İletme kuralları kapalı olarak geri yüklenir.</string>
+    <string name="n09_label_spam">Spam koruması</string>
+    <string name="n09_label_notifications">Bildirimler</string>
+    <string name="n09_label_chat">Sohbet ve mesaj listesi</string>
+    <string name="n09_label_sending">Gönderim</string>
+    <string name="n09_label_cleanup">Temizlik ve depolama</string>
+    <string name="n09_label_privacy">Gizlilik ve kilit seçenekleri</string>
+    <string name="n09_restore_not_included">Dosyada olmayanlar: mesajlarınız, uygulama kilidi PIN kodu, SIM adları, kayıtlı metinler, gizli sohbetler ve sessize alma süreleri.</string>
+    <string name="n09_restore_after">uMessage uygulamasını yeniden varsayılan SMS uygulaması yapın ve uygulama kilidinizi yeniden ayarlayın.</string>
+</resources>

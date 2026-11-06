@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">Інші країни</string>
+    <string name="region_title">Затримувати повідомлення з номерів інших країн</string>
+    <string name="region_summary">Повідомлення від контактів і тих, кому ви писали, не затримуються</string>
+    <string name="region_off">Вимкнено</string>
+    <string name="region_picker_title">Ваша країна</string>
+    <string name="region_picker_body">Повідомлення з номерів інших країн потрапляють у «Заблоковані», крім повідомлень від контактів і тих, кому ви писали. Повідомлення від родича за кордоном, якого немає в контактах, теж затримуються.</string>
+    <string name="region_picker_search">Пошук</string>
+    <string name="region_reason_foreign">Номер з іншої країни</string>
+</resources>

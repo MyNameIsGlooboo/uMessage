@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_text_menu">会話をテキストで共有</string>
+    <string name="share_text_scope_title">共有するメッセージ</string>
+    <string name="share_text_scope_whole">会話全体</string>
+    <string name="share_text_scope_last">最新の50件</string>
+    <string name="share_text_title">テキストで共有</string>
+    <string name="share_text_warning">個人的なテキストを別のアプリに送信します。次にアプリを選択します。</string>
+    <string name="share_text_action">共有</string>
+    <string name="share_text_range">%1$sから%2$sまで</string>
+    <string name="share_text_attachment">［添付ファイル］</string>
+    <string name="share_text_subject">uMessageのメッセージ</string>
+    <string name="share_text_nothing">共有するメッセージがありません。</string>
+    <plurals name="share_text_count">
+        <item quantity="other">%1$d件のメッセージ</item>
+    </plurals>
+</resources>

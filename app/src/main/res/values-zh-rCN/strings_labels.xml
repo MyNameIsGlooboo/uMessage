@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">标签</string>
+    <string name="i29_picker_title">标签</string>
+    <string name="i29_picker_empty">还没有标签。创建一个，用来整理会话。</string>
+    <string name="i29_picker_new">新建标签</string>
+    <string name="i29_picker_manage">管理标签</string>
+    <string name="i29_done">完成</string>
+    <string name="i29_cancel">取消</string>
+    <string name="i29_tiles_title">你的标签</string>
+    <string name="i29_tile_add">添加标签</string>
+    <string name="i29_tiles_manage">管理标签</string>
+    <string name="i29_manager_title">管理标签</string>
+    <string name="i29_manager_note">标签由你自行设置，与自动筛选的“交易”和“优惠”类别相互独立。</string>
+    <string name="i29_manager_edit">编辑标签%1$s</string>
+    <string name="i29_manager_delete">删除标签%1$s</string>
+    <string name="i29_edit_new_title">新建标签</string>
+    <string name="i29_edit_title">编辑标签</string>
+    <string name="i29_edit_name">标签名称</string>
+    <string name="i29_edit_save">保存</string>
+    <string name="i29_color_description">颜色%1$d</string>
+    <string name="i29_error_duplicate">已有同名标签。</string>
+    <string name="i29_error_limit">最多可创建%1$d个标签。</string>
+    <string name="i29_delete_title">删除此标签？</string>
+    <string name="i29_delete_body">将删除标签“%1$s”。会话和消息保持不变。</string>
+    <string name="i29_delete_confirm">删除</string>
+    <string name="i29_empty_title">这里没有会话</string>
+    <string name="i29_empty_body">长按会话，打开菜单并选择“标签”即可添加。</string>
+</resources>

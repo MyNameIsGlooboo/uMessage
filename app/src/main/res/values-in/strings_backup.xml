@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_channel">Cadangkan dan pulihkan</string>
+    <string name="backup_restoring">Memulihkan pesan</string>
+    <string name="backup_exporting">Mencadangkan pesan</string>
+    <plurals name="backup_progress_import">
+        <item quantity="other">%1$d entri dibaca</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="other">%1$d entri dibaca (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="other">%1$d pesan disimpan</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="other">%1$d pesan disimpan (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">Anda bisa keluar dari aplikasi: proses tetap berjalan dan progresnya muncul di notifikasi.</string>
+    <string name="backup_stop">Hentikan</string>
+    <string name="backup_hide">Sembunyikan</string>
+    <string name="backup_already_running">Pencadangan atau pemulihan sedang berjalan.</string>
+    <string name="backup_restore_finished">Pemulihan selesai</string>
+    <string name="backup_restore_stopped">Pemulihan dihentikan</string>
+    <string name="backup_restore_failed">Pemulihan gagal</string>
+    <string name="backup_invalid_file">File ini bukan cadangan pesan, jadi tidak ada yang dipulihkan.</string>
+    <string name="backup_no_entries">File cadangan tidak berisi pesan.</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="other">Tidak ada yang baru untuk diimpor: semua %1$d pesan sudah ada di ponsel ini.</item>
+    </plurals>
+    <string name="backup_line_added">Ditambahkan: %1$d</string>
+    <string name="backup_line_duplicates">Sudah ada di ponsel ini, dilewati: %1$d</string>
+    <string name="backup_line_repaired">Lampiran yang hilang ditambahkan ke pesan yang sebelumnya dipulihkan: %1$d</string>
+    <string name="backup_line_incomplete">Pesan gambar dipulihkan tanpa sebagian lampiran: %1$d</string>
+    <string name="backup_line_failed">Tidak dapat dipulihkan: %1$d</string>
+    <string name="backup_line_damaged">Entri rusak dalam file, dilewati: %1$d</string>
+    <string name="backup_line_xml_mms">Pesan gambar dalam cadangan XML ini, tidak didukung dan dilewati: %1$d</string>
+    <string name="backup_line_not_selected">Tidak dipilih untuk diimpor: %1$d</string>
+    <string name="backup_reasons">Alasan:</string>
+    <string name="backup_reason_no_address">pesan tidak memiliki pengirim atau penerima</string>
+    <string name="backup_reason_no_thread">ponsel tidak dapat membuka percakapannya</string>
+    <string name="backup_reason_refused">ponsel menolak menyimpannya</string>
+    <string name="backup_reason_not_in_backup">lampiran tidak ada dalam file cadangan</string>
+    <string name="backup_reason_damaged_attachment">lampiran dalam file cadangan rusak</string>
+    <string name="backup_reason_attachment_write">lampiran tidak dapat disimpan</string>
+    <string name="backup_stopped_early">File rusak setelah entri %1$d, jadi semua entri setelahnya tidak dapat dibaca.</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="other">Dihentikan setelah %1$d entri. Jalankan pemulihan lagi dengan file yang sama hingga selesai: pesan yang sudah dipulihkan akan dilewati.</item>
+    </plurals>
+    <string name="backup_retry_hint">Jalankan pemulihan lagi untuk mencoba ulang yang gagal: pesan yang sudah dipulihkan akan dilewati.</string>
+    <string name="backup_export_finished">Pencadangan selesai</string>
+    <string name="backup_export_stopped">Pencadangan dihentikan</string>
+    <string name="backup_export_failed">Pencadangan gagal</string>
+    <string name="backup_export_error">Cadangan tidak dapat disimpan, dan file yang belum lengkap telah dihapus. %1$s</string>
+    <string name="backup_export_cancelled">Pencadangan dihentikan dan file yang belum lengkap telah dihapus.</string>
+    <string name="backup_export_nothing">Tidak ada pesan untuk dicadangkan.</string>
+    <string name="backup_export_counts">%1$d SMS dan %2$d MMS disimpan.</string>
+    <string name="backup_export_unreadable_attachments">Lampiran tidak dapat dibaca, disimpan tanpa gambarnya: %1$d</string>
+    <string name="backup_export_unreadable_messages">Pesan tidak dapat dibaca, tidak disertakan: %1$d</string>
+    <string name="backup_export_unreadable_conversations">Percakapan tidak dapat dibaca, tidak disertakan: %1$d</string>
+    <string name="backup_export_incomplete">Cadangan ini tidak lengkap.</string>
+    <string name="backup_interrupted_import">Pemulihan terakhir berhenti sebelum selesai, mungkin karena ponsel menutup aplikasi. Jalankan lagi dengan file yang sama: pesan yang sudah dipulihkan akan dilewati.</string>
+    <string name="backup_interrupted_export">Pencadangan terakhir berhenti sebelum selesai, jadi filenya belum lengkap. Buat cadangan baru.</string>
+</resources>

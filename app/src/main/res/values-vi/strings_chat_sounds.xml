@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i65_setting_title">Âm thanh trong cuộc trò chuyện</string>
+    <string name="i65_setting_summary">Âm báo ngắn khi gửi và nhận tin nhắn</string>
+</resources>

@@ -1,0 +1,5 @@
+- Indonesian (Bahasa Indonesia), standard but friendly, like Google Messages and Gojek or Tokopedia. No slang, no regional dialect.
+- Address the user politely and rarely: mostly the bare imperative ("Pilih", "Aktifkan"); use "Anda" (capital A) only where a sentence needs it; never "kamu" or "lo".
+- Commonly used loan words are fine ("spam", "blokir", "notifikasi", "PIN").
+- Sentence case: only the first word is capitalised.
+- Indonesian has no plural forms: every plural id is just "other"; write one text that works for any number and keep the number token.

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">ซ่อนการสนทนานี้</string>
+    <string name="hidden_chats_menu_unhide">เลิกซ่อนการสนทนานี้</string>
+    <string name="hidden_chats_confirm">ซ่อนการสนทนานี้? การสนทนาจะไม่แสดงในรายการ ผลการค้นหา และการแจ้งเตือน จนกว่าจะปลดล็อกการสนทนาที่ซ่อนด้วยการล็อกแอป</string>
+    <string name="hidden_chats_need_lock">ต้องตั้งค่าล็อกแอปเพื่อซ่อนการสนทนา ตั้งค่าตอนนี้?</string>
+    <string name="hidden_chats_set_lock">ตั้งค่า</string>
+    <string name="hidden_chats_done">ซ่อนการสนทนาแล้ว</string>
+    <string name="hidden_chats_show">การสนทนาที่ซ่อน</string>
+    <string name="hidden_chats_lock">ล็อกการสนทนาที่ซ่อน</string>
+</resources>

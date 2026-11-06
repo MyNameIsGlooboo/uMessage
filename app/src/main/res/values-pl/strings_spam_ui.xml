@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spam_ui_delete_all">Usuń wszystkie</string>
+    <string name="spam_ui_delete_all_title">Usunąć wszystkie zablokowane wiadomości?</string>
+    <plurals name="spam_ui_delete_all_message">
+        <item quantity="one">%1$d zablokowana wiadomość zostanie usunięta. Możesz to cofnąć zaraz po usunięciu.</item>
+        <item quantity="few">%1$d zablokowane wiadomości zostaną usunięte. Możesz to cofnąć zaraz po usunięciu.</item>
+        <item quantity="many">%1$d zablokowanych wiadomości zostanie usuniętych. Możesz to cofnąć zaraz po usunięciu.</item>
+        <item quantity="other">Zostanie usunięte %1$d zablokowanej wiadomości. Możesz to cofnąć zaraz po usunięciu.</item>
+    </plurals>
+    <string name="declog_ui_clear_title">Wyczyścić historię decyzji?</string>
+    <string name="declog_ui_clear_message">Wszystkie zapisane decyzje zostaną usunięte. Zablokowane wiadomości i reguły pozostaną bez zmian.</string>
+    <string name="declog_ui_clear_action">Wyczyść</string>
+    <string name="ui_log_reason_contacts_unavailable">Nie można odczytać kontaktów</string>
+    <string name="blocknum_title">Zablokowane numery</string>
+    <string name="blocknum_add">Dodaj numer</string>
+    <string name="blocknum_add_title">Zablokuj numer</string>
+    <string name="blocknum_edit_title">Edytuj zablokowany numer</string>
+    <string name="blocknum_field_label">Numer</string>
+    <string name="blocknum_field_help">Użyj * jako symbolu wieloznacznego: +1555* blokuje wszystkie numery zaczynające się od +1555</string>
+    <string name="blocknum_err_empty">Wpisz numer</string>
+    <string name="blocknum_err_invalid">Wpisz numer telefonu lub cyfry z * jako symbolem wieloznacznym</string>
+    <string name="blocknum_copy">Kopiuj numer</string>
+    <string name="blocknum_unblock">Odblokuj</string>
+    <string name="blocknum_unblock_for">Odblokuj %1$s</string>
+    <string name="blocknum_edit_for">Edytuj %1$s</string>
+    <string name="blocknum_more_for">Więcej opcji dla %1$s</string>
+    <string name="blocknum_pattern">Wzorzec z symbolem wieloznacznym</string>
+    <string name="blocknum_copied">Numer skopiowany</string>
+    <plurals name="blocknum_unblocked">
+        <item quantity="one">Odblokowano %1$d numer</item>
+        <item quantity="few">Odblokowano %1$d numery</item>
+        <item quantity="many">Odblokowano %1$d numerów</item>
+        <item quantity="other">Odblokowano %1$d numeru</item>
+    </plurals>
+    <string name="blocknum_import">Import</string>
+    <string name="blocknum_export">Eksport</string>
+    <plurals name="blocknum_imported">
+        <item quantity="one">Zaimportowano %1$d numer</item>
+        <item quantity="few">Zaimportowano %1$d numery</item>
+        <item quantity="many">Zaimportowano %1$d numerów</item>
+        <item quantity="other">Zaimportowano %1$d numeru</item>
+    </plurals>
+    <string name="blocknum_import_empty">Nie znaleziono numerów w pliku</string>
+    <plurals name="blocknum_import_skipped">
+        <item quantity="one">Pominięto %d wpis (to nie numer lub jest już zablokowany)</item>
+        <item quantity="few">Pominięto %d wpisy (to nie numery lub są już zablokowane)</item>
+        <item quantity="many">Pominięto %d wpisów (to nie numery lub są już zablokowane)</item>
+        <item quantity="other">Pominięto %d wpisu (to nie numer lub jest już zablokowany)</item>
+    </plurals>
+    <string name="blocknum_import_failed">Nie udało się odczytać pliku</string>
+    <plurals name="blocknum_exported">
+        <item quantity="one">Wyeksportowano %1$d numer</item>
+        <item quantity="few">Wyeksportowano %1$d numery</item>
+        <item quantity="many">Wyeksportowano %1$d numerów</item>
+        <item quantity="other">Wyeksportowano %1$d numeru</item>
+    </plurals>
+    <string name="blocknum_export_empty">Brak numerów do eksportu</string>
+    <string name="blocknum_export_failed">Nie udało się zapisać pliku</string>
+    <string name="blocknum_failed">Nie udało się zmienić listy blokowanych. Spróbuj ponownie.</string>
+    <string name="blocknum_empty_title">Nikogo nie blokujesz</string>
+    <string name="blocknum_empty_body">Zablokowane numery nie mogą do ciebie pisać ani dzwonić. Ta lista jest wspólna z aplikacją Telefon.</string>
+    <string name="blocknum_unavailable_title">Lista blokowanych jest niedostępna</string>
+    <string name="blocknum_unavailable_body">Ustaw uMessage jako domyślną aplikację do SMS-ów, aby przeglądać i zmieniać systemową listę blokowanych.</string>
+    <string name="blocknum_unknown_title">Zablokuj nieznane numery</string>
+    <string name="blocknum_unknown_body">Działa tylko wtedy, gdy tryb filtrowania jest wyłączony: wiadomości z nieznanych numerów trafiają wtedy do Zablokowanych, jak w trybie ścisłym. Tryby ścisły i inteligentny ignorują ten przełącznik.</string>
+    <string name="blocknum_contacts_denied">Bez dostępu do kontaktów nie można rozpoznać nieznanych numerów</string>
+    <string name="blocknum_section_numbers">Numery</string>
+</resources>

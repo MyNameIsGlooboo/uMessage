@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3_inbox_filter_show">フィルターを表示</string>
+    <string name="r3_inbox_filter_hide">フィルターを非表示</string>
+    <string name="r3_inbox_filter_show_active">フィルターを表示。%1$sフィルターがオンです。</string>
+    <string name="r3_inbox_filter_hide_active">フィルターを非表示。%1$sフィルターがオンです。</string>
+</resources>

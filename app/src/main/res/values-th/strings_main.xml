@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_hint">ค้นหาการสนทนา</string>
+    <string name="main_search_back">ปิดการค้นหา</string>
+    <string name="main_search_clear">ล้างข้อความค้นหา</string>
+    <string name="main_search_type_more">พิมพ์อย่างน้อย 2 อักขระเพื่อค้นหา</string>
+    <string name="main_search_no_results">ไม่พบผลลัพธ์</string>
+    <string name="main_settings">การตั้งค่า</string>
+    <string name="main_tab_messages">ข้อความ</string>
+    <string name="main_tab_blocked">ที่บล็อก</string>
+    <string name="main_tab_archived">เก็บถาวรแล้ว</string>
+    <plurals name="main_tab_blocked_new">
+        <item quantity="other">ที่บล็อก ใหม่ %d รายการ</item>
+    </plurals>
+    <string name="main_permission_title">ต้องให้สิทธิ์</string>
+    <string name="main_permission_grant">ให้สิทธิ์</string>
+    <string name="main_permission_notifications">อนุญาตการแจ้งเตือน มิฉะนั้นแอปจะแสดงข้อความเข้าไม่ได้</string>
+    <string name="main_sms_permission_title">uMessage ต้องเข้าถึง SMS</string>
+    <string name="main_sms_permission_body">หากไม่มีสิทธิ์อ่านและส่ง SMS แอป uMessage จะแสดงข้อความ ส่งข้อความ หรือกรองสแปมไม่ได้ ไม่มีข้อมูลถูกลบ</string>
+    <string name="main_sms_permission_settings">เปิดการตั้งค่าแอป</string>
+    <string name="main_not_default_banner">uMessage ไม่ใช่แอป SMS เริ่มต้น จึงบล็อกสแปมหรือส่งข้อความไม่ได้</string>
+    <string name="main_not_default_fix">แก้ไข</string>
+    <string name="main_not_default_fix_description">ตั้ง uMessage เป็นแอป SMS เริ่มต้น</string>
+</resources>

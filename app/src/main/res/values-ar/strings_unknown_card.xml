@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">ليس ضمن جهات اتصالك</string>
+    <string name="i04_card_caution">توخَّ الحذر مع الروابط والأموال والرموز.</string>
+    <string name="i04_card_add_contact">أضف جهة اتصال</string>
+    <string name="i04_card_allow">اسمح دائمًا</string>
+    <string name="i04_card_block">احظر</string>
+    <string name="i04_card_dismiss">تجاهل</string>
+</resources>

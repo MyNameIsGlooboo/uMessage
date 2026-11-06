@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="system_delete_item_title">মুছবেন?</string>
+    <string name="system_delete_item_message">%1$s মুছবেন? আগের অবস্থায় ফেরা যাবে না।</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_hint">Unterhaltungen suchen</string>
+    <string name="main_search_back">Suche schließen</string>
+    <string name="main_search_clear">Suchtext löschen</string>
+    <string name="main_search_type_more">Gib zum Suchen mindestens 2 Zeichen ein</string>
+    <string name="main_search_no_results">Keine Ergebnisse gefunden</string>
+    <string name="main_settings">Einstellungen</string>
+    <string name="main_tab_messages">Nachrichten</string>
+    <string name="main_tab_blocked">Blockiert</string>
+    <string name="main_tab_archived">Archiviert</string>
+    <plurals name="main_tab_blocked_new">
+        <item quantity="one">Blockiert, %d neu</item>
+        <item quantity="other">Blockiert, %d neu</item>
+    </plurals>
+    <string name="main_permission_title">Berechtigung erforderlich</string>
+    <string name="main_permission_grant">Berechtigung erteilen</string>
+    <string name="main_permission_notifications">Erlaube Benachrichtigungen, sonst kann die App keine eingehenden Nachrichten anzeigen.</string>
+    <string name="main_sms_permission_title">uMessage braucht Zugriff auf SMS</string>
+    <string name="main_sms_permission_body">Ohne Berechtigung zum Lesen und Senden von SMS kann uMessage deine Nachrichten nicht anzeigen, senden oder Spam filtern. Es wird nichts gelöscht.</string>
+    <string name="main_sms_permission_settings">App-Einstellungen öffnen</string>
+    <string name="main_not_default_banner">uMessage ist nicht deine Standard-SMS-App und kann daher keinen Spam blockieren oder Nachrichten senden.</string>
+    <string name="main_not_default_fix">Beheben</string>
+    <string name="main_not_default_fix_description">uMessage als Standard-SMS-App festlegen</string>
+</resources>

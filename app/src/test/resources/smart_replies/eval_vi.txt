@@ -1,0 +1,150 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|Xin chào!
+greeting|Chào mọi người
+greeting|Chào bạn nhé
+good_morning|Chào buổi sáng!
+good_morning|Chúc buổi sáng tốt lành ☀️
+good_morning|Chúc ngày mới tốt lành
+good_afternoon|Chào buổi chiều
+good_afternoon|Chúc buổi trưa vui vẻ
+good_evening|Chào buổi tối!
+good_evening|Chúc buổi tối vui vẻ
+good_night|Chúc ngủ ngon
+good_night|Ngủ ngon nhé 😴
+good_night|Mình đi ngủ đây
+good_night|Chúc bạn ngủ ngon mơ đẹp
+how_are_you|Bạn khỏe không?
+how_are_you|Dạo này thế nào?
+how_are_you|Chào bạn, khỏe không?
+how_are_you|Dạo này bạn khỏe không
+how_are_you|Em khỏe không?
+thanks|Cảm ơn!
+thanks|Cảm ơn bạn nhiều
+thanks|Cảm ơn nhé
+thanks|Cám ơn bạn 🙏
+thanks|Thanks bạn
+thanks|Cảm ơn vì đã giúp
+youre_welcome|Không có gì
+youre_welcome|Không sao đâu
+youre_welcome|Đừng khách sáo
+youre_welcome|Không có chi
+where_are_you|Bạn đang ở đâu?
+where_are_you|Bạn tới đâu rồi?
+where_are_you|Đang ở đâu thế
+on_my_way|Mình đang đến
+on_my_way|Đang trên đường
+on_my_way|Sắp đến rồi
+on_my_way|Mình xuất phát rồi
+on_my_way|Otw
+arrived|Mình đến rồi
+arrived|Mình ở dưới nhà
+arrived|Mình đang ở ngoài
+arrived|Tới nơi rồi
+arrived_home|Mình về nhà rồi
+arrived_home|Về tới nhà rồi
+arrived_home|Mình đã về nhà an toàn
+did_you_arrive|Bạn đến chưa?
+did_you_arrive|Bạn về nhà chưa?
+did_you_arrive|Bạn đến nơi an toàn chưa
+are_you_coming|Bạn có đến không?
+are_you_coming|Bạn sẽ tới không?
+are_you_coming|Bạn đến được không?
+call_me|Gọi cho mình
+call_me|Gọi lại cho mình nhé
+call_me|Gọi mình khi rảnh
+call_me|Bạn gọi cho mình được không?
+can_you_talk|Bạn nói chuyện được không?
+can_you_talk|Mình gọi bạn được không?
+can_you_talk|Bạn nghe máy được không?
+are_you_free|Bạn rảnh không hôm nay?
+are_you_free|Tối nay bạn rảnh không?
+are_you_free|Ngày mai rảnh không?
+what_time|Mấy giờ?
+what_time|Mấy giờ mình gặp?
+what_time|Mấy giờ bạn đến?
+where_to_meet|Gặp ở đâu?
+where_to_meet|Mình đi đâu?
+where_to_meet|Mình hẹn ở đâu?
+ok_confirm|Ok
+ok_confirm|Được rồi
+ok_confirm|Hiểu rồi
+ok_confirm|Vâng
+ok_confirm|Chốt nhé
+ok_confirm|Tuyệt vời
+bye|Tạm biệt!
+bye|Hẹn gặp lại
+bye|Mai gặp nhé
+bye|Bảo trọng nhé
+bye|Bye bye
+congrats|Chúc mừng!
+congrats|Chúc mừng sinh nhật
+congrats|Chúc mừng bạn thăng chức
+congrats|Chúc mừng về công việc mới
+holiday_eid|Eid Mubarak
+holiday_new_year|Chúc mừng năm mới!
+holiday_new_year|Chúc năm mới an khang
+holiday_christmas|Giáng sinh vui vẻ
+holiday_christmas|Chúc mừng Giáng sinh
+holiday_other|Chúc mừng ngày nhà giáo
+holiday_other|Trung thu vui vẻ
+good_luck|Chúc may mắn!
+good_luck|Chúc bạn thành công
+good_luck|Cố lên nhé
+good_luck|Chúc thi tốt
+sorry_late|Xin lỗi vì trả lời muộn
+sorry_late|Xin lỗi mình đến muộn
+sorry_late|Xin lỗi mình mới thấy tin nhắn
+sorry_late|Xin lỗi vì để bạn đợi
+missed_call|Xin lỗi mình nhỡ cuộc gọi
+missed_call|Mình thấy cuộc gọi nhỡ
+missed_call|Bạn vừa gọi mình à
+NONE|Bạn có quay lại văn phòng ngày mai không?
+NONE|Ai sẽ đến tối nay?
+NONE|Mình không đến
+NONE|Tại sao bạn không trả lời?
+NONE|Cảm ơn nhưng mình đã trả năm mươi nghìn rồi
+NONE|Mã xác minh của bạn là 482913
+NONE|Truy cập www.vidu.com để nhận quà miễn phí
+NONE|Bạn định đi đâu?
+NONE|Bạn từ đâu đến?
+NONE|Gọi cho mình sáng mai nhé, mình cần bàn hợp đồng với khách hàng
+NONE|Bây giờ là mấy giờ?
+NONE|Hôm qua bạn về lúc mấy giờ?
+NONE|Chào?
+NONE|Ok?
+NONE|Được, nhưng mình nghĩ nên đợi đến thứ Hai
+NONE|Ok, mình đón bọn trẻ rồi mình đi chơi nhé
+NONE|Mình đang đến bệnh viện
+NONE|Mình về nhà rồi mà mất điện, phải làm sao đây?
+NONE|Xin chia buồn cùng gia đình
+NONE|Xin lỗi
+NONE|Chúc mừng sinh nhật em gái mình, hôm nay em tròn ba mươi tuổi
+NONE|Đừng gọi cho mình nữa
+NONE|Bạn đón mình được không?
+NONE|Bạn rảnh giúp mình chuyển nhà thứ Bảy không?
+NONE|Tối qua bạn ở đâu?
+NONE|Bạn thấy sao sau ca phẫu thuật?
+NONE|Cảm ơn bạn đã giúp mình vụ vay tiền
+NONE|Bạn cứ tham gia cùng bọn mình bất cứ lúc nào
+NONE|Bạn quay lại sau được không?
+NONE|Mọi người đều đến à?
+NONE|Mình không chắc ngày mai có đến được không
+NONE|Tối nay bạn làm gì?
+NONE|Chào Lan, bạn khỏe không?
+NONE|Chuyển khoản năm trăm nghìn vào tài khoản mình nhé
+NONE|Mẹ mình nhập viện, gọi cho mình nhé
+NONE|Chúc mọi người buổi tối vui vẻ, cảm ơn vì buổi tối tuyệt vời
+NONE|Hola, necesito hablar contigo mañana por la mañana
+NONE|Bonjour, je voudrais réserver une table pour demain soir
+NONE|Guten Morgen, wie geht es dir?
+NONE|Ciao, ci vediamo domani alla stazione alle nove
+NONE|Cảm ơn mà chẳng được gì
+NONE|Hay quá!
+NONE|😂😂
+NONE|Haha tùy bạn thôi
+NONE|Mình hiểu, mai mình gửi tập tin vào buổi sáng
+NONE|Chúc mừng, bạn đã trúng thưởng! Trả lời CÓ để nhận
+NONE|Ừm
+NONE|Bạn đến và mấy giờ mình nên mang xe?
+NONE|Khi nào bạn về nhà?

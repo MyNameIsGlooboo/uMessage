@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="digest_channel">สรุปประจำสัปดาห์</string>
+    <string name="digest_title">สรุปประจำสัปดาห์</string>
+    <string name="digest_row_title">สรุปประจำสัปดาห์</string>
+    <string name="digest_row_summary">สรุปจำนวนที่บล็อกแล้วสัปดาห์ละครั้ง</string>
+    <plurals name="digest_held">
+        <item quantity="other">สัปดาห์นี้พักข้อความไว้ %d ข้อความ แตะเพื่อตรวจสอบ</item>
+    </plurals>
+    <plurals name="digest_held_important">
+        <item quantity="other">สัปดาห์นี้พักข้อความไว้ %1$d ข้อความ ในนี้มีรหัสหรือการแจ้งเตือนจากธนาคาร %2$d ข้อความ</item>
+    </plurals>
+</resources>

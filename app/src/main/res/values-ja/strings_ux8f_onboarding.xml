@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">さらに表示</string>
+    <string name="ux8f_onb_less">表示を減らす</string>
+    <string name="ux8f_onb_battery_body">AndroidがバックグラウンドのuMessageを停止し、メッセージの受信が遅れることがあります。動作の継続を許可してください。</string>
+    <string name="ux8f_onb_battery_action">バックグラウンド動作を許可</string>
+    <string name="ux8f_onb_vendor_hint">%1$sのスマートフォンでは、もう1つ設定が必要です。</string>
+    <string name="ux8f_onb_unfinished">未完了の項目があります。後でAndroidの設定から完了できます。</string>
+</resources>

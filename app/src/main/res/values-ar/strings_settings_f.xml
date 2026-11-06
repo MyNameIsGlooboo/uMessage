@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_f_backup_row_body">الرسائل والقواعد والإعدادات في ملف</string>
+    <string name="settings_f_backup_rules_group">القواعد والإعدادات</string>
+    <string name="settings_f_backup_rules_contents">يحتوي الملف على قواعد السماح والحظر وقواعد إعادة التوجيه والإعدادات: الحماية من الرسائل غير المرغوب فيها والإشعارات والتواريخ وحجم النص والمظهر ومفتاح Enter وحدود إعادة التوجيه. لا يتضمن أبدًا نص الرسائل أو قفل التطبيق. تُستعاد قواعد إعادة التوجيه وهي معطّلة.</string>
+    <string name="settings_f_backup_messages_contents">نص الرسائل والصور، في ملف منفصل.</string>
+    <string name="settings_f_restore_title">هل تريد الاستعادة من هذا الملف؟</string>
+    <string name="settings_f_restore_rules">قواعد السماح: %1$d · قواعد الحظر: %2$d. تُتخطّى القواعد الموجودة لديك.</string>
+    <string name="settings_f_restore_forwards">قواعد إعادة التوجيه التي ستُضاف: %1$d، وستكون معطّلة. فعّلها من القواعد › إعادة التوجيه.</string>
+    <string name="settings_f_restore_forwards_skipped">قواعد إعادة التوجيه التي تم تخطّيها: %1$d (موجودة بالفعل، أو لا يوجد رقم يمكنه تلقّي الرسائل).</string>
+    <string name="settings_f_restore_settings_changed">الإعدادات التي ستتغير: %1$s</string>
+    <string name="settings_f_restore_settings_none">لن تتغير أي إعدادات.</string>
+    <string name="settings_f_restore_action">استعد</string>
+    <string name="settings_f_restore_done">القواعد المضافة: %1$d · قواعد إعادة التوجيه المضافة: %2$d. تبقى قواعد إعادة التوجيه معطّلة حتى تفعّلها.</string>
+    <string name="settings_f_restore_done_rules">القواعد المضافة: %1$d.</string>
+    <string name="settings_f_restore_done_title">اكتملت الاستعادة</string>
+    <string name="settings_f_label_codes">رموز من مرسلين غير معروفين</string>
+    <string name="settings_f_list_separator">", "</string>
+    <string name="settings_f_group_display">العرض</string>
+    <string name="settings_f_appearance">المظهر</string>
+    <string name="settings_f_language_system">لغة النظام الافتراضية</string>
+    <string name="settings_f_group_rules">القواعد والقوائم</string>
+    <string name="settings_f_spam_more">مدة الاحتفاظ والتنبيهات</string>
+    <string name="settings_f_spam_more_body">مدة الاحتفاظ بالرسائل المحظورة والتنبيهات</string>
+    <string name="settings_f_hide_lock_codes_body">تظهر الرموز بصيغة •••• على شاشة القفل</string>
+    <string name="settings_f_code_alert">تنبيه الرمز</string>
+    <string name="settings_f_code_alert_body">صوت لرموز التحقق</string>
+    <string name="settings_f_channel_codes">رموز التحقق</string>
+    <string name="settings_f_channel_codes_desc">رسائل تحتوي على رمز التحقق</string>
+</resources>

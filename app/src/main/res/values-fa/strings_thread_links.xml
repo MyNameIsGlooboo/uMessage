@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_link_confirm_body">این فرستنده در مخاطب‌های شما نیست. پیش از باز کردن پیوند، نشانی کامل را بررسی کنید.</string>
+    <string name="thread_link_confirm_open">باز کردن</string>
+</resources>

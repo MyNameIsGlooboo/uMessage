@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sim_messages_title">ข้อความใน SIM</string>
+    <string name="sim_messages_row_body">คัดลอกข้อความที่เก็บใน SIM ไปยังการสนทนา</string>
+    <string name="sim_messages_loading">กำลังอ่าน SIM…</string>
+    <string name="sim_messages_unavailable">โทรศัพท์นี้ไม่อนุญาตให้แอปอ่าน SIM</string>
+    <string name="sim_messages_empty">ไม่มีข้อความใน SIM</string>
+    <plurals name="sim_messages_found">
+        <item quantity="other">มีข้อความ %1$d ข้อความเก็บอยู่ใน SIM คัดลอกไปยังการสนทนาไหม? ข้อความจะยังอยู่ใน SIM ด้วย</item>
+    </plurals>
+    <string name="sim_messages_import">คัดลอก</string>
+    <string name="sim_messages_importing">กำลังคัดลอกข้อความ…</string>
+    <string name="sim_messages_done">คัดลอกแล้ว %1$d ข้อความ มีอยู่ในการสนทนาแล้ว %2$d ข้อความ</string>
+    <string name="sim_messages_done_failed">คัดลอกแล้ว %1$d ข้อความ มีอยู่ในการสนทนาแล้ว %2$d ข้อความ และคัดลอกไม่ได้ %3$d ข้อความ</string>
+</resources>

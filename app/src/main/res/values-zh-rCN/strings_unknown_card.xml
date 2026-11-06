@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">不在联系人中</string>
+    <string name="i04_card_caution">涉及链接、钱款和验证码时请谨慎。</string>
+    <string name="i04_card_add_contact">添加联系人</string>
+    <string name="i04_card_allow">始终允许</string>
+    <string name="i04_card_block">屏蔽</string>
+    <string name="i04_card_dismiss">关闭</string>
+</resources>

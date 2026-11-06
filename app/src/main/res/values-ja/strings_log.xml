@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">判定履歴</string>
+    <string name="declog_clear">履歴を消去</string>
+    <string name="declog_empty_title">判定履歴はまだありません</string>
+    <string name="declog_empty_body">フィルターが確認したすべてのメッセージが、判定理由とともにここに表示されます。メッセージ本文は保存されません。</string>
+    <plurals name="declog_kept_for">
+        <item quantity="other">各判定は%d日後に削除されます。メッセージ本文は保存されません。</item>
+    </plurals>
+    <string name="declog_sim">SIM%1$s</string>
+    <string name="declog_today">今日</string>
+    <string name="declog_yesterday">昨日</string>
+    <string name="declog_allowed_by_rule">ルールにより許可済み：%1$s</string>
+    <string name="declog_filter_all">すべて</string>
+    <string name="declog_filter_blocked">ブロック済み</string>
+    <string name="declog_filter_allowed">許可済み</string>
+    <string name="declog_filter_empty">このフィルターに一致する判定はありません</string>
+    <plurals name="declog_times">
+        <item quantity="other">%1$s回</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="other">同じ判定が%1$s回続きました。</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="other">%d件の判定を共有</item>
+    </plurals>
+    <string name="declog_csv_subject">uMessageの判定履歴</string>
+    <string name="declog_share_failed">判定履歴を共有できませんでした。</string>
+    <string name="declog_details_title">判定の詳細</string>
+    <string name="declog_open_details">%1$sの詳細を開く</string>
+    <string name="declog_fixed_allowed">判定履歴からこの送信者を許可しました。</string>
+    <string name="declog_fixed_blocked">判定履歴からこの送信者をブロックしました。</string>
+    <string name="declog_fixed_restored">判定履歴からこのメッセージを復元しました。</string>
+    <string name="declog_restored">復元済み</string>
+    <string name="declog_blocked_message">「ブロック済み」に残っているメッセージ</string>
+    <string name="declog_restore">メッセージを復元</string>
+    <string name="declog_restore_done">メッセージを受信トレイに復元しました。</string>
+    <string name="declog_restore_text_only">本文を受信トレイに復元しました。画像は復元できませんでした。</string>
+    <string name="declog_restore_nothing">この画像メッセージは保存されていないため、復元できません。</string>
+    <string name="declog_restore_failed">メッセージを復元できませんでした。</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

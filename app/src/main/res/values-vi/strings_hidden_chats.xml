@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">Ẩn cuộc trò chuyện này</string>
+    <string name="hidden_chats_menu_unhide">Bỏ ẩn cuộc trò chuyện này</string>
+    <string name="hidden_chats_confirm">Ẩn cuộc trò chuyện này? Cuộc trò chuyện sẽ không xuất hiện trong danh sách, kết quả tìm kiếm và thông báo cho đến khi bạn dùng khóa ứng dụng để mở khóa các cuộc trò chuyện đã ẩn.</string>
+    <string name="hidden_chats_need_lock">Cần có khóa ứng dụng để ẩn cuộc trò chuyện. Thiết lập ngay?</string>
+    <string name="hidden_chats_set_lock">Thiết lập</string>
+    <string name="hidden_chats_done">Đã ẩn cuộc trò chuyện</string>
+    <string name="hidden_chats_show">Cuộc trò chuyện đã ẩn</string>
+    <string name="hidden_chats_lock">Khóa cuộc trò chuyện đã ẩn</string>
+</resources>

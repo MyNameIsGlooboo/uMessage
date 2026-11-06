@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">Местоположение</string>
+    <string name="i52_permission_explanation">uMessage определит ваше местоположение один раз, только сейчас, чтобы добавить ссылку на карту в сообщение. Данные не сохраняются. Можно выбрать примерное местоположение.</string>
+    <string name="i52_finding">Определяем местоположение…</string>
+    <string name="i52_denied">Доступ к местоположению не разрешен. Сообщение осталось без изменений.</string>
+    <string name="i52_no_fix">Не удалось определить местоположение. Попробуйте еще раз у окна или на улице.</string>
+    <string name="i52_off_message">На телефоне выключено определение местоположения. Включите его, чтобы поделиться, где вы находитесь.</string>
+    <string name="i52_open_settings">Открыть настройки</string>
+</resources>

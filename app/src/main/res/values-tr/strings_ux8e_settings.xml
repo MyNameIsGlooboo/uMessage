@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">Uyarılar, kilit ekranı, haftalık özet</string>
+    <string name="ux8e_nav_typing">Yazma ve gönderme</string>
+    <string name="ux8e_nav_typing_body">Enter tuşu, teslim raporları, imza</string>
+    <string name="ux8e_nav_storage">Depolama ve temizlik</string>
+    <string name="ux8e_nav_storage_body">Çöp kutusu, arşiv, otomatik silme</string>
+    <string name="ux8e_group_lock_screen">Kilit ekranı</string>
+    <string name="ux8e_group_recycle">Silinen mesajlar</string>
+    <string name="ux8e_group_cleanup">Otomatik temizlik</string>
+    <string name="ux8e_group_archive">Arşiv</string>
+    <string name="ux8e_keep_deleted">Silinen mesajları saklayın</string>
+    <string name="ux8e_keep_deleted_body">Çöp kutusunda 30 gün beklerler</string>
+    <string name="ux8e_recycle_bin">Çöp kutusu</string>
+    <string name="ux8e_backup_row">Yedekleyin</string>
+    <string name="ux8e_backup_row_body">Dosyaya kaydedin</string>
+    <string name="ux8e_restore_row">Geri yükleyin</string>
+    <string name="ux8e_restore_row_body">Dosyadan yükleyin</string>
+    <string name="ux8e_backup_what">Ne yedeklensin?</string>
+    <string name="ux8e_restore_what">Ne geri yüklensin?</string>
+    <string name="ux8e_what_messages">Mesajlar</string>
+    <string name="ux8e_what_settings">Kurallar ve ayarlar</string>
+    <string name="ux8e_backup_warning">Yedek dosyaları şifrelenmez.</string>
+    <string name="ux8e_calendar">Takvim</string>
+</resources>

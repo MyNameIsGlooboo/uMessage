@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- B04: repeating scheduled messages. -->
+    <string name="schedule_repeat_label">Repeat</string>
+    <string name="schedule_repeat_never">Never</string>
+    <string name="schedule_repeat_daily">Every day</string>
+    <string name="schedule_repeat_weekly">Every week</string>
+    <string name="schedule_repeat_monthly">Every month</string>
+    <string name="schedule_repeat_yearly">Every year</string>
+    <string name="schedule_repeat_jalali_note">Months and years follow the Jalali calendar.</string>
+    <string name="scheduled_repeats_daily">Repeats daily</string>
+    <string name="scheduled_repeats_weekly">Repeats weekly</string>
+    <string name="scheduled_repeats_monthly">Repeats monthly</string>
+    <string name="scheduled_repeats_yearly">Repeats yearly</string>
+    <string name="scheduled_repeats_paused">Repeat paused</string>
+    <string name="scheduled_delete_repeating">Delete a repeating message</string>
+    <string name="scheduled_delete_this_one">This message only</string>
+    <string name="scheduled_delete_all_future">This and all later ones</string>
+</resources>

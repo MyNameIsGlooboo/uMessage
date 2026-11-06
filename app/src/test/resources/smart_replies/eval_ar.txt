@@ -1,0 +1,63 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+salam|السلام عليكم
+greeting|مرحبا
+greeting|أهلاً وسهلاً
+greeting|مرحبا يا غالي
+good_morning|صباح الخير
+good_evening|مساء الخير
+good_night|تصبح على خير
+how_are_you|كيف حالك؟
+how_are_you|كيفك
+how_are_you|شلونك
+thanks|شكرا لك
+thanks|شكراً جزيلاً
+youre_welcome|عفوا
+where_are_you|وينك؟
+where_are_you|أين أنت؟
+are_you_coming|هل ستأتي الليلة؟
+are_you_coming|هتيجي؟
+call_me|اتصل بي
+call_me|كلمني
+ok_confirm|تمام
+ok_confirm|حسنا
+bye|مع السلامة
+congrats|مبروك
+congrats|ألف مبروك
+holiday|كل عام وأنتم بخير
+holiday_eid|عيد مبارك
+ramadan|رمضان كريم
+good_luck|بالتوفيق
+sorry_late|عذراً على التأخير
+missed_call|فاتتني مكالمتك
+how_are_you|أخبارك؟
+NONE|متى ستأتي؟
+NONE|لن آتي اليوم
+NONE|لماذا لا ترد؟
+NONE|رمز التحقق 482913
+NONE|رصيدك 120 ريال
+NONE|زر الموقع www.example.com
+NONE|أين أنت ذاهب؟
+NONE|توفي أمس رحمه الله
+NONE|مرحبا أحمد كيف حالك
+NONE|شكرا لكن لا أريد
+NONE|مع السلامة يا أحمد
+NONE|هل وصلت؟
+NONE|هل يمكنك الحضور غدا؟
+NONE|الساعة كم؟
+NONE|ما رأيك؟
+NONE|حسنا لكن لن أتمكن من الحضور
+NONE|تمام؟
+NONE|مرحبا؟
+NONE|اشتقت لك
+NONE|أنا آسف
+NONE|شكرا لك على مساعدتك في المال
+NONE|عيد مبارك عليك وعلى أهلك جميعا ان شاء الله
+NONE|تصبح على خير يا أحمد
+NONE|حسنا سأفعل ذلك غدا
+NONE|مبروك! لقد ربحت جائزة، رد للاستلام
+NONE|لا تتصل بي
+NONE|متى تأتي؟
+NONE|هل ستأتي أنت أم لا ولماذا
+NONE|الجو جميل اليوم
+NONE|شاهدت فيلما رائعا أمس

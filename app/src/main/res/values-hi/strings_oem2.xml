@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">Vivo या iQOO</string>
+    <string name="oem2_step_vivo">अपने आप शुरू होने और बैकग्राउंड में चलने की अनुमति दें</string>
+    <string name="oem2_step_vivo_desc">uMessage के लिए ऑटोस्टार्ट चालू करें और उसकी बैटरी सेटिंग में बैकग्राउंड में ज़्यादा बैटरी इस्तेमाल करने की अनुमति दें.</string>
+    <string name="oem2_xiaomi_autostart_desc">uMessage के लिए ऑटोस्टार्ट चालू करें ताकि फ़ोन रीस्टार्ट होने के बाद यह शुरू हो जाए. अगर ऐप की जानकारी वाला पेज खुले, तो उसका ऑटोस्टार्ट स्विच चालू करें.</string>
+    <string name="oem2_xiaomi_battery_desc">uMessage के लिए कोई पाबंदी नहीं चुनें. अगर ऐप की सूची खुले, तो पहले uMessage पर टैप करें.</string>
+    <string name="oem2_oppo_desc">uMessage के लिए अपने आप शुरू होने की अनुमति दें और बैकग्राउंड गतिविधि की अनुमति दें चालू करें. नए फ़ोन में ये ऐप की जानकारी में बैटरी का इस्तेमाल के तहत हैं.</string>
+    <string name="oem2_ignore_battery_desc">uMessage के लिए बिना पाबंदी या ऑप्टिमाइज़ न करें चुनें. अगर सूची खुले, तो पहले सभी ऐप चुनें.</string>
+    <string name="oem2_state_done">हो गया</string>
+    <string name="oem2_state_marked">आपने पूरा हुआ मार्क किया</string>
+    <string name="oem2_state_todo">अभी पूरा नहीं हुआ</string>
+    <string name="oem2_state_limited">Android अभी भी uMessage के बैकग्राउंड में चलने पर पाबंदी लगाता है</string>
+    <string name="oem2_open_again">फिर से खोलें</string>
+    <string name="oem2_undo">पहले जैसा करें</string>
+    <string name="oem2_undo_cd">%1$s को अधूरा मार्क करें</string>
+</resources>

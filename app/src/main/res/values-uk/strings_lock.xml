@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="lock_title">uMessage заблоковано</string>
+    <string name="lock_enter_pin">Введіть ваш PIN</string>
+    <string name="lock_draw_pattern">Накресліть графічний ключ</string>
+    <string name="lock_use_biometrics">Підтвердьте, що це ви, щоб відкрити uMessage</string>
+    <string name="lock_wrong_pin">Неправильний PIN. Спробуйте ще раз</string>
+    <string name="lock_wrong_pattern">Неправильний графічний ключ. Спробуйте ще раз</string>
+    <string name="lock_too_many">Забагато невдалих спроб</string>
+    <string name="lock_try_again_in">Спробуйте ще раз через %s</string>
+    <string name="lock_key_delete">Видалити</string>
+    <string name="lock_key_confirm">Підтвердити</string>
+    <plurals name="lock_digits_entered" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Введено %d цифру</item>
+        <item quantity="few">Введено %d цифри</item>
+        <item quantity="many">Введено %d цифр</item>
+        <item quantity="other">Введено %d цифри</item>
+    </plurals>
+    <string name="lock_no_digits">Цифри не введено</string>
+    <string name="lock_pattern_pad">Поле графічного ключа, 3 на 3 точки</string>
+    <string name="lock_pattern_dot">Точка в рядку %1$d, стовпці %2$d</string>
+    <string name="lock_pattern_dot_selected">Точка в рядку %1$d, стовпці %2$d, номер %3$d у графічному ключі</string>
+    <string name="lock_pattern_done">Готово</string>
+    <string name="lock_pattern_clear">Очистити</string>
+    <plurals name="lock_pattern_dots_selected" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Вибрано %d точку</item>
+        <item quantity="few">Вибрано %d точки</item>
+        <item quantity="many">Вибрано %d точок</item>
+        <item quantity="other">Вибрано %d точки</item>
+    </plurals>
+    <string name="lock_use_pin_instead">Використати PIN</string>
+    <string name="lock_use_biometrics_instead">Використати біометрію</string>
+    <string name="lock_use_screen_lock">Використати блокування екрана телефона</string>
+    <string name="lock_biometrics_unavailable">Біометрія недоступна. Введіть ваш PIN.</string>
+    <string name="lock_screen_lock_title">Відкрити uMessage</string>
+    <string name="lock_screen_lock_description">Розблокуйте екран телефона, щоб відкрити uMessage</string>
+    <string name="lock_no_way_to_check">На цьому телефоні більше немає відбитків пальців або блокування екрана, тому uMessage не може підтвердити, що це ви. Відкрийте застосунок і встановіть PIN у налаштуваннях.</string>
+    <string name="lock_open_anyway">Відкрити uMessage</string>
+    <string name="lock_forgot">Забули? Скористайтеся блокуванням екрана телефона</string>
+    <plurals name="lock_tries_left" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Ще %d спроба, потім доведеться зачекати</item>
+        <item quantity="few">Ще %d спроби, потім доведеться зачекати</item>
+        <item quantity="many">Ще %d спроб, потім доведеться зачекати</item>
+        <item quantity="other">Ще %d спроби, потім доведеться зачекати</item>
+    </plurals>
+    <string name="lock_setup_done">Блокування застосунку ввімкнено. Якщо забудете PIN або графічний ключ, натисніть «Забули?» на екрані блокування та скористайтеся блокуванням екрана телефона.</string>
+    <string name="lock_setup_done_biometric">Блокування застосунку ввімкнено. Якщо біометрія перестане працювати, скористайтеся резервним PIN. Якщо забудете і його, натисніть «Забули?» та скористайтеся блокуванням екрана телефона.</string>
+    <string name="lock_setup_done_no_screen_lock">Блокування застосунку ввімкнено. На вашому телефоні немає блокування екрана, тому, якщо забудете PIN або графічний ключ, іншого способу ввійти не буде: доведеться очистити дані uMessage у налаштуваннях застосунків телефона. Це видалить налаштування, списки спаму та історію спаму (ваші текстові повідомлення залишаться на телефоні). Налаштуйте блокування екрана телефона, щоб мати змогу відновити доступ.</string>
+    <string name="settings_app_lock_timeout">Блокувати після виходу із застосунку</string>
+    <string name="settings_app_lock_timeout_immediately">Одразу</string>
+    <string name="settings_app_lock_timeout_30s">Через 30 секунд</string>
+    <string name="settings_app_lock_timeout_1m">Через 1 хвилину</string>
+    <string name="settings_app_lock_timeout_5m">Через 5 хвилин</string>
+    <string name="settings_app_lock_screenshots">Заблокувати знімки екрана</string>
+    <string name="settings_app_lock_screenshots_body">Блокує знімки та запис екрана. Повідомлення завжди приховано в списку нещодавніх застосунків.</string>
+    <string name="settings_app_lock_screenshots_body_old">Блокує знімки та запис екрана. У цій версії Android це також єдиний спосіб приховати повідомлення в списку нещодавніх застосунків.</string>
+    <string name="settings_app_lock_change">Змінити PIN, графічний ключ або біометрію</string>
+    <string name="settings_app_lock_weak">Ваш PIN або графічний ключ легко вгадати</string>
+    <string name="settings_app_lock_weak_body">Ненадійний PIN. Натисніть, щоб змінити</string>
+    <string name="settings_app_lock_add_pin">Додати резервний PIN</string>
+    <string name="settings_app_lock_add_pin_body">Додайте PIN як запасний спосіб входу</string>
+    <string name="settings_app_lock_now">Заблокувати зараз</string>
+    <string name="settings_app_lock_now_body">Одразу блокує uMessage</string>
+    <string name="settings_app_lock_changed">Блокування застосунку змінено</string>
+    <string name="dialogs_lock_backup_pin">Спершу встановіть резервний PIN. Він знадобиться, якщо біометрія перестане працювати.</string>
+</resources>

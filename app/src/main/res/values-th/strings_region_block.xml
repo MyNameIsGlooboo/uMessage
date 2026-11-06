@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">ประเทศอื่น</string>
+    <string name="region_title">พักข้อความจากหมายเลขต่างประเทศ</string>
+    <string name="region_summary">ไม่พักข้อความจากรายชื่อติดต่อและคนที่คุณเคยส่งข้อความหา</string>
+    <string name="region_off">ปิด</string>
+    <string name="region_picker_title">ประเทศของคุณ</string>
+    <string name="region_picker_body">ข้อความจากหมายเลขต่างประเทศจะถูกพักไว้ในข้อความที่บล็อก ยกเว้นรายชื่อติดต่อและคนที่คุณเคยส่งข้อความหา ญาติในต่างประเทศที่ไม่ได้อยู่ในรายชื่อติดต่อก็จะถูกพักข้อความด้วย</string>
+    <string name="region_picker_search">ค้นหา</string>
+    <string name="region_reason_foreign">หมายเลขจากต่างประเทศ</string>
+</resources>

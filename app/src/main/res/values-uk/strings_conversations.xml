@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="convlist_loading">Завантаження повідомлень</string>
+    <string name="convlist_empty_title">Ще немає чатів</string>
+    <string name="convlist_empty_body">Тут з’являтимуться ваші надіслані й отримані повідомлення.</string>
+    <string name="convlist_start_conversation">Почати чат</string>
+    <string name="convlist_new_conversation">Новий чат</string>
+    <string name="convlist_draft">Чернетка</string>
+    <string name="convlist_pinned">Закріплено</string>
+    <string name="convlist_muted">Сповіщення вимкнено</string>
+    <string name="convlist_unread">Непрочитані</string>
+    <string name="convlist_unread_count">Непрочитаних: %1$d</string>
+    <string name="convlist_group">Груповий чат</string>
+    <string name="convlist_selected">Вибрано</string>
+    <string name="convlist_sim">SIM %1$d</string>
+    <string name="convlist_scroll_handle">Швидке прокручування</string>
+    <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d заблоковане повідомлення</item>
+        <item quantity="few">%d заблоковані повідомлення</item>
+        <item quantity="many">%d заблокованих повідомлень</item>
+        <item quantity="other">%d заблокованого повідомлення</item>
+    </plurals>
+    <string name="convlist_blocked_banner_title">Заблоковані повідомлення</string>
+    <string name="convlist_blocked_banner_cd">Заблокованих повідомлень: %1$d. Відкрийте папку «Заблоковані».</string>
+    <string name="convlist_archive">Заархівувати</string>
+    <string name="convlist_delete">Видалити</string>
+    <string name="convlist_pin">Закріпити вгорі</string>
+    <string name="convlist_unpin">Відкріпити</string>
+    <string name="convlist_mark_read">Позначити як прочитане</string>
+    <string name="convlist_mark_unread">Позначити як непрочитане</string>
+    <string name="convlist_block_number">Заблокувати номер</string>
+    <string name="convlist_add_contact">Додати номер до контакту</string>
+    <string name="convlist_copy_number">Копіювати номер</string>
+    <string name="convlist_dial">Зателефонувати</string>
+    <string name="convlist_rename">Перейменувати чат</string>
+    <string name="convlist_details">Відомості про чат</string>
+    <string name="convlist_select_all">Вибрати все</string>
+    <string name="convlist_more_options">Інші дії</string>
+    <string name="convlist_close_selection">Скасувати вибір</string>
+    <plurals name="convlist_selected_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Вибрано: %d</item>
+        <item quantity="few">Вибрано: %d</item>
+        <item quantity="many">Вибрано: %d</item>
+        <item quantity="other">Вибрано: %d</item>
+    </plurals>
+    <string name="convlist_undo">Скасувати</string>
+    <plurals name="convlist_deleted" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Видалено %d чат</item>
+        <item quantity="few">Видалено %d чати</item>
+        <item quantity="many">Видалено %d чатів</item>
+        <item quantity="other">Видалено %d чату</item>
+    </plurals>
+    <plurals name="convlist_archived" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Заархівовано %d чат</item>
+        <item quantity="few">Заархівовано %d чати</item>
+        <item quantity="many">Заархівовано %d чатів</item>
+        <item quantity="other">Заархівовано %d чату</item>
+    </plurals>
+    <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Заблоковано. Нові повідомлення потраплятимуть до папки «Заблоковані повідомлення»</item>
+        <item quantity="few">Заблоковано %d відправники. Нові повідомлення потраплятимуть до папки «Заблоковані повідомлення»</item>
+        <item quantity="many">Заблоковано %d відправників. Нові повідомлення потраплятимуть до папки «Заблоковані повідомлення»</item>
+        <item quantity="other">Заблоковано %d відправника. Нові повідомлення потраплятимуть до папки «Заблоковані повідомлення»</item>
+    </plurals>
+    <string name="convlist_action_failed">Щось пішло не так</string>
+    <string name="convlist_block_title">Заблокувати номер?</string>
+    <string name="convlist_block_message">Заблокувати %1$s? Нові повідомлення з цього номера потраплятимуть до папки «Заблоковані повідомлення» замість вхідних. Там ви зможете їх прочитати або відновити.</string>
+    <string name="convlist_block_confirm">Заблокувати</string>
+    <string name="convlist_rename_title">Перейменувати чат</string>
+    <string name="convlist_rename_hint">Назва чату</string>
+    <string name="convlist_ok">ОК</string>
+    <string name="convlist_cancel">Скасувати</string>
+</resources>

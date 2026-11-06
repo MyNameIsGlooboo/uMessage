@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">Vivo або iQOO</string>
+    <string name="oem2_step_vivo">Дозвольте автозапуск і роботу у фоні</string>
+    <string name="oem2_step_vivo_desc">Увімкніть автозапуск для uMessage, а в налаштуваннях батареї дозвольте високе споживання енергії у фоні.</string>
+    <string name="oem2_xiaomi_autostart_desc">Увімкніть автозапуск для uMessage, щоб застосунок запускався після перезавантаження. Якщо відкриється сторінка відомостей про застосунок, увімкніть на ній «Автозапуск».</string>
+    <string name="oem2_xiaomi_battery_desc">Виберіть «Без обмежень» для uMessage. Якщо відкриється список застосунків, спершу натисніть uMessage.</string>
+    <string name="oem2_oppo_desc">Увімкніть «Дозволити автоматичний запуск» і «Дозволити фонову активність» для uMessage. На новіших телефонах вони розташовані в розділі «Про застосунок» → «Використання батареї».</string>
+    <string name="oem2_ignore_battery_desc">Виберіть «Без обмежень» або «Не оптимізувати» для uMessage. Якщо відкриється список, спершу виберіть «Усі застосунки».</string>
+    <string name="oem2_state_done">Виконано</string>
+    <string name="oem2_state_marked">Ви позначили як виконане</string>
+    <string name="oem2_state_todo">Ще не виконано</string>
+    <string name="oem2_state_limited">Android досі обмежує роботу uMessage у фоні</string>
+    <string name="oem2_open_again">Відкрити ще раз</string>
+    <string name="oem2_undo">Скасувати</string>
+    <string name="oem2_undo_cd">Позначити %1$s як невиконане</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">Thêm tính năng</string>
+    <string name="ux8f_onb_less">Bớt tính năng</string>
+    <string name="ux8f_onb_battery_body">Android có thể dừng uMessage chạy nền và làm chậm tin nhắn của bạn. Cho phép ứng dụng tiếp tục chạy.</string>
+    <string name="ux8f_onb_battery_action">Cho phép chạy nền</string>
+    <string name="ux8f_onb_vendor_hint">Điện thoại %1$s cần thêm một bước.</string>
+    <string name="ux8f_onb_unfinished">Chưa hoàn tất. Bạn có thể hoàn tất sau trong cài đặt Android.</string>
+</resources>

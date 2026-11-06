@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3a_forward_limit_channel">Limite de encaminhamentos</string>
+    <string name="w3a_forward_limit_title">Encaminhamentos pausados por hoje</string>
+    <string name="w3a_forward_limit_text">Limite de %d encaminhamentos atingido. Os encaminhamentos continuam amanhã.</string>
+</resources>

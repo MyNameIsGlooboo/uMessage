@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">কিওয়ার্ড খুঁজুন</string>
+    <string name="w2a_keywords_search_clear">সার্চ সাফ করুন</string>
+    <string name="w2a_keywords_no_match_title">কোনো কিওয়ার্ড মেলেনি</string>
+    <string name="w2a_keywords_no_match_body">অন্য শব্দ দিয়ে খুঁজুন বা সার্চ সাফ করুন।</string>
+</resources>

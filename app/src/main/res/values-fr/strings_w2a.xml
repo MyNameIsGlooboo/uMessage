@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">Rechercher des mots-clés</string>
+    <string name="w2a_keywords_search_clear">Effacer la recherche</string>
+    <string name="w2a_keywords_no_match_title">Aucun mot-clé correspondant</string>
+    <string name="w2a_keywords_no_match_body">Essayez un autre mot ou effacez la recherche.</string>
+</resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="convlist_loading">Caricamento dei messaggi</string>
+    <string name="convlist_empty_title">Ancora nessuna conversazione</string>
+    <string name="convlist_empty_body">I messaggi che invii e ricevi appariranno qui.</string>
+    <string name="convlist_start_conversation">Avvia una conversazione</string>
+    <string name="convlist_new_conversation">Nuova conversazione</string>
+    <string name="convlist_draft">Bozza</string>
+    <string name="convlist_pinned">Fissata</string>
+    <string name="convlist_muted">Notifiche disattivate</string>
+    <string name="convlist_unread">Da leggere</string>
+    <string name="convlist_unread_count">%1$d da leggere</string>
+    <string name="convlist_group">Conversazione di gruppo</string>
+    <string name="convlist_selected">Selezionata</string>
+    <string name="convlist_sim">SIM %1$d</string>
+    <string name="convlist_scroll_handle">Scorrimento rapido</string>
+    <plurals name="convlist_blocked_banner">
+        <item quantity="one">%d messaggio bloccato</item>
+        <item quantity="other">%d messaggi bloccati</item>
+    </plurals>
+    <string name="convlist_blocked_banner_title">Messaggi bloccati</string>
+    <string name="convlist_blocked_banner_cd">%1$d messaggi bloccati. Apri la cartella Messaggi bloccati.</string>
+    <string name="convlist_archive">Archivia</string>
+    <string name="convlist_delete">Elimina</string>
+    <string name="convlist_pin">Fissa in alto</string>
+    <string name="convlist_unpin">Non fissare più</string>
+    <string name="convlist_mark_read">Segna come letto</string>
+    <string name="convlist_mark_unread">Segna come da leggere</string>
+    <string name="convlist_block_number">Blocca numero</string>
+    <string name="convlist_add_contact">Aggiungi numero a un contatto</string>
+    <string name="convlist_copy_number">Copia numero</string>
+    <string name="convlist_dial">Chiama</string>
+    <string name="convlist_rename">Rinomina conversazione</string>
+    <string name="convlist_details">Dettagli della conversazione</string>
+    <string name="convlist_select_all">Seleziona tutto</string>
+    <string name="convlist_more_options">Altre opzioni</string>
+    <string name="convlist_close_selection">Annulla selezione</string>
+    <plurals name="convlist_selected_count">
+        <item quantity="one">%d selezionata</item>
+        <item quantity="other">%d selezionate</item>
+    </plurals>
+    <string name="convlist_undo">Annulla</string>
+    <plurals name="convlist_deleted">
+        <item quantity="one">%d conversazione eliminata</item>
+        <item quantity="other">%d conversazioni eliminate</item>
+    </plurals>
+    <plurals name="convlist_archived">
+        <item quantity="one">%d conversazione archiviata</item>
+        <item quantity="other">%d conversazioni archiviate</item>
+    </plurals>
+    <plurals name="convlist_blocked_done">
+        <item quantity="one">Bloccato. I nuovi messaggi andranno in Messaggi bloccati</item>
+        <item quantity="other">%d mittenti bloccati. I nuovi messaggi andranno in Messaggi bloccati</item>
+    </plurals>
+    <string name="convlist_action_failed">Qualcosa è andato storto</string>
+    <string name="convlist_block_title">Bloccare il numero?</string>
+    <string name="convlist_block_message">Bloccare %1$s? I nuovi messaggi di questo mittente andranno in Messaggi bloccati anziché in In arrivo. Potrai comunque leggerli o ripristinarli.</string>
+    <string name="convlist_block_confirm">Blocca</string>
+    <string name="convlist_rename_title">Rinomina conversazione</string>
+    <string name="convlist_rename_hint">Nome della conversazione</string>
+    <string name="convlist_ok">OK</string>
+    <string name="convlist_cancel">Annulla</string>
+</resources>

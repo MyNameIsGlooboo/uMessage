@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rules_sheet_title_edit_allow">Edit aturan izinkan</string>
+    <string name="rules_sheet_title_edit_block">Edit aturan blokir</string>
+    <string name="rules_sheet_save">Simpan perubahan</string>
+    <string name="rules_edit_rule">Edit %1$s</string>
+    <string name="rules_search_hint">Cari aturan dan catatan</string>
+    <string name="rules_search_clear">Hapus pencarian</string>
+    <string name="rules_filter_all_types">Semua jenis</string>
+    <string name="rules_search_empty_title">Tidak ada aturan yang cocok</string>
+    <string name="rules_search_empty_body">Coba kata lain, atau tampilkan semua jenis.</string>
+    <string name="rules_export_selected">Ekspor yang dipilih</string>
+    <string name="rules_delete_selected">Hapus yang dipilih</string>
+    <plurals name="rules_deleted_many">
+        <item quantity="other">%d aturan dihapus</item>
+    </plurals>
+    <string name="rules_system_block_list">Daftar blokir sistem (juga memblokir panggilan)</string>
+    <string name="rules_legacy_note_keyword">Dari daftar kata yang diblokir versi lama</string>
+    <string name="rules_legacy_note_number">Dari daftar blokir sistem</string>
+    <string name="rules_legacy_banner_title">Daftar blokir lama ditemukan</string>
+    <string name="rules_legacy_banner_body">Beberapa kata dan nomor diblokir di luar aturan ini. Pindahkan ke sini untuk melihat dan mengubah semuanya di satu tempat.</string>
+    <string name="rules_legacy_banner_review">Tinjau</string>
+    <string name="rules_legacy_banner_not_now">Nanti saja</string>
+    <string name="rules_legacy_section_keywords">Daftar kata yang diblokir versi lama</string>
+    <string name="rules_legacy_section_keywords_body">Masih digunakan untuk memfilter sampai Anda memindahkan kata-kata ini ke aturan. Setelah itu, daftar lama tidak digunakan lagi.</string>
+    <string name="rules_legacy_section_system_body">Android membuang pesan dari nomor ini sebelum diterima uMessage, sehingga pesannya tidak pernah muncul di Diblokir. Daftar ini juga digunakan aplikasi telepon dan memblokir panggilan.</string>
+    <string name="rules_legacy_chip_old_list">Daftar lama</string>
+    <string name="rules_legacy_chip_system">Sistem, juga panggilan</string>
+    <string name="rules_legacy_move">Pindahkan ke aturan</string>
+    <string name="rules_legacy_open_system">Buka daftar blokir sistem</string>
+    <string name="rules_migrate_title">Pindahkan daftar blokir lama ke aturan</string>
+    <string name="rules_migrate_nothing">Semua isi daftar lama sudah ada di aturan Anda.</string>
+    <plurals name="rules_migrate_keywords">
+        <item quantity="other">%d kata dari daftar kata yang diblokir versi lama menjadi aturan blokir kata kunci. Setelah itu, daftar lama tidak digunakan lagi.</item>
+    </plurals>
+    <plurals name="rules_migrate_keywords_kept">
+        <item quantity="other">%d kata tidak dapat dijadikan aturan (satu huruf, beberapa baris, atau terlalu panjang) dan tetap ada di daftar lama.</item>
+    </plurals>
+    <plurals name="rules_migrate_numbers">
+        <item quantity="other">Tambahkan juga %d nomor di daftar blokir sistem sebagai aturan blokir</item>
+    </plurals>
+    <string name="rules_migrate_numbers_body">Android membuang pesan dari nomor di daftar blokir sistem, sehingga uMessage tidak pernah menerimanya. Jika dijadikan aturan uMessage, pesannya bisa masuk ke Diblokir agar dapat Anda baca dan pulihkan, tetapi hanya setelah nomornya dihapus dari daftar sistem.</string>
+    <string name="rules_migrate_remove">Hapus juga dari daftar blokir sistem</string>
+    <string name="rules_migrate_remove_body">Daftar sistem juga memblokir panggilan. Nomor yang Anda hapus dari daftar itu dapat menelepon Anda lagi. uMessage hanya memfilter pesan.</string>
+    <plurals name="rules_migrate_numbers_kept">
+        <item quantity="other">%d entri karakter pengganti tidak dapat dijadikan aturan dan tetap ada di daftar sistem.</item>
+    </plurals>
+    <string name="rules_migrate_confirm">Pindahkan</string>
+    <plurals name="rules_migrated_keywords">
+        <item quantity="other">%d kata dipindahkan ke aturan</item>
+    </plurals>
+    <plurals name="rules_migrated_numbers">
+        <item quantity="other">%d nomor ditambahkan sebagai aturan</item>
+    </plurals>
+    <plurals name="rules_migrated_removed">
+        <item quantity="other">%d dihapus dari daftar blokir sistem</item>
+    </plurals>
+    <plurals name="rules_migrated_kept">
+        <item quantity="other">%d entri tetap ada di daftar lama</item>
+    </plurals>
+    <string name="rules_migrated_nothing">Tidak ada yang dipindahkan.</string>
+    <string name="settings_system_block_list_body_calls">Memblokir panggilan dan pesan di seluruh ponsel ini. Android membuang pesan tersebut sebelum diterima uMessage. Anda dapat memindahkan nomornya ke Diizinkan dan diblokir.</string>
+    <string name="settings_old_blocked_words">Daftar kata yang diblokir versi lama</string>
+    <string name="settings_old_blocked_words_body">Sedang dipindahkan ke Diizinkan dan diblokir</string>
+</resources>

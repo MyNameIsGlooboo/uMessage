@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="blocked_line_strict">严格防护</string>
+    <string name="blocked_line_smart">智能防护</string>
+    <string name="blocked_line_off">防护已关闭</string>
+    <string name="blocked_line_join">%1$s · %2$s</string>
+    <string name="blocked_line_cd">%1$s, %2$s</string>
+</resources>

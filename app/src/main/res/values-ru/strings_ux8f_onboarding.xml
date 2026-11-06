@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">Больше функций</string>
+    <string name="ux8f_onb_less">Меньше функций</string>
+    <string name="ux8f_onb_battery_body">Android может останавливать uMessage в фоне и задерживать сообщения. Разрешите приложению работать в фоне.</string>
+    <string name="ux8f_onb_battery_action">Разрешить работу в фоне</string>
+    <string name="ux8f_onb_vendor_hint">На телефонах %1$s нужен еще один шаг.</string>
+    <string name="ux8f_onb_unfinished">Еще не готово. Вы можете завершить эти шаги позже в настройках Android.</string>
+</resources>

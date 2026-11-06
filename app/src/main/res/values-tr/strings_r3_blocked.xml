@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3b_info_button">Engelleme nasıl çalışır?</string>
+    <string name="r3b_info_title">Engelleme nasıl çalışır?</string>
+    <string name="r3b_info_modes">Bilinmeyen gönderenler</string>
+    <string name="r3b_info_mode_current">Şu anda: %1$s</string>
+    <string name="r3b_info_messages">Engellenen mesajlar</string>
+    <string name="r3b_info_open_sender">Mesajlarını okumak için bir gönderene dokunun.</string>
+    <string name="r3b_info_move">Gelen kutusuna taşıma, gönderenin tüm mesajlarını gelen kutunuza taşır ve ardından gönderene her zaman izin verilip verilmeyeceğini sorar.</string>
+    <string name="r3b_info_release">Bir kez serbest bırakma (mesaja basılı tutun), yalnızca o mesajı gelen kutunuza taşır. Gönderene izin verilmez.</string>
+    <string name="r3b_info_swipe">Mesajlarını gelen kutusuna taşımak için göndereni satırın sonuna doğru kaydırın.</string>
+    <string name="r3b_open_sender">Mesajları açın</string>
+    <string name="r3b_move_inbox_for">Gelen kutusuna taşıyın, %1$s</string>
+    <string name="r3b_delete_for">Silin, %1$s</string>
+    <string name="r3b_thread_note">uMessage bu mesajları bekletti. Gelen kutunuzda değiller.</string>
+    <string name="r3b_thread_delete_all">%1$s tarafından gönderilen tüm mesajları silin</string>
+    <string name="r3b_thread_empty_title">Burada hiçbir şey kalmadı</string>
+    <string name="r3b_thread_empty_body">Bu gönderenin artık engellenen mesajı yok.</string>
+    <string name="r3b_message_actions">Mesaj işlemleri</string>
+    <string name="r3b_why_blocked">Neden engellendi?</string>
+    <string name="r3b_copy_text">Metni kopyalayın</string>
+    <string name="r3b_text_copied">Metin kopyalandı</string>
+    <string name="r3b_delete_message">Silin</string>
+    <string name="r3b_received">Alınma zamanı: %1$s</string>
+    <string name="r3b_info_mode_strict">Sıkı: Doğrulama kodları dahil, bilinmeyen gönderenlerin tüm mesajlarını bekletir.</string>
+    <string name="r3b_info_mode_smart">Akıllı: Bilinmeyen gönderenlerin mesajlarını bekletir, ancak bağlantı içermeyen kodları geçirir.</string>
+    <string name="r3b_info_mode_off">Kapalı: Bilinmeyen gönderenlerin mesajları gelen kutunuza ulaşır. Kurallarınız uygulanmaya devam eder.</string>
+    <plurals name="r3b_info_purge">
+        <item quantity="one">Engellenen mesajlar %d gün sonra silinir.</item>
+        <item quantity="other">Engellenen mesajlar %d gün sonra silinir.</item>
+    </plurals>
+    <string name="r3b_info_purge_off">Engellenen mesajlar siz silene kadar saklanır.</string>
+    <string name="r3b_allow_body_sender_one_message">Her iki durumda da mesaj gelen kutunuza döner. %1$s için her zaman izin verirseniz, bu gönderenin sonraki mesajları engelleme kurallarınız dahil tüm filtreleri atlar.</string>
+    <string name="r3b_allow_body_sender_many_messages">Her iki durumda da mesajlar gelen kutunuza döner. %1$s için her zaman izin verirseniz, bu gönderenin sonraki mesajları engelleme kurallarınız dahil tüm filtreleri atlar.</string>
+</resources>

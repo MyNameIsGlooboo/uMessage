@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_text_xsmall">Rất nhỏ</string>
+    <string name="w3c_text_huge">Rất lớn</string>
+    <string name="w3c_text_giant">Cực lớn</string>
+</resources>

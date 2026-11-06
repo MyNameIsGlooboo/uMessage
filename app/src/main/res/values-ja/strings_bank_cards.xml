@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i31_card_deposit">入金</string>
+    <string name="i31_card_withdrawal">出金</string>
+    <string name="i31_card_balance_title">残高</string>
+    <string name="i31_card_title">%1$s: %2$s</string>
+    <string name="i31_card_balance">残高：%1$s</string>
+    <string name="i31_money">%1$s %2$s</string>
+    <string name="i31_card_hint_card">カード末尾%1$s</string>
+    <string name="i31_card_hint_account">口座末尾%1$s</string>
+    <string name="i31_card_hint_other">末尾%1$s</string>
+    <string name="i31_currency_rial">リアル</string>
+    <string name="i31_currency_toman">トマン</string>
+    <string name="i31_currency_usd">USD</string>
+    <string name="i31_currency_eur">EUR</string>
+    <string name="i31_currency_gbp">GBP</string>
+    <string name="i31_currency_aed">AED</string>
+</resources>

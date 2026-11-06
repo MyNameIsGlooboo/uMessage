@@ -1,0 +1,7 @@
+- Ukrainian, short, natural and polite, like Google Messages and the big Ukrainian banking apps.
+- Address the user with the polite plural "ви": imperatives "Виберіть", "Увімкніть"; possessive "ваш", "ваша". Never "ти". Write "ви" and "ваш" in lowercase.
+- Sentence case: only the first word and proper nouns are capitalised (no English-style Title Case).
+- Use « » for quotes. Use the real apostrophe ’ (U+2019) in words such as "пам’ять" and "з’єднання". Use Ukrainian letters (і, ї, є, ґ), never the Russian ы, э, ъ, ё.
+- Plural ids: one (1, 21, 31, 101), few (2-4, 22-24, 102-104), many (0, 5-20, 25-30, 105-120), other (fractions). Each needs the correct noun case; the number token stays in all four.
+- Use "повідомлення" for message, "відправник" for sender, "спам" for spam, "заблокувати" for block; keep "SMS", "MMS", "SIM" and "PIN" as they are.
+- Ukrainian runs 20-30% longer than English: choose short words for buttons and chips.

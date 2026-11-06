@@ -1,0 +1,109 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|Ciao!
+greeting|Salve a tutti
+greeting|Ciao ragazzi
+greeting|Ehi ciao
+good_morning|Buongiorno!
+good_morning|Buongiorno a tutti
+good_afternoon|Buon pomeriggio
+good_afternoon|Buon pomeriggio a tutti
+good_evening|Buonasera
+good_evening|Buona serata a te
+good_night|Buonanotte
+good_night|Sogni d'oro
+good_night|Dormi bene
+how_are_you|Come stai?
+how_are_you|Ciao, come va?
+how_are_you|Che si dice?
+how_are_you|Come state?
+thanks|Grazie!
+thanks|Grazie mille
+thanks|Mille grazie 🙏
+thanks|Grazie per l'informazione
+youre_welcome|Prego
+youre_welcome|Figurati
+youre_welcome|Nessun problema
+youre_welcome|Con piacere
+where_are_you|Dove sei?
+where_are_you|Dove sei adesso?
+where_are_you|A che punto sei?
+on_my_way|Sto arrivando
+on_my_way|Arrivo tra poco
+on_my_way|Sono in strada
+on_my_way|Esco adesso
+arrived|Sono qui fuori
+arrived|Sono sotto casa
+arrived|Siamo arrivati
+arrived|Ti aspetto davanti
+arrived_home|Sono a casa
+arrived_home|Sono arrivata a casa
+arrived_home|Siamo a casa sani e salvi
+did_you_arrive|Sei arrivato?
+did_you_arrive|Siete arrivati a casa?
+did_you_arrive|Sei già a casa?
+are_you_coming|Vieni stasera?
+are_you_coming|Verrai domani?
+call_me|Chiamami
+call_me|Chiamami quando puoi
+call_me|Mi puoi richiamare?
+can_you_talk|Puoi parlare?
+can_you_talk|Hai un minuto?
+are_you_free|Sei libero domani?
+are_you_free|Hai impegni stasera?
+what_time|A che ora ci vediamo?
+what_time|A che ora arrivi
+where_to_meet|Dove ci vediamo?
+where_to_meet|Dove andiamo stasera?
+ok_confirm|Va bene
+ok_confirm|D'accordo
+ok_confirm|Perfetto, grazie
+ok_confirm|Ricevuto
+bye|A presto
+bye|Ci vediamo domani
+bye|Arrivederci
+bye|Buona giornata
+congrats|Congratulazioni!
+congrats|Buon compleanno
+congrats|Complimenti
+holiday_eid|Buon Eid
+holiday_new_year|Buon anno!
+holiday_christmas|Buon Natale
+holiday_other|Buona Pasqua
+holiday_other|Buone vacanze
+good_luck|In bocca al lupo
+good_luck|Buona fortuna
+sorry_late|Scusa per il ritardo
+sorry_late|Scusami per la risposta in ritardo
+missed_call|Ho perso la tua chiamata
+missed_call|Scusa, non ho sentito il telefono
+NONE|Ciao, volevo dirti che domani andiamo a pranzo da mia zia e poi faremo una passeggiata nel parco
+NONE|Quando vieni a trovarci?
+NONE|Da dove vieni?
+NONE|Il tuo codice di sicurezza è 482913
+NONE|Il tuo pacco arriva domani https://esempio.it/tracking
+NONE|Grazie, puoi farmi un bonifico di 50 euro?
+NONE|Ho bisogno di soldi, me li puoi prestare?
+NONE|Nessun problema con la password
+NONE|Grazie, ma non vengo
+NONE|Domani non sono libero
+NONE|Perché non vieni?
+NONE|A che ora parte il tuo treno domani mattina?
+NONE|Ciao, mi puoi chiamare? È urgente
+NONE|Come stai? Vieni stasera?
+NONE|Promemoria: appuntamento dal dentista domani alle nove
+NONE|Chiama il medico appena possibile
+NONE|Mio padre è morto ieri
+NONE|Sono a casa con mia madre malata
+NONE|Merci danke gracias
+NONE|Dank je wel voor alles
+NONE|Goedemorgen allemaal
+NONE|Tack så mycket för hjälpen
+NONE|Děkuji mnohokrát
+NONE|Köszönöm szépen
+NONE|Mulțumesc frumos
+NONE|Kiitos paljon
+NONE|Non so se sono già arrivato
+NONE|Se vieni tu, vengo anch'io
+NONE|Chi è questo numero?
+NONE|Ieri ero già a casa quando hai scritto

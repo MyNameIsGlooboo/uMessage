@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">Nachrichten aufbewahren für</string>
+    <string name="cleanup_old_summary">Ältere Nachrichten kommen in den Papierkorb</string>
+    <string name="cleanup_forever">Immer</string>
+    <string name="cleanup_one_year">1 Jahr</string>
+    <string name="cleanup_bin_title">Papierkorb aktivieren?</string>
+    <string name="cleanup_bin_body">Gelöschte Nachrichten bleiben dort 30 Tage, damit du sie wiederherstellen kannst. Für das automatische Aufräumen muss der Papierkorb aktiviert sein.</string>
+    <string name="cleanup_bin_confirm">Aktivieren</string>
+    <string name="cleanup_old_confirm_title">Alte Nachrichten verschieben?</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="one">%d Nachricht ist älter und kommt jetzt in den Papierkorb. Mit Stern markierte und ungelesene Nachrichten sowie angepinnte Unterhaltungen bleiben erhalten.</item>
+        <item quantity="other">%d Nachrichten sind älter und kommen jetzt in den Papierkorb. Mit Stern markierte und ungelesene Nachrichten sowie angepinnte Unterhaltungen bleiben erhalten.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">Noch ist keine Nachricht so alt. Ältere Nachrichten kommen automatisch in den Papierkorb. Mit Stern markierte und ungelesene Nachrichten sowie angepinnte Unterhaltungen bleiben erhalten.</string>
+    <string name="cleanup_old_confirm_action">Verschieben</string>
+</resources>

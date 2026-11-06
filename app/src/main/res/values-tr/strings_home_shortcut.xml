@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">Ana ekrana ekleyin</string>
+    <string name="home_shortcut_requested">Başlatıcınızdan eklemesi isteniyor. Adı ana ekranda görünecek. Hiçbir şey görünmezse telefonunuzun uygulama ayarlarında uMessage için “Ana ekran kısayolları” iznini açın.</string>
+    <string name="home_shortcut_failed">Başlatıcınız kısayolu kabul etmedi. Telefonunuzun uygulama ayarlarında uMessage için “Ana ekran kısayolları” iznini açın.</string>
+</resources>

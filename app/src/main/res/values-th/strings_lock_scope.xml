@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_scope_title">สิ่งที่ต้องการล็อก</string>
+    <string name="lock_scope_whole">ทั้งแอป</string>
+    <string name="lock_scope_chosen">เฉพาะส่วนที่เลือก</string>
+    <string name="lock_scope_chosen_long">เฉพาะส่วนที่เลือก: แท็บที่บล็อกและการสนทนาที่ซ่อน</string>
+    <string name="lock_scope_blocked_title">ข้อความที่บล็อกถูกล็อกอยู่</string>
+    <string name="lock_scope_blocked_body">ปลดล็อกเพื่อดูข้อความ</string>
+    <string name="lock_scope_unlock">ปลดล็อก</string>
+</resources>

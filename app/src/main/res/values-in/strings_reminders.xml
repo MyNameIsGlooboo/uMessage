@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">Ingatkan saya</string>
+    <string name="reminder_dialog_title">Ingatkan saya</string>
+    <string name="reminder_in_3_hours">3 jam lagi</string>
+    <string name="reminder_tomorrow_morning">Besok pagi</string>
+    <string name="reminder_pick_time">Pilih tanggal dan waktu</string>
+    <string name="reminder_set">Pengingat disetel untuk %1$s</string>
+    <string name="reminder_set_approximate">Pengingat disetel untuk sekitar %1$s. Mungkin muncul sedikit terlambat.</string>
+    <string name="reminder_battery_hint">Beberapa ponsel menghentikan aplikasi di latar belakang sehingga pengingat terlambat.</string>
+    <string name="reminder_battery_open">Biarkan uMessage tetap berjalan</string>
+    <string name="reminder_channel">Pengingat</string>
+    <string name="reminder_title">Pengingat</string>
+    <string name="reminder_title_named">Pengingat: %1$s</string>
+    <string name="reminder_open_hint">Ketuk untuk membuka pesan</string>
+</resources>

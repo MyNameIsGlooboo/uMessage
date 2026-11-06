@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_tab_forwarded">ส่งต่อแล้ว</string>
+    <string name="nav_tab_forwarded_failed">ส่งต่อแล้ว มีการส่งต่อไม่สำเร็จ</string>
+    <string name="nav_tab_forwarded_paused">ส่งต่อแล้ว หยุดส่งต่อชั่วคราวอยู่</string>
+    <string name="nav_tab_archived_new">เก็บถาวรแล้ว มีการสนทนาที่เพิ่งเก็บถาวร</string>
+    <string name="nav_prompt_title">บันทึกกฎแล้ว</string>
+    <string name="nav_prompt_body">แสดงแท็บส่งต่อแล้วเพื่อดูข้อความที่ส่งและลองส่งข้อความที่ไม่สำเร็จอีกครั้งไหม</string>
+    <string name="nav_prompt_show">แสดงแท็บ</string>
+    <string name="nav_prompt_not_now">ไว้ภายหลัง</string>
+    <string name="nav_fwd_paid_note">การส่งต่อแต่ละครั้งมีค่าบริการ SMS</string>
+    <string name="nav_fwd_pause_all">หยุดส่งต่อทั้งหมดชั่วคราว</string>
+    <string name="nav_fwd_status_paused">หยุดส่งต่อชั่วคราวอยู่</string>
+    <string name="nav_fwd_paused_hint">ข้อความที่ตรงตามกฎจะไม่ถูกส่ง ปิดสวิตช์เพื่อส่งต่อตามเดิม</string>
+    <string name="nav_fwd_status_no_rule">ไม่มีกฎส่งต่อที่เปิดอยู่</string>
+    <plurals name="nav_fwd_status_on">
+        <item quantity="other">เปิดการส่งต่ออยู่ ใช้กฎ %1$s กฎ</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">จัดการกฎ</string>
+    <string name="nav_fwd_empty_title">ยังไม่มีข้อความที่ส่งต่อ</string>
+    <string name="nav_fwd_empty_body">ข้อความที่ตรงตามกฎจะแสดงที่นี่</string>
+    <string name="nav_fwd_status_sent">ส่งแล้ว</string>
+    <string name="nav_fwd_status_pending">รอดำเนินการ</string>
+    <string name="nav_fwd_status_failed">ไม่สำเร็จ</string>
+    <string name="nav_fwd_to">ถึง %1$s</string>
+    <string name="nav_fwd_sim">SIM %1$d</string>
+    <string name="nav_fwd_rule_line">กฎ: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">ผู้ส่ง %1$s</string>
+    <string name="nav_fwd_rule_any_sender">ผู้ส่งใดก็ได้</string>
+    <string name="nav_fwd_rule_text">ข้อความ %1$s</string>
+    <string name="nav_fwd_rule_any_text">ข้อความใดก็ได้</string>
+    <string name="nav_fwd_rule_deleted">ลบกฎแล้ว</string>
+    <string name="nav_fwd_open_details">แสดงรายละเอียด</string>
+    <string name="nav_fwd_today">วันนี้</string>
+    <string name="nav_fwd_yesterday">เมื่อวาน</string>
+    <plurals name="nav_fwd_failed_count">
+        <item quantity="other">ส่งต่อไม่สำเร็จ %1$s ครั้ง</item>
+    </plurals>
+    <string name="nav_fwd_retry">ลองอีกครั้ง</string>
+    <string name="nav_fwd_retry_all">ลองส่งที่ไม่สำเร็จทั้งหมดอีกครั้ง (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">ส่งอีกครั้งไหม</string>
+    <plurals name="nav_fwd_retry_all_message">
+        <item quantity="other">จะส่ง SMS อีกครั้ง %1$s ข้อความ โดยมีค่าบริการ SMS ทุกข้อความ</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">ส่งอีกครั้ง</string>
+    <plurals name="nav_fwd_retry_sent">
+        <item quantity="other">ส่งต่ออีกครั้งแล้ว %d รายการ</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">ส่งไม่สำเร็จอีกครั้ง ตรวจสอบสัญญาณและยอดเงินคงเหลือ</string>
+    <string name="nav_fwd_retry_missing">ข้อความต้นฉบับหายไปแล้ว จึงส่งอีกครั้งไม่ได้</string>
+    <string name="nav_fwd_details_title">รายละเอียดการส่งต่อ</string>
+    <string name="nav_fwd_detail_from">ข้อความจาก</string>
+    <string name="nav_fwd_detail_to">ส่งต่อถึง</string>
+    <string name="nav_fwd_detail_when">เวลา</string>
+    <string name="nav_fwd_detail_sim">ส่งจาก</string>
+    <string name="nav_fwd_detail_rule">ตรงตามกฎ</string>
+    <string name="nav_fwd_detail_message">ข้อความต้นฉบับ</string>
+    <string name="nav_fwd_message_loading">กำลังโหลด</string>
+    <string name="nav_fwd_message_gone">ไม่ได้เก็บข้อความต้นฉบับไว้แล้ว</string>
+    <string name="nav_fwd_error_radio">เครือข่ายส่งข้อความไม่สำเร็จ</string>
+    <string name="nav_fwd_error_refused">โทรศัพท์ส่งข้อความไม่ได้</string>
+    <string name="nav_fwd_open_chat">เปิดการสนทนา</string>
+    <string name="nav_archived_title">เก็บถาวรแล้ว</string>
+    <string name="nav_archived_back">กลับไปที่ข้อความ</string>
+    <string name="nav_archived_intro">การสนทนาที่เก็บถาวรจะไม่แสดงในแท็บข้อความ เมื่อมีข้อความใหม่ การสนทนาจะกลับมา เว้นแต่จะเปิด “ซ่อนการสนทนาที่เก็บถาวรไว้เสมอ” ในการตั้งค่า</string>
+    <string name="nav_archived_intro_dismiss">ซ่อนคำแนะนำนี้</string>
+    <plurals name="nav_archived_moved">
+        <item quantity="other">ย้ายการสนทนา %d รายการไปที่ข้อความแล้ว</item>
+    </plurals>
+    <string name="nav_folder_more">ตัวเลือกเพิ่มเติม</string>
+    <string name="nav_folder_mark_all_read">ทำเครื่องหมายว่าอ่านแล้วทั้งหมด</string>
+    <string name="nav_folder_delete_all_count">การดำเนินการนี้จะลบ %1$s อย่างถาวร</string>
+</resources>

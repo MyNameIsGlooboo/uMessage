@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_format_json">uMessage-Datei (Texte und Bilder)</string>
+    <string name="export_format_xml">SMS Backup &amp; Restore-Datei (für andere Apps)</string>
+    <string name="export_format_xml_hint">uMessage stellt aus diesem Dateityp nur die Texte wieder her.</string>
+    <string name="export_scope_all">Alle Unterhaltungen</string>
+    <string name="export_scope_choose">Unterhaltungen auswählen</string>
+    <plurals name="export_scope_chosen">
+        <item quantity="one">%1$d Unterhaltung ausgewählt</item>
+        <item quantity="other">%1$d Unterhaltungen ausgewählt</item>
+    </plurals>
+    <string name="export_pick_title">Unterhaltungen auswählen</string>
+    <string name="export_pick_search">Suchen</string>
+    <string name="export_pick_all">Alle auswählen</string>
+    <string name="export_pick_none">Auswahl aufheben</string>
+    <string name="export_pick_empty">Keine Unterhaltungen vorhanden</string>
+    <string name="export_pick_nothing_chosen">Wähle mindestens eine Unterhaltung aus</string>
+</resources>

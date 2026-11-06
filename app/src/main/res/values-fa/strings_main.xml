@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_search_hint">جستجوی گفتگوها</string>
+    <string name="main_search_back">بستن جستجو</string>
+    <string name="main_search_clear">پاک کردن متن جستجو</string>
+    <string name="main_search_type_more">برای جستجو دست‌کم ۲ نویسه بنویسید</string>
+    <string name="main_search_no_results">نتیجه‌ای پیدا نشد</string>
+    <string name="main_settings">تنظیمات</string>
+    <string name="main_tab_messages">پیام‌ها</string>
+    <string name="main_tab_blocked">مسدودشده‌ها</string>
+    <string name="main_tab_archived">بایگانی‌شده</string>
+    <plurals name="main_tab_blocked_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">مسدودشده‌ها، %d مورد جدید</item>
+        <item quantity="other">مسدودشده‌ها، %d مورد جدید</item>
+    </plurals>
+    <string name="main_permission_title">مجوز لازم است</string>
+    <string name="main_permission_grant">دادن مجوز</string>
+    <string name="main_permission_notifications">به اعلان‌ها اجازه دهید، وگرنه برنامه نمی‌تواند پیام‌های ورودی را نمایش دهد.</string>
+    <string name="main_sms_permission_title">uMessage به دسترسی SMS نیاز دارد</string>
+    <string name="main_sms_permission_body">بدون مجوز خواندن و ارسال SMS، برنامهٔ uMessage نمی‌تواند پیام‌هایتان را نمایش دهد، پیام بفرستد یا هرزنامه را فیلتر کند. چیزی حذف نمی‌شود.</string>
+    <string name="main_sms_permission_settings">باز کردن تنظیمات برنامه</string>
+    <string name="main_not_default_banner">uMessage برنامهٔ پیامک پیش‌فرض شما نیست، پس نمی‌تواند هرزنامه را مسدود کند یا پیام بفرستد.</string>
+    <string name="main_not_default_fix">رفع مشکل</string>
+    <string name="main_not_default_fix_description">انتخاب uMessage به‌عنوان برنامهٔ پیامک پیش‌فرض</string>
+</resources>

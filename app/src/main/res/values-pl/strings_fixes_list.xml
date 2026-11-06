@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fixes_unarchive_title">Przywrócić z archiwum?</string>
+    <string name="fixes_unarchive_message">Przenieść %1$s z powrotem na listę rozmów?</string>
+</resources>

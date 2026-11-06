@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3f_spam_summary_stopped">สกัดแล้ว %1$d</string>
+    <string name="r3f_spam_summary_restored">กู้คืนแล้ว %1$d</string>
+    <string name="r3f_spam_summary_stopped_week">สกัดแล้ว %1$d ใน 7 วัน</string>
+    <string name="r3f_spam_summary_total">รวมทั้งหมด %1$d</string>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="i56_section">Медиа и ссылки</string>
+    <string name="i56_see_all">Показать все</string>
+    <string name="i56_pictures">Изображения</string>
+    <string name="i56_links">Ссылки</string>
+    <string name="i56_empty_pictures">В этом чате нет изображений.</string>
+    <string name="i56_empty_links">В этом чате нет ссылок.</string>
+    <string name="i56_show_in_chat">Показать в чате</string>
+    <string name="i56_load_more">Показать еще</string>
+    <string name="i56_picture_description">Изображение. Нажмите, чтобы открыть.</string>
+    <plurals name="i56_count_pictures" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d изображение</item>
+        <item quantity="few">%d изображения</item>
+        <item quantity="many">%d изображений</item>
+        <item quantity="other">%d изображения</item>
+    </plurals>
+    <plurals name="i56_count_links" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d ссылка</item>
+        <item quantity="few">%d ссылки</item>
+        <item quantity="many">%d ссылок</item>
+        <item quantity="other">%d ссылки</item>
+    </plurals>
+</resources>

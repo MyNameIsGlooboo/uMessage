@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_time_now">Ahora</string>
+    <plurals name="ui_time_minutes">
+        <item quantity="one">%d min</item>
+        <item quantity="other">%d min</item>
+    </plurals>
+    <string name="ui_bubble_sent">Tú, %1$s</string>
+    <string name="ui_bubble_received">%1$s, %2$s</string>
+    <string name="ui_bubble_received_unknown">Recibido, %1$s</string>
+    <string name="ui_select_message">Seleccionar mensaje</string>
+    <string name="ui_retry_send">Reintentar envío</string>
+    <string name="ui_default_required_body">uMessage no puede recibir, enviar ni filtrar mensajes hasta que sea tu aplicación de SMS predeterminada. Tus mensajes se quedan donde están.</string>
+    <string name="ui_default_required_close">Cerrar uMessage</string>
+    <string name="ui_add_contact_or_number">Escribe un nombre o número de teléfono</string>
+    <string name="ui_show_dialpad">Mostrar teclado numérico</string>
+    <string name="ui_show_keyboard">Mostrar teclado</string>
+    <string name="ui_settings_group_block_lists">Otras listas de bloqueados</string>
+    <string name="ui_settings_system_block_list">Lista de bloqueados del sistema</string>
+    <string name="ui_settings_system_block_list_body">Números bloqueados en todas las aplicaciones de este teléfono. uMessage también los oculta.</string>
+    <string name="ui_settings_blocked_words">Palabras bloqueadas</string>
+    <string name="ui_settings_character_counter">Mostrar contador de caracteres</string>
+    <string name="ui_settings_simple_characters">Quitar acentos al enviar</string>
+    <string name="ui_settings_send_on_enter">Enviar con la tecla Intro</string>
+    <string name="ui_settings_delivery_reports">Recibir informes de entrega</string>
+    <string name="ui_settings_recycle_bin">Mover conversaciones eliminadas a la papelera</string>
+    <string name="ui_two_sentences">%1$s. %2$s</string>
+    <string name="ui_tab_with_count">%1$s (%2$d)</string>
+    <string name="ui_send_with_sim">%1$s, %2$s</string>
+    <string name="ui_number_with_type">%1$s (%2$s)</string>
+    <string name="ui_log_decision_allowed">Permitido</string>
+    <string name="ui_log_decision_blocked">Bloqueado</string>
+    <string name="ui_log_decision_error">Error</string>
+    <string name="ui_log_reason_allow_rule">Regla para permitir</string>
+    <string name="ui_log_reason_block_rule">Regla para bloquear</string>
+    <string name="ui_log_reason_contact">Está en tus contactos</string>
+    <string name="ui_log_reason_known_conversation">Ya le enviaste mensajes</string>
+    <string name="ui_log_reason_otp">Código de verificación</string>
+    <string name="ui_log_reason_unknown_sender">Remitente desconocido</string>
+    <string name="ui_log_reason_mode_off">Filtrado desactivado</string>
+    <string name="ui_log_reason_no_match">Ninguna regla coincidió</string>
+    <string name="ui_log_source_sms">SMS</string>
+    <string name="ui_log_source_mms">MMS</string>
+    <string name="ui_log_source_retry">Reintentado</string>
+</resources>

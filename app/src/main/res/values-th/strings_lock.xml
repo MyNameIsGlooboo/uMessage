@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_title">uMessage ล็อกอยู่</string>
+    <string name="lock_enter_pin">ป้อน PIN</string>
+    <string name="lock_draw_pattern">วาดรูปแบบปลดล็อก</string>
+    <string name="lock_use_biometrics">ยืนยันตัวตนเพื่อเปิด uMessage</string>
+    <string name="lock_wrong_pin">PIN ไม่ถูกต้อง ลองอีกครั้ง</string>
+    <string name="lock_wrong_pattern">รูปแบบไม่ถูกต้อง ลองอีกครั้ง</string>
+    <string name="lock_too_many">ลองผิดหลายครั้งเกินไป</string>
+    <string name="lock_try_again_in">ลองอีกครั้งใน %s</string>
+    <string name="lock_key_delete">ลบ</string>
+    <string name="lock_key_confirm">ยืนยัน</string>
+    <plurals name="lock_digits_entered">
+        <item quantity="other">ป้อนแล้ว %d หลัก</item>
+    </plurals>
+    <string name="lock_no_digits">ยังไม่ได้ป้อนตัวเลข</string>
+    <string name="lock_pattern_pad">แผงวาดรูปแบบ มีจุด 3 แถว 3 คอลัมน์</string>
+    <string name="lock_pattern_dot">จุดแถว %1$d คอลัมน์ %2$d</string>
+    <string name="lock_pattern_dot_selected">จุดแถว %1$d คอลัมน์ %2$d ลำดับที่ %3$d ในรูปแบบ</string>
+    <string name="lock_pattern_done">เสร็จสิ้น</string>
+    <string name="lock_pattern_clear">ล้าง</string>
+    <plurals name="lock_pattern_dots_selected">
+        <item quantity="other">เลือกแล้ว %d จุด</item>
+    </plurals>
+    <string name="lock_use_pin_instead">ใช้ PIN แทน</string>
+    <string name="lock_use_biometrics_instead">ใช้ไบโอเมตริกแทน</string>
+    <string name="lock_use_screen_lock">ใช้การล็อกหน้าจอโทรศัพท์แทน</string>
+    <string name="lock_biometrics_unavailable">ใช้ไบโอเมตริกไม่ได้ ป้อน PIN</string>
+    <string name="lock_screen_lock_title">เปิด uMessage</string>
+    <string name="lock_screen_lock_description">ยืนยันด้วยการล็อกหน้าจอโทรศัพท์เพื่อเปิด uMessage</string>
+    <string name="lock_no_way_to_check">โทรศัพท์ไม่มีลายนิ้วมือหรือการล็อกหน้าจอแล้ว uMessage จึงยืนยันตัวตนไม่ได้ เปิดแอปแล้วตั้ง PIN ในการตั้งค่า</string>
+    <string name="lock_open_anyway">เปิด uMessage</string>
+    <string name="lock_forgot">ลืมรหัส? ใช้การล็อกหน้าจอโทรศัพท์</string>
+    <plurals name="lock_tries_left">
+        <item quantity="other">ลองได้อีก %d ครั้งก่อนต้องรอ</item>
+    </plurals>
+    <string name="lock_setup_done">เปิดล็อกแอปแล้ว หากลืม PIN หรือรูปแบบ ให้แตะ “ลืมรหัส?” บนหน้าจอล็อก แล้วใช้การล็อกหน้าจอโทรศัพท์แทน</string>
+    <string name="lock_setup_done_biometric">เปิดล็อกแอปแล้ว หากไบโอเมตริกใช้ไม่ได้ ให้ใช้ PIN สำรอง หากลืม PIN ด้วย ให้แตะ “ลืมรหัส?” แล้วใช้การล็อกหน้าจอโทรศัพท์</string>
+    <string name="lock_setup_done_no_screen_lock">เปิดล็อกแอปแล้ว โทรศัพท์ไม่มีการล็อกหน้าจอ หากลืม PIN หรือรูปแบบ จะไม่มีวิธีอื่นในการเข้าแอป ต้องล้างข้อมูล uMessage ในการตั้งค่าแอปของโทรศัพท์ ซึ่งจะลบการตั้งค่า รายการสแปม และประวัติสแปม (ข้อความยังอยู่ในโทรศัพท์) ตั้งค่าการล็อกหน้าจอโทรศัพท์เพื่อให้มีวิธีกลับเข้าแอป</string>
+    <string name="settings_app_lock_timeout">ล็อกหลังออกจากแอป</string>
+    <string name="settings_app_lock_timeout_immediately">ทันที</string>
+    <string name="settings_app_lock_timeout_30s">หลังจาก 30 วินาที</string>
+    <string name="settings_app_lock_timeout_1m">หลังจาก 1 นาที</string>
+    <string name="settings_app_lock_timeout_5m">หลังจาก 5 นาที</string>
+    <string name="settings_app_lock_screenshots">บล็อกการจับภาพหน้าจอ</string>
+    <string name="settings_app_lock_screenshots_body">ป้องกันการจับภาพและบันทึกหน้าจอ ข้อความจะถูกซ่อนในหน้าแอปล่าสุดเสมอ</string>
+    <string name="settings_app_lock_screenshots_body_old">ป้องกันการจับภาพและบันทึกหน้าจอ สำหรับ Android เวอร์ชันนี้ ยังเป็นวิธีเดียวที่จะซ่อนข้อความในหน้าแอปล่าสุด</string>
+    <string name="settings_app_lock_change">เปลี่ยน PIN รูปแบบ หรือไบโอเมตริก</string>
+    <string name="settings_app_lock_weak">PIN หรือรูปแบบเดาง่าย</string>
+    <string name="settings_app_lock_weak_body">PIN เดาง่ายเกินไป แตะเพื่อเปลี่ยน</string>
+    <string name="settings_app_lock_add_pin">เพิ่ม PIN สำรอง</string>
+    <string name="settings_app_lock_add_pin_body">เพิ่ม PIN ไว้ใช้สำรอง</string>
+    <string name="settings_app_lock_now">ล็อกตอนนี้</string>
+    <string name="settings_app_lock_now_body">ล็อก uMessage ทันที</string>
+    <string name="settings_app_lock_changed">เปลี่ยนการล็อกแอปแล้ว</string>
+    <string name="dialogs_lock_backup_pin">ตั้ง PIN สำรองก่อน เพื่อใช้เมื่อไบโอเมตริกใช้ไม่ได้</string>
+</resources>

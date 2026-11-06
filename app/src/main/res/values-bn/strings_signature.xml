@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">স্বাক্ষর</string>
+    <string name="i60_off">বন্ধ</string>
+    <string name="i60_dialog_note">আপনার পাঠানো প্রতিটি বার্তার নিচে যোগ হয়। না চাইলে খালি রাখুন।</string>
+</resources>

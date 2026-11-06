@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">スレート</string>
+    <string name="preset_slate_desc">落ち着いたブルーグレー</string>
+    <string name="preset_firouzeh">フィルーゼ</string>
+    <string name="preset_firouzeh_desc">ゴールドを添えたターコイズ</string>
+    <string name="preset_pomegranate">ザクロ</string>
+    <string name="preset_pomegranate_desc">温かみのある赤と深い緑</string>
+    <string name="preset_harbor">港</string>
+    <string name="preset_harbor_desc">夜の青と柔らかなコーラル</string>
+    <string name="preset_lavender">ラベンダー</string>
+    <string name="preset_lavender_desc">優しい紫と青緑</string>
+    <string name="preset_ink">インク</string>
+    <string name="preset_ink_desc">黒に近い色とシルバー、ゴールド</string>
+    <string name="preset_contrast">コントラスト</string>
+    <string name="preset_contrast_desc">白と黒に鮮やかなアクセント</string>
+</resources>

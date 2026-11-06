@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialogs_yes">نعم</string>
+    <string name="dialogs_no">لا</string>
+    <string name="dialogs_permission_required">الإذن مطلوب</string>
+    <string name="dialogs_grant_permission">امنح الإذن</string>
+    <string name="dialogs_date_time_format_title">تنسيق التاريخ والوقت</string>
+    <string name="dialogs_use_24_hour">استخدم تنسيق 24 ساعة</string>
+    <string name="dialogs_lock_pattern">نمط</string>
+    <string name="dialogs_lock_pin">رقم التعريف الشخصي</string>
+    <string name="dialogs_lock_biometrics">القياسات الحيوية</string>
+    <string name="dialogs_lock_fingerprint">بصمة الإصبع</string>
+    <string name="dialogs_lock_enter_pin">أدخل رقم التعريف الشخصي</string>
+    <string name="dialogs_lock_repeat_pin">أعد إدخال رقم التعريف الشخصي</string>
+    <string name="dialogs_lock_wrong_pin">رقم التعريف الشخصي غير صحيح</string>
+    <string name="dialogs_lock_empty_pin">أدخل رقم تعريف شخصي</string>
+    <string name="dialogs_lock_short_pin">يجب أن يتكون رقم التعريف الشخصي من 4 أرقام على الأقل</string>
+    <string name="dialogs_lock_pin_suggestion">4 أرقام على الأقل. %d أرقام أو أكثر أكثر أمانًا.</string>
+    <plurals name="dialogs_lock_short_pattern">
+        <item quantity="zero">النمط قصير جدًا. صِل %d نقطة على الأقل.</item>
+        <item quantity="one">النمط قصير جدًا. صِل نقطة واحدة (%d) على الأقل.</item>
+        <item quantity="two">النمط قصير جدًا. صِل نقطتين (%d) على الأقل.</item>
+        <item quantity="few">النمط قصير جدًا. صِل %d نقاط على الأقل.</item>
+        <item quantity="many">النمط قصير جدًا. صِل %d نقطة على الأقل.</item>
+        <item quantity="other">النمط قصير جدًا. صِل %d نقطة على الأقل.</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">ارسم النمط</string>
+    <string name="dialogs_lock_repeat_pattern">أعد رسم النمط</string>
+    <string name="dialogs_lock_wrong_pattern">النمط غير صحيح</string>
+    <string name="dialogs_lock_locked_out">محاولات فتح القفل الخاطئة كثيرة جدًا.\nحاول مجددًا بعد %d ثانية.</string>
+    <string name="dialogs_lock_pin_delete">احذف الرقم الأخير</string>
+    <string name="dialogs_lock_pin_confirm">أكّد رقم التعريف الشخصي</string>
+    <string name="dialogs_lock_pin_entered">عدد الأرقام المدخلة: %d</string>
+    <string name="dialogs_lock_pattern_pad">لوحة رسم النمط</string>
+    <string name="dialogs_lock_biometric_hint">استخدم بصمة إصبعك أو وجهك لتأكيد هويتك.</string>
+    <string name="dialogs_lock_biometric_open">تحقّق بالقياسات الحيوية</string>
+    <string name="dialogs_lock_place_finger">ضع إصبعك على مستشعر البصمة.</string>
+    <string name="dialogs_lock_no_fingerprints">لا توجد بصمات مسجلة. أضف بصمة في إعدادات جهازك.</string>
+    <string name="dialogs_lock_open_settings">افتح إعدادات الجهاز</string>
+    <string name="dialogs_lock_auth_failed">تعذّر التحقق من الهوية</string>
+    <string name="dialogs_lock_auth_blocked">التحقق من الهوية محظور، حاول مجددًا بعد قليل</string>
+</resources>

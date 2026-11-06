@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">В избранное</string>
+    <string name="i13_unstar">Убрать из избранного</string>
+    <string name="i13_starred_mark">В избранном</string>
+    <string name="i13_filter_starred">Избранное</string>
+    <string name="i13_filter_starred_empty_title">Нет избранных сообщений</string>
+    <string name="i13_filter_starred_empty_body">Выберите сообщение в чате и нажмите на звездочку, чтобы сохранить его здесь.</string>
+    <string name="i13_starred_note">В избранном сохраняется копия текста, даже если чат удален. При удалении из избранного копия удаляется.</string>
+    <string name="i13_snapshot_gone">Этот чат удален. Остался только сохраненный текст.</string>
+    <string name="i13_snapshot_close">Закрыть</string>
+</resources>

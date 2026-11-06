@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">Скрывать коды в пересылаемых сообщениях</string>
+    <string name="w3d_mask_codes_body">При пересылке коды заменяются на ****</string>
+    <string name="w3d_mask_keep_last">Оставлять последние две цифры</string>
+    <string name="w3d_mask_keep_last_on">При пересылке код выглядит, например, так: **34.</string>
+    <string name="w3d_mask_keep_last_off">При пересылке код скрывается целиком.</string>
+    <string name="w3d_daily_limit">Лимит пересылок в день</string>
+    <string name="w3d_daily_limit_body">Максимум пересылок за день</string>
+    <string name="w3d_hide_lock_codes">Скрывать коды на экране блокировки</string>
+    <string name="w3d_hide_lock_codes_body">До разблокировки сообщение с кодом отображается на экране блокировки как ••••.</string>
+</resources>

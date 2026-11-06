@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unotify_title">Gelen kutunuzdaki bilinmeyen gönderenler</string>
+    <string name="unotify_notify">Bildirim gönderin</string>
+    <string name="unotify_silent">Sessiz bildirim gönderin</string>
+    <string name="unotify_none">Bildirim yok</string>
+    <string name="unotify_summary">Mesajlar gelen kutunuza gelmeye devam eder</string>
+    <string name="unotify_channel_silent">Bilinmeyen gönderenler (sessiz)</string>
+</resources>

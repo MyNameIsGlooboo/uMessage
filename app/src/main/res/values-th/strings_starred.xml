@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">ติดดาว</string>
+    <string name="i13_unstar">ยกเลิกติดดาว</string>
+    <string name="i13_starred_mark">ติดดาวแล้ว</string>
+    <string name="i13_filter_starred">ติดดาว</string>
+    <string name="i13_filter_starred_empty_title">ไม่มีข้อความที่ติดดาว</string>
+    <string name="i13_filter_starred_empty_body">เลือกข้อความในการสนทนาแล้วแตะดาวเพื่อเก็บไว้ที่นี่</string>
+    <string name="i13_starred_note">การติดดาวจะเก็บสำเนาข้อความไว้แม้ลบการสนทนาแล้ว ยกเลิกติดดาวเพื่อลบสำเนา</string>
+    <string name="i13_snapshot_gone">ลบการสนทนานี้แล้ว เหลือเพียงข้อความที่บันทึกไว้</string>
+    <string name="i13_snapshot_close">ปิด</string>
+</resources>

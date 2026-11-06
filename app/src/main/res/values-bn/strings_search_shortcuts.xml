@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">অচেনা</string>
+    <string name="i28_filter_unknown_empty_title">কোনো অচেনা প্রেরক নেই</string>
+    <string name="i28_filter_unknown_empty_body">যাঁরা আপনার পরিচিতিতে নেই এবং যাঁদের আপনি কখনো বার্তা পাঠাননি, তাঁদের সঙ্গে চ্যাট এখানে দেখাবে।</string>
+    <string name="i28_filter_images">ছবি</string>
+    <string name="i28_filter_images_empty_title">কোনো ছবি নেই</string>
+    <string name="i28_filter_images_empty_body">ছবি আছে এমন বার্তা এখানে দেখাবে।</string>
+    <string name="i28_filter_links">লিঙ্ক</string>
+    <string name="i28_filter_links_empty_title">কোনো লিঙ্ক নেই</string>
+    <string name="i28_filter_links_empty_body">ওয়েব লিঙ্ক আছে এমন বার্তা এখানে দেখাবে।</string>
+    <string name="i28_hit_picture">ছবি</string>
+</resources>

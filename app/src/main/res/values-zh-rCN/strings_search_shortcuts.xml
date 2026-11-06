@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">未知发件人</string>
+    <string name="i28_filter_unknown_empty_title">暂无未知发件人</string>
+    <string name="i28_filter_unknown_empty_body">不在联系人中且你从未发过消息给对方的会话会显示在这里。</string>
+    <string name="i28_filter_images">图片</string>
+    <string name="i28_filter_images_empty_title">暂无图片</string>
+    <string name="i28_filter_images_empty_body">含有图片的消息会显示在这里。</string>
+    <string name="i28_filter_links">链接</string>
+    <string name="i28_filter_links_empty_title">暂无链接</string>
+    <string name="i28_filter_links_empty_body">含有网页链接的消息会显示在这里。</string>
+    <string name="i28_hit_picture">图片</string>
+</resources>

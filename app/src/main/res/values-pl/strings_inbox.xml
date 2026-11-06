@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">Opróżnij archiwum</string>
+    <string name="inbox_empty_bin_menu">Opróżnij kosz</string>
+    <string name="inbox_archive_empty_body">Tutaj pojawią się rozmowy zarchiwizowane z sekcji Wiadomości.</string>
+    <string name="inbox_details_view_contact">Pokaż kontakt</string>
+    <string name="inbox_details_more">Więcej</string>
+    <string name="inbox_details_search">Szukaj w rozmowie</string>
+    <string name="inbox_details_search_body">Znajdź wiadomość w tej rozmowie</string>
+    <string name="inbox_details_forward">Reguła przekazywania dalej dla tego nadawcy</string>
+    <string name="inbox_details_forward_body">Wysyłaj kopie wiadomości tego nadawcy na inny numer</string>
+    <string name="inbox_details_search_hint">Przeszukaj tę rozmowę</string>
+</resources>

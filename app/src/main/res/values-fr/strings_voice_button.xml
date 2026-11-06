@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i40_record_voice">Enregistrer un message vocal</string>
+    <string name="i40_setting_title">Bouton vocal</string>
+    <string name="i40_setting_summary">Affiché quand le champ du message est vide</string>
+</resources>

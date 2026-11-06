@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Settings, Spam protection row summary: parts joined with ui_separator (owner notes r3) -->
+    <string name="r3f_spam_summary_stopped">%1$d stopped</string>
+    <string name="r3f_spam_summary_restored">%1$d restored</string>
+    <string name="r3f_spam_summary_stopped_week">%1$d stopped in 7 days</string>
+    <string name="r3f_spam_summary_total">%1$d in total</string>
+</resources>

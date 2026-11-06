@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">定时发送的消息已延迟发送</string>
+    <string name="scheduled_sent_late_exact_off">发给%1$s的消息延迟了%2$d分钟发送。请授予uMessage“闹钟和提醒”权限，以便定时发送的消息准时发出。</string>
+    <string name="scheduled_sent_late_idle">发给%1$s的消息延迟了%2$d分钟发送：预定时间手机处于关机或省电状态。</string>
+    <string name="scheduled_sent_late_channel">定时发送的消息</string>
+    <string name="notifications_off_title">通知已关闭</string>
+    <string name="notifications_off_body">收到新消息时不会通知你。</string>
+    <string name="notifications_off_fix">开启</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3a_forward_limit_channel">Batas penerusan</string>
+    <string name="w3a_forward_limit_title">Penerusan dijeda hari ini</string>
+    <string name="w3a_forward_limit_text">Batas %d penerusan tercapai. Penerusan dilanjutkan besok.</string>
+</resources>

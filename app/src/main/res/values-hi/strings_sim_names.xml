@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">सिम के नाम</string>
+    <string name="i34_setting_summary">हर सिम का नाम और नंबर रखें</string>
+    <string name="i34_dialog_title">सिम के नाम</string>
+    <string name="i34_number_note">मोबाइल सेवा देने वाली कंपनियां अक्सर ऐप को नंबर नहीं बतातीं, इसलिए उसे यहां लिखें. नाम और नंबर दोनों इसी फ़ोन पर रहते हैं.</string>
+    <string name="i34_sim_heading">सिम %1$d, %2$s</string>
+    <string name="i34_nickname">नाम (जैसे, काम)</string>
+    <string name="i34_number">नंबर</string>
+</resources>

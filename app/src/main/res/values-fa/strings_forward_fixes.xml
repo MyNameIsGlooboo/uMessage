@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="fwdfix_status_limit">تا فردا متوقف شد: سقف روزانه پر شده</string>
+    <string name="fwdfix_limit_hint">امروز %1$s از %2$s بازارسال انجام شده. بازارسال فردا از سر گرفته می‌شود.</string>
+    <string name="fwdfix_status_skipped">رد شد (محدودیت)</string>
+    <string name="fwdfix_error_daily_limit">ارسال نشد: سقف روزانهٔ بازارسال پر شده است.</string>
+    <string name="fwdfix_error_rate_limited">ارسال نشد: این قانون در یک ساعت گذشته %1$s پیام بازارسال کرده است.</string>
+    <string name="fwdfix_retry_all_recent">فقط بازارسال‌های ۲۴ ساعت گذشته در نظر گرفته می‌شوند.</string>
+    <plurals name="fwdfix_retry_not_sent_paused" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s مورد ارسال نشد: بازارسال متوقف است.</item>
+        <item quantity="other">%1$s مورد ارسال نشد: بازارسال متوقف است.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s مورد ارسال نشد: قانون آن خاموش یا حذف شده است.</item>
+        <item quantity="other">%1$s مورد ارسال نشد: قانون‌های آن‌ها خاموش یا حذف شده‌اند.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s مورد ارسال نشد: سقف روزانه یا سقف ساعتی قانون آن پر شده است.</item>
+        <item quantity="other">%1$s مورد ارسال نشد: سقف روزانه یا سقف ساعتی یک قانون پر شده است.</item>
+    </plurals>
+    <string name="fwdfix_card_last">آخرین بازارسال %1$s، %2$s</string>
+    <plurals name="fwdfix_card_week" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s مورد در این هفته</item>
+        <item quantity="other">%1$s مورد در این هفته</item>
+    </plurals>
+    <string name="fwdfix_card_never">هنوز چیزی بازارسال نشده</string>
+    <string name="fwdfix_card_sent">ارسال‌شده</string>
+    <string name="fwdfix_card_pending">در حال ارسال</string>
+    <string name="fwdfix_card_failed">ناموفق</string>
+    <string name="fwdfix_card_skipped">رد شد (محدودیت)</string>
+    <string name="fwdfix_delete_rule">حذف قانون</string>
+    <string name="fwdfix_deleted">قانون بازارسال حذف شد</string>
+    <string name="fwdfix_test_button">ارسال آزمایشی</string>
+    <string name="fwdfix_test_title">SMS آزمایشی ارسال شود؟</string>
+    <plurals name="fwdfix_test_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s SMS آزمایشی به شمارهٔ بالا ارسال می‌شود. این SMS هزینه دارد.</item>
+        <item quantity="other">به هرکدام از %1$s شمارهٔ بالا یک SMS آزمایشی ارسال می‌شود. هر SMS هزینه دارد.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">ارسال</string>
+    <string name="fwdfix_test_text">آزمایش uMessage: بازارسال کار می‌کند.</string>
+    <string name="fwdfix_test_sending">در حال ارسال آزمایشی…</string>
+    <string name="fwdfix_test_sent">پیام آزمایشی ارسال شد. گوشی دیگر را بررسی کنید.</string>
+    <string name="fwdfix_test_failed">پیام آزمایشی ارسال نشد. آنتن و اعتبار خود را بررسی کنید.</string>
+    <string name="fwdfix_cost_persian">متن فارسی %1$s نویسه‌ای: %2$s بخش × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">متن انگلیسی %1$s نویسه‌ای: %2$s بخش × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">اکنون چیزی قابل ارسال نیست</string>
+    <plurals name="fwdfix_retry_blocked_paused" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s مورد ارسال نمی‌شود: بازارسال متوقف است.</item>
+        <item quantity="other">%1$s مورد ارسال نمی‌شود: بازارسال متوقف است.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s مورد ارسال نمی‌شود: قانون آن خاموش یا حذف شده است.</item>
+        <item quantity="other">%1$s مورد ارسال نمی‌شود: قانون‌های آن‌ها خاموش یا حذف شده‌اند.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s مورد ارسال نمی‌شود: سقف روزانه یا سقف ساعتی قانون آن پر شده است.</item>
+        <item quantity="other">%1$s مورد ارسال نمی‌شود: سقف روزانه یا سقف ساعتی یک قانون پر شده است.</item>
+    </plurals>
+</resources>

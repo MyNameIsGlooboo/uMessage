@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">লেনদেন</string>
+    <string name="i11_filter_transactions_empty_title">কোনো লেনদেন নেই</string>
+    <string name="i11_filter_transactions_empty_body">আপনার ব্যাংকের টাকা জমা ও তোলার বার্তা এখানে দেখাবে।</string>
+    <string name="i11_filter_offers">অফার</string>
+    <string name="i11_filter_offers_empty_title">কোনো অফার নেই</string>
+    <string name="i11_filter_offers_empty_body">দোকানের ছাড় ও প্রচারের বার্তা এখানে দেখাবে।</string>
+</resources>

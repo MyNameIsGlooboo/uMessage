@@ -1,0 +1,145 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|안녕하세요!
+greeting|안녕~
+greeting|하이
+greeting|여보세요
+good_morning|좋은 아침!
+good_morning|좋은 아침이에요
+good_morning|굿모닝 ☀️
+good_afternoon|좋은 오후예요
+good_evening|좋은 저녁이에요
+good_night|잘 자요
+good_night|굿나잇
+good_night|잘자~
+good_night|먼저 잘게요
+good_night|안녕히 주무세요
+how_are_you|잘 지내?
+how_are_you|잘 지내세요?
+how_are_you|요즘 어때요?
+how_are_you|별일 없어요?
+thanks|고마워요!
+thanks|감사합니다
+thanks|고마워 ㅎㅎ
+thanks|정말 감사해요🙏
+thanks|땡큐
+youre_welcome|천만에요
+youre_welcome|별말씀을요
+youre_welcome|뭘요
+youre_welcome|신경 쓰지 마세요
+where_are_you|어디야?
+where_are_you|지금 어디예요?
+where_are_you|어디쯤 왔어요?
+where_are_you|어디세요
+on_my_way|가는 중이야
+on_my_way|지금 가고 있어요
+on_my_way|곧 도착해요
+on_my_way|출발했어!
+on_my_way|거의 다 왔어
+arrived|도착했어요
+arrived|밖이야
+arrived|문 앞이에요
+arrived|입구에 있어
+arrived_home|집에 도착했어
+arrived_home|무사히 도착했어요
+arrived_home|집에 왔어요
+arrived_home|귀가했습니다
+did_you_arrive|도착했니?
+did_you_arrive|집에 잘 도착했나요?
+did_you_arrive|벌써 도착했어?
+did_you_arrive|무사히 도착했나요
+are_you_coming|내일 올래?
+are_you_coming|오늘 저녁에 올 수 있니?
+are_you_coming|모임에 올 거죠?
+are_you_coming|올 수 있나요?
+call_me|전화해줘
+call_me|전화 줘요
+call_me|시간 될 때 전화해
+call_me|전화 부탁드려요
+can_you_talk|통화 가능해?
+can_you_talk|지금 통화돼요?
+can_you_talk|지금 통화해도 될까요
+can_you_talk|잠깐 통화할 수 있어?
+are_you_free|시간 있어?
+are_you_free|오늘 시간 있어요?
+are_you_free|주말에 시간 돼?
+are_you_free|지금 바빠요?
+what_time|몇 시에 만나?
+what_time|몇 시?
+what_time|몇 시가 좋아요
+what_time|언제 만날까요
+where_to_meet|어디서 만나?
+where_to_meet|어디서 볼까요
+where_to_meet|약속 장소 어디가 좋아
+where_to_meet|어디에서 만날까요?
+ok_confirm|알겠어요
+ok_confirm|알았어!
+ok_confirm|오케이
+ok_confirm|좋아요
+ok_confirm|넵
+ok_confirm|응응
+ok_confirm|네네
+ok_confirm|알겠습니다 감사합니다
+bye|안녕히 가세요
+bye|내일 봐요
+bye|잘 가!
+bye|이따 봐
+bye|먼저 갈게요
+congrats|축하해!
+congrats|축하합니다
+congrats|생일 축하해요 🎂
+congrats|합격 축하드려요
+congrats|승진 정말 축하해
+holiday_new_year|새해 복 많이 받으세요!
+holiday_new_year|새해 복 많이 받아
+holiday_new_year|설 잘 보내세요
+holiday_christmas|메리 크리스마스!
+holiday_christmas|즐거운 성탄절
+holiday_other|추석 잘 보내세요
+holiday_other|좋은 하루 보내세요
+holiday_other|즐거운 주말 보내세요
+good_luck|화이팅!
+good_luck|힘내세요
+good_luck|시험 잘 봐
+good_luck|행운을 빌어요
+sorry_late|답장이 늦어서 미안해요
+sorry_late|늦어서 죄송합니다
+sorry_late|기다리게 해서 미안해
+sorry_late|이제 봤어요
+missed_call|전화 못 받아서 미안해요
+missed_call|부재중 전화 봤어요
+missed_call|아까 전화 못 받았어요
+NONE|왜 답장 안 해?
+NONE|누가 와?
+NONE|안 올 거예요
+NONE|못 가요 미안해요
+NONE|할머니가 돌아가셨어요
+NONE|병원에 있는데 올 수 있어?
+NONE|지금 바로 송금해 주세요
+NONE|카드 비밀번호 알려줘
+NONE|인증번호는 5821 입니다
+NONE|고마워요, 2만원 입금했어요
+NONE|이거 봐 https://example.com/a
+NONE|언제 돌아와? 엄마가 찾아
+NONE|어디야? 어디서 만나?
+NONE|ㅋㅋㅋㅋㅋㅋ
+NONE|😂😂😂
+NONE|123
+NONE|thanks 고마워
+NONE|오늘 날씨 좋네요
+NONE|내일 회의 몇 시에 시작하고 장소는 어디인가요
+NONE|만약 시간 되면 같이 영화 볼래요
+NONE|오늘 너무 화났어
+NONE|축하해, 근데 너무 슬퍼
+NONE|언제 올래?
+NONE|올래 말래?
+NONE|열쇠 못 봤어?
+NONE|살려줘
+NONE|미안해, 정말 못 해
+NONE|보고 싶다
+NONE|알겠어, 근데 가능할지 모르겠어
+NONE|오는 길에 사고가 났어요
+NONE|집에 도착하면 전화할게
+NONE|도착하면 다시 연락드릴게요
+NONE|오늘 저녁에 너희 집에서 파티한다고 들었는데 정말이에요
+NONE|자기 전에 샤워하고 올게

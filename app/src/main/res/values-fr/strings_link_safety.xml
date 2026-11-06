@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">Lien raccourci : sa destination n\'est pas visible.</string>
+    <string name="i07_punycode">Le nom est encodé et peut afficher des lettres différentes de celles qui le composent.</string>
+    <string name="i07_mixed_script">Le nom mélange plusieurs alphabets, une pratique fréquente sur les faux sites.</string>
+    <string name="i07_raw_ip">L\'adresse est un nombre, pas un nom de site.</string>
+    <string name="i07_http_only">Non chiffré (http au lieu de https).</string>
+    <string name="i07_lookalike">Le nom ressemble à %1$s. Vérifiez l\'orthographe.</string>
+    <string name="i07_user_info">La partie avant le @ n\'est pas l\'adresse du site.</string>
+    <string name="i07_locked">Les liens à risque ne peuvent pas être ouverts ici. Vous pouvez copier le lien.</string>
+    <string name="i07_lock_title">Ouverture des liens à risque impossible</string>
+    <string name="i07_lock_summary">La fiche du lien permet alors uniquement de le copier et de le partager</string>
+    <string name="i07_group_title">Liens</string>
+</resources>

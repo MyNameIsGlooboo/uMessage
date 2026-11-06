@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n09_backup_contents">Tutto tranne i tuoi messaggi: regole per consentire, bloccare e inoltrare e tutte le impostazioni. Il file non è crittografato e contiene i numeri a cui inoltri i messaggi, quindi conservalo in un luogo privato. Le regole di inoltro vengono ripristinate disattivate.</string>
+    <string name="n09_label_spam">Protezione dallo spam</string>
+    <string name="n09_label_notifications">Notifiche</string>
+    <string name="n09_label_chat">Chat ed elenco messaggi</string>
+    <string name="n09_label_sending">Invio</string>
+    <string name="n09_label_cleanup">Pulizia e spazio di archiviazione</string>
+    <string name="n09_label_privacy">Privacy e opzioni di blocco</string>
+    <string name="n09_restore_not_included">Non inclusi nel file: i tuoi messaggi, il PIN del blocco app, i nomi delle SIM, i testi salvati, le chat nascoste e gli orari di silenziamento.</string>
+    <string name="n09_restore_after">Imposta di nuovo uMessage come app SMS predefinita e configura di nuovo il blocco app.</string>
+</resources>

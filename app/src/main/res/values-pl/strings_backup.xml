@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_channel">Kopia zapasowa i przywracanie</string>
+    <string name="backup_restoring">Przywracanie wiadomości</string>
+    <string name="backup_exporting">Tworzenie kopii zapasowej wiadomości</string>
+    <plurals name="backup_progress_import">
+        <item quantity="one">Odczytano %1$d wpis</item>
+        <item quantity="few">Odczytano %1$d wpisy</item>
+        <item quantity="many">Odczytano %1$d wpisów</item>
+        <item quantity="other">Odczytano %1$d wpisu</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="one">Odczytano %1$d wpis (%2$d%%)</item>
+        <item quantity="few">Odczytano %1$d wpisy (%2$d%%)</item>
+        <item quantity="many">Odczytano %1$d wpisów (%2$d%%)</item>
+        <item quantity="other">Odczytano %1$d wpisu (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="one">Zapisano %1$d wiadomość</item>
+        <item quantity="few">Zapisano %1$d wiadomości</item>
+        <item quantity="many">Zapisano %1$d wiadomości</item>
+        <item quantity="other">Zapisano %1$d wiadomości</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="one">Zapisano %1$d wiadomość (%2$d%%)</item>
+        <item quantity="few">Zapisano %1$d wiadomości (%2$d%%)</item>
+        <item quantity="many">Zapisano %1$d wiadomości (%2$d%%)</item>
+        <item quantity="other">Zapisano %1$d wiadomości (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">Możesz wyjść z aplikacji: operacja będzie działać w tle, a postęp zobaczysz w powiadomieniu.</string>
+    <string name="backup_stop">Zatrzymaj</string>
+    <string name="backup_hide">Ukryj</string>
+    <string name="backup_already_running">Tworzenie kopii zapasowej lub przywracanie już trwa.</string>
+    <string name="backup_restore_finished">Przywracanie zakończone</string>
+    <string name="backup_restore_stopped">Przywracanie zatrzymane</string>
+    <string name="backup_restore_failed">Przywracanie nie powiodło się</string>
+    <string name="backup_invalid_file">Ten plik nie jest kopią zapasową wiadomości, więc nic nie przywrócono.</string>
+    <string name="backup_no_entries">Plik kopii zapasowej nie zawiera wiadomości.</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="one">Nic nowego do importu: ta wiadomość jest już na tym telefonie.</item>
+        <item quantity="few">Nic nowego do importu: wszystkie %1$d wiadomości są już na tym telefonie.</item>
+        <item quantity="many">Nic nowego do importu: wszystkie wiadomości (%1$d) są już na tym telefonie.</item>
+        <item quantity="other">Nic nowego do importu: wszystkie wiadomości (%1$d) są już na tym telefonie.</item>
+    </plurals>
+    <string name="backup_line_added">Dodano: %1$d</string>
+    <string name="backup_line_duplicates">Już na tym telefonie, pominięto: %1$d</string>
+    <string name="backup_line_repaired">Uzupełniono brakujące załączniki we wcześniej przywróconych wiadomościach: %1$d</string>
+    <string name="backup_line_incomplete">Wiadomości ze zdjęciem przywrócone bez części załączników: %1$d</string>
+    <string name="backup_line_failed">Nie udało się przywrócić: %1$d</string>
+    <string name="backup_line_damaged">Uszkodzone wpisy w pliku, pominięto: %1$d</string>
+    <string name="backup_line_xml_mms">Nieobsługiwane wiadomości ze zdjęciem w tej kopii XML, pominięto: %1$d</string>
+    <string name="backup_line_not_selected">Niewybrane do importu: %1$d</string>
+    <string name="backup_reasons">Powody:</string>
+    <string name="backup_reason_no_address">wiadomość nie ma nadawcy ani odbiorcy</string>
+    <string name="backup_reason_no_thread">telefon nie mógł otworzyć rozmowy z tą wiadomością</string>
+    <string name="backup_reason_refused">telefon odmówił zapisania wiadomości</string>
+    <string name="backup_reason_not_in_backup">brak załącznika w pliku kopii zapasowej</string>
+    <string name="backup_reason_damaged_attachment">załącznik w pliku kopii zapasowej jest uszkodzony</string>
+    <string name="backup_reason_attachment_write">nie udało się zapisać załącznika</string>
+    <string name="backup_stopped_early">Plik jest uszkodzony po wpisie %1$d, więc nie udało się odczytać dalszej części.</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="one">Zatrzymano po odczytaniu %1$d wpisu. Aby dokończyć, uruchom przywracanie ponownie z tego samego pliku: przywrócone wiadomości zostaną pominięte.</item>
+        <item quantity="few">Zatrzymano po odczytaniu %1$d wpisów. Aby dokończyć, uruchom przywracanie ponownie z tego samego pliku: przywrócone wiadomości zostaną pominięte.</item>
+        <item quantity="many">Zatrzymano po odczytaniu %1$d wpisów. Aby dokończyć, uruchom przywracanie ponownie z tego samego pliku: przywrócone wiadomości zostaną pominięte.</item>
+        <item quantity="other">Zatrzymano po odczytaniu %1$d wpisu. Aby dokończyć, uruchom przywracanie ponownie z tego samego pliku: przywrócone wiadomości zostaną pominięte.</item>
+    </plurals>
+    <string name="backup_retry_hint">Uruchom przywracanie ponownie, by ponowić nieudane próby: przywrócone wiadomości zostaną pominięte.</string>
+    <string name="backup_export_finished">Kopia zapasowa gotowa</string>
+    <string name="backup_export_stopped">Tworzenie kopii zapasowej zatrzymane</string>
+    <string name="backup_export_failed">Tworzenie kopii zapasowej nie powiodło się</string>
+    <string name="backup_export_error">Nie udało się zapisać kopii zapasowej. Niekompletny plik został usunięty. %1$s</string>
+    <string name="backup_export_cancelled">Tworzenie kopii zapasowej zatrzymano, a niekompletny plik usunięto.</string>
+    <string name="backup_export_nothing">Brak wiadomości do zapisania w kopii zapasowej.</string>
+    <string name="backup_export_counts">Zapisano %1$d SMS i %2$d MMS.</string>
+    <string name="backup_export_unreadable_attachments">Nieodczytane załączniki, zapisane bez zdjęcia: %1$d</string>
+    <string name="backup_export_unreadable_messages">Nieodczytane wiadomości, pominięto: %1$d</string>
+    <string name="backup_export_unreadable_conversations">Nieodczytane rozmowy, pominięto: %1$d</string>
+    <string name="backup_export_incomplete">Ta kopia zapasowa jest niekompletna.</string>
+    <string name="backup_interrupted_import">Ostatnie przywracanie przerwano, być może telefon zamknął aplikację. Uruchom je ponownie z tego samego pliku: przywrócone wiadomości zostaną pominięte.</string>
+    <string name="backup_interrupted_export">Ostatnie tworzenie kopii zapasowej przerwano, więc jej plik jest niekompletny. Utwórz nową kopię zapasową.</string>
+</resources>

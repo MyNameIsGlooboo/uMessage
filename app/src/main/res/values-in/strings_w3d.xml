@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">Samarkan kode dalam pesan yang diteruskan</string>
+    <string name="w3d_mask_codes_body">Kode yang diteruskan ditampilkan sebagai ****</string>
+    <string name="w3d_mask_keep_last">Tetap tampilkan dua digit terakhir</string>
+    <string name="w3d_mask_keep_last_on">Pesan yang diteruskan menampilkan kode seperti **34.</string>
+    <string name="w3d_mask_keep_last_off">Pesan yang diteruskan menyembunyikan seluruh kode.</string>
+    <string name="w3d_daily_limit">Batas penerusan harian</string>
+    <string name="w3d_daily_limit_body">Jumlah maksimum penerusan per hari</string>
+    <string name="w3d_hide_lock_codes">Sembunyikan kode di layar kunci</string>
+    <string name="w3d_hide_lock_codes_body">Pesan berisi kode menampilkan •••• di layar kunci hingga kunci dibuka.</string>
+</resources>

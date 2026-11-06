@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">Заплановане повідомлення надіслано із запізненням</string>
+    <string name="scheduled_sent_late_exact_off">Ваше повідомлення до %1$s надіслано на %2$d хв пізніше. Надайте uMessage дозвіл «Будильники й нагадування», щоб заплановані повідомлення надсилалися вчасно.</string>
+    <string name="scheduled_sent_late_idle">Ваше повідомлення до %1$s надіслано на %2$d хв пізніше: у запланований час телефон був вимкнений або в режимі енергозбереження.</string>
+    <string name="scheduled_sent_late_channel">Заплановані повідомлення</string>
+    <string name="notifications_off_title">Сповіщення вимкнено</string>
+    <string name="notifications_off_body">Ви не отримуватимете сповіщень про нові повідомлення.</string>
+    <string name="notifications_off_fix">Увімкнути</string>
+</resources>

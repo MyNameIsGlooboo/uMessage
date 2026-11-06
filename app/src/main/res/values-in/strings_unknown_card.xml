@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">Tidak ada di kontak Anda</string>
+    <string name="i04_card_caution">Hati-hati dengan tautan, uang, dan kode.</string>
+    <string name="i04_card_add_contact">Tambah kontak</string>
+    <string name="i04_card_allow">Selalu izinkan</string>
+    <string name="i04_card_block">Blokir</string>
+    <string name="i04_card_dismiss">Tutup</string>
+</resources>

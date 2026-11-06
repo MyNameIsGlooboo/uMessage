@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">Kişilerinizde kayıtlı değil</string>
+    <string name="i04_card_caution">Bağlantılar, para ve kodlar konusunda dikkatli olun.</string>
+    <string name="i04_card_add_contact">Kişi ekleyin</string>
+    <string name="i04_card_allow">Her zaman izin verin</string>
+    <string name="i04_card_block">Engelleyin</string>
+    <string name="i04_card_dismiss">Kapatın</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_codes_title">Usuń przeczytane kody po</string>
+    <string name="cleanup_codes_summary">Kody trafiają do kosza</string>
+    <string name="cleanup_never">Nigdy</string>
+    <string name="cleanup_24_hours">24 godziny</string>
+    <plurals name="cleanup_days">
+        <item quantity="one">%d dzień</item>
+        <item quantity="few">%d dni</item>
+        <item quantity="many">%d dni</item>
+        <item quantity="other">%d dnia</item>
+    </plurals>
+    <string name="cleanup_card_title">Usuwać przeczytane kody po 7 dniach?</string>
+    <string name="cleanup_card_body">Przeczytane kody weryfikacyjne trafią do kosza, skąd możesz je przywrócić.</string>
+    <string name="cleanup_card_yes">Włącz</string>
+    <string name="cleanup_card_no">Nie, dziękuję</string>
+</resources>

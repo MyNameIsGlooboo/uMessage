@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">Pesan terjadwal terlambat dikirim</string>
+    <string name="scheduled_sent_late_exact_off">Pesan Anda ke %1$s terlambat dikirim %2$d menit. Izinkan \"Alarm &amp; pengingat\" untuk uMessage agar pesan terjadwal dikirim tepat waktu.</string>
+    <string name="scheduled_sent_late_idle">Pesan Anda ke %1$s terlambat dikirim %2$d menit: ponsel mati atau sedang menghemat baterai pada waktu yang dijadwalkan.</string>
+    <string name="scheduled_sent_late_channel">Pesan terjadwal</string>
+    <string name="notifications_off_title">Notifikasi nonaktif</string>
+    <string name="notifications_off_body">Anda tidak akan mendapat notifikasi pesan baru.</string>
+    <string name="notifications_off_fix">Aktifkan</string>
+</resources>

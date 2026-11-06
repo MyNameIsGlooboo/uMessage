@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_intro">Wybierz wygląd uMessage: tryb jasny lub ciemny oraz kolory.</string>
+    <string name="preset_system">Systemowy</string>
+    <string name="preset_system_desc">Jasny lub ciemny, zgodnie z ustawieniami telefonu</string>
+    <string name="preset_light">Jasny</string>
+    <string name="preset_light_desc">Zawsze jasny</string>
+    <string name="preset_dark">Ciemny</string>
+    <string name="preset_dark_desc">Zawsze ciemny, łagodny dla oczu</string>
+    <string name="preset_amoled">Czarny</string>
+    <string name="preset_amoled_desc">Czysta czerń dla ekranów OLED</string>
+    <string name="preset_brand">Granat</string>
+    <string name="preset_brand_desc">Granat i złoto, klasyczny wygląd uMessage</string>
+    <string name="preset_coral">Koral</string>
+    <string name="preset_coral_desc">Koral i błękit z ikony aplikacji</string>
+    <string name="preset_sky">Niebo</string>
+    <string name="preset_sky_desc">Delikatny błękit i biel</string>
+    <string name="preset_forest">Las</string>
+    <string name="preset_forest_desc">Zieleń z żółtym akcentem</string>
+    <string name="preset_sunset">Zachód słońca</string>
+    <string name="preset_sunset_desc">Ciepły pomarańcz i krem</string>
+    <string name="preset_graphite">Bursztyn</string>
+    <string name="preset_graphite_desc">Szarość z bursztynem</string>
+    <string name="preset_wallpaper">Tapeta</string>
+    <string name="preset_wallpaper_desc">Kolory z twojej tapety</string>
+</resources>

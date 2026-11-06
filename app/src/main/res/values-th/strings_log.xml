@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">บันทึกผลการกรอง</string>
+    <string name="declog_clear">ล้างบันทึก</string>
+    <string name="declog_empty_title">ยังไม่มีผลการกรอง</string>
+    <string name="declog_empty_body">ข้อความทั้งหมดที่ตัวกรองตรวจสอบจะแสดงที่นี่พร้อมเหตุผล โดยไม่บันทึกเนื้อหาข้อความ</string>
+    <plurals name="declog_kept_for">
+        <item quantity="other">ผลการกรองแต่ละรายการจะถูกลบหลังจาก %d วัน โดยไม่บันทึกเนื้อหาข้อความ</item>
+    </plurals>
+    <string name="declog_sim">SIM %1$s</string>
+    <string name="declog_today">วันนี้</string>
+    <string name="declog_yesterday">เมื่อวาน</string>
+    <string name="declog_allowed_by_rule">อนุญาตแล้วตามกฎ: %1$s</string>
+    <string name="declog_filter_all">ทั้งหมด</string>
+    <string name="declog_filter_blocked">บล็อกแล้ว</string>
+    <string name="declog_filter_allowed">อนุญาตแล้ว</string>
+    <string name="declog_filter_empty">ไม่มีผลการกรองที่ตรงกับตัวกรองนี้</string>
+    <plurals name="declog_times">
+        <item quantity="other">%1$s ครั้ง</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="other">มีผลการกรองเหมือนกัน %1$s ครั้งติดต่อกัน</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="other">แชร์ผลการกรอง %d รายการ</item>
+    </plurals>
+    <string name="declog_csv_subject">บันทึกผลการกรองของ uMessage</string>
+    <string name="declog_share_failed">แชร์บันทึกไม่ได้</string>
+    <string name="declog_details_title">รายละเอียดผลการกรอง</string>
+    <string name="declog_open_details">เปิดรายละเอียดของ %1$s</string>
+    <string name="declog_fixed_allowed">คุณอนุญาตผู้ส่งนี้จากบันทึก</string>
+    <string name="declog_fixed_blocked">คุณบล็อกผู้ส่งนี้จากบันทึก</string>
+    <string name="declog_fixed_restored">คุณกู้คืนข้อความนี้จากบันทึก</string>
+    <string name="declog_restored">กู้คืนแล้ว</string>
+    <string name="declog_blocked_message">ข้อความที่ยังอยู่ในแท็บที่บล็อก</string>
+    <string name="declog_restore">กู้คืนข้อความ</string>
+    <string name="declog_restore_done">กู้คืนข้อความไปยังกล่องข้อความเข้าแล้ว</string>
+    <string name="declog_restore_text_only">กู้คืนเนื้อหาข้อความไปยังกล่องข้อความเข้าแล้ว แต่กู้คืนรูปภาพไม่ได้</string>
+    <string name="declog_restore_nothing">ไม่มีสิ่งที่กู้คืนได้: ไม่ได้เก็บข้อความรูปภาพนี้ไว้</string>
+    <string name="declog_restore_failed">กู้คืนข้อความไม่ได้</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

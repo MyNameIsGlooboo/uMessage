@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="thread_counter_parts">%1$d · %2$d SMS</string>
+    <plurals name="thread_counter_description" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d message texte, %2$d caractères restants</item>
+        <item quantity="other">%1$d messages texte, %2$d caractères restants dans le dernier</item>
+    </plurals>
+    <string name="thread_counter_unicode_description">%1$s. Avec des lettres persanes ou d\'autres lettres non latines, chaque message texte peut contenir %2$d caractères.</string>
+    <string name="thread_unicode_parts_note">Un SMS en persan peut contenir 70 caractères. Ce message sera donc envoyé en %1$d SMS.</string>
+    <string name="thread_long_text_as_mms">Ce long message sera envoyé par MMS, ce qui peut coûter plus cher qu\'un SMS.</string>
+</resources>

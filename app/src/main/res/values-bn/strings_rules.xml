@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="rules_sheet_title_edit_allow">অনুমতি দেওয়ার নিয়ম সম্পাদনা করুন</string>
+    <string name="rules_sheet_title_edit_block">ব্লক করার নিয়ম সম্পাদনা করুন</string>
+    <string name="rules_sheet_save">পরিবর্তন সেভ করুন</string>
+    <string name="rules_edit_rule">%1$s সম্পাদনা করুন</string>
+    <string name="rules_search_hint">নিয়ম ও নোট খুঁজুন</string>
+    <string name="rules_search_clear">সার্চ মুছুন</string>
+    <string name="rules_filter_all_types">সব ধরন</string>
+    <string name="rules_search_empty_title">কোনো নিয়ম মেলেনি</string>
+    <string name="rules_search_empty_body">অন্য শব্দ দিয়ে খুঁজুন, অথবা সব ধরন দেখান।</string>
+    <string name="rules_export_selected">নির্বাচিতগুলো এক্সপোর্ট করুন</string>
+    <string name="rules_delete_selected">নির্বাচিতগুলো মুছুন</string>
+    <plurals name="rules_deleted_many" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি নিয়ম মোছা হয়েছে</item>
+        <item quantity="other">%dটি নিয়ম মোছা হয়েছে</item>
+    </plurals>
+    <string name="rules_system_block_list">সিস্টেমের ব্লক তালিকা (কলও ব্লক করে)</string>
+    <string name="rules_legacy_note_keyword">ব্লক করা শব্দের পুরোনো তালিকা থেকে</string>
+    <string name="rules_legacy_note_number">সিস্টেমের ব্লক তালিকা থেকে</string>
+    <string name="rules_legacy_banner_title">পুরোনো ব্লক তালিকা পাওয়া গেছে</string>
+    <string name="rules_legacy_banner_body">এই নিয়মগুলোর বাইরে কিছু শব্দ ও নম্বর ব্লক করা আছে। সবকিছু এক জায়গায় দেখতে ও বদলাতে সেগুলো এখানে সরান।</string>
+    <string name="rules_legacy_banner_review">দেখে নিন</string>
+    <string name="rules_legacy_banner_not_now">এখন নয়</string>
+    <string name="rules_legacy_section_keywords">ব্লক করা শব্দের পুরোনো তালিকা</string>
+    <string name="rules_legacy_section_keywords_body">শব্দগুলো নিয়মে না সরানো পর্যন্ত ফিল্টার করার জন্য এই তালিকা ব্যবহার করা হবে। এরপর পুরোনো তালিকা আর ব্যবহার হবে না।</string>
+    <string name="rules_legacy_section_system_body">uMessage পাওয়ার আগেই Android এই নম্বরগুলোর বার্তা ফেলে দেয়, তাই সেগুলো “ব্লক করা”-তে কখনো দেখা যায় না। ফোন অ্যাপও এই তালিকা ব্যবহার করে, আর এটি কলও ব্লক করে।</string>
+    <string name="rules_legacy_chip_old_list">পুরোনো তালিকা</string>
+    <string name="rules_legacy_chip_system">সিস্টেম, কলও</string>
+    <string name="rules_legacy_move">নিয়মে সরান</string>
+    <string name="rules_legacy_open_system">সিস্টেমের ব্লক তালিকা খুলুন</string>
+    <string name="rules_migrate_title">পুরোনো ব্লক তালিকাগুলো নিয়মে সরান</string>
+    <string name="rules_migrate_nothing">পুরোনো তালিকার সবকিছু ইতিমধ্যেই আপনার নিয়মে আছে।</string>
+    <plurals name="rules_migrate_keywords" tools:ignore="ImpliedQuantity">
+        <item quantity="one">ব্লক করা শব্দের পুরোনো তালিকার %dটি শব্দ ব্লক করার কিওয়ার্ড নিয়ম হবে। এরপর পুরোনো তালিকা আর ব্যবহার হবে না।</item>
+        <item quantity="other">ব্লক করা শব্দের পুরোনো তালিকার %dটি শব্দ ব্লক করার কিওয়ার্ড নিয়ম হবে। এরপর পুরোনো তালিকা আর ব্যবহার হবে না।</item>
+    </plurals>
+    <plurals name="rules_migrate_keywords_kept" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি শব্দ দিয়ে নিয়ম তৈরি করা যায় না (এক অক্ষরের, একাধিক লাইনের বা খুব লম্বা), তাই পুরোনো তালিকায় থাকবে।</item>
+        <item quantity="other">%dটি শব্দ দিয়ে নিয়ম তৈরি করা যায় না (এক অক্ষরের, একাধিক লাইনের বা খুব লম্বা), তাই পুরোনো তালিকায় থাকবে।</item>
+    </plurals>
+    <plurals name="rules_migrate_numbers" tools:ignore="ImpliedQuantity">
+        <item quantity="one">সিস্টেমের ব্লক তালিকার %dটি নম্বরও ব্লক করার নিয়ম হিসেবে যোগ করুন</item>
+        <item quantity="other">সিস্টেমের ব্লক তালিকার %dটি নম্বরও ব্লক করার নিয়ম হিসেবে যোগ করুন</item>
+    </plurals>
+    <string name="rules_migrate_numbers_body">সিস্টেমের ব্লক তালিকায় থাকা নম্বরের বার্তা Android ফেলে দেয়, তাই uMessage সেগুলো পায়ই না। uMessage-এর নিয়ম হলে সেগুলো “ব্লক করা”-তে আসতে পারবে, যেখানে আপনি পড়তে ও ফিরিয়ে আনতে পারবেন। তবে আগে নম্বরগুলো সিস্টেমের তালিকা থেকে সরাতে হবে।</string>
+    <string name="rules_migrate_remove">সিস্টেমের ব্লক তালিকা থেকেও সরান</string>
+    <string name="rules_migrate_remove_body">সিস্টেমের তালিকা কলও ব্লক করে। সেখান থেকে নম্বর সরালে তাঁরা আপনাকে আবার কল করতে পারবেন। uMessage শুধু বার্তা ফিল্টার করে।</string>
+    <plurals name="rules_migrate_numbers_kept" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি ওয়াইল্ডকার্ড এন্ট্রি দিয়ে নিয়ম তৈরি করা যায় না, তাই সিস্টেমের তালিকায় থাকবে।</item>
+        <item quantity="other">%dটি ওয়াইল্ডকার্ড এন্ট্রি দিয়ে নিয়ম তৈরি করা যায় না, তাই সিস্টেমের তালিকায় থাকবে।</item>
+    </plurals>
+    <string name="rules_migrate_confirm">সরান</string>
+    <plurals name="rules_migrated_keywords" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি শব্দ নিয়মে সরানো হয়েছে</item>
+        <item quantity="other">%dটি শব্দ নিয়মে সরানো হয়েছে</item>
+    </plurals>
+    <plurals name="rules_migrated_numbers" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি নম্বর নিয়ম হিসেবে যোগ করা হয়েছে</item>
+        <item quantity="other">%dটি নম্বর নিয়ম হিসেবে যোগ করা হয়েছে</item>
+    </plurals>
+    <plurals name="rules_migrated_removed" tools:ignore="ImpliedQuantity">
+        <item quantity="one">সিস্টেমের ব্লক তালিকা থেকে %dটি সরানো হয়েছে</item>
+        <item quantity="other">সিস্টেমের ব্লক তালিকা থেকে %dটি সরানো হয়েছে</item>
+    </plurals>
+    <plurals name="rules_migrated_kept" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি এন্ট্রি পুরোনো তালিকাগুলোতে রয়ে গেছে</item>
+        <item quantity="other">%dটি এন্ট্রি পুরোনো তালিকাগুলোতে রয়ে গেছে</item>
+    </plurals>
+    <string name="rules_migrated_nothing">কিছুই সরানো হয়নি।</string>
+    <string name="settings_system_block_list_body_calls">এই পুরো ফোনে কল ও বার্তা ব্লক করে। uMessage পাওয়ার আগেই Android এই বার্তাগুলো ফেলে দেয়। আপনি নম্বরগুলো “অনুমতি দেওয়া ও ব্লক করা”-তে সরাতে পারেন।</string>
+    <string name="settings_old_blocked_words">ব্লক করা শব্দের পুরোনো তালিকা</string>
+    <string name="settings_old_blocked_words_body">“অনুমতি দেওয়া ও ব্লক করা”-তে সরানো হচ্ছে</string>
+</resources>

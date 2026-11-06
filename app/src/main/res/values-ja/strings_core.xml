@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_message_inexact">送信予約しました。送信が数分遅れる場合があります。</string>
+</resources>

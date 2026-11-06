@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_tab_forwarded">Пересланные</string>
+    <string name="nav_tab_forwarded_failed">Пересланные, ошибка пересылки</string>
+    <string name="nav_tab_forwarded_paused">Пересланные, пересылка приостановлена</string>
+    <string name="nav_tab_archived_new">В архиве, добавлен новый чат</string>
+    <string name="nav_prompt_title">Правило сохранено</string>
+    <string name="nav_prompt_body">Показать вкладку «Пересланные», чтобы видеть отправленные сообщения и повторять пересылку при ошибках?</string>
+    <string name="nav_prompt_show">Показать вкладку</string>
+    <string name="nav_prompt_not_now">Не сейчас</string>
+    <string name="nav_fwd_paid_note">Каждая пересылка — платное SMS.</string>
+    <string name="nav_fwd_pause_all">Приостановить всю пересылку</string>
+    <string name="nav_fwd_status_paused">Пересылка приостановлена</string>
+    <string name="nav_fwd_paused_hint">Сообщения, подходящие под правила, не отправляются. Выключите, чтобы возобновить.</string>
+    <string name="nav_fwd_status_no_rule">Нет включенных правил пересылки</string>
+    <plurals name="nav_fwd_status_on" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Пересылка включена, %1$s правило</item>
+        <item quantity="few">Пересылка включена, %1$s правила</item>
+        <item quantity="many">Пересылка включена, %1$s правил</item>
+        <item quantity="other">Пересылка включена, %1$s правила</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">Управление правилами</string>
+    <string name="nav_fwd_empty_title">Пока ничего не переслано</string>
+    <string name="nav_fwd_empty_body">Здесь появятся сообщения, подходящие под правила.</string>
+    <string name="nav_fwd_status_sent">Отправлено</string>
+    <string name="nav_fwd_status_pending">Ожидает отправки</string>
+    <string name="nav_fwd_status_failed">Ошибка</string>
+    <string name="nav_fwd_to">Кому: %1$s</string>
+    <string name="nav_fwd_sim">SIM-карта %1$d</string>
+    <string name="nav_fwd_rule_line">Правило: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">отправитель %1$s</string>
+    <string name="nav_fwd_rule_any_sender">любой отправитель</string>
+    <string name="nav_fwd_rule_text">текст %1$s</string>
+    <string name="nav_fwd_rule_any_text">любой текст</string>
+    <string name="nav_fwd_rule_deleted">Правило удалено</string>
+    <string name="nav_fwd_open_details">Показать сведения</string>
+    <string name="nav_fwd_today">Сегодня</string>
+    <string name="nav_fwd_yesterday">Вчера</string>
+    <plurals name="nav_fwd_failed_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s пересылка с ошибкой</item>
+        <item quantity="few">%1$s пересылки с ошибкой</item>
+        <item quantity="many">%1$s пересылок с ошибкой</item>
+        <item quantity="other">%1$s пересылки с ошибкой</item>
+    </plurals>
+    <string name="nav_fwd_retry">Повторить</string>
+    <string name="nav_fwd_retry_all">Повторить все с ошибкой (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">Отправить снова?</string>
+    <plurals name="nav_fwd_retry_all_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Будет повторно отправлено %1$s SMS. Каждое SMS платное.</item>
+        <item quantity="few">Будут повторно отправлены %1$s SMS. Каждое SMS платное.</item>
+        <item quantity="many">Будет повторно отправлено %1$s SMS. Каждое SMS платное.</item>
+        <item quantity="other">Будет повторно отправлено %1$s SMS. Каждое SMS платное.</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">Отправить снова</string>
+    <plurals name="nav_fwd_retry_sent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Повторно переслано %d сообщение</item>
+        <item quantity="few">Повторно переслано %d сообщения</item>
+        <item quantity="many">Повторно переслано %d сообщений</item>
+        <item quantity="other">Повторно переслано %d сообщения</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">Снова не удалось отправить. Проверьте сигнал сети и баланс.</string>
+    <string name="nav_fwd_retry_missing">Исходного сообщения больше нет, поэтому отправить его снова нельзя.</string>
+    <string name="nav_fwd_details_title">Сведения о пересылке</string>
+    <string name="nav_fwd_detail_from">Отправитель сообщения</string>
+    <string name="nav_fwd_detail_to">Кому переслано</string>
+    <string name="nav_fwd_detail_when">Время</string>
+    <string name="nav_fwd_detail_sim">С какой SIM-карты</string>
+    <string name="nav_fwd_detail_rule">Сработавшее правило</string>
+    <string name="nav_fwd_detail_message">Исходное сообщение</string>
+    <string name="nav_fwd_message_loading">Загрузка</string>
+    <string name="nav_fwd_message_gone">Исходное сообщение больше не хранится.</string>
+    <string name="nav_fwd_error_radio">Сеть не доставила сообщение.</string>
+    <string name="nav_fwd_error_refused">Телефон не смог отправить сообщение.</string>
+    <string name="nav_fwd_open_chat">Открыть чат</string>
+    <string name="nav_archived_title">В архиве</string>
+    <string name="nav_archived_back">Назад к сообщениям</string>
+    <string name="nav_archived_intro">Чаты в архиве не видны в разделе «Сообщения». Новое сообщение вернет чат обратно, если в настройках не включено «Оставлять чаты в архиве».</string>
+    <string name="nav_archived_intro_dismiss">Скрыть подсказку</string>
+    <plurals name="nav_archived_moved" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d чат перенесен в «Сообщения»</item>
+        <item quantity="few">%d чата перенесены в «Сообщения»</item>
+        <item quantity="many">%d чатов перенесено в «Сообщения»</item>
+        <item quantity="other">%d чата перенесено в «Сообщения»</item>
+    </plurals>
+    <string name="nav_folder_more">Другие действия</string>
+    <string name="nav_folder_mark_all_read">Отметить все как прочитанное</string>
+    <string name="nav_folder_delete_all_count">Будет удалено навсегда: %1$s.</string>
+</resources>

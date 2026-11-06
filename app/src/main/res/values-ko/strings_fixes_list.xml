@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fixes_unarchive_title">보관을 취소할까요?</string>
+    <string name="fixes_unarchive_message">대화 목록으로 다시 옮길까요? 대상: %1$s</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">Ajouter à l\'écran d\'accueil</string>
+    <string name="home_shortcut_requested">Ajout demandé à votre lanceur d\'applications. Le nom sera visible sur l\'écran d\'accueil. Si rien n\'apparaît, autorisez les « Raccourcis sur l\'écran d\'accueil » pour uMessage dans les paramètres des applications de votre téléphone.</string>
+    <string name="home_shortcut_failed">Votre lanceur d\'applications a refusé le raccourci. Autorisez les « Raccourcis sur l\'écran d\'accueil » pour uMessage dans les paramètres des applications de votre téléphone.</string>
+</resources>

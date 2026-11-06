@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_list_title">शेड्यूल किए गए मैसेज</string>
+    <string name="scheduled_list_empty_title">कुछ भी शेड्यूल नहीं है</string>
+    <string name="scheduled_list_empty_body">आपके शेड्यूल किए गए मैसेज भेजे जाने तक यहां रहते हैं.</string>
+    <string name="scheduled_list_not_sent">भेजा नहीं गया</string>
+    <string name="scheduled_list_edit_time">समय बदलें</string>
+    <string name="scheduled_list_send_now">अभी भेजें</string>
+    <string name="scheduled_list_delete">मिटाएं</string>
+    <string name="scheduled_list_send_confirm">यह मैसेज अभी %1$s को भेजें?</string>
+    <string name="scheduled_list_delete_confirm">%1$s को भेजने के लिए शेड्यूल किया गया मैसेज मिटाएं?</string>
+    <string name="scheduled_list_row_actions">%1$s को भेजे जाने वाले मैसेज के विकल्प</string>
+</resources>

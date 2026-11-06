@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_menu_more">Thêm…</string>
+    <string name="thread_menu_group_share">Chia sẻ và xuất</string>
+    <string name="thread_menu_group_organize">Sắp xếp</string>
+    <string name="thread_menu_group_sender">Người gửi</string>
+    <string name="thread_labels_chips_description">Nhãn: %1$s. Nhấn để thay đổi.</string>
+    <string name="thread_labels_more_chip">+%1$d</string>
+</resources>

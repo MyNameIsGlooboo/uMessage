@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_conv_menu">会話をエクスポート</string>
+    <string name="export_conv_title">会話をエクスポート</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">プレーンテキスト</string>
+    <string name="export_conv_dates_all">全期間</string>
+    <string name="export_conv_dates_30">過去30日間</string>
+    <string name="export_conv_dates_pick">期間を指定</string>
+    <string name="export_conv_pick_from">開始日はいつですか？</string>
+    <string name="export_conv_pick_to">終了日はいつですか？</string>
+    <string name="export_conv_action">エクスポート</string>
+    <string name="export_conv_preparing">ファイルを準備しています…</string>
+    <string name="export_conv_nothing">指定した期間にメッセージがありません。</string>
+    <string name="export_conv_failed">ファイルを作成できませんでした。</string>
+    <string name="export_conv_subject">会話のエクスポート</string>
+    <string name="export_conv_share_text">%1$sとの会話、%2$s。メッセージ本文のSHA-256：%3$s</string>
+    <string name="export_conv_attachment_label">［添付ファイル］</string>
+    <string name="export_pdf_title">会話のエクスポート</string>
+    <string name="export_pdf_with">会話の相手：%1$s</string>
+    <string name="export_pdf_numbers">電話番号：%1$s</string>
+    <string name="export_pdf_range">期間：%1$s</string>
+    <string name="export_pdf_zone">時刻はタイムゾーン%1$sで表示しています。</string>
+    <string name="export_pdf_exported">エクスポート日時：%1$s</string>
+    <plurals name="export_pdf_count">
+        <item quantity="other">メッセージ%1$d件</item>
+    </plurals>
+    <string name="export_pdf_hash">メッセージ本文のSHA-256：%1$s</string>
+    <string name="export_pdf_not_certified">スマートフォンからエクスポートしたもので、公的に認証された記録ではありません。</string>
+    <string name="export_pdf_page">%1$d／%2$dページ</string>
+    <string name="export_pdf_from">送信元：%1$s</string>
+    <string name="export_pdf_to">送信先：%1$s</string>
+    <string name="export_pdf_attachment">添付ファイル：%1$s（%2$s）</string>
+    <string name="export_pdf_attachment_unnamed">名前のないファイル</string>
+    <string name="export_status_received">受信済み</string>
+    <string name="export_status_sent">送信済み</string>
+    <string name="export_status_delivered">配信済み</string>
+    <string name="export_status_failed">失敗</string>
+    <string name="export_status_sending">送信中</string>
+    <string name="export_status_draft">下書き</string>
+</resources>

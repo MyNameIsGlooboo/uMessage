@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_tab_forwarded">転送済み</string>
+    <string name="nav_tab_forwarded_failed">転送済み、転送に失敗したメッセージがあります。</string>
+    <string name="nav_tab_forwarded_paused">転送済み、転送を一時停止しています。</string>
+    <string name="nav_tab_archived_new">アーカイブ済み、新しくアーカイブされた会話があります。</string>
+    <string name="nav_prompt_title">ルールを保存しました。</string>
+    <string name="nav_prompt_body">「転送済み」タブを表示して、転送したメッセージの確認や、失敗した転送の再試行ができるようにしますか？</string>
+    <string name="nav_prompt_show">タブを表示</string>
+    <string name="nav_prompt_not_now">後で</string>
+    <string name="nav_fwd_paid_note">転送ごとにSMS送信料がかかります。</string>
+    <string name="nav_fwd_pause_all">すべての転送を一時停止</string>
+    <string name="nav_fwd_status_paused">転送を一時停止しています。</string>
+    <string name="nav_fwd_paused_hint">条件に一致するメッセージは転送されません。再開するにはスイッチをオフにします。</string>
+    <string name="nav_fwd_status_no_rule">有効な転送ルールはありません。</string>
+    <plurals name="nav_fwd_status_on">
+        <item quantity="other">転送中、%1$s件のルールが有効です。</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">ルールの管理</string>
+    <string name="nav_fwd_empty_title">転送したメッセージはまだありません。</string>
+    <string name="nav_fwd_empty_body">条件に一致するメッセージがここに表示されます。</string>
+    <string name="nav_fwd_status_sent">送信済み</string>
+    <string name="nav_fwd_status_pending">送信待ち</string>
+    <string name="nav_fwd_status_failed">失敗</string>
+    <string name="nav_fwd_to">転送先：%1$s</string>
+    <string name="nav_fwd_sim">SIM%1$d</string>
+    <string name="nav_fwd_rule_line">ルール：%1$s、%2$s</string>
+    <string name="nav_fwd_rule_sender">送信者：%1$s</string>
+    <string name="nav_fwd_rule_any_sender">すべての送信者</string>
+    <string name="nav_fwd_rule_text">本文：%1$s</string>
+    <string name="nav_fwd_rule_any_text">すべての本文</string>
+    <string name="nav_fwd_rule_deleted">削除済みのルール</string>
+    <string name="nav_fwd_open_details">詳細を表示</string>
+    <string name="nav_fwd_today">今日</string>
+    <string name="nav_fwd_yesterday">昨日</string>
+    <plurals name="nav_fwd_failed_count">
+        <item quantity="other">%1$s件の転送に失敗しました。</item>
+    </plurals>
+    <string name="nav_fwd_retry">再試行</string>
+    <string name="nav_fwd_retry_all">失敗分をすべて再試行（%1$s件）</string>
+    <string name="nav_fwd_retry_all_title">再送信しますか？</string>
+    <plurals name="nav_fwd_retry_all_message">
+        <item quantity="other">%1$s通のSMSを再送信します。1通ごとにSMS送信料がかかります。</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">再送信</string>
+    <plurals name="nav_fwd_retry_sent">
+        <item quantity="other">%d件の転送を再送信しました。</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">再び失敗しました。電波状況と残高を確認してください。</string>
+    <string name="nav_fwd_retry_missing">元のメッセージがないため、再送信できません。</string>
+    <string name="nav_fwd_details_title">転送の詳細</string>
+    <string name="nav_fwd_detail_from">メッセージの送信者</string>
+    <string name="nav_fwd_detail_to">転送先</string>
+    <string name="nav_fwd_detail_when">日時</string>
+    <string name="nav_fwd_detail_sim">送信に使用したSIM</string>
+    <string name="nav_fwd_detail_rule">一致したルール</string>
+    <string name="nav_fwd_detail_message">元のメッセージ</string>
+    <string name="nav_fwd_message_loading">読み込み中</string>
+    <string name="nav_fwd_message_gone">元のメッセージは保存されていません。</string>
+    <string name="nav_fwd_error_radio">ネットワークで配信できませんでした。</string>
+    <string name="nav_fwd_error_refused">端末から送信できませんでした。</string>
+    <string name="nav_fwd_open_chat">会話を開く</string>
+    <string name="nav_archived_title">アーカイブ済み</string>
+    <string name="nav_archived_back">メッセージに戻る</string>
+    <string name="nav_archived_intro">アーカイブ済みの会話はメッセージに表示されません。新しいメッセージが届くと会話が戻りますが、設定で「アーカイブ済みの会話を非表示に保つ」をオンにすると戻りません。</string>
+    <string name="nav_archived_intro_dismiss">この説明を非表示</string>
+    <plurals name="nav_archived_moved">
+        <item quantity="other">%d件の会話をメッセージに移動しました。</item>
+    </plurals>
+    <string name="nav_folder_more">その他のオプション</string>
+    <string name="nav_folder_mark_all_read">すべて既読にする</string>
+    <string name="nav_folder_delete_all_count">%1$sを完全に削除します。</string>
+</resources>

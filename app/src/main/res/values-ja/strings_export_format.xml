@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_format_json">uMessageファイル（テキストと画像）</string>
+    <string name="export_format_xml">SMS Backup &amp; Restoreファイル（他のアプリ用）</string>
+    <string name="export_format_xml_hint">この形式のファイルからuMessageで復元できるのはテキストのみです。</string>
+    <string name="export_scope_all">すべての会話</string>
+    <string name="export_scope_choose">会話を選択</string>
+    <plurals name="export_scope_chosen">
+        <item quantity="other">会話%1$d件を選択中</item>
+    </plurals>
+    <string name="export_pick_title">会話を選択</string>
+    <string name="export_pick_search">検索</string>
+    <string name="export_pick_all">すべて選択</string>
+    <string name="export_pick_none">選択解除</string>
+    <string name="export_pick_empty">会話がありません。</string>
+    <string name="export_pick_nothing_chosen">会話を1件以上選択してください。</string>
+</resources>

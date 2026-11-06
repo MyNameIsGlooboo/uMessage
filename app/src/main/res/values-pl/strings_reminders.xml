@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">Przypomnij mi</string>
+    <string name="reminder_dialog_title">Przypomnij mi</string>
+    <string name="reminder_in_3_hours">Za 3 godziny</string>
+    <string name="reminder_tomorrow_morning">Jutro rano</string>
+    <string name="reminder_pick_time">Wybierz datę i godzinę</string>
+    <string name="reminder_set">Przypomnienie ustawione na %1$s</string>
+    <string name="reminder_set_approximate">Przypomnienie ustawione na około %1$s. Może pojawić się nieco później.</string>
+    <string name="reminder_battery_hint">Niektóre telefony zatrzymują aplikacje w tle i opóźniają przypomnienia.</string>
+    <string name="reminder_battery_open">Zezwól uMessage na działanie w tle</string>
+    <string name="reminder_channel">Przypomnienia</string>
+    <string name="reminder_title">Przypomnienie</string>
+    <string name="reminder_title_named">Przypomnienie: %1$s</string>
+    <string name="reminder_open_hint">Dotknij, by otworzyć wiadomość</string>
+</resources>

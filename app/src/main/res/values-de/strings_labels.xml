@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">Labels</string>
+    <string name="i29_picker_title">Labels</string>
+    <string name="i29_picker_empty">Du hast noch keine Labels. Erstelle eins, um deine Unterhaltungen zu sortieren.</string>
+    <string name="i29_picker_new">Neues Label</string>
+    <string name="i29_picker_manage">Labels verwalten</string>
+    <string name="i29_done">Fertig</string>
+    <string name="i29_cancel">Abbrechen</string>
+    <string name="i29_tiles_title">Deine Labels</string>
+    <string name="i29_tile_add">Label hinzufügen</string>
+    <string name="i29_tiles_manage">Labels verwalten</string>
+    <string name="i29_manager_title">Labels verwalten</string>
+    <string name="i29_manager_note">Labels legst du selbst fest. Sie sind unabhängig von den automatischen Filtern „Transaktionen“ und „Angebote“.</string>
+    <string name="i29_manager_edit">Label %1$s bearbeiten</string>
+    <string name="i29_manager_delete">Label %1$s löschen</string>
+    <string name="i29_edit_new_title">Neues Label</string>
+    <string name="i29_edit_title">Label bearbeiten</string>
+    <string name="i29_edit_name">Name des Labels</string>
+    <string name="i29_edit_save">Speichern</string>
+    <string name="i29_color_description">Farbe %1$d</string>
+    <string name="i29_error_duplicate">Du hast bereits ein Label mit diesem Namen.</string>
+    <string name="i29_error_limit">Du kannst bis zu %1$d Labels haben.</string>
+    <string name="i29_delete_title">Dieses Label löschen?</string>
+    <string name="i29_delete_body">Das Label „%1$s“ wird entfernt. Deine Unterhaltungen und Nachrichten bleiben unverändert.</string>
+    <string name="i29_delete_confirm">Löschen</string>
+    <string name="i29_empty_title">Keine Unterhaltungen hier</string>
+    <string name="i29_empty_body">Halte eine Unterhaltung gedrückt, öffne das Menü und wähle „Labels“, um sie hinzuzufügen.</string>
+</resources>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="spam_back">Retour</string>
+    <string name="spam_cancel">Annuler</string>
+    <string name="spam_undo">Annuler</string>
+    <string name="spam_more_options">Plus d\'options</string>
+    <string name="spam_loading">Chargement</string>
+    <string name="spam_blocked_title">Messages bloqués</string>
+    <string name="spam_blocked_open_rules">Règles d\'autorisation et de blocage</string>
+    <string name="spam_blocked_open_settings">Paramètres de blocage</string>
+    <string name="spam_blocked_mode_line">Expéditeurs inconnus : %1$s</string>
+    <string name="spam_blocked_mode_change">Modifier</string>
+    <string name="spam_blocked_stats_totals">%1$d bloqués au total, %2$d restaurés</string>
+    <string name="spam_blocked_header_cd">%1$d spams bloqués ces 7 derniers jours. %2$d bloqués au total, %3$d restaurés.</string>
+    <string name="spam_blocked_empty_title">Aucun message bloqué pour le moment</string>
+    <string name="spam_blocked_empty_body">Les messages bloqués par vos filtres restent ici. Vous pouvez les restaurer d\'un geste.</string>
+    <string name="spam_action_delete">Supprimer</string>
+    <string name="spam_select">Sélectionner</string>
+    <string name="spam_action_select_all">Tout sélectionner</string>
+    <string name="spam_action_clear_selection">Tout désélectionner</string>
+    <plurals name="spam_message_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d message</item>
+        <item quantity="other">%d messages</item>
+    </plurals>
+    <string name="spam_state_selected">Sélectionné</string>
+    <string name="spam_state_not_selected">Non sélectionné</string>
+    <plurals name="spam_snack_deleted" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d message supprimé</item>
+        <item quantity="other">%d messages supprimés</item>
+    </plurals>
+    <string name="spam_snack_failed">Une erreur s\'est produite. Réessayez.</string>
+    <string name="spam_reason_block_rule">Règle de blocage</string>
+    <string name="spam_reason_unknown_sender">Expéditeur inconnu</string>
+    <string name="spam_reason_other">Filtré</string>
+    <string name="spam_sim_label">SIM %d</string>
+    <string name="spam_sim_generic">SIM</string>
+    <string name="spam_sim_both">Les deux SIM</string>
+    <string name="spam_sim_missing">SIM absente du téléphone</string>
+    <string name="spam_sim_named">SIM %1$d, %2$s</string>
+    <string name="spam_rules_title">Autorisés et bloqués</string>
+    <string name="spam_rules_tab_allowed">Autorisés</string>
+    <string name="spam_rules_tab_blocked">Messages bloqués</string>
+    <string name="spam_rules_add">Ajouter une règle</string>
+    <string name="spam_rules_import">Importer des règles</string>
+    <string name="spam_rules_export">Exporter les règles</string>
+    <string name="spam_rules_empty_allowed_title">Aucune règle d\'autorisation</string>
+    <string name="spam_rules_empty_allowed_body">Tout ce que vous autorisez arrive dans votre boîte de réception, même en mode strict. Ajoutez un numéro, un nom d\'expéditeur ou un mot-clé.</string>
+    <string name="spam_rules_empty_blocked_title">Aucune règle de blocage</string>
+    <string name="spam_rules_empty_blocked_body">Bloquez un numéro, un préfixe, un nom d\'expéditeur, un mot-clé ou une expression régulière. Les messages bloqués vont dans le dossier Messages bloqués.</string>
+    <string name="spam_rules_delete_rule">Supprimer la règle %s</string>
+    <string name="spam_rules_deleted">Règle supprimée</string>
+    <plurals name="spam_rules_imported" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d règle importée</item>
+        <item quantity="other">%d règles importées</item>
+    </plurals>
+    <string name="spam_rules_import_skipped">%d lignes ignorées (non valides ou déjà ajoutées)</string>
+    <string name="spam_rules_import_failed">Impossible de lire ce fichier</string>
+    <string name="spam_rules_import_empty">Aucune règle valide dans ce fichier</string>
+    <plurals name="spam_rules_exported" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d règle exportée</item>
+        <item quantity="other">%d règles exportées</item>
+    </plurals>
+    <string name="spam_rules_export_failed">Impossible d\'écrire le fichier</string>
+    <string name="spam_rules_tab_count">%1$s, %2$d</string>
+    <string name="spam_type_number">Numéro</string>
+    <string name="spam_type_prefix">Préfixe</string>
+    <string name="spam_type_sender_id">Nom de l\'expéditeur</string>
+    <string name="spam_type_keyword">Mot-clé</string>
+    <string name="spam_type_regex">Expression régulière</string>
+    <string name="spam_type_number_help">Un numéro de téléphone exact, par exemple +919876543210.</string>
+    <string name="spam_type_prefix_help">Tous les numéros commençant par ce préfixe, par exemple +91140.</string>
+    <string name="spam_type_sender_id_help">Un nom d\'expéditeur comme VM-HDFCBK. Les majuscules et minuscules sont équivalentes.</string>
+    <string name="spam_type_keyword_help">Tout message contenant ce texte, même dans un mot plus long : « gain » correspond aussi à « regain ». Les majuscules et minuscules sont équivalentes. L\'expéditeur est aussi bloqué, sauf s\'il figure dans vos contacts.</string>
+    <string name="spam_type_keyword_allow_help">Tout message contenant ce texte échappe à tous vos blocages, quel que soit l\'expéditeur. Utilisez une phrase longue et précise.</string>
+    <string name="spam_type_regex_help">Avancé. Une expression régulière à rechercher dans le texte du message. L\'expéditeur est aussi bloqué, sauf s\'il figure dans vos contacts.</string>
+    <string name="spam_type_number_hint">+919876543210</string>
+    <string name="spam_type_prefix_hint">+91140</string>
+    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_keyword_hint">cadeau gratuit</string>
+    <string name="spam_type_regex_hint">gain\\s+\\d+</string>
+    <string name="spam_sheet_title_allow">Ajouter aux autorisés</string>
+    <string name="spam_sheet_title_block">Ajouter aux bloqués</string>
+    <string name="spam_sheet_type_label">Élément à rechercher</string>
+    <string name="spam_sheet_pattern_label">Valeur</string>
+    <string name="spam_sheet_sim_label">S\'applique à</string>
+    <string name="spam_sheet_note_label">Note (facultative)</string>
+    <string name="spam_sheet_add">Ajouter une règle</string>
+    <string name="spam_sheet_clear_value">Effacer la valeur</string>
+    <string name="spam_err_empty">Saisissez une valeur</string>
+    <string name="spam_err_number">Saisissez un numéro valide : 3 à 15 chiffres, précédés d\'un + si nécessaire</string>
+    <string name="spam_err_prefix">Saisissez 1 à 15 chiffres, précédés d\'un + si nécessaire</string>
+    <string name="spam_err_sender_id">Utilisez des lettres, chiffres, tirets ou points, avec au moins une lettre (16 caractères maximum)</string>
+    <string name="spam_err_keyword_short">Utilisez au moins 2 caractères</string>
+    <string name="spam_err_too_long">Texte trop long</string>
+    <string name="spam_err_multiline">Utilisez une seule ligne</string>
+    <string name="spam_err_regex_invalid">Expression régulière non valide : %s</string>
+    <string name="spam_err_regex_invalid_plain">Expression régulière non valide</string>
+    <string name="spam_err_regex_empty_match">Cette expression régulière correspond à tous les messages. Précisez-la.</string>
+    <string name="spam_err_duplicate">Cette règle existe déjà</string>
+    <string name="spam_err_regex_unsafe">Cette expression régulière répète un groupe qui se répète déjà, ce qui peut figer le filtrage des messages. Simplifiez-la.</string>
+    <string name="spam_err_regex_matches_all">Cette expression régulière correspond à tous les messages. Précisez-la.</string>
+    <string name="spam_err_allow_keyword_short">Les mots autorisés doivent contenir au moins 4 caractères, car tout message qui les contient échappe à tous vos blocages</string>
+    <string name="spam_sheet_save_failed">Impossible d\'enregistrer la règle. Réessayez.</string>
+    <string name="spam_warn_allow_skips_blocks">Tout message contenant ce texte échappe à tous vos blocages, quel que soit l\'expéditeur, même si vous avez bloqué son numéro.</string>
+    <string name="spam_warn_common_word">Ce mot est court ou courant. Un spam peut facilement le contenir.</string>
+    <string name="spam_warn_broad">Ce critère correspond à de nombreux textes courants et concernera donc beaucoup de messages normaux.</string>
+    <string name="spam_warn_allowed_conflict">Cet élément figure dans votre liste des autorisés. Les règles d\'autorisation sont toujours prioritaires : ce blocage ne s\'appliquerait jamais.</string>
+    <string name="spam_confirm_title">Enregistrer cette règle ?</string>
+    <string name="spam_confirm_save">Enregistrer quand même</string>
+    <string name="spam_confirm_remove_allowed">Retirer des autorisés et bloquer</string>
+    <string name="spam_confirm_remove_allowed_detail">L\'enregistrement supprime aussi la règle correspondante de votre liste des autorisés.</string>
+    <string name="spam_import_title">Importer les règles ?</string>
+    <plurals name="spam_import_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d nouvelle règle</item>
+        <item quantity="other">%d nouvelles règles</item>
+    </plurals>
+    <string name="spam_import_summary">%1$s : %2$d de blocage, %3$d d\'autorisation</string>
+    <plurals name="spam_import_skipped" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d ligne sera ignorée (déjà ajoutée ou non valide)</item>
+        <item quantity="other">%d lignes seront ignorées (déjà ajoutées ou non valides)</item>
+    </plurals>
+    <string name="spam_import_examples">Par exemple</string>
+    <string name="spam_import_risky_title">Vérifiez d\'abord ces règles</string>
+    <string name="spam_import_risky_body">Les mots-clés et expressions régulières autorisés permettent à tout message correspondant d\'échapper à tous vos blocages. Les règles trop larges peuvent concerner des messages normaux.</string>
+    <string name="spam_import_rule_line">%1$s, %2$s: %3$s</string>
+    <plurals name="spam_import_more" tools:ignore="ImpliedQuantity">
+        <item quantity="one">et %d de plus</item>
+        <item quantity="other">et %d de plus</item>
+    </plurals>
+    <string name="spam_import_confirm">Importer</string>
+    <string name="spam_settings_title">Paramètres du spam</string>
+    <string name="spam_settings_unknown_title">Messages d\'expéditeurs inconnus</string>
+    <string name="spam_settings_unknown_body">Expéditeurs absents de vos contacts, auxquels vous n\'avez jamais envoyé de SMS et qui ne figurent pas dans votre liste des autorisés.</string>
+    <string name="spam_mode_strict">Strict</string>
+    <string name="spam_mode_strict_body">Bloque tous les expéditeurs inconnus, même les codes</string>
+    <string name="spam_mode_smart">Intelligent</string>
+    <string name="spam_mode_smart_body">Bloque les expéditeurs inconnus, laisse passer les codes seuls</string>
+    <string name="spam_mode_off">Désactivé</string>
+    <string name="spam_mode_off_body">Aucun blocage des expéditeurs inconnus</string>
+    <string name="spam_strict_warning_title">Le mode strict peut masquer des messages importants</string>
+    <string name="spam_strict_warning_body">Les messages des banques, des livreurs et les codes à usage unique proviennent souvent d\'expéditeurs absents de vos contacts. En mode strict, ils vont dans le dossier Messages bloqués, codes compris. Choisissez le mode intelligent pour laisser passer les codes, ou autorisez ces expéditeurs une fois pour toutes.</string>
+    <string name="spam_strict_warning_action">Consulter les messages bloqués</string>
+    <string name="spam_settings_cleanup_title">Nettoyage</string>
+    <string name="spam_purge_title">Supprimer les messages bloqués après</string>
+    <string name="spam_purge_body">Les anciens messages bloqués sont supprimés automatiquement.</string>
+    <string name="spam_purge_days">%d jours</string>
+    <string name="spam_purge_forever">Jamais</string>
+    <string name="spam_settings_notify_title">Notifications</string>
+    <string name="spam_notify_title">Notifier lorsqu\'un message est bloqué</string>
+    <string name="spam_notify_body">Afficher une notification silencieuse. Désactivé par défaut pour que le spam reste silencieux.</string>
+    <string name="spam_settings_rules_row">Règles d\'autorisation et de blocage</string>
+    <string name="spam_settings_rules_row_body">Numéros, expéditeurs, mots-clés et expressions régulières</string>
+    <string name="spam_settings_blocked_row">Messages bloqués</string>
+    <string name="spam_settings_blocked_row_body">Consulter, restaurer ou supprimer</string>
+</resources>

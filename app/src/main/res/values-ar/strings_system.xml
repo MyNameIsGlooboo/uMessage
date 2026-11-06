@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="system_delete_item_title">هل تريد الحذف؟</string>
+    <string name="system_delete_item_message">هل تريد حذف %1$s؟ لا يمكن التراجع عن هذا.</string>
+</resources>

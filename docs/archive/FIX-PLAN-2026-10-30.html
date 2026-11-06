@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spamless Fix Plan</title>
+<style>
+  :root { --bg:#fbfcfe; --fg:#1a1c1e; --muted:#5d6168; --line:#dde2ea; --card:#ffffff; --accent:#0b57d0;
+          --ok:#146c2e; --warn:#8a5300; --bad:#b3261e; --chip:#eef2f8; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#111316; --fg:#e3e3e6; --muted:#a4a8b0; --line:#2c3036;
+          --card:#1a1c20; --accent:#a8c7fa; --ok:#6dd58c; --warn:#ffb951; --bad:#f2b8b5; --chip:#24282e; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.55 system-ui, "Segoe UI", Roboto, sans-serif; }
+  main { max-width:1000px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:28px; margin:0 0 4px; }
+  h2 { font-size:20px; margin:36px 0 10px; border-bottom:1px solid var(--line); padding-bottom:6px; }
+  h3 { font-size:16px; margin:18px 0 6px; }
+  p.meta { color:var(--muted); margin:0 0 18px; }
+  ul, ol { padding-left:22px; margin:6px 0; } li { margin:3px 0; }
+  code { background:var(--chip); padding:1px 5px; border-radius:6px; font-size:13px; overflow-wrap:anywhere; }
+  .tag { display:inline-block; font-size:11px; font-weight:600; padding:1px 7px; border-radius:99px; margin-right:6px; vertical-align:1px; white-space:nowrap; }
+  .high { background:color-mix(in srgb,var(--bad) 18%,transparent); color:var(--bad); }
+  .med { background:color-mix(in srgb,var(--warn) 18%,transparent); color:var(--warn); }
+  .low { background:var(--chip); color:var(--muted); }
+  .dec { background:color-mix(in srgb,var(--accent) 18%,transparent); color:var(--accent); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:4px 16px 12px; margin:12px 0; }
+  .item { border-top:1px solid var(--line); padding:10px 0; } .item:first-of-type { border-top:0; }
+  .item b.id { color:var(--muted); font-weight:600; margin-right:4px; }
+  .k { color:var(--muted); font-size:13px; font-weight:600; }
+  table { width:100%; border-collapse:collapse; font-size:14px; } td, th { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--muted); font-weight:600; }
+  .scroll { overflow-x:auto; }
+</style>
+</head>
+<body>
+<div style="background:#fff3cd;color:#5c4400;border:1px solid #e0c060;padding:10px 14px;margin:0 0 16px;font:14px/1.4 sans-serif">Archived on 2 November 2026. This page is a historical record and may not match the current app. For current behaviour see docs/FILTER_PIPELINE.md and the README.</div>
+<main>
+<h1>Spamless — fix plan</h1>
+<p class="meta">30 October 2026 · everything still open after the review, in one place · base branch <code>review-fixes</code> (commit <code>a888a300</code>, not pushed). The full review is in <code>docs/REVIEW-2026-10-30.html</code>.</p>
+
+<h2>Progress (overnight run, 30–31 October 2026)</h2>
+<div class="card">
+  <p><b>Branch:</b> <code>m3-polish</code>, based on <code>review-fixes</code>, local only. Phases 0–3 are done except the publishing steps. Unit tests pass, lint has 0 errors, debug build installs and runs on the emulator (API 35) with no crashes.</p>
+  <h3>Done</h3>
+  <ul>
+    <li><b>Phase 0:</b> review report and this plan committed on <code>review-fixes</code>; stale schema folders and old agent worktrees removed; <code>/.claude/worktrees/</code> ignored. <b>Not done:</b> P0.3 push and PR — <code>git push</code> failed with "Repository not found" (the GitHub login on this PC, <code>sjdnp</code>, has no access to <code>MyNameIsGlooboo/Spamless</code>). P0.4 phone test and P0.5 confirmations are waiting for you.</li>
+    <li><b>Phase 1:</b> T1 M3 line-height style; T2 Vazirmatn bundled as a fallback for Persian, with its vertical metrics set to Roboto's so Persian and English lines are the same height (verified: 53 px both at font scale 1.0); T3 composer label on the plain type scale; T4 in-app font-size setting removed everywhere; T5 replaced by the new blocked-numbers screen.</li>
+    <li><b>Phase 1b:</b> F1 a code message with a link is no longer auto-allowed, except the <code>@domain #code</code> format (verified on the emulator).</li>
+    <li><b>Phase 2:</b> S1 new Compose lock screen (<code>ui/lock/</code>) launched by Commons through a hook; old <code>AppLockActivity</code> deleted (verified: PIN, wrong-PIN countdown, rotation, back, labels, dark mode). S2 Sky and Sunset have dark schemes; theme cards in a row now have equal height.</li>
+    <li><b>Phase 3:</b> M1 blocked messages as M3 list items with Undo for every action, one-line actions at font scale 1.3, Persian aligned; M2 decision log as list items with confirm before clearing; M3 tonal blocked card; M4 settings tidied and date/time format setting removed (times follow the system); M5 own Compose blocked-numbers screen; M6 one shared selection bar, onboarding dots centred; M7 composer with emoji picker, gallery shortcut, Send only with content, header avatar, Report spam (hidden once reported); M8 notification avatars match the list; M9 AndroidX SplashScreen. Also: round unread badge, Unarchive dialog wording, list keeps its scroll position on rotation, selected rows use on-container text colours.</li>
+  </ul>
+  <h3>Found during verification, left open</h3>
+  <ul>
+    <li>On the emulator, Material You gives a light mid-blue <code>primaryContainer</code> in dark mode. The app passes the system dynamic scheme through unchanged, so this comes from the emulator's system palette; check on the phone.</li>
+    <li>The thread menu has two block paths: "Block number" (system block list) and "Report spam" (Spamless rule). Consider one "Block &amp; report spam" as in Google Messages.</li>
+    <li>"Block unknown numbers" on the blocked-numbers screen is a different switch from Spam settings' Strict mode, which can confuse users.</li>
+    <li>Splash background (navy) differs from the lock screen background; the thread screen keeps its own copy of the selection bar; settings row icons use <code>primary</code> where the M3 list spec uses <code>onSurfaceVariant</code>; a few strings are now unused (lint warnings).</li>
+    <li>Not checked on the emulator: onboarding (needs cleared data) and the Recycle bin (the setting is off).</li>
+  </ul>
+</div>
+
+<h2>How to work through it</h2>
+<ol>
+  <li>Finish phase 0 first (tidy and ship the review branch).</li>
+  <li>All five decisions are answered, so nothing blocks phases 1 to 3.</li>
+  <li>Phases 1 to 3 are UI and Material 3 work. Their item groups touch different files, so each group can go to its own agent in its own worktree.</li>
+  <li>Phase 4 is a staged rebuild of the architecture. It touches the same large files as phase 3, so it starts after phase 3 is merged. Its first stage (B0) adds the tests every later stage is checked against.</li>
+  <li>After every phase: <code>:app:testFossDebugUnitTest</code>, <code>:app:lintFossDebug</code>, <code>:app:assembleFossRelease</code>, then an emulator check in light and dark, English and Persian, at font scale 1.0 and 1.3. The phone gets install-and-look checks only.</li>
+</ol>
+
+<h2>Decisions (answered 30 October 2026)</h2>
+<div class="card">
+  <div class="item"><span class="tag dec">decided</span><b>D1.</b> Remove the in-app font-size setting. Text follows Android's system font size only (item T4).</div>
+  <div class="item"><span class="tag dec">decided</span><b>D2.</b> No <code>FLAG_SECURE</code>. Screenshots and screen sharing keep working; the saved Recents thumbnail stays blank while app lock is on (item S3 dropped).</div>
+  <div class="item"><span class="tag dec">decided</span><b>D3.</b> Bundle Vazirmatn (OFL) for Persian and Arabic text (item T2).</div>
+  <div class="item"><span class="tag dec">decided</span><b>D4.</b> A code message from an unknown sender that also contains a link is blocked, except the standard origin-bound format (<code>@domain #code</code> on the last line) (item F1).</div>
+  <div class="item"><span class="tag dec">decided</span><b>D5.</b> Rebuild the PIN and pattern lock screen in Compose (item S1).</div>
+</div>
+
+<h2>Phase 0 — tidy and ship the review branch</h2>
+<div class="card">
+  <div class="item"><span class="tag high">high</span><b class="id">P0.1</b> Commit <code>docs/REVIEW-2026-10-30.html</code> and this plan.</div>
+  <div class="item"><span class="tag med">med</span><b class="id">P0.2</b> Delete the stale untracked folders <code>app/schemas/org.fossify.messages.*</code>, and remove the agent worktrees under <code>.claude/worktrees/</code>.</div>
+  <div class="item"><span class="tag high">high</span><b class="id">P0.3</b> Push <code>review-fixes</code> and open a PR into <code>main</code>. Let CI build and test the minified release.</div>
+  <div class="item"><span class="tag high">high</span><b class="id">P0.4</b> Use the debug build on the phone for a day: app lock, a scheduled message, SIM choice, receiving codes. Then merge.</div>
+  <div class="item"><span class="tag med">med</span><b class="id">P0.5</b> Confirm the behaviour changes listed in the review: both swipes archive, Material You default, backups off, per-SIM channel sounds reset once.</div>
+</div>
+
+<h2>Phase 1 — typography and line height</h2>
+<p>Files: <code>ui/theme/Type.kt</code>, <code>ui/thread/ThreadComposer.kt</code>, <code>ui/conversations/ConversationItem.kt</code>, <code>ui/thread/ThreadBubbles.kt</code>, font resources. One agent.</p>
+<div class="card">
+  <div class="item"><span class="tag high">high</span><b class="id">T1</b> <b>Add the Material 3 line-height style to every text style.</b> The <code>heading()</code> and <code>body()</code> helpers in <code>Type.kt</code> leave out <code>lineHeightStyle</code>, so Compose trims the first and last line. Measured on the emulator: bodyMedium lines take 43 px instead of 52 px (20 sp), and titleMedium takes 53 px instead of 63 px (24 sp). Text in rows, buttons and chips sits tighter than spec and is not centred like stock M3.<br>
+  <span class="k">Fix:</span> add <code>lineHeightStyle = LineHeightStyle(LineHeightStyle.Alignment.Center, LineHeightStyle.Trim.None)</code> to both helpers (the value Material 3's own type tokens use).<br>
+  <span class="k">Done when:</span> English and Persian preview lines have the same height (52 px at 420 dpi), and row padding still looks balanced. Re-check list row spacing, the chat bubbles, buttons, chips and the snackbar.</div>
+  <div class="item"><span class="tag high">high</span><b class="id">T2</b> <b>Persian text uses a fallback font with different metrics.</b> Roboto has no Arabic-script glyphs, so Android draws Persian with a system fallback. A Persian line measured 61 px against 43 px for English, so Persian rows have a larger name-to-preview gap and a lower badge. T1 fixes the height. Bundle Vazirmatn (decision D3) as static Regular, Medium and Bold files under <code>res/font</code>, add its licence to the third-party notices, and use it for Arabic-script text (a font fallback chain or a <code>FontFamily</code> chosen by script).<br>
+  <span class="k">Done when:</span> a list with mixed English and Persian rows has identical row heights and baselines, in both the list and the chat screen.</div>
+  <div class="item"><span class="tag low">low</span><b class="id">T3</b> <b>Composer labels squeezed below the type scale.</b> <code>ThreadComposer.kt:307</code> and <code>:312</code> set labelSmall to <code>lineHeight = 13.sp</code> (M3 is 16 sp) so the MMS label and the character counter fit in 48 dp. Use the plain style and let the field grow, or show the counter only, as Google Messages does.</div>
+  <div class="item"><span class="tag med">med</span><b class="id">T4</b> <b>In-app font-size setting stacks on the system font size.</b> <code>scaled()</code> in <code>ConversationItem.kt</code> and <code>ThreadBubbles.kt</code> multiplies size and line height by a Fossify setting. Decision D1: remove the setting, its preference and the <code>scaled()</code> helpers, and drop <code>setFontScale</code> from <code>ConversationsViewModel</code>. Existing stored values are ignored.</div>
+  <div class="item"><span class="tag low">low</span><b class="id">T5</b> <b>Hard-coded text sizes in the Fossify Commons screens</b> still used by the app: <code>ManageBlockedNumbersScreen.kt:412</code> and <code>:423</code> (<code>16.sp</code>, no line height). Replace them with type-scale styles (they go away anyway if the screen is replaced, see M5).</div>
+</div>
+
+<h2>Phase 1b — spam filter</h2>
+<p>Files: <code>spam/engine/DefaultSpamFilter.kt</code>, <code>spam/engine/OtpDetector.kt</code>, their tests, <code>docs/FILTER_PIPELINE.md</code>. Small; can go with the typography agent or alone.</p>
+<div class="card">
+  <div class="item"><span class="tag high">high</span><b class="id">F1</b> <b>Do not auto-allow code messages with links</b> (decision D4). Now that "Allow verification codes" is on by default, the exemption must not let "code + link" phishing through. In <code>DefaultSpamFilter</code>, apply the exemption only when the body looks like a code and either has no link or is in the origin-bound format (last line <code>@host #code</code>, as used by WebOTP and the SMS Retriever). Otherwise fall through to the normal mode decision.<br>
+  <span class="k">Done when:</span> tests cover code without link (allowed), code with a link (blocked in Strict, blocked in Smart), origin-bound <code>@example.com #123456</code> (allowed), Persian code (allowed); <code>otpExemptionStillAllowsOtpWithLinkWhenUserOptedIn</code> is replaced; <code>FILTER_PIPELINE.md</code> and the CHANGELOG describe the rule.</div>
+</div>
+
+<h2>Phase 2 — theme and lock screen</h2>
+<p>Files: <code>ui/theme/*</code> (except <code>Type.kt</code>), <code>App.kt</code>, <code>third_party/commons/.../AppLockActivity.kt</code> and its layouts, or a new Compose lock screen. One agent.</p>
+<div class="card">
+  <div class="item"><span class="tag high">high</span><b class="id">S1</b> <b>Rebuild the PIN/pattern lock screen.</b> <code>AppLockActivity</code> is legacy Fossify XML: it ignores dark mode and Material You, shows asterisks, labels its clear key only "C" and gives its confirm key no content description. Build it in Compose under <code>SpamlessTheme</code> (decision D5: Compose): M3 dots for entered digits, a 48 dp keypad with spoken labels, a biometric prompt via <code>BiometricPrompt</code>, an error state with the backoff time, and support for predictive back to the launcher. Keep the PBKDF2 hash and backoff logic unchanged.<br>
+  <span class="k">Done when:</span> it matches the app theme in light and dark, works with TalkBack, and passes the existing app lock checks (cold start locks, correct PIN unlocks, 30 s grace).</div>
+  <div class="item"><span class="tag med">med</span><b class="id">S2</b> <b>Fixed theme presets have no dark scheme.</b> Sky and the other presets stay light when the phone is in dark mode. Give each preset a dark <code>ColorScheme</code> (generate it from the same seed colour with the M3 tonal palette), and pick between them with <code>isSystemInDarkTheme()</code> in <code>resolveColorScheme</code>. Update the theme picker previews to show both.</div>
+
+</div>
+
+<h2>Phase 3 — Material 3 screen audit and fixes</h2>
+<p>Start with an audit: screenshot every screen in light and dark, compare each against the M3 component guidance (lists, cards, chips, buttons, top app bars, spacing on the 4 dp grid, shape scale, elevation, motion), and add any new findings to this list. Then split fixes by screen.</p>
+<div class="card">
+  <div class="item"><span class="tag med">med</span><b class="id">M1</b> <b>Blocked messages screen</b> (<code>ui/spam/BlockedMessages*</code>). The summary card is filled with saturated primary; use <code>primaryContainer</code>/<code>secondaryContainer</code>. Every item is a card with three inline buttons; use M3 list items (headline, supporting text, trailing time) with actions in swipe, long-press selection or an expanded state. Replace the non-standard "clear all" top-bar icon with a standard one plus a label in the overflow menu.</div>
+  <div class="item"><span class="tag med">med</span><b class="id">M2</b> <b>Decision log</b> (<code>ui/log/DecisionLogActivity.kt</code>). Items are cards with custom status pills; use M3 <code>ListItem</code> with supporting text, and M3 assist or suggestion chips if chips stay. Map "Blocked" to the <code>error</code> colour role. "Allowed" uses a custom green (M3 has no success role); either keep it with a documented contrast check or use <code>primary</code>.</div>
+  <div class="item"><span class="tag med">med</span><b class="id">M3</b> <b>Main list blocked card</b>: check container colour, shape and padding against the M3 card spec and the list grid, in light and dark.</div>
+  <div class="item"><span class="tag low">low</span><b class="id">M4</b> <b>Settings screens</b>: check the grouped rows against the M3 list and settings patterns (switch placement, supporting text, section headers, dividers), and remove the date/time format setting if it is now redundant.</div>
+  <div class="item"><span class="tag low">low</span><b class="id">M5</b> <b>Blocked numbers screen</b> still comes from Fossify Commons (<code>ManageBlockedNumbersActivity</code>). Rebuild it in Spamless's own Compose code with the app theme, or fold it into the Rules screen.</div>
+  <div class="item"><span class="tag low">low</span><b class="id">M6</b> <b>Smaller polish</b>: onboarding dot alignment; the gap in an expanded blocked item; three duplicated selection bars merged into one component; more Compose previews (light, dark, RTL, large font).</div>
+  <div class="item"><span class="tag low">low</span><b class="id">M7</b> <b>Composer and thread</b>: emoji and gallery shortcuts; hide Send while the field is empty; thread header avatar; "Report spam" in the thread menu; "You:" prefix for sent messages in the list.</div>
+  <div class="item"><span class="tag low">low</span><b class="id">M8</b> <b>Notification avatar</b> still shows the first digit for number-only senders; use the same person icon as the list.</div>
+  <div class="item"><span class="tag low">low</span><b class="id">M9</b> <b>Splash</b>: move <code>SplashActivity</code> to the SplashScreen API (the dependency is already added).</div>
+</div>
+
+<h2>Phase 4 — staged rebuild (after phase 3 is merged)</h2>
+<p>Goal: the clean, standard architecture a rewrite would give, without a rewrite. The app stays shippable after every stage, and every stage is checked against today's behaviour. Nothing is deleted until its replacement passes the same tests.</p>
+
+<h3>Where the debt is today</h3>
+<div class="scroll">
+<table>
+  <tr><th>Area</th><th>Today</th><th>Target</th></tr>
+  <tr><td>Screens</td><td><code>ThreadActivity.kt</code> 1,979 lines, <code>MainActivity.kt</code> 542, <code>SettingsActivity.kt</code> 423; data loading, provider queries and dialogs live in the activities</td><td>Thin activities hosting Compose; one ViewModel per screen exposing <code>StateFlow</code> UI state</td></tr>
+  <tr><td>Messaging logic</td><td><code>extensions/Context.kt</code> 1,388 lines of provider reads and writes as <code>Context</code> extensions; <code>MessagesReader</code>, <code>MessagingUtils</code>, <code>NotificationHelper</code></td><td>Repositories behind interfaces (<code>ConversationRepository</code>, <code>MessageRepository</code>, <code>DraftRepository</code>, <code>ScheduledRepository</code>, <code>ContactRepository</code>), injectable and fakeable</td></tr>
+  <tr><td>Events</td><td>EventBus in 5 files</td><td>Flow from repositories (provider <code>ContentObserver</code> wrapped in <code>callbackFlow</code>)</td></tr>
+  <tr><td>Dialogs</td><td><code>showComposeDialog</code> at 34 call sites; lost on rotation</td><td>Dialog state in the ViewModel; dialogs drawn from state</td></tr>
+  <tr><td>Commons</td><td>108 distinct <code>org.fossify.commons</code> imports: base activities, <code>Config</code>, helpers, dialogs, two screens</td><td>No Fossify Commons dependency</td></tr>
+  <tr><td>Database</td><td>Room <code>messages</code> keyed by id only (SMS and MMS ids collide)</td><td>Composite key with a tested migration</td></tr>
+</table>
+</div>
+
+<h3>What stays (moved, not rewritten)</h3>
+<ul>
+  <li>The spam engine under <code>spam/</code>: already Android-independent and tested.</li>
+  <li>The receive and send path fixed in the review: the 13 files in <code>receivers/</code>, <code>HeadlessSmsSendService</code>, <code>SmsDelivery</code>, scheduling, SIM selection. These move behind repository interfaces with their logic unchanged.</li>
+  <li>The Compose screens and components under <code>ui/</code>: they get new ViewModels, not new layouts.</li>
+</ul>
+
+<div class="card">
+  <div class="item"><span class="tag high">high</span><b class="id">B0</b> <b>Lock today's behaviour in tests</b> (before any move).
+  <ul>
+    <li>Robolectric tests for each receiver: <code>SmsReceiver</code> (allowed, blocked, filter crash fails open, provider insert fails and the safety copy replays), <code>MmsPushReceiver</code>, <code>DirectReplyReceiver</code> (right SIM), <code>MarkAsReadReceiver</code>, <code>DeleteSmsReceiver</code> (recycle bin), <code>ScheduledMessageReceiver</code> (sent then deleted, never deleted unsent), <code>RescheduleAlarmsReceiver</code>.</li>
+    <li>Provider tests against a fake <code>ContentProvider</code> for the reads and writes in <code>Context.kt</code>: conversation list, thread messages, insert, mark read, delete, archive, restore order.</li>
+    <li>Room DAO tests and migration tests for both databases, using the committed schemas.</li>
+    <li>Compose UI tests (<code>androidTest</code>) for the main flows: open thread, send, search, new conversation, Not spam with Undo, app lock.</li>
+  </ul>
+  <span class="k">Done when:</span> these pass on the current code in CI, and a coverage report shows every receiver and every public function in <code>Context.kt</code> exercised. This list is the "nothing missed" checklist for every later stage.</div>
+
+  <div class="item"><span class="tag high">high</span><b class="id">B1</b> <b>Foundations.</b> Add Hilt (or manual constructor injection; decide at the start of this stage). Create the repository interfaces and their first implementations by moving code out of <code>Context.kt</code> unchanged. New code reads settings from a settings repository on DataStore (old preferences migrated once) instead of <code>Config</code>. Old call sites keep working through thin wrappers.<br>
+  <span class="k">Done when:</span> B0 tests still pass, and new code can get every repository without a <code>Context</code> extension.</div>
+
+  <div class="item"><span class="tag high">high</span><b class="id">B2</b> <b>Conversation list first</b> (smallest and most used). <code>ConversationsViewModel</code> reads from <code>ConversationRepository</code> as Flow; the list's EventBus events and <code>showComposeDialog</code> calls go; <code>MainActivity</code> keeps only the role check and navigation. Archived and Recycle bin reuse the same ViewModel with a filter.<br>
+  <span class="k">Done when:</span> no reload on rotation, the list updates live when an SMS arrives, B0 tests pass, and the three activities hold no data code.</div>
+
+  <div class="item"><span class="tag high">high</span><b class="id">B3</b> <b>Thread screen</b> (largest). Split <code>ThreadActivity</code> into <code>ThreadViewModel</code> (messages Flow, draft, send, SIM choice, attachments, scheduling) and small state holders; move every dialog to state; keep the camera and Photo Picker result handling. Work in slices (read, draft, send, attachments, menu actions), one PR each.<br>
+  <span class="k">Done when:</span> <code>ThreadActivity</code> is under about 200 lines, the draft and dialogs survive rotation and process death, and B0 tests pass.</div>
+
+  <div class="item"><span class="tag med">med</span><b class="id">B4</b> <b>Remaining screens</b>: New conversation, Conversation details, Settings, Blocked keywords, vCard viewer. Same pattern: ViewModel, state-driven dialogs, no EventBus.<br>
+  <span class="k">Done when:</span> <code>showComposeDialog</code> and EventBus have no callers and are deleted.</div>
+
+  <div class="item"><span class="tag med">med</span><b class="id">B5</b> <b>Remove Fossify Commons</b>, one group at a time: base activities to <code>ComponentActivity</code>; <code>Config</code> to the settings repository; helpers (formatting, permissions, contacts, notifications) to small Spamless files. S1 and M5 have already replaced the lock and blocked-numbers screens. Then drop the included build and its libraries (Reprint, PatternLockView, joda-time, Gson, Glide, Material Components, Jetifier).<br>
+  <span class="k">Done when:</span> no <code>org.fossify.commons</code> import remains, <code>third_party/commons</code> is removed, and release APK size is recorded before and after.</div>
+
+  <div class="item"><span class="tag med">med</span><b class="id">B6</b> <b>Database key fix</b>: composite key for <code>messages</code> (id plus SMS/MMS type), with a Room migration and a migration test on the exported schemas.</div>
+
+  <div class="item"><span class="tag med">med</span><b class="id">B7</b> <b>Platform</b>: window size classes and a list-detail layout for tablets and foldables; SDK 37 with Compose BOM 2026.09 and M3 Expressive; a baseline profile module (cold start logged 73 skipped frames); optionally single-activity Navigation Compose once every screen is ViewModel-driven.</div>
+</div>
+
+<h3>Rules for every stage</h3>
+<ul>
+  <li>One stage at a time on its own branch; each slice is a reviewable PR.</li>
+  <li>B0 tests, lint and the minified release build pass before every merge.</li>
+  <li>Emulator check of the touched screens in light and dark, English and Persian; phone install-and-look check before each merge.</li>
+  <li>The receive path (<code>SmsReceiver</code>, <code>MmsPushReceiver</code>, <code>SmsDelivery</code>) changes only together with its B0 tests in the same PR.</li>
+  <li>B2 to B4 may overlap only when they own different screens; B5 starts after B4.</li>
+</ul>
+
+<h2>Phase 5 — messaging gaps and repo</h2>
+<div class="card">
+  <div class="item"><span class="tag med">med</span><b class="id">G1</b> "Not spam" on a never-downloaded MMS only allows the sender; store the content location so restore can download it.</div>
+  <div class="item"><span class="tag low">low</span><b class="id">G2</b> Incoming SMS metadata (<code>DATE_SENT</code>, service centre) is not stored; needs a pending-queue migration.</div>
+  <div class="item"><span class="tag low">low</span><b class="id">G3</b> Drop <code>CALL_PHONE</code> if calling always uses <code>ACTION_DIAL</code>.</div>
+  <div class="item"><span class="tag low">low</span><b class="id">G4</b> Swipe-action setting (both swipes archive today).</div>
+  <div class="item"><span class="tag med">med</span><b class="id">R1</b> Fastlane metadata still describes Fossify Messages in 28 locales; rewrite for Spamless.</div>
+  <div class="item"><span class="tag low">low</span><b class="id">R2</b> <code>.claude/skills</code> (172 files, 4.3 MB) is committed; move it out of the repo or ignore it.</div>
+  <div class="item"><span class="tag low">low</span><b class="id">R3</b> Detekt has about 400 findings outside the baseline (report-only in CI); fix in batches, then make CI fail on new ones.</div>
+</div>
+
+<h2>Suggested agent split</h2>
+<div class="scroll">
+<table>
+  <tr><th>Agent</th><th>Items</th><th>Files it owns</th></tr>
+  <tr><td>Typography</td><td>T1–T5, F1</td><td><code>ui/theme/Type.kt</code>, font resources, <code>ThreadComposer.kt</code>, <code>ConversationItem.kt</code>, <code>ThreadBubbles.kt</code>, <code>ManageBlockedNumbersScreen.kt</code>, <code>ConversationsViewModel.kt</code>; for F1 the spam engine files</td></tr>
+  <tr><td>Theme and lock</td><td>S1, S2</td><td><code>ui/theme/*</code> except <code>Type.kt</code>, <code>App.kt</code>, lock screen files</td></tr>
+  <tr><td>Spam screens</td><td>M1, M2, M5</td><td><code>ui/spam/*</code>, <code>ui/log/*</code></td></tr>
+  <tr><td>Main, settings and polish</td><td>M3, M4, M6–M9</td><td><code>ui/conversations/*</code> (except <code>ConversationItem.kt</code> until T4 lands), settings, onboarding, splash, notifications</td></tr>
+</table>
+</div>
+<p>Phase 4 runs afterwards, one stage at a time (B0 first; B2 to B4 may overlap when they own different screens). Phase 5 items can run alongside phase 4 when they touch different files.</p>
+</main>
+</body>
+</html>

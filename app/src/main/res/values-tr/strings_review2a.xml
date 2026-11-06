@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r2a_filter_codes">Kodlar</string>
+    <string name="r2a_filter_codes_empty_title">Kod yok</string>
+    <string name="r2a_filter_codes_empty_body">Son mesajında tek kullanımlık kod bulunan görüşmeler burada görünür.</string>
+    <string name="r2a_search_codes_window">Son 24 saatten</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="font_title">Шрифт</string>
+    <string name="font_umessage">Шрифт uMessage</string>
+    <string name="font_system">Системный шрифт</string>
+</resources>

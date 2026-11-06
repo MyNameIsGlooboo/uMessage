@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">تراکنش‌ها</string>
+    <string name="i11_filter_transactions_empty_title">تراکنشی نیست</string>
+    <string name="i11_filter_transactions_empty_body">پیام‌های بانک دربارهٔ واریز و برداشت شما اینجا نمایش داده می‌شوند.</string>
+    <string name="i11_filter_offers">پیشنهادها</string>
+    <string name="i11_filter_offers_empty_title">پیشنهادی نیست</string>
+    <string name="i11_filter_offers_empty_body">تخفیف‌ها و پیشنهادهای فروشگاه‌ها اینجا نمایش داده می‌شوند.</string>
+</resources>

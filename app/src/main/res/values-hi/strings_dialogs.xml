@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="dialogs_yes">हां</string>
+    <string name="dialogs_no">नहीं</string>
+    <string name="dialogs_permission_required">अनुमति ज़रूरी है</string>
+    <string name="dialogs_grant_permission">अनुमति दें</string>
+    <string name="dialogs_date_time_format_title">तारीख और समय का फ़ॉर्मैट</string>
+    <string name="dialogs_use_24_hour">24 घंटे वाला समय फ़ॉर्मैट इस्तेमाल करें</string>
+    <string name="dialogs_lock_pattern">पैटर्न</string>
+    <string name="dialogs_lock_pin">पिन</string>
+    <string name="dialogs_lock_biometrics">बायोमेट्रिक्स</string>
+    <string name="dialogs_lock_fingerprint">फ़िंगरप्रिंट</string>
+    <string name="dialogs_lock_enter_pin">पिन डालें</string>
+    <string name="dialogs_lock_repeat_pin">पिन दोबारा डालें</string>
+    <string name="dialogs_lock_wrong_pin">गलत पिन</string>
+    <string name="dialogs_lock_empty_pin">कृपया पिन डालें</string>
+    <string name="dialogs_lock_short_pin">पिन कम से कम 4 अंकों का होना चाहिए</string>
+    <string name="dialogs_lock_pin_suggestion">कम से कम 4 अंक. %d या ज़्यादा अंक रखना अधिक सुरक्षित है.</string>
+    <plurals name="dialogs_lock_short_pattern" tools:ignore="ImpliedQuantity">
+        <item quantity="one">बहुत छोटा है. कम से कम %d बिंदु जोड़ें.</item>
+        <item quantity="other">बहुत छोटा है. कम से कम %d बिंदु जोड़ें.</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">पैटर्न बनाएं</string>
+    <string name="dialogs_lock_repeat_pattern">पैटर्न दोबारा बनाएं</string>
+    <string name="dialogs_lock_wrong_pattern">गलत पैटर्न</string>
+    <string name="dialogs_lock_locked_out">अनलॉक करने की बहुत ज़्यादा गलत कोशिशें हुई हैं.\n%d सेकंड बाद फिर कोशिश करें.</string>
+    <string name="dialogs_lock_pin_delete">आखिरी अंक मिटाएं</string>
+    <string name="dialogs_lock_pin_confirm">पिन की पुष्टि करें</string>
+    <string name="dialogs_lock_pin_entered">%d अंक डाले गए</string>
+    <string name="dialogs_lock_pattern_pad">पैटर्न बनाने की जगह</string>
+    <string name="dialogs_lock_biometric_hint">अपनी पहचान की पुष्टि के लिए फ़िंगरप्रिंट या चेहरे का इस्तेमाल करें.</string>
+    <string name="dialogs_lock_biometric_open">बायोमेट्रिक्स से पुष्टि करें</string>
+    <string name="dialogs_lock_place_finger">फ़िंगरप्रिंट सेंसर पर अपनी उंगली रखें.</string>
+    <string name="dialogs_lock_no_fingerprints">कोई फ़िंगरप्रिंट जोड़ा नहीं गया है. अपने डिवाइस की सेटिंग में जोड़ें.</string>
+    <string name="dialogs_lock_open_settings">डिवाइस की सेटिंग खोलें</string>
+    <string name="dialogs_lock_auth_failed">पहचान की पुष्टि नहीं हो सकी</string>
+    <string name="dialogs_lock_auth_blocked">पहचान की पुष्टि पर रोक लगी है, थोड़ी देर बाद फिर कोशिश करें</string>
+</resources>

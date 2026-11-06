@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">পড়ে শোনান</string>
+    <string name="read_aloud_stop">পড়া থামান</string>
+    <string name="read_aloud_no_voice">এই ফোনে %1$s ভাষার কোনো ভয়েস ইনস্টল করা নেই</string>
+    <string name="read_aloud_install">ভয়েস ডাউনলোড করুন</string>
+    <string name="read_aloud_install_missing">এই ফোনে ভয়েস ইনস্টল করার ব্যবস্থা নেই</string>
+    <string name="read_aloud_failed">বার্তাটি পড়ে শোনানো যায়নি</string>
+</resources>

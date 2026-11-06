@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="i56_section">Médias et liens</string>
+    <string name="i56_see_all">Tout voir</string>
+    <string name="i56_pictures">Images</string>
+    <string name="i56_links">Liens</string>
+    <string name="i56_empty_pictures">Aucune image dans cette conversation.</string>
+    <string name="i56_empty_links">Aucun lien dans cette conversation.</string>
+    <string name="i56_show_in_chat">Afficher dans la conversation</string>
+    <string name="i56_load_more">Afficher plus</string>
+    <string name="i56_picture_description">Image. Appuyez pour l\'ouvrir.</string>
+    <plurals name="i56_count_pictures" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d image</item>
+        <item quantity="other">%d images</item>
+    </plurals>
+    <plurals name="i56_count_links" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d lien</item>
+        <item quantity="other">%d liens</item>
+    </plurals>
+</resources>

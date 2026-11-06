@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">Beri bintang</string>
+    <string name="i13_unstar">Hapus bintang</string>
+    <string name="i13_starred_mark">Berbintang</string>
+    <string name="i13_filter_starred">Berbintang</string>
+    <string name="i13_filter_starred_empty_title">Tidak ada pesan berbintang</string>
+    <string name="i13_filter_starred_empty_body">Pilih pesan dalam percakapan lalu ketuk bintang untuk menyimpannya di sini.</string>
+    <string name="i13_starred_note">Bintang menyimpan salinan teks, meski percakapan dihapus. Menghapus bintang juga menghapus salinannya.</string>
+    <string name="i13_snapshot_gone">Percakapan ini telah dihapus. Hanya teks yang disimpan yang tersisa.</string>
+    <string name="i13_snapshot_close">Tutup</string>
+</resources>

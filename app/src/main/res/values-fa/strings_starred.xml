@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">ستاره‌دار کردن</string>
+    <string name="i13_unstar">برداشتن ستاره</string>
+    <string name="i13_starred_mark">ستاره‌دار</string>
+    <string name="i13_filter_starred">ستاره‌دار</string>
+    <string name="i13_filter_starred_empty_title">پیام ستاره‌داری ندارید</string>
+    <string name="i13_filter_starred_empty_body">پیامی را در گفتگو انتخاب کنید و روی ستاره بزنید تا اینجا نگه داشته شود.</string>
+    <string name="i13_starred_note">ستاره یک نسخه از متن را نگه می‌دارد، حتی اگر گفتگو حذف شود. با برداشتن ستاره، این نسخه حذف می‌شود.</string>
+    <string name="i13_snapshot_gone">این گفتگو حذف شده است. فقط متن ذخیره‌شده باقی مانده است.</string>
+    <string name="i13_snapshot_close">بستن</string>
+</resources>

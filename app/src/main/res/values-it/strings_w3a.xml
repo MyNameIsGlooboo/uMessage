@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3a_forward_limit_channel">Limite di inoltro</string>
+    <string name="w3a_forward_limit_title">Inoltro sospeso per oggi</string>
+    <string name="w3a_forward_limit_text">Raggiunto il limite di %d inoltri. L\'inoltro riprenderà domani.</string>
+</resources>

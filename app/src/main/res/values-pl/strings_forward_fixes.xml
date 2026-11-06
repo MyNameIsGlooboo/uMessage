@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">Wstrzymano do jutra: osiągnięto limit</string>
+    <string name="fwdfix_limit_hint">Dziś przekazano dalej %1$s z %2$s wiadomości. Przekazywanie zostanie wznowione jutro.</string>
+    <string name="fwdfix_status_skipped">Pominięto (limit)</string>
+    <string name="fwdfix_error_daily_limit">Nie wysłano: osiągnięto dzienny limit przekazywania dalej.</string>
+    <string name="fwdfix_error_rate_limited">Nie wysłano: ta reguła przekazała już dalej %1$s wiadomości w ostatniej godzinie.</string>
+    <string name="fwdfix_retry_all_recent">Uwzględniono tylko wiadomości przekazywane dalej z ostatnich 24 godzin.</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="one">Nie wysłano %1$s wiadomości: przekazywanie dalej jest wstrzymane.</item>
+        <item quantity="few">Nie wysłano %1$s wiadomości: przekazywanie dalej jest wstrzymane.</item>
+        <item quantity="many">Nie wysłano %1$s wiadomości: przekazywanie dalej jest wstrzymane.</item>
+        <item quantity="other">Nie wysłano %1$s wiadomości: przekazywanie dalej jest wstrzymane.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="one">Nie wysłano %1$s wiadomości: jej reguła jest wyłączona lub usunięta.</item>
+        <item quantity="few">Nie wysłano %1$s wiadomości: ich reguły są wyłączone lub usunięte.</item>
+        <item quantity="many">Nie wysłano %1$s wiadomości: ich reguły są wyłączone lub usunięte.</item>
+        <item quantity="other">Nie wysłano %1$s wiadomości: ich reguły są wyłączone lub usunięte.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="one">Nie wysłano %1$s wiadomości: osiągnięto limit dzienny lub godzinowy jej reguły.</item>
+        <item quantity="few">Nie wysłano %1$s wiadomości: osiągnięto limit dzienny lub godzinowy reguły.</item>
+        <item quantity="many">Nie wysłano %1$s wiadomości: osiągnięto limit dzienny lub godzinowy reguły.</item>
+        <item quantity="other">Nie wysłano %1$s wiadomości: osiągnięto limit dzienny lub godzinowy reguły.</item>
+    </plurals>
+    <string name="fwdfix_card_last">Ostatnio przekazano dalej: %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="one">%1$s w tym tygodniu</item>
+        <item quantity="few">%1$s w tym tygodniu</item>
+        <item quantity="many">%1$s w tym tygodniu</item>
+        <item quantity="other">%1$s w tym tygodniu</item>
+    </plurals>
+    <string name="fwdfix_card_never">Jeszcze nic nie przekazano dalej</string>
+    <string name="fwdfix_card_sent">wysłano</string>
+    <string name="fwdfix_card_pending">wysyłanie</string>
+    <string name="fwdfix_card_failed">nie udało się</string>
+    <string name="fwdfix_card_skipped">pominięto (limit)</string>
+    <string name="fwdfix_delete_rule">Usuń regułę</string>
+    <string name="fwdfix_deleted">Usunięto regułę przekazywania dalej</string>
+    <string name="fwdfix_test_button">Wyślij test</string>
+    <string name="fwdfix_test_title">Wysłać testowy SMS?</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="one">Na powyższy numer wyślemy %1$s testowy SMS. Jest płatny.</item>
+        <item quantity="few">Na każdy z %1$s powyższych numerów wyślemy po jednym testowym SMS-ie. Każdy jest płatny.</item>
+        <item quantity="many">Na każdy z %1$s powyższych numerów wyślemy po jednym testowym SMS-ie. Każdy jest płatny.</item>
+        <item quantity="other">Na każdy z %1$s powyższych numerów wyślemy po jednym testowym SMS-ie. Każdy jest płatny.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">Wyślij</string>
+    <string name="fwdfix_test_text">Test z uMessage: przekazywanie dalej działa.</string>
+    <string name="fwdfix_test_sending">Wysyłanie testu…</string>
+    <string name="fwdfix_test_sent">Test wysłany. Sprawdź drugi telefon.</string>
+    <string name="fwdfix_test_failed">Nie udało się wysłać testu. Sprawdź zasięg i stan konta.</string>
+    <string name="fwdfix_cost_persian">Tekst po persku (%1$s znaków): %2$s części × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">Tekst po angielsku (%1$s znaków): %2$s części × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">Teraz nie można nic wysłać</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="one">Nie wyślemy %1$s wiadomości: przekazywanie dalej jest wstrzymane.</item>
+        <item quantity="few">Nie wyślemy %1$s wiadomości: przekazywanie dalej jest wstrzymane.</item>
+        <item quantity="many">Nie wyślemy %1$s wiadomości: przekazywanie dalej jest wstrzymane.</item>
+        <item quantity="other">Nie wyślemy %1$s wiadomości: przekazywanie dalej jest wstrzymane.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="one">Nie wyślemy %1$s wiadomości: jej reguła jest wyłączona lub usunięta.</item>
+        <item quantity="few">Nie wyślemy %1$s wiadomości: ich reguły są wyłączone lub usunięte.</item>
+        <item quantity="many">Nie wyślemy %1$s wiadomości: ich reguły są wyłączone lub usunięte.</item>
+        <item quantity="other">Nie wyślemy %1$s wiadomości: ich reguły są wyłączone lub usunięte.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="one">Nie wyślemy %1$s wiadomości: osiągnięto limit dzienny lub godzinowy jej reguły.</item>
+        <item quantity="few">Nie wyślemy %1$s wiadomości: osiągnięto limit dzienny lub godzinowy reguły.</item>
+        <item quantity="many">Nie wyślemy %1$s wiadomości: osiągnięto limit dzienny lub godzinowy reguły.</item>
+        <item quantity="other">Nie wyślemy %1$s wiadomości: osiągnięto limit dzienny lub godzinowy reguły.</item>
+    </plurals>
+</resources>

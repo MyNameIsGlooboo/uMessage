@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">ปลุกหน้าจอ</string>
+    <string name="wake_screen_summary">เปิดหน้าจอเมื่อมีข้อความใหม่</string>
+    <string name="bubbles_title">บับเบิลการสนทนา</string>
+    <string name="bubbles_summary">แสดงการสนทนาเป็นบับเบิลลอย</string>
+    <string name="bubbles_locked">ใช้ไม่ได้ขณะเปิดล็อกแอป</string>
+    <string name="focus_codes_title">รหัสในการแจ้งเตือนสด</string>
+    <string name="focus_codes_summary">แสดงรหัสในการแจ้งเตือนสดของ Xiaomi</string>
+</resources>

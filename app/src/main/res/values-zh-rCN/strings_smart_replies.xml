@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">智能回复</string>
+    <string name="smart_replies_summary">使用手机上的回复列表快速回复</string>
+    <string name="smart_replies_hide">隐藏建议</string>
+</resources>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Compact list timestamps (Google Messages style) -->
+    <string name="ui_time_now">Now</string>
+    <plurals name="ui_time_minutes">
+        <item quantity="one">%d min</item>
+        <item quantity="other">%d min</item>
+    </plurals>
+
+    <!-- Message bubbles (TalkBack) -->
+    <string name="ui_bubble_sent">You, %1$s</string>
+    <string name="ui_bubble_received">%1$s, %2$s</string>
+    <string name="ui_bubble_received_unknown">Received, %1$s</string>
+    <string name="ui_select_message">Select message</string>
+    <string name="ui_retry_send">Retry sending</string>
+
+    <!-- Default SMS app declined -->
+    <string name="ui_default_required_body">uMessage can\'t receive, send or filter messages until it\'s your default SMS app. Your messages stay where they are.</string>
+    <string name="ui_default_required_close">Close uMessage</string>
+
+    <!-- New conversation -->
+    <string name="ui_add_contact_or_number">Type a name or phone number</string>
+    <string name="ui_show_dialpad">Show dial pad</string>
+    <string name="ui_show_keyboard">Show keyboard</string>
+
+    <!-- Settings -->
+    <string name="ui_settings_group_block_lists">Other block lists</string>
+    <string name="ui_settings_system_block_list">System block list</string>
+    <string name="ui_settings_system_block_list_body">Numbers blocked for every app on this phone. uMessage also hides them.</string>
+    <string name="ui_settings_blocked_words">Blocked words</string>
+    <string name="ui_settings_character_counter">Show character counter</string>
+    <string name="ui_settings_simple_characters">Remove accents when sending</string>
+    <string name="ui_settings_send_on_enter">Send with Enter key</string>
+    <string name="ui_settings_delivery_reports">Get delivery reports</string>
+    <string name="ui_settings_recycle_bin">Move deleted conversations to recycle bin</string>
+
+    <!-- Formatted pieces instead of string concatenation, so translations can reorder them -->
+    <string name="ui_two_sentences">%1$s. %2$s</string>
+    <!-- %1$s: tab name, %2$d: number of items -->
+    <string name="ui_tab_with_count">%1$s (%2$d)</string>
+    <!-- %1$s: send / schedule, %2$s: SIM name -->
+    <string name="ui_send_with_sim">%1$s, %2$s</string>
+    <!-- %1$s: phone number, %2$s: number type such as Mobile -->
+    <string name="ui_number_with_type">%1$s (%2$s)</string>
+
+    <!-- Decision log -->
+    <string name="ui_log_decision_allowed">Allowed</string>
+    <string name="ui_log_decision_blocked">Blocked</string>
+    <string name="ui_log_decision_error">Error</string>
+    <string name="ui_log_reason_allow_rule">Allow rule</string>
+    <string name="ui_log_reason_block_rule">Block rule</string>
+    <string name="ui_log_reason_contact">In contacts</string>
+    <string name="ui_log_reason_known_conversation">You texted them before</string>
+    <string name="ui_log_reason_otp">Verification code</string>
+    <string name="ui_log_reason_unknown_sender">Unknown sender</string>
+    <string name="ui_log_reason_mode_off">Filter off</string>
+    <string name="ui_log_reason_no_match">No rule matched</string>
+    <string name="ui_log_source_sms">SMS</string>
+    <string name="ui_log_source_mms">MMS</string>
+    <string name="ui_log_source_retry">Retried</string>
+</resources>

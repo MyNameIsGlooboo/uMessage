@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_tab_forwarded">Переслані</string>
+    <string name="nav_tab_forwarded_failed">Переслані, помилка пересилання</string>
+    <string name="nav_tab_forwarded_paused">Переслані, пересилання призупинено</string>
+    <string name="nav_tab_archived_new">Заархівовано, новий чат заархівовано</string>
+    <string name="nav_prompt_title">Правило збережено</string>
+    <string name="nav_prompt_body">Показати вкладку «Переслані», щоб бачити надіслані повідомлення й повторювати невдалі спроби?</string>
+    <string name="nav_prompt_show">Показати вкладку</string>
+    <string name="nav_prompt_not_now">Не зараз</string>
+    <string name="nav_fwd_paid_note">Кожне пересилання — платне SMS.</string>
+    <string name="nav_fwd_pause_all">Призупинити всі пересилання</string>
+    <string name="nav_fwd_status_paused">Пересилання призупинено</string>
+    <string name="nav_fwd_paused_hint">Повідомлення, що відповідають правилам, не надсилаються. Вимкніть, щоб відновити пересилання.</string>
+    <string name="nav_fwd_status_no_rule">Жодне правило пересилання не ввімкнено</string>
+    <plurals name="nav_fwd_status_on" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Пересилання ввімкнено, %1$s правило</item>
+        <item quantity="few">Пересилання ввімкнено, %1$s правила</item>
+        <item quantity="many">Пересилання ввімкнено, %1$s правил</item>
+        <item quantity="other">Пересилання ввімкнено, %1$s правила</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">Керувати правилами</string>
+    <string name="nav_fwd_empty_title">Ще нічого не переслано</string>
+    <string name="nav_fwd_empty_body">Тут з’являться повідомлення, що відповідають правилам.</string>
+    <string name="nav_fwd_status_sent">Надіслано</string>
+    <string name="nav_fwd_status_pending">Очікує</string>
+    <string name="nav_fwd_status_failed">Не вдалося надіслати</string>
+    <string name="nav_fwd_to">Кому: %1$s</string>
+    <string name="nav_fwd_sim">SIM %1$d</string>
+    <string name="nav_fwd_rule_line">Правило: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">відправник %1$s</string>
+    <string name="nav_fwd_rule_any_sender">будь-який відправник</string>
+    <string name="nav_fwd_rule_text">текст %1$s</string>
+    <string name="nav_fwd_rule_any_text">будь-який текст</string>
+    <string name="nav_fwd_rule_deleted">Правило видалено</string>
+    <string name="nav_fwd_open_details">Показати деталі</string>
+    <string name="nav_fwd_today">Сьогодні</string>
+    <string name="nav_fwd_yesterday">Учора</string>
+    <plurals name="nav_fwd_failed_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s невдале пересилання</item>
+        <item quantity="few">%1$s невдалі пересилання</item>
+        <item quantity="many">%1$s невдалих пересилань</item>
+        <item quantity="other">%1$s невдалого пересилання</item>
+    </plurals>
+    <string name="nav_fwd_retry">Повторити</string>
+    <string name="nav_fwd_retry_all">Повторити всі невдалі (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">Надіслати ще раз?</string>
+    <plurals name="nav_fwd_retry_all_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Буде повторно надіслано %1$s SMS. Кожне SMS платне.</item>
+        <item quantity="few">Буде повторно надіслано %1$s SMS. Кожне SMS платне.</item>
+        <item quantity="many">Буде повторно надіслано %1$s SMS. Кожне SMS платне.</item>
+        <item quantity="other">Буде повторно надіслано %1$s SMS. Кожне SMS платне.</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">Надіслати ще раз</string>
+    <plurals name="nav_fwd_retry_sent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Повторно переслано %d повідомлення</item>
+        <item quantity="few">Повторно переслано %d повідомлення</item>
+        <item quantity="many">Повторно переслано %d повідомлень</item>
+        <item quantity="other">Повторно переслано %d повідомлення</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">Знову не вдалося. Перевірте сигнал мережі та баланс.</string>
+    <string name="nav_fwd_retry_missing">Оригінального повідомлення вже немає, тому надіслати його ще раз неможливо.</string>
+    <string name="nav_fwd_details_title">Деталі пересилання</string>
+    <string name="nav_fwd_detail_from">Повідомлення від</string>
+    <string name="nav_fwd_detail_to">Переслано кому</string>
+    <string name="nav_fwd_detail_when">Час</string>
+    <string name="nav_fwd_detail_sim">Надіслано з</string>
+    <string name="nav_fwd_detail_rule">Відповідає правилу</string>
+    <string name="nav_fwd_detail_message">Оригінальне повідомлення</string>
+    <string name="nav_fwd_message_loading">Завантаження</string>
+    <string name="nav_fwd_message_gone">Оригінальне повідомлення більше не зберігається.</string>
+    <string name="nav_fwd_error_radio">Мережа не доставила повідомлення.</string>
+    <string name="nav_fwd_error_refused">Телефон не зміг надіслати повідомлення.</string>
+    <string name="nav_fwd_open_chat">Відкрити чат</string>
+    <string name="nav_archived_title">Заархівовано</string>
+    <string name="nav_archived_back">Назад до повідомлень</string>
+    <string name="nav_archived_intro">Заархівовані чати не відображаються в розділі «Повідомлення». Нове повідомлення повертає чат туди, якщо в налаштуваннях не ввімкнено «Приховувати заархівовані чати».</string>
+    <string name="nav_archived_intro_dismiss">Приховати цю примітку</string>
+    <plurals name="nav_archived_moved" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d чат переміщено до розділу «Повідомлення»</item>
+        <item quantity="few">%d чати переміщено до розділу «Повідомлення»</item>
+        <item quantity="many">%d чатів переміщено до розділу «Повідомлення»</item>
+        <item quantity="other">%d чату переміщено до розділу «Повідомлення»</item>
+    </plurals>
+    <string name="nav_folder_more">Інші дії</string>
+    <string name="nav_folder_mark_all_read">Позначити все як прочитане</string>
+    <string name="nav_folder_delete_all_count">Буде назавжди видалено %1$s.</string>
+</resources>

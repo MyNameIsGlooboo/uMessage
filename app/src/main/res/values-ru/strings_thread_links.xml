@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_link_confirm_body">Этого отправителя нет в ваших контактах. Проверьте полный адрес ссылки, прежде чем открыть ее.</string>
+    <string name="thread_link_confirm_open">Открыть</string>
+</resources>

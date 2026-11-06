@@ -1,0 +1,68 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|Merhaba
+greeting|Selam!
+good_morning|Günaydın
+good_evening|İyi akşamlar
+good_night|İyi geceler canım
+how_are_you|Nasılsın?
+how_are_you|Naber
+thanks|Teşekkürler
+thanks|Sağ ol
+youre_welcome|Rica ederim
+where_are_you|Neredesin?
+on_my_way|Yoldayım
+on_my_way|Geliyorum
+arrived|Kapıdayım
+arrived_home|Eve geldim
+did_you_arrive|Vardın mı?
+are_you_coming|Gelir misin?
+are_you_coming|Bu akşam geliyor musun?
+call_me|Beni ara
+can_you_talk|Konuşabilir miyiz?
+are_you_free|Müsait misin?
+what_time|Saat kaçta?
+where_to_meet|Nerede buluşalım?
+ok_confirm|Tamam
+ok_confirm|Olur
+bye|Görüşürüz
+congrats|Tebrikler
+congrats|İyi ki doğdun
+holiday|Bayramınız kutlu olsun
+good_luck|Kolay gelsin
+sorry_late|Geç kaldım kusura bakma
+missed_call|Aramanı kaçırdım
+are_you_coming|Yarın bize gelebilir misin?
+NONE|Ne zaman geliyorsun?
+NONE|Neden gelmiyorsun?
+NONE|Gelmiyorum
+NONE|Kim geliyor?
+NONE|Saat kaç?
+NONE|Doğum günün ne zaman?
+NONE|Hesabınıza 500 TL yatırıldı
+NONE|Doğrulama kodunuz 123456
+NONE|www.ornek.com adresine girin
+NONE|Merhaba Ahmet nasılsın
+NONE|Tamam ama yarın gelemem
+NONE|Kusura bakma
+NONE|Beni arama lütfen
+NONE|Seni aradım ama açmadın
+NONE|Hastaneye gidiyorum
+NONE|Çok teşekkürler ama paramı geri verdin mi
+NONE|Neredesin yahu
+NONE|Günaydın arkadaşlar bugün toplantı var
+NONE|Peki
+NONE|Evet
+NONE|Tamam?
+NONE|Merhaba?
+NONE|Nasılsın bakalım
+NONE|Tebrikler kaybettin
+NONE|Yoldayım ama trafik çok yoğun
+NONE|Geldim ama kimse yok
+NONE|Güle güle
+NONE|Sağ ol ama gerek yok
+NONE|Konuşabilir miyiz yarın
+NONE|Müsait misin yarın akşam
+NONE|Tebrikler! Ödül kazandınız, almak için cevap verin
+NONE|İyi günler
+NONE|Gelmiyor musun?

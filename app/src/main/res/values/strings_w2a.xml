@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Blocked keywords: search and no-match state -->
+    <string name="w2a_keywords_search_hint">Search keywords</string>
+    <string name="w2a_keywords_search_clear">Clear search</string>
+    <string name="w2a_keywords_no_match_title">No matching keywords</string>
+    <string name="w2a_keywords_no_match_body">Try a different word, or clear the search.</string>
+</resources>

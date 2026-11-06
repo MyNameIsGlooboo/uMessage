@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_reactions_title">ส่งจาก iPhone เป็นข้อความ</string>
+    <string name="thread_reactions_show_original">แสดงข้อความต้นฉบับ</string>
+</resources>

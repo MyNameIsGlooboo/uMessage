@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">यह चैट छिपाएं</string>
+    <string name="hidden_chats_menu_unhide">यह चैट फिर दिखाएं</string>
+    <string name="hidden_chats_confirm">यह चैट छिपाएं? जब तक आप ऐप लॉक से छिपी चैट अनलॉक नहीं करते, यह सूची, खोज और सूचनाओं में नहीं दिखेगी.</string>
+    <string name="hidden_chats_need_lock">छिपी चैट के लिए ऐप लॉक ज़रूरी है. अभी सेट अप करें?</string>
+    <string name="hidden_chats_set_lock">सेट अप करें</string>
+    <string name="hidden_chats_done">चैट छिपा दी गई</string>
+    <string name="hidden_chats_show">छिपी चैट</string>
+    <string name="hidden_chats_lock">छिपी चैट लॉक करें</string>
+</resources>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="rules2_tab_allowed">Завжди дозволено</string>
+    <string name="rules2_tab_blocked">Завжди заблоковано</string>
+    <string name="rules2_menu_import">Імпорт правил із файлу</string>
+    <string name="rules2_menu_export">Експорт правил у файл</string>
+    <string name="rules2_menu_system">Список заблокованих Android</string>
+    <string name="rules2_import_scope">Файл правил містить лише правила дозволу й блокування. У ньому немає повідомлень і правил пересилання.</string>
+    <string name="rules2_meta">%1$s · %2$s</string>
+    <string name="rules2_empty_allowed_title">Немає завжди дозволених відправників</string>
+    <string name="rules2_empty_allowed_body">Додайте номер, ім’я відправника чи слово, щоб такі повідомлення завжди потрапляли у вхідні. Натисніть «Додати правило» нижче.</string>
+    <string name="rules2_empty_blocked_title">Немає завжди заблокованих відправників</string>
+    <string name="rules2_empty_blocked_body">Додайте номер, ім’я відправника, слово чи регулярний вираз, щоб такі повідомлення потрапляли в «Заблоковані». Натисніть «Додати правило» нижче.</string>
+    <string name="rules2_legacy_banner_title">Знайдено старі списки заблокованих</string>
+    <string name="rules2_legacy_banner_body">Перенесіть їх у правила, щоб бачити й відновлювати заблоковані ними повідомлення.</string>
+    <string name="rules2_legacy_review">Переглянути</string>
+    <string name="rules2_system_header">Список заблокованих Android (також блокує дзвінки)</string>
+    <string name="rules2_system_body">Android відкидає повідомлення з цих номерів ще до того, як їх отримає uMessage. Тому вони не потрапляють у «Заблоковані», і відновити їх неможливо.</string>
+    <string name="rules2_system_manage">Керувати</string>
+    <string name="rules2_system_move">Перенести в правила uMessage</string>
+    <string name="rules2_migrate_title">Перенести в правила uMessage</string>
+    <string name="rules2_migrate_point_blocked">Тоді повідомлення потраплятимуть у «Заблоковані», де їх можна відновити.</string>
+    <string name="rules2_migrate_remove_needs_first">Спершу позначте опцію вище.</string>
+    <string name="rules2_migrate_nothing_selected">Нічого не вибрано</string>
+    <plurals name="rules2_migrate_confirm_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Перенести %d елемент</item>
+        <item quantity="few">Перенести %d елементи</item>
+        <item quantity="many">Перенести %d елементів</item>
+        <item quantity="other">Перенести %d елемента</item>
+    </plurals>
+    <string name="rules2_sheet_list_label">Додати до списку</string>
+    <string name="rules2_sheet_list_allow">Завжди дозволено</string>
+    <string name="rules2_sheet_list_block">Завжди заблоковано</string>
+    <string name="rules2_sheet_delete">Видалити правило</string>
+    <string name="rules2_sheet_hint_empty">Введіть значення, щоб продовжити</string>
+    <string name="rules2_sheet_hint_fix">Виправте значення вище, щоб продовжити</string>
+    <string name="rules2_sheet_sim_help">Правила для окремої SIM діють лише на повідомлення, що надходять на цю SIM.</string>
+    <string name="rules2_type_number_help">Точний номер телефону, наприклад +15550001234 або 05550001234. Короткі номери, як-от 3000, теж підходять. Можна вводити перські цифри.</string>
+    <string name="rules2_type_number_hint">+15550001234</string>
+    <string name="rules2_type_prefix_help">Усі номери, що починаються з цих цифр, наприклад +1555 або 0555.</string>
+    <string name="rules2_type_prefix_hint">+1555</string>
+    <string name="rules2_type_sender_id_help">Текстове ім’я відправника, наприклад VM-HDFCBK або Bank Melli. Регістр літер не має значення.</string>
+    <string name="rules2_type_regex_help">Для досвідчених користувачів. Регулярний вираз для перевірки тексту повідомлення. Перевірте його нижче перед збереженням.</string>
+    <string name="rules2_err_sender_id">Використовуйте літери, цифри, пробіли, крапки, дефіси або &amp; (до 32 символів, принаймні одна літера)</string>
+    <string name="rules2_err_sender_id_char">Символ «%1$s» не можна використовувати в імені відправника. Використовуйте літери, цифри, пробіли, крапки, дефіси або &amp;.</string>
+    <string name="rules2_test_label">Перевірити на прикладі повідомлення</string>
+    <string name="rules2_test_hint">Вставте або введіть повідомлення для перевірки правила</string>
+    <string name="rules2_test_match">Це правило спрацює для цього повідомлення</string>
+    <string name="rules2_test_no_match">Це правило не спрацює для цього повідомлення</string>
+    <string name="rules2_test_unusable">Не вдалося перевірити цей регулярний вираз. Перевірте його вище.</string>
+    <string name="rules2_bn_title">Список заблокованих Android</string>
+    <string name="rules2_bn_info">Зберігається в Android. Блокує дзвінки й повідомлення з цих номерів. Правила uMessage діють окремо.</string>
+    <plurals name="rules2_bn_move" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Перенести %1$d номер у правила</item>
+        <item quantity="few">Перенести %1$d номери в правила</item>
+        <item quantity="many">Перенести %1$d номерів у правила</item>
+        <item quantity="other">Перенести %1$d номера в правила</item>
+    </plurals>
+    <string name="forward2_intro_reassure">Пересилаються лише повідомлення, що потрапили у вхідні. Заблокований спам ніколи не пересилається.</string>
+    <string name="forward2_empty_title">Ще немає правил пересилання</string>
+    <string name="forward2_empty_body">Надсилайте копії потрібних повідомлень, наприклад банківських сповіщень, на інший телефон. Почніть з одного з цих шаблонів.</string>
+    <string name="forward2_template_bank">Переслати банківські сповіщення</string>
+    <string name="forward2_template_bank_word">банк</string>
+    <string name="forward2_template_sender">Переслати від одного відправника</string>
+    <string name="forward2_save">Зберегти правило пересилання</string>
+    <string name="forward2_hint_condition">Виберіть відправника або текст для пошуку</string>
+    <string name="forward2_hint_target">Додайте номер для пересилання</string>
+    <string name="forward2_hint_fix">Виправте поля, позначені червоним</string>
+    <string name="forward2_condition_why">Пересилати всі повідомлення не дозволено: кожне пересилання коштує як SMS.</string>
+    <string name="forward2_broad_title">Пересилати багато повідомлень?</string>
+    <string name="forward2_broad_message">Це правило охоплює дуже багато повідомлень і не обмежує відправників. Кожне повідомлення, що відповідає правилу, пересилається як платне SMS.</string>
+    <string name="forward2_broad_confirm">Усе одно зберегти</string>
+    <string name="forward2_broad_inline">Цей текст трапляється дуже часто, а відправник може бути будь-яким. Правило може пересилати багато повідомлень і спричинити значні витрати.</string>
+    <string name="forward2_target_own">Це один із ваших номерів. Пересилання собі створить нескінченний цикл.</string>
+    <string name="forward2_target_sender">Це відправник, для якого діє правило. Пересилання йому створить нескінченний цикл.</string>
+    <string name="forward2_target_ok">Коректний номер</string>
+    <string name="forward2_pick_contact">Вибрати з контактів</string>
+    <plurals name="forward2_cost_estimate" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d номер: щонайменше 1 SMS за кожне переслане повідомлення.</item>
+        <item quantity="few">%1$d номери: щонайменше %1$d SMS за кожне переслане повідомлення.</item>
+        <item quantity="many">%1$d номерів: щонайменше %1$d SMS за кожне переслане повідомлення.</item>
+        <item quantity="other">%1$d номера: щонайменше %1$d SMS за кожне переслане повідомлення.</item>
+    </plurals>
+    <string name="forward2_window_help">Наприклад, з 22:00 до 06:00 — пересилання вночі.</string>
+    <string name="forward2_window_summary">Пересилання щодня з %1$s до %2$s</string>
+    <string name="forward2_window_summary_night">Пересилання щоночі з %1$s до %2$s</string>
+    <string name="forward2_scope_help">На яку SIM має надійти повідомлення.</string>
+    <string name="forward2_send_help">«Та сама SIM» пересилає повідомлення з тієї SIM, на яку воно надійшло. SIM без коштів на рахунку не зможе його надіслати.</string>
+    <string name="forward2_codes_title">Пересилати коди підтвердження (OTP)</string>
+    <string name="forward2_codes_off">Вимкнено: коди входу й підтвердження ніколи не пересилаються.</string>
+    <string name="forward2_codes_on">Увімкнено: коди теж пересилаються. Використовуйте лише для власних пристроїв: код надає доступ до облікового запису.</string>
+</resources>

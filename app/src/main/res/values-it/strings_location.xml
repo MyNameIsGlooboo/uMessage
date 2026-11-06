@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">Posizione</string>
+    <string name="i52_permission_explanation">uMessage rileva la tua posizione una sola volta, solo ora, per inserire un link alla mappa nel messaggio. Non salva nulla. Puoi scegliere la posizione approssimativa.</string>
+    <string name="i52_finding">Ricerca della posizione…</string>
+    <string name="i52_denied">Accesso alla posizione non consentito. Il messaggio resta invariato.</string>
+    <string name="i52_no_fix">Impossibile trovare la tua posizione. Riprova vicino a una finestra o all\'aperto.</string>
+    <string name="i52_off_message">La posizione è disattivata su questo telefono. Attivala per condividere dove sei.</string>
+    <string name="i52_open_settings">Apri impostazioni</string>
+</resources>

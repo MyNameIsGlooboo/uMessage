@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_allow_title">
+        <item quantity="one">Consentire sempre questo mittente?</item>
+        <item quantity="other">Consentire sempre questi %d mittenti?</item>
+    </plurals>
+    <string name="spam_allow_body_one">Il messaggio torna comunque in In arrivo. Se consenti sempre %1$s, i suoi messaggi futuri salteranno tutti i filtri, incluse le tue regole di blocco.</string>
+    <string name="spam_allow_body_many">I messaggi tornano comunque in In arrivo. Se consenti sempre questi mittenti, i loro messaggi futuri salteranno tutti i filtri, incluse le tue regole di blocco.</string>
+    <string name="spam_allow_spoof_warning">Chiunque può inviare un messaggio con un nome come %1$s. Consentendolo, passeranno anche i messaggi falsi che usano quel nome.</string>
+    <string name="spam_allow_confirm">Consenti sempre</string>
+    <string name="spam_allow_dismiss">Non ora</string>
+    <plurals name="spam_snack_restored_to_inbox">
+        <item quantity="one">%d messaggio ripristinato in In arrivo</item>
+        <item quantity="other">%d messaggi ripristinati in In arrivo</item>
+    </plurals>
+    <plurals name="spam_snack_restored_allowed">
+        <item quantity="one">Ripristino completato. %d mittente è ora sempre consentito.</item>
+        <item quantity="other">Ripristino completato. %d mittenti sono ora sempre consentiti.</item>
+    </plurals>
+    <plurals name="spam_snack_allowed_only">
+        <item quantity="one">%d mittente è ora sempre consentito.</item>
+        <item quantity="other">%d mittenti sono ora sempre consentiti.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost">
+        <item quantity="one">Impossibile recuperare l\'immagine di %d messaggio.</item>
+        <item quantity="other">Impossibile recuperare le immagini di %d messaggi.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost_nothing">
+        <item quantity="one">Impossibile recuperare il messaggio con immagine. Non è stato aggiunto nulla a In arrivo.</item>
+        <item quantity="other">Impossibile recuperare %d messaggi con immagine. Non è stato aggiunto nulla a In arrivo.</item>
+    </plurals>
+    <plurals name="spam_snack_restore_failed">
+        <item quantity="one">Impossibile ripristinare %d messaggio con immagine. È ancora qui.</item>
+        <item quantity="other">Impossibile ripristinare %d messaggi con immagine. Sono ancora qui.</item>
+    </plurals>
+    <string name="spam_mms_stored">Messaggio con immagine</string>
+    <string name="spam_mms_downloading">Messaggio con immagine, download in corso</string>
+    <string name="spam_mms_missing">Messaggio con immagine, non scaricato</string>
+    <string name="spam_mms_thumbnail">Immagine nel messaggio bloccato</string>
+    <string name="spam_reason_rule_keyword">Regola: parola chiave “%1$s”</string>
+    <string name="spam_reason_rule_regex">Regola: espressione regolare %1$s</string>
+    <string name="spam_reason_rule_number">Regola: numero %1$s</string>
+    <string name="spam_reason_rule_prefix">Regola: numeri che iniziano con %1$s</string>
+    <string name="spam_reason_rule_sender">Regola: mittente %1$s</string>
+    <string name="spam_reason_rule_removed">Regola rimossa in seguito</string>
+    <string name="spam_reason_open_rules">Apri regole</string>
+    <plurals name="spam_purge_notice">
+        <item quantity="one">I messaggi bloccati vengono eliminati dopo %d giorno</item>
+        <item quantity="other">I messaggi bloccati vengono eliminati dopo %d giorni</item>
+    </plurals>
+    <string name="spam_purge_notice_off">I messaggi bloccati restano finché non li elimini</string>
+    <plurals name="spam_purge_left">
+        <item quantity="one">Eliminazione tra %d giorno</item>
+        <item quantity="other">Eliminazione tra %d giorni</item>
+    </plurals>
+    <string name="spam_purge_left_today">Eliminazione oggi</string>
+    <string name="convlist_report_spam">Segnala come spam</string>
+    <plurals name="convlist_reported_spam_archived">
+        <item quantity="one">Segnalazione inviata. I nuovi messaggi di questo mittente vanno in Messaggi bloccati e la conversazione è archiviata.</item>
+        <item quantity="other">%d conversazioni segnalate. I nuovi messaggi di questi mittenti vanno in Messaggi bloccati e le conversazioni sono archiviate.</item>
+    </plurals>
+    <plurals name="convlist_reported_spam">
+        <item quantity="one">Segnalazione inviata. I nuovi messaggi di questo mittente vanno in Messaggi bloccati.</item>
+        <item quantity="other">%d conversazioni segnalate. I nuovi messaggi di questi mittenti vanno in Messaggi bloccati.</item>
+    </plurals>
+    <string name="blocked_title">Messaggi bloccati</string>
+    <string name="blocked_menu_rules">Regole</string>
+    <string name="blocked_mode_group_cd">Mittenti sconosciuti: %1$s, %2$d di %3$d</string>
+    <string name="blocked_mode_desc_strict">Rigorosa: trattiene tutti i mittenti sconosciuti, inclusi i codici di verifica</string>
+    <string name="blocked_mode_desc_smart">Intelligente: trattiene i mittenti sconosciuti, ma consente i codici senza link</string>
+    <string name="blocked_mode_desc_off">Disattivata: i mittenti sconosciuti arrivano in In arrivo. Le tue regole restano attive</string>
+    <string name="blocked_snack_mode">Modalità per i mittenti sconosciuti: %1$s</string>
+    <string name="blocked_off_title">Smettere di trattenere i mittenti sconosciuti?</string>
+    <string name="blocked_off_body">I messaggi dei mittenti sconosciuti vanno direttamente in In arrivo. Le tue regole restano attive.</string>
+    <string name="blocked_off_confirm">Disattiva</string>
+    <string name="blocked_stats_restored">%1$d ripristinati da te</string>
+    <string name="blocked_reason_unknown_link">Mittente sconosciuto, con un link</string>
+    <string name="blocked_may_be_important">Potrebbe essere importante</string>
+    <string name="blocked_action_move_inbox">Sposta in In arrivo</string>
+    <string name="blocked_swipe_not_spam">Scorri per spostare in In arrivo</string>
+</resources>

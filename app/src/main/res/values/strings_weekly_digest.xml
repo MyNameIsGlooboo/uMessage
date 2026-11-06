@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- I08: weekly summary of what was blocked. -->
+    <string name="digest_channel">Weekly summary</string>
+    <string name="digest_title">Weekly summary</string>
+    <string name="digest_row_title">Weekly summary</string>
+    <string name="digest_row_summary">Once a week: how many were blocked</string>
+    <plurals name="digest_held">
+        <item quantity="one">%d message held this week. Tap to review.</item>
+        <item quantity="other">%d messages held this week. Tap to review.</item>
+    </plurals>
+    <plurals name="digest_held_important">
+        <item quantity="one">%1$d message held this week. Codes or bank alerts among them: %2$d.</item>
+        <item quantity="other">%1$d messages held this week. Codes or bank alerts among them: %2$d.</item>
+    </plurals>
+</resources>

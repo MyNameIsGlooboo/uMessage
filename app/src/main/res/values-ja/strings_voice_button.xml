@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i40_record_voice">音声入力</string>
+    <string name="i40_setting_title">音声入力</string>
+    <string name="i40_setting_summary">文字を打つ代わりに話して入力できます。</string>
+</resources>

@@ -1,0 +1,31 @@
+{
+  "language": "en",
+  "script": "latin",
+  "maxWords": 14,
+  "yesNo": {
+    "starters": ["are you", "do you", "do you want", "can you", "is it", "would you"],
+    "endings": ["right", "ok"],
+    "yes": ["Yes", "Yes, sure", "Sure", "Of course", "Yep"],
+    "no": ["No", "Not really", "Sorry, no", "I can't", "Nope"],
+    "later": ["Let me check", "Not sure yet", "I'll let you know", "Maybe", "Later"]
+  },
+  "when": { "cues": ["when", "what time"], "replies": ["Tomorrow", "Tonight", "In an hour", "Later today", "Soon"] },
+  "where": { "cues": ["where are you", "where is"], "replies": ["At home", "At work", "On my way", "Nearby"] },
+  "choice": { "separators": ["or"], "maxOptionWords": 3, "either": ["Either is fine", "You choose", "Whatever you like"] },
+  "request": { "cues": ["send me", "please send"], "replies": ["Sure", "OK, will do", "Give me a minute", "Sending now"] },
+  "invite": {
+    "cues": ["shall we", "lets", "want to"],
+    "yes": ["Sounds good", "I'd love to", "Yes, let's"],
+    "no": ["Sorry, I can't", "Not today", "Maybe another time"],
+    "later": ["Let me check", "Maybe later", "I'll let you know"]
+  },
+  "register": {
+    "formal": ["would you", "kindly"],
+    "informal": ["wanna", "gonna"]
+  },
+  "formal": {
+    "yes": ["Yes, certainly", "Certainly"],
+    "no": ["I am afraid not"],
+    "later": ["Let me check and get back to you"]
+  }
+}

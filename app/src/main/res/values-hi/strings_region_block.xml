@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">दूसरे देश</string>
+    <string name="region_title">दूसरे देशों के नंबरों के मैसेज रोकें</string>
+    <string name="region_summary">संपर्कों और जिन्हें आपने मैसेज भेजे हैं, उनके मैसेज नहीं रोके जाते</string>
+    <string name="region_off">बंद</string>
+    <string name="region_picker_title">आपका देश</string>
+    <string name="region_picker_body">दूसरे देशों के नंबरों के मैसेज \'ब्लॉक किए गए मैसेज\' में रखे जाते हैं. संपर्कों और जिन्हें आपने मैसेज भेजे हैं, उनके मैसेज नहीं रोके जाते. विदेश में रहने वाले रिश्तेदार के मैसेज भी रोके जाते हैं, अगर वे आपके संपर्कों में नहीं हैं.</string>
+    <string name="region_picker_search">खोजें</string>
+    <string name="region_reason_foreign">दूसरे देश का नंबर</string>
+</resources>

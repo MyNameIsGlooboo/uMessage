@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">Zurückgehalten: unbekannter Absender</string>
+    <string name="ux8c_held_unknown_link">Zurückgehalten: unbekannter Absender, enthält Link</string>
+    <string name="ux8c_held_foreign">Zurückgehalten: Nummer aus anderem Land</string>
+    <string name="ux8c_held_rule">Durch deine Regel zurückgehalten</string>
+    <string name="ux8c_held_other">Vom Filter zurückgehalten</string>
+    <string name="ux8c_not_spam">Kein Spam</string>
+    <string name="ux8c_delete">Löschen</string>
+    <string name="ux8c_tip">Wische über einen Absender, um ihn in deinen Posteingang zu verschieben. Halte ihn zum Auswählen gedrückt.</string>
+    <string name="ux8c_tip_dismiss">Verstanden</string>
+    <string name="ux8c_sender_title">Dieser Absender</string>
+    <string name="ux8c_sender_normal">Normal</string>
+    <string name="ux8c_sender_allow">Immer erlauben</string>
+    <string name="ux8c_sender_block">Blockieren</string>
+</resources>

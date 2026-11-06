@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">Ardoise</string>
+    <string name="preset_slate_desc">Bleu-gris apaisant</string>
+    <string name="preset_firouzeh">Firouzeh</string>
+    <string name="preset_firouzeh_desc">Turquoise avec une touche d\'or</string>
+    <string name="preset_pomegranate">Grenade</string>
+    <string name="preset_pomegranate_desc">Rouge chaleureux et vert profond</string>
+    <string name="preset_harbor">Port</string>
+    <string name="preset_harbor_desc">Bleu nuit et corail doux</string>
+    <string name="preset_lavender">Lavande</string>
+    <string name="preset_lavender_desc">Violet doux et bleu canard</string>
+    <string name="preset_ink">Encre</string>
+    <string name="preset_ink_desc">Presque noir, avec de l\'argent et de l\'or</string>
+    <string name="preset_contrast">Contraste</string>
+    <string name="preset_contrast_desc">Noir et blanc avec des touches vives</string>
+</resources>

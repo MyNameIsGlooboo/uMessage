@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="export_conv_menu">बातचीत एक्सपोर्ट करें</string>
+    <string name="export_conv_title">बातचीत एक्सपोर्ट करें</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">सादा टेक्स्ट</string>
+    <string name="export_conv_dates_all">सभी तारीखें</string>
+    <string name="export_conv_dates_30">पिछले 30 दिन</string>
+    <string name="export_conv_dates_pick">तारीखें चुनें</string>
+    <string name="export_conv_pick_from">किस दिन से?</string>
+    <string name="export_conv_pick_to">किस दिन तक?</string>
+    <string name="export_conv_action">एक्सपोर्ट करें</string>
+    <string name="export_conv_preparing">फ़ाइल तैयार हो रही है…</string>
+    <string name="export_conv_nothing">इस अवधि में कोई मैसेज नहीं है</string>
+    <string name="export_conv_failed">फ़ाइल नहीं बन सकी</string>
+    <string name="export_conv_subject">बातचीत का एक्सपोर्ट</string>
+    <string name="export_conv_share_text">%1$s के साथ बातचीत, %2$s. मैसेज के टेक्स्ट का SHA-256: %3$s</string>
+    <string name="export_conv_attachment_label">[अटैचमेंट]</string>
+    <string name="export_pdf_title">बातचीत का एक्सपोर्ट</string>
+    <string name="export_pdf_with">इनके साथ बातचीत: %1$s</string>
+    <string name="export_pdf_numbers">नंबर: %1$s</string>
+    <string name="export_pdf_range">तारीखों की सीमा: %1$s</string>
+    <string name="export_pdf_zone">समय %1$s समय क्षेत्र के अनुसार हैं</string>
+    <string name="export_pdf_exported">एक्सपोर्ट किया गया: %1$s</string>
+    <plurals name="export_pdf_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d मैसेज</item>
+        <item quantity="other">%1$d मैसेज</item>
+    </plurals>
+    <string name="export_pdf_hash">मैसेज के टेक्स्ट का SHA-256: %1$s</string>
+    <string name="export_pdf_not_certified">फ़ोन से एक्सपोर्ट किया गया; यह प्रमाणित रिकॉर्ड नहीं है.</string>
+    <string name="export_pdf_page">%2$d में से पेज %1$d</string>
+    <string name="export_pdf_from">भेजने वाला: %1$s</string>
+    <string name="export_pdf_to">पाने वाला: %1$s</string>
+    <string name="export_pdf_attachment">अटैचमेंट: %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">बिना नाम की फ़ाइल</string>
+    <string name="export_status_received">मिला</string>
+    <string name="export_status_sent">भेजा गया</string>
+    <string name="export_status_delivered">पहुंच गया</string>
+    <string name="export_status_failed">विफल</string>
+    <string name="export_status_sending">भेजा जा रहा है</string>
+    <string name="export_status_draft">ड्राफ़्ट</string>
+</resources>

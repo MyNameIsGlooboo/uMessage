@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w2b1_archived_find">
+        <item quantity="one">%d conversazione archiviata. La trovi nella scheda Archiviate</item>
+        <item quantity="other">%d conversazioni archiviate. Le trovi nella scheda Archiviate</item>
+    </plurals>
+    <string name="w2b1_search_recent">Ricerche recenti</string>
+    <string name="w2b1_search_recent_clear">Cancella</string>
+    <string name="w2b1_search_recent_clear_description">Cancella ricerche recenti</string>
+    <string name="w2b1_search_digits_note">La ricerca riconosce sia le cifre persiane sia quelle latine: 123 trova anche ۱۲۳.</string>
+    <string name="w2b1_search_section_conversations">Conversazioni</string>
+    <string name="w2b1_search_section_messages">Messaggi</string>
+    <plurals name="w2b1_search_matches">
+        <item quantity="one">%d risultato</item>
+        <item quantity="other">%d risultati</item>
+    </plurals>
+    <string name="w2b1_filter_all">Tutte</string>
+    <string name="w2b1_filter_unread">Da leggere</string>
+    <string name="w2b1_filter_unread_empty_title">Nessuna conversazione da leggere</string>
+    <string name="w2b1_filter_unread_empty_body">Hai letto tutto.</string>
+    <string name="w2b1_swipe_block">Blocca mittente</string>
+</resources>

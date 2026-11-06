@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="declog_title">Registro de decisões</string>
+    <string name="declog_clear">Limpe o registro</string>
+    <string name="declog_empty_title">Nenhuma decisão ainda</string>
+    <string name="declog_empty_body">Cada mensagem que o filtro verifica aparece aqui com o motivo. O texto da mensagem nunca é salvo.</string>
+    <plurals name="declog_kept_for" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Cada decisão é excluída após %d dia. O texto da mensagem nunca é salvo.</item>
+        <item quantity="other">Cada decisão é excluída após %d dias. O texto da mensagem nunca é salvo.</item>
+    </plurals>
+    <string name="declog_sim">Chip %1$s</string>
+    <string name="declog_today">Hoje</string>
+    <string name="declog_yesterday">Ontem</string>
+    <string name="declog_allowed_by_rule">Permitido pela regra: %1$s</string>
+    <string name="declog_filter_all">Todas</string>
+    <string name="declog_filter_blocked">Bloqueados</string>
+    <string name="declog_filter_allowed">Permitidos</string>
+    <string name="declog_filter_empty">Nenhuma decisão corresponde a este filtro</string>
+    <plurals name="declog_times" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s vez</item>
+        <item quantity="other">%1$s vezes</item>
+    </plurals>
+    <plurals name="declog_repeated" tools:ignore="ImpliedQuantity">
+        <item quantity="one">A mesma decisão foi tomada %1$s vez seguida</item>
+        <item quantity="other">A mesma decisão foi tomada %1$s vezes seguidas</item>
+    </plurals>
+    <plurals name="declog_share_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Compartilhe %d decisão</item>
+        <item quantity="other">Compartilhe %d decisões</item>
+    </plurals>
+    <string name="declog_csv_subject">Registro de decisões do uMessage</string>
+    <string name="declog_share_failed">Não foi possível compartilhar o registro</string>
+    <string name="declog_details_title">Detalhes da decisão</string>
+    <string name="declog_open_details">Abra os detalhes de %1$s</string>
+    <string name="declog_fixed_allowed">Você permitiu este remetente pelo registro</string>
+    <string name="declog_fixed_blocked">Você bloqueou este remetente pelo registro</string>
+    <string name="declog_fixed_restored">Você restaurou esta mensagem pelo registro</string>
+    <string name="declog_restored">Restaurada</string>
+    <string name="declog_blocked_message">A mensagem, ainda em Bloqueados</string>
+    <string name="declog_restore">Restaure a mensagem</string>
+    <string name="declog_restore_done">Mensagem restaurada na caixa de entrada</string>
+    <string name="declog_restore_text_only">Texto restaurado na caixa de entrada. Não foi possível recuperar as imagens.</string>
+    <string name="declog_restore_nothing">Nada para restaurar: esta mensagem com imagem não foi salva</string>
+    <string name="declog_restore_failed">Não foi possível restaurar a mensagem</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

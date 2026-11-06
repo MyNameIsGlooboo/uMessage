@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">Операции</string>
+    <string name="i11_filter_transactions_empty_title">Нет операций</string>
+    <string name="i11_filter_transactions_empty_body">Здесь появятся сообщения банка о поступлениях и списаниях.</string>
+    <string name="i11_filter_offers">Предложения</string>
+    <string name="i11_filter_offers_empty_title">Нет предложений</string>
+    <string name="i11_filter_offers_empty_body">Здесь появятся скидки и акции магазинов.</string>
+</resources>

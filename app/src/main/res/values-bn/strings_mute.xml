@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">নীরব করুন</string>
+    <string name="unmute_menu">নীরবতা বন্ধ করুন</string>
+    <string name="mute_title">বিজ্ঞপ্তি নীরব করুন</string>
+    <string name="mute_1_hour">1 ঘণ্টার জন্য</string>
+    <string name="mute_8_hours">8 ঘণ্টার জন্য</string>
+    <string name="mute_1_week">1 সপ্তাহের জন্য</string>
+    <string name="mute_always">সবসময়</string>
+    <string name="mute_off">বন্ধ</string>
+    <string name="mute_until">%1$s পর্যন্ত</string>
+    <string name="mute_channel">নীরব করা কথোপকথন</string>
+</resources>

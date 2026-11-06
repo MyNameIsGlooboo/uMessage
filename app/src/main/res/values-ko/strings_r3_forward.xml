@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3fwd_title">전달</string>
+    <string name="r3fwd_options">전달 옵션</string>
+    <string name="r3fwd_summary_none">사용 안 함 · 다른 번호로 메시지 전달</string>
+    <string name="r3fwd_summary_off">사용 안 함</string>
+    <string name="r3fwd_summary_paused">일시 중지됨</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="other">규칙 %d개 켜짐</item>
+    </plurals>
+    <string name="r3fwd_paused_title">전달 일시 중지됨</string>
+    <string name="r3fwd_paused_body">규칙은 저장되어 있지만, 전달을 다시 켜기 전까지 메시지를 전달하지 않아요.</string>
+    <string name="r3fwd_paused_action">옵션 열기</string>
+</resources>

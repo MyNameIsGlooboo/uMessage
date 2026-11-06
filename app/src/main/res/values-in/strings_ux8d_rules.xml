@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">Selalu izinkan</string>
+    <string name="ux8d_sheet_title_block">Selalu blokir</string>
+    <string name="ux8d_match_label">Yang dicocokkan</string>
+    <string name="ux8d_match_number">Nomor telepon</string>
+    <string name="ux8d_match_sender">Nama pengirim, misalnya bank</string>
+    <string name="ux8d_match_word">Kata dalam pesan</string>
+    <string name="ux8d_match_prefix">Nomor yang diawali dengan…</string>
+    <string name="ux8d_match_pattern">Pola (regex) (lanjutan)</string>
+    <string name="ux8d_match_more">Cara pencocokan lainnya</string>
+    <string name="ux8d_action_label">Jika cocok</string>
+    <string name="ux8d_more_options">Opsi lainnya</string>
+    <string name="ux8d_row_type_number">Nomor</string>
+    <string name="ux8d_row_type_prefix">Nomor diawali dengan</string>
+    <string name="ux8d_row_type_sender">Nama pengirim</string>
+    <string name="ux8d_row_type_word">Kata dalam pesan</string>
+    <string name="ux8d_row_type_pattern">Pola (regex)</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

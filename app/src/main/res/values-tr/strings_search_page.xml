@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">Sohbet başlatın</string>
+    <string name="search_page_show_more">Daha fazla gösterin</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">Bu SIM kartta görüşme yok</string>
+    <string name="search_page_sim_empty_body">Bu SIM kart üzerinden mesaj gönderilen veya alınan görüşmeler burada görünür.</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">Transactions</string>
+    <string name="i11_filter_transactions_empty_title">No transactions</string>
+    <string name="i11_filter_transactions_empty_body">Messages from your bank about money in and out show here.</string>
+    <string name="i11_filter_offers">Offers</string>
+    <string name="i11_filter_offers_empty_title">No offers</string>
+    <string name="i11_filter_offers_empty_body">Discounts and promotions from shops show here.</string>
+</resources>

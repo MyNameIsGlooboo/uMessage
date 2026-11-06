@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">Przechowuj wiadomości przez</string>
+    <string name="cleanup_old_summary">Starsze trafią do kosza</string>
+    <string name="cleanup_forever">Zawsze</string>
+    <string name="cleanup_one_year">1 rok</string>
+    <string name="cleanup_bin_title">Włączyć kosz?</string>
+    <string name="cleanup_bin_body">Usunięte wiadomości czekają tam przez 30 dni, więc możesz je odzyskać. Automatyczne czyszczenie wymaga włączonego kosza.</string>
+    <string name="cleanup_bin_confirm">Włącz</string>
+    <string name="cleanup_old_confirm_title">Przenieść stare wiadomości?</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="one">%d wiadomość jest starsza i trafi teraz do kosza. Wiadomości z gwiazdką, nieprzeczytane wiadomości i przypięte rozmowy pozostaną.</item>
+        <item quantity="few">%d wiadomości są starsze i trafią teraz do kosza. Wiadomości z gwiazdką, nieprzeczytane wiadomości i przypięte rozmowy pozostaną.</item>
+        <item quantity="many">%d wiadomości jest starszych i trafi teraz do kosza. Wiadomości z gwiazdką, nieprzeczytane wiadomości i przypięte rozmowy pozostaną.</item>
+        <item quantity="other">%d wiadomości jest starsze i trafi teraz do kosza. Wiadomości z gwiazdką, nieprzeczytane wiadomości i przypięte rozmowy pozostaną.</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">Żadna wiadomość nie jest jeszcze tak stara. Starsze będą automatycznie trafiać do kosza. Wiadomości z gwiazdką, nieprzeczytane wiadomości i przypięte rozmowy pozostaną.</string>
+    <string name="cleanup_old_confirm_action">Przenieś</string>
+</resources>

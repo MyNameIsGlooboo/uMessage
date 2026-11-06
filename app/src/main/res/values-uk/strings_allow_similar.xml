@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allow_similar_title">Також дозволити схожі повідомлення</string>
+    <string name="allow_similar_sender">Будь-який відправник на ім’я %1$s</string>
+    <string name="allow_similar_prefix">Будь-який номер, що починається з %1$s</string>
+    <string name="allow_similar_keyword">Будь-який текст зі словом «%1$s»</string>
+    <string name="allow_similar_risk_sender">Будь-хто може надсилати повідомлення під таким ім’ям.</string>
+    <string name="allow_similar_risk_prefix">Повідомлення з інших номерів із таким самим початком теж проходитимуть.</string>
+    <string name="allow_similar_risk_keyword">Будь-хто може написати це слово, тож спам із ним теж проходитиме.</string>
+    <string name="allow_similar_edit">Змінити це правило</string>
+</resources>

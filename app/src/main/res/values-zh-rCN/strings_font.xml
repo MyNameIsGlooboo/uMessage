@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="font_title">字体</string>
+    <string name="font_umessage">uMessage字体</string>
+    <string name="font_system">系统字体</string>
+</resources>

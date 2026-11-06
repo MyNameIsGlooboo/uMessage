@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rules_sheet_title_edit_allow">แก้ไขกฎการอนุญาต</string>
+    <string name="rules_sheet_title_edit_block">แก้ไขกฎการบล็อก</string>
+    <string name="rules_sheet_save">บันทึกการเปลี่ยนแปลง</string>
+    <string name="rules_edit_rule">แก้ไข %1$s</string>
+    <string name="rules_search_hint">ค้นหากฎและบันทึก</string>
+    <string name="rules_search_clear">ล้างการค้นหา</string>
+    <string name="rules_filter_all_types">ทุกประเภท</string>
+    <string name="rules_search_empty_title">ไม่พบกฎที่ตรงกัน</string>
+    <string name="rules_search_empty_body">ลองใช้คำอื่นหรือแสดงทุกประเภท</string>
+    <string name="rules_export_selected">ส่งออกที่เลือก</string>
+    <string name="rules_delete_selected">ลบที่เลือก</string>
+    <plurals name="rules_deleted_many">
+        <item quantity="other">ลบกฎแล้ว %d รายการ</item>
+    </plurals>
+    <string name="rules_system_block_list">รายการบล็อกของระบบ (บล็อกสายโทรเข้าด้วย)</string>
+    <string name="rules_legacy_note_keyword">จากรายการคำที่บล็อกเดิม</string>
+    <string name="rules_legacy_note_number">จากรายการบล็อกของระบบ</string>
+    <string name="rules_legacy_banner_title">พบรายการบล็อกเดิม</string>
+    <string name="rules_legacy_banner_body">มีคำและหมายเลขบางส่วนที่ถูกบล็อกนอกกฎเหล่านี้ ย้ายมาที่นี่เพื่อดูและแก้ไขทั้งหมดในที่เดียว</string>
+    <string name="rules_legacy_banner_review">ตรวจสอบ</string>
+    <string name="rules_legacy_banner_not_now">ไว้ภายหลัง</string>
+    <string name="rules_legacy_section_keywords">รายการคำที่บล็อกเดิม</string>
+    <string name="rules_legacy_section_keywords_body">ยังใช้กรองข้อความจนกว่าจะย้ายคำเหล่านี้ไปยังกฎ จากนั้นจะเลิกใช้รายการเดิม</string>
+    <string name="rules_legacy_section_system_body">Android ทิ้งข้อความจากหมายเลขเหล่านี้ก่อนที่ uMessage จะได้รับ จึงไม่แสดงในที่บล็อกเลย รายการนี้ใช้ร่วมกับแอปโทรศัพท์และบล็อกสายโทรเข้าด้วย</string>
+    <string name="rules_legacy_chip_old_list">รายการเดิม</string>
+    <string name="rules_legacy_chip_system">ระบบ บล็อกสายด้วย</string>
+    <string name="rules_legacy_move">ย้ายไปยังกฎ</string>
+    <string name="rules_legacy_open_system">เปิดรายการบล็อกของระบบ</string>
+    <string name="rules_migrate_title">ย้ายรายการบล็อกเดิมไปยังกฎ</string>
+    <string name="rules_migrate_nothing">ทุกรายการในรายการเดิมอยู่ในกฎของคุณแล้ว</string>
+    <plurals name="rules_migrate_keywords">
+        <item quantity="other">คำ %d คำจากรายการคำที่บล็อกเดิมจะกลายเป็นกฎการบล็อกด้วยคำหลัก จากนั้นจะเลิกใช้รายการเดิม</item>
+    </plurals>
+    <plurals name="rules_migrate_keywords_kept">
+        <item quantity="other">คำ %d คำสร้างเป็นกฎไม่ได้ (มีตัวอักษรเดียว หลายบรรทัด หรือยาวเกินไป) และจะยังอยู่ในรายการเดิม</item>
+    </plurals>
+    <plurals name="rules_migrate_numbers">
+        <item quantity="other">เพิ่ม %d หมายเลขในรายการบล็อกของระบบเป็นกฎการบล็อกด้วย</item>
+    </plurals>
+    <string name="rules_migrate_numbers_body">Android ทิ้งข้อความจากหมายเลขในรายการบล็อกของระบบ uMessage จึงไม่ได้รับข้อความ เมื่อเพิ่มเป็นกฎของ uMessage ข้อความจะไปอยู่ในที่บล็อกเพื่อให้อ่านและกู้คืนได้ แต่ต้องนำหมายเลขออกจากรายการของระบบก่อน</string>
+    <string name="rules_migrate_remove">นำออกจากรายการบล็อกของระบบด้วย</string>
+    <string name="rules_migrate_remove_body">รายการของระบบบล็อกสายโทรเข้าด้วย หมายเลขที่นำออกจะโทรหาคุณได้อีกครั้ง uMessage กรองเฉพาะข้อความ</string>
+    <plurals name="rules_migrate_numbers_kept">
+        <item quantity="other">รายการที่มีอักขระตัวแทน %d รายการสร้างเป็นกฎไม่ได้ และจะยังอยู่ในรายการของระบบ</item>
+    </plurals>
+    <string name="rules_migrate_confirm">ย้าย</string>
+    <plurals name="rules_migrated_keywords">
+        <item quantity="other">ย้ายคำ %d คำไปยังกฎแล้ว</item>
+    </plurals>
+    <plurals name="rules_migrated_numbers">
+        <item quantity="other">เพิ่ม %d หมายเลขเป็นกฎแล้ว</item>
+    </plurals>
+    <plurals name="rules_migrated_removed">
+        <item quantity="other">นำ %d รายการออกจากรายการบล็อกของระบบแล้ว</item>
+    </plurals>
+    <plurals name="rules_migrated_kept">
+        <item quantity="other">ยังมี %d รายการอยู่ในรายการเดิม</item>
+    </plurals>
+    <string name="rules_migrated_nothing">ไม่ได้ย้ายรายการใด</string>
+    <string name="settings_system_block_list_body_calls">บล็อกสายโทรเข้าและข้อความทั้งเครื่อง Android ทิ้งข้อความเหล่านี้ก่อนที่ uMessage จะได้รับ คุณย้ายหมายเลขไปยังอนุญาตและบล็อกแล้วได้</string>
+    <string name="settings_old_blocked_words">รายการคำที่บล็อกเดิม</string>
+    <string name="settings_old_blocked_words_body">กำลังย้ายไปยังอนุญาตและบล็อกแล้ว</string>
+</resources>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_title">uMessage مقفل</string>
+    <string name="lock_enter_pin">أدخل رقم التعريف الشخصي</string>
+    <string name="lock_draw_pattern">ارسم نمطك</string>
+    <string name="lock_use_biometrics">أكّد هويتك لفتح uMessage</string>
+    <string name="lock_wrong_pin">رقم التعريف الشخصي غير صحيح، حاول مجددًا</string>
+    <string name="lock_wrong_pattern">النمط غير صحيح، حاول مجددًا</string>
+    <string name="lock_too_many">محاولات خاطئة كثيرة</string>
+    <string name="lock_try_again_in">حاول مجددًا بعد %s</string>
+    <string name="lock_key_delete">احذف</string>
+    <string name="lock_key_confirm">أكّد</string>
+    <plurals name="lock_digits_entered">
+        <item quantity="zero">تم إدخال %d أرقام</item>
+        <item quantity="one">تم إدخال رقم واحد (%d)</item>
+        <item quantity="two">تم إدخال رقمين (%d)</item>
+        <item quantity="few">تم إدخال %d أرقام</item>
+        <item quantity="many">تم إدخال %d رقمًا</item>
+        <item quantity="other">تم إدخال %d رقم</item>
+    </plurals>
+    <string name="lock_no_digits">لم تُدخل أي أرقام</string>
+    <string name="lock_pattern_pad">لوحة النمط، 3 صفوف و3 أعمدة من النقاط</string>
+    <string name="lock_pattern_dot">نقطة في الصف %1$d، العمود %2$d</string>
+    <string name="lock_pattern_dot_selected">نقطة في الصف %1$d، العمود %2$d، ترتيبها %3$d في النمط</string>
+    <string name="lock_pattern_done">تم</string>
+    <string name="lock_pattern_clear">امسح</string>
+    <plurals name="lock_pattern_dots_selected">
+        <item quantity="zero">تم اختيار %d نقاط</item>
+        <item quantity="one">تم اختيار نقطة واحدة (%d)</item>
+        <item quantity="two">تم اختيار نقطتين (%d)</item>
+        <item quantity="few">تم اختيار %d نقاط</item>
+        <item quantity="many">تم اختيار %d نقطة</item>
+        <item quantity="other">تم اختيار %d نقطة</item>
+    </plurals>
+    <string name="lock_use_pin_instead">استخدم رقم التعريف الشخصي بدلًا منها</string>
+    <string name="lock_use_biometrics_instead">استخدم القياسات الحيوية بدلًا منه</string>
+    <string name="lock_use_screen_lock">استخدم قفل شاشة الهاتف بدلًا منه</string>
+    <string name="lock_biometrics_unavailable">القياسات الحيوية غير متاحة. أدخل رقم التعريف الشخصي.</string>
+    <string name="lock_screen_lock_title">افتح uMessage</string>
+    <string name="lock_screen_lock_description">أكّد هويتك بقفل شاشة الهاتف لفتح uMessage</string>
+    <string name="lock_no_way_to_check">لم تعد هناك بصمات أو قفل شاشة على هذا الهاتف، لذا لا يستطيع uMessage التحقق من هويتك. افتحه وعيّن رقم التعريف الشخصي في الإعدادات.</string>
+    <string name="lock_open_anyway">افتح uMessage</string>
+    <string name="lock_forgot">نسيته؟ استخدم قفل شاشة هاتفك</string>
+    <plurals name="lock_tries_left">
+        <item quantity="zero">تبقّت %d محاولات قبل أن تضطر للانتظار</item>
+        <item quantity="one">تبقّت محاولة واحدة (%d) قبل أن تضطر للانتظار</item>
+        <item quantity="two">تبقّت محاولتان (%d) قبل أن تضطر للانتظار</item>
+        <item quantity="few">تبقّت %d محاولات قبل أن تضطر للانتظار</item>
+        <item quantity="many">تبقّت %d محاولة قبل أن تضطر للانتظار</item>
+        <item quantity="other">تبقّت %d محاولة قبل أن تضطر للانتظار</item>
+    </plurals>
+    <string name="lock_setup_done">قفل التطبيق مفعّل. إذا نسيت رقم التعريف الشخصي أو النمط، اضغط على «نسيته؟» في شاشة القفل واستخدم قفل شاشة هاتفك بدلًا منه.</string>
+    <string name="lock_setup_done_biometric">قفل التطبيق مفعّل. إذا توقفت القياسات الحيوية عن العمل، استخدم رقم التعريف الشخصي الاحتياطي. وإذا نسيته أيضًا، اضغط على «نسيته؟» واستخدم قفل شاشة هاتفك.</string>
+    <string name="lock_setup_done_no_screen_lock">قفل التطبيق مفعّل. لا يوجد قفل شاشة لهاتفك، لذا إذا نسيت رقم التعريف الشخصي أو النمط فلن تتمكن من الدخول إلا بمسح بيانات uMessage من إعدادات التطبيقات في الهاتف. سيؤدي ذلك إلى حذف إعداداته وقوائم الرسائل غير المرغوب فيها وسجلّها (ستبقى رسائلك النصية على الهاتف). أضف قفل شاشة لهاتفك لتتمكن من الدخول مجددًا.</string>
+    <string name="settings_app_lock_timeout">القفل بعد مغادرة التطبيق</string>
+    <string name="settings_app_lock_timeout_immediately">فورًا</string>
+    <string name="settings_app_lock_timeout_30s">بعد 30 ثانية</string>
+    <string name="settings_app_lock_timeout_1m">بعد 1 دقيقة</string>
+    <string name="settings_app_lock_timeout_5m">بعد 5 دقائق</string>
+    <string name="settings_app_lock_screenshots">احظر لقطات الشاشة</string>
+    <string name="settings_app_lock_screenshots_body">يمنع لقطات الشاشة وتسجيلها. تُخفى الرسائل دائمًا من التطبيقات الأخيرة.</string>
+    <string name="settings_app_lock_screenshots_body_old">يمنع لقطات الشاشة وتسجيلها. وهو أيضًا الطريقة الوحيدة لإخفاء الرسائل من التطبيقات الأخيرة على هذا الإصدار من Android.</string>
+    <string name="settings_app_lock_change">غيّر رقم التعريف الشخصي أو النمط أو القياسات الحيوية</string>
+    <string name="settings_app_lock_weak">يسهل تخمين رقم التعريف الشخصي أو النمط</string>
+    <string name="settings_app_lock_weak_body">رقم التعريف الشخصي ضعيف جدًا. اضغط لتغييره</string>
+    <string name="settings_app_lock_add_pin">أضف رقم التعريف الشخصي الاحتياطي</string>
+    <string name="settings_app_lock_add_pin_body">أضف رقم التعريف الشخصي للاستخدام الاحتياطي</string>
+    <string name="settings_app_lock_now">اقفل الآن</string>
+    <string name="settings_app_lock_now_body">يقفل uMessage فورًا</string>
+    <string name="settings_app_lock_changed">تم تغيير قفل التطبيق</string>
+    <string name="dialogs_lock_backup_pin">عيّن أولًا رقم التعريف الشخصي الاحتياطي. ستستخدمه إذا توقفت القياسات الحيوية عن العمل.</string>
+</resources>

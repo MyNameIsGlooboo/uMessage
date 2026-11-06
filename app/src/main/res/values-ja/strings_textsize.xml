@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_text_xsmall">極小</string>
+    <string name="w3c_text_huge">特大</string>
+    <string name="w3c_text_giant">最大</string>
+</resources>

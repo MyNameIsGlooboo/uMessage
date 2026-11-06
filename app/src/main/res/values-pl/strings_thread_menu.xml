@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_menu_more">Więcej…</string>
+    <string name="thread_menu_group_share">Udostępnianie i eksport</string>
+    <string name="thread_menu_group_organize">Porządkowanie</string>
+    <string name="thread_menu_group_sender">Nadawca</string>
+    <string name="thread_labels_chips_description">Etykiety: %1$s. Dotknij, aby zmienić.</string>
+    <string name="thread_labels_more_chip">+%1$d</string>
+</resources>

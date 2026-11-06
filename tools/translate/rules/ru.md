@@ -1,0 +1,6 @@
+- Russian, short, natural and polite, like Google Messages and the big Russian banking apps.
+- Address the user with the polite plural "вы": imperatives "Выберите", "Включите"; never "ты". Write "вы" in lowercase.
+- Sentence case: only the first word is capitalised (no English-style Title Case).
+- Use « » for quotes. The letter ё may be written as е.
+- Plural ids: one (1, 21, 31, 101), few (2-4, 22-24), many (0, 5-20, 25-30), other (fractions). Each needs the correct noun case; the number token stays in all four.
+- Russian runs 20-30% longer than English: choose short words for buttons and chips.

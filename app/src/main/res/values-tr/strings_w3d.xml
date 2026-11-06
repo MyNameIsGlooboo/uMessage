@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">İletilen mesajlardaki kodları maskeleyin</string>
+    <string name="w3d_mask_codes_body">İletilen kodlar **** olarak görünür</string>
+    <string name="w3d_mask_keep_last">Son iki rakamı koruyun</string>
+    <string name="w3d_mask_keep_last_on">İletilen mesajlarda örneğin **34 görünür.</string>
+    <string name="w3d_mask_keep_last_off">İletilen mesajlarda kodun tamamı gizlenir.</string>
+    <string name="w3d_daily_limit">Günlük iletim sınırı</string>
+    <string name="w3d_daily_limit_body">Günde en fazla kaç mesaj iletilebilir</string>
+    <string name="w3d_hide_lock_codes">Kilit ekranında kodları gizleyin</string>
+    <string name="w3d_hide_lock_codes_body">Kod içeren mesajlar, kilidi açana kadar kilit ekranında •••• olarak görünür.</string>
+</resources>

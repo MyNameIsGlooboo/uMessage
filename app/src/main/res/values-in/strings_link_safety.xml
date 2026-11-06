@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">Tautan diperpendek: tujuannya tidak terlihat.</string>
+    <string name="i07_punycode">Nama ini dikodekan dan dapat menampilkan huruf yang berbeda dari huruf aslinya.</string>
+    <string name="i07_mixed_script">Nama ini mencampur beberapa jenis aksara, seperti yang sering dilakukan situs palsu.</string>
+    <string name="i07_raw_ip">Alamat ini berupa angka, bukan nama situs.</string>
+    <string name="i07_http_only">Tidak dienkripsi (http, bukan https).</string>
+    <string name="i07_lookalike">Nama ini mirip dengan %1$s. Periksa ejaannya.</string>
+    <string name="i07_user_info">Bagian sebelum @ bukan alamat situs.</string>
+    <string name="i07_locked">Tautan berisiko tidak dapat dibuka di sini. Tautan dapat disalin.</string>
+    <string name="i07_lock_title">Tautan berisiko tidak dapat dibuka</string>
+    <string name="i07_lock_summary">Panel tautan hanya menyediakan opsi salin dan bagikan</string>
+    <string name="i07_group_title">Tautan</string>
+</resources>

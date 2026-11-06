@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3f_spam_summary_stopped">%1$d dicegah</string>
+    <string name="r3f_spam_summary_restored">%1$d dipulihkan</string>
+    <string name="r3f_spam_summary_stopped_week">%1$d dicegah dalam 7 hari</string>
+    <string name="r3f_spam_summary_total">Total %1$d</string>
+</resources>

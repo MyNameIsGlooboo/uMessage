@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="fwdfix_status_limit">Приостановлено до завтра: достигнут лимит</string>
+    <string name="fwdfix_limit_hint">Сегодня переслано %1$s из %2$s. Пересылка возобновится завтра.</string>
+    <string name="fwdfix_status_skipped">Пропущено (лимит)</string>
+    <string name="fwdfix_error_daily_limit">Не отправлено: достигнут дневной лимит пересылки.</string>
+    <string name="fwdfix_error_rate_limited">Не отправлено: за последний час по этому правилу уже переслано %1$s сообщений.</string>
+    <string name="fwdfix_retry_all_recent">Учитываются только пересылки за последние 24 часа.</string>
+    <plurals name="fwdfix_retry_not_sent_paused" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s сообщение не отправлено: пересылка приостановлена.</item>
+        <item quantity="few">%1$s сообщения не отправлены: пересылка приостановлена.</item>
+        <item quantity="many">%1$s сообщений не отправлено: пересылка приостановлена.</item>
+        <item quantity="other">%1$s сообщения не отправлено: пересылка приостановлена.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s сообщение не отправлено: его правило выключено или удалено.</item>
+        <item quantity="few">%1$s сообщения не отправлены: их правила выключены или удалены.</item>
+        <item quantity="many">%1$s сообщений не отправлено: их правила выключены или удалены.</item>
+        <item quantity="other">%1$s сообщения не отправлено: их правила выключены или удалены.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s сообщение не отправлено: достигнут дневной лимит или часовой лимит его правила.</item>
+        <item quantity="few">%1$s сообщения не отправлены: достигнут дневной лимит или часовой лимит правила.</item>
+        <item quantity="many">%1$s сообщений не отправлено: достигнут дневной лимит или часовой лимит правила.</item>
+        <item quantity="other">%1$s сообщения не отправлено: достигнут дневной лимит или часовой лимит правила.</item>
+    </plurals>
+    <string name="fwdfix_card_last">Последняя пересылка: %1$s, %2$s</string>
+    <plurals name="fwdfix_card_week" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s за эту неделю</item>
+        <item quantity="few">%1$s за эту неделю</item>
+        <item quantity="many">%1$s за эту неделю</item>
+        <item quantity="other">%1$s за эту неделю</item>
+    </plurals>
+    <string name="fwdfix_card_never">Пока ничего не переслано</string>
+    <string name="fwdfix_card_sent">отправлено</string>
+    <string name="fwdfix_card_pending">отправляется</string>
+    <string name="fwdfix_card_failed">ошибка</string>
+    <string name="fwdfix_card_skipped">пропущено (лимит)</string>
+    <string name="fwdfix_delete_rule">Удалить правило</string>
+    <string name="fwdfix_deleted">Правило пересылки удалено</string>
+    <string name="fwdfix_test_button">Отправить тест</string>
+    <string name="fwdfix_test_title">Отправить тестовое SMS?</string>
+    <plurals name="fwdfix_test_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">На номер выше будет отправлено %1$s тестовое SMS. Отправка платная.</item>
+        <item quantity="few">На каждый из %1$s номеров выше будет отправлено одно тестовое SMS. Каждое SMS платное.</item>
+        <item quantity="many">На каждый из %1$s номеров выше будет отправлено одно тестовое SMS. Каждое SMS платное.</item>
+        <item quantity="other">На указанные выше номера (%1$s номера) будет отправлено по одному тестовому SMS. Каждое SMS платное.</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">Отправить</string>
+    <string name="fwdfix_test_text">Тест от uMessage: пересылка работает.</string>
+    <string name="fwdfix_test_sending">Отправка теста…</string>
+    <string name="fwdfix_test_sent">Тест отправлен. Проверьте другой телефон.</string>
+    <string name="fwdfix_test_failed">Не удалось отправить тест. Проверьте сигнал сети и баланс.</string>
+    <string name="fwdfix_cost_persian">Текст на персидском, %1$s симв.: %2$s ч. × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">Текст на английском, %1$s симв.: %2$s ч. × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">Сейчас нечего отправлять</string>
+    <plurals name="fwdfix_retry_blocked_paused" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s сообщение не будет отправлено: пересылка приостановлена.</item>
+        <item quantity="few">%1$s сообщения не будут отправлены: пересылка приостановлена.</item>
+        <item quantity="many">%1$s сообщений не будут отправлены: пересылка приостановлена.</item>
+        <item quantity="other">%1$s сообщения не будет отправлено: пересылка приостановлена.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s сообщение не будет отправлено: его правило выключено или удалено.</item>
+        <item quantity="few">%1$s сообщения не будут отправлены: их правила выключены или удалены.</item>
+        <item quantity="many">%1$s сообщений не будут отправлены: их правила выключены или удалены.</item>
+        <item quantity="other">%1$s сообщения не будет отправлено: их правила выключены или удалены.</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s сообщение не будет отправлено: достигнут дневной лимит или часовой лимит его правила.</item>
+        <item quantity="few">%1$s сообщения не будут отправлены: достигнут дневной лимит или часовой лимит правила.</item>
+        <item quantity="many">%1$s сообщений не будут отправлены: достигнут дневной лимит или часовой лимит правила.</item>
+        <item quantity="other">%1$s сообщения не будет отправлено: достигнут дневной лимит или часовой лимит правила.</item>
+    </plurals>
+</resources>

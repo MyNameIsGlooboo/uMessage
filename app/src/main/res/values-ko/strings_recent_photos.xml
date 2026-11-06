@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i69_show_recent">최근 사진 보기</string>
+    <string name="i69_photo_description">최근 사진이에요. 누르면 첨부해요.</string>
+</resources>

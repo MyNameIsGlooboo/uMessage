@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3a_forward_limit_channel">Limit przekazywania dalej</string>
+    <string name="w3a_forward_limit_title">Przekazywanie dalej wstrzymane do jutra</string>
+    <string name="w3a_forward_limit_text">Osiągnięto limit przekazań dalej: %d. Przekazywanie zostanie wznowione jutro.</string>
+</resources>

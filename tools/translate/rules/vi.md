@@ -1,0 +1,7 @@
+- Vietnamese, short, natural and friendly, like Google Messages and Zalo.
+- Address the user with "bạn" and "của bạn"; imperatives are plain ("Chọn", "Bật", "Nhấn"), with "Vui lòng" only where the English says "Please". Never "quý khách" or "anh/chị".
+- Sentence case: only the first word and proper nouns are capitalised (no English-style Title Case). Write all diacritics and tone marks correctly (ă â ê ô ơ ư đ).
+- Quotes: “ ”. Keep the brand name uMessage in Latin; keep "SMS", "MMS", "SIM" and "PIN" as they are.
+- Plural ids: only other. Vietnamese has no plural: write one text for every number and keep the number token.
+- Use "tin nhắn" for message, "người gửi" for sender, "tin nhắn rác" for spam (one term everywhere), "chặn" for block.
+- Vietnamese runs 10-20% longer than English: choose short words for buttons and chips.

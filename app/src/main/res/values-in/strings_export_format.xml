@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_format_json">File uMessage (teks dan gambar)</string>
+    <string name="export_format_xml">File SMS Backup &amp; Restore (untuk aplikasi lain)</string>
+    <string name="export_format_xml_hint">uMessage hanya memulihkan teks dari jenis file ini.</string>
+    <string name="export_scope_all">Semua percakapan</string>
+    <string name="export_scope_choose">Pilih percakapan</string>
+    <plurals name="export_scope_chosen">
+        <item quantity="other">%1$d percakapan dipilih</item>
+    </plurals>
+    <string name="export_pick_title">Pilih percakapan</string>
+    <string name="export_pick_search">Cari</string>
+    <string name="export_pick_all">Pilih semua</string>
+    <string name="export_pick_none">Batalkan pilihan</string>
+    <string name="export_pick_empty">Tidak ada percakapan</string>
+    <string name="export_pick_nothing_chosen">Pilih minimal satu percakapan</string>
+</resources>

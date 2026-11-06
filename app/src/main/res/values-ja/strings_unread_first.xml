@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i36_unread_first">未読を優先</string>
+    <string name="i36_unread_first_body">未読の会話を上部に表示します。</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">通知、ロック画面、週ごとのまとめ</string>
+    <string name="ux8e_nav_typing">入力と送信</string>
+    <string name="ux8e_nav_typing_body">Enterキー、配信レポート、署名</string>
+    <string name="ux8e_nav_storage">ストレージと整理</string>
+    <string name="ux8e_nav_storage_body">ゴミ箱、アーカイブ、自動削除</string>
+    <string name="ux8e_group_lock_screen">ロック画面</string>
+    <string name="ux8e_group_recycle">削除済みのメッセージ</string>
+    <string name="ux8e_group_cleanup">自動整理</string>
+    <string name="ux8e_group_archive">アーカイブ</string>
+    <string name="ux8e_keep_deleted">削除したメッセージを保持</string>
+    <string name="ux8e_keep_deleted_body">ゴミ箱に30日間保持します。</string>
+    <string name="ux8e_recycle_bin">ゴミ箱</string>
+    <string name="ux8e_backup_row">バックアップ</string>
+    <string name="ux8e_backup_row_body">ファイルに保存</string>
+    <string name="ux8e_restore_row">復元</string>
+    <string name="ux8e_restore_row_body">ファイルから読み込み</string>
+    <string name="ux8e_backup_what">何をバックアップしますか？</string>
+    <string name="ux8e_restore_what">何を復元しますか？</string>
+    <string name="ux8e_what_messages">メッセージ</string>
+    <string name="ux8e_what_settings">ルールと設定</string>
+    <string name="ux8e_backup_warning">バックアップファイルは暗号化されません。</string>
+    <string name="ux8e_calendar">カレンダー</string>
+</resources>

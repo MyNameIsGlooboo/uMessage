@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">Lembre-me</string>
+    <string name="reminder_dialog_title">Lembre-me</string>
+    <string name="reminder_in_3_hours">Daqui a 3 horas</string>
+    <string name="reminder_tomorrow_morning">Amanhã de manhã</string>
+    <string name="reminder_pick_time">Escolha a data e a hora</string>
+    <string name="reminder_set">Lembrete definido para %1$s</string>
+    <string name="reminder_set_approximate">Lembrete definido para cerca de %1$s. Ele pode chegar um pouco atrasado.</string>
+    <string name="reminder_battery_hint">Alguns celulares encerram apps em segundo plano e atrasam os lembretes.</string>
+    <string name="reminder_battery_open">Mantenha o uMessage em execução</string>
+    <string name="reminder_channel">Lembretes</string>
+    <string name="reminder_title">Lembrete</string>
+    <string name="reminder_title_named">Lembrete: %1$s</string>
+    <string name="reminder_open_hint">Toque para abrir a mensagem</string>
+</resources>

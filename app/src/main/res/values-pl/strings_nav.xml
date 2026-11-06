@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_tab_forwarded">Przekazane dalej</string>
+    <string name="nav_tab_forwarded_failed">Przekazane dalej, nie udało się przekazać wiadomości</string>
+    <string name="nav_tab_forwarded_paused">Przekazane dalej, przekazywanie wstrzymane</string>
+    <string name="nav_tab_archived_new">Zarchiwizowane, nowa rozmowa w archiwum</string>
+    <string name="nav_prompt_title">Reguła zapisana</string>
+    <string name="nav_prompt_body">Pokazać kartę „Przekazane dalej”, by przeglądać wysłane wiadomości i ponawiać nieudane próby?</string>
+    <string name="nav_prompt_show">Pokaż kartę</string>
+    <string name="nav_prompt_not_now">Nie teraz</string>
+    <string name="nav_fwd_paid_note">Każde przekazanie to płatny SMS.</string>
+    <string name="nav_fwd_pause_all">Wstrzymaj całe przekazywanie</string>
+    <string name="nav_fwd_status_paused">Przekazywanie wstrzymane</string>
+    <string name="nav_fwd_paused_hint">Pasujące wiadomości nie są wysyłane. Wyłącz tę opcję, by wznowić.</string>
+    <string name="nav_fwd_status_no_rule">Brak włączonych reguł przekazywania</string>
+    <plurals name="nav_fwd_status_on">
+        <item quantity="one">Przekazywanie włączone, %1$s reguła</item>
+        <item quantity="few">Przekazywanie włączone, %1$s reguły</item>
+        <item quantity="many">Przekazywanie włączone, %1$s reguł</item>
+        <item quantity="other">Przekazywanie włączone, %1$s reguły</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">Zarządzaj regułami</string>
+    <string name="nav_fwd_empty_title">Jeszcze nic nie przekazano</string>
+    <string name="nav_fwd_empty_body">Tutaj pojawią się pasujące wiadomości.</string>
+    <string name="nav_fwd_status_sent">Wysłano</string>
+    <string name="nav_fwd_status_pending">Oczekuje</string>
+    <string name="nav_fwd_status_failed">Niepowodzenie</string>
+    <string name="nav_fwd_to">Do %1$s</string>
+    <string name="nav_fwd_sim">SIM %1$d</string>
+    <string name="nav_fwd_rule_line">Reguła: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">nadawca %1$s</string>
+    <string name="nav_fwd_rule_any_sender">dowolny nadawca</string>
+    <string name="nav_fwd_rule_text">treść %1$s</string>
+    <string name="nav_fwd_rule_any_text">dowolna treść</string>
+    <string name="nav_fwd_rule_deleted">Reguła usunięta</string>
+    <string name="nav_fwd_open_details">Pokaż szczegóły</string>
+    <string name="nav_fwd_today">Dzisiaj</string>
+    <string name="nav_fwd_yesterday">Wczoraj</string>
+    <plurals name="nav_fwd_failed_count">
+        <item quantity="one">%1$s nieudane przekazanie</item>
+        <item quantity="few">%1$s nieudane przekazania</item>
+        <item quantity="many">%1$s nieudanych przekazań</item>
+        <item quantity="other">%1$s nieudanego przekazania</item>
+    </plurals>
+    <string name="nav_fwd_retry">Ponów</string>
+    <string name="nav_fwd_retry_all">Ponów wszystkie nieudane (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">Wysłać ponownie?</string>
+    <plurals name="nav_fwd_retry_all_message">
+        <item quantity="one">%1$s SMS zostanie wysłany ponownie. Każdy SMS jest płatny.</item>
+        <item quantity="few">%1$s SMS-y zostaną wysłane ponownie. Każdy SMS jest płatny.</item>
+        <item quantity="many">%1$s SMS-ów zostanie wysłanych ponownie. Każdy SMS jest płatny.</item>
+        <item quantity="other">%1$s SMS-a zostanie wysłane ponownie. Każdy SMS jest płatny.</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">Wyślij ponownie</string>
+    <plurals name="nav_fwd_retry_sent">
+        <item quantity="one">Ponownie przekazano %d wiadomość</item>
+        <item quantity="few">Ponownie przekazano %d wiadomości</item>
+        <item quantity="many">Ponownie przekazano %d wiadomości</item>
+        <item quantity="other">Ponownie przekazano %d wiadomości</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">Znów się nie udało. Sprawdź zasięg i stan konta.</string>
+    <string name="nav_fwd_retry_missing">Brak oryginalnej wiadomości, więc nie można jej wysłać ponownie.</string>
+    <string name="nav_fwd_details_title">Szczegóły przekazania</string>
+    <string name="nav_fwd_detail_from">Wiadomość od</string>
+    <string name="nav_fwd_detail_to">Przekazano do</string>
+    <string name="nav_fwd_detail_when">Czas</string>
+    <string name="nav_fwd_detail_sim">Wysłano z</string>
+    <string name="nav_fwd_detail_rule">Pasująca reguła</string>
+    <string name="nav_fwd_detail_message">Oryginalna wiadomość</string>
+    <string name="nav_fwd_message_loading">Wczytywanie</string>
+    <string name="nav_fwd_message_gone">Oryginalna wiadomość nie jest już zapisana.</string>
+    <string name="nav_fwd_error_radio">Sieć nie dostarczyła wiadomości.</string>
+    <string name="nav_fwd_error_refused">Telefon nie mógł wysłać wiadomości.</string>
+    <string name="nav_fwd_open_chat">Otwórz rozmowę</string>
+    <string name="nav_archived_title">Zarchiwizowane</string>
+    <string name="nav_archived_back">Wróć do wiadomości</string>
+    <string name="nav_archived_intro">Zarchiwizowane rozmowy nie są widoczne w wiadomościach. Nowa wiadomość przywraca rozmowę, chyba że w ustawieniach włączysz „Ukrywaj zarchiwizowane rozmowy”.</string>
+    <string name="nav_archived_intro_dismiss">Ukryj tę informację</string>
+    <plurals name="nav_archived_moved">
+        <item quantity="one">Przeniesiono %d rozmowę do wiadomości</item>
+        <item quantity="few">Przeniesiono %d rozmowy do wiadomości</item>
+        <item quantity="many">Przeniesiono %d rozmów do wiadomości</item>
+        <item quantity="other">Przeniesiono %d rozmowy do wiadomości</item>
+    </plurals>
+    <string name="nav_folder_more">Więcej opcji</string>
+    <string name="nav_folder_mark_all_read">Oznacz wszystkie jako przeczytane</string>
+    <string name="nav_folder_delete_all_count">Spowoduje to trwałe usunięcie: %1$s.</string>
+</resources>

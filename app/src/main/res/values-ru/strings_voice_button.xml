@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i40_record_voice">Записать голосовое сообщение</string>
+    <string name="i40_setting_title">Кнопка записи голоса</string>
+    <string name="i40_setting_summary">Отображается, когда поле сообщения пустое</string>
+</resources>

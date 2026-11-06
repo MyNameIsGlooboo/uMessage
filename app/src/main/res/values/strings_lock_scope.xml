@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_scope_title">What to lock</string>
+    <string name="lock_scope_whole">Whole app</string>
+    <string name="lock_scope_chosen">Only chosen parts</string>
+    <string name="lock_scope_chosen_long">Only chosen parts: the Blocked tab and hidden chats</string>
+    <string name="lock_scope_blocked_title">Blocked messages are locked</string>
+    <string name="lock_scope_blocked_body">Unlock to see them.</string>
+    <string name="lock_scope_unlock">Unlock</string>
+</resources>

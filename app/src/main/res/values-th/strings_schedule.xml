@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">ส่งให้ตรงเวลาไหม</string>
+    <string name="schedule_exact_alarm_text">หากต้องการให้ข้อความที่กำหนดเวลาส่งถูกส่งตรงเวลา ให้อนุญาต “นาฬิกาปลุกและการช่วยเตือน” สำหรับ uMessage ในการตั้งค่าระบบ หากไม่อนุญาต ข้อความจะยังถูกส่ง แต่อาจล่าช้า</string>
+    <string name="schedule_exact_alarm_open_settings">เปิดการตั้งค่า</string>
+    <string name="schedule_exact_alarm_anyway">กำหนดเวลาส่งต่อไป</string>
+</resources>

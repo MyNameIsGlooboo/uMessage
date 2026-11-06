@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="e_day_today">Hoje</string>
+    <string name="e_day_yesterday">Ontem</string>
+    <plurals name="e_blocked_stats_total" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d bloqueada no total</item>
+        <item quantity="other">%d bloqueadas no total</item>
+    </plurals>
+    <string name="e_restored_title">Restauradas recentemente</string>
+    <string name="e_restored_body">Mensagens que você moveu para a caixa de entrada nos últimos 30 dias. Toque em uma para abrir a conversa.</string>
+    <string name="e_restored_empty">As mensagens que você mover para a caixa de entrada a partir de agora ficam aqui por 30 dias.</string>
+    <string name="e_restored_when">Movida para a caixa de entrada em %1$s</string>
+    <string name="e_restored_open">Abra a conversa com %1$s</string>
+    <string name="e_snack_allowed_one">%1$s agora é sempre permitido nos dois chips</string>
+    <plurals name="e_snack_allowed_many" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d remetente agora é sempre permitido nos dois chips</item>
+        <item quantity="other">%d remetentes agora são sempre permitidos nos dois chips</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$s agora é sempre permitido</string>
+    <plurals name="e_snack_allowed_many_single_sim" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d remetente agora é sempre permitido</item>
+        <item quantity="other">%d remetentes agora são sempre permitidos</item>
+    </plurals>
+    <string name="e_view_rule">Veja a regra</string>
+    <string name="e_rules_title">Regras</string>
+    <string name="e_rules_menu_backup">Backup e restauração</string>
+    <string name="e_note_blocked_by_you">Bloqueado por você</string>
+    <string name="e_note_allowed_by_you">Permitido por você</string>
+    <string name="e_note_blocked_from_message">Bloqueado a partir de uma mensagem</string>
+    <string name="e_note_blocked_from_keyword">Bloqueado por uma palavra-chave</string>
+    <string name="e_note_reported_spam">Denunciado como spam</string>
+    <string name="e_note_old_word_list">Da antiga lista de palavras bloqueadas</string>
+    <string name="e_note_system_list">Da lista de bloqueio do Android</string>
+    <string name="e_note_quoted">“%1$s”</string>
+    <string name="e_example_block_cancel_word">Bloqueie mensagens que contenham لغو۱۱</string>
+    <string name="e_example_block_ad_prefix">Bloqueie números de anúncios que começam com 3000</string>
+    <string name="e_example_allow_number">Permita sempre um número, como o dos Correios</string>
+    <string name="e_sheet_sender_label">Remetente</string>
+    <string name="e_sheet_text_label">Texto da mensagem</string>
+    <string name="e_value_number">Número de telefone</string>
+    <string name="e_value_prefix">O número começa com</string>
+    <string name="e_value_sender">Nome do remetente</string>
+    <string name="e_value_keyword">Texto a procurar</string>
+    <string name="e_value_pattern">Padrão (expressão regular)</string>
+    <string name="e_pattern_blocks_label">Comece com</string>
+    <string name="e_pattern_link">Contém um link</string>
+    <string name="e_pattern_long_number">Número com 5 ou mais dígitos</string>
+    <string name="e_pattern_starts_with">Começa com</string>
+    <string name="e_pattern_any_of">Contém qualquer um de</string>
+    <string name="e_pattern_link_sentence">Identifica mensagens com um link.</string>
+    <string name="e_pattern_long_number_sentence">Identifica mensagens com um número de 5 ou mais dígitos.</string>
+    <string name="e_pattern_starts_with_sentence">Identifica mensagens que começam com o texto que você digitar após ^.</string>
+    <string name="e_pattern_any_of_sentence">Identifica mensagens com qualquer uma das palavras entre colchetes. Separe-as com |.</string>
+    <plurals name="e_migrate_title_numbers" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Mova %d número para as regras do uMessage</item>
+        <item quantity="other">Mova %d números para as regras do uMessage</item>
+    </plurals>
+    <string name="e_migrate_point_blocked">• As mensagens desses números irão para Bloqueados, onde você poderá lê-las e restaurá-las.</string>
+    <string name="e_migrate_point_android">• O Android continuará descartando as mensagens desses números até que saiam da lista dele.</string>
+    <string name="e_migrate_calls_note">A lista do Android também bloqueia chamadas. Os números que você remover dela poderão ligar para você novamente.</string>
+    <string name="e_bn_unknown_body">Só se aplica enquanto Remetentes desconhecidos estiver desativado.</string>
+    <string name="e_bn_row_calls_texts">Bloqueia chamadas e mensagens</string>
+    <string name="e_bn_row_short_code">Número curto: o uMessage nunca recebe suas mensagens</string>
+    <string name="e_bn_move_one">Mova para as regras do uMessage</string>
+    <string name="e_bn_moved">%1$s agora é uma regra do uMessage. Suas mensagens vão para Bloqueados, e suas chamadas não são mais bloqueadas.</string>
+    <string name="e_bn_field_help">Por exemplo, +15550001234 ou +1555* para todos os números que começam com +1555</string>
+    <string name="e_bn_short_code_warning">Este parece ser um número curto. O Android descarta suas mensagens antes de chegarem ao uMessage. Assim, você nunca poderá restaurá-las, como um código ou um aviso do banco.</string>
+    <string name="e_bn_add_as_rule">Adicione como regra do uMessage</string>
+    <string name="e_bn_added_as_rule">%1$s adicionado como regra do uMessage. Suas mensagens vão para Bloqueados.</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8a_checklist_show">ধাপগুলো দেখান</string>
+    <string name="ux8a_checklist_hide">ধাপগুলো লুকান</string>
+    <string name="ux8a_menu_recycle_bin">রিসাইকেল বিন</string>
+    <string name="ux8a_selection_block">ব্লক করুন</string>
+</resources>

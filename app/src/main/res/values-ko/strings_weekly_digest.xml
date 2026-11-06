@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="digest_channel">주간 요약</string>
+    <string name="digest_title">주간 요약</string>
+    <string name="digest_row_title">주간 요약</string>
+    <string name="digest_row_summary">일주일에 한 번 차단한 메시지 수를 알려드려요.</string>
+    <plurals name="digest_held">
+        <item quantity="other">이번 주 메시지 %d건이 보류됐어요. 눌러서 확인해요.</item>
+    </plurals>
+    <plurals name="digest_held_important">
+        <item quantity="other">이번 주 메시지 %1$d건이 보류됐어요. 그중 인증 코드나 은행 알림은 %2$d건이에요.</item>
+    </plurals>
+</resources>

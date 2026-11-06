@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_tab_forwarded">Reenviados</string>
+    <string name="nav_tab_forwarded_failed">Reenviados, un reenvío falló</string>
+    <string name="nav_tab_forwarded_paused">Reenviados, reenvío en pausa</string>
+    <string name="nav_tab_archived_new">Archivados, nuevo chat archivado</string>
+    <string name="nav_prompt_title">Regla guardada</string>
+    <string name="nav_prompt_body">¿Mostrar la pestaña Reenviados para ver lo enviado y reintentar los reenvíos fallidos?</string>
+    <string name="nav_prompt_show">Mostrar pestaña</string>
+    <string name="nav_prompt_not_now">Ahora no</string>
+    <string name="nav_fwd_paid_note">Cada reenvío es un SMS con costo.</string>
+    <string name="nav_fwd_pause_all">Pausar todos los reenvíos</string>
+    <string name="nav_fwd_status_paused">El reenvío está en pausa</string>
+    <string name="nav_fwd_paused_hint">Los mensajes que coinciden no se envían. Desactiva esta opción para reanudar.</string>
+    <string name="nav_fwd_status_no_rule">No hay reglas de reenvío activas</string>
+    <plurals name="nav_fwd_status_on">
+        <item quantity="one">Reenvío activado, %1$s regla</item>
+        <item quantity="other">Reenvío activado, %1$s reglas</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">Administrar reglas</string>
+    <string name="nav_fwd_empty_title">Aún no hay reenvíos</string>
+    <string name="nav_fwd_empty_body">Los mensajes que coincidan aparecerán aquí.</string>
+    <string name="nav_fwd_status_sent">Enviado</string>
+    <string name="nav_fwd_status_pending">Pendiente</string>
+    <string name="nav_fwd_status_failed">Fallido</string>
+    <string name="nav_fwd_to">Para %1$s</string>
+    <string name="nav_fwd_sim">SIM %1$d</string>
+    <string name="nav_fwd_rule_line">Regla: %1$s, %2$s</string>
+    <string name="nav_fwd_rule_sender">remitente %1$s</string>
+    <string name="nav_fwd_rule_any_sender">cualquier remitente</string>
+    <string name="nav_fwd_rule_text">texto %1$s</string>
+    <string name="nav_fwd_rule_any_text">cualquier texto</string>
+    <string name="nav_fwd_rule_deleted">Regla eliminada</string>
+    <string name="nav_fwd_open_details">Mostrar detalles</string>
+    <string name="nav_fwd_today">Hoy</string>
+    <string name="nav_fwd_yesterday">Ayer</string>
+    <plurals name="nav_fwd_failed_count">
+        <item quantity="one">%1$s reenvío fallido</item>
+        <item quantity="other">%1$s reenvíos fallidos</item>
+    </plurals>
+    <string name="nav_fwd_retry">Reintentar</string>
+    <string name="nav_fwd_retry_all">Reintentar todos los fallidos (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">¿Enviar de nuevo?</string>
+    <plurals name="nav_fwd_retry_all_message">
+        <item quantity="one">Se enviará %1$s SMS de nuevo. Cada SMS tiene costo.</item>
+        <item quantity="other">Se enviarán %1$s SMS de nuevo. Cada SMS tiene costo.</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">Enviar de nuevo</string>
+    <plurals name="nav_fwd_retry_sent">
+        <item quantity="one">%d reenvío enviado de nuevo</item>
+        <item quantity="other">%d reenvíos enviados de nuevo</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">Volvió a fallar. Revisa tu señal y saldo.</string>
+    <string name="nav_fwd_retry_missing">El mensaje original ya no está, por lo que no se puede enviar de nuevo.</string>
+    <string name="nav_fwd_details_title">Detalles del reenvío</string>
+    <string name="nav_fwd_detail_from">Mensaje de</string>
+    <string name="nav_fwd_detail_to">Reenviado a</string>
+    <string name="nav_fwd_detail_when">Hora</string>
+    <string name="nav_fwd_detail_sim">Enviado desde</string>
+    <string name="nav_fwd_detail_rule">Coincidió con</string>
+    <string name="nav_fwd_detail_message">Mensaje original</string>
+    <string name="nav_fwd_message_loading">Cargando</string>
+    <string name="nav_fwd_message_gone">El mensaje original ya no está guardado.</string>
+    <string name="nav_fwd_error_radio">La red no lo entregó.</string>
+    <string name="nav_fwd_error_refused">El teléfono no pudo enviarlo.</string>
+    <string name="nav_fwd_open_chat">Abrir chat</string>
+    <string name="nav_archived_title">Archivados</string>
+    <string name="nav_archived_back">Volver a Mensajes</string>
+    <string name="nav_archived_intro">Los chats archivados no aparecen en Mensajes. Un mensaje nuevo hace que el chat vuelva, a menos que actives «Mantener ocultos los chats archivados» en Configuración.</string>
+    <string name="nav_archived_intro_dismiss">Ocultar esta nota</string>
+    <plurals name="nav_archived_moved">
+        <item quantity="one">%d conversación movida a Mensajes</item>
+        <item quantity="other">%d conversaciones movidas a Mensajes</item>
+    </plurals>
+    <string name="nav_folder_more">Más opciones</string>
+    <string name="nav_folder_mark_all_read">Marcar todo como leído</string>
+    <string name="nav_folder_delete_all_count">Esto elimina %1$s de forma permanente.</string>
+</resources>

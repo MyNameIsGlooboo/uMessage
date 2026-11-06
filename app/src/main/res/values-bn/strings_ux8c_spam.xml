@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">আটকানো হয়েছে: অচেনা প্রেরক</string>
+    <string name="ux8c_held_unknown_link">আটকানো হয়েছে: অচেনা প্রেরক, লিঙ্ক আছে</string>
+    <string name="ux8c_held_foreign">আটকানো হয়েছে: অন্য দেশের নম্বর</string>
+    <string name="ux8c_held_rule">আপনার নিয়মে আটকানো হয়েছে</string>
+    <string name="ux8c_held_other">ফিল্টারে আটকানো হয়েছে</string>
+    <string name="ux8c_not_spam">স্প্যাম নয়</string>
+    <string name="ux8c_delete">মুছুন</string>
+    <string name="ux8c_tip">কোনো প্রেরককে আপনার ইনবক্সে নিতে সোয়াইপ করুন। নির্বাচন করতে চেপে ধরে রাখুন।</string>
+    <string name="ux8c_tip_dismiss">বুঝেছি</string>
+    <string name="ux8c_sender_title">এই প্রেরক</string>
+    <string name="ux8c_sender_normal">স্বাভাবিক</string>
+    <string name="ux8c_sender_allow">সবসময় অনুমতি দিন</string>
+    <string name="ux8c_sender_block">ব্লক করুন</string>
+</resources>

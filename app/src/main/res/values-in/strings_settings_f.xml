@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_f_backup_row_body">Pesan, aturan, dan setelan ke file</string>
+    <string name="settings_f_backup_rules_group">Aturan dan setelan</string>
+    <string name="settings_f_backup_rules_contents">File berisi aturan izinkan dan blokir, aturan penerusan, serta setelan: perlindungan spam, notifikasi, tanggal, ukuran teks, tema, tombol Enter, dan batas penerusan. Teks pesan dan kunci aplikasi tidak pernah disertakan. Aturan penerusan dipulihkan dalam keadaan nonaktif.</string>
+    <string name="settings_f_backup_messages_contents">Teks pesan dan gambar, dalam file terpisah.</string>
+    <string name="settings_f_restore_title">Pulihkan dari file ini?</string>
+    <string name="settings_f_restore_rules">Aturan izinkan: %1$d · Aturan blokir: %2$d. Aturan yang sudah ada dilewati.</string>
+    <string name="settings_f_restore_forwards">Aturan penerusan yang akan ditambahkan: %1$d, dalam keadaan nonaktif. Aktifkan di Aturan › Penerusan.</string>
+    <string name="settings_f_restore_forwards_skipped">Aturan penerusan yang dilewati: %1$d (sudah ada, atau tidak ada nomor yang dapat menerimanya).</string>
+    <string name="settings_f_restore_settings_changed">Setelan yang berubah: %1$s</string>
+    <string name="settings_f_restore_settings_none">Tidak ada perubahan setelan.</string>
+    <string name="settings_f_restore_action">Pulihkan</string>
+    <string name="settings_f_restore_done">Aturan ditambahkan: %1$d · Aturan penerusan ditambahkan: %2$d. Aturan penerusan tetap nonaktif hingga Anda mengaktifkannya.</string>
+    <string name="settings_f_restore_done_rules">Aturan ditambahkan: %1$d.</string>
+    <string name="settings_f_restore_done_title">Pemulihan selesai</string>
+    <string name="settings_f_label_codes">Kode dari pengirim tidak dikenal</string>
+    <string name="settings_f_list_separator">", "</string>
+    <string name="settings_f_group_display">Tampilan</string>
+    <string name="settings_f_appearance">Tampilan</string>
+    <string name="settings_f_language_system">Default sistem</string>
+    <string name="settings_f_group_rules">Aturan dan daftar</string>
+    <string name="settings_f_spam_more">Masa penyimpanan dan peringatan</string>
+    <string name="settings_f_spam_more_body">Lama penyimpanan pesan diblokir dan peringatan</string>
+    <string name="settings_f_hide_lock_codes_body">Kode tampil sebagai •••• di layar kunci</string>
+    <string name="settings_f_code_alert">Peringatan kode</string>
+    <string name="settings_f_code_alert_body">Suara untuk kode verifikasi</string>
+    <string name="settings_f_channel_codes">Kode verifikasi</string>
+    <string name="settings_f_channel_codes_desc">Pesan yang memuat kode verifikasi</string>
+</resources>

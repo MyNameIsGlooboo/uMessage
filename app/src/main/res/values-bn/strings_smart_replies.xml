@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">স্মার্ট উত্তর</string>
+    <string name="smart_replies_summary">আপনার ফোনের তালিকা থেকে দ্রুত উত্তর</string>
+    <string name="smart_replies_hide">সাজেশন লুকান</string>
+</resources>

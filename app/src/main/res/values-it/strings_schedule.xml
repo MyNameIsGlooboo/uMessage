@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">Inviare all\'ora esatta?</string>
+    <string name="schedule_exact_alarm_text">Per inviare i messaggi programmati all\'ora esatta, consenti “Sveglie e promemoria” per uMessage nelle impostazioni di sistema. Senza questa autorizzazione, verranno comunque inviati, ma potrebbero arrivare in ritardo.</string>
+    <string name="schedule_exact_alarm_open_settings">Apri impostazioni</string>
+    <string name="schedule_exact_alarm_anyway">Programma comunque</string>
+</resources>

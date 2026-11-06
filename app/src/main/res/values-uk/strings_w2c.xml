@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2c_blocked_label">Заблоковано</string>
+    <string name="w2c_log_blocked_by_rule">Заблоковано за правилом: %1$s</string>
+    <string name="w2c_log_blocked_by_old_list">Заблоковано за старим списком заблокованих</string>
+    <string name="w2c_log_fwd_rate_limited">Не переслано: вичерпано годинний ліміт цього правила</string>
+</resources>

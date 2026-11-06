@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="blocked_line_strict">Строгая защита</string>
+    <string name="blocked_line_smart">Умная защита</string>
+    <string name="blocked_line_off">Защита выключена</string>
+    <string name="blocked_line_join">%1$s · %2$s</string>
+    <string name="blocked_line_cd">%1$s, %2$s</string>
+</resources>

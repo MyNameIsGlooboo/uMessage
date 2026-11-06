@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">قابلیت‌های بیشتر</string>
+    <string name="ux8f_onb_less">قابلیت‌های کمتر</string>
+    <string name="ux8f_onb_battery_body">اندروید ممکن است uMessage را در پس‌زمینه متوقف کند و پیام‌هایتان دیر برسند. اجازه دهید همیشه در حال اجرا بماند.</string>
+    <string name="ux8f_onb_battery_action">اجازهٔ اجرا در پس‌زمینه</string>
+    <string name="ux8f_onb_vendor_hint">گوشی‌های %1$s یک مرحلهٔ دیگر هم دارند.</string>
+    <string name="ux8f_onb_unfinished">هنوز مانده است. می‌توانید بعداً در تنظیمات اندروید انجام دهید.</string>
+</resources>

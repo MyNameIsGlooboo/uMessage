@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_message_inexact">शेड्यूल कर दिया गया. यह कुछ मिनट देर से भेजा जा सकता है.</string>
+</resources>

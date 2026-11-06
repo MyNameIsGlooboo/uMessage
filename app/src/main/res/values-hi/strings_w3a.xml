@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3a_forward_limit_channel">फ़ॉरवर्ड करने की सीमा</string>
+    <string name="w3a_forward_limit_title">आज के लिए फ़ॉरवर्ड करना रोक दिया गया</string>
+    <string name="w3a_forward_limit_text">%d बार फ़ॉरवर्ड करने की सीमा पूरी हो गई. कल से फिर फ़ॉरवर्ड किया जाएगा.</string>
+</resources>

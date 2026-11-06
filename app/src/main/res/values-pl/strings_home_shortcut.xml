@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">Dodaj do ekranu głównego</string>
+    <string name="home_shortcut_requested">Wysłano prośbę o dodanie skrótu do ekranu głównego. Będzie na nim widoczna nazwa rozmowy. Jeśli skrót się nie pojawi, zezwól uMessage na „Skróty na ekranie głównym” w ustawieniach aplikacji w telefonie.</string>
+    <string name="home_shortcut_failed">Nie udało się dodać skrótu do ekranu głównego. Zezwól uMessage na „Skróty na ekranie głównym” w ustawieniach aplikacji w telefonie.</string>
+</resources>

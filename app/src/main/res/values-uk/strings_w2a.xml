@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">Пошук ключових слів</string>
+    <string name="w2a_keywords_search_clear">Очистити пошук</string>
+    <string name="w2a_keywords_no_match_title">Ключових слів не знайдено</string>
+    <string name="w2a_keywords_no_match_body">Спробуйте інше слово або очистьте пошук.</string>
+</resources>

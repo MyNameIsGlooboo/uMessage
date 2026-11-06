@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- The one thin line on top of the Blocked tab -->
+    <string name="blocked_line_strict">محافظت سخت‌گیرانه</string>
+    <string name="blocked_line_smart">محافظت هوشمند</string>
+    <string name="blocked_line_off">محافظت خاموش</string>
+    <string name="blocked_line_join">%1$s · %2$s</string>
+    <string name="blocked_line_cd">%1$s، %2$s</string>
+</resources>

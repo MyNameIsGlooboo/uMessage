@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_review_details_decision">फ़ैसला</string>
+    <string name="thread_review_details_decision_allowed">अनुमति दी गई: आपके इनबॉक्स में पहुंचाया गया</string>
+    <string name="thread_review_details_type">प्रकार</string>
+    <string name="thread_review_details_type_sms">SMS</string>
+    <string name="thread_review_details_type_mms">MMS</string>
+    <string name="thread_review_sim_slot_name">सिम %1$d · %2$s</string>
+    <string name="thread_review_copy_code">कोड कॉपी करें</string>
+    <string name="thread_review_copy_password">पासवर्ड कॉपी करें</string>
+    <string name="thread_review_copy_username">यूज़रनेम कॉपी करें</string>
+    <string name="thread_review_sim_label">सिम %1$s</string>
+    <string name="thread_review_sends_from">%1$s से भेजा जाएगा</string>
+    <string name="thread_review_reply_disabled">इस भेजने वाले को जवाब नहीं भेजा जा सकता</string>
+    <string name="thread_review_attach_camera">कैमरा</string>
+    <string name="thread_review_attach_voice">आवाज़</string>
+    <string name="thread_review_schedule_in_hour">1 घंटे बाद</string>
+    <string name="thread_review_schedule_evening">आज शाम</string>
+    <string name="thread_review_schedule_tomorrow">कल 9:00 बजे</string>
+</resources>

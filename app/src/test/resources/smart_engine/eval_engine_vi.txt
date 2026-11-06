@@ -1,0 +1,96 @@
+# Invented incoming texts. Format: EXPECTED|message. NONE means no chip may show. Never add real messages.
+# YES_NO
+YES_NO|Bạn có đi không?
+YES_NO|Bạn đã ăn cơm chưa?
+YES_NO|Anh đến chưa?
+YES_NO|Em về nhà chưa?
+YES_NO|Bạn có thể đến sớm không?
+YES_NO|Mai trời có mưa không?
+YES_NO|Chị có nhà không ạ?
+YES_NO|Mai đi học nhé?
+YES_NO|Tối nay bạn ở nhà nha?
+YES_NO|Họp lúc chín giờ, được không?
+YES_NO|Có phải bạn đã nhận được tin nhắn
+YES_NO|Bạn đang ở nhà không?
+YES_NO|Đã xong chưa?
+YES_NO|Da xong chua?
+YES_NO|Anh co di khong?
+YES_NO|Bạn về rồi à, đúng không?
+YES_NO|Ăn cơm chưa
+# WHEN
+WHEN|Khi nào bạn về?
+WHEN|Bao giờ anh đến?
+WHEN|Mấy giờ bạn đi?
+WHEN|Bạn về lúc nào?
+WHEN|Hôm nào mình gặp nhau?
+WHEN|Ngày nào bạn đi?
+WHEN|Bao h xong?
+# WHERE
+WHERE|Bạn ở đâu?
+WHERE|Bạn đang ở đâu vậy?
+WHERE|Anh đang ở đâu?
+WHERE|Mình gặp nhau ở đâu?
+WHERE|Hẹn nhau ở đâu nhé?
+WHERE|Em dang o dau?
+# INVITE
+INVITE|Đi chơi không?
+INVITE|Tối nay đi ăn nhé?
+INVITE|Cuối tuần này bạn rảnh không?
+INVITE|Xem phim không?
+INVITE|Mình đi uống trà nhé?
+INVITE|Bạn muốn đi xem phim không?
+INVITE|Ghé qua nhà mình nhé?
+INVITE|Có rảnh uống cà phê không
+# REQUEST
+REQUEST|Bạn gửi giúp mình tấm ảnh nhé?
+REQUEST|Làm ơn gọi lại cho mình?
+REQUEST|Bạn có thể giúp mình một chút không?
+REQUEST|Mua giúp mình ít bánh nhé?
+REQUEST|Cho mình biết nhé?
+REQUEST|Anh có thể gửi địa chỉ không?
+REQUEST|Chị vui lòng xác nhận giúp em?
+REQUEST|Bạn mang giúp mình cái sạc nhé?
+# CHOICE
+CHOICE:ca phe,tra|Cà phê hay trà?
+CHOICE:com,pho|Cơm hay phở?
+CHOICE:hom nay,ngay mai|Hôm nay hay ngày mai?
+CHOICE:bien,nui|Biển hay núi?
+CHOICE:xe may,xe buyt|Xe máy hay xe buýt?
+CHOICE:thu bay,chu nhat|Thứ bảy hoặc chủ nhật?
+CHOICE:pizza,sushi|Pizza hay sushi?
+# NONE
+NONE|Tại sao bạn không đến?
+NONE|Cái này bao nhiêu tiền?
+NONE|Ai đang ở ngoài cửa?
+NONE|Bạn đang làm gì vậy?
+NONE|Hôm nay thế nào?
+NONE|Cái gì thế này?
+NONE|Tôi đang trên đường về
+NONE|Lát nữa mình gọi
+NONE|Bạn xem video chưa? Thấy thế nào?
+NONE|Mai đi học không? Hay nghỉ?
+NONE|Xem cái này https://example.com/anh
+NONE|Mã của bạn là 482913
+NONE|Bạn tên là gì?
+NONE|Cái này của ai?
+NONE|Bao nhiêu người đến?
+NONE|Bạn bao nhiêu tuổi?
+NONE|Bạn sống ở thành phố nào?
+NONE|Món nào ngon nhất?
+NONE|Tôi rất mệt
+NONE|Hôm nay tôi dậy sớm đi làm cả ngày về nhà còn phải dọn dẹp nấu cơm giặt đồ rồi mới được nghỉ ngơi một chút buổi tối
+NONE|Vì sao trời mưa?
+NONE|Màu nào đẹp hơn?
+NONE|Sao thế?
+NONE|Bạn làm nghề gì?
+NONE|Mấy giờ rồi?
+NONE|Bạn thích gì nhất?
+NONE|Đường nào gần hơn?
+NONE|Bạn học trường nào?
+NONE|Cô ấy là ai?
+NONE|Xe này giá bao nhiêu?
+NONE|Tôi không biết
+NONE|Bạn có mấy anh em?
+NONE|Bạn có bao nhiêu tiền?
+NONE|Nhà bạn có mấy phòng?
+NONE|Bạn sinh năm nào?

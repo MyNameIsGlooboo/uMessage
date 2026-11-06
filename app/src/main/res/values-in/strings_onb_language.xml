@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_lang_phone">Bahasa ponsel</string>
+    <string name="lang_picker_cd">Bahasa, %1$s</string>
+</resources>

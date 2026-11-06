@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i09_setting_title">Retirer la localisation des photos</string>
+    <string name="i09_setting_summary">Masque le lieu de prise de vue d\'une photo avant son envoi</string>
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="convlist_loading">Загрузка сообщений</string>
+    <string name="convlist_empty_title">Чатов пока нет</string>
+    <string name="convlist_empty_body">Здесь появятся отправленные и полученные сообщения.</string>
+    <string name="convlist_start_conversation">Начать чат</string>
+    <string name="convlist_new_conversation">Новый чат</string>
+    <string name="convlist_draft">Черновик</string>
+    <string name="convlist_pinned">Закреплен</string>
+    <string name="convlist_muted">Уведомления выключены</string>
+    <string name="convlist_unread">Непрочитанное</string>
+    <string name="convlist_unread_count">Непрочитанных: %1$d</string>
+    <string name="convlist_group">Групповой чат</string>
+    <string name="convlist_selected">Выбрано</string>
+    <string name="convlist_sim">SIM-карта %1$d</string>
+    <string name="convlist_scroll_handle">Быстрая прокрутка</string>
+    <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d заблокированное сообщение</item>
+        <item quantity="few">%d заблокированных сообщения</item>
+        <item quantity="many">%d заблокированных сообщений</item>
+        <item quantity="other">%d заблокированного сообщения</item>
+    </plurals>
+    <string name="convlist_blocked_banner_title">Заблокированные сообщения</string>
+    <string name="convlist_blocked_banner_cd">Заблокированных сообщений: %1$d. Откройте папку «Заблокированные».</string>
+    <string name="convlist_archive">В архив</string>
+    <string name="convlist_delete">Удалить</string>
+    <string name="convlist_pin">Закрепить вверху</string>
+    <string name="convlist_unpin">Открепить</string>
+    <string name="convlist_mark_read">Отметить как прочитанное</string>
+    <string name="convlist_mark_unread">Отметить как непрочитанное</string>
+    <string name="convlist_block_number">Заблокировать номер</string>
+    <string name="convlist_add_contact">Добавить номер в контакт</string>
+    <string name="convlist_copy_number">Копировать номер</string>
+    <string name="convlist_dial">Позвонить</string>
+    <string name="convlist_rename">Переименовать чат</string>
+    <string name="convlist_details">Сведения о чате</string>
+    <string name="convlist_select_all">Выбрать все</string>
+    <string name="convlist_more_options">Другие действия</string>
+    <string name="convlist_close_selection">Отменить выбор</string>
+    <plurals name="convlist_selected_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Выбран %d чат</item>
+        <item quantity="few">Выбраны %d чата</item>
+        <item quantity="many">Выбрано %d чатов</item>
+        <item quantity="other">Выбрано %d чата</item>
+    </plurals>
+    <string name="convlist_undo">Отменить</string>
+    <plurals name="convlist_deleted" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Удален %d чат</item>
+        <item quantity="few">Удалены %d чата</item>
+        <item quantity="many">Удалено %d чатов</item>
+        <item quantity="other">Удалено %d чата</item>
+    </plurals>
+    <plurals name="convlist_archived" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d чат в архиве</item>
+        <item quantity="few">%d чата в архиве</item>
+        <item quantity="many">%d чатов в архиве</item>
+        <item quantity="other">%d чата в архиве</item>
+    </plurals>
+    <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Отправитель заблокирован. Новые сообщения попадут в «Заблокированные сообщения»</item>
+        <item quantity="few">Заблокированы %d отправителя. Новые сообщения попадут в «Заблокированные сообщения»</item>
+        <item quantity="many">Заблокировано %d отправителей. Новые сообщения попадут в «Заблокированные сообщения»</item>
+        <item quantity="other">Заблокировано %d отправителя. Новые сообщения попадут в «Заблокированные сообщения»</item>
+    </plurals>
+    <string name="convlist_action_failed">Что-то пошло не так</string>
+    <string name="convlist_block_title">Заблокировать номер?</string>
+    <string name="convlist_block_message">Заблокировать %1$s? Новые сообщения с этого номера попадут в «Заблокированные сообщения» вместо входящих. Там их можно будет прочитать или восстановить.</string>
+    <string name="convlist_block_confirm">Заблокировать</string>
+    <string name="convlist_rename_title">Переименовать чат</string>
+    <string name="convlist_rename_hint">Название чата</string>
+    <string name="convlist_ok">ОК</string>
+    <string name="convlist_cancel">Отмена</string>
+</resources>

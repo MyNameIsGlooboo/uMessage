@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="i56_section">मीडिया और लिंक</string>
+    <string name="i56_see_all">सभी देखें</string>
+    <string name="i56_pictures">फ़ोटो</string>
+    <string name="i56_links">लिंक</string>
+    <string name="i56_empty_pictures">इस चैट में कोई फ़ोटो नहीं है.</string>
+    <string name="i56_empty_links">इस चैट में कोई लिंक नहीं है.</string>
+    <string name="i56_show_in_chat">चैट में दिखाएं</string>
+    <string name="i56_load_more">और दिखाएं</string>
+    <string name="i56_picture_description">फ़ोटो. खोलने के लिए टैप करें.</string>
+    <plurals name="i56_count_pictures" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d फ़ोटो</item>
+        <item quantity="other">%d फ़ोटो</item>
+    </plurals>
+    <plurals name="i56_count_links" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d लिंक</item>
+        <item quantity="other">%d लिंक</item>
+    </plurals>
+</resources>

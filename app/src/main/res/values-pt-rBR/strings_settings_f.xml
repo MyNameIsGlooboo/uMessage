@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_f_backup_row_body">Mensagens, regras e configurações em um arquivo</string>
+    <string name="settings_f_backup_rules_group">Regras e configurações</string>
+    <string name="settings_f_backup_rules_contents">O arquivo contém suas regras de permissão, bloqueio e encaminhamento e as configurações: proteção contra spam, notificações, datas, tamanho do texto, tema, tecla Enter e limites de encaminhamento. Nunca inclui o texto das mensagens nem o bloqueio do app. As regras de encaminhamento são restauradas desativadas.</string>
+    <string name="settings_f_backup_messages_contents">Texto e imagens das mensagens, em um arquivo separado.</string>
+    <string name="settings_f_restore_title">Restaure a partir deste arquivo?</string>
+    <string name="settings_f_restore_rules">Regras de permissão: %1$d · Regras de bloqueio: %2$d. As regras que você já tem são ignoradas.</string>
+    <string name="settings_f_restore_forwards">Regras de encaminhamento a adicionar: %1$d, desativadas. Ative-as em Regras › Encaminhamento.</string>
+    <string name="settings_f_restore_forwards_skipped">Regras de encaminhamento ignoradas: %1$d (já existem ou não há um número que possa receber as mensagens).</string>
+    <string name="settings_f_restore_settings_changed">Configurações que serão alteradas: %1$s</string>
+    <string name="settings_f_restore_settings_none">Nenhuma alteração nas configurações.</string>
+    <string name="settings_f_restore_action">Restaure</string>
+    <string name="settings_f_restore_done">Regras adicionadas: %1$d · Regras de encaminhamento adicionadas: %2$d. As regras de encaminhamento ficam desativadas até você ativá-las.</string>
+    <string name="settings_f_restore_done_rules">Regras adicionadas: %1$d.</string>
+    <string name="settings_f_restore_done_title">Restauração concluída</string>
+    <string name="settings_f_label_codes">Códigos de remetentes desconhecidos</string>
+    <string name="settings_f_list_separator">", "</string>
+    <string name="settings_f_group_display">Exibição</string>
+    <string name="settings_f_appearance">Aparência</string>
+    <string name="settings_f_language_system">Padrão do sistema</string>
+    <string name="settings_f_group_rules">Regras e listas</string>
+    <string name="settings_f_spam_more">Tempo de retenção e alertas</string>
+    <string name="settings_f_spam_more_body">Por quanto tempo as mensagens bloqueadas são mantidas e alertas</string>
+    <string name="settings_f_hide_lock_codes_body">Os códigos aparecem como •••• na tela de bloqueio</string>
+    <string name="settings_f_code_alert">Alerta de código</string>
+    <string name="settings_f_code_alert_body">Som para códigos de verificação</string>
+    <string name="settings_f_channel_codes">Códigos de verificação</string>
+    <string name="settings_f_channel_codes_desc">Mensagens que contêm um código de verificação</string>
+</resources>

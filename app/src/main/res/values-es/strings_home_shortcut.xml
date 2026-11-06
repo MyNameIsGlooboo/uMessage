@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">Agregar a la pantalla de inicio</string>
+    <string name="home_shortcut_requested">Se solicitó agregar el acceso directo a tu pantalla de inicio. Allí se mostrará el nombre. Si no aparece nada, permite los «Accesos directos en la pantalla de inicio» para uMessage en la configuración de aplicaciones de tu teléfono.</string>
+    <string name="home_shortcut_failed">Tu pantalla de inicio no aceptó el acceso directo. Permite los «Accesos directos en la pantalla de inicio» para uMessage en la configuración de aplicaciones de tu teléfono.</string>
+</resources>

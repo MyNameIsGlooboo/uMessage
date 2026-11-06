@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3_inbox_filter_show">Filter anzeigen</string>
+    <string name="r3_inbox_filter_hide">Filter ausblenden</string>
+    <string name="r3_inbox_filter_show_active">Filter anzeigen. Filter „%1$s“ ist aktiv</string>
+    <string name="r3_inbox_filter_hide_active">Filter ausblenden. Filter „%1$s“ ist aktiv</string>
+</resources>

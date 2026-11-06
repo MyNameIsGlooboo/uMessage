@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_channel">Sao lưu và khôi phục</string>
+    <string name="backup_restoring">Đang khôi phục tin nhắn</string>
+    <string name="backup_exporting">Đang sao lưu tin nhắn</string>
+    <plurals name="backup_progress_import">
+        <item quantity="other">Đã đọc %1$d mục</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="other">Đã đọc %1$d mục (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="other">Đã lưu %1$d tin nhắn</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="other">Đã lưu %1$d tin nhắn (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">Bạn có thể rời ứng dụng: quá trình vẫn tiếp tục và hiển thị tiến độ trong thông báo.</string>
+    <string name="backup_stop">Dừng</string>
+    <string name="backup_hide">Ẩn</string>
+    <string name="backup_already_running">Đang có quá trình sao lưu hoặc khôi phục.</string>
+    <string name="backup_restore_finished">Đã khôi phục xong</string>
+    <string name="backup_restore_stopped">Đã dừng khôi phục</string>
+    <string name="backup_restore_failed">Khôi phục thất bại</string>
+    <string name="backup_invalid_file">Tệp này không phải bản sao lưu tin nhắn nên không có gì được khôi phục.</string>
+    <string name="backup_no_entries">Tệp sao lưu không có tin nhắn.</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="other">Không có gì mới để nhập: cả %1$d tin nhắn đều đã có trên điện thoại này.</item>
+    </plurals>
+    <string name="backup_line_added">Đã thêm: %1$d</string>
+    <string name="backup_line_duplicates">Đã có trên điện thoại này, đã bỏ qua: %1$d</string>
+    <string name="backup_line_repaired">Tệp đính kèm còn thiếu đã thêm vào tin nhắn khôi phục trước đó: %1$d</string>
+    <string name="backup_line_incomplete">Tin nhắn hình ảnh được khôi phục nhưng thiếu một số tệp đính kèm: %1$d</string>
+    <string name="backup_line_failed">Không thể khôi phục: %1$d</string>
+    <string name="backup_line_damaged">Mục bị hỏng trong tệp, đã bỏ qua: %1$d</string>
+    <string name="backup_line_xml_mms">Tin nhắn hình ảnh trong bản sao lưu XML này không được hỗ trợ, đã bỏ qua: %1$d</string>
+    <string name="backup_line_not_selected">Không được chọn để nhập: %1$d</string>
+    <string name="backup_reasons">Lý do:</string>
+    <string name="backup_reason_no_address">tin nhắn không có người gửi hoặc người nhận</string>
+    <string name="backup_reason_no_thread">điện thoại không thể mở cuộc trò chuyện chứa tin nhắn</string>
+    <string name="backup_reason_refused">điện thoại từ chối lưu tin nhắn</string>
+    <string name="backup_reason_not_in_backup">tệp đính kèm không có trong tệp sao lưu</string>
+    <string name="backup_reason_damaged_attachment">tệp đính kèm trong tệp sao lưu bị hỏng</string>
+    <string name="backup_reason_attachment_write">không thể lưu tệp đính kèm</string>
+    <string name="backup_stopped_early">Tệp bị hỏng sau mục %1$d nên không thể đọc các mục phía sau.</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="other">Đã dừng sau %1$d mục. Chạy lại quá trình khôi phục với cùng tệp để hoàn tất: tin nhắn đã khôi phục sẽ được bỏ qua.</item>
+    </plurals>
+    <string name="backup_retry_hint">Chạy lại quá trình khôi phục để thử lại các mục bị lỗi: tin nhắn đã khôi phục sẽ được bỏ qua.</string>
+    <string name="backup_export_finished">Đã sao lưu xong</string>
+    <string name="backup_export_stopped">Đã dừng sao lưu</string>
+    <string name="backup_export_failed">Sao lưu thất bại</string>
+    <string name="backup_export_error">Không thể ghi bản sao lưu và tệp chưa hoàn chỉnh đã bị xóa. %1$s</string>
+    <string name="backup_export_cancelled">Đã dừng sao lưu và xóa tệp chưa hoàn chỉnh.</string>
+    <string name="backup_export_nothing">Không có tin nhắn để sao lưu.</string>
+    <string name="backup_export_counts">Đã lưu %1$d SMS và %2$d MMS.</string>
+    <string name="backup_export_unreadable_attachments">Tệp đính kèm không đọc được, đã lưu nhưng thiếu hình ảnh: %1$d</string>
+    <string name="backup_export_unreadable_messages">Tin nhắn không đọc được, đã bỏ qua: %1$d</string>
+    <string name="backup_export_unreadable_conversations">Cuộc trò chuyện không đọc được, đã bỏ qua: %1$d</string>
+    <string name="backup_export_incomplete">Bản sao lưu này chưa hoàn chỉnh.</string>
+    <string name="backup_interrupted_import">Lần khôi phục trước đã dừng khi chưa xong, có thể do điện thoại đã đóng ứng dụng. Chạy lại với cùng tệp: tin nhắn đã khôi phục sẽ được bỏ qua.</string>
+    <string name="backup_interrupted_export">Lần sao lưu trước đã dừng khi chưa xong nên tệp chưa hoàn chỉnh. Vui lòng tạo bản sao lưu mới.</string>
+</resources>

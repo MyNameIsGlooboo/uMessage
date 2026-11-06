@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="screens_back">Назад</string>
+    <string name="screens_ok">ОК</string>
+    <string name="screens_cancel">Скасувати</string>
+    <string name="screens_delete">Видалити</string>
+    <string name="screens_clear_selection">Скасувати вибір</string>
+    <plurals name="screens_selected_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Вибрано: %d</item>
+        <item quantity="few">Вибрано: %d</item>
+        <item quantity="many">Вибрано: %d</item>
+        <item quantity="other">Вибрано: %d</item>
+    </plurals>
+    <string name="screens_loading">Завантаження…</string>
+    <string name="screens_more_options">Інші дії</string>
+    <string name="screens_select_all">Вибрати все</string>
+    <string name="screens_copy">Копіювати</string>
+    <string name="screens_grant_permission">Дозволити доступ</string>
+    <string name="screens_delete_forever_title">Видалити назавжди?</string>
+    <string name="screens_delete_conversations_message">Видалити %1$s назавжди? Цю дію неможливо скасувати.</string>
+    <string name="screens_restore_title">Відновити?</string>
+    <string name="screens_empty_archive_title">Очистити архів?</string>
+    <string name="screens_empty_bin_title">Очистити кошик?</string>
+    <string name="screens_empty_action">Очистити</string>
+    <string name="screens_archive_empty_title">Нічого не заархівовано</string>
+    <string name="screens_bin_empty_title">Кошик порожній</string>
+    <string name="screens_bin_empty_body">Видалені повідомлення залишаються тут до очищення кошика.</string>
+    <string name="screens_new_to_hint">Кому</string>
+    <string name="screens_new_start">Почати чат із %1$s</string>
+    <string name="screens_new_clear_input">Очистити</string>
+    <string name="screens_new_no_matches">Контактів не знайдено. Натисніть стрілку, щоб надіслати повідомлення на введений номер.</string>
+    <string name="screens_new_contacts">Контакти</string>
+    <string name="screens_new_create_group">Створити групу</string>
+    <string name="screens_new_group_title">Нова група</string>
+    <string name="screens_new_group_next">Далі</string>
+    <string name="screens_new_group_add">Додати %1$s</string>
+    <string name="screens_new_group_remove">Вилучити %1$s</string>
+    <string name="screens_new_group_selected">Вибрано</string>
+    <string name="screens_details_edit_name">Змінити назву чату</string>
+    <string name="screens_keywords_add">Додати ключове слово</string>
+    <string name="screens_keywords_menu_export">Експорт</string>
+    <string name="screens_keywords_menu_import">Імпорт</string>
+    <string name="screens_keywords_edit">Редагувати</string>
+    <string name="screens_keywords_duplicate">Це ключове слово вже є в списку</string>
+    <string name="screens_keywords_help">Шукає текст у будь-якій частині повідомлення, навіть усередині довшого слова. Великі й малі літери не розрізняються.</string>
+    <string name="screens_keywords_empty_title">Немає заблокованих ключових слів</string>
+    <plurals name="screens_keywords_deleted" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Видалено %d ключове слово</item>
+        <item quantity="few">Видалено %d ключові слова</item>
+        <item quantity="many">Видалено %d ключових слів</item>
+        <item quantity="other">Видалено %d ключового слова</item>
+    </plurals>
+    <string name="screens_vcard_title">Контакт</string>
+    <string name="screens_vcard_add_contact">Додати до контактів</string>
+    <string name="screens_vcard_expand">Показати подробиці</string>
+    <string name="screens_vcard_collapse">Сховати подробиці</string>
+    <string name="screens_vcard_empty">У цьому файлі не знайдено контакту</string>
+    <string name="screens_dialog_filename">Назва файлу</string>
+    <string name="screens_schedule_date">Дата</string>
+    <string name="screens_schedule_time">Час</string>
+    <string name="screens_schedule_pick_time">Вибрати час</string>
+    <string name="screens_schedule_next">Далі</string>
+    <string name="screens_delete_skip_bin">Видалити одразу, оминаючи кошик</string>
+    <string name="screens_select_text_title">Виділити текст</string>
+</resources>

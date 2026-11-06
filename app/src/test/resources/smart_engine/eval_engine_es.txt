@@ -1,0 +1,86 @@
+# Invented incoming texts for the question engine. Format: EXPECTED|message. NONE means no chip may show.
+# Never add real messages.
+YES_NO|¿Estás en casa?
+YES_NO|¿Tienes hambre?
+YES_NO|¿Has recibido mi mensaje?
+YES_NO|¿Ya llegaste?
+YES_NO|¿Sabes si abren hoy?
+YES_NO|¿Estás despierta?
+YES_NO|Has comido ya
+YES_NO|¿Estás seguro?
+YES_NO|¿Hay clase hoy?
+YES_NO|¿Tienen mesa para tres?
+YES_NO|¿Vienes?
+YES_NO|¿Quieres que te llame?
+YES_NO|Mañana a las diez, ¿de acuerdo?
+YES_NO|¿Tienes tiempo ahora?
+INVITE|¿Te apetece ir al cine esta noche?
+INVITE|¿Quedamos mañana?
+INVITE|¿Estás libre el sábado?
+INVITE|¿Vienes a cenar con nosotros?
+INVITE|¿Te animas a salir a tomar algo?
+INVITE|Os apetece una barbacoa el domingo
+INVITE|¿Puedes venir a la fiesta?
+INVITE|¿Hacemos algo este fin de semana?
+WHEN|¿Cuándo quedamos?
+WHEN|¿A qué hora llegas?
+WHEN|¿Qué día te viene mejor?
+WHEN|¿Cuándo vuelves a casa?
+WHEN|¿Desde cuándo está abierto?
+WHEN|Cuando llegan los invitados?
+WHEN|¿Hasta cuándo lo necesitas?
+WHERE|¿Dónde estás?
+WHERE|¿Dónde nos vemos?
+WHERE|Donde andas?
+WHERE|¿Dónde quedamos esta vez?
+WHERE|¿Dónde estáis ahora?
+CHOICE:pizza,sushi|¿Pizza o sushi?
+CHOICE:cafe,te|¿Café o té?
+CHOICE:sabado,domingo|¿Sábado o domingo?
+CHOICE:tren,coche|¿Tren o coche?
+CHOICE:con,sin cebolla|¿Con o sin cebolla?
+CHOICE:playa,montana|¿Playa o montaña?
+CHOICE:cine,restaurante|¿Cine o restaurante?
+REQUEST|¿Puedes mandarme la dirección?
+REQUEST|¿Me puedes llamar luego?
+REQUEST|¿Podrías enviarme el presupuesto?
+REQUEST|Puedes traer pan
+REQUEST|¿Me avisas cuando salgas?
+REQUEST|¿Puedes confirmar el horario?
+REQUEST|Podrías pasarme las llaves
+NONE|¿Por qué no viniste?
+NONE|¿Cuánto cuesta?
+NONE|¿Quién ganó el partido?
+NONE|¿Cuál es tu dirección?
+NONE|¿Cómo va a salir esto?
+NONE|Estoy en casa.
+NONE|Llego en diez minutos
+NONE|Llegó ayer por la noche
+NONE|¿Puedes pasarme el código 482913?
+NONE|¿Puedes pagar 50 €?
+NONE|¿Has visto https://ejemplo.es/foto?
+NONE|¿Cuando quieras?
+NONE|¿Vienes? ¿Te quedas?
+NONE|¿Vienes? Lo dudo
+NONE|Gracias por ayer, fue genial
+NONE|¿Cuántos años tienes?
+NONE|¿Qué haces?
+NONE|¿Quién eres?
+NONE|¿De dónde eres?
+NONE|¿Adónde vas?
+NONE|¿De qué color es su coche?
+NONE|¿Cómo te llamas?
+NONE|¡Suerte para mañana!
+NONE|¿Cuál es más grande?
+NONE|¿Cuánto tiempo te quedas?
+NONE|¿Y por qué no?
+NONE|Quería saber si podrías venir pero no sé cómo pedírtelo con educación
+NONE|La película empieza a las ocho de la noche en el cine
+NONE|Aquí está lloviendo
+NONE|Te llamo mañana temprano
+NONE|No olvides tu paraguas
+NONE|¿Qué quiere decir eso?
+NONE|Hola, ¿qué tal?
+NONE|¿Cuántas personas vienen?
+NONE|O sea, no sé
+NONE|¿Qué tienes ganas de comer?

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2b2_thread_menu_allow">Zawsze zezwalaj temu nadawcy</string>
+    <string name="w2b2_thread_menu_why">Dlaczego podjęto tę decyzję?</string>
+    <string name="w2b2_thread_chip_allowed">Zawsze dozwolone</string>
+    <string name="w2b2_thread_chip_blocked">Zablokowane przez regułę</string>
+    <string name="w2b2_settings_group_dates">Daty</string>
+    <string name="w2b2_settings_jalali">Daty w kalendarzu perskim</string>
+    <string name="w2b2_settings_jalali_body">Pokazuj daty w rozmowach i zaplanowanych wiadomościach według kalendarza perskiego</string>
+    <string name="w2b2_lock_pattern_hint">Połącz co najmniej %d kropki, a następnie ponownie narysuj ten sam wzór, aby potwierdzić.</string>
+    <string name="w2b2_lock_recovery_hint">Jeśli zapomnisz wzoru, na ekranie blokady możesz użyć blokady ekranu telefonu, aby odzyskać dostęp.</string>
+</resources>

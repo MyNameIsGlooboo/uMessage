@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">Очистить архив</string>
+    <string name="inbox_empty_bin_menu">Очистить корзину</string>
+    <string name="inbox_archive_empty_body">Здесь появятся чаты, которые вы отправите в архив из раздела «Сообщения».</string>
+    <string name="inbox_details_view_contact">Посмотреть контакт</string>
+    <string name="inbox_details_more">Еще</string>
+    <string name="inbox_details_search">Поиск в чате</string>
+    <string name="inbox_details_search_body">Найти сообщение в этом чате</string>
+    <string name="inbox_details_forward">Правило пересылки для отправителя</string>
+    <string name="inbox_details_forward_body">Отправлять копии сообщений этого отправителя на другой номер</string>
+    <string name="inbox_details_search_hint">Поиск в этом чате</string>
+</resources>

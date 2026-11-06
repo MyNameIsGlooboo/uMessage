@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">Đọc to</string>
+    <string name="read_aloud_stop">Dừng đọc</string>
+    <string name="read_aloud_no_voice">Điện thoại này chưa cài giọng đọc %1$s</string>
+    <string name="read_aloud_install">Tải giọng đọc</string>
+    <string name="read_aloud_install_missing">Điện thoại này không hỗ trợ cài giọng đọc</string>
+    <string name="read_aloud_failed">Không thể đọc to tin nhắn</string>
+</resources>

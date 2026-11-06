@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unotify_title">مرسلون غير معروفين في الرسائل الواردة</string>
+    <string name="unotify_notify">فعّل الإشعارات</string>
+    <string name="unotify_silent">فعّل الإشعارات الصامتة</string>
+    <string name="unotify_none">بلا إشعار</string>
+    <string name="unotify_summary">تستمر الرسائل بالوصول إلى الرسائل الواردة</string>
+    <string name="unotify_channel_silent">مرسلون غير معروفين (صامت)</string>
+</resources>

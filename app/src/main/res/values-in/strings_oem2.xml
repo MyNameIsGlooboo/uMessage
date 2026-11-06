@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem2_vivo">Vivo atau iQOO</string>
+    <string name="oem2_step_vivo">Izinkan mulai otomatis dan penggunaan di latar belakang</string>
+    <string name="oem2_step_vivo_desc">Aktifkan Mulai otomatis untuk uMessage, lalu izinkan penggunaan daya tinggi di latar belakang pada setelan Baterai aplikasi.</string>
+    <string name="oem2_xiaomi_autostart_desc">Aktifkan Mulai otomatis untuk uMessage agar berjalan setelah ponsel dimulai ulang. Jika halaman info aplikasi terbuka, gunakan tombol Mulai otomatis di sana.</string>
+    <string name="oem2_xiaomi_battery_desc">Pilih Tanpa batasan untuk uMessage. Jika daftar aplikasi terbuka, ketuk uMessage terlebih dahulu.</string>
+    <string name="oem2_oppo_desc">Aktifkan Izinkan peluncuran otomatis dan Izinkan aktivitas latar belakang untuk uMessage. Pada ponsel yang lebih baru, keduanya ada di Info aplikasi, Penggunaan baterai.</string>
+    <string name="oem2_ignore_battery_desc">Pilih Tidak dibatasi atau Jangan optimalkan untuk uMessage. Jika daftar terbuka, ubah ke Semua aplikasi terlebih dahulu.</string>
+    <string name="oem2_state_done">Selesai</string>
+    <string name="oem2_state_marked">Ditandai selesai oleh Anda</string>
+    <string name="oem2_state_todo">Belum selesai</string>
+    <string name="oem2_state_limited">Android masih membatasi uMessage di latar belakang</string>
+    <string name="oem2_open_again">Buka lagi</string>
+    <string name="oem2_undo">Urungkan</string>
+    <string name="oem2_undo_cd">Tandai %1$s belum selesai</string>
+</resources>

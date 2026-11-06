@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App lock screen -->
+    <string name="lock_title">uMessage is locked</string>
+    <string name="lock_enter_pin">Enter your PIN</string>
+    <string name="lock_draw_pattern">Draw your pattern</string>
+    <string name="lock_use_biometrics">Confirm it\'s you to open uMessage</string>
+    <string name="lock_wrong_pin">Wrong PIN, try again</string>
+    <string name="lock_wrong_pattern">Wrong pattern, try again</string>
+    <string name="lock_too_many">Too many wrong attempts</string>
+    <!-- %s is the remaining time, e.g. 04:59 -->
+    <string name="lock_try_again_in">Try again in %s</string>
+    <string name="lock_key_delete">Delete</string>
+    <string name="lock_key_confirm">Confirm</string>
+    <plurals name="lock_digits_entered">
+        <item quantity="one">%d digit entered</item>
+        <item quantity="other">%d digits entered</item>
+    </plurals>
+    <string name="lock_no_digits">No digits entered</string>
+    <string name="lock_pattern_pad">Pattern pad, 3 by 3 dots</string>
+    <!-- One dot of the pattern pad for screen readers. %1$d row, %2$d column, both 1 to 3 -->
+    <string name="lock_pattern_dot">Dot in row %1$d, column %2$d</string>
+    <!-- %1$d row, %2$d column, %3$d its place in the pattern -->
+    <string name="lock_pattern_dot_selected">Dot in row %1$d, column %2$d, number %3$d in the pattern</string>
+    <string name="lock_pattern_done">Done</string>
+    <string name="lock_pattern_clear">Clear</string>
+    <plurals name="lock_pattern_dots_selected">
+        <item quantity="one">%d dot chosen</item>
+        <item quantity="other">%d dots chosen</item>
+    </plurals>
+
+    <!-- Biometric lock fallbacks -->
+    <string name="lock_use_pin_instead">Use PIN instead</string>
+    <string name="lock_use_biometrics_instead">Use biometrics instead</string>
+    <string name="lock_use_screen_lock">Use phone screen lock instead</string>
+    <string name="lock_biometrics_unavailable">Biometrics are not available. Enter your PIN.</string>
+    <string name="lock_screen_lock_title">Open uMessage</string>
+    <string name="lock_screen_lock_description">Confirm your phone screen lock to open uMessage</string>
+    <string name="lock_no_way_to_check">This phone no longer has fingerprints or a screen lock, so uMessage cannot check it\'s you. Open it and set a PIN in Settings.</string>
+    <string name="lock_open_anyway">Open uMessage</string>
+    <string name="lock_forgot">Forgot it? Use your phone\'s screen lock</string>
+    <plurals name="lock_tries_left">
+        <item quantity="one">%d more try before you have to wait</item>
+        <item quantity="other">%d more tries before you have to wait</item>
+    </plurals>
+
+    <!-- Shown after the app lock is set up -->
+    <string name="lock_setup_done">App lock is on. If you forget your PIN or pattern, tap \"Forgot it?\" on the lock screen and use your phone\'s screen lock instead.</string>
+    <string name="lock_setup_done_biometric">App lock is on. If biometrics stop working, use your backup PIN. If you forget that too, tap \"Forgot it?\" and use your phone\'s screen lock.</string>
+    <string name="lock_setup_done_no_screen_lock">App lock is on. Your phone has no screen lock, so if you forget your PIN or pattern there is no other way in: you would have to clear uMessage\'s data in the phone\'s app settings, which deletes its settings, spam lists and spam history (your text messages stay on the phone). Add a screen lock to your phone to have a way back in.</string>
+
+    <!-- App lock options in Settings -->
+    <string name="settings_app_lock_timeout">Lock after leaving the app</string>
+    <string name="settings_app_lock_timeout_immediately">Immediately</string>
+    <string name="settings_app_lock_timeout_30s">After 30 seconds</string>
+    <string name="settings_app_lock_timeout_1m">After 1 minute</string>
+    <string name="settings_app_lock_timeout_5m">After 5 minutes</string>
+    <string name="settings_app_lock_screenshots">Block screenshots</string>
+    <string name="settings_app_lock_screenshots_body">Stops screenshots and screen recording. Messages are always hidden in recent apps.</string>
+    <string name="settings_app_lock_screenshots_body_old">Stops screenshots and screen recording. On this version of Android it is also the only way to hide messages in recent apps.</string>
+    <string name="settings_app_lock_change">Change PIN, pattern or biometrics</string>
+    <string name="settings_app_lock_weak">Your PIN or pattern is easy to guess</string>
+    <string name="settings_app_lock_weak_body">PIN too weak. Tap to change</string>
+    <string name="settings_app_lock_add_pin">Add a backup PIN</string>
+    <string name="settings_app_lock_add_pin_body">Add a PIN as a backup</string>
+    <string name="settings_app_lock_now">Lock now</string>
+    <string name="settings_app_lock_now_body">Locks uMessage right away</string>
+    <string name="settings_app_lock_changed">App lock changed</string>
+
+    <!-- Setting up biometrics in the lock dialog -->
+    <string name="dialogs_lock_backup_pin">First set a backup PIN. You will use it if biometrics stop working.</string>
+</resources>

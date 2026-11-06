@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">Tam zamanında gönderilsin mi?</string>
+    <string name="schedule_exact_alarm_text">Planlanan mesajların tam zamanında gönderilmesi için sistem ayarlarında uMessage için \"Alarmlar ve hatırlatıcılar\" iznini verin. İzin olmadan da gönderilir, ancak gecikebilir.</string>
+    <string name="schedule_exact_alarm_open_settings">Ayarları açın</string>
+    <string name="schedule_exact_alarm_anyway">Yine de gönderimi planlayın</string>
+</resources>

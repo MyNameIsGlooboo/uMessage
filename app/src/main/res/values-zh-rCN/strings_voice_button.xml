@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i40_record_voice">语音输入</string>
+    <string name="i40_setting_title">语音输入</string>
+    <string name="i40_setting_summary">说话即可输入文字</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">ข้อความที่บันทึกไว้</string>
+    <string name="n06_sheet_title">ข้อความที่บันทึกไว้</string>
+    <string name="n06_empty_hint">เช่น ที่อยู่หรือหมายเลขบัตร แตะรายการเพื่อใส่ในข้อความ</string>
+    <string name="n06_add">เพิ่มข้อความที่บันทึกไว้</string>
+    <string name="n06_edit">แก้ไขข้อความที่บันทึกไว้</string>
+    <string name="n06_title_label">ชื่อ (ไม่บังคับ)</string>
+    <string name="n06_text_label">ข้อความ</string>
+    <string name="n06_save">บันทึก</string>
+    <string name="n06_delete">ลบ</string>
+    <string name="n06_private_tip">เก็บไว้เฉพาะในโทรศัพท์นี้โดยไม่เข้ารหัส อย่าบันทึกรหัสผ่านหรือ PIN</string>
+    <string name="n06_save_from_message">เก็บเป็นข้อความที่บันทึกไว้</string>
+    <string name="n06_saved_toast">บันทึกแล้ว</string>
+    <string name="n06_save_full">รายการเต็มแล้ว ลบออกหนึ่งรายการก่อน</string>
+    <string name="n06_save_duplicate">บันทึกไว้แล้ว</string>
+</resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_title">uMessage kilitli</string>
+    <string name="lock_enter_pin">PIN\'inizi girin</string>
+    <string name="lock_draw_pattern">Deseninizi çizin</string>
+    <string name="lock_use_biometrics">uMessage\'ı açmak için kimliğinizi doğrulayın</string>
+    <string name="lock_wrong_pin">Yanlış PIN, tekrar deneyin</string>
+    <string name="lock_wrong_pattern">Yanlış desen, tekrar deneyin</string>
+    <string name="lock_too_many">Çok fazla hatalı deneme</string>
+    <string name="lock_try_again_in">%s sonra tekrar deneyin</string>
+    <string name="lock_key_delete">Silin</string>
+    <string name="lock_key_confirm">Onaylayın</string>
+    <plurals name="lock_digits_entered">
+        <item quantity="one">%d rakam girildi</item>
+        <item quantity="other">%d rakam girildi</item>
+    </plurals>
+    <string name="lock_no_digits">Rakam girilmedi</string>
+    <string name="lock_pattern_pad">Desen alanı, 3 satır ve 3 sütun nokta</string>
+    <string name="lock_pattern_dot">Nokta, satır %1$d, sütun %2$d</string>
+    <string name="lock_pattern_dot_selected">Nokta, satır %1$d, sütun %2$d, desendeki sırası %3$d</string>
+    <string name="lock_pattern_done">Bitti</string>
+    <string name="lock_pattern_clear">Temizleyin</string>
+    <plurals name="lock_pattern_dots_selected">
+        <item quantity="one">%d nokta seçildi</item>
+        <item quantity="other">%d nokta seçildi</item>
+    </plurals>
+    <string name="lock_use_pin_instead">Bunun yerine PIN kullanın</string>
+    <string name="lock_use_biometrics_instead">Bunun yerine biyometri kullanın</string>
+    <string name="lock_use_screen_lock">Bunun yerine telefonun ekran kilidini kullanın</string>
+    <string name="lock_biometrics_unavailable">Biyometri kullanılamıyor. PIN\'inizi girin.</string>
+    <string name="lock_screen_lock_title">uMessage\'ı açın</string>
+    <string name="lock_screen_lock_description">uMessage\'ı açmak için telefonunuzun ekran kilidiyle doğrulayın</string>
+    <string name="lock_no_way_to_check">Bu telefonda artık parmak izi veya ekran kilidi olmadığı için uMessage kimliğinizi doğrulayamıyor. Uygulamayı açıp Ayarlar\'dan bir PIN belirleyin.</string>
+    <string name="lock_open_anyway">uMessage\'ı açın</string>
+    <string name="lock_forgot">Unuttunuz mu? Telefonunuzun ekran kilidini kullanın</string>
+    <plurals name="lock_tries_left">
+        <item quantity="one">Beklemeniz gerekmeden önce %d deneme hakkınız kaldı</item>
+        <item quantity="other">Beklemeniz gerekmeden önce %d deneme hakkınız kaldı</item>
+    </plurals>
+    <string name="lock_setup_done">Uygulama kilidi açık. PIN\'inizi veya deseninizi unutursanız kilit ekranında “Unuttunuz mu?” seçeneğine dokunun ve telefonunuzun ekran kilidini kullanın.</string>
+    <string name="lock_setup_done_biometric">Uygulama kilidi açık. Biyometri çalışmazsa yedek PIN\'inizi kullanın. Onu da unutursanız “Unuttunuz mu?” seçeneğine dokunun ve telefonunuzun ekran kilidini kullanın.</string>
+    <string name="lock_setup_done_no_screen_lock">Uygulama kilidi açık. Telefonunuzda ekran kilidi yok. Bu nedenle PIN\'inizi veya deseninizi unutursanız uygulamayı açmanın başka yolu kalmaz: telefonunuzun uygulama ayarlarından uMessage verilerini temizlemeniz gerekir. Bu işlem uygulamanın ayarlarını, spam listelerini ve spam geçmişini siler (mesajlarınız telefonda kalır). Erişimi yeniden sağlayabilmek için telefonunuza ekran kilidi ekleyin.</string>
+    <string name="settings_app_lock_timeout">Uygulamadan çıktıktan sonra kilitleyin</string>
+    <string name="settings_app_lock_timeout_immediately">Hemen</string>
+    <string name="settings_app_lock_timeout_30s">30 saniye sonra</string>
+    <string name="settings_app_lock_timeout_1m">1 dakika sonra</string>
+    <string name="settings_app_lock_timeout_5m">5 dakika sonra</string>
+    <string name="settings_app_lock_screenshots">Ekran görüntülerini engelleyin</string>
+    <string name="settings_app_lock_screenshots_body">Ekran görüntüsü almayı ve ekran kaydını engeller. Mesajlar son uygulamalar ekranında her zaman gizlenir.</string>
+    <string name="settings_app_lock_screenshots_body_old">Ekran görüntüsü almayı ve ekran kaydını engeller. Bu Android sürümünde mesajları son uygulamalar ekranında gizlemenin de tek yoludur.</string>
+    <string name="settings_app_lock_change">PIN, desen veya biyometriyi değiştirin</string>
+    <string name="settings_app_lock_weak">PIN\'iniz veya deseniniz kolay tahmin edilebilir</string>
+    <string name="settings_app_lock_weak_body">PIN çok zayıf. Değiştirmek için dokunun</string>
+    <string name="settings_app_lock_add_pin">Yedek PIN ekleyin</string>
+    <string name="settings_app_lock_add_pin_body">Yedek olarak bir PIN ekleyin</string>
+    <string name="settings_app_lock_now">Şimdi kilitleyin</string>
+    <string name="settings_app_lock_now_body">uMessage\'ı hemen kilitler</string>
+    <string name="settings_app_lock_changed">Uygulama kilidi değiştirildi</string>
+    <string name="dialogs_lock_backup_pin">Önce bir yedek PIN belirleyin. Biyometri çalışmazsa bu PIN\'i kullanacaksınız.</string>
+</resources>

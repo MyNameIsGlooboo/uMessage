@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">Báo cáo tin nhắn rác</string>
+    <string name="carrier_report_row_title">Số báo cáo tin nhắn rác của nhà mạng</string>
+    <string name="carrier_report_row_summary">Báo cáo tin nhắn rác cho nhà mạng qua SMS</string>
+    <string name="carrier_report_not_set">Chưa đặt</string>
+    <string name="carrier_report_hint">Số tiếp nhận báo cáo tin nhắn rác của nhà mạng. Báo cáo được gửi qua SMS và có thể mất phí.</string>
+    <string name="carrier_report_invalid">Dùng từ 3 đến 8 chữ số</string>
+    <string name="carrier_report_action">Báo cáo cho nhà mạng</string>
+    <string name="carrier_report_title">Báo cáo cho nhà mạng của bạn?</string>
+    <string name="carrier_report_body">Tin nhắn mới nhất từ người gửi này sẽ được gửi đến %1$s qua SMS. Nhà mạng có thể tính phí.</string>
+    <string name="carrier_report_send">Gửi</string>
+    <string name="carrier_report_sent">Đã gửi báo cáo cho nhà mạng của bạn</string>
+    <string name="carrier_report_failed">Không thể gửi báo cáo</string>
+</resources>

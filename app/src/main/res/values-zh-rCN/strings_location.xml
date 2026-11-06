@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">位置</string>
+    <string name="i52_permission_explanation">uMessage仅在此时获取一次位置，用于在消息中插入地图链接，不会保存任何信息。你可以选择大致位置。</string>
+    <string name="i52_finding">正在获取位置…</string>
+    <string name="i52_denied">未允许获取位置。消息保持不变。</string>
+    <string name="i52_no_fix">无法获取位置。请到窗边或室外重试。</string>
+    <string name="i52_off_message">手机未开启定位。开启后即可分享你的位置。</string>
+    <string name="i52_open_settings">打开设置</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">Avvisi, schermata di blocco, riepilogo settimanale</string>
+    <string name="ux8e_nav_typing">Scrittura e invio</string>
+    <string name="ux8e_nav_typing_body">Tasto Invio, rapporti di consegna, firma</string>
+    <string name="ux8e_nav_storage">Memoria e pulizia</string>
+    <string name="ux8e_nav_storage_body">Cestino, archivio, eliminazione automatica</string>
+    <string name="ux8e_group_lock_screen">Schermata di blocco</string>
+    <string name="ux8e_group_recycle">Messaggi eliminati</string>
+    <string name="ux8e_group_cleanup">Pulizia automatica</string>
+    <string name="ux8e_group_archive">Archivio</string>
+    <string name="ux8e_keep_deleted">Conserva i messaggi eliminati</string>
+    <string name="ux8e_keep_deleted_body">Restano nel cestino per 30 giorni</string>
+    <string name="ux8e_recycle_bin">Cestino</string>
+    <string name="ux8e_backup_row">Crea backup</string>
+    <string name="ux8e_backup_row_body">Salva in un file</string>
+    <string name="ux8e_restore_row">Ripristina</string>
+    <string name="ux8e_restore_row_body">Carica da un file</string>
+    <string name="ux8e_backup_what">Di cosa vuoi fare il backup?</string>
+    <string name="ux8e_restore_what">Cosa vuoi ripristinare?</string>
+    <string name="ux8e_what_messages">Messaggi</string>
+    <string name="ux8e_what_settings">Regole e impostazioni</string>
+    <string name="ux8e_backup_warning">I file di backup non sono crittografati.</string>
+    <string name="ux8e_calendar">Calendario</string>
+</resources>

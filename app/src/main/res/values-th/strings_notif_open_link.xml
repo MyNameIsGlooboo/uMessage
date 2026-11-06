@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_open_link_action">เปิดลิงก์</string>
+    <string name="notif_open_link_title">ปุ่มเปิดลิงก์</string>
+    <string name="notif_open_link_summary">ในการแจ้งเตือนจากรายชื่อติดต่อและผู้ส่งที่อนุญาตแล้ว</string>
+</resources>

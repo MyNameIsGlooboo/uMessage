@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Design review 2, group E: Blocked tab and Rules. -->
+
+    <!-- Blocked tab: day headers (BR-17). -->
+    <string name="e_day_today">Today</string>
+    <string name="e_day_yesterday">Yesterday</string>
+
+    <!-- Blocked banner and the restored list (BR-10). -->
+    <plurals name="e_blocked_stats_total">
+        <item quantity="one">%d stopped in total</item>
+        <item quantity="other">%d stopped in total</item>
+    </plurals>
+    <string name="e_restored_title">Restored recently</string>
+    <string name="e_restored_body">Messages you moved to the inbox in the last 30 days. Tap one to open the conversation.</string>
+    <string name="e_restored_empty">Messages you move to the inbox from now on are listed here for 30 days.</string>
+    <string name="e_restored_when">Moved to the inbox %1$s</string>
+    <string name="e_restored_open">Open the conversation with %1$s</string>
+
+    <!-- After Not spam with Always allow (BR-49). -->
+    <string name="e_snack_allowed_one">%1$s is now always allowed, on both SIMs</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="one">%d sender is now always allowed, on both SIMs</item>
+        <item quantity="other">%d senders are now always allowed, on both SIMs</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$s is now always allowed</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="one">%d sender is now always allowed</item>
+        <item quantity="other">%d senders are now always allowed</item>
+    </plurals>
+    <string name="e_view_rule">View rule</string>
+
+    <!-- Rules screen (BR-13). -->
+    <string name="e_rules_title">Rules</string>
+    <string name="e_rules_menu_backup">Back up rules</string>
+
+    <!-- Notes the app writes on rules, shown in the app's language (bug 4). -->
+    <string name="e_note_blocked_by_you">Blocked by you</string>
+    <string name="e_note_allowed_by_you">Allowed by you</string>
+    <string name="e_note_blocked_from_message">Blocked from a message</string>
+    <string name="e_note_blocked_from_keyword">Blocked from a keyword</string>
+    <string name="e_note_reported_spam">Reported as spam</string>
+    <string name="e_note_old_word_list">From the old blocked words list</string>
+    <string name="e_note_system_list">From the Android block list</string>
+    <string name="e_note_quoted">“%1$s”</string>
+
+    <!-- Empty Rules tabs: concrete starters (ID-53). -->
+    <string name="e_example_block_cancel_word">Block messages containing لغو۱۱</string>
+    <string name="e_example_block_ad_prefix">Block ad numbers starting with 3000</string>
+    <string name="e_example_allow_number">Always allow a number, like your post office</string>
+
+    <!-- Rule editor: the forward editor's words (BR-44). -->
+    <string name="e_sheet_sender_label">Sender</string>
+    <string name="e_sheet_text_label">Message text</string>
+    <string name="e_value_number">Phone number</string>
+    <string name="e_value_prefix">Number starts with</string>
+    <string name="e_value_sender">Sender name</string>
+    <string name="e_value_keyword">Text to look for</string>
+    <string name="e_value_pattern">Pattern</string>
+
+    <!-- Pattern building blocks (ID-41). -->
+    <string name="e_pattern_blocks_label">Start from</string>
+    <string name="e_pattern_link">Contains a link</string>
+    <string name="e_pattern_long_number">Number of 5+ digits</string>
+    <string name="e_pattern_starts_with">Starts with</string>
+    <string name="e_pattern_any_of">Contains any of</string>
+    <string name="e_pattern_link_sentence">Matches messages with a link.</string>
+    <string name="e_pattern_long_number_sentence">Matches messages with a number of 5 digits or more.</string>
+    <string name="e_pattern_starts_with_sentence">Matches messages that start with the text you type after ^.</string>
+    <string name="e_pattern_any_of_sentence">Matches messages with any of the words in brackets. Separate them with |.</string>
+
+    <!-- Moving numbers from the Android block list (SE-34). -->
+    <plurals name="e_migrate_title_numbers">
+        <item quantity="one">Move %d number to uMessage rules</item>
+        <item quantity="other">Move %d numbers to uMessage rules</item>
+    </plurals>
+    <string name="e_migrate_point_blocked">• Their texts will go to Blocked, where you can read and restore them.</string>
+    <string name="e_migrate_point_android">• Android still throws their texts away until they leave its list.</string>
+    <string name="e_migrate_calls_note">Android\'s list also blocks calls. Numbers you remove from it can call you again.</string>
+
+    <!-- Android block list screen (SE-28, SE-30, SE-31, BR-28, bug 15). -->
+    <string name="e_bn_unknown_body">Applies only while Unknown senders is Off.</string>
+    <string name="e_bn_row_calls_texts">Blocks calls and texts</string>
+    <string name="e_bn_row_short_code">Short code: uMessage never sees its texts</string>
+    <string name="e_bn_move_one">Move to uMessage rules</string>
+    <string name="e_bn_moved">%1$s is now a uMessage rule. Its texts go to Blocked, and its calls are no longer blocked.</string>
+    <string name="e_bn_field_help">For example +15550001234, or +1555* for every number that starts with +1555</string>
+    <string name="e_bn_short_code_warning">This looks like a short code. Android throws its texts away before uMessage sees them, so you could never restore one, such as a code or a bank notice.</string>
+    <string name="e_bn_add_as_rule">Add as a uMessage rule instead</string>
+    <string name="e_bn_added_as_rule">%1$s added as a uMessage rule. Its texts go to Blocked.</string>
+</resources>

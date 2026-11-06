@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="share_text_menu">Partager la conversation au format texte</string>
+    <string name="share_text_scope_title">Quels messages ?</string>
+    <string name="share_text_scope_whole">Toute la conversation</string>
+    <string name="share_text_scope_last">Les 50 derniers messages</string>
+    <string name="share_text_title">Partager au format texte</string>
+    <string name="share_text_warning">Le texte privé sera envoyé à une autre application. Vous choisirez l\'application à l\'étape suivante.</string>
+    <string name="share_text_action">Partager</string>
+    <string name="share_text_range">De %1$s à %2$s</string>
+    <string name="share_text_attachment">[Pièce jointe]</string>
+    <string name="share_text_subject">Messages de uMessage</string>
+    <string name="share_text_nothing">Aucun message à partager</string>
+    <plurals name="share_text_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d message</item>
+        <item quantity="other">%1$d messages</item>
+    </plurals>
+</resources>

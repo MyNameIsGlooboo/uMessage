@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_allow_title">
+        <item quantity="one">¿Permitir siempre a este remitente?</item>
+        <item quantity="other">¿Permitir siempre a estos %d remitentes?</item>
+    </plurals>
+    <string name="spam_allow_body_one">El mensaje volverá a tu bandeja de entrada en cualquier caso. Si permites siempre a %1$s, sus próximos mensajes omitirán todos los filtros, incluidas tus reglas de bloqueo.</string>
+    <string name="spam_allow_body_many">Los mensajes volverán a tu bandeja de entrada en cualquier caso. Si permites siempre a estos remitentes, sus próximos mensajes omitirán todos los filtros, incluidas tus reglas de bloqueo.</string>
+    <string name="spam_allow_spoof_warning">Cualquiera puede enviar un mensaje de texto con un nombre como %1$s. Permitirlo también dejará pasar mensajes falsos que usen ese nombre.</string>
+    <string name="spam_allow_confirm">Permitir siempre</string>
+    <string name="spam_allow_dismiss">Ahora no</string>
+    <plurals name="spam_snack_restored_to_inbox">
+        <item quantity="one">%d mensaje restaurado en la bandeja de entrada</item>
+        <item quantity="other">%d mensajes restaurados en la bandeja de entrada</item>
+    </plurals>
+    <plurals name="spam_snack_restored_allowed">
+        <item quantity="one">Restaurado. Ahora se permite siempre a %d remitente.</item>
+        <item quantity="other">Restaurados. Ahora se permite siempre a %d remitentes.</item>
+    </plurals>
+    <plurals name="spam_snack_allowed_only">
+        <item quantity="one">Ahora se permite siempre a %d remitente.</item>
+        <item quantity="other">Ahora se permite siempre a %d remitentes.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost">
+        <item quantity="one">No se pudo recuperar la imagen de %d mensaje.</item>
+        <item quantity="other">No se pudieron recuperar las imágenes de %d mensajes.</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost_nothing">
+        <item quantity="one">No se pudo recuperar el mensaje con imagen, así que no se agregó nada a la bandeja de entrada.</item>
+        <item quantity="other">No se pudieron recuperar %d mensajes con imagen, así que no se agregó nada a la bandeja de entrada.</item>
+    </plurals>
+    <plurals name="spam_snack_restore_failed">
+        <item quantity="one">No se pudo restaurar %d mensaje con imagen. Sigue aquí.</item>
+        <item quantity="other">No se pudieron restaurar %d mensajes con imagen. Siguen aquí.</item>
+    </plurals>
+    <string name="spam_mms_stored">Mensaje con imagen</string>
+    <string name="spam_mms_downloading">Mensaje con imagen, descargando</string>
+    <string name="spam_mms_missing">Mensaje con imagen, sin descargar</string>
+    <string name="spam_mms_thumbnail">Imagen del mensaje bloqueado</string>
+    <string name="spam_reason_rule_keyword">Regla: palabra clave «%1$s»</string>
+    <string name="spam_reason_rule_regex">Regla: patrón (expresión regular) %1$s</string>
+    <string name="spam_reason_rule_number">Regla: número %1$s</string>
+    <string name="spam_reason_rule_prefix">Regla: números que empiezan con %1$s</string>
+    <string name="spam_reason_rule_sender">Regla: remitente %1$s</string>
+    <string name="spam_reason_rule_removed">Regla eliminada posteriormente</string>
+    <string name="spam_reason_open_rules">Abrir reglas</string>
+    <plurals name="spam_purge_notice">
+        <item quantity="one">Los mensajes bloqueados se eliminan después de %d día</item>
+        <item quantity="other">Los mensajes bloqueados se eliminan después de %d días</item>
+    </plurals>
+    <string name="spam_purge_notice_off">Los mensajes bloqueados se conservan hasta que los elimines</string>
+    <plurals name="spam_purge_left">
+        <item quantity="one">Se elimina en %d día</item>
+        <item quantity="other">Se elimina en %d días</item>
+    </plurals>
+    <string name="spam_purge_left_today">Se elimina hoy</string>
+    <string name="convlist_report_spam">Denunciar spam</string>
+    <plurals name="convlist_reported_spam_archived">
+        <item quantity="one">Denuncia enviada. Los nuevos mensajes de este remitente irán a Bloqueados y el chat se archivó.</item>
+        <item quantity="other">%d chats denunciados. Los nuevos mensajes de sus remitentes irán a Bloqueados y los chats se archivaron.</item>
+    </plurals>
+    <plurals name="convlist_reported_spam">
+        <item quantity="one">Denuncia enviada. Los nuevos mensajes de este remitente irán a Bloqueados.</item>
+        <item quantity="other">%d chats denunciados. Los nuevos mensajes de sus remitentes irán a Bloqueados.</item>
+    </plurals>
+    <string name="blocked_title">Bloqueados</string>
+    <string name="blocked_menu_rules">Reglas</string>
+    <string name="blocked_mode_group_cd">Remitentes desconocidos: %1$s, %2$d de %3$d</string>
+    <string name="blocked_mode_desc_strict">Estricto: retiene a todos los remitentes desconocidos, incluidos los códigos de verificación</string>
+    <string name="blocked_mode_desc_smart">Inteligente: retiene a los remitentes desconocidos, pero permite los códigos sin enlaces</string>
+    <string name="blocked_mode_desc_off">Desactivado: los remitentes desconocidos llegan a tu bandeja de entrada. Tus reglas siguen vigentes</string>
+    <string name="blocked_snack_mode">Remitentes desconocidos: %1$s</string>
+    <string name="blocked_off_title">¿Dejar de retener a los remitentes desconocidos?</string>
+    <string name="blocked_off_body">Los mensajes de remitentes desconocidos irán directamente a tu bandeja de entrada. Tus reglas siguen vigentes.</string>
+    <string name="blocked_off_confirm">Desactivar</string>
+    <string name="blocked_stats_restored">%1$d restaurados por ti</string>
+    <string name="blocked_reason_unknown_link">Remitente desconocido, con un enlace</string>
+    <string name="blocked_may_be_important">Puede ser importante</string>
+    <string name="blocked_action_move_inbox">Mover a la bandeja de entrada</string>
+    <string name="blocked_swipe_not_spam">Desliza para mover a la bandeja de entrada</string>
+</resources>

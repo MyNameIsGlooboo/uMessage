@@ -1,0 +1,136 @@
+# Invented incoming texts. Format: expected intent id|message. NONE means no chip may show.
+# Never add real messages. Every table edit must keep this set green (see docs/smart-replies.md).
+greeting|Привіт!
+greeting|Вітаю
+greeting|Всім привіт
+greeting|привітик
+good_morning|Доброго ранку!
+good_morning|З добрим ранком всіх
+good_afternoon|Добрий день
+good_afternoon|Доброго дня вам
+good_evening|Добрий вечір!
+good_night|На добраніч 😴
+good_night|Солодких снів
+good_night|Спокійної ночі тобі
+how_are_you|Привіт, як справи?
+how_are_you|Як життя?
+how_are_you|Що нового
+how_are_you|Як минув день?
+thanks|Дякую!
+thanks|Щиро дякую
+thanks|Спасибі за допомогу
+thanks|Дуже дякую вам 🙏
+youre_welcome|Будь ласка
+youre_welcome|Нема за що
+youre_welcome|Нічого страшного
+youre_welcome|Рада допомогти
+where_are_you|Ти де?
+where_are_you|Де ви зараз?
+where_are_you|Ти далеко?
+on_my_way|Вже виїжджаю
+on_my_way|Скоро приїду
+on_my_way|Біжу до тебе
+on_my_way|Буду за п'ять хвилин
+on_my_way|Я вже близько
+arrived|Я на місці
+arrived|Чекаю внизу
+arrived|Я біля під'їзду
+arrived|Ми приїхали
+arrived_home|Я вдома
+arrived_home|Дістався додому
+arrived_home|Ми дісталися благополучно
+arrived_home|Щойно прийшла додому
+did_you_arrive|Ти доїхав?
+did_you_arrive|Ви вже вдома?
+did_you_arrive|Як дісталася?
+are_you_coming|Ти прийдеш сьогодні?
+are_you_coming|Приїдете завтра ввечері?
+are_you_coming|Зможеш приїхати?
+call_me|Подзвони мені
+call_me|Передзвони, будь ласка
+call_me|Можеш подзвонити?
+call_me|Подзвони коли зможеш
+can_you_talk|Можеш говорити?
+can_you_talk|Є хвилинка?
+can_you_talk|Можна подзвонити?
+are_you_free|Ти вільна сьогодні?
+are_you_free|Є час завтра?
+are_you_free|Ви зайняті?
+what_time|О котрій зустрічаємось?
+what_time|О котрій годині
+what_time|Коли краще зустрітися?
+where_to_meet|Де зустрінемось?
+where_to_meet|Куди підемо ввечері?
+where_to_meet|Де тобі зручно
+ok_confirm|Ок
+ok_confirm|Домовились
+ok_confirm|Зрозумів, дякую
+ok_confirm|Добре!
+ok_confirm|Чудово, прийнято
+bye|Бувай!
+bye|До зустрічі
+bye|Гарного дня
+bye|Зідзвонимось завтра
+bye|Бережи себе
+congrats|Вітаю з днем народження
+congrats|З днем народження!
+congrats|Вітаю з перемогою
+congrats|Чудова робота
+holiday_eid|Ід Мубарак
+holiday_eid|Вітаю з Ураза байрамом
+holiday_new_year|З Новим роком!
+holiday_new_year|З наступаючим
+holiday_christmas|З Різдвом
+holiday_other|Зі святом!
+holiday_other|Гарних свят вам
+good_luck|Успіхів!
+good_luck|Ні пуху ні пера
+good_luck|Успіхів тобі
+sorry_late|Вибач за затримку
+sorry_late|Пробач, щойно побачив
+sorry_late|Вибачте
+missed_call|Я пропустила твій дзвінок
+missed_call|Бачу пропущений дзвінок
+missed_call|Не встиг відповісти
+NONE|Де ти був учора ввечері і чому не відповідав на дзвінки вночі?
+NONE|Передзвони мені, мій код 5821
+NONE|Подзвони за номером 8800 555
+NONE|Дякую, переведи мені гроші завтра
+NONE|Привіт, підтвердження нікому не кажи
+NONE|Зайди на www.example.com і подзвони
+NONE|Привіт, як справи? Що робиш?
+NONE|Ти прийдеш коли?
+NONE|Ти прийдеш, що принести?
+NONE|Дякую, але мені це не підходить
+NONE|Привіт, мені терміново потрібна допомога
+NONE|Я в лікарні, подзвони
+NONE|Сьогодні померла бабуся
+NONE|Де ми сьогодні будемо вечеряти вчотирьох у центрі міста
+NONE|О котрій у тебе літак до Львова завтра?
+NONE|Подзвони мамі, вона хвилюється
+NONE|Я не прийду сьогодні
+NONE|Ні, дякую
+NONE|Дуже радий познайомитись
+NONE|Поки не знаю, потім скажу
+NONE|Ти десь бачив мої ключі?
+NONE|Добре, але мені треба подумати до завтра
+NONE|Добрий день, це служба доставки
+NONE|Привіт! Це Анна з бухгалтерії, пам'ятаєш мене?
+NONE|Пароль від вайфаю записаний на папері
+NONE|Оплата пройшла успішно
+NONE|Кредит схвалено, зателефонуйте до банку
+NONE|Мені прийшов код підтвердження
+NONE|Вітаю, але не від щирого серця
+NONE|Вітаю з покупкою, не забудь про гарантію
+NONE|Ти прийдеш? Вона прийде?
+NONE|Я приїду в понеділок
+NONE|Ми приїхали до Харкова вчора
+NONE|Давайте поговоримо про роботу
+NONE|Скажи, о котрій прилітаєш, зустріну
+NONE|Він вільний сьогодні?
+NONE|Ми йдемо в суботу до театру
+NONE|Привіт https://t.me/example
+NONE|Сьогодні зранку на роботі, потім заїду до батьків, купимо продукти, приготуємо вечерю, подивимось фільм і ляжемо спати раніше, бо завтра рано вставати і їхати на інший кінець міста у справах
+NONE|Дякую, Привіт, бувай
+NONE|Hello, як справи
+NONE|Подзвони мені, я витратив 500 гривень на таксі

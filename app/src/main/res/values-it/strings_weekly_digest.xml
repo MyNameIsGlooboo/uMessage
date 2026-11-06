@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="digest_channel">Riepilogo settimanale</string>
+    <string name="digest_title">Riepilogo settimanale</string>
+    <string name="digest_row_title">Riepilogo settimanale</string>
+    <string name="digest_row_summary">Una volta a settimana: quanti messaggi sono stati bloccati</string>
+    <plurals name="digest_held">
+        <item quantity="one">%d messaggio trattenuto questa settimana. Tocca per controllare.</item>
+        <item quantity="other">%d messaggi trattenuti questa settimana. Tocca per controllare.</item>
+    </plurals>
+    <plurals name="digest_held_important">
+        <item quantity="one">%1$d messaggio trattenuto questa settimana. Codici o avvisi bancari tra questi: %2$d.</item>
+        <item quantity="other">%1$d messaggi trattenuti questa settimana. Codici o avvisi bancari tra questi: %2$d.</item>
+    </plurals>
+</resources>

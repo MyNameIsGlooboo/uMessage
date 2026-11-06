@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">ระยะเวลาเก็บข้อความ</string>
+    <string name="cleanup_old_summary">ข้อความที่เก่ากว่านี้จะย้ายไปถังขยะ</string>
+    <string name="cleanup_forever">ตลอดไป</string>
+    <string name="cleanup_one_year">1 ปี</string>
+    <string name="cleanup_bin_title">เปิดใช้ถังขยะหรือไม่</string>
+    <string name="cleanup_bin_body">ข้อความที่ลบจะอยู่ในถังขยะ 30 วัน เพื่อให้กู้คืนได้ ต้องเปิดใช้ถังขยะเพื่อล้างข้อความอัตโนมัติ</string>
+    <string name="cleanup_bin_confirm">เปิดใช้</string>
+    <string name="cleanup_old_confirm_title">ย้ายข้อความเก่าหรือไม่</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="other">ข้อความ %d ข้อความเก่ากว่าระยะเวลาที่เลือก และจะย้ายไปถังขยะตอนนี้ ข้อความที่ติดดาว ข้อความที่ยังไม่ได้อ่าน และการสนทนาที่ปักหมุดจะยังอยู่</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">ยังไม่มีข้อความที่เก่าขนาดนั้น ข้อความที่เก่ากว่าระยะเวลาที่เลือกจะย้ายไปถังขยะโดยอัตโนมัติ ข้อความที่ติดดาว ข้อความที่ยังไม่ได้อ่าน และการสนทนาที่ปักหมุดจะยังอยู่</string>
+    <string name="cleanup_old_confirm_action">ย้าย</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w7d_banner_stopped">
+        <item quantity="other">이번 주 %1$s건 차단</item>
+    </plurals>
+    <string name="w7d_banner_none">이번 주 차단된 메시지 없음</string>
+    <string name="w7d_fwd_master_switch">전달</string>
+    <string name="w7d_help_menu">단어 차단 방식</string>
+    <string name="w7d_help_title">단어 차단 방식</string>
+    <string name="w7d_help_words_head">단어</string>
+    <string name="w7d_help_words_body">해당 단어가 어디에든 포함된 메시지를 차단해요.</string>
+    <string name="w7d_help_words_example">무료 경품</string>
+    <string name="w7d_help_sender_head">발신자 이름</string>
+    <string name="w7d_help_sender_body">상점처럼 해당 이름을 쓰는 발신자의 문자를 차단해요.</string>
+    <string name="w7d_help_sender_example">할인행사</string>
+    <string name="w7d_help_number_head">번호 앞자리</string>
+    <string name="w7d_help_number_body">해당 숫자로 시작하는 모든 번호를 차단해요.</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">정규식(고급 사용자용)</string>
+    <string name="w7d_help_pattern_body">정규식 하나로 여러 표현을 찾을 수 있어요. 저장하기 전에 테스트해 보세요.</string>
+    <string name="w7d_help_pattern_example">(무료|당첨) 경품</string>
+    <string name="w7d_help_close">닫기</string>
+    <string name="w7d_bank_cards_title">은행 알림 카드</string>
+    <string name="w7d_bank_cards_summary">은행 문자 아래에 금액을 표시해요.</string>
+</resources>

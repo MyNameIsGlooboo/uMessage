@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">Приховувати коди в пересланих повідомленнях</string>
+    <string name="w3d_mask_codes_body">Переслані коди відображаються як ****</string>
+    <string name="w3d_mask_keep_last">Залишати останні дві цифри</string>
+    <string name="w3d_mask_keep_last_on">У пересланих повідомленнях видно, наприклад, **34.</string>
+    <string name="w3d_mask_keep_last_off">У пересланих повідомленнях код повністю приховано.</string>
+    <string name="w3d_daily_limit">Денний ліміт пересилань</string>
+    <string name="w3d_daily_limit_body">Максимум пересилань на день</string>
+    <string name="w3d_hide_lock_codes">Приховувати коди на екрані блокування</string>
+    <string name="w3d_hide_lock_codes_body">На екрані блокування замість коду в повідомленні видно ••••, доки ви не розблокуєте телефон.</string>
+</resources>

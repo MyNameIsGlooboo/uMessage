@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="declog_title">फ़ैसलों का रिकॉर्ड</string>
+    <string name="declog_clear">रिकॉर्ड मिटाएं</string>
+    <string name="declog_empty_title">अभी कोई फ़ैसला नहीं हुआ</string>
+    <string name="declog_empty_body">फ़िल्टर जिस भी मैसेज की जांच करता है, वह वजह के साथ यहां दिखता है. मैसेज का टेक्स्ट कभी सेव नहीं किया जाता.</string>
+    <plurals name="declog_kept_for" tools:ignore="ImpliedQuantity">
+        <item quantity="one">हर फ़ैसला %d दिन बाद मिटा दिया जाता है. मैसेज का टेक्स्ट कभी सेव नहीं किया जाता.</item>
+        <item quantity="other">हर फ़ैसला %d दिनों बाद मिटा दिया जाता है. मैसेज का टेक्स्ट कभी सेव नहीं किया जाता.</item>
+    </plurals>
+    <string name="declog_sim">सिम %1$s</string>
+    <string name="declog_today">आज</string>
+    <string name="declog_yesterday">कल</string>
+    <string name="declog_allowed_by_rule">नियम से अनुमति दी गई: %1$s</string>
+    <string name="declog_filter_all">सभी</string>
+    <string name="declog_filter_blocked">ब्लॉक किए गए</string>
+    <string name="declog_filter_allowed">अनुमति दी गई</string>
+    <string name="declog_filter_empty">इस फ़िल्टर से मेल खाने वाला कोई फ़ैसला नहीं है</string>
+    <plurals name="declog_times" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s बार</item>
+        <item quantity="other">%1$s बार</item>
+    </plurals>
+    <plurals name="declog_repeated" tools:ignore="ImpliedQuantity">
+        <item quantity="one">लगातार %1$s बार यही फ़ैसला लिया गया</item>
+        <item quantity="other">लगातार %1$s बार यही फ़ैसला लिया गया</item>
+    </plurals>
+    <plurals name="declog_share_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d फ़ैसला शेयर करें</item>
+        <item quantity="other">%d फ़ैसले शेयर करें</item>
+    </plurals>
+    <string name="declog_csv_subject">uMessage के फ़ैसलों का रिकॉर्ड</string>
+    <string name="declog_share_failed">रिकॉर्ड शेयर नहीं हो सका</string>
+    <string name="declog_details_title">फ़ैसले की जानकारी</string>
+    <string name="declog_open_details">%1$s की जानकारी खोलें</string>
+    <string name="declog_fixed_allowed">आपने रिकॉर्ड से इस भेजने वाले को अनुमति दी</string>
+    <string name="declog_fixed_blocked">आपने रिकॉर्ड से इस भेजने वाले को ब्लॉक किया</string>
+    <string name="declog_fixed_restored">आपने रिकॉर्ड से यह मैसेज वापस लाया</string>
+    <string name="declog_restored">वापस लाया गया</string>
+    <string name="declog_blocked_message">मैसेज अभी भी ब्लॉक किए गए में है</string>
+    <string name="declog_restore">मैसेज वापस लाएं</string>
+    <string name="declog_restore_done">मैसेज इनबॉक्स में वापस लाया गया</string>
+    <string name="declog_restore_text_only">टेक्स्ट इनबॉक्स में वापस लाया गया. फ़ोटो वापस नहीं मिल सकीं.</string>
+    <string name="declog_restore_nothing">वापस लाने के लिए कुछ नहीं है: यह फ़ोटो मैसेज रखा नहीं गया था</string>
+    <string name="declog_restore_failed">मैसेज वापस नहीं लाया जा सका</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

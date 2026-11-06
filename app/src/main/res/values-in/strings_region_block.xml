@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">Negara lain</string>
+    <string name="region_title">Tahan nomor dari negara lain</string>
+    <string name="region_summary">Kontak dan orang yang pernah Anda kirimi pesan tidak ditahan</string>
+    <string name="region_off">Nonaktif</string>
+    <string name="region_picker_title">Negara asal Anda</string>
+    <string name="region_picker_body">Pesan dari nomor negara lain ditahan di Pesan diblokir, kecuali dari kontak dan orang yang pernah Anda kirimi pesan. Kerabat di luar negeri yang tidak ada di kontak juga ditahan.</string>
+    <string name="region_picker_search">Cari</string>
+    <string name="region_reason_foreign">Nomor dari negara lain</string>
+</resources>

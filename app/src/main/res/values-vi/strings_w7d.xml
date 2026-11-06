@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w7d_banner_stopped">
+        <item quantity="other">Đã chặn %1$s tin nhắn tuần này</item>
+    </plurals>
+    <string name="w7d_banner_none">Chưa chặn tin nhắn nào tuần này</string>
+    <string name="w7d_fwd_master_switch">Chuyển tiếp</string>
+    <string name="w7d_help_menu">Cách chặn theo từ</string>
+    <string name="w7d_help_title">Cách chặn theo từ</string>
+    <string name="w7d_help_words_head">Từ</string>
+    <string name="w7d_help_words_body">Chặn tin nhắn có chứa từ đó ở bất kỳ vị trí nào.</string>
+    <string name="w7d_help_words_example">quà miễn phí</string>
+    <string name="w7d_help_sender_head">Tên người gửi</string>
+    <string name="w7d_help_sender_body">Chặn tin nhắn từ người gửi có tên đó, chẳng hạn một cửa hàng.</string>
+    <string name="w7d_help_sender_example">KHUYENMAI</string>
+    <string name="w7d_help_number_head">Đầu số</string>
+    <string name="w7d_help_number_body">Chặn mọi số bắt đầu bằng các chữ số này.</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">Biểu thức chính quy, dành cho người dùng nâng cao</string>
+    <string name="w7d_help_pattern_body">Một biểu thức chính quy có thể khớp nhiều cách viết. Kiểm tra trước khi lưu.</string>
+    <string name="w7d_help_pattern_example">quà (miễn phí|trúng thưởng)</string>
+    <string name="w7d_help_close">Đóng</string>
+    <string name="w7d_bank_cards_title">Thẻ thông báo ngân hàng</string>
+    <string name="w7d_bank_cards_summary">Hiển thị số tiền bên dưới tin nhắn ngân hàng</string>
+</resources>

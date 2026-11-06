@@ -1,0 +1,7 @@
+- Korean, short, natural and polite, like Google Messages and KakaoTalk: polite 해요체 ("선택해요", "저장했어요", "차단할까요?"), never the stiff 합니다체 in buttons and never casual 반말.
+- Buttons and titles use the noun or a short verb form without a full stop ("삭제", "차단", "설정 열기"). Sentences end with 요 and a full stop; questions end with 요? or 까요?.
+- Use standard word spacing. Avoid putting a particle right after a placeholder or a Latin word (the form depends on the last sound): rephrase so the sentence reads well with any value.
+- Quotes: " " are normal. Keep the brand name uMessage in Latin.
+- Plural ids: only other. Write one text for every number and keep the number token (개 or 건 as the counter fits).
+- Use "메시지" for message, "문자" for SMS text, "스팸" for spam, "차단" for block; keep "SMS", "MMS", "SIM" and "PIN" as they are.
+- Korean is shorter than English but wide: keep buttons to two to five syllables.

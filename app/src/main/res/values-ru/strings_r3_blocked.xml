@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="r3b_info_button">Как работает блокировка</string>
+    <string name="r3b_info_title">Как работает блокировка</string>
+    <string name="r3b_info_modes">Неизвестные отправители</string>
+    <string name="r3b_info_mode_current">Сейчас: %1$s</string>
+    <string name="r3b_info_messages">Заблокированные сообщения</string>
+    <string name="r3b_info_open_sender">Нажмите на отправителя, чтобы прочитать его сообщения.</string>
+    <string name="r3b_info_move">Действие «Переместить во входящие» переносит туда все сообщения отправителя, а затем предлагает всегда разрешать его.</string>
+    <string name="r3b_info_release">Действие «Пропустить один раз» (нажмите и удерживайте сообщение) переносит во входящие только это сообщение. Отправитель не становится разрешенным.</string>
+    <string name="r3b_info_swipe">Смахните строку отправителя вправо, чтобы переместить его сообщения во входящие.</string>
+    <string name="r3b_open_sender">Открыть сообщения</string>
+    <string name="r3b_move_inbox_for">Переместить во входящие, %1$s</string>
+    <string name="r3b_delete_for">Удалить, %1$s</string>
+    <string name="r3b_thread_note">uMessage заблокировал эти сообщения. Их нет во входящих.</string>
+    <string name="r3b_thread_delete_all">Удалить все сообщения от %1$s</string>
+    <string name="r3b_thread_empty_title">Здесь больше ничего нет</string>
+    <string name="r3b_thread_empty_body">У этого отправителя больше нет заблокированных сообщений.</string>
+    <string name="r3b_message_actions">Действия с сообщением</string>
+    <string name="r3b_why_blocked">Почему заблокировано</string>
+    <string name="r3b_copy_text">Копировать текст</string>
+    <string name="r3b_text_copied">Текст скопирован</string>
+    <string name="r3b_delete_message">Удалить</string>
+    <string name="r3b_received">Получено %1$s</string>
+    <string name="r3b_info_mode_strict">Строгий: блокирует сообщения всех неизвестных отправителей, включая коды подтверждения.</string>
+    <string name="r3b_info_mode_smart">Умный: блокирует сообщения неизвестных отправителей, но пропускает коды без ссылок.</string>
+    <string name="r3b_info_mode_off">Выкл.: сообщения неизвестных отправителей попадают во входящие. Ваши правила действуют.</string>
+    <plurals name="r3b_info_purge" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Заблокированные сообщения удаляются через %d день.</item>
+        <item quantity="few">Заблокированные сообщения удаляются через %d дня.</item>
+        <item quantity="many">Заблокированные сообщения удаляются через %d дней.</item>
+        <item quantity="other">Заблокированные сообщения удаляются через %d дня.</item>
+    </plurals>
+    <string name="r3b_info_purge_off">Заблокированные сообщения хранятся, пока вы их не удалите.</string>
+    <string name="r3b_allow_body_sender_one_message">Сообщение в любом случае вернется во входящие. Если всегда разрешать %1$s, новые сообщения этого отправителя будут обходить все фильтры, включая ваши правила блокировки.</string>
+    <string name="r3b_allow_body_sender_many_messages">Сообщения в любом случае вернутся во входящие. Если всегда разрешать %1$s, новые сообщения этого отправителя будут обходить все фильтры, включая ваши правила блокировки.</string>
+</resources>

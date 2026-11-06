@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">Lokasi</string>
+    <string name="i52_permission_explanation">uMessage mengakses lokasi Anda sekali, hanya saat ini, untuk menambahkan tautan peta ke pesan. Tidak ada yang disimpan. Anda dapat memilih lokasi perkiraan.</string>
+    <string name="i52_finding">Mencari lokasi Anda…</string>
+    <string name="i52_denied">Akses lokasi tidak diizinkan. Pesan tetap seperti semula.</string>
+    <string name="i52_no_fix">Lokasi Anda tidak ditemukan. Coba lagi di dekat jendela atau di luar ruangan.</string>
+    <string name="i52_off_message">Lokasi di ponsel ini nonaktif. Aktifkan untuk membagikan lokasi Anda.</string>
+    <string name="i52_open_settings">Buka setelan</string>
+</resources>

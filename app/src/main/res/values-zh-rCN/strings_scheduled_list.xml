@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_list_title">定时发送的消息</string>
+    <string name="scheduled_list_empty_title">暂无定时发送的消息</string>
+    <string name="scheduled_list_empty_body">设为定时发送的消息会在这里等待发送。</string>
+    <string name="scheduled_list_not_sent">未发送</string>
+    <string name="scheduled_list_edit_time">更改时间</string>
+    <string name="scheduled_list_send_now">立即发送</string>
+    <string name="scheduled_list_delete">删除</string>
+    <string name="scheduled_list_send_confirm">立即向%1$s发送这条消息？</string>
+    <string name="scheduled_list_delete_confirm">删除定时发送给%1$s的消息？</string>
+    <string name="scheduled_list_row_actions">发给%1$s的消息的操作</string>
+</resources>

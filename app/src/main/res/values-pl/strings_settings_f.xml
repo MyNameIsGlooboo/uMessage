@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_f_backup_row_body">Wiadomości, reguły i ustawienia do pliku</string>
+    <string name="settings_f_backup_rules_group">Reguły i ustawienia</string>
+    <string name="settings_f_backup_rules_contents">Plik zawiera twoje reguły zezwalania, blokowania i przekazywania dalej oraz ustawienia: ochronę przed spamem, powiadomienia, daty, rozmiar tekstu, motyw, klawisz Enter i limity przekazywania dalej. Nigdy nie zawiera treści wiadomości ani blokady aplikacji. Reguły przekazywania dalej są przywracane jako wyłączone.</string>
+    <string name="settings_f_backup_messages_contents">Treść wiadomości i zdjęcia w osobnym pliku.</string>
+    <string name="settings_f_restore_title">Przywrócić z tego pliku?</string>
+    <string name="settings_f_restore_rules">Reguły zezwalania: %1$d · Reguły blokowania: %2$d. Istniejące reguły zostaną pominięte.</string>
+    <string name="settings_f_restore_forwards">Reguły przekazywania dalej do dodania: %1$d, wyłączone. Włącz je w sekcji Reguły › Przekazywanie dalej.</string>
+    <string name="settings_f_restore_forwards_skipped">Pominięte reguły przekazywania dalej: %1$d (już istnieją lub nie mają numeru, który może odbierać wiadomości).</string>
+    <string name="settings_f_restore_settings_changed">Ustawienia, które się zmienią: %1$s</string>
+    <string name="settings_f_restore_settings_none">Brak zmian ustawień.</string>
+    <string name="settings_f_restore_action">Przywróć</string>
+    <string name="settings_f_restore_done">Dodane reguły: %1$d · Dodane reguły przekazywania dalej: %2$d. Reguły przekazywania dalej pozostaną wyłączone, dopóki ich nie włączysz.</string>
+    <string name="settings_f_restore_done_rules">Dodane reguły: %1$d.</string>
+    <string name="settings_f_restore_done_title">Przywracanie zakończone</string>
+    <string name="settings_f_label_codes">Kody od nieznanych nadawców</string>
+    <string name="settings_f_list_separator">", "</string>
+    <string name="settings_f_group_display">Wyświetlanie</string>
+    <string name="settings_f_appearance">Wygląd</string>
+    <string name="settings_f_language_system">Domyślny język systemu</string>
+    <string name="settings_f_group_rules">Reguły i listy</string>
+    <string name="settings_f_spam_more">Czas przechowywania i alerty</string>
+    <string name="settings_f_spam_more_body">Czas przechowywania zablokowanych wiadomości i alerty</string>
+    <string name="settings_f_hide_lock_codes_body">Kody są wyświetlane jako •••• na ekranie blokady</string>
+    <string name="settings_f_code_alert">Alert o kodzie</string>
+    <string name="settings_f_code_alert_body">Dźwięk dla kodów weryfikacyjnych</string>
+    <string name="settings_f_channel_codes">Kody weryfikacyjne</string>
+    <string name="settings_f_channel_codes_desc">Wiadomości zawierające kod weryfikacyjny</string>
+</resources>

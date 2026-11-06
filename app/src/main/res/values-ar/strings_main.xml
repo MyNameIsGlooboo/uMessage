@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_hint">ابحث في المحادثات</string>
+    <string name="main_search_back">أغلق البحث</string>
+    <string name="main_search_clear">امسح نص البحث</string>
+    <string name="main_search_type_more">اكتب حرفين على الأقل (2) للبحث</string>
+    <string name="main_search_no_results">لا توجد نتائج</string>
+    <string name="main_settings">الإعدادات</string>
+    <string name="main_tab_messages">الرسائل</string>
+    <string name="main_tab_blocked">المحظورة</string>
+    <string name="main_tab_archived">المؤرشفة</string>
+    <plurals name="main_tab_blocked_new">
+        <item quantity="zero">المحظورة، %d رسائل جديدة</item>
+        <item quantity="one">المحظورة، رسالة جديدة واحدة (%d)</item>
+        <item quantity="two">المحظورة، رسالتان جديدتان (%d)</item>
+        <item quantity="few">المحظورة، %d رسائل جديدة</item>
+        <item quantity="many">المحظورة، %d رسالة جديدة</item>
+        <item quantity="other">المحظورة، %d رسالة جديدة</item>
+    </plurals>
+    <string name="main_permission_title">يلزم إذن</string>
+    <string name="main_permission_grant">امنح الإذن</string>
+    <string name="main_permission_notifications">اسمح بالإشعارات ليتمكن التطبيق من عرض الرسائل الواردة.</string>
+    <string name="main_sms_permission_title">يحتاج uMessage إلى الوصول إلى SMS</string>
+    <string name="main_sms_permission_body">بدون إذن قراءة SMS وإرسالها، لا يستطيع uMessage عرض رسائلك أو إرسالها أو تصفية الرسائل غير المرغوب فيها. لن يُحذف شيء.</string>
+    <string name="main_sms_permission_settings">افتح إعدادات التطبيق</string>
+    <string name="main_not_default_banner">uMessage ليس تطبيق الرسائل النصية الافتراضي، لذا لا يمكنه حظر الرسائل غير المرغوب فيها أو إرسال الرسائل.</string>
+    <string name="main_not_default_fix">أصلح</string>
+    <string name="main_not_default_fix_description">اجعل uMessage تطبيق الرسائل النصية الافتراضي</string>
+</resources>

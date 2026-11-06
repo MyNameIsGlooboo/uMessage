@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">Quốc gia khác</string>
+    <string name="region_title">Giữ lại tin nhắn từ số nước ngoài</string>
+    <string name="region_summary">Không giữ lại tin nhắn từ người liên hệ và người bạn đã nhắn tin</string>
+    <string name="region_off">Tắt</string>
+    <string name="region_picker_title">Quốc gia của bạn</string>
+    <string name="region_picker_body">Tin nhắn từ số nước ngoài được giữ trong mục Tin nhắn đã chặn, trừ người liên hệ và người bạn đã nhắn tin. Tin nhắn từ người thân ở nước ngoài chưa được lưu làm người liên hệ cũng bị giữ lại.</string>
+    <string name="region_picker_search">Tìm kiếm</string>
+    <string name="region_reason_foreign">Số từ quốc gia khác</string>
+</resources>

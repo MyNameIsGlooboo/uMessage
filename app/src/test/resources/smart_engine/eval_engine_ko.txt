@@ -1,0 +1,86 @@
+# Invented incoming texts for the ko question engine. Format: EXPECTED|message.
+YES_NO|밥 먹었어요?
+YES_NO|도착했나요?
+YES_NO|메시지 받았어요?
+YES_NO|이 시간에 가도 되나요?
+YES_NO|전화해도 돼요?
+YES_NO|저녁 먹었니?
+YES_NO|내일 올 수 있어요?
+YES_NO|오늘 갈 수 있나요?
+YES_NO|맞죠?
+YES_NO|이거 맞나요?
+YES_NO|확인하셨나요?
+YES_NO|다 끝났어요?
+YES_NO|일어났어?
+YES_NO|통화 가능해요?
+YES_NO|이 가격 괜찮아요?
+YES_NO|도착하셨어요
+YES_NO|혹시 가능하세요
+YES_NO|확인했나요
+YES_NO|밥 먹었니
+WHEN|언제 도착해요?
+WHEN|몇 시에 만날까요?
+WHEN|언제쯤 올 수 있어요?
+WHEN|회의는 몇 시까지예요?
+WHEN|언제 시간 돼요?
+WHEN|언제 만나요
+WHEN|무슨 요일이 좋아요?
+WHEN|몇 시에 끝나요
+WHERE|어디야?
+WHERE|어디예요?
+WHERE|지금 어디쯤이에요?
+WHERE|어디서 만날까요?
+WHERE|어디에 있어요?
+WHERE|어디세요
+WHERE|어디야
+CHOICE:커피,차|커피 아니면 차?
+CHOICE:한식,양식|한식 아니면 양식?
+CHOICE:지하철,버스|지하철 또는 버스?
+CHOICE:오늘,내일|오늘 아니면 내일?
+CHOICE:빨강,파랑|빨강 혹은 파랑?
+CHOICE:치킨,피자|치킨 아니면 피자?
+REQUEST|주소 좀 알려주세요?
+REQUEST|이 파일 확인해 줄래요?
+REQUEST|부탁 하나 들어줄래?
+REQUEST|사진 좀 보내줄 수 있어요?
+REQUEST|문 좀 열어줘?
+REQUEST|물 좀 주세요?
+REQUEST|펜 좀 빌려줄 수 있어요?
+INVITE|같이 점심 먹을래요?
+INVITE|주말에 시간 있으세요?
+INVITE|오늘 저녁에 같이 영화 볼래?
+INVITE|같이 가자
+INVITE|내일 시간 되세요?
+INVITE|이번 주말에 한가해요?
+INVITE|저녁 먹을래요?
+INVITE|혹시 시간 되세요
+NONE|왜 안 왔어요?
+NONE|이거 얼마예요?
+NONE|누구세요?
+NONE|뭐 하세요?
+NONE|어떻게 가요?
+NONE|몇 명이에요?
+NONE|무슨 일이에요?
+NONE|뭐 먹을래요?
+NONE|어느 쪽이 좋아요?
+NONE|뭐가 필요해요?
+NONE|이게 뭐예요?
+NONE|그 사람이 누구예요?
+NONE|내일 비 와요.
+NONE|지금 도착했어요.
+NONE|회의는 3시예요.
+NONE|고마워요
+NONE|알겠습니다
+NONE|내일 올 수 있어요? 모레는요?
+NONE|어디야? 나 지금 가는 중이야.
+NONE|여기 맞나요? https://example.com
+NONE|인증번호 482913 받았어요?
+NONE|5000원 괜찮아요?
+NONE|어제 친구 집에 가서 저녁도 먹고 영화도 보고 늦게 돌아왔는데 확인하셨나요?
+NONE|왜 이렇게 됐나요?
+NONE|무엇을 도와드릴까요?
+NONE|얼마나 걸려요?
+NONE|몇 개 필요해요?
+NONE|뭐라고요?
+NONE|어떤 게 더 좋아요?
+NONE|이름이 뭐예요?

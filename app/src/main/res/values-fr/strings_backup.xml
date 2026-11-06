@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="backup_channel">Sauvegarde et restauration</string>
+    <string name="backup_restoring">Restauration des messages</string>
+    <string name="backup_exporting">Sauvegarde des messages</string>
+    <plurals name="backup_progress_import" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d entrée lue</item>
+        <item quantity="other">%1$d entrées lues</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d entrée lue (%2$d%%)</item>
+        <item quantity="other">%1$d entrées lues (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d message sauvegardé</item>
+        <item quantity="other">%1$d messages sauvegardés</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$d message sauvegardé (%2$d%%)</item>
+        <item quantity="other">%1$d messages sauvegardés (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">Vous pouvez quitter l\'application : l\'opération continue et une notification affiche sa progression.</string>
+    <string name="backup_stop">Arrêter</string>
+    <string name="backup_hide">Masquer</string>
+    <string name="backup_already_running">Une sauvegarde ou une restauration est déjà en cours.</string>
+    <string name="backup_restore_finished">Restauration terminée</string>
+    <string name="backup_restore_stopped">Restauration arrêtée</string>
+    <string name="backup_restore_failed">Échec de la restauration</string>
+    <string name="backup_invalid_file">Ce fichier n\'est pas une sauvegarde de messages. Rien n\'a été restauré.</string>
+    <string name="backup_no_entries">Le fichier de sauvegarde ne contient aucun message.</string>
+    <plurals name="backup_nothing_new" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Rien de nouveau à importer : le message est déjà sur ce téléphone.</item>
+        <item quantity="other">Rien de nouveau à importer : les %1$d messages sont déjà sur ce téléphone.</item>
+    </plurals>
+    <string name="backup_line_added">Ajoutés : %1$d</string>
+    <string name="backup_line_duplicates">Déjà sur ce téléphone, ignorés : %1$d</string>
+    <string name="backup_line_repaired">Pièces jointes manquantes ajoutées aux messages déjà restaurés : %1$d</string>
+    <string name="backup_line_incomplete">MMS restaurés sans certaines pièces jointes : %1$d</string>
+    <string name="backup_line_failed">Restauration impossible : %1$d</string>
+    <string name="backup_line_damaged">Entrées endommagées dans le fichier, ignorées : %1$d</string>
+    <string name="backup_line_xml_mms">MMS de cette sauvegarde XML, non pris en charge et ignorés : %1$d</string>
+    <string name="backup_line_not_selected">Non sélectionnés pour l\'importation : %1$d</string>
+    <string name="backup_reasons">Raisons :</string>
+    <string name="backup_reason_no_address">le message n\'a ni expéditeur ni destinataire</string>
+    <string name="backup_reason_no_thread">le téléphone n\'a pas pu ouvrir sa conversation</string>
+    <string name="backup_reason_refused">le téléphone a refusé de l\'enregistrer</string>
+    <string name="backup_reason_not_in_backup">la pièce jointe est absente du fichier de sauvegarde</string>
+    <string name="backup_reason_damaged_attachment">la pièce jointe du fichier de sauvegarde est endommagée</string>
+    <string name="backup_reason_attachment_write">la pièce jointe n\'a pas pu être enregistrée</string>
+    <string name="backup_stopped_early">Le fichier est endommagé après l\'entrée %1$d. Rien n\'a pu être lu au-delà.</string>
+    <plurals name="backup_cancelled_import" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Arrêt après %1$d entrée. Relancez la restauration avec le même fichier pour terminer : les messages déjà restaurés sont ignorés.</item>
+        <item quantity="other">Arrêt après %1$d entrées. Relancez la restauration avec le même fichier pour terminer : les messages déjà restaurés sont ignorés.</item>
+    </plurals>
+    <string name="backup_retry_hint">Relancez la restauration pour réessayer les éléments en échec : les messages déjà restaurés sont ignorés.</string>
+    <string name="backup_export_finished">Sauvegarde terminée</string>
+    <string name="backup_export_stopped">Sauvegarde arrêtée</string>
+    <string name="backup_export_failed">Échec de la sauvegarde</string>
+    <string name="backup_export_error">La sauvegarde n\'a pas pu être enregistrée et le fichier incomplet a été supprimé. %1$s</string>
+    <string name="backup_export_cancelled">La sauvegarde a été arrêtée et le fichier incomplet a été supprimé.</string>
+    <string name="backup_export_nothing">Aucun message à sauvegarder.</string>
+    <string name="backup_export_counts">%1$d SMS et %2$d MMS sauvegardés.</string>
+    <string name="backup_export_unreadable_attachments">Pièces jointes illisibles, sauvegardées sans leur image : %1$d</string>
+    <string name="backup_export_unreadable_messages">Messages illisibles, exclus : %1$d</string>
+    <string name="backup_export_unreadable_conversations">Conversations illisibles, exclues : %1$d</string>
+    <string name="backup_export_incomplete">Cette sauvegarde est incomplète.</string>
+    <string name="backup_interrupted_import">La dernière restauration s\'est arrêtée avant la fin, peut-être parce que le téléphone a fermé l\'application. Relancez-la avec le même fichier : les messages déjà restaurés sont ignorés.</string>
+    <string name="backup_interrupted_export">La dernière sauvegarde s\'est arrêtée avant la fin. Son fichier est donc incomplet. Veuillez créer une nouvelle sauvegarde.</string>
+</resources>

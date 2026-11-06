@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="convlist_loading">Chargement des messages</string>
+    <string name="convlist_empty_title">Aucune conversation pour le moment</string>
+    <string name="convlist_empty_body">Les messages que vous envoyez et recevez s\'afficheront ici.</string>
+    <string name="convlist_start_conversation">Démarrer une conversation</string>
+    <string name="convlist_new_conversation">Nouvelle conversation</string>
+    <string name="convlist_draft">Brouillon</string>
+    <string name="convlist_pinned">Épinglée</string>
+    <string name="convlist_muted">Notifications désactivées</string>
+    <string name="convlist_unread">Non lu</string>
+    <string name="convlist_unread_count">%1$d non lus</string>
+    <string name="convlist_group">Conversation de groupe</string>
+    <string name="convlist_selected">Sélectionnée</string>
+    <string name="convlist_sim">SIM %1$d</string>
+    <string name="convlist_scroll_handle">Défilement rapide</string>
+    <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d message bloqué</item>
+        <item quantity="other">%d messages bloqués</item>
+    </plurals>
+    <string name="convlist_blocked_banner_title">Messages bloqués</string>
+    <string name="convlist_blocked_banner_cd">%1$d messages bloqués. Ouvrir le dossier des messages bloqués.</string>
+    <string name="convlist_archive">Archiver</string>
+    <string name="convlist_delete">Supprimer</string>
+    <string name="convlist_pin">Épingler en haut</string>
+    <string name="convlist_unpin">Désépingler</string>
+    <string name="convlist_mark_read">Marquer comme lu</string>
+    <string name="convlist_mark_unread">Marquer comme non lu</string>
+    <string name="convlist_block_number">Bloquer le numéro</string>
+    <string name="convlist_add_contact">Ajouter le numéro à un contact</string>
+    <string name="convlist_copy_number">Copier le numéro</string>
+    <string name="convlist_dial">Appeler</string>
+    <string name="convlist_rename">Renommer la conversation</string>
+    <string name="convlist_details">Détails de la conversation</string>
+    <string name="convlist_select_all">Tout sélectionner</string>
+    <string name="convlist_more_options">Plus d\'options</string>
+    <string name="convlist_close_selection">Annuler la sélection</string>
+    <plurals name="convlist_selected_count" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d sélectionnée</item>
+        <item quantity="other">%d sélectionnées</item>
+    </plurals>
+    <string name="convlist_undo">Annuler</string>
+    <plurals name="convlist_deleted" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d conversation supprimée</item>
+        <item quantity="other">%d conversations supprimées</item>
+    </plurals>
+    <plurals name="convlist_archived" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d conversation archivée</item>
+        <item quantity="other">%d conversations archivées</item>
+    </plurals>
+    <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Bloqué. Les nouveaux messages iront dans Messages bloqués</item>
+        <item quantity="other">%d expéditeurs bloqués. Les nouveaux messages iront dans Messages bloqués</item>
+    </plurals>
+    <string name="convlist_action_failed">Une erreur s\'est produite</string>
+    <string name="convlist_block_title">Bloquer le numéro ?</string>
+    <string name="convlist_block_message">Bloquer %1$s ? Ses nouveaux messages iront dans Messages bloqués au lieu de votre boîte de réception. Vous pourrez toujours les y lire ou les restaurer.</string>
+    <string name="convlist_block_confirm">Bloquer</string>
+    <string name="convlist_rename_title">Renommer la conversation</string>
+    <string name="convlist_rename_hint">Nom de la conversation</string>
+    <string name="convlist_ok">OK</string>
+    <string name="convlist_cancel">Annuler</string>
+</resources>

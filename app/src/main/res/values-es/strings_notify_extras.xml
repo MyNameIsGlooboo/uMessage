@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">Encender la pantalla</string>
+    <string name="wake_screen_summary">Enciende la pantalla al recibir un mensaje nuevo</string>
+    <string name="bubbles_title">Burbujas de chat</string>
+    <string name="bubbles_summary">Muestra los chats como burbujas flotantes</string>
+    <string name="bubbles_locked">No disponible mientras el bloqueo de la aplicación esté activado</string>
+    <string name="focus_codes_title">Códigos en la notificación en vivo</string>
+    <string name="focus_codes_summary">Muestra los códigos en la notificación en vivo de Xiaomi</string>
+</resources>

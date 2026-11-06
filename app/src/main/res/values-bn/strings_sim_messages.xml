@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="sim_messages_title">SIM কার্ডের বার্তা</string>
+    <string name="sim_messages_row_body">SIM কার্ডে থাকা বার্তা আপনার কথোপকথনে কপি করুন</string>
+    <string name="sim_messages_loading">SIM কার্ড পড়া হচ্ছে…</string>
+    <string name="sim_messages_unavailable">এই ফোনে অ্যাপকে SIM কার্ড পড়ার অনুমতি দেওয়া হয় না।</string>
+    <string name="sim_messages_empty">SIM কার্ডে কোনো বার্তা নেই।</string>
+    <plurals name="sim_messages_found" tools:ignore="ImpliedQuantity">
+        <item quantity="one">SIM কার্ডে %1$dটি বার্তা আছে। আপনার কথোপকথনে কপি করবেন? SIM কার্ডেও থাকবে।</item>
+        <item quantity="other">SIM কার্ডে %1$dটি বার্তা আছে। আপনার কথোপকথনে কপি করবেন? SIM কার্ডেও থাকবে।</item>
+    </plurals>
+    <string name="sim_messages_import">কপি করুন</string>
+    <string name="sim_messages_importing">বার্তা কপি করা হচ্ছে…</string>
+    <string name="sim_messages_done">%1$dটি বার্তা কপি করা হয়েছে। %2$dটি আগেই আপনার কথোপকথনে ছিল।</string>
+    <string name="sim_messages_done_failed">%1$dটি বার্তা কপি করা হয়েছে। %2$dটি আগেই আপনার কথোপকথনে ছিল এবং %3$dটি কপি করা যায়নি।</string>
+</resources>

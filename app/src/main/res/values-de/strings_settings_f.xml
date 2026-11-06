@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_f_backup_row_body">Nachrichten, Regeln und Einstellungen in einer Datei sichern</string>
+    <string name="settings_f_backup_rules_group">Regeln und Einstellungen</string>
+    <string name="settings_f_backup_rules_contents">Die Datei enthält deine Regeln zum Erlauben, Blockieren und Weiterleiten sowie Einstellungen für Spamschutz, Benachrichtigungen, Datumsanzeige, Textgröße, Design, Eingabetaste und Weiterleitungslimits. Nachrichtentexte und deine App-Sperre werden nie gesichert. Regeln zum Weiterleiten sind nach dem Wiederherstellen ausgeschaltet.</string>
+    <string name="settings_f_backup_messages_contents">Nachrichtentexte und Bilder in einer separaten Datei.</string>
+    <string name="settings_f_restore_title">Aus dieser Datei wiederherstellen?</string>
+    <string name="settings_f_restore_rules">Regeln zum Erlauben: %1$d · Regeln zum Blockieren: %2$d. Bereits vorhandene Regeln werden übersprungen.</string>
+    <string name="settings_f_restore_forwards">Neue Regeln zum Weiterleiten: %1$d, ausgeschaltet. Aktiviere sie unter Regeln › Weiterleitung.</string>
+    <string name="settings_f_restore_forwards_skipped">Übersprungene Regeln zum Weiterleiten: %1$d (bereits vorhanden oder keine Nummer, die Nachrichten empfangen kann).</string>
+    <string name="settings_f_restore_settings_changed">Diese Einstellungen ändern sich: %1$s</string>
+    <string name="settings_f_restore_settings_none">Keine Änderungen an den Einstellungen.</string>
+    <string name="settings_f_restore_action">Wiederherstellen</string>
+    <string name="settings_f_restore_done">Regeln hinzugefügt: %1$d · Regeln zum Weiterleiten hinzugefügt: %2$d. Regeln zum Weiterleiten bleiben aus, bis du sie aktivierst.</string>
+    <string name="settings_f_restore_done_rules">Regeln hinzugefügt: %1$d.</string>
+    <string name="settings_f_restore_done_title">Wiederherstellung abgeschlossen</string>
+    <string name="settings_f_label_codes">Codes von unbekannten Absendern</string>
+    <string name="settings_f_list_separator">", "</string>
+    <string name="settings_f_group_display">Anzeige</string>
+    <string name="settings_f_appearance">Darstellung</string>
+    <string name="settings_f_language_system">Systemstandard</string>
+    <string name="settings_f_group_rules">Regeln und Listen</string>
+    <string name="settings_f_spam_more">Aufbewahrung und Hinweise</string>
+    <string name="settings_f_spam_more_body">Aufbewahrungsdauer blockierter Nachrichten und Hinweise</string>
+    <string name="settings_f_hide_lock_codes_body">Codes werden auf dem Sperrbildschirm als •••• angezeigt</string>
+    <string name="settings_f_code_alert">Code-Hinweiston</string>
+    <string name="settings_f_code_alert_body">Ton für Bestätigungscodes</string>
+    <string name="settings_f_channel_codes">Bestätigungscodes</string>
+    <string name="settings_f_channel_codes_desc">Nachrichten mit einem Bestätigungscode</string>
+</resources>

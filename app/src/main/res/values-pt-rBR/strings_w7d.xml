@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="w7d_banner_stopped" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%1$s mensagem bloqueada esta semana</item>
+        <item quantity="other">%1$s mensagens bloqueadas esta semana</item>
+    </plurals>
+    <string name="w7d_banner_none">Nenhuma mensagem bloqueada esta semana</string>
+    <string name="w7d_fwd_master_switch">Encaminhamento</string>
+    <string name="w7d_help_menu">Como funciona o bloqueio por palavras</string>
+    <string name="w7d_help_title">Como funciona o bloqueio por palavras</string>
+    <string name="w7d_help_words_head">Palavras</string>
+    <string name="w7d_help_words_body">Bloqueia mensagens que contêm a palavra em qualquer parte do texto.</string>
+    <string name="w7d_help_words_example">prêmio grátis</string>
+    <string name="w7d_help_sender_head">Nomes de remetentes</string>
+    <string name="w7d_help_sender_body">Bloqueia mensagens de remetentes com esse nome, como uma loja.</string>
+    <string name="w7d_help_sender_example">PROMO</string>
+    <string name="w7d_help_number_head">Início do número</string>
+    <string name="w7d_help_number_body">Bloqueia todos os números que começam com esses dígitos.</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">Padrões (expressões regulares) para usuários avançados</string>
+    <string name="w7d_help_pattern_body">Um padrão (expressão regular) pode reconhecer várias formas de escrever. Teste antes de salvar.</string>
+    <string name="w7d_help_pattern_example">(prêmio grátis|ganhe um prêmio)</string>
+    <string name="w7d_help_close">Feche</string>
+    <string name="w7d_bank_cards_title">Cards de alertas bancários</string>
+    <string name="w7d_bank_cards_summary">Mostra o valor abaixo de uma mensagem do banco</string>
+</resources>
