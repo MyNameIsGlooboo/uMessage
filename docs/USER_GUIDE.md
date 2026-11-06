@@ -93,6 +93,13 @@ To move messages to a new phone:
 
 Exported files are not encrypted. Anyone who can open the file can read your messages, so keep it somewhere private and delete it when you are done.
 
+## Sharing into uMessage
+
+When you share text, a picture or a file from another app and pick uMessage, a "Share to" screen opens. It starts with
+your most recent chats (up to eight, groups included) and lists your contacts below. Tap a chat to open it with the
+shared content ready to send, or search by name or number to reach a chat or a contact. Typing a phone number offers
+"Send to" for a number you have not saved. Archived chats and chats hidden behind the app lock are not listed.
+
 ## Persian and other right-to-left languages
 
 - Persian and Arabic messages display right-to-left in the Vazirmatn font (Android 10 and later), and the message field switches direction as you type.

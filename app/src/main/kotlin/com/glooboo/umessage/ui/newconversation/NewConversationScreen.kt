@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -68,6 +69,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
+import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.ui.components.ContactRow
 import com.glooboo.umessage.ui.components.EmptyState
 import com.glooboo.umessage.ui.components.LoadingState
@@ -106,6 +108,9 @@ fun NewConversationScreen(
     onPickNumber: (contact: SimpleContact, number: PhoneNumber) -> Unit,
     modifier: Modifier = Modifier,
     onStartGroup: (List<GroupRecipient>) -> Unit = {},
+    shareMode: Boolean = false,
+    recentChats: List<Conversation> = emptyList(),
+    onPickRecent: (Conversation) -> Unit = {},
 ) {
     // Saveable so rotation or a fold keeps what was typed.
     var query by rememberSaveable { mutableStateOf("") }
@@ -159,6 +164,7 @@ fun NewConversationScreen(
 
     val results = remember(contacts, query) { contactItems(filterContacts(contacts, query)) }
     val groups = remember(results) { letterGroups(results) }
+    val shownRecents = remember(shareMode, recentChats, query) { shareTargetsFor(shareMode, recentChats, query) }
     val canSubmit = query.trim().length >= MIN_ADDRESS_LENGTH
     val typedNumber = if (canSubmit) typedPhoneNumber(query.trim()) else null
     val choose: (SimpleContact, PhoneNumber) -> Unit = { contact, number ->
@@ -202,7 +208,7 @@ fun NewConversationScreen(
         modifier = modifier,
         topBar = {
             UMessageTopBar(
-                title = stringResource(if (groupMode) R.string.screens_new_group_title else R.string.new_conversation),
+                title = stringResource(pickerTitle(groupMode, shareMode)),
                 onBack = if (groupMode) leaveGroupMode else onBack,
                 actions = {
                     if (groupMode) {
@@ -316,8 +322,14 @@ fun NewConversationScreen(
                     modifier = Modifier.padding(horizontal = 16.dp),
                 )
             }
-            val showSuggestions = suggestions.isNotEmpty() && query.isBlank()
+            // Share mode lists the recent chats instead of the suggestion chips.
+            val showSuggestions = suggestions.isNotEmpty() && query.isBlank() && !shareMode
+            // Recent chats load after the first frame and land above the row the list was anchored to; show them.
+            val listState = rememberLazyListState()
+            val hasRecents = shownRecents.isNotEmpty()
+            LaunchedEffect(hasRecents) { if (hasRecents) listState.scrollToItem(0) }
             LazyColumn(
+                state = listState,
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(bottom = padding.calculateBottomPadding() + 8.dp),
             ) {
@@ -340,6 +352,7 @@ fun NewConversationScreen(
                 if (!groupMode && typedNumber != null) {
                     item(key = "send-to") { SendToRow(typedNumber, onClick = submit) }
                 }
+                recentChatsSection(if (groupMode) emptyList() else shownRecents, onPickRecent)
                 if (!groupMode && query.isBlank()) {
                     item(key = "create-group") {
                         CreateGroupRow { groupMode = true }
@@ -347,6 +360,8 @@ fun NewConversationScreen(
                 }
                 when {
                     !loaded -> item(key = "loading") { LoadingState() }
+                    // Only chats match the search: their section is the answer, no "no matches" below it.
+                    onlyRecentsMatch(results.isEmpty(), query, shownRecents) -> Unit
                     results.isEmpty() -> item(key = "empty") {
                         EmptyContacts(
                             hasPermission = hasContactsPermission,
@@ -363,8 +378,11 @@ fun NewConversationScreen(
                             }
                         }
                     }
-                    else -> items(results, key = { it.key }) { (_, contact) ->
-                        PickableContactRow(contact, isSelected(contact)) { pick(contact) }
+                    else -> {
+                        contactsHeader(shownRecents.isNotEmpty())
+                        items(results, key = { it.key }) { (_, contact) ->
+                            PickableContactRow(contact, isSelected(contact)) { pick(contact) }
+                        }
                     }
                 }
             }
