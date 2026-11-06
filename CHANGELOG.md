@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - A chat opened and left quickly could stay shown as unread: the chat is marked read even when you leave before it finished loading, a list refresh that started earlier no longer turns it unread again, the list updates when you come back, and its notification is cleared
+- Not spam moves the messages and allows the sender in one step (Undo available); from a blocked chat it opens the normal chat so you can reply at once
+
+### Removed
+- Also allow messages like this
 
 ## [0.3.0] - 2026-11-06
 ### Added

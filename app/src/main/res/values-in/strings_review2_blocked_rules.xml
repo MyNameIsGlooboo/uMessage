@@ -10,15 +10,6 @@
     <string name="e_restored_empty">Pesan yang Anda pindahkan ke kotak masuk mulai sekarang akan tercantum di sini selama 30 hari.</string>
     <string name="e_restored_when">Dipindahkan ke kotak masuk %1$s</string>
     <string name="e_restored_open">Buka percakapan dengan %1$s</string>
-    <string name="e_snack_allowed_one">%1$s kini selalu diizinkan di kedua SIM</string>
-    <plurals name="e_snack_allowed_many">
-        <item quantity="other">%d pengirim kini selalu diizinkan di kedua SIM</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">%1$s kini selalu diizinkan</string>
-    <plurals name="e_snack_allowed_many_single_sim">
-        <item quantity="other">%d pengirim kini selalu diizinkan</item>
-    </plurals>
-    <string name="e_view_rule">Lihat aturan</string>
     <string name="e_rules_title">Aturan</string>
     <string name="e_rules_menu_backup">Cadangkan dan pulihkan</string>
     <string name="e_note_blocked_by_you">Diblokir oleh Anda</string>

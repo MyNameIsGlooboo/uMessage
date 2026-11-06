@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="nsf_snack_moved">به صندوق ورودی منتقل شد</string>
+    <string name="nsf_snack_moved_allowed">به صندوق ورودی منتقل شد. پیام‌های بعدی %1$s هم می‌رسند.</string>
+    <plurals name="nsf_snack_moved_allowed_many" tools:ignore="ImpliedQuantity">
+        <item quantity="one">به صندوق ورودی منتقل شد. پیام‌های بعدی %d فرستنده هم می‌رسند.</item>
+        <item quantity="other">به صندوق ورودی منتقل شد. پیام‌های بعدی %d فرستنده هم می‌رسند.</item>
+    </plurals>
+    <string name="nsf_moving">در حال انتقال به صندوق ورودی</string>
+</resources>

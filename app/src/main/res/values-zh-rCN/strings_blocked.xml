@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="other">始终允许这%d个发件人？</item>
-    </plurals>
-    <string name="spam_allow_body_one">无论是否允许，消息都会恢复到收件箱。如果始终允许%1$s，该发件人今后的消息将跳过所有过滤，包括你的屏蔽规则。</string>
-    <string name="spam_allow_body_many">无论是否允许，消息都会恢复到收件箱。如果始终允许这些发件人，他们今后的消息将跳过所有过滤，包括你的屏蔽规则。</string>
     <string name="spam_allow_spoof_warning">任何人都能使用%1$s这样的名称发送短信。允许此名称后，冒用该名称的虚假短信也能通过。</string>
-    <string name="spam_allow_confirm">始终允许</string>
-    <string name="spam_allow_dismiss">暂不</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="other">已将%d条消息恢复到收件箱</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="other">已恢复。已设为始终允许%d个发件人。</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="other">已设为始终允许%d个发件人。</item>

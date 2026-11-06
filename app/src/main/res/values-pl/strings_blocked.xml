@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="one">Zawsze zezwalać na wiadomości od tego nadawcy?</item>
-        <item quantity="few">Zawsze zezwalać na wiadomości od tych %d nadawców?</item>
-        <item quantity="many">Zawsze zezwalać na wiadomości od tych %d nadawców?</item>
-        <item quantity="other">Zawsze zezwalać na wiadomości od %d nadawcy?</item>
-    </plurals>
-    <string name="spam_allow_body_one">Wiadomość i tak wróci do odebranych. Jeśli na stałe zezwolisz na wiadomości od %1$s, kolejne ominą wszystkie filtry, także twoje reguły blokowania.</string>
-    <string name="spam_allow_body_many">Wiadomości i tak wrócą do odebranych. Jeśli na stałe zezwolisz na wiadomości od tych nadawców, kolejne ominą wszystkie filtry, także twoje reguły blokowania.</string>
     <string name="spam_allow_spoof_warning">Każdy może wysłać SMS pod nazwą taką jak %1$s. Zezwolenie na nią przepuści też fałszywe wiadomości używające tej nazwy.</string>
-    <string name="spam_allow_confirm">Zawsze zezwalaj</string>
-    <string name="spam_allow_dismiss">Nie teraz</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="one">Przywrócono %d wiadomość do odebranych</item>
         <item quantity="few">Przywrócono %d wiadomości do odebranych</item>
         <item quantity="many">Przywrócono %d wiadomości do odebranych</item>
         <item quantity="other">Przywrócono %d wiadomości do odebranych</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="one">Przywrócono. Na stałe zezwolono na wiadomości od %d nadawcy.</item>
-        <item quantity="few">Przywrócono. Na stałe zezwolono na wiadomości od %d nadawców.</item>
-        <item quantity="many">Przywrócono. Na stałe zezwolono na wiadomości od %d nadawców.</item>
-        <item quantity="other">Przywrócono. Na stałe zezwolono na wiadomości od %d nadawcy.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="one">Na stałe zezwolono na wiadomości od %d nadawcy.</item>

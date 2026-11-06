@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="one">Consentire sempre questo mittente?</item>
-        <item quantity="other">Consentire sempre questi %d mittenti?</item>
-    </plurals>
-    <string name="spam_allow_body_one">Il messaggio torna comunque in In arrivo. Se consenti sempre %1$s, i suoi messaggi futuri salteranno tutti i filtri, incluse le tue regole di blocco.</string>
-    <string name="spam_allow_body_many">I messaggi tornano comunque in In arrivo. Se consenti sempre questi mittenti, i loro messaggi futuri salteranno tutti i filtri, incluse le tue regole di blocco.</string>
     <string name="spam_allow_spoof_warning">Chiunque può inviare un messaggio con un nome come %1$s. Consentendolo, passeranno anche i messaggi falsi che usano quel nome.</string>
-    <string name="spam_allow_confirm">Consenti sempre</string>
-    <string name="spam_allow_dismiss">Non ora</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="one">%d messaggio ripristinato in In arrivo</item>
         <item quantity="other">%d messaggi ripristinati in In arrivo</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="one">Ripristino completato. %d mittente è ora sempre consentito.</item>
-        <item quantity="other">Ripristino completato. %d mittenti sono ora sempre consentiti.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="one">%d mittente è ora sempre consentito.</item>

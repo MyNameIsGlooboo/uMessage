@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="one">Bu gönderene her zaman izin verilsin mi?</item>
-        <item quantity="other">Bu %d gönderene her zaman izin verilsin mi?</item>
-    </plurals>
-    <string name="spam_allow_body_one">Her iki durumda da mesaj gelen kutunuza geri döner. %1$s adlı gönderene her zaman izin verirseniz sonraki mesajları, engelleme kurallarınız dahil tüm filtreleri atlar.</string>
-    <string name="spam_allow_body_many">Her iki durumda da mesajlar gelen kutunuza geri döner. Bu gönderenlere her zaman izin verirseniz sonraki mesajları, engelleme kurallarınız dahil tüm filtreleri atlar.</string>
     <string name="spam_allow_spoof_warning">Herkes %1$s gibi bir adla mesaj gönderebilir. Bu ada izin verirseniz aynı adı kullanan sahte mesajlar da filtreden geçer.</string>
-    <string name="spam_allow_confirm">Her zaman izin verin</string>
-    <string name="spam_allow_dismiss">Şimdi değil</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="one">%d mesaj gelen kutusuna geri yüklendi</item>
         <item quantity="other">%d mesaj gelen kutusuna geri yüklendi</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="one">Geri yüklendi. Artık %d gönderene her zaman izin verildi.</item>
-        <item quantity="other">Geri yüklendi. Artık %d gönderene her zaman izin verildi.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="one">Artık %d gönderene her zaman izin verildi.</item>

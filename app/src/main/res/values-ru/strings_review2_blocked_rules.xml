@@ -13,21 +13,6 @@
     <string name="e_restored_empty">Сообщения, которые вы перенесете во входящие, будут отображаться здесь 30 дней.</string>
     <string name="e_restored_when">Перенесено во входящие %1$s</string>
     <string name="e_restored_open">Открыть чат с %1$s</string>
-    <string name="e_snack_allowed_one">%1$s теперь всегда разрешен на обеих SIM-картах</string>
-    <plurals name="e_snack_allowed_many" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d отправитель теперь всегда разрешен на обеих SIM-картах</item>
-        <item quantity="few">%d отправителя теперь всегда разрешены на обеих SIM-картах</item>
-        <item quantity="many">%d отправителей теперь всегда разрешены на обеих SIM-картах</item>
-        <item quantity="other">Теперь всегда разрешено %d отправителя на обеих SIM-картах</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">%1$s теперь всегда разрешен</string>
-    <plurals name="e_snack_allowed_many_single_sim" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d отправитель теперь всегда разрешен</item>
-        <item quantity="few">%d отправителя теперь всегда разрешены</item>
-        <item quantity="many">%d отправителей теперь всегда разрешены</item>
-        <item quantity="other">Теперь всегда разрешено %d отправителя</item>
-    </plurals>
-    <string name="e_view_rule">Посмотреть правило</string>
     <string name="e_rules_title">Правила</string>
     <string name="e_rules_menu_backup">Резервное копирование и восстановление</string>
     <string name="e_note_blocked_by_you">Заблокирован вами</string>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Snackbar after Not spam: the messages moved to the inbox (with Undo). -->
+    <string name="nsf_snack_moved">Moved to inbox</string>
+    <!-- %1$s is the sender's number or name. -->
+    <string name="nsf_snack_moved_allowed">Moved to inbox. Future messages from %1$s will arrive too.</string>
+    <plurals name="nsf_snack_moved_allowed_many">
+        <item quantity="one">Moved to inbox. Future messages from %d sender will arrive too.</item>
+        <item quantity="other">Moved to inbox. Future messages from %d senders will arrive too.</item>
+    </plurals>
+    <!-- Shown while Not spam is working. -->
+    <string name="nsf_moving">Moving to inbox</string>
+</resources>

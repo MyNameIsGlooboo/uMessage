@@ -29,6 +29,4 @@
         <item quantity="other">已屏蔽的消息将在%d天后删除。</item>
     </plurals>
     <string name="r3b_info_purge_off">已屏蔽的消息会一直保留，直到你将其删除。</string>
-    <string name="r3b_allow_body_sender_one_message">无论如何选择，这条消息都会回到收件箱。如果始终允许%1$s，该发件人今后的消息将跳过所有过滤，包括你的屏蔽规则。</string>
-    <string name="r3b_allow_body_sender_many_messages">无论如何选择，这些消息都会回到收件箱。如果始终允许%1$s，该发件人今后的消息将跳过所有过滤，包括你的屏蔽规则。</string>
 </resources>

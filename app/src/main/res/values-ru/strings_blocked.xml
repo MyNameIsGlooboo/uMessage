@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <plurals name="spam_allow_title" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Всегда разрешать этого отправителя?</item>
-        <item quantity="few">Всегда разрешать этих %d отправителей?</item>
-        <item quantity="many">Всегда разрешать этих %d отправителей?</item>
-        <item quantity="other">Всегда разрешать %d отправителя?</item>
-    </plurals>
-    <string name="spam_allow_body_one">Сообщение в любом случае вернется во входящие. Если всегда разрешать %1$s, новые сообщения этого отправителя будут обходить все фильтры, включая ваши правила блокировки.</string>
-    <string name="spam_allow_body_many">Сообщения в любом случае вернутся во входящие. Если всегда разрешать этих отправителей, их новые сообщения будут обходить все фильтры, включая ваши правила блокировки.</string>
     <string name="spam_allow_spoof_warning">Любой может отправить сообщение под именем вроде %1$s. Если разрешить это имя, поддельные сообщения с ним тоже будут проходить.</string>
-    <string name="spam_allow_confirm">Всегда разрешать</string>
-    <string name="spam_allow_dismiss">Не сейчас</string>
     <plurals name="spam_snack_restored_to_inbox" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d сообщение восстановлено во входящих</item>
         <item quantity="few">%d сообщения восстановлены во входящих</item>
         <item quantity="many">%d сообщений восстановлено во входящих</item>
         <item quantity="other">%d сообщения восстановлено во входящих</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Восстановлено. %d отправитель теперь всегда разрешен.</item>
-        <item quantity="few">Восстановлено. %d отправителя теперь всегда разрешены.</item>
-        <item quantity="many">Восстановлено. %d отправителей теперь всегда разрешены.</item>
-        <item quantity="other">Восстановлено. Теперь всегда разрешено %d отправителя.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d отправитель теперь всегда разрешен.</item>

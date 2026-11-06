@@ -17,18 +17,6 @@
     <string name="e_restored_when">Moved to the inbox %1$s</string>
     <string name="e_restored_open">Open the conversation with %1$s</string>
 
-    <!-- After Not spam with Always allow (BR-49). -->
-    <string name="e_snack_allowed_one">%1$s is now always allowed, on both SIMs</string>
-    <plurals name="e_snack_allowed_many">
-        <item quantity="one">%d sender is now always allowed, on both SIMs</item>
-        <item quantity="other">%d senders are now always allowed, on both SIMs</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">%1$s is now always allowed</string>
-    <plurals name="e_snack_allowed_many_single_sim">
-        <item quantity="one">%d sender is now always allowed</item>
-        <item quantity="other">%d senders are now always allowed</item>
-    </plurals>
-    <string name="e_view_rule">View rule</string>
 
     <!-- Rules screen (BR-13). -->
     <string name="e_rules_title">Rules</string>

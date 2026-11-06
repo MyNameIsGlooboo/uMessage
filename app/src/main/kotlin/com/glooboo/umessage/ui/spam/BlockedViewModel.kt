@@ -38,20 +38,8 @@ data class SenderGroup(val address: String, val messages: List<BlockedMessage>) 
     val latest: BlockedMessage get() = messages.first()
 }
 
-/**
- * The "Always allow?" question asked after "Not spam" (T12 / SU-16). [spoofable] lists the senders whose names
- * anyone can send under, so the prompt can warn about them. [messageCount] is how many messages went back, so the
- * prompt says "message" or "messages" to match.
- */
-data class AllowPrompt(
-    val token: Long,
-    val addresses: List<String>,
-    val spoofable: List<String>,
-    val messageCount: Int = addresses.size,
-    /** I22: an allow rule for messages like the restored one, offered when one sender was restored. */
-    val similar: SimilarRuleSuggestion.Suggestion? = null,
-    val includeSimilar: Boolean = false,
-)
+/** What a "Not spam" from a blocked chat did: how many messages reached the inbox, so the screen can open the chat. */
+data class NotSpamDone(val addresses: List<String>, val toInbox: Int, val allowed: List<String> = emptyList())
 
 data class BlockedUiState(
     val loading: Boolean = true,
@@ -65,7 +53,6 @@ data class BlockedUiState(
     val rules: Map<Long, SpamRule> = emptyMap(),
     /** Blocked messages older than this many days are deleted; 0 keeps them (SU-23). */
     val purgeAfterDays: Int = 30,
-    val allowPrompt: AllowPrompt? = null,
     /** The chip chosen under the banner (ID-14); [groups] only holds what it lets through. */
     val filter: BlockedFilter = BlockedFilter.All,
     /** How many senders each chip would list, over all held messages (rows, not messages). */
@@ -85,13 +72,19 @@ data class BlockedUiState(
 
 sealed interface BlockedEvent {
     /**
-     * Shown with an Undo action. The messages are in the inbox already (and the allow rules stored, when [allowed] >
-     * 0); Undo takes both back. [count] messages went to the inbox; [mediaLost] of the picture messages among all
-     * restored ones lost their pictures (never downloaded, download failed or expired), which the snackbar says
-     * plainly (SU-17). Picture messages with neither pictures nor text are not in [count]: nothing of them reached
-     * the inbox.
+     * Shown with an Undo action. The messages are in the inbox already (and the allow rules stored for [senders],
+     * when [allowed] > 0); Undo takes both back. [count] messages went to the inbox; [mediaLost] of the picture
+     * messages among all restored ones lost their pictures (never downloaded, download failed or expired), which
+     * the snackbar says plainly (SU-17). Picture messages with neither pictures nor text are not in [count]:
+     * nothing of them reached the inbox.
      */
-    data class Restored(val token: Long, val count: Int, val allowed: Int = 0, val mediaLost: Int = 0) : BlockedEvent
+    data class Restored(
+        val token: Long,
+        val count: Int,
+        val allowed: Int = 0,
+        val mediaLost: Int = 0,
+        val senders: List<String> = emptyList(),
+    ) : BlockedEvent
 
     /** [count] kept picture messages could not be put in the inbox. They are still in Blocked. */
     data class RestoreFailed(val count: Int) : BlockedEvent
@@ -102,12 +95,6 @@ sealed interface BlockedEvent {
 
     /** The unknown-sender mode was changed from this screen; Undo puts [previous] back (P1-*). */
     data class ModeChanged(val previous: UnknownSenderMode, val mode: UnknownSenderMode) : BlockedEvent
-
-    /**
-     * The allow rules chosen after Not spam are kept (the undo window has closed), for these [addresses] on both
-     * SIMs. The snackbar names them and offers "View rule" (BR-49).
-     */
-    data class AllowRulesAdded(val addresses: List<String>) : BlockedEvent
 }
 
 /** Groups messages by sender; groups and their messages are sorted newest first. */
@@ -143,7 +130,6 @@ class BlockedViewModel(
     private data class Aux(
         val settings: SpamSettings,
         val rules: List<SpamRule>,
-        val prompt: AllowPrompt?,
         val filter: BlockedFilter,
         val restored: List<RestoredEntry>,
     )
@@ -157,7 +143,6 @@ class BlockedViewModel(
      */
     private val pendingRestores = MutableStateFlow<Map<Long, PendingRestore>>(emptyMap())
 
-    private val allowPrompt = MutableStateFlow<AllowPrompt?>(null)
     private var nextToken = 1L
 
     /** Restores being committed or undone, so the snackbar and the undo-window timer cannot run one twice. */
@@ -170,21 +155,22 @@ class BlockedViewModel(
     @Volatile private var cleared = false
 
     /**
-     * [allow] is null until the user answers the "Always allow?" prompt; [allowSettled] once the answer's rules are
-     * stored (or failed). [receipts] is what the repository did with each message, null while it is still at work.
-     * The Undo snackbar ([announced]) waits for both.
+     * [allowAddresses] are the senders whose allow rules go with the restore: none for "Release once" and none for
+     * names anyone can fake. [receipts] is what the repository did with each message, null while it is still at
+     * work; the Undo snackbar ([announced]) waits for them. A [silent] restore comes from a blocked chat: its rows
+     * stay on screen while it runs, it shows no Undo snackbar, and the screen opens the normal chat instead.
      */
     private data class PendingRestore(
         val ids: List<Long>,
         val addresses: List<String>,
-        val allow: Boolean? = null,
+        val allowAddresses: List<String> = emptyList(),
+        val silent: Boolean = false,
         /** Sender and arrival time by id, for the restored list; the rows are gone once restored. */
         val messages: Map<Long, BlockedMessage> = emptyMap(),
-        val allowSettled: Boolean = allow == false,
         val receipts: Map<Long, RestoreReceipt>? = null,
         /** The restored-list entries written for this restore, so Undo can take them out again. */
         val logged: List<RestoredEntry> = emptyList(),
-        /** The rules "Always allow" added, so Undo can remove them; null when none were added. */
+        /** The rules the restore added, so Undo can remove them; null when none were added. */
         val allowChange: SenderBlocking.AllowChange? = null,
         val announced: Boolean = false,
     ) {
@@ -198,22 +184,39 @@ class BlockedViewModel(
             get() = receipts.orEmpty().values.count { it.outcome == RestoreOutcome.FAILED && it.message != null }
 
         /** All rows while the restore runs; afterwards a message that could not be restored shows again. */
-        val hidden: List<Long>
+        val claimed: List<Long>
             get() = receipts?.let { r -> ids.filter { r[it]?.outcome != RestoreOutcome.FAILED } } ?: ids
 
-        val ready: Boolean get() = !announced && allowSettled && receipts != null
+        /** The rows hidden from the list: a silent restore keeps its rows until it is done. */
+        val hidden: List<Long> get() = if (silent && receipts == null) emptyList() else claimed
 
-        fun event(token: Long) =
-            BlockedEvent.Restored(token, toInbox, if (allowChange != null) addresses.size else 0, mediaLost)
+        val ready: Boolean get() = !announced && receipts != null
+
+        fun event(token: Long): BlockedEvent.Restored {
+            val allowed = if (allowChange != null) allowAddresses else emptyList()
+            return BlockedEvent.Restored(token, toInbox, allowed.size, mediaLost, allowed)
+        }
     }
+
+    /** What the repository and the rules did for one restore. */
+    private class RestoreWork(
+        val receipts: Map<Long, RestoreReceipt>,
+        val logged: List<RestoredEntry>,
+        val change: SenderBlocking.AllowChange?,
+    )
 
     private val events = Channel<BlockedEvent>(Channel.BUFFERED)
     val eventFlow = events.receiveAsFlow()
 
+    private val doneEvents = Channel<NotSpamDone>(Channel.BUFFERED)
+
+    /** One entry for every "Not spam" started with `openChat`, once its messages are in the inbox (or failed to be). */
+    val notSpamDone = doneEvents.receiveAsFlow()
+
     val state: StateFlow<BlockedUiState> = combine(
         repository.blocked,
         repository.stats,
-        combine(repository.settings, repository.rules, allowPrompt, filter, restoredLog.entries, ::Aux),
+        combine(repository.settings, repository.rules, filter, restoredLog.entries, ::Aux),
         combine(pendingDeletes, pendingRestores) { deletes, restores ->
             Pending(
                 ids = deletes.values.flatten() + restores.values.flatMap { it.hidden },
@@ -246,7 +249,6 @@ class BlockedViewModel(
             mode = aux.settings.mode,
             rules = aux.rules.associateBy { it.id },
             purgeAfterDays = aux.settings.purgeAfterDays,
-            allowPrompt = aux.prompt,
             restored = aux.restored,
             hasPendingUndo = pending.any,
         )
@@ -294,7 +296,7 @@ class BlockedViewModel(
 
     /**
      * "Release once" (ID-16): puts this one message in the inbox without allowing the sender. It is the restore
-     * "Not spam" does, minus the "Always allow?" question, with the same Undo.
+     * "Not spam" does, minus the allow rule, with the same Undo.
      */
     fun releaseOnce(messageId: Long) {
         // A double tap can arrive before the state hides the message; the pending list is the up-to-date one (L4).
@@ -302,9 +304,7 @@ class BlockedViewModel(
         val message = state.value.groups.firstNotNullOfOrNull { g -> g.messages.firstOrNull { it.id == messageId } }
             ?: return
         val token = nextToken++
-        val restore = PendingRestore(
-            listOf(message.id), emptyList(), allow = false, messages = mapOf(message.id to message),
-        )
+        val restore = PendingRestore(listOf(message.id), emptyList(), messages = mapOf(message.id to message))
         pendingRestores.update { it + (token to restore) }
         startRestore(token)
     }
@@ -314,80 +314,69 @@ class BlockedViewModel(
     fun selectAll() { selected.value = state.value.groups.map { it.address }.toSet() }
 
     /**
-     * "Not spam": puts the senders' messages in the inbox right away and asks whether to always allow them
-     * ([BlockedUiState.allowPrompt]). Restoring only puts the messages in the inbox; it does not whitelist anyone
-     * (T12). The Undo snackbar follows the answer and covers the restore and the rules.
+     * "Not spam": in one step, puts the senders' messages in the inbox and stores an allow rule for each sender
+     * (a number rule, or a sender-id rule), then offers one Undo for both. Senders whose names anyone can fake get no
+     * rule: their messages only move. Nothing is asked. With [openChat] the rows stay until the work is done, no
+     * snackbar is shown, and [notSpamDone] tells the blocked chat to open the normal chat. Returns false when there
+     * was nothing to move (all of it is already on its way).
      */
-    fun notSpam(addresses: Set<String>) {
+    fun notSpam(addresses: Set<String>, openChat: Boolean = false): Boolean {
         val groups = state.value.groups.filter { it.address in addresses }
         // Messages already waiting on a restore are left out, so a second swipe cannot queue them twice (L4).
         val pending = pendingIds()
         val messages = groups.flatMap { it.messages }.filter { it.id !in pending }
         val ids = messages.map { it.id }
-        if (ids.isEmpty()) return
-        allowPrompt.value?.let { answerAllow(it.token, allow = false) }
+        if (ids.isEmpty()) return false
         val token = nextToken++
         val senders = groups.map { it.address }
-        val restore = PendingRestore(ids, senders, messages = messages.associateBy { it.id })
+        val restore = PendingRestore(
+            ids, senders, senders.filterNot(SenderBlocking::isSpoofable), openChat,
+            messages = messages.associateBy { it.id },
+        )
         pendingRestores.update { it + (token to restore) }
         selected.value = emptySet()
-        val similar = senders.singleOrNull()?.let { SimilarRuleSuggestion.suggest(it, messages.first().body) }
-        allowPrompt.value =
-            AllowPrompt(token, senders, senders.filter(SenderBlocking::isSpoofable), ids.size, similar)
         startRestore(token)
-    }
-
-    /** I22: the "Also allow messages like this" box of the prompt. */
-    fun setIncludeSimilar(token: Long, include: Boolean) =
-        allowPrompt.update { prompt -> prompt?.takeIf { it.token == token }?.copy(includeSimilar = include) ?: prompt }
-
-    /**
-     * The answer to the "Always allow?" prompt. Yes stores the allow rules at once, so closing the app keeps them;
-     * never answering just adds none. The Undo snackbar follows and covers the restore and the rules.
-     */
-    fun answerAllow(token: Long, allow: Boolean) {
-        val similar = allowPrompt.value?.takeIf { it.token == token && it.includeSimilar }?.similar
-        if (allowPrompt.value?.token == token) allowPrompt.value = null
-        val pending = pendingRestores.value[token] ?: return
-        if (pending.allow != null) return
-        updateRestore(token) { it.copy(allow = allow, allowSettled = !allow) }
-        if (!allow) {
-            announceIfReady(token)
-            return
-        }
-        viewModelScope.launch {
-            val change = withContext(NonCancellable) {
-                restoreWork.withLock {
-                    runCatching { SenderBlocking.alwaysAllow(repository, pending.addresses, similar) }
-                }
-            }
-            if (change.isFailure) events.trySend(BlockedEvent.Failed)
-            updateRestore(token) { it.copy(allowSettled = true, allowChange = change.getOrNull()) }
-            announceIfReady(token)
-        }
+        return true
     }
 
     /**
-     * Puts the messages in the inbox now. Waiting for the undo window (as this once did) kept the restore only in
-     * memory, so closing the app within it, or before answering "Always allow?", lost it. The repository restores
-     * each message crash-safely, and the work is not cancelled with the screen; Undo reverses it instead.
+     * Puts the messages in the inbox now, with the allow rules. Waiting for the undo window (as this once did) kept
+     * the restore only in memory, so closing the app within it lost it. The repository restores each message
+     * crash-safely, and the work is not cancelled with the screen; Undo reverses it instead.
      */
     private fun startRestore(token: Long) {
         val pending = pendingRestores.value[token] ?: return
         val messages = pending.ids.mapNotNull { pending.messages[it] }
         viewModelScope.launch {
             withContext(NonCancellable) {
-                val (receipts, logged) = restoreWork.withLock { restore(messages) }
+                val work = restoreWork.withLock { restoreAndAllow(messages, pending.allowAddresses) }
                 // The chat list (MainActivity) reloads on this event, so the restored text shows without a refresh.
                 refreshConversations()
                 if (cleared) {
-                    receipts.values.forEach { runCatching { repository.finishRestore(it) } }
+                    finishInBackground(work.receipts.values)
                 } else {
-                    updateRestore(token) { it.copy(receipts = receipts, logged = logged) }
+                    updateRestore(token) {
+                        it.copy(receipts = work.receipts, logged = work.logged, allowChange = work.change)
+                    }
                     announceIfReady(token)
                 }
             }
         }
+    }
+
+    /** The restore and its allow rules as one piece of work; no rule is added when nothing reached the inbox. */
+    private suspend fun restoreAndAllow(messages: List<BlockedMessage>, allow: List<String>): RestoreWork {
+        val (receipts, logged) = restore(messages)
+        val inInbox = setOf(RestoreOutcome.RESTORED, RestoreOutcome.TEXT_ONLY)
+        val moved = receipts.values.any { it.outcome in inInbox }
+        val change = if (allow.isEmpty() || !moved) {
+            null
+        } else {
+            runCatching { SenderBlocking.alwaysAllow(repository, allow) }
+                .onFailure { events.trySend(BlockedEvent.Failed) }
+                .getOrNull()
+        }
+        return RestoreWork(receipts, logged, change)
     }
 
     private suspend fun restore(messages: List<BlockedMessage>): Pair<Map<Long, RestoreReceipt>, List<RestoredEntry>> {
@@ -408,9 +397,20 @@ class BlockedViewModel(
         return receipts to logged
     }
 
-    /** Shows the Undo snackbar once the restore is done and the allow answer settled, and starts the undo window. */
+    /** Shows the Undo snackbar once the restore is done, and starts the undo window. */
     private fun announceIfReady(token: Long) {
         val pending = pendingRestores.value[token]?.takeIf { it.ready } ?: return
+        if (pending.silent) {
+            val allowed = if (pending.allowChange != null) pending.allowAddresses else emptyList()
+            doneEvents.trySend(NotSpamDone(pending.addresses, pending.toInbox, allowed))
+        }
+        if (pending.silent && pending.toInbox > 0) {
+            // The blocked chat opens the normal chat: nothing here to undo, so the restore is final right away.
+            pendingRestores.update { it - token }
+            finishInBackground(pending.receipts.orEmpty().values)
+            if (pending.failed > 0) events.trySend(BlockedEvent.RestoreFailed(pending.failed))
+            return
+        }
         if (pending.toInbox == 0 && pending.mediaLost == 0 && pending.allowChange == null) {
             // Nothing left Blocked and no rule was added: there is nothing to undo, only a failure to report.
             pendingRestores.update { it - token }
@@ -427,7 +427,15 @@ class BlockedViewModel(
         }
     }
 
-    /** Undo: takes the messages back out of the inbox into Blocked, and removes the rules "Always allow" added. */
+    /** Ends the undo window of finished restores on a scope of their own, so closing the screen cannot cancel it. */
+    private fun finishInBackground(receipts: Collection<RestoreReceipt>) {
+        if (receipts.isEmpty()) return
+        CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
+            receipts.forEach { runCatching { repository.finishRestore(it) } }
+        }
+    }
+
+    /** Undo: takes the messages back out of the inbox into Blocked, and removes the allow rules the restore added. */
     fun undoRestore(token: Long) {
         val pending = pendingRestores.value[token]?.takeIf { it.announced } ?: return
         if (!committing.add(token)) return
@@ -464,7 +472,6 @@ class BlockedViewModel(
                     pending.receipts.orEmpty().values.forEach { runCatching { repository.finishRestore(it) } }
                 }
             }
-            if (pending.allowChange != null) events.trySend(BlockedEvent.AllowRulesAdded(pending.addresses))
             if (pending.failed > 0) events.trySend(BlockedEvent.RestoreFailed(pending.failed))
             pendingRestores.update { it - token }
             committing -= token
@@ -508,7 +515,6 @@ class BlockedViewModel(
      * Shows the Undo snackbar again for every action still waiting on one. Call when the screen starts collecting
      * [eventFlow]: after a rotation the old snackbar was cancelled without an answer, which left the rows hidden with
      * no way to undo or finish the action. Events still queued for the old screen are folded in, so none shows twice.
-     * A restore still waiting on the allow answer has no snackbar yet; its prompt lives in the state.
      */
     fun replayPending() {
         val queued = generateSequence { events.tryReceive().getOrNull() }.toList()
@@ -522,7 +528,7 @@ class BlockedViewModel(
     override fun onCleared() {
         // Leaving the screen finalises deletions the user did not undo. Restores are done already; what is left is
         // deleting the kept files of those whose undo window was still open (one still running does that itself, and
-        // one being committed or undone finishes on its own). An unanswered allow prompt adds no rule.
+        // one being committed or undone finishes on its own).
         cleared = true
         val leftovers = pendingDeletes.value.values.flatten()
         val finished = pendingRestores.value.filterKeys { it !in committing }.values
@@ -538,7 +544,7 @@ class BlockedViewModel(
 
     /** Ids hidden while a restore or a delete waits for its undo window. */
     private fun pendingIds(): Set<Long> =
-        (pendingRestores.value.values.flatMap { it.hidden } + pendingDeletes.value.values.flatten()).toSet()
+        (pendingRestores.value.values.flatMap { it.claimed } + pendingDeletes.value.values.flatten()).toSet()
 
     private fun idsOf(addresses: Set<String>): List<Long> =
         state.value.groups.filter { it.address in addresses }.flatMap { g -> g.messages.map { it.id } }

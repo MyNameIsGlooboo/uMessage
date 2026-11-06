@@ -4,6 +4,7 @@ import android.app.Application
 import android.os.Looper
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ListKind
@@ -58,71 +59,105 @@ class BlockedViewModelActionsTest {
     private fun rules() = runBlocking { repo.rules.first() }
     private fun blocked() = runBlocking { repo.blocked.first() }
 
-    @Test
-    fun notSpamAsksBeforeAllowingAndNotNowAddsNoRule() {
-        vm.notSpam(setOf(NUMBER))
-        awaitUntil { vm.state.value.allowPrompt != null }
-        val prompt = vm.state.value.allowPrompt!!
-        assertThat(prompt.addresses).containsExactly(NUMBER)
-        assertThat(prompt.spoofable).isEmpty()
-        // Round 4: the prompt knows both messages went back, so it says "The messages go back".
-        assertThat(prompt.messageCount).isEqualTo(2)
-        assertThat(vm.state.value.groups.map { it.address }).doesNotContain(NUMBER)
-        assertThat(events).isEmpty()
+    private val done: MutableList<NotSpamDone> = Collections.synchronizedList(mutableListOf())
 
-        vm.answerAllow(prompt.token, allow = false)
+    private fun allowRules() = rules().filter { it.kind == ListKind.ALLOW }
+
+    private fun snack(event: BlockedEvent.Restored) = restoredSnackText(app.resources, event)
+
+    /** Not spam is one step: no question, the messages go to the inbox and the sender is allowed. */
+    @Test
+    fun notSpamRestoresAndAllowsTheNumberInOneStep() {
+        vm.notSpam(setOf(NUMBER))
         awaitUntil { events.isNotEmpty() }
         val restored = events.single() as BlockedEvent.Restored
         assertThat(restored.count).isEqualTo(2)
-        assertThat(restored.allowed).isEqualTo(0)
+        assertThat(restored.allowed).isEqualTo(1)
+        assertThat(restored.senders).containsExactly(NUMBER)
+        assertThat(blocked().none { it.address == NUMBER }).isTrue()
+        assertThat(allowRules().single().pattern).isEqualTo(NUMBER)
+        assertThat(allowRules().single().type).isEqualTo(RuleType.NUMBER)
+        assertThat(snack(restored)).isEqualTo(app.getString(R.string.nsf_snack_moved_allowed, NUMBER))
 
         vm.commitRestore(restored.token)
-        awaitUntil { blocked().none { it.address == NUMBER } }
-        assertThat(rules().filter { it.kind == ListKind.ALLOW }).isEmpty()
+        awaitUntil { !vm.state.value.hasPendingUndo }
+        assertThat(allowRules()).hasSize(1)
+        assertThat(events).hasSize(1)
     }
 
-    /** Yes stores the rule at once (closing the app keeps it); the "View rule" snackbar waits for the window. */
+    /** A name anyone can send under is never allowed: the messages move and no rule is made. */
     @Test
-    fun alwaysAllowStoresTheRuleAtOnce() {
-        vm.notSpam(setOf(NUMBER))
-        awaitUntil { vm.state.value.allowPrompt != null }
-        vm.answerAllow(vm.state.value.allowPrompt!!.token, allow = true)
+    fun aSpoofableSenderOnlyMoves() {
+        vm.notSpam(setOf(SENDER_ID))
         awaitUntil { events.isNotEmpty() }
         val restored = events.single() as BlockedEvent.Restored
-        assertThat(restored.allowed).isEqualTo(1)
-        assertThat(rules().single { it.kind == ListKind.ALLOW }.pattern).isEqualTo(NUMBER)
+        assertThat(restored.count).isEqualTo(1)
+        assertThat(restored.allowed).isEqualTo(0)
+        assertThat(restored.senders).isEmpty()
+        assertThat(snack(restored)).isEqualTo(app.getString(R.string.nsf_snack_moved))
+        assertThat(allowRules()).isEmpty()
+        assertThat(blocked().none { it.address == SENDER_ID }).isTrue()
 
-        vm.commitRestore(restored.token)
-        awaitUntil { events.any { it is BlockedEvent.AllowRulesAdded } }
-        assertThat(rules().filter { it.kind == ListKind.ALLOW }).hasSize(1)
-    }
-
-    /** Never answering the prompt still restores the messages, and adds no rule. */
-    @Test
-    fun anUnansweredPromptRestoresWithoutAllowing() {
-        vm.notSpam(setOf(NUMBER))
-        awaitUntil { vm.state.value.allowPrompt != null }
-        assertThat(blocked().none { it.address == NUMBER }).isTrue()
-        assertThat(rules().filter { it.kind == ListKind.ALLOW }).isEmpty()
+        vm.undoRestore(restored.token)
+        awaitUntil { SENDER_ID in vm.state.value.groups.map { it.address } }
+        assertThat(allowRules()).isEmpty()
     }
 
     @Test
-    fun undoAfterAlwaysAllowLeavesEverythingAsItWas() {
+    fun aMixedSelectionAllowsOnlyTheNumber() {
+        vm.notSpam(setOf(NUMBER, SENDER_ID))
+        awaitUntil { events.isNotEmpty() }
+        val restored = events.single() as BlockedEvent.Restored
+        assertThat(restored.count).isEqualTo(3)
+        assertThat(restored.senders).containsExactly(NUMBER)
+        assertThat(allowRules().map { it.pattern }).containsExactly(NUMBER)
+    }
+
+    @Test
+    fun oneUndoTakesBackTheMessagesAndTheRule() {
         vm.notSpam(setOf(NUMBER))
-        awaitUntil { vm.state.value.allowPrompt != null }
-        vm.answerAllow(vm.state.value.allowPrompt!!.token, allow = true)
         awaitUntil { events.isNotEmpty() }
         vm.undoRestore((events.single() as BlockedEvent.Restored).token)
         awaitUntil { NUMBER in vm.state.value.groups.map { it.address } }
         assertThat(blocked()).hasSize(3)
-        assertThat(rules().filter { it.kind == ListKind.ALLOW }).isEmpty()
+        assertThat(allowRules()).isEmpty()
+        // The block rule that was there before is untouched.
+        assertThat(rules().map { it.id }).contains(7L)
     }
 
     @Test
-    fun senderIdIsFlaggedAsSpoofableInThePrompt() {
-        vm.notSpam(setOf(NUMBER, SENDER_ID))
-        awaitUntil { vm.state.value.allowPrompt != null }
-        assertThat(vm.state.value.allowPrompt!!.spoofable).containsExactly(SENDER_ID)
+    fun aDoubleTapDoesNotRestoreTwice() {
+        assertThat(vm.notSpam(setOf(NUMBER))).isTrue()
+        assertThat(vm.notSpam(setOf(NUMBER))).isFalse()
+        awaitUntil { events.isNotEmpty() }
+        idleMain()
+        assertThat(events.filterIsInstance<BlockedEvent.Restored>()).hasSize(1)
+        assertThat((events.single() as BlockedEvent.Restored).count).isEqualTo(2)
+        assertThat(allowRules()).hasSize(1)
+    }
+
+    /** From a blocked chat: no snackbar here, the screen is told what reached the inbox and opens the chat. */
+    @Test
+    fun fromABlockedChatTheScreenIsToldAndNoSnackbarShows() {
+        scope.launch { vm.notSpamDone.collect { done += it } }
+        assertThat(vm.notSpam(setOf(NUMBER), openChat = true)).isTrue()
+        awaitUntil { done.isNotEmpty() }
+        assertThat(done.single().toInbox).isEqualTo(2)
+        assertThat(done.single().allowed).containsExactly(NUMBER)
+        assertThat(allowRules()).hasSize(1)
+        assertThat(blocked().none { it.address == NUMBER }).isTrue()
+        awaitUntil { !vm.state.value.hasPendingUndo }
+        assertThat(events).isEmpty()
+        // A second tap while the first runs does nothing.
+        assertThat(vm.notSpam(setOf(NUMBER), openChat = true)).isFalse()
+    }
+
+    @Test
+    fun aSecondTapFromABlockedChatBeforeItFinishesIsIgnored() {
+        assertThat(vm.notSpam(setOf(NUMBER), openChat = true)).isTrue()
+        assertThat(vm.notSpam(setOf(NUMBER), openChat = true)).isFalse()
+        awaitUntil { !vm.state.value.hasPendingUndo }
+        assertThat(allowRules()).hasSize(1)
     }
 
     @Test

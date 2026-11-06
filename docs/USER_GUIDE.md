@@ -37,7 +37,7 @@ Blocked messages do not reach your inbox and do not make a sound. They wait in t
 
 For each blocked message you can:
 
-- **Not spam**: moves the message to your inbox and allows the sender from now on.
+- **Not spam**: moves the messages to your inbox and allows the sender from now on, in one step. A snackbar offers Undo. From a blocked chat it opens the normal chat so you can reply at once. For sender names that anyone can fake (for example `ACME-BANK`) no allow rule is added; the messages only move. To stop allowing a sender, delete the rule in Settings > Rules.
 - **Block sender**: adds a block rule for the sender and removes their blocked messages.
 - **Delete** the message.
 

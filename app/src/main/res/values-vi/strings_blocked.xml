@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="other">Luôn cho phép %d người gửi này?</item>
-    </plurals>
-    <string name="spam_allow_body_one">Dù bạn chọn cách nào, tin nhắn vẫn trở về hộp thư đến của bạn. Nếu bạn luôn cho phép %1$s, tin nhắn sau này của họ sẽ bỏ qua mọi bộ lọc, kể cả quy tắc chặn của bạn.</string>
-    <string name="spam_allow_body_many">Dù bạn chọn cách nào, tin nhắn vẫn trở về hộp thư đến của bạn. Nếu bạn luôn cho phép những người gửi này, tin nhắn sau này của họ sẽ bỏ qua mọi bộ lọc, kể cả quy tắc chặn của bạn.</string>
     <string name="spam_allow_spoof_warning">Ai cũng có thể gửi tin nhắn bằng tên như %1$s. Cho phép tên này cũng cho phép tin nhắn giả mạo dùng tên đó đi qua.</string>
-    <string name="spam_allow_confirm">Luôn cho phép</string>
-    <string name="spam_allow_dismiss">Để sau</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="other">Đã khôi phục %d tin nhắn vào hộp thư đến</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="other">Đã khôi phục. %d người gửi giờ luôn được cho phép.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="other">%d người gửi giờ luôn được cho phép.</item>

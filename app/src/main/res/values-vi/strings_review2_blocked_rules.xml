@@ -10,15 +10,6 @@
     <string name="e_restored_empty">Từ giờ, tin nhắn bạn chuyển vào hộp thư đến sẽ được liệt kê ở đây trong 30 ngày.</string>
     <string name="e_restored_when">Đã chuyển vào hộp thư đến %1$s</string>
     <string name="e_restored_open">Mở cuộc trò chuyện với %1$s</string>
-    <string name="e_snack_allowed_one">Đã luôn cho phép %1$s trên cả hai SIM</string>
-    <plurals name="e_snack_allowed_many">
-        <item quantity="other">Đã luôn cho phép %d người gửi trên cả hai SIM</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">Đã luôn cho phép %1$s</string>
-    <plurals name="e_snack_allowed_many_single_sim">
-        <item quantity="other">Đã luôn cho phép %d người gửi</item>
-    </plurals>
-    <string name="e_view_rule">Xem quy tắc</string>
     <string name="e_rules_title">Quy tắc</string>
     <string name="e_rules_menu_backup">Sao lưu và khôi phục</string>
     <string name="e_note_blocked_by_you">Đã chặn theo lựa chọn của bạn</string>

@@ -9,7 +9,7 @@
     <string name="r3b_info_mode_current">Now: %1$s</string>
     <string name="r3b_info_messages">Blocked messages</string>
     <string name="r3b_info_open_sender">Tap a sender to read their messages.</string>
-    <string name="r3b_info_move">Move to inbox puts all of a sender\'s messages in your inbox, then asks whether to always allow them.</string>
+    <string name="r3b_info_move">Move to inbox puts all of a sender\'s messages in your inbox and, for a phone number, allows the sender.</string>
     <string name="r3b_info_release">Release once (touch and hold a message) puts only that message in your inbox. The sender is not allowed.</string>
     <string name="r3b_info_swipe">Swipe a sender toward the end of the row to move their messages to the inbox.</string>
 
@@ -44,7 +44,4 @@
     </plurals>
     <string name="r3b_info_purge_off">Blocked messages are kept until you delete them.</string>
 
-    <!-- "Always allow?" after Move to inbox for one sender; picked by how many of their messages went back (two strings, not plurals: Persian "one" also covers zero). %1$s is the sender's number or name. -->
-    <string name="r3b_allow_body_sender_one_message">The message goes back to your inbox either way. If you always allow %1$s, their future messages skip every filter, including your block rules.</string>
-    <string name="r3b_allow_body_sender_many_messages">The messages go back to your inbox either way. If you always allow %1$s, their future messages skip every filter, including your block rules.</string>
 </resources>

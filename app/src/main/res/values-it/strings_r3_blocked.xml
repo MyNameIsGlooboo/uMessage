@@ -30,6 +30,4 @@
         <item quantity="other">I messaggi bloccati vengono eliminati dopo %d giorni.</item>
     </plurals>
     <string name="r3b_info_purge_off">I messaggi bloccati restano finché non li elimini.</string>
-    <string name="r3b_allow_body_sender_one_message">Il messaggio torna comunque in In arrivo. Se consenti sempre %1$s, i suoi messaggi futuri saltano tutti i filtri, comprese le tue regole di blocco.</string>
-    <string name="r3b_allow_body_sender_many_messages">I messaggi tornano comunque in In arrivo. Se consenti sempre %1$s, i suoi messaggi futuri saltano tutti i filtri, comprese le tue regole di blocco.</string>
 </resources>

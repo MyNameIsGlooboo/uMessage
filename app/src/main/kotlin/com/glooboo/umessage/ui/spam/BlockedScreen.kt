@@ -92,7 +92,7 @@ fun BlockedRoute(onBack: (() -> Unit)?, onOpenRules: () -> Unit, onOpenSettings:
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val groups by rememberUpdatedState(state.groups)
-    BlockedEvents(viewModel, snackbar, onOpenRules)
+    BlockedEvents(viewModel, snackbar)
     val actions = remember(viewModel, onBack, onOpenRules, onOpenSettings, context) {
         BlockedActions(
             onBack = onBack,
@@ -102,10 +102,8 @@ fun BlockedRoute(onBack: (() -> Unit)?, onOpenRules: () -> Unit, onOpenSettings:
             onToggleSelected = viewModel::toggleSelected,
             onClearSelection = viewModel::clearSelection,
             onSelectAll = viewModel::selectAll,
-            onNotSpam = viewModel::notSpam,
+            onNotSpam = { addresses -> viewModel.notSpam(addresses) },
             onDelete = viewModel::delete,
-            onAnswerAllow = viewModel::answerAllow,
-            onIncludeSimilar = viewModel::setIncludeSimilar,
             onSetFilter = viewModel::setFilter,
             onReportSpam = { selected -> scope.launch { reportToCarrier(context, groups, selected, snackbar) } },
         )
@@ -114,22 +112,19 @@ fun BlockedRoute(onBack: (() -> Unit)?, onOpenRules: () -> Unit, onOpenSettings:
 }
 
 /**
- * The snackbars of the Blocked tab's and the sender thread's one-shot events, with Undo (or View rule) where it
- * applies. [onSettle] hears how a restore or delete snackbar ended: true when the action stays, false on Undo.
+ * The snackbars of the Blocked tab's and the sender thread's one-shot events, with Undo where it applies.
+ * [onSettle] hears how a restore or delete snackbar ended: true when the action stays, false on Undo.
  */
 @Composable
 internal fun BlockedEvents(
     viewModel: BlockedViewModel,
     snackbar: SnackbarHostState,
-    onOpenRules: () -> Unit,
     onSettle: (committed: Boolean) -> Unit = {},
 ) {
     val resources = LocalResources.current
     val context = LocalContext.current
     val undoLabel = stringResource(R.string.spam_undo)
-    val viewRuleLabel = stringResource(R.string.e_view_rule)
     val failedText = stringResource(R.string.spam_snack_failed)
-    val openRules by rememberUpdatedState(onOpenRules)
     val settled by rememberUpdatedState(onSettle)
     LaunchedEffect(viewModel) {
         // After a rotation the previous snackbar was cancelled unanswered; offer its Undo again.
@@ -137,8 +132,7 @@ internal fun BlockedEvents(
         viewModel.eventFlow.collect { event ->
             snackbar.currentSnackbarData?.dismiss()
             launch {
-                val dualSim = viewModel.state.value.sims.size >= 2
-                val text = eventText(resources, event, failedText, dualSim) { number ->
+                val text = eventText(resources, event, failedText) { number ->
                     isolateNumbers(displayNumber(context, number))
                 }
                 when (event) {
@@ -164,11 +158,6 @@ internal fun BlockedEvents(
                         }
                         settled(result != SnackbarResult.ActionPerformed)
                     }
-                    // BR-49: says which rule "Always allow" made, and opens the Rules screen on the Allowed tab.
-                    is BlockedEvent.AllowRulesAdded -> {
-                        val result = snackbar.showSnackbar(text, viewRuleLabel, duration = SnackbarDuration.Long)
-                        if (result == SnackbarResult.ActionPerformed) openRules()
-                    }
                     BlockedEvent.Failed, is BlockedEvent.RestoreFailed ->
                         snackbar.showSnackbar(text, duration = SnackbarDuration.Long)
                 }
@@ -182,45 +171,37 @@ private fun eventText(
     resources: android.content.res.Resources,
     event: BlockedEvent,
     failedText: String,
-    dualSim: Boolean,
     shownNumber: (String) -> String,
 ): String =
     when (event) {
-        is BlockedEvent.Restored -> restoredSnackText(resources, event)
+        is BlockedEvent.Restored -> restoredSnackText(resources, event, shownNumber)
         is BlockedEvent.ModeChanged ->
             resources.getString(R.string.blocked_snack_mode, resources.getString(blockedModeLabel(event.mode)))
         is BlockedEvent.Deleted -> resources.getQuantityString(R.plurals.spam_snack_deleted, event.count, event.count)
-        is BlockedEvent.AllowRulesAdded -> allowedSnackText(resources, event.addresses.map(shownNumber), dualSim)
         BlockedEvent.Failed -> failedText
         is BlockedEvent.RestoreFailed ->
             resources.getQuantityString(R.plurals.spam_snack_restore_failed, event.count, event.count)
     }
 
 /**
- * The "Always allow" snackbar (BR-49). The rule covers every SIM, but "on both SIMs" is only said on a dual-SIM phone,
- * where it tells the user something.
+ * The Not spam snackbar: "Moved to inbox", with the senders it will now let through when a rule was added. Says
+ * plainly when picture messages came back without their pictures, or not at all (SU-17), instead of counting them
+ * as restored.
  */
-internal fun allowedSnackText(
+internal fun restoredSnackText(
     resources: android.content.res.Resources,
-    addresses: List<String>,
-    dualSim: Boolean,
-): String = when {
-    addresses.size == 1 && dualSim -> resources.getString(R.string.e_snack_allowed_one, addresses.single())
-    addresses.size == 1 -> resources.getString(R.string.e_snack_allowed_one_single_sim, addresses.single())
-    dualSim -> resources.getQuantityString(R.plurals.e_snack_allowed_many, addresses.size, addresses.size)
-    else -> resources.getQuantityString(R.plurals.e_snack_allowed_many_single_sim, addresses.size, addresses.size)
-}
-
-/**
- * The Not spam snackbar. Says plainly when picture messages came back without their pictures, or not at all (SU-17),
- * instead of counting them as restored.
- */
-internal fun restoredSnackText(resources: android.content.res.Resources, event: BlockedEvent.Restored): String {
+    event: BlockedEvent.Restored,
+    shownNumber: (String) -> String = { it },
+): String {
+    val moved = event.count > 0
     val restored = when {
-        event.allowed > 0 && event.count > 0 ->
-            resources.getQuantityString(R.plurals.spam_snack_restored_allowed, event.allowed, event.allowed)
-        event.allowed > 0 -> resources.getQuantityString(R.plurals.spam_snack_allowed_only, event.allowed, event.allowed)
-        event.count > 0 -> resources.getQuantityString(R.plurals.spam_snack_restored_to_inbox, event.count, event.count)
+        event.allowed > 0 && moved && event.senders.size == 1 ->
+            resources.getString(R.string.nsf_snack_moved_allowed, shownNumber(event.senders.single()))
+        event.allowed > 0 && moved ->
+            resources.getQuantityString(R.plurals.nsf_snack_moved_allowed_many, event.allowed, event.allowed)
+        event.allowed > 0 ->
+            resources.getQuantityString(R.plurals.spam_snack_allowed_only, event.allowed, event.allowed)
+        moved -> resources.getString(R.string.nsf_snack_moved)
         else -> null
     }
     val lost = when {
@@ -303,61 +284,7 @@ fun BlockedScreen(
         )
     }
     if (restoredOpen) RestoredSheet(state.restored, onDismiss = { restoredOpen = false })
-    state.allowPrompt?.let { AllowDialog(it, actions.onAnswerAllow, actions.onIncludeSimilar) }
 }
-
-/**
- * Asked after "Not spam" (T12 / SU-16): the messages go back to the inbox either way; allowing the senders is a
- * separate choice, because an allow rule beats every block rule. Sender names that anyone can send under get a
- * warning. Dismissing it means "Not now".
- */
-@Composable
-internal fun AllowDialog(
-    prompt: AllowPrompt,
-    onAnswer: (Long, Boolean) -> Unit,
-    onIncludeSimilar: (Long, Boolean) -> Unit = { _, _ -> },
-) {
-    val count = prompt.addresses.size
-    ConfirmDialog(
-        title = pluralStringResource(R.plurals.spam_allow_title, count, count),
-        message = when {
-            count != 1 -> stringResource(R.string.spam_allow_body_many)
-            else -> stringResource(
-                allowBodyForOneSender(prompt.messageCount),
-                isolateNumbers(displayNumber(prompt.addresses.single())),
-            )
-        },
-        confirmLabel = stringResource(R.string.spam_allow_confirm),
-        dismissLabel = stringResource(R.string.spam_allow_dismiss),
-        onConfirm = { onAnswer(prompt.token, true) },
-        onDismiss = { onAnswer(prompt.token, false) },
-    ) {
-        AllowSimilarOption(prompt, onIncludeSimilar, onEdit = { onAnswer(prompt.token, false) })
-        if (prompt.spoofable.isNotEmpty()) {
-            val names = prompt.spoofable.take(3).joinToString(", ")
-            Row(
-                modifier = Modifier.padding(top = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                Icon(
-                    Symbols.Warning,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.size(20.dp),
-                )
-                Text(
-                    stringResource(R.string.spam_allow_spoof_warning, names),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.error,
-                )
-            }
-        }
-    }
-}
-
-/** "The message goes back..." or "The messages go back...", by how many of one sender's messages were moved. */
-internal fun allowBodyForOneSender(messageCount: Int): Int =
-    if (messageCount == 1) R.string.r3b_allow_body_sender_one_message else R.string.r3b_allow_body_sender_many_messages
 
 /**
  * The tab's bar. While selecting: Select all, Move to inbox and Delete. "Block sender" is gone (owner notes r3): the

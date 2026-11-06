@@ -299,7 +299,6 @@
     <ID>MaxLineLength:BlockedScreen.kt$Text(localizedNumber(stats.blockedLast7Days, uiLocale()), style = MaterialTheme.typography.headlineMedium)</ID>
     <ID>MaxLineLength:BlockedScreen.kt$colors = CardDefaults.cardColors(containerColor = colors.primaryContainer, contentColor = colors.onPrimaryContainer)</ID>
     <ID>MaxLineLength:BlockedScreen.kt$else -&gt; BlockedList(state, actions, Modifier.padding(top = inner.calculateTopPadding()), inner.calculateBottomPadding())</ID>
-    <ID>MaxLineLength:BlockedScreen.kt$event.allowed &gt; 0 -&gt; resources.getQuantityString(R.plurals.spam_snack_allowed_only, event.allowed, event.allowed)</ID>
     <ID>MaxLineLength:BlockedScreen.kt$if (selecting) actions.onToggleSelected(group.address) else actions.onToggleExpanded(group.address)</ID>
     <ID>MaxLineLength:BlockedScreen.kt$message = resources.getQuantityString(R.plurals.spam_snack_blocked_kept, event.count, event.count)</ID>
     <ID>MaxLineLength:BlockedScreen.kt$message = resources.getQuantityString(R.plurals.spam_snack_deleted, event.count, event.count)</ID>
@@ -307,7 +306,6 @@
     <ID>MaxLineLength:BlockedScreen.kt$private</ID>
     <ID>MaxLineLength:BlockedScreen.kt$state.loading</ID>
     <ID>MaxLineLength:BlockedScreen.kt$stringResource(R.string.spam_reason_unknown_sender)</ID>
-    <ID>MaxLineLength:BlockedViewModel.kt$BlockedViewModel$combine(repository.settings, repository.rules, allowPrompt) { settings, rules, prompt -&gt; Triple(settings, rules, prompt) }</ID>
     <ID>MaxLineLength:BlockedViewModel.kt$BlockedViewModel$runCatching { SenderBlocking.undo(repository, pending.change) }.onFailure { events.trySend(BlockedEvent.Failed) }</ID>
     <ID>MaxLineLength:BlockedViewModel.kt$BlockedViewModel$val</ID>
     <ID>MaxLineLength:BlockedViewModel.kt$BlockedViewModel.PendingRestore$fun event(token: Long)</ID>

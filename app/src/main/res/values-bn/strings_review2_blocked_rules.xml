@@ -11,17 +11,6 @@
     <string name="e_restored_empty">এখন থেকে আপনি যেসব বার্তা ইনবক্সে সরাবেন, সেগুলো এখানে 30 দিন দেখা যাবে।</string>
     <string name="e_restored_when">ইনবক্সে সরানো হয়েছে %1$s</string>
     <string name="e_restored_open">%1$s-এর সঙ্গে কথোপকথন খুলুন</string>
-    <string name="e_snack_allowed_one">এখন দুই SIM-এই %1$s-কে সবসময় অনুমতি দেওয়া হয়েছে</string>
-    <plurals name="e_snack_allowed_many" tools:ignore="ImpliedQuantity">
-        <item quantity="one">এখন দুই SIM-এই %d জন প্রেরককে সবসময় অনুমতি দেওয়া হয়েছে</item>
-        <item quantity="other">এখন দুই SIM-এই %d জন প্রেরককে সবসময় অনুমতি দেওয়া হয়েছে</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">এখন %1$s-কে সবসময় অনুমতি দেওয়া হয়েছে</string>
-    <plurals name="e_snack_allowed_many_single_sim" tools:ignore="ImpliedQuantity">
-        <item quantity="one">এখন %d জন প্রেরককে সবসময় অনুমতি দেওয়া হয়েছে</item>
-        <item quantity="other">এখন %d জন প্রেরককে সবসময় অনুমতি দেওয়া হয়েছে</item>
-    </plurals>
-    <string name="e_view_rule">নিয়ম দেখুন</string>
     <string name="e_rules_title">নিয়ম</string>
     <string name="e_rules_menu_backup">ব্যাকআপ ও ফিরিয়ে আনা</string>
     <string name="e_note_blocked_by_you">আপনার ব্লক করা</string>

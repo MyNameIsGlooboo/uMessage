@@ -10,15 +10,6 @@
     <string name="e_restored_empty">지금부터 받은 메시지함으로 옮기는 메시지가 여기에 30일 동안 표시돼요.</string>
     <string name="e_restored_when">받은 메시지함으로 이동: %1$s</string>
     <string name="e_restored_open">%1$s 대화 열기</string>
-    <string name="e_snack_allowed_one">두 SIM 모두에서 발신자 %1$s 항상 허용을 설정했어요.</string>
-    <plurals name="e_snack_allowed_many">
-        <item quantity="other">두 SIM 모두에서 발신자 %d명을 항상 허용했어요.</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">발신자 %1$s 항상 허용을 설정했어요.</string>
-    <plurals name="e_snack_allowed_many_single_sim">
-        <item quantity="other">발신자 %d명을 항상 허용했어요.</item>
-    </plurals>
-    <string name="e_view_rule">규칙 보기</string>
     <string name="e_rules_title">규칙</string>
     <string name="e_rules_menu_backup">백업 및 복원</string>
     <string name="e_note_blocked_by_you">직접 차단함</string>

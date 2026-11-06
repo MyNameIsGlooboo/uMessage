@@ -11,17 +11,6 @@
     <string name="e_restored_empty">अब से आप जिन मैसेज को इनबॉक्स में लाएंगे, वे यहां 30 दिनों तक दिखेंगे.</string>
     <string name="e_restored_when">%1$s को इनबॉक्स में लाया गया</string>
     <string name="e_restored_open">%1$s के साथ बातचीत खोलें</string>
-    <string name="e_snack_allowed_one">अब %1$s को दोनों सिम पर हमेशा अनुमति दी गई है</string>
-    <plurals name="e_snack_allowed_many" tools:ignore="ImpliedQuantity">
-        <item quantity="one">अब %d भेजने वाले को दोनों सिम पर हमेशा अनुमति दी गई है</item>
-        <item quantity="other">अब %d भेजने वालों को दोनों सिम पर हमेशा अनुमति दी गई है</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">अब %1$s को हमेशा अनुमति दी गई है</string>
-    <plurals name="e_snack_allowed_many_single_sim" tools:ignore="ImpliedQuantity">
-        <item quantity="one">अब %d भेजने वाले को हमेशा अनुमति दी गई है</item>
-        <item quantity="other">अब %d भेजने वालों को हमेशा अनुमति दी गई है</item>
-    </plurals>
-    <string name="e_view_rule">नियम देखें</string>
     <string name="e_rules_title">नियम</string>
     <string name="e_rules_menu_backup">बैकअप और वापस लाएं</string>
     <string name="e_note_blocked_by_you">आपने ब्लॉक किया</string>

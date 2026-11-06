@@ -17,7 +17,7 @@ the polite plural verb ("کنید") and avoid stiff officialese.
 | Block / Blocked | مسدود کردن / مسدودشده | "Block sender" = مسدود کردن فرستنده. |
 | Blocked (tab / screen) | مسدودشده‌ها | Blocked messages screen = پیام‌های مسدودشده. |
 | Unblock | رفع مسدودی | |
-| Allow / Allowed | اجازه دادن / مجاز | "Always allow" = همیشه مجاز باشد; allow list = فهرست مجاز. |
+| Allow / Allowed | اجازه دادن / مجاز | allow list = فهرست مجاز. |
 | Rule / Rules | قانون / قانون‌ها | "Allowed and blocked rules" = قانون‌های مجاز و مسدود. |
 | Unknown sender | فرستنده ناشناس | |
 | Verification code / one-time code | کد تأیید / کد یک‌بارمصرف | "Copy code" = کپی کد. |

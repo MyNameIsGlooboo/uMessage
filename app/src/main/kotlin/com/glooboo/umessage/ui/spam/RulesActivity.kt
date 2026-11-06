@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.glooboo.umessage.spam.ForwardingAvailability
-import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.glooboo.umessage.ui.theme.applyUMessageWindow
 
@@ -27,7 +26,6 @@ class RulesActivity : ComponentActivity() {
             return
         }
         val openMigration = intent?.getBooleanExtra(EXTRA_OPEN_MIGRATION, false) == true
-        val prefill = prefillRule(intent)
         setContent {
             UMessageTheme {
                 RulesRoute(
@@ -40,7 +38,6 @@ class RulesActivity : ComponentActivity() {
                         )
                     },
                     openMigration = openMigration,
-                    prefill = prefill,
                 )
             }
         }
@@ -58,18 +55,6 @@ class RulesActivity : ComponentActivity() {
 
         /** String extra kept for older callers; the same key as [ForwardingActivity.EXTRA_FORWARD_SENDER]. */
         const val EXTRA_FORWARD_SENDER = ForwardingActivity.EXTRA_FORWARD_SENDER
-
-        /** String extras (a [RuleType] name and a value): open the add sheet on Allowed with that rule filled in. */
-        const val EXTRA_PREFILL_TYPE = "com.glooboo.spamless.extra.PREFILL_TYPE"
-        const val EXTRA_PREFILL_PATTERN = "com.glooboo.spamless.extra.PREFILL_PATTERN"
-
-        /** The allow rule [intent] asks to start from, or null. */
-        internal fun prefillRule(intent: Intent?): SimilarRuleSuggestion.Suggestion? {
-            val name = intent?.getStringExtra(EXTRA_PREFILL_TYPE).orEmpty()
-            val type = runCatching { RuleType.valueOf(name) }.getOrNull()
-            val pattern = intent?.getStringExtra(EXTRA_PREFILL_PATTERN)?.takeIf { it.isNotBlank() }
-            return if (type != null && pattern != null) SimilarRuleSuggestion.Suggestion(type, pattern) else null
-        }
 
         /** True when [intent] asked for the old Forward tab or for a forward rule editor. */
         internal fun opensForwarding(intent: Intent?): Boolean {

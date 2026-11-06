@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <plurals name="spam_allow_title" tools:ignore="ImpliedQuantity">
-        <item quantity="one">این فرستنده همیشه مجاز باشد؟</item>
-        <item quantity="other">این %d فرستنده همیشه مجاز باشند؟</item>
-    </plurals>
-    <string name="spam_allow_body_one">در هر صورت، پیام به صندوق ورودی شما برمی‌گردد. اگر %1$s را همیشه مجاز کنید، پیام‌های بعدی این فرستنده از همهٔ فیلترها، از جمله قانون‌های مسدود کردن شما، عبور می‌کنند.</string>
-    <string name="spam_allow_body_many">در هر صورت، پیام‌ها به صندوق ورودی شما برمی‌گردند. اگر این فرستنده‌ها را همیشه مجاز کنید، پیام‌های بعدی آن‌ها از همهٔ فیلترها، از جمله قانون‌های مسدود کردن شما، عبور می‌کنند.</string>
     <string name="spam_allow_spoof_warning">هر کسی می‌تواند با نامی مثل %1$s پیام بفرستد. مجاز کردن آن، پیام‌های جعلی با همان نام را هم عبور می‌دهد.</string>
-    <string name="spam_allow_confirm">همیشه اجازه دادن</string>
-    <string name="spam_allow_dismiss">فعلاً نه</string>
     <plurals name="spam_snack_restored_to_inbox" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d پیام به صندوق ورودی بازیابی شد</item>
         <item quantity="other">%d پیام به صندوق ورودی بازیابی شد</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed" tools:ignore="ImpliedQuantity">
-        <item quantity="one">بازیابی شد. %d فرستنده از این پس همیشه مجاز است.</item>
-        <item quantity="other">بازیابی شد. %d فرستنده از این پس همیشه مجاز هستند.</item>
     </plurals>
     <plurals name="spam_snack_allowed_only" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d فرستنده از این پس همیشه مجاز است.</item>

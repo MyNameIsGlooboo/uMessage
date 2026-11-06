@@ -1,25 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- "Always allow?" after Not spam on the Blocked screen. The messages are restored either way. -->
-    <plurals name="spam_allow_title">
-        <item quantity="one">Always allow this sender?</item>
-        <item quantity="other">Always allow these %d senders?</item>
-    </plurals>
-    <!-- %1$s is the sender's number or name. -->
-    <string name="spam_allow_body_one">The message goes back to your inbox either way. If you always allow %1$s, their future messages skip every filter, including your block rules.</string>
-    <string name="spam_allow_body_many">The messages go back to your inbox either way. If you always allow these senders, their future messages skip every filter, including your block rules.</string>
     <!-- %1$s lists sender names such as "BANK-X". -->
     <string name="spam_allow_spoof_warning">Anyone can send a text under a name like %1$s. Allowing it also lets fake texts using that name through.</string>
-    <string name="spam_allow_confirm">Always allow</string>
-    <string name="spam_allow_dismiss">Not now</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="one">%d message restored to the inbox</item>
         <item quantity="other">%d messages restored to the inbox</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="one">Restored. %d sender is now always allowed.</item>
-        <item quantity="other">Restored. %d senders are now always allowed.</item>
     </plurals>
     <!-- After Not spam when nothing could be put in the inbox, but the senders were allowed. -->
     <plurals name="spam_snack_allowed_only">

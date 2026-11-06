@@ -102,6 +102,7 @@ import com.glooboo.umessage.ui.thread.refreshRepeatRules
 import com.glooboo.umessage.ui.thread.simHeaderLabels
 import com.glooboo.umessage.ui.thread.SmsSegments
 import com.glooboo.umessage.ui.thread.ThreadActions
+import com.glooboo.umessage.ui.thread.ThreadLaunchHints
 import com.glooboo.umessage.ui.thread.ThreadMenuAction
 import com.glooboo.umessage.ui.thread.SenderStatus
 import com.glooboo.umessage.ui.log.DecisionLogActivity
@@ -354,6 +355,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
             addAttachmentsFromIntent()
             takeSearchedMessage()?.let { jumpToMessage(it) }
             takeOpenSearch()
+            applyLaunchHints()
             return
         }
 
@@ -379,6 +381,23 @@ open class ThreadActivity : ComposeSimpleActivity() {
         if (intent.getBooleanExtra(EXTRA_OPEN_SEARCH, false)) {
             intent.removeExtra(EXTRA_OPEN_SEARCH)
             if (!isRecycleBin) vm.openSearch()
+        }
+    }
+
+    /**
+     * The focus and notice extras (opened from a blocked chat after Not spam): once the first load is
+     * done, the message field takes focus and the keyboard comes up, and the note shows. Taken off the intent, so a
+     * rotation does not do it again.
+     */
+    private fun applyLaunchHints() {
+        val hints = ThreadLaunchHints.take(intent)
+        hints.notice?.let { note -> lifecycleScope.launch { vm.snackbar.showSnackbar(note) } }
+        if (hints.focusComposer && !isRecycleBin && !isSpecialNumber()) {
+            window.setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE or
+                    WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE,
+            )
+            vm.focusInput++
         }
     }
 
@@ -989,6 +1008,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
                 setupCachedMessages {
                     setupThread {
                         takeSearchedMessage()?.let { jumpToMessage(it) }
+                        if (isFreshLaunch) applyLaunchHints()
                     }
                 }
             } else {

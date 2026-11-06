@@ -30,6 +30,4 @@
         <item quantity="other">Les messages bloqués sont supprimés après %d jours.</item>
     </plurals>
     <string name="r3b_info_purge_off">Les messages bloqués sont conservés jusqu\'à ce que vous les supprimiez.</string>
-    <string name="r3b_allow_body_sender_one_message">Le message retourne dans votre boîte de réception dans tous les cas. Si vous autorisez toujours %1$s, ses futurs messages passeront tous les filtres, y compris vos règles de blocage.</string>
-    <string name="r3b_allow_body_sender_many_messages">Les messages retournent dans votre boîte de réception dans tous les cas. Si vous autorisez toujours %1$s, ses futurs messages passeront tous les filtres, y compris vos règles de blocage.</string>
 </resources>

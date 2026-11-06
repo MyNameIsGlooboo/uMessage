@@ -65,8 +65,6 @@ class BlockedViewModelReview2Test {
         vm.releaseOnce(2)
         awaitUntil { events.isNotEmpty() }
         vm.notSpam(setOf(PAIR))
-        awaitUntil { vm.state.value.allowPrompt != null }
-        vm.answerAllow(vm.state.value.allowPrompt!!.token, allow = false)
         awaitUntil { events.size == 2 }
         // Only message 3 is left for Not spam; message 2 was already on its way to the inbox.
         assertThat((events.last() as BlockedEvent.Restored).count).isEqualTo(1)
@@ -113,16 +111,17 @@ class BlockedViewModelReview2Test {
     }
 
     @Test
-    fun alwaysAllowSaysWhichRuleWasMadeOnceItIsStored() {
+    fun notSpamStoresTheAllowRuleWithTheRestoreAndNamesTheSender() {
         vm.notSpam(setOf(PAIR))
-        awaitUntil { vm.state.value.allowPrompt != null }
-        vm.answerAllow(vm.state.value.allowPrompt!!.token, allow = true)
         awaitUntil { events.isNotEmpty() }
-        vm.commitRestore((events.single() as BlockedEvent.Restored).token)
-        awaitUntil { events.any { it is BlockedEvent.AllowRulesAdded } }
-        val added = events.filterIsInstance<BlockedEvent.AllowRulesAdded>().single()
-        assertThat(added.addresses).containsExactly(PAIR)
+        val restored = events.single() as BlockedEvent.Restored
+        assertThat(restored.senders).containsExactly(PAIR)
         assertThat(runBlocking { repo.rules.first() }.single().note).isEqualTo(RuleNotes.ALLOWED_BY_YOU)
+        vm.commitRestore(restored.token)
+        awaitUntil { !vm.state.value.hasPendingUndo }
+        // The rule stays, and no second snackbar follows.
+        assertThat(runBlocking { repo.rules.first() }).hasSize(1)
+        assertThat(events).hasSize(1)
     }
 
     private fun blocked() = runBlocking { repo.blocked.first() }

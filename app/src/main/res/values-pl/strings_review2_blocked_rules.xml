@@ -13,21 +13,6 @@
     <string name="e_restored_empty">Wiadomości, które od teraz przeniesiesz do odebranych, będą tu widoczne przez 30 dni.</string>
     <string name="e_restored_when">Przeniesiono do odebranych %1$s</string>
     <string name="e_restored_open">Otwórz rozmowę z %1$s</string>
-    <string name="e_snack_allowed_one">Nadawca %1$s jest teraz zawsze dozwolony na obu kartach SIM</string>
-    <plurals name="e_snack_allowed_many">
-        <item quantity="one">%d nadawca jest teraz zawsze dozwolony na obu kartach SIM</item>
-        <item quantity="few">%d nadawcy są teraz zawsze dozwoleni na obu kartach SIM</item>
-        <item quantity="many">%d nadawców jest teraz zawsze dozwolonych na obu kartach SIM</item>
-        <item quantity="other">%d nadawcy jest teraz zawsze dozwolone na obu kartach SIM</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">Nadawca %1$s jest teraz zawsze dozwolony</string>
-    <plurals name="e_snack_allowed_many_single_sim">
-        <item quantity="one">%d nadawca jest teraz zawsze dozwolony</item>
-        <item quantity="few">%d nadawcy są teraz zawsze dozwoleni</item>
-        <item quantity="many">%d nadawców jest teraz zawsze dozwolonych</item>
-        <item quantity="other">%d nadawcy jest teraz zawsze dozwolone</item>
-    </plurals>
-    <string name="e_view_rule">Zobacz regułę</string>
     <string name="e_rules_title">Reguły</string>
     <string name="e_rules_menu_backup">Kopia zapasowa i przywracanie</string>
     <string name="e_note_blocked_by_you">Zablokowane przez ciebie</string>

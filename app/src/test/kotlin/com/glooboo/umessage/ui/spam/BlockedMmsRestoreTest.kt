@@ -84,15 +84,9 @@ class BlockedMmsRestoreTest {
         )
 
     private fun notSpamAndAnswer(): BlockedEvent.Restored {
-        notSpamAndAnswerNo()
+        vm.notSpam(setOf(SENDER))
         awaitUntil { events.isNotEmpty() }
         return events.first() as BlockedEvent.Restored
-    }
-
-    private fun notSpamAndAnswerNo() {
-        vm.notSpam(setOf(SENDER))
-        awaitUntil { vm.state.value.allowPrompt != null }
-        vm.answerAllow(vm.state.value.allowPrompt!!.token, allow = false)
     }
 
     /** The case that used to say "1 message restored" while nothing reached the inbox. */
@@ -114,7 +108,7 @@ class BlockedMmsRestoreTest {
         assertThat(event.count).isEqualTo(1)
         assertThat(event.mediaLost).isEqualTo(1)
         val text = restoredSnackText(app.resources, event)
-        assertThat(text).contains(app.resources.getQuantityString(R.plurals.spam_snack_restored_to_inbox, 1, 1))
+        assertThat(text).contains(app.resources.getString(R.string.nsf_snack_moved_allowed, SENDER))
         assertThat(text).contains(app.resources.getQuantityString(R.plurals.spam_snack_media_lost, 1, 1))
     }
 
@@ -125,7 +119,7 @@ class BlockedMmsRestoreTest {
         assertThat(event.count).isEqualTo(1)
         assertThat(event.mediaLost).isEqualTo(0)
         assertThat(restoredSnackText(app.resources, event))
-            .isEqualTo(app.resources.getQuantityString(R.plurals.spam_snack_restored_to_inbox, 1, 1))
+            .isEqualTo(app.resources.getString(R.string.nsf_snack_moved_allowed, SENDER))
         // In the inbox before the undo window closes.
         assertThat(deliveredMms.single().mediaFile).isEqualTo(FILE)
 
@@ -150,7 +144,7 @@ class BlockedMmsRestoreTest {
     fun aKeptMmsThatCannotBeRestoredIsReportedAndStaysInBlocked() {
         mmsDeliveryWorks = false
         start(mms(media = MmsMedia.STORED, file = FILE))
-        notSpamAndAnswerNo()
+        vm.notSpam(setOf(SENDER))
 
         awaitUntil { events.any { it is BlockedEvent.RestoreFailed } }
         assertThat(events.filterIsInstance<BlockedEvent.RestoreFailed>().single().count).isEqualTo(1)

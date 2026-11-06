@@ -62,8 +62,7 @@ class BlockedViewModelUndoTest {
         val sender = vm.state.value.groups.first().address
         // Nobody collecting: the event stays queued, as when rotation happens right after the tap.
         vm.notSpam(setOf(sender))
-        awaitUntil { vm.state.value.allowPrompt != null }
-        vm.answerAllow(vm.state.value.allowPrompt!!.token, allow = false)
+        awaitUntil { vm.state.value.hasPendingUndo }
         vm.replayPending()
 
         scope.launch { vm.eventFlow.collect { events += it } }
@@ -71,20 +70,6 @@ class BlockedViewModelUndoTest {
         assertThat(events).hasSize(1)
         assertThat(events.single()).isInstanceOf(BlockedEvent.Restored::class.java)
     }
-
-    /** The allow prompt is state, so it survives rotation; there is no snackbar to replay until it is answered. */
-    @Test
-    fun unansweredAllowPromptIsNotReplayedAsASnackbar() {
-        val sender = vm.state.value.groups.first().address
-        vm.notSpam(setOf(sender))
-        awaitUntil { vm.state.value.allowPrompt != null }
-        vm.replayPending()
-        scope.launch { vm.eventFlow.collect { events += it } }
-        idleMain()
-        assertThat(events).isEmpty()
-        assertThat(vm.state.value.allowPrompt!!.addresses).containsExactly(sender)
-    }
-
     @Test
     fun replayWithNothingPendingShowsNothing() {
         vm.replayPending()
