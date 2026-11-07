@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="blocked_menu_restored">आपके द्वारा वापस लाए गए</string>
+    <string name="blocked_menu_restored_summary">हाल में आपने जो संदेश इनबॉक्स में भेजे</string>
+</resources>

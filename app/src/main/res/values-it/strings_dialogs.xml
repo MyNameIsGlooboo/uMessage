@@ -26,7 +26,6 @@
     <string name="dialogs_lock_locked_out">Troppi tentativi di sblocco errati.\nRiprova tra %d secondi.</string>
     <string name="dialogs_lock_pin_delete">Elimina l\'ultima cifra</string>
     <string name="dialogs_lock_pin_confirm">Conferma il PIN</string>
-    <string name="dialogs_lock_pin_entered">%d cifre inserite</string>
     <string name="dialogs_lock_pattern_pad">Area della sequenza</string>
     <string name="dialogs_lock_biometric_hint">Usa l\'impronta o il volto per confermare la tua identità.</string>
     <string name="dialogs_lock_biometric_open">Verifica con autenticazione biometrica</string>

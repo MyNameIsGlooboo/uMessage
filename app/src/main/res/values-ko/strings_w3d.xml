@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">일일 전달 한도</string>
     <string name="w3d_daily_limit_body">하루에 전달할 최대 건수</string>
     <string name="w3d_hide_lock_codes">잠금 화면에서 코드 숨기기</string>
-    <string name="w3d_hide_lock_codes_body">잠금을 해제할 때까지 코드가 있는 메시지를 잠금 화면에 ••••로 표시해요.</string>
 </resources>

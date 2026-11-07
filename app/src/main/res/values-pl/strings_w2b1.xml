@@ -9,16 +9,12 @@
     <string name="w2b1_search_recent">Ostatnie wyszukiwania</string>
     <string name="w2b1_search_recent_clear">Wyczyść</string>
     <string name="w2b1_search_recent_clear_description">Wyczyść ostatnie wyszukiwania</string>
-    <string name="w2b1_search_digits_note">Wyszukiwanie rozpoznaje cyfry perskie i łacińskie: 123 znajdzie też ۱۲۳.</string>
-    <string name="w2b1_search_section_conversations">Rozmowy</string>
-    <string name="w2b1_search_section_messages">Wiadomości</string>
     <plurals name="w2b1_search_matches">
         <item quantity="one">%d wynik</item>
         <item quantity="few">%d wyniki</item>
         <item quantity="many">%d wyników</item>
         <item quantity="other">%d wyniku</item>
     </plurals>
-    <string name="w2b1_filter_all">Wszystkie</string>
     <string name="w2b1_filter_unread">Nieprzeczytane</string>
     <string name="w2b1_filter_unread_empty_title">Brak nieprzeczytanych rozmów</string>
     <string name="w2b1_filter_unread_empty_body">Wszystko przeczytane.</string>

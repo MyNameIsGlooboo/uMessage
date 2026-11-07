@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">Копировать %1$s</string>
     <string name="thread_r2_menu_search">Поиск в чате</string>
     <string name="thread_r2_menu_always_forward">Всегда пересылать от этого отправителя</string>
-    <string name="thread_r2_block_hint">Новые сообщения попадут в «Заблокированные». Данные не покидают ваш телефон.</string>
     <string name="thread_r2_forward_message">Переслать это сообщение</string>
     <string name="thread_r2_search_hint">Поиск в чате</string>
     <string name="thread_r2_search_close">Закрыть поиск</string>

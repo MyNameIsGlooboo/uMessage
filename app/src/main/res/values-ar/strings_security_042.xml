@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">إعداد شاشة القفل في هاتفك يعرض كل محتوى الإشعارات، لذلك قد يظل أندرويد يعرض النص. غيّره من إعدادات الهاتف ضمن الإشعارات.</string>
+    <string name="backup_timeout_title">أوقف أندرويد النسخ الاحتياطي</string>
+    <string name="backup_timeout_text">يحدّ أندرويد من المدة التي يمكن أن يعمل فيها النسخ الاحتياطي أو الاستعادة في الخلفية، لذلك تم إيقافه. افتح الإعدادات لبدئه من جديد.</string>
+</resources>

@@ -5,15 +5,10 @@
     <string name="spam_undo">تراجع</string>
     <string name="spam_more_options">المزيد من الخيارات</string>
     <string name="spam_loading">جارٍ التحميل</string>
-    <string name="spam_blocked_title">الرسائل المحظورة</string>
-    <string name="spam_blocked_open_rules">قواعد السماح والحظر</string>
     <string name="spam_blocked_open_settings">إعدادات الحظر</string>
-    <string name="spam_blocked_mode_line">المرسلون غير المعروفين: %1$s</string>
-    <string name="spam_blocked_mode_change">غيّر</string>
     <string name="spam_blocked_stats_totals">حُظرت %1$d إجمالًا، واستُعيدت %2$d</string>
     <string name="spam_blocked_header_cd">حُظرت %1$d من الرسائل غير المرغوب فيها خلال آخر 7 أيام. حُظرت %2$d إجمالًا، واستُعيدت %3$d.</string>
     <string name="spam_blocked_empty_title">لا رسائل محظورة بعد</string>
-    <string name="spam_blocked_empty_body">تُحفظ هنا الرسائل التي تحظرها عوامل التصفية، لتستعيد أيًا منها بنقرة واحدة.</string>
     <string name="spam_action_delete">احذف</string>
     <string name="spam_select">حدّد</string>
     <string name="spam_action_select_all">حدّد الكل</string>
@@ -45,12 +40,9 @@
     <string name="spam_sim_both">شريحتا SIM</string>
     <string name="spam_sim_missing">شريحة SIM غير موجودة في الهاتف</string>
     <string name="spam_sim_named">شريحة SIM %1$d، %2$s</string>
-    <string name="spam_rules_title">المسموح بها والمحظورة</string>
     <string name="spam_rules_tab_allowed">المسموح بها</string>
     <string name="spam_rules_tab_blocked">المحظورة</string>
     <string name="spam_rules_add">أضف قاعدة</string>
-    <string name="spam_rules_import">استورد قواعد</string>
-    <string name="spam_rules_export">صدّر قواعد</string>
     <string name="spam_rules_empty_allowed_title">لا قواعد سماح</string>
     <string name="spam_rules_empty_allowed_body">كل ما تسمح به يصل دائمًا إلى الرسائل الواردة، حتى في وضع التصفية الصارم. أضف رقمًا أو اسم مرسل أو كلمة رئيسية.</string>
     <string name="spam_rules_empty_blocked_title">لا قواعد حظر</string>
@@ -66,8 +58,6 @@
         <item quantity="other">استُوردت %d قاعدة</item>
     </plurals>
     <string name="spam_rules_import_skipped">تُخطيت %d من السطور (غير صالحة أو مضافة مسبقًا)</string>
-    <string name="spam_rules_import_failed">تعذّرت قراءة الملف</string>
-    <string name="spam_rules_import_empty">لا توجد قواعد صالحة في الملف</string>
     <plurals name="spam_rules_exported">
         <item quantity="zero">صُدّرت %d قواعد</item>
         <item quantity="one">صُدّرت قاعدة واحدة (%d)</item>
@@ -76,28 +66,17 @@
         <item quantity="many">صُدّرت %d قاعدة</item>
         <item quantity="other">صُدّرت %d قاعدة</item>
     </plurals>
-    <string name="spam_rules_export_failed">تعذّرت الكتابة إلى الملف</string>
     <string name="spam_rules_tab_count">%1$s, %2$d</string>
     <string name="spam_type_number">رقم</string>
     <string name="spam_type_prefix">بادئة</string>
     <string name="spam_type_sender_id">اسم المرسل</string>
     <string name="spam_type_keyword">كلمة رئيسية</string>
     <string name="spam_type_regex">تعبير نمطي</string>
-    <string name="spam_type_number_help">رقم هاتف مطابق تمامًا، مثل +919876543210.</string>
-    <string name="spam_type_prefix_help">كل رقم يبدأ بهذه البادئة، مثل +91140.</string>
-    <string name="spam_type_sender_id_help">اسم مرسل نصي مثل VM-HDFCBK. لا فرق بين الأحرف الكبيرة والصغيرة.</string>
     <string name="spam_type_keyword_help">أي رسالة تحتوي على هذا النص، حتى ضمن كلمة أطول: «ربح» تطابق «مربح» أيضًا. لا فرق بين الأحرف الكبيرة والصغيرة. يُحظر المرسل أيضًا، إلا إذا كان في جهات اتصالك.</string>
     <string name="spam_type_keyword_allow_help">أي رسالة تحتوي على هذا النص تتجاوز كل قواعد الحظر، أيًا كان المرسل. استخدم عبارة طويلة ودقيقة.</string>
-    <string name="spam_type_regex_help">للمتقدمين. تعبير نمطي يُطابَق مع نص الرسالة. يُحظر المرسل أيضًا، إلا إذا كان في جهات اتصالك.</string>
-    <string name="spam_type_number_hint">+919876543210</string>
-    <string name="spam_type_prefix_hint">+91140</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">هدية مجانية</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_title_allow">أضف إلى المسموح بها</string>
-    <string name="spam_sheet_title_block">أضف إلى المحظورة</string>
-    <string name="spam_sheet_type_label">ما تريد مطابقته</string>
-    <string name="spam_sheet_pattern_label">القيمة</string>
     <string name="spam_sheet_sim_label">تنطبق على</string>
     <string name="spam_sheet_note_label">ملاحظة (اختياري)</string>
     <string name="spam_sheet_add">أضف قاعدة</string>
@@ -105,7 +84,6 @@
     <string name="spam_err_empty">أدخل قيمة</string>
     <string name="spam_err_number">أدخل رقم هاتف صالحًا: من 3 إلى 15 رقمًا، ويمكن أن يبدأ بعلامة +</string>
     <string name="spam_err_prefix">أدخل من 1 إلى 15 رقمًا، ويمكن أن تبدأ بعلامة +</string>
-    <string name="spam_err_sender_id">استخدم أحرفًا أو أرقامًا أو شرطات أو نقاطًا، مع حرف واحد على الأقل (حتى 16 حرفًا)</string>
     <string name="spam_err_keyword_short">استخدم حرفين على الأقل</string>
     <string name="spam_err_too_long">النص طويل جدًا</string>
     <string name="spam_err_multiline">استخدم سطرًا واحدًا</string>
@@ -125,7 +103,6 @@
     <string name="spam_confirm_save">احفظ على أي حال</string>
     <string name="spam_confirm_remove_allowed">أزل من المسموح بها واحظر</string>
     <string name="spam_confirm_remove_allowed_detail">يؤدي الحفظ أيضًا إلى إزالة القاعدة المطابقة من قائمة المسموح بها.</string>
-    <string name="spam_import_title">استيراد القواعد؟</string>
     <plurals name="spam_import_new">
         <item quantity="zero">%d قواعد جديدة</item>
         <item quantity="one">قاعدة جديدة واحدة (%d)</item>
@@ -143,10 +120,6 @@
         <item quantity="many">سيُتخطى %d سطرًا (مضاف مسبقًا أو غير صالح)</item>
         <item quantity="other">سيُتخطى %d سطر (مضاف مسبقًا أو غير صالح)</item>
     </plurals>
-    <string name="spam_import_examples">مثلًا</string>
-    <string name="spam_import_risky_title">راجع هذه أولًا</string>
-    <string name="spam_import_risky_body">الكلمات الرئيسية والتعبيرات النمطية المسموح بها تتيح لأي رسالة تحتوي عليها تجاوز كل قواعد الحظر. وقد تحظر القواعد الواسعة رسائل عادية.</string>
-    <string name="spam_import_rule_line">%1$s, %2$s: %3$s</string>
     <plurals name="spam_import_more">
         <item quantity="zero">و%d قواعد أخرى</item>
         <item quantity="one">وقاعدة أخرى (%d)</item>
@@ -155,8 +128,6 @@
         <item quantity="many">و%d قاعدة أخرى</item>
         <item quantity="other">و%d قاعدة أخرى</item>
     </plurals>
-    <string name="spam_import_confirm">استورد</string>
-    <string name="spam_settings_title">إعدادات الرسائل غير المرغوب فيها</string>
     <string name="spam_settings_unknown_title">رسائل من مرسلين غير معروفين</string>
     <string name="spam_settings_unknown_body">مرسلون ليسوا ضمن جهات اتصالك، ولم تراسلهم من قبل، وليسوا في قائمة المسموح بها.</string>
     <string name="spam_mode_strict">صارم</string>
@@ -169,15 +140,8 @@
     <string name="spam_strict_warning_body">عادةً ما تأتي رسائل البنوك وشركات التوصيل والرموز لمرة واحدة من مرسلين ليسوا ضمن جهات اتصالك. في وضع التصفية الصارم، تنتقل إلى مجلد «المحظورة»، بما فيها الرموز. اختر الوضع الذكي للسماح بمرور الرموز، أو اسمح لهؤلاء المرسلين مرة واحدة.</string>
     <string name="spam_strict_warning_action">راجع الرسائل المحظورة</string>
     <string name="spam_settings_cleanup_title">تنظيف</string>
-    <string name="spam_purge_title">حذف الرسائل المحظورة بعد</string>
     <string name="spam_purge_body">تُحذف الرسائل المحظورة القديمة تلقائيًا.</string>
     <string name="spam_purge_days">%d يومًا</string>
     <string name="spam_purge_forever">أبدًا</string>
-    <string name="spam_settings_notify_title">الإشعارات</string>
     <string name="spam_notify_title">أشعرني عند حظر رسالة</string>
-    <string name="spam_notify_body">عرض إشعار صامت. متوقف افتراضيًا لتبقى الرسائل غير المرغوب فيها صامتة.</string>
-    <string name="spam_settings_rules_row">قواعد السماح والحظر</string>
-    <string name="spam_settings_rules_row_body">أرقام ومرسلون وكلمات رئيسية وتعبيرات نمطية</string>
-    <string name="spam_settings_blocked_row">الرسائل المحظورة</string>
-    <string name="spam_settings_blocked_row_body">راجع أو استعد أو احذف</string>
 </resources>

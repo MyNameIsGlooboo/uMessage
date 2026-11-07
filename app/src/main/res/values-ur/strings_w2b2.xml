@@ -5,8 +5,6 @@
     <string name="w2b2_thread_chip_allowed">ہمیشہ اجازت یافتہ</string>
     <string name="w2b2_thread_chip_blocked">اصول کے ذریعے بلاک شدہ</string>
     <string name="w2b2_settings_group_dates">تاریخیں</string>
-    <string name="w2b2_settings_jalali">جلالی تاریخیں</string>
-    <string name="w2b2_settings_jalali_body">گفتگو اور شیڈول شدہ پیغامات میں تاریخیں فارسی کیلنڈر میں دکھائیں</string>
     <string name="w2b2_lock_pattern_hint">کم از کم %d نقطے جوڑیں، پھر تصدیق کے لیے وہی پیٹرن دوبارہ بنائیں۔</string>
     <string name="w2b2_lock_recovery_hint">اگر آپ اسے بھول جائیں تو لاک اسکرین واپس داخل ہونے کے لیے آپ کے فون کا اسکرین لاک پیش کرتی ہے۔</string>
 </resources>

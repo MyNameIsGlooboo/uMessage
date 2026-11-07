@@ -11,11 +11,6 @@
     <string name="convx_details_call">Anrufen</string>
     <string name="convx_details_copy">Nummer kopieren</string>
     <string name="convx_details_add_contact">Kontakt hinzufügen</string>
-    <string name="convx_details_tap_to_rename">Zum Umbenennen tippen</string>
-    <string name="convx_details_notifications_hint">Wähle einen Ton und eine Priorität nur für diesen Absender</string>
-    <string name="convx_details_block">Diesen Absender blockieren</string>
-    <string name="convx_details_block_hint">Neue Nachrichten landen bei den blockierten Nachrichten. Nichts verlässt dein Smartphone.</string>
-    <string name="convx_details_status">Status</string>
     <string name="convx_new_send_to">An %1$s senden</string>
     <string name="convx_new_group_hint">Wähle die Personen für die Gruppe. Gruppennachrichten benötigen eventuell mobile Daten und MMS-Einstellungen.</string>
 </resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note">บันทึกย่อ</string>
+    <string name="add_note">เพิ่มบันทึกย่อ</string>
+    <string name="edit_note">แก้ไขบันทึกย่อ</string>
+    <string name="delete_note">ลบบันทึกย่อ</string>
+    <string name="note_hint">บันทึกย่อส่วนตัว อยู่ในโทรศัพท์เครื่องนี้เท่านั้น</string>
+    <string name="note_counter">%1$s/%2$s</string>
+    <string name="note_save">บันทึก</string>
+    <string name="note_cancel">ยกเลิก</string>
+    <string name="has_notes">มีบันทึกย่อ</string>
+    <string name="notes_section">บันทึกย่อ</string>
+    <string name="note_content_desc">บันทึกย่อ: %1$s</string>
+</resources>

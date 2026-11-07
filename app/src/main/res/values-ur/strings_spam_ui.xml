@@ -15,7 +15,6 @@
     <string name="blocknum_add_title">نمبر بلاک کریں</string>
     <string name="blocknum_edit_title">بلاک شدہ نمبر میں ترمیم کریں</string>
     <string name="blocknum_field_label">نمبر</string>
-    <string name="blocknum_field_help">* کو وائلڈ کارڈ کے طور پر استعمال کریں: +1555* ہر وہ نمبر بلاک کرتا ہے جو +1555 سے شروع ہو</string>
     <string name="blocknum_err_empty">نمبر درج کریں</string>
     <string name="blocknum_err_invalid">فون نمبر درج کریں، یا وائلڈ کارڈ * کے ساتھ ہندسے</string>
     <string name="blocknum_copy">نمبر کاپی کریں</string>
@@ -53,7 +52,6 @@
     <string name="blocknum_unavailable_title">بلاک فہرست دستیاب نہیں</string>
     <string name="blocknum_unavailable_body">سسٹم کی بلاک فہرست دیکھنے اور تبدیل کرنے کے لیے uMessage کو اپنی ڈیفالٹ SMS ایپ بنائیں۔</string>
     <string name="blocknum_unknown_title">نامعلوم نمبر بلاک کریں</string>
-    <string name="blocknum_unknown_body">صرف تب استعمال ہوتا ہے جب اسپیم موڈ بند ہو: تب نامعلوم نمبروں کے پیغامات سخت موڈ کی طرح بلاک شدہ میں جاتے ہیں۔ سخت اور اسمارٹ اس سوئچ کو نظر انداز کرتے ہیں۔</string>
     <string name="blocknum_contacts_denied">رابطوں تک رسائی کے بغیر نامعلوم نمبر پہچانے نہیں جا سکتے</string>
     <string name="blocknum_section_numbers">نمبر</string>
 </resources>

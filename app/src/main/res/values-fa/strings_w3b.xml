@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">هیچ پیام نگه‌داشته‌شده‌ای با این فیلتر مطابقت ندارد. فیلتر دیگری انتخاب کنید یا همه را نمایش دهید.</string>
     <string name="w3b_filter_show_all">نمایش همه</string>
     <string name="w3b_empty_body">uMessage در حالت %1$s پیام‌ها را بررسی می‌کند. پیام‌هایی که نگه می‌دارد اینجا نمایش داده می‌شوند.</string>
-    <string name="w3b_empty_change_mode">تغییر حالت</string>
-    <string name="w3b_empty_rules">بررسی قانون‌های من</string>
     <string name="w3b_why_link">چون فرستنده ناشناس است و متن پیوند دارد، پیام نگه داشته شد.</string>
     <string name="w3b_why_unknown">چون فرستنده ناشناس است، پیام نگه داشته شد.</string>
     <string name="w3b_why_rule">چون پیام با یکی از قانون‌های مسدود کردن شما مطابقت دارد، نگه داشته شد.</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">کپی کد</string>
     <string name="w3b_code_copied">کد کپی شد</string>
     <string name="w3b_release_once">آزاد کردن برای یک بار</string>
-    <string name="w3b_fix_open">اصلاح این تصمیم برای %1$s</string>
-    <string name="w3b_fix_title">اصلاح این تصمیم</string>
     <string name="w3b_fix_note">این قانون برای پیام‌های جدید این فرستنده اعمال می‌شود. پیام‌هایی که قبلاً نگه داشته شده‌اند، همان‌جا می‌مانند.</string>
     <string name="w3b_fix_allow">اجازه دادن همیشگی به این فرستنده</string>
     <string name="w3b_fix_block">مسدود کردن این فرستنده</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">تحویل داده می‌شود: خواندن مخاطبان ممکن نیست، پس نمی‌توان دربارهٔ فرستنده تصمیم گرفت.</string>
     <string name="w3b_verdict_allowed_other">تحویل داده می‌شود.</string>
     <string name="w3b_examples_title">با یک نمونه شروع کنید</string>
-    <string name="w3b_example_block_word">مسدود کردن پیام‌های دارای یک واژه</string>
     <string name="w3b_example_block_sender">مسدود کردن نام یک فرستنده</string>
-    <string name="w3b_example_block_prefix">مسدود کردن شماره‌هایی که شروع می‌شوند با…</string>
     <string name="w3b_example_allow_sender">اجازه دادن همیشگی به نام یک فرستنده، مانند بانک شما</string>
-    <string name="w3b_example_allow_number">اجازه دادن همیشگی به یک شماره تلفن</string>
     <string name="w3b_overridden_chip">لغوشده با قانون اجازه دادن</string>
 </resources>

@@ -47,7 +47,6 @@
     <string name="settings_app_lock_timeout_5m">5 মিনিট পরে</string>
     <string name="settings_app_lock_screenshots">স্ক্রিনশট ব্লক করুন</string>
     <string name="settings_app_lock_screenshots_body">স্ক্রিনশট ও স্ক্রিন রেকর্ডিং বন্ধ রাখে। সাম্প্রতিক অ্যাপের তালিকায় বার্তা সবসময় লুকানো থাকে।</string>
-    <string name="settings_app_lock_screenshots_body_old">স্ক্রিনশট ও স্ক্রিন রেকর্ডিং বন্ধ রাখে। Android-এর এই সংস্করণে সাম্প্রতিক অ্যাপের তালিকায় বার্তা লুকানোর এটিই একমাত্র উপায়।</string>
     <string name="settings_app_lock_change">PIN, প্যাটার্ন বা বায়োমেট্রিক্স বদলান</string>
     <string name="settings_app_lock_weak">আপনার PIN বা প্যাটার্ন সহজেই অনুমান করা যায়</string>
     <string name="settings_app_lock_weak_body">PIN খুব দুর্বল। বদলাতে ট্যাপ করুন</string>

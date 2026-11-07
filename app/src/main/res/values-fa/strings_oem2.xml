@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">شما آن را انجام‌شده علامت زدید</string>
     <string name="oem2_state_todo">هنوز انجام نشده</string>
     <string name="oem2_state_limited">Android هنوز اجرای uMessage در پس‌زمینه را محدود می‌کند</string>
-    <string name="oem2_open_again">باز کردن دوباره</string>
     <string name="oem2_undo">واگرد</string>
     <string name="oem2_undo_cd">علامت‌گذاری %1$s به‌عنوان انجام‌نشده</string>
 </resources>

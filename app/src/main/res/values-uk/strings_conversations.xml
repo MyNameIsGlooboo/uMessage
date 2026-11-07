@@ -4,7 +4,6 @@
     <string name="convlist_empty_title">Ще немає чатів</string>
     <string name="convlist_empty_body">Тут з’являтимуться ваші надіслані й отримані повідомлення.</string>
     <string name="convlist_start_conversation">Почати чат</string>
-    <string name="convlist_new_conversation">Новий чат</string>
     <string name="convlist_draft">Чернетка</string>
     <string name="convlist_pinned">Закріплено</string>
     <string name="convlist_muted">Сповіщення вимкнено</string>
@@ -28,7 +27,6 @@
     <string name="convlist_unpin">Відкріпити</string>
     <string name="convlist_mark_read">Позначити як прочитане</string>
     <string name="convlist_mark_unread">Позначити як непрочитане</string>
-    <string name="convlist_block_number">Заблокувати номер</string>
     <string name="convlist_add_contact">Додати номер до контакту</string>
     <string name="convlist_copy_number">Копіювати номер</string>
     <string name="convlist_dial">Зателефонувати</string>
@@ -67,7 +65,5 @@
     <string name="convlist_block_message">Заблокувати %1$s? Нові повідомлення з цього номера потраплятимуть до папки «Заблоковані повідомлення» замість вхідних. Там ви зможете їх прочитати або відновити.</string>
     <string name="convlist_block_confirm">Заблокувати</string>
     <string name="convlist_rename_title">Перейменувати чат</string>
-    <string name="convlist_rename_hint">Назва чату</string>
-    <string name="convlist_ok">ОК</string>
     <string name="convlist_cancel">Скасувати</string>
 </resources>

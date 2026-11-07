@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="r3b_info_button">封鎖的運作方式</string>
-    <string name="r3b_info_title">封鎖的運作方式</string>
-    <string name="r3b_info_modes">未知寄件者</string>
-    <string name="r3b_info_mode_current">目前：%1$s</string>
-    <string name="r3b_info_messages">已封鎖的訊息</string>
-    <string name="r3b_info_open_sender">輕觸寄件者即可閱讀其訊息。</string>
-    <string name="r3b_info_move">「移至收件匣」會將該寄件者的所有訊息放入你的收件匣，並詢問是否一律允許對方。</string>
-    <string name="r3b_info_release">「放行一次」（按住訊息）只會將該則訊息放入你的收件匣，不會允許寄件者。</string>
-    <string name="r3b_info_swipe">將寄件者朝列的尾端滑動，即可將其訊息移至收件匣。</string>
     <string name="r3b_open_sender">開啟訊息</string>
     <string name="r3b_move_inbox_for">移至收件匣，%1$s</string>
     <string name="r3b_delete_for">刪除，%1$s</string>
@@ -22,11 +13,7 @@
     <string name="r3b_text_copied">已複製文字</string>
     <string name="r3b_delete_message">刪除</string>
     <string name="r3b_received">接收時間：%1$s</string>
-    <string name="r3b_info_mode_strict">嚴格：攔下所有未知寄件者，驗證碼也一樣。</string>
-    <string name="r3b_info_mode_smart">智慧：攔下未知寄件者，但讓不含連結的驗證碼通過。</string>
-    <string name="r3b_info_mode_off">關閉：未知寄件者的訊息會進入收件匣。你的規則仍然有效。</string>
     <plurals name="r3b_info_purge">
         <item quantity="other">已封鎖訊息會在%d天後刪除。</item>
     </plurals>
-    <string name="r3b_info_purge_off">已封鎖訊息會一直保留，直到你刪除為止。</string>
 </resources>

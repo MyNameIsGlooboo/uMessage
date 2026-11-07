@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">Tout sauf vos messages : règles pour autoriser, bloquer et transférer, et tous les paramètres. Le fichier n\'est pas chiffré et contient les numéros de téléphone vers lesquels vous transférez les messages. Conservez-le dans un endroit privé. Les règles de transfert sont restaurées désactivées.</string>
     <string name="n09_label_spam">Protection contre le spam</string>
     <string name="n09_label_notifications">Notifications</string>
     <string name="n09_label_chat">Conversation et liste des messages</string>

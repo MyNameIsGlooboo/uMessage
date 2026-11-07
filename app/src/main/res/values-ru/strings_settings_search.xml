@@ -76,4 +76,5 @@
     <string name="sks_version">версия сборка номер выпуск обновление копировать</string>
     <string name="sks_source">исходный код GitHub открытый лицензия репозиторий</string>
     <string name="sks_licenses">лицензии лицензии открытый исходный код GPL правовая информация шрифты библиотеки</string>
+    <string name="sks_privacy_policy">политика конфиденциальности условия защита данных правовая</string>
 </resources>

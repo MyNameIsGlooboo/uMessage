@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">Wiadomości, reguły i ustawienia do pliku</string>
-    <string name="settings_f_backup_rules_group">Reguły i ustawienia</string>
-    <string name="settings_f_backup_rules_contents">Plik zawiera twoje reguły zezwalania, blokowania i przekazywania dalej oraz ustawienia: ochronę przed spamem, powiadomienia, daty, rozmiar tekstu, motyw, klawisz Enter i limity przekazywania dalej. Nigdy nie zawiera treści wiadomości ani blokady aplikacji. Reguły przekazywania dalej są przywracane jako wyłączone.</string>
-    <string name="settings_f_backup_messages_contents">Treść wiadomości i zdjęcia w osobnym pliku.</string>
     <string name="settings_f_restore_title">Przywrócić z tego pliku?</string>
     <string name="settings_f_restore_rules">Reguły zezwalania: %1$d · Reguły blokowania: %2$d. Istniejące reguły zostaną pominięte.</string>
     <string name="settings_f_restore_forwards">Reguły przekazywania dalej do dodania: %1$d, wyłączone. Włącz je w sekcji Reguły › Przekazywanie dalej.</string>

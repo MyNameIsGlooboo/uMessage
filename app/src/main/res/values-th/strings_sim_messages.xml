@@ -10,6 +10,4 @@
     </plurals>
     <string name="sim_messages_import">คัดลอก</string>
     <string name="sim_messages_importing">กำลังคัดลอกข้อความ…</string>
-    <string name="sim_messages_done">คัดลอกแล้ว %1$d ข้อความ มีอยู่ในการสนทนาแล้ว %2$d ข้อความ</string>
-    <string name="sim_messages_done_failed">คัดลอกแล้ว %1$d ข้อความ มีอยู่ในการสนทนาแล้ว %2$d ข้อความ และคัดลอกไม่ได้ %3$d ข้อความ</string>
 </resources>

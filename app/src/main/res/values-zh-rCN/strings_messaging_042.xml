@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">送达失败</string>
+    <string name="thread_many_parts_note">这条短信很长：将作为 %1$d 条短信发送。短一些更省钱。</string>
+    <string name="attachments_total_too_large">这些文件加起来对一条消息来说太大了，可能无法发送。</string>
+    <string name="mms_download_failed_channel">图片消息下载</string>
+    <string name="mms_download_failed_title">图片消息未下载</string>
+    <string name="mms_download_failed_text">无法下载。请检查移动数据；发送人可能需要重新发送。</string>
+</resources>

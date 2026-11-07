@@ -3,4 +3,6 @@
     <string name="smart_replies_title">Умные ответы</string>
     <string name="smart_replies_summary">Быстрые ответы из списка на телефоне</string>
     <string name="smart_replies_hide">Скрыть подсказки</string>
+    <string name="smart_replies_notif_title">Умные ответы в уведомлениях</string>
+    <string name="smart_replies_notif_summary">Показывает предложенный ответ кнопкой в уведомлении. Нажатие отправляет текст.</string>
 </resources>

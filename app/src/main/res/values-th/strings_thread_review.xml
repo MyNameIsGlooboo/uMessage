@@ -10,7 +10,6 @@
     <string name="thread_review_copy_password">คัดลอกรหัสผ่าน</string>
     <string name="thread_review_copy_username">คัดลอกชื่อผู้ใช้</string>
     <string name="thread_review_sim_label">SIM %1$s</string>
-    <string name="thread_review_sends_from">ส่งจาก %1$s</string>
     <string name="thread_review_reply_disabled">ผู้ส่งนี้รับข้อความตอบกลับไม่ได้</string>
     <string name="thread_review_attach_camera">กล้อง</string>
     <string name="thread_review_attach_voice">เสียง</string>

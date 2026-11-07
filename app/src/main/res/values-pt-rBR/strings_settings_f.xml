@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">Mensagens, regras e configurações em um arquivo</string>
-    <string name="settings_f_backup_rules_group">Regras e configurações</string>
-    <string name="settings_f_backup_rules_contents">O arquivo contém suas regras de permissão, bloqueio e encaminhamento e as configurações: proteção contra spam, notificações, datas, tamanho do texto, tema, tecla Enter e limites de encaminhamento. Nunca inclui o texto das mensagens nem o bloqueio do app. As regras de encaminhamento são restauradas desativadas.</string>
-    <string name="settings_f_backup_messages_contents">Texto e imagens das mensagens, em um arquivo separado.</string>
     <string name="settings_f_restore_title">Restaure a partir deste arquivo?</string>
     <string name="settings_f_restore_rules">Regras de permissão: %1$d · Regras de bloqueio: %2$d. As regras que você já tem são ignoradas.</string>
     <string name="settings_f_restore_forwards">Regras de encaminhamento a adicionar: %1$d, desativadas. Ative-as em Regras › Encaminhamento.</string>

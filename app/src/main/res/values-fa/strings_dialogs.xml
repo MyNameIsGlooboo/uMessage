@@ -26,7 +26,6 @@
     <string name="dialogs_lock_locked_out">تعداد تلاش‌های ناموفق برای باز کردن قفل بیش از حد است.\n%d ثانیه دیگر دوباره تلاش کنید.</string>
     <string name="dialogs_lock_pin_delete">حذف آخرین رقم</string>
     <string name="dialogs_lock_pin_confirm">تأیید پین</string>
-    <string name="dialogs_lock_pin_entered">%d رقم وارد شده</string>
     <string name="dialogs_lock_pattern_pad">صفحهٔ رسم الگو</string>
     <string name="dialogs_lock_biometric_hint">با اثر انگشت یا چهره، هویت خود را تأیید کنید.</string>
     <string name="dialogs_lock_biometric_open">تأیید با زیست‌سنجی</string>

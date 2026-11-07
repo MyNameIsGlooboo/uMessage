@@ -17,7 +17,6 @@
     <string name="blocknum_add_title">Заблокировать номер</string>
     <string name="blocknum_edit_title">Изменить заблокированный номер</string>
     <string name="blocknum_field_label">Номер</string>
-    <string name="blocknum_field_help">Используйте * как подстановочный символ: +1555* блокирует все номера, начинающиеся с +1555</string>
     <string name="blocknum_err_empty">Введите номер</string>
     <string name="blocknum_err_invalid">Введите номер телефона или цифры с подстановочным символом *</string>
     <string name="blocknum_copy">Копировать номер</string>
@@ -63,7 +62,6 @@
     <string name="blocknum_unavailable_title">Список заблокированных недоступен</string>
     <string name="blocknum_unavailable_body">Сделайте uMessage приложением для SMS по умолчанию, чтобы просматривать и менять системный список заблокированных.</string>
     <string name="blocknum_unknown_title">Блокировать неизвестные номера</string>
-    <string name="blocknum_unknown_body">Действует только при режиме фильтрации «Выкл.»: сообщения с неизвестных номеров попадают в «Заблокированные», как в строгом режиме. В строгом и умном режимах этот переключатель не действует.</string>
     <string name="blocknum_contacts_denied">Без доступа к контактам нельзя распознать неизвестные номера</string>
     <string name="blocknum_section_numbers">Номера</string>
 </resources>

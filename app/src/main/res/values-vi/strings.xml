@@ -21,7 +21,6 @@
     <string name="add_contact_or_number">Thêm người liên hệ hoặc số điện thoại…</string>
     <string name="suggestions">Gợi ý</string>
     <string name="members">Thành viên</string>
-    <string name="conversation_name">Tên cuộc trò chuyện</string>
     <string name="conversation_details">Chi tiết cuộc trò chuyện</string>
     <string name="rename_conversation">Đổi tên cuộc trò chuyện</string>
     <string name="rename_conversation_warning">Chỉ bạn mới thấy tên cuộc trò chuyện này</string>
@@ -77,7 +76,6 @@
     <string name="mms_file_size_limit">Đổi kích thước ảnh MMS khi gửi</string>
     <string name="mms_file_size_limit_none">Không giới hạn</string>
     <string name="outgoing_messages">Tin nhắn gửi đi</string>
-    <string name="group_message_mms">Gửi tin nhắn nhóm dưới dạng MMS</string>
     <string name="send_group_message">Định dạng tin nhắn nhóm</string>
     <string name="group_message_send_description">MMS nhóm giữ các câu trả lời trong cùng một cuộc trò chuyện, nhưng nhà mạng có thể tính phí. Gửi riêng sẽ gửi một tin nhắn cho từng người. Bạn có thể đổi lựa chọn này sau trong cài đặt ứng dụng.</string>
     <string name="group_mms">MMS nhóm</string>
@@ -145,8 +143,6 @@
     <string name="invalid_short_code_desc">Bạn chỉ có thể trả lời mã ngắn chỉ gồm số như “503501”, không thể trả lời mã chứa cả chữ và số như “AB-CD0”.</string>
     <string name="attachment_sized_exceeds_max_limit">Dung lượng tệp đính kèm vượt giới hạn MMS tối đa</string>
     <string name="couldnt_download_mms">Không thể tải MMS xuống</string>
-    <string name="faq_1_title">Vì sao ứng dụng cần quyền truy cập Internet?</string>
-    <string name="faq_1_text">Tiếc là cần có quyền này để gửi tệp đính kèm MMS. Không gửi được MMS sẽ là một bất lợi rất lớn so với các ứng dụng khác, nên chúng tôi đã chọn cách này. Tuy nhiên, như mọi khi, ứng dụng hoàn toàn không có quảng cáo, theo dõi hay phân tích dữ liệu; Internet chỉ được dùng để gửi MMS.</string>
     <string name="faq_2_title">Người nhận không nhận được MMS của bạn, có cách nào khắc phục không?</string>
     <string name="faq_2_text">Nhà mạng giới hạn dung lượng MMS. Bạn có thể thử đặt giới hạn nhỏ hơn trong cài đặt ứng dụng.</string>
     <string name="faq_3_title">Ứng dụng có hỗ trợ lên lịch gửi tin nhắn không?</string>

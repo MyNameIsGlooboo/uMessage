@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">Le réglage de l\'écran de verrouillage de votre téléphone affiche tout le contenu des notifications, donc Android peut quand même montrer le texte. Modifiez-le dans les Paramètres du téléphone, sous Notifications.</string>
+    <string name="backup_timeout_title">Sauvegarde arrêtée par Android</string>
+    <string name="backup_timeout_text">Android limite la durée d\'une sauvegarde ou d\'une restauration en arrière-plan, elle a donc été arrêtée. Ouvrez les Paramètres pour la relancer.</string>
+</resources>

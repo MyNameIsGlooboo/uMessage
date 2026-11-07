@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s042_whole_word_title">Chỉ từ nguyên vẹn</string>
+    <string name="s042_whole_word_help">Chỉ khớp với chính từ đó: win, không phải window.</string>
+    <string name="s042_held_code_channel">Mã bị giữ lại</string>
+    <string name="s042_held_code_title">Một tin nhắn giống mã đã bị giữ lại</string>
+    <string name="s042_held_code_text">Tin có liên kết nên nằm trong mục Đã chặn. Hãy mở Đã chặn nếu bạn đang chờ mã.</string>
+    <string name="s042_contacts_off_title">Bộ lọc spam đang tạm dừng</string>
+    <string name="s042_contacts_off_body">Hãy cho phép Danh bạ để uMessage phân biệt bạn bè với người lạ.</string>
+    <string name="s042_contacts_off_allow">Cho phép</string>
+</resources>

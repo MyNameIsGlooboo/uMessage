@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">Ви позначили як виконане</string>
     <string name="oem2_state_todo">Ще не виконано</string>
     <string name="oem2_state_limited">Android досі обмежує роботу uMessage у фоні</string>
-    <string name="oem2_open_again">Відкрити ще раз</string>
     <string name="oem2_undo">Скасувати</string>
     <string name="oem2_undo_cd">Позначити %1$s як невиконане</string>
 </resources>

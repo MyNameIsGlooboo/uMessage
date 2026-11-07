@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">تصدیق کریں کہ یہ آپ ہیں</string>
     <string name="forward_tab">فارورڈ</string>
     <string name="forward_add">فارورڈ شامل کریں</string>
-    <string name="forward_intro">جو پیغامات آپ کے ان باکس میں آتے ہیں اور کسی اصول سے ملتے ہیں، وہ SMS کے ذریعے آگے بھیجے جاتے ہیں۔ بلاک شدہ اسپیم کبھی فارورڈ نہیں ہوتا۔</string>
     <string name="forward_paid_note">ہر فارورڈ ایک ادا شدہ SMS ہے۔</string>
-    <string name="forward_empty_title">فارورڈ کا کوئی اصول نہیں</string>
-    <string name="forward_empty_body">ملتے جلتے پیغامات، جیسے بینک الرٹس، کی کاپی دوسرے فون پر بھیجیں۔</string>
     <string name="forward_row_from">منجانب: %1$s</string>
     <string name="forward_row_text">متن: %1$s</string>
     <string name="forward_row_any_sender">کوئی بھی بھیجنے والا</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">نمبر %1$d</string>
     <string name="forward_sheet_add_target">نمبر شامل کریں</string>
     <string name="forward_sheet_remove_target">نمبر %1$d ہٹائیں</string>
-    <string name="forward_sheet_target_needed">فارورڈ کے لیے کم از کم ایک نمبر شامل کریں۔</string>
     <string name="forward_err_target_invalid">7 سے 15 ہندسوں کا فون نمبر درج کریں</string>
     <string name="forward_err_target_duplicate">یہ نمبر پہلے سے فہرست میں ہے</string>
     <string name="forward_sheet_window">صرف مخصوص اوقات میں</string>
-    <string name="forward_sheet_window_body">صرف ان اوقات کے درمیان فارورڈ کریں۔ اگر اختتام شروع سے پہلے ہو تو یہ آدھی رات کے بعد تک چلتا ہے۔</string>
     <string name="forward_sheet_start">شروع %1$s</string>
     <string name="forward_sheet_end">اختتام %1$s</string>
     <string name="forward_sheet_pick_start">شروع کا وقت</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">موصول ہوا</string>
     <string name="forward_sheet_send_from_label">اس سے بھیجیں</string>
     <string name="forward_sim_same">وہی SIM</string>
-    <string name="forward_sheet_codes">تصدیقی کوڈ شامل کریں</string>
-    <string name="forward_sheet_codes_body">بند ہونے پر، سائن ان یا تصدیقی کوڈ جیسے لگنے والے پیغامات فارورڈ نہیں ہوتے۔</string>
     <string name="forward_sheet_paid">ہر فارورڈ ایک ادا شدہ SMS ہے۔ لمبے پیغامات کئی حصوں میں بھیجے جاتے ہیں۔</string>
     <string name="forward_codes_title">تصدیقی کوڈ فارورڈ کریں؟</string>
     <string name="forward_codes_message">کوڈ فارورڈ کرنے سے وصول کنندہ آپ کے اکاؤنٹس میں سائن ان کر سکتا ہے۔ دھوکے باز یہی کرتے ہیں: وہ کوڈ چرانے کے لیے لوگوں کو اپنے پیغامات فارورڈ کرنے پر آمادہ کرتے ہیں۔ اسے صرف اپنے ہی فون کے لیے آن کریں۔</string>
     <string name="forward_codes_confirm">کوڈ شامل کریں</string>
-    <string name="forward_delete_title">فارورڈ کا اصول حذف کریں؟</string>
-    <string name="forward_delete_message">اس اصول سے پیغامات مزید فارورڈ نہیں ہوں گے۔</string>
     <string name="forward_no_lock_title">فارورڈنگ کو ایپ لاک سے محفوظ کریں</string>
     <string name="forward_no_lock_message">فارورڈ کے اصول آپ کے پیغامات دوسرے فونز پر بھیجتے ہیں، اس لیے جس کے پاس بھی آپ کا ان لاک فون ہو وہ ایک اصول شامل کر سکتا ہے۔ ایپ لاک کے ساتھ، فارورڈ کے اصول بدلنے پر آپ کا PIN یا فنگر پرنٹ مانگا جاتا ہے۔</string>
     <string name="forward_no_lock_continue">جاری رکھیں</string>

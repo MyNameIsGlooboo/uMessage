@@ -72,10 +72,8 @@
     <string name="thread_attach_photo">Ảnh</string>
     <string name="thread_attach_take_photo">Chụp ảnh</string>
     <string name="thread_attach_record_video">Quay video</string>
-    <string name="thread_attach_record_audio">Ghi âm</string>
     <string name="thread_attach_file">Tệp</string>
     <string name="thread_attach_contact">Người liên hệ</string>
-    <string name="thread_attach_schedule">Lên lịch gửi</string>
     <string name="thread_people_confirm">Xong</string>
     <string name="thread_people_add_number">Thêm số này</string>
     <string name="thread_people_remove">Gỡ %1$s</string>

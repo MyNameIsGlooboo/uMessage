@@ -2,5 +2,4 @@
 <resources>
     <string name="w3a_forward_limit_channel">Ліміт пересилань</string>
     <string name="w3a_forward_limit_title">Пересилання призупинено до завтра</string>
-    <string name="w3a_forward_limit_text">Досягнуто ліміту пересилань: %d. Пересилання відновиться завтра.</string>
 </resources>

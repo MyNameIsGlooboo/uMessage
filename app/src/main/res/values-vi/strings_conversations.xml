@@ -4,7 +4,6 @@
     <string name="convlist_empty_title">Chưa có cuộc trò chuyện</string>
     <string name="convlist_empty_body">Tin nhắn bạn gửi và nhận sẽ hiện ở đây.</string>
     <string name="convlist_start_conversation">Bắt đầu cuộc trò chuyện</string>
-    <string name="convlist_new_conversation">Cuộc trò chuyện mới</string>
     <string name="convlist_draft">Bản nháp</string>
     <string name="convlist_pinned">Đã ghim</string>
     <string name="convlist_muted">Đã tắt thông báo</string>
@@ -25,7 +24,6 @@
     <string name="convlist_unpin">Bỏ ghim</string>
     <string name="convlist_mark_read">Đánh dấu đã đọc</string>
     <string name="convlist_mark_unread">Đánh dấu chưa đọc</string>
-    <string name="convlist_block_number">Chặn số</string>
     <string name="convlist_add_contact">Thêm số vào người liên hệ</string>
     <string name="convlist_copy_number">Sao chép số</string>
     <string name="convlist_dial">Gọi</string>
@@ -52,7 +50,5 @@
     <string name="convlist_block_message">Chặn %1$s? Tin nhắn mới từ số này sẽ vào Tin nhắn đã chặn thay vì hộp thư đến của bạn. Bạn vẫn có thể đọc hoặc khôi phục chúng ở đó.</string>
     <string name="convlist_block_confirm">Chặn</string>
     <string name="convlist_rename_title">Đổi tên cuộc trò chuyện</string>
-    <string name="convlist_rename_hint">Tên cuộc trò chuyện</string>
-    <string name="convlist_ok">OK</string>
     <string name="convlist_cancel">Hủy</string>
 </resources>

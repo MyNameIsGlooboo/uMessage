@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">Limite diário de encaminhamentos</string>
     <string name="w3d_daily_limit_body">Máximo de encaminhamentos por dia</string>
     <string name="w3d_hide_lock_codes">Oculte códigos na tela de bloqueio</string>
-    <string name="w3d_hide_lock_codes_body">Mensagens com código mostram •••• na tela de bloqueio até você desbloquear o celular.</string>
 </resources>

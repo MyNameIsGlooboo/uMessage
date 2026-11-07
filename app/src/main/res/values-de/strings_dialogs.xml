@@ -26,7 +26,6 @@
     <string name="dialogs_lock_locked_out">Zu viele fehlgeschlagene Entsperrversuche.\nVersuche es in %d Sekunden erneut.</string>
     <string name="dialogs_lock_pin_delete">Letzte Ziffer löschen</string>
     <string name="dialogs_lock_pin_confirm">PIN bestätigen</string>
-    <string name="dialogs_lock_pin_entered">%d Ziffern eingegeben</string>
     <string name="dialogs_lock_pattern_pad">Musterfeld</string>
     <string name="dialogs_lock_biometric_hint">Bestätige mit deinem Fingerabdruck oder Gesicht, dass du es bist.</string>
     <string name="dialogs_lock_biometric_open">Mit Biometrie bestätigen</string>

@@ -24,7 +24,6 @@
     <string name="add_contact_or_number">Додайте контакт або номер…</string>
     <string name="suggestions">Пропозиції</string>
     <string name="members">Учасники</string>
-    <string name="conversation_name">Назва чату</string>
     <string name="conversation_details">Відомості про чат</string>
     <string name="rename_conversation">Перейменувати чат</string>
     <string name="rename_conversation_warning">Цю назву чату бачите лише ви</string>
@@ -86,7 +85,6 @@
     <string name="mms_file_size_limit">Зменшувати зображення в MMS перед надсиланням</string>
     <string name="mms_file_size_limit_none">Без обмежень</string>
     <string name="outgoing_messages">Вихідні повідомлення</string>
-    <string name="group_message_mms">Надсилати групові повідомлення як MMS</string>
     <string name="send_group_message">Формат групових повідомлень</string>
     <string name="group_message_send_description">Групові MMS зберігають відповіді в одному чаті, але оператор може стягувати плату. Окреме надсилання доставляє кожному власне повідомлення. Це можна змінити пізніше в налаштуваннях застосунку.</string>
     <string name="group_mms">Групове MMS</string>
@@ -154,8 +152,6 @@
     <string name="invalid_short_code_desc">Можна відповідати лише на короткі номери з цифр, як-от «503501», але не на коди з літер і цифр, як-от «AB-CD0».</string>
     <string name="attachment_sized_exceeds_max_limit">Розмір вкладення перевищує ліміт MMS</string>
     <string name="couldnt_download_mms">Не вдалося завантажити MMS</string>
-    <string name="faq_1_title">Навіщо застосунку доступ до інтернету?</string>
-    <string name="faq_1_text">На жаль, він потрібен для надсилання вкладень MMS. Без підтримки MMS застосунок значно поступався б іншим, тому ми вирішили додати цей доступ. Проте, як завжди, тут немає реклами, відстеження чи аналітики: інтернет використовується лише для надсилання MMS.</string>
     <string name="faq_2_title">Одержувач не отримує мої MMS. Що можна зробити?</string>
     <string name="faq_2_text">Оператори обмежують розмір MMS. Спробуйте встановити менший ліміт у налаштуваннях застосунку.</string>
     <string name="faq_3_title">Чи підтримує застосунок заплановані повідомлення?</string>

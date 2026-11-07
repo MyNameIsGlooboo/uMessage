@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">手機內建的鎖定畫面設定會顯示所有通知內容，因此 Android 仍可能顯示簡訊文字。請在手機設定的「通知」中變更。</string>
+    <string name="backup_timeout_title">Android 已停止備份</string>
+    <string name="backup_timeout_text">Android 會限制備份或還原在背景執行的時間，因此已被停止。開啟設定即可重新開始。</string>
+</resources>

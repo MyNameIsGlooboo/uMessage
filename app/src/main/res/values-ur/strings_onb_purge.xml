@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="onb_purge_question">بلاک شدہ پیغامات کتنی دیر رکھیں</string>
-    <string name="onb_done_summary_purge">بلاک شدہ پیغامات رکھیں</string>
 </resources>

@@ -44,7 +44,6 @@
     <string name="settings_app_lock_timeout_5m">Setelah 5 menit</string>
     <string name="settings_app_lock_screenshots">Blokir tangkapan layar</string>
     <string name="settings_app_lock_screenshots_body">Mencegah tangkapan dan perekaman layar. Pesan selalu disembunyikan di daftar aplikasi terbaru.</string>
-    <string name="settings_app_lock_screenshots_body_old">Mencegah tangkapan dan perekaman layar. Pada versi Android ini, ini juga satu-satunya cara menyembunyikan pesan di daftar aplikasi terbaru.</string>
     <string name="settings_app_lock_change">Ubah PIN, pola, atau biometrik</string>
     <string name="settings_app_lock_weak">PIN atau pola Anda mudah ditebak</string>
     <string name="settings_app_lock_weak_body">PIN terlalu lemah. Ketuk untuk mengubah</string>

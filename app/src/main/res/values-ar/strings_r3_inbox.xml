@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="r3_inbox_filter_show">أظهر عوامل التصفية</string>
-    <string name="r3_inbox_filter_hide">أخفِ عوامل التصفية</string>
-    <string name="r3_inbox_filter_show_active">أظهر عوامل التصفية. عامل التصفية «%1$s» مفعّل</string>
-    <string name="r3_inbox_filter_hide_active">أخفِ عوامل التصفية. عامل التصفية «%1$s» مفعّل</string>
-</resources>

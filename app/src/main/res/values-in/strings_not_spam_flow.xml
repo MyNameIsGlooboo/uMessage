@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">Dipindahkan ke kotak masuk</string>
+    <string name="nsf_snack_moved_allowed">Dipindahkan ke kotak masuk. Pesan berikutnya dari %1$s juga akan masuk.</string>
+    <string name="nsf_moving">Memindahkan ke kotak masuk</string>
+</resources>

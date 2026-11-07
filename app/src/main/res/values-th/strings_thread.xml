@@ -72,10 +72,8 @@
     <string name="thread_attach_photo">รูปภาพ</string>
     <string name="thread_attach_take_photo">ถ่ายรูป</string>
     <string name="thread_attach_record_video">บันทึกวิดีโอ</string>
-    <string name="thread_attach_record_audio">บันทึกเสียง</string>
     <string name="thread_attach_file">ไฟล์</string>
     <string name="thread_attach_contact">รายชื่อติดต่อ</string>
-    <string name="thread_attach_schedule">กำหนดเวลาส่ง</string>
     <string name="thread_people_confirm">เสร็จสิ้น</string>
     <string name="thread_people_add_number">เพิ่มหมายเลขนี้</string>
     <string name="thread_people_remove">นำ %1$s ออก</string>

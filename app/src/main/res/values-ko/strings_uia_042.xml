@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">선택사항</string>
+    <string name="backup_drive_hint">Google 드라이브를 사용하려면 파일 선택 화면에서 드라이브를 선택하세요.</string>
+    <string name="move_from_app_title">다른 앱에서 옮기기</string>
+    <string name="move_from_app_row_body">다른 SMS 앱의 메시지를 가져와요</string>
+    <string name="move_from_app_intro">uMessage로 옮기시나요? 기존 메시지도 함께 가져올 수 있어요.</string>
+    <string name="move_from_app_step1">기존 앱에서 백업을 만드세요. SMS Backup &amp; Restore에서는 Back up now를 탭하세요.</string>
+    <string name="move_from_app_step2">백업을 Google 드라이브나 휴대폰의 파일로 저장하세요.</string>
+    <string name="move_from_app_step3">여기로 돌아와 “메시지 가져오기”를 탭하고 그 파일을 선택하세요.</string>
+    <string name="move_from_app_format">uMessage는 SMS Backup &amp; Restore가 만든 XML 파일과 자체 백업을 읽을 수 있어요.</string>
+    <plurals name="sim_messages_done">
+        <item quantity="other">메시지 %1$d개를 복사했어요. %2$d개는 이미 대화에 있어요.</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="other">메시지 %1$d개를 복사했어요. %2$d개는 이미 대화에 있고, %3$d개는 복사하지 못했어요.</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="other">항목 %1$d개를 백업했어요.</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="other">%d자리 입력됨</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="other">전달 한도 %d건에 도달했어요. 내일 다시 전달해요.</item>
+    </plurals>
+</resources>

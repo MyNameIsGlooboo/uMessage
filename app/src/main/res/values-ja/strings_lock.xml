@@ -44,7 +44,6 @@
     <string name="settings_app_lock_timeout_5m">5分後</string>
     <string name="settings_app_lock_screenshots">スクリーンショットをブロック</string>
     <string name="settings_app_lock_screenshots_body">スクリーンショットと画面録画を防ぎます。最近使ったアプリでは、メッセージは常に非表示になります。</string>
-    <string name="settings_app_lock_screenshots_body_old">スクリーンショットと画面録画を防ぎます。このバージョンのAndroidでは、最近使ったアプリでメッセージを非表示にする唯一の方法でもあります。</string>
     <string name="settings_app_lock_change">PIN・パターン・生体認証を変更</string>
     <string name="settings_app_lock_weak">PINまたはパターンが推測されやすい状態です。</string>
     <string name="settings_app_lock_weak_body">PINが単純すぎます。タップして変更できます。</string>

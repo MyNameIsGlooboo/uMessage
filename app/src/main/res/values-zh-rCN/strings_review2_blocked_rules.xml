@@ -23,8 +23,6 @@
     <string name="e_example_block_cancel_word">屏蔽包含لغو۱۱的消息</string>
     <string name="e_example_block_ad_prefix">屏蔽以3000开头的广告号码</string>
     <string name="e_example_allow_number">始终允许某个号码，例如邮局号码</string>
-    <string name="e_sheet_sender_label">发件人</string>
-    <string name="e_sheet_text_label">消息正文</string>
     <string name="e_value_number">电话号码</string>
     <string name="e_value_prefix">号码开头</string>
     <string name="e_value_sender">发件人名称</string>

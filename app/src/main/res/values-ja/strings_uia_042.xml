@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">任意</string>
+    <string name="backup_drive_hint">Google ドライブを使うには、ファイル選択画面でドライブを選んでください。</string>
+    <string name="move_from_app_title">ほかのアプリから移行</string>
+    <string name="move_from_app_row_body">ほかの SMS アプリからメッセージを引き継ぎます</string>
+    <string name="move_from_app_intro">uMessage に乗り換えますか？これまでのメッセージも一緒に移せます。</string>
+    <string name="move_from_app_step1">以前のアプリでバックアップを作成します。SMS Backup &amp; Restore では「Back up now」をタップします。</string>
+    <string name="move_from_app_step2">バックアップを Google ドライブか、スマートフォン内のファイルに保存します。</string>
+    <string name="move_from_app_step3">ここに戻り、「メッセージをインポート」をタップして、そのファイルを選びます。</string>
+    <string name="move_from_app_format">uMessage は SMS Backup &amp; Restore が作成した XML ファイルと、自身のバックアップを読み込めます。</string>
+    <plurals name="sim_messages_done">
+        <item quantity="other">メッセージを%1$d件コピーしました。%2$d件はすでに会話にありました。</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="other">メッセージを%1$d件コピーしました。%2$d件はすでに会話にあり、%3$d件はコピーできませんでした。</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="other">%1$d項目のバックアップを保存しました。</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="other">%d桁入力済み</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="other">転送の上限%d件に達しました。明日、転送を再開します。</item>
+    </plurals>
+</resources>

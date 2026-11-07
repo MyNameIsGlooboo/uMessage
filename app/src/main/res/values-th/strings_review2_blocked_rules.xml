@@ -23,8 +23,6 @@
     <string name="e_example_block_cancel_word">บล็อกข้อความที่มี لغو۱۱</string>
     <string name="e_example_block_ad_prefix">บล็อกหมายเลขโฆษณาที่ขึ้นต้นด้วย 3000</string>
     <string name="e_example_allow_number">อนุญาตหมายเลขเสมอ เช่น ที่ทำการไปรษณีย์</string>
-    <string name="e_sheet_sender_label">ผู้ส่ง</string>
-    <string name="e_sheet_text_label">เนื้อหาข้อความ</string>
     <string name="e_value_number">หมายเลขโทรศัพท์</string>
     <string name="e_value_prefix">หมายเลขขึ้นต้นด้วย</string>
     <string name="e_value_sender">ชื่อผู้ส่ง</string>

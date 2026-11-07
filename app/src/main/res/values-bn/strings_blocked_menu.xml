@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="blocked_menu_restored">আপনি ফিরিয়ে এনেছেন</string>
+    <string name="blocked_menu_restored_summary">সম্প্রতি আপনি ইনবক্সে সরিয়েছেন এমন বার্তা</string>
+</resources>

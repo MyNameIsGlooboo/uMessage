@@ -21,7 +21,6 @@
     <string name="add_contact_or_number">เพิ่มรายชื่อติดต่อหรือหมายเลข…</string>
     <string name="suggestions">คำแนะนำ</string>
     <string name="members">สมาชิก</string>
-    <string name="conversation_name">ชื่อการสนทนา</string>
     <string name="conversation_details">รายละเอียดการสนทนา</string>
     <string name="rename_conversation">เปลี่ยนชื่อการสนทนา</string>
     <string name="rename_conversation_warning">มีเพียงคุณที่เห็นชื่อการสนทนานี้</string>
@@ -77,7 +76,6 @@
     <string name="mms_file_size_limit">ปรับขนาดรูปภาพ MMS ที่ส่ง</string>
     <string name="mms_file_size_limit_none">ไม่จำกัด</string>
     <string name="outgoing_messages">ข้อความขาออก</string>
-    <string name="group_message_mms">ส่งข้อความกลุ่มเป็น MMS</string>
     <string name="send_group_message">รูปแบบข้อความกลุ่ม</string>
     <string name="group_message_send_description">MMS กลุ่มจะรวมคำตอบไว้ในการสนทนาเดียว แต่อาจมีค่าบริการจากผู้ให้บริการเครือข่าย การส่งแยกจะส่งข้อความให้แต่ละคน เปลี่ยนตัวเลือกนี้ภายหลังได้ในการตั้งค่าแอป</string>
     <string name="group_mms">MMS กลุ่ม</string>
@@ -145,8 +143,6 @@
     <string name="invalid_short_code_desc">ตอบกลับได้เฉพาะหมายเลขสั้นที่เป็นตัวเลข เช่น “503501” แต่ตอบกลับรหัสที่มีทั้งตัวอักษรและตัวเลข เช่น “AB-CD0” ไม่ได้</string>
     <string name="attachment_sized_exceeds_max_limit">ไฟล์แนบมีขนาดเกินขีดจำกัดสูงสุดของ MMS</string>
     <string name="couldnt_download_mms">ดาวน์โหลด MMS ไม่ได้</string>
-    <string name="faq_1_title">ทำไมแอปต้องเข้าถึงอินเทอร์เน็ต</string>
-    <string name="faq_1_text">จำเป็นต้องใช้อินเทอร์เน็ตเพื่อส่งไฟล์แนบ MMS หากส่ง MMS ไม่ได้ แอปจะเสียเปรียบแอปอื่นมาก เราจึงเลือกวิธีนี้ แต่ยังคงไม่มีโฆษณา การติดตาม หรือการวิเคราะห์ข้อมูลใดๆ เช่นเคย ใช้อินเทอร์เน็ตเพื่อส่ง MMS เท่านั้น</string>
     <string name="faq_2_title">ผู้รับไม่ได้รับ MMS ที่ส่งไป แก้ไขอย่างไรได้บ้าง</string>
     <string name="faq_2_text">ผู้ให้บริการเครือข่ายจำกัดขนาด MMS ลองลดขีดจำกัดขนาดในการตั้งค่าแอป</string>
     <string name="faq_3_title">แอปรองรับการกำหนดเวลาส่งข้อความหรือไม่</string>

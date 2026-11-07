@@ -15,7 +15,6 @@
     <string name="blocknum_add_title">Bloquear un número</string>
     <string name="blocknum_edit_title">Editar número bloqueado</string>
     <string name="blocknum_field_label">Número</string>
-    <string name="blocknum_field_help">Usa * como comodín: +1555* bloquea todos los números que empiezan con +1555</string>
     <string name="blocknum_err_empty">Ingresa un número</string>
     <string name="blocknum_err_invalid">Ingresa un número de teléfono o dígitos con * como comodín</string>
     <string name="blocknum_copy">Copiar número</string>
@@ -53,7 +52,6 @@
     <string name="blocknum_unavailable_title">Lista de bloqueados no disponible</string>
     <string name="blocknum_unavailable_body">Establece uMessage como tu aplicación de SMS predeterminada para ver y cambiar la lista de bloqueados del sistema.</string>
     <string name="blocknum_unknown_title">Bloquear números desconocidos</string>
-    <string name="blocknum_unknown_body">Solo se usa cuando el modo de spam está desactivado: los mensajes de números desconocidos van a Bloqueados, como en el modo estricto. Los modos estricto e inteligente ignoran esta opción.</string>
     <string name="blocknum_contacts_denied">Sin acceso a los contactos, no se pueden reconocer los números desconocidos</string>
     <string name="blocknum_section_numbers">Números</string>
 </resources>

@@ -25,7 +25,6 @@
     <string name="dialogs_lock_locked_out">Terlalu banyak percobaan membuka kunci yang salah.\nCoba lagi dalam %d detik.</string>
     <string name="dialogs_lock_pin_delete">Hapus digit terakhir</string>
     <string name="dialogs_lock_pin_confirm">Konfirmasi PIN</string>
-    <string name="dialogs_lock_pin_entered">%d digit dimasukkan</string>
     <string name="dialogs_lock_pattern_pad">Area pola</string>
     <string name="dialogs_lock_biometric_hint">Gunakan sidik jari atau wajah untuk memverifikasi identitas Anda.</string>
     <string name="dialogs_lock_biometric_open">Verifikasi dengan biometrik</string>

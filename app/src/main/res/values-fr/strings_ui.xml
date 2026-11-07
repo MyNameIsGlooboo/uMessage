@@ -15,15 +15,12 @@
     <string name="ui_add_contact_or_number">Saisissez un nom ou un numéro de téléphone</string>
     <string name="ui_show_dialpad">Afficher le pavé numérique</string>
     <string name="ui_show_keyboard">Afficher le clavier</string>
-    <string name="ui_settings_group_block_lists">Autres listes de blocage</string>
     <string name="ui_settings_system_block_list">Liste de blocage du système</string>
     <string name="ui_settings_system_block_list_body">Numéros bloqués dans toutes les applications de ce téléphone. uMessage les masque aussi.</string>
     <string name="ui_settings_blocked_words">Mots bloqués</string>
     <string name="ui_settings_character_counter">Afficher le compteur de caractères</string>
-    <string name="ui_settings_simple_characters">Supprimer les accents à l\'envoi</string>
     <string name="ui_settings_send_on_enter">Envoyer avec la touche Entrée</string>
     <string name="ui_settings_delivery_reports">Recevoir les accusés de réception</string>
-    <string name="ui_settings_recycle_bin">Déplacer les conversations supprimées dans la corbeille</string>
     <string name="ui_two_sentences">%1$s. %2$s</string>
     <string name="ui_tab_with_count">%1$s (%2$d)</string>
     <string name="ui_send_with_sim">%1$s, %2$s</string>

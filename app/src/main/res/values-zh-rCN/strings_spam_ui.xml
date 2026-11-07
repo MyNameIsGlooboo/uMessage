@@ -14,7 +14,6 @@
     <string name="blocknum_add_title">屏蔽号码</string>
     <string name="blocknum_edit_title">编辑已屏蔽号码</string>
     <string name="blocknum_field_label">号码</string>
-    <string name="blocknum_field_help">使用*作为通配符：+1555*会屏蔽所有以+1555开头的号码</string>
     <string name="blocknum_err_empty">请输入号码</string>
     <string name="blocknum_err_invalid">请输入电话号码，或使用数字和通配符*</string>
     <string name="blocknum_copy">复制号码</string>
@@ -48,7 +47,6 @@
     <string name="blocknum_unavailable_title">屏蔽列表不可用</string>
     <string name="blocknum_unavailable_body">将uMessage设为默认短信应用，即可查看和更改系统屏蔽列表。</string>
     <string name="blocknum_unknown_title">屏蔽未知号码</string>
-    <string name="blocknum_unknown_body">仅在垃圾短信过滤模式为关闭时生效：未知号码的消息会进入“已屏蔽”，与严格模式相同。严格和智能模式不受此开关影响。</string>
     <string name="blocknum_contacts_denied">没有联系人访问权限，无法识别未知号码</string>
     <string name="blocknum_section_numbers">号码</string>
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">配信に失敗しました</string>
+    <string name="thread_many_parts_note">このテキストはとても長いため、SMS %1$d 通として送信されます。短いほうが料金を抑えられます。</string>
+    <string name="attachments_total_too_large">これらのファイルを合わせると1通には大きすぎます。送信できない場合があります。</string>
+    <string name="mms_download_failed_channel">画像メッセージのダウンロード</string>
+    <string name="mms_download_failed_title">画像メッセージをダウンロードできませんでした</string>
+    <string name="mms_download_failed_text">ダウンロードできませんでした。モバイルデータを確認してください。送信者がもう一度送る必要があるかもしれません。</string>
+</resources>

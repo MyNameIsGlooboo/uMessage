@@ -7,7 +7,6 @@
     <string name="spam_engine_mms_blocked">Blocked picture message (MMS)</string>
 
     <!-- Note on a rule added by "Block sender" on the Blocked screen -->
-    <string name="spam_engine_rule_note_blocked">Blocked from message</string>
 
     <!-- For the UI: REGEX rule errors from RegexGuard.validate -->
     <string name="spam_engine_regex_nested_repeat">This pattern repeats a group that already repeats, which can freeze message filtering. Simplify it.</string>

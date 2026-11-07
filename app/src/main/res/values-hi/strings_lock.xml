@@ -47,7 +47,6 @@
     <string name="settings_app_lock_timeout_5m">5 मिनट बाद</string>
     <string name="settings_app_lock_screenshots">स्क्रीनशॉट ब्लॉक करें</string>
     <string name="settings_app_lock_screenshots_body">स्क्रीनशॉट और स्क्रीन रिकॉर्डिंग रोकता है. हाल के ऐप्स में मैसेज हमेशा छिपे रहते हैं.</string>
-    <string name="settings_app_lock_screenshots_body_old">स्क्रीनशॉट और स्क्रीन रिकॉर्डिंग रोकता है. Android के इस वर्शन पर हाल के ऐप्स में मैसेज छिपाने का भी यही एक तरीका है.</string>
     <string name="settings_app_lock_change">पिन, पैटर्न या बायोमेट्रिक्स बदलें</string>
     <string name="settings_app_lock_weak">आपके पिन या पैटर्न का अंदाज़ा लगाना आसान है</string>
     <string name="settings_app_lock_weak_body">पिन बहुत कमज़ोर है. बदलने के लिए टैप करें</string>

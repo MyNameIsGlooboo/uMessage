@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">Tudo, exceto suas mensagens: regras de permissão, bloqueio e encaminhamento e todas as configurações. O arquivo não é criptografado e contém os números para os quais você encaminha mensagens, então guarde-o em um local privado. As regras de encaminhamento são restauradas desativadas.</string>
     <string name="n09_label_spam">Proteção contra spam</string>
     <string name="n09_label_notifications">Notificações</string>
     <string name="n09_label_chat">Conversa e lista de mensagens</string>

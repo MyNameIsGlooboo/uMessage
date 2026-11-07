@@ -11,11 +11,6 @@
     <string name="convx_details_call">تماس</string>
     <string name="convx_details_copy">کپی شماره</string>
     <string name="convx_details_add_contact">افزودن مخاطب</string>
-    <string name="convx_details_tap_to_rename">برای تغییر نام بزنید</string>
-    <string name="convx_details_notifications_hint">صدا و اولویت ویژهٔ این فرستنده را انتخاب کنید</string>
-    <string name="convx_details_block">مسدود کردن این فرستنده</string>
-    <string name="convx_details_block_hint">پیام‌های جدید به پیام‌های مسدودشده می‌روند. هیچ اطلاعاتی از گوشی شما خارج نمی‌شود.</string>
-    <string name="convx_details_status">وضعیت</string>
     <string name="convx_new_send_to">ارسال به %1$s</string>
     <string name="convx_new_group_hint">افراد گروه را انتخاب کنید. پیام گروهی ممکن است به دادهٔ تلفن همراه و تنظیمات MMS نیاز داشته باشد.</string>
 </resources>

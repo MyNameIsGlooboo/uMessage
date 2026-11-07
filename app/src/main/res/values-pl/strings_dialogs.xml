@@ -28,7 +28,6 @@
     <string name="dialogs_lock_locked_out">Zbyt wiele nieudanych prób odblokowania.\nSpróbuj ponownie za %d sekund.</string>
     <string name="dialogs_lock_pin_delete">Usuń ostatnią cyfrę</string>
     <string name="dialogs_lock_pin_confirm">Potwierdź PIN</string>
-    <string name="dialogs_lock_pin_entered">Wpisane cyfry: %d</string>
     <string name="dialogs_lock_pattern_pad">Pole rysowania wzoru</string>
     <string name="dialogs_lock_biometric_hint">Potwierdź swoją tożsamość odciskiem palca lub twarzą.</string>
     <string name="dialogs_lock_biometric_open">Potwierdź biometrią</string>

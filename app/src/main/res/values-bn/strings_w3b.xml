@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">এই ফিল্টারে কোনো আটকানো বার্তা মেলেনি। অন্য ফিল্টার বেছে নিন বা সব দেখুন।</string>
     <string name="w3b_filter_show_all">সব দেখুন</string>
     <string name="w3b_empty_body">uMessage %1$s মোডে নজর রাখছে। আটকানো বার্তা এখানে দেখা যাবে।</string>
-    <string name="w3b_empty_change_mode">মোড বদলান</string>
-    <string name="w3b_empty_rules">আমার নিয়ম দেখুন</string>
     <string name="w3b_why_link">প্রেরক অচেনা এবং বার্তায় লিঙ্ক আছে বলে আটকানো হয়েছে।</string>
     <string name="w3b_why_unknown">প্রেরক অচেনা বলে আটকানো হয়েছে।</string>
     <string name="w3b_why_rule">আপনার ব্লক করার একটি নিয়মের সঙ্গে মিলেছে বলে আটকানো হয়েছে।</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">কোড কপি করুন</string>
     <string name="w3b_code_copied">কোড কপি হয়েছে</string>
     <string name="w3b_release_once">একবার ছেড়ে দিন</string>
-    <string name="w3b_fix_open">%1$s-এর জন্য এই সিদ্ধান্ত সংশোধন করুন</string>
-    <string name="w3b_fix_title">এই সিদ্ধান্ত সংশোধন করুন</string>
     <string name="w3b_fix_note">নিয়মটি এই প্রেরকের নতুন বার্তায় প্রযোজ্য হবে। আগে আটকানো বার্তা যেখানে আছে সেখানেই থাকবে।</string>
     <string name="w3b_fix_allow">এই প্রেরককে সবসময় অনুমতি দিন</string>
     <string name="w3b_fix_block">এই প্রেরককে ব্লক করুন</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">পৌঁছে দেওয়া হবে: পরিচিতি পড়া যাচ্ছে না বলে প্রেরককে চেনা যাচ্ছে না।</string>
     <string name="w3b_verdict_allowed_other">পৌঁছে দেওয়া হবে।</string>
     <string name="w3b_examples_title">উদাহরণ দিয়ে শুরু করুন</string>
-    <string name="w3b_example_block_word">নির্দিষ্ট শব্দ থাকা বার্তা ব্লক করুন</string>
     <string name="w3b_example_block_sender">প্রেরকের নাম ব্লক করুন</string>
-    <string name="w3b_example_block_prefix">যেসব নম্বর শুরু হয়… সেগুলো ব্লক করুন</string>
     <string name="w3b_example_allow_sender">ব্যাংকের মতো কোনো প্রেরকের নামকে সবসময় অনুমতি দিন</string>
-    <string name="w3b_example_allow_number">একটি ফোন নম্বরকে সবসময় অনুমতি দিন</string>
     <string name="w3b_overridden_chip">অনুমতি দেওয়ার নিয়মে অকার্যকর</string>
 </resources>

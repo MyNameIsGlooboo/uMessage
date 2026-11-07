@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note">नोट</string>
+    <string name="add_note">नोट जोड़ें</string>
+    <string name="edit_note">नोट बदलें</string>
+    <string name="delete_note">नोट हटाएं</string>
+    <string name="note_hint">निजी नोट, सिर्फ़ इस फ़ोन पर</string>
+    <string name="note_counter">%1$s/%2$s</string>
+    <string name="note_save">सेव करें</string>
+    <string name="note_cancel">रद्द करें</string>
+    <string name="has_notes">नोट वाले</string>
+    <string name="notes_section">नोट</string>
+    <string name="note_content_desc">नोट: %1$s</string>
+</resources>

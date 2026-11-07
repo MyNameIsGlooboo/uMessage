@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">कोई रोका गया मैसेज इस फ़िल्टर से मेल नहीं खाता. दूसरा फ़िल्टर चुनें या सभी देखें.</string>
     <string name="w3b_filter_show_all">सभी दिखाएं</string>
     <string name="w3b_empty_body">uMessage %1$s मोड में निगरानी कर रहा है. रोके गए मैसेज यहां दिखेंगे.</string>
-    <string name="w3b_empty_change_mode">मोड बदलें</string>
-    <string name="w3b_empty_rules">मेरे नियम देखें</string>
     <string name="w3b_why_link">मैसेज रोका गया क्योंकि भेजने वाला अनजान है और मैसेज में लिंक है.</string>
     <string name="w3b_why_unknown">मैसेज रोका गया क्योंकि भेजने वाला अनजान है.</string>
     <string name="w3b_why_rule">मैसेज रोका गया क्योंकि यह आपके ब्लॉक करने के किसी नियम से मेल खाता है.</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">कोड कॉपी करें</string>
     <string name="w3b_code_copied">कोड कॉपी किया गया</string>
     <string name="w3b_release_once">इस बार आने दें</string>
-    <string name="w3b_fix_open">%1$s के लिए यह फ़ैसला सुधारें</string>
-    <string name="w3b_fix_title">यह फ़ैसला सुधारें</string>
     <string name="w3b_fix_note">यह नियम इस भेजने वाले के नए मैसेज पर लागू होगा. पहले से रोके गए मैसेज वहीं रहेंगे.</string>
     <string name="w3b_fix_allow">इस भेजने वाले को हमेशा अनुमति दें</string>
     <string name="w3b_fix_block">इस भेजने वाले को ब्लॉक करें</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">मैसेज आ जाएगा: संपर्क पढ़े नहीं जा सके, इसलिए भेजने वाले की पहचान नहीं हो सकती.</string>
     <string name="w3b_verdict_allowed_other">मैसेज आ जाएगा.</string>
     <string name="w3b_examples_title">उदाहरण से शुरू करें</string>
-    <string name="w3b_example_block_word">किसी शब्द वाले मैसेज ब्लॉक करें</string>
     <string name="w3b_example_block_sender">भेजने वाले का नाम ब्लॉक करें</string>
-    <string name="w3b_example_block_prefix">इनसे शुरू होने वाले नंबर ब्लॉक करें…</string>
     <string name="w3b_example_allow_sender">भेजने वाले के किसी नाम को हमेशा अनुमति दें, जैसे आपका बैंक</string>
-    <string name="w3b_example_allow_number">किसी फ़ोन नंबर को हमेशा अनुमति दें</string>
     <string name="w3b_overridden_chip">अनुमति देने वाले नियम की वजह से लागू नहीं</string>
 </resources>

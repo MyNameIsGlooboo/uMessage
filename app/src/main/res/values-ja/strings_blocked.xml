@@ -30,12 +30,10 @@
     <plurals name="spam_purge_notice">
         <item quantity="other">ブロック済みのメッセージは%d日後に削除されます。</item>
     </plurals>
-    <string name="spam_purge_notice_off">ブロック済みのメッセージは、削除するまで保存されます。</string>
     <plurals name="spam_purge_left">
         <item quantity="other">%d日後に削除されます。</item>
     </plurals>
     <string name="spam_purge_left_today">今日削除されます。</string>
-    <string name="convlist_report_spam">迷惑メッセージを報告</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="other">%d件の会話を報告しました。今後のメッセージは「ブロック済み」に入り、会話はアーカイブされます。</item>
     </plurals>
@@ -43,18 +41,9 @@
         <item quantity="other">%d件の会話を報告しました。今後のメッセージは「ブロック済み」に入ります。</item>
     </plurals>
     <string name="blocked_title">ブロック済み</string>
-    <string name="blocked_menu_rules">ルール</string>
-    <string name="blocked_mode_group_cd">不明な送信者：%1$s、%3$d項目中%2$d番目</string>
-    <string name="blocked_mode_desc_strict">厳格：不明な送信者からのメッセージは、認証コードも含めてすべて保留します。</string>
-    <string name="blocked_mode_desc_smart">スマート：不明な送信者からのメッセージを保留しますが、リンクのない認証コードは受信します。</string>
-    <string name="blocked_mode_desc_off">オフ：不明な送信者からのメッセージも受信トレイに届きます。設定したルールは適用されます。</string>
     <string name="blocked_snack_mode">不明な送信者の設定を「%1$s」に変更しました。</string>
-    <string name="blocked_off_title">不明な送信者の保留をオフにしますか？</string>
-    <string name="blocked_off_body">不明な送信者からのメッセージが受信トレイに直接届きます。設定したルールは適用されます。</string>
-    <string name="blocked_off_confirm">オフにする</string>
     <string name="blocked_stats_restored">自分で復元した件数：%1$d</string>
     <string name="blocked_reason_unknown_link">不明な送信者、リンクあり</string>
     <string name="blocked_may_be_important">重要な可能性があります。</string>
     <string name="blocked_action_move_inbox">受信トレイへ移動</string>
-    <string name="blocked_swipe_not_spam">スワイプで受信トレイへ移動</string>
 </resources>

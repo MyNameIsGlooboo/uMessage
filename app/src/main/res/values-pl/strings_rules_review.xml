@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">Import reguł z pliku</string>
     <string name="rules2_menu_export">Eksport reguł do pliku</string>
     <string name="rules2_menu_system">Lista blokowanych w Androidzie</string>
-    <string name="rules2_import_scope">Plik reguł zawiera tylko reguły zezwalania i blokowania. Nie zawiera wiadomości ani reguł przekazywania dalej.</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">Brak zawsze dozwolonych nadawców</string>
     <string name="rules2_empty_allowed_body">Dodaj numer, nazwę nadawcy lub słowo, by takie wiadomości zawsze trafiały do odebranych. Dotknij „Dodaj regułę” poniżej.</string>
@@ -28,7 +27,6 @@
         <item quantity="many">Przenieś %d elementów</item>
         <item quantity="other">Przenieś %d elementu</item>
     </plurals>
-    <string name="rules2_sheet_list_label">Dodaj do listy</string>
     <string name="rules2_sheet_list_allow">Zawsze dozwolone</string>
     <string name="rules2_sheet_list_block">Zawsze zablokowane</string>
     <string name="rules2_sheet_delete">Usuń regułę</string>

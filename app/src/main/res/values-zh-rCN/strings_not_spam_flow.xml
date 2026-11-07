@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">已移至收件箱</string>
+    <string name="nsf_snack_moved_allowed">已移至收件箱。%1$s 之后的消息也会送达。</string>
+    <string name="nsf_moving">正在移至收件箱</string>
+</resources>

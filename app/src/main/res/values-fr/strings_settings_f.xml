@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">Messages, règles et paramètres dans un fichier</string>
-    <string name="settings_f_backup_rules_group">Règles et paramètres</string>
-    <string name="settings_f_backup_rules_contents">Le fichier contient vos règles d\'autorisation, de blocage et de transfert, ainsi que vos paramètres : protection contre le spam, notifications, dates, taille du texte, thème, touche Entrée et limites de transfert. Jamais le texte des messages ni le verrouillage de l\'application. Les règles de transfert sont restaurées désactivées.</string>
-    <string name="settings_f_backup_messages_contents">Texte et images des messages, dans un fichier séparé.</string>
     <string name="settings_f_restore_title">Restaurer depuis ce fichier ?</string>
     <string name="settings_f_restore_rules">Règles d\'autorisation : %1$d · Règles de blocage : %2$d. Les règles déjà présentes sont ignorées.</string>
     <string name="settings_f_restore_forwards">Règles de transfert à ajouter : %1$d, désactivées. Activez-les dans Règles › Transfert.</string>

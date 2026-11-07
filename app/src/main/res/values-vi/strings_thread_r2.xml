@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">Sao chép %1$s</string>
     <string name="thread_r2_menu_search">Tìm trong cuộc trò chuyện</string>
     <string name="thread_r2_menu_always_forward">Luôn chuyển tiếp tin nhắn từ người gửi này</string>
-    <string name="thread_r2_block_hint">Tin nhắn mới sẽ vào mục Đã chặn. Không có gì được gửi ra khỏi điện thoại của bạn.</string>
     <string name="thread_r2_forward_message">Chuyển tiếp tin nhắn này</string>
     <string name="thread_r2_search_hint">Tìm trong cuộc trò chuyện</string>
     <string name="thread_r2_search_close">Đóng tìm kiếm</string>

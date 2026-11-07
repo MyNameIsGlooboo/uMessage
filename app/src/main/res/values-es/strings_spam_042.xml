@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s042_whole_word_title">Solo palabra completa</string>
+    <string name="s042_whole_word_help">Coincide con la palabra sola: win, no window.</string>
+    <string name="s042_held_code_channel">Códigos retenidos</string>
+    <string name="s042_held_code_title">Se retuvo un mensaje parecido a un código</string>
+    <string name="s042_held_code_text">Tiene un enlace, por eso está en Bloqueados. Abre Bloqueados si esperas un código.</string>
+    <string name="s042_contacts_off_title">El filtro de spam está en pausa</string>
+    <string name="s042_contacts_off_body">Permite Contactos para que uMessage distinga a tus amigos de los desconocidos.</string>
+    <string name="s042_contacts_off_allow">Permitir</string>
+</resources>

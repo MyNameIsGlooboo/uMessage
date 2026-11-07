@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s042_whole_word_title">Whole word only</string>
+    <string name="s042_whole_word_help">Matches the word on its own: win, not window.</string>
+    <string name="s042_held_code_channel">Held codes</string>
+    <string name="s042_held_code_title">A code-like message was held</string>
+    <string name="s042_held_code_text">It has a link, so it is in Blocked. Open Blocked if you are waiting for a code.</string>
+    <string name="s042_contacts_off_title">Spam filter is paused</string>
+    <string name="s042_contacts_off_body">Allow Contacts so uMessage can tell friends from strangers.</string>
+    <string name="s042_contacts_off_allow">Allow</string>
+</resources>

@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">سقف روزانهٔ بازارسال</string>
     <string name="w3d_daily_limit_body">بیشترین تعداد بازارسال در روز</string>
     <string name="w3d_hide_lock_codes">پنهان کردن کدها در صفحهٔ قفل</string>
-    <string name="w3d_hide_lock_codes_body">کدِ پیام در صفحهٔ قفل به‌شکل •••• نمایش داده می‌شود تا قفل را باز کنید.</string>
 </resources>

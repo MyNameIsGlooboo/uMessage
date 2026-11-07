@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">Your phone\'s own lock screen setting shows all notification content, so Android may still show the text. Change it in the phone\'s Settings under Notifications.</string>
+    <string name="backup_timeout_title">Backup stopped by Android</string>
+    <string name="backup_timeout_text">Android limits how long a backup or restore can run in the background, so it was stopped. Open Settings to start it again.</string>
+</resources>

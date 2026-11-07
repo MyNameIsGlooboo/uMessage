@@ -26,7 +26,6 @@
     <string name="add_contact_or_number">أضف جهة اتصال أو رقمًا…</string>
     <string name="suggestions">اقتراحات</string>
     <string name="members">الأعضاء</string>
-    <string name="conversation_name">اسم المحادثة</string>
     <string name="conversation_details">تفاصيل المحادثة</string>
     <string name="rename_conversation">غيّر اسم المحادثة</string>
     <string name="rename_conversation_warning">اسم المحادثة هذا يظهر لك وحدك</string>
@@ -92,7 +91,6 @@
     <string name="mms_file_size_limit">غيّر حجم الصور المرسلة عبر MMS</string>
     <string name="mms_file_size_limit_none">بلا حد</string>
     <string name="outgoing_messages">الرسائل الصادرة</string>
-    <string name="group_message_mms">أرسل الرسائل الجماعية بصيغة MMS</string>
     <string name="send_group_message">صيغة الرسائل الجماعية</string>
     <string name="group_message_send_description">تُبقي رسائل MMS الجماعية الردود في محادثة واحدة، لكن قد يفرض مشغّل شبكة الجوال رسومًا. الإرسال المنفصل يرسل رسالة لكل شخص. يمكنك تغيير هذا لاحقًا في إعدادات التطبيق.</string>
     <string name="group_mms">رسائل MMS جماعية</string>
@@ -160,8 +158,6 @@
     <string name="invalid_short_code_desc">يمكنك الرد فقط على الرموز القصيرة المكوّنة من أرقام مثل «503501»، وليس الرموز التي تحتوي على حروف وأرقام مثل «AB-CD0».</string>
     <string name="attachment_sized_exceeds_max_limit">حجم المرفق يتجاوز الحد الأقصى لرسائل MMS</string>
     <string name="couldnt_download_mms">تعذّر تنزيل رسالة MMS</string>
-    <string name="faq_1_title">لماذا يحتاج التطبيق إلى الوصول إلى الإنترنت؟</string>
-    <string name="faq_1_text">للأسف، يلزم الإنترنت لإرسال مرفقات MMS. عدم دعم إرسال MMS سيكون نقصًا كبيرًا مقارنة بالتطبيقات الأخرى، لذا قررنا اعتماد هذا الخيار. وكالعادة، لا توجد أي إعلانات أو تتبّع أو تحليلات، ويُستخدم الإنترنت فقط لإرسال MMS.</string>
     <string name="faq_2_title">المستلم لا يتلقى رسائل MMS التي أرسلها، ماذا أفعل؟</string>
     <string name="faq_2_text">يحدّد مشغّلو شبكات الجوال حجم رسائل MMS. جرّب اختيار حد أصغر في إعدادات التطبيق.</string>
     <string name="faq_3_title">هل يدعم التطبيق الرسائل المجدولة؟</string>

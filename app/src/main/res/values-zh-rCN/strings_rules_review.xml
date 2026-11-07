@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">从文件导入规则</string>
     <string name="rules2_menu_export">将规则导出到文件</string>
     <string name="rules2_menu_system">Android屏蔽列表</string>
-    <string name="rules2_import_scope">规则文件仅包含允许和屏蔽规则，不包含消息或转发规则。</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">暂无始终允许的发件人</string>
     <string name="rules2_empty_allowed_body">添加号码、发件人名称或词语，让匹配的消息始终进入收件箱。点按下方的“添加规则”。</string>
@@ -25,7 +24,6 @@
     <plurals name="rules2_migrate_confirm_count">
         <item quantity="other">移动%d个项目</item>
     </plurals>
-    <string name="rules2_sheet_list_label">添加到列表</string>
     <string name="rules2_sheet_list_allow">始终允许</string>
     <string name="rules2_sheet_list_block">始终屏蔽</string>
     <string name="rules2_sheet_delete">删除规则</string>

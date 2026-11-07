@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">ترسیل ناکام ہو گئی</string>
+    <string name="thread_many_parts_note">یہ متن بہت لمبا ہے: یہ %1$d ایس ایم ایس کے طور پر جائے گا۔ مختصر متن کم خرچ ہوتے ہیں۔</string>
+    <string name="attachments_total_too_large">یہ فائلیں مل کر ایک پیغام کے لیے بہت بڑی ہیں۔ ہو سکتا ہے یہ نہ بھیجا جائے۔</string>
+    <string name="mms_download_failed_channel">تصویری پیغامات کی ڈاؤن لوڈ</string>
+    <string name="mms_download_failed_title">تصویری پیغام ڈاؤن لوڈ نہیں ہوا</string>
+    <string name="mms_download_failed_text">اسے ڈاؤن لوڈ نہیں کیا جا سکا۔ اپنا موبائل ڈیٹا چیک کریں؛ ممکن ہے بھیجنے والے کو دوبارہ بھیجنا پڑے۔</string>
+</resources>

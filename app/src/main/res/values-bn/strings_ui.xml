@@ -15,15 +15,12 @@
     <string name="ui_add_contact_or_number">নাম বা ফোন নম্বর লিখুন</string>
     <string name="ui_show_dialpad">ডায়াল প্যাড দেখান</string>
     <string name="ui_show_keyboard">কিবোর্ড দেখান</string>
-    <string name="ui_settings_group_block_lists">অন্যান্য ব্লক তালিকা</string>
     <string name="ui_settings_system_block_list">সিস্টেমের ব্লক তালিকা</string>
     <string name="ui_settings_system_block_list_body">এই ফোনের সব অ্যাপে ব্লক করা নম্বর। uMessage-ও এগুলো লুকিয়ে রাখে।</string>
     <string name="ui_settings_blocked_words">ব্লক করা শব্দ</string>
     <string name="ui_settings_character_counter">অক্ষরের সংখ্যা দেখান</string>
-    <string name="ui_settings_simple_characters">পাঠানোর সময় উচ্চারণচিহ্ন সরান</string>
     <string name="ui_settings_send_on_enter">Enter কী দিয়ে পাঠান</string>
     <string name="ui_settings_delivery_reports">পৌঁছানোর রিপোর্ট পান</string>
-    <string name="ui_settings_recycle_bin">মুছে ফেলা কথোপকথন রিসাইকেল বিনে সরান</string>
     <string name="ui_two_sentences">%1$s. %2$s</string>
     <string name="ui_tab_with_count">%1$s (%2$d)</string>
     <string name="ui_send_with_sim">%1$s, %2$s</string>

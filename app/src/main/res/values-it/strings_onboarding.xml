@@ -5,11 +5,10 @@
     <string name="onb_next">Avanti</string>
     <string name="onb_skip">Salta per ora</string>
     <string name="onb_finish">Inizia a scrivere</string>
-    <string name="onb_open">Apri</string>
     <string name="onb_welcome_title">Ti diamo il benvenuto su uMessage</string>
     <string name="onb_welcome_intro">Messaggi migliori, meno spam.</string>
     <string name="onb_welcome_spam">Lo spam resta fuori</string>
-    <string name="onb_welcome_spam_desc">I mittenti sconosciuti restano in Messaggi bloccati, senza andare persi. Scegli la modalità filtro: rigorosa, intelligente o disattivata.</string>
+    <string name="onb_welcome_spam_desc">I mittenti sconosciuti restano in Messaggi bloccati, senza andare persi.</string>
     <string name="onb_welcome_codes">Codici con un tocco</string>
     <string name="onb_welcome_codes_desc">Copia i codici di verifica direttamente dalla notifica.</string>
     <string name="onb_welcome_copy">Copia solo ciò che ti serve</string>
@@ -27,8 +26,6 @@
     <string name="onb_welcome_start">Inizia</string>
     <string name="onb_default_title">Imposta uMessage come app SMS</string>
     <string name="onb_default_body">Android consente solo all\'app SMS predefinita di ricevere e filtrare i messaggi. Senza questa impostazione, uMessage non può proteggere i messaggi in arrivo.</string>
-    <string name="onb_default_status_yes">uMessage è la tua app SMS predefinita</string>
-    <string name="onb_default_status_no">uMessage non è ancora la tua app SMS predefinita</string>
     <string name="onb_default_action">Imposta come predefinita</string>
     <string name="onb_default_denied">La richiesta è stata rifiutata. Puoi riprovare oppure continuare e impostarla più tardi nelle impostazioni di Android.</string>
     <string name="onb_default_unavailable">Il telefono non ha aperto la finestra per scegliere l\'app predefinita. Apri le impostazioni di Android, vai su App, App predefinite, App SMS e scegli uMessage.</string>
@@ -44,7 +41,6 @@
     <string name="onb_perm_notifications_reason">Ti avvisa dei nuovi messaggi, con pulsanti per rispondere e copiare i codici.</string>
     <string name="onb_perm_allow_all">Consenti tutto</string>
     <string name="onb_perm_open_settings">Apri impostazioni</string>
-    <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">Scegli come gestire i mittenti sconosciuti</string>
     <string name="onb_mode_strict">Rigorosa</string>
     <string name="onb_mode_smart">Intelligente</string>
@@ -52,8 +48,6 @@
     <string name="onb_mode_warning_title">Attenzione ai messaggi bancari e ai codici</string>
     <string name="onb_mode_warning_body">In modalità rigorosa, gli avvisi bancari, gli aggiornamenti sulle consegne e i codici monouso dei mittenti sconosciuti restano in Messaggi bloccati, codici inclusi. Non riceverai notifiche: controlla Messaggi bloccati quando ne aspetti uno.</string>
     <string name="onb_oem_title">Mantieni uMessage in esecuzione</string>
-    <string name="onb_oem_body_known">I telefoni %1$s spesso interrompono le app in background, ritardando i messaggi. Segui questi passaggi una sola volta.</string>
-    <string name="onb_oem_body_generic">Alcuni telefoni interrompono le app in background, ritardando i messaggi. Consenti a uMessage di funzionare senza restrizioni.</string>
     <string name="onb_oem_manual_hint">Se una schermata non si apre, cerca il nome indicato nelle impostazioni.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi o Poco</string>
     <string name="onb_oem_huawei">Huawei o Honor</string>
@@ -68,11 +62,8 @@
     <string name="onb_oem_step_ignore_battery">Ignora l\'ottimizzazione della batteria</string>
     <string name="onb_oem_step_app_info">Controlla le impostazioni dell\'app</string>
     <string name="onb_oem_step_app_info_desc">Apri la pagina dell\'app uMessage per controllare batteria e autorizzazioni.</string>
-    <string name="onb_done_title">Tutto pronto</string>
-    <string name="onb_done_body">uMessage è pronto. I messaggi trattenuti appaiono in Messaggi bloccati, dove puoi consentire un mittente con un tocco.</string>
     <string name="onb_done_summary_default">App SMS predefinita</string>
     <string name="onb_done_summary_permissions">Autorizzazioni</string>
-    <string name="onb_done_summary_mode">Mittenti sconosciuti</string>
     <string name="onb_done_ok">Fatto</string>
     <string name="onb_done_todo">Da verificare</string>
     <string name="onb_notif_copy_code">Copia codice</string>

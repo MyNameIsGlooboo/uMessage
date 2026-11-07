@@ -36,13 +36,11 @@
         <item quantity="one">Engellenen mesajlar %d gün sonra silinir</item>
         <item quantity="other">Engellenen mesajlar %d gün sonra silinir</item>
     </plurals>
-    <string name="spam_purge_notice_off">Engellenen mesajlar siz silene kadar saklanır</string>
     <plurals name="spam_purge_left">
         <item quantity="one">%d gün sonra silinecek</item>
         <item quantity="other">%d gün sonra silinecek</item>
     </plurals>
     <string name="spam_purge_left_today">Bugün silinecek</string>
-    <string name="convlist_report_spam">Spam olarak bildirin</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="one">Bildirildi. Bu gönderenden gelen yeni mesajlar Engellenenler bölümüne gider. Görüşme arşivlendi.</item>
         <item quantity="other">%d görüşme bildirildi. Bu gönderenlerden gelen yeni mesajlar Engellenenler bölümüne gider. Görüşmeler arşivlendi.</item>
@@ -52,18 +50,9 @@
         <item quantity="other">%d görüşme bildirildi. Bu gönderenlerden gelen yeni mesajlar Engellenenler bölümüne gider.</item>
     </plurals>
     <string name="blocked_title">Engellenenler</string>
-    <string name="blocked_menu_rules">Kurallar</string>
-    <string name="blocked_mode_group_cd">Bilinmeyen gönderenler: %1$s, seçenek %2$d / %3$d</string>
-    <string name="blocked_mode_desc_strict">Sıkı: doğrulama kodları dahil tüm bilinmeyen gönderenleri tutar</string>
-    <string name="blocked_mode_desc_smart">Akıllı: bilinmeyen gönderenleri tutar, bağlantı içermeyen kodları geçirir</string>
-    <string name="blocked_mode_desc_off">Kapalı: bilinmeyen gönderenler gelen kutunuza ulaşır. Kurallarınız geçerli kalır</string>
     <string name="blocked_snack_mode">Bilinmeyen gönderenler için seçilen mod: %1$s</string>
-    <string name="blocked_off_title">Bilinmeyen gönderenleri tutma kapatılsın mı?</string>
-    <string name="blocked_off_body">Bilinmeyen gönderenlerden gelen mesajlar doğrudan gelen kutunuza gider. Kurallarınız geçerli kalır.</string>
-    <string name="blocked_off_confirm">Kapatın</string>
     <string name="blocked_stats_restored">%1$d tanesini geri yüklediniz</string>
     <string name="blocked_reason_unknown_link">Bilinmeyen gönderen, bağlantı içeriyor</string>
     <string name="blocked_may_be_important">Önemli olabilir</string>
     <string name="blocked_action_move_inbox">Gelen kutusuna taşıyın</string>
-    <string name="blocked_swipe_not_spam">Gelen kutusuna taşımak için kaydırın</string>
 </resources>

@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">Limite giornaliero di inoltri</string>
     <string name="w3d_daily_limit_body">Numero massimo di inoltri al giorno</string>
     <string name="w3d_hide_lock_codes">Nascondi i codici nella schermata di blocco</string>
-    <string name="w3d_hide_lock_codes_body">Un messaggio con un codice mostra •••• nella schermata di blocco finché non sblocchi il telefono.</string>
 </resources>

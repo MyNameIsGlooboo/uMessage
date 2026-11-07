@@ -15,21 +15,13 @@
         <item quantity="one">%d قانون حذف شد</item>
         <item quantity="other">%d قانون حذف شد</item>
     </plurals>
-    <string name="rules_system_block_list">فهرست مسدودی سیستم (تماس‌ها را هم مسدود می‌کند)</string>
-    <string name="rules_legacy_note_keyword">از فهرست قدیمی واژه‌های مسدودشده</string>
-    <string name="rules_legacy_note_number">از فهرست مسدودی سیستم</string>
-    <string name="rules_legacy_banner_title">فهرست‌های مسدودی قدیمی پیدا شدند</string>
-    <string name="rules_legacy_banner_body">برخی واژه‌ها و شماره‌ها خارج از این قانون‌ها مسدود شده‌اند. آن‌ها را به اینجا منتقل کنید تا همه را یکجا ببینید و تغییر دهید.</string>
     <string name="rules_legacy_banner_review">بررسی</string>
     <string name="rules_legacy_banner_not_now">فعلاً نه</string>
     <string name="rules_legacy_section_keywords">فهرست قدیمی واژه‌های مسدودشده</string>
     <string name="rules_legacy_section_keywords_body">تا زمانی که این واژه‌ها را به قانون‌ها منتقل کنید، همچنان برای فیلتر کردن استفاده می‌شود. سپس فهرست قدیمی کنار گذاشته می‌شود.</string>
-    <string name="rules_legacy_section_system_body">Android پیام‌های این شماره‌ها را پیش از رسیدن به uMessage دور می‌اندازد، پس هرگز در مسدودشده‌ها نمایش داده نمی‌شوند. این فهرست با برنامهٔ تلفن مشترک است و تماس‌ها را هم مسدود می‌کند.</string>
     <string name="rules_legacy_chip_old_list">فهرست قدیمی</string>
     <string name="rules_legacy_chip_system">سیستم، شامل تماس‌ها</string>
     <string name="rules_legacy_move">انتقال به قانون‌ها</string>
-    <string name="rules_legacy_open_system">باز کردن فهرست مسدودی سیستم</string>
-    <string name="rules_migrate_title">انتقال فهرست‌های مسدودی قدیمی به قانون‌ها</string>
     <string name="rules_migrate_nothing">همهٔ موارد فهرست‌های قدیمی از قبل در قانون‌های شما هستند.</string>
     <plurals name="rules_migrate_keywords" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d واژه از فهرست قدیمی واژه‌های مسدودشده به قانون مسدود کردن بر اساس کلیدواژه تبدیل می‌شود. سپس فهرست قدیمی کنار گذاشته می‌شود.</item>
@@ -43,9 +35,7 @@
         <item quantity="one">%d شمارهٔ فهرست مسدودی سیستم هم به‌عنوان قانون مسدود کردن اضافه شود</item>
         <item quantity="other">%d شمارهٔ فهرست مسدودی سیستم هم به‌عنوان قانون‌های مسدود کردن اضافه شوند</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">Android پیام‌های شماره‌های فهرست مسدودی سیستم را دور می‌اندازد، پس uMessage هرگز آن‌ها را دریافت نمی‌کند. با تبدیل این شماره‌ها به قانون‌های uMessage، پیام‌هایشان می‌توانند به مسدودشده‌ها بروند تا آن‌ها را بخوانید و بازیابی کنید؛ البته فقط پس از خارج شدن شماره‌ها از فهرست سیستم.</string>
     <string name="rules_migrate_remove">از فهرست مسدودی سیستم هم حذف شوند</string>
-    <string name="rules_migrate_remove_body">فهرست سیستم تماس‌ها را هم مسدود می‌کند. شماره‌هایی که از آن حذف کنید، دوباره می‌توانند با شما تماس بگیرند. uMessage فقط پیام‌ها را فیلتر می‌کند.</string>
     <plurals name="rules_migrate_numbers_kept" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d مورد دارای نویسهٔ عام نمی‌تواند قانون شود و در فهرست سیستم می‌ماند.</item>
         <item quantity="other">%d مورد دارای نویسهٔ عام نمی‌توانند قانون شوند و در فهرست سیستم می‌مانند.</item>
@@ -68,7 +58,6 @@
         <item quantity="other">%d مورد در فهرست‌های قدیمی می‌مانند</item>
     </plurals>
     <string name="rules_migrated_nothing">چیزی منتقل نشد.</string>
-    <string name="settings_system_block_list_body_calls">تماس‌ها و پیام‌ها را در سراسر این تلفن مسدود می‌کند. Android این پیام‌ها را پیش از رسیدن به uMessage دور می‌اندازد. می‌توانید شماره‌ها را به «مجاز و مسدودشده» منتقل کنید.</string>
     <string name="settings_old_blocked_words">فهرست قدیمی واژه‌های مسدودشده</string>
     <string name="settings_old_blocked_words_body">در حال انتقال به «قانون‌ها»</string>
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">इनबॉक्स में ले जाया गया</string>
+    <string name="nsf_snack_moved_allowed">इनबॉक्स में ले जाया गया। %1$s के आगे के संदेश भी आएंगे।</string>
+    <string name="nsf_moving">इनबॉक्स में ले जाया जा रहा है</string>
+</resources>

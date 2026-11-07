@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">Przeniesiono do odebranych</string>
+    <string name="nsf_snack_moved_allowed">Przeniesiono do odebranych. Kolejne wiadomości od %1$s też dotrą.</string>
+    <string name="nsf_moving">Przenoszenie do odebranych</string>
+</resources>

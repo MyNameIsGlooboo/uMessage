@@ -11,11 +11,6 @@
     <string name="convx_details_call">Gọi</string>
     <string name="convx_details_copy">Sao chép số</string>
     <string name="convx_details_add_contact">Thêm người liên hệ</string>
-    <string name="convx_details_tap_to_rename">Nhấn để đổi tên</string>
-    <string name="convx_details_notifications_hint">Chọn âm thanh và mức ưu tiên riêng cho người gửi này</string>
-    <string name="convx_details_block">Chặn người gửi này</string>
-    <string name="convx_details_block_hint">Tin nhắn mới sẽ vào mục Tin nhắn đã chặn. Không có gì được gửi ra khỏi điện thoại của bạn.</string>
-    <string name="convx_details_status">Trạng thái</string>
     <string name="convx_new_send_to">Gửi đến %1$s</string>
     <string name="convx_new_group_hint">Chọn người cho nhóm. Tin nhắn nhóm có thể cần dữ liệu di động và cài đặt MMS.</string>
 </resources>

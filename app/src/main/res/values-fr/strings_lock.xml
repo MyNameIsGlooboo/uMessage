@@ -47,7 +47,6 @@
     <string name="settings_app_lock_timeout_5m">Après 5 minutes</string>
     <string name="settings_app_lock_screenshots">Bloquer les captures d\'écran</string>
     <string name="settings_app_lock_screenshots_body">Empêche les captures et l\'enregistrement de l\'écran. Les messages sont toujours masqués dans les applications récentes.</string>
-    <string name="settings_app_lock_screenshots_body_old">Empêche les captures et l\'enregistrement de l\'écran. Sur cette version d\'Android, c\'est aussi le seul moyen de masquer les messages dans les applications récentes.</string>
     <string name="settings_app_lock_change">Modifier le code PIN, le schéma ou la biométrie</string>
     <string name="settings_app_lock_weak">Votre code PIN ou votre schéma est facile à deviner</string>
     <string name="settings_app_lock_weak_body">Code PIN trop faible. Appuyez pour le modifier</string>

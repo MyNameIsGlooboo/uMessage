@@ -4,7 +4,6 @@
     <string name="convlist_empty_title">Aucune conversation pour le moment</string>
     <string name="convlist_empty_body">Les messages que vous envoyez et recevez s\'afficheront ici.</string>
     <string name="convlist_start_conversation">Démarrer une conversation</string>
-    <string name="convlist_new_conversation">Nouvelle conversation</string>
     <string name="convlist_draft">Brouillon</string>
     <string name="convlist_pinned">Épinglée</string>
     <string name="convlist_muted">Notifications désactivées</string>
@@ -26,7 +25,6 @@
     <string name="convlist_unpin">Désépingler</string>
     <string name="convlist_mark_read">Marquer comme lu</string>
     <string name="convlist_mark_unread">Marquer comme non lu</string>
-    <string name="convlist_block_number">Bloquer le numéro</string>
     <string name="convlist_add_contact">Ajouter le numéro à un contact</string>
     <string name="convlist_copy_number">Copier le numéro</string>
     <string name="convlist_dial">Appeler</string>
@@ -57,7 +55,5 @@
     <string name="convlist_block_message">Bloquer %1$s ? Ses nouveaux messages iront dans Messages bloqués au lieu de votre boîte de réception. Vous pourrez toujours les y lire ou les restaurer.</string>
     <string name="convlist_block_confirm">Bloquer</string>
     <string name="convlist_rename_title">Renommer la conversation</string>
-    <string name="convlist_rename_hint">Nom de la conversation</string>
-    <string name="convlist_ok">OK</string>
     <string name="convlist_cancel">Annuler</string>
 </resources>

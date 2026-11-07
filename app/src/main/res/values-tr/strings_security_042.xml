@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">Telefonunuzun kilit ekranı ayarı tüm bildirim içeriğini gösteriyor, bu yüzden Android metni yine de gösterebilir. Bunu telefon Ayarları\'nda Bildirimler bölümünden değiştirin.</string>
+    <string name="backup_timeout_title">Yedekleme Android tarafından durduruldu</string>
+    <string name="backup_timeout_text">Android, bir yedeklemenin veya geri yüklemenin arka planda ne kadar çalışabileceğini sınırlar, bu yüzden işlem durduruldu. Yeniden başlatmak için Ayarlar\'ı açın.</string>
+</resources>

@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">Жодне затримане повідомлення не відповідає цьому фільтру. Виберіть інший або покажіть усі.</string>
     <string name="w3b_filter_show_all">Показати всі</string>
     <string name="w3b_empty_body">uMessage перевіряє повідомлення в режимі «%1$s». Затримані повідомлення з’являться тут.</string>
-    <string name="w3b_empty_change_mode">Змінити режим</string>
-    <string name="w3b_empty_rules">Переглянути мої правила</string>
     <string name="w3b_why_link">Затримано, бо відправник невідомий, а текст містить посилання.</string>
     <string name="w3b_why_unknown">Затримано, бо відправник невідомий.</string>
     <string name="w3b_why_rule">Затримано за одним із ваших правил блокування.</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">Копіювати код</string>
     <string name="w3b_code_copied">Код скопійовано</string>
     <string name="w3b_release_once">Пропустити один раз</string>
-    <string name="w3b_fix_open">Виправити це рішення для %1$s</string>
-    <string name="w3b_fix_title">Виправити це рішення</string>
     <string name="w3b_fix_note">Правило діятиме для нових повідомлень від цього відправника. Уже затримані повідомлення залишаться на місці.</string>
     <string name="w3b_fix_allow">Завжди дозволяти цього відправника</string>
     <string name="w3b_fix_block">Заблокувати цього відправника</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">Було б доставлено: не вдалося прочитати контакти, тому неможливо оцінити відправника.</string>
     <string name="w3b_verdict_allowed_other">Було б доставлено.</string>
     <string name="w3b_examples_title">Почніть із прикладу</string>
-    <string name="w3b_example_block_word">Заблокувати повідомлення зі словом</string>
     <string name="w3b_example_block_sender">Заблокувати ім’я відправника</string>
-    <string name="w3b_example_block_prefix">Заблокувати номери, що починаються з…</string>
     <string name="w3b_example_allow_sender">Завжди дозволяти ім’я відправника, наприклад вашого банку</string>
-    <string name="w3b_example_allow_number">Завжди дозволяти номер телефону</string>
     <string name="w3b_overridden_chip">Скасовано правилом дозволу</string>
 </resources>

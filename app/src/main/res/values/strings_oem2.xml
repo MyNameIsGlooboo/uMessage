@@ -12,7 +12,6 @@
     <string name="oem2_state_marked">Marked done by you</string>
     <string name="oem2_state_todo">Not done yet</string>
     <string name="oem2_state_limited">Android still limits uMessage in the background</string>
-    <string name="oem2_open_again">Open again</string>
     <string name="oem2_undo">Undo</string>
     <string name="oem2_undo_cd">Mark %1$s as not done</string>
 </resources>

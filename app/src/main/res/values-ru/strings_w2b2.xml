@@ -5,8 +5,6 @@
     <string name="w2b2_thread_chip_allowed">Всегда разрешен</string>
     <string name="w2b2_thread_chip_blocked">Заблокирован по правилу</string>
     <string name="w2b2_settings_group_dates">Даты</string>
-    <string name="w2b2_settings_jalali">Даты по календарю Джалали</string>
-    <string name="w2b2_settings_jalali_body">Показывать даты в чатах и запланированных сообщениях по персидскому календарю</string>
     <string name="w2b2_lock_pattern_hint">Соедините не менее %d точек, затем повторите рисунок для подтверждения.</string>
     <string name="w2b2_lock_recovery_hint">Если забудете ключ, на экране блокировки можно будет войти с помощью блокировки экрана телефона.</string>
 </resources>

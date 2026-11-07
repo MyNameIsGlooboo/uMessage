@@ -5,20 +5,15 @@
     <string name="settings_nav_group_privacy_about">隱私權和關於</string>
     <string name="settings_nav_spam_row">垃圾簡訊防護</string>
     <string name="settings_nav_spam_page_title">垃圾簡訊防護</string>
-    <string name="settings_nav_android_block_list">Android封鎖清單</string>
     <string name="settings_nav_android_block_list_body">也會封鎖來電</string>
     <string name="settings_nav_decision_log">最近活動</string>
     <string name="settings_nav_decision_log_body">uMessage如何處理每則訊息及原因</string>
-    <string name="settings_nav_forwarding">轉寄</string>
     <string name="settings_nav_forwarded_tab">顯示「已轉寄」分頁</string>
     <string name="settings_nav_forwarded_tab_body">在對話清單中顯示已轉寄訊息的分頁</string>
     <string name="settings_nav_forward_pause">暫停所有轉寄</string>
     <string name="settings_nav_forward_pause_body">規則會保留，但不會轉寄任何訊息</string>
-    <string name="settings_nav_messages_row">輸入、傳送和儲存空間</string>
-    <string name="settings_nav_messages_title">訊息</string>
     <string name="settings_nav_group_typing">輸入</string>
     <string name="settings_nav_group_sending">傳送</string>
-    <string name="settings_nav_group_storage">儲存空間</string>
     <string name="settings_nav_simple_chars">簡化特殊字母</string>
     <string name="settings_nav_simple_chars_body">改用一般字母（é變成e），分則較少</string>
     <string name="settings_nav_long_mms">長文字以多媒體訊息傳送</string>
@@ -27,13 +22,10 @@
     <string name="settings_nav_archived">已封存的對話</string>
     <string name="settings_nav_keep_archived">已封存的對話保持隱藏</string>
     <string name="settings_nav_keep_archived_body">收到新訊息時對話仍保持封存</string>
-    <string name="settings_nav_recycle_bin">使用資源回收筒</string>
-    <string name="settings_nav_recycle_bin_body">刪除的訊息會先移至資源回收筒</string>
     <string name="settings_nav_default_sim_value">SIM%1$d · %2$s</string>
     <string name="settings_nav_default_sim_ask">每次都詢問</string>
     <string name="settings_nav_open_android_settings">開啟Android設定</string>
     <string name="settings_nav_lock_screen">螢幕鎖定畫面隱私</string>
-    <string name="settings_nav_theme">主題</string>
     <string name="settings_nav_theme_body">淺色、深色和色彩</string>
     <string name="settings_nav_app_lock">應用程式鎖</string>
     <string name="settings_nav_app_lock_body">要求輸入PIN、解鎖圖案或指紋</string>
@@ -42,7 +34,6 @@
     <string name="settings_nav_about_row">關於</string>
     <string name="settings_nav_about_body">版本、原始碼和授權條款</string>
     <string name="settings_nav_privacy_body">離線運作</string>
-    <string name="settings_nav_version_body">輕觸即可複製完整版本號</string>
     <string name="settings_nav_version_copied">已複製版本號</string>
     <string name="settings_nav_source_body">在GitHub上開啟</string>
     <string name="settings_nav_licenses_row">開放原始碼授權條款</string>
@@ -62,7 +53,6 @@
     <string name="settings_nav_group_alerts">提醒</string>
     <string name="settings_nav_notify_body">每則已封鎖訊息都發出一則靜音通知</string>
     <string name="settings_nav_theme_title">外觀</string>
-    <string name="settings_nav_theme_intro">選擇uMessage的外觀。應用程式圖示不會改變。</string>
     <string name="settings_nav_theme_modes">模式</string>
     <string name="settings_nav_theme_colours">色彩</string>
 </resources>

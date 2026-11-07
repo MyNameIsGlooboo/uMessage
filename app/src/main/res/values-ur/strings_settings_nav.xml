@@ -5,20 +5,15 @@
     <string name="settings_nav_group_privacy_about">رازداری اور معلومات</string>
     <string name="settings_nav_spam_row">اسپیم سے تحفظ</string>
     <string name="settings_nav_spam_page_title">اسپیم سے تحفظ</string>
-    <string name="settings_nav_android_block_list">Android بلاک فہرست</string>
     <string name="settings_nav_android_block_list_body">کالز بھی بلاک کرتی ہے</string>
     <string name="settings_nav_decision_log">حالیہ سرگرمی</string>
     <string name="settings_nav_decision_log_body">uMessage نے ہر پیغام کے ساتھ کیا کیا، اور کیوں</string>
-    <string name="settings_nav_forwarding">فارورڈنگ</string>
     <string name="settings_nav_forwarded_tab">فارورڈ شدہ ٹیب دکھائیں</string>
     <string name="settings_nav_forwarded_tab_body">گفتگو کی فہرست میں فارورڈ شدہ پیغامات کے لیے ایک ٹیب</string>
     <string name="settings_nav_forward_pause">تمام فارورڈنگ روکیں</string>
     <string name="settings_nav_forward_pause_body">اصول محفوظ رہتے ہیں، کچھ فارورڈ نہیں ہوتا</string>
-    <string name="settings_nav_messages_row">لکھنا، بھیجنا اور اسٹوریج</string>
-    <string name="settings_nav_messages_title">پیغامات</string>
     <string name="settings_nav_group_typing">لکھنا</string>
     <string name="settings_nav_group_sending">بھیجنا</string>
-    <string name="settings_nav_group_storage">اسٹوریج</string>
     <string name="settings_nav_simple_chars">خاص حروف سادہ کریں</string>
     <string name="settings_nav_simple_chars_body">سادہ حروف (é کی جگہ e)، کم حصے</string>
     <string name="settings_nav_long_mms">لمبا متن بطور MMS</string>
@@ -27,13 +22,10 @@
     <string name="settings_nav_archived">آرکائیو شدہ گفتگو</string>
     <string name="settings_nav_keep_archived">آرکائیو شدہ چیٹس چھپی رہیں</string>
     <string name="settings_nav_keep_archived_body">نئے پیغامات آنے پر بھی چیٹس آرکائیو میں رہتی ہیں</string>
-    <string name="settings_nav_recycle_bin">ری سائیکل بن استعمال کریں</string>
-    <string name="settings_nav_recycle_bin_body">حذف شدہ پیغامات پہلے ری سائیکل بن میں رہتے ہیں</string>
     <string name="settings_nav_default_sim_value">SIM %1$d · %2$s</string>
     <string name="settings_nav_default_sim_ask">ہر بار پوچھیں</string>
     <string name="settings_nav_open_android_settings">Android سیٹنگز کھولتا ہے</string>
     <string name="settings_nav_lock_screen">لاک اسکرین رازداری</string>
-    <string name="settings_nav_theme">تھیم</string>
     <string name="settings_nav_theme_body">لائٹ، ڈارک اور رنگ</string>
     <string name="settings_nav_app_lock">ایپ لاک</string>
     <string name="settings_nav_app_lock_body">PIN، پیٹرن یا فنگر پرنٹ مانگیں</string>
@@ -42,7 +34,6 @@
     <string name="settings_nav_about_row">معلومات</string>
     <string name="settings_nav_about_body">ورژن، سورس کوڈ اور لائسنس</string>
     <string name="settings_nav_privacy_body">آف لائن کام کرتی ہے</string>
-    <string name="settings_nav_version_body">پورا بلڈ کاپی کرنے کے لیے ٹیپ کریں</string>
     <string name="settings_nav_version_copied">بلڈ کاپی ہو گیا</string>
     <string name="settings_nav_source_body">GitHub پر کھولیں</string>
     <string name="settings_nav_licenses_row">اوپن سورس لائسنس</string>
@@ -62,7 +53,6 @@
     <string name="settings_nav_group_alerts">الرٹس</string>
     <string name="settings_nav_notify_body">ہر بلاک شدہ پیغام کے لیے ایک خاموش اطلاع</string>
     <string name="settings_nav_theme_title">ظاہری شکل</string>
-    <string name="settings_nav_theme_intro">منتخب کریں کہ uMessage کیسا نظر آئے۔ ایپ کا آئیکن وہی رہتا ہے۔</string>
     <string name="settings_nav_theme_modes">موڈ</string>
     <string name="settings_nav_theme_colours">رنگ</string>
 </resources>

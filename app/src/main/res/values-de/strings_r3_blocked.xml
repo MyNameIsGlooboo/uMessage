@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="r3b_info_button">So funktioniert das Blockieren</string>
-    <string name="r3b_info_title">So funktioniert das Blockieren</string>
-    <string name="r3b_info_modes">Unbekannte Absender</string>
-    <string name="r3b_info_mode_current">Aktuell: %1$s</string>
-    <string name="r3b_info_messages">Blockierte Nachrichten</string>
-    <string name="r3b_info_open_sender">Tippe auf einen Absender, um seine Nachrichten zu lesen.</string>
-    <string name="r3b_info_move">„In den Posteingang verschieben“ verschiebt alle Nachrichten eines Absenders in deinen Posteingang. Danach wirst du gefragt, ob du ihn immer erlauben möchtest.</string>
-    <string name="r3b_info_release">„Einmal freigeben“ (Nachricht gedrückt halten) verschiebt nur diese Nachricht in deinen Posteingang. Der Absender wird nicht erlaubt.</string>
-    <string name="r3b_info_swipe">Wische einen Absender zum Zeilenende, um seine Nachrichten in den Posteingang zu verschieben.</string>
     <string name="r3b_open_sender">Nachrichten öffnen</string>
     <string name="r3b_move_inbox_for">In den Posteingang verschieben, %1$s</string>
     <string name="r3b_delete_for">Löschen, %1$s</string>
@@ -22,12 +13,8 @@
     <string name="r3b_text_copied">Text kopiert</string>
     <string name="r3b_delete_message">Löschen</string>
     <string name="r3b_received">Empfangen: %1$s</string>
-    <string name="r3b_info_mode_strict">Streng: Hält alle Nachrichten unbekannter Absender zurück, auch Bestätigungscodes.</string>
-    <string name="r3b_info_mode_smart">Intelligent: Hält Nachrichten unbekannter Absender zurück, lässt aber Codes ohne Link durch.</string>
-    <string name="r3b_info_mode_off">Aus: Nachrichten unbekannter Absender landen in deinem Posteingang. Deine Regeln gelten weiterhin.</string>
     <plurals name="r3b_info_purge">
         <item quantity="one">Blockierte Nachrichten werden nach %d Tag gelöscht.</item>
         <item quantity="other">Blockierte Nachrichten werden nach %d Tagen gelöscht.</item>
     </plurals>
-    <string name="r3b_info_purge_off">Blockierte Nachrichten bleiben erhalten, bis du sie löschst.</string>
 </resources>

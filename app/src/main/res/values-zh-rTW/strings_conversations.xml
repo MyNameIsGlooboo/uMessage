@@ -4,7 +4,6 @@
     <string name="convlist_empty_title">還沒有對話</string>
     <string name="convlist_empty_body">你傳送和接收的訊息會顯示在這裡。</string>
     <string name="convlist_start_conversation">開始對話</string>
-    <string name="convlist_new_conversation">新對話</string>
     <string name="convlist_draft">草稿</string>
     <string name="convlist_pinned">已置頂</string>
     <string name="convlist_muted">通知已關閉</string>
@@ -25,7 +24,6 @@
     <string name="convlist_unpin">取消置頂</string>
     <string name="convlist_mark_read">標示為已讀</string>
     <string name="convlist_mark_unread">標示為未讀</string>
-    <string name="convlist_block_number">封鎖號碼</string>
     <string name="convlist_add_contact">將號碼新增至聯絡人</string>
     <string name="convlist_copy_number">複製號碼</string>
     <string name="convlist_dial">撥打電話</string>
@@ -52,7 +50,5 @@
     <string name="convlist_block_message">要封鎖%1$s嗎？來自這個號碼的新訊息會移至「已封鎖的訊息」而不是收件匣，你仍可在那裡閱讀或還原。</string>
     <string name="convlist_block_confirm">封鎖</string>
     <string name="convlist_rename_title">重新命名對話</string>
-    <string name="convlist_rename_hint">對話名稱</string>
-    <string name="convlist_ok">確定</string>
     <string name="convlist_cancel">取消</string>
 </resources>

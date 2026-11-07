@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">Aucun message bloqué ne correspond à ce filtre. Choisissez-en un autre ou affichez tout.</string>
     <string name="w3b_filter_show_all">Tout afficher</string>
     <string name="w3b_empty_body">uMessage veille en mode %1$s. Les messages bloqués apparaîtront ici.</string>
-    <string name="w3b_empty_change_mode">Changer de mode</string>
-    <string name="w3b_empty_rules">Vérifier mes règles</string>
     <string name="w3b_why_link">Bloqué car l\'expéditeur est inconnu et le texte contient un lien.</string>
     <string name="w3b_why_unknown">Bloqué car l\'expéditeur est inconnu.</string>
     <string name="w3b_why_rule">Bloqué car il correspond à l\'une de vos règles de blocage.</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">Copier le code</string>
     <string name="w3b_code_copied">Code copié</string>
     <string name="w3b_release_once">Débloquer cette fois</string>
-    <string name="w3b_fix_open">Corriger cette décision pour %1$s</string>
-    <string name="w3b_fix_title">Corriger cette décision</string>
     <string name="w3b_fix_note">La règle s\'applique aux nouveaux messages de cet expéditeur. Les messages déjà bloqués restent où ils sont.</string>
     <string name="w3b_fix_allow">Toujours autoriser cet expéditeur</string>
     <string name="w3b_fix_block">Bloquer cet expéditeur</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">Serait reçu : les contacts sont inaccessibles, l\'expéditeur ne peut donc pas être évalué.</string>
     <string name="w3b_verdict_allowed_other">Serait reçu.</string>
     <string name="w3b_examples_title">Commencez par un exemple</string>
-    <string name="w3b_example_block_word">Bloquer les messages contenant un mot</string>
     <string name="w3b_example_block_sender">Bloquer un nom d\'expéditeur</string>
-    <string name="w3b_example_block_prefix">Bloquer les numéros commençant par…</string>
     <string name="w3b_example_allow_sender">Toujours autoriser un nom d\'expéditeur, comme votre banque</string>
-    <string name="w3b_example_allow_number">Toujours autoriser un numéro de téléphone</string>
     <string name="w3b_overridden_chip">Une règle d\'autorisation est prioritaire</string>
 </resources>

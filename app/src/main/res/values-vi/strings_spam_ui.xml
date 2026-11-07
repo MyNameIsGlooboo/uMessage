@@ -14,7 +14,6 @@
     <string name="blocknum_add_title">Chặn số điện thoại</string>
     <string name="blocknum_edit_title">Sửa số đã chặn</string>
     <string name="blocknum_field_label">Số điện thoại</string>
-    <string name="blocknum_field_help">Dùng * làm ký tự đại diện: +1555* chặn mọi số bắt đầu bằng +1555</string>
     <string name="blocknum_err_empty">Nhập số điện thoại</string>
     <string name="blocknum_err_invalid">Nhập số điện thoại hoặc dãy chữ số có * làm ký tự đại diện</string>
     <string name="blocknum_copy">Sao chép số</string>
@@ -48,7 +47,6 @@
     <string name="blocknum_unavailable_title">Danh sách chặn không khả dụng</string>
     <string name="blocknum_unavailable_body">Đặt uMessage làm ứng dụng SMS mặc định để xem và thay đổi danh sách chặn của hệ thống.</string>
     <string name="blocknum_unknown_title">Chặn số không xác định</string>
-    <string name="blocknum_unknown_body">Chỉ có tác dụng khi chế độ lọc tin nhắn rác là Tắt: tin nhắn từ số không xác định sẽ vào Đã chặn, như trong chế độ lọc nghiêm ngặt. Chế độ lọc nghiêm ngặt và Thông minh không dùng tùy chọn này.</string>
     <string name="blocknum_contacts_denied">Không thể nhận diện số không xác định nếu không có quyền truy cập người liên hệ</string>
     <string name="blocknum_section_numbers">Số điện thoại</string>
 </resources>

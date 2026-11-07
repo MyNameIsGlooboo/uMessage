@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">أكّد هويتك</string>
     <string name="forward_tab">أعد التوجيه</string>
     <string name="forward_add">أضف إعادة توجيه</string>
-    <string name="forward_intro">تُعاد توجيه الرسائل التي تصل إلى الرسائل الواردة وتطابق قاعدة عبر SMS. لا تُعاد توجيه الرسائل غير المرغوب فيها المحظورة أبدًا.</string>
     <string name="forward_paid_note">كل إعادة توجيه هي رسالة SMS مدفوعة.</string>
-    <string name="forward_empty_title">لا توجد قواعد لإعادة التوجيه</string>
-    <string name="forward_empty_body">أرسل نسخة من الرسائل المطابقة، مثل تنبيهات البنك، إلى هاتف آخر.</string>
     <string name="forward_row_from">من: %1$s</string>
     <string name="forward_row_text">النص: %1$s</string>
     <string name="forward_row_any_sender">أي مرسل</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">الرقم %1$d</string>
     <string name="forward_sheet_add_target">أضف رقمًا</string>
     <string name="forward_sheet_remove_target">أزل الرقم %1$d</string>
-    <string name="forward_sheet_target_needed">أضف رقمًا واحدًا على الأقل لإعادة التوجيه إليه.</string>
     <string name="forward_err_target_invalid">أدخل رقم هاتف من 7 إلى 15 رقمًا</string>
     <string name="forward_err_target_duplicate">هذا الرقم موجود في القائمة</string>
     <string name="forward_sheet_window">في أوقات محددة فقط</string>
-    <string name="forward_sheet_window_body">أعد التوجيه بين هذين الوقتين فقط. إذا سبق وقت النهاية وقت البداية، تمتد الفترة إلى ما بعد منتصف الليل.</string>
     <string name="forward_sheet_start">البداية %1$s</string>
     <string name="forward_sheet_end">النهاية %1$s</string>
     <string name="forward_sheet_pick_start">وقت البداية</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">الاستقبال على</string>
     <string name="forward_sheet_send_from_label">أرسل من</string>
     <string name="forward_sim_same">شريحة SIM نفسها</string>
-    <string name="forward_sheet_codes">ضمّن رموز التحقق</string>
-    <string name="forward_sheet_codes_body">عند التعطيل، لا تُعاد توجيه الرسائل التي تبدو كرموز تسجيل الدخول أو رموز التحقق.</string>
     <string name="forward_sheet_paid">كل إعادة توجيه هي رسالة SMS مدفوعة. تُرسل الرسائل الطويلة على عدة أجزاء.</string>
     <string name="forward_codes_title">هل تريد إعادة توجيه رموز التحقق؟</string>
     <string name="forward_codes_message">تتيح إعادة توجيه الرموز للمستلم تسجيل الدخول إلى حساباتك. يستغل المحتالون ذلك بإقناع الناس بإعادة توجيه رسائلهم لسرقة الرموز. فعّل هذا الخيار لهاتف تملكه فقط.</string>
     <string name="forward_codes_confirm">ضمّن الرموز</string>
-    <string name="forward_delete_title">هل تريد حذف قاعدة إعادة التوجيه؟</string>
-    <string name="forward_delete_message">لن تُعاد توجيه الرسائل بهذه القاعدة بعد الآن.</string>
     <string name="forward_no_lock_title">احمِ إعادة التوجيه بقفل التطبيق</string>
     <string name="forward_no_lock_message">ترسل قواعد إعادة التوجيه رسائلك إلى هواتف أخرى، لذا يمكن لأي شخص يحمل هاتفك المفتوح إضافة قاعدة. مع قفل التطبيق، يتطلب تغيير قواعد إعادة التوجيه رقم التعريف الشخصي أو بصمة إصبعك.</string>
     <string name="forward_no_lock_continue">تابع</string>

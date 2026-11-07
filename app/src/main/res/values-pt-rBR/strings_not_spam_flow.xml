@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">Movida para a caixa de entrada</string>
+    <string name="nsf_snack_moved_allowed">Movida para a caixa de entrada. As próximas mensagens de %1$s também vão chegar.</string>
+    <string name="nsf_moving">Movendo para a caixa de entrada</string>
+</resources>

@@ -19,7 +19,7 @@
     <!-- Archive / Recycle Bin -->
     <string name="screens_delete_forever_title">Delete forever?</string>
     <string name="screens_delete_conversations_message">Delete %1$s permanently? This can\'t be undone.</string>
-    <string name="screens_delete_bin_messages_message">Delete %1$s in the recycle bin permanently? Messages that are not in the recycle bin stay. This can't be undone.</string>
+    <string name="screens_delete_bin_messages_message">Delete %1$s in the recycle bin permanently? Messages that are not in the recycle bin stay. This can\'t be undone.</string>
     <string name="screens_restore_title">Restore?</string>
     <string name="screens_empty_archive_title">Empty the archive?</string>
     <string name="screens_empty_bin_title">Empty the Recycle Bin?</string>

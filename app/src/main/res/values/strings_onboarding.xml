@@ -6,13 +6,12 @@
     <string name="onb_next">Next</string>
     <string name="onb_skip">Skip for now</string>
     <string name="onb_finish">Start messaging</string>
-    <string name="onb_open">Open</string>
 
     <!-- Welcome -->
     <string name="onb_welcome_title">Welcome to uMessage</string>
     <string name="onb_welcome_intro">Better messaging, less spam.</string>
     <string name="onb_welcome_spam">Spam stays out</string>
-    <string name="onb_welcome_spam_desc">Unknown senders wait in Blocked, never lost. You choose Strict, Smart or Off.</string>
+    <string name="onb_welcome_spam_desc">Unknown senders wait in Blocked, never lost.</string>
     <string name="onb_welcome_codes">One-tap codes</string>
     <string name="onb_welcome_codes_desc">Copy verification codes right from the notification.</string>
     <string name="onb_welcome_copy">Copy just what you need</string>
@@ -32,8 +31,6 @@
     <!-- Default SMS -->
     <string name="onb_default_title">Make uMessage your SMS app</string>
     <string name="onb_default_body">Android only lets the default SMS app receive and filter messages. Without this, uMessage cannot protect your inbox.</string>
-    <string name="onb_default_status_yes">uMessage is your default SMS app</string>
-    <string name="onb_default_status_no">uMessage is not your default SMS app yet</string>
     <string name="onb_default_action">Set as default</string>
     <string name="onb_default_denied">The request was declined. You can try again, or continue and set it later in Android settings.</string>
     <string name="onb_default_unavailable">Your phone could not open the default app dialog. Open Android settings, Apps, Default apps, SMS app, and choose uMessage.</string>
@@ -51,7 +48,6 @@
     <string name="onb_perm_notifications_reason">Alerts you to new messages, with reply and copy code buttons.</string>
     <string name="onb_perm_allow_all">Allow all</string>
     <string name="onb_perm_open_settings">Open settings</string>
-    <string name="onb_perm_state_cd">%1$s: %2$s</string>
 
     <!-- Unknown sender mode -->
     <string name="onb_mode_title">Choose how to treat unknown senders</string>
@@ -63,8 +59,6 @@
 
     <!-- OEM guide -->
     <string name="onb_oem_title">Keep uMessage running</string>
-    <string name="onb_oem_body_known">%1$s phones often stop apps in the background, which delays messages. Do these steps once.</string>
-    <string name="onb_oem_body_generic">Some phones stop apps in the background, which delays messages. Allow uMessage to run unrestricted.</string>
     <string name="onb_oem_manual_hint">If a screen does not open, search your Settings for the name shown.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi or Poco</string>
     <string name="onb_oem_samsung" translatable="false">Samsung</string>
@@ -82,11 +76,8 @@
     <string name="onb_oem_step_app_info_desc">Open the uMessage app page to review battery and permissions.</string>
 
     <!-- Done -->
-    <string name="onb_done_title">You are all set</string>
-    <string name="onb_done_body">uMessage is ready. Held messages appear in Blocked, where you can allow a sender in one tap.</string>
     <string name="onb_done_summary_default">Default SMS app</string>
     <string name="onb_done_summary_permissions">Permissions</string>
-    <string name="onb_done_summary_mode">Unknown senders</string>
     <string name="onb_done_ok">Done</string>
     <string name="onb_done_todo">Needs attention</string>
 

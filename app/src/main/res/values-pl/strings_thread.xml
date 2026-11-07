@@ -78,10 +78,8 @@
     <string name="thread_attach_photo">Zdjęcie</string>
     <string name="thread_attach_take_photo">Zrób zdjęcie</string>
     <string name="thread_attach_record_video">Nagraj film</string>
-    <string name="thread_attach_record_audio">Nagraj dźwięk</string>
     <string name="thread_attach_file">Plik</string>
     <string name="thread_attach_contact">Kontakt</string>
-    <string name="thread_attach_schedule">Zaplanuj wiadomość</string>
     <string name="thread_people_confirm">Gotowe</string>
     <string name="thread_people_add_number">Dodaj ten numer</string>
     <string name="thread_people_remove">Usuń %1$s</string>

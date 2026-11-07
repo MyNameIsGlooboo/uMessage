@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">Opcional</string>
+    <string name="backup_drive_hint">Para usar o Google Drive, escolha-o no seletor de arquivos.</string>
+    <string name="move_from_app_title">Mudar de outro app</string>
+    <string name="move_from_app_row_body">Traga suas mensagens de outro app de SMS</string>
+    <string name="move_from_app_intro">Está mudando para o uMessage? Suas mensagens antigas podem vir junto.</string>
+    <string name="move_from_app_step1">No app antigo, faça um backup. No SMS Backup &amp; Restore, toque em Back up now.</string>
+    <string name="move_from_app_step2">Salve o backup no Google Drive ou em um arquivo no celular.</string>
+    <string name="move_from_app_step3">Volte aqui, toque em “Importe mensagens” e escolha esse arquivo.</string>
+    <string name="move_from_app_format">O uMessage lê os arquivos XML criados pelo SMS Backup &amp; Restore e os próprios backups.</string>
+    <plurals name="sim_messages_done">
+        <item quantity="one">%1$d mensagem copiada. %2$d já nas suas conversas.</item>
+        <item quantity="other">%1$d mensagens copiadas. %2$d já nas suas conversas.</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="one">%1$d mensagem copiada. %2$d já nas suas conversas e a cópia falhou em %3$d.</item>
+        <item quantity="other">%1$d mensagens copiadas. %2$d já nas suas conversas e a cópia falhou em %3$d.</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="one">Backup salvo: %1$d item</item>
+        <item quantity="other">Backup salvo: %1$d itens</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="one">%d dígito digitado</item>
+        <item quantity="other">%d dígitos digitados</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="one">Limite de %d encaminhamento atingido. Os encaminhamentos continuam amanhã.</item>
+        <item quantity="other">Limite de %d encaminhamentos atingido. Os encaminhamentos continuam amanhã.</item>
+    </plurals>
+</resources>

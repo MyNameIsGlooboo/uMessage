@@ -5,20 +5,15 @@
     <string name="settings_nav_group_privacy_about">ความเป็นส่วนตัวและเกี่ยวกับ</string>
     <string name="settings_nav_spam_row">การป้องกันสแปม</string>
     <string name="settings_nav_spam_page_title">การป้องกันสแปม</string>
-    <string name="settings_nav_android_block_list">รายการบล็อกของ Android</string>
     <string name="settings_nav_android_block_list_body">บล็อกสายโทรเข้าด้วย</string>
     <string name="settings_nav_decision_log">ทำไมจึงถูกบล็อก?</string>
     <string name="settings_nav_decision_log_body">ประวัติผลการอนุญาตและบล็อก</string>
-    <string name="settings_nav_forwarding">การส่งต่อ</string>
     <string name="settings_nav_forwarded_tab">แสดงแท็บส่งต่อแล้ว</string>
     <string name="settings_nav_forwarded_tab_body">แท็บข้อความที่ส่งต่อแล้วในรายการการสนทนา</string>
     <string name="settings_nav_forward_pause">พักการส่งต่อทั้งหมด</string>
     <string name="settings_nav_forward_pause_body">ยังเก็บกฎไว้ แต่จะไม่ส่งต่อข้อความ</string>
-    <string name="settings_nav_messages_row">การพิมพ์ การส่ง และการจัดเก็บ</string>
-    <string name="settings_nav_messages_title">ข้อความ</string>
     <string name="settings_nav_group_typing">การพิมพ์</string>
     <string name="settings_nav_group_sending">การส่ง</string>
-    <string name="settings_nav_group_storage">การจัดเก็บ</string>
     <string name="settings_nav_simple_chars">แทนตัวอักษรพิเศษด้วยตัวธรรมดา</string>
     <string name="settings_nav_simple_chars_body">ใช้ตัวอักษรธรรมดา (é เป็น e) เพื่อลดจำนวนส่วน</string>
     <string name="settings_nav_long_mms">ส่งข้อความยาวเป็น MMS</string>
@@ -27,13 +22,10 @@
     <string name="settings_nav_archived">การสนทนาที่เก็บถาวรแล้ว</string>
     <string name="settings_nav_keep_archived">ซ่อนการสนทนาที่เก็บถาวรแล้วต่อไป</string>
     <string name="settings_nav_keep_archived_body">ยังเก็บถาวรการสนทนาเมื่อมีข้อความใหม่</string>
-    <string name="settings_nav_recycle_bin">ใช้ถังขยะ</string>
-    <string name="settings_nav_recycle_bin_body">เก็บข้อความที่ลบไว้ในถังขยะก่อน</string>
     <string name="settings_nav_default_sim_value">SIM %1$d · %2$s</string>
     <string name="settings_nav_default_sim_ask">ถามทุกครั้ง</string>
     <string name="settings_nav_open_android_settings">เปิดการตั้งค่า Android</string>
     <string name="settings_nav_lock_screen">ความเป็นส่วนตัวบนหน้าจอล็อก</string>
-    <string name="settings_nav_theme">ธีม</string>
     <string name="settings_nav_theme_body">สว่าง มืด และสี</string>
     <string name="settings_nav_app_lock">ล็อกแอป</string>
     <string name="settings_nav_app_lock_body">ใช้ PIN รูปแบบ หรือลายนิ้วมือ</string>
@@ -42,7 +34,6 @@
     <string name="settings_nav_about_row">เกี่ยวกับ</string>
     <string name="settings_nav_about_body">เวอร์ชัน ซอร์สโค้ด และใบอนุญาต</string>
     <string name="settings_nav_privacy_body">ทำงานออฟไลน์ ไม่มีข้อมูลออกจากโทรศัพท์</string>
-    <string name="settings_nav_version_body">แตะเพื่อคัดลอกข้อมูลบิลด์ทั้งหมด</string>
     <string name="settings_nav_version_copied">คัดลอกข้อมูลบิลด์แล้ว</string>
     <string name="settings_nav_source_body">เปิดใน GitHub</string>
     <string name="settings_nav_licenses_row">ใบอนุญาตโอเพนซอร์ส</string>
@@ -62,7 +53,6 @@
     <string name="settings_nav_group_alerts">การเตือน</string>
     <string name="settings_nav_notify_body">การแจ้งเตือนแบบเงียบสำหรับแต่ละข้อความที่บล็อก</string>
     <string name="settings_nav_theme_title">รูปลักษณ์</string>
-    <string name="settings_nav_theme_intro">เลือกรูปลักษณ์ของ uMessage ไอคอนแอปจะยังเหมือนเดิม</string>
     <string name="settings_nav_theme_modes">โหมด</string>
     <string name="settings_nav_theme_colours">สี</string>
 </resources>

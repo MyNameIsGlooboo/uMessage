@@ -10,7 +10,6 @@
     <string name="thread_review_copy_password">パスワードをコピー</string>
     <string name="thread_review_copy_username">ユーザー名をコピー</string>
     <string name="thread_review_sim_label">SIM%1$s</string>
-    <string name="thread_review_sends_from">%1$sから送信</string>
     <string name="thread_review_reply_disabled">この送信者は返信を受信できません。</string>
     <string name="thread_review_attach_camera">カメラ</string>
     <string name="thread_review_attach_voice">音声</string>

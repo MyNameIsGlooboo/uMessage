@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">ขีดจำกัดการส่งต่อรายวัน</string>
     <string name="w3d_daily_limit_body">จำนวนครั้งสูงสุดที่ส่งต่อได้ต่อวัน</string>
     <string name="w3d_hide_lock_codes">ซ่อนรหัสบนหน้าจอล็อก</string>
-    <string name="w3d_hide_lock_codes_body">ข้อความที่มีรหัสจะแสดง •••• บนหน้าจอล็อกจนกว่าจะปลดล็อก</string>
 </resources>

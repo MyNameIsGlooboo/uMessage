@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">Facoltativo</string>
+    <string name="backup_drive_hint">Per usare Google Drive, selezionalo nel selettore di file.</string>
+    <string name="move_from_app_title">Passa da un\'altra app</string>
+    <string name="move_from_app_row_body">Porta qui i tuoi messaggi da un\'altra app SMS</string>
+    <string name="move_from_app_intro">Passi a uMessage? I tuoi vecchi messaggi possono venire con te.</string>
+    <string name="move_from_app_step1">Nella tua vecchia app, crea un backup. In SMS Backup &amp; Restore tocca Back up now.</string>
+    <string name="move_from_app_step2">Salva il backup su Google Drive o in un file sul telefono.</string>
+    <string name="move_from_app_step3">Torna qui, tocca «Importa messaggi» e scegli quel file.</string>
+    <string name="move_from_app_format">uMessage legge i file XML creati da SMS Backup &amp; Restore e i propri backup.</string>
+    <plurals name="sim_messages_done">
+        <item quantity="one">Copiato %1$d messaggio. %2$d già nelle tue conversazioni.</item>
+        <item quantity="other">Copiati %1$d messaggi. %2$d già nelle tue conversazioni.</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="one">Copiato %1$d messaggio. %2$d già nelle tue conversazioni e non è stato possibile copiarne %3$d.</item>
+        <item quantity="other">Copiati %1$d messaggi. %2$d già nelle tue conversazioni e non è stato possibile copiarne %3$d.</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="one">Backup salvato: %1$d elemento</item>
+        <item quantity="other">Backup salvato: %1$d elementi</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="one">%d cifra inserita</item>
+        <item quantity="other">%d cifre inserite</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="one">Raggiunto il limite di %d inoltro. L\'inoltro riprenderà domani.</item>
+        <item quantity="other">Raggiunto il limite di %d inoltri. L\'inoltro riprenderà domani.</item>
+    </plurals>
+</resources>

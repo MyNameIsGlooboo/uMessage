@@ -15,7 +15,6 @@
     <string name="blocknum_add_title">Blocca un numero</string>
     <string name="blocknum_edit_title">Modifica numero bloccato</string>
     <string name="blocknum_field_label">Numero</string>
-    <string name="blocknum_field_help">Usa * come carattere jolly: +1555* blocca tutti i numeri che iniziano con +1555</string>
     <string name="blocknum_err_empty">Inserisci un numero</string>
     <string name="blocknum_err_invalid">Inserisci un numero di telefono o cifre con * come carattere jolly</string>
     <string name="blocknum_copy">Copia numero</string>
@@ -53,7 +52,6 @@
     <string name="blocknum_unavailable_title">Mittenti bloccati non disponibili</string>
     <string name="blocknum_unavailable_body">Imposta uMessage come app SMS predefinita per vedere e modificare i mittenti bloccati di sistema.</string>
     <string name="blocknum_unknown_title">Blocca numeri sconosciuti</string>
-    <string name="blocknum_unknown_body">Vale solo con la modalità filtro disattivata: i messaggi da numeri sconosciuti vanno in Messaggi bloccati, come nella modalità rigorosa. Le modalità rigorosa e intelligente ignorano questa opzione.</string>
     <string name="blocknum_contacts_denied">Senza accesso ai contatti, non è possibile riconoscere i numeri sconosciuti</string>
     <string name="blocknum_section_numbers">Numeri</string>
 </resources>

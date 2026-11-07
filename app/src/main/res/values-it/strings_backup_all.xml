@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">Tutto tranne i tuoi messaggi: regole per consentire, bloccare e inoltrare e tutte le impostazioni. Il file non è crittografato e contiene i numeri a cui inoltri i messaggi, quindi conservalo in un luogo privato. Le regole di inoltro vengono ripristinate disattivate.</string>
     <string name="n09_label_spam">Protezione dallo spam</string>
     <string name="n09_label_notifications">Notifiche</string>
     <string name="n09_label_chat">Chat ed elenco messaggi</string>

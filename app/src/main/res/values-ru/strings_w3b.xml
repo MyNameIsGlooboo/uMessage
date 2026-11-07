@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">Нет заблокированных сообщений с этим фильтром. Выберите другой или покажите все.</string>
     <string name="w3b_filter_show_all">Показать все</string>
     <string name="w3b_empty_body">uMessage проверяет сообщения в режиме «%1$s». Заблокированные сообщения появятся здесь.</string>
-    <string name="w3b_empty_change_mode">Изменить режим</string>
-    <string name="w3b_empty_rules">Посмотреть мои правила</string>
     <string name="w3b_why_link">Заблокировано: неизвестный отправитель и ссылка в тексте.</string>
     <string name="w3b_why_unknown">Заблокировано: неизвестный отправитель.</string>
     <string name="w3b_why_rule">Заблокировано по одному из ваших правил блокировки.</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">Скопировать код</string>
     <string name="w3b_code_copied">Код скопирован</string>
     <string name="w3b_release_once">Разрешить один раз</string>
-    <string name="w3b_fix_open">Исправить решение для %1$s</string>
-    <string name="w3b_fix_title">Исправить решение</string>
     <string name="w3b_fix_note">Правило действует на новые сообщения от этого отправителя. Уже заблокированные сообщения останутся на месте.</string>
     <string name="w3b_fix_allow">Всегда разрешать этого отправителя</string>
     <string name="w3b_fix_block">Заблокировать этого отправителя</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">Будет доставлено: нет доступа к контактам, поэтому нельзя проверить отправителя.</string>
     <string name="w3b_verdict_allowed_other">Будет доставлено.</string>
     <string name="w3b_examples_title">Начните с примера</string>
-    <string name="w3b_example_block_word">Заблокировать сообщения со словом</string>
     <string name="w3b_example_block_sender">Заблокировать по имени отправителя</string>
-    <string name="w3b_example_block_prefix">Заблокировать номера, начинающиеся с…</string>
     <string name="w3b_example_allow_sender">Всегда разрешать по имени отправителя, например вашего банка</string>
-    <string name="w3b_example_allow_number">Всегда разрешать номер телефона</string>
     <string name="w3b_overridden_chip">Перекрыто разрешающим правилом</string>
 </resources>

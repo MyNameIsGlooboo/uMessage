@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">Сообщения, правила и настройки в файл</string>
-    <string name="settings_f_backup_rules_group">Правила и настройки</string>
-    <string name="settings_f_backup_rules_contents">Файл содержит правила разрешения, блокировки и пересылки, а также настройки: защиту от спама, уведомления, даты, размер текста, тему, клавишу Enter и ограничения пересылки. Текст сообщений и блокировка приложения не сохраняются. Правила пересылки восстанавливаются выключенными.</string>
-    <string name="settings_f_backup_messages_contents">Текст сообщений и изображения в отдельном файле.</string>
     <string name="settings_f_restore_title">Восстановить из этого файла?</string>
     <string name="settings_f_restore_rules">Правила разрешения: %1$d · Правила блокировки: %2$d. Уже существующие правила пропускаются.</string>
     <string name="settings_f_restore_forwards">Будет добавлено правил пересылки: %1$d, в выключенном виде. Включите их в разделе «Правила › Пересылка».</string>

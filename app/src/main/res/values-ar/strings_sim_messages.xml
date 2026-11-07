@@ -15,6 +15,4 @@
     </plurals>
     <string name="sim_messages_import">انسخ</string>
     <string name="sim_messages_importing">جارٍ نسخ الرسائل…</string>
-    <string name="sim_messages_done">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك.</string>
-    <string name="sim_messages_done_failed">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك وتعذّر نسخ %3$d منها.</string>
 </resources>

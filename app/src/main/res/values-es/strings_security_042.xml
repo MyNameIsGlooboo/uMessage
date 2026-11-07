@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">El ajuste de pantalla de bloqueo de tu teléfono muestra todo el contenido de las notificaciones, así que Android aún puede mostrar el texto. Cámbialo en los Ajustes del teléfono, en Notificaciones.</string>
+    <string name="backup_timeout_title">Android detuvo la copia de seguridad</string>
+    <string name="backup_timeout_text">Android limita cuánto tiempo puede ejecutarse una copia de seguridad o una restauración en segundo plano, por eso se detuvo. Abre Ajustes para iniciarla de nuevo.</string>
+</resources>

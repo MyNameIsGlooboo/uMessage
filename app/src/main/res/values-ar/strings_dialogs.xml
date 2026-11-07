@@ -30,7 +30,6 @@
     <string name="dialogs_lock_locked_out">محاولات فتح القفل الخاطئة كثيرة جدًا.\nحاول مجددًا بعد %d ثانية.</string>
     <string name="dialogs_lock_pin_delete">احذف الرقم الأخير</string>
     <string name="dialogs_lock_pin_confirm">أكّد رقم التعريف الشخصي</string>
-    <string name="dialogs_lock_pin_entered">عدد الأرقام المدخلة: %d</string>
     <string name="dialogs_lock_pattern_pad">لوحة رسم النمط</string>
     <string name="dialogs_lock_biometric_hint">استخدم بصمة إصبعك أو وجهك لتأكيد هويتك.</string>
     <string name="dialogs_lock_biometric_open">تحقّق بالقياسات الحيوية</string>

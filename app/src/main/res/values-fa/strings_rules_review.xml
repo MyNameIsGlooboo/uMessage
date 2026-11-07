@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">وارد کردن قانون‌ها از فایل</string>
     <string name="rules2_menu_export">صادر کردن قانون‌ها به فایل</string>
     <string name="rules2_menu_system">شماره‌های مسدودشده (گوشی)</string>
-    <string name="rules2_import_scope">فایل قانون‌ها فقط شامل قانون‌های اجازه دادن و مسدود کردن است. هیچ پیام یا قانون بازارسالی ندارد.</string>
     <string name="rules2_meta">%1$s، %2$s</string>
     <string name="rules2_empty_allowed_title">هیچ فرستنده‌ای همیشه مجاز نیست</string>
     <string name="rules2_empty_allowed_body">شماره، نام فرستنده یا واژه‌ای اضافه کنید که پیام‌هایش همیشه باید به صندوق ورودی شما برسد.</string>
@@ -26,7 +25,6 @@
         <item quantity="one">انتقال %d مورد</item>
         <item quantity="other">انتقال %d مورد</item>
     </plurals>
-    <string name="rules2_sheet_list_label">افزودن به فهرست</string>
     <string name="rules2_sheet_list_allow">همیشه اجازه دادن</string>
     <string name="rules2_sheet_list_block">همیشه مسدود کردن</string>
     <string name="rules2_sheet_delete">حذف قانون</string>

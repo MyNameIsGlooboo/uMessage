@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">手机自带的锁屏设置会显示全部通知内容，因此 Android 仍可能显示短信文字。请在手机设置的“通知”中更改。</string>
+    <string name="backup_timeout_title">Android 已停止备份</string>
+    <string name="backup_timeout_text">Android 限制备份或恢复在后台运行的时长，因此已被停止。打开设置即可重新开始。</string>
+</resources>

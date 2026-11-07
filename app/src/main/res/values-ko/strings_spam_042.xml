@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s042_whole_word_title">단어 전체만</string>
+    <string name="s042_whole_word_help">단어 자체와만 일치합니다: win은 일치, window는 불일치.</string>
+    <string name="s042_held_code_channel">보류된 코드</string>
+    <string name="s042_held_code_title">코드처럼 보이는 메시지를 보류했습니다</string>
+    <string name="s042_held_code_text">링크가 있어 차단됨에 들어 있습니다. 코드를 기다리고 있다면 차단됨을 여세요.</string>
+    <string name="s042_contacts_off_title">스팸 필터가 일시중지되었습니다</string>
+    <string name="s042_contacts_off_body">uMessage가 친구와 낯선 사람을 구분할 수 있도록 연락처를 허용하세요.</string>
+    <string name="s042_contacts_off_allow">허용</string>
+</resources>

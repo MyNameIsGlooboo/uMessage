@@ -5,8 +5,6 @@
     <string name="w2b2_thread_chip_allowed">Her zaman izin verildi</string>
     <string name="w2b2_thread_chip_blocked">Kural gereği engellendi</string>
     <string name="w2b2_settings_group_dates">Tarihler</string>
-    <string name="w2b2_settings_jalali">Celali takvimi</string>
-    <string name="w2b2_settings_jalali_body">Görüşmelerdeki ve planlanan mesajlardaki tarihleri İran takvimine göre gösterin</string>
     <string name="w2b2_lock_pattern_hint">En az %d noktayı birleştirin, ardından onaylamak için aynı deseni tekrar çizin.</string>
     <string name="w2b2_lock_recovery_hint">Unutursanız kilit ekranında telefonunuzun ekran kilidini kullanarak tekrar giriş yapabilirsiniz.</string>
 </resources>

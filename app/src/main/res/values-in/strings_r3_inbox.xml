@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="r3_inbox_filter_show">Tampilkan filter</string>
-    <string name="r3_inbox_filter_hide">Sembunyikan filter</string>
-    <string name="r3_inbox_filter_show_active">Tampilkan filter. Filter %1$s aktif</string>
-    <string name="r3_inbox_filter_hide_active">Sembunyikan filter. Filter %1$s aktif</string>
-</resources>

@@ -10,7 +10,6 @@
     <string name="thread_review_copy_password">Copier le mot de passe</string>
     <string name="thread_review_copy_username">Copier le nom d\'utilisateur</string>
     <string name="thread_review_sim_label">SIM %1$s</string>
-    <string name="thread_review_sends_from">Envoi depuis %1$s</string>
     <string name="thread_review_reply_disabled">Cet expéditeur ne peut pas recevoir de réponses</string>
     <string name="thread_review_attach_camera">Appareil photo</string>
     <string name="thread_review_attach_voice">Message vocal</string>

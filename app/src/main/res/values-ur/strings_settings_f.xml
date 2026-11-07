@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">پیغامات، اصول اور سیٹنگز ایک فائل میں</string>
-    <string name="settings_f_backup_rules_group">اصول اور سیٹنگز</string>
-    <string name="settings_f_backup_rules_contents">فائل میں آپ کے اجازت اور بلاک اصول، فارورڈ اصول اور سیٹنگز ہوتی ہیں: اسپیم سے تحفظ، اطلاعات، تاریخیں، متن کا سائز، تھیم، Enter کی اور فارورڈنگ کی حدیں۔ پیغامات کا متن یا آپ کا ایپ لاک کبھی نہیں۔ فارورڈ اصول بند حالت میں واپس آتے ہیں۔</string>
-    <string name="settings_f_backup_messages_contents">پیغامات کا متن اور تصاویر، الگ فائل میں۔</string>
     <string name="settings_f_restore_title">اس فائل سے بحال کریں؟</string>
     <string name="settings_f_restore_rules">اجازت اصول: %1$d · بلاک اصول: %2$d۔ جو اصول پہلے سے موجود ہیں وہ چھوڑ دیے جاتے ہیں۔</string>
     <string name="settings_f_restore_forwards">شامل ہونے والے فارورڈ اصول: %1$d، بند حالت میں۔ انہیں اصول › فارورڈنگ میں آن کریں۔</string>

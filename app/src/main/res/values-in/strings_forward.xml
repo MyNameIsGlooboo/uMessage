@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">Konfirmasi identitas Anda</string>
     <string name="forward_tab">Teruskan</string>
     <string name="forward_add">Tambah penerusan</string>
-    <string name="forward_intro">Pesan yang masuk ke kotak masuk dan cocok dengan aturan diteruskan melalui SMS. Spam yang diblokir tidak pernah diteruskan.</string>
     <string name="forward_paid_note">Setiap penerusan dikenai biaya SMS.</string>
-    <string name="forward_empty_title">Belum ada aturan penerusan</string>
-    <string name="forward_empty_body">Kirim salinan pesan yang cocok, seperti notifikasi bank, ke ponsel lain.</string>
     <string name="forward_row_from">Dari: %1$s</string>
     <string name="forward_row_text">Teks: %1$s</string>
     <string name="forward_row_any_sender">Pengirim mana pun</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">Nomor %1$d</string>
     <string name="forward_sheet_add_target">Tambah nomor</string>
     <string name="forward_sheet_remove_target">Hapus nomor %1$d</string>
-    <string name="forward_sheet_target_needed">Tambahkan minimal satu nomor tujuan penerusan.</string>
     <string name="forward_err_target_invalid">Masukkan nomor telepon dengan 7 hingga 15 digit</string>
     <string name="forward_err_target_duplicate">Nomor ini sudah ada dalam daftar</string>
     <string name="forward_sheet_window">Hanya pada waktu tertentu</string>
-    <string name="forward_sheet_window_body">Teruskan hanya dalam rentang waktu ini. Jika waktu selesai lebih awal dari waktu mulai, penerusan berlanjut melewati tengah malam.</string>
     <string name="forward_sheet_start">Mulai %1$s</string>
     <string name="forward_sheet_end">Selesai %1$s</string>
     <string name="forward_sheet_pick_start">Waktu mulai</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">Diterima di</string>
     <string name="forward_sheet_send_from_label">Kirim dari</string>
     <string name="forward_sim_same">SIM yang sama</string>
-    <string name="forward_sheet_codes">Sertakan kode verifikasi</string>
-    <string name="forward_sheet_codes_body">Jika nonaktif, pesan yang tampak seperti kode login atau kode verifikasi tidak diteruskan.</string>
     <string name="forward_sheet_paid">Setiap penerusan dikenai biaya SMS. Pesan panjang dikirim dalam beberapa bagian.</string>
     <string name="forward_codes_title">Teruskan kode verifikasi?</string>
     <string name="forward_codes_message">Meneruskan kode memungkinkan penerima masuk ke akun Anda. Penipu memanfaatkan ini: mereka membujuk orang untuk meneruskan pesan agar bisa mencuri kode. Aktifkan hanya untuk ponsel milik Anda sendiri.</string>
     <string name="forward_codes_confirm">Sertakan kode</string>
-    <string name="forward_delete_title">Hapus aturan penerusan?</string>
-    <string name="forward_delete_message">Pesan tidak akan lagi diteruskan oleh aturan ini.</string>
     <string name="forward_no_lock_title">Lindungi penerusan dengan kunci aplikasi</string>
     <string name="forward_no_lock_message">Aturan penerusan mengirim pesan Anda ke ponsel lain, jadi siapa pun yang memegang ponsel Anda saat tidak terkunci bisa menambahkannya. Dengan kunci aplikasi, perubahan aturan penerusan memerlukan PIN atau sidik jari Anda.</string>
     <string name="forward_no_lock_continue">Lanjutkan</string>

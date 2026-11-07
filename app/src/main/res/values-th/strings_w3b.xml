@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">ไม่มีข้อความที่พักไว้ตรงกับตัวกรองนี้ เลือกตัวกรองอื่น หรือแสดงทั้งหมด</string>
     <string name="w3b_filter_show_all">แสดงทั้งหมด</string>
     <string name="w3b_empty_body">uMessage กำลังตรวจสอบในโหมด %1$s ข้อความที่พักไว้จะปรากฏที่นี่</string>
-    <string name="w3b_empty_change_mode">เปลี่ยนโหมด</string>
-    <string name="w3b_empty_rules">ตรวจดูกฎของฉัน</string>
     <string name="w3b_why_link">พักไว้เพราะเป็นผู้ส่งที่ไม่รู้จักและข้อความมีลิงก์</string>
     <string name="w3b_why_unknown">พักไว้เพราะเป็นผู้ส่งที่ไม่รู้จัก</string>
     <string name="w3b_why_rule">พักไว้เพราะตรงกับกฎบล็อกข้อหนึ่งของคุณ</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">คัดลอกรหัส</string>
     <string name="w3b_code_copied">คัดลอกรหัสแล้ว</string>
     <string name="w3b_release_once">ปล่อยผ่านครั้งนี้</string>
-    <string name="w3b_fix_open">แก้ไขผลการกรองสำหรับ %1$s</string>
-    <string name="w3b_fix_title">แก้ไขผลการกรองนี้</string>
     <string name="w3b_fix_note">กฎจะใช้กับข้อความใหม่จากผู้ส่งนี้ ข้อความที่พักไว้แล้วจะอยู่ที่เดิม</string>
     <string name="w3b_fix_allow">อนุญาตผู้ส่งนี้เสมอ</string>
     <string name="w3b_fix_block">บล็อกผู้ส่งนี้</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">จะส่งถึงกล่องข้อความเข้า: อ่านรายชื่อติดต่อไม่ได้ จึงตรวจสอบผู้ส่งไม่ได้</string>
     <string name="w3b_verdict_allowed_other">จะส่งถึงกล่องข้อความเข้า</string>
     <string name="w3b_examples_title">เริ่มจากตัวอย่าง</string>
-    <string name="w3b_example_block_word">บล็อกข้อความที่มีคำที่ระบุ</string>
     <string name="w3b_example_block_sender">บล็อกชื่อผู้ส่ง</string>
-    <string name="w3b_example_block_prefix">บล็อกหมายเลขที่ขึ้นต้นด้วย…</string>
     <string name="w3b_example_allow_sender">อนุญาตชื่อผู้ส่งเสมอ เช่น ธนาคารของคุณ</string>
-    <string name="w3b_example_allow_number">อนุญาตหมายเลขโทรศัพท์เสมอ</string>
     <string name="w3b_overridden_chip">ถูกแทนที่ด้วยกฎอนุญาต</string>
 </resources>

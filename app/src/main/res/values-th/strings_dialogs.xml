@@ -25,7 +25,6 @@
     <string name="dialogs_lock_locked_out">ปลดล็อกผิดหลายครั้งเกินไป\nลองอีกครั้งใน %d วินาที</string>
     <string name="dialogs_lock_pin_delete">ลบตัวเลขหลักสุดท้าย</string>
     <string name="dialogs_lock_pin_confirm">ยืนยัน PIN</string>
-    <string name="dialogs_lock_pin_entered">ป้อนแล้ว %d หลัก</string>
     <string name="dialogs_lock_pattern_pad">พื้นที่วาดรูปแบบ</string>
     <string name="dialogs_lock_biometric_hint">ใช้ลายนิ้วมือหรือใบหน้าเพื่อยืนยันตัวตน</string>
     <string name="dialogs_lock_biometric_open">ยืนยันตัวตนด้วยไบโอเมตริก</string>

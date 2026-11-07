@@ -26,7 +26,6 @@
     <string name="dialogs_lock_locked_out">Demasiados intentos incorrectos de desbloqueo.\nInténtalo de nuevo en %d segundos.</string>
     <string name="dialogs_lock_pin_delete">Eliminar último dígito</string>
     <string name="dialogs_lock_pin_confirm">Confirmar PIN</string>
-    <string name="dialogs_lock_pin_entered">%d dígitos ingresados</string>
     <string name="dialogs_lock_pattern_pad">Área para dibujar el patrón</string>
     <string name="dialogs_lock_biometric_hint">Usa tu huella digital o tu rostro para confirmar que eres tú.</string>
     <string name="dialogs_lock_biometric_open">Verificar con biometría</string>

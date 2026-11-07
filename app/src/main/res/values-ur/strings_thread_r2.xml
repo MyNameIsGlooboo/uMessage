@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">%1$s کاپی کریں</string>
     <string name="thread_r2_menu_search">گفتگو میں تلاش کریں</string>
     <string name="thread_r2_menu_always_forward">اس بھیجنے والے سے ہمیشہ فارورڈ کریں</string>
-    <string name="thread_r2_block_hint">آئندہ پیغامات بلاک شدہ میں جائیں گے۔ آپ کے فون سے کچھ باہر نہیں جاتا۔</string>
     <string name="thread_r2_forward_message">یہ پیغام فارورڈ کریں</string>
     <string name="thread_r2_search_hint">گفتگو میں تلاش کریں</string>
     <string name="thread_r2_search_close">تلاش بند کریں</string>

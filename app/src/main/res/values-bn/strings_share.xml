@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_picker_title">শেয়ার করুন</string>
+    <string name="share_recent_chats">সাম্প্রতিক চ্যাট</string>
+</resources>

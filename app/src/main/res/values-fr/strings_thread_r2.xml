@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">Copier %1$s</string>
     <string name="thread_r2_menu_search">Rechercher dans la conversation</string>
     <string name="thread_r2_menu_always_forward">Toujours transférer les messages de cet expéditeur</string>
-    <string name="thread_r2_block_hint">Les prochains messages iront dans Messages bloqués. Rien ne quitte votre téléphone.</string>
     <string name="thread_r2_forward_message">Transférer ce message</string>
     <string name="thread_r2_search_hint">Rechercher dans la conversation</string>
     <string name="thread_r2_search_close">Fermer la recherche</string>

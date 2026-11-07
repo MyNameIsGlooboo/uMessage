@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">Batas penerusan harian</string>
     <string name="w3d_daily_limit_body">Jumlah maksimum penerusan per hari</string>
     <string name="w3d_hide_lock_codes">Sembunyikan kode di layar kunci</string>
-    <string name="w3d_hide_lock_codes_body">Pesan berisi kode menampilkan •••• di layar kunci hingga kunci dibuka.</string>
 </resources>

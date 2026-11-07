@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="r3b_info_button">Cách chặn hoạt động</string>
-    <string name="r3b_info_title">Cách chặn hoạt động</string>
-    <string name="r3b_info_modes">Người gửi không xác định</string>
-    <string name="r3b_info_mode_current">Hiện tại: %1$s</string>
-    <string name="r3b_info_messages">Tin nhắn đã chặn</string>
-    <string name="r3b_info_open_sender">Nhấn vào người gửi để đọc tin nhắn của họ.</string>
-    <string name="r3b_info_move">Chuyển vào hộp thư đến sẽ đưa mọi tin nhắn của người gửi vào hộp thư đến của bạn, rồi hỏi có luôn cho phép họ không.</string>
-    <string name="r3b_info_release">Cho qua một lần (nhấn giữ một tin nhắn) chỉ đưa tin nhắn đó vào hộp thư đến của bạn. Người gửi vẫn chưa được cho phép.</string>
-    <string name="r3b_info_swipe">Vuốt người gửi về phía cuối hàng để chuyển tin nhắn của họ vào hộp thư đến.</string>
     <string name="r3b_open_sender">Mở tin nhắn</string>
     <string name="r3b_move_inbox_for">Chuyển vào hộp thư đến, %1$s</string>
     <string name="r3b_delete_for">Xóa, %1$s</string>
@@ -22,11 +13,7 @@
     <string name="r3b_text_copied">Đã sao chép văn bản</string>
     <string name="r3b_delete_message">Xóa</string>
     <string name="r3b_received">Đã nhận %1$s</string>
-    <string name="r3b_info_mode_strict">Chế độ lọc nghiêm ngặt: giữ lại tin nhắn từ mọi người gửi không xác định, kể cả mã xác minh.</string>
-    <string name="r3b_info_mode_smart">Thông minh: giữ lại tin nhắn từ người gửi không xác định, nhưng cho qua mã không có liên kết.</string>
-    <string name="r3b_info_mode_off">Tắt: tin nhắn từ người gửi không xác định vào hộp thư đến của bạn. Các quy tắc của bạn vẫn áp dụng.</string>
     <plurals name="r3b_info_purge">
         <item quantity="other">Tin nhắn đã chặn sẽ bị xóa sau %d ngày.</item>
     </plurals>
-    <string name="r3b_info_purge_off">Tin nhắn đã chặn được giữ lại đến khi bạn xóa.</string>
 </resources>

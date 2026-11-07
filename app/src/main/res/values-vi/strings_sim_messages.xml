@@ -10,6 +10,4 @@
     </plurals>
     <string name="sim_messages_import">Sao chép</string>
     <string name="sim_messages_importing">Đang sao chép tin nhắn…</string>
-    <string name="sim_messages_done">Đã sao chép %1$d tin nhắn. %2$d tin nhắn đã có trong các cuộc trò chuyện của bạn.</string>
-    <string name="sim_messages_done_failed">Đã sao chép %1$d tin nhắn. %2$d tin nhắn đã có trong các cuộc trò chuyện của bạn và %3$d tin nhắn không thể sao chép.</string>
 </resources>

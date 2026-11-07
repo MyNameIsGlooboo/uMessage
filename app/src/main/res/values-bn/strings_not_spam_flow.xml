@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">ইনবক্সে সরানো হয়েছে</string>
+    <string name="nsf_snack_moved_allowed">ইনবক্সে সরানো হয়েছে। %1$s-এর পরবর্তী বার্তাও আসবে।</string>
+    <string name="nsf_moving">ইনবক্সে সরানো হচ্ছে</string>
+</resources>

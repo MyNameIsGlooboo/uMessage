@@ -3,4 +3,6 @@
     <string name="smart_replies_title">Réponses suggérées</string>
     <string name="smart_replies_summary">Réponses rapides issues d\'une liste sur votre téléphone</string>
     <string name="smart_replies_hide">Masquer les suggestions</string>
+    <string name="smart_replies_notif_title">Réponses suggérées dans les notifications</string>
+    <string name="smart_replies_notif_summary">Affiche une réponse suggérée sous forme de bouton dans la notification. Un appui envoie le texte.</string>
 </resources>

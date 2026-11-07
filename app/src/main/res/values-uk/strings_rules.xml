@@ -17,21 +17,13 @@
         <item quantity="many">Видалено %d правил</item>
         <item quantity="other">Видалено %d правила</item>
     </plurals>
-    <string name="rules_system_block_list">Системний список заблокованих (також блокує дзвінки)</string>
-    <string name="rules_legacy_note_keyword">Зі старого списку заблокованих слів</string>
-    <string name="rules_legacy_note_number">Із системного списку заблокованих</string>
-    <string name="rules_legacy_banner_title">Знайдено старі списки заблокованих</string>
-    <string name="rules_legacy_banner_body">Деякі слова й номери заблоковано поза цими правилами. Перемістіть їх сюди, щоб переглядати й змінювати все в одному місці.</string>
     <string name="rules_legacy_banner_review">Переглянути</string>
     <string name="rules_legacy_banner_not_now">Не зараз</string>
     <string name="rules_legacy_section_keywords">Старий список заблокованих слів</string>
     <string name="rules_legacy_section_keywords_body">Використовується для фільтрації, доки ви не перемістите ці слова до правил. Після цього старий список більше не діятиме.</string>
-    <string name="rules_legacy_section_system_body">Android видаляє повідомлення з цих номерів ще до того, як їх отримає uMessage, тож вони ніколи не потрапляють у «Заблоковані». Цей список спільний із застосунком для дзвінків і також блокує дзвінки.</string>
     <string name="rules_legacy_chip_old_list">Старий список</string>
     <string name="rules_legacy_chip_system">Системний, також дзвінки</string>
     <string name="rules_legacy_move">Перемістити до правил</string>
-    <string name="rules_legacy_open_system">Відкрити системний список заблокованих</string>
-    <string name="rules_migrate_title">Перемістити старі списки заблокованих до правил</string>
     <string name="rules_migrate_nothing">Усе зі старих списків уже є у ваших правилах.</string>
     <plurals name="rules_migrate_keywords" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d слово зі старого списку заблокованих слів стане правилом блокування за ключовим словом. Після цього старий список більше не діятиме.</item>
@@ -51,9 +43,7 @@
         <item quantity="many">Також додати %d номерів із системного списку заблокованих як правила блокування</item>
         <item quantity="other">Також додати %d номера із системного списку заблокованих як правила блокування</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">Android видаляє повідомлення з номерів у системному списку заблокованих, тож uMessage їх не отримує. Якщо додати ці номери до правил uMessage, їхні повідомлення зможуть потрапляти у «Заблоковані», де ви зможете їх прочитати й відновити, але лише після вилучення номерів із системного списку.</string>
     <string name="rules_migrate_remove">Також вилучити їх із системного списку заблокованих</string>
-    <string name="rules_migrate_remove_body">Системний список також блокує дзвінки. Номери, які ви вилучите з нього, знову зможуть вам телефонувати. uMessage фільтрує лише повідомлення.</string>
     <plurals name="rules_migrate_numbers_kept" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d запис із символом підстановки не може стати правилом і залишиться в системному списку.</item>
         <item quantity="few">%d записи із символами підстановки не можуть стати правилами й залишаться в системному списку.</item>
@@ -86,7 +76,6 @@
         <item quantity="other">%d запису залишається у старих списках</item>
     </plurals>
     <string name="rules_migrated_nothing">Нічого не переміщено.</string>
-    <string name="settings_system_block_list_body_calls">Блокує дзвінки й повідомлення на всьому телефоні. Android видаляє ці повідомлення ще до того, як їх отримає uMessage. Ви можете перемістити номери до розділу «Дозволені й заблоковані».</string>
     <string name="settings_old_blocked_words">Старий список заблокованих слів</string>
     <string name="settings_old_blocked_words_body">Переміщення до розділу «Дозволені й заблоковані»</string>
 </resources>

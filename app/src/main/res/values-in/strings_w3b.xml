@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">Tidak ada pesan ditahan yang sesuai filter ini. Pilih filter lain, atau tampilkan semua.</string>
     <string name="w3b_filter_show_all">Tampilkan semua</string>
     <string name="w3b_empty_body">uMessage memantau dalam mode %1$s. Pesan yang ditahan akan muncul di sini.</string>
-    <string name="w3b_empty_change_mode">Ubah mode</string>
-    <string name="w3b_empty_rules">Tinjau aturan saya</string>
     <string name="w3b_why_link">Ditahan karena pengirim tidak dikenal dan teks berisi tautan.</string>
     <string name="w3b_why_unknown">Ditahan karena pengirim tidak dikenal.</string>
     <string name="w3b_why_rule">Ditahan karena cocok dengan salah satu aturan blokir Anda.</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">Salin kode</string>
     <string name="w3b_code_copied">Kode disalin</string>
     <string name="w3b_release_once">Loloskan sekali</string>
-    <string name="w3b_fix_open">Perbaiki keputusan ini untuk %1$s</string>
-    <string name="w3b_fix_title">Perbaiki keputusan ini</string>
     <string name="w3b_fix_note">Aturan berlaku untuk pesan baru dari pengirim ini. Pesan yang sudah ditahan tetap di tempatnya.</string>
     <string name="w3b_fix_allow">Selalu izinkan pengirim ini</string>
     <string name="w3b_fix_block">Blokir pengirim ini</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">Akan masuk: kontak tidak dapat dibaca, sehingga pengirim tidak dapat dinilai.</string>
     <string name="w3b_verdict_allowed_other">Akan masuk.</string>
     <string name="w3b_examples_title">Mulai dengan contoh</string>
-    <string name="w3b_example_block_word">Blokir pesan yang mengandung kata</string>
     <string name="w3b_example_block_sender">Blokir nama pengirim</string>
-    <string name="w3b_example_block_prefix">Blokir nomor yang diawali…</string>
     <string name="w3b_example_allow_sender">Selalu izinkan nama pengirim, seperti bank Anda</string>
-    <string name="w3b_example_allow_number">Selalu izinkan nomor telepon</string>
     <string name="w3b_overridden_chip">Dikesampingkan oleh aturan izinkan</string>
 </resources>

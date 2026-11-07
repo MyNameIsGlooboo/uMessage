@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">お使いの端末のロック画面の設定が通知の内容をすべて表示するようになっているため、Android がメッセージの文面を表示することがあります。端末の設定の「通知」で変更してください。</string>
+    <string name="backup_timeout_title">Android がバックアップを停止しました</string>
+    <string name="backup_timeout_text">Android はバックグラウンドでバックアップや復元を実行できる時間を制限しているため、処理が停止されました。もう一度始めるには設定を開いてください。</string>
+</resources>

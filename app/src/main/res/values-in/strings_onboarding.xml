@@ -5,11 +5,10 @@
     <string name="onb_next">Berikutnya</string>
     <string name="onb_skip">Lewati untuk sekarang</string>
     <string name="onb_finish">Mulai berkirim pesan</string>
-    <string name="onb_open">Buka</string>
     <string name="onb_welcome_title">Selamat datang di uMessage</string>
     <string name="onb_welcome_intro">Berkirim pesan lebih nyaman, spam berkurang.</string>
     <string name="onb_welcome_spam">Spam tidak masuk</string>
-    <string name="onb_welcome_spam_desc">Pesan dari pengirim tidak dikenal ditahan di Diblokir, tidak hilang. Pilih Mode filter ketat, Cerdas, atau Nonaktif.</string>
+    <string name="onb_welcome_spam_desc">Pesan dari pengirim tidak dikenal ditahan di Diblokir, tidak hilang.</string>
     <string name="onb_welcome_codes">Kode dengan sekali ketuk</string>
     <string name="onb_welcome_codes_desc">Salin kode verifikasi langsung dari notifikasi.</string>
     <string name="onb_welcome_copy">Salin yang diperlukan saja</string>
@@ -27,8 +26,6 @@
     <string name="onb_welcome_start">Mulai</string>
     <string name="onb_default_title">Jadikan uMessage aplikasi SMS Anda</string>
     <string name="onb_default_body">Android hanya mengizinkan aplikasi SMS default menerima dan memfilter pesan. Tanpa ini, uMessage tidak dapat melindungi kotak masuk Anda.</string>
-    <string name="onb_default_status_yes">uMessage adalah aplikasi SMS default Anda</string>
-    <string name="onb_default_status_no">uMessage belum menjadi aplikasi SMS default Anda</string>
     <string name="onb_default_action">Jadikan default</string>
     <string name="onb_default_denied">Permintaan ditolak. Coba lagi, atau lanjutkan dan atur nanti di setelan Android.</string>
     <string name="onb_default_unavailable">Ponsel tidak dapat membuka dialog aplikasi default. Buka setelan Android, Aplikasi, Aplikasi default, Aplikasi SMS, lalu pilih uMessage.</string>
@@ -44,7 +41,6 @@
     <string name="onb_perm_notifications_reason">Memberi tahu saat ada pesan baru, dengan tombol balas dan salin kode.</string>
     <string name="onb_perm_allow_all">Izinkan semua</string>
     <string name="onb_perm_open_settings">Buka setelan</string>
-    <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">Pilih penanganan pengirim tidak dikenal</string>
     <string name="onb_mode_strict">Mode filter ketat</string>
     <string name="onb_mode_smart">Cerdas</string>
@@ -52,8 +48,6 @@
     <string name="onb_mode_warning_title">Perhatikan pesan bank dan kode</string>
     <string name="onb_mode_warning_body">Dalam Mode filter ketat, pemberitahuan bank, pembaruan pengiriman, dan kode sekali pakai dari pengirim tidak dikenal ditahan di Diblokir, termasuk kodenya. Anda tidak akan mendapat notifikasi, jadi periksa Diblokir saat menunggu pesan tersebut.</string>
     <string name="onb_oem_title">Pastikan uMessage tetap berjalan</string>
-    <string name="onb_oem_body_known">Ponsel %1$s sering menghentikan aplikasi di latar belakang sehingga pesan terlambat masuk. Lakukan langkah berikut sekali saja.</string>
-    <string name="onb_oem_body_generic">Beberapa ponsel menghentikan aplikasi di latar belakang sehingga pesan terlambat masuk. Izinkan uMessage berjalan tanpa batasan.</string>
     <string name="onb_oem_manual_hint">Jika layar tidak terbuka, cari nama yang ditampilkan di Setelan.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi, atau Poco</string>
     <string name="onb_oem_huawei">Huawei atau Honor</string>
@@ -68,11 +62,8 @@
     <string name="onb_oem_step_ignore_battery">Abaikan pengoptimalan baterai</string>
     <string name="onb_oem_step_app_info">Periksa setelan aplikasi</string>
     <string name="onb_oem_step_app_info_desc">Buka halaman aplikasi uMessage untuk memeriksa baterai dan izin.</string>
-    <string name="onb_done_title">Semua siap</string>
-    <string name="onb_done_body">uMessage siap digunakan. Pesan yang ditahan muncul di Diblokir. Di sana, izinkan pengirim dengan sekali ketuk.</string>
     <string name="onb_done_summary_default">Aplikasi SMS default</string>
     <string name="onb_done_summary_permissions">Izin</string>
-    <string name="onb_done_summary_mode">Pengirim tidak dikenal</string>
     <string name="onb_done_ok">Selesai</string>
     <string name="onb_done_todo">Perlu perhatian</string>
     <string name="onb_notif_copy_code">Salin kode</string>

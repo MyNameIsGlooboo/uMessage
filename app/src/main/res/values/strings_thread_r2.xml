@@ -11,7 +11,6 @@
     <!-- Menus (TH-11, TH-12, TH-18, TH-20) -->
     <string name="thread_r2_menu_search">Search in conversation</string>
     <string name="thread_r2_menu_always_forward">Always forward from this sender</string>
-    <string name="thread_r2_block_hint">Future texts go to Blocked. Nothing leaves your phone.</string>
     <string name="thread_r2_forward_message">Forward this message</string>
 
     <!-- Search in conversation (TH-20) -->

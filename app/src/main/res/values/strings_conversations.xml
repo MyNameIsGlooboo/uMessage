@@ -6,7 +6,6 @@
     <string name="convlist_empty_title">No conversations yet</string>
     <string name="convlist_empty_body">Messages you send and receive will appear here.</string>
     <string name="convlist_start_conversation">Start a conversation</string>
-    <string name="convlist_new_conversation">New conversation</string>
     <string name="convlist_draft">Draft</string>
     <string name="convlist_pinned">Pinned</string>
     <string name="convlist_muted">Notifications off</string>
@@ -30,7 +29,6 @@
     <string name="convlist_unpin">Unpin</string>
     <string name="convlist_mark_read">Mark as read</string>
     <string name="convlist_mark_unread">Mark as unread</string>
-    <string name="convlist_block_number">Block number</string>
     <string name="convlist_add_contact">Add number to contact</string>
     <string name="convlist_copy_number">Copy number</string>
     <string name="convlist_dial">Call</string>
@@ -65,7 +63,5 @@
     <string name="convlist_block_message">Block %1$s? New messages from it will go to Blocked messages instead of your inbox, where you can still read or restore them.</string>
     <string name="convlist_block_confirm">Block</string>
     <string name="convlist_rename_title">Rename conversation</string>
-    <string name="convlist_rename_hint">Conversation name</string>
-    <string name="convlist_ok">OK</string>
     <string name="convlist_cancel">Cancel</string>
 </resources>

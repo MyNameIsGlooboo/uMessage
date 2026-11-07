@@ -11,11 +11,6 @@
     <string name="convx_details_call">拨打电话</string>
     <string name="convx_details_copy">复制号码</string>
     <string name="convx_details_add_contact">添加联系人</string>
-    <string name="convx_details_tap_to_rename">点按重命名</string>
-    <string name="convx_details_notifications_hint">单独设置此发件人的提示音和优先级</string>
-    <string name="convx_details_block">屏蔽此发件人</string>
-    <string name="convx_details_block_hint">新短信将移至“已屏蔽消息”。所有内容都留在手机上。</string>
-    <string name="convx_details_status">状态</string>
     <string name="convx_new_send_to">发送给%1$s</string>
     <string name="convx_new_group_hint">选择群组成员。发送群组短信可能需要移动数据和彩信设置。</string>
 </resources>

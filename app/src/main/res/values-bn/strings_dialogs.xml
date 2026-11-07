@@ -26,7 +26,6 @@
     <string name="dialogs_lock_locked_out">আনলক করতে অনেকবার ভুল হয়েছে।\n%d সেকেন্ড পরে আবার চেষ্টা করুন।</string>
     <string name="dialogs_lock_pin_delete">শেষ সংখ্যাটি মুছুন</string>
     <string name="dialogs_lock_pin_confirm">PIN নিশ্চিত করুন</string>
-    <string name="dialogs_lock_pin_entered">%dটি সংখ্যা লেখা হয়েছে</string>
     <string name="dialogs_lock_pattern_pad">প্যাটার্ন আঁকার জায়গা</string>
     <string name="dialogs_lock_biometric_hint">আপনার পরিচয় নিশ্চিত করতে আঙুলের ছাপ বা মুখ ব্যবহার করুন।</string>
     <string name="dialogs_lock_biometric_open">বায়োমেট্রিক্স দিয়ে যাচাই করুন</string>

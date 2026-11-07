@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">Regeln aus Datei importieren</string>
     <string name="rules2_menu_export">Regeln in Datei exportieren</string>
     <string name="rules2_menu_system">Android-Blockierliste</string>
-    <string name="rules2_import_scope">Eine Regeldatei enthält nur Regeln zum Erlauben und Blockieren. Sie enthält keine Nachrichten und keine Weiterleitungsregeln.</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">Keine Absender immer erlaubt</string>
     <string name="rules2_empty_allowed_body">Füge eine Nummer, einen Absendernamen oder ein Wort hinzu, damit passende Nachrichten immer in deinem Posteingang landen. Tippe unten auf „Regel hinzufügen“.</string>
@@ -26,7 +25,6 @@
         <item quantity="one">%d Eintrag übertragen</item>
         <item quantity="other">%d Einträge übertragen</item>
     </plurals>
-    <string name="rules2_sheet_list_label">Zur Liste hinzufügen</string>
     <string name="rules2_sheet_list_allow">Immer erlauben</string>
     <string name="rules2_sheet_list_block">Immer blockieren</string>
     <string name="rules2_sheet_delete">Regel löschen</string>

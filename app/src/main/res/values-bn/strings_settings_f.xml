@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">বার্তা, নিয়ম ও সেটিংস একটি ফাইলে</string>
-    <string name="settings_f_backup_rules_group">নিয়ম ও সেটিংস</string>
-    <string name="settings_f_backup_rules_contents">ফাইলে আপনার অনুমতি দেওয়ার, ব্লক করার ও ফরোয়ার্ড করার নিয়ম এবং সেটিংস থাকে: স্প্যাম থেকে সুরক্ষা, বিজ্ঞপ্তি, তারিখ, লেখার আকার, থিম, Enter কী ও ফরোয়ার্ড করার সীমা। বার্তার লেখা বা আপনার অ্যাপ লক কখনোই থাকে না। ফিরিয়ে আনার পর ফরোয়ার্ড করার নিয়ম বন্ধ থাকে।</string>
-    <string name="settings_f_backup_messages_contents">বার্তার লেখা ও ছবি, আলাদা একটি ফাইলে।</string>
     <string name="settings_f_restore_title">এই ফাইল থেকে ফিরিয়ে আনবেন?</string>
     <string name="settings_f_restore_rules">অনুমতি দেওয়ার নিয়ম: %1$d · ব্লক করার নিয়ম: %2$d। আগে থেকে থাকা নিয়ম বাদ দেওয়া হবে।</string>
     <string name="settings_f_restore_forwards">যোগ হবে এমন ফরোয়ার্ড করার নিয়ম: %1$d, বন্ধ অবস্থায়। নিয়ম › ফরোয়ার্ড করা থেকে এগুলো চালু করুন।</string>

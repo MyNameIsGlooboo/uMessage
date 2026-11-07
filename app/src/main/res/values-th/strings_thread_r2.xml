@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">คัดลอก %1$s</string>
     <string name="thread_r2_menu_search">ค้นหาในการสนทนา</string>
     <string name="thread_r2_menu_always_forward">ส่งต่อจากผู้ส่งนี้เสมอ</string>
-    <string name="thread_r2_block_hint">ข้อความใหม่จะไปที่ “ที่บล็อก” ไม่มีข้อมูลออกจากโทรศัพท์</string>
     <string name="thread_r2_forward_message">ส่งต่อข้อความนี้</string>
     <string name="thread_r2_search_hint">ค้นหาในการสนทนา</string>
     <string name="thread_r2_search_close">ปิดการค้นหา</string>

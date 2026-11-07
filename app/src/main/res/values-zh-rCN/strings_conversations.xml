@@ -4,7 +4,6 @@
     <string name="convlist_empty_title">暂无会话</string>
     <string name="convlist_empty_body">收发的消息会显示在这里。</string>
     <string name="convlist_start_conversation">发起会话</string>
-    <string name="convlist_new_conversation">新建会话</string>
     <string name="convlist_draft">草稿</string>
     <string name="convlist_pinned">已置顶</string>
     <string name="convlist_muted">通知已关闭</string>
@@ -25,7 +24,6 @@
     <string name="convlist_unpin">取消置顶</string>
     <string name="convlist_mark_read">标为已读</string>
     <string name="convlist_mark_unread">标为未读</string>
-    <string name="convlist_block_number">屏蔽号码</string>
     <string name="convlist_add_contact">将号码添加到联系人</string>
     <string name="convlist_copy_number">复制号码</string>
     <string name="convlist_dial">拨打电话</string>
@@ -52,7 +50,5 @@
     <string name="convlist_block_message">屏蔽%1$s？此号码的新消息将进入“已屏蔽消息”，不再进入收件箱。仍可在那里阅读或恢复消息。</string>
     <string name="convlist_block_confirm">屏蔽</string>
     <string name="convlist_rename_title">重命名会话</string>
-    <string name="convlist_rename_hint">会话名称</string>
-    <string name="convlist_ok">确定</string>
     <string name="convlist_cancel">取消</string>
 </resources>

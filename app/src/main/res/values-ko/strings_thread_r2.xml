@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">%1$s 복사</string>
     <string name="thread_r2_menu_search">대화에서 검색</string>
     <string name="thread_r2_menu_always_forward">이 발신자의 메시지 항상 전달</string>
-    <string name="thread_r2_block_hint">앞으로 오는 문자는 차단함으로 이동해요. 어떤 정보도 휴대전화 밖으로 전송되지 않아요.</string>
     <string name="thread_r2_forward_message">이 메시지 전달</string>
     <string name="thread_r2_search_hint">대화에서 검색</string>
     <string name="thread_r2_search_close">검색 닫기</string>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">آپ کے فون کی اپنی لاک اسکرین سیٹنگ تمام اطلاعات کا مواد دکھاتی ہے، اس لیے اینڈرائیڈ پھر بھی متن دکھا سکتا ہے۔ اسے فون کی سیٹنگز میں اطلاعات کے تحت تبدیل کریں۔</string>
+    <string name="backup_timeout_title">اینڈرائیڈ نے بیک اپ روک دیا</string>
+    <string name="backup_timeout_text">اینڈرائیڈ پس منظر میں بیک اپ یا بحالی کے چلنے کا وقت محدود کرتا ہے، اس لیے اسے روک دیا گیا۔ دوبارہ شروع کرنے کے لیے سیٹنگز کھولیں۔</string>
+</resources>

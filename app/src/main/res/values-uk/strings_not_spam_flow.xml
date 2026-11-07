@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">Переміщено у вхідні</string>
+    <string name="nsf_snack_moved_allowed">Переміщено у вхідні. Наступні повідомлення від %1$s також надходитимуть.</string>
+    <string name="nsf_moving">Переміщення у вхідні</string>
+</resources>

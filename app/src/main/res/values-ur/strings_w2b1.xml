@@ -7,14 +7,10 @@
     <string name="w2b1_search_recent">حالیہ تلاشیں</string>
     <string name="w2b1_search_recent_clear">صاف کریں</string>
     <string name="w2b1_search_recent_clear_description">حالیہ تلاشیں صاف کریں</string>
-    <string name="w2b1_search_digits_note">فارسی اور لاطینی دونوں ہندسے مماثل ہوتے ہیں: 123 سے ۱۲۳ بھی مل جاتا ہے۔</string>
-    <string name="w2b1_search_section_conversations">گفتگو</string>
-    <string name="w2b1_search_section_messages">پیغامات</string>
     <plurals name="w2b1_search_matches">
         <item quantity="one">%d نتیجہ</item>
         <item quantity="other">%d نتائج</item>
     </plurals>
-    <string name="w2b1_filter_all">سبھی</string>
     <string name="w2b1_filter_unread">ان پڑھے</string>
     <string name="w2b1_filter_unread_empty_title">کوئی ان پڑھی گفتگو نہیں</string>
     <string name="w2b1_filter_unread_empty_body">سب کچھ پڑھا جا چکا ہے۔</string>

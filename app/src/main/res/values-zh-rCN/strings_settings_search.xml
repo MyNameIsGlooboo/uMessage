@@ -76,4 +76,5 @@
     <string name="sks_version">版本 构建号 发布 更新 复制</string>
     <string name="sks_source">源代码 GitHub 开源 许可证 代码仓库</string>
     <string name="sks_licenses">许可证 许可证 开源 GPL 法律 字体 库</string>
+    <string name="sks_privacy_policy">隐私 政策 条款 数据保护 法律</string>
 </resources>

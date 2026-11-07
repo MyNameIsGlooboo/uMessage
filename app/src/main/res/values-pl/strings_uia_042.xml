@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">Opcjonalne</string>
+    <string name="backup_drive_hint">Aby użyć Google Drive, wybierz go w selektorze plików.</string>
+    <string name="move_from_app_title">Przenieś z innej aplikacji</string>
+    <string name="move_from_app_row_body">Przenieś wiadomości z innej aplikacji SMS</string>
+    <string name="move_from_app_intro">Przechodzisz na uMessage? Twoje stare wiadomości mogą pójść z Tobą.</string>
+    <string name="move_from_app_step1">W starej aplikacji utwórz kopię zapasową. W SMS Backup &amp; Restore dotknij Back up now.</string>
+    <string name="move_from_app_step2">Zapisz kopię na Google Drive lub w pliku w telefonie.</string>
+    <string name="move_from_app_step3">Wróć tutaj, dotknij „Import wiadomości” i wybierz ten plik.</string>
+    <string name="move_from_app_format">uMessage odczytuje pliki XML utworzone przez SMS Backup &amp; Restore oraz własne kopie zapasowe.</string>
+    <plurals name="sim_messages_done">
+        <item quantity="one">Skopiowano %1$d wiadomość. W twoich rozmowach było już %2$d.</item>
+        <item quantity="few">Skopiowano %1$d wiadomości. W twoich rozmowach było już %2$d.</item>
+        <item quantity="many">Skopiowano %1$d wiadomości. W twoich rozmowach było już %2$d.</item>
+        <item quantity="other">Skopiowano %1$d wiadomości. W twoich rozmowach było już %2$d.</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="one">Skopiowano %1$d wiadomość. W twoich rozmowach było już %2$d, a %3$d nie udało się skopiować.</item>
+        <item quantity="few">Skopiowano %1$d wiadomości. W twoich rozmowach było już %2$d, a %3$d nie udało się skopiować.</item>
+        <item quantity="many">Skopiowano %1$d wiadomości. W twoich rozmowach było już %2$d, a %3$d nie udało się skopiować.</item>
+        <item quantity="other">Skopiowano %1$d wiadomości. W twoich rozmowach było już %2$d, a %3$d nie udało się skopiować.</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="one">Zapisano kopię zapasową. Liczba elementów: %1$d</item>
+        <item quantity="few">Zapisano kopię zapasową. Liczba elementów: %1$d</item>
+        <item quantity="many">Zapisano kopię zapasową. Liczba elementów: %1$d</item>
+        <item quantity="other">Zapisano kopię zapasową. Liczba elementów: %1$d</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="one">Wpisane cyfry: %d</item>
+        <item quantity="few">Wpisane cyfry: %d</item>
+        <item quantity="many">Wpisane cyfry: %d</item>
+        <item quantity="other">Wpisane cyfry: %d</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="one">Osiągnięto limit przekazań dalej: %d. Przekazywanie zostanie wznowione jutro.</item>
+        <item quantity="few">Osiągnięto limit przekazań dalej: %d. Przekazywanie zostanie wznowione jutro.</item>
+        <item quantity="many">Osiągnięto limit przekazań dalej: %d. Przekazywanie zostanie wznowione jutro.</item>
+        <item quantity="other">Osiągnięto limit przekazań dalej: %d. Przekazywanie zostanie wznowione jutro.</item>
+    </plurals>
+</resources>

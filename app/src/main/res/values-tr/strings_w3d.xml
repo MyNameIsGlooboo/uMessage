@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">Günlük iletim sınırı</string>
     <string name="w3d_daily_limit_body">Günde en fazla kaç mesaj iletilebilir</string>
     <string name="w3d_hide_lock_codes">Kilit ekranında kodları gizleyin</string>
-    <string name="w3d_hide_lock_codes_body">Kod içeren mesajlar, kilidi açana kadar kilit ekranında •••• olarak görünür.</string>
 </resources>

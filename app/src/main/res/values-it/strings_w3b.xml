@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">Nessun messaggio trattenuto corrisponde al filtro. Scegline un altro o mostra tutto.</string>
     <string name="w3b_filter_show_all">Mostra tutti</string>
     <string name="w3b_empty_body">uMessage controlla i messaggi in modalità %1$s. Quelli trattenuti appariranno qui.</string>
-    <string name="w3b_empty_change_mode">Cambia modalità</string>
-    <string name="w3b_empty_rules">Controlla le mie regole</string>
     <string name="w3b_why_link">Trattenuto perché il mittente è sconosciuto e il testo contiene un link.</string>
     <string name="w3b_why_unknown">Trattenuto perché il mittente è sconosciuto.</string>
     <string name="w3b_why_rule">Trattenuto perché corrisponde a una delle tue regole di blocco.</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">Copia codice</string>
     <string name="w3b_code_copied">Codice copiato</string>
     <string name="w3b_release_once">Sblocca solo questa volta</string>
-    <string name="w3b_fix_open">Correggi questa decisione per %1$s</string>
-    <string name="w3b_fix_title">Correggi questa decisione</string>
     <string name="w3b_fix_note">La regola si applica ai nuovi messaggi di questo mittente. I messaggi già trattenuti restano dove sono.</string>
     <string name="w3b_fix_allow">Consenti sempre questo mittente</string>
     <string name="w3b_fix_block">Blocca questo mittente</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">Verrebbe recapitato: impossibile leggere i contatti, quindi non si può valutare il mittente.</string>
     <string name="w3b_verdict_allowed_other">Verrebbe recapitato.</string>
     <string name="w3b_examples_title">Inizia con un esempio</string>
-    <string name="w3b_example_block_word">Blocca i messaggi che contengono una parola</string>
     <string name="w3b_example_block_sender">Blocca un nome mittente</string>
-    <string name="w3b_example_block_prefix">Blocca i numeri che iniziano con…</string>
     <string name="w3b_example_allow_sender">Consenti sempre un nome mittente, come la tua banca</string>
-    <string name="w3b_example_allow_number">Consenti sempre un numero di telefono</string>
     <string name="w3b_overridden_chip">Ignorata per una regola che consente</string>
 </resources>

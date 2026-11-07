@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">%1$s कॉपी करें</string>
     <string name="thread_r2_menu_search">बातचीत में खोजें</string>
     <string name="thread_r2_menu_always_forward">इस भेजने वाले के मैसेज हमेशा फ़ॉरवर्ड करें</string>
-    <string name="thread_r2_block_hint">आगे आने वाले मैसेज ब्लॉक किए गए में जाएंगे. आपके फ़ोन से कुछ भी बाहर नहीं जाता.</string>
     <string name="thread_r2_forward_message">यह मैसेज फ़ॉरवर्ड करें</string>
     <string name="thread_r2_search_hint">बातचीत में खोजें</string>
     <string name="thread_r2_search_close">खोज बंद करें</string>

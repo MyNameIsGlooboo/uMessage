@@ -23,8 +23,6 @@
     <string name="e_example_block_cancel_word">لغو۱۱を含むメッセージをブロック</string>
     <string name="e_example_block_ad_prefix">3000で始まる広告の番号をブロック</string>
     <string name="e_example_allow_number">郵便局などの番号を常に許可</string>
-    <string name="e_sheet_sender_label">送信者</string>
-    <string name="e_sheet_text_label">メッセージ本文</string>
     <string name="e_value_number">電話番号</string>
     <string name="e_value_prefix">番号の先頭</string>
     <string name="e_value_sender">送信者名</string>

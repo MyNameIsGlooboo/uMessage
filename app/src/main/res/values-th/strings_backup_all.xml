@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">ทุกอย่างยกเว้นข้อความ ได้แก่ กฎอนุญาต บล็อก และส่งต่อ รวมถึงการตั้งค่าทั้งหมด ไฟล์ไม่ได้เข้ารหัสและมีหมายเลขโทรศัพท์ที่ส่งต่อไป จึงควรเก็บไว้ในที่ส่วนตัว กฎส่งต่อจะปิดอยู่เมื่อกู้คืน</string>
     <string name="n09_label_spam">การป้องกันสแปม</string>
     <string name="n09_label_notifications">การแจ้งเตือน</string>
     <string name="n09_label_chat">แชทและรายการข้อความ</string>

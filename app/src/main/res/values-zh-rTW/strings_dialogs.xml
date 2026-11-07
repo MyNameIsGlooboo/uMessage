@@ -25,7 +25,6 @@
     <string name="dialogs_lock_locked_out">解鎖錯誤次數過多。\n請在%d秒後再試一次。</string>
     <string name="dialogs_lock_pin_delete">刪除最後一位數字</string>
     <string name="dialogs_lock_pin_confirm">確認PIN</string>
-    <string name="dialogs_lock_pin_entered">已輸入%d位數字</string>
     <string name="dialogs_lock_pattern_pad">圖形繪製區</string>
     <string name="dialogs_lock_biometric_hint">使用指紋或臉孔確認是你本人。</string>
     <string name="dialogs_lock_biometric_open">使用生物辨識驗證</string>

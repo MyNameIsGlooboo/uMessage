@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">Déplacé vers la boîte de réception</string>
+    <string name="nsf_snack_moved_allowed">Déplacé vers la boîte de réception. Les prochains messages de %1$s arriveront aussi.</string>
+    <string name="nsf_moving">Déplacement vers la boîte de réception</string>
+</resources>

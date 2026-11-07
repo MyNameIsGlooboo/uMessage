@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">Đã chuyển vào hộp thư đến</string>
+    <string name="nsf_snack_moved_allowed">Đã chuyển vào hộp thư đến. Tin nhắn sau này từ %1$s cũng sẽ đến.</string>
+    <string name="nsf_moving">Đang chuyển vào hộp thư đến</string>
+</resources>

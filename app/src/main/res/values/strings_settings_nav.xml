@@ -7,22 +7,17 @@
     <string name="settings_nav_group_privacy_about">Privacy and about</string>
     <string name="settings_nav_spam_row">Spam protection</string>
     <string name="settings_nav_spam_page_title">Spam protection</string>
-    <string name="settings_nav_android_block_list">Android block list</string>
     <string name="settings_nav_android_block_list_body">Also blocks calls</string>
     <string name="settings_nav_decision_log">Recent activity</string>
     <string name="settings_nav_decision_log_body">What uMessage did with each message, and why</string>
 
-    <string name="settings_nav_forwarding">Forwarding</string>
     <string name="settings_nav_forwarded_tab">Show Forwarded tab</string>
     <string name="settings_nav_forwarded_tab_body">A tab in the conversation list for forwarded messages</string>
     <string name="settings_nav_forward_pause">Pause all forwarding</string>
     <string name="settings_nav_forward_pause_body">Rules stay saved, nothing is forwarded</string>
 
-    <string name="settings_nav_messages_row">Typing, sending and storage</string>
-    <string name="settings_nav_messages_title">Messages</string>
     <string name="settings_nav_group_typing">Typing</string>
     <string name="settings_nav_group_sending">Sending</string>
-    <string name="settings_nav_group_storage">Storage</string>
     <string name="settings_nav_simple_chars">Simplify special letters</string>
     <string name="settings_nav_simple_chars_body">Plain letters (é becomes e), fewer parts</string>
     <string name="settings_nav_long_mms">Long text as MMS</string>
@@ -31,8 +26,6 @@
     <string name="settings_nav_archived">Archived conversations</string>
     <string name="settings_nav_keep_archived">Archived chats stay hidden</string>
     <string name="settings_nav_keep_archived_body">New messages keep chats archived</string>
-    <string name="settings_nav_recycle_bin">Use recycle bin</string>
-    <string name="settings_nav_recycle_bin_body">Deleted messages wait in the recycle bin first</string>
 
     <string name="settings_nav_default_sim_value">SIM %1$d · %2$s</string>
     <string name="settings_nav_default_sim_ask">Ask every time</string>
@@ -40,7 +33,6 @@
     <string name="settings_nav_open_android_settings">Opens Android settings</string>
     <string name="settings_nav_lock_screen">Lock screen privacy</string>
 
-    <string name="settings_nav_theme">Theme</string>
     <string name="settings_nav_theme_body">Light, dark and colors</string>
 
     <string name="settings_nav_app_lock">App lock</string>
@@ -51,7 +43,6 @@
     <string name="settings_nav_about_row">About</string>
     <string name="settings_nav_about_body">Version, source code and licenses</string>
     <string name="settings_nav_privacy_body">Works offline</string>
-    <string name="settings_nav_version_body">Tap to copy the full build</string>
     <string name="settings_nav_version_copied">Build copied</string>
     <string name="settings_nav_source_body">Open on GitHub</string>
     <string name="settings_nav_licenses_row">Open-source licenses</string>
@@ -73,7 +64,6 @@
     <string name="settings_nav_group_alerts">Alerts</string>
     <string name="settings_nav_notify_body">A quiet notification for each blocked message</string>
     <string name="settings_nav_theme_title">Appearance</string>
-    <string name="settings_nav_theme_intro">Choose how uMessage looks. The app icon stays the same.</string>
     <string name="settings_nav_theme_modes">Mode</string>
     <string name="settings_nav_theme_colours">Colors</string>
 </resources>

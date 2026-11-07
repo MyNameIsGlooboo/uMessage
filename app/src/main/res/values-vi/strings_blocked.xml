@@ -30,12 +30,10 @@
     <plurals name="spam_purge_notice">
         <item quantity="other">Tin nhắn đã chặn sẽ bị xóa sau %d ngày</item>
     </plurals>
-    <string name="spam_purge_notice_off">Tin nhắn đã chặn được giữ đến khi bạn xóa</string>
     <plurals name="spam_purge_left">
         <item quantity="other">Sẽ xóa sau %d ngày</item>
     </plurals>
     <string name="spam_purge_left_today">Sẽ xóa hôm nay</string>
-    <string name="convlist_report_spam">Báo cáo tin nhắn rác</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="other">Đã báo cáo %d cuộc trò chuyện. Tin nhắn mới từ họ sẽ vào mục Đã chặn và các cuộc trò chuyện được lưu trữ.</item>
     </plurals>
@@ -43,18 +41,9 @@
         <item quantity="other">Đã báo cáo %d cuộc trò chuyện. Tin nhắn mới từ họ sẽ vào mục Đã chặn.</item>
     </plurals>
     <string name="blocked_title">Đã chặn</string>
-    <string name="blocked_menu_rules">Quy tắc</string>
-    <string name="blocked_mode_group_cd">Người gửi không xác định: %1$s, %2$d trên %3$d</string>
-    <string name="blocked_mode_desc_strict">Chế độ lọc nghiêm ngặt: giữ mọi tin nhắn từ người gửi không xác định, kể cả mã xác minh</string>
-    <string name="blocked_mode_desc_smart">Thông minh: giữ tin nhắn từ người gửi không xác định, nhưng cho phép mã không có liên kết đi qua</string>
-    <string name="blocked_mode_desc_off">Tắt: tin nhắn từ người gửi không xác định vào hộp thư đến. Quy tắc của bạn vẫn áp dụng</string>
     <string name="blocked_snack_mode">Đã đặt chế độ cho người gửi không xác định thành %1$s</string>
-    <string name="blocked_off_title">Ngừng giữ tin nhắn từ người gửi không xác định?</string>
-    <string name="blocked_off_body">Tin nhắn từ người gửi không xác định sẽ vào thẳng hộp thư đến của bạn. Quy tắc của bạn vẫn áp dụng.</string>
-    <string name="blocked_off_confirm">Tắt</string>
     <string name="blocked_stats_restored">Bạn đã khôi phục %1$d</string>
     <string name="blocked_reason_unknown_link">Người gửi không xác định, có liên kết</string>
     <string name="blocked_may_be_important">Có thể quan trọng</string>
     <string name="blocked_action_move_inbox">Chuyển vào hộp thư đến</string>
-    <string name="blocked_swipe_not_spam">Vuốt để chuyển vào hộp thư đến</string>
 </resources>

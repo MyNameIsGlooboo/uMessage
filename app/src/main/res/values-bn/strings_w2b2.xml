@@ -5,8 +5,6 @@
     <string name="w2b2_thread_chip_allowed">সবসময় অনুমতি দেওয়া</string>
     <string name="w2b2_thread_chip_blocked">নিয়ম অনুযায়ী ব্লক করা</string>
     <string name="w2b2_settings_group_dates">তারিখ</string>
-    <string name="w2b2_settings_jalali">জালালি তারিখ</string>
-    <string name="w2b2_settings_jalali_body">কথোপকথন ও সময় নির্ধারণ করা বার্তায় ফারসি ক্যালেন্ডারের তারিখ দেখান</string>
     <string name="w2b2_lock_pattern_hint">অন্তত %dটি বিন্দু যুক্ত করুন, তারপর নিশ্চিত করতে একই প্যাটার্ন আবার আঁকুন।</string>
     <string name="w2b2_lock_recovery_hint">ভুলে গেলে লক স্ক্রিনে আপনার ফোনের স্ক্রিন লক দিয়ে আবার ঢোকার সুযোগ পাবেন।</string>
 </resources>

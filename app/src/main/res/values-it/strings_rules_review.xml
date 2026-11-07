@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">Importa regole da file</string>
     <string name="rules2_menu_export">Esporta regole su file</string>
     <string name="rules2_menu_system">Mittenti bloccati da Android</string>
-    <string name="rules2_import_scope">Un file di regole contiene solo regole per consentire e bloccare. Non contiene messaggi né regole di inoltro.</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">Nessun mittente sempre consentito</string>
     <string name="rules2_empty_allowed_body">Aggiungi un numero, un nome mittente o una parola da consentire sempre in In arrivo. Tocca Aggiungi regola qui sotto.</string>
@@ -26,7 +25,6 @@
         <item quantity="one">Sposta %d elemento</item>
         <item quantity="other">Sposta %d elementi</item>
     </plurals>
-    <string name="rules2_sheet_list_label">Aggiungi all\'elenco</string>
     <string name="rules2_sheet_list_allow">Consenti sempre</string>
     <string name="rules2_sheet_list_block">Blocca sempre</string>
     <string name="rules2_sheet_delete">Elimina regola</string>

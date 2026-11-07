@@ -5,11 +5,10 @@
     <string name="onb_next">Weiter</string>
     <string name="onb_skip">Vorerst überspringen</string>
     <string name="onb_finish">Nachrichten schreiben</string>
-    <string name="onb_open">Öffnen</string>
     <string name="onb_welcome_title">Willkommen bei uMessage</string>
     <string name="onb_welcome_intro">Bessere Nachrichten, weniger Spam.</string>
     <string name="onb_welcome_spam">Spam bleibt draußen</string>
-    <string name="onb_welcome_spam_desc">Unbekannte Absender landen unter „Blockiert“ und gehen nicht verloren. Du wählst: Streng, Intelligent oder Aus.</string>
+    <string name="onb_welcome_spam_desc">Unbekannte Absender landen unter „Blockiert“ und gehen nicht verloren.</string>
     <string name="onb_welcome_codes">Codes mit einem Tippen</string>
     <string name="onb_welcome_codes_desc">Kopiere Bestätigungscodes direkt aus der Benachrichtigung.</string>
     <string name="onb_welcome_copy">Kopiere nur, was du brauchst</string>
@@ -27,8 +26,6 @@
     <string name="onb_welcome_start">Loslegen</string>
     <string name="onb_default_title">Mach uMessage zu deiner SMS-App</string>
     <string name="onb_default_body">Android lässt nur die Standard-SMS-App Nachrichten empfangen und filtern. Ohne diese Einstellung kann uMessage deinen Posteingang nicht schützen.</string>
-    <string name="onb_default_status_yes">uMessage ist deine Standard-SMS-App</string>
-    <string name="onb_default_status_no">uMessage ist noch nicht deine Standard-SMS-App</string>
     <string name="onb_default_action">Als Standard festlegen</string>
     <string name="onb_default_denied">Die Anfrage wurde abgelehnt. Du kannst es erneut versuchen oder fortfahren und dies später in den Android-Einstellungen festlegen.</string>
     <string name="onb_default_unavailable">Dein Smartphone konnte die Auswahl der Standard-App nicht öffnen. Öffne die Android-Einstellungen unter „Apps“, „Standard-Apps“, „SMS-App“ und wähle uMessage.</string>
@@ -44,7 +41,6 @@
     <string name="onb_perm_notifications_reason">Informiert dich über neue Nachrichten, mit Tasten zum Antworten und Kopieren von Codes.</string>
     <string name="onb_perm_allow_all">Alle erlauben</string>
     <string name="onb_perm_open_settings">Einstellungen öffnen</string>
-    <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">Wähle den Umgang mit unbekannten Absendern</string>
     <string name="onb_mode_strict">Streng</string>
     <string name="onb_mode_smart">Intelligent</string>
@@ -52,8 +48,6 @@
     <string name="onb_mode_warning_title">Hinweis zu Banknachrichten und Codes</string>
     <string name="onb_mode_warning_body">Im Modus „Streng“ bleiben Bankmitteilungen, Lieferupdates und Einmalcodes unbekannter Absender unter „Blockiert“, auch die Codes. Du erhältst keine Benachrichtigung. Schau daher unter „Blockiert“ nach, wenn du eine solche Nachricht erwartest.</string>
     <string name="onb_oem_title">Lass uMessage weiterlaufen</string>
-    <string name="onb_oem_body_known">Smartphones von %1$s beenden oft Apps im Hintergrund. Dadurch kommen Nachrichten verspätet an. Führe diese Schritte einmal durch.</string>
-    <string name="onb_oem_body_generic">Manche Smartphones beenden Apps im Hintergrund. Dadurch kommen Nachrichten verspätet an. Erlaube uMessage, uneingeschränkt zu laufen.</string>
     <string name="onb_oem_manual_hint">Falls sich eine Seite nicht öffnet, suche in deinen Einstellungen nach dem angezeigten Namen.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi oder Poco</string>
     <string name="onb_oem_huawei">Huawei oder Honor</string>
@@ -68,11 +62,8 @@
     <string name="onb_oem_step_ignore_battery">Akkuoptimierung ignorieren</string>
     <string name="onb_oem_step_app_info">App-Einstellungen prüfen</string>
     <string name="onb_oem_step_app_info_desc">Öffne die App-Info von uMessage, um Akku und Berechtigungen zu prüfen.</string>
-    <string name="onb_done_title">Alles bereit</string>
-    <string name="onb_done_body">uMessage ist bereit. Zurückgehaltene Nachrichten erscheinen unter „Blockiert“. Dort kannst du einen Absender mit einem Tippen erlauben.</string>
     <string name="onb_done_summary_default">Standard-SMS-App</string>
     <string name="onb_done_summary_permissions">Berechtigungen</string>
-    <string name="onb_done_summary_mode">Unbekannte Absender</string>
     <string name="onb_done_ok">Erledigt</string>
     <string name="onb_done_todo">Noch zu erledigen</string>
     <string name="onb_notif_copy_code">Code kopieren</string>

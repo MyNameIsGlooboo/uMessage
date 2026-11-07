@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">اختیاری</string>
+    <string name="backup_drive_hint">Google Drive استعمال کرنے کے لیے اسے فائل چنندہ میں منتخب کریں۔</string>
+    <string name="move_from_app_title">کسی دوسری ایپ سے منتقل کریں</string>
+    <string name="move_from_app_row_body">اپنے پیغامات کسی دوسری SMS ایپ سے لائیں</string>
+    <string name="move_from_app_intro">uMessage پر آ رہے ہیں؟ آپ کے پرانے پیغامات بھی ساتھ آ سکتے ہیں۔</string>
+    <string name="move_from_app_step1">اپنی پرانی ایپ میں بیک اپ بنائیں۔ SMS Backup &amp; Restore میں Back up now پر ٹیپ کریں۔</string>
+    <string name="move_from_app_step2">بیک اپ کو Google Drive میں یا فون کی کسی فائل میں محفوظ کریں۔</string>
+    <string name="move_from_app_step3">یہاں واپس آئیں، “پیغامات امپورٹ کریں” پر ٹیپ کریں اور وہی فائل منتخب کریں۔</string>
+    <string name="move_from_app_format">uMessage، SMS Backup &amp; Restore کی بنائی ہوئی XML فائلیں اور اپنے بیک اپ پڑھ سکتا ہے۔</string>
+    <plurals name="sim_messages_done">
+        <item quantity="one">%1$d پیغام کاپی ہو گیا۔ %2$d پہلے سے آپ کی گفتگو میں تھے۔</item>
+        <item quantity="other">%1$d پیغامات کاپی ہو گئے۔ %2$d پہلے سے آپ کی گفتگو میں تھے۔</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="one">%1$d پیغام کاپی ہو گیا۔ %2$d پہلے سے آپ کی گفتگو میں تھے اور %3$d کاپی نہیں ہو سکے۔</item>
+        <item quantity="other">%1$d پیغامات کاپی ہو گئے۔ %2$d پہلے سے آپ کی گفتگو میں تھے اور %3$d کاپی نہیں ہو سکے۔</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="one">بیک اپ محفوظ ہو گیا: %1$d آئٹم</item>
+        <item quantity="other">بیک اپ محفوظ ہو گیا: %1$d آئٹمز</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="one">%d ہندسہ درج کیا گیا</item>
+        <item quantity="other">%d ہندسے درج کیے گئے</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="one">%d فارورڈ کی حد پوری ہو گئی۔ فارورڈنگ کل دوبارہ شروع ہوگی۔</item>
+        <item quantity="other">%d فارورڈز کی حد پوری ہو گئی۔ فارورڈنگ کل دوبارہ شروع ہوگی۔</item>
+    </plurals>
+</resources>

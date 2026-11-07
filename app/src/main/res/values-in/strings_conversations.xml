@@ -4,7 +4,6 @@
     <string name="convlist_empty_title">Belum ada percakapan</string>
     <string name="convlist_empty_body">Pesan yang Anda kirim dan terima akan muncul di sini.</string>
     <string name="convlist_start_conversation">Mulai percakapan</string>
-    <string name="convlist_new_conversation">Percakapan baru</string>
     <string name="convlist_draft">Draf</string>
     <string name="convlist_pinned">Disematkan</string>
     <string name="convlist_muted">Notifikasi nonaktif</string>
@@ -25,7 +24,6 @@
     <string name="convlist_unpin">Lepas sematan</string>
     <string name="convlist_mark_read">Tandai sudah dibaca</string>
     <string name="convlist_mark_unread">Tandai belum dibaca</string>
-    <string name="convlist_block_number">Blokir nomor</string>
     <string name="convlist_add_contact">Tambahkan nomor ke kontak</string>
     <string name="convlist_copy_number">Salin nomor</string>
     <string name="convlist_dial">Telepon</string>
@@ -52,7 +50,5 @@
     <string name="convlist_block_message">Blokir %1$s? Pesan baru dari nomor ini akan masuk ke Pesan diblokir alih-alih kotak masuk. Anda tetap bisa membaca atau memulihkannya di sana.</string>
     <string name="convlist_block_confirm">Blokir</string>
     <string name="convlist_rename_title">Ubah nama percakapan</string>
-    <string name="convlist_rename_hint">Nama percakapan</string>
-    <string name="convlist_ok">Oke</string>
     <string name="convlist_cancel">Batal</string>
 </resources>

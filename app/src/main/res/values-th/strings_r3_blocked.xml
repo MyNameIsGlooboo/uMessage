@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="r3b_info_button">การบล็อกทำงานอย่างไร</string>
-    <string name="r3b_info_title">การบล็อกทำงานอย่างไร</string>
-    <string name="r3b_info_modes">ผู้ส่งที่ไม่รู้จัก</string>
-    <string name="r3b_info_mode_current">ตอนนี้: %1$s</string>
-    <string name="r3b_info_messages">ข้อความที่บล็อก</string>
-    <string name="r3b_info_open_sender">แตะผู้ส่งเพื่ออ่านข้อความ</string>
-    <string name="r3b_info_move">ย้ายไปกล่องข้อความเข้าจะย้ายข้อความทั้งหมดของผู้ส่งไปยังกล่องข้อความเข้า แล้วถามว่าจะอนุญาตผู้ส่งนี้เสมอหรือไม่</string>
-    <string name="r3b_info_release">ปล่อยผ่านครั้งเดียว (แตะข้อความค้างไว้) จะย้ายเฉพาะข้อความนั้นไปยังกล่องข้อความเข้า โดยไม่อนุญาตผู้ส่ง</string>
-    <string name="r3b_info_swipe">ปัดผู้ส่งไปทางท้ายแถวเพื่อย้ายข้อความไปยังกล่องข้อความเข้า</string>
     <string name="r3b_open_sender">เปิดข้อความ</string>
     <string name="r3b_move_inbox_for">ย้ายไปกล่องข้อความเข้า, %1$s</string>
     <string name="r3b_delete_for">ลบ, %1$s</string>
@@ -22,11 +13,7 @@
     <string name="r3b_text_copied">คัดลอกข้อความแล้ว</string>
     <string name="r3b_delete_message">ลบ</string>
     <string name="r3b_received">ได้รับเมื่อ %1$s</string>
-    <string name="r3b_info_mode_strict">เข้มงวด: พักข้อความจากผู้ส่งที่ไม่รู้จักทุกราย รวมถึงรหัสยืนยัน</string>
-    <string name="r3b_info_mode_smart">อัจฉริยะ: พักข้อความจากผู้ส่งที่ไม่รู้จัก แต่ให้รหัสที่ไม่มีลิงก์ผ่านได้</string>
-    <string name="r3b_info_mode_off">ปิด: ข้อความจากผู้ส่งที่ไม่รู้จักจะเข้ากล่องข้อความเข้า กฎของคุณยังมีผล</string>
     <plurals name="r3b_info_purge">
         <item quantity="other">ข้อความที่บล็อกจะถูกลบหลังจาก %d วัน</item>
     </plurals>
-    <string name="r3b_info_purge_off">ข้อความที่บล็อกจะเก็บไว้จนกว่าคุณจะลบ</string>
 </resources>

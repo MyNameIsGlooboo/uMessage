@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">每日轉寄上限</string>
     <string name="w3d_daily_limit_body">每天最多轉寄的則數</string>
     <string name="w3d_hide_lock_codes">在鎖定畫面上隱藏驗證碼</string>
-    <string name="w3d_hide_lock_codes_body">含有驗證碼的訊息在解鎖前，會在鎖定畫面上顯示••••。</string>
 </resources>

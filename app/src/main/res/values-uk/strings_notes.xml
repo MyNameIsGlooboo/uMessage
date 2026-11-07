@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note">Нотатка</string>
+    <string name="add_note">Додати нотатку</string>
+    <string name="edit_note">Редагувати нотатку</string>
+    <string name="delete_note">Видалити нотатку</string>
+    <string name="note_hint">Особиста нотатка, лише на цьому телефоні</string>
+    <string name="note_counter">%1$s/%2$s</string>
+    <string name="note_save">Зберегти</string>
+    <string name="note_cancel">Скасувати</string>
+    <string name="has_notes">З нотатками</string>
+    <string name="notes_section">Нотатки</string>
+    <string name="note_content_desc">Нотатка: %1$s</string>
+</resources>

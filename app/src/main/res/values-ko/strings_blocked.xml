@@ -30,12 +30,10 @@
     <plurals name="spam_purge_notice">
         <item quantity="other">차단된 메시지는 %d일 후 삭제돼요.</item>
     </plurals>
-    <string name="spam_purge_notice_off">차단된 메시지는 직접 삭제할 때까지 보관해요.</string>
     <plurals name="spam_purge_left">
         <item quantity="other">%d일 후 삭제돼요.</item>
     </plurals>
     <string name="spam_purge_left_today">오늘 삭제돼요.</string>
-    <string name="convlist_report_spam">스팸 신고</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="other">대화 %d건을 스팸 신고했어요. 앞으로 받는 문자는 차단함으로 이동하고, 대화는 보관돼요.</item>
     </plurals>
@@ -43,18 +41,9 @@
         <item quantity="other">대화 %d건을 스팸 신고했어요. 앞으로 받는 문자는 차단함으로 이동해요.</item>
     </plurals>
     <string name="blocked_title">차단함</string>
-    <string name="blocked_menu_rules">규칙</string>
-    <string name="blocked_mode_group_cd">알 수 없는 발신자: %1$s, 전체 %3$d개 중 %2$d번째</string>
-    <string name="blocked_mode_desc_strict">엄격: 알 수 없는 발신자의 메시지는 인증 코드까지 모두 차단함에 보관해요.</string>
-    <string name="blocked_mode_desc_smart">스마트: 알 수 없는 발신자의 메시지는 차단함에 보관하되, 링크가 없는 인증 코드는 허용해요.</string>
-    <string name="blocked_mode_desc_off">사용 안 함: 알 수 없는 발신자의 메시지도 받은 메시지함에 도착해요. 직접 설정한 규칙은 계속 적용돼요.</string>
     <string name="blocked_snack_mode">알 수 없는 발신자 처리 모드를 %1$s(으)로 설정했어요.</string>
-    <string name="blocked_off_title">알 수 없는 발신자의 메시지 보관을 중지할까요?</string>
-    <string name="blocked_off_body">알 수 없는 발신자의 메시지가 바로 받은 메시지함에 도착해요. 직접 설정한 규칙은 계속 적용돼요.</string>
-    <string name="blocked_off_confirm">사용 안 함</string>
     <string name="blocked_stats_restored">직접 복원한 메시지 %1$d건</string>
     <string name="blocked_reason_unknown_link">알 수 없는 발신자, 링크 포함</string>
     <string name="blocked_may_be_important">중요할 수 있어요.</string>
     <string name="blocked_action_move_inbox">받은 메시지함으로 이동</string>
-    <string name="blocked_swipe_not_spam">밀어서 받은 메시지함으로 이동</string>
 </resources>

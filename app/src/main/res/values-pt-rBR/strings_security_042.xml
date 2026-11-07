@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">A configuração da tela de bloqueio do seu celular mostra todo o conteúdo das notificações, então o Android ainda pode exibir o texto. Altere em Configurações do celular, em Notificações.</string>
+    <string name="backup_timeout_title">Backup interrompido pelo Android</string>
+    <string name="backup_timeout_text">O Android limita por quanto tempo um backup ou uma restauração pode ser executado em segundo plano, por isso ele foi interrompido. Abra as Configurações para iniciar de novo.</string>
+</resources>

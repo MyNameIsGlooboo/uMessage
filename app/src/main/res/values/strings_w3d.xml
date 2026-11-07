@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">Daily forward limit</string>
     <string name="w3d_daily_limit_body">Most forwards per day</string>
     <string name="w3d_hide_lock_codes">Hide codes on the lock screen</string>
-    <string name="w3d_hide_lock_codes_body">A message with a code shows •••• on the lock screen until you unlock.</string>
 </resources>

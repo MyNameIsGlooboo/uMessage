@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">Von dir als erledigt markiert</string>
     <string name="oem2_state_todo">Noch nicht erledigt</string>
     <string name="oem2_state_limited">Android schränkt uMessage im Hintergrund weiterhin ein</string>
-    <string name="oem2_open_again">Erneut öffnen</string>
     <string name="oem2_undo">Rückgängig</string>
     <string name="oem2_undo_cd">%1$s als nicht erledigt markieren</string>
 </resources>

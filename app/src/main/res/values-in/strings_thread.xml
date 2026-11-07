@@ -72,10 +72,8 @@
     <string name="thread_attach_photo">Foto</string>
     <string name="thread_attach_take_photo">Ambil foto</string>
     <string name="thread_attach_record_video">Rekam video</string>
-    <string name="thread_attach_record_audio">Rekam audio</string>
     <string name="thread_attach_file">File</string>
     <string name="thread_attach_contact">Kontak</string>
-    <string name="thread_attach_schedule">Jadwalkan pesan</string>
     <string name="thread_people_confirm">Selesai</string>
     <string name="thread_people_add_number">Tambahkan nomor ini</string>
     <string name="thread_people_remove">Hapus %1$s</string>

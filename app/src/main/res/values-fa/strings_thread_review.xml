@@ -10,7 +10,6 @@
     <string name="thread_review_copy_password">کپی گذرواژه</string>
     <string name="thread_review_copy_username">کپی نام کاربری</string>
     <string name="thread_review_sim_label">سیم‌کارت %1$s</string>
-    <string name="thread_review_sends_from">ارسال از %1$s</string>
     <string name="thread_review_reply_disabled">این فرستنده نمی‌تواند پاسخ دریافت کند</string>
     <string name="thread_review_attach_camera">دوربین</string>
     <string name="thread_review_attach_voice">صدا</string>

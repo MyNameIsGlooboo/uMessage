@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">Kuralları dosyadan içe aktarın</string>
     <string name="rules2_menu_export">Kuralları dosyaya dışa aktarın</string>
     <string name="rules2_menu_system">Android engellenenler listesi</string>
-    <string name="rules2_import_scope">Kural dosyası yalnızca izin verme ve engelleme kurallarını içerir. Mesaj veya iletme kuralı içermez.</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">Her zaman izin verilen gönderen yok</string>
     <string name="rules2_empty_allowed_body">Her zaman gelen kutunuza ulaşması gereken bir numara, gönderen adı veya kelime ekleyin. Aşağıdaki Kural ekleyin seçeneğine dokunun.</string>
@@ -26,7 +25,6 @@
         <item quantity="one">%d öğe taşıyın</item>
         <item quantity="other">%d öğe taşıyın</item>
     </plurals>
-    <string name="rules2_sheet_list_label">Listeye ekleyin</string>
     <string name="rules2_sheet_list_allow">Her zaman izin verin</string>
     <string name="rules2_sheet_list_block">Her zaman engelleyin</string>
     <string name="rules2_sheet_delete">Kuralı silin</string>

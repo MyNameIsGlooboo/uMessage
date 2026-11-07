@@ -47,7 +47,6 @@
     <string name="settings_app_lock_timeout_5m">Nach 5 Minuten</string>
     <string name="settings_app_lock_screenshots">Screenshots blockieren</string>
     <string name="settings_app_lock_screenshots_body">Verhindert Screenshots und Bildschirmaufnahmen. Nachrichten werden in der Übersicht der zuletzt verwendeten Apps immer ausgeblendet.</string>
-    <string name="settings_app_lock_screenshots_body_old">Verhindert Screenshots und Bildschirmaufnahmen. Auf dieser Android-Version lassen sich nur so auch Nachrichten in der Übersicht der zuletzt verwendeten Apps ausblenden.</string>
     <string name="settings_app_lock_change">PIN, Muster oder Biometrie ändern</string>
     <string name="settings_app_lock_weak">Deine PIN oder dein Muster ist leicht zu erraten</string>
     <string name="settings_app_lock_weak_body">PIN zu schwach. Zum Ändern tippen</string>

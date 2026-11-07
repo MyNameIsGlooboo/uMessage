@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">آپ نے مکمل نشان زد کیا</string>
     <string name="oem2_state_todo">ابھی نہیں ہوا</string>
     <string name="oem2_state_limited">Android اب بھی پس منظر میں uMessage کو محدود کرتا ہے</string>
-    <string name="oem2_open_again">دوبارہ کھولیں</string>
     <string name="oem2_undo">واپس کریں</string>
     <string name="oem2_undo_cd">%1$s کو نامکمل نشان زد کریں</string>
 </resources>

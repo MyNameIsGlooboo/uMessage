@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">Не доставлено</string>
+    <string name="thread_many_parts_note">Этот текст очень длинный: он уйдёт как %1$d SMS. Короткие тексты обходятся дешевле.</string>
+    <string name="attachments_total_too_large">Эти файлы вместе слишком велики для одного сообщения. Оно может не отправиться.</string>
+    <string name="mms_download_failed_channel">Загрузка сообщений с картинками</string>
+    <string name="mms_download_failed_title">Сообщение с картинкой не загружено</string>
+    <string name="mms_download_failed_text">Не удалось загрузить. Проверьте мобильный интернет; возможно, отправителю придётся отправить его снова.</string>
+</resources>

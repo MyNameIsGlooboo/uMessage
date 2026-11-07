@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">Tùy chọn</string>
+    <string name="backup_drive_hint">Để dùng Google Drive, hãy chọn Google Drive trong trình chọn tệp.</string>
+    <string name="move_from_app_title">Chuyển từ ứng dụng khác</string>
+    <string name="move_from_app_row_body">Đưa tin nhắn của bạn sang từ ứng dụng SMS khác</string>
+    <string name="move_from_app_intro">Chuyển sang uMessage? Tin nhắn cũ của bạn có thể đi cùng.</string>
+    <string name="move_from_app_step1">Trong ứng dụng cũ, hãy tạo bản sao lưu. Trong SMS Backup &amp; Restore, nhấn Back up now.</string>
+    <string name="move_from_app_step2">Lưu bản sao lưu vào Google Drive hoặc vào một tệp trên điện thoại.</string>
+    <string name="move_from_app_step3">Quay lại đây, nhấn “Nhập tin nhắn” rồi chọn tệp đó.</string>
+    <string name="move_from_app_format">uMessage đọc được các tệp XML do SMS Backup &amp; Restore tạo và các bản sao lưu của chính nó.</string>
+    <plurals name="sim_messages_done">
+        <item quantity="other">Đã sao chép %1$d tin nhắn. %2$d tin nhắn đã có trong các cuộc trò chuyện của bạn.</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="other">Đã sao chép %1$d tin nhắn. %2$d tin nhắn đã có trong các cuộc trò chuyện của bạn và %3$d tin nhắn không thể sao chép.</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="other">Đã lưu bản sao lưu: %1$d mục</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="other">Đã nhập %d chữ số</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="other">Đã đạt giới hạn %d lượt chuyển tiếp. Sẽ tiếp tục chuyển tiếp vào ngày mai.</item>
+    </plurals>
+</resources>

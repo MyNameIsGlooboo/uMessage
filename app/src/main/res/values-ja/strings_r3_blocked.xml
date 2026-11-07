@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="r3b_info_button">ブロックの仕組み</string>
-    <string name="r3b_info_title">ブロックの仕組み</string>
-    <string name="r3b_info_modes">不明な送信者</string>
-    <string name="r3b_info_mode_current">現在：%1$s</string>
-    <string name="r3b_info_messages">ブロック済みのメッセージ</string>
-    <string name="r3b_info_open_sender">送信者をタップすると、メッセージを読めます。</string>
-    <string name="r3b_info_move">「受信トレイに移動」では、その送信者のすべてのメッセージを受信トレイに移し、常に許可するか確認します。</string>
-    <string name="r3b_info_release">「今回のみ解除」（メッセージを長押し）では、そのメッセージだけを受信トレイに移します。送信者は許可されません。</string>
-    <string name="r3b_info_swipe">送信者の行を末尾に向かってスワイプすると、メッセージを受信トレイに移せます。</string>
     <string name="r3b_open_sender">メッセージを開く</string>
     <string name="r3b_move_inbox_for">%1$sを受信トレイに移動</string>
     <string name="r3b_delete_for">%1$sを削除</string>
@@ -22,11 +13,7 @@
     <string name="r3b_text_copied">本文をコピーしました。</string>
     <string name="r3b_delete_message">削除</string>
     <string name="r3b_received">受信日時：%1$s</string>
-    <string name="r3b_info_mode_strict">厳格：不明な送信者からのメッセージを、認証コードも含めてすべて保留します。</string>
-    <string name="r3b_info_mode_smart">スマート：不明な送信者からのメッセージを保留しますが、リンクのない認証コードは受信トレイに届きます。</string>
-    <string name="r3b_info_mode_off">オフ：不明な送信者からのメッセージも受信トレイに届きます。設定したルールは引き続き適用されます。</string>
     <plurals name="r3b_info_purge">
         <item quantity="other">ブロック済みのメッセージは%d日後に削除されます。</item>
     </plurals>
-    <string name="r3b_info_purge_off">ブロック済みのメッセージは、削除するまで保存されます。</string>
 </resources>

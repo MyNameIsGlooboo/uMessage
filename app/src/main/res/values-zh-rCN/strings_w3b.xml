@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">没有符合此筛选条件的暂存消息。请选择其他条件，或显示全部。</string>
     <string name="w3b_filter_show_all">显示全部</string>
     <string name="w3b_empty_body">uMessage正以%1$s模式过滤消息。暂存的消息会显示在这里。</string>
-    <string name="w3b_empty_change_mode">更改模式</string>
-    <string name="w3b_empty_rules">查看我的规则</string>
     <string name="w3b_why_link">因发件人未知且正文含链接，消息已暂存。</string>
     <string name="w3b_why_unknown">因发件人未知，消息已暂存。</string>
     <string name="w3b_why_rule">因匹配你的某条屏蔽规则，消息已暂存。</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">复制验证码</string>
     <string name="w3b_code_copied">验证码已复制</string>
     <string name="w3b_release_once">仅放行本次</string>
-    <string name="w3b_fix_open">修正对%1$s的此次判定</string>
-    <string name="w3b_fix_title">修正此次判定</string>
     <string name="w3b_fix_note">规则适用于此发件人之后发来的消息。已暂存的消息仍保留在原处。</string>
     <string name="w3b_fix_allow">始终允许此发件人</string>
     <string name="w3b_fix_block">屏蔽此发件人</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">将送达：无法读取联系人，因此无法判定发件人。</string>
     <string name="w3b_verdict_allowed_other">将送达。</string>
     <string name="w3b_examples_title">从示例开始</string>
-    <string name="w3b_example_block_word">屏蔽包含指定词语的消息</string>
     <string name="w3b_example_block_sender">按发件人名称屏蔽</string>
-    <string name="w3b_example_block_prefix">屏蔽以下数字开头的号码…</string>
     <string name="w3b_example_allow_sender">始终允许指定名称的发件人，如你的银行</string>
-    <string name="w3b_example_allow_number">始终允许指定电话号码</string>
     <string name="w3b_overridden_chip">已被允许规则覆盖</string>
 </resources>

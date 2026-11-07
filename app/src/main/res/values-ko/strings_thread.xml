@@ -72,10 +72,8 @@
     <string name="thread_attach_photo">사진</string>
     <string name="thread_attach_take_photo">사진 촬영</string>
     <string name="thread_attach_record_video">동영상 촬영</string>
-    <string name="thread_attach_record_audio">녹음</string>
     <string name="thread_attach_file">파일</string>
     <string name="thread_attach_contact">연락처</string>
-    <string name="thread_attach_schedule">예약 전송</string>
     <string name="thread_people_confirm">완료</string>
     <string name="thread_people_add_number">이 번호 추가</string>
     <string name="thread_people_remove">%1$s 제외</string>

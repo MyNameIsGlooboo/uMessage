@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">メッセージ以外のすべてが含まれます。許可、ブロック、転送のルールと、すべての設定です。ファイルは暗号化されず、転送先の電話番号が含まれるため、他の人がアクセスできない場所に保管してください。転送ルールはオフの状態で復元されます。</string>
     <string name="n09_label_spam">迷惑メッセージ対策</string>
     <string name="n09_label_notifications">通知</string>
     <string name="n09_label_chat">チャットとメッセージ一覧</string>

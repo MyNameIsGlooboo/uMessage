@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">%1$sをコピー</string>
     <string name="thread_r2_menu_search">会話内を検索</string>
     <string name="thread_r2_menu_always_forward">この送信者からは常に転送</string>
-    <string name="thread_r2_block_hint">今後のメッセージは「ブロック済み」に届きます。スマートフォンの外部には何も送信されません。</string>
     <string name="thread_r2_forward_message">このメッセージを転送</string>
     <string name="thread_r2_search_hint">会話内を検索</string>
     <string name="thread_r2_search_close">検索を閉じる</string>

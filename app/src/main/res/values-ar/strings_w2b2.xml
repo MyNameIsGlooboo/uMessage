@@ -5,8 +5,6 @@
     <string name="w2b2_thread_chip_allowed">مسموح دائمًا</string>
     <string name="w2b2_thread_chip_blocked">محظور بقاعدة</string>
     <string name="w2b2_settings_group_dates">التواريخ</string>
-    <string name="w2b2_settings_jalali">التواريخ الجلالية</string>
-    <string name="w2b2_settings_jalali_body">اعرض تواريخ المحادثات والرسائل المجدولة بالتقويم الفارسي</string>
     <string name="w2b2_lock_pattern_hint">صِل %d نقاط على الأقل، ثم ارسم النمط نفسه مجددًا للتأكيد.</string>
     <string name="w2b2_lock_recovery_hint">إذا نسيته، يمكنك استخدام قفل شاشة هاتفك من شاشة القفل للدخول مجددًا.</string>
 </resources>

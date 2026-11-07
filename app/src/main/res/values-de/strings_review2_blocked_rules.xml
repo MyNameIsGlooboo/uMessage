@@ -24,8 +24,6 @@
     <string name="e_example_block_cancel_word">Nachrichten mit لغو۱۱ blockieren</string>
     <string name="e_example_block_ad_prefix">Werbenummern blockieren, die mit 3000 beginnen</string>
     <string name="e_example_allow_number">Eine Nummer immer erlauben, etwa die deiner Postfiliale</string>
-    <string name="e_sheet_sender_label">Absender</string>
-    <string name="e_sheet_text_label">Nachrichtentext</string>
     <string name="e_value_number">Telefonnummer</string>
     <string name="e_value_prefix">Nummer beginnt mit</string>
     <string name="e_value_sender">Absendername</string>

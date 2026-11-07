@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">Xác nhận danh tính của bạn</string>
     <string name="forward_tab">Chuyển tiếp</string>
     <string name="forward_add">Thêm chuyển tiếp</string>
-    <string name="forward_intro">Tin nhắn vào hộp thư đến của bạn và khớp với quy tắc sẽ được chuyển tiếp qua SMS. Tin nhắn rác đã chặn không bao giờ được chuyển tiếp.</string>
     <string name="forward_paid_note">Mỗi lần chuyển tiếp là một SMS có tính phí.</string>
-    <string name="forward_empty_title">Chưa có quy tắc chuyển tiếp</string>
-    <string name="forward_empty_body">Gửi bản sao tin nhắn khớp quy tắc, như thông báo ngân hàng, đến điện thoại khác.</string>
     <string name="forward_row_from">Từ: %1$s</string>
     <string name="forward_row_text">Nội dung: %1$s</string>
     <string name="forward_row_any_sender">Bất kỳ người gửi nào</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">Số %1$d</string>
     <string name="forward_sheet_add_target">Thêm số</string>
     <string name="forward_sheet_remove_target">Xóa số %1$d</string>
-    <string name="forward_sheet_target_needed">Thêm ít nhất một số để chuyển tiếp đến.</string>
     <string name="forward_err_target_invalid">Nhập số điện thoại có từ 7 đến 15 chữ số</string>
     <string name="forward_err_target_duplicate">Số này đã có trong danh sách</string>
     <string name="forward_sheet_window">Chỉ trong khung giờ nhất định</string>
-    <string name="forward_sheet_window_body">Chỉ chuyển tiếp trong khung giờ này. Nếu giờ kết thúc sớm hơn giờ bắt đầu, khung giờ sẽ kéo dài qua nửa đêm.</string>
     <string name="forward_sheet_start">Bắt đầu %1$s</string>
     <string name="forward_sheet_end">Kết thúc %1$s</string>
     <string name="forward_sheet_pick_start">Giờ bắt đầu</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">Nhận trên</string>
     <string name="forward_sheet_send_from_label">Gửi từ</string>
     <string name="forward_sim_same">Cùng SIM</string>
-    <string name="forward_sheet_codes">Gồm cả mã xác minh</string>
-    <string name="forward_sheet_codes_body">Khi tắt, tin nhắn có vẻ chứa mã đăng nhập hoặc mã xác minh sẽ không được chuyển tiếp.</string>
     <string name="forward_sheet_paid">Mỗi lần chuyển tiếp là một SMS có tính phí. Tin nhắn dài được gửi thành nhiều phần.</string>
     <string name="forward_codes_title">Chuyển tiếp mã xác minh?</string>
     <string name="forward_codes_message">Chuyển tiếp mã cho phép người nhận đăng nhập vào tài khoản của bạn. Kẻ lừa đảo lợi dụng điều này: chúng dụ người khác chuyển tiếp tin nhắn để đánh cắp mã. Chỉ bật khi chuyển tiếp đến điện thoại của bạn.</string>
     <string name="forward_codes_confirm">Gồm cả mã</string>
-    <string name="forward_delete_title">Xóa quy tắc chuyển tiếp?</string>
-    <string name="forward_delete_message">Tin nhắn sẽ không còn được chuyển tiếp theo quy tắc này.</string>
     <string name="forward_no_lock_title">Bảo vệ chuyển tiếp bằng khóa ứng dụng</string>
     <string name="forward_no_lock_message">Quy tắc chuyển tiếp gửi tin nhắn của bạn đến điện thoại khác, nên bất kỳ ai cầm điện thoại của bạn khi máy đang mở khóa đều có thể thêm quy tắc. Khi bật khóa ứng dụng, bạn phải nhập PIN hoặc dùng vân tay để thay đổi quy tắc chuyển tiếp.</string>
     <string name="forward_no_lock_continue">Tiếp tục</string>

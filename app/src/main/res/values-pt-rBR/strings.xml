@@ -22,7 +22,6 @@
     <string name="add_contact_or_number">Adicione um contato ou número…</string>
     <string name="suggestions">Sugestões</string>
     <string name="members">Participantes</string>
-    <string name="conversation_name">Nome da conversa</string>
     <string name="conversation_details">Detalhes da conversa</string>
     <string name="rename_conversation">Renomeie a conversa</string>
     <string name="rename_conversation_warning">Só você pode ver este nome da conversa</string>
@@ -80,7 +79,6 @@
     <string name="mms_file_size_limit">Redimensione as imagens enviadas por MMS</string>
     <string name="mms_file_size_limit_none">Sem limite</string>
     <string name="outgoing_messages">Mensagens de saída</string>
-    <string name="group_message_mms">Envie mensagens em grupo como MMS</string>
     <string name="send_group_message">Formato das mensagens em grupo</string>
     <string name="group_message_send_description">O MMS em grupo mantém as respostas em uma só conversa, mas a operadora pode cobrar pelo envio. O envio separado manda uma mensagem para cada pessoa. Você pode mudar isso depois nas configurações do app.</string>
     <string name="group_mms">MMS em grupo</string>
@@ -148,8 +146,6 @@
     <string name="invalid_short_code_desc">Você só pode responder a códigos curtos que tenham apenas números, como \"503501\", mas não a códigos com letras e números, como \"AB-CD0\".</string>
     <string name="attachment_sized_exceeds_max_limit">O anexo excede o tamanho máximo de MMS</string>
     <string name="couldnt_download_mms">Não foi possível baixar o MMS</string>
-    <string name="faq_1_title">Por que o app precisa de acesso à internet?</string>
-    <string name="faq_1_text">Infelizmente, esse acesso é necessário para enviar anexos por MMS. Não poder enviar MMS seria uma grande desvantagem em relação a outros apps, então decidimos seguir esse caminho. Mas, como sempre, não há anúncios, rastreamento nem análise de uso. A internet é usada apenas para enviar MMS.</string>
     <string name="faq_2_title">Meus MMS não estão chegando ao destinatário. O que posso fazer?</string>
     <string name="faq_2_text">As operadoras limitam o tamanho dos MMS. Você pode tentar definir um limite menor nas configurações do app.</string>
     <string name="faq_3_title">O app permite programar o envio de mensagens?</string>

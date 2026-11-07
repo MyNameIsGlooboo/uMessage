@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">Mensajes, reglas y configuración en un archivo</string>
-    <string name="settings_f_backup_rules_group">Reglas y configuración</string>
-    <string name="settings_f_backup_rules_contents">El archivo incluye tus reglas para permitir y bloquear, las reglas de reenvío y la configuración: protección contra spam, notificaciones, fechas, tamaño del texto, tema, tecla Intro y límites de reenvío. Nunca incluye el texto de los mensajes ni el bloqueo de la aplicación. Las reglas de reenvío se restauran desactivadas.</string>
-    <string name="settings_f_backup_messages_contents">Texto e imágenes de los mensajes, en un archivo separado.</string>
     <string name="settings_f_restore_title">¿Restaurar desde este archivo?</string>
     <string name="settings_f_restore_rules">Reglas para permitir: %1$d · Reglas para bloquear: %2$d. Se omiten las reglas que ya tienes.</string>
     <string name="settings_f_restore_forwards">Reglas de reenvío por agregar: %1$d, desactivadas. Actívalas en Reglas › Reenvío.</string>

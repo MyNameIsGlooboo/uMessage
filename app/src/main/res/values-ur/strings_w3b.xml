@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">کوئی روکا گیا پیغام اس فلٹر پر پورا نہیں اترتا۔ کوئی دوسرا منتخب کریں، یا سب کچھ دکھائیں۔</string>
     <string name="w3b_filter_show_all">سبھی دکھائیں</string>
     <string name="w3b_empty_body">uMessage %1$s موڈ میں نگرانی کر رہی ہے۔ جو پیغامات یہ روکے گی وہ یہاں نظر آئیں گے۔</string>
-    <string name="w3b_empty_change_mode">موڈ تبدیل کریں</string>
-    <string name="w3b_empty_rules">میرے اصول دیکھیں</string>
     <string name="w3b_why_link">روکا گیا کیونکہ بھیجنے والا نامعلوم ہے اور متن میں لنک ہے۔</string>
     <string name="w3b_why_unknown">روکا گیا کیونکہ بھیجنے والا نامعلوم ہے۔</string>
     <string name="w3b_why_rule">روکا گیا کیونکہ یہ آپ کے بلاک کے کسی اصول سے مماثل ہے۔</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">کوڈ کاپی کریں</string>
     <string name="w3b_code_copied">کوڈ کاپی ہو گیا</string>
     <string name="w3b_release_once">ایک بار جاری کریں</string>
-    <string name="w3b_fix_open">%1$s کے لیے یہ فیصلہ درست کریں</string>
-    <string name="w3b_fix_title">یہ فیصلہ درست کریں</string>
     <string name="w3b_fix_note">یہ اصول اس بھیجنے والے کے نئے پیغامات پر لاگو ہوتا ہے۔ پہلے سے روکے گئے پیغامات اپنی جگہ رہتے ہیں۔</string>
     <string name="w3b_fix_allow">اس بھیجنے والے کو ہمیشہ اجازت دیں</string>
     <string name="w3b_fix_block">اس بھیجنے والے کو بلاک کریں</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">پہنچا دیا جائے گا: رابطے پڑھے نہیں جا سکتے، اس لیے بھیجنے والے کو جانچا نہیں جا سکتا۔</string>
     <string name="w3b_verdict_allowed_other">پہنچا دیا جائے گا۔</string>
     <string name="w3b_examples_title">کسی مثال سے شروع کریں</string>
-    <string name="w3b_example_block_word">کسی لفظ والے پیغامات بلاک کریں</string>
     <string name="w3b_example_block_sender">بھیجنے والے کا کوئی نام بلاک کریں</string>
-    <string name="w3b_example_block_prefix">اس سے شروع ہونے والے نمبر بلاک کریں…</string>
     <string name="w3b_example_allow_sender">بھیجنے والے کے کسی نام کو ہمیشہ اجازت دیں، جیسے آپ کا بینک</string>
-    <string name="w3b_example_allow_number">کسی فون نمبر کو ہمیشہ اجازت دیں</string>
     <string name="w3b_overridden_chip">اجازت کے اصول نے غیر مؤثر کر دیا</string>
 </resources>

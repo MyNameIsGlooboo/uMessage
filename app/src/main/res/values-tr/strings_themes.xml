@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="preset_intro">uMessage görünümünü seçin: açık veya koyu mod ve renkler.</string>
     <string name="preset_system">Sistem</string>
     <string name="preset_system_desc">Telefonunuza göre açık veya koyu</string>
     <string name="preset_light">Açık</string>
@@ -11,8 +10,6 @@
     <string name="preset_amoled_desc">OLED ekranlar için tam siyah</string>
     <string name="preset_brand">Lacivert</string>
     <string name="preset_brand_desc">Lacivert ve altın sarısı, klasik uMessage görünümü</string>
-    <string name="preset_coral">Mercan</string>
-    <string name="preset_coral_desc">Uygulama simgesinden mercan ve mavi</string>
     <string name="preset_sky">Gökyüzü</string>
     <string name="preset_sky_desc">Yumuşak mavi ve beyaz</string>
     <string name="preset_forest">Orman</string>

@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">Ditandai selesai oleh Anda</string>
     <string name="oem2_state_todo">Belum selesai</string>
     <string name="oem2_state_limited">Android masih membatasi uMessage di latar belakang</string>
-    <string name="oem2_open_again">Buka lagi</string>
     <string name="oem2_undo">Urungkan</string>
     <string name="oem2_undo_cd">Tandai %1$s belum selesai</string>
 </resources>

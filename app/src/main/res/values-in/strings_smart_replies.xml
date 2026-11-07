@@ -3,4 +3,6 @@
     <string name="smart_replies_title">Balasan cerdas</string>
     <string name="smart_replies_summary">Balasan cepat dari daftar di ponsel Anda</string>
     <string name="smart_replies_hide">Sembunyikan saran</string>
+    <string name="smart_replies_notif_title">Balasan cerdas di notifikasi</string>
+    <string name="smart_replies_notif_summary">Tampilkan balasan yang disarankan sebagai tombol di notifikasi. Mengetuknya akan mengirim teksnya.</string>
 </resources>

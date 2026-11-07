@@ -14,15 +14,12 @@
     <string name="ui_add_contact_or_number">Nhập tên hoặc số điện thoại</string>
     <string name="ui_show_dialpad">Hiện bàn phím số</string>
     <string name="ui_show_keyboard">Hiện bàn phím</string>
-    <string name="ui_settings_group_block_lists">Danh sách chặn khác</string>
     <string name="ui_settings_system_block_list">Danh sách chặn của hệ thống</string>
     <string name="ui_settings_system_block_list_body">Các số bị chặn trong mọi ứng dụng trên điện thoại này. uMessage cũng ẩn các số này.</string>
     <string name="ui_settings_blocked_words">Từ bị chặn</string>
     <string name="ui_settings_character_counter">Hiện bộ đếm ký tự</string>
-    <string name="ui_settings_simple_characters">Bỏ dấu khi gửi</string>
     <string name="ui_settings_send_on_enter">Gửi bằng phím Enter</string>
     <string name="ui_settings_delivery_reports">Nhận báo cáo chuyển phát</string>
-    <string name="ui_settings_recycle_bin">Chuyển cuộc trò chuyện đã xóa vào thùng rác</string>
     <string name="ui_two_sentences">%1$s. %2$s</string>
     <string name="ui_tab_with_count">%1$s (%2$d)</string>
     <string name="ui_send_with_sim">%1$s, %2$s</string>

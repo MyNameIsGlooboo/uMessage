@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">Segnato come fatto da te</string>
     <string name="oem2_state_todo">Ancora da fare</string>
     <string name="oem2_state_limited">Android limita ancora uMessage in background</string>
-    <string name="oem2_open_again">Apri di nuovo</string>
     <string name="oem2_undo">Annulla</string>
     <string name="oem2_undo_cd">Segna %1$s come da fare</string>
 </resources>

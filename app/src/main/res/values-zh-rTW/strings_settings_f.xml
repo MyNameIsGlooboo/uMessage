@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">將訊息、規則和設定備份到檔案</string>
-    <string name="settings_f_backup_rules_group">規則和設定</string>
-    <string name="settings_f_backup_rules_contents">檔案包含你的允許和封鎖規則、轉寄規則和設定：垃圾簡訊防護、通知、日期、文字大小、主題、Enter鍵和轉寄限制。不含訊息內容或應用程式鎖。轉寄規則還原後會是關閉狀態。</string>
-    <string name="settings_f_backup_messages_contents">訊息文字和圖片，存放在另一個檔案中。</string>
     <string name="settings_f_restore_title">要從這個檔案還原嗎？</string>
     <string name="settings_f_restore_rules">允許規則：%1$d · 封鎖規則：%2$d。已有的規則會略過。</string>
     <string name="settings_f_restore_forwards">要新增的轉寄規則：%1$d條，預設關閉。請在「規則 › 轉寄」中開啟。</string>

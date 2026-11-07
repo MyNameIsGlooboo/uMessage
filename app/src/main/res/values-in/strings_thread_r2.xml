@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">Salin %1$s</string>
     <string name="thread_r2_menu_search">Cari dalam percakapan</string>
     <string name="thread_r2_menu_always_forward">Selalu teruskan pesan dari pengirim ini</string>
-    <string name="thread_r2_block_hint">Pesan berikutnya masuk ke Diblokir. Tidak ada data yang keluar dari ponsel.</string>
     <string name="thread_r2_forward_message">Teruskan pesan ini</string>
     <string name="thread_r2_search_hint">Cari dalam percakapan</string>
     <string name="thread_r2_search_close">Tutup pencarian</string>

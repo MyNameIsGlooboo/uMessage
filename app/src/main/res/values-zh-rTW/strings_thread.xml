@@ -72,10 +72,8 @@
     <string name="thread_attach_photo">相片</string>
     <string name="thread_attach_take_photo">拍照</string>
     <string name="thread_attach_record_video">錄影</string>
-    <string name="thread_attach_record_audio">錄音</string>
     <string name="thread_attach_file">檔案</string>
     <string name="thread_attach_contact">聯絡人</string>
-    <string name="thread_attach_schedule">排程訊息</string>
     <string name="thread_people_confirm">完成</string>
     <string name="thread_people_add_number">新增這個號碼</string>
     <string name="thread_people_remove">移除%1$s</string>

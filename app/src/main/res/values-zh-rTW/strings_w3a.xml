@@ -2,5 +2,4 @@
 <resources>
     <string name="w3a_forward_limit_channel">轉寄上限</string>
     <string name="w3a_forward_limit_title">今天的轉寄已暫停</string>
-    <string name="w3a_forward_limit_text">已達%d則轉寄的上限。明天會繼續轉寄。</string>
 </resources>

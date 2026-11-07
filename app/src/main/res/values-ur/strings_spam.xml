@@ -5,15 +5,10 @@
     <string name="spam_undo">واپس کریں</string>
     <string name="spam_more_options">مزید اختیارات</string>
     <string name="spam_loading">لوڈ ہو رہا ہے</string>
-    <string name="spam_blocked_title">بلاک شدہ پیغامات</string>
-    <string name="spam_blocked_open_rules">اصول</string>
     <string name="spam_blocked_open_settings">اسپیم سے تحفظ</string>
-    <string name="spam_blocked_mode_line">نامعلوم بھیجنے والے: %1$s</string>
-    <string name="spam_blocked_mode_change">تبدیل کریں</string>
     <string name="spam_blocked_stats_totals">کل %1$d روکے گئے، %2$d بحال کیے گئے</string>
     <string name="spam_blocked_header_cd">پچھلے 7 دنوں میں %1$d اسپیم روکے گئے۔ کل %2$d روکے گئے، %3$d بحال کیے گئے۔</string>
     <string name="spam_blocked_empty_title">ابھی کچھ بلاک نہیں ہوا</string>
-    <string name="spam_blocked_empty_body">آپ کے فلٹرز سے روکے گئے پیغامات یہاں انتظار کرتے ہیں، تاکہ آپ ان میں سے کوئی بھی ایک ٹیپ میں بحال کر سکیں۔</string>
     <string name="spam_action_delete">حذف کریں</string>
     <string name="spam_select">منتخب کریں</string>
     <string name="spam_action_select_all">سب منتخب کریں</string>
@@ -37,12 +32,9 @@
     <string name="spam_sim_both">دونوں SIM</string>
     <string name="spam_sim_missing">SIM فون میں نہیں</string>
     <string name="spam_sim_named">SIM %1$d، %2$s</string>
-    <string name="spam_rules_title">اجازت یافتہ اور بلاک شدہ</string>
     <string name="spam_rules_tab_allowed">اجازت یافتہ</string>
     <string name="spam_rules_tab_blocked">بلاک شدہ</string>
     <string name="spam_rules_add">اصول شامل کریں</string>
-    <string name="spam_rules_import">اصول امپورٹ کریں</string>
-    <string name="spam_rules_export">اصول ایکسپورٹ کریں</string>
     <string name="spam_rules_empty_allowed_title">اجازت کا کوئی اصول نہیں</string>
     <string name="spam_rules_empty_allowed_body">جس چیز کی آپ اجازت دیں وہ ہمیشہ آپ کے ان باکس میں پہنچتی ہے، سخت موڈ میں بھی۔ کوئی نمبر، بھیجنے والے کا نام یا کلیدی لفظ شامل کریں۔</string>
     <string name="spam_rules_empty_blocked_title">بلاک کا کوئی اصول نہیں</string>
@@ -54,34 +46,21 @@
         <item quantity="other">%d اصول امپورٹ ہو گئے</item>
     </plurals>
     <string name="spam_rules_import_skipped">%d سطریں چھوڑ دی گئیں (غلط یا پہلے سے شامل)</string>
-    <string name="spam_rules_import_failed">وہ فائل پڑھی نہیں جا سکی</string>
-    <string name="spam_rules_import_empty">اس فائل میں کوئی درست اصول نہیں ملا</string>
     <plurals name="spam_rules_exported">
         <item quantity="one">%d اصول ایکسپورٹ ہو گیا</item>
         <item quantity="other">%d اصول ایکسپورٹ ہو گئے</item>
     </plurals>
-    <string name="spam_rules_export_failed">فائل لکھی نہیں جا سکی</string>
     <string name="spam_rules_tab_count">%1$s, %2$d</string>
     <string name="spam_type_number">نمبر</string>
     <string name="spam_type_prefix">ابتدائیہ</string>
     <string name="spam_type_sender_id">بھیجنے والے کا نام</string>
     <string name="spam_type_keyword">کلیدی لفظ</string>
     <string name="spam_type_regex">پیٹرن</string>
-    <string name="spam_type_number_help">بالکل درست فون نمبر، مثلاً +919876543210۔</string>
-    <string name="spam_type_prefix_help">ہر وہ نمبر جو اس سے شروع ہو، مثلاً +91140۔</string>
-    <string name="spam_type_sender_id_help">متن والا بھیجنے والا جیسے VM-HDFCBK۔ بڑے چھوٹے حروف سے فرق نہیں پڑتا۔</string>
     <string name="spam_type_keyword_help">ہر وہ پیغام جس میں یہ متن ہو، کسی لمبے لفظ کے اندر بھی: «انعام» سے «انعامات» بھی میل کھاتا ہے۔ بڑے چھوٹے حروف سے فرق نہیں پڑتا۔ بھیجنے والا بھی بلاک ہو جاتا ہے، سوائے اس کے کہ وہ آپ کے رابطوں میں ہو۔</string>
     <string name="spam_type_keyword_allow_help">ہر وہ پیغام جس میں یہ متن ہو، کسی بھی بھیجنے والے سے، آپ کے تمام بلاک سے بچ جاتا ہے۔ لمبا اور بالکل درست جملہ استعمال کریں۔</string>
-    <string name="spam_type_regex_help">ایڈوانسڈ۔ ایک ریگولر ایکسپریشن جو پیغام کے متن سے ملایا جاتا ہے۔ بھیجنے والا بھی بلاک ہو جاتا ہے، سوائے اس کے کہ وہ آپ کے رابطوں میں ہو۔</string>
-    <string name="spam_type_number_hint">+919876543210</string>
-    <string name="spam_type_prefix_hint">+91140</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">مفت تحفہ</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_title_allow">اجازت یافتہ میں شامل کریں</string>
-    <string name="spam_sheet_title_block">بلاک شدہ میں شامل کریں</string>
-    <string name="spam_sheet_type_label">کس سے ملائیں</string>
-    <string name="spam_sheet_pattern_label">قدر</string>
     <string name="spam_sheet_sim_label">لاگو ہوتا ہے</string>
     <string name="spam_sheet_note_label">نوٹ (اختیاری)</string>
     <string name="spam_sheet_add">اصول شامل کریں</string>
@@ -89,7 +68,6 @@
     <string name="spam_err_empty">کوئی قدر درج کریں</string>
     <string name="spam_err_number">درست فون نمبر درج کریں: 3 سے 15 ہندسے، چاہیں تو + سے شروع</string>
     <string name="spam_err_prefix">1 سے 15 ہندسے درج کریں، چاہیں تو + سے شروع</string>
-    <string name="spam_err_sender_id">حروف، ہندسے، ڈیش یا نقطے استعمال کریں، کم از کم ایک حرف کے ساتھ (زیادہ سے زیادہ 16 حرف)</string>
     <string name="spam_err_keyword_short">کم از کم 2 حرف استعمال کریں</string>
     <string name="spam_err_too_long">یہ بہت لمبا ہے</string>
     <string name="spam_err_multiline">ایک ہی سطر استعمال کریں</string>
@@ -109,7 +87,6 @@
     <string name="spam_confirm_save">پھر بھی محفوظ کریں</string>
     <string name="spam_confirm_remove_allowed">اجازت یافتہ سے ہٹائیں اور بلاک کریں</string>
     <string name="spam_confirm_remove_allowed_detail">محفوظ کرنے سے ملتا جلتا اصول آپ کی اجازت یافتہ فہرست سے بھی ہٹ جائے گا۔</string>
-    <string name="spam_import_title">اصول امپورٹ کریں؟</string>
     <plurals name="spam_import_new">
         <item quantity="one">%d نیا اصول</item>
         <item quantity="other">%d نئے اصول</item>
@@ -119,16 +96,10 @@
         <item quantity="one">%d سطر چھوڑ دی جائے گی (پہلے سے شامل یا غلط)</item>
         <item quantity="other">%d سطریں چھوڑ دی جائیں گی (پہلے سے شامل یا غلط)</item>
     </plurals>
-    <string name="spam_import_examples">مثال کے طور پر</string>
-    <string name="spam_import_risky_title">پہلے انہیں دیکھ لیں</string>
-    <string name="spam_import_risky_body">اجازت یافتہ کلیدی الفاظ اور پیٹرنز ہر اس پیغام کو جس میں یہ ہوں، آپ کے تمام بلاک سے بچا دیتے ہیں۔ وسیع اصول عام پیغامات بھی پکڑ سکتے ہیں۔</string>
-    <string name="spam_import_rule_line">%1$s, %2$s: %3$s</string>
     <plurals name="spam_import_more">
         <item quantity="one">اور %d مزید</item>
         <item quantity="other">اور %d مزید</item>
     </plurals>
-    <string name="spam_import_confirm">امپورٹ کریں</string>
-    <string name="spam_settings_title">اسپیم سے تحفظ</string>
     <string name="spam_settings_unknown_title">نامعلوم بھیجنے والوں کے پیغامات</string>
     <string name="spam_settings_unknown_body">وہ بھیجنے والے جو آپ کے رابطوں میں نہیں، جنہیں آپ نے کبھی پیغام نہیں بھیجا، اور جو آپ کی اجازت یافتہ فہرست میں نہیں۔</string>
     <string name="spam_mode_strict">سخت</string>
@@ -141,15 +112,8 @@
     <string name="spam_strict_warning_body">بینک، ڈیلیوری کمپنیاں اور ایک بار کے کوڈ عموماً ایسے بھیجنے والوں سے آتے ہیں جو آپ کے رابطوں میں نہیں۔ سخت موڈ میں یہ بلاک شدہ فولڈر میں چلے جاتے ہیں، کوڈ بھی۔ کوڈ آنے دینے کے لیے اسمارٹ منتخب کریں، یا ان بھیجنے والوں کو ایک بار اجازت دے دیں۔</string>
     <string name="spam_strict_warning_action">بلاک شدہ پیغامات دیکھیں</string>
     <string name="spam_settings_cleanup_title">صفائی</string>
-    <string name="spam_purge_title">بلاک شدہ پیغامات اتنے عرصے بعد حذف کریں</string>
     <string name="spam_purge_body">پرانے بلاک شدہ پیغامات خود بخود ہٹا دیے جاتے ہیں۔</string>
     <string name="spam_purge_days">%d دن</string>
     <string name="spam_purge_forever">کبھی نہیں</string>
-    <string name="spam_settings_notify_title">اطلاعات</string>
     <string name="spam_notify_title">پیغام بلاک ہونے پر اطلاع دیں</string>
-    <string name="spam_notify_body">خاموش اطلاع دکھائیں۔ پہلے سے بند ہے تاکہ اسپیم خاموش رہے۔</string>
-    <string name="spam_settings_rules_row">اصول</string>
-    <string name="spam_settings_rules_row_body">نمبر، بھیجنے والے، کلیدی الفاظ اور پیٹرنز</string>
-    <string name="spam_settings_blocked_row">بلاک شدہ پیغامات</string>
-    <string name="spam_settings_blocked_row_body">دیکھیں، بحال کریں یا حذف کریں</string>
 </resources>

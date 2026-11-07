@@ -3,9 +3,6 @@
 
     <!-- Settings, review 2 fixes: backup page, restore summary, language, notifications -->
     <string name="settings_f_backup_row_body">Messages, rules and settings to a file</string>
-    <string name="settings_f_backup_rules_group">Rules and settings</string>
-    <string name="settings_f_backup_rules_contents">The file holds your allow and block rules, forward rules and settings: spam protection, notifications, dates, text size, theme, Enter key and forwarding limits. Never message text or your app lock. Forward rules come back switched off.</string>
-    <string name="settings_f_backup_messages_contents">Message text and pictures, in a separate file.</string>
 
     <string name="settings_f_restore_title">Restore from this file?</string>
     <string name="settings_f_restore_rules">Allow rules: %1$d · Block rules: %2$d. Rules you already have are skipped.</string>

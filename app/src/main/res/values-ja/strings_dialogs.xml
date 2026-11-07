@@ -25,7 +25,6 @@
     <string name="dialogs_lock_locked_out">ロック解除の試行回数が上限に達しました。\n%d秒後にもう一度お試しください。</string>
     <string name="dialogs_lock_pin_delete">末尾の数字を削除</string>
     <string name="dialogs_lock_pin_confirm">PINを確定</string>
-    <string name="dialogs_lock_pin_entered">%d桁入力済み</string>
     <string name="dialogs_lock_pattern_pad">パターン入力欄</string>
     <string name="dialogs_lock_biometric_hint">指紋または顔で本人確認をしてください。</string>
     <string name="dialogs_lock_biometric_open">生体認証で確認</string>

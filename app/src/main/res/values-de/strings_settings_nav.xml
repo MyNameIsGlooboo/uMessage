@@ -5,20 +5,15 @@
     <string name="settings_nav_group_privacy_about">Datenschutz und Info</string>
     <string name="settings_nav_spam_row">Spam-Schutz</string>
     <string name="settings_nav_spam_page_title">Spam-Schutz</string>
-    <string name="settings_nav_android_block_list">Android-Blockierliste</string>
     <string name="settings_nav_android_block_list_body">Blockiert auch Anrufe</string>
     <string name="settings_nav_decision_log">Warum wurde die Nachricht blockiert?</string>
     <string name="settings_nav_decision_log_body">Verlauf der Entscheidungen zum Erlauben und Blockieren</string>
-    <string name="settings_nav_forwarding">Weiterleiten</string>
     <string name="settings_nav_forwarded_tab">Tab „Weitergeleitet“ anzeigen</string>
     <string name="settings_nav_forwarded_tab_body">Ein Tab für weitergeleitete Nachrichten in der Unterhaltungsliste</string>
     <string name="settings_nav_forward_pause">Alles Weiterleiten pausieren</string>
     <string name="settings_nav_forward_pause_body">Regeln bleiben gespeichert, nichts wird weitergeleitet</string>
-    <string name="settings_nav_messages_row">Schreiben, Senden und Speichern</string>
-    <string name="settings_nav_messages_title">Nachrichten</string>
     <string name="settings_nav_group_typing">Schreiben</string>
     <string name="settings_nav_group_sending">Senden</string>
-    <string name="settings_nav_group_storage">Speichern</string>
     <string name="settings_nav_simple_chars">Sonderbuchstaben vereinfachen</string>
     <string name="settings_nav_simple_chars_body">Einfache Buchstaben (é wird zu e), weniger SMS-Teile</string>
     <string name="settings_nav_long_mms">Langen Text als MMS senden</string>
@@ -27,13 +22,10 @@
     <string name="settings_nav_archived">Archivierte Unterhaltungen</string>
     <string name="settings_nav_keep_archived">Archivierte Unterhaltungen bleiben verborgen</string>
     <string name="settings_nav_keep_archived_body">Auch bei neuen Nachrichten bleiben Unterhaltungen archiviert</string>
-    <string name="settings_nav_recycle_bin">Papierkorb verwenden</string>
-    <string name="settings_nav_recycle_bin_body">Gelöschte Nachrichten landen zuerst im Papierkorb</string>
     <string name="settings_nav_default_sim_value">SIM %1$d · %2$s</string>
     <string name="settings_nav_default_sim_ask">Jedes Mal fragen</string>
     <string name="settings_nav_open_android_settings">Öffnet die Android-Einstellungen</string>
     <string name="settings_nav_lock_screen">Datenschutz auf dem Sperrbildschirm</string>
-    <string name="settings_nav_theme">Design</string>
     <string name="settings_nav_theme_body">Hell, dunkel und Farben</string>
     <string name="settings_nav_app_lock">App-Sperre</string>
     <string name="settings_nav_app_lock_body">PIN, Muster oder Fingerabdruck abfragen</string>
@@ -42,7 +34,6 @@
     <string name="settings_nav_about_row">Info</string>
     <string name="settings_nav_about_body">Version, Quellcode und Lizenzen</string>
     <string name="settings_nav_privacy_body">Funktioniert offline. Nichts verlässt dein Handy</string>
-    <string name="settings_nav_version_body">Tippe, um die vollständige Build-Nummer zu kopieren</string>
     <string name="settings_nav_version_copied">Build-Nummer kopiert</string>
     <string name="settings_nav_source_body">Auf GitHub öffnen</string>
     <string name="settings_nav_licenses_row">Open-Source-Lizenzen</string>
@@ -62,7 +53,6 @@
     <string name="settings_nav_group_alerts">Hinweise</string>
     <string name="settings_nav_notify_body">Eine lautlose Benachrichtigung für jede blockierte Nachricht</string>
     <string name="settings_nav_theme_title">Darstellung</string>
-    <string name="settings_nav_theme_intro">Wähle, wie uMessage aussieht. Das App-Symbol bleibt gleich.</string>
     <string name="settings_nav_theme_modes">Modus</string>
     <string name="settings_nav_theme_colours">Farben</string>
 </resources>

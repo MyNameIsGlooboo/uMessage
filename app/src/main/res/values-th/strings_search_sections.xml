@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_section_conversations">การสนทนา</string>
+    <string name="search_section_contacts">รายชื่อติดต่อ</string>
+    <string name="search_section_see_all">ดูทั้งหมด</string>
+</resources>

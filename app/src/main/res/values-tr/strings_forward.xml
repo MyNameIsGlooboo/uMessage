@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">Kimliğinizi doğrulayın</string>
     <string name="forward_tab">İletin</string>
     <string name="forward_add">İletme ekleyin</string>
-    <string name="forward_intro">Gelen kutunuza ulaşan ve bir kuralla eşleşen mesajlar SMS ile iletilir. Engellenen spam asla iletilmez.</string>
     <string name="forward_paid_note">Her iletme ücretli bir SMS\'tir.</string>
-    <string name="forward_empty_title">İletme kuralı yok</string>
-    <string name="forward_empty_body">Banka bildirimleri gibi eşleşen mesajların bir kopyasını başka bir telefona gönderin.</string>
     <string name="forward_row_from">Gönderen: %1$s</string>
     <string name="forward_row_text">Metin: %1$s</string>
     <string name="forward_row_any_sender">Tüm gönderenler</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">Numara %1$d</string>
     <string name="forward_sheet_add_target">Numara ekleyin</string>
     <string name="forward_sheet_remove_target">Şu numarayı kaldırın: %1$d</string>
-    <string name="forward_sheet_target_needed">İletmek için en az bir alıcı numarası ekleyin.</string>
     <string name="forward_err_target_invalid">7 ile 15 haneli bir telefon numarası girin</string>
     <string name="forward_err_target_duplicate">Bu numara zaten listede</string>
     <string name="forward_sheet_window">Yalnızca belirli saatlerde</string>
-    <string name="forward_sheet_window_body">Yalnızca bu saatler arasında iletin. Bitiş başlangıçtan önceyse süre gece yarısını aşar.</string>
     <string name="forward_sheet_start">Başlangıç %1$s</string>
     <string name="forward_sheet_end">Bitiş %1$s</string>
     <string name="forward_sheet_pick_start">Başlangıç saati</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">Mesajı alan SIM</string>
     <string name="forward_sheet_send_from_label">Gönderen SIM</string>
     <string name="forward_sim_same">Aynı SIM</string>
-    <string name="forward_sheet_codes">Doğrulama kodlarını dahil edin</string>
-    <string name="forward_sheet_codes_body">Kapalıyken giriş veya doğrulama kodu gibi görünen mesajlar iletilmez.</string>
     <string name="forward_sheet_paid">Her iletme ücretli bir SMS\'tir. Uzun mesajlar birkaç parça halinde gönderilir.</string>
     <string name="forward_codes_title">Doğrulama kodları iletilsin mi?</string>
     <string name="forward_codes_message">Kodları iletmek, alıcının hesaplarınıza giriş yapmasına olanak tanır. Dolandırıcılar bundan yararlanır: kodları çalmak için insanları mesajlarını iletmeye ikna ederler. Bunu yalnızca size ait bir telefon için açın.</string>
     <string name="forward_codes_confirm">Kodları dahil edin</string>
-    <string name="forward_delete_title">İletme kuralı silinsin mi?</string>
-    <string name="forward_delete_message">Bu kuralla artık mesaj iletilmeyecek.</string>
     <string name="forward_no_lock_title">İletmeyi uygulama kilidiyle koruyun</string>
     <string name="forward_no_lock_message">İletme kuralları mesajlarınızı başka telefonlara gönderir. Bu yüzden kilidi açık telefonunuzu eline alan herkes kural ekleyebilir. Uygulama kilidi açıksa iletme kurallarını değiştirmek için PIN veya parmak iziniz istenir.</string>
     <string name="forward_no_lock_continue">Devam edin</string>

@@ -5,20 +5,15 @@
     <string name="settings_nav_group_privacy_about">الخصوصية وحول التطبيق</string>
     <string name="settings_nav_spam_row">الحماية من الرسائل غير المرغوب فيها</string>
     <string name="settings_nav_spam_page_title">الحماية من الرسائل غير المرغوب فيها</string>
-    <string name="settings_nav_android_block_list">قائمة الحظر في Android</string>
     <string name="settings_nav_android_block_list_body">تحظر المكالمات أيضًا</string>
     <string name="settings_nav_decision_log">لماذا حُظرت؟</string>
     <string name="settings_nav_decision_log_body">سجل قرارات السماح والحظر</string>
-    <string name="settings_nav_forwarding">إعادة التوجيه</string>
     <string name="settings_nav_forwarded_tab">أظهر تبويب «المعاد توجيهها»</string>
     <string name="settings_nav_forwarded_tab_body">تبويب في قائمة المحادثات للرسائل المعاد توجيهها</string>
     <string name="settings_nav_forward_pause">أوقف كل إعادة التوجيه مؤقتًا</string>
     <string name="settings_nav_forward_pause_body">تبقى القواعد محفوظة ولا يُعاد توجيه أي شيء</string>
-    <string name="settings_nav_messages_row">الكتابة والإرسال والتخزين</string>
-    <string name="settings_nav_messages_title">الرسائل</string>
     <string name="settings_nav_group_typing">الكتابة</string>
     <string name="settings_nav_group_sending">الإرسال</string>
-    <string name="settings_nav_group_storage">التخزين</string>
     <string name="settings_nav_simple_chars">بسّط الحروف الخاصة</string>
     <string name="settings_nav_simple_chars_body">حروف عادية (é تصبح e) وأجزاء أقل</string>
     <string name="settings_nav_long_mms">أرسل النص الطويل كرسالة MMS</string>
@@ -27,13 +22,10 @@
     <string name="settings_nav_archived">المحادثات المؤرشفة</string>
     <string name="settings_nav_keep_archived">أبقِ المحادثات المؤرشفة مخفية</string>
     <string name="settings_nav_keep_archived_body">تبقى المحادثات مؤرشفة عند وصول رسائل جديدة</string>
-    <string name="settings_nav_recycle_bin">استخدم سلة المهملات</string>
-    <string name="settings_nav_recycle_bin_body">تبقى الرسائل المحذوفة في سلة المهملات أولًا</string>
     <string name="settings_nav_default_sim_value">شريحة SIM %1$d · %2$s</string>
     <string name="settings_nav_default_sim_ask">اسأل في كل مرة</string>
     <string name="settings_nav_open_android_settings">يفتح إعدادات Android</string>
     <string name="settings_nav_lock_screen">خصوصية شاشة القفل</string>
-    <string name="settings_nav_theme">المظهر</string>
     <string name="settings_nav_theme_body">فاتح وداكن وألوان</string>
     <string name="settings_nav_app_lock">قفل التطبيق</string>
     <string name="settings_nav_app_lock_body">اطلب رقم التعريف الشخصي أو نمطًا أو بصمة إصبع</string>
@@ -42,7 +34,6 @@
     <string name="settings_nav_about_row">حول التطبيق</string>
     <string name="settings_nav_about_body">الإصدار والشيفرة المصدرية والتراخيص</string>
     <string name="settings_nav_privacy_body">يعمل دون إنترنت. لا شيء يغادر هاتفك</string>
-    <string name="settings_nav_version_body">اضغط لنسخ رقم البناء كاملًا</string>
     <string name="settings_nav_version_copied">تم نسخ رقم البناء</string>
     <string name="settings_nav_source_body">افتح على GitHub</string>
     <string name="settings_nav_licenses_row">تراخيص المصادر المفتوحة</string>
@@ -62,7 +53,6 @@
     <string name="settings_nav_group_alerts">التنبيهات</string>
     <string name="settings_nav_notify_body">إشعار صامت لكل رسالة محظورة</string>
     <string name="settings_nav_theme_title">المظهر</string>
-    <string name="settings_nav_theme_intro">اختر مظهر uMessage. تبقى أيقونة التطبيق كما هي.</string>
     <string name="settings_nav_theme_modes">الوضع</string>
     <string name="settings_nav_theme_colours">الألوان</string>
 </resources>

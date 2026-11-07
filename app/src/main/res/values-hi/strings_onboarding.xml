@@ -5,11 +5,10 @@
     <string name="onb_next">आगे</string>
     <string name="onb_skip">अभी छोड़ें</string>
     <string name="onb_finish">मैसेज भेजना शुरू करें</string>
-    <string name="onb_open">खोलें</string>
     <string name="onb_welcome_title">uMessage में आपका स्वागत है</string>
     <string name="onb_welcome_intro">बेहतर मैसेजिंग, कम स्पैम.</string>
     <string name="onb_welcome_spam">स्पैम बाहर ही रहे</string>
-    <string name="onb_welcome_spam_desc">अनजान भेजने वालों के मैसेज \'ब्लॉक किए गए\' में रहते हैं, खोते नहीं. आप सख़्त, स्मार्ट या बंद चुनें.</string>
+    <string name="onb_welcome_spam_desc">अनजान भेजने वालों के मैसेज \'ब्लॉक किए गए\' में रहते हैं, खोते नहीं.</string>
     <string name="onb_welcome_codes">एक टैप में कोड</string>
     <string name="onb_welcome_codes_desc">सीधे सूचना से पुष्टि करने का कोड कॉपी करें.</string>
     <string name="onb_welcome_copy">जितना चाहिए, उतना ही कॉपी करें</string>
@@ -27,8 +26,6 @@
     <string name="onb_welcome_start">शुरू करें</string>
     <string name="onb_default_title">uMessage को अपना SMS ऐप बनाएं</string>
     <string name="onb_default_body">Android सिर्फ़ डिफ़ॉल्ट एसएमएस ऐप को मैसेज पाने और फ़िल्टर करने देता है. इसके बिना uMessage आपके इनबॉक्स की सुरक्षा नहीं कर सकता.</string>
-    <string name="onb_default_status_yes">uMessage आपका डिफ़ॉल्ट एसएमएस ऐप है</string>
-    <string name="onb_default_status_no">uMessage अभी आपका डिफ़ॉल्ट एसएमएस ऐप नहीं है</string>
     <string name="onb_default_action">डिफ़ॉल्ट बनाएं</string>
     <string name="onb_default_denied">अनुरोध अस्वीकार कर दिया गया. आप फिर कोशिश कर सकते हैं या आगे बढ़कर बाद में Android की सेटिंग में इसे चुन सकते हैं.</string>
     <string name="onb_default_unavailable">आपके फ़ोन पर डिफ़ॉल्ट ऐप चुनने की विंडो नहीं खुल सकी. Android की सेटिंग खोलें, ऐप &gt; डिफ़ॉल्ट ऐप &gt; SMS ऐप पर जाएं और uMessage चुनें.</string>
@@ -44,7 +41,6 @@
     <string name="onb_perm_notifications_reason">नए मैसेज की सूचना देता है, जिसमें जवाब देने और कोड कॉपी करने के बटन होते हैं.</string>
     <string name="onb_perm_allow_all">सभी को अनुमति दें</string>
     <string name="onb_perm_open_settings">सेटिंग खोलें</string>
-    <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">अनजान भेजने वालों के लिए तरीका चुनें</string>
     <string name="onb_mode_strict">सख़्त</string>
     <string name="onb_mode_smart">स्मार्ट</string>
@@ -52,8 +48,6 @@
     <string name="onb_mode_warning_title">बैंक और कोड वाले मैसेज का ध्यान रखें</string>
     <string name="onb_mode_warning_body">सख़्त मोड में अनजान भेजने वालों के बैंक अलर्ट, डिलीवरी की जानकारी और ओटीपी \'ब्लॉक किए गए\' में रखे जाते हैं, कोड भी. आपको सूचना नहीं मिलेगी, इसलिए ऐसे मैसेज का इंतज़ार हो तो \'ब्लॉक किए गए\' देखें.</string>
     <string name="onb_oem_title">uMessage को चलते रहने दें</string>
-    <string name="onb_oem_body_known">%1$s फ़ोन अक्सर बैकग्राउंड में ऐप बंद कर देते हैं, जिससे मैसेज देर से मिलते हैं. ये चरण एक बार पूरे करें.</string>
-    <string name="onb_oem_body_generic">कुछ फ़ोन बैकग्राउंड में ऐप बंद कर देते हैं, जिससे मैसेज देर से मिलते हैं. uMessage को बिना पाबंदी चलने की अनुमति दें.</string>
     <string name="onb_oem_manual_hint">अगर कोई स्क्रीन न खुले, तो दिखाया गया नाम अपनी सेटिंग में खोजें.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi या Poco</string>
     <string name="onb_oem_huawei">Huawei या Honor</string>
@@ -68,11 +62,8 @@
     <string name="onb_oem_step_ignore_battery">बैटरी ऑप्टिमाइज़ेशन से छूट दें</string>
     <string name="onb_oem_step_app_info">ऐप की सेटिंग देखें</string>
     <string name="onb_oem_step_app_info_desc">बैटरी और अनुमतियां देखने के लिए uMessage ऐप का पेज खोलें.</string>
-    <string name="onb_done_title">सब तैयार है</string>
-    <string name="onb_done_body">uMessage तैयार है. रोके गए मैसेज \'ब्लॉक किए गए\' में दिखेंगे, जहां आप एक टैप में भेजने वाले को अनुमति दे सकते हैं.</string>
     <string name="onb_done_summary_default">डिफ़ॉल्ट एसएमएस ऐप</string>
     <string name="onb_done_summary_permissions">अनुमतियां</string>
-    <string name="onb_done_summary_mode">अनजान भेजने वाले</string>
     <string name="onb_done_ok">हो गया</string>
     <string name="onb_done_todo">ध्यान देने की ज़रूरत है</string>
     <string name="onb_notif_copy_code">कोड कॉपी करें</string>

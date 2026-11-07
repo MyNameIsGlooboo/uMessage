@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">将消息、规则和设置保存到文件</string>
-    <string name="settings_f_backup_rules_group">规则和设置</string>
-    <string name="settings_f_backup_rules_contents">文件包含你的允许和屏蔽规则、转发规则及设置：垃圾短信防护、通知、日期、文字大小、主题、回车键和转发限制。不包含消息正文或应用锁。恢复后的转发规则处于关闭状态。</string>
-    <string name="settings_f_backup_messages_contents">消息正文和图片，保存在单独的文件中。</string>
     <string name="settings_f_restore_title">从此文件恢复？</string>
     <string name="settings_f_restore_rules">允许规则：%1$d条；屏蔽规则：%2$d条。已有规则将跳过。</string>
     <string name="settings_f_restore_forwards">将添加%1$d条转发规则，均为关闭状态。可在“规则›转发”中开启。</string>

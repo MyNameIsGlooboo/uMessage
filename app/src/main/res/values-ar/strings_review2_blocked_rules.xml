@@ -28,8 +28,6 @@
     <string name="e_example_block_cancel_word">احظر الرسائل التي تحتوي على لغو۱۱</string>
     <string name="e_example_block_ad_prefix">احظر أرقام الإعلانات التي تبدأ بـ 3000</string>
     <string name="e_example_allow_number">اسمح دائمًا برقم، مثل رقم مكتب البريد</string>
-    <string name="e_sheet_sender_label">المرسل</string>
-    <string name="e_sheet_text_label">نص الرسالة</string>
     <string name="e_value_number">رقم الهاتف</string>
     <string name="e_value_prefix">يبدأ الرقم بـ</string>
     <string name="e_value_sender">اسم المرسل</string>

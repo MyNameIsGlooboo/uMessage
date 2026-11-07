@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">메시지를 제외한 모든 항목, 즉 허용·차단·전달 규칙과 모든 설정을 백업해요. 파일은 암호화되지 않으며 전달 대상 전화번호가 포함되니 안전한 곳에 보관해 주세요. 전달 규칙은 꺼진 상태로 복원돼요.</string>
     <string name="n09_label_spam">스팸 차단</string>
     <string name="n09_label_notifications">알림</string>
     <string name="n09_label_chat">대화 및 메시지 목록</string>

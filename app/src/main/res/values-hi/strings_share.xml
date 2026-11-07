@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_picker_title">इसमें शेयर करें</string>
+    <string name="share_recent_chats">हाल की चैट</string>
+</resources>

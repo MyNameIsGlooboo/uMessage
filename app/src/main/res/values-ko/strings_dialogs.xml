@@ -25,7 +25,6 @@
     <string name="dialogs_lock_locked_out">잠금 해제를 너무 많이 틀렸어요.\n%d초 후에 다시 시도해 주세요.</string>
     <string name="dialogs_lock_pin_delete">마지막 숫자 삭제</string>
     <string name="dialogs_lock_pin_confirm">PIN 확인</string>
-    <string name="dialogs_lock_pin_entered">%d자리 입력됨</string>
     <string name="dialogs_lock_pattern_pad">패턴 입력 영역</string>
     <string name="dialogs_lock_biometric_hint">지문이나 얼굴로 본인임을 확인해 주세요.</string>
     <string name="dialogs_lock_biometric_open">생체 인증</string>

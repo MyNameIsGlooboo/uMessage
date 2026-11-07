@@ -14,21 +14,13 @@
     <plurals name="rules_deleted_many">
         <item quantity="other">규칙 %d개를 삭제했어요.</item>
     </plurals>
-    <string name="rules_system_block_list">시스템 차단 목록(전화도 차단)</string>
-    <string name="rules_legacy_note_keyword">이전 차단 단어 목록에서 가져옴</string>
-    <string name="rules_legacy_note_number">시스템 차단 목록에서 가져옴</string>
-    <string name="rules_legacy_banner_title">이전 차단 목록 발견</string>
-    <string name="rules_legacy_banner_body">이 규칙 외에도 일부 단어와 번호가 차단되어 있어요. 여기로 옮기면 한곳에서 모두 확인하고 수정할 수 있어요.</string>
     <string name="rules_legacy_banner_review">확인</string>
     <string name="rules_legacy_banner_not_now">나중에</string>
     <string name="rules_legacy_section_keywords">이전 차단 단어 목록</string>
     <string name="rules_legacy_section_keywords_body">이 단어들을 규칙으로 옮기기 전까지는 필터링에 계속 사용해요. 옮기고 나면 이전 목록은 더 이상 사용하지 않아요.</string>
-    <string name="rules_legacy_section_system_body">Android 시스템이 uMessage 앱에 전달하기 전에 해당 번호의 문자를 폐기하므로 차단함에 표시되지 않아요. 이 목록은 전화 앱과 공유되며 전화도 차단해요.</string>
     <string name="rules_legacy_chip_old_list">이전 목록</string>
     <string name="rules_legacy_chip_system">시스템, 전화도 차단</string>
     <string name="rules_legacy_move">규칙으로 이동</string>
-    <string name="rules_legacy_open_system">시스템 차단 목록 열기</string>
-    <string name="rules_migrate_title">이전 차단 목록을 규칙으로 이동</string>
     <string name="rules_migrate_nothing">이전 목록의 모든 항목이 이미 규칙에 있어요.</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="other">이전 차단 단어 목록의 단어 %d개를 키워드 차단 규칙으로 바꿔요. 이후 이전 목록은 더 이상 사용하지 않아요.</item>
@@ -39,9 +31,7 @@
     <plurals name="rules_migrate_numbers">
         <item quantity="other">시스템 차단 목록의 번호 %d개도 차단 규칙으로 추가</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">Android 시스템이 시스템 차단 목록에 있는 번호의 문자를 폐기하므로 uMessage 앱에 전달되지 않아요. uMessage 규칙으로 추가하면 차단함에서 문자를 읽고 복원할 수 있지만, 먼저 시스템 목록에서 해당 번호를 삭제해야 해요.</string>
     <string name="rules_migrate_remove">시스템 차단 목록에서도 삭제</string>
-    <string name="rules_migrate_remove_body">시스템 목록은 전화도 차단해요. 목록에서 삭제한 번호는 다시 전화를 걸 수 있어요. uMessage 앱은 문자만 필터링해요.</string>
     <plurals name="rules_migrate_numbers_kept">
         <item quantity="other">와일드카드 항목 %d개는 규칙으로 만들 수 없어 시스템 목록에 남아요.</item>
     </plurals>
@@ -59,7 +49,6 @@
         <item quantity="other">항목 %d개는 이전 목록에 남아 있어요.</item>
     </plurals>
     <string name="rules_migrated_nothing">이동한 항목이 없어요.</string>
-    <string name="settings_system_block_list_body_calls">이 휴대전화 전체에서 전화와 문자를 차단해요. Android 시스템이 uMessage 앱에 전달하기 전에 문자를 폐기해요. 번호를 허용 및 차단으로 옮길 수 있어요.</string>
     <string name="settings_old_blocked_words">이전 차단 단어 목록</string>
     <string name="settings_old_blocked_words_body">허용 및 차단으로 이동 중</string>
 </resources>

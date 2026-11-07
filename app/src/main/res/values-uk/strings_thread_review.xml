@@ -10,7 +10,6 @@
     <string name="thread_review_copy_password">Копіювати пароль</string>
     <string name="thread_review_copy_username">Копіювати ім’я користувача</string>
     <string name="thread_review_sim_label">SIM %1$s</string>
-    <string name="thread_review_sends_from">Надсилання з %1$s</string>
     <string name="thread_review_reply_disabled">Цей відправник не може отримувати відповіді</string>
     <string name="thread_review_attach_camera">Камера</string>
     <string name="thread_review_attach_voice">Голос</string>

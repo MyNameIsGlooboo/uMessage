@@ -22,7 +22,6 @@
     <string name="add_contact_or_number">Ajouter un contact ou un numéro…</string>
     <string name="suggestions">Suggestions</string>
     <string name="members">Membres</string>
-    <string name="conversation_name">Nom de la conversation</string>
     <string name="conversation_details">Détails de la conversation</string>
     <string name="rename_conversation">Renommer la conversation</string>
     <string name="rename_conversation_warning">Ce nom de conversation n\'est visible que par vous</string>
@@ -80,7 +79,6 @@
     <string name="mms_file_size_limit">Redimensionner les images envoyées par MMS</string>
     <string name="mms_file_size_limit_none">Aucune limite</string>
     <string name="outgoing_messages">Messages sortants</string>
-    <string name="group_message_mms">Envoyer les messages de groupe par MMS</string>
     <string name="send_group_message">Format des messages de groupe</string>
     <string name="group_message_send_description">Les MMS de groupe regroupent les réponses dans une seule conversation, mais votre opérateur peut facturer des frais. L\'envoi séparé envoie un message à chaque personne. Vous pourrez modifier ce choix dans les paramètres de l\'application.</string>
     <string name="group_mms">MMS de groupe</string>
@@ -148,8 +146,6 @@
     <string name="invalid_short_code_desc">Vous pouvez uniquement répondre aux numéros courts composés de chiffres, comme « 503501 », mais pas à ceux qui contiennent des lettres et des chiffres, comme « AB-CD0 ».</string>
     <string name="attachment_sized_exceeds_max_limit">La pièce jointe dépasse la taille maximale des MMS</string>
     <string name="couldnt_download_mms">Impossible de télécharger le MMS</string>
-    <string name="faq_1_title">Pourquoi l\'application a-t-elle besoin d\'accéder à Internet ?</string>
-    <string name="faq_1_text">Cet accès est malheureusement nécessaire pour envoyer des pièces jointes par MMS. Ne pas pouvoir envoyer de MMS serait un gros désavantage par rapport aux autres applications, nous avons donc fait ce choix. Comme toujours, il n\'y a aucune publicité, aucun suivi ni aucune analyse d\'utilisation. Internet sert uniquement à envoyer des MMS.</string>
     <string name="faq_2_title">Mon destinataire ne reçoit pas mes MMS. Que puis-je faire ?</string>
     <string name="faq_2_text">Les opérateurs limitent la taille des MMS. Essayez de choisir une limite plus basse dans les paramètres de l\'application.</string>
     <string name="faq_3_title">L\'application permet-elle de programmer des messages ?</string>

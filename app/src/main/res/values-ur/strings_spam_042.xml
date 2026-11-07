@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s042_whole_word_title">صرف مکمل لفظ</string>
+    <string name="s042_whole_word_help">صرف لفظ کو الگ سے ملاتا ہے: win، نہ کہ window۔</string>
+    <string name="s042_held_code_channel">روکے گئے کوڈ</string>
+    <string name="s042_held_code_title">کوڈ جیسا پیغام روکا گیا</string>
+    <string name="s042_held_code_text">اس میں لنک ہے، اس لیے یہ بلاک شدہ میں ہے۔ اگر آپ کوڈ کا انتظار کر رہے ہیں تو بلاک شدہ کھولیں۔</string>
+    <string name="s042_contacts_off_title">اسپام فلٹر رکا ہوا ہے</string>
+    <string name="s042_contacts_off_body">رابطوں کی اجازت دیں تاکہ uMessage دوستوں اور اجنبیوں میں فرق کر سکے۔</string>
+    <string name="s042_contacts_off_allow">اجازت دیں</string>
+</resources>

@@ -25,7 +25,6 @@
     <string name="dialogs_lock_locked_out">Bạn đã mở khóa sai quá nhiều lần.\nThử lại sau %d giây.</string>
     <string name="dialogs_lock_pin_delete">Xóa chữ số cuối</string>
     <string name="dialogs_lock_pin_confirm">Xác nhận PIN</string>
-    <string name="dialogs_lock_pin_entered">Đã nhập %d chữ số</string>
     <string name="dialogs_lock_pattern_pad">Vùng vẽ hình mở khóa</string>
     <string name="dialogs_lock_biometric_hint">Dùng vân tay hoặc khuôn mặt để xác nhận danh tính của bạn.</string>
     <string name="dialogs_lock_biometric_open">Xác minh bằng sinh trắc học</string>

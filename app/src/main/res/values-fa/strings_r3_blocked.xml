@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="r3b_info_button">مسدود کردن چطور کار می‌کند</string>
-    <string name="r3b_info_title">مسدود کردن چطور کار می‌کند</string>
-    <string name="r3b_info_modes">فرستنده‌های ناشناس</string>
-    <string name="r3b_info_mode_current">اکنون: %1$s</string>
-    <string name="r3b_info_messages">پیام‌های مسدودشده</string>
-    <string name="r3b_info_open_sender">برای خواندن پیام‌های هر فرستنده، روی آن بزنید.</string>
-    <string name="r3b_info_move">«انتقال به صندوق ورودی» همهٔ پیام‌های فرستنده را به صندوق ورودی می‌برد و اگر شماره تلفن باشد، فرستنده را مجاز می‌کند.</string>
-    <string name="r3b_info_release">«آزاد کردن برای یک بار» (لمس و نگه‌داشتن پیام) فقط همان پیام را به صندوق ورودی می‌برد. فرستنده مجاز نمی‌شود.</string>
-    <string name="r3b_info_swipe">برای انتقال پیام‌های فرستنده به صندوق ورودی، ردیف او را به‌سمت انتهای ردیف بکشید.</string>
     <string name="r3b_open_sender">باز کردن پیام‌ها</string>
     <string name="r3b_move_inbox_for">انتقال به صندوق ورودی، %1$s</string>
     <string name="r3b_delete_for">حذف، %1$s</string>
@@ -22,12 +13,8 @@
     <string name="r3b_text_copied">متن کپی شد</string>
     <string name="r3b_delete_message">حذف</string>
     <string name="r3b_received">دریافت در %1$s</string>
-    <string name="r3b_info_mode_strict">سخت‌گیرانه: پیام‌های همهٔ فرستنده‌های ناشناس، حتی کدهای تأیید را نگه می‌دارد.</string>
-    <string name="r3b_info_mode_smart">هوشمند: پیام‌های فرستنده‌های ناشناس را نگه می‌دارد، ولی کدهای بدون پیوند را عبور می‌دهد.</string>
-    <string name="r3b_info_mode_off">خاموش: پیام‌های فرستنده‌های ناشناس به صندوق ورودی می‌رسند. قانون‌های شما همچنان اعمال می‌شوند.</string>
     <plurals name="r3b_info_purge" tools:ignore="ImpliedQuantity">
         <item quantity="one">پیام‌های مسدودشده پس از %d روز حذف می‌شوند.</item>
         <item quantity="other">پیام‌های مسدودشده پس از %d روز حذف می‌شوند.</item>
     </plurals>
-    <string name="r3b_info_purge_off">پیام‌های مسدودشده تا زمانی که حذفشان کنید نگه داشته می‌شوند.</string>
 </resources>

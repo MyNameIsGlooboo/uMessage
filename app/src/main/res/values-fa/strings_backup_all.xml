@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">همه‌چیز به‌جز پیام‌های شما: قانون‌های اجازه دادن، مسدود کردن و بازارسال و همهٔ تنظیمات. فایل رمزگذاری نشده و شماره‌های مقصد بازارسال را در خود دارد، پس آن را در جایی خصوصی نگه دارید. قانون‌های بازارسال پس از بازیابی خاموش هستند.</string>
     <string name="n09_label_spam">محافظت در برابر هرزنامه</string>
     <string name="n09_label_notifications">اعلان‌ها</string>
     <string name="n09_label_chat">گفتگو و فهرست پیام‌ها</string>

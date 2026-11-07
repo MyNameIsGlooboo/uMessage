@@ -33,7 +33,6 @@
     <string name="dialogs_lock_locked_out">Too many incorrect unlock attempts.\nTry again in %d seconds.</string>
     <string name="dialogs_lock_pin_delete">Delete last digit</string>
     <string name="dialogs_lock_pin_confirm">Confirm PIN</string>
-    <string name="dialogs_lock_pin_entered">%d digits entered</string>
     <string name="dialogs_lock_pattern_pad">Pattern pad</string>
     <string name="dialogs_lock_biometric_hint">Use your fingerprint or face to confirm it\'s you.</string>
     <string name="dialogs_lock_biometric_open">Verify with biometrics</string>

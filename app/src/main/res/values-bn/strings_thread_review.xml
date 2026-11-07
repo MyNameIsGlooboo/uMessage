@@ -10,7 +10,6 @@
     <string name="thread_review_copy_password">পাসওয়ার্ড কপি করুন</string>
     <string name="thread_review_copy_username">ব্যবহারকারীর নাম কপি করুন</string>
     <string name="thread_review_sim_label">SIM %1$s</string>
-    <string name="thread_review_sends_from">%1$s থেকে পাঠানো হবে</string>
     <string name="thread_review_reply_disabled">এই প্রেরক উত্তর গ্রহণ করতে পারেন না</string>
     <string name="thread_review_attach_camera">ক্যামেরা</string>
     <string name="thread_review_attach_voice">ভয়েস</string>

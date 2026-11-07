@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">İsteğe bağlı</string>
+    <string name="backup_drive_hint">Google Drive\'ı kullanmak için dosya seçicide onu seçin.</string>
+    <string name="move_from_app_title">Başka bir uygulamadan taşıyın</string>
+    <string name="move_from_app_row_body">Mesajlarınızı başka bir SMS uygulamasından getirin</string>
+    <string name="move_from_app_intro">uMessage\'a mı geçiyorsunuz? Eski mesajlarınız da sizinle gelebilir.</string>
+    <string name="move_from_app_step1">Eski uygulamanızda yedek alın. SMS Backup &amp; Restore\'da Back up now\'a dokunun.</string>
+    <string name="move_from_app_step2">Yedeği Google Drive\'a veya telefonunuzdaki bir dosyaya kaydedin.</string>
+    <string name="move_from_app_step3">Buraya dönün, “Mesajları içe aktarın”a dokunun ve o dosyayı seçin.</string>
+    <string name="move_from_app_format">uMessage, SMS Backup &amp; Restore\'un oluşturduğu XML dosyalarını ve kendi yedeklerini okur.</string>
+    <plurals name="sim_messages_done">
+        <item quantity="one">%1$d mesaj kopyalandı. %2$d mesaj zaten görüşmelerinizde vardı.</item>
+        <item quantity="other">%1$d mesaj kopyalandı. %2$d mesaj zaten görüşmelerinizde vardı.</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="one">%1$d mesaj kopyalandı. %2$d mesaj zaten görüşmelerinizde vardı ve %3$d mesaj kopyalanamadı.</item>
+        <item quantity="other">%1$d mesaj kopyalandı. %2$d mesaj zaten görüşmelerinizde vardı ve %3$d mesaj kopyalanamadı.</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="one">Yedek kaydedildi: %1$d öğe</item>
+        <item quantity="other">Yedek kaydedildi: %1$d öğe</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="one">%d hane girildi</item>
+        <item quantity="other">%d hane girildi</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="one">%d iletme sınırına ulaşıldı. İletme yarın devam edecek.</item>
+        <item quantity="other">%d iletme sınırına ulaşıldı. İletme yarın devam edecek.</item>
+    </plurals>
+</resources>

@@ -2,5 +2,4 @@
 <resources>
     <string name="w3a_forward_limit_channel">فارورڈنگ کی حد</string>
     <string name="w3a_forward_limit_title">آج کے لیے فارورڈنگ موقوف</string>
-    <string name="w3a_forward_limit_text">%d فارورڈز کی حد پوری ہو گئی۔ فارورڈنگ کل دوبارہ شروع ہوگی۔</string>
 </resources>

@@ -15,21 +15,13 @@
         <item quantity="one">%d regra excluída</item>
         <item quantity="other">%d regras excluídas</item>
     </plurals>
-    <string name="rules_system_block_list">Lista de bloqueio do sistema (também bloqueia chamadas)</string>
-    <string name="rules_legacy_note_keyword">Da antiga lista de palavras bloqueadas</string>
-    <string name="rules_legacy_note_number">Da lista de bloqueio do sistema</string>
-    <string name="rules_legacy_banner_title">Listas de bloqueio antigas encontradas</string>
-    <string name="rules_legacy_banner_body">Algumas palavras e números são bloqueados fora destas regras. Mova-os para cá para ver e alterar tudo em um só lugar.</string>
     <string name="rules_legacy_banner_review">Revise</string>
     <string name="rules_legacy_banner_not_now">Agora não</string>
     <string name="rules_legacy_section_keywords">Antiga lista de palavras bloqueadas</string>
     <string name="rules_legacy_section_keywords_body">Continua filtrando até você mover estas palavras para as regras. Depois, a lista antiga deixa de ser usada.</string>
-    <string name="rules_legacy_section_system_body">O Android descarta as mensagens desses números antes de chegarem ao uMessage, por isso elas nunca aparecem em Bloqueados. Esta lista é compartilhada com o app Telefone e também bloqueia chamadas.</string>
     <string name="rules_legacy_chip_old_list">Lista antiga</string>
     <string name="rules_legacy_chip_system">Sistema, inclui chamadas</string>
     <string name="rules_legacy_move">Mova para as regras</string>
-    <string name="rules_legacy_open_system">Abra a lista de bloqueio do sistema</string>
-    <string name="rules_migrate_title">Mova as listas de bloqueio antigas para as regras</string>
     <string name="rules_migrate_nothing">Tudo das listas antigas já está nas suas regras.</string>
     <plurals name="rules_migrate_keywords" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d palavra da antiga lista de palavras bloqueadas vira uma regra de bloqueio por palavra-chave. Depois, a lista antiga deixa de ser usada.</item>
@@ -43,9 +35,7 @@
         <item quantity="one">Adicione também %d número da lista de bloqueio do sistema como regra de bloqueio</item>
         <item quantity="other">Adicione também %d números da lista de bloqueio do sistema como regras de bloqueio</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">O Android descarta as mensagens dos números na lista de bloqueio do sistema, por isso o uMessage nunca as recebe. Com regras do uMessage, essas mensagens podem ir para Bloqueados, onde você pode lê-las e restaurá-las, mas só depois que os números saírem da lista do sistema.</string>
     <string name="rules_migrate_remove">Remova-os também da lista de bloqueio do sistema</string>
-    <string name="rules_migrate_remove_body">A lista do sistema também bloqueia chamadas. Os números que você remover dela poderão ligar para você novamente. O uMessage só filtra mensagens.</string>
     <plurals name="rules_migrate_numbers_kept" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d entrada com curinga não pode virar regra e fica na lista do sistema.</item>
         <item quantity="other">%d entradas com curinga não podem virar regras e ficam na lista do sistema.</item>
@@ -68,7 +58,6 @@
         <item quantity="other">%d entradas ficam nas listas antigas</item>
     </plurals>
     <string name="rules_migrated_nothing">Nada foi movido.</string>
-    <string name="settings_system_block_list_body_calls">Bloqueia chamadas e mensagens em todo o celular. O Android descarta essas mensagens antes de chegarem ao uMessage. Você pode mover os números para Permitidos e bloqueados.</string>
     <string name="settings_old_blocked_words">Antiga lista de palavras bloqueadas</string>
     <string name="settings_old_blocked_words_body">Em migração para Permitidos e bloqueados</string>
 </resources>

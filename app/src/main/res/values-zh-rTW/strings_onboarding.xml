@@ -5,11 +5,10 @@
     <string name="onb_next">下一步</string>
     <string name="onb_skip">暫時略過</string>
     <string name="onb_finish">開始傳訊息</string>
-    <string name="onb_open">開啟</string>
     <string name="onb_welcome_title">歡迎使用uMessage</string>
     <string name="onb_welcome_intro">更好的訊息體驗，更少的垃圾簡訊。</string>
     <string name="onb_welcome_spam">擋下垃圾簡訊</string>
-    <string name="onb_welcome_spam_desc">未知寄件者的訊息會留在「已封鎖」，不會遺失。你可以選擇嚴格、智慧或關閉。</string>
+    <string name="onb_welcome_spam_desc">未知寄件者的訊息會留在「已封鎖」，不會遺失。</string>
     <string name="onb_welcome_codes">一鍵複製驗證碼</string>
     <string name="onb_welcome_codes_desc">直接從通知複製驗證碼。</string>
     <string name="onb_welcome_copy">只複製需要的部分</string>
@@ -27,8 +26,6 @@
     <string name="onb_welcome_start">開始使用</string>
     <string name="onb_default_title">將uMessage設為簡訊應用程式</string>
     <string name="onb_default_body">Android只允許預設簡訊應用程式接收及篩選訊息。如果不設定，uMessage就無法保護你的收件匣。</string>
-    <string name="onb_default_status_yes">uMessage是你的預設簡訊應用程式</string>
-    <string name="onb_default_status_no">uMessage尚未設為預設簡訊應用程式</string>
     <string name="onb_default_action">設為預設</string>
     <string name="onb_default_denied">要求遭到拒絕。你可以再試一次，或先繼續，之後在Android設定中設定。</string>
     <string name="onb_default_unavailable">你的手機無法開啟預設應用程式對話框。請開啟Android設定，依序點選「應用程式」、「預設應用程式」、「簡訊應用程式」，然後選擇uMessage。</string>
@@ -44,7 +41,6 @@
     <string name="onb_perm_notifications_reason">收到新訊息時提醒你，並提供回覆及複製驗證碼按鈕。</string>
     <string name="onb_perm_allow_all">全部允許</string>
     <string name="onb_perm_open_settings">開啟設定</string>
-    <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">選擇如何處理未知寄件者</string>
     <string name="onb_mode_strict">嚴格</string>
     <string name="onb_mode_smart">智慧</string>
@@ -52,8 +48,6 @@
     <string name="onb_mode_warning_title">銀行與驗證碼訊息須知</string>
     <string name="onb_mode_warning_body">在嚴格模式下，未知寄件者傳來的銀行通知、物流更新及一次性驗證碼都會留在「已封鎖」，驗證碼也不例外。你不會收到通知，因此在等待這類訊息時，請查看「已封鎖」。</string>
     <string name="onb_oem_title">讓uMessage持續執行</string>
-    <string name="onb_oem_body_known">%1$s手機經常會停止背景中的應用程式，導致訊息延遲。請完成以下步驟一次。</string>
-    <string name="onb_oem_body_generic">部分手機會停止背景中的應用程式，導致訊息延遲。請允許uMessage不受限制地執行。</string>
     <string name="onb_oem_manual_hint">如果畫面沒有開啟，請在「設定」中搜尋顯示的名稱。</string>
     <string name="onb_oem_xiaomi">小米、Redmi或Poco</string>
     <string name="onb_oem_huawei">華為或榮耀</string>
@@ -68,11 +62,8 @@
     <string name="onb_oem_step_ignore_battery">忽略電池最佳化</string>
     <string name="onb_oem_step_app_info">檢查應用程式設定</string>
     <string name="onb_oem_step_app_info_desc">開啟uMessage的應用程式頁面，檢查電池與權限設定。</string>
-    <string name="onb_done_title">一切就緒</string>
-    <string name="onb_done_body">uMessage已準備就緒。被攔下的訊息會顯示在「已封鎖」，輕觸一下即可允許寄件者。</string>
     <string name="onb_done_summary_default">預設簡訊應用程式</string>
     <string name="onb_done_summary_permissions">權限</string>
-    <string name="onb_done_summary_mode">未知寄件者</string>
     <string name="onb_done_ok">完成</string>
     <string name="onb_done_todo">需要處理</string>
     <string name="onb_notif_copy_code">複製驗證碼</string>

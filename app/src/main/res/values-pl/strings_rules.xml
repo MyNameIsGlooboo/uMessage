@@ -17,21 +17,13 @@
         <item quantity="many">Usunięto %d reguł</item>
         <item quantity="other">Usunięto %d reguły</item>
     </plurals>
-    <string name="rules_system_block_list">Systemowa lista blokowanych (blokuje też połączenia)</string>
-    <string name="rules_legacy_note_keyword">Ze starej listy blokowanych słów</string>
-    <string name="rules_legacy_note_number">Z systemowej listy blokowanych</string>
-    <string name="rules_legacy_banner_title">Znaleziono starsze listy blokowanych</string>
-    <string name="rules_legacy_banner_body">Niektóre słowa i numery są blokowane poza tymi regułami. Przenieś je tutaj, aby przeglądać i zmieniać wszystko w jednym miejscu.</string>
     <string name="rules_legacy_banner_review">Przejrzyj</string>
     <string name="rules_legacy_banner_not_now">Nie teraz</string>
     <string name="rules_legacy_section_keywords">Stara lista blokowanych słów</string>
     <string name="rules_legacy_section_keywords_body">Nadal filtruje wiadomości, dopóki nie przeniesiesz tych słów do reguł. Wtedy stara lista przestanie być używana.</string>
-    <string name="rules_legacy_section_system_body">Android odrzuca wiadomości z tych numerów, zanim dotrą do uMessage, więc nigdy nie pojawiają się w zakładce „Zablokowane”. Ta lista jest wspólna z aplikacją Telefon i blokuje też połączenia.</string>
     <string name="rules_legacy_chip_old_list">Stara lista</string>
     <string name="rules_legacy_chip_system">Systemowa, też połączenia</string>
     <string name="rules_legacy_move">Przenieś do reguł</string>
-    <string name="rules_legacy_open_system">Otwórz systemową listę blokowanych</string>
-    <string name="rules_migrate_title">Przenieś starsze listy blokowanych do reguł</string>
     <string name="rules_migrate_nothing">Wszystko ze starszych list jest już w twoich regułach.</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="one">%d słowo ze starej listy blokowanych słów stanie się regułą blokującą według słowa kluczowego. Stara lista przestanie być używana.</item>
@@ -51,9 +43,7 @@
         <item quantity="many">Dodaj też %d numerów z systemowej listy blokowanych jako reguły blokujące</item>
         <item quantity="other">Dodaj też %d numeru z systemowej listy blokowanych jako reguły blokujące</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">Android odrzuca wiadomości z numerów na systemowej liście blokowanych, więc nigdy nie docierają do uMessage. Dzięki regułom uMessage ich wiadomości mogą trafiać do zakładki „Zablokowane”, gdzie możesz je przeczytać i przywrócić, ale dopiero po usunięciu numerów z listy systemowej.</string>
     <string name="rules_migrate_remove">Usuń je też z systemowej listy blokowanych</string>
-    <string name="rules_migrate_remove_body">Lista systemowa blokuje też połączenia. Numery, które z niej usuniesz, znów będą mogły do ciebie dzwonić. uMessage filtruje tylko wiadomości.</string>
     <plurals name="rules_migrate_numbers_kept">
         <item quantity="one">%d wpis z symbolem wieloznacznym nie może stać się regułą i pozostanie na liście systemowej.</item>
         <item quantity="few">%d wpisy z symbolami wieloznacznymi nie mogą stać się regułami i pozostaną na liście systemowej.</item>
@@ -86,7 +76,6 @@
         <item quantity="other">%d wpisu pozostaje na starszych listach</item>
     </plurals>
     <string name="rules_migrated_nothing">Nic nie przeniesiono.</string>
-    <string name="settings_system_block_list_body_calls">Blokuje połączenia i wiadomości na całym telefonie. Android odrzuca te wiadomości, zanim dotrą do uMessage. Możesz przenieść numery do sekcji „Dozwolone i zablokowane”.</string>
     <string name="settings_old_blocked_words">Stara lista blokowanych słów</string>
     <string name="settings_old_blocked_words_body">Przenoszenie do sekcji „Dozwolone i zablokowane”</string>
 </resources>

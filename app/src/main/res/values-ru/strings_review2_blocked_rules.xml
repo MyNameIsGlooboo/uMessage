@@ -26,8 +26,6 @@
     <string name="e_example_block_cancel_word">Заблокировать сообщения с لغو۱۱</string>
     <string name="e_example_block_ad_prefix">Заблокировать рекламные номера, начинающиеся с 3000</string>
     <string name="e_example_allow_number">Всегда разрешать номер, например вашей почты</string>
-    <string name="e_sheet_sender_label">Отправитель</string>
-    <string name="e_sheet_text_label">Текст сообщения</string>
     <string name="e_value_number">Номер телефона</string>
     <string name="e_value_prefix">Номер начинается с</string>
     <string name="e_value_sender">Имя отправителя</string>

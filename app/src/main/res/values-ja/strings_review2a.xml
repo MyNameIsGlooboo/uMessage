@@ -3,5 +3,4 @@
     <string name="r2a_filter_codes">認証コード</string>
     <string name="r2a_filter_codes_empty_title">認証コードはありません。</string>
     <string name="r2a_filter_codes_empty_body">最新のメッセージにワンタイムコードが含まれる会話がここに表示されます。</string>
-    <string name="r2a_search_codes_window">過去24時間以内</string>
 </resources>

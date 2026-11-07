@@ -5,8 +5,6 @@
     <string name="w2b2_thread_chip_allowed">อนุญาตแล้วเสมอ</string>
     <string name="w2b2_thread_chip_blocked">บล็อกแล้วตามกฎ</string>
     <string name="w2b2_settings_group_dates">วันที่</string>
-    <string name="w2b2_settings_jalali">วันที่แบบจาลาลี</string>
-    <string name="w2b2_settings_jalali_body">แสดงวันที่ในการสนทนาและข้อความที่กำหนดเวลาส่งตามปฏิทินเปอร์เซีย</string>
     <string name="w2b2_lock_pattern_hint">ลากเชื่อมอย่างน้อย %d จุด แล้ววาดแบบเดิมอีกครั้งเพื่อยืนยัน</string>
     <string name="w2b2_lock_recovery_hint">หากลืม สามารถใช้การล็อกหน้าจอของโทรศัพท์เพื่อเข้าใช้งานได้จากหน้าจอล็อก</string>
 </resources>

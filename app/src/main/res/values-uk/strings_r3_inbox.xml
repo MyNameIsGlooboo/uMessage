@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="r3_inbox_filter_show">Показати фільтри</string>
-    <string name="r3_inbox_filter_hide">Приховати фільтри</string>
-    <string name="r3_inbox_filter_show_active">Показати фільтри. Увімкнено фільтр «%1$s»</string>
-    <string name="r3_inbox_filter_hide_active">Приховати фільтри. Увімкнено фільтр «%1$s»</string>
-</resources>

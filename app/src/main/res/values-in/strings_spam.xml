@@ -5,15 +5,10 @@
     <string name="spam_undo">Urungkan</string>
     <string name="spam_more_options">Opsi lainnya</string>
     <string name="spam_loading">Memuat</string>
-    <string name="spam_blocked_title">Pesan diblokir</string>
-    <string name="spam_blocked_open_rules">Aturan diizinkan dan diblokir</string>
     <string name="spam_blocked_open_settings">Setelan blokir</string>
-    <string name="spam_blocked_mode_line">Pengirim tidak dikenal: %1$s</string>
-    <string name="spam_blocked_mode_change">Ubah</string>
     <string name="spam_blocked_stats_totals">Total %1$d dicegah, %2$d dipulihkan</string>
     <string name="spam_blocked_header_cd">%1$d spam dicegah dalam 7 hari terakhir. Total %2$d dicegah, %3$d dipulihkan.</string>
     <string name="spam_blocked_empty_title">Belum ada yang diblokir</string>
-    <string name="spam_blocked_empty_body">Pesan yang dicegah filter disimpan di sini agar bisa dipulihkan dengan sekali ketuk.</string>
     <string name="spam_action_delete">Hapus</string>
     <string name="spam_select">Pilih</string>
     <string name="spam_action_select_all">Pilih semua</string>
@@ -35,12 +30,9 @@
     <string name="spam_sim_both">Kedua SIM</string>
     <string name="spam_sim_missing">SIM tidak ada di ponsel</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
-    <string name="spam_rules_title">Diizinkan dan diblokir</string>
     <string name="spam_rules_tab_allowed">Diizinkan</string>
     <string name="spam_rules_tab_blocked">Diblokir</string>
     <string name="spam_rules_add">Tambah aturan</string>
-    <string name="spam_rules_import">Impor aturan</string>
-    <string name="spam_rules_export">Ekspor aturan</string>
     <string name="spam_rules_empty_allowed_title">Belum ada aturan diizinkan</string>
     <string name="spam_rules_empty_allowed_body">Apa pun yang diizinkan selalu masuk ke kotak masuk, bahkan dalam mode filter ketat. Tambahkan nomor, nama pengirim, atau kata kunci.</string>
     <string name="spam_rules_empty_blocked_title">Belum ada aturan blokir</string>
@@ -51,33 +43,20 @@
         <item quantity="other">%d aturan diimpor</item>
     </plurals>
     <string name="spam_rules_import_skipped">%d baris dilewati (tidak valid atau sudah ditambahkan)</string>
-    <string name="spam_rules_import_failed">Tidak dapat membaca file tersebut</string>
-    <string name="spam_rules_import_empty">Tidak ada aturan valid dalam file tersebut</string>
     <plurals name="spam_rules_exported">
         <item quantity="other">%d aturan diekspor</item>
     </plurals>
-    <string name="spam_rules_export_failed">Tidak dapat menulis file</string>
     <string name="spam_rules_tab_count">%1$s, %2$d</string>
     <string name="spam_type_number">Nomor</string>
     <string name="spam_type_prefix">Awalan nomor</string>
     <string name="spam_type_sender_id">Nama pengirim</string>
     <string name="spam_type_keyword">Kata kunci</string>
     <string name="spam_type_regex">Pola (regex)</string>
-    <string name="spam_type_number_help">Nomor telepon lengkap, misalnya +919876543210.</string>
-    <string name="spam_type_prefix_help">Semua nomor yang diawali angka ini, misalnya +91140.</string>
-    <string name="spam_type_sender_id_help">Nama pengirim berupa teks, seperti VM-HDFCBK. Huruf besar dan kecil tidak dibedakan.</string>
     <string name="spam_type_keyword_help">Semua pesan yang memuat teks ini, termasuk dalam kata yang lebih panjang: “hadiah” juga cocok dengan “berhadiah”. Huruf besar dan kecil tidak dibedakan. Pengirim juga diblokir, kecuali ada di kontak Anda.</string>
     <string name="spam_type_keyword_allow_help">Semua pesan yang memuat teks ini lolos dari semua blokir, dari pengirim mana pun. Gunakan frasa yang panjang dan spesifik.</string>
-    <string name="spam_type_regex_help">Lanjutan. Ekspresi reguler yang dicocokkan dengan teks pesan. Pengirim juga diblokir, kecuali ada di kontak Anda.</string>
-    <string name="spam_type_number_hint">+919876543210</string>
-    <string name="spam_type_prefix_hint">+91140</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">hadiah gratis</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_title_allow">Tambahkan ke diizinkan</string>
-    <string name="spam_sheet_title_block">Tambahkan ke diblokir</string>
-    <string name="spam_sheet_type_label">Yang dicocokkan</string>
-    <string name="spam_sheet_pattern_label">Nilai</string>
     <string name="spam_sheet_sim_label">Berlaku untuk</string>
     <string name="spam_sheet_note_label">Catatan (opsional)</string>
     <string name="spam_sheet_add">Tambah aturan</string>
@@ -85,7 +64,6 @@
     <string name="spam_err_empty">Masukkan nilai</string>
     <string name="spam_err_number">Masukkan nomor telepon yang valid: 3–15 digit, boleh diawali +</string>
     <string name="spam_err_prefix">Masukkan 1–15 digit, boleh diawali +</string>
-    <string name="spam_err_sender_id">Gunakan huruf, angka, tanda hubung, atau titik, dengan minimal satu huruf (maksimal 16 karakter)</string>
     <string name="spam_err_keyword_short">Gunakan minimal 2 karakter</string>
     <string name="spam_err_too_long">Terlalu panjang</string>
     <string name="spam_err_multiline">Gunakan satu baris saja</string>
@@ -105,7 +83,6 @@
     <string name="spam_confirm_save">Tetap simpan</string>
     <string name="spam_confirm_remove_allowed">Hapus dari Diizinkan dan blokir</string>
     <string name="spam_confirm_remove_allowed_detail">Menyimpan juga akan menghapus aturan yang cocok dari daftar Diizinkan.</string>
-    <string name="spam_import_title">Impor aturan?</string>
     <plurals name="spam_import_new">
         <item quantity="other">%d aturan baru</item>
     </plurals>
@@ -113,15 +90,9 @@
     <plurals name="spam_import_skipped">
         <item quantity="other">%d baris akan dilewati (sudah ditambahkan atau tidak valid)</item>
     </plurals>
-    <string name="spam_import_examples">Contohnya</string>
-    <string name="spam_import_risky_title">Periksa ini dulu</string>
-    <string name="spam_import_risky_body">Kata kunci dan pola (regex) yang diizinkan membuat semua pesan yang memuatnya lolos dari semua blokir. Aturan yang terlalu luas bisa memfilter pesan biasa.</string>
-    <string name="spam_import_rule_line">%1$s, %2$s: %3$s</string>
     <plurals name="spam_import_more">
         <item quantity="other">dan %d lainnya</item>
     </plurals>
-    <string name="spam_import_confirm">Impor</string>
-    <string name="spam_settings_title">Setelan spam</string>
     <string name="spam_settings_unknown_title">Pesan dari pengirim tidak dikenal</string>
     <string name="spam_settings_unknown_body">Pengirim yang tidak ada di kontak, belum pernah Anda kirimi pesan, dan tidak ada di daftar diizinkan.</string>
     <string name="spam_mode_strict">Mode filter ketat</string>
@@ -134,15 +105,8 @@
     <string name="spam_strict_warning_body">Pesan bank, jasa pengiriman, dan kode sekali pakai biasanya berasal dari pengirim yang tidak ada di kontak. Dalam mode filter ketat, semuanya masuk ke folder Diblokir, termasuk kode. Pilih Cerdas agar kode tetap masuk, atau cukup izinkan pengirim tersebut sekali.</string>
     <string name="spam_strict_warning_action">Tinjau pesan diblokir</string>
     <string name="spam_settings_cleanup_title">Bersihkan</string>
-    <string name="spam_purge_title">Hapus pesan diblokir setelah</string>
     <string name="spam_purge_body">Pesan lama yang diblokir dihapus otomatis.</string>
     <string name="spam_purge_days">%d hari</string>
     <string name="spam_purge_forever">Tidak pernah</string>
-    <string name="spam_settings_notify_title">Notifikasi</string>
     <string name="spam_notify_title">Beri tahu saat pesan diblokir</string>
-    <string name="spam_notify_body">Tampilkan notifikasi tanpa suara. Nonaktif secara default agar spam tetap senyap.</string>
-    <string name="spam_settings_rules_row">Aturan diizinkan dan diblokir</string>
-    <string name="spam_settings_rules_row_body">Nomor, pengirim, kata kunci, dan pola (regex)</string>
-    <string name="spam_settings_blocked_row">Pesan diblokir</string>
-    <string name="spam_settings_blocked_row_body">Tinjau, pulihkan, atau hapus</string>
 </resources>

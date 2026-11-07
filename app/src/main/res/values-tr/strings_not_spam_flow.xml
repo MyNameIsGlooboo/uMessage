@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">Gelen kutusuna taşındı</string>
+    <string name="nsf_snack_moved_allowed">Gelen kutusuna taşındı. %1$s numarasından gelecek iletiler de ulaşacak.</string>
+    <string name="nsf_moving">Gelen kutusuna taşınıyor</string>
+</resources>

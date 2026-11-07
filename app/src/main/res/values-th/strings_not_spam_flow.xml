@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">ย้ายไปกล่องข้อความเข้าแล้ว</string>
+    <string name="nsf_snack_moved_allowed">ย้ายไปกล่องข้อความเข้าแล้ว ข้อความถัดไปจาก %1$s จะเข้ามาด้วย</string>
+    <string name="nsf_moving">กำลังย้ายไปกล่องข้อความเข้า</string>
+</resources>

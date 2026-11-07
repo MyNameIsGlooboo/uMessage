@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_section_conversations">Conversaciones</string>
+    <string name="search_section_contacts">Contactos</string>
+    <string name="search_section_see_all">Ver todo</string>
+</resources>

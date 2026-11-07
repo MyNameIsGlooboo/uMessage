@@ -44,7 +44,6 @@
     <string name="settings_app_lock_timeout_5m">5분 후</string>
     <string name="settings_app_lock_screenshots">스크린샷 차단</string>
     <string name="settings_app_lock_screenshots_body">스크린샷과 화면 녹화를 차단해요. 최근 앱 화면에서는 항상 메시지를 숨겨요.</string>
-    <string name="settings_app_lock_screenshots_body_old">스크린샷과 화면 녹화를 차단해요. 이 Android 버전에서는 이 기능을 켜야 최근 앱 화면에서도 메시지를 숨길 수 있어요.</string>
     <string name="settings_app_lock_change">PIN, 패턴 또는 생체 인증 변경</string>
     <string name="settings_app_lock_weak">PIN 번호나 패턴을 추측하기 쉬워요.</string>
     <string name="settings_app_lock_weak_body">PIN 보안이 약해요. 눌러서 변경해 주세요.</string>

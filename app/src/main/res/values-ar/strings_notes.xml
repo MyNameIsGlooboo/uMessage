@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note">ملاحظة</string>
+    <string name="add_note">أضف ملاحظة</string>
+    <string name="edit_note">عدّل الملاحظة</string>
+    <string name="delete_note">احذف الملاحظة</string>
+    <string name="note_hint">ملاحظة خاصة، على هذا الهاتف فقط</string>
+    <string name="note_counter">%1$s/%2$s</string>
+    <string name="note_save">احفظ</string>
+    <string name="note_cancel">ألغِ</string>
+    <string name="has_notes">لها ملاحظات</string>
+    <string name="notes_section">الملاحظات</string>
+    <string name="note_content_desc">ملاحظة: %1$s</string>
+</resources>

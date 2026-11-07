@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">انسخ %1$s</string>
     <string name="thread_r2_menu_search">ابحث في المحادثة</string>
     <string name="thread_r2_menu_always_forward">أعد التوجيه دائمًا من هذا المرسل</string>
-    <string name="thread_r2_block_hint">ستنتقل الرسائل القادمة إلى المحظورة. لا شيء يغادر هاتفك.</string>
     <string name="thread_r2_forward_message">أعد توجيه هذه الرسالة</string>
     <string name="thread_r2_search_hint">ابحث في المحادثة</string>
     <string name="thread_r2_search_close">أغلق البحث</string>

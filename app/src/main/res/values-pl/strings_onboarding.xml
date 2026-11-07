@@ -5,11 +5,10 @@
     <string name="onb_next">Dalej</string>
     <string name="onb_skip">Na razie pomiń</string>
     <string name="onb_finish">Zacznij pisać</string>
-    <string name="onb_open">Otwórz</string>
     <string name="onb_welcome_title">Witaj w uMessage</string>
     <string name="onb_welcome_intro">Wygodne wiadomości, mniej spamu.</string>
     <string name="onb_welcome_spam">Spam pod kontrolą</string>
-    <string name="onb_welcome_spam_desc">Wiadomości od nieznanych nadawców czekają w „Zablokowanych” i nie giną. Wybierz tryb filtrowania: ścisły, inteligentny lub wyłączony.</string>
+    <string name="onb_welcome_spam_desc">Wiadomości od nieznanych nadawców czekają w „Zablokowanych” i nie giną.</string>
     <string name="onb_welcome_codes">Kody jednym dotknięciem</string>
     <string name="onb_welcome_codes_desc">Kopiuj kody weryfikacyjne prosto z powiadomienia.</string>
     <string name="onb_welcome_copy">Kopiuj tylko to, czego potrzebujesz</string>
@@ -27,8 +26,6 @@
     <string name="onb_welcome_start">Zaczynamy</string>
     <string name="onb_default_title">Ustaw uMessage jako aplikację do SMS-ów</string>
     <string name="onb_default_body">Android pozwala odbierać i filtrować wiadomości tylko domyślnej aplikacji do SMS-ów. Bez tego uMessage nie może chronić odebranych wiadomości.</string>
-    <string name="onb_default_status_yes">uMessage to twoja domyślna aplikacja do SMS-ów</string>
-    <string name="onb_default_status_no">uMessage nie jest jeszcze twoją domyślną aplikacją do SMS-ów</string>
     <string name="onb_default_action">Ustaw jako domyślną</string>
     <string name="onb_default_denied">Prośba została odrzucona. Spróbuj ponownie lub przejdź dalej i ustaw to później w ustawieniach Androida.</string>
     <string name="onb_default_unavailable">Nie udało się otworzyć okna wyboru domyślnej aplikacji. Otwórz ustawienia Androida, wybierz „Aplikacje”, „Domyślne aplikacje”, „Aplikacja do SMS-ów”, a potem uMessage.</string>
@@ -44,7 +41,6 @@
     <string name="onb_perm_notifications_reason">Informuje o nowych wiadomościach i pozwala odpowiedzieć lub skopiować kod.</string>
     <string name="onb_perm_allow_all">Zezwól na wszystko</string>
     <string name="onb_perm_open_settings">Otwórz ustawienia</string>
-    <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">Wybierz, jak traktować nieznanych nadawców</string>
     <string name="onb_mode_strict">Ścisły</string>
     <string name="onb_mode_smart">Inteligentny</string>
@@ -52,8 +48,6 @@
     <string name="onb_mode_warning_title">Uwaga na wiadomości z banku i kody</string>
     <string name="onb_mode_warning_body">W trybie ścisłym powiadomienia z banku, informacje o dostawach i kody jednorazowe od nieznanych nadawców trafiają do „Zablokowanych”, łącznie z kodami. Nie otrzymasz powiadomienia, więc sprawdzaj „Zablokowane”, gdy czekasz na taką wiadomość.</string>
     <string name="onb_oem_title">Pozwól uMessage działać w tle</string>
-    <string name="onb_oem_body_known">Telefony %1$s często zatrzymują aplikacje w tle, co opóźnia wiadomości. Wykonaj te kroki raz.</string>
-    <string name="onb_oem_body_generic">Niektóre telefony zatrzymują aplikacje w tle, co opóźnia wiadomości. Zezwól uMessage na działanie bez ograniczeń.</string>
     <string name="onb_oem_manual_hint">Jeśli ekran się nie otworzy, wyszukaj podaną nazwę w ustawieniach.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi lub Poco</string>
     <string name="onb_oem_huawei">Huawei lub Honor</string>
@@ -68,11 +62,8 @@
     <string name="onb_oem_step_ignore_battery">Pomiń optymalizację baterii</string>
     <string name="onb_oem_step_app_info">Sprawdź ustawienia aplikacji</string>
     <string name="onb_oem_step_app_info_desc">Otwórz stronę aplikacji uMessage, aby sprawdzić ustawienia baterii i uprawnienia.</string>
-    <string name="onb_done_title">Wszystko gotowe</string>
-    <string name="onb_done_body">uMessage jest gotowe. Zatrzymane wiadomości trafiają do „Zablokowanych”, gdzie jednym dotknięciem zezwolisz na wiadomości od nadawcy.</string>
     <string name="onb_done_summary_default">Domyślna aplikacja do SMS-ów</string>
     <string name="onb_done_summary_permissions">Uprawnienia</string>
-    <string name="onb_done_summary_mode">Nieznani nadawcy</string>
     <string name="onb_done_ok">Gotowe</string>
     <string name="onb_done_todo">Wymaga uwagi</string>
     <string name="onb_notif_copy_code">Kopiuj kod</string>

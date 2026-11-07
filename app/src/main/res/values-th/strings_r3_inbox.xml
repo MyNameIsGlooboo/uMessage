@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="r3_inbox_filter_show">แสดงตัวกรอง</string>
-    <string name="r3_inbox_filter_hide">ซ่อนตัวกรอง</string>
-    <string name="r3_inbox_filter_show_active">แสดงตัวกรอง ตัวกรอง %1$s เปิดอยู่</string>
-    <string name="r3_inbox_filter_hide_active">ซ่อนตัวกรอง ตัวกรอง %1$s เปิดอยู่</string>
-</resources>

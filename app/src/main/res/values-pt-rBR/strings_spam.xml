@@ -5,15 +5,10 @@
     <string name="spam_undo">Desfaça</string>
     <string name="spam_more_options">Mais opções</string>
     <string name="spam_loading">Carregando</string>
-    <string name="spam_blocked_title">Mensagens bloqueadas</string>
-    <string name="spam_blocked_open_rules">Regras de permissão e bloqueio</string>
     <string name="spam_blocked_open_settings">Configurações de bloqueio</string>
-    <string name="spam_blocked_mode_line">Remetentes desconhecidos: %1$s</string>
-    <string name="spam_blocked_mode_change">Altere</string>
     <string name="spam_blocked_stats_totals">%1$d bloqueadas no total, %2$d restauradas</string>
     <string name="spam_blocked_header_cd">%1$d mensagens de spam bloqueadas nos últimos 7 dias. %2$d bloqueadas no total, %3$d restauradas.</string>
     <string name="spam_blocked_empty_title">Nada bloqueado ainda</string>
-    <string name="spam_blocked_empty_body">As mensagens bloqueadas pelos seus filtros ficam aqui para você restaurar qualquer uma com um toque.</string>
     <string name="spam_action_delete">Exclua</string>
     <string name="spam_select">Selecione</string>
     <string name="spam_action_select_all">Selecione tudo</string>
@@ -37,12 +32,9 @@
     <string name="spam_sim_both">Ambos os chips</string>
     <string name="spam_sim_missing">Chip ausente do celular</string>
     <string name="spam_sim_named">Chip %1$d, %2$s</string>
-    <string name="spam_rules_title">Permitidos e bloqueados</string>
     <string name="spam_rules_tab_allowed">Permitidos</string>
     <string name="spam_rules_tab_blocked">Bloqueados</string>
     <string name="spam_rules_add">Adicione uma regra</string>
-    <string name="spam_rules_import">Importe regras</string>
-    <string name="spam_rules_export">Exporte regras</string>
     <string name="spam_rules_empty_allowed_title">Nenhuma regra de permissão</string>
     <string name="spam_rules_empty_allowed_body">Tudo o que você permitir sempre chega à caixa de entrada, mesmo no modo rigoroso. Adicione um número, um nome de remetente ou uma palavra-chave.</string>
     <string name="spam_rules_empty_blocked_title">Nenhuma regra de bloqueio</string>
@@ -54,34 +46,21 @@
         <item quantity="other">%d regras importadas</item>
     </plurals>
     <string name="spam_rules_import_skipped">%d linhas ignoradas (inválidas ou já adicionadas)</string>
-    <string name="spam_rules_import_failed">Não foi possível ler esse arquivo</string>
-    <string name="spam_rules_import_empty">Nenhuma regra válida encontrada nesse arquivo</string>
     <plurals name="spam_rules_exported" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d regra exportada</item>
         <item quantity="other">%d regras exportadas</item>
     </plurals>
-    <string name="spam_rules_export_failed">Não foi possível gravar o arquivo</string>
     <string name="spam_rules_tab_count">%1$s, %2$d</string>
     <string name="spam_type_number">Número</string>
     <string name="spam_type_prefix">Prefixo</string>
     <string name="spam_type_sender_id">Nome do remetente</string>
     <string name="spam_type_keyword">Palavra-chave</string>
     <string name="spam_type_regex">Padrão (expressão regular)</string>
-    <string name="spam_type_number_help">Um número de telefone exato, por exemplo +919876543210.</string>
-    <string name="spam_type_prefix_help">Todos os números que começam assim, por exemplo +91140.</string>
-    <string name="spam_type_sender_id_help">Um remetente identificado por texto, como VM-HDFCBK. Maiúsculas e minúsculas não fazem diferença.</string>
     <string name="spam_type_keyword_help">Qualquer mensagem que contenha este texto, mesmo dentro de uma palavra maior: “casa” também encontra “casamento”. Maiúsculas e minúsculas não fazem diferença. O remetente também é bloqueado, a menos que esteja nos seus contatos.</string>
     <string name="spam_type_keyword_allow_help">Qualquer mensagem que contenha este texto passa por todos os seus bloqueios, seja qual for o remetente. Use uma frase longa e exata.</string>
-    <string name="spam_type_regex_help">Avançado. Um padrão (expressão regular) comparado com o texto da mensagem. O remetente também é bloqueado, a menos que esteja nos seus contatos.</string>
-    <string name="spam_type_number_hint">+919876543210</string>
-    <string name="spam_type_prefix_hint">+91140</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">brinde grátis</string>
     <string name="spam_type_regex_hint">ganhe\\s+\\d+</string>
-    <string name="spam_sheet_title_allow">Adicione aos permitidos</string>
-    <string name="spam_sheet_title_block">Adicione aos bloqueados</string>
-    <string name="spam_sheet_type_label">O que procurar</string>
-    <string name="spam_sheet_pattern_label">Valor</string>
     <string name="spam_sheet_sim_label">Aplica-se a</string>
     <string name="spam_sheet_note_label">Observação (opcional)</string>
     <string name="spam_sheet_add">Adicione uma regra</string>
@@ -89,7 +68,6 @@
     <string name="spam_err_empty">Digite um valor</string>
     <string name="spam_err_number">Digite um telefone válido: de 3 a 15 dígitos, podendo começar com +</string>
     <string name="spam_err_prefix">Digite de 1 a 15 dígitos, podendo começar com +</string>
-    <string name="spam_err_sender_id">Use letras, dígitos, hífens ou pontos, com pelo menos uma letra (até 16 caracteres)</string>
     <string name="spam_err_keyword_short">Use pelo menos 2 caracteres</string>
     <string name="spam_err_too_long">O texto é longo demais</string>
     <string name="spam_err_multiline">Use uma única linha</string>
@@ -109,7 +87,6 @@
     <string name="spam_confirm_save">Salve mesmo assim</string>
     <string name="spam_confirm_remove_allowed">Remova dos permitidos e bloqueie</string>
     <string name="spam_confirm_remove_allowed_detail">Ao salvar, a regra correspondente também será removida da sua lista de permitidos.</string>
-    <string name="spam_import_title">Importar regras?</string>
     <plurals name="spam_import_new" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d nova regra</item>
         <item quantity="other">%d novas regras</item>
@@ -119,16 +96,10 @@
         <item quantity="one">%d linha será ignorada (já adicionada ou inválida)</item>
         <item quantity="other">%d linhas serão ignoradas (já adicionadas ou inválidas)</item>
     </plurals>
-    <string name="spam_import_examples">Por exemplo</string>
-    <string name="spam_import_risky_title">Confira estas primeiro</string>
-    <string name="spam_import_risky_body">Palavras-chave e padrões (expressões regulares) permitidos deixam qualquer mensagem que os contenha passar por todos os seus bloqueios. Regras amplas podem bloquear mensagens normais.</string>
-    <string name="spam_import_rule_line">%1$s, %2$s: %3$s</string>
     <plurals name="spam_import_more" tools:ignore="ImpliedQuantity">
         <item quantity="one">e mais %d</item>
         <item quantity="other">e mais %d</item>
     </plurals>
-    <string name="spam_import_confirm">Importe</string>
-    <string name="spam_settings_title">Configurações de spam</string>
     <string name="spam_settings_unknown_title">Mensagens de remetentes desconhecidos</string>
     <string name="spam_settings_unknown_body">Remetentes que não estão nos seus contatos, para quem você nunca enviou mensagens e que não estão na sua lista de permitidos.</string>
     <string name="spam_mode_strict">Rigoroso</string>
@@ -141,15 +112,8 @@
     <string name="spam_strict_warning_body">Mensagens de bancos, transportadoras e códigos de uso único geralmente vêm de remetentes que não estão nos seus contatos. No modo rigoroso, vão para a pasta Bloqueados, inclusive os códigos. Escolha o modo inteligente para permitir códigos ou permita esses remetentes uma vez.</string>
     <string name="spam_strict_warning_action">Revise as mensagens bloqueadas</string>
     <string name="spam_settings_cleanup_title">Limpeza</string>
-    <string name="spam_purge_title">Exclua mensagens bloqueadas após</string>
     <string name="spam_purge_body">Mensagens bloqueadas antigas são removidas automaticamente.</string>
     <string name="spam_purge_days">%d dias</string>
     <string name="spam_purge_forever">Nunca</string>
-    <string name="spam_settings_notify_title">Notificações</string>
     <string name="spam_notify_title">Notifique quando uma mensagem for bloqueada</string>
-    <string name="spam_notify_body">Mostra uma notificação silenciosa. Desativado por padrão para o spam não incomodar.</string>
-    <string name="spam_settings_rules_row">Regras de permissão e bloqueio</string>
-    <string name="spam_settings_rules_row_body">Números, remetentes, palavras-chave e padrões (expressões regulares)</string>
-    <string name="spam_settings_blocked_row">Mensagens bloqueadas</string>
-    <string name="spam_settings_blocked_row_body">Revise, restaure ou exclua</string>
 </resources>

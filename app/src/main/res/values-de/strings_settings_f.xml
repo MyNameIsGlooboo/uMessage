@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">Nachrichten, Regeln und Einstellungen in einer Datei sichern</string>
-    <string name="settings_f_backup_rules_group">Regeln und Einstellungen</string>
-    <string name="settings_f_backup_rules_contents">Die Datei enthält deine Regeln zum Erlauben, Blockieren und Weiterleiten sowie Einstellungen für Spamschutz, Benachrichtigungen, Datumsanzeige, Textgröße, Design, Eingabetaste und Weiterleitungslimits. Nachrichtentexte und deine App-Sperre werden nie gesichert. Regeln zum Weiterleiten sind nach dem Wiederherstellen ausgeschaltet.</string>
-    <string name="settings_f_backup_messages_contents">Nachrichtentexte und Bilder in einer separaten Datei.</string>
     <string name="settings_f_restore_title">Aus dieser Datei wiederherstellen?</string>
     <string name="settings_f_restore_rules">Regeln zum Erlauben: %1$d · Regeln zum Blockieren: %2$d. Bereits vorhandene Regeln werden übersprungen.</string>
     <string name="settings_f_restore_forwards">Neue Regeln zum Weiterleiten: %1$d, ausgeschaltet. Aktiviere sie unter Regeln › Weiterleitung.</string>

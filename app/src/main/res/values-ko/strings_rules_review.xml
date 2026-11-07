@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">파일에서 규칙 가져오기</string>
     <string name="rules2_menu_export">규칙을 파일로 내보내기</string>
     <string name="rules2_menu_system">Android 차단 목록</string>
-    <string name="rules2_import_scope">규칙 파일에는 허용 및 차단 규칙만 있어요. 메시지와 전달 규칙은 없어요.</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">항상 허용하는 발신자 없음</string>
     <string name="rules2_empty_allowed_body">받은 메시지함으로 항상 받을 번호, 발신자 이름이나 단어를 추가해요. 아래의 규칙 추가를 눌러요.</string>
@@ -25,7 +24,6 @@
     <plurals name="rules2_migrate_confirm_count">
         <item quantity="other">항목 %d개 이동</item>
     </plurals>
-    <string name="rules2_sheet_list_label">목록에 추가</string>
     <string name="rules2_sheet_list_allow">항상 허용</string>
     <string name="rules2_sheet_list_block">항상 차단</string>
     <string name="rules2_sheet_delete">규칙 삭제</string>

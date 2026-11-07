@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_delivery_body">メッセージが配信されたときに表示します。通信事業者から料金がかかる場合があります。</string>
+</resources>

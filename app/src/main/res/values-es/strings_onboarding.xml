@@ -5,11 +5,10 @@
     <string name="onb_next">Siguiente</string>
     <string name="onb_skip">Omitir por ahora</string>
     <string name="onb_finish">Empezar a enviar mensajes</string>
-    <string name="onb_open">Abrir</string>
     <string name="onb_welcome_title">Te damos la bienvenida a uMessage</string>
     <string name="onb_welcome_intro">Mejores mensajes, menos spam.</string>
     <string name="onb_welcome_spam">El spam queda fuera</string>
-    <string name="onb_welcome_spam_desc">Los remitentes desconocidos esperan en Bloqueados y no se pierden. Tú eliges: Estricto, Inteligente o Desactivado.</string>
+    <string name="onb_welcome_spam_desc">Los remitentes desconocidos esperan en Bloqueados y no se pierden.</string>
     <string name="onb_welcome_codes">Códigos con un toque</string>
     <string name="onb_welcome_codes_desc">Copia códigos de verificación desde la notificación.</string>
     <string name="onb_welcome_copy">Copia solo lo que necesitas</string>
@@ -27,8 +26,6 @@
     <string name="onb_welcome_start">Comenzar</string>
     <string name="onb_default_title">Usa uMessage como tu aplicación de SMS</string>
     <string name="onb_default_body">Android solo permite que la aplicación de SMS predeterminada reciba y filtre mensajes. Sin esto, uMessage no puede proteger tu bandeja de entrada.</string>
-    <string name="onb_default_status_yes">uMessage es tu aplicación de SMS predeterminada</string>
-    <string name="onb_default_status_no">uMessage aún no es tu aplicación de SMS predeterminada</string>
     <string name="onb_default_action">Establecer como predeterminada</string>
     <string name="onb_default_denied">Se rechazó la solicitud. Puedes volver a intentarlo o continuar y establecerla después en la configuración de Android.</string>
     <string name="onb_default_unavailable">Tu teléfono no pudo abrir el diálogo de aplicación predeterminada. Abre Configuración de Android, Aplicaciones, Aplicaciones predeterminadas, Aplicación de SMS y elige uMessage.</string>
@@ -44,7 +41,6 @@
     <string name="onb_perm_notifications_reason">Te avisa de nuevos mensajes, con botones para responder y copiar códigos.</string>
     <string name="onb_perm_allow_all">Permitir todo</string>
     <string name="onb_perm_open_settings">Abrir configuración</string>
-    <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">Elige cómo tratar a los remitentes desconocidos</string>
     <string name="onb_mode_strict">Estricto</string>
     <string name="onb_mode_smart">Inteligente</string>
@@ -52,8 +48,6 @@
     <string name="onb_mode_warning_title">Ten en cuenta los mensajes bancarios y los códigos</string>
     <string name="onb_mode_warning_body">En modo estricto, las alertas bancarias, las novedades de entregas y los códigos de un solo uso de remitentes desconocidos se retienen en Bloqueados, incluidos los códigos. No recibirás una notificación, así que revisa Bloqueados cuando esperes alguno.</string>
     <string name="onb_oem_title">Mantén uMessage en funcionamiento</string>
-    <string name="onb_oem_body_known">Los teléfonos %1$s suelen detener las aplicaciones en segundo plano, lo que retrasa los mensajes. Sigue estos pasos una sola vez.</string>
-    <string name="onb_oem_body_generic">Algunos teléfonos detienen las aplicaciones en segundo plano, lo que retrasa los mensajes. Permite que uMessage funcione sin restricciones.</string>
     <string name="onb_oem_manual_hint">Si una pantalla no se abre, busca el nombre que se muestra en Configuración.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi o Poco</string>
     <string name="onb_oem_huawei">Huawei u Honor</string>
@@ -68,11 +62,8 @@
     <string name="onb_oem_step_ignore_battery">Ignorar la optimización de batería</string>
     <string name="onb_oem_step_app_info">Revisar la configuración de la aplicación</string>
     <string name="onb_oem_step_app_info_desc">Abre la página de la aplicación uMessage para revisar la batería y los permisos.</string>
-    <string name="onb_done_title">Todo listo</string>
-    <string name="onb_done_body">uMessage está listo. Los mensajes retenidos aparecen en Bloqueados, donde puedes permitir a un remitente con un toque.</string>
     <string name="onb_done_summary_default">Aplicación de SMS predeterminada</string>
     <string name="onb_done_summary_permissions">Permisos</string>
-    <string name="onb_done_summary_mode">Remitentes desconocidos</string>
     <string name="onb_done_ok">Listo</string>
     <string name="onb_done_todo">Requiere atención</string>
     <string name="onb_notif_copy_code">Copiar código</string>

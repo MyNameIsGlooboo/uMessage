@@ -4,7 +4,6 @@
     <string name="spam_engine_blocked_title">已封鎖：%s</string>
     <string name="spam_engine_blocked_public_title">已封鎖訊息</string>
     <string name="spam_engine_mms_blocked">已封鎖的圖片訊息（MMS）</string>
-    <string name="spam_engine_rule_note_blocked">從訊息封鎖</string>
     <string name="spam_engine_regex_nested_repeat">這個模式重複了一個本身已在重複的群組，可能導致訊息篩選停擺。請簡化模式。</string>
     <string name="spam_engine_regex_matches_empty">這個模式會比對到所有訊息。</string>
     <string name="spam_engine_regex_invalid">這不是有效的模式。</string>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="blocked_menu_restored">Восстановлено вами</string>
+    <string name="blocked_menu_restored_summary">Сообщения, которые вы недавно переместили во входящие</string>
+</resources>

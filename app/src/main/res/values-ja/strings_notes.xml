@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note">メモ</string>
+    <string name="add_note">メモを追加</string>
+    <string name="edit_note">メモを編集</string>
+    <string name="delete_note">メモを削除</string>
+    <string name="note_hint">非公開のメモ（この端末のみ）</string>
+    <string name="note_counter">%1$s/%2$s</string>
+    <string name="note_save">保存</string>
+    <string name="note_cancel">キャンセル</string>
+    <string name="has_notes">メモあり</string>
+    <string name="notes_section">メモ</string>
+    <string name="note_content_desc">メモ: %1$s</string>
+</resources>

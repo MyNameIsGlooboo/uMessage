@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">Facultatif</string>
+    <string name="backup_drive_hint">Pour utiliser Google Drive, sélectionnez-le dans le sélecteur de fichiers.</string>
+    <string name="move_from_app_title">Passer d\'une autre application</string>
+    <string name="move_from_app_row_body">Récupérez vos messages depuis une autre application de SMS</string>
+    <string name="move_from_app_intro">Vous passez à uMessage ? Vos anciens messages peuvent vous suivre.</string>
+    <string name="move_from_app_step1">Dans votre ancienne application, faites une sauvegarde. Dans SMS Backup &amp; Restore, touchez Back up now.</string>
+    <string name="move_from_app_step2">Enregistrez la sauvegarde dans Google Drive ou dans un fichier sur votre téléphone.</string>
+    <string name="move_from_app_step3">Revenez ici, touchez « Importer les messages » et choisissez ce fichier.</string>
+    <string name="move_from_app_format">uMessage lit les fichiers XML créés par SMS Backup &amp; Restore ainsi que ses propres sauvegardes.</string>
+    <plurals name="sim_messages_done">
+        <item quantity="one">%1$d message copié. %2$d déjà dans vos conversations.</item>
+        <item quantity="other">%1$d messages copiés. %2$d déjà dans vos conversations.</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="one">%1$d message copié. %2$d déjà dans vos conversations et la copie a échoué pour %3$d.</item>
+        <item quantity="other">%1$d messages copiés. %2$d déjà dans vos conversations et la copie a échoué pour %3$d.</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="one">Sauvegarde enregistrée : %1$d élément</item>
+        <item quantity="other">Sauvegarde enregistrée : %1$d éléments</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="one">%d chiffre saisi</item>
+        <item quantity="other">%d chiffres saisis</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="one">Limite de %d transfert atteinte. Les transferts reprendront demain.</item>
+        <item quantity="other">Limite de %d transferts atteinte. Les transferts reprendront demain.</item>
+    </plurals>
+</resources>

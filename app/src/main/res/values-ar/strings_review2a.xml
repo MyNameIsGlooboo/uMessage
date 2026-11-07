@@ -3,5 +3,4 @@
     <string name="r2a_filter_codes">الرموز</string>
     <string name="r2a_filter_codes_empty_title">لا توجد رموز</string>
     <string name="r2a_filter_codes_empty_body">تظهر هنا المحادثات التي تحتوي أحدث رسالة فيها على رمز لمرة واحدة.</string>
-    <string name="r2a_search_codes_window">من آخر 24 ساعة</string>
 </resources>

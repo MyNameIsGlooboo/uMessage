@@ -14,8 +14,6 @@
 
     <!-- ID-17: Blocked tab with nothing held. -->
     <string name="w3b_empty_body">uMessage is watching in %1$s mode. Messages it holds back will appear here.</string>
-    <string name="w3b_empty_change_mode">Change mode</string>
-    <string name="w3b_empty_rules">Review my rules</string>
 
     <!-- ID-16: why a message was held, and releasing it once. -->
     <string name="w3b_why_link">Held because the sender is unknown and the text has a link.</string>
@@ -27,8 +25,6 @@
     <string name="w3b_release_once">Release once</string>
 
     <!-- ID-40: fix a decision from the decision log. -->
-    <string name="w3b_fix_open">Fix this decision for %1$s</string>
-    <string name="w3b_fix_title">Fix this decision</string>
     <string name="w3b_fix_note">The rule applies to new messages from this sender. Messages already held stay where they are.</string>
     <string name="w3b_fix_allow">Always allow this sender</string>
     <string name="w3b_fix_block">Block this sender</string>
@@ -62,11 +58,8 @@
 
     <!-- ID-53: empty rules tabs that teach with examples. -->
     <string name="w3b_examples_title">Start with an example</string>
-    <string name="w3b_example_block_word">Block messages containing a word</string>
     <string name="w3b_example_block_sender">Block a sender name</string>
-    <string name="w3b_example_block_prefix">Block numbers starting with…</string>
     <string name="w3b_example_allow_sender">Always allow a sender name, like your bank</string>
-    <string name="w3b_example_allow_number">Always allow a phone number</string>
 
     <!-- ID-42: a block rule that an allow rule covers. -->
     <string name="w3b_overridden_chip">Overridden by an allow rule</string>

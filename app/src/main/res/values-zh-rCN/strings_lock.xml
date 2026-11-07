@@ -44,7 +44,6 @@
     <string name="settings_app_lock_timeout_5m">5分钟后</string>
     <string name="settings_app_lock_screenshots">屏蔽截屏</string>
     <string name="settings_app_lock_screenshots_body">屏蔽截屏和录屏。最近使用的应用中始终隐藏消息。</string>
-    <string name="settings_app_lock_screenshots_body_old">屏蔽截屏和录屏。在此Android版本上，这也是在最近使用的应用中隐藏消息的唯一方式。</string>
     <string name="settings_app_lock_change">更改PIN、图案或生物识别</string>
     <string name="settings_app_lock_weak">PIN或图案容易被猜到</string>
     <string name="settings_app_lock_weak_body">PIN过于简单，点按可更改</string>

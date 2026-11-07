@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">Wszystko oprócz wiadomości: reguły zezwalania, blokowania i przekazywania dalej oraz wszystkie ustawienia. Plik nie jest zaszyfrowany i zawiera numery, na które przekazujesz wiadomości, więc przechowuj go w prywatnym miejscu. Przywrócone reguły przekazywania dalej będą wyłączone.</string>
     <string name="n09_label_spam">Ochrona przed spamem</string>
     <string name="n09_label_notifications">Powiadomienia</string>
     <string name="n09_label_chat">Czat i lista wiadomości</string>

@@ -36,13 +36,11 @@
         <item quantity="one">Les messages bloqués sont supprimés après %d jour</item>
         <item quantity="other">Les messages bloqués sont supprimés après %d jours</item>
     </plurals>
-    <string name="spam_purge_notice_off">Les messages bloqués sont conservés jusqu\'à leur suppression par vos soins</string>
     <plurals name="spam_purge_left" tools:ignore="ImpliedQuantity">
         <item quantity="one">Suppression dans %d jour</item>
         <item quantity="other">Suppression dans %d jours</item>
     </plurals>
     <string name="spam_purge_left_today">Suppression aujourd\'hui</string>
-    <string name="convlist_report_spam">Signaler comme spam</string>
     <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
         <item quantity="one">Signalement effectué. Les prochains SMS de cet expéditeur iront dans Messages bloqués et la conversation est archivée.</item>
         <item quantity="other">%d conversations signalées. Les prochains SMS de ces expéditeurs iront dans Messages bloqués et les conversations sont archivées.</item>
@@ -52,18 +50,9 @@
         <item quantity="other">%d conversations signalées. Les prochains SMS de ces expéditeurs iront dans Messages bloqués.</item>
     </plurals>
     <string name="blocked_title">Messages bloqués</string>
-    <string name="blocked_menu_rules">Règles</string>
-    <string name="blocked_mode_group_cd">Expéditeurs inconnus : %1$s, %2$d sur %3$d</string>
-    <string name="blocked_mode_desc_strict">Strict : retient tous les messages des expéditeurs inconnus, même les codes de validation</string>
-    <string name="blocked_mode_desc_smart">Intelligent : retient les messages des expéditeurs inconnus, mais laisse passer les codes sans lien</string>
-    <string name="blocked_mode_desc_off">Désactivé : les messages des expéditeurs inconnus arrivent dans votre boîte de réception. Vos règles restent actives</string>
     <string name="blocked_snack_mode">Mode des expéditeurs inconnus : %1$s</string>
-    <string name="blocked_off_title">Ne plus retenir les messages des expéditeurs inconnus ?</string>
-    <string name="blocked_off_body">Les messages des expéditeurs inconnus arrivent directement dans votre boîte de réception. Vos règles restent actives.</string>
-    <string name="blocked_off_confirm">Désactiver</string>
     <string name="blocked_stats_restored">%1$d restaurés par vous</string>
     <string name="blocked_reason_unknown_link">Expéditeur inconnu, avec un lien</string>
     <string name="blocked_may_be_important">Peut être important</string>
     <string name="blocked_action_move_inbox">Déplacer vers la boîte de réception</string>
-    <string name="blocked_swipe_not_spam">Balayez pour déplacer vers la boîte de réception</string>
 </resources>

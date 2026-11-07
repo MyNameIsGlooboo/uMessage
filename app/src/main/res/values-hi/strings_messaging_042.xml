@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">डिलीवरी विफल रही</string>
+    <string name="thread_many_parts_note">यह संदेश बहुत लंबा है: यह %1$d एसएमएस के रूप में जाएगा। छोटे संदेश सस्ते पड़ते हैं।</string>
+    <string name="attachments_total_too_large">ये फ़ाइलें मिलाकर एक संदेश के लिए बहुत बड़ी हैं। हो सकता है यह भेजा न जाए।</string>
+    <string name="mms_download_failed_channel">तस्वीर वाले संदेश डाउनलोड</string>
+    <string name="mms_download_failed_title">तस्वीर वाला संदेश डाउनलोड नहीं हुआ</string>
+    <string name="mms_download_failed_text">इसे डाउनलोड नहीं किया जा सका। अपना मोबाइल डेटा जाँचें; भेजने वाले को शायद इसे दोबारा भेजना पड़े।</string>
+</resources>

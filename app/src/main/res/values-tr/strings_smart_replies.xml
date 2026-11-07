@@ -3,4 +3,6 @@
     <string name="smart_replies_title">Akıllı yanıtlar</string>
     <string name="smart_replies_summary">Telefonunuzdaki listeden hızlı yanıtlar</string>
     <string name="smart_replies_hide">Önerileri gizleyin</string>
+    <string name="smart_replies_notif_title">Bildirimlerde akıllı yanıtlar</string>
+    <string name="smart_replies_notif_summary">Önerilen bir yanıtı bildirimde düğme olarak gösterir. Düğmeye dokunmak metni gönderir.</string>
 </resources>

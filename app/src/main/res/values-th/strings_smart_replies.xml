@@ -3,4 +3,6 @@
     <string name="smart_replies_title">คำตอบอัจฉริยะ</string>
     <string name="smart_replies_summary">ตอบด่วนจากรายการในโทรศัพท์</string>
     <string name="smart_replies_hide">ซ่อนคำแนะนำ</string>
+    <string name="smart_replies_notif_title">คำตอบอัจฉริยะในการแจ้งเตือน</string>
+    <string name="smart_replies_notif_summary">แสดงคำตอบที่แนะนำเป็นปุ่มในการแจ้งเตือน แตะปุ่มเพื่อส่งข้อความนั้น</string>
 </resources>

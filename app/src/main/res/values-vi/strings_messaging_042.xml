@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">Gửi không thành công</string>
+    <string name="thread_many_parts_note">Tin nhắn này rất dài: sẽ được gửi thành %1$d SMS. Tin ngắn hơn tốn ít hơn.</string>
+    <string name="attachments_total_too_large">Các tệp này cộng lại quá lớn cho một tin nhắn. Có thể tin sẽ không được gửi.</string>
+    <string name="mms_download_failed_channel">Tải tin nhắn hình ảnh</string>
+    <string name="mms_download_failed_title">Chưa tải được tin nhắn hình ảnh</string>
+    <string name="mms_download_failed_text">Không thể tải về. Hãy kiểm tra dữ liệu di động; người gửi có thể cần gửi lại.</string>
+</resources>

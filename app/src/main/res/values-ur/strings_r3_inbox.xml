@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="r3_inbox_filter_show">فلٹرز دکھائیں</string>
-    <string name="r3_inbox_filter_hide">فلٹرز چھپائیں</string>
-    <string name="r3_inbox_filter_show_active">فلٹرز دکھائیں۔ %1$s فلٹر آن ہے</string>
-    <string name="r3_inbox_filter_hide_active">فلٹرز چھپائیں۔ %1$s فلٹر آن ہے</string>
-</resources>

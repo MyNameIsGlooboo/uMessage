@@ -14,7 +14,6 @@
     <string name="blocknum_add_title">電話番号をブロック</string>
     <string name="blocknum_edit_title">ブロック済みの電話番号を編集</string>
     <string name="blocknum_field_label">電話番号</string>
-    <string name="blocknum_field_help">*をワイルドカードとして使えます。+1555*は、+1555で始まるすべての電話番号をブロックします。</string>
     <string name="blocknum_err_empty">電話番号を入力してください。</string>
     <string name="blocknum_err_invalid">電話番号、またはワイルドカードの*を含む数字を入力してください。</string>
     <string name="blocknum_copy">番号をコピー</string>
@@ -48,7 +47,6 @@
     <string name="blocknum_unavailable_title">ブロックリストを利用できません</string>
     <string name="blocknum_unavailable_body">システムのブロックリストを表示・変更するには、uMessageをデフォルトのSMSアプリに設定してください。</string>
     <string name="blocknum_unknown_title">不明な電話番号をブロック</string>
-    <string name="blocknum_unknown_body">迷惑メッセージのフィルターモードがオフの場合のみ適用されます。不明な電話番号からのメッセージは、厳格モードと同様に「ブロック済み」に入ります。厳格・スマートモードでは、この設定は適用されません。</string>
     <string name="blocknum_contacts_denied">連絡先へのアクセスがないと、不明な電話番号を判別できません。</string>
     <string name="blocknum_section_numbers">電話番号</string>
 </resources>

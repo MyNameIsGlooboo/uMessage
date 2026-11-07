@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">ذخیرهٔ پیام‌ها، قانون‌ها و تنظیمات در فایل</string>
-    <string name="settings_f_backup_rules_group">قانون‌ها و تنظیمات</string>
-    <string name="settings_f_backup_rules_contents">این فایل شامل قانون‌های اجازه دادن و مسدود کردن، قانون‌های بازارسال و تنظیمات شماست: محافظت در برابر هرزنامه، اعلان‌ها، تاریخ‌ها، اندازهٔ متن، زمینه، کلید Enter و محدودیت‌های بازارسال. متن پیام‌ها یا قفل برنامه هرگز در آن ذخیره نمی‌شود. قانون‌های بازارسال به‌صورت خاموش بازیابی می‌شوند.</string>
-    <string name="settings_f_backup_messages_contents">متن و تصویرهای پیام‌ها، در فایلی جداگانه.</string>
     <string name="settings_f_restore_title">از این فایل بازیابی شود؟</string>
     <string name="settings_f_restore_rules">قانون‌های اجازه دادن: %1$d، قانون‌های مسدود کردن: %2$d. قانون‌های موجود نادیده گرفته می‌شوند.</string>
     <string name="settings_f_restore_forwards">قانون‌های بازارسال برای افزودن: %1$d، به‌صورت خاموش. آن‌ها را در قانون‌ها › بازارسال روشن کنید.</string>

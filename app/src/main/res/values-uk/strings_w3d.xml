@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">Денний ліміт пересилань</string>
     <string name="w3d_daily_limit_body">Максимум пересилань на день</string>
     <string name="w3d_hide_lock_codes">Приховувати коди на екрані блокування</string>
-    <string name="w3d_hide_lock_codes_body">На екрані блокування замість коду в повідомленні видно ••••, доки ви не розблокуєте телефон.</string>
 </resources>

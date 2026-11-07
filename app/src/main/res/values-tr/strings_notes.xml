@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note">Not</string>
+    <string name="add_note">Not ekleyin</string>
+    <string name="edit_note">Notu düzenleyin</string>
+    <string name="delete_note">Notu silin</string>
+    <string name="note_hint">Özel not, yalnızca bu telefonda</string>
+    <string name="note_counter">%1$s/%2$s</string>
+    <string name="note_save">Kaydedin</string>
+    <string name="note_cancel">İptal edin</string>
+    <string name="has_notes">Notu olanlar</string>
+    <string name="notes_section">Notlar</string>
+    <string name="note_content_desc">Not: %1$s</string>
+</resources>

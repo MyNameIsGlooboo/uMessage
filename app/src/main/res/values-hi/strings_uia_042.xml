@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">वैकल्पिक</string>
+    <string name="backup_drive_hint">Google Drive इस्तेमाल करने के लिए, उसे फ़ाइल चुनने वाली विंडो में चुनें.</string>
+    <string name="move_from_app_title">किसी दूसरे ऐप से आएं</string>
+    <string name="move_from_app_row_body">किसी दूसरे SMS ऐप से अपने मैसेज लाएं</string>
+    <string name="move_from_app_intro">uMessage पर आ रहे हैं? आपके पुराने मैसेज भी साथ आ सकते हैं.</string>
+    <string name="move_from_app_step1">अपने पुराने ऐप में बैकअप बनाएं. SMS Backup &amp; Restore में Back up now पर टैप करें.</string>
+    <string name="move_from_app_step2">बैकअप को Google Drive में या फ़ोन की किसी फ़ाइल में सेव करें.</string>
+    <string name="move_from_app_step3">यहां वापस आएं, “मैसेज इंपोर्ट करें” पर टैप करें और वही फ़ाइल चुनें.</string>
+    <string name="move_from_app_format">uMessage, SMS Backup &amp; Restore की बनाई XML फ़ाइलें और अपने बैकअप पढ़ सकता है.</string>
+    <plurals name="sim_messages_done">
+        <item quantity="one">%1$d मैसेज कॉपी किए गए. %2$d पहले से आपकी बातचीत में थे.</item>
+        <item quantity="other">%1$d मैसेज कॉपी किए गए. %2$d पहले से आपकी बातचीत में थे.</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="one">%1$d मैसेज कॉपी किए गए. %2$d पहले से आपकी बातचीत में थे और %3$d कॉपी नहीं किए जा सके.</item>
+        <item quantity="other">%1$d मैसेज कॉपी किए गए. %2$d पहले से आपकी बातचीत में थे और %3$d कॉपी नहीं किए जा सके.</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="one">बैकअप सेव हुआ: %1$d आइटम</item>
+        <item quantity="other">बैकअप सेव हुआ: %1$d आइटम</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="one">%d अंक डाले गए</item>
+        <item quantity="other">%d अंक डाले गए</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="one">%d बार फ़ॉरवर्ड करने की सीमा पूरी हो गई. कल से फिर फ़ॉरवर्ड किया जाएगा.</item>
+        <item quantity="other">%d बार फ़ॉरवर्ड करने की सीमा पूरी हो गई. कल से फिर फ़ॉरवर्ड किया जाएगा.</item>
+    </plurals>
+</resources>

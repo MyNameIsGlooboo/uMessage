@@ -19,22 +19,14 @@
     </plurals>
 
     <!-- SU-33: the old Fossify block lists, shown and moved here -->
-    <string name="rules_system_block_list">System block list (also blocks calls)</string>
-    <string name="rules_legacy_note_keyword">From the old blocked words list</string>
-    <string name="rules_legacy_note_number">From the system block list</string>
-    <string name="rules_legacy_banner_title">Older block lists found</string>
-    <string name="rules_legacy_banner_body">Some words and numbers are blocked outside these rules. Move them here to see and change everything in one place.</string>
     <string name="rules_legacy_banner_review">Review</string>
     <string name="rules_legacy_banner_not_now">Not now</string>
     <string name="rules_legacy_section_keywords">Old blocked words list</string>
     <string name="rules_legacy_section_keywords_body">Still used for filtering until you move these words into rules. The old list is then retired.</string>
-    <string name="rules_legacy_section_system_body">Android discards texts from these numbers before uMessage sees them, so they never show up in Blocked. This list is shared with the phone app and also blocks calls.</string>
     <string name="rules_legacy_chip_old_list">Old list</string>
     <string name="rules_legacy_chip_system">System, also calls</string>
     <string name="rules_legacy_move">Move to rules</string>
-    <string name="rules_legacy_open_system">Open system block list</string>
 
-    <string name="rules_migrate_title">Move older block lists into rules</string>
     <string name="rules_migrate_nothing">Everything on the older lists is already in your rules.</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="one">%d word from the old blocked words list becomes a blocked keyword rule. The old list is then retired.</item>
@@ -48,9 +40,7 @@
         <item quantity="one">Also add the %d number on the system block list as a blocked rule</item>
         <item quantity="other">Also add the %d numbers on the system block list as blocked rules</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">Android discards texts from numbers on the system block list, so uMessage never gets them. As uMessage rules their texts can land in Blocked instead, where you can read and restore them, but only once they are off the system list.</string>
     <string name="rules_migrate_remove">Also remove them from the system block list</string>
-    <string name="rules_migrate_remove_body">The system list also blocks calls. Numbers you remove from it can call you again. uMessage only filters texts.</string>
     <plurals name="rules_migrate_numbers_kept">
         <item quantity="one">%d wildcard entry cannot be a rule and stays on the system list.</item>
         <item quantity="other">%d wildcard entries cannot be rules and stay on the system list.</item>
@@ -76,7 +66,6 @@
     <string name="rules_migrated_nothing">Nothing was moved.</string>
 
     <!-- SU-33: settings rows for the older lists -->
-    <string name="settings_system_block_list_body_calls">Blocks calls and texts on this whole phone. Android discards these texts before uMessage sees them. You can move the numbers into Allowed and blocked.</string>
     <string name="settings_old_blocked_words">Old blocked words list</string>
     <string name="settings_old_blocked_words_body">Moving to Rules</string>
 </resources>

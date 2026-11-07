@@ -5,15 +5,10 @@
     <string name="spam_undo">Cofnij</string>
     <string name="spam_more_options">Więcej opcji</string>
     <string name="spam_loading">Ładowanie</string>
-    <string name="spam_blocked_title">Zablokowane wiadomości</string>
-    <string name="spam_blocked_open_rules">Reguły dozwolone i zablokowane</string>
     <string name="spam_blocked_open_settings">Ustawienia blokowania</string>
-    <string name="spam_blocked_mode_line">Nieznani nadawcy: %1$s</string>
-    <string name="spam_blocked_mode_change">Zmień</string>
     <string name="spam_blocked_stats_totals">Łącznie zatrzymano: %1$d, przywrócono: %2$d</string>
     <string name="spam_blocked_header_cd">Spam zatrzymany w ostatnich 7 dniach: %1$d. Łącznie zatrzymano: %2$d, przywrócono: %3$d.</string>
     <string name="spam_blocked_empty_title">Brak zablokowanych wiadomości</string>
-    <string name="spam_blocked_empty_body">Tutaj czekają wiadomości zatrzymane przez twoje filtry. Każdą możesz przywrócić jednym dotknięciem.</string>
     <string name="spam_action_delete">Usuń</string>
     <string name="spam_select">Zaznacz</string>
     <string name="spam_action_select_all">Zaznacz wszystko</string>
@@ -41,12 +36,9 @@
     <string name="spam_sim_both">Obie karty SIM</string>
     <string name="spam_sim_missing">Brak karty SIM w telefonie</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
-    <string name="spam_rules_title">Dozwolone i zablokowane</string>
     <string name="spam_rules_tab_allowed">Dozwolone</string>
     <string name="spam_rules_tab_blocked">Zablokowane</string>
     <string name="spam_rules_add">Dodaj regułę</string>
-    <string name="spam_rules_import">Import reguł</string>
-    <string name="spam_rules_export">Eksport reguł</string>
     <string name="spam_rules_empty_allowed_title">Brak dozwolonych reguł</string>
     <string name="spam_rules_empty_allowed_body">Wszystko, na co zezwolisz, zawsze trafia do odebranych, nawet w trybie ścisłym. Dodaj numer, nazwę nadawcy lub słowo kluczowe.</string>
     <string name="spam_rules_empty_blocked_title">Brak zablokowanych reguł</string>
@@ -60,36 +52,23 @@
         <item quantity="other">Zaimportowano %d reguły</item>
     </plurals>
     <string name="spam_rules_import_skipped">Pominięte wiersze: %d (nieprawidłowe lub już dodane)</string>
-    <string name="spam_rules_import_failed">Nie udało się odczytać pliku</string>
-    <string name="spam_rules_import_empty">W pliku nie znaleziono prawidłowych reguł</string>
     <plurals name="spam_rules_exported">
         <item quantity="one">Wyeksportowano %d regułę</item>
         <item quantity="few">Wyeksportowano %d reguły</item>
         <item quantity="many">Wyeksportowano %d reguł</item>
         <item quantity="other">Wyeksportowano %d reguły</item>
     </plurals>
-    <string name="spam_rules_export_failed">Nie udało się zapisać pliku</string>
     <string name="spam_rules_tab_count">%1$s, %2$d</string>
     <string name="spam_type_number">Numer</string>
     <string name="spam_type_prefix">Prefiks</string>
     <string name="spam_type_sender_id">Nazwa nadawcy</string>
     <string name="spam_type_keyword">Słowo kluczowe</string>
     <string name="spam_type_regex">Wzorzec (regex)</string>
-    <string name="spam_type_number_help">Dokładny numer telefonu, na przykład +919876543210.</string>
-    <string name="spam_type_prefix_help">Każdy numer zaczynający się od tych cyfr, na przykład +91140.</string>
-    <string name="spam_type_sender_id_help">Tekstowa nazwa nadawcy, np. VM-HDFCBK. Wielkość liter nie ma znaczenia.</string>
     <string name="spam_type_keyword_help">Każda wiadomość zawierająca ten tekst, także w dłuższym słowie: „gra” pasuje też do „wygrana”. Wielkość liter nie ma znaczenia. Nadawca również jest blokowany, chyba że jest w Twoich kontaktach.</string>
     <string name="spam_type_keyword_allow_help">Każda wiadomość zawierająca ten tekst omija wszystkie twoje blokady, niezależnie od nadawcy. Użyj długiej, dokładnej frazy.</string>
-    <string name="spam_type_regex_help">Zaawansowane. Wyrażenie regularne dopasowywane do treści wiadomości. Nadawca również jest blokowany, chyba że jest w Twoich kontaktach.</string>
-    <string name="spam_type_number_hint">+919876543210</string>
-    <string name="spam_type_prefix_hint">+91140</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">darmowy prezent</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_title_allow">Dodaj do dozwolonych</string>
-    <string name="spam_sheet_title_block">Dodaj do zablokowanych</string>
-    <string name="spam_sheet_type_label">Co dopasować</string>
-    <string name="spam_sheet_pattern_label">Wartość</string>
     <string name="spam_sheet_sim_label">Dotyczy</string>
     <string name="spam_sheet_note_label">Notatka (opcjonalnie)</string>
     <string name="spam_sheet_add">Dodaj regułę</string>
@@ -97,7 +76,6 @@
     <string name="spam_err_empty">Wpisz wartość</string>
     <string name="spam_err_number">Wpisz prawidłowy numer telefonu: od 3 do 15 cyfr, opcjonalnie ze znakiem + na początku</string>
     <string name="spam_err_prefix">Wpisz od 1 do 15 cyfr, opcjonalnie ze znakiem + na początku</string>
-    <string name="spam_err_sender_id">Użyj liter, cyfr, łączników lub kropek, w tym co najmniej jednej litery (do 16 znaków)</string>
     <string name="spam_err_keyword_short">Użyj co najmniej 2 znaków</string>
     <string name="spam_err_too_long">Za długi tekst</string>
     <string name="spam_err_multiline">Użyj jednego wiersza</string>
@@ -117,7 +95,6 @@
     <string name="spam_confirm_save">Zapisz mimo to</string>
     <string name="spam_confirm_remove_allowed">Usuń z dozwolonych i zablokuj</string>
     <string name="spam_confirm_remove_allowed_detail">Zapisanie usunie też pasującą regułę z twojej listy „Dozwolone”.</string>
-    <string name="spam_import_title">Zaimportować reguły?</string>
     <plurals name="spam_import_new">
         <item quantity="one">%d nowa reguła</item>
         <item quantity="few">%d nowe reguły</item>
@@ -131,18 +108,12 @@
         <item quantity="many">%d wierszy zostanie pominiętych (już dodanych lub nieprawidłowych)</item>
         <item quantity="other">%d wiersza zostanie pominięte (już dodane lub nieprawidłowe)</item>
     </plurals>
-    <string name="spam_import_examples">Na przykład</string>
-    <string name="spam_import_risky_title">Najpierw sprawdź te reguły</string>
-    <string name="spam_import_risky_body">Dozwolone słowa kluczowe i wzorce pozwalają każdej zawierającej je wiadomości ominąć wszystkie twoje blokady. Zbyt ogólne reguły mogą wychwytywać normalne wiadomości.</string>
-    <string name="spam_import_rule_line">%1$s, %2$s: %3$s</string>
     <plurals name="spam_import_more">
         <item quantity="one">i jeszcze %d</item>
         <item quantity="few">i jeszcze %d</item>
         <item quantity="many">i jeszcze %d</item>
         <item quantity="other">i jeszcze %d</item>
     </plurals>
-    <string name="spam_import_confirm">Import</string>
-    <string name="spam_settings_title">Ustawienia spamu</string>
     <string name="spam_settings_unknown_title">Wiadomości od nieznanych nadawców</string>
     <string name="spam_settings_unknown_body">Nadawcy, których nie masz w kontaktach ani na liście dozwolonych i do których nigdy nie wysłano wiadomości.</string>
     <string name="spam_mode_strict">Ścisły</string>
@@ -155,15 +126,8 @@
     <string name="spam_strict_warning_body">Wiadomości od banków i firm kurierskich oraz kody jednorazowe zwykle pochodzą od nadawców spoza twoich kontaktów. W trybie ścisłym trafiają do folderu „Zablokowane”, także te z kodami. Wybierz tryb inteligentny, by przepuszczać kody, lub dodaj tych nadawców do dozwolonych — wystarczy raz.</string>
     <string name="spam_strict_warning_action">Sprawdź zablokowane wiadomości</string>
     <string name="spam_settings_cleanup_title">Porządkowanie</string>
-    <string name="spam_purge_title">Usuń zablokowane wiadomości po</string>
     <string name="spam_purge_body">Stare zablokowane wiadomości są usuwane automatycznie.</string>
     <string name="spam_purge_days">%d dni</string>
     <string name="spam_purge_forever">Nigdy</string>
-    <string name="spam_settings_notify_title">Powiadomienia</string>
     <string name="spam_notify_title">Powiadamiaj o zablokowaniu wiadomości</string>
-    <string name="spam_notify_body">Pokazuj ciche powiadomienie. Domyślnie wyłączone, by spam nie zakłócał spokoju.</string>
-    <string name="spam_settings_rules_row">Reguły dozwolone i zablokowane</string>
-    <string name="spam_settings_rules_row_body">Numery, nadawcy, słowa kluczowe i wzorce</string>
-    <string name="spam_settings_blocked_row">Zablokowane wiadomości</string>
-    <string name="spam_settings_blocked_row_body">Przeglądaj, przywracaj lub usuwaj</string>
 </resources>

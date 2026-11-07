@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">आपके फ़ोन की अपनी लॉक स्क्रीन सेटिंग सभी सूचनाओं की सामग्री दिखाती है, इसलिए Android अब भी टेक्स्ट दिखा सकता है। इसे फ़ोन की सेटिंग में सूचनाएँ के अंतर्गत बदलें।</string>
+    <string name="backup_timeout_title">Android ने बैकअप रोक दिया</string>
+    <string name="backup_timeout_text">Android बैकग्राउंड में बैकअप या रीस्टोर के चलने का समय सीमित करता है, इसलिए इसे रोक दिया गया। दोबारा शुरू करने के लिए सेटिंग खोलें।</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="blocked_menu_restored">自分で復元したもの</string>
+    <string name="blocked_menu_restored_summary">最近、受信トレイに移動したメッセージ</string>
+</resources>

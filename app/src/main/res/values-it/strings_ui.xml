@@ -15,15 +15,12 @@
     <string name="ui_add_contact_or_number">Inserisci un nome o numero di telefono</string>
     <string name="ui_show_dialpad">Mostra tastierino numerico</string>
     <string name="ui_show_keyboard">Mostra tastiera</string>
-    <string name="ui_settings_group_block_lists">Altri mittenti bloccati</string>
     <string name="ui_settings_system_block_list">Mittenti bloccati dal sistema</string>
     <string name="ui_settings_system_block_list_body">Numeri bloccati per tutte le app su questo telefono. Anche uMessage li nasconde.</string>
     <string name="ui_settings_blocked_words">Parole bloccate</string>
     <string name="ui_settings_character_counter">Mostra contatore caratteri</string>
-    <string name="ui_settings_simple_characters">Rimuovi gli accenti all\'invio</string>
     <string name="ui_settings_send_on_enter">Invia con il tasto Invio</string>
     <string name="ui_settings_delivery_reports">Ricevi rapporti di consegna</string>
-    <string name="ui_settings_recycle_bin">Sposta le conversazioni eliminate nel cestino</string>
     <string name="ui_two_sentences">%1$s. %2$s</string>
     <string name="ui_tab_with_count">%1$s (%2$d)</string>
     <string name="ui_send_with_sim">%1$s, %2$s</string>

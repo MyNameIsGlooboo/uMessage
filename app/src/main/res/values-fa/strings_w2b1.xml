@@ -7,14 +7,10 @@
     <string name="w2b1_search_recent">جستجوهای اخیر</string>
     <string name="w2b1_search_recent_clear">پاک کردن</string>
     <string name="w2b1_search_recent_clear_description">پاک کردن جستجوهای اخیر</string>
-    <string name="w2b1_search_digits_note">ارقام فارسی و لاتین هر دو پیدا می‌شوند: با جستجوی 123، ۱۲۳ هم پیدا می‌شود.</string>
-    <string name="w2b1_search_section_conversations">گفتگوها</string>
-    <string name="w2b1_search_section_messages">پیام‌ها</string>
     <plurals name="w2b1_search_matches" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d مورد مطابق</item>
         <item quantity="other">%d مورد مطابق</item>
     </plurals>
-    <string name="w2b1_filter_all">همه</string>
     <string name="w2b1_filter_unread">خوانده‌نشده</string>
     <string name="w2b1_filter_unread_empty_title">گفتگوی خوانده‌نشده‌ای ندارید</string>
     <string name="w2b1_filter_unread_empty_body">همه خوانده شده‌اند.</string>

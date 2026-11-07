@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_section_conversations">Görüşmeler</string>
+    <string name="search_section_contacts">Kişiler</string>
+    <string name="search_section_see_all">Tümünü görün</string>
+</resources>

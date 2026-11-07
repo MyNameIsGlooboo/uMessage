@@ -5,8 +5,6 @@
     <string name="w2b2_thread_chip_allowed">Завжди дозволено</string>
     <string name="w2b2_thread_chip_blocked">Заблоковано за правилом</string>
     <string name="w2b2_settings_group_dates">Дати</string>
-    <string name="w2b2_settings_jalali">Дати за календарем Джалалі</string>
-    <string name="w2b2_settings_jalali_body">Показувати дати в чатах і запланованих повідомленнях за перським календарем</string>
     <string name="w2b2_lock_pattern_hint">З’єднайте щонайменше %d точки, а потім повторіть малюнок для підтвердження.</string>
     <string name="w2b2_lock_recovery_hint">Якщо забудете ключ, на екрані блокування можна буде скористатися способом розблокування телефона.</string>
 </resources>

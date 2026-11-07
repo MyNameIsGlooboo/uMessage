@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="r4_banner_title">Proteção contra spam</string>
     <plurals name="r4_banner_stopped_week" tools:ignore="ImpliedQuantity">
         <item quantity="one">bloqueada nos últimos 7 dias</item>
         <item quantity="other">bloqueadas nos últimos 7 dias</item>

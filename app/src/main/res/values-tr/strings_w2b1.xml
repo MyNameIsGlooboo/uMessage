@@ -7,14 +7,10 @@
     <string name="w2b1_search_recent">Son aramalar</string>
     <string name="w2b1_search_recent_clear">Temizleyin</string>
     <string name="w2b1_search_recent_clear_description">Son aramaları temizleyin</string>
-    <string name="w2b1_search_digits_note">Fars ve Latin rakamları eşleşir: 123 araması ۱۲۳ sonucunu da bulur.</string>
-    <string name="w2b1_search_section_conversations">Görüşmeler</string>
-    <string name="w2b1_search_section_messages">Mesajlar</string>
     <plurals name="w2b1_search_matches">
         <item quantity="one">%d eşleşme</item>
         <item quantity="other">%d eşleşme</item>
     </plurals>
-    <string name="w2b1_filter_all">Tümü</string>
     <string name="w2b1_filter_unread">Okunmamış</string>
     <string name="w2b1_filter_unread_empty_title">Okunmamış görüşme yok</string>
     <string name="w2b1_filter_unread_empty_body">Hepsi okundu.</string>

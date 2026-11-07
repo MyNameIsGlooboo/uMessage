@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">Die Sperrbildschirm-Einstellung deines Telefons zeigt alle Benachrichtigungsinhalte an, daher kann Android den Text weiterhin zeigen. Ändere sie in den Telefoneinstellungen unter Benachrichtigungen.</string>
+    <string name="backup_timeout_title">Sicherung von Android gestoppt</string>
+    <string name="backup_timeout_text">Android begrenzt, wie lange eine Sicherung oder Wiederherstellung im Hintergrund laufen darf, deshalb wurde sie gestoppt. Öffne die Einstellungen, um sie erneut zu starten.</string>
+</resources>

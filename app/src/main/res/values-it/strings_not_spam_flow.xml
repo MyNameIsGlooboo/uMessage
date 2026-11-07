@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">Spostato in In arrivo</string>
+    <string name="nsf_snack_moved_allowed">Spostato in In arrivo. Anche i prossimi messaggi da %1$s arriveranno.</string>
+    <string name="nsf_moving">Spostamento in In arrivo</string>
+</resources>

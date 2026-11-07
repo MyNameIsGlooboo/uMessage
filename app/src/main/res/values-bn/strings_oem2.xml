@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">আপনি সম্পন্ন বলে চিহ্নিত করেছেন</string>
     <string name="oem2_state_todo">এখনও সম্পন্ন হয়নি</string>
     <string name="oem2_state_limited">Android এখনও ব্যাকগ্রাউন্ডে uMessage-এর ব্যবহার সীমিত করছে</string>
-    <string name="oem2_open_again">আবার খুলুন</string>
     <string name="oem2_undo">আগের অবস্থায় ফিরুন</string>
     <string name="oem2_undo_cd">%1$s অসম্পন্ন বলে চিহ্নিত করুন</string>
 </resources>

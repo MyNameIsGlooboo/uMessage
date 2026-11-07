@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">Żadna zatrzymana wiadomość nie pasuje do tego filtra. Wybierz inny lub pokaż wszystkie.</string>
     <string name="w3b_filter_show_all">Pokaż wszystkie</string>
     <string name="w3b_empty_body">uMessage czuwa. Tryb filtrowania: %1$s. Zatrzymane wiadomości pojawią się tutaj.</string>
-    <string name="w3b_empty_change_mode">Zmień tryb</string>
-    <string name="w3b_empty_rules">Przejrzyj moje reguły</string>
     <string name="w3b_why_link">Wiadomość zatrzymana, bo nadawca jest nieznany, a treść zawiera link.</string>
     <string name="w3b_why_unknown">Wiadomość zatrzymana, bo nadawca jest nieznany.</string>
     <string name="w3b_why_rule">Wiadomość zatrzymana, bo pasuje do jednej z twoich reguł blokowania.</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">Kopiuj kod</string>
     <string name="w3b_code_copied">Kod skopiowany</string>
     <string name="w3b_release_once">Przepuść jednorazowo</string>
-    <string name="w3b_fix_open">Popraw tę decyzję dla: %1$s</string>
-    <string name="w3b_fix_title">Popraw tę decyzję</string>
     <string name="w3b_fix_note">Reguła dotyczy nowych wiadomości od tego nadawcy. Już zatrzymane wiadomości pozostaną na miejscu.</string>
     <string name="w3b_fix_allow">Zawsze zezwalaj temu nadawcy</string>
     <string name="w3b_fix_block">Zablokuj tego nadawcę</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">Zostałaby dostarczona: nie można odczytać kontaktów, więc nie można ocenić nadawcy.</string>
     <string name="w3b_verdict_allowed_other">Zostałaby dostarczona.</string>
     <string name="w3b_examples_title">Zacznij od przykładu</string>
-    <string name="w3b_example_block_word">Zablokuj wiadomości zawierające słowo</string>
     <string name="w3b_example_block_sender">Zablokuj nazwę nadawcy</string>
-    <string name="w3b_example_block_prefix">Zablokuj numery zaczynające się od…</string>
     <string name="w3b_example_allow_sender">Zawsze zezwalaj nazwie nadawcy, np. twojego banku</string>
-    <string name="w3b_example_allow_number">Zawsze zezwalaj numerowi telefonu</string>
     <string name="w3b_overridden_chip">Zastąpiona przez regułę zezwalającą</string>
 </resources>

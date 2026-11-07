@@ -5,11 +5,10 @@
     <string name="onb_next">Avance</string>
     <string name="onb_skip">Pule por enquanto</string>
     <string name="onb_finish">Comece a enviar mensagens</string>
-    <string name="onb_open">Abra</string>
     <string name="onb_welcome_title">Boas-vindas ao uMessage</string>
     <string name="onb_welcome_intro">Mais facilidade nas mensagens, menos spam.</string>
     <string name="onb_welcome_spam">Spam fica de fora</string>
-    <string name="onb_welcome_spam_desc">Mensagens de remetentes desconhecidos ficam em Bloqueados, sem se perder. Escolha o modo de filtragem: rigoroso, inteligente ou desativado.</string>
+    <string name="onb_welcome_spam_desc">Mensagens de remetentes desconhecidos ficam em Bloqueados, sem se perder.</string>
     <string name="onb_welcome_codes">Códigos com um toque</string>
     <string name="onb_welcome_codes_desc">Copie códigos de verificação direto da notificação.</string>
     <string name="onb_welcome_copy">Copie só o que precisa</string>
@@ -27,8 +26,6 @@
     <string name="onb_welcome_start">Comece agora</string>
     <string name="onb_default_title">Defina o uMessage como seu app de SMS</string>
     <string name="onb_default_body">O Android só permite que o app de SMS padrão receba e filtre mensagens. Sem isso, o uMessage não pode proteger sua caixa de entrada.</string>
-    <string name="onb_default_status_yes">O uMessage é seu app de SMS padrão</string>
-    <string name="onb_default_status_no">O uMessage ainda não é seu app de SMS padrão</string>
     <string name="onb_default_action">Defina como padrão</string>
     <string name="onb_default_denied">A solicitação foi recusada. Tente de novo ou continue e defina depois nas configurações do Android.</string>
     <string name="onb_default_unavailable">Seu celular não conseguiu abrir a janela de app padrão. Abra as configurações do Android, Apps, Apps padrão, App de SMS e escolha uMessage.</string>
@@ -44,7 +41,6 @@
     <string name="onb_perm_notifications_reason">Avisa sobre novas mensagens, com botões para responder e copiar códigos.</string>
     <string name="onb_perm_allow_all">Permita tudo</string>
     <string name="onb_perm_open_settings">Abra as configurações</string>
-    <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">Escolha como tratar remetentes desconhecidos</string>
     <string name="onb_mode_strict">Rigoroso</string>
     <string name="onb_mode_smart">Inteligente</string>
@@ -52,8 +48,6 @@
     <string name="onb_mode_warning_title">Atenção às mensagens de bancos e códigos</string>
     <string name="onb_mode_warning_body">No modo rigoroso, alertas de bancos, atualizações de entregas e códigos de uso único de remetentes desconhecidos ficam em Bloqueados, inclusive os códigos. Você não recebe notificação, então confira Bloqueados quando esperar uma dessas mensagens.</string>
     <string name="onb_oem_title">Mantenha o uMessage funcionando</string>
-    <string name="onb_oem_body_known">Celulares %1$s costumam interromper apps em segundo plano, o que atrasa as mensagens. Siga estes passos uma vez.</string>
-    <string name="onb_oem_body_generic">Alguns celulares interrompem apps em segundo plano, o que atrasa as mensagens. Permita que o uMessage funcione sem restrições.</string>
     <string name="onb_oem_manual_hint">Se uma tela não abrir, procure o nome indicado nas configurações.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi ou Poco</string>
     <string name="onb_oem_huawei">Huawei ou Honor</string>
@@ -68,11 +62,8 @@
     <string name="onb_oem_step_ignore_battery">Ignore a otimização de bateria</string>
     <string name="onb_oem_step_app_info">Confira as configurações do app</string>
     <string name="onb_oem_step_app_info_desc">Abra a página do app uMessage para conferir a bateria e as permissões.</string>
-    <string name="onb_done_title">Tudo pronto</string>
-    <string name="onb_done_body">O uMessage está pronto. As mensagens retidas aparecem em Bloqueados, onde você pode permitir um remetente com um toque.</string>
     <string name="onb_done_summary_default">App de SMS padrão</string>
     <string name="onb_done_summary_permissions">Permissões</string>
-    <string name="onb_done_summary_mode">Remetentes desconhecidos</string>
     <string name="onb_done_ok">Concluído</string>
     <string name="onb_done_todo">Precisa de atenção</string>
     <string name="onb_notif_copy_code">Copie o código</string>

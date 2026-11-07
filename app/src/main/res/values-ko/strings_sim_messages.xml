@@ -10,6 +10,4 @@
     </plurals>
     <string name="sim_messages_import">복사</string>
     <string name="sim_messages_importing">메시지 복사 중…</string>
-    <string name="sim_messages_done">메시지 %1$d개를 복사했어요. %2$d개는 이미 대화에 있어요.</string>
-    <string name="sim_messages_done_failed">메시지 %1$d개를 복사했어요. %2$d개는 이미 대화에 있고, %3$d개는 복사하지 못했어요.</string>
 </resources>

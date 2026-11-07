@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">包含消息以外的所有内容：允许、屏蔽和转发规则，以及所有设置。文件未加密，包含转发目标的电话号码，请妥善保存在私密位置。恢复后的转发规则默认关闭。</string>
     <string name="n09_label_spam">垃圾短信防护</string>
     <string name="n09_label_notifications">通知</string>
     <string name="n09_label_chat">聊天和消息列表</string>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="onb_purge_question">Jak długo przechowywać zablokowane wiadomości?</string>
-    <string name="onb_done_summary_purge">Przechowywanie zablokowanych wiadomości</string>
 </resources>

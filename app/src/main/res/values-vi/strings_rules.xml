@@ -14,21 +14,13 @@
     <plurals name="rules_deleted_many">
         <item quantity="other">Đã xóa %d quy tắc</item>
     </plurals>
-    <string name="rules_system_block_list">Danh sách chặn của hệ thống (chặn cả cuộc gọi)</string>
-    <string name="rules_legacy_note_keyword">Từ danh sách từ bị chặn cũ</string>
-    <string name="rules_legacy_note_number">Từ danh sách chặn của hệ thống</string>
-    <string name="rules_legacy_banner_title">Đã tìm thấy danh sách chặn cũ</string>
-    <string name="rules_legacy_banner_body">Một số từ và số điện thoại đang bị chặn ngoài các quy tắc này. Chuyển chúng vào đây để xem và thay đổi mọi thứ ở cùng một nơi.</string>
     <string name="rules_legacy_banner_review">Xem lại</string>
     <string name="rules_legacy_banner_not_now">Để sau</string>
     <string name="rules_legacy_section_keywords">Danh sách từ bị chặn cũ</string>
     <string name="rules_legacy_section_keywords_body">Vẫn dùng để lọc cho đến khi bạn chuyển các từ này vào quy tắc. Sau đó, danh sách cũ sẽ ngừng được sử dụng.</string>
-    <string name="rules_legacy_section_system_body">Android loại bỏ tin nhắn từ các số này trước khi uMessage nhận được, nên chúng không bao giờ xuất hiện trong mục Đã chặn. Danh sách này được dùng chung với ứng dụng điện thoại và chặn cả cuộc gọi.</string>
     <string name="rules_legacy_chip_old_list">Danh sách cũ</string>
     <string name="rules_legacy_chip_system">Hệ thống, chặn cả cuộc gọi</string>
     <string name="rules_legacy_move">Chuyển vào quy tắc</string>
-    <string name="rules_legacy_open_system">Mở danh sách chặn của hệ thống</string>
-    <string name="rules_migrate_title">Chuyển danh sách chặn cũ vào quy tắc</string>
     <string name="rules_migrate_nothing">Mọi mục trong danh sách cũ đều đã có trong quy tắc của bạn.</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="other">%d từ trong danh sách từ bị chặn cũ sẽ thành quy tắc chặn theo từ khóa. Sau đó, danh sách cũ sẽ ngừng được sử dụng.</item>
@@ -39,9 +31,7 @@
     <plurals name="rules_migrate_numbers">
         <item quantity="other">Thêm cả %d số trong danh sách chặn của hệ thống vào quy tắc chặn</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">Android loại bỏ tin nhắn từ các số trong danh sách chặn của hệ thống, nên uMessage không bao giờ nhận được. Khi được thêm vào quy tắc uMessage, tin nhắn từ các số này có thể vào mục Đã chặn để bạn đọc và khôi phục, nhưng chỉ sau khi các số đó được xóa khỏi danh sách của hệ thống.</string>
     <string name="rules_migrate_remove">Xóa cả các số này khỏi danh sách chặn của hệ thống</string>
-    <string name="rules_migrate_remove_body">Danh sách của hệ thống cũng chặn cuộc gọi. Các số bạn xóa khỏi danh sách có thể gọi lại cho bạn. uMessage chỉ lọc tin nhắn.</string>
     <plurals name="rules_migrate_numbers_kept">
         <item quantity="other">%d mục có ký tự đại diện không thể tạo thành quy tắc và vẫn ở danh sách của hệ thống.</item>
     </plurals>
@@ -59,7 +49,6 @@
         <item quantity="other">%d mục vẫn ở các danh sách cũ</item>
     </plurals>
     <string name="rules_migrated_nothing">Chưa chuyển mục nào.</string>
-    <string name="settings_system_block_list_body_calls">Chặn cuộc gọi và tin nhắn trên toàn bộ điện thoại này. Android loại bỏ các tin nhắn này trước khi uMessage nhận được. Bạn có thể chuyển các số vào mục Đã cho phép và đã chặn.</string>
     <string name="settings_old_blocked_words">Danh sách từ bị chặn cũ</string>
     <string name="settings_old_blocked_words_body">Chuyển sang mục Đã cho phép và đã chặn</string>
 </resources>

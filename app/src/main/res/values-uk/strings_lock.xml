@@ -53,7 +53,6 @@
     <string name="settings_app_lock_timeout_5m">Через 5 хвилин</string>
     <string name="settings_app_lock_screenshots">Заблокувати знімки екрана</string>
     <string name="settings_app_lock_screenshots_body">Блокує знімки та запис екрана. Повідомлення завжди приховано в списку нещодавніх застосунків.</string>
-    <string name="settings_app_lock_screenshots_body_old">Блокує знімки та запис екрана. У цій версії Android це також єдиний спосіб приховати повідомлення в списку нещодавніх застосунків.</string>
     <string name="settings_app_lock_change">Змінити PIN, графічний ключ або біометрію</string>
     <string name="settings_app_lock_weak">Ваш PIN або графічний ключ легко вгадати</string>
     <string name="settings_app_lock_weak_body">Ненадійний PIN. Натисніть, щоб змінити</string>

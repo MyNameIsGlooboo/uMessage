@@ -90,10 +90,8 @@
     <string name="thread_attach_photo">Photo</string>
     <string name="thread_attach_take_photo">Take photo</string>
     <string name="thread_attach_record_video">Record video</string>
-    <string name="thread_attach_record_audio">Record audio</string>
     <string name="thread_attach_file">File</string>
     <string name="thread_attach_contact">Contact</string>
-    <string name="thread_attach_schedule">Schedule message</string>
 
     <!-- Add people -->
     <string name="thread_people_confirm">Done</string>

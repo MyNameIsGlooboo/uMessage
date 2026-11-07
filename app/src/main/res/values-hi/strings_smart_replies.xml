@@ -3,4 +3,6 @@
     <string name="smart_replies_title">स्मार्ट जवाब</string>
     <string name="smart_replies_summary">फ़ोन पर मौजूद सूची से झटपट जवाब</string>
     <string name="smart_replies_hide">सुझाव छिपाएं</string>
+    <string name="smart_replies_notif_title">नोटिफ़िकेशन में स्मार्ट जवाब</string>
+    <string name="smart_replies_notif_summary">नोटिफ़िकेशन पर सुझाया गया जवाब बटन के रूप में दिखाएं। उस पर टैप करने से टेक्स्ट भेज दिया जाता है।</string>
 </resources>

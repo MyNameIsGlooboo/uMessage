@@ -6,13 +6,9 @@
     <string name="w2b1_search_recent">最近搜索</string>
     <string name="w2b1_search_recent_clear">清空</string>
     <string name="w2b1_search_recent_clear_description">清空最近搜索</string>
-    <string name="w2b1_search_digits_note">波斯数字和拉丁数字均可匹配：搜索123也能找到۱۲۳。</string>
-    <string name="w2b1_search_section_conversations">会话</string>
-    <string name="w2b1_search_section_messages">消息</string>
     <plurals name="w2b1_search_matches">
         <item quantity="other">%d个匹配结果</item>
     </plurals>
-    <string name="w2b1_filter_all">全部</string>
     <string name="w2b1_filter_unread">未读</string>
     <string name="w2b1_filter_unread_empty_title">没有未读会话</string>
     <string name="w2b1_filter_unread_empty_body">全部已读。</string>

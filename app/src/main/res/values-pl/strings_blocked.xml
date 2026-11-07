@@ -48,7 +48,6 @@
         <item quantity="many">Zablokowane wiadomości są usuwane po %d dniach</item>
         <item quantity="other">Zablokowane wiadomości są usuwane po %d dnia</item>
     </plurals>
-    <string name="spam_purge_notice_off">Zablokowane wiadomości pozostają, aż je usuniesz</string>
     <plurals name="spam_purge_left">
         <item quantity="one">Usunięcie za %d dzień</item>
         <item quantity="few">Usunięcie za %d dni</item>
@@ -56,7 +55,6 @@
         <item quantity="other">Usunięcie za %d dnia</item>
     </plurals>
     <string name="spam_purge_left_today">Usunięcie dzisiaj</string>
-    <string name="convlist_report_spam">Zgłoś spam</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="one">Zgłoszono. Nowe wiadomości od tego nadawcy trafią do zablokowanych, a rozmowa została zarchiwizowana.</item>
         <item quantity="few">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do zablokowanych, a rozmowy zostały zarchiwizowane.</item>
@@ -70,18 +68,9 @@
         <item quantity="other">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do zablokowanych.</item>
     </plurals>
     <string name="blocked_title">Zablokowane</string>
-    <string name="blocked_menu_rules">Reguły</string>
-    <string name="blocked_mode_group_cd">Nieznani nadawcy: %1$s, %2$d z %3$d</string>
-    <string name="blocked_mode_desc_strict">Ścisły: zatrzymuje wiadomości od wszystkich nieznanych nadawców, także kody weryfikacyjne</string>
-    <string name="blocked_mode_desc_smart">Inteligentny: zatrzymuje wiadomości od nieznanych nadawców, ale przepuszcza kody bez linku</string>
-    <string name="blocked_mode_desc_off">Wyłączony: wiadomości od nieznanych nadawców trafiają do odebranych. Twoje reguły nadal działają</string>
     <string name="blocked_snack_mode">Tryb dla nieznanych nadawców: %1$s</string>
-    <string name="blocked_off_title">Przestać zatrzymywać wiadomości od nieznanych nadawców?</string>
-    <string name="blocked_off_body">Wiadomości od nieznanych nadawców trafią prosto do odebranych. Twoje reguły nadal działają.</string>
-    <string name="blocked_off_confirm">Wyłącz</string>
     <string name="blocked_stats_restored">Przywrócone przez ciebie: %1$d</string>
     <string name="blocked_reason_unknown_link">Nieznany nadawca, wiadomość z linkiem</string>
     <string name="blocked_may_be_important">Może być ważne</string>
     <string name="blocked_action_move_inbox">Przenieś do odebranych</string>
-    <string name="blocked_swipe_not_spam">Przesuń, by przenieść do odebranych</string>
 </resources>

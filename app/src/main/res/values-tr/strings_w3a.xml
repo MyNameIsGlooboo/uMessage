@@ -2,5 +2,4 @@
 <resources>
     <string name="w3a_forward_limit_channel">İletme sınırı</string>
     <string name="w3a_forward_limit_title">İletme bugün için duraklatıldı</string>
-    <string name="w3a_forward_limit_text">%d iletme sınırına ulaşıldı. İletme yarın devam edecek.</string>
 </resources>

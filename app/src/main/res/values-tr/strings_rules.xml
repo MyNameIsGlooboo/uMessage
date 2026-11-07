@@ -15,21 +15,13 @@
         <item quantity="one">%d kural silindi</item>
         <item quantity="other">%d kural silindi</item>
     </plurals>
-    <string name="rules_system_block_list">Sistem engellenenler listesi (aramaları da engeller)</string>
-    <string name="rules_legacy_note_keyword">Eski engellenen kelimeler listesinden</string>
-    <string name="rules_legacy_note_number">Sistem engellenenler listesinden</string>
-    <string name="rules_legacy_banner_title">Eski engellenenler listeleri bulundu</string>
-    <string name="rules_legacy_banner_body">Bazı kelimeler ve numaralar bu kuralların dışında engelleniyor. Hepsini tek yerden görüp değiştirmek için buraya taşıyın.</string>
     <string name="rules_legacy_banner_review">İnceleyin</string>
     <string name="rules_legacy_banner_not_now">Şimdi değil</string>
     <string name="rules_legacy_section_keywords">Eski engellenen kelimeler listesi</string>
     <string name="rules_legacy_section_keywords_body">Bu kelimeleri kurallara taşıyana kadar eski liste filtrelemede kullanılır. Ardından eski liste devre dışı kalır.</string>
-    <string name="rules_legacy_section_system_body">Android, bu numaralardan gelen mesajları uMessage\'a ulaşmadan siler. Bu yüzden mesajlar Engellenenler\'de hiç görünmez. Bu liste telefon uygulamasıyla ortaktır ve aramaları da engeller.</string>
     <string name="rules_legacy_chip_old_list">Eski liste</string>
     <string name="rules_legacy_chip_system">Sistem, aramalar da dahil</string>
     <string name="rules_legacy_move">Kurallara taşıyın</string>
-    <string name="rules_legacy_open_system">Sistem engellenenler listesini açın</string>
-    <string name="rules_migrate_title">Eski engellenenler listelerini kurallara taşıyın</string>
     <string name="rules_migrate_nothing">Eski listelerdeki her şey zaten kurallarınızda.</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="one">Eski engellenen kelimeler listesindeki %d kelime, anahtar kelime engelleme kuralına dönüştürülür. Ardından eski liste devre dışı kalır.</item>
@@ -43,9 +35,7 @@
         <item quantity="one">Sistem engellenenler listesindeki %d numarayı da engelleme kuralı olarak ekleyin</item>
         <item quantity="other">Sistem engellenenler listesindeki %d numarayı da engelleme kuralı olarak ekleyin</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">Android, sistem engellenenler listesindeki numaralardan gelen mesajları siler. Bu yüzden uMessage bu mesajları hiç alamaz. Numaralar uMessage kurallarına eklenirse mesajları Engellenenler\'e gelebilir; burada mesajları okuyup geri yükleyebilirsiniz. Ancak bunun için önce numaraların sistem listesinden çıkarılması gerekir.</string>
     <string name="rules_migrate_remove">Sistem engellenenler listesinden de çıkarın</string>
-    <string name="rules_migrate_remove_body">Sistem listesi aramaları da engeller. Listeden çıkardığınız numaralar sizi yeniden arayabilir. uMessage yalnızca mesajları filtreler.</string>
     <plurals name="rules_migrate_numbers_kept">
         <item quantity="one">Joker karakter içeren %d kayıt kurala dönüştürülemez ve sistem listesinde kalır.</item>
         <item quantity="other">Joker karakter içeren %d kayıt kurala dönüştürülemez ve sistem listesinde kalır.</item>
@@ -68,7 +58,6 @@
         <item quantity="other">%d kayıt eski listelerde kaldı</item>
     </plurals>
     <string name="rules_migrated_nothing">Hiçbir şey taşınmadı.</string>
-    <string name="settings_system_block_list_body_calls">Bu telefondaki tüm aramaları ve mesajları engeller. Android, bu mesajları uMessage\'a ulaşmadan siler. Numaraları İzin verilenler ve engellenenler\'e taşıyabilirsiniz.</string>
     <string name="settings_old_blocked_words">Eski engellenen kelimeler listesi</string>
     <string name="settings_old_blocked_words_body">İzin verilenler ve engellenenler\'e taşınıyor</string>
 </resources>

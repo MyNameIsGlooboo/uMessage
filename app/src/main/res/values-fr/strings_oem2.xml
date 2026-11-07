@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">Marqué comme terminé par vous</string>
     <string name="oem2_state_todo">Pas encore terminé</string>
     <string name="oem2_state_limited">Android limite encore uMessage en arrière-plan</string>
-    <string name="oem2_open_again">Rouvrir</string>
     <string name="oem2_undo">Annuler</string>
     <string name="oem2_undo_cd">Marquer %1$s comme non terminé</string>
 </resources>

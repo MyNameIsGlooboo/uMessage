@@ -2,5 +2,4 @@
 <resources>
     <string name="w3a_forward_limit_channel">Limite de transfert</string>
     <string name="w3a_forward_limit_title">Transferts suspendus pour aujourd\'hui</string>
-    <string name="w3a_forward_limit_text">Limite de %d transferts atteinte. Les transferts reprendront demain.</string>
 </resources>

@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">आपने पूरा हुआ मार्क किया</string>
     <string name="oem2_state_todo">अभी पूरा नहीं हुआ</string>
     <string name="oem2_state_limited">Android अभी भी uMessage के बैकग्राउंड में चलने पर पाबंदी लगाता है</string>
-    <string name="oem2_open_again">फिर से खोलें</string>
     <string name="oem2_undo">पहले जैसा करें</string>
     <string name="oem2_undo_cd">%1$s को अधूरा मार्क करें</string>
 </resources>

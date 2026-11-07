@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">Ustawienie ekranu blokady w telefonie pokazuje całą treść powiadomień, więc Android może nadal wyświetlać tekst. Zmień je w Ustawieniach telefonu, w sekcji Powiadomienia.</string>
+    <string name="backup_timeout_title">Android zatrzymał kopię zapasową</string>
+    <string name="backup_timeout_text">Android ogranicza czas, przez jaki kopia zapasowa lub przywracanie mogą działać w tle, dlatego proces został zatrzymany. Otwórz Ustawienia, aby uruchomić go ponownie.</string>
+</resources>

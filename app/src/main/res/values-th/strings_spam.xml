@@ -5,15 +5,10 @@
     <string name="spam_undo">เลิกทำ</string>
     <string name="spam_more_options">ตัวเลือกเพิ่มเติม</string>
     <string name="spam_loading">กำลังโหลด</string>
-    <string name="spam_blocked_title">ข้อความที่บล็อก</string>
-    <string name="spam_blocked_open_rules">กฎการอนุญาตและบล็อก</string>
     <string name="spam_blocked_open_settings">การตั้งค่าการบล็อก</string>
-    <string name="spam_blocked_mode_line">ผู้ส่งที่ไม่รู้จัก: %1$s</string>
-    <string name="spam_blocked_mode_change">เปลี่ยน</string>
     <string name="spam_blocked_stats_totals">บล็อกทั้งหมด %1$d ข้อความ กู้คืนแล้ว %2$d ข้อความ</string>
     <string name="spam_blocked_header_cd">บล็อกสแปม %1$d ข้อความใน 7 วันที่ผ่านมา บล็อกทั้งหมด %2$d ข้อความ กู้คืนแล้ว %3$d ข้อความ</string>
     <string name="spam_blocked_empty_title">ยังไม่มีข้อความที่บล็อก</string>
-    <string name="spam_blocked_empty_body">ข้อความที่ตัวกรองบล็อกไว้จะอยู่ที่นี่ แตะครั้งเดียวเพื่อกู้คืนข้อความที่ต้องการ</string>
     <string name="spam_action_delete">ลบ</string>
     <string name="spam_select">เลือก</string>
     <string name="spam_action_select_all">เลือกทั้งหมด</string>
@@ -35,12 +30,9 @@
     <string name="spam_sim_both">ทั้งสอง SIM</string>
     <string name="spam_sim_missing">ไม่มี SIM นี้ในโทรศัพท์</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
-    <string name="spam_rules_title">ที่อนุญาตและที่บล็อก</string>
     <string name="spam_rules_tab_allowed">อนุญาตแล้ว</string>
     <string name="spam_rules_tab_blocked">ที่บล็อก</string>
     <string name="spam_rules_add">เพิ่มกฎ</string>
-    <string name="spam_rules_import">นำเข้ากฎ</string>
-    <string name="spam_rules_export">ส่งออกกฎ</string>
     <string name="spam_rules_empty_allowed_title">ไม่มีกฎการอนุญาต</string>
     <string name="spam_rules_empty_allowed_body">ทุกอย่างที่อนุญาตจะเข้ากล่องข้อความเข้าเสมอ แม้ใช้โหมดเข้มงวด เพิ่มหมายเลข ชื่อผู้ส่ง หรือคำหลัก</string>
     <string name="spam_rules_empty_blocked_title">ไม่มีกฎการบล็อก</string>
@@ -51,33 +43,20 @@
         <item quantity="other">นำเข้าแล้ว %d กฎ</item>
     </plurals>
     <string name="spam_rules_import_skipped">ข้าม %d บรรทัด (ไม่ถูกต้องหรือเพิ่มไว้แล้ว)</string>
-    <string name="spam_rules_import_failed">อ่านไฟล์นี้ไม่ได้</string>
-    <string name="spam_rules_import_empty">ไม่พบกฎที่ถูกต้องในไฟล์นี้</string>
     <plurals name="spam_rules_exported">
         <item quantity="other">ส่งออกแล้ว %d กฎ</item>
     </plurals>
-    <string name="spam_rules_export_failed">เขียนไฟล์ไม่ได้</string>
     <string name="spam_rules_tab_count">%1$s, %2$d</string>
     <string name="spam_type_number">หมายเลข</string>
     <string name="spam_type_prefix">เลขนำหน้า</string>
     <string name="spam_type_sender_id">ชื่อผู้ส่ง</string>
     <string name="spam_type_keyword">คำหลัก</string>
     <string name="spam_type_regex">รูปแบบ (regex)</string>
-    <string name="spam_type_number_help">หมายเลขโทรศัพท์ที่ตรงกันทุกหลัก เช่น +919876543210</string>
-    <string name="spam_type_prefix_help">ทุกหมายเลขที่ขึ้นต้นด้วยเลขนี้ เช่น +91140</string>
-    <string name="spam_type_sender_id_help">ชื่อผู้ส่งที่เป็นข้อความ เช่น VM-HDFCBK ไม่แยกตัวพิมพ์ใหญ่และเล็ก</string>
     <string name="spam_type_keyword_help">ข้อความใดก็ตามที่มีคำนี้ แม้เป็นส่วนหนึ่งของคำที่ยาวกว่า เช่น “win” จะตรงกับ “window” ด้วย ไม่แยกตัวพิมพ์ใหญ่และเล็ก ผู้ส่งจะถูกบล็อกด้วย เว้นแต่อยู่ในรายชื่อติดต่อของคุณ</string>
     <string name="spam_type_keyword_allow_help">ข้อความใดก็ตามที่มีคำนี้จะข้ามการบล็อกทั้งหมด ไม่ว่ามาจากผู้ส่งใด ควรใช้วลีที่ยาวและเจาะจง</string>
-    <string name="spam_type_regex_help">ขั้นสูง ใช้รูปแบบ (regex) เพื่อตรวจหาข้อความที่ตรงกัน ผู้ส่งจะถูกบล็อกด้วย เว้นแต่อยู่ในรายชื่อติดต่อของคุณ</string>
-    <string name="spam_type_number_hint">+919876543210</string>
-    <string name="spam_type_prefix_hint">+91140</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">ของขวัญฟรี</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_title_allow">เพิ่มในรายการที่อนุญาต</string>
-    <string name="spam_sheet_title_block">เพิ่มในรายการที่บล็อก</string>
-    <string name="spam_sheet_type_label">สิ่งที่ต้องการตรวจหา</string>
-    <string name="spam_sheet_pattern_label">ค่า</string>
     <string name="spam_sheet_sim_label">ใช้กับ</string>
     <string name="spam_sheet_note_label">หมายเหตุ (ไม่บังคับ)</string>
     <string name="spam_sheet_add">เพิ่มกฎ</string>
@@ -85,7 +64,6 @@
     <string name="spam_err_empty">ป้อนค่า</string>
     <string name="spam_err_number">ป้อนหมายเลขโทรศัพท์ที่ถูกต้อง: ตัวเลข 3 ถึง 15 หลัก ขึ้นต้นด้วย + ได้</string>
     <string name="spam_err_prefix">ป้อนตัวเลข 1 ถึง 15 หลัก ขึ้นต้นด้วย + ได้</string>
-    <string name="spam_err_sender_id">ใช้ตัวอักษร ตัวเลข ขีดกลาง หรือจุด โดยมีตัวอักษรอย่างน้อย 1 ตัว (ไม่เกิน 16 อักขระ)</string>
     <string name="spam_err_keyword_short">ใช้อย่างน้อย 2 อักขระ</string>
     <string name="spam_err_too_long">ยาวเกินไป</string>
     <string name="spam_err_multiline">ใช้เพียงบรรทัดเดียว</string>
@@ -105,7 +83,6 @@
     <string name="spam_confirm_save">บันทึกต่อไป</string>
     <string name="spam_confirm_remove_allowed">นำออกจากรายการที่อนุญาตและบล็อก</string>
     <string name="spam_confirm_remove_allowed_detail">การบันทึกจะนำกฎที่ตรงกันออกจากรายการที่อนุญาตด้วย</string>
-    <string name="spam_import_title">นำเข้ากฎไหม?</string>
     <plurals name="spam_import_new">
         <item quantity="other">กฎใหม่ %d กฎ</item>
     </plurals>
@@ -113,15 +90,9 @@
     <plurals name="spam_import_skipped">
         <item quantity="other">จะข้าม %d บรรทัด (เพิ่มไว้แล้วหรือไม่ถูกต้อง)</item>
     </plurals>
-    <string name="spam_import_examples">ตัวอย่าง</string>
-    <string name="spam_import_risky_title">ตรวจสอบรายการเหล่านี้ก่อน</string>
-    <string name="spam_import_risky_body">คำหลักและรูปแบบ (regex) ที่อนุญาตจะให้ทุกข้อความที่ตรงกันข้ามการบล็อกทั้งหมด กฎที่กว้างเกินไปอาจบล็อกข้อความปกติ</string>
-    <string name="spam_import_rule_line">%1$s, %2$s: %3$s</string>
     <plurals name="spam_import_more">
         <item quantity="other">และอีก %d รายการ</item>
     </plurals>
-    <string name="spam_import_confirm">นำเข้า</string>
-    <string name="spam_settings_title">การตั้งค่าสแปม</string>
     <string name="spam_settings_unknown_title">ข้อความจากผู้ส่งที่ไม่รู้จัก</string>
     <string name="spam_settings_unknown_body">ผู้ส่งที่ไม่อยู่ในรายชื่อติดต่อ ไม่เคยส่งข้อความถึง และไม่อยู่ในรายการที่อนุญาต</string>
     <string name="spam_mode_strict">เข้มงวด</string>
@@ -134,15 +105,8 @@
     <string name="spam_strict_warning_body">ข้อความจากธนาคาร บริษัทขนส่ง และรหัสใช้ครั้งเดียวมักมาจากผู้ส่งที่ไม่อยู่ในรายชื่อติดต่อ ในโหมดเข้มงวด ข้อความเหล่านี้จะไปที่โฟลเดอร์ที่บล็อก รวมถึงรหัสด้วย เลือกโหมดอัจฉริยะเพื่อให้รับรหัสได้ หรือเพิ่มผู้ส่งเหล่านั้นในรายการที่อนุญาตเพียงครั้งเดียว</string>
     <string name="spam_strict_warning_action">ตรวจสอบข้อความที่บล็อก</string>
     <string name="spam_settings_cleanup_title">ล้างข้อมูล</string>
-    <string name="spam_purge_title">ลบข้อความที่บล็อกเมื่อผ่านไป</string>
     <string name="spam_purge_body">ลบข้อความเก่าที่บล็อกไว้โดยอัตโนมัติ</string>
     <string name="spam_purge_days">%d วัน</string>
     <string name="spam_purge_forever">ไม่ลบ</string>
-    <string name="spam_settings_notify_title">การแจ้งเตือน</string>
     <string name="spam_notify_title">แจ้งเตือนเมื่อบล็อกข้อความ</string>
-    <string name="spam_notify_body">แสดงการแจ้งเตือนแบบไม่มีเสียง ปิดไว้เป็นค่าเริ่มต้นเพื่อไม่ให้สแปมรบกวน</string>
-    <string name="spam_settings_rules_row">กฎการอนุญาตและบล็อก</string>
-    <string name="spam_settings_rules_row_body">หมายเลข ผู้ส่ง คำหลัก และรูปแบบ (regex)</string>
-    <string name="spam_settings_blocked_row">ข้อความที่บล็อก</string>
-    <string name="spam_settings_blocked_row_body">ตรวจสอบ กู้คืน หรือลบ</string>
 </resources>

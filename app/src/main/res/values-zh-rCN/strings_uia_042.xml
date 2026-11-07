@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">可选</string>
+    <string name="backup_drive_hint">要使用 Google 云端硬盘，请在文件选择器中选择它。</string>
+    <string name="move_from_app_title">从其他应用迁移</string>
+    <string name="move_from_app_row_body">把其他短信应用中的消息带过来</string>
+    <string name="move_from_app_intro">要换用 uMessage 吗？你的旧消息也可以一起带过来。</string>
+    <string name="move_from_app_step1">在旧应用中创建备份。在 SMS Backup &amp; Restore 中，点按 Back up now。</string>
+    <string name="move_from_app_step2">将备份保存到 Google 云端硬盘，或保存为手机上的文件。</string>
+    <string name="move_from_app_step3">回到这里，点按“导入消息”，然后选择该文件。</string>
+    <string name="move_from_app_format">uMessage 可以读取 SMS Backup &amp; Restore 生成的 XML 文件，以及自己的备份。</string>
+    <plurals name="sim_messages_done">
+        <item quantity="other">已复制%1$d条消息。%2$d条已存在于会话中。</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="other">已复制%1$d条消息。%2$d条已存在于会话中，%3$d条无法复制。</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="other">备份已保存：%1$d个项目</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="other">已输入%d位数字</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="other">已达到%d次转发的上限，明天继续转发。</item>
+    </plurals>
+</resources>

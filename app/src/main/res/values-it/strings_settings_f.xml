@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">Messaggi, regole e impostazioni in un file</string>
-    <string name="settings_f_backup_rules_group">Regole e impostazioni</string>
-    <string name="settings_f_backup_rules_contents">Il file contiene le tue regole per consentire, bloccare e inoltrare, e le impostazioni: protezione spam, notifiche, date, dimensione del testo, tema, tasto Invio e limiti di inoltro. Non include mai il testo dei messaggi o il blocco app. Le regole di inoltro vengono ripristinate disattivate.</string>
-    <string name="settings_f_backup_messages_contents">Testo e immagini dei messaggi, in un file separato.</string>
     <string name="settings_f_restore_title">Ripristinare da questo file?</string>
     <string name="settings_f_restore_rules">Regole per consentire: %1$d · Regole per bloccare: %2$d. Le regole già presenti vengono ignorate.</string>
     <string name="settings_f_restore_forwards">Regole di inoltro da aggiungere: %1$d, disattivate. Attivale in Regole › Inoltro.</string>

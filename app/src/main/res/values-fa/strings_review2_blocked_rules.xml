@@ -24,8 +24,6 @@
     <string name="e_example_block_cancel_word">مسدود کردن پیام‌های دارای لغو۱۱</string>
     <string name="e_example_block_ad_prefix">مسدود کردن شماره‌های تبلیغاتی با پیش‌شمارهٔ 3000</string>
     <string name="e_example_allow_number">اجازه دادن همیشگی به یک شماره، مثل ادارهٔ پست</string>
-    <string name="e_sheet_sender_label">فرستنده</string>
-    <string name="e_sheet_text_label">متن پیام</string>
     <string name="e_value_number">شماره تلفن</string>
     <string name="e_value_prefix">شماره شروع می‌شود با</string>
     <string name="e_value_sender">نام فرستنده</string>

@@ -3,4 +3,6 @@
     <string name="smart_replies_title">Respostas inteligentes</string>
     <string name="smart_replies_summary">Respostas rápidas de uma lista no seu celular</string>
     <string name="smart_replies_hide">Oculte as sugestões</string>
+    <string name="smart_replies_notif_title">Respostas inteligentes nas notificações</string>
+    <string name="smart_replies_notif_summary">Mostra uma resposta sugerida como botão na notificação. Tocar nele envia o texto.</string>
 </resources>

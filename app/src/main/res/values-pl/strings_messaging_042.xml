@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">Nie dostarczono</string>
+    <string name="thread_many_parts_note">Ten tekst jest bardzo długi: zostanie wysłany jako %1$d SMS-ów. Krótsze teksty kosztują mniej.</string>
+    <string name="attachments_total_too_large">Te pliki razem są za duże na jedną wiadomość. Może się nie wysłać.</string>
+    <string name="mms_download_failed_channel">Pobieranie wiadomości z obrazkami</string>
+    <string name="mms_download_failed_title">Nie pobrano wiadomości z obrazkiem</string>
+    <string name="mms_download_failed_text">Nie udało się jej pobrać. Sprawdź dane komórkowe; nadawca może musieć wysłać ją ponownie.</string>
+</resources>

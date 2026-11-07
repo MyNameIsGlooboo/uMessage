@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="r3b_info_button">ব্লক কীভাবে কাজ করে</string>
-    <string name="r3b_info_title">ব্লক কীভাবে কাজ করে</string>
-    <string name="r3b_info_modes">অচেনা প্রেরক</string>
-    <string name="r3b_info_mode_current">এখন: %1$s</string>
-    <string name="r3b_info_messages">ব্লক করা বার্তা</string>
-    <string name="r3b_info_open_sender">বার্তা পড়তে প্রেরকের ওপর ট্যাপ করুন।</string>
-    <string name="r3b_info_move">ইনবক্সে সরালে প্রেরকের সব বার্তা আপনার ইনবক্সে যায়, তারপর তাঁকে সবসময় অনুমতি দিতে চান কি না জানতে চাওয়া হয়।</string>
-    <string name="r3b_info_release">একবার ছেড়ে দিলে (বার্তা চেপে ধরে রাখুন) শুধু ওই বার্তাটি আপনার ইনবক্সে যায়। প্রেরককে অনুমতি দেওয়া হয় না।</string>
-    <string name="r3b_info_swipe">প্রেরকের বার্তা ইনবক্সে সরাতে তাঁর সারির শেষের দিকে সোয়াইপ করুন।</string>
     <string name="r3b_open_sender">বার্তা খুলুন</string>
     <string name="r3b_move_inbox_for">ইনবক্সে সরান, %1$s</string>
     <string name="r3b_delete_for">মুছুন, %1$s</string>
@@ -22,12 +13,8 @@
     <string name="r3b_text_copied">লেখা কপি করা হয়েছে</string>
     <string name="r3b_delete_message">মুছুন</string>
     <string name="r3b_received">পাওয়া গেছে %1$s</string>
-    <string name="r3b_info_mode_strict">কঠোর: সব অচেনা প্রেরকের বার্তা আটকে রাখে, যাচাইকরণ কোডও।</string>
-    <string name="r3b_info_mode_smart">স্মার্ট: অচেনা প্রেরকের বার্তা আটকে রাখে, তবে লিঙ্ক ছাড়া কোড আসতে দেয়।</string>
-    <string name="r3b_info_mode_off">বন্ধ: অচেনা প্রেরকের বার্তা আপনার ইনবক্সে আসে। আপনার নিয়ম তবুও প্রযোজ্য থাকে।</string>
     <plurals name="r3b_info_purge" tools:ignore="ImpliedQuantity">
         <item quantity="one">ব্লক করা বার্তা %d দিন পর মুছে যায়।</item>
         <item quantity="other">ব্লক করা বার্তা %d দিন পর মুছে যায়।</item>
     </plurals>
-    <string name="r3b_info_purge_off">আপনি না মোছা পর্যন্ত ব্লক করা বার্তা রাখা হয়।</string>
 </resources>

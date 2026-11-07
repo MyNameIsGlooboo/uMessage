@@ -23,8 +23,6 @@
     <string name="e_example_block_cancel_word">Blokir pesan yang berisi لغو۱۱</string>
     <string name="e_example_block_ad_prefix">Blokir nomor iklan yang diawali 3000</string>
     <string name="e_example_allow_number">Selalu izinkan nomor, misalnya kantor pos Anda</string>
-    <string name="e_sheet_sender_label">Pengirim</string>
-    <string name="e_sheet_text_label">Teks pesan</string>
     <string name="e_value_number">Nomor telepon</string>
     <string name="e_value_prefix">Nomor diawali dengan</string>
     <string name="e_value_sender">Nama pengirim</string>

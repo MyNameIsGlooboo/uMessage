@@ -24,7 +24,6 @@
     <string name="add_contact_or_number">Добавьте контакт или номер…</string>
     <string name="suggestions">Рекомендации</string>
     <string name="members">Участники</string>
-    <string name="conversation_name">Название чата</string>
     <string name="conversation_details">Сведения о чате</string>
     <string name="rename_conversation">Переименовать чат</string>
     <string name="rename_conversation_warning">Это название чата видно только вам</string>
@@ -86,7 +85,6 @@
     <string name="mms_file_size_limit">Уменьшать изображения при отправке MMS</string>
     <string name="mms_file_size_limit_none">Без ограничений</string>
     <string name="outgoing_messages">Исходящие сообщения</string>
-    <string name="group_message_mms">Отправлять групповые сообщения как MMS</string>
     <string name="send_group_message">Формат групповых сообщений</string>
     <string name="group_message_send_description">В групповых MMS ответы остаются в одном чате, но оператор может взимать плату. При отдельной отправке каждый получает свое сообщение. Это можно изменить позже в настройках приложения.</string>
     <string name="group_mms">Групповые MMS</string>
@@ -154,8 +152,6 @@
     <string name="invalid_short_code_desc">Ответить можно только на короткие номера из цифр, например «503501». На номера с буквами и цифрами, например «AB-CD0», ответить нельзя.</string>
     <string name="attachment_sized_exceeds_max_limit">Размер вложения превышает лимит MMS</string>
     <string name="couldnt_download_mms">Не удалось скачать MMS</string>
-    <string name="faq_1_title">Зачем приложению доступ к интернету?</string>
-    <string name="faq_1_text">К сожалению, он нужен для отправки вложений MMS. Без отправки MMS приложение сильно уступало бы другим, поэтому мы решили оставить эту возможность. При этом, как и всегда, здесь нет рекламы, отслеживания или аналитики — интернет используется только для отправки MMS.</string>
     <string name="faq_2_title">Получатель не получает мои MMS. Что можно сделать?</string>
     <string name="faq_2_text">Операторы ограничивают размер MMS. Попробуйте уменьшить лимит в настройках приложения.</string>
     <string name="faq_3_title">Можно ли запланировать отправку сообщений?</string>

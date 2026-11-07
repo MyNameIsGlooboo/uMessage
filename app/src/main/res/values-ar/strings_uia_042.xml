@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">اختياري</string>
+    <string name="backup_drive_hint">لاستخدام Google Drive، اخترْه من منتقي الملفات.</string>
+    <string name="move_from_app_title">الانتقال من تطبيق آخر</string>
+    <string name="move_from_app_row_body">انقل رسائلك من تطبيق رسائل آخر</string>
+    <string name="move_from_app_intro">هل تنتقل إلى uMessage؟ يمكن لرسائلك القديمة أن تأتي معك.</string>
+    <string name="move_from_app_step1">في تطبيقك القديم، أنشئ نسخة احتياطية. في SMS Backup &amp; Restore اضغط على Back up now.</string>
+    <string name="move_from_app_step2">احفظ النسخة الاحتياطية في Google Drive أو في ملف على هاتفك.</string>
+    <string name="move_from_app_step3">عُد إلى هنا، واضغط على «استورد الرسائل» ثم اختر ذلك الملف.</string>
+    <string name="move_from_app_format">يقرأ uMessage ملفات XML التي ينشئها SMS Backup &amp; Restore، إضافةً إلى نسخه الاحتياطية الخاصة.</string>
+    <plurals name="sim_messages_done">
+        <item quantity="zero">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك.</item>
+        <item quantity="one">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك.</item>
+        <item quantity="two">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك.</item>
+        <item quantity="few">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك.</item>
+        <item quantity="many">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك.</item>
+        <item quantity="other">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك.</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="zero">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك وتعذّر نسخ %3$d منها.</item>
+        <item quantity="one">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك وتعذّر نسخ %3$d منها.</item>
+        <item quantity="two">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك وتعذّر نسخ %3$d منها.</item>
+        <item quantity="few">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك وتعذّر نسخ %3$d منها.</item>
+        <item quantity="many">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك وتعذّر نسخ %3$d منها.</item>
+        <item quantity="other">تم نسخ %1$d من الرسائل. وُجدت %2$d منها مسبقًا في محادثاتك وتعذّر نسخ %3$d منها.</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="zero">حُفظت النسخة الاحتياطية: %1$d من العناصر</item>
+        <item quantity="one">حُفظت النسخة الاحتياطية: %1$d من العناصر</item>
+        <item quantity="two">حُفظت النسخة الاحتياطية: %1$d من العناصر</item>
+        <item quantity="few">حُفظت النسخة الاحتياطية: %1$d من العناصر</item>
+        <item quantity="many">حُفظت النسخة الاحتياطية: %1$d من العناصر</item>
+        <item quantity="other">حُفظت النسخة الاحتياطية: %1$d من العناصر</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="zero">عدد الأرقام المدخلة: %d</item>
+        <item quantity="one">عدد الأرقام المدخلة: %d</item>
+        <item quantity="two">عدد الأرقام المدخلة: %d</item>
+        <item quantity="few">عدد الأرقام المدخلة: %d</item>
+        <item quantity="many">عدد الأرقام المدخلة: %d</item>
+        <item quantity="other">عدد الأرقام المدخلة: %d</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="zero">تم بلوغ الحد البالغ %d من عمليات إعادة التوجيه. تُستأنف إعادة التوجيه غدًا.</item>
+        <item quantity="one">تم بلوغ الحد البالغ %d من عمليات إعادة التوجيه. تُستأنف إعادة التوجيه غدًا.</item>
+        <item quantity="two">تم بلوغ الحد البالغ %d من عمليات إعادة التوجيه. تُستأنف إعادة التوجيه غدًا.</item>
+        <item quantity="few">تم بلوغ الحد البالغ %d من عمليات إعادة التوجيه. تُستأنف إعادة التوجيه غدًا.</item>
+        <item quantity="many">تم بلوغ الحد البالغ %d من عمليات إعادة التوجيه. تُستأنف إعادة التوجيه غدًا.</item>
+        <item quantity="other">تم بلوغ الحد البالغ %d من عمليات إعادة التوجيه. تُستأنف إعادة التوجيه غدًا.</item>
+    </plurals>
+</resources>

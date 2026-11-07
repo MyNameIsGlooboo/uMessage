@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">Optional</string>
+    <string name="backup_drive_hint">To use Google Drive, pick it in the file picker.</string>
+    <string name="move_from_app_title">Move from another app</string>
+    <string name="move_from_app_row_body">Bring your messages over from another SMS app</string>
+    <string name="move_from_app_intro">Switching to uMessage? Your old messages can come with you.</string>
+    <string name="move_from_app_step1">In your old app, make a backup. In SMS Backup &amp; Restore, tap Back up now.</string>
+    <string name="move_from_app_step2">Save the backup to Google Drive or to a file on your phone.</string>
+    <string name="move_from_app_step3">Come back here, tap Import messages and pick that file.</string>
+    <string name="move_from_app_format">uMessage reads the XML files made by SMS Backup &amp; Restore, as well as its own backups.</string>
+    <plurals name="sim_messages_done">
+        <item quantity="one">Copied %1$d message. %2$d already in your conversations.</item>
+        <item quantity="other">Copied %1$d messages. %2$d already in your conversations.</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="one">Copied %1$d message. %2$d already in your conversations and %3$d could not be copied.</item>
+        <item quantity="other">Copied %1$d messages. %2$d already in your conversations and %3$d could not be copied.</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="one">Backup saved: %1$d item</item>
+        <item quantity="other">Backup saved: %1$d items</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="one">%d digit entered</item>
+        <item quantity="other">%d digits entered</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="one">Limit of %d forward reached. Forwarding continues tomorrow.</item>
+        <item quantity="other">Limit of %d forwards reached. Forwarding continues tomorrow.</item>
+    </plurals>
+</resources>

@@ -5,20 +5,15 @@
     <string name="settings_nav_group_privacy_about">隐私与关于</string>
     <string name="settings_nav_spam_row">垃圾短信防护</string>
     <string name="settings_nav_spam_page_title">垃圾短信防护</string>
-    <string name="settings_nav_android_block_list">Android屏蔽列表</string>
     <string name="settings_nav_android_block_list_body">同时屏蔽来电</string>
     <string name="settings_nav_decision_log">为什么被屏蔽？</string>
     <string name="settings_nav_decision_log_body">允许和屏蔽的判定记录</string>
-    <string name="settings_nav_forwarding">转发</string>
     <string name="settings_nav_forwarded_tab">显示“已转发”标签页</string>
     <string name="settings_nav_forwarded_tab_body">在会话列表中显示已转发消息的标签页</string>
     <string name="settings_nav_forward_pause">暂停所有转发</string>
     <string name="settings_nav_forward_pause_body">保留规则，暂停转发所有消息</string>
-    <string name="settings_nav_messages_row">输入、发送和存储</string>
-    <string name="settings_nav_messages_title">消息</string>
     <string name="settings_nav_group_typing">输入</string>
     <string name="settings_nav_group_sending">发送</string>
-    <string name="settings_nav_group_storage">存储</string>
     <string name="settings_nav_simple_chars">简化特殊字母</string>
     <string name="settings_nav_simple_chars_body">改用普通字母（如é变为e），减少消息分段</string>
     <string name="settings_nav_long_mms">长文本转为彩信</string>
@@ -27,13 +22,10 @@
     <string name="settings_nav_archived">已归档会话</string>
     <string name="settings_nav_keep_archived">已归档会话保持隐藏</string>
     <string name="settings_nav_keep_archived_body">收到新消息时，会话仍保持已归档状态</string>
-    <string name="settings_nav_recycle_bin">使用回收站</string>
-    <string name="settings_nav_recycle_bin_body">删除的消息先放入回收站</string>
     <string name="settings_nav_default_sim_value">SIM%1$d·%2$s</string>
     <string name="settings_nav_default_sim_ask">每次询问</string>
     <string name="settings_nav_open_android_settings">打开Android设置</string>
     <string name="settings_nav_lock_screen">锁屏隐私</string>
-    <string name="settings_nav_theme">主题</string>
     <string name="settings_nav_theme_body">浅色、深色和配色</string>
     <string name="settings_nav_app_lock">应用锁</string>
     <string name="settings_nav_app_lock_body">需验证PIN、图案或指纹</string>
@@ -42,7 +34,6 @@
     <string name="settings_nav_about_row">关于</string>
     <string name="settings_nav_about_body">版本、源代码和许可证</string>
     <string name="settings_nav_privacy_body">离线运行。数据只留在手机上。</string>
-    <string name="settings_nav_version_body">点按复制完整构建信息</string>
     <string name="settings_nav_version_copied">已复制构建信息</string>
     <string name="settings_nav_source_body">在GitHub上打开</string>
     <string name="settings_nav_licenses_row">开源许可证</string>
@@ -62,7 +53,6 @@
     <string name="settings_nav_group_alerts">提醒</string>
     <string name="settings_nav_notify_body">每屏蔽一条消息，发送一条静默通知</string>
     <string name="settings_nav_theme_title">外观</string>
-    <string name="settings_nav_theme_intro">选择uMessage的外观。应用图标保持不变。</string>
     <string name="settings_nav_theme_modes">模式</string>
     <string name="settings_nav_theme_colours">颜色</string>
 </resources>

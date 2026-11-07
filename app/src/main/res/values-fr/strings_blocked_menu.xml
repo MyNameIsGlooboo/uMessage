@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="blocked_menu_restored">Restaurés par vous</string>
+    <string name="blocked_menu_restored_summary">Messages que vous avez récemment déplacés vers la boîte de réception</string>
+</resources>

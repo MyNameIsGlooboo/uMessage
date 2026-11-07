@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">Potwierdź swoją tożsamość</string>
     <string name="forward_tab">Przekaż dalej</string>
     <string name="forward_add">Dodaj przekazywanie dalej</string>
-    <string name="forward_intro">Wiadomości z folderu Odebrane, które pasują do reguły, są przekazywane dalej przez SMS. Zablokowany spam nigdy nie jest przekazywany dalej.</string>
     <string name="forward_paid_note">Każde przekazanie dalej to płatny SMS.</string>
-    <string name="forward_empty_title">Brak reguł przekazywania dalej</string>
-    <string name="forward_empty_body">Wysyłaj kopie pasujących wiadomości, np. powiadomień z banku, na inny telefon.</string>
     <string name="forward_row_from">Od: %1$s</string>
     <string name="forward_row_text">Tekst: %1$s</string>
     <string name="forward_row_any_sender">Dowolny nadawca</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">Numer %1$d</string>
     <string name="forward_sheet_add_target">Dodaj numer</string>
     <string name="forward_sheet_remove_target">Usuń numer %1$d</string>
-    <string name="forward_sheet_target_needed">Dodaj co najmniej jeden numer do przekazywania dalej.</string>
     <string name="forward_err_target_invalid">Wpisz numer telefonu mający od 7 do 15 cyfr</string>
     <string name="forward_err_target_duplicate">Ten numer jest już na liście</string>
     <string name="forward_sheet_window">Tylko w określonych godzinach</string>
-    <string name="forward_sheet_window_body">Przekazuj dalej tylko w tych godzinach. Jeśli koniec jest wcześniejszy niż początek, okres obejmuje północ.</string>
     <string name="forward_sheet_start">Początek %1$s</string>
     <string name="forward_sheet_end">Koniec %1$s</string>
     <string name="forward_sheet_pick_start">Godzina rozpoczęcia</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">Odebrano na</string>
     <string name="forward_sheet_send_from_label">Wyślij z</string>
     <string name="forward_sim_same">Ta sama karta SIM</string>
-    <string name="forward_sheet_codes">Uwzględniaj kody weryfikacyjne</string>
-    <string name="forward_sheet_codes_body">Gdy ta opcja jest wyłączona, wiadomości wyglądające na kody logowania lub kody weryfikacyjne nie są przekazywane dalej.</string>
     <string name="forward_sheet_paid">Każde przekazanie dalej to płatny SMS. Długie wiadomości są wysyłane w kilku częściach.</string>
     <string name="forward_codes_title">Przekazywać dalej kody weryfikacyjne?</string>
     <string name="forward_codes_message">Przekazywanie dalej kodów pozwala odbiorcy zalogować się na twoje konta. Oszuści to wykorzystują: namawiają do przekazywania dalej wiadomości, by kraść kody. Włącz tę opcję tylko dla telefonu, który należy do ciebie.</string>
     <string name="forward_codes_confirm">Uwzględniaj kody</string>
-    <string name="forward_delete_title">Usunąć regułę przekazywania dalej?</string>
-    <string name="forward_delete_message">Wiadomości nie będą już przekazywane dalej według tej reguły.</string>
     <string name="forward_no_lock_title">Chroń przekazywanie dalej blokadą aplikacji</string>
     <string name="forward_no_lock_message">Reguły przekazywania dalej wysyłają twoje wiadomości na inne telefony, więc każdy, kto ma twój odblokowany telefon, może dodać taką regułę. Po włączeniu blokady aplikacji zmiana tych reguł wymaga PIN-u lub odcisku palca.</string>
     <string name="forward_no_lock_continue">Kontynuuj</string>

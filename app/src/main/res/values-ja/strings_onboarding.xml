@@ -5,11 +5,10 @@
     <string name="onb_next">次へ</string>
     <string name="onb_skip">今はスキップ</string>
     <string name="onb_finish">利用開始</string>
-    <string name="onb_open">開く</string>
     <string name="onb_welcome_title">uMessageへようこそ</string>
     <string name="onb_welcome_intro">迷惑メッセージを減らして、もっと快適に。</string>
     <string name="onb_welcome_spam">迷惑メッセージをブロック</string>
-    <string name="onb_welcome_spam_desc">不明な送信者からのメッセージは「ブロック済み」に保存され、失われません。「厳格」「スマート」「オフ」から選べます。</string>
+    <string name="onb_welcome_spam_desc">不明な送信者からのメッセージは「ブロック済み」に保存され、失われません。</string>
     <string name="onb_welcome_codes">ワンタップで認証コードをコピー</string>
     <string name="onb_welcome_codes_desc">通知から直接、認証コードをコピーできます。</string>
     <string name="onb_welcome_copy">必要な部分だけコピー</string>
@@ -27,8 +26,6 @@
     <string name="onb_welcome_start">はじめる</string>
     <string name="onb_default_title">uMessageをデフォルトのSMSアプリに設定</string>
     <string name="onb_default_body">Androidでは、デフォルトのSMSアプリだけがメッセージを受信・フィルタリングできます。この設定がないと、uMessageは受信トレイを保護できません。</string>
-    <string name="onb_default_status_yes">uMessageがデフォルトのSMSアプリです。</string>
-    <string name="onb_default_status_no">uMessageはまだデフォルトのSMSアプリではありません。</string>
     <string name="onb_default_action">デフォルトに設定</string>
     <string name="onb_default_denied">リクエストが拒否されました。もう一度試すか、このまま進んで後でAndroidの設定から変更できます。</string>
     <string name="onb_default_unavailable">デフォルトのアプリを選ぶ画面を開けませんでした。Androidの設定で「アプリ」→「デフォルトのアプリ」→「SMSアプリ」を開き、uMessageを選んでください。</string>
@@ -44,7 +41,6 @@
     <string name="onb_perm_notifications_reason">新着メッセージを通知し、返信や認証コードのコピーができるボタンを表示します。</string>
     <string name="onb_perm_allow_all">すべて許可</string>
     <string name="onb_perm_open_settings">設定を開く</string>
-    <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">不明な送信者の扱いを選択</string>
     <string name="onb_mode_strict">厳格</string>
     <string name="onb_mode_smart">スマート</string>
@@ -52,8 +48,6 @@
     <string name="onb_mode_warning_title">銀行や認証コードのメッセージについて</string>
     <string name="onb_mode_warning_body">厳格モードでは、不明な送信者からの銀行の通知、配達状況、ワンタイムコードなどは、コードも含めて「ブロック済み」に保留されます。通知は届かないので、届く予定があるときは「ブロック済み」を確認してください。</string>
     <string name="onb_oem_title">uMessageの動作を維持</string>
-    <string name="onb_oem_body_known">%1$sの端末では、バックグラウンドのアプリが停止され、メッセージが遅れることがあります。最初に次の設定をしてください。</string>
-    <string name="onb_oem_body_generic">端末によっては、バックグラウンドのアプリが停止され、メッセージが遅れることがあります。uMessageが制限なく動作するように設定してください。</string>
     <string name="onb_oem_manual_hint">画面が開かない場合は、表示されている項目名を設定で検索してください。</string>
     <string name="onb_oem_xiaomi">Xiaomi、Redmi、Poco</string>
     <string name="onb_oem_huawei">Huawei、Honor</string>
@@ -68,11 +62,8 @@
     <string name="onb_oem_step_ignore_battery">バッテリー最適化の対象外にする</string>
     <string name="onb_oem_step_app_info">アプリの設定を確認</string>
     <string name="onb_oem_step_app_info_desc">uMessageのアプリ情報を開いて、バッテリーと権限の設定を確認してください。</string>
-    <string name="onb_done_title">準備完了</string>
-    <string name="onb_done_body">uMessageの準備ができました。保留されたメッセージは「ブロック済み」に表示され、ワンタップで送信者を許可できます。</string>
     <string name="onb_done_summary_default">デフォルトのSMSアプリ</string>
     <string name="onb_done_summary_permissions">権限</string>
-    <string name="onb_done_summary_mode">不明な送信者</string>
     <string name="onb_done_ok">完了</string>
     <string name="onb_done_todo">要確認</string>
     <string name="onb_notif_copy_code">コードをコピー</string>

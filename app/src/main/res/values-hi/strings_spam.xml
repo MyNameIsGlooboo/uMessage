@@ -5,15 +5,10 @@
     <string name="spam_undo">पहले जैसा करें</string>
     <string name="spam_more_options">और विकल्प</string>
     <string name="spam_loading">लोड हो रहा है</string>
-    <string name="spam_blocked_title">ब्लॉक किए गए मैसेज</string>
-    <string name="spam_blocked_open_rules">अनुमति देने और ब्लॉक करने के नियम</string>
     <string name="spam_blocked_open_settings">ब्लॉक करने की सेटिंग</string>
-    <string name="spam_blocked_mode_line">अनजान भेजने वाले: %1$s</string>
-    <string name="spam_blocked_mode_change">बदलें</string>
     <string name="spam_blocked_stats_totals">कुल %1$d रोके गए, %2$d वापस लाए गए</string>
     <string name="spam_blocked_header_cd">पिछले 7 दिनों में %1$d स्पैम रोके गए. कुल %2$d रोके गए, %3$d वापस लाए गए.</string>
     <string name="spam_blocked_empty_title">अभी कोई मैसेज ब्लॉक नहीं किया गया</string>
-    <string name="spam_blocked_empty_body">आपके फ़िल्टर से रोके गए मैसेज यहां रहते हैं, ताकि आप किसी भी मैसेज को एक टैप में वापस ला सकें.</string>
     <string name="spam_action_delete">मिटाएं</string>
     <string name="spam_select">चुनें</string>
     <string name="spam_action_select_all">सभी चुनें</string>
@@ -37,12 +32,9 @@
     <string name="spam_sim_both">दोनों सिम</string>
     <string name="spam_sim_missing">सिम फ़ोन में नहीं है</string>
     <string name="spam_sim_named">सिम %1$d, %2$s</string>
-    <string name="spam_rules_title">अनुमति दी गई और ब्लॉक किए गए</string>
     <string name="spam_rules_tab_allowed">अनुमति दी गई</string>
     <string name="spam_rules_tab_blocked">ब्लॉक किए गए</string>
     <string name="spam_rules_add">नियम जोड़ें</string>
-    <string name="spam_rules_import">नियम इंपोर्ट करें</string>
-    <string name="spam_rules_export">नियम एक्सपोर्ट करें</string>
     <string name="spam_rules_empty_allowed_title">अनुमति देने का कोई नियम नहीं</string>
     <string name="spam_rules_empty_allowed_body">आप जिनकी अनुमति देते हैं, वे हमेशा आपके इनबॉक्स में आते हैं, सख़्त मोड में भी. कोई नंबर, भेजने वाले का नाम या कीवर्ड जोड़ें.</string>
     <string name="spam_rules_empty_blocked_title">ब्लॉक करने का कोई नियम नहीं</string>
@@ -54,34 +46,21 @@
         <item quantity="other">%d नियम इंपोर्ट किए गए</item>
     </plurals>
     <string name="spam_rules_import_skipped">%d लाइनें छोड़ दी गईं (अमान्य या पहले से जोड़ी गई)</string>
-    <string name="spam_rules_import_failed">वह फ़ाइल पढ़ी नहीं जा सकी</string>
-    <string name="spam_rules_import_empty">उस फ़ाइल में कोई मान्य नियम नहीं मिला</string>
     <plurals name="spam_rules_exported" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d नियम एक्सपोर्ट किया गया</item>
         <item quantity="other">%d नियम एक्सपोर्ट किए गए</item>
     </plurals>
-    <string name="spam_rules_export_failed">फ़ाइल लिखी नहीं जा सकी</string>
     <string name="spam_rules_tab_count">%1$s, %2$d</string>
     <string name="spam_type_number">नंबर</string>
     <string name="spam_type_prefix">शुरुआती अंक</string>
     <string name="spam_type_sender_id">भेजने वाले का नाम</string>
     <string name="spam_type_keyword">कीवर्ड</string>
     <string name="spam_type_regex">पैटर्न (रेगुलर एक्सप्रेशन)</string>
-    <string name="spam_type_number_help">पूरा फ़ोन नंबर, जैसे +919876543210.</string>
-    <string name="spam_type_prefix_help">इससे शुरू होने वाला हर नंबर, जैसे +91140.</string>
-    <string name="spam_type_sender_id_help">मैसेज भेजने वाला, जैसे VM-HDFCBK. बड़े या छोटे अंग्रेज़ी अक्षरों से फ़र्क नहीं पड़ता.</string>
     <string name="spam_type_keyword_help">हर मैसेज जिसमें यह टेक्स्ट हो, किसी बड़े शब्द के अंदर भी: “win” से “window” भी मेल खाता है. बड़े या छोटे अंग्रेज़ी अक्षरों से फ़र्क नहीं पड़ता. भेजने वाला भी ब्लॉक हो जाता है, जब तक वह आपके संपर्कों में न हो.</string>
     <string name="spam_type_keyword_allow_help">जिस मैसेज में यह टेक्स्ट होगा, वह आपके सभी ब्लॉक से बच जाएगा, चाहे भेजने वाला कोई भी हो. लंबे और सटीक शब्द समूह का इस्तेमाल करें.</string>
-    <string name="spam_type_regex_help">बेहतर जानकारी रखने वालों के लिए. मैसेज के टेक्स्ट से रेगुलर एक्सप्रेशन का मिलान किया जाता है. भेजने वाला भी ब्लॉक हो जाता है, जब तक वह आपके संपर्कों में न हो.</string>
-    <string name="spam_type_number_hint">+919876543210</string>
-    <string name="spam_type_prefix_hint">+91140</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">मुफ़्त उपहार</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_title_allow">अनुमति दी गई सूची में जोड़ें</string>
-    <string name="spam_sheet_title_block">ब्लॉक किए गए में जोड़ें</string>
-    <string name="spam_sheet_type_label">किसका मिलान करें</string>
-    <string name="spam_sheet_pattern_label">मान</string>
     <string name="spam_sheet_sim_label">इस पर लागू</string>
     <string name="spam_sheet_note_label">नोट (वैकल्पिक)</string>
     <string name="spam_sheet_add">नियम जोड़ें</string>
@@ -89,7 +68,6 @@
     <string name="spam_err_empty">कोई मान डालें</string>
     <string name="spam_err_number">मान्य फ़ोन नंबर डालें: 3 से 15 अंक, शुरुआत में + लगा सकते हैं</string>
     <string name="spam_err_prefix">1 से 15 अंक डालें, शुरुआत में + लगा सकते हैं</string>
-    <string name="spam_err_sender_id">अक्षर, अंक, डैश या बिंदु इस्तेमाल करें, कम से कम एक अक्षर ज़रूरी है (अधिकतम 16 अक्षर)</string>
     <string name="spam_err_keyword_short">कम से कम 2 अक्षर इस्तेमाल करें</string>
     <string name="spam_err_too_long">यह बहुत लंबा है</string>
     <string name="spam_err_multiline">सिर्फ़ एक लाइन इस्तेमाल करें</string>
@@ -109,7 +87,6 @@
     <string name="spam_confirm_save">फिर भी सेव करें</string>
     <string name="spam_confirm_remove_allowed">अनुमति दी गई सूची से हटाकर ब्लॉक करें</string>
     <string name="spam_confirm_remove_allowed_detail">सेव करने पर आपकी अनुमति दी गई सूची से मेल खाने वाला नियम भी हट जाएगा.</string>
-    <string name="spam_import_title">नियम इंपोर्ट करें?</string>
     <plurals name="spam_import_new" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d नया नियम</item>
         <item quantity="other">%d नए नियम</item>
@@ -119,16 +96,10 @@
         <item quantity="one">%d लाइन छोड़ दी जाएगी (पहले से जोड़ी गई या अमान्य)</item>
         <item quantity="other">%d लाइनें छोड़ दी जाएंगी (पहले से जोड़ी गई या अमान्य)</item>
     </plurals>
-    <string name="spam_import_examples">उदाहरण के लिए</string>
-    <string name="spam_import_risky_title">पहले इन्हें जांचें</string>
-    <string name="spam_import_risky_body">अनुमति दिए गए कीवर्ड और पैटर्न (रेगुलर एक्सप्रेशन) वाले मैसेज आपके सभी ब्लॉक से बच जाते हैं. बहुत व्यापक नियम सामान्य मैसेज भी रोक सकते हैं.</string>
-    <string name="spam_import_rule_line">%1$s, %2$s: %3$s</string>
     <plurals name="spam_import_more" tools:ignore="ImpliedQuantity">
         <item quantity="one">और %d</item>
         <item quantity="other">और %d</item>
     </plurals>
-    <string name="spam_import_confirm">इंपोर्ट करें</string>
-    <string name="spam_settings_title">स्पैम सेटिंग</string>
     <string name="spam_settings_unknown_title">अनजान भेजने वालों के मैसेज</string>
     <string name="spam_settings_unknown_body">ऐसे भेजने वाले जो आपके संपर्कों में नहीं हैं, जिन्हें आपने कभी मैसेज नहीं भेजा है और जो आपकी अनुमति दी गई सूची में नहीं हैं.</string>
     <string name="spam_mode_strict">सख़्त</string>
@@ -141,15 +112,8 @@
     <string name="spam_strict_warning_body">बैंकों, डिलीवरी कंपनियों के मैसेज और ओटीपी आम तौर पर ऐसे भेजने वालों से आते हैं जो आपके संपर्कों में नहीं हैं. सख़्त मोड में ये ‘ब्लॉक किए गए’ फ़ोल्डर में जाते हैं, कोड भी. कोड आने देने के लिए स्मार्ट चुनें या उन भेजने वालों को एक बार अनुमति दें.</string>
     <string name="spam_strict_warning_action">ब्लॉक किए गए मैसेज देखें</string>
     <string name="spam_settings_cleanup_title">सफ़ाई</string>
-    <string name="spam_purge_title">ब्लॉक किए गए मैसेज कब मिटाएं</string>
     <string name="spam_purge_body">पुराने ब्लॉक किए गए मैसेज अपने-आप हटा दिए जाते हैं.</string>
     <string name="spam_purge_days">%d दिन</string>
     <string name="spam_purge_forever">कभी नहीं</string>
-    <string name="spam_settings_notify_title">सूचनाएं</string>
     <string name="spam_notify_title">मैसेज ब्लॉक होने पर सूचना दें</string>
-    <string name="spam_notify_body">बिना आवाज़ की सूचना दिखाएं. यह डिफ़ॉल्ट रूप से बंद है, ताकि स्पैम से आवाज़ न हो.</string>
-    <string name="spam_settings_rules_row">अनुमति देने और ब्लॉक करने के नियम</string>
-    <string name="spam_settings_rules_row_body">नंबर, भेजने वाले, कीवर्ड और पैटर्न (रेगुलर एक्सप्रेशन)</string>
-    <string name="spam_settings_blocked_row">ब्लॉक किए गए मैसेज</string>
-    <string name="spam_settings_blocked_row_body">देखें, वापस लाएं या मिटाएं</string>
 </resources>

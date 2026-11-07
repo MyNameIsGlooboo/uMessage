@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">ส่งไม่สำเร็จ</string>
+    <string name="thread_many_parts_note">ข้อความนี้ยาวมาก: จะถูกส่งเป็น SMS %1$d ข้อความ ข้อความที่สั้นกว่าจะประหยัดกว่า</string>
+    <string name="attachments_total_too_large">ไฟล์เหล่านี้รวมกันใหญ่เกินไปสำหรับหนึ่งข้อความ อาจส่งไม่สำเร็จ</string>
+    <string name="mms_download_failed_channel">การดาวน์โหลดข้อความรูปภาพ</string>
+    <string name="mms_download_failed_title">ยังไม่ได้ดาวน์โหลดข้อความรูปภาพ</string>
+    <string name="mms_download_failed_text">ดาวน์โหลดไม่สำเร็จ ตรวจสอบอินเทอร์เน็ตมือถือของคุณ ผู้ส่งอาจต้องส่งใหม่อีกครั้ง</string>
+</resources>

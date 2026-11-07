@@ -48,7 +48,6 @@
         <item quantity="one">Blocked messages are deleted after %d day</item>
         <item quantity="other">Blocked messages are deleted after %d days</item>
     </plurals>
-    <string name="spam_purge_notice_off">Blocked messages are kept until you delete them</string>
     <plurals name="spam_purge_left">
         <item quantity="one">Deleted in %d day</item>
         <item quantity="other">Deleted in %d days</item>
@@ -56,7 +55,6 @@
     <string name="spam_purge_left_today">Deleted today</string>
 
     <!-- "Report spam" in the conversation list selection (MC-37). -->
-    <string name="convlist_report_spam">Report spam</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="one">Reported. New texts from this sender go to Blocked, and the chat is archived.</item>
         <item quantity="other">%d chats reported. New texts from them go to Blocked, and the chats are archived.</item>
@@ -68,20 +66,11 @@
 
     <!-- Blocked tab and screen, design review 2 (BR-*, P1-*). -->
     <string name="blocked_title">Blocked</string>
-    <string name="blocked_menu_rules">Rules</string>
     <!-- Group name for the mode selector: "Unknown senders: Smart, 2 of 3". -->
-    <string name="blocked_mode_group_cd">Unknown senders: %1$s, %2$d of %3$d</string>
-    <string name="blocked_mode_desc_strict">Strict: holds every unknown sender, verification codes too</string>
-    <string name="blocked_mode_desc_smart">Smart: holds unknown senders, but lets codes without a link through</string>
-    <string name="blocked_mode_desc_off">Off: unknown senders reach your inbox. Your rules still apply</string>
     <!-- %1$s is the new mode name. -->
     <string name="blocked_snack_mode">Unknown senders set to %1$s</string>
-    <string name="blocked_off_title">Stop holding unknown senders?</string>
-    <string name="blocked_off_body">Messages from unknown senders go straight to your inbox. Your rules still apply.</string>
-    <string name="blocked_off_confirm">Turn off</string>
     <string name="blocked_stats_restored">%1$d restored by you</string>
     <string name="blocked_reason_unknown_link">Unknown sender, with a link</string>
     <string name="blocked_may_be_important">May be important</string>
     <string name="blocked_action_move_inbox">Move to inbox</string>
-    <string name="blocked_swipe_not_spam">Swipe to move to inbox</string>
 </resources>

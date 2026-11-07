@@ -76,4 +76,5 @@
     <string name="sks_version">phiên bản số bản dựng phát hành cập nhật sao chép</string>
     <string name="sks_source">mã nguồn GitHub mở giấy phép kho mã</string>
     <string name="sks_licenses">giấy phép giấy phép mã nguồn mở GPL pháp lý phông chữ thư viện</string>
+    <string name="sks_privacy_policy">chính sách quyền riêng tư điều khoản bảo vệ dữ liệu pháp lý</string>
 </resources>

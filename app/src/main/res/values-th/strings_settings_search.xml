@@ -76,4 +76,5 @@
     <string name="sks_version">เวอร์ชัน บิลด์ หมายเลข รุ่น อัปเดต คัดลอก</string>
     <string name="sks_source">ซอร์สโค้ด GitHub เปิด ใบอนุญาต คลังโค้ด</string>
     <string name="sks_licenses">ใบอนุญาต ใบอนุญาต โอเพนซอร์ส GPL กฎหมาย แบบอักษร ไลบรารี</string>
+    <string name="sks_privacy_policy">นโยบาย ความเป็นส่วนตัว ข้อกำหนด การปกป้องข้อมูล กฎหมาย</string>
 </resources>

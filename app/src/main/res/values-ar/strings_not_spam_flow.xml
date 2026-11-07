@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">نُقلت إلى الرسائل الواردة</string>
+    <string name="nsf_snack_moved_allowed">نُقلت إلى الرسائل الواردة. ستصل الرسائل القادمة من %1$s أيضًا.</string>
+    <string name="nsf_moving">جارٍ النقل إلى الرسائل الواردة</string>
+</resources>

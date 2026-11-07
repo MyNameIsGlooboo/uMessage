@@ -11,11 +11,6 @@
     <string name="convx_details_call">Zadzwoń</string>
     <string name="convx_details_copy">Kopiuj numer</string>
     <string name="convx_details_add_contact">Dodaj kontakt</string>
-    <string name="convx_details_tap_to_rename">Dotknij, aby zmienić nazwę</string>
-    <string name="convx_details_notifications_hint">Wybierz dźwięk i priorytet tylko dla tego nadawcy</string>
-    <string name="convx_details_block">Zablokuj tego nadawcę</string>
-    <string name="convx_details_block_hint">Nowe wiadomości trafią do zablokowanych wiadomości. Nic nie opuszcza twojego telefonu.</string>
-    <string name="convx_details_status">Stan</string>
     <string name="convx_new_send_to">Wyślij do %1$s</string>
     <string name="convx_new_group_hint">Wybierz osoby do grupy. Wiadomość grupowa może wymagać transmisji danych i ustawień MMS.</string>
 </resources>

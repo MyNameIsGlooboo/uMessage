@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">Cài đặt màn hình khóa của điện thoại đang hiển thị toàn bộ nội dung thông báo, nên Android vẫn có thể hiện nội dung tin nhắn. Hãy đổi trong Cài đặt của điện thoại, mục Thông báo.</string>
+    <string name="backup_timeout_title">Android đã dừng sao lưu</string>
+    <string name="backup_timeout_text">Android giới hạn thời gian sao lưu hoặc khôi phục được chạy nền, nên quá trình đã bị dừng. Mở Cài đặt để bắt đầu lại.</string>
+</resources>

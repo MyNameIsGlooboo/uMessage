@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">複製%1$s</string>
     <string name="thread_r2_menu_search">在對話中搜尋</string>
     <string name="thread_r2_menu_always_forward">一律轉寄這位寄件者的訊息</string>
-    <string name="thread_r2_block_hint">之後的簡訊會移至「已封鎖」，資料不會離開你的手機。</string>
     <string name="thread_r2_forward_message">轉寄這則訊息</string>
     <string name="thread_r2_search_hint">在對話中搜尋</string>
     <string name="thread_r2_search_close">關閉搜尋</string>

@@ -36,13 +36,11 @@
         <item quantity="one">پیام‌های مسدودشده پس از %d روز حذف می‌شوند</item>
         <item quantity="other">پیام‌های مسدودشده پس از %d روز حذف می‌شوند</item>
     </plurals>
-    <string name="spam_purge_notice_off">پیام‌های مسدودشده تا زمانی که حذفشان کنید نگه داشته می‌شوند</string>
     <plurals name="spam_purge_left" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d روز دیگر حذف می‌شود</item>
         <item quantity="other">%d روز دیگر حذف می‌شود</item>
     </plurals>
     <string name="spam_purge_left_today">امروز حذف می‌شود</string>
-    <string name="convlist_report_spam">گزارش هرزنامه</string>
     <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
         <item quantity="one">گزارش شد. پیام‌های جدید این فرستنده به «مسدودشده‌ها» می‌روند و گفتگو بایگانی شد.</item>
         <item quantity="other">%d گفتگو گزارش شد. پیام‌های جدید آن‌ها به «مسدودشده‌ها» می‌روند و گفتگوها بایگانی شدند.</item>
@@ -52,18 +50,9 @@
         <item quantity="other">%d گفتگو گزارش شد. پیام‌های جدید آن‌ها به «مسدودشده‌ها» می‌روند.</item>
     </plurals>
     <string name="blocked_title">مسدودشده‌ها</string>
-    <string name="blocked_menu_rules">قانون‌ها</string>
-    <string name="blocked_mode_group_cd">فرستنده‌های ناشناس: %1$s، %2$d از %3$d</string>
-    <string name="blocked_mode_desc_strict">سخت‌گیرانه: همهٔ پیام‌های فرستنده‌های ناشناس، حتی کدهای تأیید را نگه می‌دارد</string>
-    <string name="blocked_mode_desc_smart">هوشمند: پیام‌های فرستنده‌های ناشناس را نگه می‌دارد، اما کدهای بدون پیوند را عبور می‌دهد</string>
-    <string name="blocked_mode_desc_off">خاموش: پیام‌های فرستنده‌های ناشناس به صندوق ورودی می‌رسند. قانون‌های شما همچنان اعمال می‌شوند</string>
     <string name="blocked_snack_mode">حالت فرستنده‌های ناشناس روی %1$s تنظیم شد</string>
-    <string name="blocked_off_title">نگهداری پیام‌های فرستنده‌های ناشناس متوقف شود؟</string>
-    <string name="blocked_off_body">پیام‌های فرستنده‌های ناشناس مستقیم به صندوق ورودی شما می‌روند. قانون‌های شما همچنان اعمال می‌شوند.</string>
-    <string name="blocked_off_confirm">خاموش کردن</string>
     <string name="blocked_stats_restored">%1$d مورد را بازیابی کرده‌اید</string>
     <string name="blocked_reason_unknown_link">فرستندهٔ ناشناس، دارای پیوند</string>
     <string name="blocked_may_be_important">شاید مهم باشد</string>
     <string name="blocked_action_move_inbox">انتقال به صندوق ورودی</string>
-    <string name="blocked_swipe_not_spam">برای انتقال به صندوق ورودی، انگشت بکشید</string>
 </resources>

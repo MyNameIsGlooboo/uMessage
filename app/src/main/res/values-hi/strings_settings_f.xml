@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">मैसेज, नियम और सेटिंग एक फ़ाइल में</string>
-    <string name="settings_f_backup_rules_group">नियम और सेटिंग</string>
-    <string name="settings_f_backup_rules_contents">फ़ाइल में अनुमति देने और ब्लॉक करने के नियम, फ़ॉरवर्ड करने के नियम और सेटिंग रहती हैं: स्पैम से सुरक्षा, सूचनाएं, तारीखें, टेक्स्ट का आकार, थीम, Enter कुंजी और फ़ॉरवर्ड करने की सीमाएं. मैसेज का टेक्स्ट या आपका ऐप लॉक कभी शामिल नहीं होता. फ़ॉरवर्ड करने के नियम वापस आने पर बंद रहते हैं.</string>
-    <string name="settings_f_backup_messages_contents">मैसेज का टेक्स्ट और फ़ोटो, एक अलग फ़ाइल में.</string>
     <string name="settings_f_restore_title">इस फ़ाइल से वापस लाएं?</string>
     <string name="settings_f_restore_rules">अनुमति देने के नियम: %1$d · ब्लॉक करने के नियम: %2$d. पहले से मौजूद नियम छोड़ दिए जाते हैं.</string>
     <string name="settings_f_restore_forwards">जोड़ने के लिए फ़ॉरवर्ड करने के नियम: %1$d, बंद रहेंगे. इन्हें नियम › फ़ॉरवर्ड करें में चालू करें.</string>

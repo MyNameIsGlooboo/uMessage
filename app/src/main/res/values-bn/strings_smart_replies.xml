@@ -3,4 +3,6 @@
     <string name="smart_replies_title">স্মার্ট উত্তর</string>
     <string name="smart_replies_summary">আপনার ফোনের তালিকা থেকে দ্রুত উত্তর</string>
     <string name="smart_replies_hide">সাজেশন লুকান</string>
+    <string name="smart_replies_notif_title">বিজ্ঞপ্তিতে স্মার্ট উত্তর</string>
+    <string name="smart_replies_notif_summary">বিজ্ঞপ্তিতে একটি প্রস্তাবিত উত্তর বোতাম হিসেবে দেখান। বোতামে ট্যাপ করলে লেখাটি পাঠানো হয়।</string>
 </resources>

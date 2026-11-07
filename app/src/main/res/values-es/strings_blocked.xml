@@ -36,13 +36,11 @@
         <item quantity="one">Los mensajes bloqueados se eliminan después de %d día</item>
         <item quantity="other">Los mensajes bloqueados se eliminan después de %d días</item>
     </plurals>
-    <string name="spam_purge_notice_off">Los mensajes bloqueados se conservan hasta que los elimines</string>
     <plurals name="spam_purge_left">
         <item quantity="one">Se elimina en %d día</item>
         <item quantity="other">Se elimina en %d días</item>
     </plurals>
     <string name="spam_purge_left_today">Se elimina hoy</string>
-    <string name="convlist_report_spam">Denunciar spam</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="one">Denuncia enviada. Los nuevos mensajes de este remitente irán a Bloqueados y el chat se archivó.</item>
         <item quantity="other">%d chats denunciados. Los nuevos mensajes de sus remitentes irán a Bloqueados y los chats se archivaron.</item>
@@ -52,18 +50,9 @@
         <item quantity="other">%d chats denunciados. Los nuevos mensajes de sus remitentes irán a Bloqueados.</item>
     </plurals>
     <string name="blocked_title">Bloqueados</string>
-    <string name="blocked_menu_rules">Reglas</string>
-    <string name="blocked_mode_group_cd">Remitentes desconocidos: %1$s, %2$d de %3$d</string>
-    <string name="blocked_mode_desc_strict">Estricto: retiene a todos los remitentes desconocidos, incluidos los códigos de verificación</string>
-    <string name="blocked_mode_desc_smart">Inteligente: retiene a los remitentes desconocidos, pero permite los códigos sin enlaces</string>
-    <string name="blocked_mode_desc_off">Desactivado: los remitentes desconocidos llegan a tu bandeja de entrada. Tus reglas siguen vigentes</string>
     <string name="blocked_snack_mode">Remitentes desconocidos: %1$s</string>
-    <string name="blocked_off_title">¿Dejar de retener a los remitentes desconocidos?</string>
-    <string name="blocked_off_body">Los mensajes de remitentes desconocidos irán directamente a tu bandeja de entrada. Tus reglas siguen vigentes.</string>
-    <string name="blocked_off_confirm">Desactivar</string>
     <string name="blocked_stats_restored">%1$d restaurados por ti</string>
     <string name="blocked_reason_unknown_link">Remitente desconocido, con un enlace</string>
     <string name="blocked_may_be_important">Puede ser importante</string>
     <string name="blocked_action_move_inbox">Mover a la bandeja de entrada</string>
-    <string name="blocked_swipe_not_spam">Desliza para mover a la bandeja de entrada</string>
 </resources>

@@ -11,6 +11,4 @@
     </plurals>
     <string name="sim_messages_import">Copie</string>
     <string name="sim_messages_importing">Copiando mensagens…</string>
-    <string name="sim_messages_done">%1$d mensagens copiadas. %2$d já estavam nas suas conversas.</string>
-    <string name="sim_messages_done_failed">%1$d mensagens copiadas. %2$d já estavam nas suas conversas e %3$d não puderam ser copiadas.</string>
 </resources>

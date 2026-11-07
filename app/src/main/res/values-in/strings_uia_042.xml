@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">Opsional</string>
+    <string name="backup_drive_hint">Untuk memakai Google Drive, pilih Google Drive di pemilih file.</string>
+    <string name="move_from_app_title">Pindah dari aplikasi lain</string>
+    <string name="move_from_app_row_body">Bawa pesan Anda dari aplikasi SMS lain</string>
+    <string name="move_from_app_intro">Beralih ke uMessage? Pesan lama Anda bisa ikut pindah.</string>
+    <string name="move_from_app_step1">Di aplikasi lama, buat cadangan. Di SMS Backup &amp; Restore, ketuk Back up now.</string>
+    <string name="move_from_app_step2">Simpan cadangan ke Google Drive atau ke file di ponsel Anda.</string>
+    <string name="move_from_app_step3">Kembali ke sini, ketuk “Impor pesan”, lalu pilih file itu.</string>
+    <string name="move_from_app_format">uMessage membaca file XML buatan SMS Backup &amp; Restore dan cadangannya sendiri.</string>
+    <plurals name="sim_messages_done">
+        <item quantity="other">%1$d pesan disalin. %2$d sudah ada di percakapan Anda.</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="other">%1$d pesan disalin. %2$d sudah ada di percakapan Anda dan %3$d tidak dapat disalin.</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="other">Cadangan disimpan: %1$d item</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="other">%d digit dimasukkan</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="other">Batas %d penerusan tercapai. Penerusan dilanjutkan besok.</item>
+    </plurals>
+</resources>

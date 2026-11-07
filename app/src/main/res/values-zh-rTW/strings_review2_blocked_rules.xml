@@ -23,8 +23,6 @@
     <string name="e_example_block_cancel_word">封鎖含有لغو۱۱的訊息</string>
     <string name="e_example_block_ad_prefix">封鎖開頭為3000的廣告號碼</string>
     <string name="e_example_allow_number">一律允許某個號碼，例如郵局</string>
-    <string name="e_sheet_sender_label">寄件者</string>
-    <string name="e_sheet_text_label">訊息文字</string>
     <string name="e_value_number">電話號碼</string>
     <string name="e_value_prefix">號碼開頭為</string>
     <string name="e_value_sender">寄件者名稱</string>

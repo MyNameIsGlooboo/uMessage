@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">Confirmez votre identité</string>
     <string name="forward_tab">Transférer</string>
     <string name="forward_add">Ajouter un transfert</string>
-    <string name="forward_intro">Les messages qui arrivent dans votre boîte de réception et correspondent à une règle sont transférés par SMS. Les spams bloqués ne sont jamais transférés.</string>
     <string name="forward_paid_note">Chaque transfert est un SMS payant.</string>
-    <string name="forward_empty_title">Aucune règle de transfert</string>
-    <string name="forward_empty_body">Envoyez une copie des messages correspondants, comme les alertes bancaires, vers un autre téléphone.</string>
     <string name="forward_row_from">De : %1$s</string>
     <string name="forward_row_text">Texte : %1$s</string>
     <string name="forward_row_any_sender">Tous les expéditeurs</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">Numéro %1$d</string>
     <string name="forward_sheet_add_target">Ajouter un numéro</string>
     <string name="forward_sheet_remove_target">Supprimer le numéro %1$d</string>
-    <string name="forward_sheet_target_needed">Ajoutez au moins un numéro destinataire du transfert.</string>
     <string name="forward_err_target_invalid">Saisissez un numéro de téléphone de 7 à 15 chiffres</string>
     <string name="forward_err_target_duplicate">Ce numéro figure déjà dans la liste</string>
     <string name="forward_sheet_window">Seulement à certaines heures</string>
-    <string name="forward_sheet_window_body">Transférer uniquement entre ces heures. Si l\'heure de fin précède celle de début, la période se termine le lendemain.</string>
     <string name="forward_sheet_start">Début %1$s</string>
     <string name="forward_sheet_end">Fin %1$s</string>
     <string name="forward_sheet_pick_start">Heure de début</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">Reçu sur</string>
     <string name="forward_sheet_send_from_label">Envoyer depuis</string>
     <string name="forward_sim_same">Même SIM</string>
-    <string name="forward_sheet_codes">Inclure les codes de validation</string>
-    <string name="forward_sheet_codes_body">Si cette option est désactivée, les messages qui semblent contenir des codes de connexion ou de validation ne sont pas transférés.</string>
     <string name="forward_sheet_paid">Chaque transfert est un SMS payant. Les messages longs sont envoyés en plusieurs parties.</string>
     <string name="forward_codes_title">Transférer les codes de validation ?</string>
     <string name="forward_codes_message">Le transfert des codes permet au destinataire de se connecter à vos comptes. Les escrocs en profitent : ils convainquent les gens de transférer leurs messages pour voler leurs codes. Activez cette option uniquement pour un téléphone qui vous appartient.</string>
     <string name="forward_codes_confirm">Inclure les codes</string>
-    <string name="forward_delete_title">Supprimer la règle de transfert ?</string>
-    <string name="forward_delete_message">Cette règle ne transférera plus les messages.</string>
     <string name="forward_no_lock_title">Protéger les transferts avec le verrouillage de l\'application</string>
     <string name="forward_no_lock_message">Les règles de transfert envoient vos messages vers d\'autres téléphones. Toute personne ayant accès à votre téléphone déverrouillé peut donc en ajouter une. Avec le verrouillage de l\'application, modifier ces règles nécessite votre code PIN ou votre empreinte digitale.</string>
     <string name="forward_no_lock_continue">Continuer</string>

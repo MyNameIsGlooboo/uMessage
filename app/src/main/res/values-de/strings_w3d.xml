@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">Tägliches Limit für Weiterleitungen</string>
     <string name="w3d_daily_limit_body">Maximale Anzahl an Weiterleitungen pro Tag</string>
     <string name="w3d_hide_lock_codes">Codes auf dem Sperrbildschirm verbergen</string>
-    <string name="w3d_hide_lock_codes_body">Nachrichten mit einem Code zeigen auf dem Sperrbildschirm ••••, bis du das Gerät entsperrst.</string>
 </resources>

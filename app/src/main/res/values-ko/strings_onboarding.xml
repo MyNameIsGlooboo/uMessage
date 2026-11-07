@@ -5,11 +5,10 @@
     <string name="onb_next">다음</string>
     <string name="onb_skip">건너뛰기</string>
     <string name="onb_finish">메시지 시작</string>
-    <string name="onb_open">열기</string>
     <string name="onb_welcome_title">uMessage 앱에 오신 걸 환영해요.</string>
     <string name="onb_welcome_intro">스팸은 줄이고, 메시지는 더 편하게 주고받아요.</string>
     <string name="onb_welcome_spam">스팸 차단</string>
-    <string name="onb_welcome_spam_desc">알 수 없는 발신자의 메시지는 사라지지 않고 차단함에 보관돼요. 필터 모드는 엄격, 스마트, 사용 안 함 중에서 선택해요.</string>
+    <string name="onb_welcome_spam_desc">알 수 없는 발신자의 메시지는 사라지지 않고 차단함에 보관돼요.</string>
     <string name="onb_welcome_codes">한 번에 코드 복사</string>
     <string name="onb_welcome_codes_desc">알림에서 바로 인증 코드를 복사해요.</string>
     <string name="onb_welcome_copy">필요한 부분만 복사</string>
@@ -27,8 +26,6 @@
     <string name="onb_welcome_start">시작하기</string>
     <string name="onb_default_title">uMessage 기본 SMS 앱 설정</string>
     <string name="onb_default_body">Android 시스템에서는 기본 SMS 앱만 메시지를 수신하고 필터링할 수 있어요. 기본 SMS 앱으로 설정해야 uMessage 앱에서 받은 메시지함을 보호할 수 있어요.</string>
-    <string name="onb_default_status_yes">uMessage 앱이 기본 SMS 앱으로 설정되어 있어요.</string>
-    <string name="onb_default_status_no">아직 uMessage 앱이 기본 SMS 앱으로 설정되지 않았어요.</string>
     <string name="onb_default_action">기본 앱 설정</string>
     <string name="onb_default_denied">요청이 거부됐어요. 다시 시도하거나, 계속 진행한 후 Android 설정에서 변경할 수 있어요.</string>
     <string name="onb_default_unavailable">휴대전화에서 기본 앱 선택 창을 열지 못했어요. Android 설정에서 앱, 기본 앱, SMS 앱을 차례로 열고 uMessage 앱을 선택해 주세요.</string>
@@ -44,7 +41,6 @@
     <string name="onb_perm_notifications_reason">새 메시지를 알리고, 답장과 코드 복사 버튼을 제공해요.</string>
     <string name="onb_perm_allow_all">모두 허용</string>
     <string name="onb_perm_open_settings">설정 열기</string>
-    <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">알 수 없는 발신자 처리 방식 선택</string>
     <string name="onb_mode_strict">엄격</string>
     <string name="onb_mode_smart">스마트</string>
@@ -52,8 +48,6 @@
     <string name="onb_mode_warning_title">은행 알림 및 인증 코드 안내</string>
     <string name="onb_mode_warning_body">엄격 모드에서는 알 수 없는 발신자가 보낸 은행 알림, 배송 안내, 일회용 코드까지 모두 차단함에 보관해요. 알림이 오지 않으니, 이런 메시지를 기다릴 때는 차단함을 확인해 주세요.</string>
     <string name="onb_oem_title">uMessage 실행 유지</string>
-    <string name="onb_oem_body_known">%1$s 휴대전화는 백그라운드 앱을 자주 중지해 메시지가 늦게 도착할 수 있어요. 다음 설정을 한 번만 해 주세요.</string>
-    <string name="onb_oem_body_generic">일부 휴대전화는 백그라운드 앱을 중지해 메시지가 늦게 도착할 수 있어요. uMessage 앱이 제한 없이 실행되도록 허용해 주세요.</string>
     <string name="onb_oem_manual_hint">화면이 열리지 않으면 설정에서 표시된 이름을 검색해 주세요.</string>
     <string name="onb_oem_xiaomi">샤오미, 레드미 또는 포코</string>
     <string name="onb_oem_huawei">화웨이 또는 아너</string>
@@ -68,11 +62,8 @@
     <string name="onb_oem_step_ignore_battery">배터리 최적화 제외</string>
     <string name="onb_oem_step_app_info">앱 설정 확인</string>
     <string name="onb_oem_step_app_info_desc">uMessage 앱 정보 화면에서 배터리와 권한 설정을 확인해 주세요.</string>
-    <string name="onb_done_title">설정 완료</string>
-    <string name="onb_done_body">uMessage 앱을 사용할 준비가 됐어요. 차단함에 보관된 메시지를 확인하고, 한 번의 탭으로 발신자를 허용할 수 있어요.</string>
     <string name="onb_done_summary_default">기본 SMS 앱</string>
     <string name="onb_done_summary_permissions">권한</string>
-    <string name="onb_done_summary_mode">알 수 없는 발신자</string>
     <string name="onb_done_ok">완료</string>
     <string name="onb_done_todo">확인 필요</string>
     <string name="onb_notif_copy_code">코드 복사</string>

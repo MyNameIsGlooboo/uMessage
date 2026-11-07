@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="blocked_menu_restored">Do bạn khôi phục</string>
+    <string name="blocked_menu_restored_summary">Tin nhắn bạn đã chuyển vào hộp thư đến gần đây</string>
+</resources>

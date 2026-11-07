@@ -24,15 +24,12 @@
     <string name="ui_show_keyboard">Show keyboard</string>
 
     <!-- Settings -->
-    <string name="ui_settings_group_block_lists">Other block lists</string>
     <string name="ui_settings_system_block_list">System block list</string>
     <string name="ui_settings_system_block_list_body">Numbers blocked for every app on this phone. uMessage also hides them.</string>
     <string name="ui_settings_blocked_words">Blocked words</string>
     <string name="ui_settings_character_counter">Show character counter</string>
-    <string name="ui_settings_simple_characters">Remove accents when sending</string>
     <string name="ui_settings_send_on_enter">Send with Enter key</string>
     <string name="ui_settings_delivery_reports">Get delivery reports</string>
-    <string name="ui_settings_recycle_bin">Move deleted conversations to recycle bin</string>
 
     <!-- Formatted pieces instead of string concatenation, so translations can reorder them -->
     <string name="ui_two_sentences">%1$s. %2$s</string>

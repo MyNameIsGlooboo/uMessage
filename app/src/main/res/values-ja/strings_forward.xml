@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">本人確認</string>
     <string name="forward_tab">転送</string>
     <string name="forward_add">転送を追加</string>
-    <string name="forward_intro">受信トレイに届いたメッセージのうち、ルールに一致するものをSMSで転送します。ブロック済みの迷惑メッセージは転送しません。</string>
     <string name="forward_paid_note">転送のたびにSMS送信料がかかります。</string>
-    <string name="forward_empty_title">転送ルールがありません</string>
-    <string name="forward_empty_body">銀行からの通知など、条件に一致するメッセージのコピーを別のスマートフォンに送信します。</string>
     <string name="forward_row_from">送信元：%1$s</string>
     <string name="forward_row_text">本文：%1$s</string>
     <string name="forward_row_any_sender">すべての送信者</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">電話番号%1$d</string>
     <string name="forward_sheet_add_target">番号を追加</string>
     <string name="forward_sheet_remove_target">電話番号%1$dを削除</string>
-    <string name="forward_sheet_target_needed">転送先の電話番号を1件以上追加してください。</string>
     <string name="forward_err_target_invalid">7～15桁の電話番号を入力してください。</string>
     <string name="forward_err_target_duplicate">この番号はすでに一覧にあります。</string>
     <string name="forward_sheet_window">時間帯を指定</string>
-    <string name="forward_sheet_window_body">指定した時間帯のみ転送します。終了時刻が開始時刻より早い場合は、翌日まで転送します。</string>
     <string name="forward_sheet_start">開始：%1$s</string>
     <string name="forward_sheet_end">終了：%1$s</string>
     <string name="forward_sheet_pick_start">開始時刻</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">受信するSIM</string>
     <string name="forward_sheet_send_from_label">送信するSIM</string>
     <string name="forward_sim_same">受信時と同じSIM</string>
-    <string name="forward_sheet_codes">認証コードを含める</string>
-    <string name="forward_sheet_codes_body">オフの場合、ログインコードや認証コードと思われるメッセージは転送しません。</string>
     <string name="forward_sheet_paid">転送のたびにSMS送信料がかかります。長いメッセージは複数に分割して送信します。</string>
     <string name="forward_codes_title">認証コードを転送しますか？</string>
     <string name="forward_codes_message">認証コードを転送すると、受信者がアカウントにログインできるようになります。詐欺師はこれを悪用し、メッセージの転送を促して認証コードを盗みます。自分のスマートフォンに転送する場合のみオンにしてください。</string>
     <string name="forward_codes_confirm">コードを含む</string>
-    <string name="forward_delete_title">転送ルールを削除しますか？</string>
-    <string name="forward_delete_message">このルールによるメッセージの転送を停止します。</string>
     <string name="forward_no_lock_title">アプリロックで転送を保護</string>
     <string name="forward_no_lock_message">転送ルールはメッセージを他のスマートフォンに送信するため、ロック解除中のスマートフォンを持つ人なら誰でも追加できてしまいます。アプリロックを設定すると、転送ルールの変更にPINまたは指紋が必要になります。</string>
     <string name="forward_no_lock_continue">続行</string>

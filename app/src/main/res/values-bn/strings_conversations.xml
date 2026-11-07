@@ -4,7 +4,6 @@
     <string name="convlist_empty_title">এখনও কোনো কথোপকথন নেই</string>
     <string name="convlist_empty_body">আপনার পাঠানো ও পাওয়া বার্তা এখানে দেখাবে।</string>
     <string name="convlist_start_conversation">কথোপকথন শুরু করুন</string>
-    <string name="convlist_new_conversation">নতুন কথোপকথন</string>
     <string name="convlist_draft">খসড়া</string>
     <string name="convlist_pinned">পিন করা</string>
     <string name="convlist_muted">বিজ্ঞপ্তি বন্ধ</string>
@@ -26,7 +25,6 @@
     <string name="convlist_unpin">পিন সরান</string>
     <string name="convlist_mark_read">পড়া হয়েছে বলে চিহ্নিত করুন</string>
     <string name="convlist_mark_unread">পড়া হয়নি বলে চিহ্নিত করুন</string>
-    <string name="convlist_block_number">নম্বর ব্লক করুন</string>
     <string name="convlist_add_contact">পরিচিতিতে নম্বর যোগ করুন</string>
     <string name="convlist_copy_number">নম্বর কপি করুন</string>
     <string name="convlist_dial">কল করুন</string>
@@ -57,7 +55,5 @@
     <string name="convlist_block_message">%1$s ব্লক করবেন? এই নম্বরের নতুন বার্তা আপনার ইনবক্সের বদলে “ব্লক করা বার্তা”-তে যাবে, যেখানে আপনি সেগুলো পড়তে বা ফিরিয়ে আনতে পারবেন।</string>
     <string name="convlist_block_confirm">ব্লক করুন</string>
     <string name="convlist_rename_title">কথোপকথনের নাম বদলান</string>
-    <string name="convlist_rename_hint">কথোপকথনের নাম</string>
-    <string name="convlist_ok">ঠিক আছে</string>
     <string name="convlist_cancel">বাতিল</string>
 </resources>

@@ -22,7 +22,6 @@
     <string name="add_contact_or_number">Kişi veya numara ekleyin…</string>
     <string name="suggestions">Öneriler</string>
     <string name="members">Üyeler</string>
-    <string name="conversation_name">Görüşme adı</string>
     <string name="conversation_details">Görüşme ayrıntıları</string>
     <string name="rename_conversation">Görüşmeyi yeniden adlandırın</string>
     <string name="rename_conversation_warning">Bu görüşme adını yalnızca siz görebilirsiniz</string>
@@ -80,7 +79,6 @@
     <string name="mms_file_size_limit">Gönderilen MMS görsellerini yeniden boyutlandırın</string>
     <string name="mms_file_size_limit_none">Sınır yok</string>
     <string name="outgoing_messages">Giden mesajlar</string>
-    <string name="group_message_mms">Grup mesajlarını MMS olarak gönderin</string>
     <string name="send_group_message">Grup mesajı biçimi</string>
     <string name="group_message_send_description">Grup MMS, yanıtları tek görüşmede tutar ancak operatör ücreti alınabilir. Ayrı gönderim, her kişiye bir mesaj gönderir. Bunu daha sonra uygulama ayarlarından değiştirebilirsiniz.</string>
     <string name="group_mms">Grup MMS</string>
@@ -148,8 +146,6 @@
     <string name="invalid_short_code_desc">Yalnızca “503501” gibi rakamlardan oluşan kısa kodlara yanıt verebilirsiniz. “AB-CD0” gibi harf ve rakam içeren kodlara yanıt veremezsiniz.</string>
     <string name="attachment_sized_exceeds_max_limit">Ek boyutu MMS sınırını aşıyor</string>
     <string name="couldnt_download_mms">MMS indirilemedi</string>
-    <string name="faq_1_title">Uygulama neden internet erişimi istiyor?</string>
-    <string name="faq_1_text">Ne yazık ki MMS eklerini göndermek için internet gerekiyor. MMS gönderememek diğer uygulamalara göre büyük bir eksiklik olacağından bu yolu seçtik. Ancak her zamanki gibi hiçbir reklam, izleme veya analiz yok. İnternet yalnızca MMS göndermek için kullanılıyor.</string>
     <string name="faq_2_title">MMS mesajlarım karşı tarafa ulaşmıyor. Ne yapabilirim?</string>
     <string name="faq_2_text">MMS boyutunu operatörler sınırlar. Uygulama ayarlarından daha düşük bir sınır seçmeyi deneyebilirsiniz.</string>
     <string name="faq_3_title">Uygulama planlanmış mesajları destekliyor mu?</string>

@@ -26,7 +26,6 @@
     <string name="dialogs_lock_locked_out">Çok fazla hatalı kilit açma denemesi.\n%d saniye sonra tekrar deneyin.</string>
     <string name="dialogs_lock_pin_delete">Son haneyi silin</string>
     <string name="dialogs_lock_pin_confirm">PIN\'i onaylayın</string>
-    <string name="dialogs_lock_pin_entered">%d hane girildi</string>
     <string name="dialogs_lock_pattern_pad">Desen çizme alanı</string>
     <string name="dialogs_lock_biometric_hint">Kimliğinizi parmak iziniz veya yüzünüzle doğrulayın.</string>
     <string name="dialogs_lock_biometric_open">Biyometri ile doğrulayın</string>

@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">%1$s kopyalayın</string>
     <string name="thread_r2_menu_search">Görüşmede arayın</string>
     <string name="thread_r2_menu_always_forward">Bu gönderenden gelenleri her zaman iletin</string>
-    <string name="thread_r2_block_hint">Bundan sonraki mesajlar Engellenenler bölümüne gider. Hiçbir veri telefonunuzdan çıkmaz.</string>
     <string name="thread_r2_forward_message">Bu mesajı iletin</string>
     <string name="thread_r2_search_hint">Görüşmede arayın</string>
     <string name="thread_r2_search_close">Aramayı kapatın</string>

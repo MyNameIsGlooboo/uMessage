@@ -36,13 +36,11 @@
         <item quantity="one">ब्लॉक किए गए मैसेज %d दिन बाद मिटा दिए जाते हैं</item>
         <item quantity="other">ब्लॉक किए गए मैसेज %d दिनों बाद मिटा दिए जाते हैं</item>
     </plurals>
-    <string name="spam_purge_notice_off">ब्लॉक किए गए मैसेज आपके मिटाने तक रखे जाते हैं</string>
     <plurals name="spam_purge_left" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d दिन में मिटा दिया जाएगा</item>
         <item quantity="other">%d दिनों में मिटा दिया जाएगा</item>
     </plurals>
     <string name="spam_purge_left_today">आज मिटा दिया जाएगा</string>
-    <string name="convlist_report_spam">स्पैम की शिकायत करें</string>
     <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
         <item quantity="one">शिकायत कर दी गई. इस भेजने वाले के नए मैसेज \'ब्लॉक किए गए\' में जाएंगे और बातचीत संग्रहित कर दी गई है.</item>
         <item quantity="other">%d बातचीत की शिकायत कर दी गई. इनके नए मैसेज \'ब्लॉक किए गए\' में जाएंगे और बातचीत संग्रहित कर दी गई हैं.</item>
@@ -52,18 +50,9 @@
         <item quantity="other">%d बातचीत की शिकायत कर दी गई. इनके नए मैसेज \'ब्लॉक किए गए\' में जाएंगे.</item>
     </plurals>
     <string name="blocked_title">ब्लॉक किए गए</string>
-    <string name="blocked_menu_rules">नियम</string>
-    <string name="blocked_mode_group_cd">अनजान भेजने वाले: %1$s, %3$d में से %2$d</string>
-    <string name="blocked_mode_desc_strict">सख़्त: सभी अनजान भेजने वालों के मैसेज रोकता है, पुष्टि करने के कोड भी</string>
-    <string name="blocked_mode_desc_smart">स्मार्ट: अनजान भेजने वालों के मैसेज रोकता है, लेकिन बिना लिंक वाले कोड आने देता है</string>
-    <string name="blocked_mode_desc_off">बंद: अनजान भेजने वालों के मैसेज आपके इनबॉक्स में आते हैं. आपके नियम फिर भी लागू रहते हैं</string>
     <string name="blocked_snack_mode">अनजान भेजने वालों के लिए %1$s चुना गया</string>
-    <string name="blocked_off_title">अनजान भेजने वालों के मैसेज रोकना बंद करें?</string>
-    <string name="blocked_off_body">अनजान भेजने वालों के मैसेज सीधे आपके इनबॉक्स में आएंगे. आपके नियम फिर भी लागू रहेंगे.</string>
-    <string name="blocked_off_confirm">बंद करें</string>
     <string name="blocked_stats_restored">आपने %1$d वापस लाए</string>
     <string name="blocked_reason_unknown_link">अनजान भेजने वाला, लिंक के साथ</string>
     <string name="blocked_may_be_important">ज़रूरी हो सकता है</string>
     <string name="blocked_action_move_inbox">इनबॉक्स में ले जाएं</string>
-    <string name="blocked_swipe_not_spam">इनबॉक्स में ले जाने के लिए स्वाइप करें</string>
 </resources>

@@ -5,11 +5,10 @@
     <string name="onb_next">بعدی</string>
     <string name="onb_skip">فعلاً رد شدن</string>
     <string name="onb_finish">شروع پیام‌رسانی</string>
-    <string name="onb_open">باز کردن</string>
     <string name="onb_welcome_title">به uMessage خوش آمدید</string>
     <string name="onb_welcome_intro">پیام‌رسانی بهتر، هرزنامهٔ کمتر.</string>
     <string name="onb_welcome_spam">هرزنامه پشت در می‌ماند</string>
-    <string name="onb_welcome_spam_desc">پیام‌های فرستنده‌های ناشناس در «مسدودشده‌ها» می‌مانند و گم نمی‌شوند. حالت سخت‌گیرانه، هوشمند یا خاموش را خودتان انتخاب می‌کنید.</string>
+    <string name="onb_welcome_spam_desc">پیام‌های فرستنده‌های ناشناس در «مسدودشده‌ها» می‌مانند و گم نمی‌شوند.</string>
     <string name="onb_welcome_codes">کدها با یک لمس</string>
     <string name="onb_welcome_codes_desc">کدهای تأیید را مستقیم از اعلان کپی کنید.</string>
     <string name="onb_welcome_copy">فقط بخش دلخواه را کپی کنید</string>
@@ -27,8 +26,6 @@
     <string name="onb_welcome_start">شروع</string>
     <string name="onb_default_title">uMessage را برنامهٔ پیامک خود کنید</string>
     <string name="onb_default_body">Android فقط به برنامهٔ پیامک پیش‌فرض اجازهٔ دریافت و فیلتر پیام‌ها را می‌دهد. بدون این تنظیم، uMessage نمی‌تواند از صندوق ورودی شما محافظت کند.</string>
-    <string name="onb_default_status_yes">uMessage برنامهٔ پیامک پیش‌فرض شماست</string>
-    <string name="onb_default_status_no">uMessage هنوز برنامهٔ پیامک پیش‌فرض شما نیست</string>
     <string name="onb_default_action">تنظیم به‌عنوان پیش‌فرض</string>
     <string name="onb_default_denied">درخواست رد شد. می‌توانید دوباره تلاش کنید یا ادامه دهید و بعداً در تنظیمات Android آن را تنظیم کنید.</string>
     <string name="onb_default_unavailable">گوشی نتوانست پنجرهٔ انتخاب برنامهٔ پیش‌فرض را باز کند. در تنظیمات Android به «برنامه‌ها»، «برنامه‌های پیش‌فرض»، «برنامهٔ پیامک» بروید و uMessage را انتخاب کنید.</string>
@@ -44,7 +41,6 @@
     <string name="onb_perm_notifications_reason">پیام‌های جدید را با دکمه‌های پاسخ و کپی کد به شما اطلاع می‌دهد.</string>
     <string name="onb_perm_allow_all">اجازه دادن به همه</string>
     <string name="onb_perm_open_settings">باز کردن تنظیمات</string>
-    <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">نحوهٔ برخورد با فرستنده‌های ناشناس را انتخاب کنید</string>
     <string name="onb_mode_strict">سخت‌گیرانه</string>
     <string name="onb_mode_smart">هوشمند</string>
@@ -52,8 +48,6 @@
     <string name="onb_mode_warning_title">دربارهٔ پیام‌های بانکی و کدها</string>
     <string name="onb_mode_warning_body">در حالت سخت‌گیرانه، اعلان‌های بانکی، وضعیت تحویل و کدهای یک‌بارمصرف از فرستنده‌های ناشناس، حتی خود کدها، در «مسدودشده‌ها» نگه داشته می‌شوند. اعلانی دریافت نمی‌کنید، پس وقتی منتظر چنین پیامی هستید، «مسدودشده‌ها» را بررسی کنید.</string>
     <string name="onb_oem_title">uMessage را فعال نگه دارید</string>
-    <string name="onb_oem_body_known">گوشی‌های %1$s اغلب برنامه‌ها را در پس‌زمینه متوقف می‌کنند و پیام‌ها با تأخیر می‌رسند. این مراحل را یک‌بار انجام دهید.</string>
-    <string name="onb_oem_body_generic">بعضی گوشی‌ها برنامه‌ها را در پس‌زمینه متوقف می‌کنند و پیام‌ها با تأخیر می‌رسند. اجازه دهید uMessage بدون محدودیت اجرا شود.</string>
     <string name="onb_oem_manual_hint">اگر صفحه‌ای باز نشد، نام نشان‌داده‌شده را در تنظیمات جستجو کنید.</string>
     <string name="onb_oem_xiaomi">Xiaomi، Redmi یا Poco</string>
     <string name="onb_oem_huawei">Huawei یا Honor</string>
@@ -68,11 +62,8 @@
     <string name="onb_oem_step_ignore_battery">نادیده گرفتن بهینه‌سازی باتری</string>
     <string name="onb_oem_step_app_info">تنظیمات برنامه را بررسی کنید</string>
     <string name="onb_oem_step_app_info_desc">صفحهٔ برنامهٔ uMessage را باز کنید تا باتری و مجوزها را بررسی کنید.</string>
-    <string name="onb_done_title">همه‌چیز آماده است</string>
-    <string name="onb_done_body">uMessage آماده است. پیام‌های نگه‌داشته‌شده در «مسدودشده‌ها» نمایش داده می‌شوند؛ آنجا می‌توانید با یک لمس فرستنده را مجاز کنید.</string>
     <string name="onb_done_summary_default">برنامهٔ پیامک پیش‌فرض</string>
     <string name="onb_done_summary_permissions">مجوزها</string>
-    <string name="onb_done_summary_mode">فرستنده‌های ناشناس</string>
     <string name="onb_done_ok">انجام شد</string>
     <string name="onb_done_todo">نیاز به بررسی</string>
     <string name="onb_notif_copy_code">کپی کد</string>

@@ -5,8 +5,6 @@
     <string name="w2b2_thread_chip_allowed">Immer erlaubt</string>
     <string name="w2b2_thread_chip_blocked">Durch Regel blockiert</string>
     <string name="w2b2_settings_group_dates">Datumsanzeige</string>
-    <string name="w2b2_settings_jalali">Jalali-Datumsanzeige</string>
-    <string name="w2b2_settings_jalali_body">Datum in Unterhaltungen und geplanten Nachrichten nach dem persischen Kalender anzeigen</string>
     <string name="w2b2_lock_pattern_hint">Verbinde mindestens %d Punkte und zeichne dann zur Bestätigung dasselbe Muster noch einmal.</string>
     <string name="w2b2_lock_recovery_hint">Falls du es vergisst, kannst du auf dem Sperrbildschirm die Displaysperre deines Smartphones nutzen, um wieder Zugriff zu erhalten.</string>
 </resources>

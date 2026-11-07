@@ -76,4 +76,5 @@
     <string name="sks_version">버전 빌드 번호 출시 업데이트 복사</string>
     <string name="sks_source">소스 코드 GitHub 공개 라이선스 저장소</string>
     <string name="sks_licenses">라이선스 오픈 소스 GPL 법률 글꼴 라이브러리</string>
+    <string name="sks_privacy_policy">개인정보 처리방침 약관 데이터 보호 법적</string>
 </resources>

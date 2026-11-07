@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">Copie %1$s</string>
     <string name="thread_r2_menu_search">Pesquise na conversa</string>
     <string name="thread_r2_menu_always_forward">Encaminhe sempre as mensagens deste remetente</string>
-    <string name="thread_r2_block_hint">As próximas mensagens vão para Bloqueados. Nada sai do seu celular.</string>
     <string name="thread_r2_forward_message">Encaminhe esta mensagem</string>
     <string name="thread_r2_search_hint">Pesquise na conversa</string>
     <string name="thread_r2_search_close">Feche a pesquisa</string>

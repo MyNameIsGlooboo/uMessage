@@ -47,7 +47,6 @@
     <string name="settings_app_lock_timeout_5m">5 منٹ بعد</string>
     <string name="settings_app_lock_screenshots">اسکرین شاٹس بلاک کریں</string>
     <string name="settings_app_lock_screenshots_body">اسکرین شاٹس اور اسکرین ریکارڈنگ روکتا ہے۔ حالیہ ایپس میں پیغامات ہمیشہ چھپے رہتے ہیں۔</string>
-    <string name="settings_app_lock_screenshots_body_old">اسکرین شاٹس اور اسکرین ریکارڈنگ روکتا ہے۔ Android کے اس ورژن پر حالیہ ایپس میں پیغامات چھپانے کا بھی یہی واحد طریقہ ہے۔</string>
     <string name="settings_app_lock_change">PIN، پیٹرن یا بایومیٹرکس بدلیں</string>
     <string name="settings_app_lock_weak">آپ کا PIN یا پیٹرن آسانی سے اندازہ لگایا جا سکتا ہے</string>
     <string name="settings_app_lock_weak_body">PIN بہت کمزور ہے۔ بدلنے کے لیے ٹیپ کریں</string>

@@ -21,7 +21,6 @@
     <string name="add_contact_or_number">連絡先か電話番号を追加…</string>
     <string name="suggestions">候補</string>
     <string name="members">メンバー</string>
-    <string name="conversation_name">会話名</string>
     <string name="conversation_details">会話の詳細</string>
     <string name="rename_conversation">会話名を変更</string>
     <string name="rename_conversation_warning">この会話名は自分にだけ表示されます。</string>
@@ -77,7 +76,6 @@
     <string name="mms_file_size_limit">送信するMMS画像のサイズを変更</string>
     <string name="mms_file_size_limit_none">制限なし</string>
     <string name="outgoing_messages">送信メッセージ</string>
-    <string name="group_message_mms">グループメッセージをMMSで送信</string>
     <string name="send_group_message">グループメッセージの形式</string>
     <string name="group_message_send_description">グループMMSでは返信が1つの会話にまとまりますが、通信事業者の料金がかかる場合があります。個別に送信すると、各メンバーに1件ずつメッセージを送ります。後からアプリの設定で変更できます。</string>
     <string name="group_mms">グループMMS</string>
@@ -145,8 +143,6 @@
     <string name="invalid_short_code_desc">「503501」のように数字だけのショートコードには返信できますが、「AB-CD0」のように英字と数字を含むコードには返信できません。</string>
     <string name="attachment_sized_exceeds_max_limit">添付ファイルのサイズがMMSの上限を超えています。</string>
     <string name="couldnt_download_mms">MMSをダウンロードできませんでした。</string>
-    <string name="faq_1_title">アプリにインターネットへのアクセスが必要なのはなぜですか？</string>
-    <string name="faq_1_text">MMSの添付ファイルを送信するために必要です。MMSを送信できないと他のアプリに比べて大きく不便になるため、この方法を採用しました。ただし、これまでどおり広告やトラッキング、利用状況の解析は一切ありません。インターネットはMMSの送信にのみ使用します。</string>
     <string name="faq_2_title">相手にMMSが届かない場合はどうすればよいですか？</string>
     <string name="faq_2_text">MMSのサイズは通信事業者によって制限されています。アプリの設定でサイズの上限を小さくしてみてください。</string>
     <string name="faq_3_title">メッセージの送信予約はできますか？</string>

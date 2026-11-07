@@ -78,10 +78,8 @@
     <string name="thread_attach_photo">Фото</string>
     <string name="thread_attach_take_photo">Зробити фото</string>
     <string name="thread_attach_record_video">Записати відео</string>
-    <string name="thread_attach_record_audio">Записати аудіо</string>
     <string name="thread_attach_file">Файл</string>
     <string name="thread_attach_contact">Контакт</string>
-    <string name="thread_attach_schedule">Запланувати надсилання</string>
     <string name="thread_people_confirm">Готово</string>
     <string name="thread_people_add_number">Додати цей номер</string>
     <string name="thread_people_remove">Видалити %1$s</string>

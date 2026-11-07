@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_section_conversations">Percakapan</string>
+    <string name="search_section_contacts">Kontak</string>
+    <string name="search_section_see_all">Lihat semua</string>
+</resources>

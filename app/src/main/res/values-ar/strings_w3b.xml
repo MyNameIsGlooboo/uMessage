@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">لا توجد رسائل محتجزة تطابق هذه التصفية. اختر تصفية أخرى أو اعرض الكل.</string>
     <string name="w3b_filter_show_all">اعرض الكل</string>
     <string name="w3b_empty_body">يراقب uMessage الرسائل في وضع %1$s. ستظهر هنا الرسائل التي يحتجزها.</string>
-    <string name="w3b_empty_change_mode">غيّر الوضع</string>
-    <string name="w3b_empty_rules">راجع قواعدي</string>
     <string name="w3b_why_link">احتُجزت لأن المرسل غير معروف والنص يحتوي على رابط.</string>
     <string name="w3b_why_unknown">احتُجزت لأن المرسل غير معروف.</string>
     <string name="w3b_why_rule">احتُجزت لأنها تطابق إحدى قواعد الحظر لديك.</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">انسخ الرمز</string>
     <string name="w3b_code_copied">تم نسخ الرمز</string>
     <string name="w3b_release_once">اسمح لمرة واحدة</string>
-    <string name="w3b_fix_open">صحّح هذا القرار بشأن %1$s</string>
-    <string name="w3b_fix_title">صحّح هذا القرار</string>
     <string name="w3b_fix_note">تنطبق القاعدة على الرسائل الجديدة من هذا المرسل. تبقى الرسائل المحتجزة سابقًا في مكانها.</string>
     <string name="w3b_fix_allow">اسمح لهذا المرسل دائمًا</string>
     <string name="w3b_fix_block">احظر هذا المرسل</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">ستصل: تتعذّر قراءة جهات الاتصال، لذا لا يمكن التحقق من المرسل.</string>
     <string name="w3b_verdict_allowed_other">ستصل.</string>
     <string name="w3b_examples_title">ابدأ بمثال</string>
-    <string name="w3b_example_block_word">احظر رسائل تحتوي على كلمة</string>
     <string name="w3b_example_block_sender">احظر اسم مرسل</string>
-    <string name="w3b_example_block_prefix">احظر أرقامًا تبدأ بـ…</string>
     <string name="w3b_example_allow_sender">اسمح دائمًا باسم مرسل، مثل مصرفك</string>
-    <string name="w3b_example_allow_number">اسمح دائمًا برقم هاتف</string>
     <string name="w3b_overridden_chip">تتجاوزها قاعدة سماح</string>
 </resources>

@@ -4,7 +4,6 @@
     <string name="convlist_empty_title">لا توجد محادثات بعد</string>
     <string name="convlist_empty_body">ستظهر هنا الرسائل التي ترسلها وتتلقاها.</string>
     <string name="convlist_start_conversation">ابدأ محادثة</string>
-    <string name="convlist_new_conversation">محادثة جديدة</string>
     <string name="convlist_draft">مسودة</string>
     <string name="convlist_pinned">مثبّتة</string>
     <string name="convlist_muted">الإشعارات متوقفة</string>
@@ -30,7 +29,6 @@
     <string name="convlist_unpin">ألغِ التثبيت</string>
     <string name="convlist_mark_read">علّم كمقروءة</string>
     <string name="convlist_mark_unread">علّم كغير مقروءة</string>
-    <string name="convlist_block_number">احظر الرقم</string>
     <string name="convlist_add_contact">أضف الرقم إلى جهة اتصال</string>
     <string name="convlist_copy_number">انسخ الرقم</string>
     <string name="convlist_dial">اتصل</string>
@@ -77,7 +75,5 @@
     <string name="convlist_block_message">حظر %1$s؟ ستنتقل رسائله الجديدة إلى الرسائل المحظورة بدلًا من الرسائل الواردة، ويمكنك قراءتها أو استعادتها هناك.</string>
     <string name="convlist_block_confirm">احظر</string>
     <string name="convlist_rename_title">غيّر اسم المحادثة</string>
-    <string name="convlist_rename_hint">اسم المحادثة</string>
-    <string name="convlist_ok">حسنًا</string>
     <string name="convlist_cancel">ألغِ</string>
 </resources>

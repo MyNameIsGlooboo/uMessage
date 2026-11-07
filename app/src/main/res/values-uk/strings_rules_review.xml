@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">Імпорт правил із файлу</string>
     <string name="rules2_menu_export">Експорт правил у файл</string>
     <string name="rules2_menu_system">Список заблокованих Android</string>
-    <string name="rules2_import_scope">Файл правил містить лише правила дозволу й блокування. У ньому немає повідомлень і правил пересилання.</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">Немає завжди дозволених відправників</string>
     <string name="rules2_empty_allowed_body">Додайте номер, ім’я відправника чи слово, щоб такі повідомлення завжди потрапляли у вхідні. Натисніть «Додати правило» нижче.</string>
@@ -28,7 +27,6 @@
         <item quantity="many">Перенести %d елементів</item>
         <item quantity="other">Перенести %d елемента</item>
     </plurals>
-    <string name="rules2_sheet_list_label">Додати до списку</string>
     <string name="rules2_sheet_list_allow">Завжди дозволено</string>
     <string name="rules2_sheet_list_block">Завжди заблоковано</string>
     <string name="rules2_sheet_delete">Видалити правило</string>

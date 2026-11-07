@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">Tamamlandı olarak işaretlediniz</string>
     <string name="oem2_state_todo">Henüz tamamlanmadı</string>
     <string name="oem2_state_limited">Android, uMessage uygulamasını arka planda hâlâ kısıtlıyor</string>
-    <string name="oem2_open_again">Yeniden açın</string>
     <string name="oem2_undo">Geri alın</string>
     <string name="oem2_undo_cd">%1$s için tamamlanmadı olarak işaretleyin</string>
 </resources>

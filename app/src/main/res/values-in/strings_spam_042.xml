@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s042_whole_word_title">Hanya kata utuh</string>
+    <string name="s042_whole_word_help">Hanya cocok dengan kata itu sendiri: win, bukan window.</string>
+    <string name="s042_held_code_channel">Kode yang ditahan</string>
+    <string name="s042_held_code_title">Pesan mirip kode ditahan</string>
+    <string name="s042_held_code_text">Pesan ini berisi tautan, jadi ada di Diblokir. Buka Diblokir jika Anda menunggu kode.</string>
+    <string name="s042_contacts_off_title">Filter spam dijeda</string>
+    <string name="s042_contacts_off_body">Izinkan Kontak agar uMessage bisa membedakan teman dari orang asing.</string>
+    <string name="s042_contacts_off_allow">Izinkan</string>
+</resources>

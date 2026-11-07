@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">Pengiriman gagal</string>
+    <string name="thread_many_parts_note">Teks ini sangat panjang: akan dikirim sebagai %1$d SMS. Teks yang lebih pendek lebih murah.</string>
+    <string name="attachments_total_too_large">Semua berkas ini terlalu besar untuk satu pesan. Pesan mungkin tidak terkirim.</string>
+    <string name="mms_download_failed_channel">Unduhan pesan gambar</string>
+    <string name="mms_download_failed_title">Pesan gambar belum diunduh</string>
+    <string name="mms_download_failed_text">Tidak dapat diunduh. Periksa data seluler Anda; pengirim mungkin perlu mengirimnya lagi.</string>
+</resources>

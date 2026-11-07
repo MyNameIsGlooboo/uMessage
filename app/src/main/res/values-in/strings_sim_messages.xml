@@ -10,6 +10,4 @@
     </plurals>
     <string name="sim_messages_import">Salin</string>
     <string name="sim_messages_importing">Menyalin pesan…</string>
-    <string name="sim_messages_done">%1$d pesan disalin. %2$d sudah ada di percakapan Anda.</string>
-    <string name="sim_messages_done_failed">%1$d pesan disalin. %2$d sudah ada di percakapan Anda dan %3$d tidak dapat disalin.</string>
 </resources>

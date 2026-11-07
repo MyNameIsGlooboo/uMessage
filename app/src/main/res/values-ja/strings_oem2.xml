@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">手動で完了に設定済み</string>
     <string name="oem2_state_todo">未完了</string>
     <string name="oem2_state_limited">AndroidがuMessageのバックグラウンド動作をまだ制限しています。</string>
-    <string name="oem2_open_again">もう一度開く</string>
     <string name="oem2_undo">元に戻す</string>
     <string name="oem2_undo_cd">%1$sを未完了にする</string>
 </resources>

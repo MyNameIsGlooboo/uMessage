@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note">Catatan</string>
+    <string name="add_note">Tambah catatan</string>
+    <string name="edit_note">Edit catatan</string>
+    <string name="delete_note">Hapus catatan</string>
+    <string name="note_hint">Catatan pribadi, hanya di ponsel ini</string>
+    <string name="note_counter">%1$s/%2$s</string>
+    <string name="note_save">Simpan</string>
+    <string name="note_cancel">Batal</string>
+    <string name="has_notes">Ada catatan</string>
+    <string name="notes_section">Catatan</string>
+    <string name="note_content_desc">Catatan: %1$s</string>
+</resources>

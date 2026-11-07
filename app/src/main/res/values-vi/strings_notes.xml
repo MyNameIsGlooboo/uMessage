@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note">Ghi chú</string>
+    <string name="add_note">Thêm ghi chú</string>
+    <string name="edit_note">Sửa ghi chú</string>
+    <string name="delete_note">Xóa ghi chú</string>
+    <string name="note_hint">Ghi chú riêng tư, chỉ có trên điện thoại này</string>
+    <string name="note_counter">%1$s/%2$s</string>
+    <string name="note_save">Lưu</string>
+    <string name="note_cancel">Hủy</string>
+    <string name="has_notes">Có ghi chú</string>
+    <string name="notes_section">Ghi chú</string>
+    <string name="note_content_desc">Ghi chú: %1$s</string>
+</resources>

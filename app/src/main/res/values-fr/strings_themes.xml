@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="preset_intro">Choisissez l\'apparence de uMessage : un mode clair ou sombre et des couleurs.</string>
     <string name="preset_system">Système</string>
     <string name="preset_system_desc">Clair ou sombre, selon votre téléphone</string>
     <string name="preset_light">Clair</string>
@@ -11,8 +10,6 @@
     <string name="preset_amoled_desc">Noir pur pour les écrans OLED</string>
     <string name="preset_brand">Bleu marine</string>
     <string name="preset_brand_desc">Bleu marine et or, le style classique de uMessage</string>
-    <string name="preset_coral">Corail</string>
-    <string name="preset_coral_desc">Corail et bleu, comme l\'icône de l\'application</string>
     <string name="preset_sky">Ciel</string>
     <string name="preset_sky_desc">Bleu doux et blanc</string>
     <string name="preset_forest">Forêt</string>

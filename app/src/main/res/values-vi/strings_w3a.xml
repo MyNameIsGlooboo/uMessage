@@ -2,5 +2,4 @@
 <resources>
     <string name="w3a_forward_limit_channel">Giới hạn chuyển tiếp</string>
     <string name="w3a_forward_limit_title">Tạm dừng chuyển tiếp hôm nay</string>
-    <string name="w3a_forward_limit_text">Đã đạt giới hạn %d lượt chuyển tiếp. Sẽ tiếp tục chuyển tiếp vào ngày mai.</string>
 </resources>

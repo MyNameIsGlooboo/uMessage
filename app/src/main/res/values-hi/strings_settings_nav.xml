@@ -5,20 +5,15 @@
     <string name="settings_nav_group_privacy_about">निजता और ऐप के बारे में</string>
     <string name="settings_nav_spam_row">स्पैम से सुरक्षा</string>
     <string name="settings_nav_spam_page_title">स्पैम से सुरक्षा</string>
-    <string name="settings_nav_android_block_list">Android की ब्लॉक सूची</string>
     <string name="settings_nav_android_block_list_body">कॉल भी ब्लॉक करती है</string>
     <string name="settings_nav_decision_log">इसे ब्लॉक क्यों किया गया?</string>
     <string name="settings_nav_decision_log_body">अनुमति देने और ब्लॉक करने के फ़ैसलों का रिकॉर्ड</string>
-    <string name="settings_nav_forwarding">फ़ॉरवर्ड करना</string>
     <string name="settings_nav_forwarded_tab">फ़ॉरवर्ड किए गए का टैब दिखाएं</string>
     <string name="settings_nav_forwarded_tab_body">बातचीत की सूची में फ़ॉरवर्ड किए गए मैसेज का टैब</string>
     <string name="settings_nav_forward_pause">सभी मैसेज फ़ॉरवर्ड करना रोकें</string>
     <string name="settings_nav_forward_pause_body">नियम सेव रहते हैं, कोई मैसेज फ़ॉरवर्ड नहीं होता</string>
-    <string name="settings_nav_messages_row">टाइप करना, भेजना और स्टोरेज</string>
-    <string name="settings_nav_messages_title">मैसेज</string>
     <string name="settings_nav_group_typing">टाइप करना</string>
     <string name="settings_nav_group_sending">भेजना</string>
-    <string name="settings_nav_group_storage">स्टोरेज</string>
     <string name="settings_nav_simple_chars">खास अक्षरों को आसान बनाएं</string>
     <string name="settings_nav_simple_chars_body">साधारण अक्षर (é की जगह e), कम हिस्से</string>
     <string name="settings_nav_long_mms">लंबे मैसेज MMS के तौर पर भेजें</string>
@@ -27,13 +22,10 @@
     <string name="settings_nav_archived">संग्रहित बातचीत</string>
     <string name="settings_nav_keep_archived">संग्रहित बातचीत छिपी रहें</string>
     <string name="settings_nav_keep_archived_body">नए मैसेज आने पर भी बातचीत संग्रहित रहती हैं</string>
-    <string name="settings_nav_recycle_bin">रीसायकल बिन इस्तेमाल करें</string>
-    <string name="settings_nav_recycle_bin_body">मिटाए गए मैसेज पहले रीसायकल बिन में रखे जाते हैं</string>
     <string name="settings_nav_default_sim_value">सिम %1$d · %2$s</string>
     <string name="settings_nav_default_sim_ask">हर बार पूछें</string>
     <string name="settings_nav_open_android_settings">Android की सेटिंग खुलती हैं</string>
     <string name="settings_nav_lock_screen">लॉक स्क्रीन पर निजता</string>
-    <string name="settings_nav_theme">थीम</string>
     <string name="settings_nav_theme_body">लाइट, डार्क और रंग</string>
     <string name="settings_nav_app_lock">ऐप लॉक</string>
     <string name="settings_nav_app_lock_body">पिन, पैटर्न या फ़िंगरप्रिंट मांगें</string>
@@ -42,7 +34,6 @@
     <string name="settings_nav_about_row">ऐप के बारे में</string>
     <string name="settings_nav_about_body">वर्शन, सोर्स कोड और लाइसेंस</string>
     <string name="settings_nav_privacy_body">ऑफ़लाइन काम करता है. आपके फ़ोन से कोई डेटा बाहर नहीं जाता</string>
-    <string name="settings_nav_version_body">बिल्ड की पूरी जानकारी कॉपी करने के लिए टैप करें</string>
     <string name="settings_nav_version_copied">बिल्ड की जानकारी कॉपी हो गई</string>
     <string name="settings_nav_source_body">GitHub पर खोलें</string>
     <string name="settings_nav_licenses_row">ओपन-सोर्स लाइसेंस</string>
@@ -62,7 +53,6 @@
     <string name="settings_nav_group_alerts">अलर्ट</string>
     <string name="settings_nav_notify_body">हर ब्लॉक किए गए मैसेज के लिए बिना आवाज़ वाली सूचना</string>
     <string name="settings_nav_theme_title">रंग-रूप</string>
-    <string name="settings_nav_theme_intro">चुनें कि uMessage कैसा दिखे. ऐप का आइकॉन वही रहेगा.</string>
     <string name="settings_nav_theme_modes">मोड</string>
     <string name="settings_nav_theme_colours">रंग</string>
 </resources>

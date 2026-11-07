@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">Pesan, aturan, dan setelan ke file</string>
-    <string name="settings_f_backup_rules_group">Aturan dan setelan</string>
-    <string name="settings_f_backup_rules_contents">File berisi aturan izinkan dan blokir, aturan penerusan, serta setelan: perlindungan spam, notifikasi, tanggal, ukuran teks, tema, tombol Enter, dan batas penerusan. Teks pesan dan kunci aplikasi tidak pernah disertakan. Aturan penerusan dipulihkan dalam keadaan nonaktif.</string>
-    <string name="settings_f_backup_messages_contents">Teks pesan dan gambar, dalam file terpisah.</string>
     <string name="settings_f_restore_title">Pulihkan dari file ini?</string>
     <string name="settings_f_restore_rules">Aturan izinkan: %1$d · Aturan blokir: %2$d. Aturan yang sudah ada dilewati.</string>
     <string name="settings_f_restore_forwards">Aturan penerusan yang akan ditambahkan: %1$d, dalam keadaan nonaktif. Aktifkan di Aturan › Penerusan.</string>

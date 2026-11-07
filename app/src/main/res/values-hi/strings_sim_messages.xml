@@ -11,6 +11,4 @@
     </plurals>
     <string name="sim_messages_import">कॉपी करें</string>
     <string name="sim_messages_importing">मैसेज कॉपी हो रहे हैं…</string>
-    <string name="sim_messages_done">%1$d मैसेज कॉपी किए गए. %2$d पहले से आपकी बातचीत में थे.</string>
-    <string name="sim_messages_done_failed">%1$d मैसेज कॉपी किए गए. %2$d पहले से आपकी बातचीत में थे और %3$d कॉपी नहीं किए जा सके.</string>
 </resources>

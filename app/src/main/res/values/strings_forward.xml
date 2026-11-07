@@ -23,10 +23,7 @@
     <!-- Forward tab -->
     <string name="forward_tab">Forward</string>
     <string name="forward_add">Add forward</string>
-    <string name="forward_intro">Messages that reach your inbox and match a rule are sent on by SMS. Blocked spam is never forwarded.</string>
     <string name="forward_paid_note">Each forward is a paid SMS.</string>
-    <string name="forward_empty_title">No forward rules</string>
-    <string name="forward_empty_body">Send a copy of matching messages, such as bank alerts, to another phone.</string>
     <string name="forward_row_from">From: %1$s</string>
     <string name="forward_row_text">Text: %1$s</string>
     <string name="forward_row_any_sender">Any sender</string>
@@ -52,11 +49,9 @@
     <string name="forward_sheet_target_n">Number %1$d</string>
     <string name="forward_sheet_add_target">Add number</string>
     <string name="forward_sheet_remove_target">Remove number %1$d</string>
-    <string name="forward_sheet_target_needed">Add at least one number to forward to.</string>
     <string name="forward_err_target_invalid">Enter a phone number with 7 to 15 digits</string>
     <string name="forward_err_target_duplicate">This number is already in the list</string>
     <string name="forward_sheet_window">Only at certain times</string>
-    <string name="forward_sheet_window_body">Forward only between these times. An end before the start runs past midnight.</string>
     <string name="forward_sheet_start">Start %1$s</string>
     <string name="forward_sheet_end">End %1$s</string>
     <string name="forward_sheet_pick_start">Start time</string>
@@ -64,16 +59,12 @@
     <string name="forward_sheet_scope_label">Received on</string>
     <string name="forward_sheet_send_from_label">Send from</string>
     <string name="forward_sim_same">Same SIM</string>
-    <string name="forward_sheet_codes">Include verification codes</string>
-    <string name="forward_sheet_codes_body">When off, messages that look like sign-in or verification codes are not forwarded.</string>
     <string name="forward_sheet_paid">Each forward is a paid SMS. Long messages are sent in several parts.</string>
 
     <!-- Dialogs -->
     <string name="forward_codes_title">Forward verification codes?</string>
     <string name="forward_codes_message">Forwarding codes lets the recipient sign in to your accounts. Scammers use this: they talk people into forwarding their messages to steal codes. Only turn this on for a phone you own.</string>
     <string name="forward_codes_confirm">Include codes</string>
-    <string name="forward_delete_title">Delete forward rule?</string>
-    <string name="forward_delete_message">Messages will no longer be forwarded by this rule.</string>
     <string name="forward_no_lock_title">Protect forwarding with an app lock</string>
     <string name="forward_no_lock_message">Forward rules send your messages to other phones, so anyone holding your unlocked phone could add one. With an app lock, changing forward rules asks for your PIN or fingerprint.</string>
     <string name="forward_no_lock_continue">Continue</string>

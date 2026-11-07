@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">受信トレイに移動しました</string>
+    <string name="nsf_snack_moved_allowed">受信トレイに移動しました。%1$s からの今後のメッセージも届きます。</string>
+    <string name="nsf_moving">受信トレイに移動中</string>
+</resources>

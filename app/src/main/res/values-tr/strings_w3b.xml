@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">Bekletilen mesajların hiçbiri bu filtreye uymuyor. Başka bir filtre seçin veya tümünü gösterin.</string>
     <string name="w3b_filter_show_all">Tümünü gösterin</string>
     <string name="w3b_empty_body">uMessage, %1$s modunda kontrol ediyor. Beklettiği mesajlar burada görünecek.</string>
-    <string name="w3b_empty_change_mode">Modu değiştirin</string>
-    <string name="w3b_empty_rules">Kurallarımı inceleyin</string>
     <string name="w3b_why_link">Gönderen bilinmediği ve mesajda bağlantı olduğu için bekletildi.</string>
     <string name="w3b_why_unknown">Gönderen bilinmediği için bekletildi.</string>
     <string name="w3b_why_rule">Engelleme kurallarınızdan biriyle eşleştiği için bekletildi.</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">Kodu kopyalayın</string>
     <string name="w3b_code_copied">Kod kopyalandı</string>
     <string name="w3b_release_once">Bir kez izin verin</string>
-    <string name="w3b_fix_open">%1$s için bu kararı düzeltin</string>
-    <string name="w3b_fix_title">Bu kararı düzeltin</string>
     <string name="w3b_fix_note">Kural, bu gönderenden gelen yeni mesajlara uygulanır. Daha önce bekletilen mesajlar yerinde kalır.</string>
     <string name="w3b_fix_allow">Bu gönderene her zaman izin verin</string>
     <string name="w3b_fix_block">Bu göndereni engelleyin</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">Teslim edilirdi: kişiler okunamadığından gönderen değerlendirilemiyor.</string>
     <string name="w3b_verdict_allowed_other">Teslim edilirdi.</string>
     <string name="w3b_examples_title">Bir örnekle başlayın</string>
-    <string name="w3b_example_block_word">Bir kelimeyi içeren mesajları engelleyin</string>
     <string name="w3b_example_block_sender">Bir gönderen adını engelleyin</string>
-    <string name="w3b_example_block_prefix">Şununla başlayan numaraları engelleyin…</string>
     <string name="w3b_example_allow_sender">Bankanız gibi bir gönderen adına her zaman izin verin</string>
-    <string name="w3b_example_allow_number">Bir telefon numarasına her zaman izin verin</string>
     <string name="w3b_overridden_chip">İzin kuralı nedeniyle uygulanmıyor</string>
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">การตั้งค่าหน้าจอล็อกของโทรศัพท์แสดงเนื้อหาการแจ้งเตือนทั้งหมด Android จึงอาจยังแสดงข้อความอยู่ เปลี่ยนได้ในการตั้งค่าโทรศัพท์ ส่วนการแจ้งเตือน</string>
+    <string name="backup_timeout_title">Android หยุดการสำรองข้อมูล</string>
+    <string name="backup_timeout_text">Android จำกัดเวลาที่การสำรองหรือกู้คืนข้อมูลจะทำงานในพื้นหลังได้ จึงถูกหยุดไว้ เปิดการตั้งค่าเพื่อเริ่มใหม่อีกครั้ง</string>
+</resources>

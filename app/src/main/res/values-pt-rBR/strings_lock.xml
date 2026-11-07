@@ -47,7 +47,6 @@
     <string name="settings_app_lock_timeout_5m">Após 5 minutos</string>
     <string name="settings_app_lock_screenshots">Bloqueie capturas de tela</string>
     <string name="settings_app_lock_screenshots_body">Impede capturas e gravações de tela. As mensagens sempre ficam ocultas nos apps recentes.</string>
-    <string name="settings_app_lock_screenshots_body_old">Impede capturas e gravações de tela. Nesta versão do Android, também é a única forma de ocultar mensagens nos apps recentes.</string>
     <string name="settings_app_lock_change">Altere o PIN, padrão ou biometria</string>
     <string name="settings_app_lock_weak">Seu PIN ou padrão é fácil de adivinhar</string>
     <string name="settings_app_lock_weak_body">PIN muito fraco. Toque para alterar</string>

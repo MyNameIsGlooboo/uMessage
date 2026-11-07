@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">%1$s kopieren</string>
     <string name="thread_r2_menu_search">In Unterhaltung suchen</string>
     <string name="thread_r2_menu_always_forward">Nachrichten dieses Absenders immer weiterleiten</string>
-    <string name="thread_r2_block_hint">Neue Nachrichten landen unter „Blockiert“. Nichts verlässt dein Handy.</string>
     <string name="thread_r2_forward_message">Diese Nachricht weiterleiten</string>
     <string name="thread_r2_search_hint">In Unterhaltung suchen</string>
     <string name="thread_r2_search_close">Suche schließen</string>

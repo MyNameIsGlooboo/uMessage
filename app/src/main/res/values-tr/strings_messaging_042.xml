@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">Teslim edilemedi</string>
+    <string name="thread_many_parts_note">Bu metin çok uzun: %1$d SMS olarak gönderilecek. Daha kısa metinler daha ucuzdur.</string>
+    <string name="attachments_total_too_large">Bu dosyalar birlikte tek bir mesaj için çok büyük. Gönderilemeyebilir.</string>
+    <string name="mms_download_failed_channel">Resimli mesaj indirmeleri</string>
+    <string name="mms_download_failed_title">Resimli mesaj indirilemedi</string>
+    <string name="mms_download_failed_text">İndirilemedi. Mobil verinizi kontrol edin; gönderenin yeniden göndermesi gerekebilir.</string>
+</resources>

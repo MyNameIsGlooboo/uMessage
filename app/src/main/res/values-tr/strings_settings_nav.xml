@@ -5,20 +5,15 @@
     <string name="settings_nav_group_privacy_about">Gizlilik ve hakkında</string>
     <string name="settings_nav_spam_row">Spam koruması</string>
     <string name="settings_nav_spam_page_title">Spam koruması</string>
-    <string name="settings_nav_android_block_list">Android engellenenler listesi</string>
     <string name="settings_nav_android_block_list_body">Aramaları da engeller</string>
     <string name="settings_nav_decision_log">Neden engellendi?</string>
     <string name="settings_nav_decision_log_body">İzin verme ve engelleme kararlarının geçmişi</string>
-    <string name="settings_nav_forwarding">İletme</string>
     <string name="settings_nav_forwarded_tab">İletilenler sekmesini gösterin</string>
     <string name="settings_nav_forwarded_tab_body">Görüşme listesinde iletilen mesajlar için bir sekme</string>
     <string name="settings_nav_forward_pause">Tüm iletmeleri duraklatın</string>
     <string name="settings_nav_forward_pause_body">Kurallar kayıtlı kalır, hiçbir şey iletilmez</string>
-    <string name="settings_nav_messages_row">Yazma, gönderme ve depolama</string>
-    <string name="settings_nav_messages_title">Mesajlar</string>
     <string name="settings_nav_group_typing">Yazma</string>
     <string name="settings_nav_group_sending">Gönderme</string>
-    <string name="settings_nav_group_storage">Depolama</string>
     <string name="settings_nav_simple_chars">Özel harfleri sadeleştirin</string>
     <string name="settings_nav_simple_chars_body">Düz harfler (é yerine e), daha az parça</string>
     <string name="settings_nav_long_mms">Uzun metinleri MMS olarak gönderin</string>
@@ -27,13 +22,10 @@
     <string name="settings_nav_archived">Arşivlenen görüşmeler</string>
     <string name="settings_nav_keep_archived">Arşivlenen görüşmeler gizli kalsın</string>
     <string name="settings_nav_keep_archived_body">Yeni mesaj gelse de görüşmeler arşivde kalır</string>
-    <string name="settings_nav_recycle_bin">Çöp kutusunu kullanın</string>
-    <string name="settings_nav_recycle_bin_body">Silinen mesajlar önce çöp kutusunda bekler</string>
     <string name="settings_nav_default_sim_value">SIM %1$d · %2$s</string>
     <string name="settings_nav_default_sim_ask">Her seferinde sorun</string>
     <string name="settings_nav_open_android_settings">Android ayarlarını açar</string>
     <string name="settings_nav_lock_screen">Kilit ekranı gizliliği</string>
-    <string name="settings_nav_theme">Tema</string>
     <string name="settings_nav_theme_body">Açık, koyu ve renkler</string>
     <string name="settings_nav_app_lock">Uygulama kilidi</string>
     <string name="settings_nav_app_lock_body">PIN, desen veya parmak izi isteyin</string>
@@ -42,7 +34,6 @@
     <string name="settings_nav_about_row">Hakkında</string>
     <string name="settings_nav_about_body">Sürüm, kaynak kodu ve lisanslar</string>
     <string name="settings_nav_privacy_body">Çevrimdışı çalışır. Hiçbir veri telefonunuzdan çıkmaz</string>
-    <string name="settings_nav_version_body">Tam derleme bilgisini kopyalamak için dokunun</string>
     <string name="settings_nav_version_copied">Derleme bilgisi kopyalandı</string>
     <string name="settings_nav_source_body">GitHub\'da açın</string>
     <string name="settings_nav_licenses_row">Açık kaynak lisansları</string>
@@ -62,7 +53,6 @@
     <string name="settings_nav_group_alerts">Uyarılar</string>
     <string name="settings_nav_notify_body">Engellenen her mesaj için sessiz bir bildirim</string>
     <string name="settings_nav_theme_title">Görünüm</string>
-    <string name="settings_nav_theme_intro">uMessage\'ın görünümünü seçin. Uygulama simgesi aynı kalır.</string>
     <string name="settings_nav_theme_modes">Mod</string>
     <string name="settings_nav_theme_colours">Renkler</string>
 </resources>

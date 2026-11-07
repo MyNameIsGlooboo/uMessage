@@ -60,7 +60,6 @@
         <item quantity="many">تُحذف الرسائل المحظورة بعد %d يومًا</item>
         <item quantity="other">تُحذف الرسائل المحظورة بعد %d يوم</item>
     </plurals>
-    <string name="spam_purge_notice_off">تبقى الرسائل المحظورة حتى تحذفها</string>
     <plurals name="spam_purge_left">
         <item quantity="zero">تُحذف بعد %d يوم</item>
         <item quantity="one">تُحذف بعد يوم واحد (%d)</item>
@@ -70,7 +69,6 @@
         <item quantity="other">تُحذف بعد %d يوم</item>
     </plurals>
     <string name="spam_purge_left_today">تُحذف اليوم</string>
-    <string name="convlist_report_spam">أبلغ عن رسالة غير مرغوب فيها</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="zero">تم الإبلاغ عن %d محادثة. ستنتقل رسائل مرسليها الجديدة إلى «المحظورة»، وأُرشفت المحادثات.</item>
         <item quantity="one">تم الإبلاغ. ستنتقل رسائل هذا المرسل الجديدة إلى «المحظورة»، وأُرشفت المحادثة.</item>
@@ -88,18 +86,9 @@
         <item quantity="other">تم الإبلاغ عن %d محادثة. ستنتقل رسائل مرسليها الجديدة إلى «المحظورة».</item>
     </plurals>
     <string name="blocked_title">المحظورة</string>
-    <string name="blocked_menu_rules">القواعد</string>
-    <string name="blocked_mode_group_cd">مرسلون غير معروفين: %1$s، %2$d من %3$d</string>
-    <string name="blocked_mode_desc_strict">صارم: يحتجز رسائل كل مرسل غير معروف، حتى رموز التحقق</string>
-    <string name="blocked_mode_desc_smart">ذكي: يحتجز رسائل المرسلين غير المعروفين، ويسمح برموز التحقق بلا روابط</string>
-    <string name="blocked_mode_desc_off">متوقف: تصل رسائل المرسلين غير المعروفين إلى الرسائل الواردة. تبقى قواعدك سارية</string>
     <string name="blocked_snack_mode">ضُبط وضع المرسلين غير المعروفين على %1$s</string>
-    <string name="blocked_off_title">إيقاف احتجاز رسائل المرسلين غير المعروفين؟</string>
-    <string name="blocked_off_body">تصل رسائل المرسلين غير المعروفين مباشرةً إلى الرسائل الواردة. تبقى قواعدك سارية.</string>
-    <string name="blocked_off_confirm">أوقف</string>
     <string name="blocked_stats_restored">استعدت %1$d</string>
     <string name="blocked_reason_unknown_link">مرسل غير معروف، مع رابط</string>
     <string name="blocked_may_be_important">قد تكون مهمة</string>
     <string name="blocked_action_move_inbox">انقل إلى الرسائل الواردة</string>
-    <string name="blocked_swipe_not_spam">اسحب للنقل إلى الرسائل الواردة</string>
 </resources>

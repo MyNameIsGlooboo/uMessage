@@ -13,6 +13,4 @@
     </plurals>
     <string name="sim_messages_import">Копировать</string>
     <string name="sim_messages_importing">Копирование сообщений…</string>
-    <string name="sim_messages_done">Скопировано сообщений: %1$d. Уже были в ваших чатах: %2$d.</string>
-    <string name="sim_messages_done_failed">Скопировано сообщений: %1$d. Уже были в ваших чатах: %2$d. Не удалось скопировать: %3$d.</string>
 </resources>

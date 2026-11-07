@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">Bestätige, dass du es bist</string>
     <string name="forward_tab">Weiterleiten</string>
     <string name="forward_add">Weiterleitung hinzufügen</string>
-    <string name="forward_intro">Nachrichten, die in deinem Posteingang ankommen und zu einer Regel passen, werden per SMS weitergeleitet. Blockierter Spam wird nie weitergeleitet.</string>
     <string name="forward_paid_note">Jede Weiterleitung ist eine kostenpflichtige SMS.</string>
-    <string name="forward_empty_title">Keine Regeln zum Weiterleiten</string>
-    <string name="forward_empty_body">Sende eine Kopie passender Nachrichten, etwa Bankmeldungen, an ein anderes Telefon.</string>
     <string name="forward_row_from">Von: %1$s</string>
     <string name="forward_row_text">Text: %1$s</string>
     <string name="forward_row_any_sender">Beliebiger Absender</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">Nummer %1$d</string>
     <string name="forward_sheet_add_target">Nummer hinzufügen</string>
     <string name="forward_sheet_remove_target">Nummer %1$d entfernen</string>
-    <string name="forward_sheet_target_needed">Füge mindestens eine Nummer zum Weiterleiten hinzu.</string>
     <string name="forward_err_target_invalid">Gib eine Telefonnummer mit 7 bis 15 Ziffern ein</string>
     <string name="forward_err_target_duplicate">Diese Nummer ist bereits in der Liste</string>
     <string name="forward_sheet_window">Nur zu bestimmten Zeiten</string>
-    <string name="forward_sheet_window_body">Nur zwischen diesen Uhrzeiten weiterleiten. Liegt das Ende vor dem Start, geht der Zeitraum über Mitternacht hinaus.</string>
     <string name="forward_sheet_start">Start %1$s</string>
     <string name="forward_sheet_end">Ende %1$s</string>
     <string name="forward_sheet_pick_start">Startzeit</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">Empfangen über</string>
     <string name="forward_sheet_send_from_label">Senden über</string>
     <string name="forward_sim_same">Dieselbe SIM</string>
-    <string name="forward_sheet_codes">Bestätigungscodes einschließen</string>
-    <string name="forward_sheet_codes_body">Wenn deaktiviert, werden Nachrichten, die wie Anmelde- oder Bestätigungscodes aussehen, nicht weitergeleitet.</string>
     <string name="forward_sheet_paid">Jede Weiterleitung ist eine kostenpflichtige SMS. Lange Nachrichten werden in mehreren Teilen gesendet.</string>
     <string name="forward_codes_title">Bestätigungscodes weiterleiten?</string>
     <string name="forward_codes_message">Mit weitergeleiteten Codes kann sich der Empfänger bei deinen Konten anmelden. Betrüger nutzen das aus: Sie überreden Menschen, ihre Nachrichten weiterzuleiten, um Codes zu stehlen. Aktiviere dies nur für ein Telefon, das dir gehört.</string>
     <string name="forward_codes_confirm">Codes einschließen</string>
-    <string name="forward_delete_title">Regel zum Weiterleiten löschen?</string>
-    <string name="forward_delete_message">Mit dieser Regel werden keine Nachrichten mehr weitergeleitet.</string>
     <string name="forward_no_lock_title">Weiterleiten mit einer App-Sperre schützen</string>
     <string name="forward_no_lock_message">Regeln zum Weiterleiten senden deine Nachrichten an andere Telefone. Wer dein entsperrtes Telefon in der Hand hat, könnte eine solche Regel hinzufügen. Mit einer App-Sperre wird beim Ändern dieser Regeln deine PIN oder dein Fingerabdruck abgefragt.</string>
     <string name="forward_no_lock_continue">Weiter</string>

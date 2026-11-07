@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">傳送失敗</string>
+    <string name="thread_many_parts_note">這則簡訊很長：將以 %1$d 則簡訊傳送。短一些比較省錢。</string>
+    <string name="attachments_total_too_large">這些檔案加起來對一則訊息來說太大了，可能無法傳送。</string>
+    <string name="mms_download_failed_channel">圖片訊息下載</string>
+    <string name="mms_download_failed_title">圖片訊息未下載</string>
+    <string name="mms_download_failed_text">無法下載。請檢查行動數據；傳送者可能需要重新傳送。</string>
+</resources>

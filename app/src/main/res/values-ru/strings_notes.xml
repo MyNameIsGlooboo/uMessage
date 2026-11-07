@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note">Заметка</string>
+    <string name="add_note">Добавить заметку</string>
+    <string name="edit_note">Изменить заметку</string>
+    <string name="delete_note">Удалить заметку</string>
+    <string name="note_hint">Личная заметка, только на этом телефоне</string>
+    <string name="note_counter">%1$s/%2$s</string>
+    <string name="note_save">Сохранить</string>
+    <string name="note_cancel">Отмена</string>
+    <string name="has_notes">С заметками</string>
+    <string name="notes_section">Заметки</string>
+    <string name="note_content_desc">Заметка: %1$s</string>
+</resources>

@@ -30,12 +30,10 @@
     <plurals name="spam_purge_notice">
         <item quantity="other">已屏蔽的消息将在%d天后删除</item>
     </plurals>
-    <string name="spam_purge_notice_off">已屏蔽的消息会一直保留，直到手动删除</string>
     <plurals name="spam_purge_left">
         <item quantity="other">%d天后删除</item>
     </plurals>
     <string name="spam_purge_left_today">今天删除</string>
-    <string name="convlist_report_spam">举报垃圾短信</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="other">已举报%d个会话。相关发件人的新短信将进入“已屏蔽”，会话已归档。</item>
     </plurals>
@@ -43,18 +41,9 @@
         <item quantity="other">已举报%d个会话。相关发件人的新短信将进入“已屏蔽”。</item>
     </plurals>
     <string name="blocked_title">已屏蔽</string>
-    <string name="blocked_menu_rules">规则</string>
-    <string name="blocked_mode_group_cd">未知发件人：%1$s，第%2$d项，共%3$d项</string>
-    <string name="blocked_mode_desc_strict">严格：屏蔽所有未知发件人的消息，包括验证码</string>
-    <string name="blocked_mode_desc_smart">智能：屏蔽未知发件人的消息，但允许不含链接的验证码通过</string>
-    <string name="blocked_mode_desc_off">关闭：未知发件人的消息直接进入收件箱。你的规则仍然生效</string>
     <string name="blocked_snack_mode">未知发件人的过滤模式已设为%1$s</string>
-    <string name="blocked_off_title">停止屏蔽未知发件人？</string>
-    <string name="blocked_off_body">未知发件人的消息将直接进入收件箱。你的规则仍然生效。</string>
-    <string name="blocked_off_confirm">关闭</string>
     <string name="blocked_stats_restored">你已恢复%1$d条</string>
     <string name="blocked_reason_unknown_link">未知发件人，含链接</string>
     <string name="blocked_may_be_important">可能很重要</string>
     <string name="blocked_action_move_inbox">移至收件箱</string>
-    <string name="blocked_swipe_not_spam">滑动移至收件箱</string>
 </resources>

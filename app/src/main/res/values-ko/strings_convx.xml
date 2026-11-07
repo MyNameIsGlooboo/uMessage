@@ -11,11 +11,6 @@
     <string name="convx_details_call">전화</string>
     <string name="convx_details_copy">번호 복사</string>
     <string name="convx_details_add_contact">연락처 추가</string>
-    <string name="convx_details_tap_to_rename">눌러서 이름 변경</string>
-    <string name="convx_details_notifications_hint">이 발신자에게만 적용할 소리와 우선순위를 선택해요.</string>
-    <string name="convx_details_block">발신자 차단</string>
-    <string name="convx_details_block_hint">새 문자는 차단함으로 이동해요. 어떤 정보도 휴대전화 밖으로 전송되지 않아요.</string>
-    <string name="convx_details_status">상태</string>
     <string name="convx_new_send_to">%1$s에게 보내기</string>
     <string name="convx_new_group_hint">그룹에 추가할 사람을 선택해요. 그룹 문자를 보내려면 모바일 데이터와 MMS 설정이 필요할 수 있어요.</string>
 </resources>

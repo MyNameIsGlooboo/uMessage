@@ -3,5 +3,4 @@
     <string name="r2a_filter_codes">รหัส</string>
     <string name="r2a_filter_codes_empty_title">ไม่มีรหัส</string>
     <string name="r2a_filter_codes_empty_body">การสนทนาที่มีรหัสใช้ครั้งเดียวในข้อความล่าสุดจะแสดงที่นี่</string>
-    <string name="r2a_search_codes_window">จากช่วง 24 ชั่วโมงที่ผ่านมา</string>
 </resources>

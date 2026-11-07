@@ -5,8 +5,6 @@
     <string name="w2b2_thread_chip_allowed">Luôn được cho phép</string>
     <string name="w2b2_thread_chip_blocked">Đã chặn theo quy tắc</string>
     <string name="w2b2_settings_group_dates">Ngày tháng</string>
-    <string name="w2b2_settings_jalali">Ngày theo lịch Jalali</string>
-    <string name="w2b2_settings_jalali_body">Hiển thị ngày trong cuộc trò chuyện và tin nhắn lên lịch gửi theo lịch Ba Tư</string>
     <string name="w2b2_lock_pattern_hint">Nối ít nhất %d điểm, rồi vẽ lại cùng hình để xác nhận.</string>
     <string name="w2b2_lock_recovery_hint">Nếu quên, bạn có thể dùng khóa màn hình của điện thoại để vào lại từ màn hình khóa ứng dụng.</string>
 </resources>

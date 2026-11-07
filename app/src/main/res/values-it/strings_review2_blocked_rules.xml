@@ -24,8 +24,6 @@
     <string name="e_example_block_cancel_word">Blocca i messaggi che contengono لغو۱۱</string>
     <string name="e_example_block_ad_prefix">Blocca i numeri pubblicitari che iniziano con 3000</string>
     <string name="e_example_allow_number">Consenti sempre un numero, come quello del tuo ufficio postale</string>
-    <string name="e_sheet_sender_label">Mittente</string>
-    <string name="e_sheet_text_label">Testo del messaggio</string>
     <string name="e_value_number">Numero di telefono</string>
     <string name="e_value_prefix">Il numero inizia con</string>
     <string name="e_value_sender">Nome del mittente</string>

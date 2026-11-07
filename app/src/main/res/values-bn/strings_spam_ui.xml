@@ -15,7 +15,6 @@
     <string name="blocknum_add_title">একটি নম্বর ব্লক করুন</string>
     <string name="blocknum_edit_title">ব্লক করা নম্বর বদলান</string>
     <string name="blocknum_field_label">নম্বর</string>
-    <string name="blocknum_field_help">ওয়াইল্ডকার্ড হিসেবে * ব্যবহার করুন: +1555* দিয়ে +1555 দিয়ে শুরু হওয়া সব নম্বর ব্লক করা হয়</string>
     <string name="blocknum_err_empty">একটি নম্বর লিখুন</string>
     <string name="blocknum_err_invalid">ফোন নম্বর লিখুন, অথবা সংখ্যার সঙ্গে ওয়াইল্ডকার্ড হিসেবে * দিন</string>
     <string name="blocknum_copy">নম্বর কপি করুন</string>
@@ -53,7 +52,6 @@
     <string name="blocknum_unavailable_title">ব্লক তালিকা পাওয়া যাচ্ছে না</string>
     <string name="blocknum_unavailable_body">সিস্টেমের ব্লক তালিকা দেখতে ও বদলাতে uMessage-কে আপনার ডিফল্ট SMS অ্যাপ করুন।</string>
     <string name="blocknum_unknown_title">অচেনা নম্বর ব্লক করুন</string>
-    <string name="blocknum_unknown_body">শুধু স্প্যাম মোড বন্ধ থাকলে এটি কাজ করে: তখন কঠোর মোডের মতো অচেনা নম্বরের বার্তা ব্লক করা বিভাগে যায়। কঠোর ও স্মার্ট মোডে এই সুইচের প্রভাব নেই।</string>
     <string name="blocknum_contacts_denied">পরিচিতি ব্যবহারের অনুমতি ছাড়া অচেনা নম্বর শনাক্ত করা যায় না</string>
     <string name="blocknum_section_numbers">নম্বর</string>
 </resources>

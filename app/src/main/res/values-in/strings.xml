@@ -21,7 +21,6 @@
     <string name="add_contact_or_number">Tambahkan kontak atau nomor…</string>
     <string name="suggestions">Saran</string>
     <string name="members">Anggota</string>
-    <string name="conversation_name">Nama percakapan</string>
     <string name="conversation_details">Detail percakapan</string>
     <string name="rename_conversation">Ubah nama percakapan</string>
     <string name="rename_conversation_warning">Hanya Anda yang dapat melihat nama percakapan ini</string>
@@ -77,7 +76,6 @@
     <string name="mms_file_size_limit">Ubah ukuran gambar MMS yang dikirim</string>
     <string name="mms_file_size_limit_none">Tanpa batas</string>
     <string name="outgoing_messages">Pesan keluar</string>
-    <string name="group_message_mms">Kirim pesan grup sebagai MMS</string>
     <string name="send_group_message">Format pesan grup</string>
     <string name="group_message_send_description">MMS grup menyatukan balasan dalam satu percakapan, tetapi biaya operator mungkin berlaku. Pengiriman terpisah mengirim satu pesan ke setiap orang. Ini dapat diubah nanti di setelan aplikasi.</string>
     <string name="group_mms">MMS grup</string>
@@ -145,8 +143,6 @@
     <string name="invalid_short_code_desc">Hanya kode pendek berisi angka seperti \"503501\" yang dapat dibalas, bukan kode berisi huruf dan angka seperti \"AB-CD0\".</string>
     <string name="attachment_sized_exceeds_max_limit">Ukuran lampiran melebihi batas maksimum MMS</string>
     <string name="couldnt_download_mms">Tidak dapat mengunduh MMS</string>
-    <string name="faq_1_title">Mengapa aplikasi memerlukan akses internet?</string>
-    <string name="faq_1_text">Sayangnya, akses ini diperlukan untuk mengirim lampiran MMS. Tanpa kemampuan mengirim MMS, aplikasi ini akan jauh tertinggal dari aplikasi lain, jadi kami memilih cara ini. Namun, seperti biasa, tidak ada iklan, pelacakan, atau analitik apa pun. Internet hanya digunakan untuk mengirim MMS.</string>
     <string name="faq_2_title">Penerima tidak menerima MMS saya. Apa yang bisa saya lakukan?</string>
     <string name="faq_2_text">Ukuran MMS dibatasi oleh operator. Coba pilih batas yang lebih kecil di setelan aplikasi.</string>
     <string name="faq_3_title">Apakah aplikasi mendukung pesan terjadwal?</string>

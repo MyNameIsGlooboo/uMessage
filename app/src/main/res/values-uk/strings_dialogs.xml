@@ -28,7 +28,6 @@
     <string name="dialogs_lock_locked_out">Забагато невдалих спроб розблокування.\nПовторіть спробу через %d с.</string>
     <string name="dialogs_lock_pin_delete">Видалити останню цифру</string>
     <string name="dialogs_lock_pin_confirm">Підтвердити PIN</string>
-    <string name="dialogs_lock_pin_entered">Введено цифр: %d</string>
     <string name="dialogs_lock_pattern_pad">Поле графічного ключа</string>
     <string name="dialogs_lock_biometric_hint">Підтвердьте особу за відбитком пальця або обличчям.</string>
     <string name="dialogs_lock_biometric_open">Підтвердити за допомогою біометрії</string>

@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">ยืนยันตัวตน</string>
     <string name="forward_tab">ส่งต่อ</string>
     <string name="forward_add">เพิ่มการส่งต่อ</string>
-    <string name="forward_intro">ข้อความที่เข้ากล่องข้อความเข้าและตรงกับกฎจะถูกส่งต่อทาง SMS สแปมที่บล็อกแล้วจะไม่ถูกส่งต่อ</string>
     <string name="forward_paid_note">การส่งต่อแต่ละครั้งมีค่าบริการ SMS</string>
-    <string name="forward_empty_title">ไม่มีกฎการส่งต่อ</string>
-    <string name="forward_empty_body">ส่งสำเนาข้อความที่ตรงกับกฎ เช่น ข้อความแจ้งเตือนจากธนาคาร ไปยังโทรศัพท์อีกเครื่อง</string>
     <string name="forward_row_from">จาก: %1$s</string>
     <string name="forward_row_text">ข้อความ: %1$s</string>
     <string name="forward_row_any_sender">ผู้ส่งทุกราย</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">หมายเลข %1$d</string>
     <string name="forward_sheet_add_target">เพิ่มหมายเลข</string>
     <string name="forward_sheet_remove_target">ลบหมายเลข %1$d</string>
-    <string name="forward_sheet_target_needed">เพิ่มหมายเลขที่จะส่งต่อถึงอย่างน้อย 1 หมายเลข</string>
     <string name="forward_err_target_invalid">ป้อนหมายเลขโทรศัพท์ที่มี 7 ถึง 15 หลัก</string>
     <string name="forward_err_target_duplicate">หมายเลขนี้อยู่ในรายการแล้ว</string>
     <string name="forward_sheet_window">เฉพาะช่วงเวลาที่กำหนด</string>
-    <string name="forward_sheet_window_body">ส่งต่อเฉพาะในช่วงเวลานี้ หากเวลาสิ้นสุดอยู่ก่อนเวลาเริ่ม จะส่งต่อข้ามเที่ยงคืน</string>
     <string name="forward_sheet_start">เริ่ม %1$s</string>
     <string name="forward_sheet_end">สิ้นสุด %1$s</string>
     <string name="forward_sheet_pick_start">เวลาเริ่ม</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">รับผ่าน</string>
     <string name="forward_sheet_send_from_label">ส่งจาก</string>
     <string name="forward_sim_same">SIM เดียวกัน</string>
-    <string name="forward_sheet_codes">รวมรหัสยืนยัน</string>
-    <string name="forward_sheet_codes_body">เมื่อปิด จะไม่ส่งต่อข้อความที่ดูเหมือนรหัสเข้าสู่ระบบหรือรหัสยืนยัน</string>
     <string name="forward_sheet_paid">การส่งต่อแต่ละครั้งมีค่าบริการ SMS ข้อความยาวจะแบ่งส่งเป็นหลายส่วน</string>
     <string name="forward_codes_title">ส่งต่อรหัสยืนยัน?</string>
     <string name="forward_codes_message">การส่งต่อรหัสทำให้ผู้รับเข้าสู่ระบบบัญชีของคุณได้ มิจฉาชีพใช้วิธีนี้หลอกให้คนส่งต่อข้อความเพื่อขโมยรหัส เปิดใช้เฉพาะกับโทรศัพท์ของคุณเองเท่านั้น</string>
     <string name="forward_codes_confirm">รวมรหัสยืนยัน</string>
-    <string name="forward_delete_title">ลบกฎการส่งต่อ?</string>
-    <string name="forward_delete_message">ข้อความจะไม่ถูกส่งต่อตามกฎนี้อีก</string>
     <string name="forward_no_lock_title">ป้องกันการส่งต่อด้วยการล็อกแอป</string>
     <string name="forward_no_lock_message">กฎการส่งต่อจะส่งข้อความของคุณไปยังโทรศัพท์เครื่องอื่น ใครก็ตามที่ถือโทรศัพท์ของคุณขณะปลดล็อกจึงเพิ่มกฎได้ เมื่อล็อกแอป การเปลี่ยนกฎการส่งต่อจะต้องใช้ PIN หรือลายนิ้วมือ</string>
     <string name="forward_no_lock_continue">ดำเนินการต่อ</string>

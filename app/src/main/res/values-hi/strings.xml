@@ -22,7 +22,6 @@
     <string name="add_contact_or_number">संपर्क या नंबर जोड़ें…</string>
     <string name="suggestions">सुझाव</string>
     <string name="members">सदस्य</string>
-    <string name="conversation_name">बातचीत का नाम</string>
     <string name="conversation_details">बातचीत की जानकारी</string>
     <string name="rename_conversation">बातचीत का नाम बदलें</string>
     <string name="rename_conversation_warning">बातचीत का यह नाम सिर्फ़ आपको दिखेगा</string>
@@ -80,7 +79,6 @@
     <string name="mms_file_size_limit">भेजी जाने वाली MMS फ़ोटो का आकार बदलें</string>
     <string name="mms_file_size_limit_none">कोई सीमा नहीं</string>
     <string name="outgoing_messages">भेजे जाने वाले मैसेज</string>
-    <string name="group_message_mms">ग्रुप मैसेज MMS के तौर पर भेजें</string>
     <string name="send_group_message">ग्रुप मैसेज का फ़ॉर्मैट</string>
     <string name="group_message_send_description">ग्रुप MMS में सभी जवाब एक ही बातचीत में रहते हैं, लेकिन मोबाइल सेवा देने वाली कंपनी शुल्क ले सकती है. अलग-अलग भेजने पर हर व्यक्ति को एक मैसेज जाता है. आप बाद में ऐप की सेटिंग में इसे बदल सकते हैं.</string>
     <string name="group_mms">ग्रुप MMS</string>
@@ -148,8 +146,6 @@
     <string name="invalid_short_code_desc">आप सिर्फ़ \"503501\" जैसे अंकों वाले शॉर्ट कोड पर जवाब भेज सकते हैं, \"AB-CD0\" जैसे अक्षरों और अंकों वाले कोड पर नहीं.</string>
     <string name="attachment_sized_exceeds_max_limit">अटैचमेंट का आकार MMS की अधिकतम सीमा से बड़ा है</string>
     <string name="couldnt_download_mms">MMS डाउनलोड नहीं किया जा सका</string>
-    <string name="faq_1_title">ऐप को इंटरनेट की अनुमति क्यों चाहिए?</string>
-    <string name="faq_1_text">अफ़सोस, MMS अटैचमेंट भेजने के लिए इंटरनेट ज़रूरी है. MMS भेजने की सुविधा न होने पर यह ऐप दूसरे ऐप से काफ़ी पीछे रह जाता, इसलिए हमने यह तरीका चुना. हालांकि, हमेशा की तरह कोई विज्ञापन, ट्रैकिंग या एनालिटिक्स नहीं है. इंटरनेट का इस्तेमाल सिर्फ़ MMS भेजने के लिए होता है.</string>
     <string name="faq_2_title">सामने वाले को मेरा MMS नहीं मिल रहा है. मैं क्या करूं?</string>
     <string name="faq_2_text">मोबाइल सेवा देने वाली कंपनियां MMS के आकार की सीमा तय करती हैं. आप ऐप की सेटिंग में यह सीमा कम करके देख सकते हैं.</string>
     <string name="faq_3_title">क्या ऐप में मैसेज शेड्यूल कर सकते हैं?</string>

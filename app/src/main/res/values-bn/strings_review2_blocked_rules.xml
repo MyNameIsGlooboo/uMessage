@@ -24,8 +24,6 @@
     <string name="e_example_block_cancel_word">لغو11 আছে এমন বার্তা ব্লক করুন</string>
     <string name="e_example_block_ad_prefix">3000 দিয়ে শুরু বিজ্ঞাপনের নম্বর ব্লক করুন</string>
     <string name="e_example_allow_number">কোনো নম্বরকে সবসময় অনুমতি দিন, যেমন আপনার ডাকঘর</string>
-    <string name="e_sheet_sender_label">প্রেরক</string>
-    <string name="e_sheet_text_label">বার্তার লেখা</string>
     <string name="e_value_number">ফোন নম্বর</string>
     <string name="e_value_prefix">নম্বরের শুরুতে যা থাকবে</string>
     <string name="e_value_sender">প্রেরকের নাম</string>

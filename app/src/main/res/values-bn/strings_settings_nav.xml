@@ -5,20 +5,15 @@
     <string name="settings_nav_group_privacy_about">গোপনীয়তা ও অ্যাপ সম্পর্কে</string>
     <string name="settings_nav_spam_row">স্প্যাম থেকে সুরক্ষা</string>
     <string name="settings_nav_spam_page_title">স্প্যাম থেকে সুরক্ষা</string>
-    <string name="settings_nav_android_block_list">Android ব্লক তালিকা</string>
     <string name="settings_nav_android_block_list_body">কলও ব্লক করে</string>
     <string name="settings_nav_decision_log">কেন ব্লক করা হয়েছে?</string>
     <string name="settings_nav_decision_log_body">অনুমতি দেওয়া ও ব্লক করার সিদ্ধান্তের ইতিহাস</string>
-    <string name="settings_nav_forwarding">ফরোয়ার্ড করা</string>
     <string name="settings_nav_forwarded_tab">ফরোয়ার্ড করা ট্যাব দেখান</string>
     <string name="settings_nav_forwarded_tab_body">ফরোয়ার্ড করা বার্তার জন্য কথোপকথনের তালিকায় একটি ট্যাব</string>
     <string name="settings_nav_forward_pause">সব ফরোয়ার্ড করা থামান</string>
     <string name="settings_nav_forward_pause_body">নিয়ম সেভ থাকবে, কিছুই ফরোয়ার্ড করা হবে না</string>
-    <string name="settings_nav_messages_row">লেখা, পাঠানো ও সংরক্ষণ</string>
-    <string name="settings_nav_messages_title">বার্তা</string>
     <string name="settings_nav_group_typing">লেখা</string>
     <string name="settings_nav_group_sending">পাঠানো</string>
-    <string name="settings_nav_group_storage">সংরক্ষণ</string>
     <string name="settings_nav_simple_chars">বিশেষ অক্ষর সরল করুন</string>
     <string name="settings_nav_simple_chars_body">সাধারণ অক্ষর (é হবে e), কম অংশ</string>
     <string name="settings_nav_long_mms">দীর্ঘ বার্তা MMS হিসেবে</string>
@@ -27,13 +22,10 @@
     <string name="settings_nav_archived">আর্কাইভ করা কথোপকথন</string>
     <string name="settings_nav_keep_archived">আর্কাইভ করা কথোপকথন লুকানো থাকবে</string>
     <string name="settings_nav_keep_archived_body">নতুন বার্তা এলেও কথোপকথন আর্কাইভ করা থাকবে</string>
-    <string name="settings_nav_recycle_bin">রিসাইকেল বিন ব্যবহার করুন</string>
-    <string name="settings_nav_recycle_bin_body">মুছে ফেলা বার্তা প্রথমে রিসাইকেল বিনে থাকে</string>
     <string name="settings_nav_default_sim_value">SIM %1$d · %2$s</string>
     <string name="settings_nav_default_sim_ask">প্রতিবার জিজ্ঞাসা করুন</string>
     <string name="settings_nav_open_android_settings">Android সেটিংস খুলবে</string>
     <string name="settings_nav_lock_screen">লক স্ক্রিনে গোপনীয়তা</string>
-    <string name="settings_nav_theme">থিম</string>
     <string name="settings_nav_theme_body">হালকা, গাঢ় ও রং</string>
     <string name="settings_nav_app_lock">অ্যাপ লক</string>
     <string name="settings_nav_app_lock_body">PIN, প্যাটার্ন বা আঙুলের ছাপ চাইবে</string>
@@ -42,7 +34,6 @@
     <string name="settings_nav_about_row">অ্যাপ সম্পর্কে</string>
     <string name="settings_nav_about_body">সংস্করণ, সোর্স কোড ও লাইসেন্স</string>
     <string name="settings_nav_privacy_body">অফলাইনে কাজ করে। আপনার ফোন থেকে কিছুই বাইরে যায় না</string>
-    <string name="settings_nav_version_body">সম্পূর্ণ বিল্ডের তথ্য কপি করতে ট্যাপ করুন</string>
     <string name="settings_nav_version_copied">বিল্ডের তথ্য কপি করা হয়েছে</string>
     <string name="settings_nav_source_body">GitHub-এ খুলুন</string>
     <string name="settings_nav_licenses_row">ওপেন সোর্স লাইসেন্স</string>
@@ -62,7 +53,6 @@
     <string name="settings_nav_group_alerts">সতর্কতা</string>
     <string name="settings_nav_notify_body">প্রতিটি ব্লক করা বার্তার জন্য নীরব বিজ্ঞপ্তি</string>
     <string name="settings_nav_theme_title">চেহারা</string>
-    <string name="settings_nav_theme_intro">uMessage কেমন দেখাবে তা বেছে নিন। অ্যাপের আইকন একই থাকবে।</string>
     <string name="settings_nav_theme_modes">মোড</string>
     <string name="settings_nav_theme_colours">রং</string>
 </resources>

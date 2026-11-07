@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">रोज़ फ़ॉरवर्ड करने की सीमा</string>
     <string name="w3d_daily_limit_body">रोज़ ज़्यादा से ज़्यादा कितने मैसेज फ़ॉरवर्ड हों</string>
     <string name="w3d_hide_lock_codes">लॉक स्क्रीन पर कोड छिपाएं</string>
-    <string name="w3d_hide_lock_codes_body">फ़ोन अनलॉक करने तक लॉक स्क्रीन पर कोड वाले मैसेज में •••• दिखता है.</string>
 </resources>

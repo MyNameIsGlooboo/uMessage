@@ -36,13 +36,11 @@
         <item quantity="one">I messaggi bloccati vengono eliminati dopo %d giorno</item>
         <item quantity="other">I messaggi bloccati vengono eliminati dopo %d giorni</item>
     </plurals>
-    <string name="spam_purge_notice_off">I messaggi bloccati restano finché non li elimini</string>
     <plurals name="spam_purge_left">
         <item quantity="one">Eliminazione tra %d giorno</item>
         <item quantity="other">Eliminazione tra %d giorni</item>
     </plurals>
     <string name="spam_purge_left_today">Eliminazione oggi</string>
-    <string name="convlist_report_spam">Segnala come spam</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="one">Segnalazione inviata. I nuovi messaggi di questo mittente vanno in Messaggi bloccati e la conversazione è archiviata.</item>
         <item quantity="other">%d conversazioni segnalate. I nuovi messaggi di questi mittenti vanno in Messaggi bloccati e le conversazioni sono archiviate.</item>
@@ -52,18 +50,9 @@
         <item quantity="other">%d conversazioni segnalate. I nuovi messaggi di questi mittenti vanno in Messaggi bloccati.</item>
     </plurals>
     <string name="blocked_title">Messaggi bloccati</string>
-    <string name="blocked_menu_rules">Regole</string>
-    <string name="blocked_mode_group_cd">Mittenti sconosciuti: %1$s, %2$d di %3$d</string>
-    <string name="blocked_mode_desc_strict">Rigorosa: trattiene tutti i mittenti sconosciuti, inclusi i codici di verifica</string>
-    <string name="blocked_mode_desc_smart">Intelligente: trattiene i mittenti sconosciuti, ma consente i codici senza link</string>
-    <string name="blocked_mode_desc_off">Disattivata: i mittenti sconosciuti arrivano in In arrivo. Le tue regole restano attive</string>
     <string name="blocked_snack_mode">Modalità per i mittenti sconosciuti: %1$s</string>
-    <string name="blocked_off_title">Smettere di trattenere i mittenti sconosciuti?</string>
-    <string name="blocked_off_body">I messaggi dei mittenti sconosciuti vanno direttamente in In arrivo. Le tue regole restano attive.</string>
-    <string name="blocked_off_confirm">Disattiva</string>
     <string name="blocked_stats_restored">%1$d ripristinati da te</string>
     <string name="blocked_reason_unknown_link">Mittente sconosciuto, con un link</string>
     <string name="blocked_may_be_important">Potrebbe essere importante</string>
     <string name="blocked_action_move_inbox">Sposta in In arrivo</string>
-    <string name="blocked_swipe_not_spam">Scorri per spostare in In arrivo</string>
 </resources>

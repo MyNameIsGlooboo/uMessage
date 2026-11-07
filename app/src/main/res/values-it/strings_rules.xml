@@ -15,21 +15,13 @@
         <item quantity="one">%d regola eliminata</item>
         <item quantity="other">%d regole eliminate</item>
     </plurals>
-    <string name="rules_system_block_list">Mittenti bloccati dal sistema (blocca anche le chiamate)</string>
-    <string name="rules_legacy_note_keyword">Dal vecchio elenco di parole bloccate</string>
-    <string name="rules_legacy_note_number">Dai mittenti bloccati dal sistema</string>
-    <string name="rules_legacy_banner_title">Trovati vecchi elenchi di blocco</string>
-    <string name="rules_legacy_banner_body">Alcune parole e numeri sono bloccati al di fuori di queste regole. Spostali qui per vedere e modificare tutto in un solo posto.</string>
     <string name="rules_legacy_banner_review">Controlla</string>
     <string name="rules_legacy_banner_not_now">Non ora</string>
     <string name="rules_legacy_section_keywords">Vecchio elenco di parole bloccate</string>
     <string name="rules_legacy_section_keywords_body">Resta attivo nel filtro finché non sposti queste parole nelle regole. Il vecchio elenco viene poi dismesso.</string>
-    <string name="rules_legacy_section_system_body">Android scarta i messaggi di questi numeri prima che uMessage li riceva, quindi non compaiono mai in Messaggi bloccati. Questo elenco è condiviso con l\'app Telefono e blocca anche le chiamate.</string>
     <string name="rules_legacy_chip_old_list">Vecchio elenco</string>
     <string name="rules_legacy_chip_system">Sistema, anche chiamate</string>
     <string name="rules_legacy_move">Sposta nelle regole</string>
-    <string name="rules_legacy_open_system">Apri i mittenti bloccati dal sistema</string>
-    <string name="rules_migrate_title">Sposta i vecchi elenchi di blocco nelle regole</string>
     <string name="rules_migrate_nothing">Tutte le voci dei vecchi elenchi sono già nelle tue regole.</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="one">%d parola del vecchio elenco di parole bloccate diventa una regola di blocco per parola chiave. Il vecchio elenco viene poi dismesso.</item>
@@ -43,9 +35,7 @@
         <item quantity="one">Aggiungi anche %d numero tra i mittenti bloccati dal sistema come regola di blocco</item>
         <item quantity="other">Aggiungi anche %d numeri tra i mittenti bloccati dal sistema come regole di blocco</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">Android scarta i messaggi dei mittenti bloccati dal sistema, quindi uMessage non li riceve mai. Con le regole di uMessage, i loro messaggi possono invece arrivare in Messaggi bloccati, dove puoi leggerli e ripristinarli, ma solo dopo aver rimosso i numeri dall\'elenco di sistema.</string>
     <string name="rules_migrate_remove">Rimuovili anche dai mittenti bloccati dal sistema</string>
-    <string name="rules_migrate_remove_body">L\'elenco di sistema blocca anche le chiamate. I numeri che rimuovi potranno chiamarti di nuovo. uMessage filtra solo i messaggi.</string>
     <plurals name="rules_migrate_numbers_kept">
         <item quantity="one">%d voce con carattere jolly non può diventare una regola e resta nell\'elenco di sistema.</item>
         <item quantity="other">%d voci con caratteri jolly non possono diventare regole e restano nell\'elenco di sistema.</item>
@@ -68,7 +58,6 @@
         <item quantity="other">%d voci restano nei vecchi elenchi</item>
     </plurals>
     <string name="rules_migrated_nothing">Nessuna voce spostata.</string>
-    <string name="settings_system_block_list_body_calls">Blocca chiamate e messaggi su tutto il telefono. Android scarta questi messaggi prima che uMessage li riceva. Puoi spostare i numeri in Consentiti e bloccati.</string>
     <string name="settings_old_blocked_words">Vecchio elenco di parole bloccate</string>
     <string name="settings_old_blocked_words_body">Passaggio a Consentiti e bloccati</string>
 </resources>

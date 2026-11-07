@@ -15,7 +15,6 @@
     <string name="blocknum_add_title">مسدود کردن شماره</string>
     <string name="blocknum_edit_title">ویرایش شمارهٔ مسدودشده</string>
     <string name="blocknum_field_label">شماره</string>
-    <string name="blocknum_field_help">از * به‌عنوان نویسهٔ عام استفاده کنید: +1555* هر شماره‌ای را که با +1555 شروع شود مسدود می‌کند</string>
     <string name="blocknum_err_empty">شماره‌ای وارد کنید</string>
     <string name="blocknum_err_invalid">شمارهٔ تلفن یا چند رقم همراه با * به‌عنوان نویسهٔ عام وارد کنید</string>
     <string name="blocknum_copy">کپی شماره</string>
@@ -53,7 +52,6 @@
     <string name="blocknum_unavailable_title">فهرست مسدودی در دسترس نیست</string>
     <string name="blocknum_unavailable_body">برای دیدن و تغییر فهرست مسدودی سیستم، uMessage را برنامهٔ پیامک پیش‌فرض کنید.</string>
     <string name="blocknum_unknown_title">مسدود کردن شماره‌های ناشناس</string>
-    <string name="blocknum_unknown_body">فقط وقتی حالت هرزنامه «خاموش» است کاربرد دارد: در این حالت، پیام‌های شماره‌های ناشناس مانند حالت «سخت‌گیرانه» به مسدودشده‌ها می‌روند. حالت‌های «سخت‌گیرانه» و «هوشمند» این گزینه را نادیده می‌گیرند.</string>
     <string name="blocknum_contacts_denied">بدون دسترسی به مخاطب‌ها، تشخیص شماره‌های ناشناس ممکن نیست</string>
     <string name="blocknum_section_numbers">شماره‌ها</string>
 </resources>

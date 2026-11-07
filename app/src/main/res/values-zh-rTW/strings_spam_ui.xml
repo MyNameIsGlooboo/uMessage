@@ -14,7 +14,6 @@
     <string name="blocknum_add_title">封鎖號碼</string>
     <string name="blocknum_edit_title">編輯已封鎖的號碼</string>
     <string name="blocknum_field_label">號碼</string>
-    <string name="blocknum_field_help">使用*作為萬用字元：+1555*會封鎖所有開頭為+1555的號碼</string>
     <string name="blocknum_err_empty">請輸入號碼</string>
     <string name="blocknum_err_invalid">請輸入電話號碼，或以*作為萬用字元的數字</string>
     <string name="blocknum_copy">複製號碼</string>
@@ -48,7 +47,6 @@
     <string name="blocknum_unavailable_title">無法使用封鎖清單</string>
     <string name="blocknum_unavailable_body">將uMessage設為預設簡訊應用程式，即可查看及變更系統封鎖清單。</string>
     <string name="blocknum_unknown_title">封鎖未知號碼</string>
-    <string name="blocknum_unknown_body">只在垃圾簡訊模式設為關閉時使用：此時未知號碼的訊息會像嚴格模式一樣移至「已封鎖」。嚴格與智慧模式會忽略這個開關。</string>
     <string name="blocknum_contacts_denied">沒有聯絡人存取權，就無法辨識未知號碼</string>
     <string name="blocknum_section_numbers">號碼</string>
 </resources>

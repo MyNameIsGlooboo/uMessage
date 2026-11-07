@@ -30,12 +30,10 @@
     <plurals name="spam_purge_notice">
         <item quantity="other">Pesan diblokir dihapus setelah %d hari</item>
     </plurals>
-    <string name="spam_purge_notice_off">Pesan diblokir disimpan sampai Anda menghapusnya</string>
     <plurals name="spam_purge_left">
         <item quantity="other">Dihapus dalam %d hari</item>
     </plurals>
     <string name="spam_purge_left_today">Dihapus hari ini</string>
-    <string name="convlist_report_spam">Laporkan spam</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="other">%d percakapan dilaporkan. Pesan baru dari pengirimnya masuk ke Diblokir, dan percakapan diarsipkan.</item>
     </plurals>
@@ -43,18 +41,9 @@
         <item quantity="other">%d percakapan dilaporkan. Pesan baru dari pengirimnya masuk ke Diblokir.</item>
     </plurals>
     <string name="blocked_title">Diblokir</string>
-    <string name="blocked_menu_rules">Aturan</string>
-    <string name="blocked_mode_group_cd">Pengirim tidak dikenal: %1$s, %2$d dari %3$d</string>
-    <string name="blocked_mode_desc_strict">Mode filter ketat: menahan semua pesan dari pengirim tidak dikenal, termasuk kode verifikasi</string>
-    <string name="blocked_mode_desc_smart">Cerdas: menahan pesan dari pengirim tidak dikenal, tetapi meloloskan kode tanpa tautan</string>
-    <string name="blocked_mode_desc_off">Nonaktif: pesan dari pengirim tidak dikenal masuk ke kotak masuk. Aturan Anda tetap berlaku</string>
     <string name="blocked_snack_mode">Mode pengirim tidak dikenal diatur ke %1$s</string>
-    <string name="blocked_off_title">Berhenti menahan pesan dari pengirim tidak dikenal?</string>
-    <string name="blocked_off_body">Pesan dari pengirim tidak dikenal langsung masuk ke kotak masuk. Aturan Anda tetap berlaku.</string>
-    <string name="blocked_off_confirm">Nonaktifkan</string>
     <string name="blocked_stats_restored">%1$d dipulihkan oleh Anda</string>
     <string name="blocked_reason_unknown_link">Pengirim tidak dikenal, berisi tautan</string>
     <string name="blocked_may_be_important">Mungkin penting</string>
     <string name="blocked_action_move_inbox">Pindahkan ke kotak masuk</string>
-    <string name="blocked_swipe_not_spam">Geser untuk memindahkan ke kotak masuk</string>
 </resources>

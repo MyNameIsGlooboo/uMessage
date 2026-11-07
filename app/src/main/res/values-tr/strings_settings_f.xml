@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">Mesajları, kuralları ve ayarları bir dosyaya yedekleyin</string>
-    <string name="settings_f_backup_rules_group">Kurallar ve ayarlar</string>
-    <string name="settings_f_backup_rules_contents">Dosya; izin verme, engelleme ve iletme kurallarınızla şu ayarları içerir: spam koruması, bildirimler, tarihler, metin boyutu, tema, Enter tuşu ve iletme sınırları. Mesaj metinleri veya uygulama kilidiniz asla dahil edilmez. İletme kuralları kapalı olarak geri yüklenir.</string>
-    <string name="settings_f_backup_messages_contents">Mesaj metinleri ve resimler, ayrı bir dosyada.</string>
     <string name="settings_f_restore_title">Bu dosyadan geri yüklensin mi?</string>
     <string name="settings_f_restore_rules">İzin verme kuralları: %1$d · Engelleme kuralları: %2$d. Mevcut kurallar atlanır.</string>
     <string name="settings_f_restore_forwards">Eklenecek iletme kuralları: %1$d, kapalı olarak eklenir. Kurallar › İletme bölümünden açın.</string>

@@ -38,8 +38,6 @@
     <string name="e_example_allow_number">Always allow a number, like your post office</string>
 
     <!-- Rule editor: the forward editor's words (BR-44). -->
-    <string name="e_sheet_sender_label">Sender</string>
-    <string name="e_sheet_text_label">Message text</string>
     <string name="e_value_number">Phone number</string>
     <string name="e_value_prefix">Number starts with</string>
     <string name="e_value_sender">Sender name</string>

@@ -15,15 +15,12 @@
     <string name="ui_add_contact_or_number">نام یا فون نمبر ٹائپ کریں</string>
     <string name="ui_show_dialpad">ڈائل پیڈ دکھائیں</string>
     <string name="ui_show_keyboard">کی بورڈ دکھائیں</string>
-    <string name="ui_settings_group_block_lists">دیگر بلاک فہرستیں</string>
     <string name="ui_settings_system_block_list">سسٹم کی بلاک فہرست</string>
     <string name="ui_settings_system_block_list_body">اس فون کی ہر ایپ کے لیے بلاک شدہ نمبر۔ uMessage بھی انہیں چھپاتی ہے۔</string>
     <string name="ui_settings_blocked_words">بلاک شدہ الفاظ</string>
     <string name="ui_settings_character_counter">حروف کا کاؤنٹر دکھائیں</string>
-    <string name="ui_settings_simple_characters">بھیجتے وقت اعراب ہٹائیں</string>
     <string name="ui_settings_send_on_enter">Enter کی سے بھیجیں</string>
     <string name="ui_settings_delivery_reports">ڈیلیوری رپورٹس حاصل کریں</string>
-    <string name="ui_settings_recycle_bin">حذف شدہ گفتگو ری سائیکل بن میں منتقل کریں</string>
     <string name="ui_two_sentences">%1$s. %2$s</string>
     <string name="ui_tab_with_count">%1$s (%2$d)</string>
     <string name="ui_send_with_sim">%1$s, %2$s</string>

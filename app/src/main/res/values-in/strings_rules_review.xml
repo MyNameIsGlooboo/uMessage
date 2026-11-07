@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">Impor aturan dari file</string>
     <string name="rules2_menu_export">Ekspor aturan ke file</string>
     <string name="rules2_menu_system">Daftar blokir Android</string>
-    <string name="rules2_import_scope">File aturan hanya berisi aturan izinkan dan blokir. Tidak berisi pesan atau aturan penerusan.</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">Belum ada pengirim yang selalu diizinkan</string>
     <string name="rules2_empty_allowed_body">Tambahkan nomor, nama pengirim, atau kata agar pesannya selalu masuk ke kotak masuk. Ketuk Tambah aturan di bawah.</string>
@@ -25,7 +24,6 @@
     <plurals name="rules2_migrate_confirm_count">
         <item quantity="other">Pindahkan %d item</item>
     </plurals>
-    <string name="rules2_sheet_list_label">Tambahkan ke daftar</string>
     <string name="rules2_sheet_list_allow">Selalu izinkan</string>
     <string name="rules2_sheet_list_block">Selalu blokir</string>
     <string name="rules2_sheet_delete">Hapus aturan</string>

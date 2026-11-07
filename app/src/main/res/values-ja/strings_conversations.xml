@@ -4,7 +4,6 @@
     <string name="convlist_empty_title">会話はまだありません</string>
     <string name="convlist_empty_body">送受信したメッセージがここに表示されます。</string>
     <string name="convlist_start_conversation">会話を開始</string>
-    <string name="convlist_new_conversation">新しい会話</string>
     <string name="convlist_draft">下書き</string>
     <string name="convlist_pinned">固定済み</string>
     <string name="convlist_muted">通知オフ</string>
@@ -25,7 +24,6 @@
     <string name="convlist_unpin">固定解除</string>
     <string name="convlist_mark_read">既読にする</string>
     <string name="convlist_mark_unread">未読にする</string>
-    <string name="convlist_block_number">番号をブロック</string>
     <string name="convlist_add_contact">連絡先に番号を追加</string>
     <string name="convlist_copy_number">番号をコピー</string>
     <string name="convlist_dial">発信</string>
@@ -52,7 +50,5 @@
     <string name="convlist_block_message">%1$sをブロックしますか？この番号からの新しいメッセージは、受信トレイではなく「ブロック済みのメッセージ」に移動します。移動後も閲覧や復元ができます。</string>
     <string name="convlist_block_confirm">ブロック</string>
     <string name="convlist_rename_title">会話名を変更</string>
-    <string name="convlist_rename_hint">会話名</string>
-    <string name="convlist_ok">OK</string>
     <string name="convlist_cancel">キャンセル</string>
 </resources>

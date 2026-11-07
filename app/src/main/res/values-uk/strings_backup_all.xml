@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">Усе, крім ваших повідомлень: правила дозволу, блокування й пересилання та всі налаштування. Файл не зашифрований і містить номери телефонів для пересилання, тому зберігайте його в захищеному місці. Правила пересилання відновлюються вимкненими.</string>
     <string name="n09_label_spam">Захист від спаму</string>
     <string name="n09_label_notifications">Сповіщення</string>
     <string name="n09_label_chat">Чат і список повідомлень</string>

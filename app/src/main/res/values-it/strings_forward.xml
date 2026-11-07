@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">Conferma la tua identità</string>
     <string name="forward_tab">Inoltra</string>
     <string name="forward_add">Aggiungi inoltro</string>
-    <string name="forward_intro">I messaggi in arrivo che corrispondono a una regola vengono inoltrati via SMS. Lo spam bloccato non viene mai inoltrato.</string>
     <string name="forward_paid_note">Ogni inoltro è un SMS a pagamento.</string>
-    <string name="forward_empty_title">Nessuna regola di inoltro</string>
-    <string name="forward_empty_body">Invia a un altro telefono una copia dei messaggi che corrispondono alle regole, come gli avvisi della banca.</string>
     <string name="forward_row_from">Da: %1$s</string>
     <string name="forward_row_text">Testo: %1$s</string>
     <string name="forward_row_any_sender">Qualsiasi mittente</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">Numero %1$d</string>
     <string name="forward_sheet_add_target">Aggiungi numero</string>
     <string name="forward_sheet_remove_target">Rimuovi numero %1$d</string>
-    <string name="forward_sheet_target_needed">Aggiungi almeno un numero a cui inoltrare.</string>
     <string name="forward_err_target_invalid">Inserisci un numero di telefono da 7 a 15 cifre</string>
     <string name="forward_err_target_duplicate">Questo numero è già nell\'elenco</string>
     <string name="forward_sheet_window">Solo in determinati orari</string>
-    <string name="forward_sheet_window_body">Inoltra solo in questa fascia oraria. Se l\'ora di fine precede quella di inizio, la fascia prosegue oltre la mezzanotte.</string>
     <string name="forward_sheet_start">Inizio %1$s</string>
     <string name="forward_sheet_end">Fine %1$s</string>
     <string name="forward_sheet_pick_start">Ora di inizio</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">Ricevuti su</string>
     <string name="forward_sheet_send_from_label">Invia da</string>
     <string name="forward_sim_same">Stessa SIM</string>
-    <string name="forward_sheet_codes">Includi i codici di verifica</string>
-    <string name="forward_sheet_codes_body">Se disattivato, i messaggi che sembrano contenere codici di accesso o di verifica non vengono inoltrati.</string>
     <string name="forward_sheet_paid">Ogni inoltro è un SMS a pagamento. I messaggi lunghi vengono inviati in più parti.</string>
     <string name="forward_codes_title">Inoltrare i codici di verifica?</string>
     <string name="forward_codes_message">Inoltrare i codici permette al destinatario di accedere ai tuoi account. I truffatori lo sfruttano: convincono le persone a inoltrare i messaggi per rubare i codici. Attiva questa opzione solo per un telefono di tua proprietà.</string>
     <string name="forward_codes_confirm">Includi i codici</string>
-    <string name="forward_delete_title">Eliminare la regola di inoltro?</string>
-    <string name="forward_delete_message">I messaggi non verranno più inoltrati da questa regola.</string>
     <string name="forward_no_lock_title">Proteggi l\'inoltro con il blocco app</string>
     <string name="forward_no_lock_message">Le regole di inoltro inviano i tuoi messaggi ad altri telefoni, quindi chiunque abbia il tuo telefono sbloccato potrebbe aggiungerne una. Con il blocco app, per modificare le regole di inoltro serve il tuo PIN o la tua impronta digitale.</string>
     <string name="forward_no_lock_continue">Continua</string>

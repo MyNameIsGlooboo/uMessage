@@ -26,7 +26,6 @@
     <string name="dialogs_lock_locked_out">अनलॉक करने की बहुत ज़्यादा गलत कोशिशें हुई हैं.\n%d सेकंड बाद फिर कोशिश करें.</string>
     <string name="dialogs_lock_pin_delete">आखिरी अंक मिटाएं</string>
     <string name="dialogs_lock_pin_confirm">पिन की पुष्टि करें</string>
-    <string name="dialogs_lock_pin_entered">%d अंक डाले गए</string>
     <string name="dialogs_lock_pattern_pad">पैटर्न बनाने की जगह</string>
     <string name="dialogs_lock_biometric_hint">अपनी पहचान की पुष्टि के लिए फ़िंगरप्रिंट या चेहरे का इस्तेमाल करें.</string>
     <string name="dialogs_lock_biometric_open">बायोमेट्रिक्स से पुष्टि करें</string>

@@ -53,7 +53,6 @@
     <string name="settings_app_lock_timeout_5m">Po 5 minutach</string>
     <string name="settings_app_lock_screenshots">Zablokuj zrzuty ekranu</string>
     <string name="settings_app_lock_screenshots_body">Uniemożliwia robienie zrzutów i nagrywanie ekranu. Wiadomości są zawsze ukryte w widoku ostatnich aplikacji.</string>
-    <string name="settings_app_lock_screenshots_body_old">Uniemożliwia robienie zrzutów i nagrywanie ekranu. W tej wersji Androida to też jedyny sposób na ukrycie wiadomości w widoku ostatnich aplikacji.</string>
     <string name="settings_app_lock_change">Zmień PIN, wzór lub biometrię</string>
     <string name="settings_app_lock_weak">Twój PIN lub wzór łatwo odgadnąć</string>
     <string name="settings_app_lock_weak_body">PIN jest za słaby. Dotknij, aby zmienić</string>

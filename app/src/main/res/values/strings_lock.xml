@@ -57,7 +57,6 @@
     <string name="settings_app_lock_timeout_5m">After 5 minutes</string>
     <string name="settings_app_lock_screenshots">Block screenshots</string>
     <string name="settings_app_lock_screenshots_body">Stops screenshots and screen recording. Messages are always hidden in recent apps.</string>
-    <string name="settings_app_lock_screenshots_body_old">Stops screenshots and screen recording. On this version of Android it is also the only way to hide messages in recent apps.</string>
     <string name="settings_app_lock_change">Change PIN, pattern or biometrics</string>
     <string name="settings_app_lock_weak">Your PIN or pattern is easy to guess</string>
     <string name="settings_app_lock_weak_body">PIN too weak. Tap to change</string>

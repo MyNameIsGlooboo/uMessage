@@ -11,11 +11,6 @@
     <string name="convx_details_call">Ligue</string>
     <string name="convx_details_copy">Copie o número</string>
     <string name="convx_details_add_contact">Adicione um contato</string>
-    <string name="convx_details_tap_to_rename">Toque para renomear</string>
-    <string name="convx_details_notifications_hint">Escolha um som e uma prioridade só para este remetente</string>
-    <string name="convx_details_block">Bloqueie este remetente</string>
-    <string name="convx_details_block_hint">As novas mensagens vão para Mensagens bloqueadas. Nada sai do seu celular.</string>
-    <string name="convx_details_status">Status</string>
     <string name="convx_new_send_to">Envie para %1$s</string>
     <string name="convx_new_group_hint">Escolha as pessoas do grupo. Uma mensagem em grupo pode precisar de dados móveis e configurações de MMS.</string>
 </resources>

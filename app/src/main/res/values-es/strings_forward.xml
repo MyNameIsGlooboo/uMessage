@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">Confirma que eres tú</string>
     <string name="forward_tab">Reenviar</string>
     <string name="forward_add">Agregar reenvío</string>
-    <string name="forward_intro">Los mensajes que llegan a tu bandeja de entrada y coinciden con una regla se reenvían por SMS. El spam bloqueado nunca se reenvía.</string>
     <string name="forward_paid_note">Cada reenvío es un SMS con costo.</string>
-    <string name="forward_empty_title">No hay reglas de reenvío</string>
-    <string name="forward_empty_body">Envía a otro teléfono una copia de los mensajes que coincidan, como las alertas bancarias.</string>
     <string name="forward_row_from">De: %1$s</string>
     <string name="forward_row_text">Texto: %1$s</string>
     <string name="forward_row_any_sender">Cualquier remitente</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">Número %1$d</string>
     <string name="forward_sheet_add_target">Agregar número</string>
     <string name="forward_sheet_remove_target">Quitar número %1$d</string>
-    <string name="forward_sheet_target_needed">Agrega al menos un número al que reenviar.</string>
     <string name="forward_err_target_invalid">Ingresa un número de teléfono de 7 a 15 dígitos</string>
     <string name="forward_err_target_duplicate">Este número ya está en la lista</string>
     <string name="forward_sheet_window">Solo en ciertos horarios</string>
-    <string name="forward_sheet_window_body">Reenviar solo entre estas horas. Si la hora de fin es anterior a la de inicio, el horario pasa de la medianoche.</string>
     <string name="forward_sheet_start">Inicio %1$s</string>
     <string name="forward_sheet_end">Fin %1$s</string>
     <string name="forward_sheet_pick_start">Hora de inicio</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">Recibido en</string>
     <string name="forward_sheet_send_from_label">Enviar desde</string>
     <string name="forward_sim_same">Misma SIM</string>
-    <string name="forward_sheet_codes">Incluir códigos de verificación</string>
-    <string name="forward_sheet_codes_body">Si se desactiva, no se reenvían los mensajes que parecen contener códigos de inicio de sesión o de verificación.</string>
     <string name="forward_sheet_paid">Cada reenvío es un SMS con costo. Los mensajes largos se envían en varias partes.</string>
     <string name="forward_codes_title">¿Reenviar códigos de verificación?</string>
     <string name="forward_codes_message">Reenviar códigos permite que el destinatario inicie sesión en tus cuentas. Los estafadores se aprovechan de esto: convencen a las personas de reenviar sus mensajes para robar los códigos. Activa esta opción solo para un teléfono que te pertenezca.</string>
     <string name="forward_codes_confirm">Incluir códigos</string>
-    <string name="forward_delete_title">¿Eliminar regla de reenvío?</string>
-    <string name="forward_delete_message">Esta regla dejará de reenviar mensajes.</string>
     <string name="forward_no_lock_title">Protege los reenvíos con el bloqueo de la aplicación</string>
     <string name="forward_no_lock_message">Las reglas de reenvío envían tus mensajes a otros teléfonos, así que cualquiera que tenga tu teléfono desbloqueado podría agregar una. Con el bloqueo de la aplicación, se solicita tu PIN o huella digital para cambiar las reglas de reenvío.</string>
     <string name="forward_no_lock_continue">Continuar</string>

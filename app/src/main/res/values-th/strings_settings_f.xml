@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">บันทึกข้อความ กฎ และการตั้งค่าลงไฟล์</string>
-    <string name="settings_f_backup_rules_group">กฎและการตั้งค่า</string>
-    <string name="settings_f_backup_rules_contents">ไฟล์นี้เก็บกฎการอนุญาตและบล็อก กฎการส่งต่อ และการตั้งค่า: การป้องกันสแปม การแจ้งเตือน วันที่ ขนาดข้อความ ธีม ปุ่ม Enter และขีดจำกัดการส่งต่อ ไม่เก็บเนื้อหาข้อความหรือการล็อกแอป กฎการส่งต่อที่กู้คืนจะปิดไว้</string>
-    <string name="settings_f_backup_messages_contents">เนื้อหาข้อความและรูปภาพในไฟล์แยก</string>
     <string name="settings_f_restore_title">กู้คืนจากไฟล์นี้ไหม?</string>
     <string name="settings_f_restore_rules">กฎการอนุญาต: %1$d · กฎการบล็อก: %2$d จะข้ามกฎที่มีอยู่แล้ว</string>
     <string name="settings_f_restore_forwards">กฎการส่งต่อที่จะเพิ่ม: %1$d โดยปิดไว้ เปิดได้ใน กฎ › การส่งต่อ</string>

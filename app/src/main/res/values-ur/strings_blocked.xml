@@ -36,13 +36,11 @@
         <item quantity="one">بلاک شدہ پیغامات %d دن بعد حذف ہو جاتے ہیں</item>
         <item quantity="other">بلاک شدہ پیغامات %d دن بعد حذف ہو جاتے ہیں</item>
     </plurals>
-    <string name="spam_purge_notice_off">بلاک شدہ پیغامات تب تک رہتے ہیں جب تک آپ انہیں حذف نہ کریں</string>
     <plurals name="spam_purge_left">
         <item quantity="one">%d دن میں حذف</item>
         <item quantity="other">%d دن میں حذف</item>
     </plurals>
     <string name="spam_purge_left_today">آج حذف</string>
-    <string name="convlist_report_spam">اسپیم کی اطلاع دیں</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="one">اطلاع دے دی گئی۔ اس بھیجنے والے کے نئے پیغامات بلاک شدہ میں جائیں گے، اور چیٹ آرکائیو ہو گئی۔</item>
         <item quantity="other">%d چیٹس کی اطلاع دے دی گئی۔ ان کے نئے پیغامات بلاک شدہ میں جائیں گے، اور چیٹس آرکائیو ہو گئیں۔</item>
@@ -52,18 +50,9 @@
         <item quantity="other">%d چیٹس کی اطلاع دے دی گئی۔ ان کے نئے پیغامات بلاک شدہ میں جائیں گے۔</item>
     </plurals>
     <string name="blocked_title">بلاک شدہ</string>
-    <string name="blocked_menu_rules">اصول</string>
-    <string name="blocked_mode_group_cd">نامعلوم بھیجنے والے: %1$s، %2$d از %3$d</string>
-    <string name="blocked_mode_desc_strict">سخت: ہر نامعلوم بھیجنے والے کو روکتا ہے، تصدیقی کوڈ بھی</string>
-    <string name="blocked_mode_desc_smart">اسمارٹ: نامعلوم بھیجنے والوں کو روکتا ہے، لیکن بغیر لنک والے کوڈ آنے دیتا ہے</string>
-    <string name="blocked_mode_desc_off">بند: نامعلوم بھیجنے والے آپ کے ان باکس میں آتے ہیں۔ آپ کے اصول پھر بھی لاگو ہیں</string>
     <string name="blocked_snack_mode">نامعلوم بھیجنے والے %1$s پر سیٹ</string>
-    <string name="blocked_off_title">نامعلوم بھیجنے والوں کو روکنا بند کریں؟</string>
-    <string name="blocked_off_body">نامعلوم بھیجنے والوں کے پیغامات سیدھے آپ کے ان باکس میں جائیں گے۔ آپ کے اصول پھر بھی لاگو رہیں گے۔</string>
-    <string name="blocked_off_confirm">بند کریں</string>
     <string name="blocked_stats_restored">%1$d آپ نے بحال کیے</string>
     <string name="blocked_reason_unknown_link">نامعلوم بھیجنے والا، لنک کے ساتھ</string>
     <string name="blocked_may_be_important">اہم ہو سکتا ہے</string>
     <string name="blocked_action_move_inbox">ان باکس میں منتقل کریں</string>
-    <string name="blocked_swipe_not_spam">ان باکس میں منتقل کرنے کے لیے سوائپ کریں</string>
 </resources>

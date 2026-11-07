@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">L\'impostazione della schermata di blocco del telefono mostra tutto il contenuto delle notifiche, quindi Android può comunque mostrare il testo. Modificala nelle Impostazioni del telefono, in Notifiche.</string>
+    <string name="backup_timeout_title">Backup interrotto da Android</string>
+    <string name="backup_timeout_text">Android limita per quanto tempo un backup o un ripristino può restare attivo in background, quindi è stato interrotto. Apri le Impostazioni per riavviarlo.</string>
+</resources>

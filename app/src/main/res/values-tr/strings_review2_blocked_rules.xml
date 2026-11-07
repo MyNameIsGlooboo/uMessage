@@ -24,8 +24,6 @@
     <string name="e_example_block_cancel_word">لغو۱۱ içeren mesajları engelleyin</string>
     <string name="e_example_block_ad_prefix">3000 ile başlayan reklam numaralarını engelleyin</string>
     <string name="e_example_allow_number">Postaneniz gibi bir numaraya her zaman izin verin</string>
-    <string name="e_sheet_sender_label">Gönderen</string>
-    <string name="e_sheet_text_label">Mesaj metni</string>
     <string name="e_value_number">Telefon numarası</string>
     <string name="e_value_prefix">Numaranın başlangıcı</string>
     <string name="e_value_sender">Gönderen adı</string>

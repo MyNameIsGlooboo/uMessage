@@ -11,7 +11,6 @@
     <string name="rules2_menu_import">Import rules from file</string>
     <string name="rules2_menu_export">Export rules to file</string>
     <string name="rules2_menu_system">Blocked numbers (phone)</string>
-    <string name="rules2_import_scope">A rules file holds allow and block rules only. It has no messages and no forward rules.</string>
 
     <!-- Rule rows -->
     <string name="rules2_meta">%1$s · %2$s</string>
@@ -42,7 +41,6 @@
     </plurals>
 
     <!-- Add and edit rule sheet -->
-    <string name="rules2_sheet_list_label">Add to list</string>
     <string name="rules2_sheet_list_allow">Always allow</string>
     <string name="rules2_sheet_list_block">Always block</string>
     <string name="rules2_sheet_delete">Delete rule</string>

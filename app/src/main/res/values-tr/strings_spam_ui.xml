@@ -15,7 +15,6 @@
     <string name="blocknum_add_title">Bir numarayı engelleyin</string>
     <string name="blocknum_edit_title">Engellenen numarayı düzenleyin</string>
     <string name="blocknum_field_label">Numara</string>
-    <string name="blocknum_field_help">Joker karakter olarak * kullanın: +1555*, +1555 ile başlayan tüm numaraları engeller</string>
     <string name="blocknum_err_empty">Bir numara girin</string>
     <string name="blocknum_err_invalid">Bir telefon numarası veya * joker karakteri içeren rakamlar girin</string>
     <string name="blocknum_copy">Numarayı kopyalayın</string>
@@ -53,7 +52,6 @@
     <string name="blocknum_unavailable_title">Engellenenler listesine erişilemiyor</string>
     <string name="blocknum_unavailable_body">Sistemin engellenenler listesini görmek ve değiştirmek için uMessage uygulamasını varsayılan SMS uygulamanız yapın.</string>
     <string name="blocknum_unknown_title">Bilinmeyen numaraları engelleyin</string>
-    <string name="blocknum_unknown_body">Yalnızca spam modu Kapalı olduğunda kullanılır: bilinmeyen numaralardan gelen mesajlar, Sıkı modda olduğu gibi Engellenenler bölümüne gider. Sıkı ve Akıllı modlar bu ayarı dikkate almaz.</string>
     <string name="blocknum_contacts_denied">Kişilere erişim olmadan bilinmeyen numaralar belirlenemez</string>
     <string name="blocknum_section_numbers">Numaralar</string>
 </resources>

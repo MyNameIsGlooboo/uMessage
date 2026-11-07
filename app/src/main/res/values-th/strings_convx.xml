@@ -11,11 +11,6 @@
     <string name="convx_details_call">โทร</string>
     <string name="convx_details_copy">คัดลอกหมายเลข</string>
     <string name="convx_details_add_contact">เพิ่มรายชื่อติดต่อ</string>
-    <string name="convx_details_tap_to_rename">แตะเพื่อเปลี่ยนชื่อ</string>
-    <string name="convx_details_notifications_hint">เลือกเสียงและระดับความสำคัญเฉพาะผู้ส่งนี้</string>
-    <string name="convx_details_block">บล็อกผู้ส่งนี้</string>
-    <string name="convx_details_block_hint">ข้อความใหม่จะไปที่ข้อความที่บล็อก ไม่มีข้อมูลออกจากโทรศัพท์</string>
-    <string name="convx_details_status">สถานะ</string>
     <string name="convx_new_send_to">ส่งถึง %1$s</string>
     <string name="convx_new_group_hint">เลือกคนที่จะเพิ่มเข้ากลุ่ม ข้อความกลุ่มอาจต้องใช้เน็ตมือถือและการตั้งค่า MMS</string>
 </resources>

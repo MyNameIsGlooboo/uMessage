@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="r3_inbox_filter_show">顯示篩選器</string>
-    <string name="r3_inbox_filter_hide">隱藏篩選器</string>
-    <string name="r3_inbox_filter_show_active">顯示篩選器。「%1$s」篩選器已開啟</string>
-    <string name="r3_inbox_filter_hide_active">隱藏篩選器。「%1$s」篩選器已開啟</string>
-</resources>

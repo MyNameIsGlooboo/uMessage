@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">ফাইল থেকে নিয়ম ইমপোর্ট করুন</string>
     <string name="rules2_menu_export">ফাইলে নিয়ম এক্সপোর্ট করুন</string>
     <string name="rules2_menu_system">Android ব্লক তালিকা</string>
-    <string name="rules2_import_scope">নিয়মের ফাইলে শুধু অনুমতি দেওয়া ও ব্লক করার নিয়ম থাকে। এতে কোনো বার্তা বা ফরোয়ার্ড করার নিয়ম থাকে না।</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">কোনো প্রেরককে সবসময় অনুমতি দেওয়া নেই</string>
     <string name="rules2_empty_allowed_body">যেসব বার্তা সবসময় আপনার ইনবক্সে আসবে, সেগুলোর নম্বর, প্রেরকের নাম বা শব্দ যোগ করুন। নিচে “নিয়ম যোগ করুন”-এ ট্যাপ করুন।</string>
@@ -26,7 +25,6 @@
         <item quantity="one">%dটি আইটেম সরান</item>
         <item quantity="other">%dটি আইটেম সরান</item>
     </plurals>
-    <string name="rules2_sheet_list_label">তালিকায় যোগ করুন</string>
     <string name="rules2_sheet_list_allow">সবসময় অনুমতি দিন</string>
     <string name="rules2_sheet_list_block">সবসময় ব্লক করুন</string>
     <string name="rules2_sheet_delete">নিয়ম মুছুন</string>

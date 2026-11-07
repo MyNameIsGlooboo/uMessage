@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">Oznaczone przez ciebie jako gotowe</string>
     <string name="oem2_state_todo">Jeszcze niegotowe</string>
     <string name="oem2_state_limited">Android nadal ogranicza działanie uMessage w tle</string>
-    <string name="oem2_open_again">Otwórz ponownie</string>
     <string name="oem2_undo">Cofnij</string>
     <string name="oem2_undo_cd">Oznacz jako niewykonane: %1$s</string>
 </resources>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">كل شيء عدا رسائلك: قواعد السماح والحظر وإعادة التوجيه وجميع الإعدادات. الملف غير مشفّر ويحتوي على أرقام الهواتف التي تعيد التوجيه إليها، لذا احفظه في مكان خاص. تُستعاد قواعد إعادة التوجيه وهي متوقفة.</string>
     <string name="n09_label_spam">الحماية من الرسائل غير المرغوب فيها</string>
     <string name="n09_label_notifications">الإشعارات</string>
     <string name="n09_label_chat">المحادثة وقائمة الرسائل</string>

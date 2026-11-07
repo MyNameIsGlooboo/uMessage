@@ -76,4 +76,5 @@
     <string name="sks_version">সংস্করণ বিল্ড নম্বর প্রকাশ আপডেট কপি</string>
     <string name="sks_source">সোর্স কোড GitHub উন্মুক্ত লাইসেন্স রিপোজিটরি</string>
     <string name="sks_licenses">লাইসেন্স লাইসেন্স ওপেন সোর্স GPL আইনি ফন্ট লাইব্রেরি</string>
+    <string name="sks_privacy_policy">গোপনীয়তা নীতি শর্তাবলী ডেটা সুরক্ষা আইনি</string>
 </resources>

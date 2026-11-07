@@ -36,13 +36,11 @@
         <item quantity="one">%d দিন পর ব্লক করা বার্তা মুছে যায়</item>
         <item quantity="other">%d দিন পর ব্লক করা বার্তা মুছে যায়</item>
     </plurals>
-    <string name="spam_purge_notice_off">আপনি না মোছা পর্যন্ত ব্লক করা বার্তা রাখা হয়</string>
     <plurals name="spam_purge_left" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d দিন পর মুছে যাবে</item>
         <item quantity="other">%d দিন পর মুছে যাবে</item>
     </plurals>
     <string name="spam_purge_left_today">আজ মুছে যাবে</string>
-    <string name="convlist_report_spam">স্প্যাম রিপোর্ট করুন</string>
     <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
         <item quantity="one">রিপোর্ট করা হয়েছে। এই প্রেরকের নতুন বার্তা ব্লক করা তালিকায় যাবে, আর চ্যাটটি আর্কাইভ করা হয়েছে।</item>
         <item quantity="other">%dটি চ্যাট রিপোর্ট করা হয়েছে। তাঁদের নতুন বার্তা ব্লক করা তালিকায় যাবে, আর চ্যাটগুলো আর্কাইভ করা হয়েছে।</item>
@@ -52,18 +50,9 @@
         <item quantity="other">%dটি চ্যাট রিপোর্ট করা হয়েছে। তাঁদের নতুন বার্তা ব্লক করা তালিকায় যাবে।</item>
     </plurals>
     <string name="blocked_title">ব্লক করা</string>
-    <string name="blocked_menu_rules">নিয়ম</string>
-    <string name="blocked_mode_group_cd">অচেনা প্রেরক: %1$s, %3$dটির মধ্যে %2$d</string>
-    <string name="blocked_mode_desc_strict">কঠোর: সব অচেনা প্রেরকের বার্তা আটকে রাখে, যাচাইকরণ কোডও</string>
-    <string name="blocked_mode_desc_smart">স্মার্ট: অচেনা প্রেরকের বার্তা আটকে রাখে, তবে লিঙ্ক ছাড়া কোড আসতে দেয়</string>
-    <string name="blocked_mode_desc_off">বন্ধ: অচেনা প্রেরকের বার্তা আপনার ইনবক্সে আসে। আপনার নিয়ম তবুও প্রযোজ্য থাকে</string>
     <string name="blocked_snack_mode">অচেনা প্রেরকের জন্য %1$s মোড বেছে নেওয়া হয়েছে</string>
-    <string name="blocked_off_title">অচেনা প্রেরকের বার্তা আটকে রাখা বন্ধ করবেন?</string>
-    <string name="blocked_off_body">অচেনা প্রেরকের বার্তা সরাসরি আপনার ইনবক্সে যাবে। আপনার নিয়ম তবুও প্রযোজ্য থাকবে।</string>
-    <string name="blocked_off_confirm">বন্ধ করুন</string>
     <string name="blocked_stats_restored">আপনি %1$dটি ফিরিয়ে এনেছেন</string>
     <string name="blocked_reason_unknown_link">অচেনা প্রেরক, লিঙ্ক আছে</string>
     <string name="blocked_may_be_important">জরুরি হতে পারে</string>
     <string name="blocked_action_move_inbox">ইনবক্সে সরান</string>
-    <string name="blocked_swipe_not_spam">ইনবক্সে সরাতে সোয়াইপ করুন</string>
 </resources>

@@ -17,15 +17,12 @@
     <string name="ui_add_contact_or_number">Введите имя или номер телефона</string>
     <string name="ui_show_dialpad">Показать панель набора</string>
     <string name="ui_show_keyboard">Показать клавиатуру</string>
-    <string name="ui_settings_group_block_lists">Другие списки заблокированных</string>
     <string name="ui_settings_system_block_list">Системный список заблокированных</string>
     <string name="ui_settings_system_block_list_body">Номера, заблокированные во всех приложениях на телефоне. uMessage тоже их скрывает.</string>
     <string name="ui_settings_blocked_words">Заблокированные слова</string>
     <string name="ui_settings_character_counter">Показывать счетчик символов</string>
-    <string name="ui_settings_simple_characters">Убирать диакритику при отправке</string>
     <string name="ui_settings_send_on_enter">Отправлять клавишей Enter</string>
     <string name="ui_settings_delivery_reports">Получать отчеты о доставке</string>
-    <string name="ui_settings_recycle_bin">Перемещать удаленные чаты в корзину</string>
     <string name="ui_two_sentences">%1$s. %2$s</string>
     <string name="ui_tab_with_count">%1$s (%2$d)</string>
     <string name="ui_send_with_sim">%1$s, %2$s</string>

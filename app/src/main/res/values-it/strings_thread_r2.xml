@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">Copia %1$s</string>
     <string name="thread_r2_menu_search">Cerca nella conversazione</string>
     <string name="thread_r2_menu_always_forward">Inoltra sempre da questo mittente</string>
-    <string name="thread_r2_block_hint">I prossimi messaggi finiranno in Messaggi bloccati. Nulla lascia il tuo telefono.</string>
     <string name="thread_r2_forward_message">Inoltra questo messaggio</string>
     <string name="thread_r2_search_hint">Cerca nella conversazione</string>
     <string name="thread_r2_search_close">Chiudi ricerca</string>

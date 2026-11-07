@@ -22,7 +22,6 @@
     <string name="add_contact_or_number">رابطہ یا نمبر شامل کریں…</string>
     <string name="suggestions">تجاویز</string>
     <string name="members">اراکین</string>
-    <string name="conversation_name">گفتگو کا نام</string>
     <string name="conversation_details">گفتگو کی تفصیلات</string>
     <string name="rename_conversation">گفتگو کا نام بدلیں</string>
     <string name="rename_conversation_warning">یہ گفتگو کا نام صرف آپ دیکھ سکتے ہیں</string>
@@ -80,7 +79,6 @@
     <string name="mms_file_size_limit">بھیجی گئی MMS تصاویر کا سائز چھوٹا کریں</string>
     <string name="mms_file_size_limit_none">کوئی حد نہیں</string>
     <string name="outgoing_messages">بھیجے جانے والے پیغامات</string>
-    <string name="group_message_mms">گروپ پیغامات بطور MMS بھیجیں</string>
     <string name="send_group_message">گروپ پیغام کا فارمیٹ</string>
     <string name="group_message_send_description">گروپ MMS جوابات کو ایک گفتگو میں رکھتا ہے، لیکن نیٹ ورک فراہم کنندہ کے چارجز لگ سکتے ہیں۔ الگ الگ بھیجنے سے ہر فرد کو ایک پیغام جاتا ہے۔ آپ اسے بعد میں ایپ کی سیٹنگز میں بدل سکتے ہیں۔</string>
     <string name="group_mms">گروپ MMS</string>
@@ -148,8 +146,6 @@
     <string name="invalid_short_code_desc">آپ صرف «503501» جیسے نمبروں والے شارٹ کوڈز کو جواب دے سکتے ہیں، لیکن «AB-CD0» جیسے حروف اور نمبروں والے کوڈز کو نہیں۔</string>
     <string name="attachment_sized_exceeds_max_limit">منسلکہ کا سائز MMS کی زیادہ سے زیادہ حد سے بڑھ گیا</string>
     <string name="couldnt_download_mms">MMS ڈاؤن لوڈ نہیں ہو سکا</string>
-    <string name="faq_1_title">ایپ کو انٹرنیٹ تک رسائی کیوں چاہیے؟</string>
-    <string name="faq_1_text">افسوس کہ MMS منسلکات بھیجنے کے لیے اس کی ضرورت ہے۔ MMS نہ بھیج پانا دوسری ایپس کے مقابلے میں بہت بڑی کمی ہوتی، اس لیے ہم نے یہ راستہ چنا۔ تاہم ہمیشہ کی طرح کوئی اشتہار، ٹریکنگ یا اینالیٹکس بالکل نہیں ہے، انٹرنیٹ صرف MMS بھیجنے کے لیے استعمال ہوتا ہے۔</string>
     <string name="faq_2_title">دوسری طرف میرا MMS موصول نہیں ہو رہا، کیا میں اس بارے میں کچھ کر سکتا ہوں؟</string>
     <string name="faq_2_text">MMS کا سائز نیٹ ورک فراہم کنندہ محدود کرتے ہیں، آپ ایپ کی سیٹنگز میں چھوٹی حد مقرر کر کے دیکھ سکتے ہیں۔</string>
     <string name="faq_3_title">کیا ایپ شیڈول شدہ پیغامات کی سہولت دیتی ہے؟</string>

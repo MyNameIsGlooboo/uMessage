@@ -53,7 +53,6 @@
     <string name="settings_app_lock_timeout_5m">Через 5 минут</string>
     <string name="settings_app_lock_screenshots">Заблокировать снимки экрана</string>
     <string name="settings_app_lock_screenshots_body">Запрещает снимки и запись экрана. Сообщения всегда скрыты в списке недавних приложений.</string>
-    <string name="settings_app_lock_screenshots_body_old">Запрещает снимки и запись экрана. На этой версии Android это также единственный способ скрыть сообщения в списке недавних приложений.</string>
     <string name="settings_app_lock_change">Изменить ПИН-код, графический ключ или биометрию</string>
     <string name="settings_app_lock_weak">Ваш ПИН-код или графический ключ легко угадать</string>
     <string name="settings_app_lock_weak_body">Слишком простой ПИН-код. Нажмите, чтобы изменить</string>

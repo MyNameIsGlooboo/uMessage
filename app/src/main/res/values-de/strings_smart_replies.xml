@@ -3,4 +3,6 @@
     <string name="smart_replies_title">Intelligente Antworten</string>
     <string name="smart_replies_summary">Schnelle Antworten aus einer Liste auf deinem Smartphone</string>
     <string name="smart_replies_hide">Vorschläge ausblenden</string>
+    <string name="smart_replies_notif_title">Intelligente Antworten in Benachrichtigungen</string>
+    <string name="smart_replies_notif_summary">Zeigt eine vorgeschlagene Antwort als Schaltfläche in der Benachrichtigung an. Ein Tippen darauf sendet den Text.</string>
 </resources>

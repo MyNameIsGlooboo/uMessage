@@ -23,8 +23,6 @@
     <string name="e_example_block_cancel_word">Chặn tin nhắn chứa لغو۱۱</string>
     <string name="e_example_block_ad_prefix">Chặn số quảng cáo bắt đầu bằng 3000</string>
     <string name="e_example_allow_number">Luôn cho phép một số, như số bưu điện của bạn</string>
-    <string name="e_sheet_sender_label">Người gửi</string>
-    <string name="e_sheet_text_label">Nội dung tin nhắn</string>
     <string name="e_value_number">Số điện thoại</string>
     <string name="e_value_prefix">Số bắt đầu bằng</string>
     <string name="e_value_sender">Tên người gửi</string>

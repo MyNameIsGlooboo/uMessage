@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note">Nota</string>
+    <string name="add_note">Adicione uma nota</string>
+    <string name="edit_note">Edite a nota</string>
+    <string name="delete_note">Exclua a nota</string>
+    <string name="note_hint">Nota privada, só neste celular</string>
+    <string name="note_counter">%1$s/%2$s</string>
+    <string name="note_save">Salve</string>
+    <string name="note_cancel">Cancele</string>
+    <string name="has_notes">Com notas</string>
+    <string name="notes_section">Notas</string>
+    <string name="note_content_desc">Nota: %1$s</string>
+</resources>

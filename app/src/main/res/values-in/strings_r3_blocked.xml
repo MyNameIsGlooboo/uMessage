@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="r3b_info_button">Cara kerja pemblokiran</string>
-    <string name="r3b_info_title">Cara kerja pemblokiran</string>
-    <string name="r3b_info_modes">Pengirim tidak dikenal</string>
-    <string name="r3b_info_mode_current">Saat ini: %1$s</string>
-    <string name="r3b_info_messages">Pesan diblokir</string>
-    <string name="r3b_info_open_sender">Ketuk pengirim untuk membaca pesannya.</string>
-    <string name="r3b_info_move">Pindahkan ke kotak masuk memindahkan semua pesan dari pengirim ke kotak masuk, lalu menanyakan apakah pengirim akan selalu diizinkan.</string>
-    <string name="r3b_info_release">Loloskan sekali (sentuh lama pesan) hanya memindahkan pesan itu ke kotak masuk. Pengirim tetap tidak diizinkan.</string>
-    <string name="r3b_info_swipe">Geser pengirim ke ujung baris untuk memindahkan pesannya ke kotak masuk.</string>
     <string name="r3b_open_sender">Buka pesan</string>
     <string name="r3b_move_inbox_for">Pindahkan ke kotak masuk, %1$s</string>
     <string name="r3b_delete_for">Hapus, %1$s</string>
@@ -22,11 +13,7 @@
     <string name="r3b_text_copied">Teks disalin</string>
     <string name="r3b_delete_message">Hapus</string>
     <string name="r3b_received">Diterima %1$s</string>
-    <string name="r3b_info_mode_strict">Mode filter ketat: menahan semua pesan dari pengirim tidak dikenal, termasuk kode verifikasi.</string>
-    <string name="r3b_info_mode_smart">Cerdas: menahan pesan dari pengirim tidak dikenal, tetapi meloloskan kode tanpa tautan.</string>
-    <string name="r3b_info_mode_off">Nonaktif: pesan dari pengirim tidak dikenal masuk ke kotak masuk. Aturan Anda tetap berlaku.</string>
     <plurals name="r3b_info_purge">
         <item quantity="other">Pesan yang diblokir dihapus setelah %d hari.</item>
     </plurals>
-    <string name="r3b_info_purge_off">Pesan yang diblokir disimpan sampai Anda menghapusnya.</string>
 </resources>

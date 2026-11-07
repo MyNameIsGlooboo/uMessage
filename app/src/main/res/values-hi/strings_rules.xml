@@ -15,21 +15,13 @@
         <item quantity="one">%d नियम मिटाया गया</item>
         <item quantity="other">%d नियम मिटाए गए</item>
     </plurals>
-    <string name="rules_system_block_list">सिस्टम की ब्लॉक सूची (कॉल भी ब्लॉक करती है)</string>
-    <string name="rules_legacy_note_keyword">ब्लॉक किए गए शब्दों की पुरानी सूची से</string>
-    <string name="rules_legacy_note_number">सिस्टम की ब्लॉक सूची से</string>
-    <string name="rules_legacy_banner_title">पुरानी ब्लॉक सूचियां मिलीं</string>
-    <string name="rules_legacy_banner_body">कुछ शब्द और नंबर इन नियमों के बाहर ब्लॉक किए गए हैं. उन्हें यहां लाएं ताकि सब कुछ एक ही जगह देख और बदल सकें.</string>
     <string name="rules_legacy_banner_review">जांचें</string>
     <string name="rules_legacy_banner_not_now">अभी नहीं</string>
     <string name="rules_legacy_section_keywords">ब्लॉक किए गए शब्दों की पुरानी सूची</string>
     <string name="rules_legacy_section_keywords_body">जब तक आप इन शब्दों को नियमों में नहीं लाते, फ़िल्टर करने के लिए इस सूची का इस्तेमाल होता रहेगा. उसके बाद पुरानी सूची का इस्तेमाल बंद हो जाएगा.</string>
-    <string name="rules_legacy_section_system_body">इन नंबरों के मैसेज uMessage को मिलने से पहले ही Android उन्हें मिटा देता है, इसलिए वे \'ब्लॉक किए गए\' में कभी नहीं दिखते. फ़ोन ऐप भी इसी सूची का इस्तेमाल करता है और यह कॉल भी ब्लॉक करती है.</string>
     <string name="rules_legacy_chip_old_list">पुरानी सूची</string>
     <string name="rules_legacy_chip_system">सिस्टम, कॉल भी</string>
     <string name="rules_legacy_move">नियमों में ले जाएं</string>
-    <string name="rules_legacy_open_system">सिस्टम की ब्लॉक सूची खोलें</string>
-    <string name="rules_migrate_title">पुरानी ब्लॉक सूचियों को नियमों में लाएं</string>
     <string name="rules_migrate_nothing">पुरानी सूचियों की सभी चीज़ें आपके नियमों में पहले से हैं.</string>
     <plurals name="rules_migrate_keywords" tools:ignore="ImpliedQuantity">
         <item quantity="one">ब्लॉक किए गए शब्दों की पुरानी सूची का %d शब्द ब्लॉक करने का कीवर्ड नियम बन जाएगा. फिर पुरानी सूची का इस्तेमाल बंद हो जाएगा.</item>
@@ -43,9 +35,7 @@
         <item quantity="one">सिस्टम की ब्लॉक सूची के %d नंबर को भी ब्लॉक करने के नियम के तौर पर जोड़ें</item>
         <item quantity="other">सिस्टम की ब्लॉक सूची के %d नंबरों को भी ब्लॉक करने के नियमों के तौर पर जोड़ें</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">सिस्टम की ब्लॉक सूची के नंबरों के मैसेज Android मिटा देता है, इसलिए uMessage को वे कभी नहीं मिलते. uMessage के नियम बनने पर उनके मैसेज \'ब्लॉक किए गए\' में आ सकते हैं, जहां आप उन्हें पढ़ और वापस ला सकते हैं. लेकिन ऐसा तभी होगा जब वे सिस्टम की सूची से हट जाएं.</string>
     <string name="rules_migrate_remove">उन्हें सिस्टम की ब्लॉक सूची से भी हटाएं</string>
-    <string name="rules_migrate_remove_body">सिस्टम की सूची कॉल भी ब्लॉक करती है. इससे हटाए गए नंबर आपको फिर से कॉल कर सकेंगे. uMessage सिर्फ़ मैसेज फ़िल्टर करता है.</string>
     <plurals name="rules_migrate_numbers_kept" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d वाइल्डकार्ड एंट्री का नियम नहीं बन सकता और वह सिस्टम की सूची में रहेगी.</item>
         <item quantity="other">%d वाइल्डकार्ड एंट्रियों के नियम नहीं बन सकते और वे सिस्टम की सूची में रहेंगी.</item>
@@ -68,7 +58,6 @@
         <item quantity="other">%d एंट्रियां पुरानी सूचियों में रहेंगी</item>
     </plurals>
     <string name="rules_migrated_nothing">कुछ भी नहीं लाया गया.</string>
-    <string name="settings_system_block_list_body_calls">इस पूरे फ़ोन पर कॉल और मैसेज ब्लॉक करती है. ये मैसेज uMessage को मिलने से पहले ही Android उन्हें मिटा देता है. आप इन नंबरों को \'अनुमति दी गई और ब्लॉक किए गए\' में ले जा सकते हैं.</string>
     <string name="settings_old_blocked_words">ब्लॉक किए गए शब्दों की पुरानी सूची</string>
     <string name="settings_old_blocked_words_body">\'अनुमति दी गई और ब्लॉक किए गए\' में ले जाया जा रहा है</string>
 </resources>

@@ -47,7 +47,6 @@
     <string name="settings_app_lock_timeout_5m">پس از ۵ دقیقه</string>
     <string name="settings_app_lock_screenshots">مسدود کردن ثبت تصویر صفحه</string>
     <string name="settings_app_lock_screenshots_body">از ثبت تصویر و ضبط صفحه جلوگیری می‌کند. پیام‌ها همیشه در برنامه‌های اخیر پنهان هستند.</string>
-    <string name="settings_app_lock_screenshots_body_old">از ثبت تصویر و ضبط صفحه جلوگیری می‌کند. در این نسخهٔ Android، تنها راه پنهان کردن پیام‌ها در برنامه‌های اخیر هم همین است.</string>
     <string name="settings_app_lock_change">تغییر پین، الگو یا زیست‌سنجی</string>
     <string name="settings_app_lock_weak">حدس زدن پین یا الگوی شما آسان است</string>
     <string name="settings_app_lock_weak_body">پین بسیار ضعیف است. برای تغییر بزنید</string>

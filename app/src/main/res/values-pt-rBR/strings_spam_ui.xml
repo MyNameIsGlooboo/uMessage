@@ -15,7 +15,6 @@
     <string name="blocknum_add_title">Bloqueie um número</string>
     <string name="blocknum_edit_title">Edite o número bloqueado</string>
     <string name="blocknum_field_label">Número</string>
-    <string name="blocknum_field_help">Use * como curinga: +1555* bloqueia todos os números que começam com +1555</string>
     <string name="blocknum_err_empty">Digite um número</string>
     <string name="blocknum_err_invalid">Digite um número de telefone ou dígitos com * como curinga</string>
     <string name="blocknum_copy">Copie o número</string>
@@ -53,7 +52,6 @@
     <string name="blocknum_unavailable_title">Lista de bloqueio indisponível</string>
     <string name="blocknum_unavailable_body">Defina o uMessage como seu app de SMS padrão para ver e alterar a lista de bloqueio do sistema.</string>
     <string name="blocknum_unknown_title">Bloqueie números desconhecidos</string>
-    <string name="blocknum_unknown_body">Só funciona com o modo de filtragem desativado: as mensagens de números desconhecidos vão para Bloqueados, como no modo rigoroso. Os modos rigoroso e inteligente ignoram esta opção.</string>
     <string name="blocknum_contacts_denied">Sem acesso aos contatos, não é possível identificar números desconhecidos</string>
     <string name="blocknum_section_numbers">Números</string>
 </resources>

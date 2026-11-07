@@ -26,7 +26,6 @@
     <string name="dialogs_lock_locked_out">Trop de tentatives de déverrouillage incorrectes.\nRéessayez dans %d secondes.</string>
     <string name="dialogs_lock_pin_delete">Supprimer le dernier chiffre</string>
     <string name="dialogs_lock_pin_confirm">Confirmer le code PIN</string>
-    <string name="dialogs_lock_pin_entered">%d chiffres saisis</string>
     <string name="dialogs_lock_pattern_pad">Grille du schéma</string>
     <string name="dialogs_lock_biometric_hint">Utilisez votre empreinte digitale ou votre visage pour confirmer votre identité.</string>
     <string name="dialogs_lock_biometric_open">Vérifier par biométrie</string>

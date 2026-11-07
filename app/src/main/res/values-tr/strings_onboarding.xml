@@ -5,11 +5,10 @@
     <string name="onb_next">İleri</string>
     <string name="onb_skip">Şimdilik atlayın</string>
     <string name="onb_finish">Mesajlaşmaya başlayın</string>
-    <string name="onb_open">Açın</string>
     <string name="onb_welcome_title">uMessage\'a hoş geldiniz</string>
     <string name="onb_welcome_intro">Daha iyi mesajlaşma, daha az spam.</string>
     <string name="onb_welcome_spam">Spam dışarıda kalır</string>
-    <string name="onb_welcome_spam_desc">Bilinmeyen gönderenler Engellenenler bölümünde bekler, kaybolmaz. Sıkı, Akıllı veya Kapalı modunu seçin.</string>
+    <string name="onb_welcome_spam_desc">Bilinmeyen gönderenler Engellenenler bölümünde bekler, kaybolmaz.</string>
     <string name="onb_welcome_codes">Tek dokunuşla kodlar</string>
     <string name="onb_welcome_codes_desc">Doğrulama kodlarını doğrudan bildirimden kopyalayın.</string>
     <string name="onb_welcome_copy">Yalnızca gerekeni kopyalayın</string>
@@ -27,8 +26,6 @@
     <string name="onb_welcome_start">Başlayın</string>
     <string name="onb_default_title">uMessage\'ı SMS uygulamanız yapın</string>
     <string name="onb_default_body">Android, yalnızca varsayılan SMS uygulamasının mesaj almasına ve filtrelemesine izin verir. Bu olmadan uMessage gelen kutunuzu koruyamaz.</string>
-    <string name="onb_default_status_yes">uMessage varsayılan SMS uygulamanız</string>
-    <string name="onb_default_status_no">uMessage henüz varsayılan SMS uygulamanız değil</string>
     <string name="onb_default_action">Varsayılan olarak ayarlayın</string>
     <string name="onb_default_denied">İstek reddedildi. Tekrar deneyebilir veya devam edip daha sonra Android ayarlarından ayarlayabilirsiniz.</string>
     <string name="onb_default_unavailable">Telefonunuz varsayılan uygulama penceresini açamadı. Android ayarlarında Uygulamalar, Varsayılan uygulamalar, SMS uygulaması yolunu izleyip uMessage\'ı seçin.</string>
@@ -44,7 +41,6 @@
     <string name="onb_perm_notifications_reason">Yanıtlama ve kod kopyalama düğmeleriyle yeni mesajları bildirir.</string>
     <string name="onb_perm_allow_all">Tümüne izin verin</string>
     <string name="onb_perm_open_settings">Ayarları açın</string>
-    <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">Bilinmeyen gönderenler için ne yapılacağını seçin</string>
     <string name="onb_mode_strict">Sıkı</string>
     <string name="onb_mode_smart">Akıllı</string>
@@ -52,8 +48,6 @@
     <string name="onb_mode_warning_title">Banka mesajları ve kodlar hakkında</string>
     <string name="onb_mode_warning_body">Sıkı modda, bilinmeyen gönderenlerden gelen banka bildirimleri, teslimat güncellemeleri ve tek kullanımlık kodlar, kodlar dahil Engellenenler bölümünde tutulur. Bildirim almazsınız; bunlardan birini bekliyorsanız Engellenenler bölümünü kontrol edin.</string>
     <string name="onb_oem_title">uMessage çalışmaya devam etsin</string>
-    <string name="onb_oem_body_known">%1$s telefonlar arka plandaki uygulamaları sık sık durdurur ve mesajlar gecikir. Bu adımları bir kez uygulayın.</string>
-    <string name="onb_oem_body_generic">Bazı telefonlar arka plandaki uygulamaları durdurur ve mesajlar gecikir. uMessage\'ın kısıtlanmadan çalışmasına izin verin.</string>
     <string name="onb_oem_manual_hint">Bir ekran açılmazsa gösterilen adı Ayarlar\'da arayın.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi veya Poco</string>
     <string name="onb_oem_huawei">Huawei veya Honor</string>
@@ -68,11 +62,8 @@
     <string name="onb_oem_step_ignore_battery">Pil optimizasyonunu yok sayın</string>
     <string name="onb_oem_step_app_info">Uygulama ayarlarını kontrol edin</string>
     <string name="onb_oem_step_app_info_desc">Pil ve izin ayarlarını incelemek için uMessage uygulama sayfasını açın.</string>
-    <string name="onb_done_title">Her şey hazır</string>
-    <string name="onb_done_body">uMessage hazır. Tutulan mesajlar Engellenenler bölümünde görünür. Burada tek dokunuşla bir gönderene izin verebilirsiniz.</string>
     <string name="onb_done_summary_default">Varsayılan SMS uygulaması</string>
     <string name="onb_done_summary_permissions">İzinler</string>
-    <string name="onb_done_summary_mode">Bilinmeyen gönderenler</string>
     <string name="onb_done_ok">Tamamlandı</string>
     <string name="onb_done_todo">İşlem gerekiyor</string>
     <string name="onb_notif_copy_code">Kodu kopyalayın</string>

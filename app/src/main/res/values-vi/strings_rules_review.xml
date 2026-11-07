@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">Nhập quy tắc từ tệp</string>
     <string name="rules2_menu_export">Xuất quy tắc ra tệp</string>
     <string name="rules2_menu_system">Danh sách chặn của Android</string>
-    <string name="rules2_import_scope">Tệp quy tắc chỉ chứa quy tắc cho phép và chặn. Tệp không có tin nhắn hay quy tắc chuyển tiếp.</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">Chưa có người gửi luôn được cho phép</string>
     <string name="rules2_empty_allowed_body">Thêm số điện thoại, tên người gửi hoặc từ để tin nhắn luôn vào hộp thư đến của bạn. Nhấn Thêm quy tắc bên dưới.</string>
@@ -25,7 +24,6 @@
     <plurals name="rules2_migrate_confirm_count">
         <item quantity="other">Chuyển %d mục</item>
     </plurals>
-    <string name="rules2_sheet_list_label">Thêm vào danh sách</string>
     <string name="rules2_sheet_list_allow">Luôn cho phép</string>
     <string name="rules2_sheet_list_block">Luôn chặn</string>
     <string name="rules2_sheet_delete">Xóa quy tắc</string>

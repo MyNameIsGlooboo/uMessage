@@ -5,20 +5,15 @@
     <string name="settings_nav_group_privacy_about">개인정보 및 앱 정보</string>
     <string name="settings_nav_spam_row">스팸 차단</string>
     <string name="settings_nav_spam_page_title">스팸 차단</string>
-    <string name="settings_nav_android_block_list">Android 차단 목록</string>
     <string name="settings_nav_android_block_list_body">전화도 함께 차단</string>
     <string name="settings_nav_decision_log">왜 차단됐나요?</string>
     <string name="settings_nav_decision_log_body">허용 및 차단 판정 기록</string>
-    <string name="settings_nav_forwarding">전달</string>
     <string name="settings_nav_forwarded_tab">전달됨 탭 표시</string>
     <string name="settings_nav_forwarded_tab_body">대화 목록에 전달된 메시지 탭 표시</string>
     <string name="settings_nav_forward_pause">모든 전달 일시 중지</string>
     <string name="settings_nav_forward_pause_body">규칙은 저장된 채 메시지 전달만 중지</string>
-    <string name="settings_nav_messages_row">입력, 전송 및 저장</string>
-    <string name="settings_nav_messages_title">메시지</string>
     <string name="settings_nav_group_typing">입력</string>
     <string name="settings_nav_group_sending">전송</string>
-    <string name="settings_nav_group_storage">저장</string>
     <string name="settings_nav_simple_chars">특수 문자 단순화</string>
     <string name="settings_nav_simple_chars_body">일반 문자로 바꿔(é → e) 나뉘는 횟수 줄이기</string>
     <string name="settings_nav_long_mms">긴 문자를 MMS로 전송</string>
@@ -27,13 +22,10 @@
     <string name="settings_nav_archived">보관된 대화</string>
     <string name="settings_nav_keep_archived">보관된 대화 숨김 유지</string>
     <string name="settings_nav_keep_archived_body">새 메시지가 와도 대화 보관 상태 유지</string>
-    <string name="settings_nav_recycle_bin">휴지통 사용</string>
-    <string name="settings_nav_recycle_bin_body">삭제한 메시지를 먼저 휴지통에 보관</string>
     <string name="settings_nav_default_sim_value">SIM %1$d · %2$s</string>
     <string name="settings_nav_default_sim_ask">매번 묻기</string>
     <string name="settings_nav_open_android_settings">Android 설정 열기</string>
     <string name="settings_nav_lock_screen">잠금 화면 개인정보 보호</string>
-    <string name="settings_nav_theme">테마</string>
     <string name="settings_nav_theme_body">라이트, 다크 및 색상</string>
     <string name="settings_nav_app_lock">앱 잠금</string>
     <string name="settings_nav_app_lock_body">PIN, 패턴 또는 지문으로 인증</string>
@@ -42,7 +34,6 @@
     <string name="settings_nav_about_row">앱 정보</string>
     <string name="settings_nav_about_body">버전, 소스 코드 및 라이선스</string>
     <string name="settings_nav_privacy_body">오프라인으로 작동해요. 정보가 휴대전화 밖으로 나가지 않아요.</string>
-    <string name="settings_nav_version_body">눌러서 전체 빌드 정보 복사</string>
     <string name="settings_nav_version_copied">빌드 정보를 복사했어요.</string>
     <string name="settings_nav_source_body">GitHub에서 열기</string>
     <string name="settings_nav_licenses_row">오픈소스 라이선스</string>
@@ -62,7 +53,6 @@
     <string name="settings_nav_group_alerts">알림</string>
     <string name="settings_nav_notify_body">메시지가 차단될 때마다 무음 알림</string>
     <string name="settings_nav_theme_title">화면 꾸미기</string>
-    <string name="settings_nav_theme_intro">uMessage 화면을 원하는 모습으로 꾸며요. 앱 아이콘은 그대로 유지돼요.</string>
     <string name="settings_nav_theme_modes">모드</string>
     <string name="settings_nav_theme_colours">색상</string>
 </resources>

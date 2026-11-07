@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">Importer des règles depuis un fichier</string>
     <string name="rules2_menu_export">Exporter les règles dans un fichier</string>
     <string name="rules2_menu_system">Liste de blocage Android</string>
-    <string name="rules2_import_scope">Un fichier de règles contient uniquement des règles d\'autorisation et de blocage. Il ne contient aucun message ni aucune règle de transfert.</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">Aucun expéditeur toujours autorisé</string>
     <string name="rules2_empty_allowed_body">Ajoutez un numéro, un nom d\'expéditeur ou un mot dont les messages doivent toujours arriver dans votre boîte de réception. Appuyez sur Ajouter une règle ci-dessous.</string>
@@ -26,7 +25,6 @@
         <item quantity="one">Déplacer %d élément</item>
         <item quantity="other">Déplacer %d éléments</item>
     </plurals>
-    <string name="rules2_sheet_list_label">Ajouter à la liste</string>
     <string name="rules2_sheet_list_allow">Toujours autoriser</string>
     <string name="rules2_sheet_list_block">Toujours bloquer</string>
     <string name="rules2_sheet_delete">Supprimer la règle</string>

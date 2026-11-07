@@ -8,8 +8,6 @@
 
     <!-- Settings: dates (TH-03, TH-24) -->
     <string name="w2b2_settings_group_dates">Dates</string>
-    <string name="w2b2_settings_jalali">Jalali dates</string>
-    <string name="w2b2_settings_jalali_body">Show dates in conversations and scheduled messages in the Persian calendar</string>
 
     <!-- App lock setup hints -->
     <!-- %d is the minimum number of dots, 4 -->

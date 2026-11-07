@@ -74,10 +74,8 @@
     <string name="thread_attach_photo">ছবি</string>
     <string name="thread_attach_take_photo">ছবি তুলুন</string>
     <string name="thread_attach_record_video">ভিডিও রেকর্ড করুন</string>
-    <string name="thread_attach_record_audio">অডিও রেকর্ড করুন</string>
     <string name="thread_attach_file">ফাইল</string>
     <string name="thread_attach_contact">পরিচিতি</string>
-    <string name="thread_attach_schedule">বার্তার সময় নির্ধারণ করুন</string>
     <string name="thread_people_confirm">হয়ে গেছে</string>
     <string name="thread_people_add_number">এই নম্বর যোগ করুন</string>
     <string name="thread_people_remove">%1$s-কে সরান</string>

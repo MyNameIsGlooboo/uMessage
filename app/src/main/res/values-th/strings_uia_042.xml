@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">ไม่บังคับ</string>
+    <string name="backup_drive_hint">หากต้องการใช้ Google Drive ให้เลือกในหน้าเลือกไฟล์</string>
+    <string name="move_from_app_title">ย้ายมาจากแอปอื่น</string>
+    <string name="move_from_app_row_body">นำข้อความของคุณมาจากแอปข้อความอื่น</string>
+    <string name="move_from_app_intro">ย้ายมาใช้ uMessage ใช่ไหม ข้อความเก่าของคุณย้ายมาด้วยได้</string>
+    <string name="move_from_app_step1">ในแอปเดิม ให้สร้างข้อมูลสำรอง ใน SMS Backup &amp; Restore ให้แตะ Back up now</string>
+    <string name="move_from_app_step2">บันทึกข้อมูลสำรองลงใน Google Drive หรือเป็นไฟล์บนโทรศัพท์</string>
+    <string name="move_from_app_step3">กลับมาที่นี่ แตะ “นำเข้าข้อความ” แล้วเลือกไฟล์นั้น</string>
+    <string name="move_from_app_format">uMessage อ่านไฟล์ XML ที่สร้างโดย SMS Backup &amp; Restore และข้อมูลสำรองของตัวเองได้</string>
+    <plurals name="sim_messages_done">
+        <item quantity="other">คัดลอกแล้ว %1$d ข้อความ มีอยู่ในการสนทนาแล้ว %2$d ข้อความ</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="other">คัดลอกแล้ว %1$d ข้อความ มีอยู่ในการสนทนาแล้ว %2$d ข้อความ และคัดลอกไม่ได้ %3$d ข้อความ</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="other">สำรองข้อมูลแล้ว: %1$d รายการ</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="other">ป้อนแล้ว %d หลัก</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="other">ส่งต่อครบขีดจำกัด %d ครั้งแล้ว จะส่งต่ออีกครั้งพรุ่งนี้</item>
+    </plurals>
+</resources>

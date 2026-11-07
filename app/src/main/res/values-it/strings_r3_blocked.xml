@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="r3b_info_button">Come funziona il blocco</string>
-    <string name="r3b_info_title">Come funziona il blocco</string>
-    <string name="r3b_info_modes">Mittenti sconosciuti</string>
-    <string name="r3b_info_mode_current">Ora: %1$s</string>
-    <string name="r3b_info_messages">Messaggi bloccati</string>
-    <string name="r3b_info_open_sender">Tocca un mittente per leggere i suoi messaggi.</string>
-    <string name="r3b_info_move">“Sposta in In arrivo” sposta tutti i messaggi di un mittente in In arrivo, poi ti chiede se consentirlo sempre.</string>
-    <string name="r3b_info_release">“Sblocca una volta” (tieni premuto un messaggio) sposta solo quel messaggio in In arrivo. Il mittente non viene consentito.</string>
-    <string name="r3b_info_swipe">Scorri un mittente verso la fine della riga per spostare i suoi messaggi in In arrivo.</string>
     <string name="r3b_open_sender">Apri messaggi</string>
     <string name="r3b_move_inbox_for">Sposta in In arrivo, %1$s</string>
     <string name="r3b_delete_for">Elimina, %1$s</string>
@@ -22,12 +13,8 @@
     <string name="r3b_text_copied">Testo copiato</string>
     <string name="r3b_delete_message">Elimina</string>
     <string name="r3b_received">Ricevuto %1$s</string>
-    <string name="r3b_info_mode_strict">Rigorosa: trattiene tutti i messaggi dei mittenti sconosciuti, anche i codici di verifica.</string>
-    <string name="r3b_info_mode_smart">Intelligente: trattiene i messaggi dei mittenti sconosciuti, ma lascia passare i codici senza link.</string>
-    <string name="r3b_info_mode_off">Disattivata: i messaggi dei mittenti sconosciuti arrivano in In arrivo. Le tue regole restano attive.</string>
     <plurals name="r3b_info_purge">
         <item quantity="one">I messaggi bloccati vengono eliminati dopo %d giorno.</item>
         <item quantity="other">I messaggi bloccati vengono eliminati dopo %d giorni.</item>
     </plurals>
-    <string name="r3b_info_purge_off">I messaggi bloccati restano finché non li elimini.</string>
 </resources>

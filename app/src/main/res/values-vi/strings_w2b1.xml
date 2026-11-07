@@ -6,13 +6,9 @@
     <string name="w2b1_search_recent">Tìm kiếm gần đây</string>
     <string name="w2b1_search_recent_clear">Xóa</string>
     <string name="w2b1_search_recent_clear_description">Xóa tìm kiếm gần đây</string>
-    <string name="w2b1_search_digits_note">Tìm được cả chữ số Ba Tư và Latinh: 123 cũng tìm thấy ۱۲۳.</string>
-    <string name="w2b1_search_section_conversations">Cuộc trò chuyện</string>
-    <string name="w2b1_search_section_messages">Tin nhắn</string>
     <plurals name="w2b1_search_matches">
         <item quantity="other">%d kết quả phù hợp</item>
     </plurals>
-    <string name="w2b1_filter_all">Tất cả</string>
     <string name="w2b1_filter_unread">Chưa đọc</string>
     <string name="w2b1_filter_unread_empty_title">Không có cuộc trò chuyện chưa đọc</string>
     <string name="w2b1_filter_unread_empty_body">Đã đọc tất cả.</string>

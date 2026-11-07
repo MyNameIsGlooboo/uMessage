@@ -3,4 +3,6 @@
     <string name="smart_replies_title">智能回复</string>
     <string name="smart_replies_summary">使用手机上的回复列表快速回复</string>
     <string name="smart_replies_hide">隐藏建议</string>
+    <string name="smart_replies_notif_title">通知中的智能回复</string>
+    <string name="smart_replies_notif_summary">在通知上以按钮显示建议回复。点按即可发送该文本。</string>
 </resources>

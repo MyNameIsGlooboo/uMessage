@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">Copiar %1$s</string>
     <string name="thread_r2_menu_search">Buscar en la conversación</string>
     <string name="thread_r2_menu_always_forward">Reenviar siempre los mensajes de este remitente</string>
-    <string name="thread_r2_block_hint">Los próximos mensajes irán a Bloqueados. Nada sale de tu teléfono.</string>
     <string name="thread_r2_forward_message">Reenviar este mensaje</string>
     <string name="thread_r2_search_hint">Buscar en la conversación</string>
     <string name="thread_r2_search_close">Cerrar búsqueda</string>

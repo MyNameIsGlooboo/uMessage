@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">In den Posteingang verschoben</string>
+    <string name="nsf_snack_moved_allowed">In den Posteingang verschoben. Künftige Nachrichten von %1$s kommen ebenfalls an.</string>
+    <string name="nsf_moving">Wird in den Posteingang verschoben</string>
+</resources>

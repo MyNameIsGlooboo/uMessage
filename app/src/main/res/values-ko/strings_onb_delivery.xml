@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_delivery_body">메시지가 전달되면 알려 줍니다. 통신사에서 요금이 부과될 수 있습니다.</string>
+</resources>

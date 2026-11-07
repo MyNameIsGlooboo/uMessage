@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="preset_intro">選擇uMessage的外觀：淺色或深色模式，以及色彩。</string>
     <string name="preset_system">系統</string>
     <string name="preset_system_desc">淺色或深色，與手機一致</string>
     <string name="preset_light">淺色</string>
@@ -11,8 +10,6 @@
     <string name="preset_amoled_desc">適合OLED螢幕的純黑色</string>
     <string name="preset_brand">海軍藍</string>
     <string name="preset_brand_desc">海軍藍配金色，經典的uMessage外觀</string>
-    <string name="preset_coral">珊瑚</string>
-    <string name="preset_coral_desc">珊瑚色配藍色，取自應用程式圖示</string>
     <string name="preset_sky">天空</string>
     <string name="preset_sky_desc">柔和的藍色和白色</string>
     <string name="preset_forest">森林</string>

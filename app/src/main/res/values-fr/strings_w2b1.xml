@@ -7,14 +7,10 @@
     <string name="w2b1_search_recent">Recherches récentes</string>
     <string name="w2b1_search_recent_clear">Effacer</string>
     <string name="w2b1_search_recent_clear_description">Effacer les recherches récentes</string>
-    <string name="w2b1_search_digits_note">Les chiffres persans et latins sont équivalents : 123 trouve aussi ۱۲۳.</string>
-    <string name="w2b1_search_section_conversations">Conversations</string>
-    <string name="w2b1_search_section_messages">Messages</string>
     <plurals name="w2b1_search_matches" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d résultat</item>
         <item quantity="other">%d résultats</item>
     </plurals>
-    <string name="w2b1_filter_all">Toutes</string>
     <string name="w2b1_filter_unread">Non lues</string>
     <string name="w2b1_filter_unread_empty_title">Aucune conversation non lue</string>
     <string name="w2b1_filter_unread_empty_body">Tout est lu.</string>

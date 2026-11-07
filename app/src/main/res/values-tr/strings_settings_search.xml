@@ -76,4 +76,5 @@
     <string name="sks_version">sürüm derleme numara yayın güncelleme kopyala</string>
     <string name="sks_source">kaynak kod GitHub açık lisans depo</string>
     <string name="sks_licenses">lisanslar açık kaynak GPL yasal yazı tipleri kütüphaneler</string>
+    <string name="sks_privacy_policy">gizlilik politikası şartlar veri koruma yasal</string>
 </resources>

@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">你已标记为完成</string>
     <string name="oem2_state_todo">尚未完成</string>
     <string name="oem2_state_limited">Android仍在限制uMessage后台运行</string>
-    <string name="oem2_open_again">重新打开</string>
     <string name="oem2_undo">撤销</string>
     <string name="oem2_undo_cd">将%1$s标记为未完成</string>
 </resources>

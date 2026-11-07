@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">ঐচ্ছিক</string>
+    <string name="backup_drive_hint">Google Drive ব্যবহার করতে ফাইল পিকারে সেটি বেছে নিন।</string>
+    <string name="move_from_app_title">অন্য অ্যাপ থেকে আসুন</string>
+    <string name="move_from_app_row_body">অন্য এসএমএস অ্যাপ থেকে আপনার বার্তা নিয়ে আসুন</string>
+    <string name="move_from_app_intro">uMessage-এ আসছেন? আপনার পুরোনো বার্তাও সঙ্গে আসতে পারে।</string>
+    <string name="move_from_app_step1">আগের অ্যাপে একটি ব্যাকআপ তৈরি করুন। SMS Backup &amp; Restore-এ Back up now চাপুন।</string>
+    <string name="move_from_app_step2">ব্যাকআপটি Google Drive-এ বা ফোনের কোনো ফাইলে সেভ করুন।</string>
+    <string name="move_from_app_step3">এখানে ফিরে এসে “বার্তা ইমপোর্ট করুন” চাপুন এবং ওই ফাইলটি বেছে নিন।</string>
+    <string name="move_from_app_format">uMessage, SMS Backup &amp; Restore-এর তৈরি XML ফাইল এবং নিজের ব্যাকআপ পড়তে পারে।</string>
+    <plurals name="sim_messages_done">
+        <item quantity="one">%1$dটি বার্তা কপি করা হয়েছে। %2$dটি আগেই আপনার কথোপকথনে ছিল।</item>
+        <item quantity="other">%1$dটি বার্তা কপি করা হয়েছে। %2$dটি আগেই আপনার কথোপকথনে ছিল।</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="one">%1$dটি বার্তা কপি করা হয়েছে। %2$dটি আগেই আপনার কথোপকথনে ছিল এবং %3$dটি কপি করা যায়নি।</item>
+        <item quantity="other">%1$dটি বার্তা কপি করা হয়েছে। %2$dটি আগেই আপনার কথোপকথনে ছিল এবং %3$dটি কপি করা যায়নি।</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="one">ব্যাকআপ সেভ হয়েছে: %1$dটি আইটেম</item>
+        <item quantity="other">ব্যাকআপ সেভ হয়েছে: %1$dটি আইটেম</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="one">%dটি সংখ্যা লেখা হয়েছে</item>
+        <item quantity="other">%dটি সংখ্যা লেখা হয়েছে</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="one">%d বার ফরোয়ার্ড করার সীমা পূর্ণ হয়েছে। আগামীকাল আবার ফরোয়ার্ড করা চলবে।</item>
+        <item quantity="other">%d বার ফরোয়ার্ড করার সীমা পূর্ণ হয়েছে। আগামীকাল আবার ফরোয়ার্ড করা চলবে।</item>
+    </plurals>
+</resources>

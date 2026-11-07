@@ -19,21 +19,13 @@
         <item quantity="many">حُذفت %d قاعدة</item>
         <item quantity="other">حُذفت %d قاعدة</item>
     </plurals>
-    <string name="rules_system_block_list">قائمة الحظر في النظام (تحظر المكالمات أيضًا)</string>
-    <string name="rules_legacy_note_keyword">من قائمة الكلمات المحظورة القديمة</string>
-    <string name="rules_legacy_note_number">من قائمة الحظر في النظام</string>
-    <string name="rules_legacy_banner_title">عُثر على قوائم حظر قديمة</string>
-    <string name="rules_legacy_banner_body">بعض الكلمات والأرقام محظورة خارج هذه القواعد. انقلها إلى هنا لعرض كل شيء وتعديله في مكان واحد.</string>
     <string name="rules_legacy_banner_review">راجع</string>
     <string name="rules_legacy_banner_not_now">ليس الآن</string>
     <string name="rules_legacy_section_keywords">قائمة الكلمات المحظورة القديمة</string>
     <string name="rules_legacy_section_keywords_body">تظل مستخدمة للتصفية حتى تنقل هذه الكلمات إلى القواعد. بعدها يتوقف استخدام القائمة القديمة.</string>
-    <string name="rules_legacy_section_system_body">يتخلص Android من رسائل هذه الأرقام قبل وصولها إلى uMessage، لذا لا تظهر مطلقًا في «المحظورة». هذه القائمة مشتركة مع تطبيق الهاتف وتحظر المكالمات أيضًا.</string>
     <string name="rules_legacy_chip_old_list">قائمة قديمة</string>
     <string name="rules_legacy_chip_system">النظام، والمكالمات أيضًا</string>
     <string name="rules_legacy_move">انقل إلى القواعد</string>
-    <string name="rules_legacy_open_system">افتح قائمة الحظر في النظام</string>
-    <string name="rules_migrate_title">انقل قوائم الحظر القديمة إلى القواعد</string>
     <string name="rules_migrate_nothing">كل ما في القوائم القديمة موجود بالفعل في قواعدك.</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="zero">ستتحول %d كلمة من قائمة الكلمات المحظورة القديمة إلى قواعد حظر بكلمات رئيسية. بعدها يتوقف استخدام القائمة القديمة.</item>
@@ -59,9 +51,7 @@
         <item quantity="many">أضف أيضًا %d رقمًا من قائمة الحظر في النظام كقواعد حظر</item>
         <item quantity="other">أضف أيضًا %d رقم من قائمة الحظر في النظام كقواعد حظر</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">يتخلص Android من رسائل الأرقام الموجودة في قائمة الحظر في النظام، فلا تصل إلى uMessage مطلقًا. عند إضافتها كقواعد في uMessage، يمكن أن تصل رسائلها إلى «المحظورة»، حيث يمكنك قراءتها واستعادتها، لكن فقط بعد إزالتها من قائمة النظام.</string>
     <string name="rules_migrate_remove">أزلها أيضًا من قائمة الحظر في النظام</string>
-    <string name="rules_migrate_remove_body">تحظر قائمة النظام المكالمات أيضًا. يمكن للأرقام التي تزيلها منها الاتصال بك مجددًا. يصفّي uMessage الرسائل فقط.</string>
     <plurals name="rules_migrate_numbers_kept">
         <item quantity="zero">لا يمكن تحويل %d إدخال بحرف بدل إلى قواعد، وستبقى في قائمة النظام.</item>
         <item quantity="one">لا يمكن تحويل إدخال واحد (%d) بحرف بدل إلى قاعدة، وسيبقى في قائمة النظام.</item>
@@ -104,7 +94,6 @@
         <item quantity="other">بقي %d إدخال في القوائم القديمة</item>
     </plurals>
     <string name="rules_migrated_nothing">لم يُنقل أي شيء.</string>
-    <string name="settings_system_block_list_body_calls">تحظر المكالمات والرسائل على هذا الهاتف بالكامل. يتخلص Android من هذه الرسائل قبل وصولها إلى uMessage. يمكنك نقل الأرقام إلى «المسموح بها والمحظورة».</string>
     <string name="settings_old_blocked_words">قائمة الكلمات المحظورة القديمة</string>
     <string name="settings_old_blocked_words_body">تُنتقل إلى «المسموح بها والمحظورة»</string>
 </resources>

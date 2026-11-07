@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="r3b_info_button">Comment fonctionne le blocage</string>
-    <string name="r3b_info_title">Comment fonctionne le blocage</string>
-    <string name="r3b_info_modes">Expéditeurs inconnus</string>
-    <string name="r3b_info_mode_current">Actuellement : %1$s</string>
-    <string name="r3b_info_messages">Messages bloqués</string>
-    <string name="r3b_info_open_sender">Appuyez sur un expéditeur pour lire ses messages.</string>
-    <string name="r3b_info_move">Déplacer vers la boîte de réception y place tous les messages d\'un expéditeur, puis vous propose de toujours l\'autoriser.</string>
-    <string name="r3b_info_release">Autoriser une fois (appui prolongé sur un message) place uniquement ce message dans votre boîte de réception. L\'expéditeur n\'est pas autorisé.</string>
-    <string name="r3b_info_swipe">Balayez un expéditeur vers la fin de la ligne pour déplacer ses messages vers la boîte de réception.</string>
     <string name="r3b_open_sender">Ouvrir les messages</string>
     <string name="r3b_move_inbox_for">Déplacer vers la boîte de réception, %1$s</string>
     <string name="r3b_delete_for">Supprimer, %1$s</string>
@@ -22,12 +13,8 @@
     <string name="r3b_text_copied">Texte copié</string>
     <string name="r3b_delete_message">Supprimer</string>
     <string name="r3b_received">Reçu %1$s</string>
-    <string name="r3b_info_mode_strict">Strict : retient tous les messages d\'expéditeurs inconnus, même les codes de validation.</string>
-    <string name="r3b_info_mode_smart">Intelligent : retient les messages d\'expéditeurs inconnus, mais laisse passer les codes sans lien.</string>
-    <string name="r3b_info_mode_off">Désactivé : les messages d\'expéditeurs inconnus arrivent dans votre boîte de réception. Vos règles s\'appliquent toujours.</string>
     <plurals name="r3b_info_purge" tools:ignore="ImpliedQuantity">
         <item quantity="one">Les messages bloqués sont supprimés après %d jour.</item>
         <item quantity="other">Les messages bloqués sont supprimés après %d jours.</item>
     </plurals>
-    <string name="r3b_info_purge_off">Les messages bloqués sont conservés jusqu\'à ce que vous les supprimiez.</string>
 </resources>

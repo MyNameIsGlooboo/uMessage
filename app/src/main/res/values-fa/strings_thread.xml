@@ -74,10 +74,8 @@
     <string name="thread_attach_photo">عکس</string>
     <string name="thread_attach_take_photo">گرفتن عکس</string>
     <string name="thread_attach_record_video">ضبط ویدیو</string>
-    <string name="thread_attach_record_audio">ضبط صدا</string>
     <string name="thread_attach_file">فایل</string>
     <string name="thread_attach_contact">مخاطب</string>
-    <string name="thread_attach_schedule">زمان‌بندی پیام</string>
     <string name="thread_people_confirm">تمام</string>
     <string name="thread_people_add_number">افزودن این شماره</string>
     <string name="thread_people_remove">حذف %1$s</string>

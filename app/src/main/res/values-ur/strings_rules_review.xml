@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">فائل سے اصول امپورٹ کریں</string>
     <string name="rules2_menu_export">اصول فائل میں ایکسپورٹ کریں</string>
     <string name="rules2_menu_system">بلاک شدہ نمبر (فون)</string>
-    <string name="rules2_import_scope">اصولوں کی فائل میں صرف اجازت اور بلاک کے اصول ہوتے ہیں۔ اس میں نہ پیغامات ہیں نہ فارورڈ کے اصول۔</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">کسی بھیجنے والے کو ہمیشہ اجازت نہیں</string>
     <string name="rules2_empty_allowed_body">کوئی نمبر، بھیجنے والے کا نام یا لفظ شامل کریں جو ہمیشہ آپ کے ان باکس میں پہنچے۔</string>
@@ -26,7 +25,6 @@
         <item quantity="one">%d آئٹم منتقل کریں</item>
         <item quantity="other">%d آئٹمز منتقل کریں</item>
     </plurals>
-    <string name="rules2_sheet_list_label">فہرست میں شامل کریں</string>
     <string name="rules2_sheet_list_allow">ہمیشہ اجازت</string>
     <string name="rules2_sheet_list_block">ہمیشہ بلاک</string>
     <string name="rules2_sheet_delete">اصول حذف کریں</string>

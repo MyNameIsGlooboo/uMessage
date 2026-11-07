@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">Keine zurückgehaltene Nachricht passt zu diesem Filter. Wähle einen anderen oder zeige alle an.</string>
     <string name="w3b_filter_show_all">Alle anzeigen</string>
     <string name="w3b_empty_body">uMessage prüft im Modus „%1$s“. Zurückgehaltene Nachrichten erscheinen hier.</string>
-    <string name="w3b_empty_change_mode">Modus ändern</string>
-    <string name="w3b_empty_rules">Meine Regeln prüfen</string>
     <string name="w3b_why_link">Zurückgehalten, weil der Absender unbekannt ist und der Text einen Link enthält.</string>
     <string name="w3b_why_unknown">Zurückgehalten, weil der Absender unbekannt ist.</string>
     <string name="w3b_why_rule">Zurückgehalten, weil eine deiner Regeln zum Blockieren zutrifft.</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">Code kopieren</string>
     <string name="w3b_code_copied">Code kopiert</string>
     <string name="w3b_release_once">Einmal freigeben</string>
-    <string name="w3b_fix_open">Entscheidung für %1$s korrigieren</string>
-    <string name="w3b_fix_title">Diese Entscheidung korrigieren</string>
     <string name="w3b_fix_note">Die Regel gilt für neue Nachrichten von diesem Absender. Bereits zurückgehaltene Nachrichten bleiben, wo sie sind.</string>
     <string name="w3b_fix_allow">Diesen Absender immer erlauben</string>
     <string name="w3b_fix_block">Diesen Absender blockieren</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">Würde zugestellt: Kontakte können nicht gelesen werden, daher lässt sich der Absender nicht beurteilen.</string>
     <string name="w3b_verdict_allowed_other">Würde zugestellt.</string>
     <string name="w3b_examples_title">Mit einem Beispiel starten</string>
-    <string name="w3b_example_block_word">Nachrichten mit einem bestimmten Wort blockieren</string>
     <string name="w3b_example_block_sender">Einen Absendernamen blockieren</string>
-    <string name="w3b_example_block_prefix">Nummern blockieren, die beginnen mit…</string>
     <string name="w3b_example_allow_sender">Einen Absendernamen immer erlauben, etwa deine Bank</string>
-    <string name="w3b_example_allow_number">Eine Telefonnummer immer erlauben</string>
     <string name="w3b_overridden_chip">Durch eine Regel zum Erlauben aufgehoben</string>
 </resources>

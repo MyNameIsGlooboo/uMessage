@@ -14,7 +14,6 @@
     <string name="blocknum_add_title">บล็อกหมายเลข</string>
     <string name="blocknum_edit_title">แก้ไขหมายเลขที่บล็อก</string>
     <string name="blocknum_field_label">หมายเลข</string>
-    <string name="blocknum_field_help">ใช้ * เป็นอักขระตัวแทน: +1555* จะบล็อกทุกหมายเลขที่ขึ้นต้นด้วย +1555</string>
     <string name="blocknum_err_empty">ป้อนหมายเลข</string>
     <string name="blocknum_err_invalid">ป้อนหมายเลขโทรศัพท์ หรือตัวเลขที่มี * เป็นอักขระตัวแทน</string>
     <string name="blocknum_copy">คัดลอกหมายเลข</string>
@@ -48,7 +47,6 @@
     <string name="blocknum_unavailable_title">รายการบล็อกไม่พร้อมใช้งาน</string>
     <string name="blocknum_unavailable_body">ตั้ง uMessage เป็นแอป SMS เริ่มต้นเพื่อดูและแก้ไขรายการบล็อกของระบบ</string>
     <string name="blocknum_unknown_title">บล็อกหมายเลขที่ไม่รู้จัก</string>
-    <string name="blocknum_unknown_body">ใช้เฉพาะเมื่อโหมดกรองสแปมปิดอยู่ โดยข้อความจากหมายเลขที่ไม่รู้จักจะไปที่โฟลเดอร์ที่บล็อกเหมือนโหมดเข้มงวด สวิตช์นี้ไม่มีผลในโหมดเข้มงวดและอัจฉริยะ</string>
     <string name="blocknum_contacts_denied">หากไม่มีสิทธิ์เข้าถึงรายชื่อติดต่อ จะระบุหมายเลขที่ไม่รู้จักไม่ได้</string>
     <string name="blocknum_section_numbers">หมายเลข</string>
 </resources>

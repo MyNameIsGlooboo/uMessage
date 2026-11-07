@@ -44,7 +44,6 @@
     <string name="settings_app_lock_timeout_5m">หลังจาก 5 นาที</string>
     <string name="settings_app_lock_screenshots">บล็อกการจับภาพหน้าจอ</string>
     <string name="settings_app_lock_screenshots_body">ป้องกันการจับภาพและบันทึกหน้าจอ ข้อความจะถูกซ่อนในหน้าแอปล่าสุดเสมอ</string>
-    <string name="settings_app_lock_screenshots_body_old">ป้องกันการจับภาพและบันทึกหน้าจอ สำหรับ Android เวอร์ชันนี้ ยังเป็นวิธีเดียวที่จะซ่อนข้อความในหน้าแอปล่าสุด</string>
     <string name="settings_app_lock_change">เปลี่ยน PIN รูปแบบ หรือไบโอเมตริก</string>
     <string name="settings_app_lock_weak">PIN หรือรูปแบบเดาง่าย</string>
     <string name="settings_app_lock_weak_body">PIN เดาง่ายเกินไป แตะเพื่อเปลี่ยน</string>

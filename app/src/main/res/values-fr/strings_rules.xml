@@ -15,21 +15,13 @@
         <item quantity="one">%d règle supprimée</item>
         <item quantity="other">%d règles supprimées</item>
     </plurals>
-    <string name="rules_system_block_list">Liste de blocage du système (bloque aussi les appels)</string>
-    <string name="rules_legacy_note_keyword">Issu de l\'ancienne liste de mots bloqués</string>
-    <string name="rules_legacy_note_number">Issu de la liste de blocage du système</string>
-    <string name="rules_legacy_banner_title">Anciennes listes de blocage détectées</string>
-    <string name="rules_legacy_banner_body">Certains mots et numéros sont bloqués en dehors de ces règles. Déplacez-les ici pour tout consulter et modifier au même endroit.</string>
     <string name="rules_legacy_banner_review">Examiner</string>
     <string name="rules_legacy_banner_not_now">Pas maintenant</string>
     <string name="rules_legacy_section_keywords">Ancienne liste de mots bloqués</string>
     <string name="rules_legacy_section_keywords_body">Cette liste sert encore au filtrage tant que vous n\'avez pas déplacé ces mots vers les règles. Elle sera ensuite désactivée.</string>
-    <string name="rules_legacy_section_system_body">Android supprime les messages de ces numéros avant que uMessage les reçoive. Ils n\'apparaissent donc jamais dans Messages bloqués. Cette liste est partagée avec l\'application Téléphone et bloque aussi les appels.</string>
     <string name="rules_legacy_chip_old_list">Ancienne liste</string>
     <string name="rules_legacy_chip_system">Système, appels aussi</string>
     <string name="rules_legacy_move">Déplacer vers les règles</string>
-    <string name="rules_legacy_open_system">Ouvrir la liste de blocage du système</string>
-    <string name="rules_migrate_title">Déplacer les anciennes listes de blocage vers les règles</string>
     <string name="rules_migrate_nothing">Tout le contenu des anciennes listes figure déjà dans vos règles.</string>
     <plurals name="rules_migrate_keywords" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d mot de l\'ancienne liste de mots bloqués devient une règle de blocage par mot-clé. L\'ancienne liste est ensuite désactivée.</item>
@@ -43,9 +35,7 @@
         <item quantity="one">Ajouter aussi le %d numéro de la liste de blocage du système comme règle de blocage</item>
         <item quantity="other">Ajouter aussi les %d numéros de la liste de blocage du système comme règles de blocage</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">Android supprime les messages des numéros de la liste de blocage du système. uMessage ne les reçoit donc jamais. Avec des règles uMessage, leurs messages peuvent aller dans Messages bloqués, où vous pouvez les lire et les restaurer, mais seulement après le retrait de ces numéros de la liste du système.</string>
     <string name="rules_migrate_remove">Les retirer aussi de la liste de blocage du système</string>
-    <string name="rules_migrate_remove_body">La liste du système bloque aussi les appels. Les numéros que vous en retirez peuvent à nouveau vous appeler. uMessage filtre uniquement les messages.</string>
     <plurals name="rules_migrate_numbers_kept" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d entrée avec caractère générique ne peut pas devenir une règle et reste dans la liste du système.</item>
         <item quantity="other">%d entrées avec caractère générique ne peuvent pas devenir des règles et restent dans la liste du système.</item>
@@ -68,7 +58,6 @@
         <item quantity="other">%d entrées restent dans les anciennes listes</item>
     </plurals>
     <string name="rules_migrated_nothing">Aucun élément déplacé.</string>
-    <string name="settings_system_block_list_body_calls">Bloque les appels et les messages sur tout ce téléphone. Android supprime ces messages avant que uMessage les reçoive. Vous pouvez déplacer les numéros vers Autorisés et bloqués.</string>
     <string name="settings_old_blocked_words">Ancienne liste de mots bloqués</string>
     <string name="settings_old_blocked_words_body">Transfert vers Autorisés et bloqués</string>
 </resources>

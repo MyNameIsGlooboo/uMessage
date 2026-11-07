@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="onb_purge_question">Як довго зберігати заблоковані повідомлення?</string>
-    <string name="onb_done_summary_purge">Зберігання заблокованих повідомлень</string>
 </resources>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="onb_purge_question">차단된 메시지를 얼마나 보관할까요?</string>
-    <string name="onb_done_summary_purge">차단된 메시지 보관</string>
 </resources>

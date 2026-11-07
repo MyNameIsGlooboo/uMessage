@@ -7,14 +7,10 @@
     <string name="w2b1_search_recent">हाल की खोजें</string>
     <string name="w2b1_search_recent_clear">साफ़ करें</string>
     <string name="w2b1_search_recent_clear_description">हाल की खोजें साफ़ करें</string>
-    <string name="w2b1_search_digits_note">फ़ारसी और लैटिन दोनों अंकों से खोजें: 123 से ۱۲۳ भी मिलता है.</string>
-    <string name="w2b1_search_section_conversations">बातचीत</string>
-    <string name="w2b1_search_section_messages">मैसेज</string>
     <plurals name="w2b1_search_matches" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d नतीजा</item>
         <item quantity="other">%d नतीजे</item>
     </plurals>
-    <string name="w2b1_filter_all">सभी</string>
     <string name="w2b1_filter_unread">नहीं पढ़े गए</string>
     <string name="w2b1_filter_unread_empty_title">कोई अनपढ़ी बातचीत नहीं</string>
     <string name="w2b1_filter_unread_empty_body">सब पढ़ लिया गया है.</string>

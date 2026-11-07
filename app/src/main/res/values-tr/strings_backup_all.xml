@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">Mesajlarınız dışında her şey: izin verme, engelleme ve iletme kuralları ile tüm ayarlar. Dosya şifrelenmez ve iletme için kullandığınız telefon numaralarını içerir. Bu yüzden dosyayı özel bir yerde saklayın. İletme kuralları kapalı olarak geri yüklenir.</string>
     <string name="n09_label_spam">Spam koruması</string>
     <string name="n09_label_notifications">Bildirimler</string>
     <string name="n09_label_chat">Sohbet ve mesaj listesi</string>

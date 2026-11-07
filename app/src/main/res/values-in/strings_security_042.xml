@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">Pengaturan layar kunci bawaan ponsel Anda menampilkan semua isi notifikasi, jadi Android masih bisa menampilkan teksnya. Ubah di Pengaturan ponsel, bagian Notifikasi.</string>
+    <string name="backup_timeout_title">Pencadangan dihentikan oleh Android</string>
+    <string name="backup_timeout_text">Android membatasi berapa lama pencadangan atau pemulihan dapat berjalan di latar belakang, sehingga prosesnya dihentikan. Buka Pengaturan untuk memulainya lagi.</string>
+</resources>

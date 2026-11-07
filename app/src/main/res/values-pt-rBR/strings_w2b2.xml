@@ -5,8 +5,6 @@
     <string name="w2b2_thread_chip_allowed">Sempre permitido</string>
     <string name="w2b2_thread_chip_blocked">Bloqueado por regra</string>
     <string name="w2b2_settings_group_dates">Datas</string>
-    <string name="w2b2_settings_jalali">Datas no calendário persa</string>
-    <string name="w2b2_settings_jalali_body">Mostre as datas das conversas e das mensagens programadas no calendário persa</string>
     <string name="w2b2_lock_pattern_hint">Conecte pelo menos %d pontos e desenhe o mesmo padrão novamente para confirmar.</string>
     <string name="w2b2_lock_recovery_hint">Se esquecer, use o bloqueio de tela do celular na tela de bloqueio do app para recuperar o acesso.</string>
 </resources>

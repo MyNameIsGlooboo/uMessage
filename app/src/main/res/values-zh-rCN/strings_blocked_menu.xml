@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="blocked_menu_restored">你已还原的</string>
+    <string name="blocked_menu_restored_summary">你最近移至收件箱的消息</string>
+</resources>

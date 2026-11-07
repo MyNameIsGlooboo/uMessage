@@ -4,7 +4,6 @@
     <string name="convlist_empty_title">अभी कोई बातचीत नहीं है</string>
     <string name="convlist_empty_body">आपके भेजे और मिले मैसेज यहां दिखेंगे.</string>
     <string name="convlist_start_conversation">बातचीत शुरू करें</string>
-    <string name="convlist_new_conversation">नई बातचीत</string>
     <string name="convlist_draft">ड्राफ़्ट</string>
     <string name="convlist_pinned">पिन की गई</string>
     <string name="convlist_muted">सूचनाएं बंद</string>
@@ -26,7 +25,6 @@
     <string name="convlist_unpin">पिन हटाएं</string>
     <string name="convlist_mark_read">पढ़ा गया के तौर पर मार्क करें</string>
     <string name="convlist_mark_unread">नहीं पढ़ा गया के तौर पर मार्क करें</string>
-    <string name="convlist_block_number">नंबर ब्लॉक करें</string>
     <string name="convlist_add_contact">संपर्क में नंबर जोड़ें</string>
     <string name="convlist_copy_number">नंबर कॉपी करें</string>
     <string name="convlist_dial">कॉल करें</string>
@@ -57,7 +55,5 @@
     <string name="convlist_block_message">%1$s को ब्लॉक करें? इससे आने वाले नए मैसेज आपके इनबॉक्स की जगह ब्लॉक किए गए मैसेज में जाएंगे, जहां आप उन्हें पढ़ सकते हैं या वापस ला सकते हैं.</string>
     <string name="convlist_block_confirm">ब्लॉक करें</string>
     <string name="convlist_rename_title">बातचीत का नाम बदलें</string>
-    <string name="convlist_rename_hint">बातचीत का नाम</string>
-    <string name="convlist_ok">ठीक है</string>
     <string name="convlist_cancel">रद्द करें</string>
 </resources>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="onb_purge_question">เก็บข้อความที่บล็อกไว้นานเท่าไร?</string>
-    <string name="onb_done_summary_purge">เก็บข้อความที่บล็อก</string>
 </resources>

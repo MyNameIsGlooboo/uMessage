@@ -10,7 +10,6 @@
     <string name="thread_review_copy_password">複製密碼</string>
     <string name="thread_review_copy_username">複製使用者名稱</string>
     <string name="thread_review_sim_label">SIM%1$s</string>
-    <string name="thread_review_sends_from">從%1$s傳送</string>
     <string name="thread_review_reply_disabled">這位寄件者無法接收回覆</string>
     <string name="thread_review_attach_camera">相機</string>
     <string name="thread_review_attach_voice">語音</string>

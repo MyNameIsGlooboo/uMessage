@@ -14,15 +14,12 @@
     <string name="ui_add_contact_or_number">輸入名稱或電話號碼</string>
     <string name="ui_show_dialpad">顯示撥號鍵盤</string>
     <string name="ui_show_keyboard">顯示鍵盤</string>
-    <string name="ui_settings_group_block_lists">其他封鎖清單</string>
     <string name="ui_settings_system_block_list">系統封鎖清單</string>
     <string name="ui_settings_system_block_list_body">這支手機上所有應用程式都封鎖的號碼。uMessage也會隱藏這些號碼。</string>
     <string name="ui_settings_blocked_words">已封鎖的字詞</string>
     <string name="ui_settings_character_counter">顯示字元計數</string>
-    <string name="ui_settings_simple_characters">傳送時移除重音符號</string>
     <string name="ui_settings_send_on_enter">按Enter鍵傳送</string>
     <string name="ui_settings_delivery_reports">接收傳送報告</string>
-    <string name="ui_settings_recycle_bin">將已刪除的對話移至資源回收筒</string>
     <string name="ui_two_sentences">%1$s. %2$s</string>
     <string name="ui_tab_with_count">%1$s (%2$d)</string>
     <string name="ui_send_with_sim">%1$s, %2$s</string>

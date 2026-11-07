@@ -5,8 +5,6 @@
     <string name="w2b2_thread_chip_allowed">已设为始终允许</string>
     <string name="w2b2_thread_chip_blocked">已按规则屏蔽</string>
     <string name="w2b2_settings_group_dates">日期</string>
-    <string name="w2b2_settings_jalali">波斯历日期</string>
-    <string name="w2b2_settings_jalali_body">会话和定时发送消息中的日期使用波斯历显示</string>
     <string name="w2b2_lock_pattern_hint">至少连接%d个点，再绘制一次相同图案以确认。</string>
     <string name="w2b2_lock_recovery_hint">如果忘记图案，可在锁定界面使用手机的解锁方式重新进入。</string>
 </resources>

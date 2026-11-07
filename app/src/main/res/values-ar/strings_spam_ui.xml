@@ -19,7 +19,6 @@
     <string name="blocknum_add_title">احظر رقمًا</string>
     <string name="blocknum_edit_title">عدّل الرقم المحظور</string>
     <string name="blocknum_field_label">الرقم</string>
-    <string name="blocknum_field_help">استخدم * كحرف بدل: يحظر +1555* كل رقم يبدأ بـ +1555</string>
     <string name="blocknum_err_empty">أدخل رقمًا</string>
     <string name="blocknum_err_invalid">أدخل رقم هاتف، أو أرقامًا مع * كحرف بدل</string>
     <string name="blocknum_copy">انسخ الرقم</string>
@@ -73,7 +72,6 @@
     <string name="blocknum_unavailable_title">قائمة الحظر غير متاحة</string>
     <string name="blocknum_unavailable_body">اجعل uMessage تطبيق الرسائل النصية الافتراضي لعرض قائمة الحظر في النظام وتعديلها.</string>
     <string name="blocknum_unknown_title">احظر الأرقام غير المعروفة</string>
-    <string name="blocknum_unknown_body">يُستخدم فقط عندما يكون وضع التصفية متوقفًا: تنتقل رسائل الأرقام غير المعروفة إلى المحظورة، كما في الوضع الصارم. يتجاهل الوضعان الصارم والذكي هذا الخيار.</string>
     <string name="blocknum_contacts_denied">لا يمكن تمييز الأرقام غير المعروفة دون الوصول إلى جهات الاتصال</string>
     <string name="blocknum_section_numbers">الأرقام</string>
 </resources>

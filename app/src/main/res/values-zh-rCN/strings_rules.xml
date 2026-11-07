@@ -14,21 +14,13 @@
     <plurals name="rules_deleted_many">
         <item quantity="other">已删除%d条规则</item>
     </plurals>
-    <string name="rules_system_block_list">系统屏蔽列表（也屏蔽来电）</string>
-    <string name="rules_legacy_note_keyword">来自旧版屏蔽词列表</string>
-    <string name="rules_legacy_note_number">来自系统屏蔽列表</string>
-    <string name="rules_legacy_banner_title">发现旧版屏蔽列表</string>
-    <string name="rules_legacy_banner_body">部分词语和号码由这些规则以外的列表屏蔽。将其移到这里，即可统一查看和修改。</string>
     <string name="rules_legacy_banner_review">查看</string>
     <string name="rules_legacy_banner_not_now">暂不</string>
     <string name="rules_legacy_section_keywords">旧版屏蔽词列表</string>
     <string name="rules_legacy_section_keywords_body">在将这些词语移至规则前，旧列表仍用于过滤。移动后，旧列表将停用。</string>
-    <string name="rules_legacy_section_system_body">Android会在uMessage收到这些号码的短信前将其丢弃，因此短信不会出现在“已屏蔽”中。此列表与电话应用共用，也会屏蔽来电。</string>
     <string name="rules_legacy_chip_old_list">旧列表</string>
     <string name="rules_legacy_chip_system">系统，也屏蔽来电</string>
     <string name="rules_legacy_move">移至规则</string>
-    <string name="rules_legacy_open_system">打开系统屏蔽列表</string>
-    <string name="rules_migrate_title">将旧版屏蔽列表移至规则</string>
     <string name="rules_migrate_nothing">旧列表中的所有条目都已包含在你的规则中。</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="other">旧版屏蔽词列表中的%d个词语将转为关键词屏蔽规则。旧列表随后将停用。</item>
@@ -39,9 +31,7 @@
     <plurals name="rules_migrate_numbers">
         <item quantity="other">同时将系统屏蔽列表中的%d个号码添加为屏蔽规则</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">Android会丢弃系统屏蔽列表中号码的短信，因此uMessage无法收到。将号码添加为uMessage规则后，短信可进入“已屏蔽”，供你阅读和恢复，但必须先将号码从系统列表中移除。</string>
     <string name="rules_migrate_remove">同时从系统屏蔽列表中移除这些号码</string>
-    <string name="rules_migrate_remove_body">系统列表还会屏蔽来电。从中移除的号码将能再次拨打你的电话。uMessage仅过滤短信。</string>
     <plurals name="rules_migrate_numbers_kept">
         <item quantity="other">%d个通配符条目无法转为规则，将保留在系统列表中。</item>
     </plurals>
@@ -59,7 +49,6 @@
         <item quantity="other">%d个条目仍保留在旧列表中</item>
     </plurals>
     <string name="rules_migrated_nothing">未移动任何条目。</string>
-    <string name="settings_system_block_list_body_calls">在整部手机上屏蔽来电和短信。Android会在uMessage收到这些短信前将其丢弃。你可以将号码移至“已允许和已屏蔽”。</string>
     <string name="settings_old_blocked_words">旧版屏蔽词列表</string>
     <string name="settings_old_blocked_words_body">正在移至“已允许和已屏蔽”</string>
 </resources>

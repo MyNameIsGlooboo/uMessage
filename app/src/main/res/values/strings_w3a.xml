@@ -3,5 +3,4 @@
     <!-- ID-06: the daily forward limit stopped a forward. -->
     <string name="w3a_forward_limit_channel">Forwarding limit</string>
     <string name="w3a_forward_limit_title">Forwarding paused for today</string>
-    <string name="w3a_forward_limit_text">Limit of %d forwards reached. Forwarding continues tomorrow.</string>
 </resources>

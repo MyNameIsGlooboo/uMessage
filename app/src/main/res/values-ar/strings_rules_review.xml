@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">استورد قواعد من ملف</string>
     <string name="rules2_menu_export">صدّر القواعد إلى ملف</string>
     <string name="rules2_menu_system">قائمة الحظر في Android</string>
-    <string name="rules2_import_scope">يحتوي ملف القواعد على قواعد السماح والحظر فقط. لا يتضمن رسائل أو قواعد إعادة توجيه.</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">لا يوجد مرسلون مسموح لهم دائمًا</string>
     <string name="rules2_empty_allowed_body">أضف رقمًا أو اسم مرسل أو كلمة لتصل الرسائل المطابقة دائمًا إلى الرسائل الواردة. اضغط على «أضف قاعدة» أدناه.</string>
@@ -30,7 +29,6 @@
         <item quantity="many">انقل %d عنصرًا</item>
         <item quantity="other">انقل %d عنصر</item>
     </plurals>
-    <string name="rules2_sheet_list_label">أضف إلى القائمة</string>
     <string name="rules2_sheet_list_allow">اسمح دائمًا</string>
     <string name="rules2_sheet_list_block">احظر دائمًا</string>
     <string name="rules2_sheet_delete">احذف القاعدة</string>

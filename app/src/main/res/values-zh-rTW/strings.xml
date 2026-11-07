@@ -21,7 +21,6 @@
     <string name="add_contact_or_number">新增聯絡人或號碼…</string>
     <string name="suggestions">建議</string>
     <string name="members">成員</string>
-    <string name="conversation_name">對話名稱</string>
     <string name="conversation_details">對話詳細資料</string>
     <string name="rename_conversation">重新命名對話</string>
     <string name="rename_conversation_warning">只有你看得到這個對話名稱</string>
@@ -77,7 +76,6 @@
     <string name="mms_file_size_limit">調整傳送的多媒體訊息圖片大小</string>
     <string name="mms_file_size_limit_none">無限制</string>
     <string name="outgoing_messages">外寄訊息</string>
-    <string name="group_message_mms">以多媒體訊息傳送群組訊息</string>
     <string name="send_group_message">群組訊息格式</string>
     <string name="group_message_send_description">群組多媒體訊息會將回覆集中在同一個對話中，但電信業者可能會收費。分別傳送會傳一則訊息給每個人。你之後可以在應用程式設定中變更。</string>
     <string name="group_mms">群組多媒體訊息</string>
@@ -145,8 +143,6 @@
     <string name="invalid_short_code_desc">你只能回覆純數字的簡碼（例如「503501」），無法回覆含有字母和數字的代碼（例如「AB-CD0」）。</string>
     <string name="attachment_sized_exceeds_max_limit">附件大小超過多媒體訊息上限</string>
     <string name="couldnt_download_mms">無法下載多媒體訊息</string>
-    <string name="faq_1_title">為什麼這個應用程式需要網際網路存取權？</string>
-    <string name="faq_1_text">很遺憾，傳送多媒體訊息附件需要網際網路。無法傳送多媒體訊息與其他應用程式相比會是很大的缺點，所以我們決定這麼做。不過一如往常，沒有任何廣告、追蹤或分析，網際網路只用於傳送多媒體訊息。</string>
     <string name="faq_2_title">對方收不到我的多媒體訊息，我能怎麼做？</string>
     <string name="faq_2_text">多媒體訊息的大小受電信業者限制，你可以試著在應用程式設定中設定較小的上限。</string>
     <string name="faq_3_title">這個應用程式支援排程訊息嗎？</string>

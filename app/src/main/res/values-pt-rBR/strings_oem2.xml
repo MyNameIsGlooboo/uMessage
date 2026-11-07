@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">Marcado como concluído por você</string>
     <string name="oem2_state_todo">Ainda não concluído</string>
     <string name="oem2_state_limited">O Android ainda limita o uMessage em segundo plano</string>
-    <string name="oem2_open_again">Abra de novo</string>
     <string name="oem2_undo">Desfaça</string>
     <string name="oem2_undo_cd">Marque %1$s como não concluído</string>
 </resources>

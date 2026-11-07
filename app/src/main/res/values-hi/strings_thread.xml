@@ -74,10 +74,8 @@
     <string name="thread_attach_photo">फ़ोटो</string>
     <string name="thread_attach_take_photo">फ़ोटो लें</string>
     <string name="thread_attach_record_video">वीडियो रिकॉर्ड करें</string>
-    <string name="thread_attach_record_audio">ऑडियो रिकॉर्ड करें</string>
     <string name="thread_attach_file">फ़ाइल</string>
     <string name="thread_attach_contact">संपर्क</string>
-    <string name="thread_attach_schedule">मैसेज शेड्यूल करें</string>
     <string name="thread_people_confirm">हो गया</string>
     <string name="thread_people_add_number">यह नंबर जोड़ें</string>
     <string name="thread_people_remove">%1$s को हटाएं</string>

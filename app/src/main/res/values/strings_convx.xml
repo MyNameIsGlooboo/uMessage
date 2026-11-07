@@ -17,11 +17,6 @@
     <string name="convx_details_call">Call</string>
     <string name="convx_details_copy">Copy number</string>
     <string name="convx_details_add_contact">Add contact</string>
-    <string name="convx_details_tap_to_rename">Tap to rename</string>
-    <string name="convx_details_notifications_hint">Choose a sound and priority just for this sender</string>
-    <string name="convx_details_block">Block this sender</string>
-    <string name="convx_details_block_hint">New texts go to Blocked messages. Nothing leaves your phone.</string>
-    <string name="convx_details_status">Status</string>
 
     <!-- New conversation -->
     <string name="convx_new_send_to">Send to %1$s</string>

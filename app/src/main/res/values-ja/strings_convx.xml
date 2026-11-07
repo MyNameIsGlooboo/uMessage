@@ -11,11 +11,6 @@
     <string name="convx_details_call">通話</string>
     <string name="convx_details_copy">番号をコピー</string>
     <string name="convx_details_add_contact">連絡先を追加</string>
-    <string name="convx_details_tap_to_rename">タップして名前を変更</string>
-    <string name="convx_details_notifications_hint">この送信者専用の通知音と優先度を設定できます。</string>
-    <string name="convx_details_block">この送信者をブロック</string>
-    <string name="convx_details_block_hint">新しいメッセージは「ブロック済み」に届きます。スマートフォンの外部には何も送信されません。</string>
-    <string name="convx_details_status">状態</string>
     <string name="convx_new_send_to">%1$sに送信</string>
     <string name="convx_new_group_hint">グループに追加するメンバーを選んでください。グループへの送信には、モバイルデータとMMSの設定が必要な場合があります。</string>
 </resources>

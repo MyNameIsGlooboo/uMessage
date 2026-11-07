@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">За бажанням</string>
+    <string name="backup_drive_hint">Щоб використати Google Диск, виберіть його у вікні вибору файлу.</string>
+    <string name="move_from_app_title">Перенесення з іншого застосунку</string>
+    <string name="move_from_app_row_body">Перенесіть повідомлення з іншого SMS-застосунку</string>
+    <string name="move_from_app_intro">Переходите на uMessage? Старі повідомлення можна взяти з собою.</string>
+    <string name="move_from_app_step1">У попередньому застосунку створіть резервну копію. У SMS Backup &amp; Restore натисніть Back up now.</string>
+    <string name="move_from_app_step2">Збережіть копію на Google Диск або у файл на телефоні.</string>
+    <string name="move_from_app_step3">Поверніться сюди, натисніть «Імпорт повідомлень» і виберіть цей файл.</string>
+    <string name="move_from_app_format">uMessage читає XML-файли, створені SMS Backup &amp; Restore, і власні резервні копії.</string>
+    <plurals name="sim_messages_done">
+        <item quantity="one">Скопійовано %1$d повідомлень. Уже були у ваших чатах: %2$d.</item>
+        <item quantity="few">Скопійовано %1$d повідомлень. Уже були у ваших чатах: %2$d.</item>
+        <item quantity="many">Скопійовано %1$d повідомлень. Уже були у ваших чатах: %2$d.</item>
+        <item quantity="other">Скопійовано %1$d повідомлень. Уже були у ваших чатах: %2$d.</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="one">Скопійовано %1$d повідомлень. Уже були у ваших чатах: %2$d. Не вдалося скопіювати: %3$d.</item>
+        <item quantity="few">Скопійовано %1$d повідомлень. Уже були у ваших чатах: %2$d. Не вдалося скопіювати: %3$d.</item>
+        <item quantity="many">Скопійовано %1$d повідомлень. Уже були у ваших чатах: %2$d. Не вдалося скопіювати: %3$d.</item>
+        <item quantity="other">Скопійовано %1$d повідомлень. Уже були у ваших чатах: %2$d. Не вдалося скопіювати: %3$d.</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="one">Резервну копію збережено. Елементів: %1$d</item>
+        <item quantity="few">Резервну копію збережено. Елементів: %1$d</item>
+        <item quantity="many">Резервну копію збережено. Елементів: %1$d</item>
+        <item quantity="other">Резервну копію збережено. Елементів: %1$d</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="one">Введено цифр: %d</item>
+        <item quantity="few">Введено цифр: %d</item>
+        <item quantity="many">Введено цифр: %d</item>
+        <item quantity="other">Введено цифр: %d</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="one">Досягнуто ліміту пересилань: %d. Пересилання відновиться завтра.</item>
+        <item quantity="few">Досягнуто ліміту пересилань: %d. Пересилання відновиться завтра.</item>
+        <item quantity="many">Досягнуто ліміту пересилань: %d. Пересилання відновиться завтра.</item>
+        <item quantity="other">Досягнуто ліміту пересилань: %d. Пересилання відновиться завтра.</item>
+    </plurals>
+</resources>

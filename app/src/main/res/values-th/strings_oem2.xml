@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">คุณทำเครื่องหมายว่าเสร็จแล้ว</string>
     <string name="oem2_state_todo">ยังไม่เสร็จ</string>
     <string name="oem2_state_limited">Android ยังจำกัดการทำงานเบื้องหลังของ uMessage</string>
-    <string name="oem2_open_again">เปิดอีกครั้ง</string>
     <string name="oem2_undo">เลิกทำ</string>
     <string name="oem2_undo_cd">ทำเครื่องหมาย %1$s ว่ายังไม่เสร็จ</string>
 </resources>

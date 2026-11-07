@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">आपके मैसेज के अलावा सब कुछ: अनुमति देने, ब्लॉक करने और फ़ॉरवर्ड करने के नियम और सभी सेटिंग. फ़ाइल एन्क्रिप्ट नहीं है और इसमें वे फ़ोन नंबर हैं जिन पर आप फ़ॉरवर्ड करते हैं, इसलिए इसे निजी जगह पर रखें. फ़ॉरवर्ड करने के नियम वापस आने पर बंद रहेंगे.</string>
     <string name="n09_label_spam">स्पैम से सुरक्षा</string>
     <string name="n09_label_notifications">सूचनाएं</string>
     <string name="n09_label_chat">चैट और मैसेज सूची</string>

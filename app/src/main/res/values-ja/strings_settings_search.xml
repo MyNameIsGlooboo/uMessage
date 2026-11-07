@@ -76,4 +76,5 @@
     <string name="sks_version">バージョン ビルド 番号 リリース 更新 コピー</string>
     <string name="sks_source">ソース コード GitHub 公開 ライセンス リポジトリ</string>
     <string name="sks_licenses">ライセンス 使用許諾 オープンソース GPL 法的情報 フォント ライブラリ</string>
+    <string name="sks_privacy_policy">プライバシー ポリシー 規約 データ保護 法的</string>
 </resources>

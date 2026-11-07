@@ -2,7 +2,6 @@
 <resources>
 
     <!-- N09: the settings file carries everything except messages -->
-    <string name="n09_backup_contents">Everything except your messages: allow, block and forward rules and all settings. The file is not encrypted and holds the phone numbers you forward to, so keep it somewhere private. Forward rules come back switched off.</string>
     <string name="n09_label_spam">Spam protection</string>
     <string name="n09_label_notifications">Notifications</string>
     <string name="n09_label_chat">Chat and message list</string>

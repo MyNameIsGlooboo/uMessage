@@ -82,10 +82,8 @@
     <string name="thread_attach_photo">صورة</string>
     <string name="thread_attach_take_photo">التقط صورة</string>
     <string name="thread_attach_record_video">سجّل فيديو</string>
-    <string name="thread_attach_record_audio">سجّل صوتًا</string>
     <string name="thread_attach_file">ملف</string>
     <string name="thread_attach_contact">جهة اتصال</string>
-    <string name="thread_attach_schedule">جدوِل رسالة</string>
     <string name="thread_people_confirm">تم</string>
     <string name="thread_people_add_number">أضف هذا الرقم</string>
     <string name="thread_people_remove">أزِل %1$s</string>

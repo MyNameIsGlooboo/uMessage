@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">この条件に合う保留中のメッセージはありません。別の条件を選ぶか、すべて表示してください。</string>
     <string name="w3b_filter_show_all">すべて表示</string>
     <string name="w3b_empty_body">uMessageは%1$sモードで確認しています。保留されたメッセージはここに表示されます。</string>
-    <string name="w3b_empty_change_mode">モード変更</string>
-    <string name="w3b_empty_rules">ルールを確認</string>
     <string name="w3b_why_link">不明な送信者からのメッセージにリンクが含まれているため、保留しました。</string>
     <string name="w3b_why_unknown">不明な送信者のため、保留しました。</string>
     <string name="w3b_why_rule">設定したブロックルールに一致したため、保留しました。</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">コードをコピー</string>
     <string name="w3b_code_copied">コードをコピーしました。</string>
     <string name="w3b_release_once">今回のみ許可</string>
-    <string name="w3b_fix_open">%1$sの判定を修正</string>
-    <string name="w3b_fix_title">この判定を修正</string>
     <string name="w3b_fix_note">ルールはこの送信者からの新しいメッセージに適用されます。すでに保留中のメッセージはそのまま残ります。</string>
     <string name="w3b_fix_allow">この送信者を常に許可</string>
     <string name="w3b_fix_block">この送信者をブロック</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">受信できます。連絡先を読み取れないため、送信者を判定できません。</string>
     <string name="w3b_verdict_allowed_other">受信できます。</string>
     <string name="w3b_examples_title">例から作成</string>
-    <string name="w3b_example_block_word">指定した単語を含むメッセージをブロック</string>
     <string name="w3b_example_block_sender">送信者名でブロック</string>
-    <string name="w3b_example_block_prefix">指定した数字で始まる番号をブロック</string>
     <string name="w3b_example_allow_sender">銀行などの送信者名を常に許可</string>
-    <string name="w3b_example_allow_number">電話番号を常に許可</string>
     <string name="w3b_overridden_chip">許可ルールを優先</string>
 </resources>

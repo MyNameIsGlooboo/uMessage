@@ -3,4 +3,6 @@
     <string name="smart_replies_title">Розумні відповіді</string>
     <string name="smart_replies_summary">Швидкі відповіді зі списку на вашому телефоні</string>
     <string name="smart_replies_hide">Сховати підказки</string>
+    <string name="smart_replies_notif_title">Розумні відповіді в сповіщеннях</string>
+    <string name="smart_replies_notif_summary">Показує запропоновану відповідь кнопкою в сповіщенні. Дотик надсилає текст.</string>
 </resources>

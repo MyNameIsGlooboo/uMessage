@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">Підтвердьте, що це ви</string>
     <string name="forward_tab">Переслати</string>
     <string name="forward_add">Додати пересилання</string>
-    <string name="forward_intro">Повідомлення, що надходять у вхідні й відповідають правилу, пересилаються через SMS. Заблокований спам ніколи не пересилається.</string>
     <string name="forward_paid_note">Кожне пересилання — платне SMS.</string>
-    <string name="forward_empty_title">Немає правил пересилання</string>
-    <string name="forward_empty_body">Пересилайте копії повідомлень, що відповідають умовам, наприклад банківських сповіщень, на інший телефон.</string>
     <string name="forward_row_from">Від: %1$s</string>
     <string name="forward_row_text">Текст: %1$s</string>
     <string name="forward_row_any_sender">Будь-який відправник</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">Номер %1$d</string>
     <string name="forward_sheet_add_target">Додати номер</string>
     <string name="forward_sheet_remove_target">Видалити номер %1$d</string>
-    <string name="forward_sheet_target_needed">Додайте хоча б один номер для пересилання.</string>
     <string name="forward_err_target_invalid">Введіть номер телефону з 7–15 цифр</string>
     <string name="forward_err_target_duplicate">Цей номер уже є в списку</string>
     <string name="forward_sheet_window">Лише в певний час</string>
-    <string name="forward_sheet_window_body">Пересилати лише в цей проміжок часу. Якщо час завершення раніше за початок, пересилання триває після півночі.</string>
     <string name="forward_sheet_start">Початок %1$s</string>
     <string name="forward_sheet_end">Завершення %1$s</string>
     <string name="forward_sheet_pick_start">Час початку</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">Отримано на</string>
     <string name="forward_sheet_send_from_label">Надсилати із</string>
     <string name="forward_sim_same">Та сама SIM</string>
-    <string name="forward_sheet_codes">Включати коди підтвердження</string>
-    <string name="forward_sheet_codes_body">Коли вимкнено, повідомлення, схожі на коди входу або підтвердження, не пересилаються.</string>
     <string name="forward_sheet_paid">Кожне пересилання — платне SMS. Довгі повідомлення надсилаються кількома частинами.</string>
     <string name="forward_codes_title">Пересилати коди підтвердження?</string>
     <string name="forward_codes_message">Пересилання кодів дає одержувачу змогу входити у ваші облікові записи. Шахраї користуються цим: переконують людей пересилати повідомлення, щоб викрасти коди. Увімкніть цю функцію лише для власного телефона.</string>
     <string name="forward_codes_confirm">Включати коди</string>
-    <string name="forward_delete_title">Видалити правило пересилання?</string>
-    <string name="forward_delete_message">Повідомлення більше не пересилатимуться за цим правилом.</string>
     <string name="forward_no_lock_title">Захистіть пересилання блокуванням застосунку</string>
     <string name="forward_no_lock_message">Правила пересилання надсилають ваші повідомлення на інші телефони, тому будь-хто з вашим розблокованим телефоном може додати таке правило. Якщо ввімкнути блокування застосунку, для зміни правил пересилання знадобиться ваш PIN або відбиток пальця.</string>
     <string name="forward_no_lock_continue">Продовжити</string>

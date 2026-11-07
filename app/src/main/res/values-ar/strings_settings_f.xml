@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">الرسائل والقواعد والإعدادات في ملف</string>
-    <string name="settings_f_backup_rules_group">القواعد والإعدادات</string>
-    <string name="settings_f_backup_rules_contents">يحتوي الملف على قواعد السماح والحظر وقواعد إعادة التوجيه والإعدادات: الحماية من الرسائل غير المرغوب فيها والإشعارات والتواريخ وحجم النص والمظهر ومفتاح Enter وحدود إعادة التوجيه. لا يتضمن أبدًا نص الرسائل أو قفل التطبيق. تُستعاد قواعد إعادة التوجيه وهي معطّلة.</string>
-    <string name="settings_f_backup_messages_contents">نص الرسائل والصور، في ملف منفصل.</string>
     <string name="settings_f_restore_title">هل تريد الاستعادة من هذا الملف؟</string>
     <string name="settings_f_restore_rules">قواعد السماح: %1$d · قواعد الحظر: %2$d. تُتخطّى القواعد الموجودة لديك.</string>
     <string name="settings_f_restore_forwards">قواعد إعادة التوجيه التي ستُضاف: %1$d، وستكون معطّلة. فعّلها من القواعد › إعادة التوجيه.</string>

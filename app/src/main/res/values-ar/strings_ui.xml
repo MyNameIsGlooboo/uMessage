@@ -19,15 +19,12 @@
     <string name="ui_add_contact_or_number">اكتب اسمًا أو رقم هاتف</string>
     <string name="ui_show_dialpad">أظهر لوحة الاتصال</string>
     <string name="ui_show_keyboard">أظهر لوحة المفاتيح</string>
-    <string name="ui_settings_group_block_lists">قوائم حظر أخرى</string>
     <string name="ui_settings_system_block_list">قائمة الحظر في النظام</string>
     <string name="ui_settings_system_block_list_body">أرقام محظورة في كل تطبيق على هذا الهاتف. يخفيها uMessage أيضًا.</string>
     <string name="ui_settings_blocked_words">الكلمات المحظورة</string>
     <string name="ui_settings_character_counter">أظهر عدّاد الأحرف</string>
-    <string name="ui_settings_simple_characters">أزل علامات النبر عند الإرسال</string>
     <string name="ui_settings_send_on_enter">أرسل بمفتاح Enter</string>
     <string name="ui_settings_delivery_reports">تلقَّ تقارير التسليم</string>
-    <string name="ui_settings_recycle_bin">انقل المحادثات المحذوفة إلى سلة المهملات</string>
     <string name="ui_two_sentences">%1$s. %2$s</string>
     <string name="ui_tab_with_count">%1$s (%2$d)</string>
     <string name="ui_send_with_sim">%1$s, %2$s</string>

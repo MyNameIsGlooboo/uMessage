@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">الحد اليومي لإعادة التوجيه</string>
     <string name="w3d_daily_limit_body">أقصى عدد لعمليات إعادة التوجيه يوميًا</string>
     <string name="w3d_hide_lock_codes">أخفِ الرموز على شاشة القفل</string>
-    <string name="w3d_hide_lock_codes_body">تظهر الرسالة التي تحتوي على رمز بالشكل •••• على شاشة القفل حتى تفتح القفل.</string>
 </resources>

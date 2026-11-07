@@ -2,5 +2,4 @@
 <resources>
     <string name="w3a_forward_limit_channel">Limit für Weiterleitungen</string>
     <string name="w3a_forward_limit_title">Weiterleiten für heute pausiert</string>
-    <string name="w3a_forward_limit_text">Limit von %d Weiterleitungen erreicht. Morgen wird das Weiterleiten fortgesetzt.</string>
 </resources>

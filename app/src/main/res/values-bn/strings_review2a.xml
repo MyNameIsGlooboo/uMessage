@@ -3,5 +3,4 @@
     <string name="r2a_filter_codes">কোড</string>
     <string name="r2a_filter_codes_empty_title">কোনো কোড নেই</string>
     <string name="r2a_filter_codes_empty_body">যেসব কথোপকথনের শেষ বার্তায় একবার ব্যবহারযোগ্য কোড আছে, সেগুলো এখানে দেখাবে।</string>
-    <string name="r2a_search_codes_window">গত 24 ঘণ্টার</string>
 </resources>

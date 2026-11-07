@@ -7,7 +7,6 @@
     <string name="thread_r2_details_copy">کپی %1$s</string>
     <string name="thread_r2_menu_search">جستجو در گفتگو</string>
     <string name="thread_r2_menu_always_forward">بازارسال همیشگی از این فرستنده</string>
-    <string name="thread_r2_block_hint">پیام‌های بعدی به مسدودشده‌ها می‌روند. هیچ‌چیز از گوشی شما خارج نمی‌شود.</string>
     <string name="thread_r2_forward_message">بازارسال این پیام</string>
     <string name="thread_r2_search_hint">جستجو در گفتگو</string>
     <string name="thread_r2_search_close">بستن جستجو</string>

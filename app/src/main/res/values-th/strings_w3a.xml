@@ -2,5 +2,4 @@
 <resources>
     <string name="w3a_forward_limit_channel">ขีดจำกัดการส่งต่อ</string>
     <string name="w3a_forward_limit_title">หยุดส่งต่อชั่วคราวสำหรับวันนี้</string>
-    <string name="w3a_forward_limit_text">ส่งต่อครบขีดจำกัด %d ครั้งแล้ว จะส่งต่ออีกครั้งพรุ่งนี้</string>
 </resources>

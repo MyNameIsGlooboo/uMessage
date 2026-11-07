@@ -76,4 +76,5 @@
     <string name="sks_version">वर्शन बिल्ड नंबर रिलीज़ अपडेट कॉपी</string>
     <string name="sks_source">सोर्स कोड GitHub ओपन लाइसेंस रिपॉज़िटरी</string>
     <string name="sks_licenses">लाइसेंस लाइसेंस ओपन सोर्स GPL कानूनी फ़ॉन्ट लाइब्रेरी</string>
+    <string name="sks_privacy_policy">गोपनीयता नीति शर्तें डेटा सुरक्षा कानूनी</string>
 </resources>

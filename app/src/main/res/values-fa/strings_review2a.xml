@@ -3,5 +3,4 @@
     <string name="r2a_filter_codes">کدها</string>
     <string name="r2a_filter_codes_empty_title">کدی نیست</string>
     <string name="r2a_filter_codes_empty_body">گفتگوهایی که آخرین پیامشان کد یک‌بارمصرف دارد، اینجا نمایش داده می‌شوند.</string>
-    <string name="r2a_search_codes_window">از ۲۴ ساعت گذشته</string>
 </resources>

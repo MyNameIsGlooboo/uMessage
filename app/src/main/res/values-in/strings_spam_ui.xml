@@ -14,7 +14,6 @@
     <string name="blocknum_add_title">Blokir nomor</string>
     <string name="blocknum_edit_title">Edit nomor diblokir</string>
     <string name="blocknum_field_label">Nomor</string>
-    <string name="blocknum_field_help">Gunakan * sebagai karakter pengganti: +1555* memblokir semua nomor yang diawali +1555</string>
     <string name="blocknum_err_empty">Masukkan nomor</string>
     <string name="blocknum_err_invalid">Masukkan nomor telepon, atau angka dengan * sebagai karakter pengganti</string>
     <string name="blocknum_copy">Salin nomor</string>
@@ -48,7 +47,6 @@
     <string name="blocknum_unavailable_title">Daftar blokir tidak tersedia</string>
     <string name="blocknum_unavailable_body">Jadikan uMessage aplikasi SMS default untuk melihat dan mengubah daftar blokir sistem.</string>
     <string name="blocknum_unknown_title">Blokir nomor tidak dikenal</string>
-    <string name="blocknum_unknown_body">Hanya berlaku saat mode spam Nonaktif: pesan dari nomor tidak dikenal masuk ke Diblokir, seperti dalam mode filter ketat. Mode filter ketat dan Cerdas mengabaikan tombol ini.</string>
     <string name="blocknum_contacts_denied">Tanpa akses kontak, nomor tidak dikenal tidak bisa dikenali</string>
     <string name="blocknum_section_numbers">Nomor</string>
 </resources>

@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">Лимит пересылок в день</string>
     <string name="w3d_daily_limit_body">Максимум пересылок за день</string>
     <string name="w3d_hide_lock_codes">Скрывать коды на экране блокировки</string>
-    <string name="w3d_hide_lock_codes_body">До разблокировки сообщение с кодом отображается на экране блокировки как ••••.</string>
 </resources>

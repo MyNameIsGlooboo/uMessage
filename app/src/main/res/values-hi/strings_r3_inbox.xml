@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="r3_inbox_filter_show">फ़िल्टर दिखाएं</string>
-    <string name="r3_inbox_filter_hide">फ़िल्टर छिपाएं</string>
-    <string name="r3_inbox_filter_show_active">फ़िल्टर दिखाएं. %1$s फ़िल्टर चालू है</string>
-    <string name="r3_inbox_filter_hide_active">फ़िल्टर छिपाएं. %1$s फ़िल्टर चालू है</string>
-</resources>

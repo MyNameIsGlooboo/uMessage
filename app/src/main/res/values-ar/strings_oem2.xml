@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">علّمتها كمكتملة</string>
     <string name="oem2_state_todo">لم تكتمل بعد</string>
     <string name="oem2_state_limited">لا يزال Android يقيّد عمل uMessage في الخلفية</string>
-    <string name="oem2_open_again">افتح مجددًا</string>
     <string name="oem2_undo">تراجع</string>
     <string name="oem2_undo_cd">علّم %1$s كغير مكتمل</string>
 </resources>

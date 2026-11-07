@@ -6,13 +6,9 @@
     <string name="w2b1_search_recent">Pencarian terbaru</string>
     <string name="w2b1_search_recent_clear">Hapus</string>
     <string name="w2b1_search_recent_clear_description">Hapus pencarian terbaru</string>
-    <string name="w2b1_search_digits_note">Angka Persia dan Latin sama-sama cocok: 123 juga menemukan ۱۲۳.</string>
-    <string name="w2b1_search_section_conversations">Percakapan</string>
-    <string name="w2b1_search_section_messages">Pesan</string>
     <plurals name="w2b1_search_matches">
         <item quantity="other">%d hasil</item>
     </plurals>
-    <string name="w2b1_filter_all">Semua</string>
     <string name="w2b1_filter_unread">Belum dibaca</string>
     <string name="w2b1_filter_unread_empty_title">Tidak ada percakapan yang belum dibaca</string>
     <string name="w2b1_filter_unread_empty_body">Semua sudah dibaca.</string>

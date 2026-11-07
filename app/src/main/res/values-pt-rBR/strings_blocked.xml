@@ -36,13 +36,11 @@
         <item quantity="one">Mensagens bloqueadas são excluídas após %d dia</item>
         <item quantity="other">Mensagens bloqueadas são excluídas após %d dias</item>
     </plurals>
-    <string name="spam_purge_notice_off">Mensagens bloqueadas são mantidas até você excluí-las</string>
     <plurals name="spam_purge_left" tools:ignore="ImpliedQuantity">
         <item quantity="one">Exclusão em %d dia</item>
         <item quantity="other">Exclusão em %d dias</item>
     </plurals>
     <string name="spam_purge_left_today">Exclusão hoje</string>
-    <string name="convlist_report_spam">Denuncie spam</string>
     <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
         <item quantity="one">Denúncia enviada. Novas mensagens deste remetente vão para Bloqueados, e a conversa foi arquivada.</item>
         <item quantity="other">%d conversas denunciadas. Novas mensagens desses remetentes vão para Bloqueados, e as conversas foram arquivadas.</item>
@@ -52,18 +50,9 @@
         <item quantity="other">%d conversas denunciadas. Novas mensagens desses remetentes vão para Bloqueados.</item>
     </plurals>
     <string name="blocked_title">Bloqueados</string>
-    <string name="blocked_menu_rules">Regras</string>
-    <string name="blocked_mode_group_cd">Remetentes desconhecidos: %1$s, %2$d de %3$d</string>
-    <string name="blocked_mode_desc_strict">Rigoroso: retém mensagens de todos os remetentes desconhecidos, inclusive códigos de verificação</string>
-    <string name="blocked_mode_desc_smart">Inteligente: retém mensagens de remetentes desconhecidos, mas deixa passar códigos sem link</string>
-    <string name="blocked_mode_desc_off">Desativado: remetentes desconhecidos chegam à caixa de entrada. Suas regras continuam valendo</string>
     <string name="blocked_snack_mode">Modo para remetentes desconhecidos definido como %1$s</string>
-    <string name="blocked_off_title">Pare de reter mensagens de remetentes desconhecidos?</string>
-    <string name="blocked_off_body">Mensagens de remetentes desconhecidos vão direto para sua caixa de entrada. Suas regras continuam valendo.</string>
-    <string name="blocked_off_confirm">Desative</string>
     <string name="blocked_stats_restored">%1$d restauradas por você</string>
     <string name="blocked_reason_unknown_link">Remetente desconhecido, com link</string>
     <string name="blocked_may_be_important">Pode ser importante</string>
     <string name="blocked_action_move_inbox">Mova para a caixa de entrada</string>
-    <string name="blocked_swipe_not_spam">Deslize para mover para a caixa de entrada</string>
 </resources>

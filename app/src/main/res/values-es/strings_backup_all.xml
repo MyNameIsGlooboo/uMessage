@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">Todo excepto tus mensajes: reglas para permitir, bloquear y reenviar, y toda la configuración. El archivo no está cifrado y contiene los números de teléfono a los que reenvías mensajes, así que guárdalo en un lugar privado. Las reglas para reenviar se restauran desactivadas.</string>
     <string name="n09_label_spam">Protección contra spam</string>
     <string name="n09_label_notifications">Notificaciones</string>
     <string name="n09_label_chat">Chat y lista de mensajes</string>

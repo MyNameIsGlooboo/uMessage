@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">從檔案匯入規則</string>
     <string name="rules2_menu_export">將規則匯出到檔案</string>
     <string name="rules2_menu_system">已封鎖的號碼（手機）</string>
-    <string name="rules2_import_scope">規則檔案只包含允許與封鎖規則，不含訊息，也不含轉寄規則。</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">沒有一律允許的寄件者</string>
     <string name="rules2_empty_allowed_body">新增一律要進入收件匣的號碼、寄件者名稱或字詞。</string>
@@ -25,7 +24,6 @@
     <plurals name="rules2_migrate_confirm_count">
         <item quantity="other">移動%d個項目</item>
     </plurals>
-    <string name="rules2_sheet_list_label">新增至清單</string>
     <string name="rules2_sheet_list_allow">一律允許</string>
     <string name="rules2_sheet_list_block">一律封鎖</string>
     <string name="rules2_sheet_delete">刪除規則</string>

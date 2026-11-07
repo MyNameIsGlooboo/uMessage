@@ -10,6 +10,4 @@
     </plurals>
     <string name="sim_messages_import">複製</string>
     <string name="sim_messages_importing">正在複製訊息…</string>
-    <string name="sim_messages_done">已複製%1$d則訊息。有%2$d則已在你的對話中。</string>
-    <string name="sim_messages_done_failed">已複製%1$d則訊息。有%2$d則已在你的對話中，%3$d則無法複製。</string>
 </resources>

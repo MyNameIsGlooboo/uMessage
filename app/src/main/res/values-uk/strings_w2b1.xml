@@ -9,16 +9,12 @@
     <string name="w2b1_search_recent">Останні пошуки</string>
     <string name="w2b1_search_recent_clear">Очистити</string>
     <string name="w2b1_search_recent_clear_description">Очистити останні пошуки</string>
-    <string name="w2b1_search_digits_note">Пошук розпізнає перські й латинські цифри: 123 також знаходить ۱۲۳.</string>
-    <string name="w2b1_search_section_conversations">Чати</string>
-    <string name="w2b1_search_section_messages">Повідомлення</string>
     <plurals name="w2b1_search_matches" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d збіг</item>
         <item quantity="few">%d збіги</item>
         <item quantity="many">%d збігів</item>
         <item quantity="other">%d збігу</item>
     </plurals>
-    <string name="w2b1_filter_all">Усі</string>
     <string name="w2b1_filter_unread">Непрочитані</string>
     <string name="w2b1_filter_unread_empty_title">Немає непрочитаних чатів</string>
     <string name="w2b1_filter_unread_empty_body">Усе прочитано.</string>

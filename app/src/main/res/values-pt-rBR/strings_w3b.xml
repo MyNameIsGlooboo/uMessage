@@ -11,8 +11,6 @@
     <string name="w3b_filter_none_body">Nenhuma mensagem retida corresponde a este filtro. Escolha outro ou mostre todas.</string>
     <string name="w3b_filter_show_all">Mostre todas</string>
     <string name="w3b_empty_body">O uMessage está monitorando no modo %1$s. As mensagens retidas aparecerão aqui.</string>
-    <string name="w3b_empty_change_mode">Mude o modo</string>
-    <string name="w3b_empty_rules">Revise minhas regras</string>
     <string name="w3b_why_link">Retida porque o remetente é desconhecido e o texto contém um link.</string>
     <string name="w3b_why_unknown">Retida porque o remetente é desconhecido.</string>
     <string name="w3b_why_rule">Retida porque corresponde a uma das suas regras de bloqueio.</string>
@@ -20,8 +18,6 @@
     <string name="w3b_copy_code">Copie o código</string>
     <string name="w3b_code_copied">Código copiado</string>
     <string name="w3b_release_once">Libere só desta vez</string>
-    <string name="w3b_fix_open">Corrija esta decisão para %1$s</string>
-    <string name="w3b_fix_title">Corrija esta decisão</string>
     <string name="w3b_fix_note">A regra vale para novas mensagens deste remetente. As mensagens já retidas ficam onde estão.</string>
     <string name="w3b_fix_allow">Permita sempre este remetente</string>
     <string name="w3b_fix_block">Bloqueie este remetente</string>
@@ -51,10 +47,7 @@
     <string name="w3b_verdict_allowed_unsure">Seria entregue: não é possível acessar os contatos para avaliar o remetente.</string>
     <string name="w3b_verdict_allowed_other">Seria entregue.</string>
     <string name="w3b_examples_title">Comece com um exemplo</string>
-    <string name="w3b_example_block_word">Bloqueie mensagens que contenham uma palavra</string>
     <string name="w3b_example_block_sender">Bloqueie um nome de remetente</string>
-    <string name="w3b_example_block_prefix">Bloqueie números que comecem com…</string>
     <string name="w3b_example_allow_sender">Permita sempre um nome de remetente, como o do seu banco</string>
-    <string name="w3b_example_allow_number">Permita sempre um número de telefone</string>
     <string name="w3b_overridden_chip">Sobreposta por uma regra de mensagens permitidas</string>
 </resources>

@@ -11,11 +11,6 @@
     <string name="convx_details_call">Arayın</string>
     <string name="convx_details_copy">Numarayı kopyalayın</string>
     <string name="convx_details_add_contact">Kişi ekleyin</string>
-    <string name="convx_details_tap_to_rename">Adını değiştirmek için dokunun</string>
-    <string name="convx_details_notifications_hint">Yalnızca bu gönderen için bir ses ve öncelik seçin</string>
-    <string name="convx_details_block">Bu göndereni engelleyin</string>
-    <string name="convx_details_block_hint">Yeni mesajlar Engellenen mesajlar bölümüne gider. Hiçbir veri telefonunuzdan dışarı çıkmaz.</string>
-    <string name="convx_details_status">Durum</string>
     <string name="convx_new_send_to">Alıcı: %1$s — gönderin</string>
     <string name="convx_new_group_hint">Gruba eklenecek kişileri seçin. Grup mesajı için mobil veri ve MMS ayarları gerekebilir.</string>
 </resources>

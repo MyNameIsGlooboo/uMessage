@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">ファイルからルールをインポート</string>
     <string name="rules2_menu_export">ルールをファイルにエクスポート</string>
     <string name="rules2_menu_system">Androidのブロックリスト</string>
-    <string name="rules2_import_scope">ルールファイルには許可とブロックのルールのみが含まれます。メッセージや転送ルールは含まれません。</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">常に許可する送信者はありません</string>
     <string name="rules2_empty_allowed_body">必ず受信トレイに届ける電話番号、送信者名、キーワードを追加します。下の「ルールを追加」をタップしてください。</string>
@@ -25,7 +24,6 @@
     <plurals name="rules2_migrate_confirm_count">
         <item quantity="other">%d件を移行</item>
     </plurals>
-    <string name="rules2_sheet_list_label">追加先リスト</string>
     <string name="rules2_sheet_list_allow">常に許可</string>
     <string name="rules2_sheet_list_block">常にブロック</string>
     <string name="rules2_sheet_delete">ルールを削除</string>

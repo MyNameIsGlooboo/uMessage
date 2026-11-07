@@ -24,8 +24,6 @@
     <string name="e_example_block_cancel_word">«لغو11» والے پیغامات بلاک کریں</string>
     <string name="e_example_block_ad_prefix">3000 سے شروع ہونے والے اشتہاری نمبر بلاک کریں</string>
     <string name="e_example_allow_number">کسی نمبر کو ہمیشہ اجازت دیں، جیسے آپ کا ڈاک خانہ</string>
-    <string name="e_sheet_sender_label">بھیجنے والا</string>
-    <string name="e_sheet_text_label">پیغام کا متن</string>
     <string name="e_value_number">فون نمبر</string>
     <string name="e_value_prefix">نمبر اس سے شروع ہو</string>
     <string name="e_value_sender">بھیجنے والے کا نام</string>

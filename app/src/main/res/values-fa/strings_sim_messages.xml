@@ -11,6 +11,4 @@
     </plurals>
     <string name="sim_messages_import">کپی</string>
     <string name="sim_messages_importing">در حال کپی پیام‌ها…</string>
-    <string name="sim_messages_done">%1$d پیام کپی شد. %2$d پیام از قبل در گفتگوهای شما بود.</string>
-    <string name="sim_messages_done_failed">%1$d پیام کپی شد. %2$d پیام از قبل در گفتگوهای شما بود و %3$d پیام کپی نشد.</string>
 </resources>

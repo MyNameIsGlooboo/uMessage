@@ -6,13 +6,9 @@
     <string name="w2b1_search_recent">最近の検索</string>
     <string name="w2b1_search_recent_clear">クリア</string>
     <string name="w2b1_search_recent_clear_description">最近の検索をクリア</string>
-    <string name="w2b1_search_digits_note">ペルシャ数字と算用数字の両方に一致します。123で۱۲۳も検索できます。</string>
-    <string name="w2b1_search_section_conversations">会話</string>
-    <string name="w2b1_search_section_messages">メッセージ</string>
     <plurals name="w2b1_search_matches">
         <item quantity="other">%d件が一致</item>
     </plurals>
-    <string name="w2b1_filter_all">すべて</string>
     <string name="w2b1_filter_unread">未読</string>
     <string name="w2b1_filter_unread_empty_title">未読の会話なし</string>
     <string name="w2b1_filter_unread_empty_body">すべて既読です。</string>

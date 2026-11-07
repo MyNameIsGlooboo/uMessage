@@ -4,7 +4,6 @@
     <string name="convlist_empty_title">Noch keine Unterhaltungen</string>
     <string name="convlist_empty_body">Hier erscheinen Nachrichten, die du sendest und empfängst.</string>
     <string name="convlist_start_conversation">Unterhaltung starten</string>
-    <string name="convlist_new_conversation">Neue Unterhaltung</string>
     <string name="convlist_draft">Entwurf</string>
     <string name="convlist_pinned">Angepinnt</string>
     <string name="convlist_muted">Benachrichtigungen aus</string>
@@ -26,7 +25,6 @@
     <string name="convlist_unpin">Anpinnen aufheben</string>
     <string name="convlist_mark_read">Als gelesen markieren</string>
     <string name="convlist_mark_unread">Als ungelesen markieren</string>
-    <string name="convlist_block_number">Nummer blockieren</string>
     <string name="convlist_add_contact">Nummer zu Kontakt hinzufügen</string>
     <string name="convlist_copy_number">Nummer kopieren</string>
     <string name="convlist_dial">Anrufen</string>
@@ -57,7 +55,5 @@
     <string name="convlist_block_message">%1$s blockieren? Neue Nachrichten von diesem Absender landen unter „Blockierte Nachrichten“ statt in deinem Posteingang. Dort kannst du sie weiterhin lesen oder wiederherstellen.</string>
     <string name="convlist_block_confirm">Blockieren</string>
     <string name="convlist_rename_title">Unterhaltung umbenennen</string>
-    <string name="convlist_rename_hint">Name der Unterhaltung</string>
-    <string name="convlist_ok">OK</string>
     <string name="convlist_cancel">Abbrechen</string>
 </resources>

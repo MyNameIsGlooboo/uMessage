@@ -5,8 +5,6 @@
     <string name="w2b2_thread_chip_allowed">一律允許</string>
     <string name="w2b2_thread_chip_blocked">已被規則封鎖</string>
     <string name="w2b2_settings_group_dates">日期</string>
-    <string name="w2b2_settings_jalali">波斯曆日期</string>
-    <string name="w2b2_settings_jalali_body">以波斯曆顯示對話和排程訊息中的日期</string>
     <string name="w2b2_lock_pattern_hint">連接至少%d個點，然後再畫一次相同的圖案以確認。</string>
     <string name="w2b2_lock_recovery_hint">如果忘記了，鎖定畫面會提供使用手機螢幕鎖定的方式重新進入。</string>
 </resources>

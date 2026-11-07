@@ -5,15 +5,10 @@
     <string name="spam_undo">আগের অবস্থায় ফিরুন</string>
     <string name="spam_more_options">আরও বিকল্প</string>
     <string name="spam_loading">লোড হচ্ছে</string>
-    <string name="spam_blocked_title">ব্লক করা বার্তা</string>
-    <string name="spam_blocked_open_rules">অনুমতি দেওয়া ও ব্লক করার নিয়ম</string>
     <string name="spam_blocked_open_settings">ব্লক করার সেটিংস</string>
-    <string name="spam_blocked_mode_line">অচেনা প্রেরক: %1$s</string>
-    <string name="spam_blocked_mode_change">বদলান</string>
     <string name="spam_blocked_stats_totals">মোট %1$dটি আটকানো হয়েছে, %2$dটি ফিরিয়ে আনা হয়েছে</string>
     <string name="spam_blocked_header_cd">গত 7 দিনে %1$dটি স্প্যাম আটকানো হয়েছে। মোট %2$dটি আটকানো হয়েছে, %3$dটি ফিরিয়ে আনা হয়েছে।</string>
     <string name="spam_blocked_empty_title">এখনও কিছু ব্লক করা হয়নি</string>
-    <string name="spam_blocked_empty_body">আপনার ফিল্টারে আটকানো বার্তা এখানে থাকে, যাতে এক ট্যাপেই যেকোনোটি ফিরিয়ে আনতে পারেন।</string>
     <string name="spam_action_delete">মুছুন</string>
     <string name="spam_select">নির্বাচন করুন</string>
     <string name="spam_action_select_all">সব নির্বাচন করুন</string>
@@ -37,12 +32,9 @@
     <string name="spam_sim_both">দুটি SIM-ই</string>
     <string name="spam_sim_missing">ফোনে SIM নেই</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
-    <string name="spam_rules_title">অনুমতি দেওয়া ও ব্লক করা</string>
     <string name="spam_rules_tab_allowed">অনুমতি দেওয়া</string>
     <string name="spam_rules_tab_blocked">ব্লক করা</string>
     <string name="spam_rules_add">নিয়ম যোগ করুন</string>
-    <string name="spam_rules_import">নিয়ম ইমপোর্ট করুন</string>
-    <string name="spam_rules_export">নিয়ম এক্সপোর্ট করুন</string>
     <string name="spam_rules_empty_allowed_title">অনুমতি দেওয়ার কোনো নিয়ম নেই</string>
     <string name="spam_rules_empty_allowed_body">আপনি যেগুলিকে অনুমতি দেন, সেগুলি সবসময় আপনার ইনবক্সে পৌঁছায়, এমনকি কঠোর মোডেও। একটি নম্বর, প্রেরকের নাম বা কিওয়ার্ড যোগ করুন।</string>
     <string name="spam_rules_empty_blocked_title">ব্লক করার কোনো নিয়ম নেই</string>
@@ -54,34 +46,21 @@
         <item quantity="other">%dটি নিয়ম ইমপোর্ট করা হয়েছে</item>
     </plurals>
     <string name="spam_rules_import_skipped">%dটি লাইন বাদ দেওয়া হয়েছে (সঠিক নয় বা আগেই যোগ করা হয়েছে)</string>
-    <string name="spam_rules_import_failed">ফাইলটি পড়া যায়নি</string>
-    <string name="spam_rules_import_empty">ফাইলটিতে কোনো সঠিক নিয়ম পাওয়া যায়নি</string>
     <plurals name="spam_rules_exported" tools:ignore="ImpliedQuantity">
         <item quantity="one">%dটি নিয়ম এক্সপোর্ট করা হয়েছে</item>
         <item quantity="other">%dটি নিয়ম এক্সপোর্ট করা হয়েছে</item>
     </plurals>
-    <string name="spam_rules_export_failed">ফাইলে লেখা যায়নি</string>
     <string name="spam_rules_tab_count">%1$s, %2$d</string>
     <string name="spam_type_number">নম্বর</string>
     <string name="spam_type_prefix">নম্বরের শুরুর অংশ</string>
     <string name="spam_type_sender_id">প্রেরকের নাম</string>
     <string name="spam_type_keyword">কিওয়ার্ড</string>
     <string name="spam_type_regex">প্যাটার্ন (রেগেক্স)</string>
-    <string name="spam_type_number_help">একটি নির্দিষ্ট ফোন নম্বর, যেমন +919876543210।</string>
-    <string name="spam_type_prefix_help">এটি দিয়ে শুরু হওয়া সব নম্বর, যেমন +91140।</string>
-    <string name="spam_type_sender_id_help">অক্ষরে লেখা প্রেরকের নাম, যেমন VM-HDFCBK। বড় ও ছোট হাতের অক্ষরে পার্থক্য করা হয় না।</string>
     <string name="spam_type_keyword_help">এই লেখা আছে এমন যেকোনো বার্তা, বড় শব্দের মধ্যে থাকলেও: “win” দিলে “window”-ও মিলে যাবে। বড় ও ছোট হাতের অক্ষরে পার্থক্য করা হয় না। প্রেরকও ব্লক হয়, তবে তিনি আপনার কন্টাক্টে থাকলে নয়।</string>
     <string name="spam_type_keyword_allow_help">যে প্রেরকেরই হোক, এই লেখা থাকা যেকোনো বার্তা আপনার সব ব্লক এড়িয়ে আসবে। একটি দীর্ঘ, নির্দিষ্ট বাক্যাংশ ব্যবহার করুন।</string>
-    <string name="spam_type_regex_help">অভিজ্ঞদের জন্য। বার্তার লেখার সঙ্গে মিলিয়ে দেখা হয় এমন একটি রেগুলার এক্সপ্রেশন। প্রেরকও ব্লক হয়, তবে তিনি আপনার কন্টাক্টে থাকলে নয়।</string>
-    <string name="spam_type_number_hint">+919876543210</string>
-    <string name="spam_type_prefix_hint">+91140</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">বিনামূল্যে উপহার</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_title_allow">অনুমতি দেওয়া তালিকায় যোগ করুন</string>
-    <string name="spam_sheet_title_block">ব্লক করা তালিকায় যোগ করুন</string>
-    <string name="spam_sheet_type_label">কী মিলিয়ে দেখা হবে</string>
-    <string name="spam_sheet_pattern_label">মান</string>
     <string name="spam_sheet_sim_label">যার জন্য প্রযোজ্য</string>
     <string name="spam_sheet_note_label">নোট (ঐচ্ছিক)</string>
     <string name="spam_sheet_add">নিয়ম যোগ করুন</string>
@@ -89,7 +68,6 @@
     <string name="spam_err_empty">একটি মান লিখুন</string>
     <string name="spam_err_number">সঠিক ফোন নম্বর লিখুন: 3 থেকে 15টি অঙ্ক, শুরুতে + থাকতে পারে</string>
     <string name="spam_err_prefix">1 থেকে 15টি অঙ্ক লিখুন, শুরুতে + থাকতে পারে</string>
-    <string name="spam_err_sender_id">বর্ণ, অঙ্ক, ড্যাশ বা ডট ব্যবহার করুন, অন্তত একটি বর্ণসহ (সর্বোচ্চ 16টি অক্ষর)</string>
     <string name="spam_err_keyword_short">অন্তত 2টি অক্ষর ব্যবহার করুন</string>
     <string name="spam_err_too_long">এটি খুব দীর্ঘ</string>
     <string name="spam_err_multiline">একটি লাইনেই লিখুন</string>
@@ -109,7 +87,6 @@
     <string name="spam_confirm_save">তবুও সেভ করুন</string>
     <string name="spam_confirm_remove_allowed">অনুমতি দেওয়া তালিকা থেকে সরিয়ে ব্লক করুন</string>
     <string name="spam_confirm_remove_allowed_detail">সেভ করলে আপনার “অনুমতি দেওয়া” তালিকা থেকে মিলে যাওয়া নিয়মটিও সরে যাবে।</string>
-    <string name="spam_import_title">নিয়ম ইমপোর্ট করবেন?</string>
     <plurals name="spam_import_new" tools:ignore="ImpliedQuantity">
         <item quantity="one">%dটি নতুন নিয়ম</item>
         <item quantity="other">%dটি নতুন নিয়ম</item>
@@ -119,16 +96,10 @@
         <item quantity="one">%dটি লাইন বাদ দেওয়া হবে (আগেই যোগ করা হয়েছে বা সঠিক নয়)</item>
         <item quantity="other">%dটি লাইন বাদ দেওয়া হবে (আগেই যোগ করা হয়েছে বা সঠিক নয়)</item>
     </plurals>
-    <string name="spam_import_examples">যেমন</string>
-    <string name="spam_import_risky_title">আগে এগুলি দেখে নিন</string>
-    <string name="spam_import_risky_body">অনুমতি দেওয়া কিওয়ার্ড ও প্যাটার্ন (রেগেক্স) আছে এমন যেকোনো বার্তা আপনার সব ব্লক এড়িয়ে আসবে। বেশি ব্যাপক নিয়ম স্বাভাবিক বার্তাও আটকে দিতে পারে।</string>
-    <string name="spam_import_rule_line">%1$s, %2$s: %3$s</string>
     <plurals name="spam_import_more" tools:ignore="ImpliedQuantity">
         <item quantity="one">এবং আরও %dটি</item>
         <item quantity="other">এবং আরও %dটি</item>
     </plurals>
-    <string name="spam_import_confirm">ইমপোর্ট করুন</string>
-    <string name="spam_settings_title">স্প্যাম সেটিংস</string>
     <string name="spam_settings_unknown_title">অচেনা প্রেরকের বার্তা</string>
     <string name="spam_settings_unknown_body">যেসব প্রেরক আপনার পরিচিতিতে নেই, যাঁদের আপনি কখনো বার্তা পাঠাননি এবং যাঁরা আপনার অনুমতি দেওয়া তালিকায় নেই।</string>
     <string name="spam_mode_strict">কঠোর</string>
@@ -141,15 +112,8 @@
     <string name="spam_strict_warning_body">ব্যাংক, ডেলিভারি সংস্থার বার্তা ও একবার ব্যবহারযোগ্য কোড সাধারণত এমন প্রেরকের কাছ থেকে আসে, যাঁরা আপনার পরিচিতিতে নেই। কঠোর মোডে কোডসহ এসব বার্তা “ব্লক করা” ফোল্ডারে যায়। কোড আসতে দিতে স্মার্ট বেছে নিন, অথবা ওই প্রেরকদের একবার অনুমতি দিন।</string>
     <string name="spam_strict_warning_action">ব্লক করা বার্তা দেখে নিন</string>
     <string name="spam_settings_cleanup_title">পরিষ্কার করুন</string>
-    <string name="spam_purge_title">যতদিন পরে ব্লক করা বার্তা মুছবেন</string>
     <string name="spam_purge_body">পুরোনো ব্লক করা বার্তা নিজে থেকেই মুছে যায়।</string>
     <string name="spam_purge_days">%d দিন</string>
     <string name="spam_purge_forever">কখনো নয়</string>
-    <string name="spam_settings_notify_title">বিজ্ঞপ্তি</string>
     <string name="spam_notify_title">বার্তা ব্লক করা হলে বিজ্ঞপ্তি দিন</string>
-    <string name="spam_notify_body">নীরব বিজ্ঞপ্তি দেখান। স্প্যাম যেন শব্দ না করে, তাই ডিফল্টভাবে বন্ধ থাকে।</string>
-    <string name="spam_settings_rules_row">অনুমতি দেওয়া ও ব্লক করার নিয়ম</string>
-    <string name="spam_settings_rules_row_body">নম্বর, প্রেরক, কিওয়ার্ড ও প্যাটার্ন (রেগেক্স)</string>
-    <string name="spam_settings_blocked_row">ব্লক করা বার্তা</string>
-    <string name="spam_settings_blocked_row_body">দেখে নিন, ফিরিয়ে আনুন বা মুছুন</string>
 </resources>

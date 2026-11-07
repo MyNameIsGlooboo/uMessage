@@ -3,5 +3,4 @@
     <string name="r2a_filter_codes">Códigos</string>
     <string name="r2a_filter_codes_empty_title">Nenhum código</string>
     <string name="r2a_filter_codes_empty_body">Conversas cuja última mensagem tem um código de uso único aparecem aqui.</string>
-    <string name="r2a_search_codes_window">Das últimas 24 horas</string>
 </resources>

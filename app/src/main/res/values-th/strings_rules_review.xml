@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">นำเข้ากฎจากไฟล์</string>
     <string name="rules2_menu_export">ส่งออกกฎเป็นไฟล์</string>
     <string name="rules2_menu_system">รายการบล็อกของ Android</string>
-    <string name="rules2_import_scope">ไฟล์กฎมีเฉพาะกฎอนุญาตและกฎบล็อก ไม่มีข้อความหรือกฎส่งต่อ</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">ยังไม่มีผู้ส่งที่อนุญาตเสมอ</string>
     <string name="rules2_empty_allowed_body">เพิ่มหมายเลข ชื่อผู้ส่ง หรือคำที่ต้องการให้เข้ากล่องข้อความเข้าเสมอ แตะเพิ่มกฎด้านล่าง</string>
@@ -25,7 +24,6 @@
     <plurals name="rules2_migrate_confirm_count">
         <item quantity="other">ย้าย %d รายการ</item>
     </plurals>
-    <string name="rules2_sheet_list_label">เพิ่มในรายการ</string>
     <string name="rules2_sheet_list_allow">อนุญาตเสมอ</string>
     <string name="rules2_sheet_list_block">บล็อกเสมอ</string>
     <string name="rules2_sheet_delete">ลบกฎ</string>

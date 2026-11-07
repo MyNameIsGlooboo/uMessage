@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="n09_backup_contents">Alles außer deinen Nachrichten: Regeln zum Erlauben, Blockieren und Weiterleiten sowie alle Einstellungen. Die Datei ist unverschlüsselt und enthält die Telefonnummern, an die du weiterleitest. Bewahre sie daher an einem geschützten Ort auf. Regeln zum Weiterleiten sind nach dem Wiederherstellen deaktiviert.</string>
     <string name="n09_label_spam">Spam-Schutz</string>
     <string name="n09_label_notifications">Benachrichtigungen</string>
     <string name="n09_label_chat">Chat und Nachrichtenliste</string>

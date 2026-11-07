@@ -4,85 +4,49 @@
     <string name="settings_title">Settings</string>
     <string name="settings_back">Back</string>
     <string name="settings_deprecated">Deprecated</string>
-    <string name="settings_close">Close</string>
 
     <!-- Spam protection -->
-    <string name="settings_group_spam">Spam protection</string>
-    <string name="settings_spam_mode_label">Unknown senders: %s</string>
     <string name="settings_spam_stats">%1$d stopped in the last 7 days, %2$d in total, %3$d restored</string>
-    <string name="settings_spam_unavailable">Spam protection status is not available right now.</string>
     <string name="settings_spam_open_settings">Spam protection</string>
     <string name="settings_spam_open_settings_body">Mode, retention and alerts</string>
     <string name="settings_spam_open_rules">Rules</string>
     <string name="settings_spam_open_rules_body">Numbers, sender names, keywords and patterns</string>
-    <string name="settings_spam_open_blocked">Blocked messages</string>
-    <string name="settings_spam_open_blocked_body">Review and restore what was held back</string>
     <string name="settings_spam_blocked_numbers_body">Numbers blocked through the system block list</string>
     <string name="settings_spam_blocked_keywords_body">Hide messages that contain these words</string>
 
     <!-- SIM cards -->
-    <string name="settings_group_sim">SIM cards</string>
-    <string name="settings_sim_permission_title">Show my SIM cards</string>
-    <string name="settings_sim_permission_body">Allow phone state access so uMessage can list your active SIMs. This permission is only used to read SIM names and slots.</string>
-    <string name="settings_sim_permission_action">Allow</string>
-    <string name="settings_sim_none">No active SIM cards found.</string>
     <string name="settings_sim_slot_title">SIM %1$d: %2$s</string>
     <string name="settings_sim_slot_unnamed">SIM %d</string>
-    <string name="settings_sim_number_unknown">Number not available</string>
-    <string name="settings_sim_default_badge">Default for new messages</string>
     <string name="settings_sim_default_title">Default SIM for new messages</string>
-    <string name="settings_sim_default_value">SIM %1$d, %2$s</string>
     <string name="settings_sim_default_ask">Ask every time</string>
     <string name="settings_sim_default_body">For new conversations. A reply goes out on the SIM the message arrived on.</string>
     <string name="settings_sim_default_phone">Same as phone settings</string>
     <string name="settings_sim_default_phone_value">Same as phone settings (%1$s)</string>
-    <string name="settings_sim_rule_hint_title">Rules per SIM</string>
-    <string name="settings_sim_rule_hint_body">With two SIMs, each allow or block rule can apply to one SIM or to both. Choose the SIM when you add a rule.</string>
 
     <!-- Notifications -->
     <string name="settings_group_notifications">Notifications</string>
-    <string name="settings_notifications_system_body">Sound, vibration and channels in system settings</string>
     <string name="settings_notifications_lock_body">What notifications show on the lock screen</string>
 
     <!-- Appearance -->
-    <string name="settings_group_appearance">Appearance</string>
-    <string name="settings_theme">Theme and colors</string>
-    <string name="settings_theme_body">Pick a look: light, dark, sky and more</string>
     <string name="settings_material_you">Material You colors</string>
     <string name="settings_material_you_body">Use the colors of your wallpaper</string>
     <string name="settings_font_size_body">Text size in conversations and lists</string>
     <string name="settings_date_format_body">How times show in conversations</string>
     <string name="settings_language_body">Language of the app</string>
-    <string name="settings_use_english_body">Show the app in English</string>
 
     <!-- Messages -->
-    <string name="settings_group_messages">Messages</string>
-    <string name="settings_character_counter_body">Count characters while you type</string>
-    <string name="settings_simple_characters_body">Replace special letters so messages fit in fewer parts</string>
-    <string name="settings_send_on_enter_body">Enter on the keyboard sends the message</string>
-    <string name="settings_delivery_reports_body">Ask the carrier to confirm delivery</string>
     <string name="settings_long_mms_body">Send long text as one multimedia message</string>
     <string name="settings_group_mms_body">Send messages to several people as a group</string>
     <string name="settings_mms_limit_body">Largest attachment size that is sent</string>
-    <string name="settings_keep_archived_body">Archived conversations stay archived when new messages arrive</string>
-    <string name="settings_recycle_bin_body">Deleted messages wait in the recycle bin first</string>
     <string name="settings_empty_recycle_bin_body">Permanently remove everything in the recycle bin</string>
 
     <!-- Backup -->
     <string name="settings_group_backup">Backup and restore</string>
-    <string name="settings_export_body">Save your messages to a file you choose</string>
-    <string name="settings_import_body">Bring messages in from a backup file</string>
 
     <!-- Privacy -->
-    <string name="settings_group_privacy">Privacy and security</string>
     <string name="settings_privacy_title">Nothing leaves your phone</string>
-    <string name="settings_privacy_body">uMessage does not ask Android for the network permission, so it cannot send your messages, contacts or settings anywhere. Spam decisions are made on this device.</string>
-    <string name="settings_app_lock_body">Ask for a PIN, pattern or fingerprint to open the app</string>
 
     <!-- Diagnostics -->
-    <string name="settings_group_diagnostics">Diagnostics</string>
-    <string name="settings_decision_log">Decision log</string>
-    <string name="settings_decision_log_body">Why a message was allowed or blocked</string>
 
     <!-- About -->
     <string name="settings_about_version">Version</string>
@@ -91,20 +55,12 @@
     <string name="settings_about_source">Source code</string>
     <string name="settings_about_source_body" translatable="false">github.com/MyNameIsGlooboo/uMessage</string>
     <string name="settings_about_no_browser">No app found to open the link</string>
-    <string name="settings_about_licenses">Licenses</string>
-    <string name="settings_about_licenses_body">Fossify Messages (GPL-3.0), Google Sans Flex (OFL-1.1), Vazirmatn (OFL-1.1), Roboto (Apache-2.0) and Material Symbols (Apache-2.0)</string>
-    <string name="settings_licenses_title">Licenses</string>
     <string name="settings_license_app_title">uMessage and Fossify Messages</string>
     <string name="settings_license_app_body">uMessage is a fork of Fossify Messages, copyright the Fossify contributors, itself derived from Simple SMS Messenger by Simple Mobile Tools. It is free software under the GNU General Public License version 3: you may use, study, share and change it, and distribute changes under the same license. It comes with no warranty. The full text is in the LICENSE file of the source repository, linked below.</string>
     <string name="settings_license_fonts_title">Fonts</string>
-    <string name="settings_license_fonts_body">Google Sans Flex (copyright the Google Sans Flex Project Authors) and Vazirmatn (copyright the Vazirmatn Project Authors) are licensed under the SIL Open Font License, Version 1.1: you may use, study, copy, embed and redistribute them, including in commercial products, but not sell them on their own, and modified versions must not use the reserved font names. Roboto (copyright Google LLC) is licensed under the Apache License, Version 2.0. The fonts are provided as is, without warranty. The licenses are at openfontlicense.org and apache.org/licenses/LICENSE-2.0.</string>
     <string name="settings_license_icons_title">Icons</string>
-    <string name="settings_license_icons_body">Material Symbols (copyright Google LLC) are licensed under the Apache License, Version 2.0. The icons are provided as is, without warranty. The license is at apache.org/licenses/LICENSE-2.0.</string>
     <string name="settings_license_libs_title">Other libraries</string>
     <string name="settings_license_libs_body">Fossify Commons (GPL-3.0), AndroidX, Jetpack Compose and other open-source libraries under their own licenses (Apache-2.0 and similar).</string>
-    <string name="settings_license_link_app">Read the license (LICENSE)</string>
-    <string name="settings_license_link_ofl">Read the SIL Open Font License 1.1</string>
-    <string name="settings_license_link_apache">Read the Apache License 2.0</string>
     <string name="settings_rate_title">Rate uMessage</string>
     <string name="settings_rate_body">Opens the Play Store</string>
     <string name="settings_feedback_title">Send feedback</string>

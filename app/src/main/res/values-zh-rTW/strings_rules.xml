@@ -14,21 +14,13 @@
     <plurals name="rules_deleted_many">
         <item quantity="other">已刪除%d條規則</item>
     </plurals>
-    <string name="rules_system_block_list">系統封鎖清單（也會封鎖來電）</string>
-    <string name="rules_legacy_note_keyword">來自舊的封鎖字詞清單</string>
-    <string name="rules_legacy_note_number">來自系統封鎖清單</string>
-    <string name="rules_legacy_banner_title">找到舊的封鎖清單</string>
-    <string name="rules_legacy_banner_body">有些字詞和號碼是在這些規則之外封鎖的。將它們移到這裡，就能在同一處查看及變更所有內容。</string>
     <string name="rules_legacy_banner_review">檢視</string>
     <string name="rules_legacy_banner_not_now">暫時不要</string>
     <string name="rules_legacy_section_keywords">舊的封鎖字詞清單</string>
     <string name="rules_legacy_section_keywords_body">在你將這些字詞移入規則前，仍會用於篩選。之後舊清單將停用。</string>
-    <string name="rules_legacy_section_system_body">Android會在uMessage收到前丟棄這些號碼的簡訊，因此它們永遠不會出現在「已封鎖」。這份清單與電話應用程式共用，也會封鎖來電。</string>
     <string name="rules_legacy_chip_old_list">舊清單</string>
     <string name="rules_legacy_chip_system">系統，含來電</string>
     <string name="rules_legacy_move">移至規則</string>
-    <string name="rules_legacy_open_system">開啟系統封鎖清單</string>
-    <string name="rules_migrate_title">將舊的封鎖清單移入規則</string>
     <string name="rules_migrate_nothing">舊清單上的所有項目都已在你的規則中。</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="other">舊封鎖字詞清單中的%d個字詞將成為關鍵字封鎖規則，之後舊清單將停用。</item>
@@ -39,9 +31,7 @@
     <plurals name="rules_migrate_numbers">
         <item quantity="other">同時將系統封鎖清單上的%d個號碼新增為封鎖規則</item>
     </plurals>
-    <string name="rules_migrate_numbers_body">Android會丟棄系統封鎖清單上號碼的簡訊，因此uMessage永遠收不到。改為uMessage規則後，這些簡訊會改為移至「已封鎖」，讓你可以閱讀及還原，但前提是這些號碼已移出系統清單。</string>
     <string name="rules_migrate_remove">同時從系統封鎖清單中移除</string>
-    <string name="rules_migrate_remove_body">系統清單也會封鎖來電。從清單移除的號碼將能再次打給你。uMessage只會篩選簡訊。</string>
     <plurals name="rules_migrate_numbers_kept">
         <item quantity="other">有%d個萬用字元項目無法成為規則，會保留在系統清單中。</item>
     </plurals>
@@ -59,7 +49,6 @@
         <item quantity="other">有%d個項目保留在舊清單中</item>
     </plurals>
     <string name="rules_migrated_nothing">沒有移動任何項目。</string>
-    <string name="settings_system_block_list_body_calls">在整支手機上封鎖來電與簡訊。Android會在uMessage收到前丟棄這些簡訊。你可以將這些號碼移至「允許與封鎖」。</string>
     <string name="settings_old_blocked_words">舊的封鎖字詞清單</string>
     <string name="settings_old_blocked_words_body">正在移至規則</string>
 </resources>

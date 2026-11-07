@@ -47,7 +47,6 @@
     <string name="settings_app_lock_timeout_5m">5 dakika sonra</string>
     <string name="settings_app_lock_screenshots">Ekran görüntülerini engelleyin</string>
     <string name="settings_app_lock_screenshots_body">Ekran görüntüsü almayı ve ekran kaydını engeller. Mesajlar son uygulamalar ekranında her zaman gizlenir.</string>
-    <string name="settings_app_lock_screenshots_body_old">Ekran görüntüsü almayı ve ekran kaydını engeller. Bu Android sürümünde mesajları son uygulamalar ekranında gizlemenin de tek yoludur.</string>
     <string name="settings_app_lock_change">PIN, desen veya biyometriyi değiştirin</string>
     <string name="settings_app_lock_weak">PIN\'iniz veya deseniniz kolay tahmin edilebilir</string>
     <string name="settings_app_lock_weak_body">PIN çok zayıf. Değiştirmek için dokunun</string>

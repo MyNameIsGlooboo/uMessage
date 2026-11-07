@@ -9,16 +9,12 @@
     <string name="w2b1_search_recent">Недавние запросы</string>
     <string name="w2b1_search_recent_clear">Очистить</string>
     <string name="w2b1_search_recent_clear_description">Очистить недавние запросы</string>
-    <string name="w2b1_search_digits_note">Поиск учитывает персидские и латинские цифры: 123 найдет и ۱۲۳.</string>
-    <string name="w2b1_search_section_conversations">Чаты</string>
-    <string name="w2b1_search_section_messages">Сообщения</string>
     <plurals name="w2b1_search_matches" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d совпадение</item>
         <item quantity="few">%d совпадения</item>
         <item quantity="many">%d совпадений</item>
         <item quantity="other">%d совпадения</item>
     </plurals>
-    <string name="w2b1_filter_all">Все</string>
     <string name="w2b1_filter_unread">Непрочитанные</string>
     <string name="w2b1_filter_unread_empty_title">Нет непрочитанных чатов</string>
     <string name="w2b1_filter_unread_empty_body">Все прочитано.</string>

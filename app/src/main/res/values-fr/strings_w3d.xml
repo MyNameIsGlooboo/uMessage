@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">Limite quotidienne de transferts</string>
     <string name="w3d_daily_limit_body">Nombre maximal de transferts par jour</string>
     <string name="w3d_hide_lock_codes">Masquer les codes sur l\'écran de verrouillage</string>
-    <string name="w3d_hide_lock_codes_body">Un message contenant un code affiche •••• sur l\'écran de verrouillage jusqu\'au déverrouillage.</string>
 </resources>

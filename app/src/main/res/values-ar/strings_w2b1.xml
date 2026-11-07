@@ -11,9 +11,6 @@
     <string name="w2b1_search_recent">عمليات البحث الأخيرة</string>
     <string name="w2b1_search_recent_clear">امسح</string>
     <string name="w2b1_search_recent_clear_description">امسح عمليات البحث الأخيرة</string>
-    <string name="w2b1_search_digits_note">يطابق البحث الأرقام الفارسية واللاتينية: البحث عن 123 يجد ۱۲۳ أيضًا.</string>
-    <string name="w2b1_search_section_conversations">المحادثات</string>
-    <string name="w2b1_search_section_messages">الرسائل</string>
     <plurals name="w2b1_search_matches">
         <item quantity="zero">%d نتائج مطابقة</item>
         <item quantity="one">نتيجة مطابقة واحدة (%d)</item>
@@ -22,7 +19,6 @@
         <item quantity="many">%d نتيجة مطابقة</item>
         <item quantity="other">%d نتيجة مطابقة</item>
     </plurals>
-    <string name="w2b1_filter_all">الكل</string>
     <string name="w2b1_filter_unread">غير المقروءة</string>
     <string name="w2b1_filter_unread_empty_title">لا توجد محادثات غير مقروءة</string>
     <string name="w2b1_filter_unread_empty_body">قرأت كل شيء.</string>

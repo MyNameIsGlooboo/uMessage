@@ -2,7 +2,6 @@
 <resources>
 
     <!-- Round 4, Blocked tab: the summary card at the top of the list -->
-    <string name="r4_banner_title">Spam protection</string>
     <!-- Shown under the big number of messages stopped this week; the number itself is not in the text. -->
     <plurals name="r4_banner_stopped_week">
         <item quantity="one">stopped in the last 7 days</item>

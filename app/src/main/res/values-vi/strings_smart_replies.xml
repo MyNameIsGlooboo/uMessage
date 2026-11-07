@@ -3,4 +3,6 @@
     <string name="smart_replies_title">Trả lời thông minh</string>
     <string name="smart_replies_summary">Trả lời nhanh từ danh sách trên điện thoại của bạn</string>
     <string name="smart_replies_hide">Ẩn gợi ý</string>
+    <string name="smart_replies_notif_title">Trả lời thông minh trong thông báo</string>
+    <string name="smart_replies_notif_summary">Hiển thị câu trả lời gợi ý dưới dạng nút trên thông báo. Chạm vào nút sẽ gửi văn bản đó.</string>
 </resources>

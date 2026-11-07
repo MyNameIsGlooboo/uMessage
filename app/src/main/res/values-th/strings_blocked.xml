@@ -30,12 +30,10 @@
     <plurals name="spam_purge_notice">
         <item quantity="other">ข้อความที่บล็อกจะถูกลบหลังผ่านไป %d วัน</item>
     </plurals>
-    <string name="spam_purge_notice_off">ข้อความที่บล็อกจะถูกเก็บไว้จนกว่าคุณจะลบ</string>
     <plurals name="spam_purge_left">
         <item quantity="other">จะถูกลบในอีก %d วัน</item>
     </plurals>
     <string name="spam_purge_left_today">จะถูกลบวันนี้</string>
-    <string name="convlist_report_spam">รายงานสแปม</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="other">รายงานสแปมแล้ว %d แชท ข้อความใหม่จากผู้ส่งเหล่านี้จะไปที่หน้าที่บล็อก และแชทจะถูกเก็บถาวร</item>
     </plurals>
@@ -43,18 +41,9 @@
         <item quantity="other">รายงานสแปมแล้ว %d แชท ข้อความใหม่จากผู้ส่งเหล่านี้จะไปที่หน้าที่บล็อก</item>
     </plurals>
     <string name="blocked_title">ที่บล็อก</string>
-    <string name="blocked_menu_rules">กฎ</string>
-    <string name="blocked_mode_group_cd">ผู้ส่งที่ไม่รู้จัก: %1$s, %2$d จาก %3$d</string>
-    <string name="blocked_mode_desc_strict">เข้มงวด: พักข้อความจากผู้ส่งที่ไม่รู้จักทุกราย รวมถึงรหัสยืนยัน</string>
-    <string name="blocked_mode_desc_smart">อัจฉริยะ: พักข้อความจากผู้ส่งที่ไม่รู้จัก แต่ให้รหัสที่ไม่มีลิงก์ผ่านได้</string>
-    <string name="blocked_mode_desc_off">ปิด: ข้อความจากผู้ส่งที่ไม่รู้จักจะเข้ากล่องข้อความเข้า กฎของคุณยังมีผล</string>
     <string name="blocked_snack_mode">ตั้งค่าผู้ส่งที่ไม่รู้จักเป็น %1$s แล้ว</string>
-    <string name="blocked_off_title">หยุดพักข้อความจากผู้ส่งที่ไม่รู้จัก?</string>
-    <string name="blocked_off_body">ข้อความจากผู้ส่งที่ไม่รู้จักจะไปที่กล่องข้อความเข้าโดยตรง กฎของคุณยังมีผล</string>
-    <string name="blocked_off_confirm">ปิด</string>
     <string name="blocked_stats_restored">คุณกู้คืนแล้ว %1$d</string>
     <string name="blocked_reason_unknown_link">ผู้ส่งที่ไม่รู้จัก มีลิงก์</string>
     <string name="blocked_may_be_important">อาจเป็นข้อความสำคัญ</string>
     <string name="blocked_action_move_inbox">ย้ายไปกล่องข้อความเข้า</string>
-    <string name="blocked_swipe_not_spam">ปัดเพื่อย้ายไปกล่องข้อความเข้า</string>
 </resources>

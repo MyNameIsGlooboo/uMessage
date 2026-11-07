@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">আপনার পরিচয় নিশ্চিত করুন</string>
     <string name="forward_tab">ফরোয়ার্ড করুন</string>
     <string name="forward_add">ফরোয়ার্ড যোগ করুন</string>
-    <string name="forward_intro">আপনার ইনবক্সে আসা বার্তা কোনো নিয়মের সঙ্গে মিললে SMS দিয়ে ফরোয়ার্ড করা হয়। ব্লক করা স্প্যাম কখনো ফরোয়ার্ড করা হয় না।</string>
     <string name="forward_paid_note">প্রতিবার ফরোয়ার্ড করলে SMS-এর খরচ লাগে।</string>
-    <string name="forward_empty_title">ফরোয়ার্ড করার কোনো নিয়ম নেই</string>
-    <string name="forward_empty_body">নিয়মের সঙ্গে মেলা বার্তার কপি অন্য ফোনে পাঠান, যেমন ব্যাংকের সতর্কবার্তা।</string>
     <string name="forward_row_from">প্রেরক: %1$s</string>
     <string name="forward_row_text">লেখা: %1$s</string>
     <string name="forward_row_any_sender">যেকোনো প্রেরক</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">নম্বর %1$d</string>
     <string name="forward_sheet_add_target">নম্বর যোগ করুন</string>
     <string name="forward_sheet_remove_target">%1$d নম্বর সরান</string>
-    <string name="forward_sheet_target_needed">ফরোয়ার্ড করার জন্য অন্তত একটি নম্বর যোগ করুন।</string>
     <string name="forward_err_target_invalid">7 থেকে 15 সংখ্যার একটি ফোন নম্বর লিখুন</string>
     <string name="forward_err_target_duplicate">এই নম্বর আগে থেকেই তালিকায় আছে</string>
     <string name="forward_sheet_window">শুধু নির্দিষ্ট সময়ে</string>
-    <string name="forward_sheet_window_body">শুধু এই সময়ের মধ্যে ফরোয়ার্ড করুন। শেষের সময় শুরুর আগে হলে তা মধ্যরাত পেরিয়ে পরের দিন পর্যন্ত চলবে।</string>
     <string name="forward_sheet_start">শুরু %1$s</string>
     <string name="forward_sheet_end">শেষ %1$s</string>
     <string name="forward_sheet_pick_start">শুরুর সময়</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">যে SIM-এ এসেছে</string>
     <string name="forward_sheet_send_from_label">যে SIM থেকে পাঠাবেন</string>
     <string name="forward_sim_same">একই SIM</string>
-    <string name="forward_sheet_codes">যাচাইকরণ কোড অন্তর্ভুক্ত করুন</string>
-    <string name="forward_sheet_codes_body">বন্ধ থাকলে, সাইন-ইন বা যাচাইকরণ কোডের মতো দেখতে বার্তা ফরোয়ার্ড করা হয় না।</string>
     <string name="forward_sheet_paid">প্রতিবার ফরোয়ার্ড করলে SMS-এর খরচ লাগে। দীর্ঘ বার্তা কয়েকটি ভাগে পাঠানো হয়।</string>
     <string name="forward_codes_title">যাচাইকরণ কোড ফরোয়ার্ড করবেন?</string>
     <string name="forward_codes_message">কোড ফরোয়ার্ড করলে প্রাপক আপনার অ্যাকাউন্টে সাইন-ইন করতে পারেন। প্রতারকেরা এই সুযোগ নেয়: কোড চুরি করতে মানুষকে বুঝিয়ে তাদের বার্তা ফরোয়ার্ড করায়। শুধু আপনার নিজের ফোনের জন্য এটি চালু করুন।</string>
     <string name="forward_codes_confirm">কোড অন্তর্ভুক্ত করুন</string>
-    <string name="forward_delete_title">ফরোয়ার্ড করার নিয়ম মুছবেন?</string>
-    <string name="forward_delete_message">এই নিয়মে আর বার্তা ফরোয়ার্ড করা হবে না।</string>
     <string name="forward_no_lock_title">অ্যাপ লক দিয়ে ফরোয়ার্ড করা সুরক্ষিত করুন</string>
     <string name="forward_no_lock_message">ফরোয়ার্ড করার নিয়ম আপনার বার্তা অন্য ফোনে পাঠায়, তাই আপনার আনলক করা ফোন হাতে পেলে যে কেউ এমন নিয়ম যোগ করতে পারেন। অ্যাপ লক থাকলে ফরোয়ার্ড করার নিয়ম বদলাতে আপনার PIN বা আঙুলের ছাপ চাওয়া হয়।</string>
     <string name="forward_no_lock_continue">এগিয়ে যান</string>

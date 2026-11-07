@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">تحویل ناموفق</string>
+    <string name="thread_many_parts_note">این متن بسیار بلند است: به صورت %1$d پیامک ارسال می‌شود. متن کوتاه‌تر هزینه کمتری دارد.</string>
+    <string name="attachments_total_too_large">این فایل‌ها روی هم برای یک پیام بیش از حد بزرگ هستند. ممکن است ارسال نشود.</string>
+    <string name="mms_download_failed_channel">دریافت پیام‌های تصویری</string>
+    <string name="mms_download_failed_title">پیام تصویری دریافت نشد</string>
+    <string name="mms_download_failed_text">دریافت آن ممکن نشد. اینترنت همراه خود را بررسی کنید؛ شاید فرستنده باید دوباره آن را بفرستد.</string>
+</resources>

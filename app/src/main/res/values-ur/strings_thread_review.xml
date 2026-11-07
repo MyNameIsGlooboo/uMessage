@@ -10,7 +10,6 @@
     <string name="thread_review_copy_password">پاس ورڈ کاپی کریں</string>
     <string name="thread_review_copy_username">صارف نام کاپی کریں</string>
     <string name="thread_review_sim_label">SIM %1$s</string>
-    <string name="thread_review_sends_from">%1$s سے بھیجتا ہے</string>
     <string name="thread_review_reply_disabled">یہ بھیجنے والا جواب وصول نہیں کر سکتا</string>
     <string name="thread_review_attach_camera">کیمرا</string>
     <string name="thread_review_attach_voice">آواز</string>

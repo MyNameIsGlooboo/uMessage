@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_screen_system_shows_text">Налаштування екрана блокування на вашому телефоні показує весь вміст сповіщень, тому Android може й далі показувати текст. Змініть його в налаштуваннях телефона, у розділі «Сповіщення».</string>
+    <string name="backup_timeout_title">Android зупинив резервне копіювання</string>
+    <string name="backup_timeout_text">Android обмежує, як довго резервне копіювання або відновлення може працювати у фоні, тому процес зупинено. Відкрийте налаштування, щоб запустити його знову.</string>
+</resources>

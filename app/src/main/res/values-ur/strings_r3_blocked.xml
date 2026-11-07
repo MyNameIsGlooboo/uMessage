@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="r3b_info_button">بلاک کرنا کیسے کام کرتا ہے</string>
-    <string name="r3b_info_title">بلاک کرنا کیسے کام کرتا ہے</string>
-    <string name="r3b_info_modes">نامعلوم بھیجنے والے</string>
-    <string name="r3b_info_mode_current">ابھی: %1$s</string>
-    <string name="r3b_info_messages">بلاک شدہ پیغامات</string>
-    <string name="r3b_info_open_sender">کسی بھیجنے والے کے پیغامات پڑھنے کے لیے اس پر ٹیپ کریں۔</string>
-    <string name="r3b_info_move">«ان باکس میں منتقل کریں» بھیجنے والے کے تمام پیغامات آپ کے ان باکس میں ڈال دیتا ہے، پھر پوچھتا ہے کہ کیا اسے ہمیشہ اجازت دی جائے۔</string>
-    <string name="r3b_info_release">«ایک بار چھوڑیں» (کسی پیغام کو دبائے رکھیں) صرف وہی پیغام آپ کے ان باکس میں ڈالتا ہے۔ بھیجنے والے کو اجازت نہیں ملتی۔</string>
-    <string name="r3b_info_swipe">بھیجنے والے کے پیغامات ان باکس میں منتقل کرنے کے لیے اسے قطار کے آخر کی طرف سوائپ کریں۔</string>
     <string name="r3b_open_sender">پیغامات کھولیں</string>
     <string name="r3b_move_inbox_for">ان باکس میں منتقل کریں، %1$s</string>
     <string name="r3b_delete_for">حذف کریں، %1$s</string>
@@ -22,12 +13,8 @@
     <string name="r3b_text_copied">متن کاپی ہو گیا</string>
     <string name="r3b_delete_message">حذف کریں</string>
     <string name="r3b_received">موصول %1$s</string>
-    <string name="r3b_info_mode_strict">سخت: ہر نامعلوم بھیجنے والے کو روکتا ہے، تصدیقی کوڈ بھی۔</string>
-    <string name="r3b_info_mode_smart">اسمارٹ: نامعلوم بھیجنے والوں کو روکتا ہے، لیکن بغیر لنک والے کوڈ آنے دیتا ہے۔</string>
-    <string name="r3b_info_mode_off">بند: نامعلوم بھیجنے والے آپ کے ان باکس میں آتے ہیں۔ آپ کے اصول پھر بھی لاگو ہیں۔</string>
     <plurals name="r3b_info_purge">
         <item quantity="one">بلاک شدہ پیغامات %d دن بعد حذف ہو جاتے ہیں۔</item>
         <item quantity="other">بلاک شدہ پیغامات %d دن بعد حذف ہو جاتے ہیں۔</item>
     </plurals>
-    <string name="r3b_info_purge_off">بلاک شدہ پیغامات تب تک رہتے ہیں جب تک آپ انہیں حذف نہ کریں۔</string>
 </resources>

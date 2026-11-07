@@ -10,7 +10,6 @@
     <string name="thread_review_copy_password">Копировать пароль</string>
     <string name="thread_review_copy_username">Копировать имя пользователя</string>
     <string name="thread_review_sim_label">SIM-карта %1$s</string>
-    <string name="thread_review_sends_from">Отправка с %1$s</string>
     <string name="thread_review_reply_disabled">Этот отправитель не принимает ответы</string>
     <string name="thread_review_attach_camera">Камера</string>
     <string name="thread_review_attach_voice">Голос</string>

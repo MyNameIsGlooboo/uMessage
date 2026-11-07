@@ -22,7 +22,6 @@
     <string name="add_contact_or_number">Kontakt oder Nummer hinzufügen…</string>
     <string name="suggestions">Vorschläge</string>
     <string name="members">Mitglieder</string>
-    <string name="conversation_name">Name der Unterhaltung</string>
     <string name="conversation_details">Details zur Unterhaltung</string>
     <string name="rename_conversation">Unterhaltung umbenennen</string>
     <string name="rename_conversation_warning">Nur du siehst diesen Namen der Unterhaltung</string>
@@ -80,7 +79,6 @@
     <string name="mms_file_size_limit">Bilder beim MMS-Versand verkleinern</string>
     <string name="mms_file_size_limit_none">Keine Begrenzung</string>
     <string name="outgoing_messages">Ausgehende Nachrichten</string>
-    <string name="group_message_mms">Gruppennachrichten als MMS senden</string>
     <string name="send_group_message">Format für Gruppennachrichten</string>
     <string name="group_message_send_description">Bei Gruppen-MMS bleiben Antworten in einer Unterhaltung. Dein Mobilfunkanbieter kann dafür Gebühren berechnen. Beim separaten Senden erhält jede Person eine eigene Nachricht. Das kannst du später in den App-Einstellungen ändern.</string>
     <string name="group_mms">Gruppen-MMS</string>
@@ -148,8 +146,6 @@
     <string name="invalid_short_code_desc">Du kannst nur auf Kurzwahlnummern aus Ziffern wie „503501“ antworten, nicht auf solche mit Buchstaben und Ziffern wie „AB-CD0“.</string>
     <string name="attachment_sized_exceeds_max_limit">Anhang überschreitet die maximale MMS-Größe</string>
     <string name="couldnt_download_mms">MMS konnte nicht heruntergeladen werden</string>
-    <string name="faq_1_title">Warum braucht die App Internetzugriff?</string>
-    <string name="faq_1_text">Leider ist er nötig, um MMS-Anhänge zu senden. Ohne MMS-Versand hätte die App einen großen Nachteil gegenüber anderen Apps. Deshalb haben wir uns dafür entschieden. Wie gewohnt gibt es aber keinerlei Werbung, Tracking oder Analysen. Das Internet wird nur zum Senden von MMS genutzt.</string>
     <string name="faq_2_title">Meine MMS kommen nicht an. Was kann ich tun?</string>
     <string name="faq_2_text">Mobilfunkanbieter begrenzen die MMS-Größe. Versuche, in den App-Einstellungen eine kleinere Grenze festzulegen.</string>
     <string name="faq_3_title">Unterstützt die App geplante Nachrichten?</string>

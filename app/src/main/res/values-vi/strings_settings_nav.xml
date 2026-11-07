@@ -5,20 +5,15 @@
     <string name="settings_nav_group_privacy_about">Quyền riêng tư và giới thiệu</string>
     <string name="settings_nav_spam_row">Chống tin nhắn rác</string>
     <string name="settings_nav_spam_page_title">Chống tin nhắn rác</string>
-    <string name="settings_nav_android_block_list">Danh sách chặn của Android</string>
     <string name="settings_nav_android_block_list_body">Chặn cả cuộc gọi</string>
     <string name="settings_nav_decision_log">Vì sao tin nhắn bị chặn?</string>
     <string name="settings_nav_decision_log_body">Lịch sử quyết định cho phép và chặn</string>
-    <string name="settings_nav_forwarding">Chuyển tiếp</string>
     <string name="settings_nav_forwarded_tab">Hiển thị thẻ Đã chuyển tiếp</string>
     <string name="settings_nav_forwarded_tab_body">Thẻ tin nhắn đã chuyển tiếp trong danh sách cuộc trò chuyện</string>
     <string name="settings_nav_forward_pause">Tạm dừng mọi chuyển tiếp</string>
     <string name="settings_nav_forward_pause_body">Quy tắc vẫn được lưu, không tin nhắn nào được chuyển tiếp</string>
-    <string name="settings_nav_messages_row">Soạn, gửi và lưu trữ</string>
-    <string name="settings_nav_messages_title">Tin nhắn</string>
     <string name="settings_nav_group_typing">Soạn tin</string>
     <string name="settings_nav_group_sending">Gửi tin</string>
-    <string name="settings_nav_group_storage">Lưu trữ</string>
     <string name="settings_nav_simple_chars">Đơn giản hóa chữ cái đặc biệt</string>
     <string name="settings_nav_simple_chars_body">Dùng chữ thường (é thành e), chia thành ít phần hơn</string>
     <string name="settings_nav_long_mms">Gửi văn bản dài dưới dạng MMS</string>
@@ -27,13 +22,10 @@
     <string name="settings_nav_archived">Cuộc trò chuyện đã lưu trữ</string>
     <string name="settings_nav_keep_archived">Giữ ẩn cuộc trò chuyện đã lưu trữ</string>
     <string name="settings_nav_keep_archived_body">Vẫn lưu trữ cuộc trò chuyện khi có tin nhắn mới</string>
-    <string name="settings_nav_recycle_bin">Dùng thùng rác</string>
-    <string name="settings_nav_recycle_bin_body">Tin nhắn đã xóa được giữ trong thùng rác trước</string>
     <string name="settings_nav_default_sim_value">SIM %1$d · %2$s</string>
     <string name="settings_nav_default_sim_ask">Luôn hỏi</string>
     <string name="settings_nav_open_android_settings">Mở cài đặt Android</string>
     <string name="settings_nav_lock_screen">Quyền riêng tư trên màn hình khóa</string>
-    <string name="settings_nav_theme">Giao diện</string>
     <string name="settings_nav_theme_body">Sáng, tối và màu sắc</string>
     <string name="settings_nav_app_lock">Khóa ứng dụng</string>
     <string name="settings_nav_app_lock_body">Yêu cầu PIN, hình mở khóa hoặc vân tay</string>
@@ -42,7 +34,6 @@
     <string name="settings_nav_about_row">Giới thiệu</string>
     <string name="settings_nav_about_body">Phiên bản, mã nguồn và giấy phép</string>
     <string name="settings_nav_privacy_body">Hoạt động ngoại tuyến. Không dữ liệu nào rời khỏi điện thoại của bạn</string>
-    <string name="settings_nav_version_body">Nhấn để sao chép đầy đủ thông tin bản dựng</string>
     <string name="settings_nav_version_copied">Đã sao chép thông tin bản dựng</string>
     <string name="settings_nav_source_body">Mở trên GitHub</string>
     <string name="settings_nav_licenses_row">Giấy phép mã nguồn mở</string>
@@ -62,7 +53,6 @@
     <string name="settings_nav_group_alerts">Cảnh báo</string>
     <string name="settings_nav_notify_body">Thông báo không âm thanh cho mỗi tin nhắn bị chặn</string>
     <string name="settings_nav_theme_title">Diện mạo</string>
-    <string name="settings_nav_theme_intro">Chọn diện mạo cho uMessage. Biểu tượng ứng dụng vẫn giữ nguyên.</string>
     <string name="settings_nav_theme_modes">Chế độ</string>
     <string name="settings_nav_theme_colours">Màu sắc</string>
 </resources>

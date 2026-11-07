@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">받은 메시지함으로 이동했습니다</string>
+    <string name="nsf_snack_moved_allowed">받은 메시지함으로 이동했습니다. %1$s의 다음 메시지도 도착합니다.</string>
+    <string name="nsf_moving">받은 메시지함으로 이동 중</string>
+</resources>

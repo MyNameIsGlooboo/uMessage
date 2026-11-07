@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">Échec de la remise</string>
+    <string name="thread_many_parts_note">Ce texte est très long : il sera envoyé en %1$d SMS. Les textes plus courts coûtent moins cher.</string>
+    <string name="attachments_total_too_large">Ces fichiers réunis sont trop volumineux pour un seul message. Il risque de ne pas être envoyé.</string>
+    <string name="mms_download_failed_channel">Téléchargements de messages avec images</string>
+    <string name="mms_download_failed_title">Message avec image non téléchargé</string>
+    <string name="mms_download_failed_text">Le téléchargement a échoué. Vérifiez vos données mobiles ; l\'expéditeur devra peut-être le renvoyer.</string>
+</resources>

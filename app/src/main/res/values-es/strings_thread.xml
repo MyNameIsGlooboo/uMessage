@@ -74,10 +74,8 @@
     <string name="thread_attach_photo">Foto</string>
     <string name="thread_attach_take_photo">Tomar foto</string>
     <string name="thread_attach_record_video">Grabar video</string>
-    <string name="thread_attach_record_audio">Grabar audio</string>
     <string name="thread_attach_file">Archivo</string>
     <string name="thread_attach_contact">Contacto</string>
-    <string name="thread_attach_schedule">Programar mensaje</string>
     <string name="thread_people_confirm">Listo</string>
     <string name="thread_people_add_number">Agregar este número</string>
     <string name="thread_people_remove">Quitar a %1$s</string>

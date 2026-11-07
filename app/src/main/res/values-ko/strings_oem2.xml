@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">직접 완료로 표시함</string>
     <string name="oem2_state_todo">아직 완료하지 않음</string>
     <string name="oem2_state_limited">Android 시스템이 여전히 uMessage 앱의 백그라운드 실행을 제한하고 있어요.</string>
-    <string name="oem2_open_again">다시 열기</string>
     <string name="oem2_undo">실행 취소</string>
     <string name="oem2_undo_cd">미완료로 표시: %1$s</string>
 </resources>

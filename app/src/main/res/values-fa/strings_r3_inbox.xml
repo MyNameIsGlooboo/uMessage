@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="r3_inbox_filter_show">نمایش فیلترها</string>
-    <string name="r3_inbox_filter_hide">پنهان کردن فیلترها</string>
-    <string name="r3_inbox_filter_show_active">نمایش فیلترها. فیلتر %1$s فعال است</string>
-    <string name="r3_inbox_filter_hide_active">پنهان کردن فیلترها. فیلتر %1$s فعال است</string>
-</resources>

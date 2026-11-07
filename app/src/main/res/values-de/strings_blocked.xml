@@ -36,13 +36,11 @@
         <item quantity="one">Blockierte Nachrichten werden nach %d Tag gelöscht</item>
         <item quantity="other">Blockierte Nachrichten werden nach %d Tagen gelöscht</item>
     </plurals>
-    <string name="spam_purge_notice_off">Blockierte Nachrichten bleiben, bis du sie löschst</string>
     <plurals name="spam_purge_left">
         <item quantity="one">Wird in %d Tag gelöscht</item>
         <item quantity="other">Wird in %d Tagen gelöscht</item>
     </plurals>
     <string name="spam_purge_left_today">Wird heute gelöscht</string>
-    <string name="convlist_report_spam">Spam melden</string>
     <plurals name="convlist_reported_spam_archived">
         <item quantity="one">Gemeldet. Neue Nachrichten dieses Absenders landen unter „Blockiert“. Die Unterhaltung wurde archiviert.</item>
         <item quantity="other">%d Unterhaltungen gemeldet. Neue Nachrichten dieser Absender landen unter „Blockiert“. Die Unterhaltungen wurden archiviert.</item>
@@ -52,18 +50,9 @@
         <item quantity="other">%d Unterhaltungen gemeldet. Neue Nachrichten dieser Absender landen unter „Blockiert“.</item>
     </plurals>
     <string name="blocked_title">Blockiert</string>
-    <string name="blocked_menu_rules">Regeln</string>
-    <string name="blocked_mode_group_cd">Unbekannte Absender: %1$s, %2$d von %3$d</string>
-    <string name="blocked_mode_desc_strict">Streng: hält alle Nachrichten unbekannter Absender zurück, auch Bestätigungscodes</string>
-    <string name="blocked_mode_desc_smart">Intelligent: hält Nachrichten unbekannter Absender zurück, lässt aber Codes ohne Link durch</string>
-    <string name="blocked_mode_desc_off">Aus: Unbekannte Absender erreichen deinen Posteingang. Deine Regeln gelten weiterhin</string>
     <string name="blocked_snack_mode">Unbekannte Absender: %1$s eingestellt</string>
-    <string name="blocked_off_title">Unbekannte Absender nicht mehr zurückhalten?</string>
-    <string name="blocked_off_body">Nachrichten unbekannter Absender landen direkt in deinem Posteingang. Deine Regeln gelten weiterhin.</string>
-    <string name="blocked_off_confirm">Ausschalten</string>
     <string name="blocked_stats_restored">%1$d von dir wiederhergestellt</string>
     <string name="blocked_reason_unknown_link">Unbekannter Absender, mit Link</string>
     <string name="blocked_may_be_important">Könnte wichtig sein</string>
     <string name="blocked_action_move_inbox">In den Posteingang verschieben</string>
-    <string name="blocked_swipe_not_spam">Wischen, um in den Posteingang zu verschieben</string>
 </resources>

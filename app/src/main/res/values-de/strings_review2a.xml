@@ -3,5 +3,4 @@
     <string name="r2a_filter_codes">Codes</string>
     <string name="r2a_filter_codes_empty_title">Keine Codes</string>
     <string name="r2a_filter_codes_empty_body">Hier erscheinen Unterhaltungen, deren letzte Nachricht einen Einmalcode enthält.</string>
-    <string name="r2a_search_codes_window">Aus den letzten 24 Stunden</string>
 </resources>

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">メッセージ、ルール、設定をファイルに保存</string>
-    <string name="settings_f_backup_rules_group">ルールと設定</string>
-    <string name="settings_f_backup_rules_contents">許可・ブロックのルール、転送ルールと設定をファイルに保存します。対象は迷惑メッセージ対策、通知、日付、文字サイズ、テーマ、Enterキー、転送制限です。メッセージ本文やアプリロックは含まれません。転送ルールはオフの状態で復元されます。</string>
-    <string name="settings_f_backup_messages_contents">メッセージ本文と画像を別のファイルに保存します。</string>
     <string name="settings_f_restore_title">このファイルから復元しますか？</string>
     <string name="settings_f_restore_rules">許可ルール：%1$d件、ブロックルール：%2$d件。既存のルールはスキップします。</string>
     <string name="settings_f_restore_forwards">追加する転送ルール：%1$d件。オフの状態で追加します。「ルール」の「転送」でオンにしてください。</string>

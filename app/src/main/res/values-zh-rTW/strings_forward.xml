@@ -17,10 +17,7 @@
     <string name="lock_confirm_title">確認是你本人</string>
     <string name="forward_tab">轉寄</string>
     <string name="forward_add">新增轉寄</string>
-    <string name="forward_intro">進入收件匣且符合規則的訊息會以簡訊轉寄出去。已封鎖的垃圾簡訊一律不會轉寄。</string>
     <string name="forward_paid_note">每次轉寄都是一則付費簡訊。</string>
-    <string name="forward_empty_title">沒有轉寄規則</string>
-    <string name="forward_empty_body">將符合條件的訊息（例如銀行通知）複製一份傳送到另一支手機。</string>
     <string name="forward_row_from">寄件者：%1$s</string>
     <string name="forward_row_text">文字：%1$s</string>
     <string name="forward_row_any_sender">任何寄件者</string>
@@ -44,11 +41,9 @@
     <string name="forward_sheet_target_n">號碼%1$d</string>
     <string name="forward_sheet_add_target">新增號碼</string>
     <string name="forward_sheet_remove_target">移除號碼%1$d</string>
-    <string name="forward_sheet_target_needed">請至少新增一個轉寄號碼。</string>
     <string name="forward_err_target_invalid">請輸入7到15位數的電話號碼</string>
     <string name="forward_err_target_duplicate">這個號碼已在清單中</string>
     <string name="forward_sheet_window">僅限特定時段</string>
-    <string name="forward_sheet_window_body">只在這段時間內轉寄。結束時間早於開始時間時，會跨過午夜。</string>
     <string name="forward_sheet_start">開始%1$s</string>
     <string name="forward_sheet_end">結束%1$s</string>
     <string name="forward_sheet_pick_start">開始時間</string>
@@ -56,14 +51,10 @@
     <string name="forward_sheet_scope_label">接收的SIM</string>
     <string name="forward_sheet_send_from_label">傳送的SIM</string>
     <string name="forward_sim_same">相同SIM</string>
-    <string name="forward_sheet_codes">包含驗證碼</string>
-    <string name="forward_sheet_codes_body">關閉時，看起來像登入碼或驗證碼的訊息不會轉寄。</string>
     <string name="forward_sheet_paid">每次轉寄都是一則付費簡訊。長訊息會分成多則傳送。</string>
     <string name="forward_codes_title">要轉寄驗證碼嗎？</string>
     <string name="forward_codes_message">轉寄驗證碼會讓收件者能登入你的帳戶。詐騙者常用這招：誘騙他人轉寄訊息來竊取驗證碼。請只在轉寄到你自己的手機時開啟。</string>
     <string name="forward_codes_confirm">包含驗證碼</string>
-    <string name="forward_delete_title">要刪除轉寄規則嗎？</string>
-    <string name="forward_delete_message">這條規則將不再轉寄訊息。</string>
     <string name="forward_no_lock_title">用應用程式鎖保護轉寄功能</string>
     <string name="forward_no_lock_message">轉寄規則會把你的訊息傳送到其他手機，因此任何拿到你未鎖定手機的人都能新增規則。設定應用程式鎖後，變更轉寄規則時需要輸入PIN或驗證指紋。</string>
     <string name="forward_no_lock_continue">繼續</string>

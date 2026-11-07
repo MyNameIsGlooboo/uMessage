@@ -44,7 +44,6 @@
     <string name="settings_app_lock_timeout_5m">Sau 5 phút</string>
     <string name="settings_app_lock_screenshots">Chặn chụp màn hình</string>
     <string name="settings_app_lock_screenshots_body">Chặn chụp và quay màn hình. Tin nhắn luôn được ẩn trong ứng dụng gần đây.</string>
-    <string name="settings_app_lock_screenshots_body_old">Chặn chụp và quay màn hình. Trên phiên bản Android này, đây cũng là cách duy nhất để ẩn tin nhắn trong ứng dụng gần đây.</string>
     <string name="settings_app_lock_change">Đổi PIN, hình mở khóa hoặc sinh trắc học</string>
     <string name="settings_app_lock_weak">PIN hoặc hình mở khóa của bạn dễ đoán</string>
     <string name="settings_app_lock_weak_body">PIN quá yếu. Nhấn để đổi</string>

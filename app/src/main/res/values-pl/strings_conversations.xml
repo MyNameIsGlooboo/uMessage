@@ -4,7 +4,6 @@
     <string name="convlist_empty_title">Nie masz jeszcze rozmów</string>
     <string name="convlist_empty_body">Tutaj pojawią się wysłane i odebrane wiadomości.</string>
     <string name="convlist_start_conversation">Rozpocznij rozmowę</string>
-    <string name="convlist_new_conversation">Nowa rozmowa</string>
     <string name="convlist_draft">Wersja robocza</string>
     <string name="convlist_pinned">Przypięte</string>
     <string name="convlist_muted">Powiadomienia wyłączone</string>
@@ -28,7 +27,6 @@
     <string name="convlist_unpin">Odepnij</string>
     <string name="convlist_mark_read">Oznacz jako przeczytane</string>
     <string name="convlist_mark_unread">Oznacz jako nieprzeczytane</string>
-    <string name="convlist_block_number">Zablokuj numer</string>
     <string name="convlist_add_contact">Dodaj numer do kontaktu</string>
     <string name="convlist_copy_number">Kopiuj numer</string>
     <string name="convlist_dial">Zadzwoń</string>
@@ -67,7 +65,5 @@
     <string name="convlist_block_message">Zablokować %1$s? Nowe wiadomości z tego numeru trafią do folderu Zablokowane wiadomości zamiast do Odebranych. Nadal możesz je tam czytać lub przywrócić.</string>
     <string name="convlist_block_confirm">Zablokuj</string>
     <string name="convlist_rename_title">Zmień nazwę rozmowy</string>
-    <string name="convlist_rename_hint">Nazwa rozmowy</string>
-    <string name="convlist_ok">OK</string>
     <string name="convlist_cancel">Anuluj</string>
 </resources>

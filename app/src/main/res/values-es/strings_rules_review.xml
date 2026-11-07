@@ -5,7 +5,6 @@
     <string name="rules2_menu_import">Importar reglas desde un archivo</string>
     <string name="rules2_menu_export">Exportar reglas a un archivo</string>
     <string name="rules2_menu_system">Lista de bloqueados de Android</string>
-    <string name="rules2_import_scope">Un archivo de reglas solo contiene reglas para permitir y bloquear. No incluye mensajes ni reglas de reenvío.</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">No hay remitentes permitidos siempre</string>
     <string name="rules2_empty_allowed_body">Agrega un número, nombre de remitente o palabra que siempre deba llegar a tu bandeja de entrada. Toca Agregar regla abajo.</string>
@@ -26,7 +25,6 @@
         <item quantity="one">Mover %d elemento</item>
         <item quantity="other">Mover %d elementos</item>
     </plurals>
-    <string name="rules2_sheet_list_label">Agregar a la lista</string>
     <string name="rules2_sheet_list_allow">Permitir siempre</string>
     <string name="rules2_sheet_list_block">Bloquear siempre</string>
     <string name="rules2_sheet_delete">Eliminar regla</string>

@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">Giới hạn chuyển tiếp mỗi ngày</string>
     <string name="w3d_daily_limit_body">Số lượt chuyển tiếp tối đa mỗi ngày</string>
     <string name="w3d_hide_lock_codes">Ẩn mã trên màn hình khóa</string>
-    <string name="w3d_hide_lock_codes_body">Tin nhắn có mã hiển thị •••• trên màn hình khóa cho đến khi bạn mở khóa.</string>
 </resources>

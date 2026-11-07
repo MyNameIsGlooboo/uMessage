@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI part A, 0.4.2: optional permission label, Google Drive hint, Move from another app guide, plurals. -->
+    <string name="onb_allow_optional">اختیاری</string>
+    <string name="backup_drive_hint">برای استفاده از Google Drive، آن را در انتخاب‌گر فایل برگزینید.</string>
+    <string name="move_from_app_title">انتقال از برنامه‌ای دیگر</string>
+    <string name="move_from_app_row_body">پیامک‌هایتان را از برنامهٔ پیامک دیگری بیاورید</string>
+    <string name="move_from_app_intro">می‌خواهید به uMessage بیایید؟ پیامک‌های قدیمی‌تان هم همراهتان می‌آیند.</string>
+    <string name="move_from_app_step1">در برنامهٔ قبلی‌تان پشتیبان بگیرید. در SMS Backup &amp; Restore روی Back up now بزنید.</string>
+    <string name="move_from_app_step2">پشتیبان را در Google Drive یا در یک فایل روی گوشی ذخیره کنید.</string>
+    <string name="move_from_app_step3">به اینجا برگردید، روی «وارد کردن پیام‌ها» بزنید و همان فایل را انتخاب کنید.</string>
+    <string name="move_from_app_format">uMessage فایل‌های XML ساخته‌شده با SMS Backup &amp; Restore و پشتیبان‌های خودش را می‌خواند.</string>
+    <plurals name="sim_messages_done">
+        <item quantity="one">%1$d پیام کپی شد. %2$d پیام از قبل در گفتگوهای شما بود.</item>
+        <item quantity="other">%1$d پیام کپی شد. %2$d پیام از قبل در گفتگوهای شما بود.</item>
+    </plurals>
+    <plurals name="sim_messages_done_failed">
+        <item quantity="one">%1$d پیام کپی شد. %2$d پیام از قبل در گفتگوهای شما بود و %3$d پیام کپی نشد.</item>
+        <item quantity="other">%1$d پیام کپی شد. %2$d پیام از قبل در گفتگوهای شما بود و %3$d پیام کپی نشد.</item>
+    </plurals>
+    <plurals name="w3c_backup_saved">
+        <item quantity="one">پشتیبان ذخیره شد: %1$d مورد</item>
+        <item quantity="other">پشتیبان ذخیره شد: %1$d مورد</item>
+    </plurals>
+    <plurals name="dialogs_lock_pin_entered">
+        <item quantity="one">%d رقم وارد شده</item>
+        <item quantity="other">%d رقم وارد شده</item>
+    </plurals>
+    <plurals name="w3a_forward_limit_text">
+        <item quantity="one">سقف %d بازارسال تکمیل شد. بازارسال فردا ادامه می‌یابد.</item>
+        <item quantity="other">سقف %d بازارسال تکمیل شد. بازارسال فردا ادامه می‌یابد.</item>
+    </plurals>
+</resources>

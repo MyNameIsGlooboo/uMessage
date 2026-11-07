@@ -26,7 +26,6 @@
     <string name="dialogs_lock_locked_out">ان لاک کی بہت زیادہ غلط کوششیں۔\n%d سیکنڈ بعد دوبارہ کوشش کریں۔</string>
     <string name="dialogs_lock_pin_delete">آخری ہندسہ مٹائیں</string>
     <string name="dialogs_lock_pin_confirm">PIN کی تصدیق کریں</string>
-    <string name="dialogs_lock_pin_entered">%d ہندسے درج کیے گئے</string>
     <string name="dialogs_lock_pattern_pad">پیٹرن پیڈ</string>
     <string name="dialogs_lock_biometric_hint">تصدیق کے لیے کہ یہ آپ ہیں، اپنا فنگر پرنٹ یا چہرہ استعمال کریں۔</string>
     <string name="dialogs_lock_biometric_open">بایومیٹرکس سے تصدیق کریں</string>

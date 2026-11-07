@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s042_whole_word_title">Только слово целиком</string>
+    <string name="s042_whole_word_help">Совпадает только со словом целиком: win, но не window.</string>
+    <string name="s042_held_code_channel">Задержанные коды</string>
+    <string name="s042_held_code_title">Сообщение, похожее на код, задержано</string>
+    <string name="s042_held_code_text">В нём есть ссылка, поэтому оно в разделе «Заблокированные». Откройте его, если ждёте код.</string>
+    <string name="s042_contacts_off_title">Фильтр спама приостановлен</string>
+    <string name="s042_contacts_off_body">Разрешите доступ к контактам, чтобы uMessage отличал друзей от незнакомцев.</string>
+    <string name="s042_contacts_off_allow">Разрешить</string>
+</resources>

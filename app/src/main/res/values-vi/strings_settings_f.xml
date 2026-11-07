@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_f_backup_row_body">Sao lưu tin nhắn, quy tắc và cài đặt vào tệp</string>
-    <string name="settings_f_backup_rules_group">Quy tắc và cài đặt</string>
-    <string name="settings_f_backup_rules_contents">Tệp chứa quy tắc cho phép và chặn, quy tắc chuyển tiếp và cài đặt của bạn: chống tin nhắn rác, thông báo, ngày tháng, cỡ chữ, giao diện, phím Enter và giới hạn chuyển tiếp. Không chứa nội dung tin nhắn hay khóa ứng dụng của bạn. Quy tắc chuyển tiếp sẽ ở trạng thái tắt khi được khôi phục.</string>
-    <string name="settings_f_backup_messages_contents">Nội dung tin nhắn và hình ảnh, trong một tệp riêng.</string>
     <string name="settings_f_restore_title">Khôi phục từ tệp này?</string>
     <string name="settings_f_restore_rules">Quy tắc cho phép: %1$d · Quy tắc chặn: %2$d. Bỏ qua quy tắc bạn đã có.</string>
     <string name="settings_f_restore_forwards">Quy tắc chuyển tiếp sẽ thêm: %1$d, ở trạng thái tắt. Bật trong Quy tắc › Chuyển tiếp.</string>

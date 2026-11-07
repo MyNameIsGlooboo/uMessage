@@ -5,20 +5,15 @@
     <string name="settings_nav_group_privacy_about">プライバシーとアプリ情報</string>
     <string name="settings_nav_spam_row">迷惑メッセージ対策</string>
     <string name="settings_nav_spam_page_title">迷惑メッセージ対策</string>
-    <string name="settings_nav_android_block_list">Androidのブロックリスト</string>
     <string name="settings_nav_android_block_list_body">通話もブロックします。</string>
     <string name="settings_nav_decision_log">ブロックされた理由</string>
     <string name="settings_nav_decision_log_body">許可とブロックの判定履歴</string>
-    <string name="settings_nav_forwarding">転送</string>
     <string name="settings_nav_forwarded_tab">「転送済み」タブを表示</string>
     <string name="settings_nav_forwarded_tab_body">会話一覧に転送済みメッセージのタブを表示します。</string>
     <string name="settings_nav_forward_pause">すべての転送を一時停止</string>
     <string name="settings_nav_forward_pause_body">ルールを保存したまま、転送をすべて停止します。</string>
-    <string name="settings_nav_messages_row">入力・送信・保存</string>
-    <string name="settings_nav_messages_title">メッセージ</string>
     <string name="settings_nav_group_typing">入力</string>
     <string name="settings_nav_group_sending">送信</string>
-    <string name="settings_nav_group_storage">保存</string>
     <string name="settings_nav_simple_chars">特殊な文字を変換</string>
     <string name="settings_nav_simple_chars_body">éをeなどに置き換えて、分割数を減らします。</string>
     <string name="settings_nav_long_mms">長文をMMSで送信</string>
@@ -27,13 +22,10 @@
     <string name="settings_nav_archived">アーカイブ済みの会話</string>
     <string name="settings_nav_keep_archived">アーカイブ済みの会話を非表示のままにする</string>
     <string name="settings_nav_keep_archived_body">新着メッセージが届いても、会話をアーカイブ済みのままにします。</string>
-    <string name="settings_nav_recycle_bin">ゴミ箱を使用</string>
-    <string name="settings_nav_recycle_bin_body">削除したメッセージをいったんゴミ箱に移動します。</string>
     <string name="settings_nav_default_sim_value">SIM%1$d・%2$s</string>
     <string name="settings_nav_default_sim_ask">毎回確認</string>
     <string name="settings_nav_open_android_settings">Androidの設定を開きます。</string>
     <string name="settings_nav_lock_screen">ロック画面のプライバシー</string>
-    <string name="settings_nav_theme">テーマ</string>
     <string name="settings_nav_theme_body">ライト、ダーク、色</string>
     <string name="settings_nav_app_lock">アプリロック</string>
     <string name="settings_nav_app_lock_body">PIN、パターン、指紋で認証します。</string>
@@ -42,7 +34,6 @@
     <string name="settings_nav_about_row">アプリ情報</string>
     <string name="settings_nav_about_body">バージョン、ソースコード、ライセンス</string>
     <string name="settings_nav_privacy_body">オフラインで動作します。データは端末の外に出ません。</string>
-    <string name="settings_nav_version_body">タップするとビルド情報全体をコピーします。</string>
     <string name="settings_nav_version_copied">ビルド情報をコピーしました。</string>
     <string name="settings_nav_source_body">GitHubで開く</string>
     <string name="settings_nav_licenses_row">オープンソースライセンス</string>
@@ -62,7 +53,6 @@
     <string name="settings_nav_group_alerts">通知</string>
     <string name="settings_nav_notify_body">メッセージをブロックするたびに、音を鳴らさず通知します。</string>
     <string name="settings_nav_theme_title">デザイン</string>
-    <string name="settings_nav_theme_intro">uMessageのデザインを選択します。アプリアイコンは変わりません。</string>
     <string name="settings_nav_theme_modes">モード</string>
     <string name="settings_nav_theme_colours">色</string>
 </resources>

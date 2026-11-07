@@ -22,7 +22,6 @@
     <string name="add_contact_or_number">افزودن مخاطب یا شماره…</string>
     <string name="suggestions">پیشنهادها</string>
     <string name="members">اعضا</string>
-    <string name="conversation_name">نام گفتگو</string>
     <string name="conversation_details">جزئیات گفتگو</string>
     <string name="rename_conversation">تغییر نام گفتگو</string>
     <string name="rename_conversation_warning">این نام گفتگو فقط برای شما نمایش داده می‌شود</string>
@@ -80,7 +79,6 @@
     <string name="mms_file_size_limit">تغییر اندازهٔ تصاویر ارسالی MMS</string>
     <string name="mms_file_size_limit_none">بدون محدودیت</string>
     <string name="outgoing_messages">پیام‌های خروجی</string>
-    <string name="group_message_mms">ارسال پیام‌های گروهی به‌صورت MMS</string>
     <string name="send_group_message">قالب پیام گروهی</string>
     <string name="group_message_send_description">MMS گروهی پاسخ‌ها را در یک گفتگو نگه می‌دارد، اما ممکن است اپراتور هزینه دریافت کند. ارسال جداگانه، یک پیام به هر فرد می‌فرستد. می‌توانید بعداً این گزینه را در تنظیمات برنامه تغییر دهید.</string>
     <string name="group_mms">MMS گروهی</string>
@@ -148,8 +146,6 @@
     <string name="invalid_short_code_desc">فقط می‌توانید به کدهای کوتاه عددی مانند «503501» پاسخ دهید، نه کدهایی که هم حرف و هم عدد دارند، مانند «AB-CD0».</string>
     <string name="attachment_sized_exceeds_max_limit">حجم پیوست از سقف مجاز MMS بیشتر است</string>
     <string name="couldnt_download_mms">بارگیری MMS ممکن نشد</string>
-    <string name="faq_1_title">چرا برنامه به دسترسی به اینترنت نیاز دارد؟</string>
-    <string name="faq_1_text">متأسفانه این دسترسی برای ارسال پیوست‌های MMS لازم است. نداشتن امکان ارسال MMS در مقایسه با برنامه‌های دیگر کاستی بزرگی بود، برای همین این راه را انتخاب کردیم. بااین‌حال، مثل همیشه هیچ تبلیغ، ردیابی یا تحلیل داده‌ای در کار نیست و اینترنت فقط برای ارسال MMS استفاده می‌شود.</string>
     <string name="faq_2_title">گیرنده MMS من را دریافت نمی‌کند. کاری می‌توانم انجام دهم؟</string>
     <string name="faq_2_text">اپراتورها حجم MMS را محدود می‌کنند. می‌توانید در تنظیمات برنامه سقف حجم کمتری تعیین کنید.</string>
     <string name="faq_3_title">آیا برنامه از پیام‌های زمان‌بندی‌شده پشتیبانی می‌کند؟</string>

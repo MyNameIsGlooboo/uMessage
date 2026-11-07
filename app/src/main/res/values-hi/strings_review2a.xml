@@ -3,5 +3,4 @@
     <string name="r2a_filter_codes">कोड</string>
     <string name="r2a_filter_codes_empty_title">कोई कोड नहीं</string>
     <string name="r2a_filter_codes_empty_body">जिन बातचीत के सबसे नए मैसेज में ओटीपी है, वे यहां दिखेंगी.</string>
-    <string name="r2a_search_codes_window">पिछले 24 घंटों के</string>
 </resources>

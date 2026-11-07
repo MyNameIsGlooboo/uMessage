@@ -11,11 +11,6 @@
     <string name="convx_details_call">Telepon</string>
     <string name="convx_details_copy">Salin nomor</string>
     <string name="convx_details_add_contact">Tambahkan kontak</string>
-    <string name="convx_details_tap_to_rename">Ketuk untuk mengganti nama</string>
-    <string name="convx_details_notifications_hint">Pilih suara dan prioritas khusus untuk pengirim ini</string>
-    <string name="convx_details_block">Blokir pengirim ini</string>
-    <string name="convx_details_block_hint">Pesan baru masuk ke Pesan diblokir. Tidak ada data yang keluar dari ponsel.</string>
-    <string name="convx_details_status">Status</string>
     <string name="convx_new_send_to">Kirim ke %1$s</string>
     <string name="convx_new_group_hint">Pilih anggota grup. Pesan grup mungkin memerlukan data seluler dan setelan MMS.</string>
 </resources>

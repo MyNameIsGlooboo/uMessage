@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_status_delivery_failed">فشل التسليم</string>
+    <string name="thread_many_parts_note">هذا النص طويل جدًا: سيُرسل في %1$d رسائل نصية. النصوص الأقصر أقل تكلفة.</string>
+    <string name="attachments_total_too_large">هذه الملفات معًا أكبر من أن تُرسل في رسالة واحدة. قد لا تُرسل.</string>
+    <string name="mms_download_failed_channel">تنزيل الرسائل المصوّرة</string>
+    <string name="mms_download_failed_title">لم يتم تنزيل الرسالة المصوّرة</string>
+    <string name="mms_download_failed_text">تعذّر تنزيلها. تحقّق من بيانات الجوال؛ قد يحتاج المرسل إلى إرسالها مرة أخرى.</string>
+</resources>

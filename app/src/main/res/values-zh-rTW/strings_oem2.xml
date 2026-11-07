@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">你已標示為完成</string>
     <string name="oem2_state_todo">尚未完成</string>
     <string name="oem2_state_limited">Android仍在背景中限制uMessage</string>
-    <string name="oem2_open_again">再次開啟</string>
     <string name="oem2_undo">復原</string>
     <string name="oem2_undo_cd">將%1$s標示為未完成</string>
 </resources>

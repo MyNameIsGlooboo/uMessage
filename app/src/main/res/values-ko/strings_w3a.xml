@@ -2,5 +2,4 @@
 <resources>
     <string name="w3a_forward_limit_channel">전달 한도</string>
     <string name="w3a_forward_limit_title">오늘 전달 일시 중지</string>
-    <string name="w3a_forward_limit_text">전달 한도 %d건에 도달했어요. 내일 다시 전달해요.</string>
 </resources>

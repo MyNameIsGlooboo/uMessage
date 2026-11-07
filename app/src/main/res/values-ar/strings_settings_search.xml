@@ -76,4 +76,5 @@
     <string name="sks_version">إصدار بناء رقم نسخة تحديث نسخ</string>
     <string name="sks_source">مصدر شفرة GitHub مفتوح ترخيص مستودع</string>
     <string name="sks_licenses">التراخيص تراخيص مفتوح المصدر GPL قانوني خطوط مكتبات</string>
+    <string name="sks_privacy_policy">سياسة الخصوصية الشروط حماية البيانات قانوني</string>
 </resources>

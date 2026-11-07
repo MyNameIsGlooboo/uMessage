@@ -8,5 +8,4 @@
     <string name="w3d_daily_limit">দৈনিক ফরোয়ার্ডের সীমা</string>
     <string name="w3d_daily_limit_body">দিনে সর্বোচ্চ যতটি ফরোয়ার্ড করা যাবে</string>
     <string name="w3d_hide_lock_codes">লক স্ক্রিনে কোড লুকান</string>
-    <string name="w3d_hide_lock_codes_body">আপনি আনলক না করা পর্যন্ত কোড থাকা বার্তায় লক স্ক্রিনে •••• দেখায়।</string>
 </resources>

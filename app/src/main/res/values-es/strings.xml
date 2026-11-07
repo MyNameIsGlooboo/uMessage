@@ -22,7 +22,6 @@
     <string name="add_contact_or_number">Agregar contacto o número…</string>
     <string name="suggestions">Sugerencias</string>
     <string name="members">Integrantes</string>
-    <string name="conversation_name">Nombre de la conversación</string>
     <string name="conversation_details">Detalles de la conversación</string>
     <string name="rename_conversation">Cambiar nombre de la conversación</string>
     <string name="rename_conversation_warning">Solo tú puedes ver este nombre de la conversación</string>
@@ -80,7 +79,6 @@
     <string name="mms_file_size_limit">Ajustar el tamaño de las imágenes enviadas por MMS</string>
     <string name="mms_file_size_limit_none">Sin límite</string>
     <string name="outgoing_messages">Mensajes salientes</string>
-    <string name="group_message_mms">Enviar mensajes de grupo como MMS</string>
     <string name="send_group_message">Formato de mensajes de grupo</string>
     <string name="group_message_send_description">Los MMS de grupo mantienen las respuestas en una sola conversación, pero el operador podría cobrar por ellos. Al enviar por separado, se envía un mensaje a cada persona. Puedes cambiar esto después en la configuración de la aplicación.</string>
     <string name="group_mms">MMS de grupo</string>
@@ -148,8 +146,6 @@
     <string name="invalid_short_code_desc">Solo puedes responder a códigos cortos con números, como «503501», pero no a códigos que contengan letras y números, como «AB-CD0».</string>
     <string name="attachment_sized_exceeds_max_limit">El archivo adjunto supera el tamaño máximo de MMS</string>
     <string name="couldnt_download_mms">No se pudo descargar el MMS</string>
-    <string name="faq_1_title">¿Por qué la aplicación necesita acceso a internet?</string>
-    <string name="faq_1_text">Lamentablemente, es necesario para enviar archivos adjuntos por MMS. No poder enviar MMS sería una gran desventaja frente a otras aplicaciones, así que decidimos hacerlo así. Sin embargo, como siempre, no hay anuncios, rastreo ni análisis de uso de ningún tipo; internet solo se usa para enviar MMS.</string>
     <string name="faq_2_title">El destinatario no recibe mis MMS, ¿qué puedo hacer?</string>
     <string name="faq_2_text">Los operadores limitan el tamaño de los MMS. Puedes probar con un límite menor en la configuración de la aplicación.</string>
     <string name="faq_3_title">¿La aplicación permite programar mensajes?</string>

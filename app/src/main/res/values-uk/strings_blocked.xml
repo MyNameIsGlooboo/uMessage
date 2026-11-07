@@ -48,7 +48,6 @@
         <item quantity="many">Заблоковані повідомлення видаляються через %d днів</item>
         <item quantity="other">Заблоковані повідомлення видаляються через %d дня</item>
     </plurals>
-    <string name="spam_purge_notice_off">Заблоковані повідомлення зберігаються, доки ви їх не видалите</string>
     <plurals name="spam_purge_left" tools:ignore="ImpliedQuantity">
         <item quantity="one">Буде видалено через %d день</item>
         <item quantity="few">Буде видалено через %d дні</item>
@@ -56,7 +55,6 @@
         <item quantity="other">Буде видалено через %d дня</item>
     </plurals>
     <string name="spam_purge_left_today">Буде видалено сьогодні</string>
-    <string name="convlist_report_spam">Повідомити про спам</string>
     <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
         <item quantity="one">Про спам повідомлено. Нові повідомлення від цього відправника потраплятимуть у «Заблоковані», а чат заархівовано.</item>
         <item quantity="few">Повідомлено про спам у %d чатах. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані», а чати заархівовано.</item>
@@ -70,18 +68,9 @@
         <item quantity="other">Повідомлено про спам у %d чату. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані».</item>
     </plurals>
     <string name="blocked_title">Заблоковані</string>
-    <string name="blocked_menu_rules">Правила</string>
-    <string name="blocked_mode_group_cd">Невідомі відправники: %1$s, %2$d з %3$d</string>
-    <string name="blocked_mode_desc_strict">Суворий: затримує всі повідомлення від невідомих відправників, навіть коди підтвердження</string>
-    <string name="blocked_mode_desc_smart">Розумний: затримує повідомлення від невідомих відправників, але пропускає коди без посилань</string>
-    <string name="blocked_mode_desc_off">Вимкнено: повідомлення від невідомих відправників потрапляють у вхідні. Ваші правила діють</string>
     <string name="blocked_snack_mode">Для невідомих відправників вибрано режим: %1$s</string>
-    <string name="blocked_off_title">Не затримувати повідомлення від невідомих відправників?</string>
-    <string name="blocked_off_body">Повідомлення від невідомих відправників потраплятимуть одразу у вхідні. Ваші правила діятимуть і надалі.</string>
-    <string name="blocked_off_confirm">Вимкнути</string>
     <string name="blocked_stats_restored">Ви відновили: %1$d</string>
     <string name="blocked_reason_unknown_link">Невідомий відправник, є посилання</string>
     <string name="blocked_may_be_important">Може бути важливим</string>
     <string name="blocked_action_move_inbox">Перемістити у вхідні</string>
-    <string name="blocked_swipe_not_spam">Проведіть, щоб перемістити у вхідні</string>
 </resources>

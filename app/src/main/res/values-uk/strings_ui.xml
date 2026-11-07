@@ -17,15 +17,12 @@
     <string name="ui_add_contact_or_number">Введіть ім’я або номер телефону</string>
     <string name="ui_show_dialpad">Показати панель набору</string>
     <string name="ui_show_keyboard">Показати клавіатуру</string>
-    <string name="ui_settings_group_block_lists">Інші списки заблокованих</string>
     <string name="ui_settings_system_block_list">Системний список заблокованих</string>
     <string name="ui_settings_system_block_list_body">Номери, заблоковані для всіх застосунків на цьому телефоні. uMessage також їх приховує.</string>
     <string name="ui_settings_blocked_words">Заблоковані слова</string>
     <string name="ui_settings_character_counter">Показувати лічильник символів</string>
-    <string name="ui_settings_simple_characters">Прибирати діакритичні знаки під час надсилання</string>
     <string name="ui_settings_send_on_enter">Надсилати клавішею Enter</string>
     <string name="ui_settings_delivery_reports">Отримувати звіти про доставку</string>
-    <string name="ui_settings_recycle_bin">Переміщувати видалені чати в кошик</string>
     <string name="ui_two_sentences">%1$s. %2$s</string>
     <string name="ui_tab_with_count">%1$s (%2$d)</string>
     <string name="ui_send_with_sim">%1$s, %2$s</string>

@@ -11,7 +11,6 @@
     <string name="oem2_state_marked">Bạn đã đánh dấu là xong</string>
     <string name="oem2_state_todo">Chưa xong</string>
     <string name="oem2_state_limited">Android vẫn hạn chế uMessage chạy nền</string>
-    <string name="oem2_open_again">Mở lại</string>
     <string name="oem2_undo">Hoàn tác</string>
     <string name="oem2_undo_cd">Đánh dấu %1$s là chưa xong</string>
 </resources>

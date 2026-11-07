@@ -72,10 +72,8 @@
     <string name="thread_attach_photo">写真</string>
     <string name="thread_attach_take_photo">写真を撮影</string>
     <string name="thread_attach_record_video">動画を撮影</string>
-    <string name="thread_attach_record_audio">音声を録音</string>
     <string name="thread_attach_file">ファイル</string>
     <string name="thread_attach_contact">連絡先</string>
-    <string name="thread_attach_schedule">送信予約</string>
     <string name="thread_people_confirm">完了</string>
     <string name="thread_people_add_number">この番号を追加</string>
     <string name="thread_people_remove">%1$sを削除</string>

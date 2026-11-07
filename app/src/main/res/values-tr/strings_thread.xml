@@ -74,10 +74,8 @@
     <string name="thread_attach_photo">Fotoğraf</string>
     <string name="thread_attach_take_photo">Fotoğraf çekin</string>
     <string name="thread_attach_record_video">Video kaydedin</string>
-    <string name="thread_attach_record_audio">Ses kaydedin</string>
     <string name="thread_attach_file">Dosya</string>
     <string name="thread_attach_contact">Kişi</string>
-    <string name="thread_attach_schedule">Gönderimi planlayın</string>
     <string name="thread_people_confirm">Tamam</string>
     <string name="thread_people_add_number">Bu numarayı ekleyin</string>
     <string name="thread_people_remove">Kaldırın: %1$s</string>

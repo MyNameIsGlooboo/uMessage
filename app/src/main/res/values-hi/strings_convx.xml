@@ -11,11 +11,6 @@
     <string name="convx_details_call">कॉल करें</string>
     <string name="convx_details_copy">नंबर कॉपी करें</string>
     <string name="convx_details_add_contact">संपर्क जोड़ें</string>
-    <string name="convx_details_tap_to_rename">नाम बदलने के लिए टैप करें</string>
-    <string name="convx_details_notifications_hint">सिर्फ़ इस भेजने वाले के लिए आवाज़ और प्राथमिकता चुनें</string>
-    <string name="convx_details_block">इस भेजने वाले को ब्लॉक करें</string>
-    <string name="convx_details_block_hint">नए मैसेज ब्लॉक किए गए मैसेज में जाएंगे. आपके फ़ोन से कुछ भी बाहर नहीं जाता.</string>
-    <string name="convx_details_status">स्थिति</string>
     <string name="convx_new_send_to">%1$s को भेजें</string>
     <string name="convx_new_group_hint">ग्रुप के लिए लोग चुनें. ग्रुप मैसेज के लिए मोबाइल डेटा और MMS सेटिंग की ज़रूरत हो सकती है.</string>
 </resources>

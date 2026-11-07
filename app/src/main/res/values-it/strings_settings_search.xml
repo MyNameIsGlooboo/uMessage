@@ -76,4 +76,5 @@
     <string name="sks_version">versione build numero rilascio aggiornamento copia</string>
     <string name="sks_source">codice sorgente GitHub aperto licenze repository</string>
     <string name="sks_licenses">licenze open source GPL legale font librerie</string>
+    <string name="sks_privacy_policy">informativa privacy termini protezione dati legale</string>
 </resources>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="preset_intro">uMessage का रूप चुनें: लाइट या डार्क मोड और रंग.</string>
     <string name="preset_system">सिस्टम</string>
     <string name="preset_system_desc">आपके फ़ोन के मुताबिक लाइट या डार्क</string>
     <string name="preset_light">लाइट</string>
@@ -11,8 +10,6 @@
     <string name="preset_amoled_desc">OLED स्क्रीन के लिए बिल्कुल काला</string>
     <string name="preset_brand">गहरा नीला</string>
     <string name="preset_brand_desc">गहरा नीला और सुनहरा, uMessage का क्लासिक रूप</string>
-    <string name="preset_coral">कोरल</string>
-    <string name="preset_coral_desc">ऐप आइकॉन के कोरल और नीले रंग</string>
     <string name="preset_sky">आसमानी</string>
     <string name="preset_sky_desc">हल्का नीला और सफ़ेद</string>
     <string name="preset_forest">जंगल</string>

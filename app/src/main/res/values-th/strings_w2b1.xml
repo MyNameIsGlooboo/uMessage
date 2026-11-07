@@ -6,13 +6,9 @@
     <string name="w2b1_search_recent">การค้นหาล่าสุด</string>
     <string name="w2b1_search_recent_clear">ล้าง</string>
     <string name="w2b1_search_recent_clear_description">ล้างการค้นหาล่าสุด</string>
-    <string name="w2b1_search_digits_note">ค้นหาด้วยตัวเลขเปอร์เซียหรือละตินก็ได้: 123 จะพบเลขเดียวกันที่เขียนเป็นตัวเลขเปอร์เซียด้วย</string>
-    <string name="w2b1_search_section_conversations">การสนทนา</string>
-    <string name="w2b1_search_section_messages">ข้อความ</string>
     <plurals name="w2b1_search_matches">
         <item quantity="other">พบ %d รายการ</item>
     </plurals>
-    <string name="w2b1_filter_all">ทั้งหมด</string>
     <string name="w2b1_filter_unread">ยังไม่ได้อ่าน</string>
     <string name="w2b1_filter_unread_empty_title">ไม่มีการสนทนาที่ยังไม่ได้อ่าน</string>
     <string name="w2b1_filter_unread_empty_body">อ่านทั้งหมดแล้ว</string>

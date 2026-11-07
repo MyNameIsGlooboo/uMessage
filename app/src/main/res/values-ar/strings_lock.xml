@@ -59,7 +59,6 @@
     <string name="settings_app_lock_timeout_5m">بعد 5 دقائق</string>
     <string name="settings_app_lock_screenshots">احظر لقطات الشاشة</string>
     <string name="settings_app_lock_screenshots_body">يمنع لقطات الشاشة وتسجيلها. تُخفى الرسائل دائمًا من التطبيقات الأخيرة.</string>
-    <string name="settings_app_lock_screenshots_body_old">يمنع لقطات الشاشة وتسجيلها. وهو أيضًا الطريقة الوحيدة لإخفاء الرسائل من التطبيقات الأخيرة على هذا الإصدار من Android.</string>
     <string name="settings_app_lock_change">غيّر رقم التعريف الشخصي أو النمط أو القياسات الحيوية</string>
     <string name="settings_app_lock_weak">يسهل تخمين رقم التعريف الشخصي أو النمط</string>
     <string name="settings_app_lock_weak_body">رقم التعريف الشخصي ضعيف جدًا. اضغط لتغييره</string>

@@ -3,5 +3,4 @@
     <string name="r2a_filter_codes">Коди</string>
     <string name="r2a_filter_codes_empty_title">Кодів немає</string>
     <string name="r2a_filter_codes_empty_body">Тут з’являться чати, в останньому повідомленні яких є одноразовий код.</string>
-    <string name="r2a_search_codes_window">За останні 24 години</string>
 </resources>

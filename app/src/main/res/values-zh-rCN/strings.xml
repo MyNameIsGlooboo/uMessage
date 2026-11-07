@@ -21,7 +21,6 @@
     <string name="add_contact_or_number">添加联系人或号码…</string>
     <string name="suggestions">推荐</string>
     <string name="members">成员</string>
-    <string name="conversation_name">会话名称</string>
     <string name="conversation_details">会话详情</string>
     <string name="rename_conversation">重命名会话</string>
     <string name="rename_conversation_warning">只有你能看到此会话名称</string>
@@ -77,7 +76,6 @@
     <string name="mms_file_size_limit">调整发送的彩信图片大小</string>
     <string name="mms_file_size_limit_none">不限制</string>
     <string name="outgoing_messages">发送的消息</string>
-    <string name="group_message_mms">以彩信形式发送群组消息</string>
     <string name="send_group_message">群组消息格式</string>
     <string name="group_message_send_description">群组彩信会将回复保留在同一会话中，但运营商可能会收费。单独发送会分别给每人发送一条消息。之后可在应用设置中更改。</string>
     <string name="group_mms">群组彩信</string>
@@ -145,8 +143,6 @@
     <string name="invalid_short_code_desc">只能回复“503501”这样的纯数字短号码，无法回复“AB-CD0”这样包含字母和数字的短号码。</string>
     <string name="attachment_sized_exceeds_max_limit">附件大小超出彩信上限</string>
     <string name="couldnt_download_mms">无法下载彩信</string>
-    <string name="faq_1_title">为什么应用需要访问互联网？</string>
-    <string name="faq_1_text">发送彩信附件需要联网。相比其他应用，无法发送彩信会带来很大不便，因此我们决定保留联网功能。不过，我们一如既往，不含任何广告、跟踪或分析功能，联网仅用于发送彩信。</string>
     <string name="faq_2_title">对方收不到我的彩信，该怎么办？</string>
     <string name="faq_2_text">运营商对彩信大小有限制，可尝试在应用设置中调低大小上限。</string>
     <string name="faq_3_title">应用支持定时发送消息吗？</string>

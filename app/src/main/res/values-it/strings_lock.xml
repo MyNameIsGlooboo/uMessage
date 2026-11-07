@@ -47,7 +47,6 @@
     <string name="settings_app_lock_timeout_5m">Dopo 5 minuti</string>
     <string name="settings_app_lock_screenshots">Blocca screenshot</string>
     <string name="settings_app_lock_screenshots_body">Impedisce screenshot e registrazioni dello schermo. I messaggi sono sempre nascosti nelle app recenti.</string>
-    <string name="settings_app_lock_screenshots_body_old">Impedisce screenshot e registrazioni dello schermo. Su questa versione di Android è anche l\'unico modo per nascondere i messaggi nelle app recenti.</string>
     <string name="settings_app_lock_change">Cambia PIN, sequenza o autenticazione biometrica</string>
     <string name="settings_app_lock_weak">Il tuo PIN o la tua sequenza è facile da indovinare</string>
     <string name="settings_app_lock_weak_body">PIN troppo debole. Tocca per cambiarlo</string>

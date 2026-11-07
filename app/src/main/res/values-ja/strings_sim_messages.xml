@@ -10,6 +10,4 @@
     </plurals>
     <string name="sim_messages_import">コピー</string>
     <string name="sim_messages_importing">メッセージをコピー中…</string>
-    <string name="sim_messages_done">メッセージを%1$d件コピーしました。%2$d件はすでに会話にありました。</string>
-    <string name="sim_messages_done_failed">メッセージを%1$d件コピーしました。%2$d件はすでに会話にあり、%3$d件はコピーできませんでした。</string>
 </resources>
