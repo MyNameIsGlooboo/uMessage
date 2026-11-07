@@ -7,6 +7,8 @@ import android.provider.Telephony.Mms
 import android.provider.Telephony.Sms
 import android.util.Base64
 import com.glooboo.umessage.backup.AppDataBackupSupport
+import com.glooboo.umessage.backup.AppDataRequest
+import com.glooboo.umessage.backup.BlockedBackupSupport
 import com.glooboo.umessage.extensions.getConversationIds
 import com.glooboo.umessage.models.ExportSummary
 import com.glooboo.umessage.models.MessagesBackup
@@ -36,9 +38,10 @@ class MessagesReader(private val context: Context) {
     }
 
     /**
-     * [conversationIds] are the conversations to write (all by default); [format] decides the file. The XML format
-     * wants the number of messages up front, so it counts them first. [contactName] gives the saved name of a number
-     * for formats that write one.
+     * [conversationIds] are the conversations to write (all by default; [wholePhone] says whether they are all of
+     * them, which is when data of no chat, like the Blocked folder and saved texts, goes along); [format] decides the
+     * file. The XML format wants the number of messages up front, so it counts them first. [contactName] gives the
+     * saved name of a number for formats that write one.
      */
     fun export(
         output: OutputStream,
@@ -49,6 +52,7 @@ class MessagesReader(private val context: Context) {
         conversationIds: List<Long> = context.getConversationIds(),
         format: ExportFormat = ExportFormat.JSON,
         contactName: (String) -> String? = { null },
+        wholePhone: Boolean = true,
     ): ExportSummary {
         val summary = ExportSummary()
         val writer = output.bufferedWriter(Charsets.UTF_8)
@@ -68,7 +72,7 @@ class MessagesReader(private val context: Context) {
         }
         if (format == ExportFormat.JSON && !summary.cancelled) {
             writeNotes(sink, conversationIds, sms, mms, summary)
-            writeAppData(sink, conversationIds, sms, mms, summary)
+            writeAppData(sink, AppDataRequest(conversationIds.toSet(), sms, mms, wholePhone), summary)
         }
         sink.end()
         return summary
@@ -91,17 +95,21 @@ class MessagesReader(private val context: Context) {
     }
 
     /**
-     * Stars, labels and archived chats as the entry after the notes (see [AppDataBackup]). A failure here never
-     * fails the backup of the messages.
+     * Stars, labels, chat settings and the rest of [AppDataBackup] as the entry after the notes, then, for a whole
+     * phone, the Blocked folder as one entry per message. A failure here never fails the backup of the messages.
      */
-    private fun writeAppData(
-        sink: BackupEntrySink, conversationIds: List<Long>, sms: Boolean, mms: Boolean, summary: ExportSummary,
-    ) {
-        val data = runCatching {
-            runBlocking { AppDataBackupSupport.of(context).collect(conversationIds.toSet(), sms, mms) }
-        }.getOrNull() ?: return
-        sink.write(data)
-        summary.appData = data.size
+    private fun writeAppData(sink: BackupEntrySink, request: AppDataRequest, summary: ExportSummary) {
+        runCatching {
+            val support = AppDataBackupSupport.of(context)
+            runBlocking { support.collect(request.threadIds, request.sms, request.mms, request.wholePhone) }
+        }.getOrNull()?.let {
+            sink.write(it)
+            summary.appData = it.size
+        }
+        if (!request.wholePhone) return
+        summary.appData += runCatching {
+            BlockedBackupSupport.of(context).collect(request.sms, request.mms, sink::write)
+        }.getOrDefault(0)
     }
 
     private fun countMessages(conversationIds: List<Long>, sms: Boolean, mms: Boolean): Int {

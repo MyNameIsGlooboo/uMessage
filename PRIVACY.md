@@ -61,7 +61,7 @@ In the build that has it, forwarding is off until you create a rule. When a rule
 
 - Data is stored only on your phone, in the Android SMS database and uMessage's private app storage, which other apps cannot read.
 - The app opts out of Android and Google backups and device-to-device transfer, so its databases and settings are not copied off the phone that way. Your phone's own SMS backup, if you use one, is handled by your phone and not by uMessage.
-- Private notes you add to messages are stored only on the phone, in uMessage's private app storage, and are part of the message backups you create.
+- Private notes you add to messages are stored only on the phone, in uMessage's private app storage, and are part of the message backups you create. So are your stars, labels, archived, muted and hidden chats, drafts, recycle-bin messages, saved texts, Blocked folder messages and scheduled messages and reminders (never the app-lock PIN).
 - Saved texts and SIM names and numbers are stored as plain text in the app's private settings. Do not save passwords or PINs as saved texts.
 
 ## Exports and backup files

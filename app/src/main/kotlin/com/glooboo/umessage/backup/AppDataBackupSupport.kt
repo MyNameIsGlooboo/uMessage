@@ -34,10 +34,14 @@ class AppDataBackupSupport(
     private val pendingArchive: PendingArchive,
     private val addressesOf: (threadId: Long) -> Set<String>,
     private val threadFor: (addresses: Set<String>) -> Long?,
+    private val parts: List<AppDataPart> = emptyList(),
 ) {
 
-    /** The data of the chats in [threadIds] (stars whose chat is unknown go along); null when there is none. */
-    suspend fun collect(threadIds: Set<Long>, sms: Boolean, mms: Boolean): AppDataBackup? {
+    /**
+     * The data of the chats in [threadIds] (stars whose chat is unknown go along); null when there is none.
+     * [wholePhone] is true when every chat is exported: only then does data that belongs to no chat go along.
+     */
+    suspend fun collect(threadIds: Set<Long>, sms: Boolean, mms: Boolean, wholePhone: Boolean = true): AppDataBackup? {
         val starRows = stars.getAll()
             .filter { it.threadId == 0L || it.threadId in threadIds }
             .filter { if (it.isMMS) mms else sms }
@@ -52,18 +56,21 @@ class AppDataBackupSupport(
         val archived = conversations.getAllArchived().filter { it.threadId in threadIds }.mapNotNull {
             addressesOf(it.threadId).sorted().takeIf { people -> people.isNotEmpty() }?.let(::ChatRefBackup)
         }
-        val data = AppDataBackup(
+        val base = AppDataBackup(
             stars = starRows,
             labels = allLabels.map { LabelBackup(it.name, it.color, it.sortOrder) },
             labelLinks = links,
             archived = archived,
         )
+        val request = AppDataRequest(threadIds, sms, mms, wholePhone)
+        val data = parts.fold(base) { so, part -> part.collect(request, so) }
         return data.takeUnless { it.isEmpty }
     }
 
     /** Adds what [data] holds that this phone does not have yet; returns how many items were taken. */
     suspend fun restore(data: AppDataBackup): Int =
-        restoreStars(data.stars) + restoreLabels(data) + restoreArchived(data.archived)
+        restoreStars(data.stars) + restoreLabels(data) + restoreArchived(data.archived) +
+            parts.sumOf { part -> part.restore(data) }
 
     private suspend fun restoreStars(incoming: List<StarBackup>): Int {
         val known = stars.getAll().toMutableList()
@@ -133,20 +140,23 @@ class AppDataBackupSupport(
         fun of(context: Context): AppDataBackupSupport {
             val app = context.applicationContext
             val db = app.getMessagesDB()
+            val addressesOf = { threadId: Long ->
+                app.getThreadParticipants(threadId, null)
+                    .mapNotNull { it.phoneNumbers.firstOrNull()?.normalizedNumber?.takeIf(String::isNotBlank) }
+                    .toSet()
+            }
+            val threadFor = { addresses: Set<String> ->
+                runCatching { Telephony.Threads.getOrCreateThreadId(app, addresses) }
+                    .getOrNull()?.takeIf { it > 0 }
+            }
             return AppDataBackupSupport(
                 stars = db.StarredMessagesDao(),
                 labels = db.LabelsDao(),
                 conversations = app.conversationsDB,
                 pendingArchive = PendingArchive(app),
-                addressesOf = { threadId ->
-                    app.getThreadParticipants(threadId, null)
-                        .mapNotNull { it.phoneNumbers.firstOrNull()?.normalizedNumber?.takeIf(String::isNotBlank) }
-                        .toSet()
-                },
-                threadFor = { addresses ->
-                    runCatching { Telephony.Threads.getOrCreateThreadId(app, addresses) }
-                        .getOrNull()?.takeIf { it > 0 }
-                },
+                addressesOf = addressesOf,
+                threadFor = threadFor,
+                parts = AppDataParts.of(app, addressesOf, threadFor),
             )
         }
     }

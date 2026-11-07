@@ -167,6 +167,7 @@ class BackupService : Service() {
                     conversationIds = ids,
                     format = request.format,
                     contactName = ::savedName,
+                    wholePhone = request.threadIds == null,
                 )
                 output.close() // seals the last chunk of a protected file
                 written

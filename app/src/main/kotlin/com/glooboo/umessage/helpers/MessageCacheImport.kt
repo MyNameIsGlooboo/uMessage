@@ -2,6 +2,7 @@ package com.glooboo.umessage.helpers
 
 import android.content.Context
 import androidx.core.content.edit
+import com.glooboo.umessage.backup.PendingRecycled
 import com.glooboo.umessage.extensions.getMessages
 import com.glooboo.umessage.extensions.getOlderThreadMessages
 import com.glooboo.umessage.extensions.messagesDB
@@ -106,6 +107,8 @@ class MessageCacheImport(
                     },
                     save = { app.messagesDB.insertOrIgnoreAll(it) },
                 ).run(threadIds, isCancelled = isStale)
+                // Messages a restore recycled are cached now, so the names it kept can find them.
+                runCatching { PendingRecycled(app).applyTo(app.messagesDB) }
             } finally {
                 running.set(false)
             }

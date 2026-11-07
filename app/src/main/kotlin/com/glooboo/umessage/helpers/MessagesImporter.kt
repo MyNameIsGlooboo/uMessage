@@ -3,7 +3,9 @@ package com.glooboo.umessage.helpers
 import android.content.Context
 import android.util.Xml
 import com.glooboo.umessage.backup.AppDataBackupSupport
+import com.glooboo.umessage.backup.BlockedBackupSupport
 import com.glooboo.umessage.models.AppDataBackup
+import com.glooboo.umessage.models.BlockedBackup
 import com.glooboo.umessage.models.ImportSummary
 import com.glooboo.umessage.models.MessagesBackup
 import com.glooboo.umessage.models.MmsBackup
@@ -137,6 +139,9 @@ class MessagesImporter(
             } else if (backup is AppDataBackup) {
                 summary.entriesRead--
                 restoreAppData(backup, options, summary)
+            } else if (backup is BlockedBackup) {
+                summary.entriesRead--
+                restoreBlocked(backup, options, summary)
             } else if (backup != null) {
                 restore(backup, options, summary)
             }
@@ -149,7 +154,8 @@ class MessagesImporter(
             when (backup) {
                 is SmsBackup -> if (options.sms) writer.writeSmsMessage(backup.forThisPhone()) else null
                 is MmsBackup -> if (options.mms) writer.writeMmsMessage(backup.forThisPhone()) else null
-                is NotesBackup, is AppDataBackup -> null // handled by their own functions, never reach here
+                // handled by their own functions, never reach here
+                is NotesBackup, is AppDataBackup, is BlockedBackup -> null
             }
         } catch (e: Exception) {
             WriteResult(WriteOutcome.FAILED, e.javaClass.simpleName)
@@ -169,14 +175,29 @@ class MessagesImporter(
     }
 
     /**
-     * Takes the stars, labels and archived chats of the file. They only add to what the phone has, and they are
-     * restored last in the file, after the messages their chats are found by. A failure never stops the restore.
+     * Takes the stars, labels, archived, muted and hidden chats, drafts, recycle-bin names, scheduled messages,
+     * reminders and saved texts of the file. They only add to what the phone has, and they are restored last in the
+     * file, after the messages their chats are found by. A failure never stops the restore.
      */
     private fun restoreAppData(backup: AppDataBackup, options: Options, summary: ImportSummary) {
-        val chosen = backup.copy(stars = backup.stars.filter { if (it.isMms) options.mms else options.sms })
+        val chosen = backup.copy(
+            stars = backup.stars.filter { if (it.isMms) options.mms else options.sms },
+            recycled = backup.recycled.filter { if (it.isMms) options.mms else options.sms },
+        )
         summary.appDataRestored += runCatching {
             runBlocking { AppDataBackupSupport.of(context).restore(chosen) }
         }.getOrDefault(0)
+    }
+
+    /**
+     * Puts a blocked message back in the Blocked folder (the kinds the user chose). It never reaches the inbox or the
+     * system store, sends nothing and shows no notification. A failure leaves the message out and goes on.
+     */
+    private fun restoreBlocked(backup: BlockedBackup, options: Options, summary: ImportSummary) {
+        if (!(if (backup.isMms) options.mms else options.sms)) return
+        if (runCatching { BlockedBackupSupport.of(context).restore(backup) }.getOrDefault(false)) {
+            summary.appDataRestored++
+        }
     }
 
     private fun importXml(

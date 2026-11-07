@@ -46,6 +46,25 @@ class MutePrefs(
 
     fun unmute(threadId: Long) = prefs.edit { remove(key(threadId)) }
 
+    /** Every mute that has not ended: thread id to the time it ends ([ALWAYS] for one that never ends). */
+    fun activeMutes(): Map<Long, Long> {
+        val time = now()
+        return prefs.all.mapNotNull { (k, v) ->
+            val id = if (k.startsWith(PREFIX)) k.removePrefix(PREFIX).toLongOrNull() else null
+            if (id != null && v is Long && v > time) id to v else null
+        }.toMap()
+    }
+
+    /** Mutes [threadId] until [until] (a restored mute); a past time or a later mute already set changes nothing. */
+    fun muteUntil(threadId: Long, until: Long): Boolean {
+        if (until <= now() || mutedUntil(threadId) >= until) return false
+        prefs.edit {
+            dropEnded()
+            putLong(key(threadId), until)
+        }
+        return true
+    }
+
     private fun SharedPreferences.Editor.dropEnded() {
         val time = now()
         prefs.all.filter { (k, v) -> k.startsWith(PREFIX) && v is Long && v <= time }.keys.forEach { remove(it) }

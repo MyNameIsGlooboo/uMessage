@@ -7,17 +7,14 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
@@ -25,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,6 +48,8 @@ import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.components.localizedNumber
 import com.glooboo.umessage.ui.components.rememberTimeLabel
 import com.glooboo.umessage.ui.components.uiLocale
+import com.glooboo.umessage.ui.conversations.SwipeAction
+import com.glooboo.umessage.ui.conversations.SwipeBackground
 import com.glooboo.umessage.ui.icons.Symbols
 
 /** Row height floor, as on the Messages tab: two lines of text plus padding. */
@@ -87,22 +87,15 @@ internal fun BlockedSenderRow(
         animationSpec = if (reduceMotion) snap() else tween(150),
         label = "blockedRowBackground",
     )
-    val swipeLabel = stringResource(R.string.blocked_swipe_not_spam)
+    // The same icon-plus-label background the Messages and Archived rows draw; it follows the layout direction.
+    val swipeLabel = stringResource(R.string.blocked_action_move_inbox)
+    val notSpamSwipe = remember(swipeLabel) { SwipeAction(Symbols.Inbox, swipeLabel) {} }
     SwipeToDismissBox(
         state = swipeState,
         modifier = modifier,
         enableDismissFromStartToEnd = !selecting,
         enableDismissFromEndToStart = false,
-        backgroundContent = {
-            if (swipeState.dismissDirection != SwipeToDismissBoxValue.Settled) {
-                Box(
-                    Modifier.fillMaxSize().background(colors.primaryContainer).padding(horizontal = 24.dp),
-                    contentAlignment = Alignment.CenterStart,
-                ) {
-                    Icon(Symbols.Inbox, contentDescription = swipeLabel, tint = colors.onPrimaryContainer)
-                }
-            }
-        },
+        backgroundContent = { SwipeBackground(swipeState.dismissDirection, notSpamSwipe, null) },
     ) {
         SenderRowContent(group, sims, rules, selected, selecting, actions, background)
     }

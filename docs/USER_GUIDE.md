@@ -103,6 +103,8 @@ To move messages to a new phone:
 2. On the new phone, install uMessage, finish the first-run setup and make it the default SMS app, then open Settings > Backup and restore and tap **Import messages** (restore is only in Settings, not on the welcome screen).
 3. Export and import your **rules** separately from the rules screen.
 
+A backup of all your chats also holds what uMessage keeps beside the messages: private notes, stars, labels, archived, muted and hidden chats, drafts, messages in the recycle bin, your saved texts, the Blocked folder, and scheduled messages and reminders. Restoring puts the Blocked folder's messages back in the Blocked folder only, never in the inbox, and it never sends or shows anything. Messages scheduled for a time that has already passed are not brought back, except repeating ones, which continue at their next time; scheduled messages with attachments and the filter decision log are not in the backup. A backup of only some chats leaves out the Blocked folder, saved texts, scheduled messages and reminders. Hidden chats stay out of sight only while the app lock is on; the lock's PIN is never in a backup.
+
 Exported files are not encrypted. Anyone who can open the file can read your messages, so keep it somewhere private and delete it when you are done.
 
 ## Sharing into uMessage

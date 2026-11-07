@@ -16,4 +16,7 @@ enum class BackupType {
 
     @SerialName("umessage_appdata")
     APP_DATA,
+
+    @SerialName("umessage_blocked")
+    BLOCKED,
 }

@@ -19,8 +19,8 @@ import com.glooboo.umessage.ui.spam.CarrierReport
 /**
  * N09: the settings added after the first backup format, read from and written to the phone. Split from
  * [SettingsBackup] to keep that object small. Left out on purpose, because they belong to this phone or are secrets:
- * the app-lock PIN and pattern, SIM ids and names, saved texts, hidden chats, mute times, dismissed cards, one-time
- * flags and the times of the last cleanup and digest.
+ * the app-lock PIN and pattern, SIM ids and names, dismissed cards, one-time flags and the times of the last cleanup
+ * and digest. Saved texts, hidden chats and mutes are not settings: they go in the messages backup's app data.
  */
 internal object BackupMoreSettings {
 
