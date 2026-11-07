@@ -24,8 +24,8 @@ Everything below is processed only on your phone.
 - **Contacts.** Used to show names and to decide whether a sender is in your phonebook (for the spam filter). A cache of contact numbers is kept in private app storage. Contacts are never uploaded.
 - **Phone state and SIM information.** Used to detect your SIM cards and carriers and which SIM a message arrived on or should be sent from. SIM names and numbers you type yourself are kept in the app's private settings.
 - **Location (optional).** Only when you tap Location in the attach menu, the app reads your position once and puts a map link in the message field. You press Send yourself. The position is not stored and not sent anywhere by the app.
-- **Photos (optional).** Only if you allow it, the attach menu can show your recent pictures so you can attach one with a tap. A picture is read only when you tap it. By default the app removes GPS location and camera details from the copy it sends; your original picture is not changed. The system photo picker works without this permission.
-- **Notifications.** Used to show new messages. By default a locked phone shows only the sender, not the text.
+- **Photos (optional).** In the F-Droid/FOSS build only, if you allow it, the attach menu can show your recent pictures so you can attach one with a tap. The Google Play build has no such permission: you pick pictures with the system photo picker. A picture is read only when you tap it. By default the app removes GPS location and camera details from the copy it sends; your original picture is not changed. The system photo picker works without this permission.
+- **Notifications.** Used to show new messages. By default uMessage asks Android to show only the sender, not the text, while the phone is locked; the text appears once you unlock. You can switch the text on for the lock screen in Settings. Android has its own lock-screen setting ("Notifications on lock screen" or "Sensitive notifications"): if you set it to show all content, Android shows the text on the lock screen whatever uMessage asks.
 - **App lock (optional).** If you turn it on, a PIN hash is kept in the app's private settings. Fingerprint or face unlock is handled by Android; the app only receives a yes or no.
 - **Rules, settings and logs.** Your spam rules, blocked numbers and keywords, saved texts, settings, and a short decision log (sender number, decision, matching rule; no message text; kept for up to 7 days, at most 200 entries) are kept in private app storage.
 
@@ -38,11 +38,11 @@ Everything below is processed only on your phone.
 | READ_CONTACTS | Show contact names; tell known senders from unknown ones. |
 | READ_PHONE_STATE | Detect SIM cards and which SIM to use. |
 | ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION | Share your location, only when you tap Location in the attach menu. |
-| READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED, READ_EXTERNAL_STORAGE (Android 12 and older) | Show recent photos in the attach menu, only if you allow it. |
+| READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED (FOSS build only), READ_EXTERNAL_STORAGE (Android 12 and older) | Show recent photos in the attach menu, only if you allow it. The Google Play build does not declare the first two. |
 | POST_NOTIFICATIONS | Show notifications. |
-| CALL_PHONE | Start a call when you tap a number. The app never places calls on its own. |
 | USE_BIOMETRIC | Unlock the optional app lock with fingerprint or face. |
-| WAKE_LOCK, RECEIVE_BOOT_COMPLETED, SCHEDULE_EXACT_ALARM | Finish handling incoming messages with the screen off, and send scheduled messages on time, also after a reboot. |
+| WAKE_LOCK, RECEIVE_BOOT_COMPLETED | Finish handling incoming messages with the screen off, and send scheduled messages, also after a reboot. |
+| SCHEDULE_EXACT_ALARM (FOSS build only) | Send scheduled messages and reminders at the exact time. The Google Play build does not declare it and uses approximate times. |
 | FOREGROUND_SERVICE, FOREGROUND_SERVICE_DATA_SYNC | Keep a message backup or restore that you started running, with a progress notification. |
 
 The app manifest is the authoritative list of permissions.
@@ -70,7 +70,9 @@ The Google Play build may show Google's own rating card. The Play Store app show
 
 ## Exports and backup files
 
-The app creates an export or backup file only when you ask for it. It is written to the place you choose and stays there. These files are not encrypted and can contain message text and phone numbers, so keep them somewhere private and delete them when you no longer need them. uMessage does not upload them.
+The app creates an export or backup file only when you ask for it. It is written to the place you choose and stays there. A message export is not encrypted unless you protect it with a password when you create it. Backups of your settings and rules are never encrypted. These files can contain message text and phone numbers, so keep them somewhere private and delete them when you no longer need them. uMessage does not upload them. Tapping a phone number opens the phone's dialer with the number filled in; the app does not place the call itself.
+
+When you share a chat or the decision log, or attach a photo, uMessage makes a temporary copy in its private cache. Copies older than a day are deleted automatically.
 
 ## Retention and deletion
 

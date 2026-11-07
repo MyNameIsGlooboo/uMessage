@@ -18,7 +18,10 @@ encrypted by the app itself yet.
   cloud backup and device-to-device transfer (checked in this wave).
 - **No message text in logs.** Logcat lines describe failures (exception, counts, file names), never message text
   or numbers; the decision log never holds message text and now keeps entries for 7 days (SU-40).
-- **Notifications.** The lock screen shows only the sender by default (SB-16), and Reply, Copy code and Delete ask
+- **Notifications.** By default uMessage asks Android to show only the sender on a locked phone (SB-16): the posted
+  notification is private and carries a public version with the sender. Whether Android honours that depends on the
+  phone's own lock-screen setting: when it is set to "show all content", Android draws the private version in full, and
+  no app can prevent that (Settings warns about it). Reply, Copy code and Delete ask
   for an unlocked phone. Android's own notification history (if the user turned it on) keeps notification text;
   the app can't opt out of that.
 - **Exports.** The export dialog now says the file is not encrypted.

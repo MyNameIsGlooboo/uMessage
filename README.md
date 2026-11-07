@@ -8,15 +8,16 @@ uMessage is a fork of [Fossify Messages](https://github.com/FossifyOrg/Messages)
 
 ## Features
 
-- Full SMS and MMS messaging: group threads, search, drafts, scheduled send, backup and restore (inherited from Fossify Messages).
+- Full SMS and MMS messaging: group threads, search, drafts, scheduled send, recycle bin and archive, private notes on messages, stars and labels (partly inherited from Fossify Messages).
+- Backup and restore to a file (Settings > Backup and restore): messages with blocked messages, the recycle bin, drafts, muted and hidden chats, saved texts, scheduled messages, notes, stars, labels and archived chats; rules and settings in a second file. Backup files are not encrypted.
 - Smart mode by default on new installs: messages from unknown senders go to a Blocked folder instead of your inbox, but verification codes without a link still arrive. Strict blocks codes too; Off turns unknown-sender filtering off.
 - Allowed rules always win; blocked rules support exact number, prefix, alphanumeric sender id (for example `ACME-BANK`), keyword and regex rules. Adding an allowed keyword or pattern warns that any message containing it skips every block.
 - Rules can be exported and imported (SIM and note included); an import shows what it will add before anything changes.
-- Blocked folder is reversible: "Not spam" restores the messages to the real inbox and adds an allow rule for the sender in one step, with one Undo; names that anyone can fake get no rule. Delete the rule in Settings > Rules to stop allowing a sender. Blocked messages are purged after 30 days by default (configurable).
+- Blocked folder is reversible: "Not spam" restores the messages to the real inbox and adds an allow rule for the sender in one step, with one Undo; names that anyone can fake get no rule. Delete the rule in Settings > Spam protection > Rules to stop allowing a sender. Blocked messages are purged after 30 days by default (configurable).
 - Forward rules: send a copy of matching inbox messages (for example bank alerts) by SMS to up to three numbers. See [Forwarding](#forwarding). Only in the GitHub and F-Droid builds, not in the Google Play build.
 - Dual SIM: receive, send and rules per SIM.
 - Blocked MMS are not downloaded, so no mobile data is spent on them.
-- Light, dark and 11 colour themes, an optional app lock (PIN or fingerprint), a Copy code button on verification codes, and 20 languages including Persian and Arabic.
+- Light, dark and 11 colour themes, an optional app lock (PIN or fingerprint), a Copy code button on verification codes, and 22 languages (English and 21 more, including Persian, Arabic, Chinese in both scripts and Urdu).
 - Private: all data stays on the device, no analytics, no network access.
 
 ## Screenshots
@@ -33,9 +34,9 @@ uMessage is distributed as an APK on the [GitHub Releases](../../releases) page.
 
 1. On your phone, download the latest `.apk` from Releases.
 2. Android blocks the install the first time. Open the prompt's Settings link (or Settings > Apps > Special app access > Install unknown apps), choose your browser or file manager, and enable "Allow from this source". Install the APK; you may turn the option off again afterwards.
-3. Open uMessage and follow onboarding. Tap "Set as default SMS app" (Android shows a system dialog; choose uMessage). uMessage can only receive and filter messages while it is the default SMS app.
-4. Grant the requested permissions (SMS, Contacts, Phone state, Notifications). Each one is explained in [PRIVACY.md](PRIVACY.md).
-5. On Xiaomi/Poco/Redmi (HyperOS/MIUI) enable Autostart and set Battery saver to "No restrictions" for uMessage. On Samsung remove uMessage from "Sleeping apps".
+3. Open uMessage and follow the first-run setup. The welcome screen has only a language chip (pick your language or keep the phone's) and **Get started**. Then comes **Allow**: set uMessage as the default SMS app (Android shows a system dialog; choose uMessage) and grant the permissions (Messages, Contacts, Phone state, Notifications; **Allow all** asks for them at once; each one is explained in [PRIVACY.md](PRIVACY.md)). uMessage can only receive and filter messages while it is the default SMS app.
+4. Choose how to treat unknown senders (Strict, Smart or Off), how long to keep blocked messages, and whether to get delivery reports.
+5. The last step, **Keep uMessage running**: on Xiaomi/Poco/Redmi (HyperOS/MIUI) enable Autostart and set Battery saver to "No restrictions" for uMessage. On Samsung remove uMessage from "Sleeping apps".
 
 ## How filtering works
 
@@ -57,7 +58,7 @@ Banks, delivery companies and one-time-code services usually message you from nu
 
 ## Forwarding
 
-Rules > Forward lets you send a copy of incoming messages to other phones by SMS. This feature is only in the GitHub and F-Droid builds; the Google Play build has no forwarding. A forward rule has:
+Settings > Forwarding lets you send a copy of incoming messages to other phones by SMS. This feature is only in the GitHub and F-Droid builds; the Google Play build has no forwarding. A forward rule has:
 
 - **Conditions**: a sender (exact number, prefix or sender id) and/or a text to look for (keyword or regex), read the same way as the filter rules, Persian and Arabic letter forms included. Optionally a time of day (an end before the start runs past midnight) and, on dual-SIM phones, the SIM it arrived on.
 - **Targets**: one to three phone numbers, and on dual-SIM phones the SIM to send from (the receiving SIM by default).
@@ -70,8 +71,8 @@ Safety:
 - Verification codes are not forwarded unless a rule's "Include verification codes" switch is on, which warns first: forwarding codes lets the recipient sign in to your accounts, and scammers ask people to set this up.
 - Loop guard, always on: a message that is itself a forward (it starts with `[from `) is never forwarded, nothing is forwarded back to the number it came from, and messages you send are never forwarded.
 - With the app lock on, creating, editing, turning on or deleting a forward rule asks for your PIN, pattern or fingerprint. Without an app lock, uMessage suggests setting one the first time. Turning a rule off never asks.
-- Every forward, failed forward and skipped forward is in the decision log (Settings > Decision log) with the rule, target and result, never the text. A forward that cannot be sent shows the usual "message not sent" notification, and the failed copy stays in the target's thread to resend.
-- There is no daily limit and no notification per forward.
+- Every forward, failed forward and skipped forward is in the decision log (Settings > Spam protection > Recent activity) with the rule, target and result, never the text. A forward that cannot be sent shows the usual "message not sent" notification, and the failed copy stays in the target's thread to resend.
+- An optional **daily forward limit** (Forwarding options; off by default, or 5, 10, 20 or 50 forwards a day): once it is reached, nothing more is forwarded for the rest of the day, the skipped forwards are logged and uMessage shows one notification a day. Each rule also has an hourly cap. There is no notification per forward.
 
 ## Limitations
 
@@ -79,7 +80,7 @@ Safety:
 - uMessage filters texts only. Numbers on Android's own block list are also stopped from calling you, because Android applies that list to calls as well.
 - MMS behaviour depends on your carrier; see the device checklist.
 - Distributed as an APK on GitHub Releases. A Google Play version is in closed testing.
-- Translated into 19 languages besides English (including Persian and Arabic, right-to-left). Some translations are machine-made and not yet reviewed by native speakers.
+- Translated into 21 languages besides English (including Persian, Arabic and Urdu, right-to-left, and Chinese in Simplified and Traditional). Some translations are machine-made and not yet reviewed by native speakers.
 
 ## Privacy
 

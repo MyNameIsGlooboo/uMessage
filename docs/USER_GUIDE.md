@@ -4,10 +4,20 @@ uMessage is a messaging app for SMS and MMS that keeps spam out of your inbox. T
 
 ## Getting started
 
-1. Open uMessage and tap **Set as default SMS app**. uMessage can only receive and filter messages while it is your default SMS app.
-2. Allow SMS, Contacts, Phone and Notifications. Contacts access is how uMessage knows who you know. Without it, uMessage does not block unknown phone numbers at all, so that it never hides messages from family and friends.
-3. On Xiaomi, Redmi and Poco phones turn on **Autostart** and set **Battery saver** to "No restrictions" for uMessage. On Samsung, remove it from "Sleeping apps". Otherwise the phone may delay incoming messages.
-4. On the welcome screen, the **Delivery reports** switch is on by default and shows when your messages are delivered. Some carriers may charge for delivery reports, so switch it off there if yours does. You can change it later in Settings > Typing and sending > Sending > **Get delivery reports**.
+The first-run setup has up to four steps:
+
+1. **Welcome.** The only control is a language chip at the top. Pick your language here, or keep the phone's language; you can change it later with the Language row in Settings. Tap **Get started**.
+2. **Allow.** Make uMessage your default SMS app, and allow Messages (SMS), Contacts, Phone state and Notifications; **Allow all** asks for them in one go. uMessage can only receive and filter messages while it is your default SMS app. Contacts access is how uMessage knows who you know. Without it, uMessage does not block unknown phone numbers at all, so that it never hides messages from family and friends. This step is left out when uMessage already is the default app and everything is allowed.
+3. **Unknown senders.** Choose Strict, Smart or Off (see below) and how long to keep blocked messages. The **Get delivery reports** switch is also here. It is on by default and shows when your messages are delivered. Some carriers may charge for delivery reports, so switch it off there if yours does. You can change it later in Settings > Typing and sending > Sending > **Get delivery reports**.
+4. **Keep uMessage running.** On Xiaomi, Redmi and Poco phones turn on **Autostart** and set **Battery saver** to "No restrictions" for uMessage. On Samsung, remove it from "Sleeping apps". Otherwise the phone may delay incoming messages.
+
+## Finding your way around
+
+The bottom bar has **Messages** and **Blocked**, plus **Archived**, which is always there (it shows an empty state until you archive a chat). A **Forwarded** tab appears only in the GitHub and F-Droid builds, once a forward rule exists and you have switched the tab on.
+
+The three-dot menu at the top of Messages lists, in this order: **Recycle bin** (first; it shows how many messages are in it, and is listed only while the recycle bin is switched on in Settings > Storage and cleanup), **Scheduled** (only when something is scheduled), **Starred** and **Settings**.
+
+Settings > About has **Send feedback**, which opens your email app with a message to the developer already addressed, and, in the Google Play build only, **Rate uMessage**, which opens the Play Store.
 
 ## Who counts as known
 
@@ -20,7 +30,7 @@ Messages from known senders always go to your inbox (unless you have blocked the
 
 ## Unknown-sender modes
 
-Change the mode in Settings > Spam protection > Spam settings, or from the Blocked tab ("Change").
+Change the mode in Settings > Spam protection (Messages from unknown senders), or from the Blocked tab ("Change").
 
 | Mode | Unknown senders | Verification codes from unknown senders |
 |---|---|---|
@@ -34,7 +44,7 @@ Your own allow and block rules apply in every mode, including Off.
 
 ## The Blocked tab
 
-Blocked messages do not reach your inbox and do not make a sound. They wait in the **Blocked** tab at the bottom of the screen; the tab shows how many arrived since you last looked. You can turn on a notification for blocked messages in the spam settings.
+Blocked messages do not reach your inbox and do not make a sound. They wait in the **Blocked** tab at the bottom of the screen; the tab shows how many arrived since you last looked. You can turn on a notification for blocked messages in Settings > Spam protection > Retention and alerts.
 
 For each blocked message you can:
 
@@ -42,13 +52,13 @@ For each blocked message you can:
 - **Block sender**: adds a block rule for the sender and removes their blocked messages.
 - **Delete** the message.
 
-Each message shows why it was blocked (for example "Unknown sender" or the rule that matched). Settings > Diagnostics > **Decision log** lists the last decisions for all incoming messages, including allowed ones.
+Each message shows why it was blocked (for example "Unknown sender" or the rule that matched). Settings > Spam protection > **Recent activity** lists the last decisions for all incoming messages, including allowed ones.
 
-Blocked messages are deleted automatically after 30 days. You can change the period, or keep them until you delete them, in the spam settings. Blocked picture messages (MMS) are not downloaded, so they cost no mobile data; restoring one allows the sender but cannot bring back the picture.
+Blocked messages are deleted automatically after 30 days. You can change the period, or keep them until you delete them, in Settings > Spam protection > Retention and alerts. Blocked picture messages (MMS) are not downloaded, so they cost no mobile data; restoring one allows the sender but cannot bring back the picture.
 
 ## Rules
 
-Open Settings > Spam protection > **Allowed and blocked rules**. A rule is either **allowed** or **blocked**, and matches one of:
+Open Settings > Spam protection > **Rules**. A rule is either **allowed** or **blocked**, and matches one of:
 
 | Type | Matches | Example |
 |---|---|---|
@@ -72,7 +82,7 @@ You can export your rules to a file and import them on another phone. Import sho
 
 ## App lock
 
-Settings > Privacy and security > **App lock** asks for a PIN, a pattern or your fingerprint/face before uMessage opens. After too many wrong tries you have to wait before trying again. If you forget the PIN there is no recovery from inside the app.
+Settings > **App lock** asks for a PIN, a pattern or your fingerprint/face before uMessage opens. After too many wrong tries you have to wait before trying again. If you forget the PIN there is no recovery from inside the app.
 
 **What to lock** (on the same page) is Whole app, or Only chosen parts: uMessage then opens without the PIN, and only the Blocked tab and your hidden chats ask for it.
 
@@ -81,6 +91,12 @@ Settings > Privacy and security > **App lock** asks for a PIN, a pattern or your
 **Mute** (thread menu, or Conversation details) silences a chat for 1 hour, 8 hours, a week or until you unmute it. Its texts stay unread and still appear in the shade, quietly, and so do their verification codes.
 
 Notification privacy is a separate setting: choose whether the lock screen shows the sender, the message text or nothing.
+
+## Forwarding (GitHub and F-Droid builds only)
+
+The Google Play build has no forwarding. In the other builds, Settings > **Forwarding** opens the forward rules, which send a copy of matching inbox messages by SMS to up to three numbers. Each forward is a paid SMS. Blocked messages are never forwarded, and verification codes only when a rule's switch for codes is on.
+
+The **Daily forward limit** (on the Forwarding options page) is off by default. You can set it to 5, 10, 20 or 50 forwards a day; when it is reached, nothing more is forwarded for the rest of the day and uMessage shows a notification. Each rule also has its own hourly cap. The full list of safeguards is in the [README](../README.md#forwarding).
 
 ## Notes on messages
 
@@ -99,11 +115,21 @@ uMessage is **not** included in Android or Google cloud backups, by design: your
 
 To move messages to a new phone:
 
-1. Settings > Backup and restore > **Export messages** saves them to a file you choose.
-2. On the new phone, install uMessage, finish the first-run setup and make it the default SMS app, then open Settings > Backup and restore and tap **Import messages** (restore is only in Settings, not on the welcome screen).
-3. Export and import your **rules** separately from the rules screen.
+1. Settings > **Backup and restore** > **Back up** asks "Back up what?": **Messages**, or **Rules and settings**. Each is saved to its own file, in a place you choose.
+2. On the new phone, install uMessage, finish the first-run setup and make it the default SMS app, then open Settings > Backup and restore > **Restore** and choose the same kind (restore is only in Settings, not on the welcome screen).
+3. You can also export and import your **rules** alone from the rules screen.
 
-A backup of all your chats also holds what uMessage keeps beside the messages: private notes, stars, labels, archived, muted and hidden chats, drafts, messages in the recycle bin, your saved texts, the Blocked folder, and scheduled messages and reminders. Restoring puts the Blocked folder's messages back in the Blocked folder only, never in the inbox, and it never sends or shows anything. Messages scheduled for a time that has already passed are not brought back, except repeating ones, which continue at their next time; scheduled messages with attachments and the filter decision log are not in the backup. A backup of only some chats leaves out the Blocked folder, saved texts, scheduled messages and reminders. Hidden chats stay out of sight only while the app lock is on; the lock's PIN is never in a backup.
+To use Google Drive, pick it in the file picker. uMessage has no Google Drive code of its own and makes no network connections: when you back up or restore, Android's file picker lets you choose Google Drive (or any other storage app on your phone) as the place for the file.
+
+### Moving from another SMS app
+
+Settings > **Backup and restore** > **Move from another app** explains the steps:
+
+1. In your old app, make a backup. In SMS Backup & Restore, tap **Back up now**.
+2. Save the backup to Google Drive or to a file on your phone.
+3. In uMessage, open that screen and tap **Import messages**, then pick the file. uMessage reads the XML files made by SMS Backup & Restore, as well as its own backups.
+
+A backup of all your chats also holds what uMessage keeps beside the messages: blocked messages (the Blocked folder), the recycle bin, drafts, muted chats, hidden chats, saved texts, scheduled messages and reminders, private notes, stars, labels and archived chats. Restoring puts the Blocked folder's messages back in the Blocked folder only, never in the inbox, and it never sends or shows anything. Messages scheduled for a time that has already passed are not brought back, except repeating ones, which continue at their next time; scheduled messages with attachments and the filter decision log are not in the backup. A backup of only some chats leaves out the Blocked folder, saved texts, scheduled messages and reminders. Hidden chats stay out of sight only while the app lock is on; the lock's PIN is never in a backup.
 
 Exported files are not encrypted. Anyone who can open the file can read your messages, so keep it somewhere private and delete it when you are done.
 
@@ -116,6 +142,7 @@ shared content ready to send, or search by name or number to reach a chat or a c
 
 ## Persian and other right-to-left languages
 
+- uMessage is available in 22 languages: English plus Arabic, Bengali, Chinese (Simplified and Traditional), French, German, Hindi, Indonesian, Italian, Japanese, Korean, Persian, Polish, Portuguese (Brazil), Russian, Spanish, Thai, Turkish, Ukrainian, Urdu and Vietnamese. Choose one on the welcome screen or with the Language row in Settings.
 - Persian, Arabic and Urdu messages display right-to-left in the Vazirmatn font (Android 10 and later), and the message field switches direction as you type.
 - Verification codes are recognised in Persian (for example «رمز پویا: ۱۲۳۴۵» or «کد تأیید»), with Persian or Arabic digits.
 - Keyword rules work with Persian text.

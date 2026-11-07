@@ -6,7 +6,7 @@ See the forwarding decision at the end: the Play build ships without forwarding.
 
 ## Build
 
-- [ ] Upload the `gplay` flavor as an App Bundle: `./gradlew bundleGplayRelease`. It differs from `foss` in `app/src/gplay/res/values/bools.xml` (no donate link, `is_google_play_build = true`) and in `app/src/gplay/AndroidManifest.xml` (the forwarding screen is disabled). `is_google_play_build` also makes `ForwardingAvailability` report no forwarding: no forward rules, no screens, nothing sent. The `foss` flavor keeps forwarding.
+- [ ] Upload the `gplay` flavor as an App Bundle: `./gradlew bundleGplayRelease`. It differs from `foss` in `app/src/gplay/res/values/bools.xml` (no donate link, `is_google_play_build = true`) and in `app/src/gplay/AndroidManifest.xml` (the forwarding screen is removed from the manifest; the forwarding code is still compiled in but unreachable). `is_google_play_build` also makes `ForwardingAvailability` report no forwarding: no forward rules, no screens, nothing sent. The `foss` flavor keeps forwarding.
 - [ ] Target SDK: currently 36 (`gradle/libs.versions.toml`). Play requires new apps and updates to target an API level no more than about one year behind the latest Android release; recheck every August, when the yearly deadline usually moves.
 - [ ] Min SDK 26 (Android 8.0) is fine for Play.
 - [ ] `versionCode` from `gradle.properties` must be higher than any build already uploaded, on any track (see [RELEASE.md](RELEASE.md)).
@@ -34,18 +34,20 @@ uMessage asks for `READ_SMS`, `RECEIVE_SMS`, `RECEIVE_MMS`, `SEND_SMS` and `WRIT
   - Core functionality: **Default SMS handler**. uMessage is a complete SMS/MMS messaging app (send, receive, threads, MMS, group messages) with spam filtering on top; it does nothing without the default SMS role.
   - Explain that it asks to become the default SMS app during onboarding (`RoleManager.ROLE_SMS`) and works only while it holds that role.
   - Provide a short video showing: first launch, the "Set as default SMS app" system dialog, receiving a message, sending a reply, and a spam message going to the Blocked tab.
-- [ ] Call Log permissions: **not requested** (no `READ_CALL_LOG`, `WRITE_CALL_LOG` or `PROCESS_OUTGOING_CALLS`). Say "No" to Call Log in the form. uMessage has no call blocking of its own. The only call blocking is Android's system block list (`BlockedNumberContract`), which uMessage can show and edit in Settings > Spam protection > Android block list: numbers on it cannot call the phone, because Android applies that list to calls as well as texts. This needs no Call Log permission. `CALL_PHONE` (tap a number to call) is not a Call Log permission.
+- [ ] Call Log permissions: **not requested** (no `READ_CALL_LOG`, `WRITE_CALL_LOG` or `PROCESS_OUTGOING_CALLS`). Say "No" to Call Log in the form. uMessage has no call blocking of its own. The only call blocking is Android's system block list (`BlockedNumberContract`), which uMessage can show and edit in Settings > Spam protection > Android block list: numbers on it cannot call the phone, because Android applies that list to calls as well as texts. This needs no Call Log permission. `CALL_PHONE` is no longer declared: tapping a number opens the dialer with the number filled in (`ACTION_DIAL`).
 - [ ] Do not add `READ_CALL_LOG` later for spam features: it would need its own declaration and uMessage is not a default dialer.
 
 Other declarations:
 
-- [ ] `SCHEDULE_EXACT_ALARM` (scheduled messages): on Android 14+ it is denied by default for new installs and the user must allow it. Play does not require a declaration for `SCHEDULE_EXACT_ALARM` (only for `USE_EXACT_ALARM`, which uMessage does not use), but the app must handle the permission being off.
+- [x] `SCHEDULE_EXACT_ALARM`: **not declared in the Google Play build** (removed in `app/src/gplay/AndroidManifest.xml`, as is `USE_EXACT_ALARM`). Scheduled messages and reminders use inexact alarms there (`setAndAllowWhileIdle`: they may go out a few minutes late), and the app never offers the "Alarms & reminders" setting. The foss build still declares it and sends on time when the user allows it.
 - [ ] `FOREGROUND_SERVICE_DATA_SYNC`: **Owner:** declare the foreground service type in App content > Foreground service permissions, with what it does (`BackupService`: message export and import keep running with a progress notification when the user leaves the app) and a short video.
 - [ ] `ACCESS_COARSE_LOCATION`, `ACCESS_FINE_LOCATION` (Share location): requested at runtime only when the user taps Location in the attach menu, one fix, approximate accepted, used only to insert a map link into the message field. Nothing is stored or sent by the app. No background location, so no location declaration form is needed; mention it in the Data safety form as "read on tap, not collected".
-- [ ] `READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED` (Android 14 partial access), `READ_EXTERNAL_STORAGE` (maxSdkVersion 32): requested only from "Show recent photos" in the attach menu. The system Photo picker stays available without any permission. Play's photo and video permissions policy allows this for a messaging app's attach menu; check the form in App content > Photo and video permissions before release.
+- [x] `READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED` (and `READ_MEDIA_VIDEO`): **not declared in the Google Play build** (removed in `app/src/gplay/AndroidManifest.xml`), so no Photo and video permissions form is needed for them. The recent photos strip of the attach menu does not exist in that build; the system Photo picker adds pictures without any permission. The foss build still declares them and shows the strip. `READ_EXTERNAL_STORAGE` (maxSdkVersion 32) is still in the main manifest; check whether the form asks about it.
 - [ ] `READ_CONTACTS`, `READ_PHONE_STATE`: no special form, but they must be covered by the privacy policy (they are, in PRIVACY.md).
 
 ## Data safety form
+
+The prepared answers and reviewer notes are in [DATA_SAFETY.md](DATA_SAFETY.md).
 
 Play counts data as **collected** only when it is sent off the device. uMessage has no `INTERNET` permission and sends nothing anywhere, so:
 
@@ -73,7 +75,7 @@ If a future version adds anything that sends data (crash reports, an online spam
 
 ## In-app rating card
 
-The Google Play build may show Google's own rating card (Play In-App Review, `gplayImplementation` only; the foss build has no such code). The Play Store app shows and handles the card; uMessage sends no data to do this. It is requested at most twice, at least 120 days apart, after at least 7 days since install and 5 days of use, only on the message list. The app stores only a day count and the time of the last request. Data safety answers do not change. **Owner:** after the build, check the merged gplay manifest for any permission the library adds (none is expected, and `INTERNET` must stay absent).
+The Google Play build may show Google's own rating card (Play In-App Review, `gplayImplementation` only; the foss build has no such code). The Play Store app shows and handles the card; uMessage sends no data to do this. It is requested at most twice, at least 120 days apart, after at least 7 days since install and 5 days of use, only on the message list. The app stores only a day count and the time of the last request. Data safety answers do not change. The Play build's Settings > About also has a **Rate uMessage** row that opens the Play Store listing (the foss build does not show it); both builds have a **Send feedback** row that opens the user's email app with the public contact address and a subject that carries only the version. **Owner:** after the build, check the merged gplay manifest for any permission the library adds (none is expected, and `INTERNET` must stay absent).
 
 ## Automatic forwarding of verification codes: decision
 
