@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onb_switch_title">Chuyển sang uMessage?</string>
-    <string name="onb_switch_body">Bạn đang dùng ứng dụng SMS khác? Hãy tắt tính năng trò chuyện của ứng dụng đó trước. Bạn đổi điện thoại? Hãy khôi phục bản sao lưu sau khi thiết lập xong.</string>
-    <string name="onb_switch_action">Khôi phục bản sao lưu</string>
     <string name="onb_switch_done_note">Sau khi bạn hoàn tất, mục Sao lưu và khôi phục sẽ mở.</string>
+    <string name="onb_restore_chip">Khôi phục</string>
 </resources>

@@ -25,6 +25,7 @@ class InboxMenuPolicyTest {
     @Test
     fun archivedShowsOnlyWithArchivedChats() {
         assertEquals(InboxMenuItem.Archived, InboxMenuPolicy.entries(inputs(archived = 2)).first())
+        assertEquals(1, InboxMenuPolicy.entries(inputs(archived = 2, bin = true)).indexOf(InboxMenuItem.Archived))
         assertFalse(InboxMenuItem.Archived in InboxMenuPolicy.entries(inputs(archived = 0)))
     }
 
@@ -87,13 +88,29 @@ class InboxMenuPolicyTest {
     fun allEntriesComeInTheFixedOrder() {
         assertEquals(
             listOf(
-                InboxMenuItem.Archived,
                 InboxMenuItem.RecycleBin,
+                InboxMenuItem.Archived,
                 InboxMenuItem.Scheduled,
                 InboxMenuItem.Starred,
                 InboxMenuItem.Settings,
             ),
             InboxMenuPolicy.entries(inputs(archived = 1, bin = true, scheduled = 4)),
         )
+    }
+
+    @Test
+    fun recycleBinIsFirstWheneverItIsOnEvenWhenEmpty() {
+        assertEquals(InboxMenuItem.RecycleBin, InboxMenuPolicy.entries(inputs(bin = true)).first())
+        assertEquals(
+            InboxMenuItem.RecycleBin,
+            InboxMenuPolicy.entries(inputs(archived = 3, bin = true, scheduled = 2)).first(),
+        )
+    }
+
+    @Test
+    fun recycleBinShowsItsCountOnlyWhenNotEmpty() {
+        assertEquals(3, InboxMenuPolicy.recycleBinCountToShow(3))
+        assertEquals(null, InboxMenuPolicy.recycleBinCountToShow(0))
+        assertEquals(null, InboxMenuPolicy.recycleBinCountToShow(-1))
     }
 }

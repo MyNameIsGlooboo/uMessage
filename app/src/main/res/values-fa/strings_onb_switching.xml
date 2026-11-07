@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onb_switch_title">به uMessage می‌آیید؟</string>
-    <string name="onb_switch_body">از برنامهٔ SMS دیگری می‌آیید؟ ابتدا قابلیت‌های چت آن را خاموش کنید. از گوشی دیگری می‌آیید؟ پس از پایان راه‌اندازی، پشتیبان خود را بازیابی کنید.</string>
-    <string name="onb_switch_action">بازیابی پشتیبان</string>
     <string name="onb_switch_done_note">پس از پایان، بخش «پشتیبان و بازیابی» باز می‌شود.</string>
+    <string name="onb_restore_chip">بازیابی</string>
 </resources>

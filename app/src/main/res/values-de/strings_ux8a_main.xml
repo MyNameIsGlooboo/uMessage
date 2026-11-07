@@ -3,5 +3,6 @@
     <string name="ux8a_checklist_show">Schritte anzeigen</string>
     <string name="ux8a_checklist_hide">Schritte ausblenden</string>
     <string name="ux8a_menu_recycle_bin">Papierkorb</string>
+    <string name="ux8a_menu_recycle_bin_count">Papierkorb (%1$d)</string>
     <string name="ux8a_selection_block">Blockieren</string>
 </resources>

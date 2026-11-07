@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onb_switch_title">Mudando para o uMessage?</string>
-    <string name="onb_switch_body">Usava outro app de SMS? Desative os recursos de chat dele primeiro. Trocou de celular? Restaure seu backup após concluir a configuração.</string>
-    <string name="onb_switch_action">Restaure um backup</string>
     <string name="onb_switch_done_note">Ao terminar, a tela de backup e restauração será aberta.</string>
+    <string name="onb_restore_chip">Restaurar</string>
 </resources>

@@ -6,7 +6,6 @@
     <string name="onb_skip">暂时跳过</string>
     <string name="onb_finish">开始发消息</string>
     <string name="onb_open">打开</string>
-    <string name="onb_hero_description">带对勾的uMessage盾牌</string>
     <string name="onb_welcome_title">欢迎使用uMessage</string>
     <string name="onb_welcome_intro">消息更顺畅，垃圾短信更少。</string>
     <string name="onb_welcome_spam">远离垃圾短信</string>

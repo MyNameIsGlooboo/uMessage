@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onb_switch_title">Przechodzisz na uMessage?</string>
-    <string name="onb_switch_body">Korzystasz z innej aplikacji do SMS-ów? Najpierw wyłącz w niej funkcje czatu. Zmieniasz telefon? Przywróć kopię zapasową po zakończeniu konfiguracji.</string>
-    <string name="onb_switch_action">Przywróć kopię zapasową</string>
     <string name="onb_switch_done_note">Po zakończeniu otworzy się ekran „Kopia zapasowa i przywracanie”.</string>
+    <string name="onb_restore_chip">Przywróć</string>
 </resources>

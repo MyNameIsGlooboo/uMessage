@@ -6,7 +6,6 @@
     <string name="onb_skip">ข้ามไปก่อน</string>
     <string name="onb_finish">เริ่มส่งข้อความ</string>
     <string name="onb_open">เปิด</string>
-    <string name="onb_hero_description">โล่ uMessage พร้อมเครื่องหมายถูก</string>
     <string name="onb_welcome_title">ยินดีต้อนรับสู่ uMessage</string>
     <string name="onb_welcome_intro">ส่งข้อความได้ดีขึ้น สแปมน้อยลง</string>
     <string name="onb_welcome_spam">กันสแปมออกไป</string>

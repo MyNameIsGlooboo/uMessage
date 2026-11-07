@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onb_switch_title">uMessage-এ আসছেন?</string>
-    <string name="onb_switch_body">অন্য SMS অ্যাপ থেকে আসছেন? আগে সেটির চ্যাট সুবিধা বন্ধ করুন। অন্য ফোন থেকে আসছেন? সেটআপ শেষ হলে আপনার ব্যাকআপ ফিরিয়ে আনুন।</string>
-    <string name="onb_switch_action">ব্যাকআপ ফিরিয়ে আনুন</string>
     <string name="onb_switch_done_note">শেষ করলে ব্যাকআপ ও ফিরিয়ে আনার পাতা খুলবে।</string>
+    <string name="onb_restore_chip">পুনরুদ্ধার</string>
 </resources>

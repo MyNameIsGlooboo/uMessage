@@ -7,7 +7,6 @@
     <string name="onb_skip">Skip for now</string>
     <string name="onb_finish">Start messaging</string>
     <string name="onb_open">Open</string>
-    <string name="onb_hero_description">uMessage shield with a check mark</string>
 
     <!-- Welcome -->
     <string name="onb_welcome_title">Welcome to uMessage</string>

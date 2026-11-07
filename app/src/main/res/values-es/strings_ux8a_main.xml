@@ -3,5 +3,6 @@
     <string name="ux8a_checklist_show">Mostrar los pasos</string>
     <string name="ux8a_checklist_hide">Ocultar los pasos</string>
     <string name="ux8a_menu_recycle_bin">Papelera</string>
+    <string name="ux8a_menu_recycle_bin_count">Papelera (%1$d)</string>
     <string name="ux8a_selection_block">Bloquear</string>
 </resources>

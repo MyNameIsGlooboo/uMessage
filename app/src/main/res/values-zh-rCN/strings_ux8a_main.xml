@@ -3,5 +3,6 @@
     <string name="ux8a_checklist_show">显示步骤</string>
     <string name="ux8a_checklist_hide">隐藏步骤</string>
     <string name="ux8a_menu_recycle_bin">回收站</string>
+    <string name="ux8a_menu_recycle_bin_count">回收站 (%1$d)</string>
     <string name="ux8a_selection_block">屏蔽</string>
 </resources>

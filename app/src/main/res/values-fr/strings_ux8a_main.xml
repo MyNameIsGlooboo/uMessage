@@ -3,5 +3,6 @@
     <string name="ux8a_checklist_show">Afficher les étapes</string>
     <string name="ux8a_checklist_hide">Masquer les étapes</string>
     <string name="ux8a_menu_recycle_bin">Corbeille</string>
+    <string name="ux8a_menu_recycle_bin_count">Corbeille (%1$d)</string>
     <string name="ux8a_selection_block">Bloquer</string>
 </resources>

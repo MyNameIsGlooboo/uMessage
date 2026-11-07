@@ -43,6 +43,7 @@ internal fun MainTopBar(
     modifier: Modifier = Modifier,
     menu: List<InboxMenuItem> = listOf(InboxMenuItem.Settings),
     onMenu: (InboxMenuItem) -> Unit = {},
+    recycleBinCount: Int = 0,
 ) {
     val colors = MaterialTheme.colorScheme
     Row(
@@ -70,7 +71,7 @@ internal fun MainTopBar(
         IconButton(onClick = onSearch) {
             Icon(Symbols.Search, contentDescription = stringResource(R.string.main_search_hint))
         }
-        InboxOverflowMenu(menu, onMenu)
+        InboxOverflowMenu(menu, recycleBinCount, onMenu)
     }
 }
 

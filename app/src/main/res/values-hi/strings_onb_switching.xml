@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onb_switch_title">uMessage पर आ रहे हैं?</string>
-    <string name="onb_switch_body">किसी दूसरे SMS ऐप से आ रहे हैं? पहले उसके चैट फ़ीचर बंद करें. दूसरे फ़ोन से आ रहे हैं? सेटअप पूरा होने पर अपना बैकअप वापस लाएं.</string>
-    <string name="onb_switch_action">बैकअप वापस लाएं</string>
     <string name="onb_switch_done_note">पूरा होने के बाद, बैकअप और वापस लाने की स्क्रीन खुलेगी.</string>
+    <string name="onb_restore_chip">बहाल करें</string>
 </resources>

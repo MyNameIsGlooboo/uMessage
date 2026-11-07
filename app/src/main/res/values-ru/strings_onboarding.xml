@@ -6,7 +6,6 @@
     <string name="onb_skip">Пока пропустить</string>
     <string name="onb_finish">Начать общение</string>
     <string name="onb_open">Открыть</string>
-    <string name="onb_hero_description">Щит uMessage с галочкой</string>
     <string name="onb_welcome_title">Добро пожаловать в uMessage</string>
     <string name="onb_welcome_intro">Больше общения, меньше спама.</string>
     <string name="onb_welcome_spam">Спам не пройдет</string>

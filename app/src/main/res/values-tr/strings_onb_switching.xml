@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onb_switch_title">uMessage\'a mı geçiyorsunuz?</string>
-    <string name="onb_switch_body">Başka bir SMS uygulamasından mı geçiyorsunuz? Önce o uygulamanın sohbet özelliklerini kapatın. Başka bir telefondan mı geçiyorsunuz? Kurulum bitince yedeğinizi geri yükleyin.</string>
-    <string name="onb_switch_action">Yedeği geri yükleyin</string>
     <string name="onb_switch_done_note">Bitirdiğinizde Yedekleyin ve geri yükleyin ekranı açılır.</string>
+    <string name="onb_restore_chip">Geri yükle</string>
 </resources>

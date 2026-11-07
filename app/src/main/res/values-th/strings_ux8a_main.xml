@@ -3,5 +3,6 @@
     <string name="ux8a_checklist_show">แสดงขั้นตอน</string>
     <string name="ux8a_checklist_hide">ซ่อนขั้นตอน</string>
     <string name="ux8a_menu_recycle_bin">ถังขยะ</string>
+    <string name="ux8a_menu_recycle_bin_count">ถังขยะ (%1$d)</string>
     <string name="ux8a_selection_block">บล็อก</string>
 </resources>

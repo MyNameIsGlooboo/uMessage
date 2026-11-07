@@ -6,7 +6,6 @@
     <string name="onb_skip">Şimdilik atlayın</string>
     <string name="onb_finish">Mesajlaşmaya başlayın</string>
     <string name="onb_open">Açın</string>
-    <string name="onb_hero_description">Onay işaretli uMessage kalkanı</string>
     <string name="onb_welcome_title">uMessage\'a hoş geldiniz</string>
     <string name="onb_welcome_intro">Daha iyi mesajlaşma, daha az spam.</string>
     <string name="onb_welcome_spam">Spam dışarıda kalır</string>

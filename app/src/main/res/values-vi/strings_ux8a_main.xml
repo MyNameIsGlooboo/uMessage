@@ -3,5 +3,6 @@
     <string name="ux8a_checklist_show">Hiện các bước</string>
     <string name="ux8a_checklist_hide">Ẩn các bước</string>
     <string name="ux8a_menu_recycle_bin">Thùng rác</string>
+    <string name="ux8a_menu_recycle_bin_count">Thùng rác (%1$d)</string>
     <string name="ux8a_selection_block">Chặn</string>
 </resources>

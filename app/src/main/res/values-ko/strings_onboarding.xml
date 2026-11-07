@@ -6,7 +6,6 @@
     <string name="onb_skip">건너뛰기</string>
     <string name="onb_finish">메시지 시작</string>
     <string name="onb_open">열기</string>
-    <string name="onb_hero_description">체크 표시가 있는 uMessage 방패</string>
     <string name="onb_welcome_title">uMessage 앱에 오신 걸 환영해요.</string>
     <string name="onb_welcome_intro">스팸은 줄이고, 메시지는 더 편하게 주고받아요.</string>
     <string name="onb_welcome_spam">스팸 차단</string>

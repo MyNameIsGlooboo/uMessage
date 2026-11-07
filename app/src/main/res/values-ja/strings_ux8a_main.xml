@@ -3,5 +3,6 @@
     <string name="ux8a_checklist_show">手順を表示</string>
     <string name="ux8a_checklist_hide">手順を隠す</string>
     <string name="ux8a_menu_recycle_bin">ゴミ箱</string>
+    <string name="ux8a_menu_recycle_bin_count">ゴミ箱 (%1$d)</string>
     <string name="ux8a_selection_block">ブロック</string>
 </resources>

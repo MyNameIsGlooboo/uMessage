@@ -3,5 +3,6 @@
     <string name="ux8a_checklist_show">Mostra i passaggi</string>
     <string name="ux8a_checklist_hide">Nascondi i passaggi</string>
     <string name="ux8a_menu_recycle_bin">Cestino</string>
+    <string name="ux8a_menu_recycle_bin_count">Cestino (%1$d)</string>
     <string name="ux8a_selection_block">Blocca</string>
 </resources>

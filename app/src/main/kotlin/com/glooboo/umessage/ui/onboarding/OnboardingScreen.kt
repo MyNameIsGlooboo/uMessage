@@ -71,7 +71,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -100,7 +99,6 @@ import com.glooboo.umessage.spam.ForwardingAvailability
 import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.components.ChoiceDialog
 import com.glooboo.umessage.ui.settings.AppLanguage
-import com.glooboo.umessage.ui.settings.LanguagePicker
 import com.glooboo.umessage.ui.spam.SettingsUiState
 import com.glooboo.umessage.ui.theme.success
 
@@ -458,7 +456,7 @@ private fun welcomeTopTitles(): Set<Int> =
 
 /**
  * The first step. The pager page scrolls, so a long list never pushes "Get started" (in the bottom bar) away.
- * The language button shows when [onLanguage] is set (Android 13+), the restore card when [onRestore] is set.
+ * The language chip shows when [onLanguage] is set (Android 13+), the Restore chip when [onRestore] is set.
  */
 @Composable
 internal fun WelcomePage(
@@ -474,27 +472,12 @@ internal fun WelcomePage(
         label = "heroAlpha",
     )
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        if (onLanguage != null) {
-            LanguagePicker(
-                languages = AppLanguage.choices,
-                selected = language,
-                onSelect = onLanguage,
-                modifier = Modifier.align(Alignment.End),
-                labelOf = {
-                    if (it == AppLanguage.SYSTEM) stringResource(R.string.onb_lang_phone) else stringResource(it.label)
-                },
-            )
+        if (onLanguage != null || onRestore != null) {
+            WelcomeTopRow(language = language, onLanguage = onLanguage, onRestore = onRestore)
         } else {
             Spacer(Modifier.height(24.dp))
         }
-        Icon(
-            painter = painterResource(R.drawable.ic_onboarding_shield),
-            contentDescription = stringResource(R.string.onb_hero_description),
-            tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier
-                .size(96.dp)
-                .alpha(alpha),
-        )
+        AppIconMark(Modifier.alpha(alpha))
         PageTitle(stringResource(R.string.onb_welcome_title))
         PageBody(stringResource(R.string.onb_welcome_intro))
         Spacer(Modifier.height(4.dp))
@@ -508,33 +491,7 @@ internal fun WelcomePage(
             Text(stringResource(if (more) R.string.ux8f_onb_less else R.string.ux8f_onb_more))
             Icon(if (more) Symbols.ExpandLess else Symbols.ExpandMore, null, modifier = Modifier.size(18.dp))
         }
-        if (onRestore != null) SwitchingCard(onRestore)
         Spacer(Modifier.height(8.dp))
-    }
-}
-
-@Composable
-private fun SwitchingCard(onRestore: () -> Unit) {
-    Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(
-                stringResource(R.string.onb_switch_title),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
-            )
-            Text(
-                stringResource(R.string.onb_switch_body),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            OutlinedButton(onClick = onRestore, modifier = Modifier.heightIn(min = 48.dp)) {
-                Text(stringResource(R.string.onb_switch_action))
-            }
-        }
     }
 }
 

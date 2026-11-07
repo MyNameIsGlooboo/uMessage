@@ -342,6 +342,7 @@ private fun MessagesTab(
                 MainTopBar(
                     onSearch = { search.active = true },
                     menu = InboxMenuPolicy.entries(menuInputs),
+                    recycleBinCount = rememberRecycleBinCount(menuInputs.recycleBinOn, state.rows.size),
                     onMenu = { item -> openInboxMenuItem(item, search, navigation, onOpenArchivedTab) },
                 )
                 // A warning to act on stays in view.

@@ -3,5 +3,6 @@
     <string name="ux8a_checklist_show">चरण दिखाएं</string>
     <string name="ux8a_checklist_hide">चरण छिपाएं</string>
     <string name="ux8a_menu_recycle_bin">रीसायकल बिन</string>
+    <string name="ux8a_menu_recycle_bin_count">रीसायकल बिन (%1$d)</string>
     <string name="ux8a_selection_block">ब्लॉक करें</string>
 </resources>

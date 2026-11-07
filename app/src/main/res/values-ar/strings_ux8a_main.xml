@@ -3,5 +3,6 @@
     <string name="ux8a_checklist_show">اعرض الخطوات</string>
     <string name="ux8a_checklist_hide">أخفِ الخطوات</string>
     <string name="ux8a_menu_recycle_bin">سلة المهملات</string>
+    <string name="ux8a_menu_recycle_bin_count">سلة المهملات (%1$d)</string>
     <string name="ux8a_selection_block">احظر</string>
 </resources>

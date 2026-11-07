@@ -6,7 +6,6 @@
     <string name="onb_skip">今はスキップ</string>
     <string name="onb_finish">利用開始</string>
     <string name="onb_open">開く</string>
-    <string name="onb_hero_description">チェックマーク付きのuMessageの盾</string>
     <string name="onb_welcome_title">uMessageへようこそ</string>
     <string name="onb_welcome_intro">迷惑メッセージを減らして、もっと快適に。</string>
     <string name="onb_welcome_spam">迷惑メッセージをブロック</string>

@@ -6,7 +6,6 @@
     <string name="onb_skip">Omitir por ahora</string>
     <string name="onb_finish">Empezar a enviar mensajes</string>
     <string name="onb_open">Abrir</string>
-    <string name="onb_hero_description">Escudo de uMessage con una marca de verificación</string>
     <string name="onb_welcome_title">Te damos la bienvenida a uMessage</string>
     <string name="onb_welcome_intro">Mejores mensajes, menos spam.</string>
     <string name="onb_welcome_spam">El spam queda fuera</string>

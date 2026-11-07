@@ -6,7 +6,6 @@
     <string name="onb_skip">আপাতত এড়িয়ে যান</string>
     <string name="onb_finish">বার্তা পাঠানো শুরু করুন</string>
     <string name="onb_open">খুলুন</string>
-    <string name="onb_hero_description">টিক চিহ্নসহ uMessage-এর ঢাল</string>
     <string name="onb_welcome_title">uMessage-এ স্বাগতম</string>
     <string name="onb_welcome_intro">বার্তা পাঠানো আরও সহজ, স্প্যাম কম।</string>
     <string name="onb_welcome_spam">স্প্যাম দূরে থাকে</string>

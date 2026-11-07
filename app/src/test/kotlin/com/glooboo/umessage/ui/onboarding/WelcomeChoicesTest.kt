@@ -9,6 +9,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
@@ -21,7 +22,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
-/** Welcome page language button and restore card, and the "keep blocked messages" row. */
+/** Welcome page language and Restore chips, and the "keep blocked messages" row. */
 @RunWith(AndroidJUnit4::class)
 @Config(qualifiers = "w411dp-h891dp")
 class WelcomeChoicesTest {
@@ -40,10 +41,10 @@ class WelcomeChoicesTest {
     }
 
     @Test
-    fun `the language button starts on Phone language and lists it first`() {
+    fun `the language chip shows the phone language by its own name and the list starts on Phone language`() {
         welcome(onLanguage = {})
-        compose.onNodeWithText("Phone language").assertIsDisplayed().performClick()
-        compose.onNodeWithText("English").assertIsDisplayed()
+        compose.onNodeWithContentDescription("Language, English").assertIsDisplayed().performClick()
+        compose.onNodeWithText("Phone language").assertIsDisplayed()
         compose.onNodeWithText("فارسی").performScrollTo().assertIsDisplayed()
     }
 
@@ -51,23 +52,30 @@ class WelcomeChoicesTest {
     fun `picking a language reports it`() {
         var picked: AppLanguage? = null
         welcome(onLanguage = { picked = it })
-        compose.onNodeWithText("Phone language").performClick()
+        compose.onNodeWithContentDescription("Language, English").performClick()
         compose.onNodeWithText("فارسی").performScrollTo().performClick()
         assertEquals(AppLanguage.PERSIAN, picked)
     }
 
     @Test
-    fun `without a language callback the button is hidden`() {
+    fun `without a language callback the chip is hidden`() {
         welcome(onLanguage = null)
-        compose.onNodeWithText("Phone language").assertDoesNotExist()
+        compose.onNodeWithContentDescription("Language, English").assertDoesNotExist()
     }
 
     @Test
-    fun `the restore button reports a tap`() {
+    fun `the Restore chip reports a tap`() {
         var taps = 0
         welcome(onLanguage = null, onRestore = { taps++ })
-        compose.onNodeWithText("Restore a backup").performScrollTo().performClick()
+        compose.onNodeWithText("Restore").assertIsDisplayed().performClick()
         assertEquals(1, taps)
+    }
+
+    @Test
+    fun `the removed switching card is gone`() {
+        welcome(onLanguage = {}, onRestore = {})
+        compose.onNodeWithText("Switching to uMessage?").assertDoesNotExist()
+        compose.onNodeWithText("Restore a backup").assertDoesNotExist()
     }
 
     @Test

@@ -6,6 +6,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
@@ -129,8 +132,9 @@ class LanguageListTest {
                 )
             }
         }
-        compose.onNodeWithText("Phone language").assertIsDisplayed().performClick()
-        named.forEach { compose.onNodeWithText(context.getString(it.label)).assertExists() }
+        compose.onNodeWithContentDescription("Language, English").assertIsDisplayed().performClick()
+        // The chip also says "English", so a name can appear twice.
+        named.forEach { compose.onAllNodesWithText(context.getString(it.label)).onFirst().assertExists() }
         compose.onNodeWithText("System default").assertDoesNotExist()
     }
 }
