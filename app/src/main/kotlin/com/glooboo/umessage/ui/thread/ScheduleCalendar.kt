@@ -5,9 +5,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -156,9 +158,10 @@ fun ScheduleCalendar(
             Row {
                 week.forEach { date ->
                     Box(
+                        // UI-touch: a day is at least 48dp high and as wide as the grid allows.
                         modifier = Modifier
                             .weight(1f)
-                            .aspectRatio(1f),
+                            .height(DAY_CELL_HEIGHT),
                         contentAlignment = Alignment.Center,
                     ) {
                         if (date != null) {
@@ -178,6 +181,9 @@ fun ScheduleCalendar(
     }
 }
 
+private val DAY_CELL_HEIGHT = 48.dp
+private val DAY_CIRCLE = 40.dp
+
 /** Friday is the weekend in a week that starts on Saturday (the regional week). */
 private fun isWeekend(day: DayOfWeek, weekStart: DayOfWeek): Boolean =
     day == DayOfWeek.FRIDAY && weekStart == DayOfWeek.SATURDAY
@@ -190,22 +196,27 @@ private fun DayCell(text: String, selected: Boolean, enabled: Boolean, weekend: 
         weekend -> colors.error
         else -> colors.onSurface
     }
+    // The whole cell is the touch target; the circle drawn inside it is smaller.
     Box(
         modifier = Modifier
-            .padding(2.dp)
-            .fillMaxWidth()
-            .aspectRatio(1f)
-            .clip(CircleShape)
-            .background(if (selected) colors.primary else Color.Transparent)
+            .fillMaxSize()
             .semantics { this.selected = selected }
             .clickable(enabled = enabled, role = Role.Button, onClick = onClick),
         contentAlignment = Alignment.Center,
     ) {
-        Text(
-            text,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal,
-            color = if (enabled) textColor else textColor.copy(alpha = DISABLED_ALPHA),
-        )
+        Box(
+            modifier = Modifier
+                .size(DAY_CIRCLE)
+                .clip(CircleShape)
+                .background(if (selected) colors.primary else Color.Transparent),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal,
+                color = if (enabled) textColor else textColor.copy(alpha = DISABLED_ALPHA),
+            )
+        }
     }
 }

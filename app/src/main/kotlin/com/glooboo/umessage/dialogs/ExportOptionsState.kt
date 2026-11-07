@@ -20,7 +20,8 @@ class ExportOptionsState(initialName: String, initialSms: Boolean, initialMms: B
     /** The conversations to export; null means all of them. */
     var chosen by mutableStateOf<List<Long>?>(null)
     var chooseConversations by mutableStateOf(false)
-    var protect by mutableStateOf(false)
+    /** I14: a message export holds full texts and numbers, so a password is asked for unless the user unticks it. */
+    var protect by mutableStateOf(true)
     var password by mutableStateOf("")
     var confirm by mutableStateOf("")
 

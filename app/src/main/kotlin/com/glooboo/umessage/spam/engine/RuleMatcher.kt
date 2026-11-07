@@ -1,6 +1,7 @@
 package com.glooboo.umessage.spam.engine
 
 import com.glooboo.umessage.spam.IncomingMessage
+import com.glooboo.umessage.spam.KeywordMatch
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RegexGuard
 import com.glooboo.umessage.spam.RuleType
@@ -16,6 +17,10 @@ class RuleMatcher(
     private val normalizer: NumberNormalizer,
     /** Country of the SIM that received a message, used to read national-format senders. Null = default region. */
     private val regionForSubscription: (Int) -> String? = { null },
+    /** The clock, in milliseconds; replaced in tests. */
+    private val now: () -> Long = System::currentTimeMillis,
+    /** The guarded regex search; replaced in tests. */
+    private val search: (Pattern, String) -> RegexGuard.Outcome = RegexGuard::search,
 ) {
 
     /** Compiled REGEX rules, bounded so deleted or edited rules do not pile up. Null = rejected pattern. */
@@ -46,11 +51,8 @@ class RuleMatcher(
             // Both read the text through TextNormalizer (Persian/Arabic letter forms, digits, invisible marks). A BLOCK
             // keyword also sees through spaced-out letters and leetspeak ("F R E E", "fr33"); an ALLOW keyword does not,
             // so a spammer cannot reach the inbox by spelling out an allowed word.
-            RuleType.KEYWORD -> if (rule.kind == ListKind.BLOCK) {
-                TextNormalizer.containsObfuscated(message.body, pattern)
-            } else {
-                TextNormalizer.containsFolded(message.body, pattern)
-            }
+            // A keyword in double quotes only matches as a whole word ([KeywordMatch]).
+            RuleType.KEYWORD -> KeywordMatch.matches(message.body, pattern, obfuscated = rule.kind == ListKind.BLOCK)
 
             RuleType.REGEX -> regex(pattern)?.let { matchesRegex(pattern, it, TextNormalizer.fold(message.body)) } == true
         }
@@ -68,19 +70,39 @@ class RuleMatcher(
         return !wanted.contains('-') && id.substringAfter('-', "") == wanted
     }
 
+    /** Timeouts in a row per pattern, and until when a pattern that timed out too often is turned off. */
+    private val timeouts = HashMap<String, Int>()
+    private val disabledUntil = HashMap<String, Long>()
+
     /**
-     * A pattern that runs out of time is turned off (cached as rejected) so it cannot hold up every later message;
-     * the message it was checking is treated as not matching. Editing the rule gives a new pattern and a new try.
+     * A pattern that runs out of time does not match that message. One pause (garbage collection, a slow phone) must
+     * not kill a rule for good, so a pattern is turned off only after [MAX_TIMEOUTS] timeouts in a row, and only for
+     * [DISABLED_MS]; any finished search starts the count again. Editing the rule gives a new pattern and a new try.
      */
-    private fun matchesRegex(source: String, pattern: Pattern, body: String): Boolean =
-        when (RegexGuard.search(pattern, body)) {
-            RegexGuard.Outcome.MATCH -> true
-            RegexGuard.Outcome.NO_MATCH -> false
-            RegexGuard.Outcome.TIMED_OUT -> {
-                synchronized(regexCache) { regexCache[source] = null }
-                false
+    private fun matchesRegex(source: String, pattern: Pattern, body: String): Boolean {
+        synchronized(timeouts) {
+            val until = disabledUntil[source]
+            if (until != null) {
+                if (now() < until) return false
+                disabledUntil.remove(source)
             }
         }
+        val outcome = search(pattern, body)
+        synchronized(timeouts) {
+            if (outcome == RegexGuard.Outcome.TIMED_OUT) {
+                val count = (timeouts[source] ?: 0) + 1
+                if (count >= MAX_TIMEOUTS) {
+                    timeouts.remove(source)
+                    disabledUntil[source] = now() + DISABLED_MS
+                } else {
+                    timeouts[source] = count
+                }
+            } else {
+                timeouts.remove(source)
+            }
+        }
+        return outcome == RegexGuard.Outcome.MATCH
+    }
 
     /** Patterns that fail [RegexGuard.validate] (bad syntax, nested repeats) are skipped rather than risk a hang. */
     private fun regex(pattern: String): Pattern? = synchronized(regexCache) {
@@ -93,5 +115,7 @@ class RuleMatcher(
 
     private companion object {
         const val REGEX_CACHE_SIZE = 64
+        const val MAX_TIMEOUTS = 3
+        const val DISABLED_MS = 10 * 60_000L
     }
 }

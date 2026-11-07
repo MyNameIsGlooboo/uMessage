@@ -79,9 +79,11 @@ class GooglePlayNoForwardingTest {
     }
 
     @Test
-    fun theForwardingScreenIsDisabledInTheManifest() {
+    fun theForwardingScreenIsNotInTheManifest() {
         val name = ComponentName(context, ForwardingActivity::class.java)
-        val info = context.packageManager.getActivityInfo(name, PackageManager.MATCH_DISABLED_COMPONENTS)
-        assertThat(info.enabled).isFalse()
+        val result = runCatching {
+            context.packageManager.getActivityInfo(name, PackageManager.MATCH_DISABLED_COMPONENTS)
+        }
+        assertThat(result.exceptionOrNull()).isInstanceOf(PackageManager.NameNotFoundException::class.java)
     }
 }

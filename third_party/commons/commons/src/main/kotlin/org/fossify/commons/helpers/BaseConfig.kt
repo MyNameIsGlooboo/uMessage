@@ -609,11 +609,17 @@ open class BaseConfig(val context: Context) {
 
     var passwordRetryCount: Int
         get() = prefs.getInt(PASSWORD_RETRY_COUNT, 0)
-        set(passwordRetryCount) = prefs.edit().putInt(PASSWORD_RETRY_COUNT, passwordRetryCount).apply()
+        // commit(), not apply(): a force-stop right after a wrong entry must not lose the count.
+        set(passwordRetryCount) { prefs.edit().putInt(PASSWORD_RETRY_COUNT, passwordRetryCount).commit() }
 
     var passwordCountdownStartMs: Long
         get() = prefs.getLong(PASSWORD_COUNTDOWN_START_MS, 0L)
-        set(passwordCountdownStartMs) = prefs.edit().putLong(PASSWORD_COUNTDOWN_START_MS, passwordCountdownStartMs).apply()
+        set(passwordCountdownStartMs) { prefs.edit().putLong(PASSWORD_COUNTDOWN_START_MS, passwordCountdownStartMs).commit() }
+
+    /** SystemClock.elapsedRealtime() at the last wrong entry that started a wait; -1 when unknown. */
+    var passwordCountdownStartElapsedMs: Long
+        get() = prefs.getLong(PASSWORD_COUNTDOWN_START_ELAPSED_MS, -1L)
+        set(value) { prefs.edit().putLong(PASSWORD_COUNTDOWN_START_ELAPSED_MS, value).commit() }
 
     // Returns the first day of week, indexing follows ISO 8601: Mon=1, ..., Sun=7
     var firstDayOfWeek: Int

@@ -18,7 +18,7 @@ class NotificationSmartRepliesTest {
 
     private fun offer(
         gate: Gate = ok,
-        address: String = "+15550100",
+        address: String = "+14155550123",
         body: String = "Are you coming?",
         chips: Boolean = true,
         inNotifications: Boolean = true,

@@ -39,7 +39,7 @@
     <ID>CyclomaticComplexMethod:LockScreen.kt$@Composable private fun PatternPad(enabled: Boolean, wrongCount: Int, locked: Boolean, size: Dp, onComplete: (List&lt;Int&gt;) -&gt; Unit)</ID>
     <ID>CyclomaticComplexMethod:MessagesImporter.kt$MessagesImporter$private fun importXml( stream: InputStream, options: Options, summary: ImportSummary, counting: CountingInputStream, progress: Progress, isCancelled: () -&gt; Boolean, )</ID>
     <ID>CyclomaticComplexMethod:MessagesWriter.kt$MessagesWriter$private fun writeMms(backup: MmsBackup): WriteResult</ID>
-    <ID>CyclomaticComplexMethod:Messaging.kt$fun Context.sendMessageCompat( text: String, addresses: List&lt;String&gt;, subId: Int?, attachments: List&lt;Attachment&gt;, resend: MessageKey? = null, onFailure: () -&gt; Unit = {} ): Boolean</ID>
+    <ID>CyclomaticComplexMethod:Messaging.kt$fun Context.sendMessageCompat( text: String, addresses: List&lt;String&gt;, subId: Int?, attachments: List&lt;Attachment&gt;, resend: MessageKey? = null, onFailure: () -&gt; Unit = {}, onAttachmentHandedOff: (Attachment) -&gt; Unit = {}, ): Boolean</ID>
     <ID>CyclomaticComplexMethod:MessagingUtils.kt$MessagingUtils$fun sendSmsMessage( text: String, addresses: Set&lt;String&gt;, subId: Int, requireDeliveryReport: Boolean, messageId: Long? = null )</ID>
     <ID>CyclomaticComplexMethod:MmsPushGate.kt$MmsPushGate$fun parse(pushData: ByteArray?): MmsPushInfo?</ID>
     <ID>CyclomaticComplexMethod:NewConversationScreen.kt$@OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class) @Composable fun NewConversationScreen( contacts: List&lt;SimpleContact&gt;, suggestions: List&lt;SimpleContact&gt;, loaded: Boolean, hasContactsPermission: Boolean, onBack: () -&gt; Unit, onRequestPermission: () -&gt; Unit, onSubmitAddress: (String) -&gt; Unit, onPickNumber: (contact: SimpleContact, number: PhoneNumber) -&gt; Unit, modifier: Modifier = Modifier, onStartGroup: (List&lt;GroupRecipient&gt;) -&gt; Unit = {}, shareMode: Boolean = false, recentChats: List&lt;Conversation&gt; = emptyList(), onPickRecent: (Conversation) -&gt; Unit = {}, )</ID>
@@ -832,7 +832,7 @@
     <ID>NestedBlockDepth:MessagesReader.kt$MessagesReader$private fun getParts(mmsId: Long, summary: ExportSummary): List&lt;MmsPart&gt;</ID>
     <ID>NestedBlockDepth:MessagesWriter.kt$MessagesWriter$internal fun mmsRecipients(backup: MmsBackup): Set&lt;String&gt;</ID>
     <ID>NestedBlockDepth:MessagesWriter.kt$MessagesWriter$private fun writeMms(backup: MmsBackup): WriteResult</ID>
-    <ID>NestedBlockDepth:Messaging.kt$fun Context.sendMessageCompat( text: String, addresses: List&lt;String&gt;, subId: Int?, attachments: List&lt;Attachment&gt;, resend: MessageKey? = null, onFailure: () -&gt; Unit = {} ): Boolean</ID>
+    <ID>NestedBlockDepth:Messaging.kt$fun Context.sendMessageCompat( text: String, addresses: List&lt;String&gt;, subId: Int?, attachments: List&lt;Attachment&gt;, resend: MessageKey? = null, onFailure: () -&gt; Unit = {}, onAttachmentHandedOff: (Attachment) -&gt; Unit = {}, ): Boolean</ID>
     <ID>NestedBlockDepth:MessagingUtils.kt$MessagingUtils$@Deprecated("TODO: Move/rewrite MMS code into the app.") fun sendMmsMessage( text: String, addresses: List&lt;String&gt;, attachment: Attachment?, settings: Settings, messageId: Long? = null ): Boolean</ID>
     <ID>NestedBlockDepth:MessagingUtils.kt$MessagingUtils$fun updateSmsMessageSendingStatus(messageUri: Uri?, type: Int)</ID>
     <ID>NestedBlockDepth:MmsSubscriptions.kt$MmsSubscriptions$private fun findInProvider(context: Context, address: String): Int</ID>

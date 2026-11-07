@@ -210,7 +210,7 @@ object SettingsBackup {
             current.copy(
                 mode = s.spamMode ?: current.mode,
                 otpExemption = s.otpExemption ?: current.otpExemption,
-                purgeAfterDays = s.purgeAfterDays ?: current.purgeAfterDays,
+                // I4/Q38: purgeAfterDays (blocked messages deleted after N days) is never taken from a file.
                 notifyOnBlock = s.notifyOnBlock ?: current.notifyOnBlock,
                 unknownInboxNotify = s.unknownInboxNotify ?: current.unknownInboxNotify,
                 openLinkAction = s.openLinkAction ?: current.openLinkAction,
@@ -288,6 +288,7 @@ object SettingsBackup {
             if (out.size() + n > MAX_BYTES) return null
             out.write(buffer, 0, n)
         }
-        return out.toString(Charsets.UTF_8.name())
+        // D13: a file saved by a Windows editor starts with a byte order mark, which the JSON reader refuses.
+        return out.toString(Charsets.UTF_8.name()).removePrefix("\uFEFF")
     }
 }

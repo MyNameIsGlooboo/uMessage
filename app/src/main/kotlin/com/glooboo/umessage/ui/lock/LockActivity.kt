@@ -1,5 +1,7 @@
 package com.glooboo.umessage.ui.lock
 
+import android.content.Context
+import com.glooboo.umessage.ui.settings.AppLocale
 import android.app.KeyguardManager
 import android.os.Build
 import android.os.Bundle
@@ -31,6 +33,7 @@ import org.fossify.commons.helpers.PROTECTION_PIN
  * A biometric lock always has a way in when biometrics fail for good ([LockFallback]): its backup PIN, or for older
  * biometric-only locks the phone's own screen lock.
  */
+@Suppress("TooManyFunctions") // Android lifecycle overrides plus one small step per unlock path.
 class LockActivity : FragmentActivity() {
     private val viewModel: LockViewModel by viewModels()
 
@@ -50,6 +53,9 @@ class LockActivity : FragmentActivity() {
     private val screenLock = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) viewModel.screenLockConfirmed()
     }
+
+    /** I1: puts the in-app language on this screen on Android 8 to 12 (a no-op on 13+). */
+    override fun attachBaseContext(newBase: Context) = super.attachBaseContext(AppLocale.wrap(newBase))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         fadeIn()

@@ -18,6 +18,7 @@ import com.glooboo.umessage.helpers.starredDB
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageKey
 import com.glooboo.umessage.ui.icons.ShortcutIcons
+import com.glooboo.umessage.ui.theme.starColor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.map
@@ -73,6 +74,6 @@ fun StarMark(modifier: Modifier = Modifier) {
         ShortcutIcons.StarFilled,
         contentDescription = stringResource(R.string.i13_starred_mark),
         modifier = modifier.padding(horizontal = 8.dp, vertical = 2.dp).size(12.dp),
-        tint = MaterialTheme.colorScheme.tertiary,
+        tint = MaterialTheme.colorScheme.starColor,
     )
 }

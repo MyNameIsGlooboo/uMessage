@@ -82,21 +82,27 @@ import com.glooboo.umessage.helpers.THREAD_TITLE
 import com.glooboo.umessage.helpers.ChatArrival
 import com.glooboo.umessage.helpers.ChatSounds
 import com.glooboo.umessage.helpers.LocationSharer
+import com.glooboo.umessage.helpers.cancelFailedSendNotification
 import com.glooboo.umessage.helpers.composerPrefs
 import com.glooboo.umessage.helpers.generateRandomId
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
+import com.glooboo.umessage.messaging.ScheduledSendClaims
 import com.glooboo.umessage.messaging.isLongMmsMessage
+import com.glooboo.umessage.messaging.scheduledAttachmentTracker
 import com.glooboo.umessage.models.Attachment
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.models.Events
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageKey
 import com.glooboo.umessage.models.ThreadItem
+import com.glooboo.umessage.ui.thread.IncomingShareGuard
 import com.glooboo.umessage.ui.thread.MessageNoteStore
 import com.glooboo.umessage.ui.thread.AttachKind
 import com.glooboo.umessage.ui.thread.MediaSizes
 import com.glooboo.umessage.ui.thread.ThreadExportController
+import com.glooboo.umessage.ui.thread.DraftText
+import com.glooboo.umessage.ui.thread.SendGuard
 import com.glooboo.umessage.ui.thread.SendSteps
 import com.glooboo.umessage.ui.thread.adoptScheduledMessages
 import com.glooboo.umessage.ui.thread.refreshRepeatRules
@@ -214,7 +220,13 @@ open class ThreadActivity : ComposeSimpleActivity() {
     @Volatile
     private var shownToUser = false
 
+    /** The stored draft is put back once each time a chat is opened; see [DraftText.restore]. */
+    private var draftRestored = false
+
     private var isGroupMessageConfirmationVisible = false
+    /** One send from the composer at a time: a second tap while it runs is ignored (MS5). */
+    private val composerSend = SendGuard()
+
     /** The failed message "Retry" put into the composer, resent in its place by the next Send. */
     private val resend = ResendTracker()
 
@@ -352,7 +364,10 @@ open class ThreadActivity : ComposeSimpleActivity() {
         val newThreadId = intent.getLongExtra(THREAD_ID, 0L)
         setIntent(intent)
         if (newThreadId != 0L && newThreadId == threadId) {
-            intent.getStringExtra(THREAD_TEXT)?.let { if (vm.text.text.isEmpty()) vm.text.setTextAndPlaceCursorAtEnd(it) }
+            // Shared text into the chat that is open: added after what is typed, never dropped (B9).
+            intent.getStringExtra(THREAD_TEXT)?.let { shared ->
+                vm.text.setTextAndPlaceCursorAtEnd(DraftText.appendShared(vm.text.text.toString(), shared))
+            }
             addAttachmentsFromIntent()
             takeSearchedMessage()?.let { jumpToMessage(it) }
             takeOpenSearch()
@@ -361,6 +376,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         }
 
         resetForNewConversation()
+        draftRestored = false
         readIntentExtras()
         // onResume does not run again for a chat that is already in front: the hidden-chat cover is decided here.
         hiddenGate.check()
@@ -492,7 +508,12 @@ open class ThreadActivity : ComposeSimpleActivity() {
             val smsDraft = getSmsDraft(threadId)
             if (smsDraft.isNotEmpty()) {
                 runOnUiThread {
-                    vm.text.setTextAndPlaceCursorAtEnd(smsDraft)
+                    // Once per open, and merged with what is already in the composer (B8): a shared text, or text
+                    // typed before this read finished, is kept; coming back from the camera never rewinds it.
+                    if (!draftRestored) {
+                        draftRestored = true
+                        vm.text.setTextAndPlaceCursorAtEnd(DraftText.restore(vm.text.text.toString(), smsDraft))
+                    }
                 }
             }
         }
@@ -521,6 +542,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
     private fun markThreadReadInBackground(thread: Long) {
         notificationManager.cancel(thread.hashCode())
+        // The chat is open: its "Message not sent" notification has done its job, the failed row has Retry (MS3).
+        cancelFailedSendNotification(thread)
         ensureBackgroundThread {
             // I26: the unread messages are noted first; the build that does it marks them read itself.
             if (!providerLoaded && !isRecycleBin) return@ensureBackgroundThread
@@ -892,14 +915,13 @@ open class ThreadActivity : ComposeSimpleActivity() {
             // Tapping "Not sent. Tap to retry." sends the failed message again right away, as it was (text, pictures
             // and files, SIM), in the failed row's place. It used to only copy the text into the composer, so on
             // a tap nothing visibly happened, and it replaced whatever the user was typing. The draft stays untouched.
-            val handedOff = sendNormalMessage(
+            sendNormalMessage(
                 text = failed.body.ifEmpty { text },
                 subscriptionId = failed.subscriptionId.takeIf { it >= 0 } ?: sim.subscriptionId,
                 attachments = failed.attachment?.attachments.orEmpty(),
                 resendId = failedKey,
                 fromComposer = false,
-            )
-            if (!handedOff) toast(R.string.message_not_sent_short)
+            ) { handedOff -> if (!handedOff) toast(R.string.message_not_sent_short) }
             return
         }
         // The failed message is not loaded any more: fall back to putting its text into the composer.
@@ -1051,12 +1073,12 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
     private fun addAttachmentsFromIntent() {
         if (intent.extras?.containsKey(THREAD_ATTACHMENT_URI) == true) {
-            val uri = intent.getStringExtra(THREAD_ATTACHMENT_URI)!!.toUri()
-            attachmentController.add(uri)
+            val uri = intent.getStringExtra(THREAD_ATTACHMENT_URI)?.toUri()
+            if (uri != null && IncomingShareGuard.isAllowed(uri, packageName)) attachmentController.add(uri)
         } else if (intent.extras?.containsKey(THREAD_ATTACHMENT_URIS) == true) {
             @Suppress("DEPRECATION", "UNCHECKED_CAST")
             (intent.getSerializableExtra(THREAD_ATTACHMENT_URIS) as? ArrayList<Uri>)?.forEach {
-                attachmentController.add(it)
+                if (IncomingShareGuard.isAllowed(it, packageName)) attachmentController.add(it)
             }
         }
     }
@@ -1069,12 +1091,24 @@ open class ThreadActivity : ComposeSimpleActivity() {
         val messageString = if (config.useSimpleCharacters) signed.normalizeString() else signed
         val segments = if (messageString.isEmpty()) null else SmsSegments.of(messageString)
         vm.segments = segments
+        noteLengthHintsOnce(segments, messageString)
+    }
 
+    /** Says once each of the length hints below; none of them blocks the send. */
+    private fun noteLengthHintsOnce(segments: SmsSegments?, messageString: String) {
         // RM-46: Persian text needs a second SMS after only 70 characters; say so once.
         if (segments != null && segments.unicode && segments.isMultipart && !vm.unicodePartsNoted && !vm.isMms) {
             vm.unicodePartsNoted = true
             lifecycleScope.launch {
                 vm.snackbar.showSnackbar(getString(R.string.thread_unicode_parts_note, segments.parts))
+            }
+        }
+
+        // I5: a very long text sent as SMS is many messages; say so once, before it is sent.
+        if (segments?.isVeryLong == true && !vm.manyPartsNoted && !vm.isMms) {
+            vm.manyPartsNoted = true
+            lifecycleScope.launch {
+                vm.snackbar.showSnackbar(getString(R.string.thread_many_parts_note, segments.parts))
             }
         }
 
@@ -1371,9 +1405,11 @@ open class ThreadActivity : ComposeSimpleActivity() {
     }
 
     /**
-     * Sends [text] with [attachments] now. The composer is cleared only when [fromComposer] and the message was
-     * handed to the system: after a failure the user's text and photos stay so they can try again.
-     * Returns whether the message was handed off.
+     * Sends [text] with [attachments] now, on a worker thread: the provider writes, the thread lookups of a group and
+     * an MMS attachment's bytes never run on the main thread (MS5). The composer is cleared only when [fromComposer]
+     * and the message was handed to the system: after a failure the user's text and photos stay so they can try
+     * again. While a send from the composer runs, a second tap on Send does nothing. [onDone] gets whether the message
+     * was handed off, on the worker thread.
      */
     private fun sendNormalMessage(
         text: String,
@@ -1381,19 +1417,42 @@ open class ThreadActivity : ComposeSimpleActivity() {
         attachments: List<Attachment> = attachmentController.asMessageAttachments(),
         resendId: MessageKey? = resend.target,
         fromComposer: Boolean = true,
-    ): Boolean {
+        onDone: (Boolean) -> Unit = {},
+    ) {
+        if (fromComposer && !composerSend.tryStart()) return
         refreshedSinceSent = false
-        val outgoing = OutgoingMessage(text, recipients.addresses, subscriptionId, attachments, resendId)
+        var outgoing = OutgoingMessage(text, recipients.addresses, subscriptionId, attachments, resendId)
+        if (fromComposer) {
+            // MS6: each photo goes out as its own MMS. One that was queued leaves the composer at once, so when a
+            // later one fails and the user taps Send again, only what did not go out is sent, not every photo twice.
+            outgoing = outgoing.copy(onAttachmentHandedOff = { sent ->
+                runOnUiThread { vm.removeAttachment(sent.uriString) }
+            })
+        }
+        val composerAtSend = vm.text.text.toString()
+        ensureBackgroundThread {
+            try {
+                onDone(sendOutgoing(outgoing, fromComposer, composerAtSend))
+            } finally {
+                if (fromComposer) composerSend.finish()
+            }
+        }
+    }
+
+    /** The blocking part of [sendNormalMessage]; runs on a worker thread. True when the message was handed off. */
+    private fun sendOutgoing(outgoing: OutgoingMessage, fromComposer: Boolean, composerAtSend: String): Boolean {
         val result = sendController.send(outgoing, fromComposer)
         if (result.completed) {
             // A failed send that left a row in the provider still shows up below, with its Retry button.
             val thread = threadId
-            ensureBackgroundThread {
-                repository.newProviderRows(thread, limit = maxOf(1, attachments.size)).forEach { insertOrUpdateMessage(it) }
-            }
+            repository.newProviderRows(thread, limit = maxOf(1, outgoing.attachments.size))
+                .forEach { insertOrUpdateMessage(it) }
         }
-        if (result.clearComposer) clearCurrentMessage()
-        if (fromComposer && result.handedOff) chatSounds.sent()
+        runOnUiThread {
+            // Not when the user already typed something else meanwhile.
+            if (result.clearComposer && vm.text.text.toString() == composerAtSend) clearCurrentMessage()
+            if (fromComposer && result.handedOff) chatSounds.sent()
+        }
         return result.handedOff
     }
 
@@ -1457,10 +1516,15 @@ open class ThreadActivity : ComposeSimpleActivity() {
             notificationManager.cancel(threadId.hashCode())
         }
 
+        // Still loading: no recipients yet, so there is nothing to look up (an empty list would blank the thread, B13).
+        if (recipients.isEmpty()) return
+
         val messageSnapshot = messages.toSortedMessages()
         val lastMaxId = messageSnapshot.filterNot { it.isScheduled }.maxByOrNull { it.id }?.id ?: 0L
         val providerParticipantsChanged = reconcileProviderParticipants()
-        val newThreadId = getThreadId(recipients.addresses.toSet())
+        // The provider is asked for the thread only while this chat has none of its own yet (scheduled messages in a
+        // temporary thread, or no messages): asking every time created an empty provider thread (B13).
+        val newThreadId = providerThreadIdFor(messageSnapshot)
         val newMessages = repository.newestFromProvider(newThreadId)
         if (messageSnapshot.isNotEmpty() && messageSnapshot.all { it.isScheduled } && newMessages.isNotEmpty()) {
             // update scheduled messages with real thread id
@@ -1490,6 +1554,13 @@ open class ThreadActivity : ComposeSimpleActivity() {
         }
     }
 
+    private fun providerThreadIdFor(messageSnapshot: List<Message>): Long =
+        if (threadId > 0L && messageSnapshot.any { !it.isScheduled }) {
+            threadId
+        } else {
+            getThreadId(recipients.addresses.toSet())
+        }
+
     /** I60: the signature goes under what is typed, but not under a failed message that is being sent again. */
     private fun withSignature(text: String): String =
         if (resend.target != null) text else MessageSignature.applyTo(text, composerPrefs.signature)
@@ -1516,15 +1587,29 @@ open class ThreadActivity : ComposeSimpleActivity() {
      * removed only once the message was handed off.
      */
     private fun sendScheduledMessageNow(message: Message) {
-        val attachments = message.attachment?.attachments.orEmpty()
-        val handedOff = sendNormalMessage(
+        val outgoing = OutgoingMessage(
             text = message.body,
+            addresses = recipients.addresses,
             subscriptionId = message.subscriptionId,
-            attachments = attachments,
-            resendId = null,
-            fromComposer = false,
+            attachments = message.attachment?.attachments.orEmpty(),
+            resendOf = null,
+            onAttachmentHandedOff = scheduledAttachmentTracker(message),
         )
-        if (handedOff) cancelScheduledMessageAndRefresh(message.id)
+        refreshedSinceSent = false
+        ensureBackgroundThread {
+            // F3: the alarm may be sending this very message; whoever claims it first sends it, the other does nothing.
+            if (!ScheduledSendClaims.claim(this, message.id, allowHeld = true)) return@ensureBackgroundThread
+            try {
+                if (sendOutgoing(outgoing, fromComposer = false, composerAtSend = "")) {
+                    runOnUiThread { cancelScheduledMessageAndRefresh(message.id) }
+                } else {
+                    // Not sent: held again, so Retry stays and no alarm sends it by itself.
+                    runCatching { messagesDB.updateScheduledType(message.id, Telephony.Sms.MESSAGE_TYPE_FAILED) }
+                }
+            } finally {
+                ScheduledSendClaims.release(message.id)
+            }
+        }
     }
 
     /**

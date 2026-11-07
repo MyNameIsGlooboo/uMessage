@@ -1,6 +1,7 @@
 package com.glooboo.umessage.helpers
 
 import android.content.Context
+import android.os.Process
 import androidx.core.content.edit
 import com.glooboo.umessage.backup.PendingRecycled
 import com.glooboo.umessage.extensions.getMessages
@@ -36,6 +37,9 @@ class MessageCacheImport(
         var complete: Boolean
         fun isThreadDone(threadId: Long): Boolean
         fun markThreadDone(threadId: Long)
+
+        /** B10: writes down what [markThreadDone] has collected; called when a run ends, however it ends. */
+        fun flush() = Unit
     }
 
     /**
@@ -45,11 +49,15 @@ class MessageCacheImport(
     fun run(threadIds: List<Long>, isCancelled: () -> Boolean = { false }): Boolean {
         if (progress.complete) return true
         var allDone = true
-        for (threadId in threadIds) {
-            if (isCancelled()) return false
-            if (progress.isThreadDone(threadId)) continue
-            val ok = runCatching { importThread(threadId, isCancelled) }.getOrDefault(false)
-            if (ok) progress.markThreadDone(threadId) else allDone = false
+        try {
+            for (threadId in threadIds) {
+                if (isCancelled()) return false
+                if (progress.isThreadDone(threadId)) continue
+                val ok = runCatching { importThread(threadId, isCancelled) }.getOrDefault(false)
+                if (ok) progress.markThreadDone(threadId) else allDone = false
+            }
+        } finally {
+            progress.flush()
         }
         if (allDone) progress.complete = true
         return allDone
@@ -79,6 +87,7 @@ class MessageCacheImport(
         private const val PREFS = "message_cache_import"
         private const val KEY_COMPLETE = "complete"
         private const val KEY_DONE_THREADS = "done_threads"
+        private const val SAVE_EVERY = 25
 
         private val running = AtomicBoolean(false)
 
@@ -95,6 +104,9 @@ class MessageCacheImport(
             val isStale = { generation.get() != startedIn }
             val progress = PrefsProgress(app, isStale)
             if (progress.complete || !running.compareAndSet(false, true)) return
+            // B10: the first import is a long background job; it must not compete with the screen for the CPU.
+            val oldPriority = runCatching { Process.getThreadPriority(0) }.getOrNull()
+            runCatching { Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND) }
             try {
                 MessageCacheImport(
                     progress = progress,
@@ -111,6 +123,7 @@ class MessageCacheImport(
                 runCatching { PendingRecycled(app).applyTo(app.messagesDB) }
             } finally {
                 running.set(false)
+                oldPriority?.let { runCatching { Process.setThreadPriority(it) } }
             }
         }
 
@@ -124,6 +137,7 @@ class MessageCacheImport(
     private class PrefsProgress(context: Context, private val isStale: () -> Boolean) : Progress {
         private val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         private val done = HashSet(prefs.getStringSet(KEY_DONE_THREADS, emptySet()).orEmpty())
+        private var unsaved = 0
 
         override var complete: Boolean
             get() = prefs.getBoolean(KEY_COMPLETE, false)
@@ -140,6 +154,13 @@ class MessageCacheImport(
         override fun markThreadDone(threadId: Long) {
             if (isStale()) return
             done.add(threadId.toString())
+            // B10: the whole set is rewritten each time, so it is written every [SAVE_EVERY] threads and at the end.
+            if (++unsaved >= SAVE_EVERY) flush()
+        }
+
+        override fun flush() {
+            if (unsaved == 0 || isStale()) return
+            unsaved = 0
             prefs.edit { putStringSet(KEY_DONE_THREADS, HashSet(done)) }
         }
     }

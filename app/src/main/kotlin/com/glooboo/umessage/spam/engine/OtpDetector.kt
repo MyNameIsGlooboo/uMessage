@@ -13,26 +13,20 @@ import com.glooboo.umessage.spam.TextNormalizer
  *
  * Marketing texts are not codes even when they say "code" next to a number ("promo code 2025", "کد تخفیف"),
  * a number that reads as a price or a percentage is never the code, and next to the generic word "code" a year
- * ("2025", "1403") is not one either.
+ * ("2025", "1403") is not one either, but only when the text also speaks of a year or a date ("valid until 2025"):
+ * "Your Uber code is 1987" is a code. Words of discounts and prizes veto every match; words of gifts and offers only
+ * the generic "code" ("Apple Gift Card verification code 482913" is a code). The word lists, in many languages, are
+ * in [OtpKeywords].
  */
 object OtpDetector {
     private const val EDGE_BEFORE = "(?<![\\p{L}\\p{N}])"
     private const val EDGE_AFTER = "(?![\\p{L}\\p{N}])"
 
     /** Keywords that say what the number is: any 4-8 digit number next to one is a code. */
-    internal val strongKeywords = listOf(
-        // English
-        "otp", "passcode", "password", "pin", "verification", "verify", "one[- ]?time", "authenticat\\p{L}*",
-        "security code", "login code", "2fa",
-        // Persian
-        "رمز", "رمز پویا", "رمز عبور", "رمز یکبار مصرف", "گذرواژه", "کد تایید", "کد تأیید", "کد فعالسازی",
-        "کد ورود", "تایید", "تأیید", "تائید", "یکبار مصرف", "یک بار مصرف",
-        // Arabic (written with Persian yeh and kaf, as the text is folded the same way)
-        "الرمز", "رمز التحقق", "رمز التفعیل", "کلمة المرور", "التحقق", "التفعیل",
-    )
+    internal val strongKeywords: List<String> = OtpKeywords.strong
 
-    /** Generic words ("code", "کد"): a number next to one is a code unless it reads as a year. */
-    internal val weakKeywords = listOf("code", "کد", "کود")
+    /** Generic words ("code", "کد", "код"): a number next to one is a code unless it reads as a year. */
+    internal val weakKeywords: List<String> = OtpKeywords.weak
 
     /** Persian possessive endings ("کدتان", "رمزت"); zero-width non-joiners are already gone after folding. */
     private const val SUFFIX = "(?:ی|ات|تان|ت|ش)?"
@@ -70,44 +64,55 @@ object OtpDetector {
     private val CODE_NOT_YEAR = "(?<![\\p{N}$€£])(?!$YEAR)$codeShape(?!\\p{N})$NOT_AFTER"
 
     /** Separator, then up to four plain words (letters only, so "SAVE20" or a phone number breaks the chain). */
-    private const val NEAR = "[^\\p{L}\\p{N}]{1,4}(?:\\p{L}{1,15}[^\\p{L}\\p{N}]{1,4}){0,4}"
+    private const val NEAR = "[^\\p{L}\\p{N}]{1,4}(?:[\\p{L}\\p{M}]{1,15}[^\\p{L}\\p{N}]{1,4}){0,4}"
 
-    private val otp: Regex = run {
+    /** A keyword that says what the number is, next to a code: a code in any case, however it looks. */
+    private val strongOtp: Regex = run {
         val strong = keywordPattern(strongKeywords)
-        val weak = keywordPattern(weakKeywords)
-        Regex(
-            "$strong$NEAR$CODE|$CODE$NEAR$strong|$weak$NEAR$CODE_NOT_YEAR|$CODE_NOT_YEAR$NEAR$weak",
-            RegexOption.IGNORE_CASE,
-        )
+        Regex("$strong$NEAR$CODE|$CODE$NEAR$strong", RegexOption.IGNORE_CASE)
     }
 
-    /**
-     * Words of advertising, prizes and offers. A message with one of them is not treated as a code: real codes do not
-     * come with a discount, and "promo code 2025" must not reach the inbox as a login code.
-     */
-    private val marketingWords = listOf(
-        // English
-        "promo", "promotion", "promotional", "coupon", "voucher", "discount", "sale", "cashback", "offer", "prize",
-        "lottery", "reward", "rewards", "gift", "bonus", "jackpot", "winner",
-        // Persian ("لغو۱۱" is the opt-out line of local ads)
-        "تخفیف", "جشنواره", "حراج", "جایزه", "برنده", "قرعه کشی", "قرعه\u200Cکشی", "هدیه", "رایگان", "پیشنهاد ویژه",
-        "کوپن", "لغو ?11", "تبلیغ",
-        // Arabic
-        "خصم", "جائزة", "هدیة", "مجانا", "کوبون",
-    )
+    /** The generic word "code" next to a code; a year-like number does not count (see [yearContext]). */
+    private val weakOtp: Regex = run {
+        val weak = keywordPattern(weakKeywords)
+        Regex("$weak$NEAR$CODE_NOT_YEAR|$CODE_NOT_YEAR$NEAR$weak", RegexOption.IGNORE_CASE)
+    }
 
-    private val marketing = Regex(
-        "(?<!\\p{L})(?:" + marketingWords.map(TextNormalizer::fold).joinToString("|") + ")(?!\\p{L})|\\d\\s?[%٪]",
+    /** Like [weakOtp], for a text without a word that makes a year-like number a year ("Your Uber code is 1987"). */
+    private val weakOtpAnyNumber: Regex = run {
+        val weak = keywordPattern(weakKeywords)
+        Regex("$weak$NEAR$CODE|$CODE$NEAR$weak", RegexOption.IGNORE_CASE)
+    }
+
+    /** Languages without spaces: the keyword and the code with a few other characters in between, either order. */
+    private val cjkOtp: Regex = run {
+        val words = OtpKeywords.cjk.map { TextNormalizer.fold(it).replace(" ", "\\s?") }
+            .sortedByDescending { it.length }
+        val keyword = "(?:" + words.joinToString("|") + ")"
+        val gap = "[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}"
+        Regex("$keyword$gap$CODE|$CODE$gap$keyword", RegexOption.IGNORE_CASE)
+    }
+
+    /** A word that says a year-like number is a year: "valid until 2025", "سال ۱۴۰۴". */
+    private val yearContext = Regex(
+        "(?<!\\p{L})(?:" + OtpKeywords.yearContext.joinToString("|") { TextNormalizer.fold(it) } + ")(?!\\p{L})",
         RegexOption.IGNORE_CASE,
     )
 
-    /** Top-level domains a bare domain ("mybank-secure.com", "x.ir") is recognised by, without http or a slash. */
-    private val tlds = listOf(
-        "com", "net", "org", "ir", "info", "biz", "io", "co", "app", "xyz", "site", "online", "top", "link", "click",
-        "shop", "store", "live", "ly", "gl", "gd", "cc", "tk", "ml", "ga", "cf", "gq", "ru", "cn", "uk", "de", "eu",
-        "tv", "ai", "dev", "pro", "club", "vip", "icu", "cyou", "sbs", "buzz", "rest", "fun", "space", "website", "tech",
-        "ws", "su", "pw", "lol", "ae", "tr",
+    /** Words and marks that make a text an advertisement, whatever the strong keyword says. */
+    private val marketingHard = Regex(
+        "(?<!\\p{L})(?:" + OtpKeywords.marketingHard.joinToString("|") { TextNormalizer.fold(it) } + ")(?!\\p{L})" +
+            "|" + OtpKeywords.marketingCjk.joinToString("|") + "|\\d\\s?[%٪]",
+        RegexOption.IGNORE_CASE,
     )
+
+    /** Words of offers and gifts: they only count against a code next to the generic word "code". */
+    private val marketingSoft = Regex(
+        "(?<!\\p{L})(?:" + OtpKeywords.marketingSoft.joinToString("|") { TextNormalizer.fold(it) } + ")(?!\\p{L})",
+        RegexOption.IGNORE_CASE,
+    )
+
+    private val tlds = OtpKeywords.tlds
 
     /**
      * A dot, also written to dodge link detection: "[.]", "(.)", "{.}", "[dot]", "(dot)". Every bracket is escaped:
@@ -115,7 +120,8 @@ object OtpDetector {
      */
     private const val DOT = "(?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\))"
     private const val URL_LABEL = "[a-z0-9][a-z0-9\\-]*"
-    private const val URL_START = "(?<![\\p{L}\\p{N}@.\\-])"
+    /** Not glued to a Latin letter or digit; a Persian or other non-Latin letter before a domain does not hide it. */
+    private const val URL_START = "(?<![a-z0-9\\u00C0-\\u024F@.\\-])"
 
     private val url = Regex(
         "h[xt]{2}ps?://|www$DOT" +
@@ -123,6 +129,9 @@ object OtpDetector {
             "|$URL_START$URL_LABEL(?:$DOT$URL_LABEL)*$DOT[a-z]{2,}/" +
             // A bare domain with a common top-level domain.
             "|$URL_START$URL_LABEL(?:$DOT$URL_LABEL)*$DOT(?:${tlds.joinToString("|")})(?![\\p{L}\\p{N}\\-])" +
+            // A last label with letters and a hyphen or digit, with any top-level domain ("secure-bank.help").
+            "|$URL_START(?:$URL_LABEL$DOT)*(?=[a-z0-9\\-]*[a-z])(?=[a-z0-9\\-]*[\\-0-9])" +
+            "$URL_LABEL$DOT[a-z]{2,24}(?![\\p{L}\\p{N}\\-])" +
             // An IP address with a path or a port.
             "|(?<![\\p{N}.])\\d{1,3}(?:\\.\\d{1,3}){3}[/:]",
         RegexOption.IGNORE_CASE,
@@ -140,7 +149,11 @@ object OtpDetector {
 
     fun looksLikeOtp(body: String): Boolean {
         val text = TextNormalizer.fold(body)
-        return otp.containsMatchIn(text) && !marketing.containsMatchIn(text)
+        if (marketingHard.containsMatchIn(text)) return false
+        if (strongOtp.containsMatchIn(text) || cjkOtp.containsMatchIn(text)) return true
+        if (marketingSoft.containsMatchIn(text)) return false
+        // Only the generic word "code": a year-like number is no code when the text speaks of a year or a date.
+        return (if (yearContext.containsMatchIn(text)) weakOtp else weakOtpAnyNumber).containsMatchIn(text)
     }
 
     /**

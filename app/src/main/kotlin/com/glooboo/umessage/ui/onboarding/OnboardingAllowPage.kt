@@ -39,7 +39,13 @@ internal data class PermissionItem(
     val reasonRes: Int,
     val icon: ImageVector,
     val permissions: List<String>,
+    /** I12: an optional item is marked "Optional" and does not count towards "All set". */
+    val optional: Boolean = false,
 )
+
+/** True when every item that is not optional is granted. */
+internal fun requiredGranted(items: List<PermissionItem>, granted: Map<PermissionItem, Boolean>): Boolean =
+    items.all { it.optional || granted[it] == true }
 
 internal fun permissionItems(): List<PermissionItem> = buildList {
     add(
@@ -62,6 +68,7 @@ internal fun permissionItems(): List<PermissionItem> = buildList {
         PermissionItem(
             R.string.onb_perm_phone, R.string.onb_perm_phone_reason, Symbols.Smartphone,
             listOf(Manifest.permission.READ_PHONE_STATE),
+            optional = true,
         ),
     )
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -102,7 +109,7 @@ internal fun AllowPage(
     onOpenSettings: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val allDone = defaultSms.isDefault && granted.values.all { it }
+    val allDone = defaultSms.isDefault && requiredGranted(items, granted)
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
         PageTitle(stringResource(R.string.onb_perm_title))
         PageBody(stringResource(R.string.onb_allow_intro))
@@ -159,6 +166,7 @@ internal fun AllowPage(
                 reason = stringResource(item.reasonRes),
                 ok = ok,
                 blocked = blocked,
+                optional = item.optional,
                 onClick = if (blocked) onOpenSettings else ({ onRequest(item) }),
             )
         }
@@ -170,11 +178,19 @@ internal fun AllowPage(
  * it is the row's content description for screen readers.
  */
 @Composable
-private fun ChecklistRow(title: String, reason: String, ok: Boolean, blocked: Boolean, onClick: () -> Unit) {
+private fun ChecklistRow(
+    title: String,
+    reason: String,
+    ok: Boolean,
+    blocked: Boolean,
+    onClick: () -> Unit,
+    optional: Boolean = false,
+) {
     val status = stringResource(
         when {
             ok -> R.string.onb_allow_done
             blocked -> R.string.onb_perm_open_settings
+            optional -> R.string.onb_allow_optional
             else -> R.string.onb_allow_needed
         },
     )

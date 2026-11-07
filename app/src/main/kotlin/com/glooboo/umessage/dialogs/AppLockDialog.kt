@@ -198,7 +198,10 @@ private class Lockout(private val config: BaseConfig, private val enabled: Boole
 
     fun refresh() {
         seconds = if (enabled) {
-            AppLockLogic.lockoutSeconds(config.passwordRetryCount, config.passwordCountdownStartMs, System.currentTimeMillis())
+            AppLockLogic.lockoutSeconds(
+                config.passwordRetryCount, config.passwordCountdownStartMs, System.currentTimeMillis(),
+                config.passwordCountdownStartElapsedMs, runningClock(),
+            )
         } else {
             0
         }
@@ -208,6 +211,7 @@ private class Lockout(private val config: BaseConfig, private val enabled: Boole
         if (!enabled) return
         config.passwordRetryCount = 0
         config.passwordCountdownStartMs = 0
+        config.passwordCountdownStartElapsedMs = -1L
     }
 
     /** Wrong entries still allowed before a wait starts; null when attempts are not counted (setting up). */
@@ -217,7 +221,10 @@ private class Lockout(private val config: BaseConfig, private val enabled: Boole
     fun wrong(): Boolean {
         if (!enabled) return false
         config.passwordRetryCount += 1
-        if (config.passwordRetryCount >= AppLockLogic.MAX_RETRIES) config.passwordCountdownStartMs = System.currentTimeMillis()
+        if (config.passwordRetryCount >= AppLockLogic.MAX_RETRIES) {
+            config.passwordCountdownStartElapsedMs = runningClock()
+            config.passwordCountdownStartMs = System.currentTimeMillis()
+        }
         refresh()
         return seconds > 0
     }
@@ -321,7 +328,7 @@ private fun PinTab(requiredHash: String, onSuccess: (hash: String) -> Unit) {
             error = error,
             lockSeconds = lock.seconds,
         )
-        val enteredDescription = stringResource(R.string.dialogs_lock_pin_entered, pin.length)
+        val enteredDescription = pluralStringResource(R.plurals.dialogs_lock_pin_entered, pin.length, pin.length)
         Text(
             text = "•".repeat(pin.length),
             style = MaterialTheme.typography.headlineMedium,

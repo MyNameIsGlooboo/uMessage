@@ -14,12 +14,18 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- BiometricPrompt (androidx.biometric, used by the app lock) needs this on API 28+.
          The vendored commons manifest removes it; declaring it here overrides that. -->
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <!-- The unmaintained Reprint library (legacy fingerprint tab, Android 10 and lower) adds the deprecated
+         USE_FINGERPRINT. Only Android 8 and 9 need it (from Android 9 USE_BIOMETRIC covers the fingerprint API),
+         so it is capped there instead of being declared on every version. -->
+    <uses-permission
+        android:name="android.permission.USE_FINGERPRINT"
+        android:maxSdkVersion="27"
+        tools:node="replace" />
 
     <queries>
         <!-- OEM background settings the "Keep uMessage running" guide opens (helpers/OemIntents.kt). Resolving them
@@ -85,13 +91,13 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:theme="@style/Theme.UMessage.Splash" />
 
         <activity
             android:name=".activities.RecycleBinConversationsActivity"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:label="@string/recycle_bin"
             android:parentActivityName=".activities.MainActivity"
@@ -99,7 +105,7 @@
 
         <activity
             android:name=".activities.ThreadActivity"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:launchMode="singleTop"
             android:parentActivityName=".activities.MainActivity"
@@ -109,7 +115,7 @@
         <activity
             android:name=".activities.BubbleThreadActivity"
             android:allowEmbedded="true"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:documentLaunchMode="always"
             android:exported="false"
             android:resizeableActivity="true"
@@ -118,7 +124,7 @@
 
         <activity
             android:name=".activities.NewConversationActivity"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:exported="true"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/Theme.UMessage.Screen">
@@ -153,7 +159,7 @@
 
         <activity
             android:name=".activities.SettingsActivity"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:exported="true"
             android:label="@string/settings"
             android:parentActivityName=".activities.MainActivity"
@@ -174,7 +180,7 @@
 
         <activity
             android:name=".activities.ManageBlockedKeywordsActivity"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:label="@string/blocked_keywords"
             android:parentActivityName=".activities.SettingsActivity"
@@ -182,7 +188,7 @@
 
         <activity
             android:name=".activities.VCardViewerActivity"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:label="@string/contact_details"
             android:parentActivityName=".activities.ThreadActivity"
@@ -190,7 +196,7 @@
 
         <activity
             android:name=".activities.ConversationDetailsActivity"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:label="@string/conversation_details"
             android:parentActivityName=".activities.ThreadActivity"

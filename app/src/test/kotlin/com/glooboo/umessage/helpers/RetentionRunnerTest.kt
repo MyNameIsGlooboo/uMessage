@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.extensions.config
+import com.glooboo.umessage.extensions.getMessagesDB
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.models.Message
+import com.glooboo.umessage.models.MessageReminder
 import com.glooboo.umessage.models.StarredMessage
 import com.glooboo.umessage.testing.RETENTION_CODE_BODY
 import com.glooboo.umessage.testing.offMainThread
@@ -131,5 +133,28 @@ class RetentionRunnerTest {
         offMainThread { RetentionRunner(context).runIfDue(now) }
 
         assertThat(binned()).isEmpty()
+    }
+
+    @Test
+    fun messagesWithANoteOrAReminderStayOutOfTheBin() {
+        val noted = retentionMessage(1, date = oldDate)
+        val reminded = retentionMessage(2, date = oldDate)
+        // Same second, sender and text would share one note key (by design), so the plain one has its own text.
+        store(noted, reminded, retentionMessage(3, "See you at nine", date = oldDate))
+        offMainThread {
+            runBlocking {
+                context.messageNotes.setNote(noted, "rent")
+                val reminder =
+                    MessageReminder(messageId = 2, isMMS = false, threadId = 7, remindAt = 1, snapshotBody = "x")
+                context.getMessagesDB().MessageRemindersDao().insert(reminder)
+            }
+        }
+        context.cleanupPrefs.oldMessageDays = 90
+
+        val preview = offMainThread { RetentionRunner(context).countOld(90, now) }
+        offMainThread { RetentionRunner(context).runNow(now) }
+
+        assertThat(preview).isEqualTo(1)
+        assertThat(binned()).containsExactly(3L)
     }
 }

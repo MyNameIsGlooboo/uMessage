@@ -40,7 +40,7 @@ class ImageCompressor(private val context: Context) {
                 if (fileSize > compressSize) {
                     val mimeType = contentResolver.getType(uri)!!
                     if (mimeType.isImageMimeType()) {
-                        var imageFile = File(outputDirectory, System.currentTimeMillis().toString().plus(mimeType.getExtensionFromMimeType()))
+                        var imageFile = File(outputDirectory, compressedFileName(mimeType.getExtensionFromMimeType()))
                         // Streamed to the file: reading a large photo into a byte array could run out of memory.
                         contentResolver.openInputStream(uri)!!.use { input ->
                             imageFile.outputStream().use { input.copyTo(it) }

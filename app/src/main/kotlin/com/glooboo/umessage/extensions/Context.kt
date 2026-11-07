@@ -72,9 +72,13 @@ import com.glooboo.umessage.interfaces.DraftsDao
 import com.glooboo.umessage.interfaces.LabelsDao
 import com.glooboo.umessage.interfaces.MessageAttachmentsDao
 import com.glooboo.umessage.interfaces.MessagesDao
+import com.glooboo.umessage.messaging.IncomingDateSent
 import com.glooboo.umessage.messaging.MessagingUtils
 import com.glooboo.umessage.messaging.MessagingUtils.Companion.ADDRESS_SEPARATOR
+import com.glooboo.umessage.messaging.ScheduledAction
+import com.glooboo.umessage.messaging.ScheduledSendClaims
 import com.glooboo.umessage.messaging.SmsSender
+import com.glooboo.umessage.messaging.scheduledActionFor
 import com.glooboo.umessage.messaging.cancelRemindersForMessage
 import com.glooboo.umessage.messaging.scheduleMessage
 import com.glooboo.umessage.models.Attachment
@@ -969,6 +973,8 @@ fun Context.insertNewSMS(
         put(Sms.THREAD_ID, threadId)
         put(Sms.TYPE, type)
         put(Sms.SUBSCRIPTION_ID, subscriptionId)
+        // The carrier's own send time, when the receiver knows it (I16).
+        IncomingDateSent.current()?.let { put(Sms.DATE_SENT, it) }
     }
 
     return try {
@@ -1439,7 +1445,8 @@ fun Context.updateLastConversationMessage(threadIds: Iterable<Long>) {
     try {
         contentResolver.delete(uri, selection, null)
         for (threadId in threadIds) {
-            val newConversation = getConversations(threadId)[0]
+            // An empty thread, or one of a blocked number, has none: the other threads still refresh (B12).
+            val newConversation = getConversations(threadId).firstOrNull() ?: continue
             insertOrUpdateConversation(newConversation)
         }
     } catch (_: Exception) {
@@ -1578,15 +1585,20 @@ fun Context.updateScheduledMessagesThreadId(messages: List<Message>, newThreadId
     messages.filter { it.isScheduled }.forEach { messagesDB.moveScheduledMessage(it.id, newThreadId) }
 }
 
+/**
+ * F3: a scheduled message whose time passed without being sent (alarm lost to a force-stop or the phone being off) is
+ * never dropped any more: its alarm is set again, in the past, so it goes out at once, late, with the "sent late"
+ * notice. Only an empty temporary thread is cleaned up. (The name is from when overdue messages were deleted.)
+ */
 fun Context.clearExpiredScheduledMessages(threadId: Long, messagesToDelete: List<Message>? = null) {
     val messages = messagesToDelete ?: messagesDB.getScheduledThreadMessages(threadId)
     val cutoff = System.currentTimeMillis() - 1.minutes.inWholeMilliseconds
 
     try {
-        messages.filter { it.isExpiredScheduled(cutoff) }.forEach { msg ->
-            messagesDB.deleteScheduledMessage(msg.id)
+        messages.filter { it.isExpiredScheduled(cutoff) && it.type == Sms.MESSAGE_TYPE_QUEUED }.forEach { msg ->
+            runCatching { scheduleMessage(msg, warnIfInexact = false) }
         }
-        if (messages.filterNot { it.isExpiredScheduled(cutoff) }.isEmpty()) {
+        if (messages.isEmpty()) {
             // delete empty temporary thread
             val conversation = conversationsDB.getConversationWithThreadId(threadId)
             if (conversation != null && conversation.isScheduled) {
@@ -1607,9 +1619,16 @@ fun Context.rescheduleAllScheduledMessages() {
     }
 
     // Falls back to inexact alarms without exact-alarm access; no toast, this runs from boot and similar broadcasts.
-    // A scheduled message whose send failed is held (type FAILED): it goes out only when the user retries it.
-    scheduledMessages.filter { it.type != Sms.MESSAGE_TYPE_FAILED }.forEach { message ->
-        runCatching { scheduleMessage(message, warnIfInexact = false) }
+    // A scheduled message whose send failed is held (type FAILED): it goes out only when the user retries it. One
+    // that is being sent right now is left alone, and one left in the outbox by a send that died is held, never
+    // re-sent (F3).
+    scheduledMessages.forEach { message ->
+        when (scheduledActionFor(message.type, ScheduledSendClaims.isInFlight(message.id))) {
+            ScheduledAction.ARM -> runCatching { scheduleMessage(message, warnIfInexact = false) }
+            ScheduledAction.HOLD ->
+                runCatching { messagesDB.updateScheduledType(message.id, Sms.MESSAGE_TYPE_FAILED) }
+            ScheduledAction.SKIP -> Unit
+        }
     }
 }
 

@@ -7,6 +7,7 @@ import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.helpers.DEFAULT_SIM_ASK
 import com.glooboo.umessage.helpers.DEFAULT_SIM_PHONE
 import com.glooboo.umessage.helpers.FILE_SIZE_1_MB
+import com.glooboo.umessage.helpers.cleanupPrefs
 import com.glooboo.umessage.helpers.composerPrefs
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UnknownInboxNotify
@@ -35,7 +36,11 @@ class BackupMoreSettingsTest {
         val spam = SpamSettings(
             unknownInboxNotify = UnknownInboxNotify.SILENT, openLinkAction = true, blockOutsideRegion = "GB",
         )
-        assertThat(BackupMoreSettings.collect(context, BackupSettings(), spam)).isEqualTo(changed)
+        // The cleanup ages are written to a file but never restored from it (I4/Q38).
+        assertThat(BackupMoreSettings.collect(context, BackupSettings(), spam))
+            .isEqualTo(changed.copy(codeCleanupDays = 0, oldMessageDays = 0))
+        assertThat(context.cleanupPrefs.codeDays).isEqualTo(0)
+        assertThat(context.cleanupPrefs.oldMessageDays).isEqualTo(0)
     }
 
     @Test fun missingSettingsLeaveThePhoneAsItIs() {

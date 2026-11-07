@@ -16,6 +16,8 @@ data class OutgoingMessage(
     val attachments: List<Attachment> = emptyList(),
     /** The failed message this replaces ("Retry"), matched by id and type. */
     val resendOf: MessageKey? = null,
+    /** Told about each attachment queued, so a scheduled message can drop it (MS6). */
+    val onAttachmentHandedOff: (Attachment) -> Unit = {},
 )
 
 /** Hands a message to the system. Returns false when nothing reached the provider; may throw. */
@@ -31,6 +33,7 @@ class ContextMessageSender(private val context: Context) : MessageSender {
         subId = message.subscriptionId,
         attachments = message.attachments,
         resend = message.resendOf,
+        onAttachmentHandedOff = message.onAttachmentHandedOff,
     )
 }
 
@@ -61,6 +64,16 @@ class ThreadSendController(
         }
         return Result(handedOff, shouldClearComposerAfterSend(handedOff, fromComposer), completed = true)
     }
+}
+
+/** Lets one send from the composer run at a time: the second tap on Send while it runs is ignored (MS5). */
+class SendGuard {
+    private val running = java.util.concurrent.atomic.AtomicBoolean(false)
+
+    /** True when the caller may start; then it must call [finish]. */
+    fun tryStart(): Boolean = running.compareAndSet(false, true)
+
+    fun finish() = running.set(false)
 }
 
 /**

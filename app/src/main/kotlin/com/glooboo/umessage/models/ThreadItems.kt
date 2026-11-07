@@ -9,7 +9,12 @@ sealed class ThreadItem {
     data class ThreadError(val messageId: Long, val messageText: String, val isMMS: Boolean = false) : ThreadItem() {
         val key: MessageKey get() = MessageKey(messageId, isMMS)
     }
-    data class ThreadSent(val messageId: Long, val delivered: Boolean) : ThreadItem()
+    /** [deliveryFailed]: the carrier's delivery report says the text did not arrive (SMS only). */
+    data class ThreadSent(
+        val messageId: Long,
+        val delivered: Boolean,
+        val deliveryFailed: Boolean = false,
+    ) : ThreadItem()
     data class ThreadSending(val messageId: Long) : ThreadItem()
 
     /** The "Unread messages" line above the message with [messageId] (its [Message.getStableId]). */

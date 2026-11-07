@@ -83,10 +83,9 @@ internal object BackupMoreSettings {
         s.showTapbacks?.let { w3c.showTapbacks = it }
         s.riskyLinksLocked?.let { ThreadPrefs.get(app).riskyLinksLocked = it }
         s.bankCards?.let { BankCardPrefs.get(app).cardsEnabled = it }
-        val cleanup = app.cleanupPrefs
-        s.codeCleanupDays?.let { cleanup.codeDays = it }
-        s.oldMessageDays?.let { cleanup.oldMessageDays = it }
-        s.weeklyDigest?.let { cleanup.digestOn = it }
+        // I4/Q38: the file may hold codeCleanupDays and oldMessageDays, but a restore never applies them: they start
+        // the automatic move to the bin (and so the permanent purge), which the user must choose on this phone.
+        s.weeklyDigest?.let { app.cleanupPrefs.digestOn = it }
         s.carrierSpamNumber?.let { CarrierReport(app).number = it }
     }
 

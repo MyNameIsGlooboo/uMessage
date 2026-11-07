@@ -60,9 +60,9 @@ fun formatListTime(context: Context, millis: Long, now: Long = System.currentTim
 fun formatClockTime(context: Context, millis: Long): String =
     DateUtils.formatDateTime(context, millis, DateUtils.FORMAT_SHOW_TIME)
 
-/** [formatListTime] for composables. */
+/** [formatListTimeStyled] for composables: Jalali dates for a user who chose the Jalali style (B13). */
 @Composable
 fun rememberTimeLabel(timestamp: Long): String {
     val context = LocalContext.current
-    return remember(timestamp) { formatListTime(context, timestamp) }
+    return remember(timestamp) { formatListTimeStyled(context, timestamp) }
 }

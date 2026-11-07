@@ -3,6 +3,7 @@ package com.glooboo.umessage.backup
 import android.content.Context
 import androidx.core.content.edit
 import com.glooboo.umessage.helpers.StarredMessages
+import com.glooboo.umessage.helpers.toSecondsInt
 import com.glooboo.umessage.interfaces.MessagesDao
 import com.glooboo.umessage.models.AppDataBackup
 import com.glooboo.umessage.models.MessageKey
@@ -88,7 +89,7 @@ class PendingRecycled(context: Context) {
 
     private fun findMessage(messages: MessagesDao, item: RecycledBackup): MessageKey? {
         val address = StarredMessages.normalizedAddress(item.address)
-        return messages.getMessagesAtDate(item.date.toInt()).firstOrNull {
+        return messages.getMessagesAtDate(item.date.toSecondsInt()).firstOrNull {
             it.isMMS == item.isMms && StarredMessages.fingerprint(it.body) == item.bodyHash &&
                 StarredMessages.normalizedAddress(StarredMessages.addressOf(it)) == address
         }?.key

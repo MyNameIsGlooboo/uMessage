@@ -50,7 +50,7 @@ data class Message(
      */
     fun isHeldScheduled() = isScheduled && type == Telephony.Sms.MESSAGE_TYPE_FAILED
 
-    /** A scheduled message whose time passed without being sent or held: left over, and safe to drop. */
+    /** A scheduled message whose time passed without being sent or held: overdue, sent late (never dropped, F3). */
     fun isExpiredScheduled(nowMillis: Long) = isScheduled && !isHeldScheduled() && millis() < nowMillis
 
     fun getSender(): SimpleContact? =

@@ -1,5 +1,6 @@
 package com.glooboo.umessage.ui.log
 
+import com.glooboo.umessage.ui.settings.AppLocale
 import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -94,6 +95,9 @@ import kotlinx.coroutines.withContext
 
 /** Last filter decisions (sender, SIM, decision, reason). Message text is never logged. */
 class DecisionLogActivity : ComponentActivity() {
+    /** I1: puts the in-app language on this screen on Android 8 to 12 (a no-op on 13+). */
+    override fun attachBaseContext(newBase: Context) = super.attachBaseContext(AppLocale.wrap(newBase))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         applyUMessageWindow()
         super.onCreate(savedInstanceState)

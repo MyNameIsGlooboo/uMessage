@@ -1,6 +1,7 @@
 package com.glooboo.umessage.ui.thread
 
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
+import com.glooboo.umessage.spam.engine.NumberNormalizer
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.fossify.commons.models.PhoneNumber
@@ -20,13 +21,16 @@ class ThreadRecipients(val contacts: List<SimpleContact> = emptyList()) {
     fun isNotEmpty(): Boolean = contacts.isNotEmpty()
 
     /** More than one person: rows show sender names and a send can go as one group MMS. */
-    val isGroup: Boolean get() = contacts.size > 1
+    val isGroup: Boolean get() = contacts.size > 1 && distinctAddresses.size > 1
 
     /** The only person, or null for none or a group. */
     val single: SimpleContact? get() = contacts.singleOrNull()
 
-    /** Every number to send to, as stored (normalized), in order. Same as `getAddresses()` on the contact list. */
-    val addresses: List<String> get() = contacts.flatMap { it.phoneNumbers }.map { it.normalizedNumber }
+    /**
+     * Every number to send to, as stored (normalized), in order. The same phone written two ways ("0912..." and
+     * "+98912...") counts once, so a send never goes to one person twice (B15).
+     */
+    val addresses: List<String> get() = dedupe(contacts.flatMap { it.phoneNumbers }.map { it.normalizedNumber })
 
     /** [addresses] without repeats: how many different people a send reaches. */
     val distinctAddresses: List<String> get() = addresses.distinct()
@@ -49,9 +53,15 @@ class ThreadRecipients(val contacts: List<SimpleContact> = emptyList()) {
 
     fun contains(rawId: Int): Boolean = contacts.any { it.rawId == rawId }
 
-    /** Adds [contact] unless someone with the same raw id is already in. */
+    /** Adds [contact] unless someone with the same raw id, or the same phone number, is already in (B15). */
     operator fun plus(contact: SimpleContact): ThreadRecipients =
-        if (contains(contact.rawId)) this else ThreadRecipients(contacts + contact)
+        if (contains(contact.rawId) || hasSamePhoneAs(contact)) this else ThreadRecipients(contacts + contact)
+
+    private fun hasSamePhoneAs(contact: SimpleContact): Boolean {
+        val mine = contacts.flatMap { it.phoneNumbers }.map { it.normalizedNumber }
+        return contact.phoneNumbers.isNotEmpty() &&
+            contact.phoneNumbers.all { added -> mine.any { sameAddress(it, added.normalizedNumber) } }
+    }
 
     operator fun minus(rawId: Int): ThreadRecipients = ThreadRecipients(contacts.filter { it.rawId != rawId })
 
@@ -62,6 +72,18 @@ class ThreadRecipients(val contacts: List<SimpleContact> = emptyList()) {
     fun toArrayList(): ArrayList<SimpleContact> = ArrayList(contacts)
 
     companion object {
+        // No region: a national number ("0912...") matches the national part of an international one ("+98912...").
+        private val matcher = NumberNormalizer { "" }
+
+        private fun sameAddress(a: String, b: String): Boolean = a == b || matcher.sameAddress(a, b)
+
+        /** [numbers] in order, each phone once. */
+        internal fun dedupe(numbers: List<String>): List<String> {
+            val kept = ArrayList<String>()
+            for (number in numbers) if (kept.none { sameAddress(it, number) }) kept.add(number)
+            return kept
+        }
+
         /**
          * Recipients for numbers that have no contact yet (a new conversation, or a link): one entry per number.
          * A lone number is shown as [name] when one was given.

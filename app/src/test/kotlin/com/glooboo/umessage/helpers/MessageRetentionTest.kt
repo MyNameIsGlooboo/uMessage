@@ -88,4 +88,21 @@ class MessageRetentionTest {
 
         assertThat(second).isEqualTo(first)
     }
+
+    @Test
+    fun noteOrReminderMessagesAreKeptLikeStarredOnes() {
+        val candidates = listOf(
+            retentionMessage(1, date = old),
+            retentionMessage(2, date = old),
+            retentionMessage(3, RETENTION_CODE_BODY, date = old),
+            retentionMessage(4, RETENTION_CODE_BODY, date = old),
+        )
+        val kept = { m: com.glooboo.umessage.models.Message -> m.id == 2L || m.id == 4L }
+
+        val oldOnes = MessageRetention.selectOld(candidates, cutoff, emptySet(), kept) { false }
+        val codes = MessageRetention.selectCodes(candidates, cutoff, kept) { false }
+
+        assertThat(ids(oldOnes)).containsExactly(1L, 3L)
+        assertThat(ids(codes)).containsExactly(3L)
+    }
 }

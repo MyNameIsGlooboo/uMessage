@@ -138,6 +138,29 @@ class BackupCryptoTest {
         assertThrows(BackupCrypto.DamagedFileException::class.java) { open(file) }
     }
 
+    @Test
+    fun aPasswordTypedOnAnotherKeyboardOpensTheFile() {
+        // Arabic yeh and kaf, Arabic-Indic digits, a zero-width non-joiner: all the same password as the Persian one.
+        val typedArabic = "\u0643\u0644\u064A\u062F\u0661\u0662\u0663".toCharArray()
+        val typedPersian = "\u06A9\u0644\u06CC\u062F\u200C123".toCharArray()
+        val data = bytes(50)
+
+        assertThat(open(seal(data, typedArabic.copyOf()), typedPersian)).isEqualTo(data)
+        assertThrows(BackupCrypto.WrongPasswordException::class.java) {
+            open(seal(data, typedArabic.copyOf()), "\u06A9\u0644\u06CC\u062F124".toCharArray())
+        }
+    }
+
+    @Test
+    fun aFileOfTheFirstVersionStillOpens() {
+        val data = bytes(50)
+        val file = seal(data)
+        file[7] = '1'.code.toByte() // UMSGENC1: an ASCII password has the same key in both versions
+
+        assertThat(open(file)).isEqualTo(data)
+        assertThrows(BackupCrypto.WrongPasswordException::class.java) { open(file, "nope".toCharArray()) }
+    }
+
     private companion object {
         const val TEST_ITERATIONS = 1_000
         const val TAG_SIZE = 16

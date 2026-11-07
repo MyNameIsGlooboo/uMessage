@@ -41,8 +41,12 @@ object BlockedFilters {
      * messages made "All 4" sit over 3 rows when one sender had two messages (emulator check, round 4). A sender
      * counts for a chip when any of their messages matches it, as [apply] then [groupBySender] would list them.
      */
-    fun counts(messages: List<BlockedMessage>, subscriptionIds: Collection<Int>): Map<BlockedFilter, Int> {
-        fun senders(filter: BlockedFilter) = apply(filter, messages).mapTo(HashSet()) { it.address }.size
+    fun counts(
+        messages: List<BlockedMessage>,
+        subscriptionIds: Collection<Int>,
+        keyOf: (String) -> String = { it },
+    ): Map<BlockedFilter, Int> {
+        fun senders(filter: BlockedFilter) = apply(filter, messages).mapTo(HashSet()) { keyOf(it.address) }.size
         return buildMap {
             put(BlockedFilter.All, senders(BlockedFilter.All))
             put(BlockedFilter.UnknownSender, senders(BlockedFilter.UnknownSender))

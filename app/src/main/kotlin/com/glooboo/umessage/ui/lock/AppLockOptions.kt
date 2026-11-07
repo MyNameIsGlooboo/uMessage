@@ -30,17 +30,31 @@ object AppLockTimeouts {
  * - [secure]: FLAG_SECURE. Blocks screenshots and screen recording and also hides the Recents thumbnail on every
  *   version. Below Android 13 it is the only way to hide the thumbnail.
  *
+ * - [secureWhileLeaving]: FLAG_SECURE only from the moment the screen is paused until it is resumed. Android 12 and
+ *   lower have no switch for the Recents thumbnail, so with the lock on and screenshots allowed the thumbnail is made
+ *   blank this way: screenshots stay possible while the app is in use, but the last chat never shows in Recents.
+ *
  * "Block screenshots" is off by default (the owner's choice: screenshots stay possible, for example to report spam).
- * The Recents thumbnail is still hidden with the lock on Android 13+; on Android 12 and lower only turning Block
- * screenshots on hides it, which the setting's summary says.
+ * The Recents thumbnail is still hidden with the lock on, on every Android version.
  */
-data class WindowProtection(val secure: Boolean, val hideFromRecents: Boolean) {
+data class WindowProtection(
+    val secure: Boolean,
+    val hideFromRecents: Boolean,
+    val secureWhileLeaving: Boolean = false,
+) {
     companion object {
         val NONE = WindowProtection(secure = false, hideFromRecents = false)
 
         fun of(lockOn: Boolean, blockScreenshots: Boolean, sdk: Int = Build.VERSION.SDK_INT): WindowProtection = when {
             !lockOn -> NONE
-            else -> WindowProtection(secure = blockScreenshots, hideFromRecents = sdk >= Build.VERSION_CODES.TIRAMISU)
+            else -> {
+                val canHideRecents = sdk >= Build.VERSION_CODES.TIRAMISU
+                WindowProtection(
+                    secure = blockScreenshots,
+                    hideFromRecents = canHideRecents,
+                    secureWhileLeaving = !canHideRecents && !blockScreenshots,
+                )
+            }
         }
     }
 }

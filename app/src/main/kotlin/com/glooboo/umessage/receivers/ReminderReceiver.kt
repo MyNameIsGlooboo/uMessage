@@ -10,20 +10,12 @@ import com.glooboo.umessage.messaging.REMINDER_ID
 import com.glooboo.umessage.messaging.cancelReminder
 import com.glooboo.umessage.messaging.resolveReminderTarget
 import kotlinx.coroutines.runBlocking
-import org.fossify.commons.helpers.ensureBackgroundThread
 
 /** I51: a message reminder is due. It posts one notification that opens the message; nothing is sent. */
 class ReminderReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        val pendingResult = goAsync()
-        ensureBackgroundThread {
-            try {
-                handleIntent(context, intent)
-            } finally {
-                runCatching { pendingResult.finish() }
-            }
-        }
+        runInBackground("ReminderReceiver") { handleIntent(context, intent) }
     }
 
     @VisibleForTesting

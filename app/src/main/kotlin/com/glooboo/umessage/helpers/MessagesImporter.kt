@@ -254,13 +254,15 @@ class MessagesImporter(
 
     private fun XmlPullParser.readSms(): SmsBackup {
         fun attr(name: String): String? = getAttributeValue(null, name)?.takeUnless { it == "null" }
+        // The exporter writes the text null for a missing service center or protocol; a body that says null is a body.
+        fun raw(name: String): String? = getAttributeValue(null, name)
         val address = attr("address")?.takeIf { it.isNotBlank() } ?: throw IllegalArgumentException("no address")
         val date = attr("date")?.toLongOrNull() ?: throw IllegalArgumentException("no date")
         val type = attr("type")?.toIntOrNull() ?: throw IllegalArgumentException("no type")
         return SmsBackup(
             subscriptionId = 0,
             address = address,
-            body = attr("body"),
+            body = raw("body"),
             date = date,
             // SMS Backup & Restore writes the network sent time as date_sent; older files may lack it.
             dateSent = attr("date_sent")?.toLongOrNull() ?: date,

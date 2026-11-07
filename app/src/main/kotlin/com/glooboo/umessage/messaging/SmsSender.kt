@@ -21,7 +21,7 @@ class SmsSender(val app: Application) {
     // This should be called from a RequestWriter queue thread
     fun sendMessage(
         subId: Int, destination: String, body: String, serviceCenter: String?,
-        requireDeliveryReport: Boolean, messageUri: Uri, forwardLogId: Long? = null,
+        requireDeliveryReport: Boolean, messageUri: Uri, forwardLogId: Long? = null, groupRowUri: Uri? = null,
     ) {
         var dest = destination
         require(body.isNotEmpty()) { "SmsSender: empty text message" }
@@ -41,7 +41,7 @@ class SmsSender(val app: Application) {
         }
         // Actually send the sms
         sendInternal(
-            subId, dest, messages, serviceCenter, requireDeliveryReport, messageUri, forwardLogId
+            subId, dest, messages, serviceCenter, requireDeliveryReport, messageUri, forwardLogId, groupRowUri
         )
     }
 
@@ -49,7 +49,7 @@ class SmsSender(val app: Application) {
     private fun sendInternal(
         subId: Int, dest: String,
         messages: ArrayList<String>, serviceCenter: String?,
-        requireDeliveryReport: Boolean, messageUri: Uri, forwardLogId: Long?,
+        requireDeliveryReport: Boolean, messageUri: Uri, forwardLogId: Long?, groupRowUri: Uri?,
     ) {
         val smsManager = getSmsManager(app, subId)
         val messageCount = messages.size
@@ -80,7 +80,7 @@ class SmsSender(val app: Application) {
                 PendingIntent.getBroadcast(
                     app,
                     partId,
-                    getSendStatusIntent(messageUri, subId, messageCount, forwardLogId),
+                    getSendStatusIntent(messageUri, subId, messageCount, forwardLogId, groupRowUri),
                     flags
                 )
             )
@@ -108,13 +108,17 @@ class SmsSender(val app: Application) {
         }
     }
 
-    private fun getSendStatusIntent(requestUri: Uri, subId: Int, partCount: Int, forwardLogId: Long?): Intent {
+    private fun getSendStatusIntent(
+        requestUri: Uri, subId: Int, partCount: Int, forwardLogId: Long?, groupRowUri: Uri?,
+    ): Intent {
         val intent = Intent(SendStatusReceiver.SMS_SENT_ACTION, requestUri, app, SmsStatusSentReceiver::class.java)
         intent.putExtra(SendStatusReceiver.EXTRA_SUB_ID, subId)
         // Each part reports on its own; the receiver needs the total to know when the whole message is sent.
         intent.putExtra(SendStatusReceiver.EXTRA_PART_COUNT, partCount)
         // A forward: its log row, so a failure the radio reports marks exactly that forward.
         if (forwardLogId != null) intent.putExtra(SmsStatusSentReceiver.EXTRA_FORWARD_LOG_ID, forwardLogId)
+        // A text sent as separate copies to a group: the group's summary row, which must fail with a copy.
+        if (groupRowUri != null) intent.putExtra(SmsStatusSentReceiver.EXTRA_GROUP_ROW_URI, groupRowUri.toString())
         return intent
     }
 

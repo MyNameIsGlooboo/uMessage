@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import org.fossify.commons.extensions.notificationManager
-import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.deleteMessage
 import com.glooboo.umessage.extensions.moveMessageToRecycleBin
@@ -22,25 +21,16 @@ class DeleteSmsReceiver : BroadcastReceiver() {
         val messageId = intent.getLongExtra(MESSAGE_ID, 0L)
         val isMms = intent.getBooleanExtra(IS_MMS, false)
         context.notificationManager.cancel(threadId.hashCode())
-        val pending = goAsync()
-        try {
-            ensureBackgroundThread {
-                try {
-                    // Same rule as deleting in the thread screen: with the recycle bin on, it goes there first.
-                    if (context.config.useRecycleBin) {
-                        context.moveMessageToRecycleBin(messageId, isMms)
-                    } else {
-                        context.deleteMessage(messageId, isMms)
-                    }
-                    context.updateLastConversationMessage(threadId)
-                    refreshMessages()
-                    refreshConversations()
-                } finally {
-                    runCatching { pending.finish() }
-                }
+        runInBackground("DeleteSmsReceiver") {
+            // Same rule as deleting in the thread screen: with the recycle bin on, it goes there first.
+            if (context.config.useRecycleBin) {
+                context.moveMessageToRecycleBin(messageId, isMms)
+            } else {
+                context.deleteMessage(messageId, isMms)
             }
-        } catch (t: Throwable) {
-            runCatching { pending.finish() }
+            context.updateLastConversationMessage(threadId)
+            refreshMessages()
+            refreshConversations()
         }
     }
 }

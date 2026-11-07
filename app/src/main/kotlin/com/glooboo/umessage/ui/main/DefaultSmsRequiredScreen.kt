@@ -34,14 +34,21 @@ import com.glooboo.umessage.ui.theme.UMessageTheme
 
 /**
  * Shown instead of the conversation list when the user declined the default-SMS dialog: says what is lost and offers
- * to ask again, like the onboarding default-app page, instead of closing the app.
+ * to ask again, like the onboarding default-app page, instead of closing the app. [unavailable] is for a phone that
+ * has no such dialog: the button opens the default apps settings.
  */
 @Composable
-fun DefaultSmsRequiredScreen(onSetDefault: () -> Unit, onClose: () -> Unit, modifier: Modifier = Modifier) {
+fun DefaultSmsRequiredScreen(
+    onSetDefault: () -> Unit,
+    onClose: () -> Unit,
+    modifier: Modifier = Modifier,
+    unavailable: Boolean = false,
+) {
+    // I22: when the phone cannot show the dialog, say so and open Android's default apps instead.
     RequiredStepScreen(
         title = stringResource(R.string.onb_default_title),
-        body = stringResource(R.string.ui_default_required_body),
-        action = stringResource(R.string.onb_default_action),
+        body = stringResource(if (unavailable) R.string.onb_default_unavailable else R.string.ui_default_required_body),
+        action = stringResource(if (unavailable) R.string.onb_default_open_settings else R.string.onb_default_action),
         onAction = onSetDefault,
         onClose = onClose,
         modifier = modifier,

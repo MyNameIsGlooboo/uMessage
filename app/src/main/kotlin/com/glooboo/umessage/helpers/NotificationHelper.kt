@@ -345,7 +345,8 @@ class NotificationHelper(private val context: Context) {
             createChannel(notificationChannelId, context.getString(R.string.message_not_sent_short))
         }
 
-        val notificationId = generateRandomId().hashCode()
+        // One per chat: repeated failures replace each other, and opening the chat or a successful retry removes it.
+        val notificationId = NotificationIds.failedSend(threadId)
         val intent = Intent(context, ThreadActivity::class.java).apply {
             putExtra(THREAD_ID, threadId)
         }
@@ -386,10 +387,11 @@ class NotificationHelper(private val context: Context) {
         NotificationChannel(
             SCHEDULED_LATE_CHANNEL_ID,
             context.getString(R.string.scheduled_sent_late_channel),
-            NotificationManager.IMPORTANCE_DEFAULT
+            // F3: a message that went out late is a quiet notice, not an alert.
+            NotificationManager.IMPORTANCE_LOW
         ).also { notificationManager.createNotificationChannel(it) }
 
-        val notificationId = generateRandomId().hashCode()
+        val notificationId = NotificationIds.sentLate(threadId)
         val canAskForExact = !exactAlarmsAllowed && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
         val intent = if (canAskForExact) {
             Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse("package:${context.packageName}"))
@@ -412,6 +414,7 @@ class NotificationHelper(private val context: Context) {
             .setColor(currentColorScheme(context).primary.toArgb())
             .setSmallIcon(R.drawable.ic_messenger)
             .setContentIntent(contentPendingIntent)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
             .setCategory(Notification.CATEGORY_STATUS)
             .setAutoCancel(true)
         notificationManager.notify(notificationId, builder.build())
@@ -429,7 +432,7 @@ class NotificationHelper(private val context: Context) {
             NotificationManager.IMPORTANCE_DEFAULT
         ).also { notificationManager.createNotificationChannel(it) }
 
-        val text = context.getString(R.string.w3a_forward_limit_text, limit)
+        val text = context.resources.getQuantityString(R.plurals.w3a_forward_limit_text, limit, limit)
         val contentPendingIntent = PendingIntent.getActivity(
             context,
             FORWARD_LIMIT_NOTIFICATION_ID,

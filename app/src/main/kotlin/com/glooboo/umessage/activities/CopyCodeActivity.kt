@@ -1,19 +1,17 @@
 package com.glooboo.umessage.activities
 
 import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.PersistableBundle
 import android.widget.Toast
 import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.Oem
 import com.glooboo.umessage.helpers.OemHelper
+import com.glooboo.umessage.helpers.SensitiveClip
 
 /**
  * N6: the notification "Copy code" action. An invisible activity that the action starts directly (Android 12+ allows
@@ -95,23 +93,12 @@ class CopyCodeActivity : Activity() {
 /** Copies a verification code to the clipboard and confirms it; shared by [CopyCodeActivity] and the old receiver. */
 object CopyCode {
 
-    /** ClipDescription.EXTRA_IS_SENSITIVE, a constant of API 33. */
-    private const val EXTRA_IS_SENSITIVE = "android.content.extra.IS_SENSITIVE"
-
     /** Copies [code] (marked sensitive on Android 13+) and shows a toast where the system shows no confirmation. */
     fun copy(context: Context, code: String): Boolean {
         if (code.isEmpty()) return false
-        val clipboard = context.getSystemService(ClipboardManager::class.java) ?: return false
-        val clip = ClipData.newPlainText(context.getString(R.string.onb_notif_clip_label), code)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            clip.description.extras = PersistableBundle().apply { putBoolean(EXTRA_IS_SENSITIVE, true) }
-        }
-        try {
-            clipboard.setPrimaryClip(clip)
-        } catch (_: SecurityException) {
+        // Marked sensitive and removed again after 60 seconds, if it is still the clipboard's content (I15).
+        if (!SensitiveClip.copy(context, context.getString(R.string.onb_notif_clip_label), code)) {
             // Some OEM ROMs refuse the write outright; the missing toast is better than a crash.
-            return false
-        } catch (_: IllegalStateException) {
             return false
         }
         if (needsOwnToast()) {

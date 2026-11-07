@@ -235,6 +235,9 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
 
     /** True once this screen has said that Persian text fits only 70 characters per SMS. */
     var unicodePartsNoted = false
+
+    /** True once this screen has warned that the text needs many SMS (I5); said once, not on every key. */
+    var manyPartsNoted = false
     var sendOnEnter by mutableStateOf(false)
     var replyDisabled by mutableStateOf(false)
     var sims by mutableStateOf<List<SIMCard>>(emptyList())

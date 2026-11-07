@@ -2,6 +2,7 @@ package com.glooboo.umessage.ui.spam
 
 import java.util.regex.Pattern
 import java.util.regex.PatternSyntaxException
+import com.glooboo.umessage.spam.KeywordMatch
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RegexGuard
 import com.glooboo.umessage.spam.RegexProblem
@@ -53,7 +54,19 @@ private fun syntaxDetail(pattern: String): String? = try {
     null
 }
 
+/** The quotes of a whole-word keyword ([KeywordMatch]) are not part of its length. */
+private fun validateKeyword(kind: ListKind, trimmed: String): RuleValidation {
+    val word = KeywordMatch.bare(trimmed)
+    return when {
+        word.length < 2 -> RuleValidation.Invalid(RuleError.KEYWORD_SHORT)
+        kind == ListKind.ALLOW && word.length < RuleValidator.MIN_ALLOW_KEYWORD ->
+            RuleValidation.Invalid(RuleError.ALLOW_KEYWORD_SHORT)
+        else -> RuleValidation.Valid(trimmed)
+    }
+}
+
 /** Pure validation for the add-rule form and for imports. No Android dependencies. */
+@Suppress("TooManyFunctions") // One small check per rule type; splitting them would scatter one decision.
 object RuleValidator {
     const val MAX_PATTERN = 300
 
@@ -117,11 +130,7 @@ object RuleValidator {
                 }
             }
             RuleType.SENDER_ID -> validateSenderId(trimmed)
-            RuleType.KEYWORD -> when {
-                trimmed.length < 2 -> RuleValidation.Invalid(RuleError.KEYWORD_SHORT)
-                kind == ListKind.ALLOW && trimmed.length < MIN_ALLOW_KEYWORD -> RuleValidation.Invalid(RuleError.ALLOW_KEYWORD_SHORT)
-                else -> RuleValidation.Valid(trimmed)
-            }
+            RuleType.KEYWORD -> validateKeyword(kind, trimmed)
             // Regex is not trimmed on purpose beyond the outer whitespace check above: inner spaces are meaningful.
             RuleType.REGEX -> validateRegex(trimmed)
         }
@@ -168,17 +177,22 @@ object RuleValidator {
         val result = mutableListOf<RuleWarning>()
         val text = type == RuleType.KEYWORD || type == RuleType.REGEX
         if (kind == ListKind.ALLOW && text) result += RuleWarning.ALLOW_SKIPS_BLOCKS
-        if (kind == ListKind.ALLOW && type == RuleType.KEYWORD && isCommonWord(pattern)) result += RuleWarning.COMMON_WORD
-        val broad = when (type) {
-            RuleType.KEYWORD -> kind == ListKind.BLOCK && pattern.trim().length <= SHORT_BLOCK_KEYWORD
-            RuleType.REGEX -> regexHits(pattern) * 2 >= ordinaryMessages.size
-            else -> false
+        if (kind == ListKind.ALLOW && type == RuleType.KEYWORD && isCommonWord(KeywordMatch.bare(pattern))) {
+            result += RuleWarning.COMMON_WORD
         }
-        if (broad) result += RuleWarning.BROAD
+        if (isBroad(kind, type, pattern)) result += RuleWarning.BROAD
         if (kind == ListKind.BLOCK && conflictingAllows(existing, type, pattern, subscriptionId).isNotEmpty()) {
             result += RuleWarning.ALLOWED_CONFLICT
         }
         return result
+    }
+
+    private fun isBroad(kind: ListKind, type: RuleType, pattern: String): Boolean = when (type) {
+        // A whole-word keyword does not hit the middle of other words, so a short one is not "broad".
+        RuleType.KEYWORD -> kind == ListKind.BLOCK && !KeywordMatch.isWholeWord(pattern) &&
+            pattern.trim().length <= SHORT_BLOCK_KEYWORD
+        RuleType.REGEX -> regexHits(pattern) * 2 >= ordinaryMessages.size
+        else -> false
     }
 
     private fun isCommonWord(pattern: String): Boolean {
@@ -238,11 +252,7 @@ object RuleTest {
         if (!supports(type) || pattern.isBlank()) return RuleTestResult.UNUSABLE
         return when (type) {
             RuleType.KEYWORD -> {
-                val hit = if (kind == ListKind.BLOCK) {
-                    TextNormalizer.containsObfuscated(sample, pattern)
-                } else {
-                    TextNormalizer.containsFolded(sample, pattern)
-                }
+                val hit = KeywordMatch.matches(sample, pattern, obfuscated = kind == ListKind.BLOCK)
                 if (hit) RuleTestResult.MATCH else RuleTestResult.NO_MATCH
             }
             RuleType.REGEX -> {

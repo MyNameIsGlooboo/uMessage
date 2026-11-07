@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.icons.Symbols
 import org.fossify.commons.extensions.copyToClipboard
+import com.glooboo.umessage.helpers.SensitiveClip
 
 /** TH-06: one-tap chips under a received bubble for the code, password or username in it (see [detectCopyTokens]). */
 @Composable
@@ -41,7 +42,11 @@ internal fun CopyChips(body: String, modifier: Modifier = Modifier) {
                 },
             )
             Surface(
-                onClick = { context.copyToClipboard(token.value) },
+                onClick = {
+                    context.copyToClipboard(token.value)
+                    // A code or password is marked sensitive and leaves the clipboard after a minute (I15, I25).
+                    SensitiveClip.mark(context, token.value, clear = token.kind != CopyKind.Username)
+                },
                 shape = RoundedCornerShape(50),
                 color = MaterialTheme.colorScheme.secondaryContainer,
                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer,

@@ -55,16 +55,17 @@ class BackupService : Service() {
             ACTION_EXPORT -> Kind.EXPORT
             else -> null
         }
+        // Started with startForegroundService: go to the foreground first, whatever happens next (also for an
+        // intent that is not understood, which would otherwise end in ForegroundServiceDidNotStartInTimeException).
+        createChannel()
+        enterForeground(kind ?: Kind.EXPORT)
         if (uri == null || kind == null) {
-            if (!BackupJob.isRunning) stopSelf(startId)
+            if (!BackupJob.isRunning) {
+                ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
+                stopSelf(startId)
+            }
             return START_NOT_STICKY
         }
-        // Started with startForegroundService: go to the foreground first, whatever happens next.
-        createChannel()
-        ServiceCompat.startForeground(
-            this, PROGRESS_ID, progressNotification(kind, 0, null),
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC else 0,
-        )
         // Taken before anything else can return, so a password never outlives its run.
         val password = BackupJob.takePassword()
         if (!BackupJob.start(this, kind)) {
@@ -103,9 +104,38 @@ class BackupService : Service() {
         return START_NOT_STICKY
     }
 
-    /** Android 15 caps data-sync services; stop cleanly so what was done is kept and reported. */
+    /**
+     * Android 15 caps data-sync services (about 6 hours) and crashes the app unless the service stops within a few
+     * seconds. Stop at once: ask the worker to finish what it is doing, leave the foreground, tell the user, and let
+     * the worker report the partial result when it ends.
+     */
     override fun onTimeout(startId: Int, fgsType: Int) {
         BackupJob.requestCancel()
+        postTimeout()
+        ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
+        stopSelf(startId)
+    }
+
+    private fun enterForeground(kind: Kind) = ServiceCompat.startForeground(
+        this, PROGRESS_ID, progressNotification(kind, 0, null),
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC else 0,
+    )
+
+    private fun postTimeout() {
+        createChannel()
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_messenger)
+            .setContentTitle(getString(R.string.backup_timeout_title))
+            .setContentText(getString(R.string.backup_timeout_text))
+            .setStyle(NotificationCompat.BigTextStyle().bigText(getString(R.string.backup_timeout_text)))
+            .setAutoCancel(true)
+            .setContentIntent(openSettings())
+            .build()
+        try {
+            notificationManager.notify(TIMEOUT_ID, notification)
+        } catch (_: SecurityException) {
+            // notifications are off; the dialog shows the result if it is still open
+        }
     }
 
     private fun runImport(uri: Uri, sms: Boolean, mms: Boolean, password: CharArray?): BackupJob.State {
@@ -150,7 +180,7 @@ class BackupService : Service() {
             return BackupJob.State.ExportDone(ExportSummary(), getString(R.string.export_password_lost))
         }
         val ticker = Ticker()
-        val ids = ExportScope.exportable(this, request.threadIds ?: getConversationIds())
+        val ids = ExportScope.idsFor(this, request.threadIds) { getConversationIds() }
         val summary = try {
             // Produced into a temporary file and copied only when it holds a real backup, so the chosen file is never
             // truncated first and left empty when the work fails, is stopped, or finds nothing.
@@ -309,6 +339,7 @@ class BackupService : Service() {
         private const val CHANNEL_ID = "backup_restore"
         private const val PROGRESS_ID = 0x5B_0001
         private const val RESULT_ID = 0x5B_0002
+        private const val TIMEOUT_ID = 0x5B_0003
 
         /** A protected file needs its password staged in [BackupJob] first; the service takes it from there. */
         fun startImport(context: Context, uri: Uri, sms: Boolean, mms: Boolean) =

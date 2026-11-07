@@ -12,7 +12,7 @@ private const val MAX_NAME_LENGTH = 100
  * Path separators and spaces are replaced, so the name is safe as a content id and location.
  */
 fun mmsPartName(filename: String?, partId: Long?, mimeType: String?, fallbackStamp: Long): String {
-    val clean = filename.orEmpty().substringAfterLast('/').substringAfterLast('\')
+    val clean = filename.orEmpty().substringAfterLast('/').substringAfterLast('\\')
         .map { if (it.isWhitespace() || it.isISOControl()) '_' else it }
         .joinToString("")
         .take(MAX_NAME_LENGTH)

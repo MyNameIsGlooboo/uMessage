@@ -32,7 +32,7 @@ object RegionBlock {
         if (value.isEmpty() || value.any { it.isLetter() }) return null
         val digits = value.mapNotNull { c -> c.digitToIntOrNull()?.let { '0' + it } }.joinToString("")
         return when {
-            value.startsWith("+") -> digits
+            PlusPrefix.startsWithPlus(value) -> digits
             digits.startsWith(INTERNATIONAL_PREFIX) -> digits.drop(INTERNATIONAL_PREFIX.length)
             else -> null
         }?.ifEmpty { null }

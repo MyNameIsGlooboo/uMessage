@@ -256,7 +256,10 @@ private val generatedSchemes = ConcurrentHashMap<Pair<ThemeColours, Boolean>, Co
 fun ThemePreset.colorScheme(dark: Boolean): ColorScheme = when {
     dark == this.dark -> toColorScheme()
     dark -> generatedSchemes.getOrPut(id to true) { toDarkColorScheme() }
-    else -> generatedSchemes.getOrPut(id to false) { toLightColorScheme() }
+    else -> generatedSchemes.getOrPut(id to false) {
+        // I23: Contrast in light mode is true black on white.
+        toLightColorScheme().let { if (id == ThemeColours.CONTRAST) it.trueBlackOnWhite() else it }
+    }
 }
 
 /**

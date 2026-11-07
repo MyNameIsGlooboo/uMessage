@@ -12,8 +12,8 @@ import androidx.core.app.RemoteInput
 import androidx.core.content.ContextCompat
 import org.fossify.commons.extensions.showErrorToast
 import org.fossify.commons.helpers.SimpleContactsHelper
-import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.extensions.*
+import com.glooboo.umessage.helpers.NotifyContext
 import com.glooboo.umessage.helpers.REPLY
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.THREAD_NUMBER
@@ -38,6 +38,9 @@ private fun threadAddresses(context: Context, threadId: Long): List<String> {
     }.getOrDefault(emptyList())
 }
 
+/** How many of a chat's newest rows are looked at to find the reply that was just sent. */
+private const val REPLY_LOOKUP_ROWS = 5
+
 class DirectReplyReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val address = intent.getStringExtra(THREAD_NUMBER) ?: return
@@ -47,18 +50,7 @@ class DirectReplyReceiver : BroadcastReceiver() {
         body = context.removeDiacriticsIfNeeded(body)
 
         // Keep the process alive until the reply is in the provider and the notification is updated.
-        val pending = goAsync()
-        try {
-            ensureBackgroundThread {
-                try {
-                    handleReply(context, address, threadId, body)
-                } finally {
-                    runCatching { pending.finish() }
-                }
-            }
-        } catch (t: Throwable) {
-            runCatching { pending.finish() }
-        }
+        runInBackground("DirectReplyReceiver") { handleReply(context, address, threadId, body) }
     }
 
     internal fun handleReply(context: Context, address: String, threadId: Long, body: String) {
@@ -69,9 +61,10 @@ class DirectReplyReceiver : BroadcastReceiver() {
         try {
             val subscriptionId = getReplySubscriptionId(context, address, threadId)
             context.sendMessageCompat(body, recipients, subscriptionId, emptyList(), onFailure = { failed = true })
+            // The reply just sent, not whatever the other side texted meanwhile (I19).
             val message = context.getMessages(
-                threadId = threadId, includeScheduledMessages = false, limit = 1
-            ).lastOrNull()
+                threadId = threadId, includeScheduledMessages = false, limit = REPLY_LOOKUP_ROWS
+            ).lastOrNull { !it.isReceivedMessage() }
             if (message != null) {
                 context.messagesDB.insertOrUpdate(message)
                 messageId = message.id
@@ -99,6 +92,8 @@ class DirectReplyReceiver : BroadcastReceiver() {
                 bitmap = bitmap,
                 sender = null,
                 alertOnlyOnce = true,
+                // A group keeps its group look after a reply (I19).
+                notify = NotifyContext(isGroup = recipients.size > 1),
                 offerSmartReplies = false
             )
         }

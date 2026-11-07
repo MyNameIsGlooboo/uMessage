@@ -44,3 +44,14 @@
 -keepclassmembers,allowobfuscation class ezvcard.parameter.* extends ezvcard.parameter.MediaTypeParameter {
     <init>(java.lang.String, java.lang.String, java.lang.String);
 }
+
+# Release builds drop the chatty log calls and stack-trace printing (S17): a stack trace of a provider or database
+# error can quote a query or an address, and a bug report or adb log would carry it. Warnings and errors stay.
+-assumenosideeffects class android.util.Log {
+    public static int v(...);
+    public static int d(...);
+    public static int i(...);
+}
+-assumenosideeffects class java.lang.Throwable {
+    public void printStackTrace();
+}

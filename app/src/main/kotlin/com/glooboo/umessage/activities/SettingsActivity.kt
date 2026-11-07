@@ -69,6 +69,7 @@ import com.glooboo.umessage.helpers.FILE_SIZE_NONE
 import com.glooboo.umessage.helpers.LOCK_SCREEN_NOTHING
 import com.glooboo.umessage.helpers.LOCK_SCREEN_SENDER
 import com.glooboo.umessage.helpers.LOCK_SCREEN_SENDER_MESSAGE
+import com.glooboo.umessage.helpers.LockScreenSystemSetting
 import com.glooboo.umessage.helpers.BackupJob
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.ui.settings.SettingsActions
@@ -233,8 +234,8 @@ class SettingsActivity : ComposeSimpleActivity() {
             defaultSimId = config.defaultSimId,
             lockScreenLabel = lockScreenLabel(),
             forwardingAvailable = ForwardingAvailability.isAvailable(this),
-            showLanguage = AppLanguage.supported,
-            languageName = getString(AppLanguage.current().label),
+            showLanguage = true,
+            languageName = getString(AppLanguage.current(this).label),
             showCharacterCounter = config.showCharacterCounter,
             useSimpleCharacters = config.useSimpleCharacters,
             sendOnEnter = config.sendOnEnter,
@@ -388,7 +389,7 @@ class SettingsActivity : ComposeSimpleActivity() {
         lifecycleScope.launch {
             val count = runCatching { SettingsBackup.export(this@SettingsActivity, uri) }.getOrNull()
             val message = if (count != null) {
-                getString(R.string.w3c_backup_saved, count)
+                resources.getQuantityString(R.plurals.w3c_backup_saved, count, count)
             } else {
                 getString(R.string.w3c_backup_failed)
             }
@@ -524,12 +525,12 @@ class SettingsActivity : ComposeSimpleActivity() {
         showComposeDialog { dismiss ->
             LanguageChoiceDialog(
                 languages = AppLanguage.choices,
-                selected = AppLanguage.current(),
+                selected = AppLanguage.current(this@SettingsActivity),
                 onSelect = { language ->
                     dismiss()
                     // The commons "use English" switch would fight the per-app language on older Android.
                     config.useEnglish = false
-                    AppLanguage.apply(language)
+                    AppLanguage.apply(this@SettingsActivity, language)
                     refreshState()
                 },
                 onDismiss = dismiss,
@@ -545,7 +546,7 @@ class SettingsActivity : ComposeSimpleActivity() {
             items.add(RadioItem(sim.subscriptionId, getString(R.string.settings_sim_slot_title, sim.slot, carrier)))
         }
         items.add(RadioItem(DEFAULT_SIM_ASK, getString(R.string.settings_sim_default_ask)))
-        showRadioDialog(items, config.defaultSimId) {
+        showRadioDialog(items, config.defaultSimId, getString(R.string.settings_sim_default_title)) {
             config.defaultSimId = it as Int
             refreshState()
         }
@@ -577,6 +578,10 @@ class SettingsActivity : ComposeSimpleActivity() {
         // B9: the dialog says what is being chosen.
         showRadioDialog(items, config.lockScreenVisibilitySetting, getString(R.string.settings_nav_lock_screen)) {
             config.lockScreenVisibilitySetting = it as Int
+            // F10: Android's own lock-screen setting can still show the text, whatever is chosen here.
+            if (it != LOCK_SCREEN_SENDER_MESSAGE && LockScreenSystemSetting.systemShowsPrivateContent(this)) {
+                toast(R.string.lock_screen_system_shows_text, length = Toast.LENGTH_LONG)
+            }
             refreshState()
         }
     }
@@ -598,7 +603,7 @@ class SettingsActivity : ComposeSimpleActivity() {
         }.let { ArrayList(it) }
         val current = w3aPrefs.dailyForwardLimit
         val checkedItemId = items.find { it.value == current }?.id ?: -1
-        showRadioDialog(items, checkedItemId) {
+        showRadioDialog(items, checkedItemId, getString(R.string.w3d_daily_limit)) {
             w3aPrefs.dailyForwardLimit = it as Int
             refreshState()
         }
@@ -615,7 +620,7 @@ class SettingsActivity : ComposeSimpleActivity() {
             RadioItem(1, sizeLabel(R.string.mms_file_size_limit_100kb), FILE_SIZE_100_KB),
         )
         val checkedItemId = items.find { it.value == config.mmsFileSizeLimit }?.id ?: 7
-        showRadioDialog(items, checkedItemId) {
+        showRadioDialog(items, checkedItemId, getString(R.string.settings_nav_mms_size)) {
             config.mmsFileSizeLimit = it as Long
             refreshState()
         }

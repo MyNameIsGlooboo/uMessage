@@ -18,6 +18,7 @@ import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.SpamLogEntry
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.data.AndroidSpamPlatform
+import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.spam.data.DefaultSpamRepository
 import com.glooboo.umessage.spam.data.SpamDatabase
 import com.glooboo.umessage.spam.data.SpamSettingsStore
@@ -32,6 +33,7 @@ object SpamEngine {
     @Volatile private var filter: DefaultSpamFilter? = null
     @Volatile private var settingsStore: SpamSettingsStore? = null
     @Volatile private var forwardPlanner: ForwardPlanner? = null
+    @Volatile private var checker: SystemContactChecker? = null
 
     fun install() {
         UMessage.filterFactory = { filter(it) }
@@ -61,12 +63,30 @@ object SpamEngine {
             DefaultSpamFilter(
                 rules = repo::currentRules,
                 settings = repo::currentSettings,
-                contacts = SystemContactChecker(app, normalizer),
+                contacts = contactChecker(app),
                 normalizer = normalizer,
                 legacy = FossifyLegacyBlocklist(app),
                 regionForSubscription = { subscriptionRegion(app, it) },
             ).also { filter = it }
         }
+    }
+
+    /**
+     * The one contact checker of the process: it registers content observers and keeps the address book and the sent
+     * history in memory, so the filter and the helpers below share it instead of each making (and leaking) their own.
+     */
+    fun contactChecker(context: Context): SystemContactChecker = checker ?: synchronized(this) {
+        checker ?: run {
+            val app = context.applicationContext
+            SystemContactChecker(app, normalizer(app)).also { checker = it }
+        }
+    }
+
+    /** Stops the shared checker's observers and forgets it (and the filter that holds it); a test starts clean. */
+    internal fun resetContactChecker() = synchronized(this) {
+        checker?.close()
+        checker = null
+        filter = null
     }
 
     /** A thin wrapper over the database's DAO, made on each call so it always uses the current database instance. */
@@ -82,7 +102,7 @@ object SpamEngine {
         forwardPlanner ?: run {
             val app = context.applicationContext
             ForwardPlanner(
-                matcher = RuleMatcher(normalizer(app)) { subscriptionRegion(app, it) },
+                matcher = RuleMatcher(normalizer(app), regionForSubscription = { subscriptionRegion(app, it) }),
                 simInSlot = { slot -> subscriptionInSlot(app, slot) },
                 codeMask = { W3aPrefs.get(app).forwardCodeMasker() },
             ).also { forwardPlanner = it }
@@ -107,8 +127,7 @@ object SpamEngine {
 
     /** Whether the user has written to [address] before: such a number is known, like a contact. Never throws. */
     fun hasWrittenTo(context: Context, address: String): Boolean = runCatching {
-        val app = context.applicationContext
-        SystemContactChecker(app, normalizer(app)).sentTo(address) == ContactLookup.FOUND
+        contactChecker(context).sentTo(address) == ContactLookup.FOUND
     }.getOrDefault(false)
 
     /** Returns the Block decision, or null when allowed or when the filter itself fails (never drop on error). */
@@ -202,6 +221,9 @@ object SpamEngine {
                 )
             }
             blockSenderOfKeyword(context, id, decision)
+            if (HeldCodeNotice.applies(decision.reason, message.body)) {
+                runCatching { BlockedNotifier.showHeldCode(context.applicationContext) }
+            }
             purgeExpired(context)
             id
         } catch (t: Throwable) {
@@ -220,7 +242,7 @@ object SpamEngine {
         runCatching {
             val app = context.applicationContext
             val repo = UMessage.repository(app) as? DefaultSpamRepository ?: return
-            val contacts = SystemContactChecker(app, normalizer(app))
+            val contacts = contactChecker(app)
             runBlocking {
                 repo.blockSenderOfKeywordMatch(blockedId, decision.ruleId) { address ->
                     contacts.canReadContacts() &&

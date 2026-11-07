@@ -9,9 +9,10 @@ import com.glooboo.umessage.spam.data.DigestNotifier
 
 /**
  * The small jobs that run about once a day without the user: moving old messages to the recycle bin (I02, I45) and
- * the weekly summary of what was blocked (I08). They run from one inexact daily alarm, when the app starts and after a
- * received message, because some phones drop alarms of apps in the background. Each job keeps its own "last run", so
- * calling this often costs a few preference reads. Blocking: call it on a background thread.
+ * the weekly summary of what was blocked (I08), and clearing old exports and photo copies from the cache (S8). They
+ * run from one inexact daily alarm, when the app starts and after a received message, because some phones drop alarms
+ * of apps in the background. Each job keeps its own "last run", so calling this often costs a few preference reads.
+ * Blocking: call it on a background thread.
  */
 object DailyChecks {
     private const val REQUEST_CODE = 0xDA11
@@ -20,6 +21,7 @@ object DailyChecks {
         val app = context.applicationContext
         runCatching { RetentionRunner(app).runIfDue(now) }
         runCatching { DigestNotifier.postIfDue(app, now) }
+        runCatching { CacheCleaner.runIfDue(app, now) }
     }
 
     /**

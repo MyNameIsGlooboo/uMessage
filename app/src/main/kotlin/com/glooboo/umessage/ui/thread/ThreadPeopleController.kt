@@ -66,8 +66,9 @@ class ThreadPeopleController(
     private fun add(contact: SimpleContact) {
         vm.peopleQuery.clearText()
         val current = recipients()
-        if (current.contains(contact.rawId)) return
-        changeTo(current + contact)
+        val next = current + contact // not the same person again, by id or by phone number (B15)
+        if (next.size == current.size) return
+        changeTo(next)
     }
 
     fun remove(rawId: Int) = changeTo(recipients() - rawId)

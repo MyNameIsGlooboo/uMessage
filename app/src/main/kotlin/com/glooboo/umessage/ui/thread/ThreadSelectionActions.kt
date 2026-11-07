@@ -26,6 +26,8 @@ import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.ui.components.askYesNo
 import org.fossify.commons.activities.BaseSimpleActivity
 import org.fossify.commons.extensions.copyToClipboard
+import com.glooboo.umessage.helpers.HiddenChats
+import com.glooboo.umessage.helpers.SensitiveClip
 import org.fossify.commons.extensions.shareTextIntent
 import org.fossify.commons.extensions.showErrorToast
 import org.fossify.commons.helpers.ensureBackgroundThread
@@ -106,7 +108,12 @@ class ThreadSelectionActions(
     private fun copy(selected: List<Message>) {
         val flags = DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR or DateUtils.FORMAT_SHOW_TIME
         val text = copiedText(selected, { DateUtils.formatDateTime(activity, it.millis(), flags) }, activity.getString(R.string.me))
-        if (text.isNotEmpty()) activity.copyToClipboard(text)
+        if (text.isEmpty()) return
+        activity.copyToClipboard(text)
+        // Text from a hidden chat stays out of the clipboard preview (I25).
+        if (selected.any { HiddenChats.get(activity).isMarked(it.threadId) }) {
+            SensitiveClip.mark(activity, text, clear = false)
+        }
     }
 
     /** One message goes as it is; several go as "[date] sender: text" blocks, after a warning (I38). */

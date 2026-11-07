@@ -4,9 +4,12 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.dialogs.ExportOptionsState
+import com.glooboo.umessage.export.ExportScope
+import com.glooboo.umessage.models.MessageNote
 import com.glooboo.umessage.testing.FakeMessageStore
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -40,6 +43,39 @@ class MessagesExportScopeTest {
     }
 
     @Test
+    fun fullBackupKeepsHiddenChatsAndAChosenSetGoesThroughTheHiddenFilter() {
+        val hidden = HiddenChats.get(context)
+        hidden.hide(2L)
+        val all = listOf(1L, 2L, 3L)
+        val full = ExportScope.idsFor(context, null) { all }
+        assertThat(full).containsExactly(1L, 2L, 3L).inOrder()
+        assertThat(ExportScope.idsFor(context, all) { error("not needed") })
+            .containsExactlyElementsIn(ExportScope.exportable(context, all))
+        hidden.unhide(2L)
+    }
+
+    @Test
+    fun oneChatExportLeavesOutTheUnboundNotesOfOtherChats() {
+        val store = FakeMessageStore.install()
+        val one = store.threadIdFor("+15550001")
+        store.addSms("+15550001", "in one", 1_000, threadId = one)
+        runBlocking {
+            val note = MessageNote("v1|s|r|1700000000|5550009|abc", 0, 1_700_000_000, "x", 1, 1)
+            context.messageNotes.restore(listOf(note))
+        }
+
+        val part = MessagesReader(context).export(
+            ByteArrayOutputStream(), sms = true, mms = true, conversationIds = listOf(one), wholePhone = false,
+        )
+        val whole = MessagesReader(context).export(
+            ByteArrayOutputStream(), sms = true, mms = true, conversationIds = listOf(one), wholePhone = true,
+        )
+
+        assertThat(part.notes).isEqualTo(0)
+        assertThat(whole.notes).isEqualTo(1)
+    }
+
+    @Test
     fun json_exportOfNoConversations_isAnEmptyArray() {
         FakeMessageStore.install().addSms("+15550001", "hello", 1_000)
         val out = ByteArrayOutputStream()
@@ -51,6 +87,10 @@ class MessagesExportScopeTest {
     @Test
     fun dialogChoices_pickTheFileNameTypeAndPasswordRules() {
         val state = ExportOptionsState("messages", initialSms = true, initialMms = true)
+        // I14: protection is on by default and needs a password; it can be switched off.
+        assertThat(state.protect).isTrue()
+        assertThat(state.passwordProblem).isNotNull()
+        state.protect = false
         assertThat(state.fileName).isEqualTo("messages.json")
         assertThat(state.mimeType).isEqualTo("application/json")
         assertThat(state.passwordProblem).isNull()

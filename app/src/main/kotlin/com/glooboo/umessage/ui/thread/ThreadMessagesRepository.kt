@@ -164,9 +164,10 @@ class ContextThreadMessageSource(private val context: Context) : ThreadMessageSo
     override val useRecycleBin: Boolean get() = context.config.useRecycleBin
 
     override fun cached(threadId: Long, recycleBin: Boolean): List<Message> = when {
-        recycleBin -> context.messagesDB.getThreadMessagesFromRecycleBin(threadId)
-        context.config.useRecycleBin -> context.messagesDB.getNonRecycledThreadMessages(threadId)
-        else -> context.messagesDB.getThreadMessages(threadId)
+        // PF1: only the newest page is read; older messages come from the provider while scrolling.
+        recycleBin -> context.messagesDB.getNewestRecycleBinThreadMessages(threadId, MESSAGES_LIMIT)
+        context.config.useRecycleBin -> context.messagesDB.getNewestNonRecycledThreadMessages(threadId, MESSAGES_LIMIT)
+        else -> context.messagesDB.getNewestThreadMessages(threadId, MESSAGES_LIMIT)
     }
 
     override fun clearExpiredScheduled(threadId: Long, cached: List<Message>) =

@@ -9,6 +9,7 @@ import android.util.Base64
 import com.glooboo.umessage.backup.AppDataBackupSupport
 import com.glooboo.umessage.backup.AppDataRequest
 import com.glooboo.umessage.backup.BlockedBackupSupport
+import com.glooboo.umessage.export.PartBytes
 import com.glooboo.umessage.extensions.getConversationIds
 import com.glooboo.umessage.models.ExportSummary
 import com.glooboo.umessage.models.MessagesBackup
@@ -71,7 +72,7 @@ class MessagesReader(private val context: Context) {
             progress.update(summary.total, index + 1, conversationIds.size)
         }
         if (format == ExportFormat.JSON && !summary.cancelled) {
-            writeNotes(sink, conversationIds, sms, mms, summary)
+            writeNotes(sink, conversationIds, sms, mms, summary, wholePhone)
             writeAppData(sink, AppDataRequest(conversationIds.toSet(), sms, mms, wholePhone), summary)
         }
         sink.end()
@@ -80,14 +81,19 @@ class MessagesReader(private val context: Context) {
 
     /**
      * The private notes of the exported chats as the last entry of the JSON file (see [NotesBackup]). Notes whose chat
-     * is not known yet (restored, not yet matched) go along. A failure here never fails the backup of the messages.
+     * is not known yet (restored, not yet matched) go along only in a whole-phone backup. A failure here never
+     * fails the backup of the messages.
      */
     private fun writeNotes(
         sink: BackupEntrySink, conversationIds: List<Long>, sms: Boolean, mms: Boolean, summary: ExportSummary,
+        wholePhone: Boolean,
     ) {
         val wanted = conversationIds.toSet()
+        // A part of the phone (one chat) takes the notes of its chats only (D8): the unbound ones are matched to their
+        // chats first, and what is still unbound belongs to no chosen chat. Only a whole-phone backup carries those.
+        if (!wholePhone) runCatching { runBlocking { context.messageNotes.relink() } }
         val notes = runCatching { runBlocking { context.messageNotes.exportAll() } }.getOrNull().orEmpty()
-            .filter { it.threadId == 0L || it.threadId in wanted }
+            .filter { (wholePhone && it.threadId == 0L) || it.threadId in wanted }
             .filter { if (MessageNoteKey.isMms(it.key)) mms else sms }
         if (notes.isEmpty()) return
         sink.write(NotesBackup(notes.map { NoteBackup.of(it) }))
@@ -256,10 +262,10 @@ class MessagesReader(private val context: Context) {
         return parts
     }
 
-    /** The attachment's bytes as Base64, or null when they cannot be read or there are none. */
+    /** The attachment's bytes as Base64, or null when they cannot be read, are too big or there are none. */
     private fun readPart(partId: Long): String? = try {
         context.contentResolver.openInputStream(Uri.parse("content://mms/part/$partId"))?.use { stream ->
-            stream.readBytes().takeIf { it.isNotEmpty() }?.let { Base64.encodeToString(it, Base64.NO_WRAP) }
+            PartBytes.read(stream)?.let { Base64.encodeToString(it, Base64.NO_WRAP) }
         }
     } catch (_: Exception) {
         null

@@ -6,7 +6,6 @@ import java.io.OutputStream
 import java.io.PushbackInputStream
 import java.security.GeneralSecurityException
 import java.security.SecureRandom
-import java.text.Normalizer
 import javax.crypto.Cipher
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.GCMParameterSpec
@@ -35,7 +34,10 @@ object BackupCrypto {
     const val ITERATIONS = 200_000
     const val CHUNK_SIZE = 64 * 1024
 
-    private val MAGIC = "UMSGENC1".toByteArray(Charsets.US_ASCII)
+    /** `UMSGENC1`: key from the plain password. `UMSGENC2` (written now): key from the folded password (I8). */
+    private val MAGIC = "UMSGENC2".toByteArray(Charsets.US_ASCII)
+    private val MAGIC_V1 = "UMSGENC1".toByteArray(Charsets.US_ASCII)
+    private const val VERSION_INDEX = 7
     private const val SALT_SIZE = 16
     private const val NONCE_PREFIX_SIZE = 8
     private const val IV_SIZE = 12
@@ -56,7 +58,7 @@ object BackupCrypto {
         stream.mark(MAGIC.size)
         return try {
             val head = ByteArray(MAGIC.size)
-            readFully(stream, head, 0, head.size) == head.size && head.contentEquals(MAGIC)
+            readFully(stream, head, 0, head.size) == head.size && isMagic(head)
         } finally {
             stream.reset()
         }
@@ -68,7 +70,7 @@ object BackupCrypto {
         val random = SecureRandom()
         val salt = ByteArray(SALT_SIZE).also(random::nextBytes)
         val noncePrefix = ByteArray(NONCE_PREFIX_SIZE).also(random::nextBytes)
-        val key = deriveKey(password, salt, iterations)
+        val key = deriveKey(BackupPasswordForms.folded(password), salt, iterations)
         output.write(MAGIC)
         output.write(BackupInts.toBytes(iterations))
         output.write(salt)
@@ -91,36 +93,41 @@ object BackupCrypto {
         at += SALT_SIZE
         val noncePrefix = header.copyOfRange(at, at + NONCE_PREFIX_SIZE)
         at += NONCE_PREFIX_SIZE
-        val key = deriveKey(password, salt, iterations)
-        try {
-            unseal(key, noncePrefix, 0, AAD_VERIFIER, header, at, TAG_SIZE)
-        } catch (_: GeneralSecurityException) {
-            throw WrongPasswordException()
+        val version = if (header[VERSION_INDEX] == MAGIC[VERSION_INDEX]) 2 else 1
+        for (form in BackupPasswordForms.candidates(password, version)) {
+            val key = deriveKey(form, salt, iterations)
+            try {
+                unseal(key, noncePrefix, 0, AAD_VERIFIER, header, at, TAG_SIZE)
+                return DecryptingStream(input, key, noncePrefix)
+            } catch (_: GeneralSecurityException) {
+                continue // another form of the same password may still open an older file
+            }
         }
-        return DecryptingStream(input, key, noncePrefix)
+        throw WrongPasswordException()
     }
+
+    private fun isMagic(head: ByteArray) = head.contentEquals(MAGIC) || head.contentEquals(MAGIC_V1)
 
     /** Reads the header of [input]; [DamagedFileException] when it is short, has no marker or odd key settings. */
     private fun readHeader(input: InputStream): ByteArray {
         val header = ByteArray(HEADER_SIZE)
         val complete = readFully(input, header, 0, header.size) == header.size
-        if (!complete || !header.copyOf(MAGIC.size).contentEquals(MAGIC)) {
+        if (!complete || !isMagic(header.copyOf(MAGIC.size))) {
             throw DamagedFileException("not a protected backup")
         }
         if (BackupInts.read(header, MAGIC.size) !in 1..MAX_ITERATIONS) throw DamagedFileException("bad key settings")
         return header
     }
 
-    private fun deriveKey(password: CharArray, salt: ByteArray, iterations: Int): SecretKeySpec {
-        // The same text typed on another keyboard can differ in how accents are encoded; settle on one form.
-        val normalized = Normalizer.normalize(String(password), Normalizer.Form.NFC).toCharArray()
-        val spec = PBEKeySpec(normalized, salt, iterations, KEY_BITS)
+    /** The key of the already prepared password [form] (see [BackupPasswordForms]); [form] is wiped. */
+    private fun deriveKey(form: CharArray, salt: ByteArray, iterations: Int): SecretKeySpec {
+        val spec = PBEKeySpec(form, salt, iterations, KEY_BITS)
         try {
             val bytes = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(spec).encoded
             return SecretKeySpec(bytes, "AES")
         } finally {
             spec.clearPassword()
-            normalized.fill(' ')
+            form.fill(' ')
         }
     }
 

@@ -6,8 +6,9 @@ import com.glooboo.umessage.spam.engine.OtpDetector
 
 /**
  * I02 and I45: which cached messages the automatic cleanup may move to the recycle bin. Pure: the caller hands in the
- * candidates and says which of them are starred. A message is never touched when it is unread, starred, scheduled or
- * not a plain received or sent one (drafts, outbox, failed). Moving to the bin is the only thing the cleanup does, so
+ * candidates and says which of them are starred or kept (note, reminder). A message is never touched when it is
+ * unread, starred, noted, reminded, scheduled or not a plain received or sent one (drafts, outbox, failed). Moving
+ * to the bin is the only thing the cleanup does, so
  * everything it picks can be brought back.
  */
 object MessageRetention {
@@ -22,7 +23,8 @@ object MessageRetention {
     private const val SECOND_MS = 1000L
 
     /** Messages dated before this (in seconds, like [Message.date]) are old for a keep-time of [days]. */
-    fun cutoffSeconds(nowMillis: Long, days: Int): Int = ((nowMillis - days * DAY_MS) / SECOND_MS).toInt()
+    fun cutoffSeconds(nowMillis: Long, days: Int): Int =
+        ((nowMillis - days * DAY_MS) / SECOND_MS).toSecondsInt()
 
     /** Received or sent, not a draft, an outbox message or a failed one. */
     fun isPlainMessage(message: Message): Boolean =
@@ -36,12 +38,18 @@ object MessageRetention {
             OtpDetector.looksLikeOtp(message.body) &&
             !OtpDetector.containsUrl(message.body)
 
-    private fun safeToMove(message: Message, isStarred: (Message) -> Boolean): Boolean =
-        message.read && !message.isScheduled && isPlainMessage(message) && !isStarred(message)
+    /** Starred, noted and reminded messages are kept (F6): they hold something the user wrote or asked for. */
+    private fun safeToMove(message: Message, isKept: (Message) -> Boolean, isStarred: (Message) -> Boolean): Boolean =
+        message.read && !message.isScheduled && isPlainMessage(message) && !isStarred(message) && !isKept(message)
 
     /** The read, unstarred verification codes of [candidates] dated before [cutoffSeconds]. */
-    fun selectCodes(candidates: List<Message>, cutoffSeconds: Int, isStarred: (Message) -> Boolean): List<Message> =
-        candidates.filter { it.date < cutoffSeconds && safeToMove(it, isStarred) && isCode(it) }
+    fun selectCodes(
+        candidates: List<Message>,
+        cutoffSeconds: Int,
+        isKept: (Message) -> Boolean = { false },
+        isStarred: (Message) -> Boolean,
+    ): List<Message> =
+        candidates.filter { it.date < cutoffSeconds && safeToMove(it, isKept, isStarred) && isCode(it) }
 
     /**
      * The read, unstarred messages of [candidates] dated before [cutoffSeconds] that are not in a pinned chat
@@ -51,7 +59,10 @@ object MessageRetention {
         candidates: List<Message>,
         cutoffSeconds: Int,
         pinnedThreads: Set<Long>,
+        isKept: (Message) -> Boolean = { false },
         isStarred: (Message) -> Boolean,
     ): List<Message> =
-        candidates.filter { it.date < cutoffSeconds && it.threadId !in pinnedThreads && safeToMove(it, isStarred) }
+        candidates.filter {
+            it.date < cutoffSeconds && it.threadId !in pinnedThreads && safeToMove(it, isKept, isStarred)
+        }
 }

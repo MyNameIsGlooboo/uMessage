@@ -6,10 +6,7 @@ import com.glooboo.umessage.helpers.messageNotes
 import com.glooboo.umessage.ui.thread.readWholeThread
 import kotlinx.coroutines.runBlocking
 import java.io.File
-import java.text.SimpleDateFormat
 import java.time.ZoneId
-import java.util.Date
-import java.util.Locale
 
 enum class ConversationFileFormat(val extension: String, val mimeType: String) {
     PDF("pdf", "application/pdf"),
@@ -18,7 +15,7 @@ enum class ConversationFileFormat(val extension: String, val mimeType: String) {
 
 /**
  * Reads one conversation, builds the export and writes the file in the app cache, ready to be shared. Meant for a
- * background thread. A file left by an earlier export is deleted first, so old conversations do not pile up there.
+ * background thread. Files of earlier exports are deleted after a day, so old conversations do not pile up there.
  */
 class ConversationExportJob(private val context: Context) {
 
@@ -44,8 +41,11 @@ class ConversationExportJob(private val context: Context) {
         val export = factory.builder().build(messages, title, numbers, noteLines(context, notes))
         if (export.count == 0) return Result.Empty
         if (isCancelled()) return Result.Cancelled
-        val file = newFile(format)
-        val header = factory.header(export, now)
+        val file = newFile(title, format, now)
+        val header = factory.header(
+            export, now, firstMillis = messages.minOfOrNull { it.millis() } ?: now,
+            lastMillis = messages.maxOfOrNull { it.millis() } ?: now,
+        )
         val finished = when (format) {
             ConversationFileFormat.PDF -> file.outputStream().buffered().use { out ->
                 ConversationPdfWriter(context).write(export, pdfTexts(factory, export, header, now), out, isCancelled)
@@ -75,16 +75,17 @@ class ConversationExportJob(private val context: Context) {
         to = { context.getString(R.string.export_pdf_to, it) },
     )
 
-    private fun newFile(format: ConversationFileFormat): File {
+    private fun newFile(title: String, format: ConversationFileFormat, now: Long): File {
         val dir = File(context.cacheDir, SHARED_DIR).apply { mkdirs() }
-        dir.listFiles { file -> file.name.startsWith(FILE_PREFIX) }?.forEach { it.delete() }
-        val day = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
-        return File(dir, "$FILE_PREFIX$day.${format.extension}")
+        ExportFileName.deleteOld(dir, now, KEEP_MS)
+        return ExportFileName.unique(dir, title, format.extension, now)
     }
 
-    private companion object {
+    companion object {
         /** The cache folder the FileProvider already shares (see provider_paths.xml). */
         const val SHARED_DIR = "shared_logs"
-        const val FILE_PREFIX = "uMessage-conversation-"
+
+        /** Earlier export files are removed after this long, not at the next export (D15). */
+        const val KEEP_MS = 24L * 60 * 60 * 1000
     }
 }

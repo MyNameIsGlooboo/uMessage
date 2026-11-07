@@ -2,10 +2,13 @@ package com.glooboo.umessage.helpers
 
 import android.content.Context
 import com.glooboo.umessage.extensions.config
+import com.glooboo.umessage.extensions.getMessagesDB
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.moveMessageToRecycleBin
 import com.glooboo.umessage.extensions.updateLastConversationMessage
 import com.glooboo.umessage.models.Message
+import com.glooboo.umessage.models.MessageKey
+import kotlinx.coroutines.runBlocking
 
 /**
  * I02 and I45: moves old read verification codes ([CleanupPrefs.codeDays]) and old messages
@@ -57,15 +60,27 @@ class RetentionRunner(context: Context) {
 
     private fun isStarred(message: Message) = app.starredDB.isStarred(message.id, message.isMMS)
 
+    /** F6: the messages that carry a private note or a reminder, looked up once per scan. */
+    private fun keptLookup(): (Message) -> Boolean {
+        val noteKeys = runCatching { runBlocking { app.messageNotesDB.getAllKeys() } }.getOrDefault(emptyList()).toSet()
+        val reminded = runCatching { runBlocking { app.getMessagesDB().MessageRemindersDao().getAll() } }
+            .getOrDefault(emptyList()).map { it.key }.toSet()
+        return { m -> MessageNoteKey.of(m) in noteKeys || MessageKey(m.id, m.isMMS) in reminded }
+    }
+
     private fun pickCodes(days: Int, now: Long): List<Message> {
         val cutoff = MessageRetention.cutoffSeconds(now, days)
-        return scan(cutoff, MessageRetention.BATCH) { MessageRetention.selectCodes(it, cutoff) { m -> isStarred(m) } }
+        val kept = keptLookup()
+        return scan(cutoff, MessageRetention.BATCH) {
+            MessageRetention.selectCodes(it, cutoff, kept) { m -> isStarred(m) }
+        }
     }
 
     private fun pickOld(days: Int, now: Long, limit: Int): List<Message> {
         val cutoff = MessageRetention.cutoffSeconds(now, days)
         val pinned = app.config.pinnedConversations.mapNotNull { it.toLongOrNull() }.toSet()
-        return scan(cutoff, limit) { MessageRetention.selectOld(it, cutoff, pinned) { m -> isStarred(m) } }
+        val kept = keptLookup()
+        return scan(cutoff, limit) { MessageRetention.selectOld(it, cutoff, pinned, kept) { m -> isStarred(m) } }
     }
 
     /**

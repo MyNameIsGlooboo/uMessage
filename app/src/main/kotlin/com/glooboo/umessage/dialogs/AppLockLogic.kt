@@ -72,8 +72,16 @@ object AppLockLogic {
      * Seconds the user still has to wait after [failures] consecutive wrong entries, the last at [lastFailureMs]. The
      * wait starts at the [MAX_RETRIES]th wrong entry and doubles with each further one; only a correct entry resets it.
      */
-    fun lockoutSeconds(failures: Int, lastFailureMs: Long, nowMs: Long): Int =
-        AppLockSecurity.remainingSeconds(failures, lastFailureMs, nowMs)
+    fun lockoutSeconds(
+        failures: Int,
+        lastFailureMs: Long,
+        nowMs: Long,
+        failureElapsedMs: Long = -1L,
+        elapsedNowMs: Long = -1L,
+    ): Int {
+        val monotonic = monotonicSince(failureElapsedMs, elapsedNowMs)
+        return AppLockSecurity.remainingSeconds(failures, lastFailureMs, nowMs, monotonic)
+    }
 }
 
 /**

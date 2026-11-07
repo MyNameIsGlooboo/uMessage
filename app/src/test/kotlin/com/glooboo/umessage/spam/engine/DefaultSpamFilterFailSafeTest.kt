@@ -105,10 +105,11 @@ class DefaultSpamFilterFailSafeTest {
 
     @Test fun slowRegexRuleIsTurnedOffAndMessageDelivered() {
         val f = filter(
-            rules = listOf(rule(ListKind.BLOCK, RuleType.REGEX, ".*.*.*.*x", id = 5)),
+            rules = listOf(rule(ListKind.BLOCK, RuleType.REGEX, "(a+)+x", id = 5)),
             settings = SpamSettings(mode = UnknownSenderMode.OFF),
         )
-        val body = "a".repeat(2_000)
+        // Nested quantifiers are exponential on this text; the JVM does not shortcut ".*.*.*.*x" any more.
+        val body = "a".repeat(40) + "!"
         val first = System.nanoTime()
         assertEquals(FilterDecision.Allow(DecisionReason.MODE_OFF), f.evaluate(msg(body = body)))
         val firstMs = (System.nanoTime() - first) / 1_000_000

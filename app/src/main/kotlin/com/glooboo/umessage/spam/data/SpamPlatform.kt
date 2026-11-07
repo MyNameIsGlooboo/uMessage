@@ -13,6 +13,9 @@ import com.glooboo.umessage.spam.mms.BlockedMmsStore
 interface SpamPlatform {
     fun notifyBlocked(message: BlockedMessage)
 
+    /** I5: removes the notifications of blocked messages that were restored or deleted. */
+    fun cancelBlockedNotifications(ids: Collection<Long>) = Unit
+
     /**
      * Puts a restored message in the inbox. [pending] is already in the pending_sms table, so a failure here
      * loses nothing: the row is replayed later. Returns the system SMS id it wrote (0 when the message is there but
@@ -45,6 +48,8 @@ class AndroidSpamPlatform(context: Context) : SpamPlatform {
     private val appContext = context.applicationContext
 
     override fun notifyBlocked(message: BlockedMessage) = BlockedNotifier.show(appContext, message)
+
+    override fun cancelBlockedNotifications(ids: Collection<Long>) = BlockedNotifier.cancel(appContext, ids)
 
     override fun deliverRestored(pending: PendingSmsEntity): Long? = try {
         val id = IncomingSmsProcessor.deliver(appContext, pending, NotifyContext.NONE)

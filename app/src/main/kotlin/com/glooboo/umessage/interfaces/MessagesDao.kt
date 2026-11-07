@@ -11,6 +11,7 @@ import androidx.room.Transaction
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.glooboo.umessage.models.Message
+import com.glooboo.umessage.models.MessageAttachment
 import com.glooboo.umessage.models.RecycleBinMessage
 import com.glooboo.umessage.spam.TextNormalizer
 
@@ -20,8 +21,10 @@ const val SEARCH_RESULTS_LIMIT = 100
 private const val SEARCH_ORDER = "ORDER BY date DESC, id DESC LIMIT $SEARCH_RESULTS_LIMIT"
 
 /* I28, I56: the shortcut queries only prefilter in SQL; the caller keeps the rows that really hold a picture or link. */
-private const val SHORTCUT_BASE = "SELECT * FROM messages WHERE is_scheduled = 0 AND NOT EXISTS " +
+/** F5: what search and the shortcuts may show: sent or received messages that are not in the recycle bin. */
+private const val SHOWN_ONLY = "is_scheduled = 0 AND NOT EXISTS " +
     "(SELECT 1 FROM recycle_bin_messages r WHERE r.id = messages.id AND r.is_mms = messages.is_mms)"
+private const val SHORTCUT_BASE = "SELECT * FROM messages WHERE $SHOWN_ONLY"
 private const val IMAGE_PREFILTER = "attachment LIKE '%image/%'"
 private const val LINK_PREFILTER = "(body LIKE '%http%' OR body LIKE '%www.%')"
 private const val SHORTCUT_ORDER = "ORDER BY date DESC, id DESC LIMIT :limit"
@@ -87,6 +90,26 @@ interface MessagesDao {
     @Query("SELECT * FROM messages WHERE thread_id = :threadId")
     fun getThreadMessages(threadId: Long): List<Message>
 
+    /** PF1: the newest [limit] cached messages of the thread (what opening a chat shows), not the whole thread. */
+    @Query("SELECT * FROM messages WHERE thread_id = :threadId ORDER BY date DESC, id DESC LIMIT :limit")
+    fun getNewestThreadMessages(threadId: Long, limit: Int): List<Message>
+
+    /** PF1: like [getNewestThreadMessages], without the messages in the recycle bin. */
+    @Query(
+        "SELECT * FROM messages WHERE thread_id = :threadId AND NOT EXISTS " +
+            "(SELECT 1 FROM recycle_bin_messages r WHERE r.id = messages.id AND r.is_mms = messages.is_mms) " +
+            "ORDER BY date DESC, id DESC LIMIT :limit"
+    )
+    fun getNewestNonRecycledThreadMessages(threadId: Long, limit: Int): List<Message>
+
+    /** PF1: like [getNewestThreadMessages], only the messages in the recycle bin. */
+    @Query(
+        "SELECT * FROM messages WHERE thread_id = :threadId AND EXISTS " +
+            "(SELECT 1 FROM recycle_bin_messages r WHERE r.id = messages.id AND r.is_mms = messages.is_mms) " +
+            "ORDER BY date DESC, id DESC LIMIT :limit"
+    )
+    fun getNewestRecycleBinThreadMessages(threadId: Long, limit: Int): List<Message>
+
     /** DL-12: any one message of the thread, for its participants, without loading the whole chat. */
     @Query("SELECT * FROM messages WHERE thread_id = :threadId LIMIT 1")
     fun getAnyThreadMessage(threadId: Long): Message?
@@ -141,7 +164,7 @@ interface MessagesDao {
     fun getRecycleBinMessageCount(): Int
 
     /** [pattern] is a [TextNormalizer.likeContains] pattern. Newest first, at most [SEARCH_RESULTS_LIMIT]. */
-    @Query("SELECT * FROM messages WHERE body LIKE :pattern ESCAPE '\\' $SEARCH_ORDER")
+    @Query("SELECT * FROM messages WHERE $SHOWN_ONLY AND body LIKE :pattern ESCAPE '\\' $SEARCH_ORDER")
     fun getMessagesWithText(pattern: String): List<Message>
 
     @RawQuery
@@ -157,7 +180,7 @@ interface MessagesDao {
     fun searchMessages(text: String): List<Message> {
         if (!TextNormalizer.needsFold(text)) return getMessagesWithText(TextNormalizer.likeContains(text))
         // rowid, not id: SMS 57 and MMS 57 share an id (see MessageKey), but every row has its own rowid.
-        val sql = TextNormalizer.sqlFoldedLike("messages", "rowid", "body") + " $SEARCH_ORDER"
+        val sql = TextNormalizer.sqlFoldedLike("messages", "rowid", "body", SHOWN_ONLY) + " $SEARCH_ORDER"
         return getMessagesRaw(SimpleSQLiteQuery(sql, arrayOf(TextNormalizer.likeContains(TextNormalizer.fold(text)))))
     }
 
@@ -176,6 +199,21 @@ interface MessagesDao {
     /** Sets the type of the scheduled message [id] (never a provider message that happens to share the id). */
     @Query("UPDATE messages SET type = :type WHERE id = :id AND is_scheduled = 1")
     fun updateScheduledType(id: Long, type: Int): Int
+
+    /**
+     * F3: claims the scheduled message [id] for sending: flips it from queued (6) to outbox (4) in one statement, so of
+     * any number of racing senders (alarm, app-start re-arm, "send now") exactly one gets 1 back and sends it.
+     */
+    @Query("UPDATE messages SET type = 4 WHERE id = :id AND is_scheduled = 1 AND type = 6")
+    fun claimScheduledForSend(id: Long): Int
+
+    /** Like [claimScheduledForSend], and also takes a message held as failed (5): the user's Retry or "Send now". */
+    @Query("UPDATE messages SET type = 4 WHERE id = :id AND is_scheduled = 1 AND type IN (5, 6)")
+    fun claimScheduledOrHeldForSend(id: Long): Int
+
+    /** Keeps only the attachments of the scheduled message [id] that have not been handed off yet (MS6). */
+    @Query("UPDATE messages SET attachment = :attachment WHERE id = :id AND is_scheduled = 1")
+    fun updateScheduledAttachment(id: Long, attachment: MessageAttachment?): Int
 
     @Transaction
     fun delete(id: Long, isMMS: Boolean) {
@@ -242,4 +280,8 @@ interface MessagesDao {
     /** I13: the messages sent or received at [date] (seconds), to find a starred message again under a new id. */
     @Query("SELECT * FROM messages WHERE date = :date AND is_scheduled = 0")
     fun getMessagesAtDate(date: Int): List<Message>
+
+    /** DA3: changes whenever the cache gets a new row; O(1), so it can say "nothing new since the last look". */
+    @Query("SELECT COALESCE(MAX(rowid), 0) FROM messages")
+    fun cacheStamp(): Long
 }

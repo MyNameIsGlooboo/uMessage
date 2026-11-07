@@ -40,10 +40,11 @@ fun buildThreadItems(
     firstUnreadId: Long? = null,
     showTapbacks: Boolean = false,
 ): ThreadItems {
+    val startNanos = System.nanoTime()
     val sorted = messages.toSortedMessages()
     val tapbacks = if (showTapbacks) applyTapbacks(sorted) else TapbackResult.None
     var dividerPending = false
-    val items = ArrayList<ThreadItem>()
+    val items = ArrayList<ThreadItem>(sorted.size + sorted.size / ITEMS_HEADROOM_DIVISOR + ITEMS_HEADROOM)
     val newlyRead = ArrayList<Message>()
     var prevDateTime = 0
     var prevSIMId = -2
@@ -74,13 +75,20 @@ fun buildThreadItems(
 
         if (i == sorted.lastIndex && message.type == Telephony.Sms.MESSAGE_TYPE_SENT) {
             // "Delivered" only while delivery reports are on: a network can report delivery the app never asked for.
-            val delivered = deliveryReportsOn && message.status == Telephony.Sms.STATUS_COMPLETE
-            items.add(ThreadSent(messageId = message.id, delivered = delivered))
+            // An MMS has no delivery report: its status column is empty and reads as 0, which is not "delivered".
+            val delivered = deliveryReportsOn && !message.isMMS && message.status == Telephony.Sms.STATUS_COMPLETE
+            val deliveryFailed = !message.isMMS && isDeliveryFailed(message.status)
+            items.add(ThreadSent(messageId = message.id, delivered = delivered, deliveryFailed = deliveryFailed))
         }
         prevSIMId = message.subscriptionId
     }
-    return ThreadItems(items, newlyRead, tapbacks.reactions)
+    return ThreadItems(items, newlyRead, tapbacks.reactions).also {
+        logSlowThreadBuild(startNanos, sorted.size, items.size)
+    }
 }
+
+/** A delivery report of failure (TP-ST 64 or more) is stored as [Telephony.Sms.STATUS_FAILED] or above. */
+internal fun isDeliveryFailed(status: Int): Boolean = status >= Telephony.Sms.STATUS_FAILED
 
 /** The oldest received message that is still unread, or null: where the "Unread messages" line goes (I26). */
 fun firstUnreadMessageId(messages: List<Message>): Long? =
@@ -93,3 +101,5 @@ private fun shouldShowThreadDateTime(message: Message, prevDateTime: Int, prevSI
 
 /** A new date header shows only after this many seconds without messages. */
 internal const val MIN_DATE_TIME_DIFF_SECS = 300
+private const val ITEMS_HEADROOM_DIVISOR = 8
+private const val ITEMS_HEADROOM = 4

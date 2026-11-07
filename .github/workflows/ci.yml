@@ -1,8 +1,9 @@
 name: CI
 
+# I28: a branch with an open pull request is built once (by the pull request), not twice; pushes build main only.
 on:
   push:
-    branches: ["**"]
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -60,6 +61,11 @@ jobs:
       # detekt fails on any finding that is not in app/detekt-baseline.xml (QD-23, SB-35).
       - name: Build, unit test, lint, detekt
         run: ./gradlew assembleFossDebug testFossDebugUnitTest lintFossDebug detekt --stacktrace
+
+      # PF4: the Google Play variant is built and tested on every push too, so a break in src/gplay or in the
+      # stripped forwarding code shows up here and not when a tag is already public.
+      - name: Build and unit test the Google Play variant
+        run: ./gradlew assembleGplayDebug testGplayDebugUnitTest --stacktrace
 
       - name: Locate debug APK
         id: apk

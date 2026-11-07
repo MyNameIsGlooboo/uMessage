@@ -28,6 +28,7 @@ import com.glooboo.umessage.messaging.SmsException.Companion.ERROR_SENDING_MESSA
 import com.glooboo.umessage.models.Attachment
 import com.glooboo.umessage.receivers.MmsSentReceiver
 
+@Suppress("TooManyFunctions") // One small function per send step; splitting them would scatter the send path.
 class MessagingUtils(val context: Context) {
 
     /**
@@ -132,7 +133,8 @@ class MessagingUtils(val context: Context) {
             }
             savedAny = true
             if (addresses.size > 1) cacheRecipientRow(messageUri, address, text, timestamp, recipientThreadId, subId)
-            val sendError = sendThroughRow(messageUri, address, text, subId, requireDeliveryReport, forwardLogId)
+            val sendError =
+                sendThroughRow(messageUri, address, text, subId, requireDeliveryReport, forwardLogId, groupRowUri)
             firstError = firstError ?: sendError
         }
 
@@ -166,11 +168,12 @@ class MessagingUtils(val context: Context) {
         subId: Int,
         requireDeliveryReport: Boolean,
         forwardLogId: Long?,
+        groupRowUri: Uri?,
     ): Exception? = try {
         context.smsSender.sendMessage(
             subId = subId, destination = address, body = text, serviceCenter = null,
             requireDeliveryReport = requireDeliveryReport, messageUri = messageUri,
-            forwardLogId = forwardLogId,
+            forwardLogId = forwardLogId, groupRowUri = groupRowUri,
         )
         null
     } catch (e: Exception) {

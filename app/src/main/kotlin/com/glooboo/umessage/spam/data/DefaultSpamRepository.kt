@@ -185,7 +185,10 @@ class DefaultSpamRepository(
             val stored = dao.getBlocked(blockedId)?.toModel()
                 ?: return@withLock RestoreReceipt(null, RestoreOutcome.NOT_FOUND)
             val receipt = if (stored.hasStoredMedia) restoreKeptMms(stored) else restoreText(blockedId)
-            if (receipt.outcome != RestoreOutcome.FAILED) receipt.message?.mediaFile?.let { heldMedia += it }
+            if (receipt.outcome != RestoreOutcome.FAILED) {
+                receipt.message?.mediaFile?.let { heldMedia += it }
+                runCatching { platform.cancelBlockedNotifications(listOf(blockedId)) }
+            }
             receipt
         }
     }
@@ -336,12 +339,13 @@ class DefaultSpamRepository(
     private fun isKeywordBlock(rule: SpamRuleEntity): Boolean =
         rule.kind == ListKind.BLOCK && (rule.type == RuleType.KEYWORD || rule.type == RuleType.REGEX)
 
-    override suspend fun deleteBlocked(ids: List<Long>) = withContext(Dispatchers.IO) {
+    override suspend fun deleteBlocked(ids: List<Long>): Unit = withContext(Dispatchers.IO) {
         if (ids.isEmpty()) return@withContext
         val files = db.runInTransaction<List<String>> {
             ids.chunked(SQL_CHUNK).flatMap { chunk -> dao.mediaFilesOf(chunk).also { dao.deleteBlocked(chunk) } }
         }
         if (files.isNotEmpty()) platform.deleteMedia(files)
+        runCatching { platform.cancelBlockedNotifications(ids) }
     }
 
     /** Deletes expired blocked messages together with their kept MMS content, and content no row refers to. */

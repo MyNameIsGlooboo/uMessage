@@ -201,7 +201,7 @@ private enum class BackupKind { BACKUP, RESTORE }
  * restore shows a summary to confirm first (the host asks for the app lock before that).
  */
 @Composable
-internal fun BackupPage(actions: SettingsActions) {
+internal fun BackupPage(actions: SettingsActions, open: (SettingsPage) -> Unit = {}) {
     var asking by rememberSaveable { mutableStateOf<BackupKind?>(null) }
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         TonalRows(Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)) {
@@ -223,9 +223,24 @@ internal fun BackupPage(actions: SettingsActions) {
                 icon = Symbols.SimCard,
                 onClick = actions.onSimMessages,
             )
+            // R10: a guide for people coming from another SMS app.
+            SettingsRow(
+                title = stringResource(R.string.move_from_app_title),
+                summary = stringResource(R.string.move_from_app_row_body),
+                icon = Symbols.Download,
+                onClick = { open(SettingsPage.MoveFromApp) },
+                showChevron = true,
+            )
         }
         Text(
             stringResource(R.string.ux8e_backup_warning),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(horizontal = 16.dp),
+        )
+        // R10: Google Drive works through the system file picker; there is no Drive code in the app.
+        Text(
+            stringResource(R.string.backup_drive_hint),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(horizontal = 16.dp),

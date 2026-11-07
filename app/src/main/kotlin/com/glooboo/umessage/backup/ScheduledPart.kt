@@ -5,6 +5,7 @@ import android.provider.Telephony.Sms.STATUS_NONE
 import com.glooboo.umessage.extensions.getAddresses
 import com.glooboo.umessage.helpers.StarredMessages
 import com.glooboo.umessage.helpers.generateRandomId
+import com.glooboo.umessage.helpers.toSecondsInt
 import com.glooboo.umessage.interfaces.MessageRemindersDao
 import com.glooboo.umessage.messaging.RepeatCalendar
 import com.glooboo.umessage.messaging.RepeatRule
@@ -108,7 +109,7 @@ class ScheduledPart(
             type = MESSAGE_TYPE_QUEUED,
             status = STATUS_NONE,
             participants = ArrayList(people.map { ThreadRecipients.contactForNumber(it) }),
-            date = (at / MILLIS).toInt(),
+            date = (at / MILLIS).toSecondsInt(),
             read = false,
             threadId = thread,
             isMMS = false,

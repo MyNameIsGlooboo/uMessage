@@ -20,9 +20,13 @@ data class WeeklyDigest(val held: Int, val important: Int) {
             return WeeklyDigest(held = recent.size, important = recent.count(::looksImportant))
         }
 
+        /** Codes and bank alerts, never a text with a link: phishing copies exactly those, as the Blocked tab knows. */
         private fun looksImportant(message: BlockedMessageEntity): Boolean =
-            OtpDetector.looksLikeOtp(message.body) ||
-                MessageCategories.classify(message.address, message.body, isContact = false) ==
-                MessageCategory.Transactions
+            !OtpDetector.containsUrl(message.body) &&
+                (
+                    OtpDetector.looksLikeOtp(message.body) ||
+                        MessageCategories.classify(message.address, message.body, isContact = false) ==
+                        MessageCategory.Transactions
+                    )
     }
 }

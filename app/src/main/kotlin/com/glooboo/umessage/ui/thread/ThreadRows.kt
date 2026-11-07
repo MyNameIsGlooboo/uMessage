@@ -38,7 +38,12 @@ sealed interface ThreadRow {
 
     data class Failed(val message: MessageKey, val text: String, override val key: String) : ThreadRow
 
-    data class Sent(val messageId: Long, val delivered: Boolean, override val key: String) : ThreadRow
+    data class Sent(
+        val messageId: Long,
+        val delivered: Boolean,
+        override val key: String,
+        val deliveryFailed: Boolean = false,
+    ) : ThreadRow
 
     /** I26: the line between what was read and what was unread when the thread opened. */
     data class UnreadDivider(override val key: String) : ThreadRow
@@ -110,8 +115,10 @@ fun buildThreadRows(items: List<ThreadItem>, isGroup: Boolean): List<ThreadRow> 
 
             is ThreadItem.ThreadUnreadDivider -> rows.add(ThreadRow.UnreadDivider(uniqueKey("unread")))
 
-            is ThreadItem.ThreadSent ->
-                rows.add(ThreadRow.Sent(item.messageId, item.delivered, uniqueKey("t${item.messageId}")))
+            is ThreadItem.ThreadSent -> {
+                val key = uniqueKey("t${item.messageId}")
+                rows.add(ThreadRow.Sent(item.messageId, item.delivered, key, item.deliveryFailed))
+            }
         }
     }
     return rows

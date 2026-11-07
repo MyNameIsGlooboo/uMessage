@@ -33,9 +33,16 @@ import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.SpamStats
 import com.glooboo.umessage.spam.UnknownSenderMode
 
-/** All blocked messages of one sender, newest first. The sender address is the group key. */
+/**
+ * All blocked messages of one sender, newest first. The sender address is the group key: the newest message's address
+ * as it was written. Messages written in another form of the same number (I20) share the group, so a screen that
+ * was given any of those addresses still finds it with [hasAddress].
+ */
 data class SenderGroup(val address: String, val messages: List<BlockedMessage>) {
     val latest: BlockedMessage get() = messages.first()
+
+    /** Whether [other] is this group's key or the address of one of its messages. */
+    fun hasAddress(other: String): Boolean = address == other || messages.any { it.address == other }
 }
 
 /** What a "Not spam" from a blocked chat did: how many messages reached the inbox, so the screen can open the chat. */
@@ -97,10 +104,16 @@ sealed interface BlockedEvent {
     data class ModeChanged(val previous: UnknownSenderMode, val mode: UnknownSenderMode) : BlockedEvent
 }
 
-/** Groups messages by sender; groups and their messages are sorted newest first. */
-fun groupBySender(messages: List<BlockedMessage>): List<SenderGroup> = messages
-    .groupBy { it.address }
-    .map { (address, list) -> SenderGroup(address, list.sortedByDescending { it.receivedAt }) }
+/**
+ * Groups messages by sender; groups and their messages are sorted newest first. [keyOf] says which addresses are one
+ * sender (I20); the group is named by its newest message's address.
+ */
+fun groupBySender(messages: List<BlockedMessage>, keyOf: (String) -> String = { it }): List<SenderGroup> = messages
+    .groupBy { keyOf(it.address) }
+    .map { (_, list) ->
+        val newestFirst = list.sortedByDescending { it.receivedAt }
+        SenderGroup(newestFirst.first().address, newestFirst)
+    }
     .sortedByDescending { it.latest.receivedAt }
 
 /**
@@ -114,6 +127,7 @@ class BlockedViewModel(
     private val ignoreFilter: Boolean = false,
 ) : AndroidViewModel(application) {
 
+    private val senderKeys = SenderKeys.forDevice(application)
     private val selected = MutableStateFlow<Set<String>>(emptySet())
     private val sims = MutableStateFlow<List<SimInfo>>(emptyList())
 
@@ -235,13 +249,13 @@ class BlockedViewModel(
             chosen is BlockedFilter.Sim && chosen.subscriptionId !in simIds -> BlockedFilter.All
             else -> chosen
         }
-        val groups = groupBySender(BlockedFilters.apply(active, held))
+        val groups = groupBySender(BlockedFilters.apply(active, held), senderKeys::keyOf)
         val keys = groups.map { it.address }.toSet()
         BlockedUiState(
             loading = false,
             groups = groups,
             filter = active,
-            filterCounts = BlockedFilters.counts(held, simIds),
+            filterCounts = BlockedFilters.counts(held, simIds, senderKeys::keyOf),
             heldCount = held.size,
             stats = stats,
             selected = sel intersect keys,
@@ -321,7 +335,7 @@ class BlockedViewModel(
      * was nothing to move (all of it is already on its way).
      */
     fun notSpam(addresses: Set<String>, openChat: Boolean = false): Boolean {
-        val groups = state.value.groups.filter { it.address in addresses }
+        val groups = state.value.groups.filter { g -> addresses.any(g::hasAddress) }
         // Messages already waiting on a restore are left out, so a second swipe cannot queue them twice (L4).
         val pending = pendingIds()
         val messages = groups.flatMap { it.messages }.filter { it.id !in pending }
@@ -547,7 +561,7 @@ class BlockedViewModel(
         (pendingRestores.value.values.flatMap { it.claimed } + pendingDeletes.value.values.flatten()).toSet()
 
     private fun idsOf(addresses: Set<String>): List<Long> =
-        state.value.groups.filter { it.address in addresses }.flatMap { g -> g.messages.map { it.id } }
+        state.value.groups.filter { g -> addresses.any(g::hasAddress) }.flatMap { g -> g.messages.map { it.id } }
 
     companion object {
         /** A little longer than a Long snackbar (10 s), so the snackbar's own answer normally comes first. */

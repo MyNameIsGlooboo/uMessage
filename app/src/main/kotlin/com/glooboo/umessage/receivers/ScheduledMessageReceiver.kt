@@ -1,5 +1,6 @@
 package com.glooboo.umessage.receivers
 
+import com.glooboo.umessage.helpers.canUseExactAlarms
 import android.app.AlarmManager
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -9,7 +10,6 @@ import android.os.Looper
 import android.os.PowerManager
 import android.provider.Telephony
 import androidx.annotation.VisibleForTesting
-import androidx.core.app.AlarmManagerCompat
 import org.fossify.commons.extensions.showErrorToast
 import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.extensions.conversationsDB
@@ -26,6 +26,8 @@ import com.glooboo.umessage.messaging.bookNextRepeat
 import com.glooboo.umessage.messaging.canReadScheduledAttachments
 import com.glooboo.umessage.messaging.deleteScheduledRepeat
 import com.glooboo.umessage.messaging.deleteScheduledAttachments
+import com.glooboo.umessage.messaging.ScheduledSendClaims
+import com.glooboo.umessage.messaging.scheduledAttachmentTracker
 import com.glooboo.umessage.messaging.sendMessageCompat
 import com.glooboo.umessage.models.Message
 import kotlin.time.Duration.Companion.minutes
@@ -84,6 +86,24 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
         }
         if (message == null || message.isHeldScheduled()) return
 
+        // F3: only one sender per message. The alarm, the re-arm on app start or boot and "Send now" can all reach it
+        // together; the one that claims the row sends, the others find it taken and stop.
+        val claimed = try {
+            ScheduledSendClaims.claim(context, messageId)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return
+        }
+        if (!claimed) return
+        try {
+            sendClaimed(context, message)
+        } finally {
+            ScheduledSendClaims.release(messageId)
+        }
+    }
+
+    private fun sendClaimed(context: Context, message: Message) {
+        val messageId = message.id
         val addresses = message.participants.getAddresses()
         val attachments = message.attachment?.attachments ?: emptyList()
 
@@ -108,7 +128,8 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
             // Send right here on the worker, inside the goAsync window and wakelock. The scheduled row is the only
             // copy of the message, so it is deleted only once the message is in the telephony provider.
             val handedOff = context.sendMessageCompat(
-                message.body, addresses, message.subscriptionId, attachments, onFailure = ::notifyOnce
+                message.body, addresses, message.subscriptionId, attachments, onFailure = ::notifyOnce,
+                onAttachmentHandedOff = context.scheduledAttachmentTracker(message),
             )
             if (!handedOff) {
                 // The scheduled row stays, so the message is not lost, but held: it goes out only on the user's
@@ -165,7 +186,7 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
         }
         val threadId = context.getThreadId(addresses.toSet()).takeIf { it != 0L } ?: message.threadId
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val exactAllowed = runCatching { AlarmManagerCompat.canScheduleExactAlarms(alarmManager) }.getOrDefault(true)
+        val exactAllowed = runCatching { context.canUseExactAlarms(alarmManager) }.getOrDefault(true)
         runCatching {
             Handler(Looper.getMainLooper()).post {
                 runCatching {

@@ -95,12 +95,15 @@ object AppLockSecurity {
 
     /**
      * Seconds still to wait, given [failures] consecutive wrong entries, the last of which was at [lastFailureMs].
-     * A clock that went backwards counts as no time passed.
+     * A clock that went backwards counts as no time passed. [monotonicElapsedMs] is the time since the failure on the
+     * phone's own running clock (SystemClock.elapsedRealtime, which setting the date and time cannot move), or -1
+     * when it is not known (after a restart, old data): moving the wall clock forward then cannot cut the wait short.
      */
-    fun remainingSeconds(failures: Int, lastFailureMs: Long, nowMs: Long): Int {
+    fun remainingSeconds(failures: Int, lastFailureMs: Long, nowMs: Long, monotonicElapsedMs: Long = -1L): Int {
         val total = lockoutSeconds(failures)
         if (total == 0 || lastFailureMs <= 0L) return 0
-        val elapsed = (nowMs - lastFailureMs).coerceAtLeast(0L)
+        var elapsed = (nowMs - lastFailureMs).coerceAtLeast(0L)
+        if (monotonicElapsedMs >= 0L) elapsed = minOf(elapsed, monotonicElapsedMs)
         val remainingMs = total * 1000L - elapsed
         return if (remainingMs > 0) ((remainingMs + 999) / 1000).toInt() else 0
     }

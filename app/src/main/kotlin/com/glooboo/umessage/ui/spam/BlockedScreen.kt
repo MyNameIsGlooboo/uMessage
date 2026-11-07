@@ -375,6 +375,7 @@ private fun BlockedList(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(top = 4.dp, bottom = 96.dp + bottomInset),
     ) {
+        item(key = "contacts-off") { ContactsOffBanner(state.mode) }
         item(key = "stats") {
             BlockedLine(state.stats, state.mode, onOpenSettings = actions.onOpenSettings)
         }

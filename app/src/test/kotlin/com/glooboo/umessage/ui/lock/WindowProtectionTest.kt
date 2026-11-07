@@ -12,6 +12,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
+import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
 class WindowProtectionTest {
@@ -41,9 +42,35 @@ class WindowProtectionTest {
     }
 
     @Test
-    fun `below Android 13 the default hides nothing and only Block screenshots hides Recents`() {
-        assertEquals(WindowProtection(secure = false, hideFromRecents = false), WindowProtection.of(true, false, 32))
+    fun `below Android 13 the default blanks Recents only while the screen is left`() {
+        assertEquals(
+            WindowProtection(secure = false, hideFromRecents = false, secureWhileLeaving = true),
+            WindowProtection.of(true, false, 32),
+        )
         assertEquals(WindowProtection(secure = true, hideFromRecents = false), WindowProtection.of(true, true, 32))
+        assertFalse(WindowProtection.of(false, false, 32).secureWhileLeaving)
+        assertFalse(WindowProtection.of(true, false, 34).secureWhileLeaving)
+    }
+
+    @Test
+    @Config(sdk = [31])
+    fun `pausing sets the secure flag on old Android and resuming clears it`() {
+        val activity = Robolectric.buildActivity(Activity::class.java).create().get()
+        activity.baseConfig.isAppPasswordProtectionOn = true
+        AppLockGuard.onActivityCreated(activity, null)
+        assertFalse(activity.isSecure())
+        AppLockGuard.onActivityPaused(activity)
+        assertTrue(activity.isSecure())
+        AppLockGuard.applyWindowProtection(activity)
+        assertFalse(activity.isSecure())
+    }
+
+    @Test
+    fun `pausing sets no flag on Android 13+ where Recents has its own switch`() {
+        val activity = Robolectric.buildActivity(Activity::class.java).create().get()
+        activity.baseConfig.isAppPasswordProtectionOn = true
+        AppLockGuard.onActivityPaused(activity)
+        assertFalse(activity.isSecure())
     }
 
     @Test

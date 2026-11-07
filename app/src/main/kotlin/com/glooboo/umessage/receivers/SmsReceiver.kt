@@ -8,6 +8,7 @@ import android.telephony.SmsMessage
 import android.util.Log
 import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.helpers.DailyChecks
+import com.glooboo.umessage.messaging.IncomingDateSent
 import com.glooboo.umessage.spam.SpamLogEntry
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.data.IncomingSmsProcessor
@@ -24,13 +25,15 @@ class SmsReceiver : BroadcastReceiver() {
         try {
             ensureBackgroundThread {
                 try {
-                    handle(appContext, intent)
+                    handle(appContext, intent, housekeeping = false)
                 } catch (t: Throwable) {
                     // never let an exception kill the process or swallow a message
                     Log.e(TAG, "Incoming SMS handling failed", t)
                 } finally {
                     runCatching { pending.finish() }
                 }
+                // After the broadcast is released: the SMS is stored, this only tidies up (B20).
+                runCatching { housekeeping(appContext) }
             }
         } catch (t: Throwable) {
             runCatching { handle(appContext, intent) }
@@ -39,7 +42,7 @@ class SmsReceiver : BroadcastReceiver() {
     }
 
     /** Blocking: stores the SMS in [intent] (blocked or inbox), or leaves it queued with a retry booked. */
-    internal fun handle(appContext: Context, intent: Intent) {
+    internal fun handle(appContext: Context, intent: Intent, housekeeping: Boolean = true) {
         val parts = try {
             Telephony.Sms.Intents.getMessagesFromIntent(intent)
         } catch (t: Throwable) {
@@ -61,12 +64,19 @@ class SmsReceiver : BroadcastReceiver() {
 
         // Write-ahead: the row survives a process kill and is replayed on the next start.
         val pendingId = PendingSmsQueue.add(appContext, message)
+        // The carrier's own send time goes into date_sent (I16).
+        val dateSent = runCatching { parts.last().timestampMillis }.getOrDefault(0L)
         try {
-            IncomingSmsProcessor.process(appContext, message)
+            IncomingDateSent.during(dateSent) { IncomingSmsProcessor.process(appContext, message) }
             PendingSmsQueue.done(appContext, pendingId)
         } catch (t: Throwable) {
             onSaveFailed(appContext, message, pendingId, t)
         }
+        if (housekeeping) housekeeping(appContext)
+    }
+
+    /** Replays queued messages and runs the purge and daily checks; not part of storing the SMS (B20). */
+    internal fun housekeeping(appContext: Context) {
         PendingSmsQueue.replay(appContext)
         SpamEngine.purgeExpired(appContext)
         DailyChecks.runIfDue(appContext)

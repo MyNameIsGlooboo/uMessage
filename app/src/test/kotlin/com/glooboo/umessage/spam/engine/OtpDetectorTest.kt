@@ -37,8 +37,11 @@ class OtpDetectorTest {
         assertTrue(otp("كود ٧٧٨٨"))
     }
 
+    @Test fun aGroupedNumberWithoutACodeWordIsNotACode() {
+        assertFalse(otp("123-456"))
+    }
+
     @Test fun groupedCodesAreCodes() {
-        assertTrue(otp("123-456"))
         assertTrue(otp("Your code: 123-456"))
         assertTrue(otp("123 456 is your Instagram code"))
         assertTrue(otp("Your WhatsApp code: 123-456"))

@@ -210,11 +210,11 @@ class SettingsNavTest {
             ),
         )
         compose.onNodeWithText(str(R.string.settings_group_backup)).performScrollTo().performClick()
+        compose.onNodeWithText(str(R.string.ux8e_backup_row)).performScrollTo().performClick()
+        compose.onNodeWithText(str(R.string.ux8e_what_messages)).performClick()
         compose.onNodeWithText(str(R.string.ux8e_restore_row)).performClick()
         compose.onNodeWithText(str(R.string.ux8e_what_settings)).performClick()
-        compose.onNodeWithText(str(R.string.ux8e_backup_row)).performClick()
-        compose.onNodeWithText(str(R.string.ux8e_what_messages)).performClick()
-        assertEquals(listOf("restore-settings", "export"), calls)
+        assertEquals(listOf("export", "restore-settings"), calls)
     }
 
     // SE-09: the blocked-message alert sits on the Notifications page.

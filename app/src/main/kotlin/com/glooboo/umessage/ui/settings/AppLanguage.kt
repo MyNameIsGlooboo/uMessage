@@ -1,10 +1,16 @@
 package com.glooboo.umessage.ui.settings
 
+import android.app.Activity
+import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Build
+import android.os.LocaleList
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.glooboo.umessage.R
+import java.util.Locale
 
 /**
  * The app's own language (B16 / ID-35, N02): the phone's language or one of the languages the app ships. Stored as
@@ -52,9 +58,8 @@ enum class AppLanguage(val tag: String, @StringRes val label: Int, val englishNa
                 entries.filter { it != SYSTEM && it != ENGLISH }.sortedBy { it.englishName }
 
         /**
-         * Android 13+ applies a per-app language to every screen. Below that AppCompat would only switch its own
-         * activities and leave the others in the phone's language, so the picker is not offered there and the app
-         * follows the phone's language.
+         * Android 13+ applies a per-app language to every screen. Below that (Android 8 to 12) the app keeps the
+         * choice itself and applies it to every screen, see [AppLocale].
          */
         val supported: Boolean get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
 
@@ -69,16 +74,35 @@ enum class AppLanguage(val tag: String, @StringRes val label: Int, val englishNa
                 ?: SYSTEM
         }
 
-        fun current(): AppLanguage = fromTags(AppCompatDelegate.getApplicationLocales().toLanguageTags())
+        fun current(context: Context): AppLanguage = fromTags(
+            if (supported) AppCompatDelegate.getApplicationLocales().toLanguageTags() else AppLocale.storedTag(context),
+        )
 
-        /** Switches the app to [language]; Android recreates the open screens in it. */
-        fun apply(language: AppLanguage) {
-            val locales = if (language == SYSTEM) {
-                LocaleListCompat.getEmptyLocaleList()
-            } else {
-                LocaleListCompat.forLanguageTags(language.tag)
+        /**
+         * Switches the app to [language]. Android 13+ recreates the open screens in it; below that the choice is
+         * stored, [activity] is recreated at once and the other open screens follow when they come back to the front.
+         */
+        @Suppress("DEPRECATION")
+        fun apply(activity: Activity, language: AppLanguage) {
+            if (supported) {
+                val locales = if (language == SYSTEM) {
+                    LocaleListCompat.getEmptyLocaleList()
+                } else {
+                    LocaleListCompat.forLanguageTags(language.tag)
+                }
+                AppCompatDelegate.setApplicationLocales(locales)
+                return
             }
-            AppCompatDelegate.setApplicationLocales(locales)
+            AppLocale.store(activity, language.tag)
+            // Strings read from the application context (notifications, view models) follow at once too.
+            val app = activity.applicationContext
+            val config = Configuration(app.resources.configuration)
+            val chosen = AppLocale.localeFor(language.tag)
+            val locales = if (chosen != null) LocaleList(chosen) else Resources.getSystem().configuration.locales
+            Locale.setDefault(locales[0])
+            config.setLocales(locales)
+            app.resources.updateConfiguration(config, app.resources.displayMetrics)
+            activity.recreate()
         }
     }
 }

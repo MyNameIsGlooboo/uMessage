@@ -164,12 +164,14 @@ internal fun resolveColorScheme(
     // SE-44: the mode decides light or dark, the colours decide the palette; previews may force either.
     val dark = darkTheme ?: choice.isDark(systemDark)
     val wallpaper = dynamicColor ?: (choice.colours == ThemeColours.WALLPAPER)
+    val dynamic = wallpaper && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     val scheme = when {
-        wallpaper && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ->
-            if (dark) dynamicDarkColorScheme(ctx) else dynamicLightColorScheme(ctx)
+        dynamic -> if (dark) dynamicDarkColorScheme(ctx) else dynamicLightColorScheme(ctx)
         else -> ThemePresets.palette(choice.colours)?.colorScheme(dark) ?: if (dark) Dark else Light
     }
-    return (if (dark && choice.mode == ThemeMode.BLACK) scheme.blackened() else scheme).withSeparatedCards()
+    val shaped = (if (dark && choice.mode == ThemeMode.BLACK) scheme.blackened() else scheme).withSeparatedCards()
+    // UI-colours: the app's own palettes are held to WCAG AA; the system's dynamic colours follow Android.
+    return if (dynamic) shaped else shaped.withGuaranteedContrast()
 }
 
 /** SE-22, VS-35: the least contrast a dark card (surfaceContainerHigh) needs against the page to read as a card. */

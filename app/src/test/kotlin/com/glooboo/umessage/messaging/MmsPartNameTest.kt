@@ -28,6 +28,6 @@ class MmsPartNameTest {
     @Test
     fun existingNameIsKeptWithoutPathOrSpaces() {
         assertThat(mmsPartName("photo.jpg", 1L, "image/jpeg", 7L)).isEqualTo("photo.jpg")
-        assertThat(mmsPartName("a/b\my pic.jpg", 1L, "image/jpeg", 7L)).isEqualTo("my_pic.jpg")
+        assertThat(mmsPartName("a/b\\my pic.jpg", 1L, "image/jpeg", 7L)).isEqualTo("my_pic.jpg")
     }
 }

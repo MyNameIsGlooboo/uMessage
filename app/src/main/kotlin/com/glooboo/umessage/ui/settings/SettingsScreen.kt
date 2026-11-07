@@ -46,7 +46,6 @@ import com.glooboo.umessage.ui.settings.search.SettingsSearch
 import com.glooboo.umessage.ui.settings.search.SettingsSearchButton
 import com.glooboo.umessage.ui.settings.search.SettingsSearchField
 import com.glooboo.umessage.ui.settings.search.SettingsSearchResults
-import android.os.Build
 import androidx.compose.material3.Icon
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import org.fossify.commons.R as CommonsR
@@ -70,6 +69,8 @@ fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, initialPage
             actions.onBack()
         } else if (page == SettingsPage.Licenses) {
             page = SettingsPage.About
+        } else if (page == SettingsPage.MoveFromApp) {
+            page = SettingsPage.Backup
         } else {
             page = SettingsPage.Main
         }
@@ -132,7 +133,8 @@ private fun PageContent(
         SettingsPage.Notifications -> NotificationsPage(state, actions)
         SettingsPage.Typing -> TypingPage(state, actions)
         SettingsPage.Storage -> StoragePage(state, actions)
-        SettingsPage.Backup -> BackupPage(actions)
+        SettingsPage.Backup -> BackupPage(actions, open)
+        SettingsPage.MoveFromApp -> MoveFromAppPage(actions.onImport)
         SettingsPage.AppLock -> AppLockPage(state, actions)
         SettingsPage.About -> AboutPage(state, actions, open)
         SettingsPage.Licenses -> LicensesPage(actions)
@@ -154,6 +156,7 @@ private fun pageTitle(page: SettingsPage): Int = when (page) {
     SettingsPage.Typing -> R.string.ux8e_nav_typing
     SettingsPage.Storage -> R.string.ux8e_nav_storage
     SettingsPage.Backup -> R.string.settings_group_backup
+    SettingsPage.MoveFromApp -> R.string.move_from_app_title
     SettingsPage.AppLock -> R.string.settings_nav_app_lock
     SettingsPage.About -> R.string.settings_nav_about_row
     SettingsPage.Licenses -> R.string.settings_nav_licenses_title
@@ -555,13 +558,8 @@ private fun AppLockRows(state: SettingsUiState, actions: SettingsActions) {
     )
     SettingsSwitchRow(
         title = stringResource(R.string.settings_app_lock_screenshots),
-        summary = stringResource(
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                R.string.settings_app_lock_screenshots_body
-            } else {
-                R.string.settings_app_lock_screenshots_body_old
-            },
-        ),
+        // Recents is hidden on every Android version now (older ones blank it while the app is left), so one text.
+        summary = stringResource(R.string.settings_app_lock_screenshots_body),
         icon = Symbols.Shield,
         checked = state.appLockBlockScreenshots,
         onCheckedChange = actions.onBlockScreenshots,

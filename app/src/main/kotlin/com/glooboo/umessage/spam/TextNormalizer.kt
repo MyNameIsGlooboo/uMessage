@@ -5,6 +5,8 @@ package com.glooboo.umessage.spam
  *
  * [fold] removes differences that do not change what a reader sees or means:
  * - Arabic yeh and kaf become the Persian letters (ي ى → ی, ك → ک), as Persian-language senders mix both;
+ * - the hamza forms of alef (أ إ آ ٱ → ا), waw with hamza (ؤ → و) and teh marbuta (ة → ه) are folded too, so a
+ *   rule typed "اعلان" also matches "إعلان" (the search fold is built from the same table);
  * - every Unicode decimal digit (Persian ۱۲۳, Arabic-Indic ١٢٣, ...) becomes the ASCII digit;
  * - zero-width characters (ZWNJ, ZWJ, ZWSP, word joiner, BOM, soft hyphen), the kashida (ـ) and Arabic
  *   diacritics (harakat, superscript alef) are dropped.
@@ -24,6 +26,12 @@ object TextNormalizer {
         put('\u064A', '\u06CC') // ي Arabic yeh -> ی
         put('\u0649', '\u06CC') // ى alef maksura -> ی
         put('\u0643', '\u06A9') // ك Arabic kaf -> ک
+        put('\u0623', '\u0627') // أ alef with hamza above -> ا
+        put('\u0625', '\u0627') // إ alef with hamza below -> ا
+        put('\u0622', '\u0627') // آ alef with madda -> ا
+        put('\u0671', '\u0627') // ٱ alef wasla -> ا
+        put('\u0624', '\u0648') // ؤ waw with hamza -> و
+        put('\u0629', '\u0647') // ة teh marbuta -> ه
         for (i in 0..9) {
             put('\u06F0' + i, '0' + i) // Persian digits
             put('\u0660' + i, '0' + i) // Arabic-Indic digits
@@ -121,16 +129,19 @@ object TextNormalizer {
      * SQLite's parser overflows on a few dozen nested function calls, so the REPLACE calls are spread over a chain of
      * sub-queries, [SQL_REPLACES_PER_LEVEL] per level; SQLite flattens the chain into one scan.
      */
-    fun sqlFoldedLike(table: String, key: String, column: String): String {
+    fun sqlFoldedLike(table: String, key: String, column: String, where: String = ""): String {
         val steps = REPLACEMENTS.map { (from, to) -> "char(${from.code})" to "char(${to.code})" } +
             REMOVED.map { "char(${it.code})" to "''" }
-        var source = "SELECT $key AS k, $column AS v FROM $table"
+        // PF2: [where] narrows the rows before any folding, so excluded rows never pay for the REPLACE chain.
+        var source = "SELECT $key AS k, $column AS v FROM $table" + if (where.isEmpty()) "" else " WHERE $where"
         for (chunk in steps.chunked(SQL_REPLACES_PER_LEVEL)) {
             var expr = "v"
             for ((from, to) in chunk) expr = "REPLACE($expr, $from, $to)"
             source = "SELECT k, $expr AS v FROM ($source)"
         }
-        return "SELECT * FROM $table WHERE $key IN (SELECT k FROM ($source) WHERE v LIKE ? ESCAPE '$LIKE_ESCAPE')"
+        val outer = if (where.isEmpty()) "" else "($where) AND "
+        return "SELECT * FROM $table WHERE $outer$key IN " +
+            "(SELECT k FROM ($source) WHERE v LIKE ? ESCAPE '$LIKE_ESCAPE')"
     }
 
     /** The escape character of every search LIKE pattern: `LIKE ? ESCAPE '\'`. */

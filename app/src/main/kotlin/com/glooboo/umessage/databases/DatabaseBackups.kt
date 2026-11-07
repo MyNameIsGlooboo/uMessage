@@ -48,7 +48,7 @@ internal object DatabaseBackups {
         val version = fileVersion(file) ?: return null
         if (version <= currentVersion) return null
         val backup = backupFile(context, name, version)
-        deleteWithCompanions(backup)
+        keepEarlierBackup(backup)
         for (suffix in COMPANIONS) {
             val source = File(file.path + suffix)
             if (!source.exists()) continue
@@ -61,6 +61,21 @@ internal object DatabaseBackups {
         Log.w(TAG, "$name was written by schema $version, newer than $currentVersion: kept as ${backup.name}")
         backup
     }.onFailure { Log.e(TAG, "Could not move $name aside", it) }.getOrNull()
+
+    /**
+     * D10: an unrestored backup of the same schema already sits at [backup] (its restore failed and it was kept).
+     * It is renamed `-earlier-<n>` (never offered again, never deleted) instead of being overwritten by the newer one.
+     */
+    private fun keepEarlierBackup(backup: File) {
+        if (!backup.exists()) return
+        var n = 1
+        while (File(backup.path.removeSuffix("-backup") + "-earlier-$n").exists()) n++
+        val target = File(backup.path.removeSuffix("-backup") + "-earlier-$n")
+        for (suffix in COMPANIONS) {
+            val source = File(backup.path + suffix)
+            if (source.exists() && !source.renameTo(File(target.path + suffix))) source.delete()
+        }
+    }
 
     /** Backups of [name] that a build with schema [currentVersion] can read, newest schema first. */
     fun restorableBackups(context: Context, name: String, currentVersion: Int): List<File> =

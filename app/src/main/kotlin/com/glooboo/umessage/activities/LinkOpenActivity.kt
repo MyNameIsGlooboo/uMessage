@@ -1,5 +1,6 @@
 package com.glooboo.umessage.activities
 
+import com.glooboo.umessage.ui.settings.AppLocale
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -19,6 +20,9 @@ import com.glooboo.umessage.ui.thread.shareLink
  * activity of its own task); the browser starts after the "Open" tap, never straight from the notification.
  */
 class LinkOpenActivity : ComponentActivity() {
+
+    /** I1: puts the in-app language on this screen on Android 8 to 12 (a no-op on 13+). */
+    override fun attachBaseContext(newBase: Context) = super.attachBaseContext(AppLocale.wrap(newBase))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

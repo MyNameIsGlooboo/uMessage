@@ -103,6 +103,19 @@ class SystemContactChecker(
     }
 
     /**
+     * Stops watching the contacts and the message store. A checker made for a single check must be closed (the
+     * resolver keeps every registered observer, and through it the checker and its caches, alive); the process-wide one
+     * of [SpamEngine] lives as long as the process.
+     */
+    fun close() {
+        runCatching { appContext.contentResolver.unregisterContentObserver(observer) }
+        runCatching { appContext.contentResolver.unregisterContentObserver(sentObserver) }
+        cache = null
+        privateCache = null
+        sentCache = null
+    }
+
+    /**
      * FOUND when an outgoing SMS (sent, outbox, queued, failed) or a recent sent MMS went to [address]. The addresses are
      * read once with an indexed query on the message type and kept until the message store changes, so a later message
      * is answered from memory. UNKNOWN when the SMS store cannot be read, so the filter delivers rather than guess.
@@ -293,7 +306,7 @@ class SystemContactChecker(
         if (cached != null && System.currentTimeMillis() - privateCacheLoadedAt < PRIVATE_CONTACTS_MAX_AGE_MS) return cached
         val loaded = runCatching {
             appContext.getMyContactsCursor(favoritesOnly = false, withPhoneNumbersOnly = true).use { cursor ->
-                val index = ContactNumberIndex<Unit>(normalizer)
+                val index = ContactNumberIndex<Unit>(normalizer, plausibleRegions(appContext))
                 if (cursor == null) return@use index // no private contacts app: nothing to find, ask again later
                 MyContactsContentProvider.getSimpleContacts(appContext, cursor).forEach { contact ->
                     contact.phoneNumbers.forEach { phone ->
@@ -320,7 +333,7 @@ class SystemContactChecker(
     private fun loadNumbers(): ContactNumberIndex<Unit>? {
         if (!hasContactsPermission()) return null
         return runCatching {
-            val result = ContactNumberIndex<Unit>(normalizer)
+            val result = ContactNumberIndex<Unit>(normalizer, plausibleRegions(appContext))
             // A null cursor means the provider could not be reached: that is a failed read, not "no contacts".
             val cursor = appContext.contentResolver.query(
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI,

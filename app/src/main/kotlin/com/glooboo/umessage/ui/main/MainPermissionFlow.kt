@@ -27,10 +27,19 @@ enum class PermissionStep {
  * dialogs; this says which step comes next and what the screen shows (MC-04, MC-05, CM-05). The flags that pick the
  * screen survive rotation with the view model and a killed process through [SavedStateHandle].
  */
+@Suppress("TooManyFunctions") // One small event handler per step of the permission flow.
 class MainPermissionFlow(private val handle: SavedStateHandle) : ViewModel() {
 
     /** The user declined the default-SMS dialog: the explanation screen replaces the list. */
     var needsDefaultApp by savedFlag(KEY_NEEDS_DEFAULT_APP)
+        private set
+
+    /**
+     * I22: this phone cannot show the default-SMS dialog at all (no role manager, work profile, some ROMs). The
+     * explanation screen then offers Android's default-apps settings instead of the dialog. Only set together with
+     * [needsDefaultApp].
+     */
+    var roleUnavailable by savedFlag(KEY_ROLE_UNAVAILABLE)
         private set
 
     /** MC-04: SMS permission was denied; an explanation with Grant and Open settings replaces the list. */
@@ -74,6 +83,7 @@ class MainPermissionFlow(private val handle: SavedStateHandle) : ViewModel() {
     fun recheck(isDefaultSmsApp: Boolean, hasSmsPermissions: Boolean): PermissionStep = when {
         needsDefaultApp -> if (isDefaultSmsApp) {
             needsDefaultApp = false
+            roleUnavailable = false
             PermissionStep.RequestRole
         } else {
             PermissionStep.None
@@ -91,11 +101,18 @@ class MainPermissionFlow(private val handle: SavedStateHandle) : ViewModel() {
         roleRequestPending = true
     }
 
+    /** I22: the phone has no default-SMS dialog; explain, and send the user to Android's default apps. */
+    fun onRoleUnavailable() {
+        roleUnavailable = true
+        needsDefaultApp = true
+    }
+
     /** The default-SMS dialog answered. Declining explains what is lost and offers a retry instead of closing. */
     fun onRoleResult(isDefaultSmsApp: Boolean): PermissionStep {
         roleRequestPending = false
         return if (isDefaultSmsApp) {
             needsDefaultApp = false
+            roleUnavailable = false
             notDefaultSmsApp = false
             PermissionStep.AskPermissions
         } else {
@@ -138,6 +155,7 @@ class MainPermissionFlow(private val handle: SavedStateHandle) : ViewModel() {
     internal companion object {
         const val KEY_ROLE_REQUEST_PENDING = "role_request_pending"
         const val KEY_NEEDS_DEFAULT_APP = "needs_default_app"
+        const val KEY_ROLE_UNAVAILABLE = "role_unavailable"
         const val KEY_MISSING_SMS_PERMISSION = "missing_sms_permission"
     }
 }

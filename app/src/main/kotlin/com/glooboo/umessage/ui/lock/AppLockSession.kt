@@ -1,6 +1,7 @@
 package com.glooboo.umessage.ui.lock
 
 import com.glooboo.umessage.dialogs.AppLockLogic
+import com.glooboo.umessage.dialogs.runningClock
 import org.fossify.commons.helpers.BaseConfig
 import org.fossify.commons.helpers.PROTECTION_PATTERN
 import org.fossify.commons.helpers.PROTECTION_PIN
@@ -10,6 +11,11 @@ interface AppLockStore {
     var storedHash: String
     var failures: Int
     var lastFailureMs: Long
+
+    /** SystemClock.elapsedRealtime() at [lastFailureMs], -1 when unknown (see AppLockSecurity.remainingSeconds). */
+    var lastFailureElapsedMs: Long
+        get() = -1L
+        set(value) = Unit
 
     /** True when the last correct entry was shorter than a new credential may be; Settings then suggests a change. */
     var weakCredential: Boolean
@@ -32,6 +38,11 @@ class ConfigAppLockStore(private val config: BaseConfig) : AppLockStore {
         set(value) {
             config.passwordCountdownStartMs = value
         }
+    override var lastFailureElapsedMs: Long
+        get() = config.passwordCountdownStartElapsedMs
+        set(value) {
+            config.passwordCountdownStartElapsedMs = value
+        }
     override var weakCredential: Boolean
         get() = config.appLockCredentialWeak
         set(value) {
@@ -50,6 +61,7 @@ class ConfigAppLockStore(private val config: BaseConfig) : AppLockStore {
  */
 class AppLockSession(
     private val store: AppLockStore,
+    private val elapsed: () -> Long = ::runningClock,
     private val now: () -> Long = System::currentTimeMillis,
 ) {
     sealed interface Outcome {
@@ -69,7 +81,9 @@ class AppLockSession(
     fun triesBeforeWait(): Int = (AppLockLogic.MAX_RETRIES - store.failures).coerceAtLeast(0)
 
     /** Seconds left before another entry is accepted. */
-    fun lockoutSeconds(): Int = AppLockLogic.lockoutSeconds(store.failures, store.lastFailureMs, now())
+    fun lockoutSeconds(): Int = AppLockLogic.lockoutSeconds(
+        store.failures, store.lastFailureMs, now(), store.lastFailureElapsedMs, elapsed(),
+    )
 
     /** Adds [digit] to the PIN unless it is full or input is locked out; true when it was added. */
     fun addDigit(digit: Char): Boolean {
@@ -106,11 +120,16 @@ class AppLockSession(
             if (kept != stored) store.storedHash = kept
             store.failures = 0
             store.lastFailureMs = 0
+            store.lastFailureElapsedMs = -1L
             if (store.weakCredential != weak) store.weakCredential = weak
             return Outcome.Unlocked
         }
         store.failures += 1
-        if (store.failures >= AppLockLogic.MAX_RETRIES) store.lastFailureMs = now()
+        if (store.failures >= AppLockLogic.MAX_RETRIES) {
+            // The running-clock stamp first: the wait is judged by the smaller of the two clocks.
+            store.lastFailureElapsedMs = elapsed()
+            store.lastFailureMs = now()
+        }
         return Outcome.Wrong(lockoutSeconds())
     }
 }

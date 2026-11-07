@@ -3,7 +3,6 @@ package com.glooboo.umessage.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.extensions.rescheduleAllScheduledMessages
 import com.glooboo.umessage.helpers.DailyChecks
 import com.glooboo.umessage.messaging.rearmReminders
@@ -16,19 +15,10 @@ import com.glooboo.umessage.messaging.rearmReminders
  */
 class RescheduleAlarmsReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        val pendingResult = goAsync()
-        try {
-            ensureBackgroundThread {
-                try {
-                    context.rescheduleAllScheduledMessages()
-                    context.rearmReminders()
-                    DailyChecks.arm(context, force = true)
-                } finally {
-                    runCatching { pendingResult.finish() }
-                }
-            }
-        } catch (t: Throwable) {
-            runCatching { pendingResult.finish() }
+        runInBackground("RescheduleAlarmsReceiver") {
+            context.rescheduleAllScheduledMessages()
+            context.rearmReminders()
+            DailyChecks.arm(context, force = true)
         }
     }
 }

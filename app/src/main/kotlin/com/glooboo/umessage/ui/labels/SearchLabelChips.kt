@@ -19,6 +19,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -85,6 +86,8 @@ private fun LabelChip(label: Label, selected: Boolean, actions: LabelChipActions
     Box {
         Row(
             Modifier
+                // UI-touch: the chip looks 32dp high but its touch target is 48dp.
+                .minimumInteractiveComponentSize()
                 .height(ChipHeight)
                 .clip(CircleShape)
                 .background(if (selected) colors.secondaryContainer else colors.surfaceContainerHigh)

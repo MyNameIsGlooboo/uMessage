@@ -112,7 +112,9 @@ data class SettingsUiState(
 enum class ForwardingSummary { NO_RULES, OFF, PAUSED, ON }
 
 /** The pages of Settings: the main list and the screens it opens. */
-enum class SettingsPage { Main, Spam, Forwarding, Notifications, Typing, Storage, Backup, AppLock, About, Licenses }
+enum class SettingsPage {
+    Main, Spam, Forwarding, Notifications, Typing, Storage, Backup, MoveFromApp, AppLock, About, Licenses
+}
 
 /** Everything the screen can ask the host to do. */
 @Immutable

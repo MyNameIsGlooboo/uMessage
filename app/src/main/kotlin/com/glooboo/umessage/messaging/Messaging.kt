@@ -42,7 +42,8 @@ fun Context.isLongMmsMessage(text: String, settings: Settings = getSendMessageSe
  * nothing can be retried from the thread), true otherwise, including sends that were saved and then failed.
  * [onFailure] runs, after the toast, whenever this call already knows the send failed, whatever it returns; callers
  * running in the background use it to tell the user, since a toast there is never seen. Failures reported later by
- * the radio go through the sent receivers instead.
+ * the radio go through the sent receivers instead. [onAttachmentHandedOff] is told about each attachment that was queued
+ * (MS6), so a caller that holds the whole message can drop it and never send it twice on a later Retry.
  */
 fun Context.sendMessageCompat(
     text: String,
@@ -50,12 +51,11 @@ fun Context.sendMessageCompat(
     subId: Int?,
     attachments: List<Attachment>,
     resend: MessageKey? = null,
-    onFailure: () -> Unit = {}
+    onFailure: () -> Unit = {},
+    onAttachmentHandedOff: (Attachment) -> Unit = {},
 ): Boolean {
     val settings = getSendMessageSettings()
-    if (subId != null) {
-        settings.subscriptionId = subId
-    }
+    activeSendSubscriptionId(subId)?.let { settings.subscriptionId = it }
 
     val messagingUtils = messagingUtils
     var handedOff = true
@@ -72,7 +72,9 @@ fun Context.sendMessageCompat(
             if (attachments.size > 1) {
                 for (i in 0 until lastIndex) {
                     val attachment = attachments[i]
-                    if (!messagingUtils.sendMmsMessage("", addresses, attachment, settings, messageId)) {
+                    if (messagingUtils.sendMmsMessage("", addresses, attachment, settings, messageId)) {
+                        onAttachmentHandedOff(attachment)
+                    } else {
                         handedOff = false
                         failed = true
                     }
@@ -80,7 +82,9 @@ fun Context.sendMessageCompat(
             }
 
             val lastAttachment = attachments[lastIndex]
-            if (!messagingUtils.sendMmsMessage(text, addresses, lastAttachment, settings, messageId)) {
+            if (messagingUtils.sendMmsMessage(text, addresses, lastAttachment, settings, messageId)) {
+                onAttachmentHandedOff(lastAttachment)
+            } else {
                 handedOff = false
                 failed = true
             }

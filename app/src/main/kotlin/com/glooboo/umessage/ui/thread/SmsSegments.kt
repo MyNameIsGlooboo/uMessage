@@ -8,6 +8,9 @@ package com.glooboo.umessage.ui.thread
 data class SmsSegments(val parts: Int, val remaining: Int, val unicode: Boolean) {
     val isMultipart: Boolean get() = parts > 1
 
+    /** So long that sending it as SMS costs [MANY_PARTS] or more messages (I5). */
+    val isVeryLong: Boolean get() = parts > MANY_PARTS
+
     /** Characters one part holds for this kind of text. */
     val perPart: Int get() = if (unicode) {
         if (isMultipart) UCS2_MULTI else UCS2_SINGLE
@@ -21,18 +24,45 @@ data class SmsSegments(val parts: Int, val remaining: Int, val unicode: Boolean)
         const val UCS2_SINGLE = 70
         const val UCS2_MULTI = 67
 
+        /** Parts above this are worth a warning: a text this long costs that many SMS (I5). */
+        const val MANY_PARTS = 6
+
         fun of(text: String): SmsSegments {
             val gsmLength = gsmSeptets(text)
             val unicode = gsmLength == null
             val length = gsmLength ?: text.length
             val single = if (unicode) UCS2_SINGLE else GSM_SINGLE
             val multi = if (unicode) UCS2_MULTI else GSM_MULTI
-            return if (length <= single) {
-                SmsSegments(parts = 1, remaining = single - length, unicode = unicode)
-            } else {
-                val parts = (length + multi - 1) / multi
-                SmsSegments(parts = parts, remaining = parts * multi - length, unicode = unicode)
+            if (length <= single) return SmsSegments(parts = 1, remaining = single - length, unicode = unicode)
+            val (parts, used) = pack(text, unicode, multi)
+            return SmsSegments(parts = parts, remaining = multi - used, unicode = unicode)
+        }
+
+        /**
+         * Fills parts of [capacity] units the way the platform splits: a character is never cut in two, so an emoji
+         * (two UTF-16 units) or a GSM extension character (two septets) that would straddle the end moves to the next
+         * part, which can cost one part more than length / capacity says (I6). Returns the part count and the units
+         * used in the last part.
+         */
+        private fun pack(text: String, unicode: Boolean, capacity: Int): Pair<Int, Int> {
+            var parts = 1
+            var used = 0
+            var i = 0
+            while (i < text.length) {
+                val c = text[i]
+                val width = when {
+                    unicode && c.isHighSurrogate() && i + 1 < text.length && text[i + 1].isLowSurrogate() -> 2
+                    !unicode && GSM_BASIC.indexOf(c) < 0 -> 2
+                    else -> 1
+                }
+                if (used + width > capacity) {
+                    parts++
+                    used = 0
+                }
+                used += width
+                i += width.takeIf { unicode } ?: 1
             }
+            return parts to used
         }
 
         /** Length in GSM 7-bit septets (characters from the extension table take two), or null when not GSM. */

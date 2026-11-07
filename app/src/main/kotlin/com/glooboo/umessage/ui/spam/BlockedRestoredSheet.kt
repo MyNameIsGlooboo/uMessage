@@ -35,7 +35,7 @@ import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.THREAD_TITLE
 import com.glooboo.umessage.ui.components.SenderAvatar
-import com.glooboo.umessage.ui.components.formatListTime
+import com.glooboo.umessage.ui.components.formatListTimeStyled
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.components.uiLocale
 import kotlinx.coroutines.Dispatchers
@@ -79,7 +79,7 @@ private fun RestoredRow(entry: RestoredEntry, onOpen: () -> Unit) {
     val context = LocalContext.current
     val locale = uiLocale()
     val restoredLabel = remember(entry, locale) {
-        localizeDigits(formatListTime(context, entry.restoredAt), locale)
+        localizeDigits(formatListTimeStyled(context, entry.restoredAt), locale)
     }
     val openLabel = stringResource(R.string.e_restored_open, entry.address)
     ListItem(

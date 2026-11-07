@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
+import android.provider.Settings
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
@@ -50,6 +51,7 @@ import com.glooboo.umessage.ui.main.keepSplash
  * runs search, [ConversationsViewModel] keeps the list in sync and [MainRoutes] opens other screens. This class starts
  * the Android dialogs those need, receives their answers and sets the Compose content.
  */
+@Suppress("TooManyFunctions") // Android lifecycle overrides plus one small step per permission dialog.
 class MainActivity : ComposeSimpleActivity() {
 
     private val MAKE_DEFAULT_APP_REQUEST = 1
@@ -143,14 +145,18 @@ class MainActivity : ComposeSimpleActivity() {
         if (!permissionFlow.canRequestRole) return
         when (val role = DefaultSmsRole.status(this)) {
             DefaultSmsRole.Status.Held -> askPermissions()
-            DefaultSmsRole.Status.Unavailable -> {
-                toast(org.fossify.commons.R.string.unknown_error_occurred)
-                finish()
-            }
+            // I22: explain on screen (with a way to Android's default apps) instead of a vague toast and exit.
+            DefaultSmsRole.Status.Unavailable -> permissionFlow.onRoleUnavailable()
             is DefaultSmsRole.Status.Request -> {
                 permissionFlow.onRoleRequested()
                 startActivityForResult(role.intent, MAKE_DEFAULT_APP_REQUEST)
             }
+        }
+    }
+
+    private fun openDefaultAppsSettings() {
+        runCatching {
+            startActivity(Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         }
     }
 
@@ -161,7 +167,8 @@ class MainActivity : ComposeSimpleActivity() {
             handlePermission(PERMISSION_SEND_SMS) { sendSms ->
                 if (!sendSms) return@handlePermission permissionFlow.onSmsPermissionDenied()
                 permissionFlow.onSmsPermissionsGranted()
-                handlePermission(PERMISSION_READ_CONTACTS) {
+                handlePermission(PERMISSION_READ_CONTACTS) { contacts ->
+                    if (contacts) (application as? com.glooboo.umessage.App)?.registerContactsObserver()
                     handleNotificationPermission(permissionFlow::onNotificationPermission)
                     // MC-02: once per view model, which then also listens for refresh events. A rotated screen keeps
                     // its list.
@@ -181,8 +188,9 @@ class MainActivity : ComposeSimpleActivity() {
         setUMessageContent {
             when {
                 flow.needsDefaultApp -> DefaultSmsRequiredScreen(
-                    onSetDefault = ::requestDefaultSmsRole,
+                    onSetDefault = if (flow.roleUnavailable) ::openDefaultAppsSettings else ::requestDefaultSmsRole,
                     onClose = ::finish,
+                    unavailable = flow.roleUnavailable,
                 )
                 flow.missingSmsPermission -> SmsPermissionRequiredScreen(
                     onGrant = ::askPermissions,

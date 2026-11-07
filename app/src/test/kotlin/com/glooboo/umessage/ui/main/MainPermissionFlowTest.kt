@@ -54,6 +54,20 @@ class MainPermissionFlowTest {
     }
 
     @Test
+    fun aPhoneWithoutTheRoleDialogExplainsAndRecoversWhenTheUserSetsItInSettings() {
+        flow.start()
+        flow.onRoleUnavailable()
+        assertThat(flow.needsDefaultApp).isTrue()
+        assertThat(flow.roleUnavailable).isTrue()
+        // Survives rotation and a killed process.
+        assertThat(MainPermissionFlow(handle).roleUnavailable).isTrue()
+        assertThat(flow.recheck(isDefaultSmsApp = false, hasSmsPermissions = true)).isEqualTo(PermissionStep.None)
+        assertThat(flow.recheck(isDefaultSmsApp = true, hasSmsPermissions = true)).isEqualTo(PermissionStep.RequestRole)
+        assertThat(flow.needsDefaultApp).isFalse()
+        assertThat(flow.roleUnavailable).isFalse()
+    }
+
+    @Test
     fun aDeniedSmsPermissionExplainsUntilItIsGranted() {
         flow.start()
         flow.onSmsPermissionDenied()

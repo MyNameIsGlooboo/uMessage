@@ -50,6 +50,10 @@ fun checkAttachment(alreadyAdded: Boolean, mimeType: String?, sizeLimit: Long, f
     return AttachmentCheck.Ok(mimeType, compress = isImage && !isGif)
 }
 
+/** True when files of [sizes] together exceed [limit] ([FILE_SIZE_NONE] means no limit): the carrier counts the sum. */
+fun totalTooLarge(sizes: Collection<Long>, limit: Long): Boolean =
+    limit != FILE_SIZE_NONE && sizes.size > 1 && sizes.sum() > limit
+
 /**
  * The composer's attachments: adding a picked file (with the size checks and image compression), a contact as a
  * vCard, removing one, and saving an MMS attachment where the user chose. The picked files live in [vm], so they
@@ -65,14 +69,34 @@ class ThreadAttachmentController(
     private val attachmentsDir: File
         get() = File(activity.cacheDir, "attachments").apply { if (!exists()) mkdirs() }
 
+    /** The size of each added file that is sent as it is (not shrunk), by attachment id: the carrier counts the sum. */
+    private val fileSizes = HashMap<String, Long>()
+
+    /**
+     * Adds a picked file. The type, size and name are read on a worker thread (a slow provider no longer stalls the
+     * screen, I4); the composer changes back on the main thread.
+     */
     fun add(uri: Uri) {
         val id = uri.toString()
-        val check = checkAttachment(
-            alreadyAdded = vm.hasAttachment(id),
-            mimeType = activity.contentResolver.getType(uri),
-            sizeLimit = activity.config.mmsFileSizeLimit,
-            fileSize = { activity.getFileSizeFromUri(uri) },
-        )
+        val alreadyAdded = vm.hasAttachment(id)
+        val sizeLimit = activity.config.mmsFileSizeLimit
+        ensureBackgroundThread {
+            var size = FILE_SIZE_NONE
+            val check = checkAttachment(
+                alreadyAdded = alreadyAdded,
+                mimeType = activity.contentResolver.getType(uri),
+                sizeLimit = sizeLimit,
+                fileSize = { activity.getFileSizeFromUri(uri).also { size = it } },
+            )
+            val filename = if (check is AttachmentCheck.Ok) activity.getFilenameFromUri(uri) else ""
+            // Only a file that is not shrunk keeps its size; the sum is read from there (see [totalTooLarge]).
+            val sentAsIs = (check as? AttachmentCheck.Ok)?.takeIf { !it.compress }
+            if (sentAsIs != null && size == FILE_SIZE_NONE) size = activity.getFileSizeFromUri(uri)
+            activity.runOnUiThread { applyCheck(uri, id, check, filename, size) }
+        }
+    }
+
+    private fun applyCheck(uri: Uri, id: String, check: AttachmentCheck, filename: String, size: Long) {
         when (check) {
             AttachmentCheck.Duplicate -> activity.toast(R.string.duplicate_item_warning)
             AttachmentCheck.UnknownType -> activity.toast(org.fossify.commons.R.string.unknown_error_occurred)
@@ -82,12 +106,18 @@ class ThreadAttachmentController(
                     id = id,
                     uri = uri,
                     mimetype = check.mimeType,
-                    filename = activity.getFilenameFromUri(uri),
+                    filename = filename,
                     isPending = check.compress,
                 )
                 vm.addAttachment(attachment)
+                if (!check.compress && size > 0L) fileSizes[id] = size
                 if (attachment.isPending) compress(attachment)
                 onChanged()
+                // Each file may pass on its own while all of them together are too big for one message (I4).
+                val limit = activity.config.mmsFileSizeLimit
+                if (totalTooLarge(fileSizes.filterKeys { key -> vm.hasAttachment(key) }.values, limit)) {
+                    activity.toast(R.string.attachments_total_too_large, length = Toast.LENGTH_LONG)
+                }
             }
         }
     }
@@ -116,6 +146,7 @@ class ThreadAttachmentController(
     }
 
     fun remove(attachment: AttachmentSelection) {
+        fileSizes.remove(attachment.id)
         AudioPlayerManager.release(attachment.uri)
         vm.removeAttachment(attachment.id)
         onChanged()
@@ -123,6 +154,7 @@ class ThreadAttachmentController(
 
     /** Empties the composer's attachments (after a send), stopping any that was playing. */
     fun clear() {
+        fileSizes.clear()
         vm.attachments.forEach { AudioPlayerManager.release(it.uri) }
         vm.clearAttachments()
     }

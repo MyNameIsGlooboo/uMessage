@@ -68,6 +68,7 @@ import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.DateStyle
 import com.glooboo.umessage.helpers.w3cPrefs
 import com.glooboo.umessage.spam.BlockedMessage
+import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.ui.components.EmptyState
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.displayNumber
@@ -156,8 +157,12 @@ fun BlockedThreadRoute(
     var moving by rememberSaveable { mutableStateOf(false) }
     BlockedEvents(viewModel, snackbar, onSettle = { committed -> closeWhenEmpty = committed })
     OpenChatAfterNotSpam(viewModel, address, threadIdOf, onBack, onRetry = { moving = false })
-    val hasMessages = state.groups.any { it.address == address }
+    val hasMessages = state.groups.any { it.hasAddress(address) }
     LaunchedEffect(hasMessages) { if (hasMessages) seen = true }
+    // I5: opening the thread answers the notifications of its messages.
+    val appContext = LocalContext.current.applicationContext
+    val heldIds = state.groups.firstOrNull { it.hasAddress(address) }?.messages?.map { it.id }.orEmpty()
+    LaunchedEffect(heldIds) { BlockedNotifier.cancel(appContext, heldIds) }
     // A last snackbar (a failure) is let finish before the screen goes. While the chat opens it never closes here.
     val settled = !state.loading && !hasMessages && !state.hasPendingUndo && !moving &&
         snackbar.currentSnackbarData == null
@@ -199,7 +204,7 @@ fun BlockedThreadScreen(
     /** "Not spam" is working: the button shows progress and waits, and the rows stay until the chat opens. */
     moving: Boolean = false,
 ) {
-    val group = state.groups.firstOrNull { it.address == address }
+    val group = state.groups.firstOrNull { it.hasAddress(address) }
     val shown = isolateNumbers(displayNumber(address))
     var whyId by rememberSaveable { mutableStateOf<Long?>(null) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -473,14 +478,14 @@ private fun HeldMessageMenu(
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.r3b_copy_text)) },
                 leadingIcon = { Icon(Symbols.ContentCopy, contentDescription = null) },
-                onClick = { onDismiss(); copyToClipboard(context, message.body, textCopied) },
+                onClick = { onDismiss(); copyToClipboard(context, message.body, textCopied, clear = false) },
             )
         }
         code?.let {
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.w3b_copy_code)) },
                 leadingIcon = { Icon(Symbols.ContentCopy, contentDescription = null) },
-                onClick = { onDismiss(); copyToClipboard(context, it, codeCopied) },
+                onClick = { onDismiss(); copyToClipboard(context, it, codeCopied, clear = true) },
             )
         }
         DropdownMenuItem(
@@ -501,9 +506,9 @@ private fun HeldMessageMenu(
     }
 }
 
-private fun copyToClipboard(context: Context, text: String, copiedText: String) {
-    val clipboard = context.getSystemService(android.content.ClipboardManager::class.java)
-    clipboard?.setPrimaryClip(android.content.ClipData.newPlainText(text, text))
+/** Copies from the Blocked tab as sensitive (I25); a code is also removed from the clipboard after a minute (I15). */
+private fun copyToClipboard(context: Context, text: String, copiedText: String, clear: Boolean) {
+    com.glooboo.umessage.helpers.SensitiveClip.mark(context, text, clear)
     // Android 13+ confirms copies itself.
     if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.TIRAMISU) {
         android.widget.Toast.makeText(context, copiedText, android.widget.Toast.LENGTH_SHORT).show()

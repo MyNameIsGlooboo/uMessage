@@ -133,9 +133,10 @@ fun OnboardingScreen(
     // Reading `refresh` makes these recompute when the user comes back from a system screen.
     val isDefault = refresh.let { OnboardingActivity.isDefaultSmsApp(context) }
     val grantedMap = refresh.let { items.associateWith { context.isGranted(it.permissions) } }
-    val allGranted = grantedMap.values.all { it }
-    // Fixed when the flow opens, so the Allow step does not vanish while the user is on it.
-    val pages = remember { OnboardingState.pagesFor(allowNeeded = !(isDefault && allGranted)) }
+    // Optional items (Phone state) do not hold the flow back.
+    val allGranted = requiredGranted(items, grantedMap)
+    // F8: fixed when the flow opens and saved with the page position (see rememberOnboardingPages).
+    val pages = rememberOnboardingPages(allowNeededNow = !(isDefault && allGranted))
     val pagerState = rememberPagerState(pageCount = { pages.size })
 
     var defaultDenied by rememberSaveable { mutableStateOf(false) }
@@ -248,8 +249,9 @@ fun OnboardingScreen(
                 modifier = Modifier.weight(1f),
                 beyondViewportPageCount = 0,
             ) { index ->
-                // Only the settled page is exposed to accessibility services.
+                // I24: only the settled page is exposed to accessibility services.
                 val pageModifier = Modifier
+                    .then(if (index == page) Modifier else Modifier.clearAndSetSemantics { })
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = 24.dp, vertical = 16.dp)
@@ -257,8 +259,10 @@ fun OnboardingScreen(
                     OnboardingPage.WELCOME -> WelcomePage(
                         modifier = pageModifier,
                         reduceMotion = reduceMotion,
-                        language = AppLanguage.current(),
-                        onLanguage = if (AppLanguage.supported) ({ l: AppLanguage -> AppLanguage.apply(l) }) else null,
+                        language = AppLanguage.current(context),
+                        onLanguage = { l: AppLanguage ->
+                            context.findActivity()?.let { AppLanguage.apply(it, l) }
+                        },
                     )
 
                     OnboardingPage.ALLOW -> AllowPage(
@@ -314,7 +318,7 @@ fun OnboardingScreen(
 }
 
 @Composable
-private fun BottomBar(
+internal fun BottomBar(
     page: Int,
     pageCount: Int,
     nextLabel: String,
@@ -346,7 +350,7 @@ private fun BottomBar(
                 repeat(pageCount) { i -> Dot(selected = i == page, reduceMotion = reduceMotion) }
             }
             Button(onClick = onNext, modifier = Modifier.heightIn(min = 48.dp)) {
-                Text(nextLabel, maxLines = 1)
+                Text(nextLabel, maxLines = 2)
             }
         },
     ) { measurables, constraints ->
@@ -354,18 +358,33 @@ private fun BottomBar(
         val loose = constraints.copy(minWidth = 0, minHeight = 0)
         val back = measurables[0].measure(loose)
         val dots = measurables[1].measure(loose)
-        val next = measurables[2].measure(loose.copy(maxWidth = (width - back.width - dots.width).coerceAtLeast(0)))
-        val height = maxOf(back.height, dots.height, next.height)
-        val centred = (width - dots.width) / 2
-        val dotsX = if (centred >= back.width && centred + dots.width <= width - next.width) {
-            centred
+        // UI-bigfont: with a large font the three do not fit in one row. The dots then take their own row above the
+        // buttons and the main button gets all the width that Back leaves, so its label is not cut off.
+        val wanted = measurables[2].maxIntrinsicWidth(loose.maxHeight)
+        if (back.width + dots.width + wanted > width) {
+            val next = measurables[2].measure(loose.copy(maxWidth = (width - back.width).coerceAtLeast(0)))
+            val gap = 8.dp.roundToPx()
+            val rowHeight = maxOf(back.height, next.height)
+            layout(width, dots.height + gap + rowHeight) {
+                dots.placeRelative((width - dots.width) / 2, 0)
+                val rowY = dots.height + gap
+                back.placeRelative(0, rowY + (rowHeight - back.height) / 2)
+                next.placeRelative(width - next.width, rowY + (rowHeight - next.height) / 2)
+            }
         } else {
-            back.width + ((width - back.width - next.width - dots.width) / 2).coerceAtLeast(0)
-        }
-        layout(width, height) {
-            back.placeRelative(0, (height - back.height) / 2)
-            dots.placeRelative(dotsX, (height - dots.height) / 2)
-            next.placeRelative(width - next.width, (height - next.height) / 2)
+            val next = measurables[2].measure(loose.copy(maxWidth = width - back.width - dots.width))
+            val height = maxOf(back.height, dots.height, next.height)
+            val centred = (width - dots.width) / 2
+            val dotsX = if (centred >= back.width && centred + dots.width <= width - next.width) {
+                centred
+            } else {
+                back.width + ((width - back.width - next.width - dots.width) / 2).coerceAtLeast(0)
+            }
+            layout(width, height) {
+                back.placeRelative(0, (height - back.height) / 2)
+                dots.placeRelative(dotsX, (height - dots.height) / 2)
+                next.placeRelative(width - next.width, (height - next.height) / 2)
+            }
         }
     }
 }

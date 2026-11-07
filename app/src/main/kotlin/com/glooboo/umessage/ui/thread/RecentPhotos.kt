@@ -1,5 +1,6 @@
 package com.glooboo.umessage.ui.thread
 
+import com.glooboo.umessage.helpers.recentPhotosAvailable
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +41,8 @@ private val PhotoSize = 84.dp
 @Composable
 internal fun RecentPhotosRow(accessVersion: Int, onPick: (Uri) -> Unit, onAllow: () -> Unit) {
     val context = LocalContext.current
+    // The Google Play build declares no photo-library permission: no row, no prompt (the Photo entry still works).
+    if (!context.recentPhotosAvailable()) return
     val access = remember(accessVersion) { RecentPhotosAccess.current(context) }
     if (access == PhotoAccess.None) {
         TextButton(onClick = onAllow, modifier = Modifier.padding(horizontal = 8.dp)) {

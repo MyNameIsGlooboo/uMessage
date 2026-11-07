@@ -38,9 +38,10 @@ internal fun isAlreadyReported(rules: List<SpamRule>, address: String): Boolean 
 internal fun isSameSender(pattern: String, address: String, type: RuleType): Boolean {
     if (type == RuleType.SENDER_ID) return pattern.trim().equals(address.trim(), ignoreCase = true)
     return when (PhoneNumberUtil.getInstance().isNumberMatch(pattern, address)) {
+        // SHORT_NSN_MATCH (only the tail of the number agrees) is left out: a block rule for the short number
+        // "5551234" must not be reported as covering "+1 415 555 1234".
         PhoneNumberUtil.MatchType.EXACT_MATCH,
-        PhoneNumberUtil.MatchType.NSN_MATCH,
-        PhoneNumberUtil.MatchType.SHORT_NSN_MATCH -> true
+        PhoneNumberUtil.MatchType.NSN_MATCH -> true
 
         else -> false
     }

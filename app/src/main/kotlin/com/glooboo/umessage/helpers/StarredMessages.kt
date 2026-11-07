@@ -78,7 +78,7 @@ object StarredMessages {
             dao.getAll().forEach { star ->
                 val current = app.messagesDB.getMessage(star.id, star.isMMS)
                 if (current != null && fingerprint(current.body) == star.bodyHash) return@forEach
-                val target = relinkTarget(star, app.messagesDB.getMessagesAtDate(star.date.toInt()))
+                val target = relinkTarget(star, app.messagesDB.getMessagesAtDate(star.date.toSecondsInt()))
                     ?: return@forEach
                 dao.delete(star.id, star.isMMS)
                 dao.insert(star.copy(id = target.id, isMMS = target.isMMS, threadId = target.threadId))

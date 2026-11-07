@@ -2,6 +2,7 @@ package com.glooboo.umessage
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.database.ContentObserver
 import android.net.Uri
 import android.os.Build
@@ -27,6 +28,7 @@ import com.glooboo.umessage.helpers.DailyChecks
 import com.glooboo.umessage.helpers.HiddenChatsSession
 import com.glooboo.umessage.helpers.MessagingCache
 import com.glooboo.umessage.messaging.failStaleOutboxMessages
+import com.glooboo.umessage.helpers.DebugStrictMode
 import com.glooboo.umessage.messaging.rearmReminders
 import com.glooboo.umessage.messaging.tidyScheduledAttachments
 import com.glooboo.umessage.spam.data.PendingSmsQueue
@@ -34,6 +36,7 @@ import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.ui.lock.LockActivity
 import com.glooboo.umessage.ui.lock.LockScope
 import com.glooboo.umessage.ui.lock.WindowProtection
+import com.glooboo.umessage.ui.settings.AppLocale
 import com.glooboo.umessage.ui.theme.ThemePresets
 
 class App : FossifyApp() {
@@ -45,23 +48,16 @@ class App : FossifyApp() {
     /** I44: with "only chosen parts" only the Blocked screens ask for the lock; everything else opens at once. */
     override fun screenNeedsAppLock(activity: Activity): Boolean = LockScope.lockApplies(activity)
 
+    override fun attachBaseContext(base: Context) = super.attachBaseContext(AppLocale.wrap(base))
+
     override fun onCreate() {
         super.onCreate()
+        registerActivityLifecycleCallbacks(AppLocale.RecreateOnChange)
         SpamEngine.install()
+        DebugStrictMode.install()
         ThemePresets.migrateIfNeeded(this)
         registerActivityLifecycleCallbacks(AppLockGuard)
-        if (hasPermission(PERMISSION_READ_CONTACTS)) {
-            listOf(
-                ContactsContract.Contacts.CONTENT_URI,
-                ContactsContract.Data.CONTENT_URI,
-                ContactsContract.DisplayPhoto.CONTENT_URI
-            ).forEach {
-                try {
-                    contentResolver.registerContentObserver(it, true, contactsObserver)
-                } catch (_: Exception) {
-                }
-            }
-        }
+        registerContactsObserver()
 
         ensureBackgroundThread {
             PendingSmsQueue.replay(this)
@@ -72,6 +68,28 @@ class App : FossifyApp() {
             DailyChecks.runIfDue(this)
             failStaleOutboxMessages()
             SpamEngine.purgeExpired(this)
+        }
+    }
+
+    @Volatile
+    private var contactsObserverRegistered = false
+
+    /**
+     * PF-B8: listens for contact edits so the name and photo caches do not go stale. Called at start and again once
+     * the Contacts permission is granted; does nothing without the permission or when already registered.
+     */
+    fun registerContactsObserver() {
+        if (contactsObserverRegistered || !hasPermission(PERMISSION_READ_CONTACTS)) return
+        contactsObserverRegistered = true
+        listOf(
+            ContactsContract.Contacts.CONTENT_URI,
+            ContactsContract.Data.CONTENT_URI,
+            ContactsContract.DisplayPhoto.CONTENT_URI
+        ).forEach {
+            try {
+                contentResolver.registerContentObserver(it, true, contactsObserver)
+            } catch (_: Exception) {
+            }
         }
     }
 
@@ -139,7 +157,16 @@ internal object AppLockGuard : Application.ActivityLifecycleCallbacks {
         }
     }
 
-    override fun onActivityPaused(activity: Activity) = Unit
+    /**
+     * Android 8 to 12 cannot hide the Recents thumbnail any other way: with the lock on and screenshots allowed the
+     * window is made secure as soon as it is paused, so the thumbnail is blank. The next resume clears it again.
+     */
+    override fun onActivityPaused(activity: Activity) {
+        val blockScreenshots = activity.baseConfig.appLockBlockScreenshots
+        val protection = WindowProtection.of(LockScope.protectsWindow(activity), blockScreenshots)
+        if (protection.secureWhileLeaving) activity.window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+    }
+
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) = Unit
     override fun onActivityDestroyed(activity: Activity) = Unit
 }

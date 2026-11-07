@@ -39,6 +39,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.models.Label
+import com.glooboo.umessage.ui.components.ICON_CONTRAST
+import com.glooboo.umessage.ui.components.readableOn
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.theme.contentDirection
 
@@ -141,7 +143,8 @@ private fun Swatch(argb: Int, on: Boolean, description: String, onClick: () -> U
                 Icon(
                     Symbols.Check,
                     contentDescription = null,
-                    tint = Color.White,
+                    // The tick reads on a light swatch (yellow, orange) as well as on a dark one.
+                    tint = readableOn(Color(argb), Color.White, ICON_CONTRAST),
                     modifier = Modifier.size(SwatchCheckSize),
                 )
             }

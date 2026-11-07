@@ -64,6 +64,36 @@ class BackupServiceTest {
         assertThat(notifications.map { it.extras.getString("android.title") }).contains("Restore finished")
     }
 
+    @Test
+    fun androidTimeout_stopsTheServiceAtOnceAndTellsTheUser() {
+        val controller = Robolectric.buildService(BackupService::class.java, Intent(context, BackupService::class.java))
+            .create()
+        val service = controller.get()
+
+        service.onTimeout(7, android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+
+        assertThat(shadowOf(service).isStoppedBySelf).isTrue()
+        assertThat(BackupJob.cancelRequested).isTrue()
+        val titles = shadowOf(context.getSystemService(NotificationManager::class.java)).allNotifications
+            .map { it.extras.getString("android.title") }
+        assertThat(titles).contains(context.getString(com.glooboo.umessage.R.string.backup_timeout_title))
+    }
+
+    @Test
+    fun anIntentWithoutAFile_stillEntersTheForegroundBeforeStopping() {
+        val intent = Intent(context, BackupService::class.java).setAction("com.glooboo.spamless.action.IMPORT_MESSAGES")
+        val controller = Robolectric.buildService(BackupService::class.java, intent).create()
+        controller.startCommand(0, 1)
+
+        val service = controller.get()
+        // It entered the foreground (an id was posted) and left it again; leaving removes the notification, so the
+        // shadow no longer holds the notification itself.
+        assertThat(shadowOf(service).lastForegroundNotificationId).isNotEqualTo(0)
+        assertThat(shadowOf(service).isForegroundStopped).isTrue()
+        assertThat(shadowOf(service).lastForegroundNotification).isNull()
+        assertThat(shadowOf(service).isStoppedBySelf).isTrue()
+    }
+
     private val smsJson = (
         """[{"subscriptionId":-1,"address":"+15550001","body":"secret hi","date":1,"dateSent":1,"locked":0,""" +
             """"protocol":null,"read":1,"status":-1,"type":1,"serviceCenter":null,"backupType":"sms"}]"""

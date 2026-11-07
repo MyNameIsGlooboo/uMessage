@@ -1,5 +1,6 @@
 package com.glooboo.umessage.ui.onboarding
 
+import com.glooboo.umessage.ui.settings.AppLocale
 import android.app.Application
 import android.app.role.RoleManager
 import android.content.ClipData
@@ -36,6 +37,9 @@ import com.glooboo.umessage.ui.theme.applyUMessageWindow
  * Also doubles as the trampoline for the notification "Copy code" action (see [ACTION_COPY_CODE]).
  */
 class OnboardingActivity : ComponentActivity() {
+
+    /** I1: puts the in-app language on this screen on Android 8 to 12 (a no-op on 13+). */
+    override fun attachBaseContext(newBase: Context) = super.attachBaseContext(AppLocale.wrap(newBase))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

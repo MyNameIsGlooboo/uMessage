@@ -213,12 +213,14 @@ class NewConversationActivity : ComposeSimpleActivity() {
         Intent(this, ThreadActivity::class.java).apply {
             putExtra(THREAD_ID, threadId)
             putExtra(THREAD_TITLE, name)
-            putExtra(THREAD_TEXT, body.ifEmpty { intent.getStringExtra(Intent.EXTRA_TEXT) })
+            // A shared text may be a Spanned or other CharSequence, which getStringExtra reads as null (B14).
+            putExtra(THREAD_TEXT, body.ifEmpty { intent.getCharSequenceExtra(Intent.EXTRA_TEXT)?.toString() })
             if (number.isNotEmpty()) putExtra(THREAD_NUMBER, number)
 
             if (intent.action == Intent.ACTION_SEND && intent.extras?.containsKey(Intent.EXTRA_STREAM) == true) {
                 val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
-                putExtra(THREAD_ATTACHMENT_URI, uri?.toString())
+                // No uri (EXTRA_STREAM holds something else): nothing is attached, instead of a null extra (B14).
+                if (uri != null) putExtra(THREAD_ATTACHMENT_URI, uri.toString())
             } else if (intent.action == Intent.ACTION_SEND_MULTIPLE && intent.extras?.containsKey(
                     Intent.EXTRA_STREAM,
                 ) == true

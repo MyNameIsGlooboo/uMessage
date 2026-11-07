@@ -20,6 +20,8 @@ import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.deleteMessage
 import com.glooboo.umessage.extensions.getThreadParticipants
 import com.glooboo.umessage.extensions.notificationHelper
+import com.glooboo.umessage.helpers.cancelFailedSendNotification
+import com.glooboo.umessage.helpers.hasFailedSendNotification
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.messaging.getMmsSendingError
@@ -58,6 +60,9 @@ class MmsSentReceiver : SendStatusReceiver() {
 
         if (messageBox == Telephony.Mms.MESSAGE_BOX_FAILED && uri != null) {
             showSendingFailedNotification(context, uri)
+        } else if (messageBox == Telephony.Mms.MESSAGE_BOX_SENT && uri != null && context.hasFailedSendNotification()) {
+            // The message went out (a retry, say): its "Message not sent" notification is stale (MS3).
+            threadIdOf(context, uri)?.let { context.cancelFailedSendNotification(it) }
         }
 
         // In case of resent message, delete original to prevent duplication
@@ -82,13 +87,7 @@ class MmsSentReceiver : SendStatusReceiver() {
         if (ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
             return
         }
-        val threadId = try {
-            context.contentResolver.query(uri, arrayOf(Telephony.Mms.THREAD_ID), null, null, null)?.use {
-                if (it.moveToFirst()) it.getLong(0) else null
-            }
-        } catch (_: Exception) {
-            null
-        } ?: return
+        val threadId = threadIdOf(context, uri) ?: return
         val recipientName = runCatching { context.conversationsDB.getConversationWithThreadId(threadId)?.title }
             .getOrNull()
             ?.takeIf { it.isNotBlank() }
@@ -97,6 +96,14 @@ class MmsSentReceiver : SendStatusReceiver() {
         Handler(Looper.getMainLooper()).post {
             context.notificationHelper.showSendingFailedNotification(recipientName, threadId)
         }
+    }
+
+    private fun threadIdOf(context: Context, uri: Uri): Long? = try {
+        context.contentResolver.query(uri, arrayOf(Telephony.Mms.THREAD_ID), null, null, null)?.use {
+            if (it.moveToFirst()) it.getLong(0) else null
+        }
+    } catch (_: Exception) {
+        null
     }
 
     companion object {

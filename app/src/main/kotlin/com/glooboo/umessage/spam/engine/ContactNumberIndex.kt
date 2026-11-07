@@ -7,7 +7,17 @@ package com.glooboo.umessage.spam.engine
  * unknown (a contact saved without a country code that does not fit the region, a short code) are the last 9 digits
  * compared, as Fossify did for every number.
  */
-class ContactNumberIndex<T>(private val normalizer: NumberNormalizer) {
+class ContactNumberIndex<T>(
+    private val normalizer: NumberNormalizer,
+    /**
+     * Other countries the owner may be reading numbers in (the SIMs' and the network's, see [plausibleRegions]).
+     * A number saved without a country code is also keyed in each of them, so it still matches after the default
+     * region changed. Empty (the default) keeps the strict single-region reading.
+     */
+    otherRegions: Collection<String> = emptyList(),
+) {
+
+    private val readers: List<NumberNormalizer> = otherRegions.map { normalizer.withRegion(it) }
 
     private class Entry<T>(val key: String, val hasCountry: Boolean, var value: T)
 
@@ -27,7 +37,21 @@ class ContactNumberIndex<T>(private val normalizer: NumberNormalizer) {
         }
         val entry = Entry(key, normalizer.hasCountryCode(number), value)
         byKey[key] = entry
+        addRegionAliases(number, key, entry)
         byLastDigits.getOrPut(lastDigits(key)) { mutableListOf() }.add(entry)
+    }
+
+    /**
+     * F12: a number written without a country code only got its country from the default region. In every other
+     * plausible region where it is a real number it is findable by that reading too (never over a key that is taken).
+     */
+    private fun addRegionAliases(number: String, key: String, entry: Entry<T>) {
+        if (readers.isEmpty() || !normalizer.hasCountryCode(number) || normalizer.isInternationalForm(number)) return
+        for (reader in readers) {
+            if (!reader.normalize(number).startsWith("+")) continue
+            val alias = reader.comparableKey(number)
+            if (alias.isNotEmpty() && alias != key) byKey.putIfAbsent(alias, entry)
+        }
     }
 
     /** The value stored for [number], or null when no stored number is the same number. */

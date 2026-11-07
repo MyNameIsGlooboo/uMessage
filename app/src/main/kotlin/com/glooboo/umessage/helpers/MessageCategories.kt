@@ -1,6 +1,8 @@
 package com.glooboo.umessage.helpers
 
 import com.glooboo.umessage.spam.TextNormalizer
+import com.google.i18n.phonenumbers.PhoneNumberUtil
+import java.util.Locale
 
 /** The kind of a conversation, for the Transactions and Offers filters. Anything unsure is [Other]. */
 enum class MessageCategory { Personal, Transactions, Offers, Other }
@@ -50,24 +52,29 @@ object MessageCategories {
         return folded.any { it.isLetter() } || isShortLine(folded)
     }
 
-    /** A number that reads as a service line: digits only, not international, not a mobile or landline. */
+    /**
+     * A number that reads as a service line: digits only, and not a real mobile or landline number of any country
+     * (libphonenumber decides, read in the phone's own country, so no country is special). A short code, also one
+     * written with a country code ("+98 5000123"), is a service line; a number with a leading 0 is a person.
+     */
     private fun isShortLine(folded: String): Boolean {
         if (!folded.all { it.isDigit() || it in NUMBER_SYMBOLS }) return false
         val digits = folded.filter { it.isDigit() }
-        val localCode = folded.startsWith("+98") || folded.startsWith("0098")
-        if (folded.startsWith("+") && !localCode) return false
-        val national = if (localCode) digits.removePrefix("98").removePrefix("0098") else digits
-        return national.length in MIN_LINE_DIGITS..MAX_LINE_DIGITS &&
-            !national.startsWith("0") &&
-            !MOBILE.matches(national)
+        val international = folded.trimStart().startsWith("+") || digits.startsWith("00")
+        if (!international && digits.startsWith("0")) return false
+        val region = Locale.getDefault().country.uppercase().ifBlank { null }
+        val util = PhoneNumberUtil.getInstance()
+        val number = runCatching {
+            util.parse(if (international) "+" + digits.removePrefix("00") else digits, region)
+        }.getOrNull()
+        if (number != null && util.isValidNumber(number)) return false
+        val national = number?.let { util.getNationalSignificantNumber(it) } ?: digits
+        return national.length in MIN_LINE_DIGITS..MAX_LINE_DIGITS
     }
 
     private const val MIN_LINE_DIGITS = 3
     private const val MAX_LINE_DIGITS = 12
     private const val NUMBER_SYMBOLS = "+- ()"
-
-    /** A local mobile number without its leading zero. */
-    private val MOBILE = Regex("9\\d{9}")
 
     private val ONE_TIME_CODE = words(CategoryKeywords.ONE_TIME_CODE)
     private val PROMO = words(CategoryKeywords.PROMO)

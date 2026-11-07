@@ -1068,6 +1068,8 @@ fun AddRuleSheet(form: RuleForm, sims: List<SimInfo>, actions: RulesActions) {
                     },
                 )
 
+                if (form.type == RuleType.KEYWORD) WholeWordSwitch(form.pattern, actions.onPattern)
+
                 // Try a keyword or pattern on a sample message before it is saved.
                 RulePatternTest(form.kind, form.type, form.pattern, valid = form.validation is RuleValidation.Valid)
 

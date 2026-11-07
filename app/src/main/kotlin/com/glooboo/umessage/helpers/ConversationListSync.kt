@@ -95,10 +95,21 @@ class ConversationListSync(
             running = true
         }
         try {
-            executor.execute(::drain)
+            executor.execute(::drainOrRelease)
         } catch (e: Exception) {
             // A shut-down executor (the screen is gone): nothing left to publish to.
             synchronized(lock) { running = false }
+        }
+    }
+
+    /** PF-B7: whatever ends [drain] early (an Error), the next request must still be able to start a job. */
+    private fun drainOrRelease() {
+        var finished = false
+        try {
+            drain()
+            finished = true
+        } finally {
+            if (!finished) synchronized(lock) { running = false }
         }
     }
 
@@ -147,6 +158,9 @@ class ConversationListSync(
             block()
         } catch (e: Exception) {
             Log.w(TAG, "Conversation list refresh failed", e)
+        } catch (e: OutOfMemoryError) {
+            // PF-B7: a huge inbox must cost one refresh, not every later one.
+            Log.w(TAG, "Conversation list refresh ran out of memory", e)
         }
     }
 

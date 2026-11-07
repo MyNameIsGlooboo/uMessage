@@ -2,11 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Google Play build: no photo-library access and no exact alarms (Play restricts both). Pictures come from the
+         system photo picker, and scheduled messages and reminders use inexact alarms. The foss build keeps them. -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" tools:node="remove" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" tools:node="remove" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" tools:node="remove" />
+
     <application>
-        <!-- The Google Play build has no automatic forwarding: the screen cannot be started at all. -->
+        <!-- The Google Play build has no automatic forwarding: the screen is not in the manifest at all, so it cannot
+             be started or even found (it was merely disabled before). SEND_SMS stays: it is what a default SMS app
+             uses to send the user's own messages. The forwarding code itself is compiled in (it is woven into the
+             spam engine and database), but nothing can reach it: see ForwardingAvailability. -->
         <activity
             android:name=".ui.spam.ForwardingActivity"
-            android:enabled="false"
-            tools:node="merge" />
+            tools:node="remove" />
     </application>
 </manifest>

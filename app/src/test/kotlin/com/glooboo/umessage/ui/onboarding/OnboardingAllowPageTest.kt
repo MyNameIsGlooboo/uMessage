@@ -61,8 +61,9 @@ class OnboardingAllowPageTest {
         listOf("Default SMS app", "Contacts", "Messages", "Phone state").forEach {
             compose.onNodeWithText(it).assertIsDisplayed()
         }
-        // The default app row plus one per permission item, all still needed.
-        assertEquals(items.size + 1, compose.onAllNodesWithText("Needed").fetchSemanticsNodes().size)
+        // The default app row plus one per required item, all still needed; Phone state says Optional (I12).
+        assertEquals(items.count { !it.optional } + 1, compose.onAllNodesWithText("Needed").fetchSemanticsNodes().size)
+        assertEquals(1, compose.onAllNodesWithText("Optional").fetchSemanticsNodes().size)
         compose.onNodeWithText("Lets contacts through the filter and shows their names.").assertDoesNotExist()
         compose.onNodeWithText("Set as default").assertDoesNotExist()
     }
@@ -81,5 +82,33 @@ class OnboardingAllowPageTest {
         compose.onNodeWithTag(ALLOW_ALL_TAG).assertDoesNotExist()
         compose.onNodeWithText("All set").assertIsDisplayed()
         assertEquals(items.size + 1, compose.onAllNodesWithText("Done").fetchSemanticsNodes().size)
+    }
+
+    @Test
+    fun `an optional permission left open does not stop the page saying All set`() {
+        val granted = items.associateWith { !it.optional }
+        assertEquals(true, requiredGranted(items, granted))
+        compose.setContent {
+            UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
+                AllowPage(
+                    modifier = Modifier.fillMaxSize(),
+                    items = items,
+                    granted = granted,
+                    permanentlyDenied = emptySet(),
+                    defaultSms = DefaultSmsState(true, denied = false, unavailable = false, {}, {}),
+                    onRequest = {},
+                    onAllowAll = {},
+                    onOpenSettings = {},
+                )
+            }
+        }
+        compose.onNodeWithText("All set").assertIsDisplayed()
+        compose.onNodeWithText("Phone state").assertIsDisplayed()
+        compose.onNodeWithText("Optional").assertIsDisplayed()
+    }
+
+    @Test
+    fun `a missing required permission still counts`() {
+        assertEquals(false, requiredGranted(items, items.associateWith { it.optional }))
     }
 }

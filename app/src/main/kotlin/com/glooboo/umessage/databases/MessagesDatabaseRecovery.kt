@@ -30,7 +30,11 @@ internal class MessagesDatabaseRecovery(private val context: Context, private va
     RoomDatabase.Callback() {
 
     override fun onOpen(db: SupportSQLiteDatabase) {
-        runCatching { restoreFromNewestBackup(db) }.onFailure { Log.e(TAG, "Restoring $name from a backup failed", it) }
+        val newest = DatabaseBackups.restorableBackups(context, name, MessagesDatabase.VERSION).firstOrNull() ?: return
+        runCatching { restoreFromNewestBackup(db) }.onFailure {
+            Log.e(TAG, "Restoring $name from a backup failed", it)
+            runCatching { RecoveryAttempts.failed(context, newest) }
+        }
     }
 
     private fun restoreFromNewestBackup(db: SupportSQLiteDatabase) {
@@ -46,13 +50,13 @@ internal class MessagesDatabaseRecovery(private val context: Context, private va
                 DatabaseBackups.copyRows(db, "drafts")
                 DatabaseBackups.copyRows(db, "starred_messages")
                 DatabaseBackups.copyRows(db, "scheduled_repeats")
-                DatabaseBackups.copyRows(db, "labels")
-                DatabaseBackups.copyRows(db, "conversation_labels")
-                DatabaseBackups.copyRows(db, "message_reminders")
+                LabelRecovery.merge(db)
+                DatabaseBackups.mergeRows(db, "message_reminders")
                 DatabaseBackups.copyRows(db, "message_notes")
             }
         }
         backups.forEach { DatabaseBackups.retire(it) }
+        RecoveryAttempts.succeeded(context, newest)
         Log.i(TAG, "Restored the user data of $name from ${newest.name}")
     }
 

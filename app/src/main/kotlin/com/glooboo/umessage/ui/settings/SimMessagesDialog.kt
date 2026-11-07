@@ -89,8 +89,9 @@ private fun simMessagesText(state: SimDialogState): String = when (state) {
     is SimDialogState.Found ->
         pluralStringResource(R.plurals.sim_messages_found, state.messages.size, state.messages.size)
     SimDialogState.Importing -> stringResource(R.string.sim_messages_importing)
-    is SimDialogState.Done -> stringResource(
-        if (state.summary.failed == 0) R.string.sim_messages_done else R.string.sim_messages_done_failed,
+    is SimDialogState.Done -> pluralStringResource(
+        if (state.summary.failed == 0) R.plurals.sim_messages_done else R.plurals.sim_messages_done_failed,
+        state.summary.added,
         state.summary.added, state.summary.duplicates, state.summary.failed,
     )
 }

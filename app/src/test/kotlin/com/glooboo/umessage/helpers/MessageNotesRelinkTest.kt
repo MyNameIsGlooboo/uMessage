@@ -106,4 +106,25 @@ class MessageNotesRelinkTest {
         assertThat(MessageNoteKey.sameExceptAddress(a, "v1|m|s|1700000000|5550002|2f")).isFalse()
         assertThat(MessageNoteKey.sameExceptAddress(a, "garbage")).isFalse()
     }
+
+    @Test
+    fun anOrphanNoteIsNotScannedForAgainUntilTheCacheChanges() = runBlocking<Unit> {
+        var scans = 0
+        var stamp = 1L
+        val counting = MessageNotes(
+            db.MessageNotesDao(),
+            messagesAtDate = { date -> scans++; db.MessagesDao().getMessagesAtDate(date) },
+            cacheStamp = { stamp },
+        )
+        counting.restore(listOf(MessageNote("v1|s|r|1700000000|5550001|abc", 0, 1_700_000_000, "orphan", 1, 1)))
+
+        counting.notesForThread(7)
+        counting.notesForThread(7)
+        counting.threadsWithNotes()
+
+        assertThat(scans).isEqualTo(1)
+        stamp = 2L // the cache got new rows: one more look
+        counting.notesForThread(7)
+        assertThat(scans).isEqualTo(2)
+    }
 }

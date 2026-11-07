@@ -55,7 +55,7 @@ class ReminderNotification(private val context: Context) {
                 builder(title(shownName), context.getString(R.string.reminder_open_hint)).build()
             )
         }
-        notificationManager.notify(reminder.id.toInt(), builder.build())
+        notificationManager.notify(NotificationIds.reminder(reminder.id), builder.build())
     }
 
     private fun title(name: String): String =

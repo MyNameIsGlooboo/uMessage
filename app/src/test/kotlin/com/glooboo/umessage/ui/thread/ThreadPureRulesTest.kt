@@ -37,7 +37,8 @@ class ThreadPureRulesTest {
 
         val group = ThreadRecipients.fromNumbers(listOf("111", "222", "111"), name = "ignored")
         assertThat(group.isGroup).isTrue()
-        assertThat(group.addresses).containsExactly("111", "222", "111").inOrder()
+        // B15: the same phone listed twice is one address, so a send never goes to one person twice.
+        assertThat(group.addresses).containsExactly("111", "222").inOrder()
         assertThat(group.distinctAddresses).containsExactly("111", "222").inOrder()
         // A group has no single sender to report, and each number is its own name.
         assertThat(group.reportableAddress).isNull()

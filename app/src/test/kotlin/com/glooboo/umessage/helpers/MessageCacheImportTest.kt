@@ -106,4 +106,25 @@ class MessageCacheImportTest {
         assertThat(MessageCacheImport(progress, provider::page) {}.run(listOf(4))).isTrue()
         assertThat(progress.done).containsExactly(4L)
     }
+
+    @Test
+    fun progressIsWrittenOnceWhenTheRunEndsAndAlsoWhenItIsCancelled() {
+        var flushes = 0
+        val progress = object : MessageCacheImport.Progress {
+            override var complete = false
+            override fun isThreadDone(threadId: Long) = false
+            override fun markThreadDone(threadId: Long) = Unit
+            override fun flush() {
+                flushes++
+            }
+        }
+        val provider = FakeProvider(mapOf(1L to thread(1, 5), 2L to thread(2, 5)))
+
+        MessageCacheImport(progress, provider::page) { }.run(listOf(1, 2))
+        assertThat(flushes).isEqualTo(1)
+
+        progress.complete = false
+        MessageCacheImport(progress, provider::page) { }.run(listOf(1, 2), isCancelled = { true })
+        assertThat(flushes).isEqualTo(2)
+    }
 }

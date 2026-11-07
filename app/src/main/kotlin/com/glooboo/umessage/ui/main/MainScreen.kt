@@ -60,6 +60,7 @@ import com.glooboo.umessage.ui.labels.rememberInboxLabels
 import com.glooboo.umessage.ui.lock.BlockedLockGate
 import com.glooboo.umessage.ui.scheduled.rememberScheduledCount
 import com.glooboo.umessage.ui.spam.BlockedRoute
+import com.glooboo.umessage.ui.spam.ContactsOffBanner
 
 /** CL-13, N11: the inbox filters; the search page's tiles turn one on ([SearchFilterTile]). */
 enum class InboxFilter { All, Unread, Codes, Transactions, Offers, Unknown, Starred, Images, Links, Label, Sim }
@@ -348,6 +349,7 @@ private fun MessagesTab(
                 )
                 // A warning to act on stays in view.
                 NotificationsOffBanner()
+                ContactsOffBanner()
             }
             // One chip under the bar while a filter is on; it sits above the list, not in it, so it never scrolls off.
             ActiveFilterBar(

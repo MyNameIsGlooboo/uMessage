@@ -58,7 +58,11 @@ class ConversationExportFactory(private val context: Context, private val zone: 
         attachmentLine = { name, type -> context.getString(R.string.export_pdf_attachment, name, type) },
     )
 
-    fun header(export: ConversationExport, exportedAtMillis: Long): ExportHeader {
+    /** [firstMillis] and [lastMillis] are the first and last message times: the zone line lists their offsets. */
+    fun header(
+        export: ConversationExport, exportedAtMillis: Long, firstMillis: Long = exportedAtMillis,
+        lastMillis: Long = exportedAtMillis,
+    ): ExportHeader {
         val lines = buildList {
             add(context.getString(R.string.export_pdf_with, export.title))
             if (export.numbers.isNotEmpty() && export.numbers != listOf(export.title)) {
@@ -66,7 +70,7 @@ class ConversationExportFactory(private val context: Context, private val zone: 
             }
             export.rangeText?.let { add(context.getString(R.string.export_pdf_range, it)) }
             add(context.resources.getQuantityString(R.plurals.export_pdf_count, export.count, export.count))
-            add(context.getString(R.string.export_pdf_zone, zoneText()))
+            add(context.getString(R.string.export_pdf_zone, zoneText(firstMillis, lastMillis)))
             add(exportedLine(exportedAtMillis))
         }
         return ExportHeader(context.getString(R.string.export_pdf_title), lines)
@@ -79,11 +83,9 @@ class ConversationExportFactory(private val context: Context, private val zone: 
 
     fun notCertifiedLine(): String = context.getString(R.string.export_pdf_not_certified)
 
-    /** "Europe/London (UTC+00:00)". */
-    private fun zoneText(): String {
-        val offset = zone.rules.getOffset(Instant.now()).id.replace("Z", "")
-        return "${zone.id} (UTC$offset)"
-    }
+    /** "Europe/London (UTC+00:00)", with every offset the messages between the two times can carry (D14). */
+    private fun zoneText(firstMillis: Long, lastMillis: Long): String =
+        "${zone.id} (${ZoneOffsets.text(ZoneOffsets.between(zone, firstMillis, lastMillis))})"
 }
 
 /** The notes of a chat (by note key, see MessageNotes.notesForThread) as the lines under the messages. */

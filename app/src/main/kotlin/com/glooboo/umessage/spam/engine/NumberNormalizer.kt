@@ -71,6 +71,12 @@ class NumberNormalizer(private val regionProvider: () -> String) {
     /** True when [raw] is a phone number whose country is known, i.e. [comparableKey] is a full E.164 value. */
     fun hasCountryCode(raw: String): Boolean = parse(raw)?.countryCode != null
 
+    /**
+     * True when [raw] names its country itself (written with + or 00). A national number ("07712 345678") only gets
+     * a country from the reader's region, which can change with the SIM or when travelling.
+     */
+    fun isInternationalForm(raw: String): Boolean = cleanDigits(raw.trim()).startsWith("+")
+
     /** Forms an address may be compared in when matching a PREFIX rule. */
     fun prefixCandidates(address: String): List<String> {
         val normalized = normalize(address)
@@ -100,7 +106,7 @@ class NumberNormalizer(private val regionProvider: () -> String) {
 
     /** ASCII digits (Persian and Arabic digits converted) and a leading +; a leading 00 becomes +. */
     private fun cleanDigits(value: String): String {
-        val plus = value.trimStart().startsWith("+")
+        val plus = PlusPrefix.startsWithPlus(value)
         val digits = buildString {
             for (c in value) {
                 if (c.isDigit()) c.digitToIntOrNull()?.let { append('0' + it) }

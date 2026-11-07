@@ -214,7 +214,7 @@ class BankAlertParserTest {
         assertThat(bankAlertOf("BankX", body)).isNotNull()
         assertThat(bankAlertOf("5000123", body)).isNotNull()
         assertThat(bankAlertOf("07121234567", body)).isNull()
-        assertThat(bankAlertOf("+15551234567", body)).isNull()
+        assertThat(bankAlertOf("+14155550123", body)).isNull()
         assertThat(bankAlertOf("BankX", "Hello, lunch tomorrow?")).isNull()
     }
 }

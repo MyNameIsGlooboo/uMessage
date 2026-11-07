@@ -46,6 +46,10 @@ interface MessageNotesQueryDao {
     @Query("SELECT * FROM message_notes ORDER BY updated_at DESC")
     suspend fun getAll(): List<MessageNote>
 
+    /** Only the keys, for the cleanup that must not touch a noted message. */
+    @Query("SELECT note_key FROM message_notes")
+    suspend fun getAllKeys(): List<String>
+
     /** Notes of a restore whose chat is not known yet. */
     @Query("SELECT * FROM message_notes WHERE thread_id = 0")
     suspend fun getUnbound(): List<MessageNote>

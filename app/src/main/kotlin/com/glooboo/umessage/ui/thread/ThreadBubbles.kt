@@ -113,10 +113,20 @@ fun ThreadRowItem(row: ThreadRow, vm: ThreadViewModel, actions: ThreadActions) {
         is ThreadRow.Bubble -> MessageBubbleRow(row, vm, actions)
         is ThreadRow.Sending -> StatusLine(text = stringResource(R.string.thread_status_sending))
 
-        is ThreadRow.Sent -> StatusLine(
-            text = stringResource(if (row.delivered) R.string.thread_status_delivered else R.string.thread_status_sent),
-            icon = if (row.delivered) Symbols.DoneAll else Symbols.Check,
-        )
+        is ThreadRow.Sent -> if (row.deliveryFailed) {
+            StatusLine(
+                text = stringResource(R.string.thread_status_delivery_failed),
+                icon = Symbols.Error,
+                color = MaterialTheme.colorScheme.error,
+            )
+        } else {
+            StatusLine(
+                text = stringResource(
+                    if (row.delivered) R.string.thread_status_delivered else R.string.thread_status_sent,
+                ),
+                icon = if (row.delivered) Symbols.DoneAll else Symbols.Check,
+            )
+        }
 
         is ThreadRow.UnreadDivider -> UnreadDivider()
 

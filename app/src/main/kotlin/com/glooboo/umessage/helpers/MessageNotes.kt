@@ -21,10 +21,16 @@ val Context.messageNotesDB: MessageNotesDao
 val Context.messageNotes: MessageNotes
     get() {
         val app = applicationContext
-        return MessageNotes(app.messageNotesDB, messagesAtDate = { date ->
-            app.getMessagesDB().MessagesDao().getMessagesAtDate(date)
-        })
+        return MessageNotes(
+            app.messageNotesDB,
+            messagesAtDate = { date -> app.getMessagesDB().MessagesDao().getMessagesAtDate(date) },
+            cacheStamp = { app.getMessagesDB().MessagesDao().cacheStamp() },
+            tried = TRIED_NOTES,
+        )
     }
+
+/** DA3: notes whose message was looked for in the cache and not found, with the cache state of that try. */
+private val TRIED_NOTES = java.util.concurrent.ConcurrentHashMap<String, Long>()
 
 /**
  * One private text note per message (see [MessageNote] and [MessageNoteKey]). Every function is a suspend function
@@ -36,13 +42,18 @@ val Context.messageNotes: MessageNotes
  * - a note stays while its message is in the recycle bin, and goes when the message is deleted for good
  *   ([onMessageDeleted]) or its chat is ([onThreadDeleted]).
  *
- * [messagesAtDate] gives the cached messages of one second; it is how a restored note finds its chat again.
+ * [messagesAtDate] gives the cached messages of one second; it is how a restored note finds its chat again. That is a
+ * scan of the cache, so a note that was looked for and not found is not looked for again until [cacheStamp] (which
+ * changes when the cache gets new rows) has changed: orphan notes cost one scan each per cache change, not one per
+ * opened chat (DA3). [tried] holds those notes.
  */
 @Suppress("TooManyFunctions")
 class MessageNotes(
     private val dao: MessageNotesDao,
     private val clock: () -> Long = System::currentTimeMillis,
     private val messagesAtDate: (dateSeconds: Int) -> List<Message> = { emptyList() },
+    private val cacheStamp: () -> Long = System::nanoTime,
+    private val tried: MutableMap<String, Long> = HashMap(),
 ) {
 
     /** The note of [message], or null. */
@@ -86,6 +97,7 @@ class MessageNotes(
             updatedAt = now,
         )
         dao.upsert(note)
+        tried.remove(key)
         note
     }
 
@@ -154,6 +166,7 @@ class MessageNotes(
         val skip = text.isEmpty() || incoming.key.isBlank() ||
             (existing != null && existing.updatedAt >= incoming.updatedAt)
         if (!skip) {
+            tried.remove(incoming.key)
             dao.upsert(
                 MessageNote(
                     key = incoming.key,
@@ -183,8 +196,15 @@ class MessageNotes(
         var bound = 0
         runCatching {
             val waiting = if (dao.countUnbound() == 0) emptyList() else dao.getUnbound()
+            val stamp = cacheStamp()
             for (note in waiting + dao.getStale()) {
-                if (bindOne(note)) bound++
+                if (tried[note.key] == stamp) continue
+                if (bindOne(note)) {
+                    bound++
+                    tried.remove(note.key)
+                } else {
+                    tried[note.key] = stamp
+                }
             }
         }
         return bound

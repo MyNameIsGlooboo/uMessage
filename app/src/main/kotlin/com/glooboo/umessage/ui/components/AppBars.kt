@@ -1,7 +1,17 @@
 package com.glooboo.umessage.ui.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.displayCutout
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.union
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -19,6 +29,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -26,6 +37,32 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.icons.Symbols
+
+/**
+ * UI-landscape: the system bars and the display cutout. The screens are edge to edge, so in landscape a notch or a
+ * side navigation bar would otherwise sit on top of the rows and switches.
+ */
+@Composable
+internal fun chromeInsets(): WindowInsets = WindowInsets.systemBars.union(WindowInsets.displayCutout)
+
+@Composable
+private fun topBarInsets(): WindowInsets = chromeInsets().only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
+
+/**
+ * The scaffold hands its content the insets as padding, but screens only apply the top and bottom parts of it. This
+ * applies the start and end parts here, once for every screen, and passes the rest on.
+ */
+@Composable
+internal fun HorizontalInsetContent(padding: PaddingValues, content: @Composable (PaddingValues) -> Unit) {
+    val direction = LocalLayoutDirection.current
+    val sides = Modifier.padding(
+        start = padding.calculateStartPadding(direction),
+        end = padding.calculateEndPadding(direction),
+    )
+    Box(sides) {
+        content(PaddingValues(top = padding.calculateTopPadding(), bottom = padding.calculateBottomPadding()))
+    }
+}
 
 /** Pinned scroll behavior that [UMessageScaffold] wires to its content, picked up by the bars inside its top bar. */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,6 +104,7 @@ private fun TopBarImpl(
 ) {
     TopAppBar(
         modifier = modifier,
+        windowInsets = topBarInsets(),
         title = {
             Text(
                 title,
@@ -103,6 +141,7 @@ fun SelectionTopBar(
 ) {
     TopAppBar(
         modifier = modifier,
+        windowInsets = topBarInsets(),
         scrollBehavior = LocalPageScrollBehavior.current,
         title = {
             Text(
@@ -147,7 +186,8 @@ fun UMessageScaffold(
         topBar = { CompositionLocalProvider(LocalPageScrollBehavior provides scrollBehavior) { topBar() } },
         snackbarHost = { if (snackbarHostState != null) SnackbarHost(snackbarHostState) },
         floatingActionButton = floatingActionButton,
-        content = content,
+        contentWindowInsets = chromeInsets(),
+        content = { padding -> HorizontalInsetContent(padding, content) },
     )
 }
 
@@ -175,7 +215,8 @@ fun UMessageLargeScaffold(
         topBar = { UMessageLargeTopBar(title, onBack, scrollBehavior, actions = actions) },
         snackbarHost = { if (snackbarHostState != null) SnackbarHost(snackbarHostState) },
         floatingActionButton = floatingActionButton,
-        content = content,
+        contentWindowInsets = chromeInsets(),
+        content = { padding -> HorizontalInsetContent(padding, content) },
     )
 }
 
@@ -196,6 +237,7 @@ fun UMessageLargeTopBar(
     // (VS-06).
     MediumTopAppBar(
         modifier = modifier,
+        windowInsets = topBarInsets(),
         title = {
             Text(
                 title,

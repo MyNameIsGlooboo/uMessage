@@ -22,6 +22,7 @@ import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.helpers.NotifyContext
 import com.glooboo.umessage.helpers.OtpCodeExtractor
 import com.glooboo.umessage.helpers.refreshConversations
+import com.glooboo.umessage.helpers.showMmsDownloadFailedNotification
 import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.spam.FilterDecision
@@ -210,6 +211,8 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     override fun onError(context: Context, error: String) {
         worker.mark()
         context.showErrorToast(context.getString(R.string.couldnt_download_mms))
+        // The toast is gone before anyone looks: the notification stays (I10).
+        runCatching { context.showMmsDownloadFailedNotification() }
     }
 
     private fun handleMmsMessage(
@@ -252,9 +255,12 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
                 isMms = true,
                 address = address,
                 senderName = senderName,
-                body = mms.body,
+                // A picture-only message has no text: a label instead of an empty notification (B17).
+                body = mms.body.ifBlank { context.getString(R.string.attachment) },
                 threadId = mms.threadId,
                 bitmap = glideBitmap,
+                // The SIM's own channel on a dual-SIM phone (B17).
+                subscriptionId = mms.subscriptionId,
                 notify = notify,
             )
         }.onFailure { Log.e(MmsReceiver.TAG, "MMS notification failed", it) }
