@@ -16,6 +16,7 @@
     <string name="screens_grant_permission">Autoriser l\'accès</string>
     <string name="screens_delete_forever_title">Supprimer définitivement ?</string>
     <string name="screens_delete_conversations_message">Supprimer définitivement %1$s ? Cette action est irréversible.</string>
+    <string name="screens_delete_bin_messages_message">Supprimer définitivement %1$s de la corbeille ? Les messages qui ne sont pas dans la corbeille sont conservés. Cette action est irréversible.</string>
     <string name="screens_restore_title">Restaurer ?</string>
     <string name="screens_empty_archive_title">Vider les archives ?</string>
     <string name="screens_empty_bin_title">Vider la corbeille ?</string>

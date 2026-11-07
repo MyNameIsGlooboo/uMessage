@@ -15,6 +15,7 @@
     <string name="screens_grant_permission">อนุญาตให้เข้าถึง</string>
     <string name="screens_delete_forever_title">ลบถาวรไหม?</string>
     <string name="screens_delete_conversations_message">ลบ %1$s ถาวรไหม? การดำเนินการนี้เลิกทำไม่ได้</string>
+    <string name="screens_delete_bin_messages_message">ลบ %1$s ในถังขยะถาวรไหม ข้อความที่ไม่ได้อยู่ในถังขยะจะยังอยู่ การดำเนินการนี้เลิกทำไม่ได้</string>
     <string name="screens_restore_title">กู้คืนไหม?</string>
     <string name="screens_empty_archive_title">ล้างข้อความที่เก็บถาวรไหม?</string>
     <string name="screens_empty_bin_title">ล้างถังขยะไหม?</string>

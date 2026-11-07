@@ -15,6 +15,7 @@
     <string name="screens_grant_permission">允许访问</string>
     <string name="screens_delete_forever_title">永久删除？</string>
     <string name="screens_delete_conversations_message">永久删除%1$s？此操作无法撤销。</string>
+    <string name="screens_delete_bin_messages_message">永久删除回收站中的%1$s？不在回收站中的消息会保留。此操作无法撤销。</string>
     <string name="screens_restore_title">恢复？</string>
     <string name="screens_empty_archive_title">清空已归档内容？</string>
     <string name="screens_empty_bin_title">清空回收站？</string>

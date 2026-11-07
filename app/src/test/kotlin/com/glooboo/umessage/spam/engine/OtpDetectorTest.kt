@@ -37,6 +37,38 @@ class OtpDetectorTest {
         assertTrue(otp("كود ٧٧٨٨"))
     }
 
+    @Test fun groupedCodesAreCodes() {
+        assertTrue(otp("123-456"))
+        assertTrue(otp("Your code: 123-456"))
+        assertTrue(otp("123 456 is your Instagram code"))
+        assertTrue(otp("Your WhatsApp code: 123-456"))
+        assertTrue(otp("کد تایید شما: ۱۲۳-۴۵۶"))
+        assertTrue(otp("رمز التحقق ٤٨٢ ٩١٣"))
+        assertTrue(otp("Verification code 1234 5678"))
+    }
+
+    @Test fun regularCodesKeepPassing() {
+        assertTrue(otp("Your code is 1234"))
+        assertTrue(otp("OTP 48291"))
+        assertTrue(otp("Your code is 123456"))
+        assertTrue(otp("Your OTP is 12345678"))
+        assertTrue(otp("کد تایید شما: ۱۲۳۴۵۶"))
+        assertTrue(otp("Your verification code is 482913 and expires in 10 minutes"))
+        assertTrue(otp("Verification code 482913. Call 0800 123 4567 if this wasn't you"))
+        assertTrue(otp("کد تایید ۴۸۲۹۱۳. اگر شما نبودید تماس بگیرید ۰۲۱ ۱۲۳۴ ۵۶۷۸"))
+    }
+
+    @Test fun phoneNumbersAreNotCodes() {
+        assertFalse(otp("verify your account, call 0800 123 4567"))
+        assertFalse(otp("Call +1 555 010 1234 to verify"))
+        assertFalse(otp("Verify your account: +441234567890"))
+        assertFalse(otp("Please verify, call 0800123456"))
+        assertFalse(otp("Verify your account. Hotline: 1234 5678 9012"))
+        assertFalse(otp("Verify your account, call 12345678"))
+        assertFalse(otp("تایید حساب: تماس بگیرید ۰۲۱ ۱۲۳۴ ۵۶۷۸"))
+        assertFalse(otp("تایید حساب، تماس ۱۲۳۴۵۶"))
+    }
+
     @Test fun keywordsNeedWordEdges() {
         assertFalse(otp("Your shipping update for order 2026 is ready"))
         assertFalse(otp("Scan the barcode 12345678 at the store"))

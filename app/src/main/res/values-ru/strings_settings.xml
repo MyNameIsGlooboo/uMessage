@@ -83,4 +83,9 @@
     <string name="settings_license_link_app">Прочитать лицензию (LICENSE)</string>
     <string name="settings_license_link_ofl">Прочитать SIL Open Font License 1.1</string>
     <string name="settings_license_link_apache">Прочитать Apache License 2.0</string>
+    <string name="settings_rate_title">Оценить uMessage</string>
+    <string name="settings_rate_body">Открывает Play Маркет</string>
+    <string name="settings_feedback_title">Отправить отзыв</string>
+    <string name="settings_feedback_body">Написать разработчику по почте</string>
+    <string name="settings_feedback_no_app">Почтовое приложение не найдено. Напишите на %1$s</string>
 </resources>

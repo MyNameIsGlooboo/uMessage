@@ -34,13 +34,13 @@ object OtpCodeExtractor {
     private const val JOINERS = "\\-/:.,\u066B\u066C"
 
     /**
-     * A 4-8 digit code, or two groups of three ("123 456", "123-456"). Not glued to letters, digits, `*` or a
+     * A code as [OtpDetector.codeShape] defines it (shared with the filter). Not glued to letters, digits, `*` or a
      * currency sign, not one part of a number joined by [JOINERS] ("1,250,000", "14:32", "5022-29**"), and not
      * followed by an amount's unit.
      */
     private val code = Regex(
         "(?<![\\p{L}\\p{N}.*$€£])(?<![\\p{N}*][$JOINERS])" +
-            "([0-9]{3}[ -][0-9]{3}|[0-9]{4,8})" +
+            "(" + OtpDetector.codeShape + ")" +
             "(?![\\p{L}\\p{N}*])(?![$JOINERS][\\p{N}*])" + OtpDetector.NOT_AFTER,
         RegexOption.IGNORE_CASE,
     )

@@ -6,6 +6,7 @@ import android.os.Looper
 import org.fossify.commons.helpers.SimpleContactsHelper
 import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.extensions.notificationHelper
+import com.glooboo.umessage.helpers.ReviewPrompt
 
 /**
  * Posts the "message not sent" notification for a send that started outside the app (a quick reply from a
@@ -13,6 +14,7 @@ import com.glooboo.umessage.extensions.notificationHelper
  * [addresses]. Safe to call from any thread.
  */
 fun Context.notifySendFailedInBackground(addresses: List<String>, threadId: Long = 0L) {
+    ReviewPrompt.noteSendFailure()
     val helper = SimpleContactsHelper(this)
     val recipientName = addresses.joinToString { address ->
         runCatching { helper.getNameFromPhoneNumber(address) }.getOrDefault(address)

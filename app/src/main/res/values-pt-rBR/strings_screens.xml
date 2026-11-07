@@ -16,6 +16,7 @@
     <string name="screens_grant_permission">Permita o acesso</string>
     <string name="screens_delete_forever_title">Deseja excluir para sempre?</string>
     <string name="screens_delete_conversations_message">Deseja excluir %1$s permanentemente? Não é possível desfazer.</string>
+    <string name="screens_delete_bin_messages_message">Deseja excluir permanentemente %1$s na lixeira? As mensagens que não estão na lixeira permanecem. Não é possível desfazer.</string>
     <string name="screens_restore_title">Deseja restaurar?</string>
     <string name="screens_empty_archive_title">Deseja esvaziar o arquivo?</string>
     <string name="screens_empty_bin_title">Deseja esvaziar a lixeira?</string>

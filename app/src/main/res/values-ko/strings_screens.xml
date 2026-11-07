@@ -15,6 +15,7 @@
     <string name="screens_grant_permission">접근 허용</string>
     <string name="screens_delete_forever_title">영구 삭제할까요?</string>
     <string name="screens_delete_conversations_message">%1$s 항목을 영구 삭제할까요? 실행 취소할 수 없어요.</string>
+    <string name="screens_delete_bin_messages_message">휴지통에 있는 %1$s를 영구 삭제할까요? 휴지통에 없는 메시지는 그대로 남아요. 실행 취소할 수 없어요.</string>
     <string name="screens_restore_title">복원할까요?</string>
     <string name="screens_empty_archive_title">보관함을 비울까요?</string>
     <string name="screens_empty_bin_title">휴지통을 비울까요?</string>

@@ -43,6 +43,7 @@ androidx-test-core = "1.7.0"
 androidx-test-ext-junit = "1.3.0"
 androidx-test-runner = "1.7.0"
 truth = "1.4.5"
+playReview = "2.0.2"
 [libraries]
 #AndroidX
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
@@ -67,6 +68,8 @@ compose-detekt = { module = "io.nlopez.compose.rules:detekt", version.ref = "det
 #Fossify
 fossify-commons = { module = "org.fossify:commons", version.ref = "commons" }
 mmslib = { module = "org.fossify:mmslib", version.ref = "mmslib" }
+#Google Play (gplay flavor only)
+play-review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "playReview" }
 #EventBus
 eventbus = { module = "org.greenrobot:eventbus", version.ref = "eventbus" }
 #Helpers

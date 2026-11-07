@@ -16,6 +16,7 @@
     <string name="screens_grant_permission">Erişime izin verin</string>
     <string name="screens_delete_forever_title">Kalıcı olarak silinsin mi?</string>
     <string name="screens_delete_conversations_message">%1$s kalıcı olarak silinsin mi? Bu işlem geri alınamaz.</string>
+    <string name="screens_delete_bin_messages_message">Çöp kutusundaki %1$s kalıcı olarak silinsin mi? Çöp kutusunda olmayan mesajlar kalır. Bu işlem geri alınamaz.</string>
     <string name="screens_restore_title">Geri yüklensin mi?</string>
     <string name="screens_empty_archive_title">Arşiv boşaltılsın mı?</string>
     <string name="screens_empty_bin_title">Çöp kutusu boşaltılsın mı?</string>

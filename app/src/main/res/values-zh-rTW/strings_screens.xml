@@ -15,6 +15,7 @@
     <string name="screens_grant_permission">允許存取</string>
     <string name="screens_delete_forever_title">要永久刪除嗎？</string>
     <string name="screens_delete_conversations_message">要永久刪除%1$s嗎？此操作無法復原。</string>
+    <string name="screens_delete_bin_messages_message">要永久刪除資源回收筒中的%1$s嗎？不在資源回收筒中的訊息會保留。此操作無法復原。</string>
     <string name="screens_restore_title">要還原嗎？</string>
     <string name="screens_empty_archive_title">要清空封存嗎？</string>
     <string name="screens_empty_bin_title">要清空資源回收筒嗎？</string>

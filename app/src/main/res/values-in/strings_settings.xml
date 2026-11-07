@@ -83,4 +83,9 @@
     <string name="settings_license_link_app">Baca lisensi (LICENSE)</string>
     <string name="settings_license_link_ofl">Baca SIL Open Font License 1.1</string>
     <string name="settings_license_link_apache">Baca Apache License 2.0</string>
+    <string name="settings_rate_title">Beri nilai uMessage</string>
+    <string name="settings_rate_body">Membuka Play Store</string>
+    <string name="settings_feedback_title">Kirim masukan</string>
+    <string name="settings_feedback_body">Tulis ke pengembang lewat email</string>
+    <string name="settings_feedback_no_app">Aplikasi email tidak ditemukan. Tulis ke %1$s</string>
 </resources>

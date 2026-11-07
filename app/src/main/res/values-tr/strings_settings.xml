@@ -83,4 +83,9 @@
     <string name="settings_license_link_app">Lisansı okuyun (LICENSE)</string>
     <string name="settings_license_link_ofl">SIL Açık Yazı Tipi Lisansı 1.1\'i okuyun</string>
     <string name="settings_license_link_apache">Apache Lisansı 2.0\'ı okuyun</string>
+    <string name="settings_rate_title">uMessage'ı değerlendir</string>
+    <string name="settings_rate_body">Play Store'u açar</string>
+    <string name="settings_feedback_title">Geri bildirim gönder</string>
+    <string name="settings_feedback_body">Geliştiriciye e-posta ile yazın</string>
+    <string name="settings_feedback_no_app">E-posta uygulaması bulunamadı. %1$s adresine yazın</string>
 </resources>

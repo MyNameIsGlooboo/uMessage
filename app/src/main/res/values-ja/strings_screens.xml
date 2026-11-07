@@ -15,6 +15,7 @@
     <string name="screens_grant_permission">アクセス許可</string>
     <string name="screens_delete_forever_title">完全に削除</string>
     <string name="screens_delete_conversations_message">%1$sを完全に削除しますか？この操作は元に戻せません。</string>
+    <string name="screens_delete_bin_messages_message">ゴミ箱にある%1$sを完全に削除しますか？ゴミ箱にないメッセージは残ります。この操作は元に戻せません。</string>
     <string name="screens_restore_title">復元</string>
     <string name="screens_empty_archive_title">アーカイブを空にする</string>
     <string name="screens_empty_bin_title">ゴミ箱を空にする</string>

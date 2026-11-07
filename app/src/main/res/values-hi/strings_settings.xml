@@ -83,4 +83,9 @@
     <string name="settings_license_link_app">लाइसेंस पढ़ें (LICENSE)</string>
     <string name="settings_license_link_ofl">SIL Open Font License 1.1 पढ़ें</string>
     <string name="settings_license_link_apache">Apache License 2.0 पढ़ें</string>
+    <string name="settings_rate_title">uMessage को रेट करें</string>
+    <string name="settings_rate_body">Play Store खोलता है</string>
+    <string name="settings_feedback_title">फ़ीडबैक भेजें</string>
+    <string name="settings_feedback_body">डेवलपर को ईमेल लिखें</string>
+    <string name="settings_feedback_no_app">कोई ईमेल ऐप नहीं मिला। %1$s पर लिखें</string>
 </resources>

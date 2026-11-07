@@ -18,6 +18,7 @@
     <string name="screens_grant_permission">Дозволити доступ</string>
     <string name="screens_delete_forever_title">Видалити назавжди?</string>
     <string name="screens_delete_conversations_message">Видалити %1$s назавжди? Цю дію неможливо скасувати.</string>
+    <string name="screens_delete_bin_messages_message">Видалити назавжди %1$s із кошика? Повідомлення, яких немає в кошику, залишаться. Цю дію неможливо скасувати.</string>
     <string name="screens_restore_title">Відновити?</string>
     <string name="screens_empty_archive_title">Очистити архів?</string>
     <string name="screens_empty_bin_title">Очистити кошик?</string>

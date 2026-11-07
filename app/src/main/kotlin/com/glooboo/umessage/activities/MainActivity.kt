@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -54,6 +55,7 @@ class MainActivity : ComposeSimpleActivity() {
     private val MAKE_DEFAULT_APP_REQUEST = 1
 
     private var resumedBefore = false
+    private var reviewJob: Job? = null
 
     /** A tab another screen asked for (Settings rows), consumed by the main screen. */
     private var openTab by mutableStateOf<String?>(null)
@@ -94,6 +96,9 @@ class MainActivity : ComposeSimpleActivity() {
 
         conversationsViewModel.refresh()
         NewConversationShortcut.updateIfNeeded(this)
+        reviewJob = scheduleReviewPrompt(reviewJob) {
+            !permissionFlow.needsDefaultApp && !permissionFlow.missingSmsPermission
+        }
     }
 
     override fun onNewIntent(intent: Intent) {

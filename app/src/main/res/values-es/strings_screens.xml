@@ -16,6 +16,7 @@
     <string name="screens_grant_permission">Permitir acceso</string>
     <string name="screens_delete_forever_title">¿Eliminar definitivamente?</string>
     <string name="screens_delete_conversations_message">¿Eliminar %1$s definitivamente? Esta acción no se puede deshacer.</string>
+    <string name="screens_delete_bin_messages_message">¿Eliminar definitivamente %1$s de la papelera? Los mensajes que no están en la papelera se conservan. Esta acción no se puede deshacer.</string>
     <string name="screens_restore_title">¿Restaurar?</string>
     <string name="screens_empty_archive_title">¿Vaciar el archivo?</string>
     <string name="screens_empty_bin_title">¿Vaciar la papelera?</string>

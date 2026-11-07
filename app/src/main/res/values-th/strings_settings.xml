@@ -83,4 +83,9 @@
     <string name="settings_license_link_app">อ่านใบอนุญาต (LICENSE)</string>
     <string name="settings_license_link_ofl">อ่าน SIL Open Font License 1.1</string>
     <string name="settings_license_link_apache">อ่าน Apache License 2.0</string>
+    <string name="settings_rate_title">ให้คะแนน uMessage</string>
+    <string name="settings_rate_body">เปิด Play Store</string>
+    <string name="settings_feedback_title">ส่งความคิดเห็น</string>
+    <string name="settings_feedback_body">เขียนถึงนักพัฒนาทางอีเมล</string>
+    <string name="settings_feedback_no_app">ไม่พบแอปอีเมล เขียนมาที่ %1$s</string>
 </resources>

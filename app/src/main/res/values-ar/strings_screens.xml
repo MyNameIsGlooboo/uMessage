@@ -20,6 +20,7 @@
     <string name="screens_grant_permission">اسمح بالوصول</string>
     <string name="screens_delete_forever_title">هل تريد الحذف نهائيًا؟</string>
     <string name="screens_delete_conversations_message">هل تريد حذف %1$s نهائيًا؟ لا يمكن التراجع عن ذلك.</string>
+    <string name="screens_delete_bin_messages_message">هل تريد حذف %1$s في سلة المهملات نهائيًا؟ الرسائل غير الموجودة في سلة المهملات تبقى كما هي. لا يمكن التراجع عن ذلك.</string>
     <string name="screens_restore_title">هل تريد الاستعادة؟</string>
     <string name="screens_empty_archive_title">هل تريد إفراغ الأرشيف؟</string>
     <string name="screens_empty_bin_title">هل تريد إفراغ سلة المهملات؟</string>

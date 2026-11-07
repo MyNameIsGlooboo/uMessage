@@ -7,12 +7,14 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Telephony.Sms
 import android.telephony.SmsMessage
+import android.util.Log
 import android.widget.Toast
 import com.klinker.android.send_message.Message
 import com.klinker.android.send_message.Settings
 import com.klinker.android.send_message.Transaction
 import org.fossify.commons.extensions.showErrorToast
 import org.fossify.commons.extensions.toast
+import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.models.Message as CachedMessage
@@ -292,19 +294,19 @@ class MessagingUtils(val context: Context) {
                     } else {
                         attachment.mimetype
                     }
-                    val name = attachment.filename
+                    val name = mmsPartName(attachment.filename, attachment.id, mimeType, System.currentTimeMillis())
                     message.addMedia(bytes, mimeType, name, name)
                     true
                 } ?: false
             } catch (e: Exception) {
-                context.showErrorToast(e)
+                reportSendFailure("Could not read the attachment", e)
                 return false
             } catch (e: Error) {
-                context.showErrorToast(e.localizedMessage ?: context.getString(org.fossify.commons.R.string.unknown_error_occurred))
+                reportSendFailure("Could not read the attachment", e)
                 return false
             }
             if (!added) {
-                context.toast(org.fossify.commons.R.string.unknown_error_occurred, Toast.LENGTH_LONG)
+                reportSendFailure("The attachment stream was empty", IllegalStateException("no stream"))
                 return false
             }
         }
@@ -318,9 +320,15 @@ class MessagingUtils(val context: Context) {
             transaction.sendNewMessage(message)
             true
         } catch (e: Exception) {
-            context.showErrorToast(e)
+            reportSendFailure("The MMS library refused the message", e)
             false
         }
+    }
+
+    /** The user sees a plain "not sent" message; the full exception goes to the log (no text, numbers or content). */
+    private fun reportSendFailure(what: String, error: Throwable) {
+        Log.e(TAG, what, error)
+        context.toast(R.string.message_send_retry_later, Toast.LENGTH_LONG)
     }
 
     fun maybeShowErrorToast(resultCode: Int, errorCode: Int, noDefault: Boolean = false) {
@@ -331,6 +339,7 @@ class MessagingUtils(val context: Context) {
 
     companion object {
         const val ADDRESS_SEPARATOR = "|"
+        private const val TAG = "MessagingUtils"
         private const val RECIPIENT_ROW_WINDOW_MS = 60_000L
     }
 }

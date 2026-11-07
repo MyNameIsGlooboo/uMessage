@@ -16,6 +16,7 @@
     <string name="screens_grant_permission">ऐक्सेस की अनुमति दें</string>
     <string name="screens_delete_forever_title">हमेशा के लिए मिटाएं?</string>
     <string name="screens_delete_conversations_message">%1$s को हमेशा के लिए मिटाएं? इसे पहले जैसा नहीं किया जा सकता.</string>
+    <string name="screens_delete_bin_messages_message">रीसायकल बिन में मौजूद %1$s को हमेशा के लिए मिटाएं? जो मैसेज रीसायकल बिन में नहीं हैं, वे बने रहेंगे। इसे पहले जैसा नहीं किया जा सकता।</string>
     <string name="screens_restore_title">वापस लाएं?</string>
     <string name="screens_empty_archive_title">संग्रह खाली करें?</string>
     <string name="screens_empty_bin_title">रीसायकल बिन खाली करें?</string>

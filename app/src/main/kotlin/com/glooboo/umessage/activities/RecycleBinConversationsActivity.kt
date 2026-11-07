@@ -7,9 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.conversationsDB
-import com.glooboo.umessage.extensions.deleteConversation
-import com.glooboo.umessage.extensions.emptyMessagesRecycleBin
+import com.glooboo.umessage.extensions.deleteRecycleBinMessagesOfConversations
+import com.glooboo.umessage.extensions.emptyRecycleBinAndTidyConversations
 import com.glooboo.umessage.extensions.getAllDrafts
+import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.restoreAllMessagesFromRecycleBinForConversation
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.IS_RECYCLE_BIN
@@ -18,6 +19,7 @@ import com.glooboo.umessage.helpers.THREAD_TITLE
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.models.Events
+import com.glooboo.umessage.ui.conversations.BinMessageCounts
 import com.glooboo.umessage.ui.conversations.ConversationFolder
 import com.glooboo.umessage.ui.conversations.ConversationFolderScreen
 import com.glooboo.umessage.ui.conversations.ConversationRow
@@ -32,6 +34,7 @@ import org.greenrobot.eventbus.ThreadMode
 class RecycleBinConversationsActivity : ComposeSimpleActivity() {
     private var rows by mutableStateOf<List<ConversationRow>>(emptyList())
     private var loading by mutableStateOf(true)
+    private var binCounts by mutableStateOf<BinMessageCounts?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +43,14 @@ class RecycleBinConversationsActivity : ComposeSimpleActivity() {
                 folder = ConversationFolder.RecycleBin,
                 rows = rows,
                 loading = loading,
+                binCounts = binCounts,
                 onBack = ::finish,
                 onOpen = ::openThread,
                 onRestore = ::restore,
                 onDelete = ::delete,
                 onEmpty = {
                     ensureBackgroundThread {
-                        emptyMessagesRecycleBin()
+                        emptyRecycleBinAndTidyConversations()
                         load()
                     }
                 },
@@ -78,8 +82,17 @@ class RecycleBinConversationsActivity : ComposeSimpleActivity() {
             val built = HiddenChats.get(this).withoutHidden(conversations) { it.threadId }
                 .sortedWith(compareByDescending<Conversation> { pinned.contains(it.threadId.toString()) }.thenByDescending { it.date })
                 .map { it.toFolderRow(this, drafts, pinned) }
+            val counts = runCatching {
+                BinMessageCounts(
+                    perChat = built.associate {
+                        it.threadId to messagesDB.getRecycleBinMessageCountForThread(it.threadId)
+                    },
+                    total = messagesDB.getRecycleBinMessageCount(),
+                )
+            }.getOrNull()
             runOnUiThread {
                 rows = built
+                binCounts = counts
                 loading = false
             }
         }
@@ -94,10 +107,9 @@ class RecycleBinConversationsActivity : ComposeSimpleActivity() {
 
     private fun delete(ids: Set<Long>) {
         ensureBackgroundThread {
-            ids.forEach {
-                deleteConversation(it)
-                notificationManager.cancel(it.hashCode())
-            }
+            // Only the messages in the bin go: the rest of each chat stays.
+            deleteRecycleBinMessagesOfConversations(ids)
+            ids.forEach { notificationManager.cancel(it.hashCode()) }
             refreshConversations()
         }
     }

@@ -83,4 +83,9 @@
     <string name="settings_license_link_app">阅读许可证（LICENSE）</string>
     <string name="settings_license_link_ofl">阅读SIL开放字体许可证1.1</string>
     <string name="settings_license_link_apache">阅读Apache许可证2.0</string>
+    <string name="settings_rate_title">为 uMessage 评分</string>
+    <string name="settings_rate_body">打开 Play 商店</string>
+    <string name="settings_feedback_title">发送反馈</string>
+    <string name="settings_feedback_body">通过电子邮件联系开发者</string>
+    <string name="settings_feedback_no_app">未找到电子邮件应用。请写信至 %1$s</string>
 </resources>

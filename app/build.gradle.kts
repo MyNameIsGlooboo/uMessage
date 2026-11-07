@@ -265,6 +265,8 @@ dependencies {
     implementation(libs.fossify.commons)
     implementation(libs.eventbus)
     implementation(libs.mmslib)
+    // In-App Review: Google Play build only. The foss build must not contain it (F-Droid).
+    "gplayImplementation"(libs.play.review.ktx)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.documentfile)
     implementation(libs.androidx.core.splashscreen)

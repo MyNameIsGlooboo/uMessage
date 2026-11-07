@@ -15,6 +15,7 @@
     <string name="screens_grant_permission">Cho phép truy cập</string>
     <string name="screens_delete_forever_title">Xóa vĩnh viễn?</string>
     <string name="screens_delete_conversations_message">Xóa vĩnh viễn %1$s? Không thể hoàn tác thao tác này.</string>
+    <string name="screens_delete_bin_messages_message">Xóa vĩnh viễn %1$s trong thùng rác? Các tin nhắn không nằm trong thùng rác vẫn được giữ lại. Không thể hoàn tác thao tác này.</string>
     <string name="screens_restore_title">Khôi phục?</string>
     <string name="screens_empty_archive_title">Dọn sạch mục lưu trữ?</string>
     <string name="screens_empty_bin_title">Dọn sạch thùng rác?</string>

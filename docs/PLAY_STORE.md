@@ -71,6 +71,10 @@ If a future version adds anything that sends data (crash reports, an online spam
 - [ ] Play's new personal developer accounts must run a **closed test with at least 12 testers for 14 days** before production. **Owner:** plan for this.
 - [ ] Check that Play Protect does not flag the bundle (see the warning below).
 
+## In-app rating card
+
+The Google Play build may show Google's own rating card (Play In-App Review, `gplayImplementation` only; the foss build has no such code). The Play Store app shows and handles the card; uMessage sends no data to do this. It is requested at most twice, at least 120 days apart, after at least 7 days since install and 5 days of use, only on the message list. The app stores only a day count and the time of the last request. Data safety answers do not change. **Owner:** after the build, check the merged gplay manifest for any permission the library adds (none is expected, and `INTERNET` must stay absent).
+
 ## Automatic forwarding of verification codes: decision
 
 The owner decided that the Google Play build ships **without** automatic forwarding. The `gplay` flavor sets `is_google_play_build = true`, which turns forwarding off completely (no forward rules or screens, nothing sent, and a restored backup adds no forward rules). The `foss` flavor (GitHub and F-Droid) keeps forwarding. The store texts do not mention it; it is described in the README and the user guide.

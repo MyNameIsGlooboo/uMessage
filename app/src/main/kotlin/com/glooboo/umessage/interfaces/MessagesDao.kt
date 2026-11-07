@@ -126,6 +126,20 @@ interface MessagesDao {
     @Query("SELECT COUNT(*) FROM recycle_bin_messages")
     fun getArchivedCount(): Int
 
+    /** Messages of [threadId] that are in the recycle bin. */
+    @Query(
+        "SELECT COUNT(*) FROM messages JOIN recycle_bin_messages r " +
+            "ON r.id = messages.id AND r.is_mms = messages.is_mms WHERE messages.thread_id = :threadId"
+    )
+    fun getRecycleBinMessageCountForThread(threadId: Long): Int
+
+    /** Recycle-bin messages the bin can show and delete: those with a cached copy. */
+    @Query(
+        "SELECT COUNT(*) FROM messages JOIN recycle_bin_messages r " +
+            "ON r.id = messages.id AND r.is_mms = messages.is_mms"
+    )
+    fun getRecycleBinMessageCount(): Int
+
     /** [pattern] is a [TextNormalizer.likeContains] pattern. Newest first, at most [SEARCH_RESULTS_LIMIT]. */
     @Query("SELECT * FROM messages WHERE body LIKE :pattern ESCAPE '\\' $SEARCH_ORDER")
     fun getMessagesWithText(pattern: String): List<Message>

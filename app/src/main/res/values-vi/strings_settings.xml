@@ -83,4 +83,9 @@
     <string name="settings_license_link_app">Đọc giấy phép (LICENSE)</string>
     <string name="settings_license_link_ofl">Đọc Giấy phép Phông chữ Mở SIL 1.1</string>
     <string name="settings_license_link_apache">Đọc Giấy phép Apache 2.0</string>
+    <string name="settings_rate_title">Đánh giá uMessage</string>
+    <string name="settings_rate_body">Mở Play Store</string>
+    <string name="settings_feedback_title">Gửi phản hồi</string>
+    <string name="settings_feedback_body">Viết email cho nhà phát triển</string>
+    <string name="settings_feedback_no_app">Không tìm thấy ứng dụng email. Hãy viết tới %1$s</string>
 </resources>

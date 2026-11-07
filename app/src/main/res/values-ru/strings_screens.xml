@@ -18,6 +18,7 @@
     <string name="screens_grant_permission">Разрешить доступ</string>
     <string name="screens_delete_forever_title">Удалить навсегда?</string>
     <string name="screens_delete_conversations_message">Удалить %1$s навсегда? Это действие нельзя отменить.</string>
+    <string name="screens_delete_bin_messages_message">Удалить навсегда %1$s из корзины? Сообщения, которых нет в корзине, останутся. Это действие нельзя отменить.</string>
     <string name="screens_restore_title">Восстановить?</string>
     <string name="screens_empty_archive_title">Очистить архив?</string>
     <string name="screens_empty_bin_title">Очистить корзину?</string>

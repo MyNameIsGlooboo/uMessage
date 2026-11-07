@@ -83,4 +83,9 @@
     <string name="settings_license_link_app">خواندن پروانه (LICENSE)</string>
     <string name="settings_license_link_ofl">خواندن پروانهٔ قلم باز SIL ۱.۱</string>
     <string name="settings_license_link_apache">خواندن پروانهٔ Apache ۲.۰</string>
+    <string name="settings_rate_title">امتیاز دادن به uMessage</string>
+    <string name="settings_rate_body">فروشگاه Play را باز می‌کند</string>
+    <string name="settings_feedback_title">ارسال بازخورد</string>
+    <string name="settings_feedback_body">با ایمیل به سازنده بنویسید</string>
+    <string name="settings_feedback_no_app">برنامهٔ ایمیلی پیدا نشد. به %1$s بنویسید</string>
 </resources>

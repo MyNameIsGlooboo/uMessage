@@ -16,6 +16,7 @@
     <string name="screens_grant_permission">Consenti accesso</string>
     <string name="screens_delete_forever_title">Eliminare definitivamente?</string>
     <string name="screens_delete_conversations_message">Eliminare definitivamente %1$s? L\'operazione non può essere annullata.</string>
+    <string name="screens_delete_bin_messages_message">Eliminare definitivamente %1$s nel cestino? I messaggi che non sono nel cestino restano. L'operazione non può essere annullata.</string>
     <string name="screens_restore_title">Ripristinare?</string>
     <string name="screens_empty_archive_title">Svuotare l\'archivio?</string>
     <string name="screens_empty_bin_title">Svuotare il cestino?</string>

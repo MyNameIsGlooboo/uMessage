@@ -18,6 +18,7 @@
     <string name="screens_grant_permission">Zezwól na dostęp</string>
     <string name="screens_delete_forever_title">Usunąć na zawsze?</string>
     <string name="screens_delete_conversations_message">Usunąć %1$s na stałe? Tej czynności nie można cofnąć.</string>
+    <string name="screens_delete_bin_messages_message">Usunąć na stałe %1$s znajdujące się w koszu? Wiadomości, których nie ma w koszu, zostaną. Tej czynności nie można cofnąć.</string>
     <string name="screens_restore_title">Przywrócić?</string>
     <string name="screens_empty_archive_title">Opróżnić archiwum?</string>
     <string name="screens_empty_bin_title">Opróżnić kosz?</string>

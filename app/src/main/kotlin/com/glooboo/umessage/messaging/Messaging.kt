@@ -2,10 +2,10 @@ package com.glooboo.umessage.messaging
 
 import android.content.Context
 import android.telephony.SmsMessage
+import android.util.Log
 import android.util.Patterns
 import android.widget.Toast.LENGTH_LONG
 import com.klinker.android.send_message.Settings
-import org.fossify.commons.extensions.showErrorToast
 import org.fossify.commons.extensions.toast
 import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.R
@@ -124,7 +124,8 @@ fun Context.sendMessageCompat(
         } catch (e: Exception) {
             handedOff = false
             failed = true
-            showErrorToast(e)
+            Log.e("Messaging", "Sending an SMS failed", e)
+            toast(id = R.string.message_send_retry_later, length = LENGTH_LONG)
         }
     }
     if (failed) {

@@ -39,6 +39,7 @@ import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.TonalRows
 import androidx.compose.foundation.layout.PaddingValues
+import com.glooboo.umessage.ui.icons.ShortcutIcons
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.lock.AppLockAdvice
 import com.glooboo.umessage.ui.settings.search.SettingsSearch
@@ -610,6 +611,20 @@ private fun AboutPage(state: SettingsUiState, actions: SettingsActions, open: (S
             icon = Symbols.Code,
             onClick = actions.onOpenRepo,
             showChevron = true,
+        )
+        if (state.showRateRow) {
+            SettingsRow(
+                title = stringResource(R.string.settings_rate_title),
+                summary = stringResource(R.string.settings_rate_body),
+                icon = ShortcutIcons.Star,
+                onClick = actions.onRate,
+            )
+        }
+        SettingsRow(
+            title = stringResource(R.string.settings_feedback_title),
+            summary = stringResource(R.string.settings_feedback_body),
+            icon = ShortcutIcons.Mail,
+            onClick = actions.onSendFeedback,
         )
         SettingsRow(
             title = stringResource(R.string.settings_nav_licenses_row),

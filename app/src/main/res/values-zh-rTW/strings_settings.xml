@@ -85,4 +85,9 @@
     <string name="settings_license_link_apache">閱讀Apache License 2.0</string>
     <string name="privacy_policy">隱私權政策</string>
     <string name="privacy_policy_body">在瀏覽器中開啟</string>
+    <string name="settings_rate_title">為 uMessage 評分</string>
+    <string name="settings_rate_body">開啟 Play 商店</string>
+    <string name="settings_feedback_title">傳送意見回饋</string>
+    <string name="settings_feedback_body">透過電子郵件聯絡開發者</string>
+    <string name="settings_feedback_no_app">找不到電子郵件應用程式。請寫信至 %1$s</string>
 </resources>

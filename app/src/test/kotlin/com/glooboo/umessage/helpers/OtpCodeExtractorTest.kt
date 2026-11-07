@@ -27,6 +27,11 @@ class OtpCodeExtractorTest {
 
     @Test fun noDigits() = assertNull(OtpCodeExtractor.extract("Your code will arrive shortly"))
 
+    @Test fun phoneNumberIsNotACode() {
+        val body = "Verification code 482913. Call 0800 123 4567 if this wasn't you"
+        assertEquals("482913", OtpCodeExtractor.extract(body))
+        assertEquals(null, OtpCodeExtractor.extract("verify your account, call 0800 123 4567"))
+    }
     @Test fun hyphenatedCode() = assertEquals("482913", OtpCodeExtractor.extract("Your code: 482-913"))
 
     // Persian and Arabic bank messages. The bodies are invented.

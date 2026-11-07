@@ -24,6 +24,7 @@ import org.fossify.commons.activities.maybeLaunchAppUnlockActivity
 import org.fossify.commons.extensions.appLockManager
 import com.glooboo.umessage.AppLockGuard
 import com.glooboo.umessage.ui.lock.AppLockAdvice
+import com.glooboo.umessage.ui.settings.FeedbackLinks
 import com.glooboo.umessage.ui.lock.AppLockTimeouts
 import com.glooboo.umessage.ui.lock.lockSetupMessage
 import org.fossify.commons.helpers.SHOW_ALL_TABS
@@ -258,6 +259,7 @@ class SettingsActivity : ComposeSimpleActivity() {
             showDecisionLog = decisionLogAvailable(),
             versionName = BuildConfig.VERSION_NAME.substringBefore('-'),
             fullVersionName = BuildConfig.VERSION_NAME,
+            showRateRow = resources.getBoolean(R.bool.is_google_play_build),
             forwardRuleCount = forwardRuleCount,
             forwardRulesOn = forwardRulesOn,
             showForwardedTab = navPrefs.showForwardedTab == true,
@@ -376,6 +378,8 @@ class SettingsActivity : ComposeSimpleActivity() {
             onHideCodesOnLockScreen = { w3aPrefs.hideCodesOnLockScreen = it; refreshState() },
             onOpenArchived = { startActivity(MainTabLinks.intent(this, MainTabLinks.TAB_ARCHIVED)) },
             onCopyVersion = ::copyVersion,
+            onRate = { if (!FeedbackLinks.rate(this)) toast(R.string.settings_about_no_browser) },
+            onSendFeedback = ::sendFeedback,
         )
     }
 
@@ -544,6 +548,14 @@ class SettingsActivity : ComposeSimpleActivity() {
         showRadioDialog(items, config.defaultSimId) {
             config.defaultSimId = it as Int
             refreshState()
+        }
+    }
+
+    private fun sendFeedback() {
+        val version = BuildConfig.VERSION_NAME.substringBefore('-')
+        if (!FeedbackLinks.sendFeedback(this, version)) {
+            val message = getString(R.string.settings_feedback_no_app, FeedbackLinks.FEEDBACK_EMAIL)
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         }
     }
 

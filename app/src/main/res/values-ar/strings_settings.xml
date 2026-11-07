@@ -83,4 +83,9 @@
     <string name="settings_license_link_app">اقرأ الرخصة (LICENSE)</string>
     <string name="settings_license_link_ofl">اقرأ رخصة SIL للخطوط المفتوحة 1.1</string>
     <string name="settings_license_link_apache">اقرأ رخصة Apache 2.0</string>
+    <string name="settings_rate_title">قيّم uMessage</string>
+    <string name="settings_rate_body">يفتح متجر Play</string>
+    <string name="settings_feedback_title">إرسال ملاحظات</string>
+    <string name="settings_feedback_body">اكتب إلى المطوّر عبر البريد الإلكتروني</string>
+    <string name="settings_feedback_no_app">لم يُعثر على تطبيق بريد. اكتب إلى %1$s</string>
 </resources>

@@ -83,4 +83,9 @@
     <string name="settings_license_link_app">ライセンスを読む（LICENSE）</string>
     <string name="settings_license_link_ofl">SIL Open Font License 1.1を読む</string>
     <string name="settings_license_link_apache">Apache License 2.0を読む</string>
+    <string name="settings_rate_title">uMessage を評価</string>
+    <string name="settings_rate_body">Play ストアを開きます</string>
+    <string name="settings_feedback_title">フィードバックを送る</string>
+    <string name="settings_feedback_body">開発者にメールで連絡します</string>
+    <string name="settings_feedback_no_app">メールアプリが見つかりません。%1$s 宛てにお送りください</string>
 </resources>

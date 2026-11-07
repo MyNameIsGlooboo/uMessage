@@ -50,4 +50,16 @@ class SendMmsMessageTest {
         assertThat(handedOff).isFalse()
         assertThat(ShadowRecordingSmsManager.multimediaSends).isEmpty()
     }
+
+    @Test
+    fun readablePhotoWithoutFilenameIsHandedOff() {
+        // A resent picture is read back from the provider with an empty filename; it must still go out.
+        val file = java.io.File(context.cacheDir, "resend.jpg").apply { writeBytes(ByteArray(16) { it.toByte() }) }
+        val unnamed = attachment(file.toURI().toString()).copy(filename = "")
+
+        val handedOff = MessagingUtils(context).sendMmsMessage("", listOf("111"), unnamed, settings())
+        ShadowLooper.idleMainLooper()
+
+        assertThat(handedOff).isTrue()
+    }
 }

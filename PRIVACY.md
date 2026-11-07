@@ -57,6 +57,10 @@ Automatic forwarding of messages exists only in the F-Droid/GitHub build, not in
 
 In the build that has it, forwarding is off until you create a rule. When a rule you created matches a message, the app sends an SMS from your own number to a number you chose, through your carrier. It never forwards on its own and never to anyone you did not choose. Forwarding keeps a local log on the phone; nothing goes to any server.
 
+## Rating card (Google Play build)
+
+The Google Play build may show Google's own rating card. The Play Store app shows and handles that card; uMessage sends no data to do this. The app keeps only a count of the days it was opened and the time of the last request, on the phone. The F-Droid/GitHub build has no rating card.
+
 ## Storage and backups
 
 - Data is stored only on your phone, in the Android SMS database and uMessage's private app storage, which other apps cannot read.

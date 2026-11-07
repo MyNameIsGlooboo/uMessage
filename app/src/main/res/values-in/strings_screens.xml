@@ -15,6 +15,7 @@
     <string name="screens_grant_permission">Izinkan akses</string>
     <string name="screens_delete_forever_title">Hapus permanen?</string>
     <string name="screens_delete_conversations_message">Hapus %1$s secara permanen? Tindakan ini tidak dapat diurungkan.</string>
+    <string name="screens_delete_bin_messages_message">Hapus %1$s di sampah secara permanen? Pesan yang tidak ada di sampah tetap ada. Tindakan ini tidak dapat diurungkan.</string>
     <string name="screens_restore_title">Pulihkan?</string>
     <string name="screens_empty_archive_title">Kosongkan arsip?</string>
     <string name="screens_empty_bin_title">Kosongkan sampah?</string>

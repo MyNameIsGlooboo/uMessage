@@ -128,6 +128,12 @@ fun Conversation.toFolderRow(context: Context, drafts: Map<Long, String>, pinned
 private const val MAX_FOLDER_BADGE = 99
 
 /**
+ * Messages in the Recycle Bin, so its confirmations say what they delete: per chat, and in all (the whole bin,
+ * hidden chats included).
+ */
+data class BinMessageCounts(val perChat: Map<Long, Int>, val total: Int)
+
+/**
  * Archive / Recycle Bin screen: the shared conversation row, long-press multi-select with a contextual bar,
  * confirmation before anything is removed for good.
  */
@@ -150,6 +156,8 @@ fun ConversationFolderScreen(
     onMarkAllRead: (() -> Unit)? = null,
     /** A short explanation above the list. */
     intro: (@Composable () -> Unit)? = null,
+    /** On the Recycle Bin screen: how many messages each confirmation deletes. */
+    binCounts: BinMessageCounts? = null,
 ) {
     var selected by rememberSaveable(saver = LongSetStateSaver) { mutableStateOf(emptySet()) }
     var confirmDelete by remember { mutableStateOf<Set<Long>?>(null) }
@@ -220,6 +228,7 @@ fun ConversationFolderScreen(
     FolderDialogs(
         folder = folder,
         rowCount = rows.size,
+        binCounts = binCounts,
         confirmDelete = confirmDelete,
         confirmRestore = confirmRestore,
         confirmEmpty = confirmEmpty,
@@ -346,6 +355,7 @@ private fun FolderList(
 private fun FolderDialogs(
     folder: ConversationFolder,
     rowCount: Int,
+    binCounts: BinMessageCounts?,
     confirmDelete: Set<Long>?,
     confirmRestore: Set<Long>?,
     confirmEmpty: Boolean,
@@ -356,10 +366,22 @@ private fun FolderDialogs(
     onEmpty: () -> Unit,
 ) {
     confirmDelete?.let { ids ->
-        val items = pluralStringResource(R.plurals.delete_conversations, ids.size, ids.size)
+        val binned = binCounts?.let { counts -> ids.sumOf { counts.perChat[it] ?: 0 } }
+        val items = if (binned != null) {
+            pluralStringResource(R.plurals.delete_messages, binned, binned)
+        } else {
+            pluralStringResource(R.plurals.delete_conversations, ids.size, ids.size)
+        }
         ConfirmDialog(
             title = stringResource(R.string.screens_delete_forever_title),
-            message = stringResource(R.string.screens_delete_conversations_message, items),
+            message = stringResource(
+                if (binned != null) {
+                    R.string.screens_delete_bin_messages_message
+                } else {
+                    R.string.screens_delete_conversations_message
+                },
+                items,
+            ),
             confirmLabel = stringResource(R.string.screens_delete),
             destructive = true,
             onConfirm = {
@@ -385,7 +407,11 @@ private fun FolderDialogs(
         )
     }
     if (confirmEmpty) {
-        val count = pluralStringResource(R.plurals.delete_conversations, rowCount, rowCount)
+        val count = if (binCounts != null) {
+            pluralStringResource(R.plurals.delete_messages, binCounts.total, binCounts.total)
+        } else {
+            pluralStringResource(R.plurals.delete_conversations, rowCount, rowCount)
+        }
         ConfirmDialog(
             title = stringResource(folder.emptying.titleRes),
             message = stringResource(folder.emptying.messageRes) + " " +

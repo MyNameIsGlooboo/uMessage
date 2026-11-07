@@ -46,11 +46,28 @@ object OtpDetector {
     internal const val NOT_AFTER =
         "(?!\\s?(?:[%٪$€£]|ریال|تومان|تومن|rials?|tomans?|usd|dollars?|euros?|off)(?![\\p{L}\\p{N}]))"
 
-    private const val CODE = "(?<![\\p{N}$€£])\\d{4,8}(?!\\p{N})$NOT_AFTER"
+    /** Words that say a number is a phone number to call or write to ("call 0800...", "تماس ..."), never a code. */
+    private val phoneWords = listOf(
+        "call", "tel", "phone", "whatsapp", "hotline", "dial", "تماس", "تلفن", "واتس ?اپ", "واتساپ", "شماره تماس",
+    ).joinToString("|") { TextNormalizer.fold(it) }
+
+    /**
+     * What a code looks like, shared by the filter and the "Copy code" extractor ([OtpCodeExtractor]) so they cannot
+     * drift apart: 4-8 digits in one run, or two groups joined by one space or hyphen ("123 456", "123-456",
+     * "1234 5678"). The text must be folded ([TextNormalizer.fold]), so every digit is ASCII.
+     *
+     * Digits that belong to a phone number or a longer number are no code: a run after "+", a run starting with "00"
+     * and 7+ digits long, a run next to another group of 3+ digits ("0800 123 4567"), and a run after a word such as
+     * "call" or "tel".
+     */
+    internal val codeShape = "(?<!\\+)(?<!\\p{N}{3}[ -])(?<!(?:$phoneWords)[^\\p{L}\\p{N}]{0,3})(?!00[0-9]{5})" +
+        "(?:[0-9]{3}[ -][0-9]{3}|[0-9]{4}[ -][0-9]{4}|[0-9]{4,8})(?![ -]\\p{N}{3})"
+
+    private val CODE = "(?<![\\p{N}$€£])$codeShape(?!\\p{N})$NOT_AFTER"
 
     /** A 4-digit year, Gregorian or Persian solar (1300-1499, 1900-2099). */
     internal const val YEAR = "(?:1[34]|19|20)\\d\\d(?!\\p{N})"
-    private const val CODE_NOT_YEAR = "(?<![\\p{N}$€£])(?!$YEAR)\\d{4,8}(?!\\p{N})$NOT_AFTER"
+    private val CODE_NOT_YEAR = "(?<![\\p{N}$€£])(?!$YEAR)$codeShape(?!\\p{N})$NOT_AFTER"
 
     /** Separator, then up to four plain words (letters only, so "SAVE20" or a phone number breaks the chain). */
     private const val NEAR = "[^\\p{L}\\p{N}]{1,4}(?:\\p{L}{1,15}[^\\p{L}\\p{N}]{1,4}){0,4}"

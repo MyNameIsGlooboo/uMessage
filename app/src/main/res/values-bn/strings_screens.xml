@@ -16,6 +16,7 @@
     <string name="screens_grant_permission">অ্যাক্সেসের অনুমতি দিন</string>
     <string name="screens_delete_forever_title">চিরতরে মুছবেন?</string>
     <string name="screens_delete_conversations_message">%1$s চিরতরে মুছবেন? এরপর আর আগের অবস্থায় ফিরতে পারবেন না।</string>
+    <string name="screens_delete_bin_messages_message">রিসাইকেল বিনে থাকা %1$s চিরতরে মুছবেন? রিসাইকেল বিনে নেই এমন বার্তাগুলো থেকে যাবে। এরপর আর আগের অবস্থায় ফিরতে পারবেন না।</string>
     <string name="screens_restore_title">ফিরিয়ে আনবেন?</string>
     <string name="screens_empty_archive_title">আর্কাইভ খালি করবেন?</string>
     <string name="screens_empty_bin_title">রিসাইকেল বিন খালি করবেন?</string>

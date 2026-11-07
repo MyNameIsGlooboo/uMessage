@@ -16,6 +16,7 @@
     <string name="screens_grant_permission">Zugriff erlauben</string>
     <string name="screens_delete_forever_title">Endgültig löschen?</string>
     <string name="screens_delete_conversations_message">%1$s endgültig löschen? Das lässt sich nicht rückgängig machen.</string>
+    <string name="screens_delete_bin_messages_message">%1$s im Papierkorb endgültig löschen? Nachrichten, die nicht im Papierkorb liegen, bleiben erhalten. Das lässt sich nicht rückgängig machen.</string>
     <string name="screens_restore_title">Wiederherstellen?</string>
     <string name="screens_empty_archive_title">Archiv leeren?</string>
     <string name="screens_empty_bin_title">Papierkorb leeren?</string>

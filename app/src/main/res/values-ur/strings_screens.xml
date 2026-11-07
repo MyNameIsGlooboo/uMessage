@@ -16,6 +16,7 @@
     <string name="screens_grant_permission">رسائی کی اجازت دیں</string>
     <string name="screens_delete_forever_title">ہمیشہ کے لیے حذف کریں؟</string>
     <string name="screens_delete_conversations_message">%1$s مستقل طور پر حذف کریں؟ اسے واپس نہیں کیا جا سکتا۔</string>
+    <string name="screens_delete_bin_messages_message">ری سائیکل بن میں موجود %1$s مستقل طور پر حذف کریں؟ جو پیغامات ری سائیکل بن میں نہیں ہیں وہ برقرار رہیں گے۔ اسے واپس نہیں کیا جا سکتا۔</string>
     <string name="screens_restore_title">بحال کریں؟</string>
     <string name="screens_empty_archive_title">آرکائیو خالی کریں؟</string>
     <string name="screens_empty_bin_title">ری سائیکل بن خالی کریں؟</string>

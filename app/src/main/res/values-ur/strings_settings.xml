@@ -85,4 +85,9 @@
     <string name="settings_license_link_apache">Apache License 2.0 پڑھیں</string>
     <string name="privacy_policy">رازداری کی پالیسی</string>
     <string name="privacy_policy_body">براؤزر میں کھولیں</string>
+    <string name="settings_rate_title">uMessage کو ریٹ کریں</string>
+    <string name="settings_rate_body">Play Store کھولتا ہے</string>
+    <string name="settings_feedback_title">رائے بھیجیں</string>
+    <string name="settings_feedback_body">ڈیولپر کو ای میل کے ذریعے لکھیں</string>
+    <string name="settings_feedback_no_app">کوئی ای میل ایپ نہیں ملی۔ %1$s پر لکھیں</string>
 </resources>

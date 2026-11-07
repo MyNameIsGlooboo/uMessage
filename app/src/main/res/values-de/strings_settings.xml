@@ -83,4 +83,9 @@
     <string name="settings_license_link_app">Lizenz lesen (LICENSE)</string>
     <string name="settings_license_link_ofl">SIL Open Font License 1.1 lesen</string>
     <string name="settings_license_link_apache">Apache License 2.0 lesen</string>
+    <string name="settings_rate_title">uMessage bewerten</string>
+    <string name="settings_rate_body">Öffnet den Play Store</string>
+    <string name="settings_feedback_title">Feedback senden</string>
+    <string name="settings_feedback_body">Per E-Mail an den Entwickler schreiben</string>
+    <string name="settings_feedback_no_app">Keine E-Mail-App gefunden. Schreibe an %1$s</string>
 </resources>

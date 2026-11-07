@@ -73,6 +73,8 @@ data class SettingsUiState(
     val versionName: String = "",
     /** Version with the build suffix (commit hash), copied by a tap on the Version row. */
     val fullVersionName: String = "",
+    /** True only in the Google Play build: the "Rate uMessage" row. */
+    val showRateRow: Boolean = false,
 
     /** Forward rules saved, and how many of them are switched on: the Forwarding row's summary (round 3). */
     /** False in the Google Play build: no Forwarding row, page or search result. */
@@ -171,6 +173,8 @@ class SettingsActions(
     /** Null hides the "Archived conversations" row. */
     val onOpenArchived: (() -> Unit)? = null,
     val onCopyVersion: () -> Unit = {},
+    val onRate: () -> Unit = {},
+    val onSendFeedback: () -> Unit = {},
 )
 
 /** Reads active SIMs. Empty when READ_PHONE_STATE is not granted or the platform refuses. */

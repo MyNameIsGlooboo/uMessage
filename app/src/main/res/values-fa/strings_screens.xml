@@ -16,6 +16,7 @@
     <string name="screens_grant_permission">اجازه دادن به دسترسی</string>
     <string name="screens_delete_forever_title">برای همیشه حذف شود؟</string>
     <string name="screens_delete_conversations_message">%1$s برای همیشه حذف شود؟ این کار قابل واگرد نیست.</string>
+    <string name="screens_delete_bin_messages_message">%1$s در سطل بازیافت برای همیشه حذف شود؟ پیام‌هایی که در سطل بازیافت نیستند باقی می‌مانند. این کار قابل واگرد نیست.</string>
     <string name="screens_restore_title">بازیابی شود؟</string>
     <string name="screens_empty_archive_title">بایگانی خالی شود؟</string>
     <string name="screens_empty_bin_title">سطل بازیافت خالی شود؟</string>
