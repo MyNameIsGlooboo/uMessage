@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Save to / restore from Google Drive, 0.4.2: the Drive app does the upload, uMessage has no network code. -->
+    <string name="backup_save_drive">Google ドライブに保存</string>
+    <string name="backup_save_drive_summary">バックアップを作成し、Google ドライブアプリでフォルダを選びます。uMessage 自体はオンラインに接続しません。</string>
+    <string name="backup_drive_stays">バックアップファイルは、自動で削除されるまで約 1 日この端末にも残ります。</string>
+    <string name="backup_drive_finish_hint">最後に Google ドライブでフォルダを選んでください。</string>
+    <string name="backup_restore_drive">Google ドライブから復元</string>
+    <string name="backup_restore_drive_summary">Google ドライブでバックアップファイルを選択</string>
+    <string name="backup_drive_missing">Google ドライブアプリがインストールされていません。ファイル選択画面で Google ドライブなどの場所を選んでください。</string>
+</resources>

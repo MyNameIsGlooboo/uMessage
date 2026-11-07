@@ -163,6 +163,10 @@ class SettingsActions(
     val onLockNow: () -> Unit = {},
     val onExport: () -> Unit = {},
     val onImport: () -> Unit = {},
+    /** "Save to Google Drive": true backs up the messages, false the rules and settings. Hands the file to Drive. */
+    val onSaveToDrive: (Boolean) -> Unit = {},
+    /** "Restore from Google Drive": the file picker, started in Drive; true restores messages, false settings. */
+    val onRestoreFromDrive: (Boolean) -> Unit = {},
     val onOpenRepo: () -> Unit = {},
     /** Opens a web page (licence texts) in the browser. */
     val onOpenLink: (String) -> Unit = {},

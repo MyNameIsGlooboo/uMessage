@@ -34,6 +34,8 @@ import com.glooboo.umessage.BuildConfig
 import com.glooboo.umessage.R
 import com.glooboo.umessage.dialogs.ExportMessagesDialog
 import com.glooboo.umessage.export.CreateExportDocument
+import com.glooboo.umessage.backup.DriveHandoff
+import com.glooboo.umessage.backup.OpenDriveDocument
 import com.glooboo.umessage.dialogs.ImportMessagesDialog
 import com.glooboo.umessage.ui.components.ChoiceDialog
 import com.glooboo.umessage.ui.components.ConfirmDialog
@@ -129,6 +131,20 @@ class SettingsActivity : ComposeSimpleActivity() {
                 ImportMessagesDialog(this, uri)
             }
         }
+
+    /** "Restore from Google Drive": the same pickers, started in Drive. */
+    private val getDriveContent =
+        registerForActivityResult(OpenDriveDocument()) { uri ->
+            if (uri != null) ImportMessagesDialog(this, uri)
+        }
+
+    private val openDriveSettingsBackup =
+        registerForActivityResult(OpenDriveDocument()) { uri ->
+            if (uri != null) previewRestore(uri)
+        }
+
+    /** Set while a settings restore was started from "Restore from Google Drive" (it goes through the app lock). */
+    private var restoreViaDrive = false
 
     private var exportMessagesDialog: ExportMessagesDialog? = null
 
@@ -369,6 +385,8 @@ class SettingsActivity : ComposeSimpleActivity() {
                 }
             },
             onImport = { launchOwnPicker { getContent.launch(messageImportFileTypes.toTypedArray()) } },
+            onSaveToDrive = ::saveToDrive,
+            onRestoreFromDrive = ::restoreFromDrive,
             onOpenRepo = { openLink(REPOSITORY_URL) },
             onOpenLink = ::openLink,
             onShowForwardedTab = { navPrefs.showForwardedTab = it; refreshState() },
@@ -382,6 +400,48 @@ class SettingsActivity : ComposeSimpleActivity() {
             onRate = { if (!FeedbackLinks.rate(this)) toast(R.string.settings_about_no_browser) },
             onSendFeedback = ::sendFeedback,
         )
+    }
+
+    /**
+     * "Save to Google Drive": the usual questions, then the backup is written to one cache file and handed to the
+     * Google Drive app (its "Save to Drive" screen). The app itself never goes online. Without the Drive app the
+     * normal file picker opens instead.
+     */
+    private fun saveToDrive(messages: Boolean) {
+        if (messages) {
+            exportMessagesDialog = ExportMessagesDialog(this, toDrive = true) { file ->
+                launchOwnPicker { saveDocument.launch(file) }
+            }
+        } else {
+            backUpSettingsToDrive()
+        }
+    }
+
+    private fun backUpSettingsToDrive() {
+        if (!DriveHandoff.isAvailable(this)) {
+            toast(R.string.backup_drive_missing)
+            launchOwnPicker { saveSettingsBackup.launch("uMessage-settings.json") }
+            return
+        }
+        lifecycleScope.launch {
+            val file = DriveHandoff.newFile(this@SettingsActivity, "uMessage-settings.json")
+            val count = runCatching { SettingsBackup.export(this@SettingsActivity, Uri.fromFile(file)) }.getOrNull()
+            appLockManager.allowOwnTrip()
+            val handed = count != null && DriveHandoff.handOff(this@SettingsActivity, file, "application/json")
+            if (!handed) file.delete()
+            toast(if (handed) R.string.backup_drive_finish_hint else R.string.w3c_backup_failed)
+        }
+    }
+
+    /** "Restore from Google Drive": the file picker, started in Drive; the restore itself is the usual one. */
+    private fun restoreFromDrive(messages: Boolean) {
+        if (!DriveHandoff.isAvailable(this)) toast(R.string.backup_drive_missing)
+        if (messages) {
+            launchOwnPicker { getDriveContent.launch(messageImportFileTypes.toTypedArray()) }
+        } else {
+            restoreViaDrive = true
+            startRestore()
+        }
     }
 
     /** ID-38: rules, forward rules and settings to a JSON file (no message text). */
@@ -419,7 +479,9 @@ class SettingsActivity : ComposeSimpleActivity() {
     }
 
     private fun pickRestoreFile() = launchOwnPicker {
-        openSettingsBackup.launch(arrayOf("application/json", "text/plain"))
+        val types = arrayOf("application/json", "text/plain")
+        if (restoreViaDrive) openDriveSettingsBackup.launch(types) else openSettingsBackup.launch(types)
+        restoreViaDrive = false
     }
 
     /**

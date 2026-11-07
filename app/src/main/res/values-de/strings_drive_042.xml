@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Save to / restore from Google Drive, 0.4.2: the Drive app does the upload, uMessage has no network code. -->
+    <string name="backup_save_drive">In Google Drive speichern</string>
+    <string name="backup_save_drive_summary">Sichern Sie und wählen Sie dann in der Google-Drive-App den Ordner. uMessage selbst geht nie online.</string>
+    <string name="backup_drive_stays">Die Sicherungsdatei bleibt etwa einen Tag lang auch auf diesem Telefon, bis sie automatisch gelöscht wird.</string>
+    <string name="backup_drive_finish_hint">Wählen Sie zum Abschluss einen Ordner in Google Drive.</string>
+    <string name="backup_restore_drive">Aus Google Drive wiederherstellen</string>
+    <string name="backup_restore_drive_summary">Sicherungsdatei in Google Drive auswählen</string>
+    <string name="backup_drive_missing">Die Google-Drive-App ist nicht installiert. Wählen Sie Google Drive oder einen anderen Ort in der Dateiauswahl.</string>
+</resources>

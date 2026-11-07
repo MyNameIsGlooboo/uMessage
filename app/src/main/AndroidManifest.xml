@@ -42,6 +42,9 @@
         <package android:name="com.oneplus.security" />
         <package android:name="com.vivo.permissionmanager" />
         <package android:name="com.iqoo.secure" />
+        <!-- The Google Drive app: "Save to Google Drive" hands the backup file to it (backup/DriveHandoff.kt), and the
+             restore picker starts in its storage. Only used to find out whether it is installed; no network access. -->
+        <package android:name="com.google.android.apps.docs" />
         <intent>
             <action android:name="android.settings.VIEW_ADVANCED_POWER_USAGE_DETAIL" />
             <data android:scheme="package" />

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Save to / restore from Google Drive, 0.4.2: the Drive app does the upload, uMessage has no network code. -->
+    <string name="backup_save_drive">Google Drive에 저장</string>
+    <string name="backup_save_drive_summary">백업한 다음 Google Drive 앱에서 폴더를 선택하세요. uMessage 자체는 인터넷에 연결되지 않습니다.</string>
+    <string name="backup_drive_stays">백업 파일은 자동으로 정리될 때까지 약 하루 동안 이 휴대전화에도 남아 있습니다.</string>
+    <string name="backup_drive_finish_hint">마치려면 Google Drive에서 폴더를 선택하세요.</string>
+    <string name="backup_restore_drive">Google Drive에서 복원</string>
+    <string name="backup_restore_drive_summary">Google Drive에서 백업 파일 선택</string>
+    <string name="backup_drive_missing">Google Drive 앱이 설치되어 있지 않습니다. 파일 선택기에서 Google Drive나 다른 위치를 선택하세요.</string>
+</resources>

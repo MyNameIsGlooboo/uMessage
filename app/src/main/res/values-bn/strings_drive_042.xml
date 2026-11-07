@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Save to / restore from Google Drive, 0.4.2: the Drive app does the upload, uMessage has no network code. -->
+    <string name="backup_save_drive">Google Drive-এ সংরক্ষণ করুন</string>
+    <string name="backup_save_drive_summary">ব্যাকআপ নিন, তারপর Google Drive অ্যাপে ফোল্ডার বেছে নিন। uMessage নিজে কখনো অনলাইনে যায় না।</string>
+    <string name="backup_drive_stays">ব্যাকআপ ফাইলটি প্রায় একদিন এই ফোনেও থাকে, তারপর নিজে থেকেই মুছে যায়।</string>
+    <string name="backup_drive_finish_hint">শেষ করতে Google Drive-এ একটি ফোল্ডার বেছে নিন।</string>
+    <string name="backup_restore_drive">Google Drive থেকে পুনরুদ্ধার করুন</string>
+    <string name="backup_restore_drive_summary">Google Drive-এ ব্যাকআপ ফাইলটি বেছে নিন</string>
+    <string name="backup_drive_missing">Google Drive অ্যাপ ইনস্টল করা নেই। ফাইল পিকারে Google Drive বা অন্য কোনো জায়গা বেছে নিন।</string>
+</resources>

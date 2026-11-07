@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Save to / restore from Google Drive, 0.4.2: the Drive app does the upload, uMessage has no network code. -->
+    <string name="backup_save_drive">Simpan ke Google Drive</string>
+    <string name="backup_save_drive_summary">Buat cadangan, lalu pilih folder di aplikasi Google Drive. uMessage sendiri tidak pernah online.</string>
+    <string name="backup_drive_stays">File cadangan juga tetap ada di ponsel ini sekitar satu hari, sampai dibersihkan otomatis.</string>
+    <string name="backup_drive_finish_hint">Pilih folder di Google Drive untuk menyelesaikan.</string>
+    <string name="backup_restore_drive">Pulihkan dari Google Drive</string>
+    <string name="backup_restore_drive_summary">Pilih file cadangan di Google Drive</string>
+    <string name="backup_drive_missing">Aplikasi Google Drive belum terpasang. Pilih Google Drive atau lokasi lain di pemilih file.</string>
+</resources>

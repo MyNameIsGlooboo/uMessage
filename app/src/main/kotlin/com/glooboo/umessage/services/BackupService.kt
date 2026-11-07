@@ -18,6 +18,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import com.glooboo.umessage.R
+import com.glooboo.umessage.backup.DriveHandoff
 import com.glooboo.umessage.backup.SafeOutput
 import com.glooboo.umessage.activities.SettingsActivity
 import com.glooboo.umessage.export.ExportScope
@@ -32,6 +33,7 @@ import com.glooboo.umessage.helpers.MessagesImporter
 import com.glooboo.umessage.helpers.MessagesReader
 import com.glooboo.umessage.models.ExportSummary
 import com.glooboo.umessage.models.ImportSummary
+import java.io.File
 import kotlin.concurrent.thread
 
 /**
@@ -80,6 +82,8 @@ class BackupService : Service() {
                 ?: ExportFormat.JSON,
             threadIds = intent.getLongArrayExtra(EXTRA_THREADS)?.toList(),
             withPassword = intent.getBooleanExtra(EXTRA_PROTECTED, false),
+            driveFile = intent.getStringExtra(EXTRA_DRIVE_FILE)?.let { driveFileNamed(it) },
+            driveMime = intent.getStringExtra(EXTRA_DRIVE_MIME),
         )
         thread(name = "backup-$kind") {
             val result = try {
@@ -92,12 +96,12 @@ class BackupService : Service() {
                 if (kind == Kind.IMPORT) {
                     BackupJob.State.ImportDone(ImportSummary().apply { invalidFile = true; addReason(e.toString()) })
                 } else {
-                    deleteQuietly(uri)
+                    discard(uri, export.driveFile)
                     BackupJob.State.ExportDone(ExportSummary(), e.toString())
                 }
             }
             BackupJob.finish(this, result)
-            postResult(result)
+            postResult(result, export)
             ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
             stopSelf()
         }
@@ -170,13 +174,37 @@ class BackupService : Service() {
     }
 
     /** What an export writes: the file [format], the conversations ([threadIds], all when null) and the password. */
-    private class ExportRequest(val format: ExportFormat, val threadIds: List<Long>?, val withPassword: Boolean)
+    private class ExportRequest(
+        val format: ExportFormat,
+        val threadIds: List<Long>?,
+        val withPassword: Boolean,
+        /** Set for "Save to Google Drive": the backup is written to this one cache file instead of the picked uri. */
+        val driveFile: File? = null,
+        val driveMime: String? = null,
+    )
+
+    /** The hand-over file called [name] in its cache folder; only the name counts, so no other path can be named. */
+    private fun driveFileNamed(name: String) = File(File(cacheDir, DriveHandoff.DIR), File(name).name)
+
+    /** Writes the backup to the Drive hand-over file when there is one, otherwise to the file the user picked. */
+    private fun <T> writeBackup(
+        uri: Uri, request: ExportRequest, keep: (T) -> Boolean, produce: (java.io.OutputStream) -> T,
+    ): SafeOutput.Result<T> {
+        val drive = request.driveFile
+        if (drive != null) return SafeOutput.writeFile(drive, keep, produce)
+        return SafeOutput.write(this, uri, keep, produce)
+    }
+
+    /** Removes what a failed or stopped export left: the Drive hand-over file, or the file the picker created. */
+    private fun discard(uri: Uri, drive: File?) {
+        if (drive != null) drive.delete() else deleteQuietly(uri)
+    }
 
     private fun runExport(
         uri: Uri, sms: Boolean, mms: Boolean, request: ExportRequest, password: CharArray?,
     ): BackupJob.State {
         if (request.withPassword && password == null) {
-            deleteQuietly(uri)
+            discard(uri, request.driveFile)
             return BackupJob.State.ExportDone(ExportSummary(), getString(R.string.export_password_lost))
         }
         val ticker = Ticker()
@@ -184,7 +212,7 @@ class BackupService : Service() {
         val summary = try {
             // Produced into a temporary file and copied only when it holds a real backup, so the chosen file is never
             // truncated first and left empty when the work fails, is stopped, or finds nothing.
-            val result = SafeOutput.write(this, uri, keep = { !it.cancelled && it.total > 0 }) { raw ->
+            val result = writeBackup(uri, request, keep = { !it.cancelled && it.total > 0 }) { raw ->
                 val output = if (password != null) BackupCrypto.encrypt(raw, password) else raw
                 val written = MessagesReader(this).export(
                     output, sms, mms,
@@ -202,9 +230,9 @@ class BackupService : Service() {
                 output.close() // seals the last chunk of a protected file
                 written
             }
-            result.value.also { if (!result.copied) deleteQuietly(uri) }
+            result.value.also { if (!result.copied) discard(uri, request.driveFile) }
         } catch (e: Exception) {
-            deleteQuietly(uri)
+            discard(uri, request.driveFile)
             return BackupJob.State.ExportDone(ExportSummary(), e.message ?: e.javaClass.simpleName)
         } finally {
             password?.fill(' ')
@@ -291,7 +319,7 @@ class BackupService : Service() {
         }
     }
 
-    private fun postResult(result: BackupJob.State) {
+    private fun postResult(result: BackupJob.State, export: ExportRequest) {
         val (title, text) = when (result) {
             is BackupJob.State.ImportDone ->
                 BackupSummaryText.importTitle(this, result.summary) to BackupSummaryText.import(this, result.summary)
@@ -301,13 +329,24 @@ class BackupService : Service() {
 
             else -> return
         }
+        // A finished "Save to Google Drive" backup: tapping the notification opens Drive's save screen (the dialog does
+        // the same by itself when it is still open), so a backup run in the background is still handed over.
+        val drive = export.driveFile?.takeIf { result is BackupJob.State.ExportDone && result.error == null }
+            ?.takeIf { DriveHandoff.isReady(it) }
+        val body = if (drive != null) text + "\n" + getString(R.string.backup_drive_finish_hint) else text
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_messenger)
             .setContentTitle(title)
-            .setContentText(text.lineSequence().firstOrNull())
-            .setStyle(NotificationCompat.BigTextStyle().bigText(text))
+            .setContentText(body.lineSequence().firstOrNull())
+            .setStyle(NotificationCompat.BigTextStyle().bigText(body))
             .setAutoCancel(true)
-            .setContentIntent(openSettings())
+            .setContentIntent(
+                if (drive != null) {
+                    DriveHandoff.pendingIntent(this, drive, export.driveMime ?: DEFAULT_MIME)
+                } else {
+                    openSettings()
+                }
+            )
             .build()
         try {
             notificationManager.notify(RESULT_ID, notification)
@@ -336,6 +375,9 @@ class BackupService : Service() {
         private const val EXTRA_FORMAT = "format"
         private const val EXTRA_THREADS = "threads"
         private const val EXTRA_PROTECTED = "protected"
+        private const val EXTRA_DRIVE_FILE = "drive_file"
+        private const val EXTRA_DRIVE_MIME = "drive_mime"
+        private const val DEFAULT_MIME = "application/octet-stream"
         private const val CHANNEL_ID = "backup_restore"
         private const val PROGRESS_ID = 0x5B_0001
         private const val RESULT_ID = 0x5B_0002
@@ -347,12 +389,19 @@ class BackupService : Service() {
 
         /**
          * [threadIds] are the conversations to export, all when null. With [withPassword] the file is sealed with the
-         * password staged in [BackupJob]; without one the export fails and says so.
+         * password staged in [BackupJob]; without one the export fails and says so. With [driveFile] (a file of
+         * [DriveHandoff.newFile]) the backup goes to that one cache file, for the hand-over to Google Drive, and [uri]
+         * is only its content URI.
          */
         fun startExport(
             context: Context, uri: Uri, sms: Boolean, mms: Boolean,
             format: ExportFormat = ExportFormat.JSON, threadIds: List<Long>? = null, withPassword: Boolean = false,
+            driveFile: File? = null, driveMime: String? = null,
         ) = start(context, ACTION_EXPORT, uri, sms, mms) {
+            if (driveFile != null) {
+                putExtra(EXTRA_DRIVE_FILE, driveFile.name)
+                putExtra(EXTRA_DRIVE_MIME, driveMime)
+            }
             putExtra(EXTRA_FORMAT, format.name)
             putExtra(EXTRA_PROTECTED, withPassword)
             if (threadIds != null) putExtra(EXTRA_THREADS, threadIds.toLongArray())

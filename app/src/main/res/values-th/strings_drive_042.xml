@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Save to / restore from Google Drive, 0.4.2: the Drive app does the upload, uMessage has no network code. -->
+    <string name="backup_save_drive">บันทึกลง Google Drive</string>
+    <string name="backup_save_drive_summary">สำรองข้อมูล แล้วเลือกโฟลเดอร์ในแอป Google Drive ตัว uMessage เองไม่เคยออนไลน์</string>
+    <string name="backup_drive_stays">ไฟล์สำรองจะอยู่บนโทรศัพท์เครื่องนี้ประมาณหนึ่งวันด้วย แล้วจะถูกล้างให้อัตโนมัติ</string>
+    <string name="backup_drive_finish_hint">เลือกโฟลเดอร์ใน Google Drive เพื่อเสร็จสิ้น</string>
+    <string name="backup_restore_drive">กู้คืนจาก Google Drive</string>
+    <string name="backup_restore_drive_summary">เลือกไฟล์สำรองใน Google Drive</string>
+    <string name="backup_drive_missing">ยังไม่ได้ติดตั้งแอป Google Drive เลือก Google Drive หรือที่อื่นในตัวเลือกไฟล์</string>
+</resources>

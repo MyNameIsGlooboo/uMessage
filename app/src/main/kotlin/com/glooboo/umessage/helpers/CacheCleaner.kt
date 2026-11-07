@@ -1,5 +1,6 @@
 package com.glooboo.umessage.helpers
 
+import com.glooboo.umessage.backup.DriveHandoff
 import android.content.Context
 import com.glooboo.umessage.export.ConversationExportJob
 import java.io.File
@@ -14,7 +15,7 @@ import java.io.File
  */
 object CacheCleaner {
     /** The cache sub-folders that hold shared or outgoing copies (the same names the share code writes to). */
-    val FOLDERS = listOf(ConversationExportJob.SHARED_DIR, "compressed", "attachments")
+    val FOLDERS = listOf(ConversationExportJob.SHARED_DIR, "compressed", "attachments", DriveHandoff.DIR)
 
     const val MAX_AGE_MS = 24L * 60 * 60 * 1000
     private const val PREFS = "umessage_cache_cleaner"

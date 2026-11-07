@@ -57,7 +57,7 @@ Play counts data as **collected** only when it is sent off the device. uMessage 
 | Is all of the user data collected by your app encrypted in transit? | Not applicable (no data collected) |
 | Do you provide a way for users to request that their data is deleted? | Not applicable; all data is on the device and is deleted by uninstalling, clearing app data, or deleting messages in the app |
 
-Notes for the reviewer field, if asked: location is read once only when the user taps Location, to write a map link into their own message; it is not collected, stored or shared by the app. Messages, contacts and phone numbers are processed only on the device to deliver and filter messages; nothing is transmitted; app data is excluded from Android backups. SMS sent by the user go through the carrier network, which Play does not count as collection by the app.
+Notes for the reviewer field, if asked: location is read once only when the user taps Location, to write a map link into their own message; it is not collected, stored or shared by the app. Messages, contacts and phone numbers are processed only on the device to deliver and filter messages; nothing is transmitted; app data is excluded from Android backups. Backups: the "Save to Google Drive" button only hands a backup file to the Google Drive app through a share intent; the user picks the account and folder in Drive, Drive does the upload, and uMessage has no INTERNET permission, Google sign-in or Drive API. SMS sent by the user go through the carrier network, which Play does not count as collection by the app.
 
 If a future version adds anything that sends data (crash reports, an online spam list, forwarding, ...), this form must be updated before that release.
 

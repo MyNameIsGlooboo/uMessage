@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - "Rate uMessage" (Google Play build) and "Send feedback" rows in Settings, plus an occasional Rate card
 - An "Allow all" button on the welcome screen
 - Allow keywords now also allow the sender
+- "Save to Google Drive" on the Backup and restore screen, and "Restore from Google Drive": the backup is written to one file in the cache and handed to the Google Drive app, which does the upload; uMessage itself still has no network code or internet permission
 
 ### Changed
 - The Restore button is removed from the welcome screen; restore stays in Settings

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Save to / restore from Google Drive, 0.4.2: the Drive app does the upload, uMessage has no network code. -->
+    <string name="backup_save_drive">Сохранить в Google Диск</string>
+    <string name="backup_save_drive_summary">Создайте резервную копию и выберите папку в приложении Google Диск. Сам uMessage никогда не выходит в интернет.</string>
+    <string name="backup_drive_stays">Файл копии остаётся и на этом телефоне примерно сутки, пока не будет удалён автоматически.</string>
+    <string name="backup_drive_finish_hint">Чтобы завершить, выберите папку в Google Диске.</string>
+    <string name="backup_restore_drive">Восстановить из Google Диска</string>
+    <string name="backup_restore_drive_summary">Выберите файл копии в Google Диске</string>
+    <string name="backup_drive_missing">Приложение Google Диск не установлено. Выберите Google Диск или другое место в окне выбора файла.</string>
+</resources>

@@ -18,7 +18,7 @@ For the `gplay` build. Play counts data as **collected** only when it leaves the
 - **Location.** Read once, only when the user taps Location in the attach menu, to put a map link into the user's own message. Not stored, not collected, not shared by the app.
 - **Photos.** Attached by the user; a copy without GPS and camera details is made by default. Copies in the app cache are deleted after about a day.
 - **Spam rules, blocked messages, decision log, settings, app-lock PIN hash.** Private app storage only. Excluded from Android cloud backup and device transfer (`allowBackup="false"`, `data_extraction_rules.xml`).
-- **Exports and backups.** Written only where the user chooses; message exports can be password protected. The app never uploads them.
+- **Exports and backups.** Written only where the user chooses; message exports can be password protected. The app never uploads them. "Save to Google Drive" writes the backup to one file in the app cache and hands it to the Google Drive app (an Android share intent restricted to that app); the user then chooses account and folder in Drive, and Drive does the upload. uMessage has no INTERNET permission, no Google sign-in and no Drive API, and receives nothing back, so it still collects and shares no data. The cache file is removed by the app's daily clean-up after 24 hours.
 - **No advertising, analytics, crash reporting or third-party SDK that collects data.** The only extra library in the `gplay` build is Google's Play In-App Review, which shows Google's own rating card; uMessage sends no data to do so.
 
 ## Permission declarations that go with the form

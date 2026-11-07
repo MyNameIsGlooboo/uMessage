@@ -3,5 +3,6 @@
     <cache-path name="compressed_files" path="compressed/"/>
     <cache-path name="attachment_files" path="attachments/"/>
     <cache-path name="shared_logs" path="shared_logs/"/>
+    <cache-path name="drive_backups" path="drive_backups/"/>
     <files-path name="scheduled_attachments" path="scheduled_attachments/"/>
 </paths>

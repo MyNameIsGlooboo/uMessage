@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Save to / restore from Google Drive, 0.4.2: the Drive app does the upload, uMessage has no network code. -->
+    <string name="backup_save_drive">Save to Google Drive</string>
+    <string name="backup_save_drive_summary">Back up, then choose the folder in the Google Drive app. uMessage itself never goes online.</string>
+    <string name="backup_drive_stays">The backup file also stays on this phone for about a day, until it is cleaned up.</string>
+    <string name="backup_drive_finish_hint">Choose a folder in Google Drive to finish.</string>
+    <string name="backup_restore_drive">Restore from Google Drive</string>
+    <string name="backup_restore_drive_summary">Pick the backup file in Google Drive</string>
+    <string name="backup_drive_missing">The Google Drive app is not installed. Pick Google Drive or another place in the file picker.</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Save to / restore from Google Drive, 0.4.2: the Drive app does the upload, uMessage has no network code. -->
+    <string name="backup_save_drive">保存到 Google 云端硬盘</string>
+    <string name="backup_save_drive_summary">先备份，再在 Google 云端硬盘应用中选择文件夹。uMessage 本身从不联网。</string>
+    <string name="backup_drive_stays">备份文件还会在这部手机上保留约一天，之后自动清除。</string>
+    <string name="backup_drive_finish_hint">请在 Google 云端硬盘中选择文件夹以完成。</string>
+    <string name="backup_restore_drive">从 Google 云端硬盘恢复</string>
+    <string name="backup_restore_drive_summary">在 Google 云端硬盘中选择备份文件</string>
+    <string name="backup_drive_missing">未安装 Google 云端硬盘应用。请在文件选择器中选择 Google 云端硬盘或其他位置。</string>
+</resources>

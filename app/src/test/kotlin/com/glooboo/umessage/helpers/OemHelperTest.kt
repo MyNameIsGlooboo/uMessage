@@ -1,5 +1,6 @@
 package com.glooboo.umessage.helpers
 
+import com.glooboo.umessage.backup.DriveHandoff
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Context
@@ -101,7 +102,7 @@ class OemHelperTest {
         val nodes = queries.getElementsByTagName("package")
         val declared = (0 until nodes.length).map {
             (nodes.item(it) as org.w3c.dom.Element).getAttribute("android:name")
-        }.toSet()
+        }.toSet() - DriveHandoff.PACKAGE // the Google Drive hand-over, not an OEM screen
         val used = Oem.entries.flatMap { OemHelper.steps(pkg, "uMessage", it) }
             .flatMap { it.candidates }.mapNotNull { it.component?.packageName }.toSet()
         assertThat(OemIntents.packages).isEqualTo(used)

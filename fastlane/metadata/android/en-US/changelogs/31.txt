@@ -1,6 +1,7 @@
 • New: Chinese (Traditional) and Urdu
 • Allow keywords now also allow the sender
-• Full backup covers blocked, bin, drafts, muted, hidden, archived chats, saved texts, scheduled, notes, stars, labels
+• Full backup covers blocked, bin, drafts, notes, labels and more
+• New: Save to Google Drive button (no internet in uMessage)
 • Codes like 123-456 now arrive; phone numbers no longer pass as codes
 • Failed picture messages can be retried
 • Scheduled messages sent once

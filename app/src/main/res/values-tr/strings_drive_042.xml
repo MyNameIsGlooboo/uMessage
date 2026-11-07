@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Save to / restore from Google Drive, 0.4.2: the Drive app does the upload, uMessage has no network code. -->
+    <string name="backup_save_drive">Google Drive\'a kaydet</string>
+    <string name="backup_save_drive_summary">Yedek alın, sonra Google Drive uygulamasında klasörü seçin. uMessage\'ın kendisi hiçbir zaman çevrimiçi olmaz.</string>
+    <string name="backup_drive_stays">Yedek dosyası otomatik temizlenene kadar yaklaşık bir gün bu telefonda da kalır.</string>
+    <string name="backup_drive_finish_hint">Bitirmek için Google Drive\'da bir klasör seçin.</string>
+    <string name="backup_restore_drive">Google Drive\'dan geri yükle</string>
+    <string name="backup_restore_drive_summary">Google Drive\'da yedek dosyasını seçin</string>
+    <string name="backup_drive_missing">Google Drive uygulaması yüklü değil. Dosya seçicide Google Drive\'ı veya başka bir konumu seçin.</string>
+</resources>

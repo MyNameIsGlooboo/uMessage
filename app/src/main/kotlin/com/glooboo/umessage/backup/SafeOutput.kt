@@ -45,6 +45,28 @@ object SafeOutput {
         }
     }
 
+    /**
+     * The same safety for a backup that stays a file of its own (the one handed to Google Drive): produced into
+     * "[destination].part" next to it and renamed to [destination] only when [keep] accepted the result and the file is
+     * not empty, so there is a single file, never an empty or half written one. Throws [IOException] otherwise.
+     */
+    fun <T> writeFile(destination: File, keep: (T) -> Boolean = { true }, produce: (OutputStream) -> T): Result<T> {
+        val part = File(destination.parentFile, destination.name + ".part")
+        try {
+            val value = part.outputStream().buffered().use { stream ->
+                produce(stream).also { stream.flush() }
+            }
+            val size = part.length()
+            if (!keep(value)) return Result(value, copied = false, bytes = size)
+            if (size == 0L) throw IOException("The backup came out empty")
+            destination.delete()
+            if (!part.renameTo(destination)) throw IOException("Cannot save the file")
+            return Result(value, copied = true, bytes = size)
+        } finally {
+            part.delete()
+        }
+    }
+
     private fun copy(context: Context, source: File, uri: Uri, size: Long) {
         val resolver = context.contentResolver
         try {

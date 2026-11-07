@@ -194,7 +194,7 @@ internal fun StoragePage(state: SettingsUiState, actions: SettingsActions) {
 }
 
 /** What a backup or a restore covers: the messages, or the rules and settings. Each is its own file. */
-private enum class BackupKind { BACKUP, RESTORE }
+private enum class BackupKind { BACKUP, RESTORE, BACKUP_DRIVE, RESTORE_DRIVE }
 
 /**
  * U09: two verbs for two jobs. "Back up" and "Restore" each ask what: messages, or rules and settings. A settings
@@ -216,6 +216,19 @@ internal fun BackupPage(actions: SettingsActions, open: (SettingsPage) -> Unit =
                 summary = stringResource(R.string.ux8e_restore_row_body),
                 icon = Symbols.Download,
                 onClick = { asking = BackupKind.RESTORE },
+            )
+            // The Google Drive app does the upload; uMessage only hands it the file (no internet access in the app).
+            SettingsRow(
+                title = stringResource(R.string.backup_save_drive),
+                summary = stringResource(R.string.backup_save_drive_summary),
+                icon = Symbols.CloudUpload,
+                onClick = { asking = BackupKind.BACKUP_DRIVE },
+            )
+            SettingsRow(
+                title = stringResource(R.string.backup_restore_drive),
+                summary = stringResource(R.string.backup_restore_drive_summary),
+                icon = Symbols.CloudDownload,
+                onClick = { asking = BackupKind.RESTORE_DRIVE },
             )
             SettingsRow(
                 title = stringResource(R.string.sim_messages_title),
@@ -253,7 +266,8 @@ internal fun BackupPage(actions: SettingsActions, open: (SettingsPage) -> Unit =
 
 @Composable
 private fun BackupKindDialog(kind: BackupKind, actions: SettingsActions, onClose: () -> Unit) {
-    val backingUp = kind == BackupKind.BACKUP
+    val backingUp = kind == BackupKind.BACKUP || kind == BackupKind.BACKUP_DRIVE
+    val drive = kind == BackupKind.BACKUP_DRIVE || kind == BackupKind.RESTORE_DRIVE
     ChoiceDialog(
         title = stringResource(if (backingUp) R.string.ux8e_backup_what else R.string.ux8e_restore_what),
         options = listOf(stringResource(R.string.ux8e_what_messages), stringResource(R.string.ux8e_what_settings)),
@@ -262,6 +276,8 @@ private fun BackupKindDialog(kind: BackupKind, actions: SettingsActions, onClose
             onClose()
             val messages = index == 0
             when {
+                drive && backingUp -> actions.onSaveToDrive(messages)
+                drive -> actions.onRestoreFromDrive(messages)
                 backingUp && messages -> actions.onExport()
                 backingUp -> actions.onBackupSettings()
                 messages -> actions.onImport()
