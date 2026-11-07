@@ -17,6 +17,7 @@
     <string name="e_note_allowed_by_you">Von dir erlaubt</string>
     <string name="e_note_blocked_from_message">Über eine Nachricht blockiert</string>
     <string name="e_note_blocked_from_keyword">Über ein Schlüsselwort blockiert</string>
+    <string name="e_note_allowed_from_keyword">Über ein Schlüsselwort erlaubt</string>
     <string name="e_note_reported_spam">Als Spam gemeldet</string>
     <string name="e_note_old_word_list">Aus der alten Liste blockierter Wörter</string>
     <string name="e_note_system_list">Aus der Android-Blockierliste</string>

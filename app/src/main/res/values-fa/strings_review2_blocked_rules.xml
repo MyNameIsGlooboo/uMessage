@@ -17,6 +17,7 @@
     <string name="e_note_allowed_by_you">مجاز با اجازهٔ شما</string>
     <string name="e_note_blocked_from_message">مسدودشده از طریق پیام</string>
     <string name="e_note_blocked_from_keyword">مسدودشده از روی کلمهٔ کلیدی</string>
+    <string name="e_note_allowed_from_keyword">مجاز شده از روی کلمهٔ کلیدی</string>
     <string name="e_note_reported_spam">گزارش‌شده به‌عنوان هرزنامه</string>
     <string name="e_note_old_word_list">از فهرست قدیمی واژه‌های مسدودشده</string>
     <string name="e_note_system_list">از فهرست مسدودی Android</string>

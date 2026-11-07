@@ -19,6 +19,7 @@
     <string name="e_note_allowed_by_you">Разрешен вами</string>
     <string name="e_note_blocked_from_message">Заблокирован из сообщения</string>
     <string name="e_note_blocked_from_keyword">Заблокирован по ключевому слову</string>
+    <string name="e_note_allowed_from_keyword">Разрешен по ключевому слову</string>
     <string name="e_note_reported_spam">Вы пожаловались на спам</string>
     <string name="e_note_old_word_list">Из старого списка заблокированных слов</string>
     <string name="e_note_system_list">Из списка заблокированных Android</string>

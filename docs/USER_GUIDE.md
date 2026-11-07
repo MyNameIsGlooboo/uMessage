@@ -74,6 +74,8 @@ How rules combine:
 2. Then blocked rules: a match is blocked, even from a contact.
 3. Then known senders, then the mode.
 
+A keyword or pattern rule applies to the sender in both directions: when a blocked keyword blocks a message, its sender is blocked too, and when an allowed keyword lets a message through, its sender is allowed too (contacts and senders that already have their own rule are left alone).
+
 Be careful with allowed keywords: a message from anyone that contains the keyword skips every block. uMessage asks you to confirm allowed keywords and patterns, and refuses very short ones. Keywords also match inside longer words (`win` matches "window").
 
 On phones with two SIMs, each rule can apply to SIM 1, SIM 2 or both.

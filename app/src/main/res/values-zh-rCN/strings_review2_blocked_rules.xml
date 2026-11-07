@@ -16,6 +16,7 @@
     <string name="e_note_allowed_by_you">你已允许</string>
     <string name="e_note_blocked_from_message">通过消息屏蔽</string>
     <string name="e_note_blocked_from_keyword">通过关键词屏蔽</string>
+    <string name="e_note_allowed_from_keyword">通过关键词允许</string>
     <string name="e_note_reported_spam">已举报垃圾短信</string>
     <string name="e_note_old_word_list">来自旧版屏蔽词列表</string>
     <string name="e_note_system_list">来自Android屏蔽列表</string>

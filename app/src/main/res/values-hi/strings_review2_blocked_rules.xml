@@ -17,6 +17,7 @@
     <string name="e_note_allowed_by_you">आपने अनुमति दी</string>
     <string name="e_note_blocked_from_message">मैसेज से ब्लॉक किया गया</string>
     <string name="e_note_blocked_from_keyword">कीवर्ड से ब्लॉक किया गया</string>
+    <string name="e_note_allowed_from_keyword">कीवर्ड से अनुमति दी गई</string>
     <string name="e_note_reported_spam">स्पैम की शिकायत की गई</string>
     <string name="e_note_old_word_list">ब्लॉक किए गए शब्दों की पुरानी सूची से</string>
     <string name="e_note_system_list">Android की ब्लॉक सूची से</string>

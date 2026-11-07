@@ -17,6 +17,7 @@ object RuleNotes {
     const val ALLOWED_BY_YOU = "${PREFIX}allowed_by_you"
     const val BLOCKED_FROM_MESSAGE = "${PREFIX}blocked_from_message"
     const val BLOCKED_FROM_KEYWORD = "${PREFIX}blocked_from_keyword"
+    const val ALLOWED_FROM_KEYWORD = "${PREFIX}allowed_from_keyword"
     const val REPORTED_SPAM = "${PREFIX}reported_spam"
     const val OLD_WORD_LIST = "${PREFIX}old_word_list"
     const val SYSTEM_LIST = "${PREFIX}system_list"
@@ -29,6 +30,8 @@ object RuleNotes {
         "مسدودشده از روی پیام" to BLOCKED_FROM_MESSAGE,
         "Blocked from a keyword" to BLOCKED_FROM_KEYWORD,
         "مسدودشده از روی کلمهٔ کلیدی" to BLOCKED_FROM_KEYWORD,
+        "Allowed from a keyword" to ALLOWED_FROM_KEYWORD,
+        "مجاز شده از روی کلمهٔ کلیدی" to ALLOWED_FROM_KEYWORD,
         "Reported as spam" to REPORTED_SPAM,
         "گزارش‌شده به‌عنوان هرزنامه" to REPORTED_SPAM,
         "From the old blocked words list" to OLD_WORD_LIST,
@@ -38,8 +41,8 @@ object RuleNotes {
     )
 
     private val codes = setOf(
-        BLOCKED_BY_YOU, ALLOWED_BY_YOU, BLOCKED_FROM_MESSAGE, BLOCKED_FROM_KEYWORD, REPORTED_SPAM, OLD_WORD_LIST,
-        SYSTEM_LIST,
+        BLOCKED_BY_YOU, ALLOWED_BY_YOU, BLOCKED_FROM_MESSAGE, BLOCKED_FROM_KEYWORD, ALLOWED_FROM_KEYWORD,
+        REPORTED_SPAM, OLD_WORD_LIST, SYSTEM_LIST,
     )
 
     /** The code of an app-written note (stored as a code or as old words), or null for a note the user typed. */
@@ -57,6 +60,7 @@ object RuleNotes {
         ALLOWED_BY_YOU -> R.string.e_note_allowed_by_you
         BLOCKED_FROM_MESSAGE -> R.string.e_note_blocked_from_message
         BLOCKED_FROM_KEYWORD -> R.string.e_note_blocked_from_keyword
+        ALLOWED_FROM_KEYWORD -> R.string.e_note_allowed_from_keyword
         REPORTED_SPAM -> R.string.e_note_reported_spam
         OLD_WORD_LIST -> R.string.e_note_old_word_list
         SYSTEM_LIST -> R.string.e_note_system_list

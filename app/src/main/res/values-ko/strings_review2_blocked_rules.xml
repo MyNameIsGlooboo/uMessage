@@ -16,6 +16,7 @@
     <string name="e_note_allowed_by_you">직접 허용함</string>
     <string name="e_note_blocked_from_message">메시지에서 차단함</string>
     <string name="e_note_blocked_from_keyword">키워드로 차단함</string>
+    <string name="e_note_allowed_from_keyword">키워드로 허용함</string>
     <string name="e_note_reported_spam">스팸 신고함</string>
     <string name="e_note_old_word_list">이전 차단 단어 목록에서 가져옴</string>
     <string name="e_note_system_list">Android 차단 목록에서 가져옴</string>

@@ -17,6 +17,7 @@
     <string name="e_note_allowed_by_you">آپ نے اجازت دی</string>
     <string name="e_note_blocked_from_message">پیغام سے بلاک کیا گیا</string>
     <string name="e_note_blocked_from_keyword">کلیدی لفظ سے بلاک کیا گیا</string>
+    <string name="e_note_allowed_from_keyword">کلیدی لفظ سے اجازت دی گئی</string>
     <string name="e_note_reported_spam">اسپیم کے طور پر اطلاع دی گئی</string>
     <string name="e_note_old_word_list">بلاک شدہ الفاظ کی پرانی فہرست سے</string>
     <string name="e_note_system_list">Android کی بلاک فہرست سے</string>

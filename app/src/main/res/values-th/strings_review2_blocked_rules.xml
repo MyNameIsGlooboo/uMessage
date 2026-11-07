@@ -16,6 +16,7 @@
     <string name="e_note_allowed_by_you">คุณอนุญาตแล้ว</string>
     <string name="e_note_blocked_from_message">บล็อกจากข้อความ</string>
     <string name="e_note_blocked_from_keyword">บล็อกจากคำสำคัญ</string>
+    <string name="e_note_allowed_from_keyword">อนุญาตจากคำสำคัญ</string>
     <string name="e_note_reported_spam">รายงานสแปมแล้ว</string>
     <string name="e_note_old_word_list">จากรายการคำที่บล็อกเดิม</string>
     <string name="e_note_system_list">จากรายการบล็อกของ Android</string>

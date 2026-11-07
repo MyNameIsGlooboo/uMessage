@@ -21,6 +21,7 @@
     <string name="e_note_allowed_by_you">مسموح بواسطتك</string>
     <string name="e_note_blocked_from_message">محظور من رسالة</string>
     <string name="e_note_blocked_from_keyword">محظور من كلمة مفتاحية</string>
+    <string name="e_note_allowed_from_keyword">مسموح من كلمة مفتاحية</string>
     <string name="e_note_reported_spam">أُبلغ عنها كرسالة غير مرغوب فيها</string>
     <string name="e_note_old_word_list">من قائمة الكلمات المحظورة القديمة</string>
     <string name="e_note_system_list">من قائمة الحظر في Android</string>

@@ -17,6 +17,7 @@
     <string name="e_note_allowed_by_you">Autorisé par vous</string>
     <string name="e_note_blocked_from_message">Bloqué depuis un message</string>
     <string name="e_note_blocked_from_keyword">Bloqué à cause d\'un mot-clé</string>
+    <string name="e_note_allowed_from_keyword">Autorisé à cause d\'un mot-clé</string>
     <string name="e_note_reported_spam">Signalé comme spam</string>
     <string name="e_note_old_word_list">Issu de l\'ancienne liste de mots bloqués</string>
     <string name="e_note_system_list">Issu de la liste de blocage Android</string>

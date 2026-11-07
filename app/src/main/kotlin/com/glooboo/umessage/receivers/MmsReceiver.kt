@@ -147,6 +147,7 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         val decision = SpamEngine.evaluate(appContext, incoming, source = "MMS_CONTENT")
         val block = decision as? FilterDecision.Block ?: run {
             allowReason = (decision as? FilterDecision.Allow)?.reason
+            SpamEngine.allowSenderOfKeyword(appContext, incoming, decision)
             return false
         }
         return storeBlocked(appContext, incoming, block)

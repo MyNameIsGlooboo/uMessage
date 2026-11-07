@@ -38,6 +38,8 @@ class DefaultSpamRepository(
     private val blockedFromMessageNote: () -> String = { "" },
     /** The note on a rule added when a keyword or regex rule blocks a message and so blocks its sender too. */
     private val blockedFromKeywordNote: () -> String = { "" },
+    /** The note on a rule added when a keyword or regex ALLOW rule allows a message and so allows its sender too. */
+    private val allowedFromKeywordNote: () -> String = { "" },
 ) : SpamRepository {
 
     private val dao get() = db.spamDao()
@@ -321,7 +323,7 @@ class DefaultSpamRepository(
             runCatching {
                 val matched = ruleId?.let { id -> dao.getRules().firstOrNull { it.id == id } }
                 val message = dao.getBlocked(blockedId)
-                val eligible = message != null && matched != null && isKeywordBlock(matched)
+                val eligible = message != null && matched != null && isKeywordRule(matched, ListKind.BLOCK)
                 if (message == null || !eligible || !mayBlock(message.address)) return@runCatching false
                 val type = ruleTypeFor(message.address)
                 val pattern = normalizer.normalize(message.address)
@@ -336,8 +338,33 @@ class DefaultSpamRepository(
             }.getOrDefault(false)
         }
 
-    private fun isKeywordBlock(rule: SpamRuleEntity): Boolean =
-        rule.kind == ListKind.BLOCK && (rule.type == RuleType.KEYWORD || rule.type == RuleType.REGEX)
+    /**
+     * After a keyword or regex ALLOW rule [ruleId] allowed a delivered message from [address], also allows its sender:
+     * adds an allow rule for the number or sender id. The mirror of [blockSenderOfKeywordMatch], but it never removes
+     * a rule: a sender that already has any rule (an explicit block wins and stays; an explicit allow is enough) is
+     * left alone. Does nothing when the rule is not an allow rule of those two types, when the address is blank, or
+     * when [mayAllow] says no (a contact, a number the user wrote to, or a lookup that failed). Never throws. True
+     * when a rule was added.
+     */
+    suspend fun allowSenderOfKeywordMatch(address: String, ruleId: Long?, mayAllow: (String) -> Boolean): Boolean =
+        withContext(Dispatchers.IO) {
+            runCatching {
+                val matched = ruleId?.let { id -> dao.getRules().firstOrNull { it.id == id } }
+                val pattern = normalizer.normalize(address)
+                val eligible = matched != null && isKeywordRule(matched, ListKind.ALLOW) && pattern.isNotEmpty()
+                if (!eligible || !mayAllow(address)) return@runCatching false
+                val type = ruleTypeFor(address)
+                db.runInTransaction<Boolean> {
+                    if (dao.getRules().any { it.type == type && it.pattern == pattern }) return@runInTransaction false
+                    val note = allowedFromKeywordNote()
+                    insertRule(SpamRule(kind = ListKind.ALLOW, type = type, pattern = pattern, note = note))
+                    true
+                }
+            }.getOrDefault(false)
+        }
+
+    private fun isKeywordRule(rule: SpamRuleEntity, kind: ListKind): Boolean =
+        rule.kind == kind && (rule.type == RuleType.KEYWORD || rule.type == RuleType.REGEX)
 
     override suspend fun deleteBlocked(ids: List<Long>): Unit = withContext(Dispatchers.IO) {
         if (ids.isEmpty()) return@withContext

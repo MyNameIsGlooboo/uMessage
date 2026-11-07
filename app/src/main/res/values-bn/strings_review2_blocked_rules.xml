@@ -17,6 +17,7 @@
     <string name="e_note_allowed_by_you">আপনার অনুমতি দেওয়া</string>
     <string name="e_note_blocked_from_message">বার্তা থেকে ব্লক করা</string>
     <string name="e_note_blocked_from_keyword">কীওয়ার্ড থেকে ব্লক করা</string>
+    <string name="e_note_allowed_from_keyword">কীওয়ার্ড থেকে অনুমতি দেওয়া</string>
     <string name="e_note_reported_spam">স্প্যাম হিসেবে রিপোর্ট করা</string>
     <string name="e_note_old_word_list">ব্লক করা শব্দের পুরোনো তালিকা থেকে</string>
     <string name="e_note_system_list">Android-এর ব্লক তালিকা থেকে</string>

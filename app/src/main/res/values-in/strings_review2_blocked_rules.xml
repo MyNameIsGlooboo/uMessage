@@ -16,6 +16,7 @@
     <string name="e_note_allowed_by_you">Diizinkan oleh Anda</string>
     <string name="e_note_blocked_from_message">Diblokir dari pesan</string>
     <string name="e_note_blocked_from_keyword">Diblokir dari kata kunci</string>
+    <string name="e_note_allowed_from_keyword">Diizinkan dari kata kunci</string>
     <string name="e_note_reported_spam">Dilaporkan sebagai spam</string>
     <string name="e_note_old_word_list">Dari daftar kata yang diblokir versi lama</string>
     <string name="e_note_system_list">Dari daftar blokir Android</string>

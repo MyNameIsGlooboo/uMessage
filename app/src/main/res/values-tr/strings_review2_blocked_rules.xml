@@ -17,6 +17,7 @@
     <string name="e_note_allowed_by_you">Sizin tarafınızdan izin verildi</string>
     <string name="e_note_blocked_from_message">Bir mesaj üzerinden engellendi</string>
     <string name="e_note_blocked_from_keyword">Anahtar kelimeyle engellendi</string>
+    <string name="e_note_allowed_from_keyword">Anahtar kelimeyle izin verildi</string>
     <string name="e_note_reported_spam">Spam olarak bildirildi</string>
     <string name="e_note_old_word_list">Eski engellenen kelimeler listesinden</string>
     <string name="e_note_system_list">Android engellenenler listesinden</string>

@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Failed picture messages can be retried
 - "Rate uMessage" (Google Play build) and "Send feedback" rows in Settings, plus an occasional Rate card
 - An "Allow all" button on the welcome screen
+- Allow keywords now also allow the sender
 
 ### Changed
 - The Restore button is removed from the welcome screen; restore stays in Settings

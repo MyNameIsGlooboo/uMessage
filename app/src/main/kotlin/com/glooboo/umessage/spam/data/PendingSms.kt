@@ -71,6 +71,7 @@ object IncomingSmsProcessor {
         val block = decision as? FilterDecision.Block
         if (block != null && SpamEngine.storeBlocked(context, incoming, block)) return
         deliver(context, message, notifyContextFor(context, message, decision))
+        SpamEngine.allowSenderOfKeyword(context, incoming, decision)
         // Only now, with the SMS safely in the inbox: blocked spam never reaches this line. Never throws, so a
         // forwarding problem cannot make the caller keep (and later replay) a message that is already delivered.
         ForwardDelivery.onInboxMessage(

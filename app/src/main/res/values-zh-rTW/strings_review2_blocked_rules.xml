@@ -16,6 +16,7 @@
     <string name="e_note_allowed_by_you">由你允許</string>
     <string name="e_note_blocked_from_message">從訊息封鎖</string>
     <string name="e_note_blocked_from_keyword">從關鍵字封鎖</string>
+    <string name="e_note_allowed_from_keyword">從關鍵字允許</string>
     <string name="e_note_reported_spam">已檢舉為垃圾簡訊</string>
     <string name="e_note_old_word_list">來自舊的封鎖字詞清單</string>
     <string name="e_note_system_list">來自Android封鎖清單</string>

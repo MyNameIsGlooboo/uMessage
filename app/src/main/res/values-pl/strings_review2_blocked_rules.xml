@@ -19,6 +19,7 @@
     <string name="e_note_allowed_by_you">Dozwolone przez ciebie</string>
     <string name="e_note_blocked_from_message">Zablokowane z poziomu wiadomości</string>
     <string name="e_note_blocked_from_keyword">Zablokowane przez słowo kluczowe</string>
+    <string name="e_note_allowed_from_keyword">Dozwolone przez słowo kluczowe</string>
     <string name="e_note_reported_spam">Zgłoszone jako spam</string>
     <string name="e_note_old_word_list">Ze starej listy blokowanych słów</string>
     <string name="e_note_system_list">Z listy blokowanych w Androidzie</string>

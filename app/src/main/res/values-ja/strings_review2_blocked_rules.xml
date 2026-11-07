@@ -16,6 +16,7 @@
     <string name="e_note_allowed_by_you">自分で許可済み</string>
     <string name="e_note_blocked_from_message">メッセージからブロック済み</string>
     <string name="e_note_blocked_from_keyword">キーワードからブロック済み</string>
+    <string name="e_note_allowed_from_keyword">キーワードから許可済み</string>
     <string name="e_note_reported_spam">迷惑メッセージとして報告済み</string>
     <string name="e_note_old_word_list">旧ブロック単語リストから移行</string>
     <string name="e_note_system_list">Androidのブロックリストから移行</string>

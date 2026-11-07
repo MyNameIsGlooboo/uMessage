@@ -16,6 +16,7 @@
     <string name="e_note_allowed_by_you">Đã cho phép theo lựa chọn của bạn</string>
     <string name="e_note_blocked_from_message">Đã chặn từ một tin nhắn</string>
     <string name="e_note_blocked_from_keyword">Đã chặn từ một từ khóa</string>
+    <string name="e_note_allowed_from_keyword">Đã cho phép từ một từ khóa</string>
     <string name="e_note_reported_spam">Đã báo cáo tin nhắn rác</string>
     <string name="e_note_old_word_list">Từ danh sách từ bị chặn cũ</string>
     <string name="e_note_system_list">Từ danh sách chặn của Android</string>

@@ -51,6 +51,7 @@ object SpamEngine {
                 regionForSubscription = { subscriptionRegion(app, it) },
                 blockedFromMessageNote = { com.glooboo.umessage.ui.spam.RuleNotes.BLOCKED_FROM_MESSAGE },
                 blockedFromKeywordNote = { com.glooboo.umessage.ui.spam.RuleNotes.BLOCKED_FROM_KEYWORD },
+                allowedFromKeywordNote = { com.glooboo.umessage.ui.spam.RuleNotes.ALLOWED_FROM_KEYWORD },
             ).also { repository = it }
         }
     }
@@ -245,6 +246,29 @@ object SpamEngine {
             val contacts = contactChecker(app)
             runBlocking {
                 repo.blockSenderOfKeywordMatch(blockedId, decision.ruleId) { address ->
+                    contacts.canReadContacts() &&
+                        contacts.lookup(address) == ContactLookup.NOT_FOUND &&
+                        contacts.sentTo(address) == ContactLookup.NOT_FOUND
+                }
+            }
+        }
+    }
+
+    /**
+     * A keyword or regex allow rule allows the sender too, once the message is really delivered (so probes that only
+     * evaluate never add rules). Does nothing for any other decision, including an allow by a sender rule or a
+     * contact. A contact, a number the user wrote to, a sender that already has a rule, or a failed lookup leaves the
+     * rules alone. Never throws.
+     */
+    fun allowSenderOfKeyword(context: Context, message: IncomingMessage, decision: FilterDecision?) {
+        val allow = decision as? FilterDecision.Allow ?: return
+        if (allow.reason != DecisionReason.ALLOW_RULE || allow.ruleId == null) return
+        runCatching {
+            val app = context.applicationContext
+            val repo = UMessage.repository(app) as? DefaultSpamRepository ?: return
+            val contacts = contactChecker(app)
+            runBlocking {
+                repo.allowSenderOfKeywordMatch(message.address, allow.ruleId) { address ->
                     contacts.canReadContacts() &&
                         contacts.lookup(address) == ContactLookup.NOT_FOUND &&
                         contacts.sentTo(address) == ContactLookup.NOT_FOUND

@@ -19,6 +19,7 @@
     <string name="e_note_allowed_by_you">Дозволено вами</string>
     <string name="e_note_blocked_from_message">Заблоковано з повідомлення</string>
     <string name="e_note_blocked_from_keyword">Заблоковано за ключовим словом</string>
+    <string name="e_note_allowed_from_keyword">Дозволено за ключовим словом</string>
     <string name="e_note_reported_spam">Повідомлено про спам</string>
     <string name="e_note_old_word_list">Зі старого списку заблокованих слів</string>
     <string name="e_note_system_list">Зі списку заблокованих Android</string>

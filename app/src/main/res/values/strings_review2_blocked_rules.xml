@@ -27,6 +27,7 @@
     <string name="e_note_allowed_by_you">Allowed by you</string>
     <string name="e_note_blocked_from_message">Blocked from a message</string>
     <string name="e_note_blocked_from_keyword">Blocked from a keyword</string>
+    <string name="e_note_allowed_from_keyword">Allowed from a keyword</string>
     <string name="e_note_reported_spam">Reported as spam</string>
     <string name="e_note_old_word_list">From the old blocked words list</string>
     <string name="e_note_system_list">From the Android block list</string>

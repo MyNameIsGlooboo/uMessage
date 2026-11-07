@@ -17,6 +17,7 @@
     <string name="e_note_allowed_by_you">Consentito da te</string>
     <string name="e_note_blocked_from_message">Bloccato da un messaggio</string>
     <string name="e_note_blocked_from_keyword">Bloccato da una parola chiave</string>
+    <string name="e_note_allowed_from_keyword">Consentito da una parola chiave</string>
     <string name="e_note_reported_spam">Segnalato come spam</string>
     <string name="e_note_old_word_list">Dal vecchio elenco di parole bloccate</string>
     <string name="e_note_system_list">Dai mittenti bloccati di Android</string>
