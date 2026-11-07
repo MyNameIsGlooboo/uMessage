@@ -1,6 +1,9 @@
-• New languages: Chinese (Traditional) and Urdu
-• Backup now also saves blocked messages, the recycle bin, drafts, muted and hidden chats, saved texts, scheduled messages and reminders
-• Backups can no longer end up as an empty file; they are checked before saving
-• Swiping a chat in Blocked now shows "Move to inbox"
-• The Archived tab no longer goes missing on first launch
-• Restore is no longer on the welcome screen; it stays in Settings
+• New: Chinese (Traditional) and Urdu
+• Full backup now includes blocked, recycle bin, drafts, muted, hidden and archived chats, saved texts, scheduled, notes, stars, labels; checked before saving
+• Codes like 123-456 now arrive; phone numbers no longer pass as codes
+• Failed picture messages can be retried
+• Scheduled messages sent once, late ones with a notice
+• Delete forever removes only binned messages
+• Lock-screen text hidden by default
+• Allow all button, shorter setup
+• Many small fixes

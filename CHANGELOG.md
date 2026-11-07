@@ -9,15 +9,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.2] - 2026-11-07
 ### Added
 - Chinese (Traditional) and Urdu
-- Backup now also covers blocked messages, the recycle bin, drafts, muted and hidden chats, saved texts, scheduled messages and reminders, as well as stars, labels and archived chats
+- Backup now also covers blocked messages, the recycle bin, drafts, muted and hidden chats, saved texts, scheduled messages, notes, stars, labels and archived chats; backups are checked before saving
+- Failed picture messages can be retried
+- "Rate uMessage" (Google Play build) and "Send feedback" rows in Settings, plus an occasional Rate card
+- An "Allow all" button on the welcome screen
 
 ### Changed
 - The Restore button is removed from the welcome screen; restore stays in Settings
+- A shorter welcome
+- Lock-screen notification text is hidden by default
+- Deleted and unsent messages no longer show up in search
+- Cache cleanup
 
 ### Fixed
+- Verification codes such as 123-456 now arrive, and phone numbers are no longer treated as codes
+- "Delete forever" in the Recycle Bin removes only the binned messages of a chat, not its live ones
+- Scheduled messages are sent once; late ones are sent with a notice
 - The Archived tab was missing on first launch
 - Swiping a chat in the Blocked tab now shows its label ("Move to inbox")
-- Backups can no longer end up as an empty 0-byte file: they are checked before saving and an error is shown
+- Backups can no longer end up as an empty 0-byte file
+- Many small fixes
 
 ## [0.4.1] - 2026-11-07
 ### Added
