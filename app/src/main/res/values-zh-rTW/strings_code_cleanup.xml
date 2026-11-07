@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_codes_title">已讀驗證碼的刪除時間</string>
+    <string name="cleanup_codes_summary">驗證碼會移至資源回收筒</string>
+    <string name="cleanup_never">永不</string>
+    <string name="cleanup_24_hours">24小時</string>
+    <plurals name="cleanup_days">
+        <item quantity="other">%d天</item>
+    </plurals>
+    <string name="cleanup_card_title">要在7天後刪除已讀驗證碼嗎？</string>
+    <string name="cleanup_card_body">已讀的驗證碼會移至資源回收筒，你仍可從那裡找回。</string>
+    <string name="cleanup_card_yes">開啟</string>
+    <string name="cleanup_card_no">不用了</string>
+</resources>

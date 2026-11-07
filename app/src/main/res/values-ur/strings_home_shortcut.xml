@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">ہوم اسکرین پر شامل کریں</string>
+    <string name="home_shortcut_requested">آپ کے لانچر سے اسے شامل کرنے کو کہا جا رہا ہے۔ ہوم اسکرین پر نام نظر آئے گا۔ اگر کچھ نظر نہ آئے تو اپنے فون کی ایپ سیٹنگز میں uMessage کے لیے «ہوم اسکرین شارٹ کٹس» کی اجازت دیں۔</string>
+    <string name="home_shortcut_failed">آپ کے لانچر نے شارٹ کٹ قبول نہیں کیا۔ اپنے فون کی ایپ سیٹنگز میں uMessage کے لیے «ہوم اسکرین شارٹ کٹس» کی اجازت دیں۔</string>
+</resources>

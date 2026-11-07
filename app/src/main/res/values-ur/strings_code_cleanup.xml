@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_codes_title">پڑھے ہوئے کوڈز اس کے بعد حذف کریں</string>
+    <string name="cleanup_codes_summary">کوڈز ری سائیکل بن میں چلے جاتے ہیں</string>
+    <string name="cleanup_never">کبھی نہیں</string>
+    <string name="cleanup_24_hours">24 گھنٹے</string>
+    <plurals name="cleanup_days">
+        <item quantity="one">%d دن</item>
+        <item quantity="other">%d دن</item>
+    </plurals>
+    <string name="cleanup_card_title">پڑھے ہوئے کوڈز 7 دن بعد حذف کریں؟</string>
+    <string name="cleanup_card_body">آپ کے پڑھے ہوئے تصدیقی کوڈز ری سائیکل بن میں چلے جاتے ہیں، جہاں سے آپ انہیں واپس لا سکتے ہیں۔</string>
+    <string name="cleanup_card_yes">آن کریں</string>
+    <string name="cleanup_card_no">نہیں، شکریہ</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_action">مجھے یاد دلائیں</string>
+    <string name="reminder_dialog_title">مجھے یاد دلائیں</string>
+    <string name="reminder_in_3_hours">3 گھنٹے میں</string>
+    <string name="reminder_tomorrow_morning">کل صبح</string>
+    <string name="reminder_pick_time">تاریخ اور وقت منتخب کریں</string>
+    <string name="reminder_set">یاد دہانی %1$s کے لیے سیٹ ہو گئی</string>
+    <string name="reminder_set_approximate">یاد دہانی تقریباً %1$s کے لیے سیٹ ہو گئی۔ یہ تھوڑی دیر سے آ سکتی ہے۔</string>
+    <string name="reminder_battery_hint">کچھ فون پس منظر میں ایپس بند کر دیتے ہیں اور یاد دہانیوں میں تاخیر کرتے ہیں۔</string>
+    <string name="reminder_battery_open">uMessage کو چلتا رکھیں</string>
+    <string name="reminder_channel">یاد دہانیاں</string>
+    <string name="reminder_title">یاد دہانی</string>
+    <string name="reminder_title_named">یاد دہانی: %1$s</string>
+    <string name="reminder_open_hint">پیغام کھولنے کے لیے ٹیپ کریں</string>
+</resources>

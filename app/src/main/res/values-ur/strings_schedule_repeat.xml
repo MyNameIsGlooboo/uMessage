@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_repeat_label">دہرائیں</string>
+    <string name="schedule_repeat_never">کبھی نہیں</string>
+    <string name="schedule_repeat_daily">ہر روز</string>
+    <string name="schedule_repeat_weekly">ہر ہفتے</string>
+    <string name="schedule_repeat_monthly">ہر مہینے</string>
+    <string name="schedule_repeat_yearly">ہر سال</string>
+    <string name="schedule_repeat_jalali_note">مہینے اور سال جلالی کیلنڈر کے مطابق ہیں۔</string>
+    <string name="scheduled_repeats_daily">روزانہ دہرایا جاتا ہے</string>
+    <string name="scheduled_repeats_weekly">ہفتہ وار دہرایا جاتا ہے</string>
+    <string name="scheduled_repeats_monthly">ماہانہ دہرایا جاتا ہے</string>
+    <string name="scheduled_repeats_yearly">سالانہ دہرایا جاتا ہے</string>
+    <string name="scheduled_repeats_paused">دہرانا موقوف ہے</string>
+    <string name="scheduled_delete_repeating">دہرایا جانے والا پیغام حذف کریں</string>
+    <string name="scheduled_delete_this_one">صرف یہ پیغام</string>
+    <string name="scheduled_delete_all_future">یہ اور بعد والے سبھی</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">خاموش کریں</string>
+    <string name="unmute_menu">آواز کھولیں</string>
+    <string name="mute_title">اطلاعات خاموش کریں</string>
+    <string name="mute_1_hour">1 گھنٹے کے لیے</string>
+    <string name="mute_8_hours">8 گھنٹے کے لیے</string>
+    <string name="mute_1_week">1 ہفتے کے لیے</string>
+    <string name="mute_always">ہمیشہ</string>
+    <string name="mute_off">بند</string>
+    <string name="mute_until">%1$s تک</string>
+    <string name="mute_channel">خاموش کی گئی گفتگو</string>
+</resources>

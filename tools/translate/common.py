@@ -35,6 +35,8 @@ LANGS = {
     "de": dict(name="German", folder="de", quantities=["one", "other"], accept=[]),
     "it": dict(name="Italian", folder="it", quantities=["one", "other"], accept=["many"]),
     "zh-rCN": dict(name="Chinese (Simplified)", folder="zh-rCN", quantities=["other"], accept=["one"]),
+    "zh-rTW": dict(name="Chinese (Traditional, Taiwan)", folder="zh-rTW", quantities=["other"], accept=["one"]),
+    "ur": dict(name="Urdu", folder="ur", quantities=["one", "other"], accept=[]),
     "ja": dict(name="Japanese", folder="ja", quantities=["other"], accept=["one"]),
     "ko": dict(name="Korean", folder="ko", quantities=["other"], accept=["one"]),
     "vi": dict(name="Vietnamese", folder="vi", quantities=["other"], accept=["one"]),
@@ -44,10 +46,10 @@ LANGS = {
     "bn": dict(name="Bengali", folder="bn", quantities=["one", "other"], accept=[]),
 }
 NEW_LANGS = ["ar", "tr", "es", "ru", "hi", "in", "pt-rBR", "fr"]
-MORE_LANGS = ["de", "it", "zh-rCN", "ja", "ko", "vi", "th", "pl", "uk", "bn"]
+MORE_LANGS = ["de", "it", "zh-rCN", "ja", "ko", "vi", "th", "pl", "uk", "bn", "zh-rTW", "ur"]
 ALL_LANGS = ["fa"] + NEW_LANGS + MORE_LANGS
 # Scripts written without spaces between words (validate.py and the prompts treat them differently).
-SPACELESS = {"zh-rCN", "ja", "th"}
+SPACELESS = {"zh-rCN", "zh-rTW", "ja", "th"}
 
 QUANTITY_HINT = {
     "fa": {"one": "0 and 1", "other": "all other numbers"},
@@ -68,6 +70,7 @@ QUANTITY_HINT = {
     "uk": {"one": "1, 21, 31, 101", "few": "2-4, 22-24, 102-104", "many": "0, 5-20, 25-30, 105-120",
            "other": "fractions"},
     "bn": {"one": "0 and 1", "other": "all other numbers"},
+    "ur": {"one": "1", "other": "all other numbers"},
 }
 
 # Files that users see first are translated first.

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_time_now">ابھی</string>
+    <plurals name="ui_time_minutes">
+        <item quantity="one">%d منٹ</item>
+        <item quantity="other">%d منٹ</item>
+    </plurals>
+    <string name="ui_bubble_sent">آپ، %1$s</string>
+    <string name="ui_bubble_received">%1$s, %2$s</string>
+    <string name="ui_bubble_received_unknown">موصول، %1$s</string>
+    <string name="ui_select_message">پیغام منتخب کریں</string>
+    <string name="ui_retry_send">دوبارہ بھیجیں</string>
+    <string name="ui_default_required_body">جب تک uMessage آپ کی ڈیفالٹ SMS ایپ نہیں بنتی، یہ پیغامات وصول، بھیج یا فلٹر نہیں کر سکتی۔ آپ کے پیغامات اپنی جگہ پر رہتے ہیں۔</string>
+    <string name="ui_default_required_close">uMessage بند کریں</string>
+    <string name="ui_add_contact_or_number">نام یا فون نمبر ٹائپ کریں</string>
+    <string name="ui_show_dialpad">ڈائل پیڈ دکھائیں</string>
+    <string name="ui_show_keyboard">کی بورڈ دکھائیں</string>
+    <string name="ui_settings_group_block_lists">دیگر بلاک فہرستیں</string>
+    <string name="ui_settings_system_block_list">سسٹم کی بلاک فہرست</string>
+    <string name="ui_settings_system_block_list_body">اس فون کی ہر ایپ کے لیے بلاک شدہ نمبر۔ uMessage بھی انہیں چھپاتی ہے۔</string>
+    <string name="ui_settings_blocked_words">بلاک شدہ الفاظ</string>
+    <string name="ui_settings_character_counter">حروف کا کاؤنٹر دکھائیں</string>
+    <string name="ui_settings_simple_characters">بھیجتے وقت اعراب ہٹائیں</string>
+    <string name="ui_settings_send_on_enter">Enter کی سے بھیجیں</string>
+    <string name="ui_settings_delivery_reports">ڈیلیوری رپورٹس حاصل کریں</string>
+    <string name="ui_settings_recycle_bin">حذف شدہ گفتگو ری سائیکل بن میں منتقل کریں</string>
+    <string name="ui_two_sentences">%1$s. %2$s</string>
+    <string name="ui_tab_with_count">%1$s (%2$d)</string>
+    <string name="ui_send_with_sim">%1$s, %2$s</string>
+    <string name="ui_number_with_type">%1$s (%2$s)</string>
+    <string name="ui_log_decision_allowed">اجازت یافتہ</string>
+    <string name="ui_log_decision_blocked">بلاک شدہ</string>
+    <string name="ui_log_decision_error">خرابی</string>
+    <string name="ui_log_reason_allow_rule">اجازت کا اصول</string>
+    <string name="ui_log_reason_block_rule">بلاک کا اصول</string>
+    <string name="ui_log_reason_contact">رابطوں میں ہے</string>
+    <string name="ui_log_reason_known_conversation">آپ نے پہلے انہیں پیغام بھیجا تھا</string>
+    <string name="ui_log_reason_otp">تصدیقی کوڈ</string>
+    <string name="ui_log_reason_unknown_sender">نامعلوم بھیجنے والا</string>
+    <string name="ui_log_reason_mode_off">فلٹر بند</string>
+    <string name="ui_log_reason_no_match">کوئی اصول مماثل نہیں</string>
+    <string name="ui_log_source_sms">SMS</string>
+    <string name="ui_log_source_mms">MMS</string>
+    <string name="ui_log_source_retry">دوبارہ کوشش</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">لیبلز</string>
+    <string name="i29_picker_title">لیبلز</string>
+    <string name="i29_picker_empty">آپ کے پاس ابھی کوئی لیبل نہیں ہے۔ اپنی گفتگو ترتیب دینے کے لیے ایک بنائیں۔</string>
+    <string name="i29_picker_new">نیا لیبل</string>
+    <string name="i29_picker_manage">لیبلز کا نظم کریں</string>
+    <string name="i29_done">ہو گیا</string>
+    <string name="i29_cancel">منسوخ کریں</string>
+    <string name="i29_tiles_title">آپ کے لیبلز</string>
+    <string name="i29_tile_add">لیبل شامل کریں</string>
+    <string name="i29_tiles_manage">لیبلز کا نظم کریں</string>
+    <string name="i29_manager_title">لیبلز کا نظم کریں</string>
+    <string name="i29_manager_note">لیبلز آپ کے اپنے ہیں۔ یہ خودکار لین دین اور آفرز فلٹرز سے الگ ہیں۔</string>
+    <string name="i29_manager_edit">لیبل %1$s میں ترمیم کریں</string>
+    <string name="i29_manager_delete">لیبل %1$s حذف کریں</string>
+    <string name="i29_edit_new_title">نیا لیبل</string>
+    <string name="i29_edit_title">لیبل میں ترمیم کریں</string>
+    <string name="i29_edit_name">لیبل کا نام</string>
+    <string name="i29_edit_save">محفوظ کریں</string>
+    <string name="i29_color_description">رنگ %1$d</string>
+    <string name="i29_error_duplicate">اس نام کا لیبل آپ کے پاس پہلے سے موجود ہے۔</string>
+    <string name="i29_error_limit">آپ زیادہ سے زیادہ %1$d لیبلز رکھ سکتے ہیں۔</string>
+    <string name="i29_delete_title">یہ لیبل حذف کریں؟</string>
+    <string name="i29_delete_body">لیبل «%1$s» ہٹا دیا جائے گا۔ آپ کی گفتگو اور پیغامات ویسے ہی رہیں گے۔</string>
+    <string name="i29_delete_confirm">حذف کریں</string>
+    <string name="i29_empty_title">یہاں کوئی گفتگو نہیں</string>
+    <string name="i29_empty_body">کسی گفتگو کو چھو کر دبائے رکھیں، مینو کھولیں اور اسے شامل کرنے کے لیے لیبلز منتخب کریں۔</string>
+</resources>

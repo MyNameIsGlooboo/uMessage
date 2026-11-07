@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">最近活動</string>
+    <string name="declog_clear">清除記錄</string>
+    <string name="declog_empty_title">尚無判定</string>
+    <string name="declog_empty_body">篩選器檢查的每則訊息都會連同原因顯示在這裡。訊息內容一律不會儲存。</string>
+    <plurals name="declog_kept_for">
+        <item quantity="other">每項判定會在%d天後刪除。訊息內容一律不會儲存。</item>
+    </plurals>
+    <string name="declog_sim">SIM%1$s</string>
+    <string name="declog_today">今天</string>
+    <string name="declog_yesterday">昨天</string>
+    <string name="declog_allowed_by_rule">依規則允許：%1$s</string>
+    <string name="declog_filter_all">全部</string>
+    <string name="declog_filter_blocked">已封鎖</string>
+    <string name="declog_filter_allowed">已允許</string>
+    <string name="declog_filter_empty">沒有符合這個篩選條件的判定</string>
+    <plurals name="declog_times">
+        <item quantity="other">%1$s次</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="other">連續%1$s次做出相同判定</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="other">分享%d項判定</item>
+    </plurals>
+    <string name="declog_csv_subject">uMessage判定記錄</string>
+    <string name="declog_share_failed">無法分享記錄</string>
+    <string name="declog_details_title">詳細資料</string>
+    <string name="declog_open_details">開啟%1$s的詳細資料</string>
+    <string name="declog_fixed_allowed">你已從記錄中允許這個寄件者</string>
+    <string name="declog_fixed_blocked">你已從記錄中封鎖這個寄件者</string>
+    <string name="declog_fixed_restored">你已從記錄中還原這則訊息</string>
+    <string name="declog_restored">已還原</string>
+    <string name="declog_blocked_message">這則訊息仍在「已封鎖」中</string>
+    <string name="declog_restore">還原訊息</string>
+    <string name="declog_restore_done">訊息已還原至收件匣</string>
+    <string name="declog_restore_text_only">文字已還原至收件匣，但無法復原圖片。</string>
+    <string name="declog_restore_nothing">沒有可還原的內容：這則圖片訊息未保留</string>
+    <string name="declog_restore_failed">無法還原訊息</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">要在準確時間傳送嗎？</string>
+    <string name="schedule_exact_alarm_text">如要在準確時間傳送排程訊息，請在系統設定中允許uMessage使用「鬧鐘與提醒」。若未允許，訊息仍會傳送，但可能延遲。</string>
+    <string name="schedule_exact_alarm_open_settings">開啟設定</string>
+    <string name="schedule_exact_alarm_anyway">仍要排程</string>
+</resources>

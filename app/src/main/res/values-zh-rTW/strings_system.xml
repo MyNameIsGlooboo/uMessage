@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="system_delete_item_title">要刪除嗎？</string>
+    <string name="system_delete_item_message">要刪除%1$s嗎？此操作無法復原。</string>
+</resources>

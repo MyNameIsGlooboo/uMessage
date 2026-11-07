@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_tab_forwarded">已轉寄</string>
+    <string name="nav_tab_forwarded_failed">已轉寄，有轉寄失敗</string>
+    <string name="nav_tab_forwarded_paused">已轉寄，轉寄已暫停</string>
+    <string name="nav_tab_archived_new">已封存，有新的對話已封存</string>
+    <string name="nav_prompt_title">規則已儲存</string>
+    <string name="nav_prompt_body">要顯示「已轉寄」分頁，查看已傳送的內容並重試失敗項目嗎？</string>
+    <string name="nav_prompt_show">顯示分頁</string>
+    <string name="nav_prompt_not_now">暫時不要</string>
+    <string name="nav_fwd_paid_note">每次轉寄都是一則付費簡訊。</string>
+    <string name="nav_fwd_pause_all">暫停所有轉寄</string>
+    <string name="nav_fwd_status_paused">轉寄已暫停</string>
+    <string name="nav_fwd_paused_hint">符合條件的訊息不會傳送。關閉此選項即可恢復。</string>
+    <string name="nav_fwd_status_no_rule">沒有已開啟的轉寄規則</string>
+    <plurals name="nav_fwd_status_on">
+        <item quantity="other">轉寄已開啟，%1$s條規則</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">管理規則</string>
+    <string name="nav_fwd_empty_title">尚未轉寄任何訊息</string>
+    <string name="nav_fwd_empty_body">符合條件的訊息會顯示在這裡。</string>
+    <string name="nav_fwd_status_sent">已傳送</string>
+    <string name="nav_fwd_status_pending">等待中</string>
+    <string name="nav_fwd_status_failed">失敗</string>
+    <string name="nav_fwd_to">傳送至%1$s</string>
+    <string name="nav_fwd_sim">SIM%1$d</string>
+    <string name="nav_fwd_rule_line">規則：%1$s、%2$s</string>
+    <string name="nav_fwd_rule_sender">寄件者%1$s</string>
+    <string name="nav_fwd_rule_any_sender">任何寄件者</string>
+    <string name="nav_fwd_rule_text">文字%1$s</string>
+    <string name="nav_fwd_rule_any_text">任何文字</string>
+    <string name="nav_fwd_rule_deleted">規則已刪除</string>
+    <string name="nav_fwd_open_details">顯示詳細資料</string>
+    <string name="nav_fwd_today">今天</string>
+    <string name="nav_fwd_yesterday">昨天</string>
+    <plurals name="nav_fwd_failed_count">
+        <item quantity="other">%1$s則轉寄失敗</item>
+    </plurals>
+    <string name="nav_fwd_retry">重試</string>
+    <string name="nav_fwd_retry_all">重試所有失敗項目（%1$s）</string>
+    <string name="nav_fwd_retry_all_title">要重新傳送嗎？</string>
+    <plurals name="nav_fwd_retry_all_message">
+        <item quantity="other">將重新傳送%1$s則簡訊。每則都是付費簡訊。</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">重新傳送</string>
+    <plurals name="nav_fwd_retry_sent">
+        <item quantity="other">已重新傳送%d則轉寄</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">再次失敗。請檢查訊號和餘額。</string>
+    <string name="nav_fwd_retry_missing">原始訊息已不存在，因此無法重新傳送。</string>
+    <string name="nav_fwd_details_title">轉寄詳細資料</string>
+    <string name="nav_fwd_detail_from">訊息來自</string>
+    <string name="nav_fwd_detail_to">轉寄至</string>
+    <string name="nav_fwd_detail_when">時間</string>
+    <string name="nav_fwd_detail_sim">傳送自</string>
+    <string name="nav_fwd_detail_rule">符合條件</string>
+    <string name="nav_fwd_detail_message">原始訊息</string>
+    <string name="nav_fwd_message_loading">載入中</string>
+    <string name="nav_fwd_message_gone">原始訊息已不再儲存。</string>
+    <string name="nav_fwd_error_radio">網路未送達。</string>
+    <string name="nav_fwd_error_refused">手機無法傳送。</string>
+    <string name="nav_fwd_open_chat">開啟對話</string>
+    <string name="nav_archived_title">已封存</string>
+    <string name="nav_archived_back">返回訊息</string>
+    <string name="nav_archived_intro">已封存的對話不會出現在「訊息」中。收到新訊息時，對話會回到「訊息」，除非在「設定」中開啟了「已封存的對話保持隱藏」。</string>
+    <string name="nav_archived_intro_dismiss">隱藏此說明</string>
+    <plurals name="nav_archived_moved">
+        <item quantity="other">已將%d個對話移至「訊息」</item>
+    </plurals>
+    <string name="nav_folder_more">更多選項</string>
+    <string name="nav_folder_mark_all_read">全部標示為已讀</string>
+    <string name="nav_folder_delete_all_count">這會永久移除%1$s。</string>
+</resources>

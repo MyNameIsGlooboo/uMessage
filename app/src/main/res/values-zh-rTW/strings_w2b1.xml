@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w2b1_archived_find">
+        <item quantity="other">已封存%d個。可在「已封存」分頁中找到</item>
+    </plurals>
+    <string name="w2b1_search_recent">最近的搜尋</string>
+    <string name="w2b1_search_recent_clear">清除</string>
+    <string name="w2b1_search_recent_clear_description">清除最近的搜尋</string>
+    <string name="w2b1_search_digits_note">波斯數字和阿拉伯數字都會比對：搜尋123也會找到۱۲۳。</string>
+    <string name="w2b1_search_section_conversations">對話</string>
+    <string name="w2b1_search_section_messages">訊息</string>
+    <plurals name="w2b1_search_matches">
+        <item quantity="other">%d個相符結果</item>
+    </plurals>
+    <string name="w2b1_filter_all">全部</string>
+    <string name="w2b1_filter_unread">未讀</string>
+    <string name="w2b1_filter_unread_empty_title">沒有未讀的對話</string>
+    <string name="w2b1_filter_unread_empty_body">全部都已讀。</string>
+    <string name="w2b1_swipe_block">封鎖寄件者</string>
+</resources>

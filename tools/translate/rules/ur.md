@@ -1,0 +1,8 @@
+- Urdu (Pakistan), right to left, natural everyday Urdu like Google Messages and Urdu Android phones: simple common words, not heavy Persian or Sanskrit vocabulary; well-known English tech words (SMS, SIM, PIN, backup, app, theme, link) may be written in Urdu script or kept in Latin as Urdu speakers say them.
+- Address the user with the polite "آپ" and polite imperatives ("منتخب کریں", "آن کریں", "ٹیپ کریں") and the possessive "آپ کا / آپ کی / آپ کے". Never "تم" or "تو".
+- Urdu letters only: use ی ک ہ ے (never Arabic ي ك), and the Urdu full stop "۔" and comma "،" and question mark "؟". Quotes: « ». No full stop at the end of buttons, titles and one-line hints.
+- Use Western digits (0-9) in text, never Urdu-Indic digits.
+- Plural ids: one (the number 1) and other (all other numbers). Keep the number token in both (Urdu nouns often stay the same in the plural: "1 پیغام", "5 پیغامات").
+- Mixed Latin text (uMessage, SIM, PIN, numbers, placeholders) inside Urdu sentences is fine; keep the sentence order natural (verb at the end).
+- Use "پیغام" for message, "بھیجنے والا" for sender, "اسپیم" for spam, "بلاک" for block, "ری سائیکل بن" for recycle bin.
+- Urdu takes a few more characters than English: choose short words for buttons and chips.

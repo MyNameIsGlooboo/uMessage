@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">پیغامات اتنی مدت رکھیں</string>
+    <string name="cleanup_old_summary">پرانے پیغامات ری سائیکل بن میں چلے جاتے ہیں</string>
+    <string name="cleanup_forever">ہمیشہ</string>
+    <string name="cleanup_one_year">1 سال</string>
+    <string name="cleanup_bin_title">ری سائیکل بن آن کریں؟</string>
+    <string name="cleanup_bin_body">حذف شدہ پیغامات وہاں 30 دن رہتے ہیں، تاکہ آپ انہیں واپس لا سکیں۔ خودکار صفائی کے لیے یہ ضروری ہے۔</string>
+    <string name="cleanup_bin_confirm">آن کریں</string>
+    <string name="cleanup_old_confirm_title">پرانے پیغامات منتقل کریں؟</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="one">%d پیغام اس سے پرانا ہے اور ابھی ری سائیکل بن میں چلا جائے گا۔ ستارہ لگے اور ان پڑھے پیغامات اور پن کی گئی چیٹس رہیں گی۔</item>
+        <item quantity="other">%d پیغامات اس سے پرانے ہیں اور ابھی ری سائیکل بن میں چلے جائیں گے۔ ستارہ لگے اور ان پڑھے پیغامات اور پن کی گئی چیٹس رہیں گی۔</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">ابھی کوئی پیغام اتنا پرانا نہیں۔ پرانے پیغامات خود بخود ری سائیکل بن میں چلے جائیں گے۔ ستارہ لگے اور ان پڑھے پیغامات اور پن کی گئی چیٹس رہیں گی۔</string>
+    <string name="cleanup_old_confirm_action">منتقل کریں</string>
+</resources>

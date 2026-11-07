@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">روکا گیا: نامعلوم بھیجنے والا</string>
+    <string name="ux8c_held_unknown_link">روکا گیا: نامعلوم بھیجنے والا، لنک موجود ہے</string>
+    <string name="ux8c_held_foreign">روکا گیا: کسی دوسرے ملک کا نمبر</string>
+    <string name="ux8c_held_rule">آپ کے اصول نے روکا</string>
+    <string name="ux8c_held_other">فلٹر نے روکا</string>
+    <string name="ux8c_not_spam">اسپیم نہیں ہے</string>
+    <string name="ux8c_delete">حذف کریں</string>
+    <string name="ux8c_tip">بھیجنے والے کو ان باکس میں منتقل کرنے کے لیے سوائپ کریں۔ منتخب کرنے کے لیے دبائے رکھیں۔</string>
+    <string name="ux8c_tip_dismiss">سمجھ گیا</string>
+    <string name="ux8c_sender_title">یہ بھیجنے والا</string>
+    <string name="ux8c_sender_normal">عام</string>
+    <string name="ux8c_sender_allow">ہمیشہ اجازت دیں</string>
+    <string name="ux8c_sender_block">بلاک کریں</string>
+</resources>

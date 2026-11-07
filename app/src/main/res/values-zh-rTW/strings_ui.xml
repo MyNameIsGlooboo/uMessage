@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_time_now">剛剛</string>
+    <plurals name="ui_time_minutes">
+        <item quantity="other">%d分鐘</item>
+    </plurals>
+    <string name="ui_bubble_sent">你，%1$s</string>
+    <string name="ui_bubble_received">%1$s, %2$s</string>
+    <string name="ui_bubble_received_unknown">已接收，%1$s</string>
+    <string name="ui_select_message">選取訊息</string>
+    <string name="ui_retry_send">重新傳送</string>
+    <string name="ui_default_required_body">uMessage必須設為預設簡訊應用程式，才能接收、傳送或篩選訊息。你的訊息會保留在原處。</string>
+    <string name="ui_default_required_close">關閉uMessage</string>
+    <string name="ui_add_contact_or_number">輸入名稱或電話號碼</string>
+    <string name="ui_show_dialpad">顯示撥號鍵盤</string>
+    <string name="ui_show_keyboard">顯示鍵盤</string>
+    <string name="ui_settings_group_block_lists">其他封鎖清單</string>
+    <string name="ui_settings_system_block_list">系統封鎖清單</string>
+    <string name="ui_settings_system_block_list_body">這支手機上所有應用程式都封鎖的號碼。uMessage也會隱藏這些號碼。</string>
+    <string name="ui_settings_blocked_words">已封鎖的字詞</string>
+    <string name="ui_settings_character_counter">顯示字元計數</string>
+    <string name="ui_settings_simple_characters">傳送時移除重音符號</string>
+    <string name="ui_settings_send_on_enter">按Enter鍵傳送</string>
+    <string name="ui_settings_delivery_reports">接收傳送報告</string>
+    <string name="ui_settings_recycle_bin">將已刪除的對話移至資源回收筒</string>
+    <string name="ui_two_sentences">%1$s. %2$s</string>
+    <string name="ui_tab_with_count">%1$s (%2$d)</string>
+    <string name="ui_send_with_sim">%1$s, %2$s</string>
+    <string name="ui_number_with_type">%1$s (%2$s)</string>
+    <string name="ui_log_decision_allowed">已允許</string>
+    <string name="ui_log_decision_blocked">已封鎖</string>
+    <string name="ui_log_decision_error">錯誤</string>
+    <string name="ui_log_reason_allow_rule">允許規則</string>
+    <string name="ui_log_reason_block_rule">封鎖規則</string>
+    <string name="ui_log_reason_contact">在聯絡人中</string>
+    <string name="ui_log_reason_known_conversation">你曾傳簡訊給對方</string>
+    <string name="ui_log_reason_otp">驗證碼</string>
+    <string name="ui_log_reason_unknown_sender">未知寄件者</string>
+    <string name="ui_log_reason_mode_off">篩選已關閉</string>
+    <string name="ui_log_reason_no_match">沒有相符的規則</string>
+    <string name="ui_log_source_sms">簡訊</string>
+    <string name="ui_log_source_mms">多媒體訊息</string>
+    <string name="ui_log_source_retry">已重試</string>
+</resources>

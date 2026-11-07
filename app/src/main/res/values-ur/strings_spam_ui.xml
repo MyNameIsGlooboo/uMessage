@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spam_ui_delete_all">سب حذف کریں</string>
+    <string name="spam_ui_delete_all_title">تمام بلاک شدہ پیغامات حذف کریں؟</string>
+    <plurals name="spam_ui_delete_all_message">
+        <item quantity="one">%1$d بلاک شدہ پیغام حذف ہو جائے گا۔ آپ فوراً بعد واپس کر سکتے ہیں۔</item>
+        <item quantity="other">%1$d بلاک شدہ پیغامات حذف ہو جائیں گے۔ آپ فوراً بعد واپس کر سکتے ہیں۔</item>
+    </plurals>
+    <string name="declog_ui_clear_title">فیصلوں کا لاگ صاف کریں؟</string>
+    <string name="declog_ui_clear_message">ہر درج شدہ فیصلہ ہٹا دیا جائے گا۔ بلاک شدہ پیغامات اور اصول جوں کے توں رہیں گے۔</string>
+    <string name="declog_ui_clear_action">صاف کریں</string>
+    <string name="ui_log_reason_contacts_unavailable">رابطے پڑھے نہیں جا سکے</string>
+    <string name="blocknum_title">بلاک شدہ نمبر</string>
+    <string name="blocknum_add">نمبر شامل کریں</string>
+    <string name="blocknum_add_title">نمبر بلاک کریں</string>
+    <string name="blocknum_edit_title">بلاک شدہ نمبر میں ترمیم کریں</string>
+    <string name="blocknum_field_label">نمبر</string>
+    <string name="blocknum_field_help">* کو وائلڈ کارڈ کے طور پر استعمال کریں: +1555* ہر وہ نمبر بلاک کرتا ہے جو +1555 سے شروع ہو</string>
+    <string name="blocknum_err_empty">نمبر درج کریں</string>
+    <string name="blocknum_err_invalid">فون نمبر درج کریں، یا وائلڈ کارڈ * کے ساتھ ہندسے</string>
+    <string name="blocknum_copy">نمبر کاپی کریں</string>
+    <string name="blocknum_unblock">ان بلاک</string>
+    <string name="blocknum_unblock_for">%1$s کو ان بلاک کریں</string>
+    <string name="blocknum_edit_for">%1$s میں ترمیم کریں</string>
+    <string name="blocknum_more_for">%1$s کے لیے مزید اختیارات</string>
+    <string name="blocknum_pattern">وائلڈ کارڈ پیٹرن</string>
+    <string name="blocknum_copied">نمبر کاپی ہو گیا</string>
+    <plurals name="blocknum_unblocked">
+        <item quantity="one">%1$d نمبر ان بلاک ہو گیا</item>
+        <item quantity="other">%1$d نمبر ان بلاک ہو گئے</item>
+    </plurals>
+    <string name="blocknum_import">امپورٹ</string>
+    <string name="blocknum_export">ایکسپورٹ</string>
+    <plurals name="blocknum_imported">
+        <item quantity="one">%1$d نمبر امپورٹ ہو گیا</item>
+        <item quantity="other">%1$d نمبر امپورٹ ہو گئے</item>
+    </plurals>
+    <string name="blocknum_import_empty">فائل میں کوئی نمبر نہیں ملا</string>
+    <plurals name="blocknum_import_skipped">
+        <item quantity="one">%d اندراج چھوڑ دیا گیا (نمبر نہیں یا پہلے سے بلاک شدہ)</item>
+        <item quantity="other">%d اندراجات چھوڑ دیے گئے (نمبر نہیں یا پہلے سے بلاک شدہ)</item>
+    </plurals>
+    <string name="blocknum_import_failed">فائل پڑھی نہیں جا سکی</string>
+    <plurals name="blocknum_exported">
+        <item quantity="one">%1$d نمبر ایکسپورٹ ہو گیا</item>
+        <item quantity="other">%1$d نمبر ایکسپورٹ ہو گئے</item>
+    </plurals>
+    <string name="blocknum_export_empty">ایکسپورٹ کے لیے کوئی نمبر نہیں</string>
+    <string name="blocknum_export_failed">فائل محفوظ نہیں ہو سکی</string>
+    <string name="blocknum_failed">بلاک فہرست تبدیل نہیں ہو سکی۔ براہ کرم دوبارہ کوشش کریں۔</string>
+    <string name="blocknum_empty_title">کوئی بلاک نہیں</string>
+    <string name="blocknum_empty_body">بلاک شدہ نمبر آپ کو پیغام یا کال نہیں کر سکتے۔ یہ فہرست آپ کی فون ایپ کے ساتھ مشترک ہے۔</string>
+    <string name="blocknum_unavailable_title">بلاک فہرست دستیاب نہیں</string>
+    <string name="blocknum_unavailable_body">سسٹم کی بلاک فہرست دیکھنے اور تبدیل کرنے کے لیے uMessage کو اپنی ڈیفالٹ SMS ایپ بنائیں۔</string>
+    <string name="blocknum_unknown_title">نامعلوم نمبر بلاک کریں</string>
+    <string name="blocknum_unknown_body">صرف تب استعمال ہوتا ہے جب اسپیم موڈ بند ہو: تب نامعلوم نمبروں کے پیغامات سخت موڈ کی طرح بلاک شدہ میں جاتے ہیں۔ سخت اور اسمارٹ اس سوئچ کو نظر انداز کرتے ہیں۔</string>
+    <string name="blocknum_contacts_denied">رابطوں تک رسائی کے بغیر نامعلوم نمبر پہچانے نہیں جا سکتے</string>
+    <string name="blocknum_section_numbers">نمبر</string>
+</resources>

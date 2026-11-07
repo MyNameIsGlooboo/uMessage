@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">نامعلوم</string>
+    <string name="i28_filter_unknown_empty_title">کوئی نامعلوم بھیجنے والا نہیں</string>
+    <string name="i28_filter_unknown_empty_body">ان لوگوں کے ساتھ چیٹس یہاں نظر آتی ہیں جو آپ کے رابطوں میں نہیں اور جنہیں آپ نے کبھی پیغام نہیں لکھا۔</string>
+    <string name="i28_filter_images">تصاویر</string>
+    <string name="i28_filter_images_empty_title">کوئی تصویر نہیں</string>
+    <string name="i28_filter_images_empty_body">تصویر والے پیغامات یہاں نظر آتے ہیں۔</string>
+    <string name="i28_filter_links">لنکس</string>
+    <string name="i28_filter_links_empty_title">کوئی لنک نہیں</string>
+    <string name="i28_filter_links_empty_body">ویب لنک والے پیغامات یہاں نظر آتے ہیں۔</string>
+    <string name="i28_hit_picture">تصویر</string>
+</resources>

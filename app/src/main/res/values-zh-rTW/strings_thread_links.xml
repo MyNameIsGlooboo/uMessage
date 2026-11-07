@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_link_confirm_body">這位寄件者不在你的聯絡人中。開啟前請檢查完整網址。</string>
+    <string name="thread_link_confirm_open">開啟</string>
+</resources>

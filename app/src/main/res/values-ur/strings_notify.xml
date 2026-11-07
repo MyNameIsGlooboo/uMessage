@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">شیڈول شدہ پیغام دیر سے بھیجا گیا</string>
+    <string name="scheduled_sent_late_exact_off">%1$s کو آپ کا پیغام %2$d منٹ دیر سے گیا۔ uMessage کے لیے «الارمز اور یاد دہانیاں» کی اجازت دیں تاکہ شیڈول شدہ پیغامات وقت پر جائیں۔</string>
+    <string name="scheduled_sent_late_idle">%1$s کو آپ کا پیغام %2$d منٹ دیر سے گیا: شیڈول کے وقت فون بند تھا یا بیٹری بچا رہا تھا۔</string>
+    <string name="scheduled_sent_late_channel">شیڈول شدہ پیغامات</string>
+    <string name="notifications_off_title">اطلاعات بند ہیں</string>
+    <string name="notifications_off_body">آپ کو نئے پیغامات کی خبر نہیں ملے گی۔</string>
+    <string name="notifications_off_fix">آن کریں</string>
+</resources>

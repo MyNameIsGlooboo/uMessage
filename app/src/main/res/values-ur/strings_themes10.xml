@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">سلیٹ</string>
+    <string name="preset_slate_desc">پرسکون نیلگوں سرمئی</string>
+    <string name="preset_firouzeh">فیروزہ</string>
+    <string name="preset_firouzeh_desc">فیروزی، ہلکے سنہرے رنگ کے ساتھ</string>
+    <string name="preset_pomegranate">انار</string>
+    <string name="preset_pomegranate_desc">گرم سرخ، گہرے سبز کے ساتھ</string>
+    <string name="preset_harbor">بندرگاہ</string>
+    <string name="preset_harbor_desc">رات جیسا نیلا، ہلکے مرجانی کے ساتھ</string>
+    <string name="preset_lavender">لیونڈر</string>
+    <string name="preset_lavender_desc">ہلکا بنفشی، ٹیل کے ساتھ</string>
+    <string name="preset_ink">روشنائی</string>
+    <string name="preset_ink_desc">تقریباً سیاہ، چاندی اور سنہرے کے ساتھ</string>
+    <string name="preset_contrast">کنٹراسٹ</string>
+    <string name="preset_contrast_desc">سیاہ اور سفید، شوخ رنگوں کے ساتھ</string>
+</resources>

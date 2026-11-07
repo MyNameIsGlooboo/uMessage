@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_link_confirm_body">یہ بھیجنے والا آپ کے رابطوں میں نہیں ہے۔ کھولنے سے پہلے پورا پتہ چیک کریں۔</string>
+    <string name="thread_link_confirm_open">کھولیں</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">智慧回覆</string>
+    <string name="smart_replies_summary">從內建清單建議「謝謝」或「好」等回覆。輕觸前不會傳送任何內容。</string>
+    <string name="smart_replies_hide">隱藏建議</string>
+    <string name="smart_replies_notif_title">通知中的智慧回覆</string>
+    <string name="smart_replies_notif_summary">在通知上以按鈕顯示建議回覆。輕觸即會傳送該文字。</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_shortcut_menu">新增至主畫面</string>
+    <string name="home_shortcut_requested">正在請啟動器新增捷徑，主畫面會顯示名稱。如果沒有出現，請在手機的應用程式設定中為uMessage允許「主畫面捷徑」。</string>
+    <string name="home_shortcut_failed">啟動器不接受這個捷徑。請在手機的應用程式設定中為uMessage允許「主畫面捷徑」。</string>
+</resources>

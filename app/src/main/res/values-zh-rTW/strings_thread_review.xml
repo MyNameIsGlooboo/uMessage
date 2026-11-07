@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_review_details_decision">判定</string>
+    <string name="thread_review_details_decision_allowed">已允許：已送達收件匣</string>
+    <string name="thread_review_details_type">類型</string>
+    <string name="thread_review_details_type_sms">簡訊</string>
+    <string name="thread_review_details_type_mms">多媒體訊息</string>
+    <string name="thread_review_sim_slot_name">SIM%1$d · %2$s</string>
+    <string name="thread_review_copy_code">複製驗證碼</string>
+    <string name="thread_review_copy_password">複製密碼</string>
+    <string name="thread_review_copy_username">複製使用者名稱</string>
+    <string name="thread_review_sim_label">SIM%1$s</string>
+    <string name="thread_review_sends_from">從%1$s傳送</string>
+    <string name="thread_review_reply_disabled">這位寄件者無法接收回覆</string>
+    <string name="thread_review_attach_camera">相機</string>
+    <string name="thread_review_attach_voice">語音</string>
+    <string name="thread_review_schedule_in_hour">1小時後</string>
+    <string name="thread_review_schedule_evening">今天晚上</string>
+    <string name="thread_review_schedule_tomorrow">明天9:00</string>
+</resources>

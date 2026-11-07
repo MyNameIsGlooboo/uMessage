@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">其他國家</string>
+    <string name="region_title">攔下其他國家的號碼</string>
+    <string name="region_summary">不會攔下聯絡人及你傳過訊息的對象</string>
+    <string name="region_off">關閉</string>
+    <string name="region_picker_title">你所在的國家</string>
+    <string name="region_picker_body">其他國家的號碼會留在「已封鎖的訊息」，但聯絡人及你傳過簡訊的對象除外。不在聯絡人中的海外親友也會被攔下。</string>
+    <string name="region_picker_search">搜尋</string>
+    <string name="region_reason_foreign">其他國家的號碼</string>
+</resources>

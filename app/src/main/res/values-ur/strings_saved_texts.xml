@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">محفوظ متن</string>
+    <string name="n06_sheet_title">محفوظ متن</string>
+    <string name="n06_empty_hint">مثلاً: آپ کا پتہ یا کارڈ نمبر۔ اسے اپنے پیغام میں ڈالنے کے لیے ٹیپ کریں۔</string>
+    <string name="n06_add">محفوظ متن شامل کریں</string>
+    <string name="n06_edit">محفوظ متن تبدیل کریں</string>
+    <string name="n06_title_label">عنوان (اختیاری)</string>
+    <string name="n06_text_label">متن</string>
+    <string name="n06_save">محفوظ کریں</string>
+    <string name="n06_delete">حذف کریں</string>
+    <string name="n06_private_tip">صرف اس فون پر رکھا جاتا ہے، انکرپٹ نہیں ہوتا۔ پاس ورڈ یا PIN محفوظ نہ کریں۔</string>
+    <string name="n06_save_from_message">محفوظ متن میں شامل کریں</string>
+    <string name="n06_saved_toast">محفوظ ہو گیا</string>
+    <string name="n06_save_full">فہرست بھری ہوئی ہے۔ پہلے ایک حذف کریں۔</string>
+    <string name="n06_save_duplicate">پہلے سے محفوظ ہے</string>
+</resources>

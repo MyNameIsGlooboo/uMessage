@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screens_back">پیچھے</string>
+    <string name="screens_ok">ٹھیک ہے</string>
+    <string name="screens_cancel">منسوخ کریں</string>
+    <string name="screens_delete">حذف کریں</string>
+    <string name="screens_clear_selection">انتخاب صاف کریں</string>
+    <plurals name="screens_selected_count">
+        <item quantity="one">%d منتخب</item>
+        <item quantity="other">%d منتخب</item>
+    </plurals>
+    <string name="screens_loading">لوڈ ہو رہا ہے…</string>
+    <string name="screens_more_options">مزید اختیارات</string>
+    <string name="screens_select_all">سبھی منتخب کریں</string>
+    <string name="screens_copy">کاپی کریں</string>
+    <string name="screens_grant_permission">رسائی کی اجازت دیں</string>
+    <string name="screens_delete_forever_title">ہمیشہ کے لیے حذف کریں؟</string>
+    <string name="screens_delete_conversations_message">%1$s مستقل طور پر حذف کریں؟ اسے واپس نہیں کیا جا سکتا۔</string>
+    <string name="screens_restore_title">بحال کریں؟</string>
+    <string name="screens_empty_archive_title">آرکائیو خالی کریں؟</string>
+    <string name="screens_empty_bin_title">ری سائیکل بن خالی کریں؟</string>
+    <string name="screens_empty_action">خالی کریں</string>
+    <string name="screens_archive_empty_title">کچھ بھی آرکائیو شدہ نہیں</string>
+    <string name="screens_bin_empty_title">ری سائیکل بن خالی ہے</string>
+    <string name="screens_bin_empty_body">حذف شدہ پیغامات بن خالی ہونے تک یہاں رہتے ہیں۔</string>
+    <string name="screens_new_to_hint">بنام</string>
+    <string name="screens_new_start">%1$s کے ساتھ گفتگو شروع کریں</string>
+    <string name="screens_new_clear_input">صاف کریں</string>
+    <string name="screens_new_no_matches">کوئی مماثل رابطہ نہیں۔ ٹائپ کیے گئے نمبر کو پیغام بھیجنے کے لیے تیر دبائیں۔</string>
+    <string name="screens_new_contacts">رابطے</string>
+    <string name="screens_new_create_group">گروپ بنائیں</string>
+    <string name="screens_new_group_title">نیا گروپ</string>
+    <string name="screens_new_group_next">اگلا</string>
+    <string name="screens_new_group_add">%1$s شامل کریں</string>
+    <string name="screens_new_group_remove">%1$s ہٹائیں</string>
+    <string name="screens_new_group_selected">منتخب شدہ</string>
+    <string name="screens_details_edit_name">گفتگو کا نام تبدیل کریں</string>
+    <string name="screens_keywords_add">کلیدی لفظ شامل کریں</string>
+    <string name="screens_keywords_menu_export">ایکسپورٹ</string>
+    <string name="screens_keywords_menu_import">امپورٹ</string>
+    <string name="screens_keywords_edit">ترمیم کریں</string>
+    <string name="screens_keywords_duplicate">یہ کلیدی لفظ پہلے سے فہرست میں ہے</string>
+    <string name="screens_keywords_help">پیغام میں کہیں بھی متن سے مماثل ہوتا ہے، کسی لمبے لفظ کے اندر بھی۔ بڑے یا چھوٹے حروف سے فرق نہیں پڑتا۔</string>
+    <string name="screens_keywords_empty_title">کوئی بلاک شدہ کلیدی لفظ نہیں</string>
+    <plurals name="screens_keywords_deleted">
+        <item quantity="one">%d کلیدی لفظ حذف ہو گیا</item>
+        <item quantity="other">%d کلیدی الفاظ حذف ہو گئے</item>
+    </plurals>
+    <string name="screens_vcard_title">رابطہ</string>
+    <string name="screens_vcard_add_contact">رابطوں میں شامل کریں</string>
+    <string name="screens_vcard_expand">تفصیلات دکھائیں</string>
+    <string name="screens_vcard_collapse">تفصیلات چھپائیں</string>
+    <string name="screens_vcard_empty">اس فائل میں کوئی رابطہ نہیں ملا</string>
+    <string name="screens_dialog_filename">فائل کا نام</string>
+    <string name="screens_schedule_date">تاریخ</string>
+    <string name="screens_schedule_time">وقت</string>
+    <string name="screens_schedule_pick_time">وقت منتخب کریں</string>
+    <string name="screens_schedule_next">اگلا</string>
+    <string name="screens_delete_skip_bin">ری سائیکل بن چھوڑیں، سیدھا حذف کریں</string>
+    <string name="screens_select_text_title">متن منتخب کریں</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">原因</string>
+    <string name="thread_r2_details_rule">規則</string>
+    <string name="thread_r2_details_forwarded">已轉寄</string>
+    <string name="thread_r2_details_decision_restored">曾封鎖，後來已還原至收件匣</string>
+    <string name="thread_r2_details_copy">複製%1$s</string>
+    <string name="thread_r2_menu_search">在對話中搜尋</string>
+    <string name="thread_r2_menu_always_forward">一律轉寄這位寄件者的訊息</string>
+    <string name="thread_r2_block_hint">之後的簡訊會移至「已封鎖」，資料不會離開你的手機。</string>
+    <string name="thread_r2_forward_message">轉寄這則訊息</string>
+    <string name="thread_r2_search_hint">在對話中搜尋</string>
+    <string name="thread_r2_search_close">關閉搜尋</string>
+    <string name="thread_r2_search_none">沒有相符結果</string>
+    <string name="thread_r2_search_count">%1$d/%2$d</string>
+    <string name="thread_r2_search_older">較舊的結果</string>
+    <string name="thread_r2_search_newer">較新的結果</string>
+    <string name="thread_r2_link_copy">複製連結</string>
+    <string name="thread_r2_link_share">分享</string>
+    <string name="thread_r2_schedule_pick_date">選擇日期</string>
+    <string name="thread_r2_calendar_previous">上個月</string>
+    <string name="thread_r2_calendar_next">下個月</string>
+</resources>

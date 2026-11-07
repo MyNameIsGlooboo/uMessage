@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n06_attach_saved_text">已儲存的文字</string>
+    <string name="n06_sheet_title">已儲存的文字</string>
+    <string name="n06_empty_hint">例如：你的地址或卡號。輕觸其中一項即可放入訊息中。</string>
+    <string name="n06_add">新增文字</string>
+    <string name="n06_edit">變更已儲存的文字</string>
+    <string name="n06_title_label">標題（選填）</string>
+    <string name="n06_text_label">文字</string>
+    <string name="n06_save">儲存</string>
+    <string name="n06_delete">刪除</string>
+    <string name="n06_private_tip">只保存在這支手機上，未加密。請勿儲存密碼或PIN。</string>
+    <string name="n06_save_from_message">儲存至已儲存的文字</string>
+    <string name="n06_saved_toast">已儲存</string>
+    <string name="n06_save_full">清單已滿，請先刪除一項。</string>
+    <string name="n06_save_duplicate">已儲存過</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_switch_title">uMessage پر منتقل ہو رہے ہیں؟</string>
+    <string name="onb_switch_body">کسی اور SMS ایپ سے آ رہے ہیں؟ پہلے اس کی چیٹ کی سہولیات بند کریں۔ کسی اور فون سے منتقل ہو رہے ہیں؟ سیٹ اپ مکمل ہونے کے بعد اپنا بیک اپ بحال کریں۔</string>
+    <string name="onb_switch_action">بیک اپ بحال کریں</string>
+    <string name="onb_switch_done_note">مکمل کرنے کے بعد بیک اپ اور بحالی کھل جائے گا۔</string>
+</resources>

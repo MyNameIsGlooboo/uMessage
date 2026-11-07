@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3f_spam_summary_stopped">%1$d روکے گئے</string>
+    <string name="r3f_spam_summary_restored">%1$d بحال کیے گئے</string>
+    <string name="r3f_spam_summary_stopped_week">7 دن میں %1$d روکے گئے</string>
+    <string name="r3f_spam_summary_total">کل %1$d</string>
+</resources>

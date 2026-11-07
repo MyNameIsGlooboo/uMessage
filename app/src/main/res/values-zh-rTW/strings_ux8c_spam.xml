@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8c_held_unknown">已攔截：未知寄件者</string>
+    <string name="ux8c_held_unknown_link">已攔截：未知寄件者，含有連結</string>
+    <string name="ux8c_held_foreign">已攔截：其他國家的號碼</string>
+    <string name="ux8c_held_rule">已被你的規則攔截</string>
+    <string name="ux8c_held_other">已被篩選器攔截</string>
+    <string name="ux8c_not_spam">不是垃圾簡訊</string>
+    <string name="ux8c_delete">刪除</string>
+    <string name="ux8c_tip">滑動寄件者即可移至收件匣。按住即可選取。</string>
+    <string name="ux8c_tip_dismiss">知道了</string>
+    <string name="ux8c_sender_title">這個寄件者</string>
+    <string name="ux8c_sender_normal">一般</string>
+    <string name="ux8c_sender_allow">一律允許</string>
+    <string name="ux8c_sender_block">封鎖</string>
+</resources>

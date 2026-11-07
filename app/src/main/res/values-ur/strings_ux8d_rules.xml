@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">ہمیشہ اجازت دیں</string>
+    <string name="ux8d_sheet_title_block">ہمیشہ بلاک کریں</string>
+    <string name="ux8d_match_label">کس چیز سے مماثل ہو</string>
+    <string name="ux8d_match_number">ایک فون نمبر</string>
+    <string name="ux8d_match_sender">بھیجنے والے کا نام، جیسے کوئی بینک</string>
+    <string name="ux8d_match_word">پیغام میں کوئی لفظ</string>
+    <string name="ux8d_match_prefix">وہ نمبر جو اس سے شروع ہوں…</string>
+    <string name="ux8d_match_pattern">ایک پیٹرن (ایڈوانسڈ)</string>
+    <string name="ux8d_match_more">مماثلت کے مزید طریقے</string>
+    <string name="ux8d_action_label">مماثل ہونے پر</string>
+    <string name="ux8d_more_options">مزید اختیارات</string>
+    <string name="ux8d_row_type_number">نمبر</string>
+    <string name="ux8d_row_type_prefix">نمبر کا آغاز</string>
+    <string name="ux8d_row_type_sender">بھیجنے والے کا نام</string>
+    <string name="ux8d_row_type_word">پیغام میں لفظ</string>
+    <string name="ux8d_row_type_pattern">پیٹرن</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="region_group_title">دوسرے ممالک</string>
+    <string name="region_title">دوسرے ممالک کے نمبر روکیں</string>
+    <string name="region_summary">رابطے اور وہ لوگ جنہیں آپ نے لکھا، نہیں روکے جاتے</string>
+    <string name="region_off">بند</string>
+    <string name="region_picker_title">آپ کا اپنا ملک</string>
+    <string name="region_picker_body">دوسرے ممالک کے نمبر بلاک شدہ پیغامات میں روکے جاتے ہیں، سوائے رابطوں اور ان لوگوں کے جنہیں آپ نے پیغام بھیجا۔ بیرون ملک کوئی رشتہ دار جو رابطوں میں نہیں، وہ بھی روکا جائے گا۔</string>
+    <string name="region_picker_search">تلاش کریں</string>
+    <string name="region_reason_foreign">کسی دوسرے ملک کا نمبر</string>
+</resources>

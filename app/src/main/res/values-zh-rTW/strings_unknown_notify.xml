@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unotify_title">收件匣中的未知寄件者</string>
+    <string name="unotify_notify">通知</string>
+    <string name="unotify_silent">無聲通知</string>
+    <string name="unotify_none">不通知</string>
+    <string name="unotify_summary">訊息仍會送達收件匣</string>
+    <string name="unotify_channel_silent">未知寄件者（無聲）</string>
+</resources>

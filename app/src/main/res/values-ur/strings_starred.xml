@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">ستارہ لگائیں</string>
+    <string name="i13_unstar">ستارہ ہٹائیں</string>
+    <string name="i13_starred_mark">ستارہ لگا ہوا</string>
+    <string name="i13_filter_starred">ستارہ والے</string>
+    <string name="i13_filter_starred_empty_title">ستارہ لگے کوئی پیغامات نہیں</string>
+    <string name="i13_filter_starred_empty_body">کسی چیٹ میں پیغام منتخب کریں اور اسے یہاں رکھنے کے لیے ستارے پر ٹیپ کریں۔</string>
+    <string name="i13_starred_note">ستارہ متن کی ایک کاپی رکھتا ہے، چاہے چیٹ حذف ہو جائے۔ ستارہ ہٹانے سے کاپی ہٹ جاتی ہے۔</string>
+    <string name="i13_snapshot_gone">یہ چیٹ حذف ہو چکی ہے۔ صرف محفوظ متن باقی ہے۔</string>
+    <string name="i13_snapshot_close">بند کریں</string>
+</resources>

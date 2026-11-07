@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_slate">石板</string>
+    <string name="preset_slate_desc">沉穩的藍灰色</string>
+    <string name="preset_firouzeh">綠松石</string>
+    <string name="preset_firouzeh_desc">綠松石色帶點金色</string>
+    <string name="preset_pomegranate">石榴</string>
+    <string name="preset_pomegranate_desc">暖紅色配深綠色</string>
+    <string name="preset_harbor">港灣</string>
+    <string name="preset_harbor_desc">夜藍色配柔和珊瑚色</string>
+    <string name="preset_lavender">薰衣草</string>
+    <string name="preset_lavender_desc">柔和紫色配藍綠色</string>
+    <string name="preset_ink">墨色</string>
+    <string name="preset_ink_desc">近黑色配銀色和金色</string>
+    <string name="preset_contrast">高對比</string>
+    <string name="preset_contrast_desc">黑白配亮色點綴</string>
+</resources>

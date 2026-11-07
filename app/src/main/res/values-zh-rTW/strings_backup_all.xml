@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n09_backup_contents">包含訊息以外的所有內容：允許、封鎖和轉寄規則，以及所有設定。檔案未加密，且含有你轉寄的目標電話號碼，請存放在私密的地方。還原後轉寄規則會是關閉狀態。</string>
+    <string name="n09_label_spam">垃圾簡訊防護</string>
+    <string name="n09_label_notifications">通知</string>
+    <string name="n09_label_chat">聊天和訊息清單</string>
+    <string name="n09_label_sending">傳送</string>
+    <string name="n09_label_cleanup">清理與儲存空間</string>
+    <string name="n09_label_privacy">隱私權和鎖定選項</string>
+    <string name="n09_restore_not_included">檔案不包含：你的訊息、應用程式鎖PIN、SIM名稱、已儲存的文字、隱藏的聊天和靜音時間。</string>
+    <string name="n09_restore_after">請重新將uMessage設為預設簡訊應用程式，並重新設定應用程式鎖。</string>
+</resources>

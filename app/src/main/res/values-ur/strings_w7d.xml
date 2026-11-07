@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w7d_banner_stopped">
+        <item quantity="one">اس ہفتے %1$s روکا گیا</item>
+        <item quantity="other">اس ہفتے %1$s روکے گئے</item>
+    </plurals>
+    <string name="w7d_banner_none">اس ہفتے کچھ نہیں روکا گیا</string>
+    <string name="w7d_fwd_master_switch">فارورڈنگ</string>
+    <string name="w7d_help_menu">الفاظ کو بلاک کرنا کیسے کام کرتا ہے</string>
+    <string name="w7d_help_title">الفاظ کو بلاک کرنا کیسے کام کرتا ہے</string>
+    <string name="w7d_help_words_head">الفاظ</string>
+    <string name="w7d_help_words_body">ایسا پیغام بلاک کرتا ہے جس میں کہیں بھی یہ لفظ ہو۔</string>
+    <string name="w7d_help_words_example">مفت انعام</string>
+    <string name="w7d_help_sender_head">بھیجنے والوں کے نام</string>
+    <string name="w7d_help_sender_body">اس نام والے بھیجنے والے کے پیغامات بلاک کرتا ہے، جیسے کوئی دکان۔</string>
+    <string name="w7d_help_sender_example">PROMO</string>
+    <string name="w7d_help_number_head">نمبر کا آغاز</string>
+    <string name="w7d_help_number_body">ہر وہ نمبر بلاک کرتا ہے جو ان ہندسوں سے شروع ہو۔</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">پیٹرن، ماہر صارفین کے لیے</string>
+    <string name="w7d_help_pattern_body">ایک پیٹرن کئی ہجوں سے مماثل ہو سکتا ہے۔ محفوظ کرنے سے پہلے اسے جانچ لیں۔</string>
+    <string name="w7d_help_pattern_example">(مفت|جیتیں) انعام</string>
+    <string name="w7d_help_close">بند کریں</string>
+    <string name="w7d_bank_cards_title">بینک الرٹس کے لیے کارڈز</string>
+    <string name="w7d_bank_cards_summary">بینک کے پیغام کے نیچے رقم دکھاتا ہے</string>
+</resources>

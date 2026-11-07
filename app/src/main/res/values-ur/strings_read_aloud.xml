@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_aloud_action">بلند آواز سے پڑھیں</string>
+    <string name="read_aloud_stop">پڑھنا بند کریں</string>
+    <string name="read_aloud_no_voice">اس فون پر کوئی %1$s آواز انسٹال نہیں ہے</string>
+    <string name="read_aloud_install">آواز حاصل کریں</string>
+    <string name="read_aloud_install_missing">اس فون میں آوازیں انسٹال کرنے کا کوئی طریقہ نہیں ہے</string>
+    <string name="read_aloud_failed">پیغام بلند آواز سے نہیں پڑھا جا سکا</string>
+</resources>

@@ -20,11 +20,11 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common as c  # noqa: E402
 
 LOOSE_QUANTITIES = ("zero", "one", "two")
-NON_LATIN = {"fa", "ar", "ru", "hi", "uk", "bn", "th", "ja", "ko", "zh-rCN"}
+NON_LATIN = {"fa", "ar", "ru", "hi", "uk", "bn", "th", "ja", "ko", "zh-rCN", "zh-rTW", "ur"}
 BRAND = re.compile(r"uMessage|SMS|MMS|SIM|PIN|OTP|URL|Wi-?Fi|PDF|XML|GPS|Android|Google|HTML|ChatGPT", re.I)
 MAX_RATIO = 3
 MAX_RATIO_BY_LANG = {"th": 4, "bn": 4}  # character counts: these scripts spend more characters than Latin
-MIN_RATIO_LANGS = {"zh-rCN": 0.2, "ja": 0.2, "ko": 0.2}  # CJK is normally shorter; far shorter means a dropped text
+MIN_RATIO_LANGS = {"zh-rCN": 0.2, "zh-rTW": 0.2, "ja": 0.2, "ko": 0.2}  # CJK is normally shorter; far shorter means a dropped text
 MIN_LONG = 20
 LATIN_SHARE = 0.6
 KANA = re.compile("[぀-ヿ]")
@@ -117,7 +117,7 @@ def check_script(where, text, english, lang, errors):
     kana = bool(KANA.search(text))
     if lang == "ja" and len(chars) >= MIN_SCRIPT_LETTERS and not kana:
         errors.append("%s: Japanese text without kana (looks Chinese)" % where)
-    if lang == "zh-rCN" and kana:
+    if lang in ("zh-rCN", "zh-rTW") and kana:
         errors.append("%s: kana in Chinese text" % where)
     if lang in MIN_RATIO_LANGS and len(english) >= MIN_LONG and 0 < len(text) < MIN_RATIO_LANGS[lang] * len(english):
         errors.append("%s: far shorter than the English (%d against %d)" % (where, len(text), len(english)))

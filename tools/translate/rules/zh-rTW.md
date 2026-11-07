@@ -1,0 +1,7 @@
+- Traditional Chinese for Taiwan (zh-TW, also fine for Hong Kong). Short, natural and neutral, like Google Messages and the system text of Taiwanese phones. Use Taiwan-standard terms; never convert Simplified text character by character and never use Mainland terms.
+- Keep the tone neutral: leave the subject out where Chinese allows it ("選擇語言", "已儲存"); when a pronoun is needed use "你" and "你的", never "您" unless the English is very formal.
+- Punctuation is full width: ，。、：；！？（） and corner quotes 「 」 (inner 『 』). No full stop at the end of buttons, titles and one-line hints; use 。 at the end of full sentences.
+- No spaces between Chinese characters and Latin letters, digits or placeholders. Keep the brand name uMessage in Latin.
+- Plural ids: only other. Write one text for every number and keep the number token (use the counter 則 or 個 as it fits).
+- Chinese is much shorter than English: keep buttons to two to four characters ("刪除", "封鎖", "檢舉垃圾簡訊").
+- Taiwan terms: "簡訊" for SMS, "多媒體訊息" for MMS, "垃圾簡訊" for spam, "封鎖" for block, "聯絡人" for contact, "資源回收筒" for recycle bin, "應用程式" for app, "設定" for settings, "預設" for default, "儲存" for save, "匯出/匯入" for export/import, "軟體" not "软件", "資訊" for information, "網路" for network, "檔案" for file, "影片" for video, "品質", "訊息" for message; keep "SIM" and "PIN" in Latin.

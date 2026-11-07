@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_allow_title">
+        <item quantity="one">اس بھیجنے والے کو ہمیشہ اجازت دیں؟</item>
+        <item quantity="other">ان %d بھیجنے والوں کو ہمیشہ اجازت دیں؟</item>
+    </plurals>
+    <string name="spam_allow_body_one">پیغام ہر حال میں آپ کے ان باکس میں واپس جائے گا۔ اگر آپ %1$s کو ہمیشہ اجازت دیں تو اس کے آئندہ پیغامات ہر فلٹر سے بچ جائیں گے، آپ کے بلاک کے اصولوں سمیت۔</string>
+    <string name="spam_allow_body_many">پیغامات ہر حال میں آپ کے ان باکس میں واپس جائیں گے۔ اگر آپ ان بھیجنے والوں کو ہمیشہ اجازت دیں تو ان کے آئندہ پیغامات ہر فلٹر سے بچ جائیں گے، آپ کے بلاک کے اصولوں سمیت۔</string>
+    <string name="spam_allow_spoof_warning">کوئی بھی %1$s جیسے نام سے پیغام بھیج سکتا ہے۔ اجازت دینے سے اس نام والے جعلی پیغامات بھی آ جائیں گے۔</string>
+    <string name="spam_allow_confirm">ہمیشہ اجازت دیں</string>
+    <string name="spam_allow_dismiss">ابھی نہیں</string>
+    <plurals name="spam_snack_restored_to_inbox">
+        <item quantity="one">%d پیغام ان باکس میں بحال ہو گیا</item>
+        <item quantity="other">%d پیغامات ان باکس میں بحال ہو گئے</item>
+    </plurals>
+    <plurals name="spam_snack_restored_allowed">
+        <item quantity="one">بحال ہو گیا۔ %d بھیجنے والے کو اب ہمیشہ اجازت ہے۔</item>
+        <item quantity="other">بحال ہو گئے۔ %d بھیجنے والوں کو اب ہمیشہ اجازت ہے۔</item>
+    </plurals>
+    <plurals name="spam_snack_allowed_only">
+        <item quantity="one">%d بھیجنے والے کو اب ہمیشہ اجازت ہے۔</item>
+        <item quantity="other">%d بھیجنے والوں کو اب ہمیشہ اجازت ہے۔</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost">
+        <item quantity="one">%d پیغام کی تصویر واپس نہیں مل سکی۔</item>
+        <item quantity="other">%d پیغامات کی تصاویر واپس نہیں مل سکیں۔</item>
+    </plurals>
+    <plurals name="spam_snack_media_lost_nothing">
+        <item quantity="one">تصویری پیغام واپس نہیں مل سکا، اس لیے ان باکس میں کچھ شامل نہیں ہوا۔</item>
+        <item quantity="other">%d تصویری پیغامات واپس نہیں مل سکے، اس لیے ان باکس میں کچھ شامل نہیں ہوا۔</item>
+    </plurals>
+    <plurals name="spam_snack_restore_failed">
+        <item quantity="one">%d تصویری پیغام بحال نہیں ہو سکا۔ یہ ابھی یہیں ہے۔</item>
+        <item quantity="other">%d تصویری پیغامات بحال نہیں ہو سکے۔ یہ ابھی یہیں ہیں۔</item>
+    </plurals>
+    <string name="spam_mms_stored">تصویری پیغام</string>
+    <string name="spam_mms_downloading">تصویری پیغام، ڈاؤن لوڈ ہو رہا ہے</string>
+    <string name="spam_mms_missing">تصویری پیغام، ڈاؤن لوڈ نہیں ہوا</string>
+    <string name="spam_mms_thumbnail">بلاک شدہ پیغام میں تصویر</string>
+    <string name="spam_reason_rule_keyword">اصول: کلیدی لفظ «%1$s»</string>
+    <string name="spam_reason_rule_regex">اصول: پیٹرن %1$s</string>
+    <string name="spam_reason_rule_number">اصول: نمبر %1$s</string>
+    <string name="spam_reason_rule_prefix">اصول: %1$s سے شروع ہونے والے نمبر</string>
+    <string name="spam_reason_rule_sender">اصول: بھیجنے والا %1$s</string>
+    <string name="spam_reason_rule_removed">اصول اب ہٹا دیا گیا ہے</string>
+    <string name="spam_reason_open_rules">اصول کھولیں</string>
+    <plurals name="spam_purge_notice">
+        <item quantity="one">بلاک شدہ پیغامات %d دن بعد حذف ہو جاتے ہیں</item>
+        <item quantity="other">بلاک شدہ پیغامات %d دن بعد حذف ہو جاتے ہیں</item>
+    </plurals>
+    <string name="spam_purge_notice_off">بلاک شدہ پیغامات تب تک رہتے ہیں جب تک آپ انہیں حذف نہ کریں</string>
+    <plurals name="spam_purge_left">
+        <item quantity="one">%d دن میں حذف</item>
+        <item quantity="other">%d دن میں حذف</item>
+    </plurals>
+    <string name="spam_purge_left_today">آج حذف</string>
+    <string name="convlist_report_spam">اسپیم کی اطلاع دیں</string>
+    <plurals name="convlist_reported_spam_archived">
+        <item quantity="one">اطلاع دے دی گئی۔ اس بھیجنے والے کے نئے پیغامات بلاک شدہ میں جائیں گے، اور چیٹ آرکائیو ہو گئی۔</item>
+        <item quantity="other">%d چیٹس کی اطلاع دے دی گئی۔ ان کے نئے پیغامات بلاک شدہ میں جائیں گے، اور چیٹس آرکائیو ہو گئیں۔</item>
+    </plurals>
+    <plurals name="convlist_reported_spam">
+        <item quantity="one">اطلاع دے دی گئی۔ اس بھیجنے والے کے نئے پیغامات بلاک شدہ میں جائیں گے۔</item>
+        <item quantity="other">%d چیٹس کی اطلاع دے دی گئی۔ ان کے نئے پیغامات بلاک شدہ میں جائیں گے۔</item>
+    </plurals>
+    <string name="blocked_title">بلاک شدہ</string>
+    <string name="blocked_menu_rules">اصول</string>
+    <string name="blocked_mode_group_cd">نامعلوم بھیجنے والے: %1$s، %2$d از %3$d</string>
+    <string name="blocked_mode_desc_strict">سخت: ہر نامعلوم بھیجنے والے کو روکتا ہے، تصدیقی کوڈ بھی</string>
+    <string name="blocked_mode_desc_smart">اسمارٹ: نامعلوم بھیجنے والوں کو روکتا ہے، لیکن بغیر لنک والے کوڈ آنے دیتا ہے</string>
+    <string name="blocked_mode_desc_off">بند: نامعلوم بھیجنے والے آپ کے ان باکس میں آتے ہیں۔ آپ کے اصول پھر بھی لاگو ہیں</string>
+    <string name="blocked_snack_mode">نامعلوم بھیجنے والے %1$s پر سیٹ</string>
+    <string name="blocked_off_title">نامعلوم بھیجنے والوں کو روکنا بند کریں؟</string>
+    <string name="blocked_off_body">نامعلوم بھیجنے والوں کے پیغامات سیدھے آپ کے ان باکس میں جائیں گے۔ آپ کے اصول پھر بھی لاگو رہیں گے۔</string>
+    <string name="blocked_off_confirm">بند کریں</string>
+    <string name="blocked_stats_restored">%1$d آپ نے بحال کیے</string>
+    <string name="blocked_reason_unknown_link">نامعلوم بھیجنے والا، لنک کے ساتھ</string>
+    <string name="blocked_may_be_important">اہم ہو سکتا ہے</string>
+    <string name="blocked_action_move_inbox">ان باکس میں منتقل کریں</string>
+    <string name="blocked_swipe_not_spam">ان باکس میں منتقل کرنے کے لیے سوائپ کریں</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">SIM卡名稱</string>
+    <string name="i34_setting_summary">為每張SIM卡設定名稱和號碼</string>
+    <string name="i34_dialog_title">SIM卡名稱</string>
+    <string name="i34_number_note">電信業者通常不會將號碼提供給應用程式，請在這裡輸入。兩者都只保存在這支手機上。</string>
+    <string name="i34_sim_heading">SIM%1$d，%2$s</string>
+    <string name="i34_nickname">名稱（例如：公司）</string>
+    <string name="i34_number">號碼</string>
+</resources>

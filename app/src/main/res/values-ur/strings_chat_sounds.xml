@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i65_setting_title">چیٹ کے اندر آوازیں</string>
+    <string name="i65_setting_summary">بھیجے اور موصول پیغامات کے لیے ایک مختصر آواز</string>
+</resources>

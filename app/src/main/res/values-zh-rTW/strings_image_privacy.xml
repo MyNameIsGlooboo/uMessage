@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i09_setting_title">移除照片中的位置資訊</string>
+    <string name="i09_setting_summary">傳送前隱藏照片的拍攝地點</string>
+</resources>

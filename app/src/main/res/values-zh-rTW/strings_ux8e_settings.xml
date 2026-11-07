@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">提醒、螢幕鎖定、每週摘要</string>
+    <string name="ux8e_nav_typing">輸入與傳送</string>
+    <string name="ux8e_nav_typing_body">Enter鍵、傳送報告、簽名</string>
+    <string name="ux8e_nav_storage">儲存空間與清理</string>
+    <string name="ux8e_nav_storage_body">資源回收筒、封存、自動刪除</string>
+    <string name="ux8e_group_lock_screen">螢幕鎖定</string>
+    <string name="ux8e_group_recycle">已刪除的訊息</string>
+    <string name="ux8e_group_cleanup">自動清理</string>
+    <string name="ux8e_group_archive">封存</string>
+    <string name="ux8e_keep_deleted">保留已刪除的訊息</string>
+    <string name="ux8e_keep_deleted_body">會在資源回收筒中保留30天</string>
+    <string name="ux8e_recycle_bin">資源回收筒</string>
+    <string name="ux8e_backup_row">備份</string>
+    <string name="ux8e_backup_row_body">儲存至檔案</string>
+    <string name="ux8e_restore_row">還原</string>
+    <string name="ux8e_restore_row_body">從檔案載入</string>
+    <string name="ux8e_backup_what">要備份哪些內容？</string>
+    <string name="ux8e_restore_what">要還原哪些內容？</string>
+    <string name="ux8e_what_messages">訊息</string>
+    <string name="ux8e_what_settings">規則和設定</string>
+    <string name="ux8e_backup_warning">備份檔案未加密。</string>
+    <string name="ux8e_calendar">日曆</string>
+</resources>

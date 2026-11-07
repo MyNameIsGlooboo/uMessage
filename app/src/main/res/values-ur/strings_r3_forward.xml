@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3fwd_title">فارورڈنگ</string>
+    <string name="r3fwd_options">فارورڈنگ کے اختیارات</string>
+    <string name="r3fwd_summary_none">بند · پیغامات کسی دوسرے نمبر پر فارورڈ کریں</string>
+    <string name="r3fwd_summary_off">بند</string>
+    <string name="r3fwd_summary_paused">موقوف</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="one">%d اصول آن ہے</item>
+        <item quantity="other">%d اصول آن ہیں</item>
+    </plurals>
+    <string name="r3fwd_paused_title">فارورڈنگ موقوف ہے</string>
+    <string name="r3fwd_paused_body">آپ کے اصول محفوظ ہیں، لیکن جب تک آپ فارورڈنگ دوبارہ آن نہیں کرتے، کچھ بھی فارورڈ نہیں ہوگا۔</string>
+    <string name="r3fwd_paused_action">اختیارات کھولیں</string>
+</resources>

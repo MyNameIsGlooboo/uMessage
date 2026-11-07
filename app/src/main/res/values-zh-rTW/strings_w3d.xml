@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">隱藏轉寄訊息中的驗證碼</string>
+    <string name="w3d_mask_codes_body">轉寄的驗證碼會顯示為****</string>
+    <string name="w3d_mask_keep_last">保留最後兩位數字</string>
+    <string name="w3d_mask_keep_last_on">轉寄時會顯示例如**34。</string>
+    <string name="w3d_mask_keep_last_off">轉寄時會隱藏整組驗證碼。</string>
+    <string name="w3d_daily_limit">每日轉寄上限</string>
+    <string name="w3d_daily_limit_body">每天最多轉寄的則數</string>
+    <string name="w3d_hide_lock_codes">在鎖定畫面上隱藏驗證碼</string>
+    <string name="w3d_hide_lock_codes_body">含有驗證碼的訊息在解鎖前，會在鎖定畫面上顯示••••。</string>
+</resources>

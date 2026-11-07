@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_open_link_action">開啟連結</string>
+    <string name="notif_open_link_title">在通知中顯示「開啟連結」</string>
+    <string name="notif_open_link_summary">用於來自聯絡人和已允許寄件者的通知</string>
+</resources>

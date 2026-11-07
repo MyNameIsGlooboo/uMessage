@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i34_setting_title">SIM کے نام</string>
+    <string name="i34_setting_summary">ہر SIM کو نام اور نمبر دیں</string>
+    <string name="i34_dialog_title">SIM کے نام</string>
+    <string name="i34_number_note">نیٹ ورک فراہم کنندہ اکثر ایپس کو نمبر نہیں بتاتے، اس لیے اسے یہاں ٹائپ کریں۔ دونوں اسی فون پر رہتے ہیں۔</string>
+    <string name="i34_sim_heading">SIM %1$d، %2$s</string>
+    <string name="i34_nickname">نام (مثلاً دفتر)</string>
+    <string name="i34_number">نمبر</string>
+</resources>

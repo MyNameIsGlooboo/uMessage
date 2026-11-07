@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3fwd_title">轉寄</string>
+    <string name="r3fwd_options">轉寄選項</string>
+    <string name="r3fwd_summary_none">關閉 · 將訊息轉寄到其他號碼</string>
+    <string name="r3fwd_summary_off">關閉</string>
+    <string name="r3fwd_summary_paused">已暫停</string>
+    <plurals name="r3fwd_summary_on">
+        <item quantity="other">已開啟%d條規則</item>
+    </plurals>
+    <string name="r3fwd_paused_title">轉寄已暫停</string>
+    <string name="r3fwd_paused_body">你的規則已儲存，但在你重新開啟轉寄前，不會轉寄任何訊息。</string>
+    <string name="r3fwd_paused_action">開啟選項</string>
+</resources>

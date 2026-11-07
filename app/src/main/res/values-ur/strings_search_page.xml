@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_page_start_chat">چیٹ شروع کریں</string>
+    <string name="search_page_show_more">مزید دکھائیں</string>
+    <string name="search_page_labels_more">+%1$d</string>
+    <string name="search_page_sim_empty_title">اس SIM پر کوئی گفتگو نہیں</string>
+    <string name="search_page_sim_empty_body">وہ گفتگو یہاں نظر آتی ہیں جن میں اس SIM سے کوئی پیغام بھیجا یا وصول کیا گیا ہو۔</string>
+</resources>

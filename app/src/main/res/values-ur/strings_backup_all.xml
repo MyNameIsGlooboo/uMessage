@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="n09_backup_contents">آپ کے پیغامات کے سوا سب کچھ: اجازت، بلاک اور فارورڈ کے اصول اور تمام سیٹنگز۔ فائل انکرپٹ نہیں ہے اور اس میں وہ فون نمبر ہیں جن پر آپ فارورڈ کرتے ہیں، اس لیے اسے کسی محفوظ جگہ رکھیں۔ فارورڈ کے اصول بند حالت میں واپس آتے ہیں۔</string>
+    <string name="n09_label_spam">اسپیم سے حفاظت</string>
+    <string name="n09_label_notifications">اطلاعات</string>
+    <string name="n09_label_chat">چیٹ اور پیغامات کی فہرست</string>
+    <string name="n09_label_sending">بھیجنا</string>
+    <string name="n09_label_cleanup">صفائی اور اسٹوریج</string>
+    <string name="n09_label_privacy">رازداری اور لاک کے اختیارات</string>
+    <string name="n09_restore_not_included">فائل میں شامل نہیں: آپ کے پیغامات، ایپ لاک PIN، SIM کے نام، محفوظ متن، چھپی ہوئی چیٹس اور خاموشی کے اوقات۔</string>
+    <string name="n09_restore_after">uMessage کو دوبارہ ڈیفالٹ SMS ایپ بنائیں اور اپنا ایپ لاک دوبارہ سیٹ کریں۔</string>
+</resources>

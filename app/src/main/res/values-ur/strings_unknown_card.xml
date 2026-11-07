@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i04_card_title">آپ کے رابطوں میں نہیں</string>
+    <string name="i04_card_caution">لنکس، پیسوں اور کوڈز کے معاملے میں محتاط رہیں۔</string>
+    <string name="i04_card_add_contact">رابطہ شامل کریں</string>
+    <string name="i04_card_allow">ہمیشہ اجازت دیں</string>
+    <string name="i04_card_block">بلاک کریں</string>
+    <string name="i04_card_dismiss">برخاست کریں</string>
+</resources>

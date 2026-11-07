@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_hint">گفتگو تلاش کریں</string>
+    <string name="main_search_back">تلاش بند کریں</string>
+    <string name="main_search_clear">تلاش کا متن صاف کریں</string>
+    <string name="main_search_type_more">تلاش کے لیے کم از کم 2 حرف ٹائپ کریں</string>
+    <string name="main_search_no_results">کوئی نتیجہ نہیں ملا</string>
+    <string name="main_settings">سیٹنگز</string>
+    <string name="main_tab_messages">پیغامات</string>
+    <string name="main_tab_blocked">بلاک شدہ</string>
+    <string name="main_tab_archived">آرکائیو شدہ</string>
+    <plurals name="main_tab_blocked_new">
+        <item quantity="one">بلاک شدہ، %d نیا</item>
+        <item quantity="other">بلاک شدہ، %d نئے</item>
+    </plurals>
+    <string name="main_permission_title">اجازت درکار ہے</string>
+    <string name="main_permission_grant">اجازت دیں</string>
+    <string name="main_permission_notifications">اطلاعات کی اجازت دیں، ورنہ ایپ آنے والے پیغامات نہیں دکھا سکتی۔</string>
+    <string name="main_sms_permission_title">uMessage کو SMS تک رسائی درکار ہے</string>
+    <string name="main_sms_permission_body">SMS پڑھنے اور بھیجنے کی اجازت کے بغیر uMessage آپ کے پیغامات نہیں دکھا سکتا، پیغام نہیں بھیج سکتا اور اسپیم فلٹر نہیں کر سکتا۔ کچھ حذف نہیں ہوتا۔</string>
+    <string name="main_sms_permission_settings">ایپ سیٹنگز کھولیں</string>
+    <string name="main_not_default_banner">uMessage آپ کی ڈیفالٹ SMS ایپ نہیں ہے، اس لیے یہ اسپیم بلاک یا پیغامات نہیں بھیج سکتا۔</string>
+    <string name="main_not_default_fix">ٹھیک کریں</string>
+    <string name="main_not_default_fix_description">uMessage کو ڈیفالٹ SMS ایپ بنائیں</string>
+</resources>

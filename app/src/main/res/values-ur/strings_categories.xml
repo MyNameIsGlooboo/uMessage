@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">لین دین</string>
+    <string name="i11_filter_transactions_empty_title">کوئی لین دین نہیں</string>
+    <string name="i11_filter_transactions_empty_body">رقم آنے اور جانے کے بارے میں آپ کے بینک کے پیغامات یہاں نظر آتے ہیں۔</string>
+    <string name="i11_filter_offers">آفرز</string>
+    <string name="i11_filter_offers_empty_title">کوئی آفر نہیں</string>
+    <string name="i11_filter_offers_empty_body">دکانوں کی رعایتیں اور پروموشنز یہاں نظر آتی ہیں۔</string>
+</resources>

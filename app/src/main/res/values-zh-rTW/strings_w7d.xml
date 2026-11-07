@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="w7d_banner_stopped">
+        <item quantity="other">本週已攔截%1$s則</item>
+    </plurals>
+    <string name="w7d_banner_none">本週沒有攔截任何訊息</string>
+    <string name="w7d_fwd_master_switch">轉寄</string>
+    <string name="w7d_help_menu">字詞封鎖的運作方式</string>
+    <string name="w7d_help_title">字詞封鎖的運作方式</string>
+    <string name="w7d_help_words_head">字詞</string>
+    <string name="w7d_help_words_body">封鎖任何位置含有該字詞的訊息。</string>
+    <string name="w7d_help_words_example">免費獎品</string>
+    <string name="w7d_help_sender_head">寄件者名稱</string>
+    <string name="w7d_help_sender_body">封鎖來自該名稱寄件者的簡訊，例如商店。</string>
+    <string name="w7d_help_sender_example">PROMO</string>
+    <string name="w7d_help_number_head">號碼開頭</string>
+    <string name="w7d_help_number_body">封鎖所有以這些數字開頭的號碼。</string>
+    <string name="w7d_help_number_example">+1555</string>
+    <string name="w7d_help_pattern_head">模式（進階使用者適用）</string>
+    <string name="w7d_help_pattern_body">一個模式可比對多種寫法。儲存前請先測試。</string>
+    <string name="w7d_help_pattern_example">(免費|贏得)獎品</string>
+    <string name="w7d_help_close">關閉</string>
+    <string name="w7d_bank_cards_title">銀行通知卡片</string>
+    <string name="w7d_bank_cards_summary">在銀行簡訊下方顯示金額</string>
+</resources>

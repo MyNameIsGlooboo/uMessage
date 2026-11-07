@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_sent_late_title">排程訊息延遲傳送</string>
+    <string name="scheduled_sent_late_exact_off">你傳給%1$s的訊息延遲了%2$d分鐘才送出。請允許uMessage使用「鬧鐘與提醒」，讓排程訊息準時送出。</string>
+    <string name="scheduled_sent_late_idle">你傳給%1$s的訊息延遲了%2$d分鐘才送出：排程時間時手機處於關機或省電狀態。</string>
+    <string name="scheduled_sent_late_channel">排程訊息</string>
+    <string name="notifications_off_title">通知已關閉</string>
+    <string name="notifications_off_body">你不會收到新訊息的通知。</string>
+    <string name="notifications_off_fix">開啟</string>
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">今天已暫停：已達上限</string>
+    <string name="fwdfix_limit_hint">今天已轉寄%1$s則，上限%2$s則。明天會恢復轉寄。</string>
+    <string name="fwdfix_status_skipped">已略過（上限）</string>
+    <string name="fwdfix_error_daily_limit">未傳送：已達每日轉寄上限。</string>
+    <string name="fwdfix_error_rate_limited">未傳送：這條規則在過去一小時內已轉寄%1$s則訊息。</string>
+    <string name="fwdfix_retry_all_recent">只包含過去24小時內的轉寄。</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="other">%1$s則未傳送：轉寄已暫停。</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="other">%1$s則未傳送：所屬規則已關閉或刪除。</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="other">%1$s則未傳送：已達每日上限或規則的每小時上限。</item>
+    </plurals>
+    <string name="fwdfix_card_last">上次轉寄：%1$s，%2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="other">本週%1$s則</item>
+    </plurals>
+    <string name="fwdfix_card_never">尚未轉寄任何訊息</string>
+    <string name="fwdfix_card_sent">已傳送</string>
+    <string name="fwdfix_card_pending">傳送中</string>
+    <string name="fwdfix_card_failed">失敗</string>
+    <string name="fwdfix_card_skipped">已略過（上限）</string>
+    <string name="fwdfix_delete_rule">刪除規則</string>
+    <string name="fwdfix_deleted">已刪除轉寄規則</string>
+    <string name="fwdfix_test_button">傳送測試</string>
+    <string name="fwdfix_test_title">要傳送測試簡訊嗎？</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="other">會分別傳送一則測試簡訊到上方的%1$s個號碼，每則都是付費簡訊。</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">傳送</string>
+    <string name="fwdfix_test_text">uMessage測試：轉寄功能正常。</string>
+    <string name="fwdfix_test_sending">正在傳送測試…</string>
+    <string name="fwdfix_test_sent">已傳送測試，請檢查另一支手機。</string>
+    <string name="fwdfix_test_failed">無法傳送測試，請檢查訊號和餘額。</string>
+    <string name="fwdfix_cost_persian">%1$s個字元的波斯文：%2$s段 × %3$s = %4$s則簡訊</string>
+    <string name="fwdfix_cost_english">%1$s個字元的英文：%2$s段 × %3$s = %4$s則簡訊</string>
+    <string name="fwdfix_retry_none_title">目前沒有可傳送的訊息</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="other">%1$s則不會傳送：轉寄已暫停。</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="other">%1$s則不會傳送：所屬規則已關閉或刪除。</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="other">%1$s則不會傳送：已達每日上限或規則的每小時上限。</item>
+    </plurals>
+</resources>

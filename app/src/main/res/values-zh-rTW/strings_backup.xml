@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_channel">備份與還原</string>
+    <string name="backup_restoring">正在還原訊息</string>
+    <string name="backup_exporting">正在備份訊息</string>
+    <plurals name="backup_progress_import">
+        <item quantity="other">已讀取%1$d筆項目</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="other">已讀取%1$d筆項目（%2$d%%）</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="other">已儲存%1$d則訊息</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="other">已儲存%1$d則訊息（%2$d%%）</item>
+    </plurals>
+    <string name="backup_runs_in_background">你可以離開應用程式，作業會繼續執行，並在通知中顯示進度。</string>
+    <string name="backup_stop">停止</string>
+    <string name="backup_hide">隱藏</string>
+    <string name="backup_already_running">備份或還原已在執行中。</string>
+    <string name="backup_restore_finished">還原完成</string>
+    <string name="backup_restore_stopped">還原已停止</string>
+    <string name="backup_restore_failed">還原失敗</string>
+    <string name="backup_invalid_file">這個檔案不是訊息備份，因此沒有還原任何內容。</string>
+    <string name="backup_no_entries">備份檔案中沒有訊息。</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="other">沒有新內容可匯入：全部%1$d則訊息都已在這支手機上。</item>
+    </plurals>
+    <string name="backup_line_added">已新增：%1$d</string>
+    <string name="backup_line_duplicates">已在這支手機上，已略過：%1$d</string>
+    <string name="backup_line_repaired">已為先前還原的訊息補上缺少的附件：%1$d</string>
+    <string name="backup_line_incomplete">已還原但缺少部分附件的圖片訊息：%1$d</string>
+    <string name="backup_line_failed">無法還原：%1$d</string>
+    <string name="backup_line_damaged">檔案中損毀的項目，已略過：%1$d</string>
+    <string name="backup_line_xml_mms">這個XML備份中的圖片訊息不受支援，已略過：%1$d</string>
+    <string name="backup_line_not_selected">未選取匯入：%1$d</string>
+    <string name="backup_reasons">原因：</string>
+    <string name="backup_reason_no_address">訊息沒有寄件者或收件者</string>
+    <string name="backup_reason_no_thread">手機無法開啟對應的對話</string>
+    <string name="backup_reason_refused">手機拒絕儲存</string>
+    <string name="backup_reason_not_in_backup">備份檔案中沒有這個附件</string>
+    <string name="backup_reason_damaged_attachment">備份檔案中的附件已損毀</string>
+    <string name="backup_reason_attachment_write">無法儲存附件</string>
+    <string name="backup_stopped_early">檔案在第%1$d筆項目之後已損毀，因此無法讀取後面的內容。</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="other">已在%1$d筆項目後停止。請用同一個檔案再次還原以完成作業，已還原的訊息會略過。</item>
+    </plurals>
+    <string name="backup_retry_hint">再次執行還原即可重試失敗的項目，已還原的訊息會略過。</string>
+    <string name="backup_export_finished">備份完成</string>
+    <string name="backup_export_stopped">備份已停止</string>
+    <string name="backup_export_failed">備份失敗</string>
+    <string name="backup_export_error">無法寫入備份，未完成的檔案已刪除。%1$s</string>
+    <string name="backup_export_cancelled">備份已停止，未完成的檔案已刪除。</string>
+    <string name="backup_export_nothing">沒有可備份的訊息。</string>
+    <string name="backup_export_counts">已儲存%1$d則簡訊和%2$d則多媒體訊息。</string>
+    <string name="backup_export_unreadable_attachments">無法讀取的附件，已儲存但不含圖片：%1$d</string>
+    <string name="backup_export_unreadable_messages">無法讀取的訊息，已略過：%1$d</string>
+    <string name="backup_export_unreadable_conversations">無法讀取的對話，已略過：%1$d</string>
+    <string name="backup_export_incomplete">這份備份不完整。</string>
+    <string name="backup_interrupted_import">上次還原在完成前就停止了，可能是手機關閉了應用程式。請用同一個檔案再次執行，已還原的訊息會略過。</string>
+    <string name="backup_interrupted_export">上次備份在完成前就停止了，因此檔案不完整。請重新備份。</string>
+</resources>

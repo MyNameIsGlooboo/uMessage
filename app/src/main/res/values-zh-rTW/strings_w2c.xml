@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2c_blocked_label">已封鎖</string>
+    <string name="w2c_log_blocked_by_rule">已被規則封鎖：%1$s</string>
+    <string name="w2c_log_blocked_by_old_list">已被舊的封鎖清單封鎖</string>
+    <string name="w2c_log_fwd_rate_limited">未轉寄：這條規則已達每小時上限</string>
+</resources>

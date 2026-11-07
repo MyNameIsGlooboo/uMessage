@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i36_unread_first">未讀優先</string>
+    <string name="i36_unread_first_body">未讀的對話會保持在最上方</string>
+</resources>

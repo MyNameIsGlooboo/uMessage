@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8d_sheet_title_allow">一律允許</string>
+    <string name="ux8d_sheet_title_block">一律封鎖</string>
+    <string name="ux8d_match_label">比對內容</string>
+    <string name="ux8d_match_number">電話號碼</string>
+    <string name="ux8d_match_sender">寄件者名稱，例如銀行</string>
+    <string name="ux8d_match_word">訊息中的字詞</string>
+    <string name="ux8d_match_prefix">開頭為…的號碼</string>
+    <string name="ux8d_match_pattern">模式（進階）</string>
+    <string name="ux8d_match_more">更多比對方式</string>
+    <string name="ux8d_action_label">符合時</string>
+    <string name="ux8d_more_options">更多選項</string>
+    <string name="ux8d_row_type_number">號碼</string>
+    <string name="ux8d_row_type_prefix">號碼開頭為</string>
+    <string name="ux8d_row_type_sender">寄件者名稱</string>
+    <string name="ux8d_row_type_word">訊息中的字詞</string>
+    <string name="ux8d_row_type_pattern">模式</string>
+    <string name="ux8d_row_type_note">%1$s · %2$s</string>
+</resources>

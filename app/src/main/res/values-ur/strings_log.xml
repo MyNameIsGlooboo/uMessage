@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="declog_title">حالیہ سرگرمی</string>
+    <string name="declog_clear">لاگ صاف کریں</string>
+    <string name="declog_empty_title">ابھی کوئی فیصلہ نہیں</string>
+    <string name="declog_empty_body">فلٹر جو بھی پیغام چیک کرتا ہے وہ وجہ کے ساتھ یہاں نظر آتا ہے۔ پیغام کا متن کبھی محفوظ نہیں ہوتا۔</string>
+    <plurals name="declog_kept_for">
+        <item quantity="one">ہر فیصلہ %d دن بعد حذف ہو جاتا ہے۔ پیغام کا متن کبھی محفوظ نہیں ہوتا۔</item>
+        <item quantity="other">ہر فیصلہ %d دن بعد حذف ہو جاتا ہے۔ پیغام کا متن کبھی محفوظ نہیں ہوتا۔</item>
+    </plurals>
+    <string name="declog_sim">SIM %1$s</string>
+    <string name="declog_today">آج</string>
+    <string name="declog_yesterday">کل</string>
+    <string name="declog_allowed_by_rule">اصول کے تحت اجازت یافتہ: %1$s</string>
+    <string name="declog_filter_all">سب</string>
+    <string name="declog_filter_blocked">بلاک شدہ</string>
+    <string name="declog_filter_allowed">اجازت یافتہ</string>
+    <string name="declog_filter_empty">کوئی فیصلہ اس فلٹر سے میل نہیں کھاتا</string>
+    <plurals name="declog_times">
+        <item quantity="one">%1$s بار</item>
+        <item quantity="other">%1$s بار</item>
+    </plurals>
+    <plurals name="declog_repeated">
+        <item quantity="one">یہی فیصلہ مسلسل %1$s بار کیا گیا</item>
+        <item quantity="other">یہی فیصلہ مسلسل %1$s بار کیا گیا</item>
+    </plurals>
+    <plurals name="declog_share_count">
+        <item quantity="one">%d فیصلہ شیئر کریں</item>
+        <item quantity="other">%d فیصلے شیئر کریں</item>
+    </plurals>
+    <string name="declog_csv_subject">uMessage فیصلوں کا لاگ</string>
+    <string name="declog_share_failed">لاگ شیئر نہیں ہو سکا</string>
+    <string name="declog_details_title">تفصیلات</string>
+    <string name="declog_open_details">%1$s کی تفصیلات کھولیں</string>
+    <string name="declog_fixed_allowed">آپ نے لاگ سے اس بھیجنے والے کو اجازت دی</string>
+    <string name="declog_fixed_blocked">آپ نے لاگ سے اس بھیجنے والے کو بلاک کیا</string>
+    <string name="declog_fixed_restored">آپ نے لاگ سے یہ پیغام بحال کیا</string>
+    <string name="declog_restored">بحال شدہ</string>
+    <string name="declog_blocked_message">پیغام، جو ابھی بھی بلاک شدہ میں ہے</string>
+    <string name="declog_restore">پیغام بحال کریں</string>
+    <string name="declog_restore_done">پیغام ان باکس میں بحال کر دیا گیا</string>
+    <string name="declog_restore_text_only">متن ان باکس میں بحال کر دیا گیا۔ تصاویر واپس نہیں لائی جا سکیں۔</string>
+    <string name="declog_restore_nothing">بحال کرنے کو کچھ نہیں: یہ تصویری پیغام محفوظ نہیں رکھا گیا تھا</string>
+    <string name="declog_restore_failed">پیغام بحال نہیں ہو سکا</string>
+    <string name="declog_separator">" · "</string>
+    <string name="ui_separator">" · "</string>
+</resources>

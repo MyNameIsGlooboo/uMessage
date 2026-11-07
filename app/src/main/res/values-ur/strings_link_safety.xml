@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">مختصر کیا گیا لنک: آپ نہیں دیکھ سکتے کہ یہ کہاں جاتا ہے۔</string>
+    <string name="i07_punycode">نام کوڈ شدہ ہے اور اپنے اصل حروف سے مختلف حروف دکھا سکتا ہے۔</string>
+    <string name="i07_mixed_script">نام میں مختلف حروف تہجی ملے ہوئے ہیں، جو جعلی سائٹس اکثر کرتی ہیں۔</string>
+    <string name="i07_raw_ip">پتہ ایک نمبر ہے، ویب سائٹ کا نام نہیں۔</string>
+    <string name="i07_http_only">انکرپٹ نہیں ہے (http، https نہیں)۔</string>
+    <string name="i07_lookalike">یہ نام %1$s جیسا لگتا ہے۔ ہجے چیک کریں۔</string>
+    <string name="i07_user_info">\@ سے پہلے والا حصہ ویب سائٹ نہیں ہے۔</string>
+    <string name="i07_locked">خطرناک لنکس یہاں نہیں کھولے جا سکتے۔ آپ لنک کاپی کر سکتے ہیں۔</string>
+    <string name="i07_lock_title">خطرناک لنکس بلاک کریں</string>
+    <string name="i07_lock_summary">پھر لنک شیٹ صرف کاپی اور شیئر کرتی ہے</string>
+    <string name="i07_group_title">لنکس</string>
+</resources>

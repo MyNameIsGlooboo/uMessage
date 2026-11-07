@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i31_card_deposit">存入</string>
+    <string name="i31_card_withdrawal">提出</string>
+    <string name="i31_card_balance_title">餘額</string>
+    <string name="i31_card_title">%1$s: %2$s</string>
+    <string name="i31_card_balance">餘額：%1$s</string>
+    <string name="i31_money">%1$s %2$s</string>
+    <string name="i31_card_hint_card">卡號末碼%1$s</string>
+    <string name="i31_card_hint_account">帳號末碼%1$s</string>
+    <string name="i31_card_hint_other">末碼%1$s</string>
+    <string name="i31_currency_rial">里亞爾</string>
+    <string name="i31_currency_toman">托曼</string>
+    <string name="i31_currency_usd">美元</string>
+    <string name="i31_currency_eur">歐元</string>
+    <string name="i31_currency_gbp">英鎊</string>
+    <string name="i31_currency_aed">迪拉姆</string>
+</resources>

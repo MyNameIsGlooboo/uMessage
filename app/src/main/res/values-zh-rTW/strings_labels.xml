@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i29_menu_labels">標籤</string>
+    <string name="i29_picker_title">標籤</string>
+    <string name="i29_picker_empty">你還沒有標籤。建立標籤來分類你的對話。</string>
+    <string name="i29_picker_new">新增標籤</string>
+    <string name="i29_picker_manage">管理標籤</string>
+    <string name="i29_done">完成</string>
+    <string name="i29_cancel">取消</string>
+    <string name="i29_tiles_title">你的標籤</string>
+    <string name="i29_tile_add">新增標籤</string>
+    <string name="i29_tiles_manage">管理標籤</string>
+    <string name="i29_manager_title">管理標籤</string>
+    <string name="i29_manager_note">標籤由你自己建立，與自動的「交易」和「優惠」篩選器分開。</string>
+    <string name="i29_manager_edit">編輯標籤%1$s</string>
+    <string name="i29_manager_delete">刪除標籤%1$s</string>
+    <string name="i29_edit_new_title">新增標籤</string>
+    <string name="i29_edit_title">編輯標籤</string>
+    <string name="i29_edit_name">標籤名稱</string>
+    <string name="i29_edit_save">儲存</string>
+    <string name="i29_color_description">顏色%1$d</string>
+    <string name="i29_error_duplicate">已有同名的標籤。</string>
+    <string name="i29_error_limit">最多可以有%1$d個標籤。</string>
+    <string name="i29_delete_title">要刪除這個標籤嗎？</string>
+    <string name="i29_delete_body">將移除標籤「%1$s」。你的對話和訊息會保持原樣。</string>
+    <string name="i29_delete_confirm">刪除</string>
+    <string name="i29_empty_title">這裡沒有對話</string>
+    <string name="i29_empty_body">按住對話，開啟選單並選擇「標籤」即可加入。</string>
+</resources>

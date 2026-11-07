@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inbox_empty_archive_menu">آرکائیو خالی کریں</string>
+    <string name="inbox_empty_bin_menu">ری سائیکل بن خالی کریں</string>
+    <string name="inbox_archive_empty_body">پیغامات سے آپ جو چیٹس آرکائیو کریں گے وہ یہاں نظر آئیں گی۔</string>
+    <string name="inbox_details_view_contact">رابطہ دیکھیں</string>
+    <string name="inbox_details_more">مزید</string>
+    <string name="inbox_details_search">گفتگو میں تلاش کریں</string>
+    <string name="inbox_details_search_body">اس چیٹ میں کوئی پیغام تلاش کریں</string>
+    <string name="inbox_details_forward">اس بھیجنے والے کے لیے فارورڈ کا اصول</string>
+    <string name="inbox_details_forward_body">اس بھیجنے والے کے پیغامات کی کاپیاں دوسرے نمبر پر بھیجیں</string>
+    <string name="inbox_details_search_hint">اس گفتگو میں تلاش کریں</string>
+</resources>

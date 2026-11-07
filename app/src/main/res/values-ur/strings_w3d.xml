@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3d_mask_codes">فارورڈ کیے گئے پیغامات میں کوڈز چھپائیں</string>
+    <string name="w3d_mask_codes_body">فارورڈ کیے گئے کوڈز **** کی صورت میں دکھتے ہیں</string>
+    <string name="w3d_mask_keep_last">آخری دو ہندسے رکھیں</string>
+    <string name="w3d_mask_keep_last_on">فارورڈز میں مثلاً **34 دکھتا ہے۔</string>
+    <string name="w3d_mask_keep_last_off">فارورڈز میں پورا کوڈ چھپا رہتا ہے۔</string>
+    <string name="w3d_daily_limit">روزانہ فارورڈ کی حد</string>
+    <string name="w3d_daily_limit_body">روزانہ زیادہ سے زیادہ فارورڈز</string>
+    <string name="w3d_hide_lock_codes">لاک اسکرین پر کوڈز چھپائیں</string>
+    <string name="w3d_hide_lock_codes_body">کوڈ والا پیغام لاک اسکرین پر •••• دکھاتا ہے جب تک آپ فون ان لاک نہ کریں۔</string>
+</resources>

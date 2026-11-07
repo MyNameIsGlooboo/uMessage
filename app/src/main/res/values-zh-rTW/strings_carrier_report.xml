@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">檢舉垃圾簡訊</string>
+    <string name="carrier_report_row_title">電信業者垃圾簡訊檢舉號碼</string>
+    <string name="carrier_report_row_summary">透過簡訊向電信業者檢舉垃圾簡訊</string>
+    <string name="carrier_report_not_set">未設定</string>
+    <string name="carrier_report_hint">你的電信業者的垃圾簡訊檢舉號碼。檢舉會以簡訊送出，可能需要付費。</string>
+    <string name="carrier_report_invalid">請輸入3到8位數字</string>
+    <string name="carrier_report_action">向電信業者檢舉</string>
+    <string name="carrier_report_title">要向電信業者檢舉嗎？</string>
+    <string name="carrier_report_body">這會將此寄件者的最新一則訊息以簡訊傳送到%1$s。電信業者可能會向你收費。</string>
+    <string name="carrier_report_send">傳送</string>
+    <string name="carrier_report_sent">已向電信業者送出檢舉</string>
+    <string name="carrier_report_failed">無法送出檢舉</string>
+</resources>

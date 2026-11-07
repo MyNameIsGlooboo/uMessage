@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">یہ چیٹ چھپائیں</string>
+    <string name="hidden_chats_menu_unhide">یہ چیٹ ظاہر کریں</string>
+    <string name="hidden_chats_confirm">یہ چیٹ چھپائیں؟ یہ فہرست، تلاش اور اطلاعات سے ہٹ جائے گی جب تک آپ اپنے ایپ لاک سے چھپی ہوئی چیٹس ان لاک نہ کریں۔</string>
+    <string name="hidden_chats_need_lock">چھپی ہوئی چیٹس کے لیے ایپ لاک ضروری ہے۔ ابھی سیٹ کریں؟</string>
+    <string name="hidden_chats_set_lock">سیٹ کریں</string>
+    <string name="hidden_chats_done">چیٹ چھپا دی گئی</string>
+    <string name="hidden_chats_show">چھپی ہوئی چیٹس</string>
+    <string name="hidden_chats_lock">چھپی ہوئی چیٹس لاک کریں</string>
+</resources>

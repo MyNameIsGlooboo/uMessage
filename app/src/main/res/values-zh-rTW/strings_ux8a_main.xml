@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8a_checklist_show">顯示步驟</string>
+    <string name="ux8a_checklist_hide">隱藏步驟</string>
+    <string name="ux8a_menu_recycle_bin">資源回收筒</string>
+    <string name="ux8a_selection_block">封鎖</string>
+</resources>

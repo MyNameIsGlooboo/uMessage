@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_checklist_title">1 منٹ میں سیٹ اپ کریں</string>
+    <string name="w3c_checklist_done_title">آپ بالکل تیار ہیں</string>
+    <string name="w3c_checklist_basics_title">بنیادی کام ہو گئے</string>
+    <string name="w3c_checklist_progress">%2$s میں سے %1$s</string>
+    <string name="w3c_checklist_dismiss">چیک لسٹ بند کریں</string>
+    <string name="w3c_checklist_step_sms">uMessage کو اپنی ڈیفالٹ SMS ایپ بنائیں</string>
+    <string name="w3c_checklist_step_notifications">اطلاعات آن کریں</string>
+    <string name="w3c_checklist_step_blocked">بلاک شدہ ٹیب دیکھیں</string>
+    <string name="w3c_checklist_step_forward">اختیاری: پیغامات کسی دوسرے نمبر پر فارورڈ کریں</string>
+    <string name="w3c_checklist_step_done">ہو گیا</string>
+    <string name="w3c_checklist_action_set">سیٹ کریں</string>
+    <string name="w3c_checklist_action_open">کھولیں</string>
+    <string name="w3c_receipt_title">اسپیم روکا گیا: دیکھنے کے لیے ٹیپ کریں</string>
+    <string name="w3c_receipt_body">نامعلوم بھیجنے والے کا ایک پیغام بلاک شدہ میں روکا گیا۔ یہ ضائع نہیں ہوا: آپ اسے کسی بھی وقت دیکھ کر بحال کر سکتے ہیں۔</string>
+    <string name="w3c_receipt_review">دیکھیں</string>
+    <string name="w3c_receipt_got_it">سمجھ گیا</string>
+    <string name="w3c_search_codes">حالیہ کوڈز</string>
+    <string name="w3c_search_code_copied">کوڈ کاپی ہو گیا</string>
+    <string name="w3c_search_code_description">%2$s کا کوڈ %1$s کاپی کریں</string>
+    <string name="w3c_new_paste">نمبر پیسٹ کریں</string>
+    <string name="w3c_new_paste_none">کلپ بورڈ پر کوئی فون نمبر نہیں</string>
+    <string name="w3c_details_allow">اس بھیجنے والے کو ہمیشہ اجازت دیں</string>
+    <string name="w3c_details_allow_hint">اس بھیجنے والے کے پیغامات ہمیشہ آپ کے ان باکس میں آتے ہیں</string>
+    <string name="w3c_details_allow_spoof_hint">کوئی بھی اس نام سے پیغامات بھیج سکتا ہے، اس لیے انہیں بھی اجازت ہوگی</string>
+    <string name="w3c_date_gregorian">عیسوی</string>
+    <string name="w3c_date_gregorian_body">تاریخیں جیسے 29 اکتوبر</string>
+    <string name="w3c_date_jalali">جلالی</string>
+    <string name="w3c_date_jalali_body">تاریخیں جیسے 7 آبان</string>
+    <string name="w3c_date_both">دونوں</string>
+    <string name="w3c_date_both_body">گفتگو میں دونوں کیلنڈر</string>
+    <string name="w3c_text_size">متن کا سائز</string>
+    <string name="w3c_text_small">چھوٹا</string>
+    <string name="w3c_text_default">ڈیفالٹ</string>
+    <string name="w3c_text_large">بڑا</string>
+    <string name="w3c_text_largest">زیادہ بڑا</string>
+    <string name="w3c_text_size_sample">نمونہ: آپ کا کوڈ 482913 ہے۔</string>
+    <string name="w3c_backup_settings">تمام سیٹنگز کا بیک اپ لیں</string>
+    <string name="w3c_backup_settings_body">اصول، فارورڈز اور سیٹنگز فائل میں محفوظ کرتا ہے۔ پیغامات کا متن شامل نہیں۔</string>
+    <string name="w3c_restore_settings">تمام سیٹنگز بحال کریں</string>
+    <string name="w3c_restore_settings_body">بیک اپ فائل سے اصول اور سیٹنگز لوڈ کرتا ہے</string>
+    <string name="w3c_backup_saved">بیک اپ محفوظ ہو گیا: %1$d آئٹمز</string>
+    <string name="w3c_backup_failed">بیک اپ محفوظ نہیں ہو سکا</string>
+    <string name="w3c_restore_done">%1$d آئٹمز بحال ہو گئے</string>
+    <string name="w3c_restore_failed">یہ فائل بحال نہیں ہو سکی۔ uMessage سیٹنگز کا بیک اپ منتخب کریں۔</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i69_show_recent">顯示最近的相片</string>
+    <string name="i69_photo_description">最近的相片。輕觸即可附加。</string>
+</resources>

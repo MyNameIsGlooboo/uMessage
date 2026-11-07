@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_conv_menu">گفتگو ایکسپورٹ کریں</string>
+    <string name="export_conv_title">گفتگو ایکسپورٹ کریں</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">سادہ متن</string>
+    <string name="export_conv_dates_all">تمام تاریخیں</string>
+    <string name="export_conv_dates_30">پچھلے 30 دن</string>
+    <string name="export_conv_dates_pick">تاریخیں منتخب کریں</string>
+    <string name="export_conv_pick_from">کس دن سے؟</string>
+    <string name="export_conv_pick_to">کس دن تک؟</string>
+    <string name="export_conv_action">ایکسپورٹ</string>
+    <string name="export_conv_preparing">فائل تیار ہو رہی ہے…</string>
+    <string name="export_conv_nothing">اس مدت میں کوئی پیغام نہیں ہے</string>
+    <string name="export_conv_failed">فائل نہیں بن سکی</string>
+    <string name="export_conv_subject">گفتگو کا ایکسپورٹ</string>
+    <string name="export_conv_share_text">%1$s کے ساتھ گفتگو، %2$s۔ پیغام کے متن کا SHA-256: %3$s</string>
+    <string name="export_conv_attachment_label">[منسلکہ]</string>
+    <string name="export_pdf_title">گفتگو کا ایکسپورٹ</string>
+    <string name="export_pdf_with">گفتگو اس کے ساتھ: %1$s</string>
+    <string name="export_pdf_numbers">نمبر: %1$s</string>
+    <string name="export_pdf_range">تاریخوں کی حد: %1$s</string>
+    <string name="export_pdf_zone">اوقات %1$s ٹائم زون میں ہیں</string>
+    <string name="export_pdf_exported">ایکسپورٹ کیا گیا: %1$s</string>
+    <plurals name="export_pdf_count">
+        <item quantity="one">%1$d پیغام</item>
+        <item quantity="other">%1$d پیغامات</item>
+    </plurals>
+    <string name="export_pdf_hash">پیغام کے متن کا SHA-256: %1$s</string>
+    <string name="export_pdf_not_certified">فون سے ایکسپورٹ کیا گیا؛ تصدیق شدہ ریکارڈ نہیں ہے۔</string>
+    <string name="export_pdf_page">صفحہ %1$d از %2$d</string>
+    <string name="export_pdf_from">منجانب: %1$s</string>
+    <string name="export_pdf_to">بنام: %1$s</string>
+    <string name="export_pdf_attachment">منسلکہ: %1$s (%2$s)</string>
+    <string name="export_pdf_attachment_unnamed">بے نام فائل</string>
+    <string name="export_status_received">موصول ہوا</string>
+    <string name="export_status_sent">بھیج دیا گیا</string>
+    <string name="export_status_delivered">پہنچ گیا</string>
+    <string name="export_status_failed">ناکام</string>
+    <string name="export_status_sending">بھیجا جا رہا ہے</string>
+    <string name="export_status_draft">مسودہ</string>
+</resources>

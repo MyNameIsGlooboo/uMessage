@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mute_menu">靜音</string>
+    <string name="unmute_menu">取消靜音</string>
+    <string name="mute_title">將通知設為靜音</string>
+    <string name="mute_1_hour">1小時</string>
+    <string name="mute_8_hours">8小時</string>
+    <string name="mute_1_week">1週</string>
+    <string name="mute_always">一律靜音</string>
+    <string name="mute_off">關閉</string>
+    <string name="mute_until">直到%1$s</string>
+    <string name="mute_channel">已靜音的對話</string>
+</resources>

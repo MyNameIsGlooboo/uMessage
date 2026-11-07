@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_title">uMessage已鎖定</string>
+    <string name="lock_enter_pin">輸入你的PIN</string>
+    <string name="lock_draw_pattern">繪製你的圖形</string>
+    <string name="lock_use_biometrics">確認是你本人以開啟uMessage</string>
+    <string name="lock_wrong_pin">PIN錯誤，請再試一次</string>
+    <string name="lock_wrong_pattern">圖形錯誤，請再試一次</string>
+    <string name="lock_too_many">錯誤次數過多</string>
+    <string name="lock_try_again_in">請在%s後再試一次</string>
+    <string name="lock_key_delete">刪除</string>
+    <string name="lock_key_confirm">確認</string>
+    <plurals name="lock_digits_entered">
+        <item quantity="other">已輸入%d位數字</item>
+    </plurals>
+    <string name="lock_no_digits">尚未輸入數字</string>
+    <string name="lock_pattern_pad">圖形繪製區，3×3個點</string>
+    <string name="lock_pattern_dot">第%1$d列第%2$d欄的點</string>
+    <string name="lock_pattern_dot_selected">第%1$d列第%2$d欄的點，圖形中的第%3$d個</string>
+    <string name="lock_pattern_done">完成</string>
+    <string name="lock_pattern_clear">清除</string>
+    <plurals name="lock_pattern_dots_selected">
+        <item quantity="other">已選擇%d個點</item>
+    </plurals>
+    <string name="lock_use_pin_instead">改用PIN</string>
+    <string name="lock_use_biometrics_instead">改用生物辨識</string>
+    <string name="lock_use_screen_lock">改用手機螢幕鎖定</string>
+    <string name="lock_biometrics_unavailable">無法使用生物辨識，請輸入你的PIN。</string>
+    <string name="lock_screen_lock_title">開啟uMessage</string>
+    <string name="lock_screen_lock_description">確認手機螢幕鎖定以開啟uMessage</string>
+    <string name="lock_no_way_to_check">這支手機已沒有指紋或螢幕鎖定，因此uMessage無法確認是你本人。請開啟應用程式，並在「設定」中設定PIN。</string>
+    <string name="lock_open_anyway">開啟uMessage</string>
+    <string name="lock_forgot">忘記了嗎？使用手機的螢幕鎖定</string>
+    <plurals name="lock_tries_left">
+        <item quantity="other">再嘗試%d次後就必須等待</item>
+    </plurals>
+    <string name="lock_setup_done">應用程式鎖已開啟。如果忘記PIN或圖形，請在鎖定畫面輕觸「忘記了嗎？」，改用手機的螢幕鎖定。</string>
+    <string name="lock_setup_done_biometric">應用程式鎖已開啟。如果生物辨識無法使用，請使用備用PIN。如果連備用PIN也忘了，請輕觸「忘記了嗎？」並使用手機的螢幕鎖定。</string>
+    <string name="lock_setup_done_no_screen_lock">應用程式鎖已開啟。你的手機沒有螢幕鎖定，因此如果忘記PIN或圖形，就沒有其他方式可以進入：你必須在手機的應用程式設定中清除uMessage的資料，這會刪除它的設定、垃圾簡訊清單和垃圾簡訊記錄（你的簡訊仍會保留在手機上）。請為手機加上螢幕鎖定，以便日後還能進入。</string>
+    <string name="settings_app_lock_timeout">離開應用程式後鎖定</string>
+    <string name="settings_app_lock_timeout_immediately">立即</string>
+    <string name="settings_app_lock_timeout_30s">30秒後</string>
+    <string name="settings_app_lock_timeout_1m">1分鐘後</string>
+    <string name="settings_app_lock_timeout_5m">5分鐘後</string>
+    <string name="settings_app_lock_screenshots">禁止螢幕截圖</string>
+    <string name="settings_app_lock_screenshots_body">禁止螢幕截圖和螢幕錄影。在最近使用的應用程式中，訊息一律會隱藏。</string>
+    <string name="settings_app_lock_screenshots_body_old">禁止螢幕截圖和螢幕錄影。在這個Android版本上，這也是在最近使用的應用程式中隱藏訊息的唯一方式。</string>
+    <string name="settings_app_lock_change">變更PIN、圖形或生物辨識</string>
+    <string name="settings_app_lock_weak">你的PIN或圖形很容易被猜到</string>
+    <string name="settings_app_lock_weak_body">PIN強度太低，輕觸即可變更</string>
+    <string name="settings_app_lock_add_pin">新增備用PIN</string>
+    <string name="settings_app_lock_add_pin_body">新增一組PIN作為備用</string>
+    <string name="settings_app_lock_now">立即鎖定</string>
+    <string name="settings_app_lock_now_body">立即鎖定uMessage</string>
+    <string name="settings_app_lock_changed">已變更應用程式鎖</string>
+    <string name="dialogs_lock_backup_pin">請先設定備用PIN，生物辨識無法使用時會用到。</string>
+</resources>

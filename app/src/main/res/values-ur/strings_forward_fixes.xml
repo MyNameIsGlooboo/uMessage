@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdfix_status_limit">آج کے لیے روک دیا گیا: حد پوری ہو گئی</string>
+    <string name="fwdfix_limit_hint">آج %2$s میں سے %1$s فارورڈ بھیجے گئے۔ فارورڈنگ کل دوبارہ شروع ہو گی۔</string>
+    <string name="fwdfix_status_skipped">چھوڑ دیا گیا (حد)</string>
+    <string name="fwdfix_error_daily_limit">نہیں بھیجا گیا: فارورڈ کی روزانہ حد پوری ہو گئی تھی۔</string>
+    <string name="fwdfix_error_rate_limited">نہیں بھیجا گیا: یہ اصول پچھلے ایک گھنٹے میں پہلے ہی %1$s پیغامات فارورڈ کر چکا ہے۔</string>
+    <string name="fwdfix_retry_all_recent">صرف پچھلے 24 گھنٹوں کے فارورڈ شامل ہیں۔</string>
+    <plurals name="fwdfix_retry_not_sent_paused">
+        <item quantity="one">%1$s نہیں بھیجا گیا: فارورڈنگ رکی ہوئی ہے۔</item>
+        <item quantity="other">%1$s نہیں بھیجے گئے: فارورڈنگ رکی ہوئی ہے۔</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_rule">
+        <item quantity="one">%1$s نہیں بھیجا گیا: اس کا اصول بند یا حذف شدہ ہے۔</item>
+        <item quantity="other">%1$s نہیں بھیجے گئے: ان کے اصول بند یا حذف شدہ ہیں۔</item>
+    </plurals>
+    <plurals name="fwdfix_retry_not_sent_limit">
+        <item quantity="one">%1$s نہیں بھیجا گیا: روزانہ حد یا اس کے اصول کی فی گھنٹہ حد پوری ہو گئی ہے۔</item>
+        <item quantity="other">%1$s نہیں بھیجے گئے: روزانہ حد یا کسی اصول کی فی گھنٹہ حد پوری ہو گئی ہے۔</item>
+    </plurals>
+    <string name="fwdfix_card_last">آخری فارورڈ %1$s، %2$s</string>
+    <plurals name="fwdfix_card_week">
+        <item quantity="one">اس ہفتے %1$s</item>
+        <item quantity="other">اس ہفتے %1$s</item>
+    </plurals>
+    <string name="fwdfix_card_never">ابھی تک کچھ فارورڈ نہیں ہوا</string>
+    <string name="fwdfix_card_sent">بھیج دیا گیا</string>
+    <string name="fwdfix_card_pending">بھیجا جا رہا ہے</string>
+    <string name="fwdfix_card_failed">ناکام</string>
+    <string name="fwdfix_card_skipped">چھوڑ دیا گیا (حد)</string>
+    <string name="fwdfix_delete_rule">اصول حذف کریں</string>
+    <string name="fwdfix_deleted">فارورڈ کا اصول حذف کر دیا گیا</string>
+    <string name="fwdfix_test_button">ٹیسٹ بھیجیں</string>
+    <string name="fwdfix_test_title">ٹیسٹ SMS بھیجیں؟</string>
+    <plurals name="fwdfix_test_message">
+        <item quantity="one">%1$s ٹیسٹ SMS اوپر والے نمبر پر جائے گا۔ یہ ایک ادا شدہ SMS ہے۔</item>
+        <item quantity="other">اوپر والے %1$s نمبروں میں سے ہر ایک پر ایک ٹیسٹ SMS جائے گا۔ ہر ایک ادا شدہ SMS ہے۔</item>
+    </plurals>
+    <string name="fwdfix_test_confirm">بھیجیں</string>
+    <string name="fwdfix_test_text">uMessage کی طرف سے ٹیسٹ: فارورڈنگ کام کر رہی ہے۔</string>
+    <string name="fwdfix_test_sending">ٹیسٹ بھیجا جا رہا ہے…</string>
+    <string name="fwdfix_test_sent">ٹیسٹ بھیج دیا گیا۔ دوسرا فون چیک کریں۔</string>
+    <string name="fwdfix_test_failed">ٹیسٹ نہیں بھیجا جا سکا۔ اپنا سگنل اور بیلنس چیک کریں۔</string>
+    <string name="fwdfix_cost_persian">%1$s حروف کا فارسی متن: %2$s حصے × %3$s = %4$s SMS</string>
+    <string name="fwdfix_cost_english">%1$s حروف کا انگریزی متن: %2$s حصے × %3$s = %4$s SMS</string>
+    <string name="fwdfix_retry_none_title">ابھی کچھ نہیں بھیجا جا سکتا</string>
+    <plurals name="fwdfix_retry_blocked_paused">
+        <item quantity="one">%1$s نہیں بھیجا جائے گا: فارورڈنگ رکی ہوئی ہے۔</item>
+        <item quantity="other">%1$s نہیں بھیجے جائیں گے: فارورڈنگ رکی ہوئی ہے۔</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_rule">
+        <item quantity="one">%1$s نہیں بھیجا جائے گا: اس کا اصول بند یا حذف شدہ ہے۔</item>
+        <item quantity="other">%1$s نہیں بھیجے جائیں گے: ان کے اصول بند یا حذف شدہ ہیں۔</item>
+    </plurals>
+    <plurals name="fwdfix_retry_blocked_limit">
+        <item quantity="one">%1$s نہیں بھیجا جائے گا: روزانہ حد یا اس کے اصول کی فی گھنٹہ حد پوری ہو گئی ہے۔</item>
+        <item quantity="other">%1$s نہیں بھیجے جائیں گے: روزانہ حد یا کسی اصول کی فی گھنٹہ حد پوری ہو گئی ہے۔</item>
+    </plurals>
+</resources>

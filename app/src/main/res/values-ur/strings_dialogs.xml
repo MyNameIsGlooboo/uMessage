@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialogs_yes">ہاں</string>
+    <string name="dialogs_no">نہیں</string>
+    <string name="dialogs_permission_required">اجازت درکار ہے</string>
+    <string name="dialogs_grant_permission">اجازت دیں</string>
+    <string name="dialogs_date_time_format_title">تاریخ اور وقت کا فارمیٹ</string>
+    <string name="dialogs_use_24_hour">24 گھنٹے کا فارمیٹ استعمال کریں</string>
+    <string name="dialogs_lock_pattern">پیٹرن</string>
+    <string name="dialogs_lock_pin">PIN</string>
+    <string name="dialogs_lock_biometrics">بایومیٹرکس</string>
+    <string name="dialogs_lock_fingerprint">فنگر پرنٹ</string>
+    <string name="dialogs_lock_enter_pin">PIN درج کریں</string>
+    <string name="dialogs_lock_repeat_pin">PIN دوبارہ درج کریں</string>
+    <string name="dialogs_lock_wrong_pin">غلط PIN</string>
+    <string name="dialogs_lock_empty_pin">براہ کرم PIN درج کریں</string>
+    <string name="dialogs_lock_short_pin">PIN کم از کم 4 ہندسوں کا ہونا چاہیے</string>
+    <string name="dialogs_lock_pin_suggestion">کم از کم 4 ہندسے۔ %d یا زیادہ زیادہ محفوظ ہے۔</string>
+    <plurals name="dialogs_lock_short_pattern">
+        <item quantity="one">بہت چھوٹا ہے۔ کم از کم %d نقطہ جوڑیں۔</item>
+        <item quantity="other">بہت چھوٹا ہے۔ کم از کم %d نقطے جوڑیں۔</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">پیٹرن بنائیں</string>
+    <string name="dialogs_lock_repeat_pattern">پیٹرن دوبارہ بنائیں</string>
+    <string name="dialogs_lock_wrong_pattern">غلط پیٹرن</string>
+    <string name="dialogs_lock_locked_out">ان لاک کی بہت زیادہ غلط کوششیں۔\n%d سیکنڈ بعد دوبارہ کوشش کریں۔</string>
+    <string name="dialogs_lock_pin_delete">آخری ہندسہ مٹائیں</string>
+    <string name="dialogs_lock_pin_confirm">PIN کی تصدیق کریں</string>
+    <string name="dialogs_lock_pin_entered">%d ہندسے درج کیے گئے</string>
+    <string name="dialogs_lock_pattern_pad">پیٹرن پیڈ</string>
+    <string name="dialogs_lock_biometric_hint">تصدیق کے لیے کہ یہ آپ ہیں، اپنا فنگر پرنٹ یا چہرہ استعمال کریں۔</string>
+    <string name="dialogs_lock_biometric_open">بایومیٹرکس سے تصدیق کریں</string>
+    <string name="dialogs_lock_place_finger">اپنی انگلی فنگر پرنٹ سینسر پر رکھیں۔</string>
+    <string name="dialogs_lock_no_fingerprints">کوئی فنگر پرنٹ رجسٹر نہیں ہے۔ اپنے آلے کی سیٹنگز میں ایک شامل کریں۔</string>
+    <string name="dialogs_lock_open_settings">آلے کی سیٹنگز کھولیں</string>
+    <string name="dialogs_lock_auth_failed">تصدیق ناکام ہو گئی</string>
+    <string name="dialogs_lock_auth_blocked">تصدیق روک دی گئی، تھوڑی دیر بعد دوبارہ کوشش کریں</string>
+</resources>

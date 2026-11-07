@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3b_info_button">بلاک کرنا کیسے کام کرتا ہے</string>
+    <string name="r3b_info_title">بلاک کرنا کیسے کام کرتا ہے</string>
+    <string name="r3b_info_modes">نامعلوم بھیجنے والے</string>
+    <string name="r3b_info_mode_current">ابھی: %1$s</string>
+    <string name="r3b_info_messages">بلاک شدہ پیغامات</string>
+    <string name="r3b_info_open_sender">کسی بھیجنے والے کے پیغامات پڑھنے کے لیے اس پر ٹیپ کریں۔</string>
+    <string name="r3b_info_move">«ان باکس میں منتقل کریں» بھیجنے والے کے تمام پیغامات آپ کے ان باکس میں ڈال دیتا ہے، پھر پوچھتا ہے کہ کیا اسے ہمیشہ اجازت دی جائے۔</string>
+    <string name="r3b_info_release">«ایک بار چھوڑیں» (کسی پیغام کو دبائے رکھیں) صرف وہی پیغام آپ کے ان باکس میں ڈالتا ہے۔ بھیجنے والے کو اجازت نہیں ملتی۔</string>
+    <string name="r3b_info_swipe">بھیجنے والے کے پیغامات ان باکس میں منتقل کرنے کے لیے اسے قطار کے آخر کی طرف سوائپ کریں۔</string>
+    <string name="r3b_open_sender">پیغامات کھولیں</string>
+    <string name="r3b_move_inbox_for">ان باکس میں منتقل کریں، %1$s</string>
+    <string name="r3b_delete_for">حذف کریں، %1$s</string>
+    <string name="r3b_thread_note">uMessage نے یہ پیغامات روک لیے ہیں۔ یہ آپ کے ان باکس میں نہیں ہیں۔</string>
+    <string name="r3b_thread_delete_all">%1$s کے تمام پیغامات حذف کریں</string>
+    <string name="r3b_thread_empty_title">یہاں کچھ باقی نہیں</string>
+    <string name="r3b_thread_empty_body">اب اس بھیجنے والے کا کوئی بلاک شدہ پیغام نہیں ہے۔</string>
+    <string name="r3b_message_actions">پیغام کے اختیارات</string>
+    <string name="r3b_why_blocked">کیوں بلاک ہوا</string>
+    <string name="r3b_copy_text">متن کاپی کریں</string>
+    <string name="r3b_text_copied">متن کاپی ہو گیا</string>
+    <string name="r3b_delete_message">حذف کریں</string>
+    <string name="r3b_received">موصول %1$s</string>
+    <string name="r3b_info_mode_strict">سخت: ہر نامعلوم بھیجنے والے کو روکتا ہے، تصدیقی کوڈ بھی۔</string>
+    <string name="r3b_info_mode_smart">اسمارٹ: نامعلوم بھیجنے والوں کو روکتا ہے، لیکن بغیر لنک والے کوڈ آنے دیتا ہے۔</string>
+    <string name="r3b_info_mode_off">بند: نامعلوم بھیجنے والے آپ کے ان باکس میں آتے ہیں۔ آپ کے اصول پھر بھی لاگو ہیں۔</string>
+    <plurals name="r3b_info_purge">
+        <item quantity="one">بلاک شدہ پیغامات %d دن بعد حذف ہو جاتے ہیں۔</item>
+        <item quantity="other">بلاک شدہ پیغامات %d دن بعد حذف ہو جاتے ہیں۔</item>
+    </plurals>
+    <string name="r3b_info_purge_off">بلاک شدہ پیغامات تب تک رہتے ہیں جب تک آپ انہیں حذف نہ کریں۔</string>
+    <string name="r3b_allow_body_sender_one_message">پیغام ہر حال میں آپ کے ان باکس میں واپس جائے گا۔ اگر آپ %1$s کو ہمیشہ اجازت دیں تو اس کے آئندہ پیغامات ہر فلٹر سے بچ جائیں گے، آپ کے بلاک کے اصولوں سمیت۔</string>
+    <string name="r3b_allow_body_sender_many_messages">پیغامات ہر حال میں آپ کے ان باکس میں واپس جائیں گے۔ اگر آپ %1$s کو ہمیشہ اجازت دیں تو اس کے آئندہ پیغامات ہر فلٹر سے بچ جائیں گے، آپ کے بلاک کے اصولوں سمیت۔</string>
+</resources>

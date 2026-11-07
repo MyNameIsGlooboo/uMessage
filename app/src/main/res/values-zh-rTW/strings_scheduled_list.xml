@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_list_title">排程訊息</string>
+    <string name="scheduled_list_empty_title">沒有排程</string>
+    <string name="scheduled_list_empty_body">你排程的訊息會在這裡等候傳送。</string>
+    <string name="scheduled_list_not_sent">未傳送</string>
+    <string name="scheduled_list_edit_time">變更時間</string>
+    <string name="scheduled_list_send_now">立即傳送</string>
+    <string name="scheduled_list_delete">刪除</string>
+    <string name="scheduled_list_send_confirm">要立即將這則訊息傳送給%1$s嗎？</string>
+    <string name="scheduled_list_delete_confirm">要刪除傳給%1$s的排程訊息嗎？</string>
+    <string name="scheduled_list_row_actions">傳給%1$s的訊息的操作</string>
+</resources>

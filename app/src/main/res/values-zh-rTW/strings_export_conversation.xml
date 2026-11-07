@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_conv_menu">匯出對話</string>
+    <string name="export_conv_title">匯出對話</string>
+    <string name="export_conv_format_pdf">PDF</string>
+    <string name="export_conv_format_text">純文字</string>
+    <string name="export_conv_dates_all">所有日期</string>
+    <string name="export_conv_dates_30">過去30天</string>
+    <string name="export_conv_dates_pick">選擇日期</string>
+    <string name="export_conv_pick_from">從哪一天開始？</string>
+    <string name="export_conv_pick_to">到哪一天為止？</string>
+    <string name="export_conv_action">匯出</string>
+    <string name="export_conv_preparing">正在準備檔案…</string>
+    <string name="export_conv_nothing">這段期間沒有訊息</string>
+    <string name="export_conv_failed">無法建立檔案</string>
+    <string name="export_conv_subject">對話匯出</string>
+    <string name="export_conv_share_text">與%1$s的對話，%2$s。訊息文字的SHA-256：%3$s</string>
+    <string name="export_conv_attachment_label">［附件］</string>
+    <string name="export_pdf_title">對話匯出</string>
+    <string name="export_pdf_with">對話對象：%1$s</string>
+    <string name="export_pdf_numbers">號碼：%1$s</string>
+    <string name="export_pdf_range">日期範圍：%1$s</string>
+    <string name="export_pdf_zone">時間以%1$s時區顯示</string>
+    <string name="export_pdf_exported">匯出時間：%1$s</string>
+    <plurals name="export_pdf_count">
+        <item quantity="other">%1$d則訊息</item>
+    </plurals>
+    <string name="export_pdf_hash">訊息文字的SHA-256：%1$s</string>
+    <string name="export_pdf_not_certified">從手機匯出，並非經認證的紀錄。</string>
+    <string name="export_pdf_page">第%1$d頁，共%2$d頁</string>
+    <string name="export_pdf_from">寄件者：%1$s</string>
+    <string name="export_pdf_to">收件者：%1$s</string>
+    <string name="export_pdf_attachment">附件：%1$s（%2$s）</string>
+    <string name="export_pdf_attachment_unnamed">未命名檔案</string>
+    <string name="export_status_received">已接收</string>
+    <string name="export_status_sent">已傳送</string>
+    <string name="export_status_delivered">已送達</string>
+    <string name="export_status_failed">失敗</string>
+    <string name="export_status_sending">傳送中</string>
+    <string name="export_status_draft">草稿</string>
+</resources>

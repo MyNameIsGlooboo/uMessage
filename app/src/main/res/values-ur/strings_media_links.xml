@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i56_section">میڈیا اور لنکس</string>
+    <string name="i56_see_all">سب دیکھیں</string>
+    <string name="i56_pictures">تصاویر</string>
+    <string name="i56_links">لنکس</string>
+    <string name="i56_empty_pictures">اس چیٹ میں کوئی تصویر نہیں۔</string>
+    <string name="i56_empty_links">اس چیٹ میں کوئی لنک نہیں۔</string>
+    <string name="i56_show_in_chat">چیٹ میں دکھائیں</string>
+    <string name="i56_load_more">مزید دکھائیں</string>
+    <string name="i56_picture_description">تصویر۔ کھولنے کے لیے ٹیپ کریں۔</string>
+    <plurals name="i56_count_pictures">
+        <item quantity="one">%d تصویر</item>
+        <item quantity="other">%d تصاویر</item>
+    </plurals>
+    <plurals name="i56_count_links">
+        <item quantity="one">%d لنک</item>
+        <item quantity="other">%d لنکس</item>
+    </plurals>
+</resources>

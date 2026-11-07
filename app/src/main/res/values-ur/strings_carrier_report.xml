@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="carrier_report_group">اسپیم کی اطلاع دیں</string>
+    <string name="carrier_report_row_title">نیٹ ورک فراہم کنندہ کا اسپیم نمبر</string>
+    <string name="carrier_report_row_summary">SMS کے ذریعے اپنے نیٹ ورک فراہم کنندہ کو اسپیم کی اطلاع دیں</string>
+    <string name="carrier_report_not_set">سیٹ نہیں ہے</string>
+    <string name="carrier_report_hint">آپ کے نیٹ ورک فراہم کنندہ کا اسپیم رپورٹ نمبر۔ رپورٹس SMS کے طور پر جاتی ہیں اور ان پر پیسے لگ سکتے ہیں۔</string>
+    <string name="carrier_report_invalid">3 سے 8 ہندسے استعمال کریں</string>
+    <string name="carrier_report_action">نیٹ ورک فراہم کنندہ کو رپورٹ کریں</string>
+    <string name="carrier_report_title">اپنے نیٹ ورک فراہم کنندہ کو رپورٹ کریں؟</string>
+    <string name="carrier_report_body">یہ اس بھیجنے والے کا تازہ ترین پیغام SMS کے طور پر %1$s پر بھیجتا ہے۔ آپ کا نیٹ ورک فراہم کنندہ اس کے پیسے لے سکتا ہے۔</string>
+    <string name="carrier_report_send">بھیجیں</string>
+    <string name="carrier_report_sent">رپورٹ آپ کے نیٹ ورک فراہم کنندہ کو بھیج دی گئی</string>
+    <string name="carrier_report_failed">رپورٹ بھیجی نہیں جا سکی</string>
+</resources>

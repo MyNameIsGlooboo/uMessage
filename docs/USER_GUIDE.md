@@ -116,7 +116,7 @@ shared content ready to send, or search by name or number to reach a chat or a c
 
 ## Persian and other right-to-left languages
 
-- Persian and Arabic messages display right-to-left in the Vazirmatn font (Android 10 and later), and the message field switches direction as you type.
+- Persian, Arabic and Urdu messages display right-to-left in the Vazirmatn font (Android 10 and later), and the message field switches direction as you type.
 - Verification codes are recognised in Persian (for example «رمز پویا: ۱۲۳۴۵» or «کد تأیید»), with Persian or Arabic digits.
 - Keyword rules work with Persian text.
 

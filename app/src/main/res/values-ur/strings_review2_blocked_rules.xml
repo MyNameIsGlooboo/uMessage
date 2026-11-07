@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="e_day_today">آج</string>
+    <string name="e_day_yesterday">کل</string>
+    <plurals name="e_blocked_stats_total">
+        <item quantity="one">کل %d روکا گیا</item>
+        <item quantity="other">کل %d روکے گئے</item>
+    </plurals>
+    <string name="e_restored_title">حال ہی میں بحال کردہ</string>
+    <string name="e_restored_body">پچھلے 30 دنوں میں آپ کے ان باکس میں منتقل کیے گئے پیغامات۔ گفتگو کھولنے کے لیے کسی پر ٹیپ کریں۔</string>
+    <string name="e_restored_empty">اب سے آپ جو پیغامات ان باکس میں منتقل کریں گے وہ یہاں 30 دن تک دکھائے جائیں گے۔</string>
+    <string name="e_restored_when">ان باکس میں منتقل کیا گیا %1$s</string>
+    <string name="e_restored_open">%1$s کے ساتھ گفتگو کھولیں</string>
+    <string name="e_snack_allowed_one">%1$s کو اب دونوں SIM پر ہمیشہ اجازت ہے</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="one">%d بھیجنے والے کو اب دونوں SIM پر ہمیشہ اجازت ہے</item>
+        <item quantity="other">%d بھیجنے والوں کو اب دونوں SIM پر ہمیشہ اجازت ہے</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$s کو اب ہمیشہ اجازت ہے</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="one">%d بھیجنے والے کو اب ہمیشہ اجازت ہے</item>
+        <item quantity="other">%d بھیجنے والوں کو اب ہمیشہ اجازت ہے</item>
+    </plurals>
+    <string name="e_view_rule">اصول دیکھیں</string>
+    <string name="e_rules_title">اصول</string>
+    <string name="e_rules_menu_backup">اصولوں کا بیک اپ لیں</string>
+    <string name="e_note_blocked_by_you">آپ نے بلاک کیا</string>
+    <string name="e_note_allowed_by_you">آپ نے اجازت دی</string>
+    <string name="e_note_blocked_from_message">پیغام سے بلاک کیا گیا</string>
+    <string name="e_note_blocked_from_keyword">کلیدی لفظ سے بلاک کیا گیا</string>
+    <string name="e_note_reported_spam">اسپیم کے طور پر اطلاع دی گئی</string>
+    <string name="e_note_old_word_list">بلاک شدہ الفاظ کی پرانی فہرست سے</string>
+    <string name="e_note_system_list">Android کی بلاک فہرست سے</string>
+    <string name="e_note_quoted">“%1$s”</string>
+    <string name="e_example_block_cancel_word">«لغو11» والے پیغامات بلاک کریں</string>
+    <string name="e_example_block_ad_prefix">3000 سے شروع ہونے والے اشتہاری نمبر بلاک کریں</string>
+    <string name="e_example_allow_number">کسی نمبر کو ہمیشہ اجازت دیں، جیسے آپ کا ڈاک خانہ</string>
+    <string name="e_sheet_sender_label">بھیجنے والا</string>
+    <string name="e_sheet_text_label">پیغام کا متن</string>
+    <string name="e_value_number">فون نمبر</string>
+    <string name="e_value_prefix">نمبر اس سے شروع ہو</string>
+    <string name="e_value_sender">بھیجنے والے کا نام</string>
+    <string name="e_value_keyword">تلاش کرنے کے لیے متن</string>
+    <string name="e_value_pattern">پیٹرن</string>
+    <string name="e_pattern_blocks_label">یہاں سے شروع کریں</string>
+    <string name="e_pattern_link">لنک موجود ہو</string>
+    <string name="e_pattern_long_number">5+ ہندسوں کا نمبر</string>
+    <string name="e_pattern_starts_with">اس سے شروع ہو</string>
+    <string name="e_pattern_any_of">ان میں سے کوئی ہو</string>
+    <string name="e_pattern_link_sentence">لنک والے پیغامات سے میل کھاتا ہے۔</string>
+    <string name="e_pattern_long_number_sentence">5 یا زیادہ ہندسوں کے نمبر والے پیغامات سے میل کھاتا ہے۔</string>
+    <string name="e_pattern_starts_with_sentence">ان پیغامات سے میل کھاتا ہے جو ^ کے بعد لکھے گئے متن سے شروع ہوں۔</string>
+    <string name="e_pattern_any_of_sentence">ان پیغامات سے میل کھاتا ہے جن میں بریکٹ کے الفاظ میں سے کوئی ہو۔ انہیں | سے الگ کریں۔</string>
+    <plurals name="e_migrate_title_numbers">
+        <item quantity="one">%d نمبر uMessage کے اصولوں میں منتقل کریں</item>
+        <item quantity="other">%d نمبر uMessage کے اصولوں میں منتقل کریں</item>
+    </plurals>
+    <string name="e_migrate_point_blocked">• ان کے پیغامات بلاک شدہ میں جائیں گے، جہاں آپ انہیں پڑھ اور بحال کر سکتے ہیں۔</string>
+    <string name="e_migrate_point_android">• جب تک یہ Android کی فہرست میں ہیں، Android ان کے پیغامات پھینکتا رہے گا۔</string>
+    <string name="e_migrate_calls_note">Android کی فہرست کالیں بھی بلاک کرتی ہے۔ جو نمبر آپ اس سے ہٹائیں گے وہ آپ کو دوبارہ کال کر سکیں گے۔</string>
+    <string name="e_bn_unknown_body">صرف تب لاگو ہوتا ہے جب نامعلوم بھیجنے والے بند ہو۔</string>
+    <string name="e_bn_row_calls_texts">کالیں اور پیغامات بلاک کرتا ہے</string>
+    <string name="e_bn_row_short_code">شارٹ کوڈ: uMessage اس کے پیغامات کبھی نہیں دیکھتا</string>
+    <string name="e_bn_move_one">uMessage کے اصولوں میں منتقل کریں</string>
+    <string name="e_bn_moved">%1$s اب uMessage کا اصول ہے۔ اس کے پیغامات بلاک شدہ میں جائیں گے، اور اس کی کالیں اب بلاک نہیں ہوں گی۔</string>
+    <string name="e_bn_field_help">مثلاً +989121234567، یا +98912* ہر اس نمبر کے لیے جو +98912 سے شروع ہو</string>
+    <string name="e_bn_short_code_warning">یہ شارٹ کوڈ لگتا ہے۔ Android اس کے پیغامات uMessage تک پہنچنے سے پہلے ہی پھینک دیتا ہے، اس لیے آپ کوئی پیغام، جیسے کوڈ یا بینک کی اطلاع، کبھی بحال نہیں کر سکیں گے۔</string>
+    <string name="e_bn_add_as_rule">اس کے بجائے uMessage کا اصول بنائیں</string>
+    <string name="e_bn_added_as_rule">%1$s uMessage کے اصول کے طور پر شامل ہو گیا۔ اس کے پیغامات بلاک شدہ میں جائیں گے۔</string>
+</resources>

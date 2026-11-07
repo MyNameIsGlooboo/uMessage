@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hidden_chats_menu_hide">隱藏這個聊天</string>
+    <string name="hidden_chats_menu_unhide">取消隱藏這個聊天</string>
+    <string name="hidden_chats_confirm">要隱藏這個聊天嗎？在你用應用程式鎖解鎖隱藏的聊天之前，它不會出現在清單、搜尋和通知中。</string>
+    <string name="hidden_chats_need_lock">隱藏聊天需要應用程式鎖。要現在設定嗎？</string>
+    <string name="hidden_chats_set_lock">設定</string>
+    <string name="hidden_chats_done">已隱藏聊天</string>
+    <string name="hidden_chats_show">隱藏的聊天</string>
+    <string name="hidden_chats_lock">鎖定隱藏的聊天</string>
+</resources>

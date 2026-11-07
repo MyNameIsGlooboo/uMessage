@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2a_keywords_search_hint">کلیدی الفاظ تلاش کریں</string>
+    <string name="w2a_keywords_search_clear">تلاش صاف کریں</string>
+    <string name="w2a_keywords_no_match_title">کوئی مماثل کلیدی لفظ نہیں</string>
+    <string name="w2a_keywords_no_match_body">کوئی دوسرا لفظ آزمائیں، یا تلاش صاف کریں۔</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_review_details_decision">فیصلہ</string>
+    <string name="thread_review_details_decision_allowed">اجازت یافتہ: آپ کے ان باکس میں پہنچا</string>
+    <string name="thread_review_details_type">قسم</string>
+    <string name="thread_review_details_type_sms">SMS</string>
+    <string name="thread_review_details_type_mms">MMS</string>
+    <string name="thread_review_sim_slot_name">SIM %1$d · %2$s</string>
+    <string name="thread_review_copy_code">کوڈ کاپی کریں</string>
+    <string name="thread_review_copy_password">پاس ورڈ کاپی کریں</string>
+    <string name="thread_review_copy_username">صارف نام کاپی کریں</string>
+    <string name="thread_review_sim_label">SIM %1$s</string>
+    <string name="thread_review_sends_from">%1$s سے بھیجتا ہے</string>
+    <string name="thread_review_reply_disabled">یہ بھیجنے والا جواب وصول نہیں کر سکتا</string>
+    <string name="thread_review_attach_camera">کیمرا</string>
+    <string name="thread_review_attach_voice">آواز</string>
+    <string name="thread_review_schedule_in_hour">1 گھنٹے میں</string>
+    <string name="thread_review_schedule_evening">آج شام</string>
+    <string name="thread_review_schedule_tomorrow">کل 9:00 بجے</string>
+</resources>

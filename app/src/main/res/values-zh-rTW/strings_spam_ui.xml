@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spam_ui_delete_all">全部刪除</string>
+    <string name="spam_ui_delete_all_title">要刪除所有已封鎖的訊息嗎？</string>
+    <plurals name="spam_ui_delete_all_message">
+        <item quantity="other">將刪除%1$d則已封鎖的訊息。刪除後可立即復原。</item>
+    </plurals>
+    <string name="declog_ui_clear_title">要清除判定記錄嗎？</string>
+    <string name="declog_ui_clear_message">所有已記錄的判定都會移除。已封鎖的訊息和規則將維持不變。</string>
+    <string name="declog_ui_clear_action">清除</string>
+    <string name="ui_log_reason_contacts_unavailable">無法讀取聯絡人</string>
+    <string name="blocknum_title">已封鎖的號碼</string>
+    <string name="blocknum_add">新增號碼</string>
+    <string name="blocknum_add_title">封鎖號碼</string>
+    <string name="blocknum_edit_title">編輯已封鎖的號碼</string>
+    <string name="blocknum_field_label">號碼</string>
+    <string name="blocknum_field_help">使用*作為萬用字元：+1555*會封鎖所有開頭為+1555的號碼</string>
+    <string name="blocknum_err_empty">請輸入號碼</string>
+    <string name="blocknum_err_invalid">請輸入電話號碼，或以*作為萬用字元的數字</string>
+    <string name="blocknum_copy">複製號碼</string>
+    <string name="blocknum_unblock">解除封鎖</string>
+    <string name="blocknum_unblock_for">解除封鎖%1$s</string>
+    <string name="blocknum_edit_for">編輯%1$s</string>
+    <string name="blocknum_more_for">%1$s的更多選項</string>
+    <string name="blocknum_pattern">萬用字元模式</string>
+    <string name="blocknum_copied">已複製號碼</string>
+    <plurals name="blocknum_unblocked">
+        <item quantity="other">已解除封鎖%1$d個號碼</item>
+    </plurals>
+    <string name="blocknum_import">匯入</string>
+    <string name="blocknum_export">匯出</string>
+    <plurals name="blocknum_imported">
+        <item quantity="other">已匯入%1$d個號碼</item>
+    </plurals>
+    <string name="blocknum_import_empty">檔案中找不到號碼</string>
+    <plurals name="blocknum_import_skipped">
+        <item quantity="other">已略過%d個項目（不是號碼或已封鎖）</item>
+    </plurals>
+    <string name="blocknum_import_failed">無法讀取檔案</string>
+    <plurals name="blocknum_exported">
+        <item quantity="other">已匯出%1$d個號碼</item>
+    </plurals>
+    <string name="blocknum_export_empty">沒有可匯出的號碼</string>
+    <string name="blocknum_export_failed">無法儲存檔案</string>
+    <string name="blocknum_failed">無法變更封鎖清單，請再試一次。</string>
+    <string name="blocknum_empty_title">未封鎖任何人</string>
+    <string name="blocknum_empty_body">已封鎖的號碼無法傳訊息或打電話給你。這份清單與你的電話應用程式共用。</string>
+    <string name="blocknum_unavailable_title">無法使用封鎖清單</string>
+    <string name="blocknum_unavailable_body">將uMessage設為預設簡訊應用程式，即可查看及變更系統封鎖清單。</string>
+    <string name="blocknum_unknown_title">封鎖未知號碼</string>
+    <string name="blocknum_unknown_body">只在垃圾簡訊模式設為關閉時使用：此時未知號碼的訊息會像嚴格模式一樣移至「已封鎖」。嚴格與智慧模式會忽略這個開關。</string>
+    <string name="blocknum_contacts_denied">沒有聯絡人存取權，就無法辨識未知號碼</string>
+    <string name="blocknum_section_numbers">號碼</string>
+</resources>

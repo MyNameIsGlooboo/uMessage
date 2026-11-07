@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-11-07
+### Added
+- Chinese (Traditional) and Urdu
+- Backup now also covers blocked messages, the recycle bin, drafts, muted and hidden chats, saved texts, scheduled messages and reminders, as well as stars, labels and archived chats
+
+### Changed
+- The Restore button is removed from the welcome screen; restore stays in Settings
+
+### Fixed
+- The Archived tab was missing on first launch
+- Swiping a chat in the Blocked tab now shows its label ("Move to inbox")
+- Backups can no longer end up as an empty 0-byte file: they are checked before saving and an error is shown
+
 ## [0.4.1] - 2026-11-07
 ### Added
 - Restore and the language name (in its own language) as small chips on the welcome screen

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sim_messages_title">SIM卡訊息</string>
+    <string name="sim_messages_row_body">將SIM卡中儲存的簡訊複製到你的對話中</string>
+    <string name="sim_messages_loading">正在讀取SIM卡…</string>
+    <string name="sim_messages_unavailable">這支手機不允許應用程式讀取SIM卡。</string>
+    <string name="sim_messages_empty">SIM卡中沒有訊息。</string>
+    <plurals name="sim_messages_found">
+        <item quantity="other">SIM卡中儲存了%1$d則訊息。要將它們複製到你的對話中嗎？SIM卡中的訊息也會保留。</item>
+    </plurals>
+    <string name="sim_messages_import">複製</string>
+    <string name="sim_messages_importing">正在複製訊息…</string>
+    <string name="sim_messages_done">已複製%1$d則訊息。有%2$d則已在你的對話中。</string>
+    <string name="sim_messages_done_failed">已複製%1$d則訊息。有%2$d則已在你的對話中，%3$d則無法複製。</string>
+</resources>

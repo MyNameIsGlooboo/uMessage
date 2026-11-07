@@ -11,7 +11,8 @@ import com.glooboo.umessage.R
  * Android's per-app language, so it also shows in the system's app language settings (the locales come from the
  * generated localeConfig, one per values-xx folder). Each name is written in its own language and script;
  * [englishName] only orders the list. [tag] is a BCP-47 tag; Indonesian is "id" here and lives in the values-in
- * folder, Simplified Chinese is "zh-CN" and lives in values-zh-rCN.
+ * folder, Simplified Chinese is "zh-CN" and lives in values-zh-rCN, Traditional Chinese is "zh-TW" and lives in
+ * values-zh-rTW.
  */
 enum class AppLanguage(val tag: String, @StringRes val label: Int, val englishName: String) {
     SYSTEM("", R.string.settings_f_language_system, "System default"),
@@ -28,6 +29,7 @@ enum class AppLanguage(val tag: String, @StringRes val label: Int, val englishNa
     GERMAN("de", R.string.settings_f_language_de, "German"),
     ITALIAN("it", R.string.settings_f_language_it, "Italian"),
     CHINESE_SIMPLIFIED("zh-CN", R.string.settings_f_language_zh_cn, "Chinese (Simplified)"),
+    CHINESE_TRADITIONAL("zh-TW", R.string.settings_f_language_zh_tw, "Chinese (Traditional)"),
     JAPANESE("ja", R.string.settings_f_language_ja, "Japanese"),
     KOREAN("ko", R.string.settings_f_language_ko, "Korean"),
     VIETNAMESE("vi", R.string.settings_f_language_vi, "Vietnamese"),
@@ -35,9 +37,12 @@ enum class AppLanguage(val tag: String, @StringRes val label: Int, val englishNa
     POLISH("pl", R.string.settings_f_language_pl, "Polish"),
     UKRAINIAN("uk", R.string.settings_f_language_uk, "Ukrainian"),
     BENGALI("bn", R.string.settings_f_language_bn, "Bengali"),
+    URDU("ur", R.string.settings_f_language_ur, "Urdu"),
     ;
 
     companion object {
+        private val TRADITIONAL_CHINESE_TAGS = setOf("zh-tw", "zh-hk", "zh-mo")
+
         /**
          * The list the first screen and Settings both show: "System default" first, then English, then every other
          * language sorted by its English name.
@@ -58,6 +63,7 @@ enum class AppLanguage(val tag: String, @StringRes val label: Int, val englishNa
             val first = tags.substringBefore(',').trim().replace('_', '-').lowercase()
             val language = first.substringBefore('-').let { if (it == "in") "id" else it }
             val named = choices.filter { it != SYSTEM }
+            if (first.startsWith("zh-hant") || first in TRADITIONAL_CHINESE_TAGS) return CHINESE_TRADITIONAL
             return named.firstOrNull { it.tag.lowercase() == first }
                 ?: named.firstOrNull { it.tag.substringBefore('-').lowercase() == language }
                 ?: SYSTEM

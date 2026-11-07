@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_text_menu">以文字分享對話</string>
+    <string name="share_text_scope_title">要分享哪些訊息？</string>
+    <string name="share_text_scope_whole">整個對話</string>
+    <string name="share_text_scope_last">最後50則訊息</string>
+    <string name="share_text_title">以文字分享</string>
+    <string name="share_text_warning">這會將私人文字傳送到其他應用程式。接下來由你選擇應用程式。</string>
+    <string name="share_text_action">分享</string>
+    <string name="share_text_range">%1$s至%2$s</string>
+    <string name="share_text_attachment">[附件]</string>
+    <string name="share_text_subject">來自uMessage的訊息</string>
+    <string name="share_text_nothing">沒有可分享的訊息</string>
+    <plurals name="share_text_count">
+        <item quantity="other">%1$d則訊息</item>
+    </plurals>
+</resources>

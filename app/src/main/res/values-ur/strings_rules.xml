@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rules_sheet_title_edit_allow">اجازت کا اصول ترمیم کریں</string>
+    <string name="rules_sheet_title_edit_block">بلاک کا اصول ترمیم کریں</string>
+    <string name="rules_sheet_save">تبدیلیاں محفوظ کریں</string>
+    <string name="rules_edit_rule">%1$s ترمیم کریں</string>
+    <string name="rules_search_hint">اصول اور نوٹس تلاش کریں</string>
+    <string name="rules_search_clear">تلاش صاف کریں</string>
+    <string name="rules_filter_all_types">تمام اقسام</string>
+    <string name="rules_search_empty_title">کوئی ملتا جلتا اصول نہیں</string>
+    <string name="rules_search_empty_body">دوسرے الفاظ آزمائیں، یا تمام اقسام دکھائیں۔</string>
+    <string name="rules_export_selected">منتخب کو ایکسپورٹ کریں</string>
+    <string name="rules_delete_selected">منتخب کو حذف کریں</string>
+    <plurals name="rules_deleted_many">
+        <item quantity="one">%d اصول حذف ہو گیا</item>
+        <item quantity="other">%d اصول حذف ہو گئے</item>
+    </plurals>
+    <string name="rules_system_block_list">سسٹم کی بلاک فہرست (کالیں بھی بلاک کرتی ہے)</string>
+    <string name="rules_legacy_note_keyword">بلاک شدہ الفاظ کی پرانی فہرست سے</string>
+    <string name="rules_legacy_note_number">سسٹم کی بلاک فہرست سے</string>
+    <string name="rules_legacy_banner_title">پرانی بلاک فہرستیں ملیں</string>
+    <string name="rules_legacy_banner_body">کچھ الفاظ اور نمبر ان اصولوں کے باہر بلاک ہیں۔ سب کچھ ایک جگہ دیکھنے اور بدلنے کے لیے انہیں یہاں منتقل کریں۔</string>
+    <string name="rules_legacy_banner_review">جائزہ لیں</string>
+    <string name="rules_legacy_banner_not_now">ابھی نہیں</string>
+    <string name="rules_legacy_section_keywords">بلاک شدہ الفاظ کی پرانی فہرست</string>
+    <string name="rules_legacy_section_keywords_body">جب تک آپ یہ الفاظ اصولوں میں منتقل نہ کریں، فلٹرنگ میں استعمال ہوتی رہے گی۔ پھر پرانی فہرست ختم کر دی جائے گی۔</string>
+    <string name="rules_legacy_section_system_body">Android ان نمبروں کے پیغامات uMessage تک پہنچنے سے پہلے ہی پھینک دیتا ہے، اس لیے یہ بلاک شدہ میں کبھی نظر نہیں آتے۔ یہ فہرست فون ایپ کے ساتھ مشترک ہے اور کالیں بھی بلاک کرتی ہے۔</string>
+    <string name="rules_legacy_chip_old_list">پرانی فہرست</string>
+    <string name="rules_legacy_chip_system">سسٹم، کالیں بھی</string>
+    <string name="rules_legacy_move">اصولوں میں منتقل کریں</string>
+    <string name="rules_legacy_open_system">سسٹم کی بلاک فہرست کھولیں</string>
+    <string name="rules_migrate_title">پرانی بلاک فہرستیں اصولوں میں منتقل کریں</string>
+    <string name="rules_migrate_nothing">پرانی فہرستوں کی ہر چیز پہلے سے آپ کے اصولوں میں ہے۔</string>
+    <plurals name="rules_migrate_keywords">
+        <item quantity="one">بلاک شدہ الفاظ کی پرانی فہرست کا %d لفظ بلاک کلیدی لفظ کا اصول بن جائے گا۔ پھر پرانی فہرست ختم کر دی جائے گی۔</item>
+        <item quantity="other">بلاک شدہ الفاظ کی پرانی فہرست کے %d الفاظ بلاک کلیدی لفظ کے اصول بن جائیں گے۔ پھر پرانی فہرست ختم کر دی جائے گی۔</item>
+    </plurals>
+    <plurals name="rules_migrate_keywords_kept">
+        <item quantity="one">%d لفظ اصول نہیں بن سکتا (ایک حرف، کئی سطریں یا بہت لمبا) اور پرانی فہرست میں رہے گا۔</item>
+        <item quantity="other">%d الفاظ اصول نہیں بن سکتے (ایک حرف، کئی سطریں یا بہت لمبے) اور پرانی فہرست میں رہیں گے۔</item>
+    </plurals>
+    <plurals name="rules_migrate_numbers">
+        <item quantity="one">سسٹم کی بلاک فہرست کا %d نمبر بھی بلاک اصول کے طور پر شامل کریں</item>
+        <item quantity="other">سسٹم کی بلاک فہرست کے %d نمبر بھی بلاک اصولوں کے طور پر شامل کریں</item>
+    </plurals>
+    <string name="rules_migrate_numbers_body">Android سسٹم کی بلاک فہرست کے نمبروں کے پیغامات پھینک دیتا ہے، اس لیے uMessage کو وہ کبھی نہیں ملتے۔ uMessage کے اصول بننے پر ان کے پیغامات بلاک شدہ میں آ سکتے ہیں، جہاں آپ انہیں پڑھ اور بحال کر سکتے ہیں، لیکن صرف تب جب وہ سسٹم کی فہرست سے ہٹ جائیں۔</string>
+    <string name="rules_migrate_remove">انہیں سسٹم کی بلاک فہرست سے بھی ہٹائیں</string>
+    <string name="rules_migrate_remove_body">سسٹم کی فہرست کالیں بھی بلاک کرتی ہے۔ جو نمبر آپ اس سے ہٹائیں گے وہ آپ کو دوبارہ کال کر سکیں گے۔ uMessage صرف پیغامات فلٹر کرتا ہے۔</string>
+    <plurals name="rules_migrate_numbers_kept">
+        <item quantity="one">%d وائلڈ کارڈ اندراج اصول نہیں بن سکتا اور سسٹم کی فہرست میں رہے گا۔</item>
+        <item quantity="other">%d وائلڈ کارڈ اندراجات اصول نہیں بن سکتے اور سسٹم کی فہرست میں رہیں گے۔</item>
+    </plurals>
+    <string name="rules_migrate_confirm">منتقل کریں</string>
+    <plurals name="rules_migrated_keywords">
+        <item quantity="one">%d لفظ اصولوں میں منتقل ہو گیا</item>
+        <item quantity="other">%d الفاظ اصولوں میں منتقل ہو گئے</item>
+    </plurals>
+    <plurals name="rules_migrated_numbers">
+        <item quantity="one">%d نمبر اصول کے طور پر شامل ہو گیا</item>
+        <item quantity="other">%d نمبر اصولوں کے طور پر شامل ہو گئے</item>
+    </plurals>
+    <plurals name="rules_migrated_removed">
+        <item quantity="one">%d سسٹم کی بلاک فہرست سے ہٹا دیا گیا</item>
+        <item quantity="other">%d سسٹم کی بلاک فہرست سے ہٹا دیے گئے</item>
+    </plurals>
+    <plurals name="rules_migrated_kept">
+        <item quantity="one">%d اندراج پرانی فہرستوں میں رہے گا</item>
+        <item quantity="other">%d اندراجات پرانی فہرستوں میں رہیں گے</item>
+    </plurals>
+    <string name="rules_migrated_nothing">کچھ منتقل نہیں ہوا۔</string>
+    <string name="settings_system_block_list_body_calls">پورے فون پر کالیں اور پیغامات بلاک کرتی ہے۔ Android یہ پیغامات uMessage تک پہنچنے سے پہلے ہی پھینک دیتا ہے۔ آپ یہ نمبر «اجازت یافتہ اور بلاک شدہ» میں منتقل کر سکتے ہیں۔</string>
+    <string name="settings_old_blocked_words">بلاک شدہ الفاظ کی پرانی فہرست</string>
+    <string name="settings_old_blocked_words_body">اصولوں میں منتقل ہو رہی ہے</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i52_attach_location">مقام</string>
+    <string name="i52_permission_explanation">uMessage آپ کے پیغام میں نقشے کا لنک ڈالنے کے لیے صرف ابھی ایک بار آپ کا مقام پڑھتا ہے۔ کچھ محفوظ نہیں کیا جاتا۔ آپ تخمینی مقام منتخب کر سکتے ہیں۔</string>
+    <string name="i52_finding">آپ کا مقام تلاش ہو رہا ہے…</string>
+    <string name="i52_denied">مقام کی اجازت نہیں دی گئی۔ پیغام ویسا ہی رہے گا۔</string>
+    <string name="i52_no_fix">آپ کا مقام نہیں مل سکا۔ کھڑکی کے پاس یا باہر جا کر دوبارہ کوشش کریں۔</string>
+    <string name="i52_off_message">اس فون پر مقام بند ہے۔ اپنا مقام شیئر کرنے کے لیے اسے آن کریں۔</string>
+    <string name="i52_open_settings">سیٹنگز کھولیں</string>
+</resources>

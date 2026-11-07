@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_message_inexact">已排程，可能會延遲幾分鐘送出。</string>
+</resources>

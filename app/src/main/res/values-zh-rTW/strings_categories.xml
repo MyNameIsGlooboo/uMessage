@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i11_filter_transactions">交易</string>
+    <string name="i11_filter_transactions_empty_title">沒有交易</string>
+    <string name="i11_filter_transactions_empty_body">銀行寄來的收支訊息會顯示在這裡。</string>
+    <string name="i11_filter_offers">優惠</string>
+    <string name="i11_filter_offers_empty_title">沒有優惠</string>
+    <string name="i11_filter_offers_empty_body">商店的折扣和促銷活動會顯示在這裡。</string>
+</resources>

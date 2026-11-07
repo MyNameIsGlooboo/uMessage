@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_tab_forwarded">فارورڈ شدہ</string>
+    <string name="nav_tab_forwarded_failed">فارورڈ شدہ، ایک فارورڈ ناکام ہوا</string>
+    <string name="nav_tab_forwarded_paused">فارورڈ شدہ، فارورڈنگ رکی ہوئی ہے</string>
+    <string name="nav_tab_archived_new">آرکائیو شدہ، نئی چیٹ آرکائیو ہوئی</string>
+    <string name="nav_prompt_title">اصول محفوظ ہو گیا</string>
+    <string name="nav_prompt_body">فارورڈ شدہ ٹیب دکھائیں تاکہ آپ دیکھ سکیں کیا بھیجا گیا اور ناکام فارورڈ دوبارہ آزما سکیں؟</string>
+    <string name="nav_prompt_show">ٹیب دکھائیں</string>
+    <string name="nav_prompt_not_now">ابھی نہیں</string>
+    <string name="nav_fwd_paid_note">ہر فارورڈ ایک ادا شدہ SMS ہے۔</string>
+    <string name="nav_fwd_pause_all">تمام فارورڈنگ روکیں</string>
+    <string name="nav_fwd_status_paused">فارورڈنگ رکی ہوئی ہے</string>
+    <string name="nav_fwd_paused_hint">ملتے جلتے پیغامات نہیں بھیجے جاتے۔ دوبارہ شروع کرنے کے لیے بند کریں۔</string>
+    <string name="nav_fwd_status_no_rule">فارورڈ کا کوئی اصول آن نہیں ہے</string>
+    <plurals name="nav_fwd_status_on">
+        <item quantity="one">فارورڈنگ آن ہے، %1$s اصول</item>
+        <item quantity="other">فارورڈنگ آن ہے، %1$s اصول</item>
+    </plurals>
+    <string name="nav_fwd_manage_rules">اصولوں کا نظم کریں</string>
+    <string name="nav_fwd_empty_title">ابھی تک کچھ فارورڈ نہیں ہوا</string>
+    <string name="nav_fwd_empty_body">ملتے جلتے پیغامات یہاں نظر آئیں گے۔</string>
+    <string name="nav_fwd_status_sent">بھیج دیا گیا</string>
+    <string name="nav_fwd_status_pending">زیر التوا</string>
+    <string name="nav_fwd_status_failed">ناکام</string>
+    <string name="nav_fwd_to">بنام %1$s</string>
+    <string name="nav_fwd_sim">SIM %1$d</string>
+    <string name="nav_fwd_rule_line">اصول: %1$s، %2$s</string>
+    <string name="nav_fwd_rule_sender">بھیجنے والا %1$s</string>
+    <string name="nav_fwd_rule_any_sender">کوئی بھی بھیجنے والا</string>
+    <string name="nav_fwd_rule_text">متن %1$s</string>
+    <string name="nav_fwd_rule_any_text">کوئی بھی متن</string>
+    <string name="nav_fwd_rule_deleted">اصول حذف ہو گیا</string>
+    <string name="nav_fwd_open_details">تفصیلات دکھائیں</string>
+    <string name="nav_fwd_today">آج</string>
+    <string name="nav_fwd_yesterday">کل</string>
+    <plurals name="nav_fwd_failed_count">
+        <item quantity="one">%1$s فارورڈ ناکام ہوا</item>
+        <item quantity="other">%1$s فارورڈ ناکام ہوئے</item>
+    </plurals>
+    <string name="nav_fwd_retry">دوبارہ کوشش کریں</string>
+    <string name="nav_fwd_retry_all">تمام ناکام دوبارہ بھیجیں (%1$s)</string>
+    <string name="nav_fwd_retry_all_title">دوبارہ بھیجیں؟</string>
+    <plurals name="nav_fwd_retry_all_message">
+        <item quantity="one">%1$s SMS دوبارہ بھیجا جائے گا۔ یہ ایک ادا شدہ SMS ہے۔</item>
+        <item quantity="other">%1$s SMS دوبارہ بھیجے جائیں گے۔ ہر ایک ادا شدہ SMS ہے۔</item>
+    </plurals>
+    <string name="nav_fwd_retry_confirm">دوبارہ بھیجیں</string>
+    <plurals name="nav_fwd_retry_sent">
+        <item quantity="one">%d فارورڈ دوبارہ بھیجا گیا</item>
+        <item quantity="other">%d فارورڈ دوبارہ بھیجے گئے</item>
+    </plurals>
+    <string name="nav_fwd_retry_failed">یہ پھر ناکام ہو گیا۔ اپنا سگنل اور بیلنس چیک کریں۔</string>
+    <string name="nav_fwd_retry_missing">اصل پیغام موجود نہیں ہے، اس لیے اسے دوبارہ نہیں بھیجا جا سکتا۔</string>
+    <string name="nav_fwd_details_title">فارورڈ کی تفصیلات</string>
+    <string name="nav_fwd_detail_from">پیغام منجانب</string>
+    <string name="nav_fwd_detail_to">فارورڈ کیا گیا بنام</string>
+    <string name="nav_fwd_detail_when">وقت</string>
+    <string name="nav_fwd_detail_sim">بھیجا گیا از</string>
+    <string name="nav_fwd_detail_rule">میل کھایا</string>
+    <string name="nav_fwd_detail_message">اصل پیغام</string>
+    <string name="nav_fwd_message_loading">لوڈ ہو رہا ہے</string>
+    <string name="nav_fwd_message_gone">اصل پیغام اب محفوظ نہیں ہے۔</string>
+    <string name="nav_fwd_error_radio">نیٹ ورک نے اسے نہیں پہنچایا۔</string>
+    <string name="nav_fwd_error_refused">فون اسے نہیں بھیج سکا۔</string>
+    <string name="nav_fwd_open_chat">چیٹ کھولیں</string>
+    <string name="nav_archived_title">آرکائیو شدہ</string>
+    <string name="nav_archived_back">پیغامات پر واپس جائیں</string>
+    <string name="nav_archived_intro">آرکائیو شدہ چیٹس پیغامات سے باہر رہتی ہیں۔ نیا پیغام چیٹ کو واپس لے آتا ہے، جب تک سیٹنگز میں «آرکائیو شدہ چیٹس چھپی رہیں» آن نہ ہو۔</string>
+    <string name="nav_archived_intro_dismiss">یہ نوٹ چھپائیں</string>
+    <plurals name="nav_archived_moved">
+        <item quantity="one">%d گفتگو پیغامات میں منتقل کر دی گئی</item>
+        <item quantity="other">%d گفتگو پیغامات میں منتقل کر دی گئیں</item>
+    </plurals>
+    <string name="nav_folder_more">مزید اختیارات</string>
+    <string name="nav_folder_mark_all_read">سب کو پڑھا ہوا نشان زد کریں</string>
+    <string name="nav_folder_delete_all_count">اس سے %1$s ہمیشہ کے لیے ہٹ جائیں گے۔</string>
+</resources>

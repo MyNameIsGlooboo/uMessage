@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cleanup_old_title">訊息保留期限</string>
+    <string name="cleanup_old_summary">較舊的訊息會移至資源回收筒</string>
+    <string name="cleanup_forever">永久</string>
+    <string name="cleanup_one_year">1年</string>
+    <string name="cleanup_bin_title">要開啟資源回收筒嗎？</string>
+    <string name="cleanup_bin_body">刪除的訊息會在資源回收筒保留30天，方便你復原。自動清理需要使用資源回收筒。</string>
+    <string name="cleanup_bin_confirm">開啟</string>
+    <string name="cleanup_old_confirm_title">要移動舊訊息嗎？</string>
+    <plurals name="cleanup_old_confirm_body">
+        <item quantity="other">有%d則訊息超過這個期限，現在會移至資源回收筒。已加星號和未讀的訊息，以及已置頂的對話都會保留。</item>
+    </plurals>
+    <string name="cleanup_old_confirm_none">目前沒有超過這個期限的訊息。較舊的訊息之後會自動移至資源回收筒。已加星號和未讀的訊息，以及已置頂的對話都會保留。</string>
+    <string name="cleanup_old_confirm_action">移動</string>
+</resources>

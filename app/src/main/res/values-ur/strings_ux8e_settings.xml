@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8e_nav_notifications_body">الرٹس، لاک اسکرین، ہفتہ وار خلاصہ</string>
+    <string name="ux8e_nav_typing">ٹائپنگ اور بھیجنا</string>
+    <string name="ux8e_nav_typing_body">Enter کی، ڈیلیوری رپورٹس، دستخط</string>
+    <string name="ux8e_nav_storage">اسٹوریج اور صفائی</string>
+    <string name="ux8e_nav_storage_body">ری سائیکل بن، آرکائیو، خودکار حذف</string>
+    <string name="ux8e_group_lock_screen">لاک اسکرین</string>
+    <string name="ux8e_group_recycle">حذف شدہ پیغامات</string>
+    <string name="ux8e_group_cleanup">خودکار صفائی</string>
+    <string name="ux8e_group_archive">آرکائیو</string>
+    <string name="ux8e_keep_deleted">حذف شدہ پیغامات رکھیں</string>
+    <string name="ux8e_keep_deleted_body">یہ 30 دن تک ری سائیکل بن میں رہتے ہیں</string>
+    <string name="ux8e_recycle_bin">ری سائیکل بن</string>
+    <string name="ux8e_backup_row">بیک اپ</string>
+    <string name="ux8e_backup_row_body">فائل میں محفوظ کریں</string>
+    <string name="ux8e_restore_row">بحال کریں</string>
+    <string name="ux8e_restore_row_body">فائل سے لوڈ کریں</string>
+    <string name="ux8e_backup_what">کس چیز کا بیک اپ؟</string>
+    <string name="ux8e_restore_what">کیا بحال کریں؟</string>
+    <string name="ux8e_what_messages">پیغامات</string>
+    <string name="ux8e_what_settings">اصول اور سیٹنگز</string>
+    <string name="ux8e_backup_warning">بیک اپ فائلیں انکرپٹ نہیں ہوتیں۔</string>
+    <string name="ux8e_calendar">کیلنڈر</string>
+</resources>

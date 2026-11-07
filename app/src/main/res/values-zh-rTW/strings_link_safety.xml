@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i07_shortener">短網址：無法看出實際連到哪裡。</string>
+    <string name="i07_punycode">這個名稱經過編碼，顯示的字母可能與實際組成不同。</string>
+    <string name="i07_mixed_script">這個名稱混用了不同文字系統，假網站常這麼做。</string>
+    <string name="i07_raw_ip">這個網址是一串數字，不是網站名稱。</string>
+    <string name="i07_http_only">未加密（http，而非https）。</string>
+    <string name="i07_lookalike">這個名稱看起來像%1$s，請檢查拼字。</string>
+    <string name="i07_user_info">\@前面的部分不是網站。</string>
+    <string name="i07_locked">這裡無法開啟有風險的連結，但可以複製連結。</string>
+    <string name="i07_lock_title">封鎖有風險的連結</string>
+    <string name="i07_lock_summary">連結選單只能複製和分享</string>
+    <string name="i07_group_title">連結</string>
+</resources>

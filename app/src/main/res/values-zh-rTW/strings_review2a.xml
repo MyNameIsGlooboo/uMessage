@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r2a_filter_codes">驗證碼</string>
+    <string name="r2a_filter_codes_empty_title">沒有驗證碼</string>
+    <string name="r2a_filter_codes_empty_body">最新訊息含有一次性驗證碼的對話會顯示在這裡。</string>
+    <string name="r2a_search_codes_window">過去24小時內</string>
+</resources>

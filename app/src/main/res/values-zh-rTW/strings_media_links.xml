@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i56_section">媒體和連結</string>
+    <string name="i56_see_all">查看全部</string>
+    <string name="i56_pictures">圖片</string>
+    <string name="i56_links">連結</string>
+    <string name="i56_empty_pictures">這個聊天中沒有圖片。</string>
+    <string name="i56_empty_links">這個聊天中沒有連結。</string>
+    <string name="i56_show_in_chat">在聊天中顯示</string>
+    <string name="i56_load_more">顯示更多</string>
+    <string name="i56_picture_description">圖片，輕觸即可開啟。</string>
+    <plurals name="i56_count_pictures">
+        <item quantity="other">%d張圖片</item>
+    </plurals>
+    <plurals name="i56_count_links">
+        <item quantity="other">%d個連結</item>
+    </plurals>
+</resources>

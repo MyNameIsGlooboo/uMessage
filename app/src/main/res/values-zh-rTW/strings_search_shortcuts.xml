@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i28_filter_unknown">未知</string>
+    <string name="i28_filter_unknown_empty_title">沒有未知寄件者</string>
+    <string name="i28_filter_unknown_empty_body">與不在聯絡人中、且你從未傳訊息給對方的人之間的對話會顯示在這裡。</string>
+    <string name="i28_filter_images">圖片</string>
+    <string name="i28_filter_images_empty_title">沒有圖片</string>
+    <string name="i28_filter_images_empty_body">含有圖片的訊息會顯示在這裡。</string>
+    <string name="i28_filter_links">連結</string>
+    <string name="i28_filter_links_empty_title">沒有連結</string>
+    <string name="i28_filter_links_empty_body">含有網頁連結的訊息會顯示在這裡。</string>
+    <string name="i28_hit_picture">圖片</string>
+</resources>

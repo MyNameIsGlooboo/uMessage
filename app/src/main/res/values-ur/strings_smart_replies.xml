@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smart_replies_title">اسمارٹ جوابات</string>
+    <string name="smart_replies_summary">بلٹ ان فہرست سے «شکریہ» یا «ٹھیک ہے» جیسے تجویز کردہ جوابات۔ آپ کے ٹیپ کرنے تک کچھ نہیں بھیجا جاتا۔</string>
+    <string name="smart_replies_hide">تجاویز چھپائیں</string>
+    <string name="smart_replies_notif_title">اطلاعات میں اسمارٹ جوابات</string>
+    <string name="smart_replies_notif_summary">اطلاع پر تجویز کردہ جواب بٹن کے طور پر دکھائیں۔ اسے ٹیپ کرنے سے متن بھیج دیا جاتا ہے۔</string>
+</resources>

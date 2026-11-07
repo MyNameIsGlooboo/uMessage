@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wake_screen_title">اسکرین جگائیں</string>
+    <string name="wake_screen_summary">نئے پیغام پر اسکرین آن کرتا ہے</string>
+    <string name="bubbles_title">چیٹ ببلز</string>
+    <string name="bubbles_summary">چیٹس کو تیرتے ببلز کے طور پر دکھاتا ہے</string>
+    <string name="bubbles_locked">ایپ لاک آن ہونے پر دستیاب نہیں</string>
+    <string name="focus_codes_title">لائیو اطلاع میں کوڈز</string>
+    <string name="focus_codes_summary">Xiaomi کی لائیو اطلاع میں کوڈز دکھاتا ہے</string>
+</resources>

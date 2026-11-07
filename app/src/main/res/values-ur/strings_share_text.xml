@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_text_menu">گفتگو کو متن کے طور پر شیئر کریں</string>
+    <string name="share_text_scope_title">کون سے پیغامات؟</string>
+    <string name="share_text_scope_whole">پوری گفتگو</string>
+    <string name="share_text_scope_last">آخری 50 پیغامات</string>
+    <string name="share_text_title">متن کے طور پر شیئر کریں</string>
+    <string name="share_text_warning">یہ نجی متن کسی دوسری ایپ کو بھیجتا ہے۔ اگلے مرحلے میں آپ ایپ منتخب کریں گے۔</string>
+    <string name="share_text_action">شیئر کریں</string>
+    <string name="share_text_range">%1$s سے %2$s تک</string>
+    <string name="share_text_attachment">[منسلکہ]</string>
+    <string name="share_text_subject">uMessage سے پیغامات</string>
+    <string name="share_text_nothing">شیئر کرنے کے لیے کوئی پیغام نہیں ہے</string>
+    <plurals name="share_text_count">
+        <item quantity="one">%1$d پیغام</item>
+        <item quantity="other">%1$d پیغامات</item>
+    </plurals>
+</resources>

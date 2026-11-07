@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_channel">بیک اپ اور بحالی</string>
+    <string name="backup_restoring">پیغامات بحال ہو رہے ہیں</string>
+    <string name="backup_exporting">پیغامات کا بیک اپ بن رہا ہے</string>
+    <plurals name="backup_progress_import">
+        <item quantity="one">%1$d اندراج پڑھا گیا</item>
+        <item quantity="other">%1$d اندراجات پڑھے گئے</item>
+    </plurals>
+    <plurals name="backup_progress_import_percent">
+        <item quantity="one">%1$d اندراج پڑھا گیا (%2$d%%)</item>
+        <item quantity="other">%1$d اندراجات پڑھے گئے (%2$d%%)</item>
+    </plurals>
+    <plurals name="backup_progress_export">
+        <item quantity="one">%1$d پیغام محفوظ ہوا</item>
+        <item quantity="other">%1$d پیغامات محفوظ ہوئے</item>
+    </plurals>
+    <plurals name="backup_progress_export_percent">
+        <item quantity="one">%1$d پیغام محفوظ ہوا (%2$d%%)</item>
+        <item quantity="other">%1$d پیغامات محفوظ ہوئے (%2$d%%)</item>
+    </plurals>
+    <string name="backup_runs_in_background">آپ ایپ سے باہر جا سکتے ہیں: یہ کام چلتا رہے گا اور اس کی پیش رفت اطلاع میں نظر آئے گی۔</string>
+    <string name="backup_stop">روکیں</string>
+    <string name="backup_hide">چھپائیں</string>
+    <string name="backup_already_running">ایک بیک اپ یا بحالی پہلے سے جاری ہے۔</string>
+    <string name="backup_restore_finished">بحالی مکمل ہو گئی</string>
+    <string name="backup_restore_stopped">بحالی روک دی گئی</string>
+    <string name="backup_restore_failed">بحالی ناکام ہو گئی</string>
+    <string name="backup_invalid_file">یہ فائل پیغامات کا بیک اپ نہیں ہے، اس لیے کچھ بحال نہیں ہوا۔</string>
+    <string name="backup_no_entries">بیک اپ فائل میں کوئی پیغام نہیں ہے۔</string>
+    <plurals name="backup_nothing_new">
+        <item quantity="one">امپورٹ کے لیے کچھ نیا نہیں: یہ پیغام پہلے سے اس فون پر ہے۔</item>
+        <item quantity="other">امپورٹ کے لیے کچھ نیا نہیں: تمام %1$d پیغامات پہلے سے اس فون پر ہیں۔</item>
+    </plurals>
+    <string name="backup_line_added">شامل کیے گئے: %1$d</string>
+    <string name="backup_line_duplicates">پہلے سے اس فون پر، چھوڑ دیے گئے: %1$d</string>
+    <string name="backup_line_repaired">پہلے بحال شدہ پیغامات میں غائب منسلکہ شامل کیے گئے: %1$d</string>
+    <string name="backup_line_incomplete">کچھ منسلکہ کے بغیر بحال ہونے والے تصویری پیغامات: %1$d</string>
+    <string name="backup_line_failed">بحال نہیں ہو سکے: %1$d</string>
+    <string name="backup_line_damaged">فائل میں خراب اندراجات، چھوڑ دیے گئے: %1$d</string>
+    <string name="backup_line_xml_mms">اس XML بیک اپ میں تصویری پیغامات، تعاون یافتہ نہیں اس لیے چھوڑ دیے گئے: %1$d</string>
+    <string name="backup_line_not_selected">امپورٹ کے لیے منتخب نہیں کیے گئے: %1$d</string>
+    <string name="backup_reasons">وجہ:</string>
+    <string name="backup_reason_no_address">پیغام کا کوئی بھیجنے والا یا وصول کنندہ نہیں ہے</string>
+    <string name="backup_reason_no_thread">فون اس کی گفتگو نہیں کھول سکا</string>
+    <string name="backup_reason_refused">فون نے اسے محفوظ کرنے سے انکار کر دیا</string>
+    <string name="backup_reason_not_in_backup">منسلکہ بیک اپ فائل میں موجود نہیں ہے</string>
+    <string name="backup_reason_damaged_attachment">بیک اپ فائل میں منسلکہ خراب ہے</string>
+    <string name="backup_reason_attachment_write">منسلکہ محفوظ نہیں ہو سکا</string>
+    <string name="backup_stopped_early">فائل اندراج %1$d کے بعد خراب ہے، اس لیے اس کے بعد کچھ نہیں پڑھا جا سکا۔</string>
+    <plurals name="backup_cancelled_import">
+        <item quantity="one">%1$d اندراج کے بعد روک دیا گیا۔ مکمل کرنے کے لیے اسی فائل سے دوبارہ بحالی چلائیں: پہلے سے بحال شدہ پیغامات چھوڑ دیے جائیں گے۔</item>
+        <item quantity="other">%1$d اندراجات کے بعد روک دیا گیا۔ مکمل کرنے کے لیے اسی فائل سے دوبارہ بحالی چلائیں: پہلے سے بحال شدہ پیغامات چھوڑ دیے جائیں گے۔</item>
+    </plurals>
+    <string name="backup_retry_hint">ناکام حصے کو دوبارہ آزمانے کے لیے بحالی پھر سے چلائیں: پہلے سے بحال شدہ پیغامات چھوڑ دیے جائیں گے۔</string>
+    <string name="backup_export_finished">بیک اپ مکمل ہو گیا</string>
+    <string name="backup_export_stopped">بیک اپ روک دیا گیا</string>
+    <string name="backup_export_failed">بیک اپ ناکام ہو گیا</string>
+    <string name="backup_export_error">بیک اپ لکھا نہیں جا سکا، اور نامکمل فائل حذف کر دی گئی۔ %1$s</string>
+    <string name="backup_export_cancelled">بیک اپ روک دیا گیا اور نامکمل فائل حذف کر دی گئی۔</string>
+    <string name="backup_export_nothing">بیک اپ کے لیے کوئی پیغام نہیں ہے۔</string>
+    <string name="backup_export_counts">%1$d SMS اور %2$d MMS محفوظ ہوئے۔</string>
+    <string name="backup_export_unreadable_attachments">منسلکہ جو پڑھے نہیں جا سکے، تصویر کے بغیر محفوظ کیے گئے: %1$d</string>
+    <string name="backup_export_unreadable_messages">پیغامات جو پڑھے نہیں جا سکے، شامل نہیں کیے گئے: %1$d</string>
+    <string name="backup_export_unreadable_conversations">گفتگو جو پڑھی نہیں جا سکی، شامل نہیں کی گئی: %1$d</string>
+    <string name="backup_export_incomplete">یہ بیک اپ مکمل نہیں ہے۔</string>
+    <string name="backup_interrupted_import">پچھلی بحالی مکمل ہونے سے پہلے رک گئی، شاید فون نے ایپ بند کر دی تھی۔ اسی فائل سے اسے دوبارہ چلائیں: پہلے سے بحال شدہ پیغامات چھوڑ دیے جائیں گے۔</string>
+    <string name="backup_interrupted_export">پچھلا بیک اپ مکمل ہونے سے پہلے رک گیا، اس لیے اس کی فائل نامکمل ہے۔ براہ کرم نیا بیک اپ بنائیں۔</string>
+</resources>

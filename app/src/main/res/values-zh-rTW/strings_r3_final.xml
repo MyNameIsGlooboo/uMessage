@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r3f_spam_summary_stopped">已攔截%1$d則</string>
+    <string name="r3f_spam_summary_restored">已還原%1$d則</string>
+    <string name="r3f_spam_summary_stopped_week">7天內攔截%1$d則</string>
+    <string name="r3f_spam_summary_total">總計%1$d則</string>
+</resources>

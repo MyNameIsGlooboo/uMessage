@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="convlist_loading">پیغامات لوڈ ہو رہے ہیں</string>
+    <string name="convlist_empty_title">ابھی کوئی گفتگو نہیں</string>
+    <string name="convlist_empty_body">آپ کے بھیجے اور موصول پیغامات یہاں نظر آئیں گے۔</string>
+    <string name="convlist_start_conversation">گفتگو شروع کریں</string>
+    <string name="convlist_new_conversation">نئی گفتگو</string>
+    <string name="convlist_draft">مسودہ</string>
+    <string name="convlist_pinned">پن شدہ</string>
+    <string name="convlist_muted">اطلاعات بند</string>
+    <string name="convlist_unread">ان پڑھا</string>
+    <string name="convlist_unread_count">%1$d ان پڑھے</string>
+    <string name="convlist_group">گروپ گفتگو</string>
+    <string name="convlist_selected">منتخب</string>
+    <string name="convlist_sim">SIM %1$d</string>
+    <string name="convlist_scroll_handle">تیز اسکرول</string>
+    <plurals name="convlist_blocked_banner">
+        <item quantity="one">%d بلاک شدہ پیغام</item>
+        <item quantity="other">%d بلاک شدہ پیغامات</item>
+    </plurals>
+    <string name="convlist_blocked_banner_title">بلاک شدہ پیغامات</string>
+    <string name="convlist_blocked_banner_cd">%1$d بلاک شدہ پیغامات۔ بلاک شدہ فولڈر کھولیں۔</string>
+    <string name="convlist_archive">آرکائیو</string>
+    <string name="convlist_delete">حذف کریں</string>
+    <string name="convlist_pin">اوپر پن کریں</string>
+    <string name="convlist_unpin">پن ہٹائیں</string>
+    <string name="convlist_mark_read">پڑھا ہوا کے طور پر نشان زد کریں</string>
+    <string name="convlist_mark_unread">ان پڑھا کے طور پر نشان زد کریں</string>
+    <string name="convlist_block_number">نمبر بلاک کریں</string>
+    <string name="convlist_add_contact">نمبر رابطے میں شامل کریں</string>
+    <string name="convlist_copy_number">نمبر کاپی کریں</string>
+    <string name="convlist_dial">کال کریں</string>
+    <string name="convlist_rename">گفتگو کا نام بدلیں</string>
+    <string name="convlist_details">گفتگو کی تفصیلات</string>
+    <string name="convlist_select_all">سب منتخب کریں</string>
+    <string name="convlist_more_options">مزید اختیارات</string>
+    <string name="convlist_close_selection">انتخاب منسوخ کریں</string>
+    <plurals name="convlist_selected_count">
+        <item quantity="one">%d منتخب</item>
+        <item quantity="other">%d منتخب</item>
+    </plurals>
+    <string name="convlist_undo">واپس کریں</string>
+    <plurals name="convlist_deleted">
+        <item quantity="one">%d گفتگو حذف کر دی گئی</item>
+        <item quantity="other">%d گفتگو حذف کر دی گئیں</item>
+    </plurals>
+    <plurals name="convlist_archived">
+        <item quantity="one">%d گفتگو آرکائیو کر دی گئی</item>
+        <item quantity="other">%d گفتگو آرکائیو کر دی گئیں</item>
+    </plurals>
+    <plurals name="convlist_blocked_done">
+        <item quantity="one">بلاک کر دیا گیا۔ نئے پیغامات بلاک شدہ پیغامات میں جائیں گے</item>
+        <item quantity="other">%d بھیجنے والے بلاک کر دیے گئے۔ نئے پیغامات بلاک شدہ پیغامات میں جائیں گے</item>
+    </plurals>
+    <string name="convlist_action_failed">کچھ غلط ہو گیا</string>
+    <string name="convlist_block_title">نمبر بلاک کریں؟</string>
+    <string name="convlist_block_message">%1$s کو بلاک کریں؟ اس کے نئے پیغامات آپ کے ان باکس کے بجائے بلاک شدہ پیغامات میں جائیں گے، جہاں آپ انہیں پھر بھی پڑھ یا بحال کر سکتے ہیں۔</string>
+    <string name="convlist_block_confirm">بلاک کریں</string>
+    <string name="convlist_rename_title">گفتگو کا نام بدلیں</string>
+    <string name="convlist_rename_hint">گفتگو کا نام</string>
+    <string name="convlist_ok">ٹھیک ہے</string>
+    <string name="convlist_cancel">منسوخ کریں</string>
+</resources>

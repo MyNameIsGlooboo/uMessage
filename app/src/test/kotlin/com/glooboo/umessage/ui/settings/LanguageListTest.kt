@@ -46,8 +46,8 @@ class LanguageListTest {
         assertThat(rest.map { it.englishName }).isInOrder()
         assertThat(rest.map { it.tag })
             .containsExactly(
-                "ar", "bn", "zh-CN", "fr", "de", "hi", "id", "it", "ja", "ko", "fa", "pl", "pt-BR",
-                "ru", "es", "th", "tr", "uk", "vi",
+                "ar", "bn", "zh-CN", "zh-TW", "fr", "de", "hi", "id", "it", "ja", "ko", "fa", "pl", "pt-BR",
+                "ru", "es", "th", "tr", "uk", "ur", "vi",
             )
             .inOrder()
     }
@@ -77,6 +77,7 @@ class LanguageListTest {
             AppLanguage.GERMAN to "Deutsch",
             AppLanguage.ITALIAN to "Italiano",
             AppLanguage.CHINESE_SIMPLIFIED to "简体中文",
+            AppLanguage.CHINESE_TRADITIONAL to "繁體中文",
             AppLanguage.JAPANESE to "日本語",
             AppLanguage.KOREAN to "한국어",
             AppLanguage.VIETNAMESE to "Tiếng Việt",
@@ -84,6 +85,7 @@ class LanguageListTest {
             AppLanguage.POLISH to "Polski",
             AppLanguage.UKRAINIAN to "Українська",
             AppLanguage.BENGALI to "বাংলা",
+            AppLanguage.URDU to "اردو",
         )
         expected.forEach { (language, name) -> assertThat(context.getString(language.label)).isEqualTo(name) }
     }
@@ -98,6 +100,9 @@ class LanguageListTest {
         assertThat(AppLanguage.fromTags("sv")).isEqualTo(AppLanguage.SYSTEM)
         assertThat(AppLanguage.fromTags("de-AT")).isEqualTo(AppLanguage.GERMAN)
         assertThat(AppLanguage.fromTags("zh-Hans-CN")).isEqualTo(AppLanguage.CHINESE_SIMPLIFIED)
+        assertThat(AppLanguage.fromTags("zh-TW")).isEqualTo(AppLanguage.CHINESE_TRADITIONAL)
+        assertThat(AppLanguage.fromTags("zh-Hant-HK")).isEqualTo(AppLanguage.CHINESE_TRADITIONAL)
+        assertThat(AppLanguage.fromTags("ur-PK")).isEqualTo(AppLanguage.URDU)
     }
 
     @Test

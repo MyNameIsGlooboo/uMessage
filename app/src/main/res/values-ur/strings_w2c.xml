@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w2c_blocked_label">بلاک شدہ</string>
+    <string name="w2c_log_blocked_by_rule">اصول کے ذریعے بلاک شدہ: %1$s</string>
+    <string name="w2c_log_blocked_by_old_list">پرانی بلاک فہرست کے ذریعے بلاک شدہ</string>
+    <string name="w2c_log_fwd_rate_limited">فارورڈ نہیں ہوا: یہ اصول اپنی فی گھنٹہ حد تک پہنچ گیا</string>
+</resources>

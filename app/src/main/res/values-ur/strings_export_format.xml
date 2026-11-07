@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_format_json">uMessage فائل (متن اور تصاویر)</string>
+    <string name="export_format_xml">SMS Backup &amp; Restore فائل (دوسری ایپس کے لیے)</string>
+    <string name="export_format_xml_hint">uMessage اس قسم کی فائل سے صرف متن بحال کرتا ہے۔</string>
+    <string name="export_scope_all">تمام گفتگو</string>
+    <string name="export_scope_choose">گفتگو منتخب کریں</string>
+    <plurals name="export_scope_chosen">
+        <item quantity="one">%1$d گفتگو منتخب کی گئی</item>
+        <item quantity="other">%1$d گفتگو منتخب کی گئیں</item>
+    </plurals>
+    <string name="export_pick_title">گفتگو منتخب کریں</string>
+    <string name="export_pick_search">تلاش کریں</string>
+    <string name="export_pick_all">سب منتخب کریں</string>
+    <string name="export_pick_none">صاف کریں</string>
+    <string name="export_pick_empty">کوئی گفتگو نہیں ہے</string>
+    <string name="export_pick_nothing_chosen">کم از کم ایک گفتگو منتخب کریں</string>
+</resources>

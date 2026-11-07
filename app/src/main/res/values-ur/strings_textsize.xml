@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="w3c_text_xsmall">بہت چھوٹا</string>
+    <string name="w3c_text_huge">بہت بڑا</string>
+    <string name="w3c_text_giant">سب سے بڑا</string>
+</resources>

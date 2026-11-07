@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ux8f_onb_more">更多功能</string>
+    <string name="ux8f_onb_less">較少功能</string>
+    <string name="ux8f_onb_battery_body">Android可能會在背景中停止uMessage，導致訊息延遲。請允許它持續執行。</string>
+    <string name="ux8f_onb_battery_action">允許背景使用</string>
+    <string name="ux8f_onb_vendor_hint">%1$s手機還需要多一個步驟。</string>
+    <string name="ux8f_onb_unfinished">尚未完成。你可以稍後在Android設定中完成。</string>
+</resources>

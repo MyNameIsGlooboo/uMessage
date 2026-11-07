@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_format_json">uMessage檔案（文字和圖片）</string>
+    <string name="export_format_xml">SMS Backup &amp; Restore檔案（供其他應用程式使用）</string>
+    <string name="export_format_xml_hint">從這類檔案，uMessage只會還原文字。</string>
+    <string name="export_scope_all">所有對話</string>
+    <string name="export_scope_choose">選擇對話</string>
+    <plurals name="export_scope_chosen">
+        <item quantity="other">已選擇%1$d個對話</item>
+    </plurals>
+    <string name="export_pick_title">選擇對話</string>
+    <string name="export_pick_search">搜尋</string>
+    <string name="export_pick_all">全選</string>
+    <string name="export_pick_none">清除</string>
+    <string name="export_pick_empty">沒有對話</string>
+    <string name="export_pick_nothing_chosen">請至少選擇一個對話</string>
+</resources>

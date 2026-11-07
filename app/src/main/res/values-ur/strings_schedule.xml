@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedule_exact_alarm_title">بالکل صحیح وقت پر بھیجیں؟</string>
+    <string name="schedule_exact_alarm_text">شیڈول شدہ پیغامات بالکل صحیح وقت پر بھیجنے کے لیے، سسٹم سیٹنگز میں uMessage کے لیے «الارم اور یاد دہانیاں» کی اجازت دیں۔ اس کے بغیر بھی وہ بھیجے جائیں گے، لیکن دیر ہو سکتی ہے۔</string>
+    <string name="schedule_exact_alarm_open_settings">سیٹنگز کھولیں</string>
+    <string name="schedule_exact_alarm_anyway">پھر بھی شیڈول کریں</string>
+</resources>

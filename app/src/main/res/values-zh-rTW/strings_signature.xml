@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i60_setting_title">簽名</string>
+    <string name="i60_off">關閉</string>
+    <string name="i60_dialog_note">會加在你傳送的每則訊息下方。留空表示不使用。</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i13_star">加星號</string>
+    <string name="i13_unstar">移除星號</string>
+    <string name="i13_starred_mark">已加星號</string>
+    <string name="i13_filter_starred">已加星號</string>
+    <string name="i13_filter_starred_empty_title">沒有已加星號的訊息</string>
+    <string name="i13_filter_starred_empty_body">在對話中選取訊息並輕觸星號，即可保留在這裡。</string>
+    <string name="i13_starred_note">加星號會保留一份文字副本，即使對話已刪除也一樣。移除星號會刪除這份副本。</string>
+    <string name="i13_snapshot_gone">這個對話已刪除，只剩下已儲存的文字。</string>
+    <string name="i13_snapshot_close">關閉</string>
+</resources>

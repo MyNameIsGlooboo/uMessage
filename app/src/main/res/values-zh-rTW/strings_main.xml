@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_hint">搜尋對話</string>
+    <string name="main_search_back">關閉搜尋</string>
+    <string name="main_search_clear">清除搜尋文字</string>
+    <string name="main_search_type_more">請輸入至少2個字元來搜尋</string>
+    <string name="main_search_no_results">找不到結果</string>
+    <string name="main_settings">設定</string>
+    <string name="main_tab_messages">訊息</string>
+    <string name="main_tab_blocked">已封鎖</string>
+    <string name="main_tab_archived">已封存</string>
+    <plurals name="main_tab_blocked_new">
+        <item quantity="other">已封鎖，%d則新訊息</item>
+    </plurals>
+    <string name="main_permission_title">需要權限</string>
+    <string name="main_permission_grant">授予權限</string>
+    <string name="main_permission_notifications">請允許通知，否則應用程式無法顯示收到的訊息。</string>
+    <string name="main_sms_permission_title">uMessage需要簡訊存取權</string>
+    <string name="main_sms_permission_body">沒有讀取和傳送簡訊的權限，uMessage就無法顯示你的訊息、傳送簡訊或篩選垃圾簡訊。不會刪除任何內容。</string>
+    <string name="main_sms_permission_settings">開啟應用程式設定</string>
+    <string name="main_not_default_banner">uMessage不是你的預設簡訊應用程式，因此無法封鎖垃圾簡訊或傳送訊息。</string>
+    <string name="main_not_default_fix">修正</string>
+    <string name="main_not_default_fix_description">將uMessage設為預設簡訊應用程式</string>
+</resources>

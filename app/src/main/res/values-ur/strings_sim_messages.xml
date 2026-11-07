@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sim_messages_title">SIM کارڈ کے پیغامات</string>
+    <string name="sim_messages_row_body">SIM کارڈ پر محفوظ پیغامات اپنی گفتگو میں کاپی کریں</string>
+    <string name="sim_messages_loading">SIM کارڈ پڑھا جا رہا ہے…</string>
+    <string name="sim_messages_unavailable">یہ فون ایپس کو SIM کارڈ پڑھنے نہیں دیتا۔</string>
+    <string name="sim_messages_empty">SIM کارڈ پر کوئی پیغام نہیں ہے۔</string>
+    <plurals name="sim_messages_found">
+        <item quantity="one">SIM کارڈ پر %1$d پیغام محفوظ ہے۔ اسے اپنی گفتگو میں کاپی کریں؟ یہ SIM کارڈ پر بھی رہے گا۔</item>
+        <item quantity="other">SIM کارڈ پر %1$d پیغامات محفوظ ہیں۔ انہیں اپنی گفتگو میں کاپی کریں؟ یہ SIM کارڈ پر بھی رہیں گے۔</item>
+    </plurals>
+    <string name="sim_messages_import">کاپی کریں</string>
+    <string name="sim_messages_importing">پیغامات کاپی ہو رہے ہیں…</string>
+    <string name="sim_messages_done">%1$d پیغامات کاپی ہو گئے۔ %2$d پہلے سے آپ کی گفتگو میں تھے۔</string>
+    <string name="sim_messages_done_failed">%1$d پیغامات کاپی ہو گئے۔ %2$d پہلے سے آپ کی گفتگو میں تھے اور %3$d کاپی نہیں ہو سکے۔</string>
+</resources>

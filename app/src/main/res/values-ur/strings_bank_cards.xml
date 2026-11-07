@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i31_card_deposit">جمع</string>
+    <string name="i31_card_withdrawal">نکالی گئی رقم</string>
+    <string name="i31_card_balance_title">بیلنس</string>
+    <string name="i31_card_title">%1$s: %2$s</string>
+    <string name="i31_card_balance">بیلنس: %1$s</string>
+    <string name="i31_money">%1$s %2$s</string>
+    <string name="i31_card_hint_card">کارڈ جس کے آخر میں %1$s ہے</string>
+    <string name="i31_card_hint_account">اکاؤنٹ جس کے آخر میں %1$s ہے</string>
+    <string name="i31_card_hint_other">آخر میں %1$s</string>
+    <string name="i31_currency_rial">ریال</string>
+    <string name="i31_currency_toman">تومان</string>
+    <string name="i31_currency_usd">امریکی ڈالر</string>
+    <string name="i31_currency_eur">یورو</string>
+    <string name="i31_currency_gbp">برطانوی پاؤنڈ</string>
+    <string name="i31_currency_aed">اماراتی درہم</string>
+</resources>

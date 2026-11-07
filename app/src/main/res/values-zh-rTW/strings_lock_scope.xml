@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_scope_title">鎖定範圍</string>
+    <string name="lock_scope_whole">整個應用程式</string>
+    <string name="lock_scope_chosen">僅限選定部分</string>
+    <string name="lock_scope_chosen_long">僅限選定部分：「已封鎖」分頁和隱藏的聊天</string>
+    <string name="lock_scope_blocked_title">已封鎖的訊息已鎖定</string>
+    <string name="lock_scope_blocked_body">解鎖即可查看。</string>
+    <string name="lock_scope_unlock">解鎖</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialogs_yes">是</string>
+    <string name="dialogs_no">否</string>
+    <string name="dialogs_permission_required">需要權限</string>
+    <string name="dialogs_grant_permission">授予權限</string>
+    <string name="dialogs_date_time_format_title">日期和時間格式</string>
+    <string name="dialogs_use_24_hour">使用24小時制</string>
+    <string name="dialogs_lock_pattern">圖形</string>
+    <string name="dialogs_lock_pin">PIN</string>
+    <string name="dialogs_lock_biometrics">生物辨識</string>
+    <string name="dialogs_lock_fingerprint">指紋</string>
+    <string name="dialogs_lock_enter_pin">輸入PIN</string>
+    <string name="dialogs_lock_repeat_pin">再次輸入PIN</string>
+    <string name="dialogs_lock_wrong_pin">PIN錯誤</string>
+    <string name="dialogs_lock_empty_pin">請輸入PIN</string>
+    <string name="dialogs_lock_short_pin">PIN至少須為4位數</string>
+    <string name="dialogs_lock_pin_suggestion">至少4位數，%d位數以上更安全。</string>
+    <plurals name="dialogs_lock_short_pattern">
+        <item quantity="other">太短了，請至少連接%d個點。</item>
+    </plurals>
+    <string name="dialogs_lock_draw_pattern">繪製圖形</string>
+    <string name="dialogs_lock_repeat_pattern">再次繪製圖形</string>
+    <string name="dialogs_lock_wrong_pattern">圖形錯誤</string>
+    <string name="dialogs_lock_locked_out">解鎖錯誤次數過多。\n請在%d秒後再試一次。</string>
+    <string name="dialogs_lock_pin_delete">刪除最後一位數字</string>
+    <string name="dialogs_lock_pin_confirm">確認PIN</string>
+    <string name="dialogs_lock_pin_entered">已輸入%d位數字</string>
+    <string name="dialogs_lock_pattern_pad">圖形繪製區</string>
+    <string name="dialogs_lock_biometric_hint">使用指紋或臉孔確認是你本人。</string>
+    <string name="dialogs_lock_biometric_open">使用生物辨識驗證</string>
+    <string name="dialogs_lock_place_finger">請將手指放在指紋感應器上。</string>
+    <string name="dialogs_lock_no_fingerprints">尚未登錄指紋，請在裝置設定中新增。</string>
+    <string name="dialogs_lock_open_settings">開啟裝置設定</string>
+    <string name="dialogs_lock_auth_failed">驗證失敗</string>
+    <string name="dialogs_lock_auth_blocked">驗證已暫時封鎖，請稍後再試</string>
+</resources>

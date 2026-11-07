@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i40_record_voice">語音輸入</string>
+    <string name="i40_setting_title">語音輸入</string>
+    <string name="i40_setting_summary">用說的代替打字</string>
+</resources>

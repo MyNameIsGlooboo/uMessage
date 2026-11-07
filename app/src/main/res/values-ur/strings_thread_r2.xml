@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_r2_details_reason">وجہ</string>
+    <string name="thread_r2_details_rule">اصول</string>
+    <string name="thread_r2_details_forwarded">فارورڈ شدہ</string>
+    <string name="thread_r2_details_decision_restored">بلاک ہوا، پھر آپ کے ان باکس میں بحال کیا گیا</string>
+    <string name="thread_r2_details_copy">%1$s کاپی کریں</string>
+    <string name="thread_r2_menu_search">گفتگو میں تلاش کریں</string>
+    <string name="thread_r2_menu_always_forward">اس بھیجنے والے سے ہمیشہ فارورڈ کریں</string>
+    <string name="thread_r2_block_hint">آئندہ پیغامات بلاک شدہ میں جائیں گے۔ آپ کے فون سے کچھ باہر نہیں جاتا۔</string>
+    <string name="thread_r2_forward_message">یہ پیغام فارورڈ کریں</string>
+    <string name="thread_r2_search_hint">گفتگو میں تلاش کریں</string>
+    <string name="thread_r2_search_close">تلاش بند کریں</string>
+    <string name="thread_r2_search_none">کوئی نتیجہ نہیں</string>
+    <string name="thread_r2_search_count">%2$d میں سے %1$d</string>
+    <string name="thread_r2_search_older">پرانا نتیجہ</string>
+    <string name="thread_r2_search_newer">نیا نتیجہ</string>
+    <string name="thread_r2_link_copy">لنک کاپی کریں</string>
+    <string name="thread_r2_link_share">شیئر</string>
+    <string name="thread_r2_schedule_pick_date">تاریخ منتخب کریں</string>
+    <string name="thread_r2_calendar_previous">پچھلا مہینہ</string>
+    <string name="thread_r2_calendar_next">اگلا مہینہ</string>
+</resources>
