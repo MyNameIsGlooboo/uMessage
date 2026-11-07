@@ -16,7 +16,8 @@ internal data class InboxMenuInputs(
 /**
  * U04: Recycle bin (first), Archived and Scheduled are reachable from the inbox, each only when it has content
  * or is on.
- * Archived is listed only while its bottom-bar tab is not shown: an entry never appears in both places.
+ * Archived is listed only while its bottom-bar tab is not shown: an entry never appears in both places. The tab is
+ * shown whenever archiving is available, so this entry is only a fallback and never leaves Archived unreachable.
  * Settings is always the last entry, so the menu is never empty.
  */
 internal object InboxMenuPolicy {
@@ -24,7 +25,7 @@ internal object InboxMenuPolicy {
     fun entries(inputs: InboxMenuInputs): List<InboxMenuItem> = buildList {
         // The bin comes first so it is easy to find; it is listed whenever it is switched on, empty or not.
         if (inputs.recycleBinOn) add(InboxMenuItem.RecycleBin)
-        if (!inputs.archivedTabShown && inputs.archiveAvailable && inputs.archivedCount > 0) {
+        if (!inputs.archivedTabShown && inputs.archiveAvailable) {
             add(InboxMenuItem.Archived)
         }
         if (inputs.scheduledCount > 0) add(InboxMenuItem.Scheduled)

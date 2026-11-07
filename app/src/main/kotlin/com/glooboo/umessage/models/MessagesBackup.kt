@@ -22,6 +22,7 @@ object BackupSerializer :
             "sms" -> SmsBackup.serializer()
             "mms" -> MmsBackup.serializer()
             "umessage_notes" -> NotesBackup.serializer()
+            "umessage_appdata" -> AppDataBackup.serializer()
             else -> throw SerializationException("ERROR: No Serializer found. Serialization failed.")
         }
     }

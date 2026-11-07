@@ -53,6 +53,13 @@ interface MessageNotesQueryDao {
     @Query("SELECT COUNT(*) FROM message_notes WHERE thread_id = 0")
     suspend fun countUnbound(): Int
 
+    /** Notes whose chat has no cached message (the chat id changed, or the cache was rebuilt under other ids). */
+    @Query(
+        "SELECT * FROM message_notes WHERE thread_id != 0 AND NOT EXISTS " +
+            "(SELECT 1 FROM messages m WHERE m.thread_id = message_notes.thread_id)"
+    )
+    suspend fun getStale(): List<MessageNote>
+
     @Query("UPDATE message_notes SET thread_id = :threadId WHERE note_key = :key")
     suspend fun setThread(key: String, threadId: Long): Int
 

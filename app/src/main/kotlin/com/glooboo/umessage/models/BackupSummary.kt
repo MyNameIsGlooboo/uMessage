@@ -57,6 +57,9 @@ class ImportSummary {
     /** Private notes of the file that were taken (the entry for notes is not counted in [entriesRead]). */
     var notesRestored = 0
 
+    /** Stars, labels and archived chats of the file that were taken (see [AppDataBackup]). */
+    var appDataRestored = 0
+
     val reasons = linkedMapOf<String, Int>()
 
     fun record(result: WriteResult) {
@@ -109,6 +112,9 @@ class ExportSummary {
 
     /** Private notes written at the end of a JSON backup. */
     var notes = 0
+
+    /** Stars, labels and archived chats written at the end of a JSON backup. */
+    var appData = 0
 
     val total get() = sms + mms
     val hasProblems get() = unreadableAttachments > 0 || unreadableConversations > 0 || unreadableMessages > 0

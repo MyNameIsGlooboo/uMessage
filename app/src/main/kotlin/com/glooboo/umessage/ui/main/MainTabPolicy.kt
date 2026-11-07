@@ -4,7 +4,7 @@ package com.glooboo.umessage.ui.main
 data class MainTabInputs(
     /** The phone supports archiving at all. */
     val archiveAvailable: Boolean,
-    /** Conversations in the archive right now. */
+    /** Conversations in the archive right now. Does not decide the Archived tab: it is there even when this is 0. */
     val archivedCount: Int,
     /** Forward rules that exist, enabled or not. */
     val forwardRuleCount: Int,
@@ -17,12 +17,12 @@ data class MainTabInputs(
 object MainTabPolicy {
 
     /**
-     * Messages and Blocked always; Forwarded only when a forward rule exists and the user switched the tab on; Archived
-     * only while something is archived. Order: Messages, Blocked, Forwarded, Archived.
+     * Messages and Blocked always; Archived whenever the phone supports archiving, also from the first launch with an
+     * empty archive (the tab then shows its empty state); Forwarded only when a forward rule exists and the user
+     * switched the tab on. Order: Messages, Blocked, Forwarded, Archived.
      *
-     * [selected] keeps its own tab in the bar so it never vanishes under the user's finger: Archived after the last
-     * chat was unarchived (it leaves once the user does), and Forwarded when it was opened on purpose from Settings
-     * ([forwardedOpened]) although the tab is switched off. After the last rule is deleted the Forwarded tab stays
+     * [selected] keeps Forwarded in the bar when it was opened on purpose from Settings ([forwardedOpened]) although
+     * the tab is switched off. After the last rule is deleted the Forwarded tab stays
      * while failed forwards are still listed (they are the only way to see what did not go out), then it leaves
      * unless it was opened on purpose.
      */
@@ -32,8 +32,7 @@ object MainTabPolicy {
             add(MainTab.Blocked)
             val forwardedOn = (inputs.forwardRuleCount > 0 || inputs.failedForwards > 0) && inputs.showForwarded == true
             if (forwardedOn || (forwardedOpened && selected == MainTab.Forwarded)) add(MainTab.Forwarded)
-            val archivedOn = inputs.archivedCount > 0 || selected == MainTab.Archived
-            if (inputs.archiveAvailable && archivedOn) add(MainTab.Archived)
+            if (inputs.archiveAvailable) add(MainTab.Archived)
         }
 
     /** The tab to show: [selected] when the bar has it, else Messages. */

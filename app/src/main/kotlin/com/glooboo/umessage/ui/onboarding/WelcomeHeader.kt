@@ -19,8 +19,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
-import com.glooboo.umessage.ui.components.IconChip
-import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.settings.AppLanguage
 import com.glooboo.umessage.ui.settings.LanguagePicker
 import java.util.Locale
@@ -29,12 +27,11 @@ import java.util.Locale
 internal fun nativeLanguageName(locale: Locale): String =
     locale.getDisplayLanguage(locale).replaceFirstChar { if (it.isLowerCase()) it.titlecase(locale) else "$it" }
 
-/** The top row of the first page: Restore, then the language chip, together at the end of the row. */
+/** The top row of the first page: only the language chip, at the end of the row. */
 @Composable
 internal fun WelcomeTopRow(
     language: AppLanguage,
     onLanguage: ((AppLanguage) -> Unit)?,
-    onRestore: (() -> Unit)?,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -42,9 +39,6 @@ internal fun WelcomeTopRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        if (onRestore != null) {
-            IconChip(Symbols.Upload, stringResource(R.string.onb_restore_chip), onRestore)
-        }
         if (onLanguage != null) {
             val phoneLabel = stringResource(R.string.onb_lang_phone)
             val native = nativeLanguageName(LocalConfiguration.current.locales[0]).ifEmpty { phoneLabel }

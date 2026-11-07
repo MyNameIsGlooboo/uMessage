@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="onb_switch_done_note">설정을 마치면 백업 및 복원 화면이 열려요.</string>
-    <string name="onb_restore_chip">복원</string>
-</resources>

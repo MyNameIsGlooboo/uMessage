@@ -174,19 +174,38 @@ class MessageNotes(
      */
     suspend fun relink(): Int = withContext(Dispatchers.IO) { bindRestored() }
 
+    /**
+     * Finds the chat of every note that has none (a restore) or whose chat no longer exists (the ids changed). A note
+     * is found by its exact key; failing that by the same message under another address, and then it takes the key
+     * of that message, so a sent group message keeps its note whatever order its people come in.
+     */
     private suspend fun bindRestored(): Int {
-        if (dao.countUnbound() == 0) return 0
         var bound = 0
         runCatching {
-            for (note in dao.getUnbound()) {
-                val match = messagesAtDate(note.messageDate).firstOrNull { MessageNoteKey.of(it) == note.key }
-                if (match != null && match.threadId != 0L) {
-                    dao.setThread(note.key, match.threadId)
-                    bound++
-                }
+            val waiting = if (dao.countUnbound() == 0) emptyList() else dao.getUnbound()
+            for (note in waiting + dao.getStale()) {
+                if (bindOne(note)) bound++
             }
         }
         return bound
+    }
+
+    private suspend fun bindOne(note: MessageNote): Boolean {
+        val candidates = messagesAtDate(note.messageDate).filter { it.threadId != 0L }
+        val exact = candidates.firstOrNull { MessageNoteKey.of(it) == note.key }
+        if (exact != null) {
+            if (exact.threadId != note.threadId) dao.setThread(note.key, exact.threadId)
+            return exact.threadId != note.threadId
+        }
+        val loose = candidates.firstOrNull { MessageNoteKey.sameExceptAddress(note.key, MessageNoteKey.of(it)) }
+            ?: return false
+        val newKey = MessageNoteKey.of(loose)
+        val taken = dao.get(newKey)
+        if (taken == null || taken.updatedAt < note.updatedAt) {
+            dao.upsert(note.copy(key = newKey, threadId = loose.threadId))
+        }
+        dao.delete(note.key)
+        return true
     }
 
     private fun clean(text: String): String = text.trim().take(MAX_LENGTH).trimEnd()

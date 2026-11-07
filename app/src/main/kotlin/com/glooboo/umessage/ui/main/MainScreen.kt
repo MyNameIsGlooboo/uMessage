@@ -89,7 +89,8 @@ class MainNavigation(
 
 /**
  * The app's home: an M3 navigation bar with Messages, Blocked, Forwarded and Archived. Forwarded shows only once a
- * forward rule exists and the user asked for it, Archived only while something is archived (see [MainTabPolicy]).
+ * forward rule exists and the user asked for it, Archived whenever archiving is available, even with an empty
+ * archive (see [MainTabPolicy]).
  * Each tab keeps its own state (scroll position, selection) while another tab is shown. Back on any other tab returns
  * to Messages first, as M3 navigation asks; the bar hides while the search is open and is dimmed while rows are
  * selected.
@@ -114,7 +115,7 @@ fun MainScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val tabsViewModel: MainTabsViewModel = composeViewModel()
     val tabsState by tabsViewModel.state.collectAsStateWithLifecycle()
-    // Shared with the Archived tab (same view model): its list is also the archived count that shows the tab.
+    // Shared with the Archived tab (same view model): its list is also the archived count for the tab's new-chat dot.
     val archivedViewModel: ArchivedViewModel = composeViewModel()
     val archived by archivedViewModel.state.collectAsStateWithLifecycle()
     LifecycleResumeEffect(archivedViewModel) {

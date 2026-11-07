@@ -2,6 +2,7 @@ package com.glooboo.umessage.helpers
 
 import android.content.Context
 import android.util.Log
+import com.glooboo.umessage.backup.PendingArchive
 import com.glooboo.umessage.extensions.clearExpiredScheduledMessages
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.conversationsDB
@@ -238,6 +239,9 @@ class ConversationListSync(
                 context.insertOrUpdateConversation(keepRead(conv))
             }
         }
+
+        // Chats a restore archived before their rows existed (see PendingArchive).
+        runCatching { PendingArchive(context).applyTo(db) }
 
         publishSaved()
 

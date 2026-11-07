@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="onb_switch_done_note">Al termine si aprirà Backup e ripristino.</string>
-    <string name="onb_restore_chip">Ripristina</string>
-</resources>

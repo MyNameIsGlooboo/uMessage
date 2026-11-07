@@ -39,6 +39,9 @@ interface LabelsDao {
     suspend fun removeAllFromConversation(threadId: Long): Int
 
     @Query("SELECT * FROM conversation_labels")
+    suspend fun getLinks(): List<ConversationLabel>
+
+    @Query("SELECT * FROM conversation_labels")
     fun observeLinks(): Flow<List<ConversationLabel>>
 
     @Query("SELECT thread_id FROM conversation_labels WHERE label_id = :labelId")

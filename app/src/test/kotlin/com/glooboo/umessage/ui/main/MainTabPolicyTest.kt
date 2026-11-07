@@ -14,20 +14,21 @@ class MainTabPolicyTest {
         MainTabPolicy.visibleTabs(i, selected, opened)
 
     @Test
-    fun nothingArchivedAndNoRules_showsMessagesAndBlocked() {
-        assertThat(tabs(inputs())).containsExactly(MainTab.Messages, MainTab.Blocked).inOrder()
+    fun freshConfigWithAnEmptyArchive_showsArchivedFromTheFirstLaunch() {
+        assertThat(tabs(inputs())).containsExactly(MainTab.Messages, MainTab.Blocked, MainTab.Archived).inOrder()
+        assertThat(tabs(inputs(), selected = MainTab.Messages)).contains(MainTab.Archived)
     }
 
     @Test
-    fun archivedAppearsWhenSomethingIsArchived() {
+    fun archivedStaysWhenSomethingIsArchived() {
         assertThat(tabs(inputs(archived = 1)))
             .containsExactly(MainTab.Messages, MainTab.Blocked, MainTab.Archived).inOrder()
     }
 
     @Test
-    fun archivedStaysWhileSelectedAndLeavesAfterTheUserDoes() {
+    fun archivedStaysAfterTheLastChatIsUnarchived() {
         assertThat(tabs(inputs(archived = 0), selected = MainTab.Archived)).contains(MainTab.Archived)
-        assertThat(tabs(inputs(archived = 0), selected = MainTab.Messages)).doesNotContain(MainTab.Archived)
+        assertThat(tabs(inputs(archived = 0), selected = MainTab.Messages)).contains(MainTab.Archived)
     }
 
     @Test
@@ -70,6 +71,7 @@ class MainTabPolicyTest {
     fun aSelectedTabThatIsGoneFallsBackToMessages() {
         val list = tabs(inputs())
         assertThat(MainTabPolicy.effectiveTab(list, MainTab.Forwarded)).isEqualTo(MainTab.Messages)
+        assertThat(MainTabPolicy.effectiveTab(list, MainTab.Archived)).isEqualTo(MainTab.Archived)
         assertThat(MainTabPolicy.effectiveTab(list, MainTab.Blocked)).isEqualTo(MainTab.Blocked)
     }
 }

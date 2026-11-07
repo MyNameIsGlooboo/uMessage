@@ -13,4 +13,7 @@ enum class BackupType {
 
     @SerialName("umessage_notes")
     NOTES,
+
+    @SerialName("umessage_appdata")
+    APP_DATA,
 }

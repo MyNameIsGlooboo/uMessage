@@ -120,7 +120,7 @@ private fun Context.openAppSettings() {
 fun OnboardingScreen(
     viewModel: OnboardingViewModel,
     reduceMotion: Boolean,
-    onFinish: (openBackup: Boolean) -> Unit,
+    onFinish: () -> Unit,
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -147,8 +147,6 @@ fun OnboardingScreen(
     val mode by viewModel.mode.collectAsStateWithLifecycle()
     val purgeDays by viewModel.purgeDays.collectAsStateWithLifecycle()
     val deliveryReports by viewModel.deliveryReports.collectAsStateWithLifecycle()
-    // Set by "Restore a backup" on the first page: Backup and restore opens after Finish, once uMessage can be default.
-    var restoreAfter by rememberSaveable { mutableStateOf(false) }
 
     // Raised after the default-app dialog closes during "Allow all"; handled once the screen is resumed again.
     var continueAllowAll by remember { mutableStateOf(false) }
@@ -261,10 +259,6 @@ fun OnboardingScreen(
                         reduceMotion = reduceMotion,
                         language = AppLanguage.current(),
                         onLanguage = if (AppLanguage.supported) ({ l: AppLanguage -> AppLanguage.apply(l) }) else null,
-                        onRestore = {
-                            restoreAfter = true
-                            goTo(1)
-                        },
                     )
 
                     OnboardingPage.ALLOW -> AllowPage(
@@ -302,7 +296,7 @@ fun OnboardingScreen(
                     )
 
                     OnboardingPage.KEEP_RUNNING ->
-                        OemPage(pageModifier, refresh, isDefault, allGranted, restoreAfter)
+                        OemPage(pageModifier, refresh, isDefault, allGranted)
                 }
             }
 
@@ -313,7 +307,7 @@ fun OnboardingScreen(
                 nextLabel = nextLabel,
                 reduceMotion = reduceMotion,
                 onBack = { goTo(page - 1) },
-                onNext = { if (current == OnboardingPage.KEEP_RUNNING) onFinish(restoreAfter) else goTo(page + 1) },
+                onNext = { if (current == OnboardingPage.KEEP_RUNNING) onFinish() else goTo(page + 1) },
             )
         }
     }
@@ -436,7 +430,7 @@ private fun welcomeTopTitles(): Set<Int> =
 
 /**
  * The first step. The pager page scrolls, so a long list never pushes "Get started" (in the bottom bar) away.
- * The language chip shows when [onLanguage] is set (Android 13+), the Restore chip when [onRestore] is set.
+ * The language chip shows when [onLanguage] is set (Android 13+).
  */
 @Composable
 internal fun WelcomePage(
@@ -444,7 +438,6 @@ internal fun WelcomePage(
     reduceMotion: Boolean,
     language: AppLanguage = AppLanguage.SYSTEM,
     onLanguage: ((AppLanguage) -> Unit)? = null,
-    onRestore: (() -> Unit)? = null,
 ) {
     val alpha by animateFloatAsState(
         targetValue = 1f,
@@ -452,8 +445,8 @@ internal fun WelcomePage(
         label = "heroAlpha",
     )
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        if (onLanguage != null || onRestore != null) {
-            WelcomeTopRow(language = language, onLanguage = onLanguage, onRestore = onRestore)
+        if (onLanguage != null) {
+            WelcomeTopRow(language = language, onLanguage = onLanguage)
         } else {
             Spacer(Modifier.height(24.dp))
         }
@@ -535,7 +528,7 @@ private fun StatusRow(ok: Boolean, text: String) {
 }
 
 @Composable
-private fun OemPage(modifier: Modifier, refresh: Int, isDefault: Boolean, permsOk: Boolean, restoreAfter: Boolean) {
+private fun OemPage(modifier: Modifier, refresh: Int, isDefault: Boolean, permsOk: Boolean) {
     val context = LocalContext.current
     val oem = remember { OemHelper.detect() }
     val steps = remember { OemHelper.steps(context, oem) }
@@ -589,7 +582,7 @@ private fun OemPage(modifier: Modifier, refresh: Int, isDefault: Boolean, permsO
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        UnfinishedNote(isDefault, permsOk, restoreAfter)
+        UnfinishedNote(isDefault, permsOk)
     }
 }
 
@@ -701,13 +694,12 @@ private fun OemStepCard(
 
 /** The end of the flow shows only what is still open, so a finished setup adds nothing to read. */
 @Composable
-private fun UnfinishedNote(isDefault: Boolean, permsOk: Boolean, restoreAfter: Boolean) {
+private fun UnfinishedNote(isDefault: Boolean, permsOk: Boolean) {
     if (!isDefault || !permsOk) {
         PageBody(stringResource(R.string.ux8f_onb_unfinished))
         if (!isDefault) SummaryRow(stringResource(R.string.onb_done_summary_default), false, null)
         if (!permsOk) SummaryRow(stringResource(R.string.onb_done_summary_permissions), false, null)
     }
-    if (restoreAfter) PageBody(stringResource(R.string.onb_switch_done_note))
 }
 
 @Composable

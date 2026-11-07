@@ -57,6 +57,19 @@ object MessageNoteKey {
         return if (parts.size == PARTS && parts[0] == VERSION) parts[DATE_INDEX].toIntOrNull() else null
     }
 
+    /**
+     * True when [key] and [other] are the same message apart from the address: same kind, direction, second and text.
+     * A sent group message gets another address (the first person of the chat) when the chat is rebuilt in another
+     * order, which would orphan its note; the address is the only part allowed to differ.
+     */
+    fun sameExceptAddress(key: String, other: String): Boolean {
+        val a = key.split(SEP)
+        val b = other.split(SEP)
+        return a.size == PARTS && b.size == PARTS && a[0] == VERSION && b[0] == VERSION &&
+            a.indices.all { it == ADDRESS_INDEX || a[it] == b[it] }
+    }
+
+    private const val ADDRESS_INDEX = 4
     private const val PARTS = 6
     private const val DATE_INDEX = 3
 }

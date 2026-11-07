@@ -3,6 +3,7 @@ package com.glooboo.umessage.helpers
 import com.glooboo.umessage.models.MessagesBackup
 import com.glooboo.umessage.models.MmsAddress
 import com.glooboo.umessage.models.MmsBackup
+import com.glooboo.umessage.models.AppDataBackup
 import com.glooboo.umessage.models.NotesBackup
 import com.glooboo.umessage.models.MmsPart
 import com.glooboo.umessage.models.SmsBackup
@@ -39,7 +40,7 @@ class SmsXmlWriter(
         when (entry) {
             is SmsBackup -> writeSms(entry)
             is MmsBackup -> writeMms(entry)
-            is NotesBackup -> Unit // the XML format of SMS Backup & Restore has no place for notes
+            is NotesBackup, is AppDataBackup -> Unit // the XML format of SMS Backup & Restore has no place for these
         }
     }
 

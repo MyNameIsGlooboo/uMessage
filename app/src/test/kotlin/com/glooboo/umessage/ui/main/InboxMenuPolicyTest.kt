@@ -15,18 +15,18 @@ class InboxMenuPolicyTest {
     ) = InboxMenuInputs(archiveAvailable, archived, bin, scheduled, tabShown)
 
     @Test
-    fun anEmptyInboxOffersOnlyStarredAndSettings() {
+    fun anEmptyInboxWithTheArchivedTabOffersOnlyStarredAndSettings() {
         assertEquals(
             listOf(InboxMenuItem.Starred, InboxMenuItem.Settings),
-            InboxMenuPolicy.entries(inputs()),
+            InboxMenuPolicy.entries(inputs(tabShown = true)),
         )
     }
 
     @Test
-    fun archivedShowsOnlyWithArchivedChats() {
+    fun archivedIsListedWhenItsTabIsNotShown() {
         assertEquals(InboxMenuItem.Archived, InboxMenuPolicy.entries(inputs(archived = 2)).first())
         assertEquals(1, InboxMenuPolicy.entries(inputs(archived = 2, bin = true)).indexOf(InboxMenuItem.Archived))
-        assertFalse(InboxMenuItem.Archived in InboxMenuPolicy.entries(inputs(archived = 0)))
+        assertEquals(true, InboxMenuItem.Archived in InboxMenuPolicy.entries(inputs(archived = 0)))
     }
 
     @Test
@@ -47,9 +47,11 @@ class InboxMenuPolicyTest {
     }
 
     @Test
-    fun nothingArchivedMeansNoArchivedEntryWhateverTheTab() {
-        assertFalse(InboxMenuItem.Archived in InboxMenuPolicy.entries(inputs(archived = 0, tabShown = false)))
-        assertFalse(InboxMenuItem.Archived in InboxMenuPolicy.entries(inputs(archived = 0, tabShown = true)))
+    fun theArchivedEntryIsNeverInBothPlacesAndNeverInNeither() {
+        val tabs = MainTabInputs(archiveAvailable = true, archivedCount = 0, forwardRuleCount = 0, showForwarded = null)
+        val tabShown = MainTab.Archived in MainTabPolicy.visibleTabs(tabs, MainTab.Messages)
+        val entry = InboxMenuItem.Archived in InboxMenuPolicy.entries(inputs(archived = 0, tabShown = tabShown))
+        assertEquals(true, tabShown != entry)
     }
 
     @Test

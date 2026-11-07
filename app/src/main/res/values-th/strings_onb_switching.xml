@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="onb_switch_done_note">เมื่อตั้งค่าเสร็จ หน้าสำรองข้อมูลและกู้คืนจะเปิดขึ้น</string>
-    <string name="onb_restore_chip">กู้คืน</string>
-</resources>

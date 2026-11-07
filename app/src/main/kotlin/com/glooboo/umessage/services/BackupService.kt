@@ -18,6 +18,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import com.glooboo.umessage.R
+import com.glooboo.umessage.backup.SafeOutput
 import com.glooboo.umessage.activities.SettingsActivity
 import com.glooboo.umessage.export.ExportScope
 import com.glooboo.umessage.extensions.getConversationIds
@@ -66,7 +67,11 @@ class BackupService : Service() {
         )
         // Taken before anything else can return, so a password never outlives its run.
         val password = BackupJob.takePassword()
-        if (!BackupJob.start(this, kind)) return START_NOT_STICKY // the running job keeps the service
+        if (!BackupJob.start(this, kind)) {
+            // The running job keeps the service. The file the picker just made for this request would stay at 0 bytes.
+            if (kind == Kind.EXPORT) deleteQuietly(uri)
+            return START_NOT_STICKY
+        }
         val sms = intent.getBooleanExtra(EXTRA_SMS, true)
         val mms = intent.getBooleanExtra(EXTRA_MMS, true)
         val export = ExportRequest(
@@ -147,7 +152,9 @@ class BackupService : Service() {
         val ticker = Ticker()
         val ids = ExportScope.exportable(this, request.threadIds ?: getConversationIds())
         val summary = try {
-            contentResolver.openOutputStream(uri, "wt")?.use { raw ->
+            // Produced into a temporary file and copied only when it holds a real backup, so the chosen file is never
+            // truncated first and left empty when the work fails, is stopped, or finds nothing.
+            val result = SafeOutput.write(this, uri, keep = { !it.cancelled && it.total > 0 }) { raw ->
                 val output = if (password != null) BackupCrypto.encrypt(raw, password) else raw
                 val written = MessagesReader(this).export(
                     output, sms, mms,
@@ -163,15 +170,18 @@ class BackupService : Service() {
                 )
                 output.close() // seals the last chunk of a protected file
                 written
-            } ?: throw java.io.IOException(getString(org.fossify.commons.R.string.unknown_error_occurred))
+            }
+            result.value.also { if (!result.copied) deleteQuietly(uri) }
         } catch (e: Exception) {
             deleteQuietly(uri)
             return BackupJob.State.ExportDone(ExportSummary(), e.message ?: e.javaClass.simpleName)
         } finally {
             password?.fill(' ')
         }
-        // A stopped or empty backup is not a backup: do not leave a file that looks like one.
-        if (summary.cancelled || summary.total == 0) deleteQuietly(uri)
+        // Nothing to save is an error the user sees, never a finished backup (and never an empty file).
+        if (!summary.cancelled && summary.total == 0) {
+            return BackupJob.State.ExportDone(summary, getString(R.string.backup_export_nothing))
+        }
         return BackupJob.State.ExportDone(summary)
     }
 

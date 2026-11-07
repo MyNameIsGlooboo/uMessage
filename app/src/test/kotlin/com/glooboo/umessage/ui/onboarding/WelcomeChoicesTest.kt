@@ -22,20 +22,19 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
-/** Welcome page language and Restore chips, and the "keep blocked messages" row. */
+/** Welcome page language chip (and no Restore), and the "keep blocked messages" row. */
 @RunWith(AndroidJUnit4::class)
 @Config(qualifiers = "w411dp-h891dp")
 class WelcomeChoicesTest {
     @get:Rule
     val compose = createComposeRule()
 
-    private fun welcome(onLanguage: ((AppLanguage) -> Unit)?, onRestore: (() -> Unit)? = null) = compose.setContent {
+    private fun welcome(onLanguage: ((AppLanguage) -> Unit)?) = compose.setContent {
         UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
             WelcomePage(
                 Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
                 reduceMotion = true,
                 onLanguage = onLanguage,
-                onRestore = onRestore,
             )
         }
     }
@@ -64,16 +63,16 @@ class WelcomeChoicesTest {
     }
 
     @Test
-    fun `the Restore chip reports a tap`() {
-        var taps = 0
-        welcome(onLanguage = null, onRestore = { taps++ })
-        compose.onNodeWithText("Restore").assertIsDisplayed().performClick()
-        assertEquals(1, taps)
+    fun `page one shows the language chip and no Restore button`() {
+        welcome(onLanguage = {})
+        compose.onNodeWithContentDescription("Language, English").assertIsDisplayed()
+        compose.onNodeWithText("Restore").assertDoesNotExist()
+        compose.onNodeWithContentDescription("Restore").assertDoesNotExist()
     }
 
     @Test
     fun `the removed switching card is gone`() {
-        welcome(onLanguage = {}, onRestore = {})
+        welcome(onLanguage = {})
         compose.onNodeWithText("Switching to uMessage?").assertDoesNotExist()
         compose.onNodeWithText("Restore a backup").assertDoesNotExist()
     }

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="onb_switch_done_note">完成后将打开“备份与恢复”。</string>
-    <string name="onb_restore_chip">恢复</string>
-</resources>

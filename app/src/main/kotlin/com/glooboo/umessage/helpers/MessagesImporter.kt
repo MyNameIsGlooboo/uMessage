@@ -2,6 +2,8 @@ package com.glooboo.umessage.helpers
 
 import android.content.Context
 import android.util.Xml
+import com.glooboo.umessage.backup.AppDataBackupSupport
+import com.glooboo.umessage.models.AppDataBackup
 import com.glooboo.umessage.models.ImportSummary
 import com.glooboo.umessage.models.MessagesBackup
 import com.glooboo.umessage.models.MmsBackup
@@ -132,6 +134,9 @@ class MessagesImporter(
             if (backup is NotesBackup) {
                 summary.entriesRead--
                 restoreNotes(backup, options, summary)
+            } else if (backup is AppDataBackup) {
+                summary.entriesRead--
+                restoreAppData(backup, options, summary)
             } else if (backup != null) {
                 restore(backup, options, summary)
             }
@@ -144,7 +149,7 @@ class MessagesImporter(
             when (backup) {
                 is SmsBackup -> if (options.sms) writer.writeSmsMessage(backup.forThisPhone()) else null
                 is MmsBackup -> if (options.mms) writer.writeMmsMessage(backup.forThisPhone()) else null
-                is NotesBackup -> null // handled by restoreNotes, never reaches here
+                is NotesBackup, is AppDataBackup -> null // handled by their own functions, never reach here
             }
         } catch (e: Exception) {
             WriteResult(WriteOutcome.FAILED, e.javaClass.simpleName)
@@ -163,9 +168,16 @@ class MessagesImporter(
         summary.notesRestored += runCatching { runBlocking { context.messageNotes.restore(chosen) } }.getOrDefault(0)
     }
 
-    // Android 14 does not import messages whose subscription id is not one of this phone's (see Fossify #191).
-    private fun SmsBackup.forThisPhone() = if (isUpsideDownCakePlus()) copy(subscriptionId = -1) else this
-    private fun MmsBackup.forThisPhone() = if (isUpsideDownCakePlus()) copy(subscriptionId = -1) else this
+    /**
+     * Takes the stars, labels and archived chats of the file. They only add to what the phone has, and they are
+     * restored last in the file, after the messages their chats are found by. A failure never stops the restore.
+     */
+    private fun restoreAppData(backup: AppDataBackup, options: Options, summary: ImportSummary) {
+        val chosen = backup.copy(stars = backup.stars.filter { if (it.isMms) options.mms else options.sms })
+        summary.appDataRestored += runCatching {
+            runBlocking { AppDataBackupSupport.of(context).restore(chosen) }
+        }.getOrDefault(0)
+    }
 
     private fun importXml(
         stream: InputStream, options: Options, summary: ImportSummary, counting: CountingInputStream,
@@ -270,3 +282,7 @@ class MessagesImporter(
         const val PROGRESS_EVERY = 25
     }
 }
+
+// Android 14 does not import messages whose subscription id is not one of this phone's (see Fossify #191).
+private fun SmsBackup.forThisPhone() = if (isUpsideDownCakePlus()) copy(subscriptionId = -1) else this
+private fun MmsBackup.forThisPhone() = if (isUpsideDownCakePlus()) copy(subscriptionId = -1) else this

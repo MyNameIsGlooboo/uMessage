@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Welcome step: short Restore chip, and the note after finishing -->
-    <string name="onb_switch_done_note">After you finish, Backup and restore opens.</string>
-    <string name="onb_restore_chip">Restore</string>
-</resources>

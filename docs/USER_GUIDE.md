@@ -100,7 +100,7 @@ uMessage is **not** included in Android or Google cloud backups, by design: your
 To move messages to a new phone:
 
 1. Settings > Backup and restore > **Export messages** saves them to a file you choose.
-2. On the new phone, install uMessage, make it the default SMS app, then **Import messages** from that file.
+2. On the new phone, install uMessage, finish the first-run setup and make it the default SMS app, then open Settings > Backup and restore and tap **Import messages** (restore is only in Settings, not on the welcome screen).
 3. Export and import your **rules** separately from the rules screen.
 
 Exported files are not encrypted. Anyone who can open the file can read your messages, so keep it somewhere private and delete it when you are done.

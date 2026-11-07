@@ -106,8 +106,7 @@ object SettingsBackup {
             appVersion = BuildConfig.VERSION_NAME,
         )
         val text = SettingsBackupFormat.encode(content, System.currentTimeMillis())
-        val out = app.contentResolver.openOutputStream(uri, "wt") ?: throw IOException("Cannot open the file")
-        out.use { it.write(text.toByteArray(Charsets.UTF_8)) }
+        SafeOutput.write<Unit>(app, uri) { it.write(text.toByteArray(Charsets.UTF_8)) }
         content.rules.size + content.forwardRules.size
     }
 

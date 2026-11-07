@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="onb_switch_done_note">設定が完了すると「バックアップと復元」が開きます。</string>
-    <string name="onb_restore_chip">復元</string>
-</resources>

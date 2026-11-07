@@ -23,12 +23,10 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import com.glooboo.umessage.R
 import com.glooboo.umessage.activities.MainActivity
-import com.glooboo.umessage.activities.SettingsActivity
 import com.glooboo.umessage.helpers.Config
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.UnknownSenderMode
-import com.glooboo.umessage.ui.settings.SettingsPage
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.glooboo.umessage.ui.theme.applyUMessageWindow
 
@@ -55,7 +53,7 @@ class OnboardingActivity : ComponentActivity() {
                 OnboardingScreen(
                     viewModel = vm,
                     reduceMotion = isMotionReduced(),
-                    onFinish = { openBackup -> finishOnboarding(fromSettings, openBackup) },
+                    onFinish = { finishOnboarding(fromSettings) },
                 )
             }
         }
@@ -67,17 +65,11 @@ class OnboardingActivity : ComponentActivity() {
         false
     }
 
-    private fun finishOnboarding(fromSettings: Boolean, openBackup: Boolean) {
+    private fun finishOnboarding(fromSettings: Boolean) {
         OnboardingState.setCompleted(this)
         setResult(RESULT_OK)
         if (!fromSettings) {
             startActivity(Intent(this, MainActivity::class.java))
-        }
-        if (openBackup) {
-            startActivity(
-                Intent(this, SettingsActivity::class.java)
-                    .putExtra(SettingsActivity.EXTRA_PAGE, SettingsPage.Backup.name),
-            )
         }
         finish()
     }

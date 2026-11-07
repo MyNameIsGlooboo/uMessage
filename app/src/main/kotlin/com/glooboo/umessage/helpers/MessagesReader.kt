@@ -6,6 +6,7 @@ import android.net.Uri
 import android.provider.Telephony.Mms
 import android.provider.Telephony.Sms
 import android.util.Base64
+import com.glooboo.umessage.backup.AppDataBackupSupport
 import com.glooboo.umessage.extensions.getConversationIds
 import com.glooboo.umessage.models.ExportSummary
 import com.glooboo.umessage.models.MessagesBackup
@@ -65,7 +66,10 @@ class MessagesReader(private val context: Context) {
             if (mms) readThread(summary) { exportMms(threadId, summary, sink::write) }
             progress.update(summary.total, index + 1, conversationIds.size)
         }
-        if (format == ExportFormat.JSON && !summary.cancelled) writeNotes(sink, conversationIds, sms, mms, summary)
+        if (format == ExportFormat.JSON && !summary.cancelled) {
+            writeNotes(sink, conversationIds, sms, mms, summary)
+            writeAppData(sink, conversationIds, sms, mms, summary)
+        }
         sink.end()
         return summary
     }
@@ -84,6 +88,20 @@ class MessagesReader(private val context: Context) {
         if (notes.isEmpty()) return
         sink.write(NotesBackup(notes.map { NoteBackup.of(it) }))
         summary.notes = notes.size
+    }
+
+    /**
+     * Stars, labels and archived chats as the entry after the notes (see [AppDataBackup]). A failure here never
+     * fails the backup of the messages.
+     */
+    private fun writeAppData(
+        sink: BackupEntrySink, conversationIds: List<Long>, sms: Boolean, mms: Boolean, summary: ExportSummary,
+    ) {
+        val data = runCatching {
+            runBlocking { AppDataBackupSupport.of(context).collect(conversationIds.toSet(), sms, mms) }
+        }.getOrNull() ?: return
+        sink.write(data)
+        summary.appData = data.size
     }
 
     private fun countMessages(conversationIds: List<Long>, sms: Boolean, mms: Boolean): Int {
