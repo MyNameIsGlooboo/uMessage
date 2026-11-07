@@ -29,6 +29,4 @@
         <item quantity="other">已封鎖訊息會在%d天後刪除。</item>
     </plurals>
     <string name="r3b_info_purge_off">已封鎖訊息會一直保留，直到你刪除為止。</string>
-    <string name="r3b_allow_body_sender_one_message">無論如何，這則訊息都會回到你的收件匣。如果一律允許%1$s，對方日後的訊息將略過所有篩選，包括你的封鎖規則。</string>
-    <string name="r3b_allow_body_sender_many_messages">無論如何，這些訊息都會回到你的收件匣。如果一律允許%1$s，對方日後的訊息將略過所有篩選，包括你的封鎖規則。</string>
 </resources>

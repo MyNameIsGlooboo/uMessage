@@ -4,4 +4,5 @@
     <string name="ux8a_checklist_hide">隱藏步驟</string>
     <string name="ux8a_menu_recycle_bin">資源回收筒</string>
     <string name="ux8a_selection_block">封鎖</string>
+    <string name="ux8a_menu_recycle_bin_count">資源回收筒 (%1$d)</string>
 </resources>

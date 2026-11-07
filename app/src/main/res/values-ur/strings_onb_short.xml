@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_allow_intro">یہ سب کبھی بھی اینڈرائیڈ کی سیٹنگز میں بدلیں۔</string>
+    <string name="onb_allow_done">ہو گیا</string>
+    <string name="onb_allow_needed">درکار</string>
+    <string name="onb_allow_all_set">سب تیار ہے</string>
+    <string name="onb_mode_strict_short">سب بلاکڈ میں رکھیں</string>
+    <string name="onb_mode_smart_short">روکیں، مگر کوڈ والے پیغامات آنے دیں</string>
+    <string name="onb_mode_off_short">فلٹر نہ کریں</string>
+</resources>

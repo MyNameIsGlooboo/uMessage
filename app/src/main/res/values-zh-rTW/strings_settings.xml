@@ -83,4 +83,6 @@
     <string name="settings_license_link_app">閱讀授權條款（LICENSE）</string>
     <string name="settings_license_link_ofl">閱讀SIL Open Font License 1.1</string>
     <string name="settings_license_link_apache">閱讀Apache License 2.0</string>
+    <string name="privacy_policy">隱私權政策</string>
+    <string name="privacy_policy_body">在瀏覽器中開啟</string>
 </resources>

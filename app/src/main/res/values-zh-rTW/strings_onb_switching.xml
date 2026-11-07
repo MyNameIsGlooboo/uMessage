@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="onb_switch_title">要改用uMessage嗎？</string>
-    <string name="onb_switch_body">從其他簡訊應用程式改用？請先關閉它的聊天功能。從其他手機換過來？設定完成後再還原你的備份。</string>
-    <string name="onb_switch_action">還原備份</string>
-    <string name="onb_switch_done_note">完成後會開啟「備份與還原」。</string>
-</resources>

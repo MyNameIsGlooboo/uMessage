@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note">備註</string>
+    <string name="add_note">新增備註</string>
+    <string name="edit_note">編輯備註</string>
+    <string name="delete_note">刪除備註</string>
+    <string name="note_hint">私人備註，僅存於此手機</string>
+    <string name="note_counter">%1$s/%2$s</string>
+    <string name="note_save">儲存</string>
+    <string name="note_cancel">取消</string>
+    <string name="has_notes">有備註</string>
+    <string name="notes_section">備註</string>
+    <string name="note_content_desc">備註：%1$s</string>
+</resources>

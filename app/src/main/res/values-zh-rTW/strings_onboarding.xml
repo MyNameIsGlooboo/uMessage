@@ -6,7 +6,6 @@
     <string name="onb_skip">暫時略過</string>
     <string name="onb_finish">開始傳訊息</string>
     <string name="onb_open">開啟</string>
-    <string name="onb_hero_description">帶有勾號的uMessage盾牌</string>
     <string name="onb_welcome_title">歡迎使用uMessage</string>
     <string name="onb_welcome_intro">更好的訊息體驗，更少的垃圾簡訊。</string>
     <string name="onb_welcome_spam">擋下垃圾簡訊</string>
@@ -35,7 +34,6 @@
     <string name="onb_default_unavailable">你的手機無法開啟預設應用程式對話框。請開啟Android設定，依序點選「應用程式」、「預設應用程式」、「簡訊應用程式」，然後選擇uMessage。</string>
     <string name="onb_default_open_settings">開啟預設應用程式</string>
     <string name="onb_perm_title">允許uMessage所需的權限</string>
-    <string name="onb_perm_body">每項權限都只有一個用途。你隨時可以在Android設定中變更。</string>
     <string name="onb_perm_contacts">聯絡人</string>
     <string name="onb_perm_contacts_reason">讓聯絡人的訊息通過篩選，並顯示他們的名稱。</string>
     <string name="onb_perm_sms">訊息</string>
@@ -44,21 +42,13 @@
     <string name="onb_perm_phone_reason">偵測你的SIM卡，讓雙SIM卡手機能選對卡片。</string>
     <string name="onb_perm_notifications">通知</string>
     <string name="onb_perm_notifications_reason">收到新訊息時提醒你，並提供回覆及複製驗證碼按鈕。</string>
-    <string name="onb_perm_allowed">已允許</string>
-    <string name="onb_perm_not_allowed">尚未允許</string>
-    <string name="onb_perm_blocked">已在設定中封鎖</string>
-    <string name="onb_perm_allow">允許</string>
     <string name="onb_perm_allow_all">全部允許</string>
     <string name="onb_perm_open_settings">開啟設定</string>
     <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">選擇如何處理未知寄件者</string>
-    <string name="onb_mode_body">未知寄件者是指不在你的聯絡人中，而且你從未傳過簡訊的號碼。</string>
     <string name="onb_mode_strict">嚴格</string>
-    <string name="onb_mode_strict_desc">將未知寄件者的所有訊息都留在「已封鎖」，驗證碼也一樣。</string>
     <string name="onb_mode_smart">智慧</string>
-    <string name="onb_mode_smart_desc">將未知寄件者的訊息留在「已封鎖」，但不含連結的驗證碼可以通過。建議使用。</string>
     <string name="onb_mode_off">關閉</string>
-    <string name="onb_mode_off_desc">不篩選未知寄件者。你自訂的封鎖規則仍然有效。</string>
     <string name="onb_mode_warning_title">銀行與驗證碼訊息須知</string>
     <string name="onb_mode_warning_body">在嚴格模式下，未知寄件者傳來的銀行通知、物流更新及一次性驗證碼都會留在「已封鎖」，驗證碼也不例外。你不會收到通知，因此在等待這類訊息時，請查看「已封鎖」。</string>
     <string name="onb_oem_title">讓uMessage持續執行</string>

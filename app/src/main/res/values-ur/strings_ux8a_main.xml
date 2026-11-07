@@ -4,4 +4,5 @@
     <string name="ux8a_checklist_hide">مراحل چھپائیں</string>
     <string name="ux8a_menu_recycle_bin">ری سائیکل بن</string>
     <string name="ux8a_selection_block">بلاک کریں</string>
+    <string name="ux8a_menu_recycle_bin_count">ری سائیکل بن (%1$d)</string>
 </resources>

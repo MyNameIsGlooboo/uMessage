@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="one">اس بھیجنے والے کو ہمیشہ اجازت دیں؟</item>
-        <item quantity="other">ان %d بھیجنے والوں کو ہمیشہ اجازت دیں؟</item>
-    </plurals>
-    <string name="spam_allow_body_one">پیغام ہر حال میں آپ کے ان باکس میں واپس جائے گا۔ اگر آپ %1$s کو ہمیشہ اجازت دیں تو اس کے آئندہ پیغامات ہر فلٹر سے بچ جائیں گے، آپ کے بلاک کے اصولوں سمیت۔</string>
-    <string name="spam_allow_body_many">پیغامات ہر حال میں آپ کے ان باکس میں واپس جائیں گے۔ اگر آپ ان بھیجنے والوں کو ہمیشہ اجازت دیں تو ان کے آئندہ پیغامات ہر فلٹر سے بچ جائیں گے، آپ کے بلاک کے اصولوں سمیت۔</string>
     <string name="spam_allow_spoof_warning">کوئی بھی %1$s جیسے نام سے پیغام بھیج سکتا ہے۔ اجازت دینے سے اس نام والے جعلی پیغامات بھی آ جائیں گے۔</string>
-    <string name="spam_allow_confirm">ہمیشہ اجازت دیں</string>
-    <string name="spam_allow_dismiss">ابھی نہیں</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="one">%d پیغام ان باکس میں بحال ہو گیا</item>
         <item quantity="other">%d پیغامات ان باکس میں بحال ہو گئے</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="one">بحال ہو گیا۔ %d بھیجنے والے کو اب ہمیشہ اجازت ہے۔</item>
-        <item quantity="other">بحال ہو گئے۔ %d بھیجنے والوں کو اب ہمیشہ اجازت ہے۔</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="one">%d بھیجنے والے کو اب ہمیشہ اجازت ہے۔</item>

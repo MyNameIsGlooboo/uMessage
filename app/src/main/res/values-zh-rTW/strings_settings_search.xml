@@ -76,4 +76,5 @@
     <string name="sks_version">版本 版本號 編號 發行 更新 複製</string>
     <string name="sks_source">原始碼 GitHub 開放 授權 存放區</string>
     <string name="sks_licenses">授權條款 授權 開放原始碼 GPL 法律 字型 程式庫</string>
+    <string name="sks_privacy_policy">隱私權 政策 條款 資料保護 法律</string>
 </resources>

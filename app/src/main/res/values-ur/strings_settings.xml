@@ -83,4 +83,6 @@
     <string name="settings_license_link_app">لائسنس پڑھیں (LICENSE)</string>
     <string name="settings_license_link_ofl">SIL Open Font License 1.1 پڑھیں</string>
     <string name="settings_license_link_apache">Apache License 2.0 پڑھیں</string>
+    <string name="privacy_policy">رازداری کی پالیسی</string>
+    <string name="privacy_policy_body">براؤزر میں کھولیں</string>
 </resources>

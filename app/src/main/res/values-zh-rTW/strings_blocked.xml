@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="spam_allow_title">
-        <item quantity="other">要一律允許這%d個寄件者嗎？</item>
-    </plurals>
-    <string name="spam_allow_body_one">無論如何，這則訊息都會回到你的收件匣。如果一律允許%1$s，對方日後的訊息將略過所有篩選，包括你的封鎖規則。</string>
-    <string name="spam_allow_body_many">無論如何，這些訊息都會回到你的收件匣。如果一律允許這些寄件者，對方日後的訊息將略過所有篩選，包括你的封鎖規則。</string>
     <string name="spam_allow_spoof_warning">任何人都能以類似%1$s的名稱傳送簡訊。允許這個名稱，也會讓使用該名稱的假冒簡訊通過。</string>
-    <string name="spam_allow_confirm">一律允許</string>
-    <string name="spam_allow_dismiss">暫時不要</string>
     <plurals name="spam_snack_restored_to_inbox">
         <item quantity="other">已將%d則訊息還原到收件匣</item>
-    </plurals>
-    <plurals name="spam_snack_restored_allowed">
-        <item quantity="other">已還原。現在一律允許這%d個寄件者。</item>
     </plurals>
     <plurals name="spam_snack_allowed_only">
         <item quantity="other">現在一律允許這%d個寄件者。</item>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">ان باکس میں منتقل کر دیا گیا</string>
+    <string name="nsf_snack_moved_allowed">ان باکس میں منتقل کر دیا گیا۔ %1$s کے آئندہ پیغامات بھی آئیں گے۔</string>
+    <plurals name="nsf_snack_moved_allowed_many">
+        <item quantity="one">ان باکس میں منتقل کر دیا گیا۔ %d بھیجنے والے کے آئندہ پیغامات بھی آئیں گے۔</item>
+        <item quantity="other">ان باکس میں منتقل کر دیا گیا۔ %d بھیجنے والوں کے آئندہ پیغامات بھی آئیں گے۔</item>
+    </plurals>
+    <string name="nsf_moving">ان باکس میں منتقل ہو رہا ہے</string>
+</resources>

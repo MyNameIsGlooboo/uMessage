@@ -6,7 +6,6 @@
     <string name="onb_skip">ابھی چھوڑیں</string>
     <string name="onb_finish">پیغامات شروع کریں</string>
     <string name="onb_open">کھولیں</string>
-    <string name="onb_hero_description">uMessage کی ڈھال، صحیح کے نشان کے ساتھ</string>
     <string name="onb_welcome_title">uMessage میں خوش آمدید</string>
     <string name="onb_welcome_intro">بہتر پیغام رسانی، کم اسپیم۔</string>
     <string name="onb_welcome_spam">اسپیم باہر رہتا ہے</string>
@@ -35,7 +34,6 @@
     <string name="onb_default_unavailable">آپ کا فون ڈیفالٹ ایپ کا ڈائیلاگ نہیں کھول سکا۔ Android سیٹنگز، ایپس، ڈیفالٹ ایپس، SMS ایپ کھولیں اور uMessage منتخب کریں۔</string>
     <string name="onb_default_open_settings">ڈیفالٹ ایپس کھولیں</string>
     <string name="onb_perm_title">uMessage کو ضروری اجازتیں دیں</string>
-    <string name="onb_perm_body">ہر اجازت کا ایک ہی مقصد ہے۔ آپ انہیں کسی بھی وقت Android سیٹنگز میں بدل سکتے ہیں۔</string>
     <string name="onb_perm_contacts">رابطے</string>
     <string name="onb_perm_contacts_reason">رابطوں کو فلٹر سے گزرنے دیتا ہے اور ان کے نام دکھاتا ہے۔</string>
     <string name="onb_perm_sms">پیغامات</string>
@@ -44,21 +42,13 @@
     <string name="onb_perm_phone_reason">آپ کے SIM کارڈ پہچانتا ہے تاکہ ڈوئل SIM فون صحیح SIM منتخب کر سکیں۔</string>
     <string name="onb_perm_notifications">اطلاعات</string>
     <string name="onb_perm_notifications_reason">نئے پیغامات کی اطلاع دیتا ہے، جواب اور کوڈ کاپی کے بٹنوں کے ساتھ۔</string>
-    <string name="onb_perm_allowed">اجازت یافتہ</string>
-    <string name="onb_perm_not_allowed">ابھی اجازت نہیں</string>
-    <string name="onb_perm_blocked">سیٹنگز میں بلاک</string>
-    <string name="onb_perm_allow">اجازت دیں</string>
     <string name="onb_perm_allow_all">سب کی اجازت دیں</string>
     <string name="onb_perm_open_settings">سیٹنگز کھولیں</string>
     <string name="onb_perm_state_cd">%1$s: %2$s</string>
     <string name="onb_mode_title">منتخب کریں کہ نامعلوم بھیجنے والوں کے ساتھ کیا کریں</string>
-    <string name="onb_mode_body">نامعلوم بھیجنے والا وہ نمبر ہے جو آپ کے رابطوں میں نہیں اور جسے آپ نے کبھی پیغام نہیں بھیجا۔</string>
     <string name="onb_mode_strict">سخت</string>
-    <string name="onb_mode_strict_desc">نامعلوم بھیجنے والوں کا ہر پیغام بلاک شدہ میں روکیں، تصدیقی کوڈ بھی۔</string>
     <string name="onb_mode_smart">اسمارٹ</string>
-    <string name="onb_mode_smart_desc">نامعلوم بھیجنے والوں کے پیغامات بلاک شدہ میں روکیں، لیکن بغیر لنک والے تصدیقی کوڈ آنے دیں۔ تجویز کردہ۔</string>
     <string name="onb_mode_off">بند</string>
-    <string name="onb_mode_off_desc">نامعلوم بھیجنے والوں کو فلٹر نہ کریں۔ آپ کے اپنے بلاک کے اصول پھر بھی لاگو رہیں گے۔</string>
     <string name="onb_mode_warning_title">بینک اور کوڈ والے پیغامات کے بارے میں توجہ دیں</string>
     <string name="onb_mode_warning_body">سخت موڈ میں نامعلوم بھیجنے والوں کے بینک الرٹس، ڈیلیوری اپ ڈیٹس اور ایک بار کے کوڈ بلاک شدہ میں روک لیے جاتے ہیں، کوڈ بھی۔ آپ کو اطلاع نہیں ملے گی، اس لیے جب کسی پیغام کا انتظار ہو تو بلاک شدہ دیکھ لیں۔</string>
     <string name="onb_oem_title">uMessage کو چلتا رکھیں</string>

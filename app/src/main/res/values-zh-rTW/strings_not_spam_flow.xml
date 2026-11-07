@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nsf_snack_moved">已移至收件匣</string>
+    <string name="nsf_snack_moved_allowed">已移至收件匣。%1$s 之後的訊息也會送達。</string>
+    <plurals name="nsf_snack_moved_allowed_many">
+        <item quantity="other">已移至收件匣。這 %d 位寄件者之後的訊息也會送達。</item>
+    </plurals>
+    <string name="nsf_moving">正在移至收件匣</string>
+</resources>

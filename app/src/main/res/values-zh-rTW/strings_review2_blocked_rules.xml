@@ -10,15 +10,6 @@
     <string name="e_restored_empty">從現在起，你移至收件匣的訊息會在這裡列出30天。</string>
     <string name="e_restored_when">已於%1$s移至收件匣</string>
     <string name="e_restored_open">開啟與%1$s的對話</string>
-    <string name="e_snack_allowed_one">現在兩張SIM卡都會一律允許%1$s</string>
-    <plurals name="e_snack_allowed_many">
-        <item quantity="other">現在兩張SIM卡都會一律允許這%d個寄件者</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">現在一律允許%1$s</string>
-    <plurals name="e_snack_allowed_many_single_sim">
-        <item quantity="other">現在一律允許這%d個寄件者</item>
-    </plurals>
-    <string name="e_view_rule">查看規則</string>
     <string name="e_rules_title">規則</string>
     <string name="e_rules_menu_backup">備份規則</string>
     <string name="e_note_blocked_by_you">由你封鎖</string>
