@@ -71,6 +71,10 @@
     <ID>LambdaParameterEventTrailing:OnboardingScreen.kt$onMode</ID>
     <ID>LambdaParameterEventTrailing:OnboardingScreen.kt$onOpenSettings</ID>
     <ID>LambdaParameterEventTrailing:OnboardingScreen.kt$onPurgeDays</ID>
+    <ID>LambdaParameterEventTrailing:OnboardingModePage.kt$onMode</ID>
+    <ID>LambdaParameterEventTrailing:OnboardingModePage.kt$onPurgeDays</ID>
+    <ID>LambdaParameterEventTrailing:OnboardingAllowPage.kt$onOpenSettings</ID>
+    <ID>LambdaParameterEventTrailing:OnboardingAllowPage.kt$onRequest</ID>
     <ID>LambdaParameterEventTrailing:ThemePresetsActivity.kt$onClick</ID>
     <ID>LambdaParameterEventTrailing:ThreadComposer.kt$onClick</ID>
     <ID>LargeClass:ThreadActivity.kt$ThreadActivity : ComposeSimpleActivity</ID>

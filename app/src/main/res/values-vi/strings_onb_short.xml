@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_allow_intro">Bạn có thể đổi bất cứ lúc nào trong cài đặt Android.</string>
+    <string name="onb_allow_done">Xong</string>
+    <string name="onb_allow_needed">Cần thiết</string>
+    <string name="onb_allow_all_set">Đã sẵn sàng</string>
+    <string name="onb_mode_strict_short">Giữ tất cả trong mục Đã chặn</string>
+    <string name="onb_mode_smart_short">Giữ lại, nhưng cho mã đi qua</string>
+    <string name="onb_mode_off_short">Không lọc</string>
+</resources>

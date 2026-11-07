@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_allow_intro">Puoi cambiarle quando vuoi nelle impostazioni di Android.</string>
+    <string name="onb_allow_done">Fatto</string>
+    <string name="onb_allow_needed">Necessario</string>
+    <string name="onb_allow_all_set">Tutto pronto</string>
+    <string name="onb_mode_strict_short">Trattieni tutto in Messaggi bloccati</string>
+    <string name="onb_mode_smart_short">Trattieni, ma consenti i codici</string>
+    <string name="onb_mode_off_short">Non filtrare</string>
+</resources>

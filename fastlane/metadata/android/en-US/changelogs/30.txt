@@ -1,0 +1,4 @@
+• Welcome screen: Restore and language chips, and the uMessage icon
+• Recycle bin is first in the inbox menu and shows how many items it holds
+• Shorter welcome steps: one "Allow all" button with a short checklist
+• Shorter unknown-senders choices

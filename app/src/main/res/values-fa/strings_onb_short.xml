@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_allow_intro">هر زمان می‌توانید این‌ها را در تنظیمات Android تغییر دهید.</string>
+    <string name="onb_allow_done">انجام شد</string>
+    <string name="onb_allow_needed">لازم است</string>
+    <string name="onb_allow_all_set">همه‌چیز آماده است</string>
+    <string name="onb_mode_strict_short">همه را در «مسدودشده‌ها» نگه دار</string>
+    <string name="onb_mode_smart_short">نگه دار، اما پیام‌های کد را بگذران</string>
+    <string name="onb_mode_off_short">فیلتر نکن</string>
+</resources>

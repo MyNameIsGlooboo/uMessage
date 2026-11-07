@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_allow_intro">Change these any time in Android settings.</string>
+    <string name="onb_allow_done">Done</string>
+    <string name="onb_allow_needed">Needed</string>
+    <string name="onb_allow_all_set">All set</string>
+    <string name="onb_mode_strict_short">Hold all in Blocked</string>
+    <string name="onb_mode_smart_short">Hold, but allow code messages</string>
+    <string name="onb_mode_off_short">Do not filter</string>
+</resources>

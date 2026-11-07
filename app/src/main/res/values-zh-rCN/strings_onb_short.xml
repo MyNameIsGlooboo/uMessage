@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_allow_intro">随时可在Android设置中更改。</string>
+    <string name="onb_allow_done">已完成</string>
+    <string name="onb_allow_needed">需要</string>
+    <string name="onb_allow_all_set">全部就绪</string>
+    <string name="onb_mode_strict_short">全部保留在“已屏蔽”</string>
+    <string name="onb_mode_smart_short">保留，但允许验证码通过</string>
+    <string name="onb_mode_off_short">不过滤</string>
+</resources>

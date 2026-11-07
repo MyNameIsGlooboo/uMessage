@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Delivery reports switch on the unknown-sender step; the title reuses ui_settings_delivery_reports -->
-    <string name="onb_delivery_body">Shows when your messages are delivered. Some carriers may charge for delivery reports.</string>
+    <string name="onb_delivery_body">Shows when messages are delivered. Carriers may charge.</string>
 </resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_allow_intro">Możesz to zmienić w każdej chwili w ustawieniach Androida.</string>
+    <string name="onb_allow_done">Gotowe</string>
+    <string name="onb_allow_needed">Potrzebne</string>
+    <string name="onb_allow_all_set">Wszystko gotowe</string>
+    <string name="onb_mode_strict_short">Zatrzymuj wszystko w „Zablokowanych”</string>
+    <string name="onb_mode_smart_short">Zatrzymuj, ale przepuszczaj kody</string>
+    <string name="onb_mode_off_short">Nie filtruj</string>
+</resources>

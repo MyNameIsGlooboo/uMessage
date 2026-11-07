@@ -1,6 +1,5 @@
 package com.glooboo.umessage.ui.onboarding
 
-import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
@@ -8,7 +7,6 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.provider.Settings
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -41,8 +39,6 @@ import com.glooboo.umessage.ui.theme.UMessageTheme
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -51,8 +47,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -72,7 +66,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
@@ -84,64 +77,21 @@ import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.glooboo.umessage.ui.icons.Symbols
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.Oem
 import com.glooboo.umessage.helpers.OemHelper
 import com.glooboo.umessage.helpers.OemStep
 import com.glooboo.umessage.helpers.OemStepKind
 import com.glooboo.umessage.helpers.StepCheck
 import com.glooboo.umessage.helpers.StepState
 import com.glooboo.umessage.spam.ForwardingAvailability
-import com.glooboo.umessage.spam.UnknownSenderMode
-import com.glooboo.umessage.ui.components.ChoiceDialog
 import com.glooboo.umessage.ui.settings.AppLanguage
-import com.glooboo.umessage.ui.spam.SettingsUiState
 import com.glooboo.umessage.ui.theme.success
-
-private data class PermissionItem(
-    val titleRes: Int,
-    val reasonRes: Int,
-    val icon: ImageVector,
-    val permissions: List<String>,
-)
-
-private fun permissionItems(): List<PermissionItem> = buildList {
-    add(
-        PermissionItem(
-            R.string.onb_perm_contacts, R.string.onb_perm_contacts_reason, Symbols.Contacts,
-            listOf(Manifest.permission.READ_CONTACTS),
-        ),
-    )
-    add(
-        PermissionItem(
-            R.string.onb_perm_sms, R.string.onb_perm_sms_reason, Symbols.Sms,
-            listOf(
-                Manifest.permission.READ_SMS,
-                Manifest.permission.SEND_SMS,
-                Manifest.permission.RECEIVE_SMS,
-            ),
-        ),
-    )
-    add(
-        PermissionItem(
-            R.string.onb_perm_phone, R.string.onb_perm_phone_reason, Symbols.Smartphone,
-            listOf(Manifest.permission.READ_PHONE_STATE),
-        ),
-    )
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        add(
-            PermissionItem(
-                R.string.onb_perm_notifications, R.string.onb_perm_notifications_reason,
-                Symbols.Notifications,
-                listOf(Manifest.permission.POST_NOTIFICATIONS),
-            ),
-        )
-    }
-}
 
 private fun Context.isGranted(permissions: List<String>) = permissions.all {
     ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
@@ -190,6 +140,8 @@ fun OnboardingScreen(
 
     var defaultDenied by rememberSaveable { mutableStateOf(false) }
     var defaultUnavailable by rememberSaveable { mutableStateOf(false) }
+    // Set by "Allow all" while the default-app dialog is open: when it closes, the permissions are asked next.
+    var allowAllPending by rememberSaveable { mutableStateOf(false) }
     var permanentlyDenied by remember { mutableStateOf(emptySet<String>()) }
 
     val mode by viewModel.mode.collectAsStateWithLifecycle()
@@ -198,11 +150,17 @@ fun OnboardingScreen(
     // Set by "Restore a backup" on the first page: Backup and restore opens after Finish, once uMessage can be default.
     var restoreAfter by rememberSaveable { mutableStateOf(false) }
 
+    // Raised after the default-app dialog closes during "Allow all"; handled once the screen is resumed again.
+    var continueAllowAll by remember { mutableStateOf(false) }
     val defaultLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
     ) {
         refresh++
         defaultDenied = !OnboardingActivity.isDefaultSmsApp(context)
+        if (allowAllPending) {
+            allowAllPending = false
+            continueAllowAll = true
+        }
     }
 
     val permissionLauncher = rememberLauncherForActivityResult(
@@ -222,14 +180,13 @@ fun OnboardingScreen(
         }
     }
 
-    fun requestDefault() {
+    /** Opens the default-app dialog. Returns false when the phone could not show it. */
+    fun requestDefault(): Boolean {
         defaultDenied = false
         val intent = OnboardingActivity.defaultSmsRequestIntent(context)
-        if (intent == null) {
-            defaultUnavailable = true
-            return
-        }
-        runCatching { defaultLauncher.launch(intent) }.onFailure { defaultUnavailable = true }
+        val launched = intent != null && runCatching { defaultLauncher.launch(intent) }.isSuccess
+        if (!launched) defaultUnavailable = true
+        return launched
     }
 
     fun requestPermissions(list: List<String>) {
@@ -241,6 +198,31 @@ fun OnboardingScreen(
             context.openAppSettings()
         } else {
             permissionLauncher.launch(missing.toTypedArray())
+        }
+    }
+
+    fun requestAllMissing() =
+        requestPermissions(items.filter { !context.isGranted(it.permissions) }.flatMap { it.permissions })
+
+    // "Allow all": the default-app role first when it is missing, then ONE combined permission request.
+    fun allowAll() {
+        if (OnboardingActivity.isDefaultSmsApp(context)) {
+            requestAllMissing()
+        } else {
+            allowAllPending = true
+            if (!requestDefault()) {
+                allowAllPending = false
+                requestAllMissing()
+            }
+        }
+    }
+
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    LaunchedEffect(continueAllowAll) {
+        if (continueAllowAll) {
+            lifecycle.currentStateFlow.first { it.isAtLeast(Lifecycle.State.RESUMED) }
+            continueAllowAll = false
+            requestAllMissing()
         }
     }
 
@@ -294,7 +276,7 @@ fun OnboardingScreen(
                             isDefault = isDefault,
                             denied = defaultDenied,
                             unavailable = defaultUnavailable,
-                            onRequest = ::requestDefault,
+                            onRequest = { requestDefault() },
                             onOpenSettings = {
                                 runCatching {
                                     context.startActivity(
@@ -305,9 +287,7 @@ fun OnboardingScreen(
                             },
                         ),
                         onRequest = { requestPermissions(it.permissions) },
-                        onRequestAll = {
-                            requestPermissions(items.filter { grantedMap[it] != true }.flatMap { it.permissions })
-                        },
+                        onAllowAll = ::allowAll,
                         onOpenSettings = { context.openAppSettings() },
                     )
 
@@ -416,7 +396,7 @@ private fun Dot(selected: Boolean, reduceMotion: Boolean) {
 }
 
 @Composable
-private fun PageTitle(text: String) {
+internal fun PageTitle(text: String) {
     Text(
         text = text,
         style = MaterialTheme.typography.headlineMedium,
@@ -427,7 +407,7 @@ private fun PageTitle(text: String) {
 }
 
 @Composable
-private fun PageBody(text: String) {
+internal fun PageBody(text: String) {
     Text(
         text = text,
         style = MaterialTheme.typography.bodyLarge,
@@ -551,252 +531,6 @@ private fun StatusRow(ok: Boolean, text: String) {
     ) {
         Icon(if (ok) Symbols.CheckCircleFilled else Symbols.Error, null, tint = color)
         Text(text, style = MaterialTheme.typography.titleMedium)
-    }
-}
-
-/** The default-SMS-app part of the Allow page: its status and the actions for it. */
-private class DefaultSmsState(
-    val isDefault: Boolean,
-    val denied: Boolean,
-    val unavailable: Boolean,
-    val onRequest: () -> Unit,
-    val onOpenSettings: () -> Unit,
-)
-
-@Composable
-private fun AllowPage(
-    modifier: Modifier,
-    items: List<PermissionItem>,
-    granted: Map<PermissionItem, Boolean>,
-    permanentlyDenied: Set<String>,
-    defaultSms: DefaultSmsState,
-    onRequest: (PermissionItem) -> Unit,
-    onRequestAll: () -> Unit,
-    onOpenSettings: () -> Unit,
-) {
-    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        PageTitle(stringResource(R.string.onb_perm_title))
-        PageBody(stringResource(R.string.onb_perm_body))
-        AllowRow(
-            icon = Symbols.Sms,
-            title = stringResource(R.string.onb_done_summary_default),
-            reason = stringResource(R.string.onb_default_body),
-            ok = defaultSms.isDefault,
-            blocked = false,
-            actionLabel = stringResource(R.string.onb_default_action),
-            onAction = defaultSms.onRequest,
-        )
-        if (defaultSms.denied && !defaultSms.isDefault) {
-            Text(
-                stringResource(R.string.onb_default_denied),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.error,
-            )
-        }
-        if (defaultSms.unavailable && !defaultSms.isDefault) {
-            Text(
-                stringResource(R.string.onb_default_unavailable),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.error,
-            )
-            OutlinedButton(onClick = defaultSms.onOpenSettings, modifier = Modifier.heightIn(min = 48.dp)) {
-                Text(stringResource(R.string.onb_default_open_settings))
-            }
-        }
-        items.forEach { item ->
-            val ok = granted[item] == true
-            val blocked = !ok && item.permissions.any { it in permanentlyDenied }
-            AllowRow(
-                icon = item.icon,
-                title = stringResource(item.titleRes),
-                reason = stringResource(item.reasonRes),
-                ok = ok,
-                blocked = blocked,
-                actionLabel = stringResource(if (blocked) R.string.onb_perm_open_settings else R.string.onb_perm_allow),
-                onAction = if (blocked) onOpenSettings else ({ onRequest(item) }),
-            )
-        }
-        if (granted.values.count { !it } > 1) {
-            Button(
-                onClick = onRequestAll,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 48.dp),
-            ) { Text(stringResource(R.string.onb_perm_allow_all)) }
-        }
-    }
-}
-
-/** One row: icon, name and a check when allowed. Only a missing item also shows its reason and an action. */
-@Composable
-private fun AllowRow(
-    icon: ImageVector,
-    title: String,
-    reason: String,
-    ok: Boolean,
-    blocked: Boolean,
-    actionLabel: String,
-    onAction: () -> Unit,
-) {
-    val stateText = stringResource(
-        when {
-            ok -> R.string.onb_perm_allowed
-            blocked -> R.string.onb_perm_blocked
-            else -> R.string.onb_perm_not_allowed
-        },
-    )
-    Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(
-            Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.semantics(mergeDescendants = true) { stateDescription = stateText },
-            ) {
-                Icon(icon, null, tint = MaterialTheme.colorScheme.primary)
-                Column(Modifier.weight(1f)) {
-                    Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                    if (!ok) {
-                        Text(
-                            reason,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                }
-                if (ok) Icon(Symbols.CheckCircleFilled, null, tint = MaterialTheme.colorScheme.success)
-            }
-            if (blocked) {
-                Text(
-                    text = stateText,
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.clearAndSetSemantics { },
-                )
-            }
-            if (!ok) {
-                OutlinedButton(onClick = onAction, modifier = Modifier.heightIn(min = 48.dp)) { Text(actionLabel) }
-            }
-        }
-    }
-}
-
-@Composable
-private fun ModePage(
-    modifier: Modifier,
-    mode: UnknownSenderMode,
-    onMode: (UnknownSenderMode) -> Unit,
-    purgeDays: Int,
-    onPurgeDays: (Int) -> Unit,
-    deliveryReports: Boolean = true,
-    onDeliveryReports: (Boolean) -> Unit = {},
-) {
-    val options = listOf(
-        Triple(UnknownSenderMode.STRICT, R.string.onb_mode_strict, R.string.onb_mode_strict_desc),
-        Triple(UnknownSenderMode.SMART, R.string.onb_mode_smart, R.string.onb_mode_smart_desc),
-        Triple(UnknownSenderMode.OFF, R.string.onb_mode_off, R.string.onb_mode_off_desc),
-    )
-    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        PageTitle(stringResource(R.string.onb_mode_title))
-        PageBody(stringResource(R.string.onb_mode_body))
-        Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            options.forEach { (value, titleRes, descRes) ->
-                val selected = mode == value
-                val border by animateColorAsState(
-                    if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
-                    label = "modeBorder",
-                )
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                    border = BorderStroke(if (selected) 2.dp else 1.dp, border),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .selectable(selected = selected, role = Role.RadioButton, onClick = { onMode(value) }),
-                ) {
-                    Row(
-                        Modifier
-                            .padding(12.dp)
-                            .heightIn(min = 48.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        RadioButton(selected = selected, onClick = null)
-                        Spacer(Modifier.width(12.dp))
-                        Column {
-                            Text(stringResource(titleRes), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                            Text(
-                                stringResource(descRes),
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                    }
-                }
-            }
-        }
-        if (mode != UnknownSenderMode.OFF) PurgeRow(purgeDays, onPurgeDays)
-        if (mode == UnknownSenderMode.STRICT) {
-            Card(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                    contentColor = MaterialTheme.colorScheme.onErrorContainer,
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .semantics(mergeDescendants = true) { },
-            ) {
-                Row(Modifier.padding(16.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Icon(Symbols.Warning, null)
-                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Text(
-                            stringResource(R.string.onb_mode_warning_title),
-                            style = MaterialTheme.typography.titleSmall,
-                            fontWeight = FontWeight.Bold,
-                        )
-                        Text(stringResource(R.string.onb_mode_warning_body), style = MaterialTheme.typography.bodyMedium)
-                    }
-                }
-            }
-        }
-        DeliveryReportsRow(deliveryReports, onDeliveryReports)
-    }
-}
-
-@Composable
-private fun purgeLabel(days: Int): String =
-    if (days == 0) stringResource(R.string.spam_purge_forever) else stringResource(R.string.spam_purge_days, days)
-
-/** How long blocked messages are kept: the same choices as Settings. Nothing is held when the filter is Off. */
-@Composable
-internal fun PurgeRow(days: Int, onDays: (Int) -> Unit) {
-    var open by rememberSaveable { mutableStateOf(false) }
-    val options = remember(days) {
-        (SettingsUiState.PRESET_PURGE_DAYS + days).distinct().sortedBy { if (it == 0) Int.MAX_VALUE else it }
-    }
-    val question = stringResource(R.string.onb_purge_question)
-    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Text(question, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-        OutlinedButton(onClick = { open = true }, modifier = Modifier.heightIn(min = 48.dp)) {
-            Text(purgeLabel(days), maxLines = 1)
-            Icon(Symbols.ExpandMore, null, modifier = Modifier.size(18.dp))
-        }
-    }
-    if (open) {
-        ChoiceDialog(
-            title = question,
-            options = options.map { purgeLabel(it) },
-            selectedIndex = options.indexOf(days),
-            onSelect = {
-                open = false
-                onDays(options[it])
-            },
-            onDismiss = { open = false },
-        )
     }
 }
 

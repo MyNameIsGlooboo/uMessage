@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_allow_intro">언제든 Android 설정에서 변경할 수 있어요.</string>
+    <string name="onb_allow_done">완료</string>
+    <string name="onb_allow_needed">필요</string>
+    <string name="onb_allow_all_set">모두 준비됐어요</string>
+    <string name="onb_mode_strict_short">모두 차단함에 보관</string>
+    <string name="onb_mode_smart_short">보관하되 인증 코드는 허용</string>
+    <string name="onb_mode_off_short">필터링 안 함</string>
+</resources>

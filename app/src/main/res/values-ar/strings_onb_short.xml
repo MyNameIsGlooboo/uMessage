@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_allow_intro">يمكنك تغيير هذه في أي وقت من إعدادات Android.</string>
+    <string name="onb_allow_done">تم</string>
+    <string name="onb_allow_needed">مطلوب</string>
+    <string name="onb_allow_all_set">كل شيء جاهز</string>
+    <string name="onb_mode_strict_short">احتفظ بالكل في «المحظورة»</string>
+    <string name="onb_mode_smart_short">احتفظ بها، لكن اسمح برسائل الرموز</string>
+    <string name="onb_mode_off_short">بدون تصفية</string>
+</resources>

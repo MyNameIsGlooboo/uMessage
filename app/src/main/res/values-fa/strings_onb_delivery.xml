@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onb_delivery_body">نشان می‌دهد پیام‌هایتان چه زمانی تحویل داده شده‌اند. ممکن است برخی اپراتورها برای گزارش تحویل هزینه بگیرند.</string>
+    <string name="onb_delivery_body">نشان می‌دهد پیام‌ها چه زمانی تحویل داده شده‌اند. اپراتور ممکن است هزینه بگیرد.</string>
 </resources>

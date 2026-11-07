@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-11-07
+### Added
+- Restore and the language name (in its own language) as small chips on the welcome screen
+- The uMessage icon on the welcome screen
+- The recycle bin is first in the inbox menu and shows how many items it holds
+
+### Changed
+- Shorter welcome steps: an "Allow all" button with a short checklist, and shorter unknown-senders choices
+
 ## [0.4.0] - 2026-11-07
 ### Added
 - Private notes on messages: one note per message, shown under the message, kept in backups and exports, searchable, with a mark on chats that have notes

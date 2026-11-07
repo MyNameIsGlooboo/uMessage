@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_allow_intro">Du kannst das jederzeit in den Android-Einstellungen ändern.</string>
+    <string name="onb_allow_done">Erledigt</string>
+    <string name="onb_allow_needed">Nötig</string>
+    <string name="onb_allow_all_set">Alles erledigt</string>
+    <string name="onb_mode_strict_short">Alles unter „Blockiert“ halten</string>
+    <string name="onb_mode_smart_short">Halten, aber Codes durchlassen</string>
+    <string name="onb_mode_off_short">Nicht filtern</string>
+</resources>
