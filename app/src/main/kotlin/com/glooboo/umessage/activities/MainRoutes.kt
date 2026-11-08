@@ -41,6 +41,7 @@ class MainRoutes(private val activity: BaseSimpleActivity) {
         onSpamSettings = { activity.startActivity(Intent(activity, SpamSettingsActivity::class.java)) },
         onOpenArchived = { row -> openThread(row.threadId, row.title) },
         onOpenThread = { threadId, title -> openThread(threadId, title) },
+        onStarred = { activity.startActivity(Intent(activity, StarredActivity::class.java)) },
         onScheduled = { activity.startActivity(Intent(activity, ScheduledListActivity::class.java)) },
         onRecycleBin = { activity.startActivity(Intent(activity, RecycleBinConversationsActivity::class.java)) },
     )

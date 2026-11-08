@@ -85,6 +85,7 @@ class MainNavigation(
     val onOpenThread: (threadId: Long, title: String) -> Unit = { _, _ -> },
     /** The list of scheduled messages (I25). */
     val onScheduled: () -> Unit = {},
+    val onStarred: () -> Unit = {},
     /** The recycle bin's conversations (U04). */
     val onRecycleBin: () -> Unit = {},
 )
@@ -250,7 +251,6 @@ private fun SelectionSearchEffects(selecting: Boolean, allSelected: Boolean, sea
 
 private fun openInboxMenuItem(
     item: InboxMenuItem,
-    search: MainSearchState,
     navigation: MainNavigation,
     onOpenArchivedTab: () -> Unit,
 ) {
@@ -258,7 +258,7 @@ private fun openInboxMenuItem(
         InboxMenuItem.Archived -> onOpenArchivedTab()
         InboxMenuItem.RecycleBin -> navigation.onRecycleBin()
         InboxMenuItem.Scheduled -> navigation.onScheduled()
-        InboxMenuItem.Starred -> search.filter = InboxFilter.Starred
+        InboxMenuItem.Starred -> navigation.onStarred()
         InboxMenuItem.Settings -> navigation.onSettings()
     }
 }
@@ -346,7 +346,7 @@ private fun MessagesTab(
                     onSearch = { search.active = true },
                     menu = InboxMenuPolicy.entries(menuInputs),
                     recycleBinCount = rememberRecycleBinCount(menuInputs.recycleBinOn, state.rows.size),
-                    onMenu = { item -> openInboxMenuItem(item, search, navigation, onOpenArchivedTab) },
+                    onMenu = { item -> openInboxMenuItem(item, navigation, onOpenArchivedTab) },
                 )
                 // A warning to act on stays in view.
                 NotificationsOffBanner()
@@ -382,6 +382,7 @@ private fun MessagesTab(
                 onOpenResult = onOpenResult,
                 onLeave = leaveSearch,
                 simTiles = simTiles,
+                onOpenStars = navigation.onStarred,
             )
         }
     }

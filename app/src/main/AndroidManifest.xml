@@ -230,6 +230,12 @@
             android:theme="@style/Theme.UMessage.Screen" />
 
         <activity
+            android:name=".activities.StarredActivity"
+            android:exported="false"
+            android:label="@string/i13_filter_starred"
+            android:theme="@style/Theme.UMessage.Screen" />
+
+        <activity
             android:name=".activities.ScheduledListActivity"
             android:exported="false"
             android:label="@string/scheduled_list_title"

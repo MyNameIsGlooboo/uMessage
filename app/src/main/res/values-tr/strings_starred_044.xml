@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i44_starred_search_hint">Yıldızlı mesajlarda ara</string>
+    <string name="i44_starred_no_match">Eşleşen yıldızlı mesaj yok</string>
+</resources>

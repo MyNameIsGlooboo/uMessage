@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i44_starred_search_hint">スター付きメッセージを検索</string>
+    <string name="i44_starred_no_match">一致するスター付きメッセージはありません</string>
+</resources>

@@ -1,0 +1,4 @@
+• Starred now lists the starred messages themselves
+• One row per message, so two stars from one sender show as two rows
+• Tap a row to open the chat at that message
+• Press and hold to unstar, and search inside your stars

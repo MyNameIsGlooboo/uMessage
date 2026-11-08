@@ -62,6 +62,7 @@ internal fun MainSearchPage(
     onLeave: () -> Unit,
     modifier: Modifier = Modifier,
     simTiles: List<SimTile> = emptyList(),
+    onOpenStars: () -> Unit = {},
 ) {
     val keyboard = LocalSoftwareKeyboardController.current
     val fieldFocus = remember { FocusRequester() }
@@ -127,8 +128,13 @@ internal fun MainSearchPage(
                     recent = emptyList()
                 },
                 onFilter = {
-                    search.filter = it
-                    if (it != InboxFilter.All) keyboard?.hide()
+                    // Starred is its own screen: one row per starred message, not the chats that hold them.
+                    if (it == InboxFilter.Starred) {
+                        onOpenStars()
+                    } else {
+                        search.filter = it
+                        if (it != InboxFilter.All) keyboard?.hide()
+                    }
                 },
                 onSim = {
                     search.toggleSim(it)

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="i44_starred_search_hint">Tìm trong tin nhắn gắn sao</string>
+    <string name="i44_starred_no_match">Không có tin nhắn gắn sao nào khớp</string>
+</resources>

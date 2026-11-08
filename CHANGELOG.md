@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.4] - 2026-11-08
+### Changed
+- Starred now lists the starred messages themselves, one row per message, instead of one row per chat
+
 ## [0.4.3] - 2026-11-08
 ### Added
 - Optional message forwarding is now also in the Google Play build, the same as in the GitHub and F-Droid builds: off by default, you create the rules, it runs on the phone and sends by SMS on your own plan, and blocked or Spam messages are never forwarded
