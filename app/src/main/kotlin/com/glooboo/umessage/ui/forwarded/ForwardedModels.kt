@@ -115,7 +115,11 @@ fun simSlotOf(sims: List<SimInfo>, subscriptionId: Int?): Int? {
     return sims.firstOrNull { it.subscriptionId == subscriptionId }?.slot
 }
 
-/** Whether the "show a Forwarded tab?" question is asked: only for the first rule, and only once. */
-object ForwardedTabPrompt {
-    fun shouldOffer(ruleCountBeforeSave: Int, answer: Boolean?): Boolean = ruleCountBeforeSave == 0 && answer == null
+/**
+ * Whether the quiet "Forwarded tab added. Hide it?" message is shown: only after the first rule is saved, only if the
+ * user has not hidden the tab already, and only once per install.
+ */
+object ForwardedTabHint {
+    fun shouldShow(ruleCountBeforeSave: Int, choice: Boolean?, alreadyShown: Boolean): Boolean =
+        ruleCountBeforeSave == 0 && choice != false && !alreadyShown
 }

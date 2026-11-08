@@ -986,7 +986,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
     /** Scrolls to [target], paging in older history until it is loaded. Matched by id and type (MessageKey). */
     private fun jumpToMessage(target: MessageKey) {
         if (messages.any { it.key == target }) {
-            vm.scrollToMessage(target)
+            vm.scrollToMessage(target, flash = true)
             return
         }
 
@@ -1014,7 +1014,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
             runOnUiThread {
                 publishItems(latestThreadItems)
                 repository.loadingOlder = false
-                vm.scrollToMessage(target)
+                vm.scrollToMessage(target, flash = true)
                 isJumpingToMessage = false
             }
         }

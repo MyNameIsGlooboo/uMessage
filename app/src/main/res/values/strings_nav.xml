@@ -6,12 +6,6 @@
     <string name="nav_tab_forwarded_paused">Forwarded, forwarding is paused</string>
     <string name="nav_tab_archived_new">Archive, new chat archived</string>
 
-    <!-- Question after the first forward rule is saved -->
-    <string name="nav_prompt_title">Rule saved</string>
-    <string name="nav_prompt_body">Show a Forwarded tab to see what was sent and retry failures?</string>
-    <string name="nav_prompt_show">Show tab</string>
-    <string name="nav_prompt_not_now">Not now</string>
-
     <!-- Forwarded tab -->
     <string name="nav_fwd_paid_note">Each forward is a paid SMS.</string>
     <string name="nav_fwd_pause_all">Pause all forwarding</string>

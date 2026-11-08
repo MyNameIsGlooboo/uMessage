@@ -223,6 +223,28 @@ class ForwardUiTest {
     }
 
     @Test
+    fun forwardedTabHintSnackbar_hideRunsTheAction_andIgnoringKeepsTheTab() {
+        var hidden = 0
+        var done = 0
+        val host = SnackbarHostState()
+        compose.setContent {
+            UMessageTheme {
+                androidx.compose.material3.SnackbarHost(host)
+                ForwardDialogs(
+                    ForwardUiState(forwardedTabAdded = true),
+                    ForwardActions(onHideForwardedTab = { hidden++ }, onForwardedTabHintDone = { done++ }),
+                    host,
+                )
+            }
+        }
+        compose.onNodeWithText(str(R.string.fwdtab_added)).assertExists()
+        compose.onNodeWithText(str(R.string.fwdtab_hide)).performClick()
+        compose.waitForIdle()
+        assertThat(hidden).isEqualTo(1)
+        assertThat(done).isEqualTo(0)
+    }
+
+    @Test
     fun noLockNoteOffersToSetUpALock() {
         var setUp = false
         compose.setContent {

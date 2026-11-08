@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">전달, 전달 실패 있음</string>
     <string name="nav_tab_forwarded_paused">전달, 전달 일시 중지됨</string>
     <string name="nav_tab_archived_new">보관함, 새 대화 보관됨</string>
-    <string name="nav_prompt_title">규칙 저장됨</string>
-    <string name="nav_prompt_body">전달한 메시지를 확인하고 실패한 메시지를 다시 보낼 수 있도록 전달 탭을 표시할까요?</string>
-    <string name="nav_prompt_show">탭 표시</string>
-    <string name="nav_prompt_not_now">나중에</string>
     <string name="nav_fwd_paid_note">전달할 때마다 SMS 요금이 부과돼요.</string>
     <string name="nav_fwd_pause_all">모든 전달 일시 중지</string>
     <string name="nav_fwd_status_paused">전달 일시 중지됨</string>

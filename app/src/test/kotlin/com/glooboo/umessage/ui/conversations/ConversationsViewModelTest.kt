@@ -117,6 +117,8 @@ class ConversationsViewModelTest {
         vm.deleteOne(dad.threadId)
         awaitUntil { events.any { it is ConversationsEvent.Deleted } }
         val token = (events.single { it is ConversationsEvent.Deleted } as ConversationsEvent.Deleted).token
+        // The event is sent before the background rebuild has dropped the chat from the rows: wait for the rows too.
+        awaitUntil { rowIds() == listOf(mom.threadId) }
 
         // Rotation cancelled the snackbar without an answer; the new screen asks the view model to replay.
         vm.replayPendingUndo()

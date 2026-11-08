@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">फ़ॉरवर्ड किए गए, एक मैसेज फ़ॉरवर्ड नहीं हुआ</string>
     <string name="nav_tab_forwarded_paused">फ़ॉरवर्ड किए गए, फ़ॉरवर्ड करना रुका हुआ है</string>
     <string name="nav_tab_archived_new">संग्रह, नई चैट संग्रहित की गई</string>
-    <string name="nav_prompt_title">नियम सेव किया गया</string>
-    <string name="nav_prompt_body">भेजे गए मैसेज देखने और न भेजे गए मैसेज फिर से भेजने के लिए फ़ॉरवर्ड किए गए टैब दिखाएं?</string>
-    <string name="nav_prompt_show">टैब दिखाएं</string>
-    <string name="nav_prompt_not_now">अभी नहीं</string>
     <string name="nav_fwd_paid_note">हर फ़ॉरवर्ड किए गए SMS का शुल्क लगता है.</string>
     <string name="nav_fwd_pause_all">सभी मैसेज फ़ॉरवर्ड करना रोकें</string>
     <string name="nav_fwd_status_paused">फ़ॉरवर्ड करना रुका हुआ है</string>

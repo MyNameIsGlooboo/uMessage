@@ -2,3 +2,4 @@
 • One row per message, so two stars from one sender show as two rows
 • Tap a row to open the chat at that message
 • Press and hold to unstar, and search inside your stars
+• The Forwarded tab shows as soon as you add a forward rule; hide it in Settings

@@ -73,7 +73,8 @@ data class PersonChip(val rawId: Int, val name: String, val removable: Boolean)
 
 sealed interface ScrollCommand {
     data object ToBottom : ScrollCommand
-    data class ToMessage(val message: MessageKey) : ScrollCommand
+    /** [flash]: also tint the bubble for a moment (a jump from Starred, search or notes, not the in-chat search). */
+    data class ToMessage(val message: MessageKey, val flash: Boolean = false) : ScrollCommand
 
     /** I26: show the "Unread messages" line near the top when the unread ones fill more than the screen. */
     data object ToUnread : ScrollCommand
@@ -393,8 +394,16 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
         _scroll.tryEmit(ScrollCommand.ToUnread)
     }
 
-    fun scrollToMessage(message: MessageKey) {
-        _scroll.tryEmit(ScrollCommand.ToMessage(message))
+    fun scrollToMessage(message: MessageKey, flash: Boolean = false) {
+        _scroll.tryEmit(ScrollCommand.ToMessage(message, flash))
+    }
+
+    /** The message that was just jumped to; its bubble shows a short tint (see [ThreadFlash]). */
+    var flashedMessage by mutableStateOf<MessageKey?>(null)
+        private set
+
+    fun flashMessage(message: MessageKey?) {
+        flashedMessage = message
     }
 
     fun toggleSelect(message: Message) {

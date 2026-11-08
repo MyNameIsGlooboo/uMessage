@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">Transférés, échec d\'un transfert</string>
     <string name="nav_tab_forwarded_paused">Transférés, transferts en pause</string>
     <string name="nav_tab_archived_new">Archives, nouvelle conversation archivée</string>
-    <string name="nav_prompt_title">Règle enregistrée</string>
-    <string name="nav_prompt_body">Afficher l\'onglet Transférés pour voir les envois et réessayer en cas d\'échec ?</string>
-    <string name="nav_prompt_show">Afficher l\'onglet</string>
-    <string name="nav_prompt_not_now">Pas maintenant</string>
     <string name="nav_fwd_paid_note">Chaque transfert est un SMS payant.</string>
     <string name="nav_fwd_pause_all">Mettre tous les transferts en pause</string>
     <string name="nav_fwd_status_paused">Transferts en pause</string>

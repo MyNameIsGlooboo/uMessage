@@ -104,7 +104,6 @@ import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.components.localizedNumber
 import com.glooboo.umessage.ui.components.uiLocale
-import com.glooboo.umessage.ui.forwarded.ForwardedTabPromptCard
 import com.glooboo.umessage.ui.icons.Symbols
 import kotlinx.coroutines.delay
 
@@ -146,8 +145,10 @@ class ForwardActions(
     val onCancelBroad: () -> Unit = {},
     /** Starts a new rule with this text to look for (the "Forward bank alerts" start). */
     val onAddForText: (String) -> Unit = {},
-    /** The "Show a Forwarded tab?" card: true for "Show tab", false for "Not now". */
-    val onForwardedTabAnswer: (Boolean) -> Unit = {},
+    /** "Hide" on the one-time "Forwarded tab added" message. */
+    val onHideForwardedTab: () -> Unit = {},
+    /** The one-time message went away (hidden, dismissed or timed out). */
+    val onForwardedTabHintDone: () -> Unit = {},
 )
 
 /**
@@ -163,15 +164,6 @@ fun ForwardRulesContent(state: ForwardUiState, actions: ForwardActions, bottomIn
         ),
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
-        if (state.offerForwardedTab && state.rules.isNotEmpty()) {
-            item(key = "forward-tab-prompt") {
-                ForwardedTabPromptCard(
-                    onShow = { actions.onForwardedTabAnswer(true) },
-                    onNotNow = { actions.onForwardedTabAnswer(false) },
-                    modifier = Modifier.padding(bottom = 12.dp).testTag("forward_tab_prompt"),
-                )
-            }
-        }
         if (!state.loading && state.rules.isEmpty()) {
             item(key = "forward-intro") { ForwardIntro() }
             item(key = "forward-empty") {
@@ -391,6 +383,24 @@ private fun LastForwardLine(stats: ForwardRuleStats?) {
     )
 }
 
+/** The one-time, non-blocking "Forwarded tab added. Hide it?" snackbar; ignoring it keeps the tab. */
+@Composable
+private fun ForwardedTabHintEffect(added: Boolean, actions: ForwardActions, host: SnackbarHostState?) {
+    val text = stringResource(R.string.fwdtab_added)
+    val hide = stringResource(R.string.fwdtab_hide)
+    LaunchedEffect(added, host) {
+        if (!added) return@LaunchedEffect
+        if (host == null) {
+            actions.onForwardedTabHintDone()
+            return@LaunchedEffect
+        }
+        val result = host.showSnackbar(
+            text, actionLabel = hide, withDismissAction = true, duration = SnackbarDuration.Long,
+        )
+        if (result == SnackbarResult.ActionPerformed) actions.onHideForwardedTab() else actions.onForwardedTabHintDone()
+    }
+}
+
 /**
  * The dialogs of the Forward tab: the one-time no-lock note and a failed change, and the "Forward rule deleted" Undo
  * snackbar on [snackbarHostState] (null shows none).
@@ -415,6 +425,7 @@ fun ForwardDialogs(state: ForwardUiState, actions: ForwardActions, snackbarHostS
         )
         if (result == SnackbarResult.ActionPerformed) actions.onUndoDelete(rule) else actions.onDeletedShown()
     }
+    ForwardedTabHintEffect(state.forwardedTabAdded, actions, snackbarHostState)
     if (state.prompt == ForwardGatePrompt.NO_LOCK_NOTE) {
         AlertDialog(
             onDismissRequest = actions.onNoLockContinue,

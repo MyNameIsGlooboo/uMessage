@@ -89,6 +89,7 @@ class SettingsNavTest {
         var tab: Boolean? = null
         var paused: Boolean? = null
         show(
+            // The tab is on by default once a rule exists, so the switch starts on and a tap turns it off.
             SettingsUiState(forwardRuleCount = 1),
             SettingsActions(onShowForwardedTab = { tab = it }, onPauseForwarding = { paused = it }),
             SettingsPage.Forwarding,
@@ -97,7 +98,7 @@ class SettingsNavTest {
         compose.onNodeWithText("Forwarding options").assertExists()
         compose.onNodeWithText("Show Forwarded tab").performClick()
         compose.onNodeWithText("Pause all forwarding").performClick()
-        assertEquals(true, tab)
+        assertEquals(false, tab)
         assertEquals(true, paused)
     }
 

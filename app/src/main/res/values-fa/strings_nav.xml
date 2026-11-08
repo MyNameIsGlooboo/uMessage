@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">فوروارد‌شده، یک فوروارد ناموفق</string>
     <string name="nav_tab_forwarded_paused">فوروارد‌شده، فوروارد متوقف است</string>
     <string name="nav_tab_archived_new">آرشیو، گفتگوی جدیدی آرشیو شد</string>
-    <string name="nav_prompt_title">قانون ذخیره شد</string>
-    <string name="nav_prompt_body">زبانهٔ «فوروارد‌شده» نمایش داده شود تا پیام‌های ارسال‌شده را ببینید و موارد ناموفق را دوباره بفرستید؟</string>
-    <string name="nav_prompt_show">نمایش زبانه</string>
-    <string name="nav_prompt_not_now">فعلاً نه</string>
     <string name="nav_fwd_paid_note">هر فوروارد هزینهٔ یک SMS را دارد.</string>
     <string name="nav_fwd_pause_all">توقف همهٔ فوروارد‌ها</string>
     <string name="nav_fwd_status_paused">فوروارد متوقف است</string>

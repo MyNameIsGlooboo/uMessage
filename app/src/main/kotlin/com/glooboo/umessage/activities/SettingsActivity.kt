@@ -281,7 +281,7 @@ class SettingsActivity : ComposeSimpleActivity() {
             showRateRow = resources.getBoolean(R.bool.is_google_play_build),
             forwardRuleCount = forwardRuleCount,
             forwardRulesOn = forwardRulesOn,
-            showForwardedTab = navPrefs.showForwardedTab == true,
+            showForwardedTab = navPrefs.showForwardedTab != false,
             pauseAllForwarding = navPrefs.forwardPaused,
             maskForwardedCodes = w3aPrefs.maskForwardedCodes,
             maskKeepLastDigits = w3aPrefs.maskKeepLastDigits,

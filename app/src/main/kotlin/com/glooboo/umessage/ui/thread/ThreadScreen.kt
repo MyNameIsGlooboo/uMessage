@@ -189,6 +189,14 @@ private fun MessageList(vm: ThreadViewModel, actions: ThreadActions, modifier: M
         lastNewestKey = newestKey
     }
 
+    // The tint of a jumped-to bubble lasts about a second and a half.
+    LaunchedEffect(vm.flashedMessage) {
+        if (vm.flashedMessage != null) {
+            delay(ThreadFlash.DURATION_MS)
+            vm.flashMessage(null)
+        }
+    }
+
     LaunchedEffect(listState, vm) {
         vm.scroll.collect { command ->
             when (command) {
@@ -211,7 +219,10 @@ private fun MessageList(vm: ThreadViewModel, actions: ThreadActions, modifier: M
                         snapshotFlow { listState.layoutInfo.totalItemsCount }.first { it == vm.rows.size }
                     }
                     val index = vm.rows.indexOfFirst { (it as? ThreadRow.Bubble)?.message?.key == command.message }
-                    if (index >= 0) listState.animateScrollToItem(index)
+                    if (index >= 0) {
+                        listState.animateScrollToItem(index)
+                        if (command.flash) vm.flashMessage(command.message)
+                    }
                 }
             }
         }

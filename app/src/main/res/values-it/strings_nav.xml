@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">Inoltrati, un inoltro non riuscito</string>
     <string name="nav_tab_forwarded_paused">Inoltrati, inoltro in pausa</string>
     <string name="nav_tab_archived_new">Archivio, nuova chat archiviata</string>
-    <string name="nav_prompt_title">Regola salvata</string>
-    <string name="nav_prompt_body">Vuoi mostrare la scheda Inoltrati per vedere i messaggi inviati e riprovare gli inoltri non riusciti?</string>
-    <string name="nav_prompt_show">Mostra scheda</string>
-    <string name="nav_prompt_not_now">Non ora</string>
     <string name="nav_fwd_paid_note">Ogni inoltro è un SMS a pagamento.</string>
     <string name="nav_fwd_pause_all">Metti in pausa tutti gli inoltri</string>
     <string name="nav_fwd_status_paused">Inoltro in pausa</string>

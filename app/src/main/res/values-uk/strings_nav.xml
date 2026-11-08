@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">Переслані, помилка пересилання</string>
     <string name="nav_tab_forwarded_paused">Переслані, пересилання призупинено</string>
     <string name="nav_tab_archived_new">Архів, новий чат заархівовано</string>
-    <string name="nav_prompt_title">Правило збережено</string>
-    <string name="nav_prompt_body">Показати вкладку «Переслані», щоб бачити надіслані повідомлення й повторювати невдалі спроби?</string>
-    <string name="nav_prompt_show">Показати вкладку</string>
-    <string name="nav_prompt_not_now">Не зараз</string>
     <string name="nav_fwd_paid_note">Кожне пересилання — платне SMS.</string>
     <string name="nav_fwd_pause_all">Призупинити всі пересилання</string>
     <string name="nav_fwd_status_paused">Пересилання призупинено</string>

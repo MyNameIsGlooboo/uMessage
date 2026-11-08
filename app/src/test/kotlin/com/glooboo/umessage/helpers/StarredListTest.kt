@@ -99,6 +99,13 @@ class StarredListTest {
     }
 
     @Test
+    fun aTextlessPictureMessageWithoutCachedPartsStillGetsALabel() {
+        star(message(6, body = "").copy(isMMS = true), starredAt = 1)
+
+        assertThat(items().single().kind).isEqualTo(StarredKind.ATTACHMENT)
+    }
+
+    @Test
     fun aGroupChatShowsItsTitleAndIsMarkedAsGroup() {
         star(message(1, thread = 9), starredAt = 1)
 

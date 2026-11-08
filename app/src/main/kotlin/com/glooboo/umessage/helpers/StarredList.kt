@@ -67,7 +67,8 @@ object StarredList {
         val attachments = row.liveAttachment?.attachments.orEmpty()
         val kind = when {
             attachments.any { it.mimetype.startsWith("image/", ignoreCase = true) } -> StarredKind.PICTURE
-            attachments.isNotEmpty() -> StarredKind.ATTACHMENT
+            // A picture message with no text whose parts are not cached would show an empty row otherwise.
+            attachments.isNotEmpty() || (row.isMMS && text.isBlank()) -> StarredKind.ATTACHMENT
             else -> StarredKind.TEXT
         }
         StarredItem(

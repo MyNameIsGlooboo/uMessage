@@ -318,6 +318,53 @@ class ForwardRulesViewModelTest {
         assertThat(repo.state.value).isEmpty()
     }
 
+    private fun saveOneRule() {
+        fillValidForm()
+        vm.submit()
+        idleMain()
+        vm.onNoLockNote(proceed = true)
+        awaitUntil { repo.state.value.isNotEmpty() && vm.state.value.form == null }
+    }
+
+    @Test
+    fun theFirstRuleShowsTheForwardedTabHintOnce_andIgnoringItKeepsTheTab() {
+        val prefs = com.glooboo.umessage.helpers.NavPrefs.get(app)
+        start(lock = false)
+        saveOneRule()
+        assertThat(vm.state.value.forwardedTabAdded).isTrue()
+        assertThat(prefs.forwardedTabHintShown).isTrue()
+
+        vm.forwardedTabHintDone()
+        idleMain()
+        assertThat(vm.state.value.forwardedTabAdded).isFalse()
+        assertThat(prefs.showForwardedTab).isNull() // never chosen: the tab stays on
+
+        // Second rule: no message again.
+        saveOneRule()
+        assertThat(vm.state.value.forwardedTabAdded).isFalse()
+    }
+
+    @Test
+    fun hideOnTheHintTurnsTheTabOff() {
+        val prefs = com.glooboo.umessage.helpers.NavPrefs.get(app)
+        start(lock = false)
+        saveOneRule()
+        vm.hideForwardedTab()
+        idleMain()
+        assertThat(vm.state.value.forwardedTabAdded).isFalse()
+        assertThat(prefs.showForwardedTab).isFalse()
+    }
+
+    @Test
+    fun noHintWhenTheUserAlreadyHidTheTab_orWhenItWasShownBefore() {
+        val prefs = com.glooboo.umessage.helpers.NavPrefs.get(app)
+        prefs.showForwardedTab = false
+        start(lock = false)
+        saveOneRule()
+        assertThat(vm.state.value.forwardedTabAdded).isFalse()
+        assertThat(prefs.forwardedTabHintShown).isFalse()
+    }
+
     private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()
 
     private fun awaitUntil(condition: () -> Boolean) {

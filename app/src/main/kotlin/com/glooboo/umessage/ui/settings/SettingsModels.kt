@@ -82,7 +82,7 @@ data class SettingsUiState(
     val forwardingAvailable: Boolean = true,
     val forwardRuleCount: Int = 0,
     val forwardRulesOn: Int = 0,
-    val showForwardedTab: Boolean = false,
+    val showForwardedTab: Boolean = true,
     val pauseAllForwarding: Boolean = false,
     /** Wave 3: codes in forwarded messages show as ****, optionally keeping the last two digits. */
     val maskForwardedCodes: Boolean = false,

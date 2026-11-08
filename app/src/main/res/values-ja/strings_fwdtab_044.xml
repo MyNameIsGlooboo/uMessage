@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdtab_added">「転送済み」タブを追加しました。非表示にしますか？</string>
+    <string name="fwdtab_hide">非表示</string>
+</resources>

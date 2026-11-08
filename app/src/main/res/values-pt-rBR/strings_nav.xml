@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">Encaminhadas, houve falha em um encaminhamento</string>
     <string name="nav_tab_forwarded_paused">Encaminhadas, encaminhamento pausado</string>
     <string name="nav_tab_archived_new">Arquivo, nova conversa arquivada</string>
-    <string name="nav_prompt_title">Regra salva</string>
-    <string name="nav_prompt_body">Mostrar a aba Encaminhadas para ver o que foi enviado e tentar de novo em caso de falha?</string>
-    <string name="nav_prompt_show">Mostre a aba</string>
-    <string name="nav_prompt_not_now">Agora não</string>
     <string name="nav_fwd_paid_note">Cada encaminhamento é um SMS pago.</string>
     <string name="nav_fwd_pause_all">Pause todos os encaminhamentos</string>
     <string name="nav_fwd_status_paused">Encaminhamento pausado</string>

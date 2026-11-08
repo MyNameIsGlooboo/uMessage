@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdtab_added">เพิ่มแท็บส่งต่อแล้ว ต้องการซ่อนไหม</string>
+    <string name="fwdtab_hide">ซ่อน</string>
+</resources>

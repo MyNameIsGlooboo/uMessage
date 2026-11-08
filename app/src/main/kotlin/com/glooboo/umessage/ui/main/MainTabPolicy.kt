@@ -8,7 +8,7 @@ data class MainTabInputs(
     val archivedCount: Int,
     /** Forward rules that exist, enabled or not. */
     val forwardRuleCount: Int,
-    /** The user's answer to "show a Forwarded tab"; null = not asked yet. */
+    /** The user's own choice for the Forwarded tab: null = never chosen (the tab shows), false = hidden on purpose. */
     val showForwarded: Boolean?,
     /** Failed forwards still listed in the forward log. */
     val failedForwards: Int = 0,
@@ -18,8 +18,8 @@ object MainTabPolicy {
 
     /**
      * Messages and Blocked always; Archived whenever the phone supports archiving, also from the first launch with an
-     * empty archive (the tab then shows its empty state); Forwarded only when a forward rule exists and the user
-     * switched the tab on. Order: Messages, Blocked, Forwarded, Archived.
+     * empty archive (the tab then shows its empty state); Forwarded as soon as a forward rule exists, unless the user
+     * hid the tab. Order: Messages, Blocked, Forwarded, Archived.
      *
      * [selected] keeps Forwarded in the bar when it was opened on purpose from Settings ([forwardedOpened]) although
      * the tab is switched off. After the last rule is deleted the Forwarded tab stays
@@ -30,7 +30,8 @@ object MainTabPolicy {
         buildList {
             add(MainTab.Messages)
             add(MainTab.Blocked)
-            val forwardedOn = (inputs.forwardRuleCount > 0 || inputs.failedForwards > 0) && inputs.showForwarded == true
+            val hasForwards = inputs.forwardRuleCount > 0 || inputs.failedForwards > 0
+            val forwardedOn = hasForwards && inputs.showForwarded != false
             if (forwardedOn || (forwardedOpened && selected == MainTab.Forwarded)) add(MainTab.Forwarded)
             if (inputs.archiveAvailable) add(MainTab.Archived)
         }

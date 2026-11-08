@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">فارورڈ شدہ، ایک فارورڈ ناکام ہوا</string>
     <string name="nav_tab_forwarded_paused">فارورڈ شدہ، فارورڈنگ رکی ہوئی ہے</string>
     <string name="nav_tab_archived_new">آرکائیو، نئی چیٹ آرکائیو ہوئی</string>
-    <string name="nav_prompt_title">اصول محفوظ ہو گیا</string>
-    <string name="nav_prompt_body">فارورڈ شدہ ٹیب دکھائیں تاکہ آپ دیکھ سکیں کیا بھیجا گیا اور ناکام فارورڈ دوبارہ آزما سکیں؟</string>
-    <string name="nav_prompt_show">ٹیب دکھائیں</string>
-    <string name="nav_prompt_not_now">ابھی نہیں</string>
     <string name="nav_fwd_paid_note">ہر فارورڈ ایک ادا شدہ SMS ہے۔</string>
     <string name="nav_fwd_pause_all">تمام فارورڈنگ روکیں</string>
     <string name="nav_fwd_status_paused">فارورڈنگ رکی ہوئی ہے</string>

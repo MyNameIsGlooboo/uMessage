@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">المعاد توجيهها، تعذرت إعادة توجيه رسالة</string>
     <string name="nav_tab_forwarded_paused">المعاد توجيهها، إعادة التوجيه متوقفة مؤقتًا</string>
     <string name="nav_tab_archived_new">الأرشيف، أُرشفت محادثة جديدة</string>
-    <string name="nav_prompt_title">حُفظت القاعدة</string>
-    <string name="nav_prompt_body">هل تريد إظهار تبويب «المعاد توجيهها» للاطلاع على الرسائل المرسلة وإعادة محاولة إرسال ما تعذر إرساله؟</string>
-    <string name="nav_prompt_show">أظهر التبويب</string>
-    <string name="nav_prompt_not_now">ليس الآن</string>
     <string name="nav_fwd_paid_note">كل إعادة توجيه تُرسل عبر SMS مدفوعة.</string>
     <string name="nav_fwd_pause_all">أوقف كل إعادة التوجيه مؤقتًا</string>
     <string name="nav_fwd_status_paused">إعادة التوجيه متوقفة مؤقتًا</string>

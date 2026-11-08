@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">已轉寄，有轉寄失敗</string>
     <string name="nav_tab_forwarded_paused">已轉寄，轉寄已暫停</string>
     <string name="nav_tab_archived_new">封存，有新的對話已封存</string>
-    <string name="nav_prompt_title">規則已儲存</string>
-    <string name="nav_prompt_body">要顯示「已轉寄」分頁，查看已傳送的內容並重試失敗項目嗎？</string>
-    <string name="nav_prompt_show">顯示分頁</string>
-    <string name="nav_prompt_not_now">暫時不要</string>
     <string name="nav_fwd_paid_note">每次轉寄都是一則付費簡訊。</string>
     <string name="nav_fwd_pause_all">暫停所有轉寄</string>
     <string name="nav_fwd_status_paused">轉寄已暫停</string>

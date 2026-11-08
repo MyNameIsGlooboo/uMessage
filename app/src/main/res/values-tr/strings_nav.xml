@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">İletilenler, bir iletme başarısız oldu</string>
     <string name="nav_tab_forwarded_paused">İletilenler, iletme duraklatıldı</string>
     <string name="nav_tab_archived_new">Arşiv, yeni görüşme arşivlendi</string>
-    <string name="nav_prompt_title">Kural kaydedildi</string>
-    <string name="nav_prompt_body">Gönderilenleri görmek ve başarısız olanları yeniden denemek için İletilenler sekmesi gösterilsin mi?</string>
-    <string name="nav_prompt_show">Sekmeyi gösterin</string>
-    <string name="nav_prompt_not_now">Şimdi değil</string>
     <string name="nav_fwd_paid_note">Her iletme ücretli bir SMS\'tir.</string>
     <string name="nav_fwd_pause_all">Tüm iletmeleri duraklatın</string>
     <string name="nav_fwd_status_paused">İletme duraklatıldı</string>

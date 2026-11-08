@@ -73,6 +73,7 @@ Safety:
 - Loop guard, always on: a message that is itself a forward (it starts with `[from `) is never forwarded, nothing is forwarded back to the number it came from, and messages you send are never forwarded.
 - With the app lock on, creating, editing, turning on or deleting a forward rule asks for your PIN, pattern or fingerprint. Without an app lock, uMessage suggests setting one the first time. Turning a rule off never asks.
 - Every forward, failed forward and skipped forward is in the decision log (Settings > Spam protection > Recent activity) with the rule, target and result, never the text. A forward that cannot be sent shows the usual "message not sent" notification, and the failed copy stays in the target's thread to resend.
+- The **Forwarded** tab (the forward log) appears as soon as you add a forward rule; hide it in Settings > Forwarding.
 - An optional **daily forward limit** (Forwarding options; off by default, or 5, 10, 20 or 50 forwards a day): once it is reached, nothing more is forwarded for the rest of the day, the skipped forwards are logged and uMessage shows one notification a day. Each rule also has an hourly cap. There is no notification per forward.
 
 ## Limitations

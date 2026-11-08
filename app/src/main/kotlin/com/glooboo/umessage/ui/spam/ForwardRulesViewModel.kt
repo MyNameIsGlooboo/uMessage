@@ -18,7 +18,7 @@ import com.glooboo.umessage.spam.data.DefaultForwardLogRepository
 import com.glooboo.umessage.spam.data.ForwardResend
 import com.glooboo.umessage.spam.data.SpamDatabase
 import com.glooboo.umessage.spam.engine.SpamEngine
-import com.glooboo.umessage.ui.forwarded.ForwardedTabPrompt
+import com.glooboo.umessage.ui.forwarded.ForwardedTabHint
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -49,8 +49,8 @@ data class ForwardUiState(
     val changeFailed: Boolean = false,
     /** The lock screen for [pending] is open (so it is not opened twice, e.g. after rotation). */
     val verifying: Boolean = false,
-    /** The first forward rule was just saved and the "Show a Forwarded tab?" card is still unanswered. */
-    val offerForwardedTab: Boolean = false,
+    /** The first forward rule was just saved: the screen says once "Forwarded tab added. Hide it?". */
+    val forwardedTabAdded: Boolean = false,
     /** The last forward of each rule and its count this week, by rule id (ID-04). */
     val stats: Map<Long, ForwardRuleStats> = emptyMap(),
     /** A rule was just deleted: the screen offers Undo once, then calls [ForwardRulesViewModel.deletedShown]. */
@@ -84,7 +84,7 @@ class ForwardRulesViewModel(
         val pending: ForwardChange? = null,
         val changeFailed: Boolean = false,
         val verifying: Boolean = false,
-        val offerForwardedTab: Boolean = false,
+        val forwardedTabAdded: Boolean = false,
         val deleted: ForwardRule? = null,
     )
 
@@ -106,7 +106,7 @@ class ForwardRulesViewModel(
             pending = ui.pending,
             changeFailed = ui.changeFailed,
             verifying = ui.verifying,
-            offerForwardedTab = ui.offerForwardedTab,
+            forwardedTabAdded = ui.forwardedTabAdded,
             stats = ForwardRuleStats.of(entries, now()),
             deleted = ui.deleted,
         )
@@ -327,8 +327,8 @@ class ForwardRulesViewModel(
                 when {
                     change is ForwardChange.Save && ok -> u.copy(
                         form = null,
-                        offerForwardedTab = u.offerForwardedTab ||
-                            (change.rule.id == 0L && shouldOfferForwardedTab(priorRuleCount)),
+                        forwardedTabAdded = u.forwardedTabAdded ||
+                            (change.rule.id == 0L && claimForwardedTabHint(priorRuleCount)),
                     )
                     change is ForwardChange.Save -> u.copy(form = u.form?.copy(saving = false, saveFailed = true))
                     change is ForwardChange.Delete && ok -> u.copy(
@@ -341,15 +341,22 @@ class ForwardRulesViewModel(
         }
     }
 
-    private fun shouldOfferForwardedTab(priorRuleCount: Int): Boolean =
-        runCatching { ForwardedTabPrompt.shouldOffer(priorRuleCount, NavPrefs.get(getApplication()).showForwardedTab) }
-            .getOrDefault(false)
+    /** True once per install, for the first rule when the user has not hidden the tab: marks the message as shown. */
+    private fun claimForwardedTabHint(priorRuleCount: Int): Boolean = runCatching {
+        val prefs = NavPrefs.get(getApplication())
+        val show = ForwardedTabHint.shouldShow(priorRuleCount, prefs.showForwardedTab, prefs.forwardedTabHintShown)
+        if (show) prefs.forwardedTabHintShown = true
+        show
+    }.getOrDefault(false)
 
-    /** The answer to the "Show a Forwarded tab?" card: stored for the main screen, and the card goes away. */
-    fun answerForwardedTab(show: Boolean) {
-        runCatching { NavPrefs.get(getApplication()).showForwardedTab = show }
-        ui.update { it.copy(offerForwardedTab = false) }
+    /** "Hide" on the one-time message: the Forwarded tab goes away (the Settings switch follows). */
+    fun hideForwardedTab() {
+        runCatching { NavPrefs.get(getApplication()).showForwardedTab = false }
+        ui.update { it.copy(forwardedTabAdded = false) }
     }
+
+    /** The one-time message went away without "Hide": the tab stays. */
+    fun forwardedTabHintDone() = ui.update { it.copy(forwardedTabAdded = false) }
 
     fun dismissChangeFailed() = ui.update { it.copy(changeFailed = false) }
 

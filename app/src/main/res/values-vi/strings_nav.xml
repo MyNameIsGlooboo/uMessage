@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">Đã chuyển tiếp, có lần chuyển tiếp thất bại</string>
     <string name="nav_tab_forwarded_paused">Đã chuyển tiếp, đang tạm dừng chuyển tiếp</string>
     <string name="nav_tab_archived_new">Lưu trữ, có cuộc trò chuyện mới được lưu trữ</string>
-    <string name="nav_prompt_title">Đã lưu quy tắc</string>
-    <string name="nav_prompt_body">Hiển thị thẻ Đã chuyển tiếp để xem tin nhắn đã gửi và thử lại những lần thất bại?</string>
-    <string name="nav_prompt_show">Hiện thẻ</string>
-    <string name="nav_prompt_not_now">Để sau</string>
     <string name="nav_fwd_paid_note">Mỗi lần chuyển tiếp là một SMS có tính phí.</string>
     <string name="nav_fwd_pause_all">Tạm dừng mọi chuyển tiếp</string>
     <string name="nav_fwd_status_paused">Đang tạm dừng chuyển tiếp</string>

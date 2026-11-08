@@ -7,8 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [0.4.4] - 2026-11-08
+### Added
+- Opening a chat at a message from Starred, search or notes briefly tints that message so you can find it
+
 ### Changed
 - Starred now lists the starred messages themselves, one row per message, instead of one row per chat
+- The Forwarded tab now shows as soon as you add a forward rule; you can hide it (a quiet "Hide" message appears once after the first rule, and the switch stays in Settings > Forwarding). It is no longer asked first. If you had already chosen to hide it, it stays hidden
+
+### Fixed
+- A starred picture message without text no longer shows an empty row
 
 ## [0.4.3] - 2026-11-08
 ### Added

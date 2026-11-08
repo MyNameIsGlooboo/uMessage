@@ -15,8 +15,10 @@ import kotlinx.coroutines.flow.distinctUntilChanged
  * `Config` keeps its preferences private to its subclass). Read it with [get] or [navPrefs]; every value also comes as
  * a [Flow] so a screen follows a change made in another activity (Settings, the rules screen).
  *
- * - [showForwardedTab]: null until the user was asked (the prompt after the first forward rule is saved), then their
- *   answer. The Forwarded tab shows only when a forward rule exists and this is true.
+ * - [showForwardedTab]: the user's own choice for the Forwarded tab. null = never chosen: the tab then shows as soon as
+ *   a forward rule exists. true / false are explicit choices (the Settings switch, or "Hide" on the one-time message
+ *   after the first rule), and false keeps it hidden.
+ * - [forwardedTabHintShown]: the one-time "Forwarded tab added. Hide it?" message was shown on this install.
  * - [forwardPaused]: the global "pause all forwarding" switch; read by `ForwardDelivery` before anything is sent.
  * - [forwardedSeenAt]: failed forwards that happened after this time have not been looked at (dot on the tab).
  */
@@ -27,6 +29,10 @@ class NavPrefs private constructor(private val prefs: SharedPreferences) {
         set(value) = prefs.edit {
             if (value == null) remove(KEY_SHOW_FORWARDED_TAB) else putBoolean(KEY_SHOW_FORWARDED_TAB, value)
         }
+
+    var forwardedTabHintShown: Boolean
+        get() = prefs.getBoolean(KEY_FORWARDED_TAB_HINT_SHOWN, false)
+        set(value) = prefs.edit { putBoolean(KEY_FORWARDED_TAB_HINT_SHOWN, value) }
 
     var forwardPaused: Boolean
         get() = prefs.getBoolean(KEY_FORWARD_PAUSED, false)
@@ -59,6 +65,7 @@ class NavPrefs private constructor(private val prefs: SharedPreferences) {
     companion object {
         private const val PREFS_NAME = "spamless_nav"
         private const val KEY_SHOW_FORWARDED_TAB = "show_forwarded_tab"
+        private const val KEY_FORWARDED_TAB_HINT_SHOWN = "forwarded_tab_hint_shown"
         private const val KEY_FORWARD_PAUSED = "forward_paused"
         private const val KEY_FORWARDED_SEEN_AT = "forwarded_seen_at"
         private const val KEY_ARCHIVED_INTRO_DISMISSED = "archived_intro_dismissed"

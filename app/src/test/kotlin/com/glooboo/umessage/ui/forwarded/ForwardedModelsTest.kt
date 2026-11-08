@@ -39,9 +39,11 @@ class ForwardedModelsTest {
     }
 
     @Test
-    fun theTabIsOfferedOnlyForTheFirstRuleOnce() {
-        assertThat(ForwardedTabPrompt.shouldOffer(0, null)).isTrue()
-        assertThat(ForwardedTabPrompt.shouldOffer(1, null)).isFalse()
-        assertThat(ForwardedTabPrompt.shouldOffer(0, false)).isFalse()
+    fun theHintIsShownOnlyForTheFirstRuleOncePerInstall() {
+        assertThat(ForwardedTabHint.shouldShow(0, null, alreadyShown = false)).isTrue()
+        assertThat(ForwardedTabHint.shouldShow(0, true, alreadyShown = false)).isTrue()
+        assertThat(ForwardedTabHint.shouldShow(1, null, alreadyShown = false)).isFalse()
+        assertThat(ForwardedTabHint.shouldShow(0, false, alreadyShown = false)).isFalse()
+        assertThat(ForwardedTabHint.shouldShow(0, null, alreadyShown = true)).isFalse()
     }
 }

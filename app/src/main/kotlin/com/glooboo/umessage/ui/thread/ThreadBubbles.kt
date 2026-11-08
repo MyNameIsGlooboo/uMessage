@@ -296,6 +296,7 @@ private fun MessageBubbleRow(row: ThreadRow.Bubble, vm: ThreadViewModel, actions
         modifier = Modifier
             .fillMaxWidth()
             .background(if (selected) colors.primary.copy(alpha = 0.10f) else Color.Transparent)
+            .background(flashColor(vm.flashedMessage == message.key, colors.tertiary))
             // Only clickable while selecting: a disabled clickable still adds a second focusable node for TalkBack.
             .then(
                 if (vm.isSelecting) {

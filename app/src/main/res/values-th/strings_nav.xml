@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">ส่งต่อแล้ว มีการส่งต่อไม่สำเร็จ</string>
     <string name="nav_tab_forwarded_paused">ส่งต่อแล้ว หยุดส่งต่อชั่วคราวอยู่</string>
     <string name="nav_tab_archived_new">เก็บถาวร มีการสนทนาที่เพิ่งเก็บถาวร</string>
-    <string name="nav_prompt_title">บันทึกกฎแล้ว</string>
-    <string name="nav_prompt_body">แสดงแท็บส่งต่อแล้วเพื่อดูข้อความที่ส่งและลองส่งข้อความที่ไม่สำเร็จอีกครั้งไหม</string>
-    <string name="nav_prompt_show">แสดงแท็บ</string>
-    <string name="nav_prompt_not_now">ไว้ภายหลัง</string>
     <string name="nav_fwd_paid_note">การส่งต่อแต่ละครั้งมีค่าบริการ SMS</string>
     <string name="nav_fwd_pause_all">หยุดส่งต่อทั้งหมดชั่วคราว</string>
     <string name="nav_fwd_status_paused">หยุดส่งต่อชั่วคราวอยู่</string>

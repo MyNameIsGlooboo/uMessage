@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdtab_added">Scheda Inoltrati aggiunta. Nasconderla?</string>
+    <string name="fwdtab_hide">Nascondi</string>
+</resources>

@@ -114,7 +114,8 @@ private fun rememberForwardActions(viewModel: ForwardRulesViewModel, onOpenAppLo
             onConfirmBroad = viewModel::confirmBroad,
             onCancelBroad = viewModel::cancelBroad,
             onAddForText = viewModel::openAddForText,
-            onForwardedTabAnswer = viewModel::answerForwardedTab,
+            onHideForwardedTab = viewModel::hideForwardedTab,
+            onForwardedTabHintDone = viewModel::forwardedTabHintDone,
         )
     }
 

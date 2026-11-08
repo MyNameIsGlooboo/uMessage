@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">Przekazane dalej, nie udało się przekazać wiadomości</string>
     <string name="nav_tab_forwarded_paused">Przekazane dalej, przekazywanie wstrzymane</string>
     <string name="nav_tab_archived_new">Archiwum, nowa rozmowa w archiwum</string>
-    <string name="nav_prompt_title">Reguła zapisana</string>
-    <string name="nav_prompt_body">Pokazać kartę „Przekazane dalej”, by przeglądać wysłane wiadomości i ponawiać nieudane próby?</string>
-    <string name="nav_prompt_show">Pokaż kartę</string>
-    <string name="nav_prompt_not_now">Nie teraz</string>
     <string name="nav_fwd_paid_note">Każde przekazanie to płatny SMS.</string>
     <string name="nav_fwd_pause_all">Wstrzymaj całe przekazywanie</string>
     <string name="nav_fwd_status_paused">Przekazywanie wstrzymane</string>

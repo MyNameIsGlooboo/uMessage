@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdtab_added">تمت إضافة تبويب «المُعاد توجيهها». هل تريد إخفاءه؟</string>
+    <string name="fwdtab_hide">إخفاء</string>
+</resources>

@@ -95,7 +95,7 @@ class MainTabsViewModel(application: Application) : AndroidViewModel(application
         MainTabsState(
             loaded = rules != null,
             forwardRuleCount = rules?.size ?: 0,
-            showForwarded = show.takeIf { forwardingAvailable },
+            showForwarded = if (forwardingAvailable) show else false,
             forwardPaused = paused && forwardingAvailable,
             failedUnseen = failed,
             failedForwards = failedListed,

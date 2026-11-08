@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">Weitergeleitet, eine Weiterleitung fehlgeschlagen</string>
     <string name="nav_tab_forwarded_paused">Weitergeleitet, Weiterleitung pausiert</string>
     <string name="nav_tab_archived_new">Archiv, neuer Chat archiviert</string>
-    <string name="nav_prompt_title">Regel gespeichert</string>
-    <string name="nav_prompt_body">Tab „Weitergeleitet“ anzeigen, um gesendete Nachrichten zu sehen und fehlgeschlagene Weiterleitungen erneut zu versuchen?</string>
-    <string name="nav_prompt_show">Tab anzeigen</string>
-    <string name="nav_prompt_not_now">Jetzt nicht</string>
     <string name="nav_fwd_paid_note">Jede Weiterleitung ist eine kostenpflichtige SMS.</string>
     <string name="nav_fwd_pause_all">Alle Weiterleitungen pausieren</string>
     <string name="nav_fwd_status_paused">Weiterleitung pausiert</string>

@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">ফরোয়ার্ড করা, একটি ফরোয়ার্ড ব্যর্থ হয়েছে</string>
     <string name="nav_tab_forwarded_paused">ফরোয়ার্ড করা, ফরোয়ার্ড করা স্থগিত আছে</string>
     <string name="nav_tab_archived_new">আর্কাইভ, নতুন চ্যাট আর্কাইভ করা হয়েছে</string>
-    <string name="nav_prompt_title">নিয়ম সংরক্ষণ করা হয়েছে</string>
-    <string name="nav_prompt_body">কী পাঠানো হয়েছে দেখতে ও ব্যর্থ হলে আবার চেষ্টা করতে “ফরোয়ার্ড করা” ট্যাব দেখাবেন?</string>
-    <string name="nav_prompt_show">ট্যাব দেখান</string>
-    <string name="nav_prompt_not_now">এখন নয়</string>
     <string name="nav_fwd_paid_note">প্রতিটি ফরোয়ার্ডের জন্য SMS-এর খরচ লাগে।</string>
     <string name="nav_fwd_pause_all">সব ফরোয়ার্ড স্থগিত করুন</string>
     <string name="nav_fwd_status_paused">ফরোয়ার্ড করা স্থগিত আছে</string>

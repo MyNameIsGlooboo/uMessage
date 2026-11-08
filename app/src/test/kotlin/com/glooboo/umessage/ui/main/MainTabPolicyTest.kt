@@ -38,16 +38,29 @@ class MainTabPolicyTest {
     }
 
     @Test
-    fun forwardedNeedsARuleAndTheUsersYes() {
-        assertThat(tabs(inputs(rules = 1, show = null))).doesNotContain(MainTab.Forwarded)
-        assertThat(tabs(inputs(rules = 1, show = false))).doesNotContain(MainTab.Forwarded)
+    fun forwardedShowsAsSoonAsARuleExistsUnlessTheUserHidIt() {
+        // No rules: hidden whatever the choice.
+        assertThat(tabs(inputs(rules = 0, show = null))).doesNotContain(MainTab.Forwarded)
         assertThat(tabs(inputs(rules = 0, show = true))).doesNotContain(MainTab.Forwarded)
+        assertThat(tabs(inputs(rules = 0, show = false))).doesNotContain(MainTab.Forwarded)
+        // Rules + never chosen = on by default; rules + on = on; rules + off = hidden.
+        assertThat(tabs(inputs(rules = 1, show = null))).contains(MainTab.Forwarded)
         assertThat(tabs(inputs(rules = 2, show = true))).contains(MainTab.Forwarded)
+        assertThat(tabs(inputs(rules = 1, show = false))).doesNotContain(MainTab.Forwarded)
+    }
+
+    @Test
+    fun deletingTheLastRuleHidesTheTabAndKeepsTheChoice() {
+        assertThat(tabs(inputs(rules = 1, show = null))).contains(MainTab.Forwarded)
+        assertThat(tabs(inputs(rules = 0, show = null))).doesNotContain(MainTab.Forwarded)
+        // The choice is untouched by the count: a new rule brings the tab back (or keeps it off).
+        assertThat(tabs(inputs(rules = 1, show = true))).contains(MainTab.Forwarded)
+        assertThat(tabs(inputs(rules = 1, show = false))).doesNotContain(MainTab.Forwarded)
     }
 
     @Test
     fun forwardedStaysAfterTheLastRuleWhileFailedForwardsAreListed() {
-        val failedLeft = inputs(rules = 0, show = true).copy(failedForwards = 1)
+        val failedLeft = inputs(rules = 0, show = null).copy(failedForwards = 1)
         assertThat(tabs(failedLeft)).contains(MainTab.Forwarded)
         assertThat(tabs(failedLeft.copy(failedForwards = 0))).doesNotContain(MainTab.Forwarded)
         assertThat(tabs(failedLeft.copy(showForwarded = false))).doesNotContain(MainTab.Forwarded)

@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">已转发，有转发失败</string>
     <string name="nav_tab_forwarded_paused">已转发，转发已暂停</string>
     <string name="nav_tab_archived_new">归档，有新归档的会话</string>
-    <string name="nav_prompt_title">规则已保存</string>
-    <string name="nav_prompt_body">是否显示“已转发”标签页，以查看已发送的消息并重试失败的转发？</string>
-    <string name="nav_prompt_show">显示标签页</string>
-    <string name="nav_prompt_not_now">暂不</string>
     <string name="nav_fwd_paid_note">每次转发都会产生短信费用。</string>
     <string name="nav_fwd_pause_all">暂停所有转发</string>
     <string name="nav_fwd_status_paused">转发已暂停</string>

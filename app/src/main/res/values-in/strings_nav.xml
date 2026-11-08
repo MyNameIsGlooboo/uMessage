@@ -4,10 +4,6 @@
     <string name="nav_tab_forwarded_failed">Diteruskan, ada yang gagal diteruskan</string>
     <string name="nav_tab_forwarded_paused">Diteruskan, penerusan dijeda</string>
     <string name="nav_tab_archived_new">Arsip, percakapan baru diarsipkan</string>
-    <string name="nav_prompt_title">Aturan disimpan</string>
-    <string name="nav_prompt_body">Tampilkan tab Diteruskan untuk melihat pesan terkirim dan mencoba lagi yang gagal?</string>
-    <string name="nav_prompt_show">Tampilkan tab</string>
-    <string name="nav_prompt_not_now">Nanti saja</string>
     <string name="nav_fwd_paid_note">Setiap penerusan dikenai biaya SMS.</string>
     <string name="nav_fwd_pause_all">Jeda semua penerusan</string>
     <string name="nav_fwd_status_paused">Penerusan dijeda</string>

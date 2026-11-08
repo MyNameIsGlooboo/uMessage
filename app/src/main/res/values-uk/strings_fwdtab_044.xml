@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fwdtab_added">Вкладку «Переслані» додано. Приховати її?</string>
+    <string name="fwdtab_hide">Сховати</string>
+</resources>
