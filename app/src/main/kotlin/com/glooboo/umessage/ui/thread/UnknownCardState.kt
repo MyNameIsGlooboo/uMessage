@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,9 +25,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import android.content.res.Configuration
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.icons.Symbols
 
@@ -50,11 +54,20 @@ class UnknownCardState {
     }
 }
 
+/**
+ * In landscape with the keyboard up the window is only a few lines tall: the top bar, this card and the composer
+ * together are taller than it, and the composer would be drawn over the card. The card steps aside until the
+ * keyboard closes; portrait is unchanged.
+ */
+internal fun unknownCardCollapsed(landscape: Boolean, keyboardUp: Boolean): Boolean = landscape && keyboardUp
+
 /** The card under the top bar of a conversation with a stranger; the buttons follow what the menu offers. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun UnknownCardHost(vm: ThreadViewModel, actions: ThreadActions) {
     val state = vm.unknownCard
-    if (!state.visible) return
+    val landscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+    if (!state.visible || unknownCardCollapsed(landscape, WindowInsets.isImeVisible)) return
     val menu = vm.menu
     fun offer(available: Boolean, action: ThreadMenuAction): (() -> Unit)? =
         if (available) ({ actions.onMenuAction(action) }) else null
