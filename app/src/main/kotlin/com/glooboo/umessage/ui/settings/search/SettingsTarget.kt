@@ -53,7 +53,7 @@ enum class SettingsTarget(private val page: SettingsPage? = null) {
     }
 
     companion object {
-        /** The targets that belong to forwarding; the Google Play build has none of them. */
+        /** The targets that belong to forwarding; a build without forwarding has none of them. */
         val FORWARDING_TARGETS: Set<SettingsTarget> = setOf(FORWARD_OPTIONS, FORWARD_RULES)
     }
 }

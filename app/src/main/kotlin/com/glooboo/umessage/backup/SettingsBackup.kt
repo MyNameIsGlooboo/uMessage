@@ -96,7 +96,7 @@ object SettingsBackup {
         val repo = UMessage.repository(app)
         val content = BackupContent(
             rules = repo.rules.first(),
-            // The Google Play build has no forwarding: its backup never holds forward rules.
+            // Forward rules are part of the backup when this build has forwarding.
             forwardRules = if (ForwardingAvailability.isAvailable(app)) {
                 SpamEngine.forwardRepository(app).rules.first()
             } else {

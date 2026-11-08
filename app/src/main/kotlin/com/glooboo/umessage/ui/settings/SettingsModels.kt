@@ -78,7 +78,7 @@ data class SettingsUiState(
     val showRateRow: Boolean = false,
 
     /** Forward rules saved, and how many of them are switched on: the Forwarding row's summary (round 3). */
-    /** False in the Google Play build: no Forwarding row, page or search result. */
+    /** False in a build without forwarding: no Forwarding row, page or search result. */
     val forwardingAvailable: Boolean = true,
     val forwardRuleCount: Int = 0,
     val forwardRulesOn: Int = 0,

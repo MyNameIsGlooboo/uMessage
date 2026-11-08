@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">Le tue regole</string>
     <string name="onb_welcome_rules_desc">Consenti o blocca sempre mittenti, parole o espressioni regolari.</string>
     <string name="onb_welcome_forwarding">Inoltro automatico</string>
-    <string name="onb_welcome_forwarding_desc">Invia i messaggi scelti a un altro numero, con la protezione del tuo PIN.</string>
+    <string name="onb_welcome_forwarding_desc">Facoltativo: inoltra i messaggi a un numero che scegli tu.</string>
     <string name="onb_welcome_schedule">Programma e usa due SIM</string>
     <string name="onb_welcome_schedule_desc">Invia più tardi e scegli la SIM per ogni conversazione.</string>
     <string name="onb_welcome_lock">Blocco app e backup</string>

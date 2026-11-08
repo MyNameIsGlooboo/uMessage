@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">آپ کے اپنے اصول</string>
     <string name="onb_welcome_rules_desc">بھیجنے والوں، الفاظ یا پیٹرنز کو ہمیشہ اجازت دیں یا ہمیشہ بلاک کریں۔</string>
     <string name="onb_welcome_forwarding">خودکار فارورڈ</string>
-    <string name="onb_welcome_forwarding_desc">منتخب پیغامات کسی اور نمبر پر بھیجیں، آپ کے PIN سے محفوظ۔</string>
+    <string name="onb_welcome_forwarding_desc">اختیاری: پیغامات اپنی چنی ہوئی نمبر پر فارورڈ کریں۔</string>
     <string name="onb_welcome_schedule">شیڈول اور ڈوئل SIM</string>
     <string name="onb_welcome_schedule_desc">بعد میں بھیجیں، اور ہر چیٹ کے لیے SIM منتخب کریں۔</string>
     <string name="onb_welcome_lock">ایپ لاک اور بیک اپ</string>

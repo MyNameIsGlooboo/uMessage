@@ -197,7 +197,7 @@ class SettingsActivity : ComposeSimpleActivity() {
         // Bug 7: another screen can open a page directly (the forward editor opens App lock).
         val initialPage = (intent?.getStringExtra(EXTRA_PAGE)
             ?.let { name -> SettingsPage.entries.firstOrNull { it.name == name } } ?: SettingsPage.Main)
-            // The Google Play build has no Forwarding page, whoever asks for it.
+            // The Forwarding page, when this build has forwarding.
             .takeUnless { it == SettingsPage.Forwarding && !uiState.forwardingAvailable } ?: SettingsPage.Main
         setContent {
             LaunchedEffect(Unit) { collectSpamSummary() }

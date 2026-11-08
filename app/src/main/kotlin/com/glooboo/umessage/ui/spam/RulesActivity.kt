@@ -23,7 +23,7 @@ class RulesActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         // An intent built for the old Forward tab still lands on forwarding, not on the allowed and blocked lists.
         if (savedInstanceState == null && opensForwarding(intent)) {
-            // The Google Play build has no forwarding screen: such an intent just ends here.
+            // A build without a forwarding screen: such an intent just ends here.
             if (ForwardingAvailability.isAvailable(this)) {
                 startActivity(ForwardingActivity.intent(this, intent?.getStringExtra(EXTRA_FORWARD_SENDER)))
             }

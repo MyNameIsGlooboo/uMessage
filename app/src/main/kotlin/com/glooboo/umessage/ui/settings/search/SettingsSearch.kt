@@ -6,7 +6,7 @@ import com.glooboo.umessage.ui.settings.search.SettingsIndexEntry.Needs
 /**
  * The settings search for one language: reads the texts of [SettingsIndex] from [resources] and finds entries for a
  * typed query. Entries whose row is not on this phone (see [Needs]) are left out unless listed in [available]. With
- * [forwarding] off (the Google Play build) the forwarding entries are left out too.
+ * [forwarding] off the forwarding entries are left out too.
  */
 class SettingsSearch(resources: Resources, available: Set<Needs> = emptySet(), forwarding: Boolean = true) {
     /** One result: where it goes and the texts to show. */

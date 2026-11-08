@@ -170,18 +170,6 @@ kotlin {
     }
 }
 
-// The shared tests assume the full (foss) feature set, forwarding included. The Google Play variant has no
-// forwarding, so it runs only its own tests; the foss variant runs the whole suite.
-tasks.withType<Test>().configureEach {
-    if (name.contains("Gplay")) {
-        filter {
-            isFailOnNoMatchingTests = false
-            includeTestsMatching("*NoForwarding*")
-            includeTestsMatching("*ForwardingAvailabilityTest")
-        }
-    }
-}
-
 detekt {
     baseline = file("detekt-baseline.xml")
     config.setFrom("$rootDir/detekt.yml")

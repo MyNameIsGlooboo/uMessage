@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">আপনার নিজের নিয়ম</string>
     <string name="onb_welcome_rules_desc">প্রেরক, শব্দ বা প্যাটার্ন (রেগেক্স) অনুযায়ী সবসময় অনুমতি দিন বা ব্লক করুন।</string>
     <string name="onb_welcome_forwarding">স্বয়ংক্রিয় ফরোয়ার্ড</string>
-    <string name="onb_welcome_forwarding_desc">আপনার PIN-এর সুরক্ষায় বাছাই করা বার্তা অন্য নম্বরে পাঠান।</string>
+    <string name="onb_welcome_forwarding_desc">ঐচ্ছিক: আপনার বেছে নেওয়া নম্বরে মেসেজ ফরওয়ার্ড করুন।</string>
     <string name="onb_welcome_schedule">সময় নির্ধারণ করুন ও দুটি SIM</string>
     <string name="onb_welcome_schedule_desc">পরে পাঠান, আর প্রতিটি চ্যাটের জন্য SIM বেছে নিন।</string>
     <string name="onb_welcome_lock">অ্যাপ লক ও ব্যাকআপ</string>

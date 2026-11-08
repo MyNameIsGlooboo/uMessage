@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.spam.data.DefaultForwardRepository
 import com.glooboo.umessage.spam.data.ForwardDelivery
 import com.glooboo.umessage.spam.data.ForwardRuleEntity
 import com.glooboo.umessage.spam.data.ForwardSmsSender
@@ -21,11 +22,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Only compiled and run for the Google Play flavor (`:app:testGplayDebugUnitTest`): in that build forwarding does not
- * exist, even when a forward rule sits in the database (an old restore, a copied file).
+ * Runs in the foss and the Google Play flavor: optional forwarding is present in both. The Google Play build used to
+ * have none (this was GooglePlayNoForwardingTest); Google Play Developer Support confirmed in writing that it is
+ * allowed for the default SMS app when it is optional, on the device and disclosed.
  */
 @RunWith(AndroidJUnit4::class)
-class GooglePlayNoForwardingTest {
+class ForwardingInEveryBuildTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private lateinit var spamDb: SpamDatabase
 
@@ -49,41 +51,32 @@ class GooglePlayNoForwardingTest {
     )
 
     @Test
-    fun forwardingIsNotAvailable() {
-        assertThat(ForwardingAvailability.isAvailable(context)).isFalse()
+    fun forwardingIsAvailable() {
+        assertThat(ForwardingAvailability.isAvailable(context)).isTrue()
     }
 
     @Test
-    fun theRepositoryShowsNoRulesEvenWhenARowIsInTheDatabase() {
+    fun theRepositoryIsTheRealOneAndShowsTheRule() {
         addRule()
-        assertThat(SpamEngine.forwardRepository(context)).isSameInstanceAs(NoForwardRepository)
-        assertThat(SpamEngine.forwardRepository(context).currentRules()).isEmpty()
+        assertThat(SpamEngine.forwardRepository(context)).isInstanceOf(DefaultForwardRepository::class.java)
+        assertThat(SpamEngine.forwardRepository(context).currentRules()).hasSize(1)
     }
 
     @Test
-    fun aMatchingMessageIsNotForwarded() {
+    fun aMatchingMessageIsForwarded() {
         addRule()
         val sent = mutableListOf<String>()
         ForwardDelivery.sender = ForwardSmsSender { _, text, _, _, _ -> sent += text }
 
         ForwardDelivery.onInboxMessage(context, ForwardCandidate("+15551234567", "Deposit of 500", 1))
 
-        assertThat(sent).isEmpty()
-        assertThat(spamDb.forwardLogDao().touchedSince(0L)).isEmpty()
+        assertThat(sent).hasSize(1)
     }
 
     @Test
-    fun theSystemSenderRefusesToSend() {
-        val result = runCatching { SystemForwardSender.send(context, "[from x] hi", "+15550001111", null, null) }
-        assertThat(result.exceptionOrNull()).isInstanceOf(IllegalStateException::class.java)
-    }
-
-    @Test
-    fun theForwardingScreenIsNotInTheManifest() {
+    fun theForwardingScreenIsInTheManifest() {
         val name = ComponentName(context, ForwardingActivity::class.java)
-        val result = runCatching {
-            context.packageManager.getActivityInfo(name, PackageManager.MATCH_DISABLED_COMPONENTS)
-        }
-        assertThat(result.exceptionOrNull()).isInstanceOf(PackageManager.NameNotFoundException::class.java)
+        val info = context.packageManager.getActivityInfo(name, PackageManager.MATCH_DISABLED_COMPONENTS)
+        assertThat(info.name).isEqualTo(ForwardingActivity::class.java.name)
     }
 }

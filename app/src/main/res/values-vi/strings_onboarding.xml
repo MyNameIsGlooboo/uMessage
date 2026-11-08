@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">Quy tắc của bạn</string>
     <string name="onb_welcome_rules_desc">Luôn cho phép hoặc luôn chặn theo người gửi, từ hoặc biểu thức chính quy.</string>
     <string name="onb_welcome_forwarding">Tự động chuyển tiếp</string>
-    <string name="onb_welcome_forwarding_desc">Gửi tin nhắn đã chọn đến số khác, được bảo vệ bằng PIN của bạn.</string>
+    <string name="onb_welcome_forwarding_desc">Tùy chọn: chuyển tiếp tin nhắn đến số bạn chọn.</string>
     <string name="onb_welcome_schedule">Lên lịch gửi và hai SIM</string>
     <string name="onb_welcome_schedule_desc">Gửi sau và chọn SIM cho từng cuộc trò chuyện.</string>
     <string name="onb_welcome_lock">Khóa ứng dụng và sao lưu</string>

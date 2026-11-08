@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">自定义规则</string>
     <string name="onb_welcome_rules_desc">按发件人、关键词或正则表达式，始终允许或屏蔽消息。</string>
     <string name="onb_welcome_forwarding">自动转发</string>
-    <string name="onb_welcome_forwarding_desc">将选定的消息转发到其他号码，由PIN提供保护。</string>
+    <string name="onb_welcome_forwarding_desc">可选：将消息转发到你选择的号码。</string>
     <string name="onb_welcome_schedule">定时发送与双SIM卡</string>
     <string name="onb_welcome_schedule_desc">定时发送消息，并为每个会话选择SIM卡。</string>
     <string name="onb_welcome_lock">应用锁与备份</string>

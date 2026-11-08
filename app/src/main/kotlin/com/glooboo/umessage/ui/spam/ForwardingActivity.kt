@@ -26,7 +26,7 @@ class ForwardingActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         applyUMessageWindow()
         super.onCreate(savedInstanceState)
-        // The Google Play build has no forwarding: any way in (a stale shortcut, an intent) ends here at once.
+        // A build without forwarding: any way in (a stale shortcut, an intent) ends here at once.
         if (!ForwardingAvailability.isAvailable(this)) {
             finish()
             return

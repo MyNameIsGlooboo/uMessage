@@ -39,7 +39,7 @@ fun interface ForwardSmsSender {
  */
 object SystemForwardSender : ForwardSmsSender {
     override fun send(context: Context, text: String, target: String, subscriptionId: Int?, logId: Long?) {
-        // Last gate before the radio: a build without forwarding never sends a forward, whoever asks.
+        // Last gate before the radio: a build without forwarding would never send a forward, whoever asks.
         check(ForwardingAvailability.isAvailable(context)) { "Forwarding is not available in this build" }
         context.messagingUtils.sendSmsMessage(
             text = text,

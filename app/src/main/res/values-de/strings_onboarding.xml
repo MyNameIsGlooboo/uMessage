@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">Deine eigenen Regeln</string>
     <string name="onb_welcome_rules_desc">Absender, Wörter oder Muster immer erlauben oder immer blockieren.</string>
     <string name="onb_welcome_forwarding">Automatisches Weiterleiten</string>
-    <string name="onb_welcome_forwarding_desc">Leite ausgewählte Nachrichten an eine andere Nummer weiter, geschützt durch deine PIN.</string>
+    <string name="onb_welcome_forwarding_desc">Optional: Nachrichten an eine Nummer Ihrer Wahl weiterleiten.</string>
     <string name="onb_welcome_schedule">Planen und Dual-SIM</string>
     <string name="onb_welcome_schedule_desc">Sende später und wähle für jede Unterhaltung die SIM.</string>
     <string name="onb_welcome_lock">App-Sperre und Sichern</string>

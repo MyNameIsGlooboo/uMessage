@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">قانون‌های خودتان</string>
     <string name="onb_welcome_rules_desc">فرستنده‌ها، کلمه‌ها یا الگوها را همیشه مجاز یا بلاک کنید.</string>
     <string name="onb_welcome_forwarding">فوروارد خودکار</string>
-    <string name="onb_welcome_forwarding_desc">پیام‌های انتخابی را با محافظت پین خود به شماره‌ای دیگر بفرستید.</string>
+    <string name="onb_welcome_forwarding_desc">اختیاری: پیام‌ها را به شماره‌ای که خودتان انتخاب می‌کنید فوروارد کنید.</string>
     <string name="onb_welcome_schedule">زمان‌بندی و دو سیم‌کارت</string>
     <string name="onb_welcome_schedule_desc">پیام را بعداً بفرستید و سیم‌کارت هر گفتگو را انتخاب کنید.</string>
     <string name="onb_welcome_lock">قفل برنامه و بک‌آپ</string>

@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">自分だけのルール</string>
     <string name="onb_welcome_rules_desc">送信者、単語、パターン（正規表現）を指定して、常に許可またはブロックできます。</string>
     <string name="onb_welcome_forwarding">自動転送</string>
-    <string name="onb_welcome_forwarding_desc">選んだメッセージを別の番号に転送できます。PINで保護されます。</string>
+    <string name="onb_welcome_forwarding_desc">オプション：選んだ番号にメッセージを転送します。</string>
     <string name="onb_welcome_schedule">送信予約とデュアルSIM</string>
     <string name="onb_welcome_schedule_desc">送信予約ができ、会話ごとにSIMを選べます。</string>
     <string name="onb_welcome_lock">アプリロックとバックアップ</string>

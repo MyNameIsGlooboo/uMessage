@@ -131,7 +131,7 @@ fun MainScreen(
     val openTabHandled by rememberUpdatedState(onOpenTabHandled)
     val forwardingAvailable = ForwardingAvailability.isAvailable(LocalContext.current)
     LaunchedEffect(openTab) {
-        // A link to the Forwarded tab (an old notification, an intent) goes nowhere in the Google Play build.
+        // A link to the Forwarded tab goes nowhere in a build without forwarding.
         MainTabPolicy.fromLink(openTab)?.takeIf { forwardingAvailable || it != MainTab.Forwarded }?.let { target ->
             selectedTab = target
             forwardedOpened = target == MainTab.Forwarded

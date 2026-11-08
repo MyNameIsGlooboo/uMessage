@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">Aturan sendiri</string>
     <string name="onb_welcome_rules_desc">Selalu izinkan atau selalu blokir pengirim, kata, atau pola.</string>
     <string name="onb_welcome_forwarding">Teruskan otomatis</string>
-    <string name="onb_welcome_forwarding_desc">Kirim pesan pilihan ke nomor lain, dilindungi PIN Anda.</string>
+    <string name="onb_welcome_forwarding_desc">Opsional: teruskan pesan ke nomor pilihan Anda.</string>
     <string name="onb_welcome_schedule">Jadwalkan dan SIM ganda</string>
     <string name="onb_welcome_schedule_desc">Kirim nanti, dan pilih SIM untuk tiap percakapan.</string>
     <string name="onb_welcome_lock">Kunci aplikasi dan cadangkan</string>

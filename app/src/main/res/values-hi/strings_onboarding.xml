@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">आपके अपने नियम</string>
     <string name="onb_welcome_rules_desc">भेजने वालों, शब्दों या पैटर्न (रेगुलर एक्सप्रेशन) को हमेशा अनुमति दें या हमेशा ब्लॉक करें.</string>
     <string name="onb_welcome_forwarding">अपने-आप फ़ॉरवर्ड करें</string>
-    <string name="onb_welcome_forwarding_desc">चुने हुए मैसेज दूसरे नंबर पर भेजें, आपके पिन की सुरक्षा के साथ.</string>
+    <string name="onb_welcome_forwarding_desc">वैकल्पिक: संदेशों को अपनी चुनी हुई संख्या पर फ़ॉरवर्ड करें।</string>
     <string name="onb_welcome_schedule">शेड्यूल करें और दो सिम इस्तेमाल करें</string>
     <string name="onb_welcome_schedule_desc">बाद में भेजें और हर बातचीत के लिए सिम चुनें.</string>
     <string name="onb_welcome_lock">ऐप लॉक और बैकअप</string>

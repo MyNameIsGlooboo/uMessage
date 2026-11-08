@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">나만의 규칙</string>
     <string name="onb_welcome_rules_desc">발신자, 단어, 정규식에 따라 항상 허용하거나 차단해요.</string>
     <string name="onb_welcome_forwarding">자동 전달</string>
-    <string name="onb_welcome_forwarding_desc">선택한 메시지를 다른 번호로 전달하고, PIN 코드로 보호해요.</string>
+    <string name="onb_welcome_forwarding_desc">선택 사항: 직접 고른 번호로 메시지를 전달합니다.</string>
     <string name="onb_welcome_schedule">예약 전송과 듀얼 SIM</string>
     <string name="onb_welcome_schedule_desc">나중에 전송하도록 예약하고, 대화마다 사용할 SIM 카드를 선택해요.</string>
     <string name="onb_welcome_lock">앱 잠금과 백업</string>

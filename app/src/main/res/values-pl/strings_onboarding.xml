@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">Własne reguły</string>
     <string name="onb_welcome_rules_desc">Zawsze zezwalaj na wiadomości lub je blokuj według nadawców, słów lub wzorców.</string>
     <string name="onb_welcome_forwarding">Automatyczne przekazywanie dalej</string>
-    <string name="onb_welcome_forwarding_desc">Przekazuj wybrane wiadomości na inny numer, z ochroną kodem PIN.</string>
+    <string name="onb_welcome_forwarding_desc">Opcjonalnie: przekazuj wiadomości na wybrany numer.</string>
     <string name="onb_welcome_schedule">Planowanie i dwie karty SIM</string>
     <string name="onb_welcome_schedule_desc">Wysyłaj później i wybieraj kartę SIM dla każdej rozmowy.</string>
     <string name="onb_welcome_lock">Blokada aplikacji i kopia zapasowa</string>

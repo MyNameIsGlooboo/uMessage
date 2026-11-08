@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">自訂規則</string>
     <string name="onb_welcome_rules_desc">一律允許或一律封鎖特定寄件者、字詞或模式。</string>
     <string name="onb_welcome_forwarding">自動轉寄</string>
-    <string name="onb_welcome_forwarding_desc">將選定的訊息傳送到另一個號碼，並以你的PIN保護。</string>
+    <string name="onb_welcome_forwarding_desc">選用：將訊息轉發到你選擇的號碼。</string>
     <string name="onb_welcome_schedule">排程與雙SIM卡</string>
     <string name="onb_welcome_schedule_desc">稍後傳送，並為每個對話選擇SIM卡。</string>
     <string name="onb_welcome_lock">應用程式鎖與備份</string>

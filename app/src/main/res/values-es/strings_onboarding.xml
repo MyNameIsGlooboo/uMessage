@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">Tus propias reglas</string>
     <string name="onb_welcome_rules_desc">Permite siempre o bloquea siempre remitentes, palabras o patrones (expresiones regulares).</string>
     <string name="onb_welcome_forwarding">Reenvío automático</string>
-    <string name="onb_welcome_forwarding_desc">Envía los mensajes que elijas a otro número, con la protección de tu PIN.</string>
+    <string name="onb_welcome_forwarding_desc">Opcional: reenvía mensajes a un número que elijas.</string>
     <string name="onb_welcome_schedule">Programación y doble SIM</string>
     <string name="onb_welcome_schedule_desc">Envía más tarde y elige la SIM para cada chat.</string>
     <string name="onb_welcome_lock">Bloqueo de la aplicación y copia de seguridad</string>

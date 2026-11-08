@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">Ваши правила</string>
     <string name="onb_welcome_rules_desc">Всегда разрешайте или блокируйте сообщения по отправителям, словам или регулярным выражениям.</string>
     <string name="onb_welcome_forwarding">Автопересылка</string>
-    <string name="onb_welcome_forwarding_desc">Пересылайте выбранные сообщения на другой номер с защитой ПИН-кодом.</string>
+    <string name="onb_welcome_forwarding_desc">По желанию: пересылайте сообщения на выбранный вами номер.</string>
     <string name="onb_welcome_schedule">Отправка по расписанию и две SIM-карты</string>
     <string name="onb_welcome_schedule_desc">Отправляйте позже и выбирайте SIM-карту для каждого чата.</string>
     <string name="onb_welcome_lock">Блокировка приложения и резервное копирование</string>

@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">กฎของคุณเอง</string>
     <string name="onb_welcome_rules_desc">อนุญาตหรือบล็อกผู้ส่ง คำ หรือรูปแบบ (regex) เสมอ</string>
     <string name="onb_welcome_forwarding">ส่งต่ออัตโนมัติ</string>
-    <string name="onb_welcome_forwarding_desc">ส่งข้อความที่เลือกต่อไปยังอีกหมายเลข โดยมี PIN ป้องกัน</string>
+    <string name="onb_welcome_forwarding_desc">ไม่บังคับ: ส่งต่อข้อความไปยังหมายเลขที่คุณเลือก</string>
     <string name="onb_welcome_schedule">กำหนดเวลาส่งและใช้ 2 SIM</string>
     <string name="onb_welcome_schedule_desc">ส่งภายหลังและเลือก SIM สำหรับแต่ละแชท</string>
     <string name="onb_welcome_lock">ล็อกแอปและสำรองข้อมูล</string>

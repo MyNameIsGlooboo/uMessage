@@ -175,7 +175,7 @@ private fun MainPage(state: SettingsUiState, actions: SettingsActions, open: (Se
             showChevron = true,
         )
         // Round 3: always here, and it opens the forward rules themselves; their switches are one tap further.
-        // Not in the Google Play build, which has no forwarding.
+        // Not in a build without forwarding.
         if (state.forwardingAvailable) {
             SettingsRow(
                 title = stringResource(R.string.r3fwd_title),

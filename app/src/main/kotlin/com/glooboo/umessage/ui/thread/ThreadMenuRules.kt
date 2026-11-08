@@ -18,7 +18,7 @@ data class ThreadMenuInput(
     val allowedSender: String? = null,
     /** I48: the launcher accepts pinned shortcuts (ShortcutManagerCompat.isRequestPinShortcutSupported). */
     val pinShortcutSupported: Boolean = false,
-    /** False in the Google Play build, which has no forwarding: no "Always forward" entry. */
+    /** False in a build without forwarding: no "Always forward" entry. */
     val forwardingAvailable: Boolean = true,
     /** N05: the conversation is muted right now. */
     val muted: Boolean = false,

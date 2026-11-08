@@ -6,8 +6,6 @@ import android.telephony.SubscriptionManager
 import kotlinx.coroutines.runBlocking
 import com.glooboo.umessage.helpers.W3aPrefs
 import com.glooboo.umessage.spam.ForwardRepository
-import com.glooboo.umessage.spam.ForwardingAvailability
-import com.glooboo.umessage.spam.NoForwardRepository
 import com.glooboo.umessage.spam.data.DefaultForwardRepository
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
@@ -92,11 +90,7 @@ object SpamEngine {
 
     /** A thin wrapper over the database's DAO, made on each call so it always uses the current database instance. */
     fun forwardRepository(context: Context): ForwardRepository =
-        if (ForwardingAvailability.isAvailable(context)) {
-            DefaultForwardRepository(SpamDatabase.getInstance(context.applicationContext).forwardDao())
-        } else {
-            NoForwardRepository
-        }
+        DefaultForwardRepository(SpamDatabase.getInstance(context.applicationContext).forwardDao())
 
     /** The forward rules' matcher: the same number, sender id, keyword and pattern reading as the spam filter. */
     fun forwardPlanner(context: Context): ForwardPlanner = forwardPlanner ?: synchronized(this) {

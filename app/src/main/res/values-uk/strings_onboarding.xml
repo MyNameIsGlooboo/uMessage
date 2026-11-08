@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">Власні правила</string>
     <string name="onb_welcome_rules_desc">Завжди дозволяйте або блокуйте повідомлення за відправниками, словами чи регулярними виразами.</string>
     <string name="onb_welcome_forwarding">Автоматичне пересилання</string>
-    <string name="onb_welcome_forwarding_desc">Пересилайте вибрані повідомлення на інший номер під захистом вашого PIN.</string>
+    <string name="onb_welcome_forwarding_desc">За бажанням: пересилайте повідомлення на номер, який ви оберете.</string>
     <string name="onb_welcome_schedule">Планування надсилання та дві SIM</string>
     <string name="onb_welcome_schedule_desc">Надсилайте пізніше й вибирайте SIM для кожного чату.</string>
     <string name="onb_welcome_lock">Блокування застосунку та резервне копіювання</string>

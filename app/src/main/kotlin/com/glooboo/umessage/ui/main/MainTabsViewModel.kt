@@ -44,7 +44,7 @@ data class MainTabsState(
 class MainTabsViewModel(application: Application) : AndroidViewModel(application) {
     private val prefs = NavPrefs.get(application)
 
-    /** False in the Google Play build: no Forwarded tab, no forward log reads. */
+    /** False in a build without forwarding: no Forwarded tab, no forward log reads. */
     private val forwardingAvailable = ForwardingAvailability.isAvailable(application)
 
     private val rules: Flow<List<ForwardRule>?> =

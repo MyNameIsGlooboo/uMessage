@@ -19,7 +19,7 @@
     <string name="onb_welcome_rules">Your own rules</string>
     <string name="onb_welcome_rules_desc">Always allow or always block senders, words or patterns.</string>
     <string name="onb_welcome_forwarding">Auto-forwarding</string>
-    <string name="onb_welcome_forwarding_desc">Send chosen messages to another number, protected by your PIN.</string>
+    <string name="onb_welcome_forwarding_desc">Optional: forward messages to a number you choose.</string>
     <string name="onb_welcome_schedule">Schedule and dual SIM</string>
     <string name="onb_welcome_schedule_desc">Send later, and pick the SIM for each chat.</string>
     <string name="onb_welcome_lock">App lock and backup</string>

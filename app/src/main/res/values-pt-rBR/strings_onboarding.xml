@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">Suas próprias regras</string>
     <string name="onb_welcome_rules_desc">Permita sempre ou bloqueie sempre remetentes, palavras ou padrões.</string>
     <string name="onb_welcome_forwarding">Encaminhamento automático</string>
-    <string name="onb_welcome_forwarding_desc">Envie mensagens escolhidas para outro número, com a proteção do seu PIN.</string>
+    <string name="onb_welcome_forwarding_desc">Opcional: encaminhe mensagens para um número que você escolher.</string>
     <string name="onb_welcome_schedule">Envio programado e dois chips</string>
     <string name="onb_welcome_schedule_desc">Envie mais tarde e escolha o chip de cada conversa.</string>
     <string name="onb_welcome_lock">Bloqueio do app e backup</string>

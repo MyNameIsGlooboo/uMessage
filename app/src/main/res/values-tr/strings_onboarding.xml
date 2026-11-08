@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">Kendi kurallarınız</string>
     <string name="onb_welcome_rules_desc">Gönderenlere, kelimelere veya düzenli ifadelere her zaman izin verin ya da bunları her zaman engelleyin.</string>
     <string name="onb_welcome_forwarding">Otomatik iletme</string>
-    <string name="onb_welcome_forwarding_desc">Seçtiğiniz mesajları PIN korumasıyla başka bir numaraya gönderin.</string>
+    <string name="onb_welcome_forwarding_desc">İsteğe bağlı: iletileri seçtiğiniz bir numaraya yönlendirin.</string>
     <string name="onb_welcome_schedule">Gönderimi planlayın ve çift SIM</string>
     <string name="onb_welcome_schedule_desc">Mesajları daha sonra gönderin, her görüşme için SIM seçin.</string>
     <string name="onb_welcome_lock">Uygulama kilidi ve yedekleme</string>

@@ -16,7 +16,7 @@
     <string name="onb_welcome_rules">قواعدك الخاصة</string>
     <string name="onb_welcome_rules_desc">اسمح دائمًا بمرسلين أو كلمات أو تعبيرات نمطية، أو احظرها دائمًا.</string>
     <string name="onb_welcome_forwarding">إعادة التوجيه التلقائي</string>
-    <string name="onb_welcome_forwarding_desc">أرسل رسائل محدّدة إلى رقم آخر، بحماية رقم التعريف الشخصي.</string>
+    <string name="onb_welcome_forwarding_desc">اختياري: أعد توجيه الرسائل إلى رقم تختاره.</string>
     <string name="onb_welcome_schedule">جدولة الرسائل وشريحتا SIM</string>
     <string name="onb_welcome_schedule_desc">أرسل لاحقًا، واختر شريحة SIM لكل محادثة.</string>
     <string name="onb_welcome_lock">قفل التطبيق والنسخ الاحتياطي</string>

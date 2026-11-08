@@ -79,7 +79,7 @@ fun FirstDayChecklist(
     val smsHeld = remember(tick) { DefaultSmsRole.status(context) is DefaultSmsRole.Status.Held }
     val notificationsOn = remember(tick) { context.currentNotificationsBlock() == null }
     val blockedSeen = remember(tick) { prefs.blockedTabVisited }
-    // The Google Play build has no forwarding: the optional step is not listed or counted, and cannot hold the card.
+    // Without forwarding the optional step is not listed or counted, and cannot hold the card.
     val forwardingAvailable = remember(context) { ForwardingAvailability.isAvailable(context) }
     val steps = listedSteps(forwardingAvailable)
     val done = doneSteps(smsHeld, notificationsOn, blockedSeen, forwardingDone(forwardRuleCount, forwardingAvailable))
