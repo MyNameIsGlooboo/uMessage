@@ -18,7 +18,7 @@ class MainTabsFreshInstallTest {
     val compose = createComposeRule()
 
     @Test
-    fun `the bottom bar of a fresh config lists Messages, Blocked and Archived`() {
+    fun `the bottom bar of a fresh config lists Messages, Spam and Archive`() {
         val fresh = MainTabInputs(
             archiveAvailable = true,
             archivedCount = 0,
@@ -42,7 +42,7 @@ class MainTabsFreshInstallTest {
         }
         compose.onNodeWithText("Messages").assertIsDisplayed()
         compose.onNodeWithText("Spam").assertIsDisplayed()
-        compose.onNodeWithText("Archived").assertIsDisplayed()
+        compose.onNodeWithText("Archive").assertIsDisplayed()
         compose.onNodeWithText("Forwarded").assertDoesNotExist()
     }
 }

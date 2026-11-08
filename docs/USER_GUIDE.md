@@ -13,7 +13,7 @@ The first-run setup has up to four steps:
 
 ## Finding your way around
 
-The bottom bar has **Messages** and **Spam**, plus **Archived**, which is always there (it shows an empty state until you archive a chat). A **Forwarded** tab appears only in the GitHub and F-Droid builds, once a forward rule exists and you have switched the tab on.
+The bottom bar has **Messages** and **Spam**, plus **Archive**, which is always there (it shows an empty state until you archive a chat). A **Forwarded** tab appears only in the GitHub and F-Droid builds, once a forward rule exists and you have switched the tab on.
 
 The three-dot menu at the top of Messages lists, in this order: **Recycle bin** (first; it shows how many messages are in it, and is listed only while the recycle bin is switched on in Settings > Storage and cleanup), **Scheduled** (only when something is scheduled), **Starred** and **Settings**.
 

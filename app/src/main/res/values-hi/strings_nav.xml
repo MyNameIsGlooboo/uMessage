@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">फ़ॉरवर्ड किए गए</string>
     <string name="nav_tab_forwarded_failed">फ़ॉरवर्ड किए गए, एक मैसेज फ़ॉरवर्ड नहीं हुआ</string>
     <string name="nav_tab_forwarded_paused">फ़ॉरवर्ड किए गए, फ़ॉरवर्ड करना रुका हुआ है</string>
-    <string name="nav_tab_archived_new">संग्रहित, नई चैट संग्रहित की गई</string>
+    <string name="nav_tab_archived_new">संग्रह, नई चैट संग्रहित की गई</string>
     <string name="nav_prompt_title">नियम सेव किया गया</string>
     <string name="nav_prompt_body">भेजे गए मैसेज देखने और न भेजे गए मैसेज फिर से भेजने के लिए फ़ॉरवर्ड किए गए टैब दिखाएं?</string>
     <string name="nav_prompt_show">टैब दिखाएं</string>
@@ -64,7 +64,7 @@
     <string name="nav_fwd_error_radio">नेटवर्क मैसेज नहीं पहुंचा सका.</string>
     <string name="nav_fwd_error_refused">फ़ोन मैसेज नहीं भेज सका.</string>
     <string name="nav_fwd_open_chat">चैट खोलें</string>
-    <string name="nav_archived_title">संग्रहित</string>
+    <string name="nav_archived_title">संग्रह</string>
     <string name="nav_archived_back">मैसेज पर वापस जाएं</string>
     <string name="nav_archived_intro">संग्रहित चैट मैसेज में नहीं दिखती हैं. नया मैसेज आने पर चैट वापस आ जाती है, जब तक सेटिंग में “संग्रहित चैट छिपी रहें” चालू न हो.</string>
     <string name="nav_archived_intro_dismiss">यह नोट छिपाएं</string>

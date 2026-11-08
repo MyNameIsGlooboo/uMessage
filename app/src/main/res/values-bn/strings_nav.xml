@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">ফরোয়ার্ড করা</string>
     <string name="nav_tab_forwarded_failed">ফরোয়ার্ড করা, একটি ফরোয়ার্ড ব্যর্থ হয়েছে</string>
     <string name="nav_tab_forwarded_paused">ফরোয়ার্ড করা, ফরোয়ার্ড করা স্থগিত আছে</string>
-    <string name="nav_tab_archived_new">আর্কাইভ করা, নতুন চ্যাট আর্কাইভ করা হয়েছে</string>
+    <string name="nav_tab_archived_new">আর্কাইভ, নতুন চ্যাট আর্কাইভ করা হয়েছে</string>
     <string name="nav_prompt_title">নিয়ম সংরক্ষণ করা হয়েছে</string>
     <string name="nav_prompt_body">কী পাঠানো হয়েছে দেখতে ও ব্যর্থ হলে আবার চেষ্টা করতে “ফরোয়ার্ড করা” ট্যাব দেখাবেন?</string>
     <string name="nav_prompt_show">ট্যাব দেখান</string>
@@ -64,7 +64,7 @@
     <string name="nav_fwd_error_radio">নেটওয়ার্ক বার্তাটি পৌঁছে দিতে পারেনি।</string>
     <string name="nav_fwd_error_refused">ফোন বার্তাটি পাঠাতে পারেনি।</string>
     <string name="nav_fwd_open_chat">চ্যাট খুলুন</string>
-    <string name="nav_archived_title">আর্কাইভ করা</string>
+    <string name="nav_archived_title">আর্কাইভ</string>
     <string name="nav_archived_back">বার্তা বিভাগে ফিরুন</string>
     <string name="nav_archived_intro">আর্কাইভ করা চ্যাট বার্তা বিভাগে দেখা যায় না। নতুন বার্তা এলে চ্যাট আবার ফিরে আসে, যদি সেটিংসে “আর্কাইভ করা চ্যাট লুকিয়ে রাখুন” চালু না থাকে।</string>
     <string name="nav_archived_intro_dismiss">এই নোট লুকান</string>

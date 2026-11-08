@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">İletilenler</string>
     <string name="nav_tab_forwarded_failed">İletilenler, bir iletme başarısız oldu</string>
     <string name="nav_tab_forwarded_paused">İletilenler, iletme duraklatıldı</string>
-    <string name="nav_tab_archived_new">Arşivlendi, yeni görüşme arşivlendi</string>
+    <string name="nav_tab_archived_new">Arşiv, yeni görüşme arşivlendi</string>
     <string name="nav_prompt_title">Kural kaydedildi</string>
     <string name="nav_prompt_body">Gönderilenleri görmek ve başarısız olanları yeniden denemek için İletilenler sekmesi gösterilsin mi?</string>
     <string name="nav_prompt_show">Sekmeyi gösterin</string>
@@ -64,7 +64,7 @@
     <string name="nav_fwd_error_radio">Şebeke mesajı teslim edemedi.</string>
     <string name="nav_fwd_error_refused">Telefon mesajı gönderemedi.</string>
     <string name="nav_fwd_open_chat">Görüşmeyi açın</string>
-    <string name="nav_archived_title">Arşivlendi</string>
+    <string name="nav_archived_title">Arşiv</string>
     <string name="nav_archived_back">Mesajlara dönün</string>
     <string name="nav_archived_intro">Arşivlenen görüşmeler Mesajlar bölümünde görünmez. Ayarlar\'da “Arşivlenen görüşmeler gizli kalsın” açık değilse yeni mesaj geldiğinde görüşme geri döner.</string>
     <string name="nav_archived_intro_dismiss">Bu notu gizleyin</string>

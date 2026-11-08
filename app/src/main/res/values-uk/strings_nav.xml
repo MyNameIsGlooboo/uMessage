@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">Переслані</string>
     <string name="nav_tab_forwarded_failed">Переслані, помилка пересилання</string>
     <string name="nav_tab_forwarded_paused">Переслані, пересилання призупинено</string>
-    <string name="nav_tab_archived_new">Заархівовано, новий чат заархівовано</string>
+    <string name="nav_tab_archived_new">Архів, новий чат заархівовано</string>
     <string name="nav_prompt_title">Правило збережено</string>
     <string name="nav_prompt_body">Показати вкладку «Переслані», щоб бачити надіслані повідомлення й повторювати невдалі спроби?</string>
     <string name="nav_prompt_show">Показати вкладку</string>
@@ -72,7 +72,7 @@
     <string name="nav_fwd_error_radio">Мережа не доставила повідомлення.</string>
     <string name="nav_fwd_error_refused">Телефон не зміг надіслати повідомлення.</string>
     <string name="nav_fwd_open_chat">Відкрити чат</string>
-    <string name="nav_archived_title">Заархівовано</string>
+    <string name="nav_archived_title">Архів</string>
     <string name="nav_archived_back">Назад до повідомлень</string>
     <string name="nav_archived_intro">Заархівовані чати не відображаються в розділі «Повідомлення». Нове повідомлення повертає чат туди, якщо в налаштуваннях не ввімкнено «Приховувати заархівовані чати».</string>
     <string name="nav_archived_intro_dismiss">Приховати цю примітку</string>

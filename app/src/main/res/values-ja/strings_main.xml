@@ -8,7 +8,7 @@
     <string name="main_settings">設定</string>
     <string name="main_tab_messages">メッセージ</string>
     <string name="main_tab_blocked">迷惑メッセージ</string>
-    <string name="main_tab_archived">アーカイブ済み</string>
+    <string name="main_tab_archived">アーカイブ</string>
     <plurals name="main_tab_blocked_new">
         <item quantity="other">迷惑メッセージ、新着%d件</item>
     </plurals>

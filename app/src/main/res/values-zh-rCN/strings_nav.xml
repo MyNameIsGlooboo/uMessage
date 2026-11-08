@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">已转发</string>
     <string name="nav_tab_forwarded_failed">已转发，有转发失败</string>
     <string name="nav_tab_forwarded_paused">已转发，转发已暂停</string>
-    <string name="nav_tab_archived_new">已归档，有新归档的会话</string>
+    <string name="nav_tab_archived_new">归档，有新归档的会话</string>
     <string name="nav_prompt_title">规则已保存</string>
     <string name="nav_prompt_body">是否显示“已转发”标签页，以查看已发送的消息并重试失败的转发？</string>
     <string name="nav_prompt_show">显示标签页</string>
@@ -60,7 +60,7 @@
     <string name="nav_fwd_error_radio">网络未能送达此消息。</string>
     <string name="nav_fwd_error_refused">手机未能发送此消息。</string>
     <string name="nav_fwd_open_chat">打开会话</string>
-    <string name="nav_archived_title">已归档</string>
+    <string name="nav_archived_title">归档</string>
     <string name="nav_archived_back">返回消息</string>
     <string name="nav_archived_intro">已归档的会话不会显示在“消息”中。收到新消息后，会话会重新显示，除非在设置中开启“已归档的会话保持隐藏”。</string>
     <string name="nav_archived_intro_dismiss">隐藏此提示</string>

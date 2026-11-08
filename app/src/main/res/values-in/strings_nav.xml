@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">Diteruskan</string>
     <string name="nav_tab_forwarded_failed">Diteruskan, ada yang gagal diteruskan</string>
     <string name="nav_tab_forwarded_paused">Diteruskan, penerusan dijeda</string>
-    <string name="nav_tab_archived_new">Diarsipkan, percakapan baru diarsipkan</string>
+    <string name="nav_tab_archived_new">Arsip, percakapan baru diarsipkan</string>
     <string name="nav_prompt_title">Aturan disimpan</string>
     <string name="nav_prompt_body">Tampilkan tab Diteruskan untuk melihat pesan terkirim dan mencoba lagi yang gagal?</string>
     <string name="nav_prompt_show">Tampilkan tab</string>
@@ -60,7 +60,7 @@
     <string name="nav_fwd_error_radio">Jaringan gagal mengirim pesan.</string>
     <string name="nav_fwd_error_refused">Ponsel tidak dapat mengirim pesan.</string>
     <string name="nav_fwd_open_chat">Buka percakapan</string>
-    <string name="nav_archived_title">Diarsipkan</string>
+    <string name="nav_archived_title">Arsip</string>
     <string name="nav_archived_back">Kembali ke Pesan</string>
     <string name="nav_archived_intro">Percakapan yang diarsipkan tidak muncul di Pesan. Pesan baru akan mengembalikan percakapan, kecuali “Percakapan yang diarsipkan tetap tersembunyi” aktif di Setelan.</string>
     <string name="nav_archived_intro_dismiss">Sembunyikan catatan ini</string>

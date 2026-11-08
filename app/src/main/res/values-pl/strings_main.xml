@@ -8,7 +8,7 @@
     <string name="main_settings">Ustawienia</string>
     <string name="main_tab_messages">Wiadomości</string>
     <string name="main_tab_blocked">Spam</string>
-    <string name="main_tab_archived">Zarchiwizowane</string>
+    <string name="main_tab_archived">Archiwum</string>
     <plurals name="main_tab_blocked_new">
         <item quantity="one">Spam, %d nowa</item>
         <item quantity="few">Spam, %d nowe</item>

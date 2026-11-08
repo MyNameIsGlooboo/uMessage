@@ -8,7 +8,7 @@
     <string name="main_settings">Ayarlar</string>
     <string name="main_tab_messages">Mesajlar</string>
     <string name="main_tab_blocked">Spam</string>
-    <string name="main_tab_archived">Arşivlendi</string>
+    <string name="main_tab_archived">Arşiv</string>
     <plurals name="main_tab_blocked_new">
         <item quantity="one">Spam, %d yeni</item>
         <item quantity="other">Spam, %d yeni</item>

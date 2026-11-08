@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">ส่งต่อแล้ว</string>
     <string name="nav_tab_forwarded_failed">ส่งต่อแล้ว มีการส่งต่อไม่สำเร็จ</string>
     <string name="nav_tab_forwarded_paused">ส่งต่อแล้ว หยุดส่งต่อชั่วคราวอยู่</string>
-    <string name="nav_tab_archived_new">เก็บถาวรแล้ว มีการสนทนาที่เพิ่งเก็บถาวร</string>
+    <string name="nav_tab_archived_new">เก็บถาวร มีการสนทนาที่เพิ่งเก็บถาวร</string>
     <string name="nav_prompt_title">บันทึกกฎแล้ว</string>
     <string name="nav_prompt_body">แสดงแท็บส่งต่อแล้วเพื่อดูข้อความที่ส่งและลองส่งข้อความที่ไม่สำเร็จอีกครั้งไหม</string>
     <string name="nav_prompt_show">แสดงแท็บ</string>
@@ -60,7 +60,7 @@
     <string name="nav_fwd_error_radio">เครือข่ายส่งข้อความไม่สำเร็จ</string>
     <string name="nav_fwd_error_refused">โทรศัพท์ส่งข้อความไม่ได้</string>
     <string name="nav_fwd_open_chat">เปิดการสนทนา</string>
-    <string name="nav_archived_title">เก็บถาวรแล้ว</string>
+    <string name="nav_archived_title">เก็บถาวร</string>
     <string name="nav_archived_back">กลับไปที่ข้อความ</string>
     <string name="nav_archived_intro">การสนทนาที่เก็บถาวรจะไม่แสดงในแท็บข้อความ เมื่อมีข้อความใหม่ การสนทนาจะกลับมา เว้นแต่จะเปิด “ซ่อนการสนทนาที่เก็บถาวรไว้เสมอ” ในการตั้งค่า</string>
     <string name="nav_archived_intro_dismiss">ซ่อนคำแนะนำนี้</string>

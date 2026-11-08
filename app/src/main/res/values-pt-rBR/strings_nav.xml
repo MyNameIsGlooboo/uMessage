@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">Encaminhadas</string>
     <string name="nav_tab_forwarded_failed">Encaminhadas, houve falha em um encaminhamento</string>
     <string name="nav_tab_forwarded_paused">Encaminhadas, encaminhamento pausado</string>
-    <string name="nav_tab_archived_new">Arquivadas, nova conversa arquivada</string>
+    <string name="nav_tab_archived_new">Arquivo, nova conversa arquivada</string>
     <string name="nav_prompt_title">Regra salva</string>
     <string name="nav_prompt_body">Mostrar a aba Encaminhadas para ver o que foi enviado e tentar de novo em caso de falha?</string>
     <string name="nav_prompt_show">Mostre a aba</string>
@@ -64,7 +64,7 @@
     <string name="nav_fwd_error_radio">A rede não entregou a mensagem.</string>
     <string name="nav_fwd_error_refused">O celular não conseguiu enviar a mensagem.</string>
     <string name="nav_fwd_open_chat">Abra a conversa</string>
-    <string name="nav_archived_title">Arquivadas</string>
+    <string name="nav_archived_title">Arquivo</string>
     <string name="nav_archived_back">Volte para Mensagens</string>
     <string name="nav_archived_intro">Conversas arquivadas ficam fora de Mensagens. Uma nova mensagem traz a conversa de volta, a menos que “Manter conversas arquivadas ocultas” esteja ativado nas configurações.</string>
     <string name="nav_archived_intro_dismiss">Oculte este aviso</string>

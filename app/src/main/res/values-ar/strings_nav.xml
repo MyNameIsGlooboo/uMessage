@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">المعاد توجيهها</string>
     <string name="nav_tab_forwarded_failed">المعاد توجيهها، تعذرت إعادة توجيه رسالة</string>
     <string name="nav_tab_forwarded_paused">المعاد توجيهها، إعادة التوجيه متوقفة مؤقتًا</string>
-    <string name="nav_tab_archived_new">المؤرشفة، أُرشفت محادثة جديدة</string>
+    <string name="nav_tab_archived_new">الأرشيف، أُرشفت محادثة جديدة</string>
     <string name="nav_prompt_title">حُفظت القاعدة</string>
     <string name="nav_prompt_body">هل تريد إظهار تبويب «المعاد توجيهها» للاطلاع على الرسائل المرسلة وإعادة محاولة إرسال ما تعذر إرساله؟</string>
     <string name="nav_prompt_show">أظهر التبويب</string>
@@ -80,7 +80,7 @@
     <string name="nav_fwd_error_radio">لم تُسلّم الشبكة الرسالة.</string>
     <string name="nav_fwd_error_refused">لم يتمكن الهاتف من إرسالها.</string>
     <string name="nav_fwd_open_chat">افتح المحادثة</string>
-    <string name="nav_archived_title">المؤرشفة</string>
+    <string name="nav_archived_title">الأرشيف</string>
     <string name="nav_archived_back">ارجع إلى الرسائل</string>
     <string name="nav_archived_intro">لا تظهر المحادثات المؤرشفة في «الرسائل». تعود المحادثة عند وصول رسالة جديدة، ما لم يكن خيار «إبقاء المحادثات المؤرشفة مخفية» مفعّلًا في الإعدادات.</string>
     <string name="nav_archived_intro_dismiss">أخفِ هذه الملاحظة</string>

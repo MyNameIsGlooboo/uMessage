@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">Weitergeleitet</string>
     <string name="nav_tab_forwarded_failed">Weitergeleitet, eine Weiterleitung fehlgeschlagen</string>
     <string name="nav_tab_forwarded_paused">Weitergeleitet, Weiterleitung pausiert</string>
-    <string name="nav_tab_archived_new">Archiviert, neuer Chat archiviert</string>
+    <string name="nav_tab_archived_new">Archiv, neuer Chat archiviert</string>
     <string name="nav_prompt_title">Regel gespeichert</string>
     <string name="nav_prompt_body">Tab „Weitergeleitet“ anzeigen, um gesendete Nachrichten zu sehen und fehlgeschlagene Weiterleitungen erneut zu versuchen?</string>
     <string name="nav_prompt_show">Tab anzeigen</string>
@@ -64,7 +64,7 @@
     <string name="nav_fwd_error_radio">Das Netz hat die Nachricht nicht zugestellt.</string>
     <string name="nav_fwd_error_refused">Das Telefon konnte die Nachricht nicht senden.</string>
     <string name="nav_fwd_open_chat">Chat öffnen</string>
-    <string name="nav_archived_title">Archiviert</string>
+    <string name="nav_archived_title">Archiv</string>
     <string name="nav_archived_back">Zurück zu Nachrichten</string>
     <string name="nav_archived_intro">Archivierte Chats erscheinen nicht unter „Nachrichten“. Eine neue Nachricht bringt einen Chat zurück, außer „Archivierte Chats bleiben ausgeblendet“ ist in den Einstellungen aktiviert.</string>
     <string name="nav_archived_intro_dismiss">Hinweis ausblenden</string>

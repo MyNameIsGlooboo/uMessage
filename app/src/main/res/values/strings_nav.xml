@@ -4,7 +4,7 @@
     <string name="main_tab_forwarded">Forwarded</string>
     <string name="nav_tab_forwarded_failed">Forwarded, a forward failed</string>
     <string name="nav_tab_forwarded_paused">Forwarded, forwarding is paused</string>
-    <string name="nav_tab_archived_new">Archived, new chat archived</string>
+    <string name="nav_tab_archived_new">Archive, new chat archived</string>
 
     <!-- Question after the first forward rule is saved -->
     <string name="nav_prompt_title">Rule saved</string>
@@ -71,7 +71,7 @@
     <string name="nav_fwd_open_chat">Open chat</string>
 
     <!-- Archived tab and screen -->
-    <string name="nav_archived_title">Archived</string>
+    <string name="nav_archived_title">Archive</string>
     <string name="nav_archived_back">Back to Messages</string>
     <string name="nav_archived_intro">Archived chats stay out of Messages. A new message brings a chat back unless “Archived chats stay hidden” is on in Settings.</string>
     <string name="nav_archived_intro_dismiss">Hide this note</string>

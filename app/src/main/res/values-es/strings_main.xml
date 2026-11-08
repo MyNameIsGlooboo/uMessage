@@ -8,7 +8,7 @@
     <string name="main_settings">Configuración</string>
     <string name="main_tab_messages">Mensajes</string>
     <string name="main_tab_blocked">Spam</string>
-    <string name="main_tab_archived">Archivados</string>
+    <string name="main_tab_archived">Archivo</string>
     <plurals name="main_tab_blocked_new">
         <item quantity="one">Spam, %d nuevo</item>
         <item quantity="other">Spam, %d nuevos</item>

@@ -8,7 +8,7 @@
     <string name="main_settings">Setelan</string>
     <string name="main_tab_messages">Pesan</string>
     <string name="main_tab_blocked">Spam</string>
-    <string name="main_tab_archived">Diarsipkan</string>
+    <string name="main_tab_archived">Arsip</string>
     <plurals name="main_tab_blocked_new">
         <item quantity="other">Spam, %d baru</item>
     </plurals>

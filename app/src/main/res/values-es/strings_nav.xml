@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">Reenviados</string>
     <string name="nav_tab_forwarded_failed">Reenviados, un reenvío falló</string>
     <string name="nav_tab_forwarded_paused">Reenviados, reenvío en pausa</string>
-    <string name="nav_tab_archived_new">Archivados, nuevo chat archivado</string>
+    <string name="nav_tab_archived_new">Archivo, nuevo chat archivado</string>
     <string name="nav_prompt_title">Regla guardada</string>
     <string name="nav_prompt_body">¿Mostrar la pestaña Reenviados para ver lo enviado y reintentar los reenvíos fallidos?</string>
     <string name="nav_prompt_show">Mostrar pestaña</string>
@@ -64,7 +64,7 @@
     <string name="nav_fwd_error_radio">La red no lo entregó.</string>
     <string name="nav_fwd_error_refused">El teléfono no pudo enviarlo.</string>
     <string name="nav_fwd_open_chat">Abrir chat</string>
-    <string name="nav_archived_title">Archivados</string>
+    <string name="nav_archived_title">Archivo</string>
     <string name="nav_archived_back">Volver a Mensajes</string>
     <string name="nav_archived_intro">Los chats archivados no aparecen en Mensajes. Un mensaje nuevo hace que el chat vuelva, a menos que actives «Mantener ocultos los chats archivados» en Configuración.</string>
     <string name="nav_archived_intro_dismiss">Ocultar esta nota</string>

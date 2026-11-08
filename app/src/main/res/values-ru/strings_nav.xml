@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">Пересланные</string>
     <string name="nav_tab_forwarded_failed">Пересланные, ошибка пересылки</string>
     <string name="nav_tab_forwarded_paused">Пересланные, пересылка приостановлена</string>
-    <string name="nav_tab_archived_new">В архиве, добавлен новый чат</string>
+    <string name="nav_tab_archived_new">Архив, добавлен новый чат</string>
     <string name="nav_prompt_title">Правило сохранено</string>
     <string name="nav_prompt_body">Показать вкладку «Пересланные», чтобы видеть отправленные сообщения и повторять пересылку при ошибках?</string>
     <string name="nav_prompt_show">Показать вкладку</string>
@@ -72,7 +72,7 @@
     <string name="nav_fwd_error_radio">Сеть не доставила сообщение.</string>
     <string name="nav_fwd_error_refused">Телефон не смог отправить сообщение.</string>
     <string name="nav_fwd_open_chat">Открыть чат</string>
-    <string name="nav_archived_title">В архиве</string>
+    <string name="nav_archived_title">Архив</string>
     <string name="nav_archived_back">Назад к сообщениям</string>
     <string name="nav_archived_intro">Чаты в архиве не видны в разделе «Сообщения». Новое сообщение вернет чат обратно, если в настройках не включено «Оставлять чаты в архиве».</string>
     <string name="nav_archived_intro_dismiss">Скрыть подсказку</string>

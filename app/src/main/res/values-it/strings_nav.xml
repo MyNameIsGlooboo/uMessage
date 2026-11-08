@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">Inoltrati</string>
     <string name="nav_tab_forwarded_failed">Inoltrati, un inoltro non riuscito</string>
     <string name="nav_tab_forwarded_paused">Inoltrati, inoltro in pausa</string>
-    <string name="nav_tab_archived_new">Archiviati, nuova chat archiviata</string>
+    <string name="nav_tab_archived_new">Archivio, nuova chat archiviata</string>
     <string name="nav_prompt_title">Regola salvata</string>
     <string name="nav_prompt_body">Vuoi mostrare la scheda Inoltrati per vedere i messaggi inviati e riprovare gli inoltri non riusciti?</string>
     <string name="nav_prompt_show">Mostra scheda</string>
@@ -64,7 +64,7 @@
     <string name="nav_fwd_error_radio">La rete non ha consegnato il messaggio.</string>
     <string name="nav_fwd_error_refused">Il telefono non è riuscito a inviarlo.</string>
     <string name="nav_fwd_open_chat">Apri chat</string>
-    <string name="nav_archived_title">Archiviati</string>
+    <string name="nav_archived_title">Archivio</string>
     <string name="nav_archived_back">Torna a Messaggi</string>
     <string name="nav_archived_intro">Le chat archiviate non appaiono in Messaggi. Un nuovo messaggio riporta qui la chat, a meno che nelle Impostazioni sia attiva l\'opzione “Mantieni nascoste le chat archiviate”.</string>
     <string name="nav_archived_intro_dismiss">Nascondi questa nota</string>

@@ -22,7 +22,7 @@ officialese. The 0.4.2 pass replaced the formal words below with the spoken ones
 | Unknown sender | فرستنده ناشناس | Kept. |
 | Verification code / one-time code | کد تأیید / کد یک‌بارمصرف | "Copy code" = کپی کد. |
 | Filter mode Strict / Smart / Off | سخت‌گیرانه / هوشمند / خاموش | |
-| Archive / Archived | آرشیو کردن / آرشیوشده | Formerly بایگانی. |
+| Archive / Archived | آرشیو کردن / آرشیوشده | Formerly بایگانی. The tab and screen title are the noun «آرشیو». |
 | Unarchive | خارج کردن از آرشیو | |
 | Message / Messages | پیام / پیام‌ها | SMS = پیام (پیامک only inside the quoted Android setting «برنامهٔ پیامک»), MMS = پیام چندرسانه‌ای (MMS). |
 | Conversation | گفتگو | Kept. |
@@ -88,7 +88,7 @@ Names stay as they are: uMessage, Google Drive, SMS/MMS, GPL, Material You.
 - Digits: counts, times and sizes show Persian digits (۰-۹). `%d` placeholders get them from the app's
   locale; a number written into a Persian string ("پس از ۳۰ ثانیه") uses Persian digits too; code that
   builds a number label uses `localizedNumber` / `localizeDigits` (ui/components/LocalizedNumbers.kt),
-  never `toString()`. A phone number or number-only sender shown on screen (list, Archived, search,
+  never `toString()`. A phone number or number-only sender shown on screen (list, Archive, search,
   thread header, Details) goes through `displayNumber` (ui/components/PhoneNumberDisplay.kt), which
   groups it and writes it in Persian digits in the Persian UI (VS-38); copied, dialled and stored
   numbers keep their own digits. Codes, example numbers, versions in licence ids and message text keep

@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">Đã chuyển tiếp</string>
     <string name="nav_tab_forwarded_failed">Đã chuyển tiếp, có lần chuyển tiếp thất bại</string>
     <string name="nav_tab_forwarded_paused">Đã chuyển tiếp, đang tạm dừng chuyển tiếp</string>
-    <string name="nav_tab_archived_new">Đã lưu trữ, có cuộc trò chuyện mới được lưu trữ</string>
+    <string name="nav_tab_archived_new">Lưu trữ, có cuộc trò chuyện mới được lưu trữ</string>
     <string name="nav_prompt_title">Đã lưu quy tắc</string>
     <string name="nav_prompt_body">Hiển thị thẻ Đã chuyển tiếp để xem tin nhắn đã gửi và thử lại những lần thất bại?</string>
     <string name="nav_prompt_show">Hiện thẻ</string>
@@ -60,7 +60,7 @@
     <string name="nav_fwd_error_radio">Mạng không chuyển được tin nhắn.</string>
     <string name="nav_fwd_error_refused">Điện thoại không gửi được tin nhắn.</string>
     <string name="nav_fwd_open_chat">Mở cuộc trò chuyện</string>
-    <string name="nav_archived_title">Đã lưu trữ</string>
+    <string name="nav_archived_title">Lưu trữ</string>
     <string name="nav_archived_back">Quay lại Tin nhắn</string>
     <string name="nav_archived_intro">Cuộc trò chuyện đã lưu trữ không hiện trong Tin nhắn. Khi có tin nhắn mới, cuộc trò chuyện sẽ trở lại, trừ khi bạn bật “Luôn ẩn cuộc trò chuyện đã lưu trữ” trong Cài đặt.</string>
     <string name="nav_archived_intro_dismiss">Ẩn ghi chú này</string>

@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">فوروارد‌شده</string>
     <string name="nav_tab_forwarded_failed">فوروارد‌شده، یک فوروارد ناموفق</string>
     <string name="nav_tab_forwarded_paused">فوروارد‌شده، فوروارد متوقف است</string>
-    <string name="nav_tab_archived_new">آرشیو‌شده، گفتگوی جدیدی آرشیو شد</string>
+    <string name="nav_tab_archived_new">آرشیو، گفتگوی جدیدی آرشیو شد</string>
     <string name="nav_prompt_title">قانون ذخیره شد</string>
     <string name="nav_prompt_body">زبانهٔ «فوروارد‌شده» نمایش داده شود تا پیام‌های ارسال‌شده را ببینید و موارد ناموفق را دوباره بفرستید؟</string>
     <string name="nav_prompt_show">نمایش زبانه</string>
@@ -64,7 +64,7 @@
     <string name="nav_fwd_error_radio">شبکه آن را تحویل نداد.</string>
     <string name="nav_fwd_error_refused">گوشی نتوانست آن را ارسال کند.</string>
     <string name="nav_fwd_open_chat">باز کردن گفتگو</string>
-    <string name="nav_archived_title">آرشیو‌شده</string>
+    <string name="nav_archived_title">آرشیو</string>
     <string name="nav_archived_back">بازگشت به پیام‌ها</string>
     <string name="nav_archived_intro">گفتگوهای آرشیو‌شده در پیام‌ها نمایش داده نمی‌شوند. با رسیدن پیام جدید، گفتگو برمی‌گردد، مگر اینکه گزینهٔ «گفتگوهای آرشیو‌شده پنهان بمانند» در تنظیمات روشن باشد.</string>
     <string name="nav_archived_intro_dismiss">پنهان کردن این یادداشت</string>

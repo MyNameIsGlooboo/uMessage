@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">فارورڈ شدہ</string>
     <string name="nav_tab_forwarded_failed">فارورڈ شدہ، ایک فارورڈ ناکام ہوا</string>
     <string name="nav_tab_forwarded_paused">فارورڈ شدہ، فارورڈنگ رکی ہوئی ہے</string>
-    <string name="nav_tab_archived_new">آرکائیو شدہ، نئی چیٹ آرکائیو ہوئی</string>
+    <string name="nav_tab_archived_new">آرکائیو، نئی چیٹ آرکائیو ہوئی</string>
     <string name="nav_prompt_title">اصول محفوظ ہو گیا</string>
     <string name="nav_prompt_body">فارورڈ شدہ ٹیب دکھائیں تاکہ آپ دیکھ سکیں کیا بھیجا گیا اور ناکام فارورڈ دوبارہ آزما سکیں؟</string>
     <string name="nav_prompt_show">ٹیب دکھائیں</string>
@@ -64,7 +64,7 @@
     <string name="nav_fwd_error_radio">نیٹ ورک نے اسے نہیں پہنچایا۔</string>
     <string name="nav_fwd_error_refused">فون اسے نہیں بھیج سکا۔</string>
     <string name="nav_fwd_open_chat">چیٹ کھولیں</string>
-    <string name="nav_archived_title">آرکائیو شدہ</string>
+    <string name="nav_archived_title">آرکائیو</string>
     <string name="nav_archived_back">پیغامات پر واپس جائیں</string>
     <string name="nav_archived_intro">آرکائیو شدہ چیٹس پیغامات سے باہر رہتی ہیں۔ نیا پیغام چیٹ کو واپس لے آتا ہے، جب تک سیٹنگز میں «آرکائیو شدہ چیٹس چھپی رہیں» آن نہ ہو۔</string>
     <string name="nav_archived_intro_dismiss">یہ نوٹ چھپائیں</string>

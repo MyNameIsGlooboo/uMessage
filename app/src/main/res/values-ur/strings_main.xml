@@ -8,7 +8,7 @@
     <string name="main_settings">سیٹنگز</string>
     <string name="main_tab_messages">پیغامات</string>
     <string name="main_tab_blocked">اسپیم</string>
-    <string name="main_tab_archived">آرکائیو شدہ</string>
+    <string name="main_tab_archived">آرکائیو</string>
     <plurals name="main_tab_blocked_new">
         <item quantity="one">اسپیم، %d نیا</item>
         <item quantity="other">اسپیم، %d نئے</item>

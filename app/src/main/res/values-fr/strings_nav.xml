@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">Transférés</string>
     <string name="nav_tab_forwarded_failed">Transférés, échec d\'un transfert</string>
     <string name="nav_tab_forwarded_paused">Transférés, transferts en pause</string>
-    <string name="nav_tab_archived_new">Archivés, nouvelle conversation archivée</string>
+    <string name="nav_tab_archived_new">Archives, nouvelle conversation archivée</string>
     <string name="nav_prompt_title">Règle enregistrée</string>
     <string name="nav_prompt_body">Afficher l\'onglet Transférés pour voir les envois et réessayer en cas d\'échec ?</string>
     <string name="nav_prompt_show">Afficher l\'onglet</string>
@@ -64,7 +64,7 @@
     <string name="nav_fwd_error_radio">Le réseau n\'a pas livré le message.</string>
     <string name="nav_fwd_error_refused">Le téléphone n\'a pas pu envoyer le message.</string>
     <string name="nav_fwd_open_chat">Ouvrir la conversation</string>
-    <string name="nav_archived_title">Archivés</string>
+    <string name="nav_archived_title">Archives</string>
     <string name="nav_archived_back">Retour aux messages</string>
     <string name="nav_archived_intro">Les conversations archivées restent hors de Messages. Un nouveau message y ramène la conversation, sauf si l\'option « Garder les conversations archivées masquées » est activée dans les paramètres.</string>
     <string name="nav_archived_intro_dismiss">Masquer cette note</string>

@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">転送済み</string>
     <string name="nav_tab_forwarded_failed">転送済み、転送に失敗したメッセージがあります。</string>
     <string name="nav_tab_forwarded_paused">転送済み、転送を一時停止しています。</string>
-    <string name="nav_tab_archived_new">アーカイブ済み、新しくアーカイブされた会話があります。</string>
+    <string name="nav_tab_archived_new">アーカイブ、新しくアーカイブされた会話があります。</string>
     <string name="nav_prompt_title">ルールを保存しました。</string>
     <string name="nav_prompt_body">「転送済み」タブを表示して、転送したメッセージの確認や、失敗した転送の再試行ができるようにしますか？</string>
     <string name="nav_prompt_show">タブを表示</string>
@@ -60,7 +60,7 @@
     <string name="nav_fwd_error_radio">ネットワークで配信できませんでした。</string>
     <string name="nav_fwd_error_refused">端末から送信できませんでした。</string>
     <string name="nav_fwd_open_chat">会話を開く</string>
-    <string name="nav_archived_title">アーカイブ済み</string>
+    <string name="nav_archived_title">アーカイブ</string>
     <string name="nav_archived_back">メッセージに戻る</string>
     <string name="nav_archived_intro">アーカイブ済みの会話はメッセージに表示されません。新しいメッセージが届くと会話が戻りますが、設定で「アーカイブ済みの会話を非表示に保つ」をオンにすると戻りません。</string>
     <string name="nav_archived_intro_dismiss">この説明を非表示</string>

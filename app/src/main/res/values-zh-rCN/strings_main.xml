@@ -8,7 +8,7 @@
     <string name="main_settings">设置</string>
     <string name="main_tab_messages">消息</string>
     <string name="main_tab_blocked">垃圾短信</string>
-    <string name="main_tab_archived">已归档</string>
+    <string name="main_tab_archived">归档</string>
     <plurals name="main_tab_blocked_new">
         <item quantity="other">垃圾短信，%d条新消息</item>
     </plurals>

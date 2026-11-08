@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">已轉寄</string>
     <string name="nav_tab_forwarded_failed">已轉寄，有轉寄失敗</string>
     <string name="nav_tab_forwarded_paused">已轉寄，轉寄已暫停</string>
-    <string name="nav_tab_archived_new">已封存，有新的對話已封存</string>
+    <string name="nav_tab_archived_new">封存，有新的對話已封存</string>
     <string name="nav_prompt_title">規則已儲存</string>
     <string name="nav_prompt_body">要顯示「已轉寄」分頁，查看已傳送的內容並重試失敗項目嗎？</string>
     <string name="nav_prompt_show">顯示分頁</string>
@@ -60,7 +60,7 @@
     <string name="nav_fwd_error_radio">網路未送達。</string>
     <string name="nav_fwd_error_refused">手機無法傳送。</string>
     <string name="nav_fwd_open_chat">開啟對話</string>
-    <string name="nav_archived_title">已封存</string>
+    <string name="nav_archived_title">封存</string>
     <string name="nav_archived_back">返回訊息</string>
     <string name="nav_archived_intro">已封存的對話不會出現在「訊息」中。收到新訊息時，對話會回到「訊息」，除非在「設定」中開啟了「已封存的對話保持隱藏」。</string>
     <string name="nav_archived_intro_dismiss">隱藏此說明</string>

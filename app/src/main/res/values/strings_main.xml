@@ -9,7 +9,7 @@
     <!-- Bottom navigation bar tabs; keep them short. -->
     <string name="main_tab_messages">Messages</string>
     <string name="main_tab_blocked">Spam</string>
-    <string name="main_tab_archived">Archived</string>
+    <string name="main_tab_archived">Archive</string>
     <plurals name="main_tab_blocked_new">
         <item quantity="one">Spam, %d new</item>
         <item quantity="other">Spam, %d new</item>

@@ -8,7 +8,7 @@
     <string name="main_settings">تنظیمات</string>
     <string name="main_tab_messages">پیام‌ها</string>
     <string name="main_tab_blocked">اسپم</string>
-    <string name="main_tab_archived">آرشیو‌شده</string>
+    <string name="main_tab_archived">آرشیو</string>
     <plurals name="main_tab_blocked_new" tools:ignore="ImpliedQuantity">
         <item quantity="one">اسپم، %d مورد جدید</item>
         <item quantity="other">اسپم، %d مورد جدید</item>

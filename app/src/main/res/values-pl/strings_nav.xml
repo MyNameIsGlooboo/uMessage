@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">Przekazane dalej</string>
     <string name="nav_tab_forwarded_failed">Przekazane dalej, nie udało się przekazać wiadomości</string>
     <string name="nav_tab_forwarded_paused">Przekazane dalej, przekazywanie wstrzymane</string>
-    <string name="nav_tab_archived_new">Zarchiwizowane, nowa rozmowa w archiwum</string>
+    <string name="nav_tab_archived_new">Archiwum, nowa rozmowa w archiwum</string>
     <string name="nav_prompt_title">Reguła zapisana</string>
     <string name="nav_prompt_body">Pokazać kartę „Przekazane dalej”, by przeglądać wysłane wiadomości i ponawiać nieudane próby?</string>
     <string name="nav_prompt_show">Pokaż kartę</string>
@@ -72,7 +72,7 @@
     <string name="nav_fwd_error_radio">Sieć nie dostarczyła wiadomości.</string>
     <string name="nav_fwd_error_refused">Telefon nie mógł wysłać wiadomości.</string>
     <string name="nav_fwd_open_chat">Otwórz rozmowę</string>
-    <string name="nav_archived_title">Zarchiwizowane</string>
+    <string name="nav_archived_title">Archiwum</string>
     <string name="nav_archived_back">Wróć do wiadomości</string>
     <string name="nav_archived_intro">Zarchiwizowane rozmowy nie są widoczne w wiadomościach. Nowa wiadomość przywraca rozmowę, chyba że w ustawieniach włączysz „Ukrywaj zarchiwizowane rozmowy”.</string>
     <string name="nav_archived_intro_dismiss">Ukryj tę informację</string>

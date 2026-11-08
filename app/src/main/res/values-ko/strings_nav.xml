@@ -3,7 +3,7 @@
     <string name="main_tab_forwarded">전달</string>
     <string name="nav_tab_forwarded_failed">전달, 전달 실패 있음</string>
     <string name="nav_tab_forwarded_paused">전달, 전달 일시 중지됨</string>
-    <string name="nav_tab_archived_new">보관됨, 새 대화 보관됨</string>
+    <string name="nav_tab_archived_new">보관함, 새 대화 보관됨</string>
     <string name="nav_prompt_title">규칙 저장됨</string>
     <string name="nav_prompt_body">전달한 메시지를 확인하고 실패한 메시지를 다시 보낼 수 있도록 전달 탭을 표시할까요?</string>
     <string name="nav_prompt_show">탭 표시</string>
@@ -60,7 +60,7 @@
     <string name="nav_fwd_error_radio">네트워크에서 메시지를 전송하지 못했어요.</string>
     <string name="nav_fwd_error_refused">휴대전화에서 메시지를 보내지 못했어요.</string>
     <string name="nav_fwd_open_chat">대화 열기</string>
-    <string name="nav_archived_title">보관됨</string>
+    <string name="nav_archived_title">보관함</string>
     <string name="nav_archived_back">메시지로 돌아가기</string>
     <string name="nav_archived_intro">보관된 대화는 메시지 목록에 표시되지 않아요. 설정에서 \"보관된 대화 계속 숨기기\"를 켜지 않으면 새 메시지가 올 때 대화가 다시 표시돼요.</string>
     <string name="nav_archived_intro_dismiss">안내 숨기기</string>
