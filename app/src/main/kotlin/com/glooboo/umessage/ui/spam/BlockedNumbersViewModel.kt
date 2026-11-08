@@ -124,6 +124,29 @@ class BlockedNumbersViewModel @JvmOverloads constructor(
         }
     }
 
+    /** Numbers chosen from the contacts in the add dialog: each goes on the Android list unless it is already there. */
+    fun addFromContacts(picks: List<PickedNumber>) {
+        mutableState.update { it.copy(dialog = null) }
+        viewModelScope.launch {
+            val event = withContext(Dispatchers.IO) {
+                val known = SystemBlockList.load(app).map { it.number }.toMutableList()
+                var added = 0
+                val numbers = ContactNumberPicks.distinct(picks).map { BlockedNumberFormat.normalizeInput(it.number) }
+                for (number in numbers) {
+                    val fresh = known.none { it == number || RuleValidator.sameNumber(it, number) }
+                    val usable = BlockedNumberFormat.isValidEntry(number) && fresh
+                    if (usable && SystemBlockList.add(app, number)) {
+                        added++
+                        known += number
+                    }
+                }
+                BlockedNumbersEvent.Imported(added, picks.size - added)
+            }
+            events.trySend(event)
+            refresh()
+        }
+    }
+
     fun unblock(ids: Set<Long>) {
         val items = mutableState.value.numbers.filter { it.id in ids }
         if (items.isEmpty()) return

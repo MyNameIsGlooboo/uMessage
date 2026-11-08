@@ -165,6 +165,16 @@ class ForwardRulesViewModel(
     fun setSendFrom(sim: ForwardSim) = edit { it.copy(sendFrom = sim) }
     fun setNote(note: String) = edit { it.copy(note = note.take(MAX_NOTE)) }
 
+    /** A number chosen from the contacts: the rule matches that sender, and the contact's name becomes the note. */
+    fun pickSender(pick: PickedNumber) = edit {
+        it.copy(
+            senderType = RuleType.NUMBER,
+            senderPattern = pick.number.take(RuleValidator.MAX_PATTERN + 1),
+            note = it.note.ifBlank { pick.name.take(MAX_NOTE) },
+            broadAccepted = false,
+        )
+    }
+
     // A changed number needs its own test again.
     fun setTarget(index: Int, value: String) = edit { form ->
         if (index !in form.targets.indices) {

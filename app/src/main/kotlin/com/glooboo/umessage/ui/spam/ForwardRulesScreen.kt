@@ -98,6 +98,7 @@ import com.glooboo.umessage.ui.components.EmptyState
 import com.glooboo.umessage.ui.components.FabListBottomPadding
 import com.glooboo.umessage.ui.components.GroupShape
 import com.glooboo.umessage.ui.components.InfoChip
+import com.glooboo.umessage.ui.components.InfoIconButton
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.formatClockTime
 import com.glooboo.umessage.ui.components.isolateNumbers
@@ -123,6 +124,8 @@ class ForwardActions(
     val onDismissForm: () -> Unit = {},
     val onSenderType: (RuleType?) -> Unit = {},
     val onSenderPattern: (String) -> Unit = {},
+    /** A number chosen from the contacts fills the sender condition. */
+    val onPickSender: (PickedNumber) -> Unit = {},
     val onBodyType: (RuleType?) -> Unit = {},
     val onBodyPattern: (String) -> Unit = {},
     val onUseWindow: (Boolean) -> Unit = {},
@@ -197,17 +200,15 @@ fun ForwardRulesContent(state: ForwardUiState, actions: ForwardActions, bottomIn
 /** One quiet note, not a warning: what forwarding costs, and that blocked spam is never forwarded. */
 @Composable
 private fun ForwardIntro() {
-    Column(Modifier.fillMaxWidth().padding(bottom = 12.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+    // The cost fact stays in view; "spam is never forwarded" is the secondary line, behind the circled i.
+    Row(Modifier.fillMaxWidth().padding(bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
         Text(
             stringResource(R.string.forward_paid_note),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.weight(1f, fill = false),
         )
-        Text(
-            stringResource(R.string.forward2_intro_reassure),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
+        InfoIconButton(stringResource(R.string.r3fwd_title), stringResource(R.string.forward2_intro_reassure))
     }
 }
 
@@ -476,6 +477,7 @@ private fun ConditionPicker(
     tag: String,
     onType: (RuleType?) -> Unit,
     onPattern: (String) -> Unit,
+    contactButton: (@Composable () -> Unit)? = null,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(label, style = MaterialTheme.typography.labelLarge, modifier = Modifier.semantics { heading() })
@@ -514,6 +516,7 @@ private fun ConditionPicker(
                 ),
             )
         }
+        contactButton?.invoke()
     }
 }
 
@@ -522,6 +525,7 @@ private fun ConditionPicker(
 fun ForwardSheet(form: ForwardForm, sims: List<SimInfo>, actions: ForwardActions) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var picking by rememberSaveable { mutableStateOf<String?>(null) }
+    var pickingSender by rememberSaveable { mutableStateOf(false) }
     val context = LocalContext.current
     // The target field the contact picker fills in.
     var pickingTarget by rememberSaveable { mutableIntStateOf(0) }
@@ -559,6 +563,7 @@ fun ForwardSheet(form: ForwardForm, sims: List<SimInfo>, actions: ForwardActions
                     tag = "forward_sender",
                     onType = actions.onSenderType,
                     onPattern = actions.onSenderPattern,
+                    contactButton = { ChooseFromContactsButton(onChoose = { pickingSender = true }) },
                 )
                 ConditionPicker(
                     label = stringResource(R.string.forward_sheet_text_label),
@@ -611,7 +616,8 @@ fun ForwardSheet(form: ForwardForm, sims: List<SimInfo>, actions: ForwardActions
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     SwitchLine(
                         title = stringResource(R.string.forward_sheet_window),
-                        body = stringResource(R.string.forward2_window_help),
+                        body = null,
+                        info = stringResource(R.string.forward2_window_help),
                         checked = form.useWindow,
                         onChange = actions.onUseWindow,
                         tag = "forward_window",
@@ -644,9 +650,9 @@ fun ForwardSheet(form: ForwardForm, sims: List<SimInfo>, actions: ForwardActions
 
                 if (sims.size >= 2) {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(
+                        LabelWithInfo(
                             stringResource(R.string.forward_sheet_scope_label),
-                            style = MaterialTheme.typography.labelLarge,
+                            stringResource(R.string.forward2_scope_help),
                         )
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             RuleChoiceChip(
@@ -662,16 +668,11 @@ fun ForwardSheet(form: ForwardForm, sims: List<SimInfo>, actions: ForwardActions
                                 )
                             }
                         }
-                        Text(
-                            stringResource(R.string.forward2_scope_help),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
                     }
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(
+                        LabelWithInfo(
                             stringResource(R.string.forward_sheet_send_from_label),
-                            style = MaterialTheme.typography.labelLarge,
+                            stringResource(R.string.forward2_send_help),
                         )
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             RuleChoiceChip(
@@ -688,11 +689,6 @@ fun ForwardSheet(form: ForwardForm, sims: List<SimInfo>, actions: ForwardActions
                                 )
                             }
                         }
-                        Text(
-                            stringResource(R.string.forward2_send_help),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
                     }
                 }
 
@@ -758,6 +754,16 @@ fun ForwardSheet(form: ForwardForm, sims: List<SimInfo>, actions: ForwardActions
                 saveTag = "forward_save",
             )
         }
+    }
+    if (pickingSender) {
+        ContactPickerSheet(
+            multi = false,
+            onPick = { picks ->
+                picks.firstOrNull()?.let(actions.onPickSender)
+                pickingSender = false
+            },
+            onDismiss = { pickingSender = false },
+        )
     }
     if (form.confirmingCodes) {
         ConfirmDialog(
@@ -891,7 +897,6 @@ private fun Targets(form: ForwardForm, actions: ForwardActions, onPickContact: (
 @Composable
 private fun CostNote(count: Int) {
     val colors = MaterialTheme.colorScheme
-    val locale = uiLocale()
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
@@ -900,34 +905,55 @@ private fun CostNote(count: Int) {
         ),
         shape = RoundedCornerShape(16.dp),
     ) {
-        Row(Modifier.padding(16.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        Row(
+            Modifier.padding(start = 16.dp, end = 4.dp, top = 4.dp, bottom = 4.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             Icon(Symbols.Warning, contentDescription = null, modifier = Modifier.size(20.dp))
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(stringResource(R.string.forward_sheet_paid), style = MaterialTheme.typography.bodyMedium)
-                Text(
-                    pluralStringResource(R.plurals.forward2_cost_estimate, count, count),
-                    style = MaterialTheme.typography.titleSmall,
-                )
-                CostExample(R.string.fwdfix_cost_persian, SmsParts.EXAMPLE_PERSIAN, unicode = true, count, locale)
-                CostExample(R.string.fwdfix_cost_english, SmsParts.EXAMPLE_ENGLISH, unicode = false, count, locale)
-            }
+            // The cost fact stays in view; the estimate and the two examples are behind the circled i.
+            Text(
+                stringResource(R.string.forward_sheet_paid),
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.weight(1f),
+            )
+            InfoIconButton(stringResource(R.string.r3fwd_title), costDetails(count))
         }
     }
 }
 
+/** The estimate (at least this many SMS per forward) and what a longer Persian or English text costs (BR-41). */
 @Composable
-private fun CostExample(text: Int, length: Int, unicode: Boolean, numbers: Int, locale: java.util.Locale) {
-    val parts = SmsParts.count(length, unicode)
-    Text(
+private fun costDetails(count: Int): String {
+    val locale = uiLocale()
+    val persianParts = SmsParts.count(SmsParts.EXAMPLE_PERSIAN, unicode = true)
+    val englishParts = SmsParts.count(SmsParts.EXAMPLE_ENGLISH, unicode = false)
+    return listOf(
+        pluralStringResource(R.plurals.forward2_cost_estimate, count, count),
         stringResource(
-            text,
-            localizedNumber(length, locale),
-            localizedNumber(parts, locale),
-            localizedNumber(numbers, locale),
-            localizedNumber(parts * numbers, locale),
+            R.string.fwdfix_cost_persian,
+            localizedNumber(SmsParts.EXAMPLE_PERSIAN, locale),
+            localizedNumber(persianParts, locale),
+            localizedNumber(count, locale),
+            localizedNumber(persianParts * count, locale),
         ),
-        style = MaterialTheme.typography.bodySmall,
-    )
+        stringResource(
+            R.string.fwdfix_cost_english,
+            localizedNumber(SmsParts.EXAMPLE_ENGLISH, locale),
+            localizedNumber(englishParts, locale),
+            localizedNumber(count, locale),
+            localizedNumber(englishParts * count, locale),
+        ),
+    ).joinToString("\n")
+}
+
+/** A small heading with the circled i for its explanation at the end of the title. */
+@Composable
+private fun LabelWithInfo(label: String, info: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(label, style = MaterialTheme.typography.labelLarge, modifier = Modifier.weight(1f, fill = false))
+        InfoIconButton(label, info)
+    }
 }
 
 /** ID-07: one confirmed test SMS to the numbers, with its result under the button. */
@@ -995,15 +1021,40 @@ private const val KEYBOARD_SETTLE_MS = 150L
 private val KEEP_IN_VIEW_MARGIN = 16.dp
 
 @Composable
-private fun SwitchLine(title: String, body: String, checked: Boolean, onChange: (Boolean) -> Unit, tag: String) {
+private fun SwitchLine(
+    title: String,
+    body: String?,
+    checked: Boolean,
+    onChange: (Boolean) -> Unit,
+    tag: String,
+    info: String? = null,
+) {
     Row(
         modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(title, style = MaterialTheme.typography.bodyLarge)
-            Text(body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (info == null) {
+                Text(title, style = MaterialTheme.typography.bodyLarge)
+            } else {
+                // The secondary explanation sits behind a circled i at the end of the title.
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        title,
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.weight(1f, fill = false),
+                    )
+                    InfoIconButton(title, info)
+                }
+            }
+            if (body != null) {
+                Text(
+                    body,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
         }
         Switch(
             checked = checked,

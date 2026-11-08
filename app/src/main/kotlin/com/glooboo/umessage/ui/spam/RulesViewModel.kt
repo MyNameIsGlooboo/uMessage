@@ -122,6 +122,9 @@ sealed interface RulesEvent {
 
     /** The old lists were moved: words and numbers now rules, numbers taken off the system list, entries left behind. */
     data class Migrated(val keywords: Int, val numbers: Int, val removedFromSystem: Int, val kept: Int) : RulesEvent
+
+    /** Rules made from contacts picked in the add sheet; [skipped] numbers already had a rule or were not usable. */
+    data class AddedFromContacts(val added: Int, val skipped: Int) : RulesEvent
 }
 
 class RulesViewModel(
@@ -235,6 +238,27 @@ class RulesViewModel(
     }
 
     fun dismissForm() { form.value = null }
+
+    /**
+     * One rule per picked contact number in the sheet's list (Always allow or Always block), in the sheet's SIM
+     * scope. Numbers that already have a rule are skipped; the snackbar says how many were added.
+     */
+    fun addFromContacts(picks: List<PickedNumber>) {
+        val f = form.value ?: return
+        val known = allRules().map { it.id }.toSet()
+        val plan = ContactNumberPicks.plan(f.kind, f.subscriptionId, allRules(), picks)
+        form.value = f.copy(saving = true, saveFailed = false)
+        viewModelScope.launch {
+            var added = 0
+            var skipped = plan.skipped
+            for (rule in plan.rules) {
+                val id = runCatching { repository.addRule(rule) }.getOrNull()
+                if (id != null && id !in known) added++ else skipped++
+            }
+            form.value = null
+            events.trySend(RulesEvent.AddedFromContacts(added, skipped))
+        }
+    }
 
     /** Moves the rule being added or edited to the other list (Always allow / Always block). */
     fun setKind(kind: ListKind) = editForm { it.copy(kind = kind) }

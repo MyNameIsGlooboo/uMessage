@@ -122,6 +122,7 @@ class BlockedNumbersActions(
     val onExport: () -> Unit = {},
     val onMoveToRules: () -> Unit = {},
     val onSubmit: (String) -> Unit = {},
+    val onPickContacts: (List<PickedNumber>) -> Unit = {},
     val onDismissDialog: () -> Unit = {},
     /** One number into uMessage rules (SE-31). */
     val onMoveOne: (BlockedNumberItem) -> Unit = {},
@@ -215,6 +216,7 @@ fun BlockedNumbersRoute(
             },
             onMoveToRules = rulesViewModel::openMigrationFresh,
             onSubmit = viewModel::submit,
+            onPickContacts = viewModel::addFromContacts,
             onDismissDialog = viewModel::dismissDialog,
             onMoveOne = viewModel::moveToRules,
             onAddAsRule = viewModel::addAsRule,
@@ -596,6 +598,7 @@ private fun BlockedNumberRowActions(
 private fun NumberDialog(dialog: BlockedNumberDialog, actions: BlockedNumbersActions) {
     var value by rememberSaveable { mutableStateOf(dialog.original?.number.orEmpty()) }
     var showError by rememberSaveable { mutableStateOf(false) }
+    var pickingContacts by rememberSaveable { mutableStateOf(false) }
     val number = BlockedNumberFormat.normalizeInput(value)
     val error = when {
         number.isEmpty() -> stringResource(R.string.blocknum_err_empty)
@@ -626,6 +629,7 @@ private fun NumberDialog(dialog: BlockedNumberDialog, actions: BlockedNumbersAct
                     keyboardActions = KeyboardActions(onDone = { submit() }),
                 )
                 if (shortCode) ShortCodeWarning(onAddAsRule = { actions.onAddAsRule(value) })
+                if (dialog.original == null) ChooseFromContactsButton(onChoose = { pickingContacts = true })
             }
         },
         confirmButton = { TextButton(onClick = submit) { Text(stringResource(R.string.screens_ok)) } },
@@ -633,6 +637,16 @@ private fun NumberDialog(dialog: BlockedNumberDialog, actions: BlockedNumbersAct
             TextButton(onClick = actions.onDismissDialog) { Text(stringResource(R.string.screens_cancel)) }
         },
     )
+    if (pickingContacts) {
+        ContactPickerSheet(
+            multi = true,
+            onPick = { picks ->
+                pickingContacts = false
+                actions.onPickContacts(picks)
+            },
+            onDismiss = { pickingContacts = false },
+        )
+    }
 }
 
 /** The short-code warning of the add dialog, with its way out. */

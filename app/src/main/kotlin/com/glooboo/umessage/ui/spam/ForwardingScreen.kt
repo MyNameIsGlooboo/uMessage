@@ -90,6 +90,7 @@ private fun rememberForwardActions(viewModel: ForwardRulesViewModel, onOpenAppLo
             onDismissForm = viewModel::dismissForm,
             onSenderType = viewModel::setSenderType,
             onSenderPattern = viewModel::setSenderPattern,
+            onPickSender = viewModel::pickSender,
             onBodyType = viewModel::setBodyType,
             onBodyPattern = viewModel::setBodyPattern,
             onUseWindow = viewModel::setUseWindow,

@@ -498,6 +498,28 @@ class RulesViewModelTest {
         assertThat(rule.note).isEqualTo(RuleNotes.OLD_WORD_LIST)
     }
 
+    @Test
+    fun contactsPickedInTheSheetBecomeOneRuleEachAndExistingNumbersAreSkipped() {
+        start(listOf(SpamRule(id = 1, kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = "+14155550101")))
+        vm.selectTab(ListKind.ALLOW)
+        vm.openForm()
+        idleMain()
+        vm.addFromContacts(
+            listOf(
+                PickedNumber("Anna", "+14155550101"),
+                PickedNumber("Ben", "+14155550102"),
+                PickedNumber("Cleo", "+14155550103"),
+            ),
+        )
+        awaitUntil { events.any { it is RulesEvent.AddedFromContacts } }
+        val allowed = repo.rulesState.value.filter { it.kind == ListKind.ALLOW }
+        assertThat(allowed.map { it.pattern }).containsExactly("+14155550102", "+14155550103")
+        assertThat(allowed.map { it.note }).containsExactly("Ben", "Cleo")
+        assertThat(events.filterIsInstance<RulesEvent.AddedFromContacts>().single())
+            .isEqualTo(RulesEvent.AddedFromContacts(added = 2, skipped = 1))
+        assertThat(vm.state.value.form).isNull()
+    }
+
     // endregion
 
     private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()

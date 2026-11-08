@@ -132,6 +132,8 @@ class RulesActions(
     /** SE-16: rules are backed up with everything else, on Settings > Backup and restore. */
     val onOpenBackup: () -> Unit = {},
     val onDismissForm: () -> Unit = {},
+    /** Numbers chosen from the contacts in the add sheet: one rule per number. */
+    val onPickContacts: (List<PickedNumber>) -> Unit = {},
     val onType: (RuleType) -> Unit = {},
     val onPattern: (String) -> Unit = {},
     val onSim: (Int?) -> Unit = {},
@@ -195,6 +197,7 @@ fun RulesRoute(
             onDelete = viewModel::delete,
             onOpenBackup = onOpenBackup,
             onDismissForm = viewModel::dismissForm,
+            onPickContacts = viewModel::addFromContacts,
             onType = viewModel::setType,
             onPattern = viewModel::setPattern,
             onSim = viewModel::setSim,
@@ -247,10 +250,21 @@ private fun RulesEvents(viewModel: RulesViewModel, snackbar: SnackbarHostState) 
                     }
                     is RulesEvent.Migrated ->
                         snackbar.showSnackbar(migratedText(resources, event), duration = SnackbarDuration.Long)
+                    is RulesEvent.AddedFromContacts ->
+                        snackbar.showSnackbar(contactsAddedText(resources, event), duration = SnackbarDuration.Long)
                 }
             }
         }
     }
+}
+
+/** "3 rules added from contacts. Skipped: 1 (already have a rule)." */
+internal fun contactsAddedText(resources: android.content.res.Resources, event: RulesEvent.AddedFromContacts): String {
+    if (event.added == 0) return resources.getString(R.string.p44_rules_none_added)
+    val added = resources.getString(R.string.p44_rules_added, event.added)
+    if (event.skipped == 0) return added
+    val skipped = resources.getString(R.string.p44_rules_skipped, event.skipped)
+    return resources.getString(R.string.ui_two_sentences, added, skipped)
 }
 
 /** One snackbar line for a finished move, e.g. "3 words moved into rules. 2 numbers added as rules." */
@@ -1007,6 +1021,7 @@ internal suspend fun SnackbarHostState.showUndo(message: String, actionLabel: St
 @Composable
 fun AddRuleSheet(form: RuleForm, sims: List<SimInfo>, actions: RulesActions) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    var pickingContacts by rememberSaveable { mutableStateOf(false) }
     val error = form.visibleError
     // The sheet stops below the status bar, and Cancel / Save stay in a bar under the scrolling form.
     val maxHeight = LocalConfiguration.current.screenHeightDp.dp * SHEET_HEIGHT_FRACTION
@@ -1068,6 +1083,11 @@ fun AddRuleSheet(form: RuleForm, sims: List<SimInfo>, actions: RulesActions) {
                     },
                 )
 
+                // Several contacts at once: one rule per number, in the list chosen above.
+                if (form.type == RuleType.NUMBER && !form.isEdit) {
+                    ChooseFromContactsButton(onChoose = { pickingContacts = true })
+                }
+
                 if (form.type == RuleType.KEYWORD) WholeWordSwitch(form.pattern, actions.onPattern)
 
                 // Try a keyword or pattern on a sample message before it is saved.
@@ -1116,6 +1136,16 @@ fun AddRuleSheet(form: RuleForm, sims: List<SimInfo>, actions: RulesActions) {
                 onSave = actions.onSubmit,
             )
         }
+    }
+    if (pickingContacts) {
+        ContactPickerSheet(
+            multi = true,
+            onPick = { picks ->
+                pickingContacts = false
+                actions.onPickContacts(picks)
+            },
+            onDismiss = { pickingContacts = false },
+        )
     }
     if (form.confirming) ConfirmRuleDialog(form, actions)
 }
