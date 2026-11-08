@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -14,11 +15,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.ListKind
+import com.glooboo.umessage.ui.components.InfoIconButton
 
 /** "When it matches": always allow or always block, the one choice after what to match. */
 @OptIn(ExperimentalLayoutApi::class)
@@ -57,7 +60,16 @@ fun RuleSheetExtras(form: RuleForm, sims: List<SimInfo>, actions: RulesActions, 
     Column(modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
         if (sims.size >= 2) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(stringResource(R.string.spam_sheet_sim_label), style = MaterialTheme.typography.labelLarge)
+                // The explanation of which messages a one-SIM rule applies to sits behind the circled i.
+                val simLabel = stringResource(R.string.spam_sheet_sim_label)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        simLabel,
+                        style = MaterialTheme.typography.labelLarge,
+                        modifier = Modifier.weight(1f, fill = false),
+                    )
+                    InfoIconButton(simLabel, stringResource(R.string.rules2_sheet_sim_help))
+                }
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     RuleChoiceChip(
                         selected = form.subscriptionId == null,
@@ -77,11 +89,6 @@ fun RuleSheetExtras(form: RuleForm, sims: List<SimInfo>, actions: RulesActions, 
                         )
                     }
                 }
-                Text(
-                    stringResource(R.string.rules2_sheet_sim_help),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
             }
         }
         OutlinedTextField(

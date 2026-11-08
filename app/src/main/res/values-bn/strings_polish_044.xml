@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">আরও তথ্য</string>
+    <string name="p44_close">বন্ধ করুন</string>
+    <string name="p44_delete_saved_title">এই সংরক্ষিত টেক্সট মুছবেন?</string>
+    <string name="p44_choose_contacts">কন্টাক্ট থেকে বেছে নিন</string>
+    <string name="p44_picker_title_many">কন্টাক্ট বেছে নিন</string>
+    <string name="p44_picker_title_one">একটি কন্টাক্ট বেছে নিন</string>
+    <string name="p44_picker_search">কন্টাক্ট খুঁজুন</string>
+    <string name="p44_picker_empty">ফোন নম্বরসহ কোনো কন্টাক্ট পাওয়া যায়নি</string>
+    <string name="p44_contacts_denied">কন্টাক্টে অ্যাক্সেস বন্ধ আছে। কন্টাক্ট থেকে বেছে নিতে সেটিংসে অনুমতি দিন, অথবা নম্বর লিখুন।</string>
+    <string name="p44_picker_several">একাধিক নম্বর</string>
+    <string name="p44_picker_add">যোগ করুন (%1$d)</string>
+    <string name="p44_rules_added">কন্টাক্ট থেকে যোগ করা নিয়ম: %1$d</string>
+    <string name="p44_rules_skipped">বাদ দেওয়া হয়েছে (আগে থেকেই নিয়ম আছে): %1$d</string>
+    <string name="p44_rules_none_added">কোনো নিয়ম যোগ হয়নি: প্রতিটি নম্বরের আগে থেকেই নিয়ম আছে</string>
+</resources>

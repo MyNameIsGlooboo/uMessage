@@ -51,21 +51,29 @@ fun SettingsGroup(
     content: @Composable () -> Unit,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = if (description == null) 8.dp else 2.dp)
-                .semantics { heading() },
-        )
-        if (description != null) {
+        if (description == null) {
             Text(
-                text = description,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
+                text = title,
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+                    .semantics { heading() },
             )
+        } else {
+            // The description is a secondary explanation: it sits behind a circled "i" at the end of the title.
+            Row(
+                modifier = Modifier.padding(start = 16.dp, end = 8.dp, top = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.weight(1f, fill = false).semantics { heading() },
+                )
+                InfoIconButton(title, description)
+            }
         }
         TonalRows(modifier = Modifier.padding(horizontal = 16.dp), content = content)
     }
@@ -160,41 +168,64 @@ fun SettingsRow(
     /** Current value shown at the end of the row (dialog rows), before the chevron. */
     value: String? = null,
     trailing: @Composable (() -> Unit)? = null,
+    /** A secondary explanation behind a small circled "i" after the row; the row's title names its dialog. */
+    info: String? = null,
 ) {
-    val base = modifier
-        .fillMaxWidth()
-        .heightIn(min = 64.dp)
-    val interactive = if (onClick != null) {
-        base.clickable(role = Role.Button, onClick = onClick)
-    } else {
-        base.semantics(mergeDescendants = true) { }
+    InfoRowFrame(title, info, modifier) { frame ->
+        val base = frame.heightIn(min = 64.dp)
+        val interactive = if (onClick != null) {
+            base.clickable(role = Role.Button, onClick = onClick)
+        } else {
+            base.semantics(mergeDescendants = true) { }
+        }
+        Row(
+            modifier = interactive.padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            RowIconSlot(icon)
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(title, style = MaterialTheme.typography.bodyLarge)
+                if (summary != null) {
+                    Text(summary, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                if (badge != null) {
+                    InfoChip(text = badge, modifier = Modifier.padding(top = 4.dp))
+                }
+            }
+            if (value != null) {
+                Text(
+                    value,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            trailing?.invoke()
+            if (showChevron) {
+                Icon(
+                    imageVector = Symbols.ChevronRight,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
     }
-    Row(
-        modifier = interactive.padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-    ) {
-        RowIconSlot(icon)
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(title, style = MaterialTheme.typography.bodyLarge)
-            if (summary != null) {
-                Text(summary, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-            if (badge != null) {
-                InfoChip(text = badge, modifier = Modifier.padding(top = 4.dp))
-            }
-        }
-        if (value != null) {
-            Text(value, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        }
-        trailing?.invoke()
-        if (showChevron) {
-            Icon(
-                imageVector = Symbols.ChevronRight,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
+}
+
+/**
+ * Lays a settings row out beside an optional [InfoIconButton]. The icon is a sibling of the row, not inside it, so
+ * the row's own click or toggle target does not swallow it. Without [info] the row fills the width.
+ */
+@Composable
+private fun InfoRowFrame(
+    title: String,
+    info: String?,
+    modifier: Modifier = Modifier,
+    row: @Composable (Modifier) -> Unit,
+) {
+    Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        row(Modifier.weight(1f))
+        if (info != null) InfoIconButton(title, info)
     }
 }
 
@@ -208,28 +239,31 @@ fun SettingsSwitchRow(
     summary: String? = null,
     icon: ImageVector? = null,
     badge: String? = null,
+    /** A secondary explanation behind a small circled "i" after the row; the row's title names its dialog. */
+    info: String? = null,
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .heightIn(min = 64.dp)
-            .toggleable(value = checked, role = Role.Switch, onValueChange = onCheckedChange)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-    ) {
-        RowIconSlot(icon)
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(title, style = MaterialTheme.typography.bodyLarge)
-            if (summary != null) {
-                Text(summary, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    InfoRowFrame(title, info, modifier) { frame ->
+        Row(
+            modifier = frame
+                .heightIn(min = 64.dp)
+                .toggleable(value = checked, role = Role.Switch, onValueChange = onCheckedChange)
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            RowIconSlot(icon)
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(title, style = MaterialTheme.typography.bodyLarge)
+                if (summary != null) {
+                    Text(summary, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                if (badge != null) {
+                    InfoChip(text = badge, modifier = Modifier.padding(top = 4.dp))
+                }
             }
-            if (badge != null) {
-                InfoChip(text = badge, modifier = Modifier.padding(top = 4.dp))
-            }
+            // VS-27, BR-43, U08: a calm outlined off state and a check when on, so off reads as off, not as an error.
+            UMessageSwitch(checked = checked, onCheckedChange = null)
         }
-        // VS-27, BR-43, U08: a calm outlined off state and a check when on, so off reads as off, not as an error.
-        UMessageSwitch(checked = checked, onCheckedChange = null)
     }
 }
 

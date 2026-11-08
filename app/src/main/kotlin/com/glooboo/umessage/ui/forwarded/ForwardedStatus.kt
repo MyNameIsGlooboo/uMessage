@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.ForwardStatus
 import com.glooboo.umessage.ui.components.InfoChip
+import com.glooboo.umessage.ui.components.InfoIconButton
 import com.glooboo.umessage.ui.components.localizedNumber
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.icons.Symbols
@@ -53,6 +54,13 @@ internal fun StatusCard(state: ForwardedUiState, onPausedChange: (Boolean) -> Un
                 Column(Modifier.weight(1f)) {
                     Text(headerTitle(header, state), style = MaterialTheme.typography.titleMedium)
                     Text(headerHint(header, state, now) ?: pauseLabel, style = MaterialTheme.typography.bodySmall)
+                }
+                // Until a forward has gone out, "each forward is a paid SMS" is one tap away behind the circled i.
+                if (state.showPaidNote) {
+                    InfoIconButton(
+                        stringResource(R.string.main_tab_forwarded),
+                        stringResource(R.string.nav_fwd_paid_note),
+                    )
                 }
                 // On means forwarding runs; the stored flag is "paused", so the switch shows its opposite.
                 Switch(

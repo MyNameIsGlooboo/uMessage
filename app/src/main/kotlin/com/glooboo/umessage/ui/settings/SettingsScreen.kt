@@ -465,21 +465,20 @@ private fun ForwardingPage(state: SettingsUiState, actions: SettingsActions) {
     TonalRows(Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)) {
         SettingsSwitchRow(
             title = stringResource(R.string.settings_nav_forwarded_tab),
-            summary = stringResource(R.string.settings_nav_forwarded_tab_body),
+            info = stringResource(R.string.settings_nav_forwarded_tab_body),
             icon = Symbols.Forward,
             checked = state.showForwardedTab,
             onCheckedChange = actions.onShowForwardedTab,
         )
         SettingsSwitchRow(
             title = stringResource(R.string.settings_nav_forward_pause),
-            summary = stringResource(R.string.settings_nav_forward_pause_body),
+            info = stringResource(R.string.settings_nav_forward_pause_body),
             icon = Symbols.Pause,
             checked = state.pauseAllForwarding,
             onCheckedChange = actions.onPauseForwarding,
         )
         SettingsSwitchRow(
             title = stringResource(R.string.w3d_mask_codes),
-            summary = stringResource(R.string.w3d_mask_codes_body),
             icon = Symbols.Shield,
             checked = state.maskForwardedCodes,
             onCheckedChange = actions.onMaskForwardedCodes,
@@ -487,7 +486,7 @@ private fun ForwardingPage(state: SettingsUiState, actions: SettingsActions) {
         if (state.maskForwardedCodes) {
             SettingsSwitchRow(
                 title = stringResource(R.string.w3d_mask_keep_last),
-                summary = stringResource(
+                info = stringResource(
                     if (state.maskKeepLastDigits) R.string.w3d_mask_keep_last_on else R.string.w3d_mask_keep_last_off,
                 ),
                 icon = Symbols.Edit,
@@ -497,7 +496,6 @@ private fun ForwardingPage(state: SettingsUiState, actions: SettingsActions) {
         }
         SettingsRow(
             title = stringResource(R.string.w3d_daily_limit),
-            summary = stringResource(R.string.w3d_daily_limit_body),
             value = state.dailyForwardLimitLabel,
             icon = Symbols.Schedule,
             onClick = actions.onDailyForwardLimit,

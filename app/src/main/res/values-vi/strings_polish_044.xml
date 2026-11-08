@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">Thông tin thêm</string>
+    <string name="p44_close">Đóng</string>
+    <string name="p44_delete_saved_title">Xóa văn bản đã lưu này?</string>
+    <string name="p44_choose_contacts">Chọn từ danh bạ</string>
+    <string name="p44_picker_title_many">Chọn liên hệ</string>
+    <string name="p44_picker_title_one">Chọn một liên hệ</string>
+    <string name="p44_picker_search">Tìm liên hệ</string>
+    <string name="p44_picker_empty">Không có liên hệ nào có số điện thoại</string>
+    <string name="p44_contacts_denied">Quyền truy cập danh bạ đang tắt. Hãy cho phép trong Cài đặt để chọn từ danh bạ, hoặc nhập số.</string>
+    <string name="p44_picker_several">Nhiều số</string>
+    <string name="p44_picker_add">Thêm (%1$d)</string>
+    <string name="p44_rules_added">Quy tắc đã thêm từ danh bạ: %1$d</string>
+    <string name="p44_rules_skipped">Đã bỏ qua (đã có quy tắc): %1$d</string>
+    <string name="p44_rules_none_added">Chưa thêm quy tắc nào: mọi số đều đã có quy tắc</string>
+</resources>

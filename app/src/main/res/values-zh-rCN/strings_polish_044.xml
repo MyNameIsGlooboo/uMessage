@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">更多信息</string>
+    <string name="p44_close">关闭</string>
+    <string name="p44_delete_saved_title">删除这条已保存文本？</string>
+    <string name="p44_choose_contacts">从联系人中选择</string>
+    <string name="p44_picker_title_many">选择联系人</string>
+    <string name="p44_picker_title_one">选择联系人</string>
+    <string name="p44_picker_search">搜索联系人</string>
+    <string name="p44_picker_empty">没有找到带电话号码的联系人</string>
+    <string name="p44_contacts_denied">通讯录访问已关闭。请在设置中允许，以便从联系人中选择，或直接输入号码。</string>
+    <string name="p44_picker_several">多个号码</string>
+    <string name="p44_picker_add">添加（%1$d）</string>
+    <string name="p44_rules_added">从联系人添加的规则：%1$d</string>
+    <string name="p44_rules_skipped">已跳过（已有规则）：%1$d</string>
+    <string name="p44_rules_none_added">未添加规则：每个号码都已有规则</string>
+</resources>

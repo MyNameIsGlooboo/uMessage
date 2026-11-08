@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">اطلاعات بیشتر</string>
+    <string name="p44_close">بستن</string>
+    <string name="p44_delete_saved_title">این متن ذخیره‌شده حذف شود؟</string>
+    <string name="p44_choose_contacts">انتخاب از مخاطبین</string>
+    <string name="p44_picker_title_many">انتخاب مخاطبین</string>
+    <string name="p44_picker_title_one">انتخاب یک مخاطب</string>
+    <string name="p44_picker_search">جستجوی مخاطبین</string>
+    <string name="p44_picker_empty">مخاطبی با شماره تلفن پیدا نشد</string>
+    <string name="p44_contacts_denied">دسترسی به مخاطبین خاموش است. برای انتخاب از مخاطبین، آن را در تنظیمات روشن کنید یا شماره را تایپ کنید.</string>
+    <string name="p44_picker_several">چند شماره</string>
+    <string name="p44_picker_add">افزودن (%1$d)</string>
+    <string name="p44_rules_added">قوانین افزوده‌شده از مخاطبین: %1$d</string>
+    <string name="p44_rules_skipped">ردشده (قبلاً قانون دارند): %1$d</string>
+    <string name="p44_rules_none_added">قانونی اضافه نشد: برای همه شماره‌ها از قبل قانون هست</string>
+</resources>

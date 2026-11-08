@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">Подробнее</string>
+    <string name="p44_close">Закрыть</string>
+    <string name="p44_delete_saved_title">Удалить этот сохранённый текст?</string>
+    <string name="p44_choose_contacts">Выбрать из контактов</string>
+    <string name="p44_picker_title_many">Выбор контактов</string>
+    <string name="p44_picker_title_one">Выбор контакта</string>
+    <string name="p44_picker_search">Поиск контактов</string>
+    <string name="p44_picker_empty">Нет контактов с номером телефона</string>
+    <string name="p44_contacts_denied">Доступ к контактам выключен. Разрешите его в настройках, чтобы выбирать из контактов, или введите номер.</string>
+    <string name="p44_picker_several">Несколько номеров</string>
+    <string name="p44_picker_add">Добавить (%1$d)</string>
+    <string name="p44_rules_added">Правил добавлено из контактов: %1$d</string>
+    <string name="p44_rules_skipped">Пропущено (правило уже есть): %1$d</string>
+    <string name="p44_rules_none_added">Правила не добавлены: у каждого номера уже есть правило</string>
+</resources>

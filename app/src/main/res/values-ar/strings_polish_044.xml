@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">مزيد من المعلومات</string>
+    <string name="p44_close">إغلاق</string>
+    <string name="p44_delete_saved_title">حذف هذا النص المحفوظ؟</string>
+    <string name="p44_choose_contacts">اختيار من جهات الاتصال</string>
+    <string name="p44_picker_title_many">اختيار جهات اتصال</string>
+    <string name="p44_picker_title_one">اختيار جهة اتصال</string>
+    <string name="p44_picker_search">بحث في جهات الاتصال</string>
+    <string name="p44_picker_empty">لا توجد جهات اتصال لها رقم هاتف</string>
+    <string name="p44_contacts_denied">الوصول إلى جهات الاتصال متوقف. اسمح به من الإعدادات لاختيار من جهات الاتصال، أو اكتب الرقم.</string>
+    <string name="p44_picker_several">عدة أرقام</string>
+    <string name="p44_picker_add">إضافة (%1$d)</string>
+    <string name="p44_rules_added">قواعد أُضيفت من جهات الاتصال: %1$d</string>
+    <string name="p44_rules_skipped">تم التخطي (لديها قاعدة بالفعل): %1$d</string>
+    <string name="p44_rules_none_added">لم تُضف قواعد: لكل رقم قاعدة بالفعل</string>
+</resources>

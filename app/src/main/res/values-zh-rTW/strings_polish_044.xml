@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">更多資訊</string>
+    <string name="p44_close">關閉</string>
+    <string name="p44_delete_saved_title">要刪除這則已儲存的文字嗎？</string>
+    <string name="p44_choose_contacts">從聯絡人中選擇</string>
+    <string name="p44_picker_title_many">選擇聯絡人</string>
+    <string name="p44_picker_title_one">選擇聯絡人</string>
+    <string name="p44_picker_search">搜尋聯絡人</string>
+    <string name="p44_picker_empty">找不到有電話號碼的聯絡人</string>
+    <string name="p44_contacts_denied">聯絡人存取已關閉。請在設定中允許，以便從聯絡人中選擇，或直接輸入號碼。</string>
+    <string name="p44_picker_several">多個號碼</string>
+    <string name="p44_picker_add">新增（%1$d）</string>
+    <string name="p44_rules_added">從聯絡人新增的規則：%1$d</string>
+    <string name="p44_rules_skipped">已略過（已有規則）：%1$d</string>
+    <string name="p44_rules_none_added">未新增規則：每個號碼都已有規則</string>
+</resources>

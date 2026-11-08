@@ -221,6 +221,7 @@ internal fun BackupPage(actions: SettingsActions, open: (SettingsPage) -> Unit =
             SettingsRow(
                 title = stringResource(R.string.backup_save_drive),
                 summary = stringResource(R.string.backup_save_drive_summary),
+                info = stringResource(R.string.backup_drive_hint),
                 icon = Symbols.CloudUpload,
                 onClick = { asking = BackupKind.BACKUP_DRIVE },
             )
@@ -247,13 +248,6 @@ internal fun BackupPage(actions: SettingsActions, open: (SettingsPage) -> Unit =
         }
         Text(
             stringResource(R.string.ux8e_backup_warning),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(horizontal = 16.dp),
-        )
-        // R10: Google Drive works through the system file picker; there is no Drive code in the app.
-        Text(
-            stringResource(R.string.backup_drive_hint),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(horizontal = 16.dp),

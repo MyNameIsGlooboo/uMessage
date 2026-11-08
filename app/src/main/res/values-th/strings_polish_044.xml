@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">ข้อมูลเพิ่มเติม</string>
+    <string name="p44_close">ปิด</string>
+    <string name="p44_delete_saved_title">ลบข้อความที่บันทึกไว้นี้ไหม</string>
+    <string name="p44_choose_contacts">เลือกจากรายชื่อติดต่อ</string>
+    <string name="p44_picker_title_many">เลือกรายชื่อติดต่อ</string>
+    <string name="p44_picker_title_one">เลือกรายชื่อติดต่อ</string>
+    <string name="p44_picker_search">ค้นหารายชื่อติดต่อ</string>
+    <string name="p44_picker_empty">ไม่พบรายชื่อติดต่อที่มีหมายเลขโทรศัพท์</string>
+    <string name="p44_contacts_denied">การเข้าถึงรายชื่อติดต่อปิดอยู่ อนุญาตในการตั้งค่าเพื่อเลือกจากรายชื่อติดต่อ หรือพิมพ์หมายเลขเอง</string>
+    <string name="p44_picker_several">หลายหมายเลข</string>
+    <string name="p44_picker_add">เพิ่ม (%1$d)</string>
+    <string name="p44_rules_added">กฎที่เพิ่มจากรายชื่อติดต่อ: %1$d</string>
+    <string name="p44_rules_skipped">ข้าม (มีกฎอยู่แล้ว): %1$d</string>
+    <string name="p44_rules_none_added">ไม่ได้เพิ่มกฎ: ทุกหมายเลขมีกฎอยู่แล้ว</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">Altre informazioni</string>
+    <string name="p44_close">Chiudi</string>
+    <string name="p44_delete_saved_title">Eliminare questo testo salvato?</string>
+    <string name="p44_choose_contacts">Scegli dai contatti</string>
+    <string name="p44_picker_title_many">Scegli contatti</string>
+    <string name="p44_picker_title_one">Scegli un contatto</string>
+    <string name="p44_picker_search">Cerca contatti</string>
+    <string name="p44_picker_empty">Nessun contatto con numero di telefono</string>
+    <string name="p44_contacts_denied">L\'accesso ai contatti è disattivato. Consentilo nelle impostazioni per scegliere dai contatti, o digita il numero.</string>
+    <string name="p44_picker_several">Più numeri</string>
+    <string name="p44_picker_add">Aggiungi (%1$d)</string>
+    <string name="p44_rules_added">Regole aggiunte dai contatti: %1$d</string>
+    <string name="p44_rules_skipped">Saltati (hanno già una regola): %1$d</string>
+    <string name="p44_rules_none_added">Nessuna regola aggiunta: ogni numero ha già una regola</string>
+</resources>

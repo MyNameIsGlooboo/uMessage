@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">자세한 정보</string>
+    <string name="p44_close">닫기</string>
+    <string name="p44_delete_saved_title">이 저장된 문구를 삭제할까요?</string>
+    <string name="p44_choose_contacts">연락처에서 선택</string>
+    <string name="p44_picker_title_many">연락처 선택</string>
+    <string name="p44_picker_title_one">연락처 선택</string>
+    <string name="p44_picker_search">연락처 검색</string>
+    <string name="p44_picker_empty">전화번호가 있는 연락처가 없습니다</string>
+    <string name="p44_contacts_denied">연락처 접근이 꺼져 있습니다. 연락처에서 선택하려면 설정에서 허용하거나 번호를 직접 입력하세요.</string>
+    <string name="p44_picker_several">번호 여러 개</string>
+    <string name="p44_picker_add">추가(%1$d)</string>
+    <string name="p44_rules_added">연락처에서 추가한 규칙: %1$d</string>
+    <string name="p44_rules_skipped">건너뜀(이미 규칙 있음): %1$d</string>
+    <string name="p44_rules_none_added">추가된 규칙 없음: 모든 번호에 이미 규칙이 있습니다</string>
+</resources>

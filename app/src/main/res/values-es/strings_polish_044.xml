@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">Más información</string>
+    <string name="p44_close">Cerrar</string>
+    <string name="p44_delete_saved_title">¿Eliminar este texto guardado?</string>
+    <string name="p44_choose_contacts">Elegir de los contactos</string>
+    <string name="p44_picker_title_many">Elegir contactos</string>
+    <string name="p44_picker_title_one">Elegir un contacto</string>
+    <string name="p44_picker_search">Buscar contactos</string>
+    <string name="p44_picker_empty">No se encontraron contactos con número de teléfono</string>
+    <string name="p44_contacts_denied">El acceso a los contactos está desactivado. Actívalo en Ajustes para elegir de tus contactos, o escribe el número.</string>
+    <string name="p44_picker_several">Varios números</string>
+    <string name="p44_picker_add">Añadir (%1$d)</string>
+    <string name="p44_rules_added">Reglas añadidas desde contactos: %1$d</string>
+    <string name="p44_rules_skipped">Omitidos (ya tienen una regla): %1$d</string>
+    <string name="p44_rules_none_added">No se añadió ninguna regla: todos los números ya tienen una</string>
+</resources>

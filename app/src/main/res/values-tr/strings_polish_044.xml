@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">Daha fazla bilgi</string>
+    <string name="p44_close">Kapat</string>
+    <string name="p44_delete_saved_title">Bu kayıtlı metin silinsin mi?</string>
+    <string name="p44_choose_contacts">Kişilerden seç</string>
+    <string name="p44_picker_title_many">Kişi seç</string>
+    <string name="p44_picker_title_one">Kişi seç</string>
+    <string name="p44_picker_search">Kişilerde ara</string>
+    <string name="p44_picker_empty">Telefon numarası olan kişi bulunamadı</string>
+    <string name="p44_contacts_denied">Kişi erişimi kapalı. Kişilerden seçmek için Ayarlar\'dan izin verin ya da numarayı yazın.</string>
+    <string name="p44_picker_several">Birkaç numara</string>
+    <string name="p44_picker_add">Ekle (%1$d)</string>
+    <string name="p44_rules_added">Kişilerden eklenen kurallar: %1$d</string>
+    <string name="p44_rules_skipped">Atlandı (zaten kuralı var): %1$d</string>
+    <string name="p44_rules_none_added">Kural eklenmedi: her numaranın zaten kuralı var</string>
+</resources>

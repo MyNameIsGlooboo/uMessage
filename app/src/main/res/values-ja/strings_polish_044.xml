@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">詳細情報</string>
+    <string name="p44_close">閉じる</string>
+    <string name="p44_delete_saved_title">この定型文を削除しますか？</string>
+    <string name="p44_choose_contacts">連絡先から選ぶ</string>
+    <string name="p44_picker_title_many">連絡先を選ぶ</string>
+    <string name="p44_picker_title_one">連絡先を選ぶ</string>
+    <string name="p44_picker_search">連絡先を検索</string>
+    <string name="p44_picker_empty">電話番号のある連絡先が見つかりません</string>
+    <string name="p44_contacts_denied">連絡先へのアクセスがオフです。連絡先から選ぶには設定で許可するか、番号を入力してください。</string>
+    <string name="p44_picker_several">複数の番号</string>
+    <string name="p44_picker_add">追加（%1$d）</string>
+    <string name="p44_rules_added">連絡先から追加したルール：%1$d</string>
+    <string name="p44_rules_skipped">スキップ（すでにルールあり）：%1$d</string>
+    <string name="p44_rules_none_added">ルールは追加されませんでした：すべての番号にすでにルールがあります</string>
+</resources>

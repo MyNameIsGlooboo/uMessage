@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">مزید معلومات</string>
+    <string name="p44_close">بند کریں</string>
+    <string name="p44_delete_saved_title">یہ محفوظ شدہ متن حذف کریں؟</string>
+    <string name="p44_choose_contacts">رابطوں میں سے منتخب کریں</string>
+    <string name="p44_picker_title_many">رابطے منتخب کریں</string>
+    <string name="p44_picker_title_one">ایک رابطہ منتخب کریں</string>
+    <string name="p44_picker_search">رابطے تلاش کریں</string>
+    <string name="p44_picker_empty">فون نمبر والا کوئی رابطہ نہیں ملا</string>
+    <string name="p44_contacts_denied">رابطوں تک رسائی بند ہے۔ رابطوں میں سے منتخب کرنے کے لیے سیٹنگز میں اجازت دیں، یا نمبر ٹائپ کریں۔</string>
+    <string name="p44_picker_several">کئی نمبر</string>
+    <string name="p44_picker_add">شامل کریں (%1$d)</string>
+    <string name="p44_rules_added">رابطوں سے شامل کیے گئے اصول: %1$d</string>
+    <string name="p44_rules_skipped">چھوڑے گئے (پہلے سے اصول موجود ہے): %1$d</string>
+    <string name="p44_rules_none_added">کوئی اصول شامل نہیں ہوا: ہر نمبر کا اصول پہلے سے موجود ہے</string>
+</resources>

@@ -2,6 +2,7 @@ package com.glooboo.umessage.ui.settings
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
@@ -27,9 +28,10 @@ class MoveFromAppTest {
     }
 
     @Test
-    fun `the Backup page carries the Google Drive hint`() {
+    fun `the Backup page carries the Google Drive hint behind its info icon`() {
         show()
-        compose.onNodeWithText("To use Google Drive, pick it in the file picker.").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithContentDescription("More information").performScrollTo().performClick()
+        compose.onNodeWithText("To use Google Drive, pick it in the file picker.").assertIsDisplayed()
     }
 
     @Test

@@ -176,16 +176,6 @@ fun ForwardedScreen(
                 ),
             ) {
                 item(key = "status") { StatusCard(state, onPausedChange, onManageRules) }
-                if (state.showPaidNote) {
-                    item(key = "paid") {
-                        Text(
-                            stringResource(R.string.nav_fwd_paid_note),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
-                        )
-                    }
-                }
                 if (failedCount > 0) {
                     item(key = "retry-all") {
                         Row(

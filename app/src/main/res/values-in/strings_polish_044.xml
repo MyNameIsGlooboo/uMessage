@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="p44_more_information">Informasi lainnya</string>
+    <string name="p44_close">Tutup</string>
+    <string name="p44_delete_saved_title">Hapus teks tersimpan ini?</string>
+    <string name="p44_choose_contacts">Pilih dari kontak</string>
+    <string name="p44_picker_title_many">Pilih kontak</string>
+    <string name="p44_picker_title_one">Pilih kontak</string>
+    <string name="p44_picker_search">Cari kontak</string>
+    <string name="p44_picker_empty">Tidak ada kontak dengan nomor telepon</string>
+    <string name="p44_contacts_denied">Akses kontak nonaktif. Izinkan di Pengaturan untuk memilih dari kontak, atau ketik nomornya.</string>
+    <string name="p44_picker_several">Beberapa nomor</string>
+    <string name="p44_picker_add">Tambah (%1$d)</string>
+    <string name="p44_rules_added">Aturan ditambahkan dari kontak: %1$d</string>
+    <string name="p44_rules_skipped">Dilewati (sudah punya aturan): %1$d</string>
+    <string name="p44_rules_none_added">Tidak ada aturan ditambahkan: setiap nomor sudah punya aturan</string>
+</resources>

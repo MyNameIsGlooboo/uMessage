@@ -1,21 +1,23 @@
 package com.glooboo.umessage.dialogs
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.BackupJob
+import com.glooboo.umessage.ui.components.InfoIconButton
 
 /** Progress of a running backup or restore, shared by the export and import dialogs. */
 @Composable
@@ -40,12 +42,15 @@ internal fun BackupRunningContent(state: BackupJob.State.Running) {
                 pluralStringResource(R.plurals.backup_progress_export, state.count, state.count)
             }
         }
-        Text(text)
-        Text(
-            stringResource(R.string.backup_runs_in_background),
-            style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.padding(top = 8.dp),
-        )
+        // "You can leave the app" is a secondary note: it sits behind the circled i beside the progress.
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(text, modifier = Modifier.weight(1f))
+            val title = when (state.kind) {
+                BackupJob.Kind.IMPORT -> R.string.backup_restoring
+                BackupJob.Kind.EXPORT -> R.string.backup_exporting
+            }
+            InfoIconButton(stringResource(title), stringResource(R.string.backup_runs_in_background))
+        }
     }
 }
 
