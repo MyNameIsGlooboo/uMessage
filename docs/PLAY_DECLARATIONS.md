@@ -147,3 +147,21 @@ Copied from the review notes (F9, item PL-FGS):
 > Nothing is sent over a network.
 
 Video: Settings, Backup, start an export, leave the app, see the notification, open it again.
+
+## 9. Message forwarding (optional feature)
+
+On 8 Nov 2026 a human Google Play Developer Support reviewer confirmed in writing:
+
+> Optional, user-configured, on-device SMS forwarding to numbers the user enters is allowed for the default SMS
+> handler. It needs no extra declaration and no Data safety collection entry. The in-app privacy policy and the Play
+> Store description must accurately and prominently disclose the feature (optional, runs locally on the device, sends
+> by SMS using the user's own carrier plan).
+
+What the app does: off by default; the user creates a rule in Settings > Forwarding; matching incoming messages are
+sent as normal SMS to up to three numbers the user typed, from the user's own number, on the user's own plan. Blocked
+and Spam messages are never forwarded; verification codes only if that rule's switch is on; a daily limit and an
+hourly cap per rule exist. Nothing goes through a server, there is no INTERNET permission, and no SMS permission was
+added (SEND_SMS, READ_SMS and RECEIVE_SMS are already declared for the default SMS handler).
+
+Disclosure places: PRIVACY.md (section "Forwarding messages (optional)"), the full description in every language, and
+the Forwarding screens in the app (they say each forward is a paid SMS).

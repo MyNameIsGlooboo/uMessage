@@ -29,6 +29,9 @@ uMessage is a full SMS and MMS app whose main job is to stop spam. Make it your 
 • A Copy code button on messages that contain a verification code.
 • Persian and Arabic text displays right-to-left in the Vazirmatn font, and Persian verification codes are recognized.
 
+<b>Optional message forwarding</b>
+Forwarding is off until you turn it on. If you create a rule in Settings > Forwarding, your phone sends a copy of matching incoming messages (for example bank alerts) as a normal SMS to up to three numbers you enter. It all happens on your phone: nothing goes through any server or the developer, and it uses your own carrier plan, so each forward is a paid SMS. Spam and blocked messages are never forwarded, verification codes only if you switch that on for the rule, and you can turn it off or delete the rules at any time.
+
 <b>Private by design</b>
 uMessage does not request the internet permission, so it cannot send anything off your phone. No ads, no analytics, no accounts, no tracking. Your messages, rules and spam stay on your device and are left out of cloud backups.
 

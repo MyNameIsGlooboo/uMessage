@@ -2,11 +2,11 @@
 
 A checklist for publishing uMessage on Google Play. Nothing has been submitted. Items marked **Owner** need the owner's Play Console account.
 
-See the forwarding decision at the end: the Play build ships without forwarding.
+See the forwarding section at the end: the Play build includes optional forwarding (Google confirmed it in writing on 8 Nov 2026).
 
 ## Build
 
-- [ ] Upload the `gplay` flavor as an App Bundle: `./gradlew bundleGplayRelease`. It differs from `foss` in `app/src/gplay/res/values/bools.xml` (no donate link, `is_google_play_build = true`) and in `app/src/gplay/AndroidManifest.xml` (the forwarding screen is removed from the manifest; the forwarding code is still compiled in but unreachable). `is_google_play_build` also makes `ForwardingAvailability` report no forwarding: no forward rules, no screens, nothing sent. The `foss` flavor keeps forwarding.
+- [ ] Upload the `gplay` flavor as an App Bundle: `./gradlew bundleGplayRelease`. It differs from `foss` in `app/src/gplay/res/values/bools.xml` (no donate link, `is_google_play_build = true`, which also shows the Rate row). Forwarding is the same in both flavors.
 - [ ] Target SDK: currently 36 (`gradle/libs.versions.toml`). Play requires new apps and updates to target an API level no more than about one year behind the latest Android release; recheck every August, when the yearly deadline usually moves.
 - [ ] Min SDK 26 (Android 8.0) is fine for Play.
 - [ ] `versionCode` from `gradle.properties` must be higher than any build already uploaded, on any track (see [RELEASE.md](RELEASE.md)).
@@ -77,16 +77,8 @@ If a future version adds anything that sends data (crash reports, an online spam
 
 The Google Play build may show Google's own rating card (Play In-App Review, `gplayImplementation` only; the foss build has no such code). The Play Store app shows and handles the card; uMessage sends no data to do this. It is requested at most twice, at least 120 days apart, after at least 7 days since install and 5 days of use, only on the message list. The app stores only a day count and the time of the last request. Data safety answers do not change. The Play build's Settings > About also has a **Rate uMessage** row that opens the Play Store listing (the foss build does not show it); both builds have a **Send feedback** row that opens the user's email app with the public contact address and a subject that carries only the version. **Owner:** after the build, check the merged gplay manifest for any permission the library adds (none is expected, and `INTERNET` must stay absent).
 
-## Automatic forwarding of verification codes: decision
+## Optional message forwarding: decision
 
-The owner decided that the Google Play build ships **without** automatic forwarding. The `gplay` flavor sets `is_google_play_build = true`, which turns forwarding off completely (no forward rules or screens, nothing sent, and a restored backup adds no forward rules). The `foss` flavor (GitHub and F-Droid) keeps forwarding. The store texts do not mention it; it is described in the README and the user guide.
+Until 0.4.2 the Play build shipped without forwarding, as a precaution. On 8 Nov 2026 a human Google Play Developer Support reviewer confirmed in writing that optional, user-configured, on-device SMS forwarding to numbers the user enters is allowed for the default SMS handler, needs no extra declaration and no Data safety collection entry, provided the in-app privacy policy and the store description accurately and prominently disclose it (optional, runs locally, sends by SMS on the user's own carrier plan). The owner approved enabling it. From 0.4.3 both flavors have the same forwarding code path.
 
-Why: forwarding SMS, especially one-time codes, to another destination matches what SMS-stealing malware does. Play policy reviews it with extra scrutiny, and Play Protect looks at behaviour, not intent. Anyone with brief access to an unlocked phone could also set up forwarding of login codes. Keeping it out of the Play build avoids a rejection and keeps the Data safety answers above true.
-
-If forwarding is ever added to the Play build:
-
-- make it off by default, per rule, never for all messages;
-- exclude verification codes unless the user turns that on separately for the rule, with a strong warning;
-- require the app lock (or device credential) to turn it on or change the destination;
-- show a persistent indicator while any forwarding rule is active, and log each forwarded message in the decision log;
-- describe it in the full description, the privacy policy, the Data safety form and the Permissions Declaration video, and release it in a separate version from the first Play release.
+Disclosure: PRIVACY.md section "Forwarding messages (optional)" and a paragraph in every full_description.txt. The safeguards stay: off by default, per rule, blocked/Spam messages never forwarded, verification codes only when the rule's own switch is on, daily limit, hourly cap per rule, app lock confirmation for changes, a local log. Details: [PLAY_DECLARATIONS.md](PLAY_DECLARATIONS.md) section 9 and [DATA_SAFETY.md](DATA_SAFETY.md).

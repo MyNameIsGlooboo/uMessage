@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.3] - 2026-11-08
+### Added
+- Optional message forwarding is now also in the Google Play build, the same as in the GitHub and F-Droid builds: off by default, you create the rules, it runs on the phone and sends by SMS on your own plan, and blocked or Spam messages are never forwarded
+
+### Changed
+- The privacy policy, the store descriptions (English and Persian), the README and the user guide now describe forwarding in every build
+- The Forwarded tab, the Forwarding settings and "Always forward" in a chat are available in the Google Play build too
+- The separate no-forwarding behaviour of the Google Play build, its manifest override and its tests are removed
+
 ## [0.4.2] - 2026-11-07
 ### Added
 - Chinese (Traditional) and Urdu

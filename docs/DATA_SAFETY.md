@@ -25,6 +25,10 @@ For the `gplay` build. Play counts data as **collected** only when it leaves the
 
 See [PLAY_DECLARATIONS.md](PLAY_DECLARATIONS.md) (texts to paste, per permission) and [PLAY_STORE.md](PLAY_STORE.md): SMS permissions (default SMS handler), foreground service (data sync, backup), the photo-library permissions (READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED), SCHEDULE_EXACT_ALARM, location and CALL_PHONE. The Play build declares the same permissions as the foss build.
 
+## Optional message forwarding
+
+The Play build includes optional forwarding (Settings > Forwarding): the user creates a rule, and the phone then sends a copy of matching incoming messages as normal SMS to numbers the user typed. It is on-device only: no server, no developer access, no INTERNET permission; the SMS goes through the user's own carrier plan, like a message the user writes. The numbers and the local forward log stay in private app storage. Because nothing leaves the app for the developer or any third party, this is **no collection** and needs no Data safety entry. Google Play Developer Support confirmed this in writing on 8 Nov 2026 (see [PLAY_DECLARATIONS.md](PLAY_DECLARATIONS.md)). The in-app policy ([PRIVACY.md](../PRIVACY.md)) and the store description disclose the feature.
+
 ## If something changes
 
-Adding anything that sends data off the phone (crash reports, an online spam list, forwarding in the Play build, cloud backup) makes the first answer **Yes**. Update this file and the form before that release, and PRIVACY.md at the same time.
+Adding anything that sends data off the phone (crash reports, an online spam list, forwarding through a server, cloud backup) makes the first answer **Yes**. Update this file and the form before that release, and PRIVACY.md at the same time.

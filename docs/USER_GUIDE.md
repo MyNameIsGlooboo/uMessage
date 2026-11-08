@@ -13,7 +13,7 @@ The first-run setup has up to four steps:
 
 ## Finding your way around
 
-The bottom bar has **Messages** and **Spam**, plus **Archive**, which is always there (it shows an empty state until you archive a chat). A **Forwarded** tab appears only in the GitHub and F-Droid builds, once a forward rule exists and you have switched the tab on.
+The bottom bar has **Messages** and **Spam**, plus **Archive**, which is always there (it shows an empty state until you archive a chat). A **Forwarded** tab appears in every build, once a forward rule exists and you have switched the tab on.
 
 The three-dot menu at the top of Messages lists, in this order: **Recycle bin** (first; it shows how many messages are in it, and is listed only while the recycle bin is switched on in Settings > Storage and cleanup), **Scheduled** (only when something is scheduled), **Starred** and **Settings**.
 
@@ -100,9 +100,9 @@ Settings > **App lock** asks for a PIN, a pattern or your fingerprint/face befor
 
 Notification privacy is a separate setting: choose whether the lock screen shows the sender, the message text or nothing.
 
-## Forwarding (GitHub and F-Droid builds only)
+## Forwarding (optional)
 
-The Google Play build has no forwarding. In the other builds, Settings > **Forwarding** opens the forward rules, which send a copy of matching inbox messages by SMS to up to three numbers. Each forward is a paid SMS. Spam is never forwarded, and verification codes only when a rule's switch for codes is on.
+Forwarding is optional and off until you create a rule. It runs on your phone, sends by SMS on your own mobile plan and goes through no server. Settings > **Forwarding** opens the forward rules, which send a copy of matching inbox messages by SMS to up to three numbers. Each forward is a paid SMS. Spam is never forwarded, and verification codes only when a rule's switch for codes is on.
 
 The **Daily forward limit** (on the Forwarding options page) is off by default. You can set it to 5, 10, 20 or 50 forwards a day; when it is reached, nothing more is forwarded for the rest of the day and uMessage shows a notification. Each rule also has its own hourly cap. The full list of safeguards is in the [README](../README.md#forwarding).
 

@@ -1,0 +1,4 @@
+• Optional message forwarding is now also in the Google Play build
+• Off by default, on-device only, sent as SMS on your own plan
+• Spam and blocked messages are never forwarded
+• Privacy policy and store text explain forwarding

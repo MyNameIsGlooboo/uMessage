@@ -15,7 +15,7 @@ uMessage is a fork of [Fossify Messages](https://github.com/FossifyOrg/Messages)
 - Allowed rules always win; blocked rules support exact number, prefix, alphanumeric sender id (for example `ACME-BANK`), keyword and regex rules. Adding an allowed keyword or pattern warns that any message containing it skips every block. A keyword or pattern rule applies to the sender in both directions: a blocked keyword also blocks the sender, an allowed keyword also allows the sender (never a contact, and never over a sender rule you set yourself).
 - Rules can be exported and imported (SIM and note included); an import shows what it will add before anything changes.
 - The Spam folder is reversible: "Not spam" restores the messages to the real inbox and adds an allow rule for the sender in one step, with one Undo; names that anyone can fake get no rule. Delete the rule in Settings > Spam protection > Rules to stop allowing a sender. Spam is purged after 30 days by default (configurable).
-- Forward rules: send a copy of matching inbox messages (for example bank alerts) by SMS to up to three numbers. See [Forwarding](#forwarding). Only in the GitHub and F-Droid builds, not in the Google Play build.
+- Forward rules: send a copy of matching inbox messages (for example bank alerts) by SMS to up to three numbers. See [Forwarding](#forwarding). Optional and off by default.
 - Dual SIM: receive, send and rules per SIM.
 - MMS held as spam are not downloaded, so no mobile data is spent on them.
 - Light, dark and 11 colour themes, an optional app lock (PIN or fingerprint), a Copy code button on verification codes, and 22 languages (English and 21 more, including Persian, Arabic, Chinese in both scripts and Urdu).
@@ -31,7 +31,7 @@ More screenshots are in [`fastlane/metadata/android/en-US/images/phoneScreenshot
 
 ## Install
 
-uMessage is distributed as an APK on the [GitHub Releases](../../releases) page. A Google Play version (without forwarding) is in closed testing. The two are signed with different keys, so one cannot update the other: uninstall one before installing the other.
+uMessage is distributed as an APK on the [GitHub Releases](../../releases) page. A Google Play version is in closed testing. The two are signed with different keys, so one cannot update the other: uninstall one before installing the other.
 
 1. On your phone, download the latest `.apk` from Releases.
 2. Android blocks the install the first time. Open the prompt's Settings link (or Settings > Apps > Special app access > Install unknown apps), choose your browser or file manager, and enable "Allow from this source". Install the APK; you may turn the option off again afterwards.
@@ -59,7 +59,7 @@ Banks, delivery companies and one-time-code services usually message you from nu
 
 ## Forwarding
 
-Settings > Forwarding lets you send a copy of incoming messages to other phones by SMS. This feature is only in the GitHub and F-Droid builds; the Google Play build has no forwarding. A forward rule has:
+Settings > Forwarding lets you send a copy of incoming messages to other phones by SMS. It is optional, off until you create a rule, runs entirely on the phone, and sends by SMS on your own mobile plan (each forward is a paid SMS). It is the same in every build, Google Play included. A forward rule has:
 
 - **Conditions**: a sender (exact number, prefix or sender id) and/or a text to look for (keyword or regex), read the same way as the filter rules, Persian and Arabic letter forms included. Optionally a time of day (an end before the start runs past midnight) and, on dual-SIM phones, the SIM it arrived on.
 - **Targets**: one to three phone numbers, and on dual-SIM phones the SIM to send from (the receiving SIM by default).
@@ -85,7 +85,7 @@ Safety:
 
 ## Privacy
 
-All data stays on your device. The app declares no INTERNET permission, so it cannot send anything off the phone over the network, and CI fails any build that requests it. The only messages it sends are the ones you write and, in the GitHub and F-Droid builds, the SMS forwards of rules you set up. See [PRIVACY.md](PRIVACY.md).
+All data stays on your device. The app declares no INTERNET permission, so it cannot send anything off the phone over the network, and CI fails any build that requests it. The only messages it sends are the ones you write and, in every build, the SMS forwards of rules you set up yourself (optional, off by default). See [PRIVACY.md](PRIVACY.md).
 
 ## Build from source
 

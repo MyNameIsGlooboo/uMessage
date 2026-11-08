@@ -52,11 +52,19 @@ The app manifest is the authoritative list of permissions.
 
 Messages you send go through your mobile carrier as normal SMS or MMS. Your carrier handles them under its own terms and privacy policy. The app does not send them anywhere else.
 
-## Automatic forwarding
+## Forwarding messages (optional)
 
-Automatic forwarding of messages exists only in the F-Droid/GitHub build, not in the Google Play build.
+uMessage can forward copies of incoming messages to other phone numbers. This is optional and **off by default**: nothing is forwarded until you open Settings > Forwarding and create a rule yourself.
 
-In the build that has it, forwarding is off until you create a rule. When a rule you created matches a message, the app sends an SMS from your own number to a number you chose, through your carrier. It never forwards on its own and never to anyone you did not choose. Forwarding keeps a local log on the phone; nothing goes to any server.
+- Only the numbers you enter receive anything, up to three per rule.
+- When a rule you created matches an incoming message, your phone sends a copy as a normal SMS from your own number, on your own mobile plan. Each forward is a paid SMS and can cost money, depending on your plan.
+- Everything runs on your phone. No copy goes through any server, and the developer never receives, sees or stores your messages or the numbers you enter. The app has no internet permission, so it could not send them anywhere over the network.
+- Messages held as spam or from blocked senders are never forwarded.
+- Verification codes are forwarded only if you switch that on for that rule.
+- You can switch a rule off, delete it, or turn forwarding off completely at any time. A daily limit and an hourly cap per rule are available.
+- Forwarding keeps a local log on the phone, so you can see what was sent. The log never leaves the phone.
+
+This is the same in every build of the app, Google Play included.
 
 ## Rating card (Google Play build)
 
