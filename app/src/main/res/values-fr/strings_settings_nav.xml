@@ -33,7 +33,7 @@
     <string name="settings_nav_off">Désactivé</string>
     <string name="settings_nav_about_row">À propos</string>
     <string name="settings_nav_about_body">Version, code source et licences</string>
-    <string name="settings_nav_privacy_body">Fonctionne hors ligne. Rien ne quitte votre téléphone</string>
+    <string name="settings_nav_privacy_body">Aucune connexion internet, aucun serveur. Si vous activez le transfert, les copies partent en SMS classiques via votre forfait.</string>
     <string name="settings_nav_version_copied">Numéro de build copié</string>
     <string name="settings_nav_source_body">Ouvrir sur GitHub</string>
     <string name="settings_nav_licenses_row">Licences open source</string>

@@ -33,7 +33,7 @@
     <string name="settings_nav_off">ปิด</string>
     <string name="settings_nav_about_row">เกี่ยวกับ</string>
     <string name="settings_nav_about_body">เวอร์ชัน ซอร์สโค้ด และใบอนุญาต</string>
-    <string name="settings_nav_privacy_body">ทำงานออฟไลน์ ไม่มีข้อมูลออกจากโทรศัพท์</string>
+    <string name="settings_nav_privacy_body">ไม่ใช้อินเทอร์เน็ตและไม่มีเซิร์ฟเวอร์ หากเปิดการส่งต่อ สำเนาจะถูกส่งเป็น SMS ปกติผ่านแพ็กเกจของคุณ</string>
     <string name="settings_nav_version_copied">คัดลอกข้อมูลบิลด์แล้ว</string>
     <string name="settings_nav_source_body">เปิดใน GitHub</string>
     <string name="settings_nav_licenses_row">ใบอนุญาตโอเพนซอร์ส</string>

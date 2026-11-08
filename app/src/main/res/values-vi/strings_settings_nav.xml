@@ -33,7 +33,7 @@
     <string name="settings_nav_off">Tắt</string>
     <string name="settings_nav_about_row">Giới thiệu</string>
     <string name="settings_nav_about_body">Phiên bản, mã nguồn và giấy phép</string>
-    <string name="settings_nav_privacy_body">Hoạt động ngoại tuyến. Không dữ liệu nào rời khỏi điện thoại của bạn</string>
+    <string name="settings_nav_privacy_body">Không cần internet, không có máy chủ. Nếu bật chuyển tiếp, bản sao được gửi như SMS thông thường theo gói cước của bạn.</string>
     <string name="settings_nav_version_copied">Đã sao chép thông tin bản dựng</string>
     <string name="settings_nav_source_body">Mở trên GitHub</string>
     <string name="settings_nav_licenses_row">Giấy phép mã nguồn mở</string>

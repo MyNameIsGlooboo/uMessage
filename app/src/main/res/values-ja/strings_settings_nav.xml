@@ -33,7 +33,7 @@
     <string name="settings_nav_off">オフ</string>
     <string name="settings_nav_about_row">アプリ情報</string>
     <string name="settings_nav_about_body">バージョン、ソースコード、ライセンス</string>
-    <string name="settings_nav_privacy_body">オフラインで動作します。データは端末の外に出ません。</string>
+    <string name="settings_nav_privacy_body">インターネット接続もサーバーも使いません。転送をオンにすると、コピーは通常のSMSとして、お使いの契約プランで送信されます。</string>
     <string name="settings_nav_version_copied">ビルド情報をコピーしました。</string>
     <string name="settings_nav_source_body">GitHubで開く</string>
     <string name="settings_nav_licenses_row">オープンソースライセンス</string>

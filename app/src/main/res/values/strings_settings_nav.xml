@@ -42,7 +42,7 @@
 
     <string name="settings_nav_about_row">About</string>
     <string name="settings_nav_about_body">Version, source code and licenses</string>
-    <string name="settings_nav_privacy_body">Works offline</string>
+    <string name="settings_nav_privacy_body">No internet connection and no servers. If you turn on forwarding, copies go out as normal SMS on your plan.</string>
     <string name="settings_nav_version_copied">Build copied</string>
     <string name="settings_nav_source_body">Open on GitHub</string>
     <string name="settings_nav_licenses_row">Open-source licenses</string>

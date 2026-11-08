@@ -33,7 +33,7 @@
     <string name="settings_nav_off">Desativado</string>
     <string name="settings_nav_about_row">Sobre</string>
     <string name="settings_nav_about_body">Versão, código-fonte e licenças</string>
-    <string name="settings_nav_privacy_body">Funciona sem internet. Nada sai do seu celular</string>
+    <string name="settings_nav_privacy_body">Sem conexão com a internet e sem servidores. Se você ativar o encaminhamento, as cópias saem como SMS normais pelo seu plano.</string>
     <string name="settings_nav_version_copied">Identificação da versão copiada</string>
     <string name="settings_nav_source_body">Abra no GitHub</string>
     <string name="settings_nav_licenses_row">Licenças de código aberto</string>

@@ -33,7 +33,7 @@
     <string name="settings_nav_off">Выкл.</string>
     <string name="settings_nav_about_row">О приложении</string>
     <string name="settings_nav_about_body">Версия, исходный код и лицензии</string>
-    <string name="settings_nav_privacy_body">Работает без интернета. Данные остаются на телефоне</string>
+    <string name="settings_nav_privacy_body">Без подключения к интернету и без серверов. Если включить пересылку, копии уходят обычными SMS по вашему тарифу.</string>
     <string name="settings_nav_version_copied">Данные сборки скопированы</string>
     <string name="settings_nav_source_body">Открыть на GitHub</string>
     <string name="settings_nav_licenses_row">Лицензии открытого ПО</string>

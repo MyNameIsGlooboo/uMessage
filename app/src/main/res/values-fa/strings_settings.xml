@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">بیشترین اندازهٔ پیوست ارسالی</string>
     <string name="settings_empty_recycle_bin_body">حذف همیشگی همهٔ موارد سطل زباله</string>
     <string name="settings_group_backup">بک‌آپ و بازیابی</string>
-    <string name="settings_privacy_title">هیچ‌چیز از گوشی شما خارج نمی‌شود</string>
+    <string name="settings_privacy_title">بدون اینترنت کار می‌کند</string>
     <string name="settings_about_version">نسخه</string>
     <string name="settings_about_source">کد منبع</string>
     <string name="settings_about_no_browser">برنامه‌ای برای باز کردن لینک پیدا نشد</string>

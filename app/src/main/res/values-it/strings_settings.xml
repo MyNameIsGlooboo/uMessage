@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">Dimensione massima degli allegati da inviare</string>
     <string name="settings_empty_recycle_bin_body">Elimina definitivamente tutto dal cestino</string>
     <string name="settings_group_backup">Backup e ripristino</string>
-    <string name="settings_privacy_title">Nulla lascia il tuo telefono</string>
+    <string name="settings_privacy_title">Funziona offline</string>
     <string name="settings_about_version">Versione</string>
     <string name="settings_about_source">Codice sorgente</string>
     <string name="settings_about_no_browser">Nessuna app trovata per aprire il link</string>

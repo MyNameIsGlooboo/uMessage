@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">Taille maximale des pièces jointes envoyées</string>
     <string name="settings_empty_recycle_bin_body">Supprimer définitivement tout le contenu de la corbeille</string>
     <string name="settings_group_backup">Sauvegarde et restauration</string>
-    <string name="settings_privacy_title">Rien ne quitte votre téléphone</string>
+    <string name="settings_privacy_title">Fonctionne hors ligne</string>
     <string name="settings_about_version">Version</string>
     <string name="settings_about_source">Code source</string>
     <string name="settings_about_no_browser">Aucune application trouvée pour ouvrir le lien</string>

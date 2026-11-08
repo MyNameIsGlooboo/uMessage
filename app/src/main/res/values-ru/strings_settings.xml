@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">Максимальный размер отправляемого вложения</string>
     <string name="settings_empty_recycle_bin_body">Удалить все из корзины навсегда</string>
     <string name="settings_group_backup">Резервное копирование и восстановление</string>
-    <string name="settings_privacy_title">Данные не покидают ваш телефон</string>
+    <string name="settings_privacy_title">Работает без интернета</string>
     <string name="settings_about_version">Версия</string>
     <string name="settings_about_source">Исходный код</string>
     <string name="settings_about_no_browser">Нет приложения для открытия ссылки</string>

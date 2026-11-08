@@ -33,7 +33,7 @@
     <string name="settings_nav_off">بند</string>
     <string name="settings_nav_about_row">معلومات</string>
     <string name="settings_nav_about_body">ورژن، سورس کوڈ اور لائسنس</string>
-    <string name="settings_nav_privacy_body">آف لائن کام کرتی ہے</string>
+    <string name="settings_nav_privacy_body">انٹرنیٹ کنکشن نہیں اور کوئی سرور نہیں۔ فارورڈنگ آن کریں تو کاپیاں آپ کے پلان پر عام ایس ایم ایس کی طرح جاتی ہیں۔</string>
     <string name="settings_nav_version_copied">بلڈ کاپی ہو گیا</string>
     <string name="settings_nav_source_body">GitHub پر کھولیں</string>
     <string name="settings_nav_licenses_row">اوپن سورس لائسنس</string>

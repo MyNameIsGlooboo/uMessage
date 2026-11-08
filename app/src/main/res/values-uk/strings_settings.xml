@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">Максимальний розмір вкладення для надсилання</string>
     <string name="settings_empty_recycle_bin_body">Назавжди видалити весь вміст кошика</string>
     <string name="settings_group_backup">Резервне копіювання та відновлення</string>
-    <string name="settings_privacy_title">Нічого не залишає ваш телефон</string>
+    <string name="settings_privacy_title">Працює офлайн</string>
     <string name="settings_about_version">Версія</string>
     <string name="settings_about_source">Вихідний код</string>
     <string name="settings_about_no_browser">Не знайдено застосунку для відкриття посилання</string>

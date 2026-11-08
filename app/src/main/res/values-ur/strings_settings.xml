@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">بھیجی جانے والی منسلکہ کا زیادہ سے زیادہ سائز</string>
     <string name="settings_empty_recycle_bin_body">ری سائیکل بن میں موجود سب کچھ ہمیشہ کے لیے ہٹا دیں</string>
     <string name="settings_group_backup">بیک اپ اور بحالی</string>
-    <string name="settings_privacy_title">آپ کے فون سے کچھ باہر نہیں جاتا</string>
+    <string name="settings_privacy_title">آف لائن کام کرتی ہے</string>
     <string name="settings_about_version">ورژن</string>
     <string name="settings_about_source">سورس کوڈ</string>
     <string name="settings_about_no_browser">لنک کھولنے کے لیے کوئی ایپ نہیں ملی</string>

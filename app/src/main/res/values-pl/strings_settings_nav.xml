@@ -33,7 +33,7 @@
     <string name="settings_nav_off">Wyłączone</string>
     <string name="settings_nav_about_row">O aplikacji</string>
     <string name="settings_nav_about_body">Wersja, kod źródłowy i licencje</string>
-    <string name="settings_nav_privacy_body">Działa offline. Nic nie opuszcza twojego telefonu</string>
+    <string name="settings_nav_privacy_body">Bez połączenia z internetem i bez serwerów. Jeśli włączysz przekazywanie, kopie wychodzą jako zwykłe SMS-y w ramach twojego abonamentu.</string>
     <string name="settings_nav_version_copied">Skopiowano numer kompilacji</string>
     <string name="settings_nav_source_body">Otwórz w GitHub</string>
     <string name="settings_nav_licenses_row">Licencje open source</string>

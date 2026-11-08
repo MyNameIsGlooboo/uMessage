@@ -33,7 +33,7 @@
     <string name="settings_nav_off">Disattivato</string>
     <string name="settings_nav_about_row">Informazioni</string>
     <string name="settings_nav_about_body">Versione, codice sorgente e licenze</string>
-    <string name="settings_nav_privacy_body">Funziona offline. Nulla lascia il tuo telefono</string>
+    <string name="settings_nav_privacy_body">Nessuna connessione internet e nessun server. Se attivi l\'inoltro, le copie partono come normali SMS con il tuo piano.</string>
     <string name="settings_nav_version_copied">Build copiata</string>
     <string name="settings_nav_source_body">Apri su GitHub</string>
     <string name="settings_nav_licenses_row">Licenze open source</string>

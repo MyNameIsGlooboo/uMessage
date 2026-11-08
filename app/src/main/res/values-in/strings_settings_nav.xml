@@ -33,7 +33,7 @@
     <string name="settings_nav_off">Nonaktif</string>
     <string name="settings_nav_about_row">Tentang</string>
     <string name="settings_nav_about_body">Versi, kode sumber, dan lisensi</string>
-    <string name="settings_nav_privacy_body">Berfungsi offline. Tidak ada data yang keluar dari ponsel</string>
+    <string name="settings_nav_privacy_body">Tanpa koneksi internet dan tanpa server. Jika Anda mengaktifkan penerusan, salinan dikirim sebagai SMS biasa lewat paket Anda.</string>
     <string name="settings_nav_version_copied">Info build disalin</string>
     <string name="settings_nav_source_body">Buka di GitHub</string>
     <string name="settings_nav_licenses_row">Lisensi sumber terbuka</string>

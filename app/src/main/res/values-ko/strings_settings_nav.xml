@@ -33,7 +33,7 @@
     <string name="settings_nav_off">사용 안 함</string>
     <string name="settings_nav_about_row">앱 정보</string>
     <string name="settings_nav_about_body">버전, 소스 코드 및 라이선스</string>
-    <string name="settings_nav_privacy_body">오프라인으로 작동해요. 정보가 휴대전화 밖으로 나가지 않아요.</string>
+    <string name="settings_nav_privacy_body">인터넷 연결도 서버도 쓰지 않아요. 전달을 켜면 사본이 요금제로 일반 SMS처럼 발송돼요.</string>
     <string name="settings_nav_version_copied">빌드 정보를 복사했어요.</string>
     <string name="settings_nav_source_body">GitHub에서 열기</string>
     <string name="settings_nav_licenses_row">오픈소스 라이선스</string>

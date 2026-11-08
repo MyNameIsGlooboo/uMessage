@@ -33,7 +33,7 @@
     <string name="settings_nav_off">Desactivado</string>
     <string name="settings_nav_about_row">Acerca de</string>
     <string name="settings_nav_about_body">Versión, código fuente y licencias</string>
-    <string name="settings_nav_privacy_body">Funciona sin conexión. Nada sale de tu teléfono</string>
+    <string name="settings_nav_privacy_body">Sin conexión a internet ni servidores. Si activas el reenvío, las copias salen como SMS normales con tu tarifa.</string>
     <string name="settings_nav_version_copied">Compilación copiada</string>
     <string name="settings_nav_source_body">Abrir en GitHub</string>
     <string name="settings_nav_licenses_row">Licencias de código abierto</string>

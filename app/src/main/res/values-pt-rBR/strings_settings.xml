@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">Tamanho máximo dos anexos enviados</string>
     <string name="settings_empty_recycle_bin_body">Exclua permanentemente tudo da lixeira</string>
     <string name="settings_group_backup">Backup e restauração</string>
-    <string name="settings_privacy_title">Nada sai do seu celular</string>
+    <string name="settings_privacy_title">Funciona sem internet</string>
     <string name="settings_about_version">Versão</string>
     <string name="settings_about_source">Código-fonte</string>
     <string name="settings_about_no_browser">Nenhum app encontrado para abrir o link</string>

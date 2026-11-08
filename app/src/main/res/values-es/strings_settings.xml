@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">Tamaño máximo de los archivos adjuntos que se envían</string>
     <string name="settings_empty_recycle_bin_body">Elimina permanentemente todo el contenido de la papelera</string>
     <string name="settings_group_backup">Copia de seguridad y restauración</string>
-    <string name="settings_privacy_title">Nada sale de tu teléfono</string>
+    <string name="settings_privacy_title">Funciona sin conexión</string>
     <string name="settings_about_version">Versión</string>
     <string name="settings_about_source">Código fuente</string>
     <string name="settings_about_no_browser">No se encontró una aplicación para abrir el enlace</string>

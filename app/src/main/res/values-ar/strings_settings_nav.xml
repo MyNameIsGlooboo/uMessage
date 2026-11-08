@@ -33,7 +33,7 @@
     <string name="settings_nav_off">متوقف</string>
     <string name="settings_nav_about_row">حول التطبيق</string>
     <string name="settings_nav_about_body">الإصدار والشيفرة المصدرية والتراخيص</string>
-    <string name="settings_nav_privacy_body">يعمل دون إنترنت. لا شيء يغادر هاتفك</string>
+    <string name="settings_nav_privacy_body">لا اتصال بالإنترنت ولا خوادم. إذا فعّلت إعادة التوجيه، تُرسل النسخ كرسائل SMS عادية عبر باقتك.</string>
     <string name="settings_nav_version_copied">تم نسخ رقم البناء</string>
     <string name="settings_nav_source_body">افتح على GitHub</string>
     <string name="settings_nav_licenses_row">تراخيص المصادر المفتوحة</string>

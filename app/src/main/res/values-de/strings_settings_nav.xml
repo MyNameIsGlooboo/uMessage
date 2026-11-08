@@ -33,7 +33,7 @@
     <string name="settings_nav_off">Aus</string>
     <string name="settings_nav_about_row">Info</string>
     <string name="settings_nav_about_body">Version, Quellcode und Lizenzen</string>
-    <string name="settings_nav_privacy_body">Funktioniert offline. Nichts verlässt dein Handy</string>
+    <string name="settings_nav_privacy_body">Keine Internetverbindung und keine Server. Wenn du die Weiterleitung einschaltest, gehen Kopien als normale SMS über deinen Tarif raus.</string>
     <string name="settings_nav_version_copied">Build-Nummer kopiert</string>
     <string name="settings_nav_source_body">Auf GitHub öffnen</string>
     <string name="settings_nav_licenses_row">Open-Source-Lizenzen</string>

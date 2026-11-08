@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">পাঠানো সংযুক্তির সর্বোচ্চ আকার</string>
     <string name="settings_empty_recycle_bin_body">রিসাইকেল বিনের সবকিছু স্থায়ীভাবে মুছুন</string>
     <string name="settings_group_backup">ব্যাকআপ ও ফিরিয়ে আনা</string>
-    <string name="settings_privacy_title">আপনার ফোনের বাইরে কিছু যায় না</string>
+    <string name="settings_privacy_title">অফলাইনে কাজ করে</string>
     <string name="settings_about_version">সংস্করণ</string>
     <string name="settings_about_source">সোর্স কোড</string>
     <string name="settings_about_no_browser">লিঙ্ক খোলার কোনো অ্যাপ পাওয়া যায়নি</string>

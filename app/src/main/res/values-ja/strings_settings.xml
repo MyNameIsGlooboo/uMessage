@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">送信する添付ファイルの最大サイズ</string>
     <string name="settings_empty_recycle_bin_body">ゴミ箱の中身をすべて完全に削除します。</string>
     <string name="settings_group_backup">バックアップと復元</string>
-    <string name="settings_privacy_title">データは端末内だけに保存</string>
+    <string name="settings_privacy_title">オフラインで動作</string>
     <string name="settings_about_version">バージョン</string>
     <string name="settings_about_source">ソースコード</string>
     <string name="settings_about_no_browser">リンクを開くアプリが見つかりません。</string>

@@ -33,7 +33,7 @@
     <string name="settings_nav_off">Вимкнено</string>
     <string name="settings_nav_about_row">Про застосунок</string>
     <string name="settings_nav_about_body">Версія, вихідний код і ліцензії</string>
-    <string name="settings_nav_privacy_body">Працює офлайн. Усе залишається на вашому телефоні</string>
+    <string name="settings_nav_privacy_body">Без інтернету й без серверів. Якщо ввімкнути пересилання, копії йдуть звичайними SMS за вашим тарифом.</string>
     <string name="settings_nav_version_copied">Номер збірки скопійовано</string>
     <string name="settings_nav_source_body">Відкрити на GitHub</string>
     <string name="settings_nav_licenses_row">Ліцензії відкритого коду</string>

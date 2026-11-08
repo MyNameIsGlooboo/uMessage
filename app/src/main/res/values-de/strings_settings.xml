@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">Maximale Größe gesendeter Anhänge</string>
     <string name="settings_empty_recycle_bin_body">Alles im Papierkorb endgültig löschen</string>
     <string name="settings_group_backup">Sichern und wiederherstellen</string>
-    <string name="settings_privacy_title">Nichts verlässt dein Handy</string>
+    <string name="settings_privacy_title">Funktioniert offline</string>
     <string name="settings_about_version">Version</string>
     <string name="settings_about_source">Quellcode</string>
     <string name="settings_about_no_browser">Keine App zum Öffnen des Links gefunden</string>

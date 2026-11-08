@@ -33,7 +33,7 @@
     <string name="settings_nav_off">关闭</string>
     <string name="settings_nav_about_row">关于</string>
     <string name="settings_nav_about_body">版本、源代码和许可证</string>
-    <string name="settings_nav_privacy_body">离线运行。数据只留在手机上。</string>
+    <string name="settings_nav_privacy_body">无需联网，也没有服务器。开启转发后，副本会以普通短信的方式，按你的套餐发出。</string>
     <string name="settings_nav_version_copied">已复制构建信息</string>
     <string name="settings_nav_source_body">在GitHub上打开</string>
     <string name="settings_nav_licenses_row">开源许可证</string>

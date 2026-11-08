@@ -33,7 +33,7 @@
     <string name="settings_nav_off">خاموش</string>
     <string name="settings_nav_about_row">درباره</string>
     <string name="settings_nav_about_body">نسخه، کد منبع و لایسنس‌ها</string>
-    <string name="settings_nav_privacy_body">آفلاین کار می‌کند</string>
+    <string name="settings_nav_privacy_body">بدون اتصال به اینترنت و بدون سرور. اگر فوروارد را روشن کنید، کپی پیام‌ها مثل پیامک عادی با سیم‌کارت خودتان فرستاده می‌شود.</string>
     <string name="settings_nav_version_copied">مشخصات ساخت کپی شد</string>
     <string name="settings_nav_source_body">باز کردن در GitHub</string>
     <string name="settings_nav_licenses_row">لایسنس‌های متن‌باز</string>

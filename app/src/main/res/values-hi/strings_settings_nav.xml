@@ -33,7 +33,7 @@
     <string name="settings_nav_off">बंद</string>
     <string name="settings_nav_about_row">ऐप के बारे में</string>
     <string name="settings_nav_about_body">वर्शन, सोर्स कोड और लाइसेंस</string>
-    <string name="settings_nav_privacy_body">ऑफ़लाइन काम करता है. आपके फ़ोन से कोई डेटा बाहर नहीं जाता</string>
+    <string name="settings_nav_privacy_body">कोई इंटरनेट कनेक्शन नहीं और कोई सर्वर नहीं। फ़ॉरवर्डिंग चालू करने पर कॉपी आपके प्लान से सामान्य एसएमएस के रूप में जाती हैं।</string>
     <string name="settings_nav_version_copied">बिल्ड की जानकारी कॉपी हो गई</string>
     <string name="settings_nav_source_body">GitHub पर खोलें</string>
     <string name="settings_nav_licenses_row">ओपन-सोर्स लाइसेंस</string>

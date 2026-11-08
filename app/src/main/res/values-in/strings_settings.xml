@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">Ukuran maksimum lampiran yang dikirim</string>
     <string name="settings_empty_recycle_bin_body">Hapus permanen semua isi sampah</string>
     <string name="settings_group_backup">Cadangkan dan pulihkan</string>
-    <string name="settings_privacy_title">Tidak ada data yang keluar dari ponsel</string>
+    <string name="settings_privacy_title">Berfungsi offline</string>
     <string name="settings_about_version">Versi</string>
     <string name="settings_about_source">Kode sumber</string>
     <string name="settings_about_no_browser">Tidak ada aplikasi untuk membuka tautan</string>

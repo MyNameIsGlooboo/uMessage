@@ -33,7 +33,7 @@
     <string name="settings_nav_off">關閉</string>
     <string name="settings_nav_about_row">關於</string>
     <string name="settings_nav_about_body">版本、原始碼和授權條款</string>
-    <string name="settings_nav_privacy_body">離線運作</string>
+    <string name="settings_nav_privacy_body">不需連網，也沒有伺服器。開啟轉發後，副本會以一般簡訊的方式，依你的方案發送。</string>
     <string name="settings_nav_version_copied">已複製版本號</string>
     <string name="settings_nav_source_body">在GitHub上開啟</string>
     <string name="settings_nav_licenses_row">開放原始碼授權條款</string>

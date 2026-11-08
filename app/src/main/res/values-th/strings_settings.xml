@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">ขนาดไฟล์แนบสูงสุดที่ส่งได้</string>
     <string name="settings_empty_recycle_bin_body">ลบทุกอย่างในถังขยะอย่างถาวร</string>
     <string name="settings_group_backup">สำรองข้อมูลและกู้คืน</string>
-    <string name="settings_privacy_title">ไม่มีข้อมูลออกจากโทรศัพท์</string>
+    <string name="settings_privacy_title">ทำงานออฟไลน์</string>
     <string name="settings_about_version">เวอร์ชัน</string>
     <string name="settings_about_source">ซอร์สโค้ด</string>
     <string name="settings_about_no_browser">ไม่พบแอปที่เปิดลิงก์ได้</string>

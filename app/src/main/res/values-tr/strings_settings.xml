@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">Gönderilebilecek en büyük ek boyutu</string>
     <string name="settings_empty_recycle_bin_body">Çöp kutusundaki her şeyi kalıcı olarak silin</string>
     <string name="settings_group_backup">Yedekleyin ve geri yükleyin</string>
-    <string name="settings_privacy_title">Hiçbir veri telefonunuzdan çıkmaz</string>
+    <string name="settings_privacy_title">Çevrimdışı çalışır</string>
     <string name="settings_about_version">Sürüm</string>
     <string name="settings_about_source">Kaynak kodu</string>
     <string name="settings_about_no_browser">Bağlantıyı açacak uygulama bulunamadı</string>

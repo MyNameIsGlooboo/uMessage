@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">可傳送的附件大小上限</string>
     <string name="settings_empty_recycle_bin_body">永久移除資源回收筒中的所有內容</string>
     <string name="settings_group_backup">備份與還原</string>
-    <string name="settings_privacy_title">資料不會離開你的手機</string>
+    <string name="settings_privacy_title">離線運作</string>
     <string name="settings_about_version">版本</string>
     <string name="settings_about_source">原始碼</string>
     <string name="settings_about_no_browser">找不到可開啟連結的應用程式</string>

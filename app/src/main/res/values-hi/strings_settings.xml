@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">भेजे जाने वाले अटैचमेंट का अधिकतम आकार</string>
     <string name="settings_empty_recycle_bin_body">रीसायकल बिन से सब कुछ हमेशा के लिए मिटाएं</string>
     <string name="settings_group_backup">बैकअप और वापस लाना</string>
-    <string name="settings_privacy_title">आपके फ़ोन से कुछ भी बाहर नहीं जाता</string>
+    <string name="settings_privacy_title">ऑफ़लाइन काम करता है</string>
     <string name="settings_about_version">वर्शन</string>
     <string name="settings_about_source">सोर्स कोड</string>
     <string name="settings_about_no_browser">लिंक खोलने के लिए कोई ऐप नहीं मिला</string>

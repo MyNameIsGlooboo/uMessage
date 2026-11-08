@@ -29,7 +29,7 @@
     <string name="settings_mms_limit_body">Maksymalny rozmiar wysyłanego załącznika</string>
     <string name="settings_empty_recycle_bin_body">Trwale usuń całą zawartość kosza</string>
     <string name="settings_group_backup">Kopia zapasowa i przywracanie</string>
-    <string name="settings_privacy_title">Nic nie opuszcza twojego telefonu</string>
+    <string name="settings_privacy_title">Działa offline</string>
     <string name="settings_about_version">Wersja</string>
     <string name="settings_about_source">Kod źródłowy</string>
     <string name="settings_about_no_browser">Nie znaleziono aplikacji do otwarcia linku</string>

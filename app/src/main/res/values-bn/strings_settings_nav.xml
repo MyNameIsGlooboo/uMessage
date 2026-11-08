@@ -33,7 +33,7 @@
     <string name="settings_nav_off">বন্ধ</string>
     <string name="settings_nav_about_row">অ্যাপ সম্পর্কে</string>
     <string name="settings_nav_about_body">সংস্করণ, সোর্স কোড ও লাইসেন্স</string>
-    <string name="settings_nav_privacy_body">অফলাইনে কাজ করে। আপনার ফোন থেকে কিছুই বাইরে যায় না</string>
+    <string name="settings_nav_privacy_body">ইন্টারনেট সংযোগ নেই, সার্ভারও নেই। ফরওয়ার্ডিং চালু করলে কপিগুলো আপনার প্ল্যানে সাধারণ এসএমএস হিসেবে যায়।</string>
     <string name="settings_nav_version_copied">বিল্ডের তথ্য কপি করা হয়েছে</string>
     <string name="settings_nav_source_body">GitHub-এ খুলুন</string>
     <string name="settings_nav_licenses_row">ওপেন সোর্স লাইসেন্স</string>

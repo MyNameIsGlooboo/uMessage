@@ -33,7 +33,7 @@
     <string name="settings_nav_off">Kapalı</string>
     <string name="settings_nav_about_row">Hakkında</string>
     <string name="settings_nav_about_body">Sürüm, kaynak kodu ve lisanslar</string>
-    <string name="settings_nav_privacy_body">Çevrimdışı çalışır. Hiçbir veri telefonunuzdan çıkmaz</string>
+    <string name="settings_nav_privacy_body">İnternet bağlantısı ve sunucu yok. Yönlendirmeyi açarsanız kopyalar tarifenizden normal SMS olarak gider.</string>
     <string name="settings_nav_version_copied">Derleme bilgisi kopyalandı</string>
     <string name="settings_nav_source_body">GitHub\'da açın</string>
     <string name="settings_nav_licenses_row">Açık kaynak lisansları</string>
