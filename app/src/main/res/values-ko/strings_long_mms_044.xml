@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_mms_title">긴 문자를 사진 메시지(MMS)로 보내기</string>
+    <string name="long_mms_choice_never">사용 안 함(기본값)</string>
+    <string name="long_mms_value_never">사용 안 함</string>
+    <string name="long_mms_after">%d개 이상일 때</string>
+    <string name="thread_many_parts_note_044">이 문자는 매우 길어서 SMS %1$d건으로 전송됩니다. 짧을수록 요금이 적게 듭니다. 설정에서 긴 문자를 사진 메시지 한 건으로 보내도록 선택할 수 있습니다.</string>
+</resources>

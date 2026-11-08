@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.models.Message
+import com.glooboo.umessage.models.MessageKey
 import java.time.ZoneId
 import android.text.format.DateFormat
 import androidx.compose.foundation.layout.heightIn
@@ -114,20 +115,11 @@ fun ThreadRowItem(row: ThreadRow, vm: ThreadViewModel, actions: ThreadActions) {
 
         is ThreadRow.MmsDownload -> MmsDownloadRow(row, actions.onDownloadMms)
 
-        is ThreadRow.Sent -> if (row.deliveryFailed) {
-            StatusLine(
-                text = stringResource(R.string.thread_status_delivery_failed),
-                icon = Symbols.Error,
-                color = MaterialTheme.colorScheme.error,
-            )
-        } else {
-            StatusLine(
-                text = stringResource(
-                    if (row.delivered) R.string.thread_status_delivered else R.string.thread_status_sent,
-                ),
-                icon = if (row.delivered) Symbols.DoneAll else Symbols.Check,
-            )
-        }
+        // Q12: under a sent group message the line opens each person's delivery state.
+        is ThreadRow.Sent -> SentStatusLine(
+            row,
+            onDetails = if (vm.isGroup) ({ vm.deliveryDetailsFor = MessageKey(row.messageId, row.isMms) }) else null,
+        )
 
         is ThreadRow.UnreadDivider -> UnreadDivider()
 
@@ -225,15 +217,21 @@ private fun UnreadDivider() {
     }
 }
 
+/**
+ * One status line under a bubble. With [onClick] the line is a 48dp button announced as [onClickLabel] (Retry by
+ * default); [trailingIcon] then ends the line, read as [trailingDescription].
+ */
 @Composable
-private fun StatusLine(
+internal fun StatusLine(
     text: String,
     modifier: Modifier = Modifier,
     icon: androidx.compose.ui.graphics.vector.ImageVector? = null,
     color: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     onClick: (() -> Unit)? = null,
+    onClickLabel: String = stringResource(R.string.ui_retry_send),
+    trailingIcon: androidx.compose.ui.graphics.vector.ImageVector? = null,
+    trailingDescription: String? = null,
 ) {
-    val retryLabel = stringResource(R.string.ui_retry_send)
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -242,7 +240,7 @@ private fun StatusLine(
                     // A real 48dp target with an announced action, not a 2dp-padded line of text.
                     Modifier
                         .heightIn(min = 48.dp)
-                        .clickable(onClickLabel = retryLabel, role = Role.Button, onClick = onClick)
+                        .clickable(onClickLabel = onClickLabel, role = Role.Button, onClick = onClick)
                 } else {
                     Modifier
                 },
@@ -256,6 +254,10 @@ private fun StatusLine(
             Spacer(Modifier.size(4.dp))
         }
         Text(text, style = MaterialTheme.typography.labelSmall, color = color)
+        if (trailingIcon != null) {
+            Spacer(Modifier.size(4.dp))
+            Icon(trailingIcon, contentDescription = trailingDescription, tint = color, modifier = Modifier.size(14.dp))
+        }
     }
 }
 

@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">Serait reçu : correspond à une règle d\'autorisation.</string>
     <string name="w3b_verdict_allowed_contact">Serait reçu : l\'expéditeur figure dans vos contacts.</string>
     <string name="w3b_verdict_allowed_known">Serait reçu : vous avez déjà envoyé un message à ce numéro.</string>
-    <string name="w3b_verdict_allowed_code">Serait reçu : code de validation sans lien.</string>
+    <string name="w3b_verdict_allowed_code">Serait reçu : code de validation.</string>
     <string name="w3b_verdict_allowed_off">Serait reçu : le blocage des expéditeurs inconnus est désactivé.</string>
     <string name="w3b_verdict_allowed_unsure">Serait reçu : les contacts sont inaccessibles, l\'expéditeur ne peut donc pas être évalué.</string>
     <string name="w3b_verdict_allowed_other">Serait reçu.</string>

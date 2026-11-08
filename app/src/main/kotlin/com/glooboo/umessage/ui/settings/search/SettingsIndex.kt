@@ -90,7 +90,7 @@ object SettingsIndex {
         SettingsIndexEntry(R.string.smart_replies_notif_title, PG_TYPING, TYPING, R.string.smart_replies_notif_summary, R.string.sks_smart_replies),
         SettingsIndexEntry(R.string.w7d_bank_cards_title, PG_TYPING, TYPING, R.string.w7d_bank_cards_summary, R.string.sks_bank_cards),
         SettingsIndexEntry(R.string.ui_settings_delivery_reports, PG_TYPING, TYPING, null, R.string.sks_delivery),
-        SettingsIndexEntry(R.string.settings_nav_long_mms, PG_TYPING, TYPING, R.string.settings_long_mms_body, R.string.sks_long_mms),
+        SettingsIndexEntry(R.string.long_mms_title, PG_TYPING, TYPING, null, R.string.sks_long_mms),
         SettingsIndexEntry(R.string.settings_nav_group_mms, PG_TYPING, TYPING, R.string.settings_group_mms_body, R.string.sks_group_mms),
         SettingsIndexEntry(R.string.settings_nav_mms_size, PG_TYPING, TYPING, null, R.string.sks_mms_size),
         SettingsIndexEntry(R.string.i09_setting_title, PG_TYPING, TYPING, R.string.i09_setting_summary, R.string.sks_photo_location),

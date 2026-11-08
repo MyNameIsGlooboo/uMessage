@@ -19,6 +19,10 @@ The three-dot menu at the top of Messages lists, in this order: **Recycle bin** 
 
 The app works in portrait and landscape. Turn the phone sideways and every screen follows: content stays clear of a camera cutout and of the navigation bar at the side, message bubbles keep a readable width, and the keyboard leaves the message box usable.
 
+A long text is sent as one multipart SMS, however long, and is never turned into a picture message unless you ask for it. To change that, open Settings > Typing and sending > Sending > **Send long texts as picture message (MMS)** and choose **Never (default)** or a number of messages (2, 3, 4, 5, 6, 8 or 10): a text that needs at least that many SMS is then sent as MMS, which may cost more. Persian, Arabic and other non-Latin text fits fewer characters in each SMS (70, then 67 per part), so it reaches the number sooner. A very long text still shows a warning before it is sent as many SMS.
+
+Under the newest message you sent to a group, the line that says Sent, Delivered or Delivery failed has a small info icon. Tap it to open **Delivery details**, which lists every person with their own state (Sent, Delivered, Not sent or Delivery failed, with the time when it is known). A group picture message has no state for each person: the carrier reports one state, and the sheet says so. A chat with one person has no such icon.
+
 Settings > About has **Send feedback**, which opens your email app with a message to the developer already addressed, and, in the Google Play build only, **Rate uMessage**, which opens the Play Store.
 
 ## Who counts as known
@@ -36,11 +40,11 @@ Change the mode in Settings > Spam protection (Messages from unknown senders), o
 
 | Mode | Unknown senders | Verification codes from unknown senders |
 |---|---|---|
-| **Smart** (default) | Spam | Delivered, if the message has no link |
+| **Smart** (default) | Spam | Delivered, also when the message has a link |
 | **Strict** | Spam | Spam too |
 | **Off** | Delivered | Delivered |
 
-Smart is the right choice for most people: banks, delivery services and login codes usually come from numbers that are not in your contacts, and Smart still lets their codes through. A "code" message that also contains a link is treated as spam in Smart, because that is a common phishing trick.
+Smart is the right choice for most people: banks, delivery services and login codes usually come from numbers that are not in your contacts, and Smart still lets their codes through. A code message arrives even if it also contains a link. The catch: a scam shaped like "your code is 123456, tap this link" from an unknown sender now reaches your inbox too, so do not tap links you did not expect. Choose Strict if you prefer to hold every unknown sender, codes included.
 
 Your own allow and block rules apply in every mode, including Off.
 

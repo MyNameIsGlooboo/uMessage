@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_mms_title">Kirim teks panjang sebagai pesan gambar (MMS)</string>
+    <string name="long_mms_choice_never">Jangan pernah (default)</string>
+    <string name="long_mms_value_never">Jangan pernah</string>
+    <string name="long_mms_after">Setelah %d pesan</string>
+    <string name="thread_many_parts_note_044">Teks ini sangat panjang: akan dikirim sebagai %1$d SMS. Teks yang lebih pendek lebih murah. Di Pengaturan, Anda bisa memilih untuk mengirim teks panjang sebagai satu pesan gambar.</string>
+</resources>

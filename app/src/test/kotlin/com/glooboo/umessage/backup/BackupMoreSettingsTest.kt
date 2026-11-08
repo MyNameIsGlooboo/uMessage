@@ -27,7 +27,8 @@ class BackupMoreSettingsTest {
         removePhotoLocation = false, voiceButton = true, signature = "Sent from my phone", chatSounds = true,
         wakeScreen = true, chatBubbles = true, focusCodes = true, smartReplies = true, lockScope = "chosen",
         showCharacterCounter = true, useSimpleCharacters = true, deliveryReports = true, sendLongAsMms = true,
-        sendGroupAsMms = true, mmsFileSizeLimit = FILE_SIZE_1_MB, useRecycleBin = true, keepArchived = true,
+        sendLongAsMmsAfter = 4, sendGroupAsMms = true, mmsFileSizeLimit = FILE_SIZE_1_MB, useRecycleBin = true,
+        keepArchived = true,
         defaultSim = BackupSettings.SIM_ASK, appFont = "system",
     )
 

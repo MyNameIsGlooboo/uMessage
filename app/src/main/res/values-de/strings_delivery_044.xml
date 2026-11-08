@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">Zustelldetails</string>
+    <string name="delivery_details_title">Zustelldetails (%1$d)</string>
+    <string name="delivery_state_not_sent">Nicht gesendet</string>
+    <string name="delivery_details_mms_note">Dein Anbieter meldet bei Gruppen-Bildnachrichten nur einen Status</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">جزئیات تحویل</string>
+    <string name="delivery_details_title">جزئیات تحویل (%1$d نفر)</string>
+    <string name="delivery_state_not_sent">ارسال نشد</string>
+    <string name="delivery_details_mms_note">اپراتور برای پیام‌های تصویریِ گروهی فقط یک وضعیت اعلام می‌کند</string>
+</resources>

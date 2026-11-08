@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">پہنچا دیا جائے گا: اجازت کا ایک اصول مماثل ہے۔</string>
     <string name="w3b_verdict_allowed_contact">پہنچا دیا جائے گا: بھیجنے والا آپ کے رابطوں میں ہے۔</string>
     <string name="w3b_verdict_allowed_known">پہنچا دیا جائے گا: آپ پہلے اس نمبر کو پیغام بھیج چکے ہیں۔</string>
-    <string name="w3b_verdict_allowed_code">پہنچا دیا جائے گا: لنک کے بغیر تصدیقی کوڈ۔</string>
+    <string name="w3b_verdict_allowed_code">پہنچا دیا جائے گا: تصدیقی کوڈ۔</string>
     <string name="w3b_verdict_allowed_off">پہنچا دیا جائے گا: نامعلوم بھیجنے والوں کو بلاک کرنا بند ہے۔</string>
     <string name="w3b_verdict_allowed_unsure">پہنچا دیا جائے گا: رابطے پڑھے نہیں جا سکتے، اس لیے بھیجنے والے کو جانچا نہیں جا سکتا۔</string>
     <string name="w3b_verdict_allowed_other">پہنچا دیا جائے گا۔</string>

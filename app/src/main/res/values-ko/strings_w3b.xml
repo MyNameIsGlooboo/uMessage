@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">허용 규칙과 일치해서 수신돼요.</string>
     <string name="w3b_verdict_allowed_contact">연락처에 있는 발신자가 보내서 수신돼요.</string>
     <string name="w3b_verdict_allowed_known">전에 문자를 보낸 번호라서 수신돼요.</string>
-    <string name="w3b_verdict_allowed_code">링크 없는 인증 코드라서 수신돼요.</string>
+    <string name="w3b_verdict_allowed_code">인증 코드라서 수신돼요.</string>
     <string name="w3b_verdict_allowed_off">알 수 없는 발신자 차단이 꺼져 있어 수신돼요.</string>
     <string name="w3b_verdict_allowed_unsure">연락처를 읽을 수 없어 발신자를 판정하지 못하므로 수신돼요.</string>
     <string name="w3b_verdict_allowed_other">수신돼요.</string>

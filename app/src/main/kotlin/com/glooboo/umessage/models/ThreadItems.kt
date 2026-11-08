@@ -9,11 +9,15 @@ sealed class ThreadItem {
     data class ThreadError(val messageId: Long, val messageText: String, val isMMS: Boolean = false) : ThreadItem() {
         val key: MessageKey get() = MessageKey(messageId, isMMS)
     }
-    /** [deliveryFailed]: the carrier's delivery report says the text did not arrive (SMS only). */
+    /**
+     * [deliveryFailed]: the carrier's delivery report says the text did not arrive (SMS only). [isMms]: the message is
+     * a picture message, which matters for the group delivery details (Q12).
+     */
     data class ThreadSent(
         val messageId: Long,
         val delivered: Boolean,
         val deliveryFailed: Boolean = false,
+        val isMms: Boolean = false,
     ) : ThreadItem()
     data class ThreadSending(val messageId: Long) : ThreadItem()
 

@@ -1117,7 +1117,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         if (segments?.isVeryLong == true && !vm.manyPartsNoted && !vm.isMms) {
             vm.manyPartsNoted = true
             lifecycleScope.launch {
-                vm.snackbar.showSnackbar(getString(R.string.thread_many_parts_note, segments.parts))
+                vm.snackbar.showSnackbar(getString(R.string.thread_many_parts_note_044, segments.parts))
             }
         }
 

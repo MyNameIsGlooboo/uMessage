@@ -51,7 +51,7 @@
     <string name="w3b_verdict_allowed_rule">Would be delivered: an allow rule matches.</string>
     <string name="w3b_verdict_allowed_contact">Would be delivered: the sender is in your contacts.</string>
     <string name="w3b_verdict_allowed_known">Would be delivered: you have texted this number before.</string>
-    <string name="w3b_verdict_allowed_code">Would be delivered: a verification code without a link.</string>
+    <string name="w3b_verdict_allowed_code">Would be delivered: a verification code.</string>
     <string name="w3b_verdict_allowed_off">Would be delivered: unknown-sender blocking is off.</string>
     <string name="w3b_verdict_allowed_unsure">Would be delivered: contacts cannot be read, so the sender cannot be judged.</string>
     <string name="w3b_verdict_allowed_other">Would be delivered.</string>

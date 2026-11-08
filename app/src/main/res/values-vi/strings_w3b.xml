@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">Sẽ được nhận: khớp một quy tắc cho phép.</string>
     <string name="w3b_verdict_allowed_contact">Sẽ được nhận: người gửi có trong danh sách người liên hệ của bạn.</string>
     <string name="w3b_verdict_allowed_known">Sẽ được nhận: bạn đã từng nhắn tin cho số này.</string>
-    <string name="w3b_verdict_allowed_code">Sẽ được nhận: mã xác minh không kèm liên kết.</string>
+    <string name="w3b_verdict_allowed_code">Sẽ được nhận: mã xác minh.</string>
     <string name="w3b_verdict_allowed_off">Sẽ được nhận: tính năng chặn người gửi không xác định đang tắt.</string>
     <string name="w3b_verdict_allowed_unsure">Sẽ được nhận: không đọc được danh sách người liên hệ nên không thể đánh giá người gửi.</string>
     <string name="w3b_verdict_allowed_other">Sẽ được nhận.</string>

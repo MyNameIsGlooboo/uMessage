@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_mms_title">Надсилати довгі тексти як MMS (повідомлення з картинкою)</string>
+    <string name="long_mms_choice_never">Ніколи (за замовчуванням)</string>
+    <string name="long_mms_value_never">Ніколи</string>
+    <string name="long_mms_after">Від %d повідомлень</string>
+    <string name="thread_many_parts_note_044">Цей текст дуже довгий: він піде як %1$d SMS. Коротші тексти коштують дешевше. У налаштуваннях можна вибрати надсилання довгих текстів одним MMS-повідомленням.</string>
+</resources>

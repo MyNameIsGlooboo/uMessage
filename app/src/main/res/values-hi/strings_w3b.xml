@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">मैसेज आ जाएगा: अनुमति देने वाले किसी नियम से मेल खाता है.</string>
     <string name="w3b_verdict_allowed_contact">मैसेज आ जाएगा: भेजने वाला आपके संपर्कों में है.</string>
     <string name="w3b_verdict_allowed_known">मैसेज आ जाएगा: आपने इस नंबर पर पहले मैसेज भेजा है.</string>
-    <string name="w3b_verdict_allowed_code">मैसेज आ जाएगा: बिना लिंक वाला पुष्टि करने का कोड है.</string>
+    <string name="w3b_verdict_allowed_code">मैसेज आ जाएगा: पुष्टि करने का कोड है.</string>
     <string name="w3b_verdict_allowed_off">मैसेज आ जाएगा: अनजान भेजने वालों को ब्लॉक करना बंद है.</string>
     <string name="w3b_verdict_allowed_unsure">मैसेज आ जाएगा: संपर्क पढ़े नहीं जा सके, इसलिए भेजने वाले की पहचान नहीं हो सकती.</string>
     <string name="w3b_verdict_allowed_other">मैसेज आ जाएगा.</string>

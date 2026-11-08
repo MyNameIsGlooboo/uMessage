@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">配信の詳細</string>
+    <string name="delivery_details_title">配信の詳細（%1$d）</string>
+    <string name="delivery_state_not_sent">未送信</string>
+    <string name="delivery_details_mms_note">グループの画像メッセージでは、通信会社は全員分の状態を1つだけ通知します</string>
+</resources>

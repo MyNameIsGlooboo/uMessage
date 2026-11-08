@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">تحویل داده می‌شود: با یک قانون اجازه دادن جور درمی‌آید.</string>
     <string name="w3b_verdict_allowed_contact">تحویل داده می‌شود: فرستنده در مخاطب‌های شماست.</string>
     <string name="w3b_verdict_allowed_known">تحویل داده می‌شود: قبلاً به این شماره پیام داده‌اید.</string>
-    <string name="w3b_verdict_allowed_code">تحویل داده می‌شود: کد تأیید است و لینک ندارد.</string>
+    <string name="w3b_verdict_allowed_code">تحویل داده می‌شود: کد تأیید است.</string>
     <string name="w3b_verdict_allowed_off">تحویل داده می‌شود: بلاک کردن فرستنده ناشناس خاموش است.</string>
     <string name="w3b_verdict_allowed_unsure">تحویل داده می‌شود: خواندن مخاطب‌ها ممکن نیست، پس نمی‌توان دربارهٔ فرستنده تصمیم گرفت.</string>
     <string name="w3b_verdict_allowed_other">تحویل داده می‌شود.</string>

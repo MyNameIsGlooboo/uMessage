@@ -118,12 +118,12 @@ internal fun TypingPage(state: SettingsUiState, actions: SettingsActions) {
             checked = state.deliveryReports,
             onCheckedChange = actions.onDeliveryReports,
         )
-        SettingsSwitchRow(
-            title = stringResource(R.string.settings_nav_long_mms),
-            summary = stringResource(R.string.settings_long_mms_body),
+        SettingsRow(
+            title = stringResource(R.string.long_mms_title),
+            summary = state.longMmsLabel,
             icon = Symbols.Sms,
-            checked = state.sendLongAsMms,
-            onCheckedChange = actions.onLongAsMms,
+            onClick = actions.onLongAsMms,
+            showChevron = true,
         )
         SettingsSwitchRow(
             title = stringResource(R.string.settings_nav_group_mms),

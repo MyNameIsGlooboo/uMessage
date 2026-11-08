@@ -1,7 +1,6 @@
 package com.glooboo.umessage.messaging
 
 import android.content.Context
-import android.telephony.SmsMessage
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast.LENGTH_LONG
@@ -24,16 +23,18 @@ fun Context.getSendMessageSettings(): Settings {
     val settings = Settings()
     settings.useSystemSending = true
     settings.deliveryReports = config.enableDeliveryReports
-    settings.sendLongAsMms = config.sendLongMessageMMS
-    settings.sendLongAsMmsAfter = 1
+    val after = config.sendLongAsMmsAfterParts
+    settings.sendLongAsMms = after != LongTextMms.NEVER
+    // The library sends as MMS above this many parts; the setting says "from this many parts".
+    settings.sendLongAsMmsAfter = (after - 1).coerceAtLeast(1)
     settings.group = config.sendGroupMessageMMS
     return settings
 }
 
+/** Q9: true only when the user chose a number of parts in Settings and [text] has at least that many. */
 fun Context.isLongMmsMessage(text: String, settings: Settings = getSendMessageSettings()): Boolean {
-    val data = SmsMessage.calculateLength(text, false)
-    val numPages = data.first()
-    return numPages > settings.sendLongAsMmsAfter && settings.sendLongAsMms
+    if (!settings.sendLongAsMms) return false
+    return LongTextMms.shouldSendAsMms(LongTextMms.smsParts(text), settings.sendLongAsMmsAfter + 1)
 }
 
 /**

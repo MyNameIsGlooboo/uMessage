@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">ترسیل کی تفصیل</string>
+    <string name="delivery_details_title">ترسیل کی تفصیل (%1$d)</string>
+    <string name="delivery_state_not_sent">بھیجا نہیں گیا</string>
+    <string name="delivery_details_mms_note">گروپ کے تصویری پیغامات کے لیے آپ کا کیریئر صرف ایک حالت بتاتا ہے</string>
+</resources>

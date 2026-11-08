@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">Verrebbe recapitato: corrisponde a una regola che lo consente.</string>
     <string name="w3b_verdict_allowed_contact">Verrebbe recapitato: il mittente è tra i tuoi contatti.</string>
     <string name="w3b_verdict_allowed_known">Verrebbe recapitato: hai già scritto a questo numero.</string>
-    <string name="w3b_verdict_allowed_code">Verrebbe recapitato: codice di verifica senza link.</string>
+    <string name="w3b_verdict_allowed_code">Verrebbe recapitato: codice di verifica.</string>
     <string name="w3b_verdict_allowed_off">Verrebbe recapitato: il blocco dei mittenti sconosciuti è disattivato.</string>
     <string name="w3b_verdict_allowed_unsure">Verrebbe recapitato: impossibile leggere i contatti, quindi non si può valutare il mittente.</string>
     <string name="w3b_verdict_allowed_other">Verrebbe recapitato.</string>

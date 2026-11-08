@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">จะส่งถึงกล่องข้อความเข้า: ตรงกับกฎอนุญาต</string>
     <string name="w3b_verdict_allowed_contact">จะส่งถึงกล่องข้อความเข้า: ผู้ส่งอยู่ในรายชื่อติดต่อ</string>
     <string name="w3b_verdict_allowed_known">จะส่งถึงกล่องข้อความเข้า: เคยส่งข้อความไปยังหมายเลขนี้แล้ว</string>
-    <string name="w3b_verdict_allowed_code">จะส่งถึงกล่องข้อความเข้า: เป็นรหัสยืนยันที่ไม่มีลิงก์</string>
+    <string name="w3b_verdict_allowed_code">จะส่งถึงกล่องข้อความเข้า: เป็นรหัสยืนยัน</string>
     <string name="w3b_verdict_allowed_off">จะส่งถึงกล่องข้อความเข้า: ปิดการบล็อกผู้ส่งที่ไม่รู้จักอยู่</string>
     <string name="w3b_verdict_allowed_unsure">จะส่งถึงกล่องข้อความเข้า: อ่านรายชื่อติดต่อไม่ได้ จึงตรวจสอบผู้ส่งไม่ได้</string>
     <string name="w3b_verdict_allowed_other">จะส่งถึงกล่องข้อความเข้า</string>

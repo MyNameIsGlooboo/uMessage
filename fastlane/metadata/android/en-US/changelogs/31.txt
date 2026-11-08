@@ -1,14 +1,15 @@
 • New: Chinese (Traditional), Urdu
 • Blocked tab is now Spam
+• Codes with a link now arrive
 • Allow keywords also allow the sender
-• Full backup covers bin, drafts, notes, labels and more
+• Full backup: bin, drafts, notes, labels
 • Backup asks to unlock hidden chats
-• Save to Google Drive (no internet)
+• Save to Google Drive
 • Codes like 123-456 now arrive
-• Retry failed picture messages; Tap to download
+• Picture messages: retry, tap to download
 • Scheduled messages sent once
-• Delete forever: binned messages only
 • Lock-screen text hidden
-• Landscape fixed
 • Failed-send alert follows sound setting
 • Persian in everyday words
+• Long texts stay SMS by default
+• Group delivery details on tap

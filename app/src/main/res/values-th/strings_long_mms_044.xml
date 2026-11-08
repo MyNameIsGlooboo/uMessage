@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_mms_title">ส่งข้อความยาวเป็นข้อความภาพ (MMS)</string>
+    <string name="long_mms_choice_never">ไม่เลย (ค่าเริ่มต้น)</string>
+    <string name="long_mms_value_never">ไม่เลย</string>
+    <string name="long_mms_after">เมื่อยาวตั้งแต่ %d ข้อความ</string>
+    <string name="thread_many_parts_note_044">ข้อความนี้ยาวมาก จะถูกส่งเป็น SMS %1$d ข้อความ ข้อความที่สั้นกว่าจะเสียค่าบริการน้อยกว่า ในการตั้งค่า คุณเลือกให้ส่งข้อความยาวเป็นข้อความภาพข้อความเดียวได้</string>
+</resources>

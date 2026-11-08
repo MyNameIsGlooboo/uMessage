@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">Dettagli di consegna</string>
+    <string name="delivery_details_title">Dettagli di consegna (%1$d)</string>
+    <string name="delivery_state_not_sent">Non inviato</string>
+    <string name="delivery_details_mms_note">Il tuo operatore segnala un solo stato per i messaggi con immagini di gruppo</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">تفاصيل التسليم</string>
+    <string name="delivery_details_title">تفاصيل التسليم (%1$d)</string>
+    <string name="delivery_state_not_sent">لم يُرسل</string>
+    <string name="delivery_details_mms_note">يُبلغ مشغّل الاتصال عن حالة واحدة فقط لرسائل الصور الجماعية</string>
+</resources>

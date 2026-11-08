@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">পৌঁছে দেওয়া হবে: অনুমতি দেওয়ার একটি নিয়মের সঙ্গে মিলেছে।</string>
     <string name="w3b_verdict_allowed_contact">পৌঁছে দেওয়া হবে: প্রেরক আপনার পরিচিতি তালিকায় আছেন।</string>
     <string name="w3b_verdict_allowed_known">পৌঁছে দেওয়া হবে: আপনি আগে এই নম্বরে বার্তা পাঠিয়েছেন।</string>
-    <string name="w3b_verdict_allowed_code">পৌঁছে দেওয়া হবে: লিঙ্ক ছাড়া যাচাইকরণ কোড।</string>
+    <string name="w3b_verdict_allowed_code">পৌঁছে দেওয়া হবে: যাচাইকরণ কোড।</string>
     <string name="w3b_verdict_allowed_off">পৌঁছে দেওয়া হবে: অচেনা প্রেরককে ব্লক করা বন্ধ আছে।</string>
     <string name="w3b_verdict_allowed_unsure">পৌঁছে দেওয়া হবে: পরিচিতি পড়া যাচ্ছে না বলে প্রেরককে চেনা যাচ্ছে না।</string>
     <string name="w3b_verdict_allowed_other">পৌঁছে দেওয়া হবে।</string>

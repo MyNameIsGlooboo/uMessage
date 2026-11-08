@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">傳送詳情</string>
+    <string name="delivery_details_title">傳送詳情（%1$d）</string>
+    <string name="delivery_state_not_sent">未傳送</string>
+    <string name="delivery_details_mms_note">群組圖片訊息只會由電信業者回報一種狀態</string>
+</resources>

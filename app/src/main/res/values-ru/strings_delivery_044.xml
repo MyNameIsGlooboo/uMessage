@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">Сведения о доставке</string>
+    <string name="delivery_details_title">Сведения о доставке (%1$d)</string>
+    <string name="delivery_state_not_sent">Не отправлено</string>
+    <string name="delivery_details_mms_note">Оператор сообщает только одно состояние для групповых сообщений с картинками</string>
+</resources>

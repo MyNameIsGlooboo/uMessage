@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">Zostałaby dostarczona: pasuje do reguły zezwalającej.</string>
     <string name="w3b_verdict_allowed_contact">Zostałaby dostarczona: nadawca jest w twoich kontaktach.</string>
     <string name="w3b_verdict_allowed_known">Zostałaby dostarczona: na ten numer wysyłano już wiadomości od ciebie.</string>
-    <string name="w3b_verdict_allowed_code">Zostałaby dostarczona: kod weryfikacyjny bez linku.</string>
+    <string name="w3b_verdict_allowed_code">Zostałaby dostarczona: kod weryfikacyjny.</string>
     <string name="w3b_verdict_allowed_off">Zostałaby dostarczona: blokowanie nieznanych nadawców jest wyłączone.</string>
     <string name="w3b_verdict_allowed_unsure">Zostałaby dostarczona: nie można odczytać kontaktów, więc nie można ocenić nadawcy.</string>
     <string name="w3b_verdict_allowed_other">Zostałaby dostarczona.</string>

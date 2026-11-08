@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">ستصل: تطابق قاعدة سماح.</string>
     <string name="w3b_verdict_allowed_contact">ستصل: المرسل ضمن جهات اتصالك.</string>
     <string name="w3b_verdict_allowed_known">ستصل: سبق أن راسلت هذا الرقم.</string>
-    <string name="w3b_verdict_allowed_code">ستصل: رمز تحقق بلا رابط.</string>
+    <string name="w3b_verdict_allowed_code">ستصل: رمز تحقق.</string>
     <string name="w3b_verdict_allowed_off">ستصل: حظر المرسل غير المعروف متوقف.</string>
     <string name="w3b_verdict_allowed_unsure">ستصل: تتعذّر قراءة جهات الاتصال، لذا لا يمكن التحقق من المرسل.</string>
     <string name="w3b_verdict_allowed_other">ستصل.</string>

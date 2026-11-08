@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_mms_title">লম্বা টেক্সট ছবির বার্তা (MMS) হিসেবে পাঠান</string>
+    <string name="long_mms_choice_never">কখনো নয় (ডিফল্ট)</string>
+    <string name="long_mms_value_never">কখনো নয়</string>
+    <string name="long_mms_after">%d টি বার্তার পর</string>
+    <string name="thread_many_parts_note_044">এই লেখাটি অনেক লম্বা: এটি %1$dটি এসএমএস হিসেবে যাবে। ছোট লেখায় খরচ কম। সেটিংসে লম্বা লেখা একটি ছবির বার্তা হিসেবে পাঠানোর বিকল্প বেছে নিতে পারেন।</string>
+</resources>

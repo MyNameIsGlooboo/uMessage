@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">Будет доставлено: подходит разрешающее правило.</string>
     <string name="w3b_verdict_allowed_contact">Будет доставлено: отправитель есть в ваших контактах.</string>
     <string name="w3b_verdict_allowed_known">Будет доставлено: вы уже писали на этот номер.</string>
-    <string name="w3b_verdict_allowed_code">Будет доставлено: код подтверждения без ссылки.</string>
+    <string name="w3b_verdict_allowed_code">Будет доставлено: код подтверждения.</string>
     <string name="w3b_verdict_allowed_off">Будет доставлено: блокировка неизвестных отправителей выключена.</string>
     <string name="w3b_verdict_allowed_unsure">Будет доставлено: нет доступа к контактам, поэтому нельзя проверить отправителя.</string>
     <string name="w3b_verdict_allowed_other">Будет доставлено.</string>

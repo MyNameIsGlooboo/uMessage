@@ -9,8 +9,9 @@ uMessage is a fork of [Fossify Messages](https://github.com/FossifyOrg/Messages)
 ## Features
 
 - Full SMS and MMS messaging: group threads, search, drafts, scheduled send, recycle bin and archive, private notes on messages, stars and labels (partly inherited from Fossify Messages).
+- Long texts go out as a normal multipart SMS by default; Settings > Typing and sending > "Send long texts as picture message (MMS)" can switch to MMS from 2 to 10 SMS parts.
 - Backup and restore to a file (Settings > Backup and restore): messages with Spam messages, the recycle bin, drafts, muted and hidden chats, saved texts, scheduled messages, notes, stars, labels and archived chats; rules and settings in a second file. Backup files are not encrypted. A "Save to Google Drive" button hands the backup file to the Google Drive app, which does the upload; uMessage itself never connects to the internet.
-- Smart mode by default on new installs: messages from unknown senders go to a Spam folder instead of your inbox, but verification codes without a link still arrive. Strict blocks codes too; Off turns unknown-sender filtering off.
+- Smart mode by default on new installs: messages from unknown senders go to a Spam folder instead of your inbox, but verification codes still arrive, even with a link. Strict blocks codes too; Off turns unknown-sender filtering off.
 - Allowed rules always win; blocked rules support exact number, prefix, alphanumeric sender id (for example `ACME-BANK`), keyword and regex rules. Adding an allowed keyword or pattern warns that any message containing it skips every block. A keyword or pattern rule applies to the sender in both directions: a blocked keyword also blocks the sender, an allowed keyword also allows the sender (never a contact, and never over a sender rule you set yourself).
 - Rules can be exported and imported (SIM and note included); an import shows what it will add before anything changes.
 - The Spam folder is reversible: "Not spam" restores the messages to the real inbox and adds an allow rule for the sender in one step, with one Undo; names that anyone can fake get no rule. Delete the rule in Settings > Spam protection > Rules to stop allowing a sender. Spam is purged after 30 days by default (configurable).
@@ -46,7 +47,7 @@ Every incoming SMS passes through these steps, in order, before anything is writ
 2. Sender or text matches a blocked rule: block.
 3. Sender is known (in your contacts, or a number you have sent a text to before): deliver.
 4. Otherwise the unknown-sender mode decides:
-   - **Smart** (default for new installs): verification codes without a link are delivered, everything else is blocked.
+   - **Smart** (default for new installs): verification codes are delivered (also when they have a link), everything else is blocked.
    - **Strict**: blocked, verification codes included. There is no separate code exception.
    - **Off**: delivered. (The old "Block unknown numbers" switch on the Blocked numbers screen only matters here: it makes Off behave like Strict.)
 

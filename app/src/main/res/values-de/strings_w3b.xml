@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">Würde zugestellt: Eine Regel zum Erlauben trifft zu.</string>
     <string name="w3b_verdict_allowed_contact">Würde zugestellt: Der Absender ist in deinen Kontakten.</string>
     <string name="w3b_verdict_allowed_known">Würde zugestellt: Du hast dieser Nummer schon geschrieben.</string>
-    <string name="w3b_verdict_allowed_code">Würde zugestellt: ein Bestätigungscode ohne Link.</string>
+    <string name="w3b_verdict_allowed_code">Würde zugestellt: ein Bestätigungscode.</string>
     <string name="w3b_verdict_allowed_off">Würde zugestellt: Das Blockieren unbekannter Absender ist ausgeschaltet.</string>
     <string name="w3b_verdict_allowed_unsure">Würde zugestellt: Kontakte können nicht gelesen werden, daher lässt sich der Absender nicht beurteilen.</string>
     <string name="w3b_verdict_allowed_other">Würde zugestellt.</string>

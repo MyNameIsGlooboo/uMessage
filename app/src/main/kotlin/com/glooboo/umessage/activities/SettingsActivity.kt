@@ -76,6 +76,8 @@ import com.glooboo.umessage.helpers.BackupJob
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.ui.settings.SettingsActions
 import com.glooboo.umessage.ui.settings.SettingsPage
+import com.glooboo.umessage.ui.settings.LongMmsSettingDialog
+import com.glooboo.umessage.ui.settings.longMmsLabel
 import com.glooboo.umessage.ui.settings.SettingsScreen
 import com.glooboo.umessage.ui.settings.SettingsUiState
 import com.glooboo.umessage.ui.settings.SimCards
@@ -256,7 +258,7 @@ class SettingsActivity : ComposeSimpleActivity() {
             useSimpleCharacters = config.useSimpleCharacters,
             sendOnEnter = config.sendOnEnter,
             deliveryReports = config.enableDeliveryReports,
-            sendLongAsMms = config.sendLongMessageMMS,
+            longMmsLabel = longMmsLabel(this, config.sendLongAsMmsAfterParts, uiLocale),
             sendGroupAsMms = config.sendGroupMessageMMS,
             mmsLimitLabel = mmsFileLimitText(),
             keepArchived = config.keepConversationsArchived,
@@ -351,7 +353,9 @@ class SettingsActivity : ComposeSimpleActivity() {
             onSimpleCharacters = { config.useSimpleCharacters = it; refreshState() },
             onSendOnEnter = { config.sendOnEnter = it; refreshState() },
             onDeliveryReports = { config.enableDeliveryReports = it; refreshState() },
-            onLongAsMms = { config.sendLongMessageMMS = it; refreshState() },
+            onLongAsMms = {
+                showComposeDialog { dismiss -> LongMmsSettingDialog(config, uiLocale, dismiss, ::refreshState) }
+            },
             onGroupAsMms = { config.sendGroupMessageMMS = it; refreshState() },
             onMmsLimit = ::showMmsLimitDialog,
             onJalaliDates = { threadPrefs.useJalaliDates = it; refreshState() },

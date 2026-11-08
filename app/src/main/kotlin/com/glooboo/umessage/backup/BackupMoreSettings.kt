@@ -9,6 +9,7 @@ import com.glooboo.umessage.helpers.DEFAULT_SIM_PHONE
 import com.glooboo.umessage.helpers.ThreadPrefs
 import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.helpers.cleanupPrefs
+import com.glooboo.umessage.messaging.LongTextMms
 import com.glooboo.umessage.helpers.composerPrefs
 import com.glooboo.umessage.helpers.notifyPrefs
 import com.glooboo.umessage.helpers.smartreply.SmartReplyPrefs
@@ -57,7 +58,8 @@ internal object BackupMoreSettings {
             showCharacterCounter = config.showCharacterCounter,
             useSimpleCharacters = config.useSimpleCharacters,
             deliveryReports = config.enableDeliveryReports,
-            sendLongAsMms = config.sendLongMessageMMS,
+            sendLongAsMms = config.sendLongAsMmsAfterParts != LongTextMms.NEVER,
+            sendLongAsMmsAfter = config.sendLongAsMmsAfterParts,
             sendGroupAsMms = config.sendGroupMessageMMS,
             mmsFileSizeLimit = config.mmsFileSizeLimit,
             useRecycleBin = config.useRecycleBin,
@@ -108,7 +110,9 @@ internal object BackupMoreSettings {
         s.showCharacterCounter?.let { config.showCharacterCounter = it }
         s.useSimpleCharacters?.let { config.useSimpleCharacters = it }
         s.deliveryReports?.let { config.enableDeliveryReports = it }
-        s.sendLongAsMms?.let { config.sendLongMessageMMS = it }
+        // Q9: a file from before the choice only has the old switch: on meant "from 2 parts", off means never.
+        val legacy = s.sendLongAsMms?.let { if (it) LongTextMms.THRESHOLDS.first() else LongTextMms.NEVER }
+        (s.sendLongAsMmsAfter ?: legacy)?.let { config.sendLongAsMmsAfterParts = it }
         s.sendGroupAsMms?.let { config.sendGroupMessageMMS = it }
         s.mmsFileSizeLimit?.let { config.mmsFileSizeLimit = it }
         s.useRecycleBin?.let { config.useRecycleBin = it }

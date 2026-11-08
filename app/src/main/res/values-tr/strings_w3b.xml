@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">Teslim edilirdi: bir izin kuralıyla eşleşiyor.</string>
     <string name="w3b_verdict_allowed_contact">Teslim edilirdi: gönderen kişilerinizde kayıtlı.</string>
     <string name="w3b_verdict_allowed_known">Teslim edilirdi: bu numaraya daha önce mesaj gönderdiniz.</string>
-    <string name="w3b_verdict_allowed_code">Teslim edilirdi: bağlantı içermeyen bir doğrulama kodu.</string>
+    <string name="w3b_verdict_allowed_code">Teslim edilirdi: bir doğrulama kodu.</string>
     <string name="w3b_verdict_allowed_off">Teslim edilirdi: bilinmeyen gönderenleri engelleme kapalı.</string>
     <string name="w3b_verdict_allowed_unsure">Teslim edilirdi: kişiler okunamadığından gönderen değerlendirilemiyor.</string>
     <string name="w3b_verdict_allowed_other">Teslim edilirdi.</string>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">डिलीवरी की जानकारी</string>
+    <string name="delivery_details_title">डिलीवरी की जानकारी (%1$d)</string>
+    <string name="delivery_state_not_sent">भेजा नहीं गया</string>
+    <string name="delivery_details_mms_note">ग्रुप फ़ोटो संदेशों के लिए आपका ऑपरेटर सिर्फ़ एक स्थिति बताता है</string>
+</resources>

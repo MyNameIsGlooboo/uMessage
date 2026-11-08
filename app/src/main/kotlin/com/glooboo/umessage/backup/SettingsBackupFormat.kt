@@ -74,7 +74,10 @@ data class BackupSettings(
     val showCharacterCounter: Boolean? = null,
     val useSimpleCharacters: Boolean? = null,
     val deliveryReports: Boolean? = null,
+    /** Older files only: the on/off switch of 0.4.1 and before. On means "from 2 parts"; see [sendLongAsMmsAfter]. */
     val sendLongAsMms: Boolean? = null,
+    /** Q9: SMS parts from which a long text goes as MMS; 0 = never. Older files lack it and keep the default. */
+    val sendLongAsMmsAfter: Int? = null,
     val sendGroupAsMms: Boolean? = null,
     /** Bytes; one of the sizes the setting offers, or -1 for no limit. */
     val mmsFileSizeLimit: Long? = null,
@@ -106,7 +109,8 @@ data class BackupSettings(
         CHAT_SOUNDS to chatSounds, WAKE_SCREEN to wakeScreen, CHAT_BUBBLES to chatBubbles, FOCUS_CODES to focusCodes,
         SMART_REPLIES to smartReplies, LOCK_SCOPE to lockScope, CHARACTER_COUNTER to showCharacterCounter,
         SIMPLE_CHARACTERS to useSimpleCharacters, DELIVERY_REPORTS to deliveryReports, LONG_AS_MMS to sendLongAsMms,
-        GROUP_AS_MMS to sendGroupAsMms, MMS_LIMIT to mmsFileSizeLimit, RECYCLE_BIN to useRecycleBin,
+        LONG_AS_MMS_AFTER to sendLongAsMmsAfter, GROUP_AS_MMS to sendGroupAsMms, MMS_LIMIT to mmsFileSizeLimit,
+        RECYCLE_BIN to useRecycleBin,
         KEEP_ARCHIVED to keepArchived, DEFAULT_SIM to defaultSim, APP_FONT to appFont,
     )
 
@@ -154,6 +158,7 @@ data class BackupSettings(
         const val SIMPLE_CHARACTERS = "useSimpleCharacters"
         const val DELIVERY_REPORTS = "deliveryReports"
         const val LONG_AS_MMS = "sendLongAsMms"
+        const val LONG_AS_MMS_AFTER = "sendLongAsMmsAfter"
         const val GROUP_AS_MMS = "sendGroupAsMms"
         const val MMS_LIMIT = "mmsFileSizeLimit"
         const val RECYCLE_BIN = "useRecycleBin"

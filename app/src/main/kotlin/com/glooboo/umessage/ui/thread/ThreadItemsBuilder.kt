@@ -86,7 +86,12 @@ fun buildThreadItems(
             // An MMS has no delivery report: its status column is empty and reads as 0, which is not "delivered".
             val delivered = deliveryReportsOn && !message.isMMS && message.status == Telephony.Sms.STATUS_COMPLETE
             val deliveryFailed = !message.isMMS && isDeliveryFailed(message.status)
-            items.add(ThreadSent(messageId = message.id, delivered = delivered, deliveryFailed = deliveryFailed))
+            items.add(
+                ThreadSent(
+                    messageId = message.id, delivered = delivered, deliveryFailed = deliveryFailed,
+                    isMms = message.isMMS,
+                ),
+            )
         }
         prevSIMId = message.subscriptionId
     }

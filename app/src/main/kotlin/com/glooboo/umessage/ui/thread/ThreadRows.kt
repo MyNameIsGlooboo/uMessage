@@ -46,6 +46,7 @@ sealed interface ThreadRow {
         val delivered: Boolean,
         override val key: String,
         val deliveryFailed: Boolean = false,
+        val isMms: Boolean = false,
     ) : ThreadRow
 
     /** I26: the line between what was read and what was unread when the thread opened. */
@@ -123,7 +124,7 @@ fun buildThreadRows(items: List<ThreadItem>, isGroup: Boolean): List<ThreadRow> 
 
             is ThreadItem.ThreadSent -> {
                 val key = uniqueKey("t${item.messageId}")
-                rows.add(ThreadRow.Sent(item.messageId, item.delivered, key, item.deliveryFailed))
+                rows.add(ThreadRow.Sent(item.messageId, item.delivered, key, item.deliveryFailed, item.isMms))
             }
         }
     }

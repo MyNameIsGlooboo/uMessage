@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">Se entregaría: coincide con una regla para permitir mensajes.</string>
     <string name="w3b_verdict_allowed_contact">Se entregaría: el remitente está en tus contactos.</string>
     <string name="w3b_verdict_allowed_known">Se entregaría: ya enviaste mensajes a este número.</string>
-    <string name="w3b_verdict_allowed_code">Se entregaría: código de verificación sin enlace.</string>
+    <string name="w3b_verdict_allowed_code">Se entregaría: código de verificación.</string>
     <string name="w3b_verdict_allowed_off">Se entregaría: el bloqueo de remitentes desconocidos está desactivado.</string>
     <string name="w3b_verdict_allowed_unsure">Se entregaría: no se pueden leer los contactos para evaluar al remitente.</string>
     <string name="w3b_verdict_allowed_other">Se entregaría.</string>

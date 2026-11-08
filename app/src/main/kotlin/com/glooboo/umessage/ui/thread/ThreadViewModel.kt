@@ -162,6 +162,9 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
     var items by mutableStateOf<List<ThreadItem>>(emptyList())
         private set
     var isGroup by mutableStateOf(false)
+
+    /** Q12: the sent group message whose delivery details are open, or null. */
+    var deliveryDetailsFor by mutableStateOf<MessageKey?>(null)
     var loaded by mutableStateOf(false)
 
     /** I49: the message being read aloud (its [Message.getStableId]), or null. */

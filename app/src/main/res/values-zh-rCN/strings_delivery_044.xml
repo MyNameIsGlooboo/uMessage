@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">送达详情</string>
+    <string name="delivery_details_title">送达详情（%1$d）</string>
+    <string name="delivery_state_not_sent">未发送</string>
+    <string name="delivery_details_mms_note">对于群组图片消息，运营商只会报告一个状态</string>
+</resources>

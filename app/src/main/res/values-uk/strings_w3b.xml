@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">Було б доставлено: відповідає правилу дозволу.</string>
     <string name="w3b_verdict_allowed_contact">Було б доставлено: відправник є у ваших контактах.</string>
     <string name="w3b_verdict_allowed_known">Було б доставлено: ви вже писали на цей номер.</string>
-    <string name="w3b_verdict_allowed_code">Було б доставлено: код підтвердження без посилання.</string>
+    <string name="w3b_verdict_allowed_code">Було б доставлено: код підтвердження.</string>
     <string name="w3b_verdict_allowed_off">Було б доставлено: блокування невідомих відправників вимкнено.</string>
     <string name="w3b_verdict_allowed_unsure">Було б доставлено: не вдалося прочитати контакти, тому неможливо оцінити відправника.</string>
     <string name="w3b_verdict_allowed_other">Було б доставлено.</string>

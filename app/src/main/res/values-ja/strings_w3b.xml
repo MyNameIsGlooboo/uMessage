@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">受信できます。許可ルールに一致します。</string>
     <string name="w3b_verdict_allowed_contact">受信できます。送信者が連絡先に登録されています。</string>
     <string name="w3b_verdict_allowed_known">受信できます。この番号にメッセージを送信したことがあります。</string>
-    <string name="w3b_verdict_allowed_code">受信できます。リンクのない認証コードです。</string>
+    <string name="w3b_verdict_allowed_code">受信できます。認証コードです。</string>
     <string name="w3b_verdict_allowed_off">受信できます。不明な送信者のブロックがオフです。</string>
     <string name="w3b_verdict_allowed_unsure">受信できます。連絡先を読み取れないため、送信者を判定できません。</string>
     <string name="w3b_verdict_allowed_other">受信できます。</string>

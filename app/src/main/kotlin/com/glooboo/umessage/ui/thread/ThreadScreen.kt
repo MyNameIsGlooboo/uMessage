@@ -113,6 +113,7 @@ fun ThreadScreen(vm: ThreadViewModel, actions: ThreadActions) {
     val linkHandler = remember(vm) { linkSheetUriHandler { vm.pendingLink = it } }
     vm.labelsFor?.let { LabelPickerDialog(listOf(it), onDismiss = { vm.labelsFor = null }) }
     vm.notes.editing?.let { NoteEditDialog(vm.notes, it) }
+    DeliveryDetailsHost(vm.deliveryDetailsFor, vm.items, onClose = { vm.deliveryDetailsFor = null })
     vm.pendingLink?.let { uri ->
         LinkSheet(
             uri = uri,

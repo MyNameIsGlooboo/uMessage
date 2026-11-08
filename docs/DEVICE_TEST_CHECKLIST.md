@@ -69,7 +69,7 @@ Test numbers: **C** = a number saved in your contacts, **U** = a number NOT in y
 
 ## 8. Verification codes per mode
 
-- [ ] Smart (default): an OTP-style message without a link from A or U arrives in the inbox with the code visible; a non-OTP message from U is blocked; an OTP-style message with a link is blocked.
+- [ ] Smart (default): an OTP-style message without a link from A or U arrives in the inbox with the code visible; a non-OTP message from U is blocked; an OTP-style message with a link also arrives (Strict holds both).
 - [ ] Strict: the same OTP-style message from U is blocked, visible in Blocked.
 - [ ] Spam settings and onboarding show no separate "Allow verification codes" switch.
 - [ ] Notification "Copy code" action (if present) copies the OTP.

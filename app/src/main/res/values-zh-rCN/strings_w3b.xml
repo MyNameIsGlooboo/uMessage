@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">将送达：匹配允许规则。</string>
     <string name="w3b_verdict_allowed_contact">将送达：发件人在你的联系人中。</string>
     <string name="w3b_verdict_allowed_known">将送达：你曾向此号码发送过短信。</string>
-    <string name="w3b_verdict_allowed_code">将送达：消息含验证码且无链接。</string>
+    <string name="w3b_verdict_allowed_code">将送达：消息含验证码。</string>
     <string name="w3b_verdict_allowed_off">将送达：未知发件人屏蔽已关闭。</string>
     <string name="w3b_verdict_allowed_unsure">将送达：无法读取联系人，因此无法判定发件人。</string>
     <string name="w3b_verdict_allowed_other">将送达。</string>

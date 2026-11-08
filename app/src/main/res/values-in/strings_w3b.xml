@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">Akan masuk: cocok dengan aturan izinkan.</string>
     <string name="w3b_verdict_allowed_contact">Akan masuk: pengirim ada di kontak Anda.</string>
     <string name="w3b_verdict_allowed_known">Akan masuk: Anda pernah mengirim pesan ke nomor ini.</string>
-    <string name="w3b_verdict_allowed_code">Akan masuk: kode verifikasi tanpa tautan.</string>
+    <string name="w3b_verdict_allowed_code">Akan masuk: kode verifikasi.</string>
     <string name="w3b_verdict_allowed_off">Akan masuk: pemblokiran pengirim tidak dikenal nonaktif.</string>
     <string name="w3b_verdict_allowed_unsure">Akan masuk: kontak tidak dapat dibaca, sehingga pengirim tidak dapat dinilai.</string>
     <string name="w3b_verdict_allowed_other">Akan masuk.</string>

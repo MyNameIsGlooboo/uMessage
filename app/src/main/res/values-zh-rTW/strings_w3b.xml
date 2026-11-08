@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">會送達：符合某條允許規則。</string>
     <string name="w3b_verdict_allowed_contact">會送達：寄件者在你的聯絡人中。</string>
     <string name="w3b_verdict_allowed_known">會送達：你曾傳簡訊給這個號碼。</string>
-    <string name="w3b_verdict_allowed_code">會送達：不含連結的驗證碼。</string>
+    <string name="w3b_verdict_allowed_code">會送達：驗證碼。</string>
     <string name="w3b_verdict_allowed_off">會送達：未知寄件者封鎖已關閉。</string>
     <string name="w3b_verdict_allowed_unsure">會送達：無法讀取聯絡人，因此無法判斷寄件者。</string>
     <string name="w3b_verdict_allowed_other">會送達。</string>

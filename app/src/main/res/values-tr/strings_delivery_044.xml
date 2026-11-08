@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">Teslimat ayrıntıları</string>
+    <string name="delivery_details_title">Teslimat ayrıntıları (%1$d)</string>
+    <string name="delivery_state_not_sent">Gönderilmedi</string>
+    <string name="delivery_details_mms_note">Operatörünüz grup resim mesajları için yalnızca tek bir durum bildirir</string>
+</resources>

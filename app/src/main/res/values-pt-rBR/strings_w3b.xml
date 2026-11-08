@@ -42,7 +42,7 @@
     <string name="w3b_verdict_allowed_rule">Seria entregue: corresponde a uma regra de mensagens permitidas.</string>
     <string name="w3b_verdict_allowed_contact">Seria entregue: o remetente está nos seus contatos.</string>
     <string name="w3b_verdict_allowed_known">Seria entregue: você já enviou mensagens para este número.</string>
-    <string name="w3b_verdict_allowed_code">Seria entregue: código de verificação sem link.</string>
+    <string name="w3b_verdict_allowed_code">Seria entregue: código de verificação.</string>
     <string name="w3b_verdict_allowed_off">Seria entregue: o bloqueio de remetentes desconhecidos está desativado.</string>
     <string name="w3b_verdict_allowed_unsure">Seria entregue: não é possível acessar os contatos para avaliar o remetente.</string>
     <string name="w3b_verdict_allowed_other">Seria entregue.</string>

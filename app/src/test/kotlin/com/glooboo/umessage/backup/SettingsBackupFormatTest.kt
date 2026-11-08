@@ -11,7 +11,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertThrows
 import org.junit.Test
 
-private const val LATER_SETTING_COUNT = 30
+private const val LATER_SETTING_COUNT = 31
 
 class SettingsBackupFormatTest {
     private val rules = listOf(
@@ -162,7 +162,8 @@ class SettingsBackupFormatTest {
             removePhotoLocation = false, voiceButton = true, signature = "Sent from my phone", chatSounds = true,
             wakeScreen = true, chatBubbles = true, focusCodes = true, smartReplies = true, lockScope = "chosen",
             showCharacterCounter = true, useSimpleCharacters = true, deliveryReports = true, sendLongAsMms = true,
-            sendGroupAsMms = true, mmsFileSizeLimit = 1_048_576L, useRecycleBin = true, keepArchived = true,
+            sendLongAsMmsAfter = 4, sendGroupAsMms = true, mmsFileSizeLimit = 1_048_576L, useRecycleBin = true,
+            keepArchived = true,
             defaultSim = "ask",
         )
         val text = SettingsBackupFormat.encode(BackupContent(emptyList(), emptyList(), later), 1)

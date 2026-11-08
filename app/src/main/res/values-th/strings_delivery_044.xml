@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">รายละเอียดการส่ง</string>
+    <string name="delivery_details_title">รายละเอียดการส่ง (%1$d)</string>
+    <string name="delivery_state_not_sent">ยังไม่ได้ส่ง</string>
+    <string name="delivery_details_mms_note">ผู้ให้บริการของคุณรายงานสถานะเดียวสำหรับข้อความรูปภาพกลุ่ม</string>
+</resources>

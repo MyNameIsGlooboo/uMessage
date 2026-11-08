@@ -53,7 +53,8 @@ data class SettingsUiState(
     val useSimpleCharacters: Boolean = false,
     val sendOnEnter: Boolean = false,
     val deliveryReports: Boolean = false,
-    val sendLongAsMms: Boolean = false,
+    /** Q9: "Never" or "After 3 messages"; the choice opens a dialog. */
+    val longMmsLabel: String = "",
     val sendGroupAsMms: Boolean = false,
     val mmsLimitLabel: String = "",
     val keepArchived: Boolean = false,
@@ -145,7 +146,7 @@ class SettingsActions(
     val onSimpleCharacters: (Boolean) -> Unit = {},
     val onSendOnEnter: (Boolean) -> Unit = {},
     val onDeliveryReports: (Boolean) -> Unit = {},
-    val onLongAsMms: (Boolean) -> Unit = {},
+    val onLongAsMms: () -> Unit = {},
     val onGroupAsMms: (Boolean) -> Unit = {},
     val onMmsLimit: () -> Unit = {},
     val onKeepArchived: (Boolean) -> Unit = {},

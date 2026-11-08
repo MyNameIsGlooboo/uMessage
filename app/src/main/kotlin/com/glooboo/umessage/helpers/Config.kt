@@ -2,6 +2,7 @@ package com.glooboo.umessage.helpers
 
 import android.content.Context
 import org.fossify.commons.helpers.BaseConfig
+import com.glooboo.umessage.messaging.LongTextMms
 import com.glooboo.umessage.extensions.getDefaultKeyboardHeight
 import com.glooboo.umessage.models.Conversation
 
@@ -61,10 +62,16 @@ class Config(context: Context) : BaseConfig(context) {
         set(enableDeliveryReports) = prefs.edit()
             .putBoolean(ENABLE_DELIVERY_REPORTS, enableDeliveryReports).apply()
 
-    var sendLongMessageMMS: Boolean
-        get() = prefs.getBoolean(SEND_LONG_MESSAGE_MMS, false)
-        set(sendLongMessageMMS) = prefs.edit().putBoolean(SEND_LONG_MESSAGE_MMS, sendLongMessageMMS)
-            .apply()
+    /**
+     * Q9: from how many SMS parts a long text is sent as MMS; [LongTextMms.NEVER] (the default) sends it as SMS however
+     * long. The old on/off switch (off by default) only counts when it was turned on: that choice becomes 2 parts.
+     */
+    var sendLongAsMmsAfterParts: Int
+        get() = LongTextMms.resolve(
+            stored = if (prefs.contains(SEND_LONG_AS_MMS_AFTER)) prefs.getInt(SEND_LONG_AS_MMS_AFTER, 0) else null,
+            legacyOn = prefs.getBoolean(SEND_LONG_MESSAGE_MMS, false),
+        )
+        set(value) = prefs.edit().putInt(SEND_LONG_AS_MMS_AFTER, LongTextMms.sanitize(value)).apply()
 
     var sendGroupMessageMMS: Boolean
         get() = prefs.getBoolean(SEND_GROUP_MESSAGE_MMS, false)

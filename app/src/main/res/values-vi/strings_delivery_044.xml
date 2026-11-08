@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">Chi tiết gửi</string>
+    <string name="delivery_details_title">Chi tiết gửi (%1$d)</string>
+    <string name="delivery_state_not_sent">Chưa gửi</string>
+    <string name="delivery_details_mms_note">Nhà mạng chỉ báo một trạng thái cho tin nhắn ảnh nhóm</string>
+</resources>

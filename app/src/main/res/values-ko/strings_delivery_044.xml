@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">전달 상세 정보</string>
+    <string name="delivery_details_title">전달 상세 정보 (%1$d)</string>
+    <string name="delivery_state_not_sent">전송 안 됨</string>
+    <string name="delivery_details_mms_note">그룹 사진 메시지는 통신사가 하나의 상태만 알려 줍니다</string>
+</resources>

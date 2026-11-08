@@ -17,8 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Allow keywords now also allow the sender
 - A full backup while hidden chats are locked first asks to unlock them or skip them; the summary says how many hidden chats were left out
 - "Save to Google Drive" on the Backup and restore screen, and "Restore from Google Drive": the backup is written to one file in the cache and handed to the Google Drive app, which does the upload; uMessage itself still has no network code or internet permission
+- Tap the delivery status of a group message to see each person's state
 
 ### Changed
+- Verification codes now arrive even when the message has a link (Strict still holds them)
 - The "Blocked" tab and its screens are now called "Spam" (in all languages)
 - Persian uses everyday spoken words (بلاک, لینک, بک‌آپ, اسپم, ...)
 - A failed send now notifies loudly or quietly, following the notification sound setting
@@ -26,8 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The Restore button is removed from the welcome screen; restore stays in Settings
 - A shorter welcome
 - Lock-screen notification text is hidden by default
+- Search with Persian text or digits is much faster on large inboxes
 - Deleted and unsent messages no longer show up in search
 - Cache cleanup
+- Long texts are no longer turned into picture messages by default; choose in Settings
 
 ### Fixed
 - Verification codes such as 123-456 now arrive, and phone numbers are no longer treated as codes

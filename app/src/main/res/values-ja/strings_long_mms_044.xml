@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_mms_title">長文を画像メッセージ（MMS）として送信</string>
+    <string name="long_mms_choice_never">しない（デフォルト）</string>
+    <string name="long_mms_value_never">しない</string>
+    <string name="long_mms_after">%d通以上のとき</string>
+    <string name="thread_many_parts_note_044">このテキストはとても長いため、%1$d通のSMSとして送信されます。短いほうが料金を抑えられます。設定で、長文を1通の画像メッセージとして送るように選べます。</string>
+</resources>

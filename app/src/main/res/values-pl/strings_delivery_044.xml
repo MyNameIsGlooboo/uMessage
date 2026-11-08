@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">Szczegóły dostarczenia</string>
+    <string name="delivery_details_title">Szczegóły dostarczenia (%1$d)</string>
+    <string name="delivery_state_not_sent">Nie wysłano</string>
+    <string name="delivery_details_mms_note">Twój operator podaje tylko jeden stan dla grupowych wiadomości ze zdjęciami</string>
+</resources>

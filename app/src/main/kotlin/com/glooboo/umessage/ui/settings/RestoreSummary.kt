@@ -47,8 +47,8 @@ object RestoreSummary {
             R.string.n09_label_sending to listOf(
                 BackupSettings.REMOVE_LOCATION, BackupSettings.VOICE_BUTTON, BackupSettings.SIGNATURE,
                 BackupSettings.CHARACTER_COUNTER, BackupSettings.SIMPLE_CHARACTERS, BackupSettings.DELIVERY_REPORTS,
-                BackupSettings.LONG_AS_MMS, BackupSettings.GROUP_AS_MMS, BackupSettings.MMS_LIMIT,
-                BackupSettings.DEFAULT_SIM,
+                BackupSettings.LONG_AS_MMS, BackupSettings.LONG_AS_MMS_AFTER, BackupSettings.GROUP_AS_MMS,
+                BackupSettings.MMS_LIMIT, BackupSettings.DEFAULT_SIM,
             ),
             R.string.n09_label_cleanup to listOf(
                 BackupSettings.CODE_CLEANUP_DAYS, BackupSettings.OLD_MESSAGE_DAYS, BackupSettings.WEEKLY_DIGEST,

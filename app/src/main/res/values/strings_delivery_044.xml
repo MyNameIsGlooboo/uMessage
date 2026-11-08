@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">Delivery details</string>
+    <string name="delivery_details_title">Delivery details (%1$d)</string>
+    <string name="delivery_state_not_sent">Not sent</string>
+    <string name="delivery_details_mms_note">Your carrier only reports one state for group picture messages</string>
+</resources>

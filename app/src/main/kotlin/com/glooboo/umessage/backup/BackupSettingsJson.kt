@@ -10,6 +10,7 @@ import com.glooboo.umessage.helpers.FILE_SIZE_NONE
 import com.glooboo.umessage.helpers.LOCK_SCREEN_NOTHING
 import com.glooboo.umessage.helpers.LOCK_SCREEN_SENDER
 import com.glooboo.umessage.helpers.LOCK_SCREEN_SENDER_MESSAGE
+import com.glooboo.umessage.messaging.LongTextMms
 import com.glooboo.umessage.spam.UnknownInboxNotify
 import com.glooboo.umessage.spam.UnknownSenderMode
 import kotlinx.serialization.json.JsonObject
@@ -94,6 +95,7 @@ internal object BackupSettingsJson {
         useSimpleCharacters = o.bool(BackupSettings.SIMPLE_CHARACTERS),
         deliveryReports = o.bool(BackupSettings.DELIVERY_REPORTS),
         sendLongAsMms = o.bool(BackupSettings.LONG_AS_MMS),
+        sendLongAsMmsAfter = o.int(BackupSettings.LONG_AS_MMS_AFTER)?.takeIf { it in LongTextMms.CHOICES },
         sendGroupAsMms = o.bool(BackupSettings.GROUP_AS_MMS),
         mmsFileSizeLimit = o.long(BackupSettings.MMS_LIMIT)?.takeIf { it in MMS_LIMITS },
         useRecycleBin = o.bool(BackupSettings.RECYCLE_BIN),

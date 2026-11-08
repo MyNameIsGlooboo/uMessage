@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">Détails de remise</string>
+    <string name="delivery_details_title">Détails de remise (%1$d)</string>
+    <string name="delivery_state_not_sent">Non envoyé</string>
+    <string name="delivery_details_mms_note">Votre opérateur ne signale qu\'un seul état pour les messages photo de groupe</string>
+</resources>

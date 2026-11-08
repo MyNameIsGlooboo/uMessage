@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">ডেলিভারির বিবরণ</string>
+    <string name="delivery_details_title">ডেলিভারির বিবরণ (%1$d)</string>
+    <string name="delivery_state_not_sent">পাঠানো হয়নি</string>
+    <string name="delivery_details_mms_note">গ্রুপ ছবির বার্তার জন্য আপনার ক্যারিয়ার শুধু একটি অবস্থা জানায়</string>
+</resources>

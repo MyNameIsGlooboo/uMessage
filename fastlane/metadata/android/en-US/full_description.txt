@@ -2,7 +2,7 @@ uMessage is a full SMS and MMS app whose main job is to stop spam. Make it your 
 
 <b>How it decides</b>
 • Senders in your contacts, and numbers you have texted before, always reach your inbox.
-• Smart mode (the default): messages from unknown senders are blocked, but verification codes without a link still arrive.
+• Smart mode (the default): messages from unknown senders are blocked, but verification codes still arrive, even with a link.
 • Strict mode: every unknown sender is blocked, verification codes included.
 • Off: no unknown-sender filtering; your own rules still apply.
 

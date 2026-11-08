@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delivery_details_desc">Detail pengiriman</string>
+    <string name="delivery_details_title">Detail pengiriman (%1$d)</string>
+    <string name="delivery_state_not_sent">Belum terkirim</string>
+    <string name="delivery_details_mms_note">Operator Anda hanya melaporkan satu status untuk pesan gambar grup</string>
+</resources>
