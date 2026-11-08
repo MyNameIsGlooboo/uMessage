@@ -37,7 +37,11 @@ class ConversationListSync(
      */
     private val importExecutor: Executor = Executor { Thread(it, "message-cache-import").start() },
     /** Copies whole threads into the message cache; does nothing once complete or while a run is going. */
-    private val importMessages: (threadIds: List<Long>) -> Unit = { MessageCacheImport.importIfNeeded(context, it) },
+    private val importMessages: (threadIds: List<Long>) -> Unit = {
+        // PF2: fold the bodies cached before database version 15 first (cheap, resumable), then import as before.
+        runCatching { MessageFoldBackfill.runIfNeeded(context) }
+        MessageCacheImport.importIfNeeded(context, it)
+    },
 ) {
     private val lock = Any()
     private var running = false

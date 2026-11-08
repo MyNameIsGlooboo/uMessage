@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.glooboo.umessage.helpers.MessageFoldBackfill
 import com.glooboo.umessage.models.ConversationLabel
 import com.glooboo.umessage.models.Draft
 import com.glooboo.umessage.models.Label
@@ -25,9 +26,9 @@ import org.junit.runner.RunWith
 /**
  * Upgrade and downgrade tests for conversations.db.
  *
- * Exported schemas exist only for versions 8 (restored from the upstream Fossify history), 11, 12, 13 and 14
+ * Exported schemas exist only for versions 8 (restored from the upstream Fossify history), 11, 12, 13, 14 and 15
  * (current), so the migrations 1..7 cannot be exercised here: there is no record of what those databases looked
- * like. Room's own validation after the run covers 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14.
+ * like. Room's own validation after the run covers 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14 -> 15.
  */
 @RunWith(AndroidJUnit4::class)
 class MessagesDatabaseMigrationTest {
@@ -182,6 +183,46 @@ class MessagesDatabaseMigrationTest {
             }
         } finally {
             db.close()
+        }
+    }
+
+    @Test
+    fun migrationToFifteenAddsAnEmptyFoldedBodyColumnAndKeepsEveryRow() {
+        helper.createDatabase(TEST_DB, 14).use { db ->
+            db.execSQL(insertMessage(id = 57, mms = false, scheduled = false, body = "sms 57"))
+            db.execSQL(insertMessage(id = 58, mms = true, scheduled = false, body = "علي ۱۲۳"))
+        }
+
+        helper.runMigrationsAndValidate(TEST_DB, LATEST, true, *MessagesDatabase.ALL_MIGRATIONS).use { db ->
+            assertThat(rows(db, "SELECT id, is_mms, body, body_folded FROM messages ORDER BY id"))
+                .containsExactly("57|0|sms 57|", "58|1|علي ۱۲۳|").inOrder()
+            // No index on the new column: LIKE '%x%' cannot use one.
+            assertThat(
+                rows(
+                    db,
+                    "SELECT name FROM sqlite_master WHERE type = 'index' AND tbl_name = 'messages' " +
+                        "AND name NOT LIKE 'sqlite_autoindex%'",
+                ),
+            ).containsExactly("index_messages_thread_id_date")
+        }
+
+        // The app's DAO reads the old rows, the backfill fills them and search finds the Persian variants.
+        MessageFoldBackfill.reset()
+        val db = MessagesDatabase.build(context, TEST_DB)
+        try {
+            offMainThread {
+                val dao = db.MessagesDao()
+                assertThat(dao.getAll().map { it.bodyFolded }).containsExactly("", "")
+                assertThat(dao.searchMessages("۱۲۳").map { it.id }).containsExactly(58L) // old rows: fallback fold
+                assertThat(MessageFoldBackfill(dao).run()).isTrue()
+                assertThat(dao.getMessage(58, true)?.bodyFolded).isEqualTo("علی 123")
+                assertThat(dao.getMessage(57, false)?.bodyFolded).isEqualTo("sms 57")
+                assertThat(dao.searchMessages("123").map { it.id }).containsExactly(58L)
+                assertThat(dao.searchMessages("علی").map { it.id }).containsExactly(58L)
+            }
+        } finally {
+            db.close()
+            MessageFoldBackfill.reset()
         }
     }
 

@@ -8,6 +8,7 @@ import org.fossify.commons.models.SimpleContact
 import com.glooboo.umessage.helpers.THREAD_RECEIVED_MESSAGE
 import com.glooboo.umessage.helpers.THREAD_SENT_MESSAGE
 import com.glooboo.umessage.helpers.generateStableId
+import com.glooboo.umessage.spam.TextNormalizer
 
 /**
  * A message in the app's own database. The primary key is ([id], [isMMS]): see [MessageKey] for why the provider id
@@ -35,6 +36,15 @@ data class Message(
     @ColumnInfo(name = "subscription_id") var subscriptionId: Int,
     @ColumnInfo(name = "is_scheduled") var isScheduled: Boolean = false
 ) : ThreadItem() {
+
+    /**
+     * PF2: [body] read through [TextNormalizer.fold], saved so that a search is a plain LIKE on this column instead of
+     * a chain of REPLACE calls over every body. Kotlin is the only place the fold is defined: this is computed from
+     * [body] whenever a Message is built (also by `copy`), so a stored row can only disagree with its body when it was
+     * written before the column existed (empty until MessageFoldBackfill fills it).
+     */
+    @ColumnInfo(name = "body_folded", defaultValue = "''")
+    var bodyFolded: String = TextNormalizer.fold(body)
 
     /** This row's identity in the messages table and the recycle bin. */
     val key: MessageKey

@@ -91,7 +91,7 @@ abstract class MessagesDatabase : RoomDatabase() {
         }
 
         /** Must equal the `version` in [Database] above. */
-        internal const val VERSION = 14
+        internal const val VERSION = 15
 
         /** Builds the database exactly as the app opens it. Tests call this directly to get an unshared instance. */
         internal fun build(context: Context, name: String): MessagesDatabase {
@@ -104,7 +104,7 @@ abstract class MessagesDatabase : RoomDatabase() {
                 name = name
             )
                 // No destructive fallback on upgrade: this DB is the only copy of drafts, scheduled
-                // messages and recycle-bin entries. Every version 1..14 has a migration below, so no
+                // messages and recycle-bin entries. Every version 1..15 has a migration below, so no
                 // existing install needs one; a future bump without a migration must fail loudly in
                 // testing rather than silently wipe user data. The downgrade fallback only ever acts when
                 // moving a newer file aside failed: an empty cache beats crashing on every launch.
@@ -313,11 +313,23 @@ abstract class MessagesDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * PF2: the folded copy of every message body, for search (see Message.bodyFolded). The column is added empty
+         * and the migration does nothing else: filling 50,000 rows here would block the start. MessageFoldBackfill
+         * fills it in small batches in the background, and search reads the old fold for rows still empty. No index:
+         * a LIKE '%x%' cannot use one.
+         */
+        internal val MIGRATION_14_15 = object : Migration(14, 15) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `messages` ADD COLUMN `body_folded` TEXT NOT NULL DEFAULT ''")
+            }
+        }
+
         /** Every migration, oldest first. Declared after them so none is still null when the array is built. */
         internal val ALL_MIGRATIONS: Array<Migration> = arrayOf(
             MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6,
             MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9, MIGRATION_9_10, MIGRATION_10_11, MIGRATION_11_12,
-            MIGRATION_12_13, MIGRATION_13_14,
+            MIGRATION_12_13, MIGRATION_13_14, MIGRATION_14_15,
         )
     }
 }

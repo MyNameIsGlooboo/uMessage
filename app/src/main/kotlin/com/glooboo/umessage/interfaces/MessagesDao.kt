@@ -10,6 +10,7 @@ import androidx.room.RawQuery
 import androidx.room.Transaction
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
+import com.glooboo.umessage.helpers.MessageFoldBackfill
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageAttachment
 import com.glooboo.umessage.models.RecycleBinMessage
@@ -28,6 +29,12 @@ private const val SHORTCUT_BASE = "SELECT * FROM messages WHERE $SHOWN_ONLY"
 private const val IMAGE_PREFILTER = "attachment LIKE '%image/%'"
 private const val LINK_PREFILTER = "(body LIKE '%http%' OR body LIKE '%www.%')"
 private const val SHORTCUT_ORDER = "ORDER BY date DESC, id DESC LIMIT :limit"
+
+/** A message whose folded body is still to be written: its row number and body (the backfill). */
+data class UnfoldedBody(
+    @ColumnInfo(name = "rid") val rowid: Long,
+    @ColumnInfo(name = "body") val body: String,
+)
 
 /** Newest non-scheduled message time per thread, in seconds. */
 data class ThreadLastDate(
@@ -170,18 +177,52 @@ interface MessagesDao {
     @RawQuery
     fun getMessagesRaw(query: SupportSQLiteQuery): List<Message>
 
+    /** PF2: [pattern] is a [TextNormalizer.likeContains] pattern of an already folded text, matched on `body_folded`. */
+    @Query("SELECT * FROM messages WHERE $SHOWN_ONLY AND body_folded LIKE :pattern ESCAPE '\\' $SEARCH_ORDER")
+    fun getMessagesWithFoldedText(pattern: String): List<Message>
+
+    /** Up to [limit] messages after row [afterRowid] whose folded body has not been written yet (the backfill). */
+    @Query(
+        "SELECT rowid AS rid, body FROM messages WHERE rowid > :afterRowid AND body_folded = '' AND body <> '' " +
+            "ORDER BY rowid LIMIT :limit"
+    )
+    fun getUnfoldedBodies(afterRowid: Long, limit: Int): List<UnfoldedBody>
+
+    /** Writes [folded] to row [rowid]; does nothing when the body changed (or the row was replaced) meanwhile. */
+    @Query("UPDATE messages SET body_folded = :folded WHERE rowid = :rowid AND body = :body")
+    fun updateBodyFolded(rowid: Long, body: String, folded: String): Int
+
+    /** Writes a whole batch of the backfill in one transaction. */
+    @Transaction
+    fun updateBodiesFolded(batch: List<UnfoldedBody>) {
+        for (row in batch) updateBodyFolded(row.rowid, row.body, TextNormalizer.fold(row.body))
+    }
+
     /**
      * Messages whose body contains [text], read through [TextNormalizer.fold] on both sides, so "علي" finds "علی",
      * "123" finds "۱۲۳" and a zero-width non-joiner does not break a match. `%` and `_` are matched as typed (MC-14).
+     *
+     * PF2: the query is folded once here and compared with the saved `body_folded` column. Until
+     * [com.glooboo.umessage.helpers.MessageFoldBackfill] has filled the column of every old row, the rows still
+     * empty (`body_folded = ''` with a body) are searched the old way, with the SQL fold chain, and merged in; the
+     * chain then runs over those rows only, and not at all once the backfill is complete.
      *
      * MC-17: newest first by date (kept in seconds for SMS and MMS alike; ids of the two are separate counters and
      * say nothing about age), at most [SEARCH_RESULTS_LIMIT].
      */
     fun searchMessages(text: String): List<Message> {
         if (!TextNormalizer.needsFold(text)) return getMessagesWithText(TextNormalizer.likeContains(text))
+        val pattern = TextNormalizer.likeContains(TextNormalizer.fold(text))
+        val fast = getMessagesWithFoldedText(pattern)
+        if (MessageFoldBackfill.isComplete) return fast
         // rowid, not id: SMS 57 and MMS 57 share an id (see MessageKey), but every row has its own rowid.
-        val sql = TextNormalizer.sqlFoldedLike("messages", "rowid", "body", SHOWN_ONLY) + " $SEARCH_ORDER"
-        return getMessagesRaw(SimpleSQLiteQuery(sql, arrayOf(TextNormalizer.likeContains(TextNormalizer.fold(text)))))
+        val unfolded = SHOWN_ONLY + " AND body_folded = '' AND body <> ''"
+        val sql = TextNormalizer.sqlFoldedLike("messages", "rowid", "body", unfolded) + " $SEARCH_ORDER"
+        val old = getMessagesRaw(SimpleSQLiteQuery(sql, arrayOf(pattern)))
+        if (old.isEmpty()) return fast
+        return (fast + old).distinctBy { it.key }
+            .sortedWith(compareByDescending<Message> { it.date }.thenByDescending { it.id })
+            .take(SEARCH_RESULTS_LIMIT)
     }
 
     @Query("UPDATE messages SET read = 1 WHERE id = :id AND is_mms = :isMMS")

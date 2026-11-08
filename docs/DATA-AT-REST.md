@@ -33,6 +33,9 @@ encrypted by the app itself yet.
   removed (Settings > Messages, on by default). The original is untouched.
 - **Starred messages.** A star keeps a copy of the message text in `starred_messages` (conversations.db), so a
   starred message stays when its chat is deleted. The Starred list says so, and Unstar removes the copy.
+- **Search column.** The message cache in `conversations.db` (database version 15) also keeps `body_folded`, the message
+  text with Persian/Arabic letters and digits normalised, so search is fast. It is derived from the cached body, lives
+  and is deleted with it, and is not in backups.
 
 What this does **not** cover: a phone that is rooted or exploited *while unlocked* can read any app's files, and
 Android's SMS database (where allowed messages live) is outside the app anyway, so app-level encryption would only
