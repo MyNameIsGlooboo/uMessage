@@ -23,7 +23,7 @@ For the `gplay` build. Play counts data as **collected** only when it leaves the
 
 ## Permission declarations that go with the form
 
-See [PLAY_STORE.md](PLAY_STORE.md): SMS permissions (default SMS handler), foreground service (data sync, backup), the photo-library permissions (READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED) and SCHEDULE_EXACT_ALARM, which the Play build does not declare (the foss build does).
+See [PLAY_DECLARATIONS.md](PLAY_DECLARATIONS.md) (texts to paste, per permission) and [PLAY_STORE.md](PLAY_STORE.md): SMS permissions (default SMS handler), foreground service (data sync, backup), the photo-library permissions (READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED), SCHEDULE_EXACT_ALARM, location and CALL_PHONE. The Play build declares the same permissions as the foss build.
 
 ## If something changes
 

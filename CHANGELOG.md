@@ -11,12 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Chinese (Traditional) and Urdu
 - Backup now also covers blocked messages, the recycle bin, drafts, muted and hidden chats, saved texts, scheduled messages, notes, stars, labels and archived chats; backups are checked before saving
 - Failed picture messages can be retried
+- A picture message that was never downloaded shows "Picture message not downloaded" with a "Tap to download" button in the chat, with progress, a retry after a failure, and "no longer available" once the carrier has dropped it
 - "Rate uMessage" (Google Play build) and "Send feedback" rows in Settings, plus an occasional Rate card
 - An "Allow all" button on the welcome screen
 - Allow keywords now also allow the sender
+- A full backup while hidden chats are locked first asks to unlock them or skip them; the summary says how many hidden chats were left out
 - "Save to Google Drive" on the Backup and restore screen, and "Restore from Google Drive": the backup is written to one file in the cache and handed to the Google Drive app, which does the upload; uMessage itself still has no network code or internet permission
 
 ### Changed
+- The "Blocked" tab and its screens are now called "Spam" (in all languages)
+- Persian uses everyday spoken words (بلاک, لینک, بک‌آپ, اسپم, ...)
+- A failed send now notifies loudly or quietly, following the notification sound setting
+- Landscape: lists, chats, settings and the welcome screen stay clear of the system bars, and message bubbles are capped in width
 - The Restore button is removed from the welcome screen; restore stays in Settings
 - A shorter welcome
 - Lock-screen notification text is hidden by default

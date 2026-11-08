@@ -23,7 +23,7 @@ incoming SMS PDUs
        OFF    -> ALLOW (MODE_OFF), or BLOCK (UNKNOWN_SENDER) when the old "Block unknown numbers"
                  switch is on: it turns Off into Strict and has no effect in Strict or Smart
   ALLOW -> write to Telephony provider, notify
-  BLOCK -> store only in the uMessage DB (Blocked folder); silent unless notifyOnBlock
+  BLOCK -> store only in the uMessage DB (Spam folder); silent unless notifyOnBlock
   filter or store failure (any Throwable) -> deliver to the inbox (fail open)
   -> delete the pending_sms row
 ```
@@ -91,7 +91,7 @@ The blocked-keywords list (legacy Fossify) exports one keyword per line so keywo
 - **Contacts change:** a ContentObserver keeps a cached contact set so filtering is instant and works in the background.
 - **Purge:** expired blocked messages are deleted at most every 6 hours from the receivers and app start (`PurgePolicy`); opening the Blocked screen purges immediately.
 - **Stats:** the "last 7 days" count moves its window forward every 15 minutes while observed.
-- **Notification on block** (opt-in): opens the Blocked folder, uses its own notification tag (no clash with message notifications) and hides sender and text on the lock screen.
+- **Notification on block** (opt-in): opens the Spam folder, uses its own notification tag (no clash with message notifications) and hides sender and text on the lock screen.
 
 ## Test coverage target
 

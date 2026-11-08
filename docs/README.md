@@ -2,7 +2,7 @@
 
 For users:
 
-- [USER_GUIDE.md](USER_GUIDE.md): how to use uMessage (modes, rules, Blocked tab, app lock, backup).
+- [USER_GUIDE.md](USER_GUIDE.md): how to use uMessage (modes, rules, Spam tab, app lock, backup).
 - [../PRIVACY.md](../PRIVACY.md): what the app stores and why it needs each permission.
 - [../SECURITY.md](../SECURITY.md): how to report a vulnerability, and the security model.
 

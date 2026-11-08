@@ -1,11 +1,14 @@
-• New: Chinese (Traditional) and Urdu
-• Allow keywords now also allow the sender
-• Full backup covers blocked, bin, drafts, notes, labels and more
-• New: Save to Google Drive button (no internet in uMessage)
-• Codes like 123-456 now arrive; phone numbers no longer pass as codes
-• Failed picture messages can be retried
+• New: Chinese (Traditional), Urdu
+• Blocked tab is now Spam
+• Allow keywords also allow the sender
+• Full backup covers bin, drafts, notes, labels and more
+• Backup asks to unlock hidden chats
+• Save to Google Drive (no internet)
+• Codes like 123-456 now arrive
+• Retry failed picture messages; Tap to download
 • Scheduled messages sent once
-• Delete forever removes only binned messages
-• Lock-screen text hidden by default
-• Allow all button, shorter setup
-• Many small fixes
+• Delete forever: binned messages only
+• Lock-screen text hidden
+• Landscape fixed
+• Failed-send alert follows sound setting
+• Persian in everyday words

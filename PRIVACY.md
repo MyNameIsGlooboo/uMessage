@@ -24,7 +24,7 @@ Everything below is processed only on your phone.
 - **Contacts.** Used to show names and to decide whether a sender is in your phonebook (for the spam filter). A cache of contact numbers is kept in private app storage. Contacts are never uploaded.
 - **Phone state and SIM information.** Used to detect your SIM cards and carriers and which SIM a message arrived on or should be sent from. SIM names and numbers you type yourself are kept in the app's private settings.
 - **Location (optional).** Only when you tap Location in the attach menu, the app reads your position once and puts a map link in the message field. You press Send yourself. The position is not stored and not sent anywhere by the app.
-- **Photos (optional).** In the F-Droid/FOSS build only, if you allow it, the attach menu can show your recent pictures so you can attach one with a tap. The Google Play build has no such permission: you pick pictures with the system photo picker. A picture is read only when you tap it. By default the app removes GPS location and camera details from the copy it sends; your original picture is not changed. The system photo picker works without this permission.
+- **Photos (optional).** If you allow it, the attach menu can show your recent pictures so you can attach one with a tap. A picture is read only when you tap it. By default the app removes GPS location and camera details from the copy it sends; your original picture is not changed. The system photo picker works without this permission.
 - **Notifications.** Used to show new messages. By default uMessage asks Android to show only the sender, not the text, while the phone is locked; the text appears once you unlock. You can switch the text on for the lock screen in Settings. Android has its own lock-screen setting ("Notifications on lock screen" or "Sensitive notifications"): if you set it to show all content, Android shows the text on the lock screen whatever uMessage asks.
 - **App lock (optional).** If you turn it on, a PIN hash is kept in the app's private settings. Fingerprint or face unlock is handled by Android; the app only receives a yes or no.
 - **Rules, settings and logs.** Your spam rules, blocked numbers and keywords, saved texts, settings, and a short decision log (sender number, decision, matching rule; no message text; kept for up to 7 days, at most 200 entries) are kept in private app storage.
@@ -37,12 +37,13 @@ Everything below is processed only on your phone.
 | SEND_SMS | Send the messages and replies you write. |
 | READ_CONTACTS | Show contact names; tell known senders from unknown ones. |
 | READ_PHONE_STATE | Detect SIM cards and which SIM to use. |
+| CALL_PHONE | Call a number at once when you tap it in a chat or contact. Asked at the moment you tap; if you say no, the dialer opens with the number filled in. |
 | ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION | Share your location, only when you tap Location in the attach menu. |
-| READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED (FOSS build only), READ_EXTERNAL_STORAGE (Android 12 and older) | Show recent photos in the attach menu, only if you allow it. The Google Play build does not declare the first two. |
+| READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED, READ_EXTERNAL_STORAGE (Android 12 and older) | Show recent photos in the attach menu, only if you allow it. |
 | POST_NOTIFICATIONS | Show notifications. |
 | USE_BIOMETRIC | Unlock the optional app lock with fingerprint or face. |
 | WAKE_LOCK, RECEIVE_BOOT_COMPLETED | Finish handling incoming messages with the screen off, and send scheduled messages, also after a reboot. |
-| SCHEDULE_EXACT_ALARM (FOSS build only) | Send scheduled messages and reminders at the exact time. The Google Play build does not declare it and uses approximate times. |
+| SCHEDULE_EXACT_ALARM | Send scheduled messages and reminders at the exact time you chose. If it is not allowed, approximate times are used. |
 | FOREGROUND_SERVICE, FOREGROUND_SERVICE_DATA_SYNC | Keep a message backup or restore that you started running, with a progress notification. |
 
 The app manifest is the authoritative list of permissions.
@@ -65,7 +66,7 @@ The Google Play build may show Google's own rating card. The Play Store app show
 
 - Data is stored only on your phone, in the Android SMS database and uMessage's private app storage, which other apps cannot read.
 - The app opts out of Android and Google backups and device-to-device transfer, so its databases and settings are not copied off the phone that way. Your phone's own SMS backup, if you use one, is handled by your phone and not by uMessage.
-- Private notes you add to messages are stored only on the phone, in uMessage's private app storage, and are part of the message backups you create. So are your stars, labels, archived, muted and hidden chats, drafts, recycle-bin messages, saved texts, Blocked folder messages and scheduled messages and reminders (never the app-lock PIN).
+- Private notes you add to messages are stored only on the phone, in uMessage's private app storage, and are part of the message backups you create. So are your stars, labels, archived, muted and hidden chats, drafts, recycle-bin messages, saved texts, Spam folder messages and scheduled messages and reminders (never the app-lock PIN).
 - Saved texts and SIM names and numbers are stored as plain text in the app's private settings. Do not save passwords or PINs as saved texts.
 
 ## Exports and backup files
@@ -78,8 +79,8 @@ When you share a chat or the decision log, or attach a photo, uMessage makes a t
 
 We keep no data on any server, so there is nothing for us to delete. On your phone:
 
-- Delete messages or conversations in the app. When the recycle bin is on, deleted messages and conversations stay in it for 30 days, until you empty it or restore them, and are then removed for good. Blocked messages are deleted after 30 days by default; you can change this or keep them until you delete them.
-- Clear the decision log in Settings, or delete blocked messages in the app.
+- Delete messages or conversations in the app. When the recycle bin is on, deleted messages and conversations stay in it for 30 days, until you empty it or restore them, and are then removed for good. Spam is deleted after 30 days by default; you can change this or keep them until you delete them.
+- Clear the decision log in Settings, or delete spam in the app.
 - Clear the app's storage in Android settings, or uninstall the app, to remove everything uMessage keeps. Messages in Android's SMS database are removed only by deleting them (in the app or another SMS app).
 
 ## Children

@@ -8,14 +8,16 @@ The first-run setup has up to four steps:
 
 1. **Welcome.** The only control is a language chip at the top. Pick your language here, or keep the phone's language; you can change it later with the Language row in Settings. Tap **Get started**.
 2. **Allow.** Make uMessage your default SMS app, and allow Messages (SMS), Contacts, Phone state and Notifications; **Allow all** asks for them in one go. uMessage can only receive and filter messages while it is your default SMS app. Contacts access is how uMessage knows who you know. Without it, uMessage does not block unknown phone numbers at all, so that it never hides messages from family and friends. This step is left out when uMessage already is the default app and everything is allowed.
-3. **Unknown senders.** Choose Strict, Smart or Off (see below) and how long to keep blocked messages. The **Get delivery reports** switch is also here. It is on by default and shows when your messages are delivered. Some carriers may charge for delivery reports, so switch it off there if yours does. You can change it later in Settings > Typing and sending > Sending > **Get delivery reports**.
+3. **Unknown senders.** Choose Strict, Smart or Off (see below) and how long to keep spam. The **Get delivery reports** switch is also here. It is on by default and shows when your messages are delivered. Some carriers may charge for delivery reports, so switch it off there if yours does. You can change it later in Settings > Typing and sending > Sending > **Get delivery reports**.
 4. **Keep uMessage running.** On Xiaomi, Redmi and Poco phones turn on **Autostart** and set **Battery saver** to "No restrictions" for uMessage. On Samsung, remove it from "Sleeping apps". Otherwise the phone may delay incoming messages.
 
 ## Finding your way around
 
-The bottom bar has **Messages** and **Blocked**, plus **Archived**, which is always there (it shows an empty state until you archive a chat). A **Forwarded** tab appears only in the GitHub and F-Droid builds, once a forward rule exists and you have switched the tab on.
+The bottom bar has **Messages** and **Spam**, plus **Archived**, which is always there (it shows an empty state until you archive a chat). A **Forwarded** tab appears only in the GitHub and F-Droid builds, once a forward rule exists and you have switched the tab on.
 
 The three-dot menu at the top of Messages lists, in this order: **Recycle bin** (first; it shows how many messages are in it, and is listed only while the recycle bin is switched on in Settings > Storage and cleanup), **Scheduled** (only when something is scheduled), **Starred** and **Settings**.
+
+The app works in portrait and landscape. Turn the phone sideways and every screen follows: content stays clear of a camera cutout and of the navigation bar at the side, message bubbles keep a readable width, and the keyboard leaves the message box usable.
 
 Settings > About has **Send feedback**, which opens your email app with a message to the developer already addressed, and, in the Google Play build only, **Rate uMessage**, which opens the Play Store.
 
@@ -30,31 +32,31 @@ Messages from known senders always go to your inbox (unless you have blocked the
 
 ## Unknown-sender modes
 
-Change the mode in Settings > Spam protection (Messages from unknown senders), or from the Blocked tab ("Change").
+Change the mode in Settings > Spam protection (Messages from unknown senders), or from the Spam tab ("Change").
 
 | Mode | Unknown senders | Verification codes from unknown senders |
 |---|---|---|
-| **Smart** (default) | Blocked | Delivered, if the message has no link |
-| **Strict** | Blocked | Blocked too |
+| **Smart** (default) | Spam | Delivered, if the message has no link |
+| **Strict** | Spam | Spam too |
 | **Off** | Delivered | Delivered |
 
 Smart is the right choice for most people: banks, delivery services and login codes usually come from numbers that are not in your contacts, and Smart still lets their codes through. A "code" message that also contains a link is treated as spam in Smart, because that is a common phishing trick.
 
 Your own allow and block rules apply in every mode, including Off.
 
-## The Blocked tab
+## The Spam tab
 
-Blocked messages do not reach your inbox and do not make a sound. They wait in the **Blocked** tab at the bottom of the screen; the tab shows how many arrived since you last looked. You can turn on a notification for blocked messages in Settings > Spam protection > Retention and alerts.
+Spam does not reach your inbox and does not make a sound. It waits in the **Spam** tab at the bottom of the screen; the tab shows how many arrived since you last looked. You can turn on a notification for spam in Settings > Spam protection > Retention and alerts.
 
-For each blocked message you can:
+For each message in Spam you can:
 
-- **Not spam**: moves the messages to your inbox and allows the sender from now on, in one step. A snackbar offers Undo. From a blocked chat it opens the normal chat so you can reply at once. For sender names that anyone can fake (for example `ACME-BANK`) no allow rule is added; the messages only move. To stop allowing a sender, delete the rule in Settings > Rules.
-- **Block sender**: adds a block rule for the sender and removes their blocked messages.
+- **Not spam**: moves the messages to your inbox and allows the sender from now on, in one step. A snackbar offers Undo. From a chat in Spam it opens the normal chat so you can reply at once. For sender names that anyone can fake (for example `ACME-BANK`) no allow rule is added; the messages only move. To stop allowing a sender, delete the rule in Settings > Rules.
+- **Block sender**: adds a block rule for the sender and removes their messages from Spam.
 - **Delete** the message.
 
 Each message shows why it was blocked (for example "Unknown sender" or the rule that matched). Settings > Spam protection > **Recent activity** lists the last decisions for all incoming messages, including allowed ones.
 
-Blocked messages are deleted automatically after 30 days. You can change the period, or keep them until you delete them, in Settings > Spam protection > Retention and alerts. Blocked picture messages (MMS) are not downloaded, so they cost no mobile data; restoring one allows the sender but cannot bring back the picture.
+Spam is deleted automatically after 30 days. You can change the period, or keep them until you delete them, in Settings > Spam protection > Retention and alerts. A picture message that could not be downloaded (no mobile data, say) shows "Picture message not downloaded" in the chat; tap **Tap to download** to try again. Picture messages (MMS) held as spam are not downloaded, so they cost no mobile data; restoring one allows the sender but cannot bring back the picture.
 
 ## Rules
 
@@ -86,7 +88,7 @@ You can export your rules to a file and import them on another phone. Import sho
 
 Settings > **App lock** asks for a PIN, a pattern or your fingerprint/face before uMessage opens. After too many wrong tries you have to wait before trying again. If you forget the PIN there is no recovery from inside the app.
 
-**What to lock** (on the same page) is Whole app, or Only chosen parts: uMessage then opens without the PIN, and only the Blocked tab and your hidden chats ask for it.
+**What to lock** (on the same page) is Whole app, or Only chosen parts: uMessage then opens without the PIN, and only the Spam tab and your hidden chats ask for it.
 
 **Hide this chat** (thread menu) needs an app lock. A hidden chat leaves the chat list, search, Recent codes, stars, pictures and links, and launcher shortcuts, and its notifications say only "New message". Tap **Hidden chats** under the last conversation and enter your lock to see them; they hide again when you leave uMessage (after the lock time chosen in Settings).
 
@@ -96,7 +98,7 @@ Notification privacy is a separate setting: choose whether the lock screen shows
 
 ## Forwarding (GitHub and F-Droid builds only)
 
-The Google Play build has no forwarding. In the other builds, Settings > **Forwarding** opens the forward rules, which send a copy of matching inbox messages by SMS to up to three numbers. Each forward is a paid SMS. Blocked messages are never forwarded, and verification codes only when a rule's switch for codes is on.
+The Google Play build has no forwarding. In the other builds, Settings > **Forwarding** opens the forward rules, which send a copy of matching inbox messages by SMS to up to three numbers. Each forward is a paid SMS. Spam is never forwarded, and verification codes only when a rule's switch for codes is on.
 
 The **Daily forward limit** (on the Forwarding options page) is off by default. You can set it to 5, 10, 20 or 50 forwards a day; when it is reached, nothing more is forwarded for the rest of the day and uMessage shows a notification. Each rule also has its own hourly cap. The full list of safeguards is in the [README](../README.md#forwarding).
 
@@ -113,7 +115,7 @@ Each message can carry one private note, for example to remember what a bank-tra
 
 ## Backup and restore
 
-uMessage is **not** included in Android or Google cloud backups, by design: your blocked messages and settings never leave the phone that way. Your normal (allowed) messages are in Android's own SMS storage.
+uMessage is **not** included in Android or Google cloud backups, by design: your spam and settings never leave the phone that way. Your normal (allowed) messages are in Android's own SMS storage.
 
 To move messages to a new phone:
 
@@ -131,7 +133,7 @@ Settings > **Backup and restore** > **Move from another app** explains the steps
 2. Save the backup to Google Drive or to a file on your phone.
 3. In uMessage, open that screen and tap **Import messages**, then pick the file. uMessage reads the XML files made by SMS Backup & Restore, as well as its own backups.
 
-A backup of all your chats also holds what uMessage keeps beside the messages: blocked messages (the Blocked folder), the recycle bin, drafts, muted chats, hidden chats, saved texts, scheduled messages and reminders, private notes, stars, labels and archived chats. Restoring puts the Blocked folder's messages back in the Blocked folder only, never in the inbox, and it never sends or shows anything. Messages scheduled for a time that has already passed are not brought back, except repeating ones, which continue at their next time; scheduled messages with attachments and the filter decision log are not in the backup. A backup of only some chats leaves out the Blocked folder, saved texts, scheduled messages and reminders. Hidden chats stay out of sight only while the app lock is on; the lock's PIN is never in a backup.
+A backup of all your chats also holds what uMessage keeps beside the messages: spam (the Spam folder), the recycle bin, drafts, muted chats, hidden chats, saved texts, scheduled messages and reminders, private notes, stars, labels and archived chats. Restoring puts the Spam folder's messages back in the Spam folder only, never in the inbox, and it never sends or shows anything. Messages scheduled for a time that has already passed are not brought back, except repeating ones, which continue at their next time; scheduled messages with attachments and the filter decision log are not in the backup. A backup of only some chats leaves out the Blocked folder, saved texts, scheduled messages and reminders. Hidden chats stay out of sight only while the app lock is on; the lock's PIN is never in a backup. When you back up all your chats while the app lock is on and your hidden chats are locked, uMessage first asks: **Unlock** (your lock screen opens, and the hidden chats go into the backup) or **Skip hidden chats** (they are left out, and the result says how many). If the unlock fails or is cancelled you can try again or skip. With the lock off, or the hidden chats already unlocked, they are included without asking. A backup of chosen chats never holds hidden ones.
 
 Exported files are not encrypted. Anyone who can open the file can read your messages, so keep it somewhere private and delete it when you are done.
 

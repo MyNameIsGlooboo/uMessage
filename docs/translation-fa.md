@@ -6,63 +6,83 @@ language is Persian; layouts mirror to right-to-left on their own.
 ## Glossary
 
 Use these terms everywhere, in the app's own strings and in the vendored commons strings. The tone is the
-of good Persian-language apps (Google's Persian UI, for example): short, polite, plain. Address the user with
-the polite plural verb ("کنید") and avoid stiff officialese.
+everyday spoken Persian of popular apps (Telegram, WhatsApp, Instagram): short, plain, common loanwords are
+welcome ("بلاک"، "لینک"، "بک‌آپ"). Address the user with the polite plural verb ("کنید") and avoid stiff
+officialese. The 0.4.2 pass replaced the formal words below with the spoken ones (732 strings).
 
 | English | Persian | Notes |
 |---|---|---|
-| Spam | هرزنامه | The term Google Messages and Gmail use in Persian. "Spam stopped" = هرزنامهٔ متوقف‌شده. |
-| Report spam | گزارش هرزنامه | |
-| Not spam | هرزنامه نیست | Button that restores a blocked message. |
-| Block / Blocked | مسدود کردن / مسدودشده | "Block sender" = مسدود کردن فرستنده. |
-| Blocked (tab / screen) | مسدودشده‌ها | Blocked messages screen = پیام‌های مسدودشده. |
-| Unblock | رفع مسدودی | |
-| Allow / Allowed | اجازه دادن / مجاز | allow list = فهرست مجاز. |
-| Rule / Rules | قانون / قانون‌ها | "Allowed and blocked rules" = قانون‌های مجاز و مسدود. |
-| Unknown sender | فرستنده ناشناس | |
+| Spam | اسپم | Tab and screen title: اسپم. Formerly هرزنامه. |
+| Report spam | گزارش اسپم | |
+| Not spam | اسپم نیست | Button that restores a message from Spam. |
+| Block / Blocked | بلاک کردن / بلاک‌شده | "Block sender" = بلاک کردن فرستنده. Formerly مسدود. |
+| Unblock | رفع بلاک | |
+| Allow / Allowed | اجازه دادن / مجاز | allow list = لیست مجاز. |
+| Rule / Rules | قانون / قانون‌ها | Kept. |
+| Unknown sender | فرستنده ناشناس | Kept. |
 | Verification code / one-time code | کد تأیید / کد یک‌بارمصرف | "Copy code" = کپی کد. |
 | Filter mode Strict / Smart / Off | سخت‌گیرانه / هوشمند / خاموش | |
-| Archive / Archived | بایگانی کردن / بایگانی‌شده | Archived screen = بایگانی. |
-| Message / Messages | پیام / پیام‌ها | SMS = پیامک, MMS = پیام چندرسانه‌ای (MMS). |
-| Conversation | گفتگو | |
-| Contact | مخاطب | |
-| Sender / Sender ID | فرستنده / شناسهٔ فرستنده | |
-| Keyword | کلیدواژه | |
-| Pattern (regex) | الگو | |
-| Notification | اعلان | |
+| Archive / Archived | آرشیو کردن / آرشیوشده | Formerly بایگانی. |
+| Unarchive | خارج کردن از آرشیو | |
+| Message / Messages | پیام / پیام‌ها | SMS = پیام (پیامک only inside the quoted Android setting «برنامهٔ پیامک»), MMS = پیام چندرسانه‌ای (MMS). |
+| Conversation | گفتگو | Kept. |
+| Contact / Contacts | مخاطب / مخاطب‌ها | Plural: مخاطب‌ها, not مخاطبان. |
+| Sender / Sender ID | فرستنده / شناسهٔ فرستنده | Kept. |
+| Keyword | کلمهٔ کلیدی | Formerly کلیدواژه; word = کلمه (not واژه). |
+| Pattern (regex) | الگو | Kept. |
+| Match / Matches | جور بودن / جور شدن | Formerly مطابقت / تطبیق. |
+| Notification | اعلان | Kept. |
 | Settings | تنظیمات | |
-| Undo | واگرد | As in Google's Persian UI. |
+| Undo | برگردان | Formerly واگرد. |
 | Delete | حذف | |
-| Restore | بازیابی | |
-| Backup / Export / Import | پشتیبان / صادر کردن / وارد کردن | |
+| Restore | بازیابی | Kept: what WhatsApp and Google Photos say. |
+| Send | ارسال | Kept ("ارسال نشد"). |
+| Backup | بک‌آپ | "Take a backup" = گرفتن بک‌آپ. Formerly پشتیبان. |
+| Export / Import | خروجی گرفتن / وارد کردن | Formerly صادر کردن. |
+| Forward (auto-forwarding) | فوروارد | Formerly بازارسال. |
+| Share | اشتراک‌گذاری | Formerly هم‌رسانی. |
 | Schedule (a message) | زمان‌بندی | |
 | Pin (a conversation) | سنجاق کردن | |
 | Mark as read / unread | علامت‌گذاری به‌عنوان خوانده‌شده / خوانده‌نشده | |
 | App lock / PIN | قفل برنامه / پین | |
+| Password | رمز | Formerly گذرواژه. |
 | SIM | سیم‌کارت | |
 | Inbox | صندوق ورودی | |
-| Default SMS app | برنامهٔ پیامک پیش‌فرض | |
+| Default SMS app | برنامهٔ پیام پیش‌فرض | |
 | App | برنامه | |
 | Theme | زمینه | |
-| Permission | مجوز | |
-| Licenses | پروانه‌ها | مجوز is taken by Permission. |
-| Link / Attachment | پیوند / پیوست | |
-| Forward / Share | بازارسال / هم‌رسانی | |
-| Recycle Bin | سطل بازیافت | |
-| Unarchive | خارج کردن از بایگانی | |
-| Character (text length) | نویسه | |
+| Permission | دسترسی | Formerly مجوز. |
+| Location | لوکیشن | Formerly موقعیت. |
+| Licenses / Copyright | لایسنس / کپی‌رایت | Formerly پروانه / حق نشر. |
+| Link / Attachment | لینک / پیوست | Formerly پیوند for link. |
+| Recycle Bin | سطل زباله | Formerly سطل بازیافت. |
+| List (block list, allow list) | لیست | Formerly فهرست. |
+| Character (text length) | کاراکتر | Formerly نویسه. |
 | Wildcard | نویسهٔ عام | |
-| Block list | فهرست مسدودی | |
 | Picture message | پیام تصویری | |
 | Decision log | گزارش تصمیم‌ها | |
-| Biometrics | زیست‌سنجی | |
+| Biometrics | اثر انگشت یا چهره | Formerly زیست‌سنجی. |
+| Encryption | رمزنگاری | Formerly رمزگذاری. |
+| Authenticate | تأیید هویت | |
+| Keyboard | کیبورد | |
+| Font | فونت | Formerly قلم. |
+| Icons | آیکون‌ها | |
+| Download | دانلود | Formerly بارگیری. |
+| Restart | ریستارت | |
 | Carrier | اپراتور | |
+| Now / then / still | الان / بعد / هنوز | Formerly اکنون / سپس / همچنان. |
+| Before / after (time) | قبل از / بعد از | Formerly پیش از / پس از. |
+| Very / so / when | خیلی / پس / وقتی | Formerly بسیار / بنابراین / هنگام. |
+
+Words that deliberately stay: بازیابی, ارسال, گفتگو, فرستنده, قانون, الگو, اعلان, مخاطب. The search-keyword
+strings (`sks_*`) keep the old formal words next to the new ones, so a setting is found with either word.
+Names stay as they are: uMessage, Google Drive, SMS/MMS, GPL, Material You.
 
 ## Writing rules
 
 - Persian letters only: ی (U+06CC) and ک (U+06A9), never Arabic ي (U+064A) or ك (U+0643). A unit test
   (`PersianTranslationTest`) fails on them.
-- Zero-width non-joiner (U+200C) inside compounds: می‌شود، پیام‌ها، مسدودشده‌ها، نمی‌توانید.
+- Zero-width non-joiner (U+200C) inside compounds: می‌شود، پیام‌ها، بلاک‌شده‌ها، نمی‌توانید.
 - Keep placeholders (`%1$s`, `%d`, `%%`), HTML tags, `\n` and `\'` exactly as in English. The unit test
   checks that every Persian string has the same placeholders as the English one.
 - Digits: counts, times and sizes show Persian digits (۰-۹). `%d` placeholders get them from the app's

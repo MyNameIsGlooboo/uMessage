@@ -9,21 +9,21 @@ uMessage is a fork of [Fossify Messages](https://github.com/FossifyOrg/Messages)
 ## Features
 
 - Full SMS and MMS messaging: group threads, search, drafts, scheduled send, recycle bin and archive, private notes on messages, stars and labels (partly inherited from Fossify Messages).
-- Backup and restore to a file (Settings > Backup and restore): messages with blocked messages, the recycle bin, drafts, muted and hidden chats, saved texts, scheduled messages, notes, stars, labels and archived chats; rules and settings in a second file. Backup files are not encrypted. A "Save to Google Drive" button hands the backup file to the Google Drive app, which does the upload; uMessage itself never connects to the internet.
-- Smart mode by default on new installs: messages from unknown senders go to a Blocked folder instead of your inbox, but verification codes without a link still arrive. Strict blocks codes too; Off turns unknown-sender filtering off.
+- Backup and restore to a file (Settings > Backup and restore): messages with Spam messages, the recycle bin, drafts, muted and hidden chats, saved texts, scheduled messages, notes, stars, labels and archived chats; rules and settings in a second file. Backup files are not encrypted. A "Save to Google Drive" button hands the backup file to the Google Drive app, which does the upload; uMessage itself never connects to the internet.
+- Smart mode by default on new installs: messages from unknown senders go to a Spam folder instead of your inbox, but verification codes without a link still arrive. Strict blocks codes too; Off turns unknown-sender filtering off.
 - Allowed rules always win; blocked rules support exact number, prefix, alphanumeric sender id (for example `ACME-BANK`), keyword and regex rules. Adding an allowed keyword or pattern warns that any message containing it skips every block. A keyword or pattern rule applies to the sender in both directions: a blocked keyword also blocks the sender, an allowed keyword also allows the sender (never a contact, and never over a sender rule you set yourself).
 - Rules can be exported and imported (SIM and note included); an import shows what it will add before anything changes.
-- Blocked folder is reversible: "Not spam" restores the messages to the real inbox and adds an allow rule for the sender in one step, with one Undo; names that anyone can fake get no rule. Delete the rule in Settings > Spam protection > Rules to stop allowing a sender. Blocked messages are purged after 30 days by default (configurable).
+- The Spam folder is reversible: "Not spam" restores the messages to the real inbox and adds an allow rule for the sender in one step, with one Undo; names that anyone can fake get no rule. Delete the rule in Settings > Spam protection > Rules to stop allowing a sender. Spam is purged after 30 days by default (configurable).
 - Forward rules: send a copy of matching inbox messages (for example bank alerts) by SMS to up to three numbers. See [Forwarding](#forwarding). Only in the GitHub and F-Droid builds, not in the Google Play build.
 - Dual SIM: receive, send and rules per SIM.
-- Blocked MMS are not downloaded, so no mobile data is spent on them.
+- MMS held as spam are not downloaded, so no mobile data is spent on them.
 - Light, dark and 11 colour themes, an optional app lock (PIN or fingerprint), a Copy code button on verification codes, and 22 languages (English and 21 more, including Persian, Arabic, Chinese in both scripts and Urdu).
 - Private: all data stays on the device, no analytics, no network access.
 
 ## Screenshots
 
 <table>
-<tr><td align="center"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/01-inbox.png" alt="Inbox without the spam" width="200"></td><td align="center"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/02-blocked.png" alt="Spam held in the Blocked folder" width="200"></td><td align="center"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/05-rules.png" alt="Your own rules, with a test box" width="200"></td><td align="center"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/07-themes.png" alt="Light, dark and 11 themes" width="200"></td></tr>
+<tr><td align="center"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/01-inbox.png" alt="Inbox without the spam" width="200"></td><td align="center"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/02-blocked.png" alt="Spam held in the Spam folder" width="200"></td><td align="center"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/05-rules.png" alt="Your own rules, with a test box" width="200"></td><td align="center"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/07-themes.png" alt="Light, dark and 11 themes" width="200"></td></tr>
 </table>
 
 More screenshots are in [`fastlane/metadata/android/en-US/images/phoneScreenshots`](fastlane/metadata/android/en-US/images/phoneScreenshots).
@@ -35,7 +35,7 @@ uMessage is distributed as an APK on the [GitHub Releases](../../releases) page.
 1. On your phone, download the latest `.apk` from Releases.
 2. Android blocks the install the first time. Open the prompt's Settings link (or Settings > Apps > Special app access > Install unknown apps), choose your browser or file manager, and enable "Allow from this source". Install the APK; you may turn the option off again afterwards.
 3. Open uMessage and follow the first-run setup. The welcome screen has only a language chip (pick your language or keep the phone's) and **Get started**. Then comes **Allow**: set uMessage as the default SMS app (Android shows a system dialog; choose uMessage) and grant the permissions (Messages, Contacts, Phone state, Notifications; **Allow all** asks for them at once; each one is explained in [PRIVACY.md](PRIVACY.md)). uMessage can only receive and filter messages while it is the default SMS app.
-4. Choose how to treat unknown senders (Strict, Smart or Off), how long to keep blocked messages, and whether to get delivery reports.
+4. Choose how to treat unknown senders (Strict, Smart or Off), how long to keep spam, and whether to get delivery reports.
 5. The last step, **Keep uMessage running**: on Xiaomi/Poco/Redmi (HyperOS/MIUI) enable Autostart and set Battery saver to "No restrictions" for uMessage. On Samsung remove uMessage from "Sleeping apps".
 
 ## How filtering works
@@ -50,9 +50,9 @@ Every incoming SMS passes through these steps, in order, before anything is writ
    - **Strict**: blocked, verification codes included. There is no separate code exception.
    - **Off**: delivered. (The old "Block unknown numbers" switch on the Blocked numbers screen only matters here: it makes Off behave like Strict.)
 
-Nothing is held "for review": a message is either delivered or put in the Blocked folder. A message whose sender cannot be read goes to the inbox, and so does any message when the contacts lookup fails or contacts access is missing, so a failure never hides texts from people you know.
+Nothing is held "for review": a message is either delivered or put in the Spam folder. A message whose sender cannot be read goes to the inbox, and so does any message when the contacts lookup fails or contacts access is missing, so a failure never hides texts from people you know.
 
-Blocked messages are stored only inside uMessage, with no notification unless you turn one on. Open the Blocked folder to review them and tap "Not spam" to restore one and allow its sender. Details: [docs/FILTER_PIPELINE.md](docs/FILTER_PIPELINE.md).
+Spam is stored only inside uMessage, with no notification unless you turn one on. Open the Spam folder to review them and tap "Not spam" to restore one and allow its sender. Details: [docs/FILTER_PIPELINE.md](docs/FILTER_PIPELINE.md).
 
 Banks, delivery companies and one-time-code services usually message you from numbers that are not contacts. Smart lets their codes through; for the rest, use "Not spam" once per sender. In Strict mode their codes are blocked too.
 
@@ -67,7 +67,7 @@ A forward reads `[from <contact name or number>] <original text>`. For an MMS on
 
 Safety:
 
-- Only messages that reached your inbox are forwarded. Blocked spam never is.
+- Only messages that reached your inbox are forwarded. Spam never is.
 - Verification codes are not forwarded unless a rule's "Include verification codes" switch is on, which warns first: forwarding codes lets the recipient sign in to your accounts, and scammers ask people to set this up.
 - Loop guard, always on: a message that is itself a forward (it starts with `[from `) is never forwarded, nothing is forwarded back to the number it came from, and messages you send are never forwarded.
 - With the app lock on, creating, editing, turning on or deleting a forward rule asks for your PIN, pattern or fingerprint. Without an app lock, uMessage suggests setting one the first time. Turning a rule off never asks.

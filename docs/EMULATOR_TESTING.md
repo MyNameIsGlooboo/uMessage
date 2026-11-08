@@ -32,7 +32,7 @@ Note: `adb emu` requires the emulator console auth token (`~/.emulator_console_a
 | Message | Expected |
 |---|---|
 | From 5550100 (contact) | Appears in inbox, notification shown |
-| From 5550199 (unknown) | Only in Blocked folder, no notification |
+| From 5550199 (unknown) | Only in Spam folder, no notification |
 | From `VM-HDFCBK` (OTP text) | Blocked; allowed in Smart mode (no link) or when the sender is allowed |
 | Body contains "free prize" | Blocked (with a KEYWORD blacklist rule it shows reason BLOCK_RULE) |
 
