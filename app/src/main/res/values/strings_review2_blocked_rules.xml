@@ -61,7 +61,7 @@
         <item quantity="one">Move %d number to uMessage rules</item>
         <item quantity="other">Move %d numbers to uMessage rules</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• Their texts will go to Blocked, where you can read and restore them.</string>
+    <string name="e_migrate_point_blocked">• Their texts will go to Spam, where you can read and restore them.</string>
     <string name="e_migrate_point_android">• Android still throws their texts away until they leave its list.</string>
     <string name="e_migrate_calls_note">Android\'s list also blocks calls. Numbers you remove from it can call you again.</string>
 
@@ -70,9 +70,9 @@
     <string name="e_bn_row_calls_texts">Blocks calls and texts</string>
     <string name="e_bn_row_short_code">Short code: uMessage never sees its texts</string>
     <string name="e_bn_move_one">Move to uMessage rules</string>
-    <string name="e_bn_moved">%1$s is now a uMessage rule. Its texts go to Blocked, and its calls are no longer blocked.</string>
+    <string name="e_bn_moved">%1$s is now a uMessage rule. Its texts go to Spam, and its calls are no longer blocked.</string>
     <string name="e_bn_field_help">For example +15550001234, or +1555* for every number that starts with +1555</string>
     <string name="e_bn_short_code_warning">This looks like a short code. Android throws its texts away before uMessage sees them, so you could never restore one, such as a code or a bank notice.</string>
     <string name="e_bn_add_as_rule">Add as a uMessage rule instead</string>
-    <string name="e_bn_added_as_rule">%1$s added as a uMessage rule. Its texts go to Blocked.</string>
+    <string name="e_bn_added_as_rule">%1$s added as a uMessage rule. Its texts go to Spam.</string>
 </resources>

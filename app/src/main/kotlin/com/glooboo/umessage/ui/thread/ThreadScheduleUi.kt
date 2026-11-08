@@ -1,6 +1,5 @@
 package com.glooboo.umessage.ui.thread
 
-import com.glooboo.umessage.helpers.exactAlarmsDeclared
 import android.app.AlarmManager
 import android.content.Context
 import android.os.Build
@@ -59,8 +58,8 @@ class ThreadScheduleUi(
      */
     private fun askForExactAlarmPermissionIfNeeded(callback: () -> Unit) {
         val alarmManager = activity.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        // Always true before Android 12, where the setting does not exist; the Google Play build never offers it.
-        val exact = !activity.exactAlarmsDeclared() || Build.VERSION.SDK_INT < Build.VERSION_CODES.S ||
+        // Always true before Android 12, where the setting does not exist.
+        val exact = Build.VERSION.SDK_INT < Build.VERSION_CODES.S ||
             AlarmManagerCompat.canScheduleExactAlarms(alarmManager)
         val prefs = activity.threadPrefs
         if (exact || prefs.exactAlarmAsked) {

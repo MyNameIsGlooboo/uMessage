@@ -23,9 +23,9 @@
     <string name="thread_menu_block">Block sender</string>
     <string name="thread_menu_unblock">Unblock sender</string>
     <string name="thread_block_title">Block sender?</string>
-    <string name="thread_block_message">Block %1$s? New messages from this sender will go to Blocked messages instead of your inbox, where you can still read or restore them. Nothing is sent to anyone. Messages already in this conversation are kept.</string>
+    <string name="thread_block_message">Block %1$s? New messages from this sender will go to Spam instead of your inbox, where you can still read or restore them. Nothing is sent to anyone. Messages already in this conversation are kept.</string>
     <string name="thread_block_confirm">Block</string>
-    <string name="thread_block_done">Blocked. New messages will go to Blocked messages</string>
+    <string name="thread_block_done">Blocked. New messages will go to Spam</string>
     <string name="thread_block_failed">Couldn\'t block this sender</string>
     <string name="thread_unblock_done">Unblocked. New messages will reach your inbox</string>
     <string name="thread_unblock_done_system">Unblocked in uMessage. This number is also on your phone\'s block list, so Android still blocks its messages</string>

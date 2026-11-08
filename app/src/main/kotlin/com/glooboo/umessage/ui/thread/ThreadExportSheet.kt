@@ -23,6 +23,7 @@ import com.glooboo.umessage.export.ConversationFileFormat
 import com.glooboo.umessage.export.ExportRange
 import com.glooboo.umessage.ui.components.showComposeDialog
 import java.time.LocalDate
+import com.glooboo.umessage.ui.components.dialogScroll
 
 /** What the user asked for in the export sheet. */
 data class ThreadExportOptions(val format: ConversationFileFormat, val range: ExportRange)
@@ -64,7 +65,7 @@ class ThreadExportSheet(private val activity: Activity, private val onChosen: (T
         dates: DateChoice,
         onDates: (DateChoice) -> Unit,
     ) {
-        Column {
+        Column(Modifier.dialogScroll()) {
             Column(Modifier.selectableGroup()) {
                 ExportChoiceRow(
                     stringResource(R.string.export_conv_format_pdf), format == ConversationFileFormat.PDF,

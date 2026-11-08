@@ -5,7 +5,7 @@
     <string name="convx_code_chip">Code %1$s</string>
     <string name="convx_code_copy">Copy</string>
     <string name="convx_block_archive">Block and archive</string>
-    <string name="convx_block_archive_hint">Future texts go to Blocked. Nothing leaves your phone.</string>
+    <string name="convx_block_archive_hint">Future texts go to Spam. Nothing leaves your phone.</string>
 
     <!-- Rename dialog -->
     <string name="convx_name_label">Name</string>

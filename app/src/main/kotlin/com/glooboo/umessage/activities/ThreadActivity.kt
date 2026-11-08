@@ -88,6 +88,9 @@ import com.glooboo.umessage.helpers.generateRandomId
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.messaging.ScheduledSendClaims
+import com.glooboo.umessage.messaging.MmsRetryResult
+import com.glooboo.umessage.messaging.downloadMms
+import com.glooboo.umessage.messaging.undownloadedMms
 import com.glooboo.umessage.messaging.isLongMmsMessage
 import com.glooboo.umessage.messaging.scheduledAttachmentTracker
 import com.glooboo.umessage.models.Attachment
@@ -351,7 +354,13 @@ open class ThreadActivity : ComposeSimpleActivity() {
         onRequestPhotos = {
             launchForResult(photoPermission, RecentPhotosAccess.permissions(Build.VERSION.SDK_INT))
         },
+        onDownloadMms = { id -> ensureBackgroundThread { downloadMmsFromChat(id) } },
     )
+
+    /** Q40: "Tap to download". A message that is gone from the provider (downloaded meanwhile) just refreshes. */
+    private fun downloadMmsFromChat(id: Long) {
+        if (downloadMms(id) == MmsRetryResult.NotPending) refreshMessages()
+    }
 
     /**
      * singleTop: a notification or shortcut for a conversation reuses this screen. The same conversation keeps its
@@ -1225,6 +1234,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         val result = buildThreadItems(
             messages, simLabels, seen = isSeenByUser(), deliveryReportsOn = config.enableDeliveryReports,
             firstUnreadId = vm.firstUnreadId, showTapbacks = w3cPrefs.showTapbacks,
+            undownloadedMms = undownloadedMms(messages),
         )
         latestReactions = result.reactions
         if (!isCodeSender()) {

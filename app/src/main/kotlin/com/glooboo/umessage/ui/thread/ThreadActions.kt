@@ -50,4 +50,6 @@ data class ThreadActions(
     val onConfirmPeople: () -> Unit,
     val onAddPhoto: (Uri) -> Unit,
     val onRequestPhotos: () -> Unit,
+    /** Q40: "Tap to download" on a picture message that was never downloaded (the notification-ind's id). */
+    val onDownloadMms: (Long) -> Unit = {},
 )

@@ -15,6 +15,7 @@ import org.fossify.commons.extensions.showErrorToast
 import org.fossify.commons.extensions.toast
 import org.fossify.commons.helpers.CONTACT_ID
 import org.fossify.commons.helpers.IS_PRIVATE
+import org.fossify.commons.helpers.PERMISSION_CALL_PHONE
 import org.fossify.commons.helpers.SimpleContactsHelper
 import org.fossify.commons.helpers.ensureBackgroundThread
 import org.fossify.commons.models.SimpleContact
@@ -24,13 +25,17 @@ import java.util.Locale
 
 fun BaseSimpleActivity.dialNumber(phoneNumber: String, callback: (() -> Unit)? = null) {
     hideKeyboard()
-    try {
-        startActivity(dialIntent(phoneNumber))
-        callback?.invoke()
-    } catch (_: ActivityNotFoundException) {
-        toast(org.fossify.commons.R.string.no_app_found)
-    } catch (e: Exception) {
-        showErrorToast(e)
+    if (!isDialableNumber(phoneNumber)) return
+    handlePermission(PERMISSION_CALL_PHONE) {
+        val intent = callIntent(phoneNumber, canCall = it) ?: return@handlePermission
+        try {
+            startActivity(intent)
+            callback?.invoke()
+        } catch (_: ActivityNotFoundException) {
+            toast(org.fossify.commons.R.string.no_app_found)
+        } catch (e: Exception) {
+            showErrorToast(e)
+        }
     }
 }
 

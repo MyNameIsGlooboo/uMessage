@@ -39,7 +39,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import com.glooboo.umessage.helpers.DateStyle
 import com.glooboo.umessage.helpers.w3cPrefs
@@ -59,10 +58,10 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import com.glooboo.umessage.ui.components.formatClockTime
+import com.glooboo.umessage.ui.components.rememberBubbleMaxWidth
 
 private val AvatarSize = 32.dp
 private val SelectionMarkSize = 22.dp
-private const val BUBBLE_WIDTH_FRACTION = 0.8f
 
 @Composable
 fun LetterAvatar(label: String, size: Dp, modifier: Modifier = Modifier) {
@@ -112,6 +111,8 @@ fun ThreadRowItem(row: ThreadRow, vm: ThreadViewModel, actions: ThreadActions) {
         is ThreadRow.DateHeader -> DateHeader(row, showSim = vm.sims.size > 1)
         is ThreadRow.Bubble -> MessageBubbleRow(row, vm, actions)
         is ThreadRow.Sending -> StatusLine(text = stringResource(R.string.thread_status_sending))
+
+        is ThreadRow.MmsDownload -> MmsDownloadRow(row, actions.onDownloadMms)
 
         is ThreadRow.Sent -> if (row.deliveryFailed) {
             StatusLine(
@@ -282,7 +283,7 @@ private fun MessageBubbleRow(row: ThreadRow.Bubble, vm: ThreadViewModel, actions
     val containerColor = baseContainer
     val contentColor = baseContent
     val currentMatch = vm.searchOpen && vm.currentSearchMatch == message.key
-    val maxBubbleWidth = (LocalConfiguration.current.screenWidthDp * BUBBLE_WIDTH_FRACTION).dp
+    val maxBubbleWidth = rememberBubbleMaxWidth()
     val topSpacing = if (row.group == BubbleGroup.First || row.group == BubbleGroup.Single) 6.dp else 2.dp
     val toggle = { vm.toggleSelect(message) }
     val description = bubbleDescription(message, sent)

@@ -43,6 +43,7 @@ import com.glooboo.umessage.ui.components.ICON_CONTRAST
 import com.glooboo.umessage.ui.components.readableOn
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.theme.contentDirection
+import com.glooboo.umessage.ui.components.dialogScroll
 
 private const val SWATCHES_PER_ROW = 4
 private val SwatchSize = 40.dp
@@ -75,7 +76,7 @@ internal fun LabelEditDialog(
             Text(stringResource(if (initial == null) R.string.i29_edit_new_title else R.string.i29_edit_title))
         },
         text = {
-            Column(verticalArrangement = Arrangement.spacedBy(LabelItemGap)) {
+            Column(Modifier.dialogScroll(), verticalArrangement = Arrangement.spacedBy(LabelItemGap)) {
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it.take(LabelRules.MAX_NAME_LENGTH) },

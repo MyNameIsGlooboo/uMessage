@@ -492,12 +492,8 @@ private fun Context.readConversations(
             val recipientIds =
                 rawIds.split(" ").filter { it.areDigitsOnly() }.map { it.toInt() }.toMutableList()
             val phoneNumbers = recipientIds.mapTo(ArrayList()) { lookups.phoneNumber(it) }
-            if (phoneNumbers.isEmpty() || phoneNumbers.any {
-                    isNumberBlocked(
-                        it,
-                        blockedNumbers
-                    )
-                }) {
+            // A group stays listed unless every member is blocked; a 1:1 chat with a blocked number is left out.
+            if (isThreadHiddenByBlocks(phoneNumbers) { isNumberBlocked(it, blockedNumbers) }) {
                 return@queryCursorUnsafe
             }
 

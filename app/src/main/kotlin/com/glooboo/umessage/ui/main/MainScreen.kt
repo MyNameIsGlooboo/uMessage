@@ -44,6 +44,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel as composeViewModel
 import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.models.SearchResult
+import com.glooboo.umessage.ui.components.horizontalChromePadding
 import com.glooboo.umessage.ui.components.rememberReduceMotion
 import com.glooboo.umessage.ui.conversations.ArchivedRoute
 import com.glooboo.umessage.ui.conversations.ArchivedViewModel
@@ -181,7 +182,7 @@ fun MainScreen(
         },
     ) { padding ->
         // The bar already covers the system navigation bar, so the tabs must not add that inset again.
-        Box(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding)) {
+        Box(Modifier.fillMaxSize().horizontalChromePadding().padding(padding).consumeWindowInsets(padding)) {
             tabStates.SaveableStateProvider(tab.name) {
                 when (tab) {
                     MainTab.Messages -> MessagesTab(

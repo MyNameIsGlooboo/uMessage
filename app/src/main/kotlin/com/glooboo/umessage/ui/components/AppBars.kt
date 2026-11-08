@@ -46,7 +46,7 @@ import com.glooboo.umessage.ui.icons.Symbols
 internal fun chromeInsets(): WindowInsets = WindowInsets.systemBars.union(WindowInsets.displayCutout)
 
 @Composable
-private fun topBarInsets(): WindowInsets = chromeInsets().only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
+internal fun topBarInsets(): WindowInsets = chromeInsets().only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
 
 /**
  * The scaffold hands its content the insets as padding, but screens only apply the top and bottom parts of it. This

@@ -39,7 +39,9 @@ class DefaultSpamFilter(
         val isPhoneNumber = !normalizer.isSenderId(message.address)
         val lookup = if (isPhoneNumber) contactLookup(message.address) else ContactLookup.NOT_FOUND
         if (lookup == ContactLookup.FOUND) return FilterDecision.Allow(DecisionReason.CONTACT)
-        foreignDecision(message, isPhoneNumber, lookup)?.let { return it }
+        // Q2: the foreign-number hold belongs to Smart and Strict only; with the filter Off nothing is held.
+        val mode = effectiveMode()
+        if (mode != UnknownSenderMode.OFF) foreignDecision(message, isPhoneNumber, lookup)?.let { return it }
 
         // Without contacts access, or when the lookup itself failed, every number looks unknown. Blocking them all
         // would silently hide messages from family and friends, so unknown-sender blocking is skipped for phone
@@ -48,11 +50,6 @@ class DefaultSpamFilter(
         // cannot be told apart from a contact either, so it is treated the same way.
         val contactsKnown = !isPhoneNumber || (lookup == ContactLookup.NOT_FOUND && canReadContacts())
 
-        // The old Fossify "block unknown numbers" switch turns blocking on when the mode is Off, and otherwise leaves the
-        // chosen mode in charge, so it cannot quietly take Smart mode's code exemption away. SpamSettings.otpExemption
-        // is no longer read: Strict has no exemptions, Smart lets codes without a link through.
-        val legacyUnknown = runCatching { legacy.blockUnknownNumbers() }.getOrDefault(false)
-        val mode = settings().mode.let { if (it == UnknownSenderMode.OFF && legacyUnknown) UnknownSenderMode.STRICT else it }
         if (mode == UnknownSenderMode.OFF) return FilterDecision.Allow(DecisionReason.MODE_OFF)
 
         // A number the user has written to is known, like a contact. Looked up only now, when it decides something.
@@ -80,6 +77,17 @@ class DefaultSpamFilter(
 
             else -> FilterDecision.Block(DecisionReason.UNKNOWN_SENDER)
         }
+    }
+
+    /**
+     * The old Fossify "block unknown numbers" switch turns blocking on when the mode is Off, and otherwise leaves the
+     * chosen mode in charge, so it cannot quietly take Smart mode's code exemption away. SpamSettings.otpExemption
+     * is no longer read: Strict has no exemptions, Smart lets codes without a link through.
+     */
+    private fun effectiveMode(): UnknownSenderMode {
+        val legacyUnknown = runCatching { legacy.blockUnknownNumbers() }.getOrDefault(false)
+        val mode = settings().mode
+        return if (mode == UnknownSenderMode.OFF && legacyUnknown) UnknownSenderMode.STRICT else mode
     }
 
     private fun isExemptCode(body: String): Boolean =

@@ -11,7 +11,7 @@
     <string name="onb_welcome_title">Welcome to uMessage</string>
     <string name="onb_welcome_intro">Better messaging, less spam.</string>
     <string name="onb_welcome_spam">Spam stays out</string>
-    <string name="onb_welcome_spam_desc">Unknown senders wait in Blocked, never lost.</string>
+    <string name="onb_welcome_spam_desc">Unknown senders wait in Spam, never lost.</string>
     <string name="onb_welcome_codes">One-tap codes</string>
     <string name="onb_welcome_codes_desc">Copy verification codes right from the notification.</string>
     <string name="onb_welcome_copy">Copy just what you need</string>
@@ -55,7 +55,7 @@
     <string name="onb_mode_smart">Smart</string>
     <string name="onb_mode_off">Off</string>
     <string name="onb_mode_warning_title">Heads up about bank and code messages</string>
-    <string name="onb_mode_warning_body">In Strict mode, bank alerts, delivery updates and one-time passcodes from unknown senders are held in Blocked, codes included. You will not get a notification, so check Blocked when you expect one.</string>
+    <string name="onb_mode_warning_body">In Strict mode, bank alerts, delivery updates and one-time passcodes from unknown senders are held in Spam, codes included. You will not get a notification, so check Spam when you expect one.</string>
 
     <!-- OEM guide -->
     <string name="onb_oem_title">Keep uMessage running</string>

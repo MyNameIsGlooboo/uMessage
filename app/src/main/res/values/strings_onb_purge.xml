@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- How long to keep blocked messages, on the unknown-sender step -->
-    <string name="onb_purge_question">Keep blocked messages for</string>
+    <string name="onb_purge_question">Keep spam for</string>
 </resources>

@@ -332,8 +332,14 @@ class NotificationHelper(private val context: Context) {
     }
 
     @SuppressLint("NewApi")
-    /** [reason] replaces the generic "has not been sent" text when the cause is known. */
-    fun showSendingFailedNotification(recipientName: String, threadId: Long, reason: String? = null) {
+    /**
+     * [reason] replaces the generic "has not been sent" text when the cause is known. [automatic] marks a failure of
+     * an attempt the user did not just start (scheduled or background retry): it updates a notice that is already
+     * showing without sound or heads-up (Q13).
+     */
+    fun showSendingFailedNotification(
+        recipientName: String, threadId: Long, reason: String? = null, automatic: Boolean = false,
+    ) {
         // B06: a hidden chat's recipient is not named.
         val recipient =
             if (HiddenChats.get(context).isMarked(threadId)) context.getString(R.string.app_name) else recipientName
@@ -357,6 +363,10 @@ class NotificationHelper(private val context: Context) {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        val alreadyShowing = runCatching {
+            notificationManager.activeNotifications.any { it.id == notificationId }
+        }.getOrDefault(false)
+        val alert = FailedSendAlert.shouldAlert(automatic, alreadyShowing)
         val summaryText = reason ?: String.format(context.getString(R.string.message_sending_error), recipient)
         val largeIcon = avatarBitmap(context, recipient)
         val builder = NotificationCompat.Builder(context, notificationChannelId)
@@ -367,10 +377,12 @@ class NotificationHelper(private val context: Context) {
             .setLargeIcon(largeIcon)
             .setStyle(NotificationCompat.BigTextStyle().bigText(summaryText))
             .setContentIntent(contentPendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setPriority(if (alert) NotificationCompat.PRIORITY_MAX else NotificationCompat.PRIORITY_LOW)
             .setDefaults(Notification.DEFAULT_LIGHTS)
             .setCategory(Notification.CATEGORY_MESSAGE)
             .setAutoCancel(true)
+            .setOnlyAlertOnce(!alert)
+            .setSilent(!alert)
             .setChannelId(notificationChannelId)
 
         notificationManager.notify(notificationId, builder.build())

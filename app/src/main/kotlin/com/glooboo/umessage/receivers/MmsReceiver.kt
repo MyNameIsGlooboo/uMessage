@@ -24,6 +24,7 @@ import com.glooboo.umessage.helpers.OtpCodeExtractor
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.showMmsDownloadFailedNotification
 import com.glooboo.umessage.helpers.refreshMessages
+import com.glooboo.umessage.messaging.MmsDownloadTracker
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.DecisionReason
@@ -214,6 +215,8 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         context.showErrorToast(context.getString(R.string.couldnt_download_mms))
         // The toast is gone before anyone looks: the notification stays (I10).
         runCatching { context.showMmsDownloadFailedNotification() }
+        // Q40: the "Downloading" rows in an open chat turn into "Tap to try again" (the error names no message).
+        MmsDownloadTracker.shared.failAllRunning()
     }
 
     private fun handleMmsMessage(

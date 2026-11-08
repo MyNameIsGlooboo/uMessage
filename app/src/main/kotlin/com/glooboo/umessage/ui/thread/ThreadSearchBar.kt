@@ -24,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
+import com.glooboo.umessage.ui.components.topBarInsets
 import com.glooboo.umessage.ui.icons.Symbols
 
 /**
@@ -47,6 +48,7 @@ internal fun SearchTopBar(
     LaunchedEffect(Unit) { focusRequester.requestFocus() }
     TopAppBar(
         modifier = modifier,
+        windowInsets = topBarInsets(),
         navigationIcon = {
             IconButton(onClick = onClose) {
                 Icon(Symbols.ArrowBack, contentDescription = stringResource(R.string.thread_r2_search_close))

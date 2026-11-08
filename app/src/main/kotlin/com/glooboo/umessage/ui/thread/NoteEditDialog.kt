@@ -28,6 +28,7 @@ import com.glooboo.umessage.helpers.MessageNotes
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.ui.components.localizedNumber
 import com.glooboo.umessage.ui.components.uiLocale
+import com.glooboo.umessage.ui.components.dialogScroll
 
 private const val NOTE_MIN_LINES = 3
 private const val NOTE_FIELD_MAX_LINES = 8
@@ -78,7 +79,7 @@ fun NoteEditDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(if (hasNote) R.string.edit_note else R.string.add_note)) },
         text = {
-            Column {
+            Column(Modifier.dialogScroll()) {
                 OutlinedTextField(
                     value = value,
                     onValueChange = { value = cappedNote(it) },

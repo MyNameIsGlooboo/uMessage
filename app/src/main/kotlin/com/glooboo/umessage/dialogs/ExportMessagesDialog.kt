@@ -21,6 +21,7 @@ import com.glooboo.umessage.R
 import com.glooboo.umessage.activities.SimpleActivity
 import com.glooboo.umessage.backup.DriveHandoff
 import com.glooboo.umessage.export.ExportFile
+import com.glooboo.umessage.export.HiddenBackupPolicy
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.helpers.BackupJob
 import com.glooboo.umessage.helpers.BackupSummaryText
@@ -52,6 +53,7 @@ class ExportMessagesDialog(
     private var driveFile: File? = null
     private var driveMime: String? = null
     private var handedOver = false
+    private var skipHidden = false
     private val config = activity.config
     private var started by mutableStateOf(false)
     private val options = ExportOptionsState(
@@ -107,7 +109,14 @@ class ExportMessagesDialog(
                 if (toDrive) {
                     Text(driveNote(context, toDrive, ready = false, finished = false), Modifier.padding(bottom = 8.dp))
                 }
-                ExportOptionsForm(options, onChooseConversations = ::chooseConversations)
+                ExportOptionsForm(options, onChooseConversations = {
+                    ExportConversationPicker(activity, options.chosen.orEmpty()) { ids ->
+                        when {
+                            ids.isNotEmpty() -> options.chosen = ids
+                            options.chosen == null -> options.chooseConversations = false
+                        }
+                    }
+                })
             }
         }
     }
@@ -162,15 +171,6 @@ class ExportMessagesDialog(
         }
     }
 
-    private fun chooseConversations() {
-        ExportConversationPicker(activity, options.chosen.orEmpty()) { ids ->
-            when {
-                ids.isNotEmpty() -> options.chosen = ids
-                options.chosen == null -> options.chooseConversations = false
-            }
-        }
-    }
-
     private fun confirm() {
         config.exportSms = options.sms
         config.exportMms = options.mms
@@ -184,7 +184,29 @@ class ExportMessagesDialog(
                 activity.toast(R.string.export_pick_nothing_chosen)
 
             problem != null -> activity.toast(problem)
-            else -> proceed(ExportFile(options.fileName, options.mimeType))
+            else -> startUnlessHiddenAsk(ExportFile(options.fileName, options.mimeType), skipChosen = false)
+        }
+    }
+
+    /**
+     * Q14: a full backup while the hidden chats are locked first asks to unlock them or to skip them; the answer
+     * goes to the service as a flag, so the service never prompts.
+     */
+    private fun startUnlessHiddenAsk(file: ExportFile, skipChosen: Boolean) {
+        val full = options.chosen == null
+        when (HiddenBackupPolicy.decideNow(activity, full, skipChosen)) {
+            HiddenBackupPolicy.Decision.ASK ->
+                HiddenBackupPrompt.show(activity) { skip -> startUnlessHiddenAsk(file, skip) }
+
+            HiddenBackupPolicy.Decision.SKIP -> {
+                skipHidden = true
+                proceed(file)
+            }
+
+            HiddenBackupPolicy.Decision.INCLUDE -> {
+                skipHidden = false
+                proceed(file)
+            }
         }
     }
 
@@ -199,7 +221,7 @@ class ExportMessagesDialog(
         started = try {
             BackupService.startExport(
                 activity, uri, options.sms, options.mms, options.format, options.chosen, options.protect,
-                driveFile, driveMime,
+                driveFile, driveMime, skipHidden,
             )
             true
         } catch (e: Exception) {

@@ -57,12 +57,12 @@
     <!-- Spam settings page -->
     <string name="settings_nav_recommended">Recommended</string>
     <string name="settings_nav_strict_confirm_title">Block verification codes too?</string>
-    <string name="settings_nav_strict_confirm_body">In Strict mode, codes from senders who are not in your contacts go to Blocked with everything else. Banks and delivery companies are held back too.</string>
+    <string name="settings_nav_strict_confirm_body">In Strict mode, codes from senders who are not in your contacts go to Spam with everything else. Banks and delivery companies are held back too.</string>
     <string name="settings_nav_strict_confirm_action">Use Strict</string>
     <string name="settings_nav_strict_confirm_cancel">Keep current mode</string>
-    <string name="settings_nav_purge_row">Delete blocked messages after</string>
+    <string name="settings_nav_purge_row">Delete spam after</string>
     <string name="settings_nav_group_alerts">Alerts</string>
-    <string name="settings_nav_notify_body">A quiet notification for each blocked message</string>
+    <string name="settings_nav_notify_body">A quiet notification for each spam message</string>
     <string name="settings_nav_theme_title">Appearance</string>
     <string name="settings_nav_theme_modes">Mode</string>
     <string name="settings_nav_theme_colours">Colors</string>

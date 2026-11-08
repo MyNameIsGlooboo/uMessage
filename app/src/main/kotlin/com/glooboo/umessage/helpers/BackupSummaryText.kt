@@ -68,6 +68,7 @@ object BackupSummaryText {
         line(summary.unreadableAttachments, R.string.backup_export_unreadable_attachments)
         line(summary.unreadableMessages, R.string.backup_export_unreadable_messages)
         line(summary.unreadableConversations, R.string.backup_export_unreadable_conversations)
+        line(summary.hiddenLeftOut, R.string.backup_export_hidden_left_out)
         if (summary.hasProblems) lines += context.getString(R.string.backup_export_incomplete)
         return lines.joinToString("\n")
     }

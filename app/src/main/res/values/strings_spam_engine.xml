@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Notification shown for a blocked message when "Notify on block" is on -->
-    <string name="spam_engine_blocked_channel">Blocked messages</string>
-    <string name="spam_engine_blocked_title">Blocked: %s</string>
-    <string name="spam_engine_blocked_public_title">Message blocked</string>
-    <string name="spam_engine_mms_blocked">Blocked picture message (MMS)</string>
+    <string name="spam_engine_blocked_channel">Spam</string>
+    <string name="spam_engine_blocked_title">Spam: %s</string>
+    <string name="spam_engine_blocked_public_title">Message sent to Spam</string>
+    <string name="spam_engine_mms_blocked">Spam picture message (MMS)</string>
 
     <!-- Note on a rule added by "Block sender" on the Blocked screen -->
 

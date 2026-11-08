@@ -45,8 +45,8 @@
 
     <!-- Auto-delete of blocked messages (SU-23). -->
     <plurals name="spam_purge_notice">
-        <item quantity="one">Blocked messages are deleted after %d day</item>
-        <item quantity="other">Blocked messages are deleted after %d days</item>
+        <item quantity="one">Spam is deleted after %d day</item>
+        <item quantity="other">Spam is deleted after %d days</item>
     </plurals>
     <plurals name="spam_purge_left">
         <item quantity="one">Deleted in %d day</item>
@@ -56,16 +56,16 @@
 
     <!-- "Report spam" in the conversation list selection (MC-37). -->
     <plurals name="convlist_reported_spam_archived">
-        <item quantity="one">Reported. New texts from this sender go to Blocked, and the chat is archived.</item>
-        <item quantity="other">%d chats reported. New texts from them go to Blocked, and the chats are archived.</item>
+        <item quantity="one">Reported. New texts from this sender go to Spam, and the chat is archived.</item>
+        <item quantity="other">%d chats reported. New texts from them go to Spam, and the chats are archived.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="one">Reported. New texts from this sender go to Blocked.</item>
-        <item quantity="other">%d chats reported. New texts from them go to Blocked.</item>
+        <item quantity="one">Reported. New texts from this sender go to Spam.</item>
+        <item quantity="other">%d chats reported. New texts from them go to Spam.</item>
     </plurals>
 
     <!-- Blocked tab and screen, design review 2 (BR-*, P1-*). -->
-    <string name="blocked_title">Blocked</string>
+    <string name="blocked_title">Spam</string>
     <!-- Group name for the mode selector: "Unknown senders: Smart, 2 of 3". -->
     <!-- %1$s is the new mode name. -->
     <string name="blocked_snack_mode">Unknown senders set to %1$s</string>

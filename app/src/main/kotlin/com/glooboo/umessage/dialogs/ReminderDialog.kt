@@ -27,6 +27,7 @@ import com.glooboo.umessage.ui.components.showComposeDialog
 import org.fossify.commons.activities.BaseSimpleActivity
 import org.fossify.commons.extensions.toast
 import org.fossify.commons.helpers.ensureBackgroundThread
+import com.glooboo.umessage.ui.components.dialogScroll
 
 /**
  * I51, "Remind me": asks when, then saves the reminder and sets its alarm. Without exact-alarm access the alarm is
@@ -82,7 +83,7 @@ private fun ReminderChoices(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.reminder_dialog_title)) },
         text = {
-            Column {
+            Column(Modifier.dialogScroll()) {
                 ChoiceRow(R.string.reminder_in_3_hours) { onChoose(ReminderChoice.IN_THREE_HOURS) }
                 ChoiceRow(R.string.reminder_tomorrow_morning) { onChoose(ReminderChoice.TOMORROW_MORNING) }
                 ChoiceRow(R.string.reminder_pick_time, onPickTime)

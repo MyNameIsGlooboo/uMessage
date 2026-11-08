@@ -29,6 +29,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.theme.contentDirection
+import com.glooboo.umessage.ui.components.dialogScroll
 
 /**
  * Rename dialog shared by the list's selection bar, the details screen and the thread (CL-28, CL-29).
@@ -58,7 +59,7 @@ fun RenameConversationAlert(
         onDismissRequest = onDismiss,
         title = { Text(title) },
         text = {
-            Column {
+            Column(Modifier.dialogScroll()) {
                 OutlinedTextField(
                     value = value,
                     onValueChange = { value = it },

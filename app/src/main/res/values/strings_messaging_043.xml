@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">Tap to download</string>
+    <string name="mms_downloading">Downloading…</string>
+    <string name="mms_download_again">Download failed. Tap to try again</string>
+    <string name="mms_expired">This picture message is no longer available</string>
+    <string name="mms_download_action_desc">Download the picture message</string>
+</resources>

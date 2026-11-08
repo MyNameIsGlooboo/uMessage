@@ -5,7 +5,7 @@
     <string name="region_summary">Contacts and people you wrote to are not held</string>
     <string name="region_off">Off</string>
     <string name="region_picker_title">Your home country</string>
-    <string name="region_picker_body">Numbers from other countries are held in Blocked messages, except contacts and people you texted. A relative abroad who is not a contact is held too.</string>
+    <string name="region_picker_body">Numbers from other countries are held in Spam, except contacts and people you texted. A relative abroad who is not a contact is held too. This works only in Smart and Strict mode.</string>
     <string name="region_picker_search">Search</string>
     <string name="region_reason_foreign">Number from another country</string>
 </resources>

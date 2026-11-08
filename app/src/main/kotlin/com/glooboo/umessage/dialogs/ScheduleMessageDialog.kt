@@ -48,6 +48,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Calendar
 import java.util.Locale
+import com.glooboo.umessage.ui.components.dialogScroll
 
 private enum class Step { Date, Time, Repeat, Preview }
 
@@ -122,7 +123,7 @@ private fun TimeStep(
         onDismissRequest = onCancel,
         title = { Text(stringResource(R.string.screens_schedule_pick_time)) },
         text = {
-            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(Modifier.fillMaxWidth().dialogScroll(), horizontalAlignment = Alignment.CenterHorizontally) {
                 TimePicker(state = timeState)
             }
         },
@@ -170,7 +171,7 @@ private fun PreviewStep(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(titleRes)) },
         text = {
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Column(Modifier.dialogScroll(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 if (isNew) {
                     val now = LocalDateTime.now()
                     val presets = listOf(
@@ -353,14 +354,17 @@ private fun DateStep(
         onDismissRequest = onCancel,
         title = { Text(stringResource(R.string.thread_r2_schedule_pick_date)) },
         text = {
-            ScheduleCalendar(
-                selected = picked,
-                minDate = today,
-                jalali = jalali,
-                locale = locale,
-                onSelect = { picked = it },
-                subtitle = fullDateLabel(picked, locale, jalali = true, both = true).takeIf { style == DateStyle.BOTH },
-            )
+            Column(Modifier.dialogScroll()) {
+                ScheduleCalendar(
+                    selected = picked,
+                    minDate = today,
+                    jalali = jalali,
+                    locale = locale,
+                    onSelect = { picked = it },
+                    subtitle = fullDateLabel(picked, locale, jalali = true, both = true)
+                        .takeIf { style == DateStyle.BOTH },
+                )
+            }
         },
         confirmButton = {
             TextButton(onClick = { onConfirm(picked) }) {

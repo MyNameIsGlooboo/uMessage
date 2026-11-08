@@ -1,6 +1,8 @@
 package com.glooboo.umessage.ui.thread
 
 import com.glooboo.umessage.ui.components.InfoChip
+import com.glooboo.umessage.ui.components.chromeInsets
+import com.glooboo.umessage.ui.components.topBarInsets
 import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.components.displayTitle
 import android.content.Context
@@ -161,6 +163,7 @@ fun ThreadScreen(vm: ThreadViewModel, actions: ThreadActions) {
                     if (!vm.isSelecting && !vm.searchOpen) UnknownCardHost(vm, actions)
                 }
             },
+            contentWindowInsets = chromeInsets(),
             bottomBar = { if (!vm.isRecycleBin) ThreadComposer(vm, actions) },
             snackbarHost = { SnackbarHost(vm.snackbar) },
         ) { inner ->
@@ -302,6 +305,7 @@ private fun ThreadTopBar(vm: ThreadViewModel, actions: ThreadActions, scrollBeha
     val colors = MaterialTheme.colorScheme
     TopAppBar(
         scrollBehavior = scrollBehavior,
+        windowInsets = topBarInsets(),
         title = { ThreadTitle(vm, actions) },
         navigationIcon = {
             IconButton(onClick = actions.onBack) {
@@ -441,6 +445,7 @@ private fun SelectionTopBar(vm: ThreadViewModel, actions: ThreadActions) {
             R.string.read_aloud_action
         }
     TopAppBar(
+        windowInsets = topBarInsets(),
         title = {
             // U23: only the number, so the five action icons never cut the title; TalkBack still reads the words.
             val spoken = pluralStringResource(R.plurals.thread_selected_count, count, count)

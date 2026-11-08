@@ -8,11 +8,11 @@
     <string name="main_settings">Settings</string>
     <!-- Bottom navigation bar tabs; keep them short. -->
     <string name="main_tab_messages">Messages</string>
-    <string name="main_tab_blocked">Blocked</string>
+    <string name="main_tab_blocked">Spam</string>
     <string name="main_tab_archived">Archived</string>
     <plurals name="main_tab_blocked_new">
-        <item quantity="one">Blocked, %d new</item>
-        <item quantity="other">Blocked, %d new</item>
+        <item quantity="one">Spam, %d new</item>
+        <item quantity="other">Spam, %d new</item>
     </plurals>
     <string name="main_permission_title">Permission required</string>
     <string name="main_permission_grant">Grant permission</string>

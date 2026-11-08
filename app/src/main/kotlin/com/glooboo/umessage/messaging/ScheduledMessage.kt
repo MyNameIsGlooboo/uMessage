@@ -1,6 +1,5 @@
 package com.glooboo.umessage.messaging
 
-import com.glooboo.umessage.helpers.canUseExactAlarms
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
@@ -42,7 +41,7 @@ fun Context.scheduleMessage(message: Message, warnIfInexact: Boolean = true): Bo
     val triggerAtMillis = message.millis()
 
     val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-    if (canUseExactAlarms(alarmManager)) {
+    if (AlarmManagerCompat.canScheduleExactAlarms(alarmManager)) {
         try {
             AlarmManagerCompat.setExactAndAllowWhileIdle(
                 alarmManager, AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent

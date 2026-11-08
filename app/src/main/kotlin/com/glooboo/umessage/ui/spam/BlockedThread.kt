@@ -52,9 +52,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalResources
-import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
@@ -71,8 +69,11 @@ import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.ui.components.EmptyState
 import com.glooboo.umessage.ui.components.UMessageTopBar
+import com.glooboo.umessage.ui.components.chromeInsets
 import com.glooboo.umessage.ui.components.displayNumber
+import com.glooboo.umessage.ui.components.horizontalChromePadding
 import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.rememberBubbleMaxWidth
 import com.glooboo.umessage.ui.components.jalaliListDate
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.components.uiLocale
@@ -215,6 +216,7 @@ fun BlockedThreadScreen(
         topBar = {
             UMessageTopBar(title = shown, onBack = actions.onBack, scrollBehavior = scrollBehavior)
         },
+        contentWindowInsets = chromeInsets(),
         bottomBar = { if (group != null) HeldFooter(shown, actions, moving) },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { inner ->
@@ -283,6 +285,7 @@ private fun HeldFooter(shown: String, actions: BlockedThreadActions, moving: Boo
             modifier = Modifier
                 .fillMaxWidth()
                 .navigationBarsPadding()
+                .horizontalChromePadding()
                 .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
@@ -384,8 +387,7 @@ private fun HeldBubble(
     val locale = uiLocale()
     var menuOpen by remember { mutableStateOf(false) }
     val dark = colors.background.luminance() < 0.5f
-    val windowWidth = LocalWindowInfo.current.containerSize.width
-    val maxWidth = with(LocalDensity.current) { (windowWidth * BUBBLE_WIDTH_FRACTION).toDp() }
+    val maxWidth = rememberBubbleMaxWidth()
     val time = remember(message.receivedAt, locale) {
         timeOnlyLabel(message.receivedAt, ZoneId.systemDefault(), DateFormat.is24HourFormat(context), locale)
     }
@@ -515,8 +517,6 @@ private fun copyToClipboard(context: Context, text: String, copiedText: String, 
     }
 }
 
-/** As in a normal thread: a bubble never takes the whole width. */
-private const val BUBBLE_WIDTH_FRACTION = 0.8f
 
 // region Previews
 

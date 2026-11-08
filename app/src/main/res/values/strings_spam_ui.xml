@@ -2,15 +2,15 @@
 <resources>
     <!-- Blocked messages -->
     <string name="spam_ui_delete_all">Delete all</string>
-    <string name="spam_ui_delete_all_title">Delete all blocked messages?</string>
+    <string name="spam_ui_delete_all_title">Delete all spam?</string>
     <plurals name="spam_ui_delete_all_message">
-        <item quantity="one">%1$d blocked message will be deleted. You can undo right after.</item>
-        <item quantity="other">%1$d blocked messages will be deleted. You can undo right after.</item>
+        <item quantity="one">%1$d message will be deleted. You can undo right after.</item>
+        <item quantity="other">%1$d messages will be deleted. You can undo right after.</item>
     </plurals>
 
     <!-- Decision log -->
     <string name="declog_ui_clear_title">Clear the decision log?</string>
-    <string name="declog_ui_clear_message">Every logged decision is removed. Blocked messages and rules stay as they are.</string>
+    <string name="declog_ui_clear_message">Every logged decision is removed. Spam and rules stay as they are.</string>
     <string name="declog_ui_clear_action">Clear</string>
     <string name="ui_log_reason_contacts_unavailable">Contacts not readable</string>
 

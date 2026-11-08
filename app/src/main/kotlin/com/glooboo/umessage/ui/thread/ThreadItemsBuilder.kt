@@ -31,6 +31,8 @@ data class ThreadItems(
  * [firstUnreadId] (I26): the [Message.getStableId] of the message that gets an "Unread messages" line above it, under
  * its date header; see [firstUnreadMessageId].
  * [showTapbacks] (I30): iPhone reaction texts such as `Liked “...”` leave the list and count on the message they name.
+ * [undownloadedMms] (Q40): ids of received MMS that are only a notification-ind, with the carrier's expiry in seconds;
+ * each shows a "Tap to download" row in place of its empty bubble.
  */
 fun buildThreadItems(
     messages: List<Message>,
@@ -39,6 +41,7 @@ fun buildThreadItems(
     deliveryReportsOn: Boolean = true,
     firstUnreadId: Long? = null,
     showTapbacks: Boolean = false,
+    undownloadedMms: Map<Long, Long> = emptyMap(),
 ): ThreadItems {
     val startNanos = System.nanoTime()
     val sorted = messages.toSortedMessages()
@@ -63,7 +66,12 @@ fun buildThreadItems(
             items.add(ThreadUnreadDivider(firstUnreadId))
             dividerPending = false
         }
-        items.add(message)
+        val notDownloaded = if (message.isMMS) undownloadedMms[message.id] else null
+        if (notDownloaded != null) {
+            items.add(ThreadItem.ThreadMmsDownload(message.id, notDownloaded))
+        } else {
+            items.add(message)
+        }
 
         if (message.type == Telephony.Sms.MESSAGE_TYPE_FAILED) {
             items.add(ThreadError(message.id, message.body, message.isMMS))

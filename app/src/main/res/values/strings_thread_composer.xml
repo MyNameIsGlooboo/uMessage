@@ -10,7 +10,7 @@
     <!-- Report spam -->
     <string name="thread_menu_report_spam">Mark as spam</string>
     <string name="thread_report_spam_title">Mark as spam?</string>
-    <string name="thread_report_spam_message">New messages from %1$s will go to Blocked messages instead of your inbox. Messages already in this conversation are kept.</string>
+    <string name="thread_report_spam_message">New messages from %1$s will go to Spam instead of your inbox. Messages already in this conversation are kept.</string>
     <string name="thread_report_spam_confirm">Mark as spam</string>
     <string name="thread_report_spam_cancel">Cancel</string>
     <string name="thread_report_spam_done">Marked as spam</string>

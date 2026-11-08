@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">Hidden chats are locked</string>
+    <string name="backup_hidden_message">Your hidden chats are locked. Unlock to include them in the backup, or back up without them.</string>
+    <string name="backup_hidden_unlock">Unlock</string>
+    <string name="backup_hidden_skip">Skip hidden chats</string>
+    <string name="backup_export_hidden_left_out">Hidden chats left out: %d</string>
+</resources>

@@ -13,7 +13,7 @@
     <!-- Stats card line, e.g. "Unknown senders: Smart". %1$s is the mode name (spam_mode_strict/smart/off). -->
     <string name="spam_blocked_stats_totals">%1$d stopped in total, %2$d restored</string>
     <string name="spam_blocked_header_cd">%1$d spam stopped, last 7 days. %2$d stopped in total, %3$d restored.</string>
-    <string name="spam_blocked_empty_title">Nothing blocked yet</string>
+    <string name="spam_blocked_empty_title">Nothing in Spam yet</string>
     <string name="spam_action_delete">Delete</string>
     <string name="spam_select">Select</string>
     <string name="spam_action_select_all">Select all</string>
@@ -50,7 +50,7 @@
     <string name="spam_rules_empty_allowed_title">No allowed rules</string>
     <string name="spam_rules_empty_allowed_body">Anything you allow always reaches your inbox, even in Strict mode. Add a number, a sender name or a keyword.</string>
     <string name="spam_rules_empty_blocked_title">No blocked rules</string>
-    <string name="spam_rules_empty_blocked_body">Block a number, a prefix, a sender name, a keyword or a pattern. Blocked messages land in the Blocked folder.</string>
+    <string name="spam_rules_empty_blocked_body">Block a number, a prefix, a sender name, a keyword or a pattern. Their messages land in Spam.</string>
     <string name="spam_rules_delete_rule">Delete rule %s</string>
     <string name="spam_rules_deleted">Rule deleted</string>
     <plurals name="spam_rules_imported">
@@ -135,10 +135,10 @@
     <string name="spam_mode_off">Off</string>
     <string name="spam_mode_off_body">No unknown-sender blocking</string>
     <string name="spam_strict_warning_title">Strict can hide important messages</string>
-    <string name="spam_strict_warning_body">Banks, delivery companies and one-time passcodes usually come from senders who are not in your contacts. In Strict mode they go to the Blocked folder, codes included. Choose Smart to let codes through, or allow those senders once.</string>
-    <string name="spam_strict_warning_action">Review blocked messages</string>
+    <string name="spam_strict_warning_body">Banks, delivery companies and one-time passcodes usually come from senders who are not in your contacts. In Strict mode they go to Spam, codes included. Choose Smart to let codes through, or allow those senders once.</string>
+    <string name="spam_strict_warning_action">Review Spam</string>
     <string name="spam_settings_cleanup_title">Clean up</string>
-    <string name="spam_purge_body">Old blocked messages are removed automatically.</string>
+    <string name="spam_purge_body">Old spam is removed automatically.</string>
     <string name="spam_purge_days">%d days</string>
     <string name="spam_purge_forever">Never</string>
     <string name="spam_notify_title">Notify when a message is blocked</string>

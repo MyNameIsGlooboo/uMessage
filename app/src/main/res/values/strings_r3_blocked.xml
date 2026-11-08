@@ -16,7 +16,7 @@
     <!-- %1$s is the sender's number or name. -->
     <string name="r3b_thread_delete_all">Delete all messages from %1$s</string>
     <string name="r3b_thread_empty_title">Nothing left here</string>
-    <string name="r3b_thread_empty_body">This sender has no blocked messages now.</string>
+    <string name="r3b_thread_empty_body">This sender has no spam messages now.</string>
     <string name="r3b_message_actions">Message actions</string>
     <string name="r3b_why_blocked">Why blocked</string>
     <string name="r3b_copy_text">Copy text</string>
@@ -27,8 +27,8 @@
 
     <!-- Round 4 (emulator check): the guide's lines are full sentences, each ending in a period -->
     <plurals name="r3b_info_purge">
-        <item quantity="one">Blocked messages are deleted after %d day.</item>
-        <item quantity="other">Blocked messages are deleted after %d days.</item>
+        <item quantity="one">Spam is deleted after %d day.</item>
+        <item quantity="other">Spam is deleted after %d days.</item>
     </plurals>
 
 </resources>

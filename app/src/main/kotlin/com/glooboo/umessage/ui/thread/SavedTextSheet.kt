@@ -47,6 +47,7 @@ import com.glooboo.umessage.helpers.composerPrefs
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.theme.contentDirection
 import kotlinx.coroutines.launch
+import com.glooboo.umessage.ui.components.dialogScroll
 
 /** The saved text being added ([adding]) or changed ([editing]); only one dialog is open at a time. */
 private data class SavedTextEdit(val editing: SavedText? = null, val adding: Boolean = false)
@@ -161,7 +162,7 @@ private fun SavedTextDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(if (initial == null) R.string.n06_add else R.string.n06_edit)) },
         text = {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(Modifier.dialogScroll(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
                     value = title,
                     onValueChange = { title = it.take(SavedTexts.MAX_TITLE_LENGTH) },

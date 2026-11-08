@@ -81,6 +81,7 @@ class BackupService : Service() {
             format = ExportFormat.values().firstOrNull { it.name == intent.getStringExtra(EXTRA_FORMAT) }
                 ?: ExportFormat.JSON,
             threadIds = intent.getLongArrayExtra(EXTRA_THREADS)?.toList(),
+            skipHidden = intent.getBooleanExtra(EXTRA_SKIP_HIDDEN, false),
             withPassword = intent.getBooleanExtra(EXTRA_PROTECTED, false),
             driveFile = intent.getStringExtra(EXTRA_DRIVE_FILE)?.let { driveFileNamed(it) },
             driveMime = intent.getStringExtra(EXTRA_DRIVE_MIME),
@@ -177,6 +178,8 @@ class BackupService : Service() {
     private class ExportRequest(
         val format: ExportFormat,
         val threadIds: List<Long>?,
+        /** Q14: a full backup leaves the hidden chats out; decided by the user before the service started. */
+        val skipHidden: Boolean,
         val withPassword: Boolean,
         /** Set for "Save to Google Drive": the backup is written to this one cache file instead of the picked uri. */
         val driveFile: File? = null,
@@ -200,6 +203,15 @@ class BackupService : Service() {
         if (drive != null) drive.delete() else deleteQuietly(uri)
     }
 
+    /** The chats to export and how many hidden ones a full backup leaves out (Q14). */
+    private fun exportScope(request: ExportRequest): Pair<List<Long>, Int> {
+        var everyChat = 0
+        val ids = ExportScope.idsFor(this, request.threadIds, request.skipHidden) {
+            getConversationIds().also { everyChat = it.size }
+        }
+        return ids to if (request.skipHidden && request.threadIds == null) everyChat - ids.size else 0
+    }
+
     private fun runExport(
         uri: Uri, sms: Boolean, mms: Boolean, request: ExportRequest, password: CharArray?,
     ): BackupJob.State {
@@ -208,7 +220,7 @@ class BackupService : Service() {
             return BackupJob.State.ExportDone(ExportSummary(), getString(R.string.export_password_lost))
         }
         val ticker = Ticker()
-        val ids = ExportScope.idsFor(this, request.threadIds) { getConversationIds() }
+        val (ids, leftOut) = exportScope(request)
         val summary = try {
             // Produced into a temporary file and copied only when it holds a real backup, so the chosen file is never
             // truncated first and left empty when the work fails, is stopped, or finds nothing.
@@ -230,7 +242,10 @@ class BackupService : Service() {
                 output.close() // seals the last chunk of a protected file
                 written
             }
-            result.value.also { if (!result.copied) discard(uri, request.driveFile) }
+            result.value.also {
+                it.hiddenLeftOut = leftOut
+                if (!result.copied) discard(uri, request.driveFile)
+            }
         } catch (e: Exception) {
             discard(uri, request.driveFile)
             return BackupJob.State.ExportDone(ExportSummary(), e.message ?: e.javaClass.simpleName)
@@ -375,6 +390,7 @@ class BackupService : Service() {
         private const val EXTRA_FORMAT = "format"
         private const val EXTRA_THREADS = "threads"
         private const val EXTRA_PROTECTED = "protected"
+        private const val EXTRA_SKIP_HIDDEN = "skip_hidden"
         private const val EXTRA_DRIVE_FILE = "drive_file"
         private const val EXTRA_DRIVE_MIME = "drive_mime"
         private const val DEFAULT_MIME = "application/octet-stream"
@@ -391,12 +407,13 @@ class BackupService : Service() {
          * [threadIds] are the conversations to export, all when null. With [withPassword] the file is sealed with the
          * password staged in [BackupJob]; without one the export fails and says so. With [driveFile] (a file of
          * [DriveHandoff.newFile]) the backup goes to that one cache file, for the hand-over to Google Drive, and [uri]
-         * is only its content URI.
+         * is only its content URI. With [skipHidden] a full backup leaves the hidden chats out (the caller asked the
+         * user first, see HiddenBackupPolicy); the service never prompts.
          */
         fun startExport(
             context: Context, uri: Uri, sms: Boolean, mms: Boolean,
             format: ExportFormat = ExportFormat.JSON, threadIds: List<Long>? = null, withPassword: Boolean = false,
-            driveFile: File? = null, driveMime: String? = null,
+            driveFile: File? = null, driveMime: String? = null, skipHidden: Boolean = false,
         ) = start(context, ACTION_EXPORT, uri, sms, mms) {
             if (driveFile != null) {
                 putExtra(EXTRA_DRIVE_FILE, driveFile.name)
@@ -404,6 +421,7 @@ class BackupService : Service() {
             }
             putExtra(EXTRA_FORMAT, format.name)
             putExtra(EXTRA_PROTECTED, withPassword)
+            putExtra(EXTRA_SKIP_HIDDEN, skipHidden)
             if (threadIds != null) putExtra(EXTRA_THREADS, threadIds.toLongArray())
         }
 

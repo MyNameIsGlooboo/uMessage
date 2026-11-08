@@ -36,6 +36,9 @@ sealed interface ThreadRow {
 
     data class Sending(val messageId: Long, override val key: String) : ThreadRow
 
+    /** Q40: a picture message that was never downloaded, with its "Tap to download" action. */
+    data class MmsDownload(val messageId: Long, val expirySeconds: Long, override val key: String) : ThreadRow
+
     data class Failed(val message: MessageKey, val text: String, override val key: String) : ThreadRow
 
     data class Sent(
@@ -112,6 +115,9 @@ fun buildThreadRows(items: List<ThreadItem>, isGroup: Boolean): List<ThreadRow> 
                 )
 
             is ThreadItem.ThreadSending -> rows.add(ThreadRow.Sending(item.messageId, uniqueKey("s${item.messageId}")))
+
+            is ThreadItem.ThreadMmsDownload ->
+                rows.add(ThreadRow.MmsDownload(item.messageId, item.expirySeconds, uniqueKey("dl${item.messageId}")))
 
             is ThreadItem.ThreadUnreadDivider -> rows.add(ThreadRow.UnreadDivider(uniqueKey("unread")))
 

@@ -17,6 +17,12 @@ sealed class ThreadItem {
     ) : ThreadItem()
     data class ThreadSending(val messageId: Long) : ThreadItem()
 
+    /**
+     * Q40: the picture message [messageId] was announced by the carrier but never downloaded. It replaces the empty
+     * bubble; [expirySeconds] is the carrier's expiry (0 when unknown).
+     */
+    data class ThreadMmsDownload(val messageId: Long, val expirySeconds: Long) : ThreadItem()
+
     /** The "Unread messages" line above the message with [messageId] (its [Message.getStableId]). */
     data class ThreadUnreadDivider(val messageId: Long) : ThreadItem()
 }

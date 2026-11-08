@@ -14,7 +14,7 @@
     <string name="sks_rules">rules allow block list keyword pattern regex sender number whitelist blacklist</string>
     <string name="sks_blocked_numbers">blocked numbers block list phone contacts android blacklist</string>
     <string name="sks_decision_log">log history why blocked activity recent</string>
-    <string name="sks_purge">delete blocked old remove clean auto days cleanup retention</string>
+    <string name="sks_purge">delete spam blocked old remove clean auto days cleanup retention</string>
     <string name="sks_region">country region outside foreign international abroad block</string>
     <string name="sks_links">links urls risky phishing safety lock web</string>
     <string name="sks_carrier_report">carrier report operator forward 7726 provider spam</string>

@@ -1,6 +1,5 @@
 package com.glooboo.umessage.receivers
 
-import com.glooboo.umessage.helpers.canUseExactAlarms
 import android.app.AlarmManager
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -10,6 +9,7 @@ import android.os.Looper
 import android.os.PowerManager
 import android.provider.Telephony
 import androidx.annotation.VisibleForTesting
+import androidx.core.app.AlarmManagerCompat
 import org.fossify.commons.extensions.showErrorToast
 import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.extensions.conversationsDB
@@ -186,7 +186,7 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
         }
         val threadId = context.getThreadId(addresses.toSet()).takeIf { it != 0L } ?: message.threadId
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val exactAllowed = runCatching { context.canUseExactAlarms(alarmManager) }.getOrDefault(true)
+        val exactAllowed = runCatching { AlarmManagerCompat.canScheduleExactAlarms(alarmManager) }.getOrDefault(true)
         runCatching {
             Handler(Looper.getMainLooper()).post {
                 runCatching {
@@ -223,7 +223,9 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
         runCatching {
             Handler(Looper.getMainLooper()).post {
                 runCatching {
-                    context.notificationHelper.showSendingFailedNotification(recipientName, threadId, reason)
+                    context.notificationHelper.showSendingFailedNotification(
+                        recipientName, threadId, reason, automatic = true
+                    )
                 }
             }
         }

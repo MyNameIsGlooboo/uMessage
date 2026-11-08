@@ -116,6 +116,9 @@ class ExportSummary {
     /** Stars, labels and archived chats written at the end of a JSON backup. */
     var appData = 0
 
+    /** Hidden chats the user chose to leave out of a full backup (Q14). */
+    var hiddenLeftOut = 0
+
     val total get() = sms + mms
     val hasProblems get() = unreadableAttachments > 0 || unreadableConversations > 0 || unreadableMessages > 0
 

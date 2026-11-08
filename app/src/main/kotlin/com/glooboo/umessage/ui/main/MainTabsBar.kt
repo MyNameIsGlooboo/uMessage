@@ -2,8 +2,13 @@ package com.glooboo.umessage.ui.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.union
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
@@ -31,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.components.ICON_CONTRAST
+import com.glooboo.umessage.ui.components.horizontalChromePadding
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.components.localizedNumber
 import com.glooboo.umessage.ui.components.readableOn
@@ -90,7 +96,9 @@ internal fun MainNavigationBar(
         unselectedIconColor = readableOn(bar, colors.onSurfaceVariant, ICON_CONTRAST),
         unselectedTextColor = readableOn(bar, colors.onSurfaceVariant),
     )
-    NavigationBar(containerColor = bar) {
+    // Landscape: the bar draws edge to edge, but its items stay clear of a side cutout and a side navigation bar.
+    val insets = NavigationBarDefaults.windowInsets.union(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal))
+    NavigationBar(containerColor = bar, windowInsets = insets) {
         tabs.forEach { tab ->
             val label = stringResource(tab.labelRes)
             val shown = tabIndicator(tab, selected, newBlocked, forwardedFailed, forwardedPaused, archivedNew)
@@ -131,9 +139,9 @@ internal fun MainNavigationBar(
 internal fun MainBottomBar(searchActive: Boolean, banner: (@Composable () -> Unit)?, bar: @Composable () -> Unit) {
     Column {
         if (searchActive) {
-            banner?.let { Box(Modifier.navigationBarsPadding().imePadding()) { it() } }
+            banner?.let { Box(Modifier.navigationBarsPadding().horizontalChromePadding().imePadding()) { it() } }
         } else {
-            banner?.invoke()
+            banner?.let { Box(Modifier.horizontalChromePadding()) { it() } }
             bar()
         }
     }

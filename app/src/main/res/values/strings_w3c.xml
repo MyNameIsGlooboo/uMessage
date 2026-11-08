@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">Close checklist</string>
     <string name="w3c_checklist_step_sms">Make uMessage your default SMS app</string>
     <string name="w3c_checklist_step_notifications">Turn on notifications</string>
-    <string name="w3c_checklist_step_blocked">Look at the Blocked tab</string>
+    <string name="w3c_checklist_step_blocked">Look at the Spam tab</string>
     <string name="w3c_checklist_step_forward">Optional: forward messages to another number</string>
     <string name="w3c_checklist_step_done">Done</string>
     <string name="w3c_checklist_action_set">Set</string>
     <string name="w3c_checklist_action_open">Open</string>
     <string name="w3c_receipt_title">Spam held: tap to review</string>
-    <string name="w3c_receipt_body">A message from an unknown sender was held in Blocked. It is not lost: you can review it and restore it any time.</string>
+    <string name="w3c_receipt_body">A message from an unknown sender was held in Spam. It is not lost: you can review it and restore it any time.</string>
     <string name="w3c_receipt_review">Review</string>
     <string name="w3c_receipt_got_it">Got it</string>
     <string name="w3c_new_paste">Paste number</string>

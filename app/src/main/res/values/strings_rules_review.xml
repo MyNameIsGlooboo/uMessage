@@ -19,20 +19,20 @@
     <string name="rules2_empty_allowed_title">No senders always allowed</string>
     <string name="rules2_empty_allowed_body">Add a number, sender name or word that must always reach your inbox.</string>
     <string name="rules2_empty_blocked_title">No senders always blocked</string>
-    <string name="rules2_empty_blocked_body">Add a number, sender name, word or pattern to send to Blocked.</string>
+    <string name="rules2_empty_blocked_body">Add a number, sender name, word or pattern to send to Spam.</string>
 
     <!-- Older block lists banner and the Android block list section -->
     <string name="rules2_legacy_banner_title">Found older block lists</string>
     <string name="rules2_legacy_banner_body">Move them into rules to see and restore what they block.</string>
     <string name="rules2_legacy_review">Review</string>
     <string name="rules2_system_header">Android block list (also blocks calls)</string>
-    <string name="rules2_system_body">Android drops texts from these numbers before uMessage sees them, so they never appear in Blocked and cannot be restored.</string>
+    <string name="rules2_system_body">Android drops texts from these numbers before uMessage sees them, so they never appear in Spam and cannot be restored.</string>
     <string name="rules2_system_manage">Manage</string>
     <string name="rules2_system_move">Move to uMessage rules</string>
 
     <!-- Move older lists dialog -->
     <string name="rules2_migrate_title">Move to uMessage rules</string>
-    <string name="rules2_migrate_point_blocked">Texts then go to Blocked, where you can restore them.</string>
+    <string name="rules2_migrate_point_blocked">Texts then go to Spam, where you can restore them.</string>
     <string name="rules2_migrate_remove_needs_first">Tick the option above first.</string>
     <string name="rules2_migrate_nothing_selected">Nothing selected</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -72,7 +72,7 @@
     </plurals>
 
     <!-- Forward tab and editor -->
-    <string name="forward2_intro_reassure">Only messages that reach your inbox are forwarded. Blocked spam never is.</string>
+    <string name="forward2_intro_reassure">Only messages that reach your inbox are forwarded. Spam never is.</string>
     <string name="forward2_empty_title">No forward rules yet</string>
     <string name="forward2_empty_body">Send a copy of matching messages, such as bank alerts, to another phone. Start from one of these.</string>
     <string name="forward2_template_bank">Forward bank alerts</string>
