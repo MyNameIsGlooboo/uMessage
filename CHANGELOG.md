@@ -9,9 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.4] - 2026-11-08
 ### Added
 - Opening a chat at a message from Starred, search or notes briefly tints that message so you can find it
+- Choose senders from your contacts when you add forward, allow and block rules
 
 ### Changed
 - Starred now lists the starred messages themselves, one row per message, instead of one row per chat
+- Less explanation text: secondary notes are behind an info icon
+- Deleting a saved text has a clearer layout
 - The Forwarded tab now shows as soon as you add a forward rule; you can hide it (a quiet "Hide" message appears once after the first rule, and the switch stays in Settings > Forwarding). It is no longer asked first. If you had already chosen to hide it, it stays hidden
 
 ### Fixed

@@ -7,7 +7,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -28,6 +27,7 @@ import com.glooboo.umessage.helpers.MessageNotes
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.ui.components.localizedNumber
 import com.glooboo.umessage.ui.components.uiLocale
+import com.glooboo.umessage.ui.components.DeleteStartActions
 import com.glooboo.umessage.ui.components.dialogScroll
 
 private const val NOTE_MIN_LINES = 3
@@ -93,18 +93,17 @@ fun NoteEditDialog(
                         Text(counter, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.End)
                     },
                 )
-                if (hasNote) {
-                    TextButton(onClick = onDelete, modifier = Modifier.fillMaxWidth()) {
-                        Text(stringResource(R.string.delete_note), color = MaterialTheme.colorScheme.error)
-                    }
-                }
             }
         },
         confirmButton = {
-            TextButton(onClick = { onSave(value.text) }) { Text(stringResource(R.string.note_save)) }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) { Text(stringResource(R.string.note_cancel)) }
+            DeleteStartActions(
+                deleteLabel = stringResource(R.string.delete_note),
+                onDelete = if (hasNote) onDelete else null,
+                cancelLabel = stringResource(R.string.note_cancel),
+                onCancel = onDismiss,
+                saveLabel = stringResource(R.string.note_save),
+                onSave = { onSave(value.text) },
+            )
         },
     )
 }

@@ -4,7 +4,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -32,7 +31,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -47,6 +45,8 @@ import com.glooboo.umessage.helpers.composerPrefs
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.theme.contentDirection
 import kotlinx.coroutines.launch
+import com.glooboo.umessage.ui.components.ConfirmDialog
+import com.glooboo.umessage.ui.components.DeleteStartActions
 import com.glooboo.umessage.ui.components.dialogScroll
 
 /** The saved text being added ([adding]) or changed ([editing]); only one dialog is open at a time. */
@@ -147,9 +147,12 @@ private fun SavedTextRow(item: SavedText, onInsert: () -> Unit, onEdit: () -> Un
     )
 }
 
-/** Title and text of a saved text; [onDelete] is null for a new one. Saving stays off while the text is blank. */
+/**
+ * Title and text of a saved text; [onDelete] is null for a new one. Saving stays off while the text is blank. Delete
+ * sits red at the start of the action row, Cancel and Save at the end, and Delete asks first (there is no Undo).
+ */
 @Composable
-private fun SavedTextDialog(
+internal fun SavedTextDialog(
     initial: SavedText?,
     onSave: (title: String, text: String) -> Unit,
     onDelete: (() -> Unit)?,
@@ -157,6 +160,7 @@ private fun SavedTextDialog(
 ) {
     var title by rememberSaveable { mutableStateOf(initial?.title.orEmpty()) }
     var text by rememberSaveable { mutableStateOf(initial?.text.orEmpty()) }
+    var confirming by rememberSaveable { mutableStateOf(false) }
     val style = LocalTextStyle.current.contentDirection()
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -185,15 +189,25 @@ private fun SavedTextDialog(
             }
         },
         confirmButton = {
-            TextButton(onClick = { onSave(title, text) }, enabled = text.isNotBlank()) {
-                Text(stringResource(R.string.n06_save))
-            }
-        },
-        dismissButton = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                onDelete?.let { TextButton(onClick = it) { Text(stringResource(R.string.n06_delete)) } }
-                TextButton(onClick = onDismiss) { Text(stringResource(R.string.screens_cancel)) }
-            }
+            DeleteStartActions(
+                deleteLabel = stringResource(R.string.n06_delete),
+                onDelete = onDelete?.let { { confirming = true } },
+                cancelLabel = stringResource(R.string.screens_cancel),
+                onCancel = onDismiss,
+                saveLabel = stringResource(R.string.n06_save),
+                onSave = { onSave(title, text) },
+                saveEnabled = text.isNotBlank(),
+            )
         },
     )
+    if (confirming && onDelete != null) {
+        ConfirmDialog(
+            title = stringResource(R.string.p44_delete_saved_title),
+            message = title.ifBlank { text.lineSequence().first() },
+            confirmLabel = stringResource(R.string.n06_delete),
+            onConfirm = onDelete,
+            onDismiss = { confirming = false },
+            destructive = true,
+        )
+    }
 }

@@ -1,5 +1,6 @@
-• Starred now lists the starred messages themselves
-• One row per message, so two stars from one sender show as two rows
-• Tap a row to open the chat at that message
-• Press and hold to unstar, and search inside your stars
-• The Forwarded tab shows as soon as you add a forward rule; hide it in Settings
+• Starred now lists the starred messages themselves, one row per message
+• Tap a row to open the chat at that message; press and hold to unstar
+• The Forwarded tab shows as soon as you add a forward rule
+• Choose senders from your contacts when you add forward, allow and block rules
+• Less explanation text: secondary notes are behind an info icon
+• Deleting a saved text has a clearer layout
