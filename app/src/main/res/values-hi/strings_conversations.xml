@@ -14,11 +14,11 @@
     <string name="convlist_sim">सिम %1$d</string>
     <string name="convlist_scroll_handle">तेज़ी से स्क्रॉल करें</string>
     <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d ब्लॉक किया गया मैसेज</item>
-        <item quantity="other">%d ब्लॉक किए गए मैसेज</item>
+        <item quantity="one">%d स्पैम मैसेज</item>
+        <item quantity="other">%d स्पैम मैसेज</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">ब्लॉक किए गए मैसेज</string>
-    <string name="convlist_blocked_banner_cd">%1$d ब्लॉक किए गए मैसेज. ब्लॉक किए गए मैसेज का फ़ोल्डर खोलें.</string>
+    <string name="convlist_blocked_banner_title">स्पैम</string>
+    <string name="convlist_blocked_banner_cd">%1$d स्पैम मैसेज. स्पैम फ़ोल्डर खोलें.</string>
     <string name="convlist_archive">संग्रहित करें</string>
     <string name="convlist_delete">मिटाएं</string>
     <string name="convlist_pin">सबसे ऊपर पिन करें</string>
@@ -47,12 +47,12 @@
         <item quantity="other">%d बातचीत संग्रहित की गईं</item>
     </plurals>
     <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
-        <item quantity="one">ब्लॉक किया गया. नए मैसेज ब्लॉक किए गए मैसेज में जाएंगे</item>
-        <item quantity="other">%d भेजने वाले ब्लॉक किए गए. नए मैसेज ब्लॉक किए गए मैसेज में जाएंगे</item>
+        <item quantity="one">ब्लॉक किया गया. नए मैसेज स्पैम में जाएंगे</item>
+        <item quantity="other">%d भेजने वाले ब्लॉक किए गए. नए मैसेज स्पैम में जाएंगे</item>
     </plurals>
     <string name="convlist_action_failed">कुछ गड़बड़ हो गई</string>
     <string name="convlist_block_title">नंबर ब्लॉक करें?</string>
-    <string name="convlist_block_message">%1$s को ब्लॉक करें? इससे आने वाले नए मैसेज आपके इनबॉक्स की जगह ब्लॉक किए गए मैसेज में जाएंगे, जहां आप उन्हें पढ़ सकते हैं या वापस ला सकते हैं.</string>
+    <string name="convlist_block_message">%1$s को ब्लॉक करें? इससे आने वाले नए मैसेज आपके इनबॉक्स की जगह स्पैम में जाएंगे, जहां आप उन्हें पढ़ सकते हैं या वापस ला सकते हैं.</string>
     <string name="convlist_block_confirm">ब्लॉक करें</string>
     <string name="convlist_rename_title">बातचीत का नाम बदलें</string>
     <string name="convlist_cancel">रद्द करें</string>

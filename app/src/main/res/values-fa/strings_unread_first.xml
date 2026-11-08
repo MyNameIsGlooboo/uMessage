@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="i36_unread_first">ابتدا خوانده‌نشده‌ها</string>
-    <string name="i36_unread_first_body">گفتگوهای خوانده‌نشده بالای فهرست می‌مانند</string>
+    <string name="i36_unread_first_body">گفتگوهای خوانده‌نشده بالای لیست می‌مانند</string>
 </resources>

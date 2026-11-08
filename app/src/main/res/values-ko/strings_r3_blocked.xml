@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessage 앱에서 보류한 메시지예요. 받은 메시지함에는 없어요.</string>
     <string name="r3b_thread_delete_all">%1$s 발신 메시지 모두 삭제</string>
     <string name="r3b_thread_empty_title">남은 메시지 없음</string>
-    <string name="r3b_thread_empty_body">이 발신자의 차단된 메시지가 없어요.</string>
+    <string name="r3b_thread_empty_body">이 발신자의 스팸 메시지가 없어요.</string>
     <string name="r3b_message_actions">메시지 작업</string>
     <string name="r3b_why_blocked">차단 이유</string>
     <string name="r3b_copy_text">텍스트 복사</string>
@@ -14,6 +14,6 @@
     <string name="r3b_delete_message">삭제</string>
     <string name="r3b_received">수신: %1$s</string>
     <plurals name="r3b_info_purge">
-        <item quantity="other">차단된 메시지는 %d일 후 삭제돼요.</item>
+        <item quantity="other">스팸은 %d일 후 삭제돼요.</item>
     </plurals>
 </resources>

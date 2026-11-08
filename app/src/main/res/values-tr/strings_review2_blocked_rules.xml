@@ -43,16 +43,16 @@
         <item quantity="one">%d numarayı uMessage kurallarına taşıyın</item>
         <item quantity="other">%d numarayı uMessage kurallarına taşıyın</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• Mesajları Engellenenler\'e gider. Burada mesajları okuyabilir ve geri yükleyebilirsiniz.</string>
+    <string name="e_migrate_point_blocked">• Mesajları Spam\'e gider. Burada mesajları okuyabilir ve geri yükleyebilirsiniz.</string>
     <string name="e_migrate_point_android">• Android listesinden çıkarılana kadar bu numaraların mesajları Android tarafından silinmeye devam eder.</string>
     <string name="e_migrate_calls_note">Android listesi aramaları da engeller. Listeden çıkardığınız numaralar sizi yeniden arayabilir.</string>
     <string name="e_bn_unknown_body">Yalnızca Bilinmeyen gönderenler ayarı Kapalı olduğunda geçerlidir.</string>
     <string name="e_bn_row_calls_texts">Aramaları ve mesajları engeller</string>
     <string name="e_bn_row_short_code">Kısa numara: Mesajları uMessage\'a hiç ulaşmaz</string>
     <string name="e_bn_move_one">uMessage kurallarına taşıyın</string>
-    <string name="e_bn_moved">%1$s artık bir uMessage kuralı. Bu numaranın mesajları Engellenenler\'e gider, aramaları ise artık engellenmez.</string>
+    <string name="e_bn_moved">%1$s artık bir uMessage kuralı. Bu numaranın mesajları Spam\'e gider, aramaları ise artık engellenmez.</string>
     <string name="e_bn_field_help">Örneğin +15550001234 veya +1555 ile başlayan tüm numaralar için +1555*</string>
     <string name="e_bn_short_code_warning">Bu bir kısa numaraya benziyor. Android, mesajlarını uMessage\'a ulaşmadan siler. Bu yüzden kod veya banka bildirimi gibi mesajlarını hiçbir zaman geri yükleyemezsiniz.</string>
     <string name="e_bn_add_as_rule">Bunun yerine uMessage kuralı olarak ekleyin</string>
-    <string name="e_bn_added_as_rule">%1$s bir uMessage kuralı olarak eklendi. Bu numaranın mesajları Engellenenler\'e gider.</string>
+    <string name="e_bn_added_as_rule">%1$s bir uMessage kuralı olarak eklendi. Bu numaranın mesajları Spam\'e gider.</string>
 </resources>

@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">Nenhum remetente sempre permitido</string>
     <string name="rules2_empty_allowed_body">Adicione um número, nome de remetente ou palavra que sempre deve chegar à sua caixa de entrada. Toque em Adicione regra abaixo.</string>
     <string name="rules2_empty_blocked_title">Nenhum remetente sempre bloqueado</string>
-    <string name="rules2_empty_blocked_body">Adicione um número, nome de remetente, palavra ou padrão (expressão regular) para enviar a Bloqueados. Toque em Adicione regra abaixo.</string>
+    <string name="rules2_empty_blocked_body">Adicione um número, nome de remetente, palavra ou padrão (expressão regular) para enviar a Spam. Toque em Adicione regra abaixo.</string>
     <string name="rules2_legacy_banner_title">Listas de bloqueio antigas encontradas</string>
     <string name="rules2_legacy_banner_body">Mova essas listas para as regras para ver e restaurar as mensagens que elas bloqueiam.</string>
     <string name="rules2_legacy_review">Revise</string>
     <string name="rules2_system_header">Lista de bloqueio do Android (também bloqueia chamadas)</string>
-    <string name="rules2_system_body">O Android descarta mensagens desses números antes que o uMessage as receba. Por isso, elas nunca aparecem em Bloqueados e não podem ser restauradas.</string>
+    <string name="rules2_system_body">O Android descarta mensagens desses números antes que o uMessage as receba. Por isso, elas nunca aparecem em Spam e não podem ser restauradas.</string>
     <string name="rules2_system_manage">Gerencie</string>
     <string name="rules2_system_move">Mova para as regras do uMessage</string>
     <string name="rules2_migrate_title">Mova para as regras do uMessage</string>
-    <string name="rules2_migrate_point_blocked">As mensagens passarão a ir para Bloqueados, onde você poderá restaurá-las.</string>
+    <string name="rules2_migrate_point_blocked">As mensagens passarão a ir para Spam, onde você poderá restaurá-las.</string>
     <string name="rules2_migrate_remove_needs_first">Marque primeiro a opção acima.</string>
     <string name="rules2_migrate_nothing_selected">Nada selecionado</string>
     <plurals name="rules2_migrate_confirm_count" tools:ignore="ImpliedQuantity">
@@ -50,7 +50,7 @@
         <item quantity="one">Mova %1$d número para as regras</item>
         <item quantity="other">Mova %1$d números para as regras</item>
     </plurals>
-    <string name="forward2_intro_reassure">Só as mensagens que chegam à sua caixa de entrada são encaminhadas. Spam bloqueado nunca é encaminhado.</string>
+    <string name="forward2_intro_reassure">Só as mensagens que chegam à sua caixa de entrada são encaminhadas. Spam nunca é encaminhado.</string>
     <string name="forward2_empty_title">Ainda não há regras de encaminhamento</string>
     <string name="forward2_empty_body">Envie uma cópia das mensagens que atendem à regra, como alertas bancários, para outro celular. Comece com uma destas opções.</string>
     <string name="forward2_template_bank">Encaminhe alertas bancários</string>

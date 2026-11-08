@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">إعدادات الحظر</string>
     <string name="spam_blocked_stats_totals">حُظرت %1$d إجمالًا، واستُعيدت %2$d</string>
     <string name="spam_blocked_header_cd">حُظرت %1$d من الرسائل غير المرغوب فيها خلال آخر 7 أيام. حُظرت %2$d إجمالًا، واستُعيدت %3$d.</string>
-    <string name="spam_blocked_empty_title">لا رسائل محظورة بعد</string>
+    <string name="spam_blocked_empty_title">لا رسائل في «غير المرغوب فيها» بعد</string>
     <string name="spam_action_delete">احذف</string>
     <string name="spam_select">حدّد</string>
     <string name="spam_action_select_all">حدّد الكل</string>
@@ -46,7 +46,7 @@
     <string name="spam_rules_empty_allowed_title">لا قواعد سماح</string>
     <string name="spam_rules_empty_allowed_body">كل ما تسمح به يصل دائمًا إلى الرسائل الواردة، حتى في وضع التصفية الصارم. أضف رقمًا أو اسم مرسل أو كلمة رئيسية.</string>
     <string name="spam_rules_empty_blocked_title">لا قواعد حظر</string>
-    <string name="spam_rules_empty_blocked_body">احظر رقمًا أو بادئة أو اسم مرسل أو كلمة رئيسية أو تعبيرًا نمطيًا. تنتقل الرسائل المحظورة إلى مجلد «المحظورة».</string>
+    <string name="spam_rules_empty_blocked_body">احظر رقمًا أو بادئة أو اسم مرسل أو كلمة رئيسية أو تعبيرًا نمطيًا. تنتقل رسائلها إلى مجلد «غير المرغوب فيها».</string>
     <string name="spam_rules_delete_rule">احذف القاعدة %s</string>
     <string name="spam_rules_deleted">حُذفت القاعدة</string>
     <plurals name="spam_rules_imported">
@@ -137,10 +137,10 @@
     <string name="spam_mode_off">متوقف</string>
     <string name="spam_mode_off_body">لا حظر للمرسلين غير المعروفين</string>
     <string name="spam_strict_warning_title">الوضع الصارم قد يخفي رسائل مهمة</string>
-    <string name="spam_strict_warning_body">عادةً ما تأتي رسائل البنوك وشركات التوصيل والرموز لمرة واحدة من مرسلين ليسوا ضمن جهات اتصالك. في وضع التصفية الصارم، تنتقل إلى مجلد «المحظورة»، بما فيها الرموز. اختر الوضع الذكي للسماح بمرور الرموز، أو اسمح لهؤلاء المرسلين مرة واحدة.</string>
-    <string name="spam_strict_warning_action">راجع الرسائل المحظورة</string>
+    <string name="spam_strict_warning_body">عادةً ما تأتي رسائل البنوك وشركات التوصيل والرموز لمرة واحدة من مرسلين ليسوا ضمن جهات اتصالك. في وضع التصفية الصارم، تنتقل إلى مجلد «غير المرغوب فيها»، بما فيها الرموز. اختر الوضع الذكي للسماح بمرور الرموز، أو اسمح لهؤلاء المرسلين مرة واحدة.</string>
+    <string name="spam_strict_warning_action">راجع الرسائل غير المرغوب فيها</string>
     <string name="spam_settings_cleanup_title">تنظيف</string>
-    <string name="spam_purge_body">تُحذف الرسائل المحظورة القديمة تلقائيًا.</string>
+    <string name="spam_purge_body">تُحذف الرسائل غير المرغوب فيها القديمة تلقائيًا.</string>
     <string name="spam_purge_days">%d يومًا</string>
     <string name="spam_purge_forever">أبدًا</string>
     <string name="spam_notify_title">أشعرني عند حظر رسالة</string>

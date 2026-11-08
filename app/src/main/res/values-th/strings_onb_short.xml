@@ -4,7 +4,7 @@
     <string name="onb_allow_done">เรียบร้อย</string>
     <string name="onb_allow_needed">จำเป็น</string>
     <string name="onb_allow_all_set">พร้อมทั้งหมด</string>
-    <string name="onb_mode_strict_short">เก็บทั้งหมดไว้ในหน้าที่บล็อก</string>
+    <string name="onb_mode_strict_short">เก็บทั้งหมดไว้ในสแปม</string>
     <string name="onb_mode_smart_short">เก็บไว้ แต่ให้ข้อความรหัสยืนยันได้</string>
     <string name="onb_mode_off_short">ไม่กรอง</string>
 </resources>

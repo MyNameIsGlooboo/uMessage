@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">Ustawienia blokowania</string>
     <string name="spam_blocked_stats_totals">Łącznie zatrzymano: %1$d, przywrócono: %2$d</string>
     <string name="spam_blocked_header_cd">Spam zatrzymany w ostatnich 7 dniach: %1$d. Łącznie zatrzymano: %2$d, przywrócono: %3$d.</string>
-    <string name="spam_blocked_empty_title">Brak zablokowanych wiadomości</string>
+    <string name="spam_blocked_empty_title">W Spamie jeszcze nic nie ma</string>
     <string name="spam_action_delete">Usuń</string>
     <string name="spam_select">Zaznacz</string>
     <string name="spam_action_select_all">Zaznacz wszystko</string>
@@ -42,7 +42,7 @@
     <string name="spam_rules_empty_allowed_title">Brak dozwolonych reguł</string>
     <string name="spam_rules_empty_allowed_body">Wszystko, na co zezwolisz, zawsze trafia do odebranych, nawet w trybie ścisłym. Dodaj numer, nazwę nadawcy lub słowo kluczowe.</string>
     <string name="spam_rules_empty_blocked_title">Brak zablokowanych reguł</string>
-    <string name="spam_rules_empty_blocked_body">Zablokuj numer, prefiks, nazwę nadawcy, słowo kluczowe lub wzorzec. Zablokowane wiadomości trafiają do folderu „Zablokowane”.</string>
+    <string name="spam_rules_empty_blocked_body">Zablokuj numer, prefiks, nazwę nadawcy, słowo kluczowe lub wzorzec. Ich wiadomości trafiają do Spamu.</string>
     <string name="spam_rules_delete_rule">Usuń regułę %s</string>
     <string name="spam_rules_deleted">Usunięto regułę</string>
     <plurals name="spam_rules_imported">
@@ -123,10 +123,10 @@
     <string name="spam_mode_off">Wyłączony</string>
     <string name="spam_mode_off_body">Bez blokowania nieznanych nadawców</string>
     <string name="spam_strict_warning_title">Tryb ścisły może ukryć ważne wiadomości</string>
-    <string name="spam_strict_warning_body">Wiadomości od banków i firm kurierskich oraz kody jednorazowe zwykle pochodzą od nadawców spoza twoich kontaktów. W trybie ścisłym trafiają do folderu „Zablokowane”, także te z kodami. Wybierz tryb inteligentny, by przepuszczać kody, lub dodaj tych nadawców do dozwolonych — wystarczy raz.</string>
-    <string name="spam_strict_warning_action">Sprawdź zablokowane wiadomości</string>
+    <string name="spam_strict_warning_body">Wiadomości od banków i firm kurierskich oraz kody jednorazowe zwykle pochodzą od nadawców spoza twoich kontaktów. W trybie ścisłym trafiają do Spamu, także te z kodami. Wybierz tryb inteligentny, by przepuszczać kody, lub dodaj tych nadawców do dozwolonych — wystarczy raz.</string>
+    <string name="spam_strict_warning_action">Sprawdź Spam</string>
     <string name="spam_settings_cleanup_title">Porządkowanie</string>
-    <string name="spam_purge_body">Stare zablokowane wiadomości są usuwane automatycznie.</string>
+    <string name="spam_purge_body">Stary spam jest usuwany automatycznie.</string>
     <string name="spam_purge_days">%d dni</string>
     <string name="spam_purge_forever">Nigdy</string>
     <string name="spam_notify_title">Powiadamiaj o zablokowaniu wiadomości</string>

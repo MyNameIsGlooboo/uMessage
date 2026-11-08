@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols（版權屬於Google LLC）依Apache License 2.0版授權。這些圖示依「現狀」提供，不提供任何保證。</string>
     <string name="settings_nav_recommended">建議</string>
     <string name="settings_nav_strict_confirm_title">也要封鎖驗證碼嗎？</string>
-    <string name="settings_nav_strict_confirm_body">在嚴格模式下，來自非聯絡人寄件者的驗證碼會和其他訊息一起移至「已封鎖」。銀行和物流公司的訊息也會被攔下。</string>
+    <string name="settings_nav_strict_confirm_body">在嚴格模式下，來自非聯絡人寄件者的驗證碼會和其他訊息一起移至「垃圾訊息」。銀行和物流公司的訊息也會被攔下。</string>
     <string name="settings_nav_strict_confirm_action">使用嚴格模式</string>
     <string name="settings_nav_strict_confirm_cancel">保留目前模式</string>
-    <string name="settings_nav_purge_row">已封鎖訊息的刪除期限</string>
+    <string name="settings_nav_purge_row">垃圾訊息的刪除期限</string>
     <string name="settings_nav_group_alerts">提醒</string>
-    <string name="settings_nav_notify_body">每則已封鎖訊息都發出一則靜音通知</string>
+    <string name="settings_nav_notify_body">每則垃圾訊息都發出一則靜音通知</string>
     <string name="settings_nav_theme_title">外觀</string>
     <string name="settings_nav_theme_modes">模式</string>
     <string name="settings_nav_theme_colours">色彩</string>

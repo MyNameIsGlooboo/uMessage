@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="i07_shortener">پیوند کوتاه‌شده: مقصد آن مشخص نیست.</string>
-    <string name="i07_punycode">این نام رمزگذاری شده و ممکن است با حروفی متفاوت از حروف اصلی‌اش نمایش داده شود.</string>
+    <string name="i07_shortener">لینک کوتاه‌شده: مقصد آن مشخص نیست.</string>
+    <string name="i07_punycode">این نام کدگذاری شده و ممکن است با حروفی غیر از حروف اصلی‌اش نشان داده شود.</string>
     <string name="i07_mixed_script">این نام حروف چند الفبا را ترکیب کرده؛ کاری که در سایت‌های جعلی رایج است.</string>
     <string name="i07_raw_ip">این نشانی یک عدد است، نه نام وب‌سایت.</string>
-    <string name="i07_http_only">رمزگذاری نشده (http به‌جای https).</string>
+    <string name="i07_http_only">رمزنگاری نشده (http به‌جای https).</string>
     <string name="i07_lookalike">این نام شبیه %1$s است. املای آن را بررسی کنید.</string>
-    <string name="i07_user_info">بخش پیش از @ نشانی وب‌سایت نیست.</string>
-    <string name="i07_locked">پیوندهای پرخطر را نمی‌توان اینجا باز کرد. می‌توانید پیوند را کپی کنید.</string>
-    <string name="i07_lock_title">مسدود کردن پیوندهای پرخطر</string>
-    <string name="i07_lock_summary">در این حالت، پنل پیوند فقط گزینه‌های کپی و هم‌رسانی دارد</string>
-    <string name="i07_group_title">پیوندها</string>
+    <string name="i07_user_info">بخش قبل از @ نشانی وب‌سایت نیست.</string>
+    <string name="i07_locked">لینک‌های پرخطر را نمی‌توان اینجا باز کرد. می‌توانید لینک را کپی کنید.</string>
+    <string name="i07_lock_title">بلاک کردن لینک‌های پرخطر</string>
+    <string name="i07_lock_summary">در این حالت، پنل لینک فقط گزینه‌های کپی و اشتراک‌گذاری دارد</string>
+    <string name="i07_group_title">لینک‌ها</string>
 </resources>

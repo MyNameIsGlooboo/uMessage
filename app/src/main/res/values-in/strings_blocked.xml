@@ -28,19 +28,19 @@
     <string name="spam_reason_rule_removed">Aturan telah dihapus</string>
     <string name="spam_reason_open_rules">Buka aturan</string>
     <plurals name="spam_purge_notice">
-        <item quantity="other">Pesan diblokir dihapus setelah %d hari</item>
+        <item quantity="other">Spam dihapus setelah %d hari</item>
     </plurals>
     <plurals name="spam_purge_left">
         <item quantity="other">Dihapus dalam %d hari</item>
     </plurals>
     <string name="spam_purge_left_today">Dihapus hari ini</string>
     <plurals name="convlist_reported_spam_archived">
-        <item quantity="other">%d percakapan dilaporkan. Pesan baru dari pengirimnya masuk ke Diblokir, dan percakapan diarsipkan.</item>
+        <item quantity="other">%d percakapan dilaporkan. Pesan baru dari pengirimnya masuk ke Spam, dan percakapan diarsipkan.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="other">%d percakapan dilaporkan. Pesan baru dari pengirimnya masuk ke Diblokir.</item>
+        <item quantity="other">%d percakapan dilaporkan. Pesan baru dari pengirimnya masuk ke Spam.</item>
     </plurals>
-    <string name="blocked_title">Diblokir</string>
+    <string name="blocked_title">Spam</string>
     <string name="blocked_snack_mode">Mode pengirim tidak dikenal diatur ke %1$s</string>
     <string name="blocked_stats_restored">%1$d dipulihkan oleh Anda</string>
     <string name="blocked_reason_unknown_link">Pengirim tidak dikenal, berisi tautan</string>

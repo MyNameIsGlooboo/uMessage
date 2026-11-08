@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">Налаштування блокування</string>
     <string name="spam_blocked_stats_totals">Усього заблоковано: %1$d, відновлено: %2$d</string>
     <string name="spam_blocked_header_cd">Спаму заблоковано за останні 7 днів: %1$d. Усього заблоковано: %2$d, відновлено: %3$d.</string>
-    <string name="spam_blocked_empty_title">Поки нічого не заблоковано</string>
+    <string name="spam_blocked_empty_title">У «Спамі» поки нічого немає</string>
     <string name="spam_action_delete">Видалити</string>
     <string name="spam_select">Вибрати</string>
     <string name="spam_action_select_all">Вибрати все</string>
@@ -42,7 +42,7 @@
     <string name="spam_rules_empty_allowed_title">Немає правил дозволу</string>
     <string name="spam_rules_empty_allowed_body">Усе, що ви дозволили, завжди потрапляє до вхідних, навіть у суворому режимі. Додайте номер, ім’я відправника або ключове слово.</string>
     <string name="spam_rules_empty_blocked_title">Немає правил блокування</string>
-    <string name="spam_rules_empty_blocked_body">Заблокуйте номер, префікс, ім’я відправника, ключове слово або регулярний вираз. Заблоковані повідомлення потрапляють до папки «Заблоковані».</string>
+    <string name="spam_rules_empty_blocked_body">Заблокуйте номер, префікс, ім’я відправника, ключове слово або регулярний вираз. Їхні повідомлення потрапляють до папки «Спам».</string>
     <string name="spam_rules_delete_rule">Видалити правило %s</string>
     <string name="spam_rules_deleted">Правило видалено</string>
     <plurals name="spam_rules_imported" tools:ignore="ImpliedQuantity">
@@ -123,10 +123,10 @@
     <string name="spam_mode_off">Вимкнено</string>
     <string name="spam_mode_off_body">Без блокування невідомих відправників</string>
     <string name="spam_strict_warning_title">Суворий режим може приховати важливі повідомлення</string>
-    <string name="spam_strict_warning_body">Повідомлення від банків і служб доставки та одноразові коди зазвичай надходять від відправників, яких немає у ваших контактах. У суворому режимі вони потрапляють до папки «Заблоковані», навіть коди. Виберіть розумний режим, щоб пропускати коди, або один раз дозвольте цих відправників.</string>
-    <string name="spam_strict_warning_action">Переглянути заблоковані повідомлення</string>
+    <string name="spam_strict_warning_body">Повідомлення від банків і служб доставки та одноразові коди зазвичай надходять від відправників, яких немає у ваших контактах. У суворому режимі вони потрапляють до папки «Спам», навіть коди. Виберіть розумний режим, щоб пропускати коди, або один раз дозвольте цих відправників.</string>
+    <string name="spam_strict_warning_action">Переглянути спам</string>
     <string name="spam_settings_cleanup_title">Очищення</string>
-    <string name="spam_purge_body">Старі заблоковані повідомлення видаляються автоматично.</string>
+    <string name="spam_purge_body">Старий спам видаляється автоматично.</string>
     <string name="spam_purge_days">%d днів</string>
     <string name="spam_purge_forever">Ніколи</string>
     <string name="spam_notify_title">Сповіщати про заблоковане повідомлення</string>

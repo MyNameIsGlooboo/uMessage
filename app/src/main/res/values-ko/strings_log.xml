@@ -32,7 +32,7 @@
     <string name="declog_fixed_blocked">기록에서 이 발신자를 차단했어요.</string>
     <string name="declog_fixed_restored">기록에서 이 메시지를 복원했어요.</string>
     <string name="declog_restored">복원됨</string>
-    <string name="declog_blocked_message">아직 차단함에 있는 메시지</string>
+    <string name="declog_blocked_message">아직 스팸함에 있는 메시지</string>
     <string name="declog_restore">메시지 복원</string>
     <string name="declog_restore_done">메시지를 받은 메시지함으로 복원했어요.</string>
     <string name="declog_restore_text_only">텍스트를 받은 메시지함으로 복원했어요. 사진은 복원하지 못했어요.</string>

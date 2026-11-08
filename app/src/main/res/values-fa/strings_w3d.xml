@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="w3d_mask_codes">پوشاندن کدها در پیام‌های بازارسال‌شده</string>
-    <string name="w3d_mask_codes_body">کدهای بازارسال‌شده به‌شکل **** نمایش داده می‌شوند</string>
+    <string name="w3d_mask_codes">پوشاندن کدها در پیام‌های فوروارد‌شده</string>
+    <string name="w3d_mask_codes_body">کدهای فوروارد‌شده به‌شکل **** نمایش داده می‌شوند</string>
     <string name="w3d_mask_keep_last">نگه داشتن دو رقم آخر</string>
-    <string name="w3d_mask_keep_last_on">در بازارسال‌ها مثلاً **34 نمایش داده می‌شود.</string>
-    <string name="w3d_mask_keep_last_off">در بازارسال‌ها کل کد پنهان می‌شود.</string>
-    <string name="w3d_daily_limit">سقف روزانهٔ بازارسال</string>
-    <string name="w3d_daily_limit_body">بیشترین تعداد بازارسال در روز</string>
+    <string name="w3d_mask_keep_last_on">در فوروارد‌ها مثلاً **34 نمایش داده می‌شود.</string>
+    <string name="w3d_mask_keep_last_off">در فوروارد‌ها کل کد پنهان می‌شود.</string>
+    <string name="w3d_daily_limit">سقف روزانهٔ فوروارد</string>
+    <string name="w3d_daily_limit_body">بیشترین تعداد فوروارد در روز</string>
     <string name="w3d_hide_lock_codes">پنهان کردن کدها در صفحهٔ قفل</string>
 </resources>

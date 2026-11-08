@@ -3,8 +3,8 @@
     <string name="lock_scope_title">کیا لاک کریں</string>
     <string name="lock_scope_whole">پوری ایپ</string>
     <string name="lock_scope_chosen">صرف منتخب حصے</string>
-    <string name="lock_scope_chosen_long">صرف منتخب حصے: بلاک شدہ ٹیب اور چھپی ہوئی چیٹس</string>
-    <string name="lock_scope_blocked_title">بلاک شدہ پیغامات لاک ہیں</string>
+    <string name="lock_scope_chosen_long">صرف منتخب حصے: اسپیم ٹیب اور چھپی ہوئی چیٹس</string>
+    <string name="lock_scope_blocked_title">اسپیم لاک ہے</string>
     <string name="lock_scope_blocked_body">انہیں دیکھنے کے لیے ان لاک کریں۔</string>
     <string name="lock_scope_unlock">ان لاک کریں</string>
 </resources>

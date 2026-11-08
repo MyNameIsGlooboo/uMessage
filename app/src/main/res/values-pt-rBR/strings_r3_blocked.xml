@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">O uMessage reteve estas mensagens. Elas não estão na sua caixa de entrada.</string>
     <string name="r3b_thread_delete_all">Exclua todas as mensagens de %1$s</string>
     <string name="r3b_thread_empty_title">Não há mais nada aqui</string>
-    <string name="r3b_thread_empty_body">Este remetente não tem mensagens bloqueadas agora.</string>
+    <string name="r3b_thread_empty_body">Este remetente não tem mensagens de spam agora.</string>
     <string name="r3b_message_actions">Ações da mensagem</string>
     <string name="r3b_why_blocked">Motivo do bloqueio</string>
     <string name="r3b_copy_text">Copie o texto</string>
@@ -14,7 +14,7 @@
     <string name="r3b_delete_message">Exclua</string>
     <string name="r3b_received">Recebida em %1$s</string>
     <plurals name="r3b_info_purge" tools:ignore="ImpliedQuantity">
-        <item quantity="one">As mensagens bloqueadas são excluídas após %d dia.</item>
-        <item quantity="other">As mensagens bloqueadas são excluídas após %d dias.</item>
+        <item quantity="one">O spam é excluído após %d dia.</item>
+        <item quantity="other">O spam é excluído após %d dias.</item>
     </plurals>
 </resources>

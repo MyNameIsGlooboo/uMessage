@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">Einstellungen zum Blockieren</string>
     <string name="spam_blocked_stats_totals">%1$d insgesamt blockiert, %2$d wiederhergestellt</string>
     <string name="spam_blocked_header_cd">%1$d Spam-Nachrichten in den letzten 7 Tagen blockiert. %2$d insgesamt blockiert, %3$d wiederhergestellt.</string>
-    <string name="spam_blocked_empty_title">Noch nichts blockiert</string>
+    <string name="spam_blocked_empty_title">Noch nichts unter „Spam“</string>
     <string name="spam_action_delete">Löschen</string>
     <string name="spam_select">Auswählen</string>
     <string name="spam_action_select_all">Alle auswählen</string>
@@ -38,7 +38,7 @@
     <string name="spam_rules_empty_allowed_title">Keine Regeln zum Erlauben</string>
     <string name="spam_rules_empty_allowed_body">Alles, was du erlaubst, landet immer in deinem Posteingang, auch im Modus „Streng“. Füge eine Nummer, einen Absendernamen oder ein Schlüsselwort hinzu.</string>
     <string name="spam_rules_empty_blocked_title">Keine Regeln zum Blockieren</string>
-    <string name="spam_rules_empty_blocked_body">Blockiere eine Nummer, eine Vorwahl, einen Absendernamen, ein Schlüsselwort oder ein Muster (Regex). Blockierte Nachrichten landen im Ordner „Blockiert“.</string>
+    <string name="spam_rules_empty_blocked_body">Blockiere eine Nummer, eine Vorwahl, einen Absendernamen, ein Schlüsselwort oder ein Muster (Regex). Ihre Nachrichten landen unter „Spam“.</string>
     <string name="spam_rules_delete_rule">Regel %s löschen</string>
     <string name="spam_rules_deleted">Regel gelöscht</string>
     <plurals name="spam_rules_imported">
@@ -109,10 +109,10 @@
     <string name="spam_mode_off">Aus</string>
     <string name="spam_mode_off_body">Blockiert keine unbekannten Absender</string>
     <string name="spam_strict_warning_title">„Streng“ kann wichtige Nachrichten ausblenden</string>
-    <string name="spam_strict_warning_body">Nachrichten von Banken und Lieferdiensten sowie Einmalcodes kommen meist von Absendern, die nicht in deinen Kontakten sind. Im Modus „Streng“ landen sie im Ordner „Blockiert“, auch Codes. Wähle „Intelligent“, um Codes durchzulassen, oder erlaube diese Absender einmalig.</string>
-    <string name="spam_strict_warning_action">Blockierte Nachrichten prüfen</string>
+    <string name="spam_strict_warning_body">Nachrichten von Banken und Lieferdiensten sowie Einmalcodes kommen meist von Absendern, die nicht in deinen Kontakten sind. Im Modus „Streng“ landen sie unter „Spam“, auch Codes. Wähle „Intelligent“, um Codes durchzulassen, oder erlaube diese Absender einmalig.</string>
+    <string name="spam_strict_warning_action">Spam prüfen</string>
     <string name="spam_settings_cleanup_title">Aufräumen</string>
-    <string name="spam_purge_body">Alte blockierte Nachrichten werden automatisch entfernt.</string>
+    <string name="spam_purge_body">Alter Spam wird automatisch entfernt.</string>
     <string name="spam_purge_days">%d Tagen</string>
     <string name="spam_purge_forever">Nie</string>
     <string name="spam_notify_title">Bei blockierter Nachricht benachrichtigen</string>

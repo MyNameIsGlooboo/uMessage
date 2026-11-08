@@ -7,11 +7,11 @@
     <string name="main_search_no_results">কোনো ফলাফল পাওয়া যায়নি</string>
     <string name="main_settings">সেটিংস</string>
     <string name="main_tab_messages">বার্তা</string>
-    <string name="main_tab_blocked">ব্লক করা</string>
+    <string name="main_tab_blocked">স্প্যাম</string>
     <string name="main_tab_archived">আর্কাইভ করা</string>
     <plurals name="main_tab_blocked_new" tools:ignore="ImpliedQuantity">
-        <item quantity="one">ব্লক করা, %dটি নতুন</item>
-        <item quantity="other">ব্লক করা, %dটি নতুন</item>
+        <item quantity="one">স্প্যাম, %dটি নতুন</item>
+        <item quantity="other">স্প্যাম, %dটি নতুন</item>
     </plurals>
     <string name="main_permission_title">অনুমতি প্রয়োজন</string>
     <string name="main_permission_grant">অনুমতি দিন</string>

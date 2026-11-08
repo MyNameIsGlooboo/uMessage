@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">Impostazioni di blocco</string>
     <string name="spam_blocked_stats_totals">%1$d bloccati in totale, %2$d ripristinati</string>
     <string name="spam_blocked_header_cd">%1$d messaggi spam bloccati negli ultimi 7 giorni. %2$d bloccati in totale, %3$d ripristinati.</string>
-    <string name="spam_blocked_empty_title">Nessun messaggio bloccato</string>
+    <string name="spam_blocked_empty_title">Ancora nulla in Spam</string>
     <string name="spam_action_delete">Elimina</string>
     <string name="spam_select">Seleziona</string>
     <string name="spam_action_select_all">Seleziona tutto</string>
@@ -38,7 +38,7 @@
     <string name="spam_rules_empty_allowed_title">Nessuna regola di consenso</string>
     <string name="spam_rules_empty_allowed_body">Tutto ciò che consenti arriva sempre in In arrivo, anche in modalità rigorosa. Aggiungi un numero, un nome mittente o una parola chiave.</string>
     <string name="spam_rules_empty_blocked_title">Nessuna regola di blocco</string>
-    <string name="spam_rules_empty_blocked_body">Blocca un numero, un prefisso, un nome mittente, una parola chiave o un\'espressione regolare. I messaggi bloccati finiscono nella cartella Messaggi bloccati.</string>
+    <string name="spam_rules_empty_blocked_body">Blocca un numero, un prefisso, un nome mittente, una parola chiave o un\'espressione regolare. I loro messaggi finiscono in Spam.</string>
     <string name="spam_rules_delete_rule">Elimina regola %s</string>
     <string name="spam_rules_deleted">Regola eliminata</string>
     <plurals name="spam_rules_imported">
@@ -109,10 +109,10 @@
     <string name="spam_mode_off">Disattivata</string>
     <string name="spam_mode_off_body">Nessun blocco dei mittenti sconosciuti</string>
     <string name="spam_strict_warning_title">La modalità rigorosa può nascondere messaggi importanti</string>
-    <string name="spam_strict_warning_body">I messaggi di banche e corrieri e i codici monouso arrivano di solito da mittenti che non sono nei tuoi contatti. In modalità rigorosa finiscono nella cartella Messaggi bloccati, codici inclusi. Scegli la modalità intelligente per lasciar passare i codici, oppure consenti quei mittenti una volta per tutte.</string>
-    <string name="spam_strict_warning_action">Controlla i messaggi bloccati</string>
+    <string name="spam_strict_warning_body">I messaggi di banche e corrieri e i codici monouso arrivano di solito da mittenti che non sono nei tuoi contatti. In modalità rigorosa finiscono in Spam, codici inclusi. Scegli la modalità intelligente per lasciar passare i codici, oppure consenti quei mittenti una volta per tutte.</string>
+    <string name="spam_strict_warning_action">Controlla Spam</string>
     <string name="spam_settings_cleanup_title">Pulizia</string>
-    <string name="spam_purge_body">I vecchi messaggi bloccati vengono rimossi automaticamente.</string>
+    <string name="spam_purge_body">Il vecchio spam viene rimosso automaticamente.</string>
     <string name="spam_purge_days">%d giorni</string>
     <string name="spam_purge_forever">Mai</string>
     <string name="spam_notify_title">Avvisa quando un messaggio viene bloccato</string>

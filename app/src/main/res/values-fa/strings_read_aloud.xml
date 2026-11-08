@@ -5,5 +5,5 @@
     <string name="read_aloud_no_voice">هیچ صدایی برای زبان %1$s روی این گوشی نصب نیست</string>
     <string name="read_aloud_install">دریافت صدا</string>
     <string name="read_aloud_install_missing">این گوشی امکان نصب صدا ندارد</string>
-    <string name="read_aloud_failed">خواندن پیام با صدای بلند ممکن نشد</string>
+    <string name="read_aloud_failed">خواندن پیام با صدای بلند نشد</string>
 </resources>

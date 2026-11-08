@@ -12,7 +12,7 @@
     <string name="sks_rules">regras permita bloqueie lista palavra-chave padrão expressão regular remetente número lista permitida lista de bloqueio</string>
     <string name="sks_blocked_numbers">bloqueados números lista de bloqueio telefone contatos Android lista de bloqueio</string>
     <string name="sks_decision_log">registro histórico motivo bloqueado atividade recente</string>
-    <string name="sks_purge">exclua bloqueados antigos remova limpe automático dias limpeza retenção</string>
+    <string name="sks_purge">exclua spam bloqueados antigos remova limpe automático dias limpeza retenção</string>
     <string name="sks_region">país região fora estrangeiro internacional exterior bloqueie</string>
     <string name="sks_links">links URLs perigosos phishing segurança bloqueio web</string>
     <string name="sks_carrier_report">operadora denuncie operadora encaminhe 7726 provedor spam</string>

@@ -3,7 +3,7 @@
     <string name="convx_code_chip">कोड %1$s</string>
     <string name="convx_code_copy">कॉपी करें</string>
     <string name="convx_block_archive">ब्लॉक करें और संग्रहित करें</string>
-    <string name="convx_block_archive_hint">आगे आने वाले मैसेज ब्लॉक किए गए में जाएंगे. आपके फ़ोन से कुछ भी बाहर नहीं जाता.</string>
+    <string name="convx_block_archive_hint">आगे आने वाले मैसेज स्पैम में जाएंगे. आपके फ़ोन से कुछ भी बाहर नहीं जाता.</string>
     <string name="convx_name_label">नाम</string>
     <string name="convx_clear">साफ़ करें</string>
     <string name="convx_reset_name">डिफ़ॉल्ट नाम वापस लाएं</string>

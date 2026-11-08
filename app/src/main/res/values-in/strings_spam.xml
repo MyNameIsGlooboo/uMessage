@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">Setelan blokir</string>
     <string name="spam_blocked_stats_totals">Total %1$d dicegah, %2$d dipulihkan</string>
     <string name="spam_blocked_header_cd">%1$d spam dicegah dalam 7 hari terakhir. Total %2$d dicegah, %3$d dipulihkan.</string>
-    <string name="spam_blocked_empty_title">Belum ada yang diblokir</string>
+    <string name="spam_blocked_empty_title">Belum ada di Spam</string>
     <string name="spam_action_delete">Hapus</string>
     <string name="spam_select">Pilih</string>
     <string name="spam_action_select_all">Pilih semua</string>
@@ -36,7 +36,7 @@
     <string name="spam_rules_empty_allowed_title">Belum ada aturan diizinkan</string>
     <string name="spam_rules_empty_allowed_body">Apa pun yang diizinkan selalu masuk ke kotak masuk, bahkan dalam mode filter ketat. Tambahkan nomor, nama pengirim, atau kata kunci.</string>
     <string name="spam_rules_empty_blocked_title">Belum ada aturan blokir</string>
-    <string name="spam_rules_empty_blocked_body">Blokir nomor, awalan nomor, nama pengirim, kata kunci, atau pola (regex). Pesan yang diblokir masuk ke folder Diblokir.</string>
+    <string name="spam_rules_empty_blocked_body">Blokir nomor, awalan nomor, nama pengirim, kata kunci, atau pola (regex). Pesan mereka masuk ke Spam.</string>
     <string name="spam_rules_delete_rule">Hapus aturan %s</string>
     <string name="spam_rules_deleted">Aturan dihapus</string>
     <plurals name="spam_rules_imported">
@@ -102,10 +102,10 @@
     <string name="spam_mode_off">Nonaktif</string>
     <string name="spam_mode_off_body">Pengirim tidak dikenal tidak diblokir</string>
     <string name="spam_strict_warning_title">Mode filter ketat bisa menyembunyikan pesan penting</string>
-    <string name="spam_strict_warning_body">Pesan bank, jasa pengiriman, dan kode sekali pakai biasanya berasal dari pengirim yang tidak ada di kontak. Dalam mode filter ketat, semuanya masuk ke folder Diblokir, termasuk kode. Pilih Cerdas agar kode tetap masuk, atau cukup izinkan pengirim tersebut sekali.</string>
-    <string name="spam_strict_warning_action">Tinjau pesan diblokir</string>
+    <string name="spam_strict_warning_body">Pesan bank, jasa pengiriman, dan kode sekali pakai biasanya berasal dari pengirim yang tidak ada di kontak. Dalam mode filter ketat, semuanya masuk ke Spam, termasuk kode. Pilih Cerdas agar kode tetap masuk, atau cukup izinkan pengirim tersebut sekali.</string>
+    <string name="spam_strict_warning_action">Tinjau Spam</string>
     <string name="spam_settings_cleanup_title">Bersihkan</string>
-    <string name="spam_purge_body">Pesan lama yang diblokir dihapus otomatis.</string>
+    <string name="spam_purge_body">Spam lama dihapus otomatis.</string>
     <string name="spam_purge_days">%d hari</string>
     <string name="spam_purge_forever">Tidak pernah</string>
     <string name="spam_notify_title">Beri tahu saat pesan diblokir</string>

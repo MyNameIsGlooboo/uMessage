@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onb_purge_question">Combien de temps conserver les messages bloqués ?</string>
+    <string name="onb_purge_question">Combien de temps conserver le spam ?</string>
 </resources>

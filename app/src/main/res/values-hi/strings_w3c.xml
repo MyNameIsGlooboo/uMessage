@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">चेकलिस्ट बंद करें</string>
     <string name="w3c_checklist_step_sms">uMessage को अपना डिफ़ॉल्ट एसएमएस ऐप बनाएं</string>
     <string name="w3c_checklist_step_notifications">सूचनाएं चालू करें</string>
-    <string name="w3c_checklist_step_blocked">ब्लॉक किए गए टैब देखें</string>
+    <string name="w3c_checklist_step_blocked">स्पैम टैब देखें</string>
     <string name="w3c_checklist_step_forward">वैकल्पिक: दूसरे नंबर पर मैसेज फ़ॉरवर्ड करें</string>
     <string name="w3c_checklist_step_done">पूरा हुआ</string>
     <string name="w3c_checklist_action_set">सेट करें</string>
     <string name="w3c_checklist_action_open">खोलें</string>
     <string name="w3c_receipt_title">स्पैम रोका गया: देखने के लिए टैप करें</string>
-    <string name="w3c_receipt_body">अनजान भेजने वाले का एक मैसेज ब्लॉक किए गए टैब में रोका गया है. वह खोया नहीं है: आप उसे कभी भी देख सकते हैं और वापस ला सकते हैं.</string>
+    <string name="w3c_receipt_body">अनजान भेजने वाले का एक मैसेज स्पैम में रोका गया है. वह खोया नहीं है: आप उसे कभी भी देख सकते हैं और वापस ला सकते हैं.</string>
     <string name="w3c_receipt_review">देखें</string>
     <string name="w3c_receipt_got_it">समझ गए</string>
     <string name="w3c_new_paste">नंबर पेस्ट करें</string>

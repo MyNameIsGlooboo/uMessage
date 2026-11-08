@@ -12,7 +12,7 @@
     <string name="sks_rules">kurallar izin verin engelleyin liste anahtar kelime düzenli ifade regex gönderen numara beyaz liste kara liste</string>
     <string name="sks_blocked_numbers">engellendi numaralar engellenenler listesi telefon kişiler Android kara liste</string>
     <string name="sks_decision_log">günlük geçmiş neden engellendi etkinlik son</string>
-    <string name="sks_purge">silin engellendi eski kaldır temizle otomatik gün temizlik saklama</string>
+    <string name="sks_purge">silin spam engellendi eski kaldır temizle otomatik gün temizlik saklama</string>
     <string name="sks_region">ülke bölge dış yabancı uluslararası yurt dışı engelleyin</string>
     <string name="sks_links">bağlantılar URL riskli kimlik avı güvenlik kilit web</string>
     <string name="sks_carrier_report">operatör bildirin iletin 7726 sağlayıcı spam</string>

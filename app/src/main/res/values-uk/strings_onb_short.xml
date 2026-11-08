@@ -4,7 +4,7 @@
     <string name="onb_allow_done">Готово</string>
     <string name="onb_allow_needed">Потрібно</string>
     <string name="onb_allow_all_set">Усе готово</string>
-    <string name="onb_mode_strict_short">Усе в «Заблоковані»</string>
+    <string name="onb_mode_strict_short">Усе в «Спам»</string>
     <string name="onb_mode_smart_short">Затримувати, але пропускати коди</string>
     <string name="onb_mode_off_short">Не фільтрувати</string>
 </resources>

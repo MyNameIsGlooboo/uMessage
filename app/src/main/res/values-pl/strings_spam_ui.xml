@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="spam_ui_delete_all">Usuń wszystkie</string>
-    <string name="spam_ui_delete_all_title">Usunąć wszystkie zablokowane wiadomości?</string>
+    <string name="spam_ui_delete_all_title">Usunąć cały spam?</string>
     <plurals name="spam_ui_delete_all_message">
-        <item quantity="one">%1$d zablokowana wiadomość zostanie usunięta. Możesz to cofnąć zaraz po usunięciu.</item>
-        <item quantity="few">%1$d zablokowane wiadomości zostaną usunięte. Możesz to cofnąć zaraz po usunięciu.</item>
-        <item quantity="many">%1$d zablokowanych wiadomości zostanie usuniętych. Możesz to cofnąć zaraz po usunięciu.</item>
-        <item quantity="other">Zostanie usunięte %1$d zablokowanej wiadomości. Możesz to cofnąć zaraz po usunięciu.</item>
+        <item quantity="one">%1$d wiadomość zostanie usunięta. Możesz to cofnąć zaraz po usunięciu.</item>
+        <item quantity="few">%1$d wiadomości zostaną usunięte. Możesz to cofnąć zaraz po usunięciu.</item>
+        <item quantity="many">%1$d wiadomości zostanie usuniętych. Możesz to cofnąć zaraz po usunięciu.</item>
+        <item quantity="other">Zostanie usunięte %1$d wiadomości. Możesz to cofnąć zaraz po usunięciu.</item>
     </plurals>
     <string name="declog_ui_clear_title">Wyczyścić historię decyzji?</string>
-    <string name="declog_ui_clear_message">Wszystkie zapisane decyzje zostaną usunięte. Zablokowane wiadomości i reguły pozostaną bez zmian.</string>
+    <string name="declog_ui_clear_message">Wszystkie zapisane decyzje zostaną usunięte. Spam i reguły pozostaną bez zmian.</string>
     <string name="declog_ui_clear_action">Wyczyść</string>
     <string name="ui_log_reason_contacts_unavailable">Nie można odczytać kontaktów</string>
     <string name="blocknum_title">Zablokowane numery</string>

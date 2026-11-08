@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">সিস্টেমের ডিফল্ট</string>
     <string name="settings_f_group_rules">নিয়ম ও তালিকা</string>
     <string name="settings_f_spam_more">রাখার মেয়াদ ও সতর্কতা</string>
-    <string name="settings_f_spam_more_body">ব্লক করা বার্তা কতদিন রাখা হবে ও সতর্কতা</string>
+    <string name="settings_f_spam_more_body">স্প্যাম কতদিন রাখা হবে ও সতর্কতা</string>
     <string name="settings_f_hide_lock_codes_body">লক স্ক্রিনে কোড •••• হিসেবে দেখানো হবে</string>
     <string name="settings_f_code_alert">কোডের সতর্কতা</string>
     <string name="settings_f_code_alert_body">যাচাইকরণ কোডের শব্দ</string>

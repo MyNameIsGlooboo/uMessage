@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onb_purge_question">Berapa lama pesan diblokir disimpan?</string>
+    <string name="onb_purge_question">Berapa lama spam disimpan?</string>
 </resources>

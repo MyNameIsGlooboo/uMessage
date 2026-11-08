@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessage bu mesajları bekletti. Gelen kutunuzda değiller.</string>
     <string name="r3b_thread_delete_all">%1$s tarafından gönderilen tüm mesajları silin</string>
     <string name="r3b_thread_empty_title">Burada hiçbir şey kalmadı</string>
-    <string name="r3b_thread_empty_body">Bu gönderenin artık engellenen mesajı yok.</string>
+    <string name="r3b_thread_empty_body">Bu gönderenin artık spam mesajı yok.</string>
     <string name="r3b_message_actions">Mesaj işlemleri</string>
     <string name="r3b_why_blocked">Neden engellendi?</string>
     <string name="r3b_copy_text">Metni kopyalayın</string>
@@ -14,7 +14,7 @@
     <string name="r3b_delete_message">Silin</string>
     <string name="r3b_received">Alınma zamanı: %1$s</string>
     <plurals name="r3b_info_purge">
-        <item quantity="one">Engellenen mesajlar %d gün sonra silinir.</item>
-        <item quantity="other">Engellenen mesajlar %d gün sonra silinir.</item>
+        <item quantity="one">Spam %d gün sonra silinir.</item>
+        <item quantity="other">Spam %d gün sonra silinir.</item>
     </plurals>
 </resources>

@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">Predefinita di sistema</string>
     <string name="settings_f_group_rules">Regole ed elenchi</string>
     <string name="settings_f_spam_more">Conservazione e avvisi</string>
-    <string name="settings_f_spam_more_body">Durata di conservazione dei messaggi bloccati e avvisi</string>
+    <string name="settings_f_spam_more_body">Durata di conservazione dello spam e avvisi</string>
     <string name="settings_f_hide_lock_codes_body">I codici appaiono come •••• nella schermata di blocco</string>
     <string name="settings_f_code_alert">Avviso codici</string>
     <string name="settings_f_code_alert_body">Suono per i codici di verifica</string>

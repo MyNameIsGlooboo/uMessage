@@ -18,9 +18,9 @@
     <string name="thread_menu_block">Chặn người gửi</string>
     <string name="thread_menu_unblock">Bỏ chặn người gửi</string>
     <string name="thread_block_title">Chặn người gửi?</string>
-    <string name="thread_block_message">Chặn %1$s? Tin nhắn mới từ người gửi này sẽ vào mục Tin nhắn đã chặn thay vì hộp thư đến của bạn. Bạn vẫn có thể đọc hoặc khôi phục tin nhắn tại đó. Không có gì được gửi cho bất kỳ ai. Tin nhắn hiện có trong cuộc trò chuyện này vẫn được giữ lại.</string>
+    <string name="thread_block_message">Chặn %1$s? Tin nhắn mới từ người gửi này sẽ vào mục Tin rác thay vì hộp thư đến của bạn. Bạn vẫn có thể đọc hoặc khôi phục tin nhắn tại đó. Không có gì được gửi cho bất kỳ ai. Tin nhắn hiện có trong cuộc trò chuyện này vẫn được giữ lại.</string>
     <string name="thread_block_confirm">Chặn</string>
-    <string name="thread_block_done">Đã chặn. Tin nhắn mới sẽ vào mục Tin nhắn đã chặn</string>
+    <string name="thread_block_done">Đã chặn. Tin nhắn mới sẽ vào mục Tin rác</string>
     <string name="thread_block_failed">Không thể chặn người gửi này</string>
     <string name="thread_unblock_done">Đã bỏ chặn. Tin nhắn mới sẽ vào hộp thư đến của bạn</string>
     <string name="thread_unblock_done_system">Đã bỏ chặn trong uMessage. Số này cũng nằm trong danh sách chặn trên điện thoại của bạn nên Android vẫn chặn tin nhắn từ số này</string>

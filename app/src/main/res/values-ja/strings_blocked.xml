@@ -28,19 +28,19 @@
     <string name="spam_reason_rule_removed">判定に使ったルールは削除済み</string>
     <string name="spam_reason_open_rules">ルールを開く</string>
     <plurals name="spam_purge_notice">
-        <item quantity="other">ブロック済みのメッセージは%d日後に削除されます。</item>
+        <item quantity="other">迷惑メッセージは%d日後に削除されます。</item>
     </plurals>
     <plurals name="spam_purge_left">
         <item quantity="other">%d日後に削除されます。</item>
     </plurals>
     <string name="spam_purge_left_today">今日削除されます。</string>
     <plurals name="convlist_reported_spam_archived">
-        <item quantity="other">%d件の会話を報告しました。今後のメッセージは「ブロック済み」に入り、会話はアーカイブされます。</item>
+        <item quantity="other">%d件の会話を報告しました。今後のメッセージは「迷惑メッセージ」に入り、会話はアーカイブされます。</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="other">%d件の会話を報告しました。今後のメッセージは「ブロック済み」に入ります。</item>
+        <item quantity="other">%d件の会話を報告しました。今後のメッセージは「迷惑メッセージ」に入ります。</item>
     </plurals>
-    <string name="blocked_title">ブロック済み</string>
+    <string name="blocked_title">迷惑メッセージ</string>
     <string name="blocked_snack_mode">不明な送信者の設定を「%1$s」に変更しました。</string>
     <string name="blocked_stats_restored">自分で復元した件数：%1$d</string>
     <string name="blocked_reason_unknown_link">不明な送信者、リンクあり</string>

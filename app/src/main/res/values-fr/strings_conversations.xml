@@ -14,11 +14,11 @@
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">Défilement rapide</string>
     <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d message bloqué</item>
-        <item quantity="other">%d messages bloqués</item>
+        <item quantity="one">%d message de spam</item>
+        <item quantity="other">%d messages de spam</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">Messages bloqués</string>
-    <string name="convlist_blocked_banner_cd">%1$d messages bloqués. Ouvrir le dossier des messages bloqués.</string>
+    <string name="convlist_blocked_banner_title">Spam</string>
+    <string name="convlist_blocked_banner_cd">%1$d messages de spam. Ouvrir le dossier Spam.</string>
     <string name="convlist_archive">Archiver</string>
     <string name="convlist_delete">Supprimer</string>
     <string name="convlist_pin">Épingler en haut</string>
@@ -47,12 +47,12 @@
         <item quantity="other">%d conversations archivées</item>
     </plurals>
     <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Bloqué. Les nouveaux messages iront dans Messages bloqués</item>
-        <item quantity="other">%d expéditeurs bloqués. Les nouveaux messages iront dans Messages bloqués</item>
+        <item quantity="one">Bloqué. Les nouveaux messages iront dans Spam</item>
+        <item quantity="other">%d expéditeurs bloqués. Les nouveaux messages iront dans Spam</item>
     </plurals>
     <string name="convlist_action_failed">Une erreur s\'est produite</string>
     <string name="convlist_block_title">Bloquer le numéro ?</string>
-    <string name="convlist_block_message">Bloquer %1$s ? Ses nouveaux messages iront dans Messages bloqués au lieu de votre boîte de réception. Vous pourrez toujours les y lire ou les restaurer.</string>
+    <string name="convlist_block_message">Bloquer %1$s ? Ses nouveaux messages iront dans Spam au lieu de votre boîte de réception. Vous pourrez toujours les y lire ou les restaurer.</string>
     <string name="convlist_block_confirm">Bloquer</string>
     <string name="convlist_rename_title">Renommer la conversation</string>
     <string name="convlist_cancel">Annuler</string>

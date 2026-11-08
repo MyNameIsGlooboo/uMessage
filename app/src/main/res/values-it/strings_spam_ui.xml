@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="spam_ui_delete_all">Elimina tutti</string>
-    <string name="spam_ui_delete_all_title">Eliminare tutti i messaggi bloccati?</string>
+    <string name="spam_ui_delete_all_title">Eliminare tutto lo spam?</string>
     <plurals name="spam_ui_delete_all_message">
-        <item quantity="one">Verrà eliminato %1$d messaggio bloccato. Puoi annullare subito dopo.</item>
-        <item quantity="other">Verranno eliminati %1$d messaggi bloccati. Puoi annullare subito dopo.</item>
+        <item quantity="one">Verrà eliminato %1$d messaggio. Puoi annullare subito dopo.</item>
+        <item quantity="other">Verranno eliminati %1$d messaggi. Puoi annullare subito dopo.</item>
     </plurals>
     <string name="declog_ui_clear_title">Svuotare il registro delle decisioni?</string>
-    <string name="declog_ui_clear_message">Tutte le decisioni registrate verranno eliminate. I messaggi bloccati e le regole restano invariati.</string>
+    <string name="declog_ui_clear_message">Tutte le decisioni registrate verranno eliminate. Lo spam e le regole restano invariati.</string>
     <string name="declog_ui_clear_action">Svuota</string>
     <string name="ui_log_reason_contacts_unavailable">Contatti non leggibili</string>
     <string name="blocknum_title">Numeri bloccati</string>

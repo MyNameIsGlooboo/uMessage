@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="spam_ui_delete_all">Видалити все</string>
-    <string name="spam_ui_delete_all_title">Видалити всі заблоковані повідомлення?</string>
+    <string name="spam_ui_delete_all_title">Видалити весь спам?</string>
     <plurals name="spam_ui_delete_all_message" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Буде видалено %1$d заблоковане повідомлення. Одразу після цього дію можна скасувати.</item>
-        <item quantity="few">Буде видалено %1$d заблоковані повідомлення. Одразу після цього дію можна скасувати.</item>
-        <item quantity="many">Буде видалено %1$d заблокованих повідомлень. Одразу після цього дію можна скасувати.</item>
-        <item quantity="other">Буде видалено %1$d заблокованого повідомлення. Одразу після цього дію можна скасувати.</item>
+        <item quantity="one">Буде видалено %1$d повідомлення. Одразу після цього дію можна скасувати.</item>
+        <item quantity="few">Буде видалено %1$d повідомлення. Одразу після цього дію можна скасувати.</item>
+        <item quantity="many">Буде видалено %1$d повідомлень. Одразу після цього дію можна скасувати.</item>
+        <item quantity="other">Буде видалено %1$d повідомлення. Одразу після цього дію можна скасувати.</item>
     </plurals>
     <string name="declog_ui_clear_title">Очистити журнал рішень?</string>
-    <string name="declog_ui_clear_message">Усі записані рішення буде видалено. Заблоковані повідомлення та правила залишаться без змін.</string>
+    <string name="declog_ui_clear_message">Усі записані рішення буде видалено. Спам і правила залишаться без змін.</string>
     <string name="declog_ui_clear_action">Очистити</string>
     <string name="ui_log_reason_contacts_unavailable">Не вдалося прочитати контакти</string>
     <string name="blocknum_title">Заблоковані номери</string>

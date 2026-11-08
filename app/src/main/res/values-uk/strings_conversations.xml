@@ -14,13 +14,13 @@
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">Швидке прокручування</string>
     <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d заблоковане повідомлення</item>
-        <item quantity="few">%d заблоковані повідомлення</item>
-        <item quantity="many">%d заблокованих повідомлень</item>
-        <item quantity="other">%d заблокованого повідомлення</item>
+        <item quantity="one">%d спам-повідомлення</item>
+        <item quantity="few">%d спам-повідомлення</item>
+        <item quantity="many">%d спам-повідомлень</item>
+        <item quantity="other">%d спам-повідомлення</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">Заблоковані повідомлення</string>
-    <string name="convlist_blocked_banner_cd">Заблокованих повідомлень: %1$d. Відкрийте папку «Заблоковані».</string>
+    <string name="convlist_blocked_banner_title">Спам</string>
+    <string name="convlist_blocked_banner_cd">Спам-повідомлень: %1$d. Відкрийте папку «Спам».</string>
     <string name="convlist_archive">Заархівувати</string>
     <string name="convlist_delete">Видалити</string>
     <string name="convlist_pin">Закріпити вгорі</string>
@@ -55,14 +55,14 @@
         <item quantity="other">Заархівовано %d чату</item>
     </plurals>
     <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Заблоковано. Нові повідомлення потраплятимуть до папки «Заблоковані повідомлення»</item>
-        <item quantity="few">Заблоковано %d відправники. Нові повідомлення потраплятимуть до папки «Заблоковані повідомлення»</item>
-        <item quantity="many">Заблоковано %d відправників. Нові повідомлення потраплятимуть до папки «Заблоковані повідомлення»</item>
-        <item quantity="other">Заблоковано %d відправника. Нові повідомлення потраплятимуть до папки «Заблоковані повідомлення»</item>
+        <item quantity="one">Заблоковано. Нові повідомлення потраплятимуть до папки «Спам»</item>
+        <item quantity="few">Заблоковано %d відправники. Нові повідомлення потраплятимуть до папки «Спам»</item>
+        <item quantity="many">Заблоковано %d відправників. Нові повідомлення потраплятимуть до папки «Спам»</item>
+        <item quantity="other">Заблоковано %d відправника. Нові повідомлення потраплятимуть до папки «Спам»</item>
     </plurals>
     <string name="convlist_action_failed">Щось пішло не так</string>
     <string name="convlist_block_title">Заблокувати номер?</string>
-    <string name="convlist_block_message">Заблокувати %1$s? Нові повідомлення з цього номера потраплятимуть до папки «Заблоковані повідомлення» замість вхідних. Там ви зможете їх прочитати або відновити.</string>
+    <string name="convlist_block_message">Заблокувати %1$s? Нові повідомлення з цього номера потраплятимуть до папки «Спам» замість вхідних. Там ви зможете їх прочитати або відновити.</string>
     <string name="convlist_block_confirm">Заблокувати</string>
     <string name="convlist_rename_title">Перейменувати чат</string>
     <string name="convlist_cancel">Скасувати</string>

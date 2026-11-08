@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">Domyślny język systemu</string>
     <string name="settings_f_group_rules">Reguły i listy</string>
     <string name="settings_f_spam_more">Czas przechowywania i alerty</string>
-    <string name="settings_f_spam_more_body">Czas przechowywania zablokowanych wiadomości i alerty</string>
+    <string name="settings_f_spam_more_body">Czas przechowywania spamu i alerty</string>
     <string name="settings_f_hide_lock_codes_body">Kody są wyświetlane jako •••• na ekranie blokady</string>
     <string name="settings_f_code_alert">Alert o kodzie</string>
     <string name="settings_f_code_alert_body">Dźwięk dla kodów weryfikacyjnych</string>

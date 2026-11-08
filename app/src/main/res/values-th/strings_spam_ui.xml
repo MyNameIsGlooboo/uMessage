@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="spam_ui_delete_all">ลบทั้งหมด</string>
-    <string name="spam_ui_delete_all_title">ลบข้อความที่บล็อกทั้งหมดไหม?</string>
+    <string name="spam_ui_delete_all_title">ลบสแปมทั้งหมดไหม?</string>
     <plurals name="spam_ui_delete_all_message">
-        <item quantity="other">จะลบข้อความที่บล็อก %1$d ข้อความ สามารถเลิกทำได้ทันทีหลังลบ</item>
+        <item quantity="other">จะลบสแปม %1$d ข้อความ สามารถเลิกทำได้ทันทีหลังลบ</item>
     </plurals>
     <string name="declog_ui_clear_title">ล้างบันทึกผลการกรองไหม?</string>
-    <string name="declog_ui_clear_message">จะลบผลการกรองที่บันทึกไว้ทั้งหมด ข้อความที่บล็อกและกฎจะยังอยู่เหมือนเดิม</string>
+    <string name="declog_ui_clear_message">จะลบผลการกรองที่บันทึกไว้ทั้งหมด สแปมและกฎจะยังอยู่เหมือนเดิม</string>
     <string name="declog_ui_clear_action">ล้าง</string>
     <string name="ui_log_reason_contacts_unavailable">อ่านรายชื่อติดต่อไม่ได้</string>
     <string name="blocknum_title">หมายเลขที่บล็อก</string>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">Gizli sohbetler kilitli</string>
+    <string name="backup_hidden_message">Gizli sohbetleriniz kilitli. Yedeğe eklemek için kilidi açın ya da onlar olmadan yedekleyin.</string>
+    <string name="backup_hidden_unlock">Kilidi aç</string>
+    <string name="backup_hidden_skip">Gizli sohbetleri atla</string>
+    <string name="backup_export_hidden_left_out">Dışarıda bırakılan gizli sohbetler: %d</string>
+</resources>

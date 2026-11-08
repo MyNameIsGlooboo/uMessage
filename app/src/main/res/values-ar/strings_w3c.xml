@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">أغلق قائمة المهام</string>
     <string name="w3c_checklist_step_sms">اجعل uMessage تطبيق الرسائل النصية الافتراضي</string>
     <string name="w3c_checklist_step_notifications">فعّل الإشعارات</string>
-    <string name="w3c_checklist_step_blocked">اطّلع على تبويب «المحظورة»</string>
+    <string name="w3c_checklist_step_blocked">اطّلع على تبويب «غير المرغوب فيها»</string>
     <string name="w3c_checklist_step_forward">اختياري: أعد توجيه الرسائل إلى رقم آخر</string>
     <string name="w3c_checklist_step_done">تم</string>
     <string name="w3c_checklist_action_set">عيّن</string>
     <string name="w3c_checklist_action_open">افتح</string>
     <string name="w3c_receipt_title">احتُجزت رسائل غير مرغوب فيها: اضغط للمراجعة</string>
-    <string name="w3c_receipt_body">احتُجزت رسالة من مرسل غير معروف في «المحظورة». لم تُفقد: يمكنك مراجعتها واستعادتها في أي وقت.</string>
+    <string name="w3c_receipt_body">احتُجزت رسالة من مرسل غير معروف في «غير المرغوب فيها». لم تُفقد: يمكنك مراجعتها واستعادتها في أي وقت.</string>
     <string name="w3c_receipt_review">راجع</string>
     <string name="w3c_receipt_got_it">فهمت</string>
     <string name="w3c_new_paste">الصق الرقم</string>

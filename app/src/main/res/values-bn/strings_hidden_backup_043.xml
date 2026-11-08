@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">লুকানো চ্যাট লক করা আছে</string>
+    <string name="backup_hidden_message">আপনার লুকানো চ্যাটগুলো লক করা আছে। ব্যাকআপে রাখতে আনলক করুন, অথবা এগুলো ছাড়াই ব্যাকআপ নিন।</string>
+    <string name="backup_hidden_unlock">আনলক করুন</string>
+    <string name="backup_hidden_skip">লুকানো চ্যাট বাদ দিন</string>
+    <string name="backup_export_hidden_left_out">বাদ দেওয়া লুকানো চ্যাট: %d</string>
+</resources>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="spam_engine_blocked_channel">Pesan diblokir</string>
-    <string name="spam_engine_blocked_title">Diblokir: %s</string>
-    <string name="spam_engine_blocked_public_title">Pesan diblokir</string>
-    <string name="spam_engine_mms_blocked">Pesan gambar (MMS) diblokir</string>
+    <string name="spam_engine_blocked_channel">Spam</string>
+    <string name="spam_engine_blocked_title">Spam: %s</string>
+    <string name="spam_engine_blocked_public_title">Pesan dikirim ke Spam</string>
+    <string name="spam_engine_mms_blocked">Pesan gambar (MMS) spam</string>
     <string name="spam_engine_regex_nested_repeat">Pola (regex) ini mengulang grup yang sudah berulang sehingga pemfilteran pesan bisa macet. Sederhanakan polanya.</string>
     <string name="spam_engine_regex_matches_empty">Pola (regex) ini cocok dengan semua pesan.</string>
     <string name="spam_engine_regex_invalid">Pola (regex) ini tidak valid.</string>

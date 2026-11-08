@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">أيقونات Material Symbols (حقوق النشر لشركة Google LLC) مرخّصة بموجب رخصة Apache، الإصدار 2.0. تُقدَّم الأيقونات كما هي، دون ضمان.</string>
     <string name="settings_nav_recommended">موصى به</string>
     <string name="settings_nav_strict_confirm_title">هل تريد حظر رموز التحقق أيضًا؟</string>
-    <string name="settings_nav_strict_confirm_body">في وضع التصفية الصارم، تنتقل الرموز من مرسلين غير مسجّلين في جهات اتصالك إلى «المحظورة» مع بقية الرسائل. تُحظر رسائل البنوك وشركات التوصيل أيضًا.</string>
+    <string name="settings_nav_strict_confirm_body">في وضع التصفية الصارم، تنتقل الرموز من مرسلين غير مسجّلين في جهات اتصالك إلى «غير المرغوب فيها» مع بقية الرسائل. تُحتجز رسائل البنوك وشركات التوصيل أيضًا.</string>
     <string name="settings_nav_strict_confirm_action">استخدم وضع التصفية الصارم</string>
     <string name="settings_nav_strict_confirm_cancel">أبقِ الوضع الحالي</string>
-    <string name="settings_nav_purge_row">احذف الرسائل المحظورة بعد</string>
+    <string name="settings_nav_purge_row">احذف الرسائل غير المرغوب فيها بعد</string>
     <string name="settings_nav_group_alerts">التنبيهات</string>
-    <string name="settings_nav_notify_body">إشعار صامت لكل رسالة محظورة</string>
+    <string name="settings_nav_notify_body">إشعار صامت لكل رسالة غير مرغوب فيها</string>
     <string name="settings_nav_theme_title">المظهر</string>
     <string name="settings_nav_theme_modes">الوضع</string>
     <string name="settings_nav_theme_colours">الألوان</string>

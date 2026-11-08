@@ -2,10 +2,10 @@
 <resources>
     <string name="region_group_title">کشورهای دیگر</string>
     <string name="region_title">نگه‌داشتن پیام‌های شماره‌های کشورهای دیگر</string>
-    <string name="region_summary">پیام‌های مخاطبان و کسانی که به آن‌ها پیام داده‌اید نگه داشته نمی‌شوند</string>
+    <string name="region_summary">پیام‌های مخاطب‌ها و کسانی که به آن‌ها پیام داده‌اید نگه داشته نمی‌شوند</string>
     <string name="region_off">خاموش</string>
     <string name="region_picker_title">کشور محل زندگی شما</string>
-    <string name="region_picker_body">پیام‌های شماره‌های کشورهای دیگر در پیام‌های مسدودشده نگه داشته می‌شوند، به‌جز مخاطبان و کسانی که به آن‌ها پیام داده‌اید. پیام‌های بستگان خارج از کشور هم اگر در مخاطبان نباشند، نگه داشته می‌شوند.</string>
+    <string name="region_picker_body">پیام‌های شماره‌های کشورهای دیگر در اسپم نگه داشته می‌شوند، به‌جز مخاطب‌ها و کسانی که به آن‌ها پیام داده‌اید. پیام‌های بستگان خارج از کشور هم اگر در مخاطب‌ها نباشند، نگه داشته می‌شوند. این فقط وقتی کار می‌کند که حالت «هوشمند» یا «سخت‌گیرانه» باشد.</string>
     <string name="region_picker_search">جستجو</string>
     <string name="region_reason_foreign">شماره‌ای از کشوری دیگر</string>
 </resources>

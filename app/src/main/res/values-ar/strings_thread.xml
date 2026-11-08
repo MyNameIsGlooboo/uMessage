@@ -23,9 +23,9 @@
     <string name="thread_menu_block">احظر المرسل</string>
     <string name="thread_menu_unblock">ألغِ حظر المرسل</string>
     <string name="thread_block_title">حظر المرسل؟</string>
-    <string name="thread_block_message">حظر %1$s؟ ستنتقل الرسائل الجديدة من هذا المرسل إلى الرسائل المحظورة بدلًا من الرسائل الواردة، ويمكنك قراءتها أو استعادتها هناك. لن يُرسل أي شيء إلى أحد. ستبقى الرسائل الموجودة في هذه المحادثة.</string>
+    <string name="thread_block_message">حظر %1$s؟ ستنتقل الرسائل الجديدة من هذا المرسل إلى «غير المرغوب فيها» بدلًا من الرسائل الواردة، ويمكنك قراءتها أو استعادتها هناك. لن يُرسل أي شيء إلى أحد. ستبقى الرسائل الموجودة في هذه المحادثة.</string>
     <string name="thread_block_confirm">احظر</string>
-    <string name="thread_block_done">تم الحظر. ستنتقل الرسائل الجديدة إلى الرسائل المحظورة</string>
+    <string name="thread_block_done">تم الحظر. ستنتقل الرسائل الجديدة إلى «غير المرغوب فيها»</string>
     <string name="thread_block_failed">تعذّر حظر هذا المرسل</string>
     <string name="thread_unblock_done">تم إلغاء الحظر. ستصل الرسائل الجديدة إلى الرسائل الواردة</string>
     <string name="thread_unblock_done_system">تم إلغاء الحظر في uMessage. هذا الرقم موجود أيضًا في قائمة الحظر بهاتفك، لذا لا يزال Android يحظر رسائله</string>

@@ -4,7 +4,7 @@
     <string name="s042_whole_word_help">Yalnızca kelimenin kendisiyle eşleşir: win, window değil.</string>
     <string name="s042_held_code_channel">Tutulan kodlar</string>
     <string name="s042_held_code_title">Koda benzeyen bir ileti tutuldu</string>
-    <string name="s042_held_code_text">Bağlantı içerdiği için Engellenenler\'de. Kod bekliyorsanız Engellenenler\'i açın.</string>
+    <string name="s042_held_code_text">Bağlantı içerdiği için Spam\'de. Kod bekliyorsanız Spam\'i açın.</string>
     <string name="s042_contacts_off_title">Spam filtresi duraklatıldı</string>
     <string name="s042_contacts_off_body">uMessage\'ın arkadaşları yabancılardan ayırabilmesi için Kişiler iznini verin.</string>
     <string name="s042_contacts_off_allow">İzin ver</string>

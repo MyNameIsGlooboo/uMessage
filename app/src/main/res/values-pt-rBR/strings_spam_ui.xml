@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="spam_ui_delete_all">Exclua todas</string>
-    <string name="spam_ui_delete_all_title">Exclua todas as mensagens bloqueadas?</string>
+    <string name="spam_ui_delete_all_title">Exclua todo o spam?</string>
     <plurals name="spam_ui_delete_all_message" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%1$d mensagem bloqueada será excluída. Você pode desfazer logo depois.</item>
-        <item quantity="other">%1$d mensagens bloqueadas serão excluídas. Você pode desfazer logo depois.</item>
+        <item quantity="one">%1$d mensagem será excluída. Você pode desfazer logo depois.</item>
+        <item quantity="other">%1$d mensagens serão excluídas. Você pode desfazer logo depois.</item>
     </plurals>
     <string name="declog_ui_clear_title">Limpe o registro de decisões?</string>
-    <string name="declog_ui_clear_message">Todas as decisões registradas serão removidas. As mensagens bloqueadas e as regras ficam como estão.</string>
+    <string name="declog_ui_clear_message">Todas as decisões registradas serão removidas. O spam e as regras ficam como estão.</string>
     <string name="declog_ui_clear_action">Limpe</string>
     <string name="ui_log_reason_contacts_unavailable">Não foi possível ler os contatos</string>
     <string name="blocknum_title">Números bloqueados</string>

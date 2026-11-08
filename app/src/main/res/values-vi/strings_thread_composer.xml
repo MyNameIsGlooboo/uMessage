@@ -6,7 +6,7 @@
     <string name="thread_edit_scheduled_replaces_draft">Chỉnh sửa tin nhắn đã lên lịch gửi sẽ thay thế nội dung bạn đang nhập. Tiếp tục?</string>
     <string name="thread_menu_report_spam">Đánh dấu là tin nhắn rác</string>
     <string name="thread_report_spam_title">Đánh dấu là tin nhắn rác?</string>
-    <string name="thread_report_spam_message">Tin nhắn mới từ %1$s sẽ vào mục Tin nhắn đã chặn thay vì hộp thư đến của bạn. Tin nhắn hiện có trong cuộc trò chuyện này vẫn được giữ lại.</string>
+    <string name="thread_report_spam_message">Tin nhắn mới từ %1$s sẽ vào mục Tin rác thay vì hộp thư đến của bạn. Tin nhắn hiện có trong cuộc trò chuyện này vẫn được giữ lại.</string>
     <string name="thread_report_spam_confirm">Đánh dấu là tin nhắn rác</string>
     <string name="thread_report_spam_cancel">Hủy</string>
     <string name="thread_report_spam_done">Đã đánh dấu là tin nhắn rác</string>

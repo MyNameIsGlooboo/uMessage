@@ -4,7 +4,7 @@
     <string name="onb_allow_done">ہو گیا</string>
     <string name="onb_allow_needed">درکار</string>
     <string name="onb_allow_all_set">سب تیار ہے</string>
-    <string name="onb_mode_strict_short">سب بلاکڈ میں رکھیں</string>
+    <string name="onb_mode_strict_short">سب اسپیم میں رکھیں</string>
     <string name="onb_mode_smart_short">روکیں، مگر کوڈ والے پیغامات آنے دیں</string>
     <string name="onb_mode_off_short">فلٹر نہ کریں</string>
 </resources>

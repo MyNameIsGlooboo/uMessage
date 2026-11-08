@@ -18,9 +18,9 @@
     <string name="thread_menu_block">屏蔽发件人</string>
     <string name="thread_menu_unblock">取消屏蔽发件人</string>
     <string name="thread_block_title">屏蔽发件人？</string>
-    <string name="thread_block_message">要屏蔽%1$s吗？此发件人的新消息将移至“已屏蔽消息”，不再进入收件箱，你仍可在那里阅读或恢复消息。不会向任何人发送任何内容。此会话中已有的消息会保留。</string>
+    <string name="thread_block_message">要屏蔽%1$s吗？此发件人的新消息将移至“垃圾短信”，不再进入收件箱，你仍可在那里阅读或恢复消息。不会向任何人发送任何内容。此会话中已有的消息会保留。</string>
     <string name="thread_block_confirm">屏蔽</string>
-    <string name="thread_block_done">已屏蔽，新消息将移至“已屏蔽消息”</string>
+    <string name="thread_block_done">已屏蔽，新消息将移至“垃圾短信”</string>
     <string name="thread_block_failed">无法屏蔽此发件人</string>
     <string name="thread_unblock_done">已取消屏蔽，新消息将进入收件箱</string>
     <string name="thread_unblock_done_system">已在uMessage中取消屏蔽。此号码仍在手机的屏蔽列表中，Android仍会屏蔽其消息</string>

@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols (bản quyền thuộc về Google LLC) được cấp phép theo Giấy phép Apache, phiên bản 2.0. Các biểu tượng được cung cấp nguyên trạng, không kèm bảo hành.</string>
     <string name="settings_nav_recommended">Nên dùng</string>
     <string name="settings_nav_strict_confirm_title">Chặn cả mã xác minh?</string>
-    <string name="settings_nav_strict_confirm_body">Ở chế độ lọc nghiêm ngặt, mã từ người gửi không có trong danh sách người liên hệ của bạn sẽ vào mục Đã chặn cùng mọi tin nhắn khác. Tin nhắn từ ngân hàng và công ty giao hàng cũng bị chặn.</string>
+    <string name="settings_nav_strict_confirm_body">Ở chế độ lọc nghiêm ngặt, mã từ người gửi không có trong danh sách người liên hệ của bạn sẽ vào mục Tin rác cùng mọi tin nhắn khác. Tin nhắn từ ngân hàng và công ty giao hàng cũng bị chặn.</string>
     <string name="settings_nav_strict_confirm_action">Dùng chế độ lọc nghiêm ngặt</string>
     <string name="settings_nav_strict_confirm_cancel">Giữ chế độ hiện tại</string>
-    <string name="settings_nav_purge_row">Xóa tin nhắn đã chặn sau</string>
+    <string name="settings_nav_purge_row">Xóa tin nhắn rác sau</string>
     <string name="settings_nav_group_alerts">Cảnh báo</string>
-    <string name="settings_nav_notify_body">Thông báo không âm thanh cho mỗi tin nhắn bị chặn</string>
+    <string name="settings_nav_notify_body">Thông báo không âm thanh cho mỗi tin nhắn rác</string>
     <string name="settings_nav_theme_title">Diện mạo</string>
     <string name="settings_nav_theme_modes">Chế độ</string>
     <string name="settings_nav_theme_colours">Màu sắc</string>

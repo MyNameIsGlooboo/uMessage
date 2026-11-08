@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">Закрыть список</string>
     <string name="w3c_checklist_step_sms">Сделайте uMessage приложением для SMS по умолчанию</string>
     <string name="w3c_checklist_step_notifications">Включите уведомления</string>
-    <string name="w3c_checklist_step_blocked">Откройте вкладку «Заблокированные»</string>
+    <string name="w3c_checklist_step_blocked">Откройте вкладку «Спам»</string>
     <string name="w3c_checklist_step_forward">По желанию: пересылайте сообщения на другой номер</string>
     <string name="w3c_checklist_step_done">Готово</string>
     <string name="w3c_checklist_action_set">Настроить</string>
     <string name="w3c_checklist_action_open">Открыть</string>
     <string name="w3c_receipt_title">Спам заблокирован: нажмите для просмотра</string>
-    <string name="w3c_receipt_body">Сообщение от неизвестного отправителя попало в «Заблокированные». Оно не потеряно: вы можете просмотреть и восстановить его в любое время.</string>
+    <string name="w3c_receipt_body">Сообщение от неизвестного отправителя попало в «Спам». Оно не потеряно: вы можете просмотреть и восстановить его в любое время.</string>
     <string name="w3c_receipt_review">Просмотреть</string>
     <string name="w3c_receipt_got_it">Понятно</string>
     <string name="w3c_new_paste">Вставить номер</string>

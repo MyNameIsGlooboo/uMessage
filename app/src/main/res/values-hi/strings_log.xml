@@ -36,7 +36,7 @@
     <string name="declog_fixed_blocked">आपने रिकॉर्ड से इस भेजने वाले को ब्लॉक किया</string>
     <string name="declog_fixed_restored">आपने रिकॉर्ड से यह मैसेज वापस लाया</string>
     <string name="declog_restored">वापस लाया गया</string>
-    <string name="declog_blocked_message">मैसेज अभी भी ब्लॉक किए गए में है</string>
+    <string name="declog_blocked_message">मैसेज अभी भी स्पैम में है</string>
     <string name="declog_restore">मैसेज वापस लाएं</string>
     <string name="declog_restore_done">मैसेज इनबॉक्स में वापस लाया गया</string>
     <string name="declog_restore_text_only">टेक्स्ट इनबॉक्स में वापस लाया गया. फ़ोटो वापस नहीं मिल सकीं.</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="w2c_blocked_label">مسدودشده</string>
-    <string name="w2c_log_blocked_by_rule">مسدودشده طبق قانون: %1$s</string>
-    <string name="w2c_log_blocked_by_old_list">مسدودشده طبق فهرست مسدودی قدیمی</string>
-    <string name="w2c_log_fwd_rate_limited">بازارسال نشد: این قانون به سقف ساعتی رسیده است</string>
+    <string name="w2c_blocked_label">بلاک‌شده</string>
+    <string name="w2c_log_blocked_by_rule">بلاک‌شده طبق قانون: %1$s</string>
+    <string name="w2c_log_blocked_by_old_list">بلاک‌شده طبق لیست بلاک قدیمی</string>
+    <string name="w2c_log_fwd_rate_limited">فوروارد نشد: این قانون به سقف ساعتی رسیده است</string>
 </resources>

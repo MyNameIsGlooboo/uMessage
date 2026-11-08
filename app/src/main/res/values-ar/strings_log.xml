@@ -52,7 +52,7 @@
     <string name="declog_fixed_blocked">حظرت هذا المرسل من السجل</string>
     <string name="declog_fixed_restored">استعدت هذه الرسالة من السجل</string>
     <string name="declog_restored">تمت الاستعادة</string>
-    <string name="declog_blocked_message">الرسالة، لا تزال في «المحظورة»</string>
+    <string name="declog_blocked_message">الرسالة، لا تزال في «غير المرغوب فيها»</string>
     <string name="declog_restore">استعد الرسالة</string>
     <string name="declog_restore_done">تمت استعادة الرسالة إلى الرسائل الواردة</string>
     <string name="declog_restore_text_only">تمت استعادة النص إلى الرسائل الواردة. تعذّرت استعادة الصور.</string>

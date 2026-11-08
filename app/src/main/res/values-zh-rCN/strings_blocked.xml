@@ -28,19 +28,19 @@
     <string name="spam_reason_rule_removed">规则已移除</string>
     <string name="spam_reason_open_rules">打开规则</string>
     <plurals name="spam_purge_notice">
-        <item quantity="other">已屏蔽的消息将在%d天后删除</item>
+        <item quantity="other">垃圾短信将在%d天后删除</item>
     </plurals>
     <plurals name="spam_purge_left">
         <item quantity="other">%d天后删除</item>
     </plurals>
     <string name="spam_purge_left_today">今天删除</string>
     <plurals name="convlist_reported_spam_archived">
-        <item quantity="other">已举报%d个会话。相关发件人的新短信将进入“已屏蔽”，会话已归档。</item>
+        <item quantity="other">已举报%d个会话。相关发件人的新短信将进入“垃圾短信”，会话已归档。</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="other">已举报%d个会话。相关发件人的新短信将进入“已屏蔽”。</item>
+        <item quantity="other">已举报%d个会话。相关发件人的新短信将进入“垃圾短信”。</item>
     </plurals>
-    <string name="blocked_title">已屏蔽</string>
+    <string name="blocked_title">垃圾短信</string>
     <string name="blocked_snack_mode">未知发件人的过滤模式已设为%1$s</string>
     <string name="blocked_stats_restored">你已恢复%1$d条</string>
     <string name="blocked_reason_unknown_link">未知发件人，含链接</string>

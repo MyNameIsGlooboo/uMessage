@@ -8,7 +8,7 @@
     <string name="onb_welcome_title">歡迎使用uMessage</string>
     <string name="onb_welcome_intro">更好的訊息體驗，更少的垃圾簡訊。</string>
     <string name="onb_welcome_spam">擋下垃圾簡訊</string>
-    <string name="onb_welcome_spam_desc">未知寄件者的訊息會留在「已封鎖」，不會遺失。</string>
+    <string name="onb_welcome_spam_desc">未知寄件者的訊息會留在「垃圾訊息」，不會遺失。</string>
     <string name="onb_welcome_codes">一鍵複製驗證碼</string>
     <string name="onb_welcome_codes_desc">直接從通知複製驗證碼。</string>
     <string name="onb_welcome_copy">只複製需要的部分</string>
@@ -46,7 +46,7 @@
     <string name="onb_mode_smart">智慧</string>
     <string name="onb_mode_off">關閉</string>
     <string name="onb_mode_warning_title">銀行與驗證碼訊息須知</string>
-    <string name="onb_mode_warning_body">在嚴格模式下，未知寄件者傳來的銀行通知、物流更新及一次性驗證碼都會留在「已封鎖」，驗證碼也不例外。你不會收到通知，因此在等待這類訊息時，請查看「已封鎖」。</string>
+    <string name="onb_mode_warning_body">在嚴格模式下，未知寄件者傳來的銀行通知、物流更新及一次性驗證碼都會留在「垃圾訊息」，驗證碼也不例外。你不會收到通知，因此在等待這類訊息時，請查看「垃圾訊息」。</string>
     <string name="onb_oem_title">讓uMessage持續執行</string>
     <string name="onb_oem_manual_hint">如果畫面沒有開啟，請在「設定」中搜尋顯示的名稱。</string>
     <string name="onb_oem_xiaomi">小米、Redmi或Poco</string>

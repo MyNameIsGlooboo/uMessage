@@ -6,7 +6,7 @@
     <string name="thread_edit_scheduled_replaces_draft">Planlanan mesajı düzenlemek, şu an yazdığınız metnin yerini alır. Devam edilsin mi?</string>
     <string name="thread_menu_report_spam">Spam olarak bildirin</string>
     <string name="thread_report_spam_title">Spam olarak bildirilsin mi?</string>
-    <string name="thread_report_spam_message">%1$s tarafından gönderilen yeni mesajlar gelen kutunuz yerine Engellenen mesajlar bölümüne gider. Bu görüşmedeki mevcut mesajlar korunur.</string>
+    <string name="thread_report_spam_message">%1$s tarafından gönderilen yeni mesajlar gelen kutunuz yerine Spam bölümüne gider. Bu görüşmedeki mevcut mesajlar korunur.</string>
     <string name="thread_report_spam_confirm">Spam olarak bildirin</string>
     <string name="thread_report_spam_cancel">İptal edin</string>
     <string name="thread_report_spam_done">Spam olarak bildirildi</string>

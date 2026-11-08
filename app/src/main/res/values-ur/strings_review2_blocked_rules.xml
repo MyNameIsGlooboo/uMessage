@@ -43,16 +43,16 @@
         <item quantity="one">%d نمبر uMessage کے اصولوں میں منتقل کریں</item>
         <item quantity="other">%d نمبر uMessage کے اصولوں میں منتقل کریں</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• ان کے پیغامات بلاک شدہ میں جائیں گے، جہاں آپ انہیں پڑھ اور بحال کر سکتے ہیں۔</string>
+    <string name="e_migrate_point_blocked">• ان کے پیغامات اسپیم میں جائیں گے، جہاں آپ انہیں پڑھ اور بحال کر سکتے ہیں۔</string>
     <string name="e_migrate_point_android">• جب تک یہ Android کی فہرست میں ہیں، Android ان کے پیغامات پھینکتا رہے گا۔</string>
     <string name="e_migrate_calls_note">Android کی فہرست کالیں بھی بلاک کرتی ہے۔ جو نمبر آپ اس سے ہٹائیں گے وہ آپ کو دوبارہ کال کر سکیں گے۔</string>
     <string name="e_bn_unknown_body">صرف تب لاگو ہوتا ہے جب نامعلوم بھیجنے والے بند ہو۔</string>
     <string name="e_bn_row_calls_texts">کالیں اور پیغامات بلاک کرتا ہے</string>
     <string name="e_bn_row_short_code">شارٹ کوڈ: uMessage اس کے پیغامات کبھی نہیں دیکھتا</string>
     <string name="e_bn_move_one">uMessage کے اصولوں میں منتقل کریں</string>
-    <string name="e_bn_moved">%1$s اب uMessage کا اصول ہے۔ اس کے پیغامات بلاک شدہ میں جائیں گے، اور اس کی کالیں اب بلاک نہیں ہوں گی۔</string>
+    <string name="e_bn_moved">%1$s اب uMessage کا اصول ہے۔ اس کے پیغامات اسپیم میں جائیں گے، اور اس کی کالیں اب بلاک نہیں ہوں گی۔</string>
     <string name="e_bn_field_help">مثلاً +989121234567، یا +98912* ہر اس نمبر کے لیے جو +98912 سے شروع ہو</string>
     <string name="e_bn_short_code_warning">یہ شارٹ کوڈ لگتا ہے۔ Android اس کے پیغامات uMessage تک پہنچنے سے پہلے ہی پھینک دیتا ہے، اس لیے آپ کوئی پیغام، جیسے کوڈ یا بینک کی اطلاع، کبھی بحال نہیں کر سکیں گے۔</string>
     <string name="e_bn_add_as_rule">اس کے بجائے uMessage کا اصول بنائیں</string>
-    <string name="e_bn_added_as_rule">%1$s uMessage کے اصول کے طور پر شامل ہو گیا۔ اس کے پیغامات بلاک شدہ میں جائیں گے۔</string>
+    <string name="e_bn_added_as_rule">%1$s uMessage کے اصول کے طور پر شامل ہو گیا۔ اس کے پیغامات اسپیم میں جائیں گے۔</string>
 </resources>

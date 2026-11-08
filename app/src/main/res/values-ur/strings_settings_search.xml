@@ -12,7 +12,7 @@
     <string name="sks_rules">اصول اجازت بلاک فہرست کلیدی لفظ پیٹرن ریجیکس بھیجنے والا نمبر وائٹ لسٹ بلیک لسٹ</string>
     <string name="sks_blocked_numbers">بلاک شدہ نمبر بلاک فہرست فون رابطے Android بلیک لسٹ</string>
     <string name="sks_decision_log">لاگ تاریخچہ کیوں بلاک سرگرمی حالیہ</string>
-    <string name="sks_purge">حذف بلاک شدہ پرانے ہٹائیں صاف خودکار دن صفائی مدت</string>
+    <string name="sks_purge">حذف اسپیم بلاک شدہ پرانے ہٹائیں صاف خودکار دن صفائی مدت</string>
     <string name="sks_region">ملک علاقہ باہر غیر ملکی بین الاقوامی بیرون ملک بلاک</string>
     <string name="sks_links">لنکس URL خطرناک فشنگ حفاظت لاک ویب</string>
     <string name="sks_carrier_report">نیٹ ورک فراہم کنندہ رپورٹ آپریٹر فارورڈ 7726 کمپنی اسپیم</string>

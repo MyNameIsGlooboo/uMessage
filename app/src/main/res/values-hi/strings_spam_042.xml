@@ -4,7 +4,7 @@
     <string name="s042_whole_word_help">सिर्फ़ उसी शब्द से मेल खाता है: win, window नहीं।</string>
     <string name="s042_held_code_channel">रोके गए कोड</string>
     <string name="s042_held_code_title">कोड जैसा एक संदेश रोका गया</string>
-    <string name="s042_held_code_text">इसमें लिंक है, इसलिए यह ब्लॉक में है। कोड का इंतज़ार हो तो ब्लॉक खोलें।</string>
+    <string name="s042_held_code_text">इसमें लिंक है, इसलिए यह स्पैम में है। कोड का इंतज़ार हो तो स्पैम खोलें।</string>
     <string name="s042_contacts_off_title">स्पैम फ़िल्टर रुका हुआ है</string>
     <string name="s042_contacts_off_body">संपर्क की अनुमति दें ताकि uMessage दोस्तों और अजनबियों में फ़र्क़ कर सके।</string>
     <string name="s042_contacts_off_allow">अनुमति दें</string>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">Zum Herunterladen tippen</string>
+    <string name="mms_downloading">Wird heruntergeladen …</string>
+    <string name="mms_download_again">Download fehlgeschlagen. Zum erneuten Versuch tippen</string>
+    <string name="mms_expired">Diese Bildnachricht ist nicht mehr verfügbar</string>
+    <string name="mms_download_action_desc">Bildnachricht herunterladen</string>
+</resources>

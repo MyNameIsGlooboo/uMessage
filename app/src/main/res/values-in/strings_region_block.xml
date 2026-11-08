@@ -5,7 +5,7 @@
     <string name="region_summary">Kontak dan orang yang pernah Anda kirimi pesan tidak ditahan</string>
     <string name="region_off">Nonaktif</string>
     <string name="region_picker_title">Negara asal Anda</string>
-    <string name="region_picker_body">Pesan dari nomor negara lain ditahan di Pesan diblokir, kecuali dari kontak dan orang yang pernah Anda kirimi pesan. Kerabat di luar negeri yang tidak ada di kontak juga ditahan.</string>
+    <string name="region_picker_body">Pesan dari nomor negara lain ditahan di Spam, kecuali dari kontak dan orang yang pernah Anda kirimi pesan. Kerabat di luar negeri yang tidak ada di kontak juga ditahan. Hanya berlaku pada mode Cerdas dan mode filter ketat.</string>
     <string name="region_picker_search">Cari</string>
     <string name="region_reason_foreign">Nomor dari negara lain</string>
 </resources>

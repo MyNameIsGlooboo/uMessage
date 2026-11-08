@@ -2,7 +2,7 @@
 <resources>
     <string name="ux8a_checklist_show">نمایش مراحل</string>
     <string name="ux8a_checklist_hide">پنهان کردن مراحل</string>
-    <string name="ux8a_menu_recycle_bin">سطل بازیافت</string>
-    <string name="ux8a_menu_recycle_bin_count">سطل بازیافت (%1$d)</string>
-    <string name="ux8a_selection_block">مسدود کردن</string>
+    <string name="ux8a_menu_recycle_bin">سطل زباله</string>
+    <string name="ux8a_menu_recycle_bin_count">سطل زباله (%1$d)</string>
+    <string name="ux8a_selection_block">بلاک کردن</string>
 </resources>

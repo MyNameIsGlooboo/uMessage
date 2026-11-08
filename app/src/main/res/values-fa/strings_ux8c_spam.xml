@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ux8c_held_unknown">نگه‌داشته شد: فرستندهٔ ناشناس</string>
-    <string name="ux8c_held_unknown_link">نگه‌داشته شد: فرستندهٔ ناشناس، دارای پیوند</string>
+    <string name="ux8c_held_unknown_link">نگه‌داشته شد: فرستندهٔ ناشناس، لینک‌دار</string>
     <string name="ux8c_held_foreign">نگه‌داشته شد: شماره‌ای از کشوری دیگر</string>
     <string name="ux8c_held_rule">با قانون شما نگه داشته شد</string>
     <string name="ux8c_held_other">با فیلتر نگه داشته شد</string>
-    <string name="ux8c_not_spam">هرزنامه نیست</string>
+    <string name="ux8c_not_spam">اسپم نیست</string>
     <string name="ux8c_delete">حذف</string>
-    <string name="ux8c_tip">برای انتقال یک فرستنده به صندوق ورودی، ردیف او را بکشید. برای انتخاب، لمس کنید و نگه دارید.</string>
+    <string name="ux8c_tip">برای بردن یک فرستنده به صندوق ورودی، ردیف او را بکشید. برای انتخاب، لمس کنید و نگه دارید.</string>
     <string name="ux8c_tip_dismiss">متوجه شدم</string>
     <string name="ux8c_sender_title">این فرستنده</string>
     <string name="ux8c_sender_normal">عادی</string>
     <string name="ux8c_sender_allow">همیشه مجاز</string>
-    <string name="ux8c_sender_block">مسدود</string>
+    <string name="ux8c_sender_block">بلاک</string>
 </resources>

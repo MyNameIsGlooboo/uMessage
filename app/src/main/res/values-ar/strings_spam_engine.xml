@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="spam_engine_blocked_channel">الرسائل المحظورة</string>
-    <string name="spam_engine_blocked_title">محظور: %s</string>
-    <string name="spam_engine_blocked_public_title">حُظرت رسالة</string>
-    <string name="spam_engine_mms_blocked">رسالة مصورة محظورة (MMS)</string>
+    <string name="spam_engine_blocked_channel">غير المرغوب فيها</string>
+    <string name="spam_engine_blocked_title">غير مرغوب فيها: %s</string>
+    <string name="spam_engine_blocked_public_title">نُقلت رسالة إلى «غير المرغوب فيها»</string>
+    <string name="spam_engine_mms_blocked">رسالة مصورة غير مرغوب فيها (MMS)</string>
     <string name="spam_engine_regex_nested_repeat">هذا التعبير النمطي يكرّر مجموعة متكررة أصلًا، مما قد يعطّل تصفية الرسائل. بسّطه.</string>
     <string name="spam_engine_regex_matches_empty">هذا التعبير النمطي يطابق كل رسالة.</string>
     <string name="spam_engine_regex_invalid">هذا التعبير النمطي غير صالح.</string>

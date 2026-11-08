@@ -6,7 +6,7 @@
     <string name="thread_edit_scheduled_replaces_draft">Редагування запланованого повідомлення замінить текст, який ви зараз вводите. Продовжити?</string>
     <string name="thread_menu_report_spam">Позначити як спам</string>
     <string name="thread_report_spam_title">Позначити як спам?</string>
-    <string name="thread_report_spam_message">Нові повідомлення від %1$s потраплятимуть у «Заблоковані повідомлення» замість «Вхідних». Наявні повідомлення в цьому чаті збережуться.</string>
+    <string name="thread_report_spam_message">Нові повідомлення від %1$s потраплятимуть у «Спам» замість «Вхідних». Наявні повідомлення в цьому чаті збережуться.</string>
     <string name="thread_report_spam_confirm">Позначити як спам</string>
     <string name="thread_report_spam_cancel">Скасувати</string>
     <string name="thread_report_spam_done">Позначено як спам</string>

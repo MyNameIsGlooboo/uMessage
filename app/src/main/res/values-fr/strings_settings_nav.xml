@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols (copyright Google LLC) est distribué sous la licence Apache, version 2.0. Les icônes sont fournies en l\'état, sans garantie.</string>
     <string name="settings_nav_recommended">Recommandé</string>
     <string name="settings_nav_strict_confirm_title">Bloquer aussi les codes de validation ?</string>
-    <string name="settings_nav_strict_confirm_body">En mode de filtrage strict, les codes des expéditeurs qui ne figurent pas dans vos contacts vont dans Messages bloqués, comme tous leurs autres messages. Les messages des banques et des sociétés de livraison sont aussi bloqués.</string>
+    <string name="settings_nav_strict_confirm_body">En mode de filtrage strict, les codes des expéditeurs qui ne figurent pas dans vos contacts vont dans Spam, comme tous leurs autres messages. Les messages des banques et des sociétés de livraison sont aussi retenus.</string>
     <string name="settings_nav_strict_confirm_action">Activer le mode strict</string>
     <string name="settings_nav_strict_confirm_cancel">Garder le mode actuel</string>
-    <string name="settings_nav_purge_row">Supprimer les messages bloqués après</string>
+    <string name="settings_nav_purge_row">Supprimer le spam après</string>
     <string name="settings_nav_group_alerts">Alertes</string>
-    <string name="settings_nav_notify_body">Une notification silencieuse pour chaque message bloqué</string>
+    <string name="settings_nav_notify_body">Une notification silencieuse pour chaque message de spam</string>
     <string name="settings_nav_theme_title">Apparence</string>
     <string name="settings_nav_theme_modes">Mode</string>
     <string name="settings_nav_theme_colours">Couleurs</string>

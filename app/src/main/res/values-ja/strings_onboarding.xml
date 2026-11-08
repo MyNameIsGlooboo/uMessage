@@ -8,7 +8,7 @@
     <string name="onb_welcome_title">uMessageへようこそ</string>
     <string name="onb_welcome_intro">迷惑メッセージを減らして、もっと快適に。</string>
     <string name="onb_welcome_spam">迷惑メッセージをブロック</string>
-    <string name="onb_welcome_spam_desc">不明な送信者からのメッセージは「ブロック済み」に保存され、失われません。</string>
+    <string name="onb_welcome_spam_desc">不明な送信者からのメッセージは「迷惑メッセージ」に保存され、失われません。</string>
     <string name="onb_welcome_codes">ワンタップで認証コードをコピー</string>
     <string name="onb_welcome_codes_desc">通知から直接、認証コードをコピーできます。</string>
     <string name="onb_welcome_copy">必要な部分だけコピー</string>
@@ -46,7 +46,7 @@
     <string name="onb_mode_smart">スマート</string>
     <string name="onb_mode_off">オフ</string>
     <string name="onb_mode_warning_title">銀行や認証コードのメッセージについて</string>
-    <string name="onb_mode_warning_body">厳格モードでは、不明な送信者からの銀行の通知、配達状況、ワンタイムコードなどは、コードも含めて「ブロック済み」に保留されます。通知は届かないので、届く予定があるときは「ブロック済み」を確認してください。</string>
+    <string name="onb_mode_warning_body">厳格モードでは、不明な送信者からの銀行の通知、配達状況、ワンタイムコードなどは、コードも含めて「迷惑メッセージ」に保留されます。通知は届かないので、届く予定があるときは「迷惑メッセージ」を確認してください。</string>
     <string name="onb_oem_title">uMessageの動作を維持</string>
     <string name="onb_oem_manual_hint">画面が開かない場合は、表示されている項目名を設定で検索してください。</string>
     <string name="onb_oem_xiaomi">Xiaomi、Redmi、Poco</string>

@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">Paramètres de blocage</string>
     <string name="spam_blocked_stats_totals">%1$d bloqués au total, %2$d restaurés</string>
     <string name="spam_blocked_header_cd">%1$d spams bloqués ces 7 derniers jours. %2$d bloqués au total, %3$d restaurés.</string>
-    <string name="spam_blocked_empty_title">Aucun message bloqué pour le moment</string>
+    <string name="spam_blocked_empty_title">Rien dans Spam pour le moment</string>
     <string name="spam_action_delete">Supprimer</string>
     <string name="spam_select">Sélectionner</string>
     <string name="spam_action_select_all">Tout sélectionner</string>
@@ -38,7 +38,7 @@
     <string name="spam_rules_empty_allowed_title">Aucune règle d\'autorisation</string>
     <string name="spam_rules_empty_allowed_body">Tout ce que vous autorisez arrive dans votre boîte de réception, même en mode strict. Ajoutez un numéro, un nom d\'expéditeur ou un mot-clé.</string>
     <string name="spam_rules_empty_blocked_title">Aucune règle de blocage</string>
-    <string name="spam_rules_empty_blocked_body">Bloquez un numéro, un préfixe, un nom d\'expéditeur, un mot-clé ou une expression régulière. Les messages bloqués vont dans le dossier Messages bloqués.</string>
+    <string name="spam_rules_empty_blocked_body">Bloquez un numéro, un préfixe, un nom d\'expéditeur, un mot-clé ou une expression régulière. Leurs messages vont dans Spam.</string>
     <string name="spam_rules_delete_rule">Supprimer la règle %s</string>
     <string name="spam_rules_deleted">Règle supprimée</string>
     <plurals name="spam_rules_imported" tools:ignore="ImpliedQuantity">
@@ -109,10 +109,10 @@
     <string name="spam_mode_off">Désactivé</string>
     <string name="spam_mode_off_body">Aucun blocage des expéditeurs inconnus</string>
     <string name="spam_strict_warning_title">Le mode strict peut masquer des messages importants</string>
-    <string name="spam_strict_warning_body">Les messages des banques, des livreurs et les codes à usage unique proviennent souvent d\'expéditeurs absents de vos contacts. En mode strict, ils vont dans le dossier Messages bloqués, codes compris. Choisissez le mode intelligent pour laisser passer les codes, ou autorisez ces expéditeurs une fois pour toutes.</string>
-    <string name="spam_strict_warning_action">Consulter les messages bloqués</string>
+    <string name="spam_strict_warning_body">Les messages des banques, des livreurs et les codes à usage unique proviennent souvent d\'expéditeurs absents de vos contacts. En mode strict, ils vont dans Spam, codes compris. Choisissez le mode intelligent pour laisser passer les codes, ou autorisez ces expéditeurs une fois pour toutes.</string>
+    <string name="spam_strict_warning_action">Consulter Spam</string>
     <string name="spam_settings_cleanup_title">Nettoyage</string>
-    <string name="spam_purge_body">Les anciens messages bloqués sont supprimés automatiquement.</string>
+    <string name="spam_purge_body">Le spam ancien est supprimé automatiquement.</string>
     <string name="spam_purge_days">%d jours</string>
     <string name="spam_purge_forever">Jamais</string>
     <string name="spam_notify_title">Notifier lorsqu\'un message est bloqué</string>

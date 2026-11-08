@@ -44,7 +44,7 @@
     <string name="declog_fixed_blocked">Nadawca został zablokowany przez ciebie z poziomu historii decyzji</string>
     <string name="declog_fixed_restored">Wiadomość została przywrócona przez ciebie z poziomu historii decyzji</string>
     <string name="declog_restored">Przywrócono</string>
-    <string name="declog_blocked_message">Wiadomość nadal w Zablokowanych</string>
+    <string name="declog_blocked_message">Wiadomość nadal w Spamie</string>
     <string name="declog_restore">Przywróć wiadomość</string>
     <string name="declog_restore_done">Przywrócono wiadomość do Odebranych</string>
     <string name="declog_restore_text_only">Przywrócono tekst do Odebranych. Nie udało się odzyskać zdjęć.</string>

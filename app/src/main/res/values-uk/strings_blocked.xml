@@ -43,10 +43,10 @@
     <string name="spam_reason_rule_removed">Правило вже видалено</string>
     <string name="spam_reason_open_rules">Відкрити правила</string>
     <plurals name="spam_purge_notice" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Заблоковані повідомлення видаляються через %d день</item>
-        <item quantity="few">Заблоковані повідомлення видаляються через %d дні</item>
-        <item quantity="many">Заблоковані повідомлення видаляються через %d днів</item>
-        <item quantity="other">Заблоковані повідомлення видаляються через %d дня</item>
+        <item quantity="one">Спам видаляється через %d день</item>
+        <item quantity="few">Спам видаляється через %d дні</item>
+        <item quantity="many">Спам видаляється через %d днів</item>
+        <item quantity="other">Спам видаляється через %d дня</item>
     </plurals>
     <plurals name="spam_purge_left" tools:ignore="ImpliedQuantity">
         <item quantity="one">Буде видалено через %d день</item>
@@ -56,18 +56,18 @@
     </plurals>
     <string name="spam_purge_left_today">Буде видалено сьогодні</string>
     <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Про спам повідомлено. Нові повідомлення від цього відправника потраплятимуть у «Заблоковані», а чат заархівовано.</item>
-        <item quantity="few">Повідомлено про спам у %d чатах. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані», а чати заархівовано.</item>
-        <item quantity="many">Повідомлено про спам у %d чатах. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані», а чати заархівовано.</item>
-        <item quantity="other">Повідомлено про спам у %d чату. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані», а чати заархівовано.</item>
+        <item quantity="one">Про спам повідомлено. Нові повідомлення від цього відправника потраплятимуть у «Спам», а чат заархівовано.</item>
+        <item quantity="few">Повідомлено про спам у %d чатах. Нові повідомлення від цих відправників потраплятимуть у «Спам», а чати заархівовано.</item>
+        <item quantity="many">Повідомлено про спам у %d чатах. Нові повідомлення від цих відправників потраплятимуть у «Спам», а чати заархівовано.</item>
+        <item quantity="other">Повідомлено про спам у %d чату. Нові повідомлення від цих відправників потраплятимуть у «Спам», а чати заархівовано.</item>
     </plurals>
     <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Про спам повідомлено. Нові повідомлення від цього відправника потраплятимуть у «Заблоковані».</item>
-        <item quantity="few">Повідомлено про спам у %d чатах. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані».</item>
-        <item quantity="many">Повідомлено про спам у %d чатах. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані».</item>
-        <item quantity="other">Повідомлено про спам у %d чату. Нові повідомлення від цих відправників потраплятимуть у «Заблоковані».</item>
+        <item quantity="one">Про спам повідомлено. Нові повідомлення від цього відправника потраплятимуть у «Спам».</item>
+        <item quantity="few">Повідомлено про спам у %d чатах. Нові повідомлення від цих відправників потраплятимуть у «Спам».</item>
+        <item quantity="many">Повідомлено про спам у %d чатах. Нові повідомлення від цих відправників потраплятимуть у «Спам».</item>
+        <item quantity="other">Повідомлено про спам у %d чату. Нові повідомлення від цих відправників потраплятимуть у «Спам».</item>
     </plurals>
-    <string name="blocked_title">Заблоковані</string>
+    <string name="blocked_title">Спам</string>
     <string name="blocked_snack_mode">Для невідомих відправників вибрано режим: %1$s</string>
     <string name="blocked_stats_restored">Ви відновили: %1$d</string>
     <string name="blocked_reason_unknown_link">Невідомий відправник, є посилання</string>

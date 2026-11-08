@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">چیک لسٹ بند کریں</string>
     <string name="w3c_checklist_step_sms">uMessage کو اپنی ڈیفالٹ SMS ایپ بنائیں</string>
     <string name="w3c_checklist_step_notifications">اطلاعات آن کریں</string>
-    <string name="w3c_checklist_step_blocked">بلاک شدہ ٹیب دیکھیں</string>
+    <string name="w3c_checklist_step_blocked">اسپیم ٹیب دیکھیں</string>
     <string name="w3c_checklist_step_forward">اختیاری: پیغامات کسی دوسرے نمبر پر فارورڈ کریں</string>
     <string name="w3c_checklist_step_done">ہو گیا</string>
     <string name="w3c_checklist_action_set">سیٹ کریں</string>
     <string name="w3c_checklist_action_open">کھولیں</string>
     <string name="w3c_receipt_title">اسپیم روکا گیا: دیکھنے کے لیے ٹیپ کریں</string>
-    <string name="w3c_receipt_body">نامعلوم بھیجنے والے کا ایک پیغام بلاک شدہ میں روکا گیا۔ یہ ضائع نہیں ہوا: آپ اسے کسی بھی وقت دیکھ کر بحال کر سکتے ہیں۔</string>
+    <string name="w3c_receipt_body">نامعلوم بھیجنے والے کا ایک پیغام اسپیم میں روکا گیا۔ یہ ضائع نہیں ہوا: آپ اسے کسی بھی وقت دیکھ کر بحال کر سکتے ہیں۔</string>
     <string name="w3c_receipt_review">دیکھیں</string>
     <string name="w3c_receipt_got_it">سمجھ گیا</string>
     <string name="w3c_new_paste">نمبر پیسٹ کریں</string>

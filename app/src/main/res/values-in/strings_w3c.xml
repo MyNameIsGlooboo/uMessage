@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">Tutup daftar periksa</string>
     <string name="w3c_checklist_step_sms">Jadikan uMessage aplikasi SMS default</string>
     <string name="w3c_checklist_step_notifications">Aktifkan notifikasi</string>
-    <string name="w3c_checklist_step_blocked">Lihat tab Diblokir</string>
+    <string name="w3c_checklist_step_blocked">Lihat tab Spam</string>
     <string name="w3c_checklist_step_forward">Opsional: teruskan pesan ke nomor lain</string>
     <string name="w3c_checklist_step_done">Selesai</string>
     <string name="w3c_checklist_action_set">Atur</string>
     <string name="w3c_checklist_action_open">Buka</string>
     <string name="w3c_receipt_title">Spam ditahan: ketuk untuk meninjau</string>
-    <string name="w3c_receipt_body">Pesan dari pengirim tidak dikenal ditahan di tab Diblokir. Pesan tidak hilang: Anda dapat meninjau dan memulihkannya kapan saja.</string>
+    <string name="w3c_receipt_body">Pesan dari pengirim tidak dikenal ditahan di Spam. Pesan tidak hilang: Anda dapat meninjau dan memulihkannya kapan saja.</string>
     <string name="w3c_receipt_review">Tinjau</string>
     <string name="w3c_receipt_got_it">Mengerti</string>
     <string name="w3c_new_paste">Tempel nomor</string>

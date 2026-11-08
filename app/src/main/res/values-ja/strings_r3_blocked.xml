@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessageが保留したメッセージです。受信トレイにはありません。</string>
     <string name="r3b_thread_delete_all">%1$sからのメッセージをすべて削除</string>
     <string name="r3b_thread_empty_title">メッセージはありません</string>
-    <string name="r3b_thread_empty_body">この送信者のブロック済みのメッセージは現在ありません。</string>
+    <string name="r3b_thread_empty_body">この送信者の迷惑メッセージは現在ありません。</string>
     <string name="r3b_message_actions">メッセージの操作</string>
     <string name="r3b_why_blocked">ブロックの理由</string>
     <string name="r3b_copy_text">本文をコピー</string>
@@ -14,6 +14,6 @@
     <string name="r3b_delete_message">削除</string>
     <string name="r3b_received">受信日時：%1$s</string>
     <plurals name="r3b_info_purge">
-        <item quantity="other">ブロック済みのメッセージは%d日後に削除されます。</item>
+        <item quantity="other">迷惑メッセージは%d日後に削除されます。</item>
     </plurals>
 </resources>

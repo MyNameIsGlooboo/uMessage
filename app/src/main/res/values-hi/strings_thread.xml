@@ -19,9 +19,9 @@
     <string name="thread_menu_block">भेजने वाले को ब्लॉक करें</string>
     <string name="thread_menu_unblock">भेजने वाले को अनब्लॉक करें</string>
     <string name="thread_block_title">भेजने वाले को ब्लॉक करें?</string>
-    <string name="thread_block_message">%1$s को ब्लॉक करें? इस भेजने वाले के नए मैसेज आपके इनबॉक्स के बजाय ब्लॉक किए गए मैसेज में जाएंगे, जहां आप उन्हें पढ़ सकते हैं या वापस ला सकते हैं. किसी को कुछ नहीं भेजा जाता. इस बातचीत में पहले से मौजूद मैसेज बने रहेंगे.</string>
+    <string name="thread_block_message">%1$s को ब्लॉक करें? इस भेजने वाले के नए मैसेज आपके इनबॉक्स के बजाय स्पैम में जाएंगे, जहां आप उन्हें पढ़ सकते हैं या वापस ला सकते हैं. किसी को कुछ नहीं भेजा जाता. इस बातचीत में पहले से मौजूद मैसेज बने रहेंगे.</string>
     <string name="thread_block_confirm">ब्लॉक करें</string>
-    <string name="thread_block_done">ब्लॉक किया गया. नए मैसेज ब्लॉक किए गए मैसेज में जाएंगे</string>
+    <string name="thread_block_done">ब्लॉक किया गया. नए मैसेज स्पैम में जाएंगे</string>
     <string name="thread_block_failed">इस भेजने वाले को ब्लॉक नहीं किया जा सका</string>
     <string name="thread_unblock_done">अनब्लॉक किया गया. नए मैसेज आपके इनबॉक्स में आएंगे</string>
     <string name="thread_unblock_done_system">uMessage में अनब्लॉक किया गया. यह नंबर आपके फ़ोन की ब्लॉक सूची में भी है, इसलिए Android अब भी इसके मैसेज ब्लॉक करता है</string>

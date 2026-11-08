@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">這些訊息已由uMessage攔下，不在你的收件匣中。</string>
     <string name="r3b_thread_delete_all">刪除%1$s的所有訊息</string>
     <string name="r3b_thread_empty_title">這裡沒有訊息了</string>
-    <string name="r3b_thread_empty_body">這個寄件者目前沒有已封鎖的訊息。</string>
+    <string name="r3b_thread_empty_body">這個寄件者目前沒有垃圾訊息。</string>
     <string name="r3b_message_actions">訊息動作</string>
     <string name="r3b_why_blocked">封鎖原因</string>
     <string name="r3b_copy_text">複製文字</string>
@@ -14,6 +14,6 @@
     <string name="r3b_delete_message">刪除</string>
     <string name="r3b_received">接收時間：%1$s</string>
     <plurals name="r3b_info_purge">
-        <item quantity="other">已封鎖訊息會在%d天後刪除。</item>
+        <item quantity="other">垃圾訊息會在%d天後刪除。</item>
     </plurals>
 </resources>

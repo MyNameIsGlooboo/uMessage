@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="spam_ui_delete_all">全部删除</string>
-    <string name="spam_ui_delete_all_title">删除所有已屏蔽消息？</string>
+    <string name="spam_ui_delete_all_title">删除所有垃圾短信？</string>
     <plurals name="spam_ui_delete_all_message">
-        <item quantity="other">将删除%1$d条已屏蔽消息。删除后可立即撤销。</item>
+        <item quantity="other">将删除%1$d条垃圾短信。删除后可立即撤销。</item>
     </plurals>
     <string name="declog_ui_clear_title">清空判定记录？</string>
-    <string name="declog_ui_clear_message">将删除所有判定记录。已屏蔽消息和规则会保留。</string>
+    <string name="declog_ui_clear_message">将删除所有判定记录。垃圾短信和规则会保留。</string>
     <string name="declog_ui_clear_action">清空</string>
     <string name="ui_log_reason_contacts_unavailable">无法读取联系人</string>
     <string name="blocknum_title">已屏蔽号码</string>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="spam_ui_delete_all">전체 삭제</string>
-    <string name="spam_ui_delete_all_title">차단된 메시지를 모두 삭제할까요?</string>
+    <string name="spam_ui_delete_all_title">스팸을 모두 삭제할까요?</string>
     <plurals name="spam_ui_delete_all_message">
-        <item quantity="other">차단된 메시지 %1$d건이 삭제돼요. 삭제 직후 실행 취소할 수 있어요.</item>
+        <item quantity="other">스팸 메시지 %1$d건이 삭제돼요. 삭제 직후 실행 취소할 수 있어요.</item>
     </plurals>
     <string name="declog_ui_clear_title">판정 기록을 지울까요?</string>
-    <string name="declog_ui_clear_message">모든 판정 기록이 삭제돼요. 차단된 메시지와 규칙은 그대로 유지돼요.</string>
+    <string name="declog_ui_clear_message">모든 판정 기록이 삭제돼요. 스팸과 규칙은 그대로 유지돼요.</string>
     <string name="declog_ui_clear_action">지우기</string>
     <string name="ui_log_reason_contacts_unavailable">연락처를 읽을 수 없어요.</string>
     <string name="blocknum_title">차단된 번호</string>

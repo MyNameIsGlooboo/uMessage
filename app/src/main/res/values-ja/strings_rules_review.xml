@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">常に許可する送信者はありません</string>
     <string name="rules2_empty_allowed_body">必ず受信トレイに届ける電話番号、送信者名、キーワードを追加します。下の「ルールを追加」をタップしてください。</string>
     <string name="rules2_empty_blocked_title">常にブロックする送信者はありません</string>
-    <string name="rules2_empty_blocked_body">「ブロック済み」に振り分ける電話番号、送信者名、キーワード、パターン（正規表現）を追加します。下の「ルールを追加」をタップしてください。</string>
+    <string name="rules2_empty_blocked_body">「迷惑メッセージ」に振り分ける電話番号、送信者名、キーワード、パターン（正規表現）を追加します。下の「ルールを追加」をタップしてください。</string>
     <string name="rules2_legacy_banner_title">以前のブロックリストが見つかりました</string>
     <string name="rules2_legacy_banner_body">ルールに移行すると、ブロックしたメッセージを確認して復元できます。</string>
     <string name="rules2_legacy_review">確認</string>
     <string name="rules2_system_header">Androidのブロックリスト（着信もブロック）</string>
-    <string name="rules2_system_body">これらの番号からのメッセージは、uMessageが受信する前にAndroidが破棄します。そのため「ブロック済み」に表示されず、復元もできません。</string>
+    <string name="rules2_system_body">これらの番号からのメッセージは、uMessageが受信する前にAndroidが破棄します。そのため「迷惑メッセージ」に表示されず、復元もできません。</string>
     <string name="rules2_system_manage">管理</string>
     <string name="rules2_system_move">uMessageのルールに移行</string>
     <string name="rules2_migrate_title">uMessageのルールに移行</string>
-    <string name="rules2_migrate_point_blocked">メッセージは「ブロック済み」に振り分けられ、そこから復元できます。</string>
+    <string name="rules2_migrate_point_blocked">メッセージは「迷惑メッセージ」に振り分けられ、そこから復元できます。</string>
     <string name="rules2_migrate_remove_needs_first">先に上の項目にチェックを入れてください。</string>
     <string name="rules2_migrate_nothing_selected">何も選択されていません</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -48,7 +48,7 @@
     <plurals name="rules2_bn_move">
         <item quantity="other">%1$d件の番号をルールに移行</item>
     </plurals>
-    <string name="forward2_intro_reassure">受信トレイに届いたメッセージのみ転送します。ブロック済みの迷惑メッセージは転送しません。</string>
+    <string name="forward2_intro_reassure">受信トレイに届いたメッセージのみ転送します。迷惑メッセージは転送しません。</string>
     <string name="forward2_empty_title">転送ルールはまだありません</string>
     <string name="forward2_empty_body">銀行からの通知など、条件に合うメッセージのコピーを別の電話に送信します。次のいずれかを選んで始めます。</string>
     <string name="forward2_template_bank">銀行の通知を転送</string>

@@ -43,16 +43,16 @@
         <item quantity="one">%dটি নম্বর uMessage-এর নিয়মে সরান</item>
         <item quantity="other">%dটি নম্বর uMessage-এর নিয়মে সরান</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• তাঁদের বার্তা “ব্লক করা”-তে যাবে, যেখানে আপনি সেগুলো পড়তে ও ফিরিয়ে আনতে পারবেন।</string>
+    <string name="e_migrate_point_blocked">• তাঁদের বার্তা স্প্যামে যাবে, যেখানে আপনি সেগুলো পড়তে ও ফিরিয়ে আনতে পারবেন।</string>
     <string name="e_migrate_point_android">• Android-এর তালিকা থেকে নম্বরগুলো না সরানো পর্যন্ত Android তাঁদের বার্তা ফেলে দেবে।</string>
     <string name="e_migrate_calls_note">Android-এর তালিকা কলও ব্লক করে। সেখান থেকে নম্বর সরালে তাঁরা আপনাকে আবার কল করতে পারবেন।</string>
     <string name="e_bn_unknown_body">শুধু “অচেনা প্রেরক” বন্ধ থাকলে প্রযোজ্য।</string>
     <string name="e_bn_row_calls_texts">কল ও বার্তা ব্লক করে</string>
     <string name="e_bn_row_short_code">শর্ট কোড: uMessage এর বার্তা পায়ই না</string>
     <string name="e_bn_move_one">uMessage-এর নিয়মে সরান</string>
-    <string name="e_bn_moved">%1$s এখন uMessage-এর একটি নিয়ম। এর বার্তা “ব্লক করা”-তে যাবে, আর কল ব্লক করা হবে না।</string>
+    <string name="e_bn_moved">%1$s এখন uMessage-এর একটি নিয়ম। এর বার্তা স্প্যামে যাবে, আর কল ব্লক করা হবে না।</string>
     <string name="e_bn_field_help">যেমন +15550001234, অথবা +1555 দিয়ে শুরু সব নম্বরের জন্য +1555*</string>
     <string name="e_bn_short_code_warning">এটি শর্ট কোড মনে হচ্ছে। uMessage পাওয়ার আগেই Android এর বার্তা ফেলে দেয়, তাই কোড বা ব্যাংকের বিজ্ঞপ্তির মতো কোনো বার্তাই আপনি ফিরিয়ে আনতে পারবেন না।</string>
     <string name="e_bn_add_as_rule">বরং uMessage-এর নিয়ম হিসেবে যোগ করুন</string>
-    <string name="e_bn_added_as_rule">%1$s uMessage-এর নিয়ম হিসেবে যোগ করা হয়েছে। এর বার্তা “ব্লক করা”-তে যাবে।</string>
+    <string name="e_bn_added_as_rule">%1$s uMessage-এর নিয়ম হিসেবে যোগ করা হয়েছে। এর বার্তা স্প্যামে যাবে।</string>
 </resources>

@@ -3,7 +3,7 @@
     <string name="convx_code_chip">Kod %1$s</string>
     <string name="convx_code_copy">Kopiuj</string>
     <string name="convx_block_archive">Zablokuj i archiwizuj</string>
-    <string name="convx_block_archive_hint">Nowe wiadomości trafią do Zablokowanych. Nic nie opuszcza twojego telefonu.</string>
+    <string name="convx_block_archive_hint">Nowe wiadomości trafią do Spamu. Nic nie opuszcza twojego telefonu.</string>
     <string name="convx_name_label">Nazwa</string>
     <string name="convx_clear">Wyczyść</string>
     <string name="convx_reset_name">Przywróć domyślną nazwę</string>

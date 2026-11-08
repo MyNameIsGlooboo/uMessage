@@ -7,11 +7,11 @@
     <string name="main_search_no_results">Nenhum resultado encontrado</string>
     <string name="main_settings">Configurações</string>
     <string name="main_tab_messages">Mensagens</string>
-    <string name="main_tab_blocked">Bloqueados</string>
+    <string name="main_tab_blocked">Spam</string>
     <string name="main_tab_archived">Arquivadas</string>
     <plurals name="main_tab_blocked_new" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Bloqueados, %d nova</item>
-        <item quantity="other">Bloqueados, %d novas</item>
+        <item quantity="one">Spam, %d nova</item>
+        <item quantity="other">Spam, %d novas</item>
     </plurals>
     <string name="main_permission_title">Permissão necessária</string>
     <string name="main_permission_grant">Conceda permissão</string>

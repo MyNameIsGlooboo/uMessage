@@ -6,7 +6,7 @@
     <string name="thread_edit_scheduled_replaces_draft">送信予約したメッセージを編集すると、入力中の内容が置き換わります。続けてもよろしいですか？</string>
     <string name="thread_menu_report_spam">迷惑メッセージを報告</string>
     <string name="thread_report_spam_title">迷惑メッセージを報告してもよろしいですか？</string>
-    <string name="thread_report_spam_message">%1$sからの新しいメッセージは、受信トレイの代わりに「ブロック済み」に届きます。この会話にあるメッセージは残ります。</string>
+    <string name="thread_report_spam_message">%1$sからの新しいメッセージは、受信トレイの代わりに「迷惑メッセージ」に届きます。この会話にあるメッセージは残ります。</string>
     <string name="thread_report_spam_confirm">迷惑メッセージを報告</string>
     <string name="thread_report_spam_cancel">キャンセル</string>
     <string name="thread_report_spam_done">迷惑メッセージを報告しました。</string>

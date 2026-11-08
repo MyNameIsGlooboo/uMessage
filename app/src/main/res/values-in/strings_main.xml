@@ -7,10 +7,10 @@
     <string name="main_search_no_results">Tidak ada hasil</string>
     <string name="main_settings">Setelan</string>
     <string name="main_tab_messages">Pesan</string>
-    <string name="main_tab_blocked">Diblokir</string>
+    <string name="main_tab_blocked">Spam</string>
     <string name="main_tab_archived">Diarsipkan</string>
     <plurals name="main_tab_blocked_new">
-        <item quantity="other">Diblokir, %d baru</item>
+        <item quantity="other">Spam, %d baru</item>
     </plurals>
     <string name="main_permission_title">Izin diperlukan</string>
     <string name="main_permission_grant">Berikan izin</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="smart_replies_title">پاسخ‌های هوشمند</string>
-    <string name="smart_replies_summary">پاسخ‌های پیشنهادی مثل «ممنون» یا «باشه»، از یک فهرست داخلی برنامه. تا نزنید چیزی فرستاده نمی‌شود.</string>
+    <string name="smart_replies_summary">پاسخ‌های پیشنهادی مثل «ممنون» یا «باشه»، از یک لیست داخلی برنامه. تا نزنید چیزی فرستاده نمی‌شود.</string>
     <string name="smart_replies_hide">پنهان کردن پیشنهادها</string>
     <string name="smart_replies_notif_title">پاسخ‌های هوشمند در اعلان‌ها</string>
     <string name="smart_replies_notif_summary">یک پاسخ پیشنهادی را به شکل دکمه روی اعلان نشان بده. با زدن آن، متن فرستاده می‌شود.</string>

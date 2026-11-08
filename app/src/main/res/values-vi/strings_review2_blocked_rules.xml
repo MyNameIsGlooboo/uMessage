@@ -41,16 +41,16 @@
     <plurals name="e_migrate_title_numbers">
         <item quantity="other">Chuyển %d số vào quy tắc uMessage</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• Tin nhắn từ các số này sẽ vào mục Đã chặn để bạn đọc và khôi phục.</string>
+    <string name="e_migrate_point_blocked">• Tin nhắn từ các số này sẽ vào mục Tin rác để bạn đọc và khôi phục.</string>
     <string name="e_migrate_point_android">• Android vẫn loại bỏ tin nhắn từ các số này cho đến khi chúng được xóa khỏi danh sách của Android.</string>
     <string name="e_migrate_calls_note">Danh sách của Android cũng chặn cuộc gọi. Các số bạn xóa khỏi danh sách có thể gọi lại cho bạn.</string>
     <string name="e_bn_unknown_body">Chỉ áp dụng khi mục Người gửi không xác định được đặt thành Tắt.</string>
     <string name="e_bn_row_calls_texts">Chặn cuộc gọi và tin nhắn</string>
     <string name="e_bn_row_short_code">Số ngắn: uMessage không bao giờ nhận được tin nhắn từ số này</string>
     <string name="e_bn_move_one">Chuyển vào quy tắc uMessage</string>
-    <string name="e_bn_moved">Đã thêm %1$s vào quy tắc uMessage. Tin nhắn từ số này vào mục Đã chặn, còn cuộc gọi không bị chặn nữa.</string>
+    <string name="e_bn_moved">Đã thêm %1$s vào quy tắc uMessage. Tin nhắn từ số này vào mục Tin rác, còn cuộc gọi không bị chặn nữa.</string>
     <string name="e_bn_field_help">Ví dụ: +15550001234 hoặc +1555* cho mọi số bắt đầu bằng +1555</string>
     <string name="e_bn_short_code_warning">Đây có vẻ là số ngắn. Android loại bỏ tin nhắn từ số này trước khi uMessage nhận được, nên bạn không thể khôi phục bất kỳ tin nhắn nào, như mã hoặc thông báo ngân hàng.</string>
     <string name="e_bn_add_as_rule">Thêm vào quy tắc uMessage thay thế</string>
-    <string name="e_bn_added_as_rule">Đã thêm %1$s vào quy tắc uMessage. Tin nhắn từ số này vào mục Đã chặn.</string>
+    <string name="e_bn_added_as_rule">Đã thêm %1$s vào quy tắc uMessage. Tin nhắn từ số này vào mục Tin rác.</string>
 </resources>

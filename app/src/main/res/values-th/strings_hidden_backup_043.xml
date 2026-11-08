@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">แชทที่ซ่อนอยู่ถูกล็อก</string>
+    <string name="backup_hidden_message">แชทที่ซ่อนของคุณถูกล็อกอยู่ ปลดล็อกเพื่อรวมไว้ในข้อมูลสำรอง หรือสำรองข้อมูลโดยไม่รวมแชทเหล่านั้น</string>
+    <string name="backup_hidden_unlock">ปลดล็อก</string>
+    <string name="backup_hidden_skip">ข้ามแชทที่ซ่อน</string>
+    <string name="backup_export_hidden_left_out">แชทที่ซ่อนซึ่งไม่ได้รวมไว้: %d</string>
+</resources>

@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">Engelleme ayarları</string>
     <string name="spam_blocked_stats_totals">Toplam %1$d engellendi, %2$d geri yüklendi</string>
     <string name="spam_blocked_header_cd">Son 7 günde %1$d spam engellendi. Toplam %2$d engellendi, %3$d geri yüklendi.</string>
-    <string name="spam_blocked_empty_title">Henüz engellenen mesaj yok</string>
+    <string name="spam_blocked_empty_title">Spam\'de henüz bir şey yok</string>
     <string name="spam_action_delete">Silin</string>
     <string name="spam_select">Seçin</string>
     <string name="spam_action_select_all">Tümünü seçin</string>
@@ -38,7 +38,7 @@
     <string name="spam_rules_empty_allowed_title">İzin verme kuralı yok</string>
     <string name="spam_rules_empty_allowed_body">İzin verdiğiniz her şey, Sıkı modda bile gelen kutunuza ulaşır. Bir numara, gönderen adı veya anahtar kelime ekleyin.</string>
     <string name="spam_rules_empty_blocked_title">Engelleme kuralı yok</string>
-    <string name="spam_rules_empty_blocked_body">Bir numarayı, numara önekini, gönderen adını, anahtar kelimeyi veya düzenli ifadeyi engelleyin. Engellenen mesajlar Engellenenler klasörüne gider.</string>
+    <string name="spam_rules_empty_blocked_body">Bir numarayı, numara önekini, gönderen adını, anahtar kelimeyi veya düzenli ifadeyi engelleyin. Bunların mesajları Spam klasörüne gider.</string>
     <string name="spam_rules_delete_rule">Kuralı silin: %s</string>
     <string name="spam_rules_deleted">Kural silindi</string>
     <plurals name="spam_rules_imported">
@@ -109,10 +109,10 @@
     <string name="spam_mode_off">Kapalı</string>
     <string name="spam_mode_off_body">Bilinmeyen gönderenler engellenmez</string>
     <string name="spam_strict_warning_title">Sıkı mod önemli mesajları gizleyebilir</string>
-    <string name="spam_strict_warning_body">Banka ve kargo mesajları ile tek kullanımlık kodlar genellikle kişilerinizde kayıtlı olmayan gönderenlerden gelir. Sıkı modda kodlar dahil tümü Engellenenler klasörüne gider. Kodları almak için Akıllı modu seçin veya bu gönderenlere bir kez izin verin.</string>
-    <string name="spam_strict_warning_action">Engellenen mesajları inceleyin</string>
+    <string name="spam_strict_warning_body">Banka ve kargo mesajları ile tek kullanımlık kodlar genellikle kişilerinizde kayıtlı olmayan gönderenlerden gelir. Sıkı modda kodlar dahil tümü Spam klasörüne gider. Kodları almak için Akıllı modu seçin veya bu gönderenlere bir kez izin verin.</string>
+    <string name="spam_strict_warning_action">Spam\'i inceleyin</string>
     <string name="spam_settings_cleanup_title">Temizleyin</string>
-    <string name="spam_purge_body">Eski engellenen mesajlar otomatik olarak silinir.</string>
+    <string name="spam_purge_body">Eski spam otomatik olarak silinir.</string>
     <string name="spam_purge_days">%d gün</string>
     <string name="spam_purge_forever">Hiçbir zaman</string>
     <string name="spam_notify_title">Mesaj engellendiğinde bildirin</string>

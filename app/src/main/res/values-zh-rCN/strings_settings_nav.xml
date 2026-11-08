@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols（版权归Google LLC所有）按Apache许可证2.0版授权。这些图标按原样提供，不提供任何担保。</string>
     <string name="settings_nav_recommended">推荐</string>
     <string name="settings_nav_strict_confirm_title">也屏蔽验证码？</string>
-    <string name="settings_nav_strict_confirm_body">在严格模式下，非联系人的验证码会和其他消息一样移至“已屏蔽”。银行和快递公司的消息也会被屏蔽。</string>
+    <string name="settings_nav_strict_confirm_body">在严格模式下，非联系人的验证码会和其他消息一样移至“垃圾短信”。银行和快递公司的消息也会被归入其中。</string>
     <string name="settings_nav_strict_confirm_action">使用严格模式</string>
     <string name="settings_nav_strict_confirm_cancel">保持当前模式</string>
-    <string name="settings_nav_purge_row">已屏蔽消息的自动删除时间</string>
+    <string name="settings_nav_purge_row">垃圾短信的自动删除时间</string>
     <string name="settings_nav_group_alerts">提醒</string>
-    <string name="settings_nav_notify_body">每屏蔽一条消息，发送一条静默通知</string>
+    <string name="settings_nav_notify_body">每收到一条垃圾短信，发送一条静默通知</string>
     <string name="settings_nav_theme_title">外观</string>
     <string name="settings_nav_theme_modes">模式</string>
     <string name="settings_nav_theme_colours">颜色</string>

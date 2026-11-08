@@ -7,7 +7,7 @@
     <string name="thread_review_details_type_mms">MMS</string>
     <string name="thread_review_sim_slot_name">سیم‌کارت %1$d، %2$s</string>
     <string name="thread_review_copy_code">کپی کد</string>
-    <string name="thread_review_copy_password">کپی گذرواژه</string>
+    <string name="thread_review_copy_password">کپی رمز</string>
     <string name="thread_review_copy_username">کپی نام کاربری</string>
     <string name="thread_review_sim_label">سیم‌کارت %1$s</string>
     <string name="thread_review_reply_disabled">این فرستنده نمی‌تواند پاسخ دریافت کند</string>

@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">لغة النظام الافتراضية</string>
     <string name="settings_f_group_rules">القواعد والقوائم</string>
     <string name="settings_f_spam_more">مدة الاحتفاظ والتنبيهات</string>
-    <string name="settings_f_spam_more_body">مدة الاحتفاظ بالرسائل المحظورة والتنبيهات</string>
+    <string name="settings_f_spam_more_body">مدة الاحتفاظ بالرسائل غير المرغوب فيها والتنبيهات</string>
     <string name="settings_f_hide_lock_codes_body">تظهر الرموز بصيغة •••• على شاشة القفل</string>
     <string name="settings_f_code_alert">تنبيه الرمز</string>
     <string name="settings_f_code_alert_body">صوت لرموز التحقق</string>

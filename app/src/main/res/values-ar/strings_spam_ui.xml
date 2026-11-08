@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="spam_ui_delete_all">احذف الكل</string>
-    <string name="spam_ui_delete_all_title">حذف كل الرسائل المحظورة؟</string>
+    <string name="spam_ui_delete_all_title">حذف كل الرسائل غير المرغوب فيها؟</string>
     <plurals name="spam_ui_delete_all_message">
-        <item quantity="zero">ستُحذف %1$d رسائل محظورة. يمكنك التراجع فورًا بعد ذلك.</item>
-        <item quantity="one">ستُحذف رسالة واحدة محظورة (%1$d). يمكنك التراجع فورًا بعد ذلك.</item>
-        <item quantity="two">ستُحذف رسالتان محظورتان (%1$d). يمكنك التراجع فورًا بعد ذلك.</item>
-        <item quantity="few">ستُحذف %1$d رسائل محظورة. يمكنك التراجع فورًا بعد ذلك.</item>
-        <item quantity="many">ستُحذف %1$d رسالة محظورة. يمكنك التراجع فورًا بعد ذلك.</item>
-        <item quantity="other">ستُحذف %1$d رسالة محظورة. يمكنك التراجع فورًا بعد ذلك.</item>
+        <item quantity="zero">ستُحذف %1$d رسائل. يمكنك التراجع فورًا بعد ذلك.</item>
+        <item quantity="one">ستُحذف رسالة واحدة (%1$d). يمكنك التراجع فورًا بعد ذلك.</item>
+        <item quantity="two">ستُحذف رسالتان (%1$d). يمكنك التراجع فورًا بعد ذلك.</item>
+        <item quantity="few">ستُحذف %1$d رسائل. يمكنك التراجع فورًا بعد ذلك.</item>
+        <item quantity="many">ستُحذف %1$d رسالة. يمكنك التراجع فورًا بعد ذلك.</item>
+        <item quantity="other">ستُحذف %1$d رسالة. يمكنك التراجع فورًا بعد ذلك.</item>
     </plurals>
     <string name="declog_ui_clear_title">مسح سجل القرارات؟</string>
-    <string name="declog_ui_clear_message">ستُمسح كل القرارات المسجلة. ستبقى الرسائل المحظورة والقواعد كما هي.</string>
+    <string name="declog_ui_clear_message">ستُمسح كل القرارات المسجلة. ستبقى الرسائل غير المرغوب فيها والقواعد كما هي.</string>
     <string name="declog_ui_clear_action">امسح</string>
     <string name="ui_log_reason_contacts_unavailable">تعذّرت قراءة جهات الاتصال</string>
     <string name="blocknum_title">الأرقام المحظورة</string>

@@ -12,7 +12,7 @@
     <string name="sks_rules">規則 允許 封鎖清單 關鍵字 模式 正規表示式 regex 寄件者 號碼 白名單 黑名單</string>
     <string name="sks_blocked_numbers">已封鎖號碼 封鎖清單 電話 聯絡人 Android 黑名單</string>
     <string name="sks_decision_log">記錄 歷史 原因 封鎖 活動 最近</string>
-    <string name="sks_purge">刪除 已封鎖 舊的 移除 清理 自動 天數 保留期限</string>
+    <string name="sks_purge">刪除 垃圾簡訊 已封鎖 舊的 移除 清理 自動 天數 保留期限</string>
     <string name="sks_region">國家 地區 境外 外國 國際 海外 封鎖</string>
     <string name="sks_links">連結 網址 URL 危險 網路釣魚 安全 鎖定 網頁</string>
     <string name="sks_carrier_report">電信業者 檢舉 業者 轉寄 7726 供應商 垃圾簡訊</string>

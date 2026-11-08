@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="i56_section">رسانه و پیوندها</string>
+    <string name="i56_section">رسانه و لینک‌ها</string>
     <string name="i56_see_all">دیدن همه</string>
     <string name="i56_pictures">عکس‌ها</string>
-    <string name="i56_links">پیوندها</string>
+    <string name="i56_links">لینک‌ها</string>
     <string name="i56_empty_pictures">عکسی در این گفتگو نیست.</string>
-    <string name="i56_empty_links">پیوندی در این گفتگو نیست.</string>
+    <string name="i56_empty_links">لینکی در این گفتگو نیست.</string>
     <string name="i56_show_in_chat">نمایش در گفتگو</string>
     <string name="i56_load_more">نمایش بیشتر</string>
     <string name="i56_picture_description">عکس. برای باز کردن ضربه بزنید.</string>
@@ -14,7 +14,7 @@
         <item quantity="other">%d عکس</item>
     </plurals>
     <plurals name="i56_count_links" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d پیوند</item>
-        <item quantity="other">%d پیوند</item>
+        <item quantity="one">%d لینک</item>
+        <item quantity="other">%d لینک</item>
     </plurals>
 </resources>

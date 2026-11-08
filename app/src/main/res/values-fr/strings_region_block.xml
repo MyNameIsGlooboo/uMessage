@@ -5,7 +5,7 @@
     <string name="region_summary">Les contacts et les personnes à qui vous avez écrit ne sont pas retenus</string>
     <string name="region_off">Désactivé</string>
     <string name="region_picker_title">Votre pays de résidence</string>
-    <string name="region_picker_body">Les messages des numéros d\'autres pays sont retenus dans Messages bloqués, sauf ceux des contacts et des personnes à qui vous avez écrit. Ceux d\'un proche à l\'étranger absent de vos contacts sont aussi retenus.</string>
+    <string name="region_picker_body">Les messages des numéros d\'autres pays sont retenus dans Spam, sauf ceux des contacts et des personnes à qui vous avez écrit. Ceux d\'un proche à l\'étranger absent de vos contacts sont aussi retenus. Cela ne fonctionne qu\'en mode Intelligent ou Strict.</string>
     <string name="region_picker_search">Rechercher</string>
     <string name="region_reason_foreign">Numéro d\'un autre pays</string>
 </resources>

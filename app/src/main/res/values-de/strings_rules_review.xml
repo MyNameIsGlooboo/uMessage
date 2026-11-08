@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">Keine Absender immer erlaubt</string>
     <string name="rules2_empty_allowed_body">Füge eine Nummer, einen Absendernamen oder ein Wort hinzu, damit passende Nachrichten immer in deinem Posteingang landen. Tippe unten auf „Regel hinzufügen“.</string>
     <string name="rules2_empty_blocked_title">Keine Absender immer blockiert</string>
-    <string name="rules2_empty_blocked_body">Füge eine Nummer, einen Absendernamen, ein Wort oder ein Muster (Regex) hinzu, um passende Nachrichten nach „Blockiert“ zu verschieben. Tippe unten auf „Regel hinzufügen“.</string>
+    <string name="rules2_empty_blocked_body">Füge eine Nummer, einen Absendernamen, ein Wort oder ein Muster (Regex) hinzu, um passende Nachrichten nach „Spam“ zu verschieben. Tippe unten auf „Regel hinzufügen“.</string>
     <string name="rules2_legacy_banner_title">Ältere Blockierlisten gefunden</string>
     <string name="rules2_legacy_banner_body">Übertrage sie in Regeln, damit du blockierte Nachrichten sehen und wiederherstellen kannst.</string>
     <string name="rules2_legacy_review">Prüfen</string>
     <string name="rules2_system_header">Android-Blockierliste (blockiert auch Anrufe)</string>
-    <string name="rules2_system_body">Android verwirft Nachrichten von diesen Nummern, bevor uMessage sie empfängt. Sie erscheinen daher nie unter „Blockiert“ und können nicht wiederhergestellt werden.</string>
+    <string name="rules2_system_body">Android verwirft Nachrichten von diesen Nummern, bevor uMessage sie empfängt. Sie erscheinen daher nie unter „Spam“ und können nicht wiederhergestellt werden.</string>
     <string name="rules2_system_manage">Verwalten</string>
     <string name="rules2_system_move">In uMessage-Regeln übertragen</string>
     <string name="rules2_migrate_title">In uMessage-Regeln übertragen</string>
-    <string name="rules2_migrate_point_blocked">Nachrichten landen dann unter „Blockiert“, wo du sie wiederherstellen kannst.</string>
+    <string name="rules2_migrate_point_blocked">Nachrichten landen dann unter „Spam“, wo du sie wiederherstellen kannst.</string>
     <string name="rules2_migrate_remove_needs_first">Aktiviere zuerst die Option oben.</string>
     <string name="rules2_migrate_nothing_selected">Nichts ausgewählt</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -50,7 +50,7 @@
         <item quantity="one">%1$d Nummer in Regeln übertragen</item>
         <item quantity="other">%1$d Nummern in Regeln übertragen</item>
     </plurals>
-    <string name="forward2_intro_reassure">Nur Nachrichten, die deinen Posteingang erreichen, werden weitergeleitet. Blockierter Spam wird nie weitergeleitet.</string>
+    <string name="forward2_intro_reassure">Nur Nachrichten, die deinen Posteingang erreichen, werden weitergeleitet. Spam wird nie weitergeleitet.</string>
     <string name="forward2_empty_title">Noch keine Weiterleitungsregeln</string>
     <string name="forward2_empty_body">Sende eine Kopie passender Nachrichten, etwa Bankbenachrichtigungen, an ein anderes Telefon. Starte mit einer dieser Vorlagen.</string>
     <string name="forward2_template_bank">Bankbenachrichtigungen weiterleiten</string>

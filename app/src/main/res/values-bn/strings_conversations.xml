@@ -14,11 +14,11 @@
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">দ্রুত স্ক্রল</string>
     <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%dটি ব্লক করা বার্তা</item>
-        <item quantity="other">%dটি ব্লক করা বার্তা</item>
+        <item quantity="one">%dটি স্প্যাম বার্তা</item>
+        <item quantity="other">%dটি স্প্যাম বার্তা</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">ব্লক করা বার্তা</string>
-    <string name="convlist_blocked_banner_cd">%1$dটি ব্লক করা বার্তা। ব্লক করা বার্তার ফোল্ডার খুলুন।</string>
+    <string name="convlist_blocked_banner_title">স্প্যাম</string>
+    <string name="convlist_blocked_banner_cd">%1$dটি স্প্যাম বার্তা। স্প্যাম ফোল্ডার খুলুন।</string>
     <string name="convlist_archive">আর্কাইভ করুন</string>
     <string name="convlist_delete">মুছুন</string>
     <string name="convlist_pin">ওপরে পিন করুন</string>
@@ -47,12 +47,12 @@
         <item quantity="other">%dটি কথোপকথন আর্কাইভ করা হয়েছে</item>
     </plurals>
     <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
-        <item quantity="one">ব্লক করা হয়েছে। নতুন বার্তা “ব্লক করা বার্তা”-তে যাবে</item>
-        <item quantity="other">%d জন প্রেরককে ব্লক করা হয়েছে। নতুন বার্তা “ব্লক করা বার্তা”-তে যাবে</item>
+        <item quantity="one">ব্লক করা হয়েছে। নতুন বার্তা স্প্যামে যাবে</item>
+        <item quantity="other">%d জন প্রেরককে ব্লক করা হয়েছে। নতুন বার্তা স্প্যামে যাবে</item>
     </plurals>
     <string name="convlist_action_failed">কিছু সমস্যা হয়েছে</string>
     <string name="convlist_block_title">নম্বর ব্লক করবেন?</string>
-    <string name="convlist_block_message">%1$s ব্লক করবেন? এই নম্বরের নতুন বার্তা আপনার ইনবক্সের বদলে “ব্লক করা বার্তা”-তে যাবে, যেখানে আপনি সেগুলো পড়তে বা ফিরিয়ে আনতে পারবেন।</string>
+    <string name="convlist_block_message">%1$s ব্লক করবেন? এই নম্বরের নতুন বার্তা আপনার ইনবক্সের বদলে স্প্যামে যাবে, যেখানে আপনি সেগুলো পড়তে বা ফিরিয়ে আনতে পারবেন।</string>
     <string name="convlist_block_confirm">ব্লক করুন</string>
     <string name="convlist_rename_title">কথোপকথনের নাম বদলান</string>
     <string name="convlist_cancel">বাতিল</string>

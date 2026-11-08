@@ -19,9 +19,9 @@
     <string name="thread_menu_block">Bloqueie o remetente</string>
     <string name="thread_menu_unblock">Desbloqueie o remetente</string>
     <string name="thread_block_title">Bloqueie o remetente?</string>
-    <string name="thread_block_message">Bloqueie %1$s? As novas mensagens deste remetente vão para Mensagens bloqueadas em vez da sua caixa de entrada. Lá, você ainda pode ler ou restaurar essas mensagens. Nada é enviado a ninguém. As mensagens que já estão nesta conversa são mantidas.</string>
+    <string name="thread_block_message">Bloqueie %1$s? As novas mensagens deste remetente vão para Spam em vez da sua caixa de entrada. Lá, você ainda pode ler ou restaurar essas mensagens. Nada é enviado a ninguém. As mensagens que já estão nesta conversa são mantidas.</string>
     <string name="thread_block_confirm">Bloqueie</string>
-    <string name="thread_block_done">Bloqueado. As novas mensagens vão para Mensagens bloqueadas</string>
+    <string name="thread_block_done">Bloqueado. As novas mensagens vão para Spam</string>
     <string name="thread_block_failed">Não foi possível bloquear este remetente</string>
     <string name="thread_unblock_done">Desbloqueado. As novas mensagens chegarão à sua caixa de entrada</string>
     <string name="thread_unblock_done_system">Desbloqueado no uMessage. Este número também está na lista de bloqueio do celular, então o Android ainda bloqueia as mensagens dele</string>

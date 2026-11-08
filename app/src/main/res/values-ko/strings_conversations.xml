@@ -14,10 +14,10 @@
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">빠른 스크롤</string>
     <plurals name="convlist_blocked_banner">
-        <item quantity="other">차단된 메시지 %d건</item>
+        <item quantity="other">스팸 메시지 %d건</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">차단함</string>
-    <string name="convlist_blocked_banner_cd">차단된 메시지가 %1$d건 있어요. 차단함을 열어요.</string>
+    <string name="convlist_blocked_banner_title">스팸</string>
+    <string name="convlist_blocked_banner_cd">스팸 메시지가 %1$d건 있어요. 스팸함을 열어요.</string>
     <string name="convlist_archive">보관</string>
     <string name="convlist_delete">삭제</string>
     <string name="convlist_pin">상단 고정</string>
@@ -43,11 +43,11 @@
         <item quantity="other">대화 %d개를 보관했어요.</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="other">발신자 %d명을 차단했어요. 새 메시지는 차단함으로 이동해요.</item>
+        <item quantity="other">발신자 %d명을 차단했어요. 새 메시지는 스팸함으로 이동해요.</item>
     </plurals>
     <string name="convlist_action_failed">문제가 발생했어요.</string>
     <string name="convlist_block_title">번호를 차단할까요?</string>
-    <string name="convlist_block_message">다음 번호를 차단할까요? %1$s. 이 번호에서 오는 새 메시지는 받은 메시지함 대신 차단함으로 이동해요. 차단함에서도 읽거나 복원할 수 있어요.</string>
+    <string name="convlist_block_message">다음 번호를 차단할까요? %1$s. 이 번호에서 오는 새 메시지는 받은 메시지함 대신 스팸함으로 이동해요. 스팸함에서도 읽거나 복원할 수 있어요.</string>
     <string name="convlist_block_confirm">차단</string>
     <string name="convlist_rename_title">대화 이름 변경</string>
     <string name="convlist_cancel">취소</string>

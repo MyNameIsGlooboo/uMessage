@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessage zatrzymał te wiadomości. Nie ma ich w odebranych.</string>
     <string name="r3b_thread_delete_all">Usuń wszystkie wiadomości od %1$s</string>
     <string name="r3b_thread_empty_title">Nic tu już nie ma</string>
-    <string name="r3b_thread_empty_body">Ten nadawca nie ma teraz zablokowanych wiadomości.</string>
+    <string name="r3b_thread_empty_body">Ten nadawca nie ma teraz wiadomości w Spamie.</string>
     <string name="r3b_message_actions">Działania na wiadomości</string>
     <string name="r3b_why_blocked">Powód zablokowania</string>
     <string name="r3b_copy_text">Kopiuj tekst</string>
@@ -14,9 +14,9 @@
     <string name="r3b_delete_message">Usuń</string>
     <string name="r3b_received">Odebrano %1$s</string>
     <plurals name="r3b_info_purge">
-        <item quantity="one">Zablokowane wiadomości są usuwane po %d dniu.</item>
-        <item quantity="few">Zablokowane wiadomości są usuwane po %d dniach.</item>
-        <item quantity="many">Zablokowane wiadomości są usuwane po %d dniach.</item>
-        <item quantity="other">Zablokowane wiadomości są usuwane po %d dnia.</item>
+        <item quantity="one">Spam jest usuwany po %d dniu.</item>
+        <item quantity="few">Spam jest usuwany po %d dniach.</item>
+        <item quantity="many">Spam jest usuwany po %d dniach.</item>
+        <item quantity="other">Spam jest usuwany po %d dnia.</item>
     </plurals>
 </resources>

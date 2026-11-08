@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">Nhấn để tải xuống</string>
+    <string name="mms_downloading">Đang tải xuống…</string>
+    <string name="mms_download_again">Tải xuống thất bại. Nhấn để thử lại</string>
+    <string name="mms_expired">Tin nhắn hình ảnh này không còn nữa</string>
+    <string name="mms_download_action_desc">Tải xuống tin nhắn hình ảnh</string>
+</resources>

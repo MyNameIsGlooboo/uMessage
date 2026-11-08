@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">系统默认</string>
     <string name="settings_f_group_rules">规则和列表</string>
     <string name="settings_f_spam_more">保留时间和提醒</string>
-    <string name="settings_f_spam_more_body">已屏蔽消息的保留时间和提醒</string>
+    <string name="settings_f_spam_more_body">垃圾短信的保留时间和提醒</string>
     <string name="settings_f_hide_lock_codes_body">验证码在锁屏上显示为••••</string>
     <string name="settings_f_code_alert">验证码提醒</string>
     <string name="settings_f_code_alert_body">验证码提示音</string>

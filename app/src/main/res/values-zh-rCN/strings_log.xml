@@ -32,7 +32,7 @@
     <string name="declog_fixed_blocked">你已通过判定记录屏蔽此发件人</string>
     <string name="declog_fixed_restored">你已通过判定记录恢复此消息</string>
     <string name="declog_restored">已恢复</string>
-    <string name="declog_blocked_message">消息仍在“已屏蔽”中</string>
+    <string name="declog_blocked_message">消息仍在“垃圾短信”中</string>
     <string name="declog_restore">恢复消息</string>
     <string name="declog_restore_done">消息已恢复至收件箱</string>
     <string name="declog_restore_text_only">文字已恢复至收件箱。图片无法恢复。</string>

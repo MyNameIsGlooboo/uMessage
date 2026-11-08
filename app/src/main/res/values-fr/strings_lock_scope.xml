@@ -3,8 +3,8 @@
     <string name="lock_scope_title">Éléments à verrouiller</string>
     <string name="lock_scope_whole">Toute l\'application</string>
     <string name="lock_scope_chosen">Certaines parties uniquement</string>
-    <string name="lock_scope_chosen_long">Certaines parties uniquement : l\'onglet Messages bloqués et les conversations masquées</string>
-    <string name="lock_scope_blocked_title">Les messages bloqués sont verrouillés</string>
+    <string name="lock_scope_chosen_long">Certaines parties uniquement : l\'onglet Spam et les conversations masquées</string>
+    <string name="lock_scope_blocked_title">Spam est verrouillé</string>
     <string name="lock_scope_blocked_body">Déverrouillez pour les voir.</string>
     <string name="lock_scope_unlock">Déverrouiller</string>
 </resources>

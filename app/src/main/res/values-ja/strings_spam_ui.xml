@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="spam_ui_delete_all">すべて削除</string>
-    <string name="spam_ui_delete_all_title">ブロック済みメッセージをすべて削除しますか？</string>
+    <string name="spam_ui_delete_all_title">迷惑メッセージをすべて削除しますか？</string>
     <plurals name="spam_ui_delete_all_message">
-        <item quantity="other">ブロック済みメッセージ%1$d件を削除します。削除直後なら元に戻せます。</item>
+        <item quantity="other">迷惑メッセージ%1$d件を削除します。削除直後なら元に戻せます。</item>
     </plurals>
     <string name="declog_ui_clear_title">判定履歴を消去しますか？</string>
-    <string name="declog_ui_clear_message">記録された判定をすべて削除します。ブロック済みメッセージとルールはそのまま残ります。</string>
+    <string name="declog_ui_clear_message">記録された判定をすべて削除します。迷惑メッセージとルールはそのまま残ります。</string>
     <string name="declog_ui_clear_action">消去</string>
     <string name="ui_log_reason_contacts_unavailable">連絡先を読み取れません。</string>
     <string name="blocknum_title">ブロック済みの電話番号</string>

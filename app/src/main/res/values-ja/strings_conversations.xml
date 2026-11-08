@@ -14,10 +14,10 @@
     <string name="convlist_sim">SIM%1$d</string>
     <string name="convlist_scroll_handle">高速スクロール</string>
     <plurals name="convlist_blocked_banner">
-        <item quantity="other">ブロック済みのメッセージ%d件</item>
+        <item quantity="other">迷惑メッセージ%d件</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">ブロック済みのメッセージ</string>
-    <string name="convlist_blocked_banner_cd">ブロック済みのメッセージが%1$d件あります。ブロック済みフォルダを開きます。</string>
+    <string name="convlist_blocked_banner_title">迷惑メッセージ</string>
+    <string name="convlist_blocked_banner_cd">迷惑メッセージが%1$d件あります。迷惑メッセージフォルダを開きます。</string>
     <string name="convlist_archive">アーカイブ</string>
     <string name="convlist_delete">削除</string>
     <string name="convlist_pin">最上部に固定</string>
@@ -43,11 +43,11 @@
         <item quantity="other">会話を%d件アーカイブしました。</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="other">送信者を%d件ブロックしました。新しいメッセージは「ブロック済みのメッセージ」に移動します。</item>
+        <item quantity="other">送信者を%d件ブロックしました。新しいメッセージは「迷惑メッセージ」に移動します。</item>
     </plurals>
     <string name="convlist_action_failed">エラーが発生しました。</string>
     <string name="convlist_block_title">番号をブロックしますか？</string>
-    <string name="convlist_block_message">%1$sをブロックしますか？この番号からの新しいメッセージは、受信トレイではなく「ブロック済みのメッセージ」に移動します。移動後も閲覧や復元ができます。</string>
+    <string name="convlist_block_message">%1$sをブロックしますか？この番号からの新しいメッセージは、受信トレイではなく「迷惑メッセージ」に移動します。移動後も閲覧や復元ができます。</string>
     <string name="convlist_block_confirm">ブロック</string>
     <string name="convlist_rename_title">会話名を変更</string>
     <string name="convlist_cancel">キャンセル</string>

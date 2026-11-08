@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">किसी भेजने वाले को हमेशा अनुमति नहीं दी गई</string>
     <string name="rules2_empty_allowed_body">कोई नंबर, भेजने वाले का नाम या शब्द जोड़ें जिसके मैसेज हमेशा आपके इनबॉक्स में आएं. नीचे नियम जोड़ें पर टैप करें.</string>
     <string name="rules2_empty_blocked_title">किसी भेजने वाले को हमेशा ब्लॉक नहीं किया गया</string>
-    <string name="rules2_empty_blocked_body">मैसेज को ब्लॉक किए गए में भेजने के लिए कोई नंबर, भेजने वाले का नाम, शब्द या पैटर्न (रेगुलर एक्सप्रेशन) जोड़ें. नीचे नियम जोड़ें पर टैप करें.</string>
+    <string name="rules2_empty_blocked_body">मैसेज को स्पैम में भेजने के लिए कोई नंबर, भेजने वाले का नाम, शब्द या पैटर्न (रेगुलर एक्सप्रेशन) जोड़ें. नीचे नियम जोड़ें पर टैप करें.</string>
     <string name="rules2_legacy_banner_title">पुरानी ब्लॉक सूचियां मिलीं</string>
     <string name="rules2_legacy_banner_body">इन्हें नियमों में ले जाएं, ताकि इनके ब्लॉक किए गए मैसेज देख सकें और वापस ला सकें.</string>
     <string name="rules2_legacy_review">समीक्षा करें</string>
     <string name="rules2_system_header">Android की ब्लॉक सूची (कॉल भी ब्लॉक करती है)</string>
-    <string name="rules2_system_body">Android इन नंबरों के मैसेज uMessage तक पहुंचने से पहले ही हटा देता है. इसलिए ये ब्लॉक किए गए में नहीं दिखते और इन्हें वापस नहीं लाया जा सकता.</string>
+    <string name="rules2_system_body">Android इन नंबरों के मैसेज uMessage तक पहुंचने से पहले ही हटा देता है. इसलिए ये स्पैम में नहीं दिखते और इन्हें वापस नहीं लाया जा सकता.</string>
     <string name="rules2_system_manage">मैनेज करें</string>
     <string name="rules2_system_move">uMessage के नियमों में ले जाएं</string>
     <string name="rules2_migrate_title">uMessage के नियमों में ले जाएं</string>
-    <string name="rules2_migrate_point_blocked">फिर मैसेज ब्लॉक किए गए में जाएंगे, जहां से आप उन्हें वापस ला सकते हैं.</string>
+    <string name="rules2_migrate_point_blocked">फिर मैसेज स्पैम में जाएंगे, जहां से आप उन्हें वापस ला सकते हैं.</string>
     <string name="rules2_migrate_remove_needs_first">पहले ऊपर दिए विकल्प पर टिक लगाएं.</string>
     <string name="rules2_migrate_nothing_selected">कुछ नहीं चुना गया</string>
     <plurals name="rules2_migrate_confirm_count" tools:ignore="ImpliedQuantity">
@@ -50,7 +50,7 @@
         <item quantity="one">%1$d नंबर नियमों में ले जाएं</item>
         <item quantity="other">%1$d नंबर नियमों में ले जाएं</item>
     </plurals>
-    <string name="forward2_intro_reassure">सिर्फ़ आपके इनबॉक्स में आने वाले मैसेज फ़ॉरवर्ड किए जाते हैं. ब्लॉक किया गया स्पैम कभी फ़ॉरवर्ड नहीं होता.</string>
+    <string name="forward2_intro_reassure">सिर्फ़ आपके इनबॉक्स में आने वाले मैसेज फ़ॉरवर्ड किए जाते हैं. स्पैम कभी फ़ॉरवर्ड नहीं होता.</string>
     <string name="forward2_empty_title">अभी फ़ॉरवर्ड करने का कोई नियम नहीं है</string>
     <string name="forward2_empty_body">नियम से मेल खाने वाले मैसेज, जैसे बैंक की सूचनाएं, दूसरे फ़ोन पर भी भेजें. इनमें से किसी एक से शुरू करें.</string>
     <string name="forward2_template_bank">बैंक की सूचनाएं फ़ॉरवर्ड करें</string>

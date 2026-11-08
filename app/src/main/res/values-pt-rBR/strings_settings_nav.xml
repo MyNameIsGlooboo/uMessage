@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols (direitos autorais da Google LLC) são licenciados sob a Apache License, versão 2.0. Os ícones são fornecidos no estado em que se encontram, sem garantia.</string>
     <string name="settings_nav_recommended">Recomendado</string>
     <string name="settings_nav_strict_confirm_title">Bloqueie também os códigos de verificação?</string>
-    <string name="settings_nav_strict_confirm_body">No modo de filtragem rigoroso, códigos de remetentes que não estão nos seus contatos vão para Bloqueados junto com todo o resto. Mensagens de bancos e transportadoras também são bloqueadas.</string>
+    <string name="settings_nav_strict_confirm_body">No modo de filtragem rigoroso, códigos de remetentes que não estão nos seus contatos vão para Spam junto com todo o resto. Mensagens de bancos e transportadoras também são retidas.</string>
     <string name="settings_nav_strict_confirm_action">Use o modo rigoroso</string>
     <string name="settings_nav_strict_confirm_cancel">Mantenha o modo atual</string>
-    <string name="settings_nav_purge_row">Exclua mensagens bloqueadas após</string>
+    <string name="settings_nav_purge_row">Exclua o spam após</string>
     <string name="settings_nav_group_alerts">Alertas</string>
-    <string name="settings_nav_notify_body">Uma notificação silenciosa para cada mensagem bloqueada</string>
+    <string name="settings_nav_notify_body">Uma notificação silenciosa para cada mensagem de spam</string>
     <string name="settings_nav_theme_title">Aparência</string>
     <string name="settings_nav_theme_modes">Modo</string>
     <string name="settings_nav_theme_colours">Cores</string>

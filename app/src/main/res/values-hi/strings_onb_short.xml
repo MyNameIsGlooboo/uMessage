@@ -4,7 +4,7 @@
     <string name="onb_allow_done">हो गया</string>
     <string name="onb_allow_needed">ज़रूरी</string>
     <string name="onb_allow_all_set">सब तैयार है</string>
-    <string name="onb_mode_strict_short">सब कुछ \'ब्लॉक किए गए\' में रखें</string>
+    <string name="onb_mode_strict_short">सब कुछ स्पैम में रखें</string>
     <string name="onb_mode_smart_short">रखें, पर कोड वाले मैसेज आने दें</string>
     <string name="onb_mode_off_short">फ़िल्टर न करें</string>
 </resources>

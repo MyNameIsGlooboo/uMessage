@@ -14,10 +14,10 @@
     <string name="convlist_sim">SIM%1$d</string>
     <string name="convlist_scroll_handle">快速捲動</string>
     <plurals name="convlist_blocked_banner">
-        <item quantity="other">%d則已封鎖的訊息</item>
+        <item quantity="other">%d則垃圾訊息</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">已封鎖的訊息</string>
-    <string name="convlist_blocked_banner_cd">%1$d則已封鎖的訊息。開啟已封鎖資料夾。</string>
+    <string name="convlist_blocked_banner_title">垃圾訊息</string>
+    <string name="convlist_blocked_banner_cd">%1$d則垃圾訊息。開啟垃圾訊息資料夾。</string>
     <string name="convlist_archive">封存</string>
     <string name="convlist_delete">刪除</string>
     <string name="convlist_pin">置頂</string>
@@ -43,11 +43,11 @@
         <item quantity="other">已封存%d個對話</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="other">已封鎖%d個寄件者。新訊息會移至「已封鎖的訊息」</item>
+        <item quantity="other">已封鎖%d個寄件者。新訊息會移至「垃圾訊息」</item>
     </plurals>
     <string name="convlist_action_failed">發生錯誤</string>
     <string name="convlist_block_title">要封鎖號碼嗎？</string>
-    <string name="convlist_block_message">要封鎖%1$s嗎？來自這個號碼的新訊息會移至「已封鎖的訊息」而不是收件匣，你仍可在那裡閱讀或還原。</string>
+    <string name="convlist_block_message">要封鎖%1$s嗎？來自這個號碼的新訊息會移至「垃圾訊息」而不是收件匣，你仍可在那裡閱讀或還原。</string>
     <string name="convlist_block_confirm">封鎖</string>
     <string name="convlist_rename_title">重新命名對話</string>
     <string name="convlist_cancel">取消</string>

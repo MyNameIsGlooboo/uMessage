@@ -36,7 +36,7 @@
     <string name="declog_fixed_blocked">Hai bloccato questo mittente dal registro</string>
     <string name="declog_fixed_restored">Hai ripristinato questo messaggio dal registro</string>
     <string name="declog_restored">Ripristinato</string>
-    <string name="declog_blocked_message">Il messaggio, ancora in Messaggi bloccati</string>
+    <string name="declog_blocked_message">Il messaggio, ancora in Spam</string>
     <string name="declog_restore">Ripristina messaggio</string>
     <string name="declog_restore_done">Messaggio ripristinato in In arrivo</string>
     <string name="declog_restore_text_only">Testo ripristinato in In arrivo. Impossibile recuperare le immagini.</string>

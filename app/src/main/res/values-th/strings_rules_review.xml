@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">ยังไม่มีผู้ส่งที่อนุญาตเสมอ</string>
     <string name="rules2_empty_allowed_body">เพิ่มหมายเลข ชื่อผู้ส่ง หรือคำที่ต้องการให้เข้ากล่องข้อความเข้าเสมอ แตะเพิ่มกฎด้านล่าง</string>
     <string name="rules2_empty_blocked_title">ยังไม่มีผู้ส่งที่บล็อกเสมอ</string>
-    <string name="rules2_empty_blocked_body">เพิ่มหมายเลข ชื่อผู้ส่ง คำ หรือรูปแบบ (regex) เพื่อย้ายข้อความไปที่บล็อก แตะเพิ่มกฎด้านล่าง</string>
+    <string name="rules2_empty_blocked_body">เพิ่มหมายเลข ชื่อผู้ส่ง คำ หรือรูปแบบ (regex) เพื่อย้ายข้อความไปที่สแปม แตะเพิ่มกฎด้านล่าง</string>
     <string name="rules2_legacy_banner_title">พบรายการบล็อกเดิม</string>
     <string name="rules2_legacy_banner_body">ย้ายรายการเหล่านี้มาเป็นกฎเพื่อดูและกู้คืนข้อความที่บล็อก</string>
     <string name="rules2_legacy_review">ตรวจสอบ</string>
     <string name="rules2_system_header">รายการบล็อกของ Android (บล็อกสายโทรเข้าด้วย)</string>
-    <string name="rules2_system_body">Android จะทิ้งข้อความจากหมายเลขเหล่านี้ก่อนถึง uMessage จึงไม่ปรากฏในหน้าที่บล็อกและกู้คืนไม่ได้</string>
+    <string name="rules2_system_body">Android จะทิ้งข้อความจากหมายเลขเหล่านี้ก่อนถึง uMessage จึงไม่ปรากฏในสแปมและกู้คืนไม่ได้</string>
     <string name="rules2_system_manage">จัดการ</string>
     <string name="rules2_system_move">ย้ายมาเป็นกฎใน uMessage</string>
     <string name="rules2_migrate_title">ย้ายมาเป็นกฎใน uMessage</string>
-    <string name="rules2_migrate_point_blocked">จากนั้นข้อความจะไปที่หน้าที่บล็อก ซึ่งกู้คืนได้</string>
+    <string name="rules2_migrate_point_blocked">จากนั้นข้อความจะไปที่สแปม ซึ่งกู้คืนได้</string>
     <string name="rules2_migrate_remove_needs_first">เลือกตัวเลือกด้านบนก่อน</string>
     <string name="rules2_migrate_nothing_selected">ยังไม่ได้เลือก</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -48,7 +48,7 @@
     <plurals name="rules2_bn_move">
         <item quantity="other">ย้าย %1$d หมายเลขมาเป็นกฎ</item>
     </plurals>
-    <string name="forward2_intro_reassure">ส่งต่อเฉพาะข้อความที่ถึงกล่องข้อความเข้า สแปมที่บล็อกแล้วจะไม่ถูกส่งต่อ</string>
+    <string name="forward2_intro_reassure">ส่งต่อเฉพาะข้อความที่ถึงกล่องข้อความเข้า สแปมจะไม่ถูกส่งต่อ</string>
     <string name="forward2_empty_title">ยังไม่มีกฎส่งต่อ</string>
     <string name="forward2_empty_body">ส่งสำเนาข้อความที่ตรงกับเงื่อนไข เช่น การแจ้งเตือนจากธนาคาร ไปยังโทรศัพท์อีกเครื่อง เริ่มจากตัวเลือกเหล่านี้</string>
     <string name="forward2_template_bank">ส่งต่อการแจ้งเตือนจากธนาคาร</string>

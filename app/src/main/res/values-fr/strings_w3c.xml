@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">Fermer la liste</string>
     <string name="w3c_checklist_step_sms">Définissez uMessage comme application SMS par défaut</string>
     <string name="w3c_checklist_step_notifications">Activez les notifications</string>
-    <string name="w3c_checklist_step_blocked">Consultez l\'onglet Messages bloqués</string>
+    <string name="w3c_checklist_step_blocked">Consultez l\'onglet Spam</string>
     <string name="w3c_checklist_step_forward">Facultatif : transférez les messages vers un autre numéro</string>
     <string name="w3c_checklist_step_done">Terminé</string>
     <string name="w3c_checklist_action_set">Définir</string>
     <string name="w3c_checklist_action_open">Ouvrir</string>
     <string name="w3c_receipt_title">Spam bloqué : appuyez pour consulter</string>
-    <string name="w3c_receipt_body">Un message d\'un expéditeur inconnu a été bloqué dans Messages bloqués. Il n\'est pas perdu : vous pouvez le consulter et le restaurer à tout moment.</string>
+    <string name="w3c_receipt_body">Un message d\'un expéditeur inconnu a été retenu dans Spam. Il n\'est pas perdu : vous pouvez le consulter et le restaurer à tout moment.</string>
     <string name="w3c_receipt_review">Consulter</string>
     <string name="w3c_receipt_got_it">Compris</string>
     <string name="w3c_new_paste">Coller le numéro</string>

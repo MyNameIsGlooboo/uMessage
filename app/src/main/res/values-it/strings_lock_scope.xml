@@ -3,8 +3,8 @@
     <string name="lock_scope_title">Cosa bloccare</string>
     <string name="lock_scope_whole">Tutta l\'app</string>
     <string name="lock_scope_chosen">Solo le parti scelte</string>
-    <string name="lock_scope_chosen_long">Solo le parti scelte: la scheda Messaggi bloccati e le conversazioni nascoste</string>
-    <string name="lock_scope_blocked_title">L\'accesso ai messaggi bloccati è protetto</string>
+    <string name="lock_scope_chosen_long">Solo le parti scelte: la scheda Spam e le conversazioni nascoste</string>
+    <string name="lock_scope_blocked_title">L\'accesso a Spam è protetto</string>
     <string name="lock_scope_blocked_body">Sblocca per vederli.</string>
     <string name="lock_scope_unlock">Sblocca</string>
 </resources>

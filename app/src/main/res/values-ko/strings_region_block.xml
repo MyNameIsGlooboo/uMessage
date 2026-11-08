@@ -5,7 +5,7 @@
     <string name="region_summary">연락처에 있거나 문자를 보낸 상대는 보류하지 않아요.</string>
     <string name="region_off">사용 안 함</string>
     <string name="region_picker_title">거주 국가</string>
-    <string name="region_picker_body">다른 국가 번호의 메시지는 차단함에 보류해요. 연락처에 있거나 문자를 보낸 상대는 제외해요. 해외에 사는 가족도 연락처에 없으면 보류해요.</string>
+    <string name="region_picker_body">다른 국가 번호의 메시지는 스팸함에 보류해요. 연락처에 있거나 문자를 보낸 상대는 제외해요. 해외에 사는 가족도 연락처에 없으면 보류해요. 스마트와 엄격 모드에서만 작동해요.</string>
     <string name="region_picker_search">검색</string>
     <string name="region_reason_foreign">다른 국가 번호</string>
 </resources>

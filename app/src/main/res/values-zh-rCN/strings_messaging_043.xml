@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">点按即可下载</string>
+    <string name="mms_downloading">正在下载…</string>
+    <string name="mms_download_again">下载失败。点按重试</string>
+    <string name="mms_expired">此图片消息已不可用</string>
+    <string name="mms_download_action_desc">下载图片消息</string>
+</resources>

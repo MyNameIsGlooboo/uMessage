@@ -8,24 +8,24 @@
     </plurals>
     <string name="w7d_banner_none">این هفته چیزی متوقف نشد</string>
 
-    <string name="w7d_fwd_master_switch">بازارسال</string>
+    <string name="w7d_fwd_master_switch">فوروارد</string>
 
-    <string name="w7d_help_menu">مسدودسازی با کلمه‌ها چگونه کار می‌کند</string>
-    <string name="w7d_help_title">مسدودسازی با کلمه‌ها چگونه کار می‌کند</string>
+    <string name="w7d_help_menu">بلاک کردن با کلمه‌ها چگونه کار می‌کند</string>
+    <string name="w7d_help_title">بلاک کردن با کلمه‌ها چگونه کار می‌کند</string>
     <string name="w7d_help_words_head">کلمه‌ها</string>
-    <string name="w7d_help_words_body">پیامی را که این کلمه در آن باشد مسدود می‌کند.</string>
+    <string name="w7d_help_words_body">پیامی را که این کلمه در آن باشد بلاک می‌کند.</string>
     <string name="w7d_help_words_example">جایزهٔ رایگان</string>
     <string name="w7d_help_sender_head">نام فرستنده‌ها</string>
-    <string name="w7d_help_sender_body">پیامک‌های فرستنده‌ای با این نام، مثل یک فروشگاه، را مسدود می‌کند.</string>
+    <string name="w7d_help_sender_body">پیام‌های فرستنده‌ای با این نام، مثل یک فروشگاه، را بلاک می‌کند.</string>
     <string name="w7d_help_sender_example">PROMO</string>
     <string name="w7d_help_number_head">ابتدای شماره</string>
-    <string name="w7d_help_number_body">هر شماره‌ای را که با این رقم‌ها شروع شود مسدود می‌کند.</string>
+    <string name="w7d_help_number_body">هر شماره‌ای را که با این رقم‌ها شروع شود بلاک می‌کند.</string>
     <string name="w7d_help_number_example">+1555</string>
     <string name="w7d_help_pattern_head">الگو، برای کاربران پیشرفته</string>
-    <string name="w7d_help_pattern_body">یک الگو می‌تواند چند شکل نوشتاری را با هم پیدا کند. پیش از ذخیره آزمایش کنید.</string>
+    <string name="w7d_help_pattern_body">یک الگو می‌تواند چند شکل نوشتاری را با هم پیدا کند. قبل از ذخیره آزمایش کنید.</string>
     <string name="w7d_help_pattern_example">(free|win) prize</string>
     <string name="w7d_help_close">بستن</string>
 
     <string name="w7d_bank_cards_title">کارت برای هشدارهای بانکی</string>
-    <string name="w7d_bank_cards_summary">مبلغ را زیر پیامک بانک نشان می‌دهد</string>
+    <string name="w7d_bank_cards_summary">مبلغ را زیر پیام بانک نشان می‌دهد</string>
 </resources>

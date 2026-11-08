@@ -25,35 +25,35 @@
         <item quantity="other">%d نقطه انتخاب شد</item>
     </plurals>
     <string name="lock_use_pin_instead">استفاده از پین به‌جای آن</string>
-    <string name="lock_use_biometrics_instead">استفاده از زیست‌سنجی به‌جای آن</string>
+    <string name="lock_use_biometrics_instead">استفاده از اثر انگشت یا چهره به‌جای آن</string>
     <string name="lock_use_screen_lock">استفاده از قفل صفحهٔ گوشی به‌جای آن</string>
-    <string name="lock_biometrics_unavailable">زیست‌سنجی در دسترس نیست. پین خود را وارد کنید.</string>
+    <string name="lock_biometrics_unavailable">اثر انگشت یا چهره در دسترس نیست. پین خود را وارد کنید.</string>
     <string name="lock_screen_lock_title">باز کردن uMessage</string>
     <string name="lock_screen_lock_description">برای باز کردن uMessage، قفل صفحهٔ گوشی را تأیید کنید</string>
     <string name="lock_no_way_to_check">این گوشی دیگر اثر انگشت یا قفل صفحه ندارد، پس uMessage نمی‌تواند هویت شما را تأیید کند. برنامه را باز کنید و در تنظیمات یک پین تعیین کنید.</string>
     <string name="lock_open_anyway">باز کردن uMessage</string>
     <string name="lock_forgot">فراموش کرده‌اید؟ از قفل صفحهٔ گوشی استفاده کنید</string>
     <plurals name="lock_tries_left" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d بار دیگر می‌توانید تلاش کنید، سپس باید صبر کنید</item>
-        <item quantity="other">%d بار دیگر می‌توانید تلاش کنید، سپس باید صبر کنید</item>
+        <item quantity="one">%d بار دیگر می‌توانید تلاش کنید، بعد باید صبر کنید</item>
+        <item quantity="other">%d بار دیگر می‌توانید تلاش کنید، بعد باید صبر کنید</item>
     </plurals>
     <string name="lock_setup_done">قفل برنامه روشن است. اگر پین یا الگوی خود را فراموش کردید، در صفحهٔ قفل روی «فراموش کرده‌اید؟» بزنید و از قفل صفحهٔ گوشی استفاده کنید.</string>
-    <string name="lock_setup_done_biometric">قفل برنامه روشن است. اگر زیست‌سنجی از کار افتاد، از پین پشتیبان استفاده کنید. اگر آن را هم فراموش کردید، روی «فراموش کرده‌اید؟» بزنید و از قفل صفحهٔ گوشی استفاده کنید.</string>
-    <string name="lock_setup_done_no_screen_lock">قفل برنامه روشن است. گوشی شما قفل صفحه ندارد، پس اگر پین یا الگوی خود را فراموش کنید، راه دیگری برای ورود ندارید: باید داده‌های uMessage را از تنظیمات برنامه در گوشی پاک کنید. این کار تنظیمات، فهرست‌های هرزنامه و سابقهٔ هرزنامه را حذف می‌کند (پیام‌های متنی شما روی گوشی می‌مانند). برای داشتن راهی برای ورود دوباره، قفل صفحهٔ گوشی را فعال کنید.</string>
-    <string name="settings_app_lock_timeout">قفل پس از خروج از برنامه</string>
+    <string name="lock_setup_done_biometric">قفل برنامه روشن است. اگر اثر انگشت یا چهره از کار افتاد، از پین جایگزین استفاده کنید. اگر آن را هم فراموش کردید، روی «فراموش کرده‌اید؟» بزنید و از قفل صفحهٔ گوشی استفاده کنید.</string>
+    <string name="lock_setup_done_no_screen_lock">قفل برنامه روشن است. گوشی شما قفل صفحه ندارد، پس اگر پین یا الگوی خود را فراموش کنید، راه دیگری برای ورود ندارید: باید داده‌های uMessage را از تنظیمات برنامه در گوشی پاک کنید. این کار تنظیمات، لیست‌های اسپم و سابقهٔ اسپم را حذف می‌کند (پیام‌های متنی شما روی گوشی می‌مانند). برای داشتن راهی برای ورود دوباره، قفل صفحهٔ گوشی را روشن کنید.</string>
+    <string name="settings_app_lock_timeout">قفل بعد از خروج از برنامه</string>
     <string name="settings_app_lock_timeout_immediately">بلافاصله</string>
-    <string name="settings_app_lock_timeout_30s">پس از ۳۰ ثانیه</string>
-    <string name="settings_app_lock_timeout_1m">پس از ۱ دقیقه</string>
-    <string name="settings_app_lock_timeout_5m">پس از ۵ دقیقه</string>
-    <string name="settings_app_lock_screenshots">مسدود کردن ثبت تصویر صفحه</string>
-    <string name="settings_app_lock_screenshots_body">از ثبت تصویر و ضبط صفحه جلوگیری می‌کند. پیام‌ها همیشه در برنامه‌های اخیر پنهان هستند.</string>
-    <string name="settings_app_lock_change">تغییر پین، الگو یا زیست‌سنجی</string>
+    <string name="settings_app_lock_timeout_30s">بعد از ۳۰ ثانیه</string>
+    <string name="settings_app_lock_timeout_1m">بعد از ۱ دقیقه</string>
+    <string name="settings_app_lock_timeout_5m">بعد از ۵ دقیقه</string>
+    <string name="settings_app_lock_screenshots">جلوگیری از اسکرین‌شات</string>
+    <string name="settings_app_lock_screenshots_body">جلوی اسکرین‌شات گرفتن و ضبط صفحه را می‌گیرد. پیام‌ها همیشه در برنامه‌های اخیر پنهان هستند.</string>
+    <string name="settings_app_lock_change">تغییر پین، الگو یا اثر انگشت</string>
     <string name="settings_app_lock_weak">حدس زدن پین یا الگوی شما آسان است</string>
-    <string name="settings_app_lock_weak_body">پین بسیار ضعیف است. برای تغییر بزنید</string>
-    <string name="settings_app_lock_add_pin">افزودن پین پشتیبان</string>
-    <string name="settings_app_lock_add_pin_body">یک پین به‌عنوان پشتیبان اضافه کنید</string>
-    <string name="settings_app_lock_now">قفل کردن اکنون</string>
+    <string name="settings_app_lock_weak_body">پین خیلی ضعیف است. برای تغییر بزنید</string>
+    <string name="settings_app_lock_add_pin">افزودن پین جایگزین</string>
+    <string name="settings_app_lock_add_pin_body">یک پین جایگزین اضافه کنید</string>
+    <string name="settings_app_lock_now">قفل کردن الان</string>
     <string name="settings_app_lock_now_body">uMessage را بلافاصله قفل می‌کند</string>
     <string name="settings_app_lock_changed">قفل برنامه تغییر کرد</string>
-    <string name="dialogs_lock_backup_pin">ابتدا یک پین پشتیبان تعیین کنید. اگر زیست‌سنجی از کار افتاد، از آن استفاده می‌کنید.</string>
+    <string name="dialogs_lock_backup_pin">ابتدا یک پین جایگزین تعیین کنید. اگر اثر انگشت یا چهره از کار افتاد، از آن استفاده می‌کنید.</string>
 </resources>

@@ -3,7 +3,7 @@
     <string name="convx_code_chip">কোড %1$s</string>
     <string name="convx_code_copy">কপি করুন</string>
     <string name="convx_block_archive">ব্লক করুন ও আর্কাইভ করুন</string>
-    <string name="convx_block_archive_hint">এর পরের বার্তা ব্লক করা বিভাগে যাবে। আপনার ফোন থেকে কিছুই বাইরে যাবে না।</string>
+    <string name="convx_block_archive_hint">এর পরের বার্তা স্প্যামে যাবে। আপনার ফোন থেকে কিছুই বাইরে যাবে না।</string>
     <string name="convx_name_label">নাম</string>
     <string name="convx_clear">সাফ করুন</string>
     <string name="convx_reset_name">ডিফল্ট নাম ফিরিয়ে আনুন</string>

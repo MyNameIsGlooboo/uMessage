@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">Скрытые чаты заблокированы</string>
+    <string name="backup_hidden_message">Ваши скрытые чаты заблокированы. Разблокируйте их, чтобы включить в резервную копию, или сделайте копию без них.</string>
+    <string name="backup_hidden_unlock">Разблокировать</string>
+    <string name="backup_hidden_skip">Пропустить скрытые чаты</string>
+    <string name="backup_export_hidden_left_out">Скрытых чатов не включено: %d</string>
+</resources>

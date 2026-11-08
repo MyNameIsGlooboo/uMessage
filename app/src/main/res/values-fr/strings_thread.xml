@@ -19,9 +19,9 @@
     <string name="thread_menu_block">Bloquer l\'expéditeur</string>
     <string name="thread_menu_unblock">Débloquer l\'expéditeur</string>
     <string name="thread_block_title">Bloquer l\'expéditeur ?</string>
-    <string name="thread_block_message">Bloquer %1$s ? Les nouveaux messages de cet expéditeur iront dans Messages bloqués au lieu de votre boîte de réception. Vous pourrez toujours les y lire ou les restaurer. Rien n\'est envoyé à qui que ce soit. Les messages déjà présents dans cette conversation sont conservés.</string>
+    <string name="thread_block_message">Bloquer %1$s ? Les nouveaux messages de cet expéditeur iront dans Spam au lieu de votre boîte de réception. Vous pourrez toujours les y lire ou les restaurer. Rien n\'est envoyé à qui que ce soit. Les messages déjà présents dans cette conversation sont conservés.</string>
     <string name="thread_block_confirm">Bloquer</string>
-    <string name="thread_block_done">Expéditeur bloqué. Les nouveaux messages iront dans Messages bloqués</string>
+    <string name="thread_block_done">Expéditeur bloqué. Les nouveaux messages iront dans Spam</string>
     <string name="thread_block_failed">Impossible de bloquer cet expéditeur</string>
     <string name="thread_unblock_done">Expéditeur débloqué. Les nouveaux messages arriveront dans votre boîte de réception</string>
     <string name="thread_unblock_done_system">Numéro débloqué dans uMessage. Il figure aussi dans la liste de blocage de votre téléphone : Android bloque donc toujours ses messages</string>

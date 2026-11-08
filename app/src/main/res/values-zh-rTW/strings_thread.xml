@@ -18,9 +18,9 @@
     <string name="thread_menu_block">封鎖寄件者</string>
     <string name="thread_menu_unblock">解除封鎖寄件者</string>
     <string name="thread_block_title">要封鎖寄件者嗎？</string>
-    <string name="thread_block_message">要封鎖%1$s嗎？這位寄件者的新訊息會移至「已封鎖的訊息」，而不是收件匣，你仍可在那裡閱讀或還原。不會傳送任何內容給任何人。這個對話中現有的訊息會保留。</string>
+    <string name="thread_block_message">要封鎖%1$s嗎？這位寄件者的新訊息會移至「垃圾訊息」，而不是收件匣，你仍可在那裡閱讀或還原。不會傳送任何內容給任何人。這個對話中現有的訊息會保留。</string>
     <string name="thread_block_confirm">封鎖</string>
-    <string name="thread_block_done">已封鎖。新訊息會移至「已封鎖的訊息」</string>
+    <string name="thread_block_done">已封鎖。新訊息會移至「垃圾訊息」</string>
     <string name="thread_block_failed">無法封鎖這位寄件者</string>
     <string name="thread_unblock_done">已解除封鎖。新訊息會送達收件匣</string>
     <string name="thread_unblock_done_system">已在uMessage中解除封鎖。這個號碼也在手機的封鎖清單中，因此Android仍會封鎖它的訊息</string>

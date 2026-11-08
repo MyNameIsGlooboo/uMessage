@@ -3,6 +3,6 @@
     <string name="notif_block_action">Blokir</string>
     <string name="notif_block_undo">Urungkan</string>
     <string name="notif_block_done_title">%1$s diblokir</string>
-    <string name="notif_block_done_text">Pesan baru masuk ke Pesan diblokir</string>
+    <string name="notif_block_done_text">Pesan baru masuk ke Spam</string>
     <string name="notif_block_channel">Pengirim diblokir</string>
 </resources>

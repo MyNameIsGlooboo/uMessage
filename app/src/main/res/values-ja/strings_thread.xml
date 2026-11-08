@@ -18,9 +18,9 @@
     <string name="thread_menu_block">送信者をブロック</string>
     <string name="thread_menu_unblock">送信者のブロック解除</string>
     <string name="thread_block_title">送信者をブロックしてもよろしいですか？</string>
-    <string name="thread_block_message">%1$sをブロックしてもよろしいですか？この送信者からの新しいメッセージは、受信トレイの代わりに「ブロック済み」に届きます。そこから引き続き確認や復元ができます。誰にも何も送信されません。この会話にあるメッセージは残ります。</string>
+    <string name="thread_block_message">%1$sをブロックしてもよろしいですか？この送信者からの新しいメッセージは、受信トレイの代わりに「迷惑メッセージ」に届きます。そこから引き続き確認や復元ができます。誰にも何も送信されません。この会話にあるメッセージは残ります。</string>
     <string name="thread_block_confirm">ブロック</string>
-    <string name="thread_block_done">ブロックしました。新しいメッセージは「ブロック済み」に届きます。</string>
+    <string name="thread_block_done">ブロックしました。新しいメッセージは「迷惑メッセージ」に届きます。</string>
     <string name="thread_block_failed">この送信者をブロックできませんでした。</string>
     <string name="thread_unblock_done">ブロック解除しました。新しいメッセージは受信トレイに届きます。</string>
     <string name="thread_unblock_done_system">uMessageでブロック解除しました。この番号はスマートフォンのブロックリストにも登録されているため、Androidによるメッセージのブロックは続きます。</string>

@@ -33,8 +33,8 @@
     <string name="spam_reason_rule_removed">নিয়মটি পরে সরানো হয়েছে</string>
     <string name="spam_reason_open_rules">নিয়ম খুলুন</string>
     <plurals name="spam_purge_notice" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d দিন পর ব্লক করা বার্তা মুছে যায়</item>
-        <item quantity="other">%d দিন পর ব্লক করা বার্তা মুছে যায়</item>
+        <item quantity="one">%d দিন পর স্প্যাম মুছে যায়</item>
+        <item quantity="other">%d দিন পর স্প্যাম মুছে যায়</item>
     </plurals>
     <plurals name="spam_purge_left" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d দিন পর মুছে যাবে</item>
@@ -42,14 +42,14 @@
     </plurals>
     <string name="spam_purge_left_today">আজ মুছে যাবে</string>
     <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
-        <item quantity="one">রিপোর্ট করা হয়েছে। এই প্রেরকের নতুন বার্তা ব্লক করা তালিকায় যাবে, আর চ্যাটটি আর্কাইভ করা হয়েছে।</item>
-        <item quantity="other">%dটি চ্যাট রিপোর্ট করা হয়েছে। তাঁদের নতুন বার্তা ব্লক করা তালিকায় যাবে, আর চ্যাটগুলো আর্কাইভ করা হয়েছে।</item>
+        <item quantity="one">রিপোর্ট করা হয়েছে। এই প্রেরকের নতুন বার্তা স্প্যামে যাবে, আর চ্যাটটি আর্কাইভ করা হয়েছে।</item>
+        <item quantity="other">%dটি চ্যাট রিপোর্ট করা হয়েছে। তাঁদের নতুন বার্তা স্প্যামে যাবে, আর চ্যাটগুলো আর্কাইভ করা হয়েছে।</item>
     </plurals>
     <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
-        <item quantity="one">রিপোর্ট করা হয়েছে। এই প্রেরকের নতুন বার্তা ব্লক করা তালিকায় যাবে।</item>
-        <item quantity="other">%dটি চ্যাট রিপোর্ট করা হয়েছে। তাঁদের নতুন বার্তা ব্লক করা তালিকায় যাবে।</item>
+        <item quantity="one">রিপোর্ট করা হয়েছে। এই প্রেরকের নতুন বার্তা স্প্যামে যাবে।</item>
+        <item quantity="other">%dটি চ্যাট রিপোর্ট করা হয়েছে। তাঁদের নতুন বার্তা স্প্যামে যাবে।</item>
     </plurals>
-    <string name="blocked_title">ব্লক করা</string>
+    <string name="blocked_title">স্প্যাম</string>
     <string name="blocked_snack_mode">অচেনা প্রেরকের জন্য %1$s মোড বেছে নেওয়া হয়েছে</string>
     <string name="blocked_stats_restored">আপনি %1$dটি ফিরিয়ে এনেছেন</string>
     <string name="blocked_reason_unknown_link">অচেনা প্রেরক, লিঙ্ক আছে</string>

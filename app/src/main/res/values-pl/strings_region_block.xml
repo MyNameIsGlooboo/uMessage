@@ -5,7 +5,7 @@
     <string name="region_summary">Wiadomości od kontaktów i osób, do których piszesz, nie są zatrzymywane</string>
     <string name="region_off">Wyłączone</string>
     <string name="region_picker_title">Twój kraj</string>
-    <string name="region_picker_body">Wiadomości z numerów z innych krajów trafiają do zablokowanych wiadomości, z wyjątkiem kontaktów i osób, do których piszesz. Wiadomości od krewnego za granicą też są zatrzymywane, jeśli nie ma go w kontaktach.</string>
+    <string name="region_picker_body">Wiadomości z numerów z innych krajów trafiają do Spamu, z wyjątkiem kontaktów i osób, do których piszesz. Wiadomości od krewnego za granicą też tam trafią, jeśli nie ma go w kontaktach. Działa to tylko w trybach Inteligentny i Ścisły.</string>
     <string name="region_picker_search">Szukaj</string>
     <string name="region_reason_foreign">Numer z innego kraju</string>
 </resources>

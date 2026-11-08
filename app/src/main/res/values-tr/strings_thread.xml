@@ -19,9 +19,9 @@
     <string name="thread_menu_block">Göndereni engelleyin</string>
     <string name="thread_menu_unblock">Gönderenin engellemesini kaldırın</string>
     <string name="thread_block_title">Gönderen engellensin mi?</string>
-    <string name="thread_block_message">%1$s engellensin mi? Bu gönderenden gelen yeni mesajlar gelen kutunuz yerine Engellenen mesajlar bölümüne gider. Mesajları orada okuyabilir veya geri yükleyebilirsiniz. Kimseye hiçbir şey gönderilmez. Bu görüşmedeki mevcut mesajlar korunur.</string>
+    <string name="thread_block_message">%1$s engellensin mi? Bu gönderenden gelen yeni mesajlar gelen kutunuz yerine Spam bölümüne gider. Mesajları orada okuyabilir veya geri yükleyebilirsiniz. Kimseye hiçbir şey gönderilmez. Bu görüşmedeki mevcut mesajlar korunur.</string>
     <string name="thread_block_confirm">Engelleyin</string>
-    <string name="thread_block_done">Engellendi. Yeni mesajlar Engellenen mesajlar bölümüne gidecek</string>
+    <string name="thread_block_done">Engellendi. Yeni mesajlar Spam bölümüne gidecek</string>
     <string name="thread_block_failed">Bu gönderen engellenemedi</string>
     <string name="thread_unblock_done">Engelleme kaldırıldı. Yeni mesajlar gelen kutunuza gelecek</string>
     <string name="thread_unblock_done_system">uMessage uygulamasında engelleme kaldırıldı. Bu numara telefonunuzun engellenenler listesinde de olduğu için Android mesajlarını engellemeye devam ediyor</string>

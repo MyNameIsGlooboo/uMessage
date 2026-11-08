@@ -7,11 +7,11 @@
     <string name="main_search_no_results">Sonuç bulunamadı</string>
     <string name="main_settings">Ayarlar</string>
     <string name="main_tab_messages">Mesajlar</string>
-    <string name="main_tab_blocked">Engellenenler</string>
+    <string name="main_tab_blocked">Spam</string>
     <string name="main_tab_archived">Arşivlendi</string>
     <plurals name="main_tab_blocked_new">
-        <item quantity="one">Engellenenler, %d yeni</item>
-        <item quantity="other">Engellenenler, %d yeni</item>
+        <item quantity="one">Spam, %d yeni</item>
+        <item quantity="other">Spam, %d yeni</item>
     </plurals>
     <string name="main_permission_title">İzin gerekli</string>
     <string name="main_permission_grant">İzin verin</string>

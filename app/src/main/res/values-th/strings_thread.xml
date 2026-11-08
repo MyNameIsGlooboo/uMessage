@@ -18,9 +18,9 @@
     <string name="thread_menu_block">บล็อกผู้ส่ง</string>
     <string name="thread_menu_unblock">เลิกบล็อกผู้ส่ง</string>
     <string name="thread_block_title">บล็อกผู้ส่ง?</string>
-    <string name="thread_block_message">บล็อก %1$s? ข้อความใหม่จากผู้ส่งนี้จะไปที่ข้อความที่บล็อกแทนกล่องข้อความเข้า โดยยังอ่านหรือกู้คืนได้ จะไม่มีการส่งข้อมูลให้ใคร ข้อความเดิมในการสนทนานี้จะยังอยู่</string>
+    <string name="thread_block_message">บล็อก %1$s? ข้อความใหม่จากผู้ส่งนี้จะไปที่สแปมแทนกล่องข้อความเข้า โดยยังอ่านหรือกู้คืนได้ จะไม่มีการส่งข้อมูลให้ใคร ข้อความเดิมในการสนทนานี้จะยังอยู่</string>
     <string name="thread_block_confirm">บล็อก</string>
-    <string name="thread_block_done">บล็อกแล้ว ข้อความใหม่จะไปที่ข้อความที่บล็อก</string>
+    <string name="thread_block_done">บล็อกแล้ว ข้อความใหม่จะไปที่สแปม</string>
     <string name="thread_block_failed">บล็อกผู้ส่งนี้ไม่ได้</string>
     <string name="thread_unblock_done">เลิกบล็อกแล้ว ข้อความใหม่จะเข้ากล่องข้อความเข้า</string>
     <string name="thread_unblock_done_system">เลิกบล็อกใน uMessage แล้ว หมายเลขนี้ยังอยู่ในรายการบล็อกของโทรศัพท์ Android จึงยังบล็อกข้อความจากหมายเลขนี้</string>

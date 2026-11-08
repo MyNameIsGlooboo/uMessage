@@ -28,19 +28,19 @@
     <string name="spam_reason_rule_removed">กฎที่ถูกลบไปแล้ว</string>
     <string name="spam_reason_open_rules">เปิดกฎ</string>
     <plurals name="spam_purge_notice">
-        <item quantity="other">ข้อความที่บล็อกจะถูกลบหลังผ่านไป %d วัน</item>
+        <item quantity="other">สแปมจะถูกลบหลังผ่านไป %d วัน</item>
     </plurals>
     <plurals name="spam_purge_left">
         <item quantity="other">จะถูกลบในอีก %d วัน</item>
     </plurals>
     <string name="spam_purge_left_today">จะถูกลบวันนี้</string>
     <plurals name="convlist_reported_spam_archived">
-        <item quantity="other">รายงานสแปมแล้ว %d แชท ข้อความใหม่จากผู้ส่งเหล่านี้จะไปที่หน้าที่บล็อก และแชทจะถูกเก็บถาวร</item>
+        <item quantity="other">รายงานสแปมแล้ว %d แชท ข้อความใหม่จากผู้ส่งเหล่านี้จะไปที่สแปม และแชทจะถูกเก็บถาวร</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="other">รายงานสแปมแล้ว %d แชท ข้อความใหม่จากผู้ส่งเหล่านี้จะไปที่หน้าที่บล็อก</item>
+        <item quantity="other">รายงานสแปมแล้ว %d แชท ข้อความใหม่จากผู้ส่งเหล่านี้จะไปที่สแปม</item>
     </plurals>
-    <string name="blocked_title">ที่บล็อก</string>
+    <string name="blocked_title">สแปม</string>
     <string name="blocked_snack_mode">ตั้งค่าผู้ส่งที่ไม่รู้จักเป็น %1$s แล้ว</string>
     <string name="blocked_stats_restored">คุณกู้คืนแล้ว %1$d</string>
     <string name="blocked_reason_unknown_link">ผู้ส่งที่ไม่รู้จัก มีลิงก์</string>

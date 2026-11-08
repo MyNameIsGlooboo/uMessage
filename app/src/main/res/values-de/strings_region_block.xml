@@ -5,7 +5,7 @@
     <string name="region_summary">Kontakte und Personen, denen du geschrieben hast, werden nicht zurückgehalten</string>
     <string name="region_off">Aus</string>
     <string name="region_picker_title">Dein Heimatland</string>
-    <string name="region_picker_body">Nachrichten von Nummern aus anderen Ländern werden unter „Blockiert“ zurückgehalten, außer von Kontakten und Personen, denen du geschrieben hast. Auch Verwandte im Ausland werden zurückgehalten, wenn sie nicht als Kontakt gespeichert sind.</string>
+    <string name="region_picker_body">Nachrichten von Nummern aus anderen Ländern werden unter „Spam“ zurückgehalten, außer von Kontakten und Personen, denen du geschrieben hast. Auch Verwandte im Ausland werden zurückgehalten, wenn sie nicht als Kontakt gespeichert sind. Das gilt nur im Modus „Intelligent“ und „Streng“.</string>
     <string name="region_picker_search">Suchen</string>
     <string name="region_reason_foreign">Nummer aus einem anderen Land</string>
 </resources>

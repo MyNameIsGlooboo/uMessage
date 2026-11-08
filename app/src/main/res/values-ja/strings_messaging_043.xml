@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">タップしてダウンロード</string>
+    <string name="mms_downloading">ダウンロード中…</string>
+    <string name="mms_download_again">ダウンロードできませんでした。タップして再試行</string>
+    <string name="mms_expired">この画像メッセージは利用できなくなりました</string>
+    <string name="mms_download_action_desc">画像メッセージをダウンロード</string>
+</resources>

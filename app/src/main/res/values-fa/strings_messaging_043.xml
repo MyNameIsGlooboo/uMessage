@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">برای دریافت لمس کنید</string>
+    <string name="mms_downloading">در حال دریافت…</string>
+    <string name="mms_download_again">دریافت نشد. برای تلاش دوباره لمس کنید</string>
+    <string name="mms_expired">این پیام تصویری دیگر در دسترس نیست</string>
+    <string name="mms_download_action_desc">دریافت پیام تصویری</string>
+</resources>

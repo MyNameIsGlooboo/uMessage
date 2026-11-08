@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">لا يوجد مرسلون مسموح لهم دائمًا</string>
     <string name="rules2_empty_allowed_body">أضف رقمًا أو اسم مرسل أو كلمة لتصل الرسائل المطابقة دائمًا إلى الرسائل الواردة. اضغط على «أضف قاعدة» أدناه.</string>
     <string name="rules2_empty_blocked_title">لا يوجد مرسلون محظورون دائمًا</string>
-    <string name="rules2_empty_blocked_body">أضف رقمًا أو اسم مرسل أو كلمة أو تعبيرًا نمطيًا لنقل الرسائل المطابقة إلى «المحظورة». اضغط على «أضف قاعدة» أدناه.</string>
+    <string name="rules2_empty_blocked_body">أضف رقمًا أو اسم مرسل أو كلمة أو تعبيرًا نمطيًا لنقل الرسائل المطابقة إلى «غير المرغوب فيها». اضغط على «أضف قاعدة» أدناه.</string>
     <string name="rules2_legacy_banner_title">عُثر على قوائم حظر قديمة</string>
     <string name="rules2_legacy_banner_body">انقلها إلى القواعد لعرض الرسائل التي تحظرها واستعادتها.</string>
     <string name="rules2_legacy_review">راجع</string>
     <string name="rules2_system_header">قائمة الحظر في Android (تحظر المكالمات أيضًا)</string>
-    <string name="rules2_system_body">يتجاهل Android رسائل هذه الأرقام قبل وصولها إلى uMessage، فلا تظهر في «المحظورة» ولا يمكن استعادتها.</string>
+    <string name="rules2_system_body">يتجاهل Android رسائل هذه الأرقام قبل وصولها إلى uMessage، فلا تظهر في «غير المرغوب فيها» ولا يمكن استعادتها.</string>
     <string name="rules2_system_manage">إدارة</string>
     <string name="rules2_system_move">انقل إلى قواعد uMessage</string>
     <string name="rules2_migrate_title">انقل إلى قواعد uMessage</string>
-    <string name="rules2_migrate_point_blocked">ستصل الرسائل حينها إلى «المحظورة»، حيث يمكنك استعادتها.</string>
+    <string name="rules2_migrate_point_blocked">ستصل الرسائل حينها إلى «غير المرغوب فيها»، حيث يمكنك استعادتها.</string>
     <string name="rules2_migrate_remove_needs_first">حدّد الخيار أعلاه أولًا.</string>
     <string name="rules2_migrate_nothing_selected">لم يُحدّد شيء</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -58,7 +58,7 @@
         <item quantity="many">انقل %1$d رقمًا إلى القواعد</item>
         <item quantity="other">انقل %1$d رقم إلى القواعد</item>
     </plurals>
-    <string name="forward2_intro_reassure">تُعاد توجيه الرسائل التي تصل إلى الرسائل الواردة فقط. لا تُعاد توجيه الرسائل غير المرغوب فيها المحظورة أبدًا.</string>
+    <string name="forward2_intro_reassure">تُعاد توجيه الرسائل التي تصل إلى الرسائل الواردة فقط. لا تُعاد توجيه الرسائل غير المرغوب فيها أبدًا.</string>
     <string name="forward2_empty_title">لا توجد قواعد إعادة توجيه بعد</string>
     <string name="forward2_empty_body">أرسل نسخة من الرسائل المطابقة، مثل تنبيهات البنك، إلى هاتف آخر. ابدأ بأحد هذه الخيارات.</string>
     <string name="forward2_template_bank">أعد توجيه تنبيهات البنك</string>

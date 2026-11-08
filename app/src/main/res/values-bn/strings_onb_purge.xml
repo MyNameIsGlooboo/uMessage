@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onb_purge_question">ব্লক করা বার্তা কত দিন রাখবেন?</string>
+    <string name="onb_purge_question">স্প্যাম কত দিন রাখবেন?</string>
 </resources>

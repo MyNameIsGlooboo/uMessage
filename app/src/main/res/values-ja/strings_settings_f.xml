@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">システムのデフォルト</string>
     <string name="settings_f_group_rules">ルールとリスト</string>
     <string name="settings_f_spam_more">保存期間と通知</string>
-    <string name="settings_f_spam_more_body">ブロック済みメッセージの保存期間と通知</string>
+    <string name="settings_f_spam_more_body">迷惑メッセージの保存期間と通知</string>
     <string name="settings_f_hide_lock_codes_body">ロック画面では認証コードを••••と表示します。</string>
     <string name="settings_f_code_alert">認証コードの通知</string>
     <string name="settings_f_code_alert_body">認証コードの通知音</string>

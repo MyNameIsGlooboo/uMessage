@@ -32,7 +32,7 @@
     <string name="declog_fixed_blocked">判定履歴からこの送信者をブロックしました。</string>
     <string name="declog_fixed_restored">判定履歴からこのメッセージを復元しました。</string>
     <string name="declog_restored">復元済み</string>
-    <string name="declog_blocked_message">「ブロック済み」に残っているメッセージ</string>
+    <string name="declog_blocked_message">「迷惑メッセージ」に残っているメッセージ</string>
     <string name="declog_restore">メッセージを復元</string>
     <string name="declog_restore_done">メッセージを受信トレイに復元しました。</string>
     <string name="declog_restore_text_only">本文を受信トレイに復元しました。画像は復元できませんでした。</string>

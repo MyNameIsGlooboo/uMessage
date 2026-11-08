@@ -47,16 +47,16 @@
         <item quantity="many">Перемістити %d номерів до правил uMessage</item>
         <item quantity="other">Перемістити %d номера до правил uMessage</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• Повідомлення з цих номерів потраплятимуть у «Заблоковані», де ви зможете їх прочитати й відновити.</string>
+    <string name="e_migrate_point_blocked">• Повідомлення з цих номерів потраплятимуть у «Спам», де ви зможете їх прочитати й відновити.</string>
     <string name="e_migrate_point_android">• Android видалятиме повідомлення з цих номерів, доки вони є в його списку.</string>
     <string name="e_migrate_calls_note">Список Android також блокує дзвінки. Номери, які ви вилучите з нього, знову зможуть вам телефонувати.</string>
     <string name="e_bn_unknown_body">Діє, лише коли параметр «Невідомі відправники» вимкнено.</string>
     <string name="e_bn_row_calls_texts">Блокує дзвінки й повідомлення</string>
     <string name="e_bn_row_short_code">Короткий номер: uMessage не отримує повідомлень із нього</string>
     <string name="e_bn_move_one">Перемістити до правил uMessage</string>
-    <string name="e_bn_moved">%1$s тепер у правилах uMessage. Повідомлення з цього номера потрапляють у «Заблоковані», а дзвінки більше не блокуються.</string>
+    <string name="e_bn_moved">%1$s тепер у правилах uMessage. Повідомлення з цього номера потрапляють у «Спам», а дзвінки більше не блокуються.</string>
     <string name="e_bn_field_help">Наприклад, +15550001234 або +1555* для всіх номерів, що починаються з +1555</string>
     <string name="e_bn_short_code_warning">Схоже, це короткий номер. Android видаляє повідомлення з нього ще до того, як їх отримає uMessage, тож ви не зможете відновити їх, наприклад код чи сповіщення від банку.</string>
     <string name="e_bn_add_as_rule">Натомість додати як правило uMessage</string>
-    <string name="e_bn_added_as_rule">%1$s додано як правило uMessage. Повідомлення з цього номера потрапляють у «Заблоковані».</string>
+    <string name="e_bn_added_as_rule">%1$s додано як правило uMessage. Повідомлення з цього номера потрапляють у «Спам».</string>
 </resources>

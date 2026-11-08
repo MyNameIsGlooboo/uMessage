@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">Настройки блокировки</string>
     <string name="spam_blocked_stats_totals">Всего заблокировано: %1$d, восстановлено: %2$d</string>
     <string name="spam_blocked_header_cd">Спам за последние 7 дней: заблокировано %1$d. Всего заблокировано: %2$d, восстановлено: %3$d.</string>
-    <string name="spam_blocked_empty_title">Пока ничего не заблокировано</string>
+    <string name="spam_blocked_empty_title">В «Спаме» пока ничего нет</string>
     <string name="spam_action_delete">Удалить</string>
     <string name="spam_select">Выбрать</string>
     <string name="spam_action_select_all">Выбрать все</string>
@@ -42,7 +42,7 @@
     <string name="spam_rules_empty_allowed_title">Нет правил разрешения</string>
     <string name="spam_rules_empty_allowed_body">Все, что вы разрешили, всегда попадает во входящие, даже в строгом режиме. Добавьте номер, имя отправителя или ключевое слово.</string>
     <string name="spam_rules_empty_blocked_title">Нет правил блокировки</string>
-    <string name="spam_rules_empty_blocked_body">Заблокируйте номер, префикс, имя отправителя, ключевое слово или регулярное выражение. Заблокированные сообщения попадают в папку «Заблокированные».</string>
+    <string name="spam_rules_empty_blocked_body">Заблокируйте номер, префикс, имя отправителя, ключевое слово или регулярное выражение. Их сообщения попадают в «Спам».</string>
     <string name="spam_rules_delete_rule">Удалить правило %s</string>
     <string name="spam_rules_deleted">Правило удалено</string>
     <plurals name="spam_rules_imported" tools:ignore="ImpliedQuantity">
@@ -123,10 +123,10 @@
     <string name="spam_mode_off">Выкл.</string>
     <string name="spam_mode_off_body">Неизвестные отправители не блокируются</string>
     <string name="spam_strict_warning_title">Строгий режим может скрыть важные сообщения</string>
-    <string name="spam_strict_warning_body">Сообщения от банков и служб доставки, а также одноразовые коды обычно приходят от отправителей, которых нет в ваших контактах. В строгом режиме они попадают в папку «Заблокированные», включая коды. Выберите умный режим, чтобы пропускать коды, или один раз разрешите этих отправителей.</string>
-    <string name="spam_strict_warning_action">Посмотреть заблокированные сообщения</string>
+    <string name="spam_strict_warning_body">Сообщения от банков и служб доставки, а также одноразовые коды обычно приходят от отправителей, которых нет в ваших контактах. В строгом режиме они попадают в «Спам», включая коды. Выберите умный режим, чтобы пропускать коды, или один раз разрешите этих отправителей.</string>
+    <string name="spam_strict_warning_action">Посмотреть спам</string>
     <string name="spam_settings_cleanup_title">Очистка</string>
-    <string name="spam_purge_body">Старые заблокированные сообщения удаляются автоматически.</string>
+    <string name="spam_purge_body">Старый спам удаляется автоматически.</string>
     <string name="spam_purge_days">%d дней</string>
     <string name="spam_purge_forever">Никогда</string>
     <string name="spam_notify_title">Уведомлять о блокировке сообщения</string>

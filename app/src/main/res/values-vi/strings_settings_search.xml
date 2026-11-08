@@ -12,7 +12,7 @@
     <string name="sks_rules">quy tắc cho phép chặn danh sách từ khóa biểu thức chính quy người gửi số danh sách cho phép danh sách chặn</string>
     <string name="sks_blocked_numbers">số đã chặn danh sách chặn điện thoại người liên hệ Android danh sách chặn</string>
     <string name="sks_decision_log">nhật ký lịch sử lý do đã chặn hoạt động gần đây</string>
-    <string name="sks_purge">xóa đã chặn cũ loại bỏ dọn tự động ngày dọn dẹp thời gian lưu</string>
+    <string name="sks_purge">xóa tin nhắn rác đã chặn cũ loại bỏ dọn tự động ngày dọn dẹp thời gian lưu</string>
     <string name="sks_region">quốc gia khu vực bên ngoài nước ngoài quốc tế ở nước ngoài chặn</string>
     <string name="sks_links">liên kết URL nguy hiểm lừa đảo an toàn khóa web</string>
     <string name="sks_carrier_report">nhà mạng báo cáo nhà mạng chuyển tiếp 7726 nhà cung cấp tin nhắn rác</string>

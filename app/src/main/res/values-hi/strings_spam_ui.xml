@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="spam_ui_delete_all">सभी मिटाएं</string>
-    <string name="spam_ui_delete_all_title">ब्लॉक किए गए सभी मैसेज मिटाएं?</string>
+    <string name="spam_ui_delete_all_title">सारा स्पैम मिटाएं?</string>
     <plurals name="spam_ui_delete_all_message" tools:ignore="ImpliedQuantity">
-        <item quantity="one">ब्लॉक किया गया %1$d मैसेज मिट जाएगा. आप तुरंत बाद इसे पहले जैसा कर सकते हैं.</item>
-        <item quantity="other">ब्लॉक किए गए %1$d मैसेज मिट जाएंगे. आप तुरंत बाद इन्हें पहले जैसा कर सकते हैं.</item>
+        <item quantity="one">%1$d मैसेज मिट जाएगा. आप तुरंत बाद इसे पहले जैसा कर सकते हैं.</item>
+        <item quantity="other">%1$d मैसेज मिट जाएंगे. आप तुरंत बाद इन्हें पहले जैसा कर सकते हैं.</item>
     </plurals>
     <string name="declog_ui_clear_title">फ़ैसलों का रिकॉर्ड साफ़ करें?</string>
-    <string name="declog_ui_clear_message">दर्ज किए गए सभी फ़ैसले हटा दिए जाएंगे. ब्लॉक किए गए मैसेज और नियम वैसे ही रहेंगे.</string>
+    <string name="declog_ui_clear_message">दर्ज किए गए सभी फ़ैसले हटा दिए जाएंगे. स्पैम और नियम वैसे ही रहेंगे.</string>
     <string name="declog_ui_clear_action">साफ़ करें</string>
     <string name="ui_log_reason_contacts_unavailable">संपर्क पढ़े नहीं जा सकते</string>
     <string name="blocknum_title">ब्लॉक किए गए नंबर</string>

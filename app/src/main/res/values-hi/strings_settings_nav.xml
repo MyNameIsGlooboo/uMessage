@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols (कॉपीराइट Google LLC) Apache License, वर्शन 2.0 के तहत लाइसेंस प्राप्त हैं. ये आइकॉन बिना किसी वारंटी के, जैसे हैं वैसे ही दिए गए हैं.</string>
     <string name="settings_nav_recommended">सुझाया गया</string>
     <string name="settings_nav_strict_confirm_title">पुष्टि करने के कोड भी ब्लॉक करें?</string>
-    <string name="settings_nav_strict_confirm_body">सख़्त मोड में, आपके संपर्कों में शामिल न होने वाले भेजने वालों के कोड बाकी मैसेज के साथ ब्लॉक किए गए में चले जाते हैं. बैंकों और डिलीवरी कंपनियों के मैसेज भी रोक दिए जाते हैं.</string>
+    <string name="settings_nav_strict_confirm_body">सख़्त मोड में, आपके संपर्कों में शामिल न होने वाले भेजने वालों के कोड बाकी मैसेज के साथ स्पैम में चले जाते हैं. बैंकों और डिलीवरी कंपनियों के मैसेज भी रोक दिए जाते हैं.</string>
     <string name="settings_nav_strict_confirm_action">सख़्त मोड चुनें</string>
     <string name="settings_nav_strict_confirm_cancel">मौजूदा मोड रखें</string>
-    <string name="settings_nav_purge_row">ब्लॉक किए गए मैसेज कब मिटाएं</string>
+    <string name="settings_nav_purge_row">स्पैम कब मिटाएं</string>
     <string name="settings_nav_group_alerts">अलर्ट</string>
-    <string name="settings_nav_notify_body">हर ब्लॉक किए गए मैसेज के लिए बिना आवाज़ वाली सूचना</string>
+    <string name="settings_nav_notify_body">हर स्पैम मैसेज के लिए बिना आवाज़ वाली सूचना</string>
     <string name="settings_nav_theme_title">रंग-रूप</string>
     <string name="settings_nav_theme_modes">मोड</string>
     <string name="settings_nav_theme_colours">रंग</string>

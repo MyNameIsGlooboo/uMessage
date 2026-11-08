@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessage затримав ці повідомлення. Їх немає у вхідних.</string>
     <string name="r3b_thread_delete_all">Видалити всі повідомлення від %1$s</string>
     <string name="r3b_thread_empty_title">Тут більше нічого немає</string>
-    <string name="r3b_thread_empty_body">Зараз немає заблокованих повідомлень від цього відправника.</string>
+    <string name="r3b_thread_empty_body">Зараз немає спам-повідомлень від цього відправника.</string>
     <string name="r3b_message_actions">Дії з повідомленням</string>
     <string name="r3b_why_blocked">Чому заблоковано</string>
     <string name="r3b_copy_text">Копіювати текст</string>
@@ -14,9 +14,9 @@
     <string name="r3b_delete_message">Видалити</string>
     <string name="r3b_received">Отримано %1$s</string>
     <plurals name="r3b_info_purge" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Заблоковані повідомлення видаляються через %d день.</item>
-        <item quantity="few">Заблоковані повідомлення видаляються через %d дні.</item>
-        <item quantity="many">Заблоковані повідомлення видаляються через %d днів.</item>
-        <item quantity="other">Заблоковані повідомлення видаляються через %d дня.</item>
+        <item quantity="one">Спам видаляється через %d день.</item>
+        <item quantity="few">Спам видаляється через %d дні.</item>
+        <item quantity="many">Спам видаляється через %d днів.</item>
+        <item quantity="other">Спам видаляється через %d дня.</item>
     </plurals>
 </resources>

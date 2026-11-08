@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="spam_ui_delete_all">全部刪除</string>
-    <string name="spam_ui_delete_all_title">要刪除所有已封鎖的訊息嗎？</string>
+    <string name="spam_ui_delete_all_title">要刪除所有垃圾訊息嗎？</string>
     <plurals name="spam_ui_delete_all_message">
-        <item quantity="other">將刪除%1$d則已封鎖的訊息。刪除後可立即復原。</item>
+        <item quantity="other">將刪除%1$d則垃圾訊息。刪除後可立即復原。</item>
     </plurals>
     <string name="declog_ui_clear_title">要清除判定記錄嗎？</string>
-    <string name="declog_ui_clear_message">所有已記錄的判定都會移除。已封鎖的訊息和規則將維持不變。</string>
+    <string name="declog_ui_clear_message">所有已記錄的判定都會移除。垃圾訊息和規則將維持不變。</string>
     <string name="declog_ui_clear_action">清除</string>
     <string name="ui_log_reason_contacts_unavailable">無法讀取聯絡人</string>
     <string name="blocknum_title">已封鎖的號碼</string>

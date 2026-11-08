@@ -19,9 +19,9 @@
     <string name="thread_menu_block">Absender blockieren</string>
     <string name="thread_menu_unblock">Blockierung des Absenders aufheben</string>
     <string name="thread_block_title">Absender blockieren?</string>
-    <string name="thread_block_message">%1$s blockieren? Neue Nachrichten dieses Absenders landen bei den blockierten Nachrichten statt in deinem Posteingang. Dort kannst du sie weiterhin lesen oder wiederherstellen. Es wird nichts an andere gesendet. Bisherige Nachrichten in dieser Unterhaltung bleiben erhalten.</string>
+    <string name="thread_block_message">%1$s blockieren? Neue Nachrichten dieses Absenders landen unter „Spam“ statt in deinem Posteingang. Dort kannst du sie weiterhin lesen oder wiederherstellen. Es wird nichts an andere gesendet. Bisherige Nachrichten in dieser Unterhaltung bleiben erhalten.</string>
     <string name="thread_block_confirm">Blockieren</string>
-    <string name="thread_block_done">Blockiert. Neue Nachrichten landen bei den blockierten Nachrichten</string>
+    <string name="thread_block_done">Blockiert. Neue Nachrichten landen unter „Spam“</string>
     <string name="thread_block_failed">Dieser Absender konnte nicht blockiert werden</string>
     <string name="thread_unblock_done">Blockierung aufgehoben. Neue Nachrichten landen in deinem Posteingang</string>
     <string name="thread_unblock_done_system">Blockierung in uMessage aufgehoben. Diese Nummer steht auch auf der Blockierliste deines Smartphones. Android blockiert ihre Nachrichten daher weiterhin</string>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">Ketuk untuk mengunduh</string>
+    <string name="mms_downloading">Mengunduh…</string>
+    <string name="mms_download_again">Gagal mengunduh. Ketuk untuk mencoba lagi</string>
+    <string name="mms_expired">Pesan gambar ini sudah tidak tersedia</string>
+    <string name="mms_download_action_desc">Unduh pesan gambar</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">چھپی ہوئی چیٹس مقفل ہیں</string>
+    <string name="backup_hidden_message">آپ کی چھپی ہوئی چیٹس مقفل ہیں۔ انہیں بیک اپ میں شامل کرنے کے لیے لاک کھولیں، یا ان کے بغیر بیک اپ لیں۔</string>
+    <string name="backup_hidden_unlock">لاک کھولیں</string>
+    <string name="backup_hidden_skip">چھپی ہوئی چیٹس چھوڑ دیں</string>
+    <string name="backup_export_hidden_left_out">چھوڑی گئی چھپی ہوئی چیٹس: %d</string>
+</resources>

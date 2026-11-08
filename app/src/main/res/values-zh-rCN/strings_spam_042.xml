@@ -4,7 +4,7 @@
     <string name="s042_whole_word_help">只匹配单独的单词：win，不匹配 window。</string>
     <string name="s042_held_code_channel">被扣留的验证码</string>
     <string name="s042_held_code_title">一条类似验证码的消息被扣留</string>
-    <string name="s042_held_code_text">它含有链接，所以在“已拦截”中。如果您在等验证码，请打开“已拦截”。</string>
+    <string name="s042_held_code_text">它含有链接，所以在“垃圾短信”中。如果您在等验证码，请打开“垃圾短信”。</string>
     <string name="s042_contacts_off_title">垃圾信息过滤已暂停</string>
     <string name="s042_contacts_off_body">请允许访问通讯录，让 uMessage 能区分朋友和陌生人。</string>
     <string name="s042_contacts_off_allow">允许</string>

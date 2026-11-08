@@ -12,7 +12,7 @@
     <string name="sks_rules">নিয়ম অনুমতি দিন ব্লক করুন তালিকা কিওয়ার্ড প্যাটার্ন রেগেক্স প্রেরক নম্বর অনুমতি দেওয়া তালিকা ব্লক তালিকা</string>
     <string name="sks_blocked_numbers">ব্লক করা নম্বর ব্লক তালিকা ফোন পরিচিতি Android ব্লক তালিকা</string>
     <string name="sks_decision_log">লগ ইতিহাস কেন ব্লক করা কার্যকলাপ সাম্প্রতিক</string>
-    <string name="sks_purge">মুছুন ব্লক করা পুরোনো সরান পরিষ্কার স্বয়ংক্রিয় দিন পরিষ্কার রাখা</string>
+    <string name="sks_purge">মুছুন স্প্যাম ব্লক করা পুরোনো সরান পরিষ্কার স্বয়ংক্রিয় দিন পরিষ্কার রাখা</string>
     <string name="sks_region">দেশ অঞ্চল বাইরের বিদেশি আন্তর্জাতিক বিদেশ ব্লক করুন</string>
     <string name="sks_links">লিঙ্ক URL ঝুঁকিপূর্ণ ফিশিং নিরাপত্তা লক ওয়েব</string>
     <string name="sks_carrier_report">মোবাইল অপারেটর রিপোর্ট অপারেটর ফরোয়ার্ড করুন 7726 সেবাদাতা স্প্যাম</string>

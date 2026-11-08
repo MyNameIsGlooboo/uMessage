@@ -3,7 +3,7 @@
     <string name="convx_code_chip">验证码%1$s</string>
     <string name="convx_code_copy">复制</string>
     <string name="convx_block_archive">屏蔽并归档</string>
-    <string name="convx_block_archive_hint">以后的短信将移至“已屏蔽”。所有内容都留在手机上。</string>
+    <string name="convx_block_archive_hint">以后的短信将移至“垃圾短信”。所有内容都留在手机上。</string>
     <string name="convx_name_label">名称</string>
     <string name="convx_clear">清除</string>
     <string name="convx_reset_name">恢复默认名称</string>

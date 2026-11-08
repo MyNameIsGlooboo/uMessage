@@ -43,16 +43,16 @@
         <item quantity="one">Déplacer %d numéro vers les règles uMessage</item>
         <item quantity="other">Déplacer %d numéros vers les règles uMessage</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• Leurs messages iront dans Messages bloqués, où vous pourrez les lire et les restaurer.</string>
+    <string name="e_migrate_point_blocked">• Leurs messages iront dans Spam, où vous pourrez les lire et les restaurer.</string>
     <string name="e_migrate_point_android">• Android continue de supprimer leurs messages tant qu\'ils figurent dans sa liste.</string>
     <string name="e_migrate_calls_note">La liste Android bloque aussi les appels. Les numéros que vous en retirez peuvent à nouveau vous appeler.</string>
     <string name="e_bn_unknown_body">S\'applique uniquement lorsque le filtrage des expéditeurs inconnus est désactivé.</string>
     <string name="e_bn_row_calls_texts">Bloque les appels et les messages</string>
     <string name="e_bn_row_short_code">Numéro court : uMessage ne reçoit jamais ses messages</string>
     <string name="e_bn_move_one">Déplacer vers les règles uMessage</string>
-    <string name="e_bn_moved">%1$s fait désormais l\'objet d\'une règle uMessage. Ses messages vont dans Messages bloqués et ses appels ne sont plus bloqués.</string>
+    <string name="e_bn_moved">%1$s fait désormais l\'objet d\'une règle uMessage. Ses messages vont dans Spam et ses appels ne sont plus bloqués.</string>
     <string name="e_bn_field_help">Par exemple +15550001234, ou +1555* pour tous les numéros commençant par +1555</string>
     <string name="e_bn_short_code_warning">Cela ressemble à un numéro court. Android supprime ses messages avant que uMessage les reçoive. Vous ne pourriez donc jamais restaurer un code ou un avis bancaire, par exemple.</string>
     <string name="e_bn_add_as_rule">Ajouter plutôt une règle uMessage</string>
-    <string name="e_bn_added_as_rule">%1$s ajouté aux règles uMessage. Ses messages vont dans Messages bloqués.</string>
+    <string name="e_bn_added_as_rule">%1$s ajouté aux règles uMessage. Ses messages vont dans Spam.</string>
 </resources>

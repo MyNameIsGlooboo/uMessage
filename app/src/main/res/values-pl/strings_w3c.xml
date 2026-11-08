@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">Zamknij listę kroków</string>
     <string name="w3c_checklist_step_sms">Ustaw uMessage jako domyślną aplikację do SMS-ów</string>
     <string name="w3c_checklist_step_notifications">Włącz powiadomienia</string>
-    <string name="w3c_checklist_step_blocked">Zajrzyj do karty „Zablokowane”</string>
+    <string name="w3c_checklist_step_blocked">Zajrzyj do karty Spam</string>
     <string name="w3c_checklist_step_forward">Opcjonalnie: przekazuj wiadomości dalej na inny numer</string>
     <string name="w3c_checklist_step_done">Gotowe</string>
     <string name="w3c_checklist_action_set">Ustaw</string>
     <string name="w3c_checklist_action_open">Otwórz</string>
     <string name="w3c_receipt_title">Zatrzymano spam. Dotknij, aby sprawdzić</string>
-    <string name="w3c_receipt_body">Wiadomość od nieznanego nadawcy trafiła do karty „Zablokowane”. Nie zginęła: możesz ją przejrzeć i przywrócić w każdej chwili.</string>
+    <string name="w3c_receipt_body">Wiadomość od nieznanego nadawcy trafiła do Spamu. Nie zginęła: możesz ją przejrzeć i przywrócić w każdej chwili.</string>
     <string name="w3c_receipt_review">Przejrzyj</string>
     <string name="w3c_receipt_got_it">Rozumiem</string>
     <string name="w3c_new_paste">Wklej numer</string>

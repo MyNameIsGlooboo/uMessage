@@ -19,9 +19,9 @@
     <string name="thread_menu_block">Blocca mittente</string>
     <string name="thread_menu_unblock">Sblocca mittente</string>
     <string name="thread_block_title">Bloccare il mittente?</string>
-    <string name="thread_block_message">Bloccare %1$s? I nuovi messaggi di questo mittente andranno in Messaggi bloccati anziché in In arrivo. Potrai comunque leggerli o ripristinarli. Non verrà inviato nulla a nessuno. I messaggi già presenti in questa conversazione verranno conservati.</string>
+    <string name="thread_block_message">Bloccare %1$s? I nuovi messaggi di questo mittente andranno in Spam anziché in In arrivo. Potrai comunque leggerli o ripristinarli. Non verrà inviato nulla a nessuno. I messaggi già presenti in questa conversazione verranno conservati.</string>
     <string name="thread_block_confirm">Blocca</string>
-    <string name="thread_block_done">Bloccato. I nuovi messaggi andranno in Messaggi bloccati</string>
+    <string name="thread_block_done">Bloccato. I nuovi messaggi andranno in Spam</string>
     <string name="thread_block_failed">Impossibile bloccare questo mittente</string>
     <string name="thread_unblock_done">Sbloccato. I nuovi messaggi arriveranno in In arrivo</string>
     <string name="thread_unblock_done_system">Sbloccato in uMessage. Questo numero è anche tra i mittenti bloccati del telefono, quindi Android continua a bloccarne i messaggi</string>

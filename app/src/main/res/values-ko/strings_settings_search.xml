@@ -12,7 +12,7 @@
     <string name="sks_rules">규칙 허용 차단 목록 키워드 정규식 발신자 번호 허용 목록 차단 목록</string>
     <string name="sks_blocked_numbers">차단됨 번호 차단 목록 전화 연락처 Android 차단 목록</string>
     <string name="sks_decision_log">판정 기록 내역 차단 이유 활동 최근</string>
-    <string name="sks_purge">삭제 차단됨 오래된 제거 정리 자동 일수 정리 보관 기간</string>
+    <string name="sks_purge">삭제 스팸 차단됨 오래된 제거 정리 자동 일수 정리 보관 기간</string>
     <string name="sks_region">국가 지역 외부 외국 국제 해외 차단</string>
     <string name="sks_links">링크 URL 위험 피싱 안전 잠금 웹</string>
     <string name="sks_carrier_report">통신사 신고 이동통신 전달 7726 서비스 제공업체 스팸</string>

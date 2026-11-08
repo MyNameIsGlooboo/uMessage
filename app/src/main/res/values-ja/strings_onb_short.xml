@@ -4,7 +4,7 @@
     <string name="onb_allow_done">完了</string>
     <string name="onb_allow_needed">必要</string>
     <string name="onb_allow_all_set">準備完了</string>
-    <string name="onb_mode_strict_short">すべて「ブロック済み」に保留</string>
+    <string name="onb_mode_strict_short">すべて「迷惑メッセージ」に保留</string>
     <string name="onb_mode_smart_short">保留するが、コードは受信</string>
     <string name="onb_mode_off_short">フィルタリングしない</string>
 </resources>

@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">Нет всегда разрешенных отправителей</string>
     <string name="rules2_empty_allowed_body">Добавьте номер, имя отправителя или слово, чтобы сообщения всегда попадали во входящие. Нажмите «Добавить правило» ниже.</string>
     <string name="rules2_empty_blocked_title">Нет всегда заблокированных отправителей</string>
-    <string name="rules2_empty_blocked_body">Добавьте номер, имя отправителя, слово или регулярное выражение, чтобы сообщения попадали в «Заблокированные». Нажмите «Добавить правило» ниже.</string>
+    <string name="rules2_empty_blocked_body">Добавьте номер, имя отправителя, слово или регулярное выражение, чтобы сообщения попадали в «Спам». Нажмите «Добавить правило» ниже.</string>
     <string name="rules2_legacy_banner_title">Найдены старые списки заблокированных</string>
     <string name="rules2_legacy_banner_body">Перенесите их в правила, чтобы видеть и восстанавливать заблокированные сообщения.</string>
     <string name="rules2_legacy_review">Просмотреть</string>
     <string name="rules2_system_header">Список заблокированных Android (блокирует и звонки)</string>
-    <string name="rules2_system_body">Android удаляет сообщения с этих номеров до того, как они попадут в uMessage. Поэтому они не появляются в «Заблокированных», и восстановить их нельзя.</string>
+    <string name="rules2_system_body">Android удаляет сообщения с этих номеров до того, как они попадут в uMessage. Поэтому они не появляются в «Спаме», и восстановить их нельзя.</string>
     <string name="rules2_system_manage">Управление</string>
     <string name="rules2_system_move">Перенести в правила uMessage</string>
     <string name="rules2_migrate_title">Перенести в правила uMessage</string>
-    <string name="rules2_migrate_point_blocked">Тогда сообщения будут попадать в «Заблокированные», где их можно восстановить.</string>
+    <string name="rules2_migrate_point_blocked">Тогда сообщения будут попадать в «Спам», где их можно восстановить.</string>
     <string name="rules2_migrate_remove_needs_first">Сначала отметьте пункт выше.</string>
     <string name="rules2_migrate_nothing_selected">Ничего не выбрано</string>
     <plurals name="rules2_migrate_confirm_count" tools:ignore="ImpliedQuantity">
@@ -54,7 +54,7 @@
         <item quantity="many">Перенести %1$d номеров в правила</item>
         <item quantity="other">Перенести %1$d номера в правила</item>
     </plurals>
-    <string name="forward2_intro_reassure">Пересылаются только сообщения, попавшие во входящие. Заблокированный спам не пересылается.</string>
+    <string name="forward2_intro_reassure">Пересылаются только сообщения, попавшие во входящие. Спам не пересылается никогда.</string>
     <string name="forward2_empty_title">Пока нет правил пересылки</string>
     <string name="forward2_empty_body">Отправляйте копии подходящих сообщений, например уведомлений банка, на другой телефон. Начните с одного из этих вариантов.</string>
     <string name="forward2_template_bank">Пересылать уведомления банка</string>

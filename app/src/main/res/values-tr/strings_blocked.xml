@@ -33,8 +33,8 @@
     <string name="spam_reason_rule_removed">Kural daha sonra kaldırıldı</string>
     <string name="spam_reason_open_rules">Kuralları açın</string>
     <plurals name="spam_purge_notice">
-        <item quantity="one">Engellenen mesajlar %d gün sonra silinir</item>
-        <item quantity="other">Engellenen mesajlar %d gün sonra silinir</item>
+        <item quantity="one">Spam %d gün sonra silinir</item>
+        <item quantity="other">Spam %d gün sonra silinir</item>
     </plurals>
     <plurals name="spam_purge_left">
         <item quantity="one">%d gün sonra silinecek</item>
@@ -42,14 +42,14 @@
     </plurals>
     <string name="spam_purge_left_today">Bugün silinecek</string>
     <plurals name="convlist_reported_spam_archived">
-        <item quantity="one">Bildirildi. Bu gönderenden gelen yeni mesajlar Engellenenler bölümüne gider. Görüşme arşivlendi.</item>
-        <item quantity="other">%d görüşme bildirildi. Bu gönderenlerden gelen yeni mesajlar Engellenenler bölümüne gider. Görüşmeler arşivlendi.</item>
+        <item quantity="one">Bildirildi. Bu gönderenden gelen yeni mesajlar Spam bölümüne gider. Görüşme arşivlendi.</item>
+        <item quantity="other">%d görüşme bildirildi. Bu gönderenlerden gelen yeni mesajlar Spam bölümüne gider. Görüşmeler arşivlendi.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="one">Bildirildi. Bu gönderenden gelen yeni mesajlar Engellenenler bölümüne gider.</item>
-        <item quantity="other">%d görüşme bildirildi. Bu gönderenlerden gelen yeni mesajlar Engellenenler bölümüne gider.</item>
+        <item quantity="one">Bildirildi. Bu gönderenden gelen yeni mesajlar Spam bölümüne gider.</item>
+        <item quantity="other">%d görüşme bildirildi. Bu gönderenlerden gelen yeni mesajlar Spam bölümüne gider.</item>
     </plurals>
-    <string name="blocked_title">Engellenenler</string>
+    <string name="blocked_title">Spam</string>
     <string name="blocked_snack_mode">Bilinmeyen gönderenler için seçilen mod: %1$s</string>
     <string name="blocked_stats_restored">%1$d tanesini geri yüklediniz</string>
     <string name="blocked_reason_unknown_link">Bilinmeyen gönderen, bağlantı içeriyor</string>

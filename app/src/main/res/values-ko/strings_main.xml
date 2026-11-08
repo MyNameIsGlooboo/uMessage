@@ -7,10 +7,10 @@
     <string name="main_search_no_results">검색 결과가 없어요.</string>
     <string name="main_settings">설정</string>
     <string name="main_tab_messages">메시지</string>
-    <string name="main_tab_blocked">차단함</string>
+    <string name="main_tab_blocked">스팸</string>
     <string name="main_tab_archived">보관됨</string>
     <plurals name="main_tab_blocked_new">
-        <item quantity="other">차단함, 새 메시지 %d건</item>
+        <item quantity="other">스팸, 새 메시지 %d건</item>
     </plurals>
     <string name="main_permission_title">권한 필요</string>
     <string name="main_permission_grant">권한 허용</string>

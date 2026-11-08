@@ -3,8 +3,8 @@
     <string name="lock_scope_title">잠금 대상</string>
     <string name="lock_scope_whole">앱 전체</string>
     <string name="lock_scope_chosen">선택한 부분만</string>
-    <string name="lock_scope_chosen_long">선택한 부분만: 차단함 탭과 숨긴 대화</string>
-    <string name="lock_scope_blocked_title">차단된 메시지 잠김</string>
+    <string name="lock_scope_chosen_long">선택한 부분만: 스팸 탭과 숨긴 대화</string>
+    <string name="lock_scope_blocked_title">스팸 잠김</string>
     <string name="lock_scope_blocked_body">보려면 잠금을 해제해 주세요.</string>
     <string name="lock_scope_unlock">잠금 해제</string>
 </resources>

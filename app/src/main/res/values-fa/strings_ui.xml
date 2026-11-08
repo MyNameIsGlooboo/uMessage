@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="ui_time_now">اکنون</string>
+    <string name="ui_time_now">الان</string>
     <plurals name="ui_time_minutes" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d دقیقه</item>
         <item quantity="other">%d دقیقه</item>
@@ -10,15 +10,15 @@
     <string name="ui_bubble_received_unknown">دریافت‌شده، %1$s</string>
     <string name="ui_select_message">انتخاب پیام</string>
     <string name="ui_retry_send">تلاش دوباره برای ارسال</string>
-    <string name="ui_default_required_body">تا وقتی uMessage برنامهٔ پیامک پیش‌فرض شما نباشد، نمی‌تواند پیام‌ها را دریافت، ارسال یا فیلتر کند. پیام‌های شما سر جای خود می‌مانند.</string>
+    <string name="ui_default_required_body">تا وقتی uMessage برنامهٔ پیام پیش‌فرض شما نباشد، نمی‌تواند پیام‌ها را دریافت، ارسال یا فیلتر کند. پیام‌های شما سر جای خود می‌مانند.</string>
     <string name="ui_default_required_close">بستن uMessage</string>
     <string name="ui_add_contact_or_number">نام یا شماره تلفن را وارد کنید</string>
     <string name="ui_show_dialpad">نمایش صفحهٔ شماره‌گیری</string>
-    <string name="ui_show_keyboard">نمایش صفحه‌کلید</string>
-    <string name="ui_settings_system_block_list">فهرست مسدودی سیستم</string>
-    <string name="ui_settings_system_block_list_body">شماره‌هایی که در همهٔ برنامه‌های این گوشی مسدود شده‌اند. uMessage هم آن‌ها را پنهان می‌کند.</string>
-    <string name="ui_settings_blocked_words">واژه‌های مسدودشده</string>
-    <string name="ui_settings_character_counter">نمایش شمارندهٔ نویسه</string>
+    <string name="ui_show_keyboard">نمایش کیبورد</string>
+    <string name="ui_settings_system_block_list">لیست بلاک سیستم</string>
+    <string name="ui_settings_system_block_list_body">شماره‌هایی که در همهٔ برنامه‌های این گوشی بلاک شده‌اند. uMessage هم آن‌ها را پنهان می‌کند.</string>
+    <string name="ui_settings_blocked_words">کلمه‌های بلاک‌شده</string>
+    <string name="ui_settings_character_counter">نمایش شمارندهٔ کاراکتر</string>
     <string name="ui_settings_send_on_enter">ارسال با کلید Enter</string>
     <string name="ui_settings_delivery_reports">دریافت گزارش تحویل</string>
     <string name="ui_two_sentences">%1$s. %2$s</string>
@@ -26,16 +26,16 @@
     <string name="ui_send_with_sim">%1$s, %2$s</string>
     <string name="ui_number_with_type">%1$s (%2$s)</string>
     <string name="ui_log_decision_allowed">مجاز</string>
-    <string name="ui_log_decision_blocked">مسدودشده</string>
+    <string name="ui_log_decision_blocked">بلاک‌شده</string>
     <string name="ui_log_decision_error">خطا</string>
     <string name="ui_log_reason_allow_rule">قانون اجازه دادن</string>
-    <string name="ui_log_reason_block_rule">قانون مسدود کردن</string>
-    <string name="ui_log_reason_contact">در مخاطبان است</string>
+    <string name="ui_log_reason_block_rule">قانون بلاک کردن</string>
+    <string name="ui_log_reason_contact">در مخاطب‌ها است</string>
     <string name="ui_log_reason_known_conversation">قبلاً به این فرستنده پیام داده‌اید</string>
     <string name="ui_log_reason_otp">کد تأیید</string>
     <string name="ui_log_reason_unknown_sender">فرستنده ناشناس</string>
     <string name="ui_log_reason_mode_off">فیلتر خاموش</string>
-    <string name="ui_log_reason_no_match">هیچ قانونی مطابقت نداشت</string>
+    <string name="ui_log_reason_no_match">هیچ قانونی جور نشد</string>
     <string name="ui_log_source_sms">SMS</string>
     <string name="ui_log_source_mms">MMS</string>
     <string name="ui_log_source_retry">دوباره تلاش شد</string>

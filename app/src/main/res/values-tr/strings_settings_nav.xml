@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols (telif hakkı Google LLC\'ye aittir), Apache Lisansı 2.0 sürümü kapsamında lisanslanmıştır. Simgeler olduğu gibi, garantisiz sunulur.</string>
     <string name="settings_nav_recommended">Önerilen</string>
     <string name="settings_nav_strict_confirm_title">Doğrulama kodları da engellensin mi?</string>
-    <string name="settings_nav_strict_confirm_body">Sıkı modda, kişilerinizde olmayan gönderenlerden gelen kodlar da diğer mesajlarla birlikte Engellenenler\'e gider. Bankaların ve kargo şirketlerinin mesajları da engellenir.</string>
+    <string name="settings_nav_strict_confirm_body">Sıkı modda, kişilerinizde olmayan gönderenlerden gelen kodlar da diğer mesajlarla birlikte Spam\'e gider. Bankaların ve kargo şirketlerinin mesajları da bekletilir.</string>
     <string name="settings_nav_strict_confirm_action">Sıkı modu kullanın</string>
     <string name="settings_nav_strict_confirm_cancel">Mevcut modu koruyun</string>
-    <string name="settings_nav_purge_row">Engellenen mesajları silme süresi</string>
+    <string name="settings_nav_purge_row">Spam\'i silme süresi</string>
     <string name="settings_nav_group_alerts">Uyarılar</string>
-    <string name="settings_nav_notify_body">Engellenen her mesaj için sessiz bir bildirim</string>
+    <string name="settings_nav_notify_body">Her spam mesajı için sessiz bir bildirim</string>
     <string name="settings_nav_theme_title">Görünüm</string>
     <string name="settings_nav_theme_modes">Mod</string>
     <string name="settings_nav_theme_colours">Renkler</string>

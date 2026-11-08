@@ -5,7 +5,7 @@
     <string name="region_summary">Contatos e pessoas para quem você escreveu não ficam retidos</string>
     <string name="region_off">Desativado</string>
     <string name="region_picker_title">Seu país de origem</string>
-    <string name="region_picker_body">Números de outros países ficam retidos em Mensagens bloqueadas, exceto contatos e pessoas para quem você enviou mensagens. Um parente no exterior que não esteja nos seus contatos também fica retido.</string>
+    <string name="region_picker_body">Números de outros países ficam retidos em Spam, exceto contatos e pessoas para quem você enviou mensagens. Um parente no exterior que não esteja nos seus contatos também fica retido. Isso só funciona nos modos Inteligente e Rigoroso.</string>
     <string name="region_picker_search">Pesquise</string>
     <string name="region_reason_foreign">Número de outro país</string>
 </resources>

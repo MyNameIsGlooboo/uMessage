@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">কোনো প্রেরককে সবসময় অনুমতি দেওয়া নেই</string>
     <string name="rules2_empty_allowed_body">যেসব বার্তা সবসময় আপনার ইনবক্সে আসবে, সেগুলোর নম্বর, প্রেরকের নাম বা শব্দ যোগ করুন। নিচে “নিয়ম যোগ করুন”-এ ট্যাপ করুন।</string>
     <string name="rules2_empty_blocked_title">কোনো প্রেরককে সবসময় ব্লক করা নেই</string>
-    <string name="rules2_empty_blocked_body">বার্তা “ব্লক করা”-তে পাঠাতে নম্বর, প্রেরকের নাম, শব্দ বা প্যাটার্ন (রেগেক্স) যোগ করুন। নিচে “নিয়ম যোগ করুন”-এ ট্যাপ করুন।</string>
+    <string name="rules2_empty_blocked_body">বার্তা স্প্যামে পাঠাতে নম্বর, প্রেরকের নাম, শব্দ বা প্যাটার্ন (রেগেক্স) যোগ করুন। নিচে “নিয়ম যোগ করুন”-এ ট্যাপ করুন।</string>
     <string name="rules2_legacy_banner_title">পুরোনো ব্লক তালিকা পাওয়া গেছে</string>
     <string name="rules2_legacy_banner_body">ব্লক করা বার্তা দেখতে ও ফিরিয়ে আনতে তালিকাগুলো নিয়মে সরান।</string>
     <string name="rules2_legacy_review">পর্যালোচনা করুন</string>
     <string name="rules2_system_header">Android ব্লক তালিকা (কলও ব্লক করে)</string>
-    <string name="rules2_system_body">uMessage দেখার আগেই Android এই নম্বরগুলোর বার্তা বাদ দেয়। তাই সেগুলো “ব্লক করা”-তে দেখা যায় না এবং ফিরিয়ে আনা যায় না।</string>
+    <string name="rules2_system_body">uMessage দেখার আগেই Android এই নম্বরগুলোর বার্তা বাদ দেয়। তাই সেগুলো স্প্যামে দেখা যায় না এবং ফিরিয়ে আনা যায় না।</string>
     <string name="rules2_system_manage">পরিচালনা করুন</string>
     <string name="rules2_system_move">uMessage-এর নিয়মে সরান</string>
     <string name="rules2_migrate_title">uMessage-এর নিয়মে সরান</string>
-    <string name="rules2_migrate_point_blocked">তখন বার্তা “ব্লক করা”-তে যাবে, যেখান থেকে আপনি সেগুলো ফিরিয়ে আনতে পারবেন।</string>
+    <string name="rules2_migrate_point_blocked">তখন বার্তা স্প্যামে যাবে, যেখান থেকে আপনি সেগুলো ফিরিয়ে আনতে পারবেন।</string>
     <string name="rules2_migrate_remove_needs_first">আগে ওপরের বিকল্পে টিক দিন।</string>
     <string name="rules2_migrate_nothing_selected">কিছু নির্বাচন করা হয়নি</string>
     <plurals name="rules2_migrate_confirm_count" tools:ignore="ImpliedQuantity">
@@ -50,7 +50,7 @@
         <item quantity="one">%1$dটি নম্বর নিয়মে সরান</item>
         <item quantity="other">%1$dটি নম্বর নিয়মে সরান</item>
     </plurals>
-    <string name="forward2_intro_reassure">শুধু আপনার ইনবক্সে আসা বার্তাই ফরোয়ার্ড করা হয়। ব্লক করা স্প্যাম কখনোই ফরোয়ার্ড করা হয় না।</string>
+    <string name="forward2_intro_reassure">শুধু আপনার ইনবক্সে আসা বার্তাই ফরোয়ার্ড করা হয়। স্প্যাম কখনোই ফরোয়ার্ড করা হয় না।</string>
     <string name="forward2_empty_title">এখনো ফরোয়ার্ড করার নিয়ম নেই</string>
     <string name="forward2_empty_body">নিয়মের সঙ্গে মিলে যাওয়া বার্তার কপি, যেমন ব্যাংকের সতর্কবার্তা, অন্য ফোনে পাঠান। এগুলোর একটি দিয়ে শুরু করুন।</string>
     <string name="forward2_template_bank">ব্যাংকের সতর্কবার্তা ফরোয়ার্ড করুন</string>

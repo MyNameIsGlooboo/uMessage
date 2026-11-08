@@ -21,9 +21,9 @@
     <string name="thread_menu_block">Zablokuj nadawcę</string>
     <string name="thread_menu_unblock">Odblokuj nadawcę</string>
     <string name="thread_block_title">Zablokować nadawcę?</string>
-    <string name="thread_block_message">Zablokować %1$s? Nowe wiadomości od tego nadawcy trafią do zablokowanych wiadomości zamiast do Odebranych. Nadal możesz je tam czytać lub przywrócić. Nic nie zostanie nikomu wysłane. Dotychczasowe wiadomości w tej rozmowie zostaną zachowane.</string>
+    <string name="thread_block_message">Zablokować %1$s? Nowe wiadomości od tego nadawcy trafią do Spamu zamiast do Odebranych. Nadal możesz je tam czytać lub przywrócić. Nic nie zostanie nikomu wysłane. Dotychczasowe wiadomości w tej rozmowie zostaną zachowane.</string>
     <string name="thread_block_confirm">Zablokuj</string>
-    <string name="thread_block_done">Zablokowano. Nowe wiadomości trafią do zablokowanych wiadomości</string>
+    <string name="thread_block_done">Zablokowano. Nowe wiadomości trafią do Spamu</string>
     <string name="thread_block_failed">Nie udało się zablokować tego nadawcy</string>
     <string name="thread_unblock_done">Odblokowano. Nowe wiadomości trafią do Odebranych</string>
     <string name="thread_unblock_done_system">Odblokowano w uMessage. Ten numer jest też na liście blokowanych telefonu, więc Android nadal blokuje jego wiadomości</string>

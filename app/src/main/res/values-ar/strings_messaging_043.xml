@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">المس للتنزيل</string>
+    <string name="mms_downloading">جارٍ التنزيل…</string>
+    <string name="mms_download_again">فشل التنزيل. المس للمحاولة مرة أخرى</string>
+    <string name="mms_expired">لم تعد هذه الرسالة المصورة متاحة</string>
+    <string name="mms_download_action_desc">تنزيل الرسالة المصورة</string>
+</resources>

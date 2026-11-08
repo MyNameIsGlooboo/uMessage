@@ -3,6 +3,6 @@
     <string name="notif_block_action">บล็อก</string>
     <string name="notif_block_undo">เลิกทำ</string>
     <string name="notif_block_done_title">บล็อก %1$s แล้ว</string>
-    <string name="notif_block_done_text">ข้อความใหม่จะไปที่ข้อความที่บล็อก</string>
+    <string name="notif_block_done_text">ข้อความใหม่จะไปที่สแปม</string>
     <string name="notif_block_channel">ผู้ส่งที่บล็อกแล้ว</string>
 </resources>

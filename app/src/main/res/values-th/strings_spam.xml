@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">การตั้งค่าการบล็อก</string>
     <string name="spam_blocked_stats_totals">บล็อกทั้งหมด %1$d ข้อความ กู้คืนแล้ว %2$d ข้อความ</string>
     <string name="spam_blocked_header_cd">บล็อกสแปม %1$d ข้อความใน 7 วันที่ผ่านมา บล็อกทั้งหมด %2$d ข้อความ กู้คืนแล้ว %3$d ข้อความ</string>
-    <string name="spam_blocked_empty_title">ยังไม่มีข้อความที่บล็อก</string>
+    <string name="spam_blocked_empty_title">ยังไม่มีสแปม</string>
     <string name="spam_action_delete">ลบ</string>
     <string name="spam_select">เลือก</string>
     <string name="spam_action_select_all">เลือกทั้งหมด</string>
@@ -36,7 +36,7 @@
     <string name="spam_rules_empty_allowed_title">ไม่มีกฎการอนุญาต</string>
     <string name="spam_rules_empty_allowed_body">ทุกอย่างที่อนุญาตจะเข้ากล่องข้อความเข้าเสมอ แม้ใช้โหมดเข้มงวด เพิ่มหมายเลข ชื่อผู้ส่ง หรือคำหลัก</string>
     <string name="spam_rules_empty_blocked_title">ไม่มีกฎการบล็อก</string>
-    <string name="spam_rules_empty_blocked_body">บล็อกหมายเลข เลขนำหน้า ชื่อผู้ส่ง คำหลัก หรือรูปแบบ (regex) ข้อความที่บล็อกจะอยู่ในโฟลเดอร์ที่บล็อก</string>
+    <string name="spam_rules_empty_blocked_body">บล็อกหมายเลข เลขนำหน้า ชื่อผู้ส่ง คำหลัก หรือรูปแบบ (regex) ข้อความของพวกเขาจะอยู่ในสแปม</string>
     <string name="spam_rules_delete_rule">ลบกฎ %s</string>
     <string name="spam_rules_deleted">ลบกฎแล้ว</string>
     <plurals name="spam_rules_imported">
@@ -102,10 +102,10 @@
     <string name="spam_mode_off">ปิด</string>
     <string name="spam_mode_off_body">ไม่บล็อกผู้ส่งที่ไม่รู้จัก</string>
     <string name="spam_strict_warning_title">โหมดเข้มงวดอาจซ่อนข้อความสำคัญ</string>
-    <string name="spam_strict_warning_body">ข้อความจากธนาคาร บริษัทขนส่ง และรหัสใช้ครั้งเดียวมักมาจากผู้ส่งที่ไม่อยู่ในรายชื่อติดต่อ ในโหมดเข้มงวด ข้อความเหล่านี้จะไปที่โฟลเดอร์ที่บล็อก รวมถึงรหัสด้วย เลือกโหมดอัจฉริยะเพื่อให้รับรหัสได้ หรือเพิ่มผู้ส่งเหล่านั้นในรายการที่อนุญาตเพียงครั้งเดียว</string>
-    <string name="spam_strict_warning_action">ตรวจสอบข้อความที่บล็อก</string>
+    <string name="spam_strict_warning_body">ข้อความจากธนาคาร บริษัทขนส่ง และรหัสใช้ครั้งเดียวมักมาจากผู้ส่งที่ไม่อยู่ในรายชื่อติดต่อ ในโหมดเข้มงวด ข้อความเหล่านี้จะไปที่สแปม รวมถึงรหัสด้วย เลือกโหมดอัจฉริยะเพื่อให้รับรหัสได้ หรือเพิ่มผู้ส่งเหล่านั้นในรายการที่อนุญาตเพียงครั้งเดียว</string>
+    <string name="spam_strict_warning_action">ตรวจสอบสแปม</string>
     <string name="spam_settings_cleanup_title">ล้างข้อมูล</string>
-    <string name="spam_purge_body">ลบข้อความเก่าที่บล็อกไว้โดยอัตโนมัติ</string>
+    <string name="spam_purge_body">ลบสแปมเก่าโดยอัตโนมัติ</string>
     <string name="spam_purge_days">%d วัน</string>
     <string name="spam_purge_forever">ไม่ลบ</string>
     <string name="spam_notify_title">แจ้งเตือนเมื่อบล็อกข้อความ</string>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">Versteckte Chats sind gesperrt</string>
+    <string name="backup_hidden_message">Ihre versteckten Chats sind gesperrt. Entsperren Sie sie, um sie in die Sicherung aufzunehmen, oder sichern Sie ohne sie.</string>
+    <string name="backup_hidden_unlock">Entsperren</string>
+    <string name="backup_hidden_skip">Versteckte Chats überspringen</string>
+    <string name="backup_export_hidden_left_out">Ausgelassene versteckte Chats: %d</string>
+</resources>

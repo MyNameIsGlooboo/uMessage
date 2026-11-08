@@ -14,11 +14,11 @@
     <string name="convlist_sim">Chip %1$d</string>
     <string name="convlist_scroll_handle">Rolagem rápida</string>
     <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d mensagem bloqueada</item>
-        <item quantity="other">%d mensagens bloqueadas</item>
+        <item quantity="one">%d mensagem de spam</item>
+        <item quantity="other">%d mensagens de spam</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">Mensagens bloqueadas</string>
-    <string name="convlist_blocked_banner_cd">%1$d mensagens bloqueadas. Abra a pasta de bloqueados.</string>
+    <string name="convlist_blocked_banner_title">Spam</string>
+    <string name="convlist_blocked_banner_cd">%1$d mensagens de spam. Abra a pasta Spam.</string>
     <string name="convlist_archive">Arquive</string>
     <string name="convlist_delete">Exclua</string>
     <string name="convlist_pin">Fixe no topo</string>
@@ -47,12 +47,12 @@
         <item quantity="other">%d conversas arquivadas</item>
     </plurals>
     <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Bloqueado. Novas mensagens irão para Mensagens bloqueadas</item>
-        <item quantity="other">%d remetentes bloqueados. Novas mensagens irão para Mensagens bloqueadas</item>
+        <item quantity="one">Bloqueado. Novas mensagens irão para Spam</item>
+        <item quantity="other">%d remetentes bloqueados. Novas mensagens irão para Spam</item>
     </plurals>
     <string name="convlist_action_failed">Algo deu errado</string>
     <string name="convlist_block_title">Bloquear número?</string>
-    <string name="convlist_block_message">Bloquear %1$s? Novas mensagens desse número irão para Mensagens bloqueadas em vez da caixa de entrada. Lá, você ainda poderá ler ou restaurar as mensagens.</string>
+    <string name="convlist_block_message">Bloquear %1$s? Novas mensagens desse número irão para Spam em vez da caixa de entrada. Lá, você ainda poderá ler ou restaurar as mensagens.</string>
     <string name="convlist_block_confirm">Bloqueie</string>
     <string name="convlist_rename_title">Renomeie a conversa</string>
     <string name="convlist_cancel">Cancele</string>

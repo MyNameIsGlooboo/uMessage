@@ -4,7 +4,7 @@
     <string name="s042_whole_word_help">ตรงกับคำนั้นโดยตรงเท่านั้น: win ไม่ใช่ window</string>
     <string name="s042_held_code_channel">รหัสที่ถูกพักไว้</string>
     <string name="s042_held_code_title">ข้อความที่คล้ายรหัสถูกพักไว้</string>
-    <string name="s042_held_code_text">ข้อความมีลิงก์ จึงอยู่ในรายการที่ถูกบล็อก เปิดรายการที่ถูกบล็อกหากคุณกำลังรอรหัส</string>
+    <string name="s042_held_code_text">ข้อความมีลิงก์ จึงอยู่ในสแปม เปิดสแปมหากคุณกำลังรอรหัส</string>
     <string name="s042_contacts_off_title">ตัวกรองสแปมหยุดชั่วคราว</string>
     <string name="s042_contacts_off_body">อนุญาตผู้ติดต่อเพื่อให้ uMessage แยกเพื่อนออกจากคนแปลกหน้าได้</string>
     <string name="s042_contacts_off_allow">อนุญาต</string>

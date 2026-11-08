@@ -47,16 +47,16 @@
         <item quantity="many">Przenieś %d numerów do reguł uMessage</item>
         <item quantity="other">Przenieś %d numeru do reguł uMessage</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• Wiadomości z tych numerów trafią do zakładki „Zablokowane”, gdzie możesz je przeczytać i przywrócić.</string>
+    <string name="e_migrate_point_blocked">• Wiadomości z tych numerów trafią do Spamu, gdzie możesz je przeczytać i przywrócić.</string>
     <string name="e_migrate_point_android">• Android nadal odrzuca wiadomości z tych numerów, dopóki są na jego liście.</string>
     <string name="e_migrate_calls_note">Lista Androida blokuje też połączenia. Numery, które z niej usuniesz, znów będą mogły do ciebie dzwonić.</string>
     <string name="e_bn_unknown_body">Działa tylko wtedy, gdy opcja „Nieznani nadawcy” jest wyłączona.</string>
     <string name="e_bn_row_calls_texts">Blokuje połączenia i wiadomości</string>
     <string name="e_bn_row_short_code">Krótki numer: jego wiadomości nigdy nie docierają do uMessage</string>
     <string name="e_bn_move_one">Przenieś do reguł uMessage</string>
-    <string name="e_bn_moved">%1$s jest teraz regułą uMessage. Wiadomości z tego numeru trafiają do zakładki „Zablokowane”, a połączenia nie są już blokowane.</string>
+    <string name="e_bn_moved">%1$s jest teraz regułą uMessage. Wiadomości z tego numeru trafiają do Spamu, a połączenia nie są już blokowane.</string>
     <string name="e_bn_field_help">Na przykład +15550001234 lub +1555* dla wszystkich numerów zaczynających się od +1555</string>
     <string name="e_bn_short_code_warning">To wygląda na krótki numer. Android odrzuca jego wiadomości, zanim dotrą do uMessage, więc nigdy nie przywrócisz żadnej z nich, np. kodu lub powiadomienia z banku.</string>
     <string name="e_bn_add_as_rule">Dodaj jako regułę uMessage</string>
-    <string name="e_bn_added_as_rule">Dodano %1$s jako regułę uMessage. Wiadomości z tego numeru trafiają do zakładki „Zablokowane”.</string>
+    <string name="e_bn_added_as_rule">Dodano %1$s jako regułę uMessage. Wiadomości z tego numeru trafiają do Spamu.</string>
 </resources>

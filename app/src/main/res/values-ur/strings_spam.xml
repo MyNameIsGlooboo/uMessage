@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">اسپیم سے تحفظ</string>
     <string name="spam_blocked_stats_totals">کل %1$d روکے گئے، %2$d بحال کیے گئے</string>
     <string name="spam_blocked_header_cd">پچھلے 7 دنوں میں %1$d اسپیم روکے گئے۔ کل %2$d روکے گئے، %3$d بحال کیے گئے۔</string>
-    <string name="spam_blocked_empty_title">ابھی کچھ بلاک نہیں ہوا</string>
+    <string name="spam_blocked_empty_title">اسپیم میں ابھی کچھ نہیں</string>
     <string name="spam_action_delete">حذف کریں</string>
     <string name="spam_select">منتخب کریں</string>
     <string name="spam_action_select_all">سب منتخب کریں</string>
@@ -38,7 +38,7 @@
     <string name="spam_rules_empty_allowed_title">اجازت کا کوئی اصول نہیں</string>
     <string name="spam_rules_empty_allowed_body">جس چیز کی آپ اجازت دیں وہ ہمیشہ آپ کے ان باکس میں پہنچتی ہے، سخت موڈ میں بھی۔ کوئی نمبر، بھیجنے والے کا نام یا کلیدی لفظ شامل کریں۔</string>
     <string name="spam_rules_empty_blocked_title">بلاک کا کوئی اصول نہیں</string>
-    <string name="spam_rules_empty_blocked_body">کوئی نمبر، ابتدائیہ، بھیجنے والے کا نام، کلیدی لفظ یا پیٹرن بلاک کریں۔ بلاک شدہ پیغامات بلاک شدہ فولڈر میں جاتے ہیں۔</string>
+    <string name="spam_rules_empty_blocked_body">کوئی نمبر، ابتدائیہ، بھیجنے والے کا نام، کلیدی لفظ یا پیٹرن بلاک کریں۔ ان کے پیغامات اسپیم میں جاتے ہیں۔</string>
     <string name="spam_rules_delete_rule">اصول %s حذف کریں</string>
     <string name="spam_rules_deleted">اصول حذف ہو گیا</string>
     <plurals name="spam_rules_imported">
@@ -109,10 +109,10 @@
     <string name="spam_mode_off">بند</string>
     <string name="spam_mode_off_body">نامعلوم بھیجنے والوں پر کوئی بلاک نہیں</string>
     <string name="spam_strict_warning_title">سخت موڈ اہم پیغامات چھپا سکتا ہے</string>
-    <string name="spam_strict_warning_body">بینک، ڈیلیوری کمپنیاں اور ایک بار کے کوڈ عموماً ایسے بھیجنے والوں سے آتے ہیں جو آپ کے رابطوں میں نہیں۔ سخت موڈ میں یہ بلاک شدہ فولڈر میں چلے جاتے ہیں، کوڈ بھی۔ کوڈ آنے دینے کے لیے اسمارٹ منتخب کریں، یا ان بھیجنے والوں کو ایک بار اجازت دے دیں۔</string>
-    <string name="spam_strict_warning_action">بلاک شدہ پیغامات دیکھیں</string>
+    <string name="spam_strict_warning_body">بینک، ڈیلیوری کمپنیاں اور ایک بار کے کوڈ عموماً ایسے بھیجنے والوں سے آتے ہیں جو آپ کے رابطوں میں نہیں۔ سخت موڈ میں یہ اسپیم میں چلے جاتے ہیں، کوڈ بھی۔ کوڈ آنے دینے کے لیے اسمارٹ منتخب کریں، یا ان بھیجنے والوں کو ایک بار اجازت دے دیں۔</string>
+    <string name="spam_strict_warning_action">اسپیم دیکھیں</string>
     <string name="spam_settings_cleanup_title">صفائی</string>
-    <string name="spam_purge_body">پرانے بلاک شدہ پیغامات خود بخود ہٹا دیے جاتے ہیں۔</string>
+    <string name="spam_purge_body">پرانا اسپیم خود بخود ہٹا دیا جاتا ہے۔</string>
     <string name="spam_purge_days">%d دن</string>
     <string name="spam_purge_forever">کبھی نہیں</string>
     <string name="spam_notify_title">پیغام بلاک ہونے پر اطلاع دیں</string>

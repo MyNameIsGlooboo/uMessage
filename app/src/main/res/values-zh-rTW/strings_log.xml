@@ -32,7 +32,7 @@
     <string name="declog_fixed_blocked">你已從記錄中封鎖這個寄件者</string>
     <string name="declog_fixed_restored">你已從記錄中還原這則訊息</string>
     <string name="declog_restored">已還原</string>
-    <string name="declog_blocked_message">這則訊息仍在「已封鎖」中</string>
+    <string name="declog_blocked_message">這則訊息仍在「垃圾訊息」中</string>
     <string name="declog_restore">還原訊息</string>
     <string name="declog_restore_done">訊息已還原至收件匣</string>
     <string name="declog_restore_text_only">文字已還原至收件匣，但無法復原圖片。</string>

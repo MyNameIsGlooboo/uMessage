@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="blocked_menu_restored">بازگردانده‌شده توسط شما</string>
-    <string name="blocked_menu_restored_summary">پیام‌هایی که اخیراً به صندوق ورودی منتقل کرده‌اید</string>
+    <string name="blocked_menu_restored">شما برگرداندید</string>
+    <string name="blocked_menu_restored_summary">پیام‌هایی که اخیراً به صندوق ورودی برگردانده‌اید</string>
 </resources>

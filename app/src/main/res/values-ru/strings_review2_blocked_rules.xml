@@ -47,16 +47,16 @@
         <item quantity="many">Перенести %d номеров в правила uMessage</item>
         <item quantity="other">Перенести %d номера в правила uMessage</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• Сообщения с этих номеров попадут в «Заблокированные», где их можно прочитать и восстановить.</string>
+    <string name="e_migrate_point_blocked">• Сообщения с этих номеров попадут в «Спам», где их можно прочитать и восстановить.</string>
     <string name="e_migrate_point_android">• Android продолжит удалять сообщения с этих номеров, пока они есть в его списке.</string>
     <string name="e_migrate_calls_note">Список Android также блокирует звонки. После удаления из него номера смогут снова вам звонить.</string>
     <string name="e_bn_unknown_body">Действует, только когда параметр «Неизвестные отправители» выключен.</string>
     <string name="e_bn_row_calls_texts">Блокирует звонки и сообщения</string>
     <string name="e_bn_row_short_code">Короткий номер: uMessage не получает его сообщения</string>
     <string name="e_bn_move_one">Перенести в правила uMessage</string>
-    <string name="e_bn_moved">%1$s теперь в правилах uMessage. Сообщения попадают в «Заблокированные», а звонки больше не блокируются.</string>
+    <string name="e_bn_moved">%1$s теперь в правилах uMessage. Сообщения попадают в «Спам», а звонки больше не блокируются.</string>
     <string name="e_bn_field_help">Например, +15550001234 или +1555* для всех номеров, начинающихся с +1555</string>
     <string name="e_bn_short_code_warning">Похоже, это короткий номер. Android удаляет его сообщения до того, как их получит uMessage. Вы не сможете восстановить их, например код или уведомление банка.</string>
     <string name="e_bn_add_as_rule">Добавить в правила uMessage</string>
-    <string name="e_bn_added_as_rule">%1$s добавлен в правила uMessage. Сообщения попадают в «Заблокированные».</string>
+    <string name="e_bn_added_as_rule">%1$s добавлен в правила uMessage. Сообщения попадают в «Спам».</string>
 </resources>

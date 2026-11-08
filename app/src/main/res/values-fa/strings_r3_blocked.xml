@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="r3b_open_sender">باز کردن پیام‌ها</string>
-    <string name="r3b_move_inbox_for">انتقال به صندوق ورودی، %1$s</string>
+    <string name="r3b_move_inbox_for">بردن به صندوق ورودی، %1$s</string>
     <string name="r3b_delete_for">حذف، %1$s</string>
     <string name="r3b_thread_note">uMessage این پیام‌ها را نگه داشته است. این پیام‌ها در صندوق ورودی شما نیستند.</string>
     <string name="r3b_thread_delete_all">حذف همهٔ پیام‌های %1$s</string>
     <string name="r3b_thread_empty_title">چیزی اینجا نمانده</string>
-    <string name="r3b_thread_empty_body">این فرستنده اکنون پیام مسدودشده‌ای ندارد.</string>
+    <string name="r3b_thread_empty_body">این فرستنده الان پیام اسپمی ندارد.</string>
     <string name="r3b_message_actions">گزینه‌های پیام</string>
-    <string name="r3b_why_blocked">دلیل مسدود شدن</string>
+    <string name="r3b_why_blocked">دلیل بلاک شدن</string>
     <string name="r3b_copy_text">کپی متن</string>
     <string name="r3b_text_copied">متن کپی شد</string>
     <string name="r3b_delete_message">حذف</string>
     <string name="r3b_received">دریافت در %1$s</string>
     <plurals name="r3b_info_purge" tools:ignore="ImpliedQuantity">
-        <item quantity="one">پیام‌های مسدودشده پس از %d روز حذف می‌شوند.</item>
-        <item quantity="other">پیام‌های مسدودشده پس از %d روز حذف می‌شوند.</item>
+        <item quantity="one">اسپم‌ها بعد از %d روز حذف می‌شوند.</item>
+        <item quantity="other">اسپم‌ها بعد از %d روز حذف می‌شوند.</item>
     </plurals>
 </resources>

@@ -2,12 +2,12 @@
 <resources>
     <string name="i28_filter_unknown">ناشناس</string>
     <string name="i28_filter_unknown_empty_title">فرستنده ناشناسی نیست</string>
-    <string name="i28_filter_unknown_empty_body">گفتگو با افرادی که در مخاطبان شما نیستند و هرگز به آن‌ها پیام نداده‌اید، اینجا نمایش داده می‌شود.</string>
+    <string name="i28_filter_unknown_empty_body">گفتگو با افرادی که در مخاطب‌های شما نیستند و هرگز به آن‌ها پیام نداده‌اید، اینجا نمایش داده می‌شود.</string>
     <string name="i28_filter_images">تصاویر</string>
     <string name="i28_filter_images_empty_title">تصویری نیست</string>
-    <string name="i28_filter_images_empty_body">پیام‌های دارای تصویر اینجا نمایش داده می‌شوند.</string>
-    <string name="i28_filter_links">پیوندها</string>
-    <string name="i28_filter_links_empty_title">پیوندی نیست</string>
-    <string name="i28_filter_links_empty_body">پیام‌های دارای پیوند وب اینجا نمایش داده می‌شوند.</string>
+    <string name="i28_filter_images_empty_body">پیام‌هایی که تصویر دارند اینجا نمایش داده می‌شوند.</string>
+    <string name="i28_filter_links">لینک‌ها</string>
+    <string name="i28_filter_links_empty_title">لینکی نیست</string>
+    <string name="i28_filter_links_empty_body">پیام‌هایی که لینک دارند اینجا نمایش داده می‌شوند.</string>
     <string name="i28_hit_picture">تصویر</string>
 </resources>

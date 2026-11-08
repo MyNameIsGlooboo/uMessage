@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="spam_engine_blocked_channel">ब्लॉक किए गए मैसेज</string>
-    <string name="spam_engine_blocked_title">ब्लॉक किया गया: %s</string>
-    <string name="spam_engine_blocked_public_title">मैसेज ब्लॉक किया गया</string>
-    <string name="spam_engine_mms_blocked">ब्लॉक किया गया फ़ोटो मैसेज (MMS)</string>
+    <string name="spam_engine_blocked_channel">स्पैम</string>
+    <string name="spam_engine_blocked_title">स्पैम: %s</string>
+    <string name="spam_engine_blocked_public_title">मैसेज स्पैम में भेजा गया</string>
+    <string name="spam_engine_mms_blocked">स्पैम फ़ोटो मैसेज (MMS)</string>
     <string name="spam_engine_regex_nested_repeat">यह पैटर्न (रेगुलर एक्सप्रेशन) ऐसे समूह को दोहराता है जो पहले से दोहराया जा रहा है. इससे मैसेज फ़िल्टर करना अटक सकता है. इसे सरल बनाएं.</string>
     <string name="spam_engine_regex_matches_empty">यह पैटर्न (रेगुलर एक्सप्रेशन) हर मैसेज से मेल खाता है.</string>
     <string name="spam_engine_regex_invalid">यह मान्य पैटर्न (रेगुलर एक्सप्रेशन) नहीं है.</string>

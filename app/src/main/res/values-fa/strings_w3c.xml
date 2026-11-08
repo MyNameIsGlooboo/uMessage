@@ -4,16 +4,16 @@
     <string name="w3c_checklist_done_title">همه‌چیز آماده است</string>
     <string name="w3c_checklist_basics_title">تنظیمات اولیه انجام شد</string>
     <string name="w3c_checklist_progress">%1$s از %2$s</string>
-    <string name="w3c_checklist_dismiss">بستن فهرست کارها</string>
-    <string name="w3c_checklist_step_sms">uMessage را برنامهٔ پیامک پیش‌فرض کنید</string>
+    <string name="w3c_checklist_dismiss">بستن لیست کارها</string>
+    <string name="w3c_checklist_step_sms">uMessage را برنامهٔ پیام پیش‌فرض کنید</string>
     <string name="w3c_checklist_step_notifications">اعلان‌ها را روشن کنید</string>
-    <string name="w3c_checklist_step_blocked">به زبانهٔ مسدودشده‌ها نگاهی بیندازید</string>
-    <string name="w3c_checklist_step_forward">اختیاری: بازارسال پیام‌ها به شماره‌ای دیگر</string>
+    <string name="w3c_checklist_step_blocked">به زبانهٔ اسپم نگاهی بیندازید</string>
+    <string name="w3c_checklist_step_forward">اختیاری: فوروارد پیام‌ها به شماره‌ای دیگر</string>
     <string name="w3c_checklist_step_done">انجام شد</string>
     <string name="w3c_checklist_action_set">تنظیم</string>
     <string name="w3c_checklist_action_open">باز کردن</string>
-    <string name="w3c_receipt_title">هرزنامه نگه داشته شد: برای بررسی بزنید</string>
-    <string name="w3c_receipt_body">پیامی از یک فرستنده ناشناس در مسدودشده‌ها نگه داشته شد. پیام از بین نرفته است: هر زمان بخواهید می‌توانید آن را بررسی و بازیابی کنید.</string>
+    <string name="w3c_receipt_title">اسپم نگه داشته شد: برای بررسی بزنید</string>
+    <string name="w3c_receipt_body">پیامی از یک فرستنده ناشناس در اسپم نگه داشته شد. پیام از بین نرفته است: هر وقت بخواهید می‌توانید آن را بررسی و بازیابی کنید.</string>
     <string name="w3c_receipt_review">بررسی</string>
     <string name="w3c_receipt_got_it">متوجه شدم</string>
     <string name="w3c_new_paste">جای‌گذاری شماره</string>
@@ -28,6 +28,6 @@
     <string name="w3c_text_large">بزرگ</string>
     <string name="w3c_text_largest">بزرگ‌تر</string>
     <string name="w3c_text_size_sample">نمونه: کد شما ۴۸۲۹۱۳ است.</string>
-    <string name="w3c_backup_failed">ذخیرهٔ پشتیبان انجام نشد</string>
-    <string name="w3c_restore_failed">بازیابی این فایل انجام نشد. پشتیبان تنظیمات uMessage را انتخاب کنید.</string>
+    <string name="w3c_backup_failed">ذخیرهٔ بک‌آپ انجام نشد</string>
+    <string name="w3c_restore_failed">بازیابی این فایل انجام نشد. بک‌آپ تنظیمات uMessage را انتخاب کنید.</string>
 </resources>

@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">Padrão do sistema</string>
     <string name="settings_f_group_rules">Regras e listas</string>
     <string name="settings_f_spam_more">Tempo de retenção e alertas</string>
-    <string name="settings_f_spam_more_body">Por quanto tempo as mensagens bloqueadas são mantidas e alertas</string>
+    <string name="settings_f_spam_more_body">Por quanto tempo o spam é mantido e alertas</string>
     <string name="settings_f_hide_lock_codes_body">Os códigos aparecem como •••• na tela de bloqueio</string>
     <string name="settings_f_code_alert">Alerta de código</string>
     <string name="settings_f_code_alert_body">Som para códigos de verificação</string>

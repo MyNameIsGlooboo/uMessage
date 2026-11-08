@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onb_purge_question">Engellenen mesajlar ne kadar saklansın?</string>
+    <string name="onb_purge_question">Spam ne kadar saklansın?</string>
 </resources>

@@ -3,6 +3,6 @@
     <string name="notif_block_action">ブロック</string>
     <string name="notif_block_undo">元に戻す</string>
     <string name="notif_block_done_title">%1$sをブロックしました。</string>
-    <string name="notif_block_done_text">今後のメッセージは「ブロック済み」に入ります。</string>
+    <string name="notif_block_done_text">今後のメッセージは「迷惑メッセージ」に入ります。</string>
     <string name="notif_block_channel">ブロック済みの送信者</string>
 </resources>

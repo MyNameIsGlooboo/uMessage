@@ -12,7 +12,7 @@
     <string name="sks_rules">aturan izinkan blokir daftar kata kunci pola (regex) pengirim nomor daftar izin daftar blokir</string>
     <string name="sks_blocked_numbers">diblokir nomor daftar blokir telepon kontak Android daftar blokir</string>
     <string name="sks_decision_log">log riwayat alasan diblokir aktivitas terbaru</string>
-    <string name="sks_purge">hapus diblokir lama singkirkan bersihkan otomatis hari pembersihan penyimpanan</string>
+    <string name="sks_purge">hapus spam diblokir lama singkirkan bersihkan otomatis hari pembersihan penyimpanan</string>
     <string name="sks_region">negara wilayah luar asing internasional luar negeri blokir</string>
     <string name="sks_links">tautan URL berisiko phishing keamanan kunci web</string>
     <string name="sks_carrier_report">operator laporkan operator teruskan 7726 penyedia spam</string>

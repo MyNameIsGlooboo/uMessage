@@ -33,8 +33,8 @@
     <string name="spam_reason_rule_removed">اصول اب ہٹا دیا گیا ہے</string>
     <string name="spam_reason_open_rules">اصول کھولیں</string>
     <plurals name="spam_purge_notice">
-        <item quantity="one">بلاک شدہ پیغامات %d دن بعد حذف ہو جاتے ہیں</item>
-        <item quantity="other">بلاک شدہ پیغامات %d دن بعد حذف ہو جاتے ہیں</item>
+        <item quantity="one">اسپیم %d دن بعد حذف ہو جاتا ہے</item>
+        <item quantity="other">اسپیم %d دن بعد حذف ہو جاتا ہے</item>
     </plurals>
     <plurals name="spam_purge_left">
         <item quantity="one">%d دن میں حذف</item>
@@ -42,14 +42,14 @@
     </plurals>
     <string name="spam_purge_left_today">آج حذف</string>
     <plurals name="convlist_reported_spam_archived">
-        <item quantity="one">اطلاع دے دی گئی۔ اس بھیجنے والے کے نئے پیغامات بلاک شدہ میں جائیں گے، اور چیٹ آرکائیو ہو گئی۔</item>
-        <item quantity="other">%d چیٹس کی اطلاع دے دی گئی۔ ان کے نئے پیغامات بلاک شدہ میں جائیں گے، اور چیٹس آرکائیو ہو گئیں۔</item>
+        <item quantity="one">اطلاع دے دی گئی۔ اس بھیجنے والے کے نئے پیغامات اسپیم میں جائیں گے، اور چیٹ آرکائیو ہو گئی۔</item>
+        <item quantity="other">%d چیٹس کی اطلاع دے دی گئی۔ ان کے نئے پیغامات اسپیم میں جائیں گے، اور چیٹس آرکائیو ہو گئیں۔</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="one">اطلاع دے دی گئی۔ اس بھیجنے والے کے نئے پیغامات بلاک شدہ میں جائیں گے۔</item>
-        <item quantity="other">%d چیٹس کی اطلاع دے دی گئی۔ ان کے نئے پیغامات بلاک شدہ میں جائیں گے۔</item>
+        <item quantity="one">اطلاع دے دی گئی۔ اس بھیجنے والے کے نئے پیغامات اسپیم میں جائیں گے۔</item>
+        <item quantity="other">%d چیٹس کی اطلاع دے دی گئی۔ ان کے نئے پیغامات اسپیم میں جائیں گے۔</item>
     </plurals>
-    <string name="blocked_title">بلاک شدہ</string>
+    <string name="blocked_title">اسپیم</string>
     <string name="blocked_snack_mode">نامعلوم بھیجنے والے %1$s پر سیٹ</string>
     <string name="blocked_stats_restored">%1$d آپ نے بحال کیے</string>
     <string name="blocked_reason_unknown_link">نامعلوم بھیجنے والا، لنک کے ساتھ</string>

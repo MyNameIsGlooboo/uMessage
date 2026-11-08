@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">سسٹم ڈیفالٹ</string>
     <string name="settings_f_group_rules">اصول اور فہرستیں</string>
     <string name="settings_f_spam_more">محفوظ رکھنے کی مدت اور الرٹس</string>
-    <string name="settings_f_spam_more_body">بلاک شدہ پیغامات کتنی دیر رکھے جائیں، اور الرٹس</string>
+    <string name="settings_f_spam_more_body">اسپیم کتنی دیر رکھا جائے، اور الرٹس</string>
     <string name="settings_f_hide_lock_codes_body">لاک اسکرین پر کوڈز •••• کی طرح نظر آتے ہیں</string>
     <string name="settings_f_code_alert">کوڈ الرٹ</string>
     <string name="settings_f_code_alert_body">تصدیقی کوڈز کے لیے آواز</string>

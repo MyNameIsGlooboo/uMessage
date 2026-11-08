@@ -4,7 +4,7 @@
     <string name="onb_allow_done">Selesai</string>
     <string name="onb_allow_needed">Diperlukan</string>
     <string name="onb_allow_all_set">Semua siap</string>
-    <string name="onb_mode_strict_short">Tahan semua di Diblokir</string>
+    <string name="onb_mode_strict_short">Tahan semua di Spam</string>
     <string name="onb_mode_smart_short">Tahan, tetapi loloskan pesan kode</string>
     <string name="onb_mode_off_short">Jangan filter</string>
 </resources>

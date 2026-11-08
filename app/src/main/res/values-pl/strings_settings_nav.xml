@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Ikony Material Symbols (prawa autorskie: Google LLC) są udostępniane na licencji Apache License w wersji 2.0. Ikony są udostępniane w stanie, w jakim są, bez gwarancji.</string>
     <string name="settings_nav_recommended">Zalecane</string>
     <string name="settings_nav_strict_confirm_title">Blokować też kody weryfikacyjne?</string>
-    <string name="settings_nav_strict_confirm_body">W ścisłym trybie filtrowania kody od nadawców spoza twoich kontaktów trafiają do „Zablokowanych” wraz z resztą wiadomości. Wiadomości od banków i firm kurierskich też są blokowane.</string>
+    <string name="settings_nav_strict_confirm_body">W ścisłym trybie filtrowania kody od nadawców spoza twoich kontaktów trafiają do Spamu wraz z resztą wiadomości. Wiadomości od banków i firm kurierskich też są zatrzymywane.</string>
     <string name="settings_nav_strict_confirm_action">Włącz tryb ścisły</string>
     <string name="settings_nav_strict_confirm_cancel">Zachowaj obecny tryb</string>
-    <string name="settings_nav_purge_row">Usuwaj zablokowane wiadomości po</string>
+    <string name="settings_nav_purge_row">Usuwaj spam po</string>
     <string name="settings_nav_group_alerts">Alerty</string>
-    <string name="settings_nav_notify_body">Ciche powiadomienie o każdej zablokowanej wiadomości</string>
+    <string name="settings_nav_notify_body">Ciche powiadomienie o każdej wiadomości w Spamie</string>
     <string name="settings_nav_theme_title">Wygląd</string>
     <string name="settings_nav_theme_modes">Tryb</string>
     <string name="settings_nav_theme_colours">Kolory</string>

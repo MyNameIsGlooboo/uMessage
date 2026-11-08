@@ -3,6 +3,6 @@
     <string name="notif_block_action">بلاک</string>
     <string name="notif_block_undo">واپس کریں</string>
     <string name="notif_block_done_title">%1$s بلاک کر دیا گیا</string>
-    <string name="notif_block_done_text">نئے پیغامات بلاک شدہ پیغامات میں جائیں گے</string>
+    <string name="notif_block_done_text">نئے پیغامات اسپیم میں جائیں گے</string>
     <string name="notif_block_channel">بلاک شدہ بھیجنے والے</string>
 </resources>

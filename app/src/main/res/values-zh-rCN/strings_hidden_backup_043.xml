@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">隐藏的会话已锁定</string>
+    <string name="backup_hidden_message">您的隐藏会话已锁定。解锁后可将其包含在备份中，也可以不含它们直接备份。</string>
+    <string name="backup_hidden_unlock">解锁</string>
+    <string name="backup_hidden_skip">跳过隐藏会话</string>
+    <string name="backup_export_hidden_left_out">已排除的隐藏会话：%d</string>
+</resources>

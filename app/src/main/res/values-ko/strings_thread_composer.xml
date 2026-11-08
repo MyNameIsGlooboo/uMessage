@@ -6,7 +6,7 @@
     <string name="thread_edit_scheduled_replaces_draft">예약 전송 메시지를 수정하면 입력 중인 내용이 대체돼요. 계속할까요?</string>
     <string name="thread_menu_report_spam">스팸으로 표시</string>
     <string name="thread_report_spam_title">스팸으로 표시할까요?</string>
-    <string name="thread_report_spam_message">%1$s 발신자의 새 메시지는 받은 메시지함 대신 차단함으로 이동해요. 이 대화의 기존 메시지는 유지돼요.</string>
+    <string name="thread_report_spam_message">%1$s 발신자의 새 메시지는 받은 메시지함 대신 스팸함으로 이동해요. 이 대화의 기존 메시지는 유지돼요.</string>
     <string name="thread_report_spam_confirm">스팸으로 표시</string>
     <string name="thread_report_spam_cancel">취소</string>
     <string name="thread_report_spam_done">스팸으로 표시했어요.</string>

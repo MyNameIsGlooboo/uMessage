@@ -2,13 +2,13 @@
 <resources>
     <string name="settings_f_backup_row_body">ذخیرهٔ پیام‌ها، قانون‌ها و تنظیمات در فایل</string>
     <string name="settings_f_restore_title">از این فایل بازیابی شود؟</string>
-    <string name="settings_f_restore_rules">قانون‌های اجازه دادن: %1$d، قانون‌های مسدود کردن: %2$d. قانون‌های موجود نادیده گرفته می‌شوند.</string>
-    <string name="settings_f_restore_forwards">قانون‌های بازارسال برای افزودن: %1$d، به‌صورت خاموش. آن‌ها را در قانون‌ها › بازارسال روشن کنید.</string>
-    <string name="settings_f_restore_forwards_skipped">قانون‌های بازارسال نادیده‌گرفته‌شده: %1$d (از قبل موجودند یا شماره‌ای برای دریافت پیام‌ها ندارند).</string>
+    <string name="settings_f_restore_rules">قانون‌های اجازه دادن: %1$d، قانون‌های بلاک کردن: %2$d. قانون‌های موجود نادیده گرفته می‌شوند.</string>
+    <string name="settings_f_restore_forwards">قانون‌های فوروارد برای افزودن: %1$d، به‌صورت خاموش. آن‌ها را در قانون‌ها › فوروارد روشن کنید.</string>
+    <string name="settings_f_restore_forwards_skipped">قانون‌های فوروارد نادیده‌گرفته‌شده: %1$d (از قبل موجودند یا شماره‌ای برای دریافت پیام‌ها ندارند).</string>
     <string name="settings_f_restore_settings_changed">تنظیماتی که تغییر می‌کنند: %1$s</string>
     <string name="settings_f_restore_settings_none">هیچ تنظیمی تغییر نمی‌کند.</string>
     <string name="settings_f_restore_action">بازیابی</string>
-    <string name="settings_f_restore_done">قانون‌های افزوده‌شده: %1$d، قانون‌های بازارسال افزوده‌شده: %2$d. قانون‌های بازارسال تا وقتی آن‌ها را روشن نکنید، خاموش می‌مانند.</string>
+    <string name="settings_f_restore_done">قانون‌های افزوده‌شده: %1$d، قانون‌های فوروارد افزوده‌شده: %2$d. قانون‌های فوروارد تا وقتی آن‌ها را روشن نکنید، خاموش می‌مانند.</string>
     <string name="settings_f_restore_done_rules">قانون‌های افزوده‌شده: %1$d.</string>
     <string name="settings_f_restore_done_title">بازیابی تمام شد</string>
     <string name="settings_f_label_codes">کدهای فرستنده‌های ناشناس</string>
@@ -16,12 +16,12 @@
     <string name="settings_f_group_display">نمایش</string>
     <string name="settings_f_appearance">ظاهر</string>
     <string name="settings_f_language_system">پیش‌فرض سیستم</string>
-    <string name="settings_f_group_rules">قانون‌ها و فهرست‌ها</string>
+    <string name="settings_f_group_rules">قانون‌ها و لیست‌ها</string>
     <string name="settings_f_spam_more">مدت نگهداری و هشدارها</string>
-    <string name="settings_f_spam_more_body">مدت نگهداری پیام‌های مسدودشده و هشدارها</string>
+    <string name="settings_f_spam_more_body">مدت نگهداری اسپم و هشدارها</string>
     <string name="settings_f_hide_lock_codes_body">کدها در صفحهٔ قفل به‌صورت •••• نمایش داده می‌شوند</string>
     <string name="settings_f_code_alert">هشدار کد</string>
     <string name="settings_f_code_alert_body">صدا برای کدهای تأیید</string>
     <string name="settings_f_channel_codes">کدهای تأیید</string>
-    <string name="settings_f_channel_codes_desc">پیام‌های حاوی کد تأیید</string>
+    <string name="settings_f_channel_codes_desc">پیام‌هایی که کد تأیید دارند</string>
 </resources>

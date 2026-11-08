@@ -3,8 +3,8 @@
     <string name="lock_scope_title">ロックする範囲</string>
     <string name="lock_scope_whole">アプリ全体</string>
     <string name="lock_scope_chosen">一部のみ</string>
-    <string name="lock_scope_chosen_long">一部のみ：「ブロック済み」タブと非表示の会話</string>
-    <string name="lock_scope_blocked_title">ブロック済みのメッセージはロックされています</string>
+    <string name="lock_scope_chosen_long">一部のみ：「迷惑メッセージ」タブと非表示の会話</string>
+    <string name="lock_scope_blocked_title">迷惑メッセージはロックされています</string>
     <string name="lock_scope_blocked_body">表示するにはロックを解除してください。</string>
     <string name="lock_scope_unlock">ロック解除</string>
 </resources>

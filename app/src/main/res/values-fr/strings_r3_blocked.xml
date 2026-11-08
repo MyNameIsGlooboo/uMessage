@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessage a retenu ces messages. Ils ne sont pas dans votre boîte de réception.</string>
     <string name="r3b_thread_delete_all">Supprimer tous les messages de %1$s</string>
     <string name="r3b_thread_empty_title">Il n\'y a plus rien ici</string>
-    <string name="r3b_thread_empty_body">Cet expéditeur n\'a plus de messages bloqués.</string>
+    <string name="r3b_thread_empty_body">Cet expéditeur n\'a plus de messages de spam.</string>
     <string name="r3b_message_actions">Actions sur le message</string>
     <string name="r3b_why_blocked">Motif du blocage</string>
     <string name="r3b_copy_text">Copier le texte</string>
@@ -14,7 +14,7 @@
     <string name="r3b_delete_message">Supprimer</string>
     <string name="r3b_received">Reçu %1$s</string>
     <plurals name="r3b_info_purge" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Les messages bloqués sont supprimés après %d jour.</item>
-        <item quantity="other">Les messages bloqués sont supprimés après %d jours.</item>
+        <item quantity="one">Le spam est supprimé après %d jour.</item>
+        <item quantity="other">Le spam est supprimé après %d jours.</item>
     </plurals>
 </resources>

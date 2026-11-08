@@ -28,19 +28,19 @@
     <string name="spam_reason_rule_removed">Quy tắc đã bị xóa</string>
     <string name="spam_reason_open_rules">Mở quy tắc</string>
     <plurals name="spam_purge_notice">
-        <item quantity="other">Tin nhắn đã chặn sẽ bị xóa sau %d ngày</item>
+        <item quantity="other">Tin nhắn rác sẽ bị xóa sau %d ngày</item>
     </plurals>
     <plurals name="spam_purge_left">
         <item quantity="other">Sẽ xóa sau %d ngày</item>
     </plurals>
     <string name="spam_purge_left_today">Sẽ xóa hôm nay</string>
     <plurals name="convlist_reported_spam_archived">
-        <item quantity="other">Đã báo cáo %d cuộc trò chuyện. Tin nhắn mới từ họ sẽ vào mục Đã chặn và các cuộc trò chuyện được lưu trữ.</item>
+        <item quantity="other">Đã báo cáo %d cuộc trò chuyện. Tin nhắn mới từ họ sẽ vào mục Tin rác và các cuộc trò chuyện được lưu trữ.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="other">Đã báo cáo %d cuộc trò chuyện. Tin nhắn mới từ họ sẽ vào mục Đã chặn.</item>
+        <item quantity="other">Đã báo cáo %d cuộc trò chuyện. Tin nhắn mới từ họ sẽ vào mục Tin rác.</item>
     </plurals>
-    <string name="blocked_title">Đã chặn</string>
+    <string name="blocked_title">Tin rác</string>
     <string name="blocked_snack_mode">Đã đặt chế độ cho người gửi không xác định thành %1$s</string>
     <string name="blocked_stats_restored">Bạn đã khôi phục %1$d</string>
     <string name="blocked_reason_unknown_link">Người gửi không xác định, có liên kết</string>

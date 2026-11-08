@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="inbox_empty_archive_menu">خالی کردن بایگانی</string>
-    <string name="inbox_empty_bin_menu">خالی کردن سطل بازیافت</string>
-    <string name="inbox_archive_empty_body">گفتگوهایی که از بخش پیام‌ها بایگانی می‌کنید، اینجا نمایش داده می‌شوند.</string>
-    <string name="inbox_details_view_contact">مشاهدهٔ مخاطب</string>
+    <string name="inbox_empty_archive_menu">خالی کردن آرشیو</string>
+    <string name="inbox_empty_bin_menu">خالی کردن سطل زباله</string>
+    <string name="inbox_archive_empty_body">گفتگوهایی که از بخش پیام‌ها آرشیو می‌کنید، اینجا نمایش داده می‌شوند.</string>
+    <string name="inbox_details_view_contact">دیدن مخاطب</string>
     <string name="inbox_details_more">بیشتر</string>
     <string name="inbox_details_search">جستجو در گفتگو</string>
     <string name="inbox_details_search_body">پیامی را در این گفتگو پیدا کنید</string>
-    <string name="inbox_details_forward">قانون بازارسال برای این فرستنده</string>
+    <string name="inbox_details_forward">قانون فوروارد برای این فرستنده</string>
     <string name="inbox_details_forward_body">نسخه‌ای از پیام‌های این فرستنده را به شماره‌ای دیگر بفرستید</string>
     <string name="inbox_details_search_hint">جستجو در این گفتگو</string>
 </resources>

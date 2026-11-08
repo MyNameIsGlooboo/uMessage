@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessage заблокировал эти сообщения. Их нет во входящих.</string>
     <string name="r3b_thread_delete_all">Удалить все сообщения от %1$s</string>
     <string name="r3b_thread_empty_title">Здесь больше ничего нет</string>
-    <string name="r3b_thread_empty_body">У этого отправителя больше нет заблокированных сообщений.</string>
+    <string name="r3b_thread_empty_body">У этого отправителя больше нет спам-сообщений.</string>
     <string name="r3b_message_actions">Действия с сообщением</string>
     <string name="r3b_why_blocked">Почему заблокировано</string>
     <string name="r3b_copy_text">Копировать текст</string>
@@ -14,9 +14,9 @@
     <string name="r3b_delete_message">Удалить</string>
     <string name="r3b_received">Получено %1$s</string>
     <plurals name="r3b_info_purge" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Заблокированные сообщения удаляются через %d день.</item>
-        <item quantity="few">Заблокированные сообщения удаляются через %d дня.</item>
-        <item quantity="many">Заблокированные сообщения удаляются через %d дней.</item>
-        <item quantity="other">Заблокированные сообщения удаляются через %d дня.</item>
+        <item quantity="one">Спам удаляется через %d день.</item>
+        <item quantity="few">Спам удаляется через %d дня.</item>
+        <item quantity="many">Спам удаляется через %d дней.</item>
+        <item quantity="other">Спам удаляется через %d дня.</item>
     </plurals>
 </resources>

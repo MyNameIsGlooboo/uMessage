@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="spam_engine_blocked_channel">Blockierte Nachrichten</string>
-    <string name="spam_engine_blocked_title">Blockiert: %s</string>
-    <string name="spam_engine_blocked_public_title">Nachricht blockiert</string>
-    <string name="spam_engine_mms_blocked">Blockierte Bildnachricht (MMS)</string>
+    <string name="spam_engine_blocked_channel">Spam</string>
+    <string name="spam_engine_blocked_title">Spam: %s</string>
+    <string name="spam_engine_blocked_public_title">Nachricht an Spam gesendet</string>
+    <string name="spam_engine_mms_blocked">Spam-Bildnachricht (MMS)</string>
     <string name="spam_engine_regex_nested_repeat">Dieses Muster (Regex) wiederholt eine Gruppe, die sich bereits wiederholt. Dadurch kann das Filtern von Nachrichten hängen bleiben. Vereinfache es.</string>
     <string name="spam_engine_regex_matches_empty">Dieses Muster (Regex) passt auf jede Nachricht.</string>
     <string name="spam_engine_regex_invalid">Dies ist kein gültiges Muster (Regex).</string>

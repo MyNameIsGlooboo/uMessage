@@ -3,8 +3,8 @@
     <string name="lock_scope_title">Chọn phần cần khóa</string>
     <string name="lock_scope_whole">Toàn bộ ứng dụng</string>
     <string name="lock_scope_chosen">Chỉ các phần đã chọn</string>
-    <string name="lock_scope_chosen_long">Chỉ các phần đã chọn: thẻ Đã chặn và các cuộc trò chuyện ẩn</string>
-    <string name="lock_scope_blocked_title">Tin nhắn đã chặn đang bị khóa</string>
+    <string name="lock_scope_chosen_long">Chỉ các phần đã chọn: thẻ Tin rác và các cuộc trò chuyện ẩn</string>
+    <string name="lock_scope_blocked_title">Tin rác đang bị khóa</string>
     <string name="lock_scope_blocked_body">Mở khóa để xem.</string>
     <string name="lock_scope_unlock">Mở khóa</string>
 </resources>

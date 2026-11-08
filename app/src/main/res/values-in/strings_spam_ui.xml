@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="spam_ui_delete_all">Hapus semua</string>
-    <string name="spam_ui_delete_all_title">Hapus semua pesan diblokir?</string>
+    <string name="spam_ui_delete_all_title">Hapus semua spam?</string>
     <plurals name="spam_ui_delete_all_message">
-        <item quantity="other">%1$d pesan yang diblokir akan dihapus. Anda bisa langsung mengurungkannya setelah itu.</item>
+        <item quantity="other">%1$d pesan akan dihapus. Anda bisa langsung mengurungkannya setelah itu.</item>
     </plurals>
     <string name="declog_ui_clear_title">Kosongkan log keputusan?</string>
-    <string name="declog_ui_clear_message">Semua keputusan yang tercatat akan dihapus. Pesan yang diblokir dan aturan tetap seperti semula.</string>
+    <string name="declog_ui_clear_message">Semua keputusan yang tercatat akan dihapus. Spam dan aturan tetap seperti semula.</string>
     <string name="declog_ui_clear_action">Kosongkan</string>
     <string name="ui_log_reason_contacts_unavailable">Kontak tidak dapat dibaca</string>
     <string name="blocknum_title">Nomor diblokir</string>

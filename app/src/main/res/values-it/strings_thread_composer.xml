@@ -6,7 +6,7 @@
     <string name="thread_edit_scheduled_replaces_draft">Se modifichi il messaggio programmato, sostituirai ciò che stai scrivendo. Continuare?</string>
     <string name="thread_menu_report_spam">Segnala come spam</string>
     <string name="thread_report_spam_title">Segnalare come spam?</string>
-    <string name="thread_report_spam_message">I nuovi messaggi di %1$s andranno in Messaggi bloccati anziché in In arrivo. I messaggi già presenti in questa conversazione verranno conservati.</string>
+    <string name="thread_report_spam_message">I nuovi messaggi di %1$s andranno in Spam anziché in In arrivo. I messaggi già presenti in questa conversazione verranno conservati.</string>
     <string name="thread_report_spam_confirm">Segnala come spam</string>
     <string name="thread_report_spam_cancel">Annulla</string>
     <string name="thread_report_spam_done">Segnalato come spam</string>

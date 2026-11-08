@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessage এই বার্তাগুলো আটকে রেখেছে। এগুলো আপনার ইনবক্সে নেই।</string>
     <string name="r3b_thread_delete_all">%1$s থেকে আসা সব বার্তা মুছুন</string>
     <string name="r3b_thread_empty_title">এখানে আর কিছু নেই</string>
-    <string name="r3b_thread_empty_body">এই প্রেরকের কোনো ব্লক করা বার্তা এখন নেই।</string>
+    <string name="r3b_thread_empty_body">এই প্রেরকের কোনো স্প্যাম বার্তা এখন নেই।</string>
     <string name="r3b_message_actions">বার্তার বিকল্প</string>
     <string name="r3b_why_blocked">কেন ব্লক করা হয়েছে</string>
     <string name="r3b_copy_text">লেখা কপি করুন</string>
@@ -14,7 +14,7 @@
     <string name="r3b_delete_message">মুছুন</string>
     <string name="r3b_received">পাওয়া গেছে %1$s</string>
     <plurals name="r3b_info_purge" tools:ignore="ImpliedQuantity">
-        <item quantity="one">ব্লক করা বার্তা %d দিন পর মুছে যায়।</item>
-        <item quantity="other">ব্লক করা বার্তা %d দিন পর মুছে যায়।</item>
+        <item quantity="one">%d দিন পর স্প্যাম মুছে যায়।</item>
+        <item quantity="other">%d দিন পর স্প্যাম মুছে যায়।</item>
     </plurals>
 </resources>

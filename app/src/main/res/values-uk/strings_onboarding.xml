@@ -8,7 +8,7 @@
     <string name="onb_welcome_title">Вітаємо в uMessage</string>
     <string name="onb_welcome_intro">Зручне листування, менше спаму.</string>
     <string name="onb_welcome_spam">Спам не пройде</string>
-    <string name="onb_welcome_spam_desc">Повідомлення від невідомих відправників чекають у розділі «Заблоковані» й не губляться.</string>
+    <string name="onb_welcome_spam_desc">Повідомлення від невідомих відправників чекають у розділі «Спам» й не губляться.</string>
     <string name="onb_welcome_codes">Коди одним дотиком</string>
     <string name="onb_welcome_codes_desc">Копіюйте коди підтвердження просто зі сповіщення.</string>
     <string name="onb_welcome_copy">Копіюйте лише потрібне</string>
@@ -46,7 +46,7 @@
     <string name="onb_mode_smart">Розумний</string>
     <string name="onb_mode_off">Вимкнено</string>
     <string name="onb_mode_warning_title">Увага: повідомлення від банків і коди</string>
-    <string name="onb_mode_warning_body">У суворому режимі сповіщення від банків, новини про доставку й одноразові коди від невідомих відправників затримуються в розділі «Заблоковані», включно з кодами. Сповіщення не надходитимуть, тож перевіряйте розділ «Заблоковані», коли чекаєте на таке повідомлення.</string>
+    <string name="onb_mode_warning_body">У суворому режимі сповіщення від банків, новини про доставку й одноразові коди від невідомих відправників затримуються в розділі «Спам», включно з кодами. Сповіщення не надходитимуть, тож перевіряйте розділ «Спам», коли чекаєте на таке повідомлення.</string>
     <string name="onb_oem_title">Забезпечте роботу uMessage</string>
     <string name="onb_oem_manual_hint">Якщо екран не відкривається, знайдіть указану назву в налаштуваннях.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi або Poco</string>

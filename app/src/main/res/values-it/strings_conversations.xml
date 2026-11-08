@@ -14,11 +14,11 @@
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">Scorrimento rapido</string>
     <plurals name="convlist_blocked_banner">
-        <item quantity="one">%d messaggio bloccato</item>
-        <item quantity="other">%d messaggi bloccati</item>
+        <item quantity="one">%d messaggio di spam</item>
+        <item quantity="other">%d messaggi di spam</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">Messaggi bloccati</string>
-    <string name="convlist_blocked_banner_cd">%1$d messaggi bloccati. Apri la cartella Messaggi bloccati.</string>
+    <string name="convlist_blocked_banner_title">Spam</string>
+    <string name="convlist_blocked_banner_cd">%1$d messaggi di spam. Apri la cartella Spam.</string>
     <string name="convlist_archive">Archivia</string>
     <string name="convlist_delete">Elimina</string>
     <string name="convlist_pin">Fissa in alto</string>
@@ -47,12 +47,12 @@
         <item quantity="other">%d conversazioni archiviate</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="one">Bloccato. I nuovi messaggi andranno in Messaggi bloccati</item>
-        <item quantity="other">%d mittenti bloccati. I nuovi messaggi andranno in Messaggi bloccati</item>
+        <item quantity="one">Bloccato. I nuovi messaggi andranno in Spam</item>
+        <item quantity="other">%d mittenti bloccati. I nuovi messaggi andranno in Spam</item>
     </plurals>
     <string name="convlist_action_failed">Qualcosa è andato storto</string>
     <string name="convlist_block_title">Bloccare il numero?</string>
-    <string name="convlist_block_message">Bloccare %1$s? I nuovi messaggi di questo mittente andranno in Messaggi bloccati anziché in In arrivo. Potrai comunque leggerli o ripristinarli.</string>
+    <string name="convlist_block_message">Bloccare %1$s? I nuovi messaggi di questo mittente andranno in Spam anziché in In arrivo. Potrai comunque leggerli o ripristinarli.</string>
     <string name="convlist_block_confirm">Blocca</string>
     <string name="convlist_rename_title">Rinomina conversazione</string>
     <string name="convlist_cancel">Annulla</string>

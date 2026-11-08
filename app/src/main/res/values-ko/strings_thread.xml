@@ -18,9 +18,9 @@
     <string name="thread_menu_block">발신자 차단</string>
     <string name="thread_menu_unblock">발신자 차단 해제</string>
     <string name="thread_block_title">발신자를 차단할까요?</string>
-    <string name="thread_block_message">%1$s 차단할까요? 이 발신자의 새 메시지는 받은 메시지함 대신 차단함으로 이동하며, 차단함에서도 읽거나 복원할 수 있어요. 누구에게도 아무 정보가 전송되지 않아요. 이 대화의 기존 메시지는 유지돼요.</string>
+    <string name="thread_block_message">%1$s 차단할까요? 이 발신자의 새 메시지는 받은 메시지함 대신 스팸함으로 이동하며, 스팸함에서도 읽거나 복원할 수 있어요. 누구에게도 아무 정보가 전송되지 않아요. 이 대화의 기존 메시지는 유지돼요.</string>
     <string name="thread_block_confirm">차단</string>
-    <string name="thread_block_done">차단했어요. 새 메시지는 차단함으로 이동해요.</string>
+    <string name="thread_block_done">차단했어요. 새 메시지는 스팸함으로 이동해요.</string>
     <string name="thread_block_failed">이 발신자를 차단하지 못했어요.</string>
     <string name="thread_unblock_done">차단을 해제했어요. 새 메시지는 받은 메시지함으로 와요.</string>
     <string name="thread_unblock_done_system">uMessage 앱에서 차단을 해제했어요. 이 번호가 휴대전화의 차단 목록에도 있어 Android 시스템에서는 계속 메시지를 차단해요.</string>

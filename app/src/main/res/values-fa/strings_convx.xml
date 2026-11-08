@@ -2,8 +2,8 @@
 <resources>
     <string name="convx_code_chip">کد %1$s</string>
     <string name="convx_code_copy">کپی</string>
-    <string name="convx_block_archive">مسدود کردن و بایگانی کردن</string>
-    <string name="convx_block_archive_hint">پیام‌های بعدی به مسدودشده‌ها می‌روند. هیچ اطلاعاتی از گوشی شما خارج نمی‌شود.</string>
+    <string name="convx_block_archive">بلاک کردن و آرشیو کردن</string>
+    <string name="convx_block_archive_hint">پیام‌های بعدی به اسپم می‌روند. هیچ اطلاعاتی از گوشی شما خارج نمی‌شود.</string>
     <string name="convx_name_label">نام</string>
     <string name="convx_clear">پاک کردن</string>
     <string name="convx_reset_name">بازگشت به نام پیش‌فرض</string>

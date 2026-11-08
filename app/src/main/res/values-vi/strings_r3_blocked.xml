@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessage đã giữ lại những tin nhắn này. Chúng không nằm trong hộp thư đến của bạn.</string>
     <string name="r3b_thread_delete_all">Xóa mọi tin nhắn từ %1$s</string>
     <string name="r3b_thread_empty_title">Không còn gì ở đây</string>
-    <string name="r3b_thread_empty_body">Người gửi này hiện không có tin nhắn đã chặn.</string>
+    <string name="r3b_thread_empty_body">Người gửi này hiện không có tin nhắn rác.</string>
     <string name="r3b_message_actions">Thao tác với tin nhắn</string>
     <string name="r3b_why_blocked">Lý do bị chặn</string>
     <string name="r3b_copy_text">Sao chép văn bản</string>
@@ -14,6 +14,6 @@
     <string name="r3b_delete_message">Xóa</string>
     <string name="r3b_received">Đã nhận %1$s</string>
     <plurals name="r3b_info_purge">
-        <item quantity="other">Tin nhắn đã chặn sẽ bị xóa sau %d ngày.</item>
+        <item quantity="other">Tin nhắn rác sẽ bị xóa sau %d ngày.</item>
     </plurals>
 </resources>

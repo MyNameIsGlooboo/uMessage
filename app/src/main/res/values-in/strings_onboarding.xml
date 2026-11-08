@@ -8,7 +8,7 @@
     <string name="onb_welcome_title">Selamat datang di uMessage</string>
     <string name="onb_welcome_intro">Berkirim pesan lebih nyaman, spam berkurang.</string>
     <string name="onb_welcome_spam">Spam tidak masuk</string>
-    <string name="onb_welcome_spam_desc">Pesan dari pengirim tidak dikenal ditahan di Diblokir, tidak hilang.</string>
+    <string name="onb_welcome_spam_desc">Pesan dari pengirim tidak dikenal ditahan di Spam, tidak hilang.</string>
     <string name="onb_welcome_codes">Kode dengan sekali ketuk</string>
     <string name="onb_welcome_codes_desc">Salin kode verifikasi langsung dari notifikasi.</string>
     <string name="onb_welcome_copy">Salin yang diperlukan saja</string>
@@ -46,7 +46,7 @@
     <string name="onb_mode_smart">Cerdas</string>
     <string name="onb_mode_off">Nonaktif</string>
     <string name="onb_mode_warning_title">Perhatikan pesan bank dan kode</string>
-    <string name="onb_mode_warning_body">Dalam Mode filter ketat, pemberitahuan bank, pembaruan pengiriman, dan kode sekali pakai dari pengirim tidak dikenal ditahan di Diblokir, termasuk kodenya. Anda tidak akan mendapat notifikasi, jadi periksa Diblokir saat menunggu pesan tersebut.</string>
+    <string name="onb_mode_warning_body">Dalam Mode filter ketat, pemberitahuan bank, pembaruan pengiriman, dan kode sekali pakai dari pengirim tidak dikenal ditahan di Spam, termasuk kodenya. Anda tidak akan mendapat notifikasi, jadi periksa Spam saat menunggu pesan tersebut.</string>
     <string name="onb_oem_title">Pastikan uMessage tetap berjalan</string>
     <string name="onb_oem_manual_hint">Jika layar tidak terbuka, cari nama yang ditampilkan di Setelan.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi, atau Poco</string>

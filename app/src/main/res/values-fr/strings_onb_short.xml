@@ -4,7 +4,7 @@
     <string name="onb_allow_done">Fait</string>
     <string name="onb_allow_needed">Requis</string>
     <string name="onb_allow_all_set">Tout est prêt</string>
-    <string name="onb_mode_strict_short">Tout garder dans Messages bloqués</string>
+    <string name="onb_mode_strict_short">Tout garder dans Spam</string>
     <string name="onb_mode_smart_short">Garder, mais laisser passer les codes</string>
     <string name="onb_mode_off_short">Ne pas filtrer</string>
 </resources>

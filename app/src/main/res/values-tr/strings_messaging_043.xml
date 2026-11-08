@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">İndirmek için dokunun</string>
+    <string name="mms_downloading">İndiriliyor…</string>
+    <string name="mms_download_again">İndirilemedi. Tekrar denemek için dokunun</string>
+    <string name="mms_expired">Bu resimli mesaj artık mevcut değil</string>
+    <string name="mms_download_action_desc">Resimli mesajı indir</string>
+</resources>

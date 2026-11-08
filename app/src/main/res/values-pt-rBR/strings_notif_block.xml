@@ -3,6 +3,6 @@
     <string name="notif_block_action">Bloqueie</string>
     <string name="notif_block_undo">Desfaça</string>
     <string name="notif_block_done_title">Bloqueado: %1$s</string>
-    <string name="notif_block_done_text">Novas mensagens vão para Mensagens bloqueadas</string>
+    <string name="notif_block_done_text">Novas mensagens vão para Spam</string>
     <string name="notif_block_channel">Remetentes bloqueados</string>
 </resources>

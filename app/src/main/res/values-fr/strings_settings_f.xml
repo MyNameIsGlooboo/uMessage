@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">Langue du système</string>
     <string name="settings_f_group_rules">Règles et listes</string>
     <string name="settings_f_spam_more">Conservation et alertes</string>
-    <string name="settings_f_spam_more_body">Durée de conservation des messages bloqués et alertes</string>
+    <string name="settings_f_spam_more_body">Durée de conservation du spam et alertes</string>
     <string name="settings_f_hide_lock_codes_body">Les codes s\'affichent sous la forme •••• sur l\'écran de verrouillage</string>
     <string name="settings_f_code_alert">Alerte de code</string>
     <string name="settings_f_code_alert_body">Son des codes de validation</string>

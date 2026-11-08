@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="spam_ui_delete_all">Tümünü silin</string>
-    <string name="spam_ui_delete_all_title">Engellenen tüm mesajlar silinsin mi?</string>
+    <string name="spam_ui_delete_all_title">Tüm spam silinsin mi?</string>
     <plurals name="spam_ui_delete_all_message">
-        <item quantity="one">Engellenen %1$d mesaj silinecek. Hemen ardından geri alabilirsiniz.</item>
-        <item quantity="other">Engellenen %1$d mesaj silinecek. Hemen ardından geri alabilirsiniz.</item>
+        <item quantity="one">%1$d mesaj silinecek. Hemen ardından geri alabilirsiniz.</item>
+        <item quantity="other">%1$d mesaj silinecek. Hemen ardından geri alabilirsiniz.</item>
     </plurals>
     <string name="declog_ui_clear_title">Karar günlüğü temizlensin mi?</string>
-    <string name="declog_ui_clear_message">Kaydedilen tüm kararlar kaldırılır. Engellenen mesajlar ve kurallar olduğu gibi kalır.</string>
+    <string name="declog_ui_clear_message">Kaydedilen tüm kararlar kaldırılır. Spam ve kurallar olduğu gibi kalır.</string>
     <string name="declog_ui_clear_action">Temizleyin</string>
     <string name="ui_log_reason_contacts_unavailable">Kişiler okunamıyor</string>
     <string name="blocknum_title">Engellenen numaralar</string>

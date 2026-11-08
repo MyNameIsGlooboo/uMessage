@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">시스템 기본값</string>
     <string name="settings_f_group_rules">규칙 및 목록</string>
     <string name="settings_f_spam_more">보관 기간 및 알림</string>
-    <string name="settings_f_spam_more_body">차단된 메시지의 보관 기간 및 알림</string>
+    <string name="settings_f_spam_more_body">스팸 보관 기간 및 알림</string>
     <string name="settings_f_hide_lock_codes_body">잠금 화면에서 인증 코드를 ••••로 표시</string>
     <string name="settings_f_code_alert">인증 코드 알림</string>
     <string name="settings_f_code_alert_body">인증 코드 알림 소리</string>

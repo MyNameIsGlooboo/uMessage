@@ -3,6 +3,6 @@
     <string name="notif_block_action">Blockieren</string>
     <string name="notif_block_undo">Rückgängig</string>
     <string name="notif_block_done_title">%1$s blockiert</string>
-    <string name="notif_block_done_text">Neue Nachrichten landen unter „Blockiert“</string>
+    <string name="notif_block_done_text">Neue Nachrichten landen unter „Spam“</string>
     <string name="notif_block_channel">Blockierte Absender</string>
 </resources>

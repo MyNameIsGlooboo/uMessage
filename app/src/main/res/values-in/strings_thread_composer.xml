@@ -6,7 +6,7 @@
     <string name="thread_edit_scheduled_replaces_draft">Mengedit pesan terjadwal akan mengganti teks yang sedang diketik. Lanjutkan?</string>
     <string name="thread_menu_report_spam">Tandai sebagai spam</string>
     <string name="thread_report_spam_title">Tandai sebagai spam?</string>
-    <string name="thread_report_spam_message">Pesan baru dari %1$s akan masuk ke Pesan diblokir, bukan kotak masuk. Pesan yang sudah ada dalam percakapan ini tetap disimpan.</string>
+    <string name="thread_report_spam_message">Pesan baru dari %1$s akan masuk ke Spam, bukan kotak masuk. Pesan yang sudah ada dalam percakapan ini tetap disimpan.</string>
     <string name="thread_report_spam_confirm">Tandai sebagai spam</string>
     <string name="thread_report_spam_cancel">Batal</string>
     <string name="thread_report_spam_done">Ditandai sebagai spam</string>

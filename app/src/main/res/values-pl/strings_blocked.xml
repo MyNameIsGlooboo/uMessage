@@ -43,10 +43,10 @@
     <string name="spam_reason_rule_removed">Reguła została usunięta</string>
     <string name="spam_reason_open_rules">Otwórz reguły</string>
     <plurals name="spam_purge_notice">
-        <item quantity="one">Zablokowane wiadomości są usuwane po %d dniu</item>
-        <item quantity="few">Zablokowane wiadomości są usuwane po %d dniach</item>
-        <item quantity="many">Zablokowane wiadomości są usuwane po %d dniach</item>
-        <item quantity="other">Zablokowane wiadomości są usuwane po %d dnia</item>
+        <item quantity="one">Spam jest usuwany po %d dniu</item>
+        <item quantity="few">Spam jest usuwany po %d dniach</item>
+        <item quantity="many">Spam jest usuwany po %d dniach</item>
+        <item quantity="other">Spam jest usuwany po %d dnia</item>
     </plurals>
     <plurals name="spam_purge_left">
         <item quantity="one">Usunięcie za %d dzień</item>
@@ -56,18 +56,18 @@
     </plurals>
     <string name="spam_purge_left_today">Usunięcie dzisiaj</string>
     <plurals name="convlist_reported_spam_archived">
-        <item quantity="one">Zgłoszono. Nowe wiadomości od tego nadawcy trafią do zablokowanych, a rozmowa została zarchiwizowana.</item>
-        <item quantity="few">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do zablokowanych, a rozmowy zostały zarchiwizowane.</item>
-        <item quantity="many">Zgłoszono %d rozmów. Nowe wiadomości od tych nadawców trafią do zablokowanych, a rozmowy zostały zarchiwizowane.</item>
-        <item quantity="other">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do zablokowanych, a rozmowy zostały zarchiwizowane.</item>
+        <item quantity="one">Zgłoszono. Nowe wiadomości od tego nadawcy trafią do Spamu, a rozmowa została zarchiwizowana.</item>
+        <item quantity="few">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do Spamu, a rozmowy zostały zarchiwizowane.</item>
+        <item quantity="many">Zgłoszono %d rozmów. Nowe wiadomości od tych nadawców trafią do Spamu, a rozmowy zostały zarchiwizowane.</item>
+        <item quantity="other">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do Spamu, a rozmowy zostały zarchiwizowane.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="one">Zgłoszono. Nowe wiadomości od tego nadawcy trafią do zablokowanych.</item>
-        <item quantity="few">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do zablokowanych.</item>
-        <item quantity="many">Zgłoszono %d rozmów. Nowe wiadomości od tych nadawców trafią do zablokowanych.</item>
-        <item quantity="other">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do zablokowanych.</item>
+        <item quantity="one">Zgłoszono. Nowe wiadomości od tego nadawcy trafią do Spamu.</item>
+        <item quantity="few">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do Spamu.</item>
+        <item quantity="many">Zgłoszono %d rozmów. Nowe wiadomości od tych nadawców trafią do Spamu.</item>
+        <item quantity="other">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do Spamu.</item>
     </plurals>
-    <string name="blocked_title">Zablokowane</string>
+    <string name="blocked_title">Spam</string>
     <string name="blocked_snack_mode">Tryb dla nieznanych nadawców: %1$s</string>
     <string name="blocked_stats_restored">Przywrócone przez ciebie: %1$d</string>
     <string name="blocked_reason_unknown_link">Nieznany nadawca, wiadomość z linkiem</string>

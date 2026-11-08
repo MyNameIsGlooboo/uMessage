@@ -3,7 +3,7 @@
     <string name="convx_code_chip">코드 %1$s</string>
     <string name="convx_code_copy">복사</string>
     <string name="convx_block_archive">차단 및 보관</string>
-    <string name="convx_block_archive_hint">앞으로 오는 문자는 차단함으로 이동해요. 어떤 정보도 휴대전화 밖으로 전송되지 않아요.</string>
+    <string name="convx_block_archive_hint">앞으로 오는 문자는 스팸함으로 이동해요. 어떤 정보도 휴대전화 밖으로 전송되지 않아요.</string>
     <string name="convx_name_label">이름</string>
     <string name="convx_clear">지우기</string>
     <string name="convx_reset_name">기본 이름으로 재설정</string>

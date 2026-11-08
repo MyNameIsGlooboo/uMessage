@@ -28,19 +28,19 @@
     <string name="spam_reason_rule_removed">規則已移除</string>
     <string name="spam_reason_open_rules">開啟規則</string>
     <plurals name="spam_purge_notice">
-        <item quantity="other">已封鎖訊息會在%d天後刪除</item>
+        <item quantity="other">垃圾訊息會在%d天後刪除</item>
     </plurals>
     <plurals name="spam_purge_left">
         <item quantity="other">%d天後刪除</item>
     </plurals>
     <string name="spam_purge_left_today">今天刪除</string>
     <plurals name="convlist_reported_spam_archived">
-        <item quantity="other">已檢舉%d個對話。對方傳來的新簡訊會移至「已封鎖」，這些對話也已封存。</item>
+        <item quantity="other">已檢舉%d個對話。對方傳來的新簡訊會移至「垃圾訊息」，這些對話也已封存。</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="other">已檢舉%d個對話。對方傳來的新簡訊會移至「已封鎖」。</item>
+        <item quantity="other">已檢舉%d個對話。對方傳來的新簡訊會移至「垃圾訊息」。</item>
     </plurals>
-    <string name="blocked_title">已封鎖</string>
+    <string name="blocked_title">垃圾訊息</string>
     <string name="blocked_snack_mode">未知寄件者已設為%1$s</string>
     <string name="blocked_stats_restored">你已還原%1$d則</string>
     <string name="blocked_reason_unknown_link">未知寄件者，含有連結</string>

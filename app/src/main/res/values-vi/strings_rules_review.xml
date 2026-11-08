@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">Chưa có người gửi luôn được cho phép</string>
     <string name="rules2_empty_allowed_body">Thêm số điện thoại, tên người gửi hoặc từ để tin nhắn luôn vào hộp thư đến của bạn. Nhấn Thêm quy tắc bên dưới.</string>
     <string name="rules2_empty_blocked_title">Chưa có người gửi luôn bị chặn</string>
-    <string name="rules2_empty_blocked_body">Thêm số điện thoại, tên người gửi, từ hoặc biểu thức chính quy để đưa tin nhắn vào mục Đã chặn. Nhấn Thêm quy tắc bên dưới.</string>
+    <string name="rules2_empty_blocked_body">Thêm số điện thoại, tên người gửi, từ hoặc biểu thức chính quy để đưa tin nhắn vào mục Tin rác. Nhấn Thêm quy tắc bên dưới.</string>
     <string name="rules2_legacy_banner_title">Đã tìm thấy danh sách chặn cũ</string>
     <string name="rules2_legacy_banner_body">Chuyển các danh sách này thành quy tắc để xem và khôi phục tin nhắn bị chặn.</string>
     <string name="rules2_legacy_review">Xem lại</string>
     <string name="rules2_system_header">Danh sách chặn của Android (chặn cả cuộc gọi)</string>
-    <string name="rules2_system_body">Android loại bỏ tin nhắn từ các số này trước khi uMessage nhận được, nên chúng không xuất hiện trong mục Đã chặn và không thể khôi phục.</string>
+    <string name="rules2_system_body">Android loại bỏ tin nhắn từ các số này trước khi uMessage nhận được, nên chúng không xuất hiện trong mục Tin rác và không thể khôi phục.</string>
     <string name="rules2_system_manage">Quản lý</string>
     <string name="rules2_system_move">Chuyển thành quy tắc uMessage</string>
     <string name="rules2_migrate_title">Chuyển thành quy tắc uMessage</string>
-    <string name="rules2_migrate_point_blocked">Sau đó, tin nhắn sẽ vào mục Đã chặn để bạn có thể khôi phục.</string>
+    <string name="rules2_migrate_point_blocked">Sau đó, tin nhắn sẽ vào mục Tin rác để bạn có thể khôi phục.</string>
     <string name="rules2_migrate_remove_needs_first">Đánh dấu tùy chọn bên trên trước.</string>
     <string name="rules2_migrate_nothing_selected">Chưa chọn mục nào</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -48,7 +48,7 @@
     <plurals name="rules2_bn_move">
         <item quantity="other">Chuyển %1$d số thành quy tắc</item>
     </plurals>
-    <string name="forward2_intro_reassure">Chỉ tin nhắn vào hộp thư đến của bạn mới được chuyển tiếp. Tin nhắn rác đã chặn sẽ không được chuyển tiếp.</string>
+    <string name="forward2_intro_reassure">Chỉ tin nhắn vào hộp thư đến của bạn mới được chuyển tiếp. Tin nhắn rác sẽ không được chuyển tiếp.</string>
     <string name="forward2_empty_title">Chưa có quy tắc chuyển tiếp</string>
     <string name="forward2_empty_body">Gửi bản sao tin nhắn phù hợp, như thông báo ngân hàng, đến điện thoại khác. Bắt đầu với một mẫu bên dưới.</string>
     <string name="forward2_template_bank">Chuyển tiếp thông báo ngân hàng</string>

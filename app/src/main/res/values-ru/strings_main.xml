@@ -7,13 +7,13 @@
     <string name="main_search_no_results">Ничего не найдено</string>
     <string name="main_settings">Настройки</string>
     <string name="main_tab_messages">Сообщения</string>
-    <string name="main_tab_blocked">Заблокированные</string>
+    <string name="main_tab_blocked">Спам</string>
     <string name="main_tab_archived">В архиве</string>
     <plurals name="main_tab_blocked_new" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Заблокированные, %d новое</item>
-        <item quantity="few">Заблокированные, %d новых</item>
-        <item quantity="many">Заблокированные, %d новых</item>
-        <item quantity="other">Заблокированные, %d нового</item>
+        <item quantity="one">Спам, %d новое</item>
+        <item quantity="few">Спам, %d новых</item>
+        <item quantity="many">Спам, %d новых</item>
+        <item quantity="other">Спам, %d нового</item>
     </plurals>
     <string name="main_permission_title">Требуется разрешение</string>
     <string name="main_permission_grant">Предоставить разрешение</string>

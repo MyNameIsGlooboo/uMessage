@@ -14,10 +14,10 @@
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">Cuộn nhanh</string>
     <plurals name="convlist_blocked_banner">
-        <item quantity="other">%d tin nhắn đã chặn</item>
+        <item quantity="other">%d tin nhắn rác</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">Tin nhắn đã chặn</string>
-    <string name="convlist_blocked_banner_cd">%1$d tin nhắn đã chặn. Mở thư mục Đã chặn.</string>
+    <string name="convlist_blocked_banner_title">Tin rác</string>
+    <string name="convlist_blocked_banner_cd">%1$d tin nhắn rác. Mở thư mục Tin rác.</string>
     <string name="convlist_archive">Lưu trữ</string>
     <string name="convlist_delete">Xóa</string>
     <string name="convlist_pin">Ghim lên đầu</string>
@@ -43,11 +43,11 @@
         <item quantity="other">Đã lưu trữ %d cuộc trò chuyện</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="other">Đã chặn %d người gửi. Tin nhắn mới sẽ vào Tin nhắn đã chặn</item>
+        <item quantity="other">Đã chặn %d người gửi. Tin nhắn mới sẽ vào Tin rác</item>
     </plurals>
     <string name="convlist_action_failed">Đã xảy ra lỗi</string>
     <string name="convlist_block_title">Chặn số?</string>
-    <string name="convlist_block_message">Chặn %1$s? Tin nhắn mới từ số này sẽ vào Tin nhắn đã chặn thay vì hộp thư đến của bạn. Bạn vẫn có thể đọc hoặc khôi phục chúng ở đó.</string>
+    <string name="convlist_block_message">Chặn %1$s? Tin nhắn mới từ số này sẽ vào Tin rác thay vì hộp thư đến của bạn. Bạn vẫn có thể đọc hoặc khôi phục chúng ở đó.</string>
     <string name="convlist_block_confirm">Chặn</string>
     <string name="convlist_rename_title">Đổi tên cuộc trò chuyện</string>
     <string name="convlist_cancel">Hủy</string>

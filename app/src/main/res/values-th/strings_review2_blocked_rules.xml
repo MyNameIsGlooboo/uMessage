@@ -41,16 +41,16 @@
     <plurals name="e_migrate_title_numbers">
         <item quantity="other">ย้าย %d หมายเลขไปยังกฎของ uMessage</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• ข้อความจากหมายเลขเหล่านี้จะไปอยู่ในที่บล็อก ซึ่งคุณอ่านและกู้คืนได้</string>
+    <string name="e_migrate_point_blocked">• ข้อความจากหมายเลขเหล่านี้จะไปอยู่ในสแปม ซึ่งคุณอ่านและกู้คืนได้</string>
     <string name="e_migrate_point_android">• Android จะยังทิ้งข้อความจากหมายเลขเหล่านี้จนกว่าจะนำออกจากรายการ</string>
     <string name="e_migrate_calls_note">รายการของ Android บล็อกสายโทรเข้าด้วย หมายเลขที่นำออกจากรายการจะโทรหาคุณได้อีกครั้ง</string>
     <string name="e_bn_unknown_body">มีผลเฉพาะเมื่อปิดผู้ส่งที่ไม่รู้จัก</string>
     <string name="e_bn_row_calls_texts">บล็อกสายโทรเข้าและข้อความ</string>
     <string name="e_bn_row_short_code">หมายเลขสั้น: uMessage จะไม่ได้รับข้อความจากหมายเลขนี้เลย</string>
     <string name="e_bn_move_one">ย้ายไปยังกฎของ uMessage</string>
-    <string name="e_bn_moved">เพิ่ม %1$s เป็นกฎของ uMessage แล้ว ข้อความจะไปอยู่ในที่บล็อก และไม่บล็อกสายโทรเข้าอีกต่อไป</string>
+    <string name="e_bn_moved">เพิ่ม %1$s เป็นกฎของ uMessage แล้ว ข้อความจะไปอยู่ในสแปม และไม่บล็อกสายโทรเข้าอีกต่อไป</string>
     <string name="e_bn_field_help">เช่น +15550001234 หรือ +1555* สำหรับทุกหมายเลขที่ขึ้นต้นด้วย +1555</string>
     <string name="e_bn_short_code_warning">หมายเลขนี้ดูเหมือนหมายเลขสั้น Android จะทิ้งข้อความก่อนที่ uMessage จะได้รับ จึงกู้คืนข้อความไม่ได้เลย เช่น รหัสหรือข้อความแจ้งเตือนจากธนาคาร</string>
     <string name="e_bn_add_as_rule">เพิ่มเป็นกฎของ uMessage แทน</string>
-    <string name="e_bn_added_as_rule">เพิ่ม %1$s เป็นกฎของ uMessage แล้ว ข้อความจะไปอยู่ในที่บล็อก</string>
+    <string name="e_bn_added_as_rule">เพิ่ม %1$s เป็นกฎของ uMessage แล้ว ข้อความจะไปอยู่ในสแปม</string>
 </resources>

@@ -7,11 +7,11 @@
     <string name="main_search_no_results">कोई नतीजा नहीं मिला</string>
     <string name="main_settings">सेटिंग</string>
     <string name="main_tab_messages">मैसेज</string>
-    <string name="main_tab_blocked">ब्लॉक किए गए</string>
+    <string name="main_tab_blocked">स्पैम</string>
     <string name="main_tab_archived">संग्रहित</string>
     <plurals name="main_tab_blocked_new" tools:ignore="ImpliedQuantity">
-        <item quantity="one">ब्लॉक किए गए, %d नया</item>
-        <item quantity="other">ब्लॉक किए गए, %d नए</item>
+        <item quantity="one">स्पैम, %d नया</item>
+        <item quantity="other">स्पैम, %d नए</item>
     </plurals>
     <string name="main_permission_title">अनुमति चाहिए</string>
     <string name="main_permission_grant">अनुमति दें</string>

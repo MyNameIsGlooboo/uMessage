@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">Nessun mittente sempre consentito</string>
     <string name="rules2_empty_allowed_body">Aggiungi un numero, un nome mittente o una parola da consentire sempre in In arrivo. Tocca Aggiungi regola qui sotto.</string>
     <string name="rules2_empty_blocked_title">Nessun mittente sempre bloccato</string>
-    <string name="rules2_empty_blocked_body">Aggiungi un numero, un nome mittente, una parola o un\'espressione regolare per spostare i messaggi in Messaggi bloccati. Tocca Aggiungi regola qui sotto.</string>
+    <string name="rules2_empty_blocked_body">Aggiungi un numero, un nome mittente, una parola o un\'espressione regolare per spostare i messaggi in Spam. Tocca Aggiungi regola qui sotto.</string>
     <string name="rules2_legacy_banner_title">Trovati vecchi elenchi di mittenti bloccati</string>
     <string name="rules2_legacy_banner_body">Trasformali in regole per vedere e ripristinare i messaggi che bloccano.</string>
     <string name="rules2_legacy_review">Esamina</string>
     <string name="rules2_system_header">Mittenti bloccati da Android (blocca anche le chiamate)</string>
-    <string name="rules2_system_body">Android scarta gli SMS di questi numeri prima che arrivino a uMessage, quindi non compaiono mai in Messaggi bloccati e non possono essere ripristinati.</string>
+    <string name="rules2_system_body">Android scarta gli SMS di questi numeri prima che arrivino a uMessage, quindi non compaiono mai in Spam e non possono essere ripristinati.</string>
     <string name="rules2_system_manage">Gestisci</string>
     <string name="rules2_system_move">Sposta nelle regole di uMessage</string>
     <string name="rules2_migrate_title">Sposta nelle regole di uMessage</string>
-    <string name="rules2_migrate_point_blocked">Gli SMS andranno in Messaggi bloccati, dove potrai ripristinarli.</string>
+    <string name="rules2_migrate_point_blocked">Gli SMS andranno in Spam, dove potrai ripristinarli.</string>
     <string name="rules2_migrate_remove_needs_first">Prima seleziona l\'opzione qui sopra.</string>
     <string name="rules2_migrate_nothing_selected">Nessun elemento selezionato</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -50,7 +50,7 @@
         <item quantity="one">Sposta %1$d numero nelle regole</item>
         <item quantity="other">Sposta %1$d numeri nelle regole</item>
     </plurals>
-    <string name="forward2_intro_reassure">Vengono inoltrati solo i messaggi che arrivano in In arrivo. Lo spam bloccato non viene mai inoltrato.</string>
+    <string name="forward2_intro_reassure">Vengono inoltrati solo i messaggi che arrivano in In arrivo. Lo spam non viene mai inoltrato.</string>
     <string name="forward2_empty_title">Nessuna regola di inoltro</string>
     <string name="forward2_empty_body">Invia a un altro telefono una copia dei messaggi che corrispondono alla regola, come gli avvisi della banca. Inizia da una di queste opzioni.</string>
     <string name="forward2_template_bank">Inoltra avvisi della banca</string>

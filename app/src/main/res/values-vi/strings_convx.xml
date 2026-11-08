@@ -3,7 +3,7 @@
     <string name="convx_code_chip">Mã %1$s</string>
     <string name="convx_code_copy">Sao chép</string>
     <string name="convx_block_archive">Chặn và lưu trữ</string>
-    <string name="convx_block_archive_hint">Tin nhắn mới sẽ vào mục Đã chặn. Không có gì được gửi ra khỏi điện thoại của bạn.</string>
+    <string name="convx_block_archive_hint">Tin nhắn mới sẽ vào mục Tin rác. Không có gì được gửi ra khỏi điện thoại của bạn.</string>
     <string name="convx_name_label">Tên</string>
     <string name="convx_clear">Xóa</string>
     <string name="convx_reset_name">Đặt lại tên mặc định</string>

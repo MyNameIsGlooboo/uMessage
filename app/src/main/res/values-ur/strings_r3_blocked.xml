@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessage نے یہ پیغامات روک لیے ہیں۔ یہ آپ کے ان باکس میں نہیں ہیں۔</string>
     <string name="r3b_thread_delete_all">%1$s کے تمام پیغامات حذف کریں</string>
     <string name="r3b_thread_empty_title">یہاں کچھ باقی نہیں</string>
-    <string name="r3b_thread_empty_body">اب اس بھیجنے والے کا کوئی بلاک شدہ پیغام نہیں ہے۔</string>
+    <string name="r3b_thread_empty_body">اب اس بھیجنے والے کا کوئی اسپیم پیغام نہیں ہے۔</string>
     <string name="r3b_message_actions">پیغام کے اختیارات</string>
     <string name="r3b_why_blocked">کیوں بلاک ہوا</string>
     <string name="r3b_copy_text">متن کاپی کریں</string>
@@ -14,7 +14,7 @@
     <string name="r3b_delete_message">حذف کریں</string>
     <string name="r3b_received">موصول %1$s</string>
     <plurals name="r3b_info_purge">
-        <item quantity="one">بلاک شدہ پیغامات %d دن بعد حذف ہو جاتے ہیں۔</item>
-        <item quantity="other">بلاک شدہ پیغامات %d دن بعد حذف ہو جاتے ہیں۔</item>
+        <item quantity="one">اسپیم %d دن بعد حذف ہو جاتا ہے۔</item>
+        <item quantity="other">اسپیم %d دن بعد حذف ہو جاتا ہے۔</item>
     </plurals>
 </resources>

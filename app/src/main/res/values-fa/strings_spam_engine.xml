@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="spam_engine_blocked_channel">پیام‌های مسدودشده</string>
-    <string name="spam_engine_blocked_title">مسدودشده: %s</string>
-    <string name="spam_engine_blocked_public_title">پیام مسدود شد</string>
-    <string name="spam_engine_mms_blocked">پیام تصویری مسدودشده (MMS)</string>
+    <string name="spam_engine_blocked_channel">اسپم</string>
+    <string name="spam_engine_blocked_title">اسپم: %s</string>
+    <string name="spam_engine_blocked_public_title">پیام به اسپم رفت</string>
+    <string name="spam_engine_mms_blocked">پیام تصویری اسپم (MMS)</string>
     <string name="spam_engine_regex_nested_repeat">این الگو گروهی را تکرار می‌کند که خودش تکرارشونده است و ممکن است فیلتر کردن پیام‌ها را متوقف کند. آن را ساده‌تر کنید.</string>
-    <string name="spam_engine_regex_matches_empty">این الگو با همهٔ پیام‌ها تطبیق دارد.</string>
+    <string name="spam_engine_regex_matches_empty">این الگو با همهٔ پیام‌ها جور درمی‌آید.</string>
     <string name="spam_engine_regex_invalid">این الگو معتبر نیست.</string>
 </resources>

@@ -6,7 +6,7 @@
     <string name="thread_edit_scheduled_replaces_draft">شیڈول شدہ پیغام میں ترمیم کرنے سے آپ کا لکھا ہوا متن بدل جائے گا۔ جاری رکھیں؟</string>
     <string name="thread_menu_report_spam">اسپیم کے طور پر نشان زد کریں</string>
     <string name="thread_report_spam_title">اسپیم کے طور پر نشان زد کریں؟</string>
-    <string name="thread_report_spam_message">%1$s کے نئے پیغامات آپ کے ان باکس کے بجائے بلاک شدہ پیغامات میں جائیں گے۔ اس گفتگو میں پہلے سے موجود پیغامات رہیں گے۔</string>
+    <string name="thread_report_spam_message">%1$s کے نئے پیغامات آپ کے ان باکس کے بجائے اسپیم میں جائیں گے۔ اس گفتگو میں پہلے سے موجود پیغامات رہیں گے۔</string>
     <string name="thread_report_spam_confirm">اسپیم کے طور پر نشان زد کریں</string>
     <string name="thread_report_spam_cancel">منسوخ کریں</string>
     <string name="thread_report_spam_done">اسپیم کے طور پر نشان زد ہو گیا</string>

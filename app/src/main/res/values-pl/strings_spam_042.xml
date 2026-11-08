@@ -4,7 +4,7 @@
     <string name="s042_whole_word_help">Pasuje tylko do samego słowa: win, a nie window.</string>
     <string name="s042_held_code_channel">Wstrzymane kody</string>
     <string name="s042_held_code_title">Wstrzymano wiadomość podobną do kodu</string>
-    <string name="s042_held_code_text">Zawiera link, dlatego jest w Zablokowanych. Otwórz Zablokowane, jeśli czekasz na kod.</string>
+    <string name="s042_held_code_text">Zawiera link, dlatego jest w Spamie. Otwórz Spam, jeśli czekasz na kod.</string>
     <string name="s042_contacts_off_title">Filtr spamu jest wstrzymany</string>
     <string name="s042_contacts_off_body">Zezwól na dostęp do kontaktów, aby uMessage odróżniał znajomych od obcych.</string>
     <string name="s042_contacts_off_allow">Zezwól</string>

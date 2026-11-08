@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessage menahan pesan ini. Pesan tidak ada di kotak masuk.</string>
     <string name="r3b_thread_delete_all">Hapus semua pesan dari %1$s</string>
     <string name="r3b_thread_empty_title">Sudah kosong</string>
-    <string name="r3b_thread_empty_body">Tidak ada lagi pesan yang diblokir dari pengirim ini.</string>
+    <string name="r3b_thread_empty_body">Tidak ada pesan spam dari pengirim ini sekarang.</string>
     <string name="r3b_message_actions">Tindakan pesan</string>
     <string name="r3b_why_blocked">Alasan diblokir</string>
     <string name="r3b_copy_text">Salin teks</string>
@@ -14,6 +14,6 @@
     <string name="r3b_delete_message">Hapus</string>
     <string name="r3b_received">Diterima %1$s</string>
     <plurals name="r3b_info_purge">
-        <item quantity="other">Pesan yang diblokir dihapus setelah %d hari.</item>
+        <item quantity="other">Spam dihapus setelah %d hari.</item>
     </plurals>
 </resources>

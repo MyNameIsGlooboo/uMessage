@@ -44,7 +44,7 @@
     <string name="declog_fixed_blocked">Вы заблокировали этого отправителя через журнал</string>
     <string name="declog_fixed_restored">Вы восстановили это сообщение через журнал</string>
     <string name="declog_restored">Восстановлено</string>
-    <string name="declog_blocked_message">Сообщение все еще в разделе «Заблокированные»</string>
+    <string name="declog_blocked_message">Сообщение все еще в разделе «Спам»</string>
     <string name="declog_restore">Восстановить сообщение</string>
     <string name="declog_restore_done">Сообщение восстановлено во входящих</string>
     <string name="declog_restore_text_only">Текст восстановлен во входящих. Изображения восстановить не удалось.</string>

@@ -14,13 +14,13 @@
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">Szybkie przewijanie</string>
     <plurals name="convlist_blocked_banner">
-        <item quantity="one">%d zablokowana wiadomość</item>
-        <item quantity="few">%d zablokowane wiadomości</item>
-        <item quantity="many">%d zablokowanych wiadomości</item>
-        <item quantity="other">%d zablokowanej wiadomości</item>
+        <item quantity="one">%d wiadomość ze spamem</item>
+        <item quantity="few">%d wiadomości ze spamem</item>
+        <item quantity="many">%d wiadomości ze spamem</item>
+        <item quantity="other">%d wiadomości ze spamem</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">Zablokowane wiadomości</string>
-    <string name="convlist_blocked_banner_cd">Zablokowane wiadomości: %1$d. Otwórz folder Zablokowane.</string>
+    <string name="convlist_blocked_banner_title">Spam</string>
+    <string name="convlist_blocked_banner_cd">Wiadomości w Spamie: %1$d. Otwórz folder Spam.</string>
     <string name="convlist_archive">Archiwizuj</string>
     <string name="convlist_delete">Usuń</string>
     <string name="convlist_pin">Przypnij na górze</string>
@@ -55,14 +55,14 @@
         <item quantity="other">Zarchiwizowano %d rozmowy</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="one">Zablokowano. Nowe wiadomości trafią do folderu Zablokowane wiadomości</item>
-        <item quantity="few">Zablokowano %d nadawców. Nowe wiadomości trafią do folderu Zablokowane wiadomości</item>
-        <item quantity="many">Zablokowano %d nadawców. Nowe wiadomości trafią do folderu Zablokowane wiadomości</item>
-        <item quantity="other">Zablokowano %d nadawcy. Nowe wiadomości trafią do folderu Zablokowane wiadomości</item>
+        <item quantity="one">Zablokowano. Nowe wiadomości trafią do folderu Spam</item>
+        <item quantity="few">Zablokowano %d nadawców. Nowe wiadomości trafią do folderu Spam</item>
+        <item quantity="many">Zablokowano %d nadawców. Nowe wiadomości trafią do folderu Spam</item>
+        <item quantity="other">Zablokowano %d nadawcy. Nowe wiadomości trafią do folderu Spam</item>
     </plurals>
     <string name="convlist_action_failed">Coś poszło nie tak</string>
     <string name="convlist_block_title">Zablokować numer?</string>
-    <string name="convlist_block_message">Zablokować %1$s? Nowe wiadomości z tego numeru trafią do folderu Zablokowane wiadomości zamiast do Odebranych. Nadal możesz je tam czytać lub przywrócić.</string>
+    <string name="convlist_block_message">Zablokować %1$s? Nowe wiadomości z tego numeru trafią do folderu Spam zamiast do Odebranych. Nadal możesz je tam czytać lub przywrócić.</string>
     <string name="convlist_block_confirm">Zablokuj</string>
     <string name="convlist_rename_title">Zmień nazwę rozmowy</string>
     <string name="convlist_cancel">Anuluj</string>

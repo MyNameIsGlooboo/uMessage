@@ -2,8 +2,8 @@
 <resources>
     <string name="hidden_chats_menu_hide">پنهان کردن این گفتگو</string>
     <string name="hidden_chats_menu_unhide">آشکار کردن این گفتگو</string>
-    <string name="hidden_chats_confirm">این گفتگو پنهان شود؟ تا وقتی قفل گفتگوهای پنهان را با قفل برنامه باز نکنید، در فهرست، جستجو و اعلان‌ها دیده نمی‌شود.</string>
-    <string name="hidden_chats_need_lock">گفتگوهای پنهان به قفل برنامه نیاز دارند. اکنون تنظیم می‌کنید؟</string>
+    <string name="hidden_chats_confirm">این گفتگو پنهان شود؟ تا وقتی قفل گفتگوهای پنهان را با قفل برنامه باز نکنید، در لیست، جستجو و اعلان‌ها دیده نمی‌شود.</string>
+    <string name="hidden_chats_need_lock">گفتگوهای پنهان به قفل برنامه نیاز دارند. الان تنظیم می‌کنید؟</string>
     <string name="hidden_chats_set_lock">راه‌اندازی</string>
     <string name="hidden_chats_done">گفتگو پنهان شد</string>
     <string name="hidden_chats_show">گفتگوهای پنهان</string>

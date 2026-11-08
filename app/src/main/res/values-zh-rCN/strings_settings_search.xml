@@ -12,7 +12,7 @@
     <string name="sks_rules">规则 允许 屏蔽 列表 关键词 正则表达式 正则表达式 发件人 号码 白名单 黑名单</string>
     <string name="sks_blocked_numbers">已屏蔽 号码 屏蔽列表 电话 联系人 Android 黑名单</string>
     <string name="sks_decision_log">判定记录 历史 原因 已屏蔽 活动 最近</string>
-    <string name="sks_purge">删除 已屏蔽 旧消息 移除 清理 自动 天 清理 保留</string>
+    <string name="sks_purge">删除 垃圾短信 已屏蔽 旧消息 移除 清理 自动 天 清理 保留</string>
     <string name="sks_region">国家 地区 境外 国外 国际 海外 屏蔽</string>
     <string name="sks_links">链接 URL 风险 网络钓鱼 安全 锁定 网页</string>
     <string name="sks_carrier_report">运营商 举报 运营商 转发 7726 服务商 垃圾短信</string>

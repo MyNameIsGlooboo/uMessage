@@ -33,8 +33,8 @@
     <string name="spam_reason_rule_removed">Regel inzwischen entfernt</string>
     <string name="spam_reason_open_rules">Regeln öffnen</string>
     <plurals name="spam_purge_notice">
-        <item quantity="one">Blockierte Nachrichten werden nach %d Tag gelöscht</item>
-        <item quantity="other">Blockierte Nachrichten werden nach %d Tagen gelöscht</item>
+        <item quantity="one">Spam wird nach %d Tag gelöscht</item>
+        <item quantity="other">Spam wird nach %d Tagen gelöscht</item>
     </plurals>
     <plurals name="spam_purge_left">
         <item quantity="one">Wird in %d Tag gelöscht</item>
@@ -42,14 +42,14 @@
     </plurals>
     <string name="spam_purge_left_today">Wird heute gelöscht</string>
     <plurals name="convlist_reported_spam_archived">
-        <item quantity="one">Gemeldet. Neue Nachrichten dieses Absenders landen unter „Blockiert“. Die Unterhaltung wurde archiviert.</item>
-        <item quantity="other">%d Unterhaltungen gemeldet. Neue Nachrichten dieser Absender landen unter „Blockiert“. Die Unterhaltungen wurden archiviert.</item>
+        <item quantity="one">Gemeldet. Neue Nachrichten dieses Absenders landen unter „Spam“. Die Unterhaltung wurde archiviert.</item>
+        <item quantity="other">%d Unterhaltungen gemeldet. Neue Nachrichten dieser Absender landen unter „Spam“. Die Unterhaltungen wurden archiviert.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="one">Gemeldet. Neue Nachrichten dieses Absenders landen unter „Blockiert“.</item>
-        <item quantity="other">%d Unterhaltungen gemeldet. Neue Nachrichten dieser Absender landen unter „Blockiert“.</item>
+        <item quantity="one">Gemeldet. Neue Nachrichten dieses Absenders landen unter „Spam“.</item>
+        <item quantity="other">%d Unterhaltungen gemeldet. Neue Nachrichten dieser Absender landen unter „Spam“.</item>
     </plurals>
-    <string name="blocked_title">Blockiert</string>
+    <string name="blocked_title">Spam</string>
     <string name="blocked_snack_mode">Unbekannte Absender: %1$s eingestellt</string>
     <string name="blocked_stats_restored">%1$d von dir wiederhergestellt</string>
     <string name="blocked_reason_unknown_link">Unbekannter Absender, mit Link</string>

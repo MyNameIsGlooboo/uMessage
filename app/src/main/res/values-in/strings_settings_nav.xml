@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols (hak cipta milik Google LLC) dilisensikan berdasarkan Apache License versi 2.0. Ikon disediakan apa adanya, tanpa jaminan.</string>
     <string name="settings_nav_recommended">Direkomendasikan</string>
     <string name="settings_nav_strict_confirm_title">Blokir kode verifikasi juga?</string>
-    <string name="settings_nav_strict_confirm_body">Dalam mode filter ketat, kode dari pengirim yang tidak ada di kontak Anda masuk ke Diblokir bersama pesan lainnya. Pesan dari bank dan perusahaan pengiriman juga ditahan.</string>
+    <string name="settings_nav_strict_confirm_body">Dalam mode filter ketat, kode dari pengirim yang tidak ada di kontak Anda masuk ke Spam bersama pesan lainnya. Pesan dari bank dan perusahaan pengiriman juga ditahan.</string>
     <string name="settings_nav_strict_confirm_action">Gunakan mode filter ketat</string>
     <string name="settings_nav_strict_confirm_cancel">Tetap gunakan mode saat ini</string>
-    <string name="settings_nav_purge_row">Hapus pesan diblokir setelah</string>
+    <string name="settings_nav_purge_row">Hapus spam setelah</string>
     <string name="settings_nav_group_alerts">Peringatan</string>
-    <string name="settings_nav_notify_body">Notifikasi senyap untuk setiap pesan diblokir</string>
+    <string name="settings_nav_notify_body">Notifikasi senyap untuk setiap pesan spam</string>
     <string name="settings_nav_theme_title">Tampilan</string>
     <string name="settings_nav_theme_modes">Mode</string>
     <string name="settings_nav_theme_colours">Warna</string>

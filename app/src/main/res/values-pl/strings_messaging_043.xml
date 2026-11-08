@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">Dotknij, aby pobrać</string>
+    <string name="mms_downloading">Pobieranie…</string>
+    <string name="mms_download_again">Nie udało się pobrać. Dotknij, aby spróbować ponownie</string>
+    <string name="mms_expired">Ta wiadomość ze zdjęciem nie jest już dostępna</string>
+    <string name="mms_download_action_desc">Pobierz wiadomość ze zdjęciem</string>
+</resources>

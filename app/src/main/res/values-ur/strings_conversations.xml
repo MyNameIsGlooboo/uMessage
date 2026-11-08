@@ -14,11 +14,11 @@
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">تیز اسکرول</string>
     <plurals name="convlist_blocked_banner">
-        <item quantity="one">%d بلاک شدہ پیغام</item>
-        <item quantity="other">%d بلاک شدہ پیغامات</item>
+        <item quantity="one">%d اسپیم پیغام</item>
+        <item quantity="other">%d اسپیم پیغامات</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">بلاک شدہ پیغامات</string>
-    <string name="convlist_blocked_banner_cd">%1$d بلاک شدہ پیغامات۔ بلاک شدہ فولڈر کھولیں۔</string>
+    <string name="convlist_blocked_banner_title">اسپیم</string>
+    <string name="convlist_blocked_banner_cd">%1$d اسپیم پیغامات۔ اسپیم فولڈر کھولیں۔</string>
     <string name="convlist_archive">آرکائیو</string>
     <string name="convlist_delete">حذف کریں</string>
     <string name="convlist_pin">اوپر پن کریں</string>
@@ -47,12 +47,12 @@
         <item quantity="other">%d گفتگو آرکائیو کر دی گئیں</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="one">بلاک کر دیا گیا۔ نئے پیغامات بلاک شدہ پیغامات میں جائیں گے</item>
-        <item quantity="other">%d بھیجنے والے بلاک کر دیے گئے۔ نئے پیغامات بلاک شدہ پیغامات میں جائیں گے</item>
+        <item quantity="one">بلاک کر دیا گیا۔ نئے پیغامات اسپیم میں جائیں گے</item>
+        <item quantity="other">%d بھیجنے والے بلاک کر دیے گئے۔ نئے پیغامات اسپیم میں جائیں گے</item>
     </plurals>
     <string name="convlist_action_failed">کچھ غلط ہو گیا</string>
     <string name="convlist_block_title">نمبر بلاک کریں؟</string>
-    <string name="convlist_block_message">%1$s کو بلاک کریں؟ اس کے نئے پیغامات آپ کے ان باکس کے بجائے بلاک شدہ پیغامات میں جائیں گے، جہاں آپ انہیں پھر بھی پڑھ یا بحال کر سکتے ہیں۔</string>
+    <string name="convlist_block_message">%1$s کو بلاک کریں؟ اس کے نئے پیغامات آپ کے ان باکس کے بجائے اسپیم میں جائیں گے، جہاں آپ انہیں پھر بھی پڑھ یا بحال کر سکتے ہیں۔</string>
     <string name="convlist_block_confirm">بلاک کریں</string>
     <string name="convlist_rename_title">گفتگو کا نام بدلیں</string>
     <string name="convlist_cancel">منسوخ کریں</string>

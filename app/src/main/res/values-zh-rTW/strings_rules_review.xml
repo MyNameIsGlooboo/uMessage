@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">沒有一律允許的寄件者</string>
     <string name="rules2_empty_allowed_body">新增一律要進入收件匣的號碼、寄件者名稱或字詞。</string>
     <string name="rules2_empty_blocked_title">沒有一律封鎖的寄件者</string>
-    <string name="rules2_empty_blocked_body">新增要移至「已封鎖」的號碼、寄件者名稱、字詞或模式。</string>
+    <string name="rules2_empty_blocked_body">新增要移至「垃圾訊息」的號碼、寄件者名稱、字詞或模式。</string>
     <string name="rules2_legacy_banner_title">找到舊的封鎖清單</string>
     <string name="rules2_legacy_banner_body">將它們移入規則，即可查看及還原被封鎖的內容。</string>
     <string name="rules2_legacy_review">檢視</string>
     <string name="rules2_system_header">Android封鎖清單（也會封鎖來電）</string>
-    <string name="rules2_system_body">Android會在uMessage收到前丟棄這些號碼的簡訊，因此它們永遠不會出現在「已封鎖」，也無法還原。</string>
+    <string name="rules2_system_body">Android會在uMessage收到前丟棄這些號碼的簡訊，因此它們永遠不會出現在「垃圾訊息」，也無法還原。</string>
     <string name="rules2_system_manage">管理</string>
     <string name="rules2_system_move">移至uMessage規則</string>
     <string name="rules2_migrate_title">移至uMessage規則</string>
-    <string name="rules2_migrate_point_blocked">之後簡訊會移至「已封鎖」，你可以在那裡還原。</string>
+    <string name="rules2_migrate_point_blocked">之後簡訊會移至「垃圾訊息」，你可以在那裡還原。</string>
     <string name="rules2_migrate_remove_needs_first">請先勾選上方的選項。</string>
     <string name="rules2_migrate_nothing_selected">未選取任何項目</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -48,7 +48,7 @@
     <plurals name="rules2_bn_move">
         <item quantity="other">將%1$d個號碼移至規則</item>
     </plurals>
-    <string name="forward2_intro_reassure">只會轉寄進入收件匣的訊息，已封鎖的垃圾簡訊絕不會轉寄。</string>
+    <string name="forward2_intro_reassure">只會轉寄進入收件匣的訊息，垃圾訊息絕不會轉寄。</string>
     <string name="forward2_empty_title">尚無轉寄規則</string>
     <string name="forward2_empty_body">將符合條件的訊息（例如銀行通知）複製一份傳到另一支手機。從以下其中一項開始。</string>
     <string name="forward2_template_bank">轉寄銀行通知</string>

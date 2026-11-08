@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">Les discussions masquées sont verrouillées</string>
+    <string name="backup_hidden_message">Vos discussions masquées sont verrouillées. Déverrouillez-les pour les inclure dans la sauvegarde, ou sauvegardez sans elles.</string>
+    <string name="backup_hidden_unlock">Déverrouiller</string>
+    <string name="backup_hidden_skip">Ignorer les discussions masquées</string>
+    <string name="backup_export_hidden_left_out">Discussions masquées exclues : %d</string>
+</resources>

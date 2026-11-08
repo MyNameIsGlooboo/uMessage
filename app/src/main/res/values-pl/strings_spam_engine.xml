@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="spam_engine_blocked_channel">Zablokowane wiadomości</string>
-    <string name="spam_engine_blocked_title">Zablokowane: %s</string>
-    <string name="spam_engine_blocked_public_title">Wiadomość zablokowana</string>
-    <string name="spam_engine_mms_blocked">Zablokowana wiadomość ze zdjęciem (MMS)</string>
+    <string name="spam_engine_blocked_channel">Spam</string>
+    <string name="spam_engine_blocked_title">Spam: %s</string>
+    <string name="spam_engine_blocked_public_title">Wiadomość trafiła do Spamu</string>
+    <string name="spam_engine_mms_blocked">Spam: wiadomość ze zdjęciem (MMS)</string>
     <string name="spam_engine_regex_nested_repeat">Ten wzorzec powtarza grupę, która już zawiera powtórzenia, co może zawiesić filtrowanie wiadomości. Uprość go.</string>
     <string name="spam_engine_regex_matches_empty">Ten wzorzec pasuje do każdej wiadomości.</string>
     <string name="spam_engine_regex_invalid">To nieprawidłowy wzorzec.</string>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="spam_engine_blocked_channel">بلاک شدہ پیغامات</string>
-    <string name="spam_engine_blocked_title">بلاک شدہ: %s</string>
-    <string name="spam_engine_blocked_public_title">پیغام بلاک ہو گیا</string>
-    <string name="spam_engine_mms_blocked">بلاک شدہ تصویری پیغام (MMS)</string>
+    <string name="spam_engine_blocked_channel">اسپیم</string>
+    <string name="spam_engine_blocked_title">اسپیم: %s</string>
+    <string name="spam_engine_blocked_public_title">پیغام اسپیم میں بھیج دیا گیا</string>
+    <string name="spam_engine_mms_blocked">اسپیم تصویری پیغام (MMS)</string>
     <string name="spam_engine_regex_nested_repeat">یہ پیٹرن ایسے گروپ کو دہراتا ہے جو پہلے سے دہرایا جا رہا ہے، جس سے پیغامات کی فلٹرنگ رک سکتی ہے۔ اسے آسان بنائیں۔</string>
     <string name="spam_engine_regex_matches_empty">یہ پیٹرن ہر پیغام سے میل کھاتا ہے۔</string>
     <string name="spam_engine_regex_invalid">یہ درست پیٹرن نہیں ہے۔</string>

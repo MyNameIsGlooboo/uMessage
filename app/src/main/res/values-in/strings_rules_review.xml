@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">Belum ada pengirim yang selalu diizinkan</string>
     <string name="rules2_empty_allowed_body">Tambahkan nomor, nama pengirim, atau kata agar pesannya selalu masuk ke kotak masuk. Ketuk Tambah aturan di bawah.</string>
     <string name="rules2_empty_blocked_title">Belum ada pengirim yang selalu diblokir</string>
-    <string name="rules2_empty_blocked_body">Tambahkan nomor, nama pengirim, kata, atau pola agar pesannya masuk ke Diblokir. Ketuk Tambah aturan di bawah.</string>
+    <string name="rules2_empty_blocked_body">Tambahkan nomor, nama pengirim, kata, atau pola agar pesannya masuk ke Spam. Ketuk Tambah aturan di bawah.</string>
     <string name="rules2_legacy_banner_title">Daftar blokir lama ditemukan</string>
     <string name="rules2_legacy_banner_body">Pindahkan ke aturan agar pesan yang diblokir dapat dilihat dan dipulihkan.</string>
     <string name="rules2_legacy_review">Tinjau</string>
     <string name="rules2_system_header">Daftar blokir Android (juga memblokir panggilan)</string>
-    <string name="rules2_system_body">Android membuang pesan dari nomor ini sebelum diterima uMessage, sehingga pesan tidak muncul di Diblokir dan tidak dapat dipulihkan.</string>
+    <string name="rules2_system_body">Android membuang pesan dari nomor ini sebelum diterima uMessage, sehingga pesan tidak muncul di Spam dan tidak dapat dipulihkan.</string>
     <string name="rules2_system_manage">Kelola</string>
     <string name="rules2_system_move">Pindahkan ke aturan uMessage</string>
     <string name="rules2_migrate_title">Pindahkan ke aturan uMessage</string>
-    <string name="rules2_migrate_point_blocked">Pesan lalu masuk ke Diblokir dan dapat dipulihkan di sana.</string>
+    <string name="rules2_migrate_point_blocked">Pesan lalu masuk ke Spam dan dapat dipulihkan di sana.</string>
     <string name="rules2_migrate_remove_needs_first">Centang opsi di atas terlebih dahulu.</string>
     <string name="rules2_migrate_nothing_selected">Belum ada yang dipilih</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -48,7 +48,7 @@
     <plurals name="rules2_bn_move">
         <item quantity="other">Pindahkan %1$d nomor ke aturan</item>
     </plurals>
-    <string name="forward2_intro_reassure">Hanya pesan yang masuk ke kotak masuk yang diteruskan. Spam yang diblokir tidak pernah diteruskan.</string>
+    <string name="forward2_intro_reassure">Hanya pesan yang masuk ke kotak masuk yang diteruskan. Spam tidak pernah diteruskan.</string>
     <string name="forward2_empty_title">Belum ada aturan penerusan</string>
     <string name="forward2_empty_body">Kirim salinan pesan yang cocok, seperti notifikasi bank, ke ponsel lain. Mulai dari salah satu pilihan ini.</string>
     <string name="forward2_template_bank">Teruskan notifikasi bank</string>

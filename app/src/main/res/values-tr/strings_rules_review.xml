@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">Her zaman izin verilen gönderen yok</string>
     <string name="rules2_empty_allowed_body">Her zaman gelen kutunuza ulaşması gereken bir numara, gönderen adı veya kelime ekleyin. Aşağıdaki Kural ekleyin seçeneğine dokunun.</string>
     <string name="rules2_empty_blocked_title">Her zaman engellenen gönderen yok</string>
-    <string name="rules2_empty_blocked_body">Engellenenler bölümüne yönlendirmek için bir numara, gönderen adı, kelime veya düzenli ifade ekleyin. Aşağıdaki Kural ekleyin seçeneğine dokunun.</string>
+    <string name="rules2_empty_blocked_body">Spam bölümüne yönlendirmek için bir numara, gönderen adı, kelime veya düzenli ifade ekleyin. Aşağıdaki Kural ekleyin seçeneğine dokunun.</string>
     <string name="rules2_legacy_banner_title">Eski engellenenler listeleri bulundu</string>
     <string name="rules2_legacy_banner_body">Engelledikleri mesajları görmek ve geri yüklemek için bunları kurallara taşıyın.</string>
     <string name="rules2_legacy_review">İnceleyin</string>
     <string name="rules2_system_header">Android engellenenler listesi (aramaları da engeller)</string>
-    <string name="rules2_system_body">Android, bu numaralardan gelen mesajları uMessage görmeden siler. Bu yüzden mesajlar Engellenenler bölümünde görünmez ve geri yüklenemez.</string>
+    <string name="rules2_system_body">Android, bu numaralardan gelen mesajları uMessage görmeden siler. Bu yüzden mesajlar Spam bölümünde görünmez ve geri yüklenemez.</string>
     <string name="rules2_system_manage">Yönetin</string>
     <string name="rules2_system_move">uMessage kurallarına taşıyın</string>
     <string name="rules2_migrate_title">uMessage kurallarına taşıyın</string>
-    <string name="rules2_migrate_point_blocked">Mesajlar artık Engellenenler bölümüne gider. Buradan mesajları geri yükleyebilirsiniz.</string>
+    <string name="rules2_migrate_point_blocked">Mesajlar artık Spam bölümüne gider. Buradan mesajları geri yükleyebilirsiniz.</string>
     <string name="rules2_migrate_remove_needs_first">Önce yukarıdaki seçeneği işaretleyin.</string>
     <string name="rules2_migrate_nothing_selected">Hiçbir şey seçilmedi</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -50,7 +50,7 @@
         <item quantity="one">%1$d numarayı kurallara taşıyın</item>
         <item quantity="other">%1$d numarayı kurallara taşıyın</item>
     </plurals>
-    <string name="forward2_intro_reassure">Yalnızca gelen kutunuza ulaşan mesajlar iletilir. Engellenen spam mesajlar asla iletilmez.</string>
+    <string name="forward2_intro_reassure">Yalnızca gelen kutunuza ulaşan mesajlar iletilir. Spam asla iletilmez.</string>
     <string name="forward2_empty_title">Henüz iletme kuralı yok</string>
     <string name="forward2_empty_body">Banka bildirimleri gibi eşleşen mesajların bir kopyasını başka bir telefona gönderin. Bu seçeneklerden biriyle başlayın.</string>
     <string name="forward2_template_bank">Banka bildirimlerini iletin</string>

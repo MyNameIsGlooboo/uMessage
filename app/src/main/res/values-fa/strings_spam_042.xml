@@ -4,8 +4,8 @@
     <string name="s042_whole_word_help">فقط خود کلمه را پیدا می‌کند: win، نه window.</string>
     <string name="s042_held_code_channel">کدهای نگه‌داشته‌شده</string>
     <string name="s042_held_code_title">پیامی شبیه کد نگه داشته شد</string>
-    <string name="s042_held_code_text">پیام پیوند دارد، برای همین در مسدودشده‌ها است. اگر منتظر کد هستید، مسدودشده‌ها را باز کنید.</string>
-    <string name="s042_contacts_off_title">فیلتر هرزنامه متوقف شده است</string>
-    <string name="s042_contacts_off_body">اجازهٔ دسترسی به مخاطبان را بدهید تا uMessage دوستان را از غریبه‌ها تشخیص دهد.</string>
+    <string name="s042_held_code_text">پیام لینک دارد، برای همین در اسپم است. اگر منتظر کد هستید، اسپم را باز کنید.</string>
+    <string name="s042_contacts_off_title">فیلتر اسپم متوقف شده است</string>
+    <string name="s042_contacts_off_body">اجازهٔ دسترسی به مخاطب‌ها را بدهید تا uMessage دوستان را از غریبه‌ها تشخیص دهد.</string>
     <string name="s042_contacts_off_allow">اجازه دادن</string>
 </resources>

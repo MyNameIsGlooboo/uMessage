@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <plurals name="w2b1_archived_find" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d گفتگو بایگانی شد. در زبانهٔ «بایگانی‌شده» پیدایش کنید</item>
-        <item quantity="other">%d گفتگو بایگانی شد. در زبانهٔ «بایگانی‌شده» پیدایشان کنید</item>
+        <item quantity="one">%d گفتگو آرشیو شد. آن را در زبانهٔ «آرشیو‌شده» پیدا کنید</item>
+        <item quantity="other">%d گفتگو آرشیو شد. آن‌ها را در زبانهٔ «آرشیو‌شده» پیدا کنید</item>
     </plurals>
     <string name="w2b1_search_recent">جستجوهای اخیر</string>
     <string name="w2b1_search_recent_clear">پاک کردن</string>
@@ -14,5 +14,5 @@
     <string name="w2b1_filter_unread">خوانده‌نشده</string>
     <string name="w2b1_filter_unread_empty_title">گفتگوی خوانده‌نشده‌ای ندارید</string>
     <string name="w2b1_filter_unread_empty_body">همه خوانده شده‌اند.</string>
-    <string name="w2b1_swipe_block">مسدود کردن فرستنده</string>
+    <string name="w2b1_swipe_block">بلاک کردن فرستنده</string>
 </resources>

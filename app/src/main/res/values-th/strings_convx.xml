@@ -3,7 +3,7 @@
     <string name="convx_code_chip">รหัส %1$s</string>
     <string name="convx_code_copy">คัดลอก</string>
     <string name="convx_block_archive">บล็อกและเก็บถาวร</string>
-    <string name="convx_block_archive_hint">ข้อความใหม่จะไปที่ “ที่บล็อก” ไม่มีข้อมูลออกจากโทรศัพท์</string>
+    <string name="convx_block_archive_hint">ข้อความใหม่จะไปที่สแปม ไม่มีข้อมูลออกจากโทรศัพท์</string>
     <string name="convx_name_label">ชื่อ</string>
     <string name="convx_clear">ล้าง</string>
     <string name="convx_reset_name">คืนค่าชื่อเริ่มต้น</string>

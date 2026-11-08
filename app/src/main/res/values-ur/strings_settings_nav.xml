@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols (حقوق Google LLC) Apache License، ورژن 2.0 کے تحت لائسنس یافتہ ہیں۔ آئیکنز جیسے ہیں ویسے ہی فراہم کیے جاتے ہیں، بغیر کسی وارنٹی کے۔</string>
     <string name="settings_nav_recommended">تجویز کردہ</string>
     <string name="settings_nav_strict_confirm_title">تصدیقی کوڈز بھی بلاک کریں؟</string>
-    <string name="settings_nav_strict_confirm_body">سخت موڈ میں، جو بھیجنے والے آپ کے رابطوں میں نہیں ان کے کوڈز بھی باقی سب کے ساتھ بلاک شدہ میں جاتے ہیں۔ بینکوں اور ڈیلیوری کمپنیوں کے پیغامات بھی روک لیے جاتے ہیں۔</string>
+    <string name="settings_nav_strict_confirm_body">سخت موڈ میں، جو بھیجنے والے آپ کے رابطوں میں نہیں ان کے کوڈز بھی باقی سب کے ساتھ اسپیم میں جاتے ہیں۔ بینکوں اور ڈیلیوری کمپنیوں کے پیغامات بھی روک لیے جاتے ہیں۔</string>
     <string name="settings_nav_strict_confirm_action">سخت استعمال کریں</string>
     <string name="settings_nav_strict_confirm_cancel">موجودہ موڈ رکھیں</string>
-    <string name="settings_nav_purge_row">بلاک شدہ پیغامات اتنے عرصے بعد حذف کریں</string>
+    <string name="settings_nav_purge_row">اسپیم اتنے عرصے بعد حذف کریں</string>
     <string name="settings_nav_group_alerts">الرٹس</string>
-    <string name="settings_nav_notify_body">ہر بلاک شدہ پیغام کے لیے ایک خاموش اطلاع</string>
+    <string name="settings_nav_notify_body">ہر اسپیم پیغام کے لیے ایک خاموش اطلاع</string>
     <string name="settings_nav_theme_title">ظاہری شکل</string>
     <string name="settings_nav_theme_modes">موڈ</string>
     <string name="settings_nav_theme_colours">رنگ</string>

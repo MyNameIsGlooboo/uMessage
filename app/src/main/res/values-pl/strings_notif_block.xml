@@ -3,6 +3,6 @@
     <string name="notif_block_action">Zablokuj</string>
     <string name="notif_block_undo">Cofnij</string>
     <string name="notif_block_done_title">Zablokowano %1$s</string>
-    <string name="notif_block_done_text">Nowe wiadomości trafią do zablokowanych wiadomości</string>
+    <string name="notif_block_done_text">Nowe wiadomości trafią do Spamu</string>
     <string name="notif_block_channel">Zablokowani nadawcy</string>
 </resources>

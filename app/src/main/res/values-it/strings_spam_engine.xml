@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="spam_engine_blocked_channel">Messaggi bloccati</string>
-    <string name="spam_engine_blocked_title">Bloccato: %s</string>
-    <string name="spam_engine_blocked_public_title">Messaggio bloccato</string>
-    <string name="spam_engine_mms_blocked">Messaggio con immagine bloccato (MMS)</string>
+    <string name="spam_engine_blocked_channel">Spam</string>
+    <string name="spam_engine_blocked_title">Spam: %s</string>
+    <string name="spam_engine_blocked_public_title">Messaggio inviato in Spam</string>
+    <string name="spam_engine_mms_blocked">Messaggio con immagine (MMS) di spam</string>
     <string name="spam_engine_regex_nested_repeat">Questa espressione regolare ripete un gruppo già ripetuto e può bloccare il filtro dei messaggi. Semplificala.</string>
     <string name="spam_engine_regex_matches_empty">Questa espressione regolare trova tutti i messaggi.</string>
     <string name="spam_engine_regex_invalid">Questa espressione regolare non è valida.</string>

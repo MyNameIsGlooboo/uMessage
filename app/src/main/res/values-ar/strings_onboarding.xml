@@ -8,7 +8,7 @@
     <string name="onb_welcome_title">مرحبًا بك في uMessage</string>
     <string name="onb_welcome_intro">مراسلة أفضل، ورسائل غير مرغوب فيها أقل.</string>
     <string name="onb_welcome_spam">أبعد الرسائل غير المرغوب فيها</string>
-    <string name="onb_welcome_spam_desc">تبقى رسائل المرسلين غير المعروفين في «المحظورة» ولا تضيع.</string>
+    <string name="onb_welcome_spam_desc">تبقى رسائل المرسلين غير المعروفين في «غير المرغوب فيها» ولا تضيع.</string>
     <string name="onb_welcome_codes">رموز بنقرة واحدة</string>
     <string name="onb_welcome_codes_desc">انسخ رموز التحقق من الإشعار مباشرة.</string>
     <string name="onb_welcome_copy">انسخ ما تحتاجه فقط</string>
@@ -46,7 +46,7 @@
     <string name="onb_mode_smart">ذكي</string>
     <string name="onb_mode_off">متوقف</string>
     <string name="onb_mode_warning_title">تنبيه بشأن رسائل البنوك والرموز</string>
-    <string name="onb_mode_warning_body">في وضع التصفية الصارم، تبقى تنبيهات البنوك وتحديثات التوصيل والرموز لمرة واحدة من المرسلين غير المعروفين في «المحظورة»، بما فيها الرموز. لن يصلك إشعار، لذا راجع «المحظورة» عندما تتوقع وصول رسالة.</string>
+    <string name="onb_mode_warning_body">في وضع التصفية الصارم، تبقى تنبيهات البنوك وتحديثات التوصيل والرموز لمرة واحدة من المرسلين غير المعروفين في «غير المرغوب فيها»، بما فيها الرموز. لن يصلك إشعار، لذا راجع «غير المرغوب فيها» عندما تتوقع وصول رسالة.</string>
     <string name="onb_oem_title">أبقِ uMessage قيد التشغيل</string>
     <string name="onb_oem_manual_hint">إذا لم تفتح شاشة، فابحث في الإعدادات عن الاسم المعروض.</string>
     <string name="onb_oem_xiaomi">Xiaomi أو Redmi أو Poco</string>

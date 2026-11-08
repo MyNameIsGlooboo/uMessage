@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">Default sistem</string>
     <string name="settings_f_group_rules">Aturan dan daftar</string>
     <string name="settings_f_spam_more">Masa penyimpanan dan peringatan</string>
-    <string name="settings_f_spam_more_body">Lama penyimpanan pesan diblokir dan peringatan</string>
+    <string name="settings_f_spam_more_body">Lama penyimpanan spam dan peringatan</string>
     <string name="settings_f_hide_lock_codes_body">Kode tampil sebagai •••• di layar kunci</string>
     <string name="settings_f_code_alert">Peringatan kode</string>
     <string name="settings_f_code_alert_body">Suara untuk kode verifikasi</string>

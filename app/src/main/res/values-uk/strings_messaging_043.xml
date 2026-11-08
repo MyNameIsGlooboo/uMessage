@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">Торкніться, щоб завантажити</string>
+    <string name="mms_downloading">Завантаження…</string>
+    <string name="mms_download_again">Не вдалося завантажити. Торкніться, щоб повторити</string>
+    <string name="mms_expired">Це повідомлення із зображенням більше недоступне</string>
+    <string name="mms_download_action_desc">Завантажити повідомлення із зображенням</string>
+</resources>

@@ -3,6 +3,6 @@
     <string name="notif_block_action">ব্লক করুন</string>
     <string name="notif_block_undo">আগের অবস্থায় ফিরুন</string>
     <string name="notif_block_done_title">%1$s-কে ব্লক করা হয়েছে</string>
-    <string name="notif_block_done_text">নতুন বার্তা ব্লক করা বার্তার তালিকায় যাবে</string>
+    <string name="notif_block_done_text">নতুন বার্তা স্প্যামে যাবে</string>
     <string name="notif_block_channel">ব্লক করা প্রেরক</string>
 </resources>

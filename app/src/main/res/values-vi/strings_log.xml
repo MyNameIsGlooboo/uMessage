@@ -32,7 +32,7 @@
     <string name="declog_fixed_blocked">Bạn đã chặn người gửi này từ nhật ký</string>
     <string name="declog_fixed_restored">Bạn đã khôi phục tin nhắn này từ nhật ký</string>
     <string name="declog_restored">Đã khôi phục</string>
-    <string name="declog_blocked_message">Tin nhắn vẫn ở mục Đã chặn</string>
+    <string name="declog_blocked_message">Tin nhắn vẫn ở mục Tin rác</string>
     <string name="declog_restore">Khôi phục tin nhắn</string>
     <string name="declog_restore_done">Đã khôi phục tin nhắn vào hộp thư đến</string>
     <string name="declog_restore_text_only">Đã khôi phục nội dung văn bản vào hộp thư đến. Không thể khôi phục hình ảnh.</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="convlist_loading">در حال بارگیری پیام‌ها</string>
+    <string name="convlist_loading">در حال لود پیام‌ها</string>
     <string name="convlist_empty_title">هنوز گفتگویی ندارید</string>
     <string name="convlist_empty_body">پیام‌هایی که می‌فرستید و دریافت می‌کنید اینجا نمایش داده می‌شوند.</string>
     <string name="convlist_start_conversation">شروع گفتگو</string>
@@ -14,12 +14,12 @@
     <string name="convlist_sim">سیم‌کارت %1$d</string>
     <string name="convlist_scroll_handle">پیمایش سریع</string>
     <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d پیام مسدودشده</item>
-        <item quantity="other">%d پیام مسدودشده</item>
+        <item quantity="one">%d پیام اسپم</item>
+        <item quantity="other">%d پیام اسپم</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">پیام‌های مسدودشده</string>
-    <string name="convlist_blocked_banner_cd">%1$d پیام مسدودشده. پوشهٔ مسدودشده‌ها را باز کنید.</string>
-    <string name="convlist_archive">بایگانی کردن</string>
+    <string name="convlist_blocked_banner_title">اسپم</string>
+    <string name="convlist_blocked_banner_cd">%1$d پیام اسپم. پوشهٔ اسپم را باز کنید.</string>
+    <string name="convlist_archive">آرشیو کردن</string>
     <string name="convlist_delete">حذف</string>
     <string name="convlist_pin">سنجاق کردن به بالا</string>
     <string name="convlist_unpin">برداشتن سنجاق</string>
@@ -37,23 +37,23 @@
         <item quantity="one">%d انتخاب‌شده</item>
         <item quantity="other">%d انتخاب‌شده</item>
     </plurals>
-    <string name="convlist_undo">واگرد</string>
+    <string name="convlist_undo">برگردان</string>
     <plurals name="convlist_deleted" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d گفتگو حذف شد</item>
         <item quantity="other">%d گفتگو حذف شد</item>
     </plurals>
     <plurals name="convlist_archived" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d گفتگو بایگانی شد</item>
-        <item quantity="other">%d گفتگو بایگانی شد</item>
+        <item quantity="one">%d گفتگو آرشیو شد</item>
+        <item quantity="other">%d گفتگو آرشیو شد</item>
     </plurals>
     <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
-        <item quantity="one">مسدود شد. پیام‌های جدید به پیام‌های مسدودشده می‌روند</item>
-        <item quantity="other">%d فرستنده مسدود شدند. پیام‌های جدید به پیام‌های مسدودشده می‌روند</item>
+        <item quantity="one">بلاک شد. پیام‌های جدید به اسپم می‌روند</item>
+        <item quantity="other">%d فرستنده بلاک شدند. پیام‌های جدید به اسپم می‌روند</item>
     </plurals>
     <string name="convlist_action_failed">مشکلی پیش آمد</string>
-    <string name="convlist_block_title">شماره مسدود شود؟</string>
-    <string name="convlist_block_message">%1$s مسدود شود؟ پیام‌های جدید این فرستنده به‌جای صندوق ورودی به پیام‌های مسدودشده می‌روند؛ آنجا همچنان می‌توانید آن‌ها را بخوانید یا بازیابی کنید.</string>
-    <string name="convlist_block_confirm">مسدود کردن</string>
+    <string name="convlist_block_title">شماره بلاک شود؟</string>
+    <string name="convlist_block_message">%1$s بلاک شود؟ پیام‌های جدید این فرستنده به‌جای صندوق ورودی به اسپم می‌روند؛ آنجا هنوز می‌توانید آن‌ها را بخوانید یا بازیابی کنید.</string>
+    <string name="convlist_block_confirm">بلاک کردن</string>
     <string name="convlist_rename_title">تغییر نام گفتگو</string>
     <string name="convlist_cancel">لغو</string>
 </resources>

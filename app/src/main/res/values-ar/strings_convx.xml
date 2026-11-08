@@ -3,7 +3,7 @@
     <string name="convx_code_chip">الرمز %1$s</string>
     <string name="convx_code_copy">انسخ</string>
     <string name="convx_block_archive">احظر وأرشف</string>
-    <string name="convx_block_archive_hint">ستنتقل الرسائل القادمة إلى المحظورة. لن يغادر هاتفك أي شيء.</string>
+    <string name="convx_block_archive_hint">ستنتقل الرسائل القادمة إلى «غير المرغوب فيها». لن يغادر هاتفك أي شيء.</string>
     <string name="convx_name_label">الاسم</string>
     <string name="convx_clear">امسح</string>
     <string name="convx_reset_name">استعد الاسم الافتراضي</string>

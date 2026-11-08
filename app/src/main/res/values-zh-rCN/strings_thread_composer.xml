@@ -6,7 +6,7 @@
     <string name="thread_edit_scheduled_replaces_draft">编辑定时发送的消息会替换当前输入的内容。要继续吗？</string>
     <string name="thread_menu_report_spam">标为垃圾短信</string>
     <string name="thread_report_spam_title">标为垃圾短信？</string>
-    <string name="thread_report_spam_message">%1$s的新消息将移至“已屏蔽消息”，不再进入收件箱。此会话中已有的消息会保留。</string>
+    <string name="thread_report_spam_message">%1$s的新消息将移至“垃圾短信”，不再进入收件箱。此会话中已有的消息会保留。</string>
     <string name="thread_report_spam_confirm">标为垃圾短信</string>
     <string name="thread_report_spam_cancel">取消</string>
     <string name="thread_report_spam_done">已标为垃圾短信</string>

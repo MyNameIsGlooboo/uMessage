@@ -6,7 +6,7 @@
     <string name="thread_edit_scheduled_replaces_draft">編輯排程訊息會取代你正在輸入的內容。要繼續嗎？</string>
     <string name="thread_menu_report_spam">標示為垃圾簡訊</string>
     <string name="thread_report_spam_title">要標示為垃圾簡訊嗎？</string>
-    <string name="thread_report_spam_message">%1$s的新訊息會移至「已封鎖的訊息」，而不是收件匣。這個對話中現有的訊息會保留。</string>
+    <string name="thread_report_spam_message">%1$s的新訊息會移至「垃圾訊息」，而不是收件匣。這個對話中現有的訊息會保留。</string>
     <string name="thread_report_spam_confirm">標示為垃圾簡訊</string>
     <string name="thread_report_spam_cancel">取消</string>
     <string name="thread_report_spam_done">已標示為垃圾簡訊</string>

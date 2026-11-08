@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="i09_setting_title">حذف موقعیت مکانی از عکس‌ها</string>
-    <string name="i09_setting_summary">پیش از ارسال عکس، محل ثبت آن را پنهان می‌کند</string>
+    <string name="i09_setting_title">حذف لوکیشن از عکس‌ها</string>
+    <string name="i09_setting_summary">قبل از ارسال عکس، محل ثبت آن را پنهان می‌کند</string>
 </resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">ডাউনলোড করতে ট্যাপ করুন</string>
+    <string name="mms_downloading">ডাউনলোড হচ্ছে…</string>
+    <string name="mms_download_again">ডাউনলোড ব্যর্থ। আবার চেষ্টা করতে ট্যাপ করুন</string>
+    <string name="mms_expired">এই ছবির বার্তাটি আর পাওয়া যাচ্ছে না</string>
+    <string name="mms_download_action_desc">ছবির বার্তা ডাউনলোড করুন</string>
+</resources>

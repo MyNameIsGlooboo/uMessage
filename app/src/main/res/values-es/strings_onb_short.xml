@@ -4,7 +4,7 @@
     <string name="onb_allow_done">Hecho</string>
     <string name="onb_allow_needed">Necesario</string>
     <string name="onb_allow_all_set">Todo listo</string>
-    <string name="onb_mode_strict_short">Retener todo en Bloqueados</string>
+    <string name="onb_mode_strict_short">Retener todo en Spam</string>
     <string name="onb_mode_smart_short">Retener, pero permitir códigos</string>
     <string name="onb_mode_off_short">No filtrar</string>
 </resources>

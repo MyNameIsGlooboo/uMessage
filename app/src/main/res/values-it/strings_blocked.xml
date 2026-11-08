@@ -33,8 +33,8 @@
     <string name="spam_reason_rule_removed">Regola rimossa in seguito</string>
     <string name="spam_reason_open_rules">Apri regole</string>
     <plurals name="spam_purge_notice">
-        <item quantity="one">I messaggi bloccati vengono eliminati dopo %d giorno</item>
-        <item quantity="other">I messaggi bloccati vengono eliminati dopo %d giorni</item>
+        <item quantity="one">Lo spam viene eliminato dopo %d giorno</item>
+        <item quantity="other">Lo spam viene eliminato dopo %d giorni</item>
     </plurals>
     <plurals name="spam_purge_left">
         <item quantity="one">Eliminazione tra %d giorno</item>
@@ -42,14 +42,14 @@
     </plurals>
     <string name="spam_purge_left_today">Eliminazione oggi</string>
     <plurals name="convlist_reported_spam_archived">
-        <item quantity="one">Segnalazione inviata. I nuovi messaggi di questo mittente vanno in Messaggi bloccati e la conversazione è archiviata.</item>
-        <item quantity="other">%d conversazioni segnalate. I nuovi messaggi di questi mittenti vanno in Messaggi bloccati e le conversazioni sono archiviate.</item>
+        <item quantity="one">Segnalazione inviata. I nuovi messaggi di questo mittente vanno in Spam e la conversazione è archiviata.</item>
+        <item quantity="other">%d conversazioni segnalate. I nuovi messaggi di questi mittenti vanno in Spam e le conversazioni sono archiviate.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="one">Segnalazione inviata. I nuovi messaggi di questo mittente vanno in Messaggi bloccati.</item>
-        <item quantity="other">%d conversazioni segnalate. I nuovi messaggi di questi mittenti vanno in Messaggi bloccati.</item>
+        <item quantity="one">Segnalazione inviata. I nuovi messaggi di questo mittente vanno in Spam.</item>
+        <item quantity="other">%d conversazioni segnalate. I nuovi messaggi di questi mittenti vanno in Spam.</item>
     </plurals>
-    <string name="blocked_title">Messaggi bloccati</string>
+    <string name="blocked_title">Spam</string>
     <string name="blocked_snack_mode">Modalità per i mittenti sconosciuti: %1$s</string>
     <string name="blocked_stats_restored">%1$d ripristinati da te</string>
     <string name="blocked_reason_unknown_link">Mittente sconosciuto, con un link</string>

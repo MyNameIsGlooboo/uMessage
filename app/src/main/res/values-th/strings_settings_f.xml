@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">ค่าเริ่มต้นของระบบ</string>
     <string name="settings_f_group_rules">กฎและรายการ</string>
     <string name="settings_f_spam_more">ระยะเวลาเก็บและการเตือน</string>
-    <string name="settings_f_spam_more_body">ระยะเวลาเก็บข้อความที่บล็อกและการเตือน</string>
+    <string name="settings_f_spam_more_body">ระยะเวลาเก็บสแปมและการเตือน</string>
     <string name="settings_f_hide_lock_codes_body">แสดงรหัสเป็น •••• บนหน้าจอล็อก</string>
     <string name="settings_f_code_alert">การเตือนรหัส</string>
     <string name="settings_f_code_alert_body">เสียงสำหรับรหัสยืนยัน</string>

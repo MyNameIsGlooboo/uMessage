@@ -9,9 +9,9 @@
     <string name="n06_text_label">متن</string>
     <string name="n06_save">ذخیره</string>
     <string name="n06_delete">حذف</string>
-    <string name="n06_private_tip">فقط روی این گوشی و بدون رمزگذاری نگهداری می‌شود. گذرواژه یا پین ذخیره نکنید.</string>
+    <string name="n06_private_tip">فقط روی همین گوشی نگه داشته می‌شود و رمزنگاری نمی‌شود. رمز عبور یا پین ذخیره نکنید.</string>
     <string name="n06_save_from_message">ذخیره در متن‌های ذخیره‌شده</string>
     <string name="n06_saved_toast">ذخیره شد</string>
-    <string name="n06_save_full">فهرست پر است. ابتدا یک مورد را حذف کنید.</string>
+    <string name="n06_save_full">لیست پر است. ابتدا یک مورد را حذف کنید.</string>
     <string name="n06_save_duplicate">قبلاً ذخیره شده</string>
 </resources>

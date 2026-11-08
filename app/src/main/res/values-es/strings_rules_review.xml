@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">No hay remitentes permitidos siempre</string>
     <string name="rules2_empty_allowed_body">Agrega un número, nombre de remitente o palabra que siempre deba llegar a tu bandeja de entrada. Toca Agregar regla abajo.</string>
     <string name="rules2_empty_blocked_title">No hay remitentes bloqueados siempre</string>
-    <string name="rules2_empty_blocked_body">Agrega un número, nombre de remitente, palabra o patrón (expresión regular) para enviar sus mensajes a Bloqueados. Toca Agregar regla abajo.</string>
+    <string name="rules2_empty_blocked_body">Agrega un número, nombre de remitente, palabra o patrón (expresión regular) para enviar sus mensajes a Spam. Toca Agregar regla abajo.</string>
     <string name="rules2_legacy_banner_title">Se encontraron listas de bloqueados antiguas</string>
     <string name="rules2_legacy_banner_body">Pásalas a reglas para ver y restaurar los mensajes que bloquean.</string>
     <string name="rules2_legacy_review">Revisar</string>
     <string name="rules2_system_header">Lista de bloqueados de Android (también bloquea llamadas)</string>
-    <string name="rules2_system_body">Android descarta los mensajes de estos números antes de que uMessage los reciba, por lo que nunca aparecen en Bloqueados y no se pueden restaurar.</string>
+    <string name="rules2_system_body">Android descarta los mensajes de estos números antes de que uMessage los reciba, por lo que nunca aparecen en Spam y no se pueden restaurar.</string>
     <string name="rules2_system_manage">Administrar</string>
     <string name="rules2_system_move">Pasar a reglas de uMessage</string>
     <string name="rules2_migrate_title">Pasar a reglas de uMessage</string>
-    <string name="rules2_migrate_point_blocked">Así, los mensajes van a Bloqueados, donde puedes restaurarlos.</string>
+    <string name="rules2_migrate_point_blocked">Así, los mensajes van a Spam, donde puedes restaurarlos.</string>
     <string name="rules2_migrate_remove_needs_first">Primero marca la opción de arriba.</string>
     <string name="rules2_migrate_nothing_selected">Nada seleccionado</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -50,7 +50,7 @@
         <item quantity="one">Pasar %1$d número a reglas</item>
         <item quantity="other">Pasar %1$d números a reglas</item>
     </plurals>
-    <string name="forward2_intro_reassure">Solo se reenvían los mensajes que llegan a tu bandeja de entrada. El spam bloqueado nunca se reenvía.</string>
+    <string name="forward2_intro_reassure">Solo se reenvían los mensajes que llegan a tu bandeja de entrada. El spam nunca se reenvía.</string>
     <string name="forward2_empty_title">Aún no hay reglas de reenvío</string>
     <string name="forward2_empty_body">Envía a otro teléfono una copia de los mensajes que cumplan la regla, como las alertas bancarias. Empieza con una de estas opciones.</string>
     <string name="forward2_template_bank">Reenviar alertas bancarias</string>

@@ -24,8 +24,8 @@
     <string name="spam_mms_stored">پیام تصویری</string>
     <string name="spam_mms_downloading">پیام تصویری، در حال دانلود</string>
     <string name="spam_mms_missing">پیام تصویری، دانلود نشده</string>
-    <string name="spam_mms_thumbnail">تصویر پیام مسدودشده</string>
-    <string name="spam_reason_rule_keyword">قانون: کلیدواژهٔ «%1$s»</string>
+    <string name="spam_mms_thumbnail">تصویر پیام بلاک‌شده</string>
+    <string name="spam_reason_rule_keyword">قانون: کلمهٔ کلیدی «%1$s»</string>
     <string name="spam_reason_rule_regex">قانون: الگوی %1$s</string>
     <string name="spam_reason_rule_number">قانون: شمارهٔ %1$s</string>
     <string name="spam_reason_rule_prefix">قانون: شماره‌هایی که با %1$s شروع می‌شوند</string>
@@ -33,8 +33,8 @@
     <string name="spam_reason_rule_removed">قانون بعداً حذف شده است</string>
     <string name="spam_reason_open_rules">باز کردن قانون‌ها</string>
     <plurals name="spam_purge_notice" tools:ignore="ImpliedQuantity">
-        <item quantity="one">پیام‌های مسدودشده پس از %d روز حذف می‌شوند</item>
-        <item quantity="other">پیام‌های مسدودشده پس از %d روز حذف می‌شوند</item>
+        <item quantity="one">اسپم‌ها بعد از %d روز حذف می‌شوند</item>
+        <item quantity="other">اسپم‌ها بعد از %d روز حذف می‌شوند</item>
     </plurals>
     <plurals name="spam_purge_left" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d روز دیگر حذف می‌شود</item>
@@ -42,17 +42,17 @@
     </plurals>
     <string name="spam_purge_left_today">امروز حذف می‌شود</string>
     <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
-        <item quantity="one">گزارش شد. پیام‌های جدید این فرستنده به «مسدودشده‌ها» می‌روند و گفتگو بایگانی شد.</item>
-        <item quantity="other">%d گفتگو گزارش شد. پیام‌های جدید آن‌ها به «مسدودشده‌ها» می‌روند و گفتگوها بایگانی شدند.</item>
+        <item quantity="one">گزارش شد. پیام‌های جدید این فرستنده به «اسپم» می‌روند و گفتگو آرشیو شد.</item>
+        <item quantity="other">%d گفتگو گزارش شد. پیام‌های جدید آن‌ها به «اسپم» می‌روند و گفتگوها آرشیو شدند.</item>
     </plurals>
     <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
-        <item quantity="one">گزارش شد. پیام‌های جدید این فرستنده به «مسدودشده‌ها» می‌روند.</item>
-        <item quantity="other">%d گفتگو گزارش شد. پیام‌های جدید آن‌ها به «مسدودشده‌ها» می‌روند.</item>
+        <item quantity="one">گزارش شد. پیام‌های جدید این فرستنده به «اسپم» می‌روند.</item>
+        <item quantity="other">%d گفتگو گزارش شد. پیام‌های جدید آن‌ها به «اسپم» می‌روند.</item>
     </plurals>
-    <string name="blocked_title">مسدودشده‌ها</string>
+    <string name="blocked_title">اسپم</string>
     <string name="blocked_snack_mode">حالت فرستنده‌های ناشناس روی %1$s تنظیم شد</string>
     <string name="blocked_stats_restored">%1$d مورد را بازیابی کرده‌اید</string>
-    <string name="blocked_reason_unknown_link">فرستندهٔ ناشناس، دارای پیوند</string>
+    <string name="blocked_reason_unknown_link">فرستندهٔ ناشناس، لینک‌دار</string>
     <string name="blocked_may_be_important">شاید مهم باشد</string>
-    <string name="blocked_action_move_inbox">انتقال به صندوق ورودی</string>
+    <string name="blocked_action_move_inbox">بردن به صندوق ورودی</string>
 </resources>

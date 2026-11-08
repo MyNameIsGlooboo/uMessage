@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">Đóng danh sách kiểm tra</string>
     <string name="w3c_checklist_step_sms">Đặt uMessage làm ứng dụng SMS mặc định của bạn</string>
     <string name="w3c_checklist_step_notifications">Bật thông báo</string>
-    <string name="w3c_checklist_step_blocked">Xem thẻ Đã chặn</string>
+    <string name="w3c_checklist_step_blocked">Xem thẻ Tin rác</string>
     <string name="w3c_checklist_step_forward">Tùy chọn: chuyển tiếp tin nhắn đến số khác</string>
     <string name="w3c_checklist_step_done">Xong</string>
     <string name="w3c_checklist_action_set">Thiết lập</string>
     <string name="w3c_checklist_action_open">Mở</string>
     <string name="w3c_receipt_title">Tin nhắn rác bị giữ lại: nhấn để xem lại</string>
-    <string name="w3c_receipt_body">Một tin nhắn từ người gửi không xác định đã bị giữ lại trong Đã chặn. Tin nhắn không bị mất: bạn có thể xem lại và khôi phục bất cứ lúc nào.</string>
+    <string name="w3c_receipt_body">Một tin nhắn từ người gửi không xác định đã bị giữ lại trong Tin rác. Tin nhắn không bị mất: bạn có thể xem lại và khôi phục bất cứ lúc nào.</string>
     <string name="w3c_receipt_review">Xem lại</string>
     <string name="w3c_receipt_got_it">Đã hiểu</string>
     <string name="w3c_new_paste">Dán số</string>

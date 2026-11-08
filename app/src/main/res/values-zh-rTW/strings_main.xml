@@ -7,10 +7,10 @@
     <string name="main_search_no_results">找不到結果</string>
     <string name="main_settings">設定</string>
     <string name="main_tab_messages">訊息</string>
-    <string name="main_tab_blocked">已封鎖</string>
+    <string name="main_tab_blocked">垃圾訊息</string>
     <string name="main_tab_archived">已封存</string>
     <plurals name="main_tab_blocked_new">
-        <item quantity="other">已封鎖，%d則新訊息</item>
+        <item quantity="other">垃圾訊息，%d則新訊息</item>
     </plurals>
     <string name="main_permission_title">需要權限</string>
     <string name="main_permission_grant">授予權限</string>

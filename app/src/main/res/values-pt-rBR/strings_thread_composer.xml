@@ -6,7 +6,7 @@
     <string name="thread_edit_scheduled_replaces_draft">Editar a mensagem com envio programado substitui o que você está digitando. Continuar?</string>
     <string name="thread_menu_report_spam">Marque como spam</string>
     <string name="thread_report_spam_title">Marque como spam?</string>
-    <string name="thread_report_spam_message">As novas mensagens de %1$s vão para Mensagens bloqueadas em vez da sua caixa de entrada. As mensagens que já estão nesta conversa são mantidas.</string>
+    <string name="thread_report_spam_message">As novas mensagens de %1$s vão para Spam em vez da sua caixa de entrada. As mensagens que já estão nesta conversa são mantidas.</string>
     <string name="thread_report_spam_confirm">Marque como spam</string>
     <string name="thread_report_spam_cancel">Cancele</string>
     <string name="thread_report_spam_done">Marcado como spam</string>

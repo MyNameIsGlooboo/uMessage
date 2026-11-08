@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Le icone Material Symbols (copyright Google LLC) sono distribuite con licenza Apache License, versione 2.0. Le icone sono fornite così come sono, senza garanzie.</string>
     <string name="settings_nav_recommended">Consigliato</string>
     <string name="settings_nav_strict_confirm_title">Bloccare anche i codici di verifica?</string>
-    <string name="settings_nav_strict_confirm_body">Con la modalità filtro rigorosa, i codici dei mittenti che non sono nei tuoi contatti finiscono in Messaggi bloccati insieme a tutto il resto. Vengono bloccati anche i messaggi di banche e corrieri.</string>
+    <string name="settings_nav_strict_confirm_body">Con la modalità filtro rigorosa, i codici dei mittenti che non sono nei tuoi contatti finiscono in Spam insieme a tutto il resto. Vengono trattenuti anche i messaggi di banche e corrieri.</string>
     <string name="settings_nav_strict_confirm_action">Usa modalità rigorosa</string>
     <string name="settings_nav_strict_confirm_cancel">Mantieni modalità attuale</string>
-    <string name="settings_nav_purge_row">Elimina i messaggi bloccati dopo</string>
+    <string name="settings_nav_purge_row">Elimina lo spam dopo</string>
     <string name="settings_nav_group_alerts">Avvisi</string>
-    <string name="settings_nav_notify_body">Una notifica silenziosa per ogni messaggio bloccato</string>
+    <string name="settings_nav_notify_body">Una notifica silenziosa per ogni messaggio di spam</string>
     <string name="settings_nav_theme_title">Aspetto</string>
     <string name="settings_nav_theme_modes">Modalità</string>
     <string name="settings_nav_theme_colours">Colori</string>

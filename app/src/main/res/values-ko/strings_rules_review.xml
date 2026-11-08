@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">항상 허용하는 발신자 없음</string>
     <string name="rules2_empty_allowed_body">받은 메시지함으로 항상 받을 번호, 발신자 이름이나 단어를 추가해요. 아래의 규칙 추가를 눌러요.</string>
     <string name="rules2_empty_blocked_title">항상 차단하는 발신자 없음</string>
-    <string name="rules2_empty_blocked_body">차단함으로 보낼 번호, 발신자 이름, 단어나 정규식을 추가해요. 아래의 규칙 추가를 눌러요.</string>
+    <string name="rules2_empty_blocked_body">스팸함으로 보낼 번호, 발신자 이름, 단어나 정규식을 추가해요. 아래의 규칙 추가를 눌러요.</string>
     <string name="rules2_legacy_banner_title">이전 차단 목록 발견</string>
     <string name="rules2_legacy_banner_body">규칙으로 옮기면 차단된 메시지를 확인하고 복원할 수 있어요.</string>
     <string name="rules2_legacy_review">검토</string>
     <string name="rules2_system_header">Android 차단 목록 (전화도 차단)</string>
-    <string name="rules2_system_body">이 번호들의 문자는 uMessage 앱에 도착하기 전에 Android 시스템에서 차단해요. 차단함에도 표시되지 않아 복원할 수 없어요.</string>
+    <string name="rules2_system_body">이 번호들의 문자는 uMessage 앱에 도착하기 전에 Android 시스템에서 차단해요. 스팸함에도 표시되지 않아 복원할 수 없어요.</string>
     <string name="rules2_system_manage">관리</string>
     <string name="rules2_system_move">uMessage 규칙으로 이동</string>
     <string name="rules2_migrate_title">uMessage 규칙으로 이동</string>
-    <string name="rules2_migrate_point_blocked">이제 문자가 차단함으로 이동해 복원할 수 있어요.</string>
+    <string name="rules2_migrate_point_blocked">이제 문자가 스팸함으로 이동해 복원할 수 있어요.</string>
     <string name="rules2_migrate_remove_needs_first">먼저 위 옵션을 선택해요.</string>
     <string name="rules2_migrate_nothing_selected">선택한 항목 없음</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -48,7 +48,7 @@
     <plurals name="rules2_bn_move">
         <item quantity="other">번호 %1$d개를 규칙으로 이동</item>
     </plurals>
-    <string name="forward2_intro_reassure">받은 메시지함에 도착한 메시지만 전달해요. 차단된 스팸은 절대 전달하지 않아요.</string>
+    <string name="forward2_intro_reassure">받은 메시지함에 도착한 메시지만 전달해요. 스팸은 절대 전달하지 않아요.</string>
     <string name="forward2_empty_title">아직 전달 규칙 없음</string>
     <string name="forward2_empty_body">은행 알림처럼 조건에 맞는 메시지의 사본을 다른 휴대전화로 보내요. 아래에서 하나를 선택해 시작해요.</string>
     <string name="forward2_template_bank">은행 알림 전달</string>

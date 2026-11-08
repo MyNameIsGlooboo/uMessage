@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">Mặc định hệ thống</string>
     <string name="settings_f_group_rules">Quy tắc và danh sách</string>
     <string name="settings_f_spam_more">Thời gian lưu và cảnh báo</string>
-    <string name="settings_f_spam_more_body">Thời gian giữ tin nhắn đã chặn và cảnh báo</string>
+    <string name="settings_f_spam_more_body">Thời gian giữ tin nhắn rác và cảnh báo</string>
     <string name="settings_f_hide_lock_codes_body">Mã hiển thị thành •••• trên màn hình khóa</string>
     <string name="settings_f_code_alert">Cảnh báo mã</string>
     <string name="settings_f_code_alert_body">Âm thanh cho mã xác minh</string>

@@ -3,8 +3,8 @@
     <string name="lock_scope_title">锁定范围</string>
     <string name="lock_scope_whole">整个应用</string>
     <string name="lock_scope_chosen">仅指定部分</string>
-    <string name="lock_scope_chosen_long">仅指定部分：“已屏蔽”标签页和隐藏会话</string>
-    <string name="lock_scope_blocked_title">已屏蔽的消息已锁定</string>
+    <string name="lock_scope_chosen_long">仅指定部分：“垃圾短信”标签页和隐藏会话</string>
+    <string name="lock_scope_blocked_title">垃圾短信已锁定</string>
     <string name="lock_scope_blocked_body">解锁后即可查看。</string>
     <string name="lock_scope_unlock">解锁</string>
 </resources>

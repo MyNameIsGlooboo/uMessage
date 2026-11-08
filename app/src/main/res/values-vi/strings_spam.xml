@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">Cài đặt chặn</string>
     <string name="spam_blocked_stats_totals">Tổng cộng đã chặn %1$d, đã khôi phục %2$d</string>
     <string name="spam_blocked_header_cd">Đã chặn %1$d tin nhắn rác trong 7 ngày qua. Tổng cộng đã chặn %2$d, đã khôi phục %3$d.</string>
-    <string name="spam_blocked_empty_title">Chưa chặn tin nhắn nào</string>
+    <string name="spam_blocked_empty_title">Chưa có tin nhắn rác</string>
     <string name="spam_action_delete">Xóa</string>
     <string name="spam_select">Chọn</string>
     <string name="spam_action_select_all">Chọn tất cả</string>
@@ -36,7 +36,7 @@
     <string name="spam_rules_empty_allowed_title">Chưa có quy tắc cho phép</string>
     <string name="spam_rules_empty_allowed_body">Tin nhắn bạn cho phép luôn vào hộp thư đến, kể cả trong chế độ lọc nghiêm ngặt. Thêm số điện thoại, tên người gửi hoặc từ khóa.</string>
     <string name="spam_rules_empty_blocked_title">Chưa có quy tắc chặn</string>
-    <string name="spam_rules_empty_blocked_body">Chặn số điện thoại, đầu số, tên người gửi, từ khóa hoặc biểu thức chính quy. Tin nhắn bị chặn sẽ vào thư mục Đã chặn.</string>
+    <string name="spam_rules_empty_blocked_body">Chặn số điện thoại, đầu số, tên người gửi, từ khóa hoặc biểu thức chính quy. Tin nhắn của họ sẽ vào thư mục Tin rác.</string>
     <string name="spam_rules_delete_rule">Xóa quy tắc %s</string>
     <string name="spam_rules_deleted">Đã xóa quy tắc</string>
     <plurals name="spam_rules_imported">
@@ -102,10 +102,10 @@
     <string name="spam_mode_off">Tắt</string>
     <string name="spam_mode_off_body">Không chặn người gửi không xác định</string>
     <string name="spam_strict_warning_title">Chế độ lọc nghiêm ngặt có thể ẩn tin nhắn quan trọng</string>
-    <string name="spam_strict_warning_body">Tin nhắn từ ngân hàng, đơn vị giao hàng và mã dùng một lần thường đến từ người gửi không có trong danh sách người liên hệ của bạn. Trong chế độ lọc nghiêm ngặt, các tin nhắn này vào thư mục Đã chặn, kể cả mã. Chọn Thông minh để cho phép mã hoặc cho phép những người gửi đó một lần.</string>
-    <string name="spam_strict_warning_action">Xem lại tin nhắn đã chặn</string>
+    <string name="spam_strict_warning_body">Tin nhắn từ ngân hàng, đơn vị giao hàng và mã dùng một lần thường đến từ người gửi không có trong danh sách người liên hệ của bạn. Trong chế độ lọc nghiêm ngặt, các tin nhắn này vào thư mục Tin rác, kể cả mã. Chọn Thông minh để cho phép mã hoặc cho phép những người gửi đó một lần.</string>
+    <string name="spam_strict_warning_action">Xem lại tin nhắn rác</string>
     <string name="spam_settings_cleanup_title">Dọn dẹp</string>
-    <string name="spam_purge_body">Tin nhắn đã chặn cũ sẽ tự động bị xóa.</string>
+    <string name="spam_purge_body">Tin nhắn rác cũ sẽ tự động bị xóa.</string>
     <string name="spam_purge_days">%d ngày</string>
     <string name="spam_purge_forever">Không bao giờ</string>
     <string name="spam_notify_title">Thông báo khi tin nhắn bị chặn</string>

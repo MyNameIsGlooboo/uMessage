@@ -4,7 +4,7 @@
     <string name="onb_allow_done">Tamam</string>
     <string name="onb_allow_needed">Gerekli</string>
     <string name="onb_allow_all_set">Her şey hazır</string>
-    <string name="onb_mode_strict_short">Hepsini Engellenenler\'de tut</string>
+    <string name="onb_mode_strict_short">Hepsini Spam\'de tut</string>
     <string name="onb_mode_smart_short">Tut, ama kod mesajlarını geçir</string>
     <string name="onb_mode_off_short">Filtreleme</string>
 </resources>

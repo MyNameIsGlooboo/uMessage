@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols (Urheberrecht: Google LLC) stehen unter der Apache License, Version 2.0. Die Symbole werden im vorliegenden Zustand ohne Gewährleistung bereitgestellt.</string>
     <string name="settings_nav_recommended">Empfohlen</string>
     <string name="settings_nav_strict_confirm_title">Auch Bestätigungscodes blockieren?</string>
-    <string name="settings_nav_strict_confirm_body">Im Filtermodus „Streng“ landen Codes von Absendern, die nicht in deinen Kontakten sind, zusammen mit allen anderen Nachrichten unter „Blockiert“. Auch Nachrichten von Banken und Lieferdiensten werden zurückgehalten.</string>
+    <string name="settings_nav_strict_confirm_body">Im Filtermodus „Streng“ landen Codes von Absendern, die nicht in deinen Kontakten sind, zusammen mit allen anderen Nachrichten unter „Spam“. Auch Nachrichten von Banken und Lieferdiensten werden zurückgehalten.</string>
     <string name="settings_nav_strict_confirm_action">„Streng“ verwenden</string>
     <string name="settings_nav_strict_confirm_cancel">Aktuellen Modus beibehalten</string>
-    <string name="settings_nav_purge_row">Blockierte Nachrichten löschen nach</string>
+    <string name="settings_nav_purge_row">Spam löschen nach</string>
     <string name="settings_nav_group_alerts">Hinweise</string>
-    <string name="settings_nav_notify_body">Eine lautlose Benachrichtigung für jede blockierte Nachricht</string>
+    <string name="settings_nav_notify_body">Eine lautlose Benachrichtigung für jede Spam-Nachricht</string>
     <string name="settings_nav_theme_title">Darstellung</string>
     <string name="settings_nav_theme_modes">Modus</string>
     <string name="settings_nav_theme_colours">Farben</string>

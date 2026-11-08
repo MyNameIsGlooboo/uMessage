@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols（著作権者：Google LLC）は、Apache Licenseバージョン2.0に基づいて提供されます。アイコンは現状のまま、無保証で提供されます。</string>
     <string name="settings_nav_recommended">推奨</string>
     <string name="settings_nav_strict_confirm_title">認証コードもブロックしますか？</string>
-    <string name="settings_nav_strict_confirm_body">フィルターモード：厳格では、連絡先にない送信者からの認証コードも、ほかのメッセージと同様に「ブロック済み」に移動します。銀行や配送業者からのメッセージもブロックします。</string>
+    <string name="settings_nav_strict_confirm_body">フィルターモード：厳格では、連絡先にない送信者からの認証コードも、ほかのメッセージと同様に「迷惑メッセージ」に移動します。銀行や配送業者からのメッセージもブロックします。</string>
     <string name="settings_nav_strict_confirm_action">厳格に設定</string>
     <string name="settings_nav_strict_confirm_cancel">現状を維持</string>
-    <string name="settings_nav_purge_row">ブロック済みメッセージの自動削除までの期間</string>
+    <string name="settings_nav_purge_row">迷惑メッセージの自動削除までの期間</string>
     <string name="settings_nav_group_alerts">通知</string>
-    <string name="settings_nav_notify_body">メッセージをブロックするたびに、音を鳴らさず通知します。</string>
+    <string name="settings_nav_notify_body">迷惑メッセージが届くたびに、音を鳴らさず通知します。</string>
     <string name="settings_nav_theme_title">デザイン</string>
     <string name="settings_nav_theme_modes">モード</string>
     <string name="settings_nav_theme_colours">色</string>

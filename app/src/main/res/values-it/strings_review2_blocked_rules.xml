@@ -43,16 +43,16 @@
         <item quantity="one">Sposta %d numero nelle regole di uMessage</item>
         <item quantity="other">Sposta %d numeri nelle regole di uMessage</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• I loro messaggi andranno in Messaggi bloccati, dove puoi leggerli e ripristinarli.</string>
+    <string name="e_migrate_point_blocked">• I loro messaggi andranno in Spam, dove puoi leggerli e ripristinarli.</string>
     <string name="e_migrate_point_android">• Android continuerà a scartare i loro messaggi finché restano nel suo elenco.</string>
     <string name="e_migrate_calls_note">L\'elenco di Android blocca anche le chiamate. I numeri che rimuovi potranno chiamarti di nuovo.</string>
     <string name="e_bn_unknown_body">Si applica solo quando il filtro per i mittenti sconosciuti è disattivato.</string>
     <string name="e_bn_row_calls_texts">Blocca chiamate e messaggi</string>
     <string name="e_bn_row_short_code">Numero breve: uMessage non riceve mai i suoi messaggi</string>
     <string name="e_bn_move_one">Sposta nelle regole di uMessage</string>
-    <string name="e_bn_moved">%1$s è ora una regola di uMessage. I suoi messaggi vanno in Messaggi bloccati e le sue chiamate non sono più bloccate.</string>
+    <string name="e_bn_moved">%1$s è ora una regola di uMessage. I suoi messaggi vanno in Spam e le sue chiamate non sono più bloccate.</string>
     <string name="e_bn_field_help">Ad esempio +15550001234, oppure +1555* per tutti i numeri che iniziano con +1555</string>
     <string name="e_bn_short_code_warning">Sembra un numero breve. Android scarta i suoi messaggi prima che uMessage li riceva, quindi non potresti mai ripristinarli, ad esempio un codice o un avviso della banca.</string>
     <string name="e_bn_add_as_rule">Aggiungi invece come regola di uMessage</string>
-    <string name="e_bn_added_as_rule">%1$s aggiunto come regola di uMessage. I suoi messaggi vanno in Messaggi bloccati.</string>
+    <string name="e_bn_added_as_rule">%1$s aggiunto come regola di uMessage. I suoi messaggi vanno in Spam.</string>
 </resources>

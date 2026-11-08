@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessage พักข้อความเหล่านี้ไว้ ข้อความจึงไม่อยู่ในกล่องข้อความเข้า</string>
     <string name="r3b_thread_delete_all">ลบข้อความทั้งหมดจาก %1$s</string>
     <string name="r3b_thread_empty_title">ไม่มีข้อความเหลือแล้ว</string>
-    <string name="r3b_thread_empty_body">ตอนนี้ไม่มีข้อความที่บล็อกจากผู้ส่งนี้</string>
+    <string name="r3b_thread_empty_body">ตอนนี้ไม่มีสแปมจากผู้ส่งนี้</string>
     <string name="r3b_message_actions">การดำเนินการกับข้อความ</string>
     <string name="r3b_why_blocked">เหตุผลที่บล็อก</string>
     <string name="r3b_copy_text">คัดลอกข้อความ</string>
@@ -14,6 +14,6 @@
     <string name="r3b_delete_message">ลบ</string>
     <string name="r3b_received">ได้รับเมื่อ %1$s</string>
     <plurals name="r3b_info_purge">
-        <item quantity="other">ข้อความที่บล็อกจะถูกลบหลังจาก %d วัน</item>
+        <item quantity="other">สแปมจะถูกลบหลังจาก %d วัน</item>
     </plurals>
 </resources>

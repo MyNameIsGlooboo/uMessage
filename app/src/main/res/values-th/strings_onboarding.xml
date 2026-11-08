@@ -8,7 +8,7 @@
     <string name="onb_welcome_title">ยินดีต้อนรับสู่ uMessage</string>
     <string name="onb_welcome_intro">ส่งข้อความได้ดีขึ้น สแปมน้อยลง</string>
     <string name="onb_welcome_spam">กันสแปมออกไป</string>
-    <string name="onb_welcome_spam_desc">ข้อความจากผู้ส่งที่ไม่รู้จักจะอยู่ในหน้าที่บล็อก ไม่หายไปไหน</string>
+    <string name="onb_welcome_spam_desc">ข้อความจากผู้ส่งที่ไม่รู้จักจะอยู่ในสแปม ไม่หายไปไหน</string>
     <string name="onb_welcome_codes">คัดลอกรหัสในแตะเดียว</string>
     <string name="onb_welcome_codes_desc">คัดลอกรหัสยืนยันจากการแจ้งเตือนได้ทันที</string>
     <string name="onb_welcome_copy">คัดลอกเฉพาะส่วนที่ต้องการ</string>
@@ -46,7 +46,7 @@
     <string name="onb_mode_smart">อัจฉริยะ</string>
     <string name="onb_mode_off">ปิด</string>
     <string name="onb_mode_warning_title">ข้อควรรู้เกี่ยวกับข้อความธนาคารและรหัส</string>
-    <string name="onb_mode_warning_body">ในโหมดกรองเข้มงวด การแจ้งเตือนจากธนาคาร สถานะการจัดส่ง และรหัสใช้ครั้งเดียวจากผู้ส่งที่ไม่รู้จักจะถูกเก็บไว้ในหน้าที่บล็อก รวมถึงรหัสด้วย จะไม่มีการแจ้งเตือน จึงควรตรวจดูหน้าที่บล็อกเมื่อรอข้อความเหล่านี้</string>
+    <string name="onb_mode_warning_body">ในโหมดกรองเข้มงวด การแจ้งเตือนจากธนาคาร สถานะการจัดส่ง และรหัสใช้ครั้งเดียวจากผู้ส่งที่ไม่รู้จักจะถูกเก็บไว้ในสแปม รวมถึงรหัสด้วย จะไม่มีการแจ้งเตือน จึงควรตรวจดูสแปมเมื่อรอข้อความเหล่านี้</string>
     <string name="onb_oem_title">ให้ uMessage ทำงานต่อเนื่อง</string>
     <string name="onb_oem_manual_hint">หากเปิดหน้าจอไม่ได้ ให้ค้นหาชื่อที่แสดงในการตั้งค่า</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi หรือ Poco</string>

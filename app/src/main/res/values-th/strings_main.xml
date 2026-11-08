@@ -7,10 +7,10 @@
     <string name="main_search_no_results">ไม่พบผลลัพธ์</string>
     <string name="main_settings">การตั้งค่า</string>
     <string name="main_tab_messages">ข้อความ</string>
-    <string name="main_tab_blocked">ที่บล็อก</string>
+    <string name="main_tab_blocked">สแปม</string>
     <string name="main_tab_archived">เก็บถาวรแล้ว</string>
     <plurals name="main_tab_blocked_new">
-        <item quantity="other">ที่บล็อก ใหม่ %d รายการ</item>
+        <item quantity="other">สแปม ใหม่ %d รายการ</item>
     </plurals>
     <string name="main_permission_title">ต้องให้สิทธิ์</string>
     <string name="main_permission_grant">ให้สิทธิ์</string>

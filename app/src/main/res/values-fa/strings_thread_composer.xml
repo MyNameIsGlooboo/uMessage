@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_emoji">ایموجی</string>
-    <string name="thread_show_keyboard">نمایش صفحه‌کلید</string>
+    <string name="thread_show_keyboard">نمایش کیبورد</string>
     <string name="thread_scheduled_not_sent">پیام زمان‌بندی‌شده ارسال نشد</string>
     <string name="thread_edit_scheduled_replaces_draft">با ویرایش پیام زمان‌بندی‌شده، متن در حال نوشتن جایگزین می‌شود. ادامه می‌دهید؟</string>
-    <string name="thread_menu_report_spam">علامت‌گذاری به‌عنوان هرزنامه</string>
-    <string name="thread_report_spam_title">به‌عنوان هرزنامه علامت‌گذاری شود؟</string>
-    <string name="thread_report_spam_message">پیام‌های جدید %1$s به‌جای صندوق ورودی به پیام‌های مسدودشده می‌روند. پیام‌های فعلی این گفتگو حفظ می‌شوند.</string>
-    <string name="thread_report_spam_confirm">علامت‌گذاری به‌عنوان هرزنامه</string>
+    <string name="thread_menu_report_spam">علامت‌گذاری به‌عنوان اسپم</string>
+    <string name="thread_report_spam_title">به‌عنوان اسپم علامت‌گذاری شود؟</string>
+    <string name="thread_report_spam_message">پیام‌های جدید %1$s به‌جای صندوق ورودی به اسپم می‌روند. پیام‌های فعلی این گفتگو حفظ می‌شوند.</string>
+    <string name="thread_report_spam_confirm">علامت‌گذاری به‌عنوان اسپم</string>
     <string name="thread_report_spam_cancel">لغو</string>
-    <string name="thread_report_spam_done">به‌عنوان هرزنامه علامت‌گذاری شد</string>
-    <string name="thread_report_spam_rule_note">به‌عنوان هرزنامه گزارش شد</string>
-    <string name="thread_report_spam_already">از قبل به‌عنوان هرزنامه علامت‌گذاری شده است</string>
-    <string name="thread_report_spam_failed">علامت‌گذاری به‌عنوان هرزنامه ممکن نشد</string>
-    <string name="thread_report_spam_undo">واگرد</string>
+    <string name="thread_report_spam_done">به‌عنوان اسپم علامت‌گذاری شد</string>
+    <string name="thread_report_spam_rule_note">به‌عنوان اسپم گزارش شد</string>
+    <string name="thread_report_spam_already">از قبل به‌عنوان اسپم علامت‌گذاری شده است</string>
+    <string name="thread_report_spam_failed">علامت‌گذاری به‌عنوان اسپم نشد</string>
+    <string name="thread_report_spam_undo">برگردان</string>
 </resources>

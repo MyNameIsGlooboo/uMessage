@@ -5,7 +5,7 @@
     <string name="region_summary">No se retienen mensajes de contactos ni de personas a quienes escribiste</string>
     <string name="region_off">Desactivado</string>
     <string name="region_picker_title">Tu país de residencia</string>
-    <string name="region_picker_body">Los mensajes de números de otros países se retienen en Mensajes bloqueados, excepto los de contactos y personas a quienes escribiste. También se retienen los de un familiar en el extranjero si no está en tus contactos.</string>
+    <string name="region_picker_body">Los mensajes de números de otros países se retienen en Spam, excepto los de contactos y personas a quienes escribiste. También se retienen los de un familiar en el extranjero si no está en tus contactos. Solo funciona en los modos Inteligente y Estricto.</string>
     <string name="region_picker_search">Buscar</string>
     <string name="region_reason_foreign">Número de otro país</string>
 </resources>

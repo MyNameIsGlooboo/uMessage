@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">Kontrol listesini kapatın</string>
     <string name="w3c_checklist_step_sms">uMessage uygulamasını varsayılan SMS uygulamanız yapın</string>
     <string name="w3c_checklist_step_notifications">Bildirimleri açın</string>
-    <string name="w3c_checklist_step_blocked">Engellenenler sekmesine göz atın</string>
+    <string name="w3c_checklist_step_blocked">Spam sekmesine göz atın</string>
     <string name="w3c_checklist_step_forward">İsteğe bağlı: mesajları başka bir numaraya iletin</string>
     <string name="w3c_checklist_step_done">Tamamlandı</string>
     <string name="w3c_checklist_action_set">Ayarlayın</string>
     <string name="w3c_checklist_action_open">Açın</string>
     <string name="w3c_receipt_title">Spam bekletildi: incelemek için dokunun</string>
-    <string name="w3c_receipt_body">Bilinmeyen bir gönderenden gelen mesaj Engellenenler bölümünde bekletildi. Kaybolmadı: istediğiniz zaman inceleyebilir ve geri yükleyebilirsiniz.</string>
+    <string name="w3c_receipt_body">Bilinmeyen bir gönderenden gelen mesaj Spam bölümünde bekletildi. Kaybolmadı: istediğiniz zaman inceleyebilir ve geri yükleyebilirsiniz.</string>
     <string name="w3c_receipt_review">İnceleyin</string>
     <string name="w3c_receipt_got_it">Anlaşıldı</string>
     <string name="w3c_new_paste">Numara yapıştırın</string>

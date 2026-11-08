@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">Configurações de bloqueio</string>
     <string name="spam_blocked_stats_totals">%1$d bloqueadas no total, %2$d restauradas</string>
     <string name="spam_blocked_header_cd">%1$d mensagens de spam bloqueadas nos últimos 7 dias. %2$d bloqueadas no total, %3$d restauradas.</string>
-    <string name="spam_blocked_empty_title">Nada bloqueado ainda</string>
+    <string name="spam_blocked_empty_title">Nada em Spam ainda</string>
     <string name="spam_action_delete">Exclua</string>
     <string name="spam_select">Selecione</string>
     <string name="spam_action_select_all">Selecione tudo</string>
@@ -38,7 +38,7 @@
     <string name="spam_rules_empty_allowed_title">Nenhuma regra de permissão</string>
     <string name="spam_rules_empty_allowed_body">Tudo o que você permitir sempre chega à caixa de entrada, mesmo no modo rigoroso. Adicione um número, um nome de remetente ou uma palavra-chave.</string>
     <string name="spam_rules_empty_blocked_title">Nenhuma regra de bloqueio</string>
-    <string name="spam_rules_empty_blocked_body">Bloqueie um número, um prefixo, um nome de remetente, uma palavra-chave ou um padrão (expressão regular). As mensagens bloqueadas vão para a pasta Bloqueados.</string>
+    <string name="spam_rules_empty_blocked_body">Bloqueie um número, um prefixo, um nome de remetente, uma palavra-chave ou um padrão (expressão regular). As mensagens deles vão para Spam.</string>
     <string name="spam_rules_delete_rule">Exclua a regra %s</string>
     <string name="spam_rules_deleted">Regra excluída</string>
     <plurals name="spam_rules_imported" tools:ignore="ImpliedQuantity">
@@ -109,10 +109,10 @@
     <string name="spam_mode_off">Desativado</string>
     <string name="spam_mode_off_body">Sem bloqueio de remetentes desconhecidos</string>
     <string name="spam_strict_warning_title">O modo rigoroso pode ocultar mensagens importantes</string>
-    <string name="spam_strict_warning_body">Mensagens de bancos, transportadoras e códigos de uso único geralmente vêm de remetentes que não estão nos seus contatos. No modo rigoroso, vão para a pasta Bloqueados, inclusive os códigos. Escolha o modo inteligente para permitir códigos ou permita esses remetentes uma vez.</string>
-    <string name="spam_strict_warning_action">Revise as mensagens bloqueadas</string>
+    <string name="spam_strict_warning_body">Mensagens de bancos, transportadoras e códigos de uso único geralmente vêm de remetentes que não estão nos seus contatos. No modo rigoroso, vão para Spam, inclusive os códigos. Escolha o modo inteligente para permitir códigos ou permita esses remetentes uma vez.</string>
+    <string name="spam_strict_warning_action">Revise o Spam</string>
     <string name="spam_settings_cleanup_title">Limpeza</string>
-    <string name="spam_purge_body">Mensagens bloqueadas antigas são removidas automaticamente.</string>
+    <string name="spam_purge_body">Spam antigo é removido automaticamente.</string>
     <string name="spam_purge_days">%d dias</string>
     <string name="spam_purge_forever">Nunca</string>
     <string name="spam_notify_title">Notifique quando uma mensagem for bloqueada</string>

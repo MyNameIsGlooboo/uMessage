@@ -5,17 +5,17 @@
     <string name="declog_empty_title">هنوز تصمیمی گرفته نشده</string>
     <string name="declog_empty_body">هر پیامی که فیلتر بررسی می‌کند، با دلیل تصمیم اینجا نمایش داده می‌شود. متن پیام هرگز ذخیره نمی‌شود.</string>
     <plurals name="declog_kept_for" tools:ignore="ImpliedQuantity">
-        <item quantity="one">هر تصمیم پس از %d روز حذف می‌شود. متن پیام هرگز ذخیره نمی‌شود.</item>
-        <item quantity="other">هر تصمیم پس از %d روز حذف می‌شود. متن پیام هرگز ذخیره نمی‌شود.</item>
+        <item quantity="one">هر تصمیم بعد از %d روز حذف می‌شود. متن پیام هرگز ذخیره نمی‌شود.</item>
+        <item quantity="other">هر تصمیم بعد از %d روز حذف می‌شود. متن پیام هرگز ذخیره نمی‌شود.</item>
     </plurals>
     <string name="declog_sim">سیم‌کارت %1$s</string>
     <string name="declog_today">امروز</string>
     <string name="declog_yesterday">دیروز</string>
     <string name="declog_allowed_by_rule">مجاز طبق قانون: %1$s</string>
     <string name="declog_filter_all">همه</string>
-    <string name="declog_filter_blocked">مسدودشده</string>
+    <string name="declog_filter_blocked">بلاک‌شده</string>
     <string name="declog_filter_allowed">مجاز</string>
-    <string name="declog_filter_empty">هیچ تصمیمی با این فیلتر مطابقت ندارد</string>
+    <string name="declog_filter_empty">هیچ تصمیمی با این فیلتر جور نیست</string>
     <plurals name="declog_times" tools:ignore="ImpliedQuantity">
         <item quantity="one">%1$s بار</item>
         <item quantity="other">%1$s بار</item>
@@ -25,21 +25,21 @@
         <item quantity="other">همین تصمیم %1$s بار پیاپی گرفته شد</item>
     </plurals>
     <plurals name="declog_share_count" tools:ignore="ImpliedQuantity">
-        <item quantity="one">هم‌رسانی %d تصمیم</item>
-        <item quantity="other">هم‌رسانی %d تصمیم</item>
+        <item quantity="one">اشتراک‌گذاری %d تصمیم</item>
+        <item quantity="other">اشتراک‌گذاری %d تصمیم</item>
     </plurals>
     <string name="declog_csv_subject">گزارش تصمیم‌های uMessage</string>
-    <string name="declog_share_failed">هم‌رسانی گزارش انجام نشد</string>
+    <string name="declog_share_failed">اشتراک‌گذاری گزارش انجام نشد</string>
     <string name="declog_details_title">جزئیات</string>
     <string name="declog_open_details">باز کردن جزئیات %1$s</string>
-    <string name="declog_fixed_allowed">از طریق گزارش به این فرستنده اجازه دادید</string>
-    <string name="declog_fixed_blocked">این فرستنده را از طریق گزارش مسدود کردید</string>
-    <string name="declog_fixed_restored">این پیام را از طریق گزارش بازیابی کردید</string>
+    <string name="declog_fixed_allowed">از روی گزارش به این فرستنده اجازه دادید</string>
+    <string name="declog_fixed_blocked">این فرستنده را از روی گزارش بلاک کردید</string>
+    <string name="declog_fixed_restored">این پیام را از روی گزارش بازیابی کردید</string>
     <string name="declog_restored">بازیابی‌شده</string>
-    <string name="declog_blocked_message">پیام، همچنان در مسدودشده‌ها</string>
+    <string name="declog_blocked_message">پیام، هنوز در اسپم</string>
     <string name="declog_restore">بازیابی پیام</string>
     <string name="declog_restore_done">پیام در صندوق ورودی بازیابی شد</string>
-    <string name="declog_restore_text_only">متن در صندوق ورودی بازیابی شد. بازیابی عکس‌ها ممکن نبود.</string>
+    <string name="declog_restore_text_only">متن در صندوق ورودی بازیابی شد. عکس‌ها بازیابی نشدند.</string>
     <string name="declog_restore_nothing">چیزی برای بازیابی نیست: این پیام تصویری نگه داشته نشده</string>
     <string name="declog_restore_failed">بازیابی پیام انجام نشد</string>
     <string name="declog_separator">"، "</string>

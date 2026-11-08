@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <plurals name="r4_banner_stopped_week" tools:ignore="ImpliedQuantity">
-        <item quantity="one">در ۷ روز گذشته مسدود شده</item>
-        <item quantity="other">در ۷ روز گذشته مسدود شده</item>
+        <item quantity="one">در ۷ روز گذشته بلاک شده</item>
+        <item quantity="other">در ۷ روز گذشته بلاک شده</item>
     </plurals>
 </resources>

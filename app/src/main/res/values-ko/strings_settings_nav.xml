@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols(저작권자: Google LLC)에는 Apache License 버전 2.0이 적용돼요. 아이콘은 어떤 보증도 없이 있는 그대로 제공해요.</string>
     <string name="settings_nav_recommended">추천</string>
     <string name="settings_nav_strict_confirm_title">인증 코드도 차단할까요?</string>
-    <string name="settings_nav_strict_confirm_body">엄격 모드에서는 연락처에 없는 발신자의 인증 코드도 다른 메시지와 함께 차단함으로 이동해요. 은행이나 배송업체의 메시지도 차단돼요.</string>
+    <string name="settings_nav_strict_confirm_body">엄격 모드에서는 연락처에 없는 발신자의 인증 코드도 다른 메시지와 함께 스팸함으로 이동해요. 은행이나 배송업체의 메시지도 스팸함으로 이동해요.</string>
     <string name="settings_nav_strict_confirm_action">엄격 사용</string>
     <string name="settings_nav_strict_confirm_cancel">현재 모드 유지</string>
-    <string name="settings_nav_purge_row">차단된 메시지 자동 삭제 시점</string>
+    <string name="settings_nav_purge_row">스팸 자동 삭제 시점</string>
     <string name="settings_nav_group_alerts">알림</string>
-    <string name="settings_nav_notify_body">메시지가 차단될 때마다 무음 알림</string>
+    <string name="settings_nav_notify_body">스팸이 올 때마다 무음 알림</string>
     <string name="settings_nav_theme_title">화면 꾸미기</string>
     <string name="settings_nav_theme_modes">모드</string>
     <string name="settings_nav_theme_colours">색상</string>

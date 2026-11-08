@@ -2,22 +2,22 @@
 <resources>
     <!-- Wave 8 (UX review U17): the add-rule sheet asks what to match, then allow or block -->
     <string name="ux8d_sheet_title_allow">همیشه اجازه دادن</string>
-    <string name="ux8d_sheet_title_block">همیشه مسدود کردن</string>
-    <string name="ux8d_match_label">چه چیزی تطبیق داده شود</string>
+    <string name="ux8d_sheet_title_block">همیشه بلاک کردن</string>
+    <string name="ux8d_match_label">چه چیزی جور شود</string>
     <string name="ux8d_match_number">یک شماره تلفن</string>
     <string name="ux8d_match_sender">نام یک فرستنده، مثل بانک</string>
-    <string name="ux8d_match_word">یک واژه در پیام</string>
+    <string name="ux8d_match_word">یک کلمه در پیام</string>
     <string name="ux8d_match_prefix">شماره‌هایی که شروع می‌شوند با…</string>
     <string name="ux8d_match_pattern">یک الگو (پیشرفته)</string>
-    <string name="ux8d_match_more">راه‌های بیشتر برای تطبیق</string>
-    <string name="ux8d_action_label">وقتی تطبیق داشت</string>
+    <string name="ux8d_match_more">راه‌های بیشتر برای جور کردن</string>
+    <string name="ux8d_action_label">وقتی جور شد</string>
     <string name="ux8d_more_options">گزینه‌های بیشتر</string>
 
     <!-- U29: the type, said in words, under each rule -->
     <string name="ux8d_row_type_number">شماره</string>
     <string name="ux8d_row_type_prefix">شماره شروع می‌شود با</string>
     <string name="ux8d_row_type_sender">نام فرستنده</string>
-    <string name="ux8d_row_type_word">واژه در پیام</string>
+    <string name="ux8d_row_type_word">کلمه در پیام</string>
     <string name="ux8d_row_type_pattern">الگو</string>
     <string name="ux8d_row_type_note">%1$s · %2$s</string>
 </resources>

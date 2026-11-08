@@ -5,7 +5,7 @@
     <string name="region_summary">不会屏蔽联系人和你发过短信的人</string>
     <string name="region_off">关闭</string>
     <string name="region_picker_title">你所在的国家</string>
-    <string name="region_picker_body">其他国家号码的消息会进入“已屏蔽”，联系人和你发过短信的人除外。不在联系人中的海外亲属也会被屏蔽。</string>
+    <string name="region_picker_body">其他国家号码的消息会进入“垃圾短信”，联系人和你发过短信的人除外。不在联系人中的海外亲属也会被归入其中。此功能仅在“智能”和“严格”模式下生效。</string>
     <string name="region_picker_search">搜索</string>
     <string name="region_reason_foreign">来自其他国家的号码</string>
 </resources>

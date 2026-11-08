@@ -3,6 +3,6 @@
     <string name="notif_block_action">Заблокувати</string>
     <string name="notif_block_undo">Скасувати</string>
     <string name="notif_block_done_title">Заблоковано: %1$s</string>
-    <string name="notif_block_done_text">Нові повідомлення потраплятимуть у «Заблоковані»</string>
+    <string name="notif_block_done_text">Нові повідомлення потраплятимуть у «Спам»</string>
     <string name="notif_block_channel">Заблоковані відправники</string>
 </resources>

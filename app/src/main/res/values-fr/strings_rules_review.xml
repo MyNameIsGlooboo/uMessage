@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">Aucun expéditeur toujours autorisé</string>
     <string name="rules2_empty_allowed_body">Ajoutez un numéro, un nom d\'expéditeur ou un mot dont les messages doivent toujours arriver dans votre boîte de réception. Appuyez sur Ajouter une règle ci-dessous.</string>
     <string name="rules2_empty_blocked_title">Aucun expéditeur toujours bloqué</string>
-    <string name="rules2_empty_blocked_body">Ajoutez un numéro, un nom d\'expéditeur, un mot ou une expression régulière pour envoyer les messages correspondants dans Messages bloqués. Appuyez sur Ajouter une règle ci-dessous.</string>
+    <string name="rules2_empty_blocked_body">Ajoutez un numéro, un nom d\'expéditeur, un mot ou une expression régulière pour envoyer les messages correspondants dans Spam. Appuyez sur Ajouter une règle ci-dessous.</string>
     <string name="rules2_legacy_banner_title">Anciennes listes de blocage détectées</string>
     <string name="rules2_legacy_banner_body">Convertissez-les en règles pour voir et restaurer les messages qu\'elles bloquent.</string>
     <string name="rules2_legacy_review">Examiner</string>
     <string name="rules2_system_header">Liste de blocage Android (bloque aussi les appels)</string>
-    <string name="rules2_system_body">Android supprime les SMS de ces numéros avant que uMessage les reçoive. Ils n\'apparaissent donc jamais dans Messages bloqués et ne peuvent pas être restaurés.</string>
+    <string name="rules2_system_body">Android supprime les SMS de ces numéros avant que uMessage les reçoive. Ils n\'apparaissent donc jamais dans Spam et ne peuvent pas être restaurés.</string>
     <string name="rules2_system_manage">Gérer</string>
     <string name="rules2_system_move">Convertir en règles uMessage</string>
     <string name="rules2_migrate_title">Convertir en règles uMessage</string>
-    <string name="rules2_migrate_point_blocked">Les SMS arrivent alors dans Messages bloqués, où vous pouvez les restaurer.</string>
+    <string name="rules2_migrate_point_blocked">Les SMS arrivent alors dans Spam, où vous pouvez les restaurer.</string>
     <string name="rules2_migrate_remove_needs_first">Cochez d\'abord l\'option ci-dessus.</string>
     <string name="rules2_migrate_nothing_selected">Aucune sélection</string>
     <plurals name="rules2_migrate_confirm_count" tools:ignore="ImpliedQuantity">
@@ -50,7 +50,7 @@
         <item quantity="one">Convertir %1$d numéro en règle</item>
         <item quantity="other">Convertir %1$d numéros en règles</item>
     </plurals>
-    <string name="forward2_intro_reassure">Seuls les messages qui arrivent dans votre boîte de réception sont transférés. Le spam bloqué ne l\'est jamais.</string>
+    <string name="forward2_intro_reassure">Seuls les messages qui arrivent dans votre boîte de réception sont transférés. Le spam ne l\'est jamais.</string>
     <string name="forward2_empty_title">Aucune règle de transfert pour le moment</string>
     <string name="forward2_empty_body">Envoyez une copie des messages correspondants, comme les alertes bancaires, vers un autre téléphone. Commencez par l\'un de ces modèles.</string>
     <string name="forward2_template_bank">Transférer les alertes bancaires</string>

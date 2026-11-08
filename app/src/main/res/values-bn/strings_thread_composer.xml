@@ -6,7 +6,7 @@
     <string name="thread_edit_scheduled_replaces_draft">সময় নির্ধারণ করা বার্তা বদলালে আপনি এখন যা লিখছেন তা মুছে যাবে। এগিয়ে যাবেন?</string>
     <string name="thread_menu_report_spam">স্প্যাম হিসেবে চিহ্নিত করুন</string>
     <string name="thread_report_spam_title">স্প্যাম হিসেবে চিহ্নিত করবেন?</string>
-    <string name="thread_report_spam_message">%1$s-এর নতুন বার্তা আপনার ইনবক্সের বদলে ব্লক করা বার্তার বিভাগে যাবে। এই কথোপকথনে আগে থেকে থাকা বার্তা রাখা হবে।</string>
+    <string name="thread_report_spam_message">%1$s-এর নতুন বার্তা আপনার ইনবক্সের বদলে স্প্যামে যাবে। এই কথোপকথনে আগে থেকে থাকা বার্তা রাখা হবে।</string>
     <string name="thread_report_spam_confirm">স্প্যাম হিসেবে চিহ্নিত করুন</string>
     <string name="thread_report_spam_cancel">বাতিল করুন</string>
     <string name="thread_report_spam_done">স্প্যাম হিসেবে চিহ্নিত করা হয়েছে</string>

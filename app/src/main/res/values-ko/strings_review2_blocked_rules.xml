@@ -41,16 +41,16 @@
     <plurals name="e_migrate_title_numbers">
         <item quantity="other">번호 %d개를 uMessage 규칙으로 이동</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• 해당 번호의 문자는 차단함에서 읽고 복원할 수 있어요.</string>
+    <string name="e_migrate_point_blocked">• 해당 번호의 문자는 스팸함에서 읽고 복원할 수 있어요.</string>
     <string name="e_migrate_point_android">• Android 차단 목록에서 번호를 삭제하기 전까지는 문자가 계속 폐기돼요.</string>
     <string name="e_migrate_calls_note">Android 차단 목록은 전화도 차단해요. 목록에서 삭제한 번호는 다시 전화를 걸 수 있어요.</string>
     <string name="e_bn_unknown_body">알 수 없는 발신자 설정이 사용 안 함일 때만 적용돼요.</string>
     <string name="e_bn_row_calls_texts">전화 및 문자 차단</string>
     <string name="e_bn_row_short_code">단축 번호: uMessage 앱에 문자가 전달되지 않아요.</string>
     <string name="e_bn_move_one">uMessage 규칙으로 이동</string>
-    <string name="e_bn_moved">번호 %1$s 관련 uMessage 규칙을 추가했어요. 문자는 차단함으로 이동하고, 전화는 더 이상 차단되지 않아요.</string>
+    <string name="e_bn_moved">번호 %1$s 관련 uMessage 규칙을 추가했어요. 문자는 스팸함으로 이동하고, 전화는 더 이상 차단되지 않아요.</string>
     <string name="e_bn_field_help">예: +15550001234 또는 +1555로 시작하는 모든 번호를 뜻하는 +1555*</string>
     <string name="e_bn_short_code_warning">단축 번호로 보여요. Android 시스템이 uMessage 앱에 전달하기 전에 문자를 폐기하므로, 인증 코드나 은행 알림도 복원할 수 없어요.</string>
     <string name="e_bn_add_as_rule">uMessage 규칙으로 추가</string>
-    <string name="e_bn_added_as_rule">번호 %1$s 관련 uMessage 규칙을 추가했어요. 문자는 차단함으로 이동해요.</string>
+    <string name="e_bn_added_as_rule">번호 %1$s 관련 uMessage 규칙을 추가했어요. 문자는 스팸함으로 이동해요.</string>
 </resources>

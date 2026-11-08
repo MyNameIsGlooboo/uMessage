@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="export_conv_menu">صادر کردن گفتگو</string>
-    <string name="export_conv_title">صادر کردن گفتگو</string>
+    <string name="export_conv_menu">خروجی گرفتن از گفتگو</string>
+    <string name="export_conv_title">خروجی گرفتن از گفتگو</string>
     <string name="export_conv_format_pdf">PDF</string>
     <string name="export_conv_format_text">متن ساده</string>
     <string name="export_conv_dates_all">همهٔ تاریخ‌ها</string>
@@ -9,25 +9,25 @@
     <string name="export_conv_dates_pick">انتخاب تاریخ‌ها</string>
     <string name="export_conv_pick_from">از چه روزی؟</string>
     <string name="export_conv_pick_to">تا چه روزی؟</string>
-    <string name="export_conv_action">صادر کردن</string>
+    <string name="export_conv_action">خروجی گرفتن</string>
     <string name="export_conv_preparing">در حال آماده‌سازی فایل…</string>
     <string name="export_conv_nothing">در این بازه پیامی وجود ندارد</string>
     <string name="export_conv_failed">فایل ساخته نشد</string>
-    <string name="export_conv_subject">گفتگوی صادرشده</string>
+    <string name="export_conv_subject">خروجی گفتگو</string>
     <string name="export_conv_share_text">گفتگو با %1$s، %2$s. SHA-256 متن پیام: %3$s</string>
     <string name="export_conv_attachment_label">[پیوست]</string>
-    <string name="export_pdf_title">گفتگوی صادرشده</string>
+    <string name="export_pdf_title">خروجی گفتگو</string>
     <string name="export_pdf_with">گفتگو با: %1$s</string>
     <string name="export_pdf_numbers">شماره‌ها: %1$s</string>
     <string name="export_pdf_range">بازهٔ تاریخ: %1$s</string>
     <string name="export_pdf_zone">ساعت‌ها بر اساس منطقهٔ زمانی %1$s هستند</string>
-    <string name="export_pdf_exported">صادرشده در: %1$s</string>
+    <string name="export_pdf_exported">خروجی گرفته‌شده در: %1$s</string>
     <plurals name="export_pdf_count" tools:ignore="ImpliedQuantity">
         <item quantity="one">%1$d پیام</item>
         <item quantity="other">%1$d پیام</item>
     </plurals>
     <string name="export_pdf_hash">SHA-256 متن پیام: %1$s</string>
-    <string name="export_pdf_not_certified">از تلفن صادر شده است؛ سند تأییدشده نیست.</string>
+    <string name="export_pdf_not_certified">از روی گوشی خروجی گرفته شده؛ سند تأییدشده نیست.</string>
     <string name="export_pdf_page">صفحهٔ %1$d از %2$d</string>
     <string name="export_pdf_from">از: %1$s</string>
     <string name="export_pdf_to">به: %1$s</string>

@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">सिस्टम की डिफ़ॉल्ट भाषा</string>
     <string name="settings_f_group_rules">नियम और सूचियां</string>
     <string name="settings_f_spam_more">रखने की अवधि और अलर्ट</string>
-    <string name="settings_f_spam_more_body">ब्लॉक किए गए मैसेज कितने समय तक रखे जाएं, और अलर्ट</string>
+    <string name="settings_f_spam_more_body">स्पैम कितने समय तक रखा जाए, और अलर्ट</string>
     <string name="settings_f_hide_lock_codes_body">लॉक स्क्रीन पर कोड •••• के रूप में दिखते हैं</string>
     <string name="settings_f_code_alert">कोड का अलर्ट</string>
     <string name="settings_f_code_alert_body">पुष्टि करने के कोड के लिए आवाज़</string>

@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols (derechos de autor de Google LLC) se distribuye bajo la licencia Apache, versión 2.0. Los íconos se proporcionan tal cual, sin garantía.</string>
     <string name="settings_nav_recommended">Recomendado</string>
     <string name="settings_nav_strict_confirm_title">¿Bloquear también los códigos de verificación?</string>
-    <string name="settings_nav_strict_confirm_body">En el modo estricto, los códigos de remitentes que no están en tus contactos van a Bloqueados junto con todo lo demás. También se bloquean los mensajes de bancos y empresas de entrega.</string>
+    <string name="settings_nav_strict_confirm_body">En el modo estricto, los códigos de remitentes que no están en tus contactos van a Spam junto con todo lo demás. También se retienen los mensajes de bancos y empresas de entrega.</string>
     <string name="settings_nav_strict_confirm_action">Usar modo estricto</string>
     <string name="settings_nav_strict_confirm_cancel">Mantener el modo actual</string>
-    <string name="settings_nav_purge_row">Eliminar mensajes bloqueados después de</string>
+    <string name="settings_nav_purge_row">Eliminar el spam después de</string>
     <string name="settings_nav_group_alerts">Alertas</string>
-    <string name="settings_nav_notify_body">Una notificación silenciosa por cada mensaje bloqueado</string>
+    <string name="settings_nav_notify_body">Una notificación silenciosa por cada mensaje de spam</string>
     <string name="settings_nav_theme_title">Apariencia</string>
     <string name="settings_nav_theme_modes">Modo</string>
     <string name="settings_nav_theme_colours">Colores</string>

@@ -36,7 +36,7 @@
     <string name="declog_fixed_blocked">Vous avez bloqué cet expéditeur depuis le journal</string>
     <string name="declog_fixed_restored">Vous avez restauré ce message depuis le journal</string>
     <string name="declog_restored">Restauré</string>
-    <string name="declog_blocked_message">Le message, toujours dans Messages bloqués</string>
+    <string name="declog_blocked_message">Le message, toujours dans Spam</string>
     <string name="declog_restore">Restaurer le message</string>
     <string name="declog_restore_done">Message restauré dans la boîte de réception</string>
     <string name="declog_restore_text_only">Texte restauré dans la boîte de réception. Les images n\'ont pas pu être récupérées.</string>

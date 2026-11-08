@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">垃圾簡訊防護</string>
     <string name="spam_blocked_stats_totals">總共攔下%1$d則，已還原%2$d則</string>
     <string name="spam_blocked_header_cd">過去7天攔下%1$d則垃圾簡訊。總共攔下%2$d則，已還原%3$d則。</string>
-    <string name="spam_blocked_empty_title">尚未封鎖任何訊息</string>
+    <string name="spam_blocked_empty_title">垃圾訊息中尚無內容</string>
     <string name="spam_action_delete">刪除</string>
     <string name="spam_select">選取</string>
     <string name="spam_action_select_all">全選</string>
@@ -36,7 +36,7 @@
     <string name="spam_rules_empty_allowed_title">沒有允許規則</string>
     <string name="spam_rules_empty_allowed_body">你允許的內容一律會進入收件匣，即使在嚴格模式下也一樣。新增號碼、寄件者名稱或關鍵字。</string>
     <string name="spam_rules_empty_blocked_title">沒有封鎖規則</string>
-    <string name="spam_rules_empty_blocked_body">封鎖號碼、號碼開頭、寄件者名稱、關鍵字或模式。已封鎖的訊息會移至「已封鎖」資料夾。</string>
+    <string name="spam_rules_empty_blocked_body">封鎖號碼、號碼開頭、寄件者名稱、關鍵字或模式。這些訊息會移至「垃圾訊息」資料夾。</string>
     <string name="spam_rules_delete_rule">刪除規則%s</string>
     <string name="spam_rules_deleted">已刪除規則</string>
     <plurals name="spam_rules_imported">
@@ -102,10 +102,10 @@
     <string name="spam_mode_off">關閉</string>
     <string name="spam_mode_off_body">不封鎖未知寄件者</string>
     <string name="spam_strict_warning_title">嚴格模式可能會隱藏重要訊息</string>
-    <string name="spam_strict_warning_body">銀行、物流公司及一次性驗證碼通常來自不在你聯絡人中的寄件者。在嚴格模式下，這些訊息會移至「已封鎖」資料夾，驗證碼也不例外。選擇「智慧」即可讓驗證碼通過，或先允許這些寄件者一次。</string>
-    <string name="spam_strict_warning_action">查看已封鎖的訊息</string>
+    <string name="spam_strict_warning_body">銀行、物流公司及一次性驗證碼通常來自不在你聯絡人中的寄件者。在嚴格模式下，這些訊息會移至「垃圾訊息」資料夾，驗證碼也不例外。選擇「智慧」即可讓驗證碼通過，或先允許這些寄件者一次。</string>
+    <string name="spam_strict_warning_action">查看垃圾訊息</string>
     <string name="spam_settings_cleanup_title">清理</string>
-    <string name="spam_purge_body">舊的已封鎖訊息會自動移除。</string>
+    <string name="spam_purge_body">舊的垃圾訊息會自動移除。</string>
     <string name="spam_purge_days">%d天</string>
     <string name="spam_purge_forever">永不</string>
     <string name="spam_notify_title">訊息遭封鎖時通知我</string>

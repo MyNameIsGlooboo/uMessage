@@ -2,13 +2,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="dialogs_yes">بله</string>
     <string name="dialogs_no">خیر</string>
-    <string name="dialogs_permission_required">مجوز لازم است</string>
-    <string name="dialogs_grant_permission">دادن مجوز</string>
+    <string name="dialogs_permission_required">دسترسی لازم است</string>
+    <string name="dialogs_grant_permission">دادن دسترسی</string>
     <string name="dialogs_date_time_format_title">قالب تاریخ و ساعت</string>
     <string name="dialogs_use_24_hour">استفاده از قالب ۲۴ ساعته</string>
     <string name="dialogs_lock_pattern">الگو</string>
     <string name="dialogs_lock_pin">پین</string>
-    <string name="dialogs_lock_biometrics">زیست‌سنجی</string>
+    <string name="dialogs_lock_biometrics">اثر انگشت یا چهره</string>
     <string name="dialogs_lock_fingerprint">اثر انگشت</string>
     <string name="dialogs_lock_enter_pin">پین را وارد کنید</string>
     <string name="dialogs_lock_repeat_pin">پین را تکرار کنید</string>
@@ -28,10 +28,10 @@
     <string name="dialogs_lock_pin_confirm">تأیید پین</string>
     <string name="dialogs_lock_pattern_pad">صفحهٔ رسم الگو</string>
     <string name="dialogs_lock_biometric_hint">با اثر انگشت یا چهره، هویت خود را تأیید کنید.</string>
-    <string name="dialogs_lock_biometric_open">تأیید با زیست‌سنجی</string>
+    <string name="dialogs_lock_biometric_open">تأیید با اثر انگشت یا چهره</string>
     <string name="dialogs_lock_place_finger">انگشت خود را روی حسگر اثر انگشت بگذارید.</string>
     <string name="dialogs_lock_no_fingerprints">هیچ اثر انگشتی ثبت نشده است. در تنظیمات دستگاه، اثر انگشت اضافه کنید.</string>
     <string name="dialogs_lock_open_settings">باز کردن تنظیمات دستگاه</string>
-    <string name="dialogs_lock_auth_failed">احراز هویت ناموفق بود</string>
-    <string name="dialogs_lock_auth_blocked">احراز هویت مسدود شده است، کمی بعد دوباره تلاش کنید</string>
+    <string name="dialogs_lock_auth_failed">تأیید هویت ناموفق بود</string>
+    <string name="dialogs_lock_auth_blocked">تأیید هویت فعلاً قفل شده؛ کمی بعد دوباره امتحان کنید</string>
 </resources>

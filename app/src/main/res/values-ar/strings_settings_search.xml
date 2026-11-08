@@ -12,7 +12,7 @@
     <string name="sks_rules">قواعد اسمح احظر قائمة كلمة رئيسية تعبير نمطي regex المرسل رقم قائمة السماح قائمة الحظر</string>
     <string name="sks_blocked_numbers">أرقام محظورة قائمة الحظر هاتف جهات اتصال Android قائمة سوداء</string>
     <string name="sks_decision_log">سجل تاريخ لماذا محظور نشاط حديث</string>
-    <string name="sks_purge">احذف محظور قديم إزالة تنظيف تلقائي أيام تنظيف احتفاظ</string>
+    <string name="sks_purge">احذف رسائل مزعجة محظور قديم إزالة تنظيف تلقائي أيام تنظيف احتفاظ</string>
     <string name="sks_region">بلد منطقة خارج أجنبي دولي الخارج احظر</string>
     <string name="sks_links">روابط URL خطرة تصيد أمان قفل ويب</string>
     <string name="sks_carrier_report">مشغّل شبكة الجوال إبلاغ مشغّل أعد التوجيه 7726 مزود رسائل غير مرغوب فيها</string>

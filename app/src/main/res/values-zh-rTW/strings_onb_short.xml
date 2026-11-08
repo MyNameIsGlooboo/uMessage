@@ -4,7 +4,7 @@
     <string name="onb_allow_done">完成</string>
     <string name="onb_allow_needed">必要</string>
     <string name="onb_allow_all_set">全部就緒</string>
-    <string name="onb_mode_strict_short">全部留在封鎖區</string>
+    <string name="onb_mode_strict_short">全部留在垃圾訊息</string>
     <string name="onb_mode_smart_short">攔截，但放行驗證碼訊息</string>
     <string name="onb_mode_off_short">不過濾</string>
 </resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">ڈاؤن لوڈ کرنے کے لیے ٹیپ کریں</string>
+    <string name="mms_downloading">ڈاؤن لوڈ ہو رہا ہے…</string>
+    <string name="mms_download_again">ڈاؤن لوڈ نہیں ہو سکا۔ دوبارہ کوشش کے لیے ٹیپ کریں</string>
+    <string name="mms_expired">یہ تصویری پیغام اب دستیاب نہیں ہے</string>
+    <string name="mms_download_action_desc">تصویری پیغام ڈاؤن لوڈ کریں</string>
+</resources>

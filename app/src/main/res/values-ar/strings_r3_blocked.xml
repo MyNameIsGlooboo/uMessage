@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">احتجز uMessage هذه الرسائل. ليست ضمن الرسائل الواردة.</string>
     <string name="r3b_thread_delete_all">احذف كل رسائل %1$s</string>
     <string name="r3b_thread_empty_title">لم يبقَ شيء هنا</string>
-    <string name="r3b_thread_empty_body">لا توجد رسائل محظورة لهذا المرسل الآن.</string>
+    <string name="r3b_thread_empty_body">لا توجد رسائل غير مرغوب فيها لهذا المرسل الآن.</string>
     <string name="r3b_message_actions">إجراءات الرسالة</string>
     <string name="r3b_why_blocked">سبب الحظر</string>
     <string name="r3b_copy_text">انسخ النص</string>
@@ -14,11 +14,11 @@
     <string name="r3b_delete_message">احذف</string>
     <string name="r3b_received">استُلمت في %1$s</string>
     <plurals name="r3b_info_purge">
-        <item quantity="zero">تُحذف الرسائل المحظورة بعد %d يوم.</item>
-        <item quantity="one">تُحذف الرسائل المحظورة بعد يوم واحد (%d).</item>
-        <item quantity="two">تُحذف الرسائل المحظورة بعد يومين (%d).</item>
-        <item quantity="few">تُحذف الرسائل المحظورة بعد %d أيام.</item>
-        <item quantity="many">تُحذف الرسائل المحظورة بعد %d يومًا.</item>
-        <item quantity="other">تُحذف الرسائل المحظورة بعد %d يوم.</item>
+        <item quantity="zero">تُحذف الرسائل غير المرغوب فيها بعد %d يوم.</item>
+        <item quantity="one">تُحذف الرسائل غير المرغوب فيها بعد يوم واحد (%d).</item>
+        <item quantity="two">تُحذف الرسائل غير المرغوب فيها بعد يومين (%d).</item>
+        <item quantity="few">تُحذف الرسائل غير المرغوب فيها بعد %d أيام.</item>
+        <item quantity="many">تُحذف الرسائل غير المرغوب فيها بعد %d يومًا.</item>
+        <item quantity="other">تُحذف الرسائل غير المرغوب فيها بعد %d يوم.</item>
     </plurals>
 </resources>

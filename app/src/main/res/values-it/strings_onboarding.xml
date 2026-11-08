@@ -8,7 +8,7 @@
     <string name="onb_welcome_title">Ti diamo il benvenuto su uMessage</string>
     <string name="onb_welcome_intro">Messaggi migliori, meno spam.</string>
     <string name="onb_welcome_spam">Lo spam resta fuori</string>
-    <string name="onb_welcome_spam_desc">I mittenti sconosciuti restano in Messaggi bloccati, senza andare persi.</string>
+    <string name="onb_welcome_spam_desc">I mittenti sconosciuti restano in Spam, senza andare persi.</string>
     <string name="onb_welcome_codes">Codici con un tocco</string>
     <string name="onb_welcome_codes_desc">Copia i codici di verifica direttamente dalla notifica.</string>
     <string name="onb_welcome_copy">Copia solo ciò che ti serve</string>
@@ -46,7 +46,7 @@
     <string name="onb_mode_smart">Intelligente</string>
     <string name="onb_mode_off">Disattivata</string>
     <string name="onb_mode_warning_title">Attenzione ai messaggi bancari e ai codici</string>
-    <string name="onb_mode_warning_body">In modalità rigorosa, gli avvisi bancari, gli aggiornamenti sulle consegne e i codici monouso dei mittenti sconosciuti restano in Messaggi bloccati, codici inclusi. Non riceverai notifiche: controlla Messaggi bloccati quando ne aspetti uno.</string>
+    <string name="onb_mode_warning_body">In modalità rigorosa, gli avvisi bancari, gli aggiornamenti sulle consegne e i codici monouso dei mittenti sconosciuti restano in Spam, codici inclusi. Non riceverai notifiche: controlla Spam quando ne aspetti uno.</string>
     <string name="onb_oem_title">Mantieni uMessage in esecuzione</string>
     <string name="onb_oem_manual_hint">Se una schermata non si apre, cerca il nome indicato nelle impostazioni.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi o Poco</string>

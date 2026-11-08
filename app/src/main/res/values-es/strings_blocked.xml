@@ -33,8 +33,8 @@
     <string name="spam_reason_rule_removed">Regla eliminada posteriormente</string>
     <string name="spam_reason_open_rules">Abrir reglas</string>
     <plurals name="spam_purge_notice">
-        <item quantity="one">Los mensajes bloqueados se eliminan después de %d día</item>
-        <item quantity="other">Los mensajes bloqueados se eliminan después de %d días</item>
+        <item quantity="one">El spam se elimina después de %d día</item>
+        <item quantity="other">El spam se elimina después de %d días</item>
     </plurals>
     <plurals name="spam_purge_left">
         <item quantity="one">Se elimina en %d día</item>
@@ -42,14 +42,14 @@
     </plurals>
     <string name="spam_purge_left_today">Se elimina hoy</string>
     <plurals name="convlist_reported_spam_archived">
-        <item quantity="one">Denuncia enviada. Los nuevos mensajes de este remitente irán a Bloqueados y el chat se archivó.</item>
-        <item quantity="other">%d chats denunciados. Los nuevos mensajes de sus remitentes irán a Bloqueados y los chats se archivaron.</item>
+        <item quantity="one">Denuncia enviada. Los nuevos mensajes de este remitente irán a Spam y el chat se archivó.</item>
+        <item quantity="other">%d chats denunciados. Los nuevos mensajes de sus remitentes irán a Spam y los chats se archivaron.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="one">Denuncia enviada. Los nuevos mensajes de este remitente irán a Bloqueados.</item>
-        <item quantity="other">%d chats denunciados. Los nuevos mensajes de sus remitentes irán a Bloqueados.</item>
+        <item quantity="one">Denuncia enviada. Los nuevos mensajes de este remitente irán a Spam.</item>
+        <item quantity="other">%d chats denunciados. Los nuevos mensajes de sus remitentes irán a Spam.</item>
     </plurals>
-    <string name="blocked_title">Bloqueados</string>
+    <string name="blocked_title">Spam</string>
     <string name="blocked_snack_mode">Remitentes desconocidos: %1$s</string>
     <string name="blocked_stats_restored">%1$d restaurados por ti</string>
     <string name="blocked_reason_unknown_link">Remitente desconocido, con un enlace</string>

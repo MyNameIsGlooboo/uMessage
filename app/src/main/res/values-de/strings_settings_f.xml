@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">Systemstandard</string>
     <string name="settings_f_group_rules">Regeln und Listen</string>
     <string name="settings_f_spam_more">Aufbewahrung und Hinweise</string>
-    <string name="settings_f_spam_more_body">Aufbewahrungsdauer blockierter Nachrichten und Hinweise</string>
+    <string name="settings_f_spam_more_body">Aufbewahrungsdauer von Spam und Hinweise</string>
     <string name="settings_f_hide_lock_codes_body">Codes werden auf dem Sperrbildschirm als •••• angezeigt</string>
     <string name="settings_f_code_alert">Code-Hinweiston</string>
     <string name="settings_f_code_alert_body">Ton für Bestätigungscodes</string>

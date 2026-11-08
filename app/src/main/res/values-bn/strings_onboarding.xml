@@ -8,7 +8,7 @@
     <string name="onb_welcome_title">uMessage-এ স্বাগতম</string>
     <string name="onb_welcome_intro">বার্তা পাঠানো আরও সহজ, স্প্যাম কম।</string>
     <string name="onb_welcome_spam">স্প্যাম দূরে থাকে</string>
-    <string name="onb_welcome_spam_desc">অচেনা প্রেরকের বার্তা ব্লক করা তালিকায় থাকে, হারায় না।</string>
+    <string name="onb_welcome_spam_desc">অচেনা প্রেরকের বার্তা স্প্যামে থাকে, হারায় না।</string>
     <string name="onb_welcome_codes">এক ট্যাপেই কোড</string>
     <string name="onb_welcome_codes_desc">বিজ্ঞপ্তি থেকেই যাচাইকরণ কোড কপি করুন।</string>
     <string name="onb_welcome_copy">যেটুকু দরকার, সেটুকুই কপি করুন</string>
@@ -46,7 +46,7 @@
     <string name="onb_mode_smart">স্মার্ট</string>
     <string name="onb_mode_off">বন্ধ</string>
     <string name="onb_mode_warning_title">ব্যাংকের বার্তা ও কোড নিয়ে খেয়াল রাখুন</string>
-    <string name="onb_mode_warning_body">কঠোর মোডে অচেনা প্রেরকের ব্যাংকের বিজ্ঞপ্তি, ডেলিভারির খবর ও একবার ব্যবহারযোগ্য কোড ব্লক করা তালিকায় থাকে, কোডসহ। আপনি বিজ্ঞপ্তি পাবেন না, তাই এগুলোর অপেক্ষায় থাকলে ব্লক করা তালিকা দেখুন।</string>
+    <string name="onb_mode_warning_body">কঠোর মোডে অচেনা প্রেরকের ব্যাংকের বিজ্ঞপ্তি, ডেলিভারির খবর ও একবার ব্যবহারযোগ্য কোড স্প্যামে থাকে, কোডসহ। আপনি বিজ্ঞপ্তি পাবেন না, তাই এগুলোর অপেক্ষায় থাকলে স্প্যাম দেখুন।</string>
     <string name="onb_oem_title">uMessage চালু রাখুন</string>
     <string name="onb_oem_manual_hint">কোনো স্ক্রিন না খুললে দেখানো নামটি আপনার সেটিংসে খুঁজুন।</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi বা Poco</string>

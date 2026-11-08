@@ -43,16 +43,16 @@
         <item quantity="one">%d Nummer in uMessage-Regeln übernehmen</item>
         <item quantity="other">%d Nummern in uMessage-Regeln übernehmen</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• Ihre Nachrichten landen unter „Blockiert“. Dort kannst du sie lesen und wiederherstellen.</string>
+    <string name="e_migrate_point_blocked">• Ihre Nachrichten landen unter „Spam“. Dort kannst du sie lesen und wiederherstellen.</string>
     <string name="e_migrate_point_android">• Android verwirft ihre Nachrichten weiterhin, bis die Nummern aus seiner Liste entfernt werden.</string>
     <string name="e_migrate_calls_note">Die Android-Liste blockiert auch Anrufe. Nummern, die du daraus entfernst, können dich wieder anrufen.</string>
     <string name="e_bn_unknown_body">Gilt nur, wenn „Unbekannte Absender“ auf „Aus“ steht.</string>
     <string name="e_bn_row_calls_texts">Blockiert Anrufe und Nachrichten</string>
     <string name="e_bn_row_short_code">Kurzwahl: Ihre Nachrichten erreichen uMessage nie</string>
     <string name="e_bn_move_one">In uMessage-Regeln übernehmen</string>
-    <string name="e_bn_moved">%1$s ist jetzt eine uMessage-Regel. Nachrichten dieser Nummer landen unter „Blockiert“, Anrufe werden nicht mehr blockiert.</string>
+    <string name="e_bn_moved">%1$s ist jetzt eine uMessage-Regel. Nachrichten dieser Nummer landen unter „Spam“, Anrufe werden nicht mehr blockiert.</string>
     <string name="e_bn_field_help">Zum Beispiel +15550001234 oder +1555* für alle Nummern, die mit +1555 beginnen</string>
     <string name="e_bn_short_code_warning">Das sieht nach einer Kurzwahl aus. Android verwirft ihre Nachrichten, bevor sie uMessage erreichen. Du könntest sie also nie wiederherstellen, etwa einen Code oder eine Bankmitteilung.</string>
     <string name="e_bn_add_as_rule">Stattdessen als uMessage-Regel hinzufügen</string>
-    <string name="e_bn_added_as_rule">%1$s als uMessage-Regel hinzugefügt. Nachrichten dieser Nummer landen unter „Blockiert“.</string>
+    <string name="e_bn_added_as_rule">%1$s als uMessage-Regel hinzugefügt. Nachrichten dieser Nummer landen unter „Spam“.</string>
 </resources>

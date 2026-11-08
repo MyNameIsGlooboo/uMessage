@@ -3,7 +3,7 @@
     <string name="convx_code_chip">Kode %1$s</string>
     <string name="convx_code_copy">Salin</string>
     <string name="convx_block_archive">Blokir dan arsipkan</string>
-    <string name="convx_block_archive_hint">Pesan berikutnya masuk ke Diblokir. Tidak ada data yang keluar dari ponsel.</string>
+    <string name="convx_block_archive_hint">Pesan berikutnya masuk ke Spam. Tidak ada data yang keluar dari ponsel.</string>
     <string name="convx_name_label">Nama</string>
     <string name="convx_clear">Kosongkan</string>
     <string name="convx_reset_name">Kembalikan ke nama default</string>

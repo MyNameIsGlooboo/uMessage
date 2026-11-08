@@ -8,7 +8,7 @@
     <string name="onb_welcome_title">uMessage\'a hoş geldiniz</string>
     <string name="onb_welcome_intro">Daha iyi mesajlaşma, daha az spam.</string>
     <string name="onb_welcome_spam">Spam dışarıda kalır</string>
-    <string name="onb_welcome_spam_desc">Bilinmeyen gönderenler Engellenenler bölümünde bekler, kaybolmaz.</string>
+    <string name="onb_welcome_spam_desc">Bilinmeyen gönderenler Spam bölümünde bekler, kaybolmaz.</string>
     <string name="onb_welcome_codes">Tek dokunuşla kodlar</string>
     <string name="onb_welcome_codes_desc">Doğrulama kodlarını doğrudan bildirimden kopyalayın.</string>
     <string name="onb_welcome_copy">Yalnızca gerekeni kopyalayın</string>
@@ -46,7 +46,7 @@
     <string name="onb_mode_smart">Akıllı</string>
     <string name="onb_mode_off">Kapalı</string>
     <string name="onb_mode_warning_title">Banka mesajları ve kodlar hakkında</string>
-    <string name="onb_mode_warning_body">Sıkı modda, bilinmeyen gönderenlerden gelen banka bildirimleri, teslimat güncellemeleri ve tek kullanımlık kodlar, kodlar dahil Engellenenler bölümünde tutulur. Bildirim almazsınız; bunlardan birini bekliyorsanız Engellenenler bölümünü kontrol edin.</string>
+    <string name="onb_mode_warning_body">Sıkı modda, bilinmeyen gönderenlerden gelen banka bildirimleri, teslimat güncellemeleri ve tek kullanımlık kodlar, kodlar dahil Spam bölümünde tutulur. Bildirim almazsınız; bunlardan birini bekliyorsanız Spam bölümünü kontrol edin.</string>
     <string name="onb_oem_title">uMessage çalışmaya devam etsin</string>
     <string name="onb_oem_manual_hint">Bir ekran açılmazsa gösterilen adı Ayarlar\'da arayın.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi veya Poco</string>

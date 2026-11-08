@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessage已屏蔽这些消息，消息不在收件箱中。</string>
     <string name="r3b_thread_delete_all">删除%1$s的所有消息</string>
     <string name="r3b_thread_empty_title">这里已清空</string>
-    <string name="r3b_thread_empty_body">该发件人目前没有已屏蔽的消息。</string>
+    <string name="r3b_thread_empty_body">该发件人目前没有垃圾短信。</string>
     <string name="r3b_message_actions">消息操作</string>
     <string name="r3b_why_blocked">屏蔽原因</string>
     <string name="r3b_copy_text">复制文本</string>
@@ -14,6 +14,6 @@
     <string name="r3b_delete_message">删除</string>
     <string name="r3b_received">接收时间：%1$s</string>
     <plurals name="r3b_info_purge">
-        <item quantity="other">已屏蔽的消息将在%d天后删除。</item>
+        <item quantity="other">垃圾短信将在%d天后删除。</item>
     </plurals>
 </resources>

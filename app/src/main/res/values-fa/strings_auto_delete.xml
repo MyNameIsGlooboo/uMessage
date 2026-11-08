@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="cleanup_old_title">مدت نگهداری پیام‌ها</string>
-    <string name="cleanup_old_summary">پیام‌های قدیمی‌تر به سطل بازیافت منتقل می‌شوند</string>
+    <string name="cleanup_old_summary">پیام‌های قدیمی‌تر به سطل زباله می‌روند</string>
     <string name="cleanup_forever">همیشه</string>
     <string name="cleanup_one_year">۱ سال</string>
-    <string name="cleanup_bin_title">سطل بازیافت فعال شود؟</string>
-    <string name="cleanup_bin_body">پیام‌های حذف‌شده ۳۰ روز آنجا می‌مانند تا بتوانید آن‌ها را بازیابی کنید. پاک‌سازی خودکار به آن نیاز دارد.</string>
-    <string name="cleanup_bin_confirm">فعال کردن</string>
-    <string name="cleanup_old_confirm_title">پیام‌های قدیمی منتقل شوند؟</string>
+    <string name="cleanup_bin_title">سطل زباله فعال شود؟</string>
+    <string name="cleanup_bin_body">پیام‌های حذف‌شده ۳۰ روز آنجا می‌مانند تا بتوانید آن‌ها را بازیابی کنید. پاک کردن خودکار به آن نیاز دارد.</string>
+    <string name="cleanup_bin_confirm">روشن کردن</string>
+    <string name="cleanup_old_confirm_title">پیام‌های قدیمی به سطل زباله بروند؟</string>
     <plurals name="cleanup_old_confirm_body" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d پیام قدیمی‌تر از این مدت است و اکنون به سطل بازیافت منتقل می‌شود. پیام‌های ستاره‌دار و خوانده‌نشده و گفتگوهای سنجاق‌شده باقی می‌مانند.</item>
-        <item quantity="other">%d پیام قدیمی‌تر از این مدت است و اکنون به سطل بازیافت منتقل می‌شود. پیام‌های ستاره‌دار و خوانده‌نشده و گفتگوهای سنجاق‌شده باقی می‌مانند.</item>
+        <item quantity="one">%d پیام قدیمی‌تر از این مدت است و الان به سطل زباله می‌رود. پیام‌های ستاره‌دار و خوانده‌نشده و گفتگوهای سنجاق‌شده باقی می‌مانند.</item>
+        <item quantity="other">%d پیام قدیمی‌تر از این مدت است و الان به سطل زباله می‌رود. پیام‌های ستاره‌دار و خوانده‌نشده و گفتگوهای سنجاق‌شده باقی می‌مانند.</item>
     </plurals>
-    <string name="cleanup_old_confirm_none">هنوز هیچ پیامی به این قدمت نیست. پیام‌های قدیمی‌تر خودکار به سطل بازیافت منتقل می‌شوند. پیام‌های ستاره‌دار و خوانده‌نشده و گفتگوهای سنجاق‌شده باقی می‌مانند.</string>
-    <string name="cleanup_old_confirm_action">انتقال</string>
+    <string name="cleanup_old_confirm_none">هنوز هیچ پیامی به این قدمت نیست. پیام‌های قدیمی‌تر خودکار به سطل زباله می‌روند. پیام‌های ستاره‌دار و خوانده‌نشده و گفتگوهای سنجاق‌شده باقی می‌مانند.</string>
+    <string name="cleanup_old_confirm_action">بردن به سطل زباله</string>
 </resources>

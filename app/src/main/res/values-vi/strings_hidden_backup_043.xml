@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">Các cuộc trò chuyện ẩn đang bị khóa</string>
+    <string name="backup_hidden_message">Các cuộc trò chuyện ẩn của bạn đang bị khóa. Hãy mở khóa để đưa chúng vào bản sao lưu, hoặc sao lưu mà không có chúng.</string>
+    <string name="backup_hidden_unlock">Mở khóa</string>
+    <string name="backup_hidden_skip">Bỏ qua cuộc trò chuyện ẩn</string>
+    <string name="backup_export_hidden_left_out">Cuộc trò chuyện ẩn bị bỏ qua: %d</string>
+</resources>

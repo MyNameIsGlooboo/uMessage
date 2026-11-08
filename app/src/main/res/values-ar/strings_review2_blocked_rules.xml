@@ -51,16 +51,16 @@
         <item quantity="many">انقل %d رقمًا إلى قواعد uMessage</item>
         <item quantity="other">انقل %d رقم إلى قواعد uMessage</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• ستصل رسائلها إلى «المحظورة»، حيث يمكنك قراءتها واستعادتها.</string>
+    <string name="e_migrate_point_blocked">• ستصل رسائلها إلى «غير المرغوب فيها»، حيث يمكنك قراءتها واستعادتها.</string>
     <string name="e_migrate_point_android">• سيظل Android يتخلص من رسائلها حتى تُزال من قائمته.</string>
     <string name="e_migrate_calls_note">تحظر قائمة Android المكالمات أيضًا. يمكن للأرقام التي تزيلها منها الاتصال بك مجددًا.</string>
     <string name="e_bn_unknown_body">يسري فقط عندما يكون خيار «المرسلون غير المعروفين» متوقفًا.</string>
     <string name="e_bn_row_calls_texts">يحظر المكالمات والرسائل</string>
     <string name="e_bn_row_short_code">رقم مختصر: لا تصل رسائله إلى uMessage مطلقًا</string>
     <string name="e_bn_move_one">انقل إلى قواعد uMessage</string>
-    <string name="e_bn_moved">أصبح %1$s قاعدة في uMessage. تصل رسائله إلى «المحظورة»، ولم تعد مكالماته محظورة.</string>
+    <string name="e_bn_moved">أصبح %1$s قاعدة في uMessage. تصل رسائله إلى «غير المرغوب فيها»، ولم تعد مكالماته محظورة.</string>
     <string name="e_bn_field_help">مثلًا +15550001234، أو +1555* لكل رقم يبدأ بـ +1555</string>
     <string name="e_bn_short_code_warning">يبدو هذا رقمًا مختصرًا. يتخلص Android من رسائله قبل وصولها إلى uMessage، لذا لن تتمكن من استعادة أي منها، مثل رمز أو إشعار بنكي.</string>
     <string name="e_bn_add_as_rule">أضف كقاعدة في uMessage بدلًا من ذلك</string>
-    <string name="e_bn_added_as_rule">أُضيف %1$s كقاعدة في uMessage. تصل رسائله إلى «المحظورة».</string>
+    <string name="e_bn_added_as_rule">أُضيف %1$s كقاعدة في uMessage. تصل رسائله إلى «غير المرغوب فيها».</string>
 </resources>

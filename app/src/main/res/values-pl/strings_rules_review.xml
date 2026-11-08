@@ -9,16 +9,16 @@
     <string name="rules2_empty_allowed_title">Brak zawsze dozwolonych nadawców</string>
     <string name="rules2_empty_allowed_body">Dodaj numer, nazwę nadawcy lub słowo, by takie wiadomości zawsze trafiały do odebranych. Dotknij „Dodaj regułę” poniżej.</string>
     <string name="rules2_empty_blocked_title">Brak zawsze zablokowanych nadawców</string>
-    <string name="rules2_empty_blocked_body">Dodaj numer, nazwę nadawcy, słowo lub wzorzec, by takie wiadomości trafiały do „Zablokowane”. Dotknij „Dodaj regułę” poniżej.</string>
+    <string name="rules2_empty_blocked_body">Dodaj numer, nazwę nadawcy, słowo lub wzorzec, by takie wiadomości trafiały do Spamu. Dotknij „Dodaj regułę” poniżej.</string>
     <string name="rules2_legacy_banner_title">Znaleziono starsze listy blokowanych</string>
     <string name="rules2_legacy_banner_body">Przenieś je do reguł, by widzieć i przywracać blokowane przez nie wiadomości.</string>
     <string name="rules2_legacy_review">Przejrzyj</string>
     <string name="rules2_system_header">Lista blokowanych w Androidzie (blokuje też połączenia)</string>
-    <string name="rules2_system_body">Android odrzuca wiadomości z tych numerów, zanim dotrą do uMessage. Nie trafiają więc do „Zablokowane” i nie można ich przywrócić.</string>
+    <string name="rules2_system_body">Android odrzuca wiadomości z tych numerów, zanim dotrą do uMessage. Nie trafiają więc do Spamu i nie można ich przywrócić.</string>
     <string name="rules2_system_manage">Zarządzaj</string>
     <string name="rules2_system_move">Przenieś do reguł uMessage</string>
     <string name="rules2_migrate_title">Przenieś do reguł uMessage</string>
-    <string name="rules2_migrate_point_blocked">Wiadomości będą wtedy trafiać do „Zablokowane”, skąd możesz je przywrócić.</string>
+    <string name="rules2_migrate_point_blocked">Wiadomości będą wtedy trafiać do Spamu, skąd możesz je przywrócić.</string>
     <string name="rules2_migrate_remove_needs_first">Najpierw zaznacz opcję powyżej.</string>
     <string name="rules2_migrate_nothing_selected">Nic nie wybrano</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -54,7 +54,7 @@
         <item quantity="many">Przenieś %1$d numerów do reguł</item>
         <item quantity="other">Przenieś %1$d numeru do reguł</item>
     </plurals>
-    <string name="forward2_intro_reassure">Tylko wiadomości z odebranych są przekazywane dalej. Zablokowany spam nigdy.</string>
+    <string name="forward2_intro_reassure">Tylko wiadomości z odebranych są przekazywane dalej. Spam nigdy.</string>
     <string name="forward2_empty_title">Brak reguł przekazywania dalej</string>
     <string name="forward2_empty_body">Wysyłaj kopie pasujących wiadomości, np. powiadomień z banku, na inny telefon. Zacznij od jednej z tych propozycji.</string>
     <string name="forward2_template_bank">Przekaż dalej powiadomienia z banku</string>

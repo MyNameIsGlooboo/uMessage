@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">숨긴 대화가 잠겨 있습니다</string>
+    <string name="backup_hidden_message">숨긴 대화가 잠겨 있습니다. 백업에 포함하려면 잠금을 해제하세요. 포함하지 않고 백업할 수도 있습니다.</string>
+    <string name="backup_hidden_unlock">잠금 해제</string>
+    <string name="backup_hidden_skip">숨긴 대화 건너뛰기</string>
+    <string name="backup_export_hidden_left_out">제외된 숨긴 대화: %d개</string>
+</resources>

@@ -5,7 +5,7 @@
     <string name="region_summary">Контакты и те, кому вы писали, не блокируются</string>
     <string name="region_off">Выкл.</string>
     <string name="region_picker_title">Ваша страна</string>
-    <string name="region_picker_body">Сообщения с номеров из других стран попадают в «Заблокированные», кроме сообщений от контактов и тех, кому вы писали. Родственник за границей тоже будет заблокирован, если его нет в контактах.</string>
+    <string name="region_picker_body">Сообщения с номеров из других стран попадают в «Спам», кроме сообщений от контактов и тех, кому вы писали. Родственник за границей тоже попадёт туда, если его нет в контактах. Это работает только в режимах «Умный» и «Строгий».</string>
     <string name="region_picker_search">Поиск</string>
     <string name="region_reason_foreign">Номер из другой страны</string>
 </resources>

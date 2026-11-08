@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">关闭清单</string>
     <string name="w3c_checklist_step_sms">将uMessage设为默认短信应用</string>
     <string name="w3c_checklist_step_notifications">开启通知</string>
-    <string name="w3c_checklist_step_blocked">查看“已屏蔽”标签页</string>
+    <string name="w3c_checklist_step_blocked">查看“垃圾短信”标签页</string>
     <string name="w3c_checklist_step_forward">可选：将消息转发到其他号码</string>
     <string name="w3c_checklist_step_done">已完成</string>
     <string name="w3c_checklist_action_set">设置</string>
     <string name="w3c_checklist_action_open">打开</string>
     <string name="w3c_receipt_title">已暂存垃圾短信，点按查看</string>
-    <string name="w3c_receipt_body">一条来自未知发件人的消息已暂存在“已屏蔽”中。消息没有丢失，可随时查看并恢复。</string>
+    <string name="w3c_receipt_body">一条来自未知发件人的消息已暂存在“垃圾短信”中。消息没有丢失，可随时查看并恢复。</string>
     <string name="w3c_receipt_review">查看</string>
     <string name="w3c_receipt_got_it">知道了</string>
     <string name="w3c_new_paste">粘贴号码</string>

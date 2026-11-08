@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mms_tap_to_download">Toque para baixar</string>
+    <string name="mms_downloading">Baixando…</string>
+    <string name="mms_download_again">Falha ao baixar. Toque para tentar de novo</string>
+    <string name="mms_expired">Esta mensagem com imagem não está mais disponível</string>
+    <string name="mms_download_action_desc">Baixar a mensagem com imagem</string>
+</resources>

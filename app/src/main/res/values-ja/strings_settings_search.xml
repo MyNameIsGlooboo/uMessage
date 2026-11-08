@@ -12,7 +12,7 @@
     <string name="sks_rules">ルール 許可 ブロック リスト キーワード パターン（正規表現） 正規表現 送信者 番号 許可リスト ブロックリスト</string>
     <string name="sks_blocked_numbers">ブロック済み 番号 ブロックリスト 電話 連絡先 Android 拒否リスト</string>
     <string name="sks_decision_log">判定履歴 履歴 理由 ブロック済み アクティビティ 最近</string>
-    <string name="sks_purge">削除 ブロック済み 古い 消去 整理 自動 日数 クリーンアップ 保存期間</string>
+    <string name="sks_purge">削除 迷惑メッセージ ブロック済み 古い 消去 整理 自動 日数 クリーンアップ 保存期間</string>
     <string name="sks_region">国 地域 域外 外国 国際 海外 ブロック</string>
     <string name="sks_links">リンク URL 危険 フィッシング 安全 ロック ウェブ</string>
     <string name="sks_carrier_report">通信事業者 報告 携帯電話会社 転送 7726 プロバイダー 迷惑メッセージ</string>

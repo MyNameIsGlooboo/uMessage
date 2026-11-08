@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols (কপিরাইট Google LLC) Apache License, সংস্করণ 2.0-এর অধীনে লাইসেন্সপ্রাপ্ত। আইকনগুলো যেমন আছে তেমনই দেওয়া হয়েছে, কোনো ওয়ারেন্টি ছাড়া।</string>
     <string name="settings_nav_recommended">প্রস্তাবিত</string>
     <string name="settings_nav_strict_confirm_title">যাচাইকরণ কোডও ব্লক করবেন?</string>
-    <string name="settings_nav_strict_confirm_body">কঠোর মোডে, আপনার পরিচিতিতে নেই এমন প্রেরকদের কোড অন্য সব বার্তার সঙ্গে “ব্লক করা” ট্যাবে যায়। ব্যাংক ও ডেলিভারি সংস্থার বার্তাও আটকে রাখা হয়।</string>
+    <string name="settings_nav_strict_confirm_body">কঠোর মোডে, আপনার পরিচিতিতে নেই এমন প্রেরকদের কোড অন্য সব বার্তার সঙ্গে স্প্যামে যায়। ব্যাংক ও ডেলিভারি সংস্থার বার্তাও আটকে রাখা হয়।</string>
     <string name="settings_nav_strict_confirm_action">কঠোর মোড ব্যবহার করুন</string>
     <string name="settings_nav_strict_confirm_cancel">বর্তমান মোড রাখুন</string>
-    <string name="settings_nav_purge_row">ব্লক করা বার্তা মোছার সময়</string>
+    <string name="settings_nav_purge_row">স্প্যাম মোছার সময়</string>
     <string name="settings_nav_group_alerts">সতর্কতা</string>
-    <string name="settings_nav_notify_body">প্রতিটি ব্লক করা বার্তার জন্য নীরব বিজ্ঞপ্তি</string>
+    <string name="settings_nav_notify_body">প্রতিটি স্প্যাম বার্তার জন্য নীরব বিজ্ঞপ্তি</string>
     <string name="settings_nav_theme_title">চেহারা</string>
     <string name="settings_nav_theme_modes">মোড</string>
     <string name="settings_nav_theme_colours">রং</string>

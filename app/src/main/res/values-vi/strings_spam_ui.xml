@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="spam_ui_delete_all">Xóa tất cả</string>
-    <string name="spam_ui_delete_all_title">Xóa tất cả tin nhắn đã chặn?</string>
+    <string name="spam_ui_delete_all_title">Xóa tất cả tin nhắn rác?</string>
     <plurals name="spam_ui_delete_all_message">
-        <item quantity="other">%1$d tin nhắn đã chặn sẽ bị xóa. Bạn có thể hoàn tác ngay sau đó.</item>
+        <item quantity="other">%1$d tin nhắn rác sẽ bị xóa. Bạn có thể hoàn tác ngay sau đó.</item>
     </plurals>
     <string name="declog_ui_clear_title">Xóa nhật ký quyết định?</string>
-    <string name="declog_ui_clear_message">Mọi quyết định đã ghi sẽ bị xóa. Tin nhắn đã chặn và quy tắc vẫn được giữ nguyên.</string>
+    <string name="declog_ui_clear_message">Mọi quyết định đã ghi sẽ bị xóa. Tin nhắn rác và quy tắc vẫn được giữ nguyên.</string>
     <string name="declog_ui_clear_action">Xóa</string>
     <string name="ui_log_reason_contacts_unavailable">Không đọc được người liên hệ</string>
     <string name="blocknum_title">Số đã chặn</string>

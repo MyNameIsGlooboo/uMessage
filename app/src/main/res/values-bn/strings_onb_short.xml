@@ -4,7 +4,7 @@
     <string name="onb_allow_done">হয়েছে</string>
     <string name="onb_allow_needed">দরকার</string>
     <string name="onb_allow_all_set">সব ঠিক আছে</string>
-    <string name="onb_mode_strict_short">সব ব্লক করা তালিকায় রাখুন</string>
+    <string name="onb_mode_strict_short">সব স্প্যামে রাখুন</string>
     <string name="onb_mode_smart_short">রাখুন, তবে কোডের বার্তা আসতে দিন</string>
     <string name="onb_mode_off_short">ফিল্টার করবেন না</string>
 </resources>

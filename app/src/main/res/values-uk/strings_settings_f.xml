@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">Як у системі</string>
     <string name="settings_f_group_rules">Правила й списки</string>
     <string name="settings_f_spam_more">Термін зберігання та сповіщення</string>
-    <string name="settings_f_spam_more_body">Термін зберігання заблокованих повідомлень і сповіщення</string>
+    <string name="settings_f_spam_more_body">Термін зберігання спаму і сповіщення</string>
     <string name="settings_f_hide_lock_codes_body">На екрані блокування коди показуються як ••••</string>
     <string name="settings_f_code_alert">Сповіщення про код</string>
     <string name="settings_f_code_alert_body">Звук для кодів підтвердження</string>

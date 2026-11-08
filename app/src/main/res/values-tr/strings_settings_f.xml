@@ -18,7 +18,7 @@
     <string name="settings_f_language_system">Sistem varsayılanı</string>
     <string name="settings_f_group_rules">Kurallar ve listeler</string>
     <string name="settings_f_spam_more">Saklama süresi ve uyarılar</string>
-    <string name="settings_f_spam_more_body">Engellenen mesajların saklama süresi ve uyarılar</string>
+    <string name="settings_f_spam_more_body">Spam\'in saklama süresi ve uyarılar</string>
     <string name="settings_f_hide_lock_codes_body">Kodlar kilit ekranında •••• olarak görünür</string>
     <string name="settings_f_code_alert">Kod uyarısı</string>
     <string name="settings_f_code_alert_body">Doğrulama kodları için ses</string>

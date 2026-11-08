@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">گفتگوهای مخفی قفل است</string>
+    <string name="backup_hidden_message">گفتگوهای مخفی‌ات قفل است. برای اینکه توی نسخهٔ بک‌آپ بیایند قفل را باز کن، یا بدون آن‌ها بک‌آپ بگیر.</string>
+    <string name="backup_hidden_unlock">باز کردن قفل</string>
+    <string name="backup_hidden_skip">ردکردن گفتگوهای مخفی</string>
+    <string name="backup_export_hidden_left_out">گفتگوهای مخفیِ کنار گذاشته‌شده: %d</string>
+</resources>

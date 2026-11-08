@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">ปิดรายการตรวจสอบ</string>
     <string name="w3c_checklist_step_sms">ตั้ง uMessage เป็นแอป SMS เริ่มต้น</string>
     <string name="w3c_checklist_step_notifications">เปิดการแจ้งเตือน</string>
-    <string name="w3c_checklist_step_blocked">ดูแท็บที่บล็อก</string>
+    <string name="w3c_checklist_step_blocked">ดูแท็บสแปม</string>
     <string name="w3c_checklist_step_forward">ไม่บังคับ: ส่งต่อข้อความไปยังหมายเลขอื่น</string>
     <string name="w3c_checklist_step_done">เสร็จแล้ว</string>
     <string name="w3c_checklist_action_set">ตั้งค่า</string>
     <string name="w3c_checklist_action_open">เปิด</string>
     <string name="w3c_receipt_title">พักสแปมไว้แล้ว: แตะเพื่อตรวจดู</string>
-    <string name="w3c_receipt_body">ข้อความจากผู้ส่งที่ไม่รู้จักถูกพักไว้ในที่บล็อก ข้อความยังอยู่ สามารถตรวจดูและกู้คืนได้ทุกเมื่อ</string>
+    <string name="w3c_receipt_body">ข้อความจากผู้ส่งที่ไม่รู้จักถูกพักไว้ในสแปม ข้อความยังอยู่ สามารถตรวจดูและกู้คืนได้ทุกเมื่อ</string>
     <string name="w3c_receipt_review">ตรวจดู</string>
     <string name="w3c_receipt_got_it">เข้าใจแล้ว</string>
     <string name="w3c_new_paste">วางหมายเลข</string>

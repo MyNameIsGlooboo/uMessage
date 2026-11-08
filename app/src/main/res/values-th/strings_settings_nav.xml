@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols (ลิขสิทธิ์ของ Google LLC) อยู่ภายใต้ Apache License เวอร์ชัน 2.0 ไอคอนมีให้ตามสภาพโดยไม่มีการรับประกัน</string>
     <string name="settings_nav_recommended">แนะนำ</string>
     <string name="settings_nav_strict_confirm_title">บล็อกรหัสยืนยันด้วยไหม?</string>
-    <string name="settings_nav_strict_confirm_body">ในโหมดกรองเข้มงวด รหัสจากผู้ส่งที่ไม่อยู่ในรายชื่อติดต่อจะไปที่แท็บที่บล็อกพร้อมข้อความอื่นๆ ข้อความจากธนาคารและบริษัทขนส่งก็จะถูกสกัดไว้ด้วย</string>
+    <string name="settings_nav_strict_confirm_body">ในโหมดกรองเข้มงวด รหัสจากผู้ส่งที่ไม่อยู่ในรายชื่อติดต่อจะไปที่สแปมพร้อมข้อความอื่นๆ ข้อความจากธนาคารและบริษัทขนส่งก็จะถูกสกัดไว้ด้วย</string>
     <string name="settings_nav_strict_confirm_action">ใช้โหมดเข้มงวด</string>
     <string name="settings_nav_strict_confirm_cancel">ใช้โหมดปัจจุบันต่อ</string>
-    <string name="settings_nav_purge_row">ลบข้อความที่บล็อกเมื่อครบ</string>
+    <string name="settings_nav_purge_row">ลบสแปมเมื่อครบ</string>
     <string name="settings_nav_group_alerts">การเตือน</string>
-    <string name="settings_nav_notify_body">การแจ้งเตือนแบบเงียบสำหรับแต่ละข้อความที่บล็อก</string>
+    <string name="settings_nav_notify_body">การแจ้งเตือนแบบเงียบสำหรับสแปมแต่ละข้อความ</string>
     <string name="settings_nav_theme_title">รูปลักษณ์</string>
     <string name="settings_nav_theme_modes">โหมด</string>
     <string name="settings_nav_theme_colours">สี</string>

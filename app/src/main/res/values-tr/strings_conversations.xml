@@ -14,11 +14,11 @@
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">Hızlı kaydırma</string>
     <plurals name="convlist_blocked_banner">
-        <item quantity="one">%d mesaj engellendi</item>
-        <item quantity="other">%d mesaj engellendi</item>
+        <item quantity="one">%d spam mesajı</item>
+        <item quantity="other">%d spam mesajı</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">Engellenenler</string>
-    <string name="convlist_blocked_banner_cd">%1$d mesaj engellendi. Engellenenler klasörünü açın.</string>
+    <string name="convlist_blocked_banner_title">Spam</string>
+    <string name="convlist_blocked_banner_cd">%1$d spam mesajı. Spam klasörünü açın.</string>
     <string name="convlist_archive">Arşivleyin</string>
     <string name="convlist_delete">Silin</string>
     <string name="convlist_pin">En üste sabitleyin</string>
@@ -47,12 +47,12 @@
         <item quantity="other">%d görüşme arşivlendi</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="one">Engellendi. Yeni mesajlar Engellenenler klasörüne gider</item>
-        <item quantity="other">%d gönderen engellendi. Yeni mesajlar Engellenenler klasörüne gider</item>
+        <item quantity="one">Engellendi. Yeni mesajlar Spam klasörüne gider</item>
+        <item quantity="other">%d gönderen engellendi. Yeni mesajlar Spam klasörüne gider</item>
     </plurals>
     <string name="convlist_action_failed">Bir sorun oluştu</string>
     <string name="convlist_block_title">Numara engellensin mi?</string>
-    <string name="convlist_block_message">%1$s engellensin mi? Bu gönderenden gelen yeni mesajlar gelen kutusu yerine Engellenenler klasörüne gider. Mesajları orada okuyabilir veya geri yükleyebilirsiniz.</string>
+    <string name="convlist_block_message">%1$s engellensin mi? Bu gönderenden gelen yeni mesajlar gelen kutusu yerine Spam klasörüne gider. Mesajları orada okuyabilir veya geri yükleyebilirsiniz.</string>
     <string name="convlist_block_confirm">Engelleyin</string>
     <string name="convlist_rename_title">Görüşmeyi yeniden adlandırın</string>
     <string name="convlist_cancel">İptal edin</string>

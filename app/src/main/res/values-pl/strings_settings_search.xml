@@ -12,7 +12,7 @@
     <string name="sks_rules">reguły zezwól zablokuj lista słowo kluczowe wzorzec regex nadawca numer lista dozwolonych lista blokowanych</string>
     <string name="sks_blocked_numbers">zablokowane numery lista blokowanych telefon kontakty Android</string>
     <string name="sks_decision_log">historia decyzji dlaczego zablokowane aktywność ostatnie</string>
-    <string name="sks_purge">usuń zablokowane stare usuwanie wyczyść automatycznie dni czyszczenie przechowywanie</string>
+    <string name="sks_purge">usuń spam zablokowane stare usuwanie wyczyść automatycznie dni czyszczenie przechowywanie</string>
     <string name="sks_region">kraj region spoza zagraniczne międzynarodowe zagranica zablokuj</string>
     <string name="sks_links">linki URL ryzykowne phishing bezpieczeństwo blokada internet</string>
     <string name="sks_carrier_report">operator zgłoś przekaż dalej 7726 dostawca spam</string>

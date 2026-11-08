@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="r3fwd_title">بازارسال</string>
-    <string name="r3fwd_options">گزینه‌های بازارسال</string>
-    <string name="r3fwd_summary_none">خاموش، بازارسال پیام‌ها به شماره‌ای دیگر</string>
+    <string name="r3fwd_title">فوروارد</string>
+    <string name="r3fwd_options">گزینه‌های فوروارد</string>
+    <string name="r3fwd_summary_none">خاموش، فوروارد پیام‌ها به شماره‌ای دیگر</string>
     <string name="r3fwd_summary_off">خاموش</string>
     <string name="r3fwd_summary_paused">متوقف</string>
     <plurals name="r3fwd_summary_on" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d قانون فعال</item>
         <item quantity="other">%d قانون فعال</item>
     </plurals>
-    <string name="r3fwd_paused_title">بازارسال متوقف است</string>
-    <string name="r3fwd_paused_body">قانون‌های شما ذخیره شده‌اند، اما تا وقتی بازارسال را دوباره روشن نکنید، چیزی بازارسال نمی‌شود.</string>
+    <string name="r3fwd_paused_title">فوروارد متوقف است</string>
+    <string name="r3fwd_paused_body">قانون‌های شما ذخیره شده‌اند، اما تا وقتی فوروارد را دوباره روشن نکنید، چیزی فوروارد نمی‌شود.</string>
     <string name="r3fwd_paused_action">باز کردن گزینه‌ها</string>
 </resources>

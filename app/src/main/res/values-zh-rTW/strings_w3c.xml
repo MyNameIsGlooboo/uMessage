@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">關閉檢查清單</string>
     <string name="w3c_checklist_step_sms">將uMessage設為預設簡訊應用程式</string>
     <string name="w3c_checklist_step_notifications">開啟通知</string>
-    <string name="w3c_checklist_step_blocked">查看「已封鎖」分頁</string>
+    <string name="w3c_checklist_step_blocked">查看「垃圾訊息」分頁</string>
     <string name="w3c_checklist_step_forward">選用：將訊息轉寄到其他號碼</string>
     <string name="w3c_checklist_step_done">已完成</string>
     <string name="w3c_checklist_action_set">設定</string>
     <string name="w3c_checklist_action_open">開啟</string>
     <string name="w3c_receipt_title">已攔截垃圾簡訊：輕觸即可查看</string>
-    <string name="w3c_receipt_body">一則來自未知寄件者的訊息已被攔截到「已封鎖」。訊息沒有遺失：你隨時可以查看並還原。</string>
+    <string name="w3c_receipt_body">一則來自未知寄件者的訊息已被攔截到「垃圾訊息」。訊息沒有遺失：你隨時可以查看並還原。</string>
     <string name="w3c_receipt_review">查看</string>
     <string name="w3c_receipt_got_it">知道了</string>
     <string name="w3c_new_paste">貼上號碼</string>

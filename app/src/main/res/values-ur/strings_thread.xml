@@ -19,9 +19,9 @@
     <string name="thread_menu_block">بھیجنے والے کو بلاک کریں</string>
     <string name="thread_menu_unblock">بھیجنے والے کو ان بلاک کریں</string>
     <string name="thread_block_title">بھیجنے والے کو بلاک کریں؟</string>
-    <string name="thread_block_message">%1$s کو بلاک کریں؟ اس بھیجنے والے کے نئے پیغامات آپ کے ان باکس کے بجائے بلاک شدہ پیغامات میں جائیں گے، جہاں آپ انہیں اب بھی پڑھ یا بحال کر سکتے ہیں۔ کسی کو کچھ نہیں بھیجا جاتا۔ اس گفتگو میں پہلے سے موجود پیغامات رہیں گے۔</string>
+    <string name="thread_block_message">%1$s کو بلاک کریں؟ اس بھیجنے والے کے نئے پیغامات آپ کے ان باکس کے بجائے اسپیم میں جائیں گے، جہاں آپ انہیں اب بھی پڑھ یا بحال کر سکتے ہیں۔ کسی کو کچھ نہیں بھیجا جاتا۔ اس گفتگو میں پہلے سے موجود پیغامات رہیں گے۔</string>
     <string name="thread_block_confirm">بلاک</string>
-    <string name="thread_block_done">بلاک ہو گیا۔ نئے پیغامات بلاک شدہ پیغامات میں جائیں گے</string>
+    <string name="thread_block_done">بلاک ہو گیا۔ نئے پیغامات اسپیم میں جائیں گے</string>
     <string name="thread_block_failed">اس بھیجنے والے کو بلاک نہیں کیا جا سکا</string>
     <string name="thread_unblock_done">ان بلاک ہو گیا۔ نئے پیغامات آپ کے ان باکس میں آئیں گے</string>
     <string name="thread_unblock_done_system">uMessage میں ان بلاک ہو گیا۔ یہ نمبر آپ کے فون کی بلاک فہرست میں بھی ہے، اس لیے Android اب بھی اس کے پیغامات بلاک کرتا ہے</string>

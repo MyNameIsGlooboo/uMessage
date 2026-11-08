@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="spam_ui_delete_all">Tout supprimer</string>
-    <string name="spam_ui_delete_all_title">Supprimer tous les messages bloqués ?</string>
+    <string name="spam_ui_delete_all_title">Supprimer tout le spam ?</string>
     <plurals name="spam_ui_delete_all_message" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%1$d message bloqué sera supprimé. Vous pourrez annuler juste après.</item>
-        <item quantity="other">%1$d messages bloqués seront supprimés. Vous pourrez annuler juste après.</item>
+        <item quantity="one">%1$d message sera supprimé. Vous pourrez annuler juste après.</item>
+        <item quantity="other">%1$d messages seront supprimés. Vous pourrez annuler juste après.</item>
     </plurals>
     <string name="declog_ui_clear_title">Vider le journal des décisions ?</string>
-    <string name="declog_ui_clear_message">Toutes les décisions enregistrées seront effacées. Les messages bloqués et les règles resteront inchangés.</string>
+    <string name="declog_ui_clear_message">Toutes les décisions enregistrées seront effacées. Le spam et les règles resteront inchangés.</string>
     <string name="declog_ui_clear_action">Vider</string>
     <string name="ui_log_reason_contacts_unavailable">Contacts illisibles</string>
     <string name="blocknum_title">Numéros bloqués</string>

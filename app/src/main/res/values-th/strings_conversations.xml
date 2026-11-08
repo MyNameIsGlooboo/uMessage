@@ -14,10 +14,10 @@
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">เลื่อนอย่างรวดเร็ว</string>
     <plurals name="convlist_blocked_banner">
-        <item quantity="other">ข้อความที่บล็อก %d ข้อความ</item>
+        <item quantity="other">ข้อความสแปม %d ข้อความ</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">ข้อความที่บล็อก</string>
-    <string name="convlist_blocked_banner_cd">ข้อความที่บล็อก %1$d ข้อความ เปิดโฟลเดอร์ที่บล็อก</string>
+    <string name="convlist_blocked_banner_title">สแปม</string>
+    <string name="convlist_blocked_banner_cd">ข้อความสแปม %1$d ข้อความ เปิดโฟลเดอร์สแปม</string>
     <string name="convlist_archive">เก็บถาวร</string>
     <string name="convlist_delete">ลบ</string>
     <string name="convlist_pin">ปักหมุดไว้บนสุด</string>
@@ -43,11 +43,11 @@
         <item quantity="other">เก็บถาวรแล้ว %d การสนทนา</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="other">บล็อกผู้ส่งแล้ว %d ราย ข้อความใหม่จะไปที่ข้อความที่บล็อก</item>
+        <item quantity="other">บล็อกผู้ส่งแล้ว %d ราย ข้อความใหม่จะไปที่สแปม</item>
     </plurals>
     <string name="convlist_action_failed">เกิดข้อผิดพลาด</string>
     <string name="convlist_block_title">บล็อกหมายเลขไหม?</string>
-    <string name="convlist_block_message">บล็อก %1$s ไหม? ข้อความใหม่จากหมายเลขนี้จะไปที่ข้อความที่บล็อกแทนกล่องข้อความเข้า โดยยังอ่านหรือกู้คืนได้</string>
+    <string name="convlist_block_message">บล็อก %1$s ไหม? ข้อความใหม่จากหมายเลขนี้จะไปที่สแปมแทนกล่องข้อความเข้า โดยยังอ่านหรือกู้คืนได้</string>
     <string name="convlist_block_confirm">บล็อก</string>
     <string name="convlist_rename_title">เปลี่ยนชื่อการสนทนา</string>
     <string name="convlist_cancel">ยกเลิก</string>

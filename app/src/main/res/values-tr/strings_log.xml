@@ -36,7 +36,7 @@
     <string name="declog_fixed_blocked">Bu göndereni günlükten engellediniz</string>
     <string name="declog_fixed_restored">Bu mesajı günlükten geri yüklediniz</string>
     <string name="declog_restored">Geri yüklendi</string>
-    <string name="declog_blocked_message">Mesaj hâlâ Engellenenler bölümünde</string>
+    <string name="declog_blocked_message">Mesaj hâlâ Spam bölümünde</string>
     <string name="declog_restore">Mesajı geri yükleyin</string>
     <string name="declog_restore_done">Mesaj gelen kutusuna geri yüklendi</string>
     <string name="declog_restore_text_only">Metin gelen kutusuna geri yüklendi. Resimler kurtarılamadı.</string>

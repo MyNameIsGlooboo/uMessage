@@ -7,13 +7,13 @@
     <string name="w3c_checklist_dismiss">チェックリストを閉じる</string>
     <string name="w3c_checklist_step_sms">uMessageをデフォルトのSMSアプリに設定</string>
     <string name="w3c_checklist_step_notifications">通知をオンにする</string>
-    <string name="w3c_checklist_step_blocked">「ブロック済み」タブを確認</string>
+    <string name="w3c_checklist_step_blocked">「迷惑メッセージ」タブを確認</string>
     <string name="w3c_checklist_step_forward">任意：別の番号にメッセージを転送</string>
     <string name="w3c_checklist_step_done">完了</string>
     <string name="w3c_checklist_action_set">設定</string>
     <string name="w3c_checklist_action_open">開く</string>
     <string name="w3c_receipt_title">迷惑メッセージを保留：タップして確認</string>
-    <string name="w3c_receipt_body">不明な送信者からのメッセージを「ブロック済み」に保留しました。削除はされず、いつでも確認して復元できます。</string>
+    <string name="w3c_receipt_body">不明な送信者からのメッセージを「迷惑メッセージ」に保留しました。削除はされず、いつでも確認して復元できます。</string>
     <string name="w3c_receipt_review">確認</string>
     <string name="w3c_receipt_got_it">了解</string>
     <string name="w3c_new_paste">番号を貼り付け</string>

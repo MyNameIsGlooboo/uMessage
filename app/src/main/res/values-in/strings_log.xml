@@ -32,7 +32,7 @@
     <string name="declog_fixed_blocked">Anda memblokir pengirim ini dari log</string>
     <string name="declog_fixed_restored">Anda memulihkan pesan ini dari log</string>
     <string name="declog_restored">Dipulihkan</string>
-    <string name="declog_blocked_message">Pesan masih ada di Diblokir</string>
+    <string name="declog_blocked_message">Pesan masih ada di Spam</string>
     <string name="declog_restore">Pulihkan pesan</string>
     <string name="declog_restore_done">Pesan dipulihkan ke kotak masuk</string>
     <string name="declog_restore_text_only">Teks dipulihkan ke kotak masuk. Gambar tidak dapat dipulihkan.</string>

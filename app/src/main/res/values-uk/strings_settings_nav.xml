@@ -46,12 +46,12 @@
     <string name="settings_nav_license_icons_body">Material Symbols (авторські права належать Google LLC) ліцензовано за Apache License версії 2.0. Значки надаються «як є», без гарантій.</string>
     <string name="settings_nav_recommended">Рекомендовано</string>
     <string name="settings_nav_strict_confirm_title">Блокувати й коди підтвердження?</string>
-    <string name="settings_nav_strict_confirm_body">У суворому режимі коди від відправників, яких немає у ваших контактах, разом з усіма іншими повідомленнями потрапляють до вкладки «Заблоковані». Повідомлення від банків і служб доставки теж блокуються.</string>
+    <string name="settings_nav_strict_confirm_body">У суворому режимі коди від відправників, яких немає у ваших контактах, разом з усіма іншими повідомленнями потрапляють до вкладки «Спам». Повідомлення від банків і служб доставки теж затримуються.</string>
     <string name="settings_nav_strict_confirm_action">Увімкнути суворий режим</string>
     <string name="settings_nav_strict_confirm_cancel">Залишити поточний режим</string>
-    <string name="settings_nav_purge_row">Видаляти заблоковані повідомлення через</string>
+    <string name="settings_nav_purge_row">Видаляти спам через</string>
     <string name="settings_nav_group_alerts">Сповіщення</string>
-    <string name="settings_nav_notify_body">Беззвучне сповіщення про кожне заблоковане повідомлення</string>
+    <string name="settings_nav_notify_body">Беззвучне сповіщення про кожне спам-повідомлення</string>
     <string name="settings_nav_theme_title">Вигляд</string>
     <string name="settings_nav_theme_modes">Режим</string>
     <string name="settings_nav_theme_colours">Кольори</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="w2a_keywords_search_hint">جستجوی کلیدواژه‌ها</string>
+    <string name="w2a_keywords_search_hint">جستجوی کلمه‌های کلیدی</string>
     <string name="w2a_keywords_search_clear">پاک کردن جستجو</string>
-    <string name="w2a_keywords_no_match_title">کلیدواژهٔ مطابقی پیدا نشد</string>
-    <string name="w2a_keywords_no_match_body">واژهٔ دیگری را امتحان کنید یا جستجو را پاک کنید.</string>
+    <string name="w2a_keywords_no_match_title">چیزی پیدا نشد</string>
+    <string name="w2a_keywords_no_match_body">کلمهٔ دیگری را امتحان کنید یا جستجو را پاک کنید.</string>
 </resources>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="spam_engine_blocked_channel">Mensagens bloqueadas</string>
-    <string name="spam_engine_blocked_title">Bloqueado: %s</string>
-    <string name="spam_engine_blocked_public_title">Mensagem bloqueada</string>
-    <string name="spam_engine_mms_blocked">Mensagem com imagem (MMS) bloqueada</string>
+    <string name="spam_engine_blocked_channel">Spam</string>
+    <string name="spam_engine_blocked_title">Spam: %s</string>
+    <string name="spam_engine_blocked_public_title">Mensagem enviada para Spam</string>
+    <string name="spam_engine_mms_blocked">Mensagem com imagem (MMS) de spam</string>
     <string name="spam_engine_regex_nested_repeat">Este padrão (expressão regular) repete um grupo que já se repete, o que pode travar a filtragem de mensagens. Simplifique-o.</string>
     <string name="spam_engine_regex_matches_empty">Este padrão (expressão regular) corresponde a todas as mensagens.</string>
     <string name="spam_engine_regex_invalid">Este padrão (expressão regular) é inválido.</string>

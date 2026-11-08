@@ -36,7 +36,7 @@
     <string name="declog_fixed_blocked">Du hast diesen Absender im Protokoll blockiert</string>
     <string name="declog_fixed_restored">Du hast diese Nachricht im Protokoll wiederhergestellt</string>
     <string name="declog_restored">Wiederhergestellt</string>
-    <string name="declog_blocked_message">Die Nachricht ist noch unter „Blockiert“</string>
+    <string name="declog_blocked_message">Die Nachricht ist noch unter „Spam“</string>
     <string name="declog_restore">Nachricht wiederherstellen</string>
     <string name="declog_restore_done">Nachricht im Posteingang wiederhergestellt</string>
     <string name="declog_restore_text_only">Text im Posteingang wiederhergestellt. Die Bilder konnten nicht wiederhergestellt werden.</string>

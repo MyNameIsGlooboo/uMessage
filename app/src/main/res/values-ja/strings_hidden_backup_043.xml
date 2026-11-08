@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">非表示のチャットはロックされています</string>
+    <string name="backup_hidden_message">非表示のチャットはロックされています。バックアップに含めるにはロックを解除してください。含めずにバックアップすることもできます。</string>
+    <string name="backup_hidden_unlock">ロック解除</string>
+    <string name="backup_hidden_skip">非表示チャットを除外</string>
+    <string name="backup_export_hidden_left_out">除外した非表示チャット：%d件</string>
+</resources>

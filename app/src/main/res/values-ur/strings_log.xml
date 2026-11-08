@@ -36,7 +36,7 @@
     <string name="declog_fixed_blocked">آپ نے لاگ سے اس بھیجنے والے کو بلاک کیا</string>
     <string name="declog_fixed_restored">آپ نے لاگ سے یہ پیغام بحال کیا</string>
     <string name="declog_restored">بحال شدہ</string>
-    <string name="declog_blocked_message">پیغام، جو ابھی بھی بلاک شدہ میں ہے</string>
+    <string name="declog_blocked_message">پیغام، جو ابھی بھی اسپیم میں ہے</string>
     <string name="declog_restore">پیغام بحال کریں</string>
     <string name="declog_restore_done">پیغام ان باکس میں بحال کر دیا گیا</string>
     <string name="declog_restore_text_only">متن ان باکس میں بحال کر دیا گیا۔ تصاویر واپس نہیں لائی جا سکیں۔</string>

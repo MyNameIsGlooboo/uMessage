@@ -8,7 +8,7 @@
     <string name="onb_welcome_title">Chào mừng bạn đến với uMessage</string>
     <string name="onb_welcome_intro">Nhắn tin tốt hơn, ít tin nhắn rác hơn.</string>
     <string name="onb_welcome_spam">Ngăn tin nhắn rác</string>
-    <string name="onb_welcome_spam_desc">Tin nhắn từ người gửi không xác định được giữ trong mục Đã chặn, không bị mất.</string>
+    <string name="onb_welcome_spam_desc">Tin nhắn từ người gửi không xác định được giữ trong mục Tin rác, không bị mất.</string>
     <string name="onb_welcome_codes">Sao chép mã bằng một lần nhấn</string>
     <string name="onb_welcome_codes_desc">Sao chép mã xác minh ngay từ thông báo.</string>
     <string name="onb_welcome_copy">Chỉ sao chép phần bạn cần</string>
@@ -46,7 +46,7 @@
     <string name="onb_mode_smart">Thông minh</string>
     <string name="onb_mode_off">Tắt</string>
     <string name="onb_mode_warning_title">Lưu ý về tin nhắn ngân hàng và mã</string>
-    <string name="onb_mode_warning_body">Trong Chế độ lọc nghiêm ngặt, thông báo ngân hàng, cập nhật giao hàng và mã dùng một lần từ người gửi không xác định đều được giữ trong mục Đã chặn, kể cả mã. Bạn sẽ không nhận được thông báo, nên hãy kiểm tra mục Đã chặn khi đang chờ tin nhắn.</string>
+    <string name="onb_mode_warning_body">Trong Chế độ lọc nghiêm ngặt, thông báo ngân hàng, cập nhật giao hàng và mã dùng một lần từ người gửi không xác định đều được giữ trong mục Tin rác, kể cả mã. Bạn sẽ không nhận được thông báo, nên hãy kiểm tra mục Tin rác khi đang chờ tin nhắn.</string>
     <string name="onb_oem_title">Giữ uMessage hoạt động</string>
     <string name="onb_oem_manual_hint">Nếu màn hình không mở, hãy tìm tên hiển thị trong Cài đặt của bạn.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi hoặc Poco</string>

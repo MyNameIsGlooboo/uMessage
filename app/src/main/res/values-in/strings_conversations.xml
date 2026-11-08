@@ -14,10 +14,10 @@
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">Gulir cepat</string>
     <plurals name="convlist_blocked_banner">
-        <item quantity="other">%d pesan diblokir</item>
+        <item quantity="other">%d pesan spam</item>
     </plurals>
-    <string name="convlist_blocked_banner_title">Pesan diblokir</string>
-    <string name="convlist_blocked_banner_cd">%1$d pesan diblokir. Buka folder diblokir.</string>
+    <string name="convlist_blocked_banner_title">Spam</string>
+    <string name="convlist_blocked_banner_cd">%1$d pesan spam. Buka folder Spam.</string>
     <string name="convlist_archive">Arsipkan</string>
     <string name="convlist_delete">Hapus</string>
     <string name="convlist_pin">Sematkan di atas</string>
@@ -43,11 +43,11 @@
         <item quantity="other">%d percakapan diarsipkan</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="other">%d pengirim diblokir. Pesan baru akan masuk ke Pesan diblokir</item>
+        <item quantity="other">%d pengirim diblokir. Pesan baru akan masuk ke Spam</item>
     </plurals>
     <string name="convlist_action_failed">Terjadi kesalahan</string>
     <string name="convlist_block_title">Blokir nomor?</string>
-    <string name="convlist_block_message">Blokir %1$s? Pesan baru dari nomor ini akan masuk ke Pesan diblokir alih-alih kotak masuk. Anda tetap bisa membaca atau memulihkannya di sana.</string>
+    <string name="convlist_block_message">Blokir %1$s? Pesan baru dari nomor ini akan masuk ke Spam alih-alih kotak masuk. Anda tetap bisa membaca atau memulihkannya di sana.</string>
     <string name="convlist_block_confirm">Blokir</string>
     <string name="convlist_rename_title">Ubah nama percakapan</string>
     <string name="convlist_cancel">Batal</string>

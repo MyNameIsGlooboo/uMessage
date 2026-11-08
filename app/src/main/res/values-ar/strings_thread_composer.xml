@@ -6,7 +6,7 @@
     <string name="thread_edit_scheduled_replaces_draft">سيحل تعديل الرسالة المجدولة محل ما تكتبه الآن. هل تريد المتابعة؟</string>
     <string name="thread_menu_report_spam">أبلغ عن رسالة غير مرغوب فيها</string>
     <string name="thread_report_spam_title">هل تريد تصنيفها كرسالة غير مرغوب فيها؟</string>
-    <string name="thread_report_spam_message">ستنتقل الرسائل الجديدة من %1$s إلى الرسائل المحظورة بدلًا من الرسائل الواردة. ستبقى الرسائل الموجودة في هذه المحادثة.</string>
+    <string name="thread_report_spam_message">ستنتقل الرسائل الجديدة من %1$s إلى «غير المرغوب فيها» بدلًا من الرسائل الواردة. ستبقى الرسائل الموجودة في هذه المحادثة.</string>
     <string name="thread_report_spam_confirm">صنّف كرسالة غير مرغوب فيها</string>
     <string name="thread_report_spam_cancel">إلغاء</string>
     <string name="thread_report_spam_done">صُنّفت كرسالة غير مرغوب فيها</string>

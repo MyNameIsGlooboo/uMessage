@@ -6,7 +6,7 @@
     <string name="r3b_thread_note">uMessage hat diese Nachrichten zurückgehalten. Sie sind nicht in deinem Posteingang.</string>
     <string name="r3b_thread_delete_all">Alle Nachrichten von %1$s löschen</string>
     <string name="r3b_thread_empty_title">Hier ist nichts mehr</string>
-    <string name="r3b_thread_empty_body">Von diesem Absender gibt es jetzt keine blockierten Nachrichten mehr.</string>
+    <string name="r3b_thread_empty_body">Von diesem Absender gibt es jetzt keine Spam-Nachrichten mehr.</string>
     <string name="r3b_message_actions">Aktionen für die Nachricht</string>
     <string name="r3b_why_blocked">Warum blockiert</string>
     <string name="r3b_copy_text">Text kopieren</string>
@@ -14,7 +14,7 @@
     <string name="r3b_delete_message">Löschen</string>
     <string name="r3b_received">Empfangen: %1$s</string>
     <plurals name="r3b_info_purge">
-        <item quantity="one">Blockierte Nachrichten werden nach %d Tag gelöscht.</item>
-        <item quantity="other">Blockierte Nachrichten werden nach %d Tagen gelöscht.</item>
+        <item quantity="one">Spam wird nach %d Tag gelöscht.</item>
+        <item quantity="other">Spam wird nach %d Tagen gelöscht.</item>
     </plurals>
 </resources>

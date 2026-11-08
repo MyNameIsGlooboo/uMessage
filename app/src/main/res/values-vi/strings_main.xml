@@ -7,10 +7,10 @@
     <string name="main_search_no_results">Không tìm thấy kết quả</string>
     <string name="main_settings">Cài đặt</string>
     <string name="main_tab_messages">Tin nhắn</string>
-    <string name="main_tab_blocked">Đã chặn</string>
+    <string name="main_tab_blocked">Tin rác</string>
     <string name="main_tab_archived">Đã lưu trữ</string>
     <plurals name="main_tab_blocked_new">
-        <item quantity="other">Đã chặn, %d tin nhắn mới</item>
+        <item quantity="other">Tin rác, %d tin nhắn mới</item>
     </plurals>
     <string name="main_permission_title">Cần cấp quyền</string>
     <string name="main_permission_grant">Cấp quyền</string>

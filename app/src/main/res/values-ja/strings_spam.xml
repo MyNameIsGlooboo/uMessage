@@ -8,7 +8,7 @@
     <string name="spam_blocked_open_settings">ブロック設定</string>
     <string name="spam_blocked_stats_totals">合計%1$d件をブロック、%2$d件を復元</string>
     <string name="spam_blocked_header_cd">過去7日間で迷惑メッセージを%1$d件ブロックしました。合計%2$d件をブロックし、%3$d件を復元しました。</string>
-    <string name="spam_blocked_empty_title">ブロック済みメッセージはありません</string>
+    <string name="spam_blocked_empty_title">迷惑メッセージはありません</string>
     <string name="spam_action_delete">削除</string>
     <string name="spam_select">選択</string>
     <string name="spam_action_select_all">すべて選択</string>
@@ -36,7 +36,7 @@
     <string name="spam_rules_empty_allowed_title">許可ルールはありません</string>
     <string name="spam_rules_empty_allowed_body">許可したメッセージは、厳格モードでも必ず受信トレイに届きます。電話番号、送信者名、キーワードを追加できます。</string>
     <string name="spam_rules_empty_blocked_title">ブロックルールはありません</string>
-    <string name="spam_rules_empty_blocked_body">電話番号、先頭の番号、送信者名、キーワード、パターン（正規表現）でブロックできます。ブロックされたメッセージは「ブロック済み」フォルダに入ります。</string>
+    <string name="spam_rules_empty_blocked_body">電話番号、先頭の番号、送信者名、キーワード、パターン（正規表現）でブロックできます。該当するメッセージは「迷惑メッセージ」フォルダに入ります。</string>
     <string name="spam_rules_delete_rule">ルール%sを削除</string>
     <string name="spam_rules_deleted">ルールを削除しました。</string>
     <plurals name="spam_rules_imported">
@@ -102,10 +102,10 @@
     <string name="spam_mode_off">オフ</string>
     <string name="spam_mode_off_body">不明な送信者をブロックしません。</string>
     <string name="spam_strict_warning_title">厳格モードでは重要なメッセージも非表示になることがあります。</string>
-    <string name="spam_strict_warning_body">銀行や配送会社からのメッセージ、ワンタイムコードは、通常、連絡先にない送信者から届きます。厳格モードでは、認証コードも含めて「ブロック済み」フォルダに入ります。認証コードを受信するには、スマートを選ぶか、送信者を一度許可してください。</string>
-    <string name="spam_strict_warning_action">ブロック済みメッセージを確認</string>
+    <string name="spam_strict_warning_body">銀行や配送会社からのメッセージ、ワンタイムコードは、通常、連絡先にない送信者から届きます。厳格モードでは、認証コードも含めて「迷惑メッセージ」フォルダに入ります。認証コードを受信するには、スマートを選ぶか、送信者を一度許可してください。</string>
+    <string name="spam_strict_warning_action">迷惑メッセージを確認</string>
     <string name="spam_settings_cleanup_title">整理</string>
-    <string name="spam_purge_body">古いブロック済みメッセージを自動で削除します。</string>
+    <string name="spam_purge_body">古い迷惑メッセージを自動で削除します。</string>
     <string name="spam_purge_days">%d日</string>
     <string name="spam_purge_forever">削除しない</string>
     <string name="spam_notify_title">ブロック時に通知</string>

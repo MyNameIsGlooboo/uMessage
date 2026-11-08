@@ -41,16 +41,16 @@
     <plurals name="e_migrate_title_numbers">
         <item quantity="other">将%d个号码移至uMessage规则</item>
     </plurals>
-    <string name="e_migrate_point_blocked">•这些号码的短信将进入“已屏蔽”，你可以在那里阅读和恢复。</string>
+    <string name="e_migrate_point_blocked">•这些号码的短信将进入“垃圾短信”，你可以在那里阅读和恢复。</string>
     <string name="e_migrate_point_android">•在这些号码移出Android屏蔽列表前，Android仍会丢弃其短信。</string>
     <string name="e_migrate_calls_note">Android屏蔽列表还会屏蔽来电。从中移除的号码将能再次拨打你的电话。</string>
     <string name="e_bn_unknown_body">仅在“未知发件人”设为“关闭”时生效。</string>
     <string name="e_bn_row_calls_texts">屏蔽来电和短信</string>
     <string name="e_bn_row_short_code">短号码：uMessage无法收到其短信</string>
     <string name="e_bn_move_one">移至uMessage规则</string>
-    <string name="e_bn_moved">%1$s已添加为uMessage规则。其短信会进入“已屏蔽”，来电不再被屏蔽。</string>
+    <string name="e_bn_moved">%1$s已添加为uMessage规则。其短信会进入“垃圾短信”，来电不再被屏蔽。</string>
     <string name="e_bn_field_help">例如+15550001234，或用+1555*表示所有以+1555开头的号码</string>
     <string name="e_bn_short_code_warning">这似乎是短号码。Android会在uMessage收到其短信前将其丢弃，因此你将无法恢复其中任何短信，包括验证码或银行通知。</string>
     <string name="e_bn_add_as_rule">改为添加为uMessage规则</string>
-    <string name="e_bn_added_as_rule">%1$s已添加为uMessage规则。其短信会进入“已屏蔽”。</string>
+    <string name="e_bn_added_as_rule">%1$s已添加为uMessage规则。其短信会进入“垃圾短信”。</string>
 </resources>

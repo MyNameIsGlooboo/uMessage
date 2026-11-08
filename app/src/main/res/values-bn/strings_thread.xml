@@ -19,9 +19,9 @@
     <string name="thread_menu_block">প্রেরককে ব্লক করুন</string>
     <string name="thread_menu_unblock">প্রেরকের ব্লক সরান</string>
     <string name="thread_block_title">প্রেরককে ব্লক করবেন?</string>
-    <string name="thread_block_message">%1$s-কে ব্লক করবেন? এই প্রেরকের নতুন বার্তা আপনার ইনবক্সের বদলে ব্লক করা বার্তার বিভাগে যাবে। সেখানেও আপনি বার্তা পড়তে বা ফিরিয়ে আনতে পারবেন। কাউকে কিছু পাঠানো হবে না। এই কথোপকথনে আগে থেকে থাকা বার্তা রাখা হবে।</string>
+    <string name="thread_block_message">%1$s-কে ব্লক করবেন? এই প্রেরকের নতুন বার্তা আপনার ইনবক্সের বদলে স্প্যামে যাবে। সেখানেও আপনি বার্তা পড়তে বা ফিরিয়ে আনতে পারবেন। কাউকে কিছু পাঠানো হবে না। এই কথোপকথনে আগে থেকে থাকা বার্তা রাখা হবে।</string>
     <string name="thread_block_confirm">ব্লক করুন</string>
-    <string name="thread_block_done">ব্লক করা হয়েছে। নতুন বার্তা ব্লক করা বার্তার বিভাগে যাবে</string>
+    <string name="thread_block_done">ব্লক করা হয়েছে। নতুন বার্তা স্প্যামে যাবে</string>
     <string name="thread_block_failed">এই প্রেরককে ব্লক করা যায়নি</string>
     <string name="thread_unblock_done">ব্লক সরানো হয়েছে। নতুন বার্তা আপনার ইনবক্সে আসবে</string>
     <string name="thread_unblock_done_system">uMessage-এ ব্লক সরানো হয়েছে। এই নম্বর আপনার ফোনের ব্লক তালিকাতেও আছে, তাই Android এখনও এর বার্তা ব্লক করে</string>

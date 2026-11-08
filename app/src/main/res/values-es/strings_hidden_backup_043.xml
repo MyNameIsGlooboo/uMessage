@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full backup while hidden chats are locked: unlock to include them or skip them (Q14). -->
+    <string name="backup_hidden_title">Los chats ocultos están bloqueados</string>
+    <string name="backup_hidden_message">Tus chats ocultos están bloqueados. Desbloquéalos para incluirlos en la copia de seguridad o haz la copia sin ellos.</string>
+    <string name="backup_hidden_unlock">Desbloquear</string>
+    <string name="backup_hidden_skip">Omitir chats ocultos</string>
+    <string name="backup_export_hidden_left_out">Chats ocultos omitidos: %d</string>
+</resources>
