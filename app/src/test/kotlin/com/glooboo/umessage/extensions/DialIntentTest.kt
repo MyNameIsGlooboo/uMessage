@@ -10,18 +10,36 @@ import java.io.File
 @RunWith(AndroidJUnit4::class)
 class DialIntentTest {
     @Test
-    fun tappingANumberOpensTheDialerAndNeverPlacesTheCall() {
-        val intent = dialIntent("+15550100")
+    fun withTheCallPermissionATapPlacesTheCall() {
+        val intent = callIntent("+15550100", canCall = true)!!
 
-        assertThat(intent.action).isEqualTo(Intent.ACTION_DIAL)
+        assertThat(intent.action).isEqualTo(Intent.ACTION_CALL)
         assertThat(intent.data?.scheme).isEqualTo("tel")
-        // Uri.fromParts writes the plus sign as %2B; the dialer reads the decoded number.
+        // Uri.fromParts writes the plus sign as %2B; the phone app reads the decoded number.
         assertThat(intent.data?.schemeSpecificPart).isEqualTo("+15550100")
     }
 
     @Test
-    fun theAppNoLongerDeclaresCallPhone() {
+    fun withoutThePermissionATapOpensTheDialer() {
+        val intent = callIntent("+15550100", canCall = false)!!
+
+        assertThat(intent.action).isEqualTo(Intent.ACTION_DIAL)
+        assertThat(intent.data?.schemeSpecificPart).isEqualTo("+15550100")
+    }
+
+    @Test
+    fun onlyDialableNumbersBecomeAnIntent() {
+        assertThat(isDialableNumber("(555) 010-0100")).isTrue()
+        assertThat(isDialableNumber("*123#")).isTrue()
+        assertThat(isDialableNumber("")).isFalse()
+        assertThat(isDialableNumber("555;ATD")).isFalse()
+        assertThat(isDialableNumber("call me")).isFalse()
+        assertThat(callIntent("not a number", canCall = true)).isNull()
+    }
+
+    @Test
+    fun theAppDeclaresCallPhoneForTheTapToCall() {
         val manifest = File("src/main/AndroidManifest.xml").readText()
-        assertThat(manifest).doesNotContain("android.permission.CALL_PHONE")
+        assertThat(manifest).contains("android.permission.CALL_PHONE")
     }
 }

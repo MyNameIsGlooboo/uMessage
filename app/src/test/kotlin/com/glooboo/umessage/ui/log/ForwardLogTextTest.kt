@@ -69,8 +69,8 @@ class ForwardLogTextTest {
     fun persianSentencesKeepPhoneNumbersLatin() {
         val sent = ForwardLogText.sentence(res, "#1 → 5554999 SENT")
         assertThat(sent).contains("5554999")
-        assertThat(sent).contains("بازارسال")
-        assertThat(ForwardLogText.sentence(res, "#1 CODE_EXCLUDED")).startsWith("بازارسال نشد")
+        assertThat(sent).contains("فوروارد")
+        assertThat(ForwardLogText.sentence(res, "#1 CODE_EXCLUDED")).startsWith("فوروارد نشد")
         assertThat(ForwardLogText.ruleLabel(res, "#1 SENT", rules)).isEqualTo("قانون: Bank alerts")
     }
 

@@ -41,7 +41,7 @@ class MainTabsFreshInstallTest {
             }
         }
         compose.onNodeWithText("Messages").assertIsDisplayed()
-        compose.onNodeWithText("Blocked").assertIsDisplayed()
+        compose.onNodeWithText("Spam").assertIsDisplayed()
         compose.onNodeWithText("Archived").assertIsDisplayed()
         compose.onNodeWithText("Forwarded").assertDoesNotExist()
     }

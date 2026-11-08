@@ -38,7 +38,7 @@ class UiPartAStringsTest {
     @Test
     fun `the first welcome card no longer names the three modes`() {
         // I13: Strict, Smart and Off are explained on the unknown-senders step, not on the first screen.
-        assertEquals("Unknown senders wait in Blocked, never lost.", context.getString(R.string.onb_welcome_spam_desc))
+        assertEquals("Unknown senders wait in Spam, never lost.", context.getString(R.string.onb_welcome_spam_desc))
     }
 
     @Test

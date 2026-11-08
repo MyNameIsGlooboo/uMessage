@@ -114,7 +114,7 @@ class WelcomePageTest {
     fun `in Persian the intro is translated and the app name stays Latin`() {
         setUp()
         compose.onNodeWithText("به uMessage خوش آمدید").assertIsDisplayed()
-        compose.onNodeWithText("پیام‌رسانی بهتر، هرزنامهٔ کمتر.").assertIsDisplayed()
+        compose.onNodeWithText("پیام‌رسانی بهتر، اسپم کمتر.").assertIsDisplayed()
         welcomeFeatures().forEach { feature ->
             val title = context.getString(feature.titleRes)
             assertTrue(title, title.any { it in '؀'..'ۿ' })

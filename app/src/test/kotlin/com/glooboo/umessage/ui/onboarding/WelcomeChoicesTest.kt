@@ -85,7 +85,7 @@ class WelcomeChoicesTest {
                 PurgeRow(days = days, onDays = { days = it })
             }
         }
-        compose.onNodeWithText("Keep blocked messages for").assertIsDisplayed()
+        compose.onNodeWithText("Keep spam for").assertIsDisplayed()
         compose.onNodeWithText("30 days").performClick()
         listOf("7 days", "14 days", "90 days", "Never").forEach { compose.onNodeWithText(it).assertIsDisplayed() }
         compose.onNodeWithText("Never").performClick()

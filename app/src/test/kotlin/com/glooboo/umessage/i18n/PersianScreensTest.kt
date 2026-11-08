@@ -55,7 +55,7 @@ class PersianScreensTest {
     @Test
     fun `the blocked screen is in Persian`() {
         show { BlockedScreen(BlockedUiState(loading = false), SnackbarHostState(), BlockedActions(onBack = {})) }
-        compose.onNodeWithText("مسدودشده‌ها").assertExists()
+        compose.onNodeWithText("اسپم").assertExists()
         compose.onNodeWithText(string(R.string.spam_blocked_empty_title)).assertExists()
         assertEquals(LayoutDirection.Rtl, direction)
     }

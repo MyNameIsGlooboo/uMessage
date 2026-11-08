@@ -35,9 +35,14 @@ class SecurityHardeningTest {
     }
 
     @Test
-    fun noPermissionToPlaceCallsIsDeclared() {
+    fun callPhoneIsDeclaredOnlyForTheTapToCall() {
         val permissions = elements("uses-permission").map { it.getAttribute(androidName) }
-        assertThat(permissions).doesNotContain("android.permission.CALL_PHONE")
+        assertThat(permissions).contains("android.permission.CALL_PHONE")
+        // No call log access and no outgoing call interception.
+        assertThat(permissions).containsNoneOf(
+            "android.permission.READ_CALL_LOG", "android.permission.WRITE_CALL_LOG",
+            "android.permission.PROCESS_OUTGOING_CALLS",
+        )
     }
 
     @Test

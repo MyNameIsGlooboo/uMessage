@@ -47,10 +47,20 @@ class DefaultSpamFilterRegionTest {
     }
 
     @Test
-    fun foreignNumberIsHeldWithItsOwnReasonEvenWhenTheModeIsOff() {
-        assertThat(decide(filter(), foreignNumber)).isEqualTo(FilterDecision.Block(DecisionReason.FOREIGN_NUMBER))
-        val smart = filter(mode = UnknownSenderMode.SMART)
-        assertThat(decide(smart, foreignNumber)).isEqualTo(FilterDecision.Block(DecisionReason.FOREIGN_NUMBER))
+    fun foreignNumberIsHeldWithItsOwnReasonInSmartAndStrict() {
+        listOf(UnknownSenderMode.SMART, UnknownSenderMode.STRICT).forEach {
+            assertThat(decide(filter(mode = it), foreignNumber))
+                .isEqualTo(FilterDecision.Block(DecisionReason.FOREIGN_NUMBER))
+        }
+    }
+
+    @Test
+    fun foreignNumberIsNotHeldWhenTheModeIsOff() {
+        assertThat(decide(filter(mode = UnknownSenderMode.OFF), foreignNumber))
+            .isEqualTo(FilterDecision.Allow(DecisionReason.MODE_OFF))
+        val code = "Your verification code is 482916. Do not share it."
+        assertThat(decide(filter(mode = UnknownSenderMode.OFF), foreignNumber, code))
+            .isEqualTo(FilterDecision.Allow(DecisionReason.MODE_OFF))
     }
 
     @Test
@@ -69,7 +79,7 @@ class DefaultSpamFilterRegionTest {
 
     @Test
     fun someoneTheUserWroteToIsNeverHeld() {
-        val f = filter(contacts = Contacts(sent = setOf(foreignNumber)))
+        val f = filter(mode = UnknownSenderMode.STRICT, contacts = Contacts(sent = setOf(foreignNumber)))
         assertThat(decide(f, foreignNumber)).isEqualTo(FilterDecision.Allow(DecisionReason.KNOWN_CONVERSATION))
     }
 
@@ -85,7 +95,7 @@ class DefaultSpamFilterRegionTest {
 
     @Test
     fun withoutContactsAccessNothingIsHeld() {
-        val f = filter(contacts = Contacts(readable = false))
+        val f = filter(mode = UnknownSenderMode.STRICT, contacts = Contacts(readable = false))
         assertThat(decide(f, foreignNumber)).isEqualTo(FilterDecision.Allow(DecisionReason.CONTACTS_UNAVAILABLE))
     }
 
@@ -100,11 +110,9 @@ class DefaultSpamFilterRegionTest {
     }
 
     @Test
-    fun strictAndOffHoldForeignCodesToo() {
+    fun strictHoldsForeignCodesToo() {
         val code = "Your verification code is 482916. Do not share it."
-        listOf(UnknownSenderMode.STRICT, UnknownSenderMode.OFF).forEach {
-            assertThat(decide(filter(mode = it), foreignNumber, code))
-                .isEqualTo(FilterDecision.Block(DecisionReason.FOREIGN_NUMBER))
-        }
+        assertThat(decide(filter(mode = UnknownSenderMode.STRICT), foreignNumber, code))
+            .isEqualTo(FilterDecision.Block(DecisionReason.FOREIGN_NUMBER))
     }
 }

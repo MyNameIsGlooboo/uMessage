@@ -44,7 +44,7 @@ class OnboardingModePageTest {
         compose.onNode(isSelectable() and hasText("Smart")).assertIsSelected()
         compose.onNode(isSelectable() and hasText("Strict")).assertIsNotSelected()
         compose.onNode(isSelectable() and hasText("Off")).assertIsNotSelected()
-        compose.onNodeWithText("Hold all in Blocked").assertIsDisplayed()
+        compose.onNodeWithText("Hold all in Spam").assertIsDisplayed()
         compose.onNodeWithText("Hold, but allow code messages").assertIsDisplayed()
         compose.onNodeWithText("Do not filter").assertIsDisplayed()
         compose.onNodeWithText("Recommended").assertIsDisplayed()
@@ -53,7 +53,7 @@ class OnboardingModePageTest {
     @Test
     fun `the keep-blocked line and the delivery reports switch stay visible, the long intro is gone`() {
         page(UnknownSenderMode.SMART)
-        compose.onNodeWithText("Keep blocked messages for").assertIsDisplayed()
+        compose.onNodeWithText("Keep spam for").assertIsDisplayed()
         compose.onNodeWithText("30 days").assertIsDisplayed()
         compose.onNodeWithText("Get delivery reports").assertIsDisplayed()
         compose.onNodeWithText("An unknown sender is a number", substring = true).assertDoesNotExist()
@@ -62,7 +62,7 @@ class OnboardingModePageTest {
     @Test
     fun `the purge line is hidden when filtering is Off`() {
         page(UnknownSenderMode.OFF)
-        compose.onNodeWithText("Keep blocked messages for").assertDoesNotExist()
+        compose.onNodeWithText("Keep spam for").assertDoesNotExist()
     }
 
     @Test
