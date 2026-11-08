@@ -66,8 +66,7 @@ class DefaultSpamFilter(
 
         return when (mode) {
             UnknownSenderMode.SMART -> {
-                // A code with a link is a common phishing shape, so only codes without one, or codes in the
-                // origin-bound format (last line "@host #code"), are let through.
+                // Owner decision (Q5): a verification code is let through even when the message has a link.
                 if (isExemptCode(message.body)) {
                     FilterDecision.Allow(DecisionReason.OTP_EXEMPTION)
                 } else {
@@ -82,7 +81,7 @@ class DefaultSpamFilter(
     /**
      * The old Fossify "block unknown numbers" switch turns blocking on when the mode is Off, and otherwise leaves the
      * chosen mode in charge, so it cannot quietly take Smart mode's code exemption away. SpamSettings.otpExemption
-     * is no longer read: Strict has no exemptions, Smart lets codes without a link through.
+     * is no longer read: Strict has no exemptions, Smart lets codes through.
      */
     private fun effectiveMode(): UnknownSenderMode {
         val legacyUnknown = runCatching { legacy.blockUnknownNumbers() }.getOrDefault(false)
@@ -91,12 +90,12 @@ class DefaultSpamFilter(
     }
 
     private fun isExemptCode(body: String): Boolean =
-        OtpDetector.looksLikeOtp(body) && (!OtpDetector.containsUrl(body) || OtpDetector.isOriginBound(body))
+        OtpDetector.looksLikeOtp(body)
 
     /**
      * I24: a number from outside the chosen home country is held, unless the user knows it. Contacts and numbers the
      * user wrote to are never held, and when that cannot be checked the message is let in, as with unknown senders.
-     * Smart mode keeps letting codes without a link through.
+     * Smart mode keeps letting codes through.
      */
     private fun foreignDecision(
         message: IncomingMessage,

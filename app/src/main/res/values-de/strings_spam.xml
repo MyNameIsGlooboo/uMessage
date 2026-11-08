@@ -105,7 +105,7 @@
     <string name="spam_mode_strict">Streng</string>
     <string name="spam_mode_strict_body">Blockiert alle unbekannten Absender, auch Codes</string>
     <string name="spam_mode_smart">Intelligent</string>
-    <string name="spam_mode_smart_body">Blockiert unbekannte Absender, lässt reine Codes durch</string>
+    <string name="spam_mode_smart_body">Blockiert unbekannte Absender, lässt Bestätigungscodes durch</string>
     <string name="spam_mode_off">Aus</string>
     <string name="spam_mode_off_body">Blockiert keine unbekannten Absender</string>
     <string name="spam_strict_warning_title">„Streng“ kann wichtige Nachrichten ausblenden</string>

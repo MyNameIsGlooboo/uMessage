@@ -15,7 +15,7 @@ class ImportantTexts042Test {
         reason = DecisionReason.UNKNOWN_SENDER, ruleId = null,
     )
 
-    @Test fun aPhishingCodeWithALinkIsNotCountedAsImportant() {
+    @Test fun aCodeWithALinkIsCountedAsImportantAfterOwnerDecisionQ5() {
         val digest = WeeklyDigest.compute(
             listOf(
                 held("Your code 482913. Verify at secure-bank.help"),
@@ -25,12 +25,13 @@ class ImportantTexts042Test {
             now,
         )
 
-        assertThat(digest).isEqualTo(WeeklyDigest(3, 1))
+        assertThat(digest).isEqualTo(WeeklyDigest(3, 3))
     }
 
     @Test fun theBlockedTabSeesTheSameLinksAsTheFilter() {
         assertThat(BlockedHints.hasLink("Verify at secure-bank.help")).isTrue()
-        assertThat(BlockedHints.looksImportant("Your code 482913. Verify at secure-bank.help")).isFalse()
+        assertThat(BlockedHints.looksImportant("Your code 482913. Verify at secure-bank.help")).isTrue()
+        assertThat(BlockedHints.looksImportant("Deposited 120000 to your account, see secure-bank.help")).isFalse()
     }
 
     @Test fun wordsInsideOtherWordsAreNoCodeWords() {

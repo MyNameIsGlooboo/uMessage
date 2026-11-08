@@ -105,7 +105,7 @@
     <string name="spam_mode_strict">سخت</string>
     <string name="spam_mode_strict_body">تمام نامعلوم بھیجنے والے بلاک، کوڈ بھی</string>
     <string name="spam_mode_smart">اسمارٹ</string>
-    <string name="spam_mode_smart_body">نامعلوم بھیجنے والے بلاک، سادہ کوڈ آنے دیتا ہے</string>
+    <string name="spam_mode_smart_body">نامعلوم بھیجنے والے بلاک، تصدیقی کوڈ آنے دیتا ہے</string>
     <string name="spam_mode_off">بند</string>
     <string name="spam_mode_off_body">نامعلوم بھیجنے والوں پر کوئی بلاک نہیں</string>
     <string name="spam_strict_warning_title">سخت موڈ اہم پیغامات چھپا سکتا ہے</string>

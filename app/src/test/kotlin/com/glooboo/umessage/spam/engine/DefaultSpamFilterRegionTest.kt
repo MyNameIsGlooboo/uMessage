@@ -100,13 +100,13 @@ class DefaultSpamFilterRegionTest {
     }
 
     @Test
-    fun smartModeStillLetsACodeWithoutALinkThrough() {
+    fun smartModeLetsACodeThroughWithOrWithoutALink() {
         val smart = filter(mode = UnknownSenderMode.SMART)
         val code = "Your verification code is 482916. Do not share it."
         assertThat(decide(smart, foreignNumber, code)).isEqualTo(FilterDecision.Allow(DecisionReason.OTP_EXEMPTION))
         val phishing = "Your verification code is 482916. Confirm at http://example.test/x"
-        assertThat(decide(smart, foreignNumber, phishing))
-            .isEqualTo(FilterDecision.Block(DecisionReason.FOREIGN_NUMBER))
+        // Owner decision Q5: a code with a link is let through too (was held before).
+        assertThat(decide(smart, foreignNumber, phishing)).isEqualTo(FilterDecision.Allow(DecisionReason.OTP_EXEMPTION))
     }
 
     @Test

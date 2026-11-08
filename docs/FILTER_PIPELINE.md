@@ -17,8 +17,8 @@ incoming SMS PDUs
      failed or cannot run (no READ_CONTACTS),
      mode not OFF?                          -> ALLOW  (CONTACTS_UNAVAILABLE)
   5. Unknown-sender mode:
-       SMART  -> ALLOW (OTP_EXEMPTION) if the body looks like an OTP and has no link (an origin-bound last
-                 line does not count as a link), else BLOCK (UNKNOWN_SENDER)
+       SMART  -> ALLOW (OTP_EXEMPTION) if the body looks like an OTP (a link in the body does not matter),
+                 else BLOCK (UNKNOWN_SENDER)
        STRICT -> BLOCK (UNKNOWN_SENDER), verification codes included
        OFF    -> ALLOW (MODE_OFF), or BLOCK (UNKNOWN_SENDER) when the old "Block unknown numbers"
                  switch is on: it turns Off into Strict and has no effect in Strict or Smart
@@ -48,11 +48,11 @@ REGEX safety (`spam/RegexGuard.kt`): `RegexGuard.validate(pattern)` rejects patt
 
 | Mode | Behaviour |
 |---|---|
-| Smart (default for new installs) | Unknown senders are blocked, except that a message that looks like an OTP (see below) and contains no link is allowed. An origin-bound last line (`@host #code`, as used by WebOTP and Android's SMS User Consent and Retriever APIs) is not counted as a link. Nothing is held for review: everything else goes to the Blocked folder. |
+| Smart (default for new installs) | Unknown senders are blocked, except that a message that looks like an OTP (see below) is allowed, with or without a link. An origin-bound last line (`@host #code`, as used by WebOTP and Android's SMS User Consent and Retriever APIs) is still not counted as a link by the link test, which the Spam tab uses. Nothing is held for review: everything else goes to the Blocked folder. |
 | Strict | Every unknown sender is blocked, verification codes included. There is no code exception. |
 | Off | No unknown-sender filtering. Allow and block rules still apply. |
 
-Settings (`SpamSettings`): mode = SMART, purgeAfterDays = 30 (0 = keep forever), notifyOnBlock = false. The stored `otpExemption` field is kept for old installs but no longer has a switch and does not change any mode: Smart always lets link-free codes through, Strict never does. A code with a link ("verification code ... confirm at bit.ly/x") is a common phishing shape and is blocked in Smart and Strict.
+Settings (`SpamSettings`): mode = SMART, purgeAfterDays = 30 (0 = keep forever), notifyOnBlock = false. The stored `otpExemption` field is kept for old installs but no longer has a switch and does not change any mode: Smart always lets codes through, Strict never does. Since 0.4.2 (owner decision) a code with a link ("verification code ... confirm at bit.ly/x") is let through in Smart too; Strict still holds it. Risk: a scam shaped like "your code is 123456, tap this link" from an unknown sender reaches the inbox. A bare link with a prize word, a phone number with a link and a number without a code word are still not codes.
 
 The old Fossify "Block unknown numbers" switch (on the Blocked numbers screen) used to run before the mode and block codes even in Smart. It now only matters in Off mode, where it makes Off behave like Strict; Strict and Smart ignore it, and the screen says so.
 
@@ -95,4 +95,4 @@ The blocked-keywords list (legacy Fossify) exports one keyword per line so keywo
 
 ## Test coverage target
 
-Every branch above has a unit test: contact, whitelist-wins-over-blacklist, blacklist kinds, OTP handling per mode (code alone, code with a link in Strict, Smart and Off, origin-bound, Persian), OTP heuristic (Persian/Arabic digits and keywords, word edges, adjacency, links, origin-bound line), missing contacts permission, number formats, per-SIM scope and region, regex guard, each mode, pending-row lease and expiry policy, purge throttle.
+Every branch above has a unit test: contact, whitelist-wins-over-blacklist, blacklist kinds, OTP handling per mode (code alone, code with a link in Strict, Smart and Off, where Smart now delivers it, origin-bound, Persian), OTP heuristic (Persian/Arabic digits and keywords, word edges, adjacency, links, origin-bound line), missing contacts permission, number formats, per-SIM scope and region, regex guard, each mode, pending-row lease and expiry policy, purge throttle.

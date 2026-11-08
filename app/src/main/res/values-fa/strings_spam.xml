@@ -105,7 +105,7 @@
     <string name="spam_mode_strict">سخت‌گیرانه</string>
     <string name="spam_mode_strict_body">همهٔ فرستنده‌های ناشناس را بلاک می‌کند، حتی کدها را</string>
     <string name="spam_mode_smart">هوشمند</string>
-    <string name="spam_mode_smart_body">فرستنده‌های ناشناس را بلاک می‌کند، ولی کدهای ساده را به صندوق ورودی می‌رساند</string>
+    <string name="spam_mode_smart_body">فرستنده‌های ناشناس را بلاک می‌کند، ولی کدهای تأیید را به صندوق ورودی می‌رساند</string>
     <string name="spam_mode_off">خاموش</string>
     <string name="spam_mode_off_body">فرستنده‌های ناشناس بلاک نمی‌شوند</string>
     <string name="spam_strict_warning_title">حالت سخت‌گیرانه ممکن است پیام‌های مهم را پنهان کند</string>

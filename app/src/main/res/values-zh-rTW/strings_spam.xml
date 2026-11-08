@@ -98,7 +98,7 @@
     <string name="spam_mode_strict">嚴格</string>
     <string name="spam_mode_strict_body">封鎖所有未知寄件者，驗證碼也一樣</string>
     <string name="spam_mode_smart">智慧</string>
-    <string name="spam_mode_smart_body">封鎖未知寄件者，但讓一般驗證碼通過</string>
+    <string name="spam_mode_smart_body">封鎖未知寄件者，但讓驗證碼通過</string>
     <string name="spam_mode_off">關閉</string>
     <string name="spam_mode_off_body">不封鎖未知寄件者</string>
     <string name="spam_strict_warning_title">嚴格模式可能會隱藏重要訊息</string>

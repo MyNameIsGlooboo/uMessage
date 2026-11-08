@@ -2,9 +2,6 @@
 <resources>
     <string name="s042_whole_word_title">Лише слово повністю</string>
     <string name="s042_whole_word_help">Збігається лише зі словом повністю: win, а не window.</string>
-    <string name="s042_held_code_channel">Затримані коди</string>
-    <string name="s042_held_code_title">Повідомлення, схоже на код, затримано</string>
-    <string name="s042_held_code_text">У ньому є посилання, тому воно в розділі «Спам». Відкрийте його, якщо чекаєте код.</string>
     <string name="s042_contacts_off_title">Фільтр спаму призупинено</string>
     <string name="s042_contacts_off_body">Дозвольте доступ до контактів, щоб uMessage відрізняв друзів від незнайомців.</string>
     <string name="s042_contacts_off_allow">Дозволити</string>

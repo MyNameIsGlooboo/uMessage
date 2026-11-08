@@ -105,7 +105,7 @@
     <string name="spam_mode_strict">Rigorosa</string>
     <string name="spam_mode_strict_body">Blocca tutti i mittenti sconosciuti, anche i codici</string>
     <string name="spam_mode_smart">Intelligente</string>
-    <string name="spam_mode_smart_body">Blocca i mittenti sconosciuti, lascia passare i semplici codici</string>
+    <string name="spam_mode_smart_body">Blocca i mittenti sconosciuti, lascia passare i codici di verifica</string>
     <string name="spam_mode_off">Disattivata</string>
     <string name="spam_mode_off_body">Nessun blocco dei mittenti sconosciuti</string>
     <string name="spam_strict_warning_title">La modalità rigorosa può nascondere messaggi importanti</string>

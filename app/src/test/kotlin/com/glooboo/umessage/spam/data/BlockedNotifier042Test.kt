@@ -65,26 +65,11 @@ class BlockedNotifier042Test {
         )
     }
 
-    @Test fun openingTheBlockedTabClearsEverythingIncludingTheHeldCodeNotice() {
+    @Test fun openingTheBlockedTabClearsEverything() {
         for (id in 1L..3L) BlockedNotifier.show(app, message(id))
-        BlockedNotifier.showHeldCode(app)
-        assertThat(manager.activeNotifications.any { it.tag == "spamless_held_code" }).isTrue()
 
         BlockedNotifier.cancelAll(app)
 
-        val ours = manager.activeNotifications.filter { it.tag == "spamless_blocked" || it.tag == "spamless_held_code" }
-        assertThat(ours)
-            .isEmpty()
-    }
-
-    @Test fun theHeldCodeNoticeIsQuietAndCarriesNoText() {
-        BlockedNotifier.showHeldCode(app)
-
-        val notice = manager.activeNotifications.single { it.tag == "spamless_held_code" }.notification
-        assertThat(manager.getNotificationChannel("spamless_held_code").importance)
-            .isEqualTo(NotificationManager.IMPORTANCE_LOW)
-        assertThat(notice.extras.getString(Notification.EXTRA_TITLE)).isEqualTo(
-            app.getString(com.glooboo.umessage.R.string.s042_held_code_title),
-        )
+        assertThat(manager.activeNotifications.filter { it.tag == "spamless_blocked" }).isEmpty()
     }
 }

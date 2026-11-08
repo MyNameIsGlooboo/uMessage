@@ -36,15 +36,16 @@ object BlockedHints {
     fun hasLink(body: String): Boolean = link.containsMatchIn(body) || OtpDetector.containsUrl(body)
 
     /**
-     * Whether a blocked [body] looks like a verification code or a bank notice without a link. Texts with a link are
-     * left out: phishing copies exactly these texts, so they should not be flagged as safe to restore.
+     * Whether a blocked [body] looks like a verification code, or a bank notice without a link. A code counts even
+     * with a link (owner decision: Smart mode lets those through, so Strict's held ones are flagged too); a bank
+     * notice with a link is left out: phishing copies exactly those texts.
      */
     fun looksImportant(body: String): Boolean {
-        if (body.isBlank() || hasLink(body)) return false
-        val text = asciiDigits(body).lowercase()
+        if (body.isBlank()) return false
         // B9: the filter's own code test, so "important" and "held as a code" agree ("pin" is not "shipping").
-        val hasCode = OtpDetector.looksLikeOtp(body)
-        val bank = bankWords.any { it in text } && code.containsMatchIn(text)
-        return hasCode || bank
+        if (OtpDetector.looksLikeOtp(body)) return true
+        if (hasLink(body)) return false
+        val text = asciiDigits(body).lowercase()
+        return bankWords.any { it in text } && code.containsMatchIn(text)
     }
 }

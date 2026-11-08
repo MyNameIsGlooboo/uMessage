@@ -13,15 +13,12 @@ import com.glooboo.umessage.ui.spam.BlockedMessagesActivity
 
 object BlockedNotifier {
     private const val CHANNEL_ID = "spamless_blocked"
-    private const val HELD_CODE_CHANNEL_ID = "spamless_held_code"
 
     /** Own tag, so these ids never collide with message notifications (keyed by thread id, no tag). */
     private const val TAG = "spamless_blocked"
-    private const val HELD_CODE_TAG = "spamless_held_code"
     private const val GROUP = "spamless_blocked_group"
     private const val REQUEST_OPEN_BLOCKED = 0x5B10
     private const val SUMMARY_ID = 0x5B11
-    private const val HELD_CODE_ID = 0x5B12
 
     /** From this many blocked-message notifications on, a summary groups them (I5). */
     private const val SUMMARY_FROM = 2
@@ -111,35 +108,6 @@ object BlockedNotifier {
         runCatching {
             val manager = context.getSystemService(NotificationManager::class.java) ?: return
             manager.activeNotifications.filter { it.tag == TAG }.forEach { manager.cancel(TAG, it.id) }
-            manager.cancel(HELD_CODE_TAG, HELD_CODE_ID)
-        }
-    }
-
-    /**
-     * I11: a quiet notice that a message that looks like a code was held because it carries a link. It names no sender
-     * and shows no text; tapping it opens the Blocked tab, where the message can be read and moved to the inbox.
-     */
-    fun showHeldCode(context: Context) {
-        try {
-            val manager = context.getSystemService(NotificationManager::class.java) ?: return
-            manager.createNotificationChannel(
-                NotificationChannel(
-                    HELD_CODE_CHANNEL_ID,
-                    context.getString(R.string.s042_held_code_channel),
-                    NotificationManager.IMPORTANCE_LOW
-                )
-            )
-            val notification = NotificationCompat.Builder(context, HELD_CODE_CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_messenger)
-                .setContentTitle(context.getString(R.string.s042_held_code_title))
-                .setContentText(context.getString(R.string.s042_held_code_text))
-                .setStyle(NotificationCompat.BigTextStyle().bigText(context.getString(R.string.s042_held_code_text)))
-                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setContentIntent(openBlocked(context))
-                .setAutoCancel(true)
-                .build()
-            manager.notify(HELD_CODE_TAG, HELD_CODE_ID, notification)
-        } catch (_: Exception) {
         }
     }
 

@@ -2,9 +2,6 @@
 <resources>
     <string name="s042_whole_word_title">僅比對完整單字</string>
     <string name="s042_whole_word_help">只比對單獨的單字：win，不比對 window。</string>
-    <string name="s042_held_code_channel">被扣留的驗證碼</string>
-    <string name="s042_held_code_title">一則類似驗證碼的訊息被扣留</string>
-    <string name="s042_held_code_text">它含有連結，所以在「垃圾訊息」中。如果您在等驗證碼，請開啟「垃圾訊息」。</string>
     <string name="s042_contacts_off_title">垃圾訊息過濾已暫停</string>
     <string name="s042_contacts_off_body">請允許存取聯絡人，讓 uMessage 能分辨朋友和陌生人。</string>
     <string name="s042_contacts_off_allow">允許</string>

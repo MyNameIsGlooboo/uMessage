@@ -105,7 +105,7 @@
     <string name="spam_mode_strict">Rigoroso</string>
     <string name="spam_mode_strict_body">Bloqueia todos os remetentes desconhecidos, inclusive códigos</string>
     <string name="spam_mode_smart">Inteligente</string>
-    <string name="spam_mode_smart_body">Bloqueia remetentes desconhecidos e permite códigos simples</string>
+    <string name="spam_mode_smart_body">Bloqueia remetentes desconhecidos e permite códigos de verificação</string>
     <string name="spam_mode_off">Desativado</string>
     <string name="spam_mode_off_body">Sem bloqueio de remetentes desconhecidos</string>
     <string name="spam_strict_warning_title">O modo rigoroso pode ocultar mensagens importantes</string>

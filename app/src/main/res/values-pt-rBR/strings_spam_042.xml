@@ -2,9 +2,6 @@
 <resources>
     <string name="s042_whole_word_title">Somente palavra inteira</string>
     <string name="s042_whole_word_help">Corresponde à palavra sozinha: win, não window.</string>
-    <string name="s042_held_code_channel">Códigos retidos</string>
-    <string name="s042_held_code_title">Uma mensagem parecida com um código foi retida</string>
-    <string name="s042_held_code_text">Ela tem um link, por isso está em Spam. Abra Spam se você espera um código.</string>
     <string name="s042_contacts_off_title">O filtro de spam está pausado</string>
     <string name="s042_contacts_off_body">Permita Contatos para o uMessage distinguir amigos de desconhecidos.</string>
     <string name="s042_contacts_off_allow">Permitir</string>

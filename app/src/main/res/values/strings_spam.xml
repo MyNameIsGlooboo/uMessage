@@ -131,7 +131,7 @@
     <string name="spam_mode_strict">Strict</string>
     <string name="spam_mode_strict_body">Blocks all unknown senders, codes too</string>
     <string name="spam_mode_smart">Smart</string>
-    <string name="spam_mode_smart_body">Blocks unknown senders, lets plain codes in</string>
+    <string name="spam_mode_smart_body">Blocks unknown senders, lets verification codes in</string>
     <string name="spam_mode_off">Off</string>
     <string name="spam_mode_off_body">No unknown-sender blocking</string>
     <string name="spam_strict_warning_title">Strict can hide important messages</string>

@@ -216,7 +216,7 @@ class DefaultSpamFilterTest {
         assertBlock(DecisionReason.UNKNOWN_SENDER, null, f.evaluate(msg(address = "+919999999999")))
     }
 
-    // ---- Modes (T1 / SE-06 / SU-29): Strict has no exemptions, Smart lets codes without a link through ----
+    // ---- Modes (T1 / SE-06 / SU-29): Strict has no exemptions, Smart lets codes through ----
 
     @Test fun strictBlocksCodesToo() {
         val f = filter(settings = SpamSettings(mode = UnknownSenderMode.STRICT))
@@ -300,31 +300,57 @@ class DefaultSpamFilterTest {
         assertAllow(DecisionReason.OTP_EXEMPTION, f.evaluate(msg(address = "BANK", body = "رمز پویا: ۱۲۳۴۵")))
     }
 
-    @Test fun smartDoesNotAutoAllowOtpWithLink() {
+    // Owner decision Q5: a verification code from an unknown sender is delivered even when the message has a link.
+    @Test fun smartAllowsOtpWithLink() {
         val f = filter(settings = SpamSettings(mode = UnknownSenderMode.SMART))
-        assertBlock(
-            DecisionReason.UNKNOWN_SENDER, null,
+        assertAllow(
+            DecisionReason.OTP_EXEMPTION,
             f.evaluate(msg(body = "Your verification code 482915, confirm at bit.ly/x1y2"))
         )
+        assertAllow(
+            DecisionReason.OTP_EXEMPTION,
+            f.evaluate(msg(body = "Your verification code 482915, confirm at https://example.test"))
+        )
+    }
+
+    @Test fun smartAllowsCodeWithBareDomain() {
+        val f = filter(settings = SpamSettings(mode = UnknownSenderMode.SMART))
+        val bareDomain = msg(body = "Your code 482913. Verify at mybank-secure.com")
+        assertAllow(DecisionReason.OTP_EXEMPTION, f.evaluate(bareDomain))
+        assertAllow(
+            DecisionReason.OTP_EXEMPTION,
+            f.evaluate(msg(address = "+447121234567", body = "رمز پویا ۱۲۳۴۵۶ را در shaparak-pay.ir وارد کنید"))
+        )
+        assertAllow(DecisionReason.OTP_EXEMPTION, f.evaluate(msg(body = "Code 482913, see mellat[.]ir")))
+    }
+
+    @Test fun strictStillHoldsCodeWithLink() {
+        val f = filter(settings = SpamSettings(mode = UnknownSenderMode.STRICT))
         assertBlock(
             DecisionReason.UNKNOWN_SENDER, null,
             f.evaluate(msg(body = "Your verification code 482915, confirm at https://example.test"))
         )
     }
 
-    @Test fun smartDoesNotAllowCodeWithBareDomain() {
+    @Test fun smartStillHoldsALinkWithAPrizeWordAndNoCode() {
         val f = filter(settings = SpamSettings(mode = UnknownSenderMode.SMART))
-        assertBlock(DecisionReason.UNKNOWN_SENDER, null, f.evaluate(msg(body = "Your code 482913. Verify at mybank-secure.com")))
         assertBlock(
             DecisionReason.UNKNOWN_SENDER, null,
-            f.evaluate(msg(address = "+447121234567", body = "رمز پویا ۱۲۳۴۵۶ را در shaparak-pay.ir وارد کنید"))
+            f.evaluate(msg(body = "You won a prize! Claim at https://example.test/win"))
         )
-        assertBlock(DecisionReason.UNKNOWN_SENDER, null, f.evaluate(msg(body = "Code 482913, see mellat[.]ir")))
+        assertBlock(
+            DecisionReason.UNKNOWN_SENDER, null,
+            f.evaluate(msg(body = "Prize code 482915, claim at https://example.test/win 50% off"))
+        )
     }
 
-    @Test fun smartAllowsCodeWithoutLink() {
+    @Test fun smartStillHoldsAPhoneNumberWithALinkAndABareNumberWithoutKeyword() {
         val f = filter(settings = SpamSettings(mode = UnknownSenderMode.SMART))
-        assertAllow(DecisionReason.OTP_EXEMPTION, f.evaluate(msg(body = "Your verification code is 482915")))
+        assertBlock(
+            DecisionReason.UNKNOWN_SENDER, null,
+            f.evaluate(msg(body = "Call 0800 123 4567 or see https://example.test/help"))
+        )
+        assertBlock(DecisionReason.UNKNOWN_SENDER, null, f.evaluate(msg(body = "482915 https://example.test/x")))
     }
 
     @Test fun codeWithLinkFallsThroughToModeOff() {

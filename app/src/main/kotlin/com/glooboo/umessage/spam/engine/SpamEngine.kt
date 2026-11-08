@@ -222,9 +222,6 @@ object SpamEngine {
                 )
             }
             blockSenderOfKeyword(context, id, decision)
-            if (HeldCodeNotice.applies(decision.reason, message.body)) {
-                runCatching { BlockedNotifier.showHeldCode(context.applicationContext) }
-            }
             purgeExpired(context)
             id
         } catch (t: Throwable) {

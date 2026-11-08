@@ -2,9 +2,6 @@
 <resources>
     <string name="s042_whole_word_title">الكلمة كاملة فقط</string>
     <string name="s042_whole_word_help">يطابق الكلمة وحدها: win وليس window.</string>
-    <string name="s042_held_code_channel">الرموز المحتجزة</string>
-    <string name="s042_held_code_title">تم حجز رسالة تشبه رمز تحقق</string>
-    <string name="s042_held_code_text">تحتوي على رابط، لذلك هي في «غير المرغوب فيها». افتح «غير المرغوب فيها» إذا كنت تنتظر رمزًا.</string>
     <string name="s042_contacts_off_title">مرشح الرسائل المزعجة متوقف</string>
     <string name="s042_contacts_off_body">اسمح بالوصول إلى جهات الاتصال ليميّز uMessage الأصدقاء عن الغرباء.</string>
     <string name="s042_contacts_off_allow">السماح</string>

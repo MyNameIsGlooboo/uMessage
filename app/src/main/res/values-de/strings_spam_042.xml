@@ -2,9 +2,6 @@
 <resources>
     <string name="s042_whole_word_title">Nur ganzes Wort</string>
     <string name="s042_whole_word_help">Trifft nur das Wort allein: win, nicht window.</string>
-    <string name="s042_held_code_channel">Zurückgehaltene Codes</string>
-    <string name="s042_held_code_title">Eine code-ähnliche Nachricht wurde zurückgehalten</string>
-    <string name="s042_held_code_text">Sie enthält einen Link und liegt deshalb unter Spam. Öffne Spam, wenn du auf einen Code wartest.</string>
     <string name="s042_contacts_off_title">Spam-Filter pausiert</string>
     <string name="s042_contacts_off_body">Erlaube Kontakte, damit uMessage Freunde von Fremden unterscheiden kann.</string>
     <string name="s042_contacts_off_allow">Erlauben</string>

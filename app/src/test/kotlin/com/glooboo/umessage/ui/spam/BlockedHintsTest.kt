@@ -32,8 +32,13 @@ class BlockedHintsTest {
     }
 
     @Test
-    fun linkOrPlainPromoIsNotImportant() {
-        assertThat(BlockedHints.looksImportant("Your code 482913 http://evil.example")).isFalse()
+    fun codeWithLinkIsImportantButBankNoticeWithLinkIsNot() {
+        assertThat(BlockedHints.looksImportant("Your code 482913 http://evil.example")).isTrue()
+        assertThat(BlockedHints.looksImportant("Debit of 120000 from your account http://evil.example")).isFalse()
+    }
+
+    @Test
+    fun plainPromoIsNotImportant() {
         assertThat(BlockedHints.looksImportant("Big sale this weekend, 50% off")).isFalse()
         assertThat(BlockedHints.looksImportant("")).isFalse()
     }

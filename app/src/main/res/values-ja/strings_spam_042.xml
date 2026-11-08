@@ -2,9 +2,6 @@
 <resources>
     <string name="s042_whole_word_title">単語全体のみ</string>
     <string name="s042_whole_word_help">その単語だけに一致します: win は一致、window は不一致。</string>
-    <string name="s042_held_code_channel">保留中のコード</string>
-    <string name="s042_held_code_title">コードのようなメッセージを保留しました</string>
-    <string name="s042_held_code_text">リンクが含まれているため、迷惑メッセージに入っています。コードを待っている場合は迷惑メッセージを開いてください。</string>
     <string name="s042_contacts_off_title">迷惑メッセージフィルターは一時停止中です</string>
     <string name="s042_contacts_off_body">連絡先を許可すると、uMessage が友だちと知らない相手を見分けられます。</string>
     <string name="s042_contacts_off_allow">許可</string>

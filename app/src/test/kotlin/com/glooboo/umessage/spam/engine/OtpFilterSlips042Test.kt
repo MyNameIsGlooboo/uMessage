@@ -1,11 +1,10 @@
 package com.glooboo.umessage.spam.engine
 
-import com.glooboo.umessage.spam.DecisionReason
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** SP1, SP2, SP-lowA (B8), I2 and I11: what counts as a code, a link, and a held code-with-link. */
+/** SP1, SP2, SP-lowA (B8), and I2: what counts as a code and a link. */
 class OtpFilterSlips042Test {
 
     private fun otp(body: String) = OtpDetector.looksLikeOtp(body)
@@ -102,19 +101,5 @@ class OtpFilterSlips042Test {
         assertFalse(otp("折扣码 482913 限时优惠"))
         assertFalse(otp("Your parcel 482913 has shipped"))
         assertFalse(otp("你好，明天见"))
-    }
-
-    // ---- I11: a held code with a link gets a quiet notice ----
-
-    @Test fun heldCodeWithLinkGetsTheNotice() {
-        val body = "Your code 482913. Verify at secure-bank.help"
-        assertTrue(HeldCodeNotice.applies(DecisionReason.UNKNOWN_SENDER, body))
-        assertTrue(HeldCodeNotice.applies(DecisionReason.FOREIGN_NUMBER, body))
-    }
-
-    @Test fun otherHeldMessagesGetNoNotice() {
-        assertFalse(HeldCodeNotice.applies(DecisionReason.UNKNOWN_SENDER, "Win a prize at http://x.example/a"))
-        assertFalse(HeldCodeNotice.applies(DecisionReason.UNKNOWN_SENDER, "Your code is 482913"))
-        assertFalse(HeldCodeNotice.applies(DecisionReason.BLOCK_RULE, "Your code 482913 at http://x.example/a"))
     }
 }

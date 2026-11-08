@@ -2,9 +2,6 @@
 <resources>
     <string name="s042_whole_word_title">শুধু পুরো শব্দ</string>
     <string name="s042_whole_word_help">শুধু শব্দটিকেই মেলায়: win, window নয়।</string>
-    <string name="s042_held_code_channel">আটকে রাখা কোড</string>
-    <string name="s042_held_code_title">কোডের মতো একটি বার্তা আটকে রাখা হয়েছে</string>
-    <string name="s042_held_code_text">এতে লিংক আছে, তাই এটি স্প্যামে আছে। কোডের অপেক্ষায় থাকলে স্প্যাম খুলুন।</string>
     <string name="s042_contacts_off_title">স্প্যাম ফিল্টার বিরতিতে আছে</string>
     <string name="s042_contacts_off_body">যোগাযোগের অনুমতি দিন, যাতে uMessage বন্ধু ও অচেনাদের আলাদা করতে পারে।</string>
     <string name="s042_contacts_off_allow">অনুমতি দিন</string>
