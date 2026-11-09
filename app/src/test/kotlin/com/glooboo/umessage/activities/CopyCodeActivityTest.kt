@@ -1,5 +1,8 @@
 package com.glooboo.umessage.activities
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.ClipboardManager
@@ -97,6 +100,67 @@ class CopyCodeActivityTest {
 
         assertThat(copied()).isEqualTo("482913")
         assertThat(ShadowToast.getTextOfLatestToast()).isEqualTo(context.getString(R.string.onb_notif_code_copied))
+    }
+
+    @Test
+    fun theClipboardIsNeverClearedByTheApp() {
+        val controller = resumed("482913")
+        controller.windowFocusChanged(true)
+
+        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMinutes(10))
+
+        assertThat(copied()).isEqualTo("482913")
+    }
+
+    @Test
+    fun aTapOnACodeNotificationCopiesTheCodeAndCancelsTheNotification() {
+        val manager = context.getSystemService(NotificationManager::class.java)
+        manager.createNotificationChannel(NotificationChannel("c", "c", NotificationManager.IMPORTANCE_DEFAULT))
+        manager.notify(77, Notification.Builder(context, "c").setSmallIcon(R.drawable.ic_messenger).build())
+        val controller = Robolectric.buildActivity(
+            CopyCodeActivity::class.java,
+            CopyCodeActivity.intent(context, "482913", notificationId = 77),
+        ).create().start().resume().visible()
+
+        controller.windowFocusChanged(true)
+
+        assertThat(copied()).isEqualTo("482913")
+        assertThat(manager.activeNotifications.none { it.id == 77 }).isTrue()
+    }
+
+    @Test
+    fun withoutANotificationIdNothingIsCancelled() {
+        val manager = context.getSystemService(NotificationManager::class.java)
+        manager.createNotificationChannel(NotificationChannel("c", "c", NotificationManager.IMPORTANCE_DEFAULT))
+        manager.notify(78, Notification.Builder(context, "c").setSmallIcon(R.drawable.ic_messenger).build())
+
+        resumed("482913").windowFocusChanged(true)
+
+        assertThat(manager.activeNotifications.any { it.id == 78 }).isTrue()
+    }
+
+    @Test
+    fun anUnlockedPhoneCopiesAtOnceEvenWhenTheUnlockIsRequired() {
+        val controller = Robolectric.buildActivity(
+            CopyCodeActivity::class.java,
+            CopyCodeActivity.intent(context, "482913", requireUnlock = true),
+        ).create().start().resume().visible()
+
+        controller.windowFocusChanged(true)
+
+        assertThat(copied()).isEqualTo("482913")
+        assertThat(controller.get().isFinishing).isTrue()
+    }
+
+    @Test
+    fun theIntentCarriesTheTapOptions() {
+        val plain = CopyCodeActivity.intent(context, "1")
+        assertThat(plain.getBooleanExtra(CopyCodeActivity.EXTRA_REQUIRE_UNLOCK, true)).isFalse()
+        assertThat(plain.hasExtra(CopyCodeActivity.EXTRA_NOTIFICATION_ID)).isFalse()
+
+        val tap = CopyCodeActivity.intent(context, "1", notificationId = 5, requireUnlock = true)
+        assertThat(tap.getBooleanExtra(CopyCodeActivity.EXTRA_REQUIRE_UNLOCK, false)).isTrue()
+        assertThat(tap.getIntExtra(CopyCodeActivity.EXTRA_NOTIFICATION_ID, -1)).isEqualTo(5)
     }
 
     @Test

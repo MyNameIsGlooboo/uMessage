@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">যোগ করা নিয়ম: %1$d · যোগ করা ফরোয়ার্ড করার নিয়ম: %2$d। আপনি চালু না করা পর্যন্ত ফরোয়ার্ড করার নিয়ম বন্ধ থাকবে।</string>
     <string name="settings_f_restore_done_rules">যোগ করা নিয়ম: %1$d।</string>
     <string name="settings_f_restore_done_title">ফিরিয়ে আনা শেষ</string>
-    <string name="settings_f_label_codes">অচেনা প্রেরকের কোড</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">ডিসপ্লে</string>
     <string name="settings_f_appearance">চেহারা</string>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">با لمس اعلان، کد کپی شود</string>
+    <string name="otp_tap_copy_info">وقتی اعلان فقط یک کد تأیید دارد، با لمس آن کد کپی می‌شود و اعلان بسته می‌شود. دکمهٔ «باز کردن» گفتگو را باز می‌کند. پیام‌های دیگر با لمس، گفتگو را باز می‌کنند. اگر «پنهان کردن کدها در صفحهٔ قفل» روشن باشد، باید اول قفل گوشی را باز کنید تا کد کپی شود. خاموشش کنید تا لمس اعلان گفتگو را باز کند؛ «کپی کد» دوباره دکمه می‌شود.</string>
+    <string name="otp_notif_open_action">باز کردن</string>
+    <string name="sks_tap_copy">کپی کد لمس اعلان رمز یک‌بارمصرف</string>
+</resources>

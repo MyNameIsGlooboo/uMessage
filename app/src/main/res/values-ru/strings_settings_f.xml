@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">Добавлено правил: %1$d · Правил пересылки: %2$d. Правила пересылки останутся выключенными, пока вы их не включите.</string>
     <string name="settings_f_restore_done_rules">Добавлено правил: %1$d.</string>
     <string name="settings_f_restore_done_title">Восстановление завершено</string>
-    <string name="settings_f_label_codes">Коды от неизвестных отправителей</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">Отображение</string>
     <string name="settings_f_appearance">Внешний вид</string>

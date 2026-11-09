@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">點按通知時複製驗證碼</string>
+    <string name="otp_tap_copy_info">當通知中只有驗證碼時，點按通知會複製驗證碼並關閉通知，「開啟」按鈕用於開啟對話。其他訊息點按後仍會開啟對話。如果開啟了「在鎖定畫面上隱藏驗證碼」，需要先解鎖手機才會複製驗證碼。關閉此項後，點按會開啟對話，「複製驗證碼」仍保留為按鈕。</string>
+    <string name="otp_notif_open_action">開啟</string>
+    <string name="sks_tap_copy">複製 驗證碼 點按 通知 OTP</string>
+</resources>

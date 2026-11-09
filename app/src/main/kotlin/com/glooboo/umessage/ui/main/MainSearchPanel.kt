@@ -49,6 +49,7 @@ import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.models.SearchResult
 import org.fossify.commons.extensions.toast
+import com.glooboo.umessage.ui.components.rememberCodeHidden
 import com.glooboo.umessage.ui.conversations.ContactAvatar
 import com.glooboo.umessage.ui.conversations.ConversationRow
 import com.glooboo.umessage.ui.conversations.RowLabel
@@ -352,7 +353,7 @@ internal fun SearchResultRow(result: SearchResult, count: Int, query: String, on
             }
             if (result.snippet.isNotEmpty()) {
                 Text(
-                    highlightedText(result.snippet, query, highlight),
+                    highlightedText(rememberCodeHidden(result.snippet), query, highlight),
                     style = MaterialTheme.typography.bodyMedium.contentDirection(),
                     color = colors.onSurfaceVariant,
                     maxLines = 2,

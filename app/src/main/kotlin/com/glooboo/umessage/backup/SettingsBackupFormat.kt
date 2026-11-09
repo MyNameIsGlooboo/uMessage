@@ -24,7 +24,6 @@ class BackupFormatException(message: String) : Exception(message)
  */
 data class BackupSettings(
     val spamMode: UnknownSenderMode? = null,
-    val otpExemption: Boolean? = null,
     val purgeAfterDays: Int? = null,
     val notifyOnBlock: Boolean? = null,
     val showForwardedTab: Boolean? = null,
@@ -68,6 +67,8 @@ data class BackupSettings(
     val wakeScreen: Boolean? = null,
     val chatBubbles: Boolean? = null,
     val focusCodes: Boolean? = null,
+    /** A tap on a notification that holds only a code copies it. Files from before 0.4.5 lack it: the default is on. */
+    val copyCodeOnTap: Boolean? = null,
     val smartReplies: Boolean? = null,
     /** [com.glooboo.umessage.ui.lock.LockScope.key]. The lock itself is never part of a backup. */
     val lockScope: String? = null,
@@ -92,7 +93,7 @@ data class BackupSettings(
     internal fun values(): Map<String, Any?> = coreValues() + moreValues()
 
     private fun coreValues(): Map<String, Any?> = linkedMapOf(
-        SPAM_MODE to spamMode, OTP_EXEMPTION to otpExemption, PURGE_DAYS to purgeAfterDays,
+        SPAM_MODE to spamMode, PURGE_DAYS to purgeAfterDays,
         NOTIFY_ON_BLOCK to notifyOnBlock, SHOW_FORWARDED_TAB to showForwardedTab,
         ARCHIVED_INTRO to archivedIntroDismissed, JALALI to useJalaliDates, MASK_CODES to maskForwardedCodes,
         MASK_KEEP_LAST to maskKeepLastDigits, HIDE_LOCK_CODES to hideCodesOnLockScreen,
@@ -107,6 +108,7 @@ data class BackupSettings(
         OLD_MESSAGE_DAYS to oldMessageDays, WEEKLY_DIGEST to weeklyDigest, CARRIER_NUMBER to carrierSpamNumber,
         REMOVE_LOCATION to removePhotoLocation, VOICE_BUTTON to voiceButton, SIGNATURE to signature,
         CHAT_SOUNDS to chatSounds, WAKE_SCREEN to wakeScreen, CHAT_BUBBLES to chatBubbles, FOCUS_CODES to focusCodes,
+        COPY_CODE_ON_TAP to copyCodeOnTap,
         SMART_REPLIES to smartReplies, LOCK_SCOPE to lockScope, CHARACTER_COUNTER to showCharacterCounter,
         SIMPLE_CHARACTERS to useSimpleCharacters, DELIVERY_REPORTS to deliveryReports, LONG_AS_MMS to sendLongAsMms,
         LONG_AS_MMS_AFTER to sendLongAsMmsAfter, GROUP_AS_MMS to sendGroupAsMms, MMS_LIMIT to mmsFileSizeLimit,
@@ -117,6 +119,10 @@ data class BackupSettings(
     /** The JSON keys of the settings, also the names [SettingsBackupFormat.changedSettings] returns. */
     companion object {
         const val SPAM_MODE = "spamMode"
+        /**
+         * The old "codes from unknown senders" setting. Files written before 0.4.5 carry it; it is no longer written,
+         * shown or applied, and reading a file simply ignores the value.
+         */
         const val OTP_EXEMPTION = "otpExemption"
         const val PURGE_DAYS = "purgeAfterDays"
         const val NOTIFY_ON_BLOCK = "notifyOnBlock"
@@ -152,6 +158,7 @@ data class BackupSettings(
         const val WAKE_SCREEN = "wakeScreen"
         const val CHAT_BUBBLES = "chatBubbles"
         const val FOCUS_CODES = "focusCodes"
+        const val COPY_CODE_ON_TAP = "copyCodeOnTap"
         const val SMART_REPLIES = "smartReplies"
         const val LOCK_SCOPE = "lockScope"
         const val CHARACTER_COUNTER = "showCharacterCounter"

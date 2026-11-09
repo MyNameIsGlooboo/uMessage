@@ -1104,27 +1104,11 @@ open class ThreadActivity : ComposeSimpleActivity() {
         val messageString = if (config.useSimpleCharacters) signed.normalizeString() else signed
         val segments = if (messageString.isEmpty()) null else SmsSegments.of(messageString)
         vm.segments = segments
-        noteLengthHintsOnce(segments, messageString)
+        noteLongTextAsMmsOnce(messageString)
     }
 
-    /** Says once each of the length hints below; none of them blocks the send. */
-    private fun noteLengthHintsOnce(segments: SmsSegments?, messageString: String) {
-        // RM-46: Persian text needs a second SMS after only 70 characters; say so once.
-        if (segments != null && segments.unicode && segments.isMultipart && !vm.unicodePartsNoted && !vm.isMms) {
-            vm.unicodePartsNoted = true
-            lifecycleScope.launch {
-                vm.snackbar.showSnackbar(getString(R.string.thread_unicode_parts_note, segments.parts))
-            }
-        }
-
-        // I5: a very long text sent as SMS is many messages; say so once, before it is sent.
-        if (segments?.isVeryLong == true && !vm.manyPartsNoted && !vm.isMms) {
-            vm.manyPartsNoted = true
-            lifecycleScope.launch {
-                vm.snackbar.showSnackbar(getString(R.string.thread_many_parts_note_044, segments.parts))
-            }
-        }
-
+    /** Says once that a long text goes as MMS; it does not block the send. */
+    private fun noteLongTextAsMmsOnce(messageString: String) {
         // RM-46: a long text turning into MMS used to happen without a word; say so once.
         if (!vm.longMmsNoted && vm.attachments.isEmpty() && messageString.isNotBlank() && isLongMmsMessage(messageString)) {
             vm.longMmsNoted = true

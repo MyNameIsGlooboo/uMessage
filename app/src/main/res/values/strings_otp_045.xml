@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">Copy the code when I tap the notification</string>
+    <string name="otp_tap_copy_info">When a notification holds only a verification code, tapping it copies the code and closes the notification. The Open button opens the chat. Other messages open the chat when you tap them. With “Hide codes on the lock screen” on, you must unlock the phone before the code is copied. Turn this off to make a tap open the chat; Copy code then stays as a button.</string>
+    <string name="otp_notif_open_action">Open</string>
+    <string name="sks_tap_copy">copy code tap notification otp one tap</string>
+</resources>

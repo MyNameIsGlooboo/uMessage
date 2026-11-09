@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">Copier le code en touchant la notification</string>
+    <string name="otp_tap_copy_info">Quand une notification ne contient qu\'un code de vérification, la toucher copie le code et ferme la notification. Le bouton Ouvrir ouvre la conversation. Les autres messages ouvrent la conversation au toucher. Si « Masquer les codes sur l\'écran de verrouillage » est activé, vous devez d\'abord déverrouiller le téléphone avant la copie du code. Désactivez cette option pour qu\'un toucher ouvre la conversation ; Copier le code reste alors un bouton.</string>
+    <string name="otp_notif_open_action">Ouvrir</string>
+    <string name="sks_tap_copy">copier code toucher notification otp</string>
+</resources>

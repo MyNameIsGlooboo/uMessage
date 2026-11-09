@@ -228,13 +228,20 @@ class DefaultSpamFilterTest {
         )
     }
 
-    @Test fun oldAllowCodesSettingIsIgnored() {
-        val strict = filter(settings = SpamSettings(mode = UnknownSenderMode.STRICT, otpExemption = true))
+    @Test fun theModeAloneDecidesAboutCodes() {
+        val strict = filter(settings = SpamSettings(mode = UnknownSenderMode.STRICT))
         assertBlock(DecisionReason.UNKNOWN_SENDER, null, strict.evaluate(msg(address = "VM-BANK", body = "Your OTP is 482915")))
-        val smart = filter(settings = SpamSettings(mode = UnknownSenderMode.SMART, otpExemption = false))
+        val smart = filter(settings = SpamSettings(mode = UnknownSenderMode.SMART))
         assertAllow(DecisionReason.OTP_EXEMPTION, smart.evaluate(msg(address = "VM-BANK", body = "Your OTP is 482915")))
-        val off = filter(settings = SpamSettings(mode = UnknownSenderMode.OFF, otpExemption = true))
+        val off = filter(settings = SpamSettings(mode = UnknownSenderMode.OFF))
         assertAllow(DecisionReason.MODE_OFF, off.evaluate(msg(body = "Your OTP is 482915")))
+    }
+
+    @Test fun smartLetsALabelledPasswordThrough() {
+        val smart = filter(settings = SpamSettings(mode = UnknownSenderMode.SMART))
+        assertAllow(DecisionReason.OTP_EXEMPTION, smart.evaluate(msg(address = "VM-BANK", body = "Password: x7Kq2m")))
+        val username = smart.evaluate(msg(address = "VM-BANK", body = "username: sara22"))
+        assertBlock(DecisionReason.UNKNOWN_SENDER, null, username)
     }
 
     @Test fun smartAndStrictDifferOnlyOnCodes() {

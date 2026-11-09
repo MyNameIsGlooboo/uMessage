@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">شامل کیے گئے اصول: %1$d · شامل کیے گئے فارورڈ اصول: %2$d۔ فارورڈ اصول تب تک بند رہیں گے جب تک آپ انہیں آن نہ کریں۔</string>
     <string name="settings_f_restore_done_rules">شامل کیے گئے اصول: %1$d۔</string>
     <string name="settings_f_restore_done_title">بحالی مکمل</string>
-    <string name="settings_f_label_codes">نامعلوم بھیجنے والوں کے کوڈز</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">ڈسپلے</string>
     <string name="settings_f_appearance">ظاہری شکل</string>

@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">Aturan ditambahkan: %1$d · Aturan penerusan ditambahkan: %2$d. Aturan penerusan tetap nonaktif hingga Anda mengaktifkannya.</string>
     <string name="settings_f_restore_done_rules">Aturan ditambahkan: %1$d.</string>
     <string name="settings_f_restore_done_title">Pemulihan selesai</string>
-    <string name="settings_f_label_codes">Kode dari pengirim tidak dikenal</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">Tampilan</string>
     <string name="settings_f_appearance">Tampilan</string>

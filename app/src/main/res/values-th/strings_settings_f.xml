@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">เพิ่มกฎแล้ว: %1$d · เพิ่มกฎการส่งต่อแล้ว: %2$d กฎการส่งต่อจะปิดไว้จนกว่าจะเปิดเอง</string>
     <string name="settings_f_restore_done_rules">เพิ่มกฎแล้ว: %1$d</string>
     <string name="settings_f_restore_done_title">กู้คืนเสร็จแล้ว</string>
-    <string name="settings_f_label_codes">รหัสจากผู้ส่งที่ไม่รู้จัก</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">การแสดงผล</string>
     <string name="settings_f_appearance">รูปลักษณ์</string>

@@ -5,5 +5,4 @@
     <string name="r2a_filter_codes">Codes</string>
     <string name="r2a_filter_codes_empty_title">No codes</string>
     <string name="r2a_filter_codes_empty_body">Conversations whose latest message has a one-time code show here.</string>
-    <!-- ID-23: under "Recent codes" on the empty search page. -->
 </resources>

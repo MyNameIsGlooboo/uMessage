@@ -16,7 +16,7 @@ import org.junit.Test
 class DefaultSpamFilterFailSafeTest {
 
     private val normalizer = NumberNormalizer { "IN" }
-    private val strict = SpamSettings(mode = UnknownSenderMode.STRICT, otpExemption = false)
+    private val strict = SpamSettings(mode = UnknownSenderMode.STRICT)
 
     private class LookupContacts(private val answer: (String) -> ContactLookup) : ContactChecker {
         override fun isContact(address: String) = answer(address) == ContactLookup.FOUND

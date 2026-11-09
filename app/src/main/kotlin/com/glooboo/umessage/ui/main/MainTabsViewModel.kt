@@ -3,7 +3,6 @@ package com.glooboo.umessage.ui.main
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.NavPrefs
 import com.glooboo.umessage.spam.ForwardRule
 import com.glooboo.umessage.spam.ForwardingAvailability
@@ -13,10 +12,8 @@ import com.glooboo.umessage.spam.engine.SpamEngine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.emitAll
@@ -26,7 +23,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 
 /** What the bottom bar needs to know about forwarding. */
 data class MainTabsState(
@@ -71,23 +67,6 @@ class MainTabsViewModel(application: Application) : AndroidViewModel(application
     }
         .catch { emit(0) }
         .flowOn(Dispatchers.IO)
-
-    private val codes = MutableStateFlow<List<FoundCode>>(emptyList())
-
-    /** B9, ID-23: codes received in the last 24 hours, read or unread, for the empty search page. */
-    val recentCodes: StateFlow<List<FoundCode>> = codes.asStateFlow()
-
-    /** Reads the codes again; called when the search opens, so the list is current without watching the inbox. */
-    fun refreshRecentCodes() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val now = System.currentTimeMillis()
-            // B06: a code from a hidden chat is not offered until the chat is unlocked.
-            val received = HiddenChats.get(getApplication()).withoutHidden(RecentCodes.read(getApplication(), now)) {
-                it.threadId
-            }
-            codes.value = RecentCodes.pick(received, now)
-        }
-    }
 
     val state: StateFlow<MainTabsState> = combine(
         rules, prefs.showForwardedTabFlow, prefs.forwardPausedFlow, failedUnseen, failedForwards,

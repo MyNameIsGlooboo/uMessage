@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">点按通知时复制验证码</string>
+    <string name="otp_tap_copy_info">当通知中只有验证码时，点按通知会复制验证码并关闭通知，“打开”按钮用于打开会话。其他消息点按后仍会打开会话。如果开启了“在锁屏上隐藏验证码”，需要先解锁手机才会复制验证码。关闭此项后，点按会打开会话，“复制验证码”仍保留为按钮。</string>
+    <string name="otp_notif_open_action">打开</string>
+    <string name="sks_tap_copy">复制 验证码 点按 通知 OTP</string>
+</resources>

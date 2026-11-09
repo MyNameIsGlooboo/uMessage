@@ -108,7 +108,7 @@ class NotificationHelper(private val context: Context) {
         val contentIntent = Intent(context, ThreadActivity::class.java).apply {
             putExtra(THREAD_ID, threadId)
         }
-        val contentPendingIntent =
+        val openChatPendingIntent =
             PendingIntent.getActivity(
                 context,
                 notificationId,
@@ -189,6 +189,23 @@ class NotificationHelper(private val context: Context) {
         // is drawn on the lock screen too, so hiding the code only in the public version hides nothing. The posted
         // text itself carries the code as bullets; "Copy code" (behind the unlock) and the thread have the real one.
         val shownBody = if (hideCode) CodeMasker.mask(body) else body
+        // A notification that holds only a code (the "Verification codes" channel): a tap copies the code instead of
+        // opening the chat, unless the user turned that off. "Hide codes on the lock screen" makes the tap wait for the
+        // unlock, so a locked screen cannot leak the code.
+        val tapCopies = otpCode != null && CodeTap.copiesOnTap(
+            otpCode, runCatching { context.notifyPrefs.copyCodeOnTap }.getOrDefault(true),
+            CodeTap.inCodeChannel(otpCode, muted, hasCustomNotifications),
+        )
+        val contentPendingIntent = if (otpCode != null && tapCopies) {
+            PendingIntent.getActivity(
+                context,
+                notificationId xor COPY_CODE_REQUEST_SALT,
+                CopyCodeActivity.intent(context, otpCode, notificationId, requireUnlock = hideCode),
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+        } else {
+            openChatPendingIntent
+        }
         // An unsaved sender is titled as the inbox writes it ("555-2468", Persian digits in Persian). Display only:
         // the reply, the avatar and the shortcut keep the stored number.
         val shownSender = sender?.let { displayNumber(context, it) }
@@ -228,23 +245,36 @@ class NotificationHelper(private val context: Context) {
         }
 
         if (otpCode != null) {
-            // N6: an invisible activity of its own task copies the code without opening the app (or its PIN
-            // screen). An activity, not a broadcast: MIUI / HyperOS drop clipboard writes from the background.
-            val copyPendingIntent = PendingIntent.getActivity(
-                context,
-                notificationId xor COPY_CODE_REQUEST_SALT,
-                CopyCodeActivity.intent(context, otpCode),
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
-            builder.addAction(
-                NotificationCompat.Action.Builder(
-                    org.fossify.commons.R.drawable.ic_copy_vector,
-                    context.getString(R.string.onb_notif_copy_code),
-                    copyPendingIntent
+            if (tapCopies) {
+                // The tap copies the code, so the action opens the chat instead.
+                builder.addAction(
+                    NotificationCompat.Action.Builder(
+                        0,
+                        context.getString(R.string.otp_notif_open_action),
+                        openChatPendingIntent
+                    )
+                        .setAuthenticationRequired(true)
+                        .build()
                 )
-                    .setAuthenticationRequired(true)
-                    .build()
-            )
+            } else {
+                // N6: an invisible activity of its own task copies the code without opening the app (or its PIN
+                // screen). An activity, not a broadcast: MIUI / HyperOS drop clipboard writes from the background.
+                val copyPendingIntent = PendingIntent.getActivity(
+                    context,
+                    notificationId xor COPY_CODE_REQUEST_SALT,
+                    CopyCodeActivity.intent(context, otpCode),
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+                builder.addAction(
+                    NotificationCompat.Action.Builder(
+                        org.fossify.commons.R.drawable.ic_copy_vector,
+                        context.getString(R.string.onb_notif_copy_code),
+                        copyPendingIntent
+                    )
+                        .setAuthenticationRequired(true)
+                        .build()
+                )
+            }
             // The system adds its own "copy" chips for codes it spots (often two identical ones on top of
             // ours). Keep only our action, which also follows the lock-screen rule above.
             builder.setAllowSystemGeneratedContextualActions(false)

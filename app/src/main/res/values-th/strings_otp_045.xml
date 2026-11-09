@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">คัดลอกรหัสเมื่อแตะการแจ้งเตือน</string>
+    <string name="otp_tap_copy_info">เมื่อการแจ้งเตือนมีเพียงรหัสยืนยัน การแตะจะคัดลอกรหัสและปิดการแจ้งเตือน ปุ่ม “เปิด” จะเปิดแชต ข้อความอื่นจะเปิดแชตเมื่อแตะ หากเปิด “ซ่อนรหัสบนหน้าจอล็อก” คุณต้องปลดล็อกโทรศัพท์ก่อนจึงจะคัดลอกรหัสได้ ปิดตัวเลือกนี้เพื่อให้การแตะเปิดแชต ปุ่ม “คัดลอกรหัส” จะยังอยู่</string>
+    <string name="otp_notif_open_action">เปิด</string>
+    <string name="sks_tap_copy">คัดลอกรหัส แตะ การแจ้งเตือน otp</string>
+</resources>

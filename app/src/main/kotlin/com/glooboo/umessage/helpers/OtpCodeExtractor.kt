@@ -4,9 +4,10 @@ import com.glooboo.umessage.spam.TextNormalizer
 import com.glooboo.umessage.spam.engine.OtpDetector
 
 /**
- * Finds the one-time code in a message body for the notification's "Copy code" action. Keywords must be whole
- * words ("pin" must not match "shipping", "code" must not match "barcode"), and when several numbers qualify the
- * one closest to a keyword wins.
+ * Finds the one-time code in a message body, for the notification's "Copy code", the list chip and the Codes filter.
+ * [extract] answers through [OtpCodes], the one rule of the app; this object holds the part that picks a number out of
+ * the text: keywords must be whole words ("pin" must not match "shipping", "code" must not match "barcode") and when
+ * several numbers qualify the one closest to a keyword wins.
  *
  * The body is read through [TextNormalizer.fold], so Persian and Arabic digits come back as ASCII digits and the
  * keywords of [OtpDetector] ("رمز پویا", "کد تایید", "کدتان") are found. Word edges are explicit lookarounds, as
@@ -17,18 +18,8 @@ import com.glooboo.umessage.spam.engine.OtpDetector
  * ("14:32", "1403/08/11"), or a year next to the generic word "code" only.
  */
 object OtpCodeExtractor {
-    /** English words this action has always accepted on top of [OtpDetector]'s keywords. */
-    private val extraStrongKeywords = listOf("passcodes", "security", "log[- ]?in", "sign[- ]?in")
-    private val extraWeakKeywords = listOf("codes")
-
-    private val strongKeywords = Regex(
-        OtpDetector.keywordPattern(OtpDetector.strongKeywords + extraStrongKeywords),
-        RegexOption.IGNORE_CASE,
-    )
-    private val weakKeywords = Regex(
-        OtpDetector.keywordPattern(OtpDetector.weakKeywords + extraWeakKeywords),
-        RegexOption.IGNORE_CASE,
-    )
+    private val strongKeywords = Regex(OtpDetector.keywordPattern(OtpDetector.strongKeywords), RegexOption.IGNORE_CASE)
+    private val weakKeywords = Regex(OtpDetector.keywordPattern(OtpDetector.weakKeywords), RegexOption.IGNORE_CASE)
 
     /** Characters that join digits into one bigger number: thousands and decimal separators, time and date marks. */
     private const val JOINERS = "\\-/:.,\u066B\u066C"
@@ -47,9 +38,14 @@ object OtpCodeExtractor {
     private val year = Regex(OtpDetector.YEAR)
     private val separators = Regex("[\\s-]")
 
-    fun extract(body: String): String? = locate(TextNormalizer.fold(body))?.groupValues?.get(1)?.replace(separators, "")
+    /** The code to copy, with Latin digits, or null when the message holds none (see [OtpCodes.primary]). */
+    fun extract(body: String): String? = OtpCodes.primary(body)?.value
 
-    /** The match of the code in [text], which must already be folded by [TextNormalizer.fold]; group 1 is the code. */
+    /**
+     * The number closest to any code keyword in [text], which must already be folded by [TextNormalizer.fold]; group 1
+     * is the code. This is the raw locator without the detector's vetoes and distance rule: [OtpCodes.locate] is the
+     * one the app uses, and forwarding keeps this one as its fail-closed hint ([hasKeywordNearNumber]).
+     */
     internal fun locate(text: String): MatchResult? {
         val strong = strongKeywords.findAll(text).map { it.range }.toList()
         val weak = weakKeywords.findAll(text).map { it.range }.toList()
@@ -60,6 +56,9 @@ object OtpCodeExtractor {
             near.minOfOrNull { distance(match.range, it) }?.let { match to it }
         }.minByOrNull { it.second }?.first
     }
+
+    /** Whether any code-shaped number in [body] has a code keyword anywhere in the text: a deliberately wide net. */
+    internal fun hasKeywordNearNumber(body: String): Boolean = locate(TextNormalizer.fold(body)) != null
 
     /** Every code-shaped number of the folded [text] (no keyword needed), for masking repeats of the same code. */
     internal fun codeShapes(text: String): Sequence<MatchResult> = code.findAll(text)

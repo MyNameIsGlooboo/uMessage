@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">Code beim Tippen auf die Benachrichtigung kopieren</string>
+    <string name="otp_tap_copy_info">Enthält eine Benachrichtigung nur einen Bestätigungscode, kopiert ein Tippen darauf den Code und schließt die Benachrichtigung. Mit der Schaltfläche „Öffnen“ öffnen Sie den Chat. Andere Nachrichten öffnen beim Tippen den Chat. Ist „Codes auf dem Sperrbildschirm verbergen“ aktiv, müssen Sie das Telefon erst entsperren, bevor der Code kopiert wird. Schalten Sie dies aus, damit ein Tippen den Chat öffnet; „Code kopieren“ bleibt dann eine Schaltfläche.</string>
+    <string name="otp_notif_open_action">Öffnen</string>
+    <string name="sks_tap_copy">Code kopieren tippen Benachrichtigung Einmalcode</string>
+</resources>

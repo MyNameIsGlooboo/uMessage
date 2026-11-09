@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">নোটিফিকেশনে ট্যাপ করলে কোড কপি করুন</string>
+    <string name="otp_tap_copy_info">নোটিফিকেশনে শুধু যাচাইকরণ কোড থাকলে ট্যাপ করলে কোড কপি হয় এবং নোটিফিকেশন বন্ধ হয়ে যায়। “খুলুন” বোতাম চ্যাট খোলে। অন্য মেসেজে ট্যাপ করলে চ্যাট খোলে। “লক স্ক্রিনে কোড লুকান” চালু থাকলে কোড কপি হওয়ার আগে ফোন আনলক করতে হবে। ট্যাপে চ্যাট খুলতে চাইলে এটি বন্ধ করুন; তখন “কোড কপি করুন” বোতাম হিসেবে থাকবে।</string>
+    <string name="otp_notif_open_action">খুলুন</string>
+    <string name="sks_tap_copy">কোড কপি ট্যাপ নোটিফিকেশন ওটিপি</string>
+</resources>

@@ -11,6 +11,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.activities.CopyCodeActivity
+import com.glooboo.umessage.activities.ThreadActivity
 import com.glooboo.umessage.testing.offMainThread
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -71,6 +72,7 @@ class MessageNotificationLockScreenTest {
 
     @Test
     fun replyAndCopyCodeNeedAnUnlockedPhone() {
+        context.notifyPrefs.copyCodeOnTap = false
         val n = post(LOCK_SCREEN_NOTHING, body = "Your code is 482913")
 
         val byTitle = n.actions.associateBy { it.title.toString() }
@@ -84,6 +86,7 @@ class MessageNotificationLockScreenTest {
     // posted text itself hides the code; "Copy code" still copies the real one.
     @Test
     fun hideCodesMasksThePostedTextAndCopyKeepsTheCode() {
+        context.notifyPrefs.copyCodeOnTap = false
         context.w3aPrefs.hideCodesOnLockScreen = true
         val n = post(LOCK_SCREEN_SENDER_MESSAGE, body = "Your code is 482913")
 
@@ -100,6 +103,58 @@ class MessageNotificationLockScreenTest {
         assertThat(intent.component?.className).isEqualTo(CopyCodeActivity::class.java.name)
         assertThat(intent.getStringExtra(CopyCodeActivity.EXTRA_CODE)).isEqualTo("482913")
         assertThat(intent.flags and Intent.FLAG_ACTIVITY_NEW_TASK).isNotEqualTo(0)
+    }
+
+    private fun Notification.contentIntentComponent() =
+        shadowOf(contentIntent).savedIntent.component?.className
+
+    // Tap to copy: a code notification copies the code on tap, and "Open" replaces "Copy code".
+    @Test
+    fun aTapOnACodeNotificationCopiesTheCodeAndOpenReplacesCopyCode() {
+        val n = post(LOCK_SCREEN_SENDER, body = "Your code is 482913")
+
+        assertThat(n.contentIntentComponent()).isEqualTo(CopyCodeActivity::class.java.name)
+        val intent = shadowOf(n.contentIntent).savedIntent
+        assertThat(intent.getStringExtra(CopyCodeActivity.EXTRA_CODE)).isEqualTo("482913")
+        assertThat(intent.getIntExtra(CopyCodeActivity.EXTRA_NOTIFICATION_ID, -1)).isEqualTo(77L.hashCode())
+        assertThat(intent.getBooleanExtra(CopyCodeActivity.EXTRA_REQUIRE_UNLOCK, true)).isFalse()
+        val titles = n.actions.map { it.title.toString() }
+        assertThat(titles).contains(context.getString(R.string.otp_notif_open_action))
+        assertThat(titles).doesNotContain(context.getString(R.string.onb_notif_copy_code))
+        val open = n.actions.single { it.title.toString() == context.getString(R.string.otp_notif_open_action) }
+        assertThat(shadowOf(open.actionIntent).savedIntent.component?.className)
+            .isEqualTo(ThreadActivity::class.java.name)
+    }
+
+    @Test
+    fun withHiddenCodesTheTapWaitsForTheUnlock() {
+        context.w3aPrefs.hideCodesOnLockScreen = true
+        val n = post(LOCK_SCREEN_SENDER_MESSAGE, body = "Your code is 482913")
+
+        val intent = shadowOf(n.contentIntent).savedIntent
+        assertThat(intent.component?.className).isEqualTo(CopyCodeActivity::class.java.name)
+        assertThat(intent.getBooleanExtra(CopyCodeActivity.EXTRA_REQUIRE_UNLOCK, false)).isTrue()
+        // The real code is what is copied; the posted text still hides it.
+        assertThat(intent.getStringExtra(CopyCodeActivity.EXTRA_CODE)).isEqualTo("482913")
+        assertThat(n.text()).doesNotContain("482913")
+    }
+
+    @Test
+    fun switchedOffATapOpensTheChatAndCopyCodeStaysAButton() {
+        context.notifyPrefs.copyCodeOnTap = false
+        val n = post(LOCK_SCREEN_SENDER, body = "Your code is 482913")
+
+        assertThat(n.contentIntentComponent()).isEqualTo(ThreadActivity::class.java.name)
+        val titles = n.actions.map { it.title.toString() }
+        assertThat(titles).contains(context.getString(R.string.onb_notif_copy_code))
+        assertThat(titles).doesNotContain(context.getString(R.string.otp_notif_open_action))
+    }
+
+    @Test
+    fun aNormalMessageStillOpensTheChatOnTap() {
+        val n = post(LOCK_SCREEN_SENDER)
+
+        assertThat(n.contentIntentComponent()).isEqualTo(ThreadActivity::class.java.name)
     }
 
     @Test

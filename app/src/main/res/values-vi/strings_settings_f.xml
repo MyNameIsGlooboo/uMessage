@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">Quy tắc đã thêm: %1$d · Quy tắc chuyển tiếp đã thêm: %2$d. Quy tắc chuyển tiếp vẫn tắt cho đến khi bạn bật.</string>
     <string name="settings_f_restore_done_rules">Quy tắc đã thêm: %1$d.</string>
     <string name="settings_f_restore_done_title">Đã khôi phục xong</string>
-    <string name="settings_f_label_codes">Mã từ người gửi không xác định</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">Hiển thị</string>
     <string name="settings_f_appearance">Diện mạo</string>

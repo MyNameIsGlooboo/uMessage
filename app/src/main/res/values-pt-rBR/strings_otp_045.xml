@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">Copiar o código ao tocar na notificação</string>
+    <string name="otp_tap_copy_info">Quando uma notificação tem apenas um código de verificação, tocar nela copia o código e fecha a notificação. O botão Abrir abre a conversa. As outras mensagens abrem a conversa ao toque. Com “Ocultar códigos na tela de bloqueio” ativado, é preciso desbloquear o telefone antes de o código ser copiado. Desative para que o toque abra a conversa; Copiar código continua como botão.</string>
+    <string name="otp_notif_open_action">Abrir</string>
+    <string name="sks_tap_copy">copiar código tocar notificação otp</string>
+</resources>

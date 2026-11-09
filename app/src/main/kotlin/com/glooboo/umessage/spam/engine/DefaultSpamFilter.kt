@@ -80,8 +80,8 @@ class DefaultSpamFilter(
 
     /**
      * The old Fossify "block unknown numbers" switch turns blocking on when the mode is Off, and otherwise leaves the
-     * chosen mode in charge, so it cannot quietly take Smart mode's code exemption away. SpamSettings.otpExemption
-     * is no longer read: Strict has no exemptions, Smart lets codes through.
+     * chosen mode in charge, so it cannot quietly take Smart mode's code exemption away. Strict has no exemptions,
+     * Smart lets codes through (the old "codes from unknown senders" setting is gone).
      */
     private fun effectiveMode(): UnknownSenderMode {
         val legacyUnknown = runCatching { legacy.blockUnknownNumbers() }.getOrDefault(false)
@@ -89,8 +89,7 @@ class DefaultSpamFilter(
         return if (mode == UnknownSenderMode.OFF && legacyUnknown) UnknownSenderMode.STRICT else mode
     }
 
-    private fun isExemptCode(body: String): Boolean =
-        OtpDetector.looksLikeOtp(body)
+    private fun isExemptCode(body: String): Boolean = OtpDetector.looksLikeOtp(body)
 
     /**
      * I24: a number from outside the chosen home country is held, unless the user knows it. Contacts and numbers the

@@ -12,7 +12,6 @@ object RestoreSummary {
     /** The setting each backup key changes, by its row title. Keys missing here (one-time flags) are not shown. */
     private val labels: Map<String, Int> = mapOf(
         BackupSettings.SPAM_MODE to R.string.settings_nav_spam_row,
-        BackupSettings.OTP_EXEMPTION to R.string.settings_f_label_codes,
         BackupSettings.PURGE_DAYS to R.string.settings_nav_purge_row,
         BackupSettings.NOTIFY_ON_BLOCK to R.string.spam_notify_title,
         BackupSettings.SHOW_FORWARDED_TAB to R.string.settings_nav_forwarded_tab,
@@ -38,7 +37,7 @@ object RestoreSummary {
             ),
             R.string.n09_label_notifications to listOf(
                 BackupSettings.WAKE_SCREEN, BackupSettings.CHAT_BUBBLES, BackupSettings.FOCUS_CODES,
-                BackupSettings.CHAT_SOUNDS,
+                BackupSettings.CHAT_SOUNDS, BackupSettings.COPY_CODE_ON_TAP,
             ),
             R.string.n09_label_chat to listOf(
                 BackupSettings.UNREAD_FIRST, BackupSettings.PINCH_ZOOM, BackupSettings.TAPBACKS,

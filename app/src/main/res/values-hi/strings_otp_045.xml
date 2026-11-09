@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">नोटिफ़िकेशन पर टैप करने पर कोड कॉपी करें</string>
+    <string name="otp_tap_copy_info">जब नोटिफ़िकेशन में सिर्फ़ सत्यापन कोड हो, तो उस पर टैप करने से कोड कॉपी हो जाता है और नोटिफ़िकेशन बंद हो जाता है। “खोलें” बटन चैट खोलता है। दूसरे संदेशों पर टैप करने से चैट खुलती है। अगर “लॉक स्क्रीन पर कोड छिपाएं” चालू है, तो कोड कॉपी होने से पहले फ़ोन अनलॉक करना होगा। टैप से चैट खोलने के लिए इसे बंद करें; तब “कोड कॉपी करें” बटन के रूप में रहेगा।</string>
+    <string name="otp_notif_open_action">खोलें</string>
+    <string name="sks_tap_copy">कोड कॉपी टैप नोटिफ़िकेशन ओटीपी</string>
+</resources>

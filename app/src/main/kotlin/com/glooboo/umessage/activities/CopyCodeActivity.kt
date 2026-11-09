@@ -1,6 +1,8 @@
 package com.glooboo.umessage.activities
 
 import android.app.Activity
+import android.app.KeyguardManager
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -21,11 +23,17 @@ import com.glooboo.umessage.helpers.SensitiveClip
  * It copies while it is the focused foreground window: MIUI / HyperOS block or silently drop clipboard writes from
  * background apps (the old broadcast receiver), and some OEMs only accept them from the focused window. If focus never
  * comes, a short fallback copies anyway. Then it finishes with no animation.
+ *
+ * It is also what a tap on a notification that holds only a code starts ([EXTRA_NOTIFICATION_ID]: the notification is
+ * cancelled once the code is copied). With [EXTRA_REQUIRE_UNLOCK] (the "Hide codes on the lock screen" setting) it
+ * never shows over the lock screen: on a locked phone it asks the system to unlock first and copies only after the
+ * unlock, so a locked screen cannot leak the code. If the unlock is cancelled nothing is copied.
  */
 class CopyCodeActivity : Activity() {
 
     private val handler = Handler(Looper.getMainLooper())
     private var done = false
+    private var waitingForUnlock = false
     private val fallback = Runnable { copyAndFinish() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,12 +41,42 @@ class CopyCodeActivity : Activity() {
         if (intent?.getStringExtra(EXTRA_CODE).isNullOrEmpty()) {
             done = true
             finishQuietly()
+            return
         }
+        if (intent?.getBooleanExtra(EXTRA_REQUIRE_UNLOCK, false) == true) requireUnlock()
+    }
+
+    /** Keeps the activity off the lock screen and asks for the unlock; [copyAndFinish] waits for it. */
+    private fun requireUnlock() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) setShowWhenLocked(false)
+        val keyguard = getSystemService(KeyguardManager::class.java)
+        if (keyguard == null || !keyguard.isKeyguardLocked) return
+        waitingForUnlock = true
+        keyguard.requestDismissKeyguard(
+            this,
+            object : KeyguardManager.KeyguardDismissCallback() {
+                override fun onDismissSucceeded() {
+                    waitingForUnlock = false
+                    if (hasWindowFocus()) copyAndFinish() else handler.postDelayed(fallback, FOCUS_FALLBACK_MS)
+                }
+
+                override fun onDismissCancelled() = giveUp()
+
+                override fun onDismissError() = giveUp()
+            },
+        )
+    }
+
+    /** The unlock did not happen: nothing is copied. */
+    private fun giveUp() {
+        waitingForUnlock = false
+        done = true
+        finishQuietly()
     }
 
     override fun onResume() {
         super.onResume()
-        if (!done) handler.postDelayed(fallback, FOCUS_FALLBACK_MS)
+        if (!done && !waitingForUnlock) handler.postDelayed(fallback, FOCUS_FALLBACK_MS)
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -54,11 +92,18 @@ class CopyCodeActivity : Activity() {
     }
 
     private fun copyAndFinish() {
-        if (done) return
+        if (done || waitingForUnlock) return
         done = true
         handler.removeCallbacks(fallback)
-        CopyCode.copy(this, intent?.getStringExtra(EXTRA_CODE).orEmpty())
+        if (CopyCode.copy(this, intent?.getStringExtra(EXTRA_CODE).orEmpty())) cancelNotification()
         finishQuietly()
+    }
+
+    /** A tap on a code notification copies the code and takes the notification away. */
+    private fun cancelNotification() {
+        val id = intent?.getIntExtra(EXTRA_NOTIFICATION_ID, NO_NOTIFICATION) ?: NO_NOTIFICATION
+        if (id == NO_NOTIFICATION) return
+        runCatching { getSystemService(NotificationManager::class.java)?.cancel(id) }
     }
 
     private fun finishQuietly() {
@@ -73,14 +118,27 @@ class CopyCodeActivity : Activity() {
 
     companion object {
         const val EXTRA_CODE = "extra_code"
+        const val EXTRA_NOTIFICATION_ID = "extra_notification_id"
+        const val EXTRA_REQUIRE_UNLOCK = "extra_require_unlock"
+        private const val NO_NOTIFICATION = Int.MIN_VALUE
 
         /** How long to wait for window focus before copying anyway. */
         const val FOCUS_FALLBACK_MS = 400L
 
-        /** The intent the notification action starts; explicit, so only this app's activity gets the code. */
-        fun intent(context: Context, code: String): Intent =
+        /**
+         * The intent a notification starts; explicit, so only this app's activity gets the code. [notificationId]
+         * (when not null) is cancelled after the copy; [requireUnlock] makes a locked phone unlock first.
+         */
+        fun intent(
+            context: Context,
+            code: String,
+            notificationId: Int? = null,
+            requireUnlock: Boolean = false,
+        ): Intent =
             Intent(context, CopyCodeActivity::class.java)
                 .putExtra(EXTRA_CODE, code)
+                .putExtra(EXTRA_REQUIRE_UNLOCK, requireUnlock)
+                .apply { notificationId?.let { putExtra(EXTRA_NOTIFICATION_ID, it) } }
                 .addFlags(
                     Intent.FLAG_ACTIVITY_NEW_TASK or
                         Intent.FLAG_ACTIVITY_NO_ANIMATION or
@@ -96,7 +154,7 @@ object CopyCode {
     /** Copies [code] (marked sensitive on Android 13+) and shows a toast where the system shows no confirmation. */
     fun copy(context: Context, code: String): Boolean {
         if (code.isEmpty()) return false
-        // Marked sensitive and removed again after 60 seconds, if it is still the clipboard's content (I15).
+        // Marked sensitive; the app never clears the clipboard by itself.
         if (!SensitiveClip.copy(context, context.getString(R.string.onb_notif_clip_label), code)) {
             // Some OEM ROMs refuse the write outright; the missing toast is better than a crash.
             return false

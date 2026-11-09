@@ -6,6 +6,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Tap a notification that holds only a verification code to copy the code (the notification closes; the Open button opens the chat). Turn it off in Settings > Notifications ("Copy the code when I tap the notification")
+- A Copy chip under every message that has a code, showing the code itself
+- A held (Spam) message with a code now shows the code hidden in its notification, with a Copy code button
+
+### Changed
+- The Spam tab shows chats with unread messages in bold
+- The message counter in the composer now sits above the emoji button, and only when it is needed
+- One rule for what a verification code is, everywhere: notifications, the list and chat chips, the Codes filter, the Spam filter, forwarding and categories. A labelled value such as "password: x7Kq2" counts, and copied codes always use Latin digits
+- "Hide codes on the lock screen" now also hides the code in the conversation list, search results, the Spam tab, the Spam notification and "Why held?"
+- The app never clears the clipboard by itself any more; copied codes are still marked sensitive
+
+### Fixed
+- Searching for a contact now finds them reliably
+
+### Removed
+- Two pop-up messages in the composer
+- The unused "Recent codes" list and the old "Codes from unknown senders" setting (old backup files still restore)
+
 ## [0.4.4] - 2026-11-08
 ### Added
 - Opening a chat at a message from Starred, search or notes briefly tints that message so you can find it

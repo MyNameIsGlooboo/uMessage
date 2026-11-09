@@ -203,12 +203,13 @@ class ForwardPlanner(
         }
 
         /**
-         * Whether forwarding treats [body] as a verification code: the spam filter's detector says so, or the
-         * notification's "Copy code" finds one. Either is enough, so a message the app offers a code for is never
-         * forwarded in clear by a rule without codes ("bank verification code is 48 29 13 ref 7766554").
+         * Whether forwarding treats [body] as a verification code: the app's one rule ([OtpDetector.looksLikeOtp]) says
+         * so, or any code-shaped number has a code keyword anywhere in the text. Forwarding keeps that wider net on
+         * purpose, as it fails closed: a message the app might offer a code for is never forwarded in clear by a rule
+         * without codes ("bank verification code is 48 29 13 ref 7766554").
          */
-        fun looksLikeCode(body: String): Boolean =
-            OtpDetector.looksLikeOtp(body) || runCatching { OtpCodeExtractor.extract(body) != null }.getOrDefault(true)
+        fun looksLikeCode(body: String): Boolean = OtpDetector.looksLikeOtp(body) ||
+            runCatching { OtpCodeExtractor.hasKeywordNearNumber(body) }.getOrDefault(true)
 
         /**
          * [start] inclusive, [end] exclusive; a window that ends before it starts runs over midnight. Equal = all day.

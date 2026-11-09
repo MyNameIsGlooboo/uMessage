@@ -13,7 +13,7 @@ internal object OtpKeywords {
     val strong = listOf(
         // English
         "otp", "passcode", "password", "pin", "verification", "verify", "one[- ]?time", "authenticat\\p{L}*",
-        "security code", "login code", "2fa",
+        "security code", "login code", "2fa", "passcodes", "log[- ]?in", "sign[- ]?in",
         // Persian
         "رمز", "رمز پویا", "رمز عبور", "رمز یکبار مصرف", "گذرواژه", "کد تایید", "کد تأیید", "کد فعالسازی",
         "کد ورود", "تایید", "تأیید", "تائید", "یکبار مصرف", "یک بار مصرف",
@@ -47,8 +47,8 @@ internal object OtpKeywords {
 
     /** Generic words ("code", "کد", "код"): a number next to one is a code unless it reads as a year. */
     val weak = listOf(
-        "code", "کد", "کود", "کوڈ", "код", "кода", "kod", "kodu", "kodunuz", "kode", "código", "codigo", "codice", "mã",
-        "קוד", "कोड", "কোড",
+        "code", "codes", "کد", "کود", "کوڈ", "код", "кода", "kod", "kodu", "kodunuz", "kode", "código", "codigo",
+        "codice", "mã", "קוד", "कोड", "কোড",
     )
 
     /**

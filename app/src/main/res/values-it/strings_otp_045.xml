@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">Copia il codice quando tocco la notifica</string>
+    <string name="otp_tap_copy_info">Quando una notifica contiene solo un codice di verifica, toccarla copia il codice e chiude la notifica. Il pulsante Apri apre la chat. Le altre notifiche aprono la chat al tocco. Se «Nascondi i codici nella schermata di blocco» è attivo, devi sbloccare il telefono prima che il codice venga copiato. Disattiva questa opzione per far aprire la chat al tocco; Copia codice resta un pulsante.</string>
+    <string name="otp_notif_open_action">Apri</string>
+    <string name="sks_tap_copy">copia codice tocco notifica otp</string>
+</resources>

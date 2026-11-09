@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">اطلاع پر ٹیپ کرنے پر کوڈ کاپی کریں</string>
+    <string name="otp_tap_copy_info">جب اطلاع میں صرف تصدیقی کوڈ ہو تو اس پر ٹیپ کرنے سے کوڈ کاپی ہو جاتا ہے اور اطلاع بند ہو جاتی ہے۔ “کھولیں” بٹن چیٹ کھولتا ہے۔ دوسرے پیغامات پر ٹیپ کرنے سے چیٹ کھلتی ہے۔ اگر “لاک اسکرین پر کوڈز چھپائیں” آن ہو تو کوڈ کاپی ہونے سے پہلے فون ان لاک کرنا ہوگا۔ ٹیپ سے چیٹ کھولنے کے لیے اسے بند کریں؛ تب “کوڈ کاپی کریں” بٹن کے طور پر رہے گا۔</string>
+    <string name="otp_notif_open_action">کھولیں</string>
+    <string name="sks_tap_copy">کوڈ کاپی ٹیپ اطلاع او ٹی پی</string>
+</resources>

@@ -12,10 +12,12 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.CodeMasker
 import com.glooboo.umessage.helpers.w3cPrefs
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.ui.components.InfoDialog
+import com.glooboo.umessage.ui.components.hideCodesSetting
 import com.glooboo.umessage.ui.components.uiLocale
 import java.time.ZoneId
 
@@ -61,7 +63,9 @@ internal fun WhyBlockedDialog(
             ReasonBadge(message, state.rules, onOpenRules = openRules)
             explanation?.let { Text(stringResource(heldWhyText(it.why)), style = MaterialTheme.typography.bodyMedium) }
             explanation?.code?.let {
-                Text(stringResource(R.string.w3b_code_seen, it), style = MaterialTheme.typography.labelLarge)
+                // The code is hidden here as well when "Hide codes on the lock screen" is on.
+                val shownCode = if (hideCodesSetting()) CodeMasker.BULLETS else it
+                Text(stringResource(R.string.w3b_code_seen, shownCode), style = MaterialTheme.typography.labelLarge)
             }
             if (message.reason == DecisionReason.UNKNOWN_SENDER && BlockedHints.looksImportant(message.body)) {
                 Text(

@@ -1,5 +1,6 @@
 package com.glooboo.umessage.spam.engine
 
+import com.glooboo.umessage.helpers.OtpCodes
 import com.glooboo.umessage.spam.TextNormalizer
 
 /**
@@ -147,7 +148,21 @@ object OtpDetector {
      */
     private val originBound = Regex("^$HOST #[a-z0-9]{4,12}(?: $HOST)?$", RegexOption.IGNORE_CASE)
 
-    fun looksLikeOtp(body: String): Boolean {
+    /**
+     * Whether [body] holds a verification code. The one rule of the app: the spam filter, forwarding, the notification,
+     * the list and chat chips, the Codes filter, the digest and the category all ask this question through
+     * [OtpCodes.looksLikeCode], which also accepts labelled values ("password: x7Kq2").
+     */
+    fun looksLikeOtp(body: String): Boolean = OtpCodes.looksLikeCode(body)
+
+    /** Whether [text] is an advertisement ("promo", "discount", "50%"): such a text is never a code. */
+    internal fun isMarketing(text: String): Boolean = marketingHard.containsMatchIn(TextNormalizer.fold(text))
+
+    /**
+     * The keyword rule behind [looksLikeOtp]: a 4-8 digit code next to an OTP keyword (a few plain words apart, either
+     * order), in a text that is not an advertisement. Labelled values are [OtpCodes]' business.
+     */
+    internal fun nearKeyword(body: String): Boolean {
         val text = TextNormalizer.fold(body)
         if (marketingHard.containsMatchIn(text)) return false
         if (strongOtp.containsMatchIn(text) || cjkOtp.containsMatchIn(text)) return true

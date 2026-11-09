@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">通知をタップしたときにコードをコピー</string>
+    <string name="otp_tap_copy_info">通知が確認コードだけの場合、タップするとコードをコピーして通知を閉じます。「開く」ボタンでチャットが開きます。そのほかのメッセージは、タップするとチャットが開きます。「ロック画面でコードを非表示」がオンのときは、コードをコピーする前に端末のロックを解除する必要があります。タップでチャットを開きたい場合はオフにしてください。その場合「コードをコピー」はボタンとして残ります。</string>
+    <string name="otp_notif_open_action">開く</string>
+    <string name="sks_tap_copy">コード コピー タップ 通知 認証コード</string>
+</resources>

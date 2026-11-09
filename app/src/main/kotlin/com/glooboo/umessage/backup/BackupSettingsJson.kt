@@ -45,7 +45,6 @@ internal object BackupSettingsJson {
     private fun readBasics(o: JsonObject): BackupSettings =
         BackupSettings(
             spamMode = enumOf<UnknownSenderMode>(o.str(BackupSettings.SPAM_MODE)),
-            otpExemption = o.bool(BackupSettings.OTP_EXEMPTION),
             purgeAfterDays = o.int(BackupSettings.PURGE_DAYS)?.takeIf { it in 0..MAX_PURGE_DAYS },
             notifyOnBlock = o.bool(BackupSettings.NOTIFY_ON_BLOCK),
             showForwardedTab = o.bool(BackupSettings.SHOW_FORWARDED_TAB),
@@ -89,6 +88,7 @@ internal object BackupSettingsJson {
         wakeScreen = o.bool(BackupSettings.WAKE_SCREEN),
         chatBubbles = o.bool(BackupSettings.CHAT_BUBBLES),
         focusCodes = o.bool(BackupSettings.FOCUS_CODES),
+        copyCodeOnTap = o.bool(BackupSettings.COPY_CODE_ON_TAP),
         smartReplies = o.bool(BackupSettings.SMART_REPLIES),
         lockScope = o.str(BackupSettings.LOCK_SCOPE)?.takeIf { it in LOCK_SCOPES },
         showCharacterCounter = o.bool(BackupSettings.CHARACTER_COUNTER),

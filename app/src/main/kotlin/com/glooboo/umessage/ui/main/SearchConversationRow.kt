@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.models.SearchResult
+import com.glooboo.umessage.ui.components.rememberCodeHidden
 import com.glooboo.umessage.ui.conversations.ContactAvatar
 import com.glooboo.umessage.ui.conversations.RowLabel
 import com.glooboo.umessage.ui.conversations.RowLabelChips
@@ -68,7 +69,7 @@ internal fun ConversationResultRow(
             )
             if (hit.snippet.isNotEmpty()) {
                 Text(
-                    highlightedText(hit.snippet, query, highlight),
+                    highlightedText(rememberCodeHidden(hit.snippet), query, highlight),
                     style = MaterialTheme.typography.bodyMedium.contentDirection(),
                     color = if (unread) colors.onSurface else colors.onSurfaceVariant,
                     fontWeight = if (unread) FontWeight.SemiBold else FontWeight.Normal,
@@ -86,7 +87,7 @@ internal fun ConversationResultRow(
                 fontWeight = weight,
                 maxLines = 1,
             )
-            if (unread) UnreadCount(hit.row?.unreadBadge.orEmpty())
+            if (unread) UnreadCount(hit.row.unreadBadge.orEmpty())
         }
     }
 }

@@ -25,8 +25,8 @@ class SettingsBackupFormatTest {
         sendFrom = ForwardSim.SIM2, includeCodes = true, enabled = false, note = "dad", createdAt = 9,
     )
     private val settings = BackupSettings(
-        spamMode = UnknownSenderMode.STRICT, otpExemption = false, purgeAfterDays = 14, showForwardedTab = true,
-        dailyForwardLimit = 30, maskForwardedCodes = true,
+        spamMode = UnknownSenderMode.STRICT, purgeAfterDays = 14, showForwardedTab = true,
+        dailyForwardLimit = 30, maskForwardedCodes = true, copyCodeOnTap = false,
     )
 
     @Test fun roundTrip() {
@@ -212,13 +212,39 @@ class SettingsBackupFormatTest {
         assertThat(back.settings.textSize).isEqualTo("large")
         // Settings the old file does not know are "not in the file", so a restore leaves them alone.
         val known = setOf(
-            BackupSettings.SPAM_MODE, BackupSettings.OTP_EXEMPTION, BackupSettings.PURGE_DAYS,
+            BackupSettings.SPAM_MODE, BackupSettings.PURGE_DAYS,
             BackupSettings.NOTIFY_ON_BLOCK, BackupSettings.SHOW_FORWARDED_TAB, BackupSettings.JALALI,
             BackupSettings.TEXT_SIZE, BackupSettings.SEND_ON_ENTER, BackupSettings.LOCK_SCREEN,
             BackupSettings.FORWARD_PAUSED,
         )
         val present = back.settings.values().filterValues { it != null }.keys
         assertThat(present).containsExactlyElementsIn(known)
+    }
+
+    // The old "codes from unknown senders" setting is no longer written or applied; a file that has it still loads.
+    @Test fun theOldCodesSettingIsNotWrittenButAnOldFileWithItStillLoads() {
+        val written = SettingsBackupFormat.encode(BackupContent(emptyList(), emptyList(), settings), 1)
+        assertThat(written).doesNotContain(BackupSettings.OTP_EXEMPTION)
+
+        val old = """{"app":"spamless","kind":"settings-backup","version":1,
+            "settings":{"spamMode":"STRICT","otpExemption":false,"textSize":"large"}}"""
+        val back = SettingsBackupFormat.decode(old).settings
+        assertThat(back.spamMode).isEqualTo(UnknownSenderMode.STRICT)
+        assertThat(back.textSize).isEqualTo("large")
+        assertThat(back.values().keys).doesNotContain(BackupSettings.OTP_EXEMPTION)
+    }
+
+    @Test fun copyCodeOnTapRoundTripsAndOldFilesLeaveItAlone() {
+        val off = BackupSettings(copyCodeOnTap = false)
+        val text = SettingsBackupFormat.encode(BackupContent(emptyList(), emptyList(), off), 1)
+        assertThat(text).contains("\"copyCodeOnTap\": false")
+        assertThat(SettingsBackupFormat.decode(text).settings.copyCodeOnTap).isFalse()
+
+        // A file from before 0.4.5 does not have it: null, so a restore keeps the phone's setting (on by default).
+        val old = """{"app":"spamless","kind":"settings-backup","version":1,"settings":{"focusCodes":true}}"""
+        assertThat(SettingsBackupFormat.decode(old).settings.copyCodeOnTap).isNull()
+        assertThat(SettingsBackupFormat.changedSettings(BackupSettings(copyCodeOnTap = true), off))
+            .containsExactly(BackupSettings.COPY_CODE_ON_TAP)
     }
 
     @Test fun appVersionIsWrittenAsInfoAndRead() {

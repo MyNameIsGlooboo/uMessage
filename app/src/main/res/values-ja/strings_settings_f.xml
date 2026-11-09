@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">ルールを%1$d件、転送ルールを%2$d件追加しました。転送ルールは手動でオンにするまでオフのままです。</string>
     <string name="settings_f_restore_done_rules">ルールを%1$d件追加しました。</string>
     <string name="settings_f_restore_done_title">復元完了</string>
-    <string name="settings_f_label_codes">不明な送信者からの認証コード</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">表示</string>
     <string name="settings_f_appearance">デザイン</string>

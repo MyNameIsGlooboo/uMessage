@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">已新增規則：%1$d · 已新增轉寄規則：%2$d。轉寄規則會保持關閉，直到你開啟為止。</string>
     <string name="settings_f_restore_done_rules">已新增規則：%1$d。</string>
     <string name="settings_f_restore_done_title">還原完成</string>
-    <string name="settings_f_label_codes">來自未知寄件者的驗證碼</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">顯示</string>
     <string name="settings_f_appearance">外觀</string>

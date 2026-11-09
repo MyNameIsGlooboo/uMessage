@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">Sao chép mã khi tôi chạm vào thông báo</string>
+    <string name="otp_tap_copy_info">Khi thông báo chỉ chứa mã xác minh, chạm vào sẽ sao chép mã và đóng thông báo. Nút Mở sẽ mở cuộc trò chuyện. Các tin nhắn khác sẽ mở cuộc trò chuyện khi chạm vào. Nếu bật “Ẩn mã trên màn hình khóa”, bạn phải mở khóa điện thoại trước khi mã được sao chép. Hãy tắt tùy chọn này để chạm vào sẽ mở cuộc trò chuyện; Sao chép mã vẫn là một nút.</string>
+    <string name="otp_notif_open_action">Mở</string>
+    <string name="sks_tap_copy">sao chép mã chạm thông báo otp</string>
+</resources>

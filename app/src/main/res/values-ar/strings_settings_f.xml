@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">القواعد المضافة: %1$d · قواعد إعادة التوجيه المضافة: %2$d. تبقى قواعد إعادة التوجيه معطّلة حتى تفعّلها.</string>
     <string name="settings_f_restore_done_rules">القواعد المضافة: %1$d.</string>
     <string name="settings_f_restore_done_title">اكتملت الاستعادة</string>
-    <string name="settings_f_label_codes">رموز من مرسلين غير معروفين</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">العرض</string>
     <string name="settings_f_appearance">المظهر</string>

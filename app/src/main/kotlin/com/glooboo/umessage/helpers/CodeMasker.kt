@@ -3,7 +3,7 @@ package com.glooboo.umessage.helpers
 import com.glooboo.umessage.spam.TextNormalizer
 
 /**
- * Hides the verification code of a message (the same number [OtpCodeExtractor] offers for "Copy code") and leaves
+ * Hides the verification code of a message (the same value [OtpCodes.primary] offers for "Copy code") and leaves
  * every other character as it was written: Persian digits, invisible marks and line breaks of the rest of the text
  * stay. Used for the lock-screen version of a notification and for forwards that carry a code.
  *
@@ -24,7 +24,7 @@ object CodeMasker {
      */
     fun mask(body: String, keepLastTwo: Boolean = false, mark: String = BULLETS): String {
         val folded = TextNormalizer.fold(body)
-        val best = OtpCodeExtractor.locate(folded) ?: return body
+        val best = OtpCodes.primary(body) ?: return body
         // Where each folded character stands in the original (the fold only drops characters, never adds any).
         val origin = IntArray(folded.length)
         var next = 0
@@ -35,11 +35,7 @@ object CodeMasker {
         }
         if (next != origin.size) return body
 
-        val value = OtpCodeExtractor.digitsOf(best.groupValues[1])
-        val spans = OtpCodeExtractor.codeShapes(folded)
-            .filter { OtpCodeExtractor.digitsOf(it.groupValues[1]) == value }
-            .map { it.groups[1]!!.range }
-            .toList()
+        val spans = OtpCodes.spans(folded, best.value)
         val out = StringBuilder(body.length)
         var position = 0
         for (span in spans) {
@@ -54,6 +50,9 @@ object CodeMasker {
         out.append(body, position, body.length)
         return out.toString()
     }
+
+    /** [mask] of [text] when [hide] ("Hide codes on the lock screen") is on, else [text] as it is. */
+    fun maskIf(hide: Boolean, text: String): String = if (hide) mask(text) else text
 
     /**
      * The fail-closed mask for a forward (M3): [mask] first; when it finds no code to hide (the detector that called

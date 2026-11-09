@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">Dodane reguły: %1$d · Dodane reguły przekazywania dalej: %2$d. Reguły przekazywania dalej pozostaną wyłączone, dopóki ich nie włączysz.</string>
     <string name="settings_f_restore_done_rules">Dodane reguły: %1$d.</string>
     <string name="settings_f_restore_done_title">Przywracanie zakończone</string>
-    <string name="settings_f_label_codes">Kody od nieznanych nadawców</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">Wyświetlanie</string>
     <string name="settings_f_appearance">Wygląd</string>

@@ -14,7 +14,6 @@
     <string name="settings_f_restore_done">Rules added: %1$d · Forward rules added: %2$d. Forward rules stay off until you turn them on.</string>
     <string name="settings_f_restore_done_rules">Rules added: %1$d.</string>
     <string name="settings_f_restore_done_title">Restore finished</string>
-    <string name="settings_f_label_codes">Codes from unknown senders</string>
     <string name="settings_f_list_separator">", "</string>
 
     <string name="settings_f_group_display">Display</string>

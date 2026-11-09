@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">Regeln hinzugefügt: %1$d · Regeln zum Weiterleiten hinzugefügt: %2$d. Regeln zum Weiterleiten bleiben aus, bis du sie aktivierst.</string>
     <string name="settings_f_restore_done_rules">Regeln hinzugefügt: %1$d.</string>
     <string name="settings_f_restore_done_title">Wiederherstellung abgeschlossen</string>
-    <string name="settings_f_label_codes">Codes von unbekannten Absendern</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">Anzeige</string>
     <string name="settings_f_appearance">Darstellung</string>

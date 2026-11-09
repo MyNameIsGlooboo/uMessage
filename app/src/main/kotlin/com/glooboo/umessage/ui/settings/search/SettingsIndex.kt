@@ -74,6 +74,7 @@ object SettingsIndex {
         SettingsIndexEntry(R.string.settings_f_code_alert, PG_NOTIFY, NOTIFICATIONS, R.string.settings_f_code_alert_body, R.string.sks_code_alert),
         SettingsIndexEntry(R.string.spam_notify_title, PG_NOTIFY, NOTIFICATIONS, R.string.settings_nav_notify_body, R.string.sks_block_alert),
         SettingsIndexEntry(R.string.digest_row_title, PG_NOTIFY, NOTIFICATIONS, R.string.digest_row_summary, R.string.sks_digest),
+        SettingsIndexEntry(R.string.otp_tap_copy_title, PG_NOTIFY, NOTIFICATIONS, null, R.string.sks_tap_copy),
         SettingsIndexEntry(R.string.wake_screen_title, PG_NOTIFY, NOTIFICATIONS, R.string.wake_screen_summary, R.string.sks_wake),
         SettingsIndexEntry(R.string.bubbles_title, PG_NOTIFY, NOTIFICATIONS, R.string.bubbles_summary, R.string.sks_bubbles),
         SettingsIndexEntry(R.string.settings_nav_lock_screen, PG_NOTIFY, NOTIFICATIONS, null, R.string.sks_lock_screen),

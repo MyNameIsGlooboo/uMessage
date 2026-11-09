@@ -180,7 +180,6 @@ data class SpamStats(val blockedTotal: Int, val blockedLast7Days: Int, val resto
 
 data class SpamSettings(
     val mode: UnknownSenderMode = UnknownSenderMode.SMART,
-    val otpExemption: Boolean = true,
     /** Blocked messages older than this are purged. 0 = keep forever. */
     val purgeAfterDays: Int = 30,
     val notifyOnBlock: Boolean = false,

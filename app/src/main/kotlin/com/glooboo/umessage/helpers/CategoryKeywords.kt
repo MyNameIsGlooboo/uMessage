@@ -29,10 +29,4 @@ internal object CategoryKeywords {
         "discount", "coupon", "promo", "sale", "special offer", "limited offer", "% off", "free gift", "تخفیف",
         "کد تخفیف", "فروش ویژه", "جشنواره", "حراج", "هدیه", "ارزان‌تر", "پیشنهاد ویژه", "پیشنهاد شگفت‌انگیز",
     )
-
-    /** One-time codes: a text that carries one is for the Codes filter, not for a category. */
-    val ONE_TIME_CODE = listOf(
-        "otp", "verification code", "security code", "one-time", "one time password", "کد تایید", "کد تأیید",
-        "رمز یک‌بار مصرف", "رمز یکبار مصرف", "رمز پویا", "کد فعال‌سازی", "کد ورود",
-    )
 }

@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">Reglas agregadas: %1$d · Reglas de reenvío agregadas: %2$d. Las reglas de reenvío siguen desactivadas hasta que las actives.</string>
     <string name="settings_f_restore_done_rules">Reglas agregadas: %1$d.</string>
     <string name="settings_f_restore_done_title">Restauración completada</string>
-    <string name="settings_f_label_codes">Códigos de remitentes desconocidos</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">Pantalla</string>
     <string name="settings_f_appearance">Apariencia</string>

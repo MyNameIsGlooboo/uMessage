@@ -46,6 +46,7 @@ import com.glooboo.umessage.ui.components.SenderAvatar
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.components.localizedNumber
+import com.glooboo.umessage.ui.components.rememberCodeHidden
 import com.glooboo.umessage.ui.components.rememberTimeLabel
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.conversations.SwipeAction
@@ -126,7 +127,8 @@ private fun SenderRowContent(
     val unreadText = if (unread) stringResource(R.string.convlist_unread_count, group.unreadCount) else null
     val badge = unreadBadgeText(group.unreadCount)
     val shown = isolateNumbers(displayNumber(group.address))
-    val body = blockedBodyText(LocalResources.current, latest)
+    // "Hide codes on the lock screen" hides the code in the row (and so in what TalkBack reads) too.
+    val body = rememberCodeHidden(blockedBodyText(LocalResources.current, latest))
     val reason = reasonText(latest, rules)
     val important = latest.reason == DecisionReason.UNKNOWN_SENDER && BlockedHints.looksImportant(latest.body)
     val importantText = stringResource(R.string.blocked_may_be_important)

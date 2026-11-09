@@ -1,7 +1,7 @@
 package com.glooboo.umessage.ui.thread
 
 import com.glooboo.umessage.helpers.CategoryKeywords
-import com.glooboo.umessage.helpers.OtpCodeExtractor
+import com.glooboo.umessage.helpers.OtpCodes
 import com.glooboo.umessage.spam.TextNormalizer
 import java.math.BigDecimal
 
@@ -84,7 +84,7 @@ object BankAlertParser {
     }
 
     private fun isUnreadable(text: String): Boolean =
-        text.length > MAX_LENGTH || REJECT.containsMatchIn(text) || OtpCodeExtractor.locate(text) != null
+        text.length > MAX_LENGTH || REJECT.containsMatchIn(text) || OtpCodes.looksLikeCode(text)
 
     /** One number that counts as money. [sign] is the plus or minus written right against it. */
     private class Figure(val value: BigDecimal, val sign: Char?, val currency: BankCurrency?, val isBalance: Boolean)

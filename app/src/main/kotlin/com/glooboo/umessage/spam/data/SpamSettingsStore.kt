@@ -22,7 +22,6 @@ class SpamSettingsStore(context: Context) {
             .getOrDefault(defaults.mode)
         return SpamSettings(
             mode = mode,
-            otpExemption = prefs.getBoolean(KEY_OTP, defaults.otpExemption),
             purgeAfterDays = prefs.getInt(KEY_PURGE_DAYS, defaults.purgeAfterDays),
             notifyOnBlock = prefs.getBoolean(KEY_NOTIFY, defaults.notifyOnBlock),
             unknownInboxNotify = runCatching {
@@ -38,7 +37,6 @@ class SpamSettingsStore(context: Context) {
         val next = transform(get())
         prefs.edit()
             .putString(KEY_MODE, next.mode.name)
-            .putBoolean(KEY_OTP, next.otpExemption)
             .putInt(KEY_PURGE_DAYS, next.purgeAfterDays)
             .putBoolean(KEY_NOTIFY, next.notifyOnBlock)
             .putString(KEY_UNKNOWN_NOTIFY, next.unknownInboxNotify.name)
@@ -71,7 +69,6 @@ class SpamSettingsStore(context: Context) {
     private companion object {
         const val PREFS_NAME = "spamless_spam_settings"
         const val KEY_MODE = "mode"
-        const val KEY_OTP = "otp_exemption"
         const val KEY_PURGE_DAYS = "purge_after_days"
         const val KEY_NOTIFY = "notify_on_block"
         const val KEY_UNKNOWN_NOTIFY = "unknown_inbox_notify"

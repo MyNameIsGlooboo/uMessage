@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">जोड़े गए नियम: %1$d · फ़ॉरवर्ड करने के जोड़े गए नियम: %2$d. फ़ॉरवर्ड करने के नियम आपके चालू करने तक बंद रहेंगे.</string>
     <string name="settings_f_restore_done_rules">जोड़े गए नियम: %1$d.</string>
     <string name="settings_f_restore_done_title">वापस लाने का काम पूरा हुआ</string>
-    <string name="settings_f_label_codes">अनजान भेजने वालों के कोड</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">डिसप्ले</string>
     <string name="settings_f_appearance">रंग-रूप</string>

@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">Eklenen kurallar: %1$d · Eklenen iletme kuralları: %2$d. İletme kuralları siz açana kadar kapalı kalır.</string>
     <string name="settings_f_restore_done_rules">Eklenen kurallar: %1$d.</string>
     <string name="settings_f_restore_done_title">Geri yükleme tamamlandı</string>
-    <string name="settings_f_label_codes">Bilinmeyen gönderenlerden gelen kodlar</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">Ekran</string>
     <string name="settings_f_appearance">Görünüm</string>

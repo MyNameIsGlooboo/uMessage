@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">Regole aggiunte: %1$d · Regole di inoltro aggiunte: %2$d. Le regole di inoltro restano disattivate finché non le attivi.</string>
     <string name="settings_f_restore_done_rules">Regole aggiunte: %1$d.</string>
     <string name="settings_f_restore_done_title">Ripristino completato</string>
-    <string name="settings_f_label_codes">Codici da mittenti sconosciuti</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">Visualizzazione</string>
     <string name="settings_f_appearance">Aspetto</string>

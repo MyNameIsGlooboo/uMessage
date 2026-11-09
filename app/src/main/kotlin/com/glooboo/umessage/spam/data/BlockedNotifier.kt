@@ -7,6 +7,10 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.glooboo.umessage.R
+import com.glooboo.umessage.activities.CopyCodeActivity
+import com.glooboo.umessage.helpers.CodeMasker
+import com.glooboo.umessage.helpers.OtpCodes
+import com.glooboo.umessage.helpers.W3aPrefs
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.ui.lock.LockScope
 import com.glooboo.umessage.ui.spam.BlockedMessagesActivity
@@ -19,9 +23,30 @@ object BlockedNotifier {
     private const val GROUP = "spamless_blocked_group"
     private const val REQUEST_OPEN_BLOCKED = 0x5B10
     private const val SUMMARY_ID = 0x5B11
+    private const val COPY_CODE_SALT = 0x5B12
 
     /** From this many blocked-message notifications on, a summary groups them (I5). */
     private const val SUMMARY_FROM = 2
+
+    /** The text of a held message in its notification: its code as bullets when the user hides codes. */
+    internal fun shownBody(body: String, hideCodes: Boolean): String = CodeMasker.maskIf(hideCodes, body)
+
+    /** "Copy code": the invisible activity of the message notification, marked sensitive, never cleared. */
+    private fun copyCodeAction(context: Context, code: String, id: Int): NotificationCompat.Action {
+        val pending = PendingIntent.getActivity(
+            context,
+            id xor COPY_CODE_SALT,
+            CopyCodeActivity.intent(context, code),
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+        )
+        return NotificationCompat.Action.Builder(
+            org.fossify.commons.R.drawable.ic_copy_vector,
+            context.getString(R.string.onb_notif_copy_code),
+            pending,
+        )
+            .setAuthenticationRequired(true)
+            .build()
+    }
 
     /** The notification id of one blocked message; [show] posts it and [cancel] removes it by the same number. */
     internal fun notificationId(blockedId: Long): Int = blockedId.hashCode()
@@ -42,11 +67,15 @@ object BlockedNotifier {
             val publicTitle = context.getString(R.string.spam_engine_blocked_public_title)
             val title =
                 if (locked) publicTitle else context.getString(R.string.spam_engine_blocked_title, message.address)
+            // "Hide codes on the lock screen" also hides the code of a held message in this notification.
+            val hideCodes = runCatching { W3aPrefs.get(context).hideCodesOnLockScreen }.getOrDefault(false)
             val text = when {
                 locked -> context.getString(R.string.new_message)
-                message.hasText -> message.body
+                message.hasText -> shownBody(message.body, hideCodes)
                 else -> context.getString(R.string.spam_engine_mms_blocked)
             }
+            // Copy code, like on a message notification; not while the Blocked tab is locked (no text is shown then).
+            val code = if (!locked && message.hasText) OtpCodes.primary(message.body)?.value else null
 
             // Lock screen: no sender, no text.
             val publicVersion = NotificationCompat.Builder(context, CHANNEL_ID)
@@ -56,7 +85,7 @@ object BlockedNotifier {
                 .setAutoCancel(true)
                 .build()
 
-            val notification = NotificationCompat.Builder(context, CHANNEL_ID)
+            val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_messenger)
                 .setContentTitle(title)
                 .setContentText(text)
@@ -66,8 +95,8 @@ object BlockedNotifier {
                 .setContentIntent(contentIntent)
                 .setGroup(GROUP)
                 .setAutoCancel(true)
-                .build()
-            manager.notify(TAG, notificationId(message.id), notification)
+            if (code != null) builder.addAction(copyCodeAction(context, code, notificationId(message.id)))
+            manager.notify(TAG, notificationId(message.id), builder.build())
             postSummary(context, manager, contentIntent)
         } catch (_: Exception) {
         }

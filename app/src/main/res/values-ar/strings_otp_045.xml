@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">انسخ الرمز عند النقر على الإشعار</string>
+    <string name="otp_tap_copy_info">عندما يحتوي الإشعار على رمز تحقق فقط، يؤدي النقر عليه إلى نسخ الرمز وإغلاق الإشعار. يفتح زر «افتح» المحادثة. أما الرسائل الأخرى فتفتح المحادثة عند النقر عليها. إذا كان خيار «أخفِ الرموز على شاشة القفل» مفعّلًا، فعليك فتح قفل الهاتف قبل نسخ الرمز. أوقف هذا الخيار ليفتح النقر المحادثة؛ ويبقى «انسخ الرمز» زرًا.</string>
+    <string name="otp_notif_open_action">افتح</string>
+    <string name="sks_tap_copy">نسخ الرمز النقر الإشعار رمز التحقق</string>
+</resources>

@@ -64,7 +64,7 @@ internal fun CopyChips(body: String, modifier: Modifier = Modifier) {
                 onClick = {
                     context.copyToClipboard(token.value)
                     // Marked sensitive (hidden from previews) but never cleared by the app.
-                    SensitiveClip.mark(context, token.value, clear = false)
+                    SensitiveClip.mark(context, token.value)
                 },
                 shape = RoundedCornerShape(50),
                 color = MaterialTheme.colorScheme.secondaryContainer,

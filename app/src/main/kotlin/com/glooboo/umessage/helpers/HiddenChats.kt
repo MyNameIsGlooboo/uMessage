@@ -11,7 +11,7 @@ import org.fossify.commons.extensions.baseConfig
  * user to set one up).
  *
  * Everything that lists conversations or messages asks [isHidden] (or filters with [withoutHidden]): a hidden chat is
- * out of the inbox, search, tiles, Recent codes, stars, media lists, shortcuts and so on until the user unlocks the
+ * out of the inbox, search, tiles, stars, media lists, shortcuts and so on until the user unlocks the
  * hidden chats for the session ([HiddenChatsSession]). What must never show, even while unlocked, because someone else
  * can see it (notifications, launcher shortcuts), asks [isMarked] instead.
  *

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">Kopiuj kod po dotknięciu powiadomienia</string>
+    <string name="otp_tap_copy_info">Gdy powiadomienie zawiera tylko kod weryfikacyjny, dotknięcie go kopiuje kod i zamyka powiadomienie. Przycisk Otwórz otwiera czat. Inne wiadomości po dotknięciu otwierają czat. Jeśli włączono „Ukrywaj kody na ekranie blokady”, przed skopiowaniem kodu trzeba odblokować telefon. Wyłącz tę opcję, aby dotknięcie otwierało czat; Kopiuj kod pozostanie przyciskiem.</string>
+    <string name="otp_notif_open_action">Otwórz</string>
+    <string name="sks_tap_copy">kopiuj kod dotknięcie powiadomienie otp</string>
+</resources>

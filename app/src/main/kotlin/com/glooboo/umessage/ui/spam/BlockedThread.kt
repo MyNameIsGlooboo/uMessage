@@ -483,14 +483,14 @@ private fun HeldMessageMenu(
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.r3b_copy_text)) },
                 leadingIcon = { Icon(Symbols.ContentCopy, contentDescription = null) },
-                onClick = { onDismiss(); copyToClipboard(context, message.body, textCopied, clear = false) },
+                onClick = { onDismiss(); copyToClipboard(context, message.body, textCopied) },
             )
         }
         code?.let {
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.w3b_copy_code)) },
                 leadingIcon = { Icon(Symbols.ContentCopy, contentDescription = null) },
-                onClick = { onDismiss(); copyToClipboard(context, it, codeCopied, clear = true) },
+                onClick = { onDismiss(); copyToClipboard(context, it, codeCopied) },
             )
         }
         DropdownMenuItem(
@@ -511,9 +511,9 @@ private fun HeldMessageMenu(
     }
 }
 
-/** Copies from the Blocked tab as sensitive (I25); a code is also removed from the clipboard after a minute (I15). */
-private fun copyToClipboard(context: Context, text: String, copiedText: String, clear: Boolean) {
-    com.glooboo.umessage.helpers.SensitiveClip.mark(context, text, clear)
+/** Copies from the Blocked tab as sensitive (I25). The app never clears the clipboard by itself. */
+private fun copyToClipboard(context: Context, text: String, copiedText: String) {
+    com.glooboo.umessage.helpers.SensitiveClip.mark(context, text)
     // Android 13+ confirms copies itself.
     if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.TIRAMISU) {
         android.widget.Toast.makeText(context, copiedText, android.widget.Toast.LENGTH_SHORT).show()

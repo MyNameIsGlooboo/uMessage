@@ -18,14 +18,26 @@ import com.glooboo.umessage.ui.components.SettingsSwitchRow
 import com.glooboo.umessage.ui.icons.Symbols
 
 /**
- * I50, I53, I27: the three optional notification switches of Settings > Notifications, all off by default. They read
- * and write [com.glooboo.umessage.helpers.NotifyPrefs] themselves. Chat bubbles are hidden below Android 11 and shown
+ * I50, I53, I27: the three optional notification switches of Settings > Notifications, all off by default, and the
+ * "Copy the code when I tap the notification" switch, on by default. They read and write
+ * [com.glooboo.umessage.helpers.NotifyPrefs] themselves. Chat bubbles are hidden below Android 11 and shown
  * as a plain row with the reason while the app lock is on ([appLockOn]); the live-notification switch is only shown
  * on Xiaomi phones.
  */
 @Composable
 fun NotifyExtraRows(appLockOn: Boolean) {
     val prefs = LocalContext.current.notifyPrefs
+    var copyOnTap by remember { mutableStateOf(prefs.copyCodeOnTap) }
+    SettingsSwitchRow(
+        title = stringResource(R.string.otp_tap_copy_title),
+        icon = Symbols.ContentCopy,
+        checked = copyOnTap,
+        onCheckedChange = {
+            copyOnTap = it
+            prefs.copyCodeOnTap = it
+        },
+        info = stringResource(R.string.otp_tap_copy_info),
+    )
     var wake by remember { mutableStateOf(prefs.wakeScreen) }
     SettingsSwitchRow(
         title = stringResource(R.string.wake_screen_title),

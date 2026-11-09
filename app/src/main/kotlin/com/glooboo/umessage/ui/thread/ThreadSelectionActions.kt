@@ -112,7 +112,7 @@ class ThreadSelectionActions(
         activity.copyToClipboard(text)
         // Text from a hidden chat stays out of the clipboard preview (I25).
         if (selected.any { HiddenChats.get(activity).isMarked(it.threadId) }) {
-            SensitiveClip.mark(activity, text, clear = false)
+            SensitiveClip.mark(activity, text)
         }
     }
 

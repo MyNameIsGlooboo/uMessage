@@ -55,9 +55,12 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
+import com.glooboo.umessage.activities.CopyCode
+import com.glooboo.umessage.helpers.CodeMasker
+import com.glooboo.umessage.ui.components.hideCodesSetting
 import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.rememberCodeHidden
 import com.glooboo.umessage.ui.icons.Symbols
-import org.fossify.commons.extensions.copyToClipboard
 import kotlin.math.roundToInt
 
 /** Row height floor: the 48dp avatar plus 12dp above and below, always above the 48dp touch target. */
@@ -201,7 +204,13 @@ fun ConversationItem(
             RowPreviewLine(row, rowColors, align)
             val code = row.otpCode
             if (code != null && showCodeChip && !selecting) {
-                CodeChip(code = code, onCopy = { context.copyToClipboard(code) }, copyLabel = actionLabels.copy)
+                // The copy is the real code, marked sensitive and never cleared; the chip hides it when the user asked
+                // for hidden codes.
+                CodeChip(
+                    code = if (hideCodesSetting()) CodeMasker.BULLETS else code,
+                    onCopy = { CopyCode.copy(context, code) },
+                    copyLabel = actionLabels.copy,
+                )
             }
             RowLabelChips(labels, Modifier.padding(top = 4.dp))
         }
@@ -229,7 +238,7 @@ private fun rowAccessibilityActions(
     }
     add(CustomAccessibilityAction(labels.delete) { callbacks.onDeleteOne(row.threadId); true })
     row.otpCode?.let { code ->
-        add(CustomAccessibilityAction(labels.copy) { context.copyToClipboard(code); true })
+        add(CustomAccessibilityAction(labels.copy) { CopyCode.copy(context, code); true })
     }
 }
 
@@ -289,7 +298,7 @@ private fun RowPreviewLine(row: ConversationRow, colors: ColorScheme, align: Tex
             }
             Text(
                 // Isolates keep a number or an amount inside a Persian preview in its own order (B1).
-                text = isolateNumbers(row.snippet),
+                text = isolateNumbers(rememberCodeHidden(row.snippet)),
                 style = typography.bodyMedium.copy(textDirection = TextDirection.Content, textAlign = align),
                 color = if (row.unread) colors.onSurface else colors.onSurfaceVariant,
                 fontWeight = unreadPreviewWeight(row.unread),

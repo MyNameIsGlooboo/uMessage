@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">알림을 탭하면 코드 복사</string>
+    <string name="otp_tap_copy_info">알림에 인증 코드만 있으면 탭할 때 코드를 복사하고 알림을 닫습니다. ‘열기’ 버튼으로 대화를 엽니다. 다른 메시지는 탭하면 대화가 열립니다. ‘잠금 화면에서 코드 숨기기’가 켜져 있으면 코드를 복사하기 전에 휴대전화 잠금을 해제해야 합니다. 탭하면 대화가 열리게 하려면 이 설정을 끄세요. 그러면 ‘코드 복사’는 버튼으로 남습니다.</string>
+    <string name="otp_notif_open_action">열기</string>
+    <string name="sks_tap_copy">코드 복사 탭 알림 인증번호</string>
+</resources>

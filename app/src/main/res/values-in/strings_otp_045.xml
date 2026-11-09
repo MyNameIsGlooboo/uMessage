@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">Salin kode saat saya mengetuk notifikasi</string>
+    <string name="otp_tap_copy_info">Jika notifikasi hanya berisi kode verifikasi, mengetuknya akan menyalin kode dan menutup notifikasi. Tombol Buka membuka obrolan. Pesan lain membuka obrolan saat diketuk. Jika “Sembunyikan kode di layar kunci” aktif, Anda harus membuka kunci ponsel sebelum kode disalin. Matikan agar ketukan membuka obrolan; Salin kode tetap menjadi tombol.</string>
+    <string name="otp_notif_open_action">Buka</string>
+    <string name="sks_tap_copy">salin kode ketuk notifikasi otp</string>
+</resources>

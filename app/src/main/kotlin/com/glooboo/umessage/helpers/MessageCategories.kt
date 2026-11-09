@@ -15,7 +15,7 @@ enum class MessageCategory { Personal, Transactions, Offers, Other }
  * or a short line), never a person's mobile number or a saved contact:
  * - Transactions: an amount with a currency (or after "مبلغ", "balance"...) and a money word (واریز, برداشت, مانده...).
  * - Offers: a promotion word and a link, and no amount.
- * - A one-time code, or a text with both signs, is [MessageCategory.Other].
+ * - A one-time code ([OtpCodes], the one rule of the app), or a text with both signs, is [MessageCategory.Other].
  * The word lists are in [CategoryKeywords]. Wave 2 (bank cards) and the weekly digest reuse this class.
  */
 object MessageCategories {
@@ -28,7 +28,7 @@ object MessageCategories {
         if (isContact || userSent) return MessageCategory.Personal
         if (!isServiceSender(address)) return MessageCategory.Other
         val text = TextNormalizer.fold(body)
-        if (text.isBlank() || ONE_TIME_CODE.containsMatchIn(text)) return MessageCategory.Other
+        if (text.isBlank() || OtpCodes.looksLikeCode(text)) return MessageCategory.Other
         val amount = hasAmount(text)
         val promo = PROMO.containsMatchIn(text)
         return when {
@@ -76,7 +76,6 @@ object MessageCategories {
     private const val MAX_LINE_DIGITS = 12
     private const val NUMBER_SYMBOLS = "+- ()"
 
-    private val ONE_TIME_CODE = words(CategoryKeywords.ONE_TIME_CODE)
     private val PROMO = words(CategoryKeywords.PROMO)
     private val TRANSACTION = words(CategoryKeywords.TRANSACTION)
 

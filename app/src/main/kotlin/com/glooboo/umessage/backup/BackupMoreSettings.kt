@@ -53,6 +53,7 @@ internal object BackupMoreSettings {
             wakeScreen = notify.wakeScreen,
             chatBubbles = notify.chatBubbles,
             focusCodes = notify.focusCodes,
+            copyCodeOnTap = notify.copyCodeOnTap,
             smartReplies = SmartReplyPrefs.get(app).enabled,
             lockScope = LockScope.current(app).key,
             showCharacterCounter = config.showCharacterCounter,
@@ -101,6 +102,7 @@ internal object BackupMoreSettings {
         s.wakeScreen?.let { notify.wakeScreen = it }
         s.chatBubbles?.let { notify.chatBubbles = it }
         s.focusCodes?.let { notify.focusCodes = it }
+        s.copyCodeOnTap?.let { notify.copyCodeOnTap = it }
         s.smartReplies?.let { SmartReplyPrefs.get(app).enabled = it }
         s.lockScope?.let { LockScope.set(app, LockScope.fromKey(it)) }
     }

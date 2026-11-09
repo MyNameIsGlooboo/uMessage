@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">قانون‌های افزوده‌شده: %1$d، قانون‌های فوروارد افزوده‌شده: %2$d. قانون‌های فوروارد تا وقتی آن‌ها را روشن نکنید، خاموش می‌مانند.</string>
     <string name="settings_f_restore_done_rules">قانون‌های افزوده‌شده: %1$d.</string>
     <string name="settings_f_restore_done_title">بازیابی تمام شد</string>
-    <string name="settings_f_label_codes">کدهای فرستنده‌های ناشناس</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">نمایش</string>
     <string name="settings_f_appearance">ظاهر</string>

@@ -183,7 +183,6 @@ object SettingsBackup {
         val config = context.config
         val core = BackupSettings(
             spamMode = spam.mode,
-            otpExemption = spam.otpExemption,
             purgeAfterDays = spam.purgeAfterDays,
             notifyOnBlock = spam.notifyOnBlock,
             showForwardedTab = nav.showForwardedTab,
@@ -209,7 +208,6 @@ object SettingsBackup {
         UMessage.repository(context).updateSettings { current ->
             current.copy(
                 mode = s.spamMode ?: current.mode,
-                otpExemption = s.otpExemption ?: current.otpExemption,
                 // I4/Q38: purgeAfterDays (blocked messages deleted after N days) is never taken from a file.
                 notifyOnBlock = s.notifyOnBlock ?: current.notifyOnBlock,
                 unknownInboxNotify = s.unknownInboxNotify ?: current.unknownInboxNotify,

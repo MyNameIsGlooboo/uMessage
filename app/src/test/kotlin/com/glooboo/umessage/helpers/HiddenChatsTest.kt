@@ -19,8 +19,6 @@ import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.main.InboxFilter
 import com.glooboo.umessage.ui.main.MainSearchViewModel
-import com.glooboo.umessage.ui.main.ReceivedSms
-import com.glooboo.umessage.ui.main.RecentCodes
 import com.glooboo.umessage.ui.main.SearchShortcuts
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
@@ -136,19 +134,6 @@ class HiddenChatsTest {
 
         HiddenChatsSession.unlock()
         assertThat(search.searchDatabase("pizza").map { it.threadId }.toSet()).containsExactly(HIDDEN, SHOWN)
-    }
-
-    @Test
-    fun recentCodesLeaveOutAHiddenChat() {
-        val now = 1_000_000L
-        val received = listOf(
-            ReceivedSms(HIDDEN, "BANK", "Your code is 482913", now - 1_000),
-            ReceivedSms(SHOWN, "SHOP", "Your code is 771204", now - 2_000),
-        )
-
-        val codes = RecentCodes.pick(hiddenChats.withoutHidden(received) { it.threadId }, now)
-
-        assertThat(codes.map { it.code }).containsExactly("771204")
     }
 
     @Test

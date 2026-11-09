@@ -11,7 +11,6 @@
     <string name="settings_f_restore_done">Règles ajoutées : %1$d · Règles de transfert ajoutées : %2$d. Les règles de transfert restent désactivées jusqu\'à leur activation par vos soins.</string>
     <string name="settings_f_restore_done_rules">Règles ajoutées : %1$d.</string>
     <string name="settings_f_restore_done_title">Restauration terminée</string>
-    <string name="settings_f_label_codes">Codes d\'expéditeurs inconnus</string>
     <string name="settings_f_list_separator">", "</string>
     <string name="settings_f_group_display">Affichage</string>
     <string name="settings_f_appearance">Apparence</string>

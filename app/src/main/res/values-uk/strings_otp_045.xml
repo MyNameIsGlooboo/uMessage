@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 0.4.5: tap a notification that holds only a code to copy it. -->
+<resources>
+    <string name="otp_tap_copy_title">Копіювати код під час дотику до сповіщення</string>
+    <string name="otp_tap_copy_info">Якщо у сповіщенні лише код підтвердження, дотик до нього копіює код і закриває сповіщення. Кнопка «Відкрити» відкриває чат. Інші повідомлення за дотику відкривають чат. Якщо ввімкнено «Приховувати коди на екрані блокування», перед копіюванням коду потрібно розблокувати телефон. Вимкніть, щоб дотик відкривав чат; «Копіювати код» залишиться кнопкою.</string>
+    <string name="otp_notif_open_action">Відкрити</string>
+    <string name="sks_tap_copy">копіювати код дотик сповіщення otp</string>
+</resources>
