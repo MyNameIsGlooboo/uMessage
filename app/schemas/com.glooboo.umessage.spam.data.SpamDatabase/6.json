@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "0000000000000000000000000000unrd",
+    "identityHash": "a92928cb6c976dff3f9ff9bfae560d89",
     "entities": [
       {
         "tableName": "spam_rules",
@@ -363,18 +363,76 @@
         "tableName": "forward_log",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `at` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `ruleId` INTEGER NOT NULL, `sourceAddress` TEXT NOT NULL, `sourceDate` INTEGER NOT NULL, `sourceIsMms` INTEGER NOT NULL, `target` TEXT NOT NULL, `subscriptionId` INTEGER, `status` TEXT NOT NULL, `errorCode` TEXT, `attempts` INTEGER NOT NULL)",
         "fields": [
-          {"fieldPath": "id", "columnName": "id", "affinity": "INTEGER", "notNull": true},
-          {"fieldPath": "at", "columnName": "at", "affinity": "INTEGER", "notNull": true},
-          {"fieldPath": "updatedAt", "columnName": "updatedAt", "affinity": "INTEGER", "notNull": true},
-          {"fieldPath": "ruleId", "columnName": "ruleId", "affinity": "INTEGER", "notNull": true},
-          {"fieldPath": "sourceAddress", "columnName": "sourceAddress", "affinity": "TEXT", "notNull": true},
-          {"fieldPath": "sourceDate", "columnName": "sourceDate", "affinity": "INTEGER", "notNull": true},
-          {"fieldPath": "sourceIsMms", "columnName": "sourceIsMms", "affinity": "INTEGER", "notNull": true},
-          {"fieldPath": "target", "columnName": "target", "affinity": "TEXT", "notNull": true},
-          {"fieldPath": "subscriptionId", "columnName": "subscriptionId", "affinity": "INTEGER"},
-          {"fieldPath": "status", "columnName": "status", "affinity": "TEXT", "notNull": true},
-          {"fieldPath": "errorCode", "columnName": "errorCode", "affinity": "TEXT"},
-          {"fieldPath": "attempts", "columnName": "attempts", "affinity": "INTEGER", "notNull": true}
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "at",
+            "columnName": "at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ruleId",
+            "columnName": "ruleId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceAddress",
+            "columnName": "sourceAddress",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceDate",
+            "columnName": "sourceDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceIsMms",
+            "columnName": "sourceIsMms",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "target",
+            "columnName": "target",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subscriptionId",
+            "columnName": "subscriptionId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "errorCode",
+            "columnName": "errorCode",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "attempts",
+            "columnName": "attempts",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
         ],
         "primaryKey": {
           "autoGenerate": true,
@@ -397,7 +455,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2d2dbbb328d7e70ce82777b15bffd77a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a92928cb6c976dff3f9ff9bfae560d89')"
     ]
   }
 }

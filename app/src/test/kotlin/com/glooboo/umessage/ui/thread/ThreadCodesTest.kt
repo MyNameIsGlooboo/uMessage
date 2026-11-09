@@ -44,11 +44,7 @@ class ThreadCodesTest {
 
     @Test
     fun returnsEveryValueWithoutACap() {
-        val tokens = detectCopyTokens("username: sara22
-password: x7Kq2m
-code: 481516
-pin: 2342
-login: lost99")
+        val tokens = detectCopyTokens("username: sara22\npassword: x7Kq2m\ncode: 481516\npin: 2342\nlogin: lost99")
         assertThat(tokens.map { it.value }).containsExactly("sara22", "x7Kq2m", "481516", "2342", "lost99").inOrder()
     }
 

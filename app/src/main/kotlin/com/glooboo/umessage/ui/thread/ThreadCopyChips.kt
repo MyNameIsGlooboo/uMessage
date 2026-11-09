@@ -30,8 +30,8 @@ import org.fossify.commons.extensions.copyToClipboard
 import com.glooboo.umessage.helpers.SensitiveClip
 
 /** The value is Latin or digits inside possibly right-to-left text: isolate it so it keeps its own direction. */
-private const val LRI = "⁦"
-private const val PDI = "⁩"
+private const val LRI = "\u2066"
+private const val PDI = "\u2069"
 private val MAX_CHIP_TEXT_WIDTH = 220.dp
 
 /**

@@ -35,6 +35,7 @@ import androidx.compose.ui.semantics.customActions
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -123,11 +124,7 @@ private fun SenderRowContent(
     val countText = pluralStringResource(R.plurals.spam_message_count, count, count)
     val unread = group.unread
     val unreadText = if (unread) stringResource(R.string.convlist_unread_count, group.unreadCount) else null
-    val badge = if (group.unreadCount > MAX_UNREAD_BADGE) {
-        localizeDigits("$MAX_UNREAD_BADGE+", uiLocale())
-    } else {
-        localizedNumber(group.unreadCount, uiLocale())
-    }
+    val badge = unreadBadgeText(group.unreadCount)
     val shown = isolateNumbers(displayNumber(group.address))
     val body = blockedBodyText(LocalResources.current, latest)
     val reason = reasonText(latest, rules)
@@ -151,9 +148,9 @@ private fun SenderRowContent(
     // A selected row sits on primaryContainer, so every text takes its on-color.
     val strong = if (selected) colors.onPrimaryContainer else colors.onSurface
     // As a Messages row: an unread time takes the accent colour (unless the row is selected).
-    val timeColor = if (selected) colors.onPrimaryContainer else if (unread) colors.primary else colors.onSurfaceVariant
-    val previewColor = if (unread && !selected) colors.onSurface else quiet
+    val timeColor = senderTimeColor(selected, unread)
     val quiet = if (selected) colors.onPrimaryContainer else colors.onSurfaceVariant
+    val previewColor = if (unread && !selected) colors.onSurface else quiet
     val align = startAlign()
     Row(
         modifier = Modifier
@@ -184,46 +181,82 @@ private fun SenderRowContent(
         SenderAvatar(label = group.address, selected = selected)
         // The two lines of a Messages tab row (ConversationItem), with the same styles and sizes.
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text(
-                    shown,
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        textDirection = TextDirection.Content,
-                        textAlign = align,
-                    ),
-                    color = strong,
-                    fontWeight = unreadTitleWeight(unread),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f),
-                )
-                if (important) ImportantChip(importantText, selected)
-                Text(
-                    time,
-                    style = MaterialTheme.typography.labelMedium,
-                    color = timeColor,
-                    fontWeight = unreadTitleWeight(unread),
-                    maxLines = 1,
-                )
-            }
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text(
-                    isolateNumbers(body),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        textDirection = TextDirection.Content,
-                        textAlign = align,
-                    ),
-                    color = previewColor,
-                    fontWeight = unreadPreviewWeight(unread),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f),
-                )
-                sim?.let { RowChip(it, selected) }
-                // The Messages row's own badge, counting the unread messages of the sender.
-                if (unread) UnreadBadge(badge)
-            }
+            SenderTitleLine(shown, time, important, importantText, selected, unread, align, strong, timeColor)
+            SenderPreviewLine(isolateNumbers(body), sim, selected, unread, align, previewColor, badge)
         }
+    }
+}
+
+@Composable
+private fun unreadBadgeText(unreadCount: Int): String =
+    if (unreadCount > MAX_UNREAD_BADGE) {
+        localizeDigits("$MAX_UNREAD_BADGE+", uiLocale())
+    } else {
+        localizedNumber(unreadCount, uiLocale())
+    }
+
+@Composable
+private fun senderTimeColor(selected: Boolean, unread: Boolean): Color {
+    val colors = MaterialTheme.colorScheme
+    return if (selected) colors.onPrimaryContainer else if (unread) colors.primary else colors.onSurfaceVariant
+}
+
+@Composable
+private fun SenderTitleLine(
+    shown: String,
+    time: String,
+    important: Boolean,
+    importantText: String,
+    selected: Boolean,
+    unread: Boolean,
+    align: TextAlign,
+    strong: Color,
+    timeColor: Color,
+) {
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        Text(
+            shown,
+            style = MaterialTheme.typography.titleMedium.copy(textDirection = TextDirection.Content, textAlign = align),
+            color = strong,
+            fontWeight = unreadTitleWeight(unread),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f),
+        )
+        if (important) ImportantChip(importantText, selected)
+        Text(
+            time,
+            style = MaterialTheme.typography.labelMedium,
+            color = timeColor,
+            fontWeight = unreadTitleWeight(unread),
+            maxLines = 1,
+        )
+    }
+}
+
+@Composable
+private fun SenderPreviewLine(
+    body: String,
+    sim: String?,
+    selected: Boolean,
+    unread: Boolean,
+    align: TextAlign,
+    previewColor: Color,
+    badge: String,
+) {
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        Text(
+            body,
+            style = MaterialTheme.typography.bodyMedium.copy(textDirection = TextDirection.Content, textAlign = align),
+            color = previewColor,
+            fontWeight = unreadPreviewWeight(unread),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f),
+        )
+        sim?.let { RowChip(it, selected) }
+        // The Messages row's own badge, counting the unread messages of the sender.
+        if (unread) UnreadBadge(badge)
     }
 }
 

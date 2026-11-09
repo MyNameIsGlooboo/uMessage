@@ -384,7 +384,9 @@ private fun SimChip(text: String) {
     )
 }
 
-/** The unread count pill (or dot, for an empty [label]) at the end of a chat row; the Blocked tab draws the same one. */
+/**
+ * The unread count pill (or dot, for an empty [label]) at the end of a chat row; the Blocked tab draws the same one.
+ */
 @Composable
 internal fun UnreadBadge(label: String) {
     val colors = MaterialTheme.colorScheme

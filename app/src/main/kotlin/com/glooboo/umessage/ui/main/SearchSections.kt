@@ -64,14 +64,6 @@ internal val TitleMatchStyle = SpanStyle(background = MatchWash, color = MatchIn
 /** A contact that matches the typed text, with the one number that is shown for it. */
 internal data class ContactHit(val contact: SimpleContact, val number: String, val typeLabel: String)
 
-/** The address a chat with a contact's [number] is made for: as written, without spaces, dashes and brackets. */
-internal fun contactThreadAddress(number: String): String =
-    number.filter { it.isDigit() || it == '+' }.ifEmpty { number.trim() }
-
-/** The search result that opens the chat of [hit] in thread [threadId], carrying the number for a chat with no messages. */
-internal fun contactHitResult(hit: ContactHit, threadId: Long): SearchResult =
-    SearchResult(CONVERSATION_HIT, hit.contact.name, "", "", threadId, hit.contact.photoUri, number = contactThreadAddress(hit.number))
-
 /** The contacts of [all] whose name, or whose number for a digits-only [query], holds [query]. */
 internal fun matchContacts(
     all: List<SimpleContact>,
