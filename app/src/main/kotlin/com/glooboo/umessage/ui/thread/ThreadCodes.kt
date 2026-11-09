@@ -20,7 +20,6 @@ private val codeWords = Regex(
 )
 private val digits = Regex("(?<![\\p{Nd}\\w])\\p{Nd}{4,8}(?![\\p{Nd}\\w])")
 
-private const val MAX_TOKENS = 2
 private const val MIN_BODY_LENGTH = 4
 private const val MIN_VALUE_LENGTH = 3
 
@@ -39,7 +38,7 @@ private fun startsAddress(body: String, valueEnd: Int): Boolean = body.startsWit
 
 /**
  * Credentials and one-time codes in a message body: labelled values ("password: x7Kq2") first, else a 4-8 digit
- * number when the text talks about a code. At most two, in order, without repeats.
+ * number when the text talks about a code. All of them, in order, without repeats.
  */
 fun detectCopyTokens(body: String): List<CopyToken> {
     if (body.length < MIN_BODY_LENGTH) return emptyList()
@@ -55,5 +54,5 @@ fun detectCopyTokens(body: String): List<CopyToken> {
     if (found.isEmpty() && codeWords.containsMatchIn(body)) {
         digits.find(body)?.let { found[it.value] = CopyToken(CopyKind.Code, it.value) }
     }
-    return found.values.take(MAX_TOKENS)
+    return found.values.toList()
 }
