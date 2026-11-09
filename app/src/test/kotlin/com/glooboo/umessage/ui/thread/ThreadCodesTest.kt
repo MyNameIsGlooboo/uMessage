@@ -41,4 +41,27 @@ class ThreadCodesTest {
     fun persianLabelsWork() {
         assertThat(detectCopyTokens("رمز: ab12cd")).containsExactly(CopyToken(CopyKind.Code, "ab12cd"))
     }
+
+    @Test
+    fun returnsEveryValueWithoutACap() {
+        val tokens = detectCopyTokens("username: sara22
+password: x7Kq2m
+code: 481516
+pin: 2342
+login: lost99")
+        assertThat(tokens.map { it.value }).containsExactly("sara22", "x7Kq2m", "481516", "2342", "lost99").inOrder()
+    }
+
+    @Test
+    fun removesRepeatedValues() {
+        val tokens = detectCopyTokens("code: 481516 and again code: 481516, password: 481516")
+        assertThat(tokens).containsExactly(CopyToken(CopyKind.Code, "481516"))
+    }
+
+    @Test
+    fun everyReceivedMessageWithAValueGetsChips() {
+        val thread = listOf("Your code: 482913", "hello there", "Your code: 771204", "user: bob77 password: hunter22")
+        val withChips = thread.map { detectCopyTokens(it).isNotEmpty() }
+        assertThat(withChips).containsExactly(true, false, true, true).inOrder()
+    }
 }

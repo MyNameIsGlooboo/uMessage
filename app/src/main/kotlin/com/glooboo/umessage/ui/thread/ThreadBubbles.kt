@@ -384,7 +384,7 @@ private fun MessageBubbleRow(row: ThreadRow.Bubble, vm: ThreadViewModel, actions
             NoteUnderBubble(vm.notes.noteOf(message), maxBubbleWidth) {
                 if (vm.isSelecting) toggle() else vm.notes.startEdit(message)
             }
-            if (!sent && !vm.isSelecting && vm.copyChipMessageId == message.getStableId()) {
+            if (!sent && !vm.isSelecting) {
                 CopyChips(message.body)
             }
             if (!sent && !vm.isSelecting && !vm.isGroup) BankAlertCard(message.senderPhoneNumber, message.body)

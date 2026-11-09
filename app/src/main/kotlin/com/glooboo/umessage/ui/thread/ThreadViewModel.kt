@@ -208,9 +208,6 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
 
     /** Chat rows, newest first: the list is laid out reversed so it stays anchored to the newest message. */
     val rows: List<ThreadRow> by derivedStateOf { buildThreadRows(items, isGroup).asReversed() }
-
-    /** U36: the received message whose copy chip shows, the newest one with a code or password in it. */
-    val copyChipMessageId: Long? by derivedStateOf { newestCopyChipId(rows) }
     // endregion
 
     // region Composer
