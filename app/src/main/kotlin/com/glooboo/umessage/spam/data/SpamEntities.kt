@@ -44,13 +44,16 @@ data class BlockedMessageEntity(
     @ColumnInfo(defaultValue = "NONE") val media: MmsMedia = MmsMedia.NONE,
     /** Name of the kept MMS PDU under BlockedMmsStore's app-private directory. Added in version 3. */
     val mediaFile: String? = null,
+    /** Added in version 6. Rows from before it count as read, so an update does not make every old chat bold. */
+    @ColumnInfo(defaultValue = "0") val unread: Boolean = false,
 ) {
-    fun toModel() = BlockedMessage(id, address, body, subscriptionId, isMms, receivedAt, reason, ruleId, media, mediaFile)
+    fun toModel() =
+        BlockedMessage(id, address, body, subscriptionId, isMms, receivedAt, reason, ruleId, media, mediaFile, unread)
 
     companion object {
         fun from(message: BlockedMessage) = BlockedMessageEntity(
             message.id, message.address, message.body, message.subscriptionId, message.isMms,
-            message.receivedAt, message.reason, message.ruleId, message.media, message.mediaFile
+            message.receivedAt, message.reason, message.ruleId, message.media, message.mediaFile, message.unread
         )
     }
 }

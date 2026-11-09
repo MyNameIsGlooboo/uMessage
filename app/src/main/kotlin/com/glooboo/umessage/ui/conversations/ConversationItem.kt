@@ -47,7 +47,6 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
@@ -238,7 +237,7 @@ private fun rowAccessibilityActions(
 @Composable
 private fun RowTitleLine(row: ConversationRow, colors: ColorScheme, align: TextAlign) {
     val typography = MaterialTheme.typography
-    val weight = if (row.unread) FontWeight.Bold else FontWeight.Normal
+    val weight = unreadTitleWeight(row.unread)
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         Row(
             modifier = Modifier.weight(1f),
@@ -293,7 +292,7 @@ private fun RowPreviewLine(row: ConversationRow, colors: ColorScheme, align: Tex
                 text = isolateNumbers(row.snippet),
                 style = typography.bodyMedium.copy(textDirection = TextDirection.Content, textAlign = align),
                 color = if (row.unread) colors.onSurface else colors.onSurfaceVariant,
-                fontWeight = if (row.unread) FontWeight.SemiBold else FontWeight.Normal,
+                fontWeight = unreadPreviewWeight(row.unread),
                 fontStyle = if (row.scheduled) FontStyle.Italic else FontStyle.Normal,
                 // One line for every preview, as in Google Messages.
                 maxLines = 1,
@@ -385,8 +384,9 @@ private fun SimChip(text: String) {
     )
 }
 
+/** The unread count pill (or dot, for an empty [label]) at the end of a chat row; the Blocked tab draws the same one. */
 @Composable
-private fun UnreadBadge(label: String) {
+internal fun UnreadBadge(label: String) {
     val colors = MaterialTheme.colorScheme
     if (label.isEmpty()) {
         Badge(containerColor = colors.primary, modifier = Modifier.clearAndSetSemantics { })

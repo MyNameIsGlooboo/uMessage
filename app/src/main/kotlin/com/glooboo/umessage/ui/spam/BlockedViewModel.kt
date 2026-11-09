@@ -41,6 +41,12 @@ import com.glooboo.umessage.spam.UnknownSenderMode
 data class SenderGroup(val address: String, val messages: List<BlockedMessage>) {
     val latest: BlockedMessage get() = messages.first()
 
+    /** How many of the sender's held messages were not opened yet. */
+    val unreadCount: Int get() = messages.count { it.unread }
+
+    /** Any held message is unread: the row is drawn bold like an unread chat on the Messages tab. */
+    val unread: Boolean get() = unreadCount > 0
+
     /** Whether [other] is this group's key or the address of one of its messages. */
     fun hasAddress(other: String): Boolean = address == other || messages.any { it.address == other }
 }
@@ -321,6 +327,17 @@ class BlockedViewModel(
         val restore = PendingRestore(listOf(message.id), emptyList(), messages = mapOf(message.id to message))
         pendingRestores.update { it + (token to restore) }
         startRestore(token)
+    }
+
+    /**
+     * The sender's thread is open: its held messages count as read, so the row on the tab is no longer bold. Only
+     * messages still unread are written, and the state follows from the repository's flow.
+     */
+    fun markRead(address: String) {
+        val ids = state.value.groups.filter { it.hasAddress(address) }
+            .flatMap { g -> g.messages.filter { it.unread }.map { it.id } }
+        if (ids.isEmpty()) return
+        viewModelScope.launch { runCatching { repository.markBlockedRead(ids) } }
     }
 
     fun toggleSelected(address: String) = selected.update { if (address in it) it - address else it + address }
