@@ -20,13 +20,13 @@ class ThreadCounterTest {
     @Test
     fun eightyPersianCharactersShowTwoSms() {
         compose.setContent { Text(segmentLabel(SmsSegments.of("س".repeat(80)))) }
-        compose.onNodeWithText("54 · 2").assertExists()
+        compose.onNodeWithText("\u206654 · 2\u2069").assertExists()
     }
 
     @Test
     fun onePartShowsOnlyWhatIsLeft() {
         compose.setContent { Text(segmentLabel(SmsSegments.of("Hi"))) }
-        compose.onNodeWithText("158").assertExists()
+        compose.onNodeWithText("\u2066158\u2069").assertExists()
     }
 
     @Test

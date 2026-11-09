@@ -133,4 +133,18 @@ class OtpCodesTest {
         assertThat(CodeMasker.maskIf(false, "Your code is 482913")).isEqualTo("Your code is 482913")
         assertThat(CodeMasker.maskIf(true, "Meet at 1830")).isEqualTo("Meet at 1830")
     }
+
+    @Test
+    fun tokensHoldEveryCodeInOrderAndPrimaryIsTheFirst() {
+        val body = "Use 333333 to log in, or 444444 to reset your password"
+        assertThat(OtpCodes.tokens(body).map { it.value }).containsExactly("333333", "444444").inOrder()
+        assertThat(OtpCodes.primary(body)).isEqualTo(CodeToken(CodeKind.Code, "333333"))
+        assertThat(OtpCodeExtractor.extract(body)).isEqualTo("333333")
+    }
+
+    @Test
+    fun aNumberWithoutAKeywordNextToItIsNoSecondCode() {
+        assertThat(OtpCodes.tokens("Your OTP is 4821. Ref 998877 for support").map { it.value })
+            .containsExactly("4821")
+    }
 }

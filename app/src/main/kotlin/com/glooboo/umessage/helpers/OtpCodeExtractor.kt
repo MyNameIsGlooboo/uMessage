@@ -57,6 +57,24 @@ object OtpCodeExtractor {
         }.minByOrNull { it.second }?.first
     }
 
+    /**
+     * The codes of the folded [text] that are the closest code to some keyword, in text order: a keyword serves one
+     * number ("Order 2026 shipped. Use code 739104" binds 739104, not the year), so a message with two keywords and two
+     * codes gives both ("Use 333333 to log in, or 444444 to reset your password").
+     */
+    internal fun keywordBound(text: String): List<MatchResult> {
+        val shapes = code.findAll(text).toList()
+        val bound = HashSet<MatchResult>()
+        for (strongRange in strongKeywords.findAll(text).map { it.range }) {
+            shapes.minByOrNull { distance(it.range, strongRange) }?.let { bound.add(it) }
+        }
+        for (weakRange in weakKeywords.findAll(text).map { it.range }) {
+            shapes.filterNot { year.matches(it.value) }
+                .minByOrNull { distance(it.range, weakRange) }?.let { bound.add(it) }
+        }
+        return shapes.filter { it in bound }
+    }
+
     /** Whether any code-shaped number in [body] has a code keyword anywhere in the text: a deliberately wide net. */
     internal fun hasKeywordNearNumber(body: String): Boolean = locate(TextNormalizer.fold(body)) != null
 

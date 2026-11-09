@@ -60,4 +60,24 @@ class ThreadCodesTest {
         val withChips = thread.map { detectCopyTokens(it).isNotEmpty() }
         assertThat(withChips).containsExactly(true, false, true, true).inOrder()
     }
+
+    @Test
+    fun everyCodeOfAMessageGetsAChip() {
+        assertThat(detectCopyTokens("Use 333333 to log in, or 444444 to reset your password"))
+            .containsExactly(CopyToken(CopyKind.Code, "333333"), CopyToken(CopyKind.Code, "444444")).inOrder()
+    }
+
+    @Test
+    fun labelledAndPlainCodesAreListedInTextOrder() {
+        assertThat(detectCopyTokens("Your code is 482913. Temporary password: x7Kq2m"))
+            .containsExactly(CopyToken(CopyKind.Code, "482913"), CopyToken(CopyKind.Password, "x7Kq2m")).inOrder()
+    }
+
+    @Test
+    fun aRepeatedCodeGetsOneChipAndPersianDigitsComeBackLatin() {
+        assertThat(detectCopyTokens("Your code is 482913. Enter 482913 now"))
+            .containsExactly(CopyToken(CopyKind.Code, "482913"))
+        assertThat(detectCopyTokens("کد: ۱۲۳۴۵۶ و رمز: ۶۵۴۳۲۱"))
+            .containsExactly(CopyToken(CopyKind.Code, "123456"), CopyToken(CopyKind.Code, "654321")).inOrder()
+    }
 }

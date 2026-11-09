@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="thread_counter_parts">%1$d، %2$d</string>
+    <string name="thread_counter_parts">%1$d · %2$d</string>
     <plurals name="thread_counter_description" tools:ignore="ImpliedQuantity">
         <item quantity="one">%1$d پیام متنی، %2$d کاراکتر باقی‌مانده</item>
         <item quantity="other">%1$d پیام متنی، %2$d کاراکتر باقی‌مانده در آخرین پیام</item>

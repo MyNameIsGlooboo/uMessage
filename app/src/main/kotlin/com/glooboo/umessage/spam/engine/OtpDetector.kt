@@ -155,6 +155,35 @@ object OtpDetector {
      */
     fun looksLikeOtp(body: String): Boolean = OtpCodes.looksLikeCode(body)
 
+    /** The characters either side of a code that are searched for a keyword. */
+    private const val WINDOW = 120
+
+    private val strongBefore = Regex(keywordPattern(strongKeywords) + NEAR + "$", RegexOption.IGNORE_CASE)
+    private val strongAfter = Regex("^" + NEAR + keywordPattern(strongKeywords), RegexOption.IGNORE_CASE)
+    private val weakBefore = Regex(keywordPattern(weakKeywords) + NEAR + "$", RegexOption.IGNORE_CASE)
+    private val weakAfter = Regex("^" + NEAR + keywordPattern(weakKeywords), RegexOption.IGNORE_CASE)
+    private val cjkWords = "(?:" + OtpKeywords.cjk.map { TextNormalizer.fold(it).replace(" ", "\\s?") }
+        .sortedByDescending { it.length }.joinToString("|") + ")"
+    private val cjkBefore = Regex(cjkWords + "[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$", RegexOption.IGNORE_CASE)
+    private val cjkAfter = Regex("^[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}" + cjkWords, RegexOption.IGNORE_CASE)
+    private val yearOnly = Regex(YEAR)
+
+    /**
+     * Whether the code at [range] of [text] (already folded) has a keyword a few plain words before or after it, on
+     * the same terms as [nearKeyword] (no advertisement; next to the generic word only when it is no year). Several
+     * codes of one message ("Use 333333 to log in, or 444444 to reset") each qualify on their own.
+     */
+    internal fun keywordNextTo(text: String, range: IntRange): Boolean {
+        if (marketingHard.containsMatchIn(text)) return false
+        val before = text.substring(maxOf(0, range.first - WINDOW), range.first)
+        val after = text.substring(range.last + 1, minOf(text.length, range.last + 1 + WINDOW))
+        if (strongBefore.containsMatchIn(before) || strongAfter.containsMatchIn(after)) return true
+        if (cjkBefore.containsMatchIn(before) || cjkAfter.containsMatchIn(after)) return true
+        if (marketingSoft.containsMatchIn(text)) return false
+        val year = yearOnly.matches(text.substring(range)) && yearContext.containsMatchIn(text)
+        return !year && (weakBefore.containsMatchIn(before) || weakAfter.containsMatchIn(after))
+    }
+
     /** Whether [text] is an advertisement ("promo", "discount", "50%"): such a text is never a code. */
     internal fun isMarketing(text: String): Boolean = marketingHard.containsMatchIn(TextNormalizer.fold(text))
 

@@ -42,25 +42,27 @@ object OtpCodes {
     /** Whether [body] holds a verification code (see the class comment). */
     fun looksLikeCode(body: String): Boolean {
         val text = TextNormalizer.fold(body)
-        return OtpDetector.nearKeyword(text) || labelledValues(text).any { it.kind != CodeKind.Username }
+        return OtpDetector.nearKeyword(text) || labelledValues(text).any { it.second.kind != CodeKind.Username }
     }
 
     /**
-     * Every value worth a copy chip, in order and without repeats: the labelled ones first, then the code next to a
-     * keyword when no labelled code was found.
+     * Every value worth a copy chip, in the order of the text and without repeats, with no maximum: each labelled value
+     * and each digit code that has a keyword next to it ("Use 333333 to log in, or 444444 to reset" gives both).
      */
     fun tokens(body: String): List<CodeToken> {
         if (body.length < MIN_BODY_LENGTH) return emptyList()
         val text = TextNormalizer.fold(body)
-        val found = LinkedHashMap<String, CodeToken>()
-        for (token in labelledValues(text)) found.putIfAbsent(token.value, token)
-        if (found.values.none { it.kind == CodeKind.Code }) {
-            locate(text)?.let { match ->
-                val value = OtpCodeExtractor.digitsOf(match.groupValues[1])
-                found.putIfAbsent(value, CodeToken(CodeKind.Code, value))
+        val found = LinkedHashMap<String, Pair<Int, CodeToken>>()
+        for ((position, token) in labelledValues(text)) found.putIfAbsent(token.value, position to token)
+        for ((position, value) in keywordCodes(text)) {
+            val known = found[value]
+            if (known == null) {
+                found[value] = position to CodeToken(CodeKind.Code, value)
+            } else if (position < known.first) {
+                found[value] = position to known.second
             }
         }
-        return found.values.toList()
+        return found.values.sortedBy { it.first }.map { it.second }
     }
 
     /** The value a notification or the list offers: the first code, else the first password; null without one. */
@@ -85,7 +87,19 @@ object OtpCodes {
                 .findAll(text).map { it.range }.toList()
         }
 
-    private fun labelledValues(text: String): List<CodeToken> {
+    /** Digit codes with a keyword next to them: position and value; the closest to a keyword when none is adjacent. */
+    private fun keywordCodes(text: String): List<Pair<Int, String>> {
+        if (!OtpDetector.nearKeyword(text)) return emptyList()
+        val adjacent = OtpCodeExtractor.keywordBound(text)
+            .filter { OtpDetector.keywordNextTo(text, it.groups[1]!!.range) }
+            .map { it.groups[1]!!.range.first to OtpCodeExtractor.digitsOf(it.groupValues[1]) }
+            .toList()
+        if (adjacent.isNotEmpty()) return adjacent
+        return listOfNotNull(locate(text))
+            .map { it.groups[1]!!.range.first to OtpCodeExtractor.digitsOf(it.groupValues[1]) }
+    }
+
+    private fun labelledValues(text: String): List<Pair<Int, CodeToken>> {
         val matches = labelled.findAll(text).toList()
         if (matches.isEmpty()) return emptyList()
         val shapes = OtpCodeExtractor.codeShapes(text).associateBy { it.groups[1]!!.range.first }
@@ -103,7 +117,7 @@ object OtpCodes {
         match: MatchResult,
         shapes: Map<Int, MatchResult>,
         advertisement: Boolean,
-    ): CodeToken? {
+    ): Pair<Int, CodeToken>? {
         val group = match.groups[2] ?: return null
         val kind = kindOf(match.groupValues[1])
         if (kind == CodeKind.Code && advertisement) return null
@@ -112,7 +126,7 @@ object OtpCodes {
         val value = shape?.let { OtpCodeExtractor.digitsOf(it.groupValues[1]) }
             ?: group.value.trimEnd { it in trailing }
         val valid = value.length >= MIN_VALUE_LENGTH && (shape != null || !value.all { it.isDigit() })
-        return if (valid) CodeToken(kind, value) else null
+        return if (valid) group.range.first to CodeToken(kind, value) else null
     }
 
     private fun kindOf(label: String): CodeKind {

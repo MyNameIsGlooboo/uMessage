@@ -444,12 +444,19 @@ private fun MessageField(vm: ThreadViewModel, actions: ThreadActions, modifier: 
     )
 }
 
-/** "12" left in a one-part SMS, "12 · 3" (characters left, parts) once the text needs more than one part (RM-46). */
+/**
+ * "12" left in a one-part SMS, "12 · 3" (characters left, parts) once the text needs more than one part (RM-46). The
+ * text is a bidi isolate (U+2066 ... U+2069), so the order and the dot read the same in a left-to-right and in a
+ * right-to-left screen.
+ */
 @Composable
-internal fun segmentLabel(segments: SmsSegments): String = if (segments.isMultipart) {
-    stringResource(R.string.thread_counter_parts, segments.remaining, segments.parts)
-} else {
-    localizedNumber(segments.remaining, uiLocale())
+internal fun segmentLabel(segments: SmsSegments): String {
+    val text = if (segments.isMultipart) {
+        stringResource(R.string.thread_counter_parts, segments.remaining, segments.parts)
+    } else {
+        localizedNumber(segments.remaining, uiLocale())
+    }
+    return "\u2066$text\u2069"
 }
 
 /** The counter read out in full; Unicode text also says how much fits in one SMS. */
