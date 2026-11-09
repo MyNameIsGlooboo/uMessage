@@ -96,6 +96,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
@@ -302,16 +303,16 @@ private fun InputRow(vm: ThreadViewModel, actions: ThreadActions, focus: FocusMa
             contentColor = colors.onSurface,
             modifier = Modifier.weight(1f),
         ) {
-            // Right-to-left text mirrors the whole field: it starts at the right edge and the SIM chip moves to the left.
+            // Right-to-left text mirrors the whole field: it starts at the right edge, the emoji button moves left.
             val fieldDirection = if (startsRightToLeft(vm.text.text)) LayoutDirection.Rtl else LayoutDirection.Ltr
             CompositionLocalProvider(LocalLayoutDirection provides fieldDirection) {
-                Column {
-                    Row(verticalAlignment = Alignment.Bottom) {
-                        MessageField(vm, actions, modifier = Modifier.weight(1f))
+                // The small counter is stacked above the emoji button, so the text column keeps its width.
+                Row(verticalAlignment = Alignment.Bottom) {
+                    MessageField(vm, actions, modifier = Modifier.weight(1f))
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        FieldCounter(vm)
                         EmojiToggle(vm)
                     }
-                    // The counter sits on its own line under the text, so it never narrows the text column.
-                    FieldCounter(vm)
                 }
             }
         }
@@ -443,12 +444,7 @@ private fun MessageField(vm: ThreadViewModel, actions: ThreadActions, modifier: 
     )
 }
 
-/**
- * One status label, then the emoji shortcut. As in Google Messages the label is either "MMS" or, for SMS, the
- * characters left and parts used; the counter shows only near the end of a part unless the setting asks for it
- * always. Photos are picked from the "+" sheet.
- */
-/** "12" left in a one-part SMS, "12 · 3 SMS" once the text needs more than one part (RM-46). */
+/** "12" left in a one-part SMS, "12 · 3" (characters left, parts) once the text needs more than one part (RM-46). */
 @Composable
 internal fun segmentLabel(segments: SmsSegments): String = if (segments.isMultipart) {
     stringResource(R.string.thread_counter_parts, segments.remaining, segments.parts)
@@ -468,31 +464,34 @@ private fun segmentDescription(segments: SmsSegments): String {
 }
 
 /**
- * The "MMS" label or the SMS counter, as a small end-aligned line under the text. It takes no width from the text
- * and shows only when needed: for MMS, or in SMS when the counter setting is on or the end of a part is near.
+ * The small, dim counter on the emoji button's row: "MMS" when the message costs more, otherwise the characters left
+ * and parts. Shown only when needed (see [shouldShowCounter]); it sits centred above the emoji button, as wide as
+ * the button, so the text keeps its width and the box grows by one counter line only while it shows.
  */
 @Composable
 private fun FieldCounter(vm: ThreadViewModel) {
-    val empty = vm.text.text.isEmpty()
     val segments = vm.segments
-    val showSegments = !vm.isMms && !empty && segments != null && (vm.showCounter || vm.counterNearLimit)
-    val label = when {
-        vm.isMms -> stringResource(R.string.mms)
-        showSegments -> segmentLabel(segments!!)
-        else -> null
+    if (!shouldShowCounter(vm.text.text.length, segments, vm.isMms, vm.showCounter)) return
+    val mmsLabel = stringResource(R.string.mms)
+    val label: String
+    val description: String
+    if (vm.isMms || segments == null) {
+        label = mmsLabel
+        description = mmsLabel
+    } else {
+        label = segmentLabel(segments)
+        description = segmentDescription(segments)
     }
-    val description = if (showSegments) segmentDescription(segments!!) else label
-    if (label == null) return
     Text(
         label,
         style = MaterialTheme.typography.labelSmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         maxLines = 1,
+        textAlign = TextAlign.Center,
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp, bottom = 6.dp)
-            .clearAndSetSemantics { contentDescription = description.orEmpty() },
-        textAlign = androidx.compose.ui.text.style.TextAlign.End,
+            .padding(end = 4.dp)
+            .width(48.dp)
+            .clearAndSetSemantics { contentDescription = description },
     )
 }
 

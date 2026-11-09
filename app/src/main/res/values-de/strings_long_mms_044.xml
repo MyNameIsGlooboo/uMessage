@@ -4,5 +4,4 @@
     <string name="long_mms_choice_never">Nie (Standard)</string>
     <string name="long_mms_value_never">Nie</string>
     <string name="long_mms_after">Ab %d Nachrichten</string>
-    <string name="thread_many_parts_note_044">Dieser Text ist sehr lang: Er wird als %1$d SMS gesendet. Kürzere Texte kosten weniger. In den Einstellungen kannst du lange Texte als eine Bildnachricht senden lassen.</string>
 </resources>

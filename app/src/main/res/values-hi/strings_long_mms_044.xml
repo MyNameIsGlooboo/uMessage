@@ -4,5 +4,4 @@
     <string name="long_mms_choice_never">कभी नहीं (डिफ़ॉल्ट)</string>
     <string name="long_mms_value_never">कभी नहीं</string>
     <string name="long_mms_after">%d संदेशों के बाद</string>
-    <string name="thread_many_parts_note_044">यह टेक्स्ट बहुत लंबा है: यह %1$d SMS के रूप में जाएगा। छोटे टेक्स्ट में कम खर्च आता है। सेटिंग में आप लंबे टेक्स्ट को एक पिक्चर मैसेज के रूप में भेजना चुन सकते हैं।</string>
 </resources>

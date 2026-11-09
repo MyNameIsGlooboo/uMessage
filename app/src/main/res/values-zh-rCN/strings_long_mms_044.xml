@@ -4,5 +4,4 @@
     <string name="long_mms_choice_never">从不（默认）</string>
     <string name="long_mms_value_never">从不</string>
     <string name="long_mms_after">达到 %d 条后</string>
-    <string name="thread_many_parts_note_044">这段文字很长，将作为 %1$d 条短信发送。文字越短费用越低。你可以在设置中选择将长文本作为一条图片信息发送。</string>
 </resources>

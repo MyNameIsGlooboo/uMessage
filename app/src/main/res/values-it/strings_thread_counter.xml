@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="thread_counter_parts">%1$d · %2$d SMS</string>
+    <string name="thread_counter_parts">%1$d · %2$d</string>
     <plurals name="thread_counter_description">
         <item quantity="one">%1$d messaggio di testo, %2$d caratteri rimanenti</item>
         <item quantity="other">%1$d messaggi di testo, %2$d caratteri rimanenti nell\'ultimo</item>
     </plurals>
     <string name="thread_counter_unicode_description">%1$s. Con lettere persiane e altre lettere non latine, ogni messaggio di testo contiene al massimo %2$d caratteri.</string>
-    <string name="thread_unicode_parts_note">Il testo persiano ha un limite di 70 caratteri per SMS, quindi questo messaggio verrà inviato come %1$d SMS.</string>
     <string name="thread_long_text_as_mms">Questo messaggio lungo verrà inviato come MMS e potrebbe costare più di un SMS.</string>
 </resources>

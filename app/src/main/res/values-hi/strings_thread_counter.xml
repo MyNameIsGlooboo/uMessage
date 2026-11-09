@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="thread_counter_parts">%1$d · %2$d SMS</string>
+    <string name="thread_counter_parts">%1$d · %2$d</string>
     <plurals name="thread_counter_description" tools:ignore="ImpliedQuantity">
         <item quantity="one">%1$d टेक्स्ट मैसेज, %2$d अक्षर बाकी</item>
         <item quantity="other">%1$d टेक्स्ट मैसेज, आख़िरी मैसेज में %2$d अक्षर बाकी</item>
     </plurals>
     <string name="thread_counter_unicode_description">%1$s. फ़ारसी और दूसरे गैर-लैटिन अक्षरों वाले हर टेक्स्ट मैसेज में %2$d अक्षर आ सकते हैं.</string>
-    <string name="thread_unicode_parts_note">फ़ारसी टेक्स्ट में हर SMS में 70 अक्षर आ सकते हैं, इसलिए यह मैसेज अब %1$d SMS के रूप में जाएगा.</string>
     <string name="thread_long_text_as_mms">यह लंबा मैसेज MMS के रूप में जाएगा, जिसकी कीमत SMS से ज़्यादा हो सकती है.</string>
 </resources>

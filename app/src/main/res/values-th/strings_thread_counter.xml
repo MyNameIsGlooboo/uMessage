@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="thread_counter_parts">%1$d · %2$d SMS</string>
+    <string name="thread_counter_parts">%1$d · %2$d</string>
     <plurals name="thread_counter_description">
         <item quantity="other">%1$d ข้อความ เหลืออีก %2$d อักขระในข้อความสุดท้าย</item>
     </plurals>
     <string name="thread_counter_unicode_description">%1$s อักษรเปอร์เซียและอักษรอื่นที่ไม่ใช่ละตินใส่ได้ %2$d อักขระต่อข้อความ</string>
-    <string name="thread_unicode_parts_note">ข้อความภาษาเปอร์เซียใส่ได้ 70 อักขระต่อ SMS ข้อความนี้จึงจะส่งเป็น SMS %1$d ข้อความ</string>
     <string name="thread_long_text_as_mms">ข้อความยาวนี้จะส่งเป็น MMS ซึ่งอาจมีค่าใช้จ่ายสูงกว่า SMS</string>
 </resources>

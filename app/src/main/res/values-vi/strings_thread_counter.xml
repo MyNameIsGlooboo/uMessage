@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="thread_counter_parts">%1$d · %2$d SMS</string>
+    <string name="thread_counter_parts">%1$d · %2$d</string>
     <plurals name="thread_counter_description">
         <item quantity="other">%1$d tin nhắn, còn %2$d ký tự trong tin nhắn cuối</item>
     </plurals>
     <string name="thread_counter_unicode_description">%1$s. Với chữ Ba Tư và các chữ ngoài hệ Latin, mỗi tin nhắn chứa được %2$d ký tự.</string>
-    <string name="thread_unicode_parts_note">Văn bản tiếng Ba Tư chứa được 70 ký tự mỗi SMS nên tin nhắn này sẽ được gửi thành %1$d SMS.</string>
     <string name="thread_long_text_as_mms">Tin nhắn dài này sẽ được gửi dưới dạng MMS, có thể tốn phí hơn SMS.</string>
 </resources>

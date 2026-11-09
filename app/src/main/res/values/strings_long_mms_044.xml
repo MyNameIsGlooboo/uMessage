@@ -4,5 +4,4 @@
     <string name="long_mms_choice_never">Never (default)</string>
     <string name="long_mms_value_never">Never</string>
     <string name="long_mms_after">After %d messages</string>
-    <string name="thread_many_parts_note_044">This text is very long: it will go as %1$d SMS. Shorter texts cost less. In Settings you can choose to send long texts as one picture message.</string>
 </resources>

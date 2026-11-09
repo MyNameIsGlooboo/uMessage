@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="thread_counter_parts">%1$d·%2$d条短信</string>
+    <string name="thread_counter_parts">%1$d · %2$d</string>
     <plurals name="thread_counter_description">
         <item quantity="other">%1$d条短信，最后一条还可输入%2$d个字符</item>
     </plurals>
     <string name="thread_counter_unicode_description">%1$s。使用波斯语等非拉丁字母时，每条短信可容纳%2$d个字符。</string>
-    <string name="thread_unicode_parts_note">波斯语文本每条短信可容纳70个字符，因此此消息将分为%1$d条短信发送。</string>
     <string name="thread_long_text_as_mms">这条长消息将以彩信发送，费用可能高于短信。</string>
 </resources>

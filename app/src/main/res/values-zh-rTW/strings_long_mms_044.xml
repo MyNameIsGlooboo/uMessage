@@ -4,5 +4,4 @@
     <string name="long_mms_choice_never">從不（預設）</string>
     <string name="long_mms_value_never">從不</string>
     <string name="long_mms_after">達到 %d 則後</string>
-    <string name="thread_many_parts_note_044">這段文字很長，將以 %1$d 則簡訊傳送。文字越短費用越低。你可以在設定中選擇將長文字以一則圖片訊息傳送。</string>
 </resources>

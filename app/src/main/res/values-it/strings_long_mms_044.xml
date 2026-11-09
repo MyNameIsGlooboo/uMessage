@@ -4,5 +4,4 @@
     <string name="long_mms_choice_never">Mai (predefinito)</string>
     <string name="long_mms_value_never">Mai</string>
     <string name="long_mms_after">Da %d messaggi</string>
-    <string name="thread_many_parts_note_044">Questo testo è molto lungo: verrà inviato come %1$d SMS. I testi più brevi costano meno. Nelle Impostazioni puoi scegliere di inviare i testi lunghi come un unico messaggio multimediale.</string>
 </resources>

@@ -4,5 +4,4 @@
     <string name="long_mms_choice_never">هرگز (پیش‌فرض)</string>
     <string name="long_mms_value_never">هرگز</string>
     <string name="long_mms_after">بعد از %d پیام</string>
-    <string name="thread_many_parts_note_044">این متن خیلی بلند است: به صورت %1$d پیامک ارسال می‌شود. متن کوتاه‌تر هزینه کمتری دارد. در تنظیمات می‌توانید انتخاب کنید متن‌های بلند به صورت یک پیام تصویری فرستاده شوند.</string>
 </resources>

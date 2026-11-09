@@ -27,6 +27,9 @@ data class SmsSegments(val parts: Int, val remaining: Int, val unicode: Boolean)
         /** Parts above this are worth a warning: a text this long costs that many SMS (I5). */
         const val MANY_PARTS = 6
 
+        /** The counter stays hidden for short messages: it shows from this many characters on. */
+        const val COUNTER_MIN_LENGTH = 100
+
         fun of(text: String): SmsSegments {
             val gsmLength = gsmSeptets(text)
             val unicode = gsmLength == null
@@ -84,3 +87,12 @@ data class SmsSegments(val parts: Int, val remaining: Int, val unicode: Boolean)
         private const val GSM_EXTENSION = "\u000C^{}\\[~]|€"
     }
 }
+
+/**
+ * Whether the composer shows its small counter: only once it helps, that is after [SmsSegments.COUNTER_MIN_LENGTH]
+ * characters, when the text already needs more than one SMS (70 characters in Persian), or when it goes as MMS.
+ * [always] is the "show character counter" setting.
+ */
+fun shouldShowCounter(length: Int, segments: SmsSegments?, isMms: Boolean, always: Boolean = false): Boolean =
+    length > 0 && (isMms || segments != null) &&
+        (always || isMms || length >= SmsSegments.COUNTER_MIN_LENGTH || segments?.isMultipart == true)

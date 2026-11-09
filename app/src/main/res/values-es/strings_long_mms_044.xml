@@ -4,5 +4,4 @@
     <string name="long_mms_choice_never">Nunca (predeterminado)</string>
     <string name="long_mms_value_never">Nunca</string>
     <string name="long_mms_after">A partir de %d mensajes</string>
-    <string name="thread_many_parts_note_044">Este texto es muy largo: se enviará como %1$d SMS. Los textos más cortos cuestan menos. En Ajustes puedes elegir enviar los textos largos como un solo mensaje multimedia.</string>
 </resources>

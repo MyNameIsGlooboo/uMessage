@@ -4,5 +4,4 @@
     <string name="long_mms_choice_never">أبدًا (الافتراضي)</string>
     <string name="long_mms_value_never">أبدًا</string>
     <string name="long_mms_after">بعد %d من الرسائل</string>
-    <string name="thread_many_parts_note_044">هذا النص طويل جدًا: سيُرسل في %1$d رسائل SMS. النصوص الأقصر أقل تكلفة. يمكنك من الإعدادات اختيار إرسال النصوص الطويلة كرسالة صور واحدة.</string>
 </resources>

@@ -4,5 +4,4 @@
     <string name="long_mms_choice_never">Không bao giờ (mặc định)</string>
     <string name="long_mms_value_never">Không bao giờ</string>
     <string name="long_mms_after">Từ %d tin nhắn</string>
-    <string name="thread_many_parts_note_044">Văn bản này rất dài: sẽ được gửi thành %1$d tin SMS. Văn bản ngắn hơn tốn ít phí hơn. Trong Cài đặt, bạn có thể chọn gửi văn bản dài thành một tin nhắn hình.</string>
 </resources>

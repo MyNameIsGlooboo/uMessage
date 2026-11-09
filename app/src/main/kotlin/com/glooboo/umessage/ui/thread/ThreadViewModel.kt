@@ -222,23 +222,9 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
     /** The "show character counter" setting: the counter is always shown while typing. */
     var showCounter by mutableStateOf(false)
 
-    /**
-     * Close to the end of an SMS part, or already over one: the counter shows even with the setting off, so a long
-     * Persian text never costs several SMS without a sign (RM-46).
-     */
-    val counterNearLimit: Boolean by derivedStateOf {
-        val s = segments
-        s != null && (s.isMultipart || s.remaining <= COUNTER_NEAR_LIMIT)
-    }
-
     /** True once this screen has said that the long text goes as MMS; the note is shown once, not on every key. */
     var longMmsNoted = false
 
-    /** True once this screen has said that Persian text fits only 70 characters per SMS. */
-    var unicodePartsNoted = false
-
-    /** True once this screen has warned that the text needs many SMS (I5); said once, not on every key. */
-    var manyPartsNoted = false
     var sendOnEnter by mutableStateOf(false)
     var replyDisabled by mutableStateOf(false)
     var sims by mutableStateOf<List<SIMCard>>(emptyList())
@@ -437,8 +423,6 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
     // endregion
 
     private companion object {
-        /** Characters left in the current SMS part at which the counter appears even with the setting off. */
-        const val COUNTER_NEAR_LIMIT = 20
         const val KEY_SCHEDULED_MILLIS = "scheduled_millis"
         const val KEY_SCHEDULED_MESSAGE_ID = "scheduled_message_id"
         const val KEY_SCHEDULED_REPEAT = "scheduled_repeat"

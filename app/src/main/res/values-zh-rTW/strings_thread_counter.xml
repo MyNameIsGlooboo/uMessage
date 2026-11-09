@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="thread_counter_parts">%1$d · %2$d則簡訊</string>
+    <string name="thread_counter_parts">%1$d · %2$d</string>
     <plurals name="thread_counter_description">
         <item quantity="other">%1$d則簡訊，最後一則還剩%2$d個字元</item>
     </plurals>
     <string name="thread_counter_unicode_description">%1$s。波斯文和其他非拉丁字母每則簡訊可容納%2$d個字元。</string>
-    <string name="thread_unicode_parts_note">波斯文每則簡訊可容納70個字元，因此這則訊息現在會以%1$d則簡訊傳送。</string>
     <string name="thread_long_text_as_mms">這則長訊息會以多媒體訊息傳送，費用可能高於簡訊。</string>
 </resources>

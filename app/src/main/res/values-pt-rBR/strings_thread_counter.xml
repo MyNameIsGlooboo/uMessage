@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="thread_counter_parts">%1$d · %2$d SMS</string>
+    <string name="thread_counter_parts">%1$d · %2$d</string>
     <plurals name="thread_counter_description" tools:ignore="ImpliedQuantity">
         <item quantity="one">%1$d mensagem de texto, %2$d caracteres restantes</item>
         <item quantity="other">%1$d mensagens de texto, %2$d caracteres restantes na última</item>
     </plurals>
     <string name="thread_counter_unicode_description">%1$s. Com letras persas e outras letras não latinas, cabem %2$d caracteres por mensagem de texto.</string>
-    <string name="thread_unicode_parts_note">Textos em persa comportam 70 caracteres por SMS, então esta mensagem será enviada como %1$d SMS.</string>
     <string name="thread_long_text_as_mms">Esta mensagem longa será enviada como MMS, que pode custar mais que SMS.</string>
 </resources>

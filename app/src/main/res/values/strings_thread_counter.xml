@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- SMS counter in the composer (RM-46). %1$d characters left in the last part, %2$d parts. -->
-    <string name="thread_counter_parts">%1$d · %2$d SMS</string>
+    <!-- SMS counter in the composer (RM-46). %1$d characters left in the last part, %2$d parts (no unit: the counter is small). -->
+    <string name="thread_counter_parts">%1$d · %2$d</string>
     <plurals name="thread_counter_description">
         <item quantity="one">%1$d text message, %2$d characters left</item>
         <item quantity="other">%1$d text messages, %2$d characters left in the last one</item>
     </plurals>
     <!-- %1$s the description above, %2$d characters per part (70 or 67). -->
     <string name="thread_counter_unicode_description">%1$s. Persian and other non-Latin letters fit %2$d characters per text message.</string>
-    <!-- Shown once when a Persian (Unicode) text first needs a second SMS. -->
-    <string name="thread_unicode_parts_note">Persian text fits 70 characters per SMS, so this message now goes as %1$d SMS.</string>
     <string name="thread_long_text_as_mms">This long message will go as MMS, which may cost more than SMS.</string>
 </resources>

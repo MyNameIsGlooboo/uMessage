@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="thread_counter_parts">残り%1$d文字・SMS%2$d通</string>
+    <string name="thread_counter_parts">%1$d · %2$d</string>
     <plurals name="thread_counter_description">
         <item quantity="other">メッセージ%1$d通、最後の1通は残り%2$d文字です。</item>
     </plurals>
     <string name="thread_counter_unicode_description">%1$sペルシャ文字などのラテン文字以外の文字は、メッセージ1通につき%2$d文字まで入力できます。</string>
-    <string name="thread_unicode_parts_note">ペルシャ語はSMS1通につき70文字までのため、このメッセージは%1$d通のSMSとして送信されます。</string>
     <string name="thread_long_text_as_mms">この長いメッセージはMMSとして送信されます。SMSより料金が高くなる場合があります。</string>
 </resources>
