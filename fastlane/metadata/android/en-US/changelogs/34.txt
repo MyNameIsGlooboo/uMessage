@@ -1,0 +1,7 @@
+• Tap a code-only notification to copy the code (setting, on by default)
+• A Copy chip under every message with a code
+• Codes hidden on the lock screen everywhere
+• Spam tab: unread chats in bold
+• Composer counter above the emoji button, only when needed
+• Contact search works reliably
+• The app never clears the clipboard; "Recent codes" removed
