@@ -8,6 +8,7 @@ import com.glooboo.umessage.extensions.launchConversationDetails
 import com.glooboo.umessage.helpers.SEARCHED_MESSAGE_ID
 import com.glooboo.umessage.helpers.SEARCHED_MESSAGE_IS_MMS
 import com.glooboo.umessage.helpers.THREAD_ID
+import com.glooboo.umessage.helpers.THREAD_NUMBER
 import com.glooboo.umessage.helpers.THREAD_TITLE
 import com.glooboo.umessage.models.MessageKey
 import com.glooboo.umessage.models.SearchResult
@@ -81,7 +82,7 @@ class MainRoutes(private val activity: BaseSimpleActivity) {
     /** A search result opens its chat, scrolled to the message when it is one. */
     fun openSearchResult(result: SearchResult) {
         activity.hideKeyboard()
-        openThread(result.threadId, result.title, MessageKey(result.messageId, result.isMMS))
+        openThread(result.threadId, result.title, MessageKey(result.messageId, result.isMMS), result.number)
     }
 
     fun handle(effect: ConversationsEffect) {
@@ -106,10 +107,11 @@ class MainRoutes(private val activity: BaseSimpleActivity) {
         }.onFailure { activity.toast(org.fossify.commons.R.string.no_app_found) }
     }
 
-    private fun openThread(threadId: Long, title: String, searched: MessageKey? = null) {
+    private fun openThread(threadId: Long, title: String, searched: MessageKey? = null, number: String = "") {
         Intent(activity, ThreadActivity::class.java).apply {
             putExtra(THREAD_ID, threadId)
             putExtra(THREAD_TITLE, title)
+            if (number.isNotEmpty()) putExtra(THREAD_NUMBER, number)
             if (searched != null) {
                 putExtra(SEARCHED_MESSAGE_ID, searched.id)
                 putExtra(SEARCHED_MESSAGE_IS_MMS, searched.isMMS)

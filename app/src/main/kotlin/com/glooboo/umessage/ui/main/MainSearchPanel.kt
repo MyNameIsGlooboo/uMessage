@@ -1,5 +1,7 @@
 package com.glooboo.umessage.ui.main
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -46,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.models.SearchResult
+import org.fossify.commons.extensions.toast
 import com.glooboo.umessage.ui.conversations.ContactAvatar
 import com.glooboo.umessage.ui.conversations.ConversationRow
 import com.glooboo.umessage.ui.conversations.RowLabel
@@ -211,11 +214,17 @@ private fun ConversationResults(
     val openContact = { hit: ContactHit ->
         scope.launch {
             // getOrCreateThreadId is a Telephony provider round trip: keep it off the main thread.
+            val address = contactThreadAddress(hit.number)
             val threadId = withContext(Dispatchers.IO) {
-                runCatching { context.getThreadId(hit.number) }.getOrDefault(0L)
+                runCatching { context.getThreadId(address) }
+                    .onFailure { Log.w("MainSearch", "Thread for a contact not made", it) }
+                    .getOrDefault(0L)
             }
             if (threadId > 0L) {
-                onOpen(SearchResult(CONVERSATION_HIT, hit.contact.name, "", "", threadId, hit.contact.photoUri))
+                onOpen(contactHitResult(hit, threadId))
+            } else {
+                // Never a silent tap: the person is told, as in the new-conversation picker.
+                context.toast(R.string.new_conversation_invalid_number, length = Toast.LENGTH_LONG)
             }
         }
         Unit

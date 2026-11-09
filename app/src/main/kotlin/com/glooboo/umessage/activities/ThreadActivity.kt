@@ -10,7 +10,9 @@ import android.os.Bundle
 import android.os.Looper
 import android.provider.MediaStore
 import android.provider.Telephony
+import android.util.Log
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -834,7 +836,9 @@ open class ThreadActivity : ComposeSimpleActivity() {
                 val name = intent.getStringExtra(THREAD_TITLE) ?: ""
                 val numbers = getPhoneNumbersFromIntent()
                 if (numbers.isEmpty()) {
-                    toast(org.fossify.commons.R.string.unknown_error_occurred)
+                    // No messages, no participants known to the phone and no number in the intent: nothing to write to.
+                    Log.w("ThreadActivity", "Chat opened without a conversation, participants or number")
+                    toast(R.string.new_conversation_invalid_number, length = Toast.LENGTH_LONG)
                     finish()
                     return@ensureBackgroundThread
                 }
