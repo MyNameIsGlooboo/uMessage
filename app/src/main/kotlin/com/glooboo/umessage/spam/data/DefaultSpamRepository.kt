@@ -130,6 +130,8 @@ class DefaultSpamRepository(
             id = 0,
             address = BlockedLimits.limitAddress(message.address),
             body = BlockedLimits.limitBody(if (message.isMms && message.body.isBlank()) MMS_PLACEHOLDER_BODY else message.body),
+            // A newly held message has not been looked at.
+            unread = true,
         )
         var duplicate = false
         val id = db.runInTransaction<Long> {
@@ -365,6 +367,11 @@ class DefaultSpamRepository(
 
     private fun isKeywordRule(rule: SpamRuleEntity, kind: ListKind): Boolean =
         rule.kind == kind && (rule.type == RuleType.KEYWORD || rule.type == RuleType.REGEX)
+
+    override suspend fun markBlockedRead(ids: List<Long>) {
+        if (ids.isEmpty()) return
+        withContext(Dispatchers.IO) { ids.chunked(SQL_CHUNK).forEach { dao.markBlockedRead(it) } }
+    }
 
     override suspend fun deleteBlocked(ids: List<Long>): Unit = withContext(Dispatchers.IO) {
         if (ids.isEmpty()) return@withContext

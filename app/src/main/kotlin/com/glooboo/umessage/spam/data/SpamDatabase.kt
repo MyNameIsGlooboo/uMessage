@@ -81,14 +81,27 @@ abstract class SpamDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * Unread state of held messages (Blocked tab rows are bold while unread). Existing rows are read: the column
+         * defaults to 0, and only messages stored from now on start unread.
+         */
+        private val MIGRATION_5_6 = object : Migration(VERSION_FORWARD_LOG, VERSION_UNREAD) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `blocked_messages` ADD COLUMN `unread` INTEGER NOT NULL DEFAULT 0")
+            }
+        }
+
+        /** Schema version that added the unread flag of held messages. */
+        private const val VERSION_UNREAD = 6
+
         internal const val DATABASE_NAME = "spamless.db"
 
         /** Must equal the `version` in [Database] above. */
-        internal const val VERSION = 5
+        internal const val VERSION = VERSION_UNREAD
 
         /** Every migration, oldest first. */
         internal val ALL_MIGRATIONS: Array<Migration> =
-            arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+            arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
 
         fun getInstance(context: Context): SpamDatabase = instance ?: synchronized(this) {
             instance ?: build(context.applicationContext, DATABASE_NAME).also { instance = it }

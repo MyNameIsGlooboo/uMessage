@@ -88,6 +88,9 @@ class FakeSpamRepository(
         addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = message.address))
     }
 
+    override suspend fun markBlockedRead(ids: List<Long>) =
+        blockedState.update { list -> list.map { if (it.id in ids) it.copy(unread = false) else it } }
+
     override suspend fun deleteBlocked(ids: List<Long>) =
         blockedState.update { list -> list.filterNot { it.id in ids } }
 

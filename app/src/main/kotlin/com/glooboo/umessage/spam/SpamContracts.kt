@@ -141,6 +141,8 @@ data class BlockedMessage(
     val media: MmsMedia = if (isMms) MmsMedia.MISSING else MmsMedia.NONE,
     /** Name of the kept MMS in app-private storage, set when [media] is [MmsMedia.STORED]. */
     val mediaFile: String? = null,
+    /** Not opened yet: the sender's row on the Blocked tab shows it bold, as an unread chat. Added in version 6. */
+    val unread: Boolean = false,
 ) {
     /** The message has readable text (an MMS blocked before it was downloaded only has the placeholder). */
     val hasText: Boolean
@@ -253,6 +255,9 @@ interface SpamRepository {
 
     /** Adds a BLOCK rule for the sender and removes their allow rules. Their blocked messages are kept. */
     suspend fun blockSender(blockedId: Long)
+
+    /** Marks held messages read (the sender's thread was opened), so their row on the Blocked tab is no longer bold. */
+    suspend fun markBlockedRead(ids: List<Long>) = Unit
     suspend fun deleteBlocked(ids: List<Long>)
     suspend fun purgeExpired()
 }

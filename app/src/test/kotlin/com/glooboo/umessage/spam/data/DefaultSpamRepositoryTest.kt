@@ -109,6 +109,27 @@ class DefaultSpamRepositoryTest {
         assertEquals(2, repo.stats.first().restoredTotal)
     }
 
+    /** A newly held message is unread (its Blocked tab row is bold) until the sender's thread marks it read. */
+    @Test fun heldMessagesStartUnreadAndMarkBlockedReadClearsThem() = runTest {
+        val first = repo.storeBlocked(blocked(body = "one"))
+        val second = repo.storeBlocked(blocked(body = "two", receivedAt = 9_000_000L))
+        assertTrue(dao.getAllBlocked().all { it.unread })
+
+        repo.markBlockedRead(listOf(first))
+
+        assertEquals(listOf(false, true), listOf(first, second).map { dao.getBlocked(it)!!.unread })
+        assertEquals(listOf(second), repo.blocked.first().filter { it.unread }.map { it.id })
+    }
+
+    /** Undo of a restore puts the message back as it was, unread state included. */
+    @Test fun undoRestoreKeepsTheReadState() = runTest {
+        val id = repo.storeBlocked(blocked())
+        repo.markBlockedRead(listOf(id))
+        val receipt = repo.restore(id)
+        assertTrue(repo.undoRestore(receipt))
+        assertEquals(false, dao.getBlocked(id)!!.unread)
+    }
+
     @Test fun notSpamTappedTwiceDeliversOnce() = runTest {
         val id = repo.storeBlocked(blocked())
         listOf(async { repo.markNotSpam(id) }, async { repo.markNotSpam(id) }).awaitAll()

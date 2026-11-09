@@ -1,0 +1,403 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 6,
+    "identityHash": "0000000000000000000000000000unrd",
+    "entities": [
+      {
+        "tableName": "spam_rules",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `kind` TEXT NOT NULL, `type` TEXT NOT NULL, `pattern` TEXT NOT NULL, `subscriptionId` INTEGER, `note` TEXT NOT NULL, `createdAt` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kind",
+            "columnName": "kind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pattern",
+            "columnName": "pattern",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subscriptionId",
+            "columnName": "subscriptionId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_spam_rules_kind_type_pattern_subscriptionId",
+            "unique": true,
+            "columnNames": [
+              "kind",
+              "type",
+              "pattern",
+              "subscriptionId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_spam_rules_kind_type_pattern_subscriptionId` ON `${TABLE_NAME}` (`kind`, `type`, `pattern`, `subscriptionId`)"
+          }
+        ]
+      },
+      {
+        "tableName": "blocked_messages",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `address` TEXT NOT NULL, `body` TEXT NOT NULL, `subscriptionId` INTEGER NOT NULL, `isMms` INTEGER NOT NULL, `receivedAt` INTEGER NOT NULL, `reason` TEXT NOT NULL, `ruleId` INTEGER, `media` TEXT NOT NULL DEFAULT 'NONE', `mediaFile` TEXT, `unread` INTEGER NOT NULL DEFAULT 0)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "body",
+            "columnName": "body",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subscriptionId",
+            "columnName": "subscriptionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isMms",
+            "columnName": "isMms",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "receivedAt",
+            "columnName": "receivedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reason",
+            "columnName": "reason",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ruleId",
+            "columnName": "ruleId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "media",
+            "columnName": "media",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'NONE'"
+          },
+          {
+            "fieldPath": "mediaFile",
+            "columnName": "mediaFile",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "unread",
+            "columnName": "unread",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_blocked_messages_receivedAt",
+            "unique": false,
+            "columnNames": [
+              "receivedAt"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_blocked_messages_receivedAt` ON `${TABLE_NAME}` (`receivedAt`)"
+          }
+        ]
+      },
+      {
+        "tableName": "spam_events",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type` TEXT NOT NULL, `timestamp` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_spam_events_type_timestamp",
+            "unique": false,
+            "columnNames": [
+              "type",
+              "timestamp"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_spam_events_type_timestamp` ON `${TABLE_NAME}` (`type`, `timestamp`)"
+          }
+        ]
+      },
+      {
+        "tableName": "pending_sms",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `address` TEXT NOT NULL, `subject` TEXT NOT NULL, `body` TEXT NOT NULL, `date` INTEGER NOT NULL, `subscriptionId` INTEGER NOT NULL, `status` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subject",
+            "columnName": "subject",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "body",
+            "columnName": "body",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subscriptionId",
+            "columnName": "subscriptionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "forward_rules",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `senderType` TEXT, `senderPattern` TEXT NOT NULL DEFAULT '', `bodyType` TEXT, `bodyPattern` TEXT NOT NULL DEFAULT '', `windowStart` INTEGER, `windowEnd` INTEGER, `subscriptionId` INTEGER, `targets` TEXT NOT NULL, `sendFrom` TEXT NOT NULL DEFAULT 'SAME', `includeCodes` INTEGER NOT NULL DEFAULT 0, `enabled` INTEGER NOT NULL DEFAULT 1, `note` TEXT NOT NULL DEFAULT '', `createdAt` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "senderType",
+            "columnName": "senderType",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "senderPattern",
+            "columnName": "senderPattern",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "bodyType",
+            "columnName": "bodyType",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "bodyPattern",
+            "columnName": "bodyPattern",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "windowStart",
+            "columnName": "windowStart",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "windowEnd",
+            "columnName": "windowEnd",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "subscriptionId",
+            "columnName": "subscriptionId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "targets",
+            "columnName": "targets",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sendFrom",
+            "columnName": "sendFrom",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'SAME'"
+          },
+          {
+            "fieldPath": "includeCodes",
+            "columnName": "includeCodes",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "enabled",
+            "columnName": "enabled",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "forward_log",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `at` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `ruleId` INTEGER NOT NULL, `sourceAddress` TEXT NOT NULL, `sourceDate` INTEGER NOT NULL, `sourceIsMms` INTEGER NOT NULL, `target` TEXT NOT NULL, `subscriptionId` INTEGER, `status` TEXT NOT NULL, `errorCode` TEXT, `attempts` INTEGER NOT NULL)",
+        "fields": [
+          {"fieldPath": "id", "columnName": "id", "affinity": "INTEGER", "notNull": true},
+          {"fieldPath": "at", "columnName": "at", "affinity": "INTEGER", "notNull": true},
+          {"fieldPath": "updatedAt", "columnName": "updatedAt", "affinity": "INTEGER", "notNull": true},
+          {"fieldPath": "ruleId", "columnName": "ruleId", "affinity": "INTEGER", "notNull": true},
+          {"fieldPath": "sourceAddress", "columnName": "sourceAddress", "affinity": "TEXT", "notNull": true},
+          {"fieldPath": "sourceDate", "columnName": "sourceDate", "affinity": "INTEGER", "notNull": true},
+          {"fieldPath": "sourceIsMms", "columnName": "sourceIsMms", "affinity": "INTEGER", "notNull": true},
+          {"fieldPath": "target", "columnName": "target", "affinity": "TEXT", "notNull": true},
+          {"fieldPath": "subscriptionId", "columnName": "subscriptionId", "affinity": "INTEGER"},
+          {"fieldPath": "status", "columnName": "status", "affinity": "TEXT", "notNull": true},
+          {"fieldPath": "errorCode", "columnName": "errorCode", "affinity": "TEXT"},
+          {"fieldPath": "attempts", "columnName": "attempts", "affinity": "INTEGER", "notNull": true}
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_forward_log_at",
+            "unique": false,
+            "columnNames": [
+              "at"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_forward_log_at` ON `${TABLE_NAME}` (`at`)"
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2d2dbbb328d7e70ce82777b15bffd77a')"
+    ]
+  }
+}

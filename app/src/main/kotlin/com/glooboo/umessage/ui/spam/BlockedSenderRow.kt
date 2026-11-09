@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -50,6 +49,11 @@ import com.glooboo.umessage.ui.components.rememberTimeLabel
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.conversations.SwipeAction
 import com.glooboo.umessage.ui.conversations.SwipeBackground
+import com.glooboo.umessage.ui.conversations.MAX_UNREAD_BADGE
+import com.glooboo.umessage.ui.conversations.UnreadBadge
+import com.glooboo.umessage.ui.conversations.unreadPreviewWeight
+import com.glooboo.umessage.ui.conversations.unreadTitleWeight
+import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.icons.Symbols
 
 /** Row height floor, as on the Messages tab: two lines of text plus padding. */
@@ -117,6 +121,13 @@ private fun SenderRowContent(
     val time = rememberTimeLabel(latest.receivedAt)
     val count = group.messages.size
     val countText = pluralStringResource(R.plurals.spam_message_count, count, count)
+    val unread = group.unread
+    val unreadText = if (unread) stringResource(R.string.convlist_unread_count, group.unreadCount) else null
+    val badge = if (group.unreadCount > MAX_UNREAD_BADGE) {
+        localizeDigits("$MAX_UNREAD_BADGE+", uiLocale())
+    } else {
+        localizedNumber(group.unreadCount, uiLocale())
+    }
     val shown = isolateNumbers(displayNumber(group.address))
     val body = blockedBodyText(LocalResources.current, latest)
     val reason = reasonText(latest, rules)
@@ -129,7 +140,7 @@ private fun SenderRowContent(
     val separator = stringResource(R.string.ui_separator)
     // The row no longer shows the reason or the picture state, but TalkBack still reads them.
     val description = listOfNotNull(
-        shown, countText, body, mmsText, reason, importantText.takeIf { important }, time, sim,
+        shown, unreadText, countText, body, mmsText, reason, importantText.takeIf { important }, time, sim,
     ).joinToString(separator)
     val openLabel = stringResource(R.string.r3b_open_sender)
     val selectLabel = stringResource(R.string.spam_select)
@@ -139,6 +150,9 @@ private fun SenderRowContent(
     )
     // A selected row sits on primaryContainer, so every text takes its on-color.
     val strong = if (selected) colors.onPrimaryContainer else colors.onSurface
+    // As a Messages row: an unread time takes the accent colour (unless the row is selected).
+    val timeColor = if (selected) colors.onPrimaryContainer else if (unread) colors.primary else colors.onSurfaceVariant
+    val previewColor = if (unread && !selected) colors.onSurface else quiet
     val quiet = if (selected) colors.onPrimaryContainer else colors.onSurfaceVariant
     val align = startAlign()
     Row(
@@ -178,12 +192,19 @@ private fun SenderRowContent(
                         textAlign = align,
                     ),
                     color = strong,
+                    fontWeight = unreadTitleWeight(unread),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.weight(1f),
                 )
                 if (important) ImportantChip(importantText, selected)
-                Text(time, style = MaterialTheme.typography.labelMedium, color = quiet, maxLines = 1)
+                Text(
+                    time,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = timeColor,
+                    fontWeight = unreadTitleWeight(unread),
+                    maxLines = 1,
+                )
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text(
@@ -192,13 +213,15 @@ private fun SenderRowContent(
                         textDirection = TextDirection.Content,
                         textAlign = align,
                     ),
-                    color = quiet,
+                    color = previewColor,
+                    fontWeight = unreadPreviewWeight(unread),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.weight(1f),
                 )
                 sim?.let { RowChip(it, selected) }
-                if (count > 1) CountBadge(count)
+                // The Messages row's own badge, counting the unread messages of the sender.
+                if (unread) UnreadBadge(badge)
             }
         }
     }
@@ -236,22 +259,6 @@ private fun RowChip(text: String, selected: Boolean) {
         modifier = Modifier
             .clip(RoundedCornerShape(6.dp))
             .background(colors.surfaceContainerHigh)
-            .padding(horizontal = 6.dp, vertical = 1.dp),
-    )
-}
-
-/** How many held messages the sender has, as a small pill where a Messages row shows its unread count. */
-@Composable
-private fun CountBadge(count: Int) {
-    val colors = MaterialTheme.colorScheme
-    Text(
-        localizedNumber(count, uiLocale()),
-        style = MaterialTheme.typography.labelSmall,
-        color = colors.onSecondaryContainer,
-        maxLines = 1,
-        modifier = Modifier
-            .clip(CircleShape)
-            .background(colors.secondaryContainer)
             .padding(horizontal = 6.dp, vertical = 1.dp),
     )
 }

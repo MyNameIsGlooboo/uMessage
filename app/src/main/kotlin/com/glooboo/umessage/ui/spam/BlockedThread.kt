@@ -164,6 +164,9 @@ fun BlockedThreadRoute(
     val appContext = LocalContext.current.applicationContext
     val heldIds = state.groups.firstOrNull { it.hasAddress(address) }?.messages?.map { it.id }.orEmpty()
     LaunchedEffect(heldIds) { BlockedNotifier.cancel(appContext, heldIds) }
+    // Opening the thread reads it; a message that arrives while it is open is read too (the effect runs again).
+    val unreadHeld = state.groups.firstOrNull { it.hasAddress(address) }?.unreadCount ?: 0
+    LaunchedEffect(address, unreadHeld) { if (unreadHeld > 0) viewModel.markRead(address) }
     // A last snackbar (a failure) is let finish before the screen goes. While the chat opens it never closes here.
     val settled = !state.loading && !hasMessages && !state.hasPendingUndo && !moving &&
         snackbar.currentSnackbarData == null

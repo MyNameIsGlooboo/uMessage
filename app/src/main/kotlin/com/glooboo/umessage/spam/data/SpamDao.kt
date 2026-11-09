@@ -70,6 +70,10 @@ interface SpamDao {
     @Query("UPDATE blocked_messages SET media = :media, mediaFile = :mediaFile, body = :body WHERE id = :id")
     fun updateMedia(id: Long, media: MmsMedia, mediaFile: String?, body: String): Int
 
+    /** Opening a sender's thread reads its messages: the Blocked tab row stops being bold. */
+    @Query("UPDATE blocked_messages SET unread = 0 WHERE id IN (:ids) AND unread = 1")
+    fun markBlockedRead(ids: List<Long>): Int
+
     @Query("SELECT mediaFile FROM blocked_messages WHERE id IN (:ids) AND mediaFile IS NOT NULL")
     fun mediaFilesOf(ids: List<Long>): List<String>
 

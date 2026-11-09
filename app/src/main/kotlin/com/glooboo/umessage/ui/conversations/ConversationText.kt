@@ -1,5 +1,7 @@
 package com.glooboo.umessage.ui.conversations
 
+import androidx.compose.ui.text.font.FontWeight
+
 /**
  * Pure rules for the conversation row: how many preview lines it gets and its avatar tone. Kept free of Android so
  * they run in JVM tests. A bare number's display form lives in ui/components/PhoneNumberDisplay.kt.
@@ -18,5 +20,16 @@ internal fun avatarToneIndex(name: String, paletteSize: Int): Int {
     name.trim().lowercase().forEach { hash = HASH_MULTIPLIER * hash + it.code }
     return hash.mod(paletteSize)
 }
+
+/**
+ * How an unread chat is drawn, in one place so the Messages tab and the Blocked tab agree: the title and the time are
+ * bold, the preview semi-bold; a read chat is all normal weight.
+ */
+internal fun unreadTitleWeight(unread: Boolean): FontWeight = if (unread) FontWeight.Bold else FontWeight.Normal
+
+internal fun unreadPreviewWeight(unread: Boolean): FontWeight = if (unread) FontWeight.SemiBold else FontWeight.Normal
+
+/** The most an unread badge counts before it reads "99+". */
+internal const val MAX_UNREAD_BADGE = 99
 
 private const val HASH_MULTIPLIER = 31
