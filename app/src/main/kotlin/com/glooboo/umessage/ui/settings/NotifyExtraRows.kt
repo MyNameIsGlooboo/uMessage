@@ -36,7 +36,6 @@ fun NotifyExtraRows(appLockOn: Boolean) {
             copyOnTap = it
             prefs.copyCodeOnTap = it
         },
-        info = stringResource(R.string.otp_tap_copy_info),
     )
     var wake by remember { mutableStateOf(prefs.wakeScreen) }
     SettingsSwitchRow(
