@@ -4,9 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-### Changed
+## [0.4.6] - 2026-11-11
+### Added
 - Automatic forwarding is now available in every build, including Google Play
+- Phone numbers in messages are tappable: call, copy, share or add to contacts
+- A "new message" chip when a message arrives while you are scrolled up in a chat, and Undo after deleting messages in a chat
+- Select several messages in a Blocked chat to move them to the inbox or delete them
+- "Test on recent messages" in the rule editor
+- Search inside a chat also finds older messages that are not loaded yet
+- A PIN length hint on the lock screen and when you set a PIN
+
+### Changed
+- Deleting whole chats asks first, and left-swipe block asks first for people in your contacts
+- A multi-attachment message that failed to send resends only the parts that were not sent
+- Exports shared from the app are removed from the cache after 15 minutes
+- Faster conversation list and search
+- Many small fixes from a full code review
 
 ## [0.4.5] - 2026-11-09
 ### Added

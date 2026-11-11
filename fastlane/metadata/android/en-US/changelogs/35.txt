@@ -1,0 +1,6 @@
+• Automatic forwarding is now in the Google Play version too
+• Tap a phone number in a message to call, copy or save it
+• Delete asks first; a failed multi-picture message resends only the missing parts
+• Search inside a chat finds older messages
+• Select several messages in a Blocked chat; test a rule on recent messages
+• Many small fixes and faster lists
