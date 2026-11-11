@@ -8,7 +8,7 @@
     <string name="carrier_report_invalid">ใช้ตัวเลข 3 ถึง 8 หลัก</string>
     <string name="carrier_report_action">รายงานให้ผู้ให้บริการเครือข่าย</string>
     <string name="carrier_report_title">รายงานให้ผู้ให้บริการเครือข่ายไหม?</string>
-    <string name="carrier_report_body">จะส่งข้อความล่าสุดจากผู้ส่งรายนี้ไปยัง %1$s เป็น SMS ผู้ให้บริการเครือข่ายอาจคิดค่าบริการ</string>
+    <string name="carrier_report_body">จะส่งข้อความล่าสุดจากผู้ส่งรายนี้ พร้อมหมายเลขของผู้ส่งไว้ด้านล่าง ไปยัง %1$s เป็น SMS ผู้ให้บริการเครือข่ายอาจคิดค่าบริการ</string>
     <string name="carrier_report_send">ส่ง</string>
     <string name="carrier_report_sent">ส่งรายงานให้ผู้ให้บริการเครือข่ายแล้ว</string>
     <string name="carrier_report_failed">ส่งรายงานไม่ได้</string>

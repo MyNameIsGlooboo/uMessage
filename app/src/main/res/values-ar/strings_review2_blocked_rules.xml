@@ -15,6 +15,25 @@
     <string name="e_restored_empty">الرسائل التي تنقلها إلى الرسائل الواردة من الآن ستظهر هنا لمدة 30 يومًا.</string>
     <string name="e_restored_when">نُقلت إلى الرسائل الواردة %1$s</string>
     <string name="e_restored_open">افتح المحادثة مع %1$s</string>
+    <string name="e_snack_allowed_one">أصبح %1$s مسموحًا دائمًا على شريحتي SIM</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="zero">أصبح %d مرسل مسموحًا دائمًا على شريحتي SIM</item>
+        <item quantity="one">أصبح مرسل واحد (%d) مسموحًا دائمًا على شريحتي SIM</item>
+        <item quantity="two">أصبح مرسلان (%d) مسموحين دائمًا على شريحتي SIM</item>
+        <item quantity="few">أصبح %d مرسلين مسموحين دائمًا على شريحتي SIM</item>
+        <item quantity="many">أصبح %d مرسلًا مسموحًا دائمًا على شريحتي SIM</item>
+        <item quantity="other">أصبح %d مرسل مسموحًا دائمًا على شريحتي SIM</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">أصبح %1$s مسموحًا دائمًا</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="zero">أصبح %d مرسل مسموحًا دائمًا</item>
+        <item quantity="one">أصبح مرسل واحد (%d) مسموحًا دائمًا</item>
+        <item quantity="two">أصبح مرسلان (%d) مسموحين دائمًا</item>
+        <item quantity="few">أصبح %d مرسلين مسموحين دائمًا</item>
+        <item quantity="many">أصبح %d مرسلًا مسموحًا دائمًا</item>
+        <item quantity="other">أصبح %d مرسل مسموحًا دائمًا</item>
+    </plurals>
+    <string name="e_view_rule">اعرض القاعدة</string>
     <string name="e_rules_title">القواعد</string>
     <string name="e_rules_menu_backup">انسخ احتياطيًا واستعد</string>
     <string name="e_note_blocked_by_you">محظور بواسطتك</string>
@@ -29,6 +48,8 @@
     <string name="e_example_block_cancel_word">احظر الرسائل التي تحتوي على لغو۱۱</string>
     <string name="e_example_block_ad_prefix">احظر أرقام الإعلانات التي تبدأ بـ 3000</string>
     <string name="e_example_allow_number">اسمح دائمًا برقم، مثل رقم مكتب البريد</string>
+    <string name="e_sheet_sender_label">المرسل</string>
+    <string name="e_sheet_text_label">نص الرسالة</string>
     <string name="e_value_number">رقم الهاتف</string>
     <string name="e_value_prefix">يبدأ الرقم بـ</string>
     <string name="e_value_sender">اسم المرسل</string>

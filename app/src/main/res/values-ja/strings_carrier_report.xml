@@ -8,7 +8,7 @@
     <string name="carrier_report_invalid">3〜8桁の数字を入力してください。</string>
     <string name="carrier_report_action">通信事業者に報告</string>
     <string name="carrier_report_title">通信事業者に報告しますか？</string>
-    <string name="carrier_report_body">この送信者からの最新メッセージをSMSで%1$sに送信します。通信事業者から料金を請求される場合があります。</string>
+    <string name="carrier_report_body">この送信者からの最新メッセージを、送信者の番号を添えてSMSで%1$sに送信します。通信事業者から料金を請求される場合があります。</string>
     <string name="carrier_report_send">送信</string>
     <string name="carrier_report_sent">通信事業者に報告を送信しました。</string>
     <string name="carrier_report_failed">報告を送信できませんでした。</string>

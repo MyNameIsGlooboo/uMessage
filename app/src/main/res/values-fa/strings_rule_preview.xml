@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rule_preview_button">آزمایش روی پیام‌های اخیر</string>
+    <string name="rule_preview_loading">در حال بررسی پیام‌های اخیر…</string>
+    <string name="rule_preview_failed">بررسی پیام‌های اخیر نشد. دوباره امتحان کنید.</string>
+    <string name="rule_preview_nothing">هنوز پیام اخیری برای بررسی نیست.</string>
+    <string name="rule_preview_inbox">صندوق ورودی: این قانون با %1$d پیام از %2$d پیام آخر جور درمیاد</string>
+    <string name="rule_preview_inbox_empty">صندوق ورودی: پیامی برای بررسی نیست</string>
+    <string name="rule_preview_blocked">مسدودشده‌ها: این قانون با %1$d پیام از %2$d پیام آخر جور درمیاد</string>
+    <string name="rule_preview_blocked_empty">مسدودشده‌ها: پیامی برای بررسی نیست</string>
+    <string name="rule_preview_examples">مثلاً: %1$s</string>
+</resources>

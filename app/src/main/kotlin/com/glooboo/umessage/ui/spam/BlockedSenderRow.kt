@@ -127,10 +127,14 @@ private fun SenderRowContent(
     val unreadText = if (unread) stringResource(R.string.convlist_unread_count, group.unreadCount) else null
     val badge = unreadBadgeText(group.unreadCount)
     val shown = isolateNumbers(displayNumber(group.address))
+    val resources = LocalResources.current
+    // Regex work: once per message and rules change, not on every recomposition (swipe, selection animation).
     // "Hide codes on the lock screen" hides the code in the row (and so in what TalkBack reads) too.
-    val body = rememberCodeHidden(blockedBodyText(LocalResources.current, latest))
+    val body = rememberCodeHidden(remember(resources, latest) { blockedBodyText(resources, latest) })
     val reason = reasonText(latest, rules)
-    val important = latest.reason == DecisionReason.UNKNOWN_SENDER && BlockedHints.looksImportant(latest.body)
+    val important = remember(latest) {
+        latest.reason == DecisionReason.UNKNOWN_SENDER && BlockedHints.looksImportant(latest.body)
+    }
     val importantText = stringResource(R.string.blocked_may_be_important)
     val mmsText = mmsMediaLabel(latest)?.takeIf { latest.hasText }?.let { stringResource(it) }
     // One SIM chip when all the sender's messages came on one SIM, as a conversation row shows it.

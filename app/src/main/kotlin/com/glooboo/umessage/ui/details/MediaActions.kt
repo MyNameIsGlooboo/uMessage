@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -61,8 +62,15 @@ internal fun LazyListScope.mediaItems(media: ConversationMedia?, actions: MediaA
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                items(media.images.take(RECENT_IMAGES), key = { it.attachment.uriString }) { image ->
-                    MediaThumb(image, onClick = { actions.onOpenImage(image) }, modifier = Modifier.size(ThumbSize))
+                val recent = media.images.take(RECENT_IMAGES)
+                itemsIndexed(recent, key = { _, entry -> entry.attachment.uriString }) { index, image ->
+                    MediaThumb(
+                        image,
+                        onClick = { actions.onOpenImage(image) },
+                        modifier = Modifier.size(ThumbSize),
+                        position = index + 1,
+                        total = recent.size,
+                    )
                 }
             }
         }
@@ -100,10 +108,22 @@ internal fun MediaThumb(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
+    position: Int = 0,
+    total: Int = 0,
 ) {
     val side = with(LocalDensity.current) { ThumbSize.roundToPx() }
     val load by rememberGlideBitmap(image.attachment.getUri(), side, side)
-    val description = stringResource(R.string.i56_picture_description)
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val tapToOpen = stringResource(R.string.i56_picture_description)
+    val description = if (position > 0 && total > 0) {
+        val date = android.text.format.DateUtils.formatDateTime(
+            context, image.message.date * MILLIS_PER_SECOND, android.text.format.DateUtils.FORMAT_SHOW_DATE or
+                android.text.format.DateUtils.FORMAT_ABBREV_MONTH,
+        )
+        stringResource(R.string.i56_picture_position, position, total, date)
+    } else {
+        tapToOpen
+    }
     val showInChat = stringResource(R.string.i56_show_in_chat)
     Box(
         modifier
@@ -123,3 +143,5 @@ internal fun MediaThumb(
         }
     }
 }
+
+private const val MILLIS_PER_SECOND = 1000L

@@ -26,6 +26,8 @@ class MainSearchTest {
         assertFalse(isSearchable(""))
         assertFalse(isSearchable("a"))
         assertTrue(isSearchable("ab"))
+        assertFalse(isSearchable("  "))
+        assertFalse(isSearchable(" a "))
     }
 
     @Test

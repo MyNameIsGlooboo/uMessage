@@ -19,6 +19,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -98,12 +100,18 @@ fun SettingsRoute(
             onOpenDecisionLog = onOpenDecisionLog,
         )
     }
-    SettingsScreen(state, actions)
+    val snackbar = remember { SnackbarHostState() }
+    val failedText = stringResource(R.string.spam_snack_failed)
+    LaunchedEffect(viewModel) {
+        viewModel.failureFlow.collect { snackbar.showSnackbar(failedText) }
+    }
+    SettingsScreen(state, actions, snackbar)
 }
 
 @Composable
-fun SettingsScreen(state: SettingsUiState, actions: SettingsActions) {
+fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, snackbarHostState: SnackbarHostState? = null) {
     UMessageScaffold(
+        snackbarHostState = snackbarHostState,
         topBar = {
             UMessageTopBar(title = stringResource(R.string.settings_nav_spam_page_title), onBack = actions.onBack)
         },

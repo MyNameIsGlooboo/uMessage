@@ -8,6 +8,7 @@
     <string name="i56_empty_links">لینکی در این گفتگو نیست.</string>
     <string name="i56_show_in_chat">نمایش در گفتگو</string>
     <string name="i56_load_more">نمایش بیشتر</string>
+    <string name="i56_picture_position">عکس %1$d از %2$d، %3$s. برای باز کردن ضربه بزنید.</string>
     <string name="i56_picture_description">عکس. برای باز کردن ضربه بزنید.</string>
     <plurals name="i56_count_pictures" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d عکس</item>

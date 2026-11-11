@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.TextRange
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.glooboo.umessage.models.Attachment
 import com.glooboo.umessage.messaging.RepeatRule
 import com.glooboo.umessage.models.AttachmentSelection
@@ -19,7 +20,13 @@ import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageKey
 import com.glooboo.umessage.models.SIMCard
 import com.glooboo.umessage.models.ThreadItem
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -281,12 +288,31 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
     var searchIndex by mutableIntStateOf(0)
         private set
 
-    /** The loaded messages whose text holds [searchQuery], newest first. */
+    /** Matches found in the database among messages that are not loaded yet; see [searchOlder]. */
+    private var olderHits by mutableStateOf<List<SearchHit>>(emptyList())
+
+    /** True while the database is searched for older messages: the search bar says so. */
+    var searchingOlder by mutableStateOf(false)
+        private set
+
+    /**
+     * Set by the activity: the matches for a query among all messages of the thread, read off the main thread (the
+     * list holds only the newest page and the pages scrolled in). Null: only loaded messages are searched.
+     */
+    var olderSearch: ((threadId: Long, query: String) -> List<SearchHit>)? = null
+
+    /** Set by the activity: loads history up to a message that is not loaded yet, then scrolls to it. */
+    var loadAndScrollTo: ((MessageKey) -> Unit)? = null
+
+    private var searchJob: Job? = null
+
+    /** The messages whose text holds [searchQuery], loaded or not, newest first. */
     val searchMatches: List<MessageKey> by derivedStateOf {
         if (searchQuery.isBlank()) {
             emptyList()
         } else {
-            messages().filter { matchesSearch(it.body, searchQuery) }.map { it.key }.asReversed()
+            val loaded = messages().filter { matchesSearch(it.body, searchQuery) }.map { SearchHit(it.key, it.date) }
+            mergeSearchHits(loaded.asReversed(), olderHits)
         }
     }
 
@@ -302,6 +328,9 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
     }
 
     fun closeSearch() {
+        searchJob?.cancel()
+        searchingOlder = false
+        olderHits = emptyList()
         searchOpen = false
         searchQuery = ""
         searchIndex = 0
@@ -310,7 +339,44 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
     fun updateSearch(query: String) {
         searchQuery = query
         searchIndex = 0
-        currentSearchMatch?.let(::scrollToMessage)
+        searchOlder(query)
+        currentSearchMatch?.let(::showSearchMatch)
+    }
+
+    /** Looks for [query] in the messages that are not loaded yet, after a short pause in typing. */
+    @Suppress("TooGenericExceptionCaught", "SwallowedException") // A failed search just shows no older hits.
+    private fun searchOlder(query: String) {
+        searchJob?.cancel()
+        olderHits = emptyList()
+        val search = olderSearch
+        val nothingToSearch = isRecycleBin || threadId == 0L
+        if (query.isBlank() || search == null || nothingToSearch) {
+            searchingOlder = false
+            return
+        }
+        searchingOlder = true
+        val thread = threadId
+        searchJob = viewModelScope.launch {
+            delay(SEARCH_PAUSE_MS)
+            val hits = try {
+                withContext(Dispatchers.IO) { search(thread, query) }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                emptyList()
+            }
+            if (searchQuery != query) return@launch
+            val before = currentSearchMatch
+            olderHits = hits
+            searchingOlder = false
+            // Nothing was loaded to show: go to the newest match that was found only now.
+            if (before == null) currentSearchMatch?.let(::showSearchMatch)
+        }
+    }
+
+    /** Scrolls to [message], first loading the history up to it when it is not among the loaded messages. */
+    private fun showSearchMatch(message: MessageKey) {
+        if (messages().any { it.key == message }) scrollToMessage(message) else loadAndScrollTo?.invoke(message)
     }
 
     fun showOlderMatch() = moveSearch(olderMatch(searchIndex, searchMatches.size))
@@ -319,7 +385,7 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
 
     private fun moveSearch(index: Int) {
         searchIndex = index
-        currentSearchMatch?.let(::scrollToMessage)
+        currentSearchMatch?.let(::showSearchMatch)
     }
     // endregion
 
@@ -423,6 +489,7 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
     // endregion
 
     private companion object {
+        const val SEARCH_PAUSE_MS = 250L
         const val KEY_SCHEDULED_MILLIS = "scheduled_millis"
         const val KEY_SCHEDULED_MESSAGE_ID = "scheduled_message_id"
         const val KEY_SCHEDULED_REPEAT = "scheduled_repeat"

@@ -115,6 +115,7 @@ class ConversationsViewModelTest {
         awaitUntil { rowIds().size == 2 }
 
         vm.deleteOne(dad.threadId)
+        vm.confirmDelete()
         awaitUntil { events.any { it is ConversationsEvent.Deleted } }
         val token = (events.single { it is ConversationsEvent.Deleted } as ConversationsEvent.Deleted).token
         // The event is sent before the background rebuild has dropped the chat from the rows: wait for the rows too.
@@ -124,10 +125,31 @@ class ConversationsViewModelTest {
         vm.replayPendingUndo()
         awaitUntil { events.count { it is ConversationsEvent.Deleted } == 2 }
         assertThat(events.filterIsInstance<ConversationsEvent.Deleted>().map { it.token }).containsExactly(token, token)
-        assertThat(rowIds()).containsExactly(mom.threadId)
+        awaitUntil { rowIds() == listOf(mom.threadId) }
 
         vm.undoDelete(token)
         awaitUntil { rowIds().size == 2 }
+    }
+
+    /** main-1: Delete only asks; the chat stays until the user confirms, and Cancel changes nothing. */
+    @Test
+    fun deleteWaitsForConfirmation() {
+        vm.submit(listOf(dad, mom), cached = false, firstRun = false)
+        awaitUntil { rowIds().size == 2 }
+
+        vm.deleteOne(dad.threadId)
+        awaitUntil { vm.state.value.confirmDeleteCount == 1 }
+        assertThat(rowIds()).containsExactly(dad.threadId, mom.threadId)
+        assertThat(events.filterIsInstance<ConversationsEvent.Deleted>()).isEmpty()
+
+        vm.cancelDelete()
+        awaitUntil { vm.state.value.confirmDeleteCount == 0 }
+        assertThat(rowIds().size).isEqualTo(2)
+
+        vm.deleteOne(dad.threadId)
+        awaitUntil { vm.state.value.confirmDeleteCount == 1 }
+        vm.confirmDelete()
+        awaitUntil { rowIds() == listOf(mom.threadId) && vm.state.value.confirmDeleteCount == 0 }
     }
 
     /** MC-37: Report spam blocks the sender with a uMessage rule and archives the chat; Undo takes both back. */

@@ -5,6 +5,7 @@ import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.getMessagesDB
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.moveMessageToRecycleBin
+import com.glooboo.umessage.extensions.restoreMessageFromRecycleBin
 import com.glooboo.umessage.extensions.updateLastConversationMessage
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageKey
@@ -16,6 +17,7 @@ import kotlinx.coroutines.runBlocking
  * Which messages qualify is decided by [MessageRetention]; this class reads the cache in pages, moves a batch of at
  * most [MessageRetention.BATCH] and tells the lists. Blocking: call it on a background thread.
  */
+@Suppress("TooManyFunctions") // One small step per cleanup rule; the entry points read top to bottom.
 class RetentionRunner(context: Context) {
 
     private val app = context.applicationContext
@@ -40,8 +42,37 @@ class RetentionRunner(context: Context) {
         return moved
     }
 
+    /**
+     * After the user confirmed the read-codes cleanup: moves the read codes older than [days], batch after batch, and
+     * returns their keys so the caller can offer Undo through [restore]. Only codes move here, never other messages.
+     */
+    fun moveCodesNow(days: Int, now: Long): List<MessageKey> {
+        if (!app.config.useRecycleBin || days <= 0) return emptyList()
+        val moved = ArrayList<MessageKey>()
+        repeat(MAX_ROUNDS) {
+            val batch = pickCodes(days, now)
+            moveToBin(batch)
+            moved += batch.map { it.key }
+            if (batch.size < MessageRetention.BATCH) return moved
+        }
+        return moved
+    }
+
+    /** Undo of [moveCodesNow]: takes [keys] back out of the recycle bin and tells the lists. */
+    fun restore(keys: List<MessageKey>) {
+        if (keys.isEmpty()) return
+        keys.forEach { app.restoreMessageFromRecycleBin(it.id, it.isMMS) }
+        val threads = keys.mapNotNull { app.messagesDB.getMessage(it.id, it.isMMS)?.threadId }.toSet()
+        app.updateLastConversationMessage(threads)
+        refreshConversations()
+        refreshMessages()
+    }
+
     /** How many messages [days] of keep-time would move to the bin now (counted up to [PREVIEW_LIMIT]). */
     fun countOld(days: Int, now: Long): Int = pickOld(days, now, PREVIEW_LIMIT).size
+
+    /** How many read code messages [days] of keep-time would move to the bin now (counted up to [PREVIEW_LIMIT]). */
+    fun countCodes(days: Int, now: Long): Int = pickCodes(days, now, PREVIEW_LIMIT).size
 
     private fun moveBatch(now: Long): Int {
         val codeDays = prefs.codeDays
@@ -49,13 +80,17 @@ class RetentionRunner(context: Context) {
         val codes = if (codeDays > 0) pickCodes(codeDays, now) else emptyList()
         val old = if (oldDays > 0) pickOld(oldDays, now, MessageRetention.BATCH) else emptyList()
         val batch = (codes + old).distinctBy { it.key }.take(MessageRetention.BATCH)
+        moveToBin(batch)
+        return batch.size
+    }
+
+    private fun moveToBin(batch: List<Message>) {
         batch.forEach { app.moveMessageToRecycleBin(it.id, it.isMMS, it) }
         if (batch.isNotEmpty()) {
             app.updateLastConversationMessage(batch.map { it.threadId }.toSet())
             refreshConversations()
             refreshMessages()
         }
-        return batch.size
     }
 
     private fun isStarred(message: Message) = app.starredDB.isStarred(message.id, message.isMMS)
@@ -68,12 +103,10 @@ class RetentionRunner(context: Context) {
         return { m -> MessageNoteKey.of(m) in noteKeys || MessageKey(m.id, m.isMMS) in reminded }
     }
 
-    private fun pickCodes(days: Int, now: Long): List<Message> {
+    private fun pickCodes(days: Int, now: Long, limit: Int = MessageRetention.BATCH): List<Message> {
         val cutoff = MessageRetention.cutoffSeconds(now, days)
         val kept = keptLookup()
-        return scan(cutoff, MessageRetention.BATCH) {
-            MessageRetention.selectCodes(it, cutoff, kept) { m -> isStarred(m) }
-        }
+        return scan(cutoff, limit) { MessageRetention.selectCodes(it, cutoff, kept) { m -> isStarred(m) } }
     }
 
     private fun pickOld(days: Int, now: Long, limit: Int): List<Message> {

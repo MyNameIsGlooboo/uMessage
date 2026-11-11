@@ -281,6 +281,13 @@ private fun Header(state: LockUiState, modifier: Modifier = Modifier) {
         if (state.inputType == PROTECTION_PIN) {
             Spacer(Modifier.height(16.dp))
             PinDots(state.pinLength)
+            // The allowed range only, never the real length of the stored PIN.
+            Text(
+                stringResource(R.string.lock_pin_length_hint, AppLockLogic.MIN_PIN_LENGTH, AppLockLogic.MAX_PIN_LENGTH),
+                style = MaterialTheme.typography.bodySmall,
+                color = colors.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+            )
         }
     }
 }

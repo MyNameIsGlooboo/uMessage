@@ -127,6 +127,8 @@ class SmsReceiver : BroadcastReceiver() {
                 subscriptionId = subscriptionId,
                 status = runCatching { last.status }.getOrDefault(0),
                 createdAt = now,
+                // The carrier's send time; without a usable one (0 or a time in the future) date_sent stays unset.
+                dateSent = runCatching { last.timestampMillis }.getOrDefault(0L).takeIf { it in 1..now } ?: 0L,
             )
         }
 

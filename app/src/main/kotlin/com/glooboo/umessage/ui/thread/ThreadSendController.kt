@@ -1,7 +1,8 @@
 package com.glooboo.umessage.ui.thread
 
 import android.content.Context
-import com.glooboo.umessage.messaging.sendMessageCompat
+import com.glooboo.umessage.messaging.SendOutcome
+import com.glooboo.umessage.messaging.sendMessageDetailed
 import com.glooboo.umessage.models.Attachment
 import com.glooboo.umessage.models.MessageKey
 
@@ -20,14 +21,17 @@ data class OutgoingMessage(
     val onAttachmentHandedOff: (Attachment) -> Unit = {},
 )
 
-/** Hands a message to the system. Returns false when nothing reached the provider; may throw. */
+/**
+ * Hands a message to the system. [SendOutcome.handedOff] is false when something did not reach the provider (for a
+ * message with several attachments, [SendOutcome] says which parts did); may throw.
+ */
 fun interface MessageSender {
-    fun send(message: OutgoingMessage): Boolean
+    fun send(message: OutgoingMessage): SendOutcome
 }
 
 /** [MessageSender] through the app's SMS/MMS code. */
 class ContextMessageSender(private val context: Context) : MessageSender {
-    override fun send(message: OutgoingMessage): Boolean = context.sendMessageCompat(
+    override fun send(message: OutgoingMessage): SendOutcome = context.sendMessageDetailed(
         text = message.text,
         addresses = message.addresses,
         subId = message.subscriptionId,
@@ -50,10 +54,16 @@ class ThreadSendController(
      * [completed] is false when the send threw: nothing new can be in the provider then. A send that returned,
      * even unsuccessfully, may have left a failed row (with Retry) to show.
      */
-    data class Result(val handedOff: Boolean, val clearComposer: Boolean, val completed: Boolean)
+    data class Result(
+        val handedOff: Boolean,
+        val clearComposer: Boolean,
+        val completed: Boolean,
+        /** Set when only some attachments went out: what is left to send, and whether the text already went. */
+        val partial: SendOutcome? = null,
+    )
 
     fun send(message: OutgoingMessage, fromComposer: Boolean): Result {
-        val handedOff = try {
+        val outcome = try {
             sender.send(message)
         } catch (e: Exception) {
             onError(e)
@@ -62,7 +72,13 @@ class ThreadSendController(
             onError(e)
             return Result(handedOff = false, clearComposer = false, completed = false)
         }
-        return Result(handedOff, shouldClearComposerAfterSend(handedOff, fromComposer), completed = true)
+        val handedOff = outcome.handedOff
+        return Result(
+            handedOff,
+            shouldClearComposerAfterSend(handedOff, fromComposer),
+            completed = true,
+            partial = outcome.takeIf { it.partlySent },
+        )
     }
 }
 

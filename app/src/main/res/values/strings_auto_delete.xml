@@ -15,4 +15,10 @@
     </plurals>
     <string name="cleanup_old_confirm_none">No message is that old yet. Older ones will move to the recycle bin by themselves. Starred and unread messages and pinned chats stay.</string>
     <string name="cleanup_old_confirm_action">Move</string>
+    <string name="cleanup_codes_confirm_title">Move read codes?</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="one">%d read code message is older than that and moves to the recycle bin now. Starred messages stay.</item>
+        <item quantity="other">%d read code messages are older than that and move to the recycle bin now. Starred messages stay.</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">No read code is that old yet. Older ones will move to the recycle bin by themselves.</string>
 </resources>

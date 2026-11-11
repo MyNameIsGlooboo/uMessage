@@ -8,7 +8,7 @@
     <string name="carrier_report_invalid">Gunakan 3 hingga 8 digit</string>
     <string name="carrier_report_action">Laporkan ke operator</string>
     <string name="carrier_report_title">Laporkan ke operator?</string>
-    <string name="carrier_report_body">Pesan terbaru dari pengirim ini akan dikirim ke %1$s melalui SMS. Operator mungkin mengenakan biaya.</string>
+    <string name="carrier_report_body">Pesan terbaru dari pengirim ini, beserta nomor pengirimnya di bawahnya, akan dikirim ke %1$s melalui SMS. Operator mungkin mengenakan biaya.</string>
     <string name="carrier_report_send">Kirim</string>
     <string name="carrier_report_sent">Laporan dikirim ke operator</string>
     <string name="carrier_report_failed">Laporan tidak dapat dikirim</string>

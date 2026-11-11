@@ -8,6 +8,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.glooboo.umessage.spam.ListKind
@@ -86,6 +88,8 @@ data class RulesUiState(
     /** The old Fossify lists not yet moved into rules, shown read-only on the Blocked tab. */
     val legacy: LegacyLists = LegacyLists(offerDismissed = true),
     val migration: MigrationDialog? = null,
+    /** "Test this rule" on the open sheet: how many recent messages it would match. */
+    val preview: RulePreviewState = RulePreviewState.Idle,
 ) {
     val current: List<SpamRule> get() = if (tab == ListKind.ALLOW) allowed else blocked
     val filtering: Boolean get() = query.isNotBlank() || typeFilter != null
@@ -125,6 +129,9 @@ sealed interface RulesEvent {
 
     /** Rules made from contacts picked in the add sheet; [skipped] numbers already had a rule or were not usable. */
     data class AddedFromContacts(val added: Int, val skipped: Int) : RulesEvent
+
+    /** A delete or an undo could not be saved. */
+    data object Failed : RulesEvent
 }
 
 class RulesViewModel(
@@ -132,6 +139,7 @@ class RulesViewModel(
     private val repository: SpamRepository,
     private val legacyStore: LegacyBlockStore = NoLegacyBlockStore,
     private val io: CoroutineDispatcher = Dispatchers.IO,
+    private val previewSource: RulePreviewSource = NoRulePreviewSource,
 ) : AndroidViewModel(application) {
 
     private data class View(
@@ -153,7 +161,12 @@ class RulesViewModel(
     private val events = Channel<RulesEvent>(Channel.BUFFERED)
     val eventFlow = events.receiveAsFlow()
 
-    val state: StateFlow<RulesUiState> = combine(repository.rules, view, form, extras) { rules, view, form, extras ->
+    private val preview = MutableStateFlow<RulePreviewState>(RulePreviewState.Idle)
+    private var previewJob: Job? = null
+
+    val state: StateFlow<RulesUiState> = combine(
+        repository.rules, view, form, extras, preview
+    ) { rules, view, form, extras, preview ->
         val sorted = rules.sortedByDescending { it.createdAt }
         val ids = sorted.map { it.id }.toSet()
         RulesUiState(
@@ -168,6 +181,7 @@ class RulesViewModel(
             selected = view.selected intersect ids,
             legacy = extras.legacy,
             migration = extras.migration,
+            preview = preview,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RulesUiState())
 
@@ -203,7 +217,9 @@ class RulesViewModel(
         if (rules.isEmpty()) return
         clearSelection()
         viewModelScope.launch {
-            runCatching { repository.removeRules(rules.map { it.id }) }.onSuccess { events.trySend(RulesEvent.Deleted(rules)) }
+            runCatching { repository.removeRules(rules.map { it.id }) }
+                .onSuccess { events.trySend(RulesEvent.Deleted(rules)) }
+                .onFailure { events.trySend(RulesEvent.Failed) }
         }
     }
 
@@ -211,19 +227,62 @@ class RulesViewModel(
 
     // region Add and edit
 
-    fun openForm() { form.value = RuleForm(kind = view.value.tab) }
+    fun openForm() {
+        resetPreview()
+        form.value = RuleForm(kind = view.value.tab)
+    }
+
+    private fun resetPreview() {
+        previewJob?.cancel()
+        previewJob = null
+        preview.value = RulePreviewState.Idle
+    }
+
+    /**
+     * "Test this rule": counts what the rule in the open sheet would match among the newest inbox texts and Blocked
+     * messages, off the main thread. Nothing is stored or logged; the form's own state is not changed.
+     */
+    fun previewRule() {
+        val f = form.value ?: return
+        val valid = f.validation as? RuleValidation.Valid ?: return
+        val rule = SpamRule(kind = f.kind, type = f.type, pattern = valid.pattern, subscriptionId = f.subscriptionId)
+        previewJob?.cancel()
+        preview.value = RulePreviewState.Loading
+        val job = viewModelScope.launch {
+            val outcome = runCatching {
+                val blocked = repository.blocked.first()
+                withContext(io) {
+                    val matcher = previewSource.matcher()
+                    val inbox = RuleDryRun.scan(
+                        matcher, rule, previewSource.inbox(RuleDryRun.MAX_SCAN), keepGoing = { isActive },
+                    )
+                    val showSenders = previewSource.blockedSendersVisible()
+                    val history = RuleDryRun.scan(
+                        matcher, rule, RuleDryRun.blockedMessages(blocked), showSenders = showSenders,
+                        keepGoing = { isActive },
+                    )
+                    RuleDryRunResult(inbox, history)
+                }
+            }
+            if (!isActive) return@launch
+            preview.value = outcome.fold({ RulePreviewState.Done(it) }, { RulePreviewState.Failed })
+        }
+        previewJob = job
+    }
 
     /**
      * The starter examples of the empty tabs (ID-53): the add sheet, already set to [kind] and [type], with a
      * concrete [value] filled in when the example has one.
      */
     fun openExample(kind: ListKind, type: RuleType, value: String = "") {
+        resetPreview()
         val blank = RuleForm(kind = kind, type = type)
         form.value = if (value.isEmpty()) blank else revalidate(blank.copy(pattern = value))
     }
 
     /** Opens the same sheet as Add, filled in with [rule]; saving changes the rule in place. */
     fun openEdit(rule: SpamRule) {
+        resetPreview()
         form.value = revalidate(
             RuleForm(
                 kind = rule.kind,
@@ -237,7 +296,10 @@ class RulesViewModel(
         )
     }
 
-    fun dismissForm() { form.value = null }
+    fun dismissForm() {
+        resetPreview()
+        form.value = null
+    }
 
     /**
      * One rule per picked contact number in the sheet's list (Always allow or Always block), in the sheet's SIM
@@ -276,6 +338,8 @@ class RulesViewModel(
     fun setNote(note: String) = editForm { it.copy(note = note.take(80)) }
 
     private fun editForm(change: (RuleForm) -> RuleForm) = form.update { current ->
+        // A changed rule makes an earlier count stale.
+        if (preview.value != RulePreviewState.Idle) resetPreview()
         current?.let { revalidate(change(it).copy(saveFailed = false)) }
     }
 
@@ -375,13 +439,17 @@ class RulesViewModel(
 
     fun delete(rule: SpamRule) {
         viewModelScope.launch {
-            runCatching { repository.removeRule(rule.id) }.onSuccess { events.trySend(RulesEvent.Deleted(listOf(rule))) }
+            runCatching { repository.removeRule(rule.id) }
+                .onSuccess { events.trySend(RulesEvent.Deleted(listOf(rule))) }
+                .onFailure { events.trySend(RulesEvent.Failed) }
         }
     }
 
     /** Undo of a delete: the rules come back with their old ids, so blocked messages' reasons find them again. */
     fun restore(rules: List<SpamRule>) {
-        viewModelScope.launch { runCatching { repository.restoreRules(rules) } }
+        viewModelScope.launch {
+            runCatching { repository.restoreRules(rules) }.onFailure { events.trySend(RulesEvent.Failed) }
+        }
     }
 
     // region Old block lists (SU-33)
@@ -485,7 +553,10 @@ class RulesViewModel(
         val Factory = viewModelFactory {
             initializer {
                 val app = this[APPLICATION_KEY] as Application
-                RulesViewModel(app, SpamRepositoryProvider.get(app), AndroidLegacyBlockStore(app))
+                RulesViewModel(
+                    app, SpamRepositoryProvider.get(app), AndroidLegacyBlockStore(app),
+                    previewSource = AndroidRulePreviewSource(app),
+                )
             }
         }
     }

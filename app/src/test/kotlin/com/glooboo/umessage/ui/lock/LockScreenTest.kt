@@ -168,6 +168,7 @@ class LockScreenTest {
         compose.onNodeWithText("Forgot it?", substring = true).assertDoesNotExist()
     }
 
+    @Config(qualifiers = "w411dp-h1200dp")
     @Test
     fun `right-to-left keeps the keypad and pattern dots left to right`() {
         compose.setContent {

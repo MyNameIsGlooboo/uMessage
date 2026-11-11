@@ -42,6 +42,15 @@
         <item quantity="one">%d گفتگو حذف شد</item>
         <item quantity="other">%d گفتگو حذف شد</item>
     </plurals>
+    <plurals name="convlist_delete_confirm_title" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d گفتگو حذف شود؟</item>
+        <item quantity="other">%d گفتگو حذف شود؟</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">گفتگو با همهٔ پیام‌هایش از این گوشی پاک می‌شود. چند ثانیه بعدش می‌توانید واگرد بزنید.</item>
+        <item quantity="other">گفتگوها با همهٔ پیام‌هایشان از این گوشی پاک می‌شوند. چند ثانیه بعدش می‌توانید واگرد بزنید.</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s در مخاطبین شماست. این فرستنده مسدود شود؟ پیام‌های جدیدش به‌جای صندوق ورودی به پیام‌های مسدودشده می‌روند. بلافاصله بعدش می‌توانید واگرد بزنید.</string>
     <plurals name="convlist_archived" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d گفتگو آرشیو شد</item>
         <item quantity="other">%d گفتگو آرشیو شد</item>

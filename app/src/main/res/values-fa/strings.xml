@@ -5,6 +5,8 @@
     <string name="message_not_sent_touch_retry">ارسال نشد. برای تلاش دوباره لمس کنید.</string>
     <string name="message_sending_error">پیام شما به «%s» ارسال نشد</string>
     <string name="scheduled_attachment_missing">پیام زمان‌بندی‌شدهٔ شما به «%s» ارسال نشد: پیوست آن دیگر باز نمی‌شود. گفتگو را باز کنید و پیوست را دوباره اضافه کنید.</string>
+    <string name="message_partly_sent">بعضی از عکس‌ها و فایل‌ها رفت و بقیه نرفت. دوباره بزنید تا فقط بقیه فرستاده شود.</string>
+    <string name="scheduled_partly_sent">بخشی از پیام زمان‌بندی‌شده‌تان به «%s» فرستاده شد و بقیه نرفت. گفتگو را باز کنید و «تلاش دوباره» را بزنید تا فقط بقیه فرستاده شود.</string>
     <string name="add_person">افزودن فرد</string>
     <string name="attachment">پیوست</string>
     <string name="reply">پاسخ</string>

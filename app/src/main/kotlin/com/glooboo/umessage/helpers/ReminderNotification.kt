@@ -23,6 +23,8 @@ private const val REMINDER_CHANNEL_ID = "umessage_reminders"
  * the message cannot be found any more). On the lock screen it follows "Hide message content": the text only with
  * "Sender and message", the name with "Sender", nothing but "Reminder" otherwise.
  */
+private const val REMINDER_OPEN_ACTION = "com.glooboo.umessage.OPEN_REMINDER"
+
 class ReminderNotification(private val context: Context) {
 
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -75,7 +77,9 @@ class ReminderNotification(private val context: Context) {
         .setAutoCancel(true)
 
     private fun openIntent(reminder: MessageReminder, target: MessageKey?): PendingIntent {
-        val intent = Intent(context, ThreadActivity::class.java).putExtra(THREAD_ID, reminder.threadId)
+        // A distinct action keeps this PendingIntent from being equal to a chat notification's one.
+        val intent = Intent(context, ThreadActivity::class.java).setAction(REMINDER_OPEN_ACTION)
+            .putExtra(THREAD_ID, reminder.threadId)
         if (target != null) {
             intent.putExtra(SEARCHED_MESSAGE_ID, target.id)
             intent.putExtra(SEARCHED_MESSAGE_IS_MMS, target.isMMS)

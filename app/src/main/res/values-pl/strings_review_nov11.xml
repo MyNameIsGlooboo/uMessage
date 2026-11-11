@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_partly_sent">Część zdjęć i plików wysłano, reszty nie. Wyślij ponownie, aby wysłać tylko resztę.</string>
+    <string name="scheduled_partly_sent">Część zaplanowanej wiadomości do \'%s\' wysłano, reszty nie. Otwórz czat i dotknij Ponów, aby wysłać tylko resztę.</string>
+    <string name="cleanup_codes_confirm_title">Przenieść przeczytane kody?</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="one">%d przeczytana wiadomość z kodem jest starsza i trafi teraz do kosza. Wiadomości z gwiazdką zostają.</item>
+        <item quantity="few">%d przeczytane wiadomości z kodem są starsze i trafią teraz do kosza. Wiadomości z gwiazdką zostają.</item>
+        <item quantity="many">%d przeczytanych wiadomości z kodem jest starszych i trafi teraz do kosza. Wiadomości z gwiazdką zostają.</item>
+        <item quantity="other">%d przeczytanej wiadomości z kodem jest starszych i trafi teraz do kosza. Wiadomości z gwiazdką zostają.</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">Żaden przeczytany kod nie jest jeszcze tak stary. Starsze same trafią do kosza.</string>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="one">Usunąć %d rozmowę?</item>
+        <item quantity="few">Usunąć %d rozmowy?</item>
+        <item quantity="many">Usunąć %d rozmów?</item>
+        <item quantity="other">Usunąć %d rozmowy?</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message">
+        <item quantity="one">Rozmowa i wszystkie jej wiadomości zostaną usunięte z tego telefonu. Przez kilka sekund możesz to cofnąć.</item>
+        <item quantity="few">Rozmowy i wszystkie ich wiadomości zostaną usunięte z tego telefonu. Przez kilka sekund możesz to cofnąć.</item>
+        <item quantity="many">Rozmowy i wszystkie ich wiadomości zostaną usunięte z tego telefonu. Przez kilka sekund możesz to cofnąć.</item>
+        <item quantity="other">Rozmowy i wszystkie ich wiadomości zostaną usunięte z tego telefonu. Przez kilka sekund możesz to cofnąć.</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s jest w Twoich kontaktach. Zablokować tego nadawcę? Nowe wiadomości od niego trafią do Zablokowanych zamiast do odebranych. Możesz to od razu cofnąć.</string>
+    <string name="i29_color_red">Czerwony</string>
+    <string name="i29_color_orange">Pomarańczowy</string>
+    <string name="i29_color_yellow">Żółty</string>
+    <string name="i29_color_green">Zielony</string>
+    <string name="i29_color_teal">Morski</string>
+    <string name="i29_color_blue">Niebieski</string>
+    <string name="i29_color_purple">Fioletowy</string>
+    <string name="i29_color_brown">Brązowy</string>
+    <string name="i56_picture_position">Zdjęcie %1$d z %2$d, %3$s. Dotknij, aby otworzyć.</string>
+    <string name="notifications_off_dismiss">Nie teraz</string>
+    <string name="e_restored_clear">Wyczyść listę</string>
+    <string name="lock_pin_length_hint">PIN: od %1$d do %2$d cyfr</string>
+    <string name="cleanup_codes_undo">Cofnij</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="one">%d przeczytany kod przeniesiono do kosza</item>
+        <item quantity="few">%d przeczytane kody przeniesiono do kosza</item>
+        <item quantity="many">%d przeczytanych kodów przeniesiono do kosza</item>
+        <item quantity="other">%d przeczytanego kodu przeniesiono do kosza</item>
+    </plurals>
+    <string name="rule_preview_button">Sprawdź na ostatnich wiadomościach</string>
+    <string name="rule_preview_loading">Sprawdzanie ostatnich wiadomości…</string>
+    <string name="rule_preview_failed">Nie udało się sprawdzić ostatnich wiadomości. Spróbuj ponownie.</string>
+    <string name="rule_preview_nothing">Nie ma jeszcze ostatnich wiadomości do sprawdzenia.</string>
+    <string name="rule_preview_inbox">Odebrane: ta reguła pasuje do %1$d z ostatnich %2$d wiadomości</string>
+    <string name="rule_preview_inbox_empty">Odebrane: brak wiadomości do sprawdzenia</string>
+    <string name="rule_preview_blocked">Zablokowane: ta reguła pasuje do %1$d z ostatnich %2$d wiadomości</string>
+    <string name="rule_preview_blocked_empty">Zablokowane: brak wiadomości do sprawdzenia</string>
+    <string name="rule_preview_examples">Na przykład: %1$s</string>
+    <string name="n06_delete_confirm">Usunąć ten zapisany tekst?</string>
+    <string name="screens_vcard_email_action">E-mail</string>
+    <string name="screens_vcard_copy_hint">Przytrzymaj, aby skopiować</string>
+    <string name="screens_vcard_copied">Skopiowano</string>
+    <string name="settings_f_restore_rules_present">Reguły już na tym telefonie: %1$d, pominięto.</string>
+    <string name="settings_f_restore_too_many">Reguły w pliku ponad limit: %1$d, pominięto.</string>
+    <string name="thread_schedule_discard_confirm">Usunąć harmonogram i zapisaną zaplanowaną wiadomość? Tekst zostaje w polu.</string>
+    <string name="thread_phone_call">Zadzwoń</string>
+    <string name="thread_phone_copy">Kopiuj numer</string>
+    <string name="thread_phone_add_contact">Dodaj kontakt</string>
+    <string name="thread_search_older_busy">Szukanie starszych wiadomości…</string>
+    <plurals name="thread_new_messages_chip">
+        <item quantity="one">%d nowa wiadomość</item>
+        <item quantity="few">%d nowe wiadomości</item>
+        <item quantity="many">%d nowych wiadomości</item>
+        <item quantity="other">%d nowej wiadomości</item>
+    </plurals>
+    <string name="thread_messages_deleted">Przeniesiono do kosza</string>
+    <string name="thread_messages_deleted_undo">Cofnij</string>
+</resources>

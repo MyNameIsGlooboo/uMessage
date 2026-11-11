@@ -152,6 +152,15 @@ class ThreadAttachmentController(
         onChanged()
     }
 
+    /**
+     * After a send that went out in part: drops the attachments that were handed off and keeps the ones in
+     * [remaining], so another tap on Send resends only those.
+     */
+    fun keepOnly(remaining: List<Attachment>) {
+        val keep = remaining.map { it.uriString }.toSet()
+        vm.attachments.filter { it.uri.toString() !in keep }.forEach { remove(it) }
+    }
+
     /** Empties the composer's attachments (after a send), stopping any that was playing. */
     fun clear() {
         fileSizes.clear()

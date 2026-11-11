@@ -31,6 +31,8 @@ data class ConversationRow(
     val simName: String = "",
     /** The chat has at least one private note on a message: a small note mark shows in the row. */
     val hasNotes: Boolean = false,
+    /** A saved contact (a name, not a bare number): the block swipe asks first. Never set for a group. */
+    val isContact: Boolean = false,
 )
 
 /** What the contextual selection bar may offer, derived from the current selection. */
@@ -72,6 +74,8 @@ data class ConversationsUiState(
     val hiddenChats: Int = 0,
     /** B06: the hidden chats are unlocked, so they show in [rows]. */
     val hiddenUnlocked: Boolean = false,
+    /** Chats waiting for the user to confirm their deletion; 0 shows no dialog. */
+    val confirmDeleteCount: Int = 0,
 ) {
     val selecting: Boolean get() = selected.isNotEmpty()
 }
@@ -106,6 +110,8 @@ class ConversationsCallbacks(
     val onMarkRead: (Boolean) -> Unit = {},
     val onArchiveSelected: () -> Unit = {},
     val onDeleteSelected: () -> Unit = {},
+    val onConfirmDelete: () -> Unit = {},
+    val onCancelDelete: () -> Unit = {},
     val onArchiveOne: (Long) -> Unit = {},
     val onDeleteOne: (Long) -> Unit = {},
     val onBlockSelected: () -> Unit = {},

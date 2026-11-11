@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rule_preview_button">Test on recent messages</string>
+    <string name="rule_preview_loading">Checking recent messages…</string>
+    <string name="rule_preview_failed">Could not check recent messages. Try again.</string>
+    <string name="rule_preview_nothing">There are no recent messages to check yet.</string>
+    <string name="rule_preview_inbox">Inbox: this rule matches %1$d of the last %2$d messages</string>
+    <string name="rule_preview_inbox_empty">Inbox: no messages to check</string>
+    <string name="rule_preview_blocked">Blocked: this rule matches %1$d of the last %2$d messages</string>
+    <string name="rule_preview_blocked_empty">Blocked: no messages to check</string>
+    <string name="rule_preview_examples">For example: %1$s</string>
+</resources>

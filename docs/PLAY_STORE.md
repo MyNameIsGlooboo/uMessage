@@ -71,7 +71,7 @@ If a future version adds anything that sends data (crash reports, an online spam
 
 - [ ] Upload to **internal testing** first; check the pre-launch report (it cannot become the default SMS app, so expect limited coverage).
 - [ ] Play's new personal developer accounts must run a **closed test with at least 12 testers for 14 days** before production. **Owner:** plan for this.
-- [ ] Check that Play Protect does not flag the bundle (see the warning below).
+- [ ] Check that Play Protect does not flag the bundle (see the forwarding notes below).
 
 ## In-app rating card
 

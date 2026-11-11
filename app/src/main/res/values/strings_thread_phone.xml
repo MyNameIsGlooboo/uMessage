@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Phone numbers tapped in a message bubble. "Call" only opens the dialer with the number. -->
+    <string name="thread_phone_call">Call</string>
+    <string name="thread_phone_copy">Copy number</string>
+    <string name="thread_phone_add_contact">Add contact</string>
+</resources>

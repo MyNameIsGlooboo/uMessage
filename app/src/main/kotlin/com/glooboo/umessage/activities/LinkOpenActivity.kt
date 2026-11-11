@@ -10,6 +10,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import org.fossify.commons.extensions.copyToClipboard
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.threadPrefs
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.glooboo.umessage.ui.thread.LinkSheet
 import com.glooboo.umessage.ui.thread.linkCopyText
@@ -49,6 +50,9 @@ class LinkOpenActivity : ComponentActivity() {
                         finish()
                     },
                     onDismiss = ::finish,
+                    // The action exists for saved contacts only (NotificationHelper), so the link is trusted;
+                    // the "lock risky links" setting still applies.
+                    lockRisky = threadPrefs.riskyLinksLocked,
                 )
             }
         }

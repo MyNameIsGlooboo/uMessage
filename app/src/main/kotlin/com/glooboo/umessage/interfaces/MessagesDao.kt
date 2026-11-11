@@ -19,6 +19,9 @@ import com.glooboo.umessage.spam.TextNormalizer
 /** Search shows at most this many messages (and this many conversations), newest first (MC-17). */
 const val SEARCH_RESULTS_LIMIT = 100
 
+/** Search in one conversation reads at most this many matches. */
+const val THREAD_SEARCH_LIMIT = 1000
+
 private const val SEARCH_ORDER = "ORDER BY date DESC, id DESC LIMIT $SEARCH_RESULTS_LIMIT"
 
 /* I28, I56: the shortcut queries only prefilter in SQL; the caller keeps the rows that really hold a picture or link. */
@@ -150,6 +153,10 @@ interface MessagesDao {
     @Query("SELECT messages.* FROM messages LEFT OUTER JOIN recycle_bin_messages ON messages.id = recycle_bin_messages.id AND messages.is_mms = recycle_bin_messages.is_mms WHERE recycle_bin_messages.id IS NULL AND thread_id = :threadId AND is_scheduled = 1")
     fun getScheduledThreadMessages(threadId: Long): List<Message>
 
+    /** One scheduled message by id, without loading every scheduled message. */
+    @Query("SELECT * FROM messages WHERE id = :messageId AND is_scheduled = 1 LIMIT 1")
+    fun getScheduledMessageById(messageId: Long): Message?
+
     @Query("SELECT * FROM messages WHERE thread_id = :threadId AND id = :messageId AND is_scheduled = 1")
     fun getScheduledMessageWithId(threadId: Long, messageId: Long): Message
 
@@ -173,6 +180,21 @@ interface MessagesDao {
     /** [pattern] is a [TextNormalizer.likeContains] pattern. Newest first, at most [SEARCH_RESULTS_LIMIT]. */
     @Query("SELECT * FROM messages WHERE $SHOWN_ONLY AND body LIKE :pattern ESCAPE '\\' $SEARCH_ORDER")
     fun getMessagesWithText(pattern: String): List<Message>
+
+    /** [pattern] is a [TextNormalizer.likeContains] pattern. One thread, newest first, at most [THREAD_SEARCH_LIMIT]. */
+    @Query(
+        "SELECT * FROM messages WHERE thread_id = :threadId AND body LIKE :pattern ESCAPE '\\' AND $SHOWN_ONLY " +
+            "ORDER BY date DESC, id DESC LIMIT $THREAD_SEARCH_LIMIT"
+    )
+    fun getThreadMessagesWithText(threadId: Long, pattern: String): List<Message>
+
+    /** Like [searchMessages], within the one conversation [threadId] (search in conversation, TH-20). */
+    fun searchThreadMessages(threadId: Long, text: String): List<Message> {
+        if (!TextNormalizer.needsFold(text)) return getThreadMessagesWithText(threadId, TextNormalizer.likeContains(text))
+        val sql = TextNormalizer.sqlFoldedLike("messages", "rowid", "body", "thread_id = $threadId AND $SHOWN_ONLY") +
+            " ORDER BY date DESC, id DESC LIMIT $THREAD_SEARCH_LIMIT"
+        return getMessagesRaw(SimpleSQLiteQuery(sql, arrayOf(TextNormalizer.likeContains(TextNormalizer.fold(text)))))
+    }
 
     @RawQuery
     fun getMessagesRaw(query: SupportSQLiteQuery): List<Message>

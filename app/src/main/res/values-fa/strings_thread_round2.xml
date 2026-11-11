@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="thread_search_older_busy">دارم پیام‌های قدیمی‌تر رو می‌گردم…</string>
+    <plurals name="thread_new_messages_chip" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d پیام جدید</item>
+        <item quantity="other">%d پیام جدید</item>
+    </plurals>
+    <string name="thread_messages_deleted">به سطل بازیافت رفت</string>
+    <string name="thread_messages_deleted_undo">برگردون</string>
+</resources>

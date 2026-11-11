@@ -8,7 +8,9 @@ import com.glooboo.umessage.spam.SpamFilter
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.ui.thread.planSpamReport
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 
@@ -99,12 +101,22 @@ object SenderBlocking {
      * The allow rules of "Not spam" on the Blocked screen: removes the senders' own block rules (they would be
      * dead weight under an allow rule) and adds an allow rule for each.
      */
+    @Suppress("TooGenericExceptionCaught") // Any failure undoes the partial change and is rethrown.
     suspend fun alwaysAllow(repository: SpamRepository, addresses: Collection<String>): AllowChange {
         val removed = mutableListOf<SpamRule>()
         val added = mutableListOf<Long>()
-        addresses.map { it.trim() }.filter { it.isNotEmpty() }.distinct().forEach { address ->
-            removed += unblock(repository, address)
-            added += allow(repository, address)
+        try {
+            addresses.map { it.trim() }.filter { it.isNotEmpty() }.distinct().forEach { address ->
+                removed += unblock(repository, address)
+                added += allow(repository, address)
+            }
+        } catch (e: CancellationException) {
+            withContext(NonCancellable) { runCatching { undoAllow(repository, AllowChange(added, removed)) } }
+            throw e
+        } catch (e: Exception) {
+            // Put back what was already changed, so a failure never leaves a sender with neither rule.
+            runCatching { undoAllow(repository, AllowChange(added, removed)) }
+            throw e
         }
         return AllowChange(added, removed)
     }

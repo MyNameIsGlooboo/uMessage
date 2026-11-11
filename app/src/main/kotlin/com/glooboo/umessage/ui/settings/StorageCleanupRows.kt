@@ -1,6 +1,7 @@
 package com.glooboo.umessage.ui.settings
 
 import android.content.Context
+import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -8,6 +9,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
@@ -19,8 +22,10 @@ import com.glooboo.umessage.ui.components.ChoiceDialog
 import com.glooboo.umessage.ui.components.ConfirmDialog
 import com.glooboo.umessage.ui.components.SettingsRow
 import com.glooboo.umessage.ui.components.SettingsSwitchRow
+import com.glooboo.umessage.ui.components.showUndo
 import com.glooboo.umessage.ui.icons.Symbols
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.fossify.commons.helpers.ensureBackgroundThread
 
@@ -56,10 +61,28 @@ private fun CodesCleanupRow(binOn: Boolean, onBinChange: (Boolean) -> Unit) {
     var days by remember { mutableIntStateOf(prefs.codeDays) }
     var picking by remember { mutableStateOf(false) }
     var needBin by remember { mutableStateOf<Int?>(null) }
+    var pending by remember { mutableStateOf<Int?>(null) }
+    val snackbar = LocalSettingsSnackbar.current
+    val scope = rememberCoroutineScope()
+    val undoLabel = stringResource(R.string.cleanup_codes_undo)
     val applyChoice = { chosen: Int ->
         prefs.codeDays = chosen
         days = chosen
-        if (chosen > 0) moveDueNow(context)
+        if (chosen > 0) {
+            scope.launch {
+                val runner = RetentionRunner(context)
+                val moved = withContext(Dispatchers.IO) { runner.moveCodesNow(chosen, System.currentTimeMillis()) }
+                if (moved.isNotEmpty() && snackbar != null) {
+                    snackbar.showUndo(
+                        message = context.resources.getQuantityString(
+                            R.plurals.cleanup_codes_moved, moved.size, moved.size
+                        ),
+                        undoLabel = undoLabel,
+                        onUndo = { ensureBackgroundThread { runner.restore(moved) } },
+                    )
+                }
+            }
+        }
     }
     SettingsRow(
         title = stringResource(R.string.cleanup_codes_title),
@@ -77,7 +100,11 @@ private fun CodesCleanupRow(binOn: Boolean, onBinChange: (Boolean) -> Unit) {
             onSelect = {
                 picking = false
                 val chosen = CODE_CHOICES[it]
-                if (chosen == 0 || binOn) applyChoice(chosen) else needBin = chosen
+                when {
+                    chosen == 0 -> applyChoice(0)
+                    binOn -> pending = chosen
+                    else -> needBin = chosen
+                }
             },
             onDismiss = { picking = false },
         )
@@ -86,11 +113,24 @@ private fun CodesCleanupRow(binOn: Boolean, onBinChange: (Boolean) -> Unit) {
         BinNeededDialog(
             onConfirm = {
                 onBinChange(true)
-                applyChoice(chosen)
+                pending = chosen
                 needBin = null
             },
             onDismiss = { needBin = null },
         )
+    }
+    pending?.let { chosen ->
+        ConfirmMoveDialog(
+            days = chosen,
+            onDismiss = { pending = null },
+            titleRes = R.string.cleanup_codes_confirm_title,
+            count = { RetentionRunner(context).countCodes(chosen, System.currentTimeMillis()) },
+            bodyPlural = R.plurals.cleanup_codes_confirm_body,
+            noneRes = R.string.cleanup_codes_confirm_none,
+        ) {
+            pending = null
+            applyChoice(chosen)
+        }
     }
 }
 
@@ -140,7 +180,11 @@ private fun KeepMessagesRow(binOn: Boolean, onBinChange: (Boolean) -> Unit) {
             onDismiss = { pending = null },
         )
     } else {
-        ConfirmMoveDialog(chosen, onDismiss = { pending = null }) {
+        ConfirmMoveDialog(
+            days = chosen,
+            onDismiss = { pending = null },
+            count = { RetentionRunner(context).countOld(chosen, System.currentTimeMillis()) },
+        ) {
             prefs.oldMessageDays = chosen
             days = chosen
             pending = null
@@ -162,19 +206,27 @@ private fun BinNeededDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
 
 /** Says how many messages are older than [days] and would move to the recycle bin now, then asks. */
 @Composable
-private fun ConfirmMoveDialog(days: Int, onDismiss: () -> Unit, onConfirm: () -> Unit) {
-    val context = LocalContext.current
-    var count by remember(days) { mutableStateOf<Int?>(null) }
+private fun ConfirmMoveDialog(
+    days: Int,
+    count: () -> Int,
+    onDismiss: () -> Unit,
+    @StringRes titleRes: Int = R.string.cleanup_old_confirm_title,
+    @PluralsRes bodyPlural: Int = R.plurals.cleanup_old_confirm_body,
+    @StringRes noneRes: Int = R.string.cleanup_old_confirm_none,
+    onConfirm: () -> Unit,
+) {
+    var counted by remember(days) { mutableStateOf<Int?>(null) }
+    val currentCount by rememberUpdatedState(count)
     LaunchedEffect(days) {
-        count = withContext(Dispatchers.IO) { RetentionRunner(context).countOld(days, System.currentTimeMillis()) }
+        counted = withContext(Dispatchers.IO) { currentCount() }
     }
-    val shown = count ?: return
+    val shown = counted ?: return
     ConfirmDialog(
-        title = stringResource(R.string.cleanup_old_confirm_title),
+        title = stringResource(titleRes),
         message = if (shown == 0) {
-            stringResource(R.string.cleanup_old_confirm_none)
+            stringResource(noneRes)
         } else {
-            pluralStringResource(R.plurals.cleanup_old_confirm_body, shown, shown)
+            pluralStringResource(bodyPlural, shown, shown)
         },
         confirmLabel = stringResource(R.string.cleanup_old_confirm_action),
         onConfirm = onConfirm,

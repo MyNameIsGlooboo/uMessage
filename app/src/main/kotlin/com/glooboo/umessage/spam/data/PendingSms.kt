@@ -2,6 +2,7 @@ package com.glooboo.umessage.spam.data
 
 import android.content.Context
 import android.provider.Telephony
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.glooboo.umessage.extensions.getThreadId
@@ -29,6 +30,8 @@ data class PendingSmsEntity(
     val subscriptionId: Int,
     val status: Int,
     val createdAt: Long,
+    /** The carrier's send time from the PDU in milliseconds, 0 when unknown. [date] stays the arrival time. */
+    @ColumnInfo(defaultValue = "0") val dateSent: Long = 0L,
 )
 
 object PendingSmsPolicy {
@@ -120,6 +123,7 @@ object IncomingSmsProcessor {
                 subscriptionId = message.subscriptionId,
                 status = message.status,
                 notify = notify,
+                dateSent = message.dateSent,
             )
         } catch (first: Throwable) {
             insertRaw(context, message, first)
@@ -140,6 +144,7 @@ object IncomingSmsProcessor {
                 threadId = threadId,
                 type = Telephony.Sms.MESSAGE_TYPE_INBOX,
                 subscriptionId = message.subscriptionId,
+                dateSent = message.dateSent,
             )
         } catch (t: Throwable) {
             throw SmsInsertException("SMS could not be stored", cause ?: t)

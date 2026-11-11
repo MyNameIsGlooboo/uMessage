@@ -5,6 +5,7 @@
     <string name="thread_emoji">Emoji</string>
     <string name="thread_show_keyboard">Show keyboard</string>
     <string name="thread_scheduled_not_sent">Scheduled message not sent</string>
+    <string name="thread_schedule_discard_confirm">Remove the schedule and delete the saved scheduled message? The text stays in the box.</string>
     <string name="thread_edit_scheduled_replaces_draft">Editing the scheduled message replaces what you are typing. Continue?</string>
 
     <!-- Report spam -->

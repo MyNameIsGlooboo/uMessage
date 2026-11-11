@@ -56,7 +56,10 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.spam.BlockedMessage
@@ -101,6 +104,7 @@ class DecisionLogActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         applyUMessageWindow()
         super.onCreate(savedInstanceState)
+        DecisionLogCsv.deleteOldExports(this)
         setContent { UMessageTheme { DecisionLogRoute(onBack = ::finish) } }
     }
 }
@@ -130,7 +134,13 @@ private fun DecisionLogRoute(onBack: () -> Unit) {
             forwardRules = runCatching { SpamEngine.forwardRepository(context).currentRules() }
                 .getOrDefault(emptyList())
             sims = runCatching { SimCards.load(context) }.getOrDefault(emptyList())
-            entries = log.entries()
+        }
+    }
+    // Reads the log on every resume (first open included), so decisions made while the app was away show at once.
+    val lifecycleOwner = LocalLifecycleOwner.current
+    LaunchedEffect(log, lifecycleOwner) {
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            entries = withContext(Dispatchers.IO) { log.entries() }
         }
     }
     val snackbar = remember { SnackbarHostState() }

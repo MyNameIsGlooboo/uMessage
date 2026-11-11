@@ -48,6 +48,15 @@
         <item quantity="one">%d conversation deleted</item>
         <item quantity="other">%d conversations deleted</item>
     </plurals>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="one">Delete %d conversation?</item>
+        <item quantity="other">Delete %d conversations?</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message">
+        <item quantity="one">The conversation and all its messages will be deleted from this phone. You can undo it for a few seconds afterwards.</item>
+        <item quantity="other">The conversations and all their messages will be deleted from this phone. You can undo it for a few seconds afterwards.</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s is in your contacts. Block this sender? New messages from them will go to Blocked messages instead of your inbox. You can undo it right afterwards.</string>
     <plurals name="convlist_archived">
         <item quantity="one">%d conversation archived</item>
         <item quantity="other">%d conversations archived</item>

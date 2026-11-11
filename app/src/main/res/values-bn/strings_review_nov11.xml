@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="message_partly_sent">কিছু ছবি ও ফাইল পাঠানো হয়েছে, বাকিগুলো পাঠানো হয়নি। শুধু বাকিগুলো পাঠাতে আবার পাঠান।</string>
+    <string name="scheduled_partly_sent">\'%s\'-কে পাঠানোর জন্য শিডিউল করা আপনার বার্তার একটি অংশ পাঠানো হয়েছে, বাকিটা হয়নি। চ্যাট খুলে আবার চেষ্টা করুন চাপুন, শুধু বাকিটা পাঠানো হবে।</string>
+    <string name="cleanup_codes_confirm_title">পড়া কোড সরাবেন?</string>
+    <plurals name="cleanup_codes_confirm_body" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি পড়া কোড বার্তা এর চেয়ে পুরোনো, এখন রিসাইকেল বিনে যাবে। তারকা দেওয়া বার্তা থাকবে।</item>
+        <item quantity="other">%dটি পড়া কোড বার্তা এর চেয়ে পুরোনো, এখন রিসাইকেল বিনে যাবে। তারকা দেওয়া বার্তা থাকবে।</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">এখনো কোনো পড়া কোড এত পুরোনো নয়। পুরোনো কোড নিজে থেকেই রিসাইকেল বিনে যাবে।</string>
+    <plurals name="convlist_delete_confirm_title" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি কথোপকথন মুছবেন?</item>
+        <item quantity="other">%dটি কথোপকথন মুছবেন?</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">কথোপকথন ও এর সব বার্তা এই ফোন থেকে মুছে যাবে। পরে কয়েক সেকেন্ড আপনি এটি ফিরিয়ে আনতে পারবেন।</item>
+        <item quantity="other">কথোপকথনগুলো ও এগুলোর সব বার্তা এই ফোন থেকে মুছে যাবে। পরে কয়েক সেকেন্ড আপনি এটি ফিরিয়ে আনতে পারবেন।</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s আপনার পরিচিতিতে আছে। এই প্রেরককে ব্লক করবেন? তার নতুন বার্তা ইনবক্সের বদলে ব্লক করা বার্তায় যাবে। সঙ্গে সঙ্গে আপনি এটি ফিরিয়ে আনতে পারবেন।</string>
+    <string name="i29_color_red">লাল</string>
+    <string name="i29_color_orange">কমলা</string>
+    <string name="i29_color_yellow">হলুদ</string>
+    <string name="i29_color_green">সবুজ</string>
+    <string name="i29_color_teal">টিল</string>
+    <string name="i29_color_blue">নীল</string>
+    <string name="i29_color_purple">বেগুনি</string>
+    <string name="i29_color_brown">বাদামি</string>
+    <string name="i56_picture_position">%2$dটির মধ্যে %1$d নম্বর ছবি, %3$s। খুলতে চাপুন।</string>
+    <string name="notifications_off_dismiss">এখন নয়</string>
+    <string name="e_restored_clear">তালিকা সাফ করুন</string>
+    <string name="lock_pin_length_hint">পিন: %1$d থেকে %2$d অঙ্ক</string>
+    <string name="cleanup_codes_undo">আগের অবস্থায় ফিরুন</string>
+    <plurals name="cleanup_codes_moved" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি পড়া কোড রিসাইকেল বিনে সরানো হয়েছে</item>
+        <item quantity="other">%dটি পড়া কোড রিসাইকেল বিনে সরানো হয়েছে</item>
+    </plurals>
+    <string name="rule_preview_button">সাম্প্রতিক বার্তায় পরীক্ষা করুন</string>
+    <string name="rule_preview_loading">সাম্প্রতিক বার্তা দেখা হচ্ছে…</string>
+    <string name="rule_preview_failed">সাম্প্রতিক বার্তা দেখা যায়নি। আবার চেষ্টা করুন।</string>
+    <string name="rule_preview_nothing">দেখার মতো সাম্প্রতিক বার্তা এখনো নেই।</string>
+    <string name="rule_preview_inbox">ইনবক্স: এই নিয়ম শেষ %2$dটির মধ্যে %1$dটি বার্তার সঙ্গে মেলে</string>
+    <string name="rule_preview_inbox_empty">ইনবক্স: দেখার মতো কোনো বার্তা নেই</string>
+    <string name="rule_preview_blocked">ব্লক করা: এই নিয়ম শেষ %2$dটির মধ্যে %1$dটি বার্তার সঙ্গে মেলে</string>
+    <string name="rule_preview_blocked_empty">ব্লক করা: দেখার মতো কোনো বার্তা নেই</string>
+    <string name="rule_preview_examples">যেমন: %1$s</string>
+    <string name="n06_delete_confirm">এই সেভ করা লেখা মুছবেন?</string>
+    <string name="screens_vcard_email_action">ইমেইল</string>
+    <string name="screens_vcard_copy_hint">কপি করতে চেপে ধরুন</string>
+    <string name="screens_vcard_copied">কপি হয়েছে</string>
+    <string name="settings_f_restore_rules_present">এই ফোনে আগে থেকেই থাকা নিয়ম: %1$d, বাদ দেওয়া হয়েছে।</string>
+    <string name="settings_f_restore_too_many">ফাইলে সীমার বেশি নিয়ম: %1$d, বাদ দেওয়া হয়েছে।</string>
+    <string name="thread_schedule_discard_confirm">শিডিউল সরিয়ে সেভ করা শিডিউল বার্তা মুছবেন? লেখাটি বক্সেই থাকবে।</string>
+    <string name="thread_phone_call">কল করুন</string>
+    <string name="thread_phone_copy">নম্বর কপি করুন</string>
+    <string name="thread_phone_add_contact">পরিচিতি যোগ করুন</string>
+    <string name="thread_search_older_busy">পুরোনো বার্তা খোঁজা হচ্ছে…</string>
+    <plurals name="thread_new_messages_chip" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি নতুন বার্তা</item>
+        <item quantity="other">%dটি নতুন বার্তা</item>
+    </plurals>
+    <string name="thread_messages_deleted">রিসাইকেল বিনে সরানো হয়েছে</string>
+    <string name="thread_messages_deleted_undo">আগের অবস্থায় ফিরুন</string>
+</resources>

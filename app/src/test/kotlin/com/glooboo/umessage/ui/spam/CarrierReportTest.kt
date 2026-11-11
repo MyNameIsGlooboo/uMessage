@@ -65,7 +65,14 @@ class CarrierReportTest {
 
         assertThat(report.send(spam(1, "Win a prize", subId = 2))).isTrue()
 
-        assertThat(sent).containsExactly(Triple("Win a prize", "7726", 2))
+        assertThat(sent).containsExactly(Triple("Win a prize\nAD-SHOP", "7726", 2))
+    }
+
+    @Test
+    fun theReportTextEndsWithTheSenderNumberOnItsOwnLine() {
+        assertThat(CarrierReport.reportText(spam(1, "Win a prize  \n", address = "+15551234")))
+            .isEqualTo("Win a prize\n+15551234")
+        assertThat(CarrierReport.reportText(spam(2, "Win", address = "  "))).isEqualTo("Win")
     }
 
     @Test

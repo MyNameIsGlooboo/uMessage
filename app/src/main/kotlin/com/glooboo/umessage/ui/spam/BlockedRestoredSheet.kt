@@ -10,13 +10,14 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -65,8 +66,17 @@ fun RestoredSheet(entries: List<RestoredEntry>, onDismiss: () -> Unit) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
             )
+            if (entries.isNotEmpty()) {
+                TextButton(
+                    onClick = { RestoredLog.get(context).clear() },
+                    modifier = Modifier.padding(horizontal = 12.dp),
+                ) { Text(stringResource(R.string.e_restored_clear)) }
+            }
             LazyColumn(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(0.dp)) {
-                items(entries, key = { "${it.restoredAt}-${it.receivedAt}-${it.address}" }) { entry ->
+                itemsIndexed(
+                    entries,
+                    key = { i, e -> "$i-${e.restoredAt}-${e.receivedAt}-${e.address}" }
+                ) { _, entry ->
                     RestoredRow(entry) { scope.launch { openConversation(context, entry.address) } }
                 }
             }

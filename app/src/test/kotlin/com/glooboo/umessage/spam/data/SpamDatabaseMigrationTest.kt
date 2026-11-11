@@ -379,7 +379,7 @@ class SpamDatabaseMigrationTest {
     private companion object {
         const val TEST_DB = "spam-migration-test.db"
         const val OTHER_DB = "spam-migration-other.db"
-        const val LATEST = 6
+        const val LATEST = 7
         const val NEWER = SpamDatabase.VERSION + 1
         const val FILE = "0f9c2a3e-1111-2222-3333-444455556666"
     }

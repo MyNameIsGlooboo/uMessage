@@ -8,6 +8,7 @@
     <string name="i56_empty_links">No links in this chat.</string>
     <string name="i56_show_in_chat">Show in chat</string>
     <string name="i56_load_more">Show more</string>
+    <string name="i56_picture_position">Picture %1$d of %2$d, %3$s. Tap to open.</string>
     <string name="i56_picture_description">Picture. Tap to open.</string>
     <plurals name="i56_count_pictures">
         <item quantity="one">%d picture</item>

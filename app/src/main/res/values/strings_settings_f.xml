@@ -6,6 +6,8 @@
 
     <string name="settings_f_restore_title">Restore from this file?</string>
     <string name="settings_f_restore_rules">Allow rules: %1$d · Block rules: %2$d. Rules you already have are skipped.</string>
+    <string name="settings_f_restore_rules_present">Rules already on this phone: %1$d, skipped.</string>
+    <string name="settings_f_restore_too_many">Rules in the file over the limit: %1$d, skipped.</string>
     <string name="settings_f_restore_forwards">Forward rules to add: %1$d, switched off. Turn them on in Rules › Forwarding.</string>
     <string name="settings_f_restore_forwards_skipped">Forward rules skipped: %1$d (already here, or no number that can receive them).</string>
     <string name="settings_f_restore_settings_changed">Settings that change: %1$s</string>

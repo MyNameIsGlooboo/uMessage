@@ -13,6 +13,7 @@ import com.glooboo.umessage.helpers.W3aPrefs
 import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.spam.ForwardingAvailability
 import com.glooboo.umessage.spam.ListKind
+import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.engine.SpamEngine
@@ -62,9 +63,13 @@ object SettingsBackup {
         val content: BackupContent,
         val forwards: ForwardImport,
         val changedSettings: List<String>,
+        /** The rules of the file that are not on the phone yet; the summary counts these. */
+        val newRules: List<SpamRule> = content.rules,
+        /** Rules of the file already on the phone (or repeated in the file). */
+        val rulesPresent: Int = 0,
     ) {
-        val allowRules: Int get() = content.rules.count { it.kind == ListKind.ALLOW }
-        val blockRules: Int get() = content.rules.size - allowRules
+        val allowRules: Int get() = newRules.count { it.kind == ListKind.ALLOW }
+        val blockRules: Int get() = newRules.size - allowRules
     }
 
     /**
@@ -129,7 +134,8 @@ object SettingsBackup {
             )
             val current = collectSettings(app, repo.settings.first())
             val changed = SettingsBackupFormat.changedSettings(current, content.settings)
-            Preview(content, forwards, changed) to null
+            val (fresh, present) = SettingsBackupFormat.newRules(content.rules, repo.rules.first())
+            Preview(content, forwards, changed, fresh, present) to null
         } catch (_: IOException) {
             null to Failure.UNREADABLE
         } catch (_: SQLException) {

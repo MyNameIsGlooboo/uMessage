@@ -63,6 +63,8 @@ class MainRoutes(private val activity: BaseSimpleActivity) {
         onDeleteSelected = viewModel::deleteSelected,
         onArchiveOne = viewModel::archiveOne,
         onDeleteOne = viewModel::deleteOne,
+        onConfirmDelete = viewModel::confirmDelete,
+        onCancelDelete = viewModel::cancelDelete,
         onBlockSelected = viewModel::blockSelected,
         onBlockOne = viewModel::blockOne,
         onReportSpamSelected = viewModel::reportSpamSelected,

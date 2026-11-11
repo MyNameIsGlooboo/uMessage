@@ -28,6 +28,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -153,6 +154,7 @@ fun ThreadScreen(vm: ThreadViewModel, actions: ThreadActions) {
                             query = vm.searchQuery,
                             matchCount = vm.searchMatches.size,
                             matchIndex = vm.searchIndex,
+                            searchingOlder = vm.searchingOlder,
                             onQueryChange = vm::updateSearch,
                             onClose = vm::closeSearch,
                             onOlder = vm::showOlderMatch,
@@ -240,6 +242,18 @@ private fun MessageList(vm: ThreadViewModel, actions: ThreadActions, modifier: M
 
     val showScrollToBottom by remember { derivedStateOf { listState.firstVisibleItemIndex > SCROLL_TO_BOTTOM_FAB_LIMIT } }
 
+    // New messages that arrive while the reader is up in the history are counted on the down button. The anchor is
+    // the newest row at the moment the reader left the bottom; reaching the bottom again clears it.
+    val atBottom by remember { derivedStateOf { listState.firstVisibleItemIndex <= NEAR_BOTTOM_ROWS } }
+    var anchorKey by remember { mutableStateOf<String?>(null) }
+    LaunchedEffect(atBottom) { anchorKey = if (atBottom) null else vm.rows.firstOrNull()?.key }
+    val newCount = remember(rows, anchorKey) {
+        val received = rows.mapNotNullTo(HashSet()) { row ->
+            (row as? ThreadRow.Bubble)?.takeIf { it.message.isReceivedMessage() }?.key
+        }
+        newRowsSince(rows.map { it.key }, anchorKey) { it in received }
+    }
+
     val context = LocalContext.current
     val pinchZoom = remember { context.w3cPrefs.pinchZoomText }
     var zoomedTo by remember { mutableStateOf<TextSize?>(null) }
@@ -268,7 +282,7 @@ private fun MessageList(vm: ThreadViewModel, actions: ThreadActions, modifier: M
         }
         zoomedTo?.let { PinchZoomLabel(it, Modifier.align(Alignment.Center)) }
         AnimatedVisibility(
-            visible = showScrollToBottom,
+            visible = showScrollToBottom || newCount > 0,
             enter = fadeIn() + scaleIn(),
             exit = fadeOut() + scaleOut(),
             modifier = Modifier
@@ -276,12 +290,25 @@ private fun MessageList(vm: ThreadViewModel, actions: ThreadActions, modifier: M
                 .padding(16.dp),
         ) {
             val scope = rememberCoroutineScope()
-            SmallFloatingActionButton(
-                onClick = { scope.launch { listState.animateScrollToItem(0) } },
-                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-            ) {
-                Icon(Symbols.KeyboardArrowDown, contentDescription = stringResource(R.string.thread_scroll_to_latest))
+            if (newCount > 0) {
+                ExtendedFloatingActionButton(
+                    onClick = { scope.launch { listState.animateScrollToItem(0) } },
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    icon = { Icon(Symbols.KeyboardArrowDown, contentDescription = null) },
+                    text = { Text(pluralStringResource(R.plurals.thread_new_messages_chip, newCount, newCount)) },
+                )
+            } else {
+                SmallFloatingActionButton(
+                    onClick = { scope.launch { listState.animateScrollToItem(0) } },
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                ) {
+                    Icon(
+                        Symbols.KeyboardArrowDown,
+                        contentDescription = stringResource(R.string.thread_scroll_to_latest)
+                    )
+                }
             }
         }
     }

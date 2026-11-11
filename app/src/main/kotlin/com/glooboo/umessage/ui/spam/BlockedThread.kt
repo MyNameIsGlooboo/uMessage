@@ -3,6 +3,7 @@ package com.glooboo.umessage.ui.spam
 import android.content.Context
 import android.text.format.DateFormat
 import android.text.format.DateUtils
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -44,6 +45,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -56,6 +58,7 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -131,6 +134,10 @@ class BlockedThreadActions(
     /** Puts one message in the inbox without allowing the sender (ID-16), with Undo. */
     val onReleaseOnce: (Long) -> Unit = {},
     val onDeleteMessage: (Long) -> Unit = {},
+    /** "Move to inbox" for the messages chosen by long press (spamui-11): no allow question, one Undo. */
+    val onReleaseMessages: (Set<Long>) -> Unit = {},
+    /** Deletes the chosen messages, with Undo. */
+    val onDeleteMessages: (Set<Long>) -> Unit = {},
     val onOpenRules: () -> Unit = {},
 )
 
@@ -185,6 +192,8 @@ fun BlockedThreadRoute(
             onDeleteAll = { viewModel.delete(setOf(address)) },
             onReleaseOnce = viewModel::releaseOnce,
             onDeleteMessage = { id -> viewModel.deleteMessages(setOf(id)) },
+            onReleaseMessages = viewModel::releaseMessages,
+            onDeleteMessages = viewModel::deleteMessages,
             onOpenRules = onOpenRules,
         )
     }
@@ -194,8 +203,9 @@ fun BlockedThreadRoute(
 /**
  * A blocked sender's messages as a thread (owner notes r3): incoming bubbles under day headers, newest at the
  * bottom, and no compose box. The bar at the bottom says the messages are held and offers Move to inbox; Delete is
- * in the top bar. Each message has its own menu (tap or long press): Release once, Copy, Copy code, Why blocked,
- * Delete. Links are not made tappable: these texts are held as possible spam or phishing.
+ * in the top bar. Each message has its own menu (tap): Release once, Copy, Copy code, Why blocked, Delete. A long
+ * press chooses the message instead, and more can be tapped; the bar then offers Select all, Move to inbox and Delete
+ * for the chosen ones (spamui-11). Links are not made tappable: these texts are held as possible spam or phishing.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -211,16 +221,32 @@ fun BlockedThreadScreen(
     val group = state.groups.firstOrNull { it.hasAddress(address) }
     val shown = isolateNumbers(displayNumber(address))
     var whyId by rememberSaveable { mutableStateOf<Long?>(null) }
+    var chosen by rememberSaveable(
+        stateSaver = listSaver<Set<Long>, Long>(save = { it.toList() }, restore = { it.toSet() }),
+    ) { mutableStateOf(emptySet<Long>()) }
+    val messages = group?.messages.orEmpty()
+    val selection = presentSelection(messages, chosen)
+    val selecting = selection.isNotEmpty()
+    BackHandler(enabled = selecting) { chosen = emptySet() }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         containerColor = MaterialTheme.colorScheme.background,
         contentColor = MaterialTheme.colorScheme.onBackground,
         topBar = {
-            UMessageTopBar(title = shown, onBack = actions.onBack, scrollBehavior = scrollBehavior)
+            if (selecting) {
+                BlockedSelectionBar(
+                    messages = messages,
+                    selection = selection,
+                    actions = actions,
+                    onChosenChange = { chosen = it },
+                )
+            } else {
+                UMessageTopBar(title = shown, onBack = actions.onBack, scrollBehavior = scrollBehavior)
+            }
         },
         contentWindowInsets = chromeInsets(),
-        bottomBar = { if (group != null) HeldFooter(shown, actions, moving) },
+        bottomBar = { if (group != null && !selecting) HeldFooter(shown, actions, moving) },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { inner ->
         val content = Modifier.fillMaxSize().padding(inner)
@@ -257,6 +283,9 @@ fun BlockedThreadScreen(
                                 simLabel = simLabel(state.sims, item.message.subscriptionId),
                                 actions = actions,
                                 onWhy = { whyId = item.message.id },
+                                selecting = selecting,
+                                selected = item.message.id in selection,
+                                onToggle = { chosen = toggleMessageSelection(selection, item.message.id) },
                             )
                         }
                     }
@@ -372,8 +401,8 @@ private fun blockedDayText(context: Context, day: LocalDate, today: LocalDate): 
 }
 
 /**
- * One held message as an incoming bubble, with its time (and SIM on a dual-SIM phone) under it. Tap or long press
- * opens its menu.
+ * One held message as an incoming bubble, with its time (and SIM on a dual-SIM phone) under it. Tap opens its menu;
+ * long press chooses it (and a tap then chooses or drops more) for Move to inbox or Delete of several at once.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -383,6 +412,9 @@ private fun HeldBubble(
     simLabel: String?,
     actions: BlockedThreadActions,
     onWhy: () -> Unit,
+    selecting: Boolean,
+    selected: Boolean,
+    onToggle: () -> Unit,
 ) {
     val colors = MaterialTheme.colorScheme
     val context = LocalContext.current
@@ -413,19 +445,23 @@ private fun HeldBubble(
             val shape = bubbleShape(sent = false, group = BubbleGroup.Single)
             Surface(
                 shape = shape,
-                color = colors.surfaceContainerHighest,
-                contentColor = colors.onSurface,
+                color = if (selected) colors.primaryContainer else colors.surfaceContainerHighest,
+                contentColor = if (selected) colors.onPrimaryContainer else colors.onSurface,
                 // An incoming bubble gets a hairline against a light page, as in a normal thread (TH-08).
                 border = if (dark) null else BorderStroke(1.dp, colors.outlineVariant),
                 modifier = Modifier
                     .widthIn(max = maxWidth)
                     .clip(shape)
-                    .semantics(mergeDescendants = true) { contentDescription = "$body, $caption" }
+                    .semantics(mergeDescendants = true) {
+                        contentDescription = "$body, $caption"
+                        if (selecting) this.selected = selected
+                    }
+                    // Tap: the message's menu, or choose it while choosing. Long press starts or extends choosing.
                     .combinedClickable(
-                        onClickLabel = actionsLabel,
-                        onLongClickLabel = actionsLabel,
-                        onClick = { menuOpen = true },
-                        onLongClick = { menuOpen = true },
+                        onClickLabel = if (selecting) null else actionsLabel,
+                        onLongClickLabel = null,
+                        onClick = { if (selecting) onToggle() else menuOpen = true },
+                        onLongClick = onToggle,
                     ),
             ) {
                 Column {

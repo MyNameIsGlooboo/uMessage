@@ -8,7 +8,7 @@
     <string name="carrier_report_invalid">Wpisz od 3 do 8 cyfr</string>
     <string name="carrier_report_action">Zgłoś operatorowi</string>
     <string name="carrier_report_title">Zgłosić operatorowi?</string>
-    <string name="carrier_report_body">Ostatnia wiadomość od tego nadawcy zostanie wysłana SMS-em na numer %1$s. Operator może pobrać za to opłatę.</string>
+    <string name="carrier_report_body">Ostatnia wiadomość od tego nadawcy, a pod nią numer nadawcy, zostanie wysłana SMS-em na numer %1$s. Operator może pobrać za to opłatę.</string>
     <string name="carrier_report_send">Wyślij</string>
     <string name="carrier_report_sent">Zgłoszenie wysłane do operatora</string>
     <string name="carrier_report_failed">Nie udało się wysłać zgłoszenia</string>

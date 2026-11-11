@@ -69,3 +69,16 @@ class SearchNumberHitsTest {
         assertTrue(highlightRanges("a-b", "ab").isEmpty())
     }
 }
+
+/** main-7: which queries need a number lookup at all. */
+class NumberQueryTest {
+    @Test
+    fun onlyDigitQueriesOfThreeOrMoreDigitsLookUpNumbers() {
+        assertTrue(isNumberQuery("555"))
+        assertTrue(isNumberQuery("0555 345"))
+        assertTrue(isNumberQuery("۷۱۲۱۲۳"))
+        assertTrue(!isNumberQuery("55"))
+        assertTrue(!isNumberQuery("Sara 555"))
+        assertTrue(!isNumberQuery("سارا"))
+    }
+}

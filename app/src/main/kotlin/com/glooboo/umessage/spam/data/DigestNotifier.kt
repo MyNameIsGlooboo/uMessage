@@ -24,7 +24,7 @@ object DigestNotifier {
     fun postIfDue(context: Context, now: Long): Boolean {
         val prefs = context.cleanupPrefs
         if (!prefs.digestOn || !prefs.claimDigest(now)) return false
-        val blocked = SpamDatabase.getInstance(context).spamDao().getAllBlocked()
+        val blocked = SpamDatabase.getInstance(context).spamDao().getBlockedBetween(now - WeeklyDigest.WEEK_MS, now)
         val digest = WeeklyDigest.compute(blocked, now)
         if (digest.held == 0) return false
         show(context, digest)

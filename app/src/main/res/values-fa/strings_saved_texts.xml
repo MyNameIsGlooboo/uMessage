@@ -9,6 +9,7 @@
     <string name="n06_text_label">متن</string>
     <string name="n06_save">ذخیره</string>
     <string name="n06_delete">حذف</string>
+    <string name="n06_delete_confirm">این متن ذخیره‌شده پاک شود؟</string>
     <string name="n06_private_tip">فقط روی همین گوشی نگه داشته می‌شود و رمزنگاری نمی‌شود. رمز عبور یا پین ذخیره نکنید.</string>
     <string name="n06_save_from_message">ذخیره در متن‌های ذخیره‌شده</string>
     <string name="n06_saved_toast">ذخیره شد</string>

@@ -113,16 +113,26 @@ private fun VerdictText(verdict: LabelResult) {
 @Composable
 private fun ColorSwatches(selected: Int, onPick: (Int) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(LabelSectionGap)) {
-        LabelColor.entries.chunked(SWATCHES_PER_ROW).forEachIndexed { rowIndex, row ->
+        LabelColor.entries.chunked(SWATCHES_PER_ROW).forEach { row ->
             Row(horizontalArrangement = Arrangement.spacedBy(LabelSectionGap)) {
-                row.forEachIndexed { index, swatch ->
-                    val number = rowIndex * SWATCHES_PER_ROW + index + 1
-                    val description = stringResource(R.string.i29_color_description, number)
+                row.forEach { swatch ->
+                    val description = stringResource(swatch.nameRes())
                     Swatch(swatch.color, swatch.color == selected, description) { onPick(swatch.color) }
                 }
             }
         }
     }
+}
+
+private fun LabelColor.nameRes(): Int = when (this) {
+    LabelColor.Red -> R.string.i29_color_red
+    LabelColor.Orange -> R.string.i29_color_orange
+    LabelColor.Yellow -> R.string.i29_color_yellow
+    LabelColor.Green -> R.string.i29_color_green
+    LabelColor.Teal -> R.string.i29_color_teal
+    LabelColor.Blue -> R.string.i29_color_blue
+    LabelColor.Purple -> R.string.i29_color_purple
+    LabelColor.Brown -> R.string.i29_color_brown
 }
 
 @Composable

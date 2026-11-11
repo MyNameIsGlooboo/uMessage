@@ -111,7 +111,9 @@ class MessageDetailsDialog(val activity: BaseSimpleActivity, val message: Messag
 
     private fun buildProperties(): List<Property> {
         @SuppressLint("MissingPermission")
-        val availableSIMs = activity.subscriptionManagerCompat().activeSubscriptionInfoList.orEmpty()
+        val availableSIMs = runCatching {
+            activity.subscriptionManagerCompat().activeSubscriptionInfoList.orEmpty()
+        }.getOrDefault(emptyList())
         return buildList {
             add(senderProperty())
             if (availableSIMs.count() > 1) {
@@ -197,7 +199,9 @@ class MessageDetailsDialog(val activity: BaseSimpleActivity, val message: Messag
             formatContactInfo(senderName, senderPhoneNumber) { displayNumber(activity, it) }
         } else {
             participants.joinToString(listSeparator(activity.uiLocale)) {
-                formatContactInfo(it.name, it.phoneNumbers.first().value) { number -> displayNumber(activity, number) }
+                formatContactInfo(it.name, it.phoneNumbers.firstOrNull()?.value ?: it.name) { number ->
+                    displayNumber(activity, number)
+                }
             }
         }
     }

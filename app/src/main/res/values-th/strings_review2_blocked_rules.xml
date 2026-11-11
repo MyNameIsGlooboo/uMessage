@@ -10,6 +10,15 @@
     <string name="e_restored_empty">ข้อความที่ย้ายไปยังกล่องข้อความเข้านับจากนี้จะแสดงที่นี่เป็นเวลา 30 วัน</string>
     <string name="e_restored_when">ย้ายไปกล่องข้อความเข้าเมื่อ %1$s</string>
     <string name="e_restored_open">เปิดการสนทนากับ %1$s</string>
+    <string name="e_snack_allowed_one">อนุญาต %1$s เสมอแล้วทั้ง 2 SIM</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="other">อนุญาตผู้ส่ง %d รายเสมอแล้วทั้ง 2 SIM</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">อนุญาต %1$s เสมอแล้ว</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="other">อนุญาตผู้ส่ง %d รายเสมอแล้ว</item>
+    </plurals>
+    <string name="e_view_rule">ดูกฎ</string>
     <string name="e_rules_title">กฎ</string>
     <string name="e_rules_menu_backup">สำรองข้อมูลและกู้คืน</string>
     <string name="e_note_blocked_by_you">คุณบล็อกแล้ว</string>
@@ -24,6 +33,8 @@
     <string name="e_example_block_cancel_word">บล็อกข้อความที่มี لغو۱۱</string>
     <string name="e_example_block_ad_prefix">บล็อกหมายเลขโฆษณาที่ขึ้นต้นด้วย 3000</string>
     <string name="e_example_allow_number">อนุญาตหมายเลขเสมอ เช่น ที่ทำการไปรษณีย์</string>
+    <string name="e_sheet_sender_label">ผู้ส่ง</string>
+    <string name="e_sheet_text_label">เนื้อหาข้อความ</string>
     <string name="e_value_number">หมายเลขโทรศัพท์</string>
     <string name="e_value_prefix">หมายเลขขึ้นต้นด้วย</string>
     <string name="e_value_sender">ชื่อผู้ส่ง</string>

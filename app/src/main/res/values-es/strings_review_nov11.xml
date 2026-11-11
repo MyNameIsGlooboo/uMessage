@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="message_partly_sent">Se enviaron algunas fotos y archivos, pero no el resto. Envía de nuevo para enviar solo lo que falta.</string>
+    <string name="scheduled_partly_sent">Una parte de tu mensaje programado para \'%s\' se envió y el resto no. Abre el chat y toca Reintentar para enviar solo lo que falta.</string>
+    <string name="cleanup_codes_confirm_title">¿Mover los códigos leídos?</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="one">%d mensaje de código leído es más antiguo y pasa ahora a la papelera. Los mensajes destacados se quedan.</item>
+        <item quantity="other">%d mensajes de código leídos son más antiguos y pasan ahora a la papelera. Los mensajes destacados se quedan.</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">Todavía no hay ningún código leído tan antiguo. Los más antiguos pasarán a la papelera automáticamente.</string>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="one">¿Eliminar %d conversación?</item>
+        <item quantity="other">¿Eliminar %d conversaciones?</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message">
+        <item quantity="one">La conversación y todos sus mensajes se eliminarán de este teléfono. Puedes deshacerlo durante unos segundos.</item>
+        <item quantity="other">Las conversaciones y todos sus mensajes se eliminarán de este teléfono. Puedes deshacerlo durante unos segundos.</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s está en tus contactos. ¿Bloquear a este remitente? Sus mensajes nuevos irán a Bloqueados en lugar de a tu bandeja de entrada. Puedes deshacerlo justo después.</string>
+    <string name="i29_color_red">Rojo</string>
+    <string name="i29_color_orange">Naranja</string>
+    <string name="i29_color_yellow">Amarillo</string>
+    <string name="i29_color_green">Verde</string>
+    <string name="i29_color_teal">Turquesa</string>
+    <string name="i29_color_blue">Azul</string>
+    <string name="i29_color_purple">Morado</string>
+    <string name="i29_color_brown">Marrón</string>
+    <string name="i56_picture_position">Foto %1$d de %2$d, %3$s. Toca para abrir.</string>
+    <string name="notifications_off_dismiss">Ahora no</string>
+    <string name="e_restored_clear">Borrar lista</string>
+    <string name="lock_pin_length_hint">PIN: de %1$d a %2$d dígitos</string>
+    <string name="cleanup_codes_undo">Deshacer</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="one">%d código leído movido a la papelera</item>
+        <item quantity="other">%d códigos leídos movidos a la papelera</item>
+    </plurals>
+    <string name="rule_preview_button">Probar con mensajes recientes</string>
+    <string name="rule_preview_loading">Revisando mensajes recientes…</string>
+    <string name="rule_preview_failed">No se pudieron revisar los mensajes recientes. Inténtalo de nuevo.</string>
+    <string name="rule_preview_nothing">Todavía no hay mensajes recientes para revisar.</string>
+    <string name="rule_preview_inbox">Bandeja de entrada: esta regla coincide con %1$d de los últimos %2$d mensajes</string>
+    <string name="rule_preview_inbox_empty">Bandeja de entrada: no hay mensajes para revisar</string>
+    <string name="rule_preview_blocked">Bloqueados: esta regla coincide con %1$d de los últimos %2$d mensajes</string>
+    <string name="rule_preview_blocked_empty">Bloqueados: no hay mensajes para revisar</string>
+    <string name="rule_preview_examples">Por ejemplo: %1$s</string>
+    <string name="n06_delete_confirm">¿Eliminar este texto guardado?</string>
+    <string name="screens_vcard_email_action">Correo</string>
+    <string name="screens_vcard_copy_hint">Mantén pulsado para copiar</string>
+    <string name="screens_vcard_copied">Copiado</string>
+    <string name="settings_f_restore_rules_present">Reglas que ya están en este teléfono: %1$d, omitidas.</string>
+    <string name="settings_f_restore_too_many">Reglas del archivo que superan el límite: %1$d, omitidas.</string>
+    <string name="thread_schedule_discard_confirm">¿Quitar la programación y eliminar el mensaje programado guardado? El texto se queda en el cuadro.</string>
+    <string name="thread_phone_call">Llamar</string>
+    <string name="thread_phone_copy">Copiar número</string>
+    <string name="thread_phone_add_contact">Agregar contacto</string>
+    <string name="thread_search_older_busy">Buscando mensajes más antiguos…</string>
+    <plurals name="thread_new_messages_chip">
+        <item quantity="one">%d mensaje nuevo</item>
+        <item quantity="other">%d mensajes nuevos</item>
+    </plurals>
+    <string name="thread_messages_deleted">Movido a la papelera</string>
+    <string name="thread_messages_deleted_undo">Deshacer</string>
+</resources>

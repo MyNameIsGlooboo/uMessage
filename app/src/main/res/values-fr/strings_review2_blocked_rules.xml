@@ -11,6 +11,17 @@
     <string name="e_restored_empty">Les messages que vous déplacez désormais vers la boîte de réception figurent ici pendant 30 jours.</string>
     <string name="e_restored_when">Déplacé vers la boîte de réception %1$s</string>
     <string name="e_restored_open">Ouvrir la conversation avec %1$s</string>
+    <string name="e_snack_allowed_one">%1$s est désormais toujours autorisé sur les deux SIM</string>
+    <plurals name="e_snack_allowed_many" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d expéditeur est désormais toujours autorisé sur les deux SIM</item>
+        <item quantity="other">%d expéditeurs sont désormais toujours autorisés sur les deux SIM</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$s est désormais toujours autorisé</string>
+    <plurals name="e_snack_allowed_many_single_sim" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d expéditeur est désormais toujours autorisé</item>
+        <item quantity="other">%d expéditeurs sont désormais toujours autorisés</item>
+    </plurals>
+    <string name="e_view_rule">Voir la règle</string>
     <string name="e_rules_title">Règles</string>
     <string name="e_rules_menu_backup">Sauvegarde et restauration</string>
     <string name="e_note_blocked_by_you">Bloqué par vous</string>
@@ -25,6 +36,8 @@
     <string name="e_example_block_cancel_word">Bloquer les messages contenant لغو۱۱</string>
     <string name="e_example_block_ad_prefix">Bloquer les numéros publicitaires commençant par 3000</string>
     <string name="e_example_allow_number">Toujours autoriser un numéro, comme celui de votre bureau de poste</string>
+    <string name="e_sheet_sender_label">Expéditeur</string>
+    <string name="e_sheet_text_label">Texte du message</string>
     <string name="e_value_number">Numéro de téléphone</string>
     <string name="e_value_prefix">Le numéro commence par</string>
     <string name="e_value_sender">Nom de l\'expéditeur</string>

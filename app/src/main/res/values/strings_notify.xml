@@ -10,4 +10,5 @@
     <string name="notifications_off_title">Notifications are off</string>
     <string name="notifications_off_body">You won\'t be told about new messages.</string>
     <string name="notifications_off_fix">Turn on</string>
+    <string name="notifications_off_dismiss">Not now</string>
 </resources>

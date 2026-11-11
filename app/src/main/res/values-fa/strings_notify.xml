@@ -7,4 +7,5 @@
     <string name="notifications_off_title">اعلان‌ها خاموش‌اند</string>
     <string name="notifications_off_body">از پیام‌های جدید باخبر نمی‌شوید.</string>
     <string name="notifications_off_fix">روشن کردن</string>
+    <string name="notifications_off_dismiss">فعلاً نه</string>
 </resources>

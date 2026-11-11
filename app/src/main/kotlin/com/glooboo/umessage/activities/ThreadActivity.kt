@@ -52,6 +52,8 @@ import com.glooboo.umessage.extensions.getSmsDraft
 import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.extensions.getThreadParticipants
 import com.glooboo.umessage.extensions.isSavedContactNumber
+import com.glooboo.umessage.extensions.restoreMessageFromRecycleBin
+import com.glooboo.umessage.extensions.updateLastConversationMessage
 import com.glooboo.umessage.extensions.getThreadTitle
 import com.glooboo.umessage.extensions.launchConversationDetails
 import com.glooboo.umessage.extensions.launchViewIntent
@@ -91,10 +93,12 @@ import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.messaging.ScheduledSendClaims
 import com.glooboo.umessage.messaging.MmsRetryResult
+import com.glooboo.umessage.messaging.SendOutcome
 import com.glooboo.umessage.messaging.downloadMms
 import com.glooboo.umessage.messaging.undownloadedMms
 import com.glooboo.umessage.messaging.isLongMmsMessage
 import com.glooboo.umessage.messaging.scheduledAttachmentTracker
+import com.glooboo.umessage.messaging.withUnsentOnly
 import com.glooboo.umessage.models.Attachment
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.models.Events
@@ -105,6 +109,10 @@ import com.glooboo.umessage.ui.thread.IncomingShareGuard
 import com.glooboo.umessage.ui.thread.MessageNoteStore
 import com.glooboo.umessage.ui.thread.AttachKind
 import com.glooboo.umessage.ui.thread.MediaSizes
+import com.glooboo.umessage.ui.thread.SearchHit
+import com.glooboo.umessage.ui.thread.ThreadLookupCache
+import com.glooboo.umessage.ui.thread.matchesSearch
+import com.glooboo.umessage.ui.thread.messagesToCache
 import com.glooboo.umessage.ui.thread.ThreadExportController
 import com.glooboo.umessage.ui.thread.DraftText
 import com.glooboo.umessage.ui.thread.SendGuard
@@ -207,6 +215,14 @@ open class ThreadActivity : ComposeSimpleActivity() {
         )
     }
     private var isJumpingToMessage = false
+
+    /** Contact, stranger and SIM lookups that stay the same from one refresh to the next (thread-19). */
+    private val lookups = ThreadLookupCache()
+    private val contactsObserver = object : android.database.ContentObserver(android.os.Handler(Looper.getMainLooper())) {
+        override fun onChange(selfChange: Boolean) {
+            lookups.invalidateContacts()
+        }
+    }
     private var isRecycleBin = false
     private var isLaunchedFromShortcut = false
 
@@ -440,6 +456,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         recipients = ThreadRecipients()
         privateContacts = ArrayList()
         repository.reset()
+        lookups.clear()
         threadItems = emptyList()
         refreshedSinceSent = false
         isJumpingToMessage = false
@@ -490,6 +507,19 @@ open class ThreadActivity : ComposeSimpleActivity() {
         bus = EventBus.getDefault()
         bus!!.register(this)
 
+        // Search in conversation also looks at the messages that are not loaded yet.
+        vm.olderSearch = { thread, query ->
+            messagesDB.searchThreadMessages(thread, query)
+                .filter { matchesSearch(it.body, query) }
+                .map { SearchHit(it.key, it.date) }
+        }
+        vm.loadAndScrollTo = ::jumpToMessage
+        runCatching {
+            contentResolver.registerContentObserver(
+                android.provider.ContactsContract.Contacts.CONTENT_URI, true, contactsObserver
+            )
+        }
+
         refreshMenuItems()
         senderActions.observeRules()
         vm.stars.attach(this, lifecycleScope)
@@ -502,6 +532,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
         hiddenGate.check()
 
         isActivityVisible = true
+        // The SIM cards may have changed while the chat was in the background.
+        lookups.invalidateSims()
 
         scheduleUi.onResume()
 
@@ -585,6 +617,9 @@ open class ThreadActivity : ComposeSimpleActivity() {
         super.onDestroy()
         chatSounds.release()
         bus?.unregister(this)
+        vm.olderSearch = null
+        vm.loadAndScrollTo = null
+        runCatching { contentResolver.unregisterContentObserver(contactsObserver) }
     }
 
     private fun saveDraftMessage() {
@@ -788,6 +823,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
             privateContacts = MyContactsContentProvider.getSimpleContacts(this, privateCursor)
 
             val cachedMessagesCode = messages.hashCode()
+            val cachedBefore = messages
             if (!isRecycleBin) repository.loadNewest(threadId)
             providerLoaded = true
             // The first mark-read attempt may have come before the messages were loaded. When the user already
@@ -848,7 +884,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
             adoptWaitingScheduledMessages()
 
             if (!isRecycleBin) {
-                messages.chunked(30).forEach { currentMessages ->
+                // Only what is new or changed since the cached copy: the whole page used to be rewritten on every open.
+                messagesToCache(messages, cachedBefore).chunked(30).forEach { currentMessages ->
                     messagesDB.insertMessages(*currentMessages.toTypedArray())
                 }
             }
@@ -892,8 +929,12 @@ open class ThreadActivity : ComposeSimpleActivity() {
         // Saved picture sizes are read before the rows are shown, so photo bubbles start at their size (TU-25).
         if (Looper.myLooper() != Looper.getMainLooper()) MediaSizes.warm(this, messages)
         val number = recipients.singleNumber
-        firstNumberIsSaved = number != null && isSavedContactNumber(number)
-        senderIsStranger = unknownCard.isStranger(number, firstNumberIsSaved, recipients.isGroup)
+        // Looked up once per opening and again only when the contacts change or the user writes to this person.
+        firstNumberIsSaved = number != null && lookups.isSaved(number) { isSavedContactNumber(number) }
+        val hasSent = messages.any { !it.isReceivedMessage() && !it.isScheduled }
+        senderIsStranger = lookups.isStranger(number, firstNumberIsSaved, hasSent) {
+            unknownCard.isStranger(number, firstNumberIsSaved, recipients.isGroup)
+        }
 
         runOnUiThread {
             publishItems(latestThreadItems)
@@ -973,9 +1014,40 @@ open class ThreadActivity : ComposeSimpleActivity() {
         }
 
         // Only scheduled messages left: they move to a temporary thread until one is sent.
-        removeThreadMessages(
+        val movedToTemporaryThread = removeThreadMessages(
             messagesToRemove, toRecycleBin, fromRecycleBin, threadId, messages.toSortedMessages(), conversation, scheduleController,
-        )?.let { threadId = it }
+        )?.also { threadId = it } != null
+        // Messages that went to the recycle bin can come straight back (scheduled ones were cancelled, not recycled).
+        val recycled = messagesToRemove.filterNot { it.isScheduled }
+        val undoable = toRecycleBin && !movedToTemporaryThread
+        if (undoable && hasMessages && recycled.isNotEmpty()) offerUndoDelete(recycled)
+    }
+
+    /** A snackbar after messages went to the recycle bin: Undo puts them back. */
+    private fun offerUndoDelete(recycled: List<Message>) {
+        runOnUiThread {
+            lifecycleScope.launch {
+                val result = vm.snackbar.showSnackbar(
+                    message = getString(R.string.thread_messages_deleted),
+                    actionLabel = getString(R.string.thread_messages_deleted_undo),
+                    duration = androidx.compose.material3.SnackbarDuration.Long,
+                )
+                if (result == androidx.compose.material3.SnackbarResult.ActionPerformed) undoDelete(recycled)
+            }
+        }
+    }
+
+    /** Takes [restored] out of the recycle bin again and shows them in the chat. */
+    private fun undoDelete(restored: List<Message>) {
+        val thread = threadId
+        ensureBackgroundThread {
+            restored.forEach { restoreMessageFromRecycleBin(it.id, it.isMMS) }
+            updateLastConversationMessage(thread)
+            repository.addAll(restored)
+            val latestThreadItems = getThreadItems()
+            runOnUiThread { publishItems(latestThreadItems) }
+            refreshConversations()
+        }
     }
 
     /** The message a search result opened this chat at, read once from the intent and then cleared. */
@@ -1212,7 +1284,9 @@ open class ThreadActivity : ComposeSimpleActivity() {
             return emptyList()
         }
 
-        val simLabels = simHeaderLabels(subscriptionManagerCompat().activeSubscriptionInfoList, composerPrefs)
+        val simLabels = lookups.sims {
+            simHeaderLabels(subscriptionManagerCompat().activeSubscriptionInfoList, composerPrefs)
+        }
         // TU-11: only mark messages read while the user can see them.
         // I26: decided once, from the provider's messages and before they are marked read.
         if (providerLoaded && !vm.unreadResolved) {
@@ -1415,6 +1489,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         attachments: List<Attachment> = attachmentController.asMessageAttachments(),
         resendId: MessageKey? = resend.target,
         fromComposer: Boolean = true,
+        onPartial: (SendOutcome) -> Unit = {},
         onDone: (Boolean) -> Unit = {},
     ) {
         if (fromComposer && !composerSend.tryStart()) return
@@ -1430,7 +1505,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         val composerAtSend = vm.text.text.toString()
         ensureBackgroundThread {
             try {
-                onDone(sendOutgoing(outgoing, fromComposer, composerAtSend))
+                onDone(sendOutgoing(outgoing, fromComposer, composerAtSend, onPartial))
             } finally {
                 if (fromComposer) composerSend.finish()
             }
@@ -1438,8 +1513,17 @@ open class ThreadActivity : ComposeSimpleActivity() {
     }
 
     /** The blocking part of [sendNormalMessage]; runs on a worker thread. True when the message was handed off. */
-    private fun sendOutgoing(outgoing: OutgoingMessage, fromComposer: Boolean, composerAtSend: String): Boolean {
+    private fun sendOutgoing(
+        outgoing: OutgoingMessage,
+        fromComposer: Boolean,
+        composerAtSend: String,
+        onPartial: (SendOutcome) -> Unit = {},
+    ): Boolean {
         val result = sendController.send(outgoing, fromComposer)
+        result.partial?.let { partial ->
+            handlePartialSend(partial, fromComposer, composerAtSend)
+            onPartial(partial)
+        }
         if (result.completed) {
             // A failed send that left a row in the provider still shows up below, with its Retry button.
             val thread = threadId
@@ -1452,6 +1536,19 @@ open class ThreadActivity : ComposeSimpleActivity() {
             if (fromComposer && result.handedOff) chatSounds.sent()
         }
         return result.handedOff
+    }
+
+    /** Some pictures went out and some did not: say so, and make sure another try sends only the rest. */
+    private fun handlePartialSend(partial: SendOutcome, fromComposer: Boolean, composerAtSend: String) {
+        toast(R.string.message_partly_sent, android.widget.Toast.LENGTH_LONG)
+        if (!fromComposer) return
+        runOnUiThread {
+            attachmentController.keepOnly(partial.remainingAttachments)
+            // The text went with the last picture; not when the user already typed something else meanwhile.
+            if (partial.textSent && vm.text.text.toString() == composerAtSend) vm.text.clearText()
+            resend.clear()
+            updateMessageType()
+        }
     }
 
     private fun clearCurrentMessage() {
@@ -1598,7 +1695,10 @@ open class ThreadActivity : ComposeSimpleActivity() {
             // F3: the alarm may be sending this very message; whoever claims it first sends it, the other does nothing.
             if (!ScheduledSendClaims.claim(this, message.id, allowHeld = true)) return@ensureBackgroundThread
             try {
-                if (sendOutgoing(outgoing, fromComposer = false, composerAtSend = "")) {
+                val sent = sendOutgoing(outgoing, fromComposer = false, composerAtSend = "") { partial ->
+                    keepUnsentOfScheduled(message, partial)
+                }
+                if (sent) {
                     runOnUiThread { cancelScheduledMessageAndRefresh(message.id) }
                 } else {
                     // Not sent: held again, so Retry stays and no alarm sends it by itself.
@@ -1608,6 +1708,18 @@ open class ThreadActivity : ComposeSimpleActivity() {
                 ScheduledSendClaims.release(message.id)
             }
         }
+    }
+
+    /**
+     * A scheduled message that went out in part stays held, but with only what was not sent (and no text when that
+     * went), so the next Retry does not send the same pictures again.
+     */
+    private fun keepUnsentOfScheduled(message: Message, partial: SendOutcome) {
+        // Runs on the send's worker thread, before the caller holds the row;
+        // stays held (failed) so no alarm resends it.
+        val unsent = message.withUnsentOnly(partial).copy(type = Telephony.Sms.MESSAGE_TYPE_FAILED)
+        runCatching { messagesDB.insertOrUpdate(unsent) }
+        refreshMessages()
     }
 
     /**

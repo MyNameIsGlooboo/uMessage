@@ -161,11 +161,16 @@ class ThreadSelectionActions(
     }
 
     private fun forward(message: Message) {
-        val attachment = message.attachment?.attachments?.firstOrNull()
+        val attachments = message.attachment?.attachments.orEmpty()
         Intent(activity, NewConversationActivity::class.java).apply {
-            action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, message.body)
-            if (attachment != null) putExtra(Intent.EXTRA_STREAM, attachment.getUri())
+            if (attachments.size > 1) {
+                action = Intent.ACTION_SEND_MULTIPLE
+                putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(attachments.map { it.getUri() }))
+            } else {
+                action = Intent.ACTION_SEND
+                attachments.firstOrNull()?.let { putExtra(Intent.EXTRA_STREAM, it.getUri()) }
+            }
             activity.startActivity(this)
         }
     }

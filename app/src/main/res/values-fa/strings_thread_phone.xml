@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_phone_call">تماس</string>
+    <string name="thread_phone_copy">کپی شماره</string>
+    <string name="thread_phone_add_contact">ذخیره مخاطب</string>
+</resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="message_partly_sent">Einige Bilder und Dateien wurden gesendet, der Rest nicht. Sende erneut, um nur den Rest zu senden.</string>
+    <string name="scheduled_partly_sent">Ein Teil deiner geplanten Nachricht an \'%s\' wurde gesendet, der Rest nicht. Öffne den Chat und tippe auf „Erneut versuchen“, um nur den Rest zu senden.</string>
+    <string name="cleanup_codes_confirm_title">Gelesene Codes verschieben?</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="one">%d gelesene Code-Nachricht ist älter und wird jetzt in den Papierkorb verschoben. Mit Stern markierte Nachrichten bleiben.</item>
+        <item quantity="other">%d gelesene Code-Nachrichten sind älter und werden jetzt in den Papierkorb verschoben. Mit Stern markierte Nachrichten bleiben.</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">Noch kein gelesener Code ist so alt. Ältere Codes werden automatisch in den Papierkorb verschoben.</string>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="one">%d Unterhaltung löschen?</item>
+        <item quantity="other">%d Unterhaltungen löschen?</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message">
+        <item quantity="one">Die Unterhaltung und alle ihre Nachrichten werden von diesem Telefon gelöscht. Du kannst das noch einige Sekunden lang rückgängig machen.</item>
+        <item quantity="other">Die Unterhaltungen und alle ihre Nachrichten werden von diesem Telefon gelöscht. Du kannst das noch einige Sekunden lang rückgängig machen.</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s ist in deinen Kontakten. Diesen Absender blockieren? Neue Nachrichten von ihm landen dann in den blockierten Nachrichten statt im Posteingang. Du kannst das gleich danach rückgängig machen.</string>
+    <string name="i29_color_red">Rot</string>
+    <string name="i29_color_orange">Orange</string>
+    <string name="i29_color_yellow">Gelb</string>
+    <string name="i29_color_green">Grün</string>
+    <string name="i29_color_teal">Türkis</string>
+    <string name="i29_color_blue">Blau</string>
+    <string name="i29_color_purple">Lila</string>
+    <string name="i29_color_brown">Braun</string>
+    <string name="i56_picture_position">Bild %1$d von %2$d, %3$s. Zum Öffnen tippen.</string>
+    <string name="notifications_off_dismiss">Nicht jetzt</string>
+    <string name="e_restored_clear">Liste leeren</string>
+    <string name="lock_pin_length_hint">PIN: %1$d bis %2$d Ziffern</string>
+    <string name="cleanup_codes_undo">Rückgängig</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="one">%d gelesener Code in den Papierkorb verschoben</item>
+        <item quantity="other">%d gelesene Codes in den Papierkorb verschoben</item>
+    </plurals>
+    <string name="rule_preview_button">An letzten Nachrichten testen</string>
+    <string name="rule_preview_loading">Letzte Nachrichten werden geprüft…</string>
+    <string name="rule_preview_failed">Die letzten Nachrichten konnten nicht geprüft werden. Versuche es erneut.</string>
+    <string name="rule_preview_nothing">Es gibt noch keine letzten Nachrichten zum Prüfen.</string>
+    <string name="rule_preview_inbox">Posteingang: Diese Regel trifft auf %1$d der letzten %2$d Nachrichten zu</string>
+    <string name="rule_preview_inbox_empty">Posteingang: keine Nachrichten zum Prüfen</string>
+    <string name="rule_preview_blocked">Blockiert: Diese Regel trifft auf %1$d der letzten %2$d Nachrichten zu</string>
+    <string name="rule_preview_blocked_empty">Blockiert: keine Nachrichten zum Prüfen</string>
+    <string name="rule_preview_examples">Zum Beispiel: %1$s</string>
+    <string name="n06_delete_confirm">Diesen gespeicherten Text löschen?</string>
+    <string name="screens_vcard_email_action">E-Mail</string>
+    <string name="screens_vcard_copy_hint">Zum Kopieren gedrückt halten</string>
+    <string name="screens_vcard_copied">Kopiert</string>
+    <string name="settings_f_restore_rules_present">Regeln, die schon auf diesem Telefon sind: %1$d, übersprungen.</string>
+    <string name="settings_f_restore_too_many">Regeln in der Datei über dem Limit: %1$d, übersprungen.</string>
+    <string name="thread_schedule_discard_confirm">Zeitplan entfernen und die gespeicherte geplante Nachricht löschen? Der Text bleibt im Eingabefeld.</string>
+    <string name="thread_phone_call">Anrufen</string>
+    <string name="thread_phone_copy">Nummer kopieren</string>
+    <string name="thread_phone_add_contact">Kontakt hinzufügen</string>
+    <string name="thread_search_older_busy">Ältere Nachrichten werden durchsucht…</string>
+    <plurals name="thread_new_messages_chip">
+        <item quantity="one">%d neue Nachricht</item>
+        <item quantity="other">%d neue Nachrichten</item>
+    </plurals>
+    <string name="thread_messages_deleted">In den Papierkorb verschoben</string>
+    <string name="thread_messages_deleted_undo">Rückgängig</string>
+</resources>

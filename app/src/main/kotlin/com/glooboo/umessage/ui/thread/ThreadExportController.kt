@@ -88,6 +88,7 @@ class ThreadExportController(
             )
             .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         activity.startActivity(Intent.createChooser(send, subject))
+        com.glooboo.umessage.helpers.CacheCleanup.deleteAfterShare(done.file)
     }
 
     private fun showProgress(cancelled: AtomicBoolean) {

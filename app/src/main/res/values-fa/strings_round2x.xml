@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="lock_pin_length_hint">پین: %1$d تا %2$d رقم</string>
+    <string name="cleanup_codes_undo">برگردون</string>
+    <plurals name="cleanup_codes_moved" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d کد خوانده‌شده رفت سطل بازیافت</item>
+        <item quantity="other">%d کد خوانده‌شده رفت سطل بازیافت</item>
+    </plurals>
+</resources>

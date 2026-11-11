@@ -17,6 +17,8 @@ data class RestoredEntry(val address: String, val receivedAt: Long, val restored
  * The text form of the restored list: one `restoredAt TAB receivedAt TAB address` line per entry, newest first.
  * Entries older than [RestoredLog.KEEP_MS] or beyond [RestoredLog.MAX_ENTRIES] are dropped.
  */
+private const val DAY_MS = 24L * 60 * 60 * 1000
+
 object RestoredLogCodec {
     private val breaks = Regex("[\\t\\n\\r]")
 
@@ -43,6 +45,12 @@ object RestoredLogCodec {
             .filter { now - it.restoredAt in 0..keepMs }
             .sortedByDescending { it.restoredAt }
             .take(max)
+
+    /** [entries] restored within the last [days] days; the rest goes with the purged blocked messages. */
+    fun dropOlderThan(entries: List<RestoredEntry>, days: Int, now: Long): List<RestoredEntry> {
+        val keepMs = days * DAY_MS
+        return entries.filter { now - it.restoredAt <= keepMs }
+    }
 }
 
 /**
@@ -61,11 +69,28 @@ class RestoredLog(private val prefs: SharedPreferences?, private val now: () -> 
         runCatching { prefs?.edit { putString(KEY, RestoredLogCodec.encode(merged)) } }
     }
 
+    /** Forgets every listed entry (the sheet's "Clear list"). */
+    fun clear() {
+        state.value = emptyList()
+        runCatching { prefs?.edit { remove(KEY) } }
+    }
+
+    /** The blocked messages were purged after [days] days: older entries go too (spamui-15). */
+    fun dropOlderThan(days: Int) {
+        val kept = RestoredLogCodec.dropOlderThan(state.value, days, now())
+        if (kept.size == state.value.size) return
+        state.value = kept
+        runCatching {
+            prefs?.edit { if (kept.isEmpty()) remove(KEY) else putString(KEY, RestoredLogCodec.encode(kept)) }
+        }
+    }
+
     /** Undo of a restore takes its entries back out. */
     fun remove(entries: List<RestoredEntry>) {
         if (entries.isEmpty()) return
-        val gone = entries.toSet()
-        val kept = state.value.filterNot { it in gone }
+        // One equal entry goes per undone entry, so two identical rows do not both vanish for one undo.
+        val kept = state.value.toMutableList()
+        entries.forEach { kept.remove(it) }
         state.value = kept
         runCatching { prefs?.edit { putString(KEY, RestoredLogCodec.encode(kept)) } }
     }
@@ -77,7 +102,7 @@ class RestoredLog(private val prefs: SharedPreferences?, private val now: () -> 
 
     companion object {
         const val KEEP_DAYS = 30
-        const val KEEP_MS = KEEP_DAYS * 24L * 60 * 60 * 1000
+        const val KEEP_MS = KEEP_DAYS * DAY_MS
         const val MAX_ENTRIES = 100
         private const val PREFS = "spamless_restored"
         private const val KEY = "entries"

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_partly_sent">Bazı fotoğraflar ve dosyalar gönderildi, geri kalanı gönderilemedi. Yalnızca kalanını göndermek için yeniden gönderin.</string>
+    <string name="scheduled_partly_sent">\'%s\' kişisine zamanladığınız mesajın bir kısmı gönderildi, kalanı gönderilemedi. Yalnızca kalanını göndermek için görüşmeyi açıp “Yeniden deneyin” düğmesine dokunun.</string>
+    <string name="cleanup_codes_confirm_title">Okunmuş kodlar taşınsın mı?</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="one">Bu süreden eski %d okunmuş kodlu mesaj şimdi çöp kutusuna taşınır. Yıldızlı mesajlar kalır.</item>
+        <item quantity="other">Bu süreden eski %d okunmuş kodlu mesaj şimdi çöp kutusuna taşınır. Yıldızlı mesajlar kalır.</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">Henüz o kadar eski okunmuş kod yok. Daha eskileri kendiliğinden çöp kutusuna taşınır.</string>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="one">%d görüşme silinsin mi?</item>
+        <item quantity="other">%d görüşme silinsin mi?</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message">
+        <item quantity="one">Görüşme ve tüm mesajları bu telefondan silinir. Hemen ardından birkaç saniye boyunca geri alabilirsiniz.</item>
+        <item quantity="other">Görüşmeler ve tüm mesajları bu telefondan silinir. Hemen ardından birkaç saniye boyunca geri alabilirsiniz.</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s kişilerinizde kayıtlı. Bu gönderen engellensin mi? Ondan gelen yeni mesajlar gelen kutusu yerine Engellenen mesajlar bölümüne düşer. Hemen ardından geri alabilirsiniz.</string>
+    <string name="i29_color_red">Kırmızı</string>
+    <string name="i29_color_orange">Turuncu</string>
+    <string name="i29_color_yellow">Sarı</string>
+    <string name="i29_color_green">Yeşil</string>
+    <string name="i29_color_teal">Turkuaz</string>
+    <string name="i29_color_blue">Mavi</string>
+    <string name="i29_color_purple">Mor</string>
+    <string name="i29_color_brown">Kahverengi</string>
+    <string name="i56_picture_position">Fotoğraf %1$d / %2$d, %3$s. Açmak için dokunun.</string>
+    <string name="notifications_off_dismiss">Şimdi değil</string>
+    <string name="e_restored_clear">Listeyi temizleyin</string>
+    <string name="lock_pin_length_hint">PIN: %1$d - %2$d hane</string>
+    <string name="cleanup_codes_undo">Geri alın</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="one">%d okunmuş kod çöp kutusuna taşındı</item>
+        <item quantity="other">%d okunmuş kod çöp kutusuna taşındı</item>
+    </plurals>
+    <string name="rule_preview_button">Son mesajlarda deneyin</string>
+    <string name="rule_preview_loading">Son mesajlar kontrol ediliyor…</string>
+    <string name="rule_preview_failed">Son mesajlar kontrol edilemedi. Yeniden deneyin.</string>
+    <string name="rule_preview_nothing">Kontrol edilecek son mesaj henüz yok.</string>
+    <string name="rule_preview_inbox">Gelen kutusu: bu kural son %2$d mesajın %1$d tanesiyle eşleşiyor</string>
+    <string name="rule_preview_inbox_empty">Gelen kutusu: kontrol edilecek mesaj yok</string>
+    <string name="rule_preview_blocked">Engellenenler: bu kural son %2$d mesajın %1$d tanesiyle eşleşiyor</string>
+    <string name="rule_preview_blocked_empty">Engellenenler: kontrol edilecek mesaj yok</string>
+    <string name="rule_preview_examples">Örneğin: %1$s</string>
+    <string name="n06_delete_confirm">Bu kayıtlı metin silinsin mi?</string>
+    <string name="screens_vcard_email_action">E-posta</string>
+    <string name="screens_vcard_copy_hint">Kopyalamak için basılı tutun</string>
+    <string name="screens_vcard_copied">Kopyalandı</string>
+    <string name="settings_f_restore_rules_present">Bu telefonda zaten olan kurallar: %1$d, atlandı.</string>
+    <string name="settings_f_restore_too_many">Dosyada sınırı aşan kurallar: %1$d, atlandı.</string>
+    <string name="thread_schedule_discard_confirm">Zamanlama kaldırılsın ve kayıtlı zamanlanmış mesaj silinsin mi? Metin kutuda kalır.</string>
+    <string name="thread_phone_call">Arayın</string>
+    <string name="thread_phone_copy">Numarayı kopyalayın</string>
+    <string name="thread_phone_add_contact">Kişi ekleyin</string>
+    <string name="thread_search_older_busy">Eski mesajlar aranıyor…</string>
+    <plurals name="thread_new_messages_chip">
+        <item quantity="one">%d yeni mesaj</item>
+        <item quantity="other">%d yeni mesaj</item>
+    </plurals>
+    <string name="thread_messages_deleted">Çöp kutusuna taşındı</string>
+    <string name="thread_messages_deleted_undo">Geri alın</string>
+</resources>

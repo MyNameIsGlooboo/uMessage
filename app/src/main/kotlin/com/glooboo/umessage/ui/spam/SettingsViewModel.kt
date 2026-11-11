@@ -6,7 +6,10 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -38,6 +41,11 @@ class SettingsViewModel(
         .map { SettingsUiState(loading = false, settings = it) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SettingsUiState())
 
+    private val failures = Channel<Unit>(Channel.CONFLATED)
+
+    /** Fires when a settings write failed, so the screen can say so. */
+    val failureFlow: Flow<Unit> = failures.receiveAsFlow()
+
     fun setMode(mode: UnknownSenderMode) = update { it.copy(mode = mode) }
     fun setPurgeDays(days: Int) = update { it.copy(purgeAfterDays = days) }
     fun setNotifyOnBlock(enabled: Boolean) = update { it.copy(notifyOnBlock = enabled) }
@@ -46,7 +54,9 @@ class SettingsViewModel(
     fun setBlockOutsideRegion(region: String) = update { it.copy(blockOutsideRegion = region) }
 
     private fun update(transform: (SpamSettings) -> SpamSettings) {
-        viewModelScope.launch { runCatching { repository.updateSettings(transform) } }
+        viewModelScope.launch {
+            runCatching { repository.updateSettings(transform) }.onFailure { failures.trySend(Unit) }
+        }
     }
 
     companion object {

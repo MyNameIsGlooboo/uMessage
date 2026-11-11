@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_pin_length_hint">PIN: %1$d to %2$d digits</string>
+    <string name="cleanup_codes_undo">Undo</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="one">%d read code moved to the recycle bin</item>
+        <item quantity="other">%d read codes moved to the recycle bin</item>
+    </plurals>
+</resources>

@@ -25,6 +25,12 @@ object MediaSizes {
     @Volatile
     private var prefs: SharedPreferences? = null
 
+    /**
+     * Keys on disk in the order they were learnt, read once (SharedPreferences.getAll copies the whole map) and then
+     * kept by [store]. Keys that were already saved before this process started come first, in unspecified order.
+     */
+    private var savedKeys: LinkedHashSet<String>? = null
+
     private fun prefs(context: Context): SharedPreferences =
         prefs ?: context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE).also { prefs = it }
 
@@ -59,10 +65,16 @@ object MediaSizes {
         if (memory[key] == aspect) return
         memory[key] = aspect
         val saved = prefs(context)
-        saved.edit {
-            // A rough bound: forgetting old ratios only means one more jump for those pictures.
-            if (saved.all.size >= MAX_ENTRIES) clear()
-            putFloat(key, aspect)
+        synchronized(this) {
+            val keys = savedKeys ?: LinkedHashSet(saved.all.keys).also { savedKeys = it }
+            val isNew = keys.add(key)
+            val evicted = if (isNew) evictionBatch(keys, MAX_ENTRIES) else emptyList()
+            saved.edit {
+                // Forget the oldest tenth when full: that only means one more jump for those pictures.
+                evicted.forEach { remove(it) }
+                putFloat(key, aspect)
+            }
+            keys.removeAll(evicted.toSet())
         }
     }
 
@@ -70,7 +82,20 @@ object MediaSizes {
     internal fun clearMemory() {
         memory.clear()
         warmed.clear()
+        synchronized(this) { savedKeys = null }
     }
+}
+
+private const val EVICT_FRACTION = 10
+
+/**
+ * The oldest keys to drop once [keys] (oldest first) has grown past [max]: enough to leave a tenth of [max] free, so
+ * eviction does not run for every new picture. Empty while within the bound.
+ */
+internal fun evictionBatch(keys: Collection<String>, max: Int): List<String> {
+    if (keys.size <= max) return emptyList()
+    val drop = keys.size - max + (max / EVICT_FRACTION).coerceAtLeast(1)
+    return keys.take(drop.coerceAtMost(keys.size - 1))
 }
 
 /** The ratio a media bubble is drawn at: the loaded picture's, else the one learnt earlier, else 4:3. */

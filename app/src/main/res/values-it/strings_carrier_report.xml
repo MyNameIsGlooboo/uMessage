@@ -8,7 +8,7 @@
     <string name="carrier_report_invalid">Usa da 3 a 8 cifre</string>
     <string name="carrier_report_action">Segnala all\'operatore</string>
     <string name="carrier_report_title">Segnalare al tuo operatore?</string>
-    <string name="carrier_report_body">L\'ultimo messaggio di questo mittente verrà inviato a %1$s via SMS. Il tuo operatore potrebbe addebitarti un costo.</string>
+    <string name="carrier_report_body">L\'ultimo messaggio di questo mittente, con sotto il numero del mittente, verrà inviato a %1$s via SMS. Il tuo operatore potrebbe addebitarti un costo.</string>
     <string name="carrier_report_send">Invia</string>
     <string name="carrier_report_sent">Segnalazione inviata al tuo operatore</string>
     <string name="carrier_report_failed">Impossibile inviare la segnalazione</string>

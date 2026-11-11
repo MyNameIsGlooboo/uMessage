@@ -6,6 +6,8 @@
     <string name="message_not_sent_touch_retry">Not sent. Touch to retry.</string>
     <string name="message_sending_error">Your message to \'%s\' has not been sent</string>
     <string name="scheduled_attachment_missing">Your scheduled message to \'%s\' was not sent: its attachment can no longer be opened. Open the chat to add it again.</string>
+    <string name="message_partly_sent">Some pictures and files were sent, the rest were not. Send again to send only the rest.</string>
+    <string name="scheduled_partly_sent">Part of your scheduled message to \'%s\' was sent, the rest was not. Open the chat and tap Retry to send only the rest.</string>
     <string name="add_person">Add Person</string>
     <string name="attachment">Attachment</string>
     <string name="reply">Reply</string>

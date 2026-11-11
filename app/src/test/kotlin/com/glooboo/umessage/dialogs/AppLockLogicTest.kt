@@ -189,4 +189,10 @@ class PatternGeometryTest {
         org.junit.Assert.assertNull(PatternGeometry.cellAt(310f, 50f, 300f, 300f))
         org.junit.Assert.assertNull(PatternGeometry.cellAt(10f, 10f, 0f, 0f))
     }
+
+    @Test
+    fun pinLengthHintRangeIsConsistent() {
+        assertTrue(AppLockLogic.MIN_PIN_LENGTH <= AppLockLogic.SUGGESTED_PIN_LENGTH)
+        assertTrue(AppLockLogic.SUGGESTED_PIN_LENGTH <= AppLockLogic.MAX_PIN_LENGTH)
+    }
 }

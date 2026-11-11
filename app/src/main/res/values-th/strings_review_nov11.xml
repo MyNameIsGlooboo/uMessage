@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_partly_sent">ส่งรูปภาพและไฟล์บางส่วนแล้ว ส่วนที่เหลือยังไม่ได้ส่ง ส่งอีกครั้งเพื่อส่งเฉพาะส่วนที่เหลือ</string>
+    <string name="scheduled_partly_sent">ส่งข้อความที่ตั้งเวลาไว้ถึง \'%s\' ไปบางส่วนแล้ว ส่วนที่เหลือยังไม่ได้ส่ง เปิดการสนทนาแล้วแตะ “ลองอีกครั้ง” เพื่อส่งเฉพาะส่วนที่เหลือ</string>
+    <string name="cleanup_codes_confirm_title">ย้ายรหัสที่อ่านแล้วหรือไม่</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="other">ข้อความรหัสที่อ่านแล้ว %d ข้อความเก่ากว่านั้นและจะย้ายไปถังขยะทันที ข้อความที่ติดดาวจะยังอยู่</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">ยังไม่มีรหัสที่อ่านแล้วที่เก่าขนาดนั้น รหัสที่เก่ากว่านั้นจะย้ายไปถังขยะเอง</string>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="other">ลบ %d การสนทนาหรือไม่</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message">
+        <item quantity="other">การสนทนาและข้อความทั้งหมดจะถูกลบออกจากโทรศัพท์เครื่องนี้ คุณเลิกทำได้ภายในไม่กี่วินาทีหลังจากนั้น</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s อยู่ในรายชื่อติดต่อของคุณ บล็อกผู้ส่งรายนี้หรือไม่ ข้อความใหม่จากผู้ส่งจะไปอยู่ที่ข้อความที่บล็อกแทนกล่องข้อความ คุณเลิกทำได้ทันทีหลังจากนั้น</string>
+    <string name="i29_color_red">แดง</string>
+    <string name="i29_color_orange">ส้ม</string>
+    <string name="i29_color_yellow">เหลือง</string>
+    <string name="i29_color_green">เขียว</string>
+    <string name="i29_color_teal">เขียวอมฟ้า</string>
+    <string name="i29_color_blue">น้ำเงิน</string>
+    <string name="i29_color_purple">ม่วง</string>
+    <string name="i29_color_brown">น้ำตาล</string>
+    <string name="i56_picture_position">รูปภาพ %1$d จาก %2$d, %3$s แตะเพื่อเปิด</string>
+    <string name="notifications_off_dismiss">ไว้ภายหลัง</string>
+    <string name="e_restored_clear">ล้างรายการ</string>
+    <string name="lock_pin_length_hint">PIN: %1$d ถึง %2$d หลัก</string>
+    <string name="cleanup_codes_undo">เลิกทำ</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="other">ย้ายรหัสที่อ่านแล้ว %d รายการไปถังขยะแล้ว</item>
+    </plurals>
+    <string name="rule_preview_button">ทดสอบกับข้อความล่าสุด</string>
+    <string name="rule_preview_loading">กำลังตรวจสอบข้อความล่าสุด…</string>
+    <string name="rule_preview_failed">ตรวจสอบข้อความล่าสุดไม่ได้ ลองอีกครั้ง</string>
+    <string name="rule_preview_nothing">ยังไม่มีข้อความล่าสุดให้ตรวจสอบ</string>
+    <string name="rule_preview_inbox">กล่องข้อความ: กฎนี้ตรงกับ %1$d จาก %2$d ข้อความล่าสุด</string>
+    <string name="rule_preview_inbox_empty">กล่องข้อความ: ไม่มีข้อความให้ตรวจสอบ</string>
+    <string name="rule_preview_blocked">ที่บล็อก: กฎนี้ตรงกับ %1$d จาก %2$d ข้อความล่าสุด</string>
+    <string name="rule_preview_blocked_empty">ที่บล็อก: ไม่มีข้อความให้ตรวจสอบ</string>
+    <string name="rule_preview_examples">เช่น %1$s</string>
+    <string name="n06_delete_confirm">ลบข้อความที่บันทึกไว้นี้หรือไม่</string>
+    <string name="screens_vcard_email_action">อีเมล</string>
+    <string name="screens_vcard_copy_hint">กดค้างเพื่อคัดลอก</string>
+    <string name="screens_vcard_copied">คัดลอกแล้ว</string>
+    <string name="settings_f_restore_rules_present">กฎที่มีอยู่ในโทรศัพท์เครื่องนี้แล้ว: %1$d ข้ามแล้ว</string>
+    <string name="settings_f_restore_too_many">กฎในไฟล์ที่เกินขีดจำกัด: %1$d ข้ามแล้ว</string>
+    <string name="thread_schedule_discard_confirm">ลบการตั้งเวลาและลบข้อความที่ตั้งเวลาไว้ที่บันทึกไว้หรือไม่ ข้อความจะยังอยู่ในช่องพิมพ์</string>
+    <string name="thread_phone_call">โทร</string>
+    <string name="thread_phone_copy">คัดลอกหมายเลข</string>
+    <string name="thread_phone_add_contact">เพิ่มรายชื่อติดต่อ</string>
+    <string name="thread_search_older_busy">กำลังค้นหาข้อความเก่า…</string>
+    <plurals name="thread_new_messages_chip">
+        <item quantity="other">%d ข้อความใหม่</item>
+    </plurals>
+    <string name="thread_messages_deleted">ย้ายไปถังขยะแล้ว</string>
+    <string name="thread_messages_deleted_undo">เลิกทำ</string>
+</resources>

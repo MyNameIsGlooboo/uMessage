@@ -36,13 +36,24 @@ fun bubbleShape(sent: Boolean, group: BubbleGroup): Shape {
     }
 }
 
-/** Plain text with web and e-mail addresses turned into tappable links, as the old bubbles did with autoLink. */
+/**
+ * Plain text with web and e-mail addresses and phone numbers turned into tappable links, as the old bubbles did with
+ * autoLink. A phone number becomes a "tel:" link; the link sheet then offers Call (opens the dialer, never dials),
+ * Copy and Add contact.
+ */
 internal fun linkify(text: String, color: Color): AnnotatedString {
     if (text.isEmpty()) return AnnotatedString("")
     val spannable = SpannableString(text)
     Linkify.addLinks(spannable, Linkify.WEB_URLS or Linkify.EMAIL_ADDRESSES)
-    val spans = spannable.getSpans(0, spannable.length, URLSpan::class.java)
-    if (spans.isEmpty()) return AnnotatedString(text)
+    val urlLinks = spannable.getSpans(0, spannable.length, URLSpan::class.java).map {
+        TextLink(spannable.getSpanStart(it), spannable.getSpanEnd(it), it.url, isUrl = true)
+    }
+    // A number inside a web or e-mail link stays part of that link.
+    val phoneLinks = findPhoneNumbers(text)
+        .filter { m -> urlLinks.none { m.range.first < it.end && it.start <= m.range.last } }
+        .map { TextLink(it.range.first, it.range.last + 1, phoneLink(it.number), isUrl = false) }
+    val links = (urlLinks + phoneLinks).sortedBy { it.start }
+    if (links.isEmpty()) return AnnotatedString(text)
     val style = TextLinkStyles(
         SpanStyle(color = color, textDecoration = TextDecoration.Underline, fontWeight = FontWeight.Medium),
     )
@@ -50,21 +61,35 @@ internal fun linkify(text: String, color: Color): AnnotatedString {
         // TH-04: each link sits in a left-to-right isolate, so a URL inside right-to-left text keeps its own order
         // and lines up with the surrounding text instead of drifting to the other edge.
         var last = 0
-        spans.sortedBy { spannable.getSpanStart(it) }.forEach { span ->
-            val start = spannable.getSpanStart(span)
-            val end = spannable.getSpanEnd(span)
+        links.forEach { link ->
+            val start = link.start
+            val end = link.end
             if (start < last) return@forEach
             append(text.substring(last, start))
             append(LRI)
             val from = length
-            append(keepSchemeTogether(text.substring(start, end)))
-            addLink(LinkAnnotation.Url(span.url, style), from, length)
+            val shown = text.substring(start, end)
+            append(if (link.isUrl) keepSchemeTogether(shown) else shown)
+            addLink(LinkAnnotation.Url(if (link.isUrl) secureUrl(link.url, shown) else link.url, style), from, length)
             append(PDI)
             last = end
         }
         append(text.substring(last))
     }
 }
+
+private data class TextLink(val start: Int, val end: Int, val url: String, val isUrl: Boolean)
+
+/**
+ * A link written without a scheme ("example.com") is given http:// by Linkify. Open it on https:// instead, so the
+ * link sheet does not warn "not encrypted" about what the sender never wrote as http. A written "http://" stays.
+ */
+internal fun secureUrl(url: String, shown: String): String =
+    if (url.startsWith("http://", ignoreCase = true) && !shown.startsWith("http://", ignoreCase = true)) {
+        "https://" + url.substring("http://".length)
+    } else {
+        url
+    }
 
 private const val LRI = "\u2066"
 private const val PDI = "\u2069"

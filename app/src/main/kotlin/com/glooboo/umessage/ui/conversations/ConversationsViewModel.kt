@@ -79,6 +79,12 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     private var hasData = false
     private var importing = false
 
+    /** Chats the user asked to delete and has not confirmed yet; the screen shows a dialog while this is set. */
+    private var confirmDeleteIds: List<Long> = emptyList()
+
+    /** Derived rows, reused while nothing a row shows has changed (main-3). Touched only by [build]. */
+    private val rowCache = RowCache<Long, RowInput, ConversationRow>()
+
     /** Thread ids hidden from the list while a delete or archive is pending or in flight. */
     private val hidden = HashSet<Long>()
     private val pendingDeletes = LinkedHashMap<Long, List<Long>>()
@@ -105,8 +111,8 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         viewModelScope.launch {
             for (ignored in rebuild) {
                 val snapshot = Snapshot(
-                    source, drafts, sims, selected, hidden.toSet(), newBlockedCount,
-                    archiveAvailable, hasData, importing,
+                    source, drafts, sims, selected, hidden.toSet(),
+                    Status(newBlockedCount, archiveAvailable, hasData, importing, confirmDeleteIds.size),
                 )
                 _state.value = withContext(Dispatchers.Default) { build(snapshot) }
             }
@@ -371,14 +377,35 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    fun deleteSelected() = delete(selected.toList())
+    /** The Delete button: asks the screen to confirm first; nothing is hidden or deleted until [confirmDelete]. */
+    fun deleteSelected() = requestDelete(selected.toList())
 
-    fun deleteOne(threadId: Long) = delete(listOf(threadId))
+    fun deleteOne(threadId: Long) = requestDelete(listOf(threadId))
+
+    private fun requestDelete(threadIds: List<Long>) {
+        if (threadIds.isEmpty()) return
+        confirmDeleteIds = threadIds
+        requestRebuild()
+    }
+
+    /** The user said yes in the confirmation dialog. Undo stays available from the snackbar. */
+    fun confirmDelete() {
+        val ids = confirmDeleteIds
+        confirmDeleteIds = emptyList()
+        delete(ids)
+        requestRebuild()
+    }
+
+    fun cancelDelete() {
+        if (confirmDeleteIds.isEmpty()) return
+        confirmDeleteIds = emptyList()
+        requestRebuild()
+    }
 
     /**
      * Hides the conversations and deletes them for real once the undo window closes ([commitDelete]).
-     * Like the classic list, whole-thread deletion is permanent; the recycle bin setting only governs
-     * deleting single messages inside a thread.
+     * Like the classic list, whole-thread deletion is permanent (the recycle bin holds single messages, not
+     * whole chats, so it cannot make this undoable); the confirmation dialog and the long Undo window guard it.
      */
     private fun delete(threadIds: List<Long>) {
         if (threadIds.isEmpty()) return
@@ -401,16 +428,17 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     fun commitDelete(token: Long) {
         val ids = pendingDeletes.remove(token) ?: return
         viewModelScope.launch(Dispatchers.IO + NonCancellable) {
-            runCatching {
-                ids.forEach {
+            val deleted = ids.filter {
+                runCatching {
                     app.deleteConversation(it)
                     app.notificationManager.cancel(it.hashCode())
-                }
+                }.isSuccess
             }
             withContext(Dispatchers.Main) {
-                source = source.filterNot { it.threadId in ids }
+                source = source.filterNot { it.threadId in deleted }
                 hidden -= ids.toSet()
                 requestRebuild()
+                if (deleted.size < ids.size) _events.trySend(ConversationsEvent.Failed)
             }
             refreshConversations()
         }
@@ -600,10 +628,16 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         val sims: List<SimInfo>,
         val selected: Set<Long>,
         val hidden: Set<Long>,
+        val status: Status,
+    )
+
+    /** The flags and counts of a [Snapshot] that are not lists. */
+    private class Status(
         val newBlockedCount: Int,
         val archiveAvailable: Boolean,
         val hasData: Boolean,
         val importing: Boolean,
+        val confirmDeleteCount: Int,
     )
 
     /** A group, a renamed thread, or a title that is a name rather than the number: someone the user knows. */
@@ -615,8 +649,10 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         val config = app.config
         val withNotes = noteThreads
         val pinned = config.pinnedConversations
-        val manager = app.notificationManager
         val customNotifications = config.customNotifications
+        // One binder call per rebuild instead of one per chat with its own notification channel.
+        val mutedChannels = if (customNotifications.isEmpty()) emptySet() else mutedChannelIds(app.notificationManager)
+        val locale = app.uiLocale
         val mutePrefs = MutePrefs.get(app)
         // B06: chats hidden behind the app lock stay out of the list until they are unlocked.
         val hiddenChats = HiddenChats.get(app)
@@ -638,52 +674,67 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
                     .thenByDescending { unreadFirst && !it.read }
                     .thenByDescending { it.date },
             )
+        val minute = now / MINUTE_MS
         val rows = sorted.map { c ->
             val draft = s.drafts[c.threadId]
-            val hasDraft = !draft.isNullOrEmpty()
-            val unread = !c.read
             val simSlot = if (showSim && !c.isGroupConversation) {
                 val subscription = threadSims[c.threadId] ?: config.getUseSIMIdAtNumber(c.phoneNumber)
                 SimBadge.slotToShow(subscription, s.sims, defaultSim)
             } else {
                 null
             }
-            ConversationRow(
-                threadId = c.threadId,
-                // Cached titles from before control characters were stripped may still hold a NUL.
-                // CL-10: the shared display form, also used by Archived, search, the thread header and Details.
-                // N2: each number of a group title too, joined with the language's comma.
-                title = displayTitle(app, c.title.stripControlCharacters()),
-                snippet = conversationPreview(c.snippet, draft, noTextLabel),
-                dateLabel = formatListTimeStyled(app, c.date * 1000L),
-                unread = unread,
-                unreadBadge = when {
-                    !unread -> ""
-                    c.unreadCount > MAX_BADGE -> localizeDigits("$MAX_BADGE+", app.uiLocale)
-                    c.unreadCount <= 0 -> ""
-                    else -> localizedNumber(c.unreadCount, app.uiLocale)
-                },
-                unreadCount = c.unreadCount,
+            val input = RowInput(
+                threadId = c.threadId, title = c.title, snippet = c.snippet, date = c.date, read = c.read,
+                unreadCount = c.unreadCount, photoUri = c.photoUri, isGroup = c.isGroupConversation,
+                phoneNumber = c.phoneNumber, scheduled = c.isScheduled, customTitle = c.usesCustomTitle,
+                draft = draft.orEmpty(), simSlot = simSlot, simName = simSlot?.let { simNames[it] }.orEmpty(),
                 pinned = pinned.contains(c.threadId.toString()),
                 muted = mutePrefs.isMuted(c.threadId) ||
-                    (customNotifications.contains(c.threadId.toString()) && isMuted(manager, c.threadId)),
-                hasDraft = hasDraft,
-                scheduled = c.isScheduled,
-                simSlot = simSlot,
-                simName = simSlot?.let { simNames[it] }.orEmpty(),
-                photoUri = c.photoUri,
-                isGroup = c.isGroupConversation,
-                phoneNumber = c.phoneNumber,
-                // CL-11: only a fresh, unread message offers its code; the chip goes away after OTP_CHIP_MS.
-                otpCode = if (unread && now - c.date * 1000L in 0..OTP_CHIP_MS) {
-                    runCatching { OtpCodeExtractor.extract(c.snippet) }.getOrNull()
-                } else {
-                    null
-                },
-                category = MessageCategories.classify(c.phoneNumber, c.snippet, isContact = isContact(c)),
+                    (customNotifications.contains(c.threadId.toString()) && c.threadId.toString() in mutedChannels),
+                otpFresh = !c.read && now - c.date * 1000L in 0..OTP_CHIP_MS,
                 hasNotes = c.threadId in withNotes,
+                minute = minute, locale = locale,
             )
+            rowCache.get(c.threadId, input) {
+                val unread = !c.read
+                ConversationRow(
+                    threadId = c.threadId,
+                    // Cached titles from before control characters were stripped may still hold a NUL.
+                    // CL-10: the shared display form, also used by Archived, search, the thread header and Details.
+                    // N2: each number of a group title too, joined with the language's comma.
+                    title = displayTitle(app, c.title.stripControlCharacters()),
+                    snippet = conversationPreview(c.snippet, draft, noTextLabel),
+                    dateLabel = formatListTimeStyled(app, c.date * 1000L),
+                    unread = unread,
+                    unreadBadge = when {
+                        !unread -> ""
+                        c.unreadCount > MAX_BADGE -> localizeDigits("$MAX_BADGE+", app.uiLocale)
+                        c.unreadCount <= 0 -> ""
+                        else -> localizedNumber(c.unreadCount, app.uiLocale)
+                    },
+                    unreadCount = c.unreadCount,
+                    pinned = input.pinned,
+                    muted = input.muted,
+                    hasDraft = !draft.isNullOrEmpty(),
+                    scheduled = c.isScheduled,
+                    simSlot = simSlot,
+                    simName = input.simName,
+                    photoUri = c.photoUri,
+                    isGroup = c.isGroupConversation,
+                    phoneNumber = c.phoneNumber,
+                    // CL-11: only a fresh, unread message offers its code; the chip goes away after OTP_CHIP_MS.
+                    otpCode = if (input.otpFresh) {
+                        runCatching { OtpCodeExtractor.extract(c.snippet) }.getOrNull()
+                    } else {
+                        null
+                    },
+                    category = MessageCategories.classify(c.phoneNumber, c.snippet, isContact = isContact(c)),
+                    isContact = !c.isGroupConversation && isContact(c),
+                    hasNotes = input.hasNotes,
+                )
+            }
         }
+        rowCache.retainOnly(sorted.mapTo(HashSet()) { it.threadId })
 
         val rowIds = rows.mapTo(HashSet()) { it.threadId }
         val selectedIds = s.selected.filterTo(HashSet()) { it in rowIds }
@@ -698,7 +749,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
                 canUnpin = chosen.all { pinned.contains(it.threadId.toString()) },
                 canMarkRead = chosen.any { !it.read },
                 canMarkUnread = chosen.any { it.read },
-                canArchive = s.archiveAvailable,
+                canArchive = s.status.archiveAvailable,
                 canReportSpam = chosen.none { it.isGroupConversation },
                 canAddContact = single != null && !single.isGroupConversation,
                 canCopyNumber = single != null && !single.isGroupConversation,
@@ -712,24 +763,29 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         }
 
         return ConversationsUiState(
-            loading = !s.hasData,
-            importing = s.importing,
+            loading = !s.status.hasData,
+            importing = s.status.importing,
             rows = rows,
             selected = selectedIds,
             selection = actions,
-            newBlockedCount = s.newBlockedCount,
-            archiveAvailable = s.archiveAvailable,
+            newBlockedCount = s.status.newBlockedCount,
+            archiveAvailable = s.status.archiveAvailable,
             hiddenChats = if (hiddenChats.isLockOn()) s.source.count { hiddenChats.isChosen(it.threadId) } else 0,
             hiddenUnlocked = concealed.isEmpty(),
+            confirmDeleteCount = s.status.confirmDeleteCount,
         )
     }
 
-    private fun isMuted(manager: NotificationManager, threadId: Long): Boolean = runCatching {
-        manager.getNotificationChannel(threadId.toString())?.importance == NotificationManager.IMPORTANCE_NONE
-    }.getOrDefault(false)
+    /** Ids of the notification channels switched off, read with one call. */
+    private fun mutedChannelIds(manager: NotificationManager): Set<String> = runCatching {
+        manager.notificationChannels
+            .filter { it.importance == NotificationManager.IMPORTANCE_NONE }
+            .mapTo(HashSet()) { it.id }
+    }.getOrDefault(emptySet())
 
     private companion object {
         const val MAX_BADGE = 99
+        const val MINUTE_MS = 60_000L
 
         /** A code chip is shown for this long after the message arrived (ten minutes). */
         const val OTP_CHIP_MS = 10 * 60 * 1000L

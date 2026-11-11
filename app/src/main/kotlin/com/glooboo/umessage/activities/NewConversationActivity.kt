@@ -171,8 +171,13 @@ class NewConversationActivity : ComposeSimpleActivity() {
                     getSuggestedContacts(privateContacts).filter { it.phoneNumbers.isNotEmpty() }
                 }.getOrDefault(emptyList())
                 val phoneContacts = if (canReadContacts) loadPhoneContacts(this@NewConversationActivity) else emptyList()
-                val all = (phoneContacts + privateContacts.filter { it.phoneNumbers.isNotEmpty() })
-                    .distinctBy { it.phoneNumbers.first().normalizedNumber }
+                // Whole contacts, not first numbers: people sharing a landline stay separate. A private contact is
+                // only dropped when a phone contact has the same name and the same set of numbers.
+                fun identity(c: SimpleContact) = c.name to c.phoneNumbers.map { it.normalizedNumber }.toSet()
+                val phoneIdentities = phoneContacts.mapTo(HashSet(), ::identity)
+                val all = phoneContacts + privateContacts
+                    .filter { it.phoneNumbers.isNotEmpty() && identity(it) !in phoneIdentities }
+                    .distinctBy { it.contactId }
                 LoadedContacts(all, suggested)
             }
             suggestions = loadedContacts.suggestions

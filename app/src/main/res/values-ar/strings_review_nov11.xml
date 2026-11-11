@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="message_partly_sent">أُرسلت بعض الصور والملفات ولم يُرسل الباقي. أعد الإرسال لإرسال الباقي فقط.</string>
+    <string name="scheduled_partly_sent">أُرسل جزء من رسالتك المجدولة إلى \'%s\' ولم يُرسل الباقي. افتح المحادثة واضغط على أعِد المحاولة لإرسال الباقي فقط.</string>
+    <string name="cleanup_codes_confirm_title">نقل رموز التحقق المقروءة؟</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="zero">لا توجد رسائل رموز مقروءة (%d) أقدم من ذلك. تبقى الرسائل المميّزة بنجمة.</item>
+        <item quantity="one">رسالة رمز مقروءة واحدة (%d) أقدم من ذلك وتُنقل الآن إلى سلة المهملات. تبقى الرسائل المميّزة بنجمة.</item>
+        <item quantity="two">رسالتا رمز مقروءتان (%d) أقدم من ذلك وتُنقلان الآن إلى سلة المهملات. تبقى الرسائل المميّزة بنجمة.</item>
+        <item quantity="few">%d رسائل رموز مقروءة أقدم من ذلك وتُنقل الآن إلى سلة المهملات. تبقى الرسائل المميّزة بنجمة.</item>
+        <item quantity="many">%d رسالة رمز مقروءة أقدم من ذلك وتُنقل الآن إلى سلة المهملات. تبقى الرسائل المميّزة بنجمة.</item>
+        <item quantity="other">%d رسالة رمز مقروءة أقدم من ذلك وتُنقل الآن إلى سلة المهملات. تبقى الرسائل المميّزة بنجمة.</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">لا يوجد رمز مقروء بهذا القدم بعد. ستُنقل الرموز الأقدم إلى سلة المهملات تلقائيًا.</string>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="zero">حذف %d محادثة؟</item>
+        <item quantity="one">حذف محادثة واحدة (%d)؟</item>
+        <item quantity="two">حذف محادثتين (%d)؟</item>
+        <item quantity="few">حذف %d محادثات؟</item>
+        <item quantity="many">حذف %d محادثة؟</item>
+        <item quantity="other">حذف %d محادثة؟</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message">
+        <item quantity="zero">ستُحذف المحادثات وكل رسائلها من هذا الهاتف. يمكنك التراجع لبضع ثوانٍ بعد ذلك.</item>
+        <item quantity="one">ستُحذف المحادثة وكل رسائلها من هذا الهاتف. يمكنك التراجع لبضع ثوانٍ بعد ذلك.</item>
+        <item quantity="two">ستُحذف المحادثتان وكل رسائلهما من هذا الهاتف. يمكنك التراجع لبضع ثوانٍ بعد ذلك.</item>
+        <item quantity="few">ستُحذف المحادثات وكل رسائلها من هذا الهاتف. يمكنك التراجع لبضع ثوانٍ بعد ذلك.</item>
+        <item quantity="many">ستُحذف المحادثات وكل رسائلها من هذا الهاتف. يمكنك التراجع لبضع ثوانٍ بعد ذلك.</item>
+        <item quantity="other">ستُحذف المحادثات وكل رسائلها من هذا الهاتف. يمكنك التراجع لبضع ثوانٍ بعد ذلك.</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s موجود في جهات اتصالك. هل تريد حظر هذا المرسل؟ ستذهب رسائله الجديدة إلى الرسائل المحظورة بدل صندوق الوارد. يمكنك التراجع مباشرة بعد ذلك.</string>
+    <string name="i29_color_red">أحمر</string>
+    <string name="i29_color_orange">برتقالي</string>
+    <string name="i29_color_yellow">أصفر</string>
+    <string name="i29_color_green">أخضر</string>
+    <string name="i29_color_teal">تركوازي</string>
+    <string name="i29_color_blue">أزرق</string>
+    <string name="i29_color_purple">بنفسجي</string>
+    <string name="i29_color_brown">بني</string>
+    <string name="i56_picture_position">الصورة %1$d من %2$d، %3$s. اضغط للفتح.</string>
+    <string name="notifications_off_dismiss">ليس الآن</string>
+    <string name="e_restored_clear">امسح القائمة</string>
+    <string name="lock_pin_length_hint">رمز PIN: من %1$d إلى %2$d أرقام</string>
+    <string name="cleanup_codes_undo">تراجع</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="zero">لم يُنقل أي رمز مقروء إلى سلة المهملات (%d)</item>
+        <item quantity="one">نُقل رمز مقروء واحد (%d) إلى سلة المهملات</item>
+        <item quantity="two">نُقل رمزان مقروءان (%d) إلى سلة المهملات</item>
+        <item quantity="few">نُقلت %d رموز مقروءة إلى سلة المهملات</item>
+        <item quantity="many">نُقل %d رمزًا مقروءًا إلى سلة المهملات</item>
+        <item quantity="other">نُقل %d رمز مقروء إلى سلة المهملات</item>
+    </plurals>
+    <string name="rule_preview_button">جرّب على الرسائل الأخيرة</string>
+    <string name="rule_preview_loading">جارٍ فحص الرسائل الأخيرة…</string>
+    <string name="rule_preview_failed">تعذّر فحص الرسائل الأخيرة. حاول مرة أخرى.</string>
+    <string name="rule_preview_nothing">لا توجد رسائل أخيرة لفحصها بعد.</string>
+    <string name="rule_preview_inbox">الوارد: تنطبق هذه القاعدة على %1$d من آخر %2$d رسالة</string>
+    <string name="rule_preview_inbox_empty">الوارد: لا توجد رسائل لفحصها</string>
+    <string name="rule_preview_blocked">المحظورة: تنطبق هذه القاعدة على %1$d من آخر %2$d رسالة</string>
+    <string name="rule_preview_blocked_empty">المحظورة: لا توجد رسائل لفحصها</string>
+    <string name="rule_preview_examples">مثلًا: %1$s</string>
+    <string name="n06_delete_confirm">هل تريد حذف هذا النص المحفوظ؟</string>
+    <string name="screens_vcard_email_action">بريد إلكتروني</string>
+    <string name="screens_vcard_copy_hint">اضغط مطولًا للنسخ</string>
+    <string name="screens_vcard_copied">تم النسخ</string>
+    <string name="settings_f_restore_rules_present">قواعد موجودة بالفعل على هذا الهاتف: %1$d، تم تخطيها.</string>
+    <string name="settings_f_restore_too_many">قواعد في الملف تتجاوز الحد: %1$d، تم تخطيها.</string>
+    <string name="thread_schedule_discard_confirm">هل تريد إزالة الجدولة وحذف الرسالة المجدولة المحفوظة؟ يبقى النص في الحقل.</string>
+    <string name="thread_phone_call">اتصل</string>
+    <string name="thread_phone_copy">انسخ الرقم</string>
+    <string name="thread_phone_add_contact">أضف جهة اتصال</string>
+    <string name="thread_search_older_busy">جارٍ البحث في الرسائل الأقدم…</string>
+    <plurals name="thread_new_messages_chip">
+        <item quantity="zero">%d رسالة جديدة</item>
+        <item quantity="one">رسالة جديدة واحدة (%d)</item>
+        <item quantity="two">رسالتان جديدتان (%d)</item>
+        <item quantity="few">%d رسائل جديدة</item>
+        <item quantity="many">%d رسالة جديدة</item>
+        <item quantity="other">%d رسالة جديدة</item>
+    </plurals>
+    <string name="thread_messages_deleted">نُقلت إلى سلة المهملات</string>
+    <string name="thread_messages_deleted_undo">تراجع</string>
+</resources>

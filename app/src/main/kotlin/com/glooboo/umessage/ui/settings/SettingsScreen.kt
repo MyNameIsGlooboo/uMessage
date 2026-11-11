@@ -14,9 +14,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -88,7 +92,9 @@ fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, initialPage
             )
         }
     }
-    SettingsFrame(topBar) { padding ->
+    val snackbar = remember { SnackbarHostState() }
+    CompositionLocalProvider(LocalSettingsSnackbar provides snackbar) {
+    SettingsFrame(topBar, snackbar) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -115,6 +121,7 @@ fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, initialPage
             }
             Spacer(Modifier.height(24.dp + padding.calculateBottomPadding()))
         }
+    }
     }
 }
 
@@ -143,9 +150,20 @@ private fun PageContent(
 
 /** U62: every page, the main list too, uses the same small top bar, so the first rows start right under the title. */
 @Composable
-private fun SettingsFrame(topBar: @Composable () -> Unit, content: @Composable (PaddingValues) -> Unit) {
-    UMessageScaffold(topBar = topBar, content = content)
+private fun SettingsFrame(
+    topBar: @Composable () -> Unit,
+    snackbar: SnackbarHostState,
+    content: @Composable (PaddingValues) -> Unit,
+) {
+    UMessageScaffold(topBar = topBar, snackbarHostState = snackbar, content = content)
 }
+
+/**
+ * The snackbar host of the settings screen, so a row can show a message with Undo (the read-codes cleanup does).
+ * Null outside [SettingsScreen] (previews, tests): rows then skip the snackbar.
+ */
+@Suppress("CompositionLocalAllowlist") // Scoped to the settings pages; a lambda would thread through every row.
+internal val LocalSettingsSnackbar = compositionLocalOf<SnackbarHostState?> { null }
 
 private fun pageTitle(page: SettingsPage): Int = when (page) {
     SettingsPage.Main -> R.string.settings_title

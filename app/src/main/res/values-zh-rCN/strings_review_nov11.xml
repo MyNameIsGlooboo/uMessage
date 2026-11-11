@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_partly_sent">部分图片和文件已发送，其余未发送。再次发送即可只发送其余部分。</string>
+    <string name="scheduled_partly_sent">发给\'%s\'的定时消息已发送一部分，其余未发送。打开会话并点按“重试”，即可只发送其余部分。</string>
+    <string name="cleanup_codes_confirm_title">移动已读验证码？</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="other">有%d条已读验证码消息早于该期限，现在将移至回收站。已加星标的消息会保留。</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">还没有这么久的已读验证码。更早的验证码会自动移至回收站。</string>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="other">删除%d个会话？</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message">
+        <item quantity="other">这些会话及其所有消息将从此手机中删除。删除后的几秒内可以撤销。</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s在联系人中。要屏蔽此发件人吗？其新消息将进入“已屏蔽消息”，而不是收件箱。屏蔽后可立即撤销。</string>
+    <string name="i29_color_red">红色</string>
+    <string name="i29_color_orange">橙色</string>
+    <string name="i29_color_yellow">黄色</string>
+    <string name="i29_color_green">绿色</string>
+    <string name="i29_color_teal">青色</string>
+    <string name="i29_color_blue">蓝色</string>
+    <string name="i29_color_purple">紫色</string>
+    <string name="i29_color_brown">棕色</string>
+    <string name="i56_picture_position">第%1$d张图片，共%2$d张，%3$s。点按即可打开。</string>
+    <string name="notifications_off_dismiss">暂不</string>
+    <string name="e_restored_clear">清空列表</string>
+    <string name="lock_pin_length_hint">PIN码：%1$d至%2$d位数字</string>
+    <string name="cleanup_codes_undo">撤销</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="other">已将%d条已读验证码移至回收站</item>
+    </plurals>
+    <string name="rule_preview_button">在最近的消息上测试</string>
+    <string name="rule_preview_loading">正在检查最近的消息…</string>
+    <string name="rule_preview_failed">无法检查最近的消息。请重试。</string>
+    <string name="rule_preview_nothing">暂时没有可检查的最近消息。</string>
+    <string name="rule_preview_inbox">收件箱：此规则匹配最近%2$d条消息中的%1$d条</string>
+    <string name="rule_preview_inbox_empty">收件箱：没有可检查的消息</string>
+    <string name="rule_preview_blocked">已屏蔽：此规则匹配最近%2$d条消息中的%1$d条</string>
+    <string name="rule_preview_blocked_empty">已屏蔽：没有可检查的消息</string>
+    <string name="rule_preview_examples">例如：%1$s</string>
+    <string name="n06_delete_confirm">删除此已保存的文本？</string>
+    <string name="screens_vcard_email_action">电子邮件</string>
+    <string name="screens_vcard_copy_hint">长按可复制</string>
+    <string name="screens_vcard_copied">已复制</string>
+    <string name="settings_f_restore_rules_present">此手机上已有的规则：%1$d条，已跳过。</string>
+    <string name="settings_f_restore_too_many">文件中超出上限的规则：%1$d条，已跳过。</string>
+    <string name="thread_schedule_discard_confirm">移除定时并删除已保存的定时消息？文本会保留在输入框中。</string>
+    <string name="thread_phone_call">拨打电话</string>
+    <string name="thread_phone_copy">复制号码</string>
+    <string name="thread_phone_add_contact">添加联系人</string>
+    <string name="thread_search_older_busy">正在搜索更早的消息…</string>
+    <plurals name="thread_new_messages_chip">
+        <item quantity="other">%d条新消息</item>
+    </plurals>
+    <string name="thread_messages_deleted">已移至回收站</string>
+    <string name="thread_messages_deleted_undo">撤销</string>
+</resources>

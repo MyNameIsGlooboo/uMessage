@@ -63,6 +63,9 @@
     <string name="screens_vcard_add_contact">Add to contacts</string>
     <string name="screens_vcard_expand">Show details</string>
     <string name="screens_vcard_collapse">Hide details</string>
+    <string name="screens_vcard_email_action">Email</string>
+    <string name="screens_vcard_copy_hint">Hold to copy</string>
+    <string name="screens_vcard_copied">Copied</string>
     <string name="screens_vcard_empty">No contact found in this file</string>
 
     <!-- Dialogs -->

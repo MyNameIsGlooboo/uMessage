@@ -8,7 +8,7 @@
     <string name="carrier_report_invalid">Введіть від 3 до 8 цифр</string>
     <string name="carrier_report_action">Повідомити оператору</string>
     <string name="carrier_report_title">Повідомити вашому оператору?</string>
-    <string name="carrier_report_body">Останнє повідомлення від цього відправника буде надіслано на номер %1$s як SMS. Ваш оператор може стягнути за це плату.</string>
+    <string name="carrier_report_body">Останнє повідомлення від цього відправника та його номер під ним буде надіслано на номер %1$s як SMS. Ваш оператор може стягнути за це плату.</string>
     <string name="carrier_report_send">Надіслати</string>
     <string name="carrier_report_sent">Скаргу надіслано вашому оператору</string>
     <string name="carrier_report_failed">Не вдалося надіслати скаргу</string>

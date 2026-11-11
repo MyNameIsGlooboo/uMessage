@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_partly_sent">Một số ảnh và tệp đã được gửi, phần còn lại thì chưa. Gửi lại để chỉ gửi phần còn lại.</string>
+    <string name="scheduled_partly_sent">Một phần tin nhắn đã hẹn giờ gửi đến \'%s\' đã được gửi, phần còn lại thì chưa. Mở cuộc trò chuyện và nhấn Thử lại để chỉ gửi phần còn lại.</string>
+    <string name="cleanup_codes_confirm_title">Chuyển mã đã đọc?</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="other">%d tin nhắn mã đã đọc cũ hơn mức đó và sẽ được chuyển vào thùng rác ngay bây giờ. Tin nhắn gắn sao sẽ được giữ lại.</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">Chưa có mã đã đọc nào cũ đến vậy. Mã cũ hơn sẽ tự chuyển vào thùng rác.</string>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="other">Xóa %d cuộc trò chuyện?</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message">
+        <item quantity="other">Cuộc trò chuyện và toàn bộ tin nhắn sẽ bị xóa khỏi điện thoại này. Bạn có thể hoàn tác trong vài giây sau đó.</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s có trong danh bạ của bạn. Chặn người gửi này? Tin nhắn mới từ họ sẽ vào Tin nhắn đã chặn thay vì hộp thư đến. Bạn có thể hoàn tác ngay sau đó.</string>
+    <string name="i29_color_red">Đỏ</string>
+    <string name="i29_color_orange">Cam</string>
+    <string name="i29_color_yellow">Vàng</string>
+    <string name="i29_color_green">Xanh lá</string>
+    <string name="i29_color_teal">Xanh ngọc</string>
+    <string name="i29_color_blue">Xanh dương</string>
+    <string name="i29_color_purple">Tím</string>
+    <string name="i29_color_brown">Nâu</string>
+    <string name="i56_picture_position">Ảnh %1$d/%2$d, %3$s. Nhấn để mở.</string>
+    <string name="notifications_off_dismiss">Để sau</string>
+    <string name="e_restored_clear">Xóa danh sách</string>
+    <string name="lock_pin_length_hint">PIN: %1$d đến %2$d chữ số</string>
+    <string name="cleanup_codes_undo">Hoàn tác</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="other">Đã chuyển %d mã đã đọc vào thùng rác</item>
+    </plurals>
+    <string name="rule_preview_button">Thử trên tin nhắn gần đây</string>
+    <string name="rule_preview_loading">Đang kiểm tra tin nhắn gần đây…</string>
+    <string name="rule_preview_failed">Không kiểm tra được tin nhắn gần đây. Hãy thử lại.</string>
+    <string name="rule_preview_nothing">Chưa có tin nhắn gần đây để kiểm tra.</string>
+    <string name="rule_preview_inbox">Hộp thư đến: quy tắc này khớp %1$d trong %2$d tin nhắn gần nhất</string>
+    <string name="rule_preview_inbox_empty">Hộp thư đến: không có tin nhắn để kiểm tra</string>
+    <string name="rule_preview_blocked">Đã chặn: quy tắc này khớp %1$d trong %2$d tin nhắn gần nhất</string>
+    <string name="rule_preview_blocked_empty">Đã chặn: không có tin nhắn để kiểm tra</string>
+    <string name="rule_preview_examples">Ví dụ: %1$s</string>
+    <string name="n06_delete_confirm">Xóa văn bản đã lưu này?</string>
+    <string name="screens_vcard_email_action">Email</string>
+    <string name="screens_vcard_copy_hint">Nhấn giữ để sao chép</string>
+    <string name="screens_vcard_copied">Đã sao chép</string>
+    <string name="settings_f_restore_rules_present">Quy tắc đã có trên điện thoại này: %1$d, đã bỏ qua.</string>
+    <string name="settings_f_restore_too_many">Quy tắc trong tệp vượt giới hạn: %1$d, đã bỏ qua.</string>
+    <string name="thread_schedule_discard_confirm">Bỏ lịch hẹn và xóa tin nhắn hẹn giờ đã lưu? Văn bản vẫn ở trong khung soạn.</string>
+    <string name="thread_phone_call">Gọi</string>
+    <string name="thread_phone_copy">Sao chép số</string>
+    <string name="thread_phone_add_contact">Thêm liên hệ</string>
+    <string name="thread_search_older_busy">Đang tìm trong tin nhắn cũ…</string>
+    <plurals name="thread_new_messages_chip">
+        <item quantity="other">%d tin nhắn mới</item>
+    </plurals>
+    <string name="thread_messages_deleted">Đã chuyển vào thùng rác</string>
+    <string name="thread_messages_deleted_undo">Hoàn tác</string>
+</resources>

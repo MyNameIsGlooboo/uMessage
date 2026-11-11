@@ -3,6 +3,7 @@
     <string name="thread_emoji">ایموجی</string>
     <string name="thread_show_keyboard">نمایش کیبورد</string>
     <string name="thread_scheduled_not_sent">پیام زمان‌بندی‌شده ارسال نشد</string>
+    <string name="thread_schedule_discard_confirm">زمان‌بندی برداشته شود و پیام زمان‌بندی‌شدهٔ ذخیره‌شده پاک شود؟ متن توی کادر می‌ماند.</string>
     <string name="thread_edit_scheduled_replaces_draft">با ویرایش پیام زمان‌بندی‌شده، متن در حال نوشتن جایگزین می‌شود. ادامه می‌دهید؟</string>
     <string name="thread_menu_report_spam">علامت‌گذاری به‌عنوان اسپم</string>
     <string name="thread_report_spam_title">به‌عنوان اسپم علامت‌گذاری شود؟</string>

@@ -13,9 +13,21 @@
     </plurals>
     <string name="e_restored_title">Restored recently</string>
     <string name="e_restored_body">Messages you moved to the inbox in the last 30 days. Tap one to open the conversation.</string>
+    <string name="e_restored_clear">Clear list</string>
     <string name="e_restored_empty">Messages you move to the inbox from now on are listed here for 30 days.</string>
     <string name="e_restored_when">Moved to the inbox %1$s</string>
     <string name="e_restored_open">Open the conversation with %1$s</string>
+    <string name="e_snack_allowed_one">%1$s is now always allowed, on both SIMs</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="one">%d sender is now always allowed, on both SIMs</item>
+        <item quantity="other">%d senders are now always allowed, on both SIMs</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$s is now always allowed</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="one">%d sender is now always allowed</item>
+        <item quantity="other">%d senders are now always allowed</item>
+    </plurals>
+    <string name="e_view_rule">View rule</string>
 
 
     <!-- Rules screen (BR-13). -->
@@ -37,6 +49,8 @@
     <string name="e_example_block_cancel_word">Block messages containing لغو۱۱</string>
     <string name="e_example_block_ad_prefix">Block ad numbers starting with 3000</string>
     <string name="e_example_allow_number">Always allow a number, like your post office</string>
+    <string name="e_sheet_sender_label">Sender</string>
+    <string name="e_sheet_text_label">Message text</string>
 
     <!-- Rule editor: the forward editor's words (BR-44). -->
     <string name="e_value_number">Phone number</string>

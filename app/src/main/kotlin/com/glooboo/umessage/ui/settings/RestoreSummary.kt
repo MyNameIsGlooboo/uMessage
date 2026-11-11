@@ -64,9 +64,14 @@ object RestoreSummary {
     /** One paragraph per part: rules, forward rules (always switched off) and the settings that change. */
     fun lines(context: Context, preview: SettingsBackup.Preview): String {
         val parts = mutableListOf<String>()
-        if (preview.content.rules.isNotEmpty()) {
+        if (preview.newRules.isNotEmpty()) {
             parts += context.getString(R.string.settings_f_restore_rules, preview.allowRules, preview.blockRules)
         }
+        if (preview.rulesPresent > 0) {
+            parts += context.getString(R.string.settings_f_restore_rules_present, preview.rulesPresent)
+        }
+        val tooMany = preview.content.droppedRules + preview.content.droppedForwardRules
+        if (tooMany > 0) parts += context.getString(R.string.settings_f_restore_too_many, tooMany)
         val forwards = preview.forwards
         if (forwards.toAdd.isNotEmpty()) {
             parts += context.getString(R.string.settings_f_restore_forwards, forwards.toAdd.size)

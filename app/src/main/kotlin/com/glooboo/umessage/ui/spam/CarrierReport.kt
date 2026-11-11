@@ -27,7 +27,8 @@ object SmsReportSender : ReportSender {
  * I32: "Report spam" to the carrier. Many carriers take a forwarded spam text at a short number (7726 in many
  * countries), which needs no internet. The number is empty until the user enters their carrier's own, so nothing can
  * be reported by accident or to a wrong number. It is a real, possibly paid SMS: [send] is only ever called after the
- * user confirmed it in the dialog, and it sends nothing but the text of the one message being reported.
+ * user confirmed it in the dialog, and it sends nothing but the text of the one message being reported and, under
+ * it, the number it came from (carriers answer a report with "which number sent this?").
  */
 class CarrierReport(context: Context, private val sender: ReportSender = SmsReportSender) {
 
@@ -39,11 +40,14 @@ class CarrierReport(context: Context, private val sender: ReportSender = SmsRepo
         get() = prefs.getString(KEY_NUMBER, null).orEmpty()
         set(value) = prefs.edit().putString(KEY_NUMBER, value.trim()).apply()
 
-    /** Sends [message]'s text to [number]. False (and nothing sent) when no number is set or there is no text. */
+    /**
+     * Sends [message]'s text and its sender to [number], as one SMS. False (and nothing sent) when no number is set or
+     * there is no text.
+     */
     fun send(message: BlockedMessage): Boolean {
         val target = number
         if (!isValidNumber(target) || !message.hasText) return false
-        sender.send(app, message.body, target, message.subscriptionId)
+        sender.send(app, reportText(message), target, message.subscriptionId)
         return true
     }
 
@@ -52,6 +56,12 @@ class CarrierReport(context: Context, private val sender: ReportSender = SmsRepo
         private const val KEY_NUMBER = "carrier_spam_number"
         private const val MIN_DIGITS = 3
         private const val MAX_DIGITS = 8
+
+        /** What a report says: the message text, then the number or name it came from on a line of its own. */
+        fun reportText(message: BlockedMessage): String {
+            val sender = message.address.trim()
+            return if (sender.isEmpty()) message.body else message.body.trimEnd() + "\n" + sender
+        }
 
         /** A short number: 3 to 8 digits and nothing else. */
         fun isValidNumber(value: String): Boolean =

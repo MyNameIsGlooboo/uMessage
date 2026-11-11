@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Search in conversation: older messages -->
+    <string name="thread_search_older_busy">Searching older messages…</string>
+    <!-- Chat: new messages while scrolled up; delete with Undo -->
+    <plurals name="thread_new_messages_chip">
+        <item quantity="one">%d new message</item>
+        <item quantity="other">%d new messages</item>
+    </plurals>
+    <string name="thread_messages_deleted">Moved to the recycle bin</string>
+    <string name="thread_messages_deleted_undo">Undo</string>
+</resources>

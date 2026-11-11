@@ -51,6 +51,9 @@
     <string name="screens_vcard_add_contact">افزودن به مخاطب‌ها</string>
     <string name="screens_vcard_expand">نمایش جزئیات</string>
     <string name="screens_vcard_collapse">پنهان کردن جزئیات</string>
+    <string name="screens_vcard_email_action">ایمیل</string>
+    <string name="screens_vcard_copy_hint">برای کپی نگه دارید</string>
+    <string name="screens_vcard_copied">کپی شد</string>
     <string name="screens_vcard_empty">مخاطبی در این فایل پیدا نشد</string>
     <string name="screens_dialog_filename">نام فایل</string>
     <string name="screens_schedule_date">تاریخ</string>

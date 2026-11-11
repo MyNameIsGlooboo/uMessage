@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
@@ -91,9 +92,11 @@ private fun PicturesTab(
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        items(images.take(shown), key = { it.attachment.uriString }) { image ->
+        itemsIndexed(images.take(shown), key = { _, entry -> entry.attachment.uriString }) { index, image ->
             MediaThumb(
                 image,
+                position = index + 1,
+                total = images.size,
                 onClick = { onOpen(image) },
                 onLongClick = { onShowInChat(image.message) },
             )

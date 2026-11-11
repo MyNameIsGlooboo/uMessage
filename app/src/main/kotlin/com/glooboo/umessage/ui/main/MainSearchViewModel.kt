@@ -15,6 +15,8 @@ import com.glooboo.umessage.ui.components.displayTitle
 import com.glooboo.umessage.ui.components.formatListTimeStyled
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -63,8 +65,8 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
         }
         searchJob = viewModelScope.launch {
             delay(SEARCH_DEBOUNCE_MS) // cancelled by the next key press (MC-17)
-            state.results = runSearch(text)
-            state.noteHits = runNoteSearch(text)
+            state.results = runSearch(text.trim())
+            state.noteHits = runNoteSearch(text.trim())
         }
     }
 
@@ -72,23 +74,39 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
         val app = getApplication<Application>()
         // B06: nothing of a hidden chat is found, by its title, its number or its text, until it is unlocked.
         val hiddenChats = HiddenChats.get(app)
-        // Persian/Arabic letter forms, digits and zero-width marks are folded on both sides (MC-15).
-        val messages = try {
-            hiddenChats.withoutHidden(app.messagesDB.searchMessages(text)) { it.threadId }
-        } catch (_: Exception) {
-            emptyList()
-        }
-        val byTitle = try {
-            hiddenChats.withoutHidden(app.conversationsDB.searchConversations(text)) { it.threadId }
-        } catch (_: Exception) {
-            emptyList()
-        }
-        // CL-15: a number typed in any form ("0555 345", Persian digits) also finds the chat with that number.
-        val byNumber = try {
-            val all = app.conversationsDB.getNonArchived() + app.conversationsDB.getAllArchived()
-            conversationsByNumber(hiddenChats.withoutHidden(all) { it.threadId }, text)
-        } catch (_: Exception) {
-            emptyList()
+        // main-7: the three lookups are independent, so they run side by side.
+        val (messages, byTitle, byNumber) = coroutineScope {
+            val messagesJob = async {
+                // Persian/Arabic letter forms, digits and zero-width marks are folded on both sides (MC-15).
+                try {
+                    hiddenChats.withoutHidden(app.messagesDB.searchMessages(text)) { it.threadId }
+                } catch (_: Exception) {
+                    emptyList()
+                }
+            }
+            val titleJob = async {
+                try {
+                    hiddenChats.withoutHidden(app.conversationsDB.searchConversations(text)) { it.threadId }
+                } catch (_: Exception) {
+                    emptyList()
+                }
+            }
+            val numberJob = async {
+                // CL-15: a number typed in any form ("0555 345", Persian digits) also finds the chat with that number.
+                // Only the plain chat rows are read (no newest-message preview per chat), and only for a number query.
+                if (!isNumberQuery(text)) {
+                    emptyList()
+                } else {
+                    try {
+                        conversationsByNumber(
+                            hiddenChats.withoutHidden(app.conversationsDB.getAllForNumberSearch()) { it.threadId }, text
+                        )
+                    } catch (_: Exception) {
+                        emptyList()
+                    }
+                }
+            }
+            Triple(messagesJob.await(), titleJob.await(), numberJob.await())
         }
         buildSearchResults(
             conversations = mergeConversationHits(byTitle, byNumber),

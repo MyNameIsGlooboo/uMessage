@@ -52,4 +52,15 @@ class MediaSizesTest {
     fun theLoadedPictureWins() {
         assertEquals(2f, mediaAspect(800, 400, 0.5f), 0.001f)
     }
+
+    @Test
+    fun evictionDropsOnlyTheOldestAndOnlyWhenFull() {
+        assertEquals(emptyList<String>(), evictionBatch(listOf("a", "b", "c"), 3))
+        val keys = (1..101).map { "k$it" }
+        val dropped = evictionBatch(keys, 100)
+        assertEquals(keys.take(dropped.size), dropped)
+        // Leaves room for new pictures instead of evicting again on the next one.
+        assertEquals(true, keys.size - dropped.size <= 90)
+        assertEquals(false, "k101" in dropped)
+    }
 }

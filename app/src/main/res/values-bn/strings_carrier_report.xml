@@ -8,7 +8,7 @@
     <string name="carrier_report_invalid">3 থেকে 8টি সংখ্যা ব্যবহার করুন</string>
     <string name="carrier_report_action">মোবাইল অপারেটরকে রিপোর্ট করুন</string>
     <string name="carrier_report_title">আপনার মোবাইল অপারেটরকে রিপোর্ট করবেন?</string>
-    <string name="carrier_report_body">এতে এই প্রেরকের সর্বশেষ বার্তাটি SMS হিসেবে %1$s নম্বরে পাঠানো হবে। আপনার মোবাইল অপারেটর এর জন্য টাকা কাটতে পারে।</string>
+    <string name="carrier_report_body">এতে এই প্রেরকের সর্বশেষ বার্তাটি, নিচে প্রেরকের নম্বর সহ, SMS হিসেবে %1$s নম্বরে পাঠানো হবে। আপনার মোবাইল অপারেটর এর জন্য টাকা কাটতে পারে।</string>
     <string name="carrier_report_send">পাঠান</string>
     <string name="carrier_report_sent">আপনার মোবাইল অপারেটরকে রিপোর্ট পাঠানো হয়েছে</string>
     <string name="carrier_report_failed">রিপোর্ট পাঠানো যায়নি</string>

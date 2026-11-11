@@ -3,9 +3,12 @@ package com.glooboo.umessage.ui.components
 import android.content.Context
 import android.text.format.DateUtils
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import com.glooboo.umessage.R
+import kotlinx.coroutines.delay
 import java.time.Instant
 import java.time.ZoneId
 import java.time.temporal.ChronoUnit
@@ -64,5 +67,22 @@ fun formatClockTime(context: Context, millis: Long): String =
 @Composable
 fun rememberTimeLabel(timestamp: Long): String {
     val context = LocalContext.current
-    return remember(timestamp) { formatListTimeStyled(context, timestamp) }
+    // Only the "Now" and "N min" labels go stale in minutes; a minute ticker re-keys them, other buckets stay put.
+    val minuteTick = rememberMinuteTick(timestamp)
+    return remember(timestamp, minuteTick) { formatListTimeStyled(context, timestamp) }
+}
+
+/** Ticks once a minute while [timestamp] is still a "Now" or "N min" label, else stays 0 and never recomposes. */
+@Composable
+private fun rememberMinuteTick(timestamp: Long): Int {
+    val tick = remember(timestamp) { mutableIntStateOf(0) }
+    LaunchedEffect(timestamp) {
+        while (
+            timeBucket(timestamp, System.currentTimeMillis()).let { it == TimeBucket.NOW || it == TimeBucket.MINUTES }
+        ) {
+            delay(MINUTE_MS)
+            tick.intValue++
+        }
+    }
+    return tick.intValue
 }

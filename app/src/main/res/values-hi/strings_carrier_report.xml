@@ -8,7 +8,7 @@
     <string name="carrier_report_invalid">3 से 8 अंक डालें</string>
     <string name="carrier_report_action">मोबाइल सेवा देने वाली कंपनी से शिकायत करें</string>
     <string name="carrier_report_title">अपनी मोबाइल सेवा देने वाली कंपनी से शिकायत करें?</string>
-    <string name="carrier_report_body">इस भेजने वाले का सबसे नया मैसेज SMS के तौर पर %1$s को भेजा जाएगा. आपकी मोबाइल सेवा देने वाली कंपनी इसके पैसे ले सकती है.</string>
+    <string name="carrier_report_body">इस भेजने वाले का सबसे नया मैसेज, उसके नीचे भेजने वाले के नंबर के साथ, SMS के तौर पर %1$s को भेजा जाएगा. आपकी मोबाइल सेवा देने वाली कंपनी इसके पैसे ले सकती है.</string>
     <string name="carrier_report_send">भेजें</string>
     <string name="carrier_report_sent">आपकी मोबाइल सेवा देने वाली कंपनी को शिकायत भेज दी गई</string>
     <string name="carrier_report_failed">शिकायत भेजी नहीं जा सकी</string>

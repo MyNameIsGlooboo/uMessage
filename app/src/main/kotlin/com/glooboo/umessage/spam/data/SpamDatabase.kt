@@ -94,14 +94,27 @@ abstract class SpamDatabase : RoomDatabase() {
         /** Schema version that added the unread flag of held messages. */
         private const val VERSION_UNREAD = 6
 
+        /**
+         * Incoming SMS keep the carrier's send time (core-3): a new column on the pending queue. Rows already queued
+         * have no send time, which is 0 (unknown).
+         */
+        private val MIGRATION_6_7 = object : Migration(VERSION_UNREAD, VERSION_DATE_SENT) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `pending_sms` ADD COLUMN `dateSent` INTEGER NOT NULL DEFAULT 0")
+            }
+        }
+
+        /** Schema version that added the carrier send time to the pending queue. */
+        private const val VERSION_DATE_SENT = 7
+
         internal const val DATABASE_NAME = "spamless.db"
 
         /** Must equal the `version` in [Database] above. */
-        internal const val VERSION = VERSION_UNREAD
+        internal const val VERSION = VERSION_DATE_SENT
 
         /** Every migration, oldest first. */
         internal val ALL_MIGRATIONS: Array<Migration> =
-            arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
+            arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
 
         fun getInstance(context: Context): SpamDatabase = instance ?: synchronized(this) {
             instance ?: build(context.applicationContext, DATABASE_NAME).also { instance = it }

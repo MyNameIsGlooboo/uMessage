@@ -58,7 +58,9 @@ fun parseTapback(body: String): Tapback? {
     return null
 }
 
-private fun folded(text: String): String = text.trim().replace(Regex("\\s+"), " ").lowercase()
+private val WHITESPACE_RUN = Regex("\\s+")
+
+private fun folded(text: String): String = text.trim().replace(WHITESPACE_RUN, " ").lowercase()
 
 /**
  * The message among [candidates] (oldest first, all before the reaction) that [tapback] names: the newest exact match,
@@ -67,11 +69,13 @@ private fun folded(text: String): String = text.trim().replace(Regex("\\s+"), " 
  */
 fun findTapbackTarget(tapback: Tapback, candidates: List<Message>): Message? {
     val quoted = tapback.quoted
+    candidates.lastOrNull { it.body == quoted }?.let { return it }
+    if (tapback.truncated) candidates.lastOrNull { it.body.startsWith(quoted) }?.let { return it }
     val foldedQuote = folded(quoted)
-    return candidates.lastOrNull { it.body == quoted }
-        ?: candidates.lastOrNull { tapback.truncated && it.body.startsWith(quoted) }
-        ?: candidates.lastOrNull { folded(it.body) == foldedQuote }
-        ?: candidates.lastOrNull { tapback.truncated && folded(it.body).startsWith(foldedQuote) }
+    // Folding only trims, collapses spaces and lowercases: a body far shorter than the quote cannot match.
+    val possible = candidates.filter { it.body.length >= foldedQuote.length }
+    possible.lastOrNull { folded(it.body) == foldedQuote }?.let { return it }
+    return if (tapback.truncated) possible.lastOrNull { folded(it.body).startsWith(foldedQuote) } else null
 }
 
 /**
@@ -82,11 +86,17 @@ fun findTapbackTarget(tapback: Tapback, candidates: List<Message>): Message? {
 fun applyTapbacks(sorted: List<Message>): TapbackResult {
     val hidden = HashSet<Long>()
     val found = LinkedHashMap<Long, LinkedHashMap<TapbackKind, MutableList<String>>>()
-    sorted.forEachIndexed { index, message ->
-        if (!message.isReceivedMessage() || message.attachment?.attachments?.isNotEmpty() == true) return@forEachIndexed
-        val tapback = parseTapback(message.body) ?: return@forEachIndexed
-        val candidates = sorted.subList(0, index).filter { it.body.isNotEmpty() && it.getStableId() !in hidden }
-        val target = findTapbackTarget(tapback, candidates) ?: return@forEachIndexed
+    // Earlier messages with a text, built once while walking the list instead of copied for every reaction.
+    val earlier = ArrayList<Message>(sorted.size)
+    sorted.forEach { message ->
+        val isReaction = message.isReceivedMessage() && message.attachment?.attachments?.isNotEmpty() != true
+        val tapback = if (isReaction) parseTapback(message.body) else null
+        val target = tapback?.let { parsed ->
+            val candidates = if (hidden.isEmpty()) earlier else earlier.filter { it.getStableId() !in hidden }
+            findTapbackTarget(parsed, candidates)
+        }
+        if (message.body.isNotEmpty()) earlier.add(message)
+        if (tapback == null || target == null) return@forEach
         hidden.add(message.getStableId())
         found.getOrPut(target.getStableId()) { LinkedHashMap() }
             .getOrPut(tapback.kind) { ArrayList() }

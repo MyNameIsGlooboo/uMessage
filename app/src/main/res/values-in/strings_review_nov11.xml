@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_partly_sent">Sebagian gambar dan file terkirim, sisanya belum. Kirim lagi untuk mengirim sisanya saja.</string>
+    <string name="scheduled_partly_sent">Sebagian pesan terjadwal ke \'%s\' sudah terkirim, sisanya belum. Buka chat lalu ketuk Coba lagi untuk mengirim sisanya saja.</string>
+    <string name="cleanup_codes_confirm_title">Pindahkan kode yang sudah dibaca?</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="other">%d pesan kode yang sudah dibaca lebih lama dari itu dan sekarang dipindahkan ke sampah. Pesan berbintang tetap ada.</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">Belum ada kode terbaca yang selama itu. Kode yang lebih lama akan pindah ke sampah dengan sendirinya.</string>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="other">Hapus %d percakapan?</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message">
+        <item quantity="other">Percakapan dan semua pesannya akan dihapus dari ponsel ini. Kamu bisa membatalkannya beberapa detik setelahnya.</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s ada di kontakmu. Blokir pengirim ini? Pesan baru darinya akan masuk ke Diblokir, bukan kotak masuk. Kamu bisa langsung membatalkannya.</string>
+    <string name="i29_color_red">Merah</string>
+    <string name="i29_color_orange">Oranye</string>
+    <string name="i29_color_yellow">Kuning</string>
+    <string name="i29_color_green">Hijau</string>
+    <string name="i29_color_teal">Hijau kebiruan</string>
+    <string name="i29_color_blue">Biru</string>
+    <string name="i29_color_purple">Ungu</string>
+    <string name="i29_color_brown">Cokelat</string>
+    <string name="i56_picture_position">Gambar %1$d dari %2$d, %3$s. Ketuk untuk membuka.</string>
+    <string name="notifications_off_dismiss">Nanti saja</string>
+    <string name="e_restored_clear">Hapus daftar</string>
+    <string name="lock_pin_length_hint">PIN: %1$d sampai %2$d angka</string>
+    <string name="cleanup_codes_undo">Urungkan</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="other">%d kode yang sudah dibaca dipindahkan ke sampah</item>
+    </plurals>
+    <string name="rule_preview_button">Coba pada pesan terbaru</string>
+    <string name="rule_preview_loading">Memeriksa pesan terbaru…</string>
+    <string name="rule_preview_failed">Tidak bisa memeriksa pesan terbaru. Coba lagi.</string>
+    <string name="rule_preview_nothing">Belum ada pesan terbaru untuk diperiksa.</string>
+    <string name="rule_preview_inbox">Kotak masuk: aturan ini cocok dengan %1$d dari %2$d pesan terakhir</string>
+    <string name="rule_preview_inbox_empty">Kotak masuk: tidak ada pesan untuk diperiksa</string>
+    <string name="rule_preview_blocked">Diblokir: aturan ini cocok dengan %1$d dari %2$d pesan terakhir</string>
+    <string name="rule_preview_blocked_empty">Diblokir: tidak ada pesan untuk diperiksa</string>
+    <string name="rule_preview_examples">Misalnya: %1$s</string>
+    <string name="n06_delete_confirm">Hapus teks tersimpan ini?</string>
+    <string name="screens_vcard_email_action">Email</string>
+    <string name="screens_vcard_copy_hint">Tahan untuk menyalin</string>
+    <string name="screens_vcard_copied">Disalin</string>
+    <string name="settings_f_restore_rules_present">Aturan yang sudah ada di ponsel ini: %1$d, dilewati.</string>
+    <string name="settings_f_restore_too_many">Aturan di file yang melebihi batas: %1$d, dilewati.</string>
+    <string name="thread_schedule_discard_confirm">Hapus jadwal dan hapus pesan terjadwal yang tersimpan? Teksnya tetap ada di kotak ketik.</string>
+    <string name="thread_phone_call">Telepon</string>
+    <string name="thread_phone_copy">Salin nomor</string>
+    <string name="thread_phone_add_contact">Tambahkan kontak</string>
+    <string name="thread_search_older_busy">Mencari pesan yang lebih lama…</string>
+    <plurals name="thread_new_messages_chip">
+        <item quantity="other">%d pesan baru</item>
+    </plurals>
+    <string name="thread_messages_deleted">Dipindahkan ke sampah</string>
+    <string name="thread_messages_deleted_undo">Urungkan</string>
+</resources>

@@ -3,6 +3,8 @@
     <string name="settings_f_backup_row_body">ذخیرهٔ پیام‌ها، قانون‌ها و تنظیمات در فایل</string>
     <string name="settings_f_restore_title">از این فایل بازیابی شود؟</string>
     <string name="settings_f_restore_rules">قانون‌های اجازه دادن: %1$d، قانون‌های بلاک کردن: %2$d. قانون‌های موجود نادیده گرفته می‌شوند.</string>
+    <string name="settings_f_restore_rules_present">قانون‌هایی که از قبل روی این گوشی هستند: %1$d، نادیده گرفته می‌شوند.</string>
+    <string name="settings_f_restore_too_many">قانون‌های فایل که بیشتر از حد مجاز بودند: %1$d، نادیده گرفته می‌شوند.</string>
     <string name="settings_f_restore_forwards">قانون‌های فوروارد برای افزودن: %1$d، به‌صورت خاموش. آن‌ها را در قانون‌ها › فوروارد روشن کنید.</string>
     <string name="settings_f_restore_forwards_skipped">قانون‌های فوروارد نادیده‌گرفته‌شده: %1$d (از قبل موجودند یا شماره‌ای برای دریافت پیام‌ها ندارند).</string>
     <string name="settings_f_restore_settings_changed">تنظیماتی که تغییر می‌کنند: %1$s</string>

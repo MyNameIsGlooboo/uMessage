@@ -91,7 +91,7 @@ object TextNormalizer {
      * ("2025", "50") or only of letters is left alone, so prices, codes and plain words are not changed.
      */
     fun deobfuscate(text: String): String {
-        val joined = SPACED_OUT.replace(lower(text)) { it.value.replace(SPACED_SEPARATOR, "") }
+        val joined = SPACED_OUT.replace(lower(unfancy(text))) { it.value.replace(SPACED_SEPARATOR, "") }
         return WORD.replace(joined) { match ->
             val word = match.value
             val hasLetter = word.any { it.isLetter() }
@@ -104,6 +104,25 @@ object TextNormalizer {
                 body.map { LEET[it] ?: it }.joinToString("") + word.substring(body.length)
             }
         }
+    }
+
+    /**
+     * Combining and invisible marks that spam puts between letters (kept out of [fold], which search turns into
+     * SQL): diacritics, strike-through and underline overlays.
+     */
+    private val COMBINING_MARKS = Regex(
+        "[\\u0300-\\u036F\\u20D0-\\u20FF\\u200E\\u200F\\u202A-\\u202E\\u2061-\\u2064" +
+            "\\u2066-\\u2069\\uFE00-\\uFE0F]"
+    )
+
+    /**
+     * "Fancy text" read as plain text, for [deobfuscate] only: compatibility normalization (fullwidth letters,
+     * mathematical bold or script letters and digits become ASCII), then the combining marks above are dropped.
+     */
+    private fun unfancy(text: String): String {
+        if (text.all { it.code < 0x80 }) return text
+        val normalized = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFKC)
+        return COMBINING_MARKS.replace(normalized, "")
     }
 
     /** Whether [text] contains [keyword] once both are folded, ignoring case in every script. */

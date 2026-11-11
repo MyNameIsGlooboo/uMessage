@@ -9,6 +9,7 @@
     <string name="n06_text_label">Text</string>
     <string name="n06_save">Save</string>
     <string name="n06_delete">Delete</string>
+    <string name="n06_delete_confirm">Delete this saved text?</string>
     <string name="n06_private_tip">Kept only on this phone, not encrypted. Do not save passwords or PINs.</string>
     <string name="n06_save_from_message">Save to saved texts</string>
     <string name="n06_saved_toast">Saved</string>

@@ -8,7 +8,7 @@
     <string name="carrier_report_invalid">3 ila 8 rakam kullanın</string>
     <string name="carrier_report_action">Operatöre bildirin</string>
     <string name="carrier_report_title">Operatörünüze bildirilsin mi?</string>
-    <string name="carrier_report_body">Bu gönderenden gelen son mesaj, %1$s numarasına SMS olarak gönderilir. Operatörünüz bunun için ücret alabilir.</string>
+    <string name="carrier_report_body">Bu gönderenden gelen son mesaj, altına gönderenin numarası eklenerek %1$s numarasına SMS olarak gönderilir. Operatörünüz bunun için ücret alabilir.</string>
     <string name="carrier_report_send">Gönderin</string>
     <string name="carrier_report_sent">Operatörünüze bildirim gönderildi</string>
     <string name="carrier_report_failed">Bildirim gönderilemedi</string>

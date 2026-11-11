@@ -11,6 +11,17 @@
     <string name="e_restored_empty">Nachrichten, die du ab jetzt in den Posteingang verschiebst, werden hier 30 Tage lang angezeigt.</string>
     <string name="e_restored_when">In den Posteingang verschoben: %1$s</string>
     <string name="e_restored_open">Unterhaltung mit %1$s öffnen</string>
+    <string name="e_snack_allowed_one">%1$s ist jetzt auf beiden SIMs immer erlaubt</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="one">%d Absender ist jetzt auf beiden SIMs immer erlaubt</item>
+        <item quantity="other">%d Absender sind jetzt auf beiden SIMs immer erlaubt</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$s ist jetzt immer erlaubt</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="one">%d Absender ist jetzt immer erlaubt</item>
+        <item quantity="other">%d Absender sind jetzt immer erlaubt</item>
+    </plurals>
+    <string name="e_view_rule">Regel ansehen</string>
     <string name="e_rules_title">Regeln</string>
     <string name="e_rules_menu_backup">Sichern und wiederherstellen</string>
     <string name="e_note_blocked_by_you">Von dir blockiert</string>
@@ -25,6 +36,8 @@
     <string name="e_example_block_cancel_word">Nachrichten mit لغو۱۱ blockieren</string>
     <string name="e_example_block_ad_prefix">Werbenummern blockieren, die mit 3000 beginnen</string>
     <string name="e_example_allow_number">Eine Nummer immer erlauben, etwa die deiner Postfiliale</string>
+    <string name="e_sheet_sender_label">Absender</string>
+    <string name="e_sheet_text_label">Nachrichtentext</string>
     <string name="e_value_number">Telefonnummer</string>
     <string name="e_value_prefix">Nummer beginnt mit</string>
     <string name="e_value_sender">Absendername</string>

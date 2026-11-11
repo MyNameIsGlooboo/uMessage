@@ -33,7 +33,9 @@ internal fun rememberShortcutHits(filter: InboxFilter, rows: List<ConversationRo
     val context = LocalContext.current
     var resumes by remember { mutableIntStateOf(0) }
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { resumes++ }
-    val state = produceState(ShortcutHits(), filter, rows, resumes) {
+    // Pin, mark-read and other row edits do not change what the lookups find: key on what they do read.
+    val signature = remember(rows) { rows.map { Triple(it.threadId, it.snippet, it.dateLabel) } }
+    val state = produceState(ShortcutHits(), filter, signature, resumes) {
         value = if (InboxFilterPolicy.needsLookup(filter)) {
             SearchShortcuts.load(context, filter, rows)
         } else {

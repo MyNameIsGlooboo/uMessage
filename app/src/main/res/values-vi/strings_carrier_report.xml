@@ -8,7 +8,7 @@
     <string name="carrier_report_invalid">Dùng từ 3 đến 8 chữ số</string>
     <string name="carrier_report_action">Báo cáo cho nhà mạng</string>
     <string name="carrier_report_title">Báo cáo cho nhà mạng của bạn?</string>
-    <string name="carrier_report_body">Tin nhắn mới nhất từ người gửi này sẽ được gửi đến %1$s qua SMS. Nhà mạng có thể tính phí.</string>
+    <string name="carrier_report_body">Tin nhắn mới nhất từ người gửi này, kèm số của người gửi bên dưới, sẽ được gửi đến %1$s qua SMS. Nhà mạng có thể tính phí.</string>
     <string name="carrier_report_send">Gửi</string>
     <string name="carrier_report_sent">Đã gửi báo cáo cho nhà mạng của bạn</string>
     <string name="carrier_report_failed">Không thể gửi báo cáo</string>

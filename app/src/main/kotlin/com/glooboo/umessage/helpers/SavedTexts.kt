@@ -24,7 +24,7 @@ class SavedTexts(private val prefs: ComposerPrefs) {
      * number never shows up there.
      */
     fun quickReplies(): List<SavedText> = all()
-        .filter { it.text.length < QUICK_REPLY_MAX_LENGTH && !LONG_NUMBER.containsMatchIn(it.text) }
+        .filter { it.text.length < QUICK_REPLY_MAX_LENGTH && !hasLongNumber(it.text) }
         .take(QUICK_REPLY_MAX_COUNT)
 
     fun add(title: String, text: String): SavedTextAdd {
@@ -63,6 +63,13 @@ class SavedTexts(private val prefs: ComposerPrefs) {
         const val QUICK_REPLY_MAX_LENGTH = 40
         const val QUICK_REPLY_MAX_COUNT = 5
         private val LONG_NUMBER = Regex("""\p{Nd}{6,}""")
+        private val DIGIT_GROUPING = Regex("""[\s\-.]""")
+        private const val QUICK_REPLY_MAX_DIGITS = 8
+
+        /** True for a run of 6+ digits, or 8+ digits in total once spaces, dashes and dots are ignored. */
+        internal fun hasLongNumber(text: String): Boolean =
+            LONG_NUMBER.containsMatchIn(text) ||
+                text.replace(DIGIT_GROUPING, "").count { Character.isDigit(it) } >= QUICK_REPLY_MAX_DIGITS
         private const val KEY_ID = "id"
         private const val KEY_TITLE = "title"
         private const val KEY_TEXT = "text"

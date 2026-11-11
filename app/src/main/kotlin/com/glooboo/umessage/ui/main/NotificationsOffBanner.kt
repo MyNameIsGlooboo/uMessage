@@ -15,6 +15,7 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -81,7 +82,10 @@ fun NotificationsOffBanner(modifier: Modifier = Modifier) {
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
+    var dismissed by remember { mutableStateOf(false) }
     val current = block ?: return
+    // Hidden for a few weeks after "Not now"; a different kind of block (or the dismiss expiring) shows it again.
+    if (dismissed || isBannerDismissed(context, current)) return
 
     Surface(
         color = MaterialTheme.colorScheme.errorContainer,
@@ -99,11 +103,33 @@ fun NotificationsOffBanner(modifier: Modifier = Modifier) {
                 Text(stringResource(R.string.notifications_off_title), style = MaterialTheme.typography.titleSmall)
                 Text(stringResource(R.string.notifications_off_body), style = MaterialTheme.typography.bodyMedium)
             }
-            FilledTonalButton(onClick = { openNotificationSettings(context, current) }) {
-                Text(stringResource(R.string.notifications_off_fix))
+            Column(horizontalAlignment = Alignment.End) {
+                FilledTonalButton(onClick = { openNotificationSettings(context, current) }) {
+                    Text(stringResource(R.string.notifications_off_fix))
+                }
+                TextButton(onClick = {
+                    dismissBanner(context, current)
+                    dismissed = true
+                }) {
+                    Text(stringResource(R.string.notifications_off_dismiss))
+                }
             }
         }
     }
+}
+
+private const val BANNER_PREFS = "notifications_off_banner"
+private const val BANNER_DISMISS_MS = 28L * 24 * 60 * 60 * 1000
+
+private fun isBannerDismissed(context: Context, block: NotificationsBlock): Boolean {
+    val prefs = context.getSharedPreferences(BANNER_PREFS, Context.MODE_PRIVATE)
+    if (prefs.getString("block", null) != block.name) return false
+    return System.currentTimeMillis() - prefs.getLong("at", 0L) in 0 until BANNER_DISMISS_MS
+}
+
+private fun dismissBanner(context: Context, block: NotificationsBlock) {
+    context.getSharedPreferences(BANNER_PREFS, Context.MODE_PRIVATE).edit()
+        .putString("block", block.name).putLong("at", System.currentTimeMillis()).apply()
 }
 
 private fun openNotificationSettings(context: Context, block: NotificationsBlock) {

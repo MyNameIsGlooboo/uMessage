@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="message_partly_sent">Certaines photos et certains fichiers ont été envoyés, pas les autres. Renvoyez pour n\'envoyer que le reste.</string>
+    <string name="scheduled_partly_sent">Une partie de votre message programmé pour \'%s\' a été envoyée, pas le reste. Ouvrez la conversation et appuyez sur Réessayer pour n\'envoyer que le reste.</string>
+    <string name="cleanup_codes_confirm_title">Déplacer les codes lus ?</string>
+    <plurals name="cleanup_codes_confirm_body" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d message de code lu est plus ancien et passe maintenant dans la corbeille. Les messages suivis d\'une étoile restent.</item>
+        <item quantity="other">%d messages de code lus sont plus anciens et passent maintenant dans la corbeille. Les messages suivis d\'une étoile restent.</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">Aucun code lu n\'est encore aussi ancien. Les plus anciens iront dans la corbeille automatiquement.</string>
+    <plurals name="convlist_delete_confirm_title" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Supprimer %d conversation ?</item>
+        <item quantity="other">Supprimer %d conversations ?</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">La conversation et tous ses messages seront supprimés de ce téléphone. Vous pouvez annuler pendant quelques secondes.</item>
+        <item quantity="other">Les conversations et tous leurs messages seront supprimés de ce téléphone. Vous pouvez annuler pendant quelques secondes.</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s figure dans vos contacts. Bloquer cet expéditeur ? Ses nouveaux messages iront dans les messages bloqués au lieu de votre boîte de réception. Vous pouvez annuler juste après.</string>
+    <string name="i29_color_red">Rouge</string>
+    <string name="i29_color_orange">Orange</string>
+    <string name="i29_color_yellow">Jaune</string>
+    <string name="i29_color_green">Vert</string>
+    <string name="i29_color_teal">Turquoise</string>
+    <string name="i29_color_blue">Bleu</string>
+    <string name="i29_color_purple">Violet</string>
+    <string name="i29_color_brown">Marron</string>
+    <string name="i56_picture_position">Photo %1$d sur %2$d, %3$s. Appuyez pour ouvrir.</string>
+    <string name="notifications_off_dismiss">Pas maintenant</string>
+    <string name="e_restored_clear">Effacer la liste</string>
+    <string name="lock_pin_length_hint">Code PIN : %1$d à %2$d chiffres</string>
+    <string name="cleanup_codes_undo">Annuler</string>
+    <plurals name="cleanup_codes_moved" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d code lu déplacé dans la corbeille</item>
+        <item quantity="other">%d codes lus déplacés dans la corbeille</item>
+    </plurals>
+    <string name="rule_preview_button">Tester sur les messages récents</string>
+    <string name="rule_preview_loading">Vérification des messages récents…</string>
+    <string name="rule_preview_failed">Impossible de vérifier les messages récents. Réessayez.</string>
+    <string name="rule_preview_nothing">Il n\'y a pas encore de messages récents à vérifier.</string>
+    <string name="rule_preview_inbox">Boîte de réception : cette règle correspond à %1$d des %2$d derniers messages</string>
+    <string name="rule_preview_inbox_empty">Boîte de réception : aucun message à vérifier</string>
+    <string name="rule_preview_blocked">Bloqués : cette règle correspond à %1$d des %2$d derniers messages</string>
+    <string name="rule_preview_blocked_empty">Bloqués : aucun message à vérifier</string>
+    <string name="rule_preview_examples">Par exemple : %1$s</string>
+    <string name="n06_delete_confirm">Supprimer ce texte enregistré ?</string>
+    <string name="screens_vcard_email_action">E-mail</string>
+    <string name="screens_vcard_copy_hint">Maintenez pour copier</string>
+    <string name="screens_vcard_copied">Copié</string>
+    <string name="settings_f_restore_rules_present">Règles déjà présentes sur ce téléphone : %1$d, ignorées.</string>
+    <string name="settings_f_restore_too_many">Règles du fichier au-delà de la limite : %1$d, ignorées.</string>
+    <string name="thread_schedule_discard_confirm">Retirer la programmation et supprimer le message programmé enregistré ? Le texte reste dans la zone de saisie.</string>
+    <string name="thread_phone_call">Appeler</string>
+    <string name="thread_phone_copy">Copier le numéro</string>
+    <string name="thread_phone_add_contact">Ajouter un contact</string>
+    <string name="thread_search_older_busy">Recherche dans les anciens messages…</string>
+    <plurals name="thread_new_messages_chip" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d nouveau message</item>
+        <item quantity="other">%d nouveaux messages</item>
+    </plurals>
+    <string name="thread_messages_deleted">Déplacé dans la corbeille</string>
+    <string name="thread_messages_deleted_undo">Annuler</string>
+</resources>

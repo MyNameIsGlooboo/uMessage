@@ -84,6 +84,14 @@ class SavedTextsTest {
     }
 
     @Test
+    fun groupedDigitsCountAsALongNumber() {
+        assertThat(SavedTexts.hasLongNumber("6037 9975 1234 5678")).isTrue()
+        assertThat(SavedTexts.hasLongNumber("6037-9975-12")).isTrue()
+        assertThat(SavedTexts.hasLongNumber("Call me at 5")).isFalse()
+        assertThat(SavedTexts.hasLongNumber("See you at 10.30")).isFalse()
+    }
+
+    @Test
     fun notificationChoicesAreAbsentWithoutSavedTextsAndPresentWithThem() {
         assertThat(NotificationQuickReplies.choices(app)).isNull()
         store.add("", "On my way")

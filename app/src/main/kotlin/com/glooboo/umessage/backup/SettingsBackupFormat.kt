@@ -196,6 +196,9 @@ data class BackupContent(
     val settings: BackupSettings,
     /** Version of the app that wrote the file; information only, never applied. Null in files from before N09. */
     val appVersion: String? = null,
+    /** Rules and forward rules of the file left out because it held more than the import limits. Set by decode. */
+    val droppedRules: Int = 0,
+    val droppedForwardRules: Int = 0,
 )
 
 /**
@@ -252,14 +255,36 @@ object SettingsBackupFormat {
         val isBackup = root != null && root.str("app") == APP && root.str("kind") == KIND &&
             (root.int("version") ?: 0) >= 1
         if (root == null || !isBackup) throw BackupFormatException("Not a uMessage settings backup")
+        val rules = root.array("rules").orEmpty().mapNotNull(BackupJson::readRule)
+        val forwards = root.array("forwardRules").orEmpty().mapNotNull(BackupJson::readForward)
         return BackupContent(
-            rules = root.array("rules").orEmpty().asSequence().mapNotNull(BackupJson::readRule)
-                .take(MAX_RULES).toList(),
-            forwardRules = root.array("forwardRules").orEmpty().asSequence().mapNotNull(BackupJson::readForward)
-                .take(MAX_FORWARD_RULES).toList(),
+            rules = rules.take(MAX_RULES),
+            forwardRules = forwards.take(MAX_FORWARD_RULES),
             settings = BackupSettingsJson.readSettings(root["settings"] as? JsonObject),
             appVersion = root.str("appVersion")?.take(MAX_VERSION),
+            droppedRules = (rules.size - MAX_RULES).coerceAtLeast(0),
+            droppedForwardRules = (forwards.size - MAX_FORWARD_RULES).coerceAtLeast(0),
         )
+    }
+
+    /**
+     * Splits the [incoming] rules into the ones not on the phone yet and the count already present, with the same
+     * idea as the repository's duplicate check (kind, type, pattern; numbers by their last digits, sender names and
+     * prefixes without case). Also counts a rule repeated inside the file once.
+     */
+    fun newRules(incoming: List<SpamRule>, existing: List<SpamRule>): Pair<List<SpamRule>, Int> {
+        val known = existing.map(::ruleKey).toMutableSet()
+        val fresh = incoming.filter { known.add(ruleKey(it)) }
+        return fresh to incoming.size - fresh.size
+    }
+
+    private fun ruleKey(rule: SpamRule): String {
+        val pattern = when (rule.type) {
+            RuleType.NUMBER -> ForwardTargets.key(rule.pattern).ifEmpty { rule.pattern.trim() }
+            RuleType.SENDER_ID, RuleType.PREFIX -> rule.pattern.trim().lowercase()
+            else -> rule.pattern.trim()
+        }
+        return "${rule.kind.name}|${rule.type.name}|$pattern"
     }
 
     /**

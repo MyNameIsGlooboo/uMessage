@@ -162,6 +162,8 @@ class RulesActions(
     val onDeleteEditing: () -> Unit = {},
     // Wave 3: starter examples of the empty tabs (ID-53)
     val onExample: (ListKind, RuleType, String) -> Unit = { _, _, _ -> },
+    // spam-21: "Test this rule" against recent messages
+    val onPreview: () -> Unit = {},
 )
 
 @Composable
@@ -222,6 +224,7 @@ fun RulesRoute(
             onKind = viewModel::setKind,
             onDeleteEditing = viewModel::deleteEditing,
             onExample = viewModel::openExample,
+            onPreview = viewModel::previewRule,
         )
     }
     RulesScreen(state, snackbar, actions)
@@ -233,6 +236,7 @@ private fun RulesEvents(viewModel: RulesViewModel, snackbar: SnackbarHostState) 
     val resources = LocalContext.current.resources
     val undoLabel = stringResource(R.string.spam_undo)
     val deletedText = stringResource(R.string.spam_rules_deleted)
+    val failedText = stringResource(R.string.spam_snack_failed)
     LaunchedEffect(viewModel) {
         viewModel.eventFlow.collect { event ->
             snackbar.currentSnackbarData?.dismiss()
@@ -252,6 +256,7 @@ private fun RulesEvents(viewModel: RulesViewModel, snackbar: SnackbarHostState) 
                         snackbar.showSnackbar(migratedText(resources, event), duration = SnackbarDuration.Long)
                     is RulesEvent.AddedFromContacts ->
                         snackbar.showSnackbar(contactsAddedText(resources, event), duration = SnackbarDuration.Long)
+                    RulesEvent.Failed -> snackbar.showSnackbar(failedText, duration = SnackbarDuration.Long)
                 }
             }
         }
@@ -312,7 +317,7 @@ fun RulesScreen(
             modifier = Modifier.padding(top = inner.calculateTopPadding()).fillMaxSize(),
         )
     }
-    state.form?.let { AddRuleSheet(it, state.sims, actions) }
+    state.form?.let { AddRuleSheet(it, state.sims, actions, state.preview) }
     if (testOpen) {
         TestMessageSheet(
             sims = state.sims,
@@ -1019,7 +1024,12 @@ internal suspend fun SnackbarHostState.showUndo(message: String, actionLabel: St
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun AddRuleSheet(form: RuleForm, sims: List<SimInfo>, actions: RulesActions) {
+fun AddRuleSheet(
+    form: RuleForm,
+    sims: List<SimInfo>,
+    actions: RulesActions,
+    preview: RulePreviewState = RulePreviewState.Idle,
+) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var pickingContacts by rememberSaveable { mutableStateOf(false) }
     val error = form.visibleError
@@ -1036,14 +1046,7 @@ fun AddRuleSheet(form: RuleForm, sims: List<SimInfo>, actions: RulesActions) {
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 Text(
-                    stringResource(
-                        when {
-                            form.isEdit && form.kind == ListKind.ALLOW -> R.string.rules_sheet_title_edit_allow
-                            form.isEdit -> R.string.rules_sheet_title_edit_block
-                            form.kind == ListKind.ALLOW -> R.string.ux8d_sheet_title_allow
-                            else -> R.string.ux8d_sheet_title_block
-                        },
-                    ),
+                    stringResource(ruleSheetTitle(form)),
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.semantics { heading() },
                 )
@@ -1052,36 +1055,7 @@ fun AddRuleSheet(form: RuleForm, sims: List<SimInfo>, actions: RulesActions) {
                 RuleKindChoice(form.kind, actions.onKind)
                 if (form.type == RuleType.REGEX) PatternBlockChips(form.pattern, actions.onPattern)
 
-                val clearCd = stringResource(R.string.spam_sheet_clear_value)
-                OutlinedTextField(
-                    value = form.pattern,
-                    onValueChange = actions.onPattern,
-                    modifier = Modifier.fillMaxWidth(),
-                    label = { Text(stringResource(valueLabel(form.type))) },
-                    placeholder = { Text(typeHint(form.type)) },
-                    singleLine = true,
-                    isError = error != null,
-                    supportingText = { Text(if (error != null) errorText(error) else typeHelp(form.kind, form.type)) },
-                    textStyle = MaterialTheme.typography.bodyLarge.let {
-                        if (form.type == RuleType.REGEX) it.copy(fontFamily = FontFamily.Monospace) else it
-                    },
-                    keyboardOptions = KeyboardOptions(
-                        capitalization = KeyboardCapitalization.None,
-                        autoCorrectEnabled = false,
-                        keyboardType = if (form.type.isSender && form.type != RuleType.SENDER_ID) {
-                            KeyboardType.Phone
-                        } else {
-                            KeyboardType.Text
-                        },
-                    ),
-                    trailingIcon = {
-                        if (form.pattern.isNotEmpty()) {
-                            IconButton(onClick = { actions.onPattern("") }) {
-                                Icon(Symbols.Close, contentDescription = clearCd)
-                            }
-                        }
-                    },
-                )
+                RuleValueField(form, error, actions.onPattern)
 
                 // Several contacts at once: one rule per number, in the list chosen above.
                 if (form.type == RuleType.NUMBER && !form.isEdit) {
@@ -1092,6 +1066,8 @@ fun AddRuleSheet(form: RuleForm, sims: List<SimInfo>, actions: RulesActions) {
 
                 // Try a keyword or pattern on a sample message before it is saved.
                 RulePatternTest(form.kind, form.type, form.pattern, valid = form.validation is RuleValidation.Valid)
+
+                RuleRecentTest(form.validation is RuleValidation.Valid, preview, actions.onPreview)
 
                 RuleSheetExtras(form, sims, actions)
 
@@ -1107,31 +1083,12 @@ fun AddRuleSheet(form: RuleForm, sims: List<SimInfo>, actions: RulesActions) {
                 }
 
                 // Deleting lives here, away from the save button, and is undoable from the snackbar.
-                if (form.isEdit) {
-                    TextButton(onClick = actions.onDeleteEditing, modifier = Modifier.heightIn(min = 48.dp)) {
-                        Icon(
-                            Symbols.Delete,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.error,
-                            modifier = Modifier.size(18.dp),
-                        )
-                        Text(
-                            stringResource(R.string.rules2_sheet_delete),
-                            color = MaterialTheme.colorScheme.error,
-                            modifier = Modifier.padding(start = 8.dp),
-                        )
-                    }
-                }
+                if (form.isEdit) DeleteRuleButton(actions.onDeleteEditing)
             }
             RuleSheetBar(
                 saveLabel = stringResource(if (form.isEdit) R.string.rules_sheet_save else R.string.spam_sheet_add),
                 enabled = form.canSubmit,
-                hint = when {
-                    form.saving -> null
-                    form.pattern.isBlank() -> stringResource(R.string.rules2_sheet_hint_empty)
-                    error != null -> stringResource(R.string.rules2_sheet_hint_fix)
-                    else -> null
-                },
+                hint = ruleSheetHint(form, error),
                 onCancel = actions.onDismissForm,
                 onSave = actions.onSubmit,
             )
@@ -1148,6 +1105,73 @@ fun AddRuleSheet(form: RuleForm, sims: List<SimInfo>, actions: RulesActions) {
         )
     }
     if (form.confirming) ConfirmRuleDialog(form, actions)
+}
+
+private fun ruleSheetTitle(form: RuleForm): Int = when {
+    form.isEdit && form.kind == ListKind.ALLOW -> R.string.rules_sheet_title_edit_allow
+    form.isEdit -> R.string.rules_sheet_title_edit_block
+    form.kind == ListKind.ALLOW -> R.string.ux8d_sheet_title_allow
+    else -> R.string.ux8d_sheet_title_block
+}
+
+@Composable
+private fun ruleSheetHint(form: RuleForm, error: RuleValidation.Invalid?): String? = when {
+    form.saving -> null
+    form.pattern.isBlank() -> stringResource(R.string.rules2_sheet_hint_empty)
+    error != null -> stringResource(R.string.rules2_sheet_hint_fix)
+    else -> null
+}
+
+@Composable
+private fun RuleValueField(form: RuleForm, error: RuleValidation.Invalid?, onPattern: (String) -> Unit) {
+    val clearCd = stringResource(R.string.spam_sheet_clear_value)
+    OutlinedTextField(
+        value = form.pattern,
+        onValueChange = onPattern,
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text(stringResource(valueLabel(form.type))) },
+        placeholder = { Text(typeHint(form.type)) },
+        singleLine = true,
+        isError = error != null,
+        supportingText = { Text(if (error != null) errorText(error) else typeHelp(form.kind, form.type)) },
+        textStyle = MaterialTheme.typography.bodyLarge.let {
+            if (form.type == RuleType.REGEX) it.copy(fontFamily = FontFamily.Monospace) else it
+        },
+        keyboardOptions = KeyboardOptions(
+            capitalization = KeyboardCapitalization.None,
+            autoCorrectEnabled = false,
+            keyboardType = if (form.type.isSender && form.type != RuleType.SENDER_ID) {
+                KeyboardType.Phone
+            } else {
+                KeyboardType.Text
+            },
+        ),
+        trailingIcon = {
+            if (form.pattern.isNotEmpty()) {
+                IconButton(onClick = { onPattern("") }) {
+                    Icon(Symbols.Close, contentDescription = clearCd)
+                }
+            }
+        },
+    )
+}
+
+/** Deleting lives here, away from the save button, and is undoable from the snackbar. */
+@Composable
+private fun DeleteRuleButton(onClick: () -> Unit) {
+    TextButton(onClick = onClick, modifier = Modifier.heightIn(min = 48.dp)) {
+        Icon(
+            Symbols.Delete,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.error,
+            modifier = Modifier.size(18.dp),
+        )
+        Text(
+            stringResource(R.string.rules2_sheet_delete),
+            color = MaterialTheme.colorScheme.error,
+            modifier = Modifier.padding(start = 8.dp),
+        )
+    }
 }
 
 /** Sender types first, then the ones about the message text: the same two groups as the forward editor (BR-44). */

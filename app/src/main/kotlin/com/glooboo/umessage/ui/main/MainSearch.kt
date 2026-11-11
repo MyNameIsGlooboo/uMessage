@@ -16,7 +16,7 @@ import com.glooboo.umessage.ui.components.isBareNumber
 /** Searching starts with this many characters; shorter input shows a hint instead of results. */
 const val MIN_SEARCH_LENGTH = 2
 
-fun isSearchable(query: String): Boolean = query.length >= MIN_SEARCH_LENGTH
+fun isSearchable(query: String): Boolean = query.trim().length >= MIN_SEARCH_LENGTH
 
 /** MC-17: typing waits this long for the next key before searching, so "hello" runs one search, not five. */
 const val SEARCH_DEBOUNCE_MS = 250L
@@ -79,7 +79,14 @@ fun isWholeWordHit(text: String, query: String): Boolean = highlightRanges(text,
 }
 
 /** Fewer digits than this in a query is not looked up in phone numbers ("12" would match nearly every chat). */
-private const val MIN_NUMBER_QUERY_DIGITS = 3
+internal const val MIN_NUMBER_QUERY_DIGITS = 3
+
+/**
+ * True when [query] has no letters and at least [MIN_NUMBER_QUERY_DIGITS] digits (any script), so a number lookup
+ * can match.
+ */
+fun isNumberQuery(query: String): Boolean =
+    !query.any { it.isLetter() } && asciiDigits(query).length >= MIN_NUMBER_QUERY_DIGITS
 
 /**
  * CL-15: the conversations whose phone number holds the digits of [query], however either is written (spaces, dashes,

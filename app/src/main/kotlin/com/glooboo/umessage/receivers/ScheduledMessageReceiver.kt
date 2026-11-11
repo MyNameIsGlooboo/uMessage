@@ -28,7 +28,8 @@ import com.glooboo.umessage.messaging.deleteScheduledRepeat
 import com.glooboo.umessage.messaging.deleteScheduledAttachments
 import com.glooboo.umessage.messaging.ScheduledSendClaims
 import com.glooboo.umessage.messaging.scheduledAttachmentTracker
-import com.glooboo.umessage.messaging.sendMessageCompat
+import com.glooboo.umessage.messaging.sendMessageDetailed
+import com.glooboo.umessage.messaging.withUnsentOnly
 import com.glooboo.umessage.models.Message
 import kotlin.time.Duration.Companion.minutes
 
@@ -72,19 +73,25 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
         }
     }
 
+    /**
+     * Looked up by id alone: alarms set by older builds also carry a thread id, which is stale once the message
+     * moved to a temporary thread. An alarm for a message that was deleted, or one already held after a failed
+     * send, does nothing (null): a held message goes out only on the user's Retry.
+     */
+    private fun dueMessage(context: Context, messageId: Long): Message? {
+        val message = try {
+            context.messagesDB.getScheduledMessageById(messageId)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return null
+        }
+        return message?.takeUnless { it.isHeldScheduled() }
+    }
+
     @VisibleForTesting
     internal fun handleIntent(context: Context, intent: Intent) {
         val messageId = intent.getLongExtra(SCHEDULED_MESSAGE_ID, 0L)
-        // Looked up by id alone: alarms set by older builds also carry a thread id, which is stale once the message
-        // moved to a temporary thread. An alarm for a message that was deleted, or one already held after a failed
-        // send, does nothing: a held message goes out only on the user's Retry.
-        val message = try {
-            context.messagesDB.getAllScheduledMessages().firstOrNull { it.id == messageId }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return
-        }
-        if (message == null || message.isHeldScheduled()) return
+        val message = dueMessage(context, messageId) ?: return
 
         // F3: only one sender per message. The alarm, the re-arm on app start or boot and "Send now" can all reach it
         // together; the one that claims the row sends, the others find it taken and stop.
@@ -127,10 +134,21 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
         try {
             // Send right here on the worker, inside the goAsync window and wakelock. The scheduled row is the only
             // copy of the message, so it is deleted only once the message is in the telephony provider.
-            val handedOff = context.sendMessageCompat(
-                message.body, addresses, message.subscriptionId, attachments, onFailure = ::notifyOnce,
+            var failureKnown = false
+            val outcome = context.sendMessageDetailed(
+                message.body, addresses, message.subscriptionId, attachments, onFailure = { failureKnown = true },
                 onAttachmentHandedOff = context.scheduledAttachmentTracker(message),
             )
+            val handedOff = outcome.handedOff
+            if (outcome.partlySent) {
+                // Some pictures went out and some did not. The held row keeps only what was not sent, so the
+                // user's Retry does not send the same pictures twice; the notification says so.
+                runCatching { context.messagesDB.insertOrUpdate(message.withUnsentOnly(outcome)) }
+                notified = true
+                notifyNotSent(context, message, addresses, partlySent = true)
+            } else if (failureKnown) {
+                notifyOnce()
+            }
             if (!handedOff) {
                 // The scheduled row stays, so the message is not lost, but held: it goes out only on the user's
                 // Retry, never again by itself.
@@ -204,7 +222,8 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
      * scheduled in a new conversation lives in a temporary thread that is gone once it was handed off.
      */
     private fun notifyNotSent(
-        context: Context, message: Message, addresses: List<String>, attachmentMissing: Boolean = false
+        context: Context, message: Message, addresses: List<String>, attachmentMissing: Boolean = false,
+        partlySent: Boolean = false,
     ) {
         val recipientName = message.participants.joinToString {
             it.name.ifBlank { it.phoneNumbers.firstOrNull()?.normalizedNumber.orEmpty() }
@@ -215,10 +234,10 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
         } else {
             context.getThreadId(addresses.toSet()).takeIf { it != 0L } ?: message.threadId
         }
-        val reason = if (attachmentMissing) {
-            context.getString(R.string.scheduled_attachment_missing, recipientName)
-        } else {
-            null
+        val reason = when {
+            attachmentMissing -> context.getString(R.string.scheduled_attachment_missing, recipientName)
+            partlySent -> context.getString(R.string.scheduled_partly_sent, recipientName)
+            else -> null
         }
         runCatching {
             Handler(Looper.getMainLooper()).post {

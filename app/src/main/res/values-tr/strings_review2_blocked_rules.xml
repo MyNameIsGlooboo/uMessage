@@ -11,6 +11,17 @@
     <string name="e_restored_empty">Bundan sonra gelen kutusuna taşıdığınız mesajlar burada 30 gün boyunca listelenir.</string>
     <string name="e_restored_when">Gelen kutusuna taşınma zamanı: %1$s</string>
     <string name="e_restored_open">%1$s ile görüşmeyi açın</string>
+    <string name="e_snack_allowed_one">%1$s için artık her iki SIM\'de de her zaman izin verildi</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="one">%d gönderen için artık her iki SIM\'de de her zaman izin verildi</item>
+        <item quantity="other">%d gönderen için artık her iki SIM\'de de her zaman izin verildi</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$s için artık her zaman izin verildi</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="one">%d gönderen için artık her zaman izin verildi</item>
+        <item quantity="other">%d gönderen için artık her zaman izin verildi</item>
+    </plurals>
+    <string name="e_view_rule">Kuralı görüntüleyin</string>
     <string name="e_rules_title">Kurallar</string>
     <string name="e_rules_menu_backup">Yedekleyin ve geri yükleyin</string>
     <string name="e_note_blocked_by_you">Sizin tarafınızdan engellendi</string>
@@ -25,6 +36,8 @@
     <string name="e_example_block_cancel_word">لغو۱۱ içeren mesajları engelleyin</string>
     <string name="e_example_block_ad_prefix">3000 ile başlayan reklam numaralarını engelleyin</string>
     <string name="e_example_allow_number">Postaneniz gibi bir numaraya her zaman izin verin</string>
+    <string name="e_sheet_sender_label">Gönderen</string>
+    <string name="e_sheet_text_label">Mesaj metni</string>
     <string name="e_value_number">Telefon numarası</string>
     <string name="e_value_prefix">Numaranın başlangıcı</string>
     <string name="e_value_sender">Gönderen adı</string>

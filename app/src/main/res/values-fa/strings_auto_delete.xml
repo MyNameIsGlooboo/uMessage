@@ -14,4 +14,10 @@
     </plurals>
     <string name="cleanup_old_confirm_none">هنوز هیچ پیامی به این قدمت نیست. پیام‌های قدیمی‌تر خودکار به سطل زباله می‌روند. پیام‌های ستاره‌دار و خوانده‌نشده و گفتگوهای سنجاق‌شده باقی می‌مانند.</string>
     <string name="cleanup_old_confirm_action">بردن به سطل زباله</string>
+    <string name="cleanup_codes_confirm_title">کدهای خوانده‌شده منتقل شوند؟</string>
+    <plurals name="cleanup_codes_confirm_body" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d پیام کد خوانده‌شده قدیمی‌تر از این مدت است و اکنون به سطل بازیافت منتقل می‌شود. پیام‌های ستاره‌دار باقی می‌مانند.</item>
+        <item quantity="other">%d پیام کد خوانده‌شده قدیمی‌تر از این مدت است و اکنون به سطل بازیافت منتقل می‌شوند. پیام‌های ستاره‌دار باقی می‌مانند.</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">هنوز هیچ کدی به این قدمت نیست. کدهای قدیمی‌تر خودکار به سطل بازیافت منتقل می‌شوند.</string>
 </resources>

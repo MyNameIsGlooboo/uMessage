@@ -859,13 +859,17 @@ fun Context.getSuggestedContacts(
     val normalizer = NumberNormalizer { region }
     val uri = Sms.CONTENT_URI
     val projection = arrayOf(
-        Sms.ADDRESS
+        Sms.ADDRESS,
+        Sms.THREAD_ID
     )
 
     val sortOrder = "${Sms.DATE} DESC LIMIT 50"
     val blockedNumbers = getBlockedNumbers()
+    // People from chats hidden behind the app lock must not show up here while it is locked.
+    val hiddenThreadIds = com.glooboo.umessage.helpers.HiddenChats.get(this).hiddenIds()
 
     queryCursor(uri, projection, null, null, sortOrder, showErrors = true) { cursor ->
+        if (cursor.getLongValue(Sms.THREAD_ID) in hiddenThreadIds) return@queryCursor
         val senderNumber = cursor.getStringValue(Sms.ADDRESS) ?: return@queryCursor
         val namePhoto = getNameAndPhotoFromPhoneNumber(senderNumber)
         var senderName = namePhoto.name
@@ -958,6 +962,7 @@ fun Context.insertNewSMS(
     threadId: Long,
     type: Int,
     subscriptionId: Int,
+    dateSent: Long = 0L,
 ): Long {
     val uri = Sms.CONTENT_URI
     val contentValues = ContentValues().apply {
@@ -965,12 +970,13 @@ fun Context.insertNewSMS(
         put(Sms.SUBJECT, subject)
         put(Sms.BODY, body)
         put(Sms.DATE, date)
+        // The carrier's send time: the caller's [dateSent] (0 = unknown), else the receiver's own (I16). With neither,
+        // the provider keeps its own default.
+        (dateSent.takeIf { it > 0L } ?: IncomingDateSent.current())?.let { put(Sms.DATE_SENT, it) }
         put(Sms.READ, read)
         put(Sms.THREAD_ID, threadId)
         put(Sms.TYPE, type)
         put(Sms.SUBSCRIPTION_ID, subscriptionId)
-        // The carrier's own send time, when the receiver knows it (I16).
-        IncomingDateSent.current()?.let { put(Sms.DATE_SENT, it) }
     }
 
     return try {
@@ -1441,9 +1447,11 @@ fun Context.updateLastConversationMessage(threadIds: Iterable<Long>) {
     try {
         contentResolver.delete(uri, selection, null)
         for (threadId in threadIds) {
-            // An empty thread, or one of a blocked number, has none: the other threads still refresh (B12).
-            val newConversation = getConversations(threadId).firstOrNull() ?: continue
-            insertOrUpdateConversation(newConversation)
+            // One thread without a row (an empty thread, or one of a blocked number) must not stop the others from
+            // being refreshed (B12).
+            runCatching {
+                getConversations(threadId).firstOrNull()?.let { insertOrUpdateConversation(it) }
+            }
         }
     } catch (_: Exception) {
     }

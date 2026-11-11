@@ -338,7 +338,11 @@ private fun PinTab(requiredHash: String, onSuccess: (hash: String) -> Unit) {
         )
         if (requiredHash.isEmpty() && !repeating) {
             Text(
-                stringResource(R.string.dialogs_lock_pin_suggestion, AppLockLogic.SUGGESTED_PIN_LENGTH),
+                stringResource(
+                    R.string.lock_pin_length_hint, AppLockLogic.MIN_PIN_LENGTH, AppLockLogic.MAX_PIN_LENGTH
+                ) +
+                    "\n" +
+                    stringResource(R.string.dialogs_lock_pin_suggestion, AppLockLogic.SUGGESTED_PIN_LENGTH),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,

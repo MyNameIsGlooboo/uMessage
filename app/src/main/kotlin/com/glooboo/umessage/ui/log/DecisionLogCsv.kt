@@ -57,10 +57,16 @@ internal object DecisionLogCsv {
     /** "+14155550133" stays as-is: numbers are the most common sender and are not formulas. */
     private fun String.isPhoneNumberLike(): Boolean = drop(1).isNotEmpty() && drop(1).all { it.isDigit() || it == ' ' }
 
+    /** Removes earlier exports (sender numbers) from the cache; called when the log screen opens. */
+    fun deleteOldExports(context: Context) {
+        runCatching { File(context.cacheDir, FILE_DIR).listFiles()?.forEach { it.delete() } }
+    }
+
     /** Writes [csv] to the app cache and opens the share sheet for it. */
     fun share(context: Context, csv: String, count: Int) {
         val dir = File(context.cacheDir, FILE_DIR).apply { mkdirs() }
-        val file = File(dir, FILE_NAME)
+        dir.listFiles()?.forEach { it.delete() }
+        val file = File(dir, "${System.currentTimeMillis()}-$FILE_NAME")
         file.writeText(csv)
         val uri = FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
         val send = Intent(Intent.ACTION_SEND)
@@ -70,5 +76,6 @@ internal object DecisionLogCsv {
             .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         val title = context.resources.getQuantityString(R.plurals.declog_share_count, count, count)
         context.startActivity(Intent.createChooser(send, title).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        com.glooboo.umessage.helpers.CacheCleanup.deleteAfterShare(file)
     }
 }

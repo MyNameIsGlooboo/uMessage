@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -163,6 +164,8 @@ class BlockedViewModel(
      */
     private val pendingRestores = MutableStateFlow<Map<Long, PendingRestore>>(emptyMap())
 
+    /** Tokens of "Delete all" deletions that also clear the restored list once they are final. */
+    private val clearLogTokens = mutableSetOf<Long>()
     private var nextToken = 1L
 
     /** Restores being committed or undone, so the snackbar and the undo-window timer cannot run one twice. */
@@ -278,7 +281,15 @@ class BlockedViewModel(
         viewModelScope.launch {
             sims.value = withContext(Dispatchers.IO) { SimDirectory.load(getApplication()) }
         }
-        viewModelScope.launch { runCatching { repository.purgeExpired() } }
+        viewModelScope.launch {
+            runCatching { repository.purgeExpired() }
+            // The restored list goes with the blocked messages the purge deletes (spamui-15): its entries live no
+            // longer than the purge setting, and 30 days at most.
+            runCatching {
+                val days = repository.settings.first().purgeAfterDays
+                if (days > 0) restoredLog.dropOlderThan(days)
+            }
+        }
     }
 
     /**
@@ -318,13 +329,22 @@ class BlockedViewModel(
      * "Release once" (ID-16): puts this one message in the inbox without allowing the sender. It is the restore
      * "Not spam" does, minus the allow rule, with the same Undo.
      */
-    fun releaseOnce(messageId: Long) {
+    fun releaseOnce(messageId: Long) = releaseMessages(setOf(messageId))
+
+    /**
+     * "Move to inbox" for the messages chosen in the sender thread (spamui-11): one restore for all of them, without
+     * allowing the sender, with a single Undo.
+     */
+    fun releaseMessages(messageIds: Set<Long>) {
         // A double tap can arrive before the state hides the message; the pending list is the up-to-date one (L4).
-        if (messageId in pendingIds()) return
-        val message = state.value.groups.firstNotNullOfOrNull { g -> g.messages.firstOrNull { it.id == messageId } }
-            ?: return
+        val pending = pendingIds()
+        val messages = state.value.groups.flatMap { it.messages }
+            .filter { it.id in messageIds && it.id !in pending }
+        if (messages.isEmpty()) return
         val token = nextToken++
-        val restore = PendingRestore(listOf(message.id), emptyList(), messages = mapOf(message.id to message))
+        val restore = PendingRestore(
+            messages.map { it.id }, emptyList(), messages = messages.associateBy { it.id },
+        )
         pendingRestores.update { it + (token to restore) }
         startRestore(token)
     }
@@ -518,6 +538,16 @@ class BlockedViewModel(
         selected.value = emptySet()
     }
 
+    /**
+     * "Delete all": deletes every held message. When that really empties Blocked, the restored list is cleared with
+     * them once the deletion is final (spamui-15), so no sender numbers stay behind.
+     */
+    fun deleteAll() {
+        val ids = idsOf(state.value.groups.map { it.address }.toSet())
+        hideAndDelete(ids, clearsRestoredLog = ids.size >= state.value.heldCount)
+        selected.value = emptySet()
+    }
+
     /** Delete of single messages from the sender thread, with the same Undo as [delete]. */
     fun deleteMessages(messageIds: Set<Long>) {
         val pending = pendingIds()
@@ -525,19 +555,25 @@ class BlockedViewModel(
         hideAndDelete(messageIds.filter { it in held && it !in pending })
     }
 
-    private fun hideAndDelete(ids: List<Long>) {
+    private fun hideAndDelete(ids: List<Long>, clearsRestoredLog: Boolean = false) {
         if (ids.isEmpty()) return
         val token = nextToken++
+        if (clearsRestoredLog) clearLogTokens += token
         pendingDeletes.update { it + (token to ids) }
         events.trySend(BlockedEvent.Deleted(token, ids.size))
     }
 
-    fun undoDelete(token: Long) = pendingDeletes.update { it - token }
+    fun undoDelete(token: Long) {
+        clearLogTokens -= token
+        pendingDeletes.update { it - token }
+    }
 
     fun commitDelete(token: Long) {
         val ids = pendingDeletes.value[token] ?: return
         viewModelScope.launch {
-            runCatching { repository.deleteBlocked(ids) }.onFailure { events.trySend(BlockedEvent.Failed) }
+            runCatching { repository.deleteBlocked(ids) }
+                .onSuccess { if (clearLogTokens.remove(token)) restoredLog.clear() }
+                .onFailure { events.trySend(BlockedEvent.Failed) }
             pendingDeletes.update { it - token }
         }
     }
@@ -562,6 +598,7 @@ class BlockedViewModel(
         // one being committed or undone finishes on its own).
         cleared = true
         val leftovers = pendingDeletes.value.values.flatten()
+        if (clearLogTokens.any { it in pendingDeletes.value }) restoredLog.clear()
         val finished = pendingRestores.value.filterKeys { it !in committing }.values
             .flatMap { it.receipts.orEmpty().values }
         if (leftovers.isNotEmpty() || finished.isNotEmpty()) {

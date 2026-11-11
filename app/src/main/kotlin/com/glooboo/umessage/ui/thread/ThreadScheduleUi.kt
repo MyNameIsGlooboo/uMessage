@@ -103,8 +103,15 @@ class ThreadScheduleUi(
     /** "x" on the schedule banner: back to sending now; a scheduled message being edited is deleted. */
     fun discard() {
         val editedId = vm.scheduledMessageId
-        vm.clearSchedule()
-        if (editedId != null) cancel(editedId, true)
+        if (editedId == null) {
+            vm.clearSchedule()
+            return
+        }
+        // The stored message and its alarm go for good, so ask first.
+        activity.askYesNo(activity.getString(R.string.thread_schedule_discard_confirm)) {
+            vm.clearSchedule()
+            cancel(editedId, true)
+        }
     }
 
     /** A tap on a scheduled bubble. */

@@ -24,6 +24,7 @@ import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.activities.CopyCodeActivity
 import com.glooboo.umessage.activities.SplashActivity
 import com.glooboo.umessage.extensions.rescheduleAllScheduledMessages
+import com.glooboo.umessage.helpers.CacheCleanup
 import com.glooboo.umessage.helpers.DailyChecks
 import com.glooboo.umessage.helpers.HiddenChatsSession
 import com.glooboo.umessage.helpers.MessagingCache
@@ -61,6 +62,7 @@ class App : FossifyApp() {
 
         ensureBackgroundThread {
             PendingSmsQueue.replay(this)
+            CacheCleanup.run(this)
             tidyScheduledAttachments()
             rescheduleAllScheduledMessages()
             rearmReminders()

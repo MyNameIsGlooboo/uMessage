@@ -1,6 +1,7 @@
 package com.glooboo.umessage.ui.thread
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.messaging.SendOutcome
 import com.glooboo.umessage.models.Attachment
 import com.glooboo.umessage.models.MessageKey
 import com.google.common.truth.Truth.assertThat
@@ -17,7 +18,7 @@ class ThreadSendControllerTest {
     private val errors = mutableListOf<Throwable>()
 
     private fun controller(answer: (OutgoingMessage) -> Boolean) =
-        ThreadSendController({ sent += it; answer(it) }) { errors += it }
+        ThreadSendController({ sent += it; SendOutcome(handedOff = answer(it)) }) { errors += it }
 
     @Test
     fun aHandedOffComposerMessageEmptiesTheComposer() {
@@ -57,6 +58,26 @@ class ThreadSendControllerTest {
         )
         assertThat(sent.single().addresses).containsExactly("111", "222", "333").inOrder()
         assertThat(sent.single().resendOf).isEqualTo(MessageKey(9, true))
+    }
+
+    @Test
+    fun aPartlySentMessageReportsWhatIsLeftAndKeepsTheComposer() {
+        val a = Attachment(null, -1L, "content://x/1", "image/jpeg", 0, 0, "a.jpg")
+        val c = Attachment(null, -1L, "content://x/3", "image/jpeg", 0, 0, "c.jpg")
+        val outcome = SendOutcome(handedOff = false, remainingAttachments = listOf(c), sentCount = 2, textSent = true)
+        val result = ThreadSendController({ outcome }) { errors += it }
+            .send(OutgoingMessage("hi", listOf("111"), 1, listOf(a, c)), fromComposer = true)
+        assertThat(result.clearComposer).isFalse()
+        assertThat(result.partial!!.remainingAttachments).containsExactly(c)
+        assertThat(result.partial!!.textSent).isTrue()
+    }
+
+    @Test
+    fun aSendThatSentNothingIsNotPartial() {
+        val a = Attachment(null, -1L, "content://x/1", "image/jpeg", 0, 0, "a.jpg")
+        val result = ThreadSendController({ SendOutcome(false, listOf(a), 0, false) }) { errors += it }
+            .send(OutgoingMessage("hi", listOf("111"), 1, listOf(a)), fromComposer = true)
+        assertThat(result.partial).isNull()
     }
 
     @Test

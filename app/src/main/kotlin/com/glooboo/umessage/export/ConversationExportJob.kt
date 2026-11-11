@@ -13,6 +13,14 @@ enum class ConversationFileFormat(val extension: String, val mimeType: String) {
     TEXT("txt", "text/plain"),
 }
 
+private const val MAX_TITLE_CHARS = 30
+
+/** [title] reduced to letters and digits joined by "-", at most 30 characters; empty when nothing is left. */
+internal fun exportFileTitle(title: String): String =
+    title.map { if (it.isLetterOrDigit()) it else ' ' }.joinToString("")
+        .trim().split(Regex("\\s+")).filter { it.isNotEmpty() }.joinToString("-")
+        .take(MAX_TITLE_CHARS).trim('-')
+
 /**
  * Reads one conversation, builds the export and writes the file in the app cache, ready to be shared. Meant for a
  * background thread. Files of earlier exports are deleted after a day, so old conversations do not pile up there.

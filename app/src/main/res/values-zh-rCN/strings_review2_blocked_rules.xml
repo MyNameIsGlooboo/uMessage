@@ -10,6 +10,15 @@
     <string name="e_restored_empty">从现在起，移至收件箱的消息会在这里显示30天。</string>
     <string name="e_restored_when">移至收件箱的时间：%1$s</string>
     <string name="e_restored_open">打开与%1$s的会话</string>
+    <string name="e_snack_allowed_one">已在两张SIM卡上始终允许%1$s</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="other">已在两张SIM卡上始终允许%d个发件人</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">已始终允许%1$s</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="other">已始终允许%d个发件人</item>
+    </plurals>
+    <string name="e_view_rule">查看规则</string>
     <string name="e_rules_title">规则</string>
     <string name="e_rules_menu_backup">备份与恢复</string>
     <string name="e_note_blocked_by_you">你已屏蔽</string>
@@ -24,6 +33,8 @@
     <string name="e_example_block_cancel_word">屏蔽包含لغو۱۱的消息</string>
     <string name="e_example_block_ad_prefix">屏蔽以3000开头的广告号码</string>
     <string name="e_example_allow_number">始终允许某个号码，例如邮局号码</string>
+    <string name="e_sheet_sender_label">发件人</string>
+    <string name="e_sheet_text_label">消息正文</string>
     <string name="e_value_number">电话号码</string>
     <string name="e_value_prefix">号码开头</string>
     <string name="e_value_sender">发件人名称</string>

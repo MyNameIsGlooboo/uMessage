@@ -52,6 +52,9 @@ interface SpamDao {
     @Query("SELECT * FROM blocked_messages")
     fun getAllBlocked(): List<BlockedMessageEntity>
 
+    @Query("SELECT * FROM blocked_messages WHERE receivedAt BETWEEN :from AND :to")
+    fun getBlockedBetween(from: Long, to: Long): List<BlockedMessageEntity>
+
     @Query("SELECT * FROM blocked_messages WHERE id = :id")
     fun getBlocked(id: Long): BlockedMessageEntity?
 

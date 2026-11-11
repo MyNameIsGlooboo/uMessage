@@ -8,7 +8,7 @@
     <string name="carrier_report_invalid">استخدم من 3 إلى 8 أرقام</string>
     <string name="carrier_report_action">أبلغ مشغّل شبكة الجوال</string>
     <string name="carrier_report_title">هل تريد إبلاغ مشغّل شبكة الجوال؟</string>
-    <string name="carrier_report_body">ستُرسل آخر رسالة من هذا المرسل إلى %1$s عبر SMS. قد يفرض مشغّل شبكة الجوال رسومًا عليها.</string>
+    <string name="carrier_report_body">ستُرسل آخر رسالة من هذا المرسل، ورقم المرسل تحتها، إلى %1$s عبر SMS. قد يفرض مشغّل شبكة الجوال رسومًا عليها.</string>
     <string name="carrier_report_send">أرسل</string>
     <string name="carrier_report_sent">تم إرسال البلاغ إلى مشغّل شبكة الجوال</string>
     <string name="carrier_report_failed">تعذر إرسال البلاغ</string>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_partly_sent">사진과 파일 일부는 보냈고 나머지는 보내지 못했어요. 다시 보내면 나머지만 보내요.</string>
+    <string name="scheduled_partly_sent">\'%s\'에게 예약한 메시지 일부는 보냈고 나머지는 보내지 못했어요. 대화를 열고 다시 시도를 누르면 나머지만 보내요.</string>
+    <string name="cleanup_codes_confirm_title">읽은 코드를 옮길까요?</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="other">그보다 오래된 읽은 인증 코드 메시지 %d개를 지금 휴지통으로 옮겨요. 별표 표시한 메시지는 그대로 둬요.</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">아직 그렇게 오래된 읽은 코드는 없어요. 오래된 코드는 자동으로 휴지통으로 옮겨져요.</string>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="other">대화 %d개를 삭제할까요?</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message">
+        <item quantity="other">대화와 모든 메시지가 이 휴대폰에서 삭제돼요. 삭제 후 몇 초 동안은 실행 취소할 수 있어요.</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s님은 연락처에 있어요. 이 발신자를 차단할까요? 새 메시지는 받은 메시지함 대신 차단함으로 들어가요. 바로 실행 취소할 수 있어요.</string>
+    <string name="i29_color_red">빨강</string>
+    <string name="i29_color_orange">주황</string>
+    <string name="i29_color_yellow">노랑</string>
+    <string name="i29_color_green">초록</string>
+    <string name="i29_color_teal">청록</string>
+    <string name="i29_color_blue">파랑</string>
+    <string name="i29_color_purple">보라</string>
+    <string name="i29_color_brown">갈색</string>
+    <string name="i56_picture_position">사진 %2$d장 중 %1$d번째, %3$s. 눌러서 열어요.</string>
+    <string name="notifications_off_dismiss">나중에</string>
+    <string name="e_restored_clear">목록 지우기</string>
+    <string name="lock_pin_length_hint">PIN: %1$d~%2$d자리</string>
+    <string name="cleanup_codes_undo">실행 취소</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="other">읽은 코드 %d개를 휴지통으로 옮겼어요</item>
+    </plurals>
+    <string name="rule_preview_button">최근 메시지로 테스트</string>
+    <string name="rule_preview_loading">최근 메시지를 확인하는 중…</string>
+    <string name="rule_preview_failed">최근 메시지를 확인하지 못했어요. 다시 시도해요.</string>
+    <string name="rule_preview_nothing">아직 확인할 최근 메시지가 없어요.</string>
+    <string name="rule_preview_inbox">받은 메시지함: 최근 메시지 %2$d개 중 %1$d개가 이 규칙에 해당해요</string>
+    <string name="rule_preview_inbox_empty">받은 메시지함: 확인할 메시지가 없어요</string>
+    <string name="rule_preview_blocked">차단함: 최근 메시지 %2$d개 중 %1$d개가 이 규칙에 해당해요</string>
+    <string name="rule_preview_blocked_empty">차단함: 확인할 메시지가 없어요</string>
+    <string name="rule_preview_examples">예: %1$s</string>
+    <string name="n06_delete_confirm">저장한 문구를 삭제할까요?</string>
+    <string name="screens_vcard_email_action">이메일</string>
+    <string name="screens_vcard_copy_hint">길게 눌러 복사</string>
+    <string name="screens_vcard_copied">복사했어요</string>
+    <string name="settings_f_restore_rules_present">이 휴대폰에 이미 있는 규칙: %1$d개, 건너뛰었어요.</string>
+    <string name="settings_f_restore_too_many">파일에서 한도를 넘은 규칙: %1$d개, 건너뛰었어요.</string>
+    <string name="thread_schedule_discard_confirm">예약을 없애고 저장된 예약 메시지를 삭제할까요? 입력란의 내용은 그대로 남아요.</string>
+    <string name="thread_phone_call">전화</string>
+    <string name="thread_phone_copy">번호 복사</string>
+    <string name="thread_phone_add_contact">연락처 추가</string>
+    <string name="thread_search_older_busy">이전 메시지를 검색하는 중…</string>
+    <plurals name="thread_new_messages_chip">
+        <item quantity="other">새 메시지 %d개</item>
+    </plurals>
+    <string name="thread_messages_deleted">휴지통으로 옮겼어요</string>
+    <string name="thread_messages_deleted_undo">실행 취소</string>
+</resources>

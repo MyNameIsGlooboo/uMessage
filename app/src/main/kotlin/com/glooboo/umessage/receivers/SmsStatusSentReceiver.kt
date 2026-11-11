@@ -140,9 +140,12 @@ class SmsStatusSentReceiver : SendStatusReceiver() {
             runCatching { context.conversationsDB.getConversationWithThreadId(threadId)?.title }.getOrNull().orEmpty()
         } else {
             val address = context.getMessageRecipientAddress(messageId)
-            context.getMyContactsCursor(favoritesOnly = false, withPhoneNumbersOnly = true).use {
-                context.getNameFromAddress(address, it)
-            }
+            // Without contacts permission the lookup can throw: the notification still goes out, with the plain number.
+            runCatching {
+                context.getMyContactsCursor(favoritesOnly = false, withPhoneNumbersOnly = true).use {
+                    context.getNameFromAddress(address, it)
+                }
+            }.getOrDefault(address)
         }
         Handler(Looper.getMainLooper()).post {
             context.notificationHelper.showSendingFailedNotification(recipientName, threadId)

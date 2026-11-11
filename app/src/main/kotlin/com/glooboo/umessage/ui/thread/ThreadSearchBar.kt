@@ -3,8 +3,11 @@ package com.glooboo.umessage.ui.thread
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -37,6 +41,7 @@ internal fun SearchTopBar(
     query: String,
     matchCount: Int,
     matchIndex: Int,
+    searchingOlder: Boolean,
     onQueryChange: (String) -> Unit,
     onClose: () -> Unit,
     onOlder: () -> Unit,
@@ -46,6 +51,7 @@ internal fun SearchTopBar(
     val colors = MaterialTheme.colorScheme
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(Unit) { focusRequester.requestFocus() }
+    val keyboard = LocalSoftwareKeyboardController.current
     TopAppBar(
         modifier = modifier,
         windowInsets = topBarInsets(),
@@ -62,6 +68,8 @@ internal fun SearchTopBar(
                 textStyle = MaterialTheme.typography.titleMedium.copy(color = colors.onSurface),
                 cursorBrush = SolidColor(colors.primary),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                // Search: the keyboard gives way to the results.
+                keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(focusRequester),
@@ -81,9 +89,14 @@ internal fun SearchTopBar(
         },
         actions = {
             if (query.isNotBlank()) {
+                if (searchingOlder && matchCount > 0) {
+                    CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(16.dp))
+                }
                 Text(
                     if (matchCount == 0) {
-                        stringResource(R.string.thread_r2_search_none)
+                        stringResource(
+                            if (searchingOlder) R.string.thread_search_older_busy else R.string.thread_r2_search_none,
+                        )
                     } else {
                         stringResource(R.string.thread_r2_search_count, matchIndex + 1, matchCount)
                     },

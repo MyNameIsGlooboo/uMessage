@@ -65,6 +65,19 @@ class SmsReceiverTest {
     }
 
     @Test
+    fun carrierSendTime_isWrittenAsDateSentWhileDateStaysTheArrivalTime() {
+        val before = System.currentTimeMillis()
+        receive("+15551234567", "Hello there")
+
+        // The test PDU says it was sent 2026-01-01 12:34:56 UTC.
+        val sentAt = java.time.LocalDateTime.of(2026, 1, 1, 12, 34, 56)
+            .toInstant(java.time.ZoneOffset.UTC).toEpochMilli()
+        val row = inbox().single()
+        assertThat(row["date_sent"]).isEqualTo(sentAt)
+        assertThat(row["date"] as Long).isAtLeast(before)
+    }
+
+    @Test
     fun multipartSms_isJoinedIntoOneMessage() {
         receive("+15551234567", "Part one, ", "part two")
 

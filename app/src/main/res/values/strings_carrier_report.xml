@@ -9,7 +9,7 @@
     <string name="carrier_report_invalid">Use 3 to 8 digits</string>
     <string name="carrier_report_action">Report to carrier</string>
     <string name="carrier_report_title">Report to your carrier?</string>
-    <string name="carrier_report_body">This sends the latest message from this sender to %1$s as an SMS. Your carrier may charge you for it.</string>
+    <string name="carrier_report_body">This sends the latest message from this sender, with the sender\'s number under it, to %1$s as an SMS. Your carrier may charge you for it.</string>
     <string name="carrier_report_send">Send</string>
     <string name="carrier_report_sent">Report sent to your carrier</string>
     <string name="carrier_report_failed">The report could not be sent</string>

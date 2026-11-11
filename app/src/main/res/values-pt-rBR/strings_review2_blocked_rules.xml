@@ -11,6 +11,17 @@
     <string name="e_restored_empty">As mensagens que você mover para a caixa de entrada a partir de agora ficam aqui por 30 dias.</string>
     <string name="e_restored_when">Movida para a caixa de entrada em %1$s</string>
     <string name="e_restored_open">Abra a conversa com %1$s</string>
+    <string name="e_snack_allowed_one">%1$s agora é sempre permitido nos dois chips</string>
+    <plurals name="e_snack_allowed_many" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d remetente agora é sempre permitido nos dois chips</item>
+        <item quantity="other">%d remetentes agora são sempre permitidos nos dois chips</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$s agora é sempre permitido</string>
+    <plurals name="e_snack_allowed_many_single_sim" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d remetente agora é sempre permitido</item>
+        <item quantity="other">%d remetentes agora são sempre permitidos</item>
+    </plurals>
+    <string name="e_view_rule">Veja a regra</string>
     <string name="e_rules_title">Regras</string>
     <string name="e_rules_menu_backup">Backup e restauração</string>
     <string name="e_note_blocked_by_you">Bloqueado por você</string>
@@ -25,6 +36,8 @@
     <string name="e_example_block_cancel_word">Bloqueie mensagens que contenham لغو۱۱</string>
     <string name="e_example_block_ad_prefix">Bloqueie números de anúncios que começam com 3000</string>
     <string name="e_example_allow_number">Permita sempre um número, como o dos Correios</string>
+    <string name="e_sheet_sender_label">Remetente</string>
+    <string name="e_sheet_text_label">Texto da mensagem</string>
     <string name="e_value_number">Número de telefone</string>
     <string name="e_value_prefix">O número começa com</string>
     <string name="e_value_sender">Nome do remetente</string>

@@ -8,9 +8,21 @@
     </plurals>
     <string name="e_restored_title">بازیابی‌شده‌های اخیر</string>
     <string name="e_restored_body">پیام‌هایی که در ۳۰ روز گذشته به صندوق ورودی برگردانده‌اید. برای باز کردن گفتگو، روی یکی بزنید.</string>
+    <string name="e_restored_clear">پاک کردن فهرست</string>
     <string name="e_restored_empty">پیام‌هایی که از این پس به صندوق ورودی برگردانید، به‌مدت ۳۰ روز اینجا لیست می‌شوند.</string>
     <string name="e_restored_when">بردن به صندوق ورودی در %1$s</string>
     <string name="e_restored_open">باز کردن گفتگو با %1$s</string>
+    <string name="e_snack_allowed_one">%1$s اکنون در هر دو سیم‌کارت همیشه مجاز است</string>
+    <plurals name="e_snack_allowed_many" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d فرستنده اکنون در هر دو سیم‌کارت همیشه مجاز است</item>
+        <item quantity="other">%d فرستنده اکنون در هر دو سیم‌کارت همیشه مجاز هستند</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$s اکنون همیشه مجاز است</string>
+    <plurals name="e_snack_allowed_many_single_sim" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d فرستنده اکنون همیشه مجاز است</item>
+        <item quantity="other">%d فرستنده اکنون همیشه مجاز هستند</item>
+    </plurals>
+    <string name="e_view_rule">مشاهدهٔ قانون</string>
     <string name="e_rules_title">قانون‌ها</string>
     <string name="e_rules_menu_backup">گرفتن بک‌آپ از قانون‌ها</string>
     <string name="e_note_blocked_by_you">شما بلاکش کرده‌اید</string>
@@ -25,6 +37,8 @@
     <string name="e_example_block_cancel_word">بلاک کردن پیام‌های دارای لغو۱۱</string>
     <string name="e_example_block_ad_prefix">بلاک کردن شماره‌های تبلیغاتی با پیش‌شمارهٔ 3000</string>
     <string name="e_example_allow_number">اجازه دادن همیشگی به یک شماره، مثل ادارهٔ پست</string>
+    <string name="e_sheet_sender_label">فرستنده</string>
+    <string name="e_sheet_text_label">متن پیام</string>
     <string name="e_value_number">شماره تلفن</string>
     <string name="e_value_prefix">شماره شروع می‌شود با</string>
     <string name="e_value_sender">نام فرستنده</string>

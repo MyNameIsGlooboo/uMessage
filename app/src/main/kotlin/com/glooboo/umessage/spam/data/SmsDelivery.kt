@@ -41,6 +41,7 @@ fun Context.insertSmsOrThrow(
     threadId: Long,
     type: Int,
     subscriptionId: Int,
+    dateSent: Long = 0L,
 ): Long {
     val id = insertNewSMS(
         address = address,
@@ -50,7 +51,8 @@ fun Context.insertSmsOrThrow(
         read = read,
         threadId = threadId,
         type = type,
-        subscriptionId = subscriptionId
+        subscriptionId = subscriptionId,
+        dateSent = dateSent,
     )
     if (id <= 0L) throw SmsInsertException("Telephony provider did not store the SMS")
     return id
@@ -74,6 +76,7 @@ fun Context.deliverIncomingSms(
     threadId: Long = getThreadId(address),
     read: Int = 0,
     type: Int = Telephony.Sms.MESSAGE_TYPE_INBOX,
+    dateSent: Long = 0L,
 ): Long {
     val context = this
     val photoUri = runCatching { SimpleContactsHelper(context).getPhotoUriFromPhoneNumber(address) }.getOrDefault("")
@@ -91,7 +94,8 @@ fun Context.deliverIncomingSms(
         read = read,
         threadId = threadId,
         type = type,
-        subscriptionId = subscriptionId
+        subscriptionId = subscriptionId,
+        dateSent = dateSent,
     )
 
     // From here on the SMS is safe in the provider. Nothing below may throw.

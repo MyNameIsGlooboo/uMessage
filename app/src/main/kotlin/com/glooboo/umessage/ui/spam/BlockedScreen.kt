@@ -104,6 +104,7 @@ fun BlockedRoute(onBack: (() -> Unit)?, onOpenRules: () -> Unit, onOpenSettings:
             onSelectAll = viewModel::selectAll,
             onNotSpam = { addresses -> viewModel.notSpam(addresses) },
             onDelete = viewModel::delete,
+            onDeleteAll = viewModel::deleteAll,
             onSetFilter = viewModel::setFilter,
             onReportSpam = { selected -> scope.launch { reportToCarrier(context, groups, selected, snackbar) } },
         )
@@ -129,15 +130,23 @@ internal fun BlockedEvents(
     LaunchedEffect(viewModel) {
         // After a rotation the previous snackbar was cancelled unanswered; offer its Undo again.
         viewModel.replayPending()
+        var undoOpen = false
         viewModel.eventFlow.collect { event ->
-            snackbar.currentSnackbarData?.dismiss()
+            // A dismiss counts as "not undone" and commits the delete or restore, so a snackbar that still offers
+            // Undo is left to run out; the newer one queues behind it.
+            if (!undoOpen) snackbar.currentSnackbarData?.dismiss()
             launch {
                 val text = eventText(resources, event, failedText) { number ->
                     isolateNumbers(displayNumber(context, number))
                 }
                 when (event) {
                     is BlockedEvent.Restored -> {
-                        val result = snackbar.showSnackbar(text, undoLabel, duration = SnackbarDuration.Long)
+                        undoOpen = true
+                        val result = try {
+                            snackbar.showSnackbar(text, undoLabel, duration = SnackbarDuration.Long)
+                        } finally {
+                            undoOpen = false
+                        }
                         if (result == SnackbarResult.ActionPerformed) {
                             viewModel.undoRestore(event.token)
                         } else {
@@ -150,7 +159,12 @@ internal fun BlockedEvents(
                         if (result == SnackbarResult.ActionPerformed) viewModel.undoMode(event.previous)
                     }
                     is BlockedEvent.Deleted -> {
-                        val result = snackbar.showSnackbar(text, undoLabel, duration = SnackbarDuration.Long)
+                        undoOpen = true
+                        val result = try {
+                            snackbar.showSnackbar(text, undoLabel, duration = SnackbarDuration.Long)
+                        } finally {
+                            undoOpen = false
+                        }
                         if (result == SnackbarResult.ActionPerformed) {
                             viewModel.undoDelete(event.token)
                         } else {
@@ -267,7 +281,7 @@ fun BlockedScreen(
             destructive = true,
             onConfirm = {
                 confirmDeleteAll = false
-                actions.onDelete(state.groups.map { it.address }.toSet())
+                actions.onDeleteAll()
             },
             onDismiss = { confirmDeleteAll = false },
         )

@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -48,6 +49,9 @@ import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.main.highlightRanges
 import com.glooboo.umessage.ui.main.isSearchable
 import com.glooboo.umessage.ui.main.searchExcerpt
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 /**
  * CL-23: the messages of one conversation whose text holds [query], newest first. Read through [TextNormalizer.fold] as
@@ -74,7 +78,11 @@ fun ConversationSearchScreen(
     modifier: Modifier = Modifier,
 ) {
     var query by rememberSaveable { mutableStateOf("") }
-    val hits = remember(messages, query) { messages?.let { searchConversation(it, query) }.orEmpty() }
+    // Folding every body is slow in a long chat: wait for a pause in typing and search off the main thread.
+    val hits by produceState(emptyList<Message>(), messages, query) {
+        if (query.isNotEmpty()) delay(SEARCH_DEBOUNCE_MS)
+        value = withContext(Dispatchers.Default) { messages?.let { searchConversation(it, query) }.orEmpty() }
+    }
     val focus = remember { FocusRequester() }
     BackHandler(onBack = onBack)
     LaunchedEffect(Unit) { runCatching { focus.requestFocus() } }
@@ -157,3 +165,4 @@ private fun highlighted(text: String, query: String, style: SpanStyle): Annotate
 }
 
 private const val MILLIS_PER_SECOND = 1000L
+private const val SEARCH_DEBOUNCE_MS = 200L

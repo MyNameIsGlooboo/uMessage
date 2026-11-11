@@ -67,6 +67,10 @@ interface ConversationsDao {
     @Query("SELECT * FROM conversations WHERE thread_id = :threadId")
     fun getConversationWithThreadId(threadId: Long): Conversation?
 
+    /** Every chat row as stored, without the newest-message preview subquery; for matching phone numbers in search. */
+    @Query("SELECT * FROM conversations")
+    fun getAllForNumberSearch(): List<Conversation>
+
     @Query("SELECT * FROM conversations WHERE read = 0")
     fun getUnreadConversations(): List<Conversation>
 

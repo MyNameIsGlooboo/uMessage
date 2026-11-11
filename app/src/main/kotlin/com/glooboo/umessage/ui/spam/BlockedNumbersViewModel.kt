@@ -226,7 +226,17 @@ class BlockedNumbersViewModel @JvmOverloads constructor(
         viewModelScope.launch {
             val event = withContext(Dispatchers.IO) {
                 val text = runCatching {
-                    app.contentResolver.openInputStream(uri)?.bufferedReader()?.use { it.readText() }
+                    app.contentResolver.openInputStream(uri)?.bufferedReader()?.use { reader ->
+                        // A wrong or huge file is refused instead of read whole into memory.
+                        val buffer = CharArray(MAX_IMPORT_CHARS + 1)
+                        var total = 0
+                        while (total < buffer.size) {
+                            val n = reader.read(buffer, total, buffer.size - total)
+                            if (n < 0) break
+                            total += n
+                        }
+                        if (total > MAX_IMPORT_CHARS) null else String(buffer, 0, total)
+                    }
                 }.getOrNull() ?: return@withContext BlockedNumbersEvent.ImportFailed
                 val parsed = BlockedNumberFormat.parseImportChecked(text)
                 if (parsed.numbers.isEmpty()) return@withContext BlockedNumbersEvent.ImportEmpty
@@ -255,5 +265,10 @@ class BlockedNumbersViewModel @JvmOverloads constructor(
             }
             events.trySend(event)
         }
+    }
+
+    private companion object {
+        /** About 1 MB of text: far more than any real block list. */
+        const val MAX_IMPORT_CHARS = 1_000_000
     }
 }

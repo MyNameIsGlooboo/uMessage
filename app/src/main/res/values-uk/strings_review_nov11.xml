@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="message_partly_sent">Частину фото й файлів надіслано, решту — ні. Надішліть ще раз, щоб надіслати лише решту.</string>
+    <string name="scheduled_partly_sent">Частину запланованого повідомлення для \'%s\' надіслано, решту — ні. Відкрийте чат і торкніться «Повторити», щоб надіслати лише решту.</string>
+    <string name="cleanup_codes_confirm_title">Перемістити прочитані коди?</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="one">%d прочитане повідомлення з кодом старше за цей термін і зараз переміститься до кошика. Повідомлення із зірочкою залишаться.</item>
+        <item quantity="few">%d прочитані повідомлення з кодом старші за цей термін і зараз перемістяться до кошика. Повідомлення із зірочкою залишаться.</item>
+        <item quantity="many">%d прочитаних повідомлень з кодом старші за цей термін і зараз перемістяться до кошика. Повідомлення із зірочкою залишаться.</item>
+        <item quantity="other">%d прочитаного повідомлення з кодом старші за цей термін і зараз перемістяться до кошика. Повідомлення із зірочкою залишаться.</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">Прочитаних кодів такого віку ще немає. Старіші самі перемістяться до кошика.</string>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="one">Видалити %d чат?</item>
+        <item quantity="few">Видалити %d чати?</item>
+        <item quantity="many">Видалити %d чатів?</item>
+        <item quantity="other">Видалити %d чату?</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Чат і всі його повідомлення буде видалено з цього телефона. Одразу після цього видалення можна скасувати на кілька секунд.</item>
+        <item quantity="few">Чати й усі їхні повідомлення буде видалено з цього телефона. Одразу після цього видалення можна скасувати на кілька секунд.</item>
+        <item quantity="many">Чати й усі їхні повідомлення буде видалено з цього телефона. Одразу після цього видалення можна скасувати на кілька секунд.</item>
+        <item quantity="other">Чати й усі їхні повідомлення буде видалено з цього телефона. Одразу після цього видалення можна скасувати на кілька секунд.</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s є у ваших контактах. Заблокувати цього відправника? Нові повідомлення від нього потраплятимуть до «Заблоковані повідомлення», а не до вхідних. Одразу після цього блокування можна скасувати.</string>
+    <string name="i29_color_red">Червоний</string>
+    <string name="i29_color_orange">Помаранчевий</string>
+    <string name="i29_color_yellow">Жовтий</string>
+    <string name="i29_color_green">Зелений</string>
+    <string name="i29_color_teal">Бірюзовий</string>
+    <string name="i29_color_blue">Синій</string>
+    <string name="i29_color_purple">Фіолетовий</string>
+    <string name="i29_color_brown">Коричневий</string>
+    <string name="i56_picture_position">Фото %1$d з %2$d, %3$s. Торкніться, щоб відкрити.</string>
+    <string name="notifications_off_dismiss">Не зараз</string>
+    <string name="e_restored_clear">Очистити список</string>
+    <string name="lock_pin_length_hint">PIN-код: від %1$d до %2$d цифр</string>
+    <string name="cleanup_codes_undo">Скасувати</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="one">%d прочитаний код переміщено до кошика</item>
+        <item quantity="few">%d прочитані коди переміщено до кошика</item>
+        <item quantity="many">%d прочитаних кодів переміщено до кошика</item>
+        <item quantity="other">%d прочитаного коду переміщено до кошика</item>
+    </plurals>
+    <string name="rule_preview_button">Перевірити на останніх повідомленнях</string>
+    <string name="rule_preview_loading">Перевіряємо останні повідомлення…</string>
+    <string name="rule_preview_failed">Не вдалося перевірити останні повідомлення. Спробуйте ще раз.</string>
+    <string name="rule_preview_nothing">Поки немає останніх повідомлень для перевірки.</string>
+    <string name="rule_preview_inbox">Вхідні: правилу відповідають %1$d з останніх %2$d повідомлень</string>
+    <string name="rule_preview_inbox_empty">Вхідні: немає повідомлень для перевірки</string>
+    <string name="rule_preview_blocked">Заблоковані: правилу відповідають %1$d з останніх %2$d повідомлень</string>
+    <string name="rule_preview_blocked_empty">Заблоковані: немає повідомлень для перевірки</string>
+    <string name="rule_preview_examples">Наприклад: %1$s</string>
+    <string name="n06_delete_confirm">Видалити цей збережений текст?</string>
+    <string name="screens_vcard_email_action">Ел. пошта</string>
+    <string name="screens_vcard_copy_hint">Утримуйте, щоб скопіювати</string>
+    <string name="screens_vcard_copied">Скопійовано</string>
+    <string name="settings_f_restore_rules_present">Правил, що вже є на цьому телефоні: %1$d, пропущено.</string>
+    <string name="settings_f_restore_too_many">Правил у файлі понад ліміт: %1$d, пропущено.</string>
+    <string name="thread_schedule_discard_confirm">Прибрати розклад і видалити збережене заплановане повідомлення? Текст залишиться в полі.</string>
+    <string name="thread_phone_call">Зателефонувати</string>
+    <string name="thread_phone_copy">Копіювати номер</string>
+    <string name="thread_phone_add_contact">Додати контакт</string>
+    <string name="thread_search_older_busy">Шукаємо в старих повідомленнях…</string>
+    <plurals name="thread_new_messages_chip">
+        <item quantity="one">%d нове повідомлення</item>
+        <item quantity="few">%d нові повідомлення</item>
+        <item quantity="many">%d нових повідомлень</item>
+        <item quantity="other">%d нового повідомлення</item>
+    </plurals>
+    <string name="thread_messages_deleted">Переміщено до кошика</string>
+    <string name="thread_messages_deleted_undo">Скасувати</string>
+</resources>

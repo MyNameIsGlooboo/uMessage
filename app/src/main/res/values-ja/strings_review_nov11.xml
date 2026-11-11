@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_partly_sent">一部の画像とファイルは送信されましたが、残りは送信されていません。もう一度送ると、残りだけが送信されます。</string>
+    <string name="scheduled_partly_sent">「%s」宛ての送信予約メッセージの一部は送信されましたが、残りは送信されていません。チャットを開いて「再試行」をタップすると、残りだけが送信されます。</string>
+    <string name="cleanup_codes_confirm_title">既読のコードを移動しますか？</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="other">それより古い既読の認証コードメッセージ%d件を、今すぐゴミ箱に移動します。スター付きのメッセージは残ります。</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">そこまで古い既読の認証コードはまだありません。古くなったものは自動でゴミ箱に移動します。</string>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="other">%d件の会話を削除しますか？</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message">
+        <item quantity="other">会話とそのメッセージはすべて、このスマートフォンから削除されます。削除後の数秒間は元に戻せます。</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$sは連絡先に登録されています。この送信者をブロックしますか？新しいメッセージは受信トレイではなく「ブロック済み」に届きます。直後なら元に戻せます。</string>
+    <string name="i29_color_red">赤</string>
+    <string name="i29_color_orange">オレンジ</string>
+    <string name="i29_color_yellow">黄</string>
+    <string name="i29_color_green">緑</string>
+    <string name="i29_color_teal">青緑</string>
+    <string name="i29_color_blue">青</string>
+    <string name="i29_color_purple">紫</string>
+    <string name="i29_color_brown">茶</string>
+    <string name="i56_picture_position">画像%2$d枚中%1$d枚目、%3$s。タップで開きます。</string>
+    <string name="notifications_off_dismiss">今はしない</string>
+    <string name="e_restored_clear">リストを消去</string>
+    <string name="lock_pin_length_hint">PIN：%1$d〜%2$d桁</string>
+    <string name="cleanup_codes_undo">元に戻す</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="other">既読のコード%d件をゴミ箱に移動しました</item>
+    </plurals>
+    <string name="rule_preview_button">最近のメッセージで試す</string>
+    <string name="rule_preview_loading">最近のメッセージを確認中…</string>
+    <string name="rule_preview_failed">最近のメッセージを確認できませんでした。もう一度お試しください。</string>
+    <string name="rule_preview_nothing">確認できる最近のメッセージはまだありません。</string>
+    <string name="rule_preview_inbox">受信トレイ：直近%2$d件のうち%1$d件がこのルールに一致します</string>
+    <string name="rule_preview_inbox_empty">受信トレイ：確認するメッセージはありません</string>
+    <string name="rule_preview_blocked">ブロック済み：直近%2$d件のうち%1$d件がこのルールに一致します</string>
+    <string name="rule_preview_blocked_empty">ブロック済み：確認するメッセージはありません</string>
+    <string name="rule_preview_examples">例：%1$s</string>
+    <string name="n06_delete_confirm">この保存済みテキストを削除しますか？</string>
+    <string name="screens_vcard_email_action">メール</string>
+    <string name="screens_vcard_copy_hint">長押しでコピー</string>
+    <string name="screens_vcard_copied">コピーしました</string>
+    <string name="settings_f_restore_rules_present">このスマートフォンにすでにあるルール：%1$d件（スキップ）</string>
+    <string name="settings_f_restore_too_many">上限を超えたファイル内のルール：%1$d件（スキップ）</string>
+    <string name="thread_schedule_discard_confirm">送信予約を解除し、保存済みの予約メッセージを削除しますか？入力欄のテキストは残ります。</string>
+    <string name="thread_phone_call">通話</string>
+    <string name="thread_phone_copy">番号をコピー</string>
+    <string name="thread_phone_add_contact">連絡先を追加</string>
+    <string name="thread_search_older_busy">古いメッセージを検索中…</string>
+    <plurals name="thread_new_messages_chip">
+        <item quantity="other">新着メッセージ%d件</item>
+    </plurals>
+    <string name="thread_messages_deleted">ゴミ箱に移動しました</string>
+    <string name="thread_messages_deleted_undo">元に戻す</string>
+</resources>

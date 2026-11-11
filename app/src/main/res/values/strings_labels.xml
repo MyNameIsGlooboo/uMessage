@@ -17,6 +17,14 @@
     <string name="i29_edit_title">Edit label</string>
     <string name="i29_edit_name">Label name</string>
     <string name="i29_edit_save">Save</string>
+    <string name="i29_color_red">Red</string>
+    <string name="i29_color_orange">Orange</string>
+    <string name="i29_color_yellow">Yellow</string>
+    <string name="i29_color_green">Green</string>
+    <string name="i29_color_teal">Teal</string>
+    <string name="i29_color_blue">Blue</string>
+    <string name="i29_color_purple">Purple</string>
+    <string name="i29_color_brown">Brown</string>
     <string name="i29_color_description">Color %1$d</string>
     <string name="i29_error_duplicate">You already have a label with this name.</string>
     <string name="i29_error_limit">You can have up to %1$d labels.</string>

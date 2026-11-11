@@ -70,7 +70,7 @@ internal fun MainSearchPage(
     // CL-14: the last few searches, kept on the phone, come back as chips on the empty search page.
     val history = remember(context) { SearchHistoryPrefs.get(context) }
     var recent by remember { mutableStateOf(history.recentSearches) }
-    val saveRecent = { query: String -> if (isSearchable(query)) recent = history.remember(query) }
+    val saveRecent = { query: String -> if (isSearchable(query)) recent = history.remember(query.trim()) }
     val resultsListState = rememberLazyListState()
     val goBack = { if (search.hasTileOn()) search.backToTiles(onQueryChange) else onLeave() }
     LaunchedEffect(Unit) { fieldFocus.requestFocus() }

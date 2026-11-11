@@ -17,6 +17,14 @@
     <string name="i29_edit_title">ویرایش برچسب</string>
     <string name="i29_edit_name">نام برچسب</string>
     <string name="i29_edit_save">ذخیره</string>
+    <string name="i29_color_red">قرمز</string>
+    <string name="i29_color_orange">نارنجی</string>
+    <string name="i29_color_yellow">زرد</string>
+    <string name="i29_color_green">سبز</string>
+    <string name="i29_color_teal">فیروزه‌ای</string>
+    <string name="i29_color_blue">آبی</string>
+    <string name="i29_color_purple">بنفش</string>
+    <string name="i29_color_brown">قهوه‌ای</string>
     <string name="i29_color_description">رنگ %1$d</string>
     <string name="i29_error_duplicate">از قبل برچسبی با این نام دارید.</string>
     <string name="i29_error_limit">می‌توانید حداکثر %1$d برچسب داشته باشید.</string>

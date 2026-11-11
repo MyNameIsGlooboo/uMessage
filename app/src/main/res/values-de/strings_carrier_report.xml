@@ -8,7 +8,7 @@
     <string name="carrier_report_invalid">Gib 3 bis 8 Ziffern ein</string>
     <string name="carrier_report_action">An Mobilfunkanbieter melden</string>
     <string name="carrier_report_title">An deinen Mobilfunkanbieter melden?</string>
-    <string name="carrier_report_body">Die neueste Nachricht dieses Absenders wird als SMS an %1$s gesendet. Dein Mobilfunkanbieter kann dafür Gebühren berechnen.</string>
+    <string name="carrier_report_body">Die neueste Nachricht dieses Absenders wird zusammen mit der Nummer des Absenders darunter als SMS an %1$s gesendet. Dein Mobilfunkanbieter kann dafür Gebühren berechnen.</string>
     <string name="carrier_report_send">Senden</string>
     <string name="carrier_report_sent">Meldung an deinen Mobilfunkanbieter gesendet</string>
     <string name="carrier_report_failed">Die Meldung konnte nicht gesendet werden</string>

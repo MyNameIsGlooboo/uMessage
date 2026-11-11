@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions") // The list screen is one set of small composables.
+
 package com.glooboo.umessage.ui.conversations
 
 import androidx.compose.animation.AnimatedVisibility
@@ -32,6 +34,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -54,6 +57,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
@@ -157,7 +161,7 @@ private suspend fun showEvent(
                 message = resources.getQuantityString(R.plurals.convlist_deleted, event.count, event.count),
                 actionLabel = undoLabel,
                 withDismissAction = false,
-                duration = SnackbarDuration.Short,
+                duration = SnackbarDuration.Long,
             )
             if (result == SnackbarResult.ActionPerformed) {
                 callbacks.onUndoDelete(event.token)
@@ -246,6 +250,28 @@ fun ConversationsScreen(
                 ConversationsContent(state, filter, listState, callbacks, reduceMotion, header, footer)
             }
         }
+    }
+    if (state.confirmDeleteCount > 0) {
+        // main-1: whole chats are deleted for good once the Undo window closes, so ask first and show how many.
+        AlertDialog(
+            onDismissRequest = callbacks.onCancelDelete,
+            title = {
+                Text(
+                    pluralStringResource(
+                        R.plurals.convlist_delete_confirm_title, state.confirmDeleteCount, state.confirmDeleteCount,
+                    ),
+                )
+            },
+            text = {
+                Text(pluralStringResource(R.plurals.convlist_delete_confirm_message, state.confirmDeleteCount))
+            },
+            confirmButton = {
+                TextButton(onClick = callbacks.onConfirmDelete) { Text(stringResource(R.string.convlist_delete)) }
+            },
+            dismissButton = {
+                TextButton(onClick = callbacks.onCancelDelete) { Text(stringResource(R.string.convlist_cancel)) }
+            },
+        )
     }
 }
 
@@ -399,14 +425,7 @@ private fun EmptyConversations(callbacks: ConversationsCallbacks) {
 }
 
 @Composable
-private fun ConversationList(
-    state: ConversationsUiState,
-    listState: LazyListState,
-    callbacks: ConversationsCallbacks,
-    reduceMotion: Boolean,
-    header: (@Composable () -> Unit)? = null,
-    footer: (@Composable () -> Unit)? = null,
-) {
+private fun KeepNewestInView(topThreadId: Long?, listState: LazyListState) {
     // Keep the newest thread in view: when the user was at the top and a different thread becomes the first row
     // (a message was sent or received), LazyColumn would keep the old first row anchored and push the new one off
     // screen.
@@ -425,7 +444,6 @@ private fun ConversationList(
             if (scrolling) userWasAtTop = index == 0 && offset < 24
         }
     }
-    val topThreadId = state.rows.firstOrNull()?.threadId
     LaunchedEffect(topThreadId) {
         val previous = lastTopThreadId
         lastTopThreadId = topThreadId
@@ -444,14 +462,64 @@ private fun ConversationList(
         }
         onPauseOrDispose { }
     }
+}
+
+@Composable
+private fun BlockContactDialog(title: String, onDismiss: () -> Unit, onConfirm: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.convlist_block_title)) },
+        text = { Text(stringResource(R.string.convlist_block_contact_message, title)) },
+        confirmButton = {
+            TextButton(onClick = onConfirm) { Text(stringResource(R.string.convlist_block_confirm)) }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.convlist_cancel))
+            }
+        },
+    )
+}
+
+@Composable
+private fun ConversationList(
+    state: ConversationsUiState,
+    listState: LazyListState,
+    callbacks: ConversationsCallbacks,
+    reduceMotion: Boolean,
+    header: (@Composable () -> Unit)? = null,
+    footer: (@Composable () -> Unit)? = null,
+) {
+    KeepNewestInView(state.rows.firstOrNull()?.threadId, listState)
     // CL-12: right archives, left blocks the sender (both undoable); a group chat has no single sender to block.
     val archiveLabel = stringResource(R.string.convlist_archive)
     val blockLabel = stringResource(R.string.w2b1_swipe_block)
     val archiveAction = remember(archiveLabel, callbacks) {
         SwipeAction(Symbols.Archive, archiveLabel) { callbacks.onArchiveOne(it) }
     }
+    // main-17: a saved contact is blocked only after a confirmation; an unknown number is blocked at once (with Undo).
+    var confirmBlockThread by rememberSaveable { mutableStateOf<Long?>(null) }
+    val currentRows by rememberUpdatedState(state.rows)
     val blockAction = remember(blockLabel, callbacks) {
-        SwipeAction(Symbols.Block, blockLabel, destructive = true) { callbacks.onBlockOne(it) }
+        SwipeAction(Symbols.Block, blockLabel, destructive = true) { threadId ->
+            if (currentRows.firstOrNull { it.threadId == threadId }?.isContact == true) {
+                confirmBlockThread = threadId
+            } else {
+                callbacks.onBlockOne(threadId)
+            }
+        }
+    }
+    val blockRow = confirmBlockThread?.let { id -> state.rows.firstOrNull { it.threadId == id } }
+    if (confirmBlockThread != null && blockRow == null) confirmBlockThread = null
+    if (blockRow != null) {
+        BlockContactDialog(
+            title = blockRow.title,
+            onDismiss = { confirmBlockThread = null },
+            onConfirm = {
+                confirmBlockThread = null
+                callbacks.onBlockOne(blockRow.threadId)
+            },
+        )
     }
     val rowLabels = rememberRowLabels()
     // U55: only the newest fresh code gets its Copy chip, so the rows keep an even height.

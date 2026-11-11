@@ -8,7 +8,7 @@
     <string name="carrier_report_invalid">Usa de 3 a 8 dígitos</string>
     <string name="carrier_report_action">Denunciar al operador</string>
     <string name="carrier_report_title">¿Denunciar a tu operador?</string>
-    <string name="carrier_report_body">Se enviará el último mensaje de este remitente al %1$s por SMS. Tu operador podría cobrarte por el envío.</string>
+    <string name="carrier_report_body">Se enviará por SMS al %1$s el último mensaje de este remitente, con el número del remitente debajo. Tu operador podría cobrarte por el envío.</string>
     <string name="carrier_report_send">Enviar</string>
     <string name="carrier_report_sent">Denuncia enviada a tu operador</string>
     <string name="carrier_report_failed">No se pudo enviar la denuncia</string>

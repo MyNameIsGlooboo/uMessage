@@ -1,7 +1,13 @@
 package com.glooboo.umessage.ui.vcard
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.BitmapFactory
+import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,12 +30,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.stateDescription
@@ -45,6 +54,8 @@ import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.conversations.ContactAvatar
 import com.glooboo.umessage.ui.icons.Symbols
+import ezvcard.property.Email
+import ezvcard.property.Telephone
 
 /**
  * Contacts inside a shared vCard. A single contact is shown open; several are collapsed rows that expand to
@@ -59,7 +70,7 @@ fun VCardViewerScreen(
     isActionable: (VCardPropertyWrapper) -> Boolean,
     modifier: Modifier = Modifier,
 ) {
-    var expanded by remember { mutableStateOf(emptySet<Int>()) }
+    var expanded by rememberSaveable(stateSaver = ExpandedSaver) { mutableStateOf(emptySet<Int>()) }
     UMessageScaffold(
         modifier = modifier,
         topBar = {
@@ -172,13 +183,42 @@ private fun VCardAvatar(name: String, photo: ByteArray?) {
     }
 }
 
+/** The expanded contact indexes survive rotation. */
+private val ExpandedSaver = Saver<Set<Int>, ArrayList<Int>>(
+    save = { ArrayList(it) },
+    restore = { it.toSet() },
+)
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun PropertyRow(property: VCardPropertyWrapper, actionable: Boolean, onClick: () -> Unit) {
+    val context = LocalContext.current
+    val copied = stringResource(R.string.screens_vcard_copied)
+    val actionLabel = stringResource(
+        if (property.property is Email) R.string.screens_vcard_email_action else R.string.convx_details_call,
+    )
+    val copyLabel = stringResource(R.string.screens_copy)
+    val copy = { copyToClipboard(context, property.value, copied) }
+    val tappable = property.property is Telephone || property.property is Email
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = 56.dp)
-            .then(if (actionable) Modifier.clickable(role = Role.Button, onClick = onClick) else Modifier)
+            .then(
+                if (actionable) {
+                    Modifier.combinedClickable(
+                        role = Role.Button,
+                        onClickLabel = actionLabel,
+                        onClick = onClick,
+                        onLongClickLabel = copyLabel,
+                        onLongClick = copy,
+                    )
+                } else if (tappable) {
+                    Modifier.combinedClickable(onClick = {}, onLongClickLabel = copyLabel, onLongClick = copy)
+                } else {
+                    Modifier
+                },
+            )
             // Aligned with the contact name: 16dp gutter + 48dp avatar + 16dp gap.
             .padding(start = 80.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
         verticalArrangement = Arrangement.Center,
@@ -191,5 +231,14 @@ private fun PropertyRow(property: VCardPropertyWrapper, actionable: Boolean, onC
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
+    }
+}
+
+private fun copyToClipboard(context: Context, text: String, confirmation: String) {
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager ?: return
+    clipboard.setPrimaryClip(ClipData.newPlainText(text, text))
+    // Android 13+ shows its own "copied" confirmation.
+    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.TIRAMISU) {
+        Toast.makeText(context, confirmation, Toast.LENGTH_SHORT).show()
     }
 }

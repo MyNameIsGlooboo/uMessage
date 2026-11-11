@@ -17,6 +17,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
@@ -24,6 +25,7 @@ import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
@@ -237,7 +239,11 @@ fun UMessageTheme(
         val chosen by ThemePresets.flow(ctx).collectAsStateWithLifecycle()
         chosen
     }
-    val scheme = resolveColorScheme(ctx, choice, darkTheme, dynamicColor, isSystemInDarkTheme())
+    val systemDark = isSystemInDarkTheme()
+    val uiMode = LocalConfiguration.current.uiMode
+    val scheme = remember(choice, darkTheme, dynamicColor, systemDark, uiMode) {
+        resolveColorScheme(ctx, choice, darkTheme, dynamicColor, systemDark)
+    }
     if (syncWindow) SyncWindowWithScheme(scheme)
     UMessageFontScale {
         MaterialTheme(
