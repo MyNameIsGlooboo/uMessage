@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="decm_marked_all_read" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d चैट पढ़ी हुई मार्क की गई</item>
+        <item quantity="other">%d चैट पढ़ी हुई मार्क की गईं</item>
+    </plurals>
+    <string name="decm_search_section_blocked">ब्लॉक किए गए मैसेज</string>
+    <string name="decm_blocked_search">ब्लॉक किए गए मैसेज खोजें</string>
+    <string name="decm_blocked_search_hint">भेजने वाले या टेक्स्ट से खोजें</string>
+    <string name="decm_blocked_search_close">खोज बंद करें</string>
+    <string name="decm_blocked_search_none_title">कुछ नहीं मिला</string>
+    <string name="decm_blocked_search_none_body">आपने जो लिखा, उससे कोई ब्लॉक किया गया भेजने वाला या मैसेज मेल नहीं खाता.</string>
+    <string name="decm_always_allow">हमेशा अनुमति दें</string>
+    <string name="decisions_backup_keywords">जोड़े जाने वाले ब्लॉक शब्द: %1$d. जो शब्द पहले से हैं, उन्हें छोड़ दिया जाएगा.</string>
+    <string name="thread_failed_reason_generic">फ़ोन ने सामान्य गड़बड़ी बताई (कोड %1$d)</string>
+    <string name="rdec_match_domain">किसी वेबसाइट का लिंक</string>
+    <string name="rdec_row_type_domain">मैसेज में लिंक</string>
+    <string name="rdec_type_domain">वेबसाइट</string>
+    <string name="rdec_value_domain">वेबसाइट</string>
+    <string name="rdec_type_domain_help">इस वेबसाइट का लिंक वाले हर मैसेज को ब्लॉक करता है, इसके सबडोमेन (जैसे www.example.com) भी शामिल हैं.</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">example.com जैसा वेबसाइट का नाम डालें</string>
+    <plurals name="rdec_hits_blocked" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d मैसेज ब्लॉक किया</item>
+        <item quantity="other">%d मैसेज ब्लॉक किए</item>
+    </plurals>
+    <string name="rdec_hits_last">%1$s, आखिरी बार %2$s</string>
+    <string name="rdec_age_now">अभी-अभी</string>
+    <plurals name="rdec_age_minutes" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d मिनट पहले</item>
+        <item quantity="other">%d मिनट पहले</item>
+    </plurals>
+    <plurals name="rdec_age_hours" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d घंटा पहले</item>
+        <item quantity="other">%d घंटे पहले</item>
+    </plurals>
+    <plurals name="rdec_age_days" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d दिन पहले</item>
+        <item quantity="other">%d दिन पहले</item>
+    </plurals>
+    <plurals name="rdec_age_months" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d महीना पहले</item>
+        <item quantity="other">%d महीने पहले</item>
+    </plurals>
+    <plurals name="rdec_age_years" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d साल पहले</item>
+        <item quantity="other">%d साल पहले</item>
+    </plurals>
+    <string name="rdec_sort_newest">सबसे नए पहले</string>
+    <string name="rdec_sender_warning">ध्यान दें: इससे सिर्फ़ मैसेज नहीं, पूरा भेजने वाला ब्लॉक हो जाता है. अगर कोई बैंक या दुकान कोड और विज्ञापन दोनों के लिए एक ही नंबर इस्तेमाल करती है, तो उसके असली मैसेज भी आने बंद हो जाएँगे. भेजने वाले को आप स्पैम स्क्रीन में अनब्लॉक कर सकते हैं.</string>
+    <string name="rdec_help_warning_head">शब्द ब्लॉक करने से भेजने वाला ब्लॉक होता है</string>
+    <string name="rdec_note_blocked_from_keyword">कीवर्ड की वजह से ब्लॉक (पूरा भेजने वाला ब्लॉक है)</string>
+    <string name="spam_reason_rule_domain">नियम: %1$s के लिंक</string>
+</resources>

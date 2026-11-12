@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="decm_marked_all_read">
+        <item quantity="other">채팅 %d개를 읽음으로 표시했어요</item>
+    </plurals>
+    <string name="decm_search_section_blocked">차단된 메시지</string>
+    <string name="decm_blocked_search">차단된 메시지 검색</string>
+    <string name="decm_blocked_search_hint">발신자 또는 내용으로 검색</string>
+    <string name="decm_blocked_search_close">검색 닫기</string>
+    <string name="decm_blocked_search_none_title">결과가 없어요</string>
+    <string name="decm_blocked_search_none_body">입력한 내용과 일치하는 차단된 발신자나 메시지가 없어요.</string>
+    <string name="decm_always_allow">항상 허용</string>
+    <string name="decisions_backup_keywords">추가할 차단 단어: %1$d개. 이미 있는 단어는 건너뛰어요.</string>
+    <string name="thread_failed_reason_generic">휴대폰에서 일반 오류를 알려 왔어요(코드 %1$d)</string>
+    <string name="rdec_match_domain">웹사이트 링크</string>
+    <string name="rdec_row_type_domain">메시지 속 링크</string>
+    <string name="rdec_type_domain">웹사이트</string>
+    <string name="rdec_value_domain">웹사이트</string>
+    <string name="rdec_type_domain_help">이 웹사이트로 연결되는 링크가 있는 메시지를 모두 차단해요. www.example.com 같은 하위 도메인도 포함돼요.</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">example.com 같은 웹사이트 이름을 입력하세요</string>
+    <plurals name="rdec_hits_blocked">
+        <item quantity="other">메시지 %d건 차단</item>
+    </plurals>
+    <string name="rdec_hits_last">%1$s, 마지막은 %2$s</string>
+    <string name="rdec_age_now">방금</string>
+    <plurals name="rdec_age_minutes">
+        <item quantity="other">%d분 전</item>
+    </plurals>
+    <plurals name="rdec_age_hours">
+        <item quantity="other">%d시간 전</item>
+    </plurals>
+    <plurals name="rdec_age_days">
+        <item quantity="other">%d일 전</item>
+    </plurals>
+    <plurals name="rdec_age_months">
+        <item quantity="other">%d개월 전</item>
+    </plurals>
+    <plurals name="rdec_age_years">
+        <item quantity="other">%d년 전</item>
+    </plurals>
+    <string name="rdec_sort_newest">최신순</string>
+    <string name="rdec_sender_warning">주의: 메시지 하나가 아니라 발신자 전체를 차단해요. 은행이나 쇼핑몰이 인증번호와 광고에 같은 번호를 쓰면 정상 메시지도 받지 못하게 돼요. 스팸 화면에서 발신자 차단을 해제할 수 있어요.</string>
+    <string name="rdec_help_warning_head">단어를 차단하면 발신자가 차단돼요</string>
+    <string name="rdec_note_blocked_from_keyword">키워드로 차단됨(발신자 전체가 차단돼요)</string>
+    <string name="spam_reason_rule_domain">규칙: %1$s(으)로 연결되는 링크</string>
+</resources>

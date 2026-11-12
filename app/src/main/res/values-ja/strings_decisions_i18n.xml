@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="decm_marked_all_read">
+        <item quantity="other">%d件のチャットを既読にしました</item>
+    </plurals>
+    <string name="decm_search_section_blocked">ブロックしたメッセージ</string>
+    <string name="decm_blocked_search">ブロックしたメッセージを検索</string>
+    <string name="decm_blocked_search_hint">送信者または本文で検索</string>
+    <string name="decm_blocked_search_close">検索を閉じる</string>
+    <string name="decm_blocked_search_none_title">見つかりませんでした</string>
+    <string name="decm_blocked_search_none_body">入力した内容に一致するブロック済みの送信者やメッセージはありません。</string>
+    <string name="decm_always_allow">常に許可</string>
+    <string name="decisions_backup_keywords">追加するブロックワード：%1$d件。すでにあるワードはスキップされます。</string>
+    <string name="thread_failed_reason_generic">端末から一般的なエラーが報告されました（コード%1$d）</string>
+    <string name="rdec_match_domain">ウェブサイトへのリンク</string>
+    <string name="rdec_row_type_domain">メッセージ内のリンク</string>
+    <string name="rdec_type_domain">ウェブサイト</string>
+    <string name="rdec_value_domain">ウェブサイト</string>
+    <string name="rdec_type_domain_help">このウェブサイトへのリンクを含むメッセージをすべてブロックします。www.example.comのようなサブドメインも対象です。</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">example.comのようなウェブサイト名を入力してください</string>
+    <plurals name="rdec_hits_blocked">
+        <item quantity="other">%d件のメッセージをブロック</item>
+    </plurals>
+    <string name="rdec_hits_last">%1$s、最後は%2$s</string>
+    <string name="rdec_age_now">たった今</string>
+    <plurals name="rdec_age_minutes">
+        <item quantity="other">%d分前</item>
+    </plurals>
+    <plurals name="rdec_age_hours">
+        <item quantity="other">%d時間前</item>
+    </plurals>
+    <plurals name="rdec_age_days">
+        <item quantity="other">%d日前</item>
+    </plurals>
+    <plurals name="rdec_age_months">
+        <item quantity="other">%dか月前</item>
+    </plurals>
+    <plurals name="rdec_age_years">
+        <item quantity="other">%d年前</item>
+    </plurals>
+    <string name="rdec_sort_newest">新しい順</string>
+    <string name="rdec_sender_warning">ご注意：これはメッセージだけでなく、送信者をまるごとブロックします。銀行やお店が認証コードと広告に同じ番号を使っている場合、本物のメッセージも届かなくなります。送信者のブロックは迷惑メッセージ画面で解除できます。</string>
+    <string name="rdec_help_warning_head">ワードをブロックすると送信者もブロックされます</string>
+    <string name="rdec_note_blocked_from_keyword">キーワードによりブロック（送信者全体がブロックされています）</string>
+    <string name="spam_reason_rule_domain">ルール：%1$sへのリンク</string>
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="decisions_backup_keywords">شامل کرنے کے لیے بلاک کیے گئے الفاظ: %1$d۔ جو الفاظ پہلے سے موجود ہیں انہیں چھوڑ دیا جائے گا۔</string>
+    <string name="spam_reason_rule_domain">اصول: %1$s کے لنکس</string>
+    <string name="decm_search_section_blocked">بلاک کیے گئے پیغامات</string>
+    <string name="decm_blocked_search">بلاک کیے گئے پیغامات میں تلاش کریں</string>
+    <string name="decm_blocked_search_hint">بھیجنے والے یا متن سے تلاش کریں</string>
+    <string name="decm_blocked_search_close">تلاش بند کریں</string>
+    <string name="decm_blocked_search_none_title">کچھ نہیں ملا</string>
+    <string name="decm_blocked_search_none_body">آپ کے لکھے سے کوئی بلاک شدہ بھیجنے والا یا پیغام میل نہیں کھاتا۔</string>
+    <string name="decm_always_allow">ہمیشہ اجازت دیں</string>
+    <string name="rdec_match_domain">ویب سائٹ کا لنک</string>
+    <string name="rdec_row_type_domain">پیغام میں لنک</string>
+    <string name="rdec_type_domain">ویب سائٹ</string>
+    <string name="rdec_value_domain">ویب سائٹ</string>
+    <string name="rdec_type_domain_help">اس ویب سائٹ کا لنک رکھنے والا ہر پیغام بلاک کر دیتا ہے، اس کے سب ڈومینز جیسے www.example.com سمیت۔</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">ویب سائٹ کا نام لکھیں، جیسے example.com</string>
+    <string name="rdec_hits_last">%1$s، آخری بار %2$s</string>
+    <string name="rdec_age_now">ابھی ابھی</string>
+    <string name="rdec_sort_newest">پہلے سب سے نئے</string>
+    <string name="rdec_sender_warning">دھیان رکھیں: اس سے پورا بھیجنے والا بلاک ہو جاتا ہے، صرف یہ پیغام نہیں۔ اگر کوئی بینک یا دکان کوڈز اور اشتہارات کے لیے ایک ہی نمبر استعمال کرتی ہے تو اس کے اصلی پیغامات بھی آنا بند ہو جائیں گے۔ آپ کسی بھیجنے والے کو اسپیم اسکرین میں انبلاک کر سکتے ہیں۔</string>
+    <string name="rdec_help_warning_head">لفظ بلاک کرنے سے بھیجنے والا بلاک ہو جاتا ہے</string>
+    <string name="rdec_note_blocked_from_keyword">کلیدی لفظ کی وجہ سے بلاک (پورا بھیجنے والا بلاک ہے)</string>
+    <string name="thread_failed_reason_generic">فون نے عمومی خرابی بتائی (کوڈ %1$d)</string>
+    <plurals name="decm_marked_all_read">
+        <item quantity="one">%d چیٹ پڑھی ہوئی نشان زد</item>
+        <item quantity="other">%d چیٹس پڑھی ہوئی نشان زد</item>
+    </plurals>
+    <plurals name="rdec_hits_blocked">
+        <item quantity="one">%d پیغام بلاک کیا</item>
+        <item quantity="other">%d پیغامات بلاک کیے</item>
+    </plurals>
+    <plurals name="rdec_age_minutes">
+        <item quantity="one">%d منٹ پہلے</item>
+        <item quantity="other">%d منٹ پہلے</item>
+    </plurals>
+    <plurals name="rdec_age_hours">
+        <item quantity="one">%d گھنٹہ پہلے</item>
+        <item quantity="other">%d گھنٹے پہلے</item>
+    </plurals>
+    <plurals name="rdec_age_days">
+        <item quantity="one">%d دن پہلے</item>
+        <item quantity="other">%d دن پہلے</item>
+    </plurals>
+    <plurals name="rdec_age_months">
+        <item quantity="one">%d مہینہ پہلے</item>
+        <item quantity="other">%d مہینے پہلے</item>
+    </plurals>
+    <plurals name="rdec_age_years">
+        <item quantity="one">%d سال پہلے</item>
+        <item quantity="other">%d سال پہلے</item>
+    </plurals>
+</resources>

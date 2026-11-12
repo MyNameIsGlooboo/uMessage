@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="decisions_backup_keywords">Palavras bloqueadas a adicionar: %1$d. As palavras que você já tem são ignoradas.</string>
+    <string name="spam_reason_rule_domain">Regra: links para %1$s</string>
+    <string name="decm_search_section_blocked">Mensagens bloqueadas</string>
+    <string name="decm_blocked_search">Pesquisar mensagens bloqueadas</string>
+    <string name="decm_blocked_search_hint">Pesquise por remetente ou texto</string>
+    <string name="decm_blocked_search_close">Fechar pesquisa</string>
+    <string name="decm_blocked_search_none_title">Nada encontrado</string>
+    <string name="decm_blocked_search_none_body">Nenhum remetente ou mensagem bloqueada corresponde ao que você digitou.</string>
+    <string name="decm_always_allow">Sempre permitir</string>
+    <string name="rdec_match_domain">Um link de site</string>
+    <string name="rdec_row_type_domain">Link na mensagem</string>
+    <string name="rdec_type_domain">Site</string>
+    <string name="rdec_value_domain">Site</string>
+    <string name="rdec_type_domain_help">Bloqueia toda mensagem que tenha link para este site, inclusive de subdomínios, como www.example.com.</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">Digite o nome de um site, como example.com</string>
+    <string name="rdec_hits_last">%1$s, última vez %2$s</string>
+    <string name="rdec_age_now">agora há pouco</string>
+    <string name="rdec_sort_newest">Mais recentes primeiro</string>
+    <string name="rdec_sender_warning">Atenção: isso bloqueia o remetente inteiro, não só a mensagem. Se um banco ou loja usa o mesmo número para códigos e propagandas, você também deixará de receber as mensagens verdadeiras dele. Você pode desbloquear um remetente na tela Spam.</string>
+    <string name="rdec_help_warning_head">Bloquear uma palavra bloqueia o remetente</string>
+    <string name="rdec_note_blocked_from_keyword">Bloqueado por uma palavra-chave (o remetente inteiro está bloqueado)</string>
+    <string name="thread_failed_reason_generic">O celular informou uma falha geral (código %1$d)</string>
+    <plurals name="decm_marked_all_read">
+        <item quantity="one">%d conversa marcada como lida</item>
+        <item quantity="other">%d conversas marcadas como lidas</item>
+    </plurals>
+    <plurals name="rdec_hits_blocked">
+        <item quantity="one">%d mensagem bloqueada</item>
+        <item quantity="other">%d mensagens bloqueadas</item>
+    </plurals>
+    <plurals name="rdec_age_minutes">
+        <item quantity="one">há %d minuto</item>
+        <item quantity="other">há %d minutos</item>
+    </plurals>
+    <plurals name="rdec_age_hours">
+        <item quantity="one">há %d hora</item>
+        <item quantity="other">há %d horas</item>
+    </plurals>
+    <plurals name="rdec_age_days">
+        <item quantity="one">há %d dia</item>
+        <item quantity="other">há %d dias</item>
+    </plurals>
+    <plurals name="rdec_age_months">
+        <item quantity="one">há %d mês</item>
+        <item quantity="other">há %d meses</item>
+    </plurals>
+    <plurals name="rdec_age_years">
+        <item quantity="one">há %d ano</item>
+        <item quantity="other">há %d anos</item>
+    </plurals>
+</resources>

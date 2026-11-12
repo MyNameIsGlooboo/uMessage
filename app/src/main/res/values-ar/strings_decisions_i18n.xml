@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="decm_marked_all_read">
+        <item quantity="zero">لم تُعلَّم أي محادثة كمقروءة (%d)</item>
+        <item quantity="one">عُلِّمت محادثة واحدة (%d) كمقروءة</item>
+        <item quantity="two">عُلِّمت محادثتان (%d) كمقروءتين</item>
+        <item quantity="few">عُلِّمت %d محادثات كمقروءة</item>
+        <item quantity="many">عُلِّمت %d محادثة كمقروءة</item>
+        <item quantity="other">عُلِّمت %d محادثة كمقروءة</item>
+    </plurals>
+    <string name="decm_search_section_blocked">الرسائل المحظورة</string>
+    <string name="decm_blocked_search">البحث في الرسائل المحظورة</string>
+    <string name="decm_blocked_search_hint">ابحث بالمرسل أو النص</string>
+    <string name="decm_blocked_search_close">إغلاق البحث</string>
+    <string name="decm_blocked_search_none_title">لم يُعثر على شيء</string>
+    <string name="decm_blocked_search_none_body">لا يوجد مرسل أو رسالة محظورة تطابق ما كتبته.</string>
+    <string name="decm_always_allow">السماح دائمًا</string>
+    <string name="decisions_backup_keywords">الكلمات المحظورة التي ستُضاف: %1$d. الكلمات الموجودة عندك أصلًا تُتخطّى.</string>
+    <string name="thread_failed_reason_generic">أبلغ الهاتف عن فشل عام (الرمز %1$d)</string>
+    <string name="rdec_match_domain">رابط موقع إلكتروني</string>
+    <string name="rdec_row_type_domain">رابط داخل الرسالة</string>
+    <string name="rdec_type_domain">موقع إلكتروني</string>
+    <string name="rdec_value_domain">موقع إلكتروني</string>
+    <string name="rdec_type_domain_help">يحظر كل رسالة تحتوي على رابط لهذا الموقع، بما في ذلك نطاقاته الفرعية مثل www.example.com.</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">اكتب اسم موقع مثل example.com</string>
+    <plurals name="rdec_hits_blocked">
+        <item quantity="zero">لم تُحظر أي رسالة (%d)</item>
+        <item quantity="one">حُظرت رسالة واحدة (%d)</item>
+        <item quantity="two">حُظرت رسالتان (%d)</item>
+        <item quantity="few">حُظرت %d رسائل</item>
+        <item quantity="many">حُظرت %d رسالة</item>
+        <item quantity="other">حُظرت %d رسالة</item>
+    </plurals>
+    <string name="rdec_hits_last">%1$s، وآخرها %2$s</string>
+    <string name="rdec_age_now">قبل لحظات</string>
+    <plurals name="rdec_age_minutes">
+        <item quantity="zero">قبل %d دقيقة</item>
+        <item quantity="one">قبل دقيقة (%d)</item>
+        <item quantity="two">قبل دقيقتين (%d)</item>
+        <item quantity="few">قبل %d دقائق</item>
+        <item quantity="many">قبل %d دقيقة</item>
+        <item quantity="other">قبل %d دقيقة</item>
+    </plurals>
+    <plurals name="rdec_age_hours">
+        <item quantity="zero">قبل %d ساعة</item>
+        <item quantity="one">قبل ساعة (%d)</item>
+        <item quantity="two">قبل ساعتين (%d)</item>
+        <item quantity="few">قبل %d ساعات</item>
+        <item quantity="many">قبل %d ساعة</item>
+        <item quantity="other">قبل %d ساعة</item>
+    </plurals>
+    <plurals name="rdec_age_days">
+        <item quantity="zero">قبل %d يوم</item>
+        <item quantity="one">قبل يوم (%d)</item>
+        <item quantity="two">قبل يومين (%d)</item>
+        <item quantity="few">قبل %d أيام</item>
+        <item quantity="many">قبل %d يومًا</item>
+        <item quantity="other">قبل %d يوم</item>
+    </plurals>
+    <plurals name="rdec_age_months">
+        <item quantity="zero">قبل %d شهر</item>
+        <item quantity="one">قبل شهر (%d)</item>
+        <item quantity="two">قبل شهرين (%d)</item>
+        <item quantity="few">قبل %d أشهر</item>
+        <item quantity="many">قبل %d شهرًا</item>
+        <item quantity="other">قبل %d شهر</item>
+    </plurals>
+    <plurals name="rdec_age_years">
+        <item quantity="zero">قبل %d سنة</item>
+        <item quantity="one">قبل سنة (%d)</item>
+        <item quantity="two">قبل سنتين (%d)</item>
+        <item quantity="few">قبل %d سنوات</item>
+        <item quantity="many">قبل %d سنة</item>
+        <item quantity="other">قبل %d سنة</item>
+    </plurals>
+    <string name="rdec_sort_newest">الأحدث أولًا</string>
+    <string name="rdec_sender_warning">تنبيه: هذا يحظر المرسل كله، لا الرسالة فقط. إذا كان بنك أو متجر يستخدم رقمًا واحدًا للرموز والإعلانات، فلن تصلك رسائله الحقيقية أيضًا. يمكنك إلغاء حظر المرسل من شاشة الرسائل المزعجة.</string>
+    <string name="rdec_help_warning_head">حظر كلمة يحظر المرسل</string>
+    <string name="rdec_note_blocked_from_keyword">محظورة بسبب كلمة رئيسية (المرسل كله محظور)</string>
+    <string name="spam_reason_rule_domain">قاعدة: روابط إلى %1$s</string>
+</resources>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="decisions_backup_keywords">Заблокованих слів для додавання: %1$d. Слова, які у вас уже є, пропускаються.</string>
+    <string name="spam_reason_rule_domain">Правило: посилання на %1$s</string>
+    <string name="decm_search_section_blocked">Заблоковані повідомлення</string>
+    <string name="decm_blocked_search">Пошук у заблокованих повідомленнях</string>
+    <string name="decm_blocked_search_hint">Пошук за відправником або текстом</string>
+    <string name="decm_blocked_search_close">Закрити пошук</string>
+    <string name="decm_blocked_search_none_title">Нічого не знайдено</string>
+    <string name="decm_blocked_search_none_body">Жоден заблокований відправник чи повідомлення не збігається з тим, що ви ввели.</string>
+    <string name="decm_always_allow">Завжди дозволяти</string>
+    <string name="rdec_match_domain">Посилання на сайт</string>
+    <string name="rdec_row_type_domain">Посилання в повідомленні</string>
+    <string name="rdec_type_domain">Сайт</string>
+    <string name="rdec_value_domain">Сайт</string>
+    <string name="rdec_type_domain_help">Блокує всі повідомлення з посиланням на цей сайт, зокрема на його піддомени, наприклад www.example.com.</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">Введіть назву сайту, наприклад example.com</string>
+    <string name="rdec_hits_last">%1$s, востаннє: %2$s</string>
+    <string name="rdec_age_now">щойно</string>
+    <string name="rdec_sort_newest">Спочатку нові</string>
+    <string name="rdec_sender_warning">Увага: так блокується весь відправник, а не лише це повідомлення. Якщо банк або магазин надсилає коди й рекламу з одного номера, ви перестанете отримувати й його справжні повідомлення. Розблокувати відправника можна на екрані «Спам».</string>
+    <string name="rdec_help_warning_head">Блокування слова блокує відправника</string>
+    <string name="rdec_note_blocked_from_keyword">Заблоковано за ключовим словом (заблоковано всього відправника)</string>
+    <string name="thread_failed_reason_generic">Телефон повідомив про загальну помилку (код %1$d)</string>
+    <plurals name="decm_marked_all_read">
+        <item quantity="one">%d чат позначено як прочитаний</item>
+        <item quantity="few">%d чати позначено як прочитані</item>
+        <item quantity="many">%d чатів позначено як прочитані</item>
+        <item quantity="other">%d чату позначено як прочитані</item>
+    </plurals>
+    <plurals name="rdec_hits_blocked">
+        <item quantity="one">Заблоковано %d повідомлення</item>
+        <item quantity="few">Заблоковано %d повідомлення</item>
+        <item quantity="many">Заблоковано %d повідомлень</item>
+        <item quantity="other">Заблоковано %d повідомлення</item>
+    </plurals>
+    <plurals name="rdec_age_minutes">
+        <item quantity="one">%d хвилину тому</item>
+        <item quantity="few">%d хвилини тому</item>
+        <item quantity="many">%d хвилин тому</item>
+        <item quantity="other">%d хвилини тому</item>
+    </plurals>
+    <plurals name="rdec_age_hours">
+        <item quantity="one">%d годину тому</item>
+        <item quantity="few">%d години тому</item>
+        <item quantity="many">%d годин тому</item>
+        <item quantity="other">%d години тому</item>
+    </plurals>
+    <plurals name="rdec_age_days">
+        <item quantity="one">%d день тому</item>
+        <item quantity="few">%d дні тому</item>
+        <item quantity="many">%d днів тому</item>
+        <item quantity="other">%d дня тому</item>
+    </plurals>
+    <plurals name="rdec_age_months">
+        <item quantity="one">%d місяць тому</item>
+        <item quantity="few">%d місяці тому</item>
+        <item quantity="many">%d місяців тому</item>
+        <item quantity="other">%d місяця тому</item>
+    </plurals>
+    <plurals name="rdec_age_years">
+        <item quantity="one">%d рік тому</item>
+        <item quantity="few">%d роки тому</item>
+        <item quantity="many">%d років тому</item>
+        <item quantity="other">%d року тому</item>
+    </plurals>
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="decm_marked_all_read" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d discussion marquée comme lue</item>
+        <item quantity="other">%d discussions marquées comme lues</item>
+    </plurals>
+    <string name="decm_search_section_blocked">Messages bloqués</string>
+    <string name="decm_blocked_search">Rechercher dans les messages bloqués</string>
+    <string name="decm_blocked_search_hint">Rechercher par expéditeur ou texte</string>
+    <string name="decm_blocked_search_close">Fermer la recherche</string>
+    <string name="decm_blocked_search_none_title">Aucun résultat</string>
+    <string name="decm_blocked_search_none_body">Aucun expéditeur ni message bloqué ne correspond à votre saisie.</string>
+    <string name="decm_always_allow">Toujours autoriser</string>
+    <string name="decisions_backup_keywords">Mots bloqués à ajouter : %1$d. Les mots que vous avez déjà sont ignorés.</string>
+    <string name="thread_failed_reason_generic">Le téléphone a signalé une erreur générale (code %1$d)</string>
+    <string name="rdec_match_domain">Un lien vers un site web</string>
+    <string name="rdec_row_type_domain">Lien dans le message</string>
+    <string name="rdec_type_domain">Site web</string>
+    <string name="rdec_value_domain">Site web</string>
+    <string name="rdec_type_domain_help">Bloque tous les messages qui contiennent un lien vers ce site, y compris ses sous-domaines comme www.example.com.</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">Saisissez un nom de site comme example.com</string>
+    <plurals name="rdec_hits_blocked" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d message bloqué</item>
+        <item quantity="other">%d messages bloqués</item>
+    </plurals>
+    <string name="rdec_hits_last">%1$s, dernier %2$s</string>
+    <string name="rdec_age_now">à l\'instant</string>
+    <plurals name="rdec_age_minutes" tools:ignore="ImpliedQuantity">
+        <item quantity="one">il y a %d minute</item>
+        <item quantity="other">il y a %d minutes</item>
+    </plurals>
+    <plurals name="rdec_age_hours" tools:ignore="ImpliedQuantity">
+        <item quantity="one">il y a %d heure</item>
+        <item quantity="other">il y a %d heures</item>
+    </plurals>
+    <plurals name="rdec_age_days" tools:ignore="ImpliedQuantity">
+        <item quantity="one">il y a %d jour</item>
+        <item quantity="other">il y a %d jours</item>
+    </plurals>
+    <plurals name="rdec_age_months" tools:ignore="ImpliedQuantity">
+        <item quantity="one">il y a %d mois</item>
+        <item quantity="other">il y a %d mois</item>
+    </plurals>
+    <plurals name="rdec_age_years" tools:ignore="ImpliedQuantity">
+        <item quantity="one">il y a %d an</item>
+        <item quantity="other">il y a %d ans</item>
+    </plurals>
+    <string name="rdec_sort_newest">Les plus récents d\'abord</string>
+    <string name="rdec_sender_warning">Attention : cela bloque tout l\'expéditeur, pas seulement le message. Si une banque ou une boutique utilise le même numéro pour ses codes et ses pubs, vous ne recevrez plus non plus ses vrais messages. Vous pouvez débloquer un expéditeur dans l\'écran Spam.</string>
+    <string name="rdec_help_warning_head">Bloquer un mot bloque l\'expéditeur</string>
+    <string name="rdec_note_blocked_from_keyword">Bloqué à cause d\'un mot-clé (tout l\'expéditeur est bloqué)</string>
+    <string name="spam_reason_rule_domain">Règle : liens vers %1$s</string>
+</resources>

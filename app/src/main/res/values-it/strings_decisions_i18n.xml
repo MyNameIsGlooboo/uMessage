@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="decm_marked_all_read">
+        <item quantity="one">%d chat segnata come letta</item>
+        <item quantity="other">%d chat segnate come lette</item>
+    </plurals>
+    <string name="decm_search_section_blocked">Messaggi bloccati</string>
+    <string name="decm_blocked_search">Cerca nei messaggi bloccati</string>
+    <string name="decm_blocked_search_hint">Cerca per mittente o testo</string>
+    <string name="decm_blocked_search_close">Chiudi la ricerca</string>
+    <string name="decm_blocked_search_none_title">Nessun risultato</string>
+    <string name="decm_blocked_search_none_body">Nessun mittente o messaggio bloccato corrisponde a quello che hai scritto.</string>
+    <string name="decm_always_allow">Consenti sempre</string>
+    <string name="decisions_backup_keywords">Parole bloccate da aggiungere: %1$d. Quelle che hai già vengono saltate.</string>
+    <string name="thread_failed_reason_generic">Il telefono ha segnalato un errore generico (codice %1$d)</string>
+    <string name="rdec_match_domain">Un link a un sito web</string>
+    <string name="rdec_row_type_domain">Link nel messaggio</string>
+    <string name="rdec_type_domain">Sito web</string>
+    <string name="rdec_value_domain">Sito web</string>
+    <string name="rdec_type_domain_help">Blocca ogni messaggio che contiene un link a questo sito, compresi i suoi sottodomini come www.example.com.</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">Inserisci il nome di un sito come example.com</string>
+    <plurals name="rdec_hits_blocked">
+        <item quantity="one">%d messaggio bloccato</item>
+        <item quantity="other">%d messaggi bloccati</item>
+    </plurals>
+    <string name="rdec_hits_last">%1$s, l\'ultimo %2$s</string>
+    <string name="rdec_age_now">poco fa</string>
+    <plurals name="rdec_age_minutes">
+        <item quantity="one">%d minuto fa</item>
+        <item quantity="other">%d minuti fa</item>
+    </plurals>
+    <plurals name="rdec_age_hours">
+        <item quantity="one">%d ora fa</item>
+        <item quantity="other">%d ore fa</item>
+    </plurals>
+    <plurals name="rdec_age_days">
+        <item quantity="one">%d giorno fa</item>
+        <item quantity="other">%d giorni fa</item>
+    </plurals>
+    <plurals name="rdec_age_months">
+        <item quantity="one">%d mese fa</item>
+        <item quantity="other">%d mesi fa</item>
+    </plurals>
+    <plurals name="rdec_age_years">
+        <item quantity="one">%d anno fa</item>
+        <item quantity="other">%d anni fa</item>
+    </plurals>
+    <string name="rdec_sort_newest">Prima i più recenti</string>
+    <string name="rdec_sender_warning">Attenzione: questo blocca tutto il mittente, non solo il messaggio. Se una banca o un negozio usa lo stesso numero per codici e pubblicità, non riceverai più nemmeno i suoi messaggi veri. Puoi sbloccare un mittente nella schermata Spam.</string>
+    <string name="rdec_help_warning_head">Bloccare una parola blocca il mittente</string>
+    <string name="rdec_note_blocked_from_keyword">Bloccato da una parola chiave (è bloccato tutto il mittente)</string>
+    <string name="spam_reason_rule_domain">Regola: link a %1$s</string>
+</resources>

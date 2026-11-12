@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="decisions_backup_keywords">要新增的封鎖字詞：%1$d 個。已有的字詞會略過。</string>
+    <string name="spam_reason_rule_domain">規則：連到 %1$s 的連結</string>
+    <string name="decm_search_section_blocked">被封鎖的訊息</string>
+    <string name="decm_blocked_search">搜尋被封鎖的訊息</string>
+    <string name="decm_blocked_search_hint">依寄件者或內容搜尋</string>
+    <string name="decm_blocked_search_close">關閉搜尋</string>
+    <string name="decm_blocked_search_none_title">找不到結果</string>
+    <string name="decm_blocked_search_none_body">沒有被封鎖的寄件者或訊息符合你輸入的內容。</string>
+    <string name="decm_always_allow">一律允許</string>
+    <string name="rdec_match_domain">網站連結</string>
+    <string name="rdec_row_type_domain">訊息中的連結</string>
+    <string name="rdec_type_domain">網站</string>
+    <string name="rdec_value_domain">網站</string>
+    <string name="rdec_type_domain_help">封鎖所有含有此網站連結的訊息，包括它的子網域，例如 www.example.com。</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">請輸入網站名稱，例如 example.com</string>
+    <string name="rdec_hits_last">%1$s，最近一次：%2$s</string>
+    <string name="rdec_age_now">剛剛</string>
+    <string name="rdec_sort_newest">最新的在前</string>
+    <string name="rdec_sender_warning">注意：這會封鎖整個寄件者，而不只是這則訊息。如果銀行或商店用同一個號碼發驗證碼和廣告，你也會收不到它的正常訊息。你可以在垃圾訊息頁面解除封鎖寄件者。</string>
+    <string name="rdec_help_warning_head">封鎖字詞會封鎖寄件者</string>
+    <string name="rdec_note_blocked_from_keyword">因關鍵字被封鎖（整個寄件者都被封鎖）</string>
+    <string name="thread_failed_reason_generic">手機回報一般性失敗（代碼 %1$d）</string>
+    <plurals name="decm_marked_all_read" tools:ignore="ImpliedQuantity">
+        <item quantity="other">已將 %d 個對話標為已讀</item>
+    </plurals>
+    <plurals name="rdec_hits_blocked" tools:ignore="ImpliedQuantity">
+        <item quantity="other">已封鎖 %d 則訊息</item>
+    </plurals>
+    <plurals name="rdec_age_minutes" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d 分鐘前</item>
+    </plurals>
+    <plurals name="rdec_age_hours" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d 小時前</item>
+    </plurals>
+    <plurals name="rdec_age_days" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d 天前</item>
+    </plurals>
+    <plurals name="rdec_age_months" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d 個月前</item>
+    </plurals>
+    <plurals name="rdec_age_years" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d 年前</item>
+    </plurals>
+</resources>

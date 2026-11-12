@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="decm_marked_all_read" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি চ্যাট পড়া হিসেবে মার্ক করা হয়েছে</item>
+        <item quantity="other">%dটি চ্যাট পড়া হিসেবে মার্ক করা হয়েছে</item>
+    </plurals>
+    <string name="decm_search_section_blocked">ব্লক করা বার্তা</string>
+    <string name="decm_blocked_search">ব্লক করা বার্তা খুঁজুন</string>
+    <string name="decm_blocked_search_hint">প্রেরক বা লেখা দিয়ে খুঁজুন</string>
+    <string name="decm_blocked_search_close">খোঁজা বন্ধ করুন</string>
+    <string name="decm_blocked_search_none_title">কিছু পাওয়া যায়নি</string>
+    <string name="decm_blocked_search_none_body">আপনি যা লিখেছেন তার সঙ্গে মেলে এমন কোনো ব্লক করা প্রেরক বা বার্তা নেই।</string>
+    <string name="decm_always_allow">সবসময় অনুমতি দিন</string>
+    <string name="decisions_backup_keywords">যোগ হবে এমন ব্লক করা শব্দ: %1$dটি। যে শব্দ আগে থেকেই আছে সেগুলো বাদ যাবে।</string>
+    <string name="thread_failed_reason_generic">ফোন একটি সাধারণ ত্রুটি জানিয়েছে (কোড %1$d)</string>
+    <string name="rdec_match_domain">ওয়েবসাইটের লিংক</string>
+    <string name="rdec_row_type_domain">বার্তার ভেতরের লিংক</string>
+    <string name="rdec_type_domain">ওয়েবসাইট</string>
+    <string name="rdec_value_domain">ওয়েবসাইট</string>
+    <string name="rdec_type_domain_help">এই ওয়েবসাইটের লিংক আছে এমন প্রতিটি বার্তা ব্লক করে, www.example.com-এর মতো সাবডোমেনসহ।</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">example.com-এর মতো ওয়েবসাইটের নাম লিখুন</string>
+    <plurals name="rdec_hits_blocked" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%dটি বার্তা ব্লক করেছে</item>
+        <item quantity="other">%dটি বার্তা ব্লক করেছে</item>
+    </plurals>
+    <string name="rdec_hits_last">%1$s, শেষবার %2$s</string>
+    <string name="rdec_age_now">এইমাত্র</string>
+    <plurals name="rdec_age_minutes" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d মিনিট আগে</item>
+        <item quantity="other">%d মিনিট আগে</item>
+    </plurals>
+    <plurals name="rdec_age_hours" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d ঘণ্টা আগে</item>
+        <item quantity="other">%d ঘণ্টা আগে</item>
+    </plurals>
+    <plurals name="rdec_age_days" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d দিন আগে</item>
+        <item quantity="other">%d দিন আগে</item>
+    </plurals>
+    <plurals name="rdec_age_months" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d মাস আগে</item>
+        <item quantity="other">%d মাস আগে</item>
+    </plurals>
+    <plurals name="rdec_age_years" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d বছর আগে</item>
+        <item quantity="other">%d বছর আগে</item>
+    </plurals>
+    <string name="rdec_sort_newest">নতুনগুলো আগে</string>
+    <string name="rdec_sender_warning">সতর্কতা: এতে শুধু বার্তা নয়, পুরো প্রেরকই ব্লক হয়ে যায়। কোনো ব্যাংক বা দোকান কোড আর বিজ্ঞাপন, দুটোর জন্যই একই নম্বর ব্যবহার করলে তাদের আসল বার্তাও আর আসবে না। স্প্যাম স্ক্রিন থেকে প্রেরককে আনব্লক করতে পারবেন।</string>
+    <string name="rdec_help_warning_head">শব্দ ব্লক করলে প্রেরকও ব্লক হয়</string>
+    <string name="rdec_note_blocked_from_keyword">কিওয়ার্ডের কারণে ব্লক করা হয়েছে (পুরো প্রেরক ব্লক)</string>
+    <string name="spam_reason_rule_domain">নিয়ম: %1$s-এর লিংক</string>
+</resources>

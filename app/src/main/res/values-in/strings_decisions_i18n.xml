@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="decm_marked_all_read">
+        <item quantity="other">%d obrolan ditandai sudah dibaca</item>
+    </plurals>
+    <string name="decm_search_section_blocked">Pesan yang diblokir</string>
+    <string name="decm_blocked_search">Cari pesan yang diblokir</string>
+    <string name="decm_blocked_search_hint">Cari berdasarkan pengirim atau teks</string>
+    <string name="decm_blocked_search_close">Tutup pencarian</string>
+    <string name="decm_blocked_search_none_title">Tidak ditemukan</string>
+    <string name="decm_blocked_search_none_body">Tidak ada pengirim atau pesan yang diblokir yang cocok dengan yang kamu ketik.</string>
+    <string name="decm_always_allow">Selalu izinkan</string>
+    <string name="decisions_backup_keywords">Kata terblokir yang akan ditambahkan: %1$d. Kata yang sudah kamu punya dilewati.</string>
+    <string name="thread_failed_reason_generic">Ponsel melaporkan kegagalan umum (kode %1$d)</string>
+    <string name="rdec_match_domain">Tautan situs web</string>
+    <string name="rdec_row_type_domain">Tautan dalam pesan</string>
+    <string name="rdec_type_domain">Situs web</string>
+    <string name="rdec_value_domain">Situs web</string>
+    <string name="rdec_type_domain_help">Memblokir setiap pesan yang berisi tautan ke situs web ini, termasuk subdomainnya seperti www.example.com.</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">Masukkan nama situs web seperti example.com</string>
+    <plurals name="rdec_hits_blocked">
+        <item quantity="other">%d pesan diblokir</item>
+    </plurals>
+    <string name="rdec_hits_last">%1$s, terakhir %2$s</string>
+    <string name="rdec_age_now">baru saja</string>
+    <plurals name="rdec_age_minutes">
+        <item quantity="other">%d menit lalu</item>
+    </plurals>
+    <plurals name="rdec_age_hours">
+        <item quantity="other">%d jam lalu</item>
+    </plurals>
+    <plurals name="rdec_age_days">
+        <item quantity="other">%d hari lalu</item>
+    </plurals>
+    <plurals name="rdec_age_months">
+        <item quantity="other">%d bulan lalu</item>
+    </plurals>
+    <plurals name="rdec_age_years">
+        <item quantity="other">%d tahun lalu</item>
+    </plurals>
+    <string name="rdec_sort_newest">Terbaru dulu</string>
+    <string name="rdec_sender_warning">Perhatian: ini memblokir seluruh pengirim, bukan hanya pesannya. Kalau bank atau toko memakai satu nomor untuk kode dan iklan, pesan aslinya juga tidak akan masuk lagi. Kamu bisa membuka blokir pengirim di layar Spam.</string>
+    <string name="rdec_help_warning_head">Memblokir kata berarti memblokir pengirim</string>
+    <string name="rdec_note_blocked_from_keyword">Diblokir karena kata kunci (seluruh pengirim diblokir)</string>
+    <string name="spam_reason_rule_domain">Aturan: tautan ke %1$s</string>
+</resources>

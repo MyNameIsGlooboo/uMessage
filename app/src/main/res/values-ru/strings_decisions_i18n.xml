@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="decisions_backup_keywords">Заблокированных слов для добавления: %1$d. Слова, которые у вас уже есть, пропускаются.</string>
+    <string name="spam_reason_rule_domain">Правило: ссылки на %1$s</string>
+    <string name="decm_search_section_blocked">Заблокированные сообщения</string>
+    <string name="decm_blocked_search">Поиск по заблокированным сообщениям</string>
+    <string name="decm_blocked_search_hint">Поиск по отправителю или тексту</string>
+    <string name="decm_blocked_search_close">Закрыть поиск</string>
+    <string name="decm_blocked_search_none_title">Ничего не найдено</string>
+    <string name="decm_blocked_search_none_body">Ни один заблокированный отправитель или сообщение не подходит под ваш запрос.</string>
+    <string name="decm_always_allow">Всегда разрешать</string>
+    <string name="rdec_match_domain">Ссылка на сайт</string>
+    <string name="rdec_row_type_domain">Ссылка в сообщении</string>
+    <string name="rdec_type_domain">Сайт</string>
+    <string name="rdec_value_domain">Сайт</string>
+    <string name="rdec_type_domain_help">Блокирует все сообщения со ссылкой на этот сайт, в том числе на его поддомены, например www.example.com.</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">Введите название сайта, например example.com</string>
+    <string name="rdec_hits_last">%1$s, последнее: %2$s</string>
+    <string name="rdec_age_now">только что</string>
+    <string name="rdec_sort_newest">Сначала новые</string>
+    <string name="rdec_sender_warning">Внимание: так блокируется весь отправитель, а не только это сообщение. Если банк или магазин присылает коды и рекламу с одного номера, вы перестанете получать и его настоящие сообщения. Разблокировать отправителя можно на экране «Спам».</string>
+    <string name="rdec_help_warning_head">Блокировка слова блокирует отправителя</string>
+    <string name="rdec_note_blocked_from_keyword">Заблокировано по ключевому слову (заблокирован весь отправитель)</string>
+    <string name="thread_failed_reason_generic">Телефон сообщил об общей ошибке (код %1$d)</string>
+    <plurals name="decm_marked_all_read">
+        <item quantity="one">%d чат отмечен как прочитанный</item>
+        <item quantity="few">%d чата отмечены как прочитанные</item>
+        <item quantity="many">%d чатов отмечено как прочитанные</item>
+        <item quantity="other">%d чата отмечено как прочитанные</item>
+    </plurals>
+    <plurals name="rdec_hits_blocked">
+        <item quantity="one">Заблокировано %d сообщение</item>
+        <item quantity="few">Заблокировано %d сообщения</item>
+        <item quantity="many">Заблокировано %d сообщений</item>
+        <item quantity="other">Заблокировано %d сообщения</item>
+    </plurals>
+    <plurals name="rdec_age_minutes">
+        <item quantity="one">%d минуту назад</item>
+        <item quantity="few">%d минуты назад</item>
+        <item quantity="many">%d минут назад</item>
+        <item quantity="other">%d минуты назад</item>
+    </plurals>
+    <plurals name="rdec_age_hours">
+        <item quantity="one">%d час назад</item>
+        <item quantity="few">%d часа назад</item>
+        <item quantity="many">%d часов назад</item>
+        <item quantity="other">%d часа назад</item>
+    </plurals>
+    <plurals name="rdec_age_days">
+        <item quantity="one">%d день назад</item>
+        <item quantity="few">%d дня назад</item>
+        <item quantity="many">%d дней назад</item>
+        <item quantity="other">%d дня назад</item>
+    </plurals>
+    <plurals name="rdec_age_months">
+        <item quantity="one">%d месяц назад</item>
+        <item quantity="few">%d месяца назад</item>
+        <item quantity="many">%d месяцев назад</item>
+        <item quantity="other">%d месяца назад</item>
+    </plurals>
+    <plurals name="rdec_age_years">
+        <item quantity="one">%d год назад</item>
+        <item quantity="few">%d года назад</item>
+        <item quantity="many">%d лет назад</item>
+        <item quantity="other">%d года назад</item>
+    </plurals>
+</resources>

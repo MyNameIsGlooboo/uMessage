@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="decisions_backup_keywords">Eklenecek engellenen kelime sayısı: %1$d. Zaten olan kelimeler atlanır.</string>
+    <string name="spam_reason_rule_domain">Kural: %1$s bağlantıları</string>
+    <string name="decm_search_section_blocked">Engellenen mesajlar</string>
+    <string name="decm_blocked_search">Engellenen mesajlarda ara</string>
+    <string name="decm_blocked_search_hint">Gönderene veya metne göre ara</string>
+    <string name="decm_blocked_search_close">Aramayı kapat</string>
+    <string name="decm_blocked_search_none_title">Bir şey bulunamadı</string>
+    <string name="decm_blocked_search_none_body">Yazdığınızla eşleşen engellenmiş gönderen ya da mesaj yok.</string>
+    <string name="decm_always_allow">Her zaman izin ver</string>
+    <string name="rdec_match_domain">Bir web sitesi bağlantısı</string>
+    <string name="rdec_row_type_domain">Mesajdaki bağlantı</string>
+    <string name="rdec_type_domain">Web sitesi</string>
+    <string name="rdec_value_domain">Web sitesi</string>
+    <string name="rdec_type_domain_help">Bu web sitesine bağlantı veren her mesajı engeller, www.example.com gibi alt alan adları da dahil.</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">example.com gibi bir web sitesi adı girin</string>
+    <string name="rdec_hits_last">%1$s, son: %2$s</string>
+    <string name="rdec_age_now">az önce</string>
+    <string name="rdec_sort_newest">Önce en yeni</string>
+    <string name="rdec_sender_warning">Dikkat: Bu, yalnızca mesajı değil gönderenin tamamını engeller. Bir banka ya da mağaza kodlar ve reklamlar için aynı numarayı kullanıyorsa, onun gerçek mesajlarını da almazsınız. Bir göndereni Spam ekranından engelden çıkarabilirsiniz.</string>
+    <string name="rdec_help_warning_head">Kelime engellemek göndereni engeller</string>
+    <string name="rdec_note_blocked_from_keyword">Anahtar kelimeyle engellendi (gönderenin tamamı engelli)</string>
+    <string name="thread_failed_reason_generic">Telefon genel bir hata bildirdi (kod %1$d)</string>
+    <plurals name="decm_marked_all_read" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d sohbet okundu olarak işaretlendi</item>
+    </plurals>
+    <plurals name="rdec_hits_blocked" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d mesaj engellendi</item>
+    </plurals>
+    <plurals name="rdec_age_minutes" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d dakika önce</item>
+    </plurals>
+    <plurals name="rdec_age_hours" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d saat önce</item>
+    </plurals>
+    <plurals name="rdec_age_days" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d gün önce</item>
+    </plurals>
+    <plurals name="rdec_age_months" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d ay önce</item>
+    </plurals>
+    <plurals name="rdec_age_years" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d yıl önce</item>
+    </plurals>
+</resources>

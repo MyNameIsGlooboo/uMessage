@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="decisions_backup_keywords">คำที่บล็อกและจะเพิ่ม: %1$d คำ คำที่คุณมีอยู่แล้วจะถูกข้ามไป</string>
+    <string name="spam_reason_rule_domain">กฎ: ลิงก์ไปยัง %1$s</string>
+    <string name="decm_search_section_blocked">ข้อความที่ถูกบล็อก</string>
+    <string name="decm_blocked_search">ค้นหาข้อความที่ถูกบล็อก</string>
+    <string name="decm_blocked_search_hint">ค้นหาจากผู้ส่งหรือข้อความ</string>
+    <string name="decm_blocked_search_close">ปิดการค้นหา</string>
+    <string name="decm_blocked_search_none_title">ไม่พบอะไร</string>
+    <string name="decm_blocked_search_none_body">ไม่มีผู้ส่งหรือข้อความที่ถูกบล็อกตรงกับที่คุณพิมพ์</string>
+    <string name="decm_always_allow">อนุญาตเสมอ</string>
+    <string name="rdec_match_domain">ลิงก์เว็บไซต์</string>
+    <string name="rdec_row_type_domain">ลิงก์ในข้อความ</string>
+    <string name="rdec_type_domain">เว็บไซต์</string>
+    <string name="rdec_value_domain">เว็บไซต์</string>
+    <string name="rdec_type_domain_help">บล็อกทุกข้อความที่มีลิงก์ไปยังเว็บไซต์นี้ รวมถึงซับโดเมน เช่น www.example.com</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">ใส่ชื่อเว็บไซต์ เช่น example.com</string>
+    <string name="rdec_hits_last">%1$s ล่าสุด %2$s</string>
+    <string name="rdec_age_now">เมื่อสักครู่</string>
+    <string name="rdec_sort_newest">ใหม่สุดก่อน</string>
+    <string name="rdec_sender_warning">โปรดทราบ: การทำแบบนี้จะบล็อกผู้ส่งทั้งหมด ไม่ใช่แค่ข้อความนี้ ถ้าธนาคารหรือร้านค้าใช้เบอร์เดียวกันส่งทั้งรหัสและโฆษณา คุณจะไม่ได้รับข้อความจริงของเขาด้วย คุณปลดบล็อกผู้ส่งได้ในหน้าสแปม</string>
+    <string name="rdec_help_warning_head">การบล็อกคำจะบล็อกผู้ส่งด้วย</string>
+    <string name="rdec_note_blocked_from_keyword">ถูกบล็อกจากคำสำคัญ (บล็อกผู้ส่งทั้งหมด)</string>
+    <string name="thread_failed_reason_generic">โทรศัพท์แจ้งว่าเกิดข้อผิดพลาดทั่วไป (รหัส %1$d)</string>
+    <plurals name="decm_marked_all_read" tools:ignore="ImpliedQuantity">
+        <item quantity="other">ทำเครื่องหมายว่าอ่านแล้ว %d แชต</item>
+    </plurals>
+    <plurals name="rdec_hits_blocked" tools:ignore="ImpliedQuantity">
+        <item quantity="other">บล็อกไปแล้ว %d ข้อความ</item>
+    </plurals>
+    <plurals name="rdec_age_minutes" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d นาทีที่แล้ว</item>
+    </plurals>
+    <plurals name="rdec_age_hours" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d ชั่วโมงที่แล้ว</item>
+    </plurals>
+    <plurals name="rdec_age_days" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d วันที่แล้ว</item>
+    </plurals>
+    <plurals name="rdec_age_months" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d เดือนที่แล้ว</item>
+    </plurals>
+    <plurals name="rdec_age_years" tools:ignore="ImpliedQuantity">
+        <item quantity="other">%d ปีที่แล้ว</item>
+    </plurals>
+</resources>
