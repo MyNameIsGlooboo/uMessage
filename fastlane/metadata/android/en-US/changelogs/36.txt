@@ -1,0 +1,9 @@
+• Block messages that link to a website (new rule type)
+• Rules show how many messages they blocked
+• Mark all read, with Undo
+• Search your Blocked messages
+• Always allow, right from "Why blocked?"
+• Codes with letters and digits are recognised
+• Failed messages show the reason
+• Contacts are no longer caught by keyword rules
+• Faster notifications and many small fixes

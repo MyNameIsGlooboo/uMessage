@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.7] - 2026-11-12
+### Added
+- Block messages that link to a website: a new "website link" rule type
+- Each rule shows how many messages it blocked and when it last matched; a "Newest first" order in Rules
+- "Mark all read" in the inbox menu, with Undo
+- Search the Blocked messages from the main search and inside the Blocked screen
+- "Always allow" in the "Why was this blocked?" dialog
+- Keyword block rules are saved in the settings backup; MMS can be imported from an XML backup
+- Codes with letters and digits (like ab12cd) are recognised next to a code word
+- The reason a message failed to send is shown on the failed message
+
+### Changed
+- Saved contacts are no longer blocked by keyword, pattern, prefix or website rules (blocking a number still works)
+- A chat opens even if phone-state permission is denied
+- Blocked picture messages are not downloaded above 1 MB, while roaming, or past 100 stored files
+- Faster incoming-message notifications
+- A warning explains that blocking after a keyword blocks the whole sender
+- Many small fixes from a full code review (sending, reminders, lists, search, backup)
+
 ## [0.4.6] - 2026-11-11
 ### Added
 - Automatic forwarding is now available in every build, including Google Play
