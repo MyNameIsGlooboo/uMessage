@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">\'%1$s\'에게 예약한 메시지를 보내지 못했어요. 첨부 파일을 더 이상 열 수 없어요(%2$s). 채팅을 열어 다시 첨부해 주세요.</string>
+    <string name="minor_mt_chat_missing">이 채팅은 더 이상 없어요.</string>
+    <string name="minor_sui_delete_listed_title">목록의 스팸을 삭제할까요?</string>
+    <string name="minor_sui_report_queued">통신사에 보낼 신고가 대기 중이에요</string>
+    <string name="minor_sui_pattern_link_sentence">http, https 또는 www로 시작하는 링크가 포함된 메시지와 일치해요.</string>
+</resources>

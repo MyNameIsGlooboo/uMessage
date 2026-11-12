@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">\'%1$s\'-কে পাঠানো আপনার নির্ধারিত বার্তাটি যায়নি: সংযুক্তিটি আর খোলা যাচ্ছে না (%2$s)। আবার যোগ করতে চ্যাটটি খুলুন।</string>
+    <string name="minor_mt_chat_missing">এই চ্যাটটি আর নেই।</string>
+    <string name="minor_sui_delete_listed_title">তালিকার স্প্যামগুলো মুছবেন?</string>
+    <string name="minor_sui_report_queued">রিপোর্ট আপনার মোবাইল অপারেটরকে পাঠানোর অপেক্ষায় আছে</string>
+    <string name="minor_sui_pattern_link_sentence">http, https বা www দিয়ে শুরু হওয়া লিংক আছে এমন বার্তার সাথে মেলে।</string>
+</resources>

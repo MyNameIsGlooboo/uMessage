@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">Заплановане повідомлення для «%1$s» не надіслано: вкладення більше не відкривається (%2$s). Відкрийте чат, щоб додати його знову.</string>
+    <string name="minor_mt_chat_missing">Цього чату більше немає.</string>
+    <string name="minor_sui_delete_listed_title">Видалити спам зі списку?</string>
+    <string name="minor_sui_report_queued">Скаргу поставлено в чергу для оператора</string>
+    <string name="minor_sui_pattern_link_sentence">Збігається з повідомленнями, що містять посилання, яке починається з http, https або www.</string>
+</resources>

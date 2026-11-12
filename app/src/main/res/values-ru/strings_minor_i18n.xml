@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">Запланированное сообщение для «%1$s» не отправлено: вложение больше не открывается (%2$s). Откройте чат, чтобы добавить его снова.</string>
+    <string name="minor_mt_chat_missing">Этого чата больше нет.</string>
+    <string name="minor_sui_delete_listed_title">Удалить спам из списка?</string>
+    <string name="minor_sui_report_queued">Жалоба поставлена в очередь для оператора</string>
+    <string name="minor_sui_pattern_link_sentence">Совпадает с сообщениями, где есть ссылка, начинающаяся с http, https или www.</string>
+</resources>

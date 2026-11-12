@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">«%1$s» کو آپ کا طے شدہ پیغام نہیں بھیجا گیا: اٹیچمنٹ اب کھل نہیں رہی (%2$s)۔ اسے دوبارہ شامل کرنے کے لیے چیٹ کھولیں۔</string>
+    <string name="minor_mt_chat_missing">یہ چیٹ اب موجود نہیں۔</string>
+    <string name="minor_sui_delete_listed_title">فہرست کا اسپیم حذف کریں؟</string>
+    <string name="minor_sui_report_queued">رپورٹ آپ کے نیٹ ورک فراہم کنندہ کو بھیجنے کے لیے قطار میں ہے</string>
+    <string name="minor_sui_pattern_link_sentence">ایسے پیغامات سے میل کھاتا ہے جن میں http، https یا www سے شروع ہونے والا لنک ہو۔</string>
+</resources>

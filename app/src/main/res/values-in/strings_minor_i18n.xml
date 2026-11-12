@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">Pesan terjadwal Anda ke \'%1$s\' tidak terkirim: lampirannya tidak bisa dibuka lagi (%2$s). Buka obrolan untuk menambahkannya lagi.</string>
+    <string name="minor_mt_chat_missing">Obrolan ini sudah tidak ada.</string>
+    <string name="minor_sui_delete_listed_title">Hapus spam yang tercantum?</string>
+    <string name="minor_sui_report_queued">Laporan masuk antrean ke operator Anda</string>
+    <string name="minor_sui_pattern_link_sentence">Cocok dengan pesan yang berisi tautan diawali http, https, atau www.</string>
+</resources>

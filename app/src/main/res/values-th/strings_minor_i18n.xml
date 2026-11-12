@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">ข้อความที่ตั้งเวลาไว้ถึง \'%1$s\' ไม่ได้ส่ง เพราะเปิดไฟล์แนบไม่ได้แล้ว (%2$s) เปิดแชทเพื่อแนบอีกครั้ง</string>
+    <string name="minor_mt_chat_missing">แชทนี้ไม่มีอยู่แล้ว</string>
+    <string name="minor_sui_delete_listed_title">ลบสแปมในรายการหรือไม่</string>
+    <string name="minor_sui_report_queued">รายงานอยู่ในคิวส่งถึงผู้ให้บริการเครือข่ายของคุณ</string>
+    <string name="minor_sui_pattern_link_sentence">ตรงกับข้อความที่มีลิงก์ขึ้นต้นด้วย http, https หรือ www</string>
+</resources>

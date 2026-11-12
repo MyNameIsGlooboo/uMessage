@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">Sua mensagem agendada para \'%1$s\' não foi enviada: não dá mais para abrir o anexo (%2$s). Abra a conversa para anexá-lo de novo.</string>
+    <string name="minor_mt_chat_missing">Esta conversa não existe mais.</string>
+    <string name="minor_sui_delete_listed_title">Excluir o spam listado?</string>
+    <string name="minor_sui_report_queued">Denúncia na fila para sua operadora</string>
+    <string name="minor_sui_pattern_link_sentence">Corresponde a mensagens que contêm um link começando com http, https ou www.</string>
+</resources>

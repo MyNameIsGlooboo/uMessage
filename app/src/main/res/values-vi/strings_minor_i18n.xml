@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">Tin nhắn đã hẹn giờ gửi tới \'%1$s\' chưa được gửi: không mở được tệp đính kèm nữa (%2$s). Hãy mở cuộc trò chuyện để đính kèm lại.</string>
+    <string name="minor_mt_chat_missing">Cuộc trò chuyện này không còn nữa.</string>
+    <string name="minor_sui_delete_listed_title">Xóa các tin nhắn rác trong danh sách?</string>
+    <string name="minor_sui_report_queued">Báo cáo đã được xếp hàng gửi tới nhà mạng của bạn</string>
+    <string name="minor_sui_pattern_link_sentence">Khớp với tin nhắn có chứa liên kết bắt đầu bằng http, https hoặc www.</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">您定时发送给“%1$s”的短信未能发出：附件已无法打开（%2$s）。请打开会话重新添加。</string>
+    <string name="minor_mt_chat_missing">此会话已不存在。</string>
+    <string name="minor_sui_delete_listed_title">要删除列出的垃圾短信吗？</string>
+    <string name="minor_sui_report_queued">举报已排队，等待发送给您的运营商</string>
+    <string name="minor_sui_pattern_link_sentence">匹配包含以 http、https 或 www 开头的链接的短信。</string>
+</resources>

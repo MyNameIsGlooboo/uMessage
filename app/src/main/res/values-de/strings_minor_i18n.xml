@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">Deine geplante Nachricht an „%1$s“ wurde nicht gesendet: Der Anhang lässt sich nicht mehr öffnen (%2$s). Öffne den Chat, um ihn erneut hinzuzufügen.</string>
+    <string name="minor_mt_chat_missing">Dieser Chat existiert nicht mehr.</string>
+    <string name="minor_sui_delete_listed_title">Aufgelisteten Spam löschen?</string>
+    <string name="minor_sui_report_queued">Meldung an deinen Mobilfunkanbieter vorgemerkt</string>
+    <string name="minor_sui_pattern_link_sentence">Trifft auf Nachrichten zu, die einen Link enthalten, der mit http, https oder www beginnt.</string>
+</resources>

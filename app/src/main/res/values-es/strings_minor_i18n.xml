@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">Tu mensaje programado para «%1$s» no se envió: ya no se puede abrir el archivo adjunto (%2$s). Abre el chat para agregarlo de nuevo.</string>
+    <string name="minor_mt_chat_missing">Este chat ya no existe.</string>
+    <string name="minor_sui_delete_listed_title">¿Eliminar el spam de la lista?</string>
+    <string name="minor_sui_report_queued">Denuncia en cola para tu operador</string>
+    <string name="minor_sui_pattern_link_sentence">Coincide con los mensajes que contienen un enlace que empieza por http, https o www.</string>
+</resources>

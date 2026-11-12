@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">您排程傳送給「%1$s」的簡訊未能送出：附件已無法開啟（%2$s）。請開啟對話重新新增。</string>
+    <string name="minor_mt_chat_missing">此對話已不存在。</string>
+    <string name="minor_sui_delete_listed_title">要刪除列出的垃圾簡訊嗎？</string>
+    <string name="minor_sui_report_queued">檢舉已排入佇列，等待傳送給您的電信業者</string>
+    <string name="minor_sui_pattern_link_sentence">符合包含以 http、https 或 www 開頭連結的簡訊。</string>
+</resources>

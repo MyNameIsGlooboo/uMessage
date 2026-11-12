@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">「%1$s」宛の予約メッセージは送信されませんでした。添付ファイルを開けなくなっています（%2$s）。チャットを開いて、もう一度添付してください。</string>
+    <string name="minor_mt_chat_missing">このチャットはもう存在しません。</string>
+    <string name="minor_sui_delete_listed_title">表示中の迷惑メッセージを削除しますか？</string>
+    <string name="minor_sui_report_queued">通信事業者への報告を待機中です</string>
+    <string name="minor_sui_pattern_link_sentence">http、https、www で始まるリンクを含むメッセージに一致します。</string>
+</resources>

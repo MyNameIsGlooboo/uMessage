@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">\'%1$s\' को भेजा गया आपका शेड्यूल किया संदेश नहीं गया: अटैचमेंट अब खुल नहीं पा रहा (%2$s)। उसे फिर से जोड़ने के लिए चैट खोलें।</string>
+    <string name="minor_mt_chat_missing">यह चैट अब मौजूद नहीं है।</string>
+    <string name="minor_sui_delete_listed_title">सूची के स्पैम मिटाएं?</string>
+    <string name="minor_sui_report_queued">शिकायत आपके मोबाइल ऑपरेटर को भेजने की कतार में है</string>
+    <string name="minor_sui_pattern_link_sentence">ऐसे संदेशों से मेल खाता है जिनमें http, https या www से शुरू होने वाला लिंक हो।</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">Zaplanowana wiadomość do \'%1$s\' nie została wysłana: nie można już otworzyć załącznika (%2$s). Otwórz czat, aby dodać go ponownie.</string>
+    <string name="minor_mt_chat_missing">Ten czat już nie istnieje.</string>
+    <string name="minor_sui_delete_listed_title">Usunąć spam z listy?</string>
+    <string name="minor_sui_report_queued">Zgłoszenie czeka na wysłanie do operatora</string>
+    <string name="minor_sui_pattern_link_sentence">Pasuje do wiadomości zawierających link zaczynający się od http, https lub www.</string>
+</resources>

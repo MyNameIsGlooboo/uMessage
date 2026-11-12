@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">\'%1$s\' kişisine zamanladığınız mesaj gönderilmedi: ek artık açılamıyor (%2$s). Yeniden eklemek için sohbeti açın.</string>
+    <string name="minor_mt_chat_missing">Bu sohbet artık yok.</string>
+    <string name="minor_sui_delete_listed_title">Listelenen spam silinsin mi?</string>
+    <string name="minor_sui_report_queued">Bildirim operatörünüze gönderilmek üzere sıraya alındı</string>
+    <string name="minor_sui_pattern_link_sentence">http, https veya www ile başlayan bağlantı içeren mesajlarla eşleşir.</string>
+</resources>

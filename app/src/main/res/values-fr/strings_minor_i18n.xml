@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">Votre message programmé pour « %1$s » n\'a pas été envoyé : la pièce jointe ne peut plus être ouverte (%2$s). Ouvrez la discussion pour l\'ajouter à nouveau.</string>
+    <string name="minor_mt_chat_missing">Cette discussion n\'existe plus.</string>
+    <string name="minor_sui_delete_listed_title">Supprimer les spams listés ?</string>
+    <string name="minor_sui_report_queued">Signalement en attente d\'envoi à votre opérateur</string>
+    <string name="minor_sui_pattern_link_sentence">Correspond aux messages contenant un lien commençant par http, https ou www.</string>
+</resources>
