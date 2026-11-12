@@ -15,7 +15,7 @@ code and leave building and testing to the main session, unless an agent is the 
 ## Build
 
 - `ANDROID_HOME=C:\Android\Sdk`, JDK 17.
-- Checks: `:app:testFossDebugUnitTest`, `:app:lintFossDebug`, `:app:assembleFossDebug`.
+- Checks: `:app:testFossDebugUnitTest`, `:app:lintFossDebug`, `detekt`, `:app:assembleFossDebug`.
 - For the owner's phone build `:app:assembleFossDaily`: optimized like release, with the debug package name and key,
   so it installs over the debug app and keeps its data. Debug builds start several times slower.
 
