@@ -6,7 +6,6 @@ import android.telephony.SmsManager
 import com.glooboo.umessage.R
 import com.glooboo.umessage.receivers.SendStatusReceiver
 
-@Suppress("CyclomaticComplexMethod")
 fun Context.getSmsSendingError(
     resultCode: Int,
     errorCode: Int = SendStatusReceiver.NO_ERROR_CODE,
@@ -16,7 +15,18 @@ fun Context.getSmsSendingError(
         return null
     }
 
-    val messageId = if (noDefault) {
+    val message = getString(smsSendingErrorRes(resultCode, noDefault))
+    return if (errorCode == SendStatusReceiver.NO_ERROR_CODE) {
+        getString(R.string.sms_sending_error_details, message, resultCode)
+    } else {
+        getString(R.string.sms_sending_error_radio_details, message, resultCode, errorCode)
+    }
+}
+
+/** The text that names why an SMS send report with [resultCode] failed; "Message not sent" when it names nothing. */
+@Suppress("CyclomaticComplexMethod")
+internal fun smsSendingErrorRes(resultCode: Int, noDefault: Boolean = false): Int {
+    return if (noDefault) {
         R.string.sms_error_no_sim_selected
     } else {
         when (resultCode) {
@@ -101,12 +111,6 @@ fun Context.getSmsSendingError(
             SmsManager.RESULT_RIL_ACCESS_BARRED -> R.string.sms_error_access_barred
             else -> R.string.message_not_sent_short
         }
-    }
-    val message = getString(messageId)
-    return if (errorCode == SendStatusReceiver.NO_ERROR_CODE) {
-        getString(R.string.sms_sending_error_details, message, resultCode)
-    } else {
-        getString(R.string.sms_sending_error_radio_details, message, resultCode, errorCode)
     }
 }
 

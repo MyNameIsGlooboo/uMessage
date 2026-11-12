@@ -32,7 +32,9 @@ class ThreadSimController(private val context: Context, private val vm: ThreadVi
     /** Reads the active SIMs and picks one for [recipients]; [lastMessage] is the thread's newest message. */
     @SuppressLint("MissingPermission")
     fun load(recipients: ThreadRecipients, lastMessage: Message?): Boolean {
-        val active = context.subscriptionManagerCompat().activeSubscriptionInfoList ?: return false
+        // Thread-17: without the phone permission the SIMs cannot be read; the chat works with the default SIM.
+        val active = runCatching { context.subscriptionManagerCompat().activeSubscriptionInfoList }.getOrNull()
+            ?: return false
         if (active.size <= 1) return false
         sims.clear()
         val names = SimNames(context.composerPrefs)

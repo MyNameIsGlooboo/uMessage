@@ -20,12 +20,17 @@ data class SpamRuleEntity(
     val subscriptionId: Int?,
     val note: String,
     val createdAt: Long,
+    /** Added in version 8: how many messages this rule blocked. Rules from before it start at 0. */
+    @ColumnInfo(defaultValue = "0") val hitCount: Int = 0,
+    /** Added in version 8: when this rule last blocked a message in milliseconds, 0 = never. */
+    @ColumnInfo(defaultValue = "0") val lastHit: Long = 0L,
 ) {
-    fun toRule() = SpamRule(id, kind, type, pattern, subscriptionId, note, createdAt)
+    fun toRule() = SpamRule(id, kind, type, pattern, subscriptionId, note, createdAt, hitCount, lastHit)
 
     companion object {
         fun from(rule: SpamRule) = SpamRuleEntity(
-            rule.id, rule.kind, rule.type, rule.pattern, rule.subscriptionId, rule.note, rule.createdAt
+            rule.id, rule.kind, rule.type, rule.pattern, rule.subscriptionId, rule.note, rule.createdAt,
+            rule.hitCount, rule.lastHit,
         )
     }
 }

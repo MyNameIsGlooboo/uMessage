@@ -1,5 +1,6 @@
 package com.glooboo.umessage.backup
 
+import com.glooboo.umessage.helpers.BlockedKeywordsFormat
 import com.glooboo.umessage.spam.ForwardRule
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
@@ -9,6 +10,7 @@ import com.glooboo.umessage.ui.spam.ForwardTargets
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
@@ -199,6 +201,11 @@ data class BackupContent(
     /** Rules and forward rules of the file left out because it held more than the import limits. Set by decode. */
     val droppedRules: Int = 0,
     val droppedForwardRules: Int = 0,
+    /**
+     * The blocked words of Rules > Blocked words (the app's keyword list). Files from before this field lack it and
+     * give an empty list: a restore only ever adds words, so such a file takes none away.
+     */
+    val blockedKeywords: List<String> = emptyList(),
 )
 
 /**
@@ -227,6 +234,7 @@ object SettingsBackupFormat {
     const val MAX_NOTE = 200
     const val MAX_TARGET = 40
     const val MAX_VERSION = 40
+    const val MAX_KEYWORDS = 2000
 
     private val json = Json { prettyPrint = true }
 
@@ -239,6 +247,9 @@ object SettingsBackupFormat {
             content.appVersion?.let { put("appVersion", it) }
             put("rules", buildJsonArray { content.rules.forEach { add(BackupJson.rule(it)) } })
             put("forwardRules", buildJsonArray { content.forwardRules.forEach { add(BackupJson.forward(it)) } })
+            if (content.blockedKeywords.isNotEmpty()) {
+                put("blockedKeywords", buildJsonArray { content.blockedKeywords.forEach { add(JsonPrimitive(it)) } })
+            }
             put("settings", BackupJson.settings(content.settings))
         }
         return json.encodeToString(JsonElement.serializer(), root)
@@ -264,8 +275,21 @@ object SettingsBackupFormat {
             appVersion = root.str("appVersion")?.take(MAX_VERSION),
             droppedRules = (rules.size - MAX_RULES).coerceAtLeast(0),
             droppedForwardRules = (forwards.size - MAX_FORWARD_RULES).coerceAtLeast(0),
+            blockedKeywords = readKeywords(root),
         )
     }
+
+    /** The words of the file that are valid (see [BlockedKeywordsFormat.clean]), each once, at most [MAX_KEYWORDS]. */
+    private fun readKeywords(root: JsonObject): List<String> = root.array("blockedKeywords").orEmpty()
+        .mapNotNull { (it as? JsonPrimitive)?.takeIf { p -> p.isString }?.content }
+        .mapNotNull(BlockedKeywordsFormat::clean)
+        .filter { it.length <= MAX_PATTERN }
+        .distinctBy { it.lowercase() }
+        .take(MAX_KEYWORDS)
+
+    /** The words of [incoming] not in [existing] yet (any case), the ones a restore adds. */
+    fun newKeywords(incoming: List<String>, existing: Collection<String>): List<String> =
+        incoming.filter { !BlockedKeywordsFormat.contains(existing, it) }
 
     /**
      * Splits the [incoming] rules into the ones not on the phone yet and the count already present, with the same

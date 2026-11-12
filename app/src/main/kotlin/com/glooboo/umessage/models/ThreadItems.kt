@@ -5,8 +5,16 @@ package com.glooboo.umessage.models
  */
 sealed class ThreadItem {
     data class ThreadDateTime(val date: Int, val simID: String) : ThreadItem()
-    /** The failed message is [messageId] of type [isMMS] (see [MessageKey]); Retry acts on that pair. */
-    data class ThreadError(val messageId: Long, val messageText: String, val isMMS: Boolean = false) : ThreadItem() {
+    /**
+     * The failed message is [messageId] of type [isMMS] (see [MessageKey]); Retry acts on that pair. [reasonCode] is
+     * the phone's send-report code kept for it (0: none), see SmsFailureReason.
+     */
+    data class ThreadError(
+        val messageId: Long,
+        val messageText: String,
+        val isMMS: Boolean = false,
+        val reasonCode: Int = 0,
+    ) : ThreadItem() {
         val key: MessageKey get() = MessageKey(messageId, isMMS)
     }
     /**

@@ -51,6 +51,20 @@ internal fun KeywordHelpDialog(onDismiss: () -> Unit) {
                     ExampleChip(stringResource(section.example))
                 }
             }
+            // spam-15: a blocked word blocks the whole sender.
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(
+                    stringResource(R.string.rdec_help_warning_head),
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.semantics { heading() },
+                )
+                Text(
+                    stringResource(R.string.rdec_sender_warning),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
         }
     }
 }

@@ -19,6 +19,8 @@ class BlockedActions(
     val onDeleteAll: () -> Unit = {},
     /** A chip under the banner (ID-14). */
     val onSetFilter: (BlockedFilter) -> Unit = {},
+    /** The search box of the tab (spamui-20). */
+    val onSetQuery: (String) -> Unit = {},
     /** I32: sends the one selected sender's newest message to the carrier; asked and confirmed by the screen first. */
     val onReportSpam: (Set<String>) -> Unit = {},
 )

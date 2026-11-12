@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="decisions_backup_keywords">Blocked words to add: %1$d. Words you already have are skipped.</string>
+</resources>

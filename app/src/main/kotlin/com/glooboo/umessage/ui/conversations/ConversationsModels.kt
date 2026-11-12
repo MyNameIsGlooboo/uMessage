@@ -86,6 +86,9 @@ data class ConversationsUiState(
 sealed interface ConversationsEvent {
     data class Deleted(val token: Long, val count: Int) : ConversationsEvent
     data class Archived(val token: Long, val count: Int) : ConversationsEvent
+
+    /** "Mark all read" read [count] chats; Undo makes exactly those chats unread again ([token]). */
+    data class MarkedAllRead(val token: Long, val count: Int) : ConversationsEvent
     /** Block rules were added for [count] conversations' senders. Offers Undo ([token] as for [ReportedSpam]). */
     data class Blocked(val token: Long, val count: Int) : ConversationsEvent
 
@@ -110,6 +113,9 @@ class ConversationsCallbacks(
     val onSelectAll: () -> Unit = {},
     val onPin: (Boolean) -> Unit = {},
     val onMarkRead: (Boolean) -> Unit = {},
+    /** The inbox menu's "Mark all read" (main-21), and the snackbar's Undo for it. */
+    val onMarkAllRead: () -> Unit = {},
+    val onUndoMarkAllRead: (Long) -> Unit = {},
     val onArchiveSelected: () -> Unit = {},
     val onDeleteSelected: () -> Unit = {},
     val onConfirmDelete: () -> Unit = {},

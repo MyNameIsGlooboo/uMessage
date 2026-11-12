@@ -70,6 +70,9 @@ object RestoreSummary {
         if (preview.rulesPresent > 0) {
             parts += context.getString(R.string.settings_f_restore_rules_present, preview.rulesPresent)
         }
+        if (preview.newKeywords.isNotEmpty()) {
+            parts += context.getString(R.string.decisions_backup_keywords, preview.newKeywords.size)
+        }
         val tooMany = preview.content.droppedRules + preview.content.droppedForwardRules
         if (tooMany > 0) parts += context.getString(R.string.settings_f_restore_too_many, tooMany)
         val forwards = preview.forwards

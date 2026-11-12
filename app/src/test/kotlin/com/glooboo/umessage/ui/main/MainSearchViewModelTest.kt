@@ -45,6 +45,23 @@ class MainSearchViewModelTest {
             listOf(result(query))
         }
         runNoteSearch = { emptyList() }
+        runBlockedSearch = { emptyList() }
+    }
+
+    /** main-22: blocked messages are searched with the notes and cleared with them. */
+    @Test
+    fun blockedMessagesAreFoundWithTheMessagesAndClearedWithThem() = runTest(dispatcher) {
+        val vm = viewModel().apply {
+            runBlockedSearch = { query ->
+                listOf(BlockedHit("+14155550133", "+1 415 555 0133", "free $query", "Mon", 2))
+            }
+        }
+        vm.onQueryChange("prize")
+        advanceUntilIdle()
+        assertThat(vm.state.blockedHits.map { it.snippet }).containsExactly("free prize")
+
+        vm.onQueryChange("p")
+        assertThat(vm.state.blockedHits).isEmpty()
     }
 
     @Test

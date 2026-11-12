@@ -85,6 +85,33 @@ class BlockedViewModelActionsTest {
         assertThat(events).hasSize(1)
     }
 
+    /** spamui-21: the Why-blocked dialog's button stores the allow rule and leaves every message where it is. */
+    @Test
+    fun alwaysAllowStoresTheRuleWithoutMovingMessagesAndUndoRemovesIt() {
+        vm.alwaysAllow(NUMBER)
+        awaitUntil { events.isNotEmpty() }
+        val event = events.single() as BlockedEvent.Restored
+        assertThat(event.count).isEqualTo(0)
+        assertThat(event.allowed).isEqualTo(1)
+        assertThat(allowRules().single().pattern).isEqualTo(NUMBER)
+        assertThat(allowRules().single().type).isEqualTo(RuleType.NUMBER)
+        assertThat(blocked()).hasSize(3)
+        assertThat(snack(event)).isEqualTo(app.resources.getQuantityString(R.plurals.spam_snack_allowed_only, 1, 1))
+
+        vm.undoRestore(event.token)
+        awaitUntil { allowRules().isEmpty() }
+        assertThat(blocked()).hasSize(3)
+        assertThat(rules().map { it.id }).contains(7L)
+    }
+
+    @Test
+    fun alwaysAllowForANameAnyoneCanFakeDoesNothing() {
+        vm.alwaysAllow(SENDER_ID)
+        idleMain()
+        assertThat(allowRules()).isEmpty()
+        assertThat(events).isEmpty()
+    }
+
     /** A name anyone can send under is never allowed: the messages move and no rule is made. */
     @Test
     fun aSpoofableSenderOnlyMoves() {

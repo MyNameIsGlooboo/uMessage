@@ -46,6 +46,10 @@ interface SpamDao {
     @Update
     fun updateRule(rule: SpamRuleEntity): Int
 
+    /** Counts one more message blocked by rule [id] (no row changes when the rule was deleted meanwhile). */
+    @Query("UPDATE spam_rules SET hitCount = hitCount + 1, lastHit = :at WHERE id = :id")
+    fun recordRuleHit(id: Long, at: Long): Int
+
     @Query("SELECT * FROM blocked_messages ORDER BY receivedAt DESC, id DESC")
     fun observeBlocked(): Flow<List<BlockedMessageEntity>>
 

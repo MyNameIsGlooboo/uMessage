@@ -59,6 +59,8 @@ class MainRoutes(private val activity: BaseSimpleActivity) {
         onSelectAll = viewModel::selectAll,
         onPin = viewModel::pinSelected,
         onMarkRead = viewModel::markSelectedRead,
+        onMarkAllRead = viewModel::markAllRead,
+        onUndoMarkAllRead = viewModel::undoMarkAllRead,
         onArchiveSelected = viewModel::archiveSelected,
         onDeleteSelected = viewModel::deleteSelected,
         onArchiveOne = viewModel::archiveOne,

@@ -95,6 +95,7 @@ import com.glooboo.umessage.messaging.ScheduledSendClaims
 import com.glooboo.umessage.messaging.MmsRetryResult
 import com.glooboo.umessage.messaging.SendOutcome
 import com.glooboo.umessage.messaging.downloadMms
+import com.glooboo.umessage.messaging.SmsFailureReason
 import com.glooboo.umessage.messaging.undownloadedMms
 import com.glooboo.umessage.messaging.isLongMmsMessage
 import com.glooboo.umessage.messaging.scheduledAttachmentTracker
@@ -1123,18 +1124,15 @@ open class ThreadActivity : ComposeSimpleActivity() {
     }
 
     private fun loadConversation(isFreshLaunch: Boolean) {
-        handlePermission(PERMISSION_READ_PHONE_STATE) { granted ->
-            if (granted) {
-                setupComposer(isFreshLaunch)
-                setupConversation()
-                setupCachedMessages {
-                    setupThread {
-                        takeSearchedMessage()?.let { jumpToMessage(it) }
-                        if (isFreshLaunch) applyLaunchHints()
-                    }
+        handlePermission(PERMISSION_READ_PHONE_STATE) { _ ->
+            // Thread-17: a denied permission only costs the SIM features (names, the SIM picker); the chat opens.
+            setupComposer(isFreshLaunch)
+            setupConversation()
+            setupCachedMessages {
+                setupThread {
+                    takeSearchedMessage()?.let { jumpToMessage(it) }
+                    if (isFreshLaunch) applyLaunchHints()
                 }
-            } else {
-                finish()
             }
         }
     }
@@ -1291,13 +1289,29 @@ open class ThreadActivity : ComposeSimpleActivity() {
     }
 
     @SuppressLint("MissingPermission")
+    /**
+     * Thread-27: the stored reasons of the failed texts. Read off the main thread; the main thread reuses the
+     * last read.
+     */
+    private fun failureCodes(): Map<Long, Int> {
+        if (messages.none { it.type == Telephony.Sms.MESSAGE_TYPE_FAILED && !it.isMMS }) return emptyMap()
+        if (Looper.myLooper() != Looper.getMainLooper()) lastFailureCodes = SmsFailureReason.failedCodes(this, threadId)
+        return lastFailureCodes
+    }
+
+    @Volatile
+    private var lastFailureCodes: Map<Long, Int> = emptyMap()
+
+    // READ_PHONE_STATE may be denied: the SIM read is guarded by runCatching (thread-17).
+    @android.annotation.SuppressLint("MissingPermission")
     private fun getThreadItems(): List<ThreadItem> {
         if (isFinishing) {
             return emptyList()
         }
 
         val simLabels = lookups.sims {
-            simHeaderLabels(subscriptionManagerCompat().activeSubscriptionInfoList, composerPrefs)
+            val activeSims = runCatching { subscriptionManagerCompat().activeSubscriptionInfoList }.getOrNull()
+            simHeaderLabels(activeSims, composerPrefs)
         }
         // TU-11: only mark messages read while the user can see them.
         // I26: decided once, from the provider's messages and before they are marked read.
@@ -1309,6 +1323,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
             messages, simLabels, seen = isSeenByUser(), deliveryReportsOn = config.enableDeliveryReports,
             firstUnreadId = vm.firstUnreadId, showTapbacks = w3cPrefs.showTapbacks,
             undownloadedMms = undownloadedMms(messages),
+            failureCodes = failureCodes(),
         )
         latestReactions = result.reactions
         if (!isCodeSender()) {

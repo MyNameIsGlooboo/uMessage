@@ -5,7 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.produceState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
@@ -20,6 +23,8 @@ import com.glooboo.umessage.ui.components.InfoDialog
 import com.glooboo.umessage.ui.components.hideCodesSetting
 import com.glooboo.umessage.ui.components.uiLocale
 import java.time.ZoneId
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * "Why blocked" for one message: the reason (a rule's chip names the rule and opens the rules, SU-22), the
@@ -32,6 +37,8 @@ internal fun WhyBlockedDialog(
     state: BlockedUiState,
     onOpenRules: () -> Unit,
     onDismiss: () -> Unit,
+    /** spamui-21: allows the sender for good; the button shows only while [AlwaysAllowPolicy] offers it. */
+    onAlwaysAllow: ((String) -> Unit)? = null,
 ) {
     val context = LocalContext.current
     val resources = LocalResources.current
@@ -50,7 +57,22 @@ internal fun WhyBlockedDialog(
     val purge = remember(message.receivedAt, state.purgeAfterDays, resources) {
         purgeLeftText(resources, message.receivedAt, System.currentTimeMillis(), state.purgeAfterDays)
     }
-    InfoDialog(onDismiss = onDismiss, title = stringResource(R.string.r3b_why_blocked)) {
+    // Phone-number matching: off the main thread. Until it answers the button is not shown.
+    val canAllow by produceState(false, message.address, state.rules, onAlwaysAllow) {
+        value = onAlwaysAllow != null &&
+            withContext(Dispatchers.Default) { AlwaysAllowPolicy.canOffer(state.rules.values, message.address) }
+    }
+    val allowButton: (@Composable () -> Unit)? = if (canAllow) {
+        {
+            TextButton(onClick = {
+                onAlwaysAllow?.invoke(message.address)
+                onDismiss()
+            }) { Text(stringResource(R.string.decm_always_allow)) }
+        }
+    } else {
+        null
+    }
+    InfoDialog(onDismiss = onDismiss, title = stringResource(R.string.r3b_why_blocked), dismissButton = allowButton) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             val openRules: (() -> Unit)? = if (message.reason == DecisionReason.BLOCK_RULE) {
                 fun() {

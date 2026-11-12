@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <!-- spam-22: the website (DOMAIN) rule type in the add-rule sheet and the Rules list. -->
+    <string name="rdec_match_domain">A website link</string>
+    <string name="rdec_row_type_domain">Link in message</string>
+    <string name="rdec_type_domain">Website</string>
+    <string name="rdec_value_domain">Website</string>
+    <string name="rdec_type_domain_help">Blocks every message that links to this website, including its subdomains such as www.example.com.</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">Enter a website name like example.com</string>
+
+    <!-- spam-23: how many messages a rule has blocked, and when it last did. -->
+    <plurals name="rdec_hits_blocked">
+        <item quantity="one">Blocked %d message</item>
+        <item quantity="other">Blocked %d messages</item>
+    </plurals>
+    <string name="rdec_hits_last">%1$s, last %2$s</string>
+    <string name="rdec_age_now">a moment ago</string>
+    <plurals name="rdec_age_minutes">
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="rdec_age_hours">
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
+    <plurals name="rdec_age_days">
+        <item quantity="one">%d day ago</item>
+        <item quantity="other">%d days ago</item>
+    </plurals>
+    <plurals name="rdec_age_months">
+        <item quantity="one">%d month ago</item>
+        <item quantity="other">%d months ago</item>
+    </plurals>
+    <plurals name="rdec_age_years">
+        <item quantity="one">%d year ago</item>
+        <item quantity="other">%d years ago</item>
+    </plurals>
+
+    <!-- main-23: sort option in the Rules menu. -->
+    <string name="rdec_sort_newest">Newest first</string>
+
+    <!-- spam-15: a blocked word or pattern blocks the whole sender. -->
+    <string name="rdec_sender_warning">Heads up: this blocks the whole sender, not just the message. If a bank or shop uses one number for both codes and ads, you will stop getting its real messages too. You can unblock a sender in the Spam screen.</string>
+    <string name="rdec_help_warning_head">Blocking a word blocks the sender</string>
+    <string name="rdec_note_blocked_from_keyword">Blocked from a keyword (the whole sender is blocked)</string>
+</resources>

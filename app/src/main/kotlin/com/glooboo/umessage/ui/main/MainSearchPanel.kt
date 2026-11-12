@@ -122,6 +122,8 @@ private fun SearchPanelBody(
     val contacts = rememberContactHits(query, filter, typed)
     // Notes are searched in all messages, so a tile that narrows the list leaves them out, like the contacts.
     val notes = search.shownNoteHits(typed)
+    // main-22: blocked messages are searched in all messages too; they are left out under a tile, like the notes.
+    val blocked = search.shownBlockedHits(typed)
     Column(Modifier.fillMaxSize()) {
         when {
             filter == InboxFilter.All && !typed -> SearchTilesPage(search, simTiles, recent, bottomPadding, actions)
@@ -132,17 +134,19 @@ private fun SearchPanelBody(
             listed.isEmpty() && tileOnly -> if (filter != InboxFilter.Sim || shortcut.loaded) {
                 SearchFilterEmpty(filter)
             }
-            noHits(listed, contacts, notes) -> SearchHint(stringResource(R.string.main_search_no_results))
+            noHits(listed, contacts, notes, blocked) -> SearchHint(stringResource(R.string.main_search_no_results))
             else -> ConversationResults(
                 all = listed,
                 contacts = contacts,
                 notes = notes,
+                blocked = blocked,
                 query = query,
                 labels = labels,
                 listState = listState,
                 bottomPadding = bottomPadding,
                 resetKey = listOf(filter, search.labelId, search.simId, query),
                 onOpen = actions.onOpen,
+                onOpenBlockedHit = actions.onOpenBlocked,
             )
         }
     }
@@ -197,19 +201,23 @@ private fun ConversationResults(
     all: List<ConversationHitRow>,
     contacts: List<ContactHit>,
     notes: List<NoteHit>,
+    blocked: List<BlockedHit>,
     query: String,
     labels: Map<Long, List<RowLabel>>,
     listState: LazyListState,
     bottomPadding: PaddingValues,
     resetKey: Any,
     onOpen: (SearchResult) -> Unit,
+    onOpenBlockedHit: (String) -> Unit,
 ) {
     var conversationsShown by remember(resetKey) { mutableIntStateOf(SECTION_PREVIEW) }
     var contactsShown by remember(resetKey) { mutableIntStateOf(SECTION_PREVIEW) }
     var notesShown by remember(resetKey) { mutableIntStateOf(SECTION_PREVIEW) }
+    var blockedShown by remember(resetKey) { mutableIntStateOf(SECTION_PREVIEW) }
     val conversationPage = remember(all, conversationsShown) { resultPage(all, conversationsShown) }
     val contactPage = remember(contacts, contactsShown) { resultPage(contacts, contactsShown) }
     val notePage = remember(notes, notesShown) { resultPage(notes, notesShown) }
+    val blockedPage = remember(blocked, blockedShown) { resultPage(blocked, blockedShown) }
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val openContact = { hit: ContactHit ->
@@ -233,12 +241,14 @@ private fun ConversationResults(
     val conversationsTitle = stringResource(R.string.search_section_conversations)
     val contactsTitle = stringResource(R.string.search_section_contacts)
     val notesTitle = stringResource(R.string.notes_section)
+    val blockedTitle = stringResource(R.string.decm_search_section_blocked)
     LazyColumn(state = listState, modifier = Modifier.fillMaxSize(), contentPadding = bottomPadding) {
         conversationSection(
             conversationPage, query, labels, { conversationsShown = Int.MAX_VALUE }, onOpen, conversationsTitle,
         )
         contactSection(contactPage, query, { contactsShown = Int.MAX_VALUE }, openContact, contactsTitle)
         noteSection(notePage, query, { notesShown = Int.MAX_VALUE }, onOpen, notesTitle)
+        blockedSection(blockedPage, query, { blockedShown = Int.MAX_VALUE }, onOpenBlockedHit, blockedTitle)
     }
 }
 

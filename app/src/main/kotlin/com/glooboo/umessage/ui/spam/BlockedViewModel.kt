@@ -70,6 +70,8 @@ data class BlockedUiState(
     val purgeAfterDays: Int = 30,
     /** The chip chosen under the banner (ID-14); [groups] only holds what it lets through. */
     val filter: BlockedFilter = BlockedFilter.All,
+    /** The text typed in the search box (spamui-20); [groups] only holds the senders that answer it. */
+    val query: String = "",
     /** How many senders each chip would list, over all held messages (rows, not messages). */
     val filterCounts: Map<BlockedFilter, Int> = emptyMap(),
     /** All held messages, whatever the filter: zero means the tab is truly empty. */
@@ -138,6 +140,9 @@ class BlockedViewModel(
     private val senderKeys = SenderKeys.forDevice(application)
     private val selected = MutableStateFlow<Set<String>>(emptySet())
     private val sims = MutableStateFlow<List<SimInfo>>(emptyList())
+
+    /** The search box's text (spamui-20). Kept while the screen is alive, not stored; the thread ignores it. */
+    private val query = MutableStateFlow("")
 
     /** The chip selection survives leaving the screen; a failing preferences read just means "All". */
     private val filter = MutableStateFlow(
@@ -247,8 +252,8 @@ class BlockedViewModel(
                 any = deletes.isNotEmpty() || restores.isNotEmpty(),
             )
         },
-        combine(selected, sims) { s, i -> s to i },
-    ) { blocked, stats, aux, pending, (sel, simList) ->
+        combine(selected, sims, query) { s, i, q -> Triple(s, i, q) },
+    ) { blocked, stats, aux, pending, (sel, simList, typed) ->
         val hidden = pending.ids.toSet()
         val held = blocked.filter { it.id !in hidden }
         // A SIM chip is only offered with two SIMs; a stored SIM choice that is gone falls back to All.
@@ -259,12 +264,14 @@ class BlockedViewModel(
             chosen is BlockedFilter.Sim && chosen.subscriptionId !in simIds -> BlockedFilter.All
             else -> chosen
         }
-        val groups = groupBySender(BlockedFilters.apply(active, held), senderKeys::keyOf)
+        val found = groupBySender(BlockedFilters.apply(active, held), senderKeys::keyOf)
+        val groups = if (ignoreFilter) found else BlockedFilters.searchGroups(found, typed)
         val keys = groups.map { it.address }.toSet()
         BlockedUiState(
             loading = false,
             groups = groups,
             filter = active,
+            query = if (ignoreFilter) "" else typed,
             filterCounts = BlockedFilters.counts(held, simIds, senderKeys::keyOf),
             heldCount = held.size,
             stats = stats,
@@ -314,6 +321,12 @@ class BlockedViewModel(
             runCatching { repository.updateSettings { it.copy(mode = previous) } }
                 .onFailure { events.trySend(BlockedEvent.Failed) }
         }
+    }
+
+    /** The search box changed (spamui-20): the list keeps the senders whose messages or number hold [text]. */
+    fun setQuery(text: String) {
+        if (ignoreFilter || query.value == text) return
+        query.value = text
     }
 
     /** Picks a chip under the banner (ID-14) and remembers it. */
@@ -413,6 +426,37 @@ class BlockedViewModel(
                     }
                     announceIfReady(token)
                 }
+            }
+        }
+    }
+
+    /**
+     * "Always allow" of the Why-blocked dialog (spamui-21): stores an allow rule for [address] through the same call
+     * "Not spam" uses (the sender's own block rules go, as they would be dead weight), without moving any message.
+     * The snackbar is the allow-only line of [BlockedEvent.Restored], and its Undo removes the rule again.
+     */
+    fun alwaysAllow(address: String) {
+        if (SenderBlocking.isSpoofable(address)) return
+        val token = nextToken++
+        viewModelScope.launch {
+            withContext(NonCancellable) {
+                restoreWork.withLock {
+                    val change = runCatching { SenderBlocking.alwaysAllow(repository, listOf(address)) }.getOrNull()
+                    if (change == null) {
+                        events.trySend(BlockedEvent.Failed)
+                    } else {
+                        val pending = PendingRestore(
+                            ids = emptyList(), addresses = listOf(address), allowAddresses = listOf(address),
+                            receipts = emptyMap(), allowChange = change, announced = true,
+                        )
+                        pendingRestores.update { it + (token to pending) }
+                        events.trySend(pending.event(token))
+                    }
+                }
+            }
+            if (pendingRestores.value.containsKey(token)) {
+                delay(UNDO_WINDOW_MS)
+                commitRestore(token)
             }
         }
     }

@@ -322,6 +322,48 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
+    /** main-21: the threads each "Mark all read" changed, by token, so Undo restores exactly those. */
+    private val markedAllRead = HashMap<Long, List<Long>>()
+
+    /**
+     * Marks every unread chat in the list read (chats concealed behind the app lock and chats pending delete or
+     * archive are not in the list, so they are left alone). Offers Undo, which makes only these chats unread again.
+     */
+    fun markAllRead() {
+        val concealed = HiddenChats.get(app).hiddenIds()
+        val targets = unreadThreadsToMarkRead(source, hidden + concealed)
+        if (targets.isEmpty()) return
+        val ids = targets.toHashSet()
+        val token = nextToken++
+        markedAllRead[token] = targets
+        source = source.map { c -> if (c.threadId in ids) c.copy(read = true, unreadCount = 0) else c }
+        requestRebuild()
+        viewModelScope.launch(Dispatchers.IO) {
+            val failed = runCatching { targets.forEach { app.markThreadMessagesRead(it) } }.isFailure
+            withContext(Dispatchers.Main) {
+                if (failed) {
+                    markedAllRead.remove(token)
+                    _events.trySend(ConversationsEvent.Failed)
+                } else {
+                    _events.trySend(ConversationsEvent.MarkedAllRead(token, targets.size))
+                }
+            }
+            refreshConversations()
+        }
+    }
+
+    /** Undo of [markAllRead]: only the chats it changed become unread again. */
+    fun undoMarkAllRead(token: Long) {
+        val ids = markedAllRead.remove(token) ?: return
+        val set = ids.toHashSet()
+        source = source.map { c -> if (c.threadId in set) c.copy(read = false) else c }
+        requestRebuild()
+        viewModelScope.launch(Dispatchers.IO) {
+            ids.forEach { runCatching { app.markThreadMessagesUnread(it) } }
+            refreshConversations()
+        }
+    }
+
     fun archiveSelected() = archive(selected.toList())
 
     fun archiveOne(threadId: Long) = archive(listOf(threadId))
@@ -803,6 +845,10 @@ internal fun conversationPreview(snippet: String?, draft: String?, noTextLabel: 
 }
 
 /** CL-32: of the threads being archived, the ones that are unread now and get marked read by the archive. */
+/** main-21: the unread chats "Mark all read" changes: every unread one except those in [excluded]. */
+internal fun unreadThreadsToMarkRead(conversations: List<Conversation>, excluded: Set<Long>): List<Long> =
+    conversations.filter { !it.read && it.threadId !in excluded }.map { it.threadId }
+
 internal fun threadsToMarkRead(conversations: List<Conversation>, archiving: List<Long>): List<Long> {
     val ids = archiving.toHashSet()
     return conversations.filter { it.threadId in ids && !it.read }.map { it.threadId }

@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
@@ -30,6 +31,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
@@ -47,6 +49,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalResources
@@ -106,6 +111,7 @@ fun BlockedRoute(onBack: (() -> Unit)?, onOpenRules: () -> Unit, onOpenSettings:
             onDelete = viewModel::delete,
             onDeleteAll = viewModel::deleteAll,
             onSetFilter = viewModel::setFilter,
+            onSetQuery = viewModel::setQuery,
             onReportSpam = { selected -> scope.launch { reportToCarrier(context, groups, selected, snackbar) } },
         )
     }
@@ -243,11 +249,14 @@ fun BlockedScreen(
     var confirmDeleteAll by rememberSaveable { mutableStateOf(false) }
     var restoredOpen by rememberSaveable { mutableStateOf(false) }
     var confirmReport by rememberSaveable { mutableStateOf(false) }
+    // The search box is open while it holds text (it comes back after a rotation or a visit to a thread).
+    var searching by rememberSaveable { mutableStateOf(state.query.isNotEmpty()) }
     BackHandler(enabled = state.selecting, onBack = actions.onClearSelection)
     UMessageScaffold(
         topBar = {
             BlockedTopBar(
                 state, actions,
+                onSearch = { searching = true },
                 onDeleteAll = { confirmDeleteAll = true },
                 onReport = { confirmReport = true },
                 onOpenRestoredLog = { restoredOpen = true },
@@ -267,6 +276,11 @@ fun BlockedScreen(
             BlockedList(
                 state = state,
                 actions = actions,
+                searching = searching,
+                onCloseSearch = {
+                    searching = false
+                    actions.onSetQuery("")
+                },
                 modifier = Modifier.padding(top = inner.calculateTopPadding()),
                 bottomInset = inner.calculateBottomPadding(),
             )
@@ -309,6 +323,7 @@ private fun BlockedTopBar(
     state: BlockedUiState,
     actions: BlockedActions,
     onDeleteAll: () -> Unit,
+    onSearch: () -> Unit = {},
     onReport: () -> Unit = {},
     onOpenRestoredLog: () -> Unit = {},
 ) {
@@ -338,6 +353,11 @@ private fun BlockedTopBar(
     } else {
         var menuOpen by remember { mutableStateOf(false) }
         UMessageTopBar(title = stringResource(R.string.blocked_title), onBack = actions.onBack) {
+            if (state.heldCount > 0) {
+                IconButton(onClick = onSearch) {
+                    Icon(Symbols.Search, contentDescription = stringResource(R.string.decm_blocked_search))
+                }
+            }
             Box {
                 IconButton(onClick = { menuOpen = true }) {
                     Icon(Symbols.MoreVert, contentDescription = stringResource(R.string.spam_more_options))
@@ -381,6 +401,8 @@ private fun BlockedTopBar(
 private fun BlockedList(
     state: BlockedUiState,
     actions: BlockedActions,
+    searching: Boolean,
+    onCloseSearch: () -> Unit,
     modifier: Modifier = Modifier,
     bottomInset: Dp = 0.dp,
 ) {
@@ -393,6 +415,9 @@ private fun BlockedList(
         item(key = "stats") {
             BlockedLine(state.stats, state.mode, onOpenSettings = actions.onOpenSettings)
         }
+        if (state.heldCount > 0 && searching) {
+            item(key = "search") { BlockedSearchField(state.query, actions.onSetQuery, onCloseSearch) }
+        }
         if (state.heldCount > 0) {
             item(key = "tip") { BlockedTip() }
             if (BlockedFilters.rowShown(state.filter, state.filterCounts)) {
@@ -402,6 +427,13 @@ private fun BlockedList(
         when {
             // Nothing held: say what uMessage is doing, so a fresh install does not look switched off (ID-17).
             state.heldCount == 0 -> item(key = "empty") { BlockedEmpty(state.mode) }
+            state.groups.isEmpty() && state.query.isNotBlank() -> item(key = "search-empty") {
+                EmptyState(
+                    iconRes = R.drawable.ic_spam_shield,
+                    title = stringResource(R.string.decm_blocked_search_none_title),
+                    body = stringResource(R.string.decm_blocked_search_none_body),
+                )
+            }
             state.groups.isEmpty() -> item(key = "filter-empty") { FilterEmpty(actions) }
             else -> items(state.groups, key = { it.address }) { group ->
                 BlockedSenderRow(
@@ -421,6 +453,28 @@ private fun BlockedList(
             }
         }
     }
+}
+
+/** spamui-20: the search box over the sender rows; the close button clears the text and hides the box. */
+@Composable
+private fun BlockedSearchField(query: String, onQuery: (String) -> Unit, onClose: () -> Unit) {
+    val focus = remember { FocusRequester() }
+    LaunchedEffect(Unit) { runCatching { focus.requestFocus() } }
+    OutlinedTextField(
+        value = query,
+        onValueChange = onQuery,
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp).focusRequester(focus),
+        singleLine = true,
+        placeholder = { Text(stringResource(R.string.decm_blocked_search_hint)) },
+        leadingIcon = { Icon(Symbols.Search, contentDescription = null) },
+        trailingIcon = {
+            IconButton(onClick = onClose) {
+                Icon(Symbols.Close, contentDescription = stringResource(R.string.decm_blocked_search_close))
+            }
+        },
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        shape = RoundedCornerShape(28.dp),
+    )
 }
 
 /** Text only (U48): the line above has the mode, and it opens the settings. */

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_failed_reason_generic">گوشی خطای کلی گزارش کرد (کد %1$d)</string>
+</resources>

@@ -101,8 +101,8 @@ class BlockedViewModelReview2Test {
     fun undoOfReleaseOnceBringsTheMessageBackAndUnlistsIt() {
         vm.releaseOnce(1)
         awaitUntil { events.isNotEmpty() }
+        awaitUntil { vm.state.value.restored.size == 1 }
         assertThat(blocked().none { it.id == 1L }).isTrue()
-        assertThat(vm.state.value.restored).hasSize(1)
 
         vm.undoRestore((events.single() as BlockedEvent.Restored).token)
         awaitUntil { LONE in vm.state.value.groups.map { it.address } }

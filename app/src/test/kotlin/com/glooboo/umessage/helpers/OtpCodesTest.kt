@@ -143,6 +143,30 @@ class OtpCodesTest {
     }
 
     @Test
+    fun anAlphanumericCodeNextToAKeywordIsCopiedAndMasked() {
+        val body = "Your code is ab12cd"
+        assertThat(OtpCodes.looksLikeCode(body)).isTrue()
+        assertThat(OtpCodes.primary(body)).isEqualTo(CodeToken(CodeKind.Code, "ab12cd"))
+        assertThat(OtpCodeExtractor.extract(body)).isEqualTo("ab12cd")
+        assertThat(detectCopyTokens(body)).containsExactly(CopyToken(CopyKind.Code, "ab12cd"))
+        assertThat(CodeMasker.mask(body)).isEqualTo("Your code is ••••")
+        assertThat(CodeMasker.maskForForward(body)).isEqualTo("Your code is ****")
+    }
+
+    @Test
+    fun anAlphanumericCodeIsOnlyOfferedWithAKeywordInItsSentence() {
+        assertThat(OtpCodes.tokens("Your order ab12cd has shipped")).isEmpty()
+        assertThat(OtpCodes.tokens("Order a1b2c3. Verify your email address in the app")).isEmpty()
+        assertThat(OtpCodes.looksLikeCode("Promo code ab12cd")).isFalse()
+    }
+
+    @Test
+    fun aDigitCodeAndAnAlphanumericOneInOneMessageAreBothOffered() {
+        val tokens = OtpCodes.tokens("Use 333333 to log in. Your OTP is ab12cd")
+        assertThat(tokens.map { it.value }).containsExactly("333333", "ab12cd").inOrder()
+    }
+
+    @Test
     fun aNumberWithoutAKeywordNextToItIsNoSecondCode() {
         assertThat(OtpCodes.tokens("Your OTP is 4821. Ref 998877 for support").map { it.value })
             .containsExactly("4821")

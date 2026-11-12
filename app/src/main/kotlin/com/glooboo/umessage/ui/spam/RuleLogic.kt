@@ -9,6 +9,7 @@ import com.glooboo.umessage.spam.RegexProblem
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.TextNormalizer
+import com.glooboo.umessage.spam.engine.DomainMatch
 
 enum class RuleError {
     EMPTY, NUMBER, PREFIX, SENDER_ID, KEYWORD_SHORT, TOO_LONG, MULTILINE, REGEX_INVALID, REGEX_MATCHES_EMPTY, DUPLICATE,
@@ -21,6 +22,9 @@ enum class RuleError {
 
     /** An allowed keyword skips every block, so very short ones are refused. */
     ALLOW_KEYWORD_SHORT,
+
+    /** Not a website name like `example.com`. */
+    DOMAIN,
 }
 
 /** Things worth a second look before saving. Each one asks the user to confirm. */
@@ -133,8 +137,33 @@ object RuleValidator {
             RuleType.KEYWORD -> validateKeyword(kind, trimmed)
             // Regex is not trimmed on purpose beyond the outer whitespace check above: inner spaces are meaningful.
             RuleType.REGEX -> validateRegex(trimmed)
+            RuleType.DOMAIN -> validateDomain(trimmed)
         }
     }
+
+    private const val MAX_DOMAIN = 253
+    private const val MAX_DOMAIN_LABEL = 63
+    private val domainName =
+        Regex("[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*\\.[a-z]{2,24}")
+
+    /**
+     * A website: cleaned exactly as the filter cleans a DOMAIN rule ([DomainMatch.clean]: scheme, path, port, a leading
+     * "*." or "." and a trailing dot go), then it must be dotted ASCII names ending in letters. What is stored is the
+     * cleaned name, so "https://Example.com/shop" becomes "example.com".
+     */
+    private fun validateDomain(value: String): RuleValidation {
+        val cleaned = DomainMatch.clean(value)
+        val ok = cleaned.length <= MAX_DOMAIN && domainName.matches(cleaned) &&
+            cleaned.split('.').all { it.length <= MAX_DOMAIN_LABEL }
+        return if (ok) RuleValidation.Valid(cleaned) else RuleValidation.Invalid(RuleError.DOMAIN)
+    }
+
+    /**
+     * spam-15: a block rule on words in the message (a keyword or a pattern) also blocks the message's sender, so the
+     * form says so. Allow rules and the other types do not do that.
+     */
+    fun blocksSender(kind: ListKind, type: RuleType): Boolean =
+        kind == ListKind.BLOCK && (type == RuleType.KEYWORD || type == RuleType.REGEX)
 
     /**
      * A sender name: letters of any script, digits, spaces, dots, dashes, underscores and "&", with at least one
@@ -175,7 +204,7 @@ object RuleValidator {
      */
     fun warnings(kind: ListKind, type: RuleType, pattern: String, existing: List<SpamRule>, subscriptionId: Int?): List<RuleWarning> {
         val result = mutableListOf<RuleWarning>()
-        val text = type == RuleType.KEYWORD || type == RuleType.REGEX
+        val text = type == RuleType.KEYWORD || type == RuleType.REGEX || type == RuleType.DOMAIN
         if (kind == ListKind.ALLOW && text) result += RuleWarning.ALLOW_SKIPS_BLOCKS
         if (kind == ListKind.ALLOW && type == RuleType.KEYWORD && isCommonWord(KeywordMatch.bare(pattern))) {
             result += RuleWarning.COMMON_WORD

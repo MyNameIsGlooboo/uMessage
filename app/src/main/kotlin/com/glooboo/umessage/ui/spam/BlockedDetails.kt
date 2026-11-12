@@ -29,6 +29,7 @@ fun ruleReasonText(resources: Resources, message: BlockedMessage, rules: Map<Lon
         RuleType.NUMBER -> R.string.spam_reason_rule_number
         RuleType.PREFIX -> R.string.spam_reason_rule_prefix
         RuleType.SENDER_ID -> R.string.spam_reason_rule_sender
+        RuleType.DOMAIN -> R.string.spam_reason_rule_domain
     }
     return resources.getString(res, text)
 }

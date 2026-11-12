@@ -1,6 +1,7 @@
 package com.glooboo.umessage.helpers
 
 import android.content.Context
+import android.provider.Telephony
 import android.util.Xml
 import com.glooboo.umessage.backup.AppDataBackupSupport
 import com.glooboo.umessage.backup.BlockedBackupSupport
@@ -8,7 +9,9 @@ import com.glooboo.umessage.models.AppDataBackup
 import com.glooboo.umessage.models.BlockedBackup
 import com.glooboo.umessage.models.ImportSummary
 import com.glooboo.umessage.models.MessagesBackup
+import com.glooboo.umessage.models.MmsAddress
 import com.glooboo.umessage.models.MmsBackup
+import com.glooboo.umessage.models.MmsPart
 import com.glooboo.umessage.models.NotesBackup
 import com.glooboo.umessage.models.SmsBackup
 import com.glooboo.umessage.models.WriteOutcome
@@ -19,6 +22,7 @@ import kotlinx.serialization.json.DecodeSequenceMode
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeToSequence
+import com.google.android.mms.pdu_alt.PduHeaders
 import org.fossify.commons.helpers.isUpsideDownCakePlus
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
@@ -31,7 +35,7 @@ import java.io.InputStream
  * size can be restored. Two formats are understood, told apart by their first character:
  *
  * - this app's JSON (an array of SMS and MMS entries, also written by Fossify Messages);
- * - the XML of "SMS Backup & Restore" (its SMS only; its picture messages are counted and reported, not restored).
+ * - the XML of "SMS Backup & Restore" (its SMS and its picture messages, attachments up to a size limit).
  *
  * Every entry ends up in one bucket of the returned [ImportSummary]. A damaged entry is skipped and counted, and the
  * restore goes on; a file that stops making sense part way keeps everything before that point and says so. Nothing
@@ -39,6 +43,7 @@ import java.io.InputStream
  *
  * Restoring is idempotent (see [MessagesWriter]), so running the same file again only adds what is missing.
  */
+@Suppress("TooManyFunctions")
 class MessagesImporter(
     private val context: Context,
     private val writer: MessagesWriter = MessagesWriter(context),
@@ -237,7 +242,21 @@ class MessagesImporter(
 
                     "mms" -> {
                         summary.entriesRead++
-                        if (options.mms) summary.unsupportedMms++ else summary.skippedByChoice++
+                        if (options.mms) {
+                            val mms = try {
+                                parser.readMms()
+                            } catch (e: XmlPullParserException) {
+                                throw e
+                            } catch (e: java.io.IOException) {
+                                throw e
+                            } catch (_: Exception) {
+                                summary.damaged++
+                                null
+                            }
+                            if (mms != null) restore(mms, options, summary)
+                        } else {
+                            summary.skippedByChoice++
+                        }
                         parser.skipToEnd()
                     }
 
@@ -275,6 +294,121 @@ class MessagesImporter(
         )
     }
 
+    /**
+     * A picture message of the XML: the attributes of `<mms>` and its `<part>` and `<addr>` children, read through to
+     * the end tag of the element. Parts and addresses beyond the limits, and an attachment larger than
+     * [MAX_PART_BASE64], are left out (the writer then reports the message as restored without that attachment).
+     * Throws when the date or the box is missing.
+     */
+    private fun XmlPullParser.readMms(): MmsBackup {
+        val attrs = HashMap<String, String>()
+        for (i in 0 until attributeCount) {
+            val value = getAttributeValue(i)
+            if (value != "null") attrs[getAttributeName(i)] = value
+        }
+        val date = requireNotNull(attrs["date"]?.toLongOrNull()) { "no date" }
+        val box = requireNotNull(attrs["msg_box"]?.toIntOrNull()) { "no box" }
+        val parts = mutableListOf<MmsPart>()
+        val addresses = mutableListOf<MmsAddress>()
+        readMmsChildren(parts, addresses)
+        // Files without <addrs> only give address="a~b": the first number sent a received message.
+        if (addresses.isEmpty()) addresses += addressesFromAttribute(attrs["address"], box)
+        return mmsFrom(attrs, date, box, parts, addresses)
+    }
+
+    /** Reads the `<part>` and `<addr>` children up to the end tag of the `<mms>` element. */
+    private fun XmlPullParser.readMmsChildren(parts: MutableList<MmsPart>, addresses: MutableList<MmsAddress>) {
+        var depth = 1
+        while (depth != 0) {
+            when (next()) {
+                XmlPullParser.START_TAG -> {
+                    depth++
+                    readMmsChild(parts, addresses)
+                }
+                XmlPullParser.END_TAG -> depth--
+                XmlPullParser.END_DOCUMENT -> throw XmlPullParserException("file ends inside an element")
+            }
+        }
+    }
+
+    private fun XmlPullParser.readMmsChild(parts: MutableList<MmsPart>, addresses: MutableList<MmsAddress>) {
+        when (name) {
+            "part" -> readPart(parts.size)?.takeIf { parts.size < MAX_PARTS }?.let { parts += it }
+            "addr" -> readAddress()?.takeIf { addresses.size < MAX_ADDRESSES }?.let { addresses += it }
+        }
+    }
+
+    private fun addressesFromAttribute(attribute: String?, box: Int): List<MmsAddress> {
+        val numbers = attribute.orEmpty().split('~').map { it.trim() }
+            .filter { it.isNotEmpty() && it.length <= MAX_ADDRESS }.take(MAX_ADDRESSES)
+        return numbers.mapIndexed { i, number ->
+            val received = box == Telephony.Mms.MESSAGE_BOX_INBOX
+            val addressType = if (received && i == 0) PduHeaders.FROM else PduHeaders.TO
+            MmsAddress(number, addressType, UTF8_CHARSET)
+        }
+    }
+
+    /** The provider keeps MMS times in seconds; SMS Backup & Restore writes them in milliseconds. */
+    private fun seconds(time: Long) = if (time >= MILLIS_FROM) time / MILLIS_PER_SECOND else time
+
+    private fun mmsFrom(
+        attrs: Map<String, String>, date: Long, box: Int, parts: List<MmsPart>, addresses: List<MmsAddress>,
+    ): MmsBackup {
+        val received = box == Telephony.Mms.MESSAGE_BOX_INBOX
+        fun int(name: String, default: Int) = attrs[name]?.toIntOrNull() ?: default
+        return MmsBackup(
+            creator = null,
+            contentType = attrs["ct_t"] ?: "application/vnd.wap.multipart.related",
+            deliveryReport = int("d_rpt", 0),
+            date = seconds(date),
+            dateSent = seconds(attrs["date_sent"]?.toLongOrNull() ?: 0),
+            locked = int("locked", 0),
+            messageType = int(
+                "m_type", if (received) PduHeaders.MESSAGE_TYPE_RETRIEVE_CONF else PduHeaders.MESSAGE_TYPE_SEND_REQ,
+            ),
+            messageBox = box,
+            read = int("read", 1),
+            readReport = int("rr", 0),
+            seen = int("seen", 1),
+            textOnly = int("text_only", if (parts.none { it.isNonText() }) 1 else 0),
+            status = attrs["st"],
+            subject = attrs["sub"],
+            subjectCharSet = attrs["sub_cs"],
+            // Another phone's SIM ids mean nothing here.
+            subscriptionId = -1,
+            transactionId = attrs["tr_id"],
+            addresses = addresses,
+            parts = parts,
+        )
+    }
+
+    private fun XmlPullParser.readPart(index: Int): MmsPart? {
+        fun attr(name: String): String? = getAttributeValue(null, name)?.takeUnless { it == "null" }
+        val type = attr("ct")?.takeIf { it.isNotBlank() } ?: return null
+        return MmsPart(
+            contentDisposition = attr("cd"),
+            charset = attr("chset"),
+            contentId = attr("cid"),
+            contentLocation = attr("cl"),
+            contentType = type,
+            ctStart = attr("ctt_s"),
+            ctType = attr("ctt_t"),
+            filename = attr("fn"),
+            name = attr("name"),
+            sequenceOrder = attr("seq")?.toIntOrNull() ?: index,
+            text = attr("text"),
+            // An attachment over the size limit is left out, so the message is restored without it.
+            data = attr("data")?.takeIf { it.length <= MAX_PART_BASE64 },
+        )
+    }
+
+    private fun XmlPullParser.readAddress(): MmsAddress? {
+        fun attr(name: String): String? = getAttributeValue(null, name)?.takeUnless { it == "null" }
+        val address = attr("address")?.trim()?.takeIf { it.isNotEmpty() && it.length <= MAX_ADDRESS } ?: return null
+        val type = attr("type")?.toIntOrNull() ?: return null
+        return MmsAddress(address, type, attr("charset")?.toIntOrNull() ?: UTF8_CHARSET)
+    }
+
     /** Moves past the end of the element the parser is on, whatever it contains. */
     private fun XmlPullParser.skipToEnd() {
         if (eventType != XmlPullParser.START_TAG) return
@@ -303,6 +437,17 @@ class MessagesImporter(
         const val BUFFER = 64 * 1024
         const val PEEK_LIMIT = 64
         const val PROGRESS_EVERY = 25
+
+        /** Limits of one XML picture message, so a hostile file cannot fill the phone or the memory. */
+        const val MAX_PARTS = 100
+        const val MAX_ADDRESSES = 100
+        const val MAX_ADDRESS = 100
+        const val UTF8_CHARSET = 106
+        const val MILLIS_FROM = 100_000_000_000L
+        const val MILLIS_PER_SECOND = 1000L
+
+        /** Longest base64 text of one attachment read: about 14 MB of attachment. */
+        const val MAX_PART_BASE64 = 19_000_000
     }
 }
 

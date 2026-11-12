@@ -607,4 +607,78 @@ class DefaultSpamFilterTest {
         assertAllow(DecisionReason.MODE_OFF, f.evaluate(msg(body = body)))
         assertBlock(DecisionReason.BLOCK_RULE, 14, f.evaluate(msg(body = "tail-marker")))
     }
+
+    // spam-6: a saved contact is not held by keyword, regex, prefix or domain block rules; exact blocks still apply.
+
+    private val contactNumber = "+919876543210"
+
+    @Test fun aContactIsNotBlockedByAKeywordRule() {
+        val f = filter(
+            rules = listOf(rule(ListKind.BLOCK, RuleType.KEYWORD, "hello", id = 3)),
+            contacts = setOf(contactNumber),
+        )
+        assertAllow(DecisionReason.CONTACT, f.evaluate(msg()))
+    }
+
+    @Test fun aContactIsNotBlockedByRegexPrefixOrDomainRules() {
+        val rules = listOf(
+            rule(ListKind.BLOCK, RuleType.REGEX, "hel+o", id = 1),
+            rule(ListKind.BLOCK, RuleType.PREFIX, "+9198", id = 2),
+            rule(ListKind.BLOCK, RuleType.DOMAIN, "example.com", id = 3),
+        )
+        val f = filter(rules = rules, contacts = setOf(contactNumber))
+        assertAllow(DecisionReason.CONTACT, f.evaluate(msg(body = "hello see www.example.com")))
+    }
+
+    @Test fun aContactIsStillBlockedByItsExactNumber() {
+        val f = filter(
+            rules = listOf(rule(ListKind.BLOCK, RuleType.NUMBER, contactNumber, id = 4)),
+            contacts = setOf(contactNumber),
+        )
+        assertBlock(DecisionReason.BLOCK_RULE, 4, f.evaluate(msg()))
+    }
+
+    @Test fun aLaterRuleStillBlocksAContactByNumberWhenAKeywordRuleWasSkipped() {
+        val rules = listOf(
+            rule(ListKind.BLOCK, RuleType.KEYWORD, "hello", id = 1),
+            rule(ListKind.BLOCK, RuleType.NUMBER, contactNumber, id = 2),
+        )
+        val f = filter(rules = rules, contacts = setOf(contactNumber))
+        assertBlock(DecisionReason.BLOCK_RULE, 2, f.evaluate(msg()))
+    }
+
+    @Test fun aNonContactIsStillBlockedByPatternRules() {
+        val rules = listOf(
+            rule(ListKind.BLOCK, RuleType.PREFIX, "+9198", id = 2),
+            rule(ListKind.BLOCK, RuleType.KEYWORD, "hello", id = 3),
+        )
+        assertBlock(DecisionReason.BLOCK_RULE, 2, filter(rules = rules).evaluate(msg()))
+        assertBlock(DecisionReason.BLOCK_RULE, 3, filter(rules = rules.drop(1)).evaluate(msg()))
+    }
+
+    @Test fun aSenderIdIsBlockedByKeywordRulesAsBefore() {
+        val f = filter(
+            rules = listOf(rule(ListKind.BLOCK, RuleType.KEYWORD, "hello", id = 3)),
+            contacts = setOf(contactNumber),
+        )
+        assertBlock(DecisionReason.BLOCK_RULE, 3, f.evaluate(msg(address = "VM-SHOP")))
+    }
+
+    @Test fun aContactIsNotBlockedByALegacyKeywordButAStrangerIs() {
+        val legacy = FakeLegacy(keywords = listOf("hello"))
+        assertAllow(DecisionReason.CONTACT, filter(contacts = setOf(contactNumber), legacy = legacy).evaluate(msg()))
+        assertBlock(DecisionReason.BLOCK_RULE, null, filter(legacy = legacy).evaluate(msg()))
+    }
+
+    @Test fun aContactIsStillBlockedByALegacyBlockedNumber() {
+        val legacy = FakeLegacy(blockedNumbers = setOf(contactNumber))
+        val f = filter(contacts = setOf(contactNumber), legacy = legacy)
+        assertBlock(DecisionReason.BLOCK_RULE, null, f.evaluate(msg()))
+    }
+
+    @Test fun aDomainBlockRuleBlocksAMessageWithThatLinkAndNamesTheRule() {
+        val f = filter(rules = listOf(rule(ListKind.BLOCK, RuleType.DOMAIN, "example.com", id = 9)))
+        assertBlock(DecisionReason.BLOCK_RULE, 9, f.evaluate(msg(body = "win at http://promo.example.com/x")))
+        assertAllow(DecisionReason.MODE_OFF, f.evaluate(msg(body = "win at example.org")))
+    }
 }

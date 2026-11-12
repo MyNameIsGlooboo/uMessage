@@ -90,6 +90,47 @@ class OtpDetectorTest {
         assertFalse(otp("Meet at 1830"))
     }
 
+    @Test fun alphanumericCodesNextToAKeywordAreCodes() {
+        assertTrue(otp("Your code is ab12cd"))
+        assertTrue(otp("Your verification code is X7K2M9"))
+        assertTrue(otp("ab12cd is your login code"))
+        assertTrue(otp("Use 12ab34 to verify your account"))
+        assertTrue(otp("Your OTP is a1b2c3"))
+        assertTrue(otp("Your code is ab12cd. It expires in 5 minutes"))
+        assertTrue(otp("رمز ورود: ab12cd"))
+    }
+
+    @Test fun alphanumericTokensWithoutAKeywordAreNotCodes() {
+        assertFalse(otp("ab12cd"))
+        assertFalse(otp("Your order ab12cd has shipped"))
+        assertFalse(otp("Meet me at gate a1b2c3"))
+        assertFalse(otp("Tracking id: 1z2y3x4w"))
+    }
+
+    @Test fun theKeywordMustShareTheSentenceWithAnAlphanumericCode() {
+        assertFalse(otp("Order a1b2c3. Verify your email address in the app"))
+        assertFalse(otp("Verify your email address.\nOrder a1b2c3 is on its way"))
+    }
+
+    @Test fun promoAndShapeVetoesApplyToAlphanumericCodes() {
+        assertFalse(otp("Promo code ab12cd"))
+        assertFalse(otp("Use code SAVE20 at checkout"))
+        assertFalse(otp("Reward code ab12cd for you"))
+        assertFalse(otp("Your code will be sent at 10h30"))
+        assertFalse(otp("Verify by 10am tomorrow, code expires 5pm"))
+        assertFalse(otp("Verify your 3rd attempt, code for mp3s"))
+        assertFalse(otp("Your code is abcdef"))
+        assertFalse(otp("Your code is ab1c"))
+        assertFalse(otp("Your code is ab12cd34ef"))
+        assertFalse(otp("Verify your login at example.com/ab12cd"))
+        assertFalse(otp("Verify your login, write to ab12cd@example.com"))
+    }
+
+    @Test fun anAlphanumericCodeKeepsTheRulesOfTheGenericWord() {
+        assertTrue(otp("Reward OTP ab12cd"))
+        assertFalse(otp("Offer code ab12cd"))
+    }
+
     @Test fun normalizeDigitsMapsAllDecimalScripts() {
         assertEquals("12345 and 6789", OtpDetector.normalizeDigits("۱۲۳۴۵ and ٦٧٨٩"))
         assertEquals("plain 42", OtpDetector.normalizeDigits("plain 42"))

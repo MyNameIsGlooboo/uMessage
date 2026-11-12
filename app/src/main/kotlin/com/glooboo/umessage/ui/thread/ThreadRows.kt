@@ -39,7 +39,12 @@ sealed interface ThreadRow {
     /** Q40: a picture message that was never downloaded, with its "Tap to download" action. */
     data class MmsDownload(val messageId: Long, val expirySeconds: Long, override val key: String) : ThreadRow
 
-    data class Failed(val message: MessageKey, val text: String, override val key: String) : ThreadRow
+    data class Failed(
+        val message: MessageKey,
+        val text: String,
+        override val key: String,
+        val reasonCode: Int = 0,
+    ) : ThreadRow
 
     data class Sent(
         val messageId: Long,
@@ -111,7 +116,8 @@ fun buildThreadRows(items: List<ThreadItem>, isGroup: Boolean): List<ThreadRow> 
             is ThreadItem.ThreadError ->
                 rows.add(
                     ThreadRow.Failed(
-                        item.key, item.messageText, uniqueKey("e${item.messageId}${if (item.isMMS) "m" else "s"}")
+                        item.key, item.messageText, uniqueKey("e${item.messageId}${if (item.isMMS) "m" else "s"}"),
+                        item.reasonCode,
                     )
                 )
 

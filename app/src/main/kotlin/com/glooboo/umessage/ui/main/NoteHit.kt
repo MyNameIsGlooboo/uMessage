@@ -74,8 +74,12 @@ internal fun MainSearchState.shownNoteHits(typed: Boolean): List<NoteHit> =
     if (typed && filter == InboxFilter.All) noteHits else emptyList()
 
 /** True when no conversation, contact or note matched. */
-internal fun noHits(listed: List<ConversationHitRow>, contacts: List<ContactHit>, notes: List<NoteHit>) =
-    listed.isEmpty() && contacts.isEmpty() && notes.isEmpty()
+internal fun noHits(
+    listed: List<ConversationHitRow>,
+    contacts: List<ContactHit>,
+    notes: List<NoteHit>,
+    blocked: List<BlockedHit> = emptyList(),
+) = listed.isEmpty() && contacts.isEmpty() && notes.isEmpty() && blocked.isEmpty()
 
 /** The "Notes" section: heading, then one card with a row per matching note. */
 internal fun LazyListScope.noteSection(

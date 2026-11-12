@@ -7,7 +7,8 @@ import com.glooboo.umessage.spam.TextNormalizer
  * Heuristic one-time-password detector for SMART mode. Pure JVM.
  *
  * A body looks like an OTP when a 4-8 digit code sits next to an OTP keyword: at most a few plain words
- * between them, in either order ("Your OTP is 4821", "123456 is your login code", "رمز پویا: ۱۲۳۴۵").
+ * between them, in either order ("Your OTP is 4821", "123456 is your login code", "رمز پویا: ۱۲۳۴۵"). A letters-and-digits
+ * code ("Your code is ab12cd") counts too, but only next to a keyword in its own sentence ([alphanumericCodes]).
  * The text is read through [TextNormalizer.fold] first, so Persian and Arabic digits, Arabic letter forms (ي, ك),
  * kashida and zero-width characters do not hide a code. Word edges are explicit lookarounds over letters and
  * digits of any script, because `\b` behaves differently in the JVM and Android (ICU) regex engines.
@@ -100,6 +101,26 @@ object OtpDetector {
         RegexOption.IGNORE_CASE,
     )
 
+    /**
+     * A letters-and-digits code that no digit rule sees ("ab12cd", "x7kq2m", "12ab34"): 4-8 letters and digits in one
+     * run, at least two of each, letters and digits alternating at least twice. Deliberately narrow, as it only counts
+     * next to a keyword in the same sentence ([alphanumericCodes]): a promo code ("SAVE20": letters, then digits),
+     * a time or unit ("10am", "500mb"), an ordinal ("3rd"), a word with one digit ("mp3s") and a run holding four
+     * digits in a row (the digit rule's business: "G-482915" is copied as 482915) are no match. Not glued to a
+     * letter, a digit or the characters of an address, a path or a price.
+     */
+    private val alphanumericCode = Regex(
+        "(?<![\\p{L}\\p{N}@./\\\\_+*#\\-\$€£])" +
+            "(?=[0-9a-z]{4,8}(?![\\p{L}\\p{N}]))(?=(?:[a-z]*[0-9]){2})(?=(?:[0-9]*[a-z]){2})" +
+            "(?![0-9a-z]*[0-9]{4})(?![0-9]{1,2}h[0-9]{2})" +
+            "(?:[a-z]+[0-9]+[a-z][0-9a-z]*|[0-9]+[a-z]+[0-9][0-9a-z]*)" +
+            "(?![\\p{L}\\p{N}@/\\\\_])(?![.\\-][\\p{L}\\p{N}])" + NOT_AFTER,
+        RegexOption.IGNORE_CASE,
+    )
+
+    /** A full stop, mark or line break ends the sentence a keyword has to share with an alphanumeric code. */
+    private val sentenceBreaks = charArrayOf('.', '!', '?', '\n', '\r', ';', '؟', '۔')
+
     /** Words and marks that make a text an advertisement, whatever the strong keyword says. */
     private val marketingHard = Regex(
         "(?<!\\p{L})(?:" + OtpKeywords.marketingHard.joinToString("|") { TextNormalizer.fold(it) } + ")(?!\\p{L})" +
@@ -173,10 +194,15 @@ object OtpDetector {
      * the same terms as [nearKeyword] (no advertisement; next to the generic word only when it is no year). Several
      * codes of one message ("Use 333333 to log in, or 444444 to reset") each qualify on their own.
      */
-    internal fun keywordNextTo(text: String, range: IntRange): Boolean {
+    internal fun keywordNextTo(text: String, range: IntRange, sameSentence: Boolean = false): Boolean {
         if (marketingHard.containsMatchIn(text)) return false
-        val before = text.substring(maxOf(0, range.first - WINDOW), range.first)
-        val after = text.substring(range.last + 1, minOf(text.length, range.last + 1 + WINDOW))
+        var before = text.substring(maxOf(0, range.first - WINDOW), range.first)
+        var after = text.substring(range.last + 1, minOf(text.length, range.last + 1 + WINDOW))
+        if (sameSentence) {
+            before = before.substring(before.lastIndexOfAny(sentenceBreaks) + 1)
+            val end = after.indexOfAny(sentenceBreaks)
+            if (end >= 0) after = after.substring(0, end)
+        }
         if (strongBefore.containsMatchIn(before) || strongAfter.containsMatchIn(after)) return true
         if (cjkBefore.containsMatchIn(before) || cjkAfter.containsMatchIn(after)) return true
         if (marketingSoft.containsMatchIn(text)) return false
@@ -184,20 +210,36 @@ object OtpDetector {
         return !year && (weakBefore.containsMatchIn(before) || weakAfter.containsMatchIn(after))
     }
 
+    /**
+     * The letters-and-digits codes of [text] (already folded) with a keyword in the same sentence, a few plain words
+     * before or after them: position and value, as written ("Your code is ab12cd" gives ab12cd). Never bare: a token
+     * of this shape without a keyword, in an advertisement, or next to the generic word in a text of offers is no code.
+     */
+    internal fun alphanumericCodes(text: String): List<Pair<Int, String>> {
+        if (marketingHard.containsMatchIn(text)) return emptyList()
+        return alphanumericCode.findAll(text)
+            .filter { keywordNextTo(text, it.range, sameSentence = true) }
+            .map { it.range.first to it.value }
+            .toList()
+    }
+
     /** Whether [text] is an advertisement ("promo", "discount", "50%"): such a text is never a code. */
     internal fun isMarketing(text: String): Boolean = marketingHard.containsMatchIn(TextNormalizer.fold(text))
 
     /**
-     * The keyword rule behind [looksLikeOtp]: a 4-8 digit code next to an OTP keyword (a few plain words apart, either
-     * order), in a text that is not an advertisement. Labelled values are [OtpCodes]' business.
+     * The keyword rule behind [looksLikeOtp]: a 4-8 digit code, or a letters-and-digits one ([alphanumericCodes]), next
+     * to an OTP keyword (a few plain words apart, either order), in a text that is not an advertisement. Labelled values are [OtpCodes]' business.
      */
     internal fun nearKeyword(body: String): Boolean {
         val text = TextNormalizer.fold(body)
-        if (marketingHard.containsMatchIn(text)) return false
-        if (strongOtp.containsMatchIn(text) || cjkOtp.containsMatchIn(text)) return true
-        if (marketingSoft.containsMatchIn(text)) return false
-        // Only the generic word "code": a year-like number is no code when the text speaks of a year or a date.
-        return (if (yearContext.containsMatchIn(text)) weakOtp else weakOtpAnyNumber).containsMatchIn(text)
+        return when {
+            marketingHard.containsMatchIn(text) -> false
+            strongOtp.containsMatchIn(text) || cjkOtp.containsMatchIn(text) -> true
+            alphanumericCodes(text).isNotEmpty() -> true
+            marketingSoft.containsMatchIn(text) -> false
+            // Only the generic word "code": a year-like number is no code when the text speaks of a year or a date.
+            else -> (if (yearContext.containsMatchIn(text)) weakOtp else weakOtpAnyNumber).containsMatchIn(text)
+        }
     }
 
     /**

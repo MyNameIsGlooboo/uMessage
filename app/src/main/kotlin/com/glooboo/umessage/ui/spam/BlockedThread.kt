@@ -139,6 +139,8 @@ class BlockedThreadActions(
     /** Deletes the chosen messages, with Undo. */
     val onDeleteMessages: (Set<Long>) -> Unit = {},
     val onOpenRules: () -> Unit = {},
+    /** "Always allow" of the Why-blocked dialog (spamui-21): an allow rule for the sender, with Undo. */
+    val onAlwaysAllow: (String) -> Unit = {},
 )
 
 /**
@@ -195,6 +197,7 @@ fun BlockedThreadRoute(
             onReleaseMessages = viewModel::releaseMessages,
             onDeleteMessages = viewModel::deleteMessages,
             onOpenRules = onOpenRules,
+            onAlwaysAllow = viewModel::alwaysAllow,
         )
     }
     BlockedThreadScreen(address, state, snackbar, actions, moving = moving)
@@ -299,7 +302,10 @@ fun BlockedThreadScreen(
             // The message left (released, deleted or purged) while its dialog was up.
             if (!state.loading) LaunchedEffect(id) { whyId = null }
         } else {
-            WhyBlockedDialog(message, state, actions.onOpenRules, onDismiss = { whyId = null })
+            WhyBlockedDialog(
+                message, state, actions.onOpenRules, onDismiss = { whyId = null },
+                onAlwaysAllow = actions.onAlwaysAllow,
+            )
         }
     }
 }

@@ -462,6 +462,7 @@ private fun conditionHint(type: RuleType): String = stringResource(
         RuleType.SENDER_ID -> R.string.spam_type_sender_id_hint
         RuleType.KEYWORD -> R.string.spam_type_keyword_hint
         RuleType.REGEX -> R.string.spam_type_regex_hint
+        RuleType.DOMAIN -> R.string.rdec_type_domain_hint
     },
 )
 

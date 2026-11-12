@@ -214,4 +214,43 @@ class PendingSmsReplayTest {
         val incoming = IncomingMessage("+447121234567", "hi", 1)
         assertFalse(SpamEngine.storeBlocked(app, incoming, FilterDecision.Block(DecisionReason.UNKNOWN_SENDER)))
     }
+
+    /** spam-2: a restored message is the user's decision, so a replay does not filter (and re-block) it again. */
+    @Test fun approvedRowIsDeliveredEvenIfTheFilterWouldBlockItAgain() {
+        decide = { FilterDecision.Block(DecisionReason.BLOCK_RULE, 5L) }
+        addPending(pending(body = "Restored text").copy(approved = true))
+        replay()
+        assertEquals("Restored text", FakeSmsProvider.inserted.single().getAsString(Telephony.Sms.BODY))
+        assertTrue(offMainThread { dao.getPending() }.isEmpty())
+        assertTrue(offMainThread { dao.getAllBlocked() }.isEmpty())
+    }
+
+    @Test fun approvedRowIsDeliveredEvenWhenAnIdenticalTextWasBlockedMeanwhile() {
+        val row = pending(body = "Same text").copy(approved = true)
+        val incoming = IncomingMessage(row.address, row.body, row.subscriptionId, receivedAt = row.date)
+        assertTrue(offMainThread { SpamEngine.storeBlocked(app, incoming, FilterDecision.Block(DecisionReason.UNKNOWN_SENDER)) })
+        addPending(row)
+        replay()
+        assertEquals(1, FakeSmsProvider.inserted.size)
+        assertTrue(offMainThread { dao.getPending() }.isEmpty())
+    }
+
+    @Test fun approvedRowStaysQueuedWhenTheInboxInsertFails() {
+        FakeSmsProvider.failInserts = true
+        addPending(pending().copy(approved = true))
+        replay()
+        assertEquals(1, offMainThread { dao.getPending() }.size)
+        FakeSmsProvider.failInserts = false
+        replay()
+        assertEquals(1, FakeSmsProvider.inserted.size)
+        assertTrue(offMainThread { dao.getPending() }.isEmpty())
+    }
+
+    @Test fun anOrdinaryRowIsStillFiltered() {
+        decide = { FilterDecision.Block(DecisionReason.UNKNOWN_SENDER) }
+        addPending(pending())
+        replay()
+        assertTrue(FakeSmsProvider.inserted.isEmpty())
+        assertEquals(1, offMainThread { dao.getAllBlocked() }.size)
+    }
 }

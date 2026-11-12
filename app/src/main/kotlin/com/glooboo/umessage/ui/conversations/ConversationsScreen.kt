@@ -178,6 +178,14 @@ private suspend fun showEvent(
             )
             if (result == SnackbarResult.ActionPerformed) callbacks.onUndoArchive(event.token)
         }
+        is ConversationsEvent.MarkedAllRead -> {
+            val result = snackbar.showSnackbar(
+                message = resources.getQuantityString(R.plurals.decm_marked_all_read, event.count, event.count),
+                actionLabel = undoLabel,
+                duration = SnackbarDuration.Long,
+            )
+            if (result == SnackbarResult.ActionPerformed) callbacks.onUndoMarkAllRead(event.token)
+        }
         is ConversationsEvent.Blocked -> {
             val result = snackbar.showSnackbar(
                 message = resources.getQuantityString(R.plurals.convlist_blocked_done, event.count, event.count),

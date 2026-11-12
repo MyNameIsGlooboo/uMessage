@@ -38,6 +38,37 @@ class SettingsBackupFormatTest {
         assertThat(back.settings).isEqualTo(settings)
     }
 
+    @Test fun blockedKeywordsRoundTrip() {
+        val content = BackupContent(rules, emptyList(), settings, blockedKeywords = listOf("lottery", "تخفیف"))
+        val back = SettingsBackupFormat.decode(SettingsBackupFormat.encode(content, 1))
+        assertThat(back.blockedKeywords).containsExactly("lottery", "تخفیف").inOrder()
+    }
+
+    @Test fun anOldFileWithoutKeywordsGivesNoneAndSoRemovesNone() {
+        val text = SettingsBackupFormat.encode(BackupContent(rules, emptyList(), settings), 1)
+        assertThat(text).doesNotContain("blockedKeywords")
+        val back = SettingsBackupFormat.decode(text)
+        assertThat(back.blockedKeywords).isEmpty()
+        // Nothing to add and the phone's own words are never compared for removal.
+        assertThat(SettingsBackupFormat.newKeywords(back.blockedKeywords, setOf("mine"))).isEmpty()
+    }
+
+    @Test fun keywordsOfTheFileAreCleanedAndTolerated() {
+        val text = """
+            {"app":"spamless","kind":"settings-backup","version":1,
+             "blockedKeywords":["  Win  ","win","x","two\nlines",5,null,"ok word"]}
+        """.trimIndent()
+        assertThat(SettingsBackupFormat.decode(text).blockedKeywords).containsExactly("Win", "ok word").inOrder()
+        val bad = SettingsBackupFormat.decode(
+            """{"app":"spamless","kind":"settings-backup","version":1,"blockedKeywords":"nope"}""",
+        )
+        assertThat(bad.blockedKeywords).isEmpty()
+    }
+
+    @Test fun newKeywordsSkipsTheOnesAlreadyOnThePhoneInAnyCase() {
+        assertThat(SettingsBackupFormat.newKeywords(listOf("Win", "free"), setOf("win"))).containsExactly("free")
+    }
+
     @Test fun containsNoLockData() {
         val text = SettingsBackupFormat.encode(BackupContent(rules, listOf(forward), settings), 1).lowercase()
         assertThat(text).doesNotContain("pin")

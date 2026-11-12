@@ -54,6 +54,10 @@ class RuleMatcher(
             // A keyword in double quotes only matches as a whole word ([KeywordMatch]).
             RuleType.KEYWORD -> KeywordMatch.matches(message.body, pattern, obfuscated = rule.kind == ListKind.BLOCK)
 
+            // A link host in the body equals the domain or is a subdomain of it. An ALLOW rule ignores disguised dots
+            // ("example[.]com"), so a spammer cannot dress a link up as an allowed domain.
+            RuleType.DOMAIN -> DomainMatch.matches(message.body, pattern, disguised = rule.kind == ListKind.BLOCK)
+
             RuleType.REGEX -> regex(pattern)?.let { matchesRegex(pattern, it, TextNormalizer.fold(message.body)) } == true
         }
     }

@@ -250,8 +250,10 @@ private fun openInboxMenuItem(
     item: InboxMenuItem,
     navigation: MainNavigation,
     onOpenArchivedTab: () -> Unit,
+    onMarkAllRead: () -> Unit = {},
 ) {
     when (item) {
+        InboxMenuItem.MarkAllRead -> onMarkAllRead()
         InboxMenuItem.Archived -> onOpenArchivedTab()
         InboxMenuItem.RecycleBin -> navigation.onRecycleBin()
         InboxMenuItem.Scheduled -> navigation.onScheduled()
@@ -346,9 +348,11 @@ private fun MessagesTab(
             } else {
                 MainTopBar(
                     onSearch = { search.active = true },
-                    menu = InboxMenuPolicy.entries(menuInputs),
+                    menu = InboxMenuPolicy.entries(menuInputs.copy(unreadCount = state.rows.count { it.unread })),
                     recycleBinCount = rememberRecycleBinCount(menuInputs.recycleBinOn, state.rows.size),
-                    onMenu = { item -> openInboxMenuItem(item, navigation, onOpenArchivedTab) },
+                    onMenu = { item ->
+                        openInboxMenuItem(item, navigation, onOpenArchivedTab, callbacks.onMarkAllRead)
+                    },
                 )
                 // A warning to act on stays in view.
                 NotificationsOffBanner()

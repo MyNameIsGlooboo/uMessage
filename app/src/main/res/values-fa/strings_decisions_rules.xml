@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- spam-22: the website (DOMAIN) rule type in the add-rule sheet and the Rules list. -->
+    <string name="rdec_match_domain">لینک یک سایت</string>
+    <string name="rdec_row_type_domain">لینک در پیام</string>
+    <string name="rdec_type_domain">سایت</string>
+    <string name="rdec_value_domain">سایت</string>
+    <string name="rdec_type_domain_help">هر پیامی که لینک این سایت را داشته باشد بلاک می‌شود، با زیرسایت‌هایی مثل www.example.com.</string>
+    <string name="rdec_type_domain_hint">example.com</string>
+    <string name="rdec_err_domain">نام یک سایت مثل example.com را وارد کنید</string>
+
+    <!-- spam-23: how many messages a rule has blocked, and when it last did. -->
+    <plurals name="rdec_hits_blocked" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d پیام بلاک شد</item>
+        <item quantity="other">%d پیام بلاک شد</item>
+    </plurals>
+    <string name="rdec_hits_last">%1$s، آخرین بار %2$s</string>
+    <string name="rdec_age_now">همین الان</string>
+    <plurals name="rdec_age_minutes" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d دقیقه پیش</item>
+        <item quantity="other">%d دقیقه پیش</item>
+    </plurals>
+    <plurals name="rdec_age_hours" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d ساعت پیش</item>
+        <item quantity="other">%d ساعت پیش</item>
+    </plurals>
+    <plurals name="rdec_age_days" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d روز پیش</item>
+        <item quantity="other">%d روز پیش</item>
+    </plurals>
+    <plurals name="rdec_age_months" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d ماه پیش</item>
+        <item quantity="other">%d ماه پیش</item>
+    </plurals>
+    <plurals name="rdec_age_years" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d سال پیش</item>
+        <item quantity="other">%d سال پیش</item>
+    </plurals>
+
+    <!-- main-23: sort option in the Rules menu. -->
+    <string name="rdec_sort_newest">جدیدترین اول</string>
+
+    <!-- spam-15: a blocked word or pattern blocks the whole sender. -->
+    <string name="rdec_sender_warning">حواستان باشد: این کار کل فرستنده را بلاک می‌کند، نه فقط همین پیام. اگر یک بانک یا فروشگاه یک شماره را هم برای کدها و هم برای تبلیغ‌ها استفاده کند، پیام‌های واقعی‌اش را هم دیگر نمی‌گیرید. می‌توانید فرستنده را در صفحهٔ اسپم از بلاک درآورید.</string>
+    <string name="rdec_help_warning_head">بلاک کردن یک کلمه، فرستنده را بلاک می‌کند</string>
+    <string name="rdec_note_blocked_from_keyword">بلاک‌شده از روی کلمهٔ کلیدی (کل فرستنده بلاک شده)</string>
+</resources>

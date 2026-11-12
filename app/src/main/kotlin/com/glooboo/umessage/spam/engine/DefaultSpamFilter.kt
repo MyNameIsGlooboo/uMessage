@@ -4,6 +4,7 @@ import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.ListKind
+import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamFilter
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
@@ -31,13 +32,20 @@ class DefaultSpamFilter(
             return FilterDecision.Allow(DecisionReason.ALLOW_RULE, it.id)
         }
 
-        scoped.firstOrNull { it.kind == ListKind.BLOCK && matches(it, message, numbers) }?.let {
+        val isPhoneNumber = !normalizer.isSenderId(message.address)
+        // Looked up at most once, and only when it decides something (a pattern rule matched, or below).
+        val lookup by lazy { if (isPhoneNumber) contactLookup(message.address) else ContactLookup.NOT_FOUND }
+        // spam-6: a saved contact is never held by a keyword, pattern, prefix or domain block rule. Blocking the exact
+        // number (or sender id) still works: that is a deliberate choice about this very sender.
+        val fromContact = { lookup == ContactLookup.FOUND }
+
+        scoped.firstOrNull {
+            it.kind == ListKind.BLOCK && matches(it, message, numbers) && !(skipsContacts(it) && fromContact())
+        }?.let {
             return FilterDecision.Block(DecisionReason.BLOCK_RULE, it.id)
         }
-        if (matchesLegacy(message)) return FilterDecision.Block(DecisionReason.BLOCK_RULE)
+        if (matchesLegacy(message, fromContact)) return FilterDecision.Block(DecisionReason.BLOCK_RULE)
 
-        val isPhoneNumber = !normalizer.isSenderId(message.address)
-        val lookup = if (isPhoneNumber) contactLookup(message.address) else ContactLookup.NOT_FOUND
         if (lookup == ContactLookup.FOUND) return FilterDecision.Allow(DecisionReason.CONTACT)
         // Q2: the foreign-number hold belongs to Smart and Strict only; with the filter Off nothing is held.
         val mode = effectiveMode()
@@ -134,11 +142,20 @@ class DefaultSpamFilter(
      * The old Fossify keyword and number lists. A failure in either (a provider error, a malformed entry) skips only
      * that list: the rest of the filter still runs, so one bad entry cannot switch filtering off for every message.
      */
-    private fun matchesLegacy(message: IncomingMessage): Boolean {
+    private fun matchesLegacy(message: IncomingMessage, fromContact: () -> Boolean): Boolean {
         val keywords = runCatching { legacy.blockedKeywords() }.getOrDefault(emptyList())
-        // Older installs could store whitespace-only keywords; one of those would match every message.
-        if (keywords.any { it.isNotBlank() && TextNormalizer.containsObfuscated(message.body, it) }) return true
+        // Older installs could store whitespace-only keywords; one of those would match every message. A legacy
+        // keyword is a keyword rule: it does not hold a contact either.
+        if (keywords.any { it.isNotBlank() && TextNormalizer.containsObfuscated(message.body, it) } && !fromContact()) {
+            return true
+        }
         return message.address.isNotBlank() && runCatching { legacy.isNumberBlocked(message.address) }.getOrDefault(false)
+    }
+
+    /** Block rules that read the text or a part of the sender, not the exact sender: a contact is not held by them. */
+    private fun skipsContacts(rule: SpamRule): Boolean = when (rule.type) {
+        RuleType.KEYWORD, RuleType.REGEX, RuleType.PREFIX, RuleType.DOMAIN -> true
+        RuleType.NUMBER, RuleType.SENDER_ID -> false
     }
 
     private fun matches(rule: SpamRule, message: IncomingMessage, numbers: List<NumberNormalizer>): Boolean =

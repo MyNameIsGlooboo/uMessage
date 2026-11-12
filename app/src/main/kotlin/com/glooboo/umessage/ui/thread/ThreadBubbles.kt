@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions")
+
 package com.glooboo.umessage.ui.thread
 
 import com.glooboo.umessage.ui.components.uiLocale
@@ -49,6 +51,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
+import com.glooboo.umessage.messaging.SmsFailureReason
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageKey
 import java.time.ZoneId
@@ -124,12 +127,21 @@ fun ThreadRowItem(row: ThreadRow, vm: ThreadViewModel, actions: ThreadActions) {
         is ThreadRow.UnreadDivider -> UnreadDivider()
 
         is ThreadRow.Failed -> StatusLine(
-            text = stringResource(R.string.thread_status_failed),
+            text = failedStatusText(row.reasonCode),
             icon = Symbols.Error,
             color = MaterialTheme.colorScheme.error,
             onClick = { actions.onRetry(row.message, row.text) },
         )
     }
+}
+
+/** "Not sent. Tap to retry." and, on a second line, why the phone said it failed (thread-27) when that is known. */
+@Composable
+private fun failedStatusText(reasonCode: Int): String {
+    val base = stringResource(R.string.thread_status_failed)
+    val context = LocalContext.current
+    val reason = remember(reasonCode) { SmsFailureReason.text(context, reasonCode) }
+    return if (reason == null) base else base + "\n" + reason
 }
 
 @Composable

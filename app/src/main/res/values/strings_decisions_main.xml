@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- main-21: snackbar after "Mark all read" in the inbox menu; Undo makes exactly those chats unread again. -->
+    <plurals name="decm_marked_all_read">
+        <item quantity="one">%d chat marked as read</item>
+        <item quantity="other">%d chats marked as read</item>
+    </plurals>
+
+    <!-- main-22: section of the main search that lists blocked (spam) messages. -->
+    <string name="decm_search_section_blocked">Blocked messages</string>
+
+    <!-- spamui-20: search box of the Blocked screen. -->
+    <string name="decm_blocked_search">Search blocked messages</string>
+    <string name="decm_blocked_search_hint">Search by sender or text</string>
+    <string name="decm_blocked_search_close">Close search</string>
+    <string name="decm_blocked_search_none_title">Nothing found</string>
+    <string name="decm_blocked_search_none_body">No blocked sender or message matches what you typed.</string>
+
+    <!-- spamui-21: button of the Why-blocked dialog; it allows the sender for good. -->
+    <string name="decm_always_allow">Always allow</string>
+</resources>

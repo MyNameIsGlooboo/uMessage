@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Thread-27: the reason under a message that was not sent, when the phone gave no more specific one (%1$d is the phone's code) -->
+    <string name="thread_failed_reason_generic">The phone reported a general failure (code %1$d)</string>
+
+</resources>

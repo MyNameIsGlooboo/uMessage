@@ -17,7 +17,8 @@ data class CodeToken(val kind: CodeKind, val value: String)
  * A message holds a code when either
  * - a 4-8 digit number sits next to an OTP keyword ([OtpDetector.nearKeyword]; the shape of the number, the keyword
  *   lists and the vetoes for advertisements, prices, years and phone numbers are the detector's, and
- *   [OtpCodeExtractor.locate] picks the number), or
+ *   [OtpCodeExtractor.locate] picks the number) or a letters-and-digits code has a keyword in its sentence
+ *   ([OtpDetector.alphanumericCodes], "Your code is ab12cd"), or
  * - a labelled value says what it is ("password: x7Kq2", "code: 482913"). A user name is a value to copy, but no code.
  *
  * Everything is read through [TextNormalizer.fold], so every value comes back with Latin digits (Persian "۴۸۲۹۱۳"
@@ -90,10 +91,12 @@ object OtpCodes {
     /** Digit codes with a keyword next to them: position and value; the closest to a keyword when none is adjacent. */
     private fun keywordCodes(text: String): List<Pair<Int, String>> {
         if (!OtpDetector.nearKeyword(text)) return emptyList()
-        val adjacent = OtpCodeExtractor.keywordBound(text)
-            .filter { OtpDetector.keywordNextTo(text, it.groups[1]!!.range) }
-            .map { it.groups[1]!!.range.first to OtpCodeExtractor.digitsOf(it.groupValues[1]) }
-            .toList()
+        val adjacent = (
+            OtpCodeExtractor.keywordBound(text)
+                .filter { OtpDetector.keywordNextTo(text, it.groups[1]!!.range) }
+                .map { it.groups[1]!!.range.first to OtpCodeExtractor.digitsOf(it.groupValues[1]) }
+                .toList() + OtpDetector.alphanumericCodes(text)
+            ).sortedBy { it.first }
         if (adjacent.isNotEmpty()) return adjacent
         return listOfNotNull(locate(text))
             .map { it.groups[1]!!.range.first to OtpCodeExtractor.digitsOf(it.groupValues[1]) }

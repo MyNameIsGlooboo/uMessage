@@ -83,6 +83,8 @@ data class RulesUiState(
     /** Search text and type filter (SU-09). */
     val query: String = "",
     val typeFilter: RuleType? = null,
+    /** main-23: the order of both lists. */
+    val order: RulesOrder = RulesOrder.DEFAULT,
     /** Rules picked with a long press, all on the current tab. */
     val selected: Set<Long> = emptySet(),
     /** The old Fossify lists not yet moved into rules, shown read-only on the Blocked tab. */
@@ -140,6 +142,7 @@ class RulesViewModel(
     private val legacyStore: LegacyBlockStore = NoLegacyBlockStore,
     private val io: CoroutineDispatcher = Dispatchers.IO,
     private val previewSource: RulePreviewSource = NoRulePreviewSource,
+    private val orderStore: RulesOrderStore = MemoryRulesOrderStore(),
 ) : AndroidViewModel(application) {
 
     private data class View(
@@ -147,6 +150,7 @@ class RulesViewModel(
         val query: String = "",
         val typeFilter: RuleType? = null,
         val selected: Set<Long> = emptySet(),
+        val order: RulesOrder = RulesOrder.DEFAULT,
     )
 
     private data class Extras(
@@ -155,7 +159,7 @@ class RulesViewModel(
         val migration: MigrationDialog? = null,
     )
 
-    private val view = MutableStateFlow(View())
+    private val view = MutableStateFlow(View(order = orderStore.load()))
     private val form = MutableStateFlow<RuleForm?>(null)
     private val extras = MutableStateFlow(Extras())
     private val events = Channel<RulesEvent>(Channel.BUFFERED)
@@ -167,7 +171,7 @@ class RulesViewModel(
     val state: StateFlow<RulesUiState> = combine(
         repository.rules, view, form, extras, preview
     ) { rules, view, form, extras, preview ->
-        val sorted = rules.sortedByDescending { it.createdAt }
+        val sorted = view.order.apply(rules)
         val ids = sorted.map { it.id }.toSet()
         RulesUiState(
             loading = false,
@@ -178,6 +182,7 @@ class RulesViewModel(
             form = form,
             query = view.query,
             typeFilter = view.typeFilter,
+            order = view.order,
             selected = view.selected intersect ids,
             legacy = extras.legacy,
             migration = extras.migration,
@@ -201,6 +206,12 @@ class RulesViewModel(
 
     fun setQuery(query: String) = view.update { it.copy(query = query.take(MAX_QUERY)) }
     fun setTypeFilter(type: RuleType?) = view.update { it.copy(typeFilter = type) }
+
+    /** main-23: picks the order of the lists and remembers it for the next visit. */
+    fun setOrder(order: RulesOrder) {
+        view.update { it.copy(order = order) }
+        orderStore.save(order)
+    }
 
     fun toggleSelected(id: Long) = view.update {
         it.copy(selected = if (id in it.selected) it.selected - id else it.selected + id)
@@ -556,6 +567,7 @@ class RulesViewModel(
                 RulesViewModel(
                     app, SpamRepositoryProvider.get(app), AndroidLegacyBlockStore(app),
                     previewSource = AndroidRulePreviewSource(app),
+                    orderStore = AndroidRulesOrderStore(app),
                 )
             }
         }

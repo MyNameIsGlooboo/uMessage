@@ -56,6 +56,7 @@ internal fun InboxOverflowMenu(
 }
 
 private fun menuIcon(item: InboxMenuItem): ImageVector = when (item) {
+    InboxMenuItem.MarkAllRead -> Symbols.DoneAll
     InboxMenuItem.Archived -> Symbols.Archive
     InboxMenuItem.RecycleBin -> Symbols.RestoreFromTrash
     InboxMenuItem.Scheduled -> Symbols.ScheduleSend
@@ -64,6 +65,7 @@ private fun menuIcon(item: InboxMenuItem): ImageVector = when (item) {
 }
 
 private fun menuLabel(item: InboxMenuItem): Int = when (item) {
+    InboxMenuItem.MarkAllRead -> R.string.nav_folder_mark_all_read
     InboxMenuItem.Archived -> R.string.main_tab_archived
     InboxMenuItem.RecycleBin -> R.string.ux8a_menu_recycle_bin
     InboxMenuItem.Scheduled -> R.string.scheduled_list_title

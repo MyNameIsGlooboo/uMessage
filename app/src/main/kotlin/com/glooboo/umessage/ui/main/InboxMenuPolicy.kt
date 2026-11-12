@@ -1,7 +1,7 @@
 package com.glooboo.umessage.ui.main
 
 /** The entries of the inbox's overflow menu, in the order shown; Settings is always last. */
-internal enum class InboxMenuItem { RecycleBin, Archived, Scheduled, Starred, Settings }
+internal enum class InboxMenuItem { MarkAllRead, RecycleBin, Archived, Scheduled, Starred, Settings }
 
 /** What the menu needs to know to decide which entries have something behind them. */
 internal data class InboxMenuInputs(
@@ -11,6 +11,8 @@ internal data class InboxMenuInputs(
     val scheduledCount: Int,
     /** The Archived tab is in the bottom bar, so the menu must not list it a second time. */
     val archivedTabShown: Boolean = false,
+    /** Unread chats in the list; "Mark all read" is offered only while there are some. */
+    val unreadCount: Int = 0,
 )
 
 /**
@@ -23,6 +25,8 @@ internal data class InboxMenuInputs(
 internal object InboxMenuPolicy {
 
     fun entries(inputs: InboxMenuInputs): List<InboxMenuItem> = buildList {
+        // Mark all read is first: it acts on the list the user is looking at.
+        if (inputs.unreadCount > 0) add(InboxMenuItem.MarkAllRead)
         // The bin comes first so it is easy to find; it is listed whenever it is switched on, empty or not.
         if (inputs.recycleBinOn) add(InboxMenuItem.RecycleBin)
         if (!inputs.archivedTabShown && inputs.archiveAvailable) {

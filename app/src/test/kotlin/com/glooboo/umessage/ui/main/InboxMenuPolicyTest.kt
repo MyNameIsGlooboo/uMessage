@@ -12,7 +12,18 @@ class InboxMenuPolicyTest {
         bin: Boolean = false,
         scheduled: Int = 0,
         tabShown: Boolean = false,
-    ) = InboxMenuInputs(archiveAvailable, archived, bin, scheduled, tabShown)
+        unread: Int = 0,
+    ) = InboxMenuInputs(archiveAvailable, archived, bin, scheduled, tabShown, unread)
+
+    /** main-21: Mark all read is the first entry, and only while some chat is unread. */
+    @Test
+    fun markAllReadIsFirstAndOnlyWhileSomethingIsUnread() {
+        assertFalse(InboxMenuItem.MarkAllRead in InboxMenuPolicy.entries(inputs(bin = true, unread = 0)))
+        val entries = InboxMenuPolicy.entries(inputs(bin = true, archived = 2, unread = 3))
+        assertEquals(InboxMenuItem.MarkAllRead, entries.first())
+        assertEquals(InboxMenuItem.Settings, entries.last())
+        assertEquals(1, entries.count { it == InboxMenuItem.MarkAllRead })
+    }
 
     @Test
     fun anEmptyInboxWithTheArchivedTabOffersOnlyStarredAndSettings() {

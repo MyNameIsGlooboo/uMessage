@@ -33,6 +33,7 @@ data class ThreadItems(
  * [showTapbacks] (I30): iPhone reaction texts such as `Liked “...”` leave the list and count on the message they name.
  * [undownloadedMms] (Q40): ids of received MMS that are only a notification-ind, with the carrier's expiry in seconds;
  * each shows a "Tap to download" row in place of its empty bubble.
+ * [failureCodes] (thread-27): the stored send-report code of each failed text, by message id.
  */
 fun buildThreadItems(
     messages: List<Message>,
@@ -42,6 +43,7 @@ fun buildThreadItems(
     firstUnreadId: Long? = null,
     showTapbacks: Boolean = false,
     undownloadedMms: Map<Long, Long> = emptyMap(),
+    failureCodes: Map<Long, Int> = emptyMap(),
 ): ThreadItems {
     val startNanos = System.nanoTime()
     val sorted = messages.toSortedMessages()
@@ -68,39 +70,53 @@ fun buildThreadItems(
             items.add(ThreadUnreadDivider(firstUnreadId))
             dividerPending = false
         }
-        val notDownloaded = if (message.isMMS) undownloadedMms[message.id] else null
-        if (notDownloaded != null) {
-            items.add(ThreadItem.ThreadMmsDownload(message.id, notDownloaded))
-        } else {
-            items.add(message)
-        }
-
-        if (message.type == Telephony.Sms.MESSAGE_TYPE_FAILED) {
-            items.add(ThreadError(message.id, message.body, message.isMMS))
-        }
-        if (message.type == Telephony.Sms.MESSAGE_TYPE_OUTBOX ||
-            (message.type == Telephony.Sms.MESSAGE_TYPE_QUEUED && !message.isScheduled)
-        ) {
-            items.add(ThreadSending(message.id))
-        }
+        items.add(message.bubbleItem(undownloadedMms))
+        items.addStatusRows(message, i == lastRealIndex, deliveryReportsOn, failureCodes)
         if (!message.read && seen) newlyRead.add(message)
-
-        if (i == lastRealIndex && message.type == Telephony.Sms.MESSAGE_TYPE_SENT) {
-            // "Delivered" only while delivery reports are on: a network can report delivery the app never asked for.
-            // An MMS has no delivery report: its status column is empty and reads as 0, which is not "delivered".
-            val delivered = deliveryReportsOn && !message.isMMS && message.status == Telephony.Sms.STATUS_COMPLETE
-            val deliveryFailed = !message.isMMS && isDeliveryFailed(message.status)
-            items.add(
-                ThreadSent(
-                    messageId = message.id, delivered = delivered, deliveryFailed = deliveryFailed,
-                    isMms = message.isMMS,
-                ),
-            )
-        }
         prevSIMId = message.subscriptionId
     }
     return ThreadItems(items, newlyRead, tapbacks.reactions).also {
         logSlowThreadBuild(startNanos, sorted.size, items.size)
+    }
+}
+
+/** The message itself, or the "Tap to download" row of a received MMS that is only a notification-ind. */
+private fun Message.bubbleItem(undownloadedMms: Map<Long, Long>): ThreadItem {
+    val notDownloaded = if (isMMS) undownloadedMms[id] else null
+    return if (notDownloaded != null) ThreadItem.ThreadMmsDownload(id, notDownloaded) else this
+}
+
+/** The rows that follow a message: its send error, the sending spinner and, on the last real one, "Sent". */
+private fun MutableList<ThreadItem>.addStatusRows(
+    message: Message,
+    isLastReal: Boolean,
+    deliveryReportsOn: Boolean,
+    failureCodes: Map<Long, Int>,
+) {
+    if (message.type == Telephony.Sms.MESSAGE_TYPE_FAILED) {
+        add(
+            ThreadError(
+                message.id, message.body, message.isMMS,
+                if (message.isMMS) 0 else failureCodes[message.id] ?: 0,
+            ),
+        )
+    }
+    if (message.type == Telephony.Sms.MESSAGE_TYPE_OUTBOX ||
+        (message.type == Telephony.Sms.MESSAGE_TYPE_QUEUED && !message.isScheduled)
+    ) {
+        add(ThreadSending(message.id))
+    }
+    if (isLastReal && message.type == Telephony.Sms.MESSAGE_TYPE_SENT) {
+        // "Delivered" only while delivery reports are on: a network can report delivery the app never asked for.
+        // An MMS has no delivery report: its status column is empty and reads as 0, which is not "delivered".
+        val delivered = deliveryReportsOn && !message.isMMS && message.status == Telephony.Sms.STATUS_COMPLETE
+        val deliveryFailed = !message.isMMS && isDeliveryFailed(message.status)
+        add(
+            ThreadSent(
+                messageId = message.id, delivered = delivered, deliveryFailed = deliveryFailed,
+                isMms = message.isMMS,
+            ),
+        )
     }
 }
 

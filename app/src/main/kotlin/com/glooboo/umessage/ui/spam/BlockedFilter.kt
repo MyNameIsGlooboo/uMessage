@@ -2,6 +2,8 @@ package com.glooboo.umessage.ui.spam
 
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
+import com.glooboo.umessage.spam.TextNormalizer
+import com.glooboo.umessage.ui.components.asciiDigits
 
 /**
  * The chip row under the Blocked banner (ID-14): narrows the held messages by why or where they were held. Uses only
@@ -35,6 +37,33 @@ object BlockedFilters {
 
     fun apply(filter: BlockedFilter, messages: List<BlockedMessage>): List<BlockedMessage> =
         if (filter == BlockedFilter.All) messages else messages.filter { matches(filter, it) }
+
+    /** The digits a number query needs before it is compared with sender numbers. */
+    private const val MIN_NUMBER_DIGITS = 2
+
+    /**
+     * Whether [message] answers the search [query] (spamui-20): its text or its sender holds the typed words. Letter
+     * forms, digits and zero-width marks are folded on both sides like the main search ([TextNormalizer.fold]); a query
+     * of digits and number marks also finds the sender in any written form ("0555 345" finds "+90555345..."). A blank
+     * query matches everything.
+     */
+    fun matchesQuery(message: BlockedMessage, query: String): Boolean {
+        val typed = query.trim()
+        if (typed.isEmpty()) return true
+        val wanted = TextNormalizer.fold(typed)
+        if (TextNormalizer.fold(message.body).contains(wanted, ignoreCase = true)) return true
+        if (TextNormalizer.fold(message.address).contains(wanted, ignoreCase = true)) return true
+        val numberQuery = typed.all { it.isDigit() || it in " +-()" }
+        val digits = asciiDigits(typed)
+        return numberQuery && digits.length >= MIN_NUMBER_DIGITS && asciiDigits(message.address).contains(digits)
+    }
+
+    /**
+     * The sender rows of [groups] that answer [query]: a sender stays when any of its messages does, and keeps all of
+     * its messages, so an action on the row (Not spam, Delete) still acts on the whole sender.
+     */
+    fun searchGroups(groups: List<SenderGroup>, query: String): List<SenderGroup> =
+        if (query.isBlank()) groups else groups.filter { g -> g.messages.any { matchesQuery(it, query) } }
 
     /**
      * How many senders each chip would list, for the count badges. The list shows one row per sender, so counting

@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.RuleType
 
-private val commonTypes = listOf(RuleType.NUMBER, RuleType.SENDER_ID, RuleType.KEYWORD)
+private val commonTypes = listOf(RuleType.NUMBER, RuleType.SENDER_ID, RuleType.KEYWORD, RuleType.DOMAIN)
 private val moreTypes = listOf(RuleType.PREFIX, RuleType.REGEX)
 
 /** The type said in the plain words of the add-rule sheet ("A word in the message"). */
@@ -28,6 +28,7 @@ private fun matchLabel(type: RuleType): Int = when (type) {
     RuleType.KEYWORD -> R.string.ux8d_match_word
     RuleType.PREFIX -> R.string.ux8d_match_prefix
     RuleType.REGEX -> R.string.ux8d_match_pattern
+    RuleType.DOMAIN -> R.string.rdec_match_domain
 }
 
 /** The type said once, short, for a rule's row and the type filter ("Word in message"). */
@@ -39,6 +40,7 @@ fun ruleRowTypeLabel(type: RuleType): String = stringResource(
         RuleType.SENDER_ID -> R.string.ux8d_row_type_sender
         RuleType.KEYWORD -> R.string.ux8d_row_type_word
         RuleType.REGEX -> R.string.ux8d_row_type_pattern
+        RuleType.DOMAIN -> R.string.rdec_row_type_domain
     },
 )
 

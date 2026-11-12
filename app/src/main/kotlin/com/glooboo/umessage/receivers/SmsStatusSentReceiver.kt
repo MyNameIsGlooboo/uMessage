@@ -23,6 +23,7 @@ import com.glooboo.umessage.helpers.hasFailedSendNotification
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.messaging.SentParts
+import com.glooboo.umessage.messaging.SmsFailureReason
 import com.glooboo.umessage.spam.data.ForwardDelivery
 
 /** Handles updating databases and states when a SMS message is sent. */
@@ -77,6 +78,13 @@ class SmsStatusSentReceiver : SendStatusReceiver() {
 
         context.messagesDB.updateType(messageId, isMMS = false, type = type)
         val groupUri = groupRowUri(intent)
+        // Thread-27: the thread names why it failed, from the phone's own report; a later success forgets it.
+        if (outcome == SentParts.Outcome.FAILED_FIRST) {
+            SmsFailureReason.record(context, intent.data, receiverResultCode)
+            SmsFailureReason.record(context, groupUri, receiverResultCode)
+        } else if (outcome == SentParts.Outcome.SENT) {
+            SmsFailureReason.clear(context, intent.data)
+        }
         if (outcome.isFailure()) {
             groupUri?.let { messageIdOf(it) }?.let { context.messagesDB.updateType(it, isMMS = false, type = type) }
         }

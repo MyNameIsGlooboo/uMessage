@@ -32,6 +32,11 @@ data class PendingSmsEntity(
     val createdAt: Long,
     /** The carrier's send time from the PDU in milliseconds, 0 when unknown. [date] stays the arrival time. */
     @ColumnInfo(defaultValue = "0") val dateSent: Long = 0L,
+    /**
+     * Added in version 8. True for a message the user restored from Blocked (spam-2): it already passed the filter by
+     * the user's decision, so a replay delivers it to the inbox without filtering it again.
+     */
+    @ColumnInfo(defaultValue = "0") val approved: Boolean = false,
 )
 
 object PendingSmsPolicy {
@@ -203,38 +208,41 @@ object PendingSmsQueue {
         } catch (t: Throwable) {
             return -1
         }
-        var waiting = 0
-        for (row in rows) {
-            if (!PendingSmsPolicy.isDue(row.createdAt, now) || PendingSmsPolicy.isLeased(leases[row.id], now)) {
-                waiting++
-                continue
-            }
-            lease(row.id, now)
-            val expired = PendingSmsPolicy.isExpired(row.createdAt, now)
-            val result = runCatching {
-                when {
-                    alreadyInInbox(context, row) -> Unit
-                    expired -> if (!alreadyBlocked(dao, row)) IncomingSmsProcessor.deliver(context, row)
-                    else -> IncomingSmsProcessor.process(context, row)
-                }
-            }
-            result.exceptionOrNull()?.let { error ->
-                val reason = (if (expired) "EXPIRED_" else "") + error.javaClass.simpleName
-                runCatching {
-                    UMessage.log(context).record(
-                        SpamLogEntry(now, row.address, row.subscriptionId, "ERROR", reason, "PENDING_REPLAY")
-                    )
-                }
-            }
-            if (result.isSuccess) {
-                done(context, row.id)
-            } else {
-                // Let the next replay retry right away instead of waiting out the lease.
-                leases.remove(row.id)
-                waiting++
+        return rows.count { replayRow(context, dao, it, now) }
+    }
+
+    /** Re-runs one row. Returns true when it is still waiting afterwards. */
+    private fun replayRow(context: Context, dao: SpamDao, row: PendingSmsEntity, now: Long): Boolean {
+        if (!PendingSmsPolicy.isDue(row.createdAt, now) || PendingSmsPolicy.isLeased(leases[row.id], now)) {
+            return true
+        }
+        lease(row.id, now)
+        val expired = PendingSmsPolicy.isExpired(row.createdAt, now)
+        val result = runCatching {
+            when {
+                alreadyInInbox(context, row) -> Unit
+                // A restored message is the user's decision: no second filter pass, and no "already blocked" test
+                // (an identical spam text blocked meanwhile must not stop it from reaching the inbox).
+                row.approved -> IncomingSmsProcessor.deliver(context, row, NotifyContext.NONE)
+                expired -> if (!alreadyBlocked(dao, row)) IncomingSmsProcessor.deliver(context, row)
+                else -> IncomingSmsProcessor.process(context, row)
             }
         }
-        return waiting
+        result.exceptionOrNull()?.let { error ->
+            val reason = (if (expired) "EXPIRED_" else "") + error.javaClass.simpleName
+            runCatching {
+                UMessage.log(context).record(
+                    SpamLogEntry(now, row.address, row.subscriptionId, "ERROR", reason, "PENDING_REPLAY")
+                )
+            }
+        }
+        if (result.isSuccess) {
+            done(context, row.id)
+            return false
+        }
+        // Let the next replay retry right away instead of waiting out the lease.
+        leases.remove(row.id)
+        return true
     }
 
     /** The row was stored as blocked already (the process died before the pending row was deleted). */

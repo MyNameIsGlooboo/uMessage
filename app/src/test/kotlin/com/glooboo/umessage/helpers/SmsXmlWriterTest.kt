@@ -135,7 +135,7 @@ class SmsXmlWriterTest {
     }
 
     @Test
-    fun readerExport_asXml_holdsSmsAndMms_andTheImporterRestoresTheTexts() {
+    fun readerExport_asXml_holdsSmsAndMms_andTheImporterRestoresBoth() {
         val source = FakeMessageStore.install()
         val ali = source.threadIdFor("+447121111111")
         source.addSms("+447121111111", "see you at 5 🙂", 2_000, type = 2, threadId = ali)
@@ -166,8 +166,9 @@ class SmsXmlWriterTest {
         val target = FakeMessageStore.install()
         val summary = MessagesImporter(context, MessagesWriter(context) { emptyList() })
             .import(xml.byteInputStream(), all)
-        assertThat(summary.added).isEqualTo(2)
-        assertThat(summary.unsupportedMms).isEqualTo(1)
+        assertThat(summary.added).isEqualTo(3)
+        assertThat(summary.unsupportedMms).isEqualTo(0)
+        assertThat(target.count("pdu")).isEqualTo(1)
         assertThat(target.rows("sms", orderBy = "date").map { it["body"] })
             .containsExactly("سلام، خوبی؟", "see you at 5 🙂").inOrder()
     }

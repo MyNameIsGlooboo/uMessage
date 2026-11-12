@@ -229,6 +229,9 @@ class MainSearchState {
     /** The private notes that hold [query]; the page lists them under "Notes". */
     internal var noteHits by mutableStateOf<List<NoteHit>>(emptyList())
 
+    /** main-22: the senders of blocked (spam) messages that hold [query]; the page lists them under "Blocked". */
+    internal var blockedHits by mutableStateOf<List<BlockedHit>>(emptyList())
+
     /** N11: the filter picked with a tile. It outlives the search: the inbox keeps showing it. */
     var filter by mutableStateOf(InboxFilter.All)
 
@@ -243,5 +246,6 @@ class MainSearchState {
         query = ""
         results = emptyList()
         noteHits = emptyList()
+        blockedHits = emptyList()
     }
 }

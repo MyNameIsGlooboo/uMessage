@@ -9,4 +9,6 @@ internal class SearchPanelActions(
     val onFilter: (InboxFilter) -> Unit,
     val onSim: (Int) -> Unit,
     val onOpen: (SearchResult) -> Unit,
+    /** Opens the blocked thread of a sender found in the spam section (main-22). */
+    val onOpenBlocked: (String) -> Unit = {},
 )

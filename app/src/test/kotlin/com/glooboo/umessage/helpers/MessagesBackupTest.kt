@@ -270,7 +270,7 @@ class MessagesBackupTest {
     }
 
     @Test
-    fun xmlBackup_givesOneSummaryWithBadRowsAndPictureMessagesCounted() {
+    fun xmlBackup_givesOneSummaryWithBadRowsAndAPictureMessageWithoutAddressFailing() {
         val store = FakeMessageStore.install()
         val xml = """
             <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
@@ -285,11 +285,87 @@ class MessagesBackupTest {
         val summary = importer().import(xml.byteInputStream(), all)
         assertThat(summary.added).isEqualTo(2)
         assertThat(summary.damaged).isEqualTo(2)
-        assertThat(summary.unsupportedMms).isEqualTo(1)
+        assertThat(summary.failed).isEqualTo(1)
         assertThat(store.rows("sms").map { it["body"] }).containsExactly("one", "سلام 👋").inOrder()
         val text = BackupSummaryText.import(context, summary)
         assertThat(text).contains("Added: 2")
-        assertThat(text).contains("not supported")
+        assertThat(text).contains("Could not be restored: 1")
+    }
+
+    private val xmlPhoto = Base64.getEncoder().encodeToString(photo)
+
+    private fun xmlMms(parts: String, attrs: String = "date=\"4000000000000\" msg_box=\"1\" m_type=\"132\"") = """
+        <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+        <smses count="1">
+          <mms $attrs address="+15550001~+15550002">
+            <parts>$parts</parts>
+            <addrs>
+              <addr address="+15550001" type="137" charset="106" />
+              <addr address="+15550002" type="151" charset="106" />
+            </addrs>
+          </mms>
+        </smses>
+    """.trimIndent()
+
+    @Test
+    fun xmlBackup_restoresAPictureMessageWithItsAttachment_andSkipsItTheSecondTime() {
+        val store = FakeMessageStore.install()
+        val xml = xmlMms(
+            "<part seq=\"0\" ct=\"text/plain\" text=\"look\" />" +
+                "<part seq=\"1\" ct=\"image/jpeg\" name=\"p.jpg\" data=\"$xmlPhoto\" />",
+        )
+        val first = importer().import(xml.byteInputStream(), all)
+        assertThat(first.added).isEqualTo(1)
+        assertThat(first.unsupportedMms).isEqualTo(0)
+        assertThat(store.count("pdu")).isEqualTo(1)
+        assertThat(store.count("part")).isEqualTo(2)
+        // SMS Backup & Restore writes MMS times in milliseconds; the provider keeps seconds.
+        assertThat(store.rows("pdu").single()["date"]).isEqualTo(4_000_000_000L)
+        val image = store.rows("part").single { it["ct"] == "image/jpeg" }["_id"] as Long
+        assertThat(store.partBytes(image)).isEqualTo(photo)
+
+        val second = importer().import(xml.byteInputStream(), all)
+        assertThat(second.added).isEqualTo(0)
+        assertThat(second.duplicates).isEqualTo(1)
+        assertThat(store.count("pdu")).isEqualTo(1)
+        assertThat(store.count("part")).isEqualTo(2)
+    }
+
+    @Test
+    fun xmlBackup_pictureMessagesAreLeftOut_whenOnlySmsIsChosen() {
+        val store = FakeMessageStore.install()
+        val xml = xmlMms("<part seq=\"0\" ct=\"text/plain\" text=\"look\" />")
+        val summary = importer().import(xml.byteInputStream(), MessagesImporter.Options(sms = true, mms = false))
+        assertThat(summary.skippedByChoice).isEqualTo(1)
+        assertThat(store.count("pdu")).isEqualTo(0)
+    }
+
+    @Test
+    fun xmlBackup_anAttachmentOverTheSizeLimit_isLeftOutAndTheMessageSaysSo() {
+        val store = FakeMessageStore.install()
+        val huge = "A".repeat(19_000_001)
+        val xml = xmlMms(
+            "<part seq=\"0\" ct=\"text/plain\" text=\"look\" /><part seq=\"1\" ct=\"image/jpeg\" data=\"$huge\" />",
+        )
+        val summary = importer().import(xml.byteInputStream(), all)
+        assertThat(summary.incomplete).isEqualTo(1)
+        assertThat(store.rows("part").map { it["ct"] }).containsExactly("text/plain")
+    }
+
+    @Test
+    fun xmlBackup_aPictureMessageWithoutDate_isDamaged_andTheNextEntriesStillImport() {
+        val store = FakeMessageStore.install()
+        val xml = """
+            <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+            <smses count="2">
+              <mms msg_box="1"><parts><part ct="text/plain" text="x" /></parts></mms>
+              <sms address="+15550001" date="1000" type="1" body="after" />
+            </smses>
+        """.trimIndent()
+        val summary = importer().import(xml.byteInputStream(), all)
+        assertThat(summary.damaged).isEqualTo(1)
+        assertThat(summary.added).isEqualTo(1)
+        assertThat(store.rows("sms").map { it["body"] }).containsExactly("after")
     }
 
     @Test

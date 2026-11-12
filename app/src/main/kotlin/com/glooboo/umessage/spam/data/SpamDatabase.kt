@@ -107,14 +107,34 @@ abstract class SpamDatabase : RoomDatabase() {
         /** Schema version that added the carrier send time to the pending queue. */
         private const val VERSION_DATE_SENT = 7
 
+        /**
+         * Schema 8 (owner decisions on the triage): a restored message in the pending queue skips the filter on
+         * replay (`approved`), and block rules count their hits (`hitCount`, `lastHit`). Existing rows keep behavior:
+         * nothing is approved, no rule has a hit. The new DOMAIN rule type needs no column (the type is stored by
+         * name).
+         */
+        private val MIGRATION_7_8 = object : Migration(VERSION_DATE_SENT, VERSION_RULE_STATS) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `pending_sms` ADD COLUMN `approved` INTEGER NOT NULL DEFAULT 0")
+                db.execSQL("ALTER TABLE `spam_rules` ADD COLUMN `hitCount` INTEGER NOT NULL DEFAULT 0")
+                db.execSQL("ALTER TABLE `spam_rules` ADD COLUMN `lastHit` INTEGER NOT NULL DEFAULT 0")
+            }
+        }
+
+        /** Schema version that added the approved flag and the rule hit counters. */
+        private const val VERSION_RULE_STATS = 8
+
         internal const val DATABASE_NAME = "spamless.db"
 
         /** Must equal the `version` in [Database] above. */
-        internal const val VERSION = VERSION_DATE_SENT
+        internal const val VERSION = VERSION_RULE_STATS
 
         /** Every migration, oldest first. */
         internal val ALL_MIGRATIONS: Array<Migration> =
-            arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
+            arrayOf(
+                MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7,
+                MIGRATION_7_8,
+            )
 
         fun getInstance(context: Context): SpamDatabase = instance ?: synchronized(this) {
             instance ?: build(context.applicationContext, DATABASE_NAME).also { instance = it }

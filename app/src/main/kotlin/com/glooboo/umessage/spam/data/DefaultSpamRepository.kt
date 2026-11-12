@@ -14,6 +14,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import com.glooboo.umessage.spam.BlockedMessage
+import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.MMS_PLACEHOLDER_BODY
 import com.glooboo.umessage.spam.MmsMedia
@@ -25,6 +26,7 @@ import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.SpamStats
+import com.glooboo.umessage.spam.engine.DomainMatch
 import com.glooboo.umessage.spam.engine.NumberNormalizer
 
 class DefaultSpamRepository(
@@ -97,7 +99,15 @@ class DefaultSpamRepository(
             val pattern = cleanPattern(rule)
             val other = dao.findRule(rule.kind, rule.type, pattern, rule.subscriptionId)
             if (other != null && other.id != rule.id) return@runInTransaction other.id
-            dao.updateRule(SpamRuleEntity.from(rule.copy(pattern = pattern, createdAt = current.createdAt)))
+            // The counters belong to the engine: an edit from a screen that read the rule earlier must not reset them.
+            dao.updateRule(
+                SpamRuleEntity.from(
+                    rule.copy(
+                        pattern = pattern, createdAt = current.createdAt,
+                        hitCount = current.hitCount, lastHit = current.lastHit,
+                    )
+                )
+            )
             rule.id
         }
     }
@@ -150,6 +160,11 @@ class DefaultSpamRepository(
             } else {
                 val rowId = dao.insertBlocked(BlockedMessageEntity.from(capped))
                 dao.insertEvent(SpamEventEntity(type = SpamEventType.BLOCKED, timestamp = System.currentTimeMillis()))
+                // spam-23: a rule that blocked a new message counts it (one cheap UPDATE in this transaction, which
+                // already runs off the main thread). A duplicate copy is not a new hit; a deleted rule matches no row.
+                if (capped.reason == DecisionReason.BLOCK_RULE && capped.ruleId != null) {
+                    dao.recordRuleHit(capped.ruleId, System.currentTimeMillis())
+                }
                 rowId
             }
         }
@@ -289,6 +304,7 @@ class DefaultSpamRepository(
                     subscriptionId = row.subscriptionId,
                     status = Telephony.Sms.STATUS_NONE,
                     createdAt = now,
+                    approved = true,
                 )
                 pending = entity.copy(id = dao.insertPending(entity))
             }
@@ -405,6 +421,7 @@ class DefaultSpamRepository(
         RuleType.NUMBER -> ruleNormalizer(rule.subscriptionId).normalize(rule.pattern)
         RuleType.SENDER_ID -> normalizer.normalize(rule.pattern)
         RuleType.PREFIX -> normalizer.cleanPrefix(rule.pattern)
+        RuleType.DOMAIN -> DomainMatch.clean(rule.pattern)
         else -> rule.pattern.trim()
     }
 

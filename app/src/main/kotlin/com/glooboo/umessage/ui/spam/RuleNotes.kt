@@ -59,7 +59,7 @@ object RuleNotes {
         BLOCKED_BY_YOU -> R.string.e_note_blocked_by_you
         ALLOWED_BY_YOU -> R.string.e_note_allowed_by_you
         BLOCKED_FROM_MESSAGE -> R.string.e_note_blocked_from_message
-        BLOCKED_FROM_KEYWORD -> R.string.e_note_blocked_from_keyword
+        BLOCKED_FROM_KEYWORD -> R.string.rdec_note_blocked_from_keyword
         ALLOWED_FROM_KEYWORD -> R.string.e_note_allowed_from_keyword
         REPORTED_SPAM -> R.string.e_note_reported_spam
         OLD_WORD_LIST -> R.string.e_note_old_word_list

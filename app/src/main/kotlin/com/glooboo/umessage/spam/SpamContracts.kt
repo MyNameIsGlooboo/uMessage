@@ -30,6 +30,12 @@ enum class RuleType {
 
     /** Java regex matched against the message body. */
     REGEX,
+
+    /**
+     * A web domain such as "example.com": matches a link in the message body whose host is that domain or one of its
+     * subdomains ("www.example.com", "a.b.example.com", but not "notexample.com" or "example.com.evil.net").
+     */
+    DOMAIN,
 }
 
 /** SIM scope of a rule. [subscriptionId] == null means both SIMs. */
@@ -41,6 +47,10 @@ data class SpamRule(
     val subscriptionId: Int? = null,
     val note: String = "",
     val createdAt: Long = System.currentTimeMillis(),
+    /** How many messages this rule has blocked (counted by the engine, not editable). */
+    val hitCount: Int = 0,
+    /** When this rule last blocked a message in milliseconds, 0 = never. */
+    val lastHit: Long = 0L,
 )
 
 data class IncomingMessage(

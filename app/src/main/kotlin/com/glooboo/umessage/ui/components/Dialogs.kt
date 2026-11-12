@@ -117,6 +117,8 @@ fun InfoDialog(
     modifier: Modifier = Modifier,
     title: String? = null,
     confirmLabel: String = stringResource(R.string.screens_ok),
+    /** An extra button beside OK, or null for none. */
+    dismissButton: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
     AlertDialog(
@@ -125,6 +127,7 @@ fun InfoDialog(
         title = title?.let { { Text(it) } },
         text = { Column(Modifier.verticalScroll(rememberScrollState())) { content() } },
         confirmButton = { TextButton(onClick = onDismiss) { Text(confirmLabel) } },
+        dismissButton = dismissButton,
     )
 }
 

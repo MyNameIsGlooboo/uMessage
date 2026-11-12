@@ -145,6 +145,8 @@ class RulesActions(
     val onEdit: (SpamRule) -> Unit = {},
     val onQuery: (String) -> Unit = {},
     val onTypeFilter: (RuleType?) -> Unit = {},
+    // main-23
+    val onOrder: (RulesOrder) -> Unit = {},
     val onToggleSelected: (Long) -> Unit = {},
     val onSelectAll: () -> Unit = {},
     val onClearSelection: () -> Unit = {},
@@ -210,6 +212,7 @@ fun RulesRoute(
             onEdit = viewModel::openEdit,
             onQuery = viewModel::setQuery,
             onTypeFilter = viewModel::setTypeFilter,
+            onOrder = viewModel::setOrder,
             onToggleSelected = viewModel::toggleSelected,
             onSelectAll = viewModel::selectAllVisible,
             onClearSelection = viewModel::clearSelection,
@@ -401,6 +404,17 @@ private fun RulesTopBar(state: RulesUiState, actions: RulesActions, onTest: () -
                     text = { Text(stringResource(R.string.e_rules_menu_backup)) },
                     leadingIcon = { Icon(Symbols.Upload, contentDescription = null) },
                     onClick = { menuOpen = false; actions.onOpenBackup() },
+                )
+                // main-23: ticked = the newest saved rule comes first; unticked keeps the usual order.
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.rdec_sort_newest)) },
+                    leadingIcon = {
+                        if (state.order == RulesOrder.NEWEST) Icon(Symbols.Check, contentDescription = null)
+                    },
+                    onClick = {
+                        menuOpen = false
+                        actions.onOrder(if (state.order == RulesOrder.NEWEST) RulesOrder.DEFAULT else RulesOrder.NEWEST)
+                    },
                 )
                 DropdownMenuItem(
                     text = { Text(stringResource(R.string.w3b_test_menu)) },
@@ -756,6 +770,7 @@ fun ruleTypeLabel(type: RuleType): String = stringResource(
         RuleType.SENDER_ID -> R.string.spam_type_sender_id
         RuleType.KEYWORD -> R.string.spam_type_keyword
         RuleType.REGEX -> R.string.spam_type_regex
+        RuleType.DOMAIN -> R.string.rdec_type_domain
     },
 )
 
@@ -765,6 +780,7 @@ private fun ruleTypeIcon(type: RuleType): ImageVector = when (type) {
     RuleType.SENDER_ID -> Symbols.Sms
     RuleType.KEYWORD -> Symbols.Tag
     RuleType.REGEX -> Symbols.Code
+    RuleType.DOMAIN -> Symbols.Language
 }
 
 /**
@@ -897,6 +913,16 @@ private fun RuleRowText(rule: SpamRule, sims: List<SimInfo>, overridden: Boolean
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
+        // spam-23: how many messages the rule has blocked and when it last did; nothing for a rule that never did.
+        RuleHits.text(LocalContext.current.resources, rule)?.let {
+            Text(
+                it,
+                style = MaterialTheme.typography.bodySmall,
+                color = colors.onSurfaceVariant,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+            )
+        }
         if (overridden) {
             InfoChip(
                 stringResource(R.string.w3b_overridden_chip),
@@ -916,6 +942,7 @@ private fun typeHelp(kind: ListKind, type: RuleType): String = stringResource(
         RuleType.SENDER_ID -> R.string.rules2_type_sender_id_help
         RuleType.KEYWORD -> if (kind == ListKind.ALLOW) R.string.spam_type_keyword_allow_help else R.string.spam_type_keyword_help
         RuleType.REGEX -> R.string.rules2_type_regex_help
+        RuleType.DOMAIN -> R.string.rdec_type_domain_help
     },
 )
 
@@ -927,6 +954,7 @@ private fun typeHint(type: RuleType): String = stringResource(
         RuleType.SENDER_ID -> R.string.spam_type_sender_id_hint
         RuleType.KEYWORD -> R.string.spam_type_keyword_hint
         RuleType.REGEX -> R.string.spam_type_regex_hint
+        RuleType.DOMAIN -> R.string.rdec_type_domain_hint
     },
 )
 
@@ -942,6 +970,7 @@ internal fun errorText(error: RuleValidation.Invalid): String = when (error.erro
     RuleError.TOO_LONG -> stringResource(R.string.spam_err_too_long)
     RuleError.MULTILINE -> stringResource(R.string.spam_err_multiline)
     RuleError.DUPLICATE -> stringResource(R.string.spam_err_duplicate)
+    RuleError.DOMAIN -> stringResource(R.string.rdec_err_domain)
     RuleError.ALLOW_KEYWORD_SHORT -> stringResource(R.string.spam_err_allow_keyword_short)
     else -> regexErrorText(error)
 }
@@ -982,6 +1011,25 @@ private fun RuleWarnings(warnings: List<RuleWarning>) {
                 warnings.forEach { Text(warningText(it), style = MaterialTheme.typography.bodyMedium) }
             }
         }
+    }
+}
+
+/** The "heads up" under a block-by-words rule: the sender is blocked too, and how to undo it. */
+@Composable
+private fun SenderBlockNote() {
+    val colors = MaterialTheme.colorScheme
+    Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+        Icon(
+            Symbols.Info,
+            contentDescription = null,
+            tint = colors.onSurfaceVariant,
+            modifier = Modifier.size(20.dp),
+        )
+        Text(
+            stringResource(R.string.rdec_sender_warning),
+            style = MaterialTheme.typography.bodyMedium,
+            color = colors.onSurfaceVariant,
+        )
     }
 }
 
@@ -1073,6 +1121,9 @@ fun AddRuleSheet(
 
                 if (error == null && form.warnings.isNotEmpty()) RuleWarnings(form.warnings)
 
+                // spam-15: a blocked word or pattern blocks the whole sender; said where it is turned on.
+                if (RuleValidator.blocksSender(form.kind, form.type)) SenderBlockNote()
+
                 if (form.saveFailed) {
                     Text(
                         stringResource(R.string.spam_sheet_save_failed),
@@ -1140,10 +1191,10 @@ private fun RuleValueField(form: RuleForm, error: RuleValidation.Invalid?, onPat
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.None,
             autoCorrectEnabled = false,
-            keyboardType = if (form.type.isSender && form.type != RuleType.SENDER_ID) {
-                KeyboardType.Phone
-            } else {
-                KeyboardType.Text
+            keyboardType = when {
+                form.type.isSender && form.type != RuleType.SENDER_ID -> KeyboardType.Phone
+                form.type == RuleType.DOMAIN -> KeyboardType.Uri
+                else -> KeyboardType.Text
             },
         ),
         trailingIcon = {
@@ -1185,6 +1236,7 @@ private fun valueLabel(type: RuleType): Int = when (type) {
     RuleType.SENDER_ID -> R.string.e_value_sender
     RuleType.KEYWORD -> R.string.e_value_keyword
     RuleType.REGEX -> R.string.e_value_pattern
+    RuleType.DOMAIN -> R.string.rdec_value_domain
 }
 
 /** Share of the screen height a rule sheet may take, so the status bar stays visible above it. */

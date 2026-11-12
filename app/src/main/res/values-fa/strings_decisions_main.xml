@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="decm_marked_all_read" tools:ignore="ImpliedQuantity">
+        <item quantity="one">%d گفتگو خوانده شد</item>
+        <item quantity="other">%d گفتگو خوانده شد</item>
+    </plurals>
+    <string name="decm_search_section_blocked">پیام‌های اسپم</string>
+    <string name="decm_blocked_search">جستجو در پیام‌های اسپم</string>
+    <string name="decm_blocked_search_hint">جستجو با فرستنده یا متن</string>
+    <string name="decm_blocked_search_close">بستن جستجو</string>
+    <string name="decm_blocked_search_none_title">چیزی پیدا نشد</string>
+    <string name="decm_blocked_search_none_body">هیچ فرستنده یا پیام اسپمی با چیزی که نوشتید جور نیست.</string>
+    <string name="decm_always_allow">همیشه مجاز</string>
+</resources>
