@@ -25,6 +25,7 @@ const val DEFAULT_SIM_ID = "default_sim_id"
 const val DEFAULT_SIM_PHONE = -2
 const val DEFAULT_SIM_ASK = -3
 const val NOTIFICATION_CHANNEL_ID = "fossify_messages"
+const val FAILED_SEND_CHANNEL_ID = "umessage_failed_send"
 const val SHOW_CHARACTER_COUNTER = "show_character_counter"
 const val USE_SIMPLE_CHARACTERS = "use_simple_characters"
 const val SEND_ON_ENTER = "send_on_enter"

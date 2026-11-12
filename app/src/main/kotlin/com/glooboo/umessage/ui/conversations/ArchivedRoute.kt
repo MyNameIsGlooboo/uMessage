@@ -62,12 +62,17 @@ class ArchivedViewModel(application: Application) : AndroidViewModel(application
         EventBus.getDefault().takeUnless { it.isRegistered(this) }?.register(this)
     }
 
+    /** Loads run one after another, so a slow older read can never overwrite the state a newer one published. */
+    private val loader = java.util.concurrent.Executors.newSingleThreadExecutor()
+
     override fun onCleared() {
         EventBus.getDefault().unregister(this)
+        loader.shutdown()
     }
 
     fun load() {
-        ensureBackgroundThread {
+        if (loader.isShutdown) return
+        loader.execute {
             val conversations = try {
                 app.conversationsDB.getAllArchived()
             } catch (_: Exception) {

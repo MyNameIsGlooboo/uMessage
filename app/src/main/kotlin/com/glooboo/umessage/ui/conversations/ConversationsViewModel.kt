@@ -281,8 +281,9 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    fun selectAll() {
-        selected = _state.value.rows.mapTo(HashSet()) { it.threadId }
+    /** Selects every row, or only [visibleThreadIds] when a filter hides some rows (select all must not reach them). */
+    fun selectAll(visibleThreadIds: Collection<Long>? = null) {
+        selected = visibleThreadIds?.toHashSet() ?: _state.value.rows.mapTo(HashSet()) { it.threadId }
         requestRebuild()
     }
 
@@ -467,7 +468,8 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
      * snackbar offers Undo, which removes the rules again (through [undoReportSpam], with nothing to unarchive).
      */
     fun blockSelected() {
-        val conversations = selectedConversations()
+        // A group chat has no single sender, so it is left out, as blockOne and reportSpamSelected do.
+        val conversations = selectedConversations().filterNot { it.isGroupConversation }
         if (conversations.isEmpty()) return
         selected = emptySet()
         requestRebuild()
@@ -647,7 +649,6 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     private fun build(s: Snapshot): ConversationsUiState {
         val config = app.config
-        val withNotes = noteThreads
         val pinned = config.pinnedConversations
         val customNotifications = config.customNotifications
         // One binder call per rebuild instead of one per chat with its own notification channel.
@@ -674,7 +675,6 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
                     .thenByDescending { unreadFirst && !it.read }
                     .thenByDescending { it.date },
             )
-        val minute = now / MINUTE_MS
         val rows = sorted.map { c ->
             val draft = s.drafts[c.threadId]
             val simSlot = if (showSim && !c.isGroupConversation) {
@@ -692,8 +692,8 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
                 muted = mutePrefs.isMuted(c.threadId) ||
                     (customNotifications.contains(c.threadId.toString()) && c.threadId.toString() in mutedChannels),
                 otpFresh = !c.read && now - c.date * 1000L in 0..OTP_CHIP_MS,
-                hasNotes = c.threadId in withNotes,
-                minute = minute, locale = locale,
+                hasNotes = c.threadId in noteThreads,
+                minute = now / MINUTE_MS, locale = locale,
             )
             rowCache.get(c.threadId, input) {
                 val unread = !c.read
@@ -751,13 +751,14 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
                 canMarkUnread = chosen.any { it.read },
                 canArchive = s.status.archiveAvailable,
                 canReportSpam = chosen.none { it.isGroupConversation },
+                canBlock = chosen.any { !it.isGroupConversation },
                 canAddContact = single != null && !single.isGroupConversation,
                 canCopyNumber = single != null && !single.isGroupConversation,
                 canDial = single != null && !single.isGroupConversation && !isShortCodeWithLetters(single.phoneNumber),
                 canRename = single != null && single.isGroupConversation,
                 canShowDetails = single != null,
                 allSelected = chosen.size == rows.size,
-                numbers = chosen.map { it.phoneNumber }.distinct(),
+                numbers = chosen.filterNot { it.isGroupConversation }.map { it.phoneNumber }.distinct(),
                 renameInitial = single?.title.orEmpty(),
             )
         }

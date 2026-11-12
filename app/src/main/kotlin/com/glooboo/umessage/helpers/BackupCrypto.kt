@@ -31,7 +31,7 @@ object BackupCrypto {
     /** The file is not a protected export, or it is cut short or changed. */
     class DamagedFileException(message: String) : IOException(message)
 
-    const val ITERATIONS = 200_000
+    const val ITERATIONS = 600_000
     const val CHUNK_SIZE = 64 * 1024
 
     /** `UMSGENC1`: key from the plain password. `UMSGENC2` (written now): key from the folded password (I8). */

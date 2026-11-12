@@ -227,6 +227,9 @@ interface SpamRepository {
     /** Stores a blocked message (called by receivers). */
     suspend fun storeBlocked(message: BlockedMessage): Long
 
+    /** [storeBlocked] that also says whether the message was already held (the row id returned is the first copy's). */
+    suspend fun storeBlockedChecked(message: BlockedMessage): Pair<Long, Boolean> = storeBlocked(message) to false
+
     /**
      * Inserts the message into the system inbox and shows it. Rules are not changed: the sender is not
      * whitelisted (that is a separate "Always allow" choice). Idempotent: a second call for the same id does

@@ -119,10 +119,15 @@ class ForwardedViewModel(application: Application) : AndroidViewModel(applicatio
         if (ids.isEmpty() || ui.value.busy) return
         ui.update { it.copy(busy = true) }
         viewModelScope.launch(Dispatchers.IO) {
-            val results = ids.map { ForwardResend.retry(app, it) }
+            val results = try {
+                ids.map { id ->
+                    runCatching { ForwardResend.retry(app, id) }.getOrDefault(ForwardResend.RetryResult.FAILED)
+                }
+            } finally {
+                ui.update { it.copy(busy = false) }
+            }
             runCatching { refreshMessages() }
             runCatching { refreshConversations() }
-            ui.update { it.copy(busy = false) }
             _events.emit(retriedEvent(results))
         }
     }

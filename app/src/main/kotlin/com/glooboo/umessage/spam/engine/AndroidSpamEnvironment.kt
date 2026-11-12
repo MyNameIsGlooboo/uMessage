@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Looper
 import android.provider.ContactsContract
 import android.provider.Telephony
-import android.telephony.PhoneNumberUtils
 import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
 import androidx.core.content.ContextCompat
@@ -61,7 +60,7 @@ class SystemContactChecker(
     /** Normalized and raw addresses the user has sent a message to. Null until loaded or after a change. */
     @Volatile private var sentCache: SentAddresses? = null
 
-    private class SentAddresses(val normalized: MutableSet<String>, val raw: MutableSet<String>)
+    private class SentAddresses(val normalized: MutableSet<String>, val index: ContactNumberIndex<Unit>)
 
     /**
      * Messages that changed since [sentCache] was built. Every received text changes the message store, so instead of
@@ -125,9 +124,8 @@ class SystemContactChecker(
         val sent = sentAddresses() ?: return ContactLookup.UNKNOWN
         if (normalizer.normalize(address) in sent.normalized) return ContactLookup.FOUND
         // The normalized forms can differ when a number was typed without its country code in another region; the
-        // platform comparison (same trailing digits, compatible prefixes) catches those.
-        val loose = sent.raw.any { PhoneNumberUtils.compare(it, address) }
-        return if (loose) ContactLookup.FOUND else ContactLookup.NOT_FOUND
+        // index catches those, but never across two known countries (PhoneNumberUtils.compare matched trailing digits).
+        return if (sent.index.contains(address)) ContactLookup.FOUND else ContactLookup.NOT_FOUND
     }
 
     private fun sentAddresses(): SentAddresses? = synchronized(sentLock) {
@@ -136,7 +134,9 @@ class SystemContactChecker(
         changedMessages.clear()
         val raw = loadSentSmsAddresses() ?: return null
         raw += loadSentMmsAddresses()
-        return SentAddresses(raw.mapTo(HashSet()) { normalizer.normalize(it) }, raw).also { sentCache = it }
+        val index = ContactNumberIndex<Unit>(normalizer, plausibleRegions(appContext))
+        raw.forEach { index.add(it, Unit) }
+        return SentAddresses(raw.mapTo(HashSet()) { normalizer.normalize(it) }, index).also { sentCache = it }
     }
 
     /**
@@ -154,7 +154,7 @@ class SystemContactChecker(
                 changedSmsRecipient(id)
             } ?: return false
             recipients.forEach { address ->
-                sent.raw += address
+                sent.index.add(address, Unit)
                 sent.normalized += normalizer.normalize(address)
             }
         }

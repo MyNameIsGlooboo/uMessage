@@ -125,7 +125,11 @@ class DefaultSpamRepository(
     override suspend fun updateSettings(transform: (SpamSettings) -> SpamSettings) =
         withContext(Dispatchers.IO) { settingsStore.update(transform) }
 
-    override suspend fun storeBlocked(message: BlockedMessage): Long = withContext(Dispatchers.IO) {
+    override suspend fun storeBlocked(message: BlockedMessage): Long = storeBlockedChecked(message).first
+
+    override suspend fun storeBlockedChecked(
+        message: BlockedMessage,
+    ): Pair<Long, Boolean> = withContext(Dispatchers.IO) {
         val capped = message.copy(
             id = 0,
             address = BlockedLimits.limitAddress(message.address),
@@ -155,7 +159,7 @@ class DefaultSpamRepository(
         } else if (settingsStore.get().notifyOnBlock) {
             runCatching { platform.notifyBlocked(capped.copy(id = id)) }
         }
-        id
+        id to duplicate
     }
 
     /**

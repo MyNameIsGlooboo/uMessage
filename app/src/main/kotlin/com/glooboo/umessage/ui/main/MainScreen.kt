@@ -238,12 +238,9 @@ private fun ActiveFilterBar(
     }
 }
 
-/** Selecting rows closes the search, and "select all" must not leave a filter on that hides some selected rows. */
+/** Selecting rows closes the search. "Select all" selects the filtered rows only, so the filter stays on. */
 @Composable
-private fun SelectionSearchEffects(selecting: Boolean, allSelected: Boolean, search: MainSearchState) {
-    LaunchedEffect(selecting, allSelected) {
-        if (selecting && allSelected) search.filter = InboxFilter.All
-    }
+private fun SelectionSearchEffects(selecting: Boolean, search: MainSearchState) {
     LaunchedEffect(selecting) {
         if (selecting && search.active) search.close()
     }
@@ -295,7 +292,7 @@ private fun MessagesTab(
     val shortcut = rememberSimThreads(search) ?: labels.shortcut
     val simName = simTiles.firstOrNull { it.subscriptionId == search.simId }?.label
         .takeIf { filter == InboxFilter.Sim }
-    SelectionSearchEffects(selecting, state.selection.allSelected, search)
+    SelectionSearchEffects(selecting, search)
     // Leaving search parks focus on a hidden spot instead of clearing it: cleared focus is handed back to the first
     // focusable item, which took 3-4 Back presses to leave.
     val keyboard = LocalSoftwareKeyboardController.current
@@ -340,6 +337,11 @@ private fun MessagesTab(
                     selection = state.selection,
                     callbacks = callbacks,
                     onLabels = labels.openPicker,
+                    onSelectAll = {
+                        viewModel.selectAll(
+                            InboxFilterPolicy.filterRows(state.rows, filter, shortcut.threads).map { it.threadId },
+                        )
+                    },
                 )
             } else {
                 MainTopBar(

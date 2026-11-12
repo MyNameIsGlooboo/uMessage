@@ -188,9 +188,13 @@ fun NewConversationScreen(
     val submit: () -> Unit = {
         val typed = query.trim()
         if (groupMode) {
-            val number = typedPhoneNumber(typed) ?: typed
-            picked = addRecipient(picked, GroupRecipient(number, number))
-            query = ""
+            val number = typedGroupRecipient(typed)
+            if (number == null) {
+                Toast.makeText(context, R.string.group_recipient_invalid, Toast.LENGTH_SHORT).show()
+            } else {
+                picked = addRecipient(picked, GroupRecipient(number, number))
+                query = ""
+            }
         } else {
             onSubmitAddress(typed)
         }

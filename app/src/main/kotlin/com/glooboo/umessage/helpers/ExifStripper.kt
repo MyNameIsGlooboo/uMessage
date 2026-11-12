@@ -61,13 +61,31 @@ object ExifStripper {
         false
     }
 
-    /** Clears the tags of the JPEG [file] in place. False when it is no JPEG or could not be saved (left as it was). */
+    /**
+     * Clears the tags of the JPEG [file] in place. The Exif block (with its embedded thumbnail), XMP, IPTC and
+     * comments are dropped; only the orientation is written back. False when it is no JPEG or could not be saved
+     * (left as it was).
+     */
     fun strip(file: File): Boolean {
         if (!isJpeg(file)) return false
         return try {
-            val exif = ExifInterface(file.absolutePath)
-            CLEARED_TAGS.forEach { exif.setAttribute(it, null) }
-            exif.saveAttributes()
+            val orientation = ExifInterface(file.absolutePath)
+                .getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
+            val rewritten = dropMetadataSegments(file)
+            if (rewritten) {
+                if (orientation != ExifInterface.ORIENTATION_UNDEFINED &&
+                    orientation != ExifInterface.ORIENTATION_NORMAL
+                ) {
+                    val exif = ExifInterface(file.absolutePath)
+                    exif.setAttribute(ExifInterface.TAG_ORIENTATION, orientation.toString())
+                    exif.saveAttributes()
+                }
+            } else {
+                // Unusual layout: clear the listed tags in place instead.
+                val exif = ExifInterface(file.absolutePath)
+                CLEARED_TAGS.forEach { exif.setAttribute(it, null) }
+                exif.saveAttributes()
+            }
             true
         } catch (_: IOException) {
             false
@@ -75,4 +93,54 @@ object ExifStripper {
             false
         }
     }
+
+    private const val MIN_JPEG_SIZE = 4
+    private const val SOI_LENGTH = 2
+    private const val SEGMENT_HEADER = 4
+    private const val LENGTH_FIELD = 2
+    private const val BYTE_MASK = 0xFF
+    private const val LENGTH_HIGH = 2
+    private const val LENGTH_LOW = 3
+    private const val MARKER_PREFIX = 0xFF
+    private const val MARKER_SOS = 0xDA
+    private const val MARKER_APP1 = 0xE1
+    private const val MARKER_APP13 = 0xED
+    private const val MARKER_COMMENT = 0xFE
+
+    /**
+     * Copies [file] without its Exif/XMP (APP1), IPTC (APP13) and comment segments. False, with [file] untouched,
+     * when the markers do not parse.
+     */
+    internal fun dropMetadataSegments(file: File): Boolean {
+        val result = withoutMetadata(file.readBytes()) ?: return false
+        file.writeBytes(result)
+        return true
+    }
+
+    private fun withoutMetadata(bytes: ByteArray): ByteArray? {
+        if (bytes.size < MIN_JPEG_SIZE) return null
+        val out = java.io.ByteArrayOutputStream(bytes.size)
+        out.write(bytes, 0, SOI_LENGTH) // SOI
+        var i = SOI_LENGTH
+        while (i + SEGMENT_HEADER <= bytes.size) {
+            if (bytes[i] != MARKER_PREFIX.toByte()) return null
+            val marker = bytes[i + 1].toInt() and BYTE_MASK
+            if (marker == MARKER_PREFIX) { i++; continue } // fill byte
+            if (marker == MARKER_SOS) { // start of scan: the rest is picture data
+                out.write(bytes, i, bytes.size - i)
+                return out.toByteArray()
+            }
+            val length = segmentLength(bytes, i)
+            val end = i + LENGTH_FIELD + length
+            if (length < LENGTH_FIELD || end > bytes.size) return null
+            val drop = marker == MARKER_APP1 || marker == MARKER_APP13 || marker == MARKER_COMMENT
+            if (!drop) out.write(bytes, i, end - i)
+            i = end
+        }
+        return null
+    }
+
+    private fun segmentLength(bytes: ByteArray, at: Int): Int =
+        ((bytes[at + LENGTH_HIGH].toInt() and BYTE_MASK) shl Byte.SIZE_BITS) or
+            (bytes[at + LENGTH_LOW].toInt() and BYTE_MASK)
 }

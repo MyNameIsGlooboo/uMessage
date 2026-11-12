@@ -24,6 +24,9 @@ interface MessageRemindersDao {
     @Query("SELECT * FROM message_reminders WHERE message_id = :messageId AND is_mms = :isMMS")
     suspend fun getForMessage(messageId: Long, isMMS: Boolean): List<MessageReminder>
 
+    @Query("SELECT * FROM message_reminders WHERE thread_id = :threadId")
+    suspend fun getForThread(threadId: Long): List<MessageReminder>
+
     @Query("DELETE FROM message_reminders WHERE id = :id")
     suspend fun delete(id: Long): Int
 

@@ -37,6 +37,7 @@ data class LinkReport(val flags: List<LinkFlag>, val lookalikeOf: String? = null
  * I07: offline checks of a link's address. Advice only: every flag is a reason to look twice, never a verdict, and
  * nothing here leaves the phone.
  */
+@Suppress("TooManyFunctions")
 object LinkSafety {
 
     private const val MIN_DISTANCE_BRAND = 6
@@ -48,7 +49,14 @@ object LinkSafety {
     private val dottedIp = Regex("^\\d{1,3}(\\.\\d{1,3}){3}$")
     private val hexIp = Regex("^0x[0-9a-f]+(\\.0x[0-9a-f]+)*$")
     private val secondLevel = setOf("co", "com", "org", "net", "gov", "edu", "ac", "sch")
-    private val confusables = mapOf('0' to 'o', '1' to 'l', '3' to 'e', '4' to 'a', '5' to 's', '$' to 's')
+    private val confusables = mapOf('0' to 'o', '1' to 'l', '3' to 'e', '4' to 'a', '5' to 's', '$' to 's',
+        // Cyrillic and Greek letters that look like Latin ones.
+        'а' to 'a', 'е' to 'e', 'о' to 'o', 'р' to 'p', 'с' to 'c', 'у' to 'y', 'х' to 'x', 'і' to 'i', 'ј' to 'j',
+        'ѕ' to 's', 'һ' to 'h', 'ԁ' to 'd', 'ɡ' to 'g', 'ο' to 'o', 'α' to 'a', 'ν' to 'v', 'ρ' to 'p', 'τ' to 't',
+        'ι' to 'i', 'κ' to 'k', 'ε' to 'e',
+    )
+    private const val MAX_ASCII = 127
+    private val arabicScripts = setOf(Character.UnicodeScript.ARABIC, Character.UnicodeScript.COMMON)
     private val ignorable = setOf('-', '_', '\u200c', '\u200d')
 
     /** Flags of [uri], in a fixed order. A mail address or an empty value gets none. */
@@ -84,7 +92,8 @@ object LinkSafety {
         val labels = host.split('.')
         if (labels.any { it.startsWith("xn--") }) flags += LinkFlag.PUNYCODE
         if (domain(host) in linkShorteners || linkShorteners.any { host.endsWith(".$it") }) flags += LinkFlag.SHORTENER
-        if (labels.any { mixesScripts(decode(it)) }) flags += LinkFlag.MIXED_SCRIPT
+        val decoded = labels.map(::decode)
+        if (decoded.any { mixesScripts(it) || isForeignScript(it) }) flags += LinkFlag.MIXED_SCRIPT
         return flags
     }
 
@@ -97,6 +106,14 @@ object LinkSafety {
     /** True when one name holds letters of different alphabets, Persian and Arabic counting as one. */
     private fun mixesScripts(label: String): Boolean =
         label.filter { it.isLetter() }.map { Character.UnicodeScript.of(it.code) }.toSet().size > 1
+
+    /**
+     * A whole label in another alphabet can still imitate a Latin name (all-Cyrillic "аpple"-style hosts). Persian and
+     * Arabic names are common here and are not flagged; any other non-ASCII letter is.
+     */
+    private fun isForeignScript(label: String): Boolean = label.any {
+        it.isLetter() && it.code > MAX_ASCII && Character.UnicodeScript.of(it.code) !in arabicScripts
+    }
 
     /** The registrable domain: "pay.example.co.uk" -> "example.co.uk", "a.b.example.com" -> "example.com". */
     private fun domain(host: String): String {

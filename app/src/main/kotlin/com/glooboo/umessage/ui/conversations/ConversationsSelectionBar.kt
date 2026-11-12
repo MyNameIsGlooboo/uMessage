@@ -50,6 +50,8 @@ fun ConversationsSelectionBar(
     modifier: Modifier = Modifier,
     /** I29: opens the label picker for the selected rows; no Labels entry while null. */
     onLabels: (() -> Unit)? = null,
+    /** Select all of the rows on screen (a filter may hide some); the whole list by default. */
+    onSelectAll: () -> Unit = callbacks.onSelectAll,
 ) {
     var menuOpen by remember { mutableStateOf(false) }
     var blockDialog by rememberSaveable { mutableStateOf(false) }
@@ -58,7 +60,7 @@ fun ConversationsSelectionBar(
     SelectionTopBar(count = selection.count, onClose = callbacks.onClearSelection, modifier = modifier) {
         // CL-22: Select all is on the bar itself, not buried in the menu (Pin moved there to make room).
         if (!selection.allSelected) {
-            IconButton(onClick = callbacks.onSelectAll) {
+            IconButton(onClick = onSelectAll) {
                 Icon(Symbols.SelectAll, contentDescription = stringResource(R.string.convlist_select_all))
             }
         }
@@ -183,7 +185,7 @@ private fun selectionMenuGroups(
         }
     },
     buildList {
-        add(MenuEntry(R.string.ux8a_selection_block, Symbols.Block, onBlock))
+        if (selection.canBlock) add(MenuEntry(R.string.ux8a_selection_block, Symbols.Block, onBlock))
         if (selection.canReportSpam) {
             add(
                 MenuEntry(

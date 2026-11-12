@@ -25,10 +25,10 @@ sealed interface ImageLoad {
  * Glide stays the image loader so MMS part Uris, video frames and the disk cache behave as they did in the old list.
  */
 @Composable
-fun rememberGlideBitmap(model: Any?, maxWidth: Int, maxHeight: Int): State<ImageLoad?> {
+fun rememberGlideBitmap(model: Any?, maxWidth: Int, maxHeight: Int, attempt: Int = 0): State<ImageLoad?> {
     val context = LocalContext.current.applicationContext
     if (model == null) return remember { mutableStateOf(ImageLoad.Failed) }
-    return produceState<ImageLoad?>(initialValue = null, model, maxWidth, maxHeight) {
+    return produceState<ImageLoad?>(initialValue = null, model, maxWidth, maxHeight, attempt) {
         val target = Glide.with(context)
             .asBitmap()
             .load(model)

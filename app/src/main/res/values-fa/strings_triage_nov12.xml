@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_recipient_invalid">یک شماره تلفن یا ایمیل وارد کنید</string>
+</resources>

@@ -16,6 +16,7 @@ import android.os.Looper
 import androidx.core.content.ContextCompat
 import org.fossify.commons.helpers.ensureBackgroundThread
 
+@Suppress("TooManyFunctions")
 object AudioPlayerManager {
     private const val PROGRESS_INTERVAL_MS = 200L
 
@@ -34,6 +35,8 @@ object AudioPlayerManager {
     private var noisyReceiverContext: Application? = null
     private var isPreparing = false
     private var pendingSeekPositionMs = 0
+    /** Set when a short focus loss (a call, a notification sound) paused playback; the focus gain resumes it. */
+    private var resumeOnGain = false
     private val handler = Handler(Looper.getMainLooper())
     private val audioAttributes = AudioAttributes.Builder()
         .setUsage(AudioAttributes.USAGE_MEDIA)
@@ -43,9 +46,13 @@ object AudioPlayerManager {
         .setWillPauseWhenDucked(true)
         .setOnAudioFocusChangeListener({ focusChange ->
             when (focusChange) {
-                AudioManager.AUDIOFOCUS_LOSS,
+                AudioManager.AUDIOFOCUS_LOSS -> {
+                    resumeOnGain = false
+                    pause()
+                }
                 AudioManager.AUDIOFOCUS_LOSS_TRANSIENT,
-                AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> pause()
+                AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> pauseForTransientLoss()
+                AudioManager.AUDIOFOCUS_GAIN -> resumeAfterTransientLoss()
             }
         }, handler)
         .build()
@@ -130,6 +137,7 @@ object AudioPlayerManager {
         mediaPlayer = null
         currentUri = null
         isPreparing = false
+        resumeOnGain = false
         pendingSeekPositionMs = 0
         player?.release()
         noisyReceiverContext?.unregisterReceiver(noisyReceiver)
@@ -193,6 +201,7 @@ object AudioPlayerManager {
     }
 
     private fun startPlayback(context: Context) {
+        resumeOnGain = false
         if (audioManager?.requestAudioFocus(focusRequest) != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
             playbackFailed()
             return
@@ -215,7 +224,41 @@ object AudioPlayerManager {
         }
     }
 
+    /** Pauses for a short focus loss but keeps the focus request, so the gain callback can resume. */
+    private fun pauseForTransientLoss() {
+        val player = mediaPlayer ?: return
+        if (isPreparing) {
+            release()
+            return
+        }
+        try {
+            if (!player.isPlaying) return
+            player.pause()
+            resumeOnGain = true
+            handler.removeCallbacks(progressRunnable)
+            currentListeners.forEach { it.onPlaybackStateChanged(false) }
+        } catch (_: IllegalStateException) {
+            playbackFailed()
+        }
+    }
+
+    private fun resumeAfterTransientLoss() {
+        if (!resumeOnGain) return
+        resumeOnGain = false
+        val player = mediaPlayer ?: return
+        if (isPreparing) return
+        try {
+            player.start()
+            currentListeners.forEach { it.onPlaybackStateChanged(true) }
+            handler.removeCallbacks(progressRunnable)
+            if (currentListeners.isNotEmpty()) handler.post(progressRunnable)
+        } catch (_: IllegalStateException) {
+            playbackFailed()
+        }
+    }
+
     private fun pause() {
+        resumeOnGain = false
         if (isPreparing) {
             release()
             return

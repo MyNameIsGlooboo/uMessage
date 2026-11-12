@@ -153,7 +153,12 @@ class SettingsActivity : ComposeSimpleActivity() {
     private val saveDocument =
         registerForActivityResult(CreateExportDocument()) { uri ->
             if (uri != null) {
-                exportMessagesDialog?.exportMessages(uri)
+                val dialog = exportMessagesDialog
+                if (dialog != null) {
+                    dialog.exportMessages(uri)
+                } else {
+                    toast(org.fossify.commons.R.string.unknown_error_occurred)
+                }
             }
         }
 
@@ -483,7 +488,7 @@ class SettingsActivity : ComposeSimpleActivity() {
     }
 
     private fun pickRestoreFile() = launchOwnPicker {
-        val types = arrayOf("application/json", "text/plain")
+        val types = arrayOf("application/json", "text/plain", "application/octet-stream")
         if (restoreViaDrive) openDriveSettingsBackup.launch(types) else openSettingsBackup.launch(types)
         restoreViaDrive = false
     }

@@ -72,11 +72,14 @@ class MmsPushReceiver : BroadcastReceiver() {
      */
     private fun storeAndDownload(context: Context, action: MmsPushAction.Block): Boolean {
         val downloadable = action.contentLocation.isNotEmpty()
+        var duplicate = false
         val id = SpamEngine.storeBlockedId(
             context, action.placeholder, action.decision,
             media = if (downloadable) MmsMedia.DOWNLOADING else MmsMedia.MISSING,
+            onDuplicate = { duplicate = true },
         ) ?: return false
-        if (downloadable) {
+        // A second push for the same MMS reuses the first row; a second download would overwrite the first one's media.
+        if (downloadable && !duplicate) {
             try {
                 BlockedMmsDownloader.start(context, id, action.contentLocation, action.placeholder.subscriptionId)
             } catch (t: Throwable) {

@@ -8,6 +8,13 @@ data class GroupRecipient(val name: String, val number: String)
 /** The same number however it was written ("+1 555-..." and "+1555..."): digits and a leading +. */
 internal fun recipientKey(number: String): String = typedPhoneNumber(number) ?: number.trim()
 
+/** The address a typed group recipient texts: a phone number, or an email address; null for any other text. */
+internal fun typedGroupRecipient(typed: String): String? {
+    val text = typed.trim()
+    typedPhoneNumber(text)?.let { return it }
+    return text.takeIf { Regex("[^@\\s]+@[^@\\s]+\\.[^@\\s]+").matches(it) }
+}
+
 /** Adds [recipient], or removes them when their number is already picked (a second tap on a contact). */
 internal fun toggleRecipient(picked: List<GroupRecipient>, recipient: GroupRecipient): List<GroupRecipient> {
     val key = recipientKey(recipient.number)

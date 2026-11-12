@@ -5,8 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Handler
-import android.os.Looper
 import android.telephony.SmsManager
 import androidx.core.app.RemoteInput
 import androidx.core.content.ContextCompat
@@ -80,23 +78,26 @@ class DirectReplyReceiver : BroadcastReceiver() {
             runCatching { context.notifySendFailedInBackground(recipients, threadId) }
         }
 
+        // A failed reply keeps the failure notification only: re-posting the typed text as a received message
+        // would hide it, and the chat was not read.
+        if (failed) return
+
         val photoUri = SimpleContactsHelper(context).getPhotoUriFromPhoneNumber(address)
         val bitmap = context.getNotificationBitmap(photoUri)
-        Handler(Looper.getMainLooper()).post {
-            context.notificationHelper.showMessageNotification(
-                messageId = messageId,
-                isMms = false,
-                address = address,
-                body = body,
-                threadId = threadId,
-                bitmap = bitmap,
-                sender = null,
-                alertOnlyOnce = true,
-                // A group keeps its group look after a reply (I19).
-                notify = NotifyContext(isGroup = recipients.size > 1),
-                offerSmartReplies = false
-            )
-        }
+        // Already on a background thread (runInBackground); the notification work does not need the main thread.
+        context.notificationHelper.showMessageNotification(
+            messageId = messageId,
+            isMms = false,
+            address = address,
+            body = body,
+            threadId = threadId,
+            bitmap = bitmap,
+            sender = null,
+            alertOnlyOnce = true,
+            // A group keeps its group look after a reply (I19).
+            notify = NotifyContext(isGroup = recipients.size > 1),
+            offerSmartReplies = false
+        )
 
         context.markThreadMessagesRead(threadId)
         context.conversationsDB.markRead(threadId)

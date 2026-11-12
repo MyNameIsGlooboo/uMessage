@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -275,7 +276,8 @@ class BlockedViewModel(
             restored = aux.restored,
             hasPendingUndo = pending.any,
         )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), BlockedUiState())
+    }.flowOn(Dispatchers.Default) // grouping, filtering and the link checks stay off the main thread
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), BlockedUiState())
 
     init {
         viewModelScope.launch {
@@ -561,6 +563,12 @@ class BlockedViewModel(
         if (clearsRestoredLog) clearLogTokens += token
         pendingDeletes.update { it + (token to ids) }
         events.trySend(BlockedEvent.Deleted(token, ids.size))
+        // The screen's snackbar normally commits; this makes the delete final even when the screen is left
+        // with the model still alive (commitDelete ignores a token that is gone or already being committed).
+        viewModelScope.launch {
+            delay(UNDO_WINDOW_MS)
+            commitDelete(token)
+        }
     }
 
     fun undoDelete(token: Long) {
@@ -570,13 +578,18 @@ class BlockedViewModel(
 
     fun commitDelete(token: Long) {
         val ids = pendingDeletes.value[token] ?: return
+        if (!deleting.add(token)) return
         viewModelScope.launch {
             runCatching { repository.deleteBlocked(ids) }
                 .onSuccess { if (clearLogTokens.remove(token)) restoredLog.clear() }
                 .onFailure { events.trySend(BlockedEvent.Failed) }
             pendingDeletes.update { it - token }
+            deleting -= token
         }
     }
+
+    /** Delete tokens whose commit is running, so the timer and the snackbar never delete twice. */
+    private val deleting = HashSet<Long>()
 
     /**
      * Shows the Undo snackbar again for every action still waiting on one. Call when the screen starts collecting

@@ -17,6 +17,7 @@ import ezvcard.property.Email
 import ezvcard.property.Telephone
 import org.fossify.commons.extensions.normalizePhoneNumber
 import org.fossify.commons.extensions.sendEmailIntent
+import org.fossify.commons.extensions.toast
 
 /** Shows the contacts of a vCard attachment; the intent extra [EXTRA_VCARD_URI] is unchanged. */
 class VCardViewerActivity : ComposeSimpleActivity() {
@@ -53,7 +54,11 @@ class VCardViewerActivity : ComposeSimpleActivity() {
             setDataAndType(vCardUri, mimetype?.lowercase())
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
-        startActivity(intent)
+        try {
+            startActivity(intent)
+        } catch (_: android.content.ActivityNotFoundException) {
+            toast(org.fossify.commons.R.string.system_service_disabled, android.widget.Toast.LENGTH_LONG)
+        }
     }
 
     private fun handleClick(property: VCardPropertyWrapper) {

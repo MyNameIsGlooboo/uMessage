@@ -63,6 +63,22 @@ class ExifStripperTest {
     }
 
     @Test
+    fun stripDropsXmpAndComments() {
+        val file = geotaggedJpeg()
+        val xmp = "http://ns.adobe.com/xap/1.0/\u0000<x:xmpmeta>SecretPlace</x:xmpmeta>".toByteArray()
+        val len = xmp.size + 2
+        val segment = byteArrayOf(0xFF.toByte(), 0xE1.toByte(), (len shr 8).toByte(), len.toByte()) + xmp
+        val bytes = file.readBytes()
+        file.writeBytes(bytes.copyOfRange(0, 2) + segment + bytes.copyOfRange(2, bytes.size))
+        assertThat(String(file.readBytes(), Charsets.ISO_8859_1)).contains("SecretPlace")
+
+        assertThat(ExifStripper.strip(file)).isTrue()
+
+        assertThat(String(file.readBytes(), Charsets.ISO_8859_1)).doesNotContain("SecretPlace")
+        assertThat(BitmapFactory.decodeFile(file.absolutePath)).isNotNull()
+    }
+
+    @Test
     fun theOriginalIsLeftAloneWhenACopyIsStripped() {
         val original = geotaggedJpeg()
         val copy = folder.newFile("copy.jpg")

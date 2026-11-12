@@ -46,6 +46,8 @@ data class SelectionActions(
     val canArchive: Boolean = false,
     /** "Report spam" blocks one sender per chat, so it is offered only when no group chat is selected. */
     val canReportSpam: Boolean = false,
+    /** "Block number" skips group chats, so it is offered only when at least one single-sender chat is selected. */
+    val canBlock: Boolean = false,
     val canAddContact: Boolean = false,
     val canCopyNumber: Boolean = false,
     val canDial: Boolean = false,

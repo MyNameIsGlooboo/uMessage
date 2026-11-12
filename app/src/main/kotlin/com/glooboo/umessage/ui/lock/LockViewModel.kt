@@ -102,7 +102,9 @@ class LockViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun submitPattern(cells: List<Int>) {
-        if (!inputEnabled || cells.isEmpty()) return
+        // A touch of 1-3 dots is not an attempt: a pattern is never shorter than the minimum,
+        // so it must not count as a failure.
+        if (!inputEnabled || cells.size < com.glooboo.umessage.dialogs.AppLockLogic.MIN_PATTERN_DOTS) return
         verify { session.submitPattern(cells) }
     }
 

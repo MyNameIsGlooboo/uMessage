@@ -56,7 +56,12 @@ class ImportMessagesDialog(
         val scope = rememberCoroutineScope()
         val form = remember { ImportFormState(config.importSms, config.importMms) }
         LaunchedEffect(Unit) {
-            form.protectedFile = withContext(Dispatchers.IO) { ImportPasswordCheck.isProtected(activity, uri) }
+            form.checking = true
+            try {
+                form.protectedFile = withContext(Dispatchers.IO) { ImportPasswordCheck.isProtected(activity, uri) }
+            } finally {
+                form.checking = false
+            }
         }
         val job by BackupJob.state.collectAsState()
         val done = (job as? BackupJob.State.ImportDone)?.takeIf { form.started }

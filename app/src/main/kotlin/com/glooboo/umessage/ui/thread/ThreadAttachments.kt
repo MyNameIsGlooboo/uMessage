@@ -93,7 +93,7 @@ private fun iconForMimeType(mimeType: String) = when {
     else -> Symbols.Description
 }
 
-/** Image or video preview inside a message bubble. Hidden when the file cannot be decoded, like the old list. */
+/** Image or video preview inside a message bubble. A file that cannot be decoded shows a card that still opens it. */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MessageMedia(
@@ -107,9 +107,37 @@ fun MessageMedia(
     val context = LocalContext.current
     val density = context.resources.displayMetrics.density
     val widthPx = (width.value * density).toInt().coerceAtLeast(1)
-    val load by rememberGlideBitmap(uri, widthPx, (widthPx * MAX_MEDIA_HEIGHT_RATIO).toInt())
+    // A failed decode keeps a tappable card (open in the system viewer) and a tap also tries the load again.
+    var attempt by remember(uri) { mutableIntStateOf(0) }
+    val load by rememberGlideBitmap(uri, widthPx, (widthPx * MAX_MEDIA_HEIGHT_RATIO).toInt(), attempt)
     val result = load
-    if (result == ImageLoad.Failed) return
+    if (result == ImageLoad.Failed) {
+        val failedDescription = stringResource(
+            if (isVideo) R.string.thread_video_attachment else R.string.thread_image_attachment,
+        )
+        Box(
+            modifier = modifier
+                .width(width)
+                .aspectRatio(1f)
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .semantics { contentDescription = failedDescription }
+                .combinedClickable(
+                    onClick = {
+                        if (gestures.selecting) {
+                            gestures.onToggleSelect()
+                        } else {
+                            attempt++
+                            onOpen()
+                        }
+                    },
+                    onLongClick = gestures.onLongClick,
+                ),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(Symbols.Description, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        return
+    }
 
     val bitmap = (result as? ImageLoad.Loaded)?.bitmap
     val key = uri.toString()

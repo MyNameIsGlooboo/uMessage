@@ -22,6 +22,12 @@ class LinkSafetyTest {
     }
 
     @Test
+    fun aWholeCyrillicOrGreekHostIsFlagged() {
+        assertThat(flags("https://аррӏе.test/x")).contains(LinkFlag.MIXED_SCRIPT)
+        assertThat(flags("https://αβγ.test/x")).contains(LinkFlag.MIXED_SCRIPT)
+    }
+
+    @Test
     fun shortenersAreFlagged() {
         assertThat(flags("https://bit.ly/abc")).containsExactly(LinkFlag.SHORTENER)
         assertThat(flags("https://www.bit.ly/abc")).containsExactly(LinkFlag.SHORTENER)

@@ -201,6 +201,27 @@ class ConversationsViewModelTest {
         assertThat(vm.state.value.selection.canReportSpam).isFalse()
     }
 
+    @Test
+    fun blockIsOfferedAndAppliedToSingleSendersOnly() {
+        val group = dad.copy(threadId = 3, isGroupConversation = true)
+        vm.submit(listOf(group, mom), cached = false, firstRun = false)
+        awaitUntil { rowIds().size == 2 }
+        vm.startSelect(group.threadId)
+        awaitUntil { vm.state.value.selection.count == 1 }
+        assertThat(vm.state.value.selection.canBlock).isFalse()
+        vm.startSelect(mom.threadId)
+        awaitUntil { vm.state.value.selection.count == 2 }
+        assertThat(vm.state.value.selection.canBlock).isTrue()
+
+        vm.blockSelected()
+        awaitUntil { events.any { it is ConversationsEvent.Blocked } }
+        val event = events.single { it is ConversationsEvent.Blocked } as ConversationsEvent.Blocked
+        assertThat(event.count).isEqualTo(1)
+        val repository = SpamRepositoryProvider.get(app)
+        vm.undoReportSpam(event.token)
+        awaitUntil { !SenderBlocking.isBlocked(rules(repository), mom.phoneNumber) }
+    }
+
     private fun rules(repository: SpamRepository) = runBlocking { repository.rules.first() }
 
     @Test

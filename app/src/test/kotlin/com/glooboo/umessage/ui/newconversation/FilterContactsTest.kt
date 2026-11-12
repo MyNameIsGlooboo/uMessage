@@ -84,6 +84,14 @@ class FilterContactsTest {
         assertThat(typedPhoneNumber("someone@example.com")).isNull()
     }
 
+    @Test
+    fun groupRecipientMustBeANumberOrAnEmail() {
+        assertThat(typedGroupRecipient("(021) 8888-1234")).isEqualTo("02188881234")
+        assertThat(typedGroupRecipient(" someone@example.com ")).isEqualTo("someone@example.com")
+        assertThat(typedGroupRecipient("Sara")).isNull()
+        assertThat(typedGroupRecipient("not an@email")).isNull()
+    }
+
     // MC-12
     @Test
     fun contactItemKeysAreUniqueEvenWhenIdsRepeat() {

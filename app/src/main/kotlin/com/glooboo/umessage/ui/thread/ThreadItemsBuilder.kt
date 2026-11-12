@@ -51,6 +51,8 @@ fun buildThreadItems(
     val newlyRead = ArrayList<Message>()
     var prevDateTime = 0
     var prevSIMId = -2
+    // Scheduled messages sort last by their future date; the "Sent" row belongs to the last one that is not.
+    val lastRealIndex = sorted.indexOfLast { !it.isScheduled }
     sorted.forEachIndexed { i, message ->
         if (message.getStableId() in tapbacks.hidden) {
             // A hidden reaction is marked read like any message; the unread line moves to the next one shown.
@@ -76,12 +78,14 @@ fun buildThreadItems(
         if (message.type == Telephony.Sms.MESSAGE_TYPE_FAILED) {
             items.add(ThreadError(message.id, message.body, message.isMMS))
         }
-        if (message.type == Telephony.Sms.MESSAGE_TYPE_OUTBOX) {
+        if (message.type == Telephony.Sms.MESSAGE_TYPE_OUTBOX ||
+            (message.type == Telephony.Sms.MESSAGE_TYPE_QUEUED && !message.isScheduled)
+        ) {
             items.add(ThreadSending(message.id))
         }
         if (!message.read && seen) newlyRead.add(message)
 
-        if (i == sorted.lastIndex && message.type == Telephony.Sms.MESSAGE_TYPE_SENT) {
+        if (i == lastRealIndex && message.type == Telephony.Sms.MESSAGE_TYPE_SENT) {
             // "Delivered" only while delivery reports are on: a network can report delivery the app never asked for.
             // An MMS has no delivery report: its status column is empty and reads as 0, which is not "delivered".
             val delivered = deliveryReportsOn && !message.isMMS && message.status == Telephony.Sms.STATUS_COMPLETE

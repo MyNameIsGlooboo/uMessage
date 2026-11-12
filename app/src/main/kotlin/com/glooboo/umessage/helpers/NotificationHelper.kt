@@ -376,7 +376,7 @@ class NotificationHelper(private val context: Context) {
         val hasCustomNotifications =
             context.config.customNotifications.contains(threadId.toString())
         val notificationChannelId =
-            if (hasCustomNotifications) threadId.toString() else NOTIFICATION_CHANNEL_ID
+            if (hasCustomNotifications) threadId.toString() else FAILED_SEND_CHANNEL_ID
         if (!hasCustomNotifications) {
             createChannel(notificationChannelId, context.getString(R.string.message_not_sent_short))
         }

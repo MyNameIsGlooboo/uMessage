@@ -46,13 +46,26 @@ object BlockedFilters {
         subscriptionIds: Collection<Int>,
         keyOf: (String) -> String = { it },
     ): Map<BlockedFilter, Int> {
-        fun senders(filter: BlockedFilter) = apply(filter, messages).mapTo(HashSet()) { keyOf(it.address) }.size
+        // One pass: the link check (two regexes) runs once per message, not once per chip.
+        val all = HashSet<String>()
+        val unknown = HashSet<String>()
+        val rules = HashSet<String>()
+        val links = HashSet<String>()
+        val bySim = subscriptionIds.associateWith { HashSet<String>() }
+        for (message in messages) {
+            val key = keyOf(message.address)
+            all += key
+            if (matches(BlockedFilter.UnknownSender, message)) unknown += key
+            if (matches(BlockedFilter.MyRules, message)) rules += key
+            if (BlockedHints.hasLink(message.body)) links += key
+            bySim[message.subscriptionId]?.add(key)
+        }
         return buildMap {
-            put(BlockedFilter.All, senders(BlockedFilter.All))
-            put(BlockedFilter.UnknownSender, senders(BlockedFilter.UnknownSender))
-            put(BlockedFilter.MyRules, senders(BlockedFilter.MyRules))
-            put(BlockedFilter.HasLink, senders(BlockedFilter.HasLink))
-            subscriptionIds.forEach { id -> put(BlockedFilter.Sim(id), senders(BlockedFilter.Sim(id))) }
+            put(BlockedFilter.All, all.size)
+            put(BlockedFilter.UnknownSender, unknown.size)
+            put(BlockedFilter.MyRules, rules.size)
+            put(BlockedFilter.HasLink, links.size)
+            bySim.forEach { (id, keys) -> put(BlockedFilter.Sim(id), keys.size) }
         }
     }
 

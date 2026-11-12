@@ -197,11 +197,12 @@ object SpamEngine {
         decision: FilterDecision.Block,
         media: MmsMedia = if (message.isMms) MmsMedia.MISSING else MmsMedia.NONE,
         mediaFile: String? = null,
+        onDuplicate: (() -> Unit)? = null,
     ): Long? {
         return try {
-            val id = runBlocking {
+            val (id, duplicate) = runBlocking {
                 val repo = UMessage.repository(context)
-                repo.storeBlocked(
+                repo.storeBlockedChecked(
                     BlockedMessage(
                         address = message.address,
                         body = message.body,
@@ -215,6 +216,7 @@ object SpamEngine {
                     )
                 )
             }
+            if (duplicate) onDuplicate?.invoke()
             blockSenderOfKeyword(context, id, decision)
             purgeExpired(context)
             id

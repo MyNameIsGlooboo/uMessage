@@ -80,6 +80,7 @@ import com.glooboo.umessage.messaging.ScheduledSendClaims
 import com.glooboo.umessage.messaging.SmsSender
 import com.glooboo.umessage.messaging.scheduledActionFor
 import com.glooboo.umessage.messaging.cancelRemindersForMessage
+import com.glooboo.umessage.messaging.cancelRemindersForThread
 import com.glooboo.umessage.messaging.scheduleMessage
 import com.glooboo.umessage.models.Attachment
 import com.glooboo.umessage.models.Conversation
@@ -645,6 +646,8 @@ fun Context.getMmsAttachments(
                         filename = ""
                     )
                 )
+                // The SMIL names list every media part in order, pictures and videos included, so these count too.
+                attachmentCounts[id] = (attachmentCounts[id] ?: 0) + 1
             } else if (mimetype != "application/smil") {
                 val count = attachmentCounts[id] ?: 0
                 val attachmentName = attachmentNames[id]?.getOrNull(count) ?: ""
@@ -1009,6 +1012,8 @@ fun Context.deleteConversation(threadId: Long) {
         contentResolver.delete(uri, selection, selectionArgs)
     } catch (e: Exception) {
         showErrorToast(e)
+        // The messages are still in the provider: wiping the local copy would only bring them back later.
+        return
     }
 
     uri = Mms.CONTENT_URI
@@ -1016,6 +1021,7 @@ fun Context.deleteConversation(threadId: Long) {
         contentResolver.delete(uri, selection, selectionArgs)
     } catch (e: Exception) {
         e.printStackTrace()
+        return
     }
 
     conversationsDB.deleteThreadId(threadId)
@@ -1023,6 +1029,11 @@ fun Context.deleteConversation(threadId: Long) {
     kotlinx.coroutines.runBlocking { messageNotes.onThreadDeleted(threadId) }
     messagesDB.deleteThreadMessages(threadId)
     MessagingCache.participantsCache.remove(threadId)
+    // Per-conversation leftovers: reminders (and their alarms), the draft, the mute and the hidden mark.
+    cancelRemindersForThread(threadId)
+    runCatching { draftsDB.delete(threadId) }
+    runCatching { com.glooboo.umessage.helpers.MutePrefs.get(this).unmute(threadId) }
+    runCatching { com.glooboo.umessage.helpers.HiddenChats.get(this).unhide(threadId) }
 
     if (config.customNotifications.contains(threadId.toString())) {
         config.removeCustomNotificationsByThreadId(threadId)
@@ -1291,25 +1302,24 @@ fun Context.showReceivedMessageNotification(
     // The chat may have been opened and marked read between the delivery and this post; a notification posted
     // now would outlive the cancel that came first and keep the chat looking unread. The database is read off the
     // main thread, where Room refuses queries.
+    // The whole post (smart replies, avatar, shortcut, notify) runs on this background thread; none of it needs main.
     ensureBackgroundThread {
         val alreadyRead = isMessageSavedAsRead(messageId, isMms)
-        Handler(Looper.getMainLooper()).post {
-            if (alreadyRead) {
-                notificationManager.cancel(threadId.hashCode())
-                return@post
-            }
-            notificationHelper.showMessageNotification(
-                messageId = messageId,
-                isMms = isMms,
-                address = address,
-                body = body,
-                threadId = threadId,
-                bitmap = bitmap,
-                sender = senderName,
-                subscriptionId = subscriptionId,
-                notify = notify,
-            )
+        if (alreadyRead) {
+            notificationManager.cancel(threadId.hashCode())
+            return@ensureBackgroundThread
         }
+        notificationHelper.showMessageNotification(
+            messageId = messageId,
+            isMms = isMms,
+            address = address,
+            body = body,
+            threadId = threadId,
+            bitmap = bitmap,
+            sender = senderName,
+            subscriptionId = subscriptionId,
+            notify = notify,
+        )
     }
 }
 

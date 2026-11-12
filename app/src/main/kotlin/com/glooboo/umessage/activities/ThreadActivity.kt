@@ -1067,7 +1067,13 @@ open class ThreadActivity : ComposeSimpleActivity() {
         }
 
         ensureBackgroundThread {
-            if (repository.loadingOlder) return@ensureBackgroundThread
+            if (repository.loadingOlder) {
+                // Another page load is running: try again when it is done instead of dropping the jump.
+                runOnUiThread {
+                    window?.decorView?.postDelayed({ if (!isFinishing) jumpToMessage(target) }, JUMP_RETRY_MS)
+                }
+                return@ensureBackgroundThread
+            }
             repository.loadingOlder = true
             isJumpingToMessage = true
 
@@ -1090,7 +1096,11 @@ open class ThreadActivity : ComposeSimpleActivity() {
             runOnUiThread {
                 publishItems(latestThreadItems)
                 repository.loadingOlder = false
-                vm.scrollToMessage(target, flash = true)
+                if (messages.any { it.key == target }) {
+                    vm.scrollToMessage(target, flash = true)
+                } else {
+                    toast(org.fossify.commons.R.string.unknown_error_occurred)
+                }
                 isJumpingToMessage = false
             }
         }
@@ -1199,6 +1209,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
     }
 
     private fun reconcileProviderParticipants(): Boolean {
+        // A refresh must not overwrite recipients the user is still editing in the people panel.
+        if (vm.showPeople) return false
         val providerParticipants = getProviderThreadParticipants() ?: return false
         val participantsChanged = !recipients.sameAddressesAs(providerParticipants)
         recipients = providerParticipants
@@ -1379,6 +1391,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
     private fun sendMessage() {
         // Blank text, or a photo still being shrunk, cannot be sent (TU-04, TU-05).
         if (!vm.canSend) return
+        // Recipients edited in the panel are only final after "Done".
+        if (vm.showPeople) return
         SendSteps(
             needsSim = { sim.mustAsk() },
             askSim = { onChosen ->
@@ -1440,6 +1454,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
             return
         }
 
+        // The composer clears only after the background save: a second tap meanwhile must not save a second copy.
+        if (!composerSend.tryStart()) return
         refreshedSinceSent = false
         val messageId = vm.scheduledMessageId ?: generateRandomId()
         val repeat = RepeatRule.fromName(vm.scheduledRepeat)
@@ -1472,6 +1488,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
                 showErrorToast(
                     e.localizedMessage ?: getString(org.fossify.commons.R.string.unknown_error_occurred)
                 )
+            } finally {
+                composerSend.finish()
             }
         }
     }
@@ -1737,6 +1755,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
     }
 
     companion object {
+        private const val JUMP_RETRY_MS = 300L
         /** Boolean extra: open the "Search in conversation" bar (TH-20), for example from Conversation details. */
         const val EXTRA_OPEN_SEARCH = "com.glooboo.spamless.extra.OPEN_THREAD_SEARCH"
     }

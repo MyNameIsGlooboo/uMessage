@@ -105,6 +105,14 @@ fun Context.cancelRemindersForMessage(key: MessageKey) {
     }
 }
 
+/** A deleted conversation takes the reminders of its messages with it, alarms included. */
+fun Context.cancelRemindersForThread(threadId: Long) {
+    runCatching {
+        val dao = getMessagesDB().MessageRemindersDao()
+        runBlocking { dao.getForThread(threadId) }.forEach { cancelReminder(it.id) }
+    }
+}
+
 /**
  * Sets the alarm of every saved reminder again: after boot, a package update, a time change, a change of the
  * "Alarms & reminders" access and on app start. A reminder whose time passed meanwhile fires at once; it is deleted

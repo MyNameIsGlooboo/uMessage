@@ -177,4 +177,5 @@
         Haven't found some strings? There's more at
         the translation files
     -->
+    <string name="group_recipient_invalid">Enter a phone number or an email address</string>
 </resources>

@@ -34,6 +34,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.HiddenChats
+import com.glooboo.umessage.helpers.HiddenChatsSession
 import com.glooboo.umessage.helpers.SearchHistoryPrefs
 import com.glooboo.umessage.models.SearchResult
 import com.glooboo.umessage.ui.conversations.ConversationRow
@@ -70,7 +72,13 @@ internal fun MainSearchPage(
     // CL-14: the last few searches, kept on the phone, come back as chips on the empty search page.
     val history = remember(context) { SearchHistoryPrefs.get(context) }
     var recent by remember { mutableStateOf(history.recentSearches) }
-    val saveRecent = { query: String -> if (isSearchable(query)) recent = history.remember(query.trim()) }
+    // A search typed while hidden chats are unlocked may be about them; the chips outlive the unlock, so skip it then.
+    val hiddenChats = remember(context) { HiddenChats.get(context) }
+    val saveRecent = { query: String ->
+        val hiddenOpen = hiddenChats.isLockOn() && HiddenChatsSession.isUnlocked() &&
+            hiddenChats.chosenIds().isNotEmpty()
+        if (isSearchable(query) && !hiddenOpen) recent = history.remember(query.trim())
+    }
     val resultsListState = rememberLazyListState()
     val goBack = { if (search.hasTileOn()) search.backToTiles(onQueryChange) else onLeave() }
     LaunchedEffect(Unit) { fieldFocus.requestFocus() }
