@@ -21,3 +21,6 @@ tools/translate/work/
 keystore.properties
 play-api*.json
 secrets/
+
+# Private notes, secrets and reviews: never commit.
+/_private/
