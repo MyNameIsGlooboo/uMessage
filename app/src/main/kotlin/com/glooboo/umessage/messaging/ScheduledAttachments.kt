@@ -103,8 +103,11 @@ private fun Context.copyInto(uri: Uri, file: File) {
 }
 
 /** Whether every attachment of [message] can still be opened. */
-fun Context.canReadScheduledAttachments(message: Message): Boolean =
-    message.attachment?.attachments.orEmpty().all { attachment ->
+fun Context.canReadScheduledAttachments(message: Message): Boolean = unreadableScheduledAttachments(message).isEmpty()
+
+/** The attachments of [message] that can no longer be opened. */
+fun Context.unreadableScheduledAttachments(message: Message): List<Attachment> =
+    message.attachment?.attachments.orEmpty().filterNot { attachment ->
         try {
             contentResolver.openInputStream(attachment.getUri())?.use { true } ?: false
         } catch (_: Exception) {

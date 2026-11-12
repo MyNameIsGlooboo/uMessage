@@ -629,10 +629,9 @@ fun Context.getMmsAttachments(
             val mimetype = cursor.getStringValue(Mms.Part.CONTENT_TYPE) ?: ""
             val messageAttachment = result.getOrPut(id) { MessageAttachment(id, "", arrayListOf()) }
             if (mimetype == "text/plain") {
-                messageAttachment.text = cursor
-                    .getStringValue(Mms.Part.TEXT)
-                    ?.take(MAX_MESSAGE_LENGTH)
-                    .orEmpty()
+                val part = cursor.getStringValue(Mms.Part.TEXT).orEmpty()
+                // Several text slides are joined in order instead of the last one replacing the rest.
+                messageAttachment.text = joinMmsText(messageAttachment.text, part)
             } else if (mimetype.startsWith("image/") || mimetype.startsWith("video/")) {
                 val fileUri = Uri.withAppendedPath(uri, partId.toString())
                 messageAttachment.attachments.add(
@@ -783,6 +782,14 @@ fun Context.getThreadParticipants(
     MessagingCache.participantsCache.put(threadId, phoneNumbers, participants)
     return participants
 }
+
+/** Text slides of one MMS in order, one per line, capped at [MAX_MESSAGE_LENGTH]. */
+internal fun joinMmsText(soFar: String, part: String): String {
+    val joined = if (soFar.isEmpty() || part.isEmpty()) soFar + part else soFar + MMS_TEXT_SEPARATOR + part
+    return joined.take(MAX_MESSAGE_LENGTH)
+}
+
+private const val MMS_TEXT_SEPARATOR = "\n"
 
 private fun Context.getThreadRecipientIds(threadId: Long): List<Int> {
     val recipientIds = ArrayList<Int>()
@@ -1160,8 +1167,8 @@ fun Context.updateConversationArchivedStatus(threadId: Long, archived: Boolean) 
             sqliteException.message?.contains("no such column: archived") == true
             && config.isArchiveAvailable
         ) {
+            // The phone's store has no archive flag: keep the chat archived in the app's own list instead.
             config.isArchiveAvailable = false
-            return
         } else {
             throw sqliteException
         }

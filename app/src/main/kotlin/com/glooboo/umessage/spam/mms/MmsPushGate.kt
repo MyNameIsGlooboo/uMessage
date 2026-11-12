@@ -18,6 +18,8 @@ data class MmsPushInfo(
     val contentLocation: String = "",
     /** When the carrier deletes the MMS, in ms since the epoch; 0 when unknown. */
     val expiresAt: Long = 0,
+    /** The size the carrier announces (X-Mms-Message-Size) in bytes; 0 when unknown. */
+    val messageSize: Long = 0,
 )
 
 sealed interface MmsPushAction {
@@ -73,7 +75,12 @@ object MmsPushGate {
         } catch (_: Throwable) {
             0L
         }
-        return MmsPushInfo(cleanAddress(from), transactionId, isNotification = true, location, expiresAt)
+        val size = try {
+            pdu.messageSize.coerceAtLeast(0L)
+        } catch (_: Throwable) {
+            0L
+        }
+        return MmsPushInfo(cleanAddress(from), transactionId, isNotification = true, location, expiresAt, size)
     }
 
     fun cleanAddress(raw: String): String = raw.substringBefore("/TYPE=").trim()
@@ -106,7 +113,11 @@ object MmsPushGate {
                 placeholder = probe.copy(body = MMS_BLOCKED_BODY),
                 decision = decision,
                 transactionId = info.transactionId,
-                contentLocation = info.contentLocation.takeIf { info.expiresAt == 0L || info.expiresAt > now }.orEmpty(),
+                // Expired, or announced larger than BlockedMmsPolicy allows: nothing is downloaded, the row stays.
+                contentLocation = info.contentLocation
+                    .takeIf { info.expiresAt == 0L || info.expiresAt > now }
+                    .takeIf { BlockedMmsPolicy.sizeAllowed(info.messageSize) }
+                    .orEmpty(),
             )
         }
     }

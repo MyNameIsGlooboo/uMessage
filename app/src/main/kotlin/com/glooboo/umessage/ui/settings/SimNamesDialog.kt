@@ -14,7 +14,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,11 +26,11 @@ import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.SimName
 import com.glooboo.umessage.helpers.SimNames
 
-/** What the user typed for one active SIM, kept while the dialog is open. */
-private class SimEntry(val sim: SimCard, nickname: String, number: String) {
-    var nickname by mutableStateOf(nickname)
-    var number by mutableStateOf(number)
-}
+/**
+ * What the user typed for one active SIM. The fields keep their text in saved state (a turn of the screen does not
+ * lose it) and copy it here, where [onSave] reads it.
+ */
+private class SimEntry(val sim: SimCard, var nickname: String, var number: String)
 
 /**
  * I34: a nickname and a number for each active SIM. Carriers often do not give the number to apps, so it is typed here;
@@ -76,6 +78,12 @@ internal fun SimNamesDialog(
 
 @Composable
 private fun SimEntryFields(entry: SimEntry) {
+    var nickname by rememberSaveable(entry.sim.slot) { mutableStateOf(entry.nickname) }
+    var number by rememberSaveable(entry.sim.slot) { mutableStateOf(entry.number) }
+    SideEffect {
+        entry.nickname = nickname
+        entry.number = number
+    }
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(
             if (entry.sim.carrier.isBlank()) {
@@ -86,15 +94,15 @@ private fun SimEntryFields(entry: SimEntry) {
             style = MaterialTheme.typography.titleSmall,
         )
         OutlinedTextField(
-            value = entry.nickname,
-            onValueChange = { entry.nickname = it.take(SimNames.MAX_NICKNAME_LENGTH) },
+            value = nickname,
+            onValueChange = { nickname = it.take(SimNames.MAX_NICKNAME_LENGTH) },
             label = { Text(stringResource(R.string.i34_nickname)) },
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
         )
         OutlinedTextField(
-            value = entry.number,
-            onValueChange = { entry.number = it.take(SimNames.MAX_NUMBER_LENGTH) },
+            value = number,
+            onValueChange = { number = it.take(SimNames.MAX_NUMBER_LENGTH) },
             label = { Text(stringResource(R.string.i34_number)) },
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),

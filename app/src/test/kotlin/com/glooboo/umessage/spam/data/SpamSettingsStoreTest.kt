@@ -33,4 +33,11 @@ class SpamSettingsStoreTest {
         assertThat(store.claimPurge(now = 1_000_001)).isFalse()
         assertThat(store.claimPurge(now = 1_000_000 + PurgePolicy.INTERVAL_MS)).isTrue()
     }
+
+    @Test
+    fun releasedPurgeCanBeClaimedAgain() {
+        assertThat(store.claimPurge(now = 1_000_000)).isTrue()
+        store.releasePurge()
+        assertThat(store.claimPurge(now = 1_000_001)).isTrue()
+    }
 }

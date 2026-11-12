@@ -244,6 +244,9 @@ class DefaultSpamRepository(
         receipt.pendingId > 0 && dao.deletePending(receipt.pendingId) > 0 -> true
         receipt.inboxId > 0 -> runCatching { platform.removeRestored(receipt.inboxId, message.hasStoredMedia) }
             .getOrDefault(false)
+        // spam-17: the delivery found the message already in the inbox and wrote no row, so there is nothing to take
+        // out and the undo can put the blocked row back.
+        receipt.pendingId <= 0 -> true
         else -> false
     }
 

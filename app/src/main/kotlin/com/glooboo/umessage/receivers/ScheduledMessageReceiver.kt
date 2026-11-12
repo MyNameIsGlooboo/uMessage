@@ -24,6 +24,7 @@ import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.R
 import com.glooboo.umessage.messaging.bookNextRepeat
 import com.glooboo.umessage.messaging.canReadScheduledAttachments
+import com.glooboo.umessage.messaging.unreadableScheduledAttachments
 import com.glooboo.umessage.messaging.deleteScheduledRepeat
 import com.glooboo.umessage.messaging.deleteScheduledAttachments
 import com.glooboo.umessage.messaging.ScheduledSendClaims
@@ -126,7 +127,10 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
             // Scheduled before the app kept its own copy: the picker's permission expired or the file is gone.
             // Sending it would go out without the photo, so it is held and the user is told why.
             hold(context, messageId)
-            notifyNotSent(context, message, addresses, attachmentMissing = true)
+            notifyNotSent(
+                context, message, addresses, attachmentMissing = true,
+                missingNames = context.unreadableScheduledAttachments(message).map { it.filename },
+            )
             refreshMessages()
             return
         }
@@ -156,6 +160,10 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
                 refreshMessages()
                 return
             }
+
+            // The message is in the provider now. Hold the row before the cleanup below: if the process dies in
+            // between, the row is skipped on the next re-arm instead of being sent a second time.
+            hold(context, messageId)
 
             // A failure already has its "not sent" notification; "sent late" is only for messages that went out.
             if (!notified) notifyIfLate(context, message, addresses)
@@ -223,7 +231,7 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
      */
     private fun notifyNotSent(
         context: Context, message: Message, addresses: List<String>, attachmentMissing: Boolean = false,
-        partlySent: Boolean = false,
+        partlySent: Boolean = false, missingNames: List<String> = emptyList(),
     ) {
         val recipientName = message.participants.joinToString {
             it.name.ifBlank { it.phoneNumbers.firstOrNull()?.normalizedNumber.orEmpty() }
@@ -235,7 +243,7 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
             context.getThreadId(addresses.toSet()).takeIf { it != 0L } ?: message.threadId
         }
         val reason = when {
-            attachmentMissing -> context.getString(R.string.scheduled_attachment_missing, recipientName)
+            attachmentMissing -> missingAttachmentReason(context, recipientName, missingNames)
             partlySent -> context.getString(R.string.scheduled_partly_sent, recipientName)
             else -> null
         }
@@ -248,5 +256,16 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
                 }
             }
         }
+    }
+
+    /** The "attachment can no longer be opened" text; it names the files (up to three) when their names are known. */
+    private fun missingAttachmentReason(context: Context, recipientName: String, names: List<String>): String {
+        val shown = names.filter { it.isNotBlank() }.take(MAX_NAMED_FILES)
+        if (shown.isEmpty()) return context.getString(R.string.scheduled_attachment_missing, recipientName)
+        return context.getString(R.string.scheduled_attachment_missing_named, recipientName, shown.joinToString())
+    }
+
+    private companion object {
+        const val MAX_NAMED_FILES = 3
     }
 }

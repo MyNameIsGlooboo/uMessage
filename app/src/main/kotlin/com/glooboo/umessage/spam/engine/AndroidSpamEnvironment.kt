@@ -78,9 +78,11 @@ class SystemContactChecker(
                 // The provider notifies mms-sms for every SMS and MMS change, next to the sms or mms row itself.
                 return
             }
-            if (uri != null && messageRowId(uri) != null) {
+            if (uri != null && messageRowId(uri) != null && changedMessages.size < MAX_CHANGED_MESSAGES) {
                 changedMessages.add(uri)
             } else {
+                // A change that names no row, or a bulk import that queued too many, drops the cache; the next
+                // lookup reads everything once instead of one query per changed row.
                 sentCache = null
             }
         }
@@ -248,6 +250,7 @@ class SystemContactChecker(
             Telephony.Sms.MESSAGE_TYPE_FAILED,
         )
         const val MAX_SENT_MMS = 200
+        const val MAX_CHANGED_MESSAGES = 50
         const val PRIVATE_CONTACTS_MAX_AGE_MS = 10 * 60_000L
 
         /** The row id a change notification names (content://sms/42, content://sms/inbox/42), or null. */

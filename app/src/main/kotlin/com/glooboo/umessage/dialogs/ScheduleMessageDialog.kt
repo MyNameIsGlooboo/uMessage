@@ -131,6 +131,7 @@ private fun TimeStep(
             TextButton(
                 onClick = {
                     val candidate = initial.withHour(timeState.hour).withMinute(timeState.minute)
+                        .withSecond(0).withNano(0)
                     // Stay on the time picker, like before: the time must still be in the future.
                     if (isFuture(candidate)) onConfirm(candidate) else activity.toast(futureError)
                 },
@@ -246,7 +247,7 @@ private fun ScheduleFlow(
 ) {
     val isNew = initial == null
     var repeat by remember { mutableStateOf(initialRepeat) }
-    var dateTime by remember { mutableStateOf(initial ?: LocalDateTime.now().plusHours(1)) }
+    var dateTime by remember { mutableStateOf(initial ?: LocalDateTime.now().plusHours(1).withSecond(0).withNano(0)) }
     // TH-25: a new message starts at the summary with quick presets; the calendar and clock are one tap away.
     var step by remember { mutableStateOf(Step.Preview) }
     // A new message walks date -> time -> summary; once the date is set it is no longer "new" for the date picker.

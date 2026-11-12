@@ -141,6 +141,13 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
 
     val isScheduling: Boolean get() = scheduledMillis != null
 
+    init {
+        // A new view model with a saved edit id means the process was killed: the picked attachments (not saved) are
+        // gone, and saving under the old id would drop the message's attachments and delete their copies. The edit
+        // becomes a new scheduled message instead; the original stays as it was.
+        if (scheduledMessageId != null) scheduledMessageId = null
+    }
+
     fun clearSchedule() {
         scheduledMillis = null
         scheduledMessageId = null

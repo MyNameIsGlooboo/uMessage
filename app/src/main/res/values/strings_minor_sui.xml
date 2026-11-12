@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="minor_sui_delete_listed_title">Delete the listed spam?</string>
+    <string name="minor_sui_report_queued">Report queued to your carrier</string>
+    <string name="minor_sui_pattern_link_sentence">Matches messages that contain a link starting with http, https or www.</string>
+</resources>

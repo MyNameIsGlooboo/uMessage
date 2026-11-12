@@ -29,6 +29,7 @@ import org.fossify.commons.extensions.copyToClipboard
 import org.fossify.commons.extensions.notificationManager
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.config
+import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.deleteConversation
 import com.glooboo.umessage.extensions.getAllDrafts
 import com.glooboo.umessage.extensions.markThreadMessagesRead
@@ -210,12 +211,17 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     /** SIM of each thread's newest message (sent or received), so chips show for every conversation. */
     @Volatile private var threadSims: Map<Long, Int> = emptyMap()
 
+    /** The ids of every saved chat, archived ones too, so a deleted chat's SIM entry can be dropped. */
+    private fun liveThreadIds(): Set<Long> =
+        (app.conversationsDB.getNonArchived() + app.conversationsDB.getAllArchived()).mapTo(HashSet()) { it.threadId }
+
     /** MC-18: the thread SIMs are read only with two SIMs, and then only messages newer than the last read. */
     private fun refreshSims() {
         viewModelScope.launch {
             val (freshSims, freshThreadSims) = withContext(Dispatchers.IO) {
                 val loaded = runCatching { SimDirectory.load(app) }.getOrDefault(emptyList())
-                loaded to runCatching { ThreadSimCache.get(app).load(app, loaded.size) }.getOrDefault(emptyMap())
+                val live = runCatching { liveThreadIds() }.getOrNull()
+                loaded to runCatching { ThreadSimCache.get(app).load(app, loaded.size, live) }.getOrDefault(emptyMap())
             }
             if (freshSims != sims || freshThreadSims != threadSims) {
                 sims = freshSims
@@ -404,6 +410,12 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
             }
             refreshConversations()
         }
+    }
+
+    /** The Undo window closed without Undo: the saved undo state of the archive is no longer needed. */
+    fun commitArchive(token: Long) {
+        archived.remove(token)
+        archivedUnread.remove(token)
     }
 
     fun undoArchive(token: Long) {

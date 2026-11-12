@@ -19,6 +19,9 @@ object BlockedHints {
         "بانک", "حساب", "تراکنش", "مانده", "برداشت", "واریز",
     )
 
+    // spamui-8: "account locked, call 12345" is a scam's ask, not a notice: a bank text that asks to call is no hint.
+    private val askWords = listOf("call", "dial", "reply", "contact", "whatsapp", "تماس", "زنگ", "پاسخ")
+
     /** Persian and Arabic-Indic digits to ASCII, so one pattern covers every script. */
     fun asciiDigits(text: String): String = buildString(text.length) {
         for (c in text) {
@@ -38,7 +41,7 @@ object BlockedHints {
     /**
      * Whether a blocked [body] looks like a verification code, or a bank notice without a link. A code counts even
      * with a link (owner decision: Smart mode lets those through, so Strict's held ones are flagged too); a bank
-     * notice with a link is left out: phishing copies exactly those texts.
+     * notice with a link, or one that asks to call or reply, is left out: phishing copies exactly those texts.
      */
     fun looksImportant(body: String): Boolean {
         if (body.isBlank()) return false
@@ -46,6 +49,7 @@ object BlockedHints {
         if (OtpDetector.looksLikeOtp(body)) return true
         if (hasLink(body)) return false
         val text = asciiDigits(body).lowercase()
+        if (askWords.any { it in text }) return false
         return bankWords.any { it in text } && code.containsMatchIn(text)
     }
 }

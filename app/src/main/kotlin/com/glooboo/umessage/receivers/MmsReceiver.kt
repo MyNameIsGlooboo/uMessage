@@ -16,6 +16,8 @@ import com.glooboo.umessage.extensions.getMMS
 import com.glooboo.umessage.extensions.getLatestMMS
 import com.glooboo.umessage.extensions.getNameFromAddress
 import com.glooboo.umessage.extensions.insertOrUpdateConversation
+import com.glooboo.umessage.extensions.isImageMimeType
+import com.glooboo.umessage.extensions.isVideoMimeType
 import com.glooboo.umessage.extensions.shouldUnarchive
 import com.glooboo.umessage.extensions.showReceivedMessageNotification
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
@@ -87,6 +89,10 @@ class MmsReceiver : BroadcastReceiver() {
  * every hook of one download on the same worker thread, so the first [mark] identifies it.
  */
 internal class WorkerThreadTracker {
+    private companion object {
+        const val FIRST_HOOK_WAIT_MS = 5_000L
+    }
+
     private val started = CountDownLatch(1)
 
     @Volatile private var worker: Thread? = null
@@ -104,7 +110,8 @@ internal class WorkerThreadTracker {
     /** Waits until the marked thread has ended. False when that did not happen within [timeoutMs]. */
     fun await(timeoutMs: Long): Boolean {
         val deadline = System.nanoTime() + TimeUnit.MILLISECONDS.toNanos(timeoutMs)
-        if (!started.await(timeoutMs, TimeUnit.MILLISECONDS)) return false
+        // If mmslib fails before it calls any hook, nothing ever marks a thread: give up sooner than the full wait.
+        if (!started.await(minOf(timeoutMs, FIRST_HOOK_WAIT_MS), TimeUnit.MILLISECONDS)) return false
         val thread = worker ?: return false
         if (thread === Thread.currentThread()) return true
         val leftMs = TimeUnit.NANOSECONDS.toMillis(deadline - System.nanoTime())
@@ -225,10 +232,12 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         size: Int,
         address: String
     ) {
-        val glideBitmap = try {
+        // Only a picture or a video has a thumbnail to show; a text-only MMS skips the load.
+        val imageUri = mms.attachment?.attachments?.firstOrNull { it.mimetype.isPreviewable() }?.getUri()
+        val glideBitmap = if (imageUri == null) null else try {
             Glide.with(context)
                 .asBitmap()
-                .load(mms.attachment!!.attachments.first().getUri())
+                .load(imageUri)
                 .centerCrop()
                 .into(size, size)
                 .get(BITMAP_TIMEOUT_MS, TimeUnit.MILLISECONDS)
@@ -285,3 +294,5 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         const val BITMAP_TIMEOUT_MS = 5_000L
     }
 }
+
+private fun String.isPreviewable() = isImageMimeType() || isVideoMimeType()

@@ -5,6 +5,7 @@ import android.content.Intent
 import com.klinker.android.send_message.Settings
 import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.extensions.config
+import com.glooboo.umessage.extensions.subscriptionManagerCompat
 import com.glooboo.umessage.messaging.notifySendFailedInBackground
 import com.glooboo.umessage.messaging.sendMessageCompat
 
@@ -39,8 +40,7 @@ class HeadlessSmsSendService : Service() {
     internal fun send(text: String, addresses: List<String>) {
         var failed = false
         try {
-            val defaultSimId = config.defaultSimId
-            val subId = if (defaultSimId >= 0) defaultSimId else Settings.DEFAULT_SUBSCRIPTION_ID
+            val subId = sendSubscriptionId(addresses.first())
             sendMessageCompat(text, addresses, subId, emptyList(), onFailure = { failed = true })
         } catch (_: Exception) {
             failed = true
@@ -48,6 +48,18 @@ class HeadlessSmsSendService : Service() {
         if (failed) {
             runCatching { notifySendFailedInBackground(addresses) }
         }
+    }
+
+    /** The SIM saved for the first recipient if it is active, else the app default SIM, else the system default. */
+    @Suppress("MissingPermission") // a SecurityException is caught by runCatching below
+    private fun sendSubscriptionId(firstAddress: String): Int {
+        val defaultSimId = config.defaultSimId
+        val fallback = if (defaultSimId >= 0) defaultSimId else Settings.DEFAULT_SUBSCRIPTION_ID
+        val saved = config.getUseSIMIdAtNumberOrNull(firstAddress) ?: return fallback
+        return runCatching {
+            val activeIds = subscriptionManagerCompat().activeSubscriptionInfoList.orEmpty().map { it.subscriptionId }
+            if (saved in activeIds) saved else fallback
+        }.getOrDefault(fallback)
     }
 }
 

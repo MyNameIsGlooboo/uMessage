@@ -288,8 +288,12 @@ fun BlockedScreen(
     }
     if (confirmDeleteAll) {
         val total = state.groups.sumOf { it.messages.size }
+        // spamui-16: with a chip or a search active only the listed messages go, and the title says so.
+        val listedOnly = state.filter != BlockedFilter.All || state.query.isNotEmpty()
         ConfirmDialog(
-            title = stringResource(R.string.spam_ui_delete_all_title),
+            title = stringResource(
+                if (listedOnly) R.string.minor_sui_delete_listed_title else R.string.spam_ui_delete_all_title,
+            ),
             message = pluralStringResource(R.plurals.spam_ui_delete_all_message, total, total),
             confirmLabel = stringResource(R.string.screens_delete),
             destructive = true,

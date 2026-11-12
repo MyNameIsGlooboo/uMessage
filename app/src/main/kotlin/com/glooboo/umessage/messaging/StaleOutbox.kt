@@ -1,5 +1,6 @@
 package com.glooboo.umessage.messaging
 
+import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
 import android.provider.Telephony.Mms
@@ -56,6 +57,8 @@ fun Context.failStaleOutboxMessages(
             if (updated > 0) {
                 marked++
                 runCatching { messagesDB.updateType(id, isMMS = false, type = Sms.MESSAGE_TYPE_FAILED) }
+                // Its remaining part reports were lost, so the stored progress would stay forever.
+                runCatching { SentParts.forget(this, ContentUris.withAppendedId(Sms.CONTENT_URI, id)) }
             }
         } catch (_: Exception) {
         }

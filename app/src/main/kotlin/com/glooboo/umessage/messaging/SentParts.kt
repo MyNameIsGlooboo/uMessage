@@ -54,6 +54,9 @@ object SentParts {
         }
     }
 
+    /** Drops the stored reports of [messageUri]; for a message whose remaining reports were lost. */
+    fun forget(context: Context, messageUri: Uri) = start(context, messageUri)
+
     /** Records one part's report for [messageUri] and returns what it means for the message row. */
     fun record(context: Context, messageUri: Uri, partSent: Boolean, partCount: Int): Outcome {
         if (partCount <= 1) {

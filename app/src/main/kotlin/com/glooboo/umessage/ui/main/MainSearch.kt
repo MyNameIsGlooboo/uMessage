@@ -241,7 +241,11 @@ class MainSearchState {
     /** The SIM (subscription id) of the filter while [filter] is [InboxFilter.Sim]. */
     var simId by mutableIntStateOf(NO_SIM)
 
+    /** Set by the view model: stops a search still running when the user leaves search. */
+    internal var onClose: (() -> Unit)? = null
+
     fun close() {
+        onClose?.invoke()
         active = false
         query = ""
         results = emptyList()

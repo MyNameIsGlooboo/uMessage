@@ -136,6 +136,7 @@ class ConversationsCallbacks(
     val onUndoDelete: (Long) -> Unit = {},
     val onCommitDelete: (Long) -> Unit = {},
     val onUndoArchive: (Long) -> Unit = {},
+    val onCommitArchive: (Long) -> Unit = {},
     val onNewConversation: () -> Unit = {},
 ) {
     companion object {

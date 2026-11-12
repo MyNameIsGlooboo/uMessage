@@ -24,8 +24,11 @@ class ReminderReceiver : BroadcastReceiver() {
         val reminder = runCatching {
             runBlocking { context.getMessagesDB().MessageRemindersDao().get(reminderId) }
         }.getOrNull() ?: return
-        runCatching { ReminderNotification(context).show(reminder, context.resolveReminderTarget(reminder)) }
-        // Deleted once it fired, so re-arming after a reboot never fires it a second time.
-        context.cancelReminder(reminderId)
+        val shown = runCatching {
+            ReminderNotification(context).show(reminder, context.resolveReminderTarget(reminder))
+        }.isSuccess
+        // Deleted once it fired, so re-arming after a reboot never fires it a second time. If showing it threw, it is
+        // kept, so the next re-arm tries again instead of losing the reminder.
+        if (shown) context.cancelReminder(reminderId)
     }
 }

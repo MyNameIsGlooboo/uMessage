@@ -222,7 +222,8 @@ private fun MessageList(vm: ThreadViewModel, actions: ThreadActions, modifier: M
                     }
                     val index = vm.rows.indexOfFirst { (it as? ThreadRow.Bubble)?.message?.key == command.message }
                     if (index >= 0) {
-                        listState.animateScrollToItem(index)
+                        // Reversed list: a negative offset lifts the target from the bottom edge to about the middle.
+                        listState.animateScrollToItem(index, -(listState.layoutInfo.viewportSize.height / 2))
                         if (command.flash) vm.flashMessage(command.message)
                     }
                 }

@@ -192,6 +192,9 @@ class NewConversationActivity : ComposeSimpleActivity() {
      * Opens the chat and closes this picker, so Back from the chat returns to the list (MC-10). When Android can't make
      * a chat for the number (thread id 0) it says so and the picker stays (MC-07); a link from another app closes.
      */
+    /** Set while a chat is being opened, so a double tap cannot start the thread twice (cleared on failure). */
+    private var launching = false
+
     private fun launchThreadActivity(phoneNumber: String, name: String, body: String = "", finishAfter: Boolean = false) {
         hideKeyboard()
         val numbers = phoneNumber.split(";").map { it.trim() }.filter { it.isNotEmpty() }.toSet()
@@ -202,9 +205,12 @@ class NewConversationActivity : ComposeSimpleActivity() {
         }
         val number = if (numbers.size == 1) numbers.first() else Gson().toJson(numbers)
         // getOrCreateThreadId is a Telephony provider round trip: keep it off the main thread.
+        if (launching) return
+        launching = true
         lifecycleScope.launch {
             val threadId = withContext(Dispatchers.IO) { runCatching { getThreadId(numbers) }.getOrDefault(0L) }
             if (threadId <= 0L) {
+                launching = false
                 toast(R.string.new_conversation_invalid_number, length = Toast.LENGTH_LONG)
                 if (finishAfter) finish()
                 return@launch

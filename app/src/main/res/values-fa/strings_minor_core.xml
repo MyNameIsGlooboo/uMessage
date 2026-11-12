@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">پیام زمان‌بندی‌شدهٔ شما به «%1$s» ارسال نشد: پیوست آن دیگر باز نمی‌شود (%2$s). گفتگو را باز کنید و پیوست را دوباره اضافه کنید.</string>
+</resources>

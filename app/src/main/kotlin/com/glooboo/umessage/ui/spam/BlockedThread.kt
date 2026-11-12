@@ -89,6 +89,9 @@ import com.glooboo.umessage.ui.thread.timeOnlyLabel
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import kotlinx.coroutines.delay
+
+private const val CLOSE_GRACE_MS = 250L
 
 /** One row of the sender thread: a day header or a message bubble. */
 sealed interface BlockedThreadItem {
@@ -183,7 +186,12 @@ fun BlockedThreadRoute(
     // restored from another screen), or the user moved or deleted them and kept that.
     val close by rememberUpdatedState(onBack)
     LaunchedEffect(settled, closeWhenEmpty, seen) {
-        if (settled && (closeWhenEmpty || !seen)) close()
+        if (settled && (closeWhenEmpty || !seen)) {
+            // spamui-22: a short grace, so a snackbar queued at this very moment (it flips [settled] back and
+            // restarts this effect) is shown before the screen goes.
+            delay(CLOSE_GRACE_MS)
+            close()
+        }
     }
     val actions = remember(viewModel, address, onBack, onOpenRules) {
         BlockedThreadActions(

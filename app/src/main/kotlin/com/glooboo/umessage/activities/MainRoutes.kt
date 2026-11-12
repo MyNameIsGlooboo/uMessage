@@ -80,6 +80,7 @@ class MainRoutes(private val activity: BaseSimpleActivity) {
         onUndoDelete = viewModel::undoDelete,
         onCommitDelete = viewModel::commitDelete,
         onUndoArchive = viewModel::undoArchive,
+        onCommitArchive = viewModel::commitArchive,
         onNewConversation = ::openNewConversation,
     )
 

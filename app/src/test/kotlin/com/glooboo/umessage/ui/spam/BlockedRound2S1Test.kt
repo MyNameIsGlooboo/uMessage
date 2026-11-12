@@ -83,11 +83,11 @@ class BlockedRound2S1Test {
         awaitUntil { events.any { it is BlockedEvent.Restored } }
         val restored = events.filterIsInstance<BlockedEvent.Restored>().single()
         assertThat(restored.count).isEqualTo(2)
-        assertThat(vm.state.value.groups.single().messages.map { it.id }).containsExactly(2L)
+        awaitUntil { vm.state.value.groups.singleOrNull()?.messages?.map { it.id } == listOf(2L) }
 
         vm.undoRestore(restored.token)
         awaitUntil { vm.state.value.groups.singleOrNull()?.messages?.size == 3 }
-        assertThat(vm.state.value.restored).isEmpty()
+        awaitUntil { vm.state.value.restored.isEmpty() }
     }
 
     @Test

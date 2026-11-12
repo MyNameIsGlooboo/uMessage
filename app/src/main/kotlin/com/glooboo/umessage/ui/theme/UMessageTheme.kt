@@ -39,7 +39,7 @@ object UMessageColors {
     val Gold = Color(0xFFA16207)
     val GoldLight = Color(0xFFFFDDA8)
     val Background = Color(0xFFF8FAFC)
-    val Danger = Color(0xFFDC2626)
+    val Danger = Color(0xFFB91C1C)
     val Success = Color(0xFF0F9D6B)
 }
 

@@ -176,7 +176,11 @@ private suspend fun showEvent(
                 actionLabel = undoLabel,
                 duration = SnackbarDuration.Short,
             )
-            if (result == SnackbarResult.ActionPerformed) callbacks.onUndoArchive(event.token)
+            if (result == SnackbarResult.ActionPerformed) {
+                callbacks.onUndoArchive(event.token)
+            } else {
+                callbacks.onCommitArchive(event.token)
+            }
         }
         is ConversationsEvent.MarkedAllRead -> {
             val result = snackbar.showSnackbar(

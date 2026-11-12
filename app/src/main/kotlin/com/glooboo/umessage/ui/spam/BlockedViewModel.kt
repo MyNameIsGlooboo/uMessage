@@ -478,15 +478,22 @@ class BlockedViewModel(
 
     private suspend fun restore(messages: List<BlockedMessage>): Pair<Map<Long, RestoreReceipt>, List<RestoredEntry>> {
         var error = false
+        val inInbox = setOf(RestoreOutcome.RESTORED, RestoreOutcome.TEXT_ONLY)
+        // spamui-1: a bigger batch shows its first restored message in the chat list at once, not only at the end.
+        var firstShown = messages.size <= 1
         val receipts = messages.associate { message ->
-            message.id to runCatching { repository.restore(message.id) }.getOrElse {
+            val receipt = runCatching { repository.restore(message.id) }.getOrElse {
                 error = true
                 RestoreReceipt(null, RestoreOutcome.FAILED)
             }
+            if (!firstShown && receipt.outcome in inInbox) {
+                firstShown = true
+                refreshConversations()
+            }
+            message.id to receipt
         }
         if (error) events.trySend(BlockedEvent.Failed)
         val now = System.currentTimeMillis()
-        val inInbox = setOf(RestoreOutcome.RESTORED, RestoreOutcome.TEXT_ONLY)
         val logged = messages
             .filter { receipts[it.id]?.outcome in inInbox }
             .map { RestoredEntry(it.address, it.receivedAt, now) }

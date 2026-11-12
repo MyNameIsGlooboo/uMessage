@@ -49,6 +49,7 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
     private var searchJob: Job? = null
 
     init {
+        state.onClose = { searchJob?.cancel() }
         handle.get<Bundle>(KEY_SAVED)?.let { saved ->
             state.filter = InboxFilter.entries.firstOrNull { it.name == saved.getString(KEY_FILTER) } ?: InboxFilter.All
             state.labelId = saved.getLong(KEY_LABEL, NO_LABEL)

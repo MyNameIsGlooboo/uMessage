@@ -28,7 +28,8 @@ class ThreadViewModelStateTest {
         val restored = ThreadViewModel(handle)
         assertTrue(restored.isScheduling)
         assertEquals(1_800_000_000_000L, restored.scheduledMillis)
-        assertEquals(42L, restored.scheduledMessageId)
+        // The attachments of the edit are not saved, so the edit id is dropped (the message is saved as a new one).
+        assertNull(restored.scheduledMessageId)
     }
 
     @Test

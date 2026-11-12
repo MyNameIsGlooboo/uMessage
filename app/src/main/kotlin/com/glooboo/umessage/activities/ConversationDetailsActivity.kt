@@ -184,6 +184,11 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
     override fun onResume() {
         super.onResume()
         hiddenGate.check()
+        // The system notification settings can change both while this page is in the background.
+        if (threadId != 0L) {
+            customNotifications = config.customNotifications.contains(threadId.toString())
+            refreshMute()
+        }
     }
 
     /** CL-23: shows the search page and loads this chat's messages for it (once). */

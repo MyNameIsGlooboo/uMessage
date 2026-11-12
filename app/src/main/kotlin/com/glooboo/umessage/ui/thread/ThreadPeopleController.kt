@@ -61,7 +61,11 @@ class ThreadPeopleController(
         }
     }
 
-    fun addNumber(number: String) = add(ThreadRecipients.contactForNumber(number))
+    /** Adds the typed number; text that is not a phone number (letters) is left in the field and not added. */
+    fun addNumber(number: String) {
+        val valid = ThreadRecipients.typedNumberOrNull(number) ?: return
+        add(ThreadRecipients.contactForNumber(valid))
+    }
 
     private fun add(contact: SimpleContact) {
         vm.peopleQuery.clearText()

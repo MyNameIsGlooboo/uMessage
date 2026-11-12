@@ -287,11 +287,18 @@ object SpamEngine {
     fun purgeExpired(context: Context, now: Long = System.currentTimeMillis()) {
         try {
             val app = context.applicationContext
-            if (!settingsStore(app).claimPurge(now)) return
+            val store = settingsStore(app)
+            if (!store.claimPurge(now)) return
             // The decision log has its own, shorter retention; it goes first so a failing repository purge
             // can't keep old sender numbers around.
             runCatching { UMessage.log(app).purgeExpired() }
-            runBlocking { repository(app).purgeExpired() }
+            // spam-14: a purge that failed gives the claim back, so the next message retries it, not 6 hours later.
+            try {
+                runBlocking { repository(app).purgeExpired() }
+            } catch (t: Throwable) {
+                store.releasePurge()
+                throw t
+            }
         } catch (_: Throwable) {
         }
     }

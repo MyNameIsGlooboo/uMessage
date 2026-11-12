@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.glooboo.umessage.extensions.labelsDB
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,6 +29,10 @@ class LabelsViewModel(application: Application) : AndroidViewModel(application) 
                 val dao = app.labelsDB
                 combine(dao.observeLabels(), dao.observeLinks()) { labels, links -> LabelsUiState.of(labels, links) }
                     .collect { _state.value = it }
+            }.onFailure {
+                // A database error must not leave the screens waiting for labels forever: show none.
+                if (it is CancellationException) throw it
+                _state.value = LabelsUiState(loaded = true)
             }
         }
     }
@@ -52,7 +57,7 @@ class LabelsViewModel(application: Application) : AndroidViewModel(application) 
     private fun change(onDone: (LabelResult) -> Unit = {}, block: suspend (LabelsRepository) -> LabelResult) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
-                runCatching { block(LabelsRepository(app.labelsDB)) }.getOrDefault(LabelResult.Empty)
+                runCatching { block(LabelsRepository(app.labelsDB)) }.getOrDefault(LabelResult.Error)
             }
             onDone(result)
         }

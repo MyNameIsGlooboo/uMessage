@@ -124,7 +124,7 @@ class MmsPushReceiver : BroadcastReceiver() {
     private companion object {
         const val EXTRA_DATA = "data"
         const val SEEN_TTL_MS = 10 * 60 * 1000L
-        const val LIBRARY_TASK_TIMEOUT_MS = 20_000L
+        const val LIBRARY_TASK_TIMEOUT_MS = 8_000L
         val seen = ConcurrentHashMap<String, Long>()
 
         /** PushReceiver's private static PUSH_RECEIVER_EXECUTOR, found by type so field renaming doesn't matter. */

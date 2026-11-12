@@ -95,6 +95,9 @@ sealed interface ForwardedEvent {
         val ruleOff: Int = 0,
         val limited: Int = 0,
     ) : ForwardedEvent
+
+    /** "Open chat" found no chat any more (it was deleted); the snackbar says so. */
+    data object ChatMissing : ForwardedEvent
 }
 
 data class DayGroup(val day: LocalDate, val entries: List<ForwardLogEntry>)

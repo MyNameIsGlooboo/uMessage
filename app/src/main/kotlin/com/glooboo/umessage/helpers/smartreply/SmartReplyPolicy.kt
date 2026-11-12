@@ -47,7 +47,8 @@ object SmartReplyPolicy {
     private const val CLOCK_SKEW_MILLIS = 60 * 1000L
     private const val MAX_BODY_CHARS = 160
 
-    private val LONG_NUMBER = Regex("""\d{4}""")
+    // Four digits or more, except a lone year (19xx, 20xx): "see you in 2025" is fine, "code 1234" is not.
+    private val LONG_NUMBER = Regex("""(?<!\d)(?!(?:19|20)\d{2}(?!\d))\d{4}""")
     private val LINK = Regex(
         """(https?://|www\.)\S+|\b[a-z0-9][a-z0-9-]*\.(ir|com|net|org|shop|store|link|me|app|co|info)\b""",
         RegexOption.IGNORE_CASE,

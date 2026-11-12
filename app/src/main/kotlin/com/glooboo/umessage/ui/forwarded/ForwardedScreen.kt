@@ -92,6 +92,10 @@ fun ForwardedRoute(
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
+            if (event is ForwardedEvent.ChatMissing) {
+                snackbar.currentSnackbarData?.dismiss()
+                snackbar.showSnackbar(resources.getString(R.string.minor_mt_chat_missing))
+            }
             if (event is ForwardedEvent.Retried) {
                 val locale = resources.configuration.locales[0]
                 val parts = buildList {
@@ -116,6 +120,7 @@ fun ForwardedRoute(
     // Failed forwards count as seen while the tab is open and again when it closes.
     LifecycleResumeEffect(viewModel) {
         viewModel.markSeen()
+        viewModel.refreshNames()
         onPauseOrDispose { viewModel.markSeen() }
     }
 

@@ -14,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.combine
 import com.glooboo.umessage.dialogs.showAppLockDialog
 import org.fossify.commons.extensions.getBlockedNumbers
@@ -57,6 +58,7 @@ import com.glooboo.umessage.helpers.w3aPrefs
 import com.glooboo.umessage.backup.SettingsBackup
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import android.widget.Toast
 import com.glooboo.umessage.spam.engine.SpamEngine
 import android.content.ClipData
@@ -80,6 +82,7 @@ import com.glooboo.umessage.ui.settings.LongMmsSettingDialog
 import com.glooboo.umessage.ui.settings.longMmsLabel
 import com.glooboo.umessage.ui.settings.SettingsScreen
 import com.glooboo.umessage.ui.settings.SettingsUiState
+import com.glooboo.umessage.ui.settings.SimCard
 import com.glooboo.umessage.ui.settings.SimCards
 import com.glooboo.umessage.ui.settings.SimMessagesDialog
 import com.glooboo.umessage.ui.settings.SpamSummary
@@ -110,6 +113,7 @@ import com.glooboo.umessage.ui.settings.RestoreSummary
  * Compose-hosted settings. Every option writes the same Config keys as the former View screen.
  * Stays a [SimpleActivity] because the commons security dialog needs one.
  */
+@Suppress("LargeClass")
 class SettingsActivity : ComposeSimpleActivity() {
     private var blockedNumbersAtPause = -1
     private var recycleBinMessages = 0
@@ -194,11 +198,15 @@ class SettingsActivity : ComposeSimpleActivity() {
         }
 
     private val phoneStatePermission =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { refreshState() }
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            refreshState()
+            refreshSims()
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         refreshState()
+        refreshSims()
         // Bug 7: another screen can open a page directly (the forward editor opens App lock).
         val initialPage = (intent?.getStringExtra(EXTRA_PAGE)
             ?.let { name -> SettingsPage.entries.firstOrNull { it.name == name } } ?: SettingsPage.Main)
@@ -215,6 +223,7 @@ class SettingsActivity : ComposeSimpleActivity() {
     override fun onResume() {
         super.onResume()
         refreshState()
+        refreshSims()
         loadRecycleBinCount()
         loadForwardingAndArchived()
         reportInterruptedBackup()
@@ -249,11 +258,24 @@ class SettingsActivity : ComposeSimpleActivity() {
         }
     }
 
+    /** The SIM list, read off the main thread (the subscription service can be slow) and kept for [refreshState]. */
+    private var sims: List<SimCard> = emptyList()
+
+    private fun refreshSims() {
+        lifecycleScope.launch {
+            val loaded = withContext(Dispatchers.IO) { SimCards.load(this@SettingsActivity) }
+            if (loaded != sims) {
+                sims = loaded
+                uiState = uiState.copy(sims = loaded)
+            }
+        }
+    }
+
     private fun refreshState() {
         uiState = SettingsUiState(
             simPermissionGranted = SimCards.hasPermission(this),
             showOldBlockedWords = config.blockedKeywords.isNotEmpty(),
-            sims = SimCards.load(this),
+            sims = sims,
             defaultSimId = config.defaultSimId,
             lockScreenLabel = lockScreenLabel(),
             forwardingAvailable = ForwardingAvailability.isAvailable(this),

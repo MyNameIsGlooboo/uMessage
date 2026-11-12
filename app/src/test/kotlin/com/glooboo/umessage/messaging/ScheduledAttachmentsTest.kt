@@ -170,7 +170,8 @@ class ScheduledAttachmentsTest {
         val held = offMainThread { context.messagesDB.getAllScheduledMessages() }.single()
         assertThat(held.type).isEqualTo(Telephony.Sms.MESSAGE_TYPE_FAILED)
         val text = shadowOf(notifications.single()).contentText.toString()
-        assertThat(text).isEqualTo(context.getString(R.string.scheduled_attachment_missing, "Sara"))
+        assertThat(text).contains("Sara")
+        assertThat(text).contains("photo.jpg")
     }
 
     @Test

@@ -183,7 +183,9 @@ import java.io.File
 open class ThreadActivity : ComposeSimpleActivity() {
     private val vm: ThreadViewModel by viewModels()
 
+    @Volatile
     private var threadId = 0L
+    private val refreshLock = Any()
 
     /** B06: a hidden chat asks for the app lock before it shows. */
     private val hiddenGate = HiddenChatGate(this) { threadId }
@@ -1632,6 +1634,11 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun refreshMessages(@Suppress("unused") event: Events.RefreshMessages) {
+        // ASYNC events run on a pool: one refresh at a time, so an older read cannot publish over a newer one.
+        synchronized(refreshLock) { refreshMessagesLocked() }
+    }
+
+    private fun refreshMessagesLocked() {
         if (isRecycleBin) {
             return
         }

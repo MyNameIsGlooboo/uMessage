@@ -194,7 +194,7 @@ class BlockedViewModelActionsTest {
         awaitUntil { events.isNotEmpty() }
         val event = events.single() as BlockedEvent.Deleted
         assertThat(event.count).isEqualTo(1)
-        assertThat(vm.state.value.groups.single { it.address == NUMBER }.messages.map { it.id }).containsExactly(2L)
+        awaitUntil { vm.state.value.groups.single { it.address == NUMBER }.messages.map { it.id } == listOf(2L) }
         vm.undoDelete(event.token)
         awaitUntil { vm.state.value.groups.single { it.address == NUMBER }.messages.size == 2 }
         assertThat(blocked()).hasSize(3)

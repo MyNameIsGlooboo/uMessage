@@ -85,7 +85,7 @@ private fun blockLabel(block: PatternBlock): Int = when (block) {
 }
 
 private fun blockSentence(block: PatternBlock): Int = when (block) {
-    PatternBlock.LINK -> R.string.e_pattern_link_sentence
+    PatternBlock.LINK -> R.string.minor_sui_pattern_link_sentence
     PatternBlock.LONG_NUMBER -> R.string.e_pattern_long_number_sentence
     PatternBlock.STARTS_WITH -> R.string.e_pattern_starts_with_sentence
     PatternBlock.ANY_OF -> R.string.e_pattern_any_of_sentence

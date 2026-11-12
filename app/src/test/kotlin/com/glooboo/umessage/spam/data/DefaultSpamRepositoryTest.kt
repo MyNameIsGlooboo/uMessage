@@ -44,6 +44,7 @@ class DefaultSpamRepositoryTest {
         var mmsDeliveryWorks = true
         var smsDeliveryWorks = true
         var removeWorks = true
+        var alreadyInInbox = false
         val removed = mutableListOf<Pair<Long, Boolean>>()
         private var nextInboxId = 500L
         override fun notifyBlocked(message: BlockedMessage) {
@@ -53,7 +54,7 @@ class DefaultSpamRepositoryTest {
         override fun deliverRestored(pending: PendingSmsEntity): Long? {
             if (!smsDeliveryWorks) return null
             delivered += pending
-            return nextInboxId++
+            return if (alreadyInInbox) 0L else nextInboxId++
         }
 
         override fun deliverRestoredMms(message: BlockedMessage): Long? {
@@ -297,6 +298,17 @@ class DefaultSpamRepositoryTest {
         assertEquals(before, dao.getBlocked(id)!!.toModel())
         assertEquals(0, repo.stats.first().restoredTotal)
         // Undone once is undone: the same receipt cannot take anything out of the inbox again.
+        assertEquals(1, dao.getAllBlocked().size)
+    }
+
+    /** The inbox already held the message (delivery wrote no row): undo has nothing to remove and still restores. */
+    @Test fun undoWhenTheMessageWasAlreadyInTheInboxPutsTheBlockedRowBack() = runTest {
+        platform.alreadyInInbox = true
+        val id = repo.storeBlocked(blocked())
+        val receipt = repo.restore(id)
+        assertEquals(0L, receipt.inboxId)
+        assertTrue(repo.undoRestore(receipt))
+        assertTrue(platform.removed.isEmpty())
         assertEquals(1, dao.getAllBlocked().size)
     }
 

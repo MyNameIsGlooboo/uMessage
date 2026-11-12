@@ -91,6 +91,15 @@ object TextNormalizer {
      * ("2025", "50") or only of letters is left alone, so prices, codes and plain words are not changed.
      */
     fun deobfuscate(text: String): String {
+        // spam-11: one message is read once per keyword rule; the last text and its result are kept for the next rule.
+        val last = lastDeobfuscated
+        if (last != null && (last.first === text || last.first == text)) return last.second
+        return deobfuscateUncached(text).also { lastDeobfuscated = text to it }
+    }
+
+    @Volatile private var lastDeobfuscated: Pair<String, String>? = null
+
+    private fun deobfuscateUncached(text: String): String {
         val joined = SPACED_OUT.replace(lower(unfancy(text))) { it.value.replace(SPACED_SEPARATOR, "") }
         return WORD.replace(joined) { match ->
             val word = match.value

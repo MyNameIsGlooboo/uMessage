@@ -7,7 +7,9 @@ import com.glooboo.umessage.extensions.getMessagesDB
 import com.glooboo.umessage.extensions.getThreadTitle
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.HiddenChats
+import com.glooboo.umessage.R
 import com.glooboo.umessage.messaging.RepeatRule
+import com.glooboo.umessage.ui.components.displayTitle
 import com.glooboo.umessage.models.Message
 import kotlinx.coroutines.runBlocking
 
@@ -28,7 +30,7 @@ class ScheduledStateReader(private val app: Application) {
                     id = message.id,
                     threadId = message.threadId,
                     title = titleOf(message),
-                    text = message.body,
+                    text = textOf(message),
                     millis = message.millis(),
                     held = message.isHeldScheduled(),
                     repeat = repeats[message.id] ?: RepeatRule.NONE,
@@ -38,7 +40,16 @@ class ScheduledStateReader(private val app: Application) {
         )
     }
 
-    private fun titleOf(message: Message): String =
-        runCatching { app.conversationsDB.getConversationWithThreadId(message.threadId)?.title }.getOrNull()
+    private fun titleOf(message: Message): String {
+        val title = runCatching { app.conversationsDB.getConversationWithThreadId(message.threadId)?.title }.getOrNull()
             ?.takeIf { it.isNotBlank() } ?: message.participants.getThreadTitle()
+        return displayTitle(app, title)
+    }
+
+    /** The text, or the attachment label when a picture-only message has no text. */
+    private fun textOf(message: Message): String {
+        val hasAttachment = message.attachment?.attachments?.isNotEmpty() == true
+        if (message.body.isBlank() && hasAttachment) return app.getString(R.string.share_text_attachment)
+        return message.body
+    }
 }

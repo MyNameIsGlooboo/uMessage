@@ -66,6 +66,7 @@ object SystemForwardSender : ForwardSmsSender {
 object ForwardDelivery {
     private const val TAG = "uMessageForward"
     const val SOURCE = "FORWARD"
+    private const val MAX_SKIP_LOGS = 3
 
     @Volatile internal var sender: ForwardSmsSender = SystemForwardSender
 
@@ -84,14 +85,18 @@ object ForwardDelivery {
     }
 
     private fun run(context: Context, message: ForwardCandidate, plan: ForwardPlan) {
-        plan.skipped.forEach { skip ->
+        // spam-19: at most a few skip entries per message, so many forward rules cannot push BLOCK and ALLOW entries
+        // out of the shared decision log.
+        plan.skipped.take(MAX_SKIP_LOGS).forEach { skip ->
             val to = skip.target?.let { " → $it" }.orEmpty()
             log(context, message, "FORWARD_SKIPPED", "#${skip.ruleId}$to ${skip.reason.name}")
         }
         if (plan.sends.isEmpty()) return
         // The global "pause all forwarding" switch (Forwarded tab, Settings): rules stay, nothing is sent.
         if (runCatching { NavPrefs.get(context).forwardPaused }.getOrDefault(false)) {
-            plan.sends.forEach { log(context, message, "FORWARD_SKIPPED", "#${it.ruleId} → ${it.target} PAUSED") }
+            plan.sends.take(MAX_SKIP_LOGS).forEach {
+                log(context, message, "FORWARD_SKIPPED", "#${it.ruleId} → ${it.target} PAUSED")
+            }
             return
         }
         val reserved = synchronized(ForwardLimits.lock) { reserve(context, message, plan.sends) }

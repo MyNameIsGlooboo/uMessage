@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.RadioButton
@@ -152,6 +154,9 @@ private fun RowIconSlot(icon: ImageVector?) {
     }
 }
 
+/** A long value is cut with an ellipsis here, so it cannot squeeze the title beside it. */
+private val ValueMaxWidth = 150.dp
+
 /**
  * Settings row with optional icon, summary and trailing content. With [onClick] the whole row is a 48dp+
  * button target; without it the row is read as one static item.
@@ -196,8 +201,11 @@ fun SettingsRow(
             if (value != null) {
                 Text(
                     value,
+                    modifier = Modifier.widthIn(max = ValueMaxWidth),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                 )
             }
             trailing?.invoke()

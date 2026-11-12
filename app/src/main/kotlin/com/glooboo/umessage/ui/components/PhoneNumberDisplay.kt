@@ -3,11 +3,11 @@ package com.glooboo.umessage.ui.components
 import android.content.Context
 import android.telephony.PhoneNumberUtils
 import android.telephony.TelephonyManager
+import android.util.LruCache
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalContext
 import java.util.Locale
-import java.util.concurrent.ConcurrentHashMap
 
 /*
  * CL-10, CL-33, TH-29, VS-38: the one way a phone number, or a sender that is only a number, is shown on screen: the
@@ -62,24 +62,36 @@ fun displayNumber(text: String): String {
     return displayNumber(text, uiLocale()) { PhoneNumberGrouping.format(context, it) }
 }
 
-/** The platform formatter with the SIM's country (else the phone's region), cached per number. */
+/** Most numbers kept grouped; older ones are formatted again when they come back. */
+private const val GROUPING_CACHE_SIZE = 500
+
+/**
+ * The platform formatter with the SIM's country (else the phone's region), cached per number. The cache is bounded,
+ * and the country is read again on every miss: when it changed (a SIM swap, a new locale) the cache starts over.
+ */
 private object PhoneNumberGrouping {
     @Volatile
     private var country: String? = null
-    private val cache = ConcurrentHashMap<String, String>()
+    private val cache = LruCache<String, String>(GROUPING_CACHE_SIZE)
 
     fun format(context: Context, number: String): String? {
-        cache[number]?.let { return it }
-        val iso = countryOf(context).ifBlank { return null }
+        cache.get(number)?.let { return it }
+        val iso = refreshCountry(context).ifBlank { return null }
         val formatted = runCatching { PhoneNumberUtils.formatNumber(number, iso) }.getOrNull() ?: return null
-        cache[number] = formatted
+        cache.put(number, formatted)
         return formatted
     }
 
-    private fun countryOf(context: Context): String = country ?: run {
+    @Synchronized
+    private fun refreshCountry(context: Context): String {
         val sim = runCatching {
             context.applicationContext.getSystemService(TelephonyManager::class.java)?.simCountryIso
         }.getOrNull()
-        (sim?.takeIf { it.isNotBlank() } ?: Locale.getDefault().country).uppercase(Locale.ROOT).also { country = it }
+        val now = (sim?.takeIf { it.isNotBlank() } ?: Locale.getDefault().country).uppercase(Locale.ROOT)
+        if (now != country) {
+            cache.evictAll()
+            country = now
+        }
+        return now
     }
 }

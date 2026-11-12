@@ -206,6 +206,7 @@ class ConversationListSync(
         val cachedConversations = ArrayList(db.getNonArchived() + db.getAllArchived())
         val privateContacts = context.getPrivateContactsIfAvailable()
         val lookups = ConversationLookups(context, bulk = true)
+        val archiveKnown = context.config.isArchiveAvailable
 
         // Refresh the newest threads first so the top of the list is current right away. The full pass below still
         // runs: it is what notices deleted threads and keeps the rest of the list, Archived and search up to date.
@@ -213,10 +214,10 @@ class ConversationListSync(
         val newest = context.getConversations(privateContacts = privateContacts, limit = firstPassSize, lookups = lookups)
         val changed = newest.filter { fresh ->
             val cached = cachedById[fresh.threadId]
-            cached == null || !Conversation.areContentsTheSame(old = cached, new = fresh)
+            cached == null || !sameRow(cached, fresh, archiveKnown)
         }
         if (changed.isNotEmpty()) {
-            changed.forEach { context.insertOrUpdateConversation(keepRead(it), cachedById[it.threadId]) }
+            changed.forEach { writeIfStillSaved(it, cachedById[it.threadId]) }
             publish(saved(), true)
         }
 
@@ -251,11 +252,11 @@ class ConversationListSync(
         }
 
         cachedConversations.forEach { cached ->
-            val conv = freshById[cached.threadId]?.takeIf { !Conversation.areContentsTheSame(old = cached, new = it) }
+            val conv = freshById[cached.threadId]?.takeIf { !sameRow(cached, it, archiveKnown) }
             if (conv != null) {
                 // FIXME: Scheduled message date is being reset here. Conversations with scheduled messages will have
                 //  their original date.
-                context.insertOrUpdateConversation(keepRead(conv))
+                writeIfStillSaved(conv, null, wasSaved = true)
             }
         }
 
@@ -273,6 +274,22 @@ class ConversationListSync(
             importExecutor.execute { runCatching { importMessages(threadIds) } }
         } catch (e: Exception) {
             Log.w(TAG, "Message cache import not started", e)
+        }
+    }
+
+    private fun sameRow(cached: Conversation, fresh: Conversation, archiveKnown: Boolean) =
+        Conversation.areContentsTheSame(old = cached, new = fresh, compareArchived = archiveKnown)
+
+    /**
+     * Writes a changed row read earlier, unless a delete that ran meanwhile already took the saved row away: the stale
+     * read would bring the chat back until the next pass. A row that was never saved is added as before.
+     */
+    private fun writeIfStillSaved(fresh: Conversation, cached: Conversation?, wasSaved: Boolean = cached != null) {
+        if (wasSaved && context.conversationsDB.getConversationWithThreadId(fresh.threadId) == null) return
+        if (cached == null) {
+            context.insertOrUpdateConversation(keepRead(fresh))
+        } else {
+            context.insertOrUpdateConversation(keepRead(fresh), cached)
         }
     }
 

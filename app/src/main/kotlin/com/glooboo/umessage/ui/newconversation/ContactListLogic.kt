@@ -31,7 +31,14 @@ internal fun filterContacts(all: List<SimpleContact>, query: String): List<Simpl
                 contact.name.contains(normalized, true) ||
                 contact.name.normalizeString().contains(query, true)
         }
-        .sortedBy { !it.name.startsWith(query, true) }
+        .sortedBy { matchRank(it, query) }
+}
+
+/** 0 for a name that starts with [query], 1 for a number that starts with it, 2 for any other match. */
+private fun matchRank(contact: SimpleContact, query: String): Int = when {
+    contact.name.startsWith(query, true) -> 0
+    contact.phoneNumbers.any { it.normalizedNumber.startsWith(query) || it.value.startsWith(query) } -> 1
+    else -> 2
 }
 
 /** A contact row with a list key that is unique even when two contacts share ids. */

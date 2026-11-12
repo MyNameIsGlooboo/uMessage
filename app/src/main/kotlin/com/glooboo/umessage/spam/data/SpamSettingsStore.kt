@@ -57,6 +57,12 @@ class SpamSettingsStore(context: Context) {
         return true
     }
 
+    /** Gives back a [claimPurge] whose purge failed, so the next receiver tries again, not after a full interval. */
+    @Synchronized
+    fun releasePurge() {
+        prefs.edit { remove(KEY_LAST_PURGE) }
+    }
+
     fun observe(): Flow<SpamSettings> = callbackFlow {
         val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
             if (key != KEY_LAST_PURGE) trySend(get())

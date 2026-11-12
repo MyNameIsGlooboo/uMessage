@@ -2,6 +2,7 @@ package com.glooboo.umessage.ui.thread
 
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
 import com.glooboo.umessage.spam.engine.NumberNormalizer
+import com.glooboo.umessage.ui.components.isBareNumber
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.fossify.commons.models.PhoneNumber
@@ -124,6 +125,18 @@ class ThreadRecipients(val contacts: List<SimpleContact> = emptyList()) {
             }
             return contacts
         }
+
+        /**
+         * What was typed in the people editor as a phone number in ASCII digits (the app's own digits are accepted),
+         * or null when it is not a number: "abc" must not become a recipient.
+         */
+        fun typedNumberOrNull(typed: String): String? {
+            val ascii = typed.trim().map { c -> Character.digit(c, DECIMAL).takeIf { it >= 0 }?.let { '0' + it } ?: c }
+                .joinToString("")
+            return ascii.takeIf { isBareNumber(it) }
+        }
+
+        private const val DECIMAL = 10
 
         /** A bare contact for [number], keyed by the number's hash as the old code did. */
         fun contactForNumber(number: String, name: String = number): SimpleContact = SimpleContact(

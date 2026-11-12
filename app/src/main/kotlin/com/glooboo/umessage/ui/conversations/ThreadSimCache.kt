@@ -18,9 +18,12 @@ class ThreadSimCache(private val file: File) {
     private var newestMs = 0L
     private val sims = HashMap<Long, Int>()
 
-    /** Thread id to subscription id; empty without a second SIM. Call off the main thread. */
+    /**
+     * Thread id to subscription id; empty without a second SIM. Call off the main thread. [liveThreads], when given
+     * and not empty, are the threads that still exist: entries of deleted threads are dropped from the kept map.
+     */
     @Synchronized
-    fun load(context: Context, simCount: Int): Map<Long, Int> {
+    fun load(context: Context, simCount: Int, liveThreads: Set<Long>? = null): Map<Long, Int> {
         if (simCount < 2) return emptyMap()
         if (!loaded) {
             readFile()
@@ -37,23 +40,31 @@ class ThreadSimCache(private val file: File) {
                 arrayOf(newestMs.toString()),
                 "${Sms.DATE} DESC",
             )?.use { cursor ->
-                while (cursor.moveToNext()) {
-                    val thread = cursor.getLong(0)
-                    if (!fresh.containsKey(thread)) fresh[thread] = cursor.getInt(1)
-                    newest = maxOf(newest, cursor.getLong(2))
-                }
+                newest = maxOf(newest, collect(cursor, fresh))
             }
         } catch (e: Exception) {
             Log.w(TAG, "Could not read message SIMs", e)
             return HashMap(sims)
         }
-        val changed = newest != newestMs || fresh.any { (thread, sub) -> sims[thread] != sub }
+        val pruned = !liveThreads.isNullOrEmpty() && sims.keys.retainAll(liveThreads + fresh.keys)
+        val changed = pruned || newest != newestMs || fresh.any { (thread, sub) -> sims[thread] != sub }
         if (changed) {
             sims.putAll(fresh)
             newestMs = newest
             writeFile()
         }
         return HashMap(sims)
+    }
+
+    /** Fills [fresh] with the first (newest) subscription id per thread; returns the newest message time seen. */
+    private fun collect(cursor: android.database.Cursor, fresh: MutableMap<Long, Int>): Long {
+        var newest = 0L
+        while (cursor.moveToNext()) {
+            val thread = cursor.getLong(0)
+            if (!fresh.containsKey(thread)) fresh[thread] = cursor.getInt(1)
+            newest = maxOf(newest, cursor.getLong(2))
+        }
+        return newest
     }
 
     private fun readFile() {

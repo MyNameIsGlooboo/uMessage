@@ -31,6 +31,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -64,6 +65,8 @@ class ForwardedViewModel(application: Application) : AndroidViewModel(applicatio
             // Opening the database the first time reads files: not on the main thread (L5).
             .flowOn(Dispatchers.IO)
             .catch { emit(emptyList()) }
+            // One database collector feeds both the screen state and the name lookup.
+            .shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)
 
     private val dailyLimitFlow: Flow<Int> = W3aPrefs.get(application).dailyForwardLimitFlow.catch { emit(0) }
 
@@ -90,8 +93,9 @@ class ForwardedViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch { entriesFlow.collect { resolveNames(it) } }
     }
 
-    private suspend fun resolveNames(entries: List<ForwardLogEntry>) {
-        val wanted = entries.flatMap { listOf(it.sourceAddress, it.target) }.toSet() - ui.value.names.keys
+    private suspend fun resolveNames(entries: List<ForwardLogEntry>, force: Boolean = false) {
+        val all = entries.flatMap { listOf(it.sourceAddress, it.target) }.toSet()
+        val wanted = if (force) all else all - ui.value.names.keys
         if (wanted.isEmpty()) return
         val found = withContext(Dispatchers.IO) {
             val helper = SimpleContactsHelper(app)
@@ -100,6 +104,11 @@ class ForwardedViewModel(application: Application) : AndroidViewModel(applicatio
             }
         }
         ui.update { it.copy(names = it.names + found) }
+    }
+
+    /** Looks the names up again (a contact may have been renamed while the tab was away). */
+    fun refreshNames() {
+        viewModelScope.launch { resolveNames(state.value.entries, force = true) }
     }
 
     fun setPaused(paused: Boolean) {
@@ -139,7 +148,11 @@ class ForwardedViewModel(application: Application) : AndroidViewModel(applicatio
     fun openThread(entry: ForwardLogEntry, onResult: (threadId: Long, title: String) -> Unit) {
         viewModelScope.launch {
             val threadId = withContext(Dispatchers.IO) { app.getThreadId(entry.sourceAddress) }
-            if (threadId != 0L) onResult(threadId, state.value.nameOf(entry.sourceAddress))
+            if (threadId != 0L) {
+                onResult(threadId, state.value.nameOf(entry.sourceAddress))
+            } else {
+                _events.emit(ForwardedEvent.ChatMissing)
+            }
         }
     }
 

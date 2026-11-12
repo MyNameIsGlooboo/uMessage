@@ -1,6 +1,7 @@
 package com.glooboo.umessage.messaging
 
 import android.content.Context
+import android.telephony.PhoneNumberUtils
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast.LENGTH_LONG
@@ -85,6 +86,27 @@ fun Context.sendMessageDetailed(
     resend: MessageKey? = null,
     onFailure: () -> Unit = {},
     onAttachmentHandedOff: (Attachment) -> Unit = {},
+): SendOutcome = sendToDistinctRecipients(
+    text, distinctRecipients(addresses), subId, attachments, resend, onFailure, onAttachmentHandedOff,
+)
+
+/** Drops a recipient that is the same number as an earlier one written another way ("+4671..." and "071..."). */
+internal fun distinctRecipients(addresses: List<String>): List<String> {
+    val result = ArrayList<String>(addresses.size)
+    for (address in addresses) {
+        if (result.none { it == address || PhoneNumberUtils.compare(it, address) }) result.add(address)
+    }
+    return result
+}
+
+private fun Context.sendToDistinctRecipients(
+    text: String,
+    addresses: List<String>,
+    subId: Int?,
+    attachments: List<Attachment>,
+    resend: MessageKey?,
+    onFailure: () -> Unit,
+    onAttachmentHandedOff: (Attachment) -> Unit,
 ): SendOutcome {
     val settings = getSendMessageSettings()
     activeSendSubscriptionId(subId)?.let { settings.subscriptionId = it }

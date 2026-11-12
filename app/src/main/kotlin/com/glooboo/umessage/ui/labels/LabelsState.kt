@@ -4,8 +4,8 @@ import androidx.compose.runtime.Immutable
 import com.glooboo.umessage.models.ConversationLabel
 import com.glooboo.umessage.models.Label
 
-/** How a label name was judged. */
-enum class LabelResult { Ok, Empty, TooMany, Duplicate }
+/** How a label name was judged; [Error] means the database failed and nothing was changed. */
+enum class LabelResult { Ok, Empty, TooMany, Duplicate, Error }
 
 /** The colours a label can have. Stored as the ARGB int in [Label.color]. */
 enum class LabelColor(val argb: Long) {

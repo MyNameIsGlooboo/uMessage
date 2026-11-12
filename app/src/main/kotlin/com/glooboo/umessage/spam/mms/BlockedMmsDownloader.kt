@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.telephony.TelephonyManager
 import com.android.mms.MmsConfig
 import com.glooboo.umessage.receivers.BlockedMmsDownloadReceiver
 import com.klinker.android.send_message.SmsManagerFactory
@@ -25,8 +26,14 @@ object BlockedMmsDownloader {
     private const val FILE_PREFIX = "blocked-mms-"
     private const val HTTP_PARAMS = "httpParams"
 
-    /** Starts the download. Throws when the system refused to start it; the caller then marks the content missing. */
+    /**
+     * Starts the download. Throws when the system refused to start it, or when [BlockedMmsPolicy] says not to download
+     * now (roaming, or too many kept already); the caller then marks the content missing and the placeholder stays.
+     */
     fun start(context: Context, blockedId: Long, contentLocation: String, subscriptionId: Int) {
+        check(BlockedMmsPolicy.mayDownload(isRoaming(context, subscriptionId), keptFiles(context))) {
+            "Blocked MMS download skipped by policy"
+        }
         val name = "$FILE_PREFIX$blockedId-${UUID.randomUUID()}.dat"
         val file = File(context.cacheDir, name)
         val uri = Uri.Builder()
@@ -53,6 +60,16 @@ object BlockedMmsDownloader {
             throw t
         }
     }
+
+    /** Roaming on the SIM that received the MMS; false when it cannot be told (the download then goes ahead). */
+    private fun isRoaming(context: Context, subscriptionId: Int): Boolean = runCatching {
+        val manager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        val forSim = if (subscriptionId >= 0) manager.createForSubscriptionId(subscriptionId) else manager
+        forSim.isNetworkRoaming
+    }.getOrDefault(false)
+
+    private fun keptFiles(context: Context): Int =
+        BlockedMmsStore.dir(context).listFiles { file -> file.name.endsWith(".pdu") }?.size ?: 0
 
     /** The download file named in a result intent, only if it is one of ours in the cache directory. */
     fun downloadFile(context: Context, intent: Intent): File? {

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="minor_sui_delete_listed_title">اسپم‌های فهرست‌شده حذف شوند؟</string>
+    <string name="minor_sui_report_queued">گزارش برای ارسال به اپراتور در صف قرار گرفت</string>
+    <string name="minor_sui_pattern_link_sentence">پیام‌هایی را پیدا می‌کند که لینکی با http، https یا www دارند.</string>
+</resources>

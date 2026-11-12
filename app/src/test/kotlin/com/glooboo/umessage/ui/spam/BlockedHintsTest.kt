@@ -38,6 +38,12 @@ class BlockedHintsTest {
     }
 
     @Test
+    fun bankNoticeThatAsksToCallIsNotImportant() {
+        assertThat(BlockedHints.looksImportant("Your account is locked, call 12345")).isFalse()
+        assertThat(BlockedHints.looksImportant("Your verification code is 482913, call us if not you")).isTrue()
+    }
+
+    @Test
     fun plainPromoIsNotImportant() {
         assertThat(BlockedHints.looksImportant("Big sale this weekend, 50% off")).isFalse()
         assertThat(BlockedHints.looksImportant("")).isFalse()

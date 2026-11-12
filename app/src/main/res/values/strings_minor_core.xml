@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scheduled_attachment_missing_named">Your scheduled message to \'%1$s\' was not sent: its attachment can no longer be opened (%2$s). Open the chat to add it again.</string>
+</resources>

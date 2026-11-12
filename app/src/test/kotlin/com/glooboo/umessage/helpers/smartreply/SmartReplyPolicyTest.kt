@@ -59,6 +59,8 @@ class SmartReplyPolicyTest {
         assertThat(SmartReplyPolicy.bodyAllowed("code 1234")).isFalse()
         assertThat(SmartReplyPolicy.bodyAllowed("code ۱۲۳۴")).isFalse()
         assertThat(SmartReplyPolicy.bodyAllowed("at 5 pm")).isTrue()
+        assertThat(SmartReplyPolicy.bodyAllowed("see you in 2025")).isTrue()
+        assertThat(SmartReplyPolicy.bodyAllowed("code 20245")).isFalse()
     }
 
     @Test

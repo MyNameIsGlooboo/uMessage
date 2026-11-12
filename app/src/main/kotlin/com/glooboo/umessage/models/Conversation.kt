@@ -26,8 +26,13 @@ data class Conversation(
             return old.threadId == new.threadId
         }
 
-        fun areContentsTheSame(old: Conversation, new: Conversation): Boolean {
-            return old.snippet == new.snippet &&
+        /**
+         * [compareArchived] is false when the phone's store has no archive flag: its rows then always read "not
+         * archived" and must not undo an archive the app keeps itself.
+         */
+        fun areContentsTheSame(old: Conversation, new: Conversation, compareArchived: Boolean = false): Boolean {
+            return (!compareArchived || old.isArchived == new.isArchived) &&
+                old.snippet == new.snippet &&
                 old.date == new.date &&
                 old.read == new.read &&
                 old.title == new.title &&

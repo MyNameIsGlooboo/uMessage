@@ -51,7 +51,7 @@ internal suspend fun reportToCarrier(
     val sent = message != null && withContext(Dispatchers.IO) {
         runCatching { CarrierReport(context).send(message) }.getOrDefault(false)
     }
-    val text = context.getString(if (sent) R.string.carrier_report_sent else R.string.carrier_report_failed)
+    val text = context.getString(if (sent) R.string.minor_sui_report_queued else R.string.carrier_report_failed)
     snackbar.showSnackbar(text, duration = SnackbarDuration.Short)
 }
 

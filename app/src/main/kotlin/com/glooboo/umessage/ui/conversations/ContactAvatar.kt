@@ -3,6 +3,7 @@ package com.glooboo.umessage.ui.conversations
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.os.SystemClock
 import android.util.LruCache
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -136,6 +137,19 @@ internal fun initialsOf(title: String): String =
 private object AvatarCache {
     val bitmaps = object : LruCache<String, ImageBitmap>(AVATAR_CACHE_SIZE) {}
     const val AVATAR_CACHE_SIZE = 200
+
+    /** Photos that failed to load, by when: not retried for a minute, so a broken one is not read again per row. */
+    private val failures = object : LruCache<String, Long>(AVATAR_CACHE_SIZE) {}
+    private const val RETRY_AFTER_MS = 60_000L
+
+    fun failedRecently(uri: String): Boolean {
+        val at = failures.get(uri) ?: return false
+        return SystemClock.elapsedRealtime() - at < RETRY_AFTER_MS
+    }
+
+    fun markFailed(uri: String) {
+        failures.put(uri, SystemClock.elapsedRealtime())
+    }
 }
 
 @Composable
@@ -144,11 +158,13 @@ private fun rememberAvatarBitmap(uri: String): ImageBitmap? {
     val context = LocalContext.current.applicationContext
     var bitmap by remember(uri) { mutableStateOf(AvatarCache.bitmaps.get(uri)) }
     LaunchedEffect(uri) {
-        if (bitmap == null) {
+        if (bitmap == null && !AvatarCache.failedRecently(uri)) {
             val loaded = loadAvatar(context, uri)
             if (loaded != null) {
                 AvatarCache.bitmaps.put(uri, loaded)
                 bitmap = loaded
+            } else {
+                AvatarCache.markFailed(uri)
             }
         }
     }
