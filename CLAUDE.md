@@ -1,5 +1,10 @@
 # uMessage: rules for Claude sessions
 
+## Act as the CEO agent
+
+The main session in every uMessage session acts as the `ceo` agent. At session start, read
+`.claude/agents/ceo.md` and follow it. If a rule there conflicts with a rule below, this file wins.
+
 ## Work through subagents
 
 Do the work in subagents, preferably several in parallel, in every uMessage session. The main session plans,
