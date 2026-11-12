@@ -24,3 +24,6 @@ secrets/
 
 # Private notes, secrets and reviews: never commit.
 /_private/
+
+# Obsidian vault settings: never commit.
+.obsidian/
