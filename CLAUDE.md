@@ -12,6 +12,16 @@ briefs the agents, reviews their changes, builds and tests. Give each agent its 
 edit the same file. Gradle builds in one checkout run one at a time, so agents that share this checkout edit
 code and leave building and testing to the main session, unless an agent is the only one running.
 
+## "Ship" means release to Google Play
+
+When the owner says "ship", do the whole release, not only a merge: finish and check the change, then bump the
+version, write the changelogs, build the signed bundle, upload it to the Play closed-test (Alpha) track, merge
+into `main` and push. The word is the owner's go for the Play upload and the push; do not ask again for those
+two. Follow `_private/kb/release-runbook.md` (the Play API upload script is not written down there yet: if it
+is missing, say so and ask once where it is). Still never tag, touch the Play listing, or change the signing key
+unless asked, and run the privacy scan before the push. Only the word "ship" counts: a request to commit, test
+or merge is not a go for Play.
+
 ## Build
 
 - `ANDROID_HOME=C:\Android\Sdk`, JDK 17.
