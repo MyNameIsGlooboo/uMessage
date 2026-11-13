@@ -256,8 +256,8 @@ fun BlockedScreen(
     var confirmDeleteAll by rememberSaveable { mutableStateOf(false) }
     var restoredOpen by rememberSaveable { mutableStateOf(false) }
     var confirmReport by rememberSaveable { mutableStateOf(false) }
-    // The search box is open while it holds text (it comes back after a rotation or a visit to a thread, but not
-    // after another tab: BlockedRoute clears the query when the tab is left, and this state is not saved with the tab).
+    // The search box is open while it holds text: it comes back after a rotation (with text) or a visit to a thread,
+    // not after another tab, because BlockedRoute clears the query when the tab is left.
     var searching by remember { mutableStateOf(state.query.isNotEmpty()) }
     BackHandler(enabled = state.selecting, onBack = actions.onClearSelection)
     UMessageScaffold(
