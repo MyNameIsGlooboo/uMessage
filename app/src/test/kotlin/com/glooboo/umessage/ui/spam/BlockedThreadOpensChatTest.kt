@@ -99,9 +99,9 @@ class BlockedThreadOpensChatTest {
         assertThat(chat.getStringExtra(THREAD_NUMBER)).isEqualTo(SENDER)
         assertThat(chat.getStringExtra(THREAD_NOTICE))
             .isEqualTo(app.getString(R.string.nsf_snack_moved_allowed, SENDER_SHOWN))
-        // Back from the chat returns to the conversation list, not to the Blocked tab.
+        // Back from the chat returns to the Blocked tab, where the user was triaging, not to the conversation list.
         val list = intents.single { it.component?.className == MainActivity::class.java.name }
-        assertThat(list.getStringExtra(MainTabLinks.EXTRA_OPEN_TAB)).isEqualTo(MainTabLinks.TAB_MESSAGES)
+        assertThat(list.getStringExtra(MainTabLinks.EXTRA_OPEN_TAB)).isEqualTo(MainTabLinks.TAB_BLOCKED)
         // Robolectric hands started activities back newest first: the list was started before the chat.
         assertThat(intents.indexOf(chat)).isLessThan(intents.indexOf(list))
         assertThat(closed).isEqualTo(1)

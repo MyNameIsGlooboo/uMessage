@@ -47,11 +47,11 @@ internal object BlockedChat {
             .apply { notice?.let { putExtra(THREAD_NOTICE, it) } }
 
     /**
-     * Shows the conversation list under the chat, so Back from the chat returns to it like from any chat, then opens
-     * the chat. The list screen is brought forward and the blocked chat above it is closed with it.
+     * Shows the Blocked tab under the chat, so Back from the chat returns to where the user was triaging spam, then
+     * opens the chat. The main screen is brought forward and the blocked chat above it is closed with it.
      */
     fun open(context: Context, chat: Intent) {
-        context.startActivity(MainTabLinks.intent(context, MainTabLinks.TAB_MESSAGES))
+        context.startActivity(MainTabLinks.intent(context, MainTabLinks.TAB_BLOCKED))
         context.startActivity(chat)
     }
 }
