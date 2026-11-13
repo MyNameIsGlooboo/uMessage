@@ -1,6 +1,7 @@
 package com.glooboo.umessage.ui.spam
 
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
@@ -38,6 +39,7 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -98,6 +100,11 @@ fun BlockedRoute(onBack: (() -> Unit)?, onOpenRules: () -> Unit, onOpenSettings:
     val scope = rememberCoroutineScope()
     val groups by rememberUpdatedState(state.groups)
     BlockedEvents(viewModel, snackbar)
+    // Leaving the tab closes the search: the query is cleared, so the box does not come back open. A rotation keeps it.
+    val activity = LocalActivity.current
+    DisposableEffect(viewModel) {
+        onDispose { if (activity?.isChangingConfigurations != true) viewModel.setQuery("") }
+    }
     val actions = remember(viewModel, onBack, onOpenRules, onOpenSettings, context) {
         BlockedActions(
             onBack = onBack,
@@ -249,8 +256,9 @@ fun BlockedScreen(
     var confirmDeleteAll by rememberSaveable { mutableStateOf(false) }
     var restoredOpen by rememberSaveable { mutableStateOf(false) }
     var confirmReport by rememberSaveable { mutableStateOf(false) }
-    // The search box is open while it holds text (it comes back after a rotation or a visit to a thread).
-    var searching by rememberSaveable { mutableStateOf(state.query.isNotEmpty()) }
+    // The search box is open while it holds text: it comes back after a rotation (with text) or a visit to a thread,
+    // not after another tab, because BlockedRoute clears the query when the tab is left.
+    var searching by remember { mutableStateOf(state.query.isNotEmpty()) }
     BackHandler(enabled = state.selecting, onBack = actions.onClearSelection)
     UMessageScaffold(
         topBar = {
