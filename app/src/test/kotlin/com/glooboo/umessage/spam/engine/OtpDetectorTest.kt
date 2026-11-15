@@ -35,8 +35,11 @@ class OtpDetectorTest {
     @Test fun aCodeWithThePersianOptOutLineIsStillACode() {
         assertTrue(otp("کد 9878 را در فرم ورود به حساب طاقچه خود وارد کنید\n\nلغو11"))
         assertTrue(otp("کد ۹۸۷۸ را در فرم ورود وارد کنید\n\nلغو۱۱"))
-        // The opt-out line alone no longer makes a text an advertisement; the words of an advertisement still do.
+        // The opt-out line still marks an advertisement when nothing says what the number is, and so do its words.
+        assertFalse(otp("کد ۱۲۳۴ را به این شماره ارسال کنید\nلغو۱۱"))
+        assertFalse(otp("کد 1234 را وارد کنید. لغو 11"))
         assertFalse(otp("کد تخفیف ۵۰۲۰ برای خرید اول شما. لغو۱۱"))
+        assertFalse(otp("کد ورود ۱۲۳۴ برنده شدید جایزه. لغو۱۱"))
     }
 
     @Test fun arabicIndicDigitsAndKeywords() {

@@ -128,6 +128,15 @@ object OtpDetector {
         RegexOption.IGNORE_CASE,
     )
 
+    /**
+     * The Persian opt-out line of advertisements ("لغو۱۱"). It vetoes a code that has no strong keyword next to it; a
+     * strong keyword ("کد ورود", "فرم ورود") wins over it, as a few real codes carry the line too.
+     */
+    private val marketingOptOut = Regex(
+        "(?<!\\p{L})(?:" + OtpKeywords.optOut.joinToString("|") { TextNormalizer.fold(it) } + ")(?!\\p{L})",
+        RegexOption.IGNORE_CASE,
+    )
+
     /** Words of offers and gifts: they only count against a code next to the generic word "code". */
     private val marketingSoft = Regex(
         "(?<!\\p{L})(?:" + OtpKeywords.marketingSoft.joinToString("|") { TextNormalizer.fold(it) } + ")(?!\\p{L})",
@@ -205,7 +214,7 @@ object OtpDetector {
         }
         if (strongBefore.containsMatchIn(before) || strongAfter.containsMatchIn(after)) return true
         if (cjkBefore.containsMatchIn(before) || cjkAfter.containsMatchIn(after)) return true
-        if (marketingSoft.containsMatchIn(text)) return false
+        if (marketingOptOut.containsMatchIn(text) || marketingSoft.containsMatchIn(text)) return false
         val year = yearOnly.matches(text.substring(range)) && yearContext.containsMatchIn(text)
         return !year && (weakBefore.containsMatchIn(before) || weakAfter.containsMatchIn(after))
     }
@@ -224,7 +233,9 @@ object OtpDetector {
     }
 
     /** Whether [text] is an advertisement ("promo", "discount", "50%"): such a text is never a code. */
-    internal fun isMarketing(text: String): Boolean = marketingHard.containsMatchIn(TextNormalizer.fold(text))
+    internal fun isMarketing(text: String): Boolean = TextNormalizer.fold(text).let {
+        marketingHard.containsMatchIn(it) || marketingOptOut.containsMatchIn(it)
+    }
 
     /**
      * The keyword rule behind [looksLikeOtp]: a 4-8 digit code, or a letters-and-digits one ([alphanumericCodes]), next
@@ -236,6 +247,7 @@ object OtpDetector {
             marketingHard.containsMatchIn(text) -> false
             strongOtp.containsMatchIn(text) || cjkOtp.containsMatchIn(text) -> true
             alphanumericCodes(text).isNotEmpty() -> true
+            marketingOptOut.containsMatchIn(text) -> false
             marketingSoft.containsMatchIn(text) -> false
             // Only the generic word "code": a year-like number is no code when the text speaks of a year or a date.
             else -> (if (yearContext.containsMatchIn(text)) weakOtp else weakOtpAnyNumber).containsMatchIn(text)
