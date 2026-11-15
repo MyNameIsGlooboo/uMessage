@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.9] - 2026-11-16
+### Changed
+- "Keep forever" replaces "Never" in the choices for deleting old spam
+- Login codes that end with the Persian opt-out line (like Taaghche) are no longer held as spam; texts with only that line and no sign of a code still are
+
 ## [0.4.8] - 2026-11-14
 ### Changed
 - Back from the chat that "Not spam" opens returns to your Spam list, not to Messages
