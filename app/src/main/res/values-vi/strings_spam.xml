@@ -107,6 +107,6 @@
     <string name="spam_settings_cleanup_title">Dọn dẹp</string>
     <string name="spam_purge_body">Tin nhắn rác cũ sẽ tự động bị xóa.</string>
     <string name="spam_purge_days">%d ngày</string>
-    <string name="spam_purge_forever">Không bao giờ</string>
+    <string name="spam_purge_forever">Giữ mãi mãi</string>
     <string name="spam_notify_title">Thông báo khi tin nhắn bị chặn</string>
 </resources>

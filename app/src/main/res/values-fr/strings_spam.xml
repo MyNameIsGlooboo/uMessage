@@ -114,6 +114,6 @@
     <string name="spam_settings_cleanup_title">Nettoyage</string>
     <string name="spam_purge_body">Le spam ancien est supprimé automatiquement.</string>
     <string name="spam_purge_days">%d jours</string>
-    <string name="spam_purge_forever">Jamais</string>
+    <string name="spam_purge_forever">Garder pour toujours</string>
     <string name="spam_notify_title">Notifier lorsqu\'un message est bloqué</string>
 </resources>

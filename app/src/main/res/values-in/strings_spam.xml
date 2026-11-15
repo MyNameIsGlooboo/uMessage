@@ -107,6 +107,6 @@
     <string name="spam_settings_cleanup_title">Bersihkan</string>
     <string name="spam_purge_body">Spam lama dihapus otomatis.</string>
     <string name="spam_purge_days">%d hari</string>
-    <string name="spam_purge_forever">Tidak pernah</string>
+    <string name="spam_purge_forever">Simpan selamanya</string>
     <string name="spam_notify_title">Beri tahu saat pesan diblokir</string>
 </resources>

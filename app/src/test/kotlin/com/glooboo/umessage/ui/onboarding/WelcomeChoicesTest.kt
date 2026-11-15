@@ -87,9 +87,10 @@ class WelcomeChoicesTest {
         }
         compose.onNodeWithText("Keep spam for").assertIsDisplayed()
         compose.onNodeWithText("30 days").performClick()
-        listOf("7 days", "14 days", "90 days", "Never").forEach { compose.onNodeWithText(it).assertIsDisplayed() }
-        compose.onNodeWithText("Never").performClick()
+        listOf("7 days", "14 days", "90 days", "Keep forever")
+            .forEach { compose.onNodeWithText(it).assertIsDisplayed() }
+        compose.onNodeWithText("Keep forever").performClick()
         assertEquals(0, days)
-        compose.onNodeWithText("Never").assertIsDisplayed()
+        compose.onNodeWithText("Keep forever").assertIsDisplayed()
     }
 }

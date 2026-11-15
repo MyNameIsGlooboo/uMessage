@@ -114,6 +114,6 @@
     <string name="spam_settings_cleanup_title">सफ़ाई</string>
     <string name="spam_purge_body">पुराना स्पैम अपने-आप हटा दिया जाता है.</string>
     <string name="spam_purge_days">%d दिन</string>
-    <string name="spam_purge_forever">कभी नहीं</string>
+    <string name="spam_purge_forever">हमेशा रखें</string>
     <string name="spam_notify_title">मैसेज ब्लॉक होने पर सूचना दें</string>
 </resources>

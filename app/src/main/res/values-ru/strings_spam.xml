@@ -128,6 +128,6 @@
     <string name="spam_settings_cleanup_title">Очистка</string>
     <string name="spam_purge_body">Старый спам удаляется автоматически.</string>
     <string name="spam_purge_days">%d дней</string>
-    <string name="spam_purge_forever">Никогда</string>
+    <string name="spam_purge_forever">Хранить всегда</string>
     <string name="spam_notify_title">Уведомлять о блокировке сообщения</string>
 </resources>

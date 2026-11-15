@@ -107,6 +107,6 @@
     <string name="spam_settings_cleanup_title">清理</string>
     <string name="spam_purge_body">超过保留时间的垃圾短信会自动删除。</string>
     <string name="spam_purge_days">%d天</string>
-    <string name="spam_purge_forever">永不删除</string>
+    <string name="spam_purge_forever">永久保留</string>
     <string name="spam_notify_title">屏蔽消息时通知</string>
 </resources>

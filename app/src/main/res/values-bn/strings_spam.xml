@@ -114,6 +114,6 @@
     <string name="spam_settings_cleanup_title">পরিষ্কার করুন</string>
     <string name="spam_purge_body">পুরোনো স্প্যাম নিজে থেকেই মুছে যায়।</string>
     <string name="spam_purge_days">%d দিন</string>
-    <string name="spam_purge_forever">কখনো নয়</string>
+    <string name="spam_purge_forever">চিরকাল রাখুন</string>
     <string name="spam_notify_title">বার্তা ব্লক করা হলে বিজ্ঞপ্তি দিন</string>
 </resources>

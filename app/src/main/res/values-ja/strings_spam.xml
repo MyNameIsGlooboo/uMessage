@@ -107,6 +107,6 @@
     <string name="spam_settings_cleanup_title">整理</string>
     <string name="spam_purge_body">古い迷惑メッセージを自動で削除します。</string>
     <string name="spam_purge_days">%d日</string>
-    <string name="spam_purge_forever">削除しない</string>
+    <string name="spam_purge_forever">ずっと保存</string>
     <string name="spam_notify_title">ブロック時に通知</string>
 </resources>

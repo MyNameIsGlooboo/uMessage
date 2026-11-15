@@ -114,6 +114,6 @@
     <string name="spam_settings_cleanup_title">پاک کردن</string>
     <string name="spam_purge_body">اسپم‌های قدیمی خودکار حذف می‌شوند.</string>
     <string name="spam_purge_days">%d روز</string>
-    <string name="spam_purge_forever">هرگز</string>
+    <string name="spam_purge_forever">همیشه نگه دار</string>
     <string name="spam_notify_title">اعلان وقتی پیامی بلاک می‌شود</string>
 </resources>
