@@ -107,6 +107,6 @@
     <string name="spam_settings_cleanup_title">清理</string>
     <string name="spam_purge_body">舊的垃圾訊息會自動移除。</string>
     <string name="spam_purge_days">%d天</string>
-    <string name="spam_purge_forever">永不</string>
+    <string name="spam_purge_forever">永久保留</string>
     <string name="spam_notify_title">訊息遭封鎖時通知我</string>
 </resources>

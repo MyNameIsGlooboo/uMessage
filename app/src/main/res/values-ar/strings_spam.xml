@@ -142,6 +142,6 @@
     <string name="spam_settings_cleanup_title">تنظيف</string>
     <string name="spam_purge_body">تُحذف الرسائل غير المرغوب فيها القديمة تلقائيًا.</string>
     <string name="spam_purge_days">%d يومًا</string>
-    <string name="spam_purge_forever">أبدًا</string>
+    <string name="spam_purge_forever">الاحتفاظ إلى الأبد</string>
     <string name="spam_notify_title">أشعرني عند حظر رسالة</string>
 </resources>

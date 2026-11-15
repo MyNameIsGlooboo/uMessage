@@ -107,6 +107,6 @@
     <string name="spam_settings_cleanup_title">정리</string>
     <string name="spam_purge_body">오래된 스팸을 자동으로 삭제해요.</string>
     <string name="spam_purge_days">%d일</string>
-    <string name="spam_purge_forever">삭제 안 함</string>
+    <string name="spam_purge_forever">계속 보관</string>
     <string name="spam_notify_title">메시지 차단 시 알림</string>
 </resources>

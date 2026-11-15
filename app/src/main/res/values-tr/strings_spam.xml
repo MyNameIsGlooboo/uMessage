@@ -114,6 +114,6 @@
     <string name="spam_settings_cleanup_title">Temizleyin</string>
     <string name="spam_purge_body">Eski spam otomatik olarak silinir.</string>
     <string name="spam_purge_days">%d gün</string>
-    <string name="spam_purge_forever">Hiçbir zaman</string>
+    <string name="spam_purge_forever">Sonsuza kadar sakla</string>
     <string name="spam_notify_title">Mesaj engellendiğinde bildirin</string>
 </resources>

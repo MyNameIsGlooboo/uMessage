@@ -114,6 +114,6 @@
     <string name="spam_settings_cleanup_title">صفائی</string>
     <string name="spam_purge_body">پرانا اسپیم خود بخود ہٹا دیا جاتا ہے۔</string>
     <string name="spam_purge_days">%d دن</string>
-    <string name="spam_purge_forever">کبھی نہیں</string>
+    <string name="spam_purge_forever">ہمیشہ رکھیں</string>
     <string name="spam_notify_title">پیغام بلاک ہونے پر اطلاع دیں</string>
 </resources>

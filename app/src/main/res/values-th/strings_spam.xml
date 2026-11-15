@@ -107,6 +107,6 @@
     <string name="spam_settings_cleanup_title">ล้างข้อมูล</string>
     <string name="spam_purge_body">ลบสแปมเก่าโดยอัตโนมัติ</string>
     <string name="spam_purge_days">%d วัน</string>
-    <string name="spam_purge_forever">ไม่ลบ</string>
+    <string name="spam_purge_forever">เก็บไว้ตลอด</string>
     <string name="spam_notify_title">แจ้งเตือนเมื่อบล็อกข้อความ</string>
 </resources>
