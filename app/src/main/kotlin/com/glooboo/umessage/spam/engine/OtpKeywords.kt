@@ -16,7 +16,7 @@ internal object OtpKeywords {
         "security code", "login code", "2fa", "passcodes", "log[- ]?in", "sign[- ]?in",
         // Persian
         "رمز", "رمز پویا", "رمز عبور", "رمز یکبار مصرف", "گذرواژه", "کد تایید", "کد تأیید", "کد فعالسازی",
-        "کد ورود", "تایید", "تأیید", "تائید", "یکبار مصرف", "یک بار مصرف",
+        "کد ورود", "فرم ورود", "ورود به حساب", "تایید", "تأیید", "تائید", "یکبار مصرف", "یک بار مصرف",
         // Arabic (written with Persian yeh and kaf, as the text is folded the same way)
         "الرمز", "رمز التحقق", "رمز التفعیل", "کلمة المرور", "التحقق", "التفعیل",
         // Russian and Ukrainian
@@ -72,7 +72,7 @@ internal object OtpKeywords {
         // English
         "promo", "promotion", "promotional", "coupon", "voucher", "discount", "cashback", "prize", "lottery",
         "jackpot", "winner",
-        // Persian ("لغو۱۱", the opt-out line, is no marker: real codes carry it too, for example from Taaghche)
+        // Persian (the opt-out line "لغو۱۱" is [optOut], not here: a real login code can end with it)
         "تخفیف", "جشنواره", "حراج", "جایزه", "برنده", "قرعه کشی", "قرعه\u200Cکشی", "رایگان", "پیشنهاد ویژه",
         "کوپن", "تبلیغ",
         // Arabic
@@ -81,6 +81,14 @@ internal object OtpKeywords {
         "скидка", "скидки", "акция", "промокод", "indirim", "kampanya", "rabatt", "réduction", "desconto", "descuento",
         "promoção", "promocao", "diskon", "sconto", "promocja", "korting", "khuyến mãi", "giảm giá", "छूट",
     )
+
+    /**
+     * The opt-out line that Persian promotional texts end with ("لغو۱۱", also "لغو 11"). It marks most advertisements,
+     * but a few real codes carry it too (for example a login code from Taaghche), so unlike [marketingHard] it only
+     * vetoes a code that has no strong keyword next to it: "کد 1234 را وارد کنید. لغو11" is an advertisement, while
+     * "کد 9878 را در فرم ورود ... وارد کنید. لغو11" says what the number is.
+     */
+    val optOut = listOf("لغو ?11")
 
     /** Marketing words of languages without spaces between words: matched anywhere in the text, without word edges. */
     val marketingCjk = listOf("优惠", "優惠", "折扣", "割引", "セール", "할인", "ส่วนลด")
