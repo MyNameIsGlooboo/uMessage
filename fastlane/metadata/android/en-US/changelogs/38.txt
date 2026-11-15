@@ -1,0 +1,2 @@
+• "Keep forever" replaces "Never" for deleting old spam
+• Login codes that end with the Persian opt-out line (like Taaghche) are no longer held as spam
