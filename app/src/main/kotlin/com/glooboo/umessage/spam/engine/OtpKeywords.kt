@@ -72,9 +72,9 @@ internal object OtpKeywords {
         // English
         "promo", "promotion", "promotional", "coupon", "voucher", "discount", "cashback", "prize", "lottery",
         "jackpot", "winner",
-        // Persian ("لغو۱۱" is the opt-out line of local ads)
+        // Persian ("لغو۱۱", the opt-out line, is no marker: real codes carry it too, for example from Taaghche)
         "تخفیف", "جشنواره", "حراج", "جایزه", "برنده", "قرعه کشی", "قرعه\u200Cکشی", "رایگان", "پیشنهاد ویژه",
-        "کوپن", "لغو ?11", "تبلیغ",
+        "کوپن", "تبلیغ",
         // Arabic
         "خصم", "جائزة", "مجانا", "کوبون",
         // Other languages
