@@ -45,6 +45,12 @@ internal object OtpKeywords {
         "ओटीपी", "सत्यापन", "पासवर्ड", "वन टाइम", "ওটিপি", "যাচাইকরণ", "পাসওয়ার্ড", "پاس ورڈ", "تصدیقی", "تصدیق",
     )
 
+    /**
+     * Words for a password. Only these make a 9-10 digit number a code ("رمز شخصی شما 1261894390"); the other strong
+     * words ("تایید", "verify") do not, as a long number next to them is usually a tracking or account number.
+     */
+    val password = listOf("رمز", "رمز عبور", "رمز پویا", "رمز یکبار مصرف", "گذرواژه", "پسورد", "password", "passcode")
+
     /** Generic words ("code", "کد", "код"): a number next to one is a code unless it reads as a year. */
     val weak = listOf(
         "code", "codes", "کد", "کود", "کوڈ", "код", "кода", "kod", "kodu", "kodunuz", "kode", "código", "codigo",

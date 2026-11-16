@@ -65,8 +65,27 @@ object OtpDetector {
     internal const val YEAR = "(?:1[34]|19|20)\\d\\d(?!\\p{N})"
     private val CODE_NOT_YEAR = "(?<![\\p{N}$€£])(?!$YEAR)$codeShape(?!\\p{N})$NOT_AFTER"
 
+    /** Digits of the longest code of [codeShape]; a longer number is a code only next to a password word. */
+    internal const val MAX_CODE_DIGITS = 8
+
+    /**
+     * A 9-10 digit number, a first password ("رمز شخصی شما 1261894390"). Never a number that starts with 0 or 98 (a phone
+     * number), or follows "+" or a phone word. It is a code only next to a password word ([passwordKeywords]).
+     */
+    internal val longShape = "(?<!\\+)(?<!(?:$phoneWords)[^\\p{L}\\p{N}]{0,3})(?!0|98)[0-9]{9,10}"
+
+    private val LONG_CODE = "(?<![\\p{N}$€£])$longShape(?!\\p{N})$NOT_AFTER"
+
+    /** Words that say a number is a password: the only words that make a long number a code. */
+    internal val passwordKeywords: List<String> = OtpKeywords.password
+
+    private val passwordOtp: Regex = run {
+        val password = keywordPattern(passwordKeywords)
+        Regex("$password$NEAR$LONG_CODE|$LONG_CODE$NEAR$password", RegexOption.IGNORE_CASE)
+    }
+
     /** Separator, then up to four plain words (letters only, so "SAVE20" or a phone number breaks the chain). */
-    private const val NEAR = "[^\\p{L}\\p{N}]{1,4}(?:[\\p{L}\\p{M}]{1,15}[^\\p{L}\\p{N}]{1,4}){0,4}"
+    internal const val NEAR ="[^\\p{L}\\p{N}]{1,4}(?:[\\p{L}\\p{M}]{1,15}[^\\p{L}\\p{N}]{1,4}){0,4}"
 
     /** A keyword that says what the number is, next to a code: a code in any case, however it looks. */
     private val strongOtp: Regex = run {
@@ -205,6 +224,7 @@ object OtpDetector {
      */
     internal fun keywordNextTo(text: String, range: IntRange, sameSentence: Boolean = false): Boolean {
         if (marketingHard.containsMatchIn(text)) return false
+        if (OtpPasswords.isLong(text.substring(range))) return OtpPasswords.nextTo(text, range, WINDOW)
         var before = text.substring(maxOf(0, range.first - WINDOW), range.first)
         var after = text.substring(range.last + 1, minOf(text.length, range.last + 1 + WINDOW))
         if (sameSentence) {
@@ -246,6 +266,7 @@ object OtpDetector {
         return when {
             marketingHard.containsMatchIn(text) -> false
             strongOtp.containsMatchIn(text) || cjkOtp.containsMatchIn(text) -> true
+            passwordOtp.containsMatchIn(text) -> true
             alphanumericCodes(text).isNotEmpty() -> true
             marketingOptOut.containsMatchIn(text) -> false
             marketingSoft.containsMatchIn(text) -> false

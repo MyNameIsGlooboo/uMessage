@@ -35,6 +35,17 @@ object OtpCodeExtractor {
             "(?![\\p{L}\\p{N}*])(?![$JOINERS][\\p{N}*])" + OtpDetector.NOT_AFTER,
         RegexOption.IGNORE_CASE,
     )
+    /** A 9-10 digit password ([OtpDetector.longShape]), bound to a password word only; same edges as [code]. */
+    private val longCode = Regex(
+        "(?<![\\p{L}\\p{N}.*$€£])(?<![\\p{N}*][$JOINERS])" +
+            "(" + OtpDetector.longShape + ")" +
+            "(?![\\p{L}\\p{N}*])(?![$JOINERS][\\p{N}*])" + OtpDetector.NOT_AFTER,
+        RegexOption.IGNORE_CASE,
+    )
+    private val passwordKeywords = Regex(
+        OtpDetector.keywordPattern(OtpDetector.passwordKeywords),
+        RegexOption.IGNORE_CASE,
+    )
     private val year = Regex(OtpDetector.YEAR)
     private val separators = Regex("[\\s-]")
 
@@ -72,14 +83,18 @@ object OtpCodeExtractor {
             shapes.filterNot { year.matches(it.value) }
                 .minByOrNull { distance(it.range, weakRange) }?.let { bound.add(it) }
         }
-        return shapes.filter { it in bound }
+        val longs = longCode.findAll(text).toList()
+        for (passwordRange in passwordKeywords.findAll(text).map { it.range }) {
+            longs.minByOrNull { distance(it.range, passwordRange) }?.let { bound.add(it) }
+        }
+        return (shapes + longs).filter { it in bound }.sortedBy { it.range.first }
     }
 
     /** Whether any code-shaped number in [body] has a code keyword anywhere in the text: a deliberately wide net. */
     internal fun hasKeywordNearNumber(body: String): Boolean = locate(TextNormalizer.fold(body)) != null
 
     /** Every code-shaped number of the folded [text] (no keyword needed), for masking repeats of the same code. */
-    internal fun codeShapes(text: String): Sequence<MatchResult> = code.findAll(text)
+    internal fun codeShapes(text: String): Sequence<MatchResult> = code.findAll(text) + longCode.findAll(text)
 
     /** [value] of a code match without its space or hyphen. */
     internal fun digitsOf(value: String): String = value.replace(separators, "")

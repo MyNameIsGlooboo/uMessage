@@ -42,6 +42,23 @@ class OtpDetectorTest {
         assertFalse(otp("کد ورود ۱۲۳۴ برنده شدید جایزه. لغو۱۱"))
     }
 
+    @Test fun aLongNumberIsACodeOnlyNextToAPasswordWord() {
+        assertTrue(otp("رمز شخصی شما 1261894390\nلطفا در اولین فرصت ممکن نسبت به تغییر آن اقدام نمایید\nقوه قضائیه"))
+        assertTrue(otp("رمز شخصی شما ۱۲۶۱۸۹۴۳۹۰ است"))
+        assertTrue(otp("Your password is 1261894390"))
+        assertTrue(otp("123456789 رمز عبور شما"))
+        // Other strong words, the generic word and no word at all do not make a long number a code.
+        assertFalse(otp("کد ملی 1261894390"))
+        assertFalse(otp("شماره پیگیری 1261894390 تایید شد"))
+        assertFalse(otp("Verification of order 1261894390"))
+        assertFalse(otp("1261894390"))
+        // A phone number is never a code, and an advertisement is none either.
+        assertFalse(otp("برای دریافت رمز تماس بگیرید 09121234567"))
+        assertFalse(otp("رمز شما 989121234567"))
+        assertFalse(otp("رمز تخفیف 1261894390 تا 50% تخفیف"))
+        assertFalse(otp("رمز 12618943901"))
+    }
+
     @Test fun arabicIndicDigitsAndKeywords() {
         assertTrue(otp("رمز التحقق الخاص بك هو ٤٨٢٩١٥"))
         assertTrue(otp("كود ٧٧٨٨"))
