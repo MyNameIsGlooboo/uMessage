@@ -94,10 +94,16 @@ enum class ConversationFolder(
 }
 
 /**
- * List row for a stored conversation. Archive and bin show no SIM chip, mute or pin state, only what identifies the
- * thread.
+ * List row for a stored conversation. Archive and bin show no mute or pin state, only what identifies the thread.
+ * [simSlot] and [simName] are the SIM chip of the Messages list (the Archived tab passes them; the bin does not).
  */
-fun Conversation.toFolderRow(context: Context, drafts: Map<Long, String>, pinned: Set<String>): ConversationRow {
+fun Conversation.toFolderRow(
+    context: Context,
+    drafts: Map<Long, String>,
+    pinned: Set<String>,
+    simSlot: Int? = null,
+    simName: String = "",
+): ConversationRow {
     val draft = drafts[threadId]
     val hasDraft = !draft.isNullOrEmpty()
     val unread = !read
@@ -118,7 +124,8 @@ fun Conversation.toFolderRow(context: Context, drafts: Map<Long, String>, pinned
         muted = false,
         hasDraft = hasDraft,
         scheduled = isScheduled,
-        simSlot = null,
+        simSlot = simSlot,
+        simName = simName,
         photoUri = photoUri,
         isGroup = isGroupConversation,
         phoneNumber = phoneNumber,

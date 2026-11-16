@@ -1,6 +1,7 @@
 package com.glooboo.umessage.ui.conversations
 
 import android.app.Application
+import android.telephony.SmsManager
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.NavPrefs
 import com.glooboo.umessage.ui.components.showUndo
 import com.glooboo.umessage.ui.icons.Symbols
+import com.glooboo.umessage.ui.spam.SimDirectory
 import kotlinx.coroutines.launch
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
@@ -80,13 +82,37 @@ class ArchivedViewModel(application: Application) : AndroidViewModel(application
             }
             val drafts = runCatching { app.getAllDrafts() }.getOrDefault(HashMap())
             val pinned = app.config.pinnedConversations
+            // The SIM chip of the Messages list, with the same rule and the same name: only with two SIMs, only for
+            // a chat whose newest message used the SIM that is not the default.
+            val sims = runCatching { SimDirectory.load(app) }.getOrDefault(emptyList())
+            val showSim = sims.size >= 2
+            val threadSims = if (showSim) {
+                runCatching { ThreadSimCache.get(app).load(app, sims.size) }.getOrDefault(emptyMap())
+            } else {
+                emptyMap()
+            }
+            val systemSim = if (showSim) {
+                runCatching { SmsManager.getDefaultSmsSubscriptionId() }.getOrDefault(-1)
+            } else {
+                -1
+            }
+            val defaultSim = SimBadge.defaultSubscription(app.config.defaultSimId, systemSim)
+            val simNames = if (showSim) sims.associate { it.slot to SimBadge.displayName(app, it) } else emptyMap()
             // B06: hidden chats stay out of the archive too, until they are unlocked.
             val rows = HiddenChats.get(app).withoutHidden(conversations) { it.threadId }
                 .sortedWith(
                     compareByDescending<Conversation> { pinned.contains(it.threadId.toString()) }
                         .thenByDescending { it.date },
                 )
-                .map { it.toFolderRow(app, drafts, pinned) }
+                .map { c ->
+                    val slot = if (showSim && !c.isGroupConversation) {
+                        val subscription = threadSims[c.threadId] ?: app.config.getUseSIMIdAtNumber(c.phoneNumber)
+                        SimBadge.slotToShow(subscription, sims, defaultSim)
+                    } else {
+                        null
+                    }
+                    c.toFolderRow(app, drafts, pinned, slot, slot?.let { simNames[it] }.orEmpty())
+                }
             _state.value = ArchivedUiState(rows = rows, loading = false)
         }
     }
