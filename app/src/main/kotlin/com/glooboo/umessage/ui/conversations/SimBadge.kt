@@ -9,20 +9,12 @@ import com.glooboo.umessage.ui.spam.SimInfo
 /** The SIM badge of an inbox row, and the names of the SIMs on the search page's tiles. */
 internal object SimBadge {
 
-    /** The SIM a conversation without a choice of its own uses: the app's setting, else the phone's. */
-    fun defaultSubscription(appDefault: Int, systemDefault: Int): Int =
-        if (appDefault >= 0) appDefault else systemDefault
-
     /**
-     * The slot to badge a row with: only when the row's newest message used a SIM other than [defaultSubscriptionId],
-     * so the badge marks the exception. Null when it used the default or no known SIM.
+     * The slot to badge a row with: the SIM of the row's newest message, whichever it is, so every row of Messages,
+     * Spam and Archived names its SIM when the phone has two. Null when no SIM is known for the row.
      */
-    fun slotToShow(subscriptionId: Int, sims: List<SimInfo>, defaultSubscriptionId: Int): Int? =
-        if (subscriptionId <= 0 || subscriptionId == defaultSubscriptionId) {
-            null
-        } else {
-            sims.firstOrNull { it.subscriptionId == subscriptionId }?.slot
-        }
+    fun slotToShow(subscriptionId: Int, sims: List<SimInfo>): Int? =
+        if (subscriptionId <= 0) null else sims.firstOrNull { it.subscriptionId == subscriptionId }?.slot
 
     private val PLACEHOLDER_CARRIERS =
         setOf("unknown", "no service", "no sim", "searching for service", "emergency calls only")
