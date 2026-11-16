@@ -2,6 +2,7 @@ package com.glooboo.umessage.helpers
 
 import com.glooboo.umessage.spam.TextNormalizer
 import com.glooboo.umessage.spam.engine.OtpDetector
+import com.glooboo.umessage.spam.engine.OtpPasswords
 
 /** What a copy chip or a notification copies: a code, a password or a user name. */
 enum class CodeKind { Code, Password, Username }
@@ -125,7 +126,9 @@ object OtpCodes {
         val kind = kindOf(match.groupValues[1])
         if (kind == CodeKind.Code && advertisement) return null
         if (text.startsWith("://", group.range.last + 1)) return null
-        val shape = shapes[group.range.first]
+        val label = match.groupValues[1].lowercase()
+        val longAllowed = kind == CodeKind.Password || label.startsWith("رمز")
+        val shape = shapes[group.range.first]?.takeIf { longAllowed || !OtpPasswords.isLong(it.groupValues[1]) }
         val value = shape?.let { OtpCodeExtractor.digitsOf(it.groupValues[1]) }
             ?: group.value.trimEnd { it in trailing }
         val valid = value.length >= MIN_VALUE_LENGTH && (shape != null || !value.all { it.isDigit() })
