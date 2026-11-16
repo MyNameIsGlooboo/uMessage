@@ -9,7 +9,6 @@ import com.glooboo.umessage.ui.components.isBareNumber
 
 import android.app.Application
 import android.app.NotificationManager
-import android.telephony.SmsManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CancellationException
@@ -713,9 +712,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         val hiddenChats = HiddenChats.get(app)
         val concealed = hiddenChats.hiddenIds()
         val showSim = s.sims.size >= 2
-        // Only a chat whose newest message used the other SIM is badged; the default SIM is the quiet case.
-        val systemSim = if (showSim) runCatching { SmsManager.getDefaultSmsSubscriptionId() }.getOrDefault(-1) else -1
-        val defaultSim = SimBadge.defaultSubscription(config.defaultSimId, systemSim)
+        // With two SIMs every chat is badged with the SIM of its newest message, as in Spam and Archived.
         val simNames = if (showSim) s.sims.associate { it.slot to SimBadge.displayName(app, it) } else emptyMap()
         val noTextLabel = app.getString(R.string.attachment)
         val now = System.currentTimeMillis()
@@ -733,7 +730,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
             val draft = s.drafts[c.threadId]
             val simSlot = if (showSim && !c.isGroupConversation) {
                 val subscription = threadSims[c.threadId] ?: config.getUseSIMIdAtNumber(c.phoneNumber)
-                SimBadge.slotToShow(subscription, s.sims, defaultSim)
+                SimBadge.slotToShow(subscription, s.sims)
             } else {
                 null
             }

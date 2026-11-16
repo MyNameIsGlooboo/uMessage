@@ -47,19 +47,12 @@ class RowLabelsTest {
     }
 
     @Test
-    fun theBadgeMarksOnlyTheSimThatIsNotTheDefault() {
+    fun theBadgeNamesTheSimOfEveryRowWhateverTheDefaultIs() {
         val sims = listOf(SimInfo(11, 1, "A"), SimInfo(12, 2, "B"))
-        assertThat(SimBadge.slotToShow(11, sims, defaultSubscriptionId = 11)).isNull()
-        assertThat(SimBadge.slotToShow(12, sims, defaultSubscriptionId = 11)).isEqualTo(2)
-        assertThat(SimBadge.slotToShow(0, sims, defaultSubscriptionId = 11)).isNull()
-        assertThat(SimBadge.slotToShow(99, sims, defaultSubscriptionId = 11)).isNull()
-    }
-
-    @Test
-    fun theAppDefaultWinsOverThePhoneDefault() {
-        assertThat(SimBadge.defaultSubscription(appDefault = 12, systemDefault = 11)).isEqualTo(12)
-        assertThat(SimBadge.defaultSubscription(appDefault = -2, systemDefault = 11)).isEqualTo(11)
-        assertThat(SimBadge.defaultSubscription(appDefault = -3, systemDefault = 11)).isEqualTo(11)
+        assertThat(SimBadge.slotToShow(11, sims)).isEqualTo(1)
+        assertThat(SimBadge.slotToShow(12, sims)).isEqualTo(2)
+        assertThat(SimBadge.slotToShow(0, sims)).isNull()
+        assertThat(SimBadge.slotToShow(99, sims)).isNull()
     }
 
     @Test
