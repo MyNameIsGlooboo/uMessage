@@ -75,6 +75,7 @@ import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamStats
 import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.components.ConfirmDialog
+import com.glooboo.umessage.ui.conversations.SimBadge
 import com.glooboo.umessage.ui.components.EmptyState
 import com.glooboo.umessage.ui.components.InfoChip
 import com.glooboo.umessage.ui.components.SelectionTopBar
@@ -554,7 +555,7 @@ private fun BlockedFilterRow(state: BlockedUiState, onSetFilter: (BlockedFilter)
 /** The chips of [BlockedFilterRow] in order, with their labels. */
 @Composable
 private fun filterOptions(state: BlockedUiState): List<Pair<BlockedFilter, String>> {
-    val locale = uiLocale()
+    val context = LocalContext.current
     val simSlots = state.sims.associate { it.subscriptionId to it.slot }
     val sims = state.filterCounts.keys.filterIsInstance<BlockedFilter.Sim>()
         .sortedBy { simSlots[it.subscriptionId] ?: Int.MAX_VALUE }
@@ -564,8 +565,9 @@ private fun filterOptions(state: BlockedUiState): List<Pair<BlockedFilter, Strin
         add(BlockedFilter.MyRules to stringResource(R.string.w3b_filter_rules))
         add(BlockedFilter.HasLink to stringResource(R.string.w3b_filter_link))
         sims.forEach { sim ->
-            val slot = simSlots[sim.subscriptionId] ?: return@forEach
-            add(sim to stringResource(R.string.w3b_filter_sim, localizedNumber(slot, locale)))
+            val info = state.sims.firstOrNull { it.subscriptionId == sim.subscriptionId } ?: return@forEach
+            // The name the rows and the Messages list show for this SIM.
+            add(sim to SimBadge.displayName(context, info))
         }
     }
 }
@@ -623,12 +625,16 @@ internal fun reasonText(message: BlockedMessage, rules: Map<Long, SpamRule>): St
     }
 }
 
-/** Slot label for a message's SIM, or null when it should not be shown (single or unknown SIM). */
+/**
+ * Label for a message's SIM, or null when it should not be shown (single or unknown SIM). It is the name the
+ * Messages list and Archived show: the nickname the user gave the SIM, else the carrier, else "SIM n".
+ */
 @Composable
 internal fun simLabel(sims: List<SimInfo>, subscriptionId: Int): String? {
     if (sims.size < 2) return null
     val sim = sims.firstOrNull { it.subscriptionId == subscriptionId } ?: return null
-    return stringResource(R.string.spam_sim_label, sim.slot)
+    val context = LocalContext.current
+    return remember(sim) { SimBadge.displayName(context, sim) }
 }
 
 /** Left in LTR and right in RTL, whatever script the text itself is in. */
