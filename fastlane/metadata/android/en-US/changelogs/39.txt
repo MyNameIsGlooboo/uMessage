@@ -1,0 +1,2 @@
+• The SIM name is the same on Messages, Spam and Archived (your nickname, else the carrier)
+• Archived chats show the SIM chip, as Messages does
