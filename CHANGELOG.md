@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.12] - 2026-11-17
+### Fixed
+- A first password of 9-10 digits next to a password word (for example "رمز شخصی شما 1261894390") is a code now, so it no longer goes to Spam
+
 ## [0.4.11] - 2026-11-16
 ### Changed
 - With two SIMs, every chat on Messages and Archived and every message on Spam names its SIM, not only the one that is not the default SIM
