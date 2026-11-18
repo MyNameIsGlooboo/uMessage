@@ -55,7 +55,6 @@
     <string name="e_migrate_point_blocked">•这些号码的短信将进入“垃圾短信”，你可以在那里阅读和恢复。</string>
     <string name="e_migrate_point_android">•在这些号码移出Android屏蔽列表前，Android仍会丢弃其短信。</string>
     <string name="e_migrate_calls_note">Android屏蔽列表还会屏蔽来电。从中移除的号码将能再次拨打你的电话。</string>
-    <string name="e_bn_unknown_body">仅在“未知发件人”设为“关闭”时生效。</string>
     <string name="e_bn_row_calls_texts">屏蔽来电和短信</string>
     <string name="e_bn_row_short_code">短号码：uMessage无法收到其短信</string>
     <string name="e_bn_move_one">移至uMessage规则</string>

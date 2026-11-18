@@ -5,7 +5,7 @@
     <string name="settings_nav_group_privacy_about">隐私与关于</string>
     <string name="settings_nav_spam_row">垃圾短信防护</string>
     <string name="settings_nav_spam_page_title">垃圾短信防护</string>
-    <string name="settings_nav_android_block_list_body">同时屏蔽来电</string>
+    <string name="settings_nav_android_block_list_body">同时屏蔽来电。短信会被删除，不会保留在垃圾短信中。</string>
     <string name="settings_nav_decision_log">为什么被屏蔽？</string>
     <string name="settings_nav_decision_log_body">允许和屏蔽的判定记录</string>
     <string name="settings_nav_forwarded_tab">显示“已转发”标签页</string>

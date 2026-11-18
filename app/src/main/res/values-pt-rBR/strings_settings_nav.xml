@@ -5,7 +5,7 @@
     <string name="settings_nav_group_privacy_about">Privacidade e sobre</string>
     <string name="settings_nav_spam_row">Proteção contra spam</string>
     <string name="settings_nav_spam_page_title">Proteção contra spam</string>
-    <string name="settings_nav_android_block_list_body">Também bloqueia chamadas</string>
+    <string name="settings_nav_android_block_list_body">Também bloqueia chamadas. As mensagens são excluídas e não ficam em Spam.</string>
     <string name="settings_nav_decision_log">Por que foi bloqueado?</string>
     <string name="settings_nav_decision_log_body">Histórico de decisões de permissão e bloqueio</string>
     <string name="settings_nav_forwarded_tab">Mostre a aba Encaminhadas</string>

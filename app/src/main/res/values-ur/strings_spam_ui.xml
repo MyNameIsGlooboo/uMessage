@@ -51,7 +51,5 @@
     <string name="blocknum_empty_body">بلاک شدہ نمبر آپ کو پیغام یا کال نہیں کر سکتے۔ یہ فہرست آپ کی فون ایپ کے ساتھ مشترک ہے۔</string>
     <string name="blocknum_unavailable_title">بلاک فہرست دستیاب نہیں</string>
     <string name="blocknum_unavailable_body">سسٹم کی بلاک فہرست دیکھنے اور تبدیل کرنے کے لیے uMessage کو اپنی ڈیفالٹ SMS ایپ بنائیں۔</string>
-    <string name="blocknum_unknown_title">نامعلوم نمبر بلاک کریں</string>
-    <string name="blocknum_contacts_denied">رابطوں تک رسائی کے بغیر نامعلوم نمبر پہچانے نہیں جا سکتے</string>
     <string name="blocknum_section_numbers">نمبر</string>
 </resources>

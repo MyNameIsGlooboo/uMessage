@@ -6,6 +6,9 @@
     <string name="settings_spam_stats">%1$d بلاک‌شده در ۷ روز گذشته، %2$d در مجموع، %3$d بازیابی‌شده</string>
     <string name="settings_spam_open_settings">محافظت در برابر اسپم</string>
     <string name="settings_spam_open_settings_body">حالت، مدت نگهداری و هشدارها</string>
+    <string name="settings_block_group">لیست‌های بلاک</string>
+    <string name="settings_block_umessage_title">قانون‌های uMessage</string>
+    <string name="settings_block_umessage_body">پیام‌های بلاک‌شده می‌روند به اسپم. می‌توانید برشان گردانید.</string>
     <string name="settings_spam_open_rules">قانون‌ها</string>
     <string name="settings_spam_open_rules_body">شماره‌ها، نام فرستنده‌ها، کلمه‌های کلیدی و الگوها</string>
     <string name="settings_spam_blocked_numbers_body">شماره‌های بلاک‌شده در لیست بلاک سیستم</string>

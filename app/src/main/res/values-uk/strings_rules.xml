@@ -77,5 +77,5 @@
     </plurals>
     <string name="rules_migrated_nothing">Нічого не переміщено.</string>
     <string name="settings_old_blocked_words">Старий список заблокованих слів</string>
-    <string name="settings_old_blocked_words_body">Переміщення до розділу «Дозволені й заблоковані»</string>
+    <string name="settings_old_blocked_words_body">Слова, які не можна додати до правил</string>
 </resources>

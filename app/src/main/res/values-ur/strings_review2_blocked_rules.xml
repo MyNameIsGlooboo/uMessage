@@ -60,7 +60,6 @@
     <string name="e_migrate_point_blocked">• ان کے پیغامات اسپیم میں جائیں گے، جہاں آپ انہیں پڑھ اور بحال کر سکتے ہیں۔</string>
     <string name="e_migrate_point_android">• جب تک یہ Android کی فہرست میں ہیں، Android ان کے پیغامات پھینکتا رہے گا۔</string>
     <string name="e_migrate_calls_note">Android کی فہرست کالیں بھی بلاک کرتی ہے۔ جو نمبر آپ اس سے ہٹائیں گے وہ آپ کو دوبارہ کال کر سکیں گے۔</string>
-    <string name="e_bn_unknown_body">صرف تب لاگو ہوتا ہے جب نامعلوم بھیجنے والے بند ہو۔</string>
     <string name="e_bn_row_calls_texts">کالیں اور پیغامات بلاک کرتا ہے</string>
     <string name="e_bn_row_short_code">شارٹ کوڈ: uMessage اس کے پیغامات کبھی نہیں دیکھتا</string>
     <string name="e_bn_move_one">uMessage کے اصولوں میں منتقل کریں</string>

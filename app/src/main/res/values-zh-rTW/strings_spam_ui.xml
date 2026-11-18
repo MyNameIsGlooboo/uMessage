@@ -46,7 +46,5 @@
     <string name="blocknum_empty_body">已封鎖的號碼無法傳訊息或打電話給你。這份清單與你的電話應用程式共用。</string>
     <string name="blocknum_unavailable_title">無法使用封鎖清單</string>
     <string name="blocknum_unavailable_body">將uMessage設為預設簡訊應用程式，即可查看及變更系統封鎖清單。</string>
-    <string name="blocknum_unknown_title">封鎖未知號碼</string>
-    <string name="blocknum_contacts_denied">沒有聯絡人存取權，就無法辨識未知號碼</string>
     <string name="blocknum_section_numbers">號碼</string>
 </resources>

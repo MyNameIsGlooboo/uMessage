@@ -50,5 +50,5 @@
     </plurals>
     <string name="rules_migrated_nothing">ไม่ได้ย้ายรายการใด</string>
     <string name="settings_old_blocked_words">รายการคำที่บล็อกเดิม</string>
-    <string name="settings_old_blocked_words_body">กำลังย้ายไปยังอนุญาตและบล็อกแล้ว</string>
+    <string name="settings_old_blocked_words_body">คำที่ใช้เป็นกฎไม่ได้</string>
 </resources>

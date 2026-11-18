@@ -50,5 +50,5 @@
     </plurals>
     <string name="rules_migrated_nothing">移行した項目はありません。</string>
     <string name="settings_old_blocked_words">旧ブロック単語リスト</string>
-    <string name="settings_old_blocked_words_body">「許可済みとブロック済み」に移行中</string>
+    <string name="settings_old_blocked_words_body">ルールに設定できない単語</string>
 </resources>

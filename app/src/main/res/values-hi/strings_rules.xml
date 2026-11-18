@@ -59,5 +59,5 @@
     </plurals>
     <string name="rules_migrated_nothing">कुछ भी नहीं लाया गया.</string>
     <string name="settings_old_blocked_words">ब्लॉक किए गए शब्दों की पुरानी सूची</string>
-    <string name="settings_old_blocked_words_body">\'अनुमति दी गई और ब्लॉक किए गए\' में ले जाया जा रहा है</string>
+    <string name="settings_old_blocked_words_body">ऐसे शब्द जिन्हें नियम नहीं बनाया जा सकता</string>
 </resources>

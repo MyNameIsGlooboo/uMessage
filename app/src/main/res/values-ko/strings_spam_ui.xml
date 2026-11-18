@@ -46,7 +46,5 @@
     <string name="blocknum_empty_body">차단된 번호에서는 메시지나 전화를 받을 수 없어요. 이 목록은 전화 앱과 공유돼요.</string>
     <string name="blocknum_unavailable_title">차단 목록을 사용할 수 없어요.</string>
     <string name="blocknum_unavailable_body">시스템 차단 목록을 보고 변경하려면 기본 SMS 앱으로 uMessage를 설정해 주세요.</string>
-    <string name="blocknum_unknown_title">알 수 없는 번호 차단</string>
-    <string name="blocknum_contacts_denied">연락처 접근 권한이 없으면 알 수 없는 번호를 구별할 수 없어요.</string>
     <string name="blocknum_section_numbers">번호</string>
 </resources>

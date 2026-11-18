@@ -61,7 +61,5 @@
     <string name="blocknum_empty_body">Заблокированные номера не смогут писать и звонить вам. Этот список общий с приложением «Телефон».</string>
     <string name="blocknum_unavailable_title">Список заблокированных недоступен</string>
     <string name="blocknum_unavailable_body">Сделайте uMessage приложением для SMS по умолчанию, чтобы просматривать и менять системный список заблокированных.</string>
-    <string name="blocknum_unknown_title">Блокировать неизвестные номера</string>
-    <string name="blocknum_contacts_denied">Без доступа к контактам нельзя распознать неизвестные номера</string>
     <string name="blocknum_section_numbers">Номера</string>
 </resources>

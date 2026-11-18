@@ -59,7 +59,6 @@
     <string name="e_migrate_point_blocked">• उनके मैसेज स्पैम में जाएंगे, जहां आप उन्हें पढ़ और वापस ला सकते हैं.</string>
     <string name="e_migrate_point_android">• जब तक वे Android की सूची में हैं, Android उनके मैसेज मिटाता रहेगा.</string>
     <string name="e_migrate_calls_note">Android की सूची कॉल भी ब्लॉक करती है. इससे हटाए गए नंबर आपको फिर से कॉल कर सकेंगे.</string>
-    <string name="e_bn_unknown_body">सिर्फ़ तब लागू होता है जब \'अनजान भेजने वाले\' बंद हो.</string>
     <string name="e_bn_row_calls_texts">कॉल और मैसेज ब्लॉक करता है</string>
     <string name="e_bn_row_short_code">शॉर्ट कोड: इसके मैसेज uMessage को कभी नहीं मिलते</string>
     <string name="e_bn_move_one">uMessage के नियमों में ले जाएं</string>

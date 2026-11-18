@@ -6,6 +6,9 @@
     <string name="settings_spam_stats">%1$d dicegah dalam 7 hari terakhir, total %2$d, %3$d dipulihkan</string>
     <string name="settings_spam_open_settings">Setelan spam</string>
     <string name="settings_spam_open_settings_body">Mode, masa penyimpanan, dan peringatan</string>
+    <string name="settings_block_group">Daftar blokir</string>
+    <string name="settings_block_umessage_title">Aturan uMessage</string>
+    <string name="settings_block_umessage_body">Pesan yang diblokir masuk ke Spam. Anda dapat memulihkannya.</string>
     <string name="settings_spam_open_rules">Aturan izinkan dan blokir</string>
     <string name="settings_spam_open_rules_body">Nomor, nama pengirim, kata kunci, dan pola</string>
     <string name="settings_spam_blocked_numbers_body">Nomor yang diblokir melalui daftar blokir sistem</string>

@@ -9,6 +9,9 @@
     <string name="settings_spam_stats">%1$d stopped in the last 7 days, %2$d in total, %3$d restored</string>
     <string name="settings_spam_open_settings">Spam protection</string>
     <string name="settings_spam_open_settings_body">Mode, retention and alerts</string>
+    <string name="settings_block_group">Block lists</string>
+    <string name="settings_block_umessage_title">uMessage rules</string>
+    <string name="settings_block_umessage_body">Blocked texts go to Spam. You can get them back.</string>
     <string name="settings_spam_open_rules">Rules</string>
     <string name="settings_spam_open_rules_body">Numbers, sender names, keywords and patterns</string>
     <string name="settings_spam_blocked_numbers_body">Numbers blocked through the system block list</string>

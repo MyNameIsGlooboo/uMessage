@@ -46,7 +46,5 @@
     <string name="blocknum_empty_body">Số đã chặn không thể nhắn tin hoặc gọi cho bạn. Danh sách này được dùng chung với ứng dụng điện thoại của bạn.</string>
     <string name="blocknum_unavailable_title">Danh sách chặn không khả dụng</string>
     <string name="blocknum_unavailable_body">Đặt uMessage làm ứng dụng SMS mặc định để xem và thay đổi danh sách chặn của hệ thống.</string>
-    <string name="blocknum_unknown_title">Chặn số không xác định</string>
-    <string name="blocknum_contacts_denied">Không thể nhận diện số không xác định nếu không có quyền truy cập người liên hệ</string>
     <string name="blocknum_section_numbers">Số điện thoại</string>
 </resources>

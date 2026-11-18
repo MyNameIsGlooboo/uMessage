@@ -5,7 +5,7 @@
     <string name="settings_nav_group_privacy_about">Datenschutz und Info</string>
     <string name="settings_nav_spam_row">Spam-Schutz</string>
     <string name="settings_nav_spam_page_title">Spam-Schutz</string>
-    <string name="settings_nav_android_block_list_body">Blockiert auch Anrufe</string>
+    <string name="settings_nav_android_block_list_body">Blockiert auch Anrufe. Nachrichten werden gelöscht und nicht im Spam gespeichert.</string>
     <string name="settings_nav_decision_log">Warum wurde die Nachricht blockiert?</string>
     <string name="settings_nav_decision_log_body">Verlauf der Entscheidungen zum Erlauben und Blockieren</string>
     <string name="settings_nav_forwarded_tab">Tab „Weitergeleitet“ anzeigen</string>

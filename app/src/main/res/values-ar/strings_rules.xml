@@ -95,5 +95,5 @@
     </plurals>
     <string name="rules_migrated_nothing">لم يُنقل أي شيء.</string>
     <string name="settings_old_blocked_words">قائمة الكلمات المحظورة القديمة</string>
-    <string name="settings_old_blocked_words_body">تُنتقل إلى «المسموح بها والمحظورة»</string>
+    <string name="settings_old_blocked_words_body">كلمات لا يمكن استخدامها كقواعد</string>
 </resources>

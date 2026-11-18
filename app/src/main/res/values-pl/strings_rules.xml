@@ -77,5 +77,5 @@
     </plurals>
     <string name="rules_migrated_nothing">Nic nie przeniesiono.</string>
     <string name="settings_old_blocked_words">Stara lista blokowanych słów</string>
-    <string name="settings_old_blocked_words_body">Przenoszenie do sekcji „Dozwolone i zablokowane”</string>
+    <string name="settings_old_blocked_words_body">Słowa, których nie można użyć w regułach</string>
 </resources>

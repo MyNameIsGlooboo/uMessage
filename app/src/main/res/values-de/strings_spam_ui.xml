@@ -51,7 +51,5 @@
     <string name="blocknum_empty_body">Blockierte Nummern können dir keine Nachrichten senden und dich nicht anrufen. Diese Liste wird auch von deiner Telefon-App verwendet.</string>
     <string name="blocknum_unavailable_title">Blockierliste nicht verfügbar</string>
     <string name="blocknum_unavailable_body">Lege uMessage als Standard-SMS-App fest, um die Blockierliste des Systems anzusehen und zu ändern.</string>
-    <string name="blocknum_unknown_title">Unbekannte Nummern blockieren</string>
-    <string name="blocknum_contacts_denied">Ohne Zugriff auf Kontakte lassen sich unbekannte Nummern nicht erkennen</string>
     <string name="blocknum_section_numbers">Nummern</string>
 </resources>

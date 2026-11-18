@@ -5,7 +5,7 @@
     <string name="settings_nav_group_privacy_about">개인정보 및 앱 정보</string>
     <string name="settings_nav_spam_row">스팸 차단</string>
     <string name="settings_nav_spam_page_title">스팸 차단</string>
-    <string name="settings_nav_android_block_list_body">전화도 함께 차단</string>
+    <string name="settings_nav_android_block_list_body">전화도 차단해요. 문자는 스팸에 보관되지 않고 삭제돼요.</string>
     <string name="settings_nav_decision_log">왜 차단됐나요?</string>
     <string name="settings_nav_decision_log_body">허용 및 차단 판정 기록</string>
     <string name="settings_nav_forwarded_tab">전달됨 탭 표시</string>

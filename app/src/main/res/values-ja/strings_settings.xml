@@ -6,6 +6,9 @@
     <string name="settings_spam_stats">過去7日間で%1$d件をブロック、累計%2$d件、復元%3$d件</string>
     <string name="settings_spam_open_settings">迷惑メッセージの設定</string>
     <string name="settings_spam_open_settings_body">モード、保存期間、通知</string>
+    <string name="settings_block_group">ブロックリスト</string>
+    <string name="settings_block_umessage_title">uMessageのルール</string>
+    <string name="settings_block_umessage_body">ブロックしたメッセージは迷惑メッセージに移動します。復元できます。</string>
     <string name="settings_spam_open_rules">許可とブロックのルール</string>
     <string name="settings_spam_open_rules_body">電話番号、送信者名、キーワード、パターン（正規表現）</string>
     <string name="settings_spam_blocked_numbers_body">システムのブロックリストでブロック済みの電話番号</string>

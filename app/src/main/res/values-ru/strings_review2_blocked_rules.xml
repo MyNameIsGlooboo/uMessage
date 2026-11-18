@@ -67,7 +67,6 @@
     <string name="e_migrate_point_blocked">• Сообщения с этих номеров попадут в «Спам», где их можно прочитать и восстановить.</string>
     <string name="e_migrate_point_android">• Android продолжит удалять сообщения с этих номеров, пока они есть в его списке.</string>
     <string name="e_migrate_calls_note">Список Android также блокирует звонки. После удаления из него номера смогут снова вам звонить.</string>
-    <string name="e_bn_unknown_body">Действует, только когда параметр «Неизвестные отправители» выключен.</string>
     <string name="e_bn_row_calls_texts">Блокирует звонки и сообщения</string>
     <string name="e_bn_row_short_code">Короткий номер: uMessage не получает его сообщения</string>
     <string name="e_bn_move_one">Перенести в правила uMessage</string>

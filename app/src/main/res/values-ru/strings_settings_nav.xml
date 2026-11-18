@@ -5,7 +5,7 @@
     <string name="settings_nav_group_privacy_about">Конфиденциальность и о приложении</string>
     <string name="settings_nav_spam_row">Защита от спама</string>
     <string name="settings_nav_spam_page_title">Защита от спама</string>
-    <string name="settings_nav_android_block_list_body">Блокирует и звонки</string>
+    <string name="settings_nav_android_block_list_body">Также блокирует звонки. Сообщения удаляются и не сохраняются в спаме.</string>
     <string name="settings_nav_decision_log">Почему заблокировано?</string>
     <string name="settings_nav_decision_log_body">История решений: разрешить или заблокировать</string>
     <string name="settings_nav_forwarded_tab">Показывать вкладку «Пересланные»</string>

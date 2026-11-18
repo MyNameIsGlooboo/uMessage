@@ -6,6 +6,9 @@
     <string name="settings_spam_stats">Заблоковано за останні 7 днів: %1$d, загалом: %2$d, відновлено: %3$d</string>
     <string name="settings_spam_open_settings">Налаштування спаму</string>
     <string name="settings_spam_open_settings_body">Режим, термін зберігання та сповіщення</string>
+    <string name="settings_block_group">Списки заблокованих</string>
+    <string name="settings_block_umessage_title">Правила uMessage</string>
+    <string name="settings_block_umessage_body">Заблоковані повідомлення потрапляють у спам. Їх можна відновити.</string>
     <string name="settings_spam_open_rules">Правила дозволу та блокування</string>
     <string name="settings_spam_open_rules_body">Номери, імена відправників, ключові слова та регулярні вирази</string>
     <string name="settings_spam_blocked_numbers_body">Номери, заблоковані через системний список заблокованих</string>

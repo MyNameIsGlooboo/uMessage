@@ -20,6 +20,7 @@ import org.fossify.commons.extensions.baseConfig
 import org.fossify.commons.extensions.hasPermission
 import org.fossify.commons.helpers.PERMISSION_READ_CONTACTS
 import org.fossify.commons.helpers.REQUEST_APP_UNLOCK
+import kotlinx.coroutines.runBlocking
 import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.activities.CopyCodeActivity
 import com.glooboo.umessage.activities.SplashActivity
@@ -38,6 +39,7 @@ import com.glooboo.umessage.ui.lock.LockActivity
 import com.glooboo.umessage.ui.lock.LockScope
 import com.glooboo.umessage.ui.lock.WindowProtection
 import com.glooboo.umessage.ui.settings.AppLocale
+import com.glooboo.umessage.ui.spam.BlockingMigration
 import com.glooboo.umessage.ui.theme.ThemePresets
 
 class App : FossifyApp() {
@@ -70,6 +72,8 @@ class App : FossifyApp() {
             DailyChecks.runIfDue(this)
             failStaleOutboxMessages()
             SpamEngine.purgeExpired(this)
+            // Two block lists only: old blocked words become rules, the old unknown-numbers switch becomes a mode.
+            runBlocking { BlockingMigration.runOnce(this@App) }
         }
     }
 

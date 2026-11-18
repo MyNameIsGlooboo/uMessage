@@ -50,5 +50,5 @@
     </plurals>
     <string name="rules_migrated_nothing">Tidak ada yang dipindahkan.</string>
     <string name="settings_old_blocked_words">Daftar kata yang diblokir versi lama</string>
-    <string name="settings_old_blocked_words_body">Sedang dipindahkan ke Diizinkan dan diblokir</string>
+    <string name="settings_old_blocked_words_body">Kata yang tidak dapat dijadikan aturan</string>
 </resources>

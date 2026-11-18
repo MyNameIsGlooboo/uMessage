@@ -51,7 +51,5 @@
     <string name="blocknum_empty_body">Engellenen numaralar size mesaj gönderemez veya sizi arayamaz. Bu liste telefon uygulamanızla ortaktır.</string>
     <string name="blocknum_unavailable_title">Engellenenler listesine erişilemiyor</string>
     <string name="blocknum_unavailable_body">Sistemin engellenenler listesini görmek ve değiştirmek için uMessage uygulamasını varsayılan SMS uygulamanız yapın.</string>
-    <string name="blocknum_unknown_title">Bilinmeyen numaraları engelleyin</string>
-    <string name="blocknum_contacts_denied">Kişilere erişim olmadan bilinmeyen numaralar belirlenemez</string>
     <string name="blocknum_section_numbers">Numaralar</string>
 </resources>

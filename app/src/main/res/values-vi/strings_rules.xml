@@ -50,5 +50,5 @@
     </plurals>
     <string name="rules_migrated_nothing">Chưa chuyển mục nào.</string>
     <string name="settings_old_blocked_words">Danh sách từ bị chặn cũ</string>
-    <string name="settings_old_blocked_words_body">Chuyển sang mục Đã cho phép và đã chặn</string>
+    <string name="settings_old_blocked_words_body">Các từ không thể dùng làm quy tắc</string>
 </resources>

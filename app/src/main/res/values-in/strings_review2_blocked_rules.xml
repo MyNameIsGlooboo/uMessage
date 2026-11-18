@@ -55,7 +55,6 @@
     <string name="e_migrate_point_blocked">• Pesan mereka akan masuk ke Spam, tempat Anda dapat membaca dan memulihkannya.</string>
     <string name="e_migrate_point_android">• Android tetap membuang pesan mereka sampai nomornya dihapus dari daftar Android.</string>
     <string name="e_migrate_calls_note">Daftar Android juga memblokir panggilan. Nomor yang Anda hapus dari daftar itu dapat menelepon Anda lagi.</string>
-    <string name="e_bn_unknown_body">Hanya berlaku saat Pengirim tidak dikenal disetel ke Nonaktif.</string>
     <string name="e_bn_row_calls_texts">Memblokir panggilan dan pesan</string>
     <string name="e_bn_row_short_code">Nomor pendek: uMessage tidak pernah menerima pesannya</string>
     <string name="e_bn_move_one">Pindahkan ke aturan uMessage</string>

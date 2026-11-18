@@ -75,7 +75,6 @@
     <string name="e_migrate_point_blocked">• ستصل رسائلها إلى «غير المرغوب فيها»، حيث يمكنك قراءتها واستعادتها.</string>
     <string name="e_migrate_point_android">• سيظل Android يتخلص من رسائلها حتى تُزال من قائمته.</string>
     <string name="e_migrate_calls_note">تحظر قائمة Android المكالمات أيضًا. يمكن للأرقام التي تزيلها منها الاتصال بك مجددًا.</string>
-    <string name="e_bn_unknown_body">يسري فقط عندما يكون خيار «المرسلون غير المعروفين» متوقفًا.</string>
     <string name="e_bn_row_calls_texts">يحظر المكالمات والرسائل</string>
     <string name="e_bn_row_short_code">رقم مختصر: لا تصل رسائله إلى uMessage مطلقًا</string>
     <string name="e_bn_move_one">انقل إلى قواعد uMessage</string>

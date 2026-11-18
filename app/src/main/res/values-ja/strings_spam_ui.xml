@@ -46,7 +46,5 @@
     <string name="blocknum_empty_body">ブロックした電話番号からのメッセージや着信は届きません。このリストは電話アプリと共有されます。</string>
     <string name="blocknum_unavailable_title">ブロックリストを利用できません</string>
     <string name="blocknum_unavailable_body">システムのブロックリストを表示・変更するには、uMessageをデフォルトのSMSアプリに設定してください。</string>
-    <string name="blocknum_unknown_title">不明な電話番号をブロック</string>
-    <string name="blocknum_contacts_denied">連絡先へのアクセスがないと、不明な電話番号を判別できません。</string>
     <string name="blocknum_section_numbers">電話番号</string>
 </resources>

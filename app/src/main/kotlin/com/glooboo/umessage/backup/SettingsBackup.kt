@@ -18,6 +18,7 @@ import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.engine.SpamEngine
+import com.glooboo.umessage.ui.spam.BlockingMigration
 import com.glooboo.umessage.ui.spam.ForwardOwnNumbers
 import com.glooboo.umessage.ui.theme.ThemeChoice
 import com.glooboo.umessage.ui.theme.ThemeColours
@@ -170,6 +171,8 @@ object SettingsBackup {
 
             val applied = applySettings(app, preview.content.settings)
             val keywordsAdded = addKeywords(app, preview.content.blockedKeywords)
+            // An older backup's blocked words become rules at once, like on the phone they came from.
+            BlockingMigration.runOnce(app)
             Result(
                 rulesAdded = rulesAdded,
                 rulesSkipped = (preview.content.rules.size - rulesAdded).coerceAtLeast(0),

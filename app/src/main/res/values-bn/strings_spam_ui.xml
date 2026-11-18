@@ -51,7 +51,5 @@
     <string name="blocknum_empty_body">ব্লক করা নম্বর থেকে আপনাকে বার্তা পাঠানো বা কল করা যাবে না। আপনার ফোন অ্যাপও এই তালিকা ব্যবহার করে।</string>
     <string name="blocknum_unavailable_title">ব্লক তালিকা পাওয়া যাচ্ছে না</string>
     <string name="blocknum_unavailable_body">সিস্টেমের ব্লক তালিকা দেখতে ও বদলাতে uMessage-কে আপনার ডিফল্ট SMS অ্যাপ করুন।</string>
-    <string name="blocknum_unknown_title">অচেনা নম্বর ব্লক করুন</string>
-    <string name="blocknum_contacts_denied">পরিচিতি ব্যবহারের অনুমতি ছাড়া অচেনা নম্বর শনাক্ত করা যায় না</string>
     <string name="blocknum_section_numbers">নম্বর</string>
 </resources>

@@ -6,6 +6,9 @@
     <string name="settings_spam_stats">過去7天攔截%1$d則，總計%2$d則，已還原%3$d則</string>
     <string name="settings_spam_open_settings">垃圾簡訊防護</string>
     <string name="settings_spam_open_settings_body">模式、保留期限和提醒</string>
+    <string name="settings_block_group">封鎖清單</string>
+    <string name="settings_block_umessage_title">uMessage規則</string>
+    <string name="settings_block_umessage_body">已封鎖的訊息會移至垃圾簡訊。你可以將訊息還原。</string>
     <string name="settings_spam_open_rules">規則</string>
     <string name="settings_spam_open_rules_body">號碼、寄件者名稱、關鍵字和模式</string>
     <string name="settings_spam_blocked_numbers_body">透過系統封鎖清單封鎖的號碼</string>

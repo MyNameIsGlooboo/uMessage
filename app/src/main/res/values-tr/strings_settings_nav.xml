@@ -5,7 +5,7 @@
     <string name="settings_nav_group_privacy_about">Gizlilik ve hakkında</string>
     <string name="settings_nav_spam_row">Spam koruması</string>
     <string name="settings_nav_spam_page_title">Spam koruması</string>
-    <string name="settings_nav_android_block_list_body">Aramaları da engeller</string>
+    <string name="settings_nav_android_block_list_body">Aramaları da engeller. Mesajlar silinir, Spam klasöründe tutulmaz.</string>
     <string name="settings_nav_decision_log">Neden engellendi?</string>
     <string name="settings_nav_decision_log_body">İzin verme ve engelleme kararlarının geçmişi</string>
     <string name="settings_nav_forwarded_tab">İletilenler sekmesini gösterin</string>

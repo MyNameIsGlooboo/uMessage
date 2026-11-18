@@ -6,6 +6,9 @@
     <string name="settings_spam_stats">%1$d bloqués ces 7 derniers jours, %2$d au total, %3$d restaurés</string>
     <string name="settings_spam_open_settings">Paramètres du spam</string>
     <string name="settings_spam_open_settings_body">Mode, conservation et alertes</string>
+    <string name="settings_block_group">Listes de blocage</string>
+    <string name="settings_block_umessage_title">Règles uMessage</string>
+    <string name="settings_block_umessage_body">Les messages bloqués vont dans Spam. Vous pouvez les récupérer.</string>
     <string name="settings_spam_open_rules">Règles d\'autorisation et de blocage</string>
     <string name="settings_spam_open_rules_body">Numéros, noms d\'expéditeurs, mots-clés et expressions régulières</string>
     <string name="settings_spam_blocked_numbers_body">Numéros bloqués via la liste de blocage du système</string>

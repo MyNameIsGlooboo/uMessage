@@ -379,10 +379,10 @@ private fun SpamPage(state: SettingsUiState, actions: SettingsActions) {
     val spam = state.spam
     if (spam != null) SpamModeGroup(spam, actions)
     // B11: the group is not named like the page above it.
-    SettingsGroup(stringResource(R.string.settings_f_group_rules)) {
+    SettingsGroup(stringResource(R.string.settings_block_group)) {
         SettingsRow(
-            title = stringResource(R.string.settings_spam_open_rules),
-            summary = stringResource(R.string.settings_spam_open_rules_body),
+            title = stringResource(R.string.settings_block_umessage_title),
+            summary = stringResource(R.string.settings_block_umessage_body),
             icon = Symbols.Rule,
             onClick = actions.onOpenRules,
             showChevron = true,
@@ -394,7 +394,7 @@ private fun SpamPage(state: SettingsUiState, actions: SettingsActions) {
             onClick = actions.onOpenBlockedNumbers,
             showChevron = true,
         )
-        // SU-33: the old blocked-words list is shown only until its words are moved into rules.
+        // Old blocked words move into rules on their own; only words that cannot be a rule stay, and show here.
         if (state.showOldBlockedWords) {
             SettingsRow(
                 title = stringResource(R.string.settings_old_blocked_words),

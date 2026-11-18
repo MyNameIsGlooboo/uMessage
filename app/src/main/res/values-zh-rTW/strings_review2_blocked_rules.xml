@@ -56,7 +56,6 @@
     <string name="e_migrate_point_blocked">• 對方的簡訊會移至「垃圾訊息」，你可以在那裡閱讀及還原。</string>
     <string name="e_migrate_point_android">• 在號碼移出Android清單前，Android仍會丟棄對方的簡訊。</string>
     <string name="e_migrate_calls_note">Android的清單也會封鎖來電。從清單移除的號碼將能再次打給你。</string>
-    <string name="e_bn_unknown_body">只在「未知寄件者」設為關閉時適用。</string>
     <string name="e_bn_row_calls_texts">封鎖來電與簡訊</string>
     <string name="e_bn_row_short_code">簡碼：uMessage永遠收不到它的簡訊</string>
     <string name="e_bn_move_one">移至uMessage規則</string>

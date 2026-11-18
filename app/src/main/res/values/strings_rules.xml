@@ -67,5 +67,5 @@
 
     <!-- SU-33: settings rows for the older lists -->
     <string name="settings_old_blocked_words">Old blocked words list</string>
-    <string name="settings_old_blocked_words_body">Moving to Rules</string>
+    <string name="settings_old_blocked_words_body">Words that cannot be rules</string>
 </resources>

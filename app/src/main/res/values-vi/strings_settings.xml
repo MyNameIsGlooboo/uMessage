@@ -6,6 +6,9 @@
     <string name="settings_spam_stats">Đã chặn %1$d trong 7 ngày qua, tổng cộng %2$d, đã khôi phục %3$d</string>
     <string name="settings_spam_open_settings">Cài đặt tin nhắn rác</string>
     <string name="settings_spam_open_settings_body">Chế độ, thời gian lưu và cảnh báo</string>
+    <string name="settings_block_group">Danh sách chặn</string>
+    <string name="settings_block_umessage_title">Quy tắc uMessage</string>
+    <string name="settings_block_umessage_body">Tin nhắn bị chặn được chuyển vào tin nhắn rác. Bạn có thể khôi phục.</string>
     <string name="settings_spam_open_rules">Quy tắc cho phép và chặn</string>
     <string name="settings_spam_open_rules_body">Số điện thoại, tên người gửi, từ khóa và biểu thức chính quy</string>
     <string name="settings_spam_blocked_numbers_body">Số điện thoại bị chặn qua danh sách chặn của hệ thống</string>

@@ -50,5 +50,5 @@
     </plurals>
     <string name="rules_migrated_nothing">沒有移動任何項目。</string>
     <string name="settings_old_blocked_words">舊的封鎖字詞清單</string>
-    <string name="settings_old_blocked_words_body">正在移至規則</string>
+    <string name="settings_old_blocked_words_body">無法設為規則的字詞</string>
 </resources>

@@ -59,7 +59,6 @@
     <string name="e_migrate_point_blocked">• Sus mensajes irán a Spam, donde podrás leerlos y restaurarlos.</string>
     <string name="e_migrate_point_android">• Android seguirá descartando sus mensajes hasta que salgan de su lista.</string>
     <string name="e_migrate_calls_note">La lista de Android también bloquea llamadas. Los números que quites de ella podrán volver a llamarte.</string>
-    <string name="e_bn_unknown_body">Solo se aplica si Remitentes desconocidos está desactivado.</string>
     <string name="e_bn_row_calls_texts">Bloquea llamadas y mensajes</string>
     <string name="e_bn_row_short_code">Número corto: uMessage nunca recibe sus mensajes</string>
     <string name="e_bn_move_one">Mover a las reglas de uMessage</string>

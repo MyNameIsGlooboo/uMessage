@@ -1,8 +1,6 @@
 package com.glooboo.umessage.ui.spam
 
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -16,7 +14,6 @@ import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamStats
-import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
@@ -73,20 +70,6 @@ class BlockedRulesReview2UiTest {
         compose.onNodeWithText(str(R.string.ux8d_match_label)).assertExists()
         compose.onNodeWithText(str(R.string.e_pattern_link)).performClick()
         assertThat(pattern).isEqualTo(PatternBlock.LINK.template)
-    }
-
-    @Test
-    fun blockUnknownSwitchShowsOnlyInOffMode() {
-        // SE-28 / VS-30.
-        val title = str(R.string.blocknum_unknown_title)
-        var state by androidx.compose.runtime.mutableStateOf(BlockedNumbersUiState(loading = false))
-        compose.setContent {
-            UMessageTheme { BlockedNumbersScreen(state, SnackbarHostState(), BlockedNumbersActions()) }
-        }
-        compose.onNodeWithText(title).assertDoesNotExist()
-        state = state.copy(mode = UnknownSenderMode.OFF)
-        compose.onNodeWithText(title).assertExists()
-        compose.onNodeWithText(str(R.string.e_bn_unknown_body)).assertExists()
     }
 
     @Test
