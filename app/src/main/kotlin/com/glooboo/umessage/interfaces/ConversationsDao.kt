@@ -98,6 +98,10 @@ interface ConversationsDao {
     @Query("UPDATE conversations SET date = :date, snippet = :snippet WHERE thread_id = :threadId")
     fun updateDateAndSnippet(threadId: Long, date: Int, snippet: String)
 
+    /** Renames a chat without rewriting the rest of the row (its archived flag may have changed since it was read). */
+    @Query("UPDATE conversations SET title = :title, uses_custom_title = :usesCustomTitle WHERE thread_id = :threadId")
+    fun updateTitle(threadId: Long, title: String, usesCustomTitle: Boolean)
+
     @Query("UPDATE conversations SET archived = 1 WHERE thread_id = :threadId")
     fun moveToArchive(threadId: Long)
 

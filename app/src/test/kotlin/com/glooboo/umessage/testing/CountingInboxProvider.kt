@@ -34,7 +34,7 @@ class CountingInboxProvider : ContentProvider() {
         db.execSQL(
             "CREATE TABLE sms (_id INTEGER PRIMARY KEY, thread_id INTEGER, address TEXT, body TEXT, date INTEGER, " +
                 "type INTEGER DEFAULT 1, status INTEGER DEFAULT -1, read INTEGER DEFAULT 1, seen INTEGER DEFAULT 1, " +
-                "sub_id INTEGER DEFAULT -1)"
+                "sub_id INTEGER DEFAULT -1, subject TEXT, date_sent INTEGER DEFAULT 0)"
         )
         db.execSQL("CREATE INDEX sms_thread ON sms(thread_id, date)")
         db.execSQL(
@@ -116,6 +116,7 @@ class CountingInboxProvider : ContentProvider() {
         sortOrder: String?,
     ): Cursor? {
         val segments = uri.pathSegments
+        if (uri.authority == "mms-sms" && segments.firstOrNull() == "threadID") return threadIdOf(uri)
         var where = selection?.takeIf { it.isNotBlank() }
         var args = selectionArgs?.toList() ?: emptyList()
         val table = when (uri.authority) {
@@ -137,6 +138,9 @@ class CountingInboxProvider : ContentProvider() {
             }
         }
         if (table == "threads") beforeThreadsQuery?.invoke()
+        if (asksForOtherThread(table, where, args)) {
+            args = listOf((args[0].toLong() + 1).toString())
+        }
         synchronized(queries) { queries.getOrPut(table) { AtomicInteger() }.incrementAndGet() }
         // The app appends "LIMIT n" to the sort order, which SQLiteDatabase.query takes as a separate argument.
         val order = sortOrder?.substringBefore(" LIMIT ")
@@ -146,9 +150,67 @@ class CountingInboxProvider : ContentProvider() {
         return cursor
     }
 
-    override fun insert(uri: Uri, values: ContentValues?): Uri? = null
+    /** The thread of the one number asked for (what Telephony.Threads.getOrCreateThreadId reads); null if unknown. */
+    private fun threadIdOf(uri: Uri): Cursor? {
+        val recipient = uri.getQueryParameters("recipient").singleOrNull() ?: return null
+        return db.rawQuery(
+            "SELECT t._id FROM threads t JOIN canonical_addresses c ON t.recipient_ids = CAST(c._id AS TEXT) " +
+                "WHERE c.address = ?",
+            arrayOf(recipient)
+        )
+    }
 
-    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int = 0
+    /** A store that ignores the selection and answers for another thread (a Samsung-like quirk the tests need). */
+    private fun asksForOtherThread(table: String, where: String?, args: List<String>): Boolean =
+        readsOtherThread && table == "threads" && where == "_id = ?" && args.size == 1
+
+    /** An incoming SMS the way the phone stores it: the row, then the thread's snippet, date and count. */
+    override fun insert(uri: Uri, values: ContentValues?): Uri? {
+        if (uri.authority != "sms" || values == null) return null
+        val id = db.insert("sms", null, values)
+        if (id < 0) return null
+        db.execSQL(
+            "UPDATE threads SET snippet = ?, date = ?, message_count = message_count + 1 WHERE _id = ?",
+            arrayOf<Any?>(values.getAsString("body"), values.getAsLong("date"), values.getAsLong("thread_id"))
+        )
+        return Uri.parse("content://sms/$id")
+    }
+
+    /** When true, a read of one thread by `_id = ?` gets the row of the next thread instead (a store gone wrong). */
+    @Volatile var readsOtherThread = false
+
+    /** What the threads table does with a write of the archived flag. */
+    enum class ArchiveWrites {
+        /** Keeps it, as a phone store that works does. */
+        STORE,
+
+        /** Takes the call, reports one row, keeps nothing (the phone this was seen on). */
+        IGNORE,
+
+        /** Updates nothing and reports no row (a store that is not the app's to write). */
+        NO_ROWS,
+    }
+
+    @Volatile var archiveWrites = ArchiveWrites.STORE
+
+    /** Sets the archived flag the way another app would, whatever [archiveWrites] says. */
+    fun setArchived(thread: Long, archived: Boolean) {
+        db.execSQL("UPDATE threads SET archived = ? WHERE _id = ?", arrayOf<Any>(if (archived) 1 else 0, thread))
+    }
+
+    fun isArchived(thread: Long): Boolean =
+        db.rawQuery("SELECT archived FROM threads WHERE _id = ?", arrayOf(thread.toString())).use {
+            it.moveToFirst() && it.getInt(0) == 1
+        }
+
+    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int {
+        if (uri.authority != "mms-sms" || values == null || !values.containsKey("archived")) return 0
+        return when (archiveWrites) {
+            ArchiveWrites.STORE -> db.update("threads", values, selection, selectionArgs)
+            ArchiveWrites.IGNORE -> 1
+            ArchiveWrites.NO_ROWS -> 0
+        }
+    }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int = 0
 
