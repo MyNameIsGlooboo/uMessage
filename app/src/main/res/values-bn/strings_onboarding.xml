@@ -7,7 +7,7 @@
     <string name="onb_finish">বার্তা পাঠানো শুরু করুন</string>
     <string name="onb_welcome_title">uMessage-এ স্বাগতম</string>
     <string name="onb_welcome_intro">বার্তা পাঠানো আরও সহজ, স্প্যাম কম।</string>
-    <string name="onb_welcome_demo_desc">পরিচিতদের বার্তা আপনার ইনবক্সে যায়, অচেনা প্রেরকদের বার্তা স্প্যামে যায়, আর যাচাইকরণ কোড আগের মতোই আপনার ইনবক্সে পৌঁছায়।</string>
+    <string name="onb_welcome_demo_desc">পরিচিতদের বার্তা “বার্তা” বিভাগে যায়, অচেনা প্রেরকদের বার্তা “স্প্যাম” বিভাগে যায়, আর যাচাইকরণ কোড “বার্তা” বিভাগেই আসে।</string>
     <string name="onb_welcome_spam">স্প্যাম দূরে থাকে</string>
     <string name="onb_welcome_spam_desc">অচেনা প্রেরকের বার্তা স্প্যামে থাকে, হারায় না।</string>
     <string name="onb_welcome_codes">এক ট্যাপেই কোড</string>

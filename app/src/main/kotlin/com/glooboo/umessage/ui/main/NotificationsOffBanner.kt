@@ -11,7 +11,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -104,7 +105,14 @@ fun NotificationsOffBanner(modifier: Modifier = Modifier) {
                 Text(stringResource(R.string.notifications_off_body), style = MaterialTheme.typography.bodyMedium)
             }
             Column(horizontalAlignment = Alignment.End) {
-                FilledTonalButton(onClick = { openNotificationSettings(context, current) }) {
+                // High contrast on the red container: the container's own on-colour as the fill, its fill as the text.
+                Button(
+                    onClick = { openNotificationSettings(context, current) },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.onErrorContainer,
+                        contentColor = MaterialTheme.colorScheme.errorContainer,
+                    ),
+                ) {
                     Text(stringResource(R.string.notifications_off_fix))
                 }
                 TextButton(onClick = {

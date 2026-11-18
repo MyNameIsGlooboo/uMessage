@@ -330,11 +330,17 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     /** main-21: the threads each "Mark all read" changed, by token, so Undo restores exactly those. */
     private val markedAllRead = HashMap<Long, List<Long>>()
 
+    private val markRunner = MarkReadRunner(viewModelScope, Dispatchers.IO)
+
+    /** How far a running "Mark all read" is; null when none runs. The screen shows a bar while it is set. */
+    val markReadProgress: StateFlow<MarkReadProgress?> = markRunner.progress
+
     /**
      * Marks every unread chat in the list read (chats concealed behind the app lock and chats pending delete or
      * archive are not in the list, so they are left alone). Offers Undo, which makes only these chats unread again.
      */
     fun markAllRead() {
+        if (markRunner.isRunning) return
         val concealed = HiddenChats.get(app).hiddenIds()
         val targets = unreadThreadsToMarkRead(source, hidden + concealed)
         if (targets.isEmpty()) return
@@ -343,15 +349,12 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         markedAllRead[token] = targets
         source = source.map { c -> if (c.threadId in ids) c.copy(read = true, unreadCount = 0) else c }
         requestRebuild()
-        viewModelScope.launch(Dispatchers.IO) {
-            val failed = runCatching { targets.forEach { app.markThreadMessagesRead(it) } }.isFailure
-            withContext(Dispatchers.Main) {
-                if (failed) {
-                    markedAllRead.remove(token)
-                    _events.trySend(ConversationsEvent.Failed)
-                } else {
-                    _events.trySend(ConversationsEvent.MarkedAllRead(token, targets.size))
-                }
+        markRunner.start(targets, mark = { app.markThreadMessagesRead(it) }) { failed ->
+            if (failed) {
+                markedAllRead.remove(token)
+                _events.trySend(ConversationsEvent.Failed)
+            } else {
+                _events.trySend(ConversationsEvent.MarkedAllRead(token, targets.size))
             }
             refreshConversations()
         }

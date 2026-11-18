@@ -7,7 +7,7 @@
     <string name="onb_finish">Empezar a enviar mensajes</string>
     <string name="onb_welcome_title">Te damos la bienvenida a uMessage</string>
     <string name="onb_welcome_intro">Mejores mensajes, menos spam.</string>
-    <string name="onb_welcome_demo_desc">Los mensajes de personas que conoces van a tu bandeja de entrada, los de desconocidos van a spam y los códigos de verificación siguen llegando a tu bandeja de entrada.</string>
+    <string name="onb_welcome_demo_desc">Los mensajes de personas que conoces van a Mensajes, los de desconocidos van a Spam y los códigos de verificación siguen llegando a Mensajes.</string>
     <string name="onb_welcome_spam">El spam queda fuera</string>
     <string name="onb_welcome_spam_desc">Los remitentes desconocidos esperan en Spam y no se pierden.</string>
     <string name="onb_welcome_codes">Códigos con un toque</string>

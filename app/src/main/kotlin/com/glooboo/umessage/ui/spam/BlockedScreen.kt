@@ -103,10 +103,16 @@ fun BlockedRoute(onBack: (() -> Unit)?, onOpenRules: () -> Unit, onOpenSettings:
     val scope = rememberCoroutineScope()
     val groups by rememberUpdatedState(state.groups)
     BlockedEvents(viewModel, snackbar)
-    // Leaving the tab closes the search: the query is cleared, so the box does not come back open. A rotation keeps it.
+    // Leaving the tab closes the search and drops the selection, so neither comes back with the tab. A rotation keeps
+    // both.
     val activity = LocalActivity.current
     DisposableEffect(viewModel) {
-        onDispose { if (activity?.isChangingConfigurations != true) viewModel.setQuery("") }
+        onDispose {
+            if (activity?.isChangingConfigurations != true) {
+                viewModel.setQuery("")
+                viewModel.clearSelection()
+            }
+        }
     }
     val actions = remember(viewModel, onBack, onOpenRules, onOpenSettings, context) {
         BlockedActions(
@@ -259,9 +265,15 @@ fun BlockedScreen(
     var confirmDeleteAll by rememberSaveable { mutableStateOf(false) }
     var restoredOpen by rememberSaveable { mutableStateOf(false) }
     var confirmReport by rememberSaveable { mutableStateOf(false) }
-    // The search box is open while it holds text: it comes back after a rotation (with text) or a visit to a thread,
-    // not after another tab, because BlockedRoute clears the query when the tab is left.
-    var searching by remember { mutableStateOf(state.query.isNotEmpty()) }
+    // The search box stays open through a rotation (even empty) and a visit to a thread, not after another tab:
+    // BlockedRoute clears the query when the tab is left. It closes when nothing is held any more.
+    var searching by rememberSaveable { mutableStateOf(state.query.isNotEmpty()) }
+    LaunchedEffect(state.loading, state.heldCount) {
+        if (!state.loading && state.heldCount == 0 && searching) {
+            searching = false
+            actions.onSetQuery("")
+        }
+    }
     BackHandler(enabled = state.selecting, onBack = actions.onClearSelection)
     UMessageScaffold(
         topBar = {
@@ -413,7 +425,13 @@ private fun BlockedTopBar(
 }
 
 /** Whether the empty Spam tab's sorting card has played since the app was opened. */
-private var emptyCardPlayed = false
+internal var emptyCardPlayed = false
+    private set
+
+/** Forgets that the card played, so a test does not depend on the order of the tests before it. */
+internal fun resetEmptyCardPlayed() {
+    emptyCardPlayed = false
+}
 
 @Composable
 private fun BlockedList(

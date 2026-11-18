@@ -122,7 +122,7 @@ internal fun SortingCard(
  * Makes the card tappable. With [ripple] the tap is a click (Smart: the card has one description, and the click is
  * not announced); without it the tap is only a gesture, so TalkBack adds no "double tap to activate".
  */
-private fun Modifier.replayable(enabled: Boolean, ripple: Boolean, onReplay: () -> Unit): Modifier = when {
+internal fun Modifier.replayable(enabled: Boolean, ripple: Boolean, onReplay: () -> Unit): Modifier = when {
     !enabled -> this
     ripple -> clickable(onClick = onReplay)
     else -> pointerInput(Unit) { detectTapGestures { onReplay() } }

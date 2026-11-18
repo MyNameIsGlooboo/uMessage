@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.StringRes
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.ui.main.NotificationsBlock
 import com.glooboo.umessage.ui.onboarding.PermissionItem
 import com.glooboo.umessage.ui.onboarding.isGranted
@@ -18,7 +19,12 @@ internal class SetupRowUi(
     @StringRes val actionRes: Int,
     val onAction: () -> Unit,
     val note: String? = null,
+    /** The step cannot be done on this phone (no SMS role to give): it never holds the headline back. */
+    val unavailable: Boolean = false,
 )
+
+/** The row as the headline sees it: an unavailable step counts as not required, as in the first-day checklist. */
+internal fun SetupRowUi.headlineState() = SetupRowState(mark, required = !optional && !unavailable)
 
 /** What the rows are built from, read live on this composition. */
 internal class SetupLive(
@@ -48,6 +54,7 @@ private fun defaultSmsRow(context: Context, live: SetupLive, actions: SetupActio
     actionRes = if (live.roleDenied) R.string.onb_perm_open_settings else R.string.w3c_checklist_action_set,
     onAction = actions.requestDefaultSms,
     note = if (live.roleDenied && !live.isDefault) context.getString(R.string.onb_default_denied) else null,
+    unavailable = DefaultSmsRole.status(context) is DefaultSmsRole.Status.Unavailable,
 )
 
 private fun permissionRow(context: Context, item: PermissionItem, live: SetupLive, actions: SetupActions): SetupRowUi {

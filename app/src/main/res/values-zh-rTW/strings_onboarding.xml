@@ -7,7 +7,7 @@
     <string name="onb_finish">開始傳訊息</string>
     <string name="onb_welcome_title">歡迎使用uMessage</string>
     <string name="onb_welcome_intro">更好的訊息體驗，更少的垃圾簡訊。</string>
-    <string name="onb_welcome_demo_desc">認識的人傳來的訊息會進入收件匣，陌生人的訊息會歸入垃圾簡訊，驗證碼仍會送達收件匣。</string>
+    <string name="onb_welcome_demo_desc">認識的人傳來的簡訊會歸到「訊息」，陌生人的簡訊會歸到「垃圾簡訊」，驗證碼仍會送到「訊息」。</string>
     <string name="onb_welcome_spam">擋下垃圾簡訊</string>
     <string name="onb_welcome_spam_desc">未知寄件者的訊息會留在「垃圾訊息」，不會遺失。</string>
     <string name="onb_welcome_codes">一鍵複製驗證碼</string>

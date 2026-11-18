@@ -19,6 +19,7 @@ class PermissionAskerTest {
     private val app: Application = ApplicationProvider.getApplicationContext()
     private val perm = Manifest.permission.READ_CONTACTS
     private var rationale = false
+    private var clock = 0L
 
     private fun asker() = PermissionAsker(
         context = app,
@@ -26,15 +27,23 @@ class PermissionAskerTest {
         rationaleBefore = mutableStateOf(emptySet()),
         prefs = W3cPrefs.get(app),
         rationale = { rationale },
+        now = { clock },
     )
 
-    private fun PermissionAsker.ask(rationaleBeforeAsk: Boolean, rationaleAfterAnswer: Boolean, granted: Boolean) {
+    private fun PermissionAsker.ask(
+        rationaleBeforeAsk: Boolean,
+        rationaleAfterAnswer: Boolean,
+        granted: Boolean,
+        answerAfterMs: Long = PERSON_MS,
+    ) {
         rationale = rationaleBeforeAsk
+        clock += PERSON_MS
         var launched = false
         launch = { launched = true }
         request(listOf(perm))
         assertTrue(launched)
         rationale = rationaleAfterAnswer
+        clock += answerAfterMs
         onResult(mapOf(perm to granted))
     }
 
@@ -70,9 +79,19 @@ class PermissionAskerTest {
         // Refused twice in onboarding: it was asked for before, and now there is no rationale before or after.
         W3cPrefs.get(app).markPermissionsAsked(listOf(perm))
         val asker = asker()
-        asker.ask(rationaleBeforeAsk = false, rationaleAfterAnswer = false, granted = false)
+        asker.ask(rationaleBeforeAsk = false, rationaleAfterAnswer = false, granted = false, answerAfterMs = 20L)
 
         assertTrue(perm in asker.denied)
+    }
+
+    @Test
+    fun `a dialog closed with Back after an earlier ask is not blocked`() {
+        W3cPrefs.get(app).markPermissionsAsked(listOf(perm))
+        val asker = asker()
+        // The dialog was on screen for a while and closed without a choice: the button must stay Allow.
+        asker.ask(rationaleBeforeAsk = false, rationaleAfterAnswer = false, granted = false, answerAfterMs = PERSON_MS)
+
+        assertFalse(perm in asker.denied)
     }
 
     @Test
@@ -86,10 +105,18 @@ class PermissionAskerTest {
 
     @Test
     fun `the policy in one table`() {
-        assertFalse(isPermanentlyDenied(true, rationaleBefore = true, rationaleAfter = false, askedBefore = true))
-        assertFalse(isPermanentlyDenied(false, rationaleBefore = false, rationaleAfter = true, askedBefore = true))
-        assertFalse(isPermanentlyDenied(false, rationaleBefore = false, rationaleAfter = false, askedBefore = false))
-        assertTrue(isPermanentlyDenied(false, rationaleBefore = true, rationaleAfter = false, askedBefore = false))
-        assertTrue(isPermanentlyDenied(false, rationaleBefore = false, rationaleAfter = false, askedBefore = true))
+        assertFalse(denied(granted = true, before = true, after = false, asked = true, atOnce = true))
+        assertFalse(denied(granted = false, before = false, after = true, asked = true, atOnce = true))
+        assertFalse(denied(granted = false, before = false, after = false, asked = false, atOnce = true))
+        assertFalse(denied(granted = false, before = false, after = false, asked = true, atOnce = false))
+        assertTrue(denied(granted = false, before = true, after = false, asked = false, atOnce = false))
+        assertTrue(denied(granted = false, before = false, after = false, asked = true, atOnce = true))
+    }
+
+    private fun denied(granted: Boolean, before: Boolean, after: Boolean, asked: Boolean, atOnce: Boolean) =
+        isPermanentlyDenied(granted, before, after, asked, atOnce)
+
+    private companion object {
+        const val PERSON_MS = 3000L
     }
 }

@@ -16,12 +16,12 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -134,7 +134,7 @@ private fun SetupBody(rows: List<SetupRowUi>, batteryOpen: Boolean, refresh: Int
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        val headline = setupHeadline(rows.map { SetupRowState(it.mark, required = !it.optional) }, batteryOpen)
+        val headline = setupHeadline(rows.map { it.headlineState() }, batteryOpen)
         Text(
             stringResource(
                 when (headline) {
@@ -145,7 +145,7 @@ private fun SetupBody(rows: List<SetupRowUi>, batteryOpen: Boolean, refresh: Int
             ),
             style = MaterialTheme.typography.titleMedium,
             color = if (headline == SetupHeadline.SOME_OPEN) {
-                MaterialTheme.colorScheme.onSurface
+                MaterialTheme.colorScheme.primary
             } else {
                 MaterialTheme.colorScheme.success
             },
@@ -225,7 +225,7 @@ private fun SetupRowCard(row: SetupRowUi) {
                 Text(it, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.error)
             }
             if (!done) {
-                TextButton(onClick = row.onAction, modifier = Modifier.heightIn(min = 48.dp)) {
+                Button(onClick = row.onAction, modifier = Modifier.heightIn(min = 48.dp)) {
                     Text(stringResource(row.actionRes))
                 }
             }

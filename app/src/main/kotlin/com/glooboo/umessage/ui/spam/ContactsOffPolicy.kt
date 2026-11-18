@@ -42,6 +42,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.UnknownSenderMode
+import com.glooboo.umessage.spam.engine.effectiveUnknownSenderMode
 import com.glooboo.umessage.ui.icons.Symbols
 import org.fossify.commons.extensions.baseConfig
 
@@ -54,9 +55,9 @@ object ContactsOffPolicy {
     fun needed(contactsGranted: Boolean, mode: UnknownSenderMode?): Boolean =
         !contactsGranted && mode != null && mode != UnknownSenderMode.OFF
 
-    /** The mode the filter really runs in: the old "block unknown numbers" switch turns an Off filter into Strict. */
+    /** The mode the filter really runs in: the filter's own rule, shared so the two cannot drift. */
     fun effectiveMode(mode: UnknownSenderMode, legacyBlockUnknown: Boolean): UnknownSenderMode =
-        if (mode == UnknownSenderMode.OFF && legacyBlockUnknown) UnknownSenderMode.STRICT else mode
+        effectiveUnknownSenderMode(mode, legacyBlockUnknown)
 
     /**
      * The mode for the "how it sorts" card, or null when the card would be false: without Contacts the filter lets
@@ -112,6 +113,7 @@ fun ContactsOffBanner(mode: UnknownSenderMode?, modifier: Modifier = Modifier) {
     // After one refusal Android may not show its dialog again; the next tap then opens the app's settings.
     var refused by rememberSaveable { mutableStateOf(false) }
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
+        com.glooboo.umessage.helpers.W3cPrefs.get(context).markContactsAsked()
         granted = result || context.contactsGranted()
         if (!granted) refused = true
     }

@@ -111,6 +111,7 @@ fun ConversationsRoute(
     footer: (@Composable () -> Unit)? = null,
 ) {
     val fullState by viewModel.state.collectAsStateWithLifecycle()
+    val markProgress by viewModel.markReadProgress.collectAsStateWithLifecycle()
     val state = remember(fullState, filter, filterThreads) {
         if (filter == InboxFilter.All) {
             fullState
@@ -144,6 +145,7 @@ fun ConversationsRoute(
         filter = filter,
         header = header,
         footer = footer,
+        markProgress = markProgress,
     )
 }
 
@@ -234,6 +236,8 @@ fun ConversationsScreen(
     /** Shown above the rows and scrolled with them; above the empty or loading state when there are no rows. */
     header: (@Composable () -> Unit)? = null,
     footer: (@Composable () -> Unit)? = null,
+    /** "Mark all read" is running: a bar with the counts shows above the list. */
+    markProgress: MarkReadProgress? = null,
 ) {
     val listState = rememberLazyListState()
     val reduceMotion = rememberReduceMotion()
@@ -255,6 +259,7 @@ fun ConversationsScreen(
     ) { padding ->
         val showList = !(state.loading || state.importing) && state.rows.isNotEmpty()
         Column(Modifier.fillMaxSize().padding(padding)) {
+            markProgress?.let { MarkReadProgressBar(it) }
             if (!showList) header?.invoke()
             // With no rows to scroll, the line sits under the header, so hidden chats stay reachable.
             if (!showList) footer?.invoke()

@@ -63,4 +63,20 @@ class FirstDayChecklistLogicTest {
         assertFalse(ChecklistStep.Battery in notNeeded.steps)
         assertTrue(ChecklistStep.Battery in notNeeded.done)
     }
+
+    @Test
+    fun `an open card with a step done reads as a count`() {
+        assertEquals(ChecklistTitle.Steps, checklistHeaderTitle(ChecklistTitle.Steps, shownDone = 0))
+        assertEquals(ChecklistTitle.Count, checklistHeaderTitle(ChecklistTitle.Steps, shownDone = 3))
+        assertEquals(ChecklistTitle.AllDone, checklistHeaderTitle(ChecklistTitle.AllDone, shownDone = 5))
+    }
+
+    @Test
+    fun `a first-shown time in the future is reset to now instead of hiding the close button`() {
+        val prefs = W3cPrefs.get(app)
+        prefs.checklistFirstShown = 10_000L
+        assertEquals(0L, shownForMillis(prefs, now = 4_000L))
+        assertEquals(4_000L, prefs.checklistFirstShown)
+        assertEquals(1_000L, shownForMillis(prefs, now = 5_000L))
+    }
 }

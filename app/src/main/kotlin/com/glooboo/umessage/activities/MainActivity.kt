@@ -168,6 +168,7 @@ class MainActivity : ComposeSimpleActivity() {
                 if (!sendSms) return@handlePermission permissionFlow.onSmsPermissionDenied()
                 permissionFlow.onSmsPermissionsGranted()
                 handlePermission(PERMISSION_READ_CONTACTS) { contacts ->
+                    com.glooboo.umessage.helpers.W3cPrefs.get(this).markContactsAsked()
                     if (contacts) (application as? com.glooboo.umessage.App)?.registerContactsObserver()
                     handleNotificationPermission(permissionFlow::onNotificationPermission)
                     // MC-02: once per view model, which then also listens for refresh events. A rotated screen keeps

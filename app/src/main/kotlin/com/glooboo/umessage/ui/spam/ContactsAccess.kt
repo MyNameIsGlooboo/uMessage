@@ -35,6 +35,7 @@ fun rememberContactsAccess(): ContactsAccess {
     var refused by rememberSaveable { mutableStateOf(false) }
     val pending = remember { arrayOfNulls<() -> Unit>(1) }
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
+        com.glooboo.umessage.helpers.W3cPrefs.get(context).markContactsAsked()
         val action = pending[0]
         pending[0] = null
         if (result || context.contactsAllowed()) {

@@ -1,8 +1,10 @@
 package com.glooboo.umessage.ui.onboarding
 
 import android.content.Context
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -10,24 +12,28 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertCountEquals
-import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.StateRestorationTester
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.theme.UMessageTheme
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -74,11 +80,10 @@ class WelcomeAnimationTest {
     }
 
     @Test
-    fun `with reduced motion the card shows at once and cannot be clicked`() {
+    fun `with reduced motion the card shows at once`() {
         compose.mainClock.autoAdvance = false
         setUp(reduceMotion = true)
         assertCardAndButtonShow()
-        compose.onNodeWithContentDescription(description, substring = true).assertHasNoClickAction()
     }
 
     @Test
@@ -112,13 +117,12 @@ class WelcomeAnimationTest {
     }
 
     @Test
-    fun `a tap on the card does nothing with reduced motion`() {
+    fun `a tap on the card with reduced motion leaves the card showing`() {
         compose.mainClock.autoAdvance = false
         setUp(reduceMotion = true)
         compose.onNodeWithContentDescription(description, substring = true).performScrollTo().performClick()
         compose.mainClock.advanceTimeBy(REPLAY_WAIT_MS)
-        compose.onNodeWithContentDescription(description, substring = true).assertIsDisplayed()
-            .assertHasNoClickAction()
+        assertCardAndButtonShow()
     }
 
     @Test
@@ -156,12 +160,28 @@ class WelcomeAnimationTest {
     }
 
     @Test
-    fun `without autoplay the card shows its final frame and nothing is animating`() {
-        compose.mainClock.autoAdvance = false
-        showCard(UnknownSenderMode.SMART, autoPlay = false, reduceMotion = false)
-        compose.onNodeWithContentDescription(description, substring = true).assertIsDisplayed()
-        compose.mainClock.advanceTimeByFrame()
-        compose.onNodeWithContentDescription(description, substring = true).assertIsDisplayed()
+    fun `the card plays only when motion is on and it has not played yet`() {
+        assertTrue(!WelcomeTimeline.startsFinished(reduceMotion = false, alreadyPlayed = false))
+        assertTrue(WelcomeTimeline.startsFinished(reduceMotion = true, alreadyPlayed = false))
+        assertTrue(WelcomeTimeline.startsFinished(reduceMotion = false, alreadyPlayed = true))
+    }
+
+    @Test
+    fun `a replay from its start point still runs past every row`() {
+        val left = WelcomeTimeline.TOTAL_MS - WelcomeTimeline.REPLAY_FROM_MS
+        assertTrue(left >= WelcomeTimeline.rows.size * WelcomeTimeline.ROW_MS)
+        assertEquals(0.3f, WelcomeTimeline.senderAlpha(0, WelcomeTimeline.REPLAY_FROM_MS.toFloat()), 0f)
+    }
+
+    @Test
+    fun `the final frame has every part lit at its normal size`() {
+        for (index in WelcomeTimeline.rows.indices) {
+            val end = WelcomeTimeline.TOTAL_MS.toFloat()
+            assertEquals(1f, WelcomeTimeline.senderAlpha(index, end), 0f)
+            assertEquals(1f, WelcomeTimeline.arrowAlpha(index, end), 0f)
+            assertEquals(1f, WelcomeTimeline.pillAlpha(index, end), 0f)
+            assertEquals(1f, WelcomeTimeline.pillScale(index, end), 0f)
+        }
     }
 
     @Test
@@ -183,13 +203,41 @@ class WelcomeAnimationTest {
     }
 
     @Test
-    fun `a tap on a card with reduced motion does nothing`() {
+    fun `a tap on a Strict card with reduced motion leaves the final frame`() {
         compose.mainClock.autoAdvance = false
-        showCard(UnknownSenderMode.SMART)
-        compose.onNodeWithContentDescription(description, substring = true).performClick()
+        showCard(UnknownSenderMode.STRICT)
+        compose.onAllNodesWithText("Spam").onFirst().performClick()
         compose.mainClock.advanceTimeBy(REPLAY_WAIT_MS)
-        compose.onNodeWithContentDescription(description, substring = true).assertIsDisplayed()
-        compose.onNodeWithContentDescription(description, substring = true).assertHasNoClickAction()
+        compose.onAllNodesWithText("Spam").assertCountEquals(2)
+    }
+
+    private fun tapCount(enabled: Boolean, ripple: Boolean): Int {
+        var taps = 0
+        compose.setContent {
+            Box(Modifier.size(40.dp).testTag("tap").replayable(enabled, ripple) { taps++ })
+        }
+        compose.onNodeWithTag("tap").performClick()
+        return taps
+    }
+
+    @Test
+    fun `replayable with enabled false ignores a click`() {
+        assertEquals(0, tapCount(enabled = false, ripple = true))
+    }
+
+    @Test
+    fun `replayable with enabled false ignores a plain gesture tap`() {
+        assertEquals(0, tapCount(enabled = false, ripple = false))
+    }
+
+    @Test
+    fun `replayable with enabled true replays on a click`() {
+        assertEquals(1, tapCount(enabled = true, ripple = true))
+    }
+
+    @Test
+    fun `replayable with enabled true replays on a plain gesture tap`() {
+        assertEquals(1, tapCount(enabled = true, ripple = false))
     }
 
     private companion object {

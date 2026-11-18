@@ -28,6 +28,24 @@ class BackupRuleCountsTest {
         assertThat(present).isEqualTo(0)
     }
 
+    @Test fun sameRuleForAnotherSimIsNew() {
+        val (fresh, present) = SettingsBackupFormat.newRules(
+            incoming = listOf(keyword("sale").copy(subscriptionId = 2), keyword("sale")),
+            existing = listOf(keyword("sale").copy(subscriptionId = 1)),
+        )
+        assertThat(fresh.map { it.subscriptionId }).containsExactly(2, null)
+        assertThat(present).isEqualTo(0)
+    }
+
+    @Test fun sameRuleForTheSameSimIsPresent() {
+        val (fresh, present) = SettingsBackupFormat.newRules(
+            incoming = listOf(keyword("sale").copy(subscriptionId = 1)),
+            existing = listOf(keyword("sale").copy(subscriptionId = 1)),
+        )
+        assertThat(fresh).isEmpty()
+        assertThat(present).isEqualTo(1)
+    }
+
     @Test fun rulesOverTheLimitAreCounted() {
         val many = List(SettingsBackupFormat.MAX_RULES + 3) { keyword("k$it") }
         val text = SettingsBackupFormat.encode(BackupContent(many, emptyList(), BackupSettings()), 1)

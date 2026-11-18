@@ -44,5 +44,9 @@ fun checklistTitle(done: Set<ChecklistStep>, impossible: Set<ChecklistStep> = em
     else -> ChecklistTitle.BasicsDone
 }
 
+/** Once a step is done, an open card reads as a count ("3 of 5 done"), not as the opening "Set up in 1 minute". */
+fun checklistHeaderTitle(title: ChecklistTitle, shownDone: Int): ChecklistTitle =
+    if (title == ChecklistTitle.Steps && shownDone > 0) ChecklistTitle.Count else title
+
 /** Done steps over all steps, for the "2 of 4" line and the progress bar. */
 fun checklistProgress(done: Set<ChecklistStep>): Pair<Int, Int> = done.size to ChecklistStep.values().size

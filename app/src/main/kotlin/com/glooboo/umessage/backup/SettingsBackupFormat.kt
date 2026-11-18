@@ -300,8 +300,8 @@ object SettingsBackupFormat {
 
     /**
      * Splits the [incoming] rules into the ones not on the phone yet and the count already present, with the same
-     * idea as the repository's duplicate check (kind, type, pattern; numbers by their last digits, sender names and
-     * prefixes without case). Also counts a rule repeated inside the file once.
+     * idea as the repository's duplicate check (kind, type, SIM, pattern; numbers by their last digits, sender
+     * names and prefixes without case). Also counts a rule repeated inside the file once.
      */
     fun newRules(incoming: List<SpamRule>, existing: List<SpamRule>): Pair<List<SpamRule>, Int> {
         val known = existing.map(::ruleKey).toMutableSet()
@@ -315,7 +315,7 @@ object SettingsBackupFormat {
             RuleType.SENDER_ID, RuleType.PREFIX -> rule.pattern.trim().lowercase()
             else -> rule.pattern.trim()
         }
-        return "${rule.kind.name}|${rule.type.name}|$pattern"
+        return "${rule.kind.name}|${rule.type.name}|${rule.subscriptionId}|$pattern"
     }
 
     /**

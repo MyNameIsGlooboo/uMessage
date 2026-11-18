@@ -36,4 +36,12 @@ class SetupHeadlineTest {
         assertEquals(SetupHeadline.SOME_OPEN, setupHeadline(open, optionalOpen = true))
         assertEquals(SetupHeadline.SOME_OPEN, setupHeadline(open, optionalOpen = false))
     }
+
+    @Test
+    fun `a default-app row that cannot be done does not keep the headline at some things open`() {
+        val unavailable = SetupRowUi("t", "r", SetupMark.NOT_DONE, false, 0, {}, unavailable = true).headlineState()
+        assertEquals(SetupHeadline.ALL_SET, setupHeadline(listOf(unavailable), optionalOpen = false))
+        val open = SetupRowUi("t", "r", SetupMark.NOT_DONE, false, 0, {}).headlineState()
+        assertEquals(SetupHeadline.SOME_OPEN, setupHeadline(listOf(open), optionalOpen = false))
+    }
 }

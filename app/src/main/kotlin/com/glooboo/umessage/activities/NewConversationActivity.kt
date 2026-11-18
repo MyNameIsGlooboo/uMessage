@@ -68,6 +68,7 @@ class NewConversationActivity : ComposeSimpleActivity() {
                 onBack = ::finish,
                 onRequestPermission = {
                     handlePermission(PERMISSION_READ_CONTACTS) {
+                        com.glooboo.umessage.helpers.W3cPrefs.get(this@NewConversationActivity).markContactsAsked()
                         hasContactsPermission = it
                         if (it) fetchContacts()
                     }
@@ -83,6 +84,7 @@ class NewConversationActivity : ComposeSimpleActivity() {
 
         // READ_CONTACTS permission is not mandatory, but without it we won't be able to show any suggestions during typing
         handlePermission(PERMISSION_READ_CONTACTS) {
+            com.glooboo.umessage.helpers.W3cPrefs.get(this).markContactsAsked()
             hasContactsPermission = it
             initContacts()
         }
