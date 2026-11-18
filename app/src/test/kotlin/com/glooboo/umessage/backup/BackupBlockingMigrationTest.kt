@@ -4,77 +4,29 @@ import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.UnknownSenderMode
-import com.glooboo.umessage.ui.spam.BlockingMigration
-import com.glooboo.umessage.ui.spam.BlockingMigrationStore
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 /** Restoring an older backup: the old blocked words and the unknown-senders mode end up as the migration does. */
 class BackupBlockingMigrationTest {
 
-    private fun keywordRule(word: String) = SpamRule(kind = ListKind.BLOCK, type = RuleType.KEYWORD, pattern = word)
-
-    private fun addIfNew(rules: MutableList<SpamRule>, rule: SpamRule) {
-        if (rules.none { it.type == rule.type && it.pattern == rule.pattern }) rules += rule
-    }
-
-    private class Words(var words: Set<String>) : BlockingMigrationStore {
-        override fun keywords() = words
-        override fun removeKeywords(words: Collection<String>) {
-            this.words = this.words - words.toSet()
-        }
-
-        override fun blockUnknownSwitch() = false
-        override fun clearBlockUnknownSwitch() = Unit
-    }
+    private fun keywordRule(word: String, sim: Int? = null) =
+        SpamRule(kind = ListKind.BLOCK, type = RuleType.KEYWORD, pattern = word, subscriptionId = sim)
 
     @Test
-    fun restoredWordsBecomeRulesWithoutDuplicatesAndTheCountsAreRight() = runBlocking {
-        // The file holds four words and a rule for one of them; the phone already has a rule for another.
-        val fileWords = listOf("prize", "win now", "free gift", "x")
-        val fileRules = listOf(keywordRule("prize"))
-        val phoneRules = mutableListOf(keywordRule("win now"))
-
-        // Preview: words that are rules (on the phone or in the file) are not new; "free gift" and "x" are.
-        val ruleWords = (phoneRules + fileRules).map { it.pattern }
-        val preview = SettingsBackupFormat.newKeywords(fileWords, emptySet<String>() + ruleWords)
-        assertThat(preview).containsExactly("free gift", "x")
-
-        // Apply: the file's rules are added (the one on the phone already is skipped), then the new words.
-        val (freshRules, present) = SettingsBackupFormat.newRules(fileRules, phoneRules)
-        phoneRules += freshRules
-        assertThat(freshRules).hasSize(1)
-        assertThat(present).isEqualTo(0)
-        val store = Words(preview.toSet())
-
-        // The migration turns what can be a rule into one; "x" (one letter) cannot and stays on the old list.
-        val result = BlockingMigration.run(
-            store = store,
-            existingRules = { phoneRules.toList() },
-            addRule = { rule -> addIfNew(phoneRules, rule) },
-            updateMode = { },
+    fun onlyBothSimKeywordRulesCountAsTheOldWordsAlreadyBeingRules() {
+        val rules = listOf(
+            keywordRule("prize"),
+            keywordRule("one sim", sim = 1),
+            SpamRule(kind = ListKind.ALLOW, type = RuleType.KEYWORD, pattern = "allowed"),
+            SpamRule(kind = ListKind.BLOCK, type = RuleType.PREFIX, pattern = "prefix"),
         )
-        assertThat(phoneRules.map { it.pattern }).containsExactly("win now", "prize", "free gift")
-        assertThat(store.words).containsExactly("x")
-        assertThat(result.wordsMoved).isEqualTo(1)
-        assertThat(result.wordsKept).isEqualTo(1)
-    }
-
-    @Test
-    fun aRestoredWordThatIsAlreadyARuleIsDroppedWithoutAddingASecondRule() = runBlocking {
-        val phoneRules = mutableListOf(keywordRule("prize"))
-        val store = Words(setOf("prize", "free gift"))
-        val result = BlockingMigration.run(
-            store = store,
-            existingRules = { phoneRules.toList() },
-            addRule = { rule -> addIfNew(phoneRules, rule) },
-            updateMode = { },
+        assertThat(SettingsBackup.blockKeywordRules(rules)).containsExactly("prize")
+        // The preview's count: a word with a rule for one SIM only is still new.
+        val fresh = SettingsBackupFormat.newKeywords(
+            listOf("prize", "one sim"), SettingsBackup.blockKeywordRules(rules).toSet(),
         )
-        assertThat(phoneRules.map { it.pattern }).containsExactly("prize", "free gift")
-        assertThat(store.words).isEmpty()
-        assertThat(result.wordsMoved).isEqualTo(2)
-        assertThat(result.wordsKept).isEqualTo(0)
+        assertThat(fresh).containsExactly("one sim")
     }
 
     @Test

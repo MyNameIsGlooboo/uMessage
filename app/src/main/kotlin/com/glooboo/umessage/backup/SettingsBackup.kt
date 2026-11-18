@@ -210,9 +210,14 @@ object SettingsBackup {
         }
     }
 
-    /** The words of the block keyword rules: the old blocked words become exactly these, so they are not new. */
-    private fun blockKeywordRules(rules: List<SpamRule>): List<String> =
-        rules.filter { it.kind == ListKind.BLOCK && it.type == RuleType.KEYWORD }.map { it.pattern }
+    /**
+     * The words of the block keyword rules for both SIMs: the old blocked words become exactly these, so they are not
+     * new. A rule for one SIM only does not count: the old word filtered on both SIMs, so it must stay (and the
+     * migration adds its both-SIM rule next to the single-SIM one).
+     */
+    internal fun blockKeywordRules(rules: List<SpamRule>): List<String> =
+        rules.filter { it.kind == ListKind.BLOCK && it.type == RuleType.KEYWORD && it.subscriptionId == null }
+            .map { it.pattern }
 
     /** Adds the words of the file to the phone's blocked words; never removes one. Returns how many were new. */
     private fun addKeywords(context: Context, incoming: List<String>): Int =

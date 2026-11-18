@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The "Block unknown numbers" switch is folded into the Unknown senders mode (Off with the switch on became Strict)
 - Old blocked words are moved into rules automatically
 - The old blocked words screen is only for viewing, deleting and exporting what is left
+- With Smart or Strict, the old "Block unknown numbers" switch is dropped, so choosing Off now really is Off
 
 ## [0.4.12] - 2026-11-17
 ### Fixed

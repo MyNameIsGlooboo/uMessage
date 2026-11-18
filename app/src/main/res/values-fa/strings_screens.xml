@@ -38,7 +38,7 @@
     <string name="screens_details_edit_name">ویرایش نام گفتگو</string>
     <string name="screens_keywords_menu_export">خروجی گرفتن</string>
     <string name="screens_keywords_empty_title">کلمهٔ کلیدی بلاک‌شده‌ای نیست</string>
-    <string name="screens_keywords_empty_body">کلمه‌های بلاک‌شده‌ات الان قانون شدن</string>
+    <string name="screens_keywords_empty_body">کلمه‌های بلاک‌شده الان قانون شده‌اند</string>
     <plurals name="screens_keywords_deleted" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d کلمهٔ کلیدی حذف شد</item>
         <item quantity="other">%d کلمهٔ کلیدی حذف شد</item>
