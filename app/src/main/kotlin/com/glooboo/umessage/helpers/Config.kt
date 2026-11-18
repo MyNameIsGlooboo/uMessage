@@ -250,6 +250,12 @@ class Config(context: Context) : BaseConfig(context) {
         set(isArchiveAvailable) = prefs.edit().putBoolean(IS_ARCHIVE_AVAILABLE, isArchiveAvailable)
             .apply()
 
+    /** True once the phone's store was seen not to keep an archive write: the app's own archived flag rules then. */
+    var isArchiveStoreUnreliable: Boolean
+        get() = prefs.getBoolean(IS_ARCHIVE_STORE_UNRELIABLE, false)
+        set(isArchiveStoreUnreliable) = prefs.edit()
+            .putBoolean(IS_ARCHIVE_STORE_UNRELIABLE, isArchiveStoreUnreliable).apply()
+
     /** When the Blocked tab was last shown (epoch millis); messages blocked after it count towards the tab badge. */
     var blockedSeenAt: Long
         get() = prefs.getLong(BLOCKED_SEEN_AT, 0L)

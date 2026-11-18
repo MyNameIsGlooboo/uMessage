@@ -51,6 +51,7 @@ import org.fossify.commons.models.PhoneNumber
 import org.fossify.commons.models.SimpleContact
 import com.glooboo.umessage.R
 import com.glooboo.umessage.databases.MessagesDatabase
+import com.glooboo.umessage.helpers.ArchiveStore
 import com.glooboo.umessage.helpers.AttachmentUtils.parseAttachmentNames
 import com.glooboo.umessage.helpers.Config
 import com.glooboo.umessage.helpers.NotifyContext
@@ -436,6 +437,7 @@ private fun Context.readConversations(
     lookups: ConversationLookups,
 ): Pair<ArrayList<Conversation>, Boolean> {
     val archiveAvailable = config.isArchiveAvailable
+    val archiveTrusted = ArchiveStore.isTrusted(this)
 
     val uri = "${Threads.CONTENT_URI}?simple=true".toUri()
     val projection = mutableListOf(
@@ -508,8 +510,7 @@ private fun Context.readConversations(
             // stays unread even with no unread incoming message (e.g. only sent messages).
             val unreadCount = unreadMap[id] ?: 0
             val read = unreadCount == 0 && id.toString() !in markedUnread
-            val archived =
-                if (archiveAvailable) cursor.getIntValue(Threads.ARCHIVED) == 1 else false
+            val archived = archiveTrusted && cursor.getIntValue(Threads.ARCHIVED) == 1
             val conversation = Conversation(
                 threadId = id,
                 snippet = snippet,
@@ -1161,7 +1162,9 @@ fun Context.updateConversationArchivedStatus(threadId: Long, archived: Boolean) 
     val selection = "${Threads._ID} = ?"
     val selectionArgs = arrayOf(threadId.toString())
     try {
-        contentResolver.update(uri, values, selection, selectionArgs)
+        val rows = contentResolver.update(uri, values, selection, selectionArgs)
+        // The store may take the write and not keep it: then the app's own list below is the one to trust.
+        ArchiveStore.verifyWrite(this, threadId, archived, rows)
     } catch (sqliteException: SQLiteException) {
         if (
             sqliteException.message?.contains("no such column: archived") == true
@@ -1540,6 +1543,10 @@ fun Context.insertOrUpdateConversation(
             title = cachedConv.title,
             usesCustomTitle = true
         )
+    }
+    if (cachedConv != null && !ArchiveStore.isTrusted(this)) {
+        // The store does not keep the archived flag: it reads "not archived" and must not undo the app's own.
+        updatedConv = updatedConv.copy(isArchived = cachedConv.isArchived)
     }
     conversationsDB.insertOrUpdate(updatedConv)
 }

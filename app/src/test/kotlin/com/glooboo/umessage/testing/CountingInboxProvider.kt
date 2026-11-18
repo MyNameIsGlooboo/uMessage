@@ -148,7 +148,38 @@ class CountingInboxProvider : ContentProvider() {
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? = null
 
-    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int = 0
+    /** What the threads table does with a write of the archived flag. */
+    enum class ArchiveWrites {
+        /** Keeps it, as a phone store that works does. */
+        STORE,
+
+        /** Takes the call, reports one row, keeps nothing (the phone this was seen on). */
+        IGNORE,
+
+        /** Updates nothing and reports no row (a store that is not the app's to write). */
+        NO_ROWS,
+    }
+
+    @Volatile var archiveWrites = ArchiveWrites.STORE
+
+    /** Sets the archived flag the way another app would, whatever [archiveWrites] says. */
+    fun setArchived(thread: Long, archived: Boolean) {
+        db.execSQL("UPDATE threads SET archived = ? WHERE _id = ?", arrayOf<Any>(if (archived) 1 else 0, thread))
+    }
+
+    fun isArchived(thread: Long): Boolean =
+        db.rawQuery("SELECT archived FROM threads WHERE _id = ?", arrayOf(thread.toString())).use {
+            it.moveToFirst() && it.getInt(0) == 1
+        }
+
+    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int {
+        if (uri.authority != "mms-sms" || values == null || !values.containsKey("archived")) return 0
+        return when (archiveWrites) {
+            ArchiveWrites.STORE -> db.update("threads", values, selection, selectionArgs)
+            ArchiveWrites.IGNORE -> 1
+            ArchiveWrites.NO_ROWS -> 0
+        }
+    }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int = 0
 
