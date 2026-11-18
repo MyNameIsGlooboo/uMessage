@@ -163,7 +163,7 @@ fun BlockedThreadRoute(
     val movingGroup = state.movingGroups.firstOrNull { it.hasAddress(address) }
     val movingHere = movingGroup != null
     // The chat of a finished "Not spam" is still to open (its thread id may be slow to come): the page stays.
-    val chatPending by viewModel.notSpamDone.collectAsStateWithLifecycle<NotSpamDone?>(initialValue = null)
+    val chatPending by viewModel.notSpamPending.collectAsStateWithLifecycle()
     val busy = moving || movingHere || chatPending != null
     // The "Always allow" snackbar of this page's own "Not spam" ends before its chat opens: it must not close the page.
     BlockedEvents(viewModel, snackbar, onSettle = { committed -> if (!busy) closeWhenEmpty = committed })
