@@ -26,10 +26,13 @@ object ArchiveStore {
      * in the store (its thread id is made up by the app), so it is not checked.
      */
     fun verifyWrite(context: Context, threadId: Long, archived: Boolean) {
-        if (!isTrusted(context)) return
-        if (context.conversationsDB.getConversationWithThreadId(threadId)?.isScheduled == true) return
-        val stored = readFlag(context, threadId) ?: return
-        if (stored != archived) context.config.isArchiveStoreUnreliable = true
+        // Never throws: a check that cannot be made says nothing, and the caller still has its own list to update.
+        runCatching {
+            if (!isTrusted(context)) return
+            if (context.conversationsDB.getConversationWithThreadId(threadId)?.isScheduled == true) return
+            val stored = readFlag(context, threadId) ?: return
+            if (stored != archived) context.config.isArchiveStoreUnreliable = true
+        }
     }
 
     /**

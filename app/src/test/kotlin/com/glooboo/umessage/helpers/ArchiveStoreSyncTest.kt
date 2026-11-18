@@ -8,6 +8,8 @@ import com.glooboo.umessage.backup.PendingArchive
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.getMessagesDB
+import com.glooboo.umessage.extensions.insertOrUpdateConversation
+import com.glooboo.umessage.extensions.renameConversation
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.models.AppDataBackup
 import com.glooboo.umessage.models.ChatRefBackup
@@ -92,6 +94,15 @@ class ArchiveStoreSyncTest {
         val chat = ChatRefBackup(listOf(CountingInboxProvider.address(threadId)))
         runBlocking { support.restore(AppDataBackup(archived = listOf(chat))) }
     }
+
+    /** The restore the way the app builds it: the thread of the number comes from the phone's store (the double). */
+    private fun restoreArchiveThroughApp(threadId: Long) = offMainThread {
+        val chat = ChatRefBackup(listOf(CountingInboxProvider.address(threadId)))
+        runBlocking { AppDataBackupSupport.of(context).restore(AppDataBackup(archived = listOf(chat))) }
+    }
+
+    private fun savedRow(threadId: Long) =
+        offMainThread { context.conversationsDB.getConversationWithThreadId(threadId)!! }
 
     private fun fullRefresh() {
         sync.requestFull()
@@ -192,7 +203,7 @@ class ArchiveStoreSyncTest {
 
     @Test
     fun aReadBackOfAnotherThreadSaysNothingAboutTheWrite() {
-        provider.setArchived(OTHER_THREAD, true)
+        // The other thread reads "not archived", the same as the dropped write: only the row's id says it is not ours.
         provider.archiveWrites = ArchiveWrites.IGNORE
         provider.readsOtherThread = true
 
@@ -256,6 +267,41 @@ class ArchiveStoreSyncTest {
     }
 
     @Test
+    fun aRestoredArchiveThroughTheAppsOwnWiringReachesTheStoreAndTheList() {
+        restoreArchiveThroughApp(THREAD)
+        fullRefresh()
+
+        assertThat(provider.isArchived(THREAD)).isTrue()
+        assertThat(archivedIds()).containsExactly(THREAD)
+        assertThat(context.config.isArchiveStoreUnreliable).isFalse()
+    }
+
+    @Test
+    fun anArchiveMadeWhileARefreshHeldAnOlderRowStaysArchivedWhenTheStoreDropsWrites() {
+        provider.archiveWrites = ArchiveWrites.IGNORE
+        val snapshot = savedRow(THREAD)
+        setArchived(THREAD, true)
+        assertThat(context.config.isArchiveStoreUnreliable).isTrue()
+
+        offMainThread { context.insertOrUpdateConversation(snapshot.copy(snippet = "Newer"), snapshot) }
+
+        assertThat(archivedIds()).containsExactly(THREAD)
+        assertThat(savedRow(THREAD).snippet).isEqualTo("Newer")
+    }
+
+    @Test
+    fun aRenameKeepsTheChatArchived() {
+        val opened = savedRow(THREAD)
+        setArchived(THREAD, true)
+
+        offMainThread { context.renameConversation(opened, "New name") }
+
+        assertThat(archivedIds()).containsExactly(THREAD)
+        assertThat(savedRow(THREAD).title).isEqualTo("New name")
+        assertThat(savedRow(THREAD).usesCustomTitle).isTrue()
+    }
+
+    @Test
     fun aRestoredArchiveStaysWhenTheStoreDropsWrites() {
         provider.archiveWrites = ArchiveWrites.IGNORE
 
@@ -314,6 +360,7 @@ class ArchiveStoreSyncTest {
         const val THREADS = 20
         const val THREAD = 5L
         const val OTHER_THREAD = 6L
-        const val SCHEDULED_THREAD = 999_999L
+        // A thread the store has too: only the isScheduled guards keep such a chat from marking the store.
+        const val SCHEDULED_THREAD = 7L
     }
 }

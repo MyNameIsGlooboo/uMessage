@@ -1544,9 +1544,11 @@ fun Context.insertOrUpdateConversation(
             usesCustomTitle = true
         )
     }
-    if (cachedConv != null && !ArchiveStore.isTrusted(this)) {
-        // The store does not keep the archived flag: it reads "not archived" and must not undo the app's own.
-        updatedConv = updatedConv.copy(isArchived = cachedConv.isArchived)
+    if (!ArchiveStore.isTrusted(this)) {
+        // The store does not keep the archived flag: it reads "not archived" and must not undo the app's own. The
+        // snapshot may be older than an archive the user just made, so the flag is read again right before the write.
+        val current = conversationsDB.getConversationWithThreadId(conversation.threadId) ?: cachedConv
+        if (current != null) updatedConv = updatedConv.copy(isArchived = current.isArchived)
     }
     conversationsDB.insertOrUpdate(updatedConv)
 }
@@ -1554,7 +1556,7 @@ fun Context.insertOrUpdateConversation(
 fun Context.renameConversation(conversation: Conversation, newTitle: String): Conversation {
     val updatedConv = conversation.copy(title = newTitle, usesCustomTitle = true)
     try {
-        conversationsDB.insertOrUpdate(updatedConv)
+        conversationsDB.updateTitle(conversation.threadId, newTitle, usesCustomTitle = true)
         ensureBackgroundThread {
             shortcutHelper.createOrUpdateShortcut(updatedConv)
         }

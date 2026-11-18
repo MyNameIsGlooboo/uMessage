@@ -116,6 +116,7 @@ class CountingInboxProvider : ContentProvider() {
         sortOrder: String?,
     ): Cursor? {
         val segments = uri.pathSegments
+        if (uri.authority == "mms-sms" && segments.firstOrNull() == "threadID") return threadIdOf(uri)
         var where = selection?.takeIf { it.isNotBlank() }
         var args = selectionArgs?.toList() ?: emptyList()
         val table = when (uri.authority) {
@@ -147,6 +148,16 @@ class CountingInboxProvider : ContentProvider() {
         val cursor = db.query(table, projection, where, args.toTypedArray(), null, null, order, limit)
         rows.addAndGet(cursor.count)
         return cursor
+    }
+
+    /** The thread of the one number asked for (what Telephony.Threads.getOrCreateThreadId reads); null if unknown. */
+    private fun threadIdOf(uri: Uri): Cursor? {
+        val recipient = uri.getQueryParameters("recipient").singleOrNull() ?: return null
+        return db.rawQuery(
+            "SELECT t._id FROM threads t JOIN canonical_addresses c ON t.recipient_ids = CAST(c._id AS TEXT) " +
+                "WHERE c.address = ?",
+            arrayOf(recipient)
+        )
     }
 
     /** A store that ignores the selection and answers for another thread (a Samsung-like quirk the tests need). */

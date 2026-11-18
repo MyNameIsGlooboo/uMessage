@@ -112,9 +112,9 @@ class ThreadScheduleController(private val context: Context) {
         if (startsTemporaryThread) {
             context.createTemporaryThread(message, message.threadId, cachedConversation)
         }
-        context.conversationsDB.getConversationWithThreadId(message.threadId)?.let { conversation ->
+        if (context.conversationsDB.getConversationWithThreadId(message.threadId) != null) {
             val nowSeconds = (System.currentTimeMillis() / 1000).toInt()
-            context.conversationsDB.insertOrUpdate(conversation.copy(date = nowSeconds, snippet = message.body))
+            context.conversationsDB.updateDateAndSnippet(message.threadId, nowSeconds, message.body)
         }
         context.saveScheduledRepeat(message, repeat)
         context.scheduleMessage(message)
