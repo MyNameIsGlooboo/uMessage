@@ -259,6 +259,9 @@ class BlockedViewModel(
      */
     val notSpamDone: Flow<NotSpamDone> = doneState.filterNotNull()
 
+    /** The same as [notSpamDone] but as state: null again once [notSpamHandled] ran, so a page can stop waiting. */
+    val notSpamPending: StateFlow<NotSpamDone?> = doneState
+
     /** The chat for [done] is opening (or was given up on): forget it, so no screen opens it twice. */
     fun notSpamHandled(done: NotSpamDone) {
         doneState.compareAndSet(done, null)
@@ -533,11 +536,21 @@ class BlockedViewModel(
         val waiting = waitingForAnswer.toList()
         waitingForAnswer.clear()
         val (silent, loud) = waiting.partition { pendingRestores.value[it]?.silent == true }
-        val carrier = loud.minOrNull()
+        val firstLoud = loud.minOrNull()
         when {
             !allow -> (loud + silent).forEach(::announceIfReady)
-            carrier != null -> viewModelScope.launch {
-                withContext(NonCancellable) { restoreWork.withLock { addAllowTo(carrier, prompt.names) } }
+            firstLoud != null -> viewModelScope.launch {
+                withContext(NonCancellable) {
+                    restoreWork.withLock {
+                        // Each restore takes its own names, so its Undo removes only those rules. The names of a
+                        // restore without a snackbar go to the first one that has it.
+                        val quiet = silent.flatMap { prompt.byToken[it].orEmpty() }
+                        loud.sorted().forEach { token ->
+                            val own = prompt.byToken[token].orEmpty()
+                            addAllowTo(token, if (token == firstLoud) own + quiet else own)
+                        }
+                    }
+                }
                 (loud + silent).forEach(::announceIfReady)
             }
             else -> allowOnly(prompt.names) { silent.forEach(::announceIfReady) }

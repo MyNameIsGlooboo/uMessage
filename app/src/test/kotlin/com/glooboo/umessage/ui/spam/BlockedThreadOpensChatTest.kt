@@ -22,7 +22,10 @@ import com.glooboo.umessage.helpers.THREAD_NUMBER
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ListKind
+import com.glooboo.umessage.spam.RestoreOutcome
+import com.glooboo.umessage.spam.RestoreReceipt
 import com.glooboo.umessage.spam.RuleType
+import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CompletableDeferred
@@ -49,7 +52,7 @@ class BlockedThreadOpensChatTest {
         BlockedMessage(id, address, "text $id", 1, false, now - id * 1000, DecisionReason.UNKNOWN_SENDER)
 
     private fun route(
-        repo: FakeSpamRepository,
+        repo: SpamRepository,
         address: String,
         threadId: Long,
         threadIdOf: suspend (Context, String) -> Long = { _, _ -> threadId },
@@ -259,6 +262,40 @@ class BlockedThreadOpensChatTest {
         assertThat(started().count { it.component?.className == ThreadActivity::class.java.name }).isEqualTo(1)
         assertThat(closed).isEqualTo(1)
     }
+
+    /** A repository whose restore moves nothing, as when the inbox cannot be written. */
+    private class FailingRestore(private val base: FakeSpamRepository) : SpamRepository by base {
+        val calls = java.util.concurrent.atomic.AtomicInteger()
+
+        override suspend fun restore(blockedId: Long): RestoreReceipt {
+            calls.incrementAndGet()
+            return RestoreReceipt(null, RestoreOutcome.FAILED)
+        }
+    }
+
+    @Test
+    fun whenNothingReachesTheInboxTheButtonsWorkAgain() {
+        val fake = FakeSpamRepository(initialBlocked = listOf(message(1, SENDER)), initialRules = emptyList())
+        val repo = FailingRestore(fake)
+        var closed = 0
+        route(repo, SENDER, threadId = 5L) { closed++ }
+        val notSpam = compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true)
+        val delete = compose.onNodeWithText(app.getString(R.string.ux8c_delete), useUnmergedTree = true)
+        notSpam.performClick()
+        // The restore was tried and failed (a text message: no picture-message notice).
+        awaitClosed { repo.calls.get() > 0 }
+        // The failed move left the buttons waiting once; now they must be enabled and the page still open.
+        awaitClosed { notSpamEnabled() }
+        notSpam.assertIsEnabled()
+        delete.assertIsEnabled()
+        assertThat(closed).isEqualTo(0)
+        // No chat was opened for a move that moved nothing.
+        assertThat(started().count { it.component?.className == ThreadActivity::class.java.name }).isEqualTo(0)
+    }
+
+    private fun notSpamEnabled() = runCatching {
+        compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true).assertIsEnabled()
+    }.isSuccess
 
     private companion object {
         const val SENDER = "+447121234567"

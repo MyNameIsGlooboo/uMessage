@@ -188,12 +188,39 @@ class NameAllowViewModelTest {
         awaitUntil { events.isNotEmpty() }
         // Still inside the one undo window: nothing is final yet, and the window is the move's.
         awaitUntil { vm.state.value.hasPendingUndo }
+        assertThat(allowRules(repo)).hasSize(1)
+        val token = (events.single() as BlockedEvent.Restored).token
 
-        vm.commitRestore((events.single() as BlockedEvent.Restored).token)
+        vm.commitRestore(token)
         awaitUntil { !vm.state.value.hasPendingUndo }
         assertThat(allowRules(repo)).hasSize(1)
         assertThat(blockRules(repo)).isEmpty()
         assertThat(events).hasSize(1)
+
+        // An Undo that arrives after the commit finds nothing to take back.
+        vm.undoRestore(token)
+        idleMain()
+        assertThat(allowRules(repo)).hasSize(1)
+        assertThat(blockRules(repo)).isEmpty()
+        assertThat(vm.state.value.groups.firstOrNull { it.address == NAME }).isNull()
+    }
+
+    @Test
+    fun twoRestoresOnOneQuestionKeepEachOwnNameForItsOwnUndo() {
+        val (vm, repo) = start()
+        vm.notSpam(setOf(NAME))
+        awaitUntil { vm.namePrompt.value != null }
+        vm.notSpam(setOf(OTHER_NAME))
+        awaitUntil { vm.namePrompt.value?.tokens?.size == 2 }
+
+        vm.allowPromptedNames()
+        awaitUntil { events.size == 2 }
+        assertThat(allowRules(repo)).hasSize(2)
+        val first = events.filterIsInstance<BlockedEvent.Restored>().first { it.senders == listOf(NAME) }
+
+        vm.undoRestore(first.token)
+        awaitUntil { allowRules(repo).size == 1 }
+        assertThat(allowRules(repo).single().pattern).isEqualTo(OTHER_NAME)
     }
 
     @Test
