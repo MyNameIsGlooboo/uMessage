@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">इस नाम को हमेशा अनुमति दें?</string>
+    <string name="nameallow_body">%1$s से आने वाले नए मैसेज आपके इनबॉक्स में आएंगे. कोई भी किसी भी नाम से मैसेज भेज सकता है, इसलिए इस नाम से आने वाले फ़र्ज़ी मैसेज भी इनबॉक्स में आ जाएंगे. इस नाम को ब्लॉक करने के आपके बनाए नियम हट जाएंगे.</string>
+    <string name="nameallow_body_many">%1$s से आने वाले नए मैसेज आपके इनबॉक्स में आएंगे. कोई भी किसी भी नाम से मैसेज भेज सकता है, इसलिए इन नामों से आने वाले फ़र्ज़ी मैसेज भी इनबॉक्स में आ जाएंगे. इन नामों को ब्लॉक करने के आपके बनाए नियम हट जाएंगे.</string>
+    <string name="nameallow_more">%1$s और %2$d अन्य</string>
+    <string name="nameallow_allow">हमेशा अनुमति दें</string>
+    <string name="nameallow_not_now">अभी नहीं</string>
+</resources>

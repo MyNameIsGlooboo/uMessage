@@ -7,4 +7,5 @@
         <item quantity="other">ان باکس میں منتقل کر دیا گیا۔ %d بھیجنے والوں کے آئندہ پیغامات بھی آئیں گے۔</item>
     </plurals>
     <string name="nsf_moving">ان باکس میں منتقل ہو رہا ہے</string>
+    <string name="move_progress">پیغامات منتقل ہو رہے ہیں: %2$s میں سے %1$s</string>
 </resources>

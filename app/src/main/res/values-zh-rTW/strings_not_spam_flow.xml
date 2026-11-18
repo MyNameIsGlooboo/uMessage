@@ -6,4 +6,5 @@
         <item quantity="other">已移至收件匣。這 %d 位寄件者之後的訊息也會送達。</item>
     </plurals>
     <string name="nsf_moving">正在移至收件匣</string>
+    <string name="move_progress">正在移動訊息：%1$s／%2$s</string>
 </resources>

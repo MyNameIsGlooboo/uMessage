@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">Luôn cho phép tên này?</string>
+    <string name="nameallow_body">Tin nhắn mới từ %1$s sẽ vào hộp thư đến của bạn. Ai cũng có thể gửi tin nhắn dưới bất kỳ tên nào, nên tin nhắn giả mạo dùng tên này cũng sẽ lọt qua. Các quy tắc chặn bạn đặt cho tên này sẽ bị xóa.</string>
+    <string name="nameallow_body_many">Tin nhắn mới từ %1$s sẽ vào hộp thư đến của bạn. Ai cũng có thể gửi tin nhắn dưới bất kỳ tên nào, nên tin nhắn giả mạo dùng những tên này cũng sẽ lọt qua. Các quy tắc chặn bạn đặt cho những tên này sẽ bị xóa.</string>
+    <string name="nameallow_more">%1$s và %2$d tên khác</string>
+    <string name="nameallow_allow">Luôn cho phép</string>
+    <string name="nameallow_not_now">Để sau</string>
+</resources>

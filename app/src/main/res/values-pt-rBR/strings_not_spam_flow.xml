@@ -7,4 +7,5 @@
         <item quantity="other">Movido para a caixa de entrada. As próximas mensagens de %d remetentes também chegarão.</item>
     </plurals>
     <string name="nsf_moving">Movendo para a caixa de entrada</string>
+    <string name="move_progress">Movendo mensagens: %1$s de %2$s</string>
 </resources>

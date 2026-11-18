@@ -10,4 +10,6 @@
     </plurals>
     <!-- Shown while Not spam is working. -->
     <string name="nsf_moving">Moving to inbox</string>
+    <!-- Progress strip while "Not spam" moves many messages: first number done, second total. -->
+    <string name="move_progress">Moving messages: %1$s of %2$s</string>
 </resources>

@@ -6,4 +6,5 @@
         <item quantity="other">受信トレイに移動しました。今後、この%d人の送信者からのメッセージも届きます。</item>
     </plurals>
     <string name="nsf_moving">受信トレイに移動中</string>
+    <string name="move_progress">メッセージを移動中：%2$s件中%1$s件</string>
 </resources>
