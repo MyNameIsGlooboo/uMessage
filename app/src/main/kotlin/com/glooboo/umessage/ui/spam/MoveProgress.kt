@@ -65,11 +65,19 @@ internal class MoveProgressReporter(
 
 /** The sender thread when there is nothing to list: loading, "Not spam" working, or the sender is gone. */
 @Composable
-internal fun ThreadPlaceholder(loading: Boolean, moving: Boolean, modifier: Modifier = Modifier) {
+internal fun ThreadPlaceholder(
+    loading: Boolean,
+    moving: Boolean,
+    barShown: Boolean,
+    modifier: Modifier = Modifier,
+) {
     Box(modifier, contentAlignment = Alignment.Center) {
         if (loading || moving) {
-            val label = stringResource(if (loading) R.string.spam_loading else R.string.nsf_moving)
-            CircularProgressIndicator(Modifier.semantics { contentDescription = label })
+            // The progress bar says it already; a second indicator would be read twice.
+            if (!barShown) {
+                val label = stringResource(if (loading) R.string.spam_loading else R.string.nsf_moving)
+                CircularProgressIndicator(Modifier.semantics { contentDescription = label })
+            }
         } else {
             EmptyState(
                 iconRes = R.drawable.ic_spam_shield_check,

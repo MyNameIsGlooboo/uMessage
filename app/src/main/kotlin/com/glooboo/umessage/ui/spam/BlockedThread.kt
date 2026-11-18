@@ -169,6 +169,11 @@ fun BlockedThreadRoute(
     var moving by rememberSaveable { mutableStateOf(false) }
     BlockedEvents(viewModel, snackbar, onSettle = { committed -> closeWhenEmpty = committed })
     OpenChatAfterNotSpam(viewModel, address, threadIdOf, onBack, onRetry = { moving = false })
+    // After process death `moving` comes back true but no restore runs (the model is new): let the screen go on.
+    // A rotation keeps the model and its pending restore, so this does not fire then.
+    LaunchedEffect(state.loading, state.hasPendingUndo) {
+        if (!state.loading && !state.hasPendingUndo) moving = false
+    }
     val hasMessages = state.groups.any { it.hasAddress(address) }
     LaunchedEffect(hasMessages) { if (hasMessages) seen = true }
     // I5: opening the thread answers the notifications of its messages.
@@ -264,7 +269,8 @@ fun BlockedThreadScreen(
     ) { inner ->
         val content = Modifier.fillMaxSize().padding(inner)
         when {
-            state.loading || group == null -> ThreadPlaceholder(state.loading, moving, content)
+            state.loading || group == null ->
+                ThreadPlaceholder(state.loading, moving, state.moveProgress != null, content)
             else -> {
                 val rows = remember(group.messages) { blockedThreadItems(group.messages) }
                 val heldLines = remember(group.messages) { heldLineShownFor(group.messages) }

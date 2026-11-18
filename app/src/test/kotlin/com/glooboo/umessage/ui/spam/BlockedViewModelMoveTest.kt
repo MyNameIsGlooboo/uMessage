@@ -28,13 +28,14 @@ import java.util.Collections
 private class GatedRepository(
     private val inner: FakeSpamRepository,
     private val failId: Long? = null,
+    private val failAll: Boolean = false,
 ) : SpamRepository by inner {
     /** Starts closed: every [release] lets one restore through. */
     val gate = Semaphore(permits = GATE_SIZE, acquiredPermits = GATE_SIZE)
 
     override suspend fun restore(blockedId: Long): RestoreReceipt {
         gate.acquire()
-        check(blockedId != failId) { "restore failed" }
+        check(!failAll && blockedId != failId) { "restore failed" }
         return inner.restore(blockedId)
     }
 
@@ -90,7 +91,7 @@ class BlockedViewModelMoveTest {
 
         repeat(TOTAL.toInt() - 1) { repo.gate.release() }
         awaitUntil { events.any { it is BlockedEvent.Restored } }
-        assertThat(vm.state.value.moveProgress).isNull()
+        awaitUntil { vm.state.value.moveProgress == null }
         assertThat(blocked()).isEmpty()
         assertThat((events.single() as BlockedEvent.Restored).count).isEqualTo(TOTAL.toInt())
     }
@@ -118,6 +119,29 @@ class BlockedViewModelMoveTest {
         assertThat(vm.state.value.moveProgress).isNull()
         assertThat(events.filterIsInstance<BlockedEvent.Failed>()).isNotEmpty()
         assertThat(blocked().map { it.id }).containsExactly(FAILING_ID)
+    }
+
+    @Test
+    fun aBlockedChatMoveHidesRowsAndBringsThemBackWhenEveryRestoreFails() {
+        val repo = GatedRepository(fake, failAll = true)
+        val vm = BlockedViewModel(app, repo)
+        val done = Collections.synchronizedList(mutableListOf<NotSpamDone>())
+        scope.launch { vm.state.collect { } }
+        scope.launch { vm.eventFlow.collect { events += it } }
+        scope.launch { vm.notSpamDone.collect { done += it } }
+        awaitUntil { !vm.state.value.loading }
+        assertThat(vm.notSpam(setOf(NUMBER), openChat = true)).isTrue()
+        awaitUntil { vm.state.value.groups.isEmpty() }
+        assertThat(blocked()).hasSize(TOTAL.toInt())
+        repeat(TOTAL.toInt()) { repo.gate.release() }
+        awaitUntil { done.isNotEmpty() }
+        assertThat(done.single().toInbox).isEqualTo(0)
+        awaitUntil { events.any { it is BlockedEvent.Failed } }
+        awaitUntil { vm.state.value.groups.singleOrNull()?.messages?.size == TOTAL.toInt() }
+        assertThat(events.filterIsInstance<BlockedEvent.Failed>()).isNotEmpty()
+        awaitUntil { vm.state.value.moveProgress == null }
+        // The chat's buttons work again (onRetry) because nothing reached the inbox.
+        assertThat(done.single().allowed).isEmpty()
     }
 
     private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()

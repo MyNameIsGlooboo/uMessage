@@ -7,5 +7,5 @@
         <item quantity="other">به صندوق ورودی رفت. پیام‌های بعدی %d فرستنده هم می‌رسند.</item>
     </plurals>
     <string name="nsf_moving">در حال بردن به صندوق ورودی</string>
-    <string name="move_progress">انتقال پیام‌ها: %1$s از %2$s</string>
+    <string name="move_progress">در حال بردن پیام‌ها: %1$s از %2$s</string>
 </resources>
