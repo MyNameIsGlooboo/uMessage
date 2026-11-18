@@ -144,6 +144,9 @@ class BlockedViewModel(
     /** The search box's text (spamui-20). Kept while the screen is alive, not stored; the thread ignores it. */
     private val query = MutableStateFlow("")
 
+    /** How often the tab was left; a "search open" saved before the last leave is stale (the query was cleared). */
+    var tabLeaves = 0
+
     /** The chip selection survives leaving the screen; a failing preferences read just means "All". */
     private val filter = MutableStateFlow(
         runCatching {

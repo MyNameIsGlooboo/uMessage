@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mark_read_progress">Menandai percakapan sudah dibaca: %1$s dari %2$s</string>
+</resources>

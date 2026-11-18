@@ -16,12 +16,12 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -134,7 +134,7 @@ private fun SetupBody(rows: List<SetupRowUi>, batteryOpen: Boolean, refresh: Int
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        val headline = setupHeadline(rows.map { SetupRowState(it.mark, required = !it.optional) }, batteryOpen)
+        val headline = setupHeadline(rows.map { it.headlineState() }, batteryOpen)
         Text(
             stringResource(
                 when (headline) {
@@ -145,7 +145,7 @@ private fun SetupBody(rows: List<SetupRowUi>, batteryOpen: Boolean, refresh: Int
             ),
             style = MaterialTheme.typography.titleMedium,
             color = if (headline == SetupHeadline.SOME_OPEN) {
-                MaterialTheme.colorScheme.onSurface
+                MaterialTheme.colorScheme.primary
             } else {
                 MaterialTheme.colorScheme.success
             },
@@ -188,7 +188,8 @@ private fun statusText(mark: SetupMark, optional: Boolean): Int = when (mark) {
 
 @Composable
 private fun SetupRowCard(row: SetupRowUi) {
-    val status = stringResource(statusText(row.mark, row.optional))
+    // A step this phone cannot do is not "to do": a neutral status, the note, and no button.
+    val status = stringResource(statusText(row.mark, row.optional || row.unavailable))
     val done = row.mark == SetupMark.DONE
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -222,10 +223,11 @@ private fun SetupRowCard(row: SetupRowUi) {
                 modifier = Modifier.clearAndSetSemantics { },
             )
             row.note?.let {
-                Text(it, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.error)
+                val color = MaterialTheme.colorScheme.let { if (row.unavailable) it.onSurfaceVariant else it.error }
+                Text(it, style = MaterialTheme.typography.bodyMedium, color = color)
             }
-            if (!done) {
-                TextButton(onClick = row.onAction, modifier = Modifier.heightIn(min = 48.dp)) {
+            if (!done && !row.unavailable) {
+                Button(onClick = row.onAction, modifier = Modifier.heightIn(min = 48.dp)) {
                     Text(stringResource(row.actionRes))
                 }
             }

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mark_read_progress">Отмечаем чаты как прочитанные: %1$s из %2$s</string>
+</resources>

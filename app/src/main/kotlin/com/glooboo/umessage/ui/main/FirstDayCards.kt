@@ -89,7 +89,7 @@ fun FirstDayChecklist(
     val shown = snapshot.steps.filter { it !in snapshot.impossible }
     val count = shown.count { it in snapshot.done }
     val total = shown.size
-    val title = checklistTitle(snapshot.done, snapshot.impossible)
+    val title = checklistHeaderTitle(checklistTitle(snapshot.done, snapshot.impossible), count)
     val shownForMs = remember(tick) { shownForMillis(prefs, System.currentTimeMillis()) }
     val locale = uiLocale()
 
@@ -124,7 +124,7 @@ fun FirstDayChecklist(
                     onOpenForwarding,
                     roleRefused,
                 )
-                snapshot.steps.forEach { step ->
+                shown.forEach { step ->
                     StepRow(
                         label = stringResource(stepLabel(step)),
                         done = step in snapshot.done,
@@ -194,9 +194,12 @@ internal fun actionLabel(step: ChecklistStep, roleRefused: Boolean = false): Int
     else -> R.string.w3c_checklist_action_open
 }
 
-/** How long the card has been on screen: the first-shown time is stored on the first call. */
-private fun shownForMillis(prefs: W3cPrefs, now: Long): Long {
-    if (prefs.checklistFirstShown == 0L) prefs.checklistFirstShown = now
+/**
+ * How long the card has been on screen: the first-shown time is stored on the first call. A stored time in the future
+ * (the clock was ahead then) is replaced by [now], so the close button is never held back by a wrong clock for good.
+ */
+internal fun shownForMillis(prefs: W3cPrefs, now: Long): Long {
+    if (prefs.checklistFirstShown == 0L || prefs.checklistFirstShown > now) prefs.checklistFirstShown = now
     return now - prefs.checklistFirstShown
 }
 
@@ -217,12 +220,14 @@ private fun stepLabel(step: ChecklistStep): Int = when (step) {
 }
 
 @Composable
-private fun StepRow(label: String, done: Boolean, action: String, onAction: () -> Unit) {
+private fun StepRow(label: String, done: Boolean, action: String, onAction: (() -> Unit)?) {
     val doneLabel = stringResource(R.string.w3c_checklist_step_done)
     val state = if (done) {
         Modifier.semantics { stateDescription = doneLabel }
-    } else {
+    } else if (onAction != null) {
         Modifier.clickable(role = Role.Button, onClick = onAction)
+    } else {
+        Modifier
     }
     Row(
         modifier = Modifier
@@ -248,7 +253,7 @@ private fun StepRow(label: String, done: Boolean, action: String, onAction: () -
             color = if (done) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.weight(1f),
         )
-        if (!done) {
+        if (!done && onAction != null) {
             TextButton(onClick = onAction) { Text(action) }
         }
     }

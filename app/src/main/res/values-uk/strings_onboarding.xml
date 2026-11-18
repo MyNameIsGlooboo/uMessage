@@ -7,7 +7,7 @@
     <string name="onb_finish">Почати листування</string>
     <string name="onb_welcome_title">Вітаємо в uMessage</string>
     <string name="onb_welcome_intro">Зручне листування, менше спаму.</string>
-    <string name="onb_welcome_demo_desc">Повідомлення від знайомих потрапляють у «Вхідні», від незнайомців — у «Спам», а коди підтвердження й далі надходять у «Вхідні».</string>
+    <string name="onb_welcome_demo_desc">Повідомлення від знайомих потрапляють у «Повідомлення», від незнайомців — у «Спам», а коди підтвердження й далі надходять у «Повідомлення».</string>
     <string name="onb_welcome_spam">Спам не пройде</string>
     <string name="onb_welcome_spam_desc">Повідомлення від невідомих відправників чекають у розділі «Спам» й не губляться.</string>
     <string name="onb_welcome_codes">Коди одним дотиком</string>

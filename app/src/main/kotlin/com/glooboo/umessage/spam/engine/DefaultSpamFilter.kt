@@ -93,8 +93,7 @@ class DefaultSpamFilter(
      */
     private fun effectiveMode(): UnknownSenderMode {
         val legacyUnknown = runCatching { legacy.blockUnknownNumbers() }.getOrDefault(false)
-        val mode = settings().mode
-        return if (mode == UnknownSenderMode.OFF && legacyUnknown) UnknownSenderMode.STRICT else mode
+        return effectiveUnknownSenderMode(settings().mode, legacyUnknown)
     }
 
     private fun isExemptCode(body: String): Boolean = OtpDetector.looksLikeOtp(body)
@@ -161,3 +160,7 @@ class DefaultSpamFilter(
     private fun matches(rule: SpamRule, message: IncomingMessage, numbers: List<NumberNormalizer>): Boolean =
         matcher.matches(rule, message, numbers)
 }
+
+/** The mode the filter really runs in: the old "block unknown numbers" switch turns an Off filter into Strict. */
+internal fun effectiveUnknownSenderMode(mode: UnknownSenderMode, legacyBlockUnknown: Boolean): UnknownSenderMode =
+    if (mode == UnknownSenderMode.OFF && legacyBlockUnknown) UnknownSenderMode.STRICT else mode

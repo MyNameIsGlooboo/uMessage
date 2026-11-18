@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mark_read_progress">Đang đánh dấu cuộc trò chuyện đã đọc: %1$s trên %2$s</string>
+</resources>

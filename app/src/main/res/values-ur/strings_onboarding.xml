@@ -7,7 +7,7 @@
     <string name="onb_finish">پیغامات شروع کریں</string>
     <string name="onb_welcome_title">uMessage میں خوش آمدید</string>
     <string name="onb_welcome_intro">بہتر پیغام رسانی، کم اسپیم۔</string>
-    <string name="onb_welcome_demo_desc">آپ کے جاننے والوں کے پیغامات آپ کے ان باکس میں جاتے ہیں، اجنبیوں کے پیغامات اسپیم میں، اور تصدیقی کوڈ پھر بھی آپ کے ان باکس میں آتے ہیں۔</string>
+    <string name="onb_welcome_demo_desc">آپ کے جاننے والوں کے پیغامات، پیغامات میں آتے ہیں، اجنبیوں کے پیغامات اسپیم میں جاتے ہیں، اور تصدیقی کوڈ بھی پیغامات میں آتے رہتے ہیں۔</string>
     <string name="onb_welcome_spam">اسپیم باہر رہتا ہے</string>
     <string name="onb_welcome_spam_desc">نامعلوم بھیجنے والے اسپیم میں انتظار کرتے ہیں، کبھی گم نہیں ہوتے۔</string>
     <string name="onb_welcome_codes">ایک ٹیپ میں کوڈ</string>

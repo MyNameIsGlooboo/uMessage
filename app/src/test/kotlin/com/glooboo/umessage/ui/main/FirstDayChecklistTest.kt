@@ -80,4 +80,15 @@ class FirstDayChecklistTest {
 
         compose.onNodeWithContentDescription("Close checklist").assertDoesNotExist()
     }
+
+    @Test fun closeButtonAfterSevenDaysEvenWithNotificationsOff() {
+        holdTheRole()
+        W3cPrefs.get(app).blockedTabVisited = true
+        W3cPrefs.get(app).checklistFirstShown = System.currentTimeMillis() - 8L * 24 * 60 * 60 * 1000
+        shadowOf(app.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
+            .setNotificationsEnabled(false)
+        show()
+
+        compose.onNodeWithContentDescription("Close checklist").assertIsDisplayed()
+    }
 }

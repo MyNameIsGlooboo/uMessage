@@ -7,7 +7,7 @@
     <string name="onb_finish">मैसेज भेजना शुरू करें</string>
     <string name="onb_welcome_title">uMessage में आपका स्वागत है</string>
     <string name="onb_welcome_intro">बेहतर मैसेजिंग, कम स्पैम.</string>
-    <string name="onb_welcome_demo_desc">जान-पहचान वालों के मैसेज आपके इनबॉक्स में और अनजान लोगों के मैसेज स्पैम में जाते हैं, जबकि पुष्टि करने के कोड आपके इनबॉक्स में ही आते हैं.</string>
+    <string name="onb_welcome_demo_desc">आपके परिचितों के मैसेज, मैसेज में जाते हैं और अनजान लोगों के मैसेज, स्पैम में. पुष्टि करने के कोड भी मैसेज में पहुंचते हैं.</string>
     <string name="onb_welcome_spam">स्पैम बाहर ही रहे</string>
     <string name="onb_welcome_spam_desc">अनजान भेजने वालों के मैसेज स्पैम में रहते हैं, खोते नहीं.</string>
     <string name="onb_welcome_codes">एक टैप में कोड</string>

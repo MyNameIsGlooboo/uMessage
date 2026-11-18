@@ -3,6 +3,9 @@ package com.glooboo.umessage.ui.spam
 import android.Manifest
 import android.app.Application
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasAnyAncestor
@@ -17,6 +20,9 @@ import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.theme.UMessageTheme
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,6 +37,9 @@ class BlockedEmptyHowTest {
     val compose = createComposeRule()
 
     private val cardTag = "blocked_empty_how"
+
+    @Before
+    fun forgetThatTheCardPlayed() = resetEmptyCardPlayed()
 
     private fun show(state: BlockedUiState) = compose.setContent {
         UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
@@ -86,5 +95,47 @@ class BlockedEmptyHowTest {
     fun `without contacts the card stays in Off`() {
         show(BlockedUiState(loading = false, mode = UnknownSenderMode.OFF))
         compose.onNodeWithTag(cardTag).assertExists()
+    }
+
+    @Test
+    fun `in a search with no match the card is gone`() {
+        grantContacts()
+        show(BlockedUiState(loading = false, heldCount = 3, query = "nothing like this"))
+        compose.onNodeWithTag(cardTag).assertDoesNotExist()
+        compose.onNodeWithText("Nothing in Spam yet").assertDoesNotExist()
+    }
+
+    @Test
+    fun `in a chip with no match the card is gone`() {
+        grantContacts()
+        show(BlockedUiState(loading = false, heldCount = 3, filter = BlockedFilter.HasLink))
+        compose.onNodeWithTag(cardTag).assertDoesNotExist()
+        compose.onNodeWithText("Nothing in Spam yet").assertDoesNotExist()
+    }
+
+    @Test
+    fun `the card plays once per app open and a second visit still shows it`() {
+        grantContacts()
+        var visible by mutableStateOf(true)
+        compose.setContent {
+            UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
+                if (visible) BlockedScreen(BlockedUiState(loading = false), SnackbarHostState(), BlockedActions())
+            }
+        }
+        compose.waitForIdle()
+        assertTrue(emptyCardPlayed)
+        visible = false
+        compose.waitForIdle()
+        compose.onNodeWithTag(cardTag).assertDoesNotExist()
+        visible = true
+        compose.waitForIdle()
+        assertTrue(emptyCardPlayed)
+        compose.onNodeWithTag(cardTag).assertExists()
+    }
+
+    @Test
+    fun `the played flag starts false after a reset`() {
+        resetEmptyCardPlayed()
+        assertFalse(emptyCardPlayed)
     }
 }

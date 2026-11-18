@@ -1,5 +1,6 @@
 package com.glooboo.umessage.helpers
 
+import android.Manifest
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
@@ -125,6 +126,9 @@ class W3cPrefs private constructor(
 
     fun markPermissionsAsked(permissions: Collection<String>) =
         prefs.edit { putStringSet(KEY_ASKED_PERMISSIONS, askedPermissions + permissions) }
+
+    /** Records that the contacts permission was asked for outside Setup, so Setup's first tap is not silent. */
+    fun markContactsAsked() = markPermissionsAsked(listOf(Manifest.permission.READ_CONTACTS))
 
     /** I36: unread conversations come first in the inbox, after the pinned ones. */
     var unreadFirst: Boolean

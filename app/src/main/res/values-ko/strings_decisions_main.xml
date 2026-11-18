@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mark_read_progress">대화를 읽음으로 표시하는 중: 총 %2$s개 중 %1$s개</string>
+</resources>

@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.StringRes
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.ui.main.NotificationsBlock
 import com.glooboo.umessage.ui.onboarding.PermissionItem
 import com.glooboo.umessage.ui.onboarding.isGranted
@@ -18,7 +19,12 @@ internal class SetupRowUi(
     @StringRes val actionRes: Int,
     val onAction: () -> Unit,
     val note: String? = null,
+    /** The step cannot be done on this phone (no SMS role to give): it never holds the headline back. */
+    val unavailable: Boolean = false,
 )
+
+/** The row as the headline sees it: an unavailable step counts as not required, as in the first-day checklist. */
+internal fun SetupRowUi.headlineState() = SetupRowState(mark, required = !optional && !unavailable)
 
 /** What the rows are built from, read live on this composition. */
 internal class SetupLive(
@@ -40,15 +46,26 @@ internal fun buildSetupRows(context: Context, live: SetupLive, actions: SetupAct
         live.items.filterNot { it.isNotifications() }.map { permissionRow(context, it, live, actions) } +
         notificationsRow(context, live, actions)
 
-private fun defaultSmsRow(context: Context, live: SetupLive, actions: SetupActions) = SetupRowUi(
-    title = context.getString(R.string.onb_done_summary_default),
-    reason = context.getString(R.string.onb_default_body),
-    mark = checkableMark(live.isDefault),
-    optional = false,
-    actionRes = if (live.roleDenied) R.string.onb_perm_open_settings else R.string.w3c_checklist_action_set,
-    onAction = actions.requestDefaultSms,
-    note = if (live.roleDenied && !live.isDefault) context.getString(R.string.onb_default_denied) else null,
-)
+private fun defaultSmsRow(context: Context, live: SetupLive, actions: SetupActions): SetupRowUi {
+    val unavailable = DefaultSmsRole.status(context) is DefaultSmsRole.Status.Unavailable
+    return SetupRowUi(
+        title = context.getString(R.string.onb_done_summary_default),
+        reason = context.getString(R.string.onb_default_body),
+        mark = checkableMark(live.isDefault),
+        optional = false,
+        actionRes = if (live.roleDenied) R.string.onb_perm_open_settings else R.string.w3c_checklist_action_set,
+        onAction = actions.requestDefaultSms,
+        note = defaultSmsNote(context, live, unavailable),
+        unavailable = unavailable,
+    )
+}
+
+/** Role not available: say where to set the app by hand. Role refused: say that. Otherwise no note. */
+private fun defaultSmsNote(context: Context, live: SetupLive, unavailable: Boolean): String? = when {
+    unavailable -> context.getString(R.string.onb_default_unavailable)
+    live.roleDenied && !live.isDefault -> context.getString(R.string.onb_default_denied)
+    else -> null
+}
 
 private fun permissionRow(context: Context, item: PermissionItem, live: SetupLive, actions: SetupActions): SetupRowUi {
     val granted = context.isGranted(item.permissions)

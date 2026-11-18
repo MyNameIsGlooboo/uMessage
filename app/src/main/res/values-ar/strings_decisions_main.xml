@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mark_read_progress">جارٍ تعليم المحادثات كمقروءة: %1$s من %2$s</string>
+</resources>

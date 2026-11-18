@@ -7,7 +7,7 @@
     <string name="onb_finish">شروع پیام‌رسانی</string>
     <string name="onb_welcome_title">به uMessage خوش آمدید</string>
     <string name="onb_welcome_intro">پیام‌رسانی بهتر، اسپم کمتر.</string>
-    <string name="onb_welcome_demo_desc">پیام آدم‌هایی که می‌شناسید می‌رود توی صندوق ورودی، پیام غریبه‌ها می‌رود توی اسپم، و کد تأیید هم باز به صندوق ورودی می‌رسد.</string>
+    <string name="onb_welcome_demo_desc">پیام آدم‌هایی که می‌شناسید می‌رود توی پیام‌ها، پیام غریبه‌ها می‌رود توی اسپم، و کد تأیید هم باز به پیام‌ها می‌رسد.</string>
     <string name="onb_welcome_spam">اسپم پشت در می‌ماند</string>
     <string name="onb_welcome_spam_desc">پیام‌های فرستنده‌های ناشناس در «اسپم» می‌مانند و گم نمی‌شوند.</string>
     <string name="onb_welcome_codes">کدها با یک لمس</string>
