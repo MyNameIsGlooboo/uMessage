@@ -5,12 +5,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.4.13] - 2026-11-18
+### Added
+- Settings > Setup and permissions: one page that shows what uMessage still needs (default SMS app, contacts, SMS, notifications, battery) and opens the right place; a battery banner on Messages; the first-day checklist can be closed after 7 days
+- A small picture that shows how texts are sorted (contacts to Messages, unknown senders to Spam, verification codes to Messages): on the welcome page, in the Unknown senders help and in an empty Spam tab
+- "Mark all as read" shows a progress bar for long runs
 ### Changed
 - Settings has two block lists: the Android list and the uMessage rules
 - The "Block unknown numbers" switch is folded into the Unknown senders mode (Off with the switch on became Strict)
 - Old blocked words are moved into rules automatically
 - The old blocked words screen is only for viewing, deleting and exporting what is left
 - With Smart or Strict, the old "Block unknown numbers" switch is dropped, so choosing Off now really is Off
+- 20 languages have the new texts
 
 ## [0.4.12] - 2026-11-17
 ### Fixed
