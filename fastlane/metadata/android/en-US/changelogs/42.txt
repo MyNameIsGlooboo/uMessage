@@ -1,0 +1,6 @@
+• Settings now has two block lists: the Android list and the uMessage rules
+• Old blocked words move into rules by themselves
+• New "Setup and permissions" page in Settings shows what the app still needs; better first-day checklist and a battery banner
+• A small picture on the welcome page and in the Unknown senders help shows how texts are sorted
+• "Mark all as read" shows a progress bar
+• Many small fixes; 20 languages updated
