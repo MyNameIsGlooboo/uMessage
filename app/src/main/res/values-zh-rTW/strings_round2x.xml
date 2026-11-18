@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_pin_length_hint">PIN：%1$d至%2$d位數</string>
+    <string name="cleanup_codes_undo">復原</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="other">已將%d則已讀驗證碼移至資源回收筒</item>
+    </plurals>
+</resources>

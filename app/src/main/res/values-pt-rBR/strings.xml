@@ -154,4 +154,5 @@
     <string name="faq_4_text">Ative \"Envie mensagens em grupo como MMS\" nas configurações do app. Assim, as mensagens em grupo serão enviadas como MMS, permitindo que todos os participantes vejam as respostas uns dos outros.</string>
     <string name="play">Reproduza</string>
     <string name="pause">Pause</string>
+    <string name="group_recipient_invalid">Digite um número de telefone ou endereço de e-mail</string>
 </resources>

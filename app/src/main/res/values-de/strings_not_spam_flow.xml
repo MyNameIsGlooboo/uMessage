@@ -2,5 +2,9 @@
 <resources>
     <string name="nsf_snack_moved">In den Posteingang verschoben</string>
     <string name="nsf_snack_moved_allowed">In den Posteingang verschoben. Künftige Nachrichten von %1$s kommen ebenfalls an.</string>
+    <plurals name="nsf_snack_moved_allowed_many">
+        <item quantity="one">In den Posteingang verschoben. Künftige Nachrichten von %d Absender werden auch zugestellt.</item>
+        <item quantity="other">In den Posteingang verschoben. Künftige Nachrichten von %d Absendern werden auch zugestellt.</item>
+    </plurals>
     <string name="nsf_moving">Wird in den Posteingang verschoben</string>
 </resources>

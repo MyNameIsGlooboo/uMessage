@@ -51,6 +51,9 @@
     <string name="screens_vcard_add_contact">رابطوں میں شامل کریں</string>
     <string name="screens_vcard_expand">تفصیلات دکھائیں</string>
     <string name="screens_vcard_collapse">تفصیلات چھپائیں</string>
+    <string name="screens_vcard_email_action">ای میل کریں</string>
+    <string name="screens_vcard_copy_hint">کاپی کرنے کے لیے دبا کر رکھیں</string>
+    <string name="screens_vcard_copied">کاپی ہو گیا</string>
     <string name="screens_vcard_empty">اس فائل میں کوئی رابطہ نہیں ملا</string>
     <string name="screens_dialog_filename">فائل کا نام</string>
     <string name="screens_schedule_date">تاریخ</string>

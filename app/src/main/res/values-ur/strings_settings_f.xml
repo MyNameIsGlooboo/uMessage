@@ -3,6 +3,8 @@
     <string name="settings_f_backup_row_body">پیغامات، اصول اور سیٹنگز ایک فائل میں</string>
     <string name="settings_f_restore_title">اس فائل سے بحال کریں؟</string>
     <string name="settings_f_restore_rules">اجازت اصول: %1$d · بلاک اصول: %2$d۔ جو اصول پہلے سے موجود ہیں وہ چھوڑ دیے جاتے ہیں۔</string>
+    <string name="settings_f_restore_rules_present">اس فون میں پہلے سے موجود اصول: %1$d، چھوڑ دیے گئے۔</string>
+    <string name="settings_f_restore_too_many">فائل میں حد سے زیادہ اصول: %1$d، چھوڑ دیے گئے۔</string>
     <string name="settings_f_restore_forwards">شامل ہونے والے فارورڈ اصول: %1$d، بند حالت میں۔ انہیں اصول › فارورڈنگ میں آن کریں۔</string>
     <string name="settings_f_restore_forwards_skipped">چھوڑے گئے فارورڈ اصول: %1$d (پہلے سے موجود، یا انہیں وصول کرنے والا کوئی نمبر نہیں)۔</string>
     <string name="settings_f_restore_settings_changed">بدلنے والی سیٹنگز: %1$s</string>

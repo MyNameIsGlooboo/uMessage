@@ -7,9 +7,19 @@
     </plurals>
     <string name="e_restored_title">最近還原</string>
     <string name="e_restored_body">你在過去30天內移至收件匣的訊息。輕觸即可開啟對話。</string>
+    <string name="e_restored_clear">清空清單</string>
     <string name="e_restored_empty">從現在起，你移至收件匣的訊息會在這裡列出30天。</string>
     <string name="e_restored_when">已於%1$s移至收件匣</string>
     <string name="e_restored_open">開啟與%1$s的對話</string>
+    <string name="e_snack_allowed_one">兩張SIM均已設為一律允許%1$s</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="other">兩張SIM均已設為一律允許%d個寄件者</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">已設為一律允許%1$s</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="other">已設為一律允許%d個寄件者</item>
+    </plurals>
+    <string name="e_view_rule">查看規則</string>
     <string name="e_rules_title">規則</string>
     <string name="e_rules_menu_backup">備份規則</string>
     <string name="e_note_blocked_by_you">由你封鎖</string>
@@ -24,6 +34,8 @@
     <string name="e_example_block_cancel_word">封鎖含有لغو۱۱的訊息</string>
     <string name="e_example_block_ad_prefix">封鎖開頭為3000的廣告號碼</string>
     <string name="e_example_allow_number">一律允許某個號碼，例如郵局</string>
+    <string name="e_sheet_sender_label">寄件者</string>
+    <string name="e_sheet_text_label">訊息內容</string>
     <string name="e_value_number">電話號碼</string>
     <string name="e_value_prefix">號碼開頭為</string>
     <string name="e_value_sender">寄件者名稱</string>

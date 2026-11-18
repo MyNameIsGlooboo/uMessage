@@ -2,5 +2,9 @@
 <resources>
     <string name="nsf_snack_moved">Spostato in In arrivo</string>
     <string name="nsf_snack_moved_allowed">Spostato in In arrivo. Anche i prossimi messaggi da %1$s arriveranno.</string>
+    <plurals name="nsf_snack_moved_allowed_many">
+        <item quantity="one">Spostato in “In arrivo”. Riceverai anche i prossimi messaggi da %d mittente.</item>
+        <item quantity="other">Spostato in “In arrivo”. Riceverai anche i prossimi messaggi da %d mittenti.</item>
+    </plurals>
     <string name="nsf_moving">Spostamento in In arrivo</string>
 </resources>

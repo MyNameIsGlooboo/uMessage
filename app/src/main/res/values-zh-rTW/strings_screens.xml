@@ -49,6 +49,9 @@
     <string name="screens_vcard_add_contact">新增至聯絡人</string>
     <string name="screens_vcard_expand">顯示詳細資料</string>
     <string name="screens_vcard_collapse">隱藏詳細資料</string>
+    <string name="screens_vcard_email_action">傳送電子郵件</string>
+    <string name="screens_vcard_copy_hint">長按即可複製</string>
+    <string name="screens_vcard_copied">已複製</string>
     <string name="screens_vcard_empty">這個檔案中找不到聯絡人</string>
     <string name="screens_dialog_filename">檔案名稱</string>
     <string name="screens_schedule_date">日期</string>

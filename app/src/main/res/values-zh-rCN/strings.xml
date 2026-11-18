@@ -151,4 +151,5 @@
     <string name="faq_4_text">需要在应用设置中启用“以彩信形式发送群组消息”。这样群组消息就会以群组彩信形式发送，所有成员都能看到彼此的回复。</string>
     <string name="play">播放</string>
     <string name="pause">暂停</string>
+    <string name="group_recipient_invalid">输入电话号码或电子邮箱地址</string>
 </resources>

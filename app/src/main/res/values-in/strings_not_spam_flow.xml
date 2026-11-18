@@ -2,5 +2,8 @@
 <resources>
     <string name="nsf_snack_moved">Dipindahkan ke kotak masuk</string>
     <string name="nsf_snack_moved_allowed">Dipindahkan ke kotak masuk. Pesan berikutnya dari %1$s juga akan masuk.</string>
+    <plurals name="nsf_snack_moved_allowed_many">
+        <item quantity="other">Dipindahkan ke kotak masuk. Pesan berikutnya dari %d pengirim juga akan masuk.</item>
+    </plurals>
     <string name="nsf_moving">Memindahkan ke kotak masuk</string>
 </resources>

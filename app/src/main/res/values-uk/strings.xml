@@ -160,4 +160,5 @@
     <string name="faq_4_text">Увімкніть «Надсилати групові повідомлення як MMS» у налаштуваннях застосунку. Тоді групові повідомлення надсилатимуться як MMS, і всі учасники бачитимуть відповіді одне одного.</string>
     <string name="play">Відтворити</string>
     <string name="pause">Призупинити</string>
+    <string name="group_recipient_invalid">Введіть номер телефону або електронну адресу</string>
 </resources>

@@ -5,6 +5,8 @@
     <string name="message_not_sent_touch_retry">نہیں بھیجا گیا۔ دوبارہ کوشش کے لیے ٹچ کریں۔</string>
     <string name="message_sending_error">«%s» کو آپ کا پیغام نہیں بھیجا گیا</string>
     <string name="scheduled_attachment_missing">«%s» کو آپ کا شیڈول شدہ پیغام نہیں بھیجا گیا: اس کی منسلکہ اب کھولی نہیں جا سکتی۔ اسے دوبارہ شامل کرنے کے لیے چیٹ کھولیں۔</string>
+    <string name="message_partly_sent">کچھ تصویریں اور فائلیں بھیج دی گئی ہیں، باقی نہیں بھیجی جا سکیں۔ صرف باقی بھیجنے کے لیے دوبارہ بھیجیں۔</string>
+    <string name="scheduled_partly_sent">«%s» کو آپ کے شیڈول پیغام کا کچھ حصہ بھیج دیا گیا، باقی نہیں بھیجا جا سکا۔ صرف باقی بھیجنے کے لیے گفتگو کھولیں اور «دوبارہ کوشش کریں» پر ٹیپ کریں۔</string>
     <string name="add_person">فرد شامل کریں</string>
     <string name="attachment">منسلکہ</string>
     <string name="reply">جواب دیں</string>
@@ -154,4 +156,5 @@
     <string name="faq_4_text">آپ کو ایپ کی سیٹنگز میں «گروپ پیغامات بطور MMS بھیجیں» آن کرنا ہوگا۔ اس سے گروپ پیغامات درست MMS کے طور پر جائیں گے، اور تمام شرکاء ایک دوسرے کے جوابات دیکھ سکیں گے۔</string>
     <string name="play">چلائیں</string>
     <string name="pause">روکیں</string>
+    <string name="group_recipient_invalid">فون نمبر یا ای میل پتہ درج کریں</string>
 </resources>

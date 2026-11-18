@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="nsf_snack_moved">Переміщено у вхідні</string>
     <string name="nsf_snack_moved_allowed">Переміщено у вхідні. Наступні повідомлення від %1$s також надходитимуть.</string>
+    <plurals name="nsf_snack_moved_allowed_many" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Переміщено до «Вхідних». Нові повідомлення від %d відправника теж надходитимуть.</item>
+        <item quantity="few">Переміщено до «Вхідних». Нові повідомлення від %d відправників теж надходитимуть.</item>
+        <item quantity="many">Переміщено до «Вхідних». Нові повідомлення від %d відправників теж надходитимуть.</item>
+        <item quantity="other">Переміщено до «Вхідних». Нові повідомлення від %d відправника теж надходитимуть.</item>
+    </plurals>
     <string name="nsf_moving">Переміщення у вхідні</string>
 </resources>

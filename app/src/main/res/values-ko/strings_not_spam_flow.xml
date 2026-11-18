@@ -2,5 +2,8 @@
 <resources>
     <string name="nsf_snack_moved">받은 메시지함으로 이동했습니다</string>
     <string name="nsf_snack_moved_allowed">받은 메시지함으로 이동했습니다. %1$s의 다음 메시지도 도착합니다.</string>
+    <plurals name="nsf_snack_moved_allowed_many">
+        <item quantity="other">받은 메시지함으로 이동했어요. 앞으로 발신자 %d명에게서 오는 메시지도 받을 수 있어요.</item>
+    </plurals>
     <string name="nsf_moving">받은 메시지함으로 이동 중</string>
 </resources>

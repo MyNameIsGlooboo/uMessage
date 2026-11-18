@@ -154,4 +154,5 @@
     <string name="faq_4_text">Aktiviere „Gruppennachrichten als MMS senden“ in den App-Einstellungen. So werden Gruppennachrichten als richtige MMS gesendet und alle Teilnehmenden können die Antworten der anderen sehen.</string>
     <string name="play">Wiedergeben</string>
     <string name="pause">Pausieren</string>
+    <string name="group_recipient_invalid">Gib eine Telefonnummer oder E-Mail-Adresse ein.</string>
 </resources>

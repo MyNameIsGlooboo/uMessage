@@ -8,6 +8,7 @@
     <string name="i56_empty_links">這個聊天中沒有連結。</string>
     <string name="i56_show_in_chat">在聊天中顯示</string>
     <string name="i56_load_more">顯示更多</string>
+    <string name="i56_picture_position">第%1$d張圖片，共%2$d張，%3$s。輕觸即可開啟。</string>
     <string name="i56_picture_description">圖片，輕觸即可開啟。</string>
     <plurals name="i56_count_pictures">
         <item quantity="other">%d張圖片</item>

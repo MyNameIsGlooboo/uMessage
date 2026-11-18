@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_phone_call">撥號</string>
+    <string name="thread_phone_copy">複製號碼</string>
+    <string name="thread_phone_add_contact">新增聯絡人</string>
+</resources>

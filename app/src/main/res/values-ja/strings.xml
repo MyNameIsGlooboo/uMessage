@@ -151,4 +151,5 @@
     <string name="faq_4_text">アプリの設定で「グループメッセージをMMSで送信」を有効にしてください。グループメッセージがMMSとして送信され、参加者全員がお互いの返信を確認できるようになります。</string>
     <string name="play">再生</string>
     <string name="pause">一時停止</string>
+    <string name="group_recipient_invalid">電話番号またはメールアドレスを入力してください。</string>
 </resources>

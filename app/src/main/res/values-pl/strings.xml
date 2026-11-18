@@ -160,4 +160,5 @@
     <string name="faq_4_text">Włącz opcję „Wysyłaj wiadomości grupowe jako MMS” w ustawieniach aplikacji. Dzięki temu wiadomości grupowe będą wysyłane jako MMS-y, a wszyscy uczestnicy zobaczą swoje odpowiedzi.</string>
     <string name="play">Odtwórz</string>
     <string name="pause">Wstrzymaj</string>
+    <string name="group_recipient_invalid">Wpisz numer telefonu lub adres e-mail</string>
 </resources>

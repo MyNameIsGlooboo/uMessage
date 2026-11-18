@@ -151,4 +151,5 @@
     <string name="faq_4_text">Aktifkan \"Kirim pesan grup sebagai MMS\" di setelan aplikasi. Dengan begitu, pesan grup dikirim sebagai MMS sehingga semua anggota dapat melihat balasan satu sama lain.</string>
     <string name="play">Putar</string>
     <string name="pause">Jeda</string>
+    <string name="group_recipient_invalid">Masukkan nomor telepon atau alamat email</string>
 </resources>

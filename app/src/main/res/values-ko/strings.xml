@@ -151,4 +151,5 @@
     <string name="faq_4_text">앱 설정에서 \"그룹 메시지를 MMS 형식으로 전송\"을 켜야 해요. 그러면 그룹 메시지가 MMS 형식으로 전송되어 모든 참여자가 서로의 답장을 볼 수 있어요.</string>
     <string name="play">재생</string>
     <string name="pause">일시정지</string>
+    <string name="group_recipient_invalid">전화번호나 이메일 주소를 입력해요.</string>
 </resources>

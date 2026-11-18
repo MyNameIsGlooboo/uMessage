@@ -2,5 +2,11 @@
 <resources>
     <string name="nsf_snack_moved">Przeniesiono do odebranych</string>
     <string name="nsf_snack_moved_allowed">Przeniesiono do odebranych. Kolejne wiadomości od %1$s też dotrą.</string>
+    <plurals name="nsf_snack_moved_allowed_many">
+        <item quantity="one">Przeniesiono do odebranych. Kolejne wiadomości od %d nadawcy też dotrą.</item>
+        <item quantity="few">Przeniesiono do odebranych. Kolejne wiadomości od %d nadawców też dotrą.</item>
+        <item quantity="many">Przeniesiono do odebranych. Kolejne wiadomości od %d nadawców też dotrą.</item>
+        <item quantity="other">Przeniesiono do odebranych. Kolejne wiadomości od %d nadawcy też dotrą.</item>
+    </plurals>
     <string name="nsf_moving">Przenoszenie do odebranych</string>
 </resources>

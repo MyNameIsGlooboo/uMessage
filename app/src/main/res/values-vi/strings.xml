@@ -151,4 +151,5 @@
     <string name="faq_4_text">Bạn cần bật “Gửi tin nhắn nhóm dưới dạng MMS” trong cài đặt ứng dụng. Nhờ đó, tin nhắn nhóm sẽ được gửi đúng dạng MMS, để mọi thành viên đều thấy câu trả lời của nhau.</string>
     <string name="play">Phát</string>
     <string name="pause">Tạm dừng</string>
+    <string name="group_recipient_invalid">Nhập số điện thoại hoặc địa chỉ email</string>
 </resources>

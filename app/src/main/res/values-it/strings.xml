@@ -154,4 +154,5 @@
     <string name="faq_4_text">Devi attivare “Invia messaggi di gruppo come MMS” nelle impostazioni dell\'app. Così i messaggi di gruppo verranno inviati come MMS e tutti i partecipanti potranno vedere le risposte degli altri.</string>
     <string name="play">Riproduci</string>
     <string name="pause">Pausa</string>
+    <string name="group_recipient_invalid">Inserisci un numero di telefono o un indirizzo email</string>
 </resources>

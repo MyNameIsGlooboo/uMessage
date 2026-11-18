@@ -166,4 +166,5 @@
     <string name="faq_4_text">فعّل خيار «أرسل الرسائل الجماعية بصيغة MMS» في إعدادات التطبيق. سيضمن ذلك إرسال الرسائل الجماعية بصيغة MMS، ليتمكن جميع المشاركين من رؤية ردود بعضهم.</string>
     <string name="play">شغّل</string>
     <string name="pause">أوقف مؤقتًا</string>
+    <string name="group_recipient_invalid">أدخل رقم هاتف أو عنوان بريد إلكتروني</string>
 </resources>

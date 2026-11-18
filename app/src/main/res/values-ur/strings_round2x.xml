@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lock_pin_length_hint">PIN: %1$d سے %2$d ہندسے</string>
+    <string name="cleanup_codes_undo">واپس کریں</string>
+    <plurals name="cleanup_codes_moved">
+        <item quantity="one">%d پڑھا ہوا کوڈ ری سائیکل بن میں منتقل کر دیا گیا</item>
+        <item quantity="other">%d پڑھے ہوئے کوڈ ری سائیکل بن میں منتقل کر دیے گئے</item>
+    </plurals>
+</resources>

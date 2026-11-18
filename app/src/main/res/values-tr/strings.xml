@@ -154,4 +154,5 @@
     <string name="faq_4_text">Uygulama ayarlarında “Grup mesajlarını MMS olarak gönderin” seçeneğini etkinleştirmelisiniz. Böylece grup mesajları MMS olarak gönderilir ve tüm katılımcılar birbirlerinin yanıtlarını görebilir.</string>
     <string name="play">Oynatın</string>
     <string name="pause">Duraklatın</string>
+    <string name="group_recipient_invalid">Telefon numarası veya e-posta adresi girin</string>
 </resources>

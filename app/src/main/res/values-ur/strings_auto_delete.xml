@@ -14,4 +14,10 @@
     </plurals>
     <string name="cleanup_old_confirm_none">ابھی کوئی پیغام اتنا پرانا نہیں۔ پرانے پیغامات خود بخود ری سائیکل بن میں چلے جائیں گے۔ ستارہ لگے اور ان پڑھے پیغامات اور پن کی گئی چیٹس رہیں گی۔</string>
     <string name="cleanup_old_confirm_action">منتقل کریں</string>
+    <string name="cleanup_codes_confirm_title">پڑھے ہوئے کوڈ منتقل کریں؟</string>
+    <plurals name="cleanup_codes_confirm_body">
+        <item quantity="one">کوڈ والا %d پڑھا ہوا پیغام اس مدت سے زیادہ پرانا ہے اور اب ری سائیکل بن میں منتقل ہو جائے گا۔ ستارے والے پیغامات رہیں گے۔</item>
+        <item quantity="other">کوڈ والے %d پڑھے ہوئے پیغامات اس مدت سے زیادہ پرانے ہیں اور اب ری سائیکل بن میں منتقل ہو جائیں گے۔ ستارے والے پیغامات رہیں گے۔</item>
+    </plurals>
+    <string name="cleanup_codes_confirm_none">ابھی کوئی پڑھا ہوا کوڈ اتنا پرانا نہیں ہے۔ پرانے کوڈ خود بخود ری سائیکل بن میں منتقل ہو جائیں گے۔</string>
 </resources>

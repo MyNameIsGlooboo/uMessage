@@ -9,6 +9,7 @@
     <string name="n06_text_label">文字</string>
     <string name="n06_save">儲存</string>
     <string name="n06_delete">刪除</string>
+    <string name="n06_delete_confirm">要刪除這段已儲存的文字嗎？</string>
     <string name="n06_private_tip">只保存在這支手機上，未加密。請勿儲存密碼或PIN。</string>
     <string name="n06_save_from_message">儲存至已儲存的文字</string>
     <string name="n06_saved_toast">已儲存</string>

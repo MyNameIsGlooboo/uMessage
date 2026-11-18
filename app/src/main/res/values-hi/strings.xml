@@ -154,4 +154,5 @@
     <string name="faq_4_text">ऐप की सेटिंग में \"ग्रुप मैसेज MMS के तौर पर भेजें\" चालू करें. इससे ग्रुप मैसेज सही तरीके से MMS के तौर पर भेजे जाएंगे और सभी सदस्य एक-दूसरे के जवाब देख सकेंगे.</string>
     <string name="play">चलाएं</string>
     <string name="pause">रोकें</string>
+    <string name="group_recipient_invalid">फ़ोन नंबर या ईमेल पता डालें</string>
 </resources>

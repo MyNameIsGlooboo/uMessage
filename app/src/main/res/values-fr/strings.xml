@@ -154,4 +154,5 @@
     <string name="faq_4_text">Activez « Envoyer les messages de groupe par MMS » dans les paramètres de l\'application. Les messages de groupe seront alors envoyés sous forme de MMS, ce qui permettra à chaque participant de voir les réponses des autres.</string>
     <string name="play">Lire</string>
     <string name="pause">Pause</string>
+    <string name="group_recipient_invalid">Saisissez un numéro de téléphone ou une adresse e-mail</string>
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_search_older_busy">正在搜尋較舊的訊息…</string>
+    <plurals name="thread_new_messages_chip">
+        <item quantity="other">%d則新訊息</item>
+    </plurals>
+    <string name="thread_messages_deleted">已移至資源回收筒</string>
+    <string name="thread_messages_deleted_undo">復原</string>
+</resources>

@@ -151,4 +151,5 @@
     <string name="faq_4_text">ต้องเปิด “ส่งข้อความกลุ่มเป็น MMS” ในการตั้งค่าแอป เพื่อให้ข้อความกลุ่มส่งเป็น MMS อย่างถูกต้อง และสมาชิกทุกคนเห็นคำตอบของกันและกัน</string>
     <string name="play">เล่น</string>
     <string name="pause">หยุดชั่วคราว</string>
+    <string name="group_recipient_invalid">ป้อนหมายเลขโทรศัพท์หรือที่อยู่อีเมล</string>
 </resources>

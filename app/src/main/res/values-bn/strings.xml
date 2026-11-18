@@ -154,4 +154,5 @@
     <string name="faq_4_text">অ্যাপের সেটিংসে “গ্রুপের বার্তা MMS হিসেবে পাঠান” চালু করুন। এতে গ্রুপের বার্তা ঠিকভাবে MMS হিসেবে পাঠানো হবে এবং সব সদস্য একে অন্যের উত্তর দেখতে পাবেন।</string>
     <string name="play">চালান</string>
     <string name="pause">বিরতি দিন</string>
+    <string name="group_recipient_invalid">ফোন নম্বর বা ইমেল ঠিকানা লিখুন</string>
 </resources>

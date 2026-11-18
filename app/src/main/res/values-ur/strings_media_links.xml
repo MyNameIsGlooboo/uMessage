@@ -8,6 +8,7 @@
     <string name="i56_empty_links">اس چیٹ میں کوئی لنک نہیں۔</string>
     <string name="i56_show_in_chat">چیٹ میں دکھائیں</string>
     <string name="i56_load_more">مزید دکھائیں</string>
+    <string name="i56_picture_position">%2$d میں سے تصویر %1$d، %3$s۔ کھولنے کے لیے ٹیپ کریں۔</string>
     <string name="i56_picture_description">تصویر۔ کھولنے کے لیے ٹیپ کریں۔</string>
     <plurals name="i56_count_pictures">
         <item quantity="one">%d تصویر</item>

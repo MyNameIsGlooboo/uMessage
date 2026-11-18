@@ -3,6 +3,7 @@
     <string name="thread_emoji">表情符號</string>
     <string name="thread_show_keyboard">顯示鍵盤</string>
     <string name="thread_scheduled_not_sent">排程訊息未傳送</string>
+    <string name="thread_schedule_discard_confirm">要取消排程並刪除已儲存的排程訊息嗎？文字會保留在輸入框中。</string>
     <string name="thread_edit_scheduled_replaces_draft">編輯排程訊息會取代你正在輸入的內容。要繼續嗎？</string>
     <string name="thread_menu_report_spam">標示為垃圾簡訊</string>
     <string name="thread_report_spam_title">要標示為垃圾簡訊嗎？</string>
