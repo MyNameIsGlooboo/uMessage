@@ -18,6 +18,7 @@ import com.glooboo.umessage.spam.data.DefaultForwardLogRepository
 import com.glooboo.umessage.spam.data.ForwardResend
 import com.glooboo.umessage.spam.data.SpamDatabase
 import com.glooboo.umessage.spam.engine.SpamEngine
+import com.glooboo.umessage.spam.engine.defaultRegion
 import com.glooboo.umessage.ui.forwarded.ForwardedTabHint
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -79,6 +80,12 @@ class ForwardRulesViewModel(
     private data class Ui(
         val sims: List<SimInfo> = emptyList(),
         val ownNumbers: List<String> = emptyList(),
+        /**
+         * The phone's country, read at once so a form saved early still has it. [defaultRegion] takes the SIM, then the
+         * network, then the locale country, then US; a number that is not valid there is stored as typed. Null only
+         * if reading it failed (no country is guessed then).
+         */
+        val region: String? = null,
         val form: ForwardForm? = null,
         val prompt: ForwardGatePrompt = ForwardGatePrompt.NONE,
         val pending: ForwardChange? = null,
@@ -88,7 +95,7 @@ class ForwardRulesViewModel(
         val deleted: ForwardRule? = null,
     )
 
-    private val ui = MutableStateFlow(Ui())
+    private val ui = MutableStateFlow(Ui(region = runCatching { defaultRegion(application) }.getOrNull()))
     private var lastVerifiedAt: Long? = null
 
     /** When the user went to set up the app lock from the no-lock note (bug 7). */
@@ -125,13 +132,15 @@ class ForwardRulesViewModel(
 
     // region Sheet
 
-    fun openAdd() = ui.update { it.copy(form = ForwardForm(ownNumbers = it.ownNumbers), changeFailed = false) }
+    fun openAdd() =
+        ui.update { it.copy(form = ForwardForm(ownNumbers = it.ownNumbers, region = it.region), changeFailed = false) }
 
     /** The "Forward bank alerts" start of the empty state: any sender, a text to look for already filled in. */
     fun openAddForText(word: String) = ui.update {
         it.copy(
             form = ForwardForm(
                 senderType = null, bodyType = RuleType.KEYWORD, bodyPattern = word, ownNumbers = it.ownNumbers,
+                region = it.region,
             ),
             changeFailed = false,
         )
@@ -141,13 +150,18 @@ class ForwardRulesViewModel(
     fun openAddForSender(address: String) = ui.update {
         val type = if (address.any { c -> c.isLetter() }) RuleType.SENDER_ID else RuleType.NUMBER
         it.copy(
-            form = ForwardForm(senderType = type, senderPattern = address.trim(), ownNumbers = it.ownNumbers),
+            form = ForwardForm(
+                senderType = type, senderPattern = address.trim(), ownNumbers = it.ownNumbers, region = it.region,
+            ),
             changeFailed = false,
         )
     }
 
     fun openEdit(rule: ForwardRule) =
-        ui.update { it.copy(form = ForwardForm.of(rule).copy(ownNumbers = it.ownNumbers), changeFailed = false) }
+        ui.update {
+            val form = ForwardForm.of(rule).copy(ownNumbers = it.ownNumbers, region = it.region)
+            it.copy(form = form, changeFailed = false)
+        }
 
     fun dismissForm() = ui.update { it.copy(form = null) }
 

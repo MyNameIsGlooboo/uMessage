@@ -160,14 +160,24 @@ class SettingsBackupFormatTest {
             targets = listOf("09000001111", "1234", "+15550002222", "+447121234567"),
         )
         val own = listOf("+15550002222")
-        val result = SettingsBackupFormat.prepareForwardImport(listOf(incoming), emptyList(), ownNumbers = own)
+        val result =
+            SettingsBackupFormat.prepareForwardImport(listOf(incoming), emptyList(), ownNumbers = own, region = "IR")
         val added = result.toAdd.single()
         assertThat(added.enabled).isFalse()
         assertThat(added.subscriptionId).isNull()
-        // 09… is stored with its country code; a short code, the phone's own number and the watched sender
-        // are dropped.
+        // 09… is stored with the country code of the phone's region; a short code, the phone's own number and the
+        // watched sender are dropped.
         assertThat(added.targets).containsExactly("+989000001111")
         assertThat(result.unusable).isEqualTo(0)
+    }
+
+    // H5: a national number is never given a country the phone is not in; with no region it stays as written.
+    @Test fun importedNationalTargetsFollowThePhonesRegionOnly() {
+        val incoming = forward.copy(targets = listOf("09000001111"))
+        val unknown = SettingsBackupFormat.prepareForwardImport(listOf(incoming), emptyList())
+        assertThat(unknown.toAdd.single().targets).containsExactly("09000001111")
+        val elsewhere = SettingsBackupFormat.prepareForwardImport(listOf(incoming), emptyList(), region = "US")
+        assertThat(elsewhere.toAdd.single().targets).containsExactly("09000001111")
     }
 
     @Test fun forwardRuleWithoutUsableTargetIsDropped() {

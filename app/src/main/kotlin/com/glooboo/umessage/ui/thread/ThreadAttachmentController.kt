@@ -72,23 +72,44 @@ class ThreadAttachmentController(
     /** The size of each added file that is sent as it is (not shrunk), by attachment id: the carrier counts the sum. */
     private val fileSizes = HashMap<String, Long>()
 
+    /** The private copy of each shared file, by the uri it was shared as; a second share of it is a duplicate. */
+    private val sharedCopies = HashMap<String, String>()
+
     /**
      * Adds a picked file. The type, size and name are read on a worker thread (a slow provider no longer stalls the
-     * screen, I4); the composer changes back on the main thread.
+     * screen, I4); the composer changes back on the main thread. A [shared] file (from another app) has its read right
+     * end soon, so it is copied into the private cache first and the copy is attached; a failed copy attaches the
+     * shared uri as it is.
      */
-    fun add(uri: Uri) {
+    fun add(uri: Uri, knownMimeType: String? = null, knownFilename: String? = null, shared: Boolean = false) {
         val id = uri.toString()
-        val alreadyAdded = vm.hasAttachment(id)
+        // The same shared file again: its copy is still in the composer.
+        val alreadyAdded = vm.hasAttachment(id) || (shared && sharedCopies[id]?.let { vm.hasAttachment(it) } == true)
         val sizeLimit = activity.config.mmsFileSizeLimit
         ensureBackgroundThread {
+            if (shared) {
+                when (val prepared = prepareShared(activity, uri, sizeLimit, alreadyAdded, attachmentsDir)) {
+                    is SharedPrepared.Rejected ->
+                        activity.runOnUiThread { applyCheck(uri, id, prepared.check, "", FILE_SIZE_NONE) }
+                    is SharedPrepared.Copied -> {
+                        val copyUri = activity.getMyFileUri(prepared.file)
+                        activity.runOnUiThread {
+                            sharedCopies[id] = copyUri.toString()
+                            add(copyUri, prepared.mimeType, prepared.filename)
+                        }
+                    }
+                    SharedPrepared.Unreadable -> activity.runOnUiThread { add(uri) }
+                }
+                return@ensureBackgroundThread
+            }
             var size = FILE_SIZE_NONE
             val check = checkAttachment(
                 alreadyAdded = alreadyAdded,
-                mimeType = activity.contentResolver.getType(uri),
+                mimeType = knownMimeType ?: activity.contentResolver.getType(uri),
                 sizeLimit = sizeLimit,
                 fileSize = { activity.getFileSizeFromUri(uri).also { size = it } },
             )
-            val filename = if (check is AttachmentCheck.Ok) activity.getFilenameFromUri(uri) else ""
+            val filename = if (check is AttachmentCheck.Ok) knownFilename ?: activity.getFilenameFromUri(uri) else ""
             // Only a file that is not shrunk keeps its size; the sum is read from there (see [totalTooLarge]).
             val sentAsIs = (check as? AttachmentCheck.Ok)?.takeIf { !it.compress }
             if (sentAsIs != null && size == FILE_SIZE_NONE) size = activity.getFileSizeFromUri(uri)

@@ -25,6 +25,7 @@ class MmsPushGateTest {
         from: String?,
         transactionId: String = "T1234",
         expiry: IntArray = intArrayOf(0x88, 0x04, 0x81, 0x02, 0xFF, 0xFF),
+        size: IntArray = intArrayOf(0x8E, 0x02, 0x04, 0x00),
     ): ByteArray {
         val o = ByteArrayOutputStream()
         o.bytes(0x8C, 0x82)                       // X-Mms-Message-Type: m-notification-ind
@@ -36,7 +37,7 @@ class MmsPushGateTest {
             o.write(enc); o.write(0)
         }
         o.bytes(0x8A, 0x80)                       // X-Mms-Message-Class: personal
-        o.bytes(0x8E, 0x02, 0x04, 0x00)           // X-Mms-Message-Size: 1024
+        o.bytes(*size)                            // X-Mms-Message-Size: 1024 by default
         o.bytes(*expiry)                          // X-Mms-Expiry
         o.bytes(0x83); o.text("http://mmsc.example.com/msg/abc")  // X-Mms-Content-Location
         return o.toByteArray()
@@ -106,6 +107,20 @@ class MmsPushGateTest {
         val expired = notificationInd("+15551234567", expiry = intArrayOf(0x88, 0x03, 0x80, 0x01, 0x01))
         val action = MmsPushGate.decide(expired, 1, System.currentTimeMillis()) { block() } as MmsPushAction.Block
         assertEquals("", action.contentLocation)
+    }
+
+    @Test
+    fun blockOfAnMmsWithUnknownSizeHasNothingToDownload() {
+        val noSize = notificationInd("+15551234567", size = intArrayOf(0x8E, 0x01, 0x00))
+        val action = MmsPushGate.decide(noSize, 1, System.currentTimeMillis()) { block() } as MmsPushAction.Block
+        assertEquals("", action.contentLocation)
+    }
+
+    @Test
+    fun blockByAnExplicitRuleHasNothingToDownload() {
+        val rule = FilterDecision.Block(DecisionReason.BLOCK_RULE, 7L)
+        val action = MmsPushGate.decide(notificationInd("+15551234567"), 1, System.currentTimeMillis()) { rule }
+        assertEquals("", (action as MmsPushAction.Block).contentLocation)
     }
 
     @Test

@@ -125,10 +125,10 @@ class ThreadMessagesRepository(
         allFetched = false
         val freshIsWholeThread = fresh.size < MESSAGES_LIMIT
         val scheduled = source.scheduled(threadId).filterNot { it.isExpiredScheduled(now()) }
-        val recycled = if (source.useRecycleBin) source.recycled(threadId).toSet() else emptySet()
+        val recycled = if (source.useRecycleBin) source.recycled(threadId).mapTo(HashSet()) { it.key } else emptySet()
         return store.update { loaded ->
             mergeRefreshedMessages(loaded, fresh + scheduled, freshIsWholeThread)
-                .filterNot { it in recycled }
+                .filterNot { it.key in recycled }
                 .toSortedMessages()
         }
     }
@@ -147,8 +147,8 @@ class ThreadMessagesRepository(
     }
 
     fun remove(messages: Collection<Message>): List<Message> {
-        val set = messages.toSet()
-        return store.update { loaded -> loaded.toSortedMessages().filterNot { it in set } }
+        val keys = messages.mapTo(HashSet()) { it.key }
+        return store.update { loaded -> loaded.toSortedMessages().filterNot { it.key in keys } }
     }
 
     /** Marks every loaded message read; returns whether any was unread. */

@@ -1,14 +1,13 @@
 package com.glooboo.umessage.ui.settings
 
 import android.app.Activity
+import android.app.LocaleManager
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
 import android.os.LocaleList
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import com.glooboo.umessage.R
 import java.util.Locale
 
@@ -74,23 +73,32 @@ enum class AppLanguage(val tag: String, @StringRes val label: Int, val englishNa
                 ?: SYSTEM
         }
 
+        /**
+         * Android 13+ reads the system's per-app language directly: AppCompat only answers while an AppCompat
+         * activity is open, and the first-run screen is a plain ComponentActivity.
+         */
         fun current(context: Context): AppLanguage = fromTags(
-            if (supported) AppCompatDelegate.getApplicationLocales().toLanguageTags() else AppLocale.storedTag(context),
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                context.getSystemService(LocaleManager::class.java)?.applicationLocales?.toLanguageTags().orEmpty()
+            } else {
+                AppLocale.storedTag(context)
+            },
         )
 
         /**
-         * Switches the app to [language]. Android 13+ recreates the open screens in it; below that the choice is
-         * stored, [activity] is recreated at once and the other open screens follow when they come back to the front.
+         * Switches the app to [language]. Android 13+ sets it through the system's locale manager, which recreates
+         * the open screens in it (no AppCompat screen is needed); below that the choice is stored, [activity] is
+         * recreated at once and the other open screens follow when they come back to the front.
          */
         @Suppress("DEPRECATION")
         fun apply(activity: Activity, language: AppLanguage) {
-            if (supported) {
-                val locales = if (language == SYSTEM) {
-                    LocaleListCompat.getEmptyLocaleList()
-                } else {
-                    LocaleListCompat.forLanguageTags(language.tag)
-                }
-                AppCompatDelegate.setApplicationLocales(locales)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                activity.getSystemService(LocaleManager::class.java)?.applicationLocales =
+                    if (language == SYSTEM) {
+                        LocaleList.getEmptyLocaleList()
+                    } else {
+                        LocaleList.forLanguageTags(language.tag)
+                    }
                 return
             }
             AppLocale.store(activity, language.tag)

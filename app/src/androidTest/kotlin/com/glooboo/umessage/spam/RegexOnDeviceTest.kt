@@ -20,27 +20,54 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class RegexOnDeviceTest {
 
-    /** Objects whose static initializer compiles a Regex or Pattern. */
+    /** Classes that compile a Regex or Pattern; `RegexHoldersGuardTest` (JVM) fails when one is missing here. */
     private val regexHolders = listOf(
-        "com.glooboo.umessage.spam.engine.OtpDetector",
-        "com.glooboo.umessage.spam.TextNormalizer",
-        "com.glooboo.umessage.spam.RegexGuard",
-        "com.glooboo.umessage.helpers.OtpCodeExtractor",
-        "com.glooboo.umessage.helpers.SmsIntentParser",
-        "com.glooboo.umessage.ui.spam.BlockedNumberFormat",
-        "com.glooboo.umessage.ui.spam.RuleValidator",
-        "com.glooboo.umessage.ui.spam.RuleTextCodec",
+        "com.glooboo.umessage.databases.DatabaseBackups",
+        "com.glooboo.umessage.export.ConversationFileFormat",
+        "com.glooboo.umessage.export.ExportFileName",
+        "com.glooboo.umessage.extensions.DialIntentKt",
         "com.glooboo.umessage.helpers.CodeMasker",
+        "com.glooboo.umessage.helpers.LinkExtractor",
+        "com.glooboo.umessage.helpers.MessageCategories",
+        "com.glooboo.umessage.helpers.NotificationLinksKt",
+        "com.glooboo.umessage.helpers.OtpCodeExtractor",
+        "com.glooboo.umessage.helpers.OtpCodes",
+        "com.glooboo.umessage.helpers.SavedTexts",
+        "com.glooboo.umessage.helpers.SmsIntentParser",
+        "com.glooboo.umessage.helpers.StarredMessages",
+        "com.glooboo.umessage.helpers.smartreply.SmartReplyNormalizer",
+        "com.glooboo.umessage.helpers.smartreply.SmartReplyPolicy",
+        "com.glooboo.umessage.helpers.smartreply.SmartReplyText",
+        "com.glooboo.umessage.helpers.smartreply.engine.EngineReading",
+        "com.glooboo.umessage.spam.DecisionRuleText",
+        "com.glooboo.umessage.spam.KeywordMatch",
+        "com.glooboo.umessage.spam.RegexGuard",
+        "com.glooboo.umessage.spam.TextNormalizer",
+        "com.glooboo.umessage.spam.engine.DomainMatch",
+        "com.glooboo.umessage.spam.engine.OtpDetector",
+        "com.glooboo.umessage.spam.engine.OtpPasswords",
+        "com.glooboo.umessage.spam.mms.BlockedMmsStore",
         "com.glooboo.umessage.ui.components.NumberTextKt",
-        "com.glooboo.umessage.ui.components.PhoneNumberGrouping",
+        "com.glooboo.umessage.ui.components.PhoneNumberDisplayKt",
         "com.glooboo.umessage.ui.components.PhoneNumberListDisplayKt",
-        "com.glooboo.umessage.ui.conversations.ConversationTextKt",
+        "com.glooboo.umessage.ui.labels.LabelRules",
         "com.glooboo.umessage.ui.log.ForwardLogText",
+        "com.glooboo.umessage.ui.newconversation.GroupRecipientsKt",
         "com.glooboo.umessage.ui.spam.BlockedHints",
+        "com.glooboo.umessage.ui.spam.BlockedNumberFormat",
         "com.glooboo.umessage.ui.spam.RestoredLogCodec",
         "com.glooboo.umessage.ui.spam.ForwardTargets",
-        "com.glooboo.umessage.ui.thread.ThreadCodesKt",
+        "com.glooboo.umessage.ui.spam.LegacyMigration",
+        "com.glooboo.umessage.ui.spam.RuleLogicKt",
+        "com.glooboo.umessage.ui.spam.RuleValidator",
+        "com.glooboo.umessage.ui.spam.RuleSearch",
+        "com.glooboo.umessage.ui.spam.RuleTextCodec",
+        "com.glooboo.umessage.ui.thread.BankAlertParser",
+        "com.glooboo.umessage.ui.thread.LinkSafety",
+        "com.glooboo.umessage.ui.thread.PhoneMatchKt",
+        "com.glooboo.umessage.ui.thread.TapbacksKt",
         "com.glooboo.umessage.ui.thread.ThreadLinksKt",
+        "com.glooboo.umessage.ui.thread.UnknownCardLogic",
     )
 
     @Test fun everyRegexHolderInitializes() {
@@ -105,5 +132,18 @@ class RegexOnDeviceTest {
         assertEquals(RegexProblem.SYNTAX, RegexGuard.validate("([unclosed"))
         assertEquals(RegexProblem.MATCHES_EMPTY, RegexGuard.validate("a*"))
         assertNull(RegexGuard.validate("lottery"))
+    }
+
+    /** Android's regex engine matches natively, so only a real wall-clock wait can stop a slow pattern. */
+    @Test fun slowPatternTimesOutOnTheDevice() {
+        val pattern = RegexGuard.compile(".*.*.*.*x")
+        assertNotNull(pattern)
+        val start = System.nanoTime()
+        val outcome = RegexGuard.search(pattern!!, "a".repeat(1_000))
+        val elapsedMs = (System.nanoTime() - start) / 1_000_000
+        assertEquals(RegexGuard.Outcome.TIMED_OUT, outcome)
+        assertTrue("took $elapsedMs ms", elapsedMs < 2_000)
+        val lottery = RegexGuard.compile("lottery")!!
+        assertEquals(RegexGuard.Outcome.MATCH, RegexGuard.search(lottery, "You won the LOTTERY"))
     }
 }

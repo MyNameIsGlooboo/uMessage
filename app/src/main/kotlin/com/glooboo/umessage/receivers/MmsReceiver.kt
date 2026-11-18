@@ -224,6 +224,7 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         runCatching { context.showMmsDownloadFailedNotification() }
         // Q40: the "Downloading" rows in an open chat turn into "Tap to try again" (the error names no message).
         MmsDownloadTracker.shared.failAllRunning()
+        MmsPushDownload.clearStarted()
     }
 
     private fun handleMmsMessage(

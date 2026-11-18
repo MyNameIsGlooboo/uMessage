@@ -127,6 +127,8 @@ android {
     testOptions {
         // Robolectric tests need the merged resources, manifest and assets.
         unitTests.isIncludeAndroidResources = true
+        // Android is always UTF-8. Match it in JVM tests so non-ASCII (Persian) backup passwords encode the same way.
+        unitTests.all { it.jvmArgs("-Dfile.encoding=UTF-8") }
     }
     compileOptions {
         val currentJavaVersionFromLibs = JavaVersion.valueOf(libs.versions.app.build.javaVersion.get())
@@ -222,6 +224,38 @@ abstract class CheckFdroidTask : DefaultTask() {
     }
 }
 
+/**
+ * Play build safety: the gplay release must stay offline and must not ask for a photo permission (Play review, see
+ * docs/PLAY_DECLARATIONS.md). Fails when its merged manifest has INTERNET, ACCESS_NETWORK_STATE, READ_MEDIA_IMAGES or
+ * READ_MEDIA_VISUAL_USER_SELECTED. Runs before bundleGplayRelease and assembleGplayRelease, and as part of `check`.
+ */
+abstract class CheckPlayManifestTask : DefaultTask() {
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val mergedManifest: RegularFileProperty
+
+    @get:OutputFile
+    abstract val report: RegularFileProperty
+
+    @TaskAction
+    fun verify() {
+        val manifest = mergedManifest.get().asFile.readText()
+        val problems = FORBIDDEN.filter { permission ->
+            Regex("""android:name\s*=\s*"android\.permission\.$permission"""").containsMatchIn(manifest)
+        }.map { "The merged manifest requests android.permission.$it, which the Play build must not." }
+        val text = if (problems.isEmpty()) "OK: none of ${FORBIDDEN.joinToString()} requested.\n"
+        else problems.joinToString("\n", postfix = "\n")
+        report.get().asFile.apply { parentFile.mkdirs() }.writeText(text)
+        if (problems.isNotEmpty()) throw GradleException("Play manifest check failed:\n$text")
+    }
+
+    private companion object {
+        val FORBIDDEN = listOf(
+            "INTERNET", "ACCESS_NETWORK_STATE", "READ_MEDIA_IMAGES", "READ_MEDIA_VISUAL_USER_SELECTED",
+        )
+    }
+}
+
 // Every module and library a resolved classpath contains, as "group:name:version" (or "project :x").
 fun ResolvedComponentResult.allComponentIds(): List<String> {
     val seen = LinkedHashSet<String>()
@@ -246,6 +280,18 @@ androidComponents {
             report.set(layout.buildDirectory.file("reports/fdroid/${variant.name}.txt"))
         }
         tasks.named("check") { dependsOn(checkTask) }
+    }
+    onVariants(selector().withFlavor("variants" to "gplay").withBuildType("release")) { variant ->
+        val capitalized = variant.name.replaceFirstChar { it.uppercase() }
+        val checkTask = tasks.register<CheckPlayManifestTask>("checkPlayManifest$capitalized") {
+            group = "verification"
+            description = "Checks that ${variant.name} has no INTERNET, network state or photo permission."
+            mergedManifest.set(variant.artifacts.get(SingleArtifact.MERGED_MANIFEST))
+            report.set(layout.buildDirectory.file("reports/playManifest/${variant.name}.txt"))
+        }
+        tasks.named("check") { dependsOn(checkTask) }
+        tasks.matching { it.name == "bundle$capitalized" || it.name == "assemble$capitalized" }
+            .configureEach { dependsOn(checkTask) }
     }
 }
 

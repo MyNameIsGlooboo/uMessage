@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<smses count="3">
+  <sms protocol="0" address="+15555550100" date="1700000001000" type="1" body="Golden fixture one: hello from the 0.4.14 format." read="1" status="-1" locked="0" />
+  <sms protocol="0" address="+15555550100" date="1700000002000" type="2" body="سلام، این یک پیام آزمایشی است." read="1" status="-1" locked="0" />
+  <sms protocol="0" address="+15555550101" date="1700000003000" type="1" body="Golden fixture three: second sender." read="1" status="-1" locked="0" />
+</smses>

@@ -39,6 +39,7 @@ private val PhotoSize = 84.dp
  */
 @Composable
 internal fun RecentPhotosRow(accessVersion: Int, onPick: (Uri) -> Unit, onAllow: () -> Unit) {
+    if (!RecentPhotosFlavor.AVAILABLE) return
     val context = LocalContext.current
     val access = remember(accessVersion) { RecentPhotosAccess.current(context) }
     if (access == PhotoAccess.None) {

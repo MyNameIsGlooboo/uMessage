@@ -344,7 +344,8 @@ object SettingsBackupFormat {
     /**
      * Checks the forward rules of a backup before they are added (H1). Each target goes through the forward editor's
      * checks ([ForwardTargets]): a real phone number (no short codes), not one of [ownNumbers], not the watched sender;
-     * it is stored normalized (a national 0 becomes the country code). A rule with no target left is dropped. Every
+     * it is stored normalized (a national number gets the country code of [region], the phone's country; with no
+     * [region], or when it is not valid there, it stays as written). A rule with no target left is dropped. Every
      * rule comes in switched off and without a SIM scope, so nothing is forwarded until the owner turns it on in the
      * forward editor, which asks for the app lock. Rules already on the phone ([existing]) or twice in the file are
      * skipped.
@@ -353,6 +354,7 @@ object SettingsBackupFormat {
         incoming: List<ForwardRule>,
         existing: List<ForwardRule>,
         ownNumbers: List<String> = emptyList(),
+        region: String? = null,
     ): ForwardImport {
         val known = existing.map(::forwardKey).toMutableSet()
         val toAdd = mutableListOf<ForwardRule>()
@@ -363,7 +365,7 @@ object SettingsBackupFormat {
             val errors = ForwardTargets.errors(rule.targets, ownNumbers, watched)
             val targets = rule.targets.zip(errors)
                 .filter { (_, error) -> error == null }
-                .mapNotNull { (raw, _) -> ForwardTargets.stored(raw) }
+                .mapNotNull { (raw, _) -> ForwardTargets.stored(raw, region) }
                 .distinctBy(ForwardTargets::key)
             if (targets.isEmpty()) {
                 unusable++

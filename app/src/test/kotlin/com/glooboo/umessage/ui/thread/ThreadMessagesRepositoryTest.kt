@@ -132,6 +132,31 @@ class ThreadMessagesRepositoryTest {
     }
 
     @Test
+    fun removeWorksByKeyEvenAfterMarkAllReadChangedTheMessage() {
+        val repository = ThreadMessagesRepository(FakeSource()) { now }
+        val unread = message(1, 10, read = false)
+        repository.update { listOf(unread, message(2, 20), message(1, 30, isMMS = true)) }
+        repository.markAllRead(THREAD)
+
+        repository.remove(listOf(unread))
+
+        assertThat(repository.current.map { it.key }).containsExactly(MessageKey(2, false), MessageKey(1, true))
+    }
+
+    @Test
+    fun refreshDropsRecycledMessagesByKeyWhateverTheirOtherFields() {
+        val source = FakeSource().apply {
+            useRecycleBin = true
+            recycled = listOf(message(2, 20, read = false))
+        }
+        val repository = ThreadMessagesRepository(source) { now }
+
+        repository.refresh(THREAD, listOf(message(1, 10), message(2, 20, read = true)))
+
+        assertThat(repository.current.map { it.id }).containsExactly(1L)
+    }
+
+    @Test
     fun upsertTellsSmsAndMmsWithTheSameIdApart() {
         val repository = ThreadMessagesRepository(FakeSource()) { now }
         repository.upsert(message(57, 10))

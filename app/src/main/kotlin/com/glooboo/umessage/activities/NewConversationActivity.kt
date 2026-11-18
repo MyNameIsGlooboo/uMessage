@@ -31,6 +31,8 @@ import com.glooboo.umessage.ui.newconversation.GroupRecipient
 import com.glooboo.umessage.ui.newconversation.NewConversationScreen
 import com.glooboo.umessage.ui.newconversation.loadPhoneContacts
 import com.glooboo.umessage.ui.newconversation.typedPhoneNumber
+import com.glooboo.umessage.ui.thread.grantReadOf
+import com.glooboo.umessage.ui.thread.readableByApp
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -233,13 +235,17 @@ class NewConversationActivity : ComposeSimpleActivity() {
             if (intent.action == Intent.ACTION_SEND && intent.extras?.containsKey(Intent.EXTRA_STREAM) == true) {
                 val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
                 // No uri (EXTRA_STREAM holds something else): nothing is attached, instead of a null extra (B14).
-                if (uri != null) putExtra(THREAD_ATTACHMENT_URI, uri.toString())
+                if (uri != null) {
+                    putExtra(THREAD_ATTACHMENT_URI, uri.toString())
+                    grantReadOf(readableByApp(listOf(uri)))
+                }
             } else if (intent.action == Intent.ACTION_SEND_MULTIPLE && intent.extras?.containsKey(
                     Intent.EXTRA_STREAM,
                 ) == true
             ) {
                 val uris = intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
                 putExtra(THREAD_ATTACHMENT_URIS, uris)
+                if (uris != null) grantReadOf(readableByApp(uris))
             }
 
             startActivity(this)
