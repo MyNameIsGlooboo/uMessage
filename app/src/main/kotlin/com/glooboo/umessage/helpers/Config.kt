@@ -250,7 +250,11 @@ class Config(context: Context) : BaseConfig(context) {
         set(isArchiveAvailable) = prefs.edit().putBoolean(IS_ARCHIVE_AVAILABLE, isArchiveAvailable)
             .apply()
 
-    /** True once the phone's store was seen not to keep an archive write: the app's own archived flag rules then. */
+    /**
+     * True once the phone's store was seen not to keep an archive write: the app's own archived flag rules then. The
+     * flag is sticky on purpose and never clears. A phone marked by mistake only loses the follow-up of archive and
+     * unarchive done in other SMS apps (they no longer show here); nothing the user archived in this app is lost.
+     */
     var isArchiveStoreUnreliable: Boolean
         get() = prefs.getBoolean(IS_ARCHIVE_STORE_UNRELIABLE, false)
         set(isArchiveStoreUnreliable) = prefs.edit()

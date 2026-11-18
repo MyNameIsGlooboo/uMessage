@@ -12,6 +12,7 @@ import com.glooboo.umessage.extensions.getMessages
 import com.glooboo.umessage.extensions.getPrivateContactsIfAvailable
 import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.messagesDB
+import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.models.Conversation
 import java.util.concurrent.Executor
 
@@ -205,7 +206,7 @@ class ConversationListSync(
         val cachedConversations = ArrayList(db.getNonArchived() + db.getAllArchived())
         val privateContacts = context.getPrivateContactsIfAvailable()
         val lookups = ConversationLookups(context, bulk = true)
-        ArchiveStore.protectArchives(context, cachedConversations.any { it.isArchived })
+        ArchiveStore.protectArchives(context)
         val archiveKnown = ArchiveStore.isTrusted(context)
 
         // Refresh the newest threads first so the top of the list is current right away. The full pass below still
@@ -261,7 +262,9 @@ class ConversationListSync(
         }
 
         // Chats a restore archived before their rows existed (see PendingArchive).
-        runCatching { PendingArchive(context).applyTo(db) }
+        runCatching {
+            PendingArchive(context).applyTo(db) { context.updateConversationArchivedStatus(it, true) }
+        }
         // Messages a restore put back in the recycle bin once their cached copies exist (see PendingRecycled).
         runCatching { PendingRecycled(context).applyTo(context.messagesDB) }
 

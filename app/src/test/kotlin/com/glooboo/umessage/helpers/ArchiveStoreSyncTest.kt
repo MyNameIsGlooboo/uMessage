@@ -3,14 +3,22 @@ package com.glooboo.umessage.helpers
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.backup.AppDataBackupSupport
+import com.glooboo.umessage.backup.PendingArchive
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.conversationsDB
+import com.glooboo.umessage.extensions.getMessagesDB
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
+import com.glooboo.umessage.models.AppDataBackup
+import com.glooboo.umessage.models.ChatRefBackup
+import com.glooboo.umessage.models.Conversation
+import com.glooboo.umessage.spam.data.deliverIncomingSms
 import com.glooboo.umessage.testing.CountingInboxProvider
 import com.glooboo.umessage.testing.CountingInboxProvider.ArchiveWrites
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -59,6 +67,32 @@ class ArchiveStoreSyncTest {
     private fun setArchived(threadId: Long, archived: Boolean) =
         offMainThread { context.updateConversationArchivedStatus(threadId, archived) }
 
+    private fun deliver(threadId: Long) = offMainThread {
+        context.deliverIncomingSms(
+            address = CountingInboxProvider.address(threadId),
+            subject = "",
+            body = "Hello",
+            date = CountingInboxProvider.BASE_MS + 999_000_000,
+            subscriptionId = -1,
+            status = -1,
+            notify = NotifyContext(NotifyMode.NONE),
+            threadId = threadId,
+        )
+    }
+
+    private fun restoreArchive(threadId: Long) = offMainThread {
+        val db = context.getMessagesDB()
+        val support = AppDataBackupSupport(
+            stars = db.StarredMessagesDao(), labels = db.LabelsDao(), conversations = db.ConversationsDao(),
+            pendingArchive = PendingArchive(context),
+            addressesOf = { emptySet() },
+            threadFor = { threadId },
+            archive = { context.updateConversationArchivedStatus(it, true) },
+        )
+        val chat = ChatRefBackup(listOf(CountingInboxProvider.address(threadId)))
+        runBlocking { support.restore(AppDataBackup(archived = listOf(chat))) }
+    }
+
     private fun fullRefresh() {
         sync.requestFull()
         idle()
@@ -89,22 +123,143 @@ class ArchiveStoreSyncTest {
     }
 
     @Test
-    fun theArchivedTabStaysAvailableWhenTheStoreDropsWrites() {
+    fun aNewMessageUnarchivesTheChatThroughTheAppsOwnFlagWhenTheStoreDropsWrites() {
         provider.archiveWrites = ArchiveWrites.IGNORE
-
         setArchived(THREAD, true)
+        assertThat(archivedIds()).containsExactly(THREAD)
 
-        assertThat(context.config.isArchiveAvailable).isTrue()
+        deliver(THREAD)
+        fullRefresh()
+
+        assertThat(archivedIds()).isEmpty()
+        assertThat(inboxIds()).contains(THREAD)
+        assertThat(context.config.isArchiveStoreUnreliable).isTrue()
     }
 
     @Test
-    fun aNewMessageInAnArchivedChatKeepsItArchivedWhenTheStoreDropsWrites() {
+    fun aNewMessageKeepsTheChatArchivedWhenTheSettingSaysSoAndTheStoreDropsWrites() {
+        context.config.keepConversationsArchived = true
         provider.archiveWrites = ArchiveWrites.IGNORE
         setArchived(THREAD, true)
 
-        provider.receive(
-            id = 900_000, thread = THREAD, body = "Hello", dateMs = CountingInboxProvider.BASE_MS + 999_000_000,
-        )
+        deliver(THREAD)
+        fullRefresh()
+
+        assertThat(archivedIds()).containsExactly(THREAD)
+    }
+
+    @Test
+    fun aNewMessageUnarchivesTheChatInTheStoreToo() {
+        setArchived(THREAD, true)
+        assertThat(provider.isArchived(THREAD)).isTrue()
+
+        deliver(THREAD)
+        fullRefresh()
+
+        assertThat(provider.isArchived(THREAD)).isFalse()
+        assertThat(archivedIds()).isEmpty()
+        assertThat(context.config.isArchiveStoreUnreliable).isFalse()
+    }
+
+    @Test
+    fun archivingAChatWithOnlyScheduledMessagesKeepsTheStoreTrusted() {
+        provider.archiveWrites = ArchiveWrites.IGNORE
+        offMainThread {
+            context.conversationsDB.insertOrUpdate(
+                Conversation(
+                    threadId = SCHEDULED_THREAD, snippet = "", date = 1, read = true, title = "", photoUri = "",
+                    isGroupConversation = false, phoneNumber = CountingInboxProvider.address(SCHEDULED_THREAD),
+                    isScheduled = true,
+                )
+            )
+        }
+
+        setArchived(SCHEDULED_THREAD, true)
+
+        assertThat(archivedIds()).containsExactly(SCHEDULED_THREAD)
+        assertThat(context.config.isArchiveStoreUnreliable).isFalse()
+    }
+
+    @Test
+    fun archivingAChatTheStoreNoLongerHasKeepsTheStoreTrusted() {
+        provider.deleteThread(THREAD)
+        provider.archiveWrites = ArchiveWrites.NO_ROWS
+
+        setArchived(THREAD, true)
+
+        assertThat(context.config.isArchiveStoreUnreliable).isFalse()
+    }
+
+    @Test
+    fun aReadBackOfAnotherThreadSaysNothingAboutTheWrite() {
+        provider.setArchived(OTHER_THREAD, true)
+        provider.archiveWrites = ArchiveWrites.IGNORE
+        provider.readsOtherThread = true
+
+        setArchived(THREAD, true)
+
+        assertThat(context.config.isArchiveStoreUnreliable).isFalse()
+    }
+
+    @Test
+    fun unarchivingTheLastArchivedChatKeepsAWorkingStoreTrusted() {
+        setArchived(THREAD, true)
+        setArchived(THREAD, false)
+        fullRefresh()
+
+        assertThat(archivedIds()).isEmpty()
+        assertThat(context.config.isArchiveStoreUnreliable).isFalse()
+    }
+
+    @Test
+    fun anArchivedScheduledOnlyChatAloneDoesNotMarkAWorkingStore() {
+        offMainThread {
+            context.conversationsDB.insertOrUpdate(
+                Conversation(
+                    threadId = SCHEDULED_THREAD, snippet = "", date = 1, read = true, title = "", photoUri = "",
+                    isGroupConversation = false, phoneNumber = CountingInboxProvider.address(SCHEDULED_THREAD),
+                    isScheduled = true, isArchived = true,
+                )
+            )
+        }
+
+        fullRefresh()
+
+        assertThat(context.config.isArchiveStoreUnreliable).isFalse()
+    }
+
+    @Test
+    fun aRestoredArchiveStaysArchivedNextToOneTheStoreAlreadyHolds() {
+        setArchived(OTHER_THREAD, true)
+        fullRefresh()
+        assertThat(archivedIds()).containsExactly(OTHER_THREAD)
+
+        restoreArchive(THREAD)
+        fullRefresh()
+
+        assertThat(provider.isArchived(THREAD)).isTrue()
+        assertThat(archivedIds()).containsExactly(THREAD, OTHER_THREAD)
+        assertThat(context.config.isArchiveStoreUnreliable).isFalse()
+    }
+
+    @Test
+    fun aRestoredArchiveWaitingForItsRowIsWrittenToTheStoreToo() {
+        setArchived(OTHER_THREAD, true)
+        PendingArchive(context).add(THREAD)
+
+        fullRefresh()
+        fullRefresh()
+
+        assertThat(provider.isArchived(THREAD)).isTrue()
+        assertThat(archivedIds()).containsExactly(THREAD, OTHER_THREAD)
+        assertThat(context.config.isArchiveStoreUnreliable).isFalse()
+    }
+
+    @Test
+    fun aRestoredArchiveStaysWhenTheStoreDropsWrites() {
+        provider.archiveWrites = ArchiveWrites.IGNORE
+
+        restoreArchive(THREAD)
         fullRefresh()
 
         assertThat(archivedIds()).containsExactly(THREAD)
@@ -159,5 +314,6 @@ class ArchiveStoreSyncTest {
         const val THREADS = 20
         const val THREAD = 5L
         const val OTHER_THREAD = 6L
+        const val SCHEDULED_THREAD = 999_999L
     }
 }

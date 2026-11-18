@@ -1162,9 +1162,9 @@ fun Context.updateConversationArchivedStatus(threadId: Long, archived: Boolean) 
     val selection = "${Threads._ID} = ?"
     val selectionArgs = arrayOf(threadId.toString())
     try {
-        val rows = contentResolver.update(uri, values, selection, selectionArgs)
+        contentResolver.update(uri, values, selection, selectionArgs)
         // The store may take the write and not keep it: then the app's own list below is the one to trust.
-        ArchiveStore.verifyWrite(this, threadId, archived, rows)
+        ArchiveStore.verifyWrite(this, threadId, archived)
     } catch (sqliteException: SQLiteException) {
         if (
             sqliteException.message?.contains("no such column: archived") == true
