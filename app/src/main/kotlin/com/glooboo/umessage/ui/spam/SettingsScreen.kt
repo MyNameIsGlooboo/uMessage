@@ -137,6 +137,7 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
     var unknownNotifyDialog by rememberSaveable { mutableStateOf(false) }
     var regionDialog by rememberSaveable { mutableStateOf(false) }
     var restoredOpen by rememberSaveable { mutableStateOf(false) }
+    val cardMode = rememberSortingCardMode(settings.mode)
     val chooseMode: (UnknownSenderMode) -> Unit = { mode ->
         if (mode == UnknownSenderMode.STRICT && settings.mode != UnknownSenderMode.STRICT) {
             confirmStrict = true
@@ -151,8 +152,8 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
         SettingsGroup(
             title = stringResource(R.string.spam_settings_unknown_title),
             description = stringResource(R.string.spam_settings_unknown_body),
-            descriptionExtra = {
-                SortingCard(mode = settings.mode, containerColor = MaterialTheme.colorScheme.surface)
+            descriptionExtra = cardMode?.let { shown ->
+                { SortingCard(mode = shown, containerColor = MaterialTheme.colorScheme.surface) }
             },
         ) {
             ModeChoice(

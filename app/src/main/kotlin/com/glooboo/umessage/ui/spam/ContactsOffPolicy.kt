@@ -43,6 +43,7 @@ import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.icons.Symbols
+import org.fossify.commons.extensions.baseConfig
 
 /**
  * F4: without the Contacts permission the filter cannot tell a friend from a stranger, so it lets every number
@@ -52,10 +53,45 @@ import com.glooboo.umessage.ui.icons.Symbols
 object ContactsOffPolicy {
     fun needed(contactsGranted: Boolean, mode: UnknownSenderMode?): Boolean =
         !contactsGranted && mode != null && mode != UnknownSenderMode.OFF
+
+    /** The mode the filter really runs in: the old "block unknown numbers" switch turns an Off filter into Strict. */
+    fun effectiveMode(mode: UnknownSenderMode, legacyBlockUnknown: Boolean): UnknownSenderMode =
+        if (mode == UnknownSenderMode.OFF && legacyBlockUnknown) UnknownSenderMode.STRICT else mode
+
+    /**
+     * The mode for the "how it sorts" card, or null when the card would be false: without Contacts the filter lets
+     * unknown numbers through, so "Unknown sender -> Spam" is not true.
+     */
+    fun cardMode(contactsGranted: Boolean, mode: UnknownSenderMode, legacyBlockUnknown: Boolean): UnknownSenderMode? {
+        val effective = effectiveMode(mode, legacyBlockUnknown)
+        return if (needed(contactsGranted, effective)) null else effective
+    }
 }
 
 private fun Context.contactsGranted(): Boolean =
     ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED
+
+/** [ContactsOffPolicy.cardMode] for the stored [mode], re-read on every resume. Null: show no card. */
+@Composable
+fun rememberSortingCardMode(mode: UnknownSenderMode): UnknownSenderMode? {
+    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
+    var granted by remember { mutableStateOf(context.contactsGranted()) }
+    var legacy by remember { mutableStateOf(context.legacyBlockUnknown()) }
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                granted = context.contactsGranted()
+                legacy = context.legacyBlockUnknown()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
+    return ContactsOffPolicy.cardMode(granted, mode, legacy)
+}
+
+private fun Context.legacyBlockUnknown(): Boolean = runCatching { baseConfig.blockUnknownNumbers }.getOrDefault(false)
 
 /** The banner for a screen that does not hold the filter mode itself (the Messages tab). Follows the mode live. */
 @Composable

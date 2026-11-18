@@ -52,6 +52,7 @@ import com.glooboo.umessage.ui.settings.search.SettingsSearchButton
 import com.glooboo.umessage.ui.settings.search.SettingsSearchField
 import com.glooboo.umessage.ui.settings.search.SettingsSearchResults
 import com.glooboo.umessage.ui.setup.SetupPage
+import com.glooboo.umessage.ui.spam.rememberSortingCardMode
 import androidx.compose.material3.Icon
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import org.fossify.commons.R as CommonsR
@@ -444,6 +445,7 @@ private fun SpamPage(state: SettingsUiState, actions: SettingsActions) {
 @Composable
 private fun SpamModeGroup(spam: SpamSummary, actions: SettingsActions) {
     var confirmStrict by rememberSaveable { mutableStateOf(false) }
+    val cardMode = rememberSortingCardMode(spam.mode)
     val choose: (UnknownSenderMode) -> Unit = { mode ->
         if (mode == UnknownSenderMode.STRICT && spam.mode != UnknownSenderMode.STRICT) {
             confirmStrict = true
@@ -454,8 +456,8 @@ private fun SpamModeGroup(spam: SpamSummary, actions: SettingsActions) {
     SettingsGroup(
         title = stringResource(R.string.spam_settings_unknown_title),
         description = spamSummaryText(spam),
-        descriptionExtra = {
-            SortingCard(mode = spam.mode, containerColor = MaterialTheme.colorScheme.surface)
+        descriptionExtra = cardMode?.let { shown ->
+            { SortingCard(mode = shown, containerColor = MaterialTheme.colorScheme.surface) }
         },
     ) {
         SettingsRadioRow(

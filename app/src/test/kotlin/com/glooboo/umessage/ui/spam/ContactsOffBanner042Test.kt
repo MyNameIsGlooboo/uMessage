@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.spam.UnknownSenderMode
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -29,6 +30,19 @@ class ContactsOffBanner042Test {
         assertFalse(ContactsOffPolicy.needed(contactsGranted = false, mode = UnknownSenderMode.OFF))
         assertFalse(ContactsOffPolicy.needed(contactsGranted = true, mode = UnknownSenderMode.SMART))
         assertFalse(ContactsOffPolicy.needed(contactsGranted = false, mode = null))
+    }
+
+    @Test fun cardIsHiddenWithoutContactsInSmartAndStrictAndKeptInOffOrWhenGranted() {
+        assertEquals(null, ContactsOffPolicy.cardMode(false, UnknownSenderMode.SMART, false))
+        assertEquals(null, ContactsOffPolicy.cardMode(false, UnknownSenderMode.STRICT, false))
+        assertEquals(UnknownSenderMode.OFF, ContactsOffPolicy.cardMode(false, UnknownSenderMode.OFF, false))
+        assertEquals(UnknownSenderMode.SMART, ContactsOffPolicy.cardMode(true, UnknownSenderMode.SMART, false))
+    }
+
+    @Test fun oldSwitchMakesAnOffFilterStrictForTheCard() {
+        assertEquals(UnknownSenderMode.STRICT, ContactsOffPolicy.cardMode(true, UnknownSenderMode.OFF, true))
+        assertEquals(null, ContactsOffPolicy.cardMode(false, UnknownSenderMode.OFF, true))
+        assertEquals(UnknownSenderMode.SMART, ContactsOffPolicy.cardMode(true, UnknownSenderMode.SMART, true))
     }
 
     @Test fun bannerShowsTitleBodyAndAllowButtonWithoutThePermission() {

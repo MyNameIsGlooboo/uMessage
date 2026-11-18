@@ -1,5 +1,7 @@
 package com.glooboo.umessage.ui.settings
 
+import android.Manifest
+import android.app.Application
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -20,6 +22,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.Shadows.shadowOf
 
 /** The short main list (P4): SIM and forwarding rows depend on the phone, the rest opens sub-pages. */
 @RunWith(AndroidJUnit4::class)
@@ -194,9 +197,39 @@ class SettingsNavTest {
     // The "i" beside the unknown-sender header opens the text with the sorting card in the current mode.
     @Test
     fun `the info icon on the spam page opens a dialog with the sorting card`() {
+        grantContacts()
         show(SettingsUiState(spam = spam), page = SettingsPage.Spam)
         compose.onNodeWithTag("info_icon").performClick()
         compose.onNodeWithText("Unknown sender", useUnmergedTree = true).assertExists()
+    }
+
+    // Without Contacts the filter lets unknown numbers through, so the card would be false: it is not shown.
+    @Test
+    fun `the dialog has no sorting card while contacts are denied in smart`() = assertNoCardWithoutContacts(
+        UnknownSenderMode.SMART,
+    )
+
+    @Test
+    fun `the dialog has no sorting card while contacts are denied in strict`() = assertNoCardWithoutContacts(
+        UnknownSenderMode.STRICT,
+    )
+
+    private fun assertNoCardWithoutContacts(mode: UnknownSenderMode) {
+        show(SettingsUiState(spam = spam.copy(mode = mode)), page = SettingsPage.Spam)
+        compose.onNodeWithTag("info_icon").performClick()
+        compose.onNodeWithText("Unknown sender", useUnmergedTree = true).assertDoesNotExist()
+    }
+
+    @Test
+    fun `the dialog keeps the sorting card in off mode without contacts`() {
+        show(SettingsUiState(spam = spam.copy(mode = UnknownSenderMode.OFF)), page = SettingsPage.Spam)
+        compose.onNodeWithTag("info_icon").performClick()
+        compose.onNodeWithText("Unknown sender", useUnmergedTree = true).assertExists()
+    }
+
+    private fun grantContacts() {
+        shadowOf(ApplicationProvider.getApplicationContext<Application>())
+            .grantPermissions(Manifest.permission.READ_CONTACTS)
     }
 
     // B7: "Recommended" only once, as the chip.

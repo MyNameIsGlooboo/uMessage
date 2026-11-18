@@ -447,12 +447,13 @@ private fun BlockedList(
             state.heldCount == 0 -> {
                 item(key = "empty") { BlockedEmpty(state.mode) }
                 item(key = "empty-how") {
+                    val cardMode = rememberSortingCardMode(state.mode) ?: return@item
                     // Plays once each time the app is opened; later visits of the tab show the finished card.
                     val autoPlay = remember { !emptyCardPlayed }
                     LaunchedEffect(Unit) { emptyCardPlayed = true }
                     SortingCard(
                         modifier = Modifier.padding(horizontal = 16.dp).testTag("blocked_empty_how"),
-                        mode = state.mode,
+                        mode = cardMode,
                         autoPlay = autoPlay,
                         reduceMotion = reduceMotion,
                     )
