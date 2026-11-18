@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="nameallow_title">この名前を常に許可しますか？</string>
-    <string name="nameallow_body">%1$sからの新しいメッセージは「メッセージ」に届きます。送信者名は誰でも指定できるため、この名前を使った偽のメッセージも届きます。</string>
-    <string name="nameallow_body_many">%1$sからの新しいメッセージは「メッセージ」に届きます。送信者名は誰でも指定できるため、これらの名前を使った偽のメッセージも届きます。</string>
+    <string name="nameallow_body">今後、%1$sからのメッセージは受信トレイに届きます。誰でも好きな名前で送信できるため、この名前を使った偽のメッセージも届きます。この名前にご自身で設定したブロックルールは削除されます。</string>
+    <string name="nameallow_body_many">今後、%1$sからのメッセージは受信トレイに届きます。誰でも好きな名前で送信できるため、これらの名前を使った偽のメッセージも届きます。これらの名前にご自身で設定したブロックルールは削除されます。</string>
     <string name="nameallow_more">%1$s、ほか%2$d件</string>
+    <string name="nameallow_allow">常に許可</string>
+    <string name="nameallow_not_now">後で</string>
 </resources>

@@ -3,6 +3,7 @@ package com.glooboo.umessage.ui.spam
 import android.app.Application
 import android.os.Looper
 import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.junit4.StateRestorationTester
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
@@ -65,6 +66,22 @@ class BlockedThreadOpensChatTest {
         }
     }
 
+    private fun routeRestorable(
+        repo: FakeSpamRepository,
+        address: String,
+        threadId: Long,
+        onBack: () -> Unit,
+    ): StateRestorationTester {
+        val vm = BlockedViewModel(app, repo, RestoredLog(prefs = null), ignoreFilter = true)
+        return StateRestorationTester(compose).also { tester ->
+            tester.setContent {
+                UMessageTheme {
+                    BlockedThreadRoute(address, onBack, {}, viewModel = vm, threadIdOf = { _, _ -> threadId })
+                }
+            }
+        }
+    }
+
     /**
      * The allow rules are written on a background dispatcher and resume on the main looper, which a paused test
      * looper only runs when told to; the view model tests do the same (idle, then a short real wait).
@@ -122,7 +139,7 @@ class BlockedThreadOpensChatTest {
         // The chat waits for the answer to "Always allow this name?"; "Not now" changes nothing.
         awaitText(app.getString(R.string.nameallow_title))
         assertThat(closed).isEqualTo(0)
-        compose.onNodeWithText(app.getString(R.string.setup_banner_dismiss)).performClick()
+        compose.onNodeWithText(app.getString(R.string.nameallow_not_now)).performClick()
         awaitClosed { closed > 0 }
 
         val chat = started().single { it.component?.className == ThreadActivity::class.java.name }
@@ -137,9 +154,16 @@ class BlockedThreadOpensChatTest {
         route(repo, NAME, threadId = 7L) { closed++ }
         compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true).performClick()
         awaitText(app.getString(R.string.nameallow_title))
-        compose.onNodeWithText(app.getString(R.string.decm_always_allow)).performClick()
-        // The question is answered at once and the rule is stored in the background, so wait for both.
-        awaitClosed { closed > 0 && runBlocking { repo.rules.first() }.isNotEmpty() }
+        compose.onNodeWithText(app.getString(R.string.nameallow_allow)).performClick()
+        // The rule is stored in the background; its Undo snackbar is on this page, and the chat waits for it.
+        val undo = app.getString(R.string.spam_undo)
+        awaitText(undo)
+        assertThat(runBlocking { repo.rules.first() }).hasSize(1)
+        assertThat(closed).isEqualTo(0)
+        compose.onNodeWithText(undo).assertExists()
+        // Keeping the rule (the snackbar runs out) lets the chat open.
+        compose.mainClock.advanceTimeBy(SNACKBAR_MS)
+        awaitClosed { closed > 0 }
 
         val chat = started().single { it.component?.className == ThreadActivity::class.java.name }
         assertThat(chat.getLongExtra(THREAD_ID, 0L)).isEqualTo(7L)
@@ -147,6 +171,36 @@ class BlockedThreadOpensChatTest {
         assertThat(rule.kind).isEqualTo(ListKind.ALLOW)
         assertThat(rule.type).isEqualTo(RuleType.SENDER_ID)
         assertThat(rule.pattern).isEqualTo(NAME)
+    }
+
+    @Test
+    fun undoingTheNameRuleOnTheBlockedPageIsPossibleAndThenTheChatOpens() {
+        val repo = FakeSpamRepository(initialBlocked = listOf(message(1, NAME)), initialRules = emptyList())
+        var closed = 0
+        route(repo, NAME, threadId = 7L) { closed++ }
+        compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true).performClick()
+        awaitText(app.getString(R.string.nameallow_title))
+        compose.onNodeWithText(app.getString(R.string.nameallow_allow)).performClick()
+        val undo = app.getString(R.string.spam_undo)
+        awaitText(undo)
+        compose.onNodeWithText(undo).performClick()
+        awaitClosed { closed > 0 }
+        assertThat(runBlocking { repo.rules.first() }).isEmpty()
+    }
+
+    @Test
+    fun rotatingWhileTheQuestionIsOpenStillOpensTheChatAfterTheAnswer() {
+        val repo = FakeSpamRepository(initialBlocked = listOf(message(1, NAME)), initialRules = emptyList())
+        var closed = 0
+        val tester = routeRestorable(repo, NAME, threadId = 7L) { closed++ }
+        compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true).performClick()
+        awaitText(app.getString(R.string.nameallow_title))
+        tester.emulateSavedInstanceStateRestore()
+        awaitText(app.getString(R.string.nameallow_title))
+        compose.onNodeWithText(app.getString(R.string.nameallow_not_now)).performClick()
+        awaitClosed { closed > 0 }
+
+        assertThat(started().count { it.component?.className == ThreadActivity::class.java.name }).isEqualTo(1)
     }
 
     private fun awaitText(text: String) {
@@ -179,6 +233,9 @@ class BlockedThreadOpensChatTest {
     private companion object {
         const val SENDER = "+447121234567"
         const val NAME = "BANK-X"
+
+        /** A little longer than a Long snackbar. */
+        const val SNACKBAR_MS = 11_000L
 
         /** What the snackbar text shows for [SENDER]: the number as the phone displays it. */
         val SENDER_SHOWN: String get() = com.glooboo.umessage.ui.components.isolateNumbers(

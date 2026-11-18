@@ -74,15 +74,20 @@ class NameAllowViewModelTest {
     private fun allowRules(repo: FakeSpamRepository) = rulesOf(repo).filter { it.kind == ListKind.ALLOW }
 
     @Test
-    fun aMovedNameIsAskedAboutOnceAndNoRuleIsMadeYet() {
+    fun aMovedNameIsAskedAboutOnceAndItsUndoWaitsForTheAnswer() {
         val (vm, repo) = start()
         vm.notSpam(setOf(NAME))
         awaitUntil { vm.namePrompt.value != null }
-        awaitUntil { events.isNotEmpty() }
+        idleMain()
         val prompt = vm.namePrompt.value!!
         assertThat(prompt.names).containsExactly(NAME)
-        assertThat(prompt.token).isEqualTo((events.single() as BlockedEvent.Restored).token)
         assertThat(allowRules(repo)).isEmpty()
+        // The dialog would cover the Undo snackbar, so it is not shown (and its window not started) yet.
+        assertThat(events).isEmpty()
+
+        vm.dismissNamePrompt()
+        awaitUntil { events.isNotEmpty() }
+        assertThat(prompt.tokens).containsExactly((events.single() as BlockedEvent.Restored).token)
     }
 
     @Test
@@ -138,7 +143,6 @@ class NameAllowViewModelTest {
         val (vm, repo) = start()
         vm.notSpam(setOf(NAME))
         awaitUntil { vm.namePrompt.value != null }
-        awaitUntil { events.isNotEmpty() }
 
         vm.allowPromptedNames()
         assertThat(vm.namePrompt.value).isNull()
@@ -155,13 +159,28 @@ class NameAllowViewModelTest {
     }
 
     @Test
+    fun aNameAllowedMeanwhileGetsNoSecondRule() {
+        val (vm, repo) = start()
+        vm.notSpam(setOf(NAME))
+        awaitUntil { vm.namePrompt.value != null }
+        runBlocking { repo.addRule(SpamRule(0, ListKind.ALLOW, RuleType.SENDER_ID, NAME.lowercase())) }
+
+        vm.allowPromptedNames()
+        awaitUntil { events.isNotEmpty() }
+        // The rule check runs in the background and adds nothing: give it time to, then look.
+        Thread.sleep(300)
+        idleMain()
+        assertThat(allowRules(repo)).hasSize(1)
+    }
+
+    @Test
     fun notNowChangesNothingAndTheNextNotSpamAsksAgain() {
         val (vm, repo) = start()
         vm.notSpam(setOf(NAME))
         awaitUntil { vm.namePrompt.value != null }
-        awaitUntil { events.isNotEmpty() }
         vm.dismissNamePrompt()
         assertThat(vm.namePrompt.value).isNull()
+        awaitUntil { events.isNotEmpty() }
         assertThat(allowRules(repo)).isEmpty()
 
         vm.undoRestore((events.single() as BlockedEvent.Restored).token)
@@ -172,13 +191,63 @@ class NameAllowViewModelTest {
     }
 
     @Test
-    fun undoingTheMoveTakesTheQuestionBack() {
-        val (vm, _) = start()
-        vm.notSpam(setOf(NAME))
+    fun theChatOfABlockedPageOpensOnlyAfterTheAllowUndoIsOver() {
+        val (vm, repo) = start()
+        val done = Collections.synchronizedList(mutableListOf<NotSpamDone>())
+        scope.launch { vm.notSpamDone.collect { done += it } }
+        vm.notSpam(setOf(NAME), openChat = true)
         awaitUntil { vm.namePrompt.value != null }
+        idleMain()
+        assertThat(done).isEmpty()
+
+        vm.allowPromptedNames()
         awaitUntil { events.isNotEmpty() }
-        vm.undoRestore((events.single() as BlockedEvent.Restored).token)
-        awaitUntil { vm.namePrompt.value == null }
+        idleMain()
+        // The rule is stored and its Undo is on offer; the chat has not opened over it.
+        val allowed = events.single() as BlockedEvent.Restored
+        assertThat(allowed.allowed).isEqualTo(1)
+        assertThat(allowRules(repo)).hasSize(1)
+        assertThat(done).isEmpty()
+
+        vm.undoRestore(allowed.token)
+        awaitUntil { done.isNotEmpty() }
+        assertThat(allowRules(repo)).isEmpty()
+        assertThat(done.single().toInbox).isEqualTo(2)
+    }
+
+    @Test
+    fun theChatOfABlockedPageOpensWhenTheAllowSnackbarEndsUnanswered() {
+        val (vm, repo) = start()
+        val done = Collections.synchronizedList(mutableListOf<NotSpamDone>())
+        scope.launch { vm.notSpamDone.collect { done += it } }
+        vm.notSpam(setOf(NAME), openChat = true)
+        awaitUntil { vm.namePrompt.value != null }
+        vm.allowPromptedNames()
+        awaitUntil { events.isNotEmpty() }
+        assertThat(done).isEmpty()
+
+        vm.commitRestore((events.single() as BlockedEvent.Restored).token)
+        awaitUntil { done.isNotEmpty() }
+        assertThat(allowRules(repo)).hasSize(1)
+    }
+
+    @Test
+    fun theChatToOpenSurvivesARecreatedScreen() {
+        val (vm, _) = start()
+        vm.notSpam(setOf(NAME), openChat = true)
+        awaitUntil { vm.namePrompt.value != null }
+        vm.dismissNamePrompt()
+        awaitUntil { vm.state.value.moveProgress == null && vm.namePrompt.value == null }
+        // No screen collected yet (it was being recreated): the first one that does still gets the chat.
+        val first = runBlocking { vm.notSpamDone.first() }
+        assertThat(first.toInbox).isEqualTo(2)
+        // The next screen gets it again until one has used it.
+        assertThat(runBlocking { vm.notSpamDone.first() }).isEqualTo(first)
+        vm.notSpamHandled(first)
+        val late = Collections.synchronizedList(mutableListOf<NotSpamDone>())
+        scope.launch { vm.notSpamDone.collect { late += it } }
+        idleMain()
+        assertThat(late).isEmpty()
     }
 
     private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()

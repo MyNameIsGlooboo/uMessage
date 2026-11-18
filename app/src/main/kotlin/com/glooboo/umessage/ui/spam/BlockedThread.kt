@@ -166,7 +166,7 @@ fun BlockedThreadRoute(
     val busy = moving || movingHere
     BlockedEvents(viewModel, snackbar, onSettle = { committed -> closeWhenEmpty = committed })
     OpenChatAfterNotSpam(viewModel, address, threadIdOf, onBack, onRetry = { moving = false })
-    // The "Always allow this name?" question; the chat opens once it is answered (OpenChatAfterNotSpam waits for it).
+    // The "Always allow this name?" question; the chat opens once it is answered and the rule's Undo is over.
     val namePrompt by viewModel.namePrompt.collectAsStateWithLifecycle()
     namePrompt?.let { NameAllowDialog(it.names, viewModel::allowPromptedNames, viewModel::dismissNamePrompt) }
     // After process death `moving` comes back true but no restore runs (the model is new): let the screen go on.

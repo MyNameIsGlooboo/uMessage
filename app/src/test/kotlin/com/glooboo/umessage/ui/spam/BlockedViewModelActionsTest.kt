@@ -116,6 +116,9 @@ class BlockedViewModelActionsTest {
     @Test
     fun aSpoofableSenderOnlyMoves() {
         vm.notSpam(setOf(SENDER_ID))
+        // A name sender is asked about once; the move's event waits for the answer (here: Not now).
+        awaitUntil { vm.namePrompt.value != null }
+        vm.dismissNamePrompt()
         awaitUntil { events.isNotEmpty() }
         val restored = events.single() as BlockedEvent.Restored
         assertThat(restored.count).isEqualTo(1)
@@ -133,6 +136,9 @@ class BlockedViewModelActionsTest {
     @Test
     fun aMixedSelectionAllowsOnlyTheNumber() {
         vm.notSpam(setOf(NUMBER, SENDER_ID))
+        // A name sender is asked about once; the move's event waits for the answer (here: Not now).
+        awaitUntil { vm.namePrompt.value != null }
+        vm.dismissNamePrompt()
         awaitUntil { events.isNotEmpty() }
         val restored = events.single() as BlockedEvent.Restored
         assertThat(restored.count).isEqualTo(3)

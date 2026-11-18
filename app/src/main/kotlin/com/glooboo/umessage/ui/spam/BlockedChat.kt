@@ -22,7 +22,6 @@ import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.isolateNumbers
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 
 /**
@@ -58,9 +57,12 @@ internal object BlockedChat {
 }
 
 /**
- * Waits for the "Not spam" of a blocked chat. Once its messages are in the inbox, opens the normal chat of the
- * sender (composer focused, keyboard shown) and closes this screen. When nothing reached the inbox the screen stays
- * and [onRetry] lets its buttons work again; the failure snackbar comes from [BlockedEvents].
+ * Waits for the "Not spam" of a blocked chat. Once its messages are in the inbox (and the "Always allow this name?"
+ * question, if any, is answered and its Undo is over: the view model holds the result back until then), opens the
+ * normal chat of the sender (composer focused, keyboard shown) and closes this screen. The result stays in the view
+ * model until it is used, so a screen recreated by a rotation meanwhile still opens the chat. When nothing reached
+ * the inbox the screen stays and [onRetry] lets its buttons work again; the failure snackbar comes from
+ * [BlockedEvents].
  */
 @Composable
 internal fun OpenChatAfterNotSpam(
@@ -78,13 +80,13 @@ internal fun OpenChatAfterNotSpam(
     LaunchedEffect(viewModel, address) {
         viewModel.notSpamDone.collect { done ->
             if (done.toInbox <= 0) {
+                viewModel.notSpamHandled(done)
                 retry()
                 return@collect
             }
-            // A name was moved: the "Always allow this name?" question is on this screen;
-            // the chat waits for the answer.
-            viewModel.namePrompt.first { it == null }
             val threadId = lookUp(context, address)
+            // Handled before the chat starts and without a pause in between, so a recreation cannot open it twice.
+            viewModel.notSpamHandled(done)
             if (threadId > 0L) {
                 val moved = BlockedEvent.Restored(0L, done.toInbox, done.allowed.size, 0, done.allowed)
                 val notice = restoredSnackText(resources, moved) { isolateNumbers(displayNumber(context, it)) }

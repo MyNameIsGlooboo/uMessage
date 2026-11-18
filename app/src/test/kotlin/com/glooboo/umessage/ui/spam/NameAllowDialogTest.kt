@@ -42,7 +42,7 @@ class NameAllowDialogTest {
         show(listOf(NAME), onAllow = { allowed++ }, onDismiss = { dismissed++ })
         compose.onNodeWithText(app.getString(R.string.nameallow_title)).assertIsDisplayed()
         compose.onNodeWithText(app.getString(R.string.nameallow_body, NAME)).assertIsDisplayed()
-        compose.onNodeWithText(app.getString(R.string.decm_always_allow)).performClick()
+        compose.onNodeWithText(app.getString(R.string.nameallow_allow)).performClick()
         assertThat(allowed).isEqualTo(1)
         assertThat(dismissed).isEqualTo(0)
     }
@@ -52,7 +52,7 @@ class NameAllowDialogTest {
         var allowed = 0
         var dismissed = 0
         show(listOf(NAME), onAllow = { allowed++ }, onDismiss = { dismissed++ })
-        compose.onNodeWithText(app.getString(R.string.setup_banner_dismiss)).performClick()
+        compose.onNodeWithText(app.getString(R.string.nameallow_not_now)).performClick()
         assertThat(dismissed).isEqualTo(1)
         assertThat(allowed).isEqualTo(0)
     }
@@ -74,6 +74,19 @@ class NameAllowDialogTest {
         assertThat(offered).containsExactly("Shop")
         assertThat(namesToOffer(listOf(NUMBER), emptyList())).isEmpty()
         assertThat(namesToOffer(emptyList(), emptyList())).isEmpty()
+    }
+
+    @Test
+    fun aRuleWithoutADashAllowsTheNameWithAPrefixLikeTheFilterDoes() {
+        val rules = listOf(SpamRule(1, ListKind.ALLOW, RuleType.SENDER_ID, "HDFCBK"))
+        assertThat(namesToOffer(listOf("VM-HDFCBK", "VM-OTHER"), rules)).containsExactly("VM-OTHER")
+    }
+
+    @Test
+    fun aRuleForOneSimOnlyDoesNotCountAsAllowing() {
+        val oneSim = SpamRule(1, ListKind.ALLOW, RuleType.SENDER_ID, "BANK-X", subscriptionId = 1)
+        val block = SpamRule(2, ListKind.BLOCK, RuleType.SENDER_ID, "BANK-X")
+        assertThat(namesToOffer(listOf("BANK-X"), listOf(oneSim, block))).containsExactly("BANK-X")
     }
 
     private companion object {
