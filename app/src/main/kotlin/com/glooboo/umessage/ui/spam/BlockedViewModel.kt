@@ -34,6 +34,7 @@ import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.SpamStats
 import com.glooboo.umessage.spam.UnknownSenderMode
+import com.glooboo.umessage.ui.conversations.MarkReadProgress
 
 /**
  * All blocked messages of one sender, newest first. The sender address is the group key: the newest message's address
@@ -83,6 +84,8 @@ data class BlockedUiState(
      * snackbar is not lost with the screen.
      */
     val hasPendingUndo: Boolean = false,
+    /** A big "Not spam" is moving messages one by one: how far it is. Null when nothing runs or it is a short one. */
+    val moveProgress: MarkReadProgress? = null,
 ) {
     val selecting: Boolean get() = selected.isNotEmpty()
 }
@@ -155,7 +158,7 @@ class BlockedViewModel(
     )
 
     /** The ids hidden while an undo window is open, and whether any window is open. */
-    private data class Pending(val ids: List<Long>, val any: Boolean)
+    private data class Pending(val ids: List<Long>, val any: Boolean, val progress: MarkReadProgress?)
 
     private data class Aux(
         val settings: SpamSettings,
@@ -173,6 +176,9 @@ class BlockedViewModel(
      */
     private val pendingRestores = MutableStateFlow<Map<Long, PendingRestore>>(emptyMap())
 
+    /** How far the restore loop is; null unless it moves a big batch (or a slow one). */
+    private val moveProgress = MutableStateFlow<MarkReadProgress?>(null)
+
     /** Tokens of "Delete all" deletions that also clear the restored list once they are final. */
     private val clearLogTokens = mutableSetOf<Long>()
     private var nextToken = 1L
@@ -189,8 +195,8 @@ class BlockedViewModel(
     /**
      * [allowAddresses] are the senders whose allow rules go with the restore: none for "Release once" and none for
      * names anyone can fake. [receipts] is what the repository did with each message, null while it is still at
-     * work; the Undo snackbar ([announced]) waits for them. A [silent] restore comes from a blocked chat: its rows
-     * stay on screen while it runs, it shows no Undo snackbar, and the screen opens the normal chat instead.
+     * work; the Undo snackbar ([announced]) waits for them. A [silent] restore comes from a blocked chat: it shows
+     * no Undo snackbar, and the screen opens the normal chat instead.
      */
     private data class PendingRestore(
         val ids: List<Long>,
@@ -219,8 +225,8 @@ class BlockedViewModel(
         val claimed: List<Long>
             get() = receipts?.let { r -> ids.filter { r[it]?.outcome != RestoreOutcome.FAILED } } ?: ids
 
-        /** The rows hidden from the list: a silent restore keeps its rows until it is done. */
-        val hidden: List<Long> get() = if (silent && receipts == null) emptyList() else claimed
+        /** The rows hidden from the list: all of them at once, so they leave together and not one by one. */
+        val hidden: List<Long> get() = claimed
 
         val ready: Boolean get() = !announced && receipts != null
 
@@ -249,10 +255,11 @@ class BlockedViewModel(
         repository.blocked,
         repository.stats,
         combine(repository.settings, repository.rules, filter, restoredLog.entries, ::Aux),
-        combine(pendingDeletes, pendingRestores) { deletes, restores ->
+        combine(pendingDeletes, pendingRestores, moveProgress) { deletes, restores, progress ->
             Pending(
                 ids = deletes.values.flatten() + restores.values.flatMap { it.hidden },
                 any = deletes.isNotEmpty() || restores.isNotEmpty(),
+                progress = progress,
             )
         },
         combine(selected, sims, query) { s, i, q -> Triple(s, i, q) },
@@ -285,6 +292,7 @@ class BlockedViewModel(
             purgeAfterDays = aux.settings.purgeAfterDays,
             restored = aux.restored,
             hasPendingUndo = pending.any,
+            moveProgress = pending.progress,
         )
     }.flowOn(Dispatchers.Default) // grouping, filtering and the link checks stay off the main thread
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), BlockedUiState())
@@ -385,9 +393,9 @@ class BlockedViewModel(
     /**
      * "Not spam": in one step, puts the senders' messages in the inbox and stores an allow rule for each sender
      * (a number rule, or a sender-id rule), then offers one Undo for both. Senders whose names anyone can fake get no
-     * rule: their messages only move. Nothing is asked. With [openChat] the rows stay until the work is done, no
-     * snackbar is shown, and [notSpamDone] tells the blocked chat to open the normal chat. Returns false when there
-     * was nothing to move (all of it is already on its way).
+     * rule: their messages only move. Nothing is asked. All rows leave the list at once; a message that fails to
+     * move comes back. With [openChat] no snackbar is shown, and [notSpamDone] tells the blocked chat to open the
+     * normal chat. Returns false when there was nothing to move (all of it is already on its way).
      */
     fun notSpam(addresses: Set<String>, openChat: Boolean = false): Boolean {
         val groups = state.value.groups.filter { g -> addresses.any(g::hasAddress) }
@@ -484,16 +492,22 @@ class BlockedViewModel(
         val inInbox = setOf(RestoreOutcome.RESTORED, RestoreOutcome.TEXT_ONLY)
         // spamui-1: a bigger batch shows its first restored message in the chat list at once, not only at the end.
         var firstShown = messages.size <= 1
-        val receipts = messages.associate { message ->
-            val receipt = runCatching { repository.restore(message.id) }.getOrElse {
-                error = true
-                RestoreReceipt(null, RestoreOutcome.FAILED)
+        val reporter = MoveProgressReporter(messages.size, { moveProgress.value = it })
+        val receipts = try {
+            messages.withIndex().associate { (index, message) ->
+                val receipt = runCatching { repository.restore(message.id) }.getOrElse {
+                    error = true
+                    RestoreReceipt(null, RestoreOutcome.FAILED)
+                }
+                if (!firstShown && receipt.outcome in inInbox) {
+                    firstShown = true
+                    refreshConversations()
+                }
+                reporter.step(index + 1)
+                message.id to receipt
             }
-            if (!firstShown && receipt.outcome in inInbox) {
-                firstShown = true
-                refreshConversations()
-            }
-            message.id to receipt
+        } finally {
+            reporter.finish()
         }
         if (error) events.trySend(BlockedEvent.Failed)
         val now = System.currentTimeMillis()

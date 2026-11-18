@@ -70,7 +70,6 @@ import com.glooboo.umessage.helpers.DateStyle
 import com.glooboo.umessage.helpers.w3cPrefs
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.data.BlockedNotifier
-import com.glooboo.umessage.ui.components.EmptyState
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.chromeInsets
 import com.glooboo.umessage.ui.components.displayNumber
@@ -166,7 +165,7 @@ fun BlockedThreadRoute(
     val snackbar = remember { SnackbarHostState() }
     var closeWhenEmpty by rememberSaveable { mutableStateOf(false) }
     var seen by rememberSaveable { mutableStateOf(false) }
-    // "Not spam" is working or has finished and the chat is about to open: the buttons wait, the rows stay.
+    // "Not spam" is working or has finished and the chat is about to open: the buttons wait, the rows are hidden.
     var moving by rememberSaveable { mutableStateOf(false) }
     BlockedEvents(viewModel, snackbar, onSettle = { committed -> closeWhenEmpty = committed })
     OpenChatAfterNotSpam(viewModel, address, threadIdOf, onBack, onRetry = { moving = false })
@@ -226,7 +225,7 @@ fun BlockedThreadScreen(
     snackbarHostState: SnackbarHostState,
     actions: BlockedThreadActions,
     modifier: Modifier = Modifier,
-    /** "Not spam" is working: the button shows progress and waits, and the rows stay until the chat opens. */
+    /** "Not spam" is working: the rows are hidden at once, a spinner shows, and the chat opens when it is done. */
     moving: Boolean = false,
 ) {
     val group = state.groups.firstOrNull { it.hasAddress(address) }
@@ -245,15 +244,18 @@ fun BlockedThreadScreen(
         containerColor = MaterialTheme.colorScheme.background,
         contentColor = MaterialTheme.colorScheme.onBackground,
         topBar = {
-            if (selecting) {
-                BlockedSelectionBar(
-                    messages = messages,
-                    selection = selection,
-                    actions = actions,
-                    onChosenChange = { chosen = it },
-                )
-            } else {
-                UMessageTopBar(title = shown, onBack = actions.onBack, scrollBehavior = scrollBehavior)
+            Column {
+                if (selecting) {
+                    BlockedSelectionBar(
+                        messages = messages,
+                        selection = selection,
+                        actions = actions,
+                        onChosenChange = { chosen = it },
+                    )
+                } else {
+                    UMessageTopBar(title = shown, onBack = actions.onBack, scrollBehavior = scrollBehavior)
+                }
+                state.moveProgress?.let { MoveProgressBar(it) }
             }
         },
         contentWindowInsets = chromeInsets(),
@@ -262,21 +264,7 @@ fun BlockedThreadScreen(
     ) { inner ->
         val content = Modifier.fillMaxSize().padding(inner)
         when {
-            state.loading -> Box(content, contentAlignment = Alignment.Center) {
-                val label = stringResource(R.string.spam_loading)
-                CircularProgressIndicator(Modifier.semantics { contentDescription = label })
-            }
-            group == null && moving -> Box(content, contentAlignment = Alignment.Center) {
-                val label = stringResource(R.string.nsf_moving)
-                CircularProgressIndicator(Modifier.semantics { contentDescription = label })
-            }
-            group == null -> Box(content, contentAlignment = Alignment.Center) {
-                EmptyState(
-                    iconRes = R.drawable.ic_spam_shield_check,
-                    title = stringResource(R.string.r3b_thread_empty_title),
-                    body = stringResource(R.string.r3b_thread_empty_body),
-                )
-            }
+            state.loading || group == null -> ThreadPlaceholder(state.loading, moving, content)
             else -> {
                 val rows = remember(group.messages) { blockedThreadItems(group.messages) }
                 val heldLines = remember(group.messages) { heldLineShownFor(group.messages) }

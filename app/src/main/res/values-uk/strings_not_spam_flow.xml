@@ -9,4 +9,5 @@
         <item quantity="other">Переміщено до «Вхідних». Нові повідомлення від %d відправника теж надходитимуть.</item>
     </plurals>
     <string name="nsf_moving">Переміщення у вхідні</string>
+    <string name="move_progress">Переміщення повідомлень: %1$s із %2$s</string>
 </resources>

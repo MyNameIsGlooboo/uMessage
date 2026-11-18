@@ -11,4 +11,5 @@
         <item quantity="other">نُقلت إلى الرسائل الواردة. ستصل أيضًا الرسائل القادمة من %d مرسل.</item>
     </plurals>
     <string name="nsf_moving">جارٍ النقل إلى الرسائل الواردة</string>
+    <string name="move_progress">جارٍ نقل الرسائل: %1$s من %2$s</string>
 </resources>

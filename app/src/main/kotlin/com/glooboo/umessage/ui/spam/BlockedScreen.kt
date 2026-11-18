@@ -9,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -305,17 +306,20 @@ fun BlockedScreen(
                 CircularProgressIndicator(Modifier.semantics { contentDescription = label })
             }
         } else {
-            BlockedList(
-                state = state,
-                actions = actions,
-                searching = searching,
-                onCloseSearch = {
-                    searchOpen = false
-                    actions.onSetQuery("")
-                },
-                modifier = Modifier.padding(top = inner.calculateTopPadding()),
-                bottomInset = inner.calculateBottomPadding(),
-            )
+            Column(Modifier.padding(top = inner.calculateTopPadding())) {
+                state.moveProgress?.let { MoveProgressBar(it) }
+                BlockedList(
+                    state = state,
+                    actions = actions,
+                    searching = searching,
+                    onCloseSearch = {
+                        searchOpen = false
+                        actions.onSetQuery("")
+                    },
+                    modifier = Modifier.weight(1f),
+                    bottomInset = inner.calculateBottomPadding(),
+                )
+            }
         }
     }
     if (confirmDeleteAll) {

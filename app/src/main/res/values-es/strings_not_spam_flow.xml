@@ -7,4 +7,5 @@
         <item quantity="other">Se movió a la bandeja de entrada. Los futuros mensajes de %d remitentes también llegarán.</item>
     </plurals>
     <string name="nsf_moving">Moviendo a la bandeja de entrada</string>
+    <string name="move_progress">Moviendo mensajes: %1$s de %2$s</string>
 </resources>

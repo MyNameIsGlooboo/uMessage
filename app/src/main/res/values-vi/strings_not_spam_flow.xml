@@ -6,4 +6,5 @@
         <item quantity="other">Đã chuyển vào hộp thư đến. Tin nhắn sau này từ %d người gửi này cũng sẽ vào đây.</item>
     </plurals>
     <string name="nsf_moving">Đang chuyển vào hộp thư đến</string>
+    <string name="move_progress">Đang chuyển tin nhắn: %1$s/%2$s</string>
 </resources>

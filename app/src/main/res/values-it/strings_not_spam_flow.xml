@@ -7,4 +7,5 @@
         <item quantity="other">Spostato in “In arrivo”. Riceverai anche i prossimi messaggi da %d mittenti.</item>
     </plurals>
     <string name="nsf_moving">Spostamento in In arrivo</string>
+    <string name="move_progress">Spostamento messaggi: %1$s di %2$s</string>
 </resources>

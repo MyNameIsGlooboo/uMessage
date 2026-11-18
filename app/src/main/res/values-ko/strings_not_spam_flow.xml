@@ -6,4 +6,5 @@
         <item quantity="other">받은 메시지함으로 이동했어요. 앞으로 발신자 %d명에게서 오는 메시지도 받을 수 있어요.</item>
     </plurals>
     <string name="nsf_moving">받은 메시지함으로 이동 중</string>
+    <string name="move_progress">메시지 이동 중: %2$s건 중 %1$s건</string>
 </resources>

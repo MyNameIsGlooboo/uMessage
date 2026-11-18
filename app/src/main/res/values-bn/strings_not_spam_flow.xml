@@ -7,4 +7,5 @@
         <item quantity="other">ইনবক্সে সরানো হয়েছে। এই %d জন প্রেরকের পরের বার্তাগুলোও আসবে।</item>
     </plurals>
     <string name="nsf_moving">ইনবক্সে সরানো হচ্ছে</string>
+    <string name="move_progress">বার্তা সরানো হচ্ছে: %2$sটির মধ্যে %1$sটি</string>
 </resources>
