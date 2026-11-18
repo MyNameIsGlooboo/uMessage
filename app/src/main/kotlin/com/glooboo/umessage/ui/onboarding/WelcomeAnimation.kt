@@ -46,9 +46,10 @@ private val EndIconSize = 32.dp
 private val BubbleSize = 28.dp
 
 /**
- * A silent picture of about three seconds of how uMessage sorts texts: a text from a saved contact flies to the Inbox, one from a
- * stranger to Spam, a stranger's code still to the Inbox. It plays once (not again after a rotation) and shows its
- * final frame when [reduceMotion] is on. It has no words, so one description covers it for TalkBack.
+ * A silent picture of about three seconds of how uMessage sorts texts: a text from a saved contact flies to
+ * the Inbox, one from a stranger to Spam, a stranger's code still to the Inbox. It plays once (not again after
+ * a rotation) and shows its final frame when [reduceMotion] is on. It has no words, so one description covers
+ * it for TalkBack.
  */
 @Composable
 internal fun WelcomeAnimation(reduceMotion: Boolean, modifier: Modifier = Modifier) {
