@@ -64,7 +64,6 @@ import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.DateStyle
 import com.glooboo.umessage.helpers.w3cPrefs
 import com.glooboo.umessage.spam.BlockedMessage
-import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.chromeInsets
 import com.glooboo.umessage.ui.components.displayNumber
@@ -163,8 +162,11 @@ fun BlockedThreadRoute(
     // Any "Not spam" of this sender, also one another screen started (the shared move state); its rows stay, dimmed.
     val movingGroup = state.movingGroups.firstOrNull { it.hasAddress(address) }
     val movingHere = movingGroup != null
-    val busy = moving || movingHere
-    BlockedEvents(viewModel, snackbar, onSettle = { committed -> closeWhenEmpty = committed })
+    // The chat of a finished "Not spam" is still to open (its thread id may be slow to come): the page stays.
+    val chatPending by viewModel.notSpamDone.collectAsStateWithLifecycle<NotSpamDone?>(initialValue = null)
+    val busy = moving || movingHere || chatPending != null
+    // The "Always allow" snackbar of this page's own "Not spam" ends before its chat opens: it must not close the page.
+    BlockedEvents(viewModel, snackbar, onSettle = { committed -> if (!busy) closeWhenEmpty = committed })
     OpenChatAfterNotSpam(viewModel, address, threadIdOf, onBack, onRetry = { moving = false })
     // The "Always allow this name?" question; the chat opens once it is answered and the rule's Undo is over.
     val namePrompt by viewModel.namePrompt.collectAsStateWithLifecycle()
@@ -181,13 +183,7 @@ fun BlockedThreadRoute(
     )
     val hasMessages = state.groups.any { it.hasAddress(address) } || movingHere
     LaunchedEffect(hasMessages) { if (hasMessages) seen = true }
-    // I5: opening the thread answers the notifications of its messages.
-    val appContext = LocalContext.current.applicationContext
-    val heldIds = state.groups.firstOrNull { it.hasAddress(address) }?.messages?.map { it.id }.orEmpty()
-    LaunchedEffect(heldIds) { BlockedNotifier.cancel(appContext, heldIds) }
-    // Opening the thread reads it; a message that arrives while it is open is read too (the effect runs again).
-    val unreadHeld = state.groups.firstOrNull { it.hasAddress(address) }?.unreadCount ?: 0
-    LaunchedEffect(address, unreadHeld) { if (unreadHeld > 0) viewModel.markRead(address) }
+    ThreadReadEffects(state.groups.firstOrNull { it.hasAddress(address) }, address, viewModel::markRead)
     // A last snackbar (a failure) is let finish before the screen goes. While the chat opens it never closes here.
     val settled = !state.loading && !hasMessages && !state.hasPendingUndo && !busy &&
         snackbar.currentSnackbarData == null

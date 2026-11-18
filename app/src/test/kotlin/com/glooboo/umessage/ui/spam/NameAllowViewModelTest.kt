@@ -138,24 +138,75 @@ class NameAllowViewModelTest {
         assertThat(vm.namePrompt.value).isNull()
     }
 
+    private fun blockRules(repo: FakeSpamRepository) = rulesOf(repo).filter { it.kind == ListKind.BLOCK }
+
+    private fun askedAboutNameWithOwnBlockRule(openChat: Boolean = false): Pair<BlockedViewModel, FakeSpamRepository> {
+        val block = SpamRule(BLOCK_ID, ListKind.BLOCK, RuleType.SENDER_ID, NAME)
+        return start(rules = listOf(block)).also { (vm, _) ->
+            vm.notSpam(setOf(NAME), openChat = openChat)
+            awaitUntil { vm.namePrompt.value != null }
+        }
+    }
+
     @Test
-    fun alwaysAllowMakesOneSenderNameRuleAndUndoRemovesIt() {
-        val (vm, repo) = start()
-        vm.notSpam(setOf(NAME))
-        awaitUntil { vm.namePrompt.value != null }
+    fun alwaysAllowOnTheListShowsOneSnackbarForTheMoveAndTheRule() {
+        val (vm, repo) = askedAboutNameWithOwnBlockRule()
 
         vm.allowPromptedNames()
         assertThat(vm.namePrompt.value).isNull()
-        awaitUntil { events.size == 2 }
+        awaitUntil { events.isNotEmpty() }
+        idleMain()
+        // One snackbar, not a second allow-only one behind it: the move and the rule share the token.
+        val restored = events.single() as BlockedEvent.Restored
+        assertThat(restored.count).isEqualTo(2)
+        assertThat(restored.allowed).isEqualTo(1)
+        assertThat(restored.senders).containsExactly(NAME)
         val rule = allowRules(repo).single()
         assertThat(rule.type).isEqualTo(RuleType.SENDER_ID)
         assertThat(rule.pattern).isEqualTo(NAME)
-        val allowed = events.last() as BlockedEvent.Restored
-        assertThat(allowed.count).isEqualTo(0)
+        assertThat(blockRules(repo)).isEmpty()
+    }
+
+    @Test
+    fun undoOnTheListTakesBackTheMoveAndTheRuleAndRestoresTheBlockRule() {
+        val (vm, repo) = askedAboutNameWithOwnBlockRule()
+        vm.allowPromptedNames()
+        awaitUntil { events.isNotEmpty() }
+
+        vm.undoRestore((events.single() as BlockedEvent.Restored).token)
+        awaitUntil { allowRules(repo).isEmpty() && blockRules(repo).size == 1 }
+        awaitUntil { vm.state.value.groups.firstOrNull { it.address == NAME }?.messages?.size == 2 }
+        assertThat(blockRules(repo).single().pattern).isEqualTo(NAME)
+        idleMain()
+        assertThat(events).hasSize(1)
+    }
+
+    @Test
+    fun theRuleStaysOnlyWhenTheMoveCommits() {
+        val (vm, repo) = askedAboutNameWithOwnBlockRule()
+        vm.allowPromptedNames()
+        awaitUntil { events.isNotEmpty() }
+        // Still inside the one undo window: nothing is final yet, and the window is the move's.
+        awaitUntil { vm.state.value.hasPendingUndo }
+
+        vm.commitRestore((events.single() as BlockedEvent.Restored).token)
+        awaitUntil { !vm.state.value.hasPendingUndo }
+        assertThat(allowRules(repo)).hasSize(1)
+        assertThat(blockRules(repo)).isEmpty()
+        assertThat(events).hasSize(1)
+    }
+
+    @Test
+    fun undoOfTheAllowSnackbarOnABlockedPageRestoresTheBlockRule() {
+        val (vm, repo) = askedAboutNameWithOwnBlockRule(openChat = true)
+        vm.allowPromptedNames()
+        awaitUntil { events.isNotEmpty() }
+        val allowed = events.single() as BlockedEvent.Restored
         assertThat(allowed.allowed).isEqualTo(1)
+        assertThat(blockRules(repo)).isEmpty()
 
         vm.undoRestore(allowed.token)
-        awaitUntil { allowRules(repo).isEmpty() }
+        awaitUntil { allowRules(repo).isEmpty() && blockRules(repo).size == 1 }
     }
 
     @Test
@@ -266,5 +317,6 @@ class NameAllowViewModelTest {
         const val NAME = "BANK-X"
         const val OTHER_NAME = "b.pasargad"
         const val NUMBER = "+15550001234"
+        const val BLOCK_ID = 9L
     }
 }

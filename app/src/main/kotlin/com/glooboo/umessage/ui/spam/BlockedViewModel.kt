@@ -523,8 +523,9 @@ class BlockedViewModel(
 
     /**
      * Clears the question and lets the kept-back restores go on. With [allow] a sender-name rule is stored for each
-     * asked name first; a restore from a blocked chat then opens its chat only after the rule's Undo snackbar is over,
-     * so the user can still take the rule back.
+     * asked name first. A restore with a snackbar (the Spam list) takes the rule into its own token, so its one
+     * Undo reverses the move and the rule together. A restore from a blocked chat has no snackbar: it opens its chat
+     * only after the rule's own Undo snackbar is over, so the user can still take the rule back.
      */
     private fun answerQuestion(allow: Boolean) {
         val prompt = namePromptState.value ?: return
@@ -532,11 +533,29 @@ class BlockedViewModel(
         val waiting = waitingForAnswer.toList()
         waitingForAnswer.clear()
         val (silent, loud) = waiting.partition { pendingRestores.value[it]?.silent == true }
-        loud.forEach(::announceIfReady)
-        if (allow) {
-            allowOnly(prompt.names) { silent.forEach(::announceIfReady) }
-        } else {
-            silent.forEach(::announceIfReady)
+        val carrier = loud.minOrNull()
+        when {
+            !allow -> (loud + silent).forEach(::announceIfReady)
+            carrier != null -> viewModelScope.launch {
+                withContext(NonCancellable) { restoreWork.withLock { addAllowTo(carrier, prompt.names) } }
+                (loud + silent).forEach(::announceIfReady)
+            }
+            else -> allowOnly(prompt.names) { silent.forEach(::announceIfReady) }
+        }
+    }
+
+    /** Stores the allow rules of [names] and hangs them on the restore [token], before its snackbar is shown. */
+    private suspend fun addAllowTo(token: Long, names: List<String>) {
+        val (fresh, change) = storeFreshAllow(names) ?: return
+        updateRestore(token) { old ->
+            val before = old.allowChange
+            old.copy(
+                allowAddresses = old.allowAddresses.takeIf { before != null }.orEmpty() + fresh,
+                allowChange = SenderBlocking.AllowChange(
+                    before?.addedRuleIds.orEmpty() + change.addedRuleIds,
+                    before?.removedBlockRules.orEmpty() + change.removedBlockRules,
+                ),
+            )
         }
     }
 
@@ -566,14 +585,7 @@ class BlockedViewModel(
      * the lock, so a second answer cannot add a duplicate rule. False when no Undo window opened.
      */
     private suspend fun storeAllow(token: Long, addresses: List<String>): Boolean {
-        val rules = runCatching { repository.rules.first() }.getOrNull().orEmpty()
-        val fresh = addresses.filterNot { isNameAllowed(it, rules) }
-        if (fresh.isEmpty()) return false
-        val change = runCatching { SenderBlocking.alwaysAllow(repository, fresh) }.getOrNull()
-        if (change == null) {
-            events.trySend(BlockedEvent.Failed)
-            return false
-        }
+        val (fresh, change) = storeFreshAllow(addresses) ?: return false
         val pending = PendingRestore(
             ids = emptyList(), addresses = fresh, allowAddresses = fresh,
             receipts = emptyMap(), allowChange = change, announced = true,
@@ -581,6 +593,16 @@ class BlockedViewModel(
         pendingRestores.update { it + (token to pending) }
         events.trySend(pending.event(token))
         return true
+    }
+
+    /** The names and what storing their allow rules changed; null when none is new or the rules could not be stored. */
+    private suspend fun storeFreshAllow(addresses: List<String>): Pair<List<String>, SenderBlocking.AllowChange>? {
+        val rules = runCatching { repository.rules.first() }.getOrNull().orEmpty()
+        val fresh = addresses.filterNot { isNameAllowed(it, rules) }
+        if (fresh.isEmpty()) return null
+        val change = runCatching { SenderBlocking.alwaysAllow(repository, fresh) }.getOrNull()
+        if (change == null) events.trySend(BlockedEvent.Failed)
+        return change?.let { fresh to it }
     }
 
     /** The restore and its allow rules as one piece of work; no rule is added when nothing reached the inbox. */

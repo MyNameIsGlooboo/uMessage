@@ -16,12 +16,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.BlockedMessage
+import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.ui.components.EmptyState
 import kotlinx.coroutines.delay
 
@@ -129,4 +131,18 @@ internal fun ThreadMessageList(
             }
         }
     }
+}
+
+/**
+ * I5: opening the thread answers the notifications of its messages. Opening it also reads it; a message that arrives
+ * while it is open is read too (the effect runs again).
+ */
+@Composable
+internal fun ThreadReadEffects(group: SenderGroup?, address: String, onMarkRead: (String) -> Unit) {
+    val appContext = LocalContext.current.applicationContext
+    val heldIds = group?.messages?.map { it.id }.orEmpty()
+    LaunchedEffect(heldIds) { BlockedNotifier.cancel(appContext, heldIds) }
+    val unreadHeld = group?.unreadCount ?: 0
+    val markRead by rememberUpdatedState(onMarkRead)
+    LaunchedEffect(address, unreadHeld) { if (unreadHeld > 0) markRead(address) }
 }
