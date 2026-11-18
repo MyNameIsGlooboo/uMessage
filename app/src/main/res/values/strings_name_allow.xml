@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">Always allow this name?</string>
+    <string name="nameallow_body">New texts from %1$s will go to Messages. Anyone can send texts under a name, so fake texts with this name would also get through.</string>
+    <string name="nameallow_body_many">New texts from %1$s will go to Messages. Anyone can send texts under a name, so fake texts with these names would also get through.</string>
+    <string name="nameallow_more">%1$s and %2$d more</string>
+</resources>

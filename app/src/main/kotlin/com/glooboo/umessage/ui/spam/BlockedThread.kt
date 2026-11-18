@@ -166,6 +166,9 @@ fun BlockedThreadRoute(
     val busy = moving || movingHere
     BlockedEvents(viewModel, snackbar, onSettle = { committed -> closeWhenEmpty = committed })
     OpenChatAfterNotSpam(viewModel, address, threadIdOf, onBack, onRetry = { moving = false })
+    // The "Always allow this name?" question; the chat opens once it is answered (OpenChatAfterNotSpam waits for it).
+    val namePrompt by viewModel.namePrompt.collectAsStateWithLifecycle()
+    namePrompt?.let { NameAllowDialog(it.names, viewModel::allowPromptedNames, viewModel::dismissNamePrompt) }
     // After process death `moving` comes back true but no restore runs (the model is new): let the screen go on.
     // A rotation keeps the model and its pending restore, so this does not fire then. A page that watched somebody
     // else's move end closes once nothing is left.

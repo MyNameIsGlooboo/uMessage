@@ -4,6 +4,7 @@ import android.app.Application
 import android.os.Looper
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
@@ -19,6 +20,7 @@ import com.glooboo.umessage.helpers.THREAD_NUMBER
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ListKind
+import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
@@ -117,11 +119,44 @@ class BlockedThreadOpensChatTest {
         var closed = 0
         route(repo, NAME, threadId = 7L) { closed++ }
         compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true).performClick()
+        // The chat waits for the answer to "Always allow this name?"; "Not now" changes nothing.
+        awaitText(app.getString(R.string.nameallow_title))
+        assertThat(closed).isEqualTo(0)
+        compose.onNodeWithText(app.getString(R.string.setup_banner_dismiss)).performClick()
         awaitClosed { closed > 0 }
 
         val chat = started().single { it.component?.className == ThreadActivity::class.java.name }
         assertThat(chat.getStringExtra(THREAD_NOTICE)).isEqualTo(app.getString(R.string.nsf_snack_moved))
         assertThat(runBlocking { repo.rules.first() }).isEmpty()
+    }
+
+    @Test
+    fun alwaysAllowingTheNameAddsOneSenderNameRuleAndTheChatOpens() {
+        val repo = FakeSpamRepository(initialBlocked = listOf(message(1, NAME)), initialRules = emptyList())
+        var closed = 0
+        route(repo, NAME, threadId = 7L) { closed++ }
+        compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true).performClick()
+        awaitText(app.getString(R.string.nameallow_title))
+        compose.onNodeWithText(app.getString(R.string.decm_always_allow)).performClick()
+        // The question is answered at once and the rule is stored in the background, so wait for both.
+        awaitClosed { closed > 0 && runBlocking { repo.rules.first() }.isNotEmpty() }
+
+        val chat = started().single { it.component?.className == ThreadActivity::class.java.name }
+        assertThat(chat.getLongExtra(THREAD_ID, 0L)).isEqualTo(7L)
+        val rule = runBlocking { repo.rules.first() }.single()
+        assertThat(rule.kind).isEqualTo(ListKind.ALLOW)
+        assertThat(rule.type).isEqualTo(RuleType.SENDER_ID)
+        assertThat(rule.pattern).isEqualTo(NAME)
+    }
+
+    private fun awaitText(text: String) {
+        val deadline = System.currentTimeMillis() + 5_000
+        while (compose.onAllNodesWithText(text).fetchSemanticsNodes().isEmpty()) {
+            shadowOf(Looper.getMainLooper()).idle()
+            compose.waitForIdle()
+            check(System.currentTimeMillis() < deadline) { "\"$text\" did not show" }
+            Thread.sleep(10)
+        }
     }
 
     @Test

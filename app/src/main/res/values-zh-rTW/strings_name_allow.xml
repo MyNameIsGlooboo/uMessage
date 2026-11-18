@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">一律允許這個名稱？</string>
+    <string name="nameallow_body">來自%1$s的新簡訊會顯示在「訊息」中。任何人都能使用名稱傳送簡訊，因此冒用這個名稱的假簡訊也會通過。</string>
+    <string name="nameallow_body_many">來自%1$s的新簡訊會顯示在「訊息」中。任何人都能使用名稱傳送簡訊，因此冒用這些名稱的假簡訊也會通過。</string>
+    <string name="nameallow_more">%1$s及其他%2$d個</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">Diesen Namen immer erlauben?</string>
+    <string name="nameallow_body">Neue Nachrichten von %1$s landen unter „Nachrichten“. Jeder kann Nachrichten unter einem Namen senden. Daher würden auch gefälschte Nachrichten mit diesem Namen durchkommen.</string>
+    <string name="nameallow_body_many">Neue Nachrichten von %1$s landen unter „Nachrichten“. Jeder kann Nachrichten unter einem Namen senden. Daher würden auch gefälschte Nachrichten mit diesen Namen durchkommen.</string>
+    <string name="nameallow_more">%1$s und %2$d weitere</string>
+</resources>

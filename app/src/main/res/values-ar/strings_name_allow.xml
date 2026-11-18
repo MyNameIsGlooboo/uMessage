@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">السماح بهذا الاسم دائمًا؟</string>
+    <string name="nameallow_body">ستصل الرسائل الجديدة من %1$s إلى «الرسائل». يمكن لأي شخص إرسال رسائل باسم، لذا ستصل أيضًا الرسائل المزيّفة التي تحمل هذا الاسم.</string>
+    <string name="nameallow_body_many">ستصل الرسائل الجديدة من %1$s إلى «الرسائل». يمكن لأي شخص إرسال رسائل باسم، لذا ستصل أيضًا الرسائل المزيّفة التي تحمل هذه الأسماء.</string>
+    <string name="nameallow_more">%1$s و%2$d أخرى</string>
+</resources>

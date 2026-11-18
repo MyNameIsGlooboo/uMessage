@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">Vuoi consentire sempre questo nome?</string>
+    <string name="nameallow_body">I nuovi messaggi da %1$s arriveranno in Messaggi. Chiunque può inviare messaggi usando un nome, quindi passeranno anche eventuali messaggi falsi con questo nome.</string>
+    <string name="nameallow_body_many">I nuovi messaggi da %1$s arriveranno in Messaggi. Chiunque può inviare messaggi usando un nome, quindi passeranno anche eventuali messaggi falsi con questi nomi.</string>
+    <string name="nameallow_more">%1$s e altri %2$d</string>
+</resources>

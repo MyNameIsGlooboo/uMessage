@@ -104,6 +104,8 @@ fun BlockedRoute(onBack: (() -> Unit)?, onOpenRules: () -> Unit, onOpenSettings:
     val scope = rememberCoroutineScope()
     val groups by rememberUpdatedState(state.groups)
     BlockedEvents(viewModel, snackbar, showOrphans = true)
+    val namePrompt by viewModel.namePrompt.collectAsStateWithLifecycle()
+    namePrompt?.let { NameAllowDialog(it.names, viewModel::allowPromptedNames, viewModel::dismissNamePrompt) }
     // Leaving the tab closes the search and drops the selection, so neither comes back with the tab. A rotation keeps
     // both.
     val activity = LocalActivity.current

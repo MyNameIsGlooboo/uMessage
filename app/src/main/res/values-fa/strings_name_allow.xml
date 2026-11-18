@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">این نام همیشه مجاز باشد؟</string>
+    <string name="nameallow_body">پیام‌های جدید %1$s به پیام‌ها می‌روند. هر کسی می‌تواند با یک نام پیام بفرستد؛ پس پیام‌های جعلی با این نام هم رد می‌شوند.</string>
+    <string name="nameallow_body_many">پیام‌های جدید %1$s به پیام‌ها می‌روند. هر کسی می‌تواند با یک نام پیام بفرستد؛ پس پیام‌های جعلی با این نام‌ها هم رد می‌شوند.</string>
+    <string name="nameallow_more">%1$s و %2$d مورد دیگر</string>
+</resources>

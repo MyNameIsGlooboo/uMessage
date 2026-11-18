@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">Permita sempre este nome?</string>
+    <string name="nameallow_body">Novas mensagens de %1$s vão para Mensagens. Qualquer pessoa pode enviar mensagens usando um nome, então mensagens falsas com esse nome também passarão.</string>
+    <string name="nameallow_body_many">Novas mensagens de %1$s vão para Mensagens. Qualquer pessoa pode enviar mensagens usando um nome, então mensagens falsas com esses nomes também passarão.</string>
+    <string name="nameallow_more">%1$s e mais %2$d</string>
+</resources>

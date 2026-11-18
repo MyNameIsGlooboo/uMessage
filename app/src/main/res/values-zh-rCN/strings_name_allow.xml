@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">始终允许此名称？</string>
+    <string name="nameallow_body">来自%1$s的新短信将进入“消息”。任何人都能以某个名称发送短信，因此冒用此名称的虚假短信也会放行。</string>
+    <string name="nameallow_body_many">来自%1$s的新短信将进入“消息”。任何人都能以某个名称发送短信，因此冒用这些名称的虚假短信也会放行。</string>
+    <string name="nameallow_more">%1$s及其他%2$d个</string>
+</resources>

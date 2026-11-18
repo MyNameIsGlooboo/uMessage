@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">Zawsze zezwalać na tę nazwę?</string>
+    <string name="nameallow_body">Nowe wiadomości od %1$s trafią do sekcji Wiadomości. Każdy może wysyłać wiadomości pod dowolną nazwą, więc fałszywe wiadomości z tą nazwą też dotrą.</string>
+    <string name="nameallow_body_many">Nowe wiadomości od %1$s trafią do sekcji Wiadomości. Każdy może wysyłać wiadomości pod dowolną nazwą, więc fałszywe wiadomości z tymi nazwami też dotrą.</string>
+    <string name="nameallow_more">%1$s i jeszcze %2$d</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">এই নামকে সবসময় অনুমতি দেবেন?</string>
+    <string name="nameallow_body">%1$s থেকে আসা নতুন বার্তা বার্তা বিভাগে যাবে। যে কেউ কোনো নাম ব্যবহার করে বার্তা পাঠাতে পারেন, তাই এই নামের ভুয়া বার্তাও চলে আসবে।</string>
+    <string name="nameallow_body_many">%1$s থেকে আসা নতুন বার্তা বার্তা বিভাগে যাবে। যে কেউ কোনো নাম ব্যবহার করে বার্তা পাঠাতে পারেন, তাই এই নামগুলোর ভুয়া বার্তাও চলে আসবে।</string>
+    <string name="nameallow_more">%1$s এবং আরও %2$d</string>
+</resources>

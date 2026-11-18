@@ -253,6 +253,14 @@ class BlockedViewModel(
     /** One entry for every "Not spam" started with `openChat`, once its messages are in the inbox (or failed to be). */
     val notSpamDone = doneEvents.receiveAsFlow()
 
+    private val namePromptState = MutableStateFlow<NameAllowPrompt?>(null)
+
+    /**
+     * The "Always allow this name?" question after a "Not spam" of senders that go by a name. It lives here, so a
+     * rotation neither loses nor repeats it; an answer ([allowPromptedNames], [dismissNamePrompt]) clears it.
+     */
+    val namePrompt: StateFlow<NameAllowPrompt?> = namePromptState
+
     val state: StateFlow<BlockedUiState> = combine(
         repository.blocked,
         repository.stats,
@@ -451,6 +459,7 @@ class BlockedViewModel(
                     updateRestore(token) {
                         it.copy(receipts = work.receipts, logged = work.logged, allowChange = work.change)
                     }
+                    offerNameAllow(token, pending, work.receipts)
                     announceIfReady(token)
                 }
             }
@@ -464,16 +473,49 @@ class BlockedViewModel(
      */
     fun alwaysAllow(address: String) {
         if (SenderBlocking.isSpoofable(address)) return
+        allowOnly(listOf(address))
+    }
+
+    /**
+     * After "Not spam" moved texts of senders that go by a name, asks once whether to allow those names: only for names
+     * whose messages really reached the inbox and that no allow rule names yet. Nothing is asked for "Release once"
+     * and "Move to inbox" (no senders), nor when nothing moved. The answer is not remembered: the next "Not spam" asks
+     * again.
+     */
+    private suspend fun offerNameAllow(token: Long, pending: PendingRestore, receipts: Map<Long, RestoreReceipt>) {
+        if (pending.addresses.isEmpty()) return
+        val inInbox = setOf(RestoreOutcome.RESTORED, RestoreOutcome.TEXT_ONLY)
+        val movedFrom = pending.ids.filter { receipts[it]?.outcome in inInbox }
+            .mapNotNull { pending.messages[it]?.address }
+        val rules = runCatching { repository.rules.first() }.getOrNull() ?: return
+        val names = namesToOffer(movedFrom, rules)
+        if (names.isEmpty()) return
+        namePromptState.update { old -> NameAllowPrompt(token, (old?.names.orEmpty() + names).distinct()) }
+    }
+
+    /** "Always allow" of the question: a sender-name allow rule for each asked name, with the same Undo snackbar. */
+    fun allowPromptedNames() {
+        val prompt = namePromptState.value ?: return
+        namePromptState.value = null
+        allowOnly(prompt.names)
+    }
+
+    /** "Not now" of the question: nothing changes and nothing is remembered. */
+    fun dismissNamePrompt() {
+        namePromptState.value = null
+    }
+
+    private fun allowOnly(addresses: List<String>) {
         val token = nextToken++
         viewModelScope.launch {
             withContext(NonCancellable) {
                 restoreWork.withLock {
-                    val change = runCatching { SenderBlocking.alwaysAllow(repository, listOf(address)) }.getOrNull()
+                    val change = runCatching { SenderBlocking.alwaysAllow(repository, addresses) }.getOrNull()
                     if (change == null) {
                         events.trySend(BlockedEvent.Failed)
                     } else {
                         val pending = PendingRestore(
-                            ids = emptyList(), addresses = listOf(address), allowAddresses = listOf(address),
+                            ids = emptyList(), addresses = addresses, allowAddresses = addresses,
                             receipts = emptyMap(), allowChange = change, announced = true,
                         )
                         pendingRestores.update { it + (token to pending) }
@@ -576,8 +618,9 @@ class BlockedViewModel(
     fun undoRestore(token: Long) {
         val pending = pendingRestores.value[token]?.takeIf { it.announced } ?: return
         if (!committing.add(token)) return
+        namePromptState.update { if (it?.token == token) null else it }
         viewModelScope.launch {
-            val undone = withContext(NonCancellable) { restoreWork.withLock { undo(pending) } }
+            val undone =withContext(NonCancellable) { restoreWork.withLock { undo(pending) } }
             if (!undone) events.trySend(BlockedEvent.Failed)
             pendingRestores.update { it - token }
             committing -= token

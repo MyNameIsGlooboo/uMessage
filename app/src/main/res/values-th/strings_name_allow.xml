@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">อนุญาตชื่อนี้เสมอไหม?</string>
+    <string name="nameallow_body">ข้อความใหม่จาก %1$s จะปรากฏในข้อความ ใครก็ส่งข้อความโดยใช้ชื่อได้ ดังนั้นข้อความปลอมที่ใช้ชื่อนี้ก็จะผ่านเข้ามาด้วย</string>
+    <string name="nameallow_body_many">ข้อความใหม่จาก %1$s จะปรากฏในข้อความ ใครก็ส่งข้อความโดยใช้ชื่อได้ ดังนั้นข้อความปลอมที่ใช้ชื่อเหล่านี้ก็จะผ่านเข้ามาด้วย</string>
+    <string name="nameallow_more">%1$s และอีก %2$d</string>
+</resources>

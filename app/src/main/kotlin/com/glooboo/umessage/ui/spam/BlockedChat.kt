@@ -22,6 +22,7 @@ import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.isolateNumbers
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 
 /**
@@ -80,6 +81,9 @@ internal fun OpenChatAfterNotSpam(
                 retry()
                 return@collect
             }
+            // A name was moved: the "Always allow this name?" question is on this screen;
+            // the chat waits for the answer.
+            viewModel.namePrompt.first { it == null }
             val threadId = lookUp(context, address)
             if (threadId > 0L) {
                 val moved = BlockedEvent.Restored(0L, done.toInbox, done.allowed.size, 0, done.allowed)

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">اس نام کو ہمیشہ اجازت دیں؟</string>
+    <string name="nameallow_body">%1$s سے آنے والے نئے پیغامات، پیغامات میں جائیں گے۔ کوئی بھی کسی نام سے پیغامات بھیج سکتا ہے، اس لیے اس نام سے آنے والے جعلی پیغامات بھی آ جائیں گے۔</string>
+    <string name="nameallow_body_many">%1$s سے آنے والے نئے پیغامات، پیغامات میں جائیں گے۔ کوئی بھی کسی نام سے پیغامات بھیج سکتا ہے، اس لیے ان ناموں سے آنے والے جعلی پیغامات بھی آ جائیں گے۔</string>
+    <string name="nameallow_more">%1$s اور مزید %2$d</string>
+</resources>
