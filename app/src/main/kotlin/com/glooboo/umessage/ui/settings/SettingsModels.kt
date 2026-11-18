@@ -114,7 +114,7 @@ enum class ForwardingSummary { NO_RULES, OFF, PAUSED, ON }
 
 /** The pages of Settings: the main list and the screens it opens. */
 enum class SettingsPage {
-    Main, Spam, Forwarding, Notifications, Typing, Storage, Backup, MoveFromApp, AppLock, About, Licenses
+    Main, Spam, Forwarding, Notifications, Typing, Storage, Backup, MoveFromApp, AppLock, About, Licenses, Setup
 }
 
 /** Everything the screen can ask the host to do. */

@@ -16,6 +16,7 @@ import com.glooboo.umessage.ui.settings.search.SettingsTarget.FORWARD_RULES
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.LANGUAGE
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.LICENSES
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.NOTIFICATIONS
+import com.glooboo.umessage.ui.settings.search.SettingsTarget.SETUP
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.SPAM
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.SPAM_RULES
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.SPAM_SETTINGS
@@ -41,7 +42,8 @@ object SettingsIndex {
     private val PG_ABOUT = R.string.settings_nav_about_row
 
     val entries: List<SettingsIndexEntry> = spamEntries() + forwardingEntries() + notificationEntries() +
-        typingEntries() + storageEntries() + appearanceEntries() + backupEntries() + lockEntries() + aboutEntries()
+        typingEntries() + storageEntries() + appearanceEntries() + backupEntries() + lockEntries() + setupEntries() +
+        aboutEntries()
 
     private fun spamEntries() = listOf(
         SettingsIndexEntry(R.string.settings_nav_spam_row, MAIN, SPAM, null, R.string.sks_spam),
@@ -136,6 +138,10 @@ object SettingsIndex {
         SettingsIndexEntry(R.string.settings_app_lock_screenshots, PG_LOCK, APP_LOCK, R.string.settings_app_lock_screenshots_body, R.string.sks_screenshots),
         SettingsIndexEntry(R.string.settings_app_lock_change, PG_LOCK, APP_LOCK, null, R.string.sks_lock_change),
         SettingsIndexEntry(R.string.settings_app_lock_now, PG_LOCK, APP_LOCK, R.string.settings_app_lock_now_body, R.string.sks_lock_now),
+    )
+
+    private fun setupEntries() = listOf(
+        SettingsIndexEntry(R.string.setup_title, MAIN, SETUP, R.string.setup_row_summary, R.string.sks_setup),
     )
 
     private fun aboutEntries() = listOf(

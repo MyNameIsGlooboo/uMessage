@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">初期設定と権限</string>
+    <string name="setup_group_title">初期設定</string>
+    <string name="setup_row_summary">uMessageに必要な設定を確認し、未設定の項目を設定します。</string>
+    <string name="setup_intro">このページを開くたびに、各項目の状態をAndroidから取得します。</string>
+    <string name="setup_all_set">必要な設定はすべて有効です。</string>
+    <string name="setup_some_open">まだ設定が必要な項目があります。</string>
+    <string name="setup_group_permissions">権限</string>
+    <string name="setup_status_optional">任意・未設定</string>
+    <string name="setup_status_unknown">Androidでは確認できません。開いて確認してください。</string>
+    <string name="setup_action_allow">許可</string>
+    <string name="setup_battery_banner_title">uMessageの動作を維持</string>
+    <string name="setup_battery_banner_body">スマートフォンがバックグラウンドのuMessageを停止し、新しいメッセージの受信が遅れることがあります。</string>
+    <string name="setup_battery_banner_action">修正</string>
+    <string name="setup_banner_dismiss">後で</string>
+    <string name="setup_checklist_step_contacts">連絡先の許可</string>
+    <string name="setup_checklist_step_battery">任意：uMessageのバックグラウンド動作を許可</string>
+</resources>

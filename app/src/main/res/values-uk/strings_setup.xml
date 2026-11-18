@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">Налаштування й дозволи</string>
+    <string name="setup_group_title">Налаштування</string>
+    <string name="setup_row_summary">Перевірте, що потрібно uMessage, і налаштуйте те, чого бракує</string>
+    <string name="setup_intro">Дані в кожному рядку зчитуються з Android щоразу, коли ви відкриваєте цю сторінку.</string>
+    <string name="setup_all_set">Усе потрібне ввімкнено</string>
+    <string name="setup_some_open">Дещо ще потребує вашої уваги</string>
+    <string name="setup_group_permissions">Дозволи</string>
+    <string name="setup_status_optional">Необов’язково, не налаштовано</string>
+    <string name="setup_status_unknown">Android не надає цих даних. Відкрийте й перевірте.</string>
+    <string name="setup_action_allow">Дозволити</string>
+    <string name="setup_battery_banner_title">Дозвольте uMessage працювати</string>
+    <string name="setup_battery_banner_body">Ваш телефон може зупиняти uMessage у фоновому режимі й затримувати нові повідомлення.</string>
+    <string name="setup_battery_banner_action">Виправити</string>
+    <string name="setup_banner_dismiss">Не зараз</string>
+    <string name="setup_checklist_step_contacts">Дозволити доступ до контактів</string>
+    <string name="setup_checklist_step_battery">Необов’язково: дозвольте uMessage працювати у фоновому режимі</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">Configuration et autorisations</string>
+    <string name="setup_group_title">Configuration</string>
+    <string name="setup_row_summary">Vérifiez ce dont uMessage a besoin et ajoutez ce qui manque</string>
+    <string name="setup_intro">Chaque ligne est vérifiée auprès d\'Android à chaque ouverture de cette page.</string>
+    <string name="setup_all_set">Tout le nécessaire est activé</string>
+    <string name="setup_some_open">Certains points restent à régler</string>
+    <string name="setup_group_permissions">Autorisations</string>
+    <string name="setup_status_optional">Facultatif, non configuré</string>
+    <string name="setup_status_unknown">Android ne peut pas le déterminer. Ouvrez ce réglage et vérifiez.</string>
+    <string name="setup_action_allow">Autoriser</string>
+    <string name="setup_battery_banner_title">Gardez uMessage actif</string>
+    <string name="setup_battery_banner_body">Votre téléphone peut arrêter uMessage en arrière-plan et retarder les nouveaux messages.</string>
+    <string name="setup_battery_banner_action">Corriger</string>
+    <string name="setup_banner_dismiss">Pas maintenant</string>
+    <string name="setup_checklist_step_contacts">Autoriser l\'accès aux contacts</string>
+    <string name="setup_checklist_step_battery">Facultatif : autorisez uMessage à fonctionner en arrière-plan</string>
+</resources>

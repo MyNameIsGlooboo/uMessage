@@ -73,6 +73,7 @@
     <string name="sks_screenshots">screenshots screen recording capture block privacy</string>
     <string name="sks_lock_change">change pin password new credential reset</string>
     <string name="sks_lock_now">lock now immediately close secure</string>
+    <string name="sks_setup">setup permissions default sms app contacts notifications battery background allow access</string>
     <string name="sks_about">about version info app source licence license</string>
     <string name="sks_privacy">privacy internet offline permission data tracking safe</string>
     <string name="sks_version">version build number release update copy</string>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">Konfiguracja i uprawnienia</string>
+    <string name="setup_group_title">Konfiguracja</string>
+    <string name="setup_row_summary">Sprawdź, czego potrzebuje uMessage, i uzupełnij braki</string>
+    <string name="setup_intro">Stan każdej pozycji jest sprawdzany w Androidzie przy każdym otwarciu tej strony.</string>
+    <string name="setup_all_set">Wszystko, co potrzebne, jest włączone</string>
+    <string name="setup_some_open">Kilka rzeczy wymaga jeszcze twojej uwagi</string>
+    <string name="setup_group_permissions">Uprawnienia</string>
+    <string name="setup_status_optional">Opcjonalne, nie ustawiono</string>
+    <string name="setup_status_unknown">Android nie podaje stanu. Otwórz i sprawdź.</string>
+    <string name="setup_action_allow">Zezwól</string>
+    <string name="setup_battery_banner_title">Zadbaj o działanie uMessage</string>
+    <string name="setup_battery_banner_body">Twój telefon może zatrzymać uMessage w tle i opóźnić odbiór nowych wiadomości.</string>
+    <string name="setup_battery_banner_action">Napraw</string>
+    <string name="setup_banner_dismiss">Nie teraz</string>
+    <string name="setup_checklist_step_contacts">Zezwól na dostęp do kontaktów</string>
+    <string name="setup_checklist_step_battery">Opcjonalnie: zezwól uMessage na działanie w tle</string>
+</resources>

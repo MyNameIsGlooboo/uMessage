@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Setup and permissions page (Settings), battery banner, checklist steps -->
+    <string name="setup_title">راه‌اندازی و دسترسی‌ها</string>
+    <string name="setup_group_title">راه‌اندازی</string>
+    <string name="setup_row_summary">ببینید uMessage چه چیزهایی لازم دارد و کم‌وکسری‌ها را درست کنید</string>
+    <string name="setup_intro">وضعیت هر مورد هر بار که این صفحه را باز می‌کنید از Android خوانده می‌شود.</string>
+    <string name="setup_all_set">هرچه لازم بود روشن است</string>
+    <string name="setup_some_open">چند مورد هنوز مانده</string>
+    <string name="setup_group_permissions">دسترسی‌ها</string>
+    <string name="setup_status_optional">اختیاری، تنظیم نشده</string>
+    <string name="setup_status_unknown">Android نمی‌تواند بگوید. بازش کنید و خودتان ببینید.</string>
+    <string name="setup_action_allow">اجازه دادن</string>
+    <string name="setup_battery_banner_title">uMessage را در حال اجرا نگه دارید</string>
+    <string name="setup_battery_banner_body">ممکن است گوشی‌تان uMessage را در پس‌زمینه ببندد و پیام‌های جدید دیر برسند.</string>
+    <string name="setup_battery_banner_action">درست کردن</string>
+    <string name="setup_banner_dismiss">فعلاً نه</string>
+    <string name="setup_checklist_step_contacts">دسترسی به مخاطب‌ها را بدهید</string>
+    <string name="setup_checklist_step_battery">اختیاری: اجازه بدهید uMessage در پس‌زمینه کار کند</string>
+</resources>

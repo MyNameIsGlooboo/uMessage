@@ -71,6 +71,7 @@
     <string name="sks_screenshots">स्क्रीनशॉट स्क्रीन रिकॉर्डिंग कैप्चर ब्लॉक करें निजता</string>
     <string name="sks_lock_change">बदलें पिन पासवर्ड नया पहचान रीसेट</string>
     <string name="sks_lock_now">लॉक अभी तुरंत बंद सुरक्षित</string>
+    <string name="sks_setup">सेटअप अनुमतियां डिफ़ॉल्ट एसएमएस ऐप संपर्क सूचनाएं बैटरी बैकग्राउंड अनुमति दें ऐक्सेस</string>
     <string name="sks_about">परिचय वर्शन जानकारी ऐप सोर्स लाइसेंस लाइसेंस</string>
     <string name="sks_privacy">निजता इंटरनेट ऑफ़लाइन अनुमति डेटा ट्रैकिंग सुरक्षित</string>
     <string name="sks_version">वर्शन बिल्ड नंबर रिलीज़ अपडेट कॉपी</string>

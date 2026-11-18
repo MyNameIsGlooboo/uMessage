@@ -71,6 +71,7 @@
     <string name="sks_screenshots">স্ক্রিনশট স্ক্রিন রেকর্ডিং ধারণ ব্লক করুন গোপনীয়তা</string>
     <string name="sks_lock_change">বদলান PIN পাসওয়ার্ড নতুন পরিচয়তথ্য রিসেট</string>
     <string name="sks_lock_now">লক এখন সঙ্গে সঙ্গে বন্ধ সুরক্ষিত</string>
+    <string name="sks_setup">সেটআপ অনুমতি ডিফল্ট SMS অ্যাপ পরিচিতি বিজ্ঞপ্তি ব্যাটারি ব্যাকগ্রাউন্ড অনুমতি দিন অ্যাক্সেস</string>
     <string name="sks_about">সম্পর্কে সংস্করণ তথ্য অ্যাপ সোর্স লাইসেন্স লাইসেন্স</string>
     <string name="sks_privacy">গোপনীয়তা ইন্টারনেট অফলাইন অনুমতি ডেটা ট্র্যাকিং নিরাপদ</string>
     <string name="sks_version">সংস্করণ বিল্ড নম্বর প্রকাশ আপডেট কপি</string>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">الإعداد والأذونات</string>
+    <string name="setup_group_title">الإعداد</string>
+    <string name="setup_row_summary">تحقّق مما يحتاجه uMessage وأكمل ما ينقصه</string>
+    <string name="setup_intro">تُجلب حالة كل بند من Android كلما فتحت هذه الصفحة.</string>
+    <string name="setup_all_set">كل المتطلبات مفعّلة</string>
+    <string name="setup_some_open">بعض الخطوات ما زالت تحتاج إلى تدخلك</string>
+    <string name="setup_group_permissions">الأذونات</string>
+    <string name="setup_status_optional">اختياري، لم يُضبط</string>
+    <string name="setup_status_unknown">لا يستطيع Android تحديد الحالة. افتح الخيار وتحقّق.</string>
+    <string name="setup_action_allow">اسمح</string>
+    <string name="setup_battery_banner_title">حافظ على تشغيل uMessage</string>
+    <string name="setup_battery_banner_body">قد يوقف هاتفك uMessage في الخلفية ويؤخّر وصول الرسائل الجديدة.</string>
+    <string name="setup_battery_banner_action">أصلح</string>
+    <string name="setup_banner_dismiss">ليس الآن</string>
+    <string name="setup_checklist_step_contacts">اسمح بالوصول إلى جهات الاتصال</string>
+    <string name="setup_checklist_step_battery">اختياري: اسمح بتشغيل uMessage في الخلفية</string>
+</resources>

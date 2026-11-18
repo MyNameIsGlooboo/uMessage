@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Setup and permissions page (Settings), battery banner, checklist steps -->
+    <string name="setup_title">Setup and permissions</string>
+    <string name="setup_group_title">Setup</string>
+    <string name="setup_row_summary">Check what uMessage needs and fix what is missing</string>
+    <string name="setup_intro">Each line is read from Android every time you open this page.</string>
+    <string name="setup_all_set">Everything needed is on</string>
+    <string name="setup_some_open">Some things still need you</string>
+    <string name="setup_group_permissions">Permissions</string>
+    <string name="setup_status_optional">Optional, not set</string>
+    <string name="setup_status_unknown">Android cannot tell. Open it and check.</string>
+    <string name="setup_action_allow">Allow</string>
+    <string name="setup_battery_banner_title">Keep uMessage running</string>
+    <string name="setup_battery_banner_body">Your phone may stop uMessage in the background and delay new messages.</string>
+    <string name="setup_battery_banner_action">Fix</string>
+    <string name="setup_banner_dismiss">Not now</string>
+    <string name="setup_checklist_step_contacts">Allow contacts</string>
+    <string name="setup_checklist_step_battery">Optional: let uMessage run in the background</string>
+</resources>

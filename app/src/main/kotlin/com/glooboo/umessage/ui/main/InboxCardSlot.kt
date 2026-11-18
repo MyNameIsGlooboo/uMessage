@@ -8,39 +8,55 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.helpers.cleanupPrefs
+import com.glooboo.umessage.ui.spam.ContactsOffBanner
 
 /**
- * U03: the one card above the inbox's rows ([InboxCardPolicy]). Answering or closing a card shows the next one that is
- * still due, if any.
+ * U03: the card due now ([InboxCardPolicy]). [answered] counts the cards answered or closed, so the next one still due
+ * shows; [newBlocked] is the count of held messages not yet looked at.
  */
 @Composable
-internal fun InboxCardSlot(
-    newBlocked: Int,
-    forwardRuleCount: Int,
-    onOpenBlockedTab: () -> Unit,
-    onOpenForwarding: () -> Unit,
-) {
+internal fun rememberInboxCard(newBlocked: Int, answered: Int): InboxCard? {
     val context = LocalContext.current
     val w3c = remember(context) { W3cPrefs.get(context) }
     val cleanup = remember(context) { context.cleanupPrefs }
-    var answered by remember { mutableIntStateOf(0) }
-    val card = remember(answered, newBlocked) {
+    return remember(answered, newBlocked) {
         InboxCardPolicy.pick(
             spamHeldDue = !w3c.firstBlockReceiptShown && newBlocked > 0,
             checklistDue = !w3c.checklistDismissed,
             cleanupDue = !cleanup.codeCardDismissed && cleanup.codeDays == 0,
         )
     }
-    val next: () -> Unit = { answered++ }
+}
+
+/** U03: the one card above the inbox's rows. Answering or closing it calls [onDone]; the host picks the next. */
+@Composable
+internal fun InboxCardSlot(
+    card: InboxCard?,
+    newBlocked: Int,
+    forwardRuleCount: Int,
+    onOpenBlockedTab: () -> Unit,
+    onOpenForwarding: () -> Unit,
+    onDone: () -> Unit,
+) {
     when (card) {
-        InboxCard.SpamHeld -> FirstBlockReceipt(newBlocked = newBlocked, onReview = onOpenBlockedTab, onDone = next)
+        InboxCard.SpamHeld -> FirstBlockReceipt(newBlocked = newBlocked, onReview = onOpenBlockedTab, onDone = onDone)
         InboxCard.Checklist -> FirstDayChecklist(
             forwardRuleCount = forwardRuleCount,
             onOpenBlockedTab = onOpenBlockedTab,
             onOpenForwarding = onOpenForwarding,
-            onDone = next,
+            onDone = onDone,
         )
-        InboxCard.CodeCleanup -> CodeCleanupCard(onDone = next)
+        InboxCard.CodeCleanup -> CodeCleanupCard(onDone = onDone)
         null -> Unit
+    }
+}
+
+/** The warnings above the list. While the set-up checklist shows, only the notifications one stays: no stacking. */
+@Composable
+internal fun InboxBanners(checklistShowing: Boolean) {
+    NotificationsOffBanner()
+    if (!checklistShowing) {
+        ContactsOffBanner()
+        BatteryBanner()
     }
 }

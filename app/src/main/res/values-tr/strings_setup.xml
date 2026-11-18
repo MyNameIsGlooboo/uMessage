@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">Kurulum ve izinler</string>
+    <string name="setup_group_title">Kurulum</string>
+    <string name="setup_row_summary">uMessage için gerekenleri kontrol edin ve eksikleri tamamlayın</string>
+    <string name="setup_intro">Bu sayfayı her açtığınızda her satırdaki bilgi Android\'den alınır.</string>
+    <string name="setup_all_set">Gerekli her şey açık</string>
+    <string name="setup_some_open">Tamamlamanız gereken ayarlar var</string>
+    <string name="setup_group_permissions">İzinler</string>
+    <string name="setup_status_optional">İsteğe bağlı, ayarlanmadı</string>
+    <string name="setup_status_unknown">Android bu bilgiyi sağlayamıyor. Açıp kontrol edin.</string>
+    <string name="setup_action_allow">İzin verin</string>
+    <string name="setup_battery_banner_title">uMessage çalışmaya devam etsin</string>
+    <string name="setup_battery_banner_body">Telefonunuz arka planda uMessage uygulamasını durdurabilir ve yeni mesajları geciktirebilir.</string>
+    <string name="setup_battery_banner_action">Düzeltin</string>
+    <string name="setup_banner_dismiss">Şimdi değil</string>
+    <string name="setup_checklist_step_contacts">Kişilere erişime izin verin</string>
+    <string name="setup_checklist_step_battery">İsteğe bağlı: uMessage uygulamasının arka planda çalışmasına izin verin</string>
+</resources>

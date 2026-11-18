@@ -1,18 +1,21 @@
 package com.glooboo.umessage.ui.main
 
-import android.content.Context
+import android.app.Activity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.StringRes
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -43,7 +46,6 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.W3cPrefs
-import com.glooboo.umessage.spam.ForwardingAvailability
 import com.glooboo.umessage.ui.components.localizedNumber
 import com.glooboo.umessage.ui.components.readableOn
 import com.glooboo.umessage.ui.components.uiLocale
@@ -52,8 +54,9 @@ import com.glooboo.umessage.ui.theme.success
 
 /**
  * ID-10: a dismissible card at the top of the inbox with the few steps that make the app trustworthy: the default SMS
- * role, notifications, a look at the Blocked tab and (optional) forwarding. Each step reads its real state again when
- * the screen resumes, so a step ticks itself once the user comes back from the system page. Gone for good once closed.
+ * role, notifications, contacts, a look at the Blocked tab, (optional) battery and (optional) forwarding. Each step
+ * reads its real state again when the screen resumes, so a step ticks itself once the user comes back from the system
+ * page. It can be closed for good only once every required step is done ([checklistCanClose]).
  * U03: it opens as one line (title and count); a tap shows the steps.
  */
 @Composable
@@ -73,19 +76,18 @@ fun FirstDayChecklist(
         tick++
         onPauseOrDispose { }
     }
-    val roleLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { tick++ }
+    // A request that comes back refused (or "don't ask again") would leave the step stuck: open the settings page.
+    val roleLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK && DefaultSmsRole.status(context) !is DefaultSmsRole.Status.Held) {
+            context.openDefaultAppsSettings()
+        }
+        tick++
+    }
     if (dismissed) return
 
-    val smsHeld = remember(tick) { DefaultSmsRole.status(context) is DefaultSmsRole.Status.Held }
-    val notificationsOn = remember(tick) { context.currentNotificationsBlock() == null }
-    val blockedSeen = remember(tick) { prefs.blockedTabVisited }
-    // Without forwarding the optional step is not listed or counted, and cannot hold the card.
-    val forwardingAvailable = remember(context) { ForwardingAvailability.isAvailable(context) }
-    val steps = listedSteps(forwardingAvailable)
-    val done = doneSteps(smsHeld, notificationsOn, blockedSeen, forwardingDone(forwardRuleCount, forwardingAvailable))
-    val count = shownDoneCount(checklistProgress(done).first, forwardingAvailable)
-    val total = steps.size
-    val title = titleLabel(checklistTitle(done))
+    val snapshot = remember(tick, forwardRuleCount) { readChecklist(context, prefs, forwardRuleCount) }
+    val count = snapshot.done.count { it in snapshot.steps }
+    val total = snapshot.steps.size
     val locale = uiLocale()
 
     Surface(
@@ -94,98 +96,87 @@ fun FirstDayChecklist(
         modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
     ) {
         Column(Modifier.padding(start = 16.dp, end = 4.dp, top = 8.dp, bottom = 8.dp)) {
-            Row(
-                Modifier.clickable(
-                    onClickLabel = stringResource(
-                        if (expanded) R.string.ux8a_checklist_hide else R.string.ux8a_checklist_show,
-                    ),
-                    role = Role.Button,
-                ) { expanded = !expanded },
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    stringResource(title),
-                    style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier.weight(1f).semantics { heading() },
-                )
-                Text(
-                    stringResource(
-                        R.string.w3c_checklist_progress,
-                        localizedNumber(count, locale),
-                        localizedNumber(total, locale),
-                    ),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                Icon(
-                    if (expanded) Symbols.ExpandLess else Symbols.ExpandMore,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                IconButton(onClick = {
+            ChecklistHeader(
+                title = titleLabel(checklistTitle(snapshot.done)),
+                progress = stringResource(
+                    R.string.w3c_checklist_progress,
+                    localizedNumber(count, locale),
+                    localizedNumber(total, locale),
+                ),
+                expanded = expanded,
+                canClose = checklistCanClose(snapshot.done, snapshot.impossible),
+                onToggle = { expanded = !expanded },
+                onClose = {
                     prefs.checklistDismissed = true
                     dismissed = true
                     onDone()
-                }) {
-                    Icon(Symbols.Close, contentDescription = stringResource(R.string.w3c_checklist_dismiss))
-                }
-            }
+                },
+            )
             if (expanded) {
                 LinearProgressIndicator(
                     progress = { count.toFloat() / total },
                     modifier = Modifier.fillMaxWidth().padding(end = 12.dp, bottom = 4.dp),
                 )
-            }
-            if (expanded) steps.forEach { step ->
-                StepRow(
-                    label = stringResource(stepLabel(step)),
-                    done = step in done,
-                    action = stringResource(
-                        if (step == ChecklistStep.DefaultSms) {
-                            R.string.w3c_checklist_action_set
-                        } else {
-                            R.string.w3c_checklist_action_open
-                        },
-                    ),
-                    onAction = {
-                        when (step) {
-                            ChecklistStep.DefaultSms ->
-                                (DefaultSmsRole.status(context) as? DefaultSmsRole.Status.Request)
-                                    ?.let { roleLauncher.launch(it.intent) }
-                            ChecklistStep.Notifications -> runCatching {
-                                context.startActivity(context.notificationsFixIntent(currentBlock(context)))
-                            }
-                            ChecklistStep.BlockedTab -> onOpenBlockedTab()
-                            ChecklistStep.Forwarding -> onOpenForwarding()
-                        }
-                    },
-                )
+                val actions = StepActions(context, { roleLauncher.launch(it) }, onOpenBlockedTab, onOpenForwarding)
+                snapshot.steps.forEach { step ->
+                    StepRow(
+                        label = stringResource(stepLabel(step)),
+                        done = step in snapshot.done,
+                        action = stringResource(actionLabel(step)),
+                        onAction = { runStepAction(step, actions) },
+                    )
+                }
             }
         }
     }
 }
 
-private fun listedSteps(forwardingAvailable: Boolean) =
-    ChecklistStep.entries.filter { forwardingAvailable || it != ChecklistStep.Forwarding }
-
-/** Without forwarding the optional step counts as done, so it cannot hold the card. */
-private fun forwardingDone(forwardRuleCount: Int, forwardingAvailable: Boolean) =
-    forwardRuleCount > 0 || !forwardingAvailable
-
-/** The unlisted forwarding step is taken off the count again. */
-private fun shownDoneCount(doneCount: Int, forwardingAvailable: Boolean) =
-    if (forwardingAvailable) doneCount else doneCount - 1
-
-private fun doneSteps(smsHeld: Boolean, notificationsOn: Boolean, blockedSeen: Boolean, forwarding: Boolean) =
-    buildSet {
-        if (smsHeld) add(ChecklistStep.DefaultSms)
-        if (notificationsOn) add(ChecklistStep.Notifications)
-        if (blockedSeen) add(ChecklistStep.BlockedTab)
-        if (forwarding) add(ChecklistStep.Forwarding)
+@Composable
+private fun ChecklistHeader(
+    @StringRes title: Int,
+    progress: String,
+    expanded: Boolean,
+    canClose: Boolean,
+    onToggle: () -> Unit,
+    onClose: () -> Unit,
+) {
+    Row(
+        Modifier.clickable(
+            onClickLabel = stringResource(if (expanded) R.string.ux8a_checklist_hide else R.string.ux8a_checklist_show),
+            role = Role.Button,
+            onClick = onToggle,
+        ),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            stringResource(title),
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.weight(1f).semantics { heading() },
+        )
+        Text(
+            progress,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Icon(
+            if (expanded) Symbols.ExpandLess else Symbols.ExpandMore,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        if (canClose) {
+            IconButton(onClick = onClose) {
+                Icon(Symbols.Close, contentDescription = stringResource(R.string.w3c_checklist_dismiss))
+            }
+        } else {
+            Spacer(Modifier.width(12.dp))
+        }
     }
+}
 
-private fun currentBlock(context: Context): NotificationsBlock =
-    context.currentNotificationsBlock() ?: NotificationsBlock.APP
+
+@StringRes
+private fun actionLabel(step: ChecklistStep): Int =
+    if (step == ChecklistStep.DefaultSms) R.string.w3c_checklist_action_set else R.string.w3c_checklist_action_open
 
 private fun titleLabel(title: ChecklistTitle): Int = when (title) {
     ChecklistTitle.Steps -> R.string.w3c_checklist_title
@@ -196,6 +187,8 @@ private fun titleLabel(title: ChecklistTitle): Int = when (title) {
 private fun stepLabel(step: ChecklistStep): Int = when (step) {
     ChecklistStep.DefaultSms -> R.string.w3c_checklist_step_sms
     ChecklistStep.Notifications -> R.string.w3c_checklist_step_notifications
+    ChecklistStep.Contacts -> R.string.setup_checklist_step_contacts
+    ChecklistStep.Battery -> R.string.setup_checklist_step_battery
     ChecklistStep.BlockedTab -> R.string.w3c_checklist_step_blocked
     ChecklistStep.Forwarding -> R.string.w3c_checklist_step_forward
 }

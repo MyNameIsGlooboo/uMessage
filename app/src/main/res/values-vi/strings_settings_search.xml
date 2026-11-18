@@ -71,6 +71,7 @@
     <string name="sks_screenshots">ảnh chụp màn hình quay màn hình chụp chặn quyền riêng tư</string>
     <string name="sks_lock_change">đổi PIN mật khẩu mới thông tin xác thực đặt lại</string>
     <string name="sks_lock_now">khóa ngay ngay lập tức đóng bảo mật</string>
+    <string name="sks_setup">thiết lập quyền ứng dụng SMS mặc định danh bạ thông báo pin chạy nền cho phép truy cập</string>
     <string name="sks_about">giới thiệu phiên bản thông tin ứng dụng mã nguồn giấy phép giấy phép</string>
     <string name="sks_privacy">quyền riêng tư internet ngoại tuyến quyền dữ liệu theo dõi an toàn</string>
     <string name="sks_version">phiên bản số bản dựng phát hành cập nhật sao chép</string>

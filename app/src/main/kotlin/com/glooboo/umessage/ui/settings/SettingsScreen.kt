@@ -50,6 +50,7 @@ import com.glooboo.umessage.ui.settings.search.SettingsSearch
 import com.glooboo.umessage.ui.settings.search.SettingsSearchButton
 import com.glooboo.umessage.ui.settings.search.SettingsSearchField
 import com.glooboo.umessage.ui.settings.search.SettingsSearchResults
+import com.glooboo.umessage.ui.setup.SetupPage
 import androidx.compose.material3.Icon
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import org.fossify.commons.R as CommonsR
@@ -145,6 +146,7 @@ private fun PageContent(
         SettingsPage.AppLock -> AppLockPage(state, actions)
         SettingsPage.About -> AboutPage(state, actions, open)
         SettingsPage.Licenses -> LicensesPage(actions)
+        SettingsPage.Setup -> SetupPage()
     }
 }
 
@@ -178,12 +180,22 @@ private fun pageTitle(page: SettingsPage): Int = when (page) {
     SettingsPage.AppLock -> R.string.settings_nav_app_lock
     SettingsPage.About -> R.string.settings_nav_about_row
     SettingsPage.Licenses -> R.string.settings_nav_licenses_title
+    SettingsPage.Setup -> R.string.setup_title
 }
 
 // region Main page
 
 @Composable
 private fun MainPage(state: SettingsUiState, actions: SettingsActions, open: (SettingsPage) -> Unit) {
+    SettingsGroup(stringResource(R.string.setup_group_title)) {
+        SettingsRow(
+            title = stringResource(R.string.setup_title),
+            summary = stringResource(R.string.setup_row_summary),
+            icon = Symbols.Settings,
+            onClick = { open(SettingsPage.Setup) },
+            showChevron = true,
+        )
+    }
     SettingsGroup(stringResource(R.string.settings_nav_group_protection)) {
         SettingsRow(
             title = stringResource(R.string.settings_nav_spam_row),

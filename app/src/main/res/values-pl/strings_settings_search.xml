@@ -71,6 +71,7 @@
     <string name="sks_screenshots">zrzuty ekranu nagrywanie przechwytywanie zablokuj prywatność</string>
     <string name="sks_lock_change">zmień PIN hasło nowe dane uwierzytelniające resetuj</string>
     <string name="sks_lock_now">zablokuj teraz natychmiast zamknij zabezpiecz</string>
+    <string name="sks_setup">konfiguracja uprawnienia domyślna aplikacja do SMS-ów kontakty powiadomienia bateria tło zezwól dostęp</string>
     <string name="sks_about">informacje wersja aplikacja źródło licencja</string>
     <string name="sks_privacy">prywatność internet offline uprawnienie dane śledzenie bezpieczeństwo</string>
     <string name="sks_version">wersja kompilacja numer wydanie aktualizacja kopiuj</string>

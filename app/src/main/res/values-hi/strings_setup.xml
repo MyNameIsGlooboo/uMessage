@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">सेटअप और अनुमतियां</string>
+    <string name="setup_group_title">सेटअप</string>
+    <string name="setup_row_summary">देखें कि uMessage को क्या चाहिए और जो कमी हो, उसे ठीक करें</string>
+    <string name="setup_intro">हर बार यह पेज खोलने पर हर पंक्ति की जानकारी Android से ली जाती है.</string>
+    <string name="setup_all_set">सभी ज़रूरी चीज़ें चालू हैं</string>
+    <string name="setup_some_open">कुछ चीज़ें अभी सेट करनी हैं</string>
+    <string name="setup_group_permissions">अनुमतियां</string>
+    <string name="setup_status_optional">वैकल्पिक, सेट नहीं है</string>
+    <string name="setup_status_unknown">Android जानकारी नहीं दे पा रहा है. इसे खोलकर देखें.</string>
+    <string name="setup_action_allow">अनुमति दें</string>
+    <string name="setup_battery_banner_title">uMessage को चालू रखें</string>
+    <string name="setup_battery_banner_body">आपका फ़ोन बैकग्राउंड में uMessage को रोक सकता है, जिससे नए मैसेज आने में देर हो सकती है.</string>
+    <string name="setup_battery_banner_action">ठीक करें</string>
+    <string name="setup_banner_dismiss">अभी नहीं</string>
+    <string name="setup_checklist_step_contacts">संपर्कों तक पहुंच की अनुमति दें</string>
+    <string name="setup_checklist_step_battery">वैकल्पिक: uMessage को बैकग्राउंड में चलने दें</string>
+</resources>

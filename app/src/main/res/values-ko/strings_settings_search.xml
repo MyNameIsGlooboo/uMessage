@@ -71,6 +71,7 @@
     <string name="sks_screenshots">스크린샷 화면 녹화 캡처 차단 개인정보</string>
     <string name="sks_lock_change">변경 PIN 비밀번호 새 인증 정보 재설정</string>
     <string name="sks_lock_now">잠금 지금 즉시 닫기 보안</string>
+    <string name="sks_setup">설정 권한 기본 SMS 앱 연락처 알림 배터리 백그라운드 허용 접근</string>
     <string name="sks_about">정보 버전 안내 앱 소스 라이선스</string>
     <string name="sks_privacy">개인정보 인터넷 오프라인 권한 데이터 추적 안전</string>
     <string name="sks_version">버전 빌드 번호 출시 업데이트 복사</string>

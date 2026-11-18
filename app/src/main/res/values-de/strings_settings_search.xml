@@ -71,6 +71,7 @@
     <string name="sks_screenshots">Screenshots Bildschirmaufnahme aufnehmen Blockieren Datenschutz</string>
     <string name="sks_lock_change">ändern PIN Passwort neu Zugangsdaten zurücksetzen</string>
     <string name="sks_lock_now">sperren jetzt sofort schließen sichern</string>
+    <string name="sks_setup">Einrichtung Berechtigungen Standard-SMS-App Kontakte Benachrichtigungen Akku Hintergrund Zugriff erlauben</string>
     <string name="sks_about">über Version Info App Quellcode Lizenz Lizenzen</string>
     <string name="sks_privacy">Datenschutz Internet offline Berechtigung Daten Tracking sicher</string>
     <string name="sks_version">Version Build Nummer Veröffentlichung Update kopieren</string>
