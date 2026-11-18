@@ -188,7 +188,8 @@ private fun statusText(mark: SetupMark, optional: Boolean): Int = when (mark) {
 
 @Composable
 private fun SetupRowCard(row: SetupRowUi) {
-    val status = stringResource(statusText(row.mark, row.optional))
+    // A step this phone cannot do is not "to do": a neutral status, the note, and no button.
+    val status = stringResource(statusText(row.mark, row.optional || row.unavailable))
     val done = row.mark == SetupMark.DONE
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -222,9 +223,10 @@ private fun SetupRowCard(row: SetupRowUi) {
                 modifier = Modifier.clearAndSetSemantics { },
             )
             row.note?.let {
-                Text(it, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.error)
+                val color = MaterialTheme.colorScheme.let { if (row.unavailable) it.onSurfaceVariant else it.error }
+                Text(it, style = MaterialTheme.typography.bodyMedium, color = color)
             }
-            if (!done) {
+            if (!done && !row.unavailable) {
                 Button(onClick = row.onAction, modifier = Modifier.heightIn(min = 48.dp)) {
                     Text(stringResource(row.actionRes))
                 }

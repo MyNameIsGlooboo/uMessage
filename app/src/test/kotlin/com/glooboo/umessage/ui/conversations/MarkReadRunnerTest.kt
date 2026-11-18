@@ -84,6 +84,37 @@ class MarkReadRunnerTest {
     }
 
     @Test
+    fun aShortQuickRunShowsNoBarButASlowOneDoes() = runTest {
+        var now = 0L
+        val runner = MarkReadRunner(this, UnconfinedTestDispatcher(testScheduler), clock = { now })
+        val seen = mutableListOf<MarkReadProgress>()
+        fun sample() {
+            runner.progress.value?.let { seen += it }
+        }
+
+        runner.start(listOf(1L, 2L, 3L), { sample() }) { sample() }
+        advanceUntilIdle()
+        assertThat(seen).isEmpty()
+
+        runner.start(listOf(1L, 2L, 3L), { now += MARK_READ_BAR_DELAY_MS; sample() }) { sample() }
+        advanceUntilIdle()
+        assertThat(seen.map { it.done }).containsExactly(1, 2, 3).inOrder()
+        assertThat(runner.isRunning).isFalse()
+    }
+
+    @Test
+    fun aFailedRunKeepsUndoForTheChatsAlreadyMarked() {
+        val events = markAllReadEvents(token = 7L, done = 2, failed = true)
+        assertThat(events).containsExactly(
+            ConversationsEvent.Failed, ConversationsEvent.MarkedAllRead(7L, 2),
+        ).inOrder()
+        assertThat(markAllReadEvents(token = 7L, done = 0, failed = true))
+            .containsExactly(ConversationsEvent.Failed)
+        assertThat(markAllReadEvents(token = 7L, done = 3, failed = false))
+            .containsExactly(ConversationsEvent.MarkedAllRead(7L, 3))
+    }
+
+    @Test
     fun nothingToMarkStartsNothing() {
         val scope = TestScope()
         val runner = MarkReadRunner(scope, StandardTestDispatcher(scope.testScheduler))

@@ -2,7 +2,9 @@ package com.glooboo.umessage.ui.spam
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.junit4.StateRestorationTester
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -47,6 +49,32 @@ class BlockedSearchResetTest {
         compose.waitForIdle()
         assertThat(cleared).isTrue()
         state = withHeld(query = "")
+        compose.waitForIdle()
+        compose.onNodeWithContentDescription(close).assertDoesNotExist()
+    }
+
+    @Test
+    fun `a search box left open on another tab stays closed when the tab comes back`() {
+        var show by mutableStateOf(true)
+        var leaves by mutableIntStateOf(0)
+        var state by mutableStateOf(withHeld(query = "hel"))
+        compose.setContent {
+            val holder = rememberSaveableStateHolder()
+            UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
+                if (show) {
+                    holder.SaveableStateProvider("spam") {
+                        BlockedScreen(state, SnackbarHostState(), BlockedActions(), tabLeaves = leaves)
+                    }
+                }
+            }
+        }
+        compose.onNodeWithContentDescription(close).assertExists()
+        show = false
+        compose.waitForIdle()
+        // BlockedRoute's leave: the query is cleared and the leave is counted.
+        state = withHeld(query = "")
+        leaves++
+        show = true
         compose.waitForIdle()
         compose.onNodeWithContentDescription(close).assertDoesNotExist()
     }

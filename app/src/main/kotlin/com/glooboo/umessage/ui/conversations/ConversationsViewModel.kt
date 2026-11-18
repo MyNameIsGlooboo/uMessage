@@ -37,6 +37,7 @@ import com.glooboo.umessage.extensions.renameConversation
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.helpers.ConversationListSync
 import com.glooboo.umessage.helpers.refreshConversations
+import java.util.Collections
 import java.util.concurrent.Executors
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.MessageCategories
@@ -346,16 +347,18 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         if (targets.isEmpty()) return
         val ids = targets.toHashSet()
         val token = nextToken++
-        markedAllRead[token] = targets
+        val marked = Collections.synchronizedList(ArrayList<Long>())
         source = source.map { c -> if (c.threadId in ids) c.copy(read = true, unreadCount = 0) else c }
         requestRebuild()
-        markRunner.start(targets, mark = { app.markThreadMessagesRead(it) }) { failed ->
-            if (failed) {
-                markedAllRead.remove(token)
-                _events.trySend(ConversationsEvent.Failed)
-            } else {
-                _events.trySend(ConversationsEvent.MarkedAllRead(token, targets.size))
-            }
+        val mark: (Long) -> Unit = { id ->
+            app.markThreadMessagesRead(id)
+            marked.add(id)
+        }
+        markRunner.start(targets, mark) { failed ->
+            // A failed run keeps Undo for the chats that did change.
+            val done = synchronized(marked) { marked.toList() }
+            if (done.isNotEmpty()) markedAllRead[token] = done
+            markAllReadEvents(token, done.size, failed).forEach { _events.trySend(it) }
             refreshConversations()
         }
     }

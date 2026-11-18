@@ -124,13 +124,12 @@ fun FirstDayChecklist(
                     onOpenForwarding,
                     roleRefused,
                 )
-                snapshot.steps.forEach { step ->
+                shown.forEach { step ->
                     StepRow(
                         label = stringResource(stepLabel(step)),
                         done = step in snapshot.done,
                         action = stringResource(actionLabel(step, roleRefused)),
-                        // A step that cannot be done on this phone has nothing to tap.
-                        onAction = if (step in snapshot.impossible) null else ({ runStepAction(step, actions) }),
+                        onAction = { runStepAction(step, actions) },
                     )
                 }
             }

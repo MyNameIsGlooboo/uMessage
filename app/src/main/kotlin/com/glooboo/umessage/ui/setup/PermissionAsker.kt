@@ -2,6 +2,7 @@ package com.glooboo.umessage.ui.setup
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.SystemClock
 import androidx.compose.runtime.MutableState
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -42,7 +43,7 @@ internal class PermissionAsker(
     private val rationaleBefore: MutableState<Set<String>>,
     private val prefs: W3cPrefs = W3cPrefs.get(context),
     private val rationale: (String) -> Boolean = { activityRationale(context, it) },
-    private val now: () -> Long = System::currentTimeMillis,
+    private val now: () -> Long = SystemClock::elapsedRealtime,
 ) {
     private var askedAt = 0L
 

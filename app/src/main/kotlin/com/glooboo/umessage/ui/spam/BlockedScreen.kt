@@ -42,6 +42,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -111,6 +112,7 @@ fun BlockedRoute(onBack: (() -> Unit)?, onOpenRules: () -> Unit, onOpenSettings:
             if (activity?.isChangingConfigurations != true) {
                 viewModel.setQuery("")
                 viewModel.clearSelection()
+                viewModel.tabLeaves++
             }
         }
     }
@@ -131,7 +133,7 @@ fun BlockedRoute(onBack: (() -> Unit)?, onOpenRules: () -> Unit, onOpenSettings:
             onReportSpam = { selected -> scope.launch { reportToCarrier(context, groups, selected, snackbar) } },
         )
     }
-    BlockedScreen(state = state, snackbarHostState = snackbar, actions = actions)
+    BlockedScreen(state = state, snackbarHostState = snackbar, actions = actions, tabLeaves = viewModel.tabLeaves)
 }
 
 /**
@@ -261,16 +263,20 @@ fun BlockedScreen(
     state: BlockedUiState,
     snackbarHostState: SnackbarHostState,
     actions: BlockedActions,
+    tabLeaves: Int = 0,
 ) {
     var confirmDeleteAll by rememberSaveable { mutableStateOf(false) }
     var restoredOpen by rememberSaveable { mutableStateOf(false) }
     var confirmReport by rememberSaveable { mutableStateOf(false) }
     // The search box stays open through a rotation (even empty) and a visit to a thread, not after another tab:
-    // BlockedRoute clears the query when the tab is left. It closes when nothing is held any more.
-    var searching by rememberSaveable { mutableStateOf(state.query.isNotEmpty()) }
+    // BlockedRoute clears the query when the tab is left and counts the leave in [tabLeaves], so a box opened before
+    // the last leave stays closed when the tab comes back. It closes when nothing is held any more.
+    var searchOpen by rememberSaveable { mutableStateOf(state.query.isNotEmpty()) }
+    var openedAtLeave by rememberSaveable { mutableIntStateOf(tabLeaves) }
+    val searching = searchOpen && openedAtLeave == tabLeaves
     LaunchedEffect(state.loading, state.heldCount) {
         if (!state.loading && state.heldCount == 0 && searching) {
-            searching = false
+            searchOpen = false
             actions.onSetQuery("")
         }
     }
@@ -279,7 +285,10 @@ fun BlockedScreen(
         topBar = {
             BlockedTopBar(
                 state, actions,
-                onSearch = { searching = true },
+                onSearch = {
+                    searchOpen = true
+                    openedAtLeave = tabLeaves
+                },
                 onDeleteAll = { confirmDeleteAll = true },
                 onReport = { confirmReport = true },
                 onOpenRestoredLog = { restoredOpen = true },
@@ -301,7 +310,7 @@ fun BlockedScreen(
                 actions = actions,
                 searching = searching,
                 onCloseSearch = {
-                    searching = false
+                    searchOpen = false
                     actions.onSetQuery("")
                 },
                 modifier = Modifier.padding(top = inner.calculateTopPadding()),

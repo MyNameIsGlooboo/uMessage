@@ -14,7 +14,9 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.junit4.StateRestorationTester
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
@@ -120,9 +122,25 @@ class WelcomeAnimationTest {
     fun `a tap on the card with reduced motion leaves the card showing`() {
         compose.mainClock.autoAdvance = false
         setUp(reduceMotion = true)
-        compose.onNodeWithContentDescription(description, substring = true).performScrollTo().performClick()
+        compose.onNodeWithContentDescription(description, substring = true).performScrollTo()
+            .assertHasNoClickAction()
+            .performClick()
         compose.mainClock.advanceTimeBy(REPLAY_WAIT_MS)
         assertCardAndButtonShow()
+    }
+
+    @Test
+    fun `with reduced motion the Strict card has no click action and a tap changes nothing`() {
+        showCard(UnknownSenderMode.STRICT)
+        compose.onAllNodes(hasClickAction()).assertCountEquals(0)
+        compose.onAllNodesWithText("Spam").onFirst().performClick()
+        compose.onAllNodesWithText("Spam").assertCountEquals(2)
+    }
+
+    @Test
+    fun `with reduced motion the Off card has no click action`() {
+        showCard(UnknownSenderMode.OFF)
+        compose.onAllNodes(hasClickAction()).assertCountEquals(0)
     }
 
     @Test

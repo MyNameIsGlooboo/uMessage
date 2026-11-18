@@ -7,7 +7,7 @@
     <string name="onb_finish">ابدأ المراسلة</string>
     <string name="onb_welcome_title">مرحبًا بك في uMessage</string>
     <string name="onb_welcome_intro">مراسلة أفضل، ورسائل غير مرغوب فيها أقل.</string>
-    <string name="onb_welcome_demo_desc">تصل رسائل من تعرفهم إلى «الرسائل»، ورسائل الغرباء إلى «رسائل غير مرغوب فيها»، وتظل رموز التحقق تصل إلى «الرسائل».</string>
+    <string name="onb_welcome_demo_desc">تصل رسائل من تعرفهم إلى «الرسائل»، ورسائل الغرباء إلى «غير المرغوب فيها»، وتظل رموز التحقق تصل إلى «الرسائل».</string>
     <string name="onb_welcome_spam">أبعد الرسائل غير المرغوب فيها</string>
     <string name="onb_welcome_spam_desc">تبقى رسائل المرسلين غير المعروفين في «غير المرغوب فيها» ولا تضيع.</string>
     <string name="onb_welcome_codes">رموز بنقرة واحدة</string>
