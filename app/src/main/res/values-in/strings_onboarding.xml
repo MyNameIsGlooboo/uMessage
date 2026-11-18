@@ -7,6 +7,7 @@
     <string name="onb_finish">Mulai berkirim pesan</string>
     <string name="onb_welcome_title">Selamat datang di uMessage</string>
     <string name="onb_welcome_intro">Berkirim pesan lebih nyaman, spam berkurang.</string>
+    <string name="onb_welcome_demo_desc">Pesan dari orang yang Anda kenal masuk ke kotak masuk, pesan dari orang tidak dikenal masuk ke Spam, dan kode verifikasi tetap masuk ke kotak masuk.</string>
     <string name="onb_welcome_spam">Spam tidak masuk</string>
     <string name="onb_welcome_spam_desc">Pesan dari pengirim tidak dikenal ditahan di Spam, tidak hilang.</string>
     <string name="onb_welcome_codes">Kode dengan sekali ketuk</string>

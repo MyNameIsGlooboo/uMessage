@@ -7,6 +7,7 @@
     <string name="onb_finish">Zacznij pisać</string>
     <string name="onb_welcome_title">Witaj w uMessage</string>
     <string name="onb_welcome_intro">Wygodne wiadomości, mniej spamu.</string>
+    <string name="onb_welcome_demo_desc">Wiadomości od znajomych trafiają do Odebranych, wiadomości od nieznajomych do Spamu, a kody weryfikacyjne nadal trafiają do Odebranych.</string>
     <string name="onb_welcome_spam">Spam pod kontrolą</string>
     <string name="onb_welcome_spam_desc">Wiadomości od nieznanych nadawców czekają w Spamie i nie giną.</string>
     <string name="onb_welcome_codes">Kody jednym dotknięciem</string>

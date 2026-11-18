@@ -479,6 +479,7 @@ internal fun WelcomePage(
         AppIconMark(Modifier.alpha(alpha))
         PageTitle(stringResource(R.string.onb_welcome_title))
         PageBody(stringResource(R.string.onb_welcome_intro))
+        WelcomeAnimation(reduceMotion = reduceMotion)
         Spacer(Modifier.height(4.dp))
         var more by rememberSaveable { mutableStateOf(false) }
         val top = welcomeTopTitles()
