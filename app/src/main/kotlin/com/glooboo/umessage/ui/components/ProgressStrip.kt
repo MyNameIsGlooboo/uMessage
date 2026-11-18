@@ -15,7 +15,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 
 /**
- * A label over a determinate bar, for work that takes a while ("Mark all read", "Not spam"). The label is a polite
+ * A label over a determinate bar, for work that takes a while ("Mark all read"). The label is a polite
  * live region, so a screen reader announces the counts as they change; the numbers carry the meaning, not the colour.
  */
 @Composable

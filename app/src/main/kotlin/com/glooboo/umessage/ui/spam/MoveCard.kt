@@ -137,7 +137,7 @@ internal fun MoveCardHost(progress: MarkReadProgress?, startedAt: Long) {
     ) {
         last.value?.let { shown ->
             Surface(
-                modifier = Modifier.padding(12.dp).fillMaxWidth().widthIn(max = 600.dp).testTag(MOVE_CARD_TAG),
+                modifier = Modifier.padding(12.dp).widthIn(max = 600.dp).fillMaxWidth().testTag(MOVE_CARD_TAG),
                 shape = SnackbarDefaults.shape,
                 color = SnackbarDefaults.color,
                 contentColor = SnackbarDefaults.contentColor,

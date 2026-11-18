@@ -199,6 +199,20 @@ class BlockedViewModelMoveTest {
     }
 
     @Test
+    fun aBatchWaitingForTheLockIsAlreadyInFlight() {
+        val (vm, repo) = start()
+        vm.releaseMessages(setOf(1L, 2L))
+        awaitUntil { repo.restoreCalls.get() == 1 }
+        // The first batch holds the lock at the gate; the second waits behind it but counts as moving at once.
+        vm.releaseMessages(setOf(3L, 4L))
+        awaitUntil { moves.state.value.inFlight.keys == setOf(1L, 2L, 3L, 4L) }
+        assertThat(moves.state.value.total).isEqualTo(FOUR)
+        repeat(TOTAL.toInt()) { repo.gate.release() }
+        awaitUntil { !moves.state.value.running }
+        assertThat(moves.state.value.inFlight).isEmpty()
+    }
+
+    @Test
     fun theProgressFollowsTheSharedStateEvenForAThreeMessageBatch() {
         val (vm, _) = start()
         val three = blocked().take(THREE)
@@ -269,6 +283,7 @@ class BlockedViewModelMoveTest {
         const val TOTAL = 12L
         const val FAILING_ID = 5L
         const val THREE = 3
+        const val FOUR = 4
         const val OLD_BY_MS = 5_000L
         const val OLD_ID = 9L
         const val SAME_SECOND = 1_700_000_000_000L

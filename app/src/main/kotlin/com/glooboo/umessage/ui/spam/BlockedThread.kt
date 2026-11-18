@@ -108,7 +108,7 @@ internal fun blockedThreadItems(
     zone: ZoneId = ZoneId.systemDefault(),
 ): List<BlockedThreadItem> {
     fun dayOf(message: BlockedMessage) = Instant.ofEpochMilli(message.receivedAt).atZone(zone).toLocalDate()
-    val sorted = messages.sortedByDescending { it.receivedAt }
+    val sorted = messages.sortedWith(NEWEST_FIRST)
     return buildList {
         sorted.forEachIndexed { index, message ->
             add(BlockedThreadItem.Bubble(message))
@@ -249,17 +249,15 @@ fun BlockedThreadScreen(
         containerColor = MaterialTheme.colorScheme.background,
         contentColor = MaterialTheme.colorScheme.onBackground,
         topBar = {
-            Column {
-                if (selecting) {
-                    BlockedSelectionBar(
-                        messages = messages,
-                        selection = selection,
-                        actions = actions,
-                        onChosenChange = { chosen = it },
-                    )
-                } else {
-                    UMessageTopBar(title = shown, onBack = actions.onBack, scrollBehavior = scrollBehavior)
-                }
+            if (selecting) {
+                BlockedSelectionBar(
+                    messages = messages,
+                    selection = selection,
+                    actions = actions,
+                    onChosenChange = { chosen = it },
+                )
+            } else {
+                UMessageTopBar(title = shown, onBack = actions.onBack, scrollBehavior = scrollBehavior)
             }
         },
         contentWindowInsets = chromeInsets(),

@@ -35,7 +35,10 @@ private const val MOVING_ALPHA = 0.5f
  * until the move is over), newest first.
  */
 internal fun threadMessages(live: SenderGroup?, moving: SenderGroup?): List<BlockedMessage> =
-    (moving?.messages.orEmpty() + live?.messages.orEmpty()).distinctBy { it.id }.sortedByDescending { it.receivedAt }
+    (moving?.messages.orEmpty() + live?.messages.orEmpty()).distinctBy { it.id }.sortedWith(NEWEST_FIRST)
+
+/** Newest first; messages of the same time keep one order (by id), so bubbles do not swap when the list changes. */
+internal val NEWEST_FIRST = compareByDescending<BlockedMessage> { it.receivedAt }.thenByDescending { it.id }
 
 /** The sender thread when there is nothing to list: loading, or the sender is gone. */
 @Composable
@@ -71,7 +74,8 @@ internal fun MoveWatch(
     val reset by rememberUpdatedState(onResetMoving)
     val ended by rememberUpdatedState(onOthersMoveEnd)
     LaunchedEffect(idle, movingHere) { if (idle && !movingHere) reset() }
-    LaunchedEffect(movingHere) { if (movingHere) sawMove = true }
+    // Only a move this page did not start counts: its own "Not spam" ends by opening the chat, which closes the page.
+    LaunchedEffect(movingHere) { if (movingHere && !moving) sawMove = true }
     LaunchedEffect(sawMove, movingHere, moving) { if (sawMove && !movingHere && !moving) ended() }
 }
 

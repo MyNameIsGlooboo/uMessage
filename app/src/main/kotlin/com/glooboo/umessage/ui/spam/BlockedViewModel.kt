@@ -435,6 +435,8 @@ class BlockedViewModel(
         val messages = pending.ids.mapNotNull { pending.messages[it] }
         viewModelScope.launch {
             withContext(NonCancellable) {
+                // In flight from here on, also while this batch waits for the lock behind another one.
+                moves.begin(messages)
                 val work = restoreWork.withLock { restoreAndAllow(messages, pending.allowAddresses) }
                 // The chat list (MainActivity) reloads on this event, so the restored text shows without a refresh.
                 refreshConversations()
@@ -506,7 +508,7 @@ class BlockedViewModel(
         val inInbox = setOf(RestoreOutcome.RESTORED, RestoreOutcome.TEXT_ONLY)
         // spamui-1: a bigger batch shows its first restored message in the chat list at once, not only at the end.
         var firstShown = messages.size <= 1
-        moves.begin(messages)
+        // The batch is over with the last message, before the allow rules: the move is not "running" any longer.
         val receipts = try {
             messages.associate { message ->
                 val receipt = runCatching { repository.restore(message.id) }.getOrElse {
