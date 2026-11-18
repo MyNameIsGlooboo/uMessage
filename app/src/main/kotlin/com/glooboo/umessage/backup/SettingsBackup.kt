@@ -14,10 +14,13 @@ import com.glooboo.umessage.helpers.W3aPrefs
 import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.spam.ForwardingAvailability
 import com.glooboo.umessage.spam.ListKind
+import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
+import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.spam.engine.SpamEngine
+import com.glooboo.umessage.ui.spam.BlockingMigration
 import com.glooboo.umessage.ui.spam.ForwardOwnNumbers
 import com.glooboo.umessage.ui.theme.ThemeChoice
 import com.glooboo.umessage.ui.theme.ThemeColours
@@ -29,6 +32,7 @@ import java.io.InputStream
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
+import org.fossify.commons.extensions.baseConfig
 
 /**
  * Backup and restore of the allow/block rules, the forward rules and every setting of the app (spam settings, bottom
@@ -138,10 +142,18 @@ object SettingsBackup {
                 existing = SpamEngine.forwardRepository(app).currentRules(),
                 ownNumbers = ForwardOwnNumbers.load(app),
             )
-            val current = collectSettings(app, repo.settings.first())
-            val changed = SettingsBackupFormat.changedSettings(current, content.settings)
+            val spam = repo.settings.first()
+            val current = collectSettings(app, spam)
+            val applied = restoredSettings(
+                content.settings, spam.mode, content.modeIncludesSwitch, app.config.blockUnknownSwitchWasOn,
+            )
+            val changed = SettingsBackupFormat.changedSettings(current, applied)
             val (fresh, present) = SettingsBackupFormat.newRules(content.rules, repo.rules.first())
-            val keywords = SettingsBackupFormat.newKeywords(content.blockedKeywords, app.config.blockedKeywords)
+            // Words that are rules already (on the phone, or in this file) are not new: the migration makes them rules.
+            val keywords = SettingsBackupFormat.newKeywords(
+                content.blockedKeywords,
+                app.config.blockedKeywords + blockKeywordRules(repo.rules.first()) + blockKeywordRules(content.rules),
+            )
             Preview(content, forwards, changed, fresh, present, keywords) to null
         } catch (_: IOException) {
             null to Failure.UNREADABLE
@@ -168,8 +180,15 @@ object SettingsBackup {
                 0
             }
 
-            val applied = applySettings(app, preview.content.settings)
-            val keywordsAdded = addKeywords(app, preview.content.blockedKeywords)
+            val applied = applySettings(app, preview.content.settings, preview.content.modeIncludesSwitch)
+            // Words that are already block keyword rules (now, or from this backup's rules) are not counted as new.
+            val ruleWords = blockKeywordRules(repo.rules.first())
+            val keywordsAdded = addKeywords(
+                app,
+                preview.content.blockedKeywords.filterNot { BlockedKeywordsFormat.contains(ruleWords, it) },
+            )
+            // An older backup's blocked words become rules at once, like on the phone they came from.
+            BlockingMigration.runOnce(app)
             Result(
                 rulesAdded = rulesAdded,
                 rulesSkipped = (preview.content.rules.size - rulesAdded).coerceAtLeast(0),
@@ -191,15 +210,18 @@ object SettingsBackup {
         }
     }
 
+    /**
+     * The words of the block keyword rules for both SIMs: the old blocked words become exactly these, so they are not
+     * new. A rule for one SIM only does not count: the old word filtered on both SIMs, so it must stay (and the
+     * migration adds its both-SIM rule next to the single-SIM one).
+     */
+    internal fun blockKeywordRules(rules: List<SpamRule>): List<String> =
+        rules.filter { it.kind == ListKind.BLOCK && it.type == RuleType.KEYWORD && it.subscriptionId == null }
+            .map { it.pattern }
+
     /** Adds the words of the file to the phone's blocked words; never removes one. Returns how many were new. */
-    private fun addKeywords(context: Context, incoming: List<String>): Int {
-        if (incoming.isEmpty()) return 0
-        val before = context.config.blockedKeywords
-        val after = incoming.fold(before) { set, word -> BlockedKeywordsFormat.add(set, word) }
-        if (after.size == before.size) return 0
-        context.config.blockedKeywords = after
-        return after.size - before.size
-    }
+    private fun addKeywords(context: Context, incoming: List<String>): Int =
+        if (incoming.isEmpty()) 0 else context.config.addBlockedKeywords(incoming)
 
     private fun collectSettings(context: Context, spam: SpamSettings): BackupSettings {
         val nav = NavPrefs.get(context)
@@ -207,7 +229,7 @@ object SettingsBackup {
         val w3c = W3cPrefs.get(context)
         val config = context.config
         val core = BackupSettings(
-            spamMode = spam.mode,
+            spamMode = exportedMode(spam.mode, context.baseConfig.blockUnknownNumbers),
             purgeAfterDays = spam.purgeAfterDays,
             notifyOnBlock = spam.notifyOnBlock,
             showForwardedTab = nav.showForwardedTab,
@@ -228,11 +250,12 @@ object SettingsBackup {
     }
 
     /** Applies what the file holds; returns whether anything was present. */
-    private suspend fun applySettings(context: Context, s: BackupSettings): Boolean {
+    private suspend fun applySettings(context: Context, s: BackupSettings, fileCountsSwitch: Boolean): Boolean {
         if (s == BackupSettings()) return false
+        val switchWasOn = context.config.blockUnknownSwitchWasOn
         UMessage.repository(context).updateSettings { current ->
             current.copy(
-                mode = s.spamMode ?: current.mode,
+                mode = restoredMode(s.spamMode, current.mode, fileCountsSwitch, switchWasOn),
                 // I4/Q38: purgeAfterDays (blocked messages deleted after N days) is never taken from a file.
                 notifyOnBlock = s.notifyOnBlock ?: current.notifyOnBlock,
                 unknownInboxNotify = s.unknownInboxNotify ?: current.unknownInboxNotify,
@@ -249,6 +272,36 @@ object SettingsBackup {
         s.hideCodesOnLockScreen?.let { W3aPrefs.get(context).hideCodesOnLockScreen = it }
         return true
     }
+
+    /**
+     * The unknown-senders mode a restore sets. A file from before the old "Block unknown numbers" switch was folded
+     * into the mode ([fileCountsSwitch] false) never counted the switch: where the phone had it on, Off there acted
+     * as Strict, so it is restored as Strict here too (same mapping as the migration). Files written since say
+     * what blocks.
+     */
+    internal fun restoredMode(
+        incoming: UnknownSenderMode?,
+        current: UnknownSenderMode,
+        fileCountsSwitch: Boolean,
+        phoneSwitchWasOn: Boolean,
+    ): UnknownSenderMode {
+        val mode = incoming ?: return current
+        return if (fileCountsSwitch) mode else BlockingMigration.modeAfterSwitch(mode, phoneSwitchWasOn)
+    }
+
+    /** The settings of a file as a restore would apply them: only the mode is mapped (see [restoredMode]). */
+    internal fun restoredSettings(
+        s: BackupSettings,
+        current: UnknownSenderMode,
+        fileCountsSwitch: Boolean,
+        phoneSwitchWasOn: Boolean,
+    ): BackupSettings = s.copy(
+        spamMode = s.spamMode?.let { restoredMode(it, current, fileCountsSwitch, phoneSwitchWasOn) },
+    )
+
+    /** The mode a backup file states: what the phone acts as, the old "Block unknown numbers" switch counted in. */
+    internal fun exportedMode(mode: UnknownSenderMode, switchOn: Boolean): UnknownSenderMode =
+        BlockingMigration.modeAfterSwitch(mode, switchOn)
 
     /** The Forwarded tab, code masking and the daily limit. A restore can stop forwarding, never start it. */
     private fun applyForwarding(context: Context, s: BackupSettings) {

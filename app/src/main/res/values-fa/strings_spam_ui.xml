@@ -51,7 +51,5 @@
     <string name="blocknum_empty_body">شماره‌های بلاک‌شده نمی‌توانند به شما پیام بدهند یا با شما تماس بگیرند. این لیست با برنامهٔ تلفن شما مشترک است.</string>
     <string name="blocknum_unavailable_title">لیست بلاک در دسترس نیست</string>
     <string name="blocknum_unavailable_body">برای دیدن و تغییر لیست بلاک سیستم، uMessage را برنامهٔ پیام پیش‌فرض کنید.</string>
-    <string name="blocknum_unknown_title">بلاک کردن شماره‌های ناشناس</string>
-    <string name="blocknum_contacts_denied">بدون دسترسی به مخاطب‌ها، تشخیص شماره‌های ناشناس ممکن نیست</string>
     <string name="blocknum_section_numbers">شماره‌ها</string>
 </resources>

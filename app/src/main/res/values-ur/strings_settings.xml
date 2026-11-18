@@ -6,8 +6,10 @@
     <string name="settings_spam_stats">پچھلے 7 دنوں میں %1$d روکے گئے، کل %2$d، %3$d بحال کیے گئے</string>
     <string name="settings_spam_open_settings">اسپیم سے تحفظ</string>
     <string name="settings_spam_open_settings_body">موڈ، محفوظ رکھنے کی مدت اور الرٹس</string>
+    <string name="settings_block_group">بلاک کی فہرستیں</string>
+    <string name="settings_block_umessage_title">uMessage کے اصول</string>
+    <string name="settings_block_umessage_body">بلاک شدہ پیغامات اسپیم میں جاتے ہیں۔ آپ انہیں واپس لا سکتے ہیں۔</string>
     <string name="settings_spam_open_rules">اصول</string>
-    <string name="settings_spam_open_rules_body">نمبر، بھیجنے والوں کے نام، کلیدی الفاظ اور پیٹرن</string>
     <string name="settings_spam_blocked_numbers_body">سسٹم کی بلاک فہرست کے ذریعے بلاک شدہ نمبر</string>
     <string name="settings_spam_blocked_keywords_body">ان الفاظ والے پیغامات چھپائیں</string>
     <string name="settings_sim_slot_title">SIM %1$d: %2$s</string>

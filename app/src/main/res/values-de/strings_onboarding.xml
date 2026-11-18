@@ -7,6 +7,7 @@
     <string name="onb_finish">Nachrichten schreiben</string>
     <string name="onb_welcome_title">Willkommen bei uMessage</string>
     <string name="onb_welcome_intro">Bessere Nachrichten, weniger Spam.</string>
+    <string name="onb_welcome_demo_desc">Nachrichten von Personen, die du kennst, landen in deinem Posteingang, Nachrichten von Fremden im Spam. Bestätigungscodes kommen weiterhin in deinem Posteingang an.</string>
     <string name="onb_welcome_spam">Spam bleibt draußen</string>
     <string name="onb_welcome_spam_desc">Unbekannte Absender landen unter „Spam“ und gehen nicht verloren.</string>
     <string name="onb_welcome_codes">Codes mit einem Tippen</string>

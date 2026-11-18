@@ -5,7 +5,7 @@
     <string name="settings_nav_group_privacy_about">Confidentialité et à propos</string>
     <string name="settings_nav_spam_row">Protection contre le spam</string>
     <string name="settings_nav_spam_page_title">Protection contre le spam</string>
-    <string name="settings_nav_android_block_list_body">Bloque aussi les appels</string>
+    <string name="settings_nav_android_block_list_body">Bloque aussi les appels. Les messages sont supprimés, pas conservés dans Spam.</string>
     <string name="settings_nav_decision_log">Pourquoi ce blocage ?</string>
     <string name="settings_nav_decision_log_body">Historique des décisions d\'autorisation et de blocage</string>
     <string name="settings_nav_forwarded_tab">Afficher l\'onglet Transférés</string>

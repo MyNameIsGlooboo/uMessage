@@ -8,9 +8,21 @@
     </plurals>
     <string name="e_restored_title">حال ہی میں بحال کردہ</string>
     <string name="e_restored_body">پچھلے 30 دنوں میں آپ کے ان باکس میں منتقل کیے گئے پیغامات۔ گفتگو کھولنے کے لیے کسی پر ٹیپ کریں۔</string>
+    <string name="e_restored_clear">فہرست صاف کریں</string>
     <string name="e_restored_empty">اب سے آپ جو پیغامات ان باکس میں منتقل کریں گے وہ یہاں 30 دن تک دکھائے جائیں گے۔</string>
     <string name="e_restored_when">ان باکس میں منتقل کیا گیا %1$s</string>
     <string name="e_restored_open">%1$s کے ساتھ گفتگو کھولیں</string>
+    <string name="e_snack_allowed_one">%1$s کو اب دونوں SIM پر ہمیشہ اجازت ہے</string>
+    <plurals name="e_snack_allowed_many">
+        <item quantity="one">%d بھیجنے والے کو اب دونوں SIM پر ہمیشہ اجازت ہے</item>
+        <item quantity="other">%d بھیجنے والوں کو اب دونوں SIM پر ہمیشہ اجازت ہے</item>
+    </plurals>
+    <string name="e_snack_allowed_one_single_sim">%1$s کو اب ہمیشہ اجازت ہے</string>
+    <plurals name="e_snack_allowed_many_single_sim">
+        <item quantity="one">%d بھیجنے والے کو اب ہمیشہ اجازت ہے</item>
+        <item quantity="other">%d بھیجنے والوں کو اب ہمیشہ اجازت ہے</item>
+    </plurals>
+    <string name="e_view_rule">اصول دیکھیں</string>
     <string name="e_rules_title">اصول</string>
     <string name="e_rules_menu_backup">اصولوں کا بیک اپ لیں</string>
     <string name="e_note_blocked_by_you">آپ نے بلاک کیا</string>
@@ -25,6 +37,8 @@
     <string name="e_example_block_cancel_word">«لغو11» والے پیغامات بلاک کریں</string>
     <string name="e_example_block_ad_prefix">3000 سے شروع ہونے والے اشتہاری نمبر بلاک کریں</string>
     <string name="e_example_allow_number">کسی نمبر کو ہمیشہ اجازت دیں، جیسے آپ کا ڈاک خانہ</string>
+    <string name="e_sheet_sender_label">بھیجنے والا</string>
+    <string name="e_sheet_text_label">پیغام کا متن</string>
     <string name="e_value_number">فون نمبر</string>
     <string name="e_value_prefix">نمبر اس سے شروع ہو</string>
     <string name="e_value_sender">بھیجنے والے کا نام</string>
@@ -46,7 +60,6 @@
     <string name="e_migrate_point_blocked">• ان کے پیغامات اسپیم میں جائیں گے، جہاں آپ انہیں پڑھ اور بحال کر سکتے ہیں۔</string>
     <string name="e_migrate_point_android">• جب تک یہ Android کی فہرست میں ہیں، Android ان کے پیغامات پھینکتا رہے گا۔</string>
     <string name="e_migrate_calls_note">Android کی فہرست کالیں بھی بلاک کرتی ہے۔ جو نمبر آپ اس سے ہٹائیں گے وہ آپ کو دوبارہ کال کر سکیں گے۔</string>
-    <string name="e_bn_unknown_body">صرف تب لاگو ہوتا ہے جب نامعلوم بھیجنے والے بند ہو۔</string>
     <string name="e_bn_row_calls_texts">کالیں اور پیغامات بلاک کرتا ہے</string>
     <string name="e_bn_row_short_code">شارٹ کوڈ: uMessage اس کے پیغامات کبھی نہیں دیکھتا</string>
     <string name="e_bn_move_one">uMessage کے اصولوں میں منتقل کریں</string>

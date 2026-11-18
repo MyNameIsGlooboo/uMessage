@@ -14,13 +14,6 @@
     <plurals name="rules_deleted_many">
         <item quantity="other">Đã xóa %d quy tắc</item>
     </plurals>
-    <string name="rules_legacy_banner_review">Xem lại</string>
-    <string name="rules_legacy_banner_not_now">Để sau</string>
-    <string name="rules_legacy_section_keywords">Danh sách từ bị chặn cũ</string>
-    <string name="rules_legacy_section_keywords_body">Vẫn dùng để lọc cho đến khi bạn chuyển các từ này vào quy tắc. Sau đó, danh sách cũ sẽ ngừng được sử dụng.</string>
-    <string name="rules_legacy_chip_old_list">Danh sách cũ</string>
-    <string name="rules_legacy_chip_system">Hệ thống, chặn cả cuộc gọi</string>
-    <string name="rules_legacy_move">Chuyển vào quy tắc</string>
     <string name="rules_migrate_nothing">Mọi mục trong danh sách cũ đều đã có trong quy tắc của bạn.</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="other">%d từ trong danh sách từ bị chặn cũ sẽ thành quy tắc chặn theo từ khóa. Sau đó, danh sách cũ sẽ ngừng được sử dụng.</item>
@@ -50,5 +43,5 @@
     </plurals>
     <string name="rules_migrated_nothing">Chưa chuyển mục nào.</string>
     <string name="settings_old_blocked_words">Danh sách từ bị chặn cũ</string>
-    <string name="settings_old_blocked_words_body">Chuyển sang mục Đã cho phép và đã chặn</string>
+    <string name="settings_old_blocked_words_body">Các từ không thể dùng làm quy tắc</string>
 </resources>

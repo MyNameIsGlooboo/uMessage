@@ -11,6 +11,7 @@ import android.provider.Settings
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.StringRes
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -63,6 +64,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -89,15 +91,18 @@ import com.glooboo.umessage.helpers.OemStep
 import com.glooboo.umessage.helpers.OemStepKind
 import com.glooboo.umessage.helpers.StepCheck
 import com.glooboo.umessage.helpers.StepState
+import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.spam.ForwardingAvailability
 import com.glooboo.umessage.ui.settings.AppLanguage
+import com.glooboo.umessage.ui.setup.SetupMark
+import com.glooboo.umessage.ui.setup.oemStepMark
 import com.glooboo.umessage.ui.theme.success
 
-private fun Context.isGranted(permissions: List<String>) = permissions.all {
+internal fun Context.isGranted(permissions: List<String>) = permissions.all {
     ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
 }
 
-private fun Context.findActivity(): Activity? {
+internal fun Context.findActivity(): Activity? {
     var ctx: Context? = this
     while (ctx is ContextWrapper) {
         if (ctx is Activity) return ctx
@@ -106,7 +111,7 @@ private fun Context.findActivity(): Activity? {
     return null
 }
 
-private fun Context.openAppSettings() {
+internal fun Context.openAppSettings() {
     runCatching {
         startActivity(
             Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
@@ -170,6 +175,8 @@ fun OnboardingScreen(
             !ok && activity != null && !ActivityCompat.shouldShowRequestPermissionRationale(activity, perm)
         }.keys
         permanentlyDenied = permanentlyDenied + blocked
+        // The Setup page reads this: a refusal there with no rationale left means "don't ask again".
+        W3cPrefs.get(context).markPermissionsAsked(result.keys)
         refresh++
     }
 
@@ -464,15 +471,10 @@ internal fun WelcomePage(
         label = "heroAlpha",
     )
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        if (onLanguage != null) {
-            WelcomeTopRow(language = language, onLanguage = onLanguage)
-        } else {
-            Spacer(Modifier.height(24.dp))
-        }
-        AppIconMark(Modifier.alpha(alpha))
+        WelcomeTopRow(language = language, onLanguage = onLanguage, iconModifier = Modifier.alpha(alpha))
         PageTitle(stringResource(R.string.onb_welcome_title))
         PageBody(stringResource(R.string.onb_welcome_intro))
-        Spacer(Modifier.height(4.dp))
+        WelcomeAnimation(reduceMotion = reduceMotion)
         var more by rememberSaveable { mutableStateOf(false) }
         val top = welcomeTopTitles()
         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -548,6 +550,25 @@ private fun StatusRow(ok: Boolean, text: String) {
 
 @Composable
 private fun OemPage(modifier: Modifier, refresh: Int, isDefault: Boolean, permsOk: Boolean) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        PageTitle(stringResource(R.string.onb_oem_title))
+        PageBody(stringResource(R.string.ux8f_onb_battery_body))
+        OemStepsSection(refresh)
+        Text(
+            stringResource(R.string.onb_oem_manual_hint),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        UnfinishedNote(isDefault, permsOk)
+    }
+}
+
+/**
+ * The battery card and the vendor steps of "Keep uMessage running", shared by the last onboarding page and the Setup
+ * screen. [showStatus] (Setup) writes a status line under every card, "cannot be checked" included.
+ */
+@Composable
+internal fun OemStepsSection(refresh: Int, showStatus: Boolean = false) {
     val context = LocalContext.current
     val oem = remember { OemHelper.detect() }
     val steps = remember { OemHelper.steps(context, oem) }
@@ -568,11 +589,10 @@ private fun OemPage(modifier: Modifier, refresh: Int, isDefault: Boolean, permsO
     }
     // Re-read on every resume: the user may have changed any of it in Settings.
     val status = refresh.let { OemHelper.backgroundStatus(context) }
-    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        PageTitle(stringResource(R.string.onb_oem_title))
-        PageBody(stringResource(R.string.ux8f_onb_battery_body))
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         BatteryCard(
             done = OemHelper.stateOf(battery.kind, status, markedByUser = false) == StepState.DONE_VERIFIED,
+            showStatus = showStatus,
             onOpen = { OemHelper.launch(context, battery) },
         )
         if (vendorSteps.isNotEmpty()) {
@@ -586,6 +606,8 @@ private fun OemPage(modifier: Modifier, refresh: Int, isDefault: Boolean, permsO
                 step = step,
                 state = state,
                 stillLimited = marked && state == StepState.NOT_DONE,
+                showStatus = showStatus,
+                unverified = oemStepMark(step.kind, state, status, marked) == SetupMark.CANNOT_CHECK,
                 onOpen = {
                     val opened = OemHelper.launch(context, step) != null
                     if (opened && step.kind.check == StepCheck.USER_CONFIRMED) pendingKey = key
@@ -596,27 +618,38 @@ private fun OemPage(modifier: Modifier, refresh: Int, isDefault: Boolean, permsO
                 },
             )
         }
-        Text(
-            stringResource(R.string.onb_oem_manual_hint),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        UnfinishedNote(isDefault, permsOk)
     }
 }
 
 /** The one card of the last step: a single button until Android reports uMessage as unrestricted. */
 @Composable
-private fun BatteryCard(done: Boolean, onOpen: () -> Unit) {
+private fun BatteryCard(done: Boolean, showStatus: Boolean, onOpen: () -> Unit) {
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(Modifier.padding(16.dp)) {
+            if (showStatus) {
+                // Setup page: the card names itself like the permission cards do.
+                Text(
+                    stringResource(R.string.setup_battery_card_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(bottom = 8.dp),
+                )
+            }
             if (done) {
                 StatusRow(ok = true, text = stringResource(R.string.oem2_state_done))
             } else {
+                if (showStatus) {
+                    Text(
+                        stringResource(R.string.oem2_state_todo),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(bottom = 8.dp),
+                    )
+                }
                 Button(
                     onClick = onOpen,
                     modifier = Modifier
@@ -637,19 +670,13 @@ private fun OemStepCard(
     step: OemStep,
     state: StepState,
     stillLimited: Boolean,
+    showStatus: Boolean,
+    unverified: Boolean,
     onOpen: () -> Unit,
     onUndo: () -> Unit,
 ) {
     val title = stringResource(step.titleRes)
-    val stateText = stringResource(
-        when {
-            state == StepState.DONE_VERIFIED -> R.string.oem2_state_done
-            state == StepState.DONE_BY_USER -> R.string.oem2_state_marked
-            stillLimited -> R.string.oem2_state_limited
-            else -> R.string.oem2_state_todo
-        },
-    )
-    val success = MaterialTheme.colorScheme.success
+    val stateText = stringResource(oemStateText(state, stillLimited, showStatus && unverified))
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
@@ -668,46 +695,73 @@ private fun OemStepCard(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
-                when (state) {
-                    StepState.DONE_VERIFIED -> Icon(Symbols.CheckCircleFilled, null, tint = success)
-                    StepState.DONE_BY_USER -> Box(
-                        modifier = Modifier
-                            .size(24.dp)
-                            .border(2.dp, success, CircleShape),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Icon(Symbols.Check, null, tint = success, modifier = Modifier.size(16.dp))
-                    }
-
-                    StepState.NOT_DONE -> Unit
-                }
+                OemStateMark(state)
             }
-            if (state != StepState.NOT_DONE || stillLimited) {
+            if (state != StepState.NOT_DONE || stillLimited || showStatus) {
                 Text(
                     text = stateText,
                     style = MaterialTheme.typography.labelLarge,
-                    color = if (stillLimited) MaterialTheme.colorScheme.error else success,
+                    color = oemStateColor(state, stillLimited),
                     modifier = Modifier.clearAndSetSemantics { },
                 )
             }
-            when (state) {
-                StepState.NOT_DONE -> TextButton(onClick = onOpen, modifier = Modifier.heightIn(min = 48.dp)) {
-                    Text(stringResource(R.string.onb_perm_open_settings))
-                }
-
-                StepState.DONE_BY_USER -> {
-                    val undoDescription = stringResource(R.string.oem2_undo_cd, title)
-                    TextButton(
-                        onClick = onUndo,
-                        modifier = Modifier
-                            .heightIn(min = 48.dp)
-                            .semantics { contentDescription = undoDescription },
-                    ) { Text(stringResource(R.string.oem2_undo)) }
-                }
-
-                StepState.DONE_VERIFIED -> Unit
-            }
+            OemStepAction(state, title, onOpen, onUndo)
         }
+    }
+}
+
+@StringRes
+private fun oemStateText(state: StepState, stillLimited: Boolean, unknown: Boolean): Int = when {
+    state == StepState.DONE_VERIFIED -> R.string.oem2_state_done
+    state == StepState.DONE_BY_USER -> R.string.oem2_state_marked
+    stillLimited -> R.string.oem2_state_limited
+    unknown -> R.string.setup_status_unknown
+    else -> R.string.oem2_state_todo
+}
+
+@Composable
+private fun oemStateColor(state: StepState, stillLimited: Boolean): Color = when {
+    stillLimited -> MaterialTheme.colorScheme.error
+    state == StepState.NOT_DONE -> MaterialTheme.colorScheme.onSurfaceVariant
+    else -> MaterialTheme.colorScheme.success
+}
+
+@Composable
+private fun OemStateMark(state: StepState) {
+    val success = MaterialTheme.colorScheme.success
+    when (state) {
+        StepState.DONE_VERIFIED -> Icon(Symbols.CheckCircleFilled, null, tint = success)
+        StepState.DONE_BY_USER -> Box(
+            modifier = Modifier
+                .size(24.dp)
+                .border(2.dp, success, CircleShape),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(Symbols.Check, null, tint = success, modifier = Modifier.size(16.dp))
+        }
+
+        StepState.NOT_DONE -> Unit
+    }
+}
+
+@Composable
+private fun OemStepAction(state: StepState, title: String, onOpen: () -> Unit, onUndo: () -> Unit) {
+    when (state) {
+        StepState.NOT_DONE -> TextButton(onClick = onOpen, modifier = Modifier.heightIn(min = 48.dp)) {
+            Text(stringResource(R.string.onb_perm_open_settings))
+        }
+
+        StepState.DONE_BY_USER -> {
+            val undoDescription = stringResource(R.string.oem2_undo_cd, title)
+            TextButton(
+                onClick = onUndo,
+                modifier = Modifier
+                    .heightIn(min = 48.dp)
+                    .semantics { contentDescription = undoDescription },
+            ) { Text(stringResource(R.string.oem2_undo)) }
+        }
+
+        StepState.DONE_VERIFIED -> Unit
     }
 }
 
@@ -773,6 +827,12 @@ private fun WelcomePageDarkPreview() = UMessageTheme(darkTheme = true) {
 )
 @Composable
 private fun WelcomePageRtlPreview() = UMessageTheme(darkTheme = false) {
+    WelcomePage(Modifier.padding(horizontal = 24.dp, vertical = 16.dp), reduceMotion = true)
+}
+
+@Preview(name = "Welcome narrow, largest text", showBackground = true, widthDp = 320, heightDp = 2000, fontScale = 2f)
+@Composable
+private fun WelcomePageNarrowPreview() = UMessageTheme(darkTheme = false) {
     WelcomePage(Modifier.padding(horizontal = 24.dp, vertical = 16.dp), reduceMotion = true)
 }
 

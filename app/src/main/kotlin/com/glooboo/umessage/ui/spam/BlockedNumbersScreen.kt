@@ -1,10 +1,8 @@
 package com.glooboo.umessage.ui.spam
 
 import org.fossify.commons.extensions.appLockManager
-import android.Manifest
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.pm.PackageManager
 import android.os.Build
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -35,7 +33,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
@@ -84,13 +81,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.glooboo.umessage.R
-import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.components.EmptyState
 import com.glooboo.umessage.ui.components.FabListBottomPadding
 import com.glooboo.umessage.ui.components.UMessageFab
@@ -99,7 +94,6 @@ import com.glooboo.umessage.ui.components.SelectionTopBar
 import com.glooboo.umessage.ui.components.SenderAvatar
 import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
-import com.glooboo.umessage.ui.components.SwitchRow
 import com.glooboo.umessage.ui.components.rememberReduceMotion
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.isolateNumbers
@@ -117,7 +111,6 @@ class BlockedNumbersActions(
     val onSelectAll: () -> Unit = {},
     val onUnblock: (Set<Long>) -> Unit = {},
     val onCopy: (BlockedNumberItem) -> Unit = {},
-    val onBlockUnknown: (Boolean) -> Unit = {},
     val onImport: () -> Unit = {},
     val onExport: () -> Unit = {},
     val onMoveToRules: () -> Unit = {},
@@ -146,7 +139,6 @@ fun BlockedNumbersRoute(
     val scope = rememberCoroutineScope()
     val undoLabel = stringResource(R.string.spam_undo)
     val copiedText = stringResource(R.string.blocknum_copied)
-    val contactsDenied = stringResource(R.string.blocknum_contacts_denied)
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { viewModel.refresh() }
 
@@ -155,10 +147,6 @@ fun BlockedNumbersRoute(
     }
     val exportLauncher = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri ->
         uri?.let(viewModel::exportTo)
-    }
-    // "Block unknown numbers" needs contacts to tell known from unknown; the setting stays on either way.
-    val contactsPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-        if (!granted) scope.launch { snackbar.showSnackbar(contactsDenied) }
     }
 
     LaunchedEffect(rulesViewModel) {
@@ -198,12 +186,6 @@ fun BlockedNumbersRoute(
                 viewModel.clearSelection()
                 // Android 13+ confirms copies itself; a second message would be noise.
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) scope.launch { snackbar.showSnackbar(copiedText) }
-            },
-            onBlockUnknown = { enabled ->
-                viewModel.setBlockUnknown(enabled)
-                val granted = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) ==
-                    PackageManager.PERMISSION_GRANTED
-                if (enabled && !granted) contactsPermission.launch(Manifest.permission.READ_CONTACTS)
             },
             // The app's own file picker is not "leaving the app": no second PIN on return.
             onImport = {
@@ -402,21 +384,6 @@ private fun BlockedNumbersList(
         // U51: the empty state already says whose list this is, so the note shows only once there are numbers.
         if (state.available && state.numbers.isNotEmpty()) {
             item(key = "about") { AndroidListNote(state.moveCount, actions.onMoveToRules) }
-        }
-        // Only matters in Off mode, where it turns unknown-number filtering back on (as Strict); Strict and Smart
-        // ignore it, so it is not shown then at all (SE-28 / VS-30).
-        if (state.mode == UnknownSenderMode.OFF) {
-            item(key = "unknown") {
-                SwitchRow(
-                    title = stringResource(R.string.blocknum_unknown_title),
-                    body = stringResource(R.string.e_bn_unknown_body),
-                    checked = state.blockUnknown,
-                    onCheckedChange = actions.onBlockUnknown,
-                )
-            }
-            item(key = "divider") {
-                HorizontalDivider(Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.outlineVariant)
-            }
         }
         when {
             !state.available -> item(key = "unavailable") {
@@ -713,7 +680,7 @@ private fun NumbersPreviewHost(state: BlockedNumbersUiState, rtl: Boolean = fals
 
 @Preview(name = "Blocked numbers", showBackground = true, widthDp = 360, heightDp = 720)
 @Composable
-private fun BlockedNumbersPreview() = NumbersPreviewHost(BlockedNumbersUiState(loading = false, numbers = previewNumbers, blockUnknown = true))
+private fun BlockedNumbersPreview() = NumbersPreviewHost(BlockedNumbersUiState(loading = false, numbers = previewNumbers))
 
 @Preview(
     name = "Blocked numbers - dark", showBackground = true, widthDp = 360, heightDp = 720,
@@ -721,7 +688,7 @@ private fun BlockedNumbersPreview() = NumbersPreviewHost(BlockedNumbersUiState(l
 )
 @Composable
 private fun BlockedNumbersDarkPreview() =
-    NumbersPreviewHost(BlockedNumbersUiState(loading = false, numbers = previewNumbers, blockUnknown = true))
+    NumbersPreviewHost(BlockedNumbersUiState(loading = false, numbers = previewNumbers))
 
 @Preview(name = "Blocked numbers - RTL", showBackground = true, widthDp = 360, heightDp = 720, locale = "fa")
 @Composable

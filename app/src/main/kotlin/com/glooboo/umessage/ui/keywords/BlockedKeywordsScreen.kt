@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.OutlinedTextField
@@ -46,19 +45,15 @@ import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.components.EmptyState
 import com.glooboo.umessage.ui.components.FabListBottomPadding
-import com.glooboo.umessage.ui.components.UMessageFab
 import com.glooboo.umessage.ui.components.LoadingState
 import com.glooboo.umessage.ui.components.SelectionTopBar
 import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
-import com.glooboo.umessage.ui.components.TextInputDialog
-import com.glooboo.umessage.helpers.BlockedKeywordsFormat
 import com.glooboo.umessage.ui.icons.Symbols
 
 /**
- * Keywords that make an incoming message count as blocked. Tap edits, long-press selects, the row menu copies or
- * deletes. The add/edit dialog is part of this screen and saved with it, so rotating keeps what was typed.
- * [onSave] gets the keyword being edited (null when adding) and the new text.
+ * The old blocked words that could not become rules. Read-only apart from deleting: words are never added here (new
+ * blocking goes into the uMessage rules). Long-press selects, the row menu copies or deletes, the bar menu exports.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -67,24 +62,12 @@ fun BlockedKeywordsScreen(
     loaded: Boolean,
     snackbarHostState: SnackbarHostState,
     onBack: () -> Unit,
-    onSave: (original: String?, keyword: String) -> Unit,
     onCopy: (String) -> Unit,
     onDelete: (Set<String>) -> Unit,
     onExport: () -> Unit,
-    onImport: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var selected by rememberSaveable(saver = StringSetStateSaver) { mutableStateOf(emptySet()) }
-    var dialogOpen by rememberSaveable { mutableStateOf(false) }
-    var dialogOriginal by rememberSaveable { mutableStateOf<String?>(null) }
-    val onAdd = {
-        dialogOriginal = null
-        dialogOpen = true
-    }
-    val onEdit = { keyword: String ->
-        dialogOriginal = keyword
-        dialogOpen = true
-    }
     var query by rememberSaveable { mutableStateOf("") }
     val shownKeywords = remember(keywords, query) {
         val needle = query.trim()
@@ -105,17 +88,7 @@ fun BlockedKeywordsScreen(
                 onCopy = onCopy,
                 onDelete = onDelete,
                 onExport = onExport,
-                onImport = onImport,
             )
-        },
-        floatingActionButton = {
-            if (!selecting && keywords.isNotEmpty()) {
-                UMessageFab(
-                    text = stringResource(R.string.screens_keywords_add),
-                    icon = Symbols.Add,
-                    onClick = onAdd,
-                )
-            }
         },
     ) { padding ->
         when {
@@ -124,9 +97,8 @@ fun BlockedKeywordsScreen(
                 EmptyState(
                     icon = Symbols.Block,
                     title = stringResource(R.string.screens_keywords_empty_title),
-                    body = stringResource(R.string.not_blocking_keywords),
+                    body = stringResource(R.string.screens_keywords_empty_body),
                     modifier = Modifier.align(Alignment.Center),
-                    action = { Button(onClick = onAdd) { Text(stringResource(R.string.add_a_blocked_keyword)) } },
                 )
             }
             else -> Column(Modifier.fillMaxSize().padding(top = padding.calculateTopPadding())) {
@@ -155,8 +127,6 @@ fun BlockedKeywordsScreen(
                                 onClick = {
                                     if (selecting) {
                                         selected = if (isSelected) selection - keyword else selection + keyword
-                                    } else {
-                                        onEdit(keyword)
                                     }
                                 },
                                 onLongClick = { selected = selection + keyword },
@@ -169,20 +139,9 @@ fun BlockedKeywordsScreen(
             }
         }
     }
-    if (dialogOpen) {
-        KeywordDialog(
-            original = dialogOriginal,
-            keywords = keywords,
-            onSave = { entered ->
-                onSave(dialogOriginal, entered)
-                dialogOpen = false
-            },
-            onDismiss = { dialogOpen = false },
-        )
-    }
 }
 
-/** The selection bar while keywords are selected, else the title bar with the import/export menu. */
+/** The selection bar while keywords are selected, else the title bar with the export menu. */
 @Composable
 private fun KeywordsTopBar(
     selection: Set<String>,
@@ -191,7 +150,6 @@ private fun KeywordsTopBar(
     onCopy: (String) -> Unit,
     onDelete: (Set<String>) -> Unit,
     onExport: () -> Unit,
-    onImport: () -> Unit,
 ) {
     if (selection.isNotEmpty()) {
         SelectionTopBar(count = selection.size, onClose = onClearSelection) {
@@ -218,14 +176,6 @@ private fun KeywordsTopBar(
                     Icon(Symbols.MoreVert, contentDescription = stringResource(R.string.screens_more_options))
                 }
                 DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.screens_keywords_menu_import)) },
-                        leadingIcon = { Icon(Symbols.Download, contentDescription = null) },
-                        onClick = {
-                            menuOpen = false
-                            onImport()
-                        },
-                    )
                     DropdownMenuItem(
                         text = { Text(stringResource(R.string.screens_keywords_menu_export)) },
                         leadingIcon = { Icon(Symbols.Upload, contentDescription = null) },
@@ -268,31 +218,6 @@ private fun KeywordSearch(query: String, onQueryChange: (String) -> Unit) {
             unfocusedBorderColor = Color.Transparent,
         ),
         keyboardOptions = KeyboardOptions(autoCorrectEnabled = false, imeAction = ImeAction.Search),
-    )
-}
-
-/** Add or edit one keyword. Refuses blanks, one-letter keywords and keywords already in the list (in any case). */
-@Composable
-private fun KeywordDialog(original: String?, keywords: List<String>, onSave: (String) -> Unit, onDismiss: () -> Unit) {
-    val emptyError = stringResource(org.fossify.commons.R.string.empty_name)
-    val shortError = stringResource(R.string.spam_err_keyword_short)
-    val duplicateError = stringResource(R.string.screens_keywords_duplicate)
-    TextInputDialog(
-        title = stringResource(if (original == null) R.string.add_a_blocked_keyword else R.string.screens_keywords_edit),
-        initial = original.orEmpty(),
-        label = stringResource(R.string.keyword),
-        supportingText = stringResource(R.string.screens_keywords_help),
-        validate = { text ->
-            val trimmed = text.trim()
-            when {
-                trimmed.isEmpty() -> emptyError
-                BlockedKeywordsFormat.clean(trimmed) == null -> shortError
-                keywords.any { it != original && it.equals(trimmed, ignoreCase = true) } -> duplicateError
-                else -> null
-            }
-        },
-        onConfirm = { onSave(it.trim()) },
-        onDismiss = onDismiss,
     )
 }
 

@@ -5,7 +5,7 @@
     <string name="settings_nav_group_privacy_about">الخصوصية وحول التطبيق</string>
     <string name="settings_nav_spam_row">الحماية من الرسائل غير المرغوب فيها</string>
     <string name="settings_nav_spam_page_title">الحماية من الرسائل غير المرغوب فيها</string>
-    <string name="settings_nav_android_block_list_body">تحظر المكالمات أيضًا</string>
+    <string name="settings_nav_android_block_list_body">يحظر المكالمات أيضًا. تُحذف الرسائل ولا تُحفظ في «رسائل غير مرغوب فيها».</string>
     <string name="settings_nav_decision_log">لماذا حُظرت؟</string>
     <string name="settings_nav_decision_log_body">سجل قرارات السماح والحظر</string>
     <string name="settings_nav_forwarded_tab">أظهر تبويب «المعاد توجيهها»</string>

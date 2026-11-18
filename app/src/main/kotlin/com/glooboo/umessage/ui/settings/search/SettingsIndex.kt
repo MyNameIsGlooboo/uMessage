@@ -16,6 +16,7 @@ import com.glooboo.umessage.ui.settings.search.SettingsTarget.FORWARD_RULES
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.LANGUAGE
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.LICENSES
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.NOTIFICATIONS
+import com.glooboo.umessage.ui.settings.search.SettingsTarget.SETUP
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.SPAM
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.SPAM_RULES
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.SPAM_SETTINGS
@@ -41,7 +42,8 @@ object SettingsIndex {
     private val PG_ABOUT = R.string.settings_nav_about_row
 
     val entries: List<SettingsIndexEntry> = spamEntries() + forwardingEntries() + notificationEntries() +
-        typingEntries() + storageEntries() + appearanceEntries() + backupEntries() + lockEntries() + aboutEntries()
+        typingEntries() + storageEntries() + appearanceEntries() + backupEntries() + lockEntries() + setupEntries() +
+        aboutEntries()
 
     private fun spamEntries() = listOf(
         SettingsIndexEntry(R.string.settings_nav_spam_row, MAIN, SPAM, null, R.string.sks_spam),
@@ -49,7 +51,7 @@ object SettingsIndex {
         SettingsIndexEntry(R.string.spam_mode_strict, PG_SPAM, SPAM, R.string.spam_mode_strict_body, R.string.sks_strict),
         SettingsIndexEntry(R.string.spam_mode_smart, PG_SPAM, SPAM, R.string.spam_mode_smart_body, R.string.sks_smart),
         SettingsIndexEntry(R.string.spam_mode_off, PG_SPAM, SPAM, R.string.spam_mode_off_body, R.string.sks_spam_off),
-        SettingsIndexEntry(R.string.settings_spam_open_rules, PG_SPAM, SPAM_RULES, R.string.settings_spam_open_rules_body, R.string.sks_rules),
+        SettingsIndexEntry(R.string.settings_block_umessage_title, PG_SPAM, SPAM_RULES, R.string.settings_block_umessage_body, R.string.sks_rules),
         SettingsIndexEntry(R.string.rules2_bn_title, PG_SPAM, BLOCKED_NUMBERS, R.string.settings_nav_android_block_list_body, R.string.sks_blocked_numbers),
         SettingsIndexEntry(R.string.settings_nav_decision_log, PG_SPAM, DECISION_LOG, R.string.settings_nav_decision_log_body, R.string.sks_decision_log, Needs.DECISION_LOG),
         SettingsIndexEntry(R.string.settings_nav_purge_row, PG_SPAM, SPAM_SETTINGS, R.string.spam_purge_body, R.string.sks_purge),
@@ -136,6 +138,10 @@ object SettingsIndex {
         SettingsIndexEntry(R.string.settings_app_lock_screenshots, PG_LOCK, APP_LOCK, R.string.settings_app_lock_screenshots_body, R.string.sks_screenshots),
         SettingsIndexEntry(R.string.settings_app_lock_change, PG_LOCK, APP_LOCK, null, R.string.sks_lock_change),
         SettingsIndexEntry(R.string.settings_app_lock_now, PG_LOCK, APP_LOCK, R.string.settings_app_lock_now_body, R.string.sks_lock_now),
+    )
+
+    private fun setupEntries() = listOf(
+        SettingsIndexEntry(R.string.setup_title, MAIN, SETUP, R.string.setup_row_summary, R.string.sks_setup),
     )
 
     private fun aboutEntries() = listOf(

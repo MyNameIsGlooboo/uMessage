@@ -5,7 +5,7 @@
     <string name="settings_nav_group_privacy_about">Quyền riêng tư và giới thiệu</string>
     <string name="settings_nav_spam_row">Chống tin nhắn rác</string>
     <string name="settings_nav_spam_page_title">Chống tin nhắn rác</string>
-    <string name="settings_nav_android_block_list_body">Chặn cả cuộc gọi</string>
+    <string name="settings_nav_android_block_list_body">Cũng chặn cuộc gọi. Tin nhắn bị xóa, không được giữ trong tin nhắn rác.</string>
     <string name="settings_nav_decision_log">Vì sao tin nhắn bị chặn?</string>
     <string name="settings_nav_decision_log_body">Lịch sử quyết định cho phép và chặn</string>
     <string name="settings_nav_forwarded_tab">Hiển thị thẻ Đã chuyển tiếp</string>

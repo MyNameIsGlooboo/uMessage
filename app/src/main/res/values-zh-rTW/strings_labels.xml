@@ -17,6 +17,14 @@
     <string name="i29_edit_title">編輯標籤</string>
     <string name="i29_edit_name">標籤名稱</string>
     <string name="i29_edit_save">儲存</string>
+    <string name="i29_color_red">紅色</string>
+    <string name="i29_color_orange">橘色</string>
+    <string name="i29_color_yellow">黃色</string>
+    <string name="i29_color_green">綠色</string>
+    <string name="i29_color_teal">藍綠色</string>
+    <string name="i29_color_blue">藍色</string>
+    <string name="i29_color_purple">紫色</string>
+    <string name="i29_color_brown">棕色</string>
     <string name="i29_color_description">顏色%1$d</string>
     <string name="i29_error_duplicate">已有同名的標籤。</string>
     <string name="i29_error_limit">最多可以有%1$d個標籤。</string>

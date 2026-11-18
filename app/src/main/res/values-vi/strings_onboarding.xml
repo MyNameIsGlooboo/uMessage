@@ -7,6 +7,7 @@
     <string name="onb_finish">Bắt đầu nhắn tin</string>
     <string name="onb_welcome_title">Chào mừng bạn đến với uMessage</string>
     <string name="onb_welcome_intro">Nhắn tin tốt hơn, ít tin nhắn rác hơn.</string>
+    <string name="onb_welcome_demo_desc">Tin nhắn từ người quen vào hộp thư đến, tin nhắn từ người lạ vào tin nhắn rác, còn mã xác minh vẫn vào hộp thư đến của bạn.</string>
     <string name="onb_welcome_spam">Ngăn tin nhắn rác</string>
     <string name="onb_welcome_spam_desc">Tin nhắn từ người gửi không xác định được giữ trong mục Tin rác, không bị mất.</string>
     <string name="onb_welcome_codes">Sao chép mã bằng một lần nhấn</string>

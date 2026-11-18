@@ -7,6 +7,7 @@
     <string name="onb_finish">开始发消息</string>
     <string name="onb_welcome_title">欢迎使用uMessage</string>
     <string name="onb_welcome_intro">消息更顺畅，垃圾短信更少。</string>
+    <string name="onb_welcome_demo_desc">熟人发来的短信会进入收件箱，陌生人发来的短信会归入垃圾短信，验证码仍会进入收件箱。</string>
     <string name="onb_welcome_spam">远离垃圾短信</string>
     <string name="onb_welcome_spam_desc">未知发件人的消息会保留在“垃圾短信”中，不会丢失。</string>
     <string name="onb_welcome_codes">一键复制验证码</string>

@@ -51,7 +51,5 @@
     <string name="blocknum_empty_body">ब्लॉक किए गए नंबर आपको मैसेज या कॉल नहीं कर सकते. यह सूची आपके फ़ोन ऐप में भी इस्तेमाल होती है.</string>
     <string name="blocknum_unavailable_title">ब्लॉक सूची उपलब्ध नहीं है</string>
     <string name="blocknum_unavailable_body">सिस्टम की ब्लॉक सूची देखने और बदलने के लिए uMessage को अपना डिफ़ॉल्ट एसएमएस ऐप बनाएं.</string>
-    <string name="blocknum_unknown_title">अनजान नंबर ब्लॉक करें</string>
-    <string name="blocknum_contacts_denied">संपर्कों की ऐक्सेस के बिना अनजान नंबरों की पहचान नहीं हो सकती</string>
     <string name="blocknum_section_numbers">नंबर</string>
 </resources>

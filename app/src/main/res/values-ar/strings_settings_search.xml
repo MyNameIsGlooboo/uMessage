@@ -71,6 +71,7 @@
     <string name="sks_screenshots">لقطات شاشة تسجيل الشاشة التقاط احظر خصوصية</string>
     <string name="sks_lock_change">تغيير رقم التعريف الشخصي كلمة مرور جديد بيانات اعتماد إعادة تعيين</string>
     <string name="sks_lock_now">قفل الآن فورًا إغلاق تأمين</string>
+    <string name="sks_setup">إعداد الأذونات تطبيق الرسائل النصية الافتراضي جهات الاتصال الإشعارات البطارية الخلفية اسمح بالوصول</string>
     <string name="sks_about">حول إصدار معلومات تطبيق مصدر ترخيص ترخيص</string>
     <string name="sks_privacy">خصوصية إنترنت دون اتصال إذن بيانات تتبع آمن</string>
     <string name="sks_version">إصدار بناء رقم نسخة تحديث نسخ</string>

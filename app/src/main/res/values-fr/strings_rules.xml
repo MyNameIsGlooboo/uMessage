@@ -15,13 +15,6 @@
         <item quantity="one">%d règle supprimée</item>
         <item quantity="other">%d règles supprimées</item>
     </plurals>
-    <string name="rules_legacy_banner_review">Examiner</string>
-    <string name="rules_legacy_banner_not_now">Pas maintenant</string>
-    <string name="rules_legacy_section_keywords">Ancienne liste de mots bloqués</string>
-    <string name="rules_legacy_section_keywords_body">Cette liste sert encore au filtrage tant que vous n\'avez pas déplacé ces mots vers les règles. Elle sera ensuite désactivée.</string>
-    <string name="rules_legacy_chip_old_list">Ancienne liste</string>
-    <string name="rules_legacy_chip_system">Système, appels aussi</string>
-    <string name="rules_legacy_move">Déplacer vers les règles</string>
     <string name="rules_migrate_nothing">Tout le contenu des anciennes listes figure déjà dans vos règles.</string>
     <plurals name="rules_migrate_keywords" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d mot de l\'ancienne liste de mots bloqués devient une règle de blocage par mot-clé. L\'ancienne liste est ensuite désactivée.</item>
@@ -59,5 +52,5 @@
     </plurals>
     <string name="rules_migrated_nothing">Aucun élément déplacé.</string>
     <string name="settings_old_blocked_words">Ancienne liste de mots bloqués</string>
-    <string name="settings_old_blocked_words_body">Transfert vers Autorisés et bloqués</string>
+    <string name="settings_old_blocked_words_body">Mots qui ne peuvent pas servir de règles</string>
 </resources>

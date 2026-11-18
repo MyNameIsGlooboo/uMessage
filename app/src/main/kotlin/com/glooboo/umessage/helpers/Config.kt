@@ -9,6 +9,10 @@ import com.glooboo.umessage.models.Conversation
 class Config(context: Context) : BaseConfig(context) {
     companion object {
         private const val SYSTEM_THEME_PREF_KEY = "is_using_system_theme"
+        private const val BLOCK_UNKNOWN_SWITCH_WAS_ON = "block_unknown_switch_was_on"
+
+        /** Held around every read-modify-write of the old blocked words, so two writers never lose a change. */
+        private val blockedKeywordsLock = Any()
         fun newInstance(context: Context) = Config(context)
     }
 
@@ -165,18 +169,47 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getStringSet(BLOCKED_KEYWORDS, HashSet<String>())!!.filterTo(HashSet()) { it.isNotBlank() }
         set(blockedKeywords) = prefs.edit().putStringSet(BLOCKED_KEYWORDS, blockedKeywords).apply()
 
-    /** SU-33: the user moved the old block lists into uMessage rules, or said "Not now" to the offer. */
-    var legacyBlockOfferDismissed: Boolean
-        get() = prefs.getBoolean(LEGACY_BLOCK_OFFER_DISMISSED, false)
-        set(value) = prefs.edit().putBoolean(LEGACY_BLOCK_OFFER_DISMISSED, value).apply()
+    /**
+     * The old "Block unknown numbers" switch was on when the blocking migration folded it into the unknown-senders
+     * mode. Remembered so that restoring an older backup (whose mode never counted the switch) keeps what it did.
+     */
+    var blockUnknownSwitchWasOn: Boolean
+        get() = prefs.getBoolean(BLOCK_UNKNOWN_SWITCH_WAS_ON, false)
+        set(value) = prefs.edit().putBoolean(BLOCK_UNKNOWN_SWITCH_WAS_ON, value).apply()
 
     /** Trimmed; blank, one-letter and same-but-for-case keywords are not added. */
     fun addBlockedKeyword(keyword: String) {
-        blockedKeywords = BlockedKeywordsFormat.add(blockedKeywords, keyword)
+        addBlockedKeywords(listOf(keyword))
+    }
+
+    /** Adds [keywords] the same way; returns how many were new. */
+    fun addBlockedKeywords(keywords: Collection<String>): Int = synchronized(blockedKeywordsLock) {
+        val before = blockedKeywords
+        val after = keywords.fold(before) { set, word -> BlockedKeywordsFormat.add(set, word) }
+        if (after.size != before.size) blockedKeywords = after
+        after.size - before.size
+    }
+
+    /** Puts [words] back exactly as they were (Undo of a delete): no cleaning, so one-letter and odd words return. */
+    fun restoreBlockedKeywords(words: Collection<String>) {
+        synchronized(blockedKeywordsLock) { blockedKeywords = rawBlockedKeywords() + words }
     }
 
     fun removeBlockedKeyword(keyword: String) {
-        blockedKeywords = blockedKeywords.minus(keyword)
+        removeBlockedKeywords(listOf(keyword))
+    }
+
+    /** The stored words as they are, blank ones included (which [blockedKeywords] hides), for the migration. */
+    fun rawBlockedKeywords(): Set<String> = HashSet(prefs.getStringSet(BLOCKED_KEYWORDS, emptySet())!!)
+
+    fun removeBlockedKeywords(keywords: Collection<String>) {
+        synchronized(blockedKeywordsLock) {
+            val gone = keywords.toSet()
+            val before = rawBlockedKeywords()
+            if (before.any { it in gone }) {
+                prefs.edit().putStringSet(BLOCKED_KEYWORDS, before.filterTo(HashSet()) { it !in gone }).apply()
+            }
+        }
     }
 
     var exportSms: Boolean

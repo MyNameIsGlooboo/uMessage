@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">Configuração e permissões</string>
+    <string name="setup_group_title">Configuração</string>
+    <string name="setup_row_summary">Confira o que o uMessage precisa e resolva o que falta</string>
+    <string name="setup_intro">Cada item é consultado no Android sempre que você abre esta página.</string>
+    <string name="setup_all_set">Tudo o que é necessário está ativado</string>
+    <string name="setup_optional_left">Tudo o que é necessário está ativado. Falta uma etapa opcional.</string>
+    <string name="setup_battery_card_title">Permita que o uMessage funcione em segundo plano</string>
+    <string name="setup_checklist_title_count">%1$s de %2$s concluídos</string>
+    <string name="setup_some_open">Alguns itens ainda precisam da sua atenção</string>
+    <string name="setup_group_permissions">Permissões</string>
+    <string name="setup_status_optional">Opcional, não configurado</string>
+    <string name="setup_status_unknown">O Android não consegue informar. Abra e confira.</string>
+    <string name="setup_action_allow">Permita</string>
+    <string name="setup_battery_banner_title">Mantenha o uMessage funcionando</string>
+    <string name="setup_battery_banner_body">Seu celular pode interromper o uMessage em segundo plano e atrasar novas mensagens.</string>
+    <string name="setup_battery_banner_action">Corrija</string>
+    <string name="setup_banner_dismiss">Agora não</string>
+    <string name="setup_checklist_step_contacts">Permita o acesso aos contatos</string>
+    <string name="setup_checklist_step_battery">Opcional: permita que o uMessage funcione em segundo plano</string>
+</resources>

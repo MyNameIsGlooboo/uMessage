@@ -7,7 +7,7 @@
     <string name="settings_nav_group_privacy_about">Privacy and about</string>
     <string name="settings_nav_spam_row">Spam protection</string>
     <string name="settings_nav_spam_page_title">Spam protection</string>
-    <string name="settings_nav_android_block_list_body">Also blocks calls</string>
+    <string name="settings_nav_android_block_list_body">Also blocks calls. Texts are deleted, not kept in Spam.</string>
     <string name="settings_nav_decision_log">Recent activity</string>
     <string name="settings_nav_decision_log_body">What uMessage did with each message, and why</string>
 

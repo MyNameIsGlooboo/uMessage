@@ -36,13 +36,9 @@
     <string name="screens_new_group_remove">%1$s entfernen</string>
     <string name="screens_new_group_selected">Ausgewählt</string>
     <string name="screens_details_edit_name">Name der Unterhaltung ändern</string>
-    <string name="screens_keywords_add">Schlüsselwort hinzufügen</string>
     <string name="screens_keywords_menu_export">Exportieren</string>
-    <string name="screens_keywords_menu_import">Importieren</string>
-    <string name="screens_keywords_edit">Bearbeiten</string>
-    <string name="screens_keywords_duplicate">Dieses Schlüsselwort steht bereits in der Liste</string>
-    <string name="screens_keywords_help">Findet den Text überall in einer Nachricht, auch innerhalb eines längeren Wortes. Groß- und Kleinschreibung spielt keine Rolle.</string>
     <string name="screens_keywords_empty_title">Keine blockierten Schlüsselwörter</string>
+    <string name="screens_keywords_empty_body">Deine blockierten Wörter sind jetzt Regeln</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="one">%d Schlüsselwort gelöscht</item>
         <item quantity="other">%d Schlüsselwörter gelöscht</item>

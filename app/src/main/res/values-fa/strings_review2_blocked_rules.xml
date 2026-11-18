@@ -60,7 +60,6 @@
     <string name="e_migrate_point_blocked">• پیام‌هایشان به اسپم می‌روند؛ آنجا می‌توانید آن‌ها را بخوانید و بازیابی کنید.</string>
     <string name="e_migrate_point_android">• تا وقتی که از لیست Android خارج نشوند، Android هنوز پیام‌هایشان را دور می‌اندازد.</string>
     <string name="e_migrate_calls_note">لیست Android تماس‌ها را هم بلاک می‌کند. شماره‌هایی که از آن حذف کنید، دوباره می‌توانند با شما تماس بگیرند.</string>
-    <string name="e_bn_unknown_body">فقط زمانی اعمال می‌شود که «فرستنده‌های ناشناس» خاموش باشد.</string>
     <string name="e_bn_row_calls_texts">تماس‌ها و پیام‌ها را بلاک می‌کند</string>
     <string name="e_bn_row_short_code">شمارهٔ کوتاه: پیام‌هایش هرگز به uMessage نمی‌رسند</string>
     <string name="e_bn_move_one">بردن به قانون‌های uMessage</string>

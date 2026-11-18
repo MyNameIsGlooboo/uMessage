@@ -54,6 +54,7 @@ import com.glooboo.umessage.ui.components.SettingsRadioRow
 import com.glooboo.umessage.ui.components.SettingsRow
 import com.glooboo.umessage.ui.components.SettingsSwitchRow
 import com.glooboo.umessage.ui.icons.Symbols
+import com.glooboo.umessage.ui.onboarding.SortingCard
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import androidx.compose.ui.unit.Dp
 import com.glooboo.umessage.ui.components.UMessageScaffold
@@ -136,6 +137,7 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
     var unknownNotifyDialog by rememberSaveable { mutableStateOf(false) }
     var regionDialog by rememberSaveable { mutableStateOf(false) }
     var restoredOpen by rememberSaveable { mutableStateOf(false) }
+    val cardMode = rememberSortingCardMode(settings.mode)
     val chooseMode: (UnknownSenderMode) -> Unit = { mode ->
         if (mode == UnknownSenderMode.STRICT && settings.mode != UnknownSenderMode.STRICT) {
             confirmStrict = true
@@ -150,6 +152,9 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
         SettingsGroup(
             title = stringResource(R.string.spam_settings_unknown_title),
             description = stringResource(R.string.spam_settings_unknown_body),
+            descriptionExtra = cardMode?.let { shown ->
+                { SortingCard(mode = shown, containerColor = MaterialTheme.colorScheme.surface) }
+            },
         ) {
             ModeChoice(
                 UnknownSenderMode.STRICT, R.string.spam_mode_strict, R.string.spam_mode_strict_body,
@@ -174,8 +179,8 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
 
         SettingsGroup(stringResource(R.string.settings_f_group_rules)) {
             SettingsRow(
-                title = stringResource(R.string.settings_spam_open_rules),
-                summary = stringResource(R.string.settings_spam_open_rules_body),
+                title = stringResource(R.string.settings_block_umessage_title),
+                summary = stringResource(R.string.settings_block_umessage_body),
                 onClick = actions.onOpenRules,
                 showChevron = true,
             )

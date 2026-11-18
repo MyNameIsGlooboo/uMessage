@@ -71,6 +71,7 @@
     <string name="sks_screenshots">screenshot tangkapan layar perekaman layar rekam blokir privasi</string>
     <string name="sks_lock_change">ubah PIN sandi baru kredensial reset</string>
     <string name="sks_lock_now">kunci sekarang langsung tutup amankan</string>
+    <string name="sks_setup">Penyiapan izin aplikasi SMS default kontak notifikasi baterai latar belakang izinkan akses</string>
     <string name="sks_about">tentang versi info aplikasi sumber lisensi lisensi</string>
     <string name="sks_privacy">privasi internet offline izin data pelacakan aman</string>
     <string name="sks_version">versi build nomor rilis pembaruan salin</string>

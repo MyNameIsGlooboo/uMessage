@@ -23,6 +23,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -61,7 +62,6 @@ import com.glooboo.umessage.ui.labels.rememberInboxLabels
 import com.glooboo.umessage.ui.lock.BlockedLockGate
 import com.glooboo.umessage.ui.scheduled.rememberScheduledCount
 import com.glooboo.umessage.ui.spam.BlockedRoute
-import com.glooboo.umessage.ui.spam.ContactsOffBanner
 
 /** CL-13, N11: the inbox filters; the search page's tiles turn one on ([SearchFilterTile]). */
 enum class InboxFilter { All, Unread, Codes, Transactions, Offers, Unknown, Starred, Images, Links, Label, Sim }
@@ -312,13 +312,17 @@ private fun MessagesTab(
 
     // B10: the card is the list's first item, so it scrolls away instead of holding half the screen.
     // U03: one at a time.
+    var cardsAnswered by remember { mutableIntStateOf(0) }
+    val inboxCard = rememberInboxCard(state.newBlockedCount, cardsAnswered)
     val header: @Composable () -> Unit = {
         if (!selecting) {
             InboxCardSlot(
+                card = inboxCard,
                 newBlocked = state.newBlockedCount,
                 forwardRuleCount = forwardRuleCount,
                 onOpenBlockedTab = onOpenBlockedTab,
                 onOpenForwarding = navigation.onManageForwardRules,
+                onDone = { cardsAnswered++ },
             )
         }
     }
@@ -355,8 +359,7 @@ private fun MessagesTab(
                     },
                 )
                 // A warning to act on stays in view.
-                NotificationsOffBanner()
-                ContactsOffBanner()
+                InboxBanners(checklistShowing = inboxCard == InboxCard.Checklist)
             }
             // One chip under the bar while a filter is on; it sits above the list, not in it, so it never scrolls off.
             ActiveFilterBar(

@@ -59,7 +59,6 @@
     <string name="e_migrate_point_blocked">• Ihre Nachrichten landen unter „Spam“. Dort kannst du sie lesen und wiederherstellen.</string>
     <string name="e_migrate_point_android">• Android verwirft ihre Nachrichten weiterhin, bis die Nummern aus seiner Liste entfernt werden.</string>
     <string name="e_migrate_calls_note">Die Android-Liste blockiert auch Anrufe. Nummern, die du daraus entfernst, können dich wieder anrufen.</string>
-    <string name="e_bn_unknown_body">Gilt nur, wenn „Unbekannte Absender“ auf „Aus“ steht.</string>
     <string name="e_bn_row_calls_texts">Blockiert Anrufe und Nachrichten</string>
     <string name="e_bn_row_short_code">Kurzwahl: Ihre Nachrichten erreichen uMessage nie</string>
     <string name="e_bn_move_one">In uMessage-Regeln übernehmen</string>

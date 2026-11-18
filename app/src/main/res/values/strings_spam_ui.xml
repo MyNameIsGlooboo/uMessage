@@ -56,7 +56,5 @@
     <string name="blocknum_empty_body">Blocked numbers can\'t message or call you. This list is shared with your phone app.</string>
     <string name="blocknum_unavailable_title">Block list not available</string>
     <string name="blocknum_unavailable_body">Make uMessage your default SMS app to see and change the system block list.</string>
-    <string name="blocknum_unknown_title">Block unknown numbers</string>
-    <string name="blocknum_contacts_denied">Without contacts access, unknown numbers can\'t be recognized</string>
     <string name="blocknum_section_numbers">Numbers</string>
 </resources>

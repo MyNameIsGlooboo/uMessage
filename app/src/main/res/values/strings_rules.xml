@@ -19,13 +19,6 @@
     </plurals>
 
     <!-- SU-33: the old Fossify block lists, shown and moved here -->
-    <string name="rules_legacy_banner_review">Review</string>
-    <string name="rules_legacy_banner_not_now">Not now</string>
-    <string name="rules_legacy_section_keywords">Old blocked words list</string>
-    <string name="rules_legacy_section_keywords_body">Still used for filtering until you move these words into rules. The old list is then retired.</string>
-    <string name="rules_legacy_chip_old_list">Old list</string>
-    <string name="rules_legacy_chip_system">System, also calls</string>
-    <string name="rules_legacy_move">Move to rules</string>
 
     <string name="rules_migrate_nothing">Everything on the older lists is already in your rules.</string>
     <plurals name="rules_migrate_keywords">
@@ -67,5 +60,5 @@
 
     <!-- SU-33: settings rows for the older lists -->
     <string name="settings_old_blocked_words">Old blocked words list</string>
-    <string name="settings_old_blocked_words_body">Moving to Rules</string>
+    <string name="settings_old_blocked_words_body">Words that cannot be rules</string>
 </resources>

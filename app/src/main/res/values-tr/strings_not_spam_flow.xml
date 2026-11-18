@@ -2,5 +2,9 @@
 <resources>
     <string name="nsf_snack_moved">Gelen kutusuna taşındı</string>
     <string name="nsf_snack_moved_allowed">Gelen kutusuna taşındı. %1$s numarasından gelecek iletiler de ulaşacak.</string>
+    <plurals name="nsf_snack_moved_allowed_many">
+        <item quantity="one">Gelen kutusuna taşındı. %d gönderenden gelecek mesajlar da ulaşacak.</item>
+        <item quantity="other">Gelen kutusuna taşındı. %d gönderenden gelecek mesajlar da ulaşacak.</item>
+    </plurals>
     <string name="nsf_moving">Gelen kutusuna taşınıyor</string>
 </resources>

@@ -35,13 +35,9 @@
     <string name="screens_new_group_remove">นำ %1$s ออก</string>
     <string name="screens_new_group_selected">เลือกแล้ว</string>
     <string name="screens_details_edit_name">แก้ไขชื่อการสนทนา</string>
-    <string name="screens_keywords_add">เพิ่มคำหลัก</string>
     <string name="screens_keywords_menu_export">ส่งออก</string>
-    <string name="screens_keywords_menu_import">นำเข้า</string>
-    <string name="screens_keywords_edit">แก้ไข</string>
-    <string name="screens_keywords_duplicate">มีคำหลักนี้ในรายการแล้ว</string>
-    <string name="screens_keywords_help">ตรวจหาข้อความที่ตรงกันทุกตำแหน่ง แม้อยู่ในคำที่ยาวกว่า โดยไม่แยกตัวพิมพ์ใหญ่หรือเล็ก</string>
     <string name="screens_keywords_empty_title">ไม่มีคำหลักที่บล็อก</string>
+    <string name="screens_keywords_empty_body">ตอนนี้คำที่บล็อกไว้เป็นกฎแล้ว</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="other">ลบคำหลักแล้ว %d คำ</item>
     </plurals>

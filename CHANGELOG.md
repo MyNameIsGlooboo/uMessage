@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Changed
+- Settings has two block lists: the Android list and the uMessage rules
+- The "Block unknown numbers" switch is folded into the Unknown senders mode (Off with the switch on became Strict)
+- Old blocked words are moved into rules automatically
+- The old blocked words screen is only for viewing, deleting and exporting what is left
+- With Smart or Strict, the old "Block unknown numbers" switch is dropped, so choosing Off now really is Off
+
 ## [0.4.12] - 2026-11-17
 ### Fixed
 - A first password of 9-10 digits next to a password word (for example "رمز شخصی شما 1261894390") is a code now, so it no longer goes to Spam

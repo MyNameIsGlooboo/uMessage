@@ -62,11 +62,8 @@
     <plurals name="delete_messages">
         <item quantity="other">메시지 %d건</item>
     </plurals>
-    <string name="keyword">키워드</string>
     <string name="blocked_keywords">차단 키워드</string>
     <string name="manage_blocked_keywords">차단 키워드 관리</string>
-    <string name="not_blocking_keywords">차단 중인 키워드가 없어요. 여기에 키워드를 추가하면 해당 키워드가 포함된 모든 메시지를 차단해요.</string>
-    <string name="add_a_blocked_keyword">차단 키워드 추가</string>
     <string name="lock_screen_visibility">잠금 화면 알림 표시 내용</string>
     <string name="sender_and_message">발신자 및 메시지</string>
     <string name="sender_only">발신자만</string>
@@ -151,4 +148,5 @@
     <string name="faq_4_text">앱 설정에서 \"그룹 메시지를 MMS 형식으로 전송\"을 켜야 해요. 그러면 그룹 메시지가 MMS 형식으로 전송되어 모든 참여자가 서로의 답장을 볼 수 있어요.</string>
     <string name="play">재생</string>
     <string name="pause">일시정지</string>
+    <string name="group_recipient_invalid">전화번호나 이메일 주소를 입력해요.</string>
 </resources>

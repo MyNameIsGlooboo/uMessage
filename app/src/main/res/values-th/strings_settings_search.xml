@@ -71,6 +71,7 @@
     <string name="sks_screenshots">ภาพหน้าจอ บันทึกหน้าจอ จับภาพ บล็อก ความเป็นส่วนตัว</string>
     <string name="sks_lock_change">เปลี่ยน PIN รหัสผ่าน ใหม่ ข้อมูลเข้าสู่ระบบ รีเซ็ต</string>
     <string name="sks_lock_now">ล็อก ตอนนี้ ทันที ปิด ปลอดภัย</string>
+    <string name="sks_setup">ตั้งค่า สิทธิ์ แอป SMS เริ่มต้น รายชื่อติดต่อ การแจ้งเตือน แบตเตอรี่ การทำงานเบื้องหลัง อนุญาต เข้าถึง</string>
     <string name="sks_about">เกี่ยวกับ เวอร์ชัน ข้อมูล แอป ซอร์ส ใบอนุญาต ใบอนุญาต</string>
     <string name="sks_privacy">ความเป็นส่วนตัว อินเทอร์เน็ต ออฟไลน์ สิทธิ์ ข้อมูล การติดตาม ปลอดภัย</string>
     <string name="sks_version">เวอร์ชัน บิลด์ หมายเลข รุ่น อัปเดต คัดลอก</string>

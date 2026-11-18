@@ -7,4 +7,5 @@
     <string name="notifications_off_title">通知已關閉</string>
     <string name="notifications_off_body">你不會收到新訊息的通知。</string>
     <string name="notifications_off_fix">開啟</string>
+    <string name="notifications_off_dismiss">暫時不要</string>
 </resources>

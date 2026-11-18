@@ -59,7 +59,6 @@
     <string name="e_migrate_point_blocked">• Mesajları Spam\'e gider. Burada mesajları okuyabilir ve geri yükleyebilirsiniz.</string>
     <string name="e_migrate_point_android">• Android listesinden çıkarılana kadar bu numaraların mesajları Android tarafından silinmeye devam eder.</string>
     <string name="e_migrate_calls_note">Android listesi aramaları da engeller. Listeden çıkardığınız numaralar sizi yeniden arayabilir.</string>
-    <string name="e_bn_unknown_body">Yalnızca Bilinmeyen gönderenler ayarı Kapalı olduğunda geçerlidir.</string>
     <string name="e_bn_row_calls_texts">Aramaları ve mesajları engeller</string>
     <string name="e_bn_row_short_code">Kısa numara: Mesajları uMessage\'a hiç ulaşmaz</string>
     <string name="e_bn_move_one">uMessage kurallarına taşıyın</string>

@@ -55,18 +55,15 @@ class BlockedRulesRecheckUiTest {
     }
 
     @Test
-    fun androidBlockListRowsNameTheirTypeOnce() {
-        // BR-25: the icon says "Number"; no chip repeats it.
+    fun theRulesScreenDoesNotRepeatTheAndroidList() {
         val number = "+447120000000"
         val state = RulesUiState(
             loading = false,
             tab = ListKind.BLOCK,
-            legacy = LegacyLists(numbers = listOf(BlockedNumberItem(5, number)), offerDismissed = true),
+            legacy = LegacyLists(numbers = listOf(BlockedNumberItem(5, number))),
         )
         compose.setContent { UMessageTheme { RulesScreen(state, SnackbarHostState(), RulesActions()) } }
-        val row = hasText(shown(number)) and hasText(str(R.string.rules_legacy_chip_system))
-        compose.onNode(row).assertExists()
-        compose.onNode(row and hasText(str(R.string.spam_type_number))).assertDoesNotExist()
+        compose.onNodeWithText(shown(number)).assertDoesNotExist()
     }
 
     @Test

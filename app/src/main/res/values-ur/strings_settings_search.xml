@@ -71,6 +71,7 @@
     <string name="sks_screenshots">اسکرین شاٹس اسکرین ریکارڈنگ کیپچر بلاک رازداری</string>
     <string name="sks_lock_change">تبدیل PIN پاس ورڈ نیا اسناد ری سیٹ</string>
     <string name="sks_lock_now">ابھی لاک فوراً بند محفوظ</string>
+    <string name="sks_setup">سیٹ اپ اجازتیں ڈیفالٹ SMS ایپ رابطے اطلاعات بیٹری پس منظر اجازت رسائی</string>
     <string name="sks_about">معلومات ورژن تفصیل ایپ سورس لائسنس</string>
     <string name="sks_privacy">رازداری انٹرنیٹ آف لائن اجازت ڈیٹا ٹریکنگ محفوظ</string>
     <string name="sks_version">ورژن بلڈ نمبر ریلیز اپ ڈیٹ کاپی</string>

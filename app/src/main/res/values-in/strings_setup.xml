@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">Penyiapan dan izin</string>
+    <string name="setup_group_title">Penyiapan</string>
+    <string name="setup_row_summary">Periksa kebutuhan uMessage dan lengkapi yang kurang</string>
+    <string name="setup_intro">Status setiap baris dibaca dari Android setiap kali halaman ini dibuka.</string>
+    <string name="setup_all_set">Semua yang diperlukan sudah aktif</string>
+    <string name="setup_optional_left">Semua yang diperlukan sudah aktif. Tersisa satu langkah opsional.</string>
+    <string name="setup_battery_card_title">Izinkan uMessage berjalan di latar belakang</string>
+    <string name="setup_checklist_title_count">%1$s dari %2$s selesai</string>
+    <string name="setup_some_open">Masih ada yang perlu Anda atur</string>
+    <string name="setup_group_permissions">Izin</string>
+    <string name="setup_status_optional">Opsional, belum diatur</string>
+    <string name="setup_status_unknown">Android tidak dapat memastikan. Buka dan periksa.</string>
+    <string name="setup_action_allow">Izinkan</string>
+    <string name="setup_battery_banner_title">Pastikan uMessage tetap berjalan</string>
+    <string name="setup_battery_banner_body">Ponsel Anda mungkin menghentikan uMessage di latar belakang sehingga pesan baru terlambat masuk.</string>
+    <string name="setup_battery_banner_action">Perbaiki</string>
+    <string name="setup_banner_dismiss">Nanti saja</string>
+    <string name="setup_checklist_step_contacts">Izinkan akses kontak</string>
+    <string name="setup_checklist_step_battery">Opsional: izinkan uMessage berjalan di latar belakang</string>
+</resources>

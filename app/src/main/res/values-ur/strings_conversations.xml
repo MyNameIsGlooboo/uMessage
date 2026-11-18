@@ -42,6 +42,15 @@
         <item quantity="one">%d گفتگو حذف کر دی گئی</item>
         <item quantity="other">%d گفتگو حذف کر دی گئیں</item>
     </plurals>
+    <plurals name="convlist_delete_confirm_title">
+        <item quantity="one">%d گفتگو حذف کریں؟</item>
+        <item quantity="other">%d گفتگوئیں حذف کریں؟</item>
+    </plurals>
+    <plurals name="convlist_delete_confirm_message">
+        <item quantity="one">یہ گفتگو اور اس کے تمام پیغامات اس فون سے حذف ہو جائیں گے۔ اس کے بعد چند سیکنڈ تک آپ انہیں واپس کر سکتے ہیں۔</item>
+        <item quantity="other">یہ گفتگوئیں اور ان کے تمام پیغامات اس فون سے حذف ہو جائیں گے۔ اس کے بعد چند سیکنڈ تک آپ انہیں واپس کر سکتے ہیں۔</item>
+    </plurals>
+    <string name="convlist_block_contact_message">%1$s آپ کے رابطوں میں ہے۔ اس بھیجنے والے کو بلاک کریں؟ اس کے نئے پیغامات آپ کے ان باکس کے بجائے بلاک شدہ پیغامات میں جائیں گے۔ آپ فوراً بعد اسے واپس کر سکتے ہیں۔</string>
     <plurals name="convlist_archived">
         <item quantity="one">%d گفتگو آرکائیو کر دی گئی</item>
         <item quantity="other">%d گفتگو آرکائیو کر دی گئیں</item>

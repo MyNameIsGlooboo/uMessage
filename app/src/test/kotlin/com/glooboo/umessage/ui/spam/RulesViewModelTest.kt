@@ -323,15 +323,13 @@ class RulesViewModelTest {
     // region SU-33: the old block lists
 
     private class Legacy(var keywords: MutableList<String>, var numbers: MutableList<BlockedNumberItem>) : LegacyBlockStore {
-        var dismissed = false
         val removedSystemIds = mutableListOf<Long>()
-        override fun load() = LegacyLists(keywords.toList(), numbers.toList(), dismissed)
+        override fun load() = LegacyLists(keywords.toList(), numbers.toList())
         override fun removeKeywords(keywords: Collection<String>) { this.keywords.removeAll(keywords.toSet()) }
         override fun removeSystemNumber(id: Long): Boolean {
             removedSystemIds += id
             return numbers.removeAll { it.id == id }
         }
-        override fun setOfferDismissed(dismissed: Boolean) { this.dismissed = dismissed }
     }
 
     private lateinit var legacy: Legacy
@@ -342,20 +340,27 @@ class RulesViewModelTest {
         vm = RulesViewModel(app, repo, legacy)
         scope.launch { vm.state.collect { } }
         scope.launch { vm.eventFlow.collect { events += it } }
-        awaitUntil { !vm.state.value.loading && !vm.state.value.legacy.offerDismissed }
+        awaitUntil { !vm.state.value.loading }
     }
 
     @Test
-    fun oldListsAreShownReadOnlyWithABannerUntilMoved() {
-        startWithLegacy(keywords = listOf("lottery"), numbers = listOf(BlockedNumberItem(5, "+447120000000")))
-        val state = vm.state.value
-        assertThat(state.showLegacyBanner).isTrue()
-        assertThat(state.visibleLegacyKeywords).containsExactly("lottery")
-        assertThat(state.visibleLegacyNumbers.map { it.id }).containsExactly(5L)
-        vm.setQuery("0712000")
+    fun theRulesScreenStateOnlyCarriesTheRulesAndReadsTheOldListsOnlyForTheMoveDialog() {
+        // Option A: the old lists live on the Android block list screen; the Rules screen lists only rules.
+        startWithLegacy(
+            rules = listOf(SpamRule(kind = ListKind.BLOCK, type = RuleType.KEYWORD, pattern = "promo")),
+            keywords = listOf("lottery"),
+            numbers = listOf(BlockedNumberItem(5, "+447120000000")),
+        )
+        vm.selectTab(ListKind.BLOCK)
         idleMain()
-        assertThat(vm.state.value.visibleLegacyKeywords).isEmpty()
-        assertThat(vm.state.value.visibleLegacyNumbers).hasSize(1)
+        val state = vm.state.value
+        assertThat(state.visible.map { it.pattern }).containsExactly("promo")
+        // Opening the Rules screen does not read the old lists (the Android block list is not queried every time).
+        assertThat(state.legacy.isEmpty).isTrue()
+        // The move dialog reads them, for the Android block list screen.
+        openMigrationFresh()
+        assertThat(vm.state.value.legacy.keywords).containsExactly("lottery")
+        assertThat(vm.state.value.legacy.numbers.map { it.id }).containsExactly(5L)
     }
 
     @Test
@@ -364,7 +369,7 @@ class RulesViewModelTest {
             keywords = listOf("lottery", "x"),
             numbers = listOf(BlockedNumberItem(5, "+447120000000")),
         )
-        vm.openMigration()
+        openMigrationFresh()
         idleMain()
         val plan = vm.state.value.migration!!.plan
         assertThat(plan.keywordRules.map { it.second.pattern }).containsExactly("lottery")
@@ -383,7 +388,6 @@ class RulesViewModelTest {
         assertThat(legacy.keywords).containsExactly("x")
         assertThat(legacy.numbers).hasSize(1)
         assertThat(legacy.removedSystemIds).isEmpty()
-        assertThat(legacy.dismissed).isTrue()
         assertThat(events.filterIsInstance<RulesEvent.Migrated>().single())
             .isEqualTo(RulesEvent.Migrated(keywords = 1, numbers = 0, removedFromSystem = 0, kept = 1))
     }
@@ -404,7 +408,7 @@ class RulesViewModelTest {
             keywords = emptyList(),
             numbers = listOf(BlockedNumberItem(5, "+447120000000"), BlockedNumberItem(6, "+44735*"), BlockedNumberItem(7, "+44*12*")),
         )
-        vm.openMigration()
+        openMigrationFresh()
         vm.setMigrateNumbers(true)
         vm.setRemoveFromSystem(true)
         idleMain()
@@ -426,22 +430,17 @@ class RulesViewModelTest {
     fun aFailedRuleKeepsItsOldEntry() {
         startWithLegacy(keywords = listOf("lottery"), numbers = listOf(BlockedNumberItem(5, "+447120000000")))
         repo.failAdds = true
-        vm.openMigration()
+        openMigrationFresh()
         vm.setMigrateNumbers(true)
         vm.setRemoveFromSystem(true)
         vm.confirmMigration()
         awaitUntil { events.any { it is RulesEvent.Migrated } }
         assertThat(legacy.keywords).containsExactly("lottery")
+        assertThat(legacy.numbers.map { it.id }).containsExactly(5L)
         assertThat(legacy.removedSystemIds).isEmpty()
-    }
-
-    @Test
-    fun notNowHidesTheBannerButKeepsTheOldEntriesVisible() {
-        startWithLegacy(keywords = listOf("lottery"), numbers = emptyList())
-        vm.dismissLegacyBanner()
-        awaitUntil { legacy.dismissed }
-        assertThat(vm.state.value.showLegacyBanner).isFalse()
-        assertThat(vm.state.value.visibleLegacyKeywords).containsExactly("lottery")
+        assertThat(repo.rulesState.value).isEmpty()
+        assertThat(events.filterIsInstance<RulesEvent.Migrated>().single())
+            .isEqualTo(RulesEvent.Migrated(keywords = 0, numbers = 0, removedFromSystem = 0, kept = 2))
     }
 
     // endregion
@@ -492,7 +491,7 @@ class RulesViewModelTest {
     @Test
     fun migratedRulesGetNoteCodesNotWords() {
         startWithLegacy(keywords = listOf("lottery"), numbers = emptyList())
-        vm.openMigration()
+        openMigrationFresh()
         idleMain()
         val rule = vm.state.value.migration!!.plan.keywordRules.single().second
         assertThat(rule.note).isEqualTo(RuleNotes.OLD_WORD_LIST)
@@ -521,6 +520,12 @@ class RulesViewModelTest {
     }
 
     // endregion
+
+    /** Reads the old lists and opens the move dialog, as the Android block list page does. */
+    private fun openMigrationFresh() {
+        vm.openMigrationFresh()
+        awaitUntil { vm.state.value.migration != null }
+    }
 
     private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()
 

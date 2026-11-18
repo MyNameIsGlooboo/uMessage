@@ -17,6 +17,14 @@
     <string name="i29_edit_title">لیبل میں ترمیم کریں</string>
     <string name="i29_edit_name">لیبل کا نام</string>
     <string name="i29_edit_save">محفوظ کریں</string>
+    <string name="i29_color_red">لال</string>
+    <string name="i29_color_orange">نارنجی</string>
+    <string name="i29_color_yellow">پیلا</string>
+    <string name="i29_color_green">ہرا</string>
+    <string name="i29_color_teal">سبزی مائل نیلا</string>
+    <string name="i29_color_blue">نیلا</string>
+    <string name="i29_color_purple">جامنی</string>
+    <string name="i29_color_brown">بھورا</string>
     <string name="i29_color_description">رنگ %1$d</string>
     <string name="i29_error_duplicate">اس نام کا لیبل آپ کے پاس پہلے سے موجود ہے۔</string>
     <string name="i29_error_limit">آپ زیادہ سے زیادہ %1$d لیبلز رکھ سکتے ہیں۔</string>

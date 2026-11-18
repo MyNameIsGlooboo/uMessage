@@ -55,7 +55,6 @@
     <string name="e_migrate_point_blocked">•メッセージは「迷惑メッセージ」に届き、読むことも復元することもできます。</string>
     <string name="e_migrate_point_android">•Androidのリストから削除するまでは、メッセージは引き続きAndroidによって破棄されます。</string>
     <string name="e_migrate_calls_note">Androidのリストは着信もブロックします。リストから削除した番号からは、再び着信できるようになります。</string>
-    <string name="e_bn_unknown_body">「不明な送信者」がオフのときのみ適用されます。</string>
     <string name="e_bn_row_calls_texts">着信とメッセージをブロック</string>
     <string name="e_bn_row_short_code">ショートコード：メッセージはuMessageに届きません。</string>
     <string name="e_bn_move_one">uMessageのルールに移行</string>

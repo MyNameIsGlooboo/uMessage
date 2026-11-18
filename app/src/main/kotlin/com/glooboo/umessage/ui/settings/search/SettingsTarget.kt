@@ -16,6 +16,7 @@ enum class SettingsTarget(private val page: SettingsPage? = null) {
     BACKUP(SettingsPage.Backup),
     APP_LOCK(SettingsPage.AppLock),
     ABOUT(SettingsPage.About),
+    SETUP(SettingsPage.Setup),
     LICENSES(SettingsPage.Licenses),
 
     /** The Appearance screen (theme, colours, text size, font, calendar). */

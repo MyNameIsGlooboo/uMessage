@@ -114,6 +114,18 @@ class W3cPrefs private constructor(
         get() = prefs.getBoolean(KEY_FIRST_BLOCK_SHOWN, false)
         set(value) = prefs.edit { putBoolean(KEY_FIRST_BLOCK_SHOWN, value) }
 
+    /** When the first-day checklist card was first shown (epoch millis); 0 until then. */
+    var checklistFirstShown: Long
+        get() = prefs.getLong(KEY_CHECKLIST_FIRST_SHOWN, 0L)
+        set(value) = prefs.edit { putLong(KEY_CHECKLIST_FIRST_SHOWN, value) }
+
+    /** Permissions the app has asked for at least once: a later refusal with no rationale is "don't ask again". */
+    val askedPermissions: Set<String>
+        get() = prefs.getStringSet(KEY_ASKED_PERMISSIONS, null).orEmpty().toSet()
+
+    fun markPermissionsAsked(permissions: Collection<String>) =
+        prefs.edit { putStringSet(KEY_ASKED_PERMISSIONS, askedPermissions + permissions) }
+
     /** I36: unread conversations come first in the inbox, after the pinned ones. */
     var unreadFirst: Boolean
         get() = prefs.getBoolean(KEY_UNREAD_FIRST, false)
@@ -136,6 +148,8 @@ class W3cPrefs private constructor(
         private const val KEY_BLOCKED_VISITED = "blocked_tab_visited"
         private const val KEY_FIRST_BLOCK_SHOWN = "first_block_receipt_shown"
         private const val KEY_UNREAD_FIRST = "unread_first"
+        private const val KEY_CHECKLIST_FIRST_SHOWN = "checklist_first_shown"
+        private const val KEY_ASKED_PERMISSIONS = "asked_permissions"
 
         fun get(context: Context): W3cPrefs {
             val app = context.applicationContext

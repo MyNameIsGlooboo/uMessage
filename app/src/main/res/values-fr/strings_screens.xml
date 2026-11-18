@@ -36,13 +36,9 @@
     <string name="screens_new_group_remove">Retirer %1$s</string>
     <string name="screens_new_group_selected">Sélectionné</string>
     <string name="screens_details_edit_name">Modifier le nom de la conversation</string>
-    <string name="screens_keywords_add">Ajouter un mot-clé</string>
     <string name="screens_keywords_menu_export">Exporter</string>
-    <string name="screens_keywords_menu_import">Importer</string>
-    <string name="screens_keywords_edit">Modifier</string>
-    <string name="screens_keywords_duplicate">Ce mot-clé figure déjà dans la liste</string>
-    <string name="screens_keywords_help">Détecte le texte partout dans un message, même dans un mot plus long. Les majuscules et minuscules ne font aucune différence.</string>
     <string name="screens_keywords_empty_title">Aucun mot-clé bloqué</string>
+    <string name="screens_keywords_empty_body">Vos mots bloqués sont désormais des règles</string>
     <plurals name="screens_keywords_deleted" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d mot-clé supprimé</item>
         <item quantity="other">%d mots-clés supprimés</item>

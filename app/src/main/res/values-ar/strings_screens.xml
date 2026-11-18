@@ -40,13 +40,9 @@
     <string name="screens_new_group_remove">أزل %1$s</string>
     <string name="screens_new_group_selected">محدّد</string>
     <string name="screens_details_edit_name">عدّل اسم المحادثة</string>
-    <string name="screens_keywords_add">أضف كلمة رئيسية</string>
     <string name="screens_keywords_menu_export">صدّر</string>
-    <string name="screens_keywords_menu_import">استورد</string>
-    <string name="screens_keywords_edit">عدّل</string>
-    <string name="screens_keywords_duplicate">هذه الكلمة الرئيسية موجودة في القائمة</string>
-    <string name="screens_keywords_help">يطابق النص في أي موضع من الرسالة، حتى داخل كلمة أطول. لا فرق بين الأحرف الكبيرة والصغيرة.</string>
     <string name="screens_keywords_empty_title">لا توجد كلمات رئيسية محظورة</string>
+    <string name="screens_keywords_empty_body">أصبحت كلماتك المحظورة قواعد الآن</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="zero">تم حذف %d كلمات رئيسية</item>
         <item quantity="one">تم حذف كلمة رئيسية واحدة (%d)</item>

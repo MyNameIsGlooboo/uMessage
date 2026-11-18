@@ -2,5 +2,8 @@
 <resources>
     <string name="nsf_snack_moved">ย้ายไปกล่องข้อความเข้าแล้ว</string>
     <string name="nsf_snack_moved_allowed">ย้ายไปกล่องข้อความเข้าแล้ว ข้อความถัดไปจาก %1$s จะเข้ามาด้วย</string>
+    <plurals name="nsf_snack_moved_allowed_many">
+        <item quantity="other">ย้ายไปกล่องข้อความเข้าแล้ว ข้อความต่อไปจากผู้ส่ง %d รายจะเข้ากล่องข้อความเข้าด้วย</item>
+    </plurals>
     <string name="nsf_moving">กำลังย้ายไปกล่องข้อความเข้า</string>
 </resources>

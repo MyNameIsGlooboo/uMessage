@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="nsf_snack_moved">ইনবক্সে সরানো হয়েছে</string>
     <string name="nsf_snack_moved_allowed">ইনবক্সে সরানো হয়েছে। %1$s-এর পরবর্তী বার্তাও আসবে।</string>
+    <plurals name="nsf_snack_moved_allowed_many" tools:ignore="ImpliedQuantity">
+        <item quantity="one">ইনবক্সে সরানো হয়েছে। এই %d জন প্রেরকের পরের বার্তাগুলোও আসবে।</item>
+        <item quantity="other">ইনবক্সে সরানো হয়েছে। এই %d জন প্রেরকের পরের বার্তাগুলোও আসবে।</item>
+    </plurals>
     <string name="nsf_moving">ইনবক্সে সরানো হচ্ছে</string>
 </resources>

@@ -5,7 +5,7 @@
     <string name="settings_nav_group_privacy_about">निजता और ऐप के बारे में</string>
     <string name="settings_nav_spam_row">स्पैम से सुरक्षा</string>
     <string name="settings_nav_spam_page_title">स्पैम से सुरक्षा</string>
-    <string name="settings_nav_android_block_list_body">कॉल भी ब्लॉक करती है</string>
+    <string name="settings_nav_android_block_list_body">कॉल भी ब्लॉक करता है. मैसेज मिटा दिए जाते हैं, स्पैम में नहीं रखे जाते.</string>
     <string name="settings_nav_decision_log">इसे ब्लॉक क्यों किया गया?</string>
     <string name="settings_nav_decision_log_body">अनुमति देने और ब्लॉक करने के फ़ैसलों का रिकॉर्ड</string>
     <string name="settings_nav_forwarded_tab">फ़ॉरवर्ड किए गए का टैब दिखाएं</string>

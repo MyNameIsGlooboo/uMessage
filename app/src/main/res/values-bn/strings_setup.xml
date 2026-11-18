@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">সেটআপ ও অনুমতি</string>
+    <string name="setup_group_title">সেটআপ</string>
+    <string name="setup_row_summary">uMessage-এর কী দরকার দেখুন এবং যা বাকি আছে ঠিক করুন</string>
+    <string name="setup_intro">আপনি প্রতিবার এই পৃষ্ঠা খুললে প্রতিটি লাইনের তথ্য Android থেকে নেওয়া হয়।</string>
+    <string name="setup_all_set">প্রয়োজনীয় সবকিছু চালু আছে</string>
+    <string name="setup_optional_left">প্রয়োজনীয় সবকিছু চালু আছে। আর একটি ঐচ্ছিক ধাপ বাকি।</string>
+    <string name="setup_battery_card_title">uMessage-কে ব্যাকগ্রাউন্ডে চলতে দিন</string>
+    <string name="setup_checklist_title_count">%2$sটির মধ্যে %1$sটি সম্পন্ন</string>
+    <string name="setup_some_open">আরও কিছু কাজ আপনাকে করতে হবে</string>
+    <string name="setup_group_permissions">অনুমতি</string>
+    <string name="setup_status_optional">ঐচ্ছিক, সেট করা হয়নি</string>
+    <string name="setup_status_unknown">Android জানাতে পারছে না। খুলে দেখুন।</string>
+    <string name="setup_action_allow">অনুমতি দিন</string>
+    <string name="setup_battery_banner_title">uMessage চালু রাখুন</string>
+    <string name="setup_battery_banner_body">আপনার ফোন ব্যাকগ্রাউন্ডে uMessage বন্ধ করে দিতে পারে, ফলে নতুন বার্তা আসতে দেরি হতে পারে।</string>
+    <string name="setup_battery_banner_action">ঠিক করুন</string>
+    <string name="setup_banner_dismiss">এখন নয়</string>
+    <string name="setup_checklist_step_contacts">পরিচিতির অনুমতি দিন</string>
+    <string name="setup_checklist_step_battery">ঐচ্ছিক: uMessage-কে ব্যাকগ্রাউন্ডে চলতে দিন</string>
+</resources>

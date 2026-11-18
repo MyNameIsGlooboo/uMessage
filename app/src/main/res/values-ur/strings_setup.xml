@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">سیٹ اپ اور اجازتیں</string>
+    <string name="setup_group_title">سیٹ اپ</string>
+    <string name="setup_row_summary">دیکھیں کہ uMessage کو کیا چاہیے اور جو کمی ہو اسے پورا کریں</string>
+    <string name="setup_intro">جب بھی آپ یہ صفحہ کھولتے ہیں، ہر سطر کی معلومات Android سے لی جاتی ہیں۔</string>
+    <string name="setup_all_set">تمام ضروری چیزیں آن ہیں</string>
+    <string name="setup_optional_left">تمام ضروری سیٹنگز آن ہیں۔ ایک اختیاری مرحلہ باقی ہے۔</string>
+    <string name="setup_battery_card_title">uMessage کو پس منظر میں چلنے دیں</string>
+    <string name="setup_checklist_title_count">%2$s میں سے %1$s مکمل</string>
+    <string name="setup_some_open">کچھ چیزوں پر ابھی آپ کی توجہ درکار ہے</string>
+    <string name="setup_group_permissions">اجازتیں</string>
+    <string name="setup_status_optional">اختیاری، سیٹ نہیں ہے</string>
+    <string name="setup_status_unknown">Android بتا نہیں سکتا۔ کھول کر چیک کریں۔</string>
+    <string name="setup_action_allow">اجازت دیں</string>
+    <string name="setup_battery_banner_title">uMessage کو چلتے رہنے دیں</string>
+    <string name="setup_battery_banner_body">آپ کا فون پس منظر میں uMessage کو روک سکتا ہے، جس سے نئے پیغامات دیر سے آ سکتے ہیں۔</string>
+    <string name="setup_battery_banner_action">ٹھیک کریں</string>
+    <string name="setup_banner_dismiss">ابھی نہیں</string>
+    <string name="setup_checklist_step_contacts">رابطوں تک رسائی کی اجازت دیں</string>
+    <string name="setup_checklist_step_battery">اختیاری: uMessage کو پس منظر میں چلنے دیں</string>
+</resources>

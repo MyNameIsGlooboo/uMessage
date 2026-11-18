@@ -71,6 +71,7 @@
     <string name="sks_screenshots">截图 录屏 截屏 屏蔽 隐私</string>
     <string name="sks_lock_change">更改 PIN 密码 新凭据 重置</string>
     <string name="sks_lock_now">锁定 现在 立即 关闭 安全</string>
+    <string name="sks_setup">设置、权限、默认短信应用、联系人、通知、电池、后台、允许、访问</string>
     <string name="sks_about">关于 版本 信息 应用 源代码 许可证 许可证</string>
     <string name="sks_privacy">隐私 互联网 离线 权限 数据 跟踪 安全</string>
     <string name="sks_version">版本 构建号 发布 更新 复制</string>

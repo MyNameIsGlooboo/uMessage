@@ -7,6 +7,7 @@
     <string name="onb_finish">利用開始</string>
     <string name="onb_welcome_title">uMessageへようこそ</string>
     <string name="onb_welcome_intro">迷惑メッセージを減らして、もっと快適に。</string>
+    <string name="onb_welcome_demo_desc">知り合いからのメッセージは受信トレイに、知らない相手からのメッセージは迷惑メッセージに振り分けられ、認証コードは引き続き受信トレイに届きます。</string>
     <string name="onb_welcome_spam">迷惑メッセージをブロック</string>
     <string name="onb_welcome_spam_desc">不明な送信者からのメッセージは「迷惑メッセージ」に保存され、失われません。</string>
     <string name="onb_welcome_codes">ワンタップで認証コードをコピー</string>

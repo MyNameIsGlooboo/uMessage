@@ -55,7 +55,6 @@
     <string name="e_migrate_point_blocked">• Tin nhắn từ các số này sẽ vào mục Tin rác để bạn đọc và khôi phục.</string>
     <string name="e_migrate_point_android">• Android vẫn loại bỏ tin nhắn từ các số này cho đến khi chúng được xóa khỏi danh sách của Android.</string>
     <string name="e_migrate_calls_note">Danh sách của Android cũng chặn cuộc gọi. Các số bạn xóa khỏi danh sách có thể gọi lại cho bạn.</string>
-    <string name="e_bn_unknown_body">Chỉ áp dụng khi mục Người gửi không xác định được đặt thành Tắt.</string>
     <string name="e_bn_row_calls_texts">Chặn cuộc gọi và tin nhắn</string>
     <string name="e_bn_row_short_code">Số ngắn: uMessage không bao giờ nhận được tin nhắn từ số này</string>
     <string name="e_bn_move_one">Chuyển vào quy tắc uMessage</string>

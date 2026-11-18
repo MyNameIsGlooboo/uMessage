@@ -6,8 +6,10 @@
     <string name="settings_spam_stats">أُوقف %1$d خلال آخر 7 أيام، و%2$d إجمالًا، واستُعيد %3$d</string>
     <string name="settings_spam_open_settings">إعدادات الرسائل غير المرغوب فيها</string>
     <string name="settings_spam_open_settings_body">الوضع ومدة الاحتفاظ والتنبيهات</string>
+    <string name="settings_block_group">قوائم الحظر</string>
+    <string name="settings_block_umessage_title">قواعد uMessage</string>
+    <string name="settings_block_umessage_body">تُنقل الرسائل المحظورة إلى «رسائل غير مرغوب فيها». يمكنك استعادتها.</string>
     <string name="settings_spam_open_rules">قواعد السماح والحظر</string>
-    <string name="settings_spam_open_rules_body">الأرقام وأسماء المرسلين والكلمات الرئيسية والتعبيرات النمطية</string>
     <string name="settings_spam_blocked_numbers_body">الأرقام المحظورة عبر قائمة الحظر في النظام</string>
     <string name="settings_spam_blocked_keywords_body">أخفِ الرسائل التي تحتوي على هذه الكلمات</string>
     <string name="settings_sim_slot_title">شريحة SIM %1$d: %2$s</string>

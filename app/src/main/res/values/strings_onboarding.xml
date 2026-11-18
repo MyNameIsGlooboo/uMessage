@@ -10,6 +10,7 @@
     <!-- Welcome -->
     <string name="onb_welcome_title">Welcome to uMessage</string>
     <string name="onb_welcome_intro">Better messaging, less spam.</string>
+    <string name="onb_welcome_demo_desc">Texts from people you know go to your Inbox, texts from strangers go to Spam, and verification codes still reach your Inbox.</string>
     <string name="onb_welcome_spam">Spam stays out</string>
     <string name="onb_welcome_spam_desc">Unknown senders wait in Spam, never lost.</string>
     <string name="onb_welcome_codes">One-tap codes</string>

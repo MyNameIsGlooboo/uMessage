@@ -27,3 +27,6 @@ secrets/
 
 # Obsidian vault settings: never commit.
 .obsidian/
+
+# Python bytecode caches: never commit.
+__pycache__/

@@ -57,6 +57,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -86,6 +87,7 @@ import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.components.localizedNumber
 import com.glooboo.umessage.ui.components.rememberReduceMotion
+import com.glooboo.umessage.ui.onboarding.SortingCard
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.theme.UMessageTheme
@@ -410,6 +412,9 @@ private fun BlockedTopBar(
     }
 }
 
+/** Whether the empty Spam tab's sorting card has played since the app was opened. */
+private var emptyCardPlayed = false
+
 @Composable
 private fun BlockedList(
     state: BlockedUiState,
@@ -439,7 +444,21 @@ private fun BlockedList(
         }
         when {
             // Nothing held: say what uMessage is doing, so a fresh install does not look switched off (ID-17).
-            state.heldCount == 0 -> item(key = "empty") { BlockedEmpty(state.mode) }
+            state.heldCount == 0 -> {
+                item(key = "empty") { BlockedEmpty(state.mode) }
+                item(key = "empty-how") {
+                    val cardMode = rememberSortingCardMode(state.mode) ?: return@item
+                    // Plays once each time the app is opened; later visits of the tab show the finished card.
+                    val autoPlay = remember { !emptyCardPlayed }
+                    LaunchedEffect(Unit) { emptyCardPlayed = true }
+                    SortingCard(
+                        modifier = Modifier.padding(horizontal = 16.dp).testTag("blocked_empty_how"),
+                        mode = cardMode,
+                        autoPlay = autoPlay,
+                        reduceMotion = reduceMotion,
+                    )
+                }
+            }
             state.groups.isEmpty() && state.query.isNotBlank() -> item(key = "search-empty") {
                 EmptyState(
                     iconRes = R.drawable.ic_spam_shield,

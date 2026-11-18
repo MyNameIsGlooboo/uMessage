@@ -49,7 +49,7 @@ Every incoming SMS passes through these steps, in order, before anything is writ
 4. Otherwise the unknown-sender mode decides:
    - **Smart** (default for new installs): verification codes are delivered (also when they have a link), everything else is blocked.
    - **Strict**: blocked, verification codes included. There is no separate code exception.
-   - **Off**: delivered. (The old "Block unknown numbers" switch on the Blocked numbers screen only matters here: it makes Off behave like Strict.)
+   - **Off**: delivered. (The old "Block unknown numbers" switch is gone: it was folded into this mode once, so a phone that had it on with Off now has Strict.)
 
 Nothing is held "for review": a message is either delivered or put in the Spam folder. A message whose sender cannot be read goes to the inbox, and so does any message when the contacts lookup fails or contacts access is missing, so a failure never hides texts from people you know.
 

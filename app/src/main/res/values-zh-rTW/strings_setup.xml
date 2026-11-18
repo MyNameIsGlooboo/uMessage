@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">設定與權限</string>
+    <string name="setup_group_title">設定</string>
+    <string name="setup_row_summary">檢查uMessage需要的設定，補齊未完成的項目</string>
+    <string name="setup_intro">每次開啟此頁面時，都會從Android讀取各項狀態。</string>
+    <string name="setup_all_set">所需項目皆已開啟</string>
+    <string name="setup_optional_left">必要功能都已開啟。還有一個選用步驟。</string>
+    <string name="setup_battery_card_title">允許uMessage在背景執行</string>
+    <string name="setup_checklist_title_count">已完成%1$s／%2$s項</string>
+    <string name="setup_some_open">部分項目仍需設定</string>
+    <string name="setup_group_permissions">權限</string>
+    <string name="setup_status_optional">選用，尚未設定</string>
+    <string name="setup_status_unknown">Android無法確認。請開啟設定查看。</string>
+    <string name="setup_action_allow">允許</string>
+    <string name="setup_battery_banner_title">讓uMessage持續執行</string>
+    <string name="setup_battery_banner_body">手機可能會停止uMessage在背景執行，導致新訊息延遲送達。</string>
+    <string name="setup_battery_banner_action">修正</string>
+    <string name="setup_banner_dismiss">稍後再說</string>
+    <string name="setup_checklist_step_contacts">允許存取聯絡人</string>
+    <string name="setup_checklist_step_battery">選用：讓uMessage在背景執行</string>
+</resources>

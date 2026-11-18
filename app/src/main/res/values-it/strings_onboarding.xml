@@ -7,6 +7,7 @@
     <string name="onb_finish">Inizia a scrivere</string>
     <string name="onb_welcome_title">Ti diamo il benvenuto su uMessage</string>
     <string name="onb_welcome_intro">Messaggi migliori, meno spam.</string>
+    <string name="onb_welcome_demo_desc">I messaggi di chi conosci vanno in In arrivo, quelli dei mittenti sconosciuti in Spam. I codici di verifica arrivano comunque in In arrivo.</string>
     <string name="onb_welcome_spam">Lo spam resta fuori</string>
     <string name="onb_welcome_spam_desc">I mittenti sconosciuti restano in Spam, senza andare persi.</string>
     <string name="onb_welcome_codes">Codici con un tocco</string>

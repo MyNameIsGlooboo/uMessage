@@ -71,6 +71,7 @@
     <string name="sks_screenshots">ekran görüntüsü ekran kaydı yakala engelleyin gizlilik</string>
     <string name="sks_lock_change">değiştir PIN şifre yeni kimlik bilgisi sıfırla</string>
     <string name="sks_lock_now">kilitle şimdi hemen kapat güvene al</string>
+    <string name="sks_setup">kurulum izinler varsayılan SMS uygulaması kişiler bildirimler pil arka plan izin verin erişim</string>
     <string name="sks_about">hakkında sürüm bilgi uygulama kaynak lisans</string>
     <string name="sks_privacy">gizlilik internet çevrimdışı izin veri izleme güvenli</string>
     <string name="sks_version">sürüm derleme numara yayın güncelleme kopyala</string>

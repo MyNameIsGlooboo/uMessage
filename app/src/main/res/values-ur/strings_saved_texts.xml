@@ -9,6 +9,7 @@
     <string name="n06_text_label">متن</string>
     <string name="n06_save">محفوظ کریں</string>
     <string name="n06_delete">حذف کریں</string>
+    <string name="n06_delete_confirm">یہ محفوظ شدہ متن حذف کریں؟</string>
     <string name="n06_private_tip">صرف اس فون پر رکھا جاتا ہے، انکرپٹ نہیں ہوتا۔ پاس ورڈ یا PIN محفوظ نہ کریں۔</string>
     <string name="n06_save_from_message">محفوظ متن میں شامل کریں</string>
     <string name="n06_saved_toast">محفوظ ہو گیا</string>

@@ -67,11 +67,8 @@
         <item quantity="one">%d پیام</item>
         <item quantity="other">%d پیام</item>
     </plurals>
-    <string name="keyword">کلمهٔ کلیدی</string>
     <string name="blocked_keywords">کلمه‌های کلیدی بلاک‌شده</string>
     <string name="manage_blocked_keywords">مدیریت کلمه‌های کلیدی بلاک‌شده</string>
-    <string name="not_blocking_keywords">هیچ کلمهٔ کلیدی‌ای را بلاک نکرده‌اید. می‌توانید اینجا کلمهٔ کلیدی اضافه کنید تا پیام‌هایی که آن را دارند بلاک شوند.</string>
-    <string name="add_a_blocked_keyword">افزودن کلمهٔ کلیدی بلاک‌شده</string>
     <string name="lock_screen_visibility">نمایش اعلان در صفحهٔ قفل</string>
     <string name="sender_and_message">فرستنده و پیام</string>
     <string name="sender_only">فقط فرستنده</string>

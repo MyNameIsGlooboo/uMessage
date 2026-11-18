@@ -13,9 +13,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.fossify.commons.extensions.baseConfig
 import com.glooboo.umessage.spam.SpamRepository
-import com.glooboo.umessage.spam.UnknownSenderMode
 
 /** Add or edit dialog: [original] is null when adding a new number. */
 data class BlockedNumberDialog(val original: BlockedNumberItem?)
@@ -26,10 +24,7 @@ data class BlockedNumbersUiState(
     val available: Boolean = true,
     val numbers: List<BlockedNumberItem> = emptyList(),
     val selected: Set<Long> = emptySet(),
-    val blockUnknown: Boolean = false,
     val dialog: BlockedNumberDialog? = null,
-    /** "Block unknown numbers" only does something in Off mode, so the switch shows only then (SE-28 / VS-30). */
-    val mode: UnknownSenderMode = UnknownSenderMode.SMART,
     /** How many listed numbers "Move N numbers to rules" would add as rules; 0 hides the button. */
     val moveCount: Int = 0,
 ) {
@@ -63,7 +58,7 @@ class BlockedNumbersViewModel @JvmOverloads constructor(
     private val repository: SpamRepository = SpamRepositoryProvider.get(application),
 ) : AndroidViewModel(application) {
     private val app get() = getApplication<Application>()
-    private val mutableState = MutableStateFlow(BlockedNumbersUiState(blockUnknown = app.baseConfig.blockUnknownNumbers))
+    private val mutableState = MutableStateFlow(BlockedNumbersUiState())
     val state: StateFlow<BlockedNumbersUiState> = mutableState.asStateFlow()
 
     private val events = Channel<BlockedNumbersEvent>(Channel.BUFFERED)
@@ -71,9 +66,6 @@ class BlockedNumbersViewModel @JvmOverloads constructor(
 
     init {
         refresh()
-        viewModelScope.launch {
-            runCatching { repository.settings.collect { s -> mutableState.update { it.copy(mode = s.mode) } } }
-        }
     }
 
     /** Reloads the list; also called on resume, since the phone app can change the same list. */
@@ -90,7 +82,6 @@ class BlockedNumbersViewModel @JvmOverloads constructor(
                     available = available,
                     numbers = numbers,
                     selected = state.selected intersect ids,
-                    blockUnknown = app.baseConfig.blockUnknownNumbers,
                 )
             }
         }
@@ -215,11 +206,6 @@ class BlockedNumbersViewModel @JvmOverloads constructor(
                 .onSuccess { events.trySend(BlockedNumbersEvent.AddedAsRule(rule.pattern)) }
                 .onFailure { events.trySend(BlockedNumbersEvent.Failed) }
         }
-    }
-
-    fun setBlockUnknown(enabled: Boolean) {
-        app.baseConfig.blockUnknownNumbers = enabled
-        mutableState.update { it.copy(blockUnknown = enabled) }
     }
 
     fun importFrom(uri: Uri) {

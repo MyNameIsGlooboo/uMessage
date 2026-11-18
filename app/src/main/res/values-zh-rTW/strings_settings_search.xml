@@ -71,6 +71,7 @@
     <string name="sks_screenshots">螢幕截圖 截圖 螢幕錄影 擷取 封鎖 隱私</string>
     <string name="sks_lock_change">變更 PIN 密碼 新的 憑證 重設</string>
     <string name="sks_lock_now">立即鎖定 馬上 關閉 安全</string>
+    <string name="sks_setup">設定、權限、預設簡訊應用程式、聯絡人、通知、電池、背景、允許、存取</string>
     <string name="sks_about">關於 版本 資訊 應用程式 原始碼 授權條款 授權</string>
     <string name="sks_privacy">隱私權 網際網路 離線 權限 資料 追蹤 安全</string>
     <string name="sks_version">版本 版本號 編號 發行 更新 複製</string>

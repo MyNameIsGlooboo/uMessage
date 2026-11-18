@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">Einrichtung und Berechtigungen</string>
+    <string name="setup_group_title">Einrichtung</string>
+    <string name="setup_row_summary">Prüfe, was uMessage braucht, und ergänze, was fehlt</string>
+    <string name="setup_intro">Bei jedem Öffnen dieser Seite wird jede Zeile neu von Android abgefragt.</string>
+    <string name="setup_all_set">Alles Nötige ist aktiviert</string>
+    <string name="setup_optional_left">Alles Nötige ist aktiviert. Ein optionaler Schritt ist noch offen.</string>
+    <string name="setup_battery_card_title">Lass uMessage im Hintergrund laufen</string>
+    <string name="setup_checklist_title_count">%1$s von %2$s erledigt</string>
+    <string name="setup_some_open">Ein paar Dinge brauchen noch deine Hilfe</string>
+    <string name="setup_group_permissions">Berechtigungen</string>
+    <string name="setup_status_optional">Optional, nicht eingerichtet</string>
+    <string name="setup_status_unknown">Android kann dazu keine Auskunft geben. Öffne den Eintrag und prüfe es.</string>
+    <string name="setup_action_allow">Erlauben</string>
+    <string name="setup_battery_banner_title">uMessage weiterlaufen lassen</string>
+    <string name="setup_battery_banner_body">Dein Handy kann uMessage im Hintergrund stoppen und neue Nachrichten verzögern.</string>
+    <string name="setup_battery_banner_action">Beheben</string>
+    <string name="setup_banner_dismiss">Jetzt nicht</string>
+    <string name="setup_checklist_step_contacts">Zugriff auf Kontakte erlauben</string>
+    <string name="setup_checklist_step_battery">Optional: uMessage im Hintergrund laufen lassen</string>
+</resources>

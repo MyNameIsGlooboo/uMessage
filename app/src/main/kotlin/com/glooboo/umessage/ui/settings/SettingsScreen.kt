@@ -42,6 +42,7 @@ import com.glooboo.umessage.ui.components.ConfirmDialog
 import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.TonalRows
+import com.glooboo.umessage.ui.onboarding.SortingCard
 import androidx.compose.foundation.layout.PaddingValues
 import com.glooboo.umessage.ui.icons.ShortcutIcons
 import com.glooboo.umessage.ui.icons.Symbols
@@ -50,6 +51,8 @@ import com.glooboo.umessage.ui.settings.search.SettingsSearch
 import com.glooboo.umessage.ui.settings.search.SettingsSearchButton
 import com.glooboo.umessage.ui.settings.search.SettingsSearchField
 import com.glooboo.umessage.ui.settings.search.SettingsSearchResults
+import com.glooboo.umessage.ui.setup.SetupPage
+import com.glooboo.umessage.ui.spam.rememberSortingCardMode
 import androidx.compose.material3.Icon
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import org.fossify.commons.R as CommonsR
@@ -145,6 +148,7 @@ private fun PageContent(
         SettingsPage.AppLock -> AppLockPage(state, actions)
         SettingsPage.About -> AboutPage(state, actions, open)
         SettingsPage.Licenses -> LicensesPage(actions)
+        SettingsPage.Setup -> SetupPage()
     }
 }
 
@@ -178,12 +182,22 @@ private fun pageTitle(page: SettingsPage): Int = when (page) {
     SettingsPage.AppLock -> R.string.settings_nav_app_lock
     SettingsPage.About -> R.string.settings_nav_about_row
     SettingsPage.Licenses -> R.string.settings_nav_licenses_title
+    SettingsPage.Setup -> R.string.setup_title
 }
 
 // region Main page
 
 @Composable
 private fun MainPage(state: SettingsUiState, actions: SettingsActions, open: (SettingsPage) -> Unit) {
+    SettingsGroup(stringResource(R.string.setup_group_title)) {
+        SettingsRow(
+            title = stringResource(R.string.setup_title),
+            summary = stringResource(R.string.setup_row_summary),
+            icon = Symbols.Settings,
+            onClick = { open(SettingsPage.Setup) },
+            showChevron = true,
+        )
+    }
     SettingsGroup(stringResource(R.string.settings_nav_group_protection)) {
         SettingsRow(
             title = stringResource(R.string.settings_nav_spam_row),
@@ -379,10 +393,10 @@ private fun SpamPage(state: SettingsUiState, actions: SettingsActions) {
     val spam = state.spam
     if (spam != null) SpamModeGroup(spam, actions)
     // B11: the group is not named like the page above it.
-    SettingsGroup(stringResource(R.string.settings_f_group_rules)) {
+    SettingsGroup(stringResource(R.string.settings_block_group)) {
         SettingsRow(
-            title = stringResource(R.string.settings_spam_open_rules),
-            summary = stringResource(R.string.settings_spam_open_rules_body),
+            title = stringResource(R.string.settings_block_umessage_title),
+            summary = stringResource(R.string.settings_block_umessage_body),
             icon = Symbols.Rule,
             onClick = actions.onOpenRules,
             showChevron = true,
@@ -394,7 +408,7 @@ private fun SpamPage(state: SettingsUiState, actions: SettingsActions) {
             onClick = actions.onOpenBlockedNumbers,
             showChevron = true,
         )
-        // SU-33: the old blocked-words list is shown only until its words are moved into rules.
+        // Old blocked words move into rules on their own; only words that cannot be a rule stay, and show here.
         if (state.showOldBlockedWords) {
             SettingsRow(
                 title = stringResource(R.string.settings_old_blocked_words),
@@ -431,6 +445,7 @@ private fun SpamPage(state: SettingsUiState, actions: SettingsActions) {
 @Composable
 private fun SpamModeGroup(spam: SpamSummary, actions: SettingsActions) {
     var confirmStrict by rememberSaveable { mutableStateOf(false) }
+    val cardMode = rememberSortingCardMode(spam.mode)
     val choose: (UnknownSenderMode) -> Unit = { mode ->
         if (mode == UnknownSenderMode.STRICT && spam.mode != UnknownSenderMode.STRICT) {
             confirmStrict = true
@@ -441,6 +456,9 @@ private fun SpamModeGroup(spam: SpamSummary, actions: SettingsActions) {
     SettingsGroup(
         title = stringResource(R.string.spam_settings_unknown_title),
         description = spamSummaryText(spam),
+        descriptionExtra = cardMode?.let { shown ->
+            { SortingCard(mode = shown, containerColor = MaterialTheme.colorScheme.surface) }
+        },
     ) {
         SettingsRadioRow(
             title = stringResource(R.string.spam_mode_strict),

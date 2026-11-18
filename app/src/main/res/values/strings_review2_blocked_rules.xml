@@ -80,7 +80,6 @@
     <string name="e_migrate_calls_note">Android\'s list also blocks calls. Numbers you remove from it can call you again.</string>
 
     <!-- Android block list screen (SE-28, SE-30, SE-31, BR-28, bug 15). -->
-    <string name="e_bn_unknown_body">Applies only while Unknown senders is Off.</string>
     <string name="e_bn_row_calls_texts">Blocks calls and texts</string>
     <string name="e_bn_row_short_code">Short code: uMessage never sees its texts</string>
     <string name="e_bn_move_one">Move to uMessage rules</string>

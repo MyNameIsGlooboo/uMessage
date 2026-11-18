@@ -5,6 +5,8 @@
     <string name="message_not_sent_touch_retry">未傳送。輕觸即可重試。</string>
     <string name="message_sending_error">傳送給「%s」的訊息未傳送</string>
     <string name="scheduled_attachment_missing">傳送給「%s」的排程訊息未傳送：附件已無法開啟。請開啟對話重新加入附件。</string>
+    <string name="message_partly_sent">部分圖片和檔案已傳送，其餘未傳送。再次傳送時，只會傳送剩餘的項目。</string>
+    <string name="scheduled_partly_sent">排程傳送給「%s」的訊息僅傳送了部分內容，其餘未傳送。開啟對話並輕觸「重試」，即可只傳送剩餘的內容。</string>
     <string name="add_person">新增成員</string>
     <string name="attachment">附件</string>
     <string name="reply">回覆</string>
@@ -62,11 +64,8 @@
     <plurals name="delete_messages">
         <item quantity="other">%d則訊息</item>
     </plurals>
-    <string name="keyword">關鍵字</string>
     <string name="blocked_keywords">已封鎖的關鍵字</string>
     <string name="manage_blocked_keywords">管理已封鎖的關鍵字</string>
-    <string name="not_blocking_keywords">你沒有封鎖任何關鍵字。你可以在這裡新增關鍵字，封鎖所有含有這些關鍵字的訊息。</string>
-    <string name="add_a_blocked_keyword">新增要封鎖的關鍵字</string>
     <string name="lock_screen_visibility">螢幕鎖定畫面的通知顯示方式</string>
     <string name="sender_and_message">寄件者和訊息</string>
     <string name="sender_only">僅寄件者</string>
@@ -151,4 +150,5 @@
     <string name="faq_4_text">你需要在應用程式設定中啟用「以多媒體訊息傳送群組訊息」。這樣群組訊息就會以正確的多媒體訊息傳送，所有成員都能看到彼此的回覆。</string>
     <string name="play">播放</string>
     <string name="pause">暫停</string>
+    <string name="group_recipient_invalid">輸入電話號碼或電子郵件地址</string>
 </resources>

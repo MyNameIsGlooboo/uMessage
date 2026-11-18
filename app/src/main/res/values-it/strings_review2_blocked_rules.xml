@@ -59,7 +59,6 @@
     <string name="e_migrate_point_blocked">• I loro messaggi andranno in Spam, dove puoi leggerli e ripristinarli.</string>
     <string name="e_migrate_point_android">• Android continuerà a scartare i loro messaggi finché restano nel suo elenco.</string>
     <string name="e_migrate_calls_note">L\'elenco di Android blocca anche le chiamate. I numeri che rimuovi potranno chiamarti di nuovo.</string>
-    <string name="e_bn_unknown_body">Si applica solo quando il filtro per i mittenti sconosciuti è disattivato.</string>
     <string name="e_bn_row_calls_texts">Blocca chiamate e messaggi</string>
     <string name="e_bn_row_short_code">Numero breve: uMessage non riceve mai i suoi messaggi</string>
     <string name="e_bn_move_one">Sposta nelle regole di uMessage</string>

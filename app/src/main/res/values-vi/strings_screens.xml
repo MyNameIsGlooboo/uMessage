@@ -35,13 +35,9 @@
     <string name="screens_new_group_remove">Bỏ %1$s</string>
     <string name="screens_new_group_selected">Đã chọn</string>
     <string name="screens_details_edit_name">Sửa tên cuộc trò chuyện</string>
-    <string name="screens_keywords_add">Thêm từ khóa</string>
     <string name="screens_keywords_menu_export">Xuất</string>
-    <string name="screens_keywords_menu_import">Nhập</string>
-    <string name="screens_keywords_edit">Chỉnh sửa</string>
-    <string name="screens_keywords_duplicate">Từ khóa này đã có trong danh sách</string>
-    <string name="screens_keywords_help">Khớp với văn bản ở bất kỳ đâu trong tin nhắn, kể cả trong một từ dài hơn. Không phân biệt chữ hoa, chữ thường.</string>
     <string name="screens_keywords_empty_title">Chưa có từ khóa bị chặn</string>
+    <string name="screens_keywords_empty_body">Các từ bạn đã chặn giờ là quy tắc</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="other">Đã xóa %d từ khóa</item>
     </plurals>

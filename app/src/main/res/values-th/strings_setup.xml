@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">การตั้งค่าและสิทธิ์</string>
+    <string name="setup_group_title">การตั้งค่า</string>
+    <string name="setup_row_summary">ตรวจสอบสิ่งที่ uMessage ต้องใช้และตั้งค่าส่วนที่ขาด</string>
+    <string name="setup_intro">สถานะแต่ละรายการมาจาก Android ทุกครั้งที่เปิดหน้านี้</string>
+    <string name="setup_all_set">เปิดใช้ทุกอย่างที่จำเป็นแล้ว</string>
+    <string name="setup_optional_left">เปิดทุกอย่างที่จำเป็นแล้ว เหลืออีก 1 ขั้นตอนที่ทำหรือไม่ก็ได้</string>
+    <string name="setup_battery_card_title">อนุญาตให้ uMessage ทำงานในเบื้องหลัง</string>
+    <string name="setup_checklist_title_count">เสร็จแล้ว %1$s จาก %2$s ขั้นตอน</string>
+    <string name="setup_some_open">ยังมีบางอย่างที่ต้องตั้งค่า</string>
+    <string name="setup_group_permissions">สิทธิ์</string>
+    <string name="setup_status_optional">ไม่บังคับ ยังไม่ได้ตั้งค่า</string>
+    <string name="setup_status_unknown">Android ระบุไม่ได้ เปิดเพื่อตรวจสอบ</string>
+    <string name="setup_action_allow">อนุญาต</string>
+    <string name="setup_battery_banner_title">ให้ uMessage ทำงานต่อเนื่อง</string>
+    <string name="setup_battery_banner_body">โทรศัพท์อาจหยุดการทำงานเบื้องหลังของ uMessage ทำให้ข้อความใหม่มาถึงช้า</string>
+    <string name="setup_battery_banner_action">แก้ไข</string>
+    <string name="setup_banner_dismiss">ไว้ภายหลัง</string>
+    <string name="setup_checklist_step_contacts">อนุญาตให้เข้าถึงรายชื่อติดต่อ</string>
+    <string name="setup_checklist_step_battery">ไม่บังคับ: ให้ uMessage ทำงานเบื้องหลัง</string>
+</resources>

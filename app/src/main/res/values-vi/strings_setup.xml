@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">Thiết lập và quyền</string>
+    <string name="setup_group_title">Thiết lập</string>
+    <string name="setup_row_summary">Kiểm tra những gì uMessage cần và bổ sung những gì còn thiếu</string>
+    <string name="setup_intro">Thông tin ở mỗi dòng được lấy từ Android mỗi khi bạn mở trang này.</string>
+    <string name="setup_all_set">Đã bật mọi thứ cần thiết</string>
+    <string name="setup_optional_left">Đã bật mọi thứ cần thiết. Còn một bước tùy chọn.</string>
+    <string name="setup_battery_card_title">Cho phép uMessage chạy nền</string>
+    <string name="setup_checklist_title_count">Đã xong %1$s/%2$s</string>
+    <string name="setup_some_open">Vẫn còn vài mục cần bạn xử lý</string>
+    <string name="setup_group_permissions">Quyền</string>
+    <string name="setup_status_optional">Không bắt buộc, chưa thiết lập</string>
+    <string name="setup_status_unknown">Android không xác định được. Mở mục này để kiểm tra.</string>
+    <string name="setup_action_allow">Cho phép</string>
+    <string name="setup_battery_banner_title">Duy trì hoạt động của uMessage</string>
+    <string name="setup_battery_banner_body">Điện thoại của bạn có thể dừng uMessage chạy nền, khiến tin nhắn mới đến chậm.</string>
+    <string name="setup_battery_banner_action">Khắc phục</string>
+    <string name="setup_banner_dismiss">Để sau</string>
+    <string name="setup_checklist_step_contacts">Cho phép truy cập danh bạ</string>
+    <string name="setup_checklist_step_battery">Không bắt buộc: cho phép uMessage chạy nền</string>
+</resources>

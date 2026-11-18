@@ -73,6 +73,7 @@
     <string name="sks_screenshots">عکس صفحه اسکرین‌شات ضبط بلاک حریم خصوصی مسدود</string>
     <string name="sks_lock_change">تغییر پین رمز جدید بازنشانی</string>
     <string name="sks_lock_now">قفل کردن همین حالا فوری بستن امن</string>
+    <string name="sks_setup">راه‌اندازی دسترسی اجازه برنامه پیش‌فرض پیامک مخاطب مخاطبین اعلان باتری پس‌زمینه</string>
     <string name="sks_about">دربارهٔ نسخه اطلاعات برنامه منبع لایسنس مجوز</string>
     <string name="sks_privacy">حریم خصوصی اینترنت آفلاین مجوز دسترسی داده ردیابی امن</string>
     <string name="sks_version">نسخه ساخت شماره انتشار به‌روزرسانی کپی</string>

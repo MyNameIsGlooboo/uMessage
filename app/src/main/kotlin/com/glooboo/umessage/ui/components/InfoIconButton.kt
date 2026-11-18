@@ -11,6 +11,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -25,9 +27,15 @@ import com.glooboo.umessage.ui.icons.Symbols
 /**
  * A small circled "i" for secondary explanations. Tapping it opens a dialog titled [title] with [text] and one Close
  * button. The touch target is 48dp; the icon itself stays small so it fits at the end of a title or switch row.
+ * [extra] is optional content shown under the text.
  */
 @Composable
-fun InfoIconButton(title: String, text: String, modifier: Modifier = Modifier) {
+fun InfoIconButton(
+    title: String,
+    text: String,
+    modifier: Modifier = Modifier,
+    extra: (@Composable () -> Unit)? = null,
+) {
     var open by rememberSaveable { mutableStateOf(false) }
     IconButton(
         onClick = { open = true },
@@ -40,22 +48,23 @@ fun InfoIconButton(title: String, text: String, modifier: Modifier = Modifier) {
             modifier = Modifier.size(INFO_ICON),
         )
     }
-    if (open) InfoTextDialog(title, text) { open = false }
+    if (open) InfoTextDialog(title, text, extra) { open = false }
 }
 
-/** The dialog behind [InfoIconButton]: the row's name as title, the text, and Close. */
+/** The dialog behind [InfoIconButton]: the row's name as title, the text, [extra] under it, and Close. */
 @Composable
-fun InfoTextDialog(title: String, text: String, onClose: () -> Unit) {
+fun InfoTextDialog(title: String, text: String, extra: (@Composable () -> Unit)? = null, onClose: () -> Unit) {
     AlertDialog(
         onDismissRequest = onClose,
         title = { Text(title) },
         text = {
-            Text(
-                text,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.heightIn(max = INFO_TEXT_MAX_HEIGHT)
-                    .verticalScroll(rememberScrollState()).testTag("info_text"),
-            )
+            Column(
+                modifier = Modifier.heightIn(max = INFO_TEXT_MAX_HEIGHT).verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(INFO_EXTRA_GAP),
+            ) {
+                Text(text, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.testTag("info_text"))
+                extra?.invoke()
+            }
         },
         confirmButton = {
             TextButton(onClick = onClose, modifier = Modifier.heightIn(min = INFO_TARGET)) {
@@ -68,3 +77,4 @@ fun InfoTextDialog(title: String, text: String, onClose: () -> Unit) {
 private val INFO_TARGET = 48.dp
 private val INFO_ICON = 20.dp
 private val INFO_TEXT_MAX_HEIGHT = 420.dp
+private val INFO_EXTRA_GAP = 16.dp

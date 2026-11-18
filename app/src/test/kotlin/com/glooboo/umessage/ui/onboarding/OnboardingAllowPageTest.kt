@@ -63,7 +63,10 @@ class OnboardingAllowPageTest {
         }
         // The default app row plus one per required item, all still needed; Phone state says Optional (I12).
         assertEquals(items.count { !it.optional } + 1, compose.onAllNodesWithText("Needed").fetchSemanticsNodes().size)
-        assertEquals(1, compose.onAllNodesWithText("Optional").fetchSemanticsNodes().size)
+        assertEquals(
+            items.count { it.optional },
+            compose.onAllNodesWithText("Optional").fetchSemanticsNodes().size,
+        )
         compose.onNodeWithText("Lets contacts through the filter and shows their names.").assertDoesNotExist()
         compose.onNodeWithText("Set as default").assertDoesNotExist()
     }
@@ -104,7 +107,15 @@ class OnboardingAllowPageTest {
         }
         compose.onNodeWithText("All set").assertIsDisplayed()
         compose.onNodeWithText("Phone state").assertIsDisplayed()
-        compose.onNodeWithText("Optional").assertIsDisplayed()
+        assertEquals(2, compose.onAllNodesWithText("Optional").fetchSemanticsNodes().size)
+    }
+
+    @Test
+    fun `contacts are optional, so onboarding is complete without them`() {
+        val contacts = items.first { android.Manifest.permission.READ_CONTACTS in it.permissions }
+        assertEquals(true, contacts.optional)
+        val granted = items.associateWith { it != contacts }
+        assertEquals(true, requiredGranted(items, granted))
     }
 
     @Test

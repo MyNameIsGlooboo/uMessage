@@ -59,7 +59,6 @@
     <string name="e_migrate_point_blocked">• তাঁদের বার্তা স্প্যামে যাবে, যেখানে আপনি সেগুলো পড়তে ও ফিরিয়ে আনতে পারবেন।</string>
     <string name="e_migrate_point_android">• Android-এর তালিকা থেকে নম্বরগুলো না সরানো পর্যন্ত Android তাঁদের বার্তা ফেলে দেবে।</string>
     <string name="e_migrate_calls_note">Android-এর তালিকা কলও ব্লক করে। সেখান থেকে নম্বর সরালে তাঁরা আপনাকে আবার কল করতে পারবেন।</string>
-    <string name="e_bn_unknown_body">শুধু “অচেনা প্রেরক” বন্ধ থাকলে প্রযোজ্য।</string>
     <string name="e_bn_row_calls_texts">কল ও বার্তা ব্লক করে</string>
     <string name="e_bn_row_short_code">শর্ট কোড: uMessage এর বার্তা পায়ই না</string>
     <string name="e_bn_move_one">uMessage-এর নিয়মে সরান</string>

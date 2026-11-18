@@ -36,13 +36,9 @@
     <string name="screens_new_group_remove">حذف %1$s</string>
     <string name="screens_new_group_selected">انتخاب‌شده</string>
     <string name="screens_details_edit_name">ویرایش نام گفتگو</string>
-    <string name="screens_keywords_add">افزودن کلمهٔ کلیدی</string>
     <string name="screens_keywords_menu_export">خروجی گرفتن</string>
-    <string name="screens_keywords_menu_import">وارد کردن</string>
-    <string name="screens_keywords_edit">ویرایش</string>
-    <string name="screens_keywords_duplicate">این کلمهٔ کلیدی از قبل در لیست است</string>
-    <string name="screens_keywords_help">متن را در هر جای پیام، حتی درون کلمه‌ای بلندتر، پیدا می‌کند. بزرگی و کوچکی حروف مهم نیست.</string>
     <string name="screens_keywords_empty_title">کلمهٔ کلیدی بلاک‌شده‌ای نیست</string>
+    <string name="screens_keywords_empty_body">کلمه‌های بلاک‌شده الان قانون شده‌اند</string>
     <plurals name="screens_keywords_deleted" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d کلمهٔ کلیدی حذف شد</item>
         <item quantity="other">%d کلمهٔ کلیدی حذف شد</item>

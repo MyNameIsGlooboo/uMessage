@@ -5,7 +5,7 @@
     <string name="settings_nav_group_privacy_about">Конфіденційність і відомості</string>
     <string name="settings_nav_spam_row">Захист від спаму</string>
     <string name="settings_nav_spam_page_title">Захист від спаму</string>
-    <string name="settings_nav_android_block_list_body">Також блокує дзвінки</string>
+    <string name="settings_nav_android_block_list_body">Також блокує дзвінки. Повідомлення видаляються й не зберігаються в спамі.</string>
     <string name="settings_nav_decision_log">Чому заблоковано?</string>
     <string name="settings_nav_decision_log_body">Історія рішень про дозвіл і блокування</string>
     <string name="settings_nav_forwarded_tab">Показувати вкладку «Переслані»</string>

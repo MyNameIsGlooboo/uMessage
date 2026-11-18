@@ -55,7 +55,6 @@
     <string name="e_migrate_point_blocked">• ข้อความจากหมายเลขเหล่านี้จะไปอยู่ในสแปม ซึ่งคุณอ่านและกู้คืนได้</string>
     <string name="e_migrate_point_android">• Android จะยังทิ้งข้อความจากหมายเลขเหล่านี้จนกว่าจะนำออกจากรายการ</string>
     <string name="e_migrate_calls_note">รายการของ Android บล็อกสายโทรเข้าด้วย หมายเลขที่นำออกจากรายการจะโทรหาคุณได้อีกครั้ง</string>
-    <string name="e_bn_unknown_body">มีผลเฉพาะเมื่อปิดผู้ส่งที่ไม่รู้จัก</string>
     <string name="e_bn_row_calls_texts">บล็อกสายโทรเข้าและข้อความ</string>
     <string name="e_bn_row_short_code">หมายเลขสั้น: uMessage จะไม่ได้รับข้อความจากหมายเลขนี้เลย</string>
     <string name="e_bn_move_one">ย้ายไปยังกฎของ uMessage</string>

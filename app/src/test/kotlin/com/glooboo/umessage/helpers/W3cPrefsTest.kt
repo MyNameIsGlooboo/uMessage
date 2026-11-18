@@ -3,6 +3,7 @@ package com.glooboo.umessage.helpers
 import com.glooboo.umessage.ui.components.jalaliListDate
 import com.glooboo.umessage.ui.main.ChecklistStep
 import com.glooboo.umessage.ui.main.ChecklistTitle
+import com.glooboo.umessage.ui.main.checklistCanClose
 import com.glooboo.umessage.ui.main.checklistComplete
 import com.glooboo.umessage.ui.main.checklistProgress
 import com.glooboo.umessage.ui.main.checklistTitle
@@ -72,18 +73,39 @@ class W3cPrefsTest {
     }
 
     @Test
-    fun `checklist is complete without the optional step`() {
-        val required = setOf(ChecklistStep.DefaultSms, ChecklistStep.Notifications, ChecklistStep.BlockedTab)
+    fun `checklist is complete without the optional steps`() {
+        val required = requiredSteps()
         assertTrue(checklistComplete(required))
         assertFalse(checklistComplete(setOf(ChecklistStep.DefaultSms, ChecklistStep.Forwarding)))
-        assertEquals(3 to 4, checklistProgress(required))
+        assertEquals(3 to 6, checklistProgress(required))
+    }
+
+    @Test
+    fun `contacts and battery are optional steps`() {
+        assertFalse(ChecklistStep.Contacts.required)
+        assertFalse(ChecklistStep.Battery.required)
+        assertTrue(checklistComplete(requiredSteps() - ChecklistStep.Contacts))
+        assertTrue(checklistComplete(requiredSteps() - ChecklistStep.Battery))
+        val expected = setOf(ChecklistStep.DefaultSms, ChecklistStep.Notifications, ChecklistStep.BlockedTab)
+        assertEquals(expected, requiredSteps())
+    }
+
+    @Test
+    fun `a step that cannot be done on this phone does not keep the card open`() {
+        val withoutRole = requiredSteps() - ChecklistStep.DefaultSms
+        assertFalse(checklistCanClose(withoutRole))
+        assertTrue(checklistCanClose(withoutRole, impossible = setOf(ChecklistStep.DefaultSms)))
+        // Only the impossible step is excused, not the others.
+        assertFalse(checklistCanClose(requiredSteps() - ChecklistStep.Notifications, setOf(ChecklistStep.DefaultSms)))
     }
 
     @Test
     fun `checklist says all set only when every step is done`() {
-        val required = setOf(ChecklistStep.DefaultSms, ChecklistStep.Notifications, ChecklistStep.BlockedTab)
+        val required = requiredSteps()
         assertEquals(ChecklistTitle.Steps, checklistTitle(setOf(ChecklistStep.DefaultSms)))
         assertEquals(ChecklistTitle.BasicsDone, checklistTitle(required))
         assertEquals(ChecklistTitle.AllDone, checklistTitle(ChecklistStep.entries.toSet()))
     }
+
+    private fun requiredSteps(): Set<ChecklistStep> = ChecklistStep.entries.filter { it.required }.toSet()
 }

@@ -65,11 +65,8 @@
         <item quantity="one">%d message</item>
         <item quantity="other">%d messages</item>
     </plurals>
-    <string name="keyword">Mot-clé</string>
     <string name="blocked_keywords">Mots-clés bloqués</string>
     <string name="manage_blocked_keywords">Gérer les mots-clés bloqués</string>
-    <string name="not_blocking_keywords">Vous ne bloquez aucun mot-clé. Ajoutez-en ici pour bloquer tous les messages qui les contiennent.</string>
-    <string name="add_a_blocked_keyword">Ajouter un mot-clé bloqué</string>
     <string name="lock_screen_visibility">Affichage des notifications sur l\'écran verrouillé</string>
     <string name="sender_and_message">Expéditeur et message</string>
     <string name="sender_only">Expéditeur uniquement</string>
@@ -154,4 +151,5 @@
     <string name="faq_4_text">Activez « Envoyer les messages de groupe par MMS » dans les paramètres de l\'application. Les messages de groupe seront alors envoyés sous forme de MMS, ce qui permettra à chaque participant de voir les réponses des autres.</string>
     <string name="play">Lire</string>
     <string name="pause">Pause</string>
+    <string name="group_recipient_invalid">Saisissez un numéro de téléphone ou une adresse e-mail</string>
 </resources>

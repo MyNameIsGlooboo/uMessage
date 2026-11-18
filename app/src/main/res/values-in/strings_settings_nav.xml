@@ -5,7 +5,7 @@
     <string name="settings_nav_group_privacy_about">Privasi dan tentang</string>
     <string name="settings_nav_spam_row">Perlindungan spam</string>
     <string name="settings_nav_spam_page_title">Perlindungan spam</string>
-    <string name="settings_nav_android_block_list_body">Juga memblokir panggilan</string>
+    <string name="settings_nav_android_block_list_body">Juga memblokir panggilan. Pesan dihapus, bukan disimpan di Spam.</string>
     <string name="settings_nav_decision_log">Mengapa diblokir?</string>
     <string name="settings_nav_decision_log_body">Riwayat keputusan izinkan dan blokir</string>
     <string name="settings_nav_forwarded_tab">Tampilkan tab Diteruskan</string>

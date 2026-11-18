@@ -61,6 +61,7 @@ class SettingsIndexTest {
         assertThat(targets).containsAtLeast(
             SettingsTarget.SPAM, SettingsTarget.NOTIFICATIONS, SettingsTarget.TYPING, SettingsTarget.STORAGE,
             SettingsTarget.APPEARANCE, SettingsTarget.BACKUP, SettingsTarget.APP_LOCK, SettingsTarget.ABOUT,
+            SettingsTarget.SETUP,
             SettingsTarget.FORWARD_RULES, SettingsTarget.FORWARD_OPTIONS, SettingsTarget.SPAM_SETTINGS,
         )
     }

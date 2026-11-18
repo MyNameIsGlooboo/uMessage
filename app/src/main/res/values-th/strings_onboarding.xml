@@ -7,6 +7,7 @@
     <string name="onb_finish">เริ่มส่งข้อความ</string>
     <string name="onb_welcome_title">ยินดีต้อนรับสู่ uMessage</string>
     <string name="onb_welcome_intro">ส่งข้อความได้ดีขึ้น สแปมน้อยลง</string>
+    <string name="onb_welcome_demo_desc">ข้อความจากคนรู้จักจะไปที่กล่องข้อความเข้า ข้อความจากผู้ส่งที่ไม่รู้จักจะไปที่สแปม ส่วนรหัสยืนยันจะยังไปที่กล่องข้อความเข้า</string>
     <string name="onb_welcome_spam">กันสแปมออกไป</string>
     <string name="onb_welcome_spam_desc">ข้อความจากผู้ส่งที่ไม่รู้จักจะอยู่ในสแปม ไม่หายไปไหน</string>
     <string name="onb_welcome_codes">คัดลอกรหัสในแตะเดียว</string>

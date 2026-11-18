@@ -46,7 +46,5 @@
     <string name="blocknum_empty_body">หมายเลขที่บล็อกจะส่งข้อความหรือโทรหาคุณไม่ได้ รายการนี้ใช้ร่วมกับแอปโทรศัพท์</string>
     <string name="blocknum_unavailable_title">รายการบล็อกไม่พร้อมใช้งาน</string>
     <string name="blocknum_unavailable_body">ตั้ง uMessage เป็นแอป SMS เริ่มต้นเพื่อดูและแก้ไขรายการบล็อกของระบบ</string>
-    <string name="blocknum_unknown_title">บล็อกหมายเลขที่ไม่รู้จัก</string>
-    <string name="blocknum_contacts_denied">หากไม่มีสิทธิ์เข้าถึงรายชื่อติดต่อ จะระบุหมายเลขที่ไม่รู้จักไม่ได้</string>
     <string name="blocknum_section_numbers">หมายเลข</string>
 </resources>

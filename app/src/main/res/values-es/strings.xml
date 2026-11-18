@@ -65,11 +65,8 @@
         <item quantity="one">%d mensaje</item>
         <item quantity="other">%d mensajes</item>
     </plurals>
-    <string name="keyword">Palabra clave</string>
     <string name="blocked_keywords">Palabras clave bloqueadas</string>
     <string name="manage_blocked_keywords">Administrar palabras clave bloqueadas</string>
-    <string name="not_blocking_keywords">No estás bloqueando ninguna palabra clave. Puedes agregar palabras clave aquí para bloquear todos los mensajes que las contengan.</string>
-    <string name="add_a_blocked_keyword">Agregar una palabra clave bloqueada</string>
     <string name="lock_screen_visibility">Visibilidad de las notificaciones en la pantalla de bloqueo</string>
     <string name="sender_and_message">Remitente y mensaje</string>
     <string name="sender_only">Solo el remitente</string>
@@ -154,4 +151,5 @@
     <string name="faq_4_text">Activa «Enviar mensajes de grupo como MMS» en la configuración de la aplicación. Así, los mensajes de grupo se enviarán como MMS y todos los participantes podrán ver las respuestas de los demás.</string>
     <string name="play">Reproducir</string>
     <string name="pause">Pausar</string>
+    <string name="group_recipient_invalid">Ingresa un número de teléfono o una dirección de correo electrónico</string>
 </resources>

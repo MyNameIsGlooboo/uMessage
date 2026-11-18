@@ -35,13 +35,9 @@
     <string name="screens_new_group_remove">移除%1$s</string>
     <string name="screens_new_group_selected">已选择</string>
     <string name="screens_details_edit_name">编辑会话名称</string>
-    <string name="screens_keywords_add">添加关键词</string>
     <string name="screens_keywords_menu_export">导出</string>
-    <string name="screens_keywords_menu_import">导入</string>
-    <string name="screens_keywords_edit">编辑</string>
-    <string name="screens_keywords_duplicate">列表中已有此关键词</string>
-    <string name="screens_keywords_help">匹配消息中任意位置的文本，包括较长单词中的部分文本。不区分大小写。</string>
     <string name="screens_keywords_empty_title">暂无屏蔽的关键词</string>
+    <string name="screens_keywords_empty_body">屏蔽关键词现已改为规则</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="other">已删除%d个关键词</item>
     </plurals>

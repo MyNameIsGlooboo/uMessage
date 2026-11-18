@@ -60,5 +60,36 @@ class ConfigTest {
         assertThat(Config.newInstance(context).lockScreenVisibilitySetting).isEqualTo(LOCK_SCREEN_SENDER_MESSAGE)
     }
 
+    @Test
+    fun addBlockedKeywordsReturnsHowManyWordsWereNew() {
+        val config = Config.newInstance(context)
+
+        assertThat(config.addBlockedKeywords(listOf("prize", "win now", "PRIZE", "x", " "))).isEqualTo(2)
+        assertThat(config.addBlockedKeywords(listOf("Prize", "free gift"))).isEqualTo(1)
+        assertThat(config.blockedKeywords).containsExactly("prize", "win now", "free gift")
+    }
+
+    @Test
+    fun removeBlockedKeywordsTakesOutOnlyTheGivenWords() {
+        val config = Config.newInstance(context)
+        config.addBlockedKeywords(listOf("prize", "win now"))
+
+        config.removeBlockedKeywords(listOf("prize", "unknown"))
+
+        assertThat(config.blockedKeywords).containsExactly("win now")
+    }
+
+    @Test
+    fun restoreBlockedKeywordsPutsBackOneLetterAndMultiLineWordsAsTheyWere() {
+        val config = Config.newInstance(context)
+        config.blockedKeywords = setOf("x", "two\nlines", "prize")
+        config.removeBlockedKeywords(listOf("x", "two\nlines"))
+        assertThat(config.blockedKeywords).containsExactly("prize")
+
+        config.restoreBlockedKeywords(listOf("x", "two\nlines"))
+
+        assertThat(config.blockedKeywords).containsExactly("x", "two\nlines", "prize")
+    }
+
     private fun prefs() = context.getSharedPreferences(org.fossify.commons.helpers.PREFS_KEY, Context.MODE_PRIVATE)
 }

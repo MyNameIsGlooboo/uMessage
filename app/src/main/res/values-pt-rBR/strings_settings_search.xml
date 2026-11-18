@@ -71,6 +71,7 @@
     <string name="sks_screenshots">capturas tela gravação captura bloqueie privacidade</string>
     <string name="sks_lock_change">altere PIN senha nova credencial redefina</string>
     <string name="sks_lock_now">bloqueio agora imediatamente feche proteja</string>
+    <string name="sks_setup">configuração permissões app de SMS padrão contatos notificações bateria segundo plano permita acesso</string>
     <string name="sks_about">sobre versão informações app código licenças licenças</string>
     <string name="sks_privacy">privacidade internet offline permissão dados rastreamento seguro</string>
     <string name="sks_version">versão compilação número lançamento atualização copie</string>

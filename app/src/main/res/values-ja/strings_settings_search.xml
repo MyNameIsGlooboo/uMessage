@@ -71,6 +71,7 @@
     <string name="sks_screenshots">スクリーンショット 画面録画 キャプチャ ブロック プライバシー</string>
     <string name="sks_lock_change">変更 PIN パスワード 新規 認証情報 リセット</string>
     <string name="sks_lock_now">ロック 今すぐ 即時 閉じる 保護</string>
+    <string name="sks_setup">初期設定、権限、デフォルトのSMSアプリ、連絡先、通知、バッテリー、バックグラウンド、許可、アクセス</string>
     <string name="sks_about">このアプリについて バージョン 情報 アプリ ソース ライセンス 使用許諾</string>
     <string name="sks_privacy">プライバシー インターネット オフライン 権限 データ トラッキング 安全</string>
     <string name="sks_version">バージョン ビルド 番号 リリース 更新 コピー</string>

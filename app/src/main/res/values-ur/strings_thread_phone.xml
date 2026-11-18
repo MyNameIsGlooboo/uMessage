@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="thread_phone_call">کال کریں</string>
+    <string name="thread_phone_copy">نمبر کاپی کریں</string>
+    <string name="thread_phone_add_contact">رابطہ شامل کریں</string>
+</resources>

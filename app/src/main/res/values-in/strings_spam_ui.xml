@@ -46,7 +46,5 @@
     <string name="blocknum_empty_body">Nomor yang diblokir tidak bisa mengirim pesan atau menelepon Anda. Daftar ini juga digunakan oleh aplikasi telepon.</string>
     <string name="blocknum_unavailable_title">Daftar blokir tidak tersedia</string>
     <string name="blocknum_unavailable_body">Jadikan uMessage aplikasi SMS default untuk melihat dan mengubah daftar blokir sistem.</string>
-    <string name="blocknum_unknown_title">Blokir nomor tidak dikenal</string>
-    <string name="blocknum_contacts_denied">Tanpa akses kontak, nomor tidak dikenal tidak bisa dikenali</string>
     <string name="blocknum_section_numbers">Nomor</string>
 </resources>

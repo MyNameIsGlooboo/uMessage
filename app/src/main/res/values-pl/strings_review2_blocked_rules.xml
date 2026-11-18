@@ -67,7 +67,6 @@
     <string name="e_migrate_point_blocked">• Wiadomości z tych numerów trafią do Spamu, gdzie możesz je przeczytać i przywrócić.</string>
     <string name="e_migrate_point_android">• Android nadal odrzuca wiadomości z tych numerów, dopóki są na jego liście.</string>
     <string name="e_migrate_calls_note">Lista Androida blokuje też połączenia. Numery, które z niej usuniesz, znów będą mogły do ciebie dzwonić.</string>
-    <string name="e_bn_unknown_body">Działa tylko wtedy, gdy opcja „Nieznani nadawcy” jest wyłączona.</string>
     <string name="e_bn_row_calls_texts">Blokuje połączenia i wiadomości</string>
     <string name="e_bn_row_short_code">Krótki numer: jego wiadomości nigdy nie docierają do uMessage</string>
     <string name="e_bn_move_one">Przenieś do reguł uMessage</string>

@@ -44,12 +44,14 @@ import com.glooboo.umessage.ui.icons.Symbols
  * A titled, flat group of settings rows: primary-coloured header above rows on a tonal background.
  * The first and last row have 28dp outer corners, the others 4dp, with a 2dp gap between rows.
  * Every direct child of [content] is one row (emit nothing else, e.g. no dividers).
+ * [descriptionExtra] is shown under the description in its dialog; without a description it is ignored.
  */
 @Composable
 fun SettingsGroup(
     title: String,
     modifier: Modifier = Modifier,
     description: String? = null,
+    descriptionExtra: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
@@ -74,7 +76,7 @@ fun SettingsGroup(
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.weight(1f, fill = false).semantics { heading() },
                 )
-                InfoIconButton(title, description)
+                InfoIconButton(title, description, extra = descriptionExtra)
             }
         }
         TonalRows(modifier = Modifier.padding(horizontal = 16.dp), content = content)
