@@ -7,4 +7,5 @@
         <item quantity="other">In den Posteingang verschoben. Künftige Nachrichten von %d Absendern werden auch zugestellt.</item>
     </plurals>
     <string name="nsf_moving">Wird in den Posteingang verschoben</string>
+    <string name="move_progress">Nachrichten werden verschoben: %1$s von %2$s</string>
 </resources>

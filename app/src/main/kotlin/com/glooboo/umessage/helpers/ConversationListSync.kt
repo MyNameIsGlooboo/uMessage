@@ -5,7 +5,6 @@ import android.util.Log
 import com.glooboo.umessage.backup.PendingArchive
 import com.glooboo.umessage.backup.PendingRecycled
 import com.glooboo.umessage.extensions.clearExpiredScheduledMessages
-import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.getConversations
 import com.glooboo.umessage.extensions.getConversationsOrNull
@@ -13,6 +12,7 @@ import com.glooboo.umessage.extensions.getMessages
 import com.glooboo.umessage.extensions.getPrivateContactsIfAvailable
 import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.messagesDB
+import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.models.Conversation
 import java.util.concurrent.Executor
 
@@ -206,7 +206,8 @@ class ConversationListSync(
         val cachedConversations = ArrayList(db.getNonArchived() + db.getAllArchived())
         val privateContacts = context.getPrivateContactsIfAvailable()
         val lookups = ConversationLookups(context, bulk = true)
-        val archiveKnown = context.config.isArchiveAvailable
+        ArchiveStore.protectArchives(context)
+        val archiveKnown = ArchiveStore.isTrusted(context)
 
         // Refresh the newest threads first so the top of the list is current right away. The full pass below still
         // runs: it is what notices deleted threads and keeps the rest of the list, Archived and search up to date.
@@ -261,7 +262,9 @@ class ConversationListSync(
         }
 
         // Chats a restore archived before their rows existed (see PendingArchive).
-        runCatching { PendingArchive(context).applyTo(db) }
+        runCatching {
+            PendingArchive(context).applyTo(db) { context.updateConversationArchivedStatus(it, true) }
+        }
         // Messages a restore put back in the recycle bin once their cached copies exist (see PendingRecycled).
         runCatching { PendingRecycled(context).applyTo(context.messagesDB) }
 

@@ -266,7 +266,7 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
         name = defaultName
         ensureBackgroundThread {
             val reset = current.copy(title = defaultName, usesCustomTitle = false)
-            runCatching { conversationsDB.insertOrUpdate(reset) }
+            runCatching { conversationsDB.updateTitle(reset.threadId, defaultName, usesCustomTitle = false) }
             conversation = reset
             refreshConversations(current.threadId)
         }

@@ -7,4 +7,5 @@
         <item quantity="other">Gelen kutusuna taşındı. %d gönderenden gelecek mesajlar da ulaşacak.</item>
     </plurals>
     <string name="nsf_moving">Gelen kutusuna taşınıyor</string>
+    <string name="move_progress">Mesajlar taşınıyor: %1$s / %2$s</string>
 </resources>

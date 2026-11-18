@@ -10,19 +10,14 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,7 +39,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -59,6 +53,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -69,8 +64,6 @@ import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.DateStyle
 import com.glooboo.umessage.helpers.w3cPrefs
 import com.glooboo.umessage.spam.BlockedMessage
-import com.glooboo.umessage.spam.data.BlockedNotifier
-import com.glooboo.umessage.ui.components.EmptyState
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.chromeInsets
 import com.glooboo.umessage.ui.components.displayNumber
@@ -80,6 +73,7 @@ import com.glooboo.umessage.ui.components.rememberBubbleMaxWidth
 import com.glooboo.umessage.ui.components.jalaliListDate
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.components.uiLocale
+import com.glooboo.umessage.ui.conversations.MarkReadProgress
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.glooboo.umessage.ui.theme.contentDirection
@@ -89,9 +83,6 @@ import com.glooboo.umessage.ui.thread.timeOnlyLabel
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
-import kotlinx.coroutines.delay
-
-private const val CLOSE_GRACE_MS = 250L
 
 /** One row of the sender thread: a day header or a message bubble. */
 sealed interface BlockedThreadItem {
@@ -116,7 +107,7 @@ internal fun blockedThreadItems(
     zone: ZoneId = ZoneId.systemDefault(),
 ): List<BlockedThreadItem> {
     fun dayOf(message: BlockedMessage) = Instant.ofEpochMilli(message.receivedAt).atZone(zone).toLocalDate()
-    val sorted = messages.sortedByDescending { it.receivedAt }
+    val sorted = messages.sortedWith(NEWEST_FIRST)
     return buildList {
         sorted.forEachIndexed { index, message ->
             add(BlockedThreadItem.Bubble(message))
@@ -166,38 +157,44 @@ fun BlockedThreadRoute(
     val snackbar = remember { SnackbarHostState() }
     var closeWhenEmpty by rememberSaveable { mutableStateOf(false) }
     var seen by rememberSaveable { mutableStateOf(false) }
-    // "Not spam" is working or has finished and the chat is about to open: the buttons wait, the rows stay.
+    // This page started a "Not spam" and the chat is about to open: the buttons wait, the rows are dimmed.
     var moving by rememberSaveable { mutableStateOf(false) }
-    BlockedEvents(viewModel, snackbar, onSettle = { committed -> closeWhenEmpty = committed })
+    // Any "Not spam" of this sender, also one another screen started (the shared move state); its rows stay, dimmed.
+    val movingGroup = state.movingGroups.firstOrNull { it.hasAddress(address) }
+    val movingHere = movingGroup != null
+    // The chat of a finished "Not spam" is still to open (its thread id may be slow to come): the page stays.
+    val chatPending by viewModel.notSpamPending.collectAsStateWithLifecycle()
+    val busy = moving || movingHere || chatPending != null
+    // The "Always allow" snackbar of this page's own "Not spam" ends before its chat opens: it must not close the page.
+    BlockedEvents(viewModel, snackbar, onSettle = { committed -> if (!busy) closeWhenEmpty = committed })
     OpenChatAfterNotSpam(viewModel, address, threadIdOf, onBack, onRetry = { moving = false })
-    val hasMessages = state.groups.any { it.hasAddress(address) }
+    // The "Always allow this name?" question; the chat opens once it is answered and the rule's Undo is over.
+    val namePrompt by viewModel.namePrompt.collectAsStateWithLifecycle()
+    namePrompt?.let { NameAllowDialog(it.names, viewModel::allowPromptedNames, viewModel::dismissNamePrompt) }
+    // After process death `moving` comes back true but no restore runs (the model is new): let the screen go on.
+    // A rotation keeps the model and its pending restore, so this does not fire then. A page that watched somebody
+    // else's move end closes once nothing is left.
+    MoveWatch(
+        movingHere = movingHere,
+        moving = moving,
+        idle = !state.loading && !state.hasPendingUndo,
+        onResetMoving = { moving = false },
+        onOthersMoveEnd = { closeWhenEmpty = true },
+    )
+    val hasMessages = state.groups.any { it.hasAddress(address) } || movingHere
     LaunchedEffect(hasMessages) { if (hasMessages) seen = true }
-    // I5: opening the thread answers the notifications of its messages.
-    val appContext = LocalContext.current.applicationContext
-    val heldIds = state.groups.firstOrNull { it.hasAddress(address) }?.messages?.map { it.id }.orEmpty()
-    LaunchedEffect(heldIds) { BlockedNotifier.cancel(appContext, heldIds) }
-    // Opening the thread reads it; a message that arrives while it is open is read too (the effect runs again).
-    val unreadHeld = state.groups.firstOrNull { it.hasAddress(address) }?.unreadCount ?: 0
-    LaunchedEffect(address, unreadHeld) { if (unreadHeld > 0) viewModel.markRead(address) }
+    ThreadReadEffects(state.groups.firstOrNull { it.hasAddress(address) }, address, viewModel::markRead)
     // A last snackbar (a failure) is let finish before the screen goes. While the chat opens it never closes here.
-    val settled = !state.loading && !hasMessages && !state.hasPendingUndo && !moving &&
+    val settled = !state.loading && !hasMessages && !state.hasPendingUndo && !busy &&
         snackbar.currentSnackbarData == null
     // Nothing (left) to show: either the sender's messages were already gone when the screen opened (purged, or
     // restored from another screen), or the user moved or deleted them and kept that.
-    val close by rememberUpdatedState(onBack)
-    LaunchedEffect(settled, closeWhenEmpty, seen) {
-        if (settled && (closeWhenEmpty || !seen)) {
-            // spamui-22: a short grace, so a snackbar queued at this very moment (it flips [settled] back and
-            // restarts this effect) is shown before the screen goes.
-            delay(CLOSE_GRACE_MS)
-            close()
-        }
-    }
-    val actions = remember(viewModel, address, onBack, onOpenRules) {
+    CloseWhenSettled(settled, closeWhenEmpty, seen, onClose = onBack)
+    val actions = remember(viewModel, address, onBack, onOpenRules, busy) {
         BlockedThreadActions(
             onBack = onBack,
             onMoveToInbox = {
-                if (!moving) moving = viewModel.notSpam(setOf(address), openChat = true)
+                if (!busy) moving = viewModel.notSpam(setOf(address), openChat = true)
             },
             onDeleteAll = { viewModel.delete(setOf(address)) },
             onReleaseOnce = viewModel::releaseOnce,
@@ -208,7 +205,7 @@ fun BlockedThreadRoute(
             onAlwaysAllow = viewModel::alwaysAllow,
         )
     }
-    BlockedThreadScreen(address, state, snackbar, actions, moving = moving)
+    BlockedThreadScreen(address, state, snackbar, actions, moving = busy, movingGroup = movingGroup)
 }
 
 /**
@@ -226,19 +223,25 @@ fun BlockedThreadScreen(
     snackbarHostState: SnackbarHostState,
     actions: BlockedThreadActions,
     modifier: Modifier = Modifier,
-    /** "Not spam" is working: the button shows progress and waits, and the rows stay until the chat opens. */
+    /** "Not spam" is working: the rows stay but dim, the buttons wait, and the chat opens when it is done. */
     moving: Boolean = false,
+    /** The messages of this sender that are being moved; they stay on the page until the move is over. */
+    movingGroup: SenderGroup? = null,
 ) {
-    val group = state.groups.firstOrNull { it.hasAddress(address) }
+    val live = state.groups.firstOrNull { it.hasAddress(address) }
+    val group = live ?: movingGroup
     val shown = isolateNumbers(displayNumber(address))
     var whyId by rememberSaveable { mutableStateOf<Long?>(null) }
     var chosen by rememberSaveable(
         stateSaver = listSaver<Set<Long>, Long>(save = { it.toList() }, restore = { it.toSet() }),
     ) { mutableStateOf(emptySet<Long>()) }
-    val messages = group?.messages.orEmpty()
+    val messages = remember(live, movingGroup) { threadMessages(live, movingGroup) }
     val selection = presentSelection(messages, chosen)
     val selecting = selection.isNotEmpty()
     BackHandler(enabled = selecting) { chosen = emptySet() }
+    LaunchedEffect(moving) { if (moving) chosen = emptySet() }
+    val indicatorDue = moveIndicatorDue(state.moveStartedAt)
+    val footerProgress = state.moveProgress.takeIf { moving && indicatorDue }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -257,55 +260,27 @@ fun BlockedThreadScreen(
             }
         },
         contentWindowInsets = chromeInsets(),
-        bottomBar = { if (group != null && !selecting) HeldFooter(shown, actions, moving) },
+        bottomBar = { if (group != null && !selecting) HeldFooter(shown, actions, moving, footerProgress) },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { inner ->
         val content = Modifier.fillMaxSize().padding(inner)
-        when {
-            state.loading -> Box(content, contentAlignment = Alignment.Center) {
-                val label = stringResource(R.string.spam_loading)
-                CircularProgressIndicator(Modifier.semantics { contentDescription = label })
-            }
-            group == null && moving -> Box(content, contentAlignment = Alignment.Center) {
-                val label = stringResource(R.string.nsf_moving)
-                CircularProgressIndicator(Modifier.semantics { contentDescription = label })
-            }
-            group == null -> Box(content, contentAlignment = Alignment.Center) {
-                EmptyState(
-                    iconRes = R.drawable.ic_spam_shield_check,
-                    title = stringResource(R.string.r3b_thread_empty_title),
-                    body = stringResource(R.string.r3b_thread_empty_body),
-                )
-            }
-            else -> {
-                val rows = remember(group.messages) { blockedThreadItems(group.messages) }
-                val heldLines = remember(group.messages) { heldLineShownFor(group.messages) }
-                LazyColumn(
-                    modifier = content,
-                    reverseLayout = true,
-                    contentPadding = PaddingValues(top = 8.dp, bottom = 12.dp),
-                ) {
-                    items(rows, key = { it.key }) { item ->
-                        when (item) {
-                            is BlockedThreadItem.Day -> ThreadDayHeader(item.day)
-                            is BlockedThreadItem.Bubble -> HeldBubble(
-                                message = item.message,
-                                showHeldLine = item.message.id in heldLines,
-                                simLabel = simLabel(state.sims, item.message.subscriptionId),
-                                actions = actions,
-                                onWhy = { whyId = item.message.id },
-                                selecting = selecting,
-                                selected = item.message.id in selection,
-                                onToggle = { chosen = toggleMessageSelection(selection, item.message.id) },
-                            )
-                        }
-                    }
-                }
-            }
+        if (state.loading || messages.isEmpty()) {
+            ThreadPlaceholder(state.loading, content)
+        } else {
+            ThreadMessageList(
+                messages = messages,
+                sims = state.sims,
+                actions = actions,
+                selection = selection,
+                enabled = !moving,
+                onWhy = { whyId = it },
+                onToggle = { id -> chosen = toggleMessageSelection(selection, id) },
+                modifier = content,
+            )
         }
     }
     whyId?.let { id ->
-        val message = group?.messages?.firstOrNull { it.id == id }
+        val message = messages.firstOrNull { it.id == id }
         if (message == null) {
             // The message left (released, deleted or purged) while its dialog was up.
             if (!state.loading) LaunchedEffect(id) { whyId = null }
@@ -323,9 +298,10 @@ fun BlockedThreadScreen(
  * label (U06): "Not spam" moves the sender to the inbox, "Delete" removes every message.
  */
 @Composable
-private fun HeldFooter(shown: String, actions: BlockedThreadActions, moving: Boolean) {
+private fun HeldFooter(shown: String, actions: BlockedThreadActions, moving: Boolean, progress: MarkReadProgress?) {
     val colors = MaterialTheme.colorScheme
     val deleteAll = stringResource(R.string.r3b_thread_delete_all, shown)
+    val movingLabel = stringResource(R.string.nsf_moving)
     Surface(color = colors.surfaceContainer) {
         Column(
             modifier = Modifier
@@ -335,11 +311,15 @@ private fun HeldFooter(shown: String, actions: BlockedThreadActions, moving: Boo
                 .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-            Text(
-                stringResource(R.string.r3b_thread_note),
-                style = MaterialTheme.typography.bodySmall,
-                color = colors.onSurfaceVariant,
-            )
+            if (progress == null) {
+                Text(
+                    stringResource(R.string.r3b_thread_note),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = colors.onSurfaceVariant,
+                )
+            } else {
+                MoveProgressLine(progress)
+            }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -354,18 +334,10 @@ private fun HeldFooter(shown: String, actions: BlockedThreadActions, moving: Boo
                 FilledTonalButton(
                     onClick = actions.onMoveToInbox,
                     enabled = !moving,
-                    modifier = Modifier.heightIn(min = 48.dp),
+                    modifier = Modifier.heightIn(min = 48.dp)
+                        .semantics { if (moving) stateDescription = movingLabel },
                 ) {
-                    if (moving) {
-                        val label = stringResource(R.string.nsf_moving)
-                        CircularProgressIndicator(
-                            modifier = Modifier.padding(end = 8.dp).size(20.dp)
-                                .semantics { contentDescription = label },
-                            strokeWidth = 2.dp,
-                        )
-                    } else {
-                        Icon(Symbols.Inbox, contentDescription = null, modifier = Modifier.padding(end = 8.dp))
-                    }
+                    Icon(Symbols.Inbox, contentDescription = null, modifier = Modifier.padding(end = 8.dp))
                     Text(stringResource(R.string.ux8c_not_spam), maxLines = 1)
                 }
             }
@@ -375,7 +347,7 @@ private fun HeldFooter(shown: String, actions: BlockedThreadActions, moving: Boo
 
 /** "Today", "Yesterday", then the weekday and date in the user's date style (Jalali when chosen). */
 @Composable
-private fun ThreadDayHeader(day: LocalDate) {
+internal fun ThreadDayHeader(day: LocalDate) {
     val context = LocalContext.current
     val locale = uiLocale()
     val today = LocalDate.now()
@@ -420,7 +392,7 @@ private fun blockedDayText(context: Context, day: LocalDate, today: LocalDate): 
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun HeldBubble(
+internal fun HeldBubble(
     message: BlockedMessage,
     showHeldLine: Boolean,
     simLabel: String?,
@@ -429,6 +401,8 @@ private fun HeldBubble(
     selecting: Boolean,
     selected: Boolean,
     onToggle: () -> Unit,
+    /** False while a move runs: a tap or long press neither opens the menu nor chooses the message. */
+    enabled: Boolean = true,
 ) {
     val colors = MaterialTheme.colorScheme
     val context = LocalContext.current
@@ -472,6 +446,7 @@ private fun HeldBubble(
                     }
                     // Tap: the message's menu, or choose it while choosing. Long press starts or extends choosing.
                     .combinedClickable(
+                        enabled = enabled,
                         onClickLabel = if (selecting) null else actionsLabel,
                         onLongClickLabel = null,
                         onClick = { if (selecting) onToggle() else menuOpen = true },

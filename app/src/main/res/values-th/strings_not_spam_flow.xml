@@ -6,4 +6,5 @@
         <item quantity="other">ย้ายไปกล่องข้อความเข้าแล้ว ข้อความต่อไปจากผู้ส่ง %d รายจะเข้ากล่องข้อความเข้าด้วย</item>
     </plurals>
     <string name="nsf_moving">กำลังย้ายไปกล่องข้อความเข้า</string>
+    <string name="move_progress">กำลังย้ายข้อความ: %1$s จาก %2$s</string>
 </resources>

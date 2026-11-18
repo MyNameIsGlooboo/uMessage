@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">این اسم همیشه مجاز باشد؟</string>
+    <string name="nameallow_body">پیام‌های جدید %1$s به صندوق ورودی می‌رسند. هر کسی می‌تواند با هر اسمی پیام بفرستد، پس پیام‌های تقلبی با این اسم هم می‌رسند. قانون‌های بلاک خودتان برای این اسم برداشته می‌شوند.</string>
+    <string name="nameallow_body_many">پیام‌های جدید %1$s به صندوق ورودی می‌رسند. هر کسی می‌تواند با هر اسمی پیام بفرستد، پس پیام‌های تقلبی با این اسم‌ها هم می‌رسند. قانون‌های بلاک خودتان برای این اسم‌ها برداشته می‌شوند.</string>
+    <string name="nameallow_more">%1$s و %2$d مورد دیگر</string>
+    <string name="nameallow_allow">همیشه مجاز</string>
+    <string name="nameallow_not_now">الان نه</string>
+</resources>

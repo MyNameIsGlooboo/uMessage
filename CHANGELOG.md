@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.14] - 2026-11-18
+### Fixed
+- On phones whose SMS store does not keep the archived flag (seen on a Samsung Galaxy S20 FE), archived chats vanished and new archives came back at once; uMessage now checks the write and keeps its own archive list there. Renaming a chat no longer resets its archive state. Restored backups archive through the same checked path
+### Changed
+- Not spam: every moved message leaves the list at once; the sender page dims its messages and shows a counter and bar for long moves; the Spam list shows a card that turns into the Undo bar
+- Messages moved by Not spam keep their order (oldest first), so the chat preview shows the newest message
+### Added
+- Not spam on a sender name (for example a bank) asks once whether to always allow that name, with a warning that anyone can send texts under a name; one Undo takes back the move and the rule
+
 ## [0.4.13] - 2026-11-18
 ### Added
 - Settings > Setup and permissions: one page that shows what uMessage still needs (default SMS app, contacts, SMS, notifications, battery) and opens the right place; a battery banner on Messages; the first-day checklist can be closed after 7 days

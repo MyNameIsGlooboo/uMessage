@@ -1,9 +1,12 @@
 package com.glooboo.umessage.ui.spam
 
 import android.app.Application
+import android.content.Context
 import android.os.Looper
 import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.junit4.StateRestorationTester
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
@@ -19,8 +22,13 @@ import com.glooboo.umessage.helpers.THREAD_NUMBER
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ListKind
+import com.glooboo.umessage.spam.RestoreOutcome
+import com.glooboo.umessage.spam.RestoreReceipt
+import com.glooboo.umessage.spam.RuleType
+import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
@@ -44,9 +52,10 @@ class BlockedThreadOpensChatTest {
         BlockedMessage(id, address, "text $id", 1, false, now - id * 1000, DecisionReason.UNKNOWN_SENDER)
 
     private fun route(
-        repo: FakeSpamRepository,
+        repo: SpamRepository,
         address: String,
         threadId: Long,
+        threadIdOf: suspend (Context, String) -> Long = { _, _ -> threadId },
         onBack: () -> Unit,
     ) {
         val vm = BlockedViewModel(app, repo, RestoredLog(prefs = null), ignoreFilter = true)
@@ -57,8 +66,24 @@ class BlockedThreadOpensChatTest {
                     onBack = onBack,
                     onOpenRules = {},
                     viewModel = vm,
-                    threadIdOf = { _, _ -> threadId },
+                    threadIdOf = threadIdOf,
                 )
+            }
+        }
+    }
+
+    private fun routeRestorable(
+        repo: FakeSpamRepository,
+        address: String,
+        threadId: Long,
+        onBack: () -> Unit,
+    ): StateRestorationTester {
+        val vm = BlockedViewModel(app, repo, RestoredLog(prefs = null), ignoreFilter = true)
+        return StateRestorationTester(compose).also { tester ->
+            tester.setContent {
+                UMessageTheme {
+                    BlockedThreadRoute(address, onBack, {}, viewModel = vm, threadIdOf = { _, _ -> threadId })
+                }
             }
         }
     }
@@ -117,11 +142,108 @@ class BlockedThreadOpensChatTest {
         var closed = 0
         route(repo, NAME, threadId = 7L) { closed++ }
         compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true).performClick()
+        // The chat waits for the answer to "Always allow this name?"; "Not now" changes nothing.
+        awaitText(app.getString(R.string.nameallow_title))
+        assertThat(closed).isEqualTo(0)
+        compose.onNodeWithText(app.getString(R.string.nameallow_not_now)).performClick()
         awaitClosed { closed > 0 }
 
         val chat = started().single { it.component?.className == ThreadActivity::class.java.name }
         assertThat(chat.getStringExtra(THREAD_NOTICE)).isEqualTo(app.getString(R.string.nsf_snack_moved))
         assertThat(runBlocking { repo.rules.first() }).isEmpty()
+    }
+
+    @Test
+    fun alwaysAllowingTheNameAddsOneSenderNameRuleAndTheChatOpens() {
+        val repo = FakeSpamRepository(initialBlocked = listOf(message(1, NAME)), initialRules = emptyList())
+        var closed = 0
+        route(repo, NAME, threadId = 7L) { closed++ }
+        compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true).performClick()
+        awaitText(app.getString(R.string.nameallow_title))
+        compose.onNodeWithText(app.getString(R.string.nameallow_allow)).performClick()
+        // The rule is stored in the background; its Undo snackbar is on this page, and the chat waits for it.
+        val undo = app.getString(R.string.spam_undo)
+        awaitText(undo)
+        assertThat(runBlocking { repo.rules.first() }).hasSize(1)
+        assertThat(closed).isEqualTo(0)
+        compose.onNodeWithText(undo).assertExists()
+        // Keeping the rule (the snackbar runs out) lets the chat open.
+        compose.mainClock.advanceTimeBy(SNACKBAR_MS)
+        awaitClosed { closed > 0 }
+
+        val chat = started().single { it.component?.className == ThreadActivity::class.java.name }
+        assertThat(chat.getLongExtra(THREAD_ID, 0L)).isEqualTo(7L)
+        val rule = runBlocking { repo.rules.first() }.single()
+        assertThat(rule.kind).isEqualTo(ListKind.ALLOW)
+        assertThat(rule.type).isEqualTo(RuleType.SENDER_ID)
+        assertThat(rule.pattern).isEqualTo(NAME)
+    }
+
+    @Test
+    fun aSlowThreadLookupDoesNotCloseThePageBeforeTheChatOpens() {
+        val repo = FakeSpamRepository(initialBlocked = listOf(message(1, NAME)), initialRules = emptyList())
+        val gate = CompletableDeferred<Long>()
+        var closed = 0
+        route(repo, NAME, threadId = 0L, threadIdOf = { _, _ -> gate.await() }) { closed++ }
+        compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true).performClick()
+        awaitText(app.getString(R.string.nameallow_title))
+        compose.onNodeWithText(app.getString(R.string.nameallow_allow)).performClick()
+        val undo = app.getString(R.string.spam_undo)
+        awaitText(undo)
+        // The snackbar ends unanswered while the lookup is still waiting: the page must stay put meanwhile.
+        compose.mainClock.advanceTimeBy(SNACKBAR_MS)
+        repeat(IDLE_ROUNDS) {
+            shadowOf(Looper.getMainLooper()).idle()
+            compose.mainClock.advanceTimeBy(IDLE_STEP_MS)
+            Thread.sleep(IDLE_STEP_MS)
+        }
+        assertThat(closed).isEqualTo(0)
+
+        gate.complete(7L)
+        awaitClosed { closed > 0 }
+        val chat = started().single { it.component?.className == ThreadActivity::class.java.name }
+        assertThat(chat.getLongExtra(THREAD_ID, 0L)).isEqualTo(7L)
+        assertThat(closed).isEqualTo(1)
+    }
+
+    @Test
+    fun undoingTheNameRuleOnTheBlockedPageIsPossibleAndThenTheChatOpens() {
+        val repo = FakeSpamRepository(initialBlocked = listOf(message(1, NAME)), initialRules = emptyList())
+        var closed = 0
+        route(repo, NAME, threadId = 7L) { closed++ }
+        compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true).performClick()
+        awaitText(app.getString(R.string.nameallow_title))
+        compose.onNodeWithText(app.getString(R.string.nameallow_allow)).performClick()
+        val undo = app.getString(R.string.spam_undo)
+        awaitText(undo)
+        compose.onNodeWithText(undo).performClick()
+        awaitClosed { closed > 0 }
+        assertThat(runBlocking { repo.rules.first() }).isEmpty()
+    }
+
+    @Test
+    fun rotatingWhileTheQuestionIsOpenStillOpensTheChatAfterTheAnswer() {
+        val repo = FakeSpamRepository(initialBlocked = listOf(message(1, NAME)), initialRules = emptyList())
+        var closed = 0
+        val tester = routeRestorable(repo, NAME, threadId = 7L) { closed++ }
+        compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true).performClick()
+        awaitText(app.getString(R.string.nameallow_title))
+        tester.emulateSavedInstanceStateRestore()
+        awaitText(app.getString(R.string.nameallow_title))
+        compose.onNodeWithText(app.getString(R.string.nameallow_not_now)).performClick()
+        awaitClosed { closed > 0 }
+
+        assertThat(started().count { it.component?.className == ThreadActivity::class.java.name }).isEqualTo(1)
+    }
+
+    private fun awaitText(text: String) {
+        val deadline = System.currentTimeMillis() + 5_000
+        while (compose.onAllNodesWithText(text).fetchSemanticsNodes().isEmpty()) {
+            shadowOf(Looper.getMainLooper()).idle()
+            compose.waitForIdle()
+            check(System.currentTimeMillis() < deadline) { "\"$text\" did not show" }
+            Thread.sleep(10)
+        }
     }
 
     @Test
@@ -141,9 +263,50 @@ class BlockedThreadOpensChatTest {
         assertThat(closed).isEqualTo(1)
     }
 
+    /** A repository whose restore moves nothing, as when the inbox cannot be written. */
+    private class FailingRestore(private val base: FakeSpamRepository) : SpamRepository by base {
+        val calls = java.util.concurrent.atomic.AtomicInteger()
+
+        override suspend fun restore(blockedId: Long): RestoreReceipt {
+            calls.incrementAndGet()
+            return RestoreReceipt(null, RestoreOutcome.FAILED)
+        }
+    }
+
+    @Test
+    fun whenNothingReachesTheInboxTheButtonsWorkAgain() {
+        val fake = FakeSpamRepository(initialBlocked = listOf(message(1, SENDER)), initialRules = emptyList())
+        val repo = FailingRestore(fake)
+        var closed = 0
+        route(repo, SENDER, threadId = 5L) { closed++ }
+        val notSpam = compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true)
+        val delete = compose.onNodeWithText(app.getString(R.string.ux8c_delete), useUnmergedTree = true)
+        notSpam.performClick()
+        // The restore was tried and failed (a text message: no picture-message notice).
+        awaitClosed { repo.calls.get() > 0 }
+        // The failed move left the buttons waiting once; now they must be enabled and the page still open.
+        awaitClosed { notSpamEnabled() }
+        notSpam.assertIsEnabled()
+        delete.assertIsEnabled()
+        assertThat(closed).isEqualTo(0)
+        // No chat was opened for a move that moved nothing.
+        assertThat(started().count { it.component?.className == ThreadActivity::class.java.name }).isEqualTo(0)
+    }
+
+    private fun notSpamEnabled() = runCatching {
+        compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true).assertIsEnabled()
+    }.isSuccess
+
     private companion object {
         const val SENDER = "+447121234567"
         const val NAME = "BANK-X"
+
+        /** A little longer than a Long snackbar. */
+        const val SNACKBAR_MS = 11_000L
+
+        /** How long the slow lookup is given to wrongly close the page: this many rounds of this many ms. */
+        const val IDLE_ROUNDS = 20
+        const val IDLE_STEP_MS = 50L
 
         /** What the snackbar text shows for [SENDER]: the number as the phone displays it. */
         val SENDER_SHOWN: String get() = com.glooboo.umessage.ui.components.isolateNumbers(

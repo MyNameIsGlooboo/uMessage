@@ -103,7 +103,9 @@ fun BlockedRoute(onBack: (() -> Unit)?, onOpenRules: () -> Unit, onOpenSettings:
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val groups by rememberUpdatedState(state.groups)
-    BlockedEvents(viewModel, snackbar)
+    BlockedEvents(viewModel, snackbar, showOrphans = true)
+    val namePrompt by viewModel.namePrompt.collectAsStateWithLifecycle()
+    namePrompt?.let { NameAllowDialog(it.names, viewModel::allowPromptedNames, viewModel::dismissNamePrompt) }
     // Leaving the tab closes the search and drops the selection, so neither comes back with the tab. A rotation keeps
     // both.
     val activity = LocalActivity.current
@@ -138,14 +140,17 @@ fun BlockedRoute(onBack: (() -> Unit)?, onOpenRules: () -> Unit, onOpenSettings:
 
 /**
  * The snackbars of the Blocked tab's and the sender thread's one-shot events, with Undo where it applies.
- * [onSettle] hears how a restore or delete snackbar ended: true when the action stays, false on Undo.
+ * [onSettle] hears how a restore or delete snackbar ended: true when the action stays, false on Undo. With
+ * [showOrphans] a move whose own screen is gone (the sender page was left mid-move) says "Moved to inbox" when done.
  */
 @Composable
 internal fun BlockedEvents(
     viewModel: BlockedViewModel,
     snackbar: SnackbarHostState,
     onSettle: (committed: Boolean) -> Unit = {},
+    showOrphans: Boolean = false,
 ) {
+    if (showOrphans) OrphanMovedSnack(snackbar)
     val resources = LocalResources.current
     val context = LocalContext.current
     val undoLabel = stringResource(R.string.spam_undo)
@@ -295,6 +300,7 @@ fun BlockedScreen(
             )
         },
         snackbarHostState = snackbarHostState,
+        aboveSnackbar = { MoveCardHost(state.moveProgress, state.moveStartedAt) },
     ) { inner ->
         if (state.loading) {
             Box(

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nameallow_title">Always allow this name?</string>
+    <string name="nameallow_body">New texts from %1$s will go to your inbox. Anyone can send texts under any name, so fake texts with this name would get through too. Your own block rules for this name are removed.</string>
+    <string name="nameallow_body_many">New texts from %1$s will go to your inbox. Anyone can send texts under any name, so fake texts with these names would get through too. Your own block rules for these names are removed.</string>
+    <string name="nameallow_more">%1$s and %2$d more</string>
+    <string name="nameallow_allow">Always allow</string>
+    <string name="nameallow_not_now">Not now</string>
+</resources>

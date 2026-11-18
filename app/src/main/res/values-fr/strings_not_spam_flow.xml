@@ -7,4 +7,5 @@
         <item quantity="other">Déplacé vers la boîte de réception. Les prochains messages de %d expéditeurs y arriveront aussi.</item>
     </plurals>
     <string name="nsf_moving">Déplacement vers la boîte de réception</string>
+    <string name="move_progress">Déplacement des messages : %1$s sur %2$s</string>
 </resources>

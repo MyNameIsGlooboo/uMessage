@@ -11,11 +11,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
@@ -34,6 +36,7 @@ import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.SpamStats
 import com.glooboo.umessage.spam.UnknownSenderMode
+import com.glooboo.umessage.ui.conversations.MarkReadProgress
 
 /**
  * All blocked messages of one sender, newest first. The sender address is the group key: the newest message's address
@@ -83,6 +86,12 @@ data class BlockedUiState(
      * snackbar is not lost with the screen.
      */
     val hasPendingUndo: Boolean = false,
+    /** A "Not spam" is moving messages one by one, over all screens: how far it is. Null when nothing moves. */
+    val moveProgress: MarkReadProgress? = null,
+    /** The messages being moved, by sender. The sender page draws them dimmed until the move is over. */
+    val movingGroups: List<SenderGroup> = emptyList(),
+    /** Clock time the running move began, for the 300 ms rule of the indicator; 0 when nothing moves. */
+    val moveStartedAt: Long = 0L,
 ) {
     val selecting: Boolean get() = selected.isNotEmpty()
 }
@@ -126,6 +135,9 @@ fun groupBySender(messages: List<BlockedMessage>, keyOf: (String) -> String = { 
     }
     .sortedByDescending { it.latest.receivedAt }
 
+/** The order messages are moved in: oldest first, so the chat gets them in the order they arrived. */
+private val OLDEST_FIRST = compareBy<BlockedMessage> { it.receivedAt }.thenBy { it.id }
+
 /**
  * The Blocked tab and the sender thread. [ignoreFilter] is set for the thread: it shows (and acts on) every held
  * message of its sender, whatever chip the tab has chosen.
@@ -135,6 +147,7 @@ class BlockedViewModel(
     private val repository: SpamRepository,
     private val restoredLog: RestoredLog = RestoredLog.get(application),
     private val ignoreFilter: Boolean = false,
+    private val moves: NotSpamMoves = NotSpamMoves.shared,
 ) : AndroidViewModel(application) {
 
     private val senderKeys = SenderKeys.forDevice(application)
@@ -155,7 +168,7 @@ class BlockedViewModel(
     )
 
     /** The ids hidden while an undo window is open, and whether any window is open. */
-    private data class Pending(val ids: List<Long>, val any: Boolean)
+    private data class Pending(val ids: List<Long>, val any: Boolean, val move: MoveState)
 
     private data class Aux(
         val settings: SpamSettings,
@@ -189,8 +202,8 @@ class BlockedViewModel(
     /**
      * [allowAddresses] are the senders whose allow rules go with the restore: none for "Release once" and none for
      * names anyone can fake. [receipts] is what the repository did with each message, null while it is still at
-     * work; the Undo snackbar ([announced]) waits for them. A [silent] restore comes from a blocked chat: its rows
-     * stay on screen while it runs, it shows no Undo snackbar, and the screen opens the normal chat instead.
+     * work; the Undo snackbar ([announced]) waits for them. A [silent] restore comes from a blocked chat: it shows
+     * no Undo snackbar, and the screen opens the normal chat instead.
      */
     private data class PendingRestore(
         val ids: List<Long>,
@@ -219,9 +232,6 @@ class BlockedViewModel(
         val claimed: List<Long>
             get() = receipts?.let { r -> ids.filter { r[it]?.outcome != RestoreOutcome.FAILED } } ?: ids
 
-        /** The rows hidden from the list: a silent restore keeps its rows until it is done. */
-        val hidden: List<Long> get() = if (silent && receipts == null) emptyList() else claimed
-
         val ready: Boolean get() = !announced && receipts != null
 
         fun event(token: Long): BlockedEvent.Restored {
@@ -240,19 +250,51 @@ class BlockedViewModel(
     private val events = Channel<BlockedEvent>(Channel.BUFFERED)
     val eventFlow = events.receiveAsFlow()
 
-    private val doneEvents = Channel<NotSpamDone>(Channel.BUFFERED)
+    private val doneState = MutableStateFlow<NotSpamDone?>(null)
 
-    /** One entry for every "Not spam" started with `openChat`, once its messages are in the inbox (or failed to be). */
-    val notSpamDone = doneEvents.receiveAsFlow()
+    /**
+     * The "Not spam" started with `openChat` whose chat is still to open, once its messages are in the inbox (or
+     * failed to be, and the question about names, if any, is answered). It is state, not a one-shot event: a screen
+     * recreated meanwhile (rotation) still gets it, until the screen that opens the chat calls [notSpamHandled].
+     */
+    val notSpamDone: Flow<NotSpamDone> = doneState.filterNotNull()
+
+    /** The same as [notSpamDone] but as state: null again once [notSpamHandled] ran, so a page can stop waiting. */
+    val notSpamPending: StateFlow<NotSpamDone?> = doneState
+
+    /** The chat for [done] is opening (or was given up on): forget it, so no screen opens it twice. */
+    fun notSpamHandled(done: NotSpamDone) {
+        doneState.compareAndSet(done, null)
+    }
+
+    private val namePromptState = MutableStateFlow<NameAllowPrompt?>(null)
+
+    /**
+     * The "Always allow this name?" question after a "Not spam" of senders that go by a name. It lives here, so a
+     * rotation neither loses nor repeats it; an answer ([allowPromptedNames], [dismissNamePrompt]) clears it. It is
+     * not saved over process death: the dialog is gone then, and a blocked chat does not open the chat (rare).
+     */
+    val namePrompt: StateFlow<NameAllowPrompt?> = namePromptState
+
+    /** Restores whose Undo snackbar (or chat) waits for the answer to the question, so the dialog cannot hide it. */
+    private val waitingForAnswer = mutableSetOf<Long>()
+
+    /** What to do once the allow-only snackbar of a token is over (Undo or not): a blocked chat opens its chat. */
+    private val afterAllow = mutableMapOf<Long, () -> Unit>()
 
     val state: StateFlow<BlockedUiState> = combine(
         repository.blocked,
         repository.stats,
         combine(repository.settings, repository.rules, filter, restoredLog.entries, ::Aux),
-        combine(pendingDeletes, pendingRestores) { deletes, restores ->
+        combine(pendingDeletes, pendingRestores, moves.state) { deletes, restores, move ->
+            // The list hides everything that moves at once, so the rows leave together and not one by one. The
+            // sender page keeps them, dimmed, until the move is over (a restore still running hides nothing there).
+            val restoreIds = restores.values.filterNot { ignoreFilter && it.receipts == null }.flatMap { it.claimed }
+            val moveIds = if (ignoreFilter) emptySet() else move.inFlight.keys
             Pending(
-                ids = deletes.values.flatten() + restores.values.flatMap { it.hidden },
+                ids = deletes.values.flatten() + restoreIds + moveIds,
                 any = deletes.isNotEmpty() || restores.isNotEmpty(),
+                move = move,
             )
         },
         combine(selected, sims, query) { s, i, q -> Triple(s, i, q) },
@@ -285,6 +327,9 @@ class BlockedViewModel(
             purgeAfterDays = aux.settings.purgeAfterDays,
             restored = aux.restored,
             hasPendingUndo = pending.any,
+            moveProgress = if (pending.move.running) MarkReadProgress(pending.move.done, pending.move.total) else null,
+            movingGroups = groupBySender(pending.move.inFlight.values.toList(), senderKeys::keyOf),
+            moveStartedAt = pending.move.startedAt,
         )
     }.flowOn(Dispatchers.Default) // grouping, filtering and the link checks stay off the main thread
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), BlockedUiState())
@@ -361,7 +406,7 @@ class BlockedViewModel(
         if (messages.isEmpty()) return
         val token = nextToken++
         val restore = PendingRestore(
-            messages.map { it.id }, emptyList(), messages = messages.associateBy { it.id },
+            messages.sortedWith(OLDEST_FIRST).map { it.id }, emptyList(), messages = messages.associateBy { it.id },
         )
         pendingRestores.update { it + (token to restore) }
         startRestore(token)
@@ -385,16 +430,18 @@ class BlockedViewModel(
     /**
      * "Not spam": in one step, puts the senders' messages in the inbox and stores an allow rule for each sender
      * (a number rule, or a sender-id rule), then offers one Undo for both. Senders whose names anyone can fake get no
-     * rule: their messages only move. Nothing is asked. With [openChat] the rows stay until the work is done, no
-     * snackbar is shown, and [notSpamDone] tells the blocked chat to open the normal chat. Returns false when there
-     * was nothing to move (all of it is already on its way).
+     * rule: their messages only move, and the "Always allow this name?" question follows (the Undo waits for its
+     * answer). All rows leave the list at once (on the sender page they stay
+     * dimmed until the chat opens), and the messages move oldest first; a message that fails to move comes back.
+     * With [openChat] no snackbar is shown, and [notSpamDone] tells the blocked chat to open the normal chat.
+     * Returns false when there was nothing to move (all of it is already on its way).
      */
     fun notSpam(addresses: Set<String>, openChat: Boolean = false): Boolean {
         val groups = state.value.groups.filter { g -> addresses.any(g::hasAddress) }
         // Messages already waiting on a restore are left out, so a second swipe cannot queue them twice (L4).
         val pending = pendingIds()
         val messages = groups.flatMap { it.messages }.filter { it.id !in pending }
-        val ids = messages.map { it.id }
+        val ids = messages.sortedWith(OLDEST_FIRST).map { it.id }
         if (ids.isEmpty()) return false
         val token = nextToken++
         val senders = groups.map { it.address }
@@ -418,15 +465,23 @@ class BlockedViewModel(
         val messages = pending.ids.mapNotNull { pending.messages[it] }
         viewModelScope.launch {
             withContext(NonCancellable) {
+                // In flight from here on, also while this batch waits for the lock behind another one.
+                moves.begin(messages)
                 val work = restoreWork.withLock { restoreAndAllow(messages, pending.allowAddresses) }
                 // The chat list (MainActivity) reloads on this event, so the restored text shows without a refresh.
                 refreshConversations()
                 if (cleared) {
                     finishInBackground(work.receipts.values)
+                    // The screen that asked is gone: the Spam list says the move is over.
+                    val toInbox = work.receipts.values.count {
+                        it.outcome == RestoreOutcome.RESTORED || it.outcome == RestoreOutcome.TEXT_ONLY
+                    }
+                    if (toInbox > 0) moves.announceOrphan(toInbox)
                 } else {
                     updateRestore(token) {
                         it.copy(receipts = work.receipts, logged = work.logged, allowChange = work.change)
                     }
+                    offerNameAllow(token, pending, work.receipts)
                     announceIfReady(token)
                 }
             }
@@ -440,28 +495,127 @@ class BlockedViewModel(
      */
     fun alwaysAllow(address: String) {
         if (SenderBlocking.isSpoofable(address)) return
-        val token = nextToken++
-        viewModelScope.launch {
-            withContext(NonCancellable) {
-                restoreWork.withLock {
-                    val change = runCatching { SenderBlocking.alwaysAllow(repository, listOf(address)) }.getOrNull()
-                    if (change == null) {
-                        events.trySend(BlockedEvent.Failed)
-                    } else {
-                        val pending = PendingRestore(
-                            ids = emptyList(), addresses = listOf(address), allowAddresses = listOf(address),
-                            receipts = emptyMap(), allowChange = change, announced = true,
-                        )
-                        pendingRestores.update { it + (token to pending) }
-                        events.trySend(pending.event(token))
+        allowOnly(listOf(address))
+    }
+
+    /**
+     * After "Not spam" moved texts of senders that go by a name, asks once whether to allow those names: only for names
+     * whose messages really reached the inbox and that no allow rule names yet. Nothing is asked for "Release once"
+     * and "Move to inbox" (no senders), nor when nothing moved. The answer is not remembered: the next "Not spam" asks
+     * again.
+     */
+    private suspend fun offerNameAllow(token: Long, pending: PendingRestore, receipts: Map<Long, RestoreReceipt>) {
+        if (pending.addresses.isEmpty()) return
+        val inInbox = setOf(RestoreOutcome.RESTORED, RestoreOutcome.TEXT_ONLY)
+        val movedFrom = pending.ids.filter { receipts[it]?.outcome in inInbox }
+            .mapNotNull { pending.messages[it]?.address }
+        val rules = runCatching { repository.rules.first() }.getOrNull() ?: return
+        val names = namesToOffer(movedFrom, rules)
+        if (names.isEmpty()) return
+        namePromptState.update { old -> NameAllowPrompt(old?.byToken.orEmpty() + (token to names)) }
+    }
+
+    /**
+     * Keeps the Undo snackbar of a restore back while the question about its names is open (the dialog covers the
+     * snackbar, and its Undo window would run unseen). [answerQuestion] lets it go. True when it is kept back.
+     */
+    private fun waitsForAnswer(token: Long): Boolean {
+        val asking = namePromptState.value?.tokens.orEmpty()
+        return (token in asking).also { if (it) waitingForAnswer += token }
+    }
+
+    /**
+     * Clears the question and lets the kept-back restores go on. With [allow] a sender-name rule is stored for each
+     * asked name first. A restore with a snackbar (the Spam list) takes the rule into its own token, so its one
+     * Undo reverses the move and the rule together. A restore from a blocked chat has no snackbar: it opens its chat
+     * only after the rule's own Undo snackbar is over, so the user can still take the rule back.
+     */
+    private fun answerQuestion(allow: Boolean) {
+        val prompt = namePromptState.value ?: return
+        namePromptState.value = null
+        val waiting = waitingForAnswer.toList()
+        waitingForAnswer.clear()
+        val (silent, loud) = waiting.partition { pendingRestores.value[it]?.silent == true }
+        val firstLoud = loud.minOrNull()
+        when {
+            !allow -> (loud + silent).forEach(::announceIfReady)
+            firstLoud != null -> viewModelScope.launch {
+                withContext(NonCancellable) {
+                    restoreWork.withLock {
+                        // Each restore takes its own names, so its Undo removes only those rules. The names of a
+                        // restore without a snackbar go to the first one that has it.
+                        val quiet = silent.flatMap { prompt.byToken[it].orEmpty() }
+                        loud.sorted().forEach { token ->
+                            val own = prompt.byToken[token].orEmpty()
+                            addAllowTo(token, if (token == firstLoud) own + quiet else own)
+                        }
                     }
                 }
+                (loud + silent).forEach(::announceIfReady)
             }
-            if (pendingRestores.value.containsKey(token)) {
+            else -> allowOnly(prompt.names) { silent.forEach(::announceIfReady) }
+        }
+    }
+
+    /** Stores the allow rules of [names] and hangs them on the restore [token], before its snackbar is shown. */
+    private suspend fun addAllowTo(token: Long, names: List<String>) {
+        val (fresh, change) = storeFreshAllow(names) ?: return
+        updateRestore(token) { old ->
+            val before = old.allowChange
+            old.copy(
+                allowAddresses = old.allowAddresses.takeIf { before != null }.orEmpty() + fresh,
+                allowChange = SenderBlocking.AllowChange(
+                    before?.addedRuleIds.orEmpty() + change.addedRuleIds,
+                    before?.removedBlockRules.orEmpty() + change.removedBlockRules,
+                ),
+            )
+        }
+    }
+
+    /** "Always allow" of the question: a sender-name allow rule for each asked name, with the same Undo snackbar. */
+    fun allowPromptedNames() = answerQuestion(allow = true)
+
+    /** "Not now" of the question: nothing changes and nothing is remembered. */
+    fun dismissNamePrompt() = answerQuestion(allow = false)
+
+    /** [afterwards] runs once the allow snackbar is over, or at once when no rule was stored. */
+    private fun allowOnly(addresses: List<String>, afterwards: (() -> Unit)? = null) {
+        val token = nextToken++
+        if (afterwards != null) afterAllow[token] = afterwards
+        viewModelScope.launch {
+            val shown = withContext(NonCancellable) { restoreWork.withLock { storeAllow(token, addresses) } }
+            if (!shown) {
+                afterAllow.remove(token)?.invoke()
+            } else if (pendingRestores.value.containsKey(token)) {
                 delay(UNDO_WINDOW_MS)
                 commitRestore(token)
             }
         }
+    }
+
+    /**
+     * Stores the allow rules and offers their Undo. Names an allow rule lets through already are left out here, under
+     * the lock, so a second answer cannot add a duplicate rule. False when no Undo window opened.
+     */
+    private suspend fun storeAllow(token: Long, addresses: List<String>): Boolean {
+        val (fresh, change) = storeFreshAllow(addresses) ?: return false
+        val pending = PendingRestore(
+            ids = emptyList(), addresses = fresh, allowAddresses = fresh,
+            receipts = emptyMap(), allowChange = change, announced = true,
+        )
+        pendingRestores.update { it + (token to pending) }
+        events.trySend(pending.event(token))
+        return true
+    }
+
+    /** The names and what storing their allow rules changed; null when none is new or the rules could not be stored. */
+    private suspend fun storeFreshAllow(addresses: List<String>): Pair<List<String>, SenderBlocking.AllowChange>? {
+        val rules = runCatching { repository.rules.first() }.getOrNull().orEmpty()
+        val fresh = addresses.filterNot { isNameAllowed(it, rules) }
+        if (fresh.isEmpty()) return null
+        val change = runCatching { SenderBlocking.alwaysAllow(repository, fresh) }.getOrNull()
+        if (change == null) events.trySend(BlockedEvent.Failed)
+        return change?.let { fresh to it }
     }
 
     /** The restore and its allow rules as one piece of work; no rule is added when nothing reached the inbox. */
@@ -484,16 +638,22 @@ class BlockedViewModel(
         val inInbox = setOf(RestoreOutcome.RESTORED, RestoreOutcome.TEXT_ONLY)
         // spamui-1: a bigger batch shows its first restored message in the chat list at once, not only at the end.
         var firstShown = messages.size <= 1
-        val receipts = messages.associate { message ->
-            val receipt = runCatching { repository.restore(message.id) }.getOrElse {
-                error = true
-                RestoreReceipt(null, RestoreOutcome.FAILED)
+        // The batch is over with the last message, before the allow rules: the move is not "running" any longer.
+        val receipts = try {
+            messages.associate { message ->
+                val receipt = runCatching { repository.restore(message.id) }.getOrElse {
+                    error = true
+                    RestoreReceipt(null, RestoreOutcome.FAILED)
+                }
+                if (!firstShown && receipt.outcome in inInbox) {
+                    firstShown = true
+                    refreshConversations()
+                }
+                moves.step()
+                message.id to receipt
             }
-            if (!firstShown && receipt.outcome in inInbox) {
-                firstShown = true
-                refreshConversations()
-            }
-            message.id to receipt
+        } finally {
+            moves.end(messages.map { it.id })
         }
         if (error) events.trySend(BlockedEvent.Failed)
         val now = System.currentTimeMillis()
@@ -507,9 +667,10 @@ class BlockedViewModel(
     /** Shows the Undo snackbar once the restore is done, and starts the undo window. */
     private fun announceIfReady(token: Long) {
         val pending = pendingRestores.value[token]?.takeIf { it.ready } ?: return
+        if (waitsForAnswer(token)) return
         if (pending.silent) {
             val allowed = if (pending.allowChange != null) pending.allowAddresses else emptyList()
-            doneEvents.trySend(NotSpamDone(pending.addresses, pending.toInbox, allowed))
+            doneState.value = NotSpamDone(pending.addresses, pending.toInbox, allowed)
         }
         if (pending.silent && pending.toInbox > 0) {
             // The blocked chat opens the normal chat: nothing here to undo, so the restore is final right away.
@@ -546,11 +707,15 @@ class BlockedViewModel(
     fun undoRestore(token: Long) {
         val pending = pendingRestores.value[token]?.takeIf { it.announced } ?: return
         if (!committing.add(token)) return
+        namePromptState.update { prompt ->
+            prompt?.let { NameAllowPrompt(it.byToken - token) }?.takeIf { it.byToken.isNotEmpty() }
+        }
         viewModelScope.launch {
             val undone = withContext(NonCancellable) { restoreWork.withLock { undo(pending) } }
             if (!undone) events.trySend(BlockedEvent.Failed)
             pendingRestores.update { it - token }
             committing -= token
+            afterAllow.remove(token)?.invoke()
         }
     }
 
@@ -582,6 +747,7 @@ class BlockedViewModel(
             if (pending.failed > 0) events.trySend(BlockedEvent.RestoreFailed(pending.failed))
             pendingRestores.update { it - token }
             committing -= token
+            afterAllow.remove(token)?.invoke()
         }
     }
 
@@ -677,9 +843,10 @@ class BlockedViewModel(
         super.onCleared()
     }
 
-    /** Ids hidden while a restore or a delete waits for its undo window. */
+    /** Ids hidden while a restore or a delete waits for its undo window, or moved by any screen right now. */
     private fun pendingIds(): Set<Long> =
-        (pendingRestores.value.values.flatMap { it.claimed } + pendingDeletes.value.values.flatten()).toSet()
+        (pendingRestores.value.values.flatMap { it.claimed } + pendingDeletes.value.values.flatten() +
+            moves.state.value.inFlight.keys).toSet()
 
     private fun idsOf(addresses: Set<String>): List<Long> =
         state.value.groups.filter { g -> addresses.any(g::hasAddress) }.flatMap { g -> g.messages.map { it.id } }

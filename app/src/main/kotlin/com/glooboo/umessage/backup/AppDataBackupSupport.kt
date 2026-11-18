@@ -6,6 +6,7 @@ import androidx.core.content.edit
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.getMessagesDB
 import com.glooboo.umessage.extensions.getThreadParticipants
+import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.helpers.StarredMessages
 import com.glooboo.umessage.interfaces.ConversationsDao
 import com.glooboo.umessage.interfaces.LabelsDao
@@ -35,6 +36,7 @@ class AppDataBackupSupport(
     private val addressesOf: (threadId: Long) -> Set<String>,
     private val threadFor: (addresses: Set<String>) -> Long?,
     private val parts: List<AppDataPart> = emptyList(),
+    private val archive: (threadId: Long) -> Unit = conversations::moveToArchive,
 ) {
 
     /**
@@ -129,7 +131,7 @@ class AppDataBackupSupport(
                 pendingArchive.add(threadId)
                 taken++
             } else if (!row.isArchived) {
-                conversations.moveToArchive(threadId)
+                archive(threadId)
                 taken++
             }
         }
@@ -157,6 +159,10 @@ class AppDataBackupSupport(
                 addressesOf = addressesOf,
                 threadFor = threadFor,
                 parts = AppDataParts.of(app, addressesOf, threadFor),
+                archive = { threadId ->
+                    runCatching { app.updateConversationArchivedStatus(threadId, true) }
+                        .onFailure { db.ConversationsDao().moveToArchive(threadId) }
+                },
             )
         }
     }
@@ -173,13 +179,21 @@ class PendingArchive(context: Context) {
         prefs.edit { putStringSet(KEY, ids() + threadId.toString()) }
     }
 
-    /** Archives the waiting chats whose row exists; returns how many were archived. */
-    fun applyTo(conversations: ConversationsDao): Int {
+    /**
+     * Archives the waiting chats whose row exists; returns how many were archived. [archive] does the archiving (the
+     * list sync passes the one that writes the phone's store too); a failure there falls back to the app's own list.
+     */
+    fun applyTo(
+        conversations: ConversationsDao,
+        archive: (threadId: Long) -> Unit = conversations::moveToArchive,
+    ): Int {
         val waiting = ids()
         if (waiting.isEmpty()) return 0
         val done = waiting.filter { id ->
             val row = id.toLongOrNull()?.let(conversations::getConversationWithThreadId) ?: return@filter false
-            if (!row.isArchived) conversations.moveToArchive(row.threadId)
+            if (!row.isArchived) {
+                runCatching { archive(row.threadId) }.onFailure { conversations.moveToArchive(row.threadId) }
+            }
             true
         }.toSet()
         if (done.isNotEmpty()) prefs.edit { putStringSet(KEY, waiting - done) }
