@@ -7,9 +7,6 @@ import android.content.pm.PackageManager
 import android.provider.Settings
 import androidx.core.content.ContextCompat
 import com.glooboo.umessage.helpers.DefaultSmsRole
-import com.glooboo.umessage.helpers.OemHelper
-import com.glooboo.umessage.helpers.OemStepKind
-import com.glooboo.umessage.helpers.StepState
 import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.spam.ForwardingAvailability
 import com.glooboo.umessage.ui.setup.setupScreenIntent
@@ -21,23 +18,25 @@ internal class ChecklistSnapshot(
     val impossible: Set<ChecklistStep>,
 )
 
-internal fun readChecklist(context: Context, prefs: W3cPrefs, forwardRuleCount: Int): ChecklistSnapshot {
+/**
+ * The optional battery step is listed only where the battery banner would show too ([batteryListed]), and it is done
+ * exactly when that guide is no longer needed, so a plain phone can finish and a vendor step left open is not hidden.
+ */
+internal fun readChecklist(
+    context: Context,
+    prefs: W3cPrefs,
+    forwardRuleCount: Int,
+    batteryListed: Boolean = batteryGuideNeeded(context),
+): ChecklistSnapshot {
     val role = DefaultSmsRole.status(context)
     val forwardingAvailable = ForwardingAvailability.isAvailable(context)
-    // The optional battery step is listed only where the battery banner would show too, so a plain phone can finish.
-    val batteryListed = batteryGuideNeeded(context)
-    val batteryDone = !batteryListed || OemHelper.stateOf(
-        OemStepKind.IGNORE_BATTERY,
-        OemHelper.backgroundStatus(context),
-        false,
-    ) == StepState.DONE_VERIFIED
     val inputs = DoneInputs(
         smsHeld = role is DefaultSmsRole.Status.Held,
         notificationsOn = context.currentNotificationsBlock() == null,
         contactsOn = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) ==
             PackageManager.PERMISSION_GRANTED,
         blockedSeen = prefs.blockedTabVisited,
-        batteryDone = batteryDone,
+        batteryDone = !batteryListed,
     )
     return ChecklistSnapshot(
         steps = listedSteps(forwardingAvailable, batteryListed),
@@ -83,6 +82,8 @@ internal class StepActions(
     val launchRole: (Intent) -> Unit,
     val onOpenBlockedTab: () -> Unit,
     val onOpenForwarding: () -> Unit,
+    /** The role dialog was already refused: the Set button is "Open settings" and goes to the settings page. */
+    val roleRefused: Boolean = false,
 )
 
 internal fun runStepAction(step: ChecklistStep, actions: StepActions) {
@@ -99,12 +100,26 @@ internal fun runStepAction(step: ChecklistStep, actions: StepActions) {
     }
 }
 
-/** Asks for the role; where it cannot be asked (not offered, or the dialog cannot open) the settings page opens. */
+/** What a tap on the default-SMS step does. */
+internal enum class RoleStepAction { ASK, OPEN_SETTINGS, NOTHING }
+
+/** Ask while the dialog can be shown and was not refused; otherwise open the settings page. */
+internal fun roleStepAction(status: DefaultSmsRole.Status, refused: Boolean): RoleStepAction = when {
+    status is DefaultSmsRole.Status.Held -> RoleStepAction.NOTHING
+    refused || status !is DefaultSmsRole.Status.Request -> RoleStepAction.OPEN_SETTINGS
+    else -> RoleStepAction.ASK
+}
+
+/** Asks for the role; where it cannot be asked (refused, not offered, or the dialog cannot open) settings open. */
 private fun requestDefaultSms(actions: StepActions) {
     val status = DefaultSmsRole.status(actions.context)
-    val launched = status is DefaultSmsRole.Status.Request &&
-        runCatching { actions.launchRole(status.intent) }.isSuccess
-    if (!launched && status !is DefaultSmsRole.Status.Held) actions.context.openDefaultAppsSettings()
+    val launched = when (roleStepAction(status, actions.roleRefused)) {
+        RoleStepAction.NOTHING -> return
+        RoleStepAction.ASK -> status is DefaultSmsRole.Status.Request &&
+            runCatching { actions.launchRole(status.intent) }.isSuccess
+        RoleStepAction.OPEN_SETTINGS -> false
+    }
+    if (!launched) actions.context.openDefaultAppsSettings()
 }
 
 /** The system page where the default SMS app is chosen; the general settings page when that one is missing. */

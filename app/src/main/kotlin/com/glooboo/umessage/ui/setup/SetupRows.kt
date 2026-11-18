@@ -2,18 +2,12 @@ package com.glooboo.umessage.ui.setup
 
 import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
 import androidx.annotation.StringRes
-import androidx.compose.runtime.MutableState
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.main.NotificationsBlock
 import com.glooboo.umessage.ui.onboarding.PermissionItem
-import com.glooboo.umessage.ui.onboarding.findActivity
 import com.glooboo.umessage.ui.onboarding.isGranted
-import com.glooboo.umessage.ui.onboarding.openAppSettings
 
 /** One card of the permissions list: what it is, its live status and the button that opens the right place. */
 internal class SetupRowUi(
@@ -40,44 +34,6 @@ internal class SetupActions(
     val requestDefaultSms: () -> Unit,
     val openNotifications: (NotificationsBlock?) -> Unit,
 )
-
-/**
- * Asks for permissions and remembers (across a rotation too) the ones Android will not ask for again. A permission is
- * only treated so when its rationale was due before the request and is gone after it: Back on the first ask is not
- * "don't ask again".
- */
-internal class PermissionAsker(
-    private val context: Context,
-    private val permanentlyDenied: MutableState<Set<String>>,
-    private val rationaleBefore: MutableState<Set<String>>,
-) {
-    var launch: (Array<String>) -> Unit = {}
-
-    val denied: Set<String> get() = permanentlyDenied.value
-
-    fun request(permissions: List<String>) {
-        val missing = permissions.filter {
-            ContextCompat.checkSelfPermission(context, it) != PackageManager.PERMISSION_GRANTED
-        }
-        if (missing.isEmpty()) return
-        if (missing.all { it in denied }) {
-            context.openAppSettings()
-            return
-        }
-        rationaleBefore.value = missing.filter { shouldShowRationale(it) }.toSet()
-        launch(missing.toTypedArray())
-    }
-
-    fun onResult(result: Map<String, Boolean>) {
-        val blocked = result.filter { (perm, ok) -> !ok && perm in rationaleBefore.value && !shouldShowRationale(perm) }
-        permanentlyDenied.value = permanentlyDenied.value + blocked.keys
-    }
-
-    private fun shouldShowRationale(permission: String): Boolean {
-        val activity = context.findActivity() ?: return false
-        return ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
-    }
-}
 
 internal fun buildSetupRows(context: Context, live: SetupLive, actions: SetupActions): List<SetupRowUi> =
     listOf(defaultSmsRow(context, live, actions)) +

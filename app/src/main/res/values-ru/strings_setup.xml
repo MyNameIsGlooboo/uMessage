@@ -5,6 +5,9 @@
     <string name="setup_row_summary">Проверьте, что нужно uMessage, и настройте недостающее</string>
     <string name="setup_intro">При каждом открытии этой страницы данные для каждого пункта запрашиваются у Android.</string>
     <string name="setup_all_set">Все необходимое включено</string>
+    <string name="setup_optional_left">Все необходимое включено. Остался один необязательный шаг.</string>
+    <string name="setup_battery_card_title">Разрешите uMessage работать в фоновом режиме</string>
+    <string name="setup_checklist_title_count">Выполнено: %1$s из %2$s</string>
     <string name="setup_some_open">Еще кое-что нужно настроить</string>
     <string name="setup_group_permissions">Разрешения</string>
     <string name="setup_status_optional">Необязательно, не настроено</string>

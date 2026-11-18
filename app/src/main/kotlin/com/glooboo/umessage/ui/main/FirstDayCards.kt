@@ -1,6 +1,5 @@
 package com.glooboo.umessage.ui.main
 
-import android.app.Activity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
@@ -76,18 +75,22 @@ fun FirstDayChecklist(
         tick++
         onPauseOrDispose { }
     }
-    // A request that comes back refused (or "don't ask again") would leave the step stuck: open the settings page.
+    // A request that comes back refused (or cancelled, or "don't ask again") would leave the step stuck: the button
+    // then reads "Open settings" and the next tap opens the settings page. Nothing opens by itself.
+    var roleRefused by rememberSaveable { mutableStateOf(false) }
     val roleLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode != Activity.RESULT_OK && DefaultSmsRole.status(context) !is DefaultSmsRole.Status.Held) {
-            context.openDefaultAppsSettings()
-        }
+        roleRefused = DefaultSmsRole.status(context) !is DefaultSmsRole.Status.Held
         tick++
     }
     if (dismissed) return
 
     val snapshot = remember(tick, forwardRuleCount) { readChecklist(context, prefs, forwardRuleCount) }
-    val count = snapshot.done.count { it in snapshot.steps }
-    val total = snapshot.steps.size
+    // A step that cannot be done on this phone is left out of the count.
+    val shown = snapshot.steps.filter { it !in snapshot.impossible }
+    val count = shown.count { it in snapshot.done }
+    val total = shown.size
+    val title = checklistTitle(snapshot.done, snapshot.impossible)
+    val shownForMs = remember(tick) { shownForMillis(prefs, System.currentTimeMillis()) }
     val locale = uiLocale()
 
     Surface(
@@ -97,14 +100,11 @@ fun FirstDayChecklist(
     ) {
         Column(Modifier.padding(start = 16.dp, end = 4.dp, top = 8.dp, bottom = 8.dp)) {
             ChecklistHeader(
-                title = titleLabel(checklistTitle(snapshot.done)),
-                progress = stringResource(
-                    R.string.w3c_checklist_progress,
-                    localizedNumber(count, locale),
-                    localizedNumber(total, locale),
-                ),
+                title = titleLabel(title),
+                titleArgs = listOf(localizedNumber(count, locale), localizedNumber(total, locale)),
+                showProgress = title != ChecklistTitle.Count,
                 expanded = expanded,
-                canClose = checklistCanClose(snapshot.done, snapshot.impossible),
+                canClose = checklistCanClose(snapshot.done, snapshot.impossible, shownForMs),
                 onToggle = { expanded = !expanded },
                 onClose = {
                     prefs.checklistDismissed = true
@@ -117,12 +117,18 @@ fun FirstDayChecklist(
                     progress = { count.toFloat() / total },
                     modifier = Modifier.fillMaxWidth().padding(end = 12.dp, bottom = 4.dp),
                 )
-                val actions = StepActions(context, { roleLauncher.launch(it) }, onOpenBlockedTab, onOpenForwarding)
+                val actions = StepActions(
+                    context,
+                    { roleLauncher.launch(it) },
+                    onOpenBlockedTab,
+                    onOpenForwarding,
+                    roleRefused,
+                )
                 snapshot.steps.forEach { step ->
                     StepRow(
                         label = stringResource(stepLabel(step)),
                         done = step in snapshot.done,
-                        action = stringResource(actionLabel(step)),
+                        action = stringResource(actionLabel(step, roleRefused)),
                         onAction = { runStepAction(step, actions) },
                     )
                 }
@@ -134,7 +140,8 @@ fun FirstDayChecklist(
 @Composable
 private fun ChecklistHeader(
     @StringRes title: Int,
-    progress: String,
+    titleArgs: List<String>,
+    showProgress: Boolean,
     expanded: Boolean,
     canClose: Boolean,
     onToggle: () -> Unit,
@@ -149,15 +156,21 @@ private fun ChecklistHeader(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            stringResource(title),
+            if (title == R.string.setup_checklist_title_count) {
+                stringResource(title, titleArgs[0], titleArgs[1])
+            } else {
+                stringResource(title)
+            },
             style = MaterialTheme.typography.titleSmall,
             modifier = Modifier.weight(1f).semantics { heading() },
         )
-        Text(
-            progress,
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
+        if (showProgress) {
+            Text(
+                stringResource(R.string.w3c_checklist_progress, titleArgs[0], titleArgs[1]),
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
         Icon(
             if (expanded) Symbols.ExpandLess else Symbols.ExpandMore,
             contentDescription = null,
@@ -175,13 +188,23 @@ private fun ChecklistHeader(
 
 
 @StringRes
-private fun actionLabel(step: ChecklistStep): Int =
-    if (step == ChecklistStep.DefaultSms) R.string.w3c_checklist_action_set else R.string.w3c_checklist_action_open
+internal fun actionLabel(step: ChecklistStep, roleRefused: Boolean = false): Int = when {
+    step == ChecklistStep.DefaultSms && roleRefused -> R.string.onb_perm_open_settings
+    step == ChecklistStep.DefaultSms -> R.string.w3c_checklist_action_set
+    else -> R.string.w3c_checklist_action_open
+}
+
+/** How long the card has been on screen: the first-shown time is stored on the first call. */
+private fun shownForMillis(prefs: W3cPrefs, now: Long): Long {
+    if (prefs.checklistFirstShown == 0L) prefs.checklistFirstShown = now
+    return now - prefs.checklistFirstShown
+}
 
 private fun titleLabel(title: ChecklistTitle): Int = when (title) {
     ChecklistTitle.Steps -> R.string.w3c_checklist_title
     ChecklistTitle.BasicsDone -> R.string.w3c_checklist_basics_title
     ChecklistTitle.AllDone -> R.string.w3c_checklist_done_title
+    ChecklistTitle.Count -> R.string.setup_checklist_title_count
 }
 
 private fun stepLabel(step: ChecklistStep): Int = when (step) {

@@ -5,6 +5,9 @@
     <string name="setup_row_summary">Revisa qué necesita uMessage y configura lo que falta</string>
     <string name="setup_intro">La información de cada fila se consulta en Android cada vez que abres esta página.</string>
     <string name="setup_all_set">Todo lo necesario está activado</string>
+    <string name="setup_optional_left">Todo lo necesario está activado. Queda un paso opcional.</string>
+    <string name="setup_battery_card_title">Permite que uMessage funcione en segundo plano</string>
+    <string name="setup_checklist_title_count">%1$s de %2$s completados</string>
     <string name="setup_some_open">Algunas opciones aún requieren tu atención</string>
     <string name="setup_group_permissions">Permisos</string>
     <string name="setup_status_optional">Opcional, sin configurar</string>

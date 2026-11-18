@@ -6,6 +6,9 @@
     <string name="setup_row_summary">Check what uMessage needs and fix what is missing</string>
     <string name="setup_intro">Each line is read from Android every time you open this page.</string>
     <string name="setup_all_set">Everything needed is on</string>
+    <string name="setup_optional_left">Everything needed is on. One optional step left.</string>
+    <string name="setup_battery_card_title">Let uMessage run in the background</string>
+    <string name="setup_checklist_title_count">%1$s of %2$s done</string>
     <string name="setup_some_open">Some things still need you</string>
     <string name="setup_group_permissions">Permissions</string>
     <string name="setup_status_optional">Optional, not set</string>

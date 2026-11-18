@@ -52,6 +52,7 @@ internal fun permissionItems(): List<PermissionItem> = buildList {
         PermissionItem(
             R.string.onb_perm_contacts, R.string.onb_perm_contacts_reason, Symbols.Contacts,
             listOf(Manifest.permission.READ_CONTACTS),
+            optional = true,
         ),
     )
     add(

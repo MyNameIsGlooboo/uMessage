@@ -42,6 +42,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.OemHelper
+import com.glooboo.umessage.helpers.OemStepKind
+import com.glooboo.umessage.helpers.StepState
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.main.NotificationsBlock
 import com.glooboo.umessage.ui.main.currentNotificationsBlock
@@ -99,8 +102,14 @@ fun SetupPage(modifier: Modifier = Modifier) {
         requestDefaultSms = { requestDefaultSms(context, roleDenied) { roleLauncher.launch(it) } },
         openNotifications = { openNotifications(context, it) },
     )
-    SetupBody(buildSetupRows(context, live, actions), refresh, modifier)
+    val batteryOpen = refresh.let { batteryStepOpen(context) }
+    SetupBody(buildSetupRows(context, live, actions), batteryOpen, refresh, modifier)
 }
+
+/** The optional battery card is open until Android reports uMessage as unrestricted. */
+private fun batteryStepOpen(context: Context): Boolean =
+    OemHelper.stateOf(OemStepKind.IGNORE_BATTERY, OemHelper.backgroundStatus(context), false) !=
+        StepState.DONE_VERIFIED
 
 private fun requestDefaultSms(context: Context, denied: Boolean, launch: (Intent) -> Unit) {
     val intent = if (denied) null else OnboardingActivity.defaultSmsRequestIntent(context)
@@ -115,7 +124,7 @@ private fun openNotifications(context: Context, block: NotificationsBlock?) {
 
 
 @Composable
-private fun SetupBody(rows: List<SetupRowUi>, refresh: Int, modifier: Modifier = Modifier) {
+private fun SetupBody(rows: List<SetupRowUi>, batteryOpen: Boolean, refresh: Int, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -125,11 +134,21 @@ private fun SetupBody(rows: List<SetupRowUi>, refresh: Int, modifier: Modifier =
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        val allSet = setupRequiredDone(rows.map { SetupRowState(it.mark, required = !it.optional) })
+        val headline = setupHeadline(rows.map { SetupRowState(it.mark, required = !it.optional) }, batteryOpen)
         Text(
-            stringResource(if (allSet) R.string.setup_all_set else R.string.setup_some_open),
+            stringResource(
+                when (headline) {
+                    SetupHeadline.ALL_SET -> R.string.setup_all_set
+                    SetupHeadline.OPTIONAL_LEFT -> R.string.setup_optional_left
+                    SetupHeadline.SOME_OPEN -> R.string.setup_some_open
+                },
+            ),
             style = MaterialTheme.typography.titleMedium,
-            color = if (allSet) MaterialTheme.colorScheme.success else MaterialTheme.colorScheme.onSurface,
+            color = if (headline == SetupHeadline.SOME_OPEN) {
+                MaterialTheme.colorScheme.onSurface
+            } else {
+                MaterialTheme.colorScheme.success
+            },
         )
         SetupHeading(stringResource(R.string.setup_group_permissions))
         rows.forEach { SetupRowCard(it) }

@@ -5,6 +5,9 @@
     <string name="setup_row_summary">uMessage-এর কী দরকার দেখুন এবং যা বাকি আছে ঠিক করুন</string>
     <string name="setup_intro">আপনি প্রতিবার এই পৃষ্ঠা খুললে প্রতিটি লাইনের তথ্য Android থেকে নেওয়া হয়।</string>
     <string name="setup_all_set">প্রয়োজনীয় সবকিছু চালু আছে</string>
+    <string name="setup_optional_left">প্রয়োজনীয় সবকিছু চালু আছে। আর একটি ঐচ্ছিক ধাপ বাকি।</string>
+    <string name="setup_battery_card_title">uMessage-কে ব্যাকগ্রাউন্ডে চলতে দিন</string>
+    <string name="setup_checklist_title_count">%2$sটির মধ্যে %1$sটি সম্পন্ন</string>
     <string name="setup_some_open">আরও কিছু কাজ আপনাকে করতে হবে</string>
     <string name="setup_group_permissions">অনুমতি</string>
     <string name="setup_status_optional">ঐচ্ছিক, সেট করা হয়নি</string>

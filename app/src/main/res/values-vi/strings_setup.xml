@@ -5,6 +5,9 @@
     <string name="setup_row_summary">Kiểm tra những gì uMessage cần và bổ sung những gì còn thiếu</string>
     <string name="setup_intro">Thông tin ở mỗi dòng được lấy từ Android mỗi khi bạn mở trang này.</string>
     <string name="setup_all_set">Đã bật mọi thứ cần thiết</string>
+    <string name="setup_optional_left">Đã bật mọi thứ cần thiết. Còn một bước tùy chọn.</string>
+    <string name="setup_battery_card_title">Cho phép uMessage chạy nền</string>
+    <string name="setup_checklist_title_count">Đã xong %1$s/%2$s</string>
     <string name="setup_some_open">Vẫn còn vài mục cần bạn xử lý</string>
     <string name="setup_group_permissions">Quyền</string>
     <string name="setup_status_optional">Không bắt buộc, chưa thiết lập</string>

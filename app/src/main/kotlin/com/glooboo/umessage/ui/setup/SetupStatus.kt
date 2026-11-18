@@ -36,3 +36,13 @@ data class SetupRowState(val mark: SetupMark, val required: Boolean)
 /** True when every required row is verified done. An optional row never holds the summary back. */
 fun setupRequiredDone(rows: List<SetupRowState>): Boolean =
     rows.all { !it.required || it.mark == SetupMark.DONE }
+
+/** What the Setup screen's headline says. */
+enum class SetupHeadline { ALL_SET, OPTIONAL_LEFT, SOME_OPEN }
+
+/** Required rows decide; when they are all done, an open optional step ([optionalOpen]) is still mentioned. */
+fun setupHeadline(rows: List<SetupRowState>, optionalOpen: Boolean): SetupHeadline = when {
+    !setupRequiredDone(rows) -> SetupHeadline.SOME_OPEN
+    optionalOpen -> SetupHeadline.OPTIONAL_LEFT
+    else -> SetupHeadline.ALL_SET
+}

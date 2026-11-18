@@ -91,6 +91,7 @@ import com.glooboo.umessage.helpers.OemStep
 import com.glooboo.umessage.helpers.OemStepKind
 import com.glooboo.umessage.helpers.StepCheck
 import com.glooboo.umessage.helpers.StepState
+import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.spam.ForwardingAvailability
 import com.glooboo.umessage.ui.settings.AppLanguage
 import com.glooboo.umessage.ui.setup.SetupMark
@@ -174,6 +175,8 @@ fun OnboardingScreen(
             !ok && activity != null && !ActivityCompat.shouldShowRequestPermissionRationale(activity, perm)
         }.keys
         permanentlyDenied = permanentlyDenied + blocked
+        // The Setup page reads this: a refusal there with no rationale left means "don't ask again".
+        W3cPrefs.get(context).markPermissionsAsked(result.keys)
         refresh++
     }
 
@@ -632,6 +635,15 @@ private fun BatteryCard(done: Boolean, showStatus: Boolean, onOpen: () -> Unit) 
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(Modifier.padding(16.dp)) {
+            if (showStatus) {
+                // Setup page: the card names itself like the permission cards do.
+                Text(
+                    stringResource(R.string.setup_battery_card_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(bottom = 8.dp),
+                )
+            }
             if (done) {
                 StatusRow(ok = true, text = stringResource(R.string.oem2_state_done))
             } else {

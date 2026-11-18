@@ -5,6 +5,9 @@
     <string name="setup_row_summary">检查uMessage所需的设置，补全缺失项</string>
     <string name="setup_intro">每次打开此页面时，都会从Android读取各项状态。</string>
     <string name="setup_all_set">所需设置均已开启</string>
+    <string name="setup_optional_left">必要设置已全部开启。还剩一个可选步骤。</string>
+    <string name="setup_battery_card_title">允许uMessage在后台运行</string>
+    <string name="setup_checklist_title_count">已完成%1$s项，共%2$s项</string>
     <string name="setup_some_open">部分设置仍需完成</string>
     <string name="setup_group_permissions">权限</string>
     <string name="setup_status_optional">可选，未设置</string>
