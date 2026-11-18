@@ -471,16 +471,10 @@ internal fun WelcomePage(
         label = "heroAlpha",
     )
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        if (onLanguage != null) {
-            WelcomeTopRow(language = language, onLanguage = onLanguage)
-        } else {
-            Spacer(Modifier.height(24.dp))
-        }
-        AppIconMark(Modifier.alpha(alpha))
+        WelcomeTopRow(language = language, onLanguage = onLanguage, iconModifier = Modifier.alpha(alpha))
         PageTitle(stringResource(R.string.onb_welcome_title))
         PageBody(stringResource(R.string.onb_welcome_intro))
         WelcomeAnimation(reduceMotion = reduceMotion)
-        Spacer(Modifier.height(4.dp))
         var more by rememberSaveable { mutableStateOf(false) }
         val top = welcomeTopTitles()
         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -833,6 +827,12 @@ private fun WelcomePageDarkPreview() = UMessageTheme(darkTheme = true) {
 )
 @Composable
 private fun WelcomePageRtlPreview() = UMessageTheme(darkTheme = false) {
+    WelcomePage(Modifier.padding(horizontal = 24.dp, vertical = 16.dp), reduceMotion = true)
+}
+
+@Preview(name = "Welcome narrow, largest text", showBackground = true, widthDp = 320, heightDp = 2000, fontScale = 2f)
+@Composable
+private fun WelcomePageNarrowPreview() = UMessageTheme(darkTheme = false) {
     WelcomePage(Modifier.padding(horizontal = 24.dp, vertical = 16.dp), reduceMotion = true)
 }
 

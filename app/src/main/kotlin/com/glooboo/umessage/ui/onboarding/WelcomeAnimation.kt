@@ -4,52 +4,58 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.theme.success
-import kotlin.math.roundToInt
+import kotlinx.coroutines.launch
 
-private val LaneHeight = 40.dp
-private val EndIconSize = 32.dp
-private val BubbleSize = 28.dp
+private const val STACK_FONT_SCALE = 1.3f
+private val StackMaxWidth = 300.dp
+private const val SUCCESS_TINT_ALPHA = 0.14f
+private val CardShape = RoundedCornerShape(20.dp)
+private val PillShape = RoundedCornerShape(15.dp)
 
 /**
- * A silent picture of about three seconds of how uMessage sorts texts: a text from a saved contact flies to
- * the Inbox, one from a stranger to Spam, a stranger's code still to the Inbox. It plays once (not again after
- * a rotation) and shows its final frame when [reduceMotion] is on. It has no words, so one description covers
- * it for TalkBack.
+ * A labelled card of three rows that shows how uMessage sorts texts: Contacts to Messages, an unknown sender to
+ * Spam, a verification code to Messages. The rows light up one after another (about five seconds), once; a
+ * rotation or coming back shows the finished card, and so does [reduceMotion]. The finished card reads as a still
+ * picture. Tapping it replays the animation (not with [reduceMotion]). One sentence describes it for TalkBack.
  */
 @Composable
 internal fun WelcomeAnimation(reduceMotion: Boolean, modifier: Modifier = Modifier) {
@@ -62,105 +68,171 @@ internal fun WelcomeAnimation(reduceMotion: Boolean, modifier: Modifier = Modifi
             clock.animateTo(WelcomeTimeline.TOTAL_MS.toFloat(), tween(WelcomeTimeline.TOTAL_MS, easing = LinearEasing))
         }
     }
+    val scope = rememberCoroutineScope()
     val description = stringResource(R.string.onb_welcome_demo_desc)
-    Box(
+    // The clock is read only inside graphicsLayer blocks, so a frame redraws but does not recompose.
+    val time = remember(clock) { { clock.value } }
+    BoxWithConstraints(
         modifier = modifier
             .fillMaxWidth()
-            .clearAndSetSemantics { contentDescription = description },
-        contentAlignment = Alignment.Center,
-    ) {
-        DemoLanes(timeMs = clock.value)
-        Icon(
-            imageVector = Symbols.Shield,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier
-                .size(40.dp)
-                .background(MaterialTheme.colorScheme.background, CircleShape),
-        )
-    }
-}
-
-@Composable
-private fun DemoLanes(timeMs: Float) {
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        WelcomeTimeline.lanes.forEach { DemoLaneRow(it, timeMs) }
-    }
-}
-
-@Composable
-private fun DemoLaneRow(lane: DemoLane, timeMs: Float) {
-    val scheme = MaterialTheme.colorScheme
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(LaneHeight),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        val known = lane.message == DemoMessage.CONTACT
-        DemoEndIcon(
-            icon = if (known) Symbols.PersonFilled else Symbols.PersonOff,
-            tint = if (known) scheme.primary else scheme.onSurfaceVariant,
-        )
-        DemoFlight(lane, timeMs, Modifier.weight(1f))
-        val folderTint = if (lane.toSpam) scheme.error else scheme.success
-        DemoEndIcon(
-            icon = if (lane.toSpam) Symbols.Block else Symbols.Inbox,
-            tint = folderTint,
-            modifier = Modifier.alpha(WelcomeTimeline.folderGlow(lane, timeMs)),
-        )
-    }
-}
-
-@Composable
-private fun DemoEndIcon(icon: ImageVector, tint: Color, modifier: Modifier = Modifier) {
-    Icon(imageVector = icon, contentDescription = null, tint = tint, modifier = modifier.size(EndIconSize))
-}
-
-/** The track between sender and folder. The offset mirrors by itself in right-to-left, so the text flies "forward". */
-@Composable
-private fun DemoFlight(lane: DemoLane, timeMs: Float, modifier: Modifier = Modifier) {
-    BoxWithConstraints(modifier = modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
-        val track = constraints.maxWidth - with(LocalDensity.current) { BubbleSize.roundToPx() }
-        val travel = WelcomeTimeline.travel(lane, timeMs)
-        DemoBubble(
-            lane = lane,
-            modifier = Modifier
-                .offset { IntOffset((travel * track).roundToInt().coerceAtLeast(0), 0) }
-                .alpha(WelcomeTimeline.bubbleAlpha(lane, timeMs)),
-        )
-    }
-}
-
-@Composable
-private fun DemoBubble(lane: DemoLane, modifier: Modifier = Modifier) {
-    val scheme = MaterialTheme.colorScheme
-    val stranger = lane.message != DemoMessage.CONTACT
-    Box(
-        modifier = modifier
-            .size(BubbleSize)
-            .clip(RoundedCornerShape(8.dp))
-            .background(if (stranger) scheme.surfaceVariant else scheme.secondaryContainer),
-        contentAlignment = Alignment.Center,
-    ) {
-        if (lane.message == DemoMessage.CODE) {
-            CodeDots(scheme.onSurfaceVariant)
-        } else {
-            Icon(
-                imageVector = Symbols.Sms,
-                contentDescription = null,
-                tint = if (stranger) scheme.onSurfaceVariant else scheme.onSecondaryContainer,
-                modifier = Modifier.size(18.dp),
+            .clip(CardShape)
+            .background(MaterialTheme.colorScheme.surfaceContainer)
+            .then(
+                if (reduceMotion) {
+                    Modifier
+                } else {
+                    Modifier.clickable {
+                        scope.launch {
+                            val from = WelcomeTimeline.REPLAY_FROM_MS
+                            clock.snapTo(from.toFloat())
+                            clock.animateTo(
+                                WelcomeTimeline.TOTAL_MS.toFloat(),
+                                tween(WelcomeTimeline.TOTAL_MS - from, easing = LinearEasing),
+                            )
+                        }
+                    }
+                },
             )
+            .clearAndSetSemantics { contentDescription = description },
+    ) {
+        val stacked = LocalDensity.current.fontScale > STACK_FONT_SCALE || maxWidth < StackMaxWidth
+        Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            WelcomeTimeline.rows.forEachIndexed { index, row -> DemoRowItem(row, index, stacked, time) }
         }
     }
 }
 
-/** Three dots: the look of a verification code. */
+/** Lights this part up with [alpha] and pops it with [scale], both read from the clock on every frame. */
+private fun Modifier.timed(
+    time: () -> Float,
+    alpha: (Float) -> Float,
+    scale: (Float) -> Float = { 1f },
+): Modifier = graphicsLayer {
+    val now = time()
+    this.alpha = alpha(now)
+    scaleX = scale(now)
+    scaleY = scale(now)
+}
+
 @Composable
-private fun CodeDots(color: Color) {
-    Row(horizontalArrangement = Arrangement.spacedBy(2.dp)) {
-        repeat(3) { Box(Modifier.size(4.dp).background(color, CircleShape)) }
+private fun DemoRowItem(row: DemoRow, index: Int, stacked: Boolean, time: () -> Float) {
+    val avatar = Modifier.timed(time, { WelcomeTimeline.senderAlpha(index, it) })
+    val arrow = Modifier.timed(time, { WelcomeTimeline.arrowAlpha(index, it) })
+    val pill = Modifier.timed(
+        time,
+        alpha = { WelcomeTimeline.pillAlpha(index, it) },
+        scale = { WelcomeTimeline.pillScale(index, it) },
+    )
+    if (stacked) {
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
+            DemoAvatar(row.sender, avatar)
+            Spacer(Modifier.width(8.dp))
+            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                DemoSenderLabel(row, maxLines = Int.MAX_VALUE, modifier = avatar)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    DemoArrow(arrow)
+                    Spacer(Modifier.width(4.dp))
+                    DemoPill(row, wrap = true, modifier = pill.weight(1f, fill = false))
+                }
+            }
+        }
+    } else {
+        Row(
+            modifier = Modifier.fillMaxWidth().heightIn(min = 44.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            DemoAvatar(row.sender, avatar)
+            Spacer(Modifier.width(8.dp))
+            DemoSenderLabel(row, maxLines = 2, modifier = avatar.weight(1f))
+            Spacer(Modifier.width(4.dp))
+            DemoArrow(arrow)
+            Spacer(Modifier.width(4.dp))
+            DemoPill(row, wrap = false, modifier = pill)
+        }
+    }
+}
+
+@Composable
+private fun DemoAvatar(sender: DemoSender, modifier: Modifier = Modifier) {
+    val scheme = MaterialTheme.colorScheme
+    val icon: ImageVector
+    val background: Color
+    val content: Color
+    when (sender) {
+        DemoSender.CONTACT -> {
+            icon = Symbols.PersonFilled
+            background = scheme.secondaryContainer
+            content = scheme.onSecondaryContainer
+        }
+        DemoSender.UNKNOWN -> {
+            icon = Symbols.PersonOff
+            background = scheme.surfaceContainerHighest
+            content = scheme.onSurfaceVariant
+        }
+        DemoSender.CODE -> {
+            icon = Symbols.Tag
+            background = scheme.surfaceContainerHighest
+            content = scheme.onSurfaceVariant
+        }
+    }
+    Row(
+        modifier = modifier.size(32.dp).background(background, CircleShape),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(imageVector = icon, contentDescription = null, tint = content, modifier = Modifier.size(18.dp))
+    }
+}
+
+@Composable
+private fun DemoSenderLabel(row: DemoRow, maxLines: Int, modifier: Modifier = Modifier) {
+    Text(
+        text = stringResource(row.senderLabel),
+        modifier = modifier,
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurface,
+        maxLines = maxLines,
+        overflow = TextOverflow.Ellipsis,
+    )
+}
+
+/** The arrow is an auto-mirrored symbol: it points forward in left-to-right and right-to-left alike. */
+@Composable
+private fun DemoArrow(modifier: Modifier = Modifier) {
+    Icon(
+        imageVector = Symbols.ArrowForward,
+        contentDescription = null,
+        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = modifier.size(16.dp),
+    )
+}
+
+/** The destination, with the icon and the name of the real tab. Colour is never the only signal. */
+@Composable
+private fun DemoPill(row: DemoRow, wrap: Boolean, modifier: Modifier = Modifier) {
+    val scheme = MaterialTheme.colorScheme
+    val background = if (row.toSpam) scheme.errorContainer else scheme.success.copy(alpha = SUCCESS_TINT_ALPHA)
+    val content = if (row.toSpam) scheme.onErrorContainer else scheme.success
+    Row(
+        modifier = modifier
+            .heightIn(min = 30.dp)
+            .background(background, PillShape)
+            .padding(start = 8.dp, end = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = if (row.toSpam) Symbols.Shield else Symbols.ChatBubble,
+            contentDescription = null,
+            tint = content,
+            modifier = Modifier.size(16.dp),
+        )
+        Spacer(Modifier.width(4.dp))
+        Text(
+            text = stringResource(WelcomeTimeline.destinationLabel(row)),
+            style = MaterialTheme.typography.labelLarge,
+            color = content,
+            maxLines = if (wrap) 2 else 1,
+            softWrap = wrap,
+        )
     }
 }

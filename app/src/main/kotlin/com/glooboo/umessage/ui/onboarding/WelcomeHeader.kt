@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
@@ -27,18 +28,24 @@ import java.util.Locale
 internal fun nativeLanguageName(locale: Locale): String =
     locale.getDisplayLanguage(locale).replaceFirstChar { if (it.isLowerCase()) it.titlecase(locale) else "$it" }
 
-/** The top row of the first page: only the language chip, at the end of the row. */
+/**
+ * The top row of the first page: the app icon at the start and the language chip at the end. The chip is left out
+ * when [onLanguage] is null. [iconModifier] lets the page fade the icon in.
+ */
 @Composable
 internal fun WelcomeTopRow(
     language: AppLanguage,
     onLanguage: ((AppLanguage) -> Unit)?,
     modifier: Modifier = Modifier,
+    iconModifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
+        horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        AppIconMark(iconModifier, iconSize = 56.dp)
+        Spacer(Modifier.weight(1f))
         if (onLanguage != null) {
             val phoneLabel = stringResource(R.string.onb_lang_phone)
             val native = nativeLanguageName(LocalConfiguration.current.locales[0]).ifEmpty { phoneLabel }
