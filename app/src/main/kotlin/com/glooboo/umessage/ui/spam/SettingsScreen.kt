@@ -174,8 +174,8 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
 
         SettingsGroup(stringResource(R.string.settings_f_group_rules)) {
             SettingsRow(
-                title = stringResource(R.string.settings_spam_open_rules),
-                summary = stringResource(R.string.settings_spam_open_rules_body),
+                title = stringResource(R.string.settings_block_umessage_title),
+                summary = stringResource(R.string.settings_block_umessage_body),
                 onClick = actions.onOpenRules,
                 showChevron = true,
             )

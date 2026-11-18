@@ -19,13 +19,6 @@
         <item quantity="many">حُذفت %d قاعدة</item>
         <item quantity="other">حُذفت %d قاعدة</item>
     </plurals>
-    <string name="rules_legacy_banner_review">راجع</string>
-    <string name="rules_legacy_banner_not_now">ليس الآن</string>
-    <string name="rules_legacy_section_keywords">قائمة الكلمات المحظورة القديمة</string>
-    <string name="rules_legacy_section_keywords_body">تظل مستخدمة للتصفية حتى تنقل هذه الكلمات إلى القواعد. بعدها يتوقف استخدام القائمة القديمة.</string>
-    <string name="rules_legacy_chip_old_list">قائمة قديمة</string>
-    <string name="rules_legacy_chip_system">النظام، والمكالمات أيضًا</string>
-    <string name="rules_legacy_move">انقل إلى القواعد</string>
     <string name="rules_migrate_nothing">كل ما في القوائم القديمة موجود بالفعل في قواعدك.</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="zero">ستتحول %d كلمة من قائمة الكلمات المحظورة القديمة إلى قواعد حظر بكلمات رئيسية. بعدها يتوقف استخدام القائمة القديمة.</item>

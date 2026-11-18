@@ -3,6 +3,7 @@ package com.glooboo.umessage.ui.spam
 import android.content.Context
 import androidx.compose.runtime.Immutable
 import com.glooboo.umessage.extensions.config
+import com.glooboo.umessage.spam.KeywordMatch
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
@@ -18,8 +19,6 @@ import com.glooboo.umessage.spam.SpamRule
 data class LegacyLists(
     val keywords: List<String> = emptyList(),
     val numbers: List<BlockedNumberItem> = emptyList(),
-    /** The user answered "Not now" (or already moved the lists): the banner is not shown again. */
-    val offerDismissed: Boolean = false,
 ) {
     val isEmpty: Boolean get() = keywords.isEmpty() && numbers.isEmpty()
 }
@@ -31,14 +30,12 @@ interface LegacyBlockStore {
 
     /** Removes one number from the system block list. Only called after the user ticked "Remove from system list". */
     fun removeSystemNumber(id: Long): Boolean
-    fun setOfferDismissed(dismissed: Boolean)
 }
 
 object NoLegacyBlockStore : LegacyBlockStore {
-    override fun load() = LegacyLists(offerDismissed = true)
+    override fun load() = LegacyLists()
     override fun removeKeywords(keywords: Collection<String>) = Unit
     override fun removeSystemNumber(id: Long) = false
-    override fun setOfferDismissed(dismissed: Boolean) = Unit
 }
 
 class AndroidLegacyBlockStore(context: Context) : LegacyBlockStore {
@@ -49,21 +46,15 @@ class AndroidLegacyBlockStore(context: Context) : LegacyBlockStore {
         return LegacyLists(
             keywords = app.config.blockedKeywords.sortedBy { it.lowercase() },
             numbers = numbers,
-            offerDismissed = app.config.legacyBlockOfferDismissed,
         )
     }
 
     override fun removeKeywords(keywords: Collection<String>) {
         if (keywords.isEmpty()) return
-        val gone = keywords.toSet()
-        app.config.blockedKeywords = app.config.blockedKeywords.filterTo(HashSet()) { it !in gone }
+        app.config.removeBlockedKeywords(keywords)
     }
 
     override fun removeSystemNumber(id: Long): Boolean = SystemBlockList.remove(app, id)
-
-    override fun setOfferDismissed(dismissed: Boolean) {
-        app.config.legacyBlockOfferDismissed = dismissed
-    }
 }
 
 /** What moving the old lists into uMessage rules would do. Each rule is paired with the entry it comes from. */
@@ -99,9 +90,20 @@ object LegacyMigration {
         val keywordRules = mutableListOf<Pair<String, SpamRule>>()
         val keptKeywords = mutableListOf<String>()
         for (word in lists.keywords) {
+            // A quoted old word matched its quotes literally; as a rule it would mean "whole word", a changed
+            // behaviour.
+            if (KeywordMatch.isWholeWord(word)) {
+                keptKeywords += word
+                continue
+            }
             when (val result = RuleValidator.validate(ListKind.BLOCK, RuleType.KEYWORD, word)) {
                 is RuleValidation.Valid ->
-                    keywordRules += word to SpamRule(kind = ListKind.BLOCK, type = RuleType.KEYWORD, pattern = result.pattern, note = keywordNote)
+                    keywordRules += word to SpamRule(
+                        kind = ListKind.BLOCK,
+                        type = RuleType.KEYWORD,
+                        pattern = result.pattern,
+                        note = keywordNote,
+                    )
                 is RuleValidation.Invalid -> keptKeywords += word
             }
         }

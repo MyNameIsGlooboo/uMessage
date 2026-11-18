@@ -14,13 +14,6 @@
     <plurals name="rules_deleted_many">
         <item quantity="other">ลบกฎแล้ว %d รายการ</item>
     </plurals>
-    <string name="rules_legacy_banner_review">ตรวจสอบ</string>
-    <string name="rules_legacy_banner_not_now">ไว้ภายหลัง</string>
-    <string name="rules_legacy_section_keywords">รายการคำที่บล็อกเดิม</string>
-    <string name="rules_legacy_section_keywords_body">ยังใช้กรองข้อความจนกว่าจะย้ายคำเหล่านี้ไปยังกฎ จากนั้นจะเลิกใช้รายการเดิม</string>
-    <string name="rules_legacy_chip_old_list">รายการเดิม</string>
-    <string name="rules_legacy_chip_system">ระบบ บล็อกสายด้วย</string>
-    <string name="rules_legacy_move">ย้ายไปยังกฎ</string>
     <string name="rules_migrate_nothing">ทุกรายการในรายการเดิมอยู่ในกฎของคุณแล้ว</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="other">คำ %d คำจากรายการคำที่บล็อกเดิมจะกลายเป็นกฎการบล็อกด้วยคำหลัก จากนั้นจะเลิกใช้รายการเดิม</item>

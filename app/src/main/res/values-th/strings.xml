@@ -62,11 +62,8 @@
     <plurals name="delete_messages">
         <item quantity="other">ข้อความ %d ข้อความ</item>
     </plurals>
-    <string name="keyword">คำหลัก</string>
     <string name="blocked_keywords">คำหลักที่บล็อก</string>
     <string name="manage_blocked_keywords">จัดการคำหลักที่บล็อก</string>
-    <string name="not_blocking_keywords">ยังไม่ได้บล็อกคำหลักใด เพิ่มคำหลักที่นี่เพื่อบล็อกข้อความทั้งหมดที่มีคำเหล่านั้น</string>
-    <string name="add_a_blocked_keyword">เพิ่มคำหลักที่บล็อก</string>
     <string name="lock_screen_visibility">การแสดงการแจ้งเตือนบนหน้าจอล็อก</string>
     <string name="sender_and_message">ผู้ส่งและข้อความ</string>
     <string name="sender_only">ผู้ส่งเท่านั้น</string>

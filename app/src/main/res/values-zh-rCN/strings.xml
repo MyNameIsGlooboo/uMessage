@@ -62,11 +62,8 @@
     <plurals name="delete_messages">
         <item quantity="other">%d条消息</item>
     </plurals>
-    <string name="keyword">关键词</string>
     <string name="blocked_keywords">已屏蔽的关键词</string>
     <string name="manage_blocked_keywords">管理已屏蔽的关键词</string>
-    <string name="not_blocking_keywords">尚未屏蔽任何关键词。可在此添加关键词，屏蔽所有包含这些关键词的消息。</string>
-    <string name="add_a_blocked_keyword">添加屏蔽关键词</string>
     <string name="lock_screen_visibility">锁屏通知显示内容</string>
     <string name="sender_and_message">发件人和消息</string>
     <string name="sender_only">仅发件人</string>

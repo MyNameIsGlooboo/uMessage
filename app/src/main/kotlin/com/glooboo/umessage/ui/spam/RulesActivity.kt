@@ -30,28 +30,22 @@ class RulesActivity : ComponentActivity() {
             finish()
             return
         }
-        val openMigration = intent?.getBooleanExtra(EXTRA_OPEN_MIGRATION, false) == true
         setContent {
             UMessageTheme {
                 RulesRoute(
                     onBack = ::finish,
-                    onOpenSystemBlockList = { startActivity(Intent(this, BlockedNumbersActivity::class.java)) },
                     onOpenBackup = {
                         startActivity(
                             Intent(this, com.glooboo.umessage.activities.SettingsActivity::class.java)
                                 .putExtra(com.glooboo.umessage.activities.SettingsActivity.EXTRA_PAGE, "Backup"),
                         )
                     },
-                    openMigration = openMigration,
                 )
             }
         }
     }
 
     companion object {
-        /** Boolean extra: open the "move older block lists into rules" dialog once the lists are read. */
-        const val EXTRA_OPEN_MIGRATION = "com.glooboo.spamless.extra.OPEN_MIGRATION"
-
         /**
          * Boolean extra kept for older callers: the Forward tab is gone, and an intent with it is passed on to
          * [ForwardingActivity]. New code opens [ForwardingActivity.intent] directly.

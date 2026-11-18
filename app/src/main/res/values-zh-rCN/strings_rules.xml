@@ -14,13 +14,6 @@
     <plurals name="rules_deleted_many">
         <item quantity="other">已删除%d条规则</item>
     </plurals>
-    <string name="rules_legacy_banner_review">查看</string>
-    <string name="rules_legacy_banner_not_now">暂不</string>
-    <string name="rules_legacy_section_keywords">旧版屏蔽词列表</string>
-    <string name="rules_legacy_section_keywords_body">在将这些词语移至规则前，旧列表仍用于过滤。移动后，旧列表将停用。</string>
-    <string name="rules_legacy_chip_old_list">旧列表</string>
-    <string name="rules_legacy_chip_system">系统，也屏蔽来电</string>
-    <string name="rules_legacy_move">移至规则</string>
     <string name="rules_migrate_nothing">旧列表中的所有条目都已包含在你的规则中。</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="other">旧版屏蔽词列表中的%d个词语将转为关键词屏蔽规则。旧列表随后将停用。</item>

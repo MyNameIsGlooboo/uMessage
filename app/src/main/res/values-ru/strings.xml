@@ -71,11 +71,8 @@
         <item quantity="many">%d сообщений</item>
         <item quantity="other">%d сообщения</item>
     </plurals>
-    <string name="keyword">Ключевое слово</string>
     <string name="blocked_keywords">Заблокированные ключевые слова</string>
     <string name="manage_blocked_keywords">Управление заблокированными ключевыми словами</string>
-    <string name="not_blocking_keywords">Пока нет заблокированных ключевых слов. Добавьте их здесь, чтобы заблокировать все сообщения с этими словами.</string>
-    <string name="add_a_blocked_keyword">Добавить заблокированное ключевое слово</string>
     <string name="lock_screen_visibility">Уведомления на экране блокировки</string>
     <string name="sender_and_message">Отправитель и сообщение</string>
     <string name="sender_only">Только отправитель</string>

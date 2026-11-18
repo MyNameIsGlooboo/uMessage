@@ -12,7 +12,7 @@ import org.fossify.commons.extensions.baseConfig
 
 /** Where the two old Fossify settings live. Blocking; call off the main thread. */
 interface BlockingMigrationStore {
-    /** The old blocked-words list. */
+    /** The old blocked-words list, blank entries included. */
     fun keywords(): Set<String>
     fun removeKeywords(words: Collection<String>)
 
@@ -24,17 +24,18 @@ interface BlockingMigrationStore {
 class AndroidBlockingMigrationStore(context: Context) : BlockingMigrationStore {
     private val app = context.applicationContext
 
-    override fun keywords(): Set<String> = app.config.blockedKeywords
+    override fun keywords(): Set<String> = app.config.rawBlockedKeywords()
 
     override fun removeKeywords(words: Collection<String>) {
         if (words.isEmpty()) return
-        val gone = words.toSet()
-        app.config.blockedKeywords = app.config.blockedKeywords.filterTo(HashSet()) { it !in gone }
+        app.config.removeBlockedKeywords(words)
     }
 
     override fun blockUnknownSwitch(): Boolean = app.baseConfig.blockUnknownNumbers
 
     override fun clearBlockUnknownSwitch() {
+        // Remembered for restores of older backups (SettingsBackup.restoredMode); set before the switch is cleared.
+        app.config.blockUnknownSwitchWasOn = true
         app.baseConfig.blockUnknownNumbers = false
     }
 }
@@ -43,7 +44,8 @@ class AndroidBlockingMigrationStore(context: Context) : BlockingMigrationStore {
  * Blocking is two lists: the Android block list and the uMessage rules. This moves what the older app versions kept
  * elsewhere into them, without changing what gets blocked:
  * - every old blocked word becomes a block keyword rule (the filter treats both the same: contacts are not held);
- *   words that cannot be a rule (one letter, several lines, too long) stay on the old list, still filtering;
+ *   words that cannot be a rule (one letter, several lines, too long, or written in quotes) stay on the old list,
+ *   still filtering; blank words are dropped;
  * - the old "Block unknown numbers" switch only ever acted while Unknown senders was Off, where it behaved as Strict.
  *   So Off with the switch on becomes Strict; with Smart or Strict the switch did nothing and is just cleared.
  *
@@ -80,9 +82,14 @@ object BlockingMigration {
             if (stored) runCatching { store.clearBlockUnknownSwitch() } else modeChanged = false
         }
 
-        val words = runCatching { store.keywords() }.getOrDefault(emptySet())
+        val stored = runCatching { store.keywords() }.getOrDefault(emptySet())
+        // Blank words never filter anything (the filter skips them): they are just dropped.
+        val blank = stored.filter { it.isBlank() }
+        if (blank.isNotEmpty()) runCatching { store.removeKeywords(blank) }
+        val words = stored.filterNot { it.isBlank() }
         if (words.isEmpty()) return Result(modeChanged = modeChanged)
-        val existing = runCatching { existingRules() }.getOrNull() ?: return Result(modeChanged = modeChanged, wordsKept = words.size)
+        val existing = runCatching { existingRules() }.getOrNull()
+            ?: return Result(modeChanged = modeChanged, wordsKept = words.size)
         val plan = LegacyMigration.plan(
             LegacyLists(keywords = words.sortedBy { it.lowercase() }),
             existing,

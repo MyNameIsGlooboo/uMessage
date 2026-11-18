@@ -87,8 +87,8 @@ data class RulesUiState(
     val order: RulesOrder = RulesOrder.DEFAULT,
     /** Rules picked with a long press, all on the current tab. */
     val selected: Set<Long> = emptySet(),
-    /** The old Fossify lists not yet moved into rules, shown read-only on the Blocked tab. */
-    val legacy: LegacyLists = LegacyLists(offerDismissed = true),
+    /** The old lists, read only when the move dialog is opened from the Android block list screen. */
+    val legacy: LegacyLists = LegacyLists(),
     val migration: MigrationDialog? = null,
     /** "Test this rule" on the open sheet: how many recent messages it would match. */
     val preview: RulePreviewState = RulePreviewState.Idle,
@@ -102,24 +102,6 @@ data class RulesUiState(
 
     /** The rules of the current tab that pass the search and type filter. */
     val visible: List<SpamRule> get() = if (tab == ListKind.ALLOW) visibleAllowed else visibleBlocked
-
-    /** Old-list words shown on the Blocked tab (they are block-only keywords). */
-    val visibleLegacyKeywords: List<String>
-        get() = if (typeFilter == null || typeFilter == RuleType.KEYWORD) {
-            legacy.keywords.filter { RuleSearch.matchesText(listOf(it), query, numeric = false) }
-        } else {
-            emptyList()
-        }
-
-    val visibleLegacyNumbers: List<BlockedNumberItem>
-        get() = if (typeFilter == null || typeFilter == RuleType.NUMBER || typeFilter == RuleType.PREFIX) {
-            legacy.numbers.filter { RuleSearch.matchesText(listOfNotNull(it.number, it.contactName), query, numeric = true) }
-        } else {
-            emptyList()
-        }
-
-    /** The banner offering to move the old lists, until it is answered. */
-    val showLegacyBanner: Boolean get() = !legacy.offerDismissed && !legacy.isEmpty
 }
 
 sealed interface RulesEvent {
@@ -155,7 +137,7 @@ class RulesViewModel(
 
     private data class Extras(
         val sims: List<SimInfo> = emptyList(),
-        val legacy: LegacyLists = LegacyLists(offerDismissed = true),
+        val legacy: LegacyLists = LegacyLists(),
         val migration: MigrationDialog? = null,
     )
 
@@ -195,7 +177,6 @@ class RulesViewModel(
             val sims = withContext(io) { runCatching { SimDirectory.load(getApplication()) }.getOrDefault(emptyList()) }
             extras.update { it.copy(sims = sims) }
         }
-        refreshLegacy()
     }
 
     fun selectTab(kind: ListKind) = view.update {
@@ -465,14 +446,6 @@ class RulesViewModel(
 
     // region Old block lists (SU-33)
 
-    /** Reloads the old lists; also called on resume, since the phone app can change the system list. */
-    fun refreshLegacy() {
-        viewModelScope.launch {
-            val lists = withContext(io) { runCatching { legacyStore.load() }.getOrNull() } ?: return@launch
-            extras.update { it.copy(legacy = lists) }
-        }
-    }
-
     fun openMigration() {
         val plan = LegacyMigration.plan(
             extras.value.legacy,
@@ -506,12 +479,6 @@ class RulesViewModel(
     }
 
     fun cancelMigration() = extras.update { it.copy(migration = null) }
-
-    /** "Not now" on the banner: it is not shown again, and the old lists stay on the Blocked tab with a Move button. */
-    fun dismissLegacyBanner() {
-        extras.update { it.copy(legacy = it.legacy.copy(offerDismissed = true)) }
-        viewModelScope.launch { withContext(io) { runCatching { legacyStore.setOfferDismissed(true) } } }
-    }
 
     /**
      * Runs the move the user confirmed. Each old entry leaves its list only after its rule is stored, so a failure
@@ -547,11 +514,9 @@ class RulesViewModel(
             }
             withContext(io) {
                 runCatching { legacyStore.removeKeywords(movedKeywords) }
-                runCatching { legacyStore.setOfferDismissed(true) }
             }
             val kept = plan.keptKeywords.size + (plan.keywordRules.size - movedKeywords.size) + keptNumbers
-            extras.update { it.copy(migration = null) }
-            refreshLegacy()
+            extras.update { it.copy(migration = null, legacy = LegacyLists()) }
             events.trySend(RulesEvent.Migrated(movedKeywords.size, movedNumbers, removed, kept))
         }
     }

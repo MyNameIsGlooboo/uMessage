@@ -36,13 +36,9 @@
     <string name="screens_new_group_remove">%1$s ہٹائیں</string>
     <string name="screens_new_group_selected">منتخب شدہ</string>
     <string name="screens_details_edit_name">گفتگو کا نام تبدیل کریں</string>
-    <string name="screens_keywords_add">کلیدی لفظ شامل کریں</string>
     <string name="screens_keywords_menu_export">ایکسپورٹ</string>
-    <string name="screens_keywords_menu_import">امپورٹ</string>
-    <string name="screens_keywords_edit">ترمیم کریں</string>
-    <string name="screens_keywords_duplicate">یہ کلیدی لفظ پہلے سے فہرست میں ہے</string>
-    <string name="screens_keywords_help">پیغام میں کہیں بھی متن سے مماثل ہوتا ہے، کسی لمبے لفظ کے اندر بھی۔ بڑے یا چھوٹے حروف سے فرق نہیں پڑتا۔</string>
     <string name="screens_keywords_empty_title">کوئی بلاک شدہ کلیدی لفظ نہیں</string>
+    <string name="screens_keywords_empty_body">آپ کے بلاک شدہ الفاظ اب اصول ہیں</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="one">%d کلیدی لفظ حذف ہو گیا</item>
         <item quantity="other">%d کلیدی الفاظ حذف ہو گئے</item>

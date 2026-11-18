@@ -4,7 +4,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -15,8 +14,6 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.input.ImeAction
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LifecycleEventEffect
 import com.glooboo.umessage.ui.components.CheckboxRow
 import com.glooboo.umessage.ui.components.FabListBottomPadding
 import com.glooboo.umessage.ui.components.UMessageFab
@@ -57,7 +54,6 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -152,9 +148,6 @@ class RulesActions(
     val onClearSelection: () -> Unit = {},
     val onDeleteSelected: () -> Unit = {},
     // SU-33
-    val onOpenSystemBlockList: () -> Unit = {},
-    val onOpenMigration: () -> Unit = {},
-    val onDismissLegacyBanner: () -> Unit = {},
     val onMigrateNumbers: (Boolean) -> Unit = {},
     val onRemoveFromSystem: (Boolean) -> Unit = {},
     val onConfirmMigration: () -> Unit = {},
@@ -171,25 +164,11 @@ class RulesActions(
 @Composable
 fun RulesRoute(
     onBack: () -> Unit,
-    onOpenSystemBlockList: () -> Unit = {},
     onOpenBackup: () -> Unit = {},
-    /** Opens the "move older lists" dialog as soon as the lists are read (from the Android block list screen). */
-    openMigration: Boolean = false,
 ) {
     val viewModel: RulesViewModel = viewModel(factory = RulesViewModel.Factory)
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackbar = remember { SnackbarHostState() }
-
-    var migrationOpened by rememberSaveable { mutableStateOf(false) }
-    LaunchedEffect(openMigration, state.legacy) {
-        if (openMigration && !migrationOpened && !state.legacy.isEmpty) {
-            migrationOpened = true
-            viewModel.openMigration()
-        }
-    }
-
-    // The phone app can change the system block list while this screen is in the background.
-    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { viewModel.refreshLegacy() }
 
     RulesEvents(viewModel, snackbar)
 
@@ -217,9 +196,6 @@ fun RulesRoute(
             onSelectAll = viewModel::selectAllVisible,
             onClearSelection = viewModel::clearSelection,
             onDeleteSelected = viewModel::deleteSelected,
-            onOpenSystemBlockList = onOpenSystemBlockList,
-            onOpenMigration = viewModel::openMigration,
-            onDismissLegacyBanner = viewModel::dismissLegacyBanner,
             onMigrateNumbers = viewModel::setMigrateNumbers,
             onRemoveFromSystem = viewModel::setRemoveFromSystem,
             onConfirmMigration = viewModel::confirmMigration,
@@ -330,10 +306,9 @@ fun RulesScreen(
         )
     }
     if (helpOpen) KeywordHelpDialog(onDismiss = { helpOpen = false })
-    state.migration?.let { MigrationDialogContent(it, actions) }
 }
 
-/** Under the bar: the tabs, the old-lists banner, the search, then the rules (or loading, or an empty state). */
+/** Under the bar: the tabs, the search, then the rules (or loading, or an empty state). */
 @Composable
 private fun RulesBody(
     state: RulesUiState,
@@ -343,9 +318,7 @@ private fun RulesBody(
 ) {
     Column(modifier) {
         RulesTabs(state, actions)
-        if (state.showLegacyBanner && !state.selecting && state.tab == ListKind.BLOCK) LegacyBanner(actions)
-        val legacyRows = if (state.tab == ListKind.BLOCK) state.legacy.keywords.size + state.legacy.numbers.size else 0
-        if (!state.loading && RulesSearchPolicy.showSearch(state.current.size + legacyRows, state.filtering)) {
+        if (!state.loading && RulesSearchPolicy.showSearch(state.current.size, state.filtering)) {
             RulesSearch(state, actions)
         }
         RulesContent(state, actions, bottomPadding)
@@ -355,8 +328,7 @@ private fun RulesBody(
 /** The rules themselves, or loading, or the empty state (for a search that matched nothing, its own). */
 @Composable
 private fun RulesContent(state: RulesUiState, actions: RulesActions, bottomPadding: Dp) {
-    val nothingShown = state.visible.isEmpty() &&
-        (state.tab == ListKind.ALLOW || (state.visibleLegacyKeywords.isEmpty() && state.visibleLegacyNumbers.isEmpty()))
+    val nothingShown = state.visible.isEmpty()
     when {
         state.loading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             val label = stringResource(R.string.spam_loading)
@@ -426,12 +398,6 @@ private fun RulesTopBar(state: RulesUiState, actions: RulesActions, onTest: () -
                     leadingIcon = { Icon(Symbols.Info, contentDescription = null) },
                     onClick = { menuOpen = false; onHelp() },
                 )
-                HorizontalDivider()
-                DropdownMenuItem(
-                    text = { Text(stringResource(R.string.rules2_menu_system)) },
-                    leadingIcon = { Icon(Symbols.Block, contentDescription = null) },
-                    onClick = { menuOpen = false; actions.onOpenSystemBlockList() },
-                )
             }
         }
     }
@@ -482,37 +448,6 @@ private fun RulesSearch(state: RulesUiState, actions: RulesActions) {
                         label = ruleRowTypeLabel(type),
                     )
                 }
-            }
-        }
-    }
-}
-
-/** Offer to move the old Fossify lists into rules (SU-33). "Not now" hides it for good; the Blocked tab keeps a Move button. */
-@Composable
-private fun LegacyBanner(actions: RulesActions) {
-    val colors = MaterialTheme.colorScheme
-    Card(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).padding(top = 8.dp),
-        colors = CardDefaults.cardColors(containerColor = colors.surfaceContainerHigh, contentColor = colors.onSurface),
-        shape = RoundedCornerShape(16.dp),
-    ) {
-        // One short block: title and one line, a filled Review button, and a dismissal that is remembered.
-        Row(
-            Modifier.padding(start = 16.dp, end = 8.dp, top = 8.dp, bottom = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(
-                    stringResource(R.string.rules2_legacy_banner_title),
-                    style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier.semantics { heading() },
-                )
-                Text(stringResource(R.string.rules2_legacy_banner_body), style = MaterialTheme.typography.bodySmall)
-            }
-            FilledTonalButton(onClick = actions.onOpenMigration) { Text(stringResource(R.string.rules2_legacy_review)) }
-            IconButton(onClick = actions.onDismissLegacyBanner) {
-                Icon(Symbols.Close, contentDescription = stringResource(R.string.rules_legacy_banner_not_now))
             }
         }
     }
@@ -627,53 +562,7 @@ private fun RulesList(state: RulesUiState, actions: RulesActions, bottomInset: D
                 ),
             )
         }
-        // SU-33: the old lists, read-only, so every block is visible in one place.
-        if (state.tab == ListKind.BLOCK && !state.selecting) {
-            val keywords = state.visibleLegacyKeywords
-            if (keywords.isNotEmpty()) {
-                item(key = "legacy-keywords-header") {
-                    LegacyHeader(
-                        title = stringResource(R.string.rules_legacy_section_keywords),
-                        body = stringResource(R.string.rules_legacy_section_keywords_body),
-                        buttonLabel = stringResource(R.string.rules_legacy_move),
-                        onButton = actions.onOpenMigration,
-                    )
-                }
-                itemsIndexed(keywords, key = { _, word -> "legacy-keyword-$word" }) { index, word ->
-                    LegacyRow(word, RuleType.KEYWORD, stringResource(R.string.rules_legacy_chip_old_list), groupShape(index, keywords.size))
-                }
-            }
-            val numbers = state.visibleLegacyNumbers
-            if (numbers.isNotEmpty()) {
-                item(key = "legacy-numbers-header") {
-                    LegacyHeader(
-                        title = stringResource(R.string.rules2_system_header),
-                        body = stringResource(R.string.rules2_system_body),
-                        buttonLabel = stringResource(R.string.rules2_system_move),
-                        onButton = actions.onOpenMigration,
-                        secondLabel = stringResource(R.string.rules2_system_manage),
-                        onSecond = actions.onOpenSystemBlockList,
-                        warning = true,
-                    )
-                }
-                itemsIndexed(numbers, key = { _, item -> "legacy-number-${item.id}" }) { index, item ->
-                    LegacyRow(
-                        value = legacyNumberText(item),
-                        type = if (item.isPattern) RuleType.PREFIX else RuleType.NUMBER,
-                        chip = stringResource(R.string.rules_legacy_chip_system),
-                        shape = groupShape(index, numbers.size),
-                    )
-                }
-            }
-        }
     }
-}
-
-/** A number of the Android block list, written like every other number on screen, after its contact's name. */
-@Composable
-private fun legacyNumberText(item: BlockedNumberItem): String {
-    val number = isolateNumbers(displayNumber(item.number))
-    return item.contactName?.let { "$it, $number" } ?: number
 }
 
 private fun groupShape(index: Int, size: Int): Shape {
@@ -682,84 +571,6 @@ private fun groupShape(index: Int, size: Int): Shape {
         topStart = corners.topDp.dp, topEnd = corners.topDp.dp,
         bottomEnd = corners.bottomDp.dp, bottomStart = corners.bottomDp.dp,
     )
-}
-
-@Composable
-private fun LegacyHeader(
-    title: String,
-    body: String,
-    buttonLabel: String,
-    onButton: () -> Unit,
-    secondLabel: String? = null,
-    onSecond: () -> Unit = {},
-    /** The entries are invisible to uMessage (system list): the explanation reads as a warning, not as small print. */
-    warning: Boolean = false,
-) {
-    Column(Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Text(
-            title,
-            style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.semantics { heading() },
-        )
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            if (warning) {
-                Icon(
-                    Symbols.Warning,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.size(18.dp),
-                )
-            }
-            Text(
-                body,
-                modifier = Modifier.weight(1f),
-                style = MaterialTheme.typography.bodyMedium,
-                color = if (warning) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            FilledTonalButton(onClick = onButton) { Text(buttonLabel) }
-            if (secondLabel != null) OutlinedButton(onClick = onSecond) { Text(secondLabel) }
-        }
-    }
-}
-
-/** An entry of an old list: shown like a rule, without edit or delete, and marked with the list it is on. */
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-private fun LegacyRow(value: String, type: RuleType, chip: String, shape: Shape) {
-    val colors = MaterialTheme.colorScheme
-    Card(
-        modifier = Modifier.fillMaxWidth().semantics(mergeDescendants = true) {},
-        colors = CardDefaults.cardColors(containerColor = colors.surfaceContainerLow),
-        shape = shape,
-    ) {
-        Row(
-            Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            Box(
-                Modifier.size(40.dp).clip(CircleShape).background(colors.surfaceVariant),
-                contentAlignment = Alignment.Center,
-            ) {
-                // The icon names the type, as on a uMessage rule's row; no chip says it again (BR-25).
-                Icon(
-                    ruleTypeIcon(type),
-                    contentDescription = ruleTypeLabel(type),
-                    tint = colors.onSurfaceVariant,
-                    modifier = Modifier.size(20.dp),
-                )
-            }
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(value, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    InfoChip(chip, icon = Symbols.Block)
-                }
-            }
-        }
-    }
 }
 
 @Composable

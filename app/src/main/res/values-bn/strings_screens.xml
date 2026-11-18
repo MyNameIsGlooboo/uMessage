@@ -36,13 +36,9 @@
     <string name="screens_new_group_remove">%1$s-কে সরান</string>
     <string name="screens_new_group_selected">নির্বাচিত</string>
     <string name="screens_details_edit_name">কথোপকথনের নাম বদলান</string>
-    <string name="screens_keywords_add">কিওয়ার্ড যোগ করুন</string>
     <string name="screens_keywords_menu_export">এক্সপোর্ট</string>
-    <string name="screens_keywords_menu_import">ইমপোর্ট</string>
-    <string name="screens_keywords_edit">সম্পাদনা করুন</string>
-    <string name="screens_keywords_duplicate">এই কিওয়ার্ডটি আগেই তালিকায় আছে</string>
-    <string name="screens_keywords_help">বার্তার যেকোনো জায়গায় এই টেক্সট খোঁজে, এমনকি বড় কোনো শব্দের ভেতরেও। বড় ও ছোট হাতের অক্ষরে পার্থক্য করে না।</string>
     <string name="screens_keywords_empty_title">ব্লক করা কোনো কিওয়ার্ড নেই</string>
+    <string name="screens_keywords_empty_body">আপনার ব্লক করা শব্দগুলো এখন নিয়মে বদলে গেছে</string>
     <plurals name="screens_keywords_deleted" tools:ignore="ImpliedQuantity">
         <item quantity="one">%dটি কিওয়ার্ড মুছে ফেলা হয়েছে</item>
         <item quantity="other">%dটি কিওয়ার্ড মুছে ফেলা হয়েছে</item>

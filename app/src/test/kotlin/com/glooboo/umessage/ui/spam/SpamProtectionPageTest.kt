@@ -32,7 +32,7 @@ class SpamProtectionPageTest {
         show(SettingsActions())
         compose.onNodeWithText(str(R.string.settings_nav_spam_page_title)).assertExists()
         compose.onNodeWithText(str(R.string.spam_mode_smart)).assertExists()
-        compose.onNodeWithText(str(R.string.settings_spam_open_rules)).assertExists()
+        compose.onNodeWithText(str(R.string.settings_block_umessage_title)).assertExists()
         compose.onNodeWithText(str(R.string.i07_lock_title)).assertExists()
         compose.onNodeWithText(str(R.string.notif_open_link_title)).assertExists()
     }
@@ -42,7 +42,7 @@ class SpamProtectionPageTest {
         var rules = false
         var log = false
         show(SettingsActions(onOpenRules = { rules = true }, onOpenDecisionLog = { log = true }))
-        compose.onNodeWithText(str(R.string.settings_spam_open_rules)).performClick()
+        compose.onNodeWithText(str(R.string.settings_block_umessage_title)).performClick()
         compose.onNodeWithText(str(R.string.settings_nav_decision_log)).performClick()
         assertThat(rules).isTrue()
         assertThat(log).isTrue()

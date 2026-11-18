@@ -206,6 +206,11 @@ data class BackupContent(
      * give an empty list: a restore only ever adds words, so such a file takes none away.
      */
     val blockedKeywords: List<String> = emptyList(),
+    /**
+     * Set by decode: the file was written after the old "Block unknown numbers" switch was folded into the
+     * unknown-senders mode, so its spamMode already says what blocks. Older files lack it (see [SettingsBackup]).
+     */
+    val modeIncludesSwitch: Boolean = false,
 )
 
 /**
@@ -244,6 +249,7 @@ object SettingsBackupFormat {
             put("kind", KIND)
             put("version", VERSION)
             put("exportedAt", exportedAt)
+            put("modeIncludesSwitch", true)
             content.appVersion?.let { put("appVersion", it) }
             put("rules", buildJsonArray { content.rules.forEach { add(BackupJson.rule(it)) } })
             put("forwardRules", buildJsonArray { content.forwardRules.forEach { add(BackupJson.forward(it)) } })
@@ -276,6 +282,7 @@ object SettingsBackupFormat {
             droppedRules = (rules.size - MAX_RULES).coerceAtLeast(0),
             droppedForwardRules = (forwards.size - MAX_FORWARD_RULES).coerceAtLeast(0),
             blockedKeywords = readKeywords(root),
+            modeIncludesSwitch = root.bool("modeIncludesSwitch") == true,
         )
     }
 

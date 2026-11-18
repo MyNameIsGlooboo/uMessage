@@ -62,11 +62,8 @@
     <plurals name="delete_messages">
         <item quantity="other">%d tin nhắn</item>
     </plurals>
-    <string name="keyword">Từ khóa</string>
     <string name="blocked_keywords">Từ khóa đã chặn</string>
     <string name="manage_blocked_keywords">Quản lý từ khóa đã chặn</string>
-    <string name="not_blocking_keywords">Bạn chưa chặn từ khóa nào. Bạn có thể thêm từ khóa tại đây để chặn mọi tin nhắn chứa chúng.</string>
-    <string name="add_a_blocked_keyword">Thêm từ khóa cần chặn</string>
     <string name="lock_screen_visibility">Hiển thị thông báo trên màn hình khóa</string>
     <string name="sender_and_message">Người gửi và tin nhắn</string>
     <string name="sender_only">Chỉ người gửi</string>

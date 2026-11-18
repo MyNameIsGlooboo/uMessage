@@ -10,7 +10,6 @@
     <string name="settings_block_umessage_title">uMessage kuralları</string>
     <string name="settings_block_umessage_body">Engellenen mesajlar Spam klasörüne gider. Bunları geri yükleyebilirsiniz.</string>
     <string name="settings_spam_open_rules">İzin verme ve engelleme kuralları</string>
-    <string name="settings_spam_open_rules_body">Numaralar, gönderen adları, anahtar kelimeler ve düzenli ifadeler</string>
     <string name="settings_spam_blocked_numbers_body">Sistemin engellenenler listesi üzerinden engellenen numaralar</string>
     <string name="settings_spam_blocked_keywords_body">Bu kelimeleri içeren mesajları gizleyin</string>
     <string name="settings_sim_slot_title">SIM %1$d: %2$s</string>

@@ -6,7 +6,6 @@
     <ID>ComplexCondition:AppLockLogic.kt$PatternGeometry$x &lt; 0f || y &lt; 0f || col !in 0 until AppLockLogic.PATTERN_SIZE || row !in 0 until AppLockLogic.PATTERN_SIZE</ID>
     <ID>ComplexCondition:ConversationListSync.kt$ConversationListSync$!cachedPending &amp;&amp; !fullPending &amp;&amp; !bumpPending &amp;&amp; threadsPending.isEmpty()</ID>
     <ID>ComplexCondition:ConversationsScreen.kt$topThreadId != null &amp;&amp; previous != null &amp;&amp; previous != topThreadId &amp;&amp; userWasAtTop</ID>
-    <ID>ComplexCondition:RulesScreen.kt$!state.loading &amp;&amp; (state.current.isNotEmpty() || hasLegacy || state.filtering)</ID>
     <ID>ComplexCondition:SettingsRows.kt$prev == null || prev.size != next.size || prev.indices.any { prev[it].y != next[it].y || prev[it].height != next[it].height }</ID>
     <ID>ComplexCondition:TextNormalizer.kt$TextNormalizer$text.none { it in REMOVED || it in REPLACEMENTS || (it.isDigit() &amp;&amp; it !in '0'..'9') }</ID>
     <ID>ComplexCondition:ThreadActivity.kt$ThreadActivity$!vm.longMmsNoted &amp;&amp; vm.attachments.isEmpty() &amp;&amp; messageString.isNotBlank() &amp;&amp; isLongMmsMessage(messageString)</ID>
@@ -274,9 +273,7 @@
     <ID>MaxLineLength:BlockedKeywordsFormat.kt$BlockedKeywordsFormat$fun</ID>
     <ID>MaxLineLength:BlockedKeywordsFormat.kt$BlockedKeywordsFormat$fun contains(existing: Collection&lt;String&gt;, keyword: String): Boolean</ID>
     <ID>MaxLineLength:BlockedKeywordsFormatTest.kt$BlockedKeywordsFormatTest$assertThat(BlockedKeywordsFormat.parse("lottery,free gift,prize")).containsExactly("lottery", "free gift", "prize")</ID>
-    <ID>MaxLineLength:BlockedKeywordsImporter.kt$BlockedKeywordsImporter$config.blockedKeywords = keywords.fold(config.blockedKeywords) { set, keyword -&gt; BlockedKeywordsFormat.add(set, keyword) }</ID>
     <ID>MaxLineLength:BlockedKeywordsScreen.kt$.</ID>
-    <ID>MaxLineLength:BlockedKeywordsScreen.kt$title = stringResource(if (original == null) R.string.add_a_blocked_keyword else R.string.screens_keywords_edit)</ID>
     <ID>MaxLineLength:BlockedMmsDownloader.kt$BlockedMmsDownloader$return file.takeIf { it.parentFile?.canonicalPath == context.cacheDir.canonicalPath &amp;&amp; it.name.startsWith(FILE_PREFIX) }</ID>
     <ID>MaxLineLength:BlockedMmsReceiveTest.kt$BlockedMmsReceiveTest$val shadow = Shadow.extract&lt;ShadowSmsManager&gt;(com.klinker.android.send_message.SmsManagerFactory.createSmsManager(1))</ID>
     <ID>MaxLineLength:BlockedMmsRestoreTest.kt$BlockedMmsRestoreTest$assertThat(blockedBodyText(res, mms(body = MMS_PLACEHOLDER_BODY))).isEqualTo(res.getString(R.string.spam_mms_missing))</ID>
@@ -296,7 +293,6 @@
     <ID>MaxLineLength:BlockedNumbersScreen.kt$title = stringResource(if (dialog.original == null) R.string.blocknum_add_title else R.string.blocknum_edit_title)</ID>
     <ID>MaxLineLength:BlockedNumbersScreen.kt$val</ID>
     <ID>MaxLineLength:BlockedNumbersScreen.kt$val background by animateColorAsState(if (selected) colors.primaryContainer else colors.background, label = "numberRowBackground")</ID>
-    <ID>MaxLineLength:BlockedNumbersViewModel.kt$BlockedNumbersViewModel$private val mutableState = MutableStateFlow(BlockedNumbersUiState(blockUnknown = app.baseConfig.blockUnknownNumbers))</ID>
     <ID>MaxLineLength:BlockedScreen.kt$/** Tighter than the M3 default (24dp) so both labelled actions and the trailing delete fit one line at font scale 1.3. */</ID>
     <ID>MaxLineLength:BlockedScreen.kt$Icon(Symbols.Warning, contentDescription = null, tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(20.dp))</ID>
     <ID>MaxLineLength:BlockedScreen.kt$Text(it, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
@@ -462,7 +458,6 @@
     <ID>MaxLineLength:ImportMessagesDialog.kt$ImportMessagesDialog$running -&gt; BackupRunningContent(job as? BackupJob.State.Running ?: BackupJob.State.Running(BackupJob.Kind.IMPORT, 0, null))</ID>
     <ID>MaxLineLength:ImportMessagesDialog.kt$ImportMessagesDialog$running -&gt; TextButton(onClick = BackupJob::requestCancel) { Text(stringResource(R.string.backup_stop)) }</ID>
     <ID>MaxLineLength:LegacyBlockLists.kt$LegacyMigration$if (rule.type == RuleType.NUMBER) RuleValidator.sameNumber(other.pattern, rule.pattern) else other.pattern == rule.pattern</ID>
-    <ID>MaxLineLength:LegacyBlockLists.kt$LegacyMigration$keywordRules += word to SpamRule(kind = ListKind.BLOCK, type = RuleType.KEYWORD, pattern = result.pattern, note = keywordNote)</ID>
     <ID>MaxLineLength:LegacyBlockedNumberMatchingTest.kt$LegacyBlockedNumberMatchingTest$val senders = listOf("+1 555 123 4567", "+1-555-123-4567", "+1 (555) 123-4567", "+15551234567", "001 555 1234567")</ID>
     <ID>MaxLineLength:LegacyBlockedNumberMatchingTest.kt$LegacyBlockedNumberMatchingTest$val senders = listOf("+447121234567", "+44 712 123 4567", "00447121234567", "07121234567", "0712 123 4567", "۰۷۱۲۱۲۳۴۵۶۷")</ID>
     <ID>MaxLineLength:LockScreen.kt$@Preview(name = "PIN dark, locked out", showBackground = true, widthDp = 360, heightDp = 740, uiMode = Configuration.UI_MODE_NIGHT_YES)</ID>
@@ -587,25 +582,19 @@
     <ID>MaxLineLength:RuleTextCodecTest.kt$RuleTextCodecTest$val decoded = RuleTextCodec.decode("${RuleTextCodec.HEADER}\nBLOCK\tNUMBER\tsim2\t\t+44712\nBLOCK\tNUMBER\t\t\t+44713\n")</ID>
     <ID>MaxLineLength:RuleTextCodecTest.kt$RuleTextCodecTest$val decoded = RuleTextCodec.decode("BLOCK,NUMBER,+44712\nallow,keyword,delivery, code\n# comment\n\nBLOCK,REGEX,(a+)+\nnonsense\n")</ID>
     <ID>MaxLineLength:RuleTextCodecTest.kt$RuleTextCodecTest$val rules = listOf(SpamRule(kind = ListKind.BLOCK, type = RuleType.KEYWORD, pattern = "free gift", note = "a\tb\nc"))</ID>
-    <ID>MaxLineLength:RulesScreen.kt$(state.tab == ListKind.ALLOW || (state.visibleLegacyKeywords.isEmpty() &amp;&amp; state.visibleLegacyNumbers.isEmpty()))</ID>
-    <ID>MaxLineLength:RulesScreen.kt$/** Offer to move the old Fossify lists into rules (SU-33). "Not now" hides it for good; the Blocked tab keeps a Move button. */</ID>
     <ID>MaxLineLength:RulesScreen.kt$?:</ID>
     <ID>MaxLineLength:RulesScreen.kt$Column</ID>
     <ID>MaxLineLength:RulesScreen.kt$FlowRow</ID>
     <ID>MaxLineLength:RulesScreen.kt$Icon(ruleTypeIcon(type), contentDescription = null, tint = colors.onSurfaceVariant, modifier = Modifier.size(20.dp))</ID>
-    <ID>MaxLineLength:RulesScreen.kt$LegacyRow(word, RuleType.KEYWORD, stringResource(R.string.rules_legacy_chip_old_list), groupShape(index, keywords.size))</ID>
     <ID>MaxLineLength:RulesScreen.kt$Modifier.size(40.dp).clip(CircleShape).background(if (selected) colors.primary else colors.primaryContainer)</ID>
     <ID>MaxLineLength:RulesScreen.kt$RuleType.KEYWORD -&gt; if (kind == ListKind.ALLOW) R.string.spam_type_keyword_allow_help else R.string.spam_type_keyword_help</ID>
     <ID>MaxLineLength:RulesScreen.kt$Text(ruleLine(it), style = MaterialTheme.typography.bodyMedium, color = color, maxLines = 2, overflow = TextOverflow.Ellipsis)</ID>
     <ID>MaxLineLength:RulesScreen.kt$Text(value, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)</ID>
-    <ID>MaxLineLength:RulesScreen.kt$TextButton(onClick = actions.onDismissLegacyBanner) { Text(stringResource(R.string.rules_legacy_banner_not_now)) }</ID>
-    <ID>MaxLineLength:RulesScreen.kt$TextButton(onClick = actions.onOpenMigration) { Text(stringResource(R.string.rules_legacy_banner_review)) }</ID>
     <ID>MaxLineLength:RulesScreen.kt$add(resources.getQuantityString(R.plurals.rules_migrated_removed, event.removedFromSystem, event.removedFromSystem))</ID>
     <ID>MaxLineLength:RulesScreen.kt$body = stringResource(if (allow) R.string.spam_rules_empty_allowed_body else R.string.spam_rules_empty_blocked_body)</ID>
     <ID>MaxLineLength:RulesScreen.kt$colors = CardDefaults.cardColors(containerColor = colors.errorContainer, contentColor = colors.onErrorContainer)</ID>
     <ID>MaxLineLength:RulesScreen.kt$colors = CardDefaults.cardColors(containerColor = colors.secondaryContainer, contentColor = colors.onSecondaryContainer)</ID>
     <ID>MaxLineLength:RulesScreen.kt$confirmLabel = stringResource(if (conflict) R.string.spam_confirm_remove_allowed else R.string.spam_confirm_save)</ID>
-    <ID>MaxLineLength:RulesScreen.kt$if (!state.loading &amp;&amp; (state.current.isNotEmpty() || hasLegacy || state.filtering)) RulesSearch(state, actions)</ID>
     <ID>MaxLineLength:RulesScreen.kt$if (event.keywords &gt; 0) add(resources.getQuantityString(R.plurals.rules_migrated_keywords, event.keywords, event.keywords))</ID>
     <ID>MaxLineLength:RulesScreen.kt$if (event.numbers &gt; 0) add(resources.getQuantityString(R.plurals.rules_migrated_numbers, event.numbers, event.numbers))</ID>
     <ID>MaxLineLength:RulesScreen.kt$is RulesEvent.Migrated -&gt; snackbar.showSnackbar(migratedText(resources, event), duration = SnackbarDuration.Long)</ID>
@@ -892,7 +881,6 @@
     <ID>TooGenericExceptionCaught:BackupService.kt$BackupService$e: Throwable</ID>
     <ID>TooGenericExceptionCaught:BlockSenderReceiver.kt$BlockSenderReceiver$t: Throwable</ID>
     <ID>TooGenericExceptionCaught:BlockedKeywordsExporter.kt$BlockedKeywordsExporter$e: Exception</ID>
-    <ID>TooGenericExceptionCaught:BlockedKeywordsImporter.kt$BlockedKeywordsImporter$e: Exception</ID>
     <ID>TooGenericExceptionCaught:BlockedMmsDownloadReceiver.kt$BlockedMmsDownloadReceiver$t: Throwable</ID>
     <ID>TooGenericExceptionCaught:BlockedMmsDownloadReceiver.kt$BlockedMmsDownloadReceiver.Companion$t: Throwable</ID>
     <ID>TooGenericExceptionCaught:BlockedMmsDownloader.kt$BlockedMmsDownloader$t: Throwable</ID>

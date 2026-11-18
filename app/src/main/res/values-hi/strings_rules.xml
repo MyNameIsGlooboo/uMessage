@@ -15,13 +15,6 @@
         <item quantity="one">%d नियम मिटाया गया</item>
         <item quantity="other">%d नियम मिटाए गए</item>
     </plurals>
-    <string name="rules_legacy_banner_review">जांचें</string>
-    <string name="rules_legacy_banner_not_now">अभी नहीं</string>
-    <string name="rules_legacy_section_keywords">ब्लॉक किए गए शब्दों की पुरानी सूची</string>
-    <string name="rules_legacy_section_keywords_body">जब तक आप इन शब्दों को नियमों में नहीं लाते, फ़िल्टर करने के लिए इस सूची का इस्तेमाल होता रहेगा. उसके बाद पुरानी सूची का इस्तेमाल बंद हो जाएगा.</string>
-    <string name="rules_legacy_chip_old_list">पुरानी सूची</string>
-    <string name="rules_legacy_chip_system">सिस्टम, कॉल भी</string>
-    <string name="rules_legacy_move">नियमों में ले जाएं</string>
     <string name="rules_migrate_nothing">पुरानी सूचियों की सभी चीज़ें आपके नियमों में पहले से हैं.</string>
     <plurals name="rules_migrate_keywords" tools:ignore="ImpliedQuantity">
         <item quantity="one">ब्लॉक किए गए शब्दों की पुरानी सूची का %d शब्द ब्लॉक करने का कीवर्ड नियम बन जाएगा. फिर पुरानी सूची का इस्तेमाल बंद हो जाएगा.</item>

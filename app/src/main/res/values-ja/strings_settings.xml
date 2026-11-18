@@ -10,7 +10,6 @@
     <string name="settings_block_umessage_title">uMessageのルール</string>
     <string name="settings_block_umessage_body">ブロックしたメッセージは迷惑メッセージに移動します。復元できます。</string>
     <string name="settings_spam_open_rules">許可とブロックのルール</string>
-    <string name="settings_spam_open_rules_body">電話番号、送信者名、キーワード、パターン（正規表現）</string>
     <string name="settings_spam_blocked_numbers_body">システムのブロックリストでブロック済みの電話番号</string>
     <string name="settings_spam_blocked_keywords_body">これらの語句を含むメッセージを非表示にします。</string>
     <string name="settings_sim_slot_title">SIM%1$d：%2$s</string>

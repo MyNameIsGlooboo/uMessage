@@ -35,13 +35,9 @@
     <string name="screens_new_group_remove">%1$s 제외</string>
     <string name="screens_new_group_selected">선택됨</string>
     <string name="screens_details_edit_name">대화 이름 수정</string>
-    <string name="screens_keywords_add">키워드 추가</string>
     <string name="screens_keywords_menu_export">내보내기</string>
-    <string name="screens_keywords_menu_import">가져오기</string>
-    <string name="screens_keywords_edit">수정</string>
-    <string name="screens_keywords_duplicate">이미 목록에 있는 키워드예요.</string>
-    <string name="screens_keywords_help">메시지 어디에든 해당 문구가 있으면 일치해요. 긴 단어의 일부여도 일치하며, 대소문자는 구분하지 않아요.</string>
     <string name="screens_keywords_empty_title">차단된 키워드가 없어요.</string>
+    <string name="screens_keywords_empty_body">차단 단어가 이제 규칙으로 바뀌었어요.</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="other">키워드 %d개를 삭제했어요.</item>
     </plurals>

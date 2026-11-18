@@ -13,7 +13,6 @@
     <string name="settings_block_umessage_title">uMessage rules</string>
     <string name="settings_block_umessage_body">Blocked texts go to Spam. You can get them back.</string>
     <string name="settings_spam_open_rules">Rules</string>
-    <string name="settings_spam_open_rules_body">Numbers, sender names, keywords and patterns</string>
     <string name="settings_spam_blocked_numbers_body">Numbers blocked through the system block list</string>
     <string name="settings_spam_blocked_keywords_body">Hide messages that contain these words</string>
 

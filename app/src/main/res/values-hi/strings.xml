@@ -65,11 +65,8 @@
         <item quantity="one">%d मैसेज</item>
         <item quantity="other">%d मैसेज</item>
     </plurals>
-    <string name="keyword">कीवर्ड</string>
     <string name="blocked_keywords">ब्लॉक किए गए कीवर्ड</string>
     <string name="manage_blocked_keywords">ब्लॉक किए गए कीवर्ड मैनेज करें</string>
-    <string name="not_blocking_keywords">आपने कोई कीवर्ड ब्लॉक नहीं किया है. यहां कीवर्ड जोड़कर आप उन सभी मैसेज को ब्लॉक कर सकते हैं जिनमें ये कीवर्ड हों.</string>
-    <string name="add_a_blocked_keyword">ब्लॉक करने के लिए कीवर्ड जोड़ें</string>
     <string name="lock_screen_visibility">लॉक स्क्रीन पर सूचना में क्या दिखे</string>
     <string name="sender_and_message">भेजने वाला और मैसेज</string>
     <string name="sender_only">सिर्फ़ भेजने वाला</string>

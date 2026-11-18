@@ -35,13 +35,9 @@
     <string name="screens_new_group_remove">Hapus %1$s</string>
     <string name="screens_new_group_selected">Dipilih</string>
     <string name="screens_details_edit_name">Edit nama percakapan</string>
-    <string name="screens_keywords_add">Tambahkan kata kunci</string>
     <string name="screens_keywords_menu_export">Ekspor</string>
-    <string name="screens_keywords_menu_import">Impor</string>
-    <string name="screens_keywords_edit">Edit</string>
-    <string name="screens_keywords_duplicate">Kata kunci ini sudah ada dalam daftar</string>
-    <string name="screens_keywords_help">Mencocokkan teks di bagian mana pun dalam pesan, termasuk dalam kata yang lebih panjang. Huruf besar dan kecil tidak dibedakan.</string>
     <string name="screens_keywords_empty_title">Tidak ada kata kunci yang diblokir</string>
+    <string name="screens_keywords_empty_body">Kata yang diblokir kini menjadi aturan</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="other">%d kata kunci dihapus</item>
     </plurals>

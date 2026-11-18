@@ -65,11 +65,8 @@
         <item quantity="one">%d mensagem</item>
         <item quantity="other">%d mensagens</item>
     </plurals>
-    <string name="keyword">Palavra-chave</string>
     <string name="blocked_keywords">Palavras-chave bloqueadas</string>
     <string name="manage_blocked_keywords">Gerencie as palavras-chave bloqueadas</string>
-    <string name="not_blocking_keywords">Você não está bloqueando nenhuma palavra-chave. Adicione palavras-chave aqui para bloquear todas as mensagens que as contenham.</string>
-    <string name="add_a_blocked_keyword">Adicione uma palavra-chave bloqueada</string>
     <string name="lock_screen_visibility">Visibilidade das notificações na tela de bloqueio</string>
     <string name="sender_and_message">Remetente e mensagem</string>
     <string name="sender_only">Só o remetente</string>

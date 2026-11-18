@@ -10,7 +10,6 @@
     <string name="settings_block_umessage_title">uMessage के नियम</string>
     <string name="settings_block_umessage_body">ब्लॉक किए गए मैसेज स्पैम में जाते हैं. आप उन्हें वापस ला सकते हैं.</string>
     <string name="settings_spam_open_rules">अनुमति देने और ब्लॉक करने के नियम</string>
-    <string name="settings_spam_open_rules_body">नंबर, भेजने वालों के नाम, कीवर्ड और पैटर्न (रेगुलर एक्सप्रेशन)</string>
     <string name="settings_spam_blocked_numbers_body">सिस्टम की ब्लॉक सूची से ब्लॉक किए गए नंबर</string>
     <string name="settings_spam_blocked_keywords_body">इन शब्दों वाले मैसेज छिपाएं</string>
     <string name="settings_sim_slot_title">सिम %1$d: %2$s</string>

@@ -10,7 +10,6 @@
     <string name="settings_block_umessage_title">Reglas de uMessage</string>
     <string name="settings_block_umessage_body">Los mensajes bloqueados van a Spam. Puedes recuperarlos.</string>
     <string name="settings_spam_open_rules">Reglas para permitir y bloquear</string>
-    <string name="settings_spam_open_rules_body">Números, nombres de remitentes, palabras clave y patrones (expresiones regulares)</string>
     <string name="settings_spam_blocked_numbers_body">Números bloqueados mediante la lista de bloqueados del sistema</string>
     <string name="settings_spam_blocked_keywords_body">Oculta los mensajes que contienen estas palabras</string>
     <string name="settings_sim_slot_title">SIM %1$d: %2$s</string>

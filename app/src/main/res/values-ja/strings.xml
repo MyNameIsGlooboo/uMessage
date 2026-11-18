@@ -62,11 +62,8 @@
     <plurals name="delete_messages">
         <item quantity="other">%d件のメッセージ</item>
     </plurals>
-    <string name="keyword">キーワード</string>
     <string name="blocked_keywords">ブロック済みキーワード</string>
     <string name="manage_blocked_keywords">ブロック済みキーワードを管理</string>
-    <string name="not_blocking_keywords">ブロック済みキーワードはありません。ここにキーワードを追加すると、そのキーワードを含むすべてのメッセージをブロックできます。</string>
-    <string name="add_a_blocked_keyword">ブロックするキーワードを追加</string>
     <string name="lock_screen_visibility">ロック画面の通知表示</string>
     <string name="sender_and_message">送信者とメッセージ</string>
     <string name="sender_only">送信者のみ</string>

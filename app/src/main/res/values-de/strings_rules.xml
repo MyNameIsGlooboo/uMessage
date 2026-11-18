@@ -15,13 +15,6 @@
         <item quantity="one">%d Regel gelöscht</item>
         <item quantity="other">%d Regeln gelöscht</item>
     </plurals>
-    <string name="rules_legacy_banner_review">Prüfen</string>
-    <string name="rules_legacy_banner_not_now">Nicht jetzt</string>
-    <string name="rules_legacy_section_keywords">Alte Liste blockierter Wörter</string>
-    <string name="rules_legacy_section_keywords_body">Wird weiter zum Filtern verwendet, bis du diese Wörter in Regeln übernimmst. Danach wird die alte Liste nicht mehr verwendet.</string>
-    <string name="rules_legacy_chip_old_list">Alte Liste</string>
-    <string name="rules_legacy_chip_system">System, auch Anrufe</string>
-    <string name="rules_legacy_move">In Regeln übernehmen</string>
     <string name="rules_migrate_nothing">Alle Einträge der älteren Listen sind bereits in deinen Regeln.</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="one">%d Wort aus der alten Liste blockierter Wörter wird als Schlüsselwort in eine Regel zum Blockieren übernommen. Danach wird die alte Liste nicht mehr verwendet.</item>

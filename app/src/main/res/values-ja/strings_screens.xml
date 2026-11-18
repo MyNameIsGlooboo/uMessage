@@ -35,13 +35,9 @@
     <string name="screens_new_group_remove">%1$sを外す</string>
     <string name="screens_new_group_selected">選択済み</string>
     <string name="screens_details_edit_name">会話名を編集</string>
-    <string name="screens_keywords_add">キーワードを追加</string>
     <string name="screens_keywords_menu_export">エクスポート</string>
-    <string name="screens_keywords_menu_import">インポート</string>
-    <string name="screens_keywords_edit">編集</string>
-    <string name="screens_keywords_duplicate">このキーワードはすでにリストにあります。</string>
-    <string name="screens_keywords_help">メッセージのどこに含まれていても一致します。長い単語の一部も対象です。大文字と小文字は区別しません。</string>
     <string name="screens_keywords_empty_title">ブロック済みのキーワードなし</string>
+    <string name="screens_keywords_empty_body">ブロック対象のキーワードがルールになりました。</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="other">キーワードを%d件削除しました。</item>
     </plurals>

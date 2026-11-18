@@ -14,11 +14,9 @@ import androidx.compose.ui.test.performTouchInput
 import com.google.common.truth.Truth.assertThat
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.junit4.StateRestorationTester
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performTextInput
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
@@ -28,7 +26,6 @@ import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
-import com.glooboo.umessage.ui.keywords.BlockedKeywordsScreen
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import org.junit.Rule
 import org.junit.Test
@@ -172,19 +169,16 @@ class RulesUiTest {
 
     @Test
     @Config(qualifiers = "w411dp-h2000dp")
-    fun oldListsShowReadOnlyOnTheBlockedTabWithTheBanner() {
+    fun oldListsAreNotShownOnTheRulesScreen() {
+        // Option A: two lists. The Android list and the old words live only on their own screens; Rules lists rules.
         val legacy = LegacyLists(keywords = listOf("free gift"), numbers = listOf(BlockedNumberItem(5, "+447120000000")))
-        showRules(RulesUiState(loading = false, tab = ListKind.BLOCK, legacy = legacy))
-        compose.onNodeWithText(str(R.string.rules2_legacy_banner_title)).assertExists()
-        compose.onNodeWithText("free gift").assertExists()
-        compose.onNodeWithText(str(R.string.rules_legacy_section_keywords)).assertExists()
-        // Shown like every other number (displayNumber), so grouped and isolated.
+        showRules(RulesUiState(loading = false, tab = ListKind.BLOCK, blocked = sampleRules, legacy = legacy))
+        compose.onNodeWithText("free gift").assertDoesNotExist()
         val context = ApplicationProvider.getApplicationContext<android.content.Context>()
         val shown = com.glooboo.umessage.ui.components.isolateNumbers(
             com.glooboo.umessage.ui.components.displayNumber(context, "+447120000000"),
         )
-        compose.onNodeWithText(shown).assertExists()
-        compose.onNodeWithText(str(R.string.rules2_system_header)).assertExists()
+        compose.onNodeWithText(shown).assertDoesNotExist()
     }
 
     @Test
@@ -222,25 +216,5 @@ class RulesUiTest {
         compose.setContent { UMessageTheme { SettingsScreen(SettingsUiState(loading = false, settings = SpamSettings()), SettingsActions()) } }
         compose.onNodeWithText(str(R.string.spam_mode_smart_body)).assertExists()
         compose.onNodeWithText("passcode", substring = true, ignoreCase = true).assertDoesNotExist()
-    }
-
-    @Test
-    fun keywordDialogKeepsTypedTextAcrossRecreation() {
-        // SU-38: rotating used to close the dialog and lose the text.
-        val restoration = StateRestorationTester(compose)
-        restoration.setContent {
-            UMessageTheme {
-                BlockedKeywordsScreen(
-                    keywords = listOf("lottery"),
-                    loaded = true,
-                    snackbarHostState = SnackbarHostState(),
-                    onBack = {}, onSave = { _, _ -> }, onCopy = {}, onDelete = {}, onExport = {}, onImport = {},
-                )
-            }
-        }
-        compose.onNodeWithText(str(R.string.screens_keywords_add), useUnmergedTree = true).performClick()
-        compose.onNode(hasText(str(R.string.keyword))).performTextInput("free gift")
-        restoration.emulateSavedInstanceStateRestore()
-        compose.onNodeWithText("free gift").assertExists()
     }
 }

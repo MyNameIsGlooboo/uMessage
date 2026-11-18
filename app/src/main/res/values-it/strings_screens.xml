@@ -36,13 +36,9 @@
     <string name="screens_new_group_remove">Rimuovi %1$s</string>
     <string name="screens_new_group_selected">Selezionati</string>
     <string name="screens_details_edit_name">Modifica nome conversazione</string>
-    <string name="screens_keywords_add">Aggiungi parola chiave</string>
     <string name="screens_keywords_menu_export">Esporta</string>
-    <string name="screens_keywords_menu_import">Importa</string>
-    <string name="screens_keywords_edit">Modifica</string>
-    <string name="screens_keywords_duplicate">Questa parola chiave è già nell\'elenco</string>
-    <string name="screens_keywords_help">Trova il testo in qualsiasi punto del messaggio, anche all\'interno di una parola più lunga. Non distingue tra maiuscole e minuscole.</string>
     <string name="screens_keywords_empty_title">Nessuna parola chiave bloccata</string>
+    <string name="screens_keywords_empty_body">Le tue parole bloccate ora sono regole</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="one">%d parola chiave eliminata</item>
         <item quantity="other">%d parole chiave eliminate</item>

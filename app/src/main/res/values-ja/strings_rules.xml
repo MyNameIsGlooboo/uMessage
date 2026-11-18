@@ -14,13 +14,6 @@
     <plurals name="rules_deleted_many">
         <item quantity="other">%d件のルールを削除しました。</item>
     </plurals>
-    <string name="rules_legacy_banner_review">確認</string>
-    <string name="rules_legacy_banner_not_now">後で</string>
-    <string name="rules_legacy_section_keywords">旧ブロック単語リスト</string>
-    <string name="rules_legacy_section_keywords_body">これらの単語をルールに移行するまで、引き続きフィルターに使われます。移行後は旧リストを使わなくなります。</string>
-    <string name="rules_legacy_chip_old_list">旧リスト</string>
-    <string name="rules_legacy_chip_system">システム・着信も対象</string>
-    <string name="rules_legacy_move">ルールに移行</string>
     <string name="rules_migrate_nothing">以前のリストの項目は、すべてルールに登録済みです。</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="other">旧ブロック単語リストの%d語を、キーワードのブロックルールに移行します。移行後は旧リストを使わなくなります。</item>

@@ -10,7 +10,6 @@
     <string name="settings_block_umessage_title">Aturan uMessage</string>
     <string name="settings_block_umessage_body">Pesan yang diblokir masuk ke Spam. Anda dapat memulihkannya.</string>
     <string name="settings_spam_open_rules">Aturan izinkan dan blokir</string>
-    <string name="settings_spam_open_rules_body">Nomor, nama pengirim, kata kunci, dan pola</string>
     <string name="settings_spam_blocked_numbers_body">Nomor yang diblokir melalui daftar blokir sistem</string>
     <string name="settings_spam_blocked_keywords_body">Sembunyikan pesan yang memuat kata-kata ini</string>
     <string name="settings_sim_slot_title">SIM %1$d: %2$s</string>

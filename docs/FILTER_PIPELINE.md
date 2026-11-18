@@ -21,7 +21,9 @@ incoming SMS PDUs
                  else BLOCK (UNKNOWN_SENDER)
        STRICT -> BLOCK (UNKNOWN_SENDER), verification codes included
        OFF    -> ALLOW (MODE_OFF), or BLOCK (UNKNOWN_SENDER) when the old "Block unknown numbers"
-                 switch is on: it turns Off into Strict and has no effect in Strict or Smart
+                 switch is still on. That switch is migrated once into Strict at app start (Off with the
+                 switch on becomes Strict, then the switch is cleared); it stays here only as a fail-safe
+                 fallback in case that step could not be stored. It has no effect in Strict or Smart
   ALLOW -> write to Telephony provider, notify
   BLOCK -> store only in the uMessage DB (Spam folder); silent unless notifyOnBlock
   filter or store failure (any Throwable) -> deliver to the inbox (fail open)
@@ -54,7 +56,7 @@ REGEX safety (`spam/RegexGuard.kt`): `RegexGuard.validate(pattern)` rejects patt
 
 Settings (`SpamSettings`): mode = SMART, purgeAfterDays = 30 (0 = keep forever), notifyOnBlock = false. The stored `otpExemption` field is kept for old installs but no longer has a switch and does not change any mode: Smart always lets codes through, Strict never does. Since 0.4.2 (owner decision) a code with a link ("verification code ... confirm at bit.ly/x") is let through in Smart too; Strict still holds it. Risk: a scam shaped like "your code is 123456, tap this link" from an unknown sender reaches the inbox. A bare link with a prize word, a phone number with a link and a number without a code word are still not codes.
 
-The old Fossify "Block unknown numbers" switch (on the Blocked numbers screen) used to run before the mode and block codes even in Smart. It now only matters in Off mode, where it makes Off behave like Strict; Strict and Smart ignore it, and the screen says so.
+The old Fossify "Block unknown numbers" switch (on the Blocked numbers screen) used to run before the mode and block codes even in Smart. It is migrated once, at app start: Off with the switch on becomes Strict, and the switch is cleared (with Smart or Strict it did nothing and is just cleared). The filter still reads the switch, only as a fail-safe fallback (Off behaves like Strict while it is on) if the migration could not store the new mode. Restoring a backup written before the migration applies the same mapping, so Off restores as Strict on a phone that had the switch on.
 
 ### OTP heuristic (`spam/engine/OtpDetector.kt`)
 

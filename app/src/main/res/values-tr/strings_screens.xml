@@ -36,13 +36,9 @@
     <string name="screens_new_group_remove">Kaldırın: %1$s</string>
     <string name="screens_new_group_selected">Seçildi</string>
     <string name="screens_details_edit_name">Görüşme adını düzenleyin</string>
-    <string name="screens_keywords_add">Anahtar kelime ekleyin</string>
     <string name="screens_keywords_menu_export">Dışa aktarın</string>
-    <string name="screens_keywords_menu_import">İçe aktarın</string>
-    <string name="screens_keywords_edit">Düzenleyin</string>
-    <string name="screens_keywords_duplicate">Bu anahtar kelime zaten listede</string>
-    <string name="screens_keywords_help">Metni mesajın her yerinde, daha uzun bir kelimenin içinde bile eşleştirir. Büyük ve küçük harf ayrımı yapmaz.</string>
     <string name="screens_keywords_empty_title">Engellenen anahtar kelime yok</string>
+    <string name="screens_keywords_empty_body">Engellediğiniz kelimeler artık birer kural</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="one">%d anahtar kelime silindi</item>
         <item quantity="other">%d anahtar kelime silindi</item>

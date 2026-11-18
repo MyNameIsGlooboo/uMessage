@@ -42,6 +42,7 @@ const val PINNED_CONVERSATIONS = "pinned_conversations"
 const val MARKED_UNREAD_THREADS = "marked_unread_threads"
 const val INEXACT_SCHEDULED_MESSAGES = "inexact_scheduled_messages"
 const val BLOCKED_KEYWORDS = "blocked_keywords"
+// Kept for old installs: nothing reads it any more, but the stored value must not be reused for another meaning.
 const val LEGACY_BLOCK_OFFER_DISMISSED = "legacy_block_offer_dismissed"
 const val LAST_BLOCKED_KEYWORD_EXPORT_PATH = "last_blocked_keyword_export_path"
 const val EXPORT_SMS = "export_sms"

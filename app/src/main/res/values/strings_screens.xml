@@ -46,13 +46,9 @@
     <string name="screens_details_edit_name">Edit conversation name</string>
 
     <!-- Blocked keywords -->
-    <string name="screens_keywords_add">Add keyword</string>
     <string name="screens_keywords_menu_export">Export</string>
-    <string name="screens_keywords_menu_import">Import</string>
-    <string name="screens_keywords_edit">Edit</string>
-    <string name="screens_keywords_duplicate">This keyword is already in the list</string>
-    <string name="screens_keywords_help">Matches the text anywhere in a message, even inside a longer word. Capital letters do not matter.</string>
     <string name="screens_keywords_empty_title">No blocked keywords</string>
+    <string name="screens_keywords_empty_body">Your blocked words are now rules</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="one">%d keyword deleted</item>
         <item quantity="other">%d keywords deleted</item>

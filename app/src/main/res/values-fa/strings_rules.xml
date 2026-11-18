@@ -15,13 +15,6 @@
         <item quantity="one">%d قانون حذف شد</item>
         <item quantity="other">%d قانون حذف شد</item>
     </plurals>
-    <string name="rules_legacy_banner_review">بررسی</string>
-    <string name="rules_legacy_banner_not_now">فعلاً نه</string>
-    <string name="rules_legacy_section_keywords">لیست قدیمی کلمه‌های بلاک‌شده</string>
-    <string name="rules_legacy_section_keywords_body">تا وقتی که این کلمه‌ها را به قانون‌ها نبرده‌اید، هنوز برای فیلتر کردن استفاده می‌شوند. بعد لیست قدیمی کنار گذاشته می‌شود.</string>
-    <string name="rules_legacy_chip_old_list">لیست قدیمی</string>
-    <string name="rules_legacy_chip_system">سیستم، شامل تماس‌ها</string>
-    <string name="rules_legacy_move">بردن به قانون‌ها</string>
     <string name="rules_migrate_nothing">همهٔ موارد لیست‌های قدیمی از قبل در قانون‌های شما هستند.</string>
     <plurals name="rules_migrate_keywords" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d کلمه از لیست قدیمی کلمه‌های بلاک‌شده به قانون بلاک کردن بر اساس کلمهٔ کلیدی تبدیل می‌شود. بعد لیست قدیمی کنار گذاشته می‌شود.</item>
@@ -59,5 +52,5 @@
     </plurals>
     <string name="rules_migrated_nothing">چیزی برده نشد.</string>
     <string name="settings_old_blocked_words">لیست قدیمی کلمه‌های بلاک‌شده</string>
-    <string name="settings_old_blocked_words_body">کلمه‌هایی که نمی‌شود قانون کرد</string>
+    <string name="settings_old_blocked_words_body">کلمه‌هایی که نمی‌شود ازشان قانون ساخت</string>
 </resources>

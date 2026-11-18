@@ -65,11 +65,8 @@
         <item quantity="one">%d mesaj</item>
         <item quantity="other">%d mesaj</item>
     </plurals>
-    <string name="keyword">Anahtar kelime</string>
     <string name="blocked_keywords">Engellenen anahtar kelimeler</string>
     <string name="manage_blocked_keywords">Engellenen anahtar kelimeleri yönetin</string>
-    <string name="not_blocking_keywords">Hiçbir anahtar kelimeyi engellemiyorsunuz. İçeren tüm mesajları engellemek için buraya anahtar kelime ekleyebilirsiniz.</string>
-    <string name="add_a_blocked_keyword">Engellenecek anahtar kelime ekleyin</string>
     <string name="lock_screen_visibility">Kilit ekranında bildirim görünürlüğü</string>
     <string name="sender_and_message">Gönderen ve mesaj</string>
     <string name="sender_only">Yalnızca gönderen</string>

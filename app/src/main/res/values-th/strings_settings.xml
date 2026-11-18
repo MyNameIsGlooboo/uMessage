@@ -10,7 +10,6 @@
     <string name="settings_block_umessage_title">กฎของ uMessage</string>
     <string name="settings_block_umessage_body">ข้อความที่บล็อกแล้วจะไปอยู่ในสแปม กู้คืนได้</string>
     <string name="settings_spam_open_rules">กฎการอนุญาตและบล็อก</string>
-    <string name="settings_spam_open_rules_body">หมายเลข ชื่อผู้ส่ง คำหลัก และรูปแบบ (regex)</string>
     <string name="settings_spam_blocked_numbers_body">หมายเลขที่บล็อกผ่านรายการบล็อกของระบบ</string>
     <string name="settings_spam_blocked_keywords_body">ซ่อนข้อความที่มีคำเหล่านี้</string>
     <string name="settings_sim_slot_title">SIM %1$d: %2$s</string>

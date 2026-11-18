@@ -38,13 +38,9 @@
     <string name="screens_new_group_remove">Убрать %1$s</string>
     <string name="screens_new_group_selected">Выбрано</string>
     <string name="screens_details_edit_name">Изменить название чата</string>
-    <string name="screens_keywords_add">Добавить ключевое слово</string>
     <string name="screens_keywords_menu_export">Экспорт</string>
-    <string name="screens_keywords_menu_import">Импорт</string>
-    <string name="screens_keywords_edit">Изменить</string>
-    <string name="screens_keywords_duplicate">Это ключевое слово уже есть в списке</string>
-    <string name="screens_keywords_help">Ищет текст в любой части сообщения, даже внутри более длинного слова. Регистр букв не учитывается.</string>
     <string name="screens_keywords_empty_title">Нет заблокированных ключевых слов</string>
+    <string name="screens_keywords_empty_body">Ваши заблокированные слова теперь — правила</string>
     <plurals name="screens_keywords_deleted" tools:ignore="ImpliedQuantity">
         <item quantity="one">Удалено %d ключевое слово</item>
         <item quantity="few">Удалено %d ключевых слова</item>

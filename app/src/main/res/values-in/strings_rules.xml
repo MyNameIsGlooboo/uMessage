@@ -14,13 +14,6 @@
     <plurals name="rules_deleted_many">
         <item quantity="other">%d aturan dihapus</item>
     </plurals>
-    <string name="rules_legacy_banner_review">Tinjau</string>
-    <string name="rules_legacy_banner_not_now">Nanti saja</string>
-    <string name="rules_legacy_section_keywords">Daftar kata yang diblokir versi lama</string>
-    <string name="rules_legacy_section_keywords_body">Masih digunakan untuk memfilter sampai Anda memindahkan kata-kata ini ke aturan. Setelah itu, daftar lama tidak digunakan lagi.</string>
-    <string name="rules_legacy_chip_old_list">Daftar lama</string>
-    <string name="rules_legacy_chip_system">Sistem, juga panggilan</string>
-    <string name="rules_legacy_move">Pindahkan ke aturan</string>
     <string name="rules_migrate_nothing">Semua isi daftar lama sudah ada di aturan Anda.</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="other">%d kata dari daftar kata yang diblokir versi lama menjadi aturan blokir kata kunci. Setelah itu, daftar lama tidak digunakan lagi.</item>

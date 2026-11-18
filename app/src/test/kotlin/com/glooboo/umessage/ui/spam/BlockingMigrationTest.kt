@@ -50,8 +50,10 @@ class BlockingMigrationTest {
         assertThat(BlockingMigration.modeAfterSwitch(UnknownSenderMode.OFF, true)).isEqualTo(UnknownSenderMode.STRICT)
         assertThat(BlockingMigration.modeAfterSwitch(UnknownSenderMode.OFF, false)).isEqualTo(UnknownSenderMode.OFF)
         assertThat(BlockingMigration.modeAfterSwitch(UnknownSenderMode.SMART, true)).isEqualTo(UnknownSenderMode.SMART)
-        assertThat(BlockingMigration.modeAfterSwitch(UnknownSenderMode.STRICT, true)).isEqualTo(UnknownSenderMode.STRICT)
-        assertThat(BlockingMigration.modeAfterSwitch(UnknownSenderMode.STRICT, false)).isEqualTo(UnknownSenderMode.STRICT)
+        assertThat(BlockingMigration.modeAfterSwitch(UnknownSenderMode.STRICT, true))
+            .isEqualTo(UnknownSenderMode.STRICT)
+        assertThat(BlockingMigration.modeAfterSwitch(UnknownSenderMode.STRICT, false))
+            .isEqualTo(UnknownSenderMode.STRICT)
     }
 
     @Test
@@ -125,6 +127,27 @@ class BlockingMigrationTest {
         assertThat(store.words).containsExactly("x", "two\nlines")
         assertThat(result.wordsMoved).isEqualTo(1)
         assertThat(result.wordsKept).isEqualTo(2)
+    }
+
+    @Test
+    fun blankWordsAreDroppedAndNeverBecomeRules() = runBlocking {
+        val env = Env()
+        val store = Store(words = setOf("  ", "", "prize"))
+        val result = env.run(store)
+        assertThat(env.rules.map { it.pattern }).containsExactly("prize")
+        assertThat(store.words).isEmpty()
+        assertThat(result.wordsMoved).isEqualTo(1)
+        assertThat(result.wordsKept).isEqualTo(0)
+    }
+
+    @Test
+    fun aQuotedWordStaysOnTheOldListBecauseAsARuleItWouldMeanWholeWord() = runBlocking {
+        val env = Env()
+        val store = Store(words = setOf("\"win\"", "prize"))
+        val result = env.run(store)
+        assertThat(env.rules.map { it.pattern }).containsExactly("prize")
+        assertThat(store.words).containsExactly("\"win\"")
+        assertThat(result.wordsKept).isEqualTo(1)
     }
 
     @Test

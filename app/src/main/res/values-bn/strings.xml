@@ -65,11 +65,8 @@
         <item quantity="one">%dটি বার্তা</item>
         <item quantity="other">%dটি বার্তা</item>
     </plurals>
-    <string name="keyword">কিওয়ার্ড</string>
     <string name="blocked_keywords">ব্লক করা কিওয়ার্ড</string>
     <string name="manage_blocked_keywords">ব্লক করা কিওয়ার্ড পরিচালনা করুন</string>
-    <string name="not_blocking_keywords">আপনার কোনো কিওয়ার্ড ব্লক করা নেই। এখানে কিওয়ার্ড যোগ করলে সেগুলি থাকা সব বার্তা ব্লক করা হবে।</string>
-    <string name="add_a_blocked_keyword">ব্লক করার কিওয়ার্ড যোগ করুন</string>
     <string name="lock_screen_visibility">লক স্ক্রিনে বিজ্ঞপ্তিতে যা দেখা যাবে</string>
     <string name="sender_and_message">প্রেরক ও বার্তা</string>
     <string name="sender_only">শুধু প্রেরক</string>

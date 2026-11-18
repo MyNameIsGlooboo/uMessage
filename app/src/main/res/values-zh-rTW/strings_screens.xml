@@ -35,13 +35,9 @@
     <string name="screens_new_group_remove">移除%1$s</string>
     <string name="screens_new_group_selected">已選取</string>
     <string name="screens_details_edit_name">編輯對話名稱</string>
-    <string name="screens_keywords_add">新增關鍵字</string>
     <string name="screens_keywords_menu_export">匯出</string>
-    <string name="screens_keywords_menu_import">匯入</string>
-    <string name="screens_keywords_edit">編輯</string>
-    <string name="screens_keywords_duplicate">這個關鍵字已在清單中</string>
-    <string name="screens_keywords_help">比對訊息中任何位置的文字，包括較長字詞中的部分。不區分大小寫。</string>
     <string name="screens_keywords_empty_title">沒有已封鎖的關鍵字</string>
+    <string name="screens_keywords_empty_body">封鎖字詞現已改為規則</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="other">已刪除%d個關鍵字</item>
     </plurals>

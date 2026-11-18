@@ -38,13 +38,9 @@
     <string name="screens_new_group_remove">Usuń %1$s</string>
     <string name="screens_new_group_selected">Wybrane</string>
     <string name="screens_details_edit_name">Edytuj nazwę rozmowy</string>
-    <string name="screens_keywords_add">Dodaj słowo kluczowe</string>
     <string name="screens_keywords_menu_export">Eksport</string>
-    <string name="screens_keywords_menu_import">Import</string>
-    <string name="screens_keywords_edit">Edytuj</string>
-    <string name="screens_keywords_duplicate">To słowo kluczowe jest już na liście</string>
-    <string name="screens_keywords_help">Wyszukuje tekst w dowolnym miejscu wiadomości, także w dłuższym słowie. Wielkość liter nie ma znaczenia.</string>
     <string name="screens_keywords_empty_title">Brak zablokowanych słów kluczowych</string>
+    <string name="screens_keywords_empty_body">Twoje zablokowane słowa to teraz reguły</string>
     <plurals name="screens_keywords_deleted">
         <item quantity="one">Usunięto %d słowo kluczowe</item>
         <item quantity="few">Usunięto %d słowa kluczowe</item>

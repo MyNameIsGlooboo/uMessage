@@ -14,13 +14,6 @@
     <plurals name="rules_deleted_many">
         <item quantity="other">규칙 %d개를 삭제했어요.</item>
     </plurals>
-    <string name="rules_legacy_banner_review">확인</string>
-    <string name="rules_legacy_banner_not_now">나중에</string>
-    <string name="rules_legacy_section_keywords">이전 차단 단어 목록</string>
-    <string name="rules_legacy_section_keywords_body">이 단어들을 규칙으로 옮기기 전까지는 필터링에 계속 사용해요. 옮기고 나면 이전 목록은 더 이상 사용하지 않아요.</string>
-    <string name="rules_legacy_chip_old_list">이전 목록</string>
-    <string name="rules_legacy_chip_system">시스템, 전화도 차단</string>
-    <string name="rules_legacy_move">규칙으로 이동</string>
     <string name="rules_migrate_nothing">이전 목록의 모든 항목이 이미 규칙에 있어요.</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="other">이전 차단 단어 목록의 단어 %d개를 키워드 차단 규칙으로 바꿔요. 이후 이전 목록은 더 이상 사용하지 않아요.</item>

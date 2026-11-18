@@ -17,13 +17,6 @@
         <item quantity="many">Usunięto %d reguł</item>
         <item quantity="other">Usunięto %d reguły</item>
     </plurals>
-    <string name="rules_legacy_banner_review">Przejrzyj</string>
-    <string name="rules_legacy_banner_not_now">Nie teraz</string>
-    <string name="rules_legacy_section_keywords">Stara lista blokowanych słów</string>
-    <string name="rules_legacy_section_keywords_body">Nadal filtruje wiadomości, dopóki nie przeniesiesz tych słów do reguł. Wtedy stara lista przestanie być używana.</string>
-    <string name="rules_legacy_chip_old_list">Stara lista</string>
-    <string name="rules_legacy_chip_system">Systemowa, też połączenia</string>
-    <string name="rules_legacy_move">Przenieś do reguł</string>
     <string name="rules_migrate_nothing">Wszystko ze starszych list jest już w twoich regułach.</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="one">%d słowo ze starej listy blokowanych słów stanie się regułą blokującą według słowa kluczowego. Stara lista przestanie być używana.</item>

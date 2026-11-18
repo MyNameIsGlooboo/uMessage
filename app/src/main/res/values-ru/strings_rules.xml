@@ -17,13 +17,6 @@
         <item quantity="many">Удалено %d правил</item>
         <item quantity="other">Удалено %d правила</item>
     </plurals>
-    <string name="rules_legacy_banner_review">Посмотреть</string>
-    <string name="rules_legacy_banner_not_now">Не сейчас</string>
-    <string name="rules_legacy_section_keywords">Старый список заблокированных слов</string>
-    <string name="rules_legacy_section_keywords_body">Используется для фильтрации, пока вы не перенесете эти слова в правила. После этого старый список перестанет действовать.</string>
-    <string name="rules_legacy_chip_old_list">Старый список</string>
-    <string name="rules_legacy_chip_system">Системный, включая звонки</string>
-    <string name="rules_legacy_move">Перенести в правила</string>
     <string name="rules_migrate_nothing">Все записи из старых списков уже есть в ваших правилах.</string>
     <plurals name="rules_migrate_keywords" tools:ignore="ImpliedQuantity">
         <item quantity="one">%d слово из старого списка заблокированных слов станет правилом блокировки по ключевому слову. После этого старый список перестанет действовать.</item>

@@ -14,13 +14,6 @@
     <plurals name="rules_deleted_many">
         <item quantity="other">已刪除%d條規則</item>
     </plurals>
-    <string name="rules_legacy_banner_review">檢視</string>
-    <string name="rules_legacy_banner_not_now">暫時不要</string>
-    <string name="rules_legacy_section_keywords">舊的封鎖字詞清單</string>
-    <string name="rules_legacy_section_keywords_body">在你將這些字詞移入規則前，仍會用於篩選。之後舊清單將停用。</string>
-    <string name="rules_legacy_chip_old_list">舊清單</string>
-    <string name="rules_legacy_chip_system">系統，含來電</string>
-    <string name="rules_legacy_move">移至規則</string>
     <string name="rules_migrate_nothing">舊清單上的所有項目都已在你的規則中。</string>
     <plurals name="rules_migrate_keywords">
         <item quantity="other">舊封鎖字詞清單中的%d個字詞將成為關鍵字封鎖規則，之後舊清單將停用。</item>

@@ -10,7 +10,6 @@
     <string name="settings_block_umessage_title">uMessage规则</string>
     <string name="settings_block_umessage_body">已屏蔽的短信会移至垃圾短信。你可以恢复这些短信。</string>
     <string name="settings_spam_open_rules">允许和屏蔽规则</string>
-    <string name="settings_spam_open_rules_body">号码、发件人名称、关键词和正则表达式</string>
     <string name="settings_spam_blocked_numbers_body">通过系统屏蔽列表屏蔽的号码</string>
     <string name="settings_spam_blocked_keywords_body">隐藏包含这些词的消息</string>
     <string name="settings_sim_slot_title">SIM%1$d：%2$s</string>

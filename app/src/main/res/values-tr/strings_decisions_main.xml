@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <plurals name="decm_marked_all_read">
-        <item quantity="one">%d görüşme okundu olarak işaretlendi</item>
-        <item quantity="other">%d görüşme okundu olarak işaretlendi</item>
-    </plurals>
-</resources>
