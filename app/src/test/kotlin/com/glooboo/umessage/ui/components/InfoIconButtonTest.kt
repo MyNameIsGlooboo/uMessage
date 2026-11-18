@@ -1,11 +1,13 @@
 package com.glooboo.umessage.ui.components
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.ui.test.assertHeightIsAtLeast
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertWidthIsAtLeast
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.dp
@@ -32,5 +34,20 @@ class InfoIconButtonTest {
         compose.onNodeWithText("Forwarding sends SMS on your plan.").assertIsDisplayed()
         compose.onNodeWithText("Close").performClick()
         compose.onNodeWithText("Forwarding sends SMS on your plan.").assertDoesNotExist()
+    }
+
+    @Test
+    fun theExtraContentShowsUnderTheTextAndCloseRemovesBoth() {
+        compose.setContent {
+            MaterialTheme { InfoIconButton("Mode", "Body text.", extra = { Text("Extra content") }) }
+        }
+
+        compose.onNodeWithText("Extra content").assertDoesNotExist()
+        compose.onNodeWithContentDescription("More information").performClick()
+        compose.onNodeWithTag("info_text").assertIsDisplayed()
+        compose.onNodeWithText("Extra content").assertIsDisplayed()
+        compose.onNodeWithText("Close").performClick()
+        compose.onNodeWithTag("info_text").assertDoesNotExist()
+        compose.onNodeWithText("Extra content").assertDoesNotExist()
     }
 }

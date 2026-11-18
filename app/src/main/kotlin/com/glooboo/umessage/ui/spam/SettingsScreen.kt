@@ -54,6 +54,7 @@ import com.glooboo.umessage.ui.components.SettingsRadioRow
 import com.glooboo.umessage.ui.components.SettingsRow
 import com.glooboo.umessage.ui.components.SettingsSwitchRow
 import com.glooboo.umessage.ui.icons.Symbols
+import com.glooboo.umessage.ui.onboarding.SortingCard
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import androidx.compose.ui.unit.Dp
 import com.glooboo.umessage.ui.components.UMessageScaffold
@@ -150,6 +151,9 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
         SettingsGroup(
             title = stringResource(R.string.spam_settings_unknown_title),
             description = stringResource(R.string.spam_settings_unknown_body),
+            descriptionExtra = {
+                SortingCard(mode = settings.mode, containerColor = MaterialTheme.colorScheme.surface)
+            },
         ) {
             ModeChoice(
                 UnknownSenderMode.STRICT, R.string.spam_mode_strict, R.string.spam_mode_strict_body,

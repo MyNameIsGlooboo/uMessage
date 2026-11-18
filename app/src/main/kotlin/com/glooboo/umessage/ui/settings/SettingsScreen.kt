@@ -42,6 +42,7 @@ import com.glooboo.umessage.ui.components.ConfirmDialog
 import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.TonalRows
+import com.glooboo.umessage.ui.onboarding.SortingCard
 import androidx.compose.foundation.layout.PaddingValues
 import com.glooboo.umessage.ui.icons.ShortcutIcons
 import com.glooboo.umessage.ui.icons.Symbols
@@ -453,6 +454,9 @@ private fun SpamModeGroup(spam: SpamSummary, actions: SettingsActions) {
     SettingsGroup(
         title = stringResource(R.string.spam_settings_unknown_title),
         description = spamSummaryText(spam),
+        descriptionExtra = {
+            SortingCard(mode = spam.mode, containerColor = MaterialTheme.colorScheme.surface)
+        },
     ) {
         SettingsRadioRow(
             title = stringResource(R.string.spam_mode_strict),

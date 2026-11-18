@@ -1,6 +1,7 @@
 package com.glooboo.umessage.ui.onboarding
 
 import com.glooboo.umessage.R
+import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.onboarding.WelcomeTimeline.DIM
 import com.glooboo.umessage.ui.onboarding.WelcomeTimeline.ROW_MS
 import com.glooboo.umessage.ui.onboarding.WelcomeTimeline.TOTAL_MS
@@ -104,6 +105,32 @@ class WelcomeTimelineTest {
         assertTrue(WelcomeTimeline.startsFinished(reduceMotion = true, alreadyPlayed = false))
         assertTrue(WelcomeTimeline.startsFinished(reduceMotion = false, alreadyPlayed = true))
         assertFalse(WelcomeTimeline.startsFinished(reduceMotion = false, alreadyPlayed = false))
+    }
+
+    private fun spamFlags(mode: UnknownSenderMode) = WelcomeTimeline.rowsFor(mode).map { it.toSpam }
+
+    @Test
+    fun `Smart is the default rows`() {
+        assertEquals(rows, WelcomeTimeline.rowsFor(UnknownSenderMode.SMART))
+    }
+
+    @Test
+    fun `Strict sends the unknown sender and the code to Spam`() {
+        assertEquals(listOf(false, true, true), spamFlags(UnknownSenderMode.STRICT))
+    }
+
+    @Test
+    fun `Off sends nothing to Spam`() {
+        assertEquals(listOf(false, false, false), spamFlags(UnknownSenderMode.OFF))
+    }
+
+    @Test
+    fun `every mode keeps the sender labels and their order`() {
+        UnknownSenderMode.values().forEach { mode ->
+            val forMode = WelcomeTimeline.rowsFor(mode)
+            assertEquals(rows.map { it.sender }, forMode.map { it.sender })
+            assertEquals(rows.map { it.senderLabel }, forMode.map { it.senderLabel })
+        }
     }
 
     private companion object {

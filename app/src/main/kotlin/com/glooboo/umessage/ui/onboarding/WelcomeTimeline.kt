@@ -1,6 +1,7 @@
 package com.glooboo.umessage.ui.onboarding
 
 import com.glooboo.umessage.R
+import com.glooboo.umessage.spam.UnknownSenderMode
 
 /** Who a row of the welcome card is about. */
 internal enum class DemoSender { CONTACT, UNKNOWN, CODE }
@@ -48,6 +49,15 @@ internal object WelcomeTimeline {
         DemoRow(DemoSender.UNKNOWN, R.string.spam_reason_unknown_sender, toSpam = true),
         DemoRow(DemoSender.CODE, R.string.ui_log_reason_otp, toSpam = false),
     )
+
+    /** The rows as they are true for [mode]: Strict also sends codes to Spam, Off sends nothing to Spam. */
+    fun rowsFor(mode: UnknownSenderMode): List<DemoRow> = rows.map { row ->
+        when (row.sender) {
+            DemoSender.CONTACT -> row
+            DemoSender.UNKNOWN -> row.copy(toSpam = mode != UnknownSenderMode.OFF)
+            DemoSender.CODE -> row.copy(toSpam = mode == UnknownSenderMode.STRICT)
+        }
+    }
 
     /** The real tab name, so the card always matches the bottom bar of the app. */
     fun destinationLabel(row: DemoRow): Int = if (row.toSpam) R.string.main_tab_blocked else R.string.main_tab_messages

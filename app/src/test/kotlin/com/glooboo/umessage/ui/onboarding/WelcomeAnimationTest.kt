@@ -1,5 +1,6 @@
 package com.glooboo.umessage.ui.onboarding
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
@@ -9,17 +10,25 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.StateRestorationTester
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.R
+import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.theme.UMessageTheme
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -65,10 +74,11 @@ class WelcomeAnimationTest {
     }
 
     @Test
-    fun `with reduced motion the card shows at once and the clock never runs`() {
+    fun `with reduced motion the card shows at once and cannot be clicked`() {
         compose.mainClock.autoAdvance = false
         setUp(reduceMotion = true)
         assertCardAndButtonShow()
+        compose.onNodeWithContentDescription(description, substring = true).assertHasNoClickAction()
     }
 
     @Test
@@ -108,6 +118,7 @@ class WelcomeAnimationTest {
         compose.onNodeWithContentDescription(description, substring = true).performScrollTo().performClick()
         compose.mainClock.advanceTimeBy(REPLAY_WAIT_MS)
         compose.onNodeWithContentDescription(description, substring = true).assertIsDisplayed()
+            .assertHasNoClickAction()
     }
 
     @Test
@@ -117,6 +128,68 @@ class WelcomeAnimationTest {
         compose.mainClock.advanceTimeBy(total + 100L)
         restoration.emulateSavedInstanceStateRestore()
         assertCardAndButtonShow()
+    }
+
+    private fun showCard(
+        mode: UnknownSenderMode,
+        autoPlay: Boolean = false,
+        reduceMotion: Boolean = true,
+    ) = compose.setContent {
+        UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
+            SortingCard(mode = mode, autoPlay = autoPlay, reduceMotion = reduceMotion)
+        }
+    }
+
+    @Test
+    fun `in Strict the card shows Spam twice and Messages once, without the Smart sentence`() {
+        showCard(UnknownSenderMode.STRICT)
+        compose.onAllNodesWithText("Spam").assertCountEquals(2)
+        compose.onAllNodesWithText("Messages").assertCountEquals(1)
+        compose.onAllNodesWithContentDescription(description, substring = true).assertCountEquals(0)
+    }
+
+    @Test
+    fun `in Off the card shows Messages three times and no Spam`() {
+        showCard(UnknownSenderMode.OFF)
+        compose.onAllNodesWithText("Messages").assertCountEquals(3)
+        compose.onAllNodesWithText("Spam").assertCountEquals(0)
+    }
+
+    @Test
+    fun `without autoplay the card shows its final frame and nothing is animating`() {
+        compose.mainClock.autoAdvance = false
+        showCard(UnknownSenderMode.SMART, autoPlay = false, reduceMotion = false)
+        compose.onNodeWithContentDescription(description, substring = true).assertIsDisplayed()
+        compose.mainClock.advanceTimeByFrame()
+        compose.onNodeWithContentDescription(description, substring = true).assertIsDisplayed()
+    }
+
+    @Test
+    @Config(qualifiers = "w360dp-h640dp")
+    fun `at normal font size and 360 dp the card keeps each row on one line`() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        compose.setContent {
+            CompositionLocalProvider(LocalDensity provides Density(density = 1f, fontScale = 1f)) {
+                UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
+                    SortingCard(mode = UnknownSenderMode.STRICT, autoPlay = false, reduceMotion = true)
+                }
+            }
+        }
+        val label = compose.onNodeWithText(context.getString(R.string.onb_perm_contacts), useUnmergedTree = true)
+            .fetchSemanticsNode().boundsInRoot
+        val pill = compose.onNodeWithText(context.getString(R.string.main_tab_messages), useUnmergedTree = true)
+            .fetchSemanticsNode().boundsInRoot
+        assertTrue("label and destination share a line", pill.top < label.bottom && label.top < pill.bottom)
+    }
+
+    @Test
+    fun `a tap on a card with reduced motion does nothing`() {
+        compose.mainClock.autoAdvance = false
+        showCard(UnknownSenderMode.SMART)
+        compose.onNodeWithContentDescription(description, substring = true).performClick()
+        compose.mainClock.advanceTimeBy(REPLAY_WAIT_MS)
+        compose.onNodeWithContentDescription(description, substring = true).assertIsDisplayed()
+        compose.onNodeWithContentDescription(description, substring = true).assertHasNoClickAction()
     }
 
     private companion object {

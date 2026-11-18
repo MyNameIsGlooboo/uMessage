@@ -8,6 +8,7 @@ import androidx.compose.ui.test.isToggleable
 import androidx.test.core.app.ApplicationProvider
 import com.glooboo.umessage.R
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import com.glooboo.umessage.spam.UnknownSenderMode
 import androidx.compose.ui.test.performClick
@@ -188,6 +189,14 @@ class SettingsNavTest {
         assertEquals(listOf(UnknownSenderMode.OFF), chosen)
         compose.onNodeWithText("Use Strict").performClick()
         assertEquals(listOf(UnknownSenderMode.OFF, UnknownSenderMode.STRICT), chosen)
+    }
+
+    // The "i" beside the unknown-sender header opens the text with the sorting card in the current mode.
+    @Test
+    fun `the info icon on the spam page opens a dialog with the sorting card`() {
+        show(SettingsUiState(spam = spam), page = SettingsPage.Spam)
+        compose.onNodeWithTag("info_icon").performClick()
+        compose.onNodeWithText("Unknown sender", useUnmergedTree = true).assertExists()
     }
 
     // B7: "Recommended" only once, as the chip.
