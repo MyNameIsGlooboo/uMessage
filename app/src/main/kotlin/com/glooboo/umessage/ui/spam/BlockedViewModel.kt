@@ -84,8 +84,12 @@ data class BlockedUiState(
      * snackbar is not lost with the screen.
      */
     val hasPendingUndo: Boolean = false,
-    /** A big "Not spam" is moving messages one by one: how far it is. Null when nothing runs or it is a short one. */
+    /** A "Not spam" is moving messages one by one, over all screens: how far it is. Null when nothing moves. */
     val moveProgress: MarkReadProgress? = null,
+    /** The messages being moved, by sender. The sender page draws them dimmed until the move is over. */
+    val movingGroups: List<SenderGroup> = emptyList(),
+    /** Clock time the running move began, for the 300 ms rule of the indicator; 0 when nothing moves. */
+    val moveStartedAt: Long = 0L,
 ) {
     val selecting: Boolean get() = selected.isNotEmpty()
 }
@@ -129,6 +133,9 @@ fun groupBySender(messages: List<BlockedMessage>, keyOf: (String) -> String = { 
     }
     .sortedByDescending { it.latest.receivedAt }
 
+/** The order messages are moved in: oldest first, so the chat gets them in the order they arrived. */
+private val OLDEST_FIRST = compareBy<BlockedMessage> { it.receivedAt }.thenBy { it.id }
+
 /**
  * The Blocked tab and the sender thread. [ignoreFilter] is set for the thread: it shows (and acts on) every held
  * message of its sender, whatever chip the tab has chosen.
@@ -138,6 +145,7 @@ class BlockedViewModel(
     private val repository: SpamRepository,
     private val restoredLog: RestoredLog = RestoredLog.get(application),
     private val ignoreFilter: Boolean = false,
+    private val moves: NotSpamMoves = NotSpamMoves.shared,
 ) : AndroidViewModel(application) {
 
     private val senderKeys = SenderKeys.forDevice(application)
@@ -158,7 +166,7 @@ class BlockedViewModel(
     )
 
     /** The ids hidden while an undo window is open, and whether any window is open. */
-    private data class Pending(val ids: List<Long>, val any: Boolean, val progress: MarkReadProgress?)
+    private data class Pending(val ids: List<Long>, val any: Boolean, val move: MoveState)
 
     private data class Aux(
         val settings: SpamSettings,
@@ -175,9 +183,6 @@ class BlockedViewModel(
      * at once ([startRestore]); their rows stay hidden until Undo puts them back or the undo window closes.
      */
     private val pendingRestores = MutableStateFlow<Map<Long, PendingRestore>>(emptyMap())
-
-    /** How far the restore loop is; null unless it moves a big batch (or a slow one). */
-    private val moveProgress = MutableStateFlow<MarkReadProgress?>(null)
 
     /** Tokens of "Delete all" deletions that also clear the restored list once they are final. */
     private val clearLogTokens = mutableSetOf<Long>()
@@ -225,9 +230,6 @@ class BlockedViewModel(
         val claimed: List<Long>
             get() = receipts?.let { r -> ids.filter { r[it]?.outcome != RestoreOutcome.FAILED } } ?: ids
 
-        /** The rows hidden from the list: all of them at once, so they leave together and not one by one. */
-        val hidden: List<Long> get() = claimed
-
         val ready: Boolean get() = !announced && receipts != null
 
         fun event(token: Long): BlockedEvent.Restored {
@@ -255,11 +257,15 @@ class BlockedViewModel(
         repository.blocked,
         repository.stats,
         combine(repository.settings, repository.rules, filter, restoredLog.entries, ::Aux),
-        combine(pendingDeletes, pendingRestores, moveProgress) { deletes, restores, progress ->
+        combine(pendingDeletes, pendingRestores, moves.state) { deletes, restores, move ->
+            // The list hides everything that moves at once, so the rows leave together and not one by one. The
+            // sender page keeps them, dimmed, until the move is over (a restore still running hides nothing there).
+            val restoreIds = restores.values.filterNot { ignoreFilter && it.receipts == null }.flatMap { it.claimed }
+            val moveIds = if (ignoreFilter) emptySet() else move.inFlight.keys
             Pending(
-                ids = deletes.values.flatten() + restores.values.flatMap { it.hidden },
+                ids = deletes.values.flatten() + restoreIds + moveIds,
                 any = deletes.isNotEmpty() || restores.isNotEmpty(),
-                progress = progress,
+                move = move,
             )
         },
         combine(selected, sims, query) { s, i, q -> Triple(s, i, q) },
@@ -292,7 +298,9 @@ class BlockedViewModel(
             purgeAfterDays = aux.settings.purgeAfterDays,
             restored = aux.restored,
             hasPendingUndo = pending.any,
-            moveProgress = pending.progress,
+            moveProgress = if (pending.move.running) MarkReadProgress(pending.move.done, pending.move.total) else null,
+            movingGroups = groupBySender(pending.move.inFlight.values.toList(), senderKeys::keyOf),
+            moveStartedAt = pending.move.startedAt,
         )
     }.flowOn(Dispatchers.Default) // grouping, filtering and the link checks stay off the main thread
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), BlockedUiState())
@@ -369,7 +377,7 @@ class BlockedViewModel(
         if (messages.isEmpty()) return
         val token = nextToken++
         val restore = PendingRestore(
-            messages.map { it.id }, emptyList(), messages = messages.associateBy { it.id },
+            messages.sortedWith(OLDEST_FIRST).map { it.id }, emptyList(), messages = messages.associateBy { it.id },
         )
         pendingRestores.update { it + (token to restore) }
         startRestore(token)
@@ -393,16 +401,17 @@ class BlockedViewModel(
     /**
      * "Not spam": in one step, puts the senders' messages in the inbox and stores an allow rule for each sender
      * (a number rule, or a sender-id rule), then offers one Undo for both. Senders whose names anyone can fake get no
-     * rule: their messages only move. Nothing is asked. All rows leave the list at once; a message that fails to
-     * move comes back. With [openChat] no snackbar is shown, and [notSpamDone] tells the blocked chat to open the
-     * normal chat. Returns false when there was nothing to move (all of it is already on its way).
+     * rule: their messages only move. Nothing is asked. All rows leave the list at once (on the sender page they stay
+     * dimmed until the chat opens), and the messages move oldest first; a message that fails to move comes back.
+     * With [openChat] no snackbar is shown, and [notSpamDone] tells the blocked chat to open the normal chat.
+     * Returns false when there was nothing to move (all of it is already on its way).
      */
     fun notSpam(addresses: Set<String>, openChat: Boolean = false): Boolean {
         val groups = state.value.groups.filter { g -> addresses.any(g::hasAddress) }
         // Messages already waiting on a restore are left out, so a second swipe cannot queue them twice (L4).
         val pending = pendingIds()
         val messages = groups.flatMap { it.messages }.filter { it.id !in pending }
-        val ids = messages.map { it.id }
+        val ids = messages.sortedWith(OLDEST_FIRST).map { it.id }
         if (ids.isEmpty()) return false
         val token = nextToken++
         val senders = groups.map { it.address }
@@ -431,6 +440,11 @@ class BlockedViewModel(
                 refreshConversations()
                 if (cleared) {
                     finishInBackground(work.receipts.values)
+                    // The screen that asked is gone: the Spam list says the move is over.
+                    val toInbox = work.receipts.values.count {
+                        it.outcome == RestoreOutcome.RESTORED || it.outcome == RestoreOutcome.TEXT_ONLY
+                    }
+                    if (toInbox > 0) moves.announceOrphan(toInbox)
                 } else {
                     updateRestore(token) {
                         it.copy(receipts = work.receipts, logged = work.logged, allowChange = work.change)
@@ -492,9 +506,9 @@ class BlockedViewModel(
         val inInbox = setOf(RestoreOutcome.RESTORED, RestoreOutcome.TEXT_ONLY)
         // spamui-1: a bigger batch shows its first restored message in the chat list at once, not only at the end.
         var firstShown = messages.size <= 1
-        val reporter = MoveProgressReporter(messages.size, { moveProgress.value = it })
+        moves.begin(messages)
         val receipts = try {
-            messages.withIndex().associate { (index, message) ->
+            messages.associate { message ->
                 val receipt = runCatching { repository.restore(message.id) }.getOrElse {
                     error = true
                     RestoreReceipt(null, RestoreOutcome.FAILED)
@@ -503,11 +517,11 @@ class BlockedViewModel(
                     firstShown = true
                     refreshConversations()
                 }
-                reporter.step(index + 1)
+                moves.step()
                 message.id to receipt
             }
         } finally {
-            reporter.finish()
+            moves.end(messages.map { it.id })
         }
         if (error) events.trySend(BlockedEvent.Failed)
         val now = System.currentTimeMillis()
@@ -691,9 +705,10 @@ class BlockedViewModel(
         super.onCleared()
     }
 
-    /** Ids hidden while a restore or a delete waits for its undo window. */
+    /** Ids hidden while a restore or a delete waits for its undo window, or moved by any screen right now. */
     private fun pendingIds(): Set<Long> =
-        (pendingRestores.value.values.flatMap { it.claimed } + pendingDeletes.value.values.flatten()).toSet()
+        (pendingRestores.value.values.flatMap { it.claimed } + pendingDeletes.value.values.flatten() +
+            moves.state.value.inFlight.keys).toSet()
 
     private fun idsOf(addresses: Set<String>): List<Long> =
         state.value.groups.filter { g -> addresses.any(g::hasAddress) }.flatMap { g -> g.messages.map { it.id } }

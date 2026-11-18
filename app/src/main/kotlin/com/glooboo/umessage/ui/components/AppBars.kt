@@ -1,6 +1,7 @@
 package com.glooboo.umessage.ui.components
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
@@ -176,6 +177,8 @@ fun UMessageScaffold(
     modifier: Modifier = Modifier,
     snackbarHostState: SnackbarHostState? = null,
     floatingActionButton: @Composable () -> Unit = {},
+    /** Shown in the snackbar slot, above the snackbar (the Spam list's "Moving messages" card). */
+    aboveSnackbar: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -184,7 +187,12 @@ fun UMessageScaffold(
         containerColor = MaterialTheme.colorScheme.background,
         contentColor = MaterialTheme.colorScheme.onBackground,
         topBar = { CompositionLocalProvider(LocalPageScrollBehavior provides scrollBehavior) { topBar() } },
-        snackbarHost = { if (snackbarHostState != null) SnackbarHost(snackbarHostState) },
+        snackbarHost = {
+            Column {
+                aboveSnackbar()
+                if (snackbarHostState != null) SnackbarHost(snackbarHostState)
+            }
+        },
         floatingActionButton = floatingActionButton,
         contentWindowInsets = chromeInsets(),
         content = { padding -> HorizontalInsetContent(padding, content) },

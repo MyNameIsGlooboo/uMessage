@@ -4,6 +4,7 @@ import android.app.Application
 import android.os.Looper
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
@@ -13,6 +14,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
+import com.glooboo.umessage.ui.conversations.MarkReadProgress
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CoroutineScope
@@ -168,6 +170,65 @@ class BlockedThreadTest {
         }
         compose.onNodeWithText(str(R.string.r3b_thread_empty_title)).assertExists()
         compose.onNodeWithText(str(R.string.r3b_thread_note)).assertDoesNotExist()
+    }
+
+    @Test
+    fun whileMovingTheBubblesStayTheFooterShowsTheProgressAndBothButtonsWait() {
+        val now = System.currentTimeMillis()
+        val group = groupBySender(
+            listOf(message(1, now, "newest text"), message(2, now - 60_000, "older text")),
+        ).single()
+        // The messages already left the held list: only the shared move state still knows them.
+        val state = BlockedUiState(
+            loading = false,
+            movingGroups = listOf(group),
+            moveProgress = MarkReadProgress(1, 2),
+            moveStartedAt = 1L,
+        )
+        compose.setContent {
+            UMessageTheme {
+                BlockedThreadScreen(
+                    SENDER, state, SnackbarHostState(), BlockedThreadActions(), moving = true, movingGroup = group,
+                )
+            }
+        }
+        compose.waitForIdle()
+        compose.onNodeWithText("newest text", useUnmergedTree = true).assertExists()
+        compose.onNodeWithText("older text", useUnmergedTree = true).assertExists()
+        compose.onNodeWithText(str(R.string.move_progress, "1", "2"), useUnmergedTree = true).assertExists()
+        compose.onNodeWithText(str(R.string.r3b_thread_note)).assertDoesNotExist()
+        compose.onNodeWithText(str(R.string.r3b_thread_empty_title)).assertDoesNotExist()
+        compose.onNodeWithText(str(R.string.ux8c_not_spam)).assertIsNotEnabled()
+        compose.onNodeWithText(str(R.string.ux8c_delete)).assertIsNotEnabled()
+    }
+
+    @Test
+    fun whenNothingMovesTheFooterShowsTheNoteAndNoProgress() {
+        val now = System.currentTimeMillis()
+        val state = BlockedUiState(
+            loading = false,
+            groups = groupBySender(listOf(message(1, now, "newest text"))),
+            moveProgress = MarkReadProgress(1, 2),
+            moveStartedAt = 1L,
+        )
+        compose.setContent {
+            UMessageTheme {
+                BlockedThreadScreen(SENDER, state, SnackbarHostState(), BlockedThreadActions(), moving = false)
+            }
+        }
+        compose.waitForIdle()
+        compose.onNodeWithText(str(R.string.r3b_thread_note)).assertExists()
+        compose.onNodeWithText(str(R.string.move_progress, "1", "2"), useUnmergedTree = true).assertDoesNotExist()
+    }
+
+    @Test
+    fun movingMessagesAndHeldOnesShareOnePageWithoutDoubles() {
+        val now = System.currentTimeMillis()
+        val moving = groupBySender(listOf(message(1, now, "a"), message(2, now - 1_000, "b"))).single()
+        val live = groupBySender(listOf(message(2, now - 1_000, "b"), message(3, now - 2_000, "c"))).single()
+        assertThat(threadMessages(live, moving).map { it.id }).containsExactly(1L, 2L, 3L).inOrder()
+        assertThat(threadMessages(null, moving).map { it.id }).containsExactly(1L, 2L).inOrder()
+        assertThat(threadMessages(null, null)).isEmpty()
     }
 
     private fun awaitUntil(condition: () -> Boolean) {
