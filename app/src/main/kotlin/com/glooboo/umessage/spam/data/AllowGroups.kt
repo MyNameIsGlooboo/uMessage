@@ -1,6 +1,7 @@
 package com.glooboo.umessage.spam.data
 
 import com.glooboo.umessage.spam.AllowGroup
+import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.engine.GroupMembership
 import com.glooboo.umessage.spam.engine.NumberReaders
@@ -23,13 +24,21 @@ internal class AllowGroups(
 
     private val dao get() = db.spamDao()
 
-    override fun groupsOf(keys: Set<String>): Set<AllowGroup> =
-        if (keys.isEmpty()) emptySet() else dao.membersByKeys(keys.toList()).map { it.group }.toSet()
+    override fun members(): List<AllowGroupMember> = dao.getMembers().map { it.toModel() }
 
-    /** Every membership of the sender of [address], in either group. */
+    /** The groups the sender of [address] is in. */
+    fun groupsOf(address: String): Set<AllowGroup> = membersOf(address).map { it.group }.toSet()
+
+    /**
+     * Every membership of the sender of [address], in either group: by key, and else (A-6) by the address each member
+     * was stored with, read with today's SIM list, so a member stored under an older list is still found.
+     */
     fun membersOf(address: String): List<AllowGroupMemberEntity> {
         val keys = keysOf(address)
-        return if (keys.isEmpty()) emptyList() else dao.membersByKeys(keys.toList())
+        if (keys.isEmpty()) return emptyList()
+        val byKey = dao.membersByKeys(keys.toList())
+        if (byKey.isNotEmpty()) return byKey
+        return dao.getMembers().filter { readers.same(it.address, address) }
     }
 
     /**

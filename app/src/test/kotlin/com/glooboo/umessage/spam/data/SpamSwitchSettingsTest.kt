@@ -3,6 +3,8 @@ package com.glooboo.umessage.spam.data
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.backup.BackupSettings
+import com.glooboo.umessage.backup.SettingsBackup
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.SpamSettings
@@ -105,6 +107,41 @@ class SpamSwitchSettingsTest {
         // Both changed in one update (a restore of a new backup): each is kept as given.
         val next = current.copy(mode = UnknownSenderMode.STRICT, filterOn = false)
         assertThat(SpamSettingsStore.keptInStep(current, next)).isEqualTo(next)
+    }
+
+    /** A-9: a restore writes the mode and the switch in one update; keptInStep leaves both as the file says. */
+    @Test fun aRestoreGoesThroughUpdateAndKeptInStep() {
+        val store = store()
+        fun restore(file: BackupSettings, countsSwitch: Boolean) = store.update { current ->
+            val mode = SettingsBackup.restoredMode(
+                file.spamMode, current.mode, countsSwitch, phoneSwitchWasOn = false,
+            )
+            current.copy(
+                mode = mode,
+                filterOn = SettingsBackup.restoredFilterOn(file, mode, current.filterOn),
+            )
+        }
+        restore(BackupSettings(spamMode = UnknownSenderMode.OFF), countsSwitch = true)
+        assertThat(store.get().mode).isEqualTo(UnknownSenderMode.OFF)
+        assertThat(store.get().filterOn).isFalse()
+
+        store.update { it.copy(mode = UnknownSenderMode.STRICT) }
+        restore(
+            BackupSettings(spamMode = UnknownSenderMode.SMART, filterOn = true),
+            countsSwitch = true,
+        )
+        assertThat(store.get().mode).isEqualTo(UnknownSenderMode.SMART)
+        assertThat(store.get().filterOn).isTrue()
+    }
+
+    /** A-4: auto-delete defaults to keep forever with the flag on, and to 0.4.14's 30 days with it off. */
+    @Test fun theAutoDeleteDefaultFollowsTheFlag() {
+        assertThat(SpamSettings().purgeAfterDays).isEqualTo(30)
+        assertThat(store().get().purgeAfterDays).isEqualTo(30)
+        flagOn {
+            assertThat(SpamSettings().purgeAfterDays).isEqualTo(0)
+            assertThat(store().get().purgeAfterDays).isEqualTo(0)
+        }
     }
 
     @Test fun groupSwitchesAreStored() {

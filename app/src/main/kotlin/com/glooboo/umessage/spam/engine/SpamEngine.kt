@@ -52,6 +52,7 @@ object SpamEngine {
                 blockedFromKeywordNote = { com.glooboo.umessage.ui.spam.RuleNotes.BLOCKED_FROM_KEYWORD },
                 allowedFromKeywordNote = { com.glooboo.umessage.ui.spam.RuleNotes.ALLOWED_FROM_KEYWORD },
                 simRegions = { simRegions(app) },
+                legacyBlocked = { FossifyLegacyBlocklist(app).isNumberBlocked(it) },
             ).also { repository = it }
         }
     }
@@ -73,6 +74,14 @@ object SpamEngine {
             ).also { filter = it }
         }
     }
+
+    /**
+     * A-4: the one-time settings step of provider truth (7.1) on the app's one settings store: the filter switch is
+     * written from the old mode and auto-delete becomes "keep forever". For the first-run runner (step B), before the
+     * first sort. True when this call did the step; false when it ran before or failed.
+     */
+    fun applyProviderTruthMapping(context: Context): Boolean =
+        runCatching { settingsStore(context.applicationContext).applyProviderTruthMapping() }.getOrDefault(false)
 
     @Volatile private var regionCache: Pair<Long, List<String>>? = null
 

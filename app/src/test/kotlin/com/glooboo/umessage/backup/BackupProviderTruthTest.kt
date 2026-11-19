@@ -85,6 +85,41 @@ class BackupProviderTruthTest {
             .containsExactlyElementsIn(members.map { it.copy(senderKey = "") }).inOrder()
     }
 
+    /** A-9: the Keep state of an automatic allow rule travels; an old file's automatic allow counts as kept. */
+    @Test fun ruleAcknowledgedRoundTrips() {
+        val auto = SpamRule(
+            kind = ListKind.ALLOW, type = RuleType.NUMBER, pattern = "+15550001234",
+            note = "@spamless:allowed_from_keyword", acknowledged = true,
+        )
+        val rules = listOf(auto, auto.copy(acknowledged = false, pattern = "+15550005678"))
+        val text = SettingsBackupFormat.encode(BackupContent(rules, emptyList(), BackupSettings()), 1)
+        val back = SettingsBackupFormat.decode(text).rules
+        assertThat(back.map { it.acknowledged }).containsExactly(true, false).inOrder()
+
+        val old = """{"app":"spamless","kind":"settings-backup","version":1,"rules":[
+            {"kind":"ALLOW","type":"NUMBER","pattern":"+15550001234","note":"@spamless:allowed_from_keyword"},
+            {"kind":"ALLOW","type":"NUMBER","pattern":"+15550005678","note":"My friend"}]}"""
+        assertThat(SettingsBackupFormat.decode(old).rules.map { it.acknowledged })
+            .containsExactly(true, false).inOrder()
+    }
+
+    /** A-9: a sender name or number longer than 40 characters is not dropped (up to 200). */
+    @Test fun longMemberAddressesAreKept() {
+        val long = "N" + "a".repeat(60)
+        val tooLong = "N" + "a".repeat(BackupGroupMembers.MAX_ADDRESS)
+        val text = SettingsBackupFormat.encode(
+            BackupContent(
+                emptyList(), emptyList(), BackupSettings(),
+                groupMembers = listOf(
+                    AllowGroupMember(AllowGroup.WROTE, "", long, 1L, MemberSource.LIVE, false),
+                    AllowGroupMember(AllowGroup.WROTE, "", tooLong, 2L, MemberSource.LIVE, false),
+                ),
+            ),
+            1,
+        )
+        assertThat(SettingsBackupFormat.decode(text).groupMembers.map { it.address }).containsExactly(long)
+    }
+
     @Test fun badMembersAreSkipped() {
         val text = """{"app":"spamless","kind":"settings-backup","version":1,
             "groupMembers":[{"group":"FRIENDS","address":"+15550001234"},{"group":"CODE","address":""},

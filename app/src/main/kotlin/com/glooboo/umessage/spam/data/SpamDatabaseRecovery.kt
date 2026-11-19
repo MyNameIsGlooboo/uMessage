@@ -6,9 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.glooboo.umessage.databases.DatabaseBackups
+import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ForwardSim
 import com.glooboo.umessage.spam.ListKind
+import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.RuleType
 import java.io.File
@@ -64,6 +66,8 @@ internal class SpamDatabaseRecovery(
             DatabaseBackups.inTransaction(db) {
                 reattachKeptMms(db)
                 mergedTables(db).forEach { (table, where) -> DatabaseBackups.mergeRows(db, table, where = where) }
+                // Members have no id column: their key is the group and the sender, so a plain copy skips doubles.
+                if (hasMembers(db)) DatabaseBackups.copyRows(db, MEMBERS.first, MEMBERS.second)
             }
         }
         backups.forEach { DatabaseBackups.retire(it) }
@@ -146,7 +150,13 @@ internal class SpamDatabaseRecovery(
     }
 
     private fun importedTables(db: SupportSQLiteDatabase) =
-        listOf(RULES, blocked(db), EVENTS, "pending_sms" to "1", forwards(db))
+        listOf(RULES, blocked(db), EVENTS, "pending_sms" to "1", forwards(db)) +
+            listOfNotNull(MEMBERS.takeIf { hasMembers(db) })
+
+    /** The group members table (schema 9) exists on both sides. */
+    private fun hasMembers(db: SupportSQLiteDatabase): Boolean =
+        DatabaseBackups.columns(db, "src", MEMBERS.first).isNotEmpty() &&
+            DatabaseBackups.columns(db, "main", MEMBERS.first).isNotEmpty()
 
     private fun mergedTables(db: SupportSQLiteDatabase) = listOf(RULES, blocked(db), EVENTS, forwards(db))
 
@@ -164,5 +174,9 @@ internal class SpamDatabaseRecovery(
         val RULES = "spam_rules" to "${known("kind", ListKind.entries.toTypedArray())} AND " +
             known("type", RuleType.entries.toTypedArray())
         val EVENTS = "spam_events" to known("type", SpamEventType.entries.toTypedArray())
+
+        /** D3 A: the members of the group rules (schema 9), with a group and a source this build knows. */
+        val MEMBERS = "allow_group_members" to "${known("group_type", AllowGroup.entries.toTypedArray())} AND " +
+            known("source", MemberSource.entries.toTypedArray())
     }
 }

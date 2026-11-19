@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
+import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ListKind
@@ -56,6 +58,7 @@ class AllowGroupsRepositoryTest {
             blockedFromKeywordNote = { RuleNotes.BLOCKED_FROM_KEYWORD },
             allowedFromKeywordNote = { RuleNotes.ALLOWED_FROM_KEYWORD },
             simRegions = { listOf("IR") },
+            legacyBlocked = { it == ANDROID_BLOCKED },
         )
     }
 
@@ -63,7 +66,8 @@ class AllowGroupsRepositoryTest {
 
     private fun rulesFor(pattern: String) = dao.getRules().filter { it.pattern == pattern }
 
-    private fun groupsOf(address: String) = repo.groupMembership.groupsOf(readers.senderKeys(address))
+    private fun groupsOf(address: String) =
+        dao.membersByKeys(readers.senderKeys(address).toList()).map { it.group }.toSet()
 
     @Test fun aRuleForOneSimIsStoredForBoth() = runTest {
         val prize = SpamRule(kind = ListKind.BLOCK, type = RuleType.KEYWORD, pattern = "prize")
@@ -183,7 +187,110 @@ class AllowGroupsRepositoryTest {
         assertTrue(groupsOf(SENDER).isEmpty())
     }
 
+    /** A-7: a block that arrives between the verdict and the write wins; Android's block list counts too. */
+    @Test fun aBlockedSenderGetsNoAllowingFactOrMembership() = runTest {
+        repo.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = SENDER))
+        assertTrue(repo.writeSenderFact(SENDER, SenderFact.JoinCodeGroup))
+        assertTrue(repo.writeSenderFact(SENDER, SenderFact.AutoAllow(7)))
+        assertTrue(dao.getMembers().isEmpty())
+        assertTrue(rulesFor(SENDER).none { it.kind == ListKind.ALLOW })
+
+        assertFalse(repo.joinGroup(AllowGroup.WROTE, ANDROID_BLOCKED))
+        assertTrue(repo.writeSenderFact(ANDROID_BLOCKED, SenderFact.JoinCodeGroup))
+        assertTrue(dao.getMembers().isEmpty())
+    }
+
+    /** A-8: Block from the Spam screen reads the sender like blockAddress and says when a prefix still allows it. */
+    @Test fun blockSenderUsesTheSameReadingAndTheReceiptNamesAWinningAllow() = runTest {
+        repo.addRule(SpamRule(kind = ListKind.ALLOW, type = RuleType.NUMBER, pattern = IR_PLUS))
+        repo.joinGroup(AllowGroup.WROTE, IR_PLUS)
+        val id = repo.storeBlocked(held(IR_NATIONAL))
+        repo.blockSender(id)
+        assertTrue(rulesFor(IR_PLUS).all { it.kind == ListKind.BLOCK })
+        assertTrue(groupsOf(IR_PLUS).isEmpty())
+
+        val prefix = repo.addRule(SpamRule(kind = ListKind.ALLOW, type = RuleType.PREFIX, pattern = "+1555000"))
+        val receipt = repo.blockAddress(SENDER, RuleNotes.BLOCKED_BY_YOU)!!
+        assertEquals(prefix, receipt.stillAllowedBy)
+        assertNull(repo.blockAddress(OTHER_SHORT, RuleNotes.BLOCKED_BY_YOU)!!.stillAllowedBy)
+    }
+
+    /** Spec 2.2: a block rule from the rules screen takes the sender out of the groups and (flag on) its auto allow. */
+    @Test fun aBlockRuleFromTheRulesScreenRemovesMembershipsAndAutomaticAllows() = runTest {
+        ProviderTruthFlag.enabled = true
+        try {
+            repo.writeSenderFact(SENDER, SenderFact.AutoAllow(7))
+            repo.joinGroup(AllowGroup.CODE, SENDER)
+            repo.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = SENDER))
+            assertEquals(listOf(ListKind.BLOCK), rulesFor(SENDER).map { it.kind })
+            assertTrue(groupsOf(SENDER).isEmpty())
+        } finally {
+            ProviderTruthFlag.enabled = ProviderTruthFlag.SHIPPED_DEFAULT
+        }
+    }
+
+    @Test fun withTheFlagOffABlockRuleLeavesAnAutomaticAllowAsIn0414() = runTest {
+        repo.writeSenderFact(SENDER, SenderFact.AutoAllow(7))
+        repo.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = SENDER))
+        assertEquals(setOf(ListKind.ALLOW, ListKind.BLOCK), rulesFor(SENDER).map { it.kind }.toSet())
+    }
+
+    /** A-9: restored members keep the file's join time, source and Keep state, once, never for a blocked sender. */
+    @Test fun importedMembersKeepTheirFieldsInOneGo() = runTest {
+        repo.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = OTHER))
+        val longName = "N" + "a".repeat(60)
+        val file = listOf(
+            AllowGroupMember(AllowGroup.CODE, "", SENDER, 42L, MemberSource.LIVE, acknowledged = false),
+            AllowGroupMember(AllowGroup.CODE, "", SENDER, 43L, MemberSource.HISTORY, acknowledged = true),
+            AllowGroupMember(AllowGroup.WROTE, "", OTHER, 44L, MemberSource.LIVE, acknowledged = false),
+            AllowGroupMember(AllowGroup.WROTE, "", longName, 45L, MemberSource.HISTORY, acknowledged = true),
+            AllowGroupMember(AllowGroup.WROTE, "", "Unknown", 46L, MemberSource.LIVE, acknowledged = false),
+        )
+        assertEquals(2, repo.importGroupMembers(file))
+        val code = dao.getMembers().single { it.group == AllowGroup.CODE }
+        assertEquals(42L, code.addedAt)
+        assertEquals(MemberSource.LIVE, code.source)
+        assertFalse(code.acknowledged)
+        assertEquals(longName.lowercase(), dao.getMembers().single { it.group == AllowGroup.WROTE }.senderKey)
+        assertEquals(0, repo.importGroupMembers(file.take(1)))
+    }
+
+    /** A-6: a member stored under an older SIM list (key +98...) is found again under today's list. */
+    @Test fun aMemberStoredUnderAnOlderSimListIsStillFound() = runTest {
+        val otherSims = DefaultSpamRepository(
+            object : SpamPlatform {
+                override fun notifyBlocked(message: BlockedMessage) = Unit
+                override fun deliverRestored(pending: PendingSmsEntity): Long? = null
+                override fun deliverRestoredMms(message: BlockedMessage): Long? = null
+                override fun removeRestored(id: Long, isMms: Boolean) = false
+                override fun deleteMedia(names: Collection<String>) = Unit
+                override fun sweepMedia(keep: Set<String>) = Unit
+            },
+            db, SpamSettingsStore(app), NumberNormalizer { "US" }, simRegions = { listOf("GB") },
+        )
+        dao.insertMember(AllowGroupMemberEntity(AllowGroup.CODE, IR_PLUS, IR_NATIONAL, 1L, MemberSource.LIVE, true))
+        assertTrue(otherSims.joinGroup(AllowGroup.CODE, IR_NATIONAL))
+        assertEquals(1, dao.getMembers().size)
+        assertEquals(1, otherSims.blockAddress(IR_NATIONAL, RuleNotes.BLOCKED_BY_YOU)!!.removedMembers.size)
+    }
+
+    /** A-11: the word rule's hit can be counted on the new path. */
+    @Test fun aWordRuleHitIsCounted() = runTest {
+        val word = repo.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.KEYWORD, pattern = "prize"))
+        assertTrue(repo.recordWordRuleHit(word, at = 99L))
+        assertEquals(1, dao.getRule(word)!!.hitCount)
+        assertEquals(99L, dao.getRule(word)!!.lastHit)
+        assertFalse(repo.recordWordRuleHit(12_345L))
+    }
+
+    private fun held(address: String) = BlockedMessage(
+        address = address, body = "hello", subscriptionId = 1, isMms = false, receivedAt = 1_000L,
+        reason = DecisionReason.UNKNOWN_SENDER,
+    )
+
     private companion object {
+        const val ANDROID_BLOCKED = "+15550007777"
+        const val OTHER_SHORT = "+15559990000"
         const val SENDER = "+15550001234"
         const val OTHER = "+15550005678"
         const val IR_NATIONAL = "09061234567"

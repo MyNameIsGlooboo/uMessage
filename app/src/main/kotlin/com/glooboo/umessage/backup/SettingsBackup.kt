@@ -15,7 +15,6 @@ import com.glooboo.umessage.helpers.W3aPrefs
 import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.spam.ForwardingAvailability
 import com.glooboo.umessage.spam.ListKind
-import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
@@ -179,9 +178,9 @@ object SettingsBackup {
             val before = repo.rules.first().size
             repo.restoreRules(preview.content.rules)
             val rulesAdded = repo.rules.first().size - before
-            // D3 A: members come back like ones the history check found (no line in old chats), never for a sender
-            // that has a block rule (now, or from this file's rules, restored just above).
-            preview.content.groupMembers.forEach { repo.joinGroup(it.group, it.address, MemberSource.HISTORY) }
+            // D3 A, A-9: members come back with their join time, source and Keep state, in one transaction, never for
+            // a sender that has a block rule (now, or from this file's rules, restored just above).
+            repo.importGroupMembers(preview.content.groupMembers)
 
             val forwards = SpamEngine.forwardRepository(app)
             val forwardsAdded = if (ForwardingAvailability.isAvailable(app)) {

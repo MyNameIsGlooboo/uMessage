@@ -17,6 +17,12 @@ import kotlinx.serialization.json.put
  */
 internal object BackupGroupMembers {
 
+    /**
+     * Longest member address read (A-9): longer than any phone number or sender name (the store keeps 200, see
+     * BlockedLimits), short enough that a hostile file cannot fill the table with huge values.
+     */
+    const val MAX_ADDRESS = 200
+
     fun writeAll(members: List<AllowGroupMember>): JsonArray = buildJsonArray { members.forEach { add(write(it)) } }
 
     fun readAll(elements: List<JsonElement>): List<AllowGroupMember> = elements.mapNotNull(::read)
@@ -33,7 +39,7 @@ internal object BackupGroupMembers {
         val o = element as? JsonObject ?: return null
         val group = AllowGroup.entries.firstOrNull { it.name == o.str("group") } ?: return null
         val address = o.str("address")?.trim().orEmpty()
-        if (address.isEmpty() || address.length > SettingsBackupFormat.MAX_TARGET) return null
+        if (address.isEmpty() || address.length > MAX_ADDRESS) return null
         val source = MemberSource.entries.firstOrNull { it.name == o.str("source") } ?: MemberSource.HISTORY
         return AllowGroupMember(
             group = group,

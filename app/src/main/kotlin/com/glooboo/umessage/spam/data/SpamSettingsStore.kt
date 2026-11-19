@@ -47,8 +47,8 @@ class SpamSettingsStore(
         )
     }
 
-    @Synchronized
-    fun update(transform: (SpamSettings) -> SpamSettings) {
+    /** One lock for every store of these prefs (A-4): several parts of the app make their own store. */
+    fun update(transform: (SpamSettings) -> SpamSettings) = synchronized(LOCK) {
         val current = get()
         val next = keptInStep(current, transform(current))
         prefs.edit()
@@ -70,8 +70,7 @@ class SpamSettingsStore(
      * "keep forever" (0) on every updated install. Later runs do nothing, so a value the user chose afterwards stays.
      * Returns true when this call did the step. The old mode key stays on disk.
      */
-    @Synchronized
-    fun applyProviderTruthMapping(): Boolean {
+    fun applyProviderTruthMapping(): Boolean = synchronized(LOCK) {
         if (prefs.getBoolean(KEY_MAPPED, false)) return false
         val filterOn = get().filterOn
         prefs.edit(commit = true) {
@@ -79,24 +78,22 @@ class SpamSettingsStore(
             putInt(KEY_PURGE_DAYS, 0)
             putBoolean(KEY_MAPPED, true)
         }
-        return true
+        true
     }
 
     /**
      * Records a purge run at [now] and returns true when one is due under [PurgePolicy]; false when the last
      * run was too recent. Keeps the receivers from running a DELETE on every message.
      */
-    @Synchronized
-    fun claimPurge(now: Long): Boolean {
+    fun claimPurge(now: Long): Boolean = synchronized(LOCK) {
         val last = prefs.getLong(KEY_LAST_PURGE, 0L)
         if (!PurgePolicy.isDue(last, now)) return false
         prefs.edit { putLong(KEY_LAST_PURGE, now) }
-        return true
+        true
     }
 
     /** Gives back a [claimPurge] whose purge failed, so the next receiver tries again, not after a full interval. */
-    @Synchronized
-    fun releasePurge() {
+    fun releasePurge() = synchronized(LOCK) {
         prefs.edit { remove(KEY_LAST_PURGE) }
     }
 
@@ -120,6 +117,9 @@ class SpamSettingsStore(
 
     companion object {
         private const val PREFS_NAME = "spamless_spam_settings"
+
+        /** Shared by every instance, as they all write the same prefs file. */
+        private val LOCK = Any()
         private const val KEY_MODE = "mode"
         private const val KEY_PURGE_DAYS = "purge_after_days"
         private const val KEY_NOTIFY = "notify_on_block"

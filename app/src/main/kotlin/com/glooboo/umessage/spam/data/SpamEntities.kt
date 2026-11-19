@@ -68,13 +68,17 @@ data class BlockedMessageEntity(
     /** Added in version 9: failed verifies of the message migration (at most 2 per row). */
     @ColumnInfo(defaultValue = "0") val migrateTries: Int = 0,
 ) {
-    fun toModel() =
-        BlockedMessage(id, address, body, subscriptionId, isMms, receivedAt, reason, ruleId, media, mediaFile, unread)
+    fun toModel() = BlockedMessage(
+        id, address, body, subscriptionId, isMms, receivedAt, reason, ruleId, media, mediaFile, unread, migratedMsgId,
+        migrateTries,
+    )
 
     companion object {
+        /** A-10: the migration marks travel with the model, so an Undo that re-inserts a row keeps them. */
         fun from(message: BlockedMessage) = BlockedMessageEntity(
             message.id, message.address, message.body, message.subscriptionId, message.isMms,
-            message.receivedAt, message.reason, message.ruleId, message.media, message.mediaFile, message.unread
+            message.receivedAt, message.reason, message.ruleId, message.media, message.mediaFile, message.unread,
+            message.migratedMsgId, message.migrateTries,
         )
     }
 }

@@ -2,6 +2,7 @@ package com.glooboo.umessage.spam
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 
 /**
  * Public contract of the uMessage spam engine.
@@ -171,6 +172,10 @@ data class BlockedMessage(
     val mediaFile: String? = null,
     /** Not opened yet: the sender's row on the Blocked tab shows it bold, as an unread chat. Added in version 6. */
     val unread: Boolean = false,
+    /** Schema 9: the phone's store row this message became (the message migration's done mark); null = not moved. */
+    val migratedMsgId: Long? = null,
+    /** Schema 9: failed verifies of the message migration. */
+    val migrateTries: Int = 0,
 ) {
     /** The message has readable text (an MMS blocked before it was downloaded only has the placeholder). */
     val hasText: Boolean
@@ -204,12 +209,18 @@ data class BlockedMessage(
     }
 }
 
+/** 0.4.14's default auto-delete of held messages, kept while ProviderTruthFlag is off. */
+const val LEGACY_PURGE_DAYS = 30
+
 data class SpamStats(val blockedTotal: Int, val blockedLast7Days: Int, val restoredTotal: Int)
 
 data class SpamSettings(
     val mode: UnknownSenderMode = UnknownSenderMode.SMART,
-    /** Blocked messages older than this are purged. 0 = keep forever. */
-    val purgeAfterDays: Int = 30,
+    /**
+     * Blocked messages older than this are purged. 0 = keep forever, the default of provider truth (7.1); 30 while
+     * ProviderTruthFlag is off, as in 0.4.14.
+     */
+    val purgeAfterDays: Int = if (ProviderTruthFlag.enabled) 0 else LEGACY_PURGE_DAYS,
     val notifyOnBlock: Boolean = false,
     val unknownInboxNotify: UnknownInboxNotify = UnknownInboxNotify.NOTIFY,
     /** I67: an "Open link" button on notifications from known senders. */
@@ -275,6 +286,8 @@ data class BlockReceipt(
     val ruleId: Long,
     val removedRules: List<SpamRule> = emptyList(),
     val removedMembers: List<AllowGroupMember> = emptyList(),
+    /** A-8: an allow rule the user made (a prefix, say) that still names the sender, so the chat stays in Messages. */
+    val stillAllowedBy: Long? = null,
 )
 
 /** Pure decision logic. No Android I/O except contact lookup supplied by the implementation. */
@@ -364,6 +377,12 @@ interface SpamRepository {
 
     /** Undo of [removeGroupMembers] or of a block: puts [members] back as they were. */
     suspend fun restoreGroupMembers(members: List<AllowGroupMember>) = Unit
+
+    /**
+     * The members of a settings backup: each keeps its join time, source and Keep state; never for an unreadable or
+     * blocked sender, never twice in a group. Returns how many were added.
+     */
+    suspend fun importGroupMembers(members: List<AllowGroupMember>): Int = 0
 
     /** "Keep" on the chat line: the sender's memberships and automatic allow rules are acknowledged. */
     suspend fun acknowledgeSender(address: String) = Unit
