@@ -32,6 +32,7 @@ import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.SpamStats
+import com.glooboo.umessage.spam.engine.BlockListBatch
 import com.glooboo.umessage.spam.engine.DomainMatch
 import com.glooboo.umessage.spam.engine.GroupMembership
 import com.glooboo.umessage.spam.engine.NumberNormalizer
@@ -507,23 +508,31 @@ class DefaultSpamRepository(
         withContext(Dispatchers.IO) {
             runCatching {
                 val onBlockList = isOnLegacyBlockList(address)
-                db.runInTransaction<Boolean> {
+                val removed = source == MemberSource.HISTORY && RemovedMembers.contains(group, groups.keysOf(address))
+                val joined = !removed && db.runInTransaction<Boolean> {
                     // A reply to a blocked sender, or a blocked sender found by the history check, changes nothing.
                     !onBlockList && !hasBlockRule(address) && groups.join(group, address, source)
                 }
+                // B-9: a new code or a reply after "Remove" puts the sender back, and the mark goes.
+                if (joined && source == MemberSource.LIVE) RemovedMembers.remove(group, groups.keysOf(address))
+                joined
             }.getOrDefault(false)
         }
 
     override suspend fun removeGroupMembers(members: List<AllowGroupMember>): List<AllowGroupMember> =
         withContext(Dispatchers.IO) {
-            db.runInTransaction<List<AllowGroupMember>> {
+            val removed = db.runInTransaction<List<AllowGroupMember>> {
                 members.filter { dao.deleteMember(it.group, it.senderKey) > 0 }
             }
+            // B-9: the history check never puts a removed sender back.
+            removed.forEach { RemovedMembers.add(it.group, groups.keysOf(it.address) + it.senderKey) }
+            removed
         }
 
     override suspend fun restoreGroupMembers(members: List<AllowGroupMember>) = withContext(Dispatchers.IO) {
         if (members.isEmpty()) return@withContext
         db.runInTransaction { members.forEach { dao.putMember(AllowGroupMemberEntity.from(it)) } }
+        members.forEach { RemovedMembers.remove(it.group, groups.keysOf(it.address) + it.senderKey) }
     }
 
     /**
@@ -551,8 +560,12 @@ class DefaultSpamRepository(
 
     /** The batch behind [importGroupMembers] and [joinGroups]. Blocking. */
     private fun insertMembers(candidates: List<AllowGroupMember>): Int {
-        val readable = candidates.filterNot {
-            SenderAddress.isUnreadable(it.address) || isOnLegacyBlockList(it.address)
+        // B-2: Android's block list is read once for the batch; B-9: removed senders do not come back from HISTORY.
+        val readable = BlockListBatch.during {
+            candidates.filterNot {
+                SenderAddress.isUnreadable(it.address) || isOnLegacyBlockList(it.address) ||
+                    (it.source == MemberSource.HISTORY && RemovedMembers.contains(it.group, groups.keysOf(it.address)))
+            }
         }
         if (readable.isEmpty()) return 0
         val frozen = readers.frozen()

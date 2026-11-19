@@ -13,6 +13,8 @@ import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
 import androidx.core.content.ContextCompat
 import org.fossify.commons.extensions.baseConfig
+import org.fossify.commons.extensions.blockedNumberCountryIso
+import org.fossify.commons.extensions.getBlockedNumbers
 import org.fossify.commons.extensions.getMyContactsCursor
 import org.fossify.commons.extensions.isNumberBlocked
 import org.fossify.commons.helpers.ContactLookupResult
@@ -279,6 +281,12 @@ class SystemContactChecker(
         if (address.isBlank() || normalizer.isSenderId(address)) return ContactLookup.NOT_FOUND
         val numbers = numbers()
         if (numbers != null && numbers.contains(address)) return ContactLookup.FOUND
+        // B-2: without the permission only the private contacts can answer; their index is read once and kept, not a
+        // cursor opened for every chat of a sort.
+        if (numbers == null && !hasContactsPermission()) {
+            val privateIndex = privateNumbers() ?: return ContactLookup.UNKNOWN
+            return if (privateIndex.contains(address)) ContactLookup.FOUND else ContactLookup.NOT_FOUND
+        }
         if (numbers != null) {
             // The address book was read and does not have it; only the app's private contacts are left. The system
             // PhoneLookup is not asked here: it matches on the last digits, so it took a stranger from another
@@ -354,8 +362,46 @@ class SystemContactChecker(
     }
 }
 
-class FossifyLegacyBlocklist(private val context: Context) : LegacyBlocklist {
-    override fun isNumberBlocked(address: String) = context.isNumberBlocked(address)
+/**
+ * B-2: Android's block list read once for a batch of lookups on this thread (the history check's bulk join), instead
+ * of once per sender. Outside [during] every lookup reads the list as before.
+ */
+object BlockListBatch {
+    private class Batch {
+        var check: ((String) -> Boolean)? = null
+    }
+
+    private val current = ThreadLocal<Batch?>()
+
+    fun <T> during(block: () -> T): T {
+        if (current.get() != null) return block()
+        current.set(Batch())
+        try {
+            return block()
+        } finally {
+            current.remove()
+        }
+    }
+
+    /** The batch's check, built by [build] on first use; null outside a batch. */
+    internal fun check(build: () -> (String) -> Boolean): ((String) -> Boolean)? {
+        val batch = current.get() ?: return null
+        return batch.check ?: build().also { batch.check = it }
+    }
+}
+
+class FossifyLegacyBlocklist(private val context: Context) : LegacyBlocklist, FreezableBlocklist {
+    /** Inside [BlockListBatch.during] the list is read once for the whole batch (B-2). */
+    override fun isNumberBlocked(address: String): Boolean =
+        BlockListBatch.check(::frozenNumberCheck)?.invoke(address) ?: context.isNumberBlocked(address)
+
+    /** B-2: Android's block list and its country read once; matching then reads nothing. */
+    override fun frozenNumberCheck(): (String) -> Boolean {
+        val list = context.getBlockedNumbers()
+        val iso = context.blockedNumberCountryIso()
+        return { address -> list.isNotEmpty() && context.isNumberBlocked(address, list, iso) }
+    }
+
     override fun blockedKeywords(): Collection<String> = context.config.blockedKeywords
     override fun blockUnknownNumbers() = context.baseConfig.blockUnknownNumbers
 }
