@@ -141,7 +141,7 @@ class RuleFormNoSimTest {
         val off = context.copy(settings = SpamSettings(wroteGroupOn = false))
         assertThat(memberGroupOf(off.members, off.settings, "+15550001234")).isNull()
         assertThat(memberGroupOf(context.members, context.settings, "5550001234")).isEqualTo(AllowGroup.WROTE)
-        assertThat(memberGroupOf(context.members, context.settings, "+15550009999")).isNull()
+        assertThat(memberGroupOf(context.members, context.settings, "OtherShop")).isNull()
     }
 
     @Test
@@ -163,7 +163,7 @@ class RuleFormNoSimTest {
     private val auto = SpamRule(
         20, ListKind.ALLOW, RuleType.NUMBER, "+15550001234", note = RuleNotes.ALLOWED_FROM_KEYWORD, createdAt = 9_000,
     )
-    private val own = SpamRule(21, ListKind.ALLOW, RuleType.NUMBER, "+15550001235", createdAt = 1_000)
+    private val own = SpamRule(21, ListKind.ALLOW, RuleType.SENDER_ID, "AcmeBank", createdAt = 1_000)
 
     @Test
     fun rulesTheFilterMadeComeAfterTheUsersOwn() {
