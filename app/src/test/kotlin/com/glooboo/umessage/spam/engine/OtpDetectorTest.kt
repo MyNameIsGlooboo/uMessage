@@ -53,8 +53,8 @@ class OtpDetectorTest {
         assertFalse(otp("Verification of order 1234567890"))
         assertFalse(otp("1234567890"))
         // A phone number is never a code, and an advertisement is none either.
-        assertFalse(otp("برای دریافت رمز تماس بگیرید 09000001111"))
-        assertFalse(otp("رمز شما 989000001111"))
+        assertFalse(otp("برای دریافت رمز تماس بگیرید 09060000000"))
+        assertFalse(otp("رمز شما 989060000000"))
         assertFalse(otp("رمز تخفیف 1234567890 تا 50% تخفیف"))
         assertFalse(otp("رمز 12345678901"))
     }

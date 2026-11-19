@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Updated the phone number library (libphonenumber 9.0.44), so newer number ranges such as numbers starting 0904 or 0942 are recognised
 
 ## [0.4.14] - 2026-11-18
 ### Fixed
