@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 9,
-    "identityHash": "stepA-handwritten-regenerated-by-room",
+    "identityHash": "f2e20c760dc0b23da37644ee96bf2264",
     "entities": [
       {
         "tableName": "spam_rules",
@@ -550,7 +550,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'stepA-handwritten-regenerated-by-room')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f2e20c760dc0b23da37644ee96bf2264')"
     ]
   }
 }
