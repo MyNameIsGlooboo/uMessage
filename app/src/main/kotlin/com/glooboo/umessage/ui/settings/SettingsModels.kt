@@ -143,8 +143,6 @@ class SettingsActions(
     val onSpamMode: (UnknownSenderMode) -> Unit = {},
     /** SE-09: "Notify when a message is blocked". */
     val onNotifyOnBlock: (Boolean) -> Unit = {},
-    /** Provider truth: the confirmed value of the one spam filter switch (the screen asks first, U11). */
-    val onSpamFilter: (Boolean) -> Unit = {},
     /** ID-26: opens Android's settings of the verification-code notification channel. */
     val onCodeAlert: () -> Unit = {},
     val onCharacterCounter: (Boolean) -> Unit = {},

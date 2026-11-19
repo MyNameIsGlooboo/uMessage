@@ -18,6 +18,7 @@ import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
+import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.google.common.truth.Truth.assertThat
@@ -105,7 +106,7 @@ class AllowGroupRowsTest {
     fun turningAGroupOffAsksWithTheCountAndOnlyTheConfirmWritesIt() {
         start(counter = { if (it == SortChange.Group(AllowGroup.CODE, false)) 3 else null })
         vm.setGroupOn(AllowGroup.CODE, false)
-        awaitUntil { vm.state.value.groups.confirm != null }
+        awaitUntil { vm.state.value.groups.confirm?.counting == false }
         assertThat(vm.state.value.groups.confirm).isEqualTo(SwitchConfirm(SortChange.Group(AllowGroup.CODE, false), 3))
         assertThat(stored().codeGroupOn).isTrue()
 
@@ -149,12 +150,14 @@ class AllowGroupRowsTest {
     }
 
     @Test
-    fun theSnackbarNamesTheRemovedSender() {
-        val text = membersRemovedText(res, listOf(wroteMember))
-        assertThat(text).contains("+15550001234")
-        assertThat(text).isEqualTo(
-            res.getString(R.string.pt_group_member_removed, isolateNumbers("+15550001234")),
-        )
+    fun theSnackbarNamesTheRemovedSenderAsTheListShowsIt() {
+        // G-12: the same label as the member row: grouped, kept left to right.
+        val label = memberLabel(app, wroteMember)
+        assertThat(label).isEqualTo(isolateNumbers(displayNumber(app, "+15550001234")))
+        assertThat(label.filter(Char::isDigit)).isEqualTo("15550001234")
+        val text = membersRemovedText(res, listOf(label))
+        assertThat(text).isEqualTo(res.getString(R.string.pt_group_member_removed, label))
+        assertThat(memberLabel(app, codeMember)).isEqualTo("AcmeBank")
     }
 
     @Test

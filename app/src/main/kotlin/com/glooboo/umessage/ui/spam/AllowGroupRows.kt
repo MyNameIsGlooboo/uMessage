@@ -1,5 +1,6 @@
 package com.glooboo.umessage.ui.spam
 
+import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,6 +31,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -37,13 +40,12 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.MemberSource
-import com.glooboo.umessage.ui.components.EmptyState
 import com.glooboo.umessage.ui.components.GroupShape
 import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
@@ -88,6 +90,7 @@ internal fun AllowGroupRowItem(
         bottomEnd = corners.bottomDp.dp, bottomStart = corners.bottomDp.dp,
     )
     val title = stringResource(groupTitle(row.group))
+    val openLabel = stringResource(R.string.w3c_checklist_action_open)
     val count = LocalResources.current.getQuantityString(R.plurals.pt_group_count, row.count, row.count)
     Card(
         modifier = modifier.fillMaxWidth().clip(shape),
@@ -101,7 +104,7 @@ internal fun AllowGroupRowItem(
             Row(
                 Modifier
                     .weight(1f)
-                    .clickable(role = Role.Button, onClickLabel = title) { onOpen(row.group) }
+                    .clickable(role = Role.Button, onClickLabel = openLabel) { onOpen(row.group) }
                     .testTag(groupRowTag(row.group))
                     .padding(start = 16.dp, top = 8.dp, bottom = 8.dp, end = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
@@ -160,13 +163,7 @@ internal fun AllowGroupPage(
                 )
             }
             if (row.members.isEmpty()) {
-                item(key = "empty") {
-                    EmptyState(
-                        iconRes = R.drawable.ic_spam_shield_check,
-                        title = stringResource(R.string.pt_group_empty),
-                        body = "",
-                    )
-                }
+                item(key = "empty") { EmptyGroup() }
             } else {
                 item(key = "count") {
                     Text(
@@ -185,7 +182,10 @@ internal fun AllowGroupPage(
     }
 }
 
-/** One sender of a group: the address as seen, the history label, and Remove. */
+/**
+ * One sender of a group: the address as seen, the history label, and Remove, which TalkBack reads with the sender. At
+ * large font sizes the button goes under the address, so the number is never squeezed (G-13).
+ */
 @Composable
 private fun MemberRow(member: AllowGroupMember, index: Int, size: Int, onRemove: (AllowGroupMember) -> Unit) {
     val colors = MaterialTheme.colorScheme
@@ -194,42 +194,69 @@ private fun MemberRow(member: AllowGroupMember, index: Int, size: Int, onRemove:
         topStart = corners.topDp.dp, topEnd = corners.topDp.dp,
         bottomEnd = corners.bottomDp.dp, bottomStart = corners.bottomDp.dp,
     )
-    val shown = memberLabel(member)
+    val shown = memberLabel(LocalContext.current, member)
+    val removeText = stringResource(R.string.pt_group_member_remove)
+    val removeDescription = stringResource(R.string.ui_two_sentences, removeText, shown)
+    val stacked = LocalDensity.current.fontScale > STACK_FONT_SCALE
+    val text: @Composable (Modifier) -> Unit = { modifier ->
+        Column(modifier, verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text(shown, style = MaterialTheme.typography.titleMedium)
+            if (member.source == MemberSource.HISTORY) {
+                Text(
+                    stringResource(R.string.pt_group_member_history),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = colors.onSurfaceVariant,
+                )
+            }
+        }
+    }
+    val remove: @Composable (Modifier) -> Unit = { modifier ->
+        TextButton(
+            onClick = { onRemove(member) },
+            modifier = modifier.heightIn(min = 48.dp).semantics { contentDescription = removeDescription },
+        ) { Text(removeText) }
+    }
     Card(
         modifier = Modifier.fillMaxWidth().clip(shape),
         colors = CardDefaults.cardColors(containerColor = colors.surfaceContainer, contentColor = colors.onSurface),
         shape = shape,
     ) {
-        Row(
-            Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp, end = 4.dp).heightIn(min = 48.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(
-                    shown,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                if (member.source == MemberSource.HISTORY) {
-                    Text(
-                        stringResource(R.string.pt_group_member_history),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = colors.onSurfaceVariant,
-                    )
-                }
+        if (stacked) {
+            Column(Modifier.fillMaxWidth().padding(start = 16.dp, top = 8.dp, bottom = 4.dp, end = 4.dp)) {
+                text(Modifier.fillMaxWidth().padding(end = 12.dp))
+                remove(Modifier.align(Alignment.End))
             }
-            TextButton(onClick = { onRemove(member) }, modifier = Modifier.heightIn(min = 48.dp)) {
-                Text(stringResource(R.string.pt_group_member_remove))
+        } else {
+            Row(
+                Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp, end = 4.dp).heightIn(min = 48.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                text(Modifier.weight(1f))
+                remove(Modifier)
             }
         }
     }
 }
 
-/** A member's address as the lists show it: a number grouped and kept left to right inside right-to-left text. */
+/** Above this font scale a member's Remove button goes under the address. */
+private const val STACK_FONT_SCALE = 1.3f
+
+/**
+ * A member's address as the lists and the Remove snackbar show it: a number grouped for the phone's country and kept
+ * left to right inside right-to-left text; a sender name as it is.
+ */
+internal fun memberLabel(context: Context, member: AllowGroupMember): String =
+    isolateNumbers(displayNumber(context, member.address.ifBlank { member.senderKey }))
+
+/** An empty group: its name of state, without an empty second line (G-13). */
 @Composable
-internal fun memberLabel(member: AllowGroupMember): String {
-    val address = member.address.ifBlank { member.senderKey }
-    return isolateNumbers(displayNumber(address))
+private fun EmptyGroup(modifier: Modifier = Modifier) {
+    Text(
+        stringResource(R.string.pt_group_empty),
+        style = MaterialTheme.typography.titleMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.Center,
+        modifier = modifier.fillMaxWidth().padding(horizontal = 32.dp, vertical = 48.dp),
+    )
 }

@@ -56,10 +56,8 @@ import com.glooboo.umessage.ui.spam.rememberSortingCardMode
 import com.glooboo.umessage.ui.spam.FilterSwitchGroup
 import com.glooboo.umessage.ui.spam.SortChange
 import com.glooboo.umessage.ui.spam.SwitchConfirmDialog
-import com.glooboo.umessage.ui.spam.SwitchConfirmer
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import androidx.compose.material3.Icon
 import com.glooboo.umessage.ui.theme.UMessageTheme
@@ -402,7 +400,7 @@ private fun SpamPage(state: SettingsUiState, actions: SettingsActions) {
     // P4-11: the mode is chosen right here, not two pages deeper.
     val spam = state.spam
     if (spam != null) {
-        if (ProviderTruthFlag.enabled) SpamFilterGroup(spam, actions) else SpamModeGroup(spam, actions)
+        if (ProviderTruthFlag.enabled) SpamFilterGroup(spam) else SpamModeGroup(spam, actions)
     }
     // B11: the group is not named like the page above it.
     SettingsGroup(stringResource(R.string.settings_block_group)) {
@@ -455,25 +453,23 @@ private fun SpamPage(state: SettingsUiState, actions: SettingsActions) {
 
 /**
  * Provider truth (4.6): the one spam filter switch. Changing it asks first, with the number of chats that move (U11);
- * the confirmed value goes to [SettingsActions.onSpamFilter].
+ * the pending confirm lives in [switchModel], so it survives a rotation.
  */
 @Composable
-private fun SpamFilterGroup(spam: SpamSummary, actions: SettingsActions) {
-    val scope = rememberCoroutineScope()
-    val onFilter by rememberUpdatedState(actions.onSpamFilter)
-    val confirmer = remember(scope) {
-        SwitchConfirmer(scope) { change -> if (change is SortChange.Filter) onFilter(change.on) }
-    }
-    val pending by confirmer.pending.collectAsStateWithLifecycle()
+internal fun SpamFilterGroup(
+    spam: SpamSummary,
+    switchModel: SpamFilterSwitchViewModel = viewModel(factory = SpamFilterSwitchViewModel.Factory),
+) {
+    val pending by switchModel.switches.pending.collectAsStateWithLifecycle()
     val shown = when {
         !spam.filterOn -> UnknownSenderMode.OFF
         !spam.codeGroupOn -> UnknownSenderMode.STRICT
         else -> UnknownSenderMode.SMART
     }
     FilterSwitchGroup(spam.filterOn, rememberSortingCardMode(shown)) { on ->
-        confirmer.request(SortChange.Filter(on))
+        switchModel.switches.request(SortChange.Filter(on))
     }
-    pending?.let { SwitchConfirmDialog(it, confirmer::confirm, confirmer::dismiss) }
+    pending?.let { SwitchConfirmDialog(it, switchModel.switches::confirm, switchModel.switches::dismiss) }
 }
 
 /** The three unknown-sender modes. Strict also blocks verification codes, so it asks first (SE-23). */

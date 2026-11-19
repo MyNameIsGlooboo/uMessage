@@ -1,6 +1,8 @@
 package com.glooboo.umessage.ui.spam
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -35,12 +37,16 @@ object ChatMoveCounting {
     var counter: ChatMoveCounter = UNKNOWN
 }
 
-/** A switch change waiting for its confirm, with the number of chats it moves ([chats] null: unknown). */
-data class SwitchConfirm(val change: SortChange, val chats: Int?)
+/**
+ * A switch change waiting for its confirm. [chats] is the number of chats it moves; null while [counting] or when it
+ * cannot be known. The dialog shows at once and fills in the number when it arrives (G-3).
+ */
+data class SwitchConfirm(val change: SortChange, val chats: Int?, val counting: Boolean = false)
 
 /**
- * The ask-first step of a switch that moves chats (answer 18, U11): [request] counts the chats that would move and
- * shows the confirm, [confirm] makes the change through [apply], [dismiss] leaves everything as it was. A count that
+ * The ask-first step of a switch that moves chats (answer 18, U11): [request] shows the confirm at once and counts the
+ * chats that would move in one job (a new request cancels the old one), [confirm] makes the change through [apply],
+ * [dismiss] leaves everything as it was. A count that comes after the confirm or the dismiss is dropped; a count that
  * fails is "unknown", never a reason to skip the confirm.
  */
 class SwitchConfirmer(
@@ -50,21 +56,30 @@ class SwitchConfirmer(
 ) {
     private val pendingState = MutableStateFlow<SwitchConfirm?>(null)
     val pending: StateFlow<SwitchConfirm?> = pendingState.asStateFlow()
+    private var countJob: Job? = null
 
     fun request(change: SortChange) {
-        scope.launch {
-            val chats = runCatching { counter().chatsMoving(change) }.getOrNull()
-            pendingState.value = SwitchConfirm(change, chats?.coerceAtLeast(0))
+        countJob?.cancel()
+        val asked = SwitchConfirm(change, chats = null, counting = true)
+        pendingState.value = asked
+        countJob = scope.launch {
+            // A failed count is "unknown"; the confirm still shows. A cancelled count writes nothing.
+            val chats = runCatching { counter().chatsMoving(change) }.also { ensureActive() }.getOrNull()
+            pendingState.compareAndSet(asked, asked.copy(chats = chats?.coerceAtLeast(0), counting = false))
         }
     }
 
     fun confirm() {
         val change = pendingState.value?.change ?: return
-        pendingState.value = null
+        stop()
         scope.launch { apply(change) }
     }
 
-    fun dismiss() {
+    fun dismiss() = stop()
+
+    private fun stop() {
+        countJob?.cancel()
+        countJob = null
         pendingState.value = null
     }
 }

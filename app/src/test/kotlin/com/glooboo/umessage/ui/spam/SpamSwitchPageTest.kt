@@ -1,6 +1,8 @@
 package com.glooboo.umessage.ui.spam
 
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
@@ -43,6 +45,9 @@ class SpamSwitchPageTest {
     fun theSwitchReplacesTheModesAndTheForeignNumbersOption() {
         show(SettingsUiState(loading = false, settings = SpamSettings(filterOn = true)))
         compose.onNodeWithText(str(R.string.pt_filter_on_summary)).assertExists()
+        // G-16: "Spam filter" is read once, as the heading; the switch says what it does.
+        compose.onAllNodesWithText(str(R.string.spam_settings_unknown_title), useUnmergedTree = true)
+            .assertCountEquals(1)
         compose.onNodeWithText(str(R.string.spam_mode_strict)).assertDoesNotExist()
         compose.onNodeWithText(str(R.string.spam_mode_smart)).assertDoesNotExist()
         compose.onNodeWithText(str(R.string.region_title)).assertDoesNotExist()
@@ -110,7 +115,9 @@ class SpamSwitchPageTest {
 
     @Test
     fun theRestoreSummaryNamesTheNewSwitches() {
-        assertThat(RestoreSummary.labelOf(BackupSettings.FILTER_ON)).isEqualTo(R.string.spam_settings_unknown_title)
+        // G-17: the switch and the old mode are one setting, listed once.
+        assertThat(RestoreSummary.labelOf(BackupSettings.FILTER_ON))
+            .isEqualTo(RestoreSummary.labelOf(BackupSettings.SPAM_MODE))
         assertThat(RestoreSummary.labelOf(BackupSettings.CODE_GROUP_ON)).isEqualTo(R.string.pt_group_code_title)
         assertThat(RestoreSummary.labelOf(BackupSettings.WROTE_GROUP_ON)).isEqualTo(R.string.pt_group_wrote_title)
     }

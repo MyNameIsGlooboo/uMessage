@@ -66,6 +66,8 @@ import com.glooboo.umessage.ui.components.uiLocale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import android.content.res.Resources
+import androidx.annotation.PluralsRes
+import androidx.annotation.StringRes
 import com.glooboo.umessage.helpers.threadPrefs
 
 @Immutable
@@ -376,52 +378,57 @@ internal fun FilterSwitchGroup(filterOn: Boolean, cardMode: UnknownSenderMode?, 
             { SortingCard(mode = shown, containerColor = MaterialTheme.colorScheme.surface) }
         },
     ) {
+        // G-16: the heading names the filter once; the switch says what on and off do.
         SettingsSwitchRow(
-            title = title,
-            summary = stringResource(if (filterOn) R.string.pt_filter_on_summary else R.string.pt_filter_off_summary),
+            title = stringResource(if (filterOn) R.string.pt_filter_on_summary else R.string.pt_filter_off_summary),
             checked = filterOn,
             onCheckedChange = onFilter,
         )
     }
 }
 
-/** What a switch confirm says. [body] is null when the count is unknown and there is nothing else to say. */
-internal data class SwitchConfirmText(val title: String, val body: String?, val confirmLabel: String)
+/** What a switch confirm says. */
+internal data class SwitchConfirmText(val title: String, val body: String, val confirmLabel: String)
 
 /**
  * The texts of a [SwitchConfirm] (answer 18, U11): the number of chats that move, "No chat moves now." for none, and
  * no number at all while the count is unknown. Turning the code group off also says that codes then go to Spam.
  */
-internal fun switchConfirmText(resources: Resources, confirm: SwitchConfirm): SwitchConfirmText {
-    val chats = confirm.chats
-    return when (val change = confirm.change) {
+internal fun switchConfirmText(resources: Resources, confirm: SwitchConfirm): SwitchConfirmText =
+    when (val change = confirm.change) {
         is SortChange.Filter -> SwitchConfirmText(
             title = resources.getString(
                 if (change.on) R.string.pt_filter_on_confirm_title else R.string.pt_filter_off_confirm_title,
             ),
-            body = when {
-                chats == null -> null
-                chats == 0 -> resources.getString(R.string.pt_confirm_none_move)
-                change.on -> resources.getQuantityString(R.plurals.pt_filter_on_confirm_body, chats, chats)
-                else -> resources.getQuantityString(R.plurals.pt_filter_off_confirm_body, chats, chats)
-            },
+            body = countedBody(
+                resources,
+                confirm.chats,
+                if (change.on) R.plurals.pt_filter_on_confirm_body else R.plurals.pt_filter_off_confirm_body,
+                if (change.on) R.string.pt_filter_on_confirm_rest else R.string.pt_filter_off_confirm_rest,
+            ),
             confirmLabel = resources.getString(if (change.on) R.string.cleanup_bin_confirm else R.string.pt_turn_off),
         )
         is SortChange.Group -> {
-            val count = when {
-                chats == null -> null
-                chats == 0 -> resources.getString(R.string.pt_confirm_none_move)
-                else -> resources.getQuantityString(R.plurals.pt_group_off_body, chats, chats)
-            }
+            val count = countedBody(resources, confirm.chats, R.plurals.pt_group_off_body, R.string.pt_group_off_rest)
             val note = resources.getString(R.string.pt_group_off_code_note).takeIf { change.group == AllowGroup.CODE }
             SwitchConfirmText(
                 title = resources.getString(R.string.pt_group_off_title, resources.getString(groupTitle(change.group))),
-                body = listOfNotNull(count, note).joinToString(PARAGRAPH).ifEmpty { null },
+                body = listOfNotNull(count, note).joinToString(PARAGRAPH),
                 confirmLabel = resources.getString(R.string.pt_turn_off),
             )
         }
     }
-}
+
+/**
+ * The confirm's text (lead decision): [counted] names the [chats] and holds the other sentences too; with no chat to
+ * move it is "No chat moves now." and [rest]; while the count is unknown only [rest], the sentences without a number.
+ */
+private fun countedBody(resources: Resources, chats: Int?, @PluralsRes counted: Int, @StringRes rest: Int): String =
+    when (chats) {
+        null -> resources.getString(rest)
+        0 -> resources.getString(R.string.pt_confirm_none_move) + " " + resources.getString(rest)
+        else -> resources.getQuantityString(counted, chats, chats)
+    }
 
 private const val PARAGRAPH = "\n\n"
 
@@ -438,7 +445,7 @@ internal fun SwitchConfirmDialog(confirm: SwitchConfirm, onConfirm: () -> Unit, 
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(text.title) },
-        text = text.body?.let { body -> { Text(body, style = MaterialTheme.typography.bodyMedium) } },
+        text = { Text(text.body, style = MaterialTheme.typography.bodyMedium) },
         confirmButton = { TextButton(onClick = onConfirm) { Text(text.confirmLabel) } },
         dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.spam_cancel)) } },
     )

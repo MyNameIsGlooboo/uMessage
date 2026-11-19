@@ -225,13 +225,15 @@ fun RulesRoute(
 /** Snackbars for the rules screen's one-shot events, with Undo where the action can be taken back. */
 @Composable
 private fun RulesEvents(viewModel: RulesViewModel, snackbar: SnackbarHostState) {
-    val resources = LocalContext.current.resources
+    val context = LocalContext.current
+    val resources = context.resources
     val undoLabel = stringResource(R.string.spam_undo)
     val deletedText = stringResource(R.string.spam_rules_deleted)
     val failedText = stringResource(R.string.spam_snack_failed)
     LaunchedEffect(viewModel) {
         viewModel.eventFlow.collect { event ->
-            snackbar.currentSnackbarData?.dismiss()
+            // G-11: a removal waits behind the snackbar on screen, so an earlier removal keeps its Undo.
+            if (event !is RulesEvent.MembersRemoved) snackbar.currentSnackbarData?.dismiss()
             launch {
                 when (event) {
                     is RulesEvent.Deleted -> {
@@ -250,7 +252,8 @@ private fun RulesEvents(viewModel: RulesViewModel, snackbar: SnackbarHostState) 
                         snackbar.showSnackbar(contactsAddedText(resources, event), duration = SnackbarDuration.Long)
                     RulesEvent.Failed -> snackbar.showSnackbar(failedText, duration = SnackbarDuration.Long)
                     is RulesEvent.MembersRemoved -> {
-                        val result = snackbar.showUndo(membersRemovedText(resources, event.members), undoLabel)
+                        val labels = event.members.map { memberLabel(context, it) }
+                        val result = snackbar.showUndo(membersRemovedText(resources, labels), undoLabel)
                         if (result == SnackbarResult.ActionPerformed) viewModel.restoreMembers(event.members)
                     }
                 }
@@ -259,11 +262,11 @@ private fun RulesEvents(viewModel: RulesViewModel, snackbar: SnackbarHostState) 
     }
 }
 
-/** "+1 555-000-1234 removed from the list", the sender kept left to right in a right-to-left text. */
-internal fun membersRemovedText(resources: android.content.res.Resources, members: List<AllowGroupMember>): String =
+/** "+1 555-000-1234 removed from the list": [labels] are the senders as the member list shows them. */
+internal fun membersRemovedText(resources: android.content.res.Resources, labels: List<String>): String =
     resources.getString(
         R.string.pt_group_member_removed,
-        isolateNumbers(members.joinToString(resources.getString(R.string.settings_f_list_separator)) { it.address }),
+        labels.joinToString(resources.getString(R.string.settings_f_list_separator)),
     )
 
 /** "3 rules added from contacts. Skipped: 1 (already have a rule)." */
@@ -371,7 +374,11 @@ private fun RulesContent(state: RulesUiState, actions: RulesActions, bottomPaddi
             body = stringResource(R.string.rules_search_empty_body),
         )
         // The group rows stay at the top of an empty allow list.
-        nothingShown && groupRows -> Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+        // G-14: room for the Add button and the navigation bar under the empty state.
+        nothingShown && groupRows -> Column(
+            Modifier.fillMaxSize().verticalScroll(rememberScrollState())
+                .padding(bottom = FabListBottomPadding + bottomPadding),
+        ) {
             AllowGroupRows(state.groups, actions, Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp))
             RulesEmpty(state.tab, actions.onExample)
         }

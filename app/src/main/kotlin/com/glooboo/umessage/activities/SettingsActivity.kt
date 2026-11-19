@@ -377,7 +377,6 @@ class SettingsActivity : ComposeSimpleActivity() {
             onLanguage = ::showLanguageDialog,
             onSpamMode = { mode -> updateSpamSettings { it.copy(mode = mode) } },
             onNotifyOnBlock = { on -> updateSpamSettings { it.copy(notifyOnBlock = on) } },
-            onSpamFilter = { on -> updateSpamSettings { it.copy(filterOn = on) } },
             onCodeAlert = ::openCodeChannelSettings,
             onCharacterCounter = { config.showCharacterCounter = it; refreshState() },
             onSimpleCharacters = { config.useSimpleCharacters = it; refreshState() },

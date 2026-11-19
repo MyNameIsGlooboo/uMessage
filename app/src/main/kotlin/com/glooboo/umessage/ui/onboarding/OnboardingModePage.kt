@@ -33,7 +33,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -81,7 +83,12 @@ internal const val FILTER_OFF_TAG = "onb_filter_off"
  * that Settings can change it. The heading names the radio group. The cards wrap at large font sizes; nothing is cut.
  */
 @Composable
-internal fun WelcomeFilterChoice(filterOn: Boolean, onFilter: (Boolean) -> Unit, modifier: Modifier = Modifier) {
+internal fun WelcomeFilterChoice(
+    filterOn: Boolean,
+    onFilter: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    saveFailed: Boolean = false,
+) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
             stringResource(R.string.spam_settings_unknown_title),
@@ -112,6 +119,14 @@ internal fun WelcomeFilterChoice(filterOn: Boolean, onFilter: (Boolean) -> Unit,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
+        if (saveFailed) {
+            Text(
+                stringResource(R.string.spam_snack_failed),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+            )
+        }
     }
 }
 

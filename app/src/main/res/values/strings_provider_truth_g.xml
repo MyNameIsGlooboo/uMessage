@@ -80,4 +80,12 @@
     <string name="pt_changed_store">Older spam is now stored on the phone itself, like every other text.</string>
     <string name="pt_changed_purge">Auto-delete of old spam is off. You can turn it on in Settings.</string>
     <string name="pt_changed_open_spam">Review Spam</string>
+
+    <!-- Added in the step G fix round. The confirm sentences are the approved ones without the count; the two progress
+         lines are new wording for step I and the owner. -->
+    <string name="pt_filter_off_confirm_rest">Chats of senders you blocked stay in Spam.</string>
+    <string name="pt_filter_on_confirm_rest">Nothing is deleted.</string>
+    <string name="pt_group_off_rest">The senders stay on the list and come back when you turn it on again.</string>
+    <string name="pt_progress_step_running">In progress</string>
+    <string name="pt_progress_older_waiting">Waits until uMessage is your default SMS app</string>
 </resources>

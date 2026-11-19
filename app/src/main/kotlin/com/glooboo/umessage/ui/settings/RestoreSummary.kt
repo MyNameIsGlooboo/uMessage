@@ -27,7 +27,8 @@ object RestoreSummary {
         BackupSettings.LOCK_SCREEN to R.string.settings_nav_lock_screen,
         BackupSettings.FORWARD_PAUSED to R.string.settings_nav_forward_pause,
         // Provider truth: the filter switch and the two group rules (D3 A).
-        BackupSettings.FILTER_ON to R.string.spam_settings_unknown_title,
+        // G-17: the switch and the old mode are one setting, so they share one entry.
+        BackupSettings.FILTER_ON to R.string.settings_nav_spam_row,
         BackupSettings.CODE_GROUP_ON to R.string.pt_group_code_title,
         BackupSettings.WROTE_GROUP_ON to R.string.pt_group_wrote_title,
     ) + moreLabels()

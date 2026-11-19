@@ -67,4 +67,10 @@
     <string name="pt_changed_store">اسپم‌های قدیمی حالا مثل بقیهٔ پیام‌ها در حافظهٔ خود گوشی هستند.</string>
     <string name="pt_changed_purge">حذف خودکار اسپم‌های قدیمی خاموش است. می‌توانید در تنظیمات روشنش کنید.</string>
     <string name="pt_changed_open_spam">بررسی اسپم</string>
+
+    <string name="pt_filter_off_confirm_rest">گفتگوی فرستنده‌هایی که بلاک کرده‌اید در اسپم می‌ماند.</string>
+    <string name="pt_filter_on_confirm_rest">چیزی حذف نمی‌شود.</string>
+    <string name="pt_group_off_rest">فرستنده‌ها در لیست می‌مانند و با روشن کردن دوباره برمی‌گردند.</string>
+    <string name="pt_progress_step_running">در حال انجام</string>
+    <string name="pt_progress_older_waiting">منتظر می‌ماند تا uMessage برنامهٔ پیام پیش‌فرض شما شود</string>
 </resources>

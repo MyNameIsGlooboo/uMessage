@@ -9,6 +9,7 @@ import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -54,7 +55,7 @@ class FilterSwitchConfirmTest {
     fun turningTheFilterOffAsksWithTheCountAndChangesNothingBeforeTheConfirm() {
         start(counter = { change -> if (change == SortChange.Filter(on = false)) 7 else null })
         vm.switches.request(SortChange.Filter(false))
-        awaitUntil { vm.state.value.switchConfirm != null }
+        awaitUntil { vm.state.value.switchConfirm?.counting == false }
 
         assertThat(vm.state.value.switchConfirm).isEqualTo(SwitchConfirm(SortChange.Filter(false), 7))
         assertThat(stored().filterOn).isTrue()
@@ -89,7 +90,7 @@ class FilterSwitchConfirmTest {
     fun anUnknownOrFailedCountStillAsksWithoutANumber() {
         start(counter = { error("sorter not ready") })
         vm.switches.request(SortChange.Filter(false))
-        awaitUntil { vm.state.value.switchConfirm != null }
+        awaitUntil { vm.state.value.switchConfirm?.counting == false }
         assertThat(vm.state.value.switchConfirm!!.chats).isNull()
         assertThat(stored().filterOn).isTrue()
     }
@@ -108,11 +109,16 @@ class FilterSwitchConfirmTest {
         assertThat(on.confirmLabel).isEqualTo(res.getString(R.string.cleanup_bin_confirm))
 
         val none = switchConfirmText(res, SwitchConfirm(SortChange.Filter(true), 0))
-        assertThat(none.body).isEqualTo(res.getString(R.string.pt_confirm_none_move))
+        assertThat(none.body).isEqualTo(
+            res.getString(R.string.pt_confirm_none_move) + " " + res.getString(R.string.pt_filter_on_confirm_rest),
+        )
 
+        // Lead decision: an unknown count drops only the sentence with the number.
         val unknown = switchConfirmText(res, SwitchConfirm(SortChange.Filter(true), null))
-        assertThat(unknown.body).isNull()
+        assertThat(unknown.body).isEqualTo(res.getString(R.string.pt_filter_on_confirm_rest))
         assertThat(unknown.title).isEqualTo(res.getString(R.string.pt_filter_on_confirm_title))
+        val unknownOff = switchConfirmText(res, SwitchConfirm(SortChange.Filter(false), null, counting = true))
+        assertThat(unknownOff.body).isEqualTo(res.getString(R.string.pt_filter_off_confirm_rest))
     }
 
     @Test
@@ -128,7 +134,47 @@ class FilterSwitchConfirmTest {
 
         val wrote = switchConfirmText(res, SwitchConfirm(SortChange.Group(AllowGroup.WROTE, false), null))
         assertThat(wrote.title).contains(res.getString(R.string.pt_group_wrote_title))
-        assertThat(wrote.body).isNull()
+        assertThat(wrote.body).isEqualTo(res.getString(R.string.pt_group_off_rest))
+    }
+
+    @Test
+    fun theDialogShowsAtOnceAndTheSlowCountFillsItIn() {
+        val gate = CompletableDeferred<Int>()
+        start(counter = { gate.await() })
+        vm.switches.request(SortChange.Filter(false))
+        idleMain()
+        assertThat(vm.state.value.switchConfirm)
+            .isEqualTo(SwitchConfirm(SortChange.Filter(false), null, counting = true))
+
+        gate.complete(9)
+        awaitUntil { vm.state.value.switchConfirm?.chats == 9 }
+        assertThat(vm.state.value.switchConfirm!!.counting).isFalse()
+    }
+
+    @Test
+    fun aCountThatComesAfterTheConfirmIsDropped() {
+        val gate = CompletableDeferred<Int>()
+        start(counter = { gate.await() })
+        vm.switches.request(SortChange.Filter(false))
+        awaitUntil { vm.state.value.switchConfirm != null }
+        vm.switches.confirm()
+        awaitUntil { !stored().filterOn }
+        gate.complete(4)
+        idleMain()
+        assertThat(vm.state.value.switchConfirm).isNull()
+    }
+
+    @Test
+    fun aNewRequestReplacesTheOldOneAndItsCount() {
+        val first = CompletableDeferred<Int>()
+        start(counter = { change -> if (change == SortChange.Filter(false)) first.await() else 2 })
+        vm.switches.request(SortChange.Filter(false))
+        idleMain()
+        vm.switches.request(SortChange.Filter(true))
+        awaitUntil { vm.state.value.switchConfirm?.chats == 2 }
+        first.complete(8)
+        idleMain()
+        assertThat(vm.state.value.switchConfirm).isEqualTo(SwitchConfirm(SortChange.Filter(true), 2))
     }
 
     @Test

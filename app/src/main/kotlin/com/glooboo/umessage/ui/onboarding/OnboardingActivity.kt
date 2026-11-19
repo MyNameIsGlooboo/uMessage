@@ -142,6 +142,14 @@ class OnboardingViewModel @JvmOverloads constructor(
     val mode: StateFlow<UnknownSenderMode> = _mode.asStateFlow()
     private val _filterOn = MutableStateFlow(SpamSettings().filterOn)
     val filterOn: StateFlow<Boolean> = _filterOn.asStateFlow()
+
+    /** The Welcome choice could not be stored; the page says so, and the next tap tries again. */
+    private val _filterSaveFailed = MutableStateFlow(false)
+    val filterSaveFailed: StateFlow<Boolean> = _filterSaveFailed.asStateFlow()
+
+    /** Set by the first tap, so the settings read that finishes later does not undo the choice (G-10). */
+    @Volatile
+    private var filterChosen = false
     private val _purgeDays = MutableStateFlow(SpamSettings().purgeAfterDays)
     val purgeDays: StateFlow<Int> = _purgeDays.asStateFlow()
     private val config = Config.newInstance(app)
@@ -154,15 +162,19 @@ class OnboardingViewModel @JvmOverloads constructor(
             runCatching { repository().settings.first() }.onSuccess {
                 _mode.value = it.mode
                 _purgeDays.value = it.purgeAfterDays
-                _filterOn.value = it.filterOn
+                if (!filterChosen) _filterOn.value = it.filterOn
             }
         }
     }
 
     /** The Welcome choice, written at once like the other steps; the old mode follows it (SpamSettingsStore). */
     fun setFilterOn(on: Boolean) {
+        filterChosen = true
         _filterOn.value = on
-        viewModelScope.launch { runCatching { repository().updateSettings { it.copy(filterOn = on) } } }
+        viewModelScope.launch {
+            val saved = runCatching { repository().updateSettings { it.copy(filterOn = on) } }.isSuccess
+            _filterSaveFailed.value = !saved
+        }
     }
 
     fun setMode(mode: UnknownSenderMode) {

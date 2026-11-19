@@ -58,6 +58,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -149,14 +150,12 @@ fun OnboardingScreen(
     var defaultUnavailable by rememberSaveable { mutableStateOf(false) }
     // Set by "Allow all" while the default-app dialog is open: when it closes, the permissions are asked next.
     var allowAllPending by rememberSaveable { mutableStateOf(false) }
-    // M-UI8: the Setup page's asker, so a dialog that was only dismissed is not taken for "don't ask again".
-    val deniedState = rememberSaveable { mutableStateOf(emptySet<String>()) }
-    val rationaleState = rememberSaveable { mutableStateOf(emptySet<String>()) }
-    val asker = remember(context) { PermissionAsker(context, deniedState, rationaleState) }
+    val asker = rememberOnboardingAsker { refresh++ }
     val permanentlyDenied = asker.denied
 
     val mode by viewModel.mode.collectAsStateWithLifecycle()
     val filterOn by viewModel.filterOn.collectAsStateWithLifecycle()
+    val filterSaveFailed by viewModel.filterSaveFailed.collectAsStateWithLifecycle()
     val purgeDays by viewModel.purgeDays.collectAsStateWithLifecycle()
     val deliveryReports by viewModel.deliveryReports.collectAsStateWithLifecycle()
 
@@ -172,15 +171,6 @@ fun OnboardingScreen(
             continueAllowAll = true
         }
     }
-
-    val permissionLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions(),
-    ) { result ->
-        // Also marks the permissions asked, which the Setup page reads.
-        asker.onResult(result)
-        refresh++
-    }
-    asker.launch = { permissionLauncher.launch(it) }
 
     fun goTo(page: Int) {
         scope.launch {
@@ -264,6 +254,7 @@ fun OnboardingScreen(
                         },
                         filterOn = filterOn,
                         onFilter = if (ProviderTruthFlag.enabled) viewModel::setFilterOn else null,
+                        filterSaveFailed = filterSaveFailed,
                     )
 
                     OnboardingPage.ALLOW -> AllowPage(
@@ -316,6 +307,26 @@ fun OnboardingScreen(
             )
         }
     }
+}
+
+/**
+ * M-UI8: the Setup page's [PermissionAsker] for the Allow step, so a dialog that was only dismissed is not taken for
+ * "don't ask again" (the next tap asks again instead of opening app info). Its answers also mark the permissions as
+ * asked, which the Setup page reads. [onResult] runs after each answer.
+ */
+@Composable
+internal fun rememberOnboardingAsker(onResult: () -> Unit): PermissionAsker {
+    val context = LocalContext.current
+    val deniedState = rememberSaveable { mutableStateOf(emptySet<String>()) }
+    val rationaleState = rememberSaveable { mutableStateOf(emptySet<String>()) }
+    val asker = remember(context) { PermissionAsker(context, deniedState, rationaleState) }
+    val latest by rememberUpdatedState(onResult)
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
+        asker.onResult(result)
+        latest()
+    }
+    asker.launch = { launcher.launch(it) }
+    return asker
 }
 
 @Composable
@@ -461,6 +472,7 @@ internal fun WelcomePage(
     onLanguage: ((AppLanguage) -> Unit)? = null,
     filterOn: Boolean = true,
     onFilter: ((Boolean) -> Unit)? = null,
+    filterSaveFailed: Boolean = false,
 ) {
     val alpha by animateFloatAsState(
         targetValue = 1f,
@@ -473,9 +485,9 @@ internal fun WelcomePage(
         PageBody(stringResource(R.string.onb_welcome_intro))
         WelcomeAnimation(
             reduceMotion = reduceMotion,
-            mode = if (filterOn) UnknownSenderMode.SMART else UnknownSenderMode.OFF,
+            mode = if (onFilter == null || filterOn) UnknownSenderMode.SMART else UnknownSenderMode.OFF,
         )
-        if (onFilter != null) WelcomeFilterChoice(filterOn, onFilter)
+        if (onFilter != null) WelcomeFilterChoice(filterOn, onFilter, saveFailed = filterSaveFailed)
         var more by rememberSaveable { mutableStateOf(false) }
         val top = welcomeTopTitles()
         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
