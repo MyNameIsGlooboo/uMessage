@@ -1,6 +1,7 @@
 package com.glooboo.umessage.ui.thread
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.speech.tts.TextToSpeech
 import android.text.format.DateUtils
@@ -45,6 +46,14 @@ fun copiedText(selected: List<Message>, dateOf: (Message) -> String, me: String)
             "[${dateOf(message)}] $sender: ${message.body}"
         }
     }
+
+/**
+ * Puts the selection's [text] on the clipboard. Text from a hidden chat stays out of the clipboard preview (I25,
+ * M-SEC5): one sensitive copy under a generic label, and a toast that does not repeat it.
+ */
+internal fun copySelection(context: Context, text: String, fromHiddenChat: Boolean) {
+    if (fromHiddenChat) SensitiveClip.copyPrivately(context, text) else context.copyToClipboard(text)
+}
 
 /**
  * What the selection bar does with the selected messages. [saveAttachments] asks where to save attachments;
@@ -109,11 +118,7 @@ class ThreadSelectionActions(
         val flags = DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR or DateUtils.FORMAT_SHOW_TIME
         val text = copiedText(selected, { DateUtils.formatDateTime(activity, it.millis(), flags) }, activity.getString(R.string.me))
         if (text.isEmpty()) return
-        activity.copyToClipboard(text)
-        // Text from a hidden chat stays out of the clipboard preview (I25).
-        if (selected.any { HiddenChats.get(activity).isMarked(it.threadId) }) {
-            SensitiveClip.mark(activity, text)
-        }
+        copySelection(activity, text, fromHiddenChat = selected.any { HiddenChats.get(activity).isMarked(it.threadId) })
     }
 
     /** One message goes as it is; several go as "[date] sender: text" blocks, after a warning (I38). */

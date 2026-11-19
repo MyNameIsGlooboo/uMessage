@@ -278,6 +278,13 @@ interface MessagesDao {
     @Query("UPDATE messages SET attachment = :attachment WHERE id = :id AND is_scheduled = 1")
     fun updateScheduledAttachment(id: Long, attachment: MessageAttachment?): Int
 
+    /**
+     * M-P7: like [updateScheduledAttachment], but only while the row is still queued (6). A row a send claimed (4),
+     * one held as failed (5) or one already deleted is left as it is, and 0 comes back.
+     */
+    @Query("UPDATE messages SET attachment = :attachment WHERE id = :id AND is_scheduled = 1 AND type = 6")
+    fun updateQueuedScheduledAttachment(id: Long, attachment: MessageAttachment?): Int
+
     @Transaction
     fun delete(id: Long, isMMS: Boolean) {
         deleteFromMessages(id, isMMS)

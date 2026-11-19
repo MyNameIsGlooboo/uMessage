@@ -2,6 +2,7 @@ import com.android.build.api.artifact.SingleArtifact
 import org.gradle.api.artifacts.result.ResolvedComponentResult
 import org.gradle.api.artifacts.result.ResolvedDependencyResult
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.security.MessageDigest
 import java.util.Properties
 
 plugins {
@@ -256,6 +257,66 @@ abstract class CheckPlayManifestTask : DefaultTask() {
     }
 }
 
+/**
+ * M-B6: keeps the R8 mapping of a release build, so crash traces from builds outside Play (GitHub, F-Droid, a
+ * sideloaded APK) can be decoded later. Runs after every bundle<Variant> of a release variant and writes
+ * `<bundle name>-mapping.txt` twice: beside the bundle, and into [archiveDir] (app/release-mappings/<variant>/, not in
+ * git), which a clean does not delete. A different mapping already kept under that name is never overwritten: the new
+ * one gets `-mapping-<first 8 of its SHA-256>.txt`. Each variant has its own folder, so no two tasks share an output.
+ * The release workflow attaches the copy beside the bundle to the GitHub release. Not cached: it only copies one file.
+ */
+@org.gradle.work.DisableCachingByDefault(because = "Copies one file")
+abstract class ArchiveMappingTask : DefaultTask() {
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val mapping: RegularFileProperty
+
+    /** Gives the name, and orders this after the bundle is written; the bundle's content is not read. */
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
+    abstract val bundle: RegularFileProperty
+
+    @get:OutputDirectory
+    abstract val archiveDir: DirectoryProperty
+
+    init {
+        // The copy beside the bundle is not a declared output (that folder is AGP's), so never skip: it is one file.
+        outputs.upToDateWhen { false }
+    }
+
+    @TaskAction
+    fun archive() {
+        val bundleFile = bundle.get().asFile
+        val name = bundleFile.nameWithoutExtension + "-mapping.txt"
+        val source = mapping.get().asFile
+        source.copyTo(File(bundleFile.parentFile, name), overwrite = true)
+
+        // K1-R1: the durable copy never replaces a different mapping of the same version code (a rebuild of a
+        // version that may already be out). Same content: nothing to do; other content: kept under a hash suffix.
+        val durable = archiveDir.get().file(name).asFile
+        val hash = sha256(source)
+        val target = when {
+            !durable.exists() -> durable
+            sha256(durable) == hash -> return
+            else -> File(durable.parentFile, bundleFile.nameWithoutExtension + "-mapping-${hash.take(8)}.txt")
+        }
+        if (!target.exists()) source.copyTo(target)
+    }
+
+    private fun sha256(file: File): String {
+        val digest = MessageDigest.getInstance("SHA-256")
+        file.inputStream().use { input ->
+            val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
+            while (true) {
+                val read = input.read(buffer)
+                if (read < 0) break
+                digest.update(buffer, 0, read)
+            }
+        }
+        return digest.digest().joinToString("") { byte -> "%02x".format(byte) }
+    }
+}
+
 // Every module and library a resolved classpath contains, as "group:name:version" (or "project :x").
 fun ResolvedComponentResult.allComponentIds(): List<String> {
     val seen = LinkedHashSet<String>()
@@ -269,6 +330,17 @@ fun ResolvedComponentResult.allComponentIds(): List<String> {
 }
 
 androidComponents {
+    onVariants(selector().withBuildType("release")) { variant ->
+        val capitalized = variant.name.replaceFirstChar { it.uppercase() }
+        val archiveTask = tasks.register<ArchiveMappingTask>("archiveMapping$capitalized") {
+            group = "build"
+            description = "Copies the R8 mapping of ${variant.name} beside its app bundle and into release-mappings/."
+            mapping.set(variant.artifacts.get(SingleArtifact.OBFUSCATION_MAPPING_FILE))
+            bundle.set(variant.artifacts.get(SingleArtifact.BUNDLE))
+            archiveDir.set(layout.projectDirectory.dir("release-mappings/${variant.name}"))
+        }
+        tasks.matching { it.name == "bundle$capitalized" }.configureEach { finalizedBy(archiveTask) }
+    }
     onVariants(selector().withFlavor("variants" to "foss")) { variant ->
         val checkTask = tasks.register<CheckFdroidTask>("checkFdroid" + variant.name.replaceFirstChar { it.uppercase() }) {
             group = "verification"

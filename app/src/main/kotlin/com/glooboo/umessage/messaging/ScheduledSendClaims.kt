@@ -1,8 +1,11 @@
 package com.glooboo.umessage.messaging
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.provider.Telephony.Sms
 import com.glooboo.umessage.extensions.messagesDB
+import com.glooboo.umessage.extensions.notificationHelper
 import com.glooboo.umessage.models.Attachment
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageAttachment
@@ -41,6 +44,9 @@ object ScheduledSendClaims {
     }
 
     fun isInFlight(id: Long): Boolean = id in inFlight
+
+    /** Whether any scheduled send runs in this process right now. */
+    fun anyInFlight(): Boolean = inFlight.isNotEmpty()
 }
 
 /** What to do with a scheduled message found when alarms are set again. */
@@ -52,6 +58,26 @@ internal fun scheduledActionFor(type: Int, inFlight: Boolean): ScheduledAction =
     type == Sms.MESSAGE_TYPE_OUTBOX && inFlight -> ScheduledAction.SKIP // being sent right now
     type == Sms.MESSAGE_TYPE_OUTBOX -> ScheduledAction.HOLD // a send that died half way
     else -> ScheduledAction.ARM
+}
+
+/**
+ * M-P4: [ScheduledAction.HOLD] for [message], a scheduled send that died half way. The row is held as failed, with
+ * Retry, and the user gets the "not sent" notification: nobody else will tell them, as the app was not running. It
+ * opens the message's own thread, where the held message and Retry are.
+ */
+fun Context.holdDiedScheduledSend(message: Message) {
+    val held = runCatching { messagesDB.updateScheduledType(message.id, Sms.MESSAGE_TYPE_FAILED) }.getOrDefault(0)
+    if (held == 0) return
+    val recipientName = message.participants.joinToString {
+        it.name.ifBlank { it.phoneNumbers.firstOrNull()?.normalizedNumber.orEmpty() }
+    }
+    runCatching {
+        Handler(Looper.getMainLooper()).post {
+            runCatching {
+                notificationHelper.showSendingFailedNotification(recipientName, message.threadId, automatic = true)
+            }
+        }
+    }
 }
 
 /**

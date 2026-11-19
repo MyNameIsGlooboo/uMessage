@@ -1,6 +1,7 @@
 package com.glooboo.umessage.messaging
 
 import android.app.AlarmManager
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.provider.Telephony
@@ -135,6 +136,21 @@ class ScheduledSendClaimTest {
 
         assertThat(alarms).isEmpty()
         assertThat(typeInDb()).isEqualTo(Telephony.Sms.MESSAGE_TYPE_FAILED)
+    }
+
+    @Test
+    fun aHeldSendThatDiedHalfWayPostsTheNotSentNotification() {
+        // M-P4: the app was not running when the send died, so the notification is the only way the user learns of it.
+        store(scheduled(type = Telephony.Sms.MESSAGE_TYPE_OUTBOX))
+
+        offMainThread { context.holdDiedScheduledSend(scheduled(type = Telephony.Sms.MESSAGE_TYPE_OUTBOX)) }
+        ShadowLooper.idleMainLooper()
+
+        assertThat(typeInDb()).isEqualTo(Telephony.Sms.MESSAGE_TYPE_FAILED)
+        val notifications =
+            shadowOf(context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).allNotifications
+        assertThat(notifications).hasSize(1)
+        assertThat(shadowOf(notifications.single()).contentText.toString()).contains("Sara")
     }
 
     @Test

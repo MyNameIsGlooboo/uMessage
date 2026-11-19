@@ -1,6 +1,7 @@
 package com.glooboo.umessage.ui.components
 
 import android.app.Activity
+import android.content.Context
 import com.glooboo.umessage.R
 import org.fossify.commons.extensions.getPhoneNumberTypeText
 import org.fossify.commons.models.PhoneNumber
@@ -69,6 +70,16 @@ fun Activity.askYesNo(message: String, onConfirm: () -> Unit) {
 }
 
 /**
+ * One "number (type)" row. M-UI10: the number is grouped and isolated, so a right-to-left (Persian) dialog does not lay
+ * its digit groups out backwards.
+ */
+internal fun Context.numberChoiceLabel(number: PhoneNumber): String = getString(
+    R.string.ui_number_with_type,
+    isolateNumbers(displayNumber(this, number.value)),
+    getPhoneNumberTypeText(number.type, number.label),
+)
+
+/**
  * Lets the user pick one of a contact's numbers: a single number is returned right away, with [respectPrimary] the
  * primary number wins, otherwise a list of "number (type)" rows is shown.
  */
@@ -86,9 +97,7 @@ fun Activity.pickPhoneNumber(
                     return
                 }
             }
-            val items = phoneNumbers.map { number ->
-                ChoiceItem(getString(R.string.ui_number_with_type, number.value, getPhoneNumberTypeText(number.type, number.label)), number)
-            }
+            val items = phoneNumbers.map { number -> ChoiceItem(numberChoiceLabel(number), number) }
             showChoiceDialog(items, onChoose = callback)
         }
     }
