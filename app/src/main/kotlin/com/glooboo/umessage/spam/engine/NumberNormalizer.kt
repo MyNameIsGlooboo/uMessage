@@ -13,6 +13,12 @@ class NumberNormalizer(private val regionProvider: () -> String) {
     /** Same rules, but national numbers are read in [region] (e.g. the country of the SIM that received them). */
     fun withRegion(region: String): NumberNormalizer = NumberNormalizer { region }
 
+    /** This reader with its region read once (the default region can ask the phone each time). */
+    fun frozen(): NumberNormalizer {
+        val fixed = region().orEmpty()
+        return NumberNormalizer { fixed }
+    }
+
     /** E.164 for phone numbers, digits for short codes, upper-case for alphanumeric sender ids. */
     fun normalize(raw: String): String {
         val value = raw.trim()
@@ -166,5 +172,73 @@ class NumberNormalizer(private val regionProvider: () -> String) {
     private companion object {
         /** Shortest national part compared without a country, so short codes are not matched loosely. */
         const val MIN_NATIONAL = 7
+    }
+}
+
+/**
+ * R6, S8, M-T3: the one fixed list of regions a national number is read in: the country of every SIM, then the
+ * default region. Every path that asks "is this the same sender?" (the rules, the group members, the verdict of a new
+ * text and the sorting of the chat list) reads a number with this list, never with the SIM a text arrived on, so a
+ * sender cannot be one person in one place and another person in the other.
+ */
+class NumberReaders private constructor(
+    private val normalizer: NumberNormalizer,
+    private val simRegions: () -> List<String>,
+    /** Set by [frozen]: the list read once. */
+    private val fixed: List<NumberNormalizer>?,
+) {
+    constructor(
+        normalizer: NumberNormalizer,
+        /** Upper-case ISO countries of the active SIMs, in slot order; empty when unknown. */
+        simRegions: () -> List<String> = { emptyList() },
+    ) : this(normalizer, simRegions, null)
+
+    /** One reader per SIM country, then the default region. Never throws. */
+    fun readers(): List<NumberNormalizer> {
+        fixed?.let { return it }
+        val regions = runCatching { simRegions() }.getOrDefault(emptyList())
+            .mapNotNull { it.trim().uppercase().ifEmpty { null } }
+            .distinct()
+        return regions.map { normalizer.withRegion(it) } + normalizer
+    }
+
+    /**
+     * The same list with the SIM countries and the default region read once, for a bulk run (A-3: sorting every chat
+     * asks the phone for its SIMs and its country once, not once per number).
+     */
+    fun frozen(): NumberReaders = NumberReaders(normalizer, simRegions, readers().map { it.frozen() })
+
+    /** True when [a] and [b] are the same sender in any reading of the list. */
+    fun same(a: String, b: String): Boolean =
+        a.isNotBlank() && b.isNotBlank() && readers().any { it.sameAddress(a, b) }
+
+    /**
+     * The value a group member is stored under: a sender name in lower case; a number in E.164 when any reader of the
+     * list knows its country, else its plain digits. "" for a blank value.
+     */
+    fun senderKey(address: String): String {
+        val value = address.trim()
+        if (value.isEmpty()) return ""
+        if (normalizer.isSenderId(value)) return value.lowercase()
+        val keys = readers().map { it.comparableKey(value) }.filter { it.isNotEmpty() }
+        return keys.firstOrNull { it.startsWith("+") } ?: keys.firstOrNull().orEmpty()
+    }
+
+    /** Every value [address] may be stored under (each reading of the list, and its plain digits), for a lookup. */
+    fun senderKeys(address: String): Set<String> {
+        val value = address.trim()
+        if (value.isEmpty()) return emptySet()
+        if (normalizer.isSenderId(value)) return setOf(value.lowercase())
+        val readers = readers()
+        return (readers.map { it.comparableKey(value) } + readers.map { it.normalize(value) })
+            .filter { it.isNotEmpty() }
+            .toSet()
+    }
+
+    /** The pattern of an exact NUMBER or SENDER_ID rule for [address]: E.164 when a reader of the list knows it. */
+    fun rulePattern(address: String): String {
+        if (normalizer.isSenderId(address)) return normalizer.normalize(address)
+        val forms = readers().map { it.normalize(address) }.filter { it.isNotEmpty() }
+        return forms.firstOrNull { it.startsWith("+") } ?: normalizer.normalize(address)
     }
 }

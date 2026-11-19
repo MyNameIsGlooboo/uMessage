@@ -54,6 +54,18 @@ object RuleNotes {
     /** Whether [note] was written by the app rather than typed by the user. */
     fun isAutomatic(note: String): Boolean = codeOf(note) != null
 
+    /**
+     * Provider truth (H4 A, M-SP1): the rule was made by the filter itself, not by a choice of the user: a sender
+     * allowed or blocked because a text held one of the user's words. Such a rule is automatic: an explicit block wins
+     * over an automatic allow, and a rule the user made wins in a merge (7.2). "Blocked by you", "Reported as spam",
+     * the old word and system lists and any typed note are the user's own.
+     */
+    fun isMadeByFilter(note: String): Boolean =
+        codeOf(note).let { it == ALLOWED_FROM_KEYWORD || it == BLOCKED_FROM_KEYWORD }
+
+    /** Every stored form of [code] (the code and the older English and Persian words), for SQL in a migration. */
+    fun storedForms(code: String): List<String> = listOf(code) + legacy.filterValues { it == code }.keys
+
     @StringRes
     fun textRes(code: String): Int? = when (code) {
         BLOCKED_BY_YOU -> R.string.e_note_blocked_by_you

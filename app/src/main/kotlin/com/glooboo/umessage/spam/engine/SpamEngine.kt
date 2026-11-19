@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.telephony.SubscriptionManager
 import kotlinx.coroutines.runBlocking
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.W3aPrefs
 import com.glooboo.umessage.spam.ForwardRepository
 import com.glooboo.umessage.spam.data.DefaultForwardRepository
@@ -50,6 +51,8 @@ object SpamEngine {
                 blockedFromMessageNote = { com.glooboo.umessage.ui.spam.RuleNotes.BLOCKED_FROM_MESSAGE },
                 blockedFromKeywordNote = { com.glooboo.umessage.ui.spam.RuleNotes.BLOCKED_FROM_KEYWORD },
                 allowedFromKeywordNote = { com.glooboo.umessage.ui.spam.RuleNotes.ALLOWED_FROM_KEYWORD },
+                simRegions = { simRegions(app) },
+                legacyBlocked = { FossifyLegacyBlocklist(app).isNumberBlocked(it) },
             ).also { repository = it }
         }
     }
@@ -66,8 +69,70 @@ object SpamEngine {
                 normalizer = normalizer,
                 legacy = FossifyLegacyBlocklist(app),
                 regionForSubscription = { subscriptionRegion(app, it) },
+                groups = repo.groupMembership,
+                simRegions = { simRegions(app) },
             ).also { filter = it }
         }
+    }
+
+    /**
+     * A-4: the one-time settings step of provider truth (7.1) on the app's one settings store: the filter switch is
+     * written from the old mode and auto-delete becomes "keep forever". For the first-run runner (step B), before the
+     * first sort. True when this call did the step; false when it ran before or failed.
+     */
+    fun applyProviderTruthMapping(context: Context): Boolean =
+        runCatching { settingsStore(context.applicationContext).applyProviderTruthMapping() }.getOrDefault(false)
+
+    @Volatile private var regionCache: Pair<Long, List<String>>? = null
+
+    /**
+     * R6, S8: the countries of the active SIMs in slot order, the one region list every path reads numbers with
+     * ([NumberReaders]). Kept for [REGION_CACHE_MS], as the chat list asks for every chat. Never throws.
+     */
+    @SuppressLint("MissingPermission")
+    fun simRegions(context: Context, now: Long = System.currentTimeMillis()): List<String> {
+        regionCache?.let { (at, regions) -> if (now - at in 0 until REGION_CACHE_MS) return regions }
+        val regions = runCatching {
+            context.getSystemService(SubscriptionManager::class.java)?.activeSubscriptionInfoList.orEmpty()
+                .sortedBy { it.simSlotIndex }
+                .mapNotNull { subscriptionRegion(context, it.subscriptionId) }
+                .distinct()
+        }.getOrDefault(emptyList())
+        regionCache = now to regions
+        return regions
+    }
+
+    private const val REGION_CACHE_MS = 60_000L
+
+    /**
+     * Provider truth (R1, facts first): judges [message] with [SenderJudge.judge], writing the fact its text makes
+     * (an automatic rule or a group membership) before the caller stores it, and logs the decision like [evaluate].
+     * The caller stores the text where [Judgement.verdict] says. Null when the filter itself failed (the caller then
+     * delivers, fail open). A fact that could not be written gives [Judgement.failOpen] and an error line in the log.
+     * Only for real deliveries: the test sheet and the MMS push gate use [evaluate], which writes nothing.
+     */
+    fun judge(context: Context, message: IncomingMessage, source: String? = null): Judgement? {
+        val where = source ?: if (message.isMms) "MMS" else "SMS"
+        val judgement = try {
+            val app = context.applicationContext
+            val filter = UMessage.filter(app) as? DefaultSpamFilter ?: return null
+            val repo = UMessage.repository(app) as? DefaultSpamRepository ?: return null
+            filter.senderJudge.judge(message) { address, fact -> repo.writeSenderFact(address, fact) }
+        } catch (t: Throwable) {
+            record(context, message, "ERROR", t.javaClass.simpleName, where)
+            return null
+        }
+        if (judgement.failOpen) record(context, message, "ERROR", "FACT_WRITE_FAILED", where)
+        val decision = judgement.decision()
+        val ruleId = when (decision) {
+            is FilterDecision.Block -> decision.ruleId
+            is FilterDecision.Allow -> decision.ruleId
+        }
+        record(
+            context, message, if (decision is FilterDecision.Block) "BLOCK" else "ALLOW", decision.reason.name, where,
+            ruleId, ruleId?.let { ruleLabelOf(context, it) }.orEmpty(),
+        )
+        return judgement
     }
 
     /**
@@ -97,7 +162,11 @@ object SpamEngine {
         forwardPlanner ?: run {
             val app = context.applicationContext
             ForwardPlanner(
-                matcher = RuleMatcher(normalizer(app), regionForSubscription = { subscriptionRegion(app, it) }),
+                matcher = RuleMatcher(
+                    normalizer(app),
+                    regionForSubscription = { subscriptionRegion(app, it) },
+                    simRegions = { simRegions(app) },
+                ),
                 simInSlot = { slot -> subscriptionInSlot(app, slot) },
                 codeMask = { W3aPrefs.get(app).forwardCodeMasker() },
             ).also { forwardPlanner = it }
@@ -112,7 +181,10 @@ object SpamEngine {
     }.getOrNull()
 
     private fun settingsStore(context: Context): SpamSettingsStore = settingsStore ?: synchronized(this) {
-        settingsStore ?: SpamSettingsStore(context).also { settingsStore = it }
+        settingsStore ?: run {
+            val app = context.applicationContext
+            SpamSettingsStore(app) { FossifyLegacyBlocklist(app).blockUnknownNumbers() }.also { settingsStore = it }
+        }
     }
 
     private fun normalizer(context: Context): NumberNormalizer {
@@ -232,6 +304,8 @@ object SpamEngine {
      * Never throws.
      */
     private fun blockSenderOfKeyword(context: Context, blockedId: Long, decision: FilterDecision.Block) {
+        // Provider truth: [judge] wrote the block rule before the text was stored (facts first, R1).
+        if (ProviderTruthFlag.enabled) return
         if (decision.reason != DecisionReason.BLOCK_RULE || decision.ruleId == null) return
         runCatching {
             val app = context.applicationContext
@@ -254,6 +328,8 @@ object SpamEngine {
      * rules alone. Never throws.
      */
     fun allowSenderOfKeyword(context: Context, message: IncomingMessage, decision: FilterDecision?) {
+        // Provider truth: [judge] wrote the automatic allow rule before the text was stored (facts first, R1).
+        if (ProviderTruthFlag.enabled) return
         val allow = decision as? FilterDecision.Allow ?: return
         if (allow.reason != DecisionReason.ALLOW_RULE || allow.ruleId == null) return
         runCatching {

@@ -12,28 +12,36 @@ import org.junit.Test
 /**
  * The code detector on a made-up sample of everyday texts (R14): bank and service codes, order, parcel and queue
  * numbers, marketing, phishing with a link and plain messages, Persian first, then English and Arabic. Every text,
- * brand, link and number is invented. Each sample records its group (only [Group.REAL_CODE] is a code) and what
- * [OtpDetector.looksLikeOtp] says about it today; the tests pin the exact misses and false hits, so a change to the
- * detector that moves any of them has to update this file on purpose.
+ * brand, link and number is invented; links use the reserved example.com. Each sample records its group (only
+ * [Group.REAL_CODE] is a code), what [OtpDetector.looksLikeOtp] says about it ([Sample.detectedToday]: shown as a
+ * code, copy chips) and what [AllowingCode.isAllowingCode] says ([Sample.allows]: allows the sender for good, check 10
+ * of the filter order). The tests pin the exact misses and false hits of both, so a change to either has to update
+ * this file on purpose.
  *
- * Counts: 116 samples (60 Persian, 37 English, 19 Arabic), 41 codes and 75 other texts; 5 misses, 28 false hits.
+ * Counts: 160 samples (70 Persian, 58 English, 19 Arabic, 13 Chinese, Japanese, Korean and Thai), 71 codes and 89
+ * other texts.
  *
- * | Group         | Samples | Wrong today        |
- * |---------------|---------|--------------------|
- * | REAL_CODE     | 41      | 5 missed           |
- * | REFERENCE     | 27      | 14 called a code   |
- * | MARKETING     | 19      | 4 called a code    |
- * | PHISHING_LINK | 7       | 7 called a code    |
- * | OTHER         | 22      | 3 called a code    |
+ * | Group         | Samples | Shown as a code: wrong | Allows the sender: wrong |
+ * |---------------|---------|------------------------|--------------------------|
+ * | REAL_CODE     | 71      | 6 missed               | 8 missed                 |
+ * | REFERENCE     | 35      | 22 called a code       | 0                        |
+ * | MARKETING     | 23      | 6 called a code        | 0                        |
+ * | PHISHING_LINK | 9       | 7 called a code        | 2                        |
+ * | OTHER         | 22      | 3 called a code        | 0                        |
  *
- * - Misses: a code with no keyword; a code next to a discount word; "Enter 4321 to confirm"; the Arabic "رقمك السري";
- *   and "Your temporary password is 9876543210", missed because a long number that starts with 98 reads as a phone
- *   number (the phone guard of [OtpDetector.longShape]), not because of its length.
- * - False hits: order, parcel, customer, referral, branch, queue, broker and zip numbers next to the word "code"
- *   (کد, code, رمز); ads whose discount word the detector does not know ("at checkout", "free", "كود الخصم");
- *   "Error code" and a time after a password word; and every phishing text, as the detector does not look at links:
- *   [OtpDetector.containsUrl] is what stops SMART mode from letting those through as codes, and the last test pins
- *   that every phishing sample has a link.
+ * - Shown as a code, misses: a code with no keyword; a code next to a discount word; "Enter 4321 to confirm"; the
+ *   Arabic "رقمك السري"; and "Your temporary password is 9876543210", missed because a long number that starts with
+ *   98 reads as a phone number (the phone guard of [OtpDetector.longShape]), not because of its length; and
+ *   "OTP for your order at Example Shop is 448210", where the keyword is more than four words from the code.
+ * - Shown as a code, false hits: order, parcel, customer, referral, branch, queue, broker and zip numbers next to the
+ *   word "code" (کد, code, رمز), also "Your booking code is N" and parcel, order and coupon codes in Chinese, Japanese,
+ *   Korean and Thai; ads whose discount word the detector does not know ("at checkout", "free",
+ *   "كود الخصم", "Sign in today and use code 4455"); "Error code" and a time written without a colon after a password
+ *   word (N-1); and every phishing text that names a code.
+ * - Allows the sender, misses: the six above, plus two codes next to the plain word only that do not say whose code
+ *   it is ("کد: ۷۴۱۰", "کدتان برای ورود ۳۱۲۵ است"). Their senders' chats go to Spam, silently (owner, fix round A).
+ * - Allows the sender, false hits: two phishing texts with a real code phrase and a link ("کد تایید ۴۸۲۹",
+ *   "Verification code 482915"). The owner decided that a code allows its sender with or without a link.
  */
 class OtpDetectorSampleTest {
 
@@ -50,8 +58,16 @@ class OtpDetectorSampleTest {
         OTHER,
     }
 
-    /** One text, its [group] and whether the detector calls it a code today ([detectedToday]). */
-    private class Sample(val group: Group, val body: String, val detectedToday: Boolean) {
+    /**
+     * One text, its [group], whether the detector shows it as a code ([detectedToday]) and whether it allows the sender
+     * ([allows]; by default exactly the codes that are shown as codes).
+     */
+    private class Sample(
+        val group: Group,
+        val body: String,
+        val detectedToday: Boolean,
+        val allows: Boolean = group == REAL_CODE && detectedToday,
+    ) {
         val isCode get() = group == REAL_CODE
     }
 
@@ -66,7 +82,7 @@ class OtpDetectorSampleTest {
         Sample(REAL_CODE, "کدتان ۹۰۱۲ است", detectedToday = true),
         Sample(REAL_CODE, "رمز دوم پویا: 66554433", detectedToday = true),
         Sample(REAL_CODE, "کد تایید پرداخت 192837 - اعتبار ۲ دقیقه", detectedToday = true),
-        Sample(REAL_CODE, "به سامانه نمونه خوش آمدید. کد: ۷۴۱۰", detectedToday = true),
+        Sample(REAL_CODE, "به سامانه نمونه خوش آمدید. کد: ۷۴۱۰", detectedToday = true, allows = false),
         Sample(REAL_CODE, "کد احراز هویت شما 5821 می‌باشد", detectedToday = true),
         Sample(REAL_CODE, "رمز عبور موقت شما: 1357924680", detectedToday = true),
         Sample(REAL_CODE, "کد تایید شما ۱۲۳ ۴۵۶", detectedToday = true),
@@ -77,8 +93,8 @@ class OtpDetectorSampleTest {
         Sample(REAL_CODE, "کد فعال سازی 4821 جهت ثبت نام در سایت نمونه", detectedToday = true),
         Sample(REAL_CODE, "کد تایید شما 2580 است. تخفیف ویژه اعضا در اپ نمونه", detectedToday = false),
         Sample(REAL_CODE, "رمز شخصی شما ۱۲۳۴۵۶۷۸۹۰ است", detectedToday = true),
-        Sample(REAL_CODE, "کد ورود شما: ۴۸۲۹۱۵\nexample.ir/app", detectedToday = true),
-        Sample(REAL_CODE, "رمز یکبار مصرف 739201\n\n@example.ir #739201", detectedToday = true),
+        Sample(REAL_CODE, "کد ورود شما: ۴۸۲۹۱۵\nexample.com/app", detectedToday = true),
+        Sample(REAL_CODE, "رمز یکبار مصرف 739201\n\n@example.com #739201", detectedToday = true),
         Sample(REFERENCE, "کد پیگیری سفارش شما 55667788", detectedToday = true),
         Sample(REFERENCE, "مرسوله شما با کد رهگیری 482910 تحویل پست شد", detectedToday = true),
         Sample(REFERENCE, "سفارش ۱۰۲۳۴ شما ارسال شد. پیک تا ساعت ۱۸ می‌رسد", detectedToday = false),
@@ -107,7 +123,7 @@ class OtpDetectorSampleTest {
         Sample(MARKETING, "دعوت از دوستان = ۵۰ هزار تومان اعتبار. کد معرف: ۲۴۶۸", detectedToday = true),
         Sample(
             PHISHING_LINK,
-            "ابلاغیه الکترونیک: پرونده شما با کد پیگیری 48291537 ثبت شد. مشاهده: https://example.ir/notice",
+            "ابلاغیه الکترونیک: پرونده شما با کد پیگیری 48291537 ثبت شد. مشاهده: https://example.com/notice",
             detectedToday = true,
         ),
         Sample(
@@ -115,11 +131,16 @@ class OtpDetectorSampleTest {
             "سود سهام شما واریز نشد. کد رهگیری ۵۵۶۶۷۷ را در example.com/sod وارد کنید",
             detectedToday = true,
         ),
-        Sample(PHISHING_LINK, "ثبت نام شما ناقص است. تکمیل: example.ir/form کد پیگیری: ۷۷۸۸۹۹", detectedToday = true),
+        Sample(PHISHING_LINK, "ثبت نام شما ناقص است. تکمیل: example.com/form کد پیگیری: ۷۷۸۸۹۹", detectedToday = true),
         Sample(
             PHISHING_LINK,
-            "اخطار: کد تایید ۴۸۲۹ برای بستن حساب شما صادر شد. لغو: example.ir/cancel",
+            "اخطار: کد تایید ۴۸۲۹ برای بستن حساب شما صادر شد. لغو: example.com/cancel",
             detectedToday = true,
+            allows = true,
+        ),
+        Sample(
+            PHISHING_LINK, "حساب شما مسدود شد. برای رفع مسدودی همین حالا وارد شوید: example.com/login",
+            detectedToday = false,
         ),
         Sample(OTHER, "شارژ ۵۰۰۰۰ تومانی شما با موفقیت انجام شد", detectedToday = false),
         Sample(OTHER, "بانک نمونه\nبرداشت: ۱,۲۰۰,۰۰۰ ریال\nمانده: ۸,۵۰۰,۰۰۰\n۱۴۰۵/۰۸/۲۸", detectedToday = false),
@@ -131,6 +152,16 @@ class OtpDetectorSampleTest {
         Sample(OTHER, "برای دریافت رمز با 09060000000 تماس بگیرید", detectedToday = false),
         Sample(OTHER, "رمز عبور شما در تاریخ ۱۴۰۵/۰۸/۲۷ ساعت ۱۴۳۲ تغییر کرد", detectedToday = true),
         Sample(OTHER, "رمز کارت شما ۳ بار اشتباه وارد شد", detectedToday = false),
+        // Fix round A-1: more real formats.
+        Sample(REAL_CODE, "کد تاییدیه شما: 662281", detectedToday = true),
+        Sample(REAL_CODE, "کد اعتبارسنجی: ۵۵۸۱۲۳", detectedToday = true),
+        Sample(REAL_CODE, "کد شما: ۷۲۶۱۹۰", detectedToday = true),
+        Sample(REAL_CODE, "کد ورود به نمونه: 9182", detectedToday = true),
+        Sample(REAL_CODE, "مشتری گرامی، رمز پویای شما ۸۸۱۲۴۵ است", detectedToday = true),
+        Sample(REAL_CODE, "رمز یکبار مصرف سفارش شما 552910 است", detectedToday = true),
+        Sample(REAL_CODE, "کد تایید ثبت سفارش: ۴۴۱۹۲۰", detectedToday = true),
+        Sample(REAL_CODE, "کدتان برای ورود ۳۱۲۵ است", detectedToday = true, allows = false),
+        Sample(REAL_CODE, "رمز عبور یکبار مصرف شما: 7731", detectedToday = true),
     )
 
     /** English: codes, orders and parcels, promotions, links, reminders and notices. */
@@ -167,7 +198,9 @@ class OtpDetectorSampleTest {
             PHISHING_LINK,
             "Your account is locked. Verification code 482915. Unlock at http://example.com/unlock",
             detectedToday = true,
+            allows = true,
         ),
+        Sample(PHISHING_LINK, "Your account is suspended. Restore it at example.com/restore", detectedToday = false),
         Sample(
             PHISHING_LINK, "Parcel held: pay the fee with tracking code 7720 at example.com/pay", detectedToday = true,
         ),
@@ -184,6 +217,54 @@ class OtpDetectorSampleTest {
             detectedToday = true,
         ),
         Sample(OTHER, "Your PIN was changed. Not you? Call +15550001234", detectedToday = false),
+        // Fix round A-1: plain English codes and bank texts with "Dear Customer", "order", "Ref no", "Free Msg".
+        Sample(REAL_CODE, "Your code is 482915", detectedToday = true),
+        Sample(REAL_CODE, "Your Example code: 573920", detectedToday = true),
+        Sample(REAL_CODE, "Use 664422 to verify your account", detectedToday = true),
+        Sample(REAL_CODE, "Dear Customer, your OTP is 482915. Do not share it with anyone.", detectedToday = true),
+        Sample(
+            REAL_CODE, "Dear Customer, 739201 is the OTP for your order of USD 25.00 at Example Shop.",
+            detectedToday = true,
+        ),
+        Sample(
+            REAL_CODE, "Ref no 55123. Your one-time password is 284613. Valid for 5 minutes.", detectedToday = true,
+        ),
+        Sample(REAL_CODE, "Free Msg: Your Example verification code is 902183", detectedToday = true),
+        Sample(REAL_CODE, "Your Example login PIN is 4471. Don’t share it.", detectedToday = true),
+        Sample(REAL_CODE, "G-482915 is your Example verification code.", detectedToday = true),
+        Sample(REAL_CODE, "482915 is your Example code", detectedToday = true),
+        Sample(REAL_CODE, "Your security code for Example is 3391", detectedToday = true),
+        Sample(REAL_CODE, "Example: 557201 is your code. It expires in 10 minutes.", detectedToday = true),
+        Sample(
+            REAL_CODE, "Example Bank: OTP for your order at Example Shop is 448210. Never share it.",
+            detectedToday = false,
+        ),
+        Sample(REAL_CODE, "Your sign-in code is 662013", detectedToday = true),
+        Sample(REAL_CODE, "Your Example verification code is: 8812-4410", detectedToday = true),
+        Sample(MARKETING, "Sign in today and use code 4455", detectedToday = true),
+        // Second review R-2: a possessive "code" that names a booking, a reference or a discount.
+        Sample(MARKETING, "Your discount code is 4455", detectedToday = false),
+        Sample(REFERENCE, "Your booking code is 482915", detectedToday = true),
+        Sample(REFERENCE, "Your reference code is 556677", detectedToday = true),
+        Sample(REFERENCE, "556677 is your membership code", detectedToday = true),
+    )
+
+    /** Languages without spaces between words: Chinese (simplified and traditional), Japanese, Korean, Thai. */
+    private val otherScripts = listOf(
+        Sample(REAL_CODE, "您的验证码是 482915，5分钟内有效。", detectedToday = true),
+        Sample(REAL_CODE, "您的驗證碼為 573920，請勿告訴他人。", detectedToday = true),
+        Sample(REAL_CODE, "認証コード：664422 このコードは10分間有効です。", detectedToday = true),
+        Sample(REAL_CODE, "[예시] 인증번호 [482915]를 입력해 주세요.", detectedToday = true),
+        Sample(REAL_CODE, "รหัส OTP ของคุณคือ 739201", detectedToday = true),
+        Sample(REAL_CODE, "รหัสยืนยันของคุณคือ 482915", detectedToday = true),
+        // Second review R-2: parcels, orders and coupons, and the bare Thai "รหัส" (code).
+        Sample(REFERENCE, "รหัสพัสดุ 482915", detectedToday = true),
+        Sample(REFERENCE, "รหัส 4821 สำหรับคำสั่งซื้อ", detectedToday = true),
+        Sample(REFERENCE, "【示例快递】您的取件验证码是 482915", detectedToday = true),
+        Sample(REFERENCE, "您的订单验证码是 573920", detectedToday = true),
+        Sample(REFERENCE, "ご注文の確認コード：664422", detectedToday = true),
+        Sample(MARKETING, "쿠폰 인증번호 4455", detectedToday = true),
+        Sample(MARKETING, "优惠验证码 7788", detectedToday = false),
     )
 
     /** Arabic: codes, shipping and order numbers, offers, a link, bank notices. */
@@ -209,18 +290,21 @@ class OtpDetectorSampleTest {
         Sample(OTHER, "رصيدك الحالي 1500 ريال", detectedToday = false),
     )
 
-    private val all = persian + english + arabic
+    private val all = persian + english + arabic + otherScripts
 
     private fun detected(sample: Sample) = OtpDetector.looksLikeOtp(sample.body)
+
+    private fun allowed(sample: Sample) = AllowingCode.isAllowingCode(sample.body)
 
     private fun bodies(samples: List<Sample>) = samples.joinToString("\n") { it.body }
 
     @Test fun theSampleIsPersianFirstAndMixed() {
-        assertEquals(60, persian.size)
-        assertEquals(37, english.size)
+        assertEquals(70, persian.size)
+        assertEquals(58, english.size)
         assertEquals(19, arabic.size)
-        assertEquals(41, all.count { it.isCode })
-        assertEquals(75, all.count { !it.isCode })
+        assertEquals(13, otherScripts.size)
+        assertEquals(71, all.count { it.isCode })
+        assertEquals(89, all.count { !it.isCode })
     }
 
     @Test fun theMissesAreExactlyTheRecordedOnes() {
@@ -237,7 +321,7 @@ class OtpDetectorSampleTest {
         assertEquals(EXPECTED_FALSE_HITS, actual.size)
     }
 
-    /** Per group: how many samples, and how many the detector gets wrong today (the table at the top). */
+    /** Per group: how many samples, and how many are wrongly shown as a code or not (the table at the top). */
     @Test fun theCountsPerGroupAreFixed() {
         val counts = Group.entries.associateWith { group ->
             val samples = all.filter { it.group == group }
@@ -245,14 +329,42 @@ class OtpDetectorSampleTest {
         }
         assertEquals(
             mapOf(
-                REAL_CODE to (41 to 5),
-                REFERENCE to (27 to 14),
-                MARKETING to (19 to 4),
-                PHISHING_LINK to (7 to 7),
+                REAL_CODE to (71 to 6),
+                REFERENCE to (35 to 22),
+                MARKETING to (23 to 6),
+                PHISHING_LINK to (9 to 7),
                 OTHER to (22 to 3),
             ),
             counts,
         )
+    }
+
+    @Test fun theAllowingMissesAreExactlyTheRecordedOnes() {
+        val expected = all.filter { it.isCode && !it.allows }
+        val actual = all.filter { it.isCode && !allowed(it) }
+        assertEquals(bodies(expected), bodies(actual))
+        assertEquals(EXPECTED_ALLOWING_MISSES, actual.size)
+    }
+
+    @Test fun theAllowingFalseHitsAreExactlyTheRecordedOnes() {
+        val expected = all.filter { !it.isCode && it.allows }
+        val actual = all.filter { !it.isCode && allowed(it) }
+        assertEquals(bodies(expected), bodies(actual))
+        assertEquals(EXPECTED_ALLOWING_FALSE_HITS, actual.size)
+    }
+
+    /** Per group: how many texts would allow their sender wrongly (the last column of the table at the top). */
+    @Test fun theAllowingCountsPerGroupAreFixed() {
+        val counts = Group.entries.associateWith { group ->
+            all.filter { it.group == group }.count { allowed(it) != it.isCode }
+        }
+        assertEquals(mapOf(REAL_CODE to 8, REFERENCE to 0, MARKETING to 0, PHISHING_LINK to 2, OTHER to 0), counts)
+    }
+
+    /** Whatever allows a sender is also shown as a code: the strict reading never disagrees the other way. */
+    @Test fun everyAllowingTextIsAlsoShownAsACode() {
+        val allowedNotShown = all.filter { allowed(it) && !detected(it) }
+        assertTrue(bodies(allowedNotShown), allowedNotShown.isEmpty())
     }
 
     @Test fun everyPhishingSampleHasALink() {
@@ -260,8 +372,34 @@ class OtpDetectorSampleTest {
         assertTrue(bodies(withoutLink), withoutLink.isEmpty())
     }
 
+    /** N-2: three real codes carry a link; they still allow their sender (owner: with or without a link). */
+    @Test fun threeRealCodesHaveALinkAndAllow() {
+        val withLink = all.filter { it.isCode && OtpDetector.containsUrl(it.body) }
+        assertEquals(3, withLink.size)
+        assertTrue(bodies(withLink), withLink.all { allowed(it) })
+    }
+
+    /** N-3: phishing without any code word is neither shown as a code nor allows its sender. */
+    @Test fun phishingWithoutACodeWordIsNoCode() {
+        val plain = all.filter { it.group == PHISHING_LINK && !it.detectedToday }
+        assertEquals(2, plain.size)
+        assertTrue(bodies(plain), plain.none { detected(it) || allowed(it) })
+    }
+
+    /**
+     * N-1: two of the OTHER false hits are a time written without a colon ("ساعت ۱۴۳۲", "at 1432") after a password
+     * word. They are shown as a code, but allow nobody ("changed" and "تغییر کرد" veto).
+     */
+    @Test fun timesWithoutAColonAreShownButDoNotAllow() {
+        val times = all.filter { it.group == OTHER && "1432" in OtpDetector.normalizeDigits(it.body) }
+        assertEquals(2, times.size)
+        assertTrue(bodies(times), times.all { detected(it) && !allowed(it) })
+    }
+
     private companion object {
-        const val EXPECTED_MISSES = 5
-        const val EXPECTED_FALSE_HITS = 28
+        const val EXPECTED_MISSES = 6
+        const val EXPECTED_FALSE_HITS = 38
+        const val EXPECTED_ALLOWING_MISSES = 8
+        const val EXPECTED_ALLOWING_FALSE_HITS = 2
     }
 }

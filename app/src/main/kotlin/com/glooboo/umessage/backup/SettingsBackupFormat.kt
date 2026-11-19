@@ -1,6 +1,7 @@
 package com.glooboo.umessage.backup
 
 import com.glooboo.umessage.helpers.BlockedKeywordsFormat
+import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.ForwardRule
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
@@ -90,6 +91,15 @@ data class BackupSettings(
     val defaultSim: String? = null,
     /** [com.glooboo.umessage.helpers.AppFont.key]. */
     val appFont: String? = null,
+    /**
+     * Provider truth (7.1): the one spam filter switch. Files from before it lack it; a restore then maps [spamMode]
+     * (Smart or Strict: on; Off: off). Written together with [spamMode] (Smart or Off) for older app versions.
+     */
+    val filterOn: Boolean? = null,
+    /** D3 A: the group rule "Senders of a verification code" is on. */
+    val codeGroupOn: Boolean? = null,
+    /** D3 A: the group rule "People you wrote to" is on. */
+    val wroteGroupOn: Boolean? = null,
 ) {
     /** Every setting by its JSON key, in file order; null is "not in the file". */
     internal fun values(): Map<String, Any?> = coreValues() + moreValues()
@@ -116,6 +126,7 @@ data class BackupSettings(
         LONG_AS_MMS_AFTER to sendLongAsMmsAfter, GROUP_AS_MMS to sendGroupAsMms, MMS_LIMIT to mmsFileSizeLimit,
         RECYCLE_BIN to useRecycleBin,
         KEEP_ARCHIVED to keepArchived, DEFAULT_SIM to defaultSim, APP_FONT to appFont,
+        FILTER_ON to filterOn, CODE_GROUP_ON to codeGroupOn, WROTE_GROUP_ON to wroteGroupOn,
     )
 
     /** The JSON keys of the settings, also the names [SettingsBackupFormat.changedSettings] returns. */
@@ -174,6 +185,9 @@ data class BackupSettings(
         const val KEEP_ARCHIVED = "keepArchived"
         const val DEFAULT_SIM = "defaultSim"
         const val APP_FONT = "appFont"
+        const val FILTER_ON = "filterOn"
+        const val CODE_GROUP_ON = "codeGroupOn"
+        const val WROTE_GROUP_ON = "wroteGroupOn"
 
         /** The two values of [defaultSim]. */
         const val SIM_PHONE = "phone"
@@ -211,6 +225,11 @@ data class BackupContent(
      * unknown-senders mode, so its spamMode already says what blocks. Older files lack it (see [SettingsBackup]).
      */
     val modeIncludesSwitch: Boolean = false,
+    /**
+     * D3 A: the members of the two group rules. Files from before provider truth lack them and give an empty list; a
+     * restore only ever adds members, never for a sender with a block rule.
+     */
+    val groupMembers: List<AllowGroupMember> = emptyList(),
 )
 
 /**
@@ -240,6 +259,10 @@ object SettingsBackupFormat {
     const val MAX_TARGET = 40
     const val MAX_VERSION = 40
     const val MAX_KEYWORDS = 2000
+    const val MAX_GROUP_MEMBERS = 5000
+
+    /** D3 A: the members of the two group rules (provider truth). Older files lack it. */
+    private const val GROUP_MEMBERS = "groupMembers"
 
     private val json = Json { prettyPrint = true }
 
@@ -255,6 +278,9 @@ object SettingsBackupFormat {
             put("forwardRules", buildJsonArray { content.forwardRules.forEach { add(BackupJson.forward(it)) } })
             if (content.blockedKeywords.isNotEmpty()) {
                 put("blockedKeywords", buildJsonArray { content.blockedKeywords.forEach { add(JsonPrimitive(it)) } })
+            }
+            if (content.groupMembers.isNotEmpty()) {
+                put(GROUP_MEMBERS, BackupGroupMembers.writeAll(content.groupMembers))
             }
             put("settings", BackupJson.settings(content.settings))
         }
@@ -283,6 +309,7 @@ object SettingsBackupFormat {
             droppedForwardRules = (forwards.size - MAX_FORWARD_RULES).coerceAtLeast(0),
             blockedKeywords = readKeywords(root),
             modeIncludesSwitch = root.bool("modeIncludesSwitch") == true,
+            groupMembers = BackupGroupMembers.readAll(root.array(GROUP_MEMBERS).orEmpty()).take(MAX_GROUP_MEMBERS),
         )
     }
 

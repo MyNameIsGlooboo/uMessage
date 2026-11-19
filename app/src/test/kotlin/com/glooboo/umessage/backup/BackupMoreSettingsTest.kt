@@ -37,10 +37,15 @@ class BackupMoreSettingsTest {
         BackupMoreSettings.apply(context, changed)
         val spam = SpamSettings(
             unknownInboxNotify = UnknownInboxNotify.SILENT, openLinkAction = true, blockOutsideRegion = "GB",
+            filterOn = false, codeGroupOn = false, wroteGroupOn = true,
         )
-        // The cleanup ages are written to a file but never restored from it (I4/Q38).
-        assertThat(BackupMoreSettings.collect(context, BackupSettings(), spam))
-            .isEqualTo(changed.copy(codeCleanupDays = 0, oldMessageDays = 0))
+        // The cleanup ages are written to a file but never restored from it (I4/Q38). The filter switch and the two
+        // group switches come from the spam settings, like the other spam values (provider truth, 7.1).
+        assertThat(BackupMoreSettings.collect(context, BackupSettings(), spam)).isEqualTo(
+            changed.copy(
+                codeCleanupDays = 0, oldMessageDays = 0, filterOn = false, codeGroupOn = false, wroteGroupOn = true,
+            )
+        )
         assertThat(context.cleanupPrefs.codeDays).isEqualTo(0)
         assertThat(context.cleanupPrefs.oldMessageDays).isEqualTo(0)
     }

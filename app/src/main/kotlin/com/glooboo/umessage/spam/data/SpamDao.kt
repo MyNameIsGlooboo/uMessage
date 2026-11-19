@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
+import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.RuleType
@@ -28,8 +29,13 @@ interface SpamDao {
     @Query("SELECT * FROM spam_rules")
     fun getRules(): List<SpamRuleEntity>
 
-    @Query("SELECT * FROM spam_rules WHERE kind = :kind AND type = :type AND pattern = :pattern AND subscriptionId IS :subscriptionId LIMIT 1")
-    fun findRule(kind: ListKind, type: RuleType, pattern: String, subscriptionId: Int?): SpamRuleEntity?
+    /** Since schema 9 a rule is unique by kind, type and pattern (both SIMs). */
+    @Query("SELECT * FROM spam_rules WHERE kind = :kind AND type = :type AND pattern = :pattern LIMIT 1")
+    fun findRule(kind: ListKind, type: RuleType, pattern: String): SpamRuleEntity?
+
+    /** U15: "Keep" on the chat line of automatic allow rules. */
+    @Query("UPDATE spam_rules SET acknowledged = 1 WHERE id IN (:ids)")
+    fun acknowledgeRules(ids: List<Long>): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRule(rule: SpamRuleEntity): Long
@@ -102,4 +108,28 @@ interface SpamDao {
 
     @Query("SELECT COUNT(*) FROM spam_events WHERE type = :type AND timestamp >= :since")
     fun observeEventCountSince(type: SpamEventType, since: Long): Flow<Int>
+
+    /** D3 A: adds a member; a sender already in the group keeps its row (and its first join time). */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertMember(member: AllowGroupMemberEntity): Long
+
+    /** Undo puts members back exactly as they were. */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun putMember(member: AllowGroupMemberEntity): Long
+
+    @Query("SELECT * FROM allow_group_members ORDER BY added_at DESC, sender_key ASC")
+    fun observeMembers(): Flow<List<AllowGroupMemberEntity>>
+
+    @Query("SELECT * FROM allow_group_members")
+    fun getMembers(): List<AllowGroupMemberEntity>
+
+    /** The memberships of a sender stored under any of [keys]. */
+    @Query("SELECT * FROM allow_group_members WHERE sender_key IN (:keys)")
+    fun membersByKeys(keys: List<String>): List<AllowGroupMemberEntity>
+
+    @Query("DELETE FROM allow_group_members WHERE group_type = :group AND sender_key = :key")
+    fun deleteMember(group: AllowGroup, key: String): Int
+
+    @Query("UPDATE allow_group_members SET acknowledged = 1 WHERE sender_key IN (:keys)")
+    fun acknowledgeMembers(keys: List<String>): Int
 }

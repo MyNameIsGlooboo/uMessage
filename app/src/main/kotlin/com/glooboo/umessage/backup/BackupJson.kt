@@ -9,6 +9,7 @@ import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RegexGuard
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
+import com.glooboo.umessage.ui.spam.RuleNotes
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
@@ -33,6 +34,11 @@ internal object BackupJson {
         put("pattern", r.pattern)
         put("note", r.note)
         put("createdAt", r.createdAt)
+        // A-9: the Keep state (U15). Always written for an automatic allow rule, as a missing field reads as kept
+        // (files from before it); for other rules only when set, so their entries stay as older versions wrote them.
+        if (r.acknowledged || (r.kind == ListKind.ALLOW && RuleNotes.isMadeByFilter(r.note))) {
+            put("acknowledged", r.acknowledged)
+        }
     }
 
     fun forward(r: ForwardRule) = buildJsonObject {
@@ -76,6 +82,9 @@ internal object BackupJson {
             pattern = pattern,
             note = o.str("note").orEmpty().take(MAX_NOTE),
             createdAt = o.long("createdAt") ?: System.currentTimeMillis(),
+            // A file from before it: an automatic allow rule counts as kept, as the 8 to 9 migration does.
+            acknowledged = o.bool("acknowledged")
+                ?: (kind == ListKind.ALLOW && RuleNotes.isMadeByFilter(o.str("note").orEmpty())),
         )
     }
 

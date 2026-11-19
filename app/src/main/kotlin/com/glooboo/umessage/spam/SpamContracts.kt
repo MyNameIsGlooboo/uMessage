@@ -1,6 +1,8 @@
 package com.glooboo.umessage.spam
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 
 /**
  * Public contract of the uMessage spam engine.
@@ -51,6 +53,11 @@ data class SpamRule(
     val hitCount: Int = 0,
     /** When this rule last blocked a message in milliseconds, 0 = never. */
     val lastHit: Long = 0L,
+    /**
+     * Added in schema 9 (U15): the user tapped "Keep" on the chat line of an automatic allow rule (one made by an
+     * allowed word, H4), so the line does not come back. The rule stays automatic: a block still wins over it.
+     */
+    val acknowledged: Boolean = false,
 )
 
 data class IncomingMessage(
@@ -76,6 +83,18 @@ enum class DecisionReason {
 
     /** I24: held because the sender's number is from outside the home country chosen in the settings. */
     FOREIGN_NUMBER,
+
+    /** Provider truth (D3 A): allowed as a member of a group rule that is on ("Senders of a verification code"). */
+    GROUP_MEMBER,
+
+    /** Provider truth (R7): the sender cannot be read (blank, or the "Unknown" placeholder), so the text is shown. */
+    UNREADABLE_SENDER,
+
+    /**
+     * Provider truth (R1): a fact about the sender (an automatic rule or a group membership) could not be written,
+     * also on the retry, so the text is shown in Messages, unread and announced, instead of being judged on half facts.
+     */
+    FACT_FAILED,
 }
 
 sealed interface FilterDecision {
@@ -153,6 +172,10 @@ data class BlockedMessage(
     val mediaFile: String? = null,
     /** Not opened yet: the sender's row on the Blocked tab shows it bold, as an unread chat. Added in version 6. */
     val unread: Boolean = false,
+    /** Schema 9: the phone's store row this message became (the message migration's done mark); null = not moved. */
+    val migratedMsgId: Long? = null,
+    /** Schema 9: failed verifies of the message migration. */
+    val migrateTries: Int = 0,
 ) {
     /** The message has readable text (an MMS blocked before it was downloaded only has the placeholder). */
     val hasText: Boolean
@@ -186,18 +209,85 @@ data class BlockedMessage(
     }
 }
 
+/** 0.4.14's default auto-delete of held messages, kept while ProviderTruthFlag is off. */
+const val LEGACY_PURGE_DAYS = 30
+
 data class SpamStats(val blockedTotal: Int, val blockedLast7Days: Int, val restoredTotal: Int)
 
 data class SpamSettings(
     val mode: UnknownSenderMode = UnknownSenderMode.SMART,
-    /** Blocked messages older than this are purged. 0 = keep forever. */
-    val purgeAfterDays: Int = 30,
+    /**
+     * Blocked messages older than this are purged. 0 = keep forever, the default of provider truth (7.1); 30 while
+     * ProviderTruthFlag is off, as in 0.4.14.
+     */
+    val purgeAfterDays: Int = if (ProviderTruthFlag.enabled) 0 else LEGACY_PURGE_DAYS,
     val notifyOnBlock: Boolean = false,
     val unknownInboxNotify: UnknownInboxNotify = UnknownInboxNotify.NOTIFY,
     /** I67: an "Open link" button on notifications from known senders. */
     val openLinkAction: Boolean = false,
     /** I24: ISO region (e.g. "GB") of the home country; numbers from other countries are held. Blank = off. */
     val blockOutsideRegion: String = "",
+    /**
+     * Provider truth: the one spam filter switch, on by default. Stored under its own key; while that key is missing
+     * it is read from [mode] (Smart, Strict, or no value: on; Off: off, unless the old Fossify "block unknown numbers"
+     * switch is on). See SpamSettingsStore. Read only when ProviderTruthFlag is on.
+     */
+    val filterOn: Boolean = true,
+    /** D3 A: the group rule "Senders of a verification code" is on. Off: its members count as unknown (kept stored). */
+    val codeGroupOn: Boolean = true,
+    /** D3 A: the group rule "People you wrote to" is on. Off: its members count as unknown (kept stored). */
+    val wroteGroupOn: Boolean = true,
+) {
+    /** Whether [group] is switched on. */
+    fun groupOn(group: AllowGroup): Boolean = when (group) {
+        AllowGroup.CODE -> codeGroupOn
+        AllowGroup.WROTE -> wroteGroupOn
+    }
+}
+
+/** D3 A: the two fixed group allow rules. Stored by name in spamless.db; never rename. */
+enum class AllowGroup {
+    /** "Senders of a verification code": joined by a text that allows its sender (AllowingCode). */
+    CODE,
+
+    /** "People you wrote to": joined by a text the user sends to an unknown number. */
+    WROTE,
+}
+
+/** How a sender joined a group. Stored by name; never rename. */
+enum class MemberSource {
+    /** A text that arrived or was sent while the app ran. Shows the chat line until Keep. */
+    LIVE,
+
+    /** The history check of old texts (section 3.5). Born acknowledged: no line in old chats. */
+    HISTORY,
+}
+
+/**
+ * One member of a group rule. [senderKey] is the value the matcher compares (a number in E.164 when its country is
+ * known, else its digits; a sender name in lower case), [address] the sender as seen.
+ */
+data class AllowGroupMember(
+    val group: AllowGroup,
+    val senderKey: String,
+    val address: String,
+    val addedAt: Long = System.currentTimeMillis(),
+    val source: MemberSource = MemberSource.LIVE,
+    /** The user tapped Keep, or the member came from the history check: the chat line does not show. */
+    val acknowledged: Boolean = source == MemberSource.HISTORY,
+)
+
+/**
+ * What blocking a sender changed, so Undo can put it back (U5, M-SP3): the block rule it added ([ruleId], 0 when the
+ * sender was blocked already), and the automatic allow rules and group memberships it removed.
+ */
+data class BlockReceipt(
+    val address: String,
+    val ruleId: Long,
+    val removedRules: List<SpamRule> = emptyList(),
+    val removedMembers: List<AllowGroupMember> = emptyList(),
+    /** A-8: an allow rule the user made (a prefix, say) that still names the sender, so the chat stays in Messages. */
+    val stillAllowedBy: Long? = null,
 )
 
 /** Pure decision logic. No Android I/O except contact lookup supplied by the implementation. */
@@ -272,4 +362,48 @@ interface SpamRepository {
     suspend fun markBlockedRead(ids: List<Long>) = Unit
     suspend fun deleteBlocked(ids: List<Long>)
     suspend fun purgeExpired()
+
+    /** D3 A: every member of both group rules, newest first. */
+    val groupMembers: Flow<List<AllowGroupMember>> get() = flowOf(emptyList())
+
+    /**
+     * Adds the sender of [address] to [group]. Never for an unreadable sender (R7) or a sender with a block rule (a
+     * reply to a blocked sender changes nothing). Idempotent: true when the sender is a member afterwards.
+     */
+    suspend fun joinGroup(group: AllowGroup, address: String, source: MemberSource = MemberSource.LIVE): Boolean = false
+
+    /** "Remove" in a group's list. Returns the members removed, for Undo ([restoreGroupMembers]). */
+    suspend fun removeGroupMembers(members: List<AllowGroupMember>): List<AllowGroupMember> = emptyList()
+
+    /** Undo of [removeGroupMembers] or of a block: puts [members] back as they were. */
+    suspend fun restoreGroupMembers(members: List<AllowGroupMember>) = Unit
+
+    /**
+     * The members of a settings backup: each keeps its join time, source and Keep state; never for an unreadable or
+     * blocked sender, never twice in a group. Returns how many were added.
+     */
+    suspend fun importGroupMembers(members: List<AllowGroupMember>): Int = 0
+
+    /**
+     * Many senders join [group] at once (the history check): one transaction, never for an unreadable or blocked
+     * sender, never twice. Returns how many joined.
+     */
+    suspend fun joinGroups(
+        group: AllowGroup,
+        addresses: List<String>,
+        source: MemberSource = MemberSource.HISTORY,
+    ): Int = 0
+
+    /** "Keep" on the chat line: the sender's memberships and automatic allow rules are acknowledged. */
+    suspend fun acknowledgeSender(address: String) = Unit
+
+    /**
+     * A block made by the user (swipe, menu, notification, chat line): adds a block rule for the sender with [note] and
+     * removes the allow rules that name exactly this sender (automatic ones, and the user's own: the block is the newer
+     * choice, as in 0.4.14) and their group memberships, in one transaction. Null when the sender cannot be read.
+     */
+    suspend fun blockAddress(address: String, note: String): BlockReceipt? = null
+
+    /** Undo of [blockAddress]: removes the rule it added and puts back what it removed. */
+    suspend fun undoBlock(receipt: BlockReceipt) = Unit
 }

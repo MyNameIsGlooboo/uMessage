@@ -67,6 +67,9 @@ internal object BackupMoreSettings {
             keepArchived = config.keepConversationsArchived,
             defaultSim = simChoice(config.defaultSimId),
             appFont = w3c.appFont.key,
+            filterOn = spam.filterOn,
+            codeGroupOn = spam.codeGroupOn,
+            wroteGroupOn = spam.wroteGroupOn,
         )
     }
 

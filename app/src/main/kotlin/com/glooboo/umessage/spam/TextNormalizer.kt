@@ -7,6 +7,7 @@ package com.glooboo.umessage.spam
  * - Arabic yeh and kaf become the Persian letters (ي ى → ی, ك → ک), as Persian-language senders mix both;
  * - the hamza forms of alef (أ إ آ ٱ → ا), waw with hamza (ؤ → و) and teh marbuta (ة → ه) are folded too, so a
  *   rule typed "اعلان" also matches "إعلان" (the search fold is built from the same table);
+ * - curly single quotes (’ ‘) become the straight apostrophe, so "don’t share" reads as "don't share";
  * - every Unicode decimal digit (Persian ۱۲۳, Arabic-Indic ١٢٣, ...) becomes the ASCII digit;
  * - zero-width characters (ZWNJ, ZWJ, ZWSP, word joiner, BOM, soft hyphen), the kashida (ـ) and Arabic
  *   diacritics (harakat, superscript alef) are dropped.
@@ -32,6 +33,8 @@ object TextNormalizer {
         put('\u0671', '\u0627') // ٱ alef wasla -> ا
         put('\u0624', '\u0648') // ؤ waw with hamza -> و
         put('\u0629', '\u0647') // ة teh marbuta -> ه
+        put('\u2019', '\'') // ’ right single quotation mark (the curly apostrophe of "don’t") -> '
+        put('\u2018', '\'') // ‘ left single quotation mark -> '
         for (i in 0..9) {
             put('\u06F0' + i, '0' + i) // Persian digits
             put('\u0660' + i, '0' + i) // Arabic-Indic digits

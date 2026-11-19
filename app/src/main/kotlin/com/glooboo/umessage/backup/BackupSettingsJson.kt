@@ -71,6 +71,9 @@ internal object BackupSettingsJson {
         showTapbacks = o.bool(BackupSettings.TAPBACKS),
         riskyLinksLocked = o.bool(BackupSettings.RISKY_LINKS_LOCKED),
         bankCards = o.bool(BackupSettings.BANK_CARDS),
+        filterOn = o.bool(BackupSettings.FILTER_ON),
+        codeGroupOn = o.bool(BackupSettings.CODE_GROUP_ON),
+        wroteGroupOn = o.bool(BackupSettings.WROTE_GROUP_ON),
     )
 
     private fun readCleanupAndSending(o: JsonObject, s: BackupSettings) = s.copy(
