@@ -274,6 +274,14 @@ interface MessagesDao {
     @Query("UPDATE messages SET type = 4 WHERE id = :id AND is_scheduled = 1 AND type IN (5, 6)")
     fun claimScheduledOrHeldForSend(id: Long): Int
 
+    /**
+     * M-P4, K1-6: holds the scheduled message [id] as failed (5) only while it is still in the outbox (4), where a send
+     * that died left it. A row the user's Retry or "Send now" took meanwhile, one already held, or one deleted after it
+     * went out is left as it is, and 0 comes back: then no "not sent" notification may be posted.
+     */
+    @Query("UPDATE messages SET type = 5 WHERE id = :id AND is_scheduled = 1 AND type = 4")
+    fun holdDiedScheduledRow(id: Long): Int
+
     /** Keeps only the attachments of the scheduled message [id] that have not been handed off yet (MS6). */
     @Query("UPDATE messages SET attachment = :attachment WHERE id = :id AND is_scheduled = 1")
     fun updateScheduledAttachment(id: Long, attachment: MessageAttachment?): Int
@@ -316,6 +324,26 @@ interface MessagesDao {
 
     @Query("DELETE FROM messages WHERE thread_id = :threadId")
     fun deleteAllThreadMessages(threadId: Long)
+
+    /**
+     * S19: a thread that vanished from the phone's store (deleted by another app) loses its cached provider messages
+     * and their recycle-bin entries. Its scheduled messages stay: this table is their only copy.
+     */
+    @Transaction
+    fun deleteVanishedThreadMessages(threadId: Long) {
+        deleteVanishedThreadRecycleBin(threadId)
+        deleteVanishedThreadCache(threadId)
+    }
+
+    @Query(
+        "DELETE FROM recycle_bin_messages WHERE EXISTS (SELECT 1 FROM messages WHERE messages.thread_id = :threadId " +
+            "AND messages.is_scheduled = 0 AND messages.id = recycle_bin_messages.id " +
+            "AND messages.is_mms = recycle_bin_messages.is_mms)"
+    )
+    fun deleteVanishedThreadRecycleBin(threadId: Long)
+
+    @Query("DELETE FROM messages WHERE thread_id = :threadId AND is_scheduled = 0")
+    fun deleteVanishedThreadCache(threadId: Long)
 
     @Query(
         "DELETE FROM recycle_bin_messages WHERE EXISTS (SELECT 1 FROM messages WHERE messages.thread_id = :threadId " +

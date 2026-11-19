@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Provider truth, step B (honest delete, S14). Wording approved with the string key list (19 Nov). -->
+<resources>
+    <string name="pt_delete_not_default">تا وقتی uMessage برنامهٔ پیام پیش‌فرض نیست، حذف خاموش است.</string>
+    <string name="pt_delete_nothing">چیزی حذف نشد. دوباره تلاش کنید.</string>
+</resources>

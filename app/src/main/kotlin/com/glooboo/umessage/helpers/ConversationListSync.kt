@@ -1,11 +1,14 @@
 package com.glooboo.umessage.helpers
 
 import android.content.Context
+import android.provider.Telephony.Threads
 import android.util.Log
+import androidx.core.net.toUri
 import com.glooboo.umessage.backup.PendingArchive
 import com.glooboo.umessage.backup.PendingRecycled
 import com.glooboo.umessage.extensions.clearExpiredScheduledMessages
 import com.glooboo.umessage.extensions.conversationsDB
+import com.glooboo.umessage.extensions.forgetThread
 import com.glooboo.umessage.extensions.getConversations
 import com.glooboo.umessage.extensions.getConversationsOrNull
 import com.glooboo.umessage.extensions.getMessages
@@ -14,6 +17,8 @@ import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.models.Conversation
+import com.glooboo.umessage.spam.FirstRun
+import com.glooboo.umessage.spam.SpamSorting
 import java.util.concurrent.Executor
 
 /**
@@ -168,7 +173,15 @@ class ConversationListSync(
         }
     }
 
-    private fun saved(): ArrayList<Conversation> = ArrayList(context.conversationsDB.getNonArchived())
+    /**
+     * The Messages list (S1). Provider truth: without the chats in Spam, once the first sort is published (nothing
+     * moves before it, 3.5); before that, and with the flag off, every chat that is not archived, as in 0.4.14.
+     */
+    private fun saved(): ArrayList<Conversation> {
+        val db = context.conversationsDB
+        val sorted = ProviderTruthFlag.enabled && FirstRun.state(context).value.sortPublished
+        return ArrayList(if (sorted) db.getMessagesList() else db.getNonArchived())
+    }
 
     private fun publishSaved() = publish(saved(), false)
 
@@ -183,8 +196,7 @@ class ConversationListSync(
         val db = context.conversationsDB
         if (db.getConversationWithThreadId(threadId) != null) return
         val fresh = context.getConversations(threadId = threadId).firstOrNull() ?: return
-        val temporary = (db.getNonArchived() + db.getAllArchived())
-            .firstOrNull { it.isScheduled && it.phoneNumber == fresh.phoneNumber }
+        val temporary = db.getAllRows().firstOrNull { it.isScheduled && it.phoneNumber == fresh.phoneNumber }
         if (temporary != null) {
             adoptTemporaryThread(temporary, fresh)
         } else {
@@ -203,7 +215,8 @@ class ConversationListSync(
 
     private fun fullPass() {
         val db = context.conversationsDB
-        val cachedConversations = ArrayList(db.getNonArchived() + db.getAllArchived())
+        // S1: every cached row, Spam chats included, so a Spam chat is never taken for a new one and rewritten.
+        val cachedConversations = ArrayList(db.getAllRows())
         val privateContacts = context.getPrivateContactsIfAvailable()
         val lookups = ConversationLookups(context, bulk = true)
         ArchiveStore.protectArchives(context)
@@ -234,18 +247,23 @@ class ConversationListSync(
         val freshByNumber by lazy { conversations.asReversed().associateBy { it.phoneNumber } }
 
         val cachedIds = cachedConversations.mapTo(HashSet()) { it.threadId }
+        val added = ArrayList<Long>()
         conversations.forEach { fresh ->
             if (cachedIds.add(fresh.threadId)) {
                 db.insertOrUpdate(fresh)
                 cachedConversations.add(fresh)
+                added += fresh.threadId
             }
         }
+        // 3.2: a new chat row was cached, so it is sorted.
+        SpamSorting.requestThreads(context, added)
 
+        val storeThreads by lazy { if (ProviderTruthFlag.enabled) storeThreadIds() else null }
         cachedConversations.forEach { cached ->
             val threadId = cached.threadId
             val isTemporaryThread = cached.isScheduled
             if (threadId !in freshById && !isTemporaryThread) {
-                db.deleteThreadId(threadId)
+                forgetVanished(threadId, storeThreads)
             }
             if (isTemporaryThread) {
                 freshByNumber[cached.phoneNumber]?.let { adoptTemporaryThread(cached, it) }
@@ -279,6 +297,34 @@ class ConversationListSync(
             Log.w(TAG, "Message cache import not started", e)
         }
     }
+
+    /**
+     * A cached chat the full read did not list. S19 (provider truth): when the phone's store has no such thread any
+     * more (another app deleted it), everything the app kept of it goes. Otherwise (the flag is off, the thread only
+     * has no recipients, or the store could not be read) only the cached row goes, as before.
+     */
+    private fun forgetVanished(threadId: Long, storeThreads: Set<Long>?) {
+        if (ProviderTruthFlag.enabled && storeThreads != null && threadId !in storeThreads) {
+            context.forgetThread(threadId, vanished = true)
+        } else {
+            context.conversationsDB.deleteThreadId(threadId)
+        }
+    }
+
+    /** Every thread id of the phone's store that has messages, whatever its recipients; null when unreadable. */
+    private fun storeThreadIds(): Set<Long>? = runCatching {
+        context.contentResolver.query(
+            "${Threads.CONTENT_URI}?simple=true".toUri(),
+            arrayOf(Threads._ID),
+            "${Threads.MESSAGE_COUNT} > 0",
+            null,
+            null,
+        )?.use { cursor ->
+            val ids = HashSet<Long>()
+            while (cursor.moveToNext()) ids += cursor.getLong(0)
+            ids
+        }
+    }.getOrNull()
 
     private fun sameRow(cached: Conversation, fresh: Conversation, archiveKnown: Boolean) =
         Conversation.areContentsTheSame(old = cached, new = fresh, compareArchived = archiveKnown)
