@@ -277,6 +277,11 @@ abstract class ArchiveMappingTask : DefaultTask() {
     @get:OutputDirectory
     abstract val archiveDir: DirectoryProperty
 
+    init {
+        // The copy beside the bundle is not a declared output (that folder is AGP's), so never skip: it is one file.
+        outputs.upToDateWhen { false }
+    }
+
     @TaskAction
     fun archive() {
         val bundleFile = bundle.get().asFile

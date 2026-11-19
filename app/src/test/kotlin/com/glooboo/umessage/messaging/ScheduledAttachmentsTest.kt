@@ -247,6 +247,47 @@ class ScheduledAttachmentsTest {
         assertThat(File(keptRoot, "7001").exists()).isFalse()
     }
 
+    @Test
+    fun aSendThatClaimsTheRowWhileThePhotoIsCopiedIsNotOverwritten() {
+        // M-P7: the alarm claims the row while the tidy is still reading the photo; the in-memory check before the
+        // write sees it, so the row keeps the picker's uri and the copies made meanwhile are deleted again.
+        Robolectric.setupContentProvider(ClaimingPickerProvider::class.java, PICKER_AUTHORITY)
+        pickedPhoto()
+        val pickerUri = Uri.parse("content://$PICKER_AUTHORITY/picker-photo.jpg")
+        val snapshot = scheduled(pickerUri)
+        offMainThread { context.messagesDB.insertOrUpdate(snapshot) }
+
+        try {
+            offMainThread { context.adoptScheduledAttachments(snapshot) }
+        } finally {
+            ScheduledSendClaims.release(7001L)
+        }
+
+        val row = offMainThread { context.messagesDB.getAllScheduledMessages() }.single()
+        assertThat(row.attachment!!.attachments.single().getUri()).isEqualTo(pickerUri)
+        assertThat(File(keptRoot, "7001").exists()).isFalse()
+    }
+
+    /** A picker that hands the photo over only after scheduled message 7001 was claimed by a send. */
+    class ClaimingPickerProvider : ContentProvider() {
+        override fun onCreate() = true
+        override fun openFile(uri: Uri, mode: String): ParcelFileDescriptor {
+            ScheduledSendClaims.claim(context!!, 7001L)
+            val file = File(context!!.cacheDir, uri.lastPathSegment!!)
+            return ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
+        }
+
+        override fun query(u: Uri, p: Array<out String>?, s: String?, a: Array<out String>?, o: String?) = null
+        override fun getType(uri: Uri): String? = null
+        override fun insert(uri: Uri, values: ContentValues?): Uri? = null
+        override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?) = 0
+        override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?) = 0
+    }
+
+    private companion object {
+        const val PICKER_AUTHORITY = "test.picker"
+    }
+
     /**
      * Serves files/<path> like the app's FileProvider does for its `scheduled_attachments` root. The real one is not
      * used: its path matching expects "/" separators and fails on a Windows test machine.
