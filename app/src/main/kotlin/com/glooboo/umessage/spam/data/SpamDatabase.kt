@@ -195,11 +195,10 @@ internal object ProviderTruthRuleMigration {
         "`added_at` INTEGER NOT NULL, `source` TEXT NOT NULL, `acknowledged` INTEGER NOT NULL, " +
         "PRIMARY KEY(`group_type`, `sender_key`))"
 
+    /** One rule row; [identity] is its kind, type and pattern, what the new unique index allows once. */
     private class Row(
         val id: Long,
-        val kind: String,
-        val type: String,
-        val pattern: String,
+        val identity: Triple<String, String, String>,
         val note: String,
         val createdAt: Long,
         val hitCount: Int,
@@ -236,9 +235,7 @@ internal object ProviderTruthRuleMigration {
             while (c.moveToNext()) {
                 rows += Row(
                     id = c.getLong(at("id")),
-                    kind = c.getString(at("kind")),
-                    type = c.getString(at("type")),
-                    pattern = c.getString(at("pattern")),
+                    identity = Triple(c.getString(at("kind")), c.getString(at("type")), c.getString(at("pattern"))),
                     note = c.getString(at("note")).orEmpty(),
                     createdAt = c.getLong(at("createdAt")),
                     hitCount = c.getInt(at("hitCount")),
@@ -246,7 +243,7 @@ internal object ProviderTruthRuleMigration {
                 )
             }
         }
-        rows.groupBy { Triple(it.kind, it.type, it.pattern) }.values.filter { it.size > 1 }.forEach { merge(db, it) }
+        rows.groupBy { it.identity }.values.filter { it.size > 1 }.forEach { merge(db, it) }
     }
 
     /** [group] is ordered by id: the first row is the oldest and stays. */

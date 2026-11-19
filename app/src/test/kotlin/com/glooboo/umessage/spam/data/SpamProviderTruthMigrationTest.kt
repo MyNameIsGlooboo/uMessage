@@ -45,13 +45,13 @@ class SpamProviderTruthMigrationTest {
     ) = execSQL(
         "INSERT INTO spam_rules (id, kind, type, pattern, subscriptionId, note, createdAt, hitCount, lastHit) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        arrayOf(id, kind, type, pattern, sim, note, createdAt, hits, lastHit),
+        arrayOf<Any?>(id, kind, type, pattern, sim, note, createdAt, hits, lastHit),
     )
 
     private fun SupportSQLiteDatabase.held(id: Long, ruleId: Long?) = execSQL(
         "INSERT INTO blocked_messages (id, address, body, subscriptionId, isMms, receivedAt, reason, ruleId) " +
             "VALUES (?, '+15550001234', 'held text', 1, 0, ?, 'BLOCK_RULE', ?)",
-        arrayOf(id, id * 1000, ruleId),
+        arrayOf<Any?>(id, id * 1000, ruleId),
     )
 
     private fun seedVersion8() {

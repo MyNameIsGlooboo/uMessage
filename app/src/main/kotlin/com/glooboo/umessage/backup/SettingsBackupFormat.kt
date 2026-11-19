@@ -1,10 +1,8 @@
 package com.glooboo.umessage.backup
 
 import com.glooboo.umessage.helpers.BlockedKeywordsFormat
-import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.ForwardRule
-import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.UnknownInboxNotify
@@ -282,7 +280,7 @@ object SettingsBackupFormat {
                 put("blockedKeywords", buildJsonArray { content.blockedKeywords.forEach { add(JsonPrimitive(it)) } })
             }
             if (content.groupMembers.isNotEmpty()) {
-                put(GROUP_MEMBERS, buildJsonArray { content.groupMembers.forEach { add(member(it)) } })
+                put(GROUP_MEMBERS, BackupGroupMembers.writeAll(content.groupMembers))
             }
             put("settings", BackupJson.settings(content.settings))
         }
@@ -311,36 +309,7 @@ object SettingsBackupFormat {
             droppedForwardRules = (forwards.size - MAX_FORWARD_RULES).coerceAtLeast(0),
             blockedKeywords = readKeywords(root),
             modeIncludesSwitch = root.bool("modeIncludesSwitch") == true,
-            groupMembers = root.array(GROUP_MEMBERS).orEmpty().mapNotNull(::readMember).take(MAX_GROUP_MEMBERS),
-        )
-    }
-
-    /** D3 A: one member of a group rule as the file holds it. */
-    private fun member(m: AllowGroupMember) = buildJsonObject {
-        put("group", m.group.name)
-        put("address", m.address)
-        put("addedAt", m.addedAt)
-        put("source", m.source.name)
-        put("acknowledged", m.acknowledged)
-    }
-
-    /**
-     * A member of the file, or null when it is unusable. The key is not taken from the file: the restore computes it
-     * on this phone, so it follows this phone's SIM countries.
-     */
-    private fun readMember(element: JsonElement): AllowGroupMember? {
-        val o = element as? JsonObject ?: return null
-        val group = AllowGroup.entries.firstOrNull { it.name == o.str("group") } ?: return null
-        val address = o.str("address")?.trim().orEmpty()
-        if (address.isEmpty() || address.length > MAX_TARGET) return null
-        val source = MemberSource.entries.firstOrNull { it.name == o.str("source") } ?: MemberSource.HISTORY
-        return AllowGroupMember(
-            group = group,
-            senderKey = "",
-            address = address,
-            addedAt = o.long("addedAt") ?: 0L,
-            source = source,
-            acknowledged = o.bool("acknowledged") ?: true,
+            groupMembers = BackupGroupMembers.readAll(root.array(GROUP_MEMBERS).orEmpty()).take(MAX_GROUP_MEMBERS),
         )
     }
 
