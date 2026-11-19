@@ -174,10 +174,10 @@ class OtpCodesTest {
 
     @Test
     fun aLongFirstPasswordIsCopiedAsOneCode() {
-        val body = "رمز شخصی شما ۱۲۶۱۸۹۴۳۹۰"
+        val body = "رمز شخصی شما ۱۲۳۴۵۶۷۸۹۰"
         assertThat(OtpCodes.looksLikeCode(body)).isTrue()
-        assertThat(OtpCodes.tokens(body).map { it.value }).containsExactly("1261894390")
-        assertThat(OtpCodes.tokens("Your OTP is 4821. Ref 1261894390").map { it.value }).containsExactly("4821")
-        assertThat(OtpCodes.tokens("Verification of order 1261894390")).isEmpty()
+        assertThat(OtpCodes.tokens(body).map { it.value }).containsExactly("1234567890")
+        assertThat(OtpCodes.tokens("Your OTP is 4821. Ref 1234567890").map { it.value }).containsExactly("4821")
+        assertThat(OtpCodes.tokens("Verification of order 1234567890")).isEmpty()
     }
 }

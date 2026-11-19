@@ -35,7 +35,7 @@ app-build-javaVersion = "VERSION_17"
 app-build-kotlinJVMTarget = "17"
 #Helpers
 ez-vcard = "0.12.2"
-libphonenumber = "8.13.50"
+libphonenumber = "9.0.44"
 junit = "4.13.2"
 #Testing
 robolectric = "4.17"

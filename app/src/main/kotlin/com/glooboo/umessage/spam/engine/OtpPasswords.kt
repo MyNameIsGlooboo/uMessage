@@ -1,7 +1,7 @@
 package com.glooboo.umessage.spam.engine
 
 /**
- * The 9-10 digit first password ("رمز شخصی شما 1261894390"): a number longer than [OtpDetector.MAX_CODE_DIGITS] is a
+ * The 9-10 digit first password ("رمز شخصی شما 1234567890"): a number longer than [OtpDetector.MAX_CODE_DIGITS] is a
  * code only when a password word ([OtpDetector.passwordKeywords]) stands a few plain words before or after it.
  */
 internal object OtpPasswords {

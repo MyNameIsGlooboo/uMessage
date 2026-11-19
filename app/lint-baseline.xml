@@ -200,17 +200,6 @@
     </issue>
 
     <issue
-        id="NewerVersionAvailable"
-        message="A newer version of com.googlecode.libphonenumber:libphonenumber than 8.13.50 is available: 9.0.42"
-        errorLine1="libphonenumber = &quot;8.13.50&quot;"
-        errorLine2="                 ~~~~~~~~~">
-        <location
-            file="../gradle/libs.versions.toml"
-            line="38"
-            column="18"/>
-    </issue>
-
-    <issue
         id="VisibleForTests"
         message="This method should only be accessed from tests or within private scope"
         errorLine1="class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emptyMap())) : ViewModel() {"

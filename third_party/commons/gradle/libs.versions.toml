@@ -33,7 +33,7 @@ glide = "5.0.7"
 room = "2.8.4"
 #ezVcard
 ezVcard = "0.12.2"
-libphonenumber = "8.13.50"
+libphonenumber = "9.0.44"
 #gson
 gson = "2.14.0"
 #Gradle
