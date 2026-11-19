@@ -34,8 +34,11 @@ internal object BackupJson {
         put("pattern", r.pattern)
         put("note", r.note)
         put("createdAt", r.createdAt)
-        // A-9: the Keep state of an automatic allow rule (U15). Written only when set, so older files read the same.
-        if (r.acknowledged) put("acknowledged", true)
+        // A-9: the Keep state (U15). Always written for an automatic allow rule, as a missing field reads as kept
+        // (files from before it); for other rules only when set, so their entries stay as older versions wrote them.
+        if (r.acknowledged || (r.kind == ListKind.ALLOW && RuleNotes.isMadeByFilter(r.note))) {
+            put("acknowledged", r.acknowledged)
+        }
     }
 
     fun forward(r: ForwardRule) = buildJsonObject {
