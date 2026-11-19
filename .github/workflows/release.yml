@@ -135,15 +135,12 @@ jobs:
           for flavor in foss gplay; do
             apks=(app/build/outputs/apk/"$flavor"/release/*.apk)
             aabs=(app/build/outputs/bundle/"$flavor"Release/*.aab)
-            maps=(app/build/outputs/bundle/"$flavor"Release/*-mapping.txt)
             [ "${#apks[@]}" -eq 1 ] && [ -f "${apks[0]}" ] || { echo "::error::Expected one $flavor APK: ${apks[*]}"; exit 1; }
             [ "${#aabs[@]}" -eq 1 ] && [ -f "${aabs[0]}" ] || { echo "::error::Expected one $flavor AAB: ${aabs[*]}"; exit 1; }
-            # M-B6: the R8 mapping, to decode crash traces of this build later (archiveMapping<Variant> writes it).
-            [ "${#maps[@]}" -eq 1 ] && [ -f "${maps[0]}" ] || { echo "::error::Expected one $flavor mapping: ${maps[*]}"; exit 1; }
             case "${apks[0]}" in
               *-unsigned.apk) echo "::error::Release APK is unsigned: ${apks[0]}"; exit 1 ;;
             esac
-            cp "${apks[0]}" "${aabs[0]}" "${maps[0]}" dist/
+            cp "${apks[0]}" "${aabs[0]}" dist/
           done
           ls -l dist
 
@@ -171,7 +168,7 @@ jobs:
       - name: SHA-256 checksums
         working-directory: dist
         run: |
-          sha256sum *.apk *.aab *-mapping.txt > SHA256SUMS.txt
+          sha256sum *.apk *.aab > SHA256SUMS.txt
           cat SHA256SUMS.txt
 
       - name: Create GitHub Release
@@ -180,7 +177,6 @@ jobs:
           files: |
             dist/*.apk
             dist/*.aab
-            dist/*-mapping.txt
             dist/SHA256SUMS.txt
           generate_release_notes: true
           fail_on_unmatched_files: true
