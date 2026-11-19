@@ -1,5 +1,7 @@
 package com.glooboo.umessage.ui.thread
 
+import android.content.Context
+import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -26,7 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.icons.Symbols
-import org.fossify.commons.extensions.copyToClipboard
+import org.fossify.commons.extensions.toast
 import com.glooboo.umessage.helpers.SensitiveClip
 
 /** The value is Latin or digits inside possibly right-to-left text: isolate it so it keeps its own direction. */
@@ -61,11 +63,7 @@ internal fun CopyChips(body: String, modifier: Modifier = Modifier) {
             val isolated = LRI + token.value + PDI
             val shown = stringResource(R.string.thread_copy_value_format, isolated)
             Surface(
-                onClick = {
-                    context.copyToClipboard(token.value)
-                    // Marked sensitive (hidden from previews) but never cleared by the app.
-                    SensitiveClip.mark(context, token.value)
-                },
+                onClick = { copyChipValue(context, token.value) },
                 shape = RoundedCornerShape(50),
                 color = MaterialTheme.colorScheme.secondaryContainer,
                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -88,4 +86,14 @@ internal fun CopyChips(body: String, modifier: Modifier = Modifier) {
             }
         }
     }
+}
+
+/**
+ * M-SEC5: one sensitive copy under a label that names nothing, so the value shows in no clipboard preview or manager.
+ * Marked sensitive but never cleared by the app. The toast does not repeat the value; Android 13+ confirms copies
+ * itself.
+ */
+internal fun copyChipValue(context: Context, value: String, sdkInt: Int = Build.VERSION.SDK_INT) {
+    if (!SensitiveClip.copy(context, SensitiveClip.genericLabel(context), value)) return
+    if (sdkInt < Build.VERSION_CODES.TIRAMISU) context.toast(org.fossify.commons.R.string.value_copied_to_clipboard)
 }

@@ -180,13 +180,40 @@ class ScheduledAttachmentsTest {
         offMainThread { context.messagesDB.insertOrUpdate(scheduled(Uri.fromFile(photo))) }
         val orphan = File(keptRoot, "999").apply { mkdirs(); File(this, "x.jpg").writeBytes(byteArrayOf(1)) }
 
-        offMainThread { context.tidyScheduledAttachments() }
+        // An hour later: a folder written just now may belong to a row about to be saved (M-P7).
+        offMainThread { context.tidyScheduledAttachments(nowMillis = System.currentTimeMillis() + 3_600_000L) }
         photo.delete()
 
         val adopted = offMainThread { context.messagesDB.getAllScheduledMessages() }.single()
         assertThat(context.hasExternalScheduledAttachments(adopted)).isFalse()
         assertThat(context.canReadScheduledAttachments(adopted)).isTrue()
         assertThat(orphan.exists()).isFalse()
+    }
+
+    @Test
+    fun appStartLeavesASendInProgressAndANewRepeatFolderAlone() {
+        // M-P7: an alarm is sending message 7001 while the app starts, and has just copied the photos of the next
+        // repeat (8002) into their folder; that row is not saved yet.
+        val photo = pickedPhoto()
+        offMainThread { context.messagesDB.insertOrUpdate(scheduled(Uri.fromFile(photo))) }
+        assertThat(offMainThread { ScheduledSendClaims.claim(context, 7001L) }).isTrue()
+        val nextRepeat = File(keptRoot, "8002").apply { mkdirs(); File(this, "x.jpg").writeBytes(byteArrayOf(1)) }
+
+        try {
+            offMainThread { context.tidyScheduledAttachments(nowMillis = System.currentTimeMillis() + 3_600_000L) }
+        } finally {
+            ScheduledSendClaims.release(7001L)
+        }
+
+        val sending = offMainThread { context.messagesDB.getAllScheduledMessages() }.single()
+        assertThat(sending.type).isEqualTo(Telephony.Sms.MESSAGE_TYPE_OUTBOX)
+        assertThat(context.hasExternalScheduledAttachments(sending)).isTrue()
+        assertThat(File(keptRoot, "7001").exists()).isFalse()
+        assertThat(nextRepeat.exists()).isTrue()
+
+        // Without a send running, a folder written a moment ago is kept too.
+        offMainThread { context.tidyScheduledAttachments() }
+        assertThat(nextRepeat.exists()).isTrue()
     }
 
     /**

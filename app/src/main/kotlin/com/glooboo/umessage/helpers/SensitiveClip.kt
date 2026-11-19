@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Build
 import android.os.PersistableBundle
+import com.glooboo.umessage.R
 
 /**
  * I15 and I25: copies of private text are marked sensitive (Android 13+ then hides them from the clipboard preview).
@@ -36,8 +37,14 @@ object SensitiveClip {
         }
     }
 
-    /** Marks what was just copied through another path as sensitive. */
+    /**
+     * Marks what was just copied through another path as sensitive. The clip label is the app name, never [text]:
+     * the sensitive flag does not cover the label, and clipboard previews and managers show it (M-SEC5).
+     */
     fun mark(context: Context, text: String) {
-        copy(context, text, text)
+        copy(context, genericLabel(context), text)
     }
+
+    /** A label that says nothing about the copied text. */
+    fun genericLabel(context: Context): String = context.getString(R.string.app_name)
 }

@@ -124,8 +124,13 @@ fun Context.deleteScheduledAttachments(messageId: Long) {
  * Runs on app start. Scheduled messages saved before attachments were copied still point at the picker's uri:
  * each pending one is copied now while the uri may still be readable (one that is not stays as it is, and its send
  * is held with a notification when its time comes). Copies left by messages that no longer exist are deleted.
+ *
+ * M-P7: an alarm can send a scheduled message while this runs. A message being sent is left alone, only the
+ * attachment column is written (so a row sent and deleted meanwhile is never written back), and the folders are swept
+ * only when no send runs, against the ids read again just before, and never a folder that was just written: a
+ * repeat's next copy gets its folder before its row is saved.
  */
-fun Context.tidyScheduledAttachments() {
+fun Context.tidyScheduledAttachments(nowMillis: Long = System.currentTimeMillis()) {
     val scheduled = try {
         messagesDB.getAllScheduledMessages()
     } catch (_: Exception) {
@@ -133,11 +138,27 @@ fun Context.tidyScheduledAttachments() {
     }
 
     scheduled
-        .filter { it.type != Telephony.Sms.MESSAGE_TYPE_FAILED && hasExternalScheduledAttachments(it) }
+        .filter { it.type != Telephony.Sms.MESSAGE_TYPE_FAILED && !ScheduledSendClaims.isInFlight(it.id) }
+        .filter { hasExternalScheduledAttachments(it) }
         .forEach { message ->
-            runCatching { messagesDB.insertOrUpdate(keepScheduledAttachments(message)) }
+            runCatching {
+                val kept = keepScheduledAttachments(message)
+                if (messagesDB.updateScheduledAttachment(message.id, kept.attachment) == 0) {
+                    deleteScheduledAttachments(message.id) // sent or deleted meanwhile
+                }
+            }
         }
 
-    val ids = scheduled.map { it.id.toString() }.toSet()
-    scheduledAttachmentsRoot().listFiles()?.filter { it.name !in ids }?.forEach { it.deleteRecursively() }
+    if (ScheduledSendClaims.anyInFlight()) return // the next start sweeps
+    val ids = try {
+        messagesDB.getAllScheduledMessages().map { it.id.toString() }.toSet()
+    } catch (_: Exception) {
+        return
+    }
+    scheduledAttachmentsRoot().listFiles()
+        ?.filter { it.name !in ids && nowMillis - it.lastModified() > RECENT_FOLDER_MILLIS }
+        ?.forEach { it.deleteRecursively() }
 }
+
+/** A copies folder younger than this may belong to a scheduled message whose row is about to be saved. */
+private const val RECENT_FOLDER_MILLIS = 10 * 60_000L

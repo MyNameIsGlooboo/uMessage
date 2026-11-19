@@ -256,6 +256,30 @@ abstract class CheckPlayManifestTask : DefaultTask() {
     }
 }
 
+/**
+ * M-B6: copies the R8 mapping of a release build beside its app bundle, as `<bundle name>-mapping.txt`, so crash traces
+ * from builds outside Play (GitHub, F-Droid, a sideloaded APK) can be decoded later. Runs after every bundle<Variant>
+ * of a release variant; the release workflow attaches the file to the GitHub release.
+ */
+abstract class ArchiveMappingTask : DefaultTask() {
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val mapping: RegularFileProperty
+
+    /** Only orders this after the bundle is written; the bundle itself is not read. */
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val bundle: RegularFileProperty
+
+    @get:OutputFile
+    abstract val archived: RegularFileProperty
+
+    @TaskAction
+    fun archive() {
+        mapping.get().asFile.copyTo(archived.get().asFile, overwrite = true)
+    }
+}
+
 // Every module and library a resolved classpath contains, as "group:name:version" (or "project :x").
 fun ResolvedComponentResult.allComponentIds(): List<String> {
     val seen = LinkedHashSet<String>()
@@ -269,6 +293,18 @@ fun ResolvedComponentResult.allComponentIds(): List<String> {
 }
 
 androidComponents {
+    onVariants(selector().withBuildType("release")) { variant ->
+        val capitalized = variant.name.replaceFirstChar { it.uppercase() }
+        val bundleName = "${base.archivesName.get()}-${variant.flavorName}-${variant.buildType}"
+        val archiveTask = tasks.register<ArchiveMappingTask>("archiveMapping$capitalized") {
+            group = "build"
+            description = "Copies the R8 mapping of ${variant.name} beside its app bundle."
+            mapping.set(variant.artifacts.get(SingleArtifact.OBFUSCATION_MAPPING_FILE))
+            bundle.set(variant.artifacts.get(SingleArtifact.BUNDLE))
+            archived.set(layout.buildDirectory.file("outputs/bundle/${variant.name}/$bundleName-mapping.txt"))
+        }
+        tasks.matching { it.name == "bundle$capitalized" }.configureEach { finalizedBy(archiveTask) }
+    }
     onVariants(selector().withFlavor("variants" to "foss")) { variant ->
         val checkTask = tasks.register<CheckFdroidTask>("checkFdroid" + variant.name.replaceFirstChar { it.uppercase() }) {
             group = "verification"
