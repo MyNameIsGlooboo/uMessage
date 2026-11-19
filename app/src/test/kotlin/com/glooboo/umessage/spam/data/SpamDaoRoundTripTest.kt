@@ -45,7 +45,7 @@ class SpamDaoRoundTripTest {
             )
         )
 
-        val found = dao.findRule(ListKind.BLOCK, RuleType.KEYWORD, "lottery", null)
+        val found = dao.findRule(ListKind.BLOCK, RuleType.KEYWORD, "lottery")
         assertThat(found?.id).isEqualTo(id)
 
         dao.deleteRule(id)

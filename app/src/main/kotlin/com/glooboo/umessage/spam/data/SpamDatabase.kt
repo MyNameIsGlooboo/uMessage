@@ -7,11 +7,12 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.glooboo.umessage.databases.DatabaseBackups
+import com.glooboo.umessage.ui.spam.RuleNotes
 
 @Database(
     entities = [
         SpamRuleEntity::class, BlockedMessageEntity::class, SpamEventEntity::class, PendingSmsEntity::class,
-        ForwardRuleEntity::class, ForwardLogEntity::class,
+        ForwardRuleEntity::class, ForwardLogEntity::class, AllowGroupMemberEntity::class,
     ],
     version = SpamDatabase.VERSION,
     exportSchema = true
@@ -124,16 +125,28 @@ abstract class SpamDatabase : RoomDatabase() {
         /** Schema version that added the approved flag and the rule hit counters. */
         private const val VERSION_RULE_STATS = 8
 
+        /**
+         * Schema 9, provider truth (7.2, S15, U15): every spam rule covers both SIMs, duplicates merged; the Keep
+         * state of automatic allow rules; the members of the two group rules; the done mark of the message migration.
+         * Not behind ProviderTruthFlag; see [ProviderTruthRuleMigration] for why the old filter still works on it.
+         */
+        private val MIGRATION_8_9 = object : Migration(VERSION_RULE_STATS, VERSION_PROVIDER_TRUTH) {
+            override fun migrate(db: SupportSQLiteDatabase) = ProviderTruthRuleMigration.migrate(db)
+        }
+
+        /** Schema version of provider truth: rules for both SIMs, group members, migratedMsgId. */
+        private const val VERSION_PROVIDER_TRUTH = 9
+
         internal const val DATABASE_NAME = "spamless.db"
 
         /** Must equal the `version` in [Database] above. */
-        internal const val VERSION = VERSION_RULE_STATS
+        internal const val VERSION = VERSION_PROVIDER_TRUTH
 
         /** Every migration, oldest first. */
         internal val ALL_MIGRATIONS: Array<Migration> =
             arrayOf(
                 MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7,
-                MIGRATION_7_8,
+                MIGRATION_7_8, MIGRATION_8_9,
             )
 
         fun getInstance(context: Context): SpamDatabase = instance ?: synchronized(this) {
@@ -153,5 +166,105 @@ abstract class SpamDatabase : RoomDatabase() {
                 .addCallback(SpamDatabaseRecovery(context, name, downgradedFrom))
                 .build()
         }
+    }
+}
+
+/**
+ * spamless.db 8 to 9 (provider truth, 7.2; S15, U15). Android's open helper runs every upgrade step inside one
+ * transaction, so this applies whole or not at all; a failure leaves the file at version 8 for the next start.
+ *
+ * 1. Rules with the same kind, type and pattern (the same rule on two SIMs, or for one SIM and both) become one: the
+ *    oldest id stays, hit counts are added up, the newest "last hit" and the oldest creation time are kept, and a
+ *    note of the user ("Blocked by you", a typed note, none) wins over a note the filter wrote (allowed or blocked
+ *    from a word). Held messages that named a merged rule name the kept one.
+ * 2. Every spam rule covers both SIMs (subscriptionId null); the unique index is on kind, type and pattern.
+ *    Forward rules are another table and keep their SIM.
+ * 3. spam_rules.acknowledged: automatic allow rules made by an allowed word before the update start acknowledged
+ *    (they get no line in their chat).
+ * 4. The table of the group members, empty.
+ * 5. blocked_messages.migratedMsgId and migrateTries for the message migration, empty.
+ *
+ * Safe for the 0.4.14 filter (ProviderTruthFlag off): it reads no new column or table, and a rule for one SIM now
+ * matches on both, which only widens a rule the user made (the owner decided every rule covers both SIMs). No rule,
+ * held message or event is lost; a downgrade copies the shared columns back (SpamDatabaseRecovery).
+ */
+internal object ProviderTruthRuleMigration {
+
+    private const val CREATE_MEMBERS = "CREATE TABLE IF NOT EXISTS `allow_group_members` (" +
+        "`group_type` TEXT NOT NULL, `sender_key` TEXT NOT NULL, `address` TEXT NOT NULL, " +
+        "`added_at` INTEGER NOT NULL, `source` TEXT NOT NULL, `acknowledged` INTEGER NOT NULL, " +
+        "PRIMARY KEY(`group_type`, `sender_key`))"
+
+    private class Row(
+        val id: Long,
+        val kind: String,
+        val type: String,
+        val pattern: String,
+        val note: String,
+        val createdAt: Long,
+        val hitCount: Int,
+        val lastHit: Long,
+    )
+
+    fun migrate(db: SupportSQLiteDatabase) {
+        mergeDuplicates(db)
+        db.execSQL("UPDATE `spam_rules` SET `subscriptionId` = NULL")
+        db.execSQL("DROP INDEX IF EXISTS `index_spam_rules_kind_type_pattern_subscriptionId`")
+        db.execSQL(
+            "CREATE UNIQUE INDEX IF NOT EXISTS `index_spam_rules_kind_type_pattern` " +
+                "ON `spam_rules` (`kind`, `type`, `pattern`)"
+        )
+        db.execSQL("ALTER TABLE `spam_rules` ADD COLUMN `acknowledged` INTEGER NOT NULL DEFAULT 0")
+        val forms = RuleNotes.storedForms(RuleNotes.ALLOWED_FROM_KEYWORD)
+        db.execSQL(
+            "UPDATE `spam_rules` SET `acknowledged` = 1 WHERE `kind` = 'ALLOW' AND TRIM(`note`) IN " +
+                "(${forms.joinToString { "?" }})",
+            forms.toTypedArray(),
+        )
+        db.execSQL(CREATE_MEMBERS)
+        db.execSQL("ALTER TABLE `blocked_messages` ADD COLUMN `migratedMsgId` INTEGER")
+        db.execSQL("ALTER TABLE `blocked_messages` ADD COLUMN `migrateTries` INTEGER NOT NULL DEFAULT 0")
+    }
+
+    private fun mergeDuplicates(db: SupportSQLiteDatabase) {
+        val rows = mutableListOf<Row>()
+        db.query(
+            "SELECT `id`, `kind`, `type`, `pattern`, `note`, `createdAt`, `hitCount`, `lastHit` FROM `spam_rules` " +
+                "ORDER BY `id`"
+        ).use { c ->
+            fun at(name: String) = c.getColumnIndexOrThrow(name)
+            while (c.moveToNext()) {
+                rows += Row(
+                    id = c.getLong(at("id")),
+                    kind = c.getString(at("kind")),
+                    type = c.getString(at("type")),
+                    pattern = c.getString(at("pattern")),
+                    note = c.getString(at("note")).orEmpty(),
+                    createdAt = c.getLong(at("createdAt")),
+                    hitCount = c.getInt(at("hitCount")),
+                    lastHit = c.getLong(at("lastHit")),
+                )
+            }
+        }
+        rows.groupBy { Triple(it.kind, it.type, it.pattern) }.values.filter { it.size > 1 }.forEach { merge(db, it) }
+    }
+
+    /** [group] is ordered by id: the first row is the oldest and stays. */
+    private fun merge(db: SupportSQLiteDatabase, group: List<Row>) {
+        val keep = group.first()
+        val gone = group.drop(1).joinToString(",") { it.id.toString() }
+        val note = if (!RuleNotes.isMadeByFilter(keep.note)) {
+            keep.note
+        } else {
+            group.firstOrNull { !RuleNotes.isMadeByFilter(it.note) }?.note ?: keep.note
+        }
+        db.execSQL("DELETE FROM `spam_rules` WHERE `id` IN ($gone)")
+        db.execSQL(
+            "UPDATE `spam_rules` SET `note` = ?, `createdAt` = ?, `hitCount` = ?, `lastHit` = ? WHERE `id` = ?",
+            arrayOf<Any>(
+                note, group.minOf { it.createdAt }, group.sumOf { it.hitCount }, group.maxOf { it.lastHit }, keep.id,
+            ),
+        )
+        db.execSQL("UPDATE `blocked_messages` SET `ruleId` = ? WHERE `ruleId` IN ($gone)", arrayOf<Any>(keep.id))
     }
 }

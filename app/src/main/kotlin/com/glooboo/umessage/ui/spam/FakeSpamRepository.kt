@@ -4,12 +4,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
+import com.glooboo.umessage.spam.AllowGroup
+import com.glooboo.umessage.spam.AllowGroupMember
+import com.glooboo.umessage.spam.BlockReceipt
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ForwardLogEntry
 import com.glooboo.umessage.spam.ForwardLogRepository
 import com.glooboo.umessage.spam.ForwardStatus
 import com.glooboo.umessage.spam.ListKind
+import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.RestoreOutcome
 import com.glooboo.umessage.spam.RestoreReceipt
 import com.glooboo.umessage.spam.RuleType
@@ -95,6 +99,56 @@ class FakeSpamRepository(
         blockedState.update { list -> list.filterNot { it.id in ids } }
 
     override suspend fun purgeExpired() = Unit
+
+    private val membersState = MutableStateFlow<List<AllowGroupMember>>(emptyList())
+
+    override val groupMembers: Flow<List<AllowGroupMember>> = membersState
+
+    /** Keys senders by their trimmed, lower-case address: enough for previews. */
+    private fun keyOf(address: String) = address.trim().lowercase()
+
+    override suspend fun joinGroup(group: AllowGroup, address: String, source: MemberSource): Boolean {
+        val key = keyOf(address)
+        if (key.isEmpty()) return false
+        val blocked = rulesState.value.any { it.kind == ListKind.BLOCK && keyOf(it.pattern) == key }
+        if (blocked) return false
+        membersState.update { list ->
+            if (list.any { it.group == group && it.senderKey == key }) list
+            else list + AllowGroupMember(group, key, address.trim(), source = source)
+        }
+        return true
+    }
+
+    override suspend fun removeGroupMembers(members: List<AllowGroupMember>): List<AllowGroupMember> {
+        val gone = membersState.value.filter { m -> members.any { it.group == m.group && it.senderKey == m.senderKey } }
+        membersState.update { list -> list - gone.toSet() }
+        return gone
+    }
+
+    override suspend fun restoreGroupMembers(members: List<AllowGroupMember>) =
+        membersState.update { list -> (list + members).distinctBy { it.group to it.senderKey } }
+
+    override suspend fun acknowledgeSender(address: String) = membersState.update { list ->
+        list.map { if (it.senderKey == keyOf(address)) it.copy(acknowledged = true) else it }
+    }
+
+    override suspend fun blockAddress(address: String, note: String): BlockReceipt? {
+        val key = keyOf(address)
+        if (key.isEmpty()) return null
+        val allows = rulesState.value.filter { it.kind == ListKind.ALLOW && keyOf(it.pattern) == key }
+        rulesState.update { list -> list - allows.toSet() }
+        val members = membersState.value.filter { it.senderKey == key }
+        membersState.update { list -> list - members.toSet() }
+        val type = if (address.any { it.isLetter() }) RuleType.SENDER_ID else RuleType.NUMBER
+        val id = addRule(SpamRule(kind = ListKind.BLOCK, type = type, pattern = address.trim(), note = note))
+        return BlockReceipt(address, id, allows, members)
+    }
+
+    override suspend fun undoBlock(receipt: BlockReceipt) {
+        removeRule(receipt.ruleId)
+        rulesState.update { it + receipt.removedRules }
+        restoreGroupMembers(receipt.removedMembers)
+    }
 
     private companion object {
         const val DAY = 24L * 60 * 60 * 1000

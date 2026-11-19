@@ -13,10 +13,15 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import com.glooboo.umessage.spam.AllowGroup
+import com.glooboo.umessage.spam.AllowGroupMember
+import com.glooboo.umessage.spam.BlockReceipt
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
+import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.MMS_PLACEHOLDER_BODY
+import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.RegexGuard
 import com.glooboo.umessage.spam.RestoreOutcome
@@ -27,7 +32,13 @@ import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.SpamStats
 import com.glooboo.umessage.spam.engine.DomainMatch
+import com.glooboo.umessage.spam.engine.GroupMembership
 import com.glooboo.umessage.spam.engine.NumberNormalizer
+import com.glooboo.umessage.spam.engine.NumberReaders
+import com.glooboo.umessage.spam.engine.RuleMatcher
+import com.glooboo.umessage.spam.engine.SenderAddress
+import com.glooboo.umessage.spam.engine.SenderFact
+import com.glooboo.umessage.ui.spam.RuleNotes
 
 class DefaultSpamRepository(
     private val platform: SpamPlatform,
@@ -42,9 +53,22 @@ class DefaultSpamRepository(
     private val blockedFromKeywordNote: () -> String = { "" },
     /** The note on a rule added when a keyword or regex ALLOW rule allows a message and so allows its sender too. */
     private val allowedFromKeywordNote: () -> String = { "" },
+    /** Provider truth (R6, S8): the countries of every SIM, the one region list senders are read with. */
+    simRegions: () -> List<String> = { emptyList() },
 ) : SpamRepository {
 
     private val dao get() = db.spamDao()
+
+    /** The one reading of a sender for rules made from it and for group members (R6, S8). */
+    private val readers = NumberReaders(normalizer, simRegions)
+
+    private val groups = AllowGroups(db, readers)
+
+    /** Matches the sender rules (number, sender name, prefix) of a sender, in every reading of [readers]. */
+    private val senderMatcher = RuleMatcher(normalizer)
+
+    /** D3 A: who is in which group rule, for the filter (check 8). */
+    val groupMembership: GroupMembership get() = groups
 
     /** Serializes restores so a double tap cannot deliver the same message twice. */
     private val restoreLock = Mutex()
@@ -97,13 +121,14 @@ class DefaultSpamRepository(
         db.runInTransaction<Long> {
             val current = dao.getRule(rule.id) ?: throw NoSuchElementException("No rule ${rule.id}")
             val pattern = cleanPattern(rule)
-            val other = dao.findRule(rule.kind, rule.type, pattern, rule.subscriptionId)
+            val other = dao.findRule(rule.kind, rule.type, pattern)
             if (other != null && other.id != rule.id) return@runInTransaction other.id
             // The counters belong to the engine: an edit from a screen that read the rule earlier must not reset them.
+            // Since schema 9 every spam rule covers both SIMs (7.2): a SIM chosen on an older form is not kept.
             dao.updateRule(
                 SpamRuleEntity.from(
                     rule.copy(
-                        pattern = pattern, createdAt = current.createdAt,
+                        pattern = pattern, subscriptionId = null, createdAt = current.createdAt,
                         hitCount = current.hitCount, lastHit = current.lastHit,
                     )
                 )
@@ -124,10 +149,10 @@ class DefaultSpamRepository(
             rules.forEach { rule ->
                 if (rule.type == RuleType.REGEX && RegexGuard.validate(rule.pattern) != null) return@forEach
                 val pattern = cleanPattern(rule)
-                if (dao.findRule(rule.kind, rule.type, pattern, rule.subscriptionId) != null) return@forEach
+                if (dao.findRule(rule.kind, rule.type, pattern) != null) return@forEach
                 // Room ids are AUTOINCREMENT, so a deleted rule's id is never handed to another rule.
                 val id = if (rule.id > 0 && dao.getRule(rule.id) == null) rule.id else 0
-                dao.insertRule(SpamRuleEntity.from(rule.copy(id = id, pattern = pattern)))
+                dao.insertRule(SpamRuleEntity.from(rule.copy(id = id, pattern = pattern, subscriptionId = null)))
             }
         }
     }
@@ -334,6 +359,8 @@ class DefaultSpamRepository(
                 it.kind == ListKind.ALLOW && it.type == type && it.pattern == pattern
             }.forEach { dao.deleteRule(it.id) }
             insertRule(SpamRule(kind = ListKind.BLOCK, type = type, pattern = pattern, note = blockedFromMessageNote()))
+            // D3 A: a block rule takes the sender out of the group rules (empty while ProviderTruthFlag is off).
+            groups.leave(message.address)
         }
     }
 
@@ -391,6 +418,132 @@ class DefaultSpamRepository(
     private fun isKeywordRule(rule: SpamRuleEntity, kind: ListKind): Boolean =
         rule.kind == kind && (rule.type == RuleType.KEYWORD || rule.type == RuleType.REGEX)
 
+    /**
+     * Provider truth (R1, facts first): writes [fact] for the sender of [address] before its text is stored. Every
+     * write is idempotent, so the replay of the pending queue can write it again. Blocking; never throws. False when
+     * nothing could be written (the caller retries once, then fails open).
+     *
+     * - [SenderFact.AutoAllow] (H4 A): an allow rule for the number or sender name, with the "allowed from a keyword"
+     *   note, not acknowledged, so the chat shows its line with Block and Keep. A block still wins over it.
+     * - [SenderFact.AutoBlock] (M-SP1, also the old Fossify word list): a block rule with the "blocked from a keyword"
+     *   note; the sender's automatic allow rules and group memberships go in the same transaction.
+     * - [SenderFact.JoinCodeGroup]: the sender joins "Senders of a verification code" (D3 A).
+     */
+    fun writeSenderFact(address: String, fact: SenderFact): Boolean = runCatching {
+        if (SenderAddress.isUnreadable(address)) return@runCatching false
+        val type = ruleTypeFor(address)
+        val pattern = readers.rulePattern(address)
+        if (pattern.isEmpty()) return@runCatching false
+        db.runInTransaction<Boolean> {
+            when (fact) {
+                is SenderFact.AutoAllow -> {
+                    val named = dao.getRules().filter { it.type == type && it.pattern == pattern }
+                    if (named.none { it.kind == ListKind.ALLOW }) {
+                        val note = allowedFromKeywordNote()
+                        insertRule(SpamRule(kind = ListKind.ALLOW, type = type, pattern = pattern, note = note))
+                    }
+                    true
+                }
+                is SenderFact.AutoBlock -> {
+                    automaticAllowsOf(address).forEach { dao.deleteRule(it.id) }
+                    groups.leave(address)
+                    val note = blockedFromKeywordNote()
+                    insertRule(SpamRule(kind = ListKind.BLOCK, type = type, pattern = pattern, note = note))
+                    true
+                }
+                SenderFact.JoinCodeGroup -> groups.join(AllowGroup.CODE, address, MemberSource.LIVE)
+            }
+        }
+    }.getOrDefault(false)
+
+    /** Allow rules the filter made (H4) that name exactly the sender of [address]. */
+    private fun automaticAllowsOf(address: String): List<SpamRuleEntity> =
+        exactRulesOf(address).filter { it.kind == ListKind.ALLOW && RuleNotes.isMadeByFilter(it.note) }
+
+    /** Rules of type NUMBER or SENDER_ID that name the sender of [address] in any reading of the region list. */
+    private fun exactRulesOf(address: String): List<SpamRuleEntity> {
+        val probe = IncomingMessage(address = address, body = "", subscriptionId = NO_SIM)
+        val numbers = readers.readers()
+        return dao.getRules().filter {
+            (it.type == RuleType.NUMBER || it.type == RuleType.SENDER_ID) &&
+                senderMatcher.matches(it.toRule(), probe, numbers)
+        }
+    }
+
+    /** Whether a block rule names the sender (number, sender name or prefix). */
+    private fun hasBlockRule(address: String): Boolean {
+        val probe = IncomingMessage(address = address, body = "", subscriptionId = NO_SIM)
+        val numbers = readers.readers()
+        return dao.getRules().any {
+            it.kind == ListKind.BLOCK && it.type in SENDER_TYPES && senderMatcher.matches(it.toRule(), probe, numbers)
+        }
+    }
+
+    override val groupMembers: Flow<List<AllowGroupMember>> =
+        dao.observeMembers().map { list -> list.map { it.toModel() } }
+
+    override suspend fun joinGroup(group: AllowGroup, address: String, source: MemberSource): Boolean =
+        withContext(Dispatchers.IO) {
+            runCatching {
+                db.runInTransaction<Boolean> {
+                    // A reply to a blocked sender, or a blocked sender found by the history check, changes nothing.
+                    !hasBlockRule(address) && groups.join(group, address, source)
+                }
+            }.getOrDefault(false)
+        }
+
+    override suspend fun removeGroupMembers(members: List<AllowGroupMember>): List<AllowGroupMember> =
+        withContext(Dispatchers.IO) {
+            db.runInTransaction<List<AllowGroupMember>> {
+                members.filter { dao.deleteMember(it.group, it.senderKey) > 0 }
+            }
+        }
+
+    override suspend fun restoreGroupMembers(members: List<AllowGroupMember>) = withContext(Dispatchers.IO) {
+        if (members.isEmpty()) return@withContext
+        db.runInTransaction { members.forEach { dao.putMember(AllowGroupMemberEntity.from(it)) } }
+    }
+
+    override suspend fun acknowledgeSender(address: String) = withContext(Dispatchers.IO) {
+        db.runInTransaction {
+            groups.acknowledge(address)
+            val ids = automaticAllowsOf(address).map { it.id }
+            if (ids.isNotEmpty()) dao.acknowledgeRules(ids)
+        }
+    }
+
+    override suspend fun blockAddress(address: String, note: String): BlockReceipt? = withContext(Dispatchers.IO) {
+        if (SenderAddress.isUnreadable(address)) return@withContext null
+        val type = ruleTypeFor(address)
+        val pattern = readers.rulePattern(address)
+        if (pattern.isEmpty()) return@withContext null
+        db.runInTransaction<BlockReceipt> {
+            val allows = exactRulesOf(address).filter { it.kind == ListKind.ALLOW }
+            allows.forEach { dao.deleteRule(it.id) }
+            val members = groups.leave(address)
+            val existing = dao.findRule(ListKind.BLOCK, type, pattern)
+            val ruleId = if (existing != null) {
+                0L
+            } else {
+                insertRule(SpamRule(kind = ListKind.BLOCK, type = type, pattern = pattern, note = note))
+            }
+            BlockReceipt(address, ruleId, allows.map { it.toRule() }, members.map { it.toModel() })
+        }
+    }
+
+    override suspend fun undoBlock(receipt: BlockReceipt) = withContext(Dispatchers.IO) {
+        db.runInTransaction {
+            if (receipt.ruleId > 0) dao.deleteRule(receipt.ruleId)
+            receipt.removedRules.forEach { rule ->
+                if (dao.findRule(rule.kind, rule.type, rule.pattern) == null) {
+                    val id = if (rule.id > 0 && dao.getRule(rule.id) == null) rule.id else 0
+                    dao.insertRule(SpamRuleEntity.from(rule.copy(id = id, subscriptionId = null)))
+                }
+            }
+            receipt.removedMembers.forEach { dao.putMember(AllowGroupMemberEntity.from(it)) }
+        }
+    }
+
     override suspend fun markBlockedRead(ids: List<Long>) {
         if (ids.isEmpty()) return
         withContext(Dispatchers.IO) { ids.chunked(SQL_CHUNK).forEach { dao.markBlockedRead(it) } }
@@ -428,11 +581,15 @@ class DefaultSpamRepository(
         else -> rule.pattern.trim()
     }
 
+    /**
+     * Adds [rule] unless the same kind, type and pattern exists (its id is returned then). Since schema 9 every spam
+     * rule covers both SIMs (7.2), so a SIM on [rule] only says how a national number is read.
+     */
     private fun insertRule(rule: SpamRule): Long {
         val pattern = cleanPattern(rule)
-        val existing = dao.findRule(rule.kind, rule.type, pattern, rule.subscriptionId)
+        val existing = dao.findRule(rule.kind, rule.type, pattern)
         if (existing != null) return existing.id
-        return dao.insertRule(SpamRuleEntity.from(rule.copy(id = 0, pattern = pattern)))
+        return dao.insertRule(SpamRuleEntity.from(rule.copy(id = 0, pattern = pattern, subscriptionId = null)))
     }
 
     /** A rule scoped to one SIM reads national numbers in that SIM's country. */
@@ -448,5 +605,11 @@ class DefaultSpamRepository(
 
         /** Stays below SQLite's limit of bound variables per statement. */
         const val SQL_CHUNK = 500
+
+        /** No receiving SIM: rules and members are read the same on both SIMs. */
+        const val NO_SIM = -1
+
+        /** Rule types that name a sender rather than read its text. */
+        val SENDER_TYPES = setOf(RuleType.NUMBER, RuleType.SENDER_ID, RuleType.PREFIX)
     }
 }
