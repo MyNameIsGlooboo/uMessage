@@ -69,7 +69,7 @@ object OtpDetector {
     internal const val MAX_CODE_DIGITS = 8
 
     /**
-     * A 9-10 digit number, a first password ("رمز شخصی شما 1261894390"). Never a number that starts with 0 or 98 (a phone
+     * A 9-10 digit number, a first password ("رمز شخصی شما 1234567890"). Never a number that starts with 0 or 98 (a phone
      * number), or follows "+" or a phone word. It is a code only next to a password word ([passwordKeywords]).
      */
     internal val longShape = "(?<!\\+)(?<!(?:$phoneWords)[^\\p{L}\\p{N}]{0,3})(?!0|98)[0-9]{9,10}"
