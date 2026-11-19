@@ -102,7 +102,7 @@ class SwitchConfirmer(
 }
 
 /** The settings after a confirmed [change]. */
-fun SpamSettings.with(change: SortChange): SpamSettings = when (change) {
+fun SpamSettings.applying(change: SortChange): SpamSettings = when (change) {
     is SortChange.Filter -> copy(filterOn = change.on)
     is SortChange.Group -> when (change.group) {
         AllowGroup.CODE -> copy(codeGroupOn = change.on)
@@ -121,7 +121,7 @@ class SettingsViewModel(
     /** Fires when a settings write failed, so the screen can say so. */
     val failureFlow: Flow<Unit> = failures.receiveAsFlow()
 
-    private val switches = SwitchConfirmer(viewModelScope, moveCounter) { change -> write { it.with(change) } }
+    private val switches = SwitchConfirmer(viewModelScope, moveCounter) { change -> write { it.applying(change) } }
     private val purgeWarning = MutableStateFlow<Int?>(null)
 
     val state: StateFlow<SettingsUiState> = combine(repository.settings, switches.pending, purgeWarning) { s, c, p ->

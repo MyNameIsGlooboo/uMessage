@@ -169,9 +169,9 @@ class FilterSwitchConfirmTest {
     @Test
     fun aConfirmedChangeWritesOnlyItsOwnSwitch() {
         val base = SpamSettings(filterOn = true, codeGroupOn = true, wroteGroupOn = true)
-        assertThat(base.with(SortChange.Filter(false))).isEqualTo(base.copy(filterOn = false))
-        assertThat(base.with(SortChange.Group(AllowGroup.CODE, false))).isEqualTo(base.copy(codeGroupOn = false))
-        assertThat(base.with(SortChange.Group(AllowGroup.WROTE, false))).isEqualTo(base.copy(wroteGroupOn = false))
+        assertThat(base.applying(SortChange.Filter(false))).isEqualTo(base.copy(filterOn = false))
+        assertThat(base.applying(SortChange.Group(AllowGroup.CODE, false))).isEqualTo(base.copy(codeGroupOn = false))
+        assertThat(base.applying(SortChange.Group(AllowGroup.WROTE, false))).isEqualTo(base.copy(wroteGroupOn = false))
     }
 
     private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()
