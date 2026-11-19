@@ -103,6 +103,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.glooboo.umessage.ui.icons.Symbols
 import kotlinx.coroutines.launch
 import com.glooboo.umessage.R
+import com.glooboo.umessage.spam.AllowGroup
+import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
@@ -132,7 +134,6 @@ class RulesActions(
     val onPickContacts: (List<PickedNumber>) -> Unit = {},
     val onType: (RuleType) -> Unit = {},
     val onPattern: (String) -> Unit = {},
-    val onSim: (Int?) -> Unit = {},
     val onNote: (String) -> Unit = {},
     val onSubmit: () -> Unit = {},
     val onConfirmSubmit: () -> Unit = {},
@@ -159,6 +160,13 @@ class RulesActions(
     val onExample: (ListKind, RuleType, String) -> Unit = { _, _, _ -> },
     // spam-21: "Test this rule" against recent messages
     val onPreview: () -> Unit = {},
+    // Provider truth (D3 A): the two group rules
+    val onOpenGroup: (AllowGroup) -> Unit = {},
+    val onCloseGroup: () -> Unit = {},
+    val onGroupSwitch: (AllowGroup, Boolean) -> Unit = { _, _ -> },
+    val onConfirmGroupSwitch: () -> Unit = {},
+    val onDismissGroupSwitch: () -> Unit = {},
+    val onRemoveMember: (AllowGroupMember) -> Unit = {},
 )
 
 @Composable
@@ -183,7 +191,6 @@ fun RulesRoute(
             onPickContacts = viewModel::addFromContacts,
             onType = viewModel::setType,
             onPattern = viewModel::setPattern,
-            onSim = viewModel::setSim,
             onNote = viewModel::setNote,
             onSubmit = viewModel::submitForm,
             onConfirmSubmit = viewModel::confirmSubmit,
@@ -204,6 +211,12 @@ fun RulesRoute(
             onDeleteEditing = viewModel::deleteEditing,
             onExample = viewModel::openExample,
             onPreview = viewModel::previewRule,
+            onOpenGroup = viewModel::openGroup,
+            onCloseGroup = viewModel::closeGroup,
+            onGroupSwitch = viewModel::setGroupOn,
+            onConfirmGroupSwitch = viewModel::confirmGroupSwitch,
+            onDismissGroupSwitch = viewModel::dismissGroupSwitch,
+            onRemoveMember = viewModel::removeMember,
         )
     }
     RulesScreen(state, snackbar, actions)
@@ -236,11 +249,22 @@ private fun RulesEvents(viewModel: RulesViewModel, snackbar: SnackbarHostState) 
                     is RulesEvent.AddedFromContacts ->
                         snackbar.showSnackbar(contactsAddedText(resources, event), duration = SnackbarDuration.Long)
                     RulesEvent.Failed -> snackbar.showSnackbar(failedText, duration = SnackbarDuration.Long)
+                    is RulesEvent.MembersRemoved -> {
+                        val result = snackbar.showUndo(membersRemovedText(resources, event.members), undoLabel)
+                        if (result == SnackbarResult.ActionPerformed) viewModel.restoreMembers(event.members)
+                    }
                 }
             }
         }
     }
 }
+
+/** "+1 555-000-1234 removed from the list", the sender kept left to right in a right-to-left text. */
+internal fun membersRemovedText(resources: android.content.res.Resources, members: List<AllowGroupMember>): String =
+    resources.getString(
+        R.string.pt_group_member_removed,
+        isolateNumbers(members.joinToString(resources.getString(R.string.settings_f_list_separator)) { it.address }),
+    )
 
 /** "3 rules added from contacts. Skipped: 1 (already have a rule)." */
 internal fun contactsAddedText(resources: android.content.res.Resources, event: RulesEvent.AddedFromContacts): String {
@@ -274,6 +298,12 @@ fun RulesScreen(
 ) {
     var testOpen by rememberSaveable { mutableStateOf(false) }
     var helpOpen by rememberSaveable { mutableStateOf(false) }
+    state.groups.confirm?.let { SwitchConfirmDialog(it, actions.onConfirmGroupSwitch, actions.onDismissGroupSwitch) }
+    // D3 A: a group's member list takes the whole screen; Back returns to the rules.
+    state.groups.openRow?.let { row ->
+        AllowGroupPage(row, snackbarHostState, onBack = actions.onCloseGroup, onRemove = actions.onRemoveMember)
+        return
+    }
     BackHandler(enabled = state.selecting, onBack = actions.onClearSelection)
     // A small bar with the title inline (BR-21 / VS-06): the tabs sit right under it, with no empty title band.
     UMessageScaffold(
@@ -296,7 +326,7 @@ fun RulesScreen(
             modifier = Modifier.padding(top = inner.calculateTopPadding()).fillMaxSize(),
         )
     }
-    state.form?.let { AddRuleSheet(it, state.sims, actions, state.preview) }
+    state.form?.let { AddRuleSheet(it, actions, state.preview) }
     if (testOpen) {
         TestMessageSheet(
             sims = state.sims,
@@ -329,6 +359,7 @@ private fun RulesBody(
 @Composable
 private fun RulesContent(state: RulesUiState, actions: RulesActions, bottomPadding: Dp) {
     val nothingShown = state.visible.isEmpty()
+    val groupRows = showsGroupRows(state)
     when {
         state.loading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             val label = stringResource(R.string.spam_loading)
@@ -339,8 +370,27 @@ private fun RulesContent(state: RulesUiState, actions: RulesActions, bottomPaddi
             title = stringResource(R.string.rules_search_empty_title),
             body = stringResource(R.string.rules_search_empty_body),
         )
+        // The group rows stay at the top of an empty allow list.
+        nothingShown && groupRows -> Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+            AllowGroupRows(state.groups, actions, Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp))
+            RulesEmpty(state.tab, actions.onExample)
+        }
         nothingShown -> RulesEmpty(state.tab, actions.onExample)
         else -> RulesList(state, actions, bottomPadding)
+    }
+}
+
+/** D3 A: the group rows sit at the top of the allow list, while it is not searched (4.5). */
+private fun showsGroupRows(state: RulesUiState): Boolean =
+    state.groups.shown && state.tab == ListKind.ALLOW && !state.filtering
+
+/** The two group rows as one rounded group, with the user's rules under them. */
+@Composable
+private fun AllowGroupRows(groups: AllowGroupsState, actions: RulesActions, modifier: Modifier = Modifier) {
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(GroupShape.GAP_DP.dp)) {
+        groups.rows.forEachIndexed { index, row ->
+            AllowGroupRowItem(row, index, groups.rows.size, actions.onOpenGroup, actions.onGroupSwitch)
+        }
     }
 }
 
@@ -545,12 +595,14 @@ private fun RulesList(state: RulesUiState, actions: RulesActions, bottomInset: D
         ),
         verticalArrangement = Arrangement.spacedBy(GroupShape.GAP_DP.dp),
     ) {
+        if (showsGroupRows(state)) {
+            item(key = "allow-groups") { AllowGroupRows(state.groups, actions, Modifier.padding(bottom = 16.dp)) }
+        }
         val rules = state.visible
         itemsIndexed(rules, key = { _, rule -> rule.id }) { index, rule ->
             RuleRow(
                 rule = rule,
                 shape = groupShape(index, rules.size),
-                sims = state.sims,
                 selected = rule.id in state.selected,
                 selecting = state.selecting,
                 actions = actions,
@@ -595,22 +647,6 @@ private fun ruleTypeIcon(type: RuleType): ImageVector = when (type) {
 }
 
 /**
- * The SIM a rule is for, or null when that says nothing: both SIMs is the normal case, and with one SIM (or none
- * we can read) only a rule tied to a SIM that is no longer in the phone is marked, because it no longer applies.
- */
-@Composable
-private fun ruleSimLabel(rule: SpamRule, sims: List<SimInfo>): String? {
-    val id = rule.subscriptionId ?: return null
-    val sim = sims.firstOrNull { it.subscriptionId == id }
-    return when {
-        sim != null && sims.size >= 2 -> stringResource(R.string.spam_sim_label, sim.slot)
-        sim != null -> null
-        sims.size == 1 -> stringResource(R.string.spam_sim_missing)
-        else -> stringResource(R.string.spam_sim_generic)
-    }
-}
-
-/**
  * A rule's note as the list shows it: one the app wrote in the current language (bug 4), one the user typed in
  * quotes, so the two are told apart (BR-25).
  */
@@ -628,7 +664,6 @@ private fun ruleNoteText(note: String): String? {
 private fun RuleRow(
     rule: SpamRule,
     shape: Shape,
-    sims: List<SimInfo>,
     selected: Boolean,
     selecting: Boolean,
     actions: RulesActions,
@@ -671,7 +706,7 @@ private fun RuleRow(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             RuleTypeBadge(rule.type, selected)
-            RuleRowText(rule, sims, overridden, Modifier.weight(1f))
+            RuleRowText(rule, overridden, Modifier.weight(1f))
             Box(Modifier.size(12.dp))
         }
     }
@@ -694,9 +729,9 @@ private fun RuleTypeBadge(type: RuleType, selected: Boolean) {
     }
 }
 
-/** Value, then the SIM when it is not both, the note, and the "an allow rule wins" mark. */
+/** Value, then the note, and the "an allow rule wins" mark. Spam rules cover both SIMs (7.2). */
 @Composable
-private fun RuleRowText(rule: SpamRule, sims: List<SimInfo>, overridden: Boolean, modifier: Modifier = Modifier) {
+private fun RuleRowText(rule: SpamRule, overridden: Boolean, modifier: Modifier = Modifier) {
     val colors = MaterialTheme.colorScheme
     Column(modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(
@@ -706,15 +741,6 @@ private fun RuleRowText(rule: SpamRule, sims: List<SimInfo>, overridden: Boolean
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
-        ruleSimLabel(rule, sims)?.let {
-            Text(
-                it,
-                style = MaterialTheme.typography.bodySmall,
-                color = colors.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-        }
         // The type in words, then the note when there is one ("Word in message · “gym”").
         val typeLabel = ruleRowTypeLabel(rule.type)
         Text(
@@ -885,7 +911,6 @@ internal suspend fun SnackbarHostState.showUndo(message: String, actionLabel: St
 @Composable
 fun AddRuleSheet(
     form: RuleForm,
-    sims: List<SimInfo>,
     actions: RulesActions,
     preview: RulePreviewState = RulePreviewState.Idle,
 ) {
@@ -928,7 +953,7 @@ fun AddRuleSheet(
 
                 RuleRecentTest(form.validation is RuleValidation.Valid, preview, actions.onPreview)
 
-                RuleSheetExtras(form, sims, actions)
+                RuleSheetExtras(form, actions)
 
                 if (error == null && form.warnings.isNotEmpty()) RuleWarnings(form.warnings)
 

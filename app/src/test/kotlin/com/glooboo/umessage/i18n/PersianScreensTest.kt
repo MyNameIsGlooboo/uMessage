@@ -69,7 +69,7 @@ class PersianScreensTest {
 
     @Test
     fun `the add rule sheet is in Persian`() {
-        show { AddRuleSheet(RuleForm(kind = ListKind.BLOCK, type = RuleType.KEYWORD), emptyList(), RulesActions()) }
+        show { AddRuleSheet(RuleForm(kind = ListKind.BLOCK, type = RuleType.KEYWORD), RulesActions()) }
         compose.onNodeWithText(string(R.string.ux8d_match_label)).assertExists()
         assertEquals(LayoutDirection.Rtl, direction)
     }

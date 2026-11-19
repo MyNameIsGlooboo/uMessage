@@ -21,6 +21,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.glooboo.umessage.spam.AllowGroup
+import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRepository
@@ -30,13 +32,12 @@ import com.glooboo.umessage.spam.SpamRule
  * State of the add/edit-rule bottom sheet. [validation] and [warnings] are recomputed on every edit. The sheet stays
  * open while [saving] and after a failed save ([saveFailed]), so the typed rule is never lost. [confirming] shows the
  * warnings dialog before a rule with [warnings] is saved. [editing] is the stored rule being changed (SU-09), null when
- * adding a new one.
+ * adding a new one. A spam rule covers both SIMs (provider truth, 7.2): the form has no SIM; forward rules keep theirs.
  */
 data class RuleForm(
     val kind: ListKind,
     val type: RuleType = RuleType.NUMBER,
     val pattern: String = "",
-    val subscriptionId: Int? = null,
     val note: String = "",
     val validation: RuleValidation = RuleValidation.Invalid(RuleError.EMPTY),
     val warnings: List<RuleWarning> = emptyList(),
@@ -61,7 +62,7 @@ data class RuleForm(
     /** An edit that changes nothing just closes the sheet. */
     val unchanged: Boolean
         get() = editing != null && editing.kind == kind && editing.type == type &&
-            editing.subscriptionId == subscriptionId && editing.note == storedNote &&
+            editing.subscriptionId == null && editing.note == storedNote &&
             editing.pattern == (validation as? RuleValidation.Valid)?.pattern
 }
 
@@ -92,6 +93,8 @@ data class RulesUiState(
     val migration: MigrationDialog? = null,
     /** "Test this rule" on the open sheet: how many recent messages it would match. */
     val preview: RulePreviewState = RulePreviewState.Idle,
+    /** Provider truth (D3 A): the two group rules at the top of the allow list, and an open member list. */
+    val groups: AllowGroupsState = AllowGroupsState(),
 ) {
     val current: List<SpamRule> get() = if (tab == ListKind.ALLOW) allowed else blocked
     val filtering: Boolean get() = query.isNotBlank() || typeFilter != null
@@ -116,6 +119,9 @@ sealed interface RulesEvent {
 
     /** A delete or an undo could not be saved. */
     data object Failed : RulesEvent
+
+    /** D3 A: senders were taken out of a group rule; [members] lets the UI offer Undo. */
+    data class MembersRemoved(val members: List<AllowGroupMember>) : RulesEvent
 }
 
 class RulesViewModel(
@@ -125,6 +131,7 @@ class RulesViewModel(
     private val io: CoroutineDispatcher = Dispatchers.IO,
     private val previewSource: RulePreviewSource = NoRulePreviewSource,
     private val orderStore: RulesOrderStore = MemoryRulesOrderStore(),
+    moveCounter: () -> ChatMoveCounter = { ChatMoveCounting.counter },
 ) : AndroidViewModel(application) {
 
     private data class View(
@@ -150,9 +157,17 @@ class RulesViewModel(
     private val preview = MutableStateFlow<RulePreviewState>(RulePreviewState.Idle)
     private var previewJob: Job? = null
 
+    private val openedGroup = MutableStateFlow<AllowGroup?>(null)
+    private val groupSwitches = SwitchConfirmer(viewModelScope, moveCounter) { change -> writeSettings(change) }
+    private val groupsFlow = combine(
+        repository.groupMembers, repository.settings, openedGroup, groupSwitches.pending,
+    ) { members, settings, open, confirm -> AllowGroupsState.of(members, settings, open, confirm) }
+
+    private val previewAndGroups = combine(preview, groupsFlow) { p, g -> p to g }
+
     val state: StateFlow<RulesUiState> = combine(
-        repository.rules, view, form, extras, preview
-    ) { rules, view, form, extras, preview ->
+        repository.rules, view, form, extras, previewAndGroups
+    ) { rules, view, form, extras, (preview, groupsState) ->
         val sorted = view.order.apply(rules)
         val ids = sorted.map { it.id }.toSet()
         RulesUiState(
@@ -169,6 +184,7 @@ class RulesViewModel(
             legacy = extras.legacy,
             migration = extras.migration,
             preview = preview,
+            groups = groupsState,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RulesUiState())
 
@@ -237,7 +253,7 @@ class RulesViewModel(
     fun previewRule() {
         val f = form.value ?: return
         val valid = f.validation as? RuleValidation.Valid ?: return
-        val rule = SpamRule(kind = f.kind, type = f.type, pattern = valid.pattern, subscriptionId = f.subscriptionId)
+        val rule = SpamRule(kind = f.kind, type = f.type, pattern = valid.pattern)
         previewJob?.cancel()
         preview.value = RulePreviewState.Loading
         val job = viewModelScope.launch {
@@ -280,7 +296,6 @@ class RulesViewModel(
                 kind = rule.kind,
                 type = rule.type,
                 pattern = rule.pattern,
-                subscriptionId = rule.subscriptionId,
                 // An app-written note stays a code; the sheet shows it as the field's placeholder.
                 note = if (RuleNotes.isAutomatic(rule.note)) "" else rule.note,
                 editing = rule,
@@ -294,13 +309,13 @@ class RulesViewModel(
     }
 
     /**
-     * One rule per picked contact number in the sheet's list (Always allow or Always block), in the sheet's SIM
-     * scope. Numbers that already have a rule are skipped; the snackbar says how many were added.
+     * One rule per picked contact number in the sheet's list (Always allow or Always block), for both SIMs. Numbers
+     * that already have a rule are skipped; the snackbar says how many were added.
      */
     fun addFromContacts(picks: List<PickedNumber>) {
         val f = form.value ?: return
         val known = allRules().map { it.id }.toSet()
-        val plan = ContactNumberPicks.plan(f.kind, f.subscriptionId, allRules(), picks)
+        val plan = ContactNumberPicks.plan(f.kind, null, allRules(), picks)
         form.value = f.copy(saving = true, saveFailed = false)
         viewModelScope.launch {
             var added = 0
@@ -326,7 +341,6 @@ class RulesViewModel(
 
     fun setType(type: RuleType) = editForm { it.copy(type = type) }
     fun setPattern(pattern: String) = editForm { it.copy(pattern = pattern) }
-    fun setSim(subscriptionId: Int?) = editForm { it.copy(subscriptionId = subscriptionId) }
     fun setNote(note: String) = editForm { it.copy(note = note.take(80)) }
 
     private fun editForm(change: (RuleForm) -> RuleForm) = form.update { current ->
@@ -353,14 +367,14 @@ class RulesViewModel(
         // The rule being edited is not a duplicate of itself.
         val existing = allRules().filterNot { it.id == f.editing?.id }
         val checked = if (result is RuleValidation.Valid &&
-            RuleValidator.isDuplicate(existing, f.kind, f.type, result.pattern, f.subscriptionId)
+            RuleValidator.isDuplicate(existing, f.kind, f.type, result.pattern, null)
         ) {
             RuleValidation.Invalid(RuleError.DUPLICATE)
         } else {
             result
         }
         val warnings = (checked as? RuleValidation.Valid)?.let {
-            RuleValidator.warnings(f.kind, f.type, it.pattern, existing, f.subscriptionId)
+            RuleValidator.warnings(f.kind, f.type, it.pattern, existing, null)
         }.orEmpty()
         return f.copy(validation = checked, warnings = warnings)
     }
@@ -397,7 +411,7 @@ class RulesViewModel(
         val editing = f.editing
         val knownIds = before.map { it.id }.toSet() - setOfNotNull(editing?.id)
         val conflicts = if (f.kind == ListKind.BLOCK && RuleWarning.ALLOWED_CONFLICT in f.warnings) {
-            RuleValidator.conflictingAllows(before, f.type, valid.pattern, f.subscriptionId)
+            RuleValidator.conflictingAllows(before, f.type, valid.pattern, null)
         } else {
             emptyList()
         }
@@ -408,7 +422,6 @@ class RulesViewModel(
                 kind = f.kind,
                 type = f.type,
                 pattern = valid.pattern,
-                subscriptionId = f.subscriptionId,
                 note = f.storedNote,
                 createdAt = editing?.createdAt ?: System.currentTimeMillis(),
             )
@@ -443,6 +456,47 @@ class RulesViewModel(
             runCatching { repository.restoreRules(rules) }.onFailure { events.trySend(RulesEvent.Failed) }
         }
     }
+
+    // region Group rules (D3 A)
+
+    fun openGroup(group: AllowGroup) {
+        openedGroup.value = group
+    }
+
+    fun closeGroup() {
+        openedGroup.value = null
+    }
+
+    /** A group goes on at once; turning it off asks first, with the number of chats that move to Spam (4.5). */
+    fun setGroupOn(group: AllowGroup, on: Boolean) {
+        val change = SortChange.Group(group, on)
+        if (on) viewModelScope.launch { writeSettings(change) } else groupSwitches.request(change)
+    }
+
+    fun confirmGroupSwitch() = groupSwitches.confirm()
+    fun dismissGroupSwitch() = groupSwitches.dismiss()
+
+    private suspend fun writeSettings(change: SortChange) {
+        runCatching { repository.updateSettings { it.with(change) } }.onFailure { events.trySend(RulesEvent.Failed) }
+    }
+
+    /** "Remove" in a member list; the snackbar's Undo puts the sender back as it was. */
+    fun removeMember(member: AllowGroupMember) {
+        viewModelScope.launch {
+            runCatching { repository.removeGroupMembers(listOf(member)) }
+                .onSuccess { removed -> if (removed.isNotEmpty()) events.trySend(RulesEvent.MembersRemoved(removed)) }
+                .onFailure { events.trySend(RulesEvent.Failed) }
+        }
+    }
+
+    /** Undo of [removeMember]. */
+    fun restoreMembers(members: List<AllowGroupMember>) {
+        viewModelScope.launch {
+            runCatching { repository.restoreGroupMembers(members) }.onFailure { events.trySend(RulesEvent.Failed) }
+        }
+    }
+
+    // endregion
 
     // region Old block lists (SU-33)
 

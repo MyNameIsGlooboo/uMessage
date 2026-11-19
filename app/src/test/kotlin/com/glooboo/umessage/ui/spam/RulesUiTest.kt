@@ -49,7 +49,7 @@ class RulesUiTest {
     }
 
     private fun showSheet(form: RuleForm) = compose.setContent {
-        UMessageTheme { AddRuleSheet(form, emptyList(), RulesActions()) }
+        UMessageTheme { AddRuleSheet(form, RulesActions()) }
     }
 
     @Test
