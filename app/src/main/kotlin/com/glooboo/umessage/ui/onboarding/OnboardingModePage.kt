@@ -4,6 +4,8 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,8 +30,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -67,6 +71,50 @@ internal fun ModePage(
     }
 }
 
+/** Test tags of the two options of the Welcome choice. */
+internal const val FILTER_ON_TAG = "onb_filter_on"
+internal const val FILTER_OFF_TAG = "onb_filter_off"
+
+/**
+ * Provider truth (4.6, U12): the spam filter choice under the sorting card on the Welcome page. Two radio cards, the
+ * first ("Sort unknown senders into Spam") recommended and chosen by default, each with its second line, then a hint
+ * that Settings can change it. The heading names the radio group. The cards wrap at large font sizes; nothing is cut.
+ */
+@Composable
+internal fun WelcomeFilterChoice(filterOn: Boolean, onFilter: (Boolean) -> Unit, modifier: Modifier = Modifier) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(
+            stringResource(R.string.spam_settings_unknown_title),
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.semantics { heading() },
+        )
+        Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            ChoiceCard(
+                selected = filterOn,
+                titleRes = R.string.pt_onb_filter_on,
+                descRes = R.string.pt_onb_filter_on_desc,
+                recommended = true,
+                onSelect = { onFilter(true) },
+                modifier = Modifier.testTag(FILTER_ON_TAG),
+            )
+            ChoiceCard(
+                selected = !filterOn,
+                titleRes = R.string.pt_onb_filter_off,
+                descRes = R.string.pt_onb_filter_off_desc,
+                recommended = false,
+                onSelect = { onFilter(false) },
+                modifier = Modifier.testTag(FILTER_OFF_TAG),
+            )
+        }
+        Text(
+            stringResource(R.string.pt_onb_filter_hint),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
 /** One radio card with two lines: the bold name and a one-line description. */
 @Composable
 private fun ModeOption(
@@ -76,8 +124,22 @@ private fun ModeOption(
     descRes: Int,
     recommended: Boolean,
     onMode: (UnknownSenderMode) -> Unit,
+) = ChoiceCard(current == value, titleRes, descRes, recommended, onSelect = { onMode(value) })
+
+/**
+ * A radio card: the bold name with the "Recommended" tag after it (on its own line when they do not fit), and the
+ * description under it. TalkBack reads the card as one radio button: name, tag and description.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun ChoiceCard(
+    selected: Boolean,
+    titleRes: Int,
+    descRes: Int,
+    recommended: Boolean,
+    onSelect: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    val selected = current == value
     val border by animateColorAsState(
         if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
         label = "modeBorder",
@@ -85,9 +147,9 @@ private fun ModeOption(
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         border = BorderStroke(if (selected) 2.dp else 1.dp, border),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .selectable(selected = selected, role = Role.RadioButton, onClick = { onMode(value) }),
+            .selectable(selected = selected, role = Role.RadioButton, onClick = onSelect),
     ) {
         Row(
             Modifier
@@ -97,10 +159,10 @@ private fun ModeOption(
         ) {
             RadioButton(selected = selected, onClick = null)
             Spacer(Modifier.width(12.dp))
-            Column {
-                Row(
+            Column(Modifier.weight(1f)) {
+                FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
+                    itemVerticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
                         stringResource(titleRes),

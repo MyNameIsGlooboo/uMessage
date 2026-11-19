@@ -25,6 +25,8 @@ import kotlinx.coroutines.launch
 import com.glooboo.umessage.R
 import com.glooboo.umessage.activities.MainActivity
 import com.glooboo.umessage.helpers.Config
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.UnknownSenderMode
@@ -127,11 +129,19 @@ class OnboardingActivity : ComponentActivity() {
     }
 }
 
-/** Holds the unknown-sender choice and how long blocked messages are kept; writes it through the frozen [UMessage]
- * repository. */
-class OnboardingViewModel(app: Application) : AndroidViewModel(app) {
+/**
+ * Holds the unknown-sender choice and how long blocked messages are kept; writes it through the frozen [UMessage]
+ * repository. With [ProviderTruthFlag] on it holds the one filter switch instead (the Welcome choice), and nothing
+ * here writes the auto-delete days any more (S13). The one-argument constructor is the one viewModel() finds.
+ */
+class OnboardingViewModel @JvmOverloads constructor(
+    app: Application,
+    private val repository: () -> SpamRepository = { UMessage.repository(app) },
+) : AndroidViewModel(app) {
     private val _mode = MutableStateFlow(SpamSettings().mode)
     val mode: StateFlow<UnknownSenderMode> = _mode.asStateFlow()
+    private val _filterOn = MutableStateFlow(SpamSettings().filterOn)
+    val filterOn: StateFlow<Boolean> = _filterOn.asStateFlow()
     private val _purgeDays = MutableStateFlow(SpamSettings().purgeAfterDays)
     val purgeDays: StateFlow<Int> = _purgeDays.asStateFlow()
     private val config = Config.newInstance(app)
@@ -141,11 +151,18 @@ class OnboardingViewModel(app: Application) : AndroidViewModel(app) {
     init {
         viewModelScope.launch {
             // The engine may not be installed yet (or in previews); keep defaults then.
-            runCatching { UMessage.repository(app).settings.first() }.onSuccess {
+            runCatching { repository().settings.first() }.onSuccess {
                 _mode.value = it.mode
                 _purgeDays.value = it.purgeAfterDays
+                _filterOn.value = it.filterOn
             }
         }
+    }
+
+    /** The Welcome choice, written at once like the other steps; the old mode follows it (SpamSettingsStore). */
+    fun setFilterOn(on: Boolean) {
+        _filterOn.value = on
+        viewModelScope.launch { runCatching { repository().updateSettings { it.copy(filterOn = on) } } }
     }
 
     fun setMode(mode: UnknownSenderMode) {
@@ -165,11 +182,13 @@ class OnboardingViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun persist() {
+        // The mode page and its "Keep spam for" row are not shown with the switch model.
+        if (ProviderTruthFlag.enabled) return
         val mode = _mode.value
         val days = _purgeDays.value
         viewModelScope.launch {
             runCatching {
-                UMessage.repository(getApplication()).updateSettings {
+                repository().updateSettings {
                     it.copy(mode = mode, purgeAfterDays = days)
                 }
             }

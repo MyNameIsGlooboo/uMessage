@@ -76,7 +76,6 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -91,8 +90,10 @@ import com.glooboo.umessage.helpers.OemStep
 import com.glooboo.umessage.helpers.OemStepKind
 import com.glooboo.umessage.helpers.StepCheck
 import com.glooboo.umessage.helpers.StepState
-import com.glooboo.umessage.helpers.W3cPrefs
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.ForwardingAvailability
+import com.glooboo.umessage.spam.UnknownSenderMode
+import com.glooboo.umessage.ui.setup.PermissionAsker
 import com.glooboo.umessage.ui.settings.AppLanguage
 import com.glooboo.umessage.ui.setup.SetupMark
 import com.glooboo.umessage.ui.setup.oemStepMark
@@ -148,9 +149,14 @@ fun OnboardingScreen(
     var defaultUnavailable by rememberSaveable { mutableStateOf(false) }
     // Set by "Allow all" while the default-app dialog is open: when it closes, the permissions are asked next.
     var allowAllPending by rememberSaveable { mutableStateOf(false) }
-    var permanentlyDenied by remember { mutableStateOf(emptySet<String>()) }
+    // M-UI8: the Setup page's asker, so a dialog that was only dismissed is not taken for "don't ask again".
+    val deniedState = rememberSaveable { mutableStateOf(emptySet<String>()) }
+    val rationaleState = rememberSaveable { mutableStateOf(emptySet<String>()) }
+    val asker = remember(context) { PermissionAsker(context, deniedState, rationaleState) }
+    val permanentlyDenied = asker.denied
 
     val mode by viewModel.mode.collectAsStateWithLifecycle()
+    val filterOn by viewModel.filterOn.collectAsStateWithLifecycle()
     val purgeDays by viewModel.purgeDays.collectAsStateWithLifecycle()
     val deliveryReports by viewModel.deliveryReports.collectAsStateWithLifecycle()
 
@@ -170,15 +176,11 @@ fun OnboardingScreen(
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions(),
     ) { result ->
-        val activity = context.findActivity()
-        val blocked = result.filter { (perm, ok) ->
-            !ok && activity != null && !ActivityCompat.shouldShowRequestPermissionRationale(activity, perm)
-        }.keys
-        permanentlyDenied = permanentlyDenied + blocked
-        // The Setup page reads this: a refusal there with no rationale left means "don't ask again".
-        W3cPrefs.get(context).markPermissionsAsked(result.keys)
+        // Also marks the permissions asked, which the Setup page reads.
+        asker.onResult(result)
         refresh++
     }
+    asker.launch = { permissionLauncher.launch(it) }
 
     fun goTo(page: Int) {
         scope.launch {
@@ -195,17 +197,7 @@ fun OnboardingScreen(
         return launched
     }
 
-    fun requestPermissions(list: List<String>) {
-        val missing = list.filter {
-            ContextCompat.checkSelfPermission(context, it) != PackageManager.PERMISSION_GRANTED
-        }
-        if (missing.isEmpty()) return
-        if (missing.all { it in permanentlyDenied }) {
-            context.openAppSettings()
-        } else {
-            permissionLauncher.launch(missing.toTypedArray())
-        }
-    }
+    fun requestPermissions(list: List<String>) = asker.request(list)
 
     fun requestAllMissing() =
         requestPermissions(items.filter { !context.isGranted(it.permissions) }.flatMap { it.permissions })
@@ -270,6 +262,8 @@ fun OnboardingScreen(
                         onLanguage = { l: AppLanguage ->
                             context.findActivity()?.let { AppLanguage.apply(it, l) }
                         },
+                        filterOn = filterOn,
+                        onFilter = if (ProviderTruthFlag.enabled) viewModel::setFilterOn else null,
                     )
 
                     OnboardingPage.ALLOW -> AllowPage(
@@ -456,7 +450,8 @@ private fun welcomeTopTitles(): Set<Int> =
 
 /**
  * The first step. The pager page scrolls, so a long list never pushes "Get started" (in the bottom bar) away.
- * The language chip shows when [onLanguage] is set (Android 13+).
+ * The language chip shows when [onLanguage] is set (Android 13+). With [onFilter] set (provider truth) the spam filter
+ * choice sits under the sorting card, and the card follows it ([filterOn]).
  */
 @Composable
 internal fun WelcomePage(
@@ -464,6 +459,8 @@ internal fun WelcomePage(
     reduceMotion: Boolean,
     language: AppLanguage = AppLanguage.SYSTEM,
     onLanguage: ((AppLanguage) -> Unit)? = null,
+    filterOn: Boolean = true,
+    onFilter: ((Boolean) -> Unit)? = null,
 ) {
     val alpha by animateFloatAsState(
         targetValue = 1f,
@@ -474,7 +471,11 @@ internal fun WelcomePage(
         WelcomeTopRow(language = language, onLanguage = onLanguage, iconModifier = Modifier.alpha(alpha))
         PageTitle(stringResource(R.string.onb_welcome_title))
         PageBody(stringResource(R.string.onb_welcome_intro))
-        WelcomeAnimation(reduceMotion = reduceMotion)
+        WelcomeAnimation(
+            reduceMotion = reduceMotion,
+            mode = if (filterOn) UnknownSenderMode.SMART else UnknownSenderMode.OFF,
+        )
+        if (onFilter != null) WelcomeFilterChoice(filterOn, onFilter)
         var more by rememberSaveable { mutableStateOf(false) }
         val top = welcomeTopTitles()
         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {

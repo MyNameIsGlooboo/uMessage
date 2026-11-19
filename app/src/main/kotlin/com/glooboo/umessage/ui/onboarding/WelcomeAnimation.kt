@@ -44,6 +44,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.components.rememberReduceMotion
 import com.glooboo.umessage.ui.icons.Symbols
@@ -56,10 +57,24 @@ private const val SUCCESS_TINT_ALPHA = 0.14f
 private val CardShape = RoundedCornerShape(20.dp)
 private val PillShape = RoundedCornerShape(15.dp)
 
-/** The welcome page's card: Smart mode, played from the start of the clock. */
+/** The welcome page's card, played from the start of the clock: Smart mode, or [mode] when the page has a choice. */
 @Composable
-internal fun WelcomeAnimation(reduceMotion: Boolean, modifier: Modifier = Modifier) =
-    SortingCard(modifier, startAtMs = 0, reduceMotion = reduceMotion)
+internal fun WelcomeAnimation(
+    reduceMotion: Boolean,
+    modifier: Modifier = Modifier,
+    mode: UnknownSenderMode = UnknownSenderMode.SMART,
+) = SortingCard(modifier, mode = mode, startAtMs = 0, reduceMotion = reduceMotion)
+
+/**
+ * The one sentence TalkBack reads for the card, or null when each row reads its own labels. Smart mode has one; with
+ * [ProviderTruthFlag] on "filter off" (Off) has one too ("Every text goes to Messages..."), so both Welcome choices
+ * are described (U12).
+ */
+internal fun sortingCardSentence(mode: UnknownSenderMode): Int? = when {
+    mode == UnknownSenderMode.SMART -> R.string.onb_welcome_demo_desc
+    ProviderTruthFlag.enabled && mode == UnknownSenderMode.OFF -> R.string.pt_onb_demo_desc_off
+    else -> null
+}
 
 /**
  * A labelled card of three rows that shows how uMessage sorts texts: Contacts to Messages, an unknown sender to
@@ -89,8 +104,9 @@ internal fun SortingCard(
         }
     }
     val scope = rememberCoroutineScope()
-    val smart = mode == UnknownSenderMode.SMART
-    val description = stringResource(R.string.onb_welcome_demo_desc)
+    val sentence = sortingCardSentence(mode)
+    val smart = sentence != null
+    val description = stringResource(sentence ?: R.string.onb_welcome_demo_desc)
     // The clock is read only inside graphicsLayer blocks, so a frame redraws but does not recompose.
     val time = remember(clock) { { clock.value } }
     val replay: () -> Unit = {
