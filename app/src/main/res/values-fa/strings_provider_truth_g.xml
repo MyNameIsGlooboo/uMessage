@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_onb_filter_on">فرستنده‌های ناشناس بروند به اسپم</string>
+    <string name="pt_onb_filter_on_desc">مخاطب‌ها، کسانی که به آن‌ها پیام داده‌اید و فرستنده‌های کد تأیید در پیام‌ها می‌مانند.</string>
+    <string name="pt_onb_filter_off">همه‌چیز در پیام‌ها بماند</string>
+    <string name="pt_onb_filter_off_desc">فقط فرستنده‌هایی که بلاک می‌کنید به اسپم می‌روند.</string>
+    <string name="pt_onb_filter_hint">بعداً می‌توانید این را در تنظیمات عوض کنید.</string>
+    <string name="pt_onb_demo_desc_off">همهٔ پیام‌ها می‌روند توی پیام‌ها. فقط فرستنده‌هایی که بلاک می‌کنید می‌روند توی اسپم.</string>
+    <string name="pt_filter_on_summary">روشن: فرستنده‌های ناشناس به اسپم می‌روند</string>
+    <string name="pt_filter_off_summary">خاموش: همه‌چیز به پیام‌ها می‌رسد، جز فرستنده‌هایی که بلاک کرده‌اید</string>
+    <string name="pt_filter_off_confirm_title">فیلتر اسپم خاموش شود؟</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="one">%d گفتگو از اسپم به پیام‌ها می‌رود. گفتگوی فرستنده‌هایی که بلاک کرده‌اید در اسپم می‌ماند.</item>
+        <item quantity="other">%d گفتگو از اسپم به پیام‌ها می‌رود. گفتگوی فرستنده‌هایی که بلاک کرده‌اید در اسپم می‌ماند.</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">فیلتر اسپم روشن شود؟</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="one">%d گفتگو از فرستنده‌های ناشناس به اسپم می‌رود. چیزی حذف نمی‌شود.</item>
+        <item quantity="other">%d گفتگو از فرستنده‌های ناشناس به اسپم می‌رود. چیزی حذف نمی‌شود.</item>
+    </plurals>
+    <string name="pt_confirm_none_move">الان هیچ گفتگویی جابه‌جا نمی‌شود.</string>
+    <string name="pt_turn_off">خاموش کردن</string>
+    <string name="pt_purge_warn_title">اسپم‌های قدیمی خودکار حذف شوند؟</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="one">پیام‌هایی که بیشتر از %d روز پیش به اسپم آمده‌اند از خود گوشی حذف می‌شوند، برای همهٔ برنامه‌ها، و دیگر برنمی‌گردند. پیام‌هایی که خودتان فرستاده‌اید، ستاره‌دار کرده‌اید یا یادداشت دارند می‌مانند.</item>
+        <item quantity="other">پیام‌هایی که بیشتر از %d روز پیش به اسپم آمده‌اند از خود گوشی حذف می‌شوند، برای همهٔ برنامه‌ها، و دیگر برنمی‌گردند. پیام‌هایی که خودتان فرستاده‌اید، ستاره‌دار کرده‌اید یا یادداشت دارند می‌مانند.</item>
+    </plurals>
+    <string name="pt_group_code_title">فرستنده‌های کد تأیید</string>
+    <string name="pt_group_wrote_title">کسانی که به آن‌ها پیام داده‌اید</string>
+    <plurals name="pt_group_count">
+        <item quantity="one">%d فرستنده</item>
+        <item quantity="other">%d فرستنده</item>
+    </plurals>
+    <string name="pt_group_code_body">فرستنده‌ای که برایتان کد تأیید بفرستد از آن به بعد مجاز است. اینجا می‌توانید از لیست برش دارید یا در گفتگویش بلاکش کنید.</string>
+    <string name="pt_group_wrote_body">شماره‌ای که به آن پیام بدهید از آن به بعد مجاز است. اینجا می‌توانید از لیست برش دارید یا در گفتگویش بلاکش کنید.</string>
+    <string name="pt_group_member_remove">برداشتن از لیست</string>
+    <string name="pt_group_member_removed">%1$s از لیست برداشته شد</string>
+    <string name="pt_group_member_history">از پیام‌های قدیمی شما پیدا شد</string>
+    <string name="pt_group_empty">هنوز کسی اینجا نیست</string>
+    <string name="pt_group_off_title">«%1$s» خاموش شود؟</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="one">%d گفتگو به اسپم می‌رود. فرستنده‌ها در لیست می‌مانند و با روشن کردن دوباره برمی‌گردند.</item>
+        <item quantity="other">%d گفتگو به اسپم می‌رود. فرستنده‌ها در لیست می‌مانند و با روشن کردن دوباره برمی‌گردند.</item>
+    </plurals>
+    <string name="pt_group_off_code_note">بعد از آن، کد تأیید از فرستندهٔ ناشناس هم به اسپم می‌رود.</string>
+    <string name="pt_verdict_group">به پیام‌ها می‌رود: فرستنده در «%1$s» است.</string>
+    <string name="pt_verdict_allowed_word">به پیام‌ها می‌رود: پیام یکی از کلمه‌های مجاز شما را دارد. فرستنده هم بعد از آن مجاز می‌شود.</string>
+    <string name="pt_verdict_blocked_word">به اسپم می‌رود: پیام یکی از کلمه‌های بلاک‌شدهٔ شما را دارد. فرستنده هم بعد از آن بلاک می‌شود.</string>
+    <string name="pt_progress_title">مرتب کردن گفتگوها</string>
+    <string name="pt_progress_body">این کار فقط یک بار انجام می‌شود. تا تمام نشود هیچ گفتگویی جابه‌جا نمی‌شود و چیزی حذف نمی‌شود.</string>
+    <string name="pt_progress_step_rules">به‌روز کردن قانون‌ها</string>
+    <string name="pt_progress_step_older">بردن اسپم‌های قدیمی به حافظهٔ گوشی</string>
+    <string name="pt_progress_step_history">بررسی پیام‌های قدیمی</string>
+    <string name="pt_progress_step_sort">مرتب کردن گفتگوها</string>
+    <string name="pt_progress_background">ادامه در پس‌زمینه</string>
+    <string name="pt_changed_title">چه چیزهایی عوض شد</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="one">%d گفتگو به اسپم رفت</item>
+        <item quantity="other">%d گفتگو به اسپم رفت</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="one">%d فرستنده خودکار مجاز شد</item>
+        <item quantity="other">%d فرستنده خودکار مجاز شدند</item>
+    </plurals>
+    <string name="pt_changed_switch">فیلتر اسپم حالا فقط یک کلید است: روشن یا خاموش.</string>
+    <string name="pt_changed_sims">قانون‌های شما حالا برای هر دو سیم‌کارت است.</string>
+    <string name="pt_changed_store">اسپم‌های قدیمی حالا مثل بقیهٔ پیام‌ها در حافظهٔ خود گوشی هستند.</string>
+    <string name="pt_changed_purge">حذف خودکار اسپم‌های قدیمی خاموش است. می‌توانید در تنظیمات روشنش کنید.</string>
+    <string name="pt_changed_open_spam">بررسی اسپم</string>
+</resources>
