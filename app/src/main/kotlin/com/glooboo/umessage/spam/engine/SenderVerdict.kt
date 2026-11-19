@@ -1,6 +1,7 @@
 package com.glooboo.umessage.spam.engine
 
 import com.glooboo.umessage.spam.AllowGroup
+import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.DecisionReason.ALLOW_RULE
 import com.glooboo.umessage.spam.FilterDecision
@@ -52,9 +53,9 @@ fun interface SenderFactWriter {
     fun write(address: String, fact: SenderFact): Boolean
 }
 
-/** The group rules a sender is a member of, by any of the keys it may be stored under ([NumberReaders.senderKeys]). */
+/** The members of both group rules, read once per [SenderJudge.snapshot]. */
 fun interface GroupMembership {
-    fun groupsOf(keys: Set<String>): Set<AllowGroup>
+    fun members(): List<AllowGroupMember>
 }
 
 /** What [SenderJudge] decided for one text: the sender's place after the fact ([fact]) was written. */
@@ -71,16 +72,29 @@ data class Judgement(
     val inSpam: Boolean get() = verdict is SenderVerdict.Spam
 
     /**
+     * The allowed or blocked word that made [fact] (null for the old word list, a code, or no fact). Step D counts its
+     * hit with DefaultSpamRepository.recordWordRuleHit once the text is stored.
+     */
+    val wordRuleId: Long?
+        get() = when (val made = fact) {
+            is SenderFact.AutoAllow -> made.wordRuleId
+            is SenderFact.AutoBlock -> made.wordRuleId
+            else -> null
+        }
+
+    /**
      * The decision in the shape of the 0.4.14 filter: Allow or Block, with the word rule that decided when a text made
-     * the fact, so the decision log and the rule hit count name the word rule as before.
+     * the fact, so the decision log and the rule hit count name the word rule as before. A fact that could not be
+     * written is always [DecisionReason.FACT_FAILED] (A-11), whatever the fact was.
      */
     fun decision(): FilterDecision {
         val place = verdict
         return when {
+            failOpen -> FilterDecision.Allow(DecisionReason.FACT_FAILED)
             place is SenderVerdict.Spam && fact is SenderFact.AutoBlock ->
                 FilterDecision.Block(DecisionReason.BLOCK_RULE, fact.wordRuleId)
             place is SenderVerdict.Spam -> FilterDecision.Block(place.reason, place.ruleId)
-            fact is SenderFact.AutoAllow -> FilterDecision.Allow(DecisionReason.ALLOW_RULE, fact.wordRuleId)
+            fact is SenderFact.AutoAllow -> FilterDecision.Allow(ALLOW_RULE, fact.wordRuleId)
             fact == SenderFact.JoinCodeGroup && factWritten -> FilterDecision.Allow(DecisionReason.OTP_EXEMPTION)
             else -> FilterDecision.Allow(place.reason, place.ruleId.takeIf { place.reason == ALLOW_RULE })
         }
@@ -103,12 +117,13 @@ data class Judgement(
  * 10. The text is a verification code ([AllowingCode]) and the code group is on: fact [SenderFact.JoinCodeGroup].
  * 11. Anything else: Spam, cause UNKNOWN.
  *
- * Checks 4 and 5 ask about phone numbers only: a sender name is never a contact. Only checks 6, 7 and 10 read the text;
- * [verdict] answers for the sender alone (the chat list), [judge] writes the text's fact first and then asks
- * [verdict] (R1: one verdict), [probe] says what [judge] would do without writing anything (the test sheet, the MMS
- * push gate, SenderBlocking's hint). Never throws for a failed contacts or block-list lookup: those fail open.
+ * Checks 4 and 5 are for phone numbers only (A-5, as in 0.4.14): a sender name is never a contact, so with contacts
+ * unreadable a sender name is still judged by checks 6 to 11. Only checks 6, 7 and 10 read the text. [snapshot] reads
+ * the rules, members, settings and SIM countries once and answers for any number of senders (the chat list);
+ * [verdict] is one snapshot for one sender; [judge] writes the text's fact first and then asks a fresh snapshot (R1:
+ * one verdict); [probe] says what [judge] would do without writing anything (the test sheet, the MMS push gate).
+ * Never throws for a failed contacts or block-list lookup: those fail open.
  */
-@Suppress("TooManyFunctions") // One small function per check keeps each of them readable and testable.
 class SenderJudge(
     private val rules: () -> List<SpamRule>,
     private val settings: () -> SpamSettings,
@@ -120,22 +135,24 @@ class SenderJudge(
     private val allowingCode: (String) -> Boolean = AllowingCode::isAllowingCode,
 ) {
 
+    /** Everything the sender checks read, read once. Build one per batch; it does not see later changes. */
+    fun snapshot(): Snapshot = Snapshot(
+        rules = runCatching { rules() }.getOrDefault(emptyList()),
+        settings = settings(),
+        members = runCatching { groups.members() }.getOrDefault(emptyList()),
+        readers = readers.frozen(),
+    )
+
     /** The place of [address]'s chat from the sender alone: checks 1 to 5, 8, 9 and 11. */
-    fun verdict(address: String): SenderVerdict {
-        val current = rules()
-        val now = settings()
-        return senderChecks(address, current) ?: automaticChecks(address, current, now) ?: unknown()
-    }
+    fun verdict(address: String): SenderVerdict = snapshot().verdict(address)
 
     /** What [judge] would decide for [message], without writing anything. */
     fun probe(message: IncomingMessage): Judgement {
-        val current = rules()
-        val now = settings()
-        senderChecks(message.address, current)?.let { return Judgement(it) }
-        val fact = textFact(message, current, now)
-            ?: return Judgement(automaticChecks(message.address, current, now) ?: unknown())
+        val snap = snapshot()
+        snap.senderChecks(message.address)?.let { return Judgement(it) }
+        val fact = textFact(snap, message) ?: return Judgement(snap.afterText(message.address))
         val place = when (fact) {
-            is SenderFact.AutoAllow -> SenderVerdict.Messages(DecisionReason.ALLOW_RULE, fact.wordRuleId)
+            is SenderFact.AutoAllow -> SenderVerdict.Messages(ALLOW_RULE, fact.wordRuleId)
             is SenderFact.AutoBlock ->
                 SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE, fact.wordRuleId)
             SenderFact.JoinCodeGroup -> SenderVerdict.Messages(DecisionReason.GROUP_MEMBER)
@@ -145,15 +162,13 @@ class SenderJudge(
 
     /**
      * Facts first (R1): the fact the text makes is written through [writer] (tried twice), then the place is read from
-     * the sender alone with [verdict], so the text lands where its chat is. A fact that cannot be written gives
+     * the sender alone with a fresh snapshot, so the text lands where its chat is. A fact that cannot be written gives
      * Messages with [DecisionReason.FACT_FAILED] (fail open: unread, announced; the caller logs it).
      */
     fun judge(message: IncomingMessage, writer: SenderFactWriter): Judgement {
-        val current = rules()
-        val now = settings()
-        senderChecks(message.address, current)?.let { return Judgement(it) }
-        val fact = textFact(message, current, now)
-            ?: return Judgement(automaticChecks(message.address, current, now) ?: unknown())
+        val snap = snapshot()
+        snap.senderChecks(message.address)?.let { return Judgement(it) }
+        val fact = textFact(snap, message) ?: return Judgement(snap.afterText(message.address))
         val written = write(writer, message.address, fact) || write(writer, message.address, fact)
         if (!written) return Judgement(SenderVerdict.Messages(DecisionReason.FACT_FAILED), fact)
         return Judgement(verdict(message.address), fact, factWritten = true)
@@ -162,76 +177,20 @@ class SenderJudge(
     private fun write(writer: SenderFactWriter, address: String, fact: SenderFact): Boolean =
         runCatching { writer.write(address, fact) }.getOrDefault(false)
 
-    /** Checks 1 to 5. Null when none of them decides. */
-    private fun senderChecks(address: String, current: List<SpamRule>): SenderVerdict? {
-        if (SenderAddress.isUnreadable(address)) return SenderVerdict.Messages(DecisionReason.UNREADABLE_SENDER)
-        val named = rulesNaming(address, current)
-        val userAllow = named.firstOrNull { it.kind == ListKind.ALLOW && !isAutomatic(it) }
-        val block = named.firstOrNull { it.kind == ListKind.BLOCK }
-        return when {
-            userAllow != null -> SenderVerdict.Messages(DecisionReason.ALLOW_RULE, userAllow.id)
-            block != null -> SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE, block.id)
-            onLegacyNumberList(address) -> SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE)
-            else -> contactCheck(address)
-        }
-    }
-
-    /** Checks 4 and 5, for phone numbers. */
-    private fun contactCheck(address: String): SenderVerdict? {
-        if (matcherNormalizer.isSenderId(address)) return null
-        val lookup = runCatching { contacts.lookup(address) }.getOrDefault(ContactLookup.UNKNOWN)
-        return when {
-            lookup == ContactLookup.FOUND -> SenderVerdict.Messages(DecisionReason.CONTACT)
-            lookup == ContactLookup.UNKNOWN || !canReadContacts() ->
-                SenderVerdict.Messages(DecisionReason.CONTACTS_UNAVAILABLE)
-            else -> null
-        }
-    }
-
     /** Checks 6, 7 and 10 (10 only when 8 and 9 do not decide). Null when the text makes no fact. */
-    private fun textFact(message: IncomingMessage, current: List<SpamRule>, now: SpamSettings): SenderFact? {
-        val numbers = readers.readers()
-        val textRules = current.filter { it.type in TEXT_TYPES }
-        textRules.firstOrNull { it.kind == ListKind.ALLOW && matcher.matches(it, message, numbers) }
+    private fun textFact(snap: Snapshot, message: IncomingMessage): SenderFact? {
+        val numbers = snap.readers.readers()
+        snap.textRules.firstOrNull { it.kind == ListKind.ALLOW && matcher.matches(it, message, numbers) }
             ?.let { return SenderFact.AutoAllow(it.id) }
-        textRules.firstOrNull { it.kind == ListKind.BLOCK && matcher.matches(it, message, numbers) }
+        snap.textRules.firstOrNull { it.kind == ListKind.BLOCK && matcher.matches(it, message, numbers) }
             ?.let { return SenderFact.AutoBlock(it.id) }
         return when {
             onLegacyWordList(message.body) -> SenderFact.AutoBlock(null)
-            automaticChecks(message.address, current, now) != null -> null
-            now.codeGroupOn && allowingCode(message.body) -> SenderFact.JoinCodeGroup
+            snap.automaticChecks(message.address) != null -> null
+            snap.settings.codeGroupOn && allowingCode(message.body) -> SenderFact.JoinCodeGroup
             else -> null
         }
     }
-
-    /** Checks 8 and 9. Null when neither decides. */
-    private fun automaticChecks(address: String, current: List<SpamRule>, now: SpamSettings): SenderVerdict? {
-        val automaticAllow = rulesNaming(address, current).firstOrNull { it.kind == ListKind.ALLOW && isAutomatic(it) }
-        val member = runCatching { groups.groupsOf(readers.senderKeys(address)) }.getOrDefault(emptySet())
-        return when {
-            automaticAllow != null -> SenderVerdict.Messages(DecisionReason.ALLOW_RULE, automaticAllow.id)
-            member.any(now::groupOn) -> SenderVerdict.Messages(DecisionReason.GROUP_MEMBER)
-            !now.filterOn -> SenderVerdict.Messages(DecisionReason.MODE_OFF)
-            else -> null
-        }
-    }
-
-    private fun unknown() = SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER)
-
-    /** Rules that name the sender itself (number, sender name, prefix), in every reading of the region list. */
-    private fun rulesNaming(address: String, current: List<SpamRule>): List<SpamRule> {
-        val numbers = readers.readers()
-        val probe = IncomingMessage(address = address, body = "", subscriptionId = NO_SIM)
-        return current.filter { it.type in SENDER_TYPES && matcher.matches(it, probe, numbers) }
-    }
-
-    private fun isAutomatic(rule: SpamRule) = RuleNotes.isMadeByFilter(rule.note)
-
-    private fun canReadContacts(): Boolean = runCatching { contacts.canReadContacts() }.getOrDefault(false)
-
-    /** Android's own block list and the old Fossify number list. A failure is "not blocked" (fail open). */
-    private fun onLegacyNumberList(address: String): Boolean =
-        runCatching { legacy.isNumberBlocked(address) }.getOrDefault(false)
 
     /** The old Fossify word list, read like a blocked keyword; blank entries never match. */
     private fun onLegacyWordList(body: String): Boolean {
@@ -239,14 +198,105 @@ class SenderJudge(
         return words.any { it.isNotBlank() && TextNormalizer.containsObfuscated(body, it) }
     }
 
-    private companion object {
-        /** Tells a sender name from a number; needs no region. */
-        val matcherNormalizer = NumberNormalizer { "" }
+    /**
+     * The rules, members, settings and region list of one moment (A-3). Exact-number rules and members are indexed by
+     * the keys of every reading of the list, so one verdict costs a few map lookups. A member is also found under the
+     * keys of the address it was stored with, read with today's list (A-6): a SIM change does not lose a member.
+     */
+    inner class Snapshot internal constructor(
+        rules: List<SpamRule>,
+        internal val settings: SpamSettings,
+        members: List<AllowGroupMember>,
+        internal val readers: NumberReaders,
+    ) {
+        internal val textRules = rules.filter { it.type in TEXT_TYPES }
 
+        /** NUMBER rules by every key of their pattern. */
+        private val numberRules: Map<String, List<SpamRule>> = buildMap<String, MutableList<SpamRule>> {
+            rules.filter { it.type == RuleType.NUMBER && !matcherNormalizer.isSenderId(it.pattern) }.forEach { rule ->
+                readers.senderKeys(rule.pattern).forEach { getOrPut(it) { mutableListOf() } += rule }
+            }
+        }
+
+        /** Sender-name and prefix rules, matched one by one (few, and cheap string checks). */
+        private val otherSenderRules = rules.filter { it.type == RuleType.SENDER_ID || it.type == RuleType.PREFIX }
+
+        private val memberGroups: Map<String, Set<AllowGroup>> = buildMap<String, MutableSet<AllowGroup>> {
+            members.forEach { member ->
+                (readers.senderKeys(member.address) + member.senderKey).filter { it.isNotEmpty() }
+                    .forEach { getOrPut(it) { mutableSetOf() } += member.group }
+            }
+        }
+
+        /** The place of [address]'s chat: checks 1 to 5, 8, 9 and 11. */
+        fun verdict(address: String): SenderVerdict = senderChecks(address) ?: afterText(address)
+
+        /** The place when the text made no fact: checks 8, 9 and 11. */
+        internal fun afterText(address: String): SenderVerdict =
+            automaticChecks(address) ?: SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER)
+
+        /** Checks 1 to 5. Null when none of them decides. */
+        internal fun senderChecks(address: String): SenderVerdict? {
+            if (SenderAddress.isUnreadable(address)) return SenderVerdict.Messages(DecisionReason.UNREADABLE_SENDER)
+            val named = rulesNaming(address)
+            val userAllow = named.firstOrNull { it.kind == ListKind.ALLOW && !isAutomatic(it) }
+            val block = named.firstOrNull { it.kind == ListKind.BLOCK }
+            return when {
+                userAllow != null -> SenderVerdict.Messages(ALLOW_RULE, userAllow.id)
+                block != null -> SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE, block.id)
+                onLegacyNumberList(address) -> SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE)
+                else -> contactCheck(address)
+            }
+        }
+
+        /** Checks 8 and 9. Null when neither decides. */
+        internal fun automaticChecks(address: String): SenderVerdict? {
+            val automaticAllow = rulesNaming(address).firstOrNull { it.kind == ListKind.ALLOW && isAutomatic(it) }
+            val member = readers.senderKeys(address).flatMap { memberGroups[it].orEmpty() }
+            return when {
+                automaticAllow != null -> SenderVerdict.Messages(ALLOW_RULE, automaticAllow.id)
+                member.any(settings::groupOn) -> SenderVerdict.Messages(DecisionReason.GROUP_MEMBER)
+                !settings.filterOn -> SenderVerdict.Messages(DecisionReason.MODE_OFF)
+                else -> null
+            }
+        }
+
+        /** Rules that name the sender itself (number, sender name, prefix), in every reading of the region list. */
+        private fun rulesNaming(address: String): List<SpamRule> {
+            val numbered = readers.senderKeys(address).flatMap { numberRules[it].orEmpty() }
+            val probe = IncomingMessage(address = address, body = "", subscriptionId = NO_SIM)
+            val numbers = readers.readers()
+            return (numbered + otherSenderRules.filter { matcher.matches(it, probe, numbers) }).distinct()
+        }
+
+        /** Checks 4 and 5, for phone numbers only (A-5). */
+        private fun contactCheck(address: String): SenderVerdict? {
+            if (matcherNormalizer.isSenderId(address)) return null
+            val lookup = runCatching { contacts.lookup(address) }.getOrDefault(ContactLookup.UNKNOWN)
+            return when {
+                lookup == ContactLookup.FOUND -> SenderVerdict.Messages(DecisionReason.CONTACT)
+                lookup == ContactLookup.UNKNOWN || !canReadContacts() ->
+                    SenderVerdict.Messages(DecisionReason.CONTACTS_UNAVAILABLE)
+                else -> null
+            }
+        }
+
+        private fun canReadContacts(): Boolean = runCatching { contacts.canReadContacts() }.getOrDefault(false)
+    }
+
+    private fun isAutomatic(rule: SpamRule) = RuleNotes.isMadeByFilter(rule.note)
+
+    /** Android's own block list and the old Fossify number list. A failure is "not blocked" (fail open). */
+    private fun onLegacyNumberList(address: String): Boolean =
+        runCatching { legacy.isNumberBlocked(address) }.getOrDefault(false)
+
+    private companion object {
         /** No receiving SIM: the verdict is the same on both SIMs. */
         const val NO_SIM = -1
-        val SENDER_TYPES = setOf(RuleType.NUMBER, RuleType.SENDER_ID, RuleType.PREFIX)
         val TEXT_TYPES = setOf(RuleType.KEYWORD, RuleType.REGEX, RuleType.DOMAIN)
+
+        /** Tells a sender name from a number; needs no region. */
+        val matcherNormalizer = NumberNormalizer { "" }
     }
 }
 

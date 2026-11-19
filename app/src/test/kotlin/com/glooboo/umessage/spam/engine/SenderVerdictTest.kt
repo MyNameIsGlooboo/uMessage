@@ -1,6 +1,8 @@
 package com.glooboo.umessage.spam.engine
 
 import com.glooboo.umessage.spam.AllowGroup
+import com.glooboo.umessage.spam.AllowGroupMember
+import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
@@ -37,6 +39,9 @@ class SenderVerdictTest {
         val readers = NumberReaders(normalizer) { simRegions }
         val rules = mutableListOf<SpamRule>()
         val members = mutableMapOf<String, MutableSet<AllowGroup>>()
+
+        /** Members as an older SIM list stored them (A-6). */
+        val stored = mutableListOf<AllowGroupMember>()
         var refusals = 0
         var writes = 0
         private var nextId = 100L
@@ -102,7 +107,9 @@ class SenderVerdictTest {
             settings = { settings },
             contacts = contactChecker,
             readers = readers,
-            groups = GroupMembership { keys -> keys.flatMap { members[it].orEmpty() }.toSet() },
+            groups = GroupMembership {
+                members.flatMap { (key, groups) -> groups.map { AllowGroupMember(it, key, key) } } + stored
+            },
             legacy = legacy,
             matcher = RuleMatcher(normalizer),
         )
@@ -419,6 +426,43 @@ class SenderVerdictTest {
             assertMessages(DecisionReason.GROUP_MEMBER, world.receive(shape, "سلام", sub = 1))
             assertMessages(DecisionReason.GROUP_MEMBER, world.receive(shape, "سلام", sub = 2))
         }
+    }
+
+    /** A-6: a member stored under an older SIM list (key +98...) is still found when the list changed. */
+    @Test fun aMemberIsFoundAfterTheSimRegionListChanged() {
+        val world = World(region = "US", simRegions = listOf("GB"))
+        world.stored += AllowGroupMember(AllowGroup.CODE, IR_PLUS, IR_NATIONAL, 1L, MemberSource.LIVE, true)
+        assertMessages(DecisionReason.GROUP_MEMBER, world.receive(IR_NATIONAL))
+        assertMessages(DecisionReason.GROUP_MEMBER, world.receive(IR_PLUS))
+    }
+
+    /** A-11: a failed allowed-word fact is logged as FACT_FAILED, not as the word's allow. */
+    @Test fun aFailedAutoAllowIsFactFailed() {
+        val world = World()
+        world.rule(ListKind.ALLOW, RuleType.KEYWORD, "parcel")
+        world.refusals = 2
+        val judgement = world.receive(SENDER, "Your parcel is here")
+        assertTrue(judgement.failOpen)
+        assertEquals(FilterDecision.Allow(DecisionReason.FACT_FAILED), judgement.decision())
+        assertEquals(100L, judgement.wordRuleId)
+    }
+
+    /** A-3: one snapshot sorts many chats; 5,000 verdicts stay well inside a soft bound on the JVM. */
+    @Test fun fiveThousandVerdictsFromOneSnapshot() {
+        val world = World(simRegions = listOf("IR"))
+        repeat(200) { world.rule(ListKind.BLOCK, RuleType.NUMBER, "+1555%07d".format(it)) }
+        world.rule(ListKind.BLOCK, RuleType.PREFIX, "+1555999")
+        world.rule(ListKind.ALLOW, RuleType.SENDER_ID, "MYBANK")
+        repeat(300) { world.join(AllowGroup.CODE, "+1555%07d".format(500_000 + it)) }
+        val snapshot = world.judge.snapshot()
+        val addresses = (0 until 5_000).map { "+1555%07d".format(it * 101) }
+        val start = System.nanoTime()
+        val places = addresses.map(snapshot::verdict)
+        val millis = (System.nanoTime() - start) / 1_000_000
+        assertTrue("5,000 verdicts took $millis ms", millis < 2_000)
+        assertEquals(places.size, 5_000)
+        assertTrue(places.first() is SenderVerdict.Spam)
+        assertEquals(world.judge.verdict(addresses[3]), places[3])
     }
 
     @Test fun r1_theSafetyCheckAnnouncesASilentRowOutsideSpam() {

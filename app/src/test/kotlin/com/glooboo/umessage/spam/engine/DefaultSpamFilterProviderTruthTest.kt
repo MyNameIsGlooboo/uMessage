@@ -2,6 +2,7 @@ package com.glooboo.umessage.spam.engine
 
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
+import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
@@ -45,7 +46,9 @@ class DefaultSpamFilterProviderTruthTest {
         settings = { settings },
         contacts = contacts,
         normalizer = normalizer,
-        groups = GroupMembership { keys -> keys.flatMap { members[it].orEmpty() }.toSet() },
+        groups = GroupMembership {
+            members.flatMap { (address, groups) -> groups.map { AllowGroupMember(it, address, address) } }
+        },
     )
 
     private fun msg(body: String, address: String = SENDER, sub: Int = 1) = IncomingMessage(address, body, sub)

@@ -6,6 +6,7 @@ import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
+import com.google.i18n.phonenumbers.PhoneNumberUtil
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
@@ -94,6 +95,15 @@ class NumberReadersTest {
         ProviderTruthFlag.enabled = true
         assertTrue(matcher.matches(rule, onSim1))
         assertTrue(matcher.matches(rule, onSim2))
+    }
+
+    /** Every made-up Iranian number of the provider-truth tests is unassigned (invalid) for libphonenumber. */
+    @Test fun theDummyIranianNumbersAreInvalid() {
+        val util = PhoneNumberUtil.getInstance()
+        listOf(IR_NATIONAL, "09060000000", IR_PLUS, IR_00).forEach { raw ->
+            val number = util.parse(if (raw.startsWith("00")) "+" + raw.drop(2) else raw, "IR")
+            assertFalse("$raw must stay unassigned", util.isValidNumber(number))
+        }
     }
 
     private companion object {

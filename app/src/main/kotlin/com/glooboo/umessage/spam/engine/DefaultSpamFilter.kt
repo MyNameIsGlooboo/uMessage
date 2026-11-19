@@ -21,7 +21,7 @@ class DefaultSpamFilter(
     /** Country of the SIM that received a message, used to read national-format senders. Null = default region. */
     private val regionForSubscription: (Int) -> String? = { null },
     /** Provider truth: the group rules a sender is a member of (D3 A). */
-    groups: GroupMembership = GroupMembership { emptySet() },
+    groups: GroupMembership = GroupMembership { emptyList() },
     /** Provider truth (R6, S8): the countries of every SIM, the one region list numbers are read with. */
     simRegions: () -> List<String> = { emptyList() },
 ) : SpamFilter {
