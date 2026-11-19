@@ -268,6 +268,44 @@ class ScheduledAttachmentsTest {
         assertThat(File(keptRoot, "7001").exists()).isFalse()
     }
 
+    @Test
+    fun aRefusedWriteKeepsTheRowsOwnCopyAndDropsOnlyTheNewOne() {
+        // K1-R3: photo A is already the app's own copy, photo B still the picker's; the row was claimed meanwhile.
+        val ownA = context.keepScheduledAttachments(scheduled(Uri.fromFile(pickedPhoto("a.jpg"))))
+            .attachment!!.attachments.single().getUri()
+        val ownFile = File(keptRoot, "7001").listFiles()!!.single()
+        val snapshot = scheduled(ownA, Uri.fromFile(pickedPhoto("b.jpg")))
+        offMainThread { context.messagesDB.insertOrUpdate(snapshot) }
+        assertThat(offMainThread { ScheduledSendClaims.claim(context, 7001L) }).isTrue()
+        ScheduledSendClaims.release(7001L)
+
+        offMainThread { context.adoptScheduledAttachments(snapshot) }
+
+        assertThat(File(keptRoot, "7001").listFiles()!!.toList()).containsExactly(ownFile)
+        assertThat(read(ownA)).isEqualTo(byteArrayOf(1, 2, 3))
+        val row = offMainThread { context.messagesDB.getAllScheduledMessages() }.single()
+        val uris = { message: Message -> message.attachment!!.attachments.map { it.getUri() } }
+        assertThat(uris(row)).isEqualTo(uris(snapshot))
+    }
+
+    @Test
+    fun aHeldRowIsNotChangedByTheQueuedOnlyWrite() {
+        // K1-R3: held as failed (5), waiting for the user's Retry.
+        val photo = Uri.fromFile(pickedPhoto())
+        offMainThread {
+            context.messagesDB.insertOrUpdate(scheduled(photo).copy(type = Telephony.Sms.MESSAGE_TYPE_FAILED))
+        }
+
+        val changed = offMainThread {
+            context.messagesDB.updateQueuedScheduledAttachment(7001L, MessageAttachment(7001L, "", ArrayList()))
+        }
+
+        assertThat(changed).isEqualTo(0)
+        val row = offMainThread { context.messagesDB.getAllScheduledMessages() }.single()
+        assertThat(row.type).isEqualTo(Telephony.Sms.MESSAGE_TYPE_FAILED)
+        assertThat(row.attachment!!.attachments.single().getUri()).isEqualTo(photo)
+    }
+
     /** A picker that hands the photo over only after scheduled message 7001 was claimed by a send. */
     class ClaimingPickerProvider : ContentProvider() {
         override fun onCreate() = true

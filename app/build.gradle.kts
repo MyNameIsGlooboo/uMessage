@@ -260,8 +260,9 @@ abstract class CheckPlayManifestTask : DefaultTask() {
  * M-B6: keeps the R8 mapping of a release build, so crash traces from builds outside Play (GitHub, F-Droid, a
  * sideloaded APK) can be decoded later. Runs after every bundle<Variant> of a release variant and writes
  * `<bundle name>-mapping.txt` twice: beside the bundle, and into [archiveDir] (app/release-mappings/<variant>/, not in
- * git), which a clean does not delete. Each variant has its own folder, so no two tasks share an output. The release
- * workflow attaches the copy beside the bundle to the GitHub release. Not cached: it only copies one file.
+ * git), which a clean does not delete. A different mapping already kept under that name is never overwritten: the new
+ * one gets `-mapping-<first 8 of its SHA-256>.txt`. Each variant has its own folder, so no two tasks share an output.
+ * The release workflow attaches the copy beside the bundle to the GitHub release. Not cached: it only copies one file.
  */
 @org.gradle.work.DisableCachingByDefault(because = "Copies one file")
 abstract class ArchiveMappingTask : DefaultTask() {
@@ -288,7 +289,30 @@ abstract class ArchiveMappingTask : DefaultTask() {
         val name = bundleFile.nameWithoutExtension + "-mapping.txt"
         val source = mapping.get().asFile
         source.copyTo(File(bundleFile.parentFile, name), overwrite = true)
-        source.copyTo(archiveDir.get().file(name).asFile, overwrite = true)
+
+        // K1-R1: the durable copy never replaces a different mapping of the same version code (a rebuild of a
+        // version that may already be out). Same content: nothing to do; other content: kept under a hash suffix.
+        val durable = archiveDir.get().file(name).asFile
+        val hash = sha256(source)
+        val target = when {
+            !durable.exists() -> durable
+            sha256(durable) == hash -> return
+            else -> File(durable.parentFile, bundleFile.nameWithoutExtension + "-mapping-${hash.take(8)}.txt")
+        }
+        if (!target.exists()) source.copyTo(target)
+    }
+
+    private fun sha256(file: File): String {
+        val digest = java.security.MessageDigest.getInstance("SHA-256")
+        file.inputStream().use { input ->
+            val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
+            while (true) {
+                val read = input.read(buffer)
+                if (read < 0) break
+                digest.update(buffer, 0, read)
+            }
+        }
+        return digest.digest().joinToString("") { "%02x".format(it) }
     }
 }
 
