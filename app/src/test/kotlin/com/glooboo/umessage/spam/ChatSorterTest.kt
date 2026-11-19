@@ -314,9 +314,14 @@ class ChatSorterTest {
         }
         world.blockListReads = 0
 
+        val snapshotsBefore = world.snapshots
         val started = System.nanoTime()
         val result = sorter.recompute() as SortResult.Applied
         val tookMs = (System.nanoTime() - started) / 1_000_000
+
+        // The work is what is asserted: one snapshot (rules read once) and one block-list read for 5,200 chats. The
+        // time bound only catches a lost index; it is wide so a busy build machine cannot fail it.
+        assertThat(world.snapshots - snapshotsBefore).isEqualTo(1)
 
         assertThat(result.added).isEqualTo(CHATS + 100)
         assertThat(dao.getSpamThreads().count { it.cause == SpamCause.BLOCKED }).isEqualTo(100)
@@ -399,6 +404,6 @@ class ChatSorterTest {
 
     private companion object {
         const val CHATS = 5_000
-        const val BUDGET_MS = 15_000L
+        const val BUDGET_MS = 60_000L
     }
 }
