@@ -187,7 +187,7 @@ class OtpDetectorSampleTest {
             detectedToday = true,
             allows = true,
         ),
-        Sample(PHISHING_LINK, "Your account is suspended. Restore access at example.com/restore", detectedToday = false),
+        Sample(PHISHING_LINK, "Your account is suspended. Restore it at example.com/restore", detectedToday = false),
         Sample(
             PHISHING_LINK, "Parcel held: pay the fee with tracking code 7720 at example.com/pay", detectedToday = true,
         ),

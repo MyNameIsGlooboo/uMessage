@@ -1,5 +1,6 @@
 package com.glooboo.umessage.spam.engine
 
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
@@ -19,12 +20,31 @@ class DefaultSpamFilter(
     private val legacy: LegacyBlocklist = NoLegacyBlocklist,
     /** Country of the SIM that received a message, used to read national-format senders. Null = default region. */
     private val regionForSubscription: (Int) -> String? = { null },
+    /** Provider truth: the group rules a sender is a member of (D3 A). */
+    groups: GroupMembership = GroupMembership { emptySet() },
+    /** Provider truth (R6, S8): the countries of every SIM, the one region list numbers are read with. */
+    simRegions: () -> List<String> = { emptyList() },
 ) : SpamFilter {
 
     /** Number, sender id, keyword and pattern matching, shared with the forward rules. */
-    private val matcher = RuleMatcher(normalizer, regionForSubscription)
+    private val matcher = RuleMatcher(normalizer, regionForSubscription, simRegions = simRegions)
+
+    /**
+     * Provider truth (section 2.1): the sender-based order. Used by [evaluate] while [ProviderTruthFlag] is on, as a
+     * probe that writes nothing; the receivers write the facts through [SenderJudge.judge].
+     */
+    val senderJudge = SenderJudge(
+        rules = rules,
+        settings = settings,
+        contacts = contacts,
+        readers = NumberReaders(normalizer, simRegions),
+        groups = groups,
+        legacy = legacy,
+        matcher = matcher,
+    )
 
     override fun evaluate(message: IncomingMessage): FilterDecision {
+        if (ProviderTruthFlag.enabled) return senderJudge.probe(message).decision()
         val numbers = matcher.numberReaders(message.subscriptionId)
         val scoped = rules().filter { it.subscriptionId == null || it.subscriptionId == message.subscriptionId }
 

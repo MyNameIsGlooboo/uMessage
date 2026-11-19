@@ -168,3 +168,58 @@ class NumberNormalizer(private val regionProvider: () -> String) {
         const val MIN_NATIONAL = 7
     }
 }
+
+/**
+ * R6, S8, M-T3: the one fixed list of regions a national number is read in: the country of every SIM, then the
+ * default region. Every path that asks "is this the same sender?" (the rules, the group members, the verdict of a new
+ * text and the sorting of the chat list) reads a number with this list, never with the SIM a text arrived on, so a
+ * sender cannot be one person in one place and another person in the other.
+ */
+class NumberReaders(
+    private val normalizer: NumberNormalizer,
+    /** Upper-case ISO countries of the active SIMs, in slot order; empty when unknown. */
+    private val simRegions: () -> List<String> = { emptyList() },
+) {
+
+    /** One reader per SIM country, then the default region. Never throws. */
+    fun readers(): List<NumberNormalizer> {
+        val regions = runCatching { simRegions() }.getOrDefault(emptyList())
+            .mapNotNull { it.trim().uppercase().ifEmpty { null } }
+            .distinct()
+        return regions.map { normalizer.withRegion(it) } + normalizer
+    }
+
+    /** True when [a] and [b] are the same sender in any reading of the list. */
+    fun same(a: String, b: String): Boolean =
+        a.isNotBlank() && b.isNotBlank() && readers().any { it.sameAddress(a, b) }
+
+    /**
+     * The value a group member is stored under: a sender name in lower case; a number in E.164 when any reader of the
+     * list knows its country, else its plain digits. "" for a blank value.
+     */
+    fun senderKey(address: String): String {
+        val value = address.trim()
+        if (value.isEmpty()) return ""
+        if (normalizer.isSenderId(value)) return value.lowercase()
+        val keys = readers().map { it.comparableKey(value) }.filter { it.isNotEmpty() }
+        return keys.firstOrNull { it.startsWith("+") } ?: keys.firstOrNull().orEmpty()
+    }
+
+    /** Every value [address] may be stored under (each reading of the list, and its plain digits), for a lookup. */
+    fun senderKeys(address: String): Set<String> {
+        val value = address.trim()
+        if (value.isEmpty()) return emptySet()
+        if (normalizer.isSenderId(value)) return setOf(value.lowercase())
+        val readers = readers()
+        return (readers.map { it.comparableKey(value) } + readers.map { it.normalize(value) })
+            .filter { it.isNotEmpty() }
+            .toSet()
+    }
+
+    /** The pattern of an exact NUMBER or SENDER_ID rule for [address]: E.164 when a reader of the list knows it. */
+    fun rulePattern(address: String): String {
+        if (normalizer.isSenderId(address)) return normalizer.normalize(address)
+        val forms = readers().map { it.normalize(address) }.filter { it.isNotEmpty() }
+        return forms.firstOrNull { it.startsWith("+") } ?: normalizer.normalize(address)
+    }
+}
