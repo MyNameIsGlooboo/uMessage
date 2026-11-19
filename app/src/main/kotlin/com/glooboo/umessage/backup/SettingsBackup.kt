@@ -8,12 +8,14 @@ import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.helpers.BlockedKeywordsFormat
 import com.glooboo.umessage.helpers.DateStyle
 import com.glooboo.umessage.helpers.NavPrefs
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.TextSize
 import com.glooboo.umessage.helpers.ThreadPrefs
 import com.glooboo.umessage.helpers.W3aPrefs
 import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.spam.ForwardingAvailability
 import com.glooboo.umessage.spam.ListKind
+import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
@@ -120,6 +122,7 @@ object SettingsBackup {
             settings = collectSettings(app, repo.settings.first()),
             appVersion = BuildConfig.VERSION_NAME,
             blockedKeywords = BlockedKeywordsFormat.sorted(app.config.blockedKeywords),
+            groupMembers = repo.groupMembers.first(),
         )
         val text = SettingsBackupFormat.encode(content, System.currentTimeMillis())
         SafeOutput.write<Unit>(app, uri) { it.write(text.toByteArray(Charsets.UTF_8)) }
@@ -176,6 +179,9 @@ object SettingsBackup {
             val before = repo.rules.first().size
             repo.restoreRules(preview.content.rules)
             val rulesAdded = repo.rules.first().size - before
+            // D3 A: members come back like ones the history check found (no line in old chats), never for a sender
+            // that has a block rule (now, or from this file's rules, restored just above).
+            preview.content.groupMembers.forEach { repo.joinGroup(it.group, it.address, MemberSource.HISTORY) }
 
             val forwards = SpamEngine.forwardRepository(app)
             val forwardsAdded = if (ForwardingAvailability.isAvailable(app)) {
@@ -233,7 +239,12 @@ object SettingsBackup {
         val w3c = W3cPrefs.get(context)
         val config = context.config
         val core = BackupSettings(
-            spamMode = exportedMode(spam.mode, context.baseConfig.blockUnknownNumbers),
+            spamMode = if (ProviderTruthFlag.enabled) {
+                // 7.1: older app versions read the switch as the mode it maps to.
+                if (spam.filterOn) UnknownSenderMode.SMART else UnknownSenderMode.OFF
+            } else {
+                exportedMode(spam.mode, context.baseConfig.blockUnknownNumbers)
+            },
             purgeAfterDays = spam.purgeAfterDays,
             notifyOnBlock = spam.notifyOnBlock,
             showForwardedTab = nav.showForwardedTab,
@@ -258,13 +269,17 @@ object SettingsBackup {
         if (s == BackupSettings()) return false
         val switchWasOn = context.config.blockUnknownSwitchWasOn
         UMessage.repository(context).updateSettings { current ->
+            val mode = restoredMode(s.spamMode, current.mode, fileCountsSwitch, switchWasOn)
             current.copy(
-                mode = restoredMode(s.spamMode, current.mode, fileCountsSwitch, switchWasOn),
+                mode = mode,
                 // I4/Q38: purgeAfterDays (blocked messages deleted after N days) is never taken from a file.
                 notifyOnBlock = s.notifyOnBlock ?: current.notifyOnBlock,
                 unknownInboxNotify = s.unknownInboxNotify ?: current.unknownInboxNotify,
                 openLinkAction = s.openLinkAction ?: current.openLinkAction,
                 blockOutsideRegion = s.blockOutsideRegion ?: current.blockOutsideRegion,
+                filterOn = restoredFilterOn(s, mode, current.filterOn),
+                codeGroupOn = s.codeGroupOn ?: current.codeGroupOn,
+                wroteGroupOn = s.wroteGroupOn ?: current.wroteGroupOn,
             )
         }
         BackupMoreSettings.apply(context, s)
@@ -299,9 +314,17 @@ object SettingsBackup {
         current: UnknownSenderMode,
         fileCountsSwitch: Boolean,
         phoneSwitchWasOn: Boolean,
-    ): BackupSettings = s.copy(
-        spamMode = s.spamMode?.let { restoredMode(it, current, fileCountsSwitch, phoneSwitchWasOn) },
-    )
+    ): BackupSettings {
+        val mode = s.spamMode?.let { restoredMode(it, current, fileCountsSwitch, phoneSwitchWasOn) }
+        return s.copy(spamMode = mode, filterOn = s.filterOn ?: mode?.let { it != UnknownSenderMode.OFF })
+    }
+
+    /**
+     * 7.1: the filter switch a restore sets. A file that has it says it; an older file only has the mode, restored as
+     * [restoredMode] maps it: Smart or Strict is on, Off is off. Without either the phone's switch stays.
+     */
+    internal fun restoredFilterOn(s: BackupSettings, mode: UnknownSenderMode, current: Boolean): Boolean =
+        s.filterOn ?: if (s.spamMode != null) mode != UnknownSenderMode.OFF else current
 
     /** The mode a backup file states: what the phone acts as, the old "Block unknown numbers" switch counted in. */
     internal fun exportedMode(mode: UnknownSenderMode, switchOn: Boolean): UnknownSenderMode =
