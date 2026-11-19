@@ -477,7 +477,8 @@ class RulesViewModel(
     fun dismissGroupSwitch() = groupSwitches.dismiss()
 
     private suspend fun writeSettings(change: SortChange) {
-        runCatching { repository.updateSettings { it.applying(change) } }.onFailure { events.trySend(RulesEvent.Failed) }
+        runCatching { repository.updateSettings { it.applying(change) } }
+            .onFailure { events.trySend(RulesEvent.Failed) }
     }
 
     /** "Remove" in a member list; the snackbar's Undo puts the sender back as it was. */

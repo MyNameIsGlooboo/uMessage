@@ -53,13 +53,13 @@ class FilterSwitchConfirmTest {
     @Test
     fun turningTheFilterOffAsksWithTheCountAndChangesNothingBeforeTheConfirm() {
         start(counter = { change -> if (change == SortChange.Filter(on = false)) 7 else null })
-        vm.requestFilter(false)
+        vm.switches.request(SortChange.Filter(false))
         awaitUntil { vm.state.value.switchConfirm != null }
 
         assertThat(vm.state.value.switchConfirm).isEqualTo(SwitchConfirm(SortChange.Filter(false), 7))
         assertThat(stored().filterOn).isTrue()
 
-        vm.confirmSwitch()
+        vm.switches.confirm()
         awaitUntil { !stored().filterOn }
         assertThat(vm.state.value.switchConfirm).isNull()
     }
@@ -67,9 +67,9 @@ class FilterSwitchConfirmTest {
     @Test
     fun cancelLeavesTheSwitchAsItWas() {
         start(counter = { 3 })
-        vm.requestFilter(false)
+        vm.switches.request(SortChange.Filter(false))
         awaitUntil { vm.state.value.switchConfirm != null }
-        vm.dismissSwitch()
+        vm.switches.dismiss()
         idleMain()
         assertThat(vm.state.value.switchConfirm).isNull()
         assertThat(stored().filterOn).isTrue()
@@ -78,17 +78,17 @@ class FilterSwitchConfirmTest {
     @Test
     fun turningItOnAlsoAsks() {
         start(settings = SpamSettings(filterOn = false), counter = { 2 })
-        vm.requestFilter(true)
+        vm.switches.request(SortChange.Filter(true))
         awaitUntil { vm.state.value.switchConfirm != null }
         assertThat(stored().filterOn).isFalse()
-        vm.confirmSwitch()
+        vm.switches.confirm()
         awaitUntil { stored().filterOn }
     }
 
     @Test
     fun anUnknownOrFailedCountStillAsksWithoutANumber() {
         start(counter = { error("sorter not ready") })
-        vm.requestFilter(false)
+        vm.switches.request(SortChange.Filter(false))
         awaitUntil { vm.state.value.switchConfirm != null }
         assertThat(vm.state.value.switchConfirm!!.chats).isNull()
         assertThat(stored().filterOn).isTrue()
@@ -138,7 +138,7 @@ class FilterSwitchConfirmTest {
         awaitUntil { vm.state.value.purgeWarning == 30 }
         assertThat(stored().purgeAfterDays).isEqualTo(0)
 
-        vm.confirmPurgeDays()
+        vm.purge.confirm()
         awaitUntil { stored().purgeAfterDays == 30 }
         assertThat(vm.state.value.purgeWarning).isNull()
     }
@@ -148,7 +148,7 @@ class FilterSwitchConfirmTest {
         start(settings = SpamSettings(purgeAfterDays = 14))
         vm.setPurgeDays(90)
         awaitUntil { vm.state.value.purgeWarning == 90 }
-        vm.dismissPurgeDays()
+        vm.purge.dismiss()
         idleMain()
         assertThat(stored().purgeAfterDays).isEqualTo(14)
 

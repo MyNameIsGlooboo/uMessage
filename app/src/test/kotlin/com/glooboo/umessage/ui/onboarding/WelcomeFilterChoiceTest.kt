@@ -10,8 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -90,13 +89,13 @@ class WelcomeFilterChoiceTest {
         page(onChange = { chosen = it })
         val sentenceOn = res.getString(R.string.onb_welcome_demo_desc)
         val sentenceOff = res.getString(R.string.pt_onb_demo_desc_off)
-        compose.onNode(hasDescription(sentenceOn)).assertExists()
+        compose.onNode(hasContentDescription(sentenceOn)).assertExists()
 
         compose.onNodeWithTag(FILTER_OFF_TAG).performScrollTo().performClick()
         assertThat(chosen).isFalse()
         compose.onNodeWithTag(FILTER_OFF_TAG).assertIsSelected()
-        compose.onNode(hasDescription(sentenceOff)).assertExists()
-        compose.onNode(hasDescription(sentenceOn)).assertDoesNotExist()
+        compose.onNode(hasContentDescription(sentenceOff)).assertExists()
+        compose.onNode(hasContentDescription(sentenceOn)).assertDoesNotExist()
     }
 
     @Test
@@ -158,10 +157,6 @@ class WelcomeFilterChoiceTest {
         )
         val vm = OnboardingViewModel(app) { repo }
         awaitUntil { !vm.filterOn.value }
-    }
-
-    private fun hasDescription(text: String) = SemanticsMatcher("has description $text") { node ->
-        node.config.getOrNull(SemanticsProperties.ContentDescription)?.contains(text) == true
     }
 
     private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()

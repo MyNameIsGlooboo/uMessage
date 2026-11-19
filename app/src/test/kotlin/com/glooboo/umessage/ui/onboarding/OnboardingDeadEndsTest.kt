@@ -20,7 +20,12 @@ class OnboardingDeadEndsTest {
     @get:Rule
     val compose = createComposeRule()
 
-    private fun page(denied: Boolean, unavailable: Boolean = false, isDefault: Boolean = false, onSettings: () -> Unit) =
+    private fun page(
+        denied: Boolean,
+        unavailable: Boolean = false,
+        isDefault: Boolean = false,
+        onSettings: () -> Unit,
+    ) =
         compose.setContent {
             UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
                 val items = permissionItems()

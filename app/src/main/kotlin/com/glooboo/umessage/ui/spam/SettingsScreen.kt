@@ -111,11 +111,11 @@ fun SettingsRoute(
             onOpenLinkAction = viewModel::setOpenLinkAction,
             onOutsideRegion = viewModel::setBlockOutsideRegion,
             onOpenDecisionLog = onOpenDecisionLog,
-            onFilter = viewModel::requestFilter,
-            onConfirmSwitch = viewModel::confirmSwitch,
-            onDismissSwitch = viewModel::dismissSwitch,
-            onConfirmPurge = viewModel::confirmPurgeDays,
-            onDismissPurge = viewModel::dismissPurgeDays,
+            onFilter = { on -> viewModel.switches.request(SortChange.Filter(on)) },
+            onConfirmSwitch = viewModel.switches::confirm,
+            onDismissSwitch = viewModel.switches::dismiss,
+            onConfirmPurge = viewModel.purge::confirm,
+            onDismissPurge = viewModel.purge::dismiss,
         )
     }
     val snackbar = remember { SnackbarHostState() }
@@ -167,17 +167,7 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
         modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(bottom = 32.dp + bottomInset),
     ) {
         // U02: the one Spam protection page: the mode, the rules, retention, countries, links and alerts.
-        if (switchModel) {
-            FilterSwitchGroup(settings.filterOn, cardMode, actions.onFilter)
-        } else {
-            ModeGroup(settings, cardMode, chooseMode)
-        }
-        if (!switchModel && settings.mode == UnknownSenderMode.STRICT) {
-            StrictWarning(
-                onReview = actions.onOpenBlocked,
-                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp),
-            )
-        }
+        FilterPart(settings, switchModel, cardMode, chooseMode, actions)
 
         SettingsGroup(stringResource(R.string.settings_f_group_rules)) {
             SettingsRow(
@@ -206,17 +196,7 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
         }
 
         // Answer 7: "hold numbers from other countries" goes with the switch model; its stored key is no longer read.
-        if (!switchModel) {
-            SettingsGroup(stringResource(R.string.region_group_title)) {
-                SettingsRow(
-                    title = stringResource(R.string.region_title),
-                    summary = stringResource(R.string.region_summary),
-                    value = regionValue(settings.blockOutsideRegion),
-                    onClick = { regionDialog = true },
-                    showChevron = true,
-                )
-            }
-        }
+        if (!switchModel) RegionGroup(settings.blockOutsideRegion, onOpen = { regionDialog = true })
 
         LinksGroup()
 
@@ -318,6 +298,42 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
     }
     state.switchConfirm?.let { SwitchConfirmDialog(it, actions.onConfirmSwitch, actions.onDismissSwitch) }
     state.purgeWarning?.let { PurgeWarningDialog(it, actions.onConfirmPurge, actions.onDismissPurge) }
+}
+
+/** The top of the page: the filter switch, or (flag off) the three modes with the Strict warning. */
+@Composable
+private fun FilterPart(
+    settings: SpamSettings,
+    switchModel: Boolean,
+    cardMode: UnknownSenderMode?,
+    chooseMode: (UnknownSenderMode) -> Unit,
+    actions: SettingsActions,
+) {
+    if (switchModel) {
+        FilterSwitchGroup(settings.filterOn, cardMode, actions.onFilter)
+        return
+    }
+    ModeGroup(settings, cardMode, chooseMode)
+    if (settings.mode == UnknownSenderMode.STRICT) {
+        StrictWarning(
+            onReview = actions.onOpenBlocked,
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp),
+        )
+    }
+}
+
+/** "Hold numbers from other countries" (0.4.14 only). */
+@Composable
+private fun RegionGroup(region: String, onOpen: () -> Unit) {
+    SettingsGroup(stringResource(R.string.region_group_title)) {
+        SettingsRow(
+            title = stringResource(R.string.region_title),
+            summary = stringResource(R.string.region_summary),
+            value = regionValue(region),
+            onClick = onOpen,
+            showChevron = true,
+        )
+    }
 }
 
 /** The three unknown-sender modes of 0.4.14, while [ProviderTruthFlag] is off. */
