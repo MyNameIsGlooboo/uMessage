@@ -436,25 +436,29 @@ class DefaultSpamRepository(
         if (pattern.isEmpty()) return@runCatching false
         db.runInTransaction<Boolean> {
             when (fact) {
-                is SenderFact.AutoAllow -> {
-                    val named = dao.getRules().filter { it.type == type && it.pattern == pattern }
-                    if (named.none { it.kind == ListKind.ALLOW }) {
-                        val note = allowedFromKeywordNote()
-                        insertRule(SpamRule(kind = ListKind.ALLOW, type = type, pattern = pattern, note = note))
-                    }
-                    true
-                }
-                is SenderFact.AutoBlock -> {
-                    automaticAllowsOf(address).forEach { dao.deleteRule(it.id) }
-                    groups.leave(address)
-                    val note = blockedFromKeywordNote()
-                    insertRule(SpamRule(kind = ListKind.BLOCK, type = type, pattern = pattern, note = note))
-                    true
-                }
+                is SenderFact.AutoAllow -> allowAutomatically(type, pattern)
+                is SenderFact.AutoBlock -> blockAutomatically(address, type, pattern)
                 SenderFact.JoinCodeGroup -> groups.join(AllowGroup.CODE, address, MemberSource.LIVE)
             }
         }
     }.getOrDefault(false)
+
+    /** H4 A: an allow rule with the "allowed from a keyword" note, unless the sender has an allow rule already. */
+    private fun allowAutomatically(type: RuleType, pattern: String): Boolean {
+        val allowed = dao.getRules().any { it.kind == ListKind.ALLOW && it.type == type && it.pattern == pattern }
+        if (!allowed) {
+            insertRule(SpamRule(kind = ListKind.ALLOW, type = type, pattern = pattern, note = allowedFromKeywordNote()))
+        }
+        return true
+    }
+
+    /** M-SP1: a block rule with the "blocked from a keyword" note; automatic allows and memberships go. */
+    private fun blockAutomatically(address: String, type: RuleType, pattern: String): Boolean {
+        automaticAllowsOf(address).forEach { dao.deleteRule(it.id) }
+        groups.leave(address)
+        insertRule(SpamRule(kind = ListKind.BLOCK, type = type, pattern = pattern, note = blockedFromKeywordNote()))
+        return true
+    }
 
     /** Allow rules the filter made (H4) that name exactly the sender of [address]. */
     private fun automaticAllowsOf(address: String): List<SpamRuleEntity> =
