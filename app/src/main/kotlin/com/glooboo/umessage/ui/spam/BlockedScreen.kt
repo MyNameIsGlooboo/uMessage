@@ -76,6 +76,7 @@ import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamStats
 import com.glooboo.umessage.spam.UnknownSenderMode
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.components.ConfirmDialog
 import com.glooboo.umessage.ui.conversations.SimBadge
 import com.glooboo.umessage.ui.components.EmptyState
@@ -463,8 +464,11 @@ private fun BlockedList(
         contentPadding = PaddingValues(top = 4.dp, bottom = 96.dp + bottomInset),
     ) {
         item(key = "contacts-off") { ContactsOffBanner(state.mode) }
-        item(key = "stats") {
-            BlockedLine(state.stats, state.mode, onOpenSettings = actions.onOpenSettings)
+        // Provider truth (4.6): the mode line goes with the modes; the filter switch lives in Settings.
+        if (!ProviderTruthFlag.enabled) {
+            item(key = "stats") {
+                BlockedLine(state.stats, state.mode, onOpenSettings = actions.onOpenSettings)
+            }
         }
         if (state.heldCount > 0 && searching) {
             item(key = "search") { BlockedSearchField(state.query, actions.onSetQuery, onCloseSearch) }

@@ -21,6 +21,9 @@ data class SpamSummary(
     val restoredTotal: Int,
     /** SE-09: a quiet notification for each blocked message, switched from the Notifications group. */
     val notifyOnBlock: Boolean = false,
+    /** Provider truth: the one spam filter switch, and the code group the sorting card draws. */
+    val filterOn: Boolean = true,
+    val codeGroupOn: Boolean = true,
 )
 
 /** An active SIM. [slot] is 1-based. [number] is null when the platform does not expose it. */
@@ -140,6 +143,8 @@ class SettingsActions(
     val onSpamMode: (UnknownSenderMode) -> Unit = {},
     /** SE-09: "Notify when a message is blocked". */
     val onNotifyOnBlock: (Boolean) -> Unit = {},
+    /** Provider truth: the confirmed value of the one spam filter switch (the screen asks first, U11). */
+    val onSpamFilter: (Boolean) -> Unit = {},
     /** ID-26: opens Android's settings of the verification-code notification channel. */
     val onCodeAlert: () -> Unit = {},
     val onCharacterCounter: (Boolean) -> Unit = {},

@@ -26,6 +26,10 @@ object RestoreSummary {
         BackupSettings.SEND_ON_ENTER to R.string.ui_settings_send_on_enter,
         BackupSettings.LOCK_SCREEN to R.string.settings_nav_lock_screen,
         BackupSettings.FORWARD_PAUSED to R.string.settings_nav_forward_pause,
+        // Provider truth: the filter switch and the two group rules (D3 A).
+        BackupSettings.FILTER_ON to R.string.spam_settings_unknown_title,
+        BackupSettings.CODE_GROUP_ON to R.string.pt_group_code_title,
+        BackupSettings.WROTE_GROUP_ON to R.string.pt_group_wrote_title,
     ) + moreLabels()
 
     /** The settings added later are named by the group they sit in, so the list stays short. */

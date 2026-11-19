@@ -32,6 +32,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.glooboo.umessage.ui.components.ChoiceDialog
+import com.glooboo.umessage.ui.components.ConfirmDialog
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,6 +47,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UnknownInboxNotify
 import com.glooboo.umessage.spam.UnknownSenderMode
@@ -61,6 +64,8 @@ import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.uiLocale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
+import android.content.res.Resources
 import com.glooboo.umessage.helpers.threadPrefs
 
 @Immutable
@@ -76,6 +81,13 @@ class SettingsActions(
     val onOutsideRegion: (String) -> Unit = {},
     /** Null hides the "Why was it blocked?" row (no engine log in this build). */
     val onOpenDecisionLog: (() -> Unit)? = null,
+    /** Provider truth: the filter switch was tapped; it asks first (U11). */
+    val onFilter: (Boolean) -> Unit = {},
+    val onConfirmSwitch: () -> Unit = {},
+    val onDismissSwitch: () -> Unit = {},
+    /** Provider truth: the auto-delete warning was accepted or dismissed. */
+    val onConfirmPurge: () -> Unit = {},
+    val onDismissPurge: () -> Unit = {},
 )
 
 @Composable
@@ -99,6 +111,11 @@ fun SettingsRoute(
             onOpenLinkAction = viewModel::setOpenLinkAction,
             onOutsideRegion = viewModel::setBlockOutsideRegion,
             onOpenDecisionLog = onOpenDecisionLog,
+            onFilter = viewModel::requestFilter,
+            onConfirmSwitch = viewModel::confirmSwitch,
+            onDismissSwitch = viewModel::dismissSwitch,
+            onConfirmPurge = viewModel::confirmPurgeDays,
+            onDismissPurge = viewModel::dismissPurgeDays,
         )
     }
     val snackbar = remember { SnackbarHostState() }
@@ -137,7 +154,8 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
     var unknownNotifyDialog by rememberSaveable { mutableStateOf(false) }
     var regionDialog by rememberSaveable { mutableStateOf(false) }
     var restoredOpen by rememberSaveable { mutableStateOf(false) }
-    val cardMode = rememberSortingCardMode(settings.mode)
+    val switchModel = ProviderTruthFlag.enabled
+    val cardMode = rememberSortingCardMode(settings.shownMode())
     val chooseMode: (UnknownSenderMode) -> Unit = { mode ->
         if (mode == UnknownSenderMode.STRICT && settings.mode != UnknownSenderMode.STRICT) {
             confirmStrict = true
@@ -149,28 +167,12 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
         modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(bottom = 32.dp + bottomInset),
     ) {
         // U02: the one Spam protection page: the mode, the rules, retention, countries, links and alerts.
-        SettingsGroup(
-            title = stringResource(R.string.spam_settings_unknown_title),
-            description = stringResource(R.string.spam_settings_unknown_body),
-            descriptionExtra = cardMode?.let { shown ->
-                { SortingCard(mode = shown, containerColor = MaterialTheme.colorScheme.surface) }
-            },
-        ) {
-            ModeChoice(
-                UnknownSenderMode.STRICT, R.string.spam_mode_strict, R.string.spam_mode_strict_body,
-                settings, chooseMode,
-            )
-            ModeChoice(
-                UnknownSenderMode.SMART, R.string.spam_mode_smart, R.string.spam_mode_smart_body,
-                settings, chooseMode,
-                badge = stringResource(R.string.settings_nav_recommended),
-            )
-            ModeChoice(
-                UnknownSenderMode.OFF, R.string.spam_mode_off, R.string.spam_mode_off_body,
-                settings, chooseMode,
-            )
+        if (switchModel) {
+            FilterSwitchGroup(settings.filterOn, cardMode, actions.onFilter)
+        } else {
+            ModeGroup(settings, cardMode, chooseMode)
         }
-        if (settings.mode == UnknownSenderMode.STRICT) {
+        if (!switchModel && settings.mode == UnknownSenderMode.STRICT) {
             StrictWarning(
                 onReview = actions.onOpenBlocked,
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp),
@@ -203,14 +205,17 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
             )
         }
 
-        SettingsGroup(stringResource(R.string.region_group_title)) {
-            SettingsRow(
-                title = stringResource(R.string.region_title),
-                summary = stringResource(R.string.region_summary),
-                value = regionValue(settings.blockOutsideRegion),
-                onClick = { regionDialog = true },
-                showChevron = true,
-            )
+        // Answer 7: "hold numbers from other countries" goes with the switch model; its stored key is no longer read.
+        if (!switchModel) {
+            SettingsGroup(stringResource(R.string.region_group_title)) {
+                SettingsRow(
+                    title = stringResource(R.string.region_title),
+                    summary = stringResource(R.string.region_summary),
+                    value = regionValue(settings.blockOutsideRegion),
+                    onClick = { regionDialog = true },
+                    showChevron = true,
+                )
+            }
         }
 
         LinksGroup()
@@ -311,6 +316,130 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
             onDismiss = { purgeDialog = false },
         )
     }
+    state.switchConfirm?.let { SwitchConfirmDialog(it, actions.onConfirmSwitch, actions.onDismissSwitch) }
+    state.purgeWarning?.let { PurgeWarningDialog(it, actions.onConfirmPurge, actions.onDismissPurge) }
+}
+
+/** The three unknown-sender modes of 0.4.14, while [ProviderTruthFlag] is off. */
+@Composable
+private fun ModeGroup(settings: SpamSettings, cardMode: UnknownSenderMode?, chooseMode: (UnknownSenderMode) -> Unit) {
+    SettingsGroup(
+        title = stringResource(R.string.spam_settings_unknown_title),
+        description = stringResource(R.string.spam_settings_unknown_body),
+        descriptionExtra = cardMode?.let { shown ->
+            { SortingCard(mode = shown, containerColor = MaterialTheme.colorScheme.surface) }
+        },
+    ) {
+        ModeChoice(
+            UnknownSenderMode.STRICT, R.string.spam_mode_strict, R.string.spam_mode_strict_body,
+            settings, chooseMode,
+        )
+        ModeChoice(
+            UnknownSenderMode.SMART, R.string.spam_mode_smart, R.string.spam_mode_smart_body,
+            settings, chooseMode,
+            badge = stringResource(R.string.settings_nav_recommended),
+        )
+        ModeChoice(
+            UnknownSenderMode.OFF, R.string.spam_mode_off, R.string.spam_mode_off_body,
+            settings, chooseMode,
+        )
+    }
+}
+
+/**
+ * Provider truth (4.6): the one spam filter switch, with what "on" and "off" do on its line and the sorting card
+ * behind the circled i. The switch does not change at once: [onFilter] asks first (U11).
+ */
+@Composable
+internal fun FilterSwitchGroup(filterOn: Boolean, cardMode: UnknownSenderMode?, onFilter: (Boolean) -> Unit) {
+    val title = stringResource(R.string.spam_settings_unknown_title)
+    SettingsGroup(
+        title = title,
+        description = stringResource(R.string.spam_settings_unknown_body),
+        descriptionExtra = cardMode?.let { shown ->
+            { SortingCard(mode = shown, containerColor = MaterialTheme.colorScheme.surface) }
+        },
+    ) {
+        SettingsSwitchRow(
+            title = title,
+            summary = stringResource(if (filterOn) R.string.pt_filter_on_summary else R.string.pt_filter_off_summary),
+            checked = filterOn,
+            onCheckedChange = onFilter,
+        )
+    }
+}
+
+/** What a switch confirm says. [body] is null when the count is unknown and there is nothing else to say. */
+internal data class SwitchConfirmText(val title: String, val body: String?, val confirmLabel: String)
+
+/**
+ * The texts of a [SwitchConfirm] (answer 18, U11): the number of chats that move, "No chat moves now." for none, and
+ * no number at all while the count is unknown. Turning the code group off also says that codes then go to Spam.
+ */
+internal fun switchConfirmText(resources: Resources, confirm: SwitchConfirm): SwitchConfirmText {
+    val chats = confirm.chats
+    return when (val change = confirm.change) {
+        is SortChange.Filter -> SwitchConfirmText(
+            title = resources.getString(
+                if (change.on) R.string.pt_filter_on_confirm_title else R.string.pt_filter_off_confirm_title,
+            ),
+            body = when {
+                chats == null -> null
+                chats == 0 -> resources.getString(R.string.pt_confirm_none_move)
+                change.on -> resources.getQuantityString(R.plurals.pt_filter_on_confirm_body, chats, chats)
+                else -> resources.getQuantityString(R.plurals.pt_filter_off_confirm_body, chats, chats)
+            },
+            confirmLabel = resources.getString(if (change.on) R.string.cleanup_bin_confirm else R.string.pt_turn_off),
+        )
+        is SortChange.Group -> {
+            val count = when {
+                chats == null -> null
+                chats == 0 -> resources.getString(R.string.pt_confirm_none_move)
+                else -> resources.getQuantityString(R.plurals.pt_group_off_body, chats, chats)
+            }
+            val note = resources.getString(R.string.pt_group_off_code_note).takeIf { change.group == AllowGroup.CODE }
+            SwitchConfirmText(
+                title = resources.getString(R.string.pt_group_off_title, resources.getString(groupTitle(change.group))),
+                body = listOfNotNull(count, note).joinToString(PARAGRAPH).ifEmpty { null },
+                confirmLabel = resources.getString(R.string.pt_turn_off),
+            )
+        }
+    }
+}
+
+private const val PARAGRAPH = "\n\n"
+
+/** The name of a group rule. */
+internal fun groupTitle(group: AllowGroup): Int = when (group) {
+    AllowGroup.CODE -> R.string.pt_group_code_title
+    AllowGroup.WROTE -> R.string.pt_group_wrote_title
+}
+
+/** Asks before a switch that moves chats is changed; nothing changes on Cancel. */
+@Composable
+internal fun SwitchConfirmDialog(confirm: SwitchConfirm, onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    val text = switchConfirmText(LocalResources.current, confirm)
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(text.title) },
+        text = text.body?.let { body -> { Text(body, style = MaterialTheme.typography.bodyMedium) } },
+        confirmButton = { TextButton(onClick = onConfirm) { Text(text.confirmLabel) } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.spam_cancel)) } },
+    )
+}
+
+/** Auto-delete removes texts from the phone itself, for every app: said before [days] is set (4.6). */
+@Composable
+internal fun PurgeWarningDialog(days: Int, onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    ConfirmDialog(
+        title = stringResource(R.string.pt_purge_warn_title),
+        message = LocalResources.current.getQuantityString(R.plurals.pt_purge_warn_body, days, days),
+        confirmLabel = stringResource(R.string.cleanup_bin_confirm),
+        dismissLabel = stringResource(R.string.spam_cancel),
+        destructive = true,
+        onConfirm = onConfirm,
+        onDismiss = onDismiss,
+    )
 }
 
 @Composable

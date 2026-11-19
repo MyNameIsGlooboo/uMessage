@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Provider truth, step G: Welcome choice, the filter switch, auto-delete, group rules, test sheet, first-run pages.
+     Keys and English texts from the approved key list (19 Nov 2026). Translations are added in step I. -->
+<resources>
+    <!-- Welcome -->
+    <string name="pt_onb_filter_on">Sort unknown senders into Spam</string>
+    <string name="pt_onb_filter_on_desc">Contacts, people you wrote to and senders of a verification code stay in Messages.</string>
+    <string name="pt_onb_filter_off">Keep everything in Messages</string>
+    <string name="pt_onb_filter_off_desc">Only senders you block go to Spam.</string>
+    <string name="pt_onb_filter_hint">You can change this later in Settings.</string>
+    <string name="pt_onb_demo_desc_off">Every text goes to Messages. Only senders you block go to Spam.</string>
+
+    <!-- Settings: the switch and auto-delete -->
+    <string name="pt_filter_on_summary">On: unknown senders go to Spam</string>
+    <string name="pt_filter_off_summary">Off: everything arrives in Messages, except senders you blocked</string>
+    <string name="pt_filter_off_confirm_title">Turn off the spam filter?</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="one">%d chat moves from Spam to Messages. Chats of senders you blocked stay in Spam.</item>
+        <item quantity="other">%d chats move from Spam to Messages. Chats of senders you blocked stay in Spam.</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">Turn on the spam filter?</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="one">%d chat from an unknown sender moves to Spam. Nothing is deleted.</item>
+        <item quantity="other">%d chats from unknown senders move to Spam. Nothing is deleted.</item>
+    </plurals>
+    <string name="pt_confirm_none_move">No chat moves now.</string>
+    <string name="pt_turn_off">Turn off</string>
+    <string name="pt_purge_warn_title">Delete old spam automatically?</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="one">Texts that arrived in Spam more than %d day ago are deleted from the phone itself, for every app. They cannot be brought back. Texts you sent, starred or added a note to stay.</item>
+        <item quantity="other">Texts that arrived in Spam more than %d days ago are deleted from the phone itself, for every app. They cannot be brought back. Texts you sent, starred or added a note to stay.</item>
+    </plurals>
+
+    <!-- Group rules -->
+    <string name="pt_group_code_title">Senders of a verification code</string>
+    <string name="pt_group_wrote_title">People you wrote to</string>
+    <plurals name="pt_group_count">
+        <item quantity="one">%d sender</item>
+        <item quantity="other">%d senders</item>
+    </plurals>
+    <string name="pt_group_code_body">A sender that sends you a verification code is allowed from then on. Remove it here, or block it in its chat.</string>
+    <string name="pt_group_wrote_body">A number you send a text to is allowed from then on. Remove it here, or block it in its chat.</string>
+    <string name="pt_group_member_remove">Remove</string>
+    <string name="pt_group_member_removed">%1$s removed from the list</string>
+    <string name="pt_group_member_history">Found in your old messages</string>
+    <string name="pt_group_empty">No one here yet</string>
+    <string name="pt_group_off_title">Turn off “%1$s”?</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="one">%d chat moves to Spam. The senders stay on the list and come back when you turn it on again.</item>
+        <item quantity="other">%d chats move to Spam. The senders stay on the list and come back when you turn it on again.</item>
+    </plurals>
+    <string name="pt_group_off_code_note">After that, a verification code from an unknown sender goes to Spam too.</string>
+
+    <!-- Test sheet -->
+    <string name="pt_verdict_group">Would go to Messages: the sender is in “%1$s”.</string>
+    <string name="pt_verdict_allowed_word">Would go to Messages: the text has one of your allowed words. The sender is then allowed.</string>
+    <string name="pt_verdict_blocked_word">Would go to Spam: the text has one of your blocked words. The sender is then blocked.</string>
+
+    <!-- Progress page -->
+    <string name="pt_progress_title">Sorting your chats</string>
+    <string name="pt_progress_body">This runs once. No chat moves before it is finished, and nothing is deleted.</string>
+    <string name="pt_progress_step_rules">Updating your rules</string>
+    <string name="pt_progress_step_older">Moving older spam to the phone</string>
+    <string name="pt_progress_step_history">Checking your old messages</string>
+    <string name="pt_progress_step_sort">Sorting chats</string>
+    <string name="pt_progress_background">Continue in background</string>
+
+    <!-- What changed page -->
+    <string name="pt_changed_title">What changed</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="one">%d chat moved to Spam</item>
+        <item quantity="other">%d chats moved to Spam</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="one">%d sender allowed automatically</item>
+        <item quantity="other">%d senders allowed automatically</item>
+    </plurals>
+    <string name="pt_changed_switch">The spam filter is now one switch: on or off.</string>
+    <string name="pt_changed_sims">Your rules now cover both SIMs.</string>
+    <string name="pt_changed_store">Older spam is now stored on the phone itself, like every other text.</string>
+    <string name="pt_changed_purge">Auto-delete of old spam is off. You can turn it on in Settings.</string>
+    <string name="pt_changed_open_spam">Review Spam</string>
+</resources>
