@@ -30,3 +30,6 @@ secrets/
 
 # Python bytecode caches: never commit.
 __pycache__/
+
+# R8 mappings of release builds, kept by archiveMapping<Variant> (M-B6): attached to GitHub releases, not committed.
+/app/release-mappings/
