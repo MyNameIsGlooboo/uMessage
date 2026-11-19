@@ -102,7 +102,8 @@ class SpamSwitchSettingsTest {
 
     @Test fun keptInStepLeavesABothSidedChangeAlone() {
         val current = SpamSettings()
-        val next = current.copy(mode = UnknownSenderMode.OFF, filterOn = true)
+        // Both changed in one update (a restore of a new backup): each is kept as given.
+        val next = current.copy(mode = UnknownSenderMode.STRICT, filterOn = false)
         assertThat(SpamSettingsStore.keptInStep(current, next)).isEqualTo(next)
     }
 

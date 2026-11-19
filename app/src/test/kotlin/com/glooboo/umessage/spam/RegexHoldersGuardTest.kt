@@ -38,6 +38,7 @@ class RegexHoldersGuardTest {
         "spam/KeywordMatch.kt" to listOf("spam.KeywordMatch"),
         "spam/RegexGuard.kt" to listOf("spam.RegexGuard"),
         "spam/TextNormalizer.kt" to listOf("spam.TextNormalizer"),
+        "spam/engine/AllowingCode.kt" to listOf("spam.engine.AllowingCode"),
         "spam/engine/DomainMatch.kt" to listOf("spam.engine.DomainMatch"),
         "spam/engine/OtpDetector.kt" to listOf("spam.engine.OtpDetector"),
         "spam/engine/OtpPasswords.kt" to listOf("spam.engine.OtpPasswords"),

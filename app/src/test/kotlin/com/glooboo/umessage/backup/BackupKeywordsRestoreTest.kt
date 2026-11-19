@@ -72,19 +72,22 @@ class BackupKeywordsRestoreTest {
             .map { it.pattern to it.subscriptionId }
     }
 
+    /**
+     * Since schema 9 (provider truth, 7.2) a rule chosen for one SIM is stored for both, so the old word is already a
+     * both-SIM rule: it is not new, nothing is lost for the other SIM, and no duplicate is made.
+     */
     @Test
     fun aWordWithARuleForOneSimOnlyIsNotLostForTheOtherSim() = runBlocking<Unit> {
         repo.addRule(keywordRule("prize", sim = 1))
         val (preview, failure) = SettingsBackup.read(app, backupOf(listOf("prize", "free gift")))
         assertThat(failure).isNull()
-        assertThat(preview!!.newKeywords).containsExactly("prize", "free gift")
+        assertThat(preview!!.newKeywords).containsExactly("free gift")
 
         val result = SettingsBackup.apply(app, preview)
 
         assertThat(result.ok).isTrue()
         assertThat(result.keywordsAdded).isEqualTo(preview.newKeywords.size)
-        // "prize" now filters on both SIMs (one new both-SIM rule next to the SIM 1 rule), with no duplicates.
-        assertThat(blockWords()).containsExactly("prize" to 1, "prize" to null, "free gift" to null)
+        assertThat(blockWords()).containsExactly("prize" to null, "free gift" to null)
         assertThat(app.config.rawBlockedKeywords()).isEmpty()
     }
 

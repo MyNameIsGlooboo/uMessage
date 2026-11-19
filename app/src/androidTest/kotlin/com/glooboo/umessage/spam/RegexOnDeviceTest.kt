@@ -3,6 +3,7 @@ package com.glooboo.umessage.spam
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.glooboo.umessage.helpers.OtpCodeExtractor
+import com.glooboo.umessage.spam.engine.AllowingCode
 import com.glooboo.umessage.spam.engine.OtpDetector
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -43,6 +44,7 @@ class RegexOnDeviceTest {
         "com.glooboo.umessage.spam.KeywordMatch",
         "com.glooboo.umessage.spam.RegexGuard",
         "com.glooboo.umessage.spam.TextNormalizer",
+        "com.glooboo.umessage.spam.engine.AllowingCode",
         "com.glooboo.umessage.spam.engine.DomainMatch",
         "com.glooboo.umessage.spam.engine.OtpDetector",
         "com.glooboo.umessage.spam.engine.OtpPasswords",
@@ -101,6 +103,16 @@ class RegexOnDeviceTest {
 
         assertTrue(OtpDetector.isOriginBound("Your code is 123456\n\n@example.com #123456"))
         assertFalse(OtpDetector.containsUrl("Your code is 123456\n\n@www.example.com #123456"))
+    }
+
+    /** The strict reading that allows a sender (check 10) builds its own patterns on top of the detector's. */
+    @Test fun allowingCodeBehavesAsOnTheJvm() {
+        assertTrue(AllowingCode.isAllowingCode("Your verification code is 482915"))
+        assertTrue(AllowingCode.isAllowingCode("کد تایید شما: ۴۸۲۹۱۵"))
+        assertTrue(AllowingCode.isAllowingCode("Use 482915 in order to sign in"))
+        assertFalse(AllowingCode.isAllowingCode("Your code is 482915"))
+        assertFalse(AllowingCode.isAllowingCode("کد پیگیری سفارش شما 55667788"))
+        assertFalse(AllowingCode.isAllowingCode("كود الخصم 4455 على طلبك القادم"))
     }
 
     @Test fun otpCodeExtractorBehavesAsOnTheJvm() {
