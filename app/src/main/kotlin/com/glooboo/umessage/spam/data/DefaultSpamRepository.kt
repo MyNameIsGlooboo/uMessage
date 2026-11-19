@@ -531,14 +531,54 @@ class DefaultSpamRepository(
      * file; the key is made on this phone. Never for an unreadable or blocked sender, never twice in a group.
      */
     override suspend fun importGroupMembers(members: List<AllowGroupMember>): Int = withContext(Dispatchers.IO) {
-        val readable = members.filterNot { SenderAddress.isUnreadable(it.address) || isOnLegacyBlockList(it.address) }
-        if (readable.isEmpty()) return@withContext 0
-        db.runInTransaction<Int> {
-            readable.count { member ->
-                val key = readers.senderKey(member.address)
-                val known = groups.membersOf(member.address).any { it.group == member.group }
-                val usable = key.isNotEmpty() && !known && !hasBlockRule(member.address)
-                if (usable) dao.insertMember(AllowGroupMemberEntity.from(member.copy(senderKey = key)))
+        insertMembers(members)
+    }
+
+    /**
+     * R-3: many senders join [group] at once (step B's history check): one transaction, one read of the rules and the
+     * members, one key map. Never for an unreadable or blocked sender, never twice in the group. Returns how many
+     * joined.
+     */
+    override suspend fun joinGroups(group: AllowGroup, addresses: List<String>, source: MemberSource): Int =
+        withContext(Dispatchers.IO) {
+            val now = System.currentTimeMillis()
+            insertMembers(
+                addresses.map { address ->
+                    AllowGroupMember(group, "", BlockedLimits.limitAddress(address.trim()), now, source)
+                }
+            )
+        }
+
+    /** The batch behind [importGroupMembers] and [joinGroups]. Blocking. */
+    private fun insertMembers(candidates: List<AllowGroupMember>): Int {
+        val readable = candidates.filterNot {
+            SenderAddress.isUnreadable(it.address) || isOnLegacyBlockList(it.address)
+        }
+        if (readable.isEmpty()) return 0
+        val frozen = readers.frozen()
+        val numbers = frozen.readers()
+        return db.runInTransaction<Int> {
+            val blocks = dao.getRules()
+                .filter { it.kind == ListKind.BLOCK && it.type in SENDER_TYPES }
+                .map { it.toRule() }
+            val known = HashMap<AllowGroup, MutableSet<String>>()
+            dao.getMembers().forEach { member ->
+                known.getOrPut(member.group) { HashSet() }.apply {
+                    add(member.senderKey)
+                    addAll(frozen.senderKeys(member.address))
+                }
+            }
+            readable.count { candidate ->
+                val key = frozen.senderKey(candidate.address)
+                val keys = frozen.senderKeys(candidate.address) + key
+                val inGroup = known.getOrPut(candidate.group) { HashSet() }
+                val probe = IncomingMessage(address = candidate.address, body = "", subscriptionId = NO_SIM)
+                val usable = key.isNotEmpty() && keys.none { it in inGroup } &&
+                    blocks.none { senderMatcher.matches(it, probe, numbers) }
+                if (usable) {
+                    dao.insertMember(AllowGroupMemberEntity.from(candidate.copy(senderKey = key)))
+                    inGroup += keys
+                }
                 usable
             }
         }

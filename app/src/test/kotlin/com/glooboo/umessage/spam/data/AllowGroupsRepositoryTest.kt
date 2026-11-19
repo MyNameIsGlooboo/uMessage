@@ -274,6 +274,21 @@ class AllowGroupsRepositoryTest {
         assertEquals(1, otherSims.blockAddress(IR_NATIONAL, RuleNotes.BLOCKED_BY_YOU)!!.removedMembers.size)
     }
 
+    /** R-3: the history check's bulk join: one member per sender whatever its shape, none for a blocked sender. */
+    @Test fun manySendersJoinInOneBatch() = runTest {
+        repo.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = OTHER))
+        repo.joinGroup(AllowGroup.WROTE, SENDER)
+        val joined = repo.joinGroups(
+            AllowGroup.WROTE,
+            listOf(SENDER, IR_NATIONAL, IR_PLUS, "00989061234567", OTHER, ANDROID_BLOCKED, "Unknown", "ExampleShop"),
+        )
+        assertEquals(2, joined)
+        val members = dao.getMembers()
+        assertEquals(3, members.size)
+        val batch = members.filter { it.senderKey != SENDER }
+        assertTrue(batch.all { it.source == MemberSource.HISTORY && it.acknowledged })
+    }
+
     /** A-11: the word rule's hit can be counted on the new path. */
     @Test fun aWordRuleHitIsCounted() = runTest {
         val word = repo.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.KEYWORD, pattern = "prize"))

@@ -384,6 +384,16 @@ interface SpamRepository {
      */
     suspend fun importGroupMembers(members: List<AllowGroupMember>): Int = 0
 
+    /**
+     * Many senders join [group] at once (the history check): one transaction, never for an unreadable or blocked
+     * sender, never twice. Returns how many joined.
+     */
+    suspend fun joinGroups(
+        group: AllowGroup,
+        addresses: List<String>,
+        source: MemberSource = MemberSource.HISTORY,
+    ): Int = 0
+
     /** "Keep" on the chat line: the sender's memberships and automatic allow rules are acknowledged. */
     suspend fun acknowledgeSender(address: String) = Unit
 

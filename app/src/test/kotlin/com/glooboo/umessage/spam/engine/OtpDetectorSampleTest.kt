@@ -18,14 +18,14 @@ import org.junit.Test
  * of the filter order). The tests pin the exact misses and false hits of both, so a change to either has to update
  * this file on purpose.
  *
- * Counts: 149 samples (70 Persian, 54 English, 19 Arabic, 6 Chinese, Japanese, Korean and Thai), 71 codes and 78
+ * Counts: 160 samples (70 Persian, 58 English, 19 Arabic, 13 Chinese, Japanese, Korean and Thai), 71 codes and 89
  * other texts.
  *
  * | Group         | Samples | Shown as a code: wrong | Allows the sender: wrong |
  * |---------------|---------|------------------------|--------------------------|
  * | REAL_CODE     | 71      | 6 missed               | 8 missed                 |
- * | REFERENCE     | 27      | 14 called a code       | 0                        |
- * | MARKETING     | 20      | 5 called a code        | 0                        |
+ * | REFERENCE     | 35      | 22 called a code       | 0                        |
+ * | MARKETING     | 23      | 6 called a code        | 0                        |
  * | PHISHING_LINK | 9       | 7 called a code        | 2                        |
  * | OTHER         | 22      | 3 called a code        | 0                        |
  *
@@ -34,7 +34,8 @@ import org.junit.Test
  *   98 reads as a phone number (the phone guard of [OtpDetector.longShape]), not because of its length; and
  *   "OTP for your order at Example Shop is 448210", where the keyword is more than four words from the code.
  * - Shown as a code, false hits: order, parcel, customer, referral, branch, queue, broker and zip numbers next to the
- *   word "code" (کد, code, رمز); ads whose discount word the detector does not know ("at checkout", "free",
+ *   word "code" (کد, code, رمز), also "Your booking code is N" and parcel, order and coupon codes in Chinese, Japanese,
+ *   Korean and Thai; ads whose discount word the detector does not know ("at checkout", "free",
  *   "كود الخصم", "Sign in today and use code 4455"); "Error code" and a time written without a colon after a password
  *   word (N-1); and every phishing text that names a code.
  * - Allows the sender, misses: the six above, plus two codes next to the plain word only that do not say whose code
@@ -241,6 +242,11 @@ class OtpDetectorSampleTest {
         Sample(REAL_CODE, "Your sign-in code is 662013", detectedToday = true),
         Sample(REAL_CODE, "Your Example verification code is: 8812-4410", detectedToday = true),
         Sample(MARKETING, "Sign in today and use code 4455", detectedToday = true),
+        // Second review R-2: a possessive "code" that names a booking, a reference or a discount.
+        Sample(MARKETING, "Your discount code is 4455", detectedToday = false),
+        Sample(REFERENCE, "Your booking code is 482915", detectedToday = true),
+        Sample(REFERENCE, "Your reference code is 556677", detectedToday = true),
+        Sample(REFERENCE, "556677 is your membership code", detectedToday = true),
     )
 
     /** Languages without spaces between words: Chinese (simplified and traditional), Japanese, Korean, Thai. */
@@ -251,6 +257,14 @@ class OtpDetectorSampleTest {
         Sample(REAL_CODE, "[예시] 인증번호 [482915]를 입력해 주세요.", detectedToday = true),
         Sample(REAL_CODE, "รหัส OTP ของคุณคือ 739201", detectedToday = true),
         Sample(REAL_CODE, "รหัสยืนยันของคุณคือ 482915", detectedToday = true),
+        // Second review R-2: parcels, orders and coupons, and the bare Thai "รหัส" (code).
+        Sample(REFERENCE, "รหัสพัสดุ 482915", detectedToday = true),
+        Sample(REFERENCE, "รหัส 4821 สำหรับคำสั่งซื้อ", detectedToday = true),
+        Sample(REFERENCE, "【示例快递】您的取件验证码是 482915", detectedToday = true),
+        Sample(REFERENCE, "您的订单验证码是 573920", detectedToday = true),
+        Sample(REFERENCE, "ご注文の確認コード：664422", detectedToday = true),
+        Sample(MARKETING, "쿠폰 인증번호 4455", detectedToday = true),
+        Sample(MARKETING, "优惠验证码 7788", detectedToday = false),
     )
 
     /** Arabic: codes, shipping and order numbers, offers, a link, bank notices. */
@@ -286,11 +300,11 @@ class OtpDetectorSampleTest {
 
     @Test fun theSampleIsPersianFirstAndMixed() {
         assertEquals(70, persian.size)
-        assertEquals(54, english.size)
+        assertEquals(58, english.size)
         assertEquals(19, arabic.size)
-        assertEquals(6, otherScripts.size)
+        assertEquals(13, otherScripts.size)
         assertEquals(71, all.count { it.isCode })
-        assertEquals(78, all.count { !it.isCode })
+        assertEquals(89, all.count { !it.isCode })
     }
 
     @Test fun theMissesAreExactlyTheRecordedOnes() {
@@ -316,8 +330,8 @@ class OtpDetectorSampleTest {
         assertEquals(
             mapOf(
                 REAL_CODE to (71 to 6),
-                REFERENCE to (27 to 14),
-                MARKETING to (20 to 5),
+                REFERENCE to (35 to 22),
+                MARKETING to (23 to 6),
                 PHISHING_LINK to (9 to 7),
                 OTHER to (22 to 3),
             ),
@@ -384,7 +398,7 @@ class OtpDetectorSampleTest {
 
     private companion object {
         const val EXPECTED_MISSES = 6
-        const val EXPECTED_FALSE_HITS = 29
+        const val EXPECTED_FALSE_HITS = 38
         const val EXPECTED_ALLOWING_MISSES = 8
         const val EXPECTED_ALLOWING_FALSE_HITS = 2
     }

@@ -41,6 +41,23 @@ class AllowingCodeTest {
         assertFalse(allows("Use 664422 now"))
     }
 
+    /** R-2: a possessive "code" that names a booking, a reference or a discount is no one-time code. */
+    @Test fun aPossessiveReferenceCodeDoesNotAllow() {
+        listOf(
+            "Your booking code is 482915", "Your reference code is 556677", "556677 is your membership code",
+            "Your ticket code is 482915", "Your account no is 48291537",
+        ).forEach { assertFalse(it, allows(it)) }
+    }
+
+    /** R-2: the bare Thai word for "code" allows nobody; parcel, order and coupon words of CJK and Thai veto. */
+    @Test fun cjkAndThaiReferenceWordsVeto() {
+        listOf(
+            "รหัส 4821 สำหรับคำสั่งซื้อ", "รหัสพัสดุ 482915",
+            "您的订单验证码是 573920", "ご注文の確認コード：664422", "쿠폰 인증번호 4455",
+        ).forEach { assertFalse(it, allows(it)) }
+        assertTrue(allows("รหัส OTP ของคุณคือ 739201"))
+    }
+
     @Test fun thePlainWordAloneNeverAllows() {
         listOf("کد: ۷۴۱۰", "Code 482915", "کدتان برای ورود ۳۱۲۵ است").forEach { assertFalse(it, allows(it)) }
     }

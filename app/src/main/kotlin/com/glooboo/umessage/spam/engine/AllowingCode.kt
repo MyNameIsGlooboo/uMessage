@@ -83,6 +83,7 @@ object AllowingCode {
         "الخصم", "التتبع", "تتبع", "الشحنه", "شحنه", "الطلب", "طلبک", "مرجع", "المرجع", "الحجز", "رقم العملیه",
     )
 
+    private const val BARE_THAI_CODE = "รหัส"
     private const val SEP = "[^\\p{L}\\p{N}]{1,4}"
     private const val WORD = "[\\p{L}\\p{M}]{1,15}"
 
@@ -107,7 +108,9 @@ object AllowingCode {
     )
     private val strongAfter = Regex("^$SEP(?:$plainWord$SEP){0,4}$phrase", RegexOption.IGNORE_CASE)
 
-    private val cjkWords = "(?:" + OtpKeywords.cjk.map { TextNormalizer.fold(it).replace(" ", "\\s?") }
+    /** The CJK and Thai code words, without the bare Thai "รหัส" ("code" alone, R-2). */
+    private val cjkWords = "(?:" + OtpKeywords.cjk.filter { it != BARE_THAI_CODE }
+        .map { TextNormalizer.fold(it).replace(" ", "\\s?") }
         .sortedByDescending { it.length }.joinToString("|") + ")"
     private val cjkBefore = Regex("$cjkWords[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$")
     private val cjkAfter = Regex("^[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$cjkWords")
@@ -115,6 +118,25 @@ object AllowingCode {
     private val veto = words(vetoWords)
     private val vetoBefore = Regex("$veto$SEP(?:$WORD$SEP){0,4}$", RegexOption.IGNORE_CASE)
     private val vetoAfter = Regex("^$SEP(?:$WORD$SEP){0,4}$veto", RegexOption.IGNORE_CASE)
+
+    /** Reference words of languages without spaces: parcel, order, express delivery, coupon, discount (R-2). */
+    internal val cjkVetoWords = listOf("พัสดุ", "สั่งซื้อ", "订单", "訂單", "快递", "快遞", "注文", "주문", "쿠폰", "优惠", "優惠")
+    private val cjkVeto = "(?:" + cjkVetoWords.joinToString("|") + ")"
+    private val cjkVetoBefore = Regex("$cjkVeto[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$")
+    private val cjkVetoAfter = Regex("^[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$cjkVeto")
+
+    /** What the possessive code is when it is no one-time code: "Your booking code is N", "Your reference no: N". */
+    private const val NOT_A_CODE = "(?:booking|reservation|reference|ref|invoice|parcel|shipment|customer|" +
+        "member(?:ship)?|ticket|account|discount|promo|coupon|gift|voucher)"
+    private const val NUMBER_WORD = "(?:code|number|no|id)"
+    private val possessiveVetoBefore = Regex(
+        "(?<![\\p{L}\\p{N}])$NOT_A_CODE$SEP$NUMBER_WORD(?:${SEP}is)?$SEP$",
+        RegexOption.IGNORE_CASE,
+    )
+    private val possessiveVetoAfter = Regex(
+        "^${SEP}is${SEP}your$SEP(?:$WORD$SEP){0,3}?$NOT_A_CODE$SEP$NUMBER_WORD(?![\\p{L}\\p{N}])",
+        RegexOption.IGNORE_CASE,
+    )
 
     /** "Your code is N", "Your Acme code: N", "کد شما: N", "کدتان N". */
     private val possessiveBefore = Regex(
@@ -160,8 +182,12 @@ object AllowingCode {
     private fun after(text: String, range: IntRange) =
         text.substring(range.last + 1, minOf(text.length, range.last + 1 + WINDOW))
 
-    private fun vetoNear(text: String, range: IntRange): Boolean =
-        vetoBefore.containsMatchIn(before(text, range)) || vetoAfter.containsMatchIn(after(text, range))
+    private fun vetoNear(text: String, range: IntRange): Boolean {
+        val head = before(text, range)
+        val tail = after(text, range)
+        return vetoBefore.containsMatchIn(head) || vetoAfter.containsMatchIn(tail) ||
+            cjkVetoBefore.containsMatchIn(head) || cjkVetoAfter.containsMatchIn(tail)
+    }
 
     private fun allowsNear(text: String, range: IntRange): Boolean {
         val head = before(text, range)
@@ -172,7 +198,8 @@ object AllowingCode {
             useBefore.containsMatchIn(head) -> useAfter.containsMatchIn(tail)
             else -> possessiveBefore.containsMatchIn(head) || possessiveAfter.containsMatchIn(tail)
         }
-        return possessive && !linkNear(text, range)
+        val notACode = possessiveVetoBefore.containsMatchIn(head) || possessiveVetoAfter.containsMatchIn(tail)
+        return possessive && !notACode && !linkNear(text, range)
     }
 
     private fun linkNear(text: String, range: IntRange): Boolean {

@@ -135,11 +135,15 @@ class SenderJudge(
     private val allowingCode: (String) -> Boolean = AllowingCode::isAllowingCode,
 ) {
 
-    /** Everything the sender checks read, read once. Build one per batch; it does not see later changes. */
+    /**
+     * Everything the sender checks read, read once. Build one per batch; it does not see later changes. A failed read
+     * of the rules or members throws (R-1): judging on half the rules could hide a chat, so the caller fails open
+     * instead (SpamEngine.judge and evaluate deliver to Messages; the sorter keeps its old table).
+     */
     fun snapshot(): Snapshot = Snapshot(
-        rules = runCatching { rules() }.getOrDefault(emptyList()),
+        rules = rules(),
         settings = settings(),
-        members = runCatching { groups.members() }.getOrDefault(emptyList()),
+        members = groups.members(),
         readers = readers.frozen(),
     )
 
@@ -211,9 +215,18 @@ class SenderJudge(
     ) {
         internal val textRules = rules.filter { it.type in TEXT_TYPES }
 
+        private val allNumberRules =
+            rules.filter { it.type == RuleType.NUMBER && !matcherNormalizer.isSenderId(it.pattern) }
+
+        /**
+         * NUMBER rules whose pattern has no country in any reading (a short code, digits without + or 00): the key
+         * index cannot stand for [NumberNormalizer.sameAddress] there, so they are matched one by one.
+         */
+        private val looseNumberRules = allNumberRules.filter { rule -> !hasCountry(rule.pattern) }
+
         /** NUMBER rules by every key of their pattern. */
         private val numberRules: Map<String, List<SpamRule>> = buildMap<String, MutableList<SpamRule>> {
-            rules.filter { it.type == RuleType.NUMBER && !matcherNormalizer.isSenderId(it.pattern) }.forEach { rule ->
+            allNumberRules.forEach { rule ->
                 readers.senderKeys(rule.pattern).forEach { getOrPut(it) { mutableListOf() } += rule }
             }
         }
@@ -263,9 +276,19 @@ class SenderJudge(
 
         /** Rules that name the sender itself (number, sender name, prefix), in every reading of the region list. */
         private fun rulesNaming(address: String): List<SpamRule> {
-            val numbered = readers.senderKeys(address).flatMap { numberRules[it].orEmpty() }
             val probe = IncomingMessage(address = address, body = "", subscriptionId = NO_SIM)
             val numbers = readers.readers()
+            // R-6: one matcher semantics. Two numbers with a known country match exactly when a key is shared, so the
+            // index is enough for them; a number without a country (a short code, "98906..." without +, a reader with
+            // no region) is read by RuleMatcher, as the repository does: against every NUMBER rule when the sender has
+            // no country, else against the rules that have none.
+            val loose = when {
+                matcherNormalizer.isSenderId(address) -> emptyList()
+                hasCountry(address) -> looseNumberRules
+                else -> allNumberRules
+            }
+            val numbered = readers.senderKeys(address).flatMap { numberRules[it].orEmpty() } +
+                loose.filter { matcher.matches(it, probe, numbers) }
             return (numbered + otherSenderRules.filter { matcher.matches(it, probe, numbers) }).distinct()
         }
 
@@ -282,6 +305,8 @@ class SenderJudge(
         }
 
         private fun canReadContacts(): Boolean = runCatching { contacts.canReadContacts() }.getOrDefault(false)
+
+        private fun hasCountry(value: String): Boolean = readers.readers().any { it.hasCountryCode(value) }
     }
 
     private fun isAutomatic(rule: SpamRule) = RuleNotes.isMadeByFilter(rule.note)

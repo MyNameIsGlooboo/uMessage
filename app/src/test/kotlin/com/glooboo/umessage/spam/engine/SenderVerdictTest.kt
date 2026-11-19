@@ -465,6 +465,48 @@ class SenderVerdictTest {
         assertEquals(world.judge.verdict(addresses[3]), places[3])
     }
 
+    /** R-1: a failed rules read throws instead of judging on no rules (the caller fails open). */
+    @Test fun aFailedRulesReadThrows() {
+        val world = World()
+        val broken = SenderJudge(
+            rules = { error("rules table unreadable") },
+            settings = { SpamSettings() },
+            contacts = object : ContactChecker {
+                override fun isContact(address: String) = false
+            },
+            readers = world.readers,
+            groups = GroupMembership { emptyList() },
+        )
+        val failed = runCatching { broken.judge(IncomingMessage(SENDER, "hello", 1), world.writer) }
+        assertTrue(failed.isFailure)
+        assertTrue(runCatching { broken.verdict(SENDER) }.isFailure)
+    }
+
+    /**
+     * R-6: the snapshot reads a NUMBER rule exactly as RuleMatcher does, also for short codes, a reader with no region
+     * and "98906..." written without + under a US-only list.
+     */
+    @Test fun theSnapshotAndRuleMatcherAgreeOnNumberRules() {
+        val cases = listOf(
+            Triple("US", "30001234", listOf("30001234", "+130001234", "130001234")),
+            Triple("", "+15550001234", listOf("5550001234", "05550001234", "+15550001234", "15550001234")),
+            Triple("US", IR_PLUS, listOf("989061234567", IR_00, IR_NATIONAL, "+15550001234")),
+            Triple("US", "989061234567", listOf(IR_PLUS, "989061234567")),
+        )
+        for ((region, pattern, addresses) in cases) {
+            val world = World(region = region)
+            val rule = SpamRule(id = 1, kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = pattern)
+            world.rules += rule
+            val matcher = RuleMatcher(world.normalizer)
+            addresses.forEach { address ->
+                val expected = matcher.matches(rule, IncomingMessage(address, "", 1), world.readers.readers())
+                val blocked = world.judge.verdict(address) is SenderVerdict.Spam &&
+                    world.judge.verdict(address).reason == DecisionReason.BLOCK_RULE
+                assertEquals("$pattern vs $address in '$region'", expected, blocked)
+            }
+        }
+    }
+
     @Test fun r1_theSafetyCheckAnnouncesASilentRowOutsideSpam() {
         assertTrue(SpamSafetyCheck.mustAnnounce(storedSilently = true, threadInSpam = false))
         assertFalse(SpamSafetyCheck.mustAnnounce(storedSilently = true, threadInSpam = true))
