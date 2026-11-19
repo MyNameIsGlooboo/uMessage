@@ -32,12 +32,48 @@ class AllowingCodeTest {
         assertTrue(allows("Your code is 482915.\n\n@example.com #482915"))
     }
 
-    @Test fun thePlainWordAloneNeverAllows() {
-        listOf("Your code is 482915", "کد: ۷۴۱۰", "کدتان ۹۰۱۲ است", "Your code is ab12cd")
-            .forEach { assertFalse(it, allows(it)) }
+    @Test fun aPossessiveFormAllowsWithoutALinkNearTheCode() {
+        listOf(
+            "Your code is 482915", "Your code is ab12cd", "Your Example code: 573920", "482915 is your Example code",
+            "Use 664422 to verify your account", "کد شما: ۷۲۶۱۹۰", "کدتان ۹۰۱۲ است",
+        ).forEach { assertTrue(it, allows(it)) }
+        assertFalse(allows("Your code is 482915. Help: example.com/help"))
+        assertFalse(allows("Use 664422 now"))
     }
 
-    @Test fun referenceWordsVetoEvenNextToACodeWord() {
+    @Test fun thePlainWordAloneNeverAllows() {
+        listOf("کد: ۷۴۱۰", "Code 482915", "کدتان برای ورود ۳۱۲۵ است").forEach { assertFalse(it, allows(it)) }
+    }
+
+    /** A-12: the strong phrase must stand next to the code itself, not anywhere before it. */
+    @Test fun aPhraseFarFromTheCodeDoesNotAllow() {
+        assertFalse(allows("Sign in today and use code 4455"))
+        assertTrue(allows("Use code 1029 to sign in to ExampleApp."))
+        assertTrue(allows("Your PIN reset code is 7314"))
+    }
+
+    /** A veto word away from the code ("Dear Customer", "for your order", "Free Msg") does not veto. */
+    @Test fun everydayWordsAwayFromTheCodeDoNotVeto() {
+        listOf(
+            "Dear Customer, your OTP is 482915. Do not share it with anyone.",
+            "Dear Customer, 739201 is the OTP for your order of USD 25.00 at Example Shop.",
+            "Ref no 55123. Your one-time password is 284613. Valid for 5 minutes.",
+            "Free Msg: Your Example verification code is 902183",
+            "Tracking code 99887766, verification code 4821",
+            "Your order verification code is 556677",
+        ).forEach { assertTrue(it, allows(it)) }
+    }
+
+    @Test fun cjkAndThaiWordsAndTheCurlyApostrophe() {
+        assertTrue(allows("您的验证码是 482915，5分钟内有效。"))
+        assertTrue(allows("認証コード：664422"))
+        assertTrue(allows("รหัสยืนยันของคุณคือ 482915"))
+        assertTrue(allows("Example code 482915. Don’t share it."))
+        assertTrue(allows("کد تاییدیه شما: 662281"))
+        assertTrue(allows("کد اعتبارسنجی: ۵۵۸۱۲۳"))
+    }
+
+    @Test fun referenceWordsNextToTheCodeVeto() {
         listOf(
             "کد معرف 123456",
             "کد سفارش شما 739201 ثبت شد",
@@ -49,9 +85,9 @@ class AllowingCodeTest {
             "Zip code 90210",
             "Error code 5001",
             "Use code 4455 at checkout",
-            "Tracking code 99887766, verification code 4821",
-            "Your order verification code is 556677",
-            "Booking reference 482915, security code 4821",
+            "Your order code is 556677",
+            "Booking reference: security code 4821",
+            "Your customer id code is 4821",
             "كود الخصم 4455 على طلبك القادم",
             "رمز التتبع 556677",
             "Password changed on 2026-11-18 at 1432",

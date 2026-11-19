@@ -1,5 +1,8 @@
 package com.glooboo.umessage.spam.engine
 
+import com.glooboo.umessage.helpers.CodeKind
+import com.glooboo.umessage.helpers.OtpCodeExtractor
+import com.glooboo.umessage.helpers.OtpCodes
 import com.glooboo.umessage.spam.TextNormalizer
 
 /**
@@ -8,14 +11,21 @@ import com.glooboo.umessage.spam.TextNormalizer
  *
  * [OtpDetector.looksLikeOtp] stays the one rule for showing a code (notification, copy chips, Codes filter,
  * forwarding). It is generous on purpose: a copy chip on a tracking number costs nothing. Here a false hit lets a
- * sender into Messages for good, so a text allows only when [OtpDetector.looksLikeOtp] says yes and also
- * - a strong code phrase ("کد تایید", "رمز یکبار مصرف", "رمز پویا", "verification code", "OTP", "one-time",
- *   "رمز التحقق", ...) stands a few plain words before or after a code-like token, or
- * - the text says to keep the code secret ("do not share", "در اختیار دیگران قرار ندهید"), or
- * - its last line binds the code to a site ([OtpDetector.isOriginBound], `@example.com #123456`),
- * and no word of a reference number is in it (tracking, order, referral, branch, queue, stock, zip, error, booking,
- * checkout, customer; "کد پیگیری", "کد سفارش", "کد معرف", "الخصم", ...). The plain words "code", "کد", "رمز" alone
- * never allow. So every text this allows is also shown as a code, never the other way round.
+ * sender into Messages for good, so a text allows only when [OtpDetector.looksLikeOtp] says yes, and for one of the
+ * codes it found ([OtpCodes.tokens]), right next to that code:
+ * - no word of a reference number stands a few plain words before or after it ([vetoWords]: tracking, order number,
+ *   referral, branch, queue, stock, zip, error, booking reference, checkout, customer number; "کد پیگیری",
+ *   "کد سفارش", "کد معرف", "الخصم", ...). A veto word elsewhere in the text ("Dear Customer", "for your order") does
+ *   not count;
+ * - and a strong code phrase ([strongPhrases]: "کد تایید", "رمز یکبار مصرف", "verification code", "OTP",
+ *   "one-time", "رمز التحقق", the CJK and Thai words of [OtpKeywords.cjk], ...) stands next to it, with at most one
+ *   plain word before a generic "code" in between ("PIN reset code is 7314" yes; "Sign in today and use code 4455"
+ *   no, that "code" belongs to "use code");
+ * - or a possessive form says it is the reader's code ("Your code is N", "N is your Acme code", "Use N to verify",
+ *   "کد شما: N", "کدتان N"), with no link near the code;
+ * - or the text says to keep the code secret ("do not share", "در اختیار دیگران قرار ندهید"), or its last line
+ *   binds the code to a site ([OtpDetector.isOriginBound], `@example.com #123456`).
+ * So every text this allows is also shown as a code, never the other way round.
  */
 object AllowingCode {
 
@@ -29,12 +39,13 @@ object AllowingCode {
         "sign[- ]?in code", "log[- ]?in", "sign[- ]?in", "passcode", "password", "pin", "2fa",
         "authentication code", "auth code", "confirmation code", "access code", "activation code",
         // Persian
-        "کد تایید", "کد تأیید", "کد تائید", "رمز یکبار مصرف", "رمز یک بار مصرف", "یکبار مصرف", "یک بار مصرف",
-        "رمز پویا", "رمز دوم", "رمز اینترنتی", "رمز عبور", "رمز ورود", "رمز شخصی", "رمز موقت", "کد ورود",
-        "کد فعالسازی", "کد فعال سازی", "کد امنیتی", "کد احراز هویت", "احراز هویت", "گذرواژه", "پسورد", "فرم ورود",
-        // Arabic (folded like the text: Persian yeh and kaf)
-        "رمز التحقق", "رمز الدخول", "رمز التفعیل", "رمز التأکید", "کود التفعیل", "کود التحقق", "کلمة المرور",
-        "لمرة واحدة", "التحقق", "التفعیل", "لتأکید", "تأکید",
+        "کد تایید", "کد تأیید", "کد تائید", "کد تاییدیه", "کد اعتبارسنجی", "کد اعتبار سنجی", "رمز یکبار مصرف",
+        "رمز یک بار مصرف", "یکبار مصرف", "یک بار مصرف", "رمز پویا", "رمز دوم", "رمز اینترنتی", "رمز عبور",
+        "رمز ورود", "رمز شخصی", "رمز موقت", "کد ورود", "کد فعالسازی", "کد فعال سازی", "کد امنیتی", "کد احراز هویت",
+        "احراز هویت", "گذرواژه", "پسورد", "فرم ورود",
+        // Arabic (folded like the text: Persian yeh and kaf, plain alef)
+        "رمز التحقق", "رمز الدخول", "رمز التفعیل", "رمز التاکید", "کود التفعیل", "کود التحقق", "کلمه المرور",
+        "لمره واحده", "التحقق", "التفعیل", "لتاکید", "تاکید",
         // Other languages: the compound words of OtpKeywords.strong
         "код подтверждения", "код підтвердження", "проверочный код", "код безопасности", "одноразовый",
         "одноразовий", "пароль", "пин[- ]?код", "doğrulama kodu", "onay kodu", "güvenlik kodu", "şifre",
@@ -54,50 +65,119 @@ object AllowingCode {
     )
 
     /**
-     * Words of a reference number (tracking, order, referral, branch, queue, stock, zip, error, booking, checkout,
-     * customer) and of offers the code lists miss ("free", "الخصم"), and of a notice that something changed. Any of
-     * them in the text and it allows nobody. Persian reference nouns that also name banks or places ("ملی", "شعبه")
-     * only count after "کد" or "شماره".
+     * Words of a reference number. They veto only a few plain words before or after the code itself, so "Dear
+     * Customer, your OTP is 482915" still allows. English words that are everyday words alone ("customer", "order",
+     * "free") count only in their reference compounds.
      */
     internal val vetoWords: List<String> = listOf(
         // English
-        "tracking", "track", "(?<!in\\s)orders?", "referral", "refer", "branch", "queue", "stock", "zip", "postal",
-        "postcode", "error", "booking", "reservation", "checkout", "customer", "ref", "reference", "invoice",
-        "parcel", "shipment", "free", "changed",
+        "tracking", "track", "customer number", "customer no", "customer id", "order number", "order no",
+        "order id", "order code", "ref no", "ref number", "reference no", "reference number", "booking ref",
+        "booking reference", "referral", "branch", "queue", "stock", "zip", "postal code", "postcode", "error",
+        "checkout", "toll[- ]?free", "changed",
         // Persian
         "پیگیری", "رهگیری", "مرسوله", "کد سفارش", "شماره سفارش", "کد معرف", "کد معرفی", "کد شعبه", "کد نوبت",
         "شماره نوبت", "کد بورسی", "کد پستی", "کد مشتری", "شماره مشتری", "کد اشتراک", "کد ملی", "کد رزرو", "کد خطا",
         "شناسه پرداخت", "تغییر کرد", "تغییر یافت",
         // Arabic
-        "الخصم", "التتبع", "تتبع", "الشحنة", "شحنة", "الطلب", "طلبک", "مرجع", "المرجع", "الحجز", "رقم العملیة",
+        "الخصم", "التتبع", "تتبع", "الشحنه", "شحنه", "الطلب", "طلبک", "مرجع", "المرجع", "الحجز", "رقم العملیه",
     )
 
-    /** A code-like token: 4-12 letters and digits with a digit, or two groups of three or four digits. */
-    private const val TOKEN = "(?<![\\p{L}\\p{N}])(?=[0-9a-z]*[0-9])" +
-        "(?:[0-9]{3,4}[ -][0-9]{3,4}|[0-9a-z]{4,12})(?![\\p{L}\\p{N}])"
+    private const val SEP = "[^\\p{L}\\p{N}]{1,4}"
+    private const val WORD = "[\\p{L}\\p{M}]{1,15}"
 
-    private val strongNearCode: Regex = run {
-        val phrase = OtpDetector.keywordPattern(strongPhrases)
-        Regex("$phrase${OtpDetector.NEAR}$TOKEN|$TOKEN${OtpDetector.NEAR}$phrase", RegexOption.IGNORE_CASE)
-    }
+    /** The characters either side of a code that are searched. */
+    private const val WINDOW = 120
 
-    private val secrecy: Regex = wordsRegex(secrecyPhrases)
+    /** How far from the code a link stops a possessive form from allowing. */
+    private const val LINK_WINDOW = 60
 
-    private val veto: Regex = wordsRegex(vetoWords)
+    private fun words(list: List<String>) = "(?<![\\p{L}\\p{N}])(?:" +
+        list.map { TextNormalizer.fold(it).replace(" ", "\\s*") }.sortedByDescending { it.length }.joinToString("|") +
+        ")(?![\\p{L}\\p{N}])"
 
-    private fun wordsRegex(words: List<String>) = Regex(
-        "(?<![\\p{L}\\p{N}])(?:" +
-            words.map { TextNormalizer.fold(it).replace(" ", "\\s*") }.sortedByDescending { it.length }
-                .joinToString("|") +
-            ")(?![\\p{L}\\p{N}])",
+    private val phrase = OtpDetector.keywordPattern(strongPhrases)
+    private val weak = OtpDetector.keywordPattern(OtpKeywords.weak)
+    private val plainWord = "(?!$weak)$WORD"
+
+    /** A phrase, then up to four plain words, or a generic "code" after at most one word ("PIN reset code is"). */
+    private val strongBefore = Regex(
+        "$phrase$SEP(?:(?:$WORD$SEP)?$weak$SEP(?:$plainWord$SEP){0,2}|(?:$plainWord$SEP){0,4})$",
         RegexOption.IGNORE_CASE,
     )
+    private val strongAfter = Regex("^$SEP(?:$plainWord$SEP){0,4}$phrase", RegexOption.IGNORE_CASE)
+
+    private val cjkWords = "(?:" + OtpKeywords.cjk.map { TextNormalizer.fold(it).replace(" ", "\\s?") }
+        .sortedByDescending { it.length }.joinToString("|") + ")"
+    private val cjkBefore = Regex("$cjkWords[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$")
+    private val cjkAfter = Regex("^[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$cjkWords")
+
+    private val veto = words(vetoWords)
+    private val vetoBefore = Regex("$veto$SEP(?:$WORD$SEP){0,4}$", RegexOption.IGNORE_CASE)
+    private val vetoAfter = Regex("^$SEP(?:$WORD$SEP){0,4}$veto", RegexOption.IGNORE_CASE)
+
+    /** "Your code is N", "Your Acme code: N", "کد شما: N", "کدتان N". */
+    private val possessiveBefore = Regex(
+        "(?<![\\p{L}\\p{N}])(?:your$SEP(?:$WORD$SEP){0,3}?$weak(?:${SEP}is)?|کد${SEP}شما|کدتان)$SEP$",
+        RegexOption.IGNORE_CASE,
+    )
+
+    /** "N is your Acme code". */
+    private val possessiveAfter = Regex("^${SEP}is${SEP}your$SEP(?:$WORD$SEP){0,3}?$weak", RegexOption.IGNORE_CASE)
+
+    /** The purpose after "Use N": "to verify", "to confirm", "to log in". */
+    private val useAfter = Regex(
+        "^${SEP}to$SEP(?:verify|confirm|log\\s?in|sign\\s?in)(?![\\p{L}\\p{N}])",
+        RegexOption.IGNORE_CASE,
+    )
+    private val useBefore = Regex("(?<![\\p{L}\\p{N}])use$SEP$", RegexOption.IGNORE_CASE)
+
+    private val secrecy = Regex(words(secrecyPhrases), RegexOption.IGNORE_CASE)
 
     /** Whether [body] allows its sender for good (see the class comment). Never throws. */
     fun isAllowingCode(body: String): Boolean = runCatching {
         if (!OtpDetector.looksLikeOtp(body)) return@runCatching false
         val text = TextNormalizer.fold(body)
-        if (veto.containsMatchIn(text)) return@runCatching false
-        strongNearCode.containsMatchIn(text) || secrecy.containsMatchIn(text) || OtpDetector.isOriginBound(body)
+        val anywhere = secrecy.containsMatchIn(text) || OtpDetector.isOriginBound(body)
+        codeRanges(body, text).any { range -> !vetoNear(text, range) && (anywhere || allowsNear(text, range)) }
     }.getOrDefault(false)
+
+    /**
+     * Where the codes [OtpDetector.looksLikeOtp] found stand in the folded [text]. [OtpCodes.tokens] gives no value
+     * for a CJK or Thai keyword ("验证码是 482915"), so then every code-shaped number of the text is a candidate; each
+     * still needs its own phrase next to it.
+     */
+    private fun codeRanges(body: String, text: String): List<IntRange> {
+        val found = OtpCodes.tokens(body)
+            .filter { it.kind != CodeKind.Username }
+            .flatMap { OtpCodes.spans(text, it.value) }
+        if (found.isNotEmpty()) return found.distinct()
+        return OtpCodeExtractor.codeShapes(text).mapNotNull { it.groups[1]?.range }.toList()
+    }
+
+    private fun before(text: String, range: IntRange) = text.substring(maxOf(0, range.first - WINDOW), range.first)
+
+    private fun after(text: String, range: IntRange) =
+        text.substring(range.last + 1, minOf(text.length, range.last + 1 + WINDOW))
+
+    private fun vetoNear(text: String, range: IntRange): Boolean =
+        vetoBefore.containsMatchIn(before(text, range)) || vetoAfter.containsMatchIn(after(text, range))
+
+    private fun allowsNear(text: String, range: IntRange): Boolean {
+        val head = before(text, range)
+        val tail = after(text, range)
+        if (strongBefore.containsMatchIn(head) || strongAfter.containsMatchIn(tail)) return true
+        if (cjkBefore.containsMatchIn(head) || cjkAfter.containsMatchIn(tail)) return true
+        val possessive = when {
+            useBefore.containsMatchIn(head) -> useAfter.containsMatchIn(tail)
+            else -> possessiveBefore.containsMatchIn(head) || possessiveAfter.containsMatchIn(tail)
+        }
+        return possessive && !linkNear(text, range)
+    }
+
+    private fun linkNear(text: String, range: IntRange): Boolean {
+        val from = maxOf(0, range.first - LINK_WINDOW)
+        val to = minOf(text.length, range.last + 1 + LINK_WINDOW)
+        return OtpDetector.containsUrl(text.substring(from, to))
+    }
 }

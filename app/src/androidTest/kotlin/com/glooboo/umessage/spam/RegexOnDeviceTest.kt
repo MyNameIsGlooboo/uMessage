@@ -110,7 +110,7 @@ class RegexOnDeviceTest {
         assertTrue(AllowingCode.isAllowingCode("Your verification code is 482915"))
         assertTrue(AllowingCode.isAllowingCode("کد تایید شما: ۴۸۲۹۱۵"))
         assertTrue(AllowingCode.isAllowingCode("Use 482915 in order to sign in"))
-        assertFalse(AllowingCode.isAllowingCode("Your code is 482915"))
+        assertFalse(AllowingCode.isAllowingCode("Sign in today and use code 4455"))
         assertFalse(AllowingCode.isAllowingCode("کد پیگیری سفارش شما 55667788"))
         assertFalse(AllowingCode.isAllowingCode("كود الخصم 4455 على طلبك القادم"))
     }
