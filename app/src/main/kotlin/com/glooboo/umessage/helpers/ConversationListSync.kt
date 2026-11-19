@@ -17,8 +17,7 @@ import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.models.Conversation
-import com.glooboo.umessage.spam.FirstRun
-import com.glooboo.umessage.spam.SpamSorting
+import com.glooboo.umessage.spam.NewChatSorting
 import java.util.concurrent.Executor
 
 /**
@@ -174,13 +173,13 @@ class ConversationListSync(
     }
 
     /**
-     * The Messages list (S1). Provider truth: without the chats in Spam, once the first sort is published (nothing
-     * moves before it, 3.5); before that, and with the flag off, every chat that is not archived, as in 0.4.14.
+     * The Messages list (S1). Provider truth (B-4): always without the chats in Spam. Before the first sort the table
+     * holds only rows of texts that arrived as spam; the sort's transaction is the publish, so the list never waits for
+     * the runner's state. With the flag off: every chat that is not archived, as in 0.4.14.
      */
     private fun saved(): ArrayList<Conversation> {
         val db = context.conversationsDB
-        val sorted = ProviderTruthFlag.enabled && FirstRun.state(context).value.sortPublished
-        return ArrayList(if (sorted) db.getMessagesList() else db.getNonArchived())
+        return ArrayList(if (ProviderTruthFlag.enabled) db.getMessagesList() else db.getNonArchived())
     }
 
     private fun publishSaved() = publish(saved(), false)
@@ -247,16 +246,16 @@ class ConversationListSync(
         val freshByNumber by lazy { conversations.asReversed().associateBy { it.phoneNumber } }
 
         val cachedIds = cachedConversations.mapTo(HashSet()) { it.threadId }
-        val added = ArrayList<Long>()
+        val added = ArrayList<Conversation>()
         conversations.forEach { fresh ->
             if (cachedIds.add(fresh.threadId)) {
-                db.insertOrUpdate(fresh)
+                if (!ProviderTruthFlag.enabled) db.insertOrUpdate(fresh)
                 cachedConversations.add(fresh)
-                added += fresh.threadId
+                added += fresh
             }
         }
-        // 3.2: a new chat row was cached, so it is sorted.
-        SpamSorting.requestThreads(context, added)
+        // 3.2, B-6: new chat rows are cached with their sort (and their senders' history first), never before it.
+        if (ProviderTruthFlag.enabled) NewChatSorting.cacheAndSort(context, added)
 
         val storeThreads by lazy { if (ProviderTruthFlag.enabled) storeThreadIds() else null }
         cachedConversations.forEach { cached ->

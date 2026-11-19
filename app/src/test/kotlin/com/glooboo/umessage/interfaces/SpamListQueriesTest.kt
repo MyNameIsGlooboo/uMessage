@@ -107,14 +107,48 @@ class SpamListQueriesTest {
 
     @Test
     fun aSpamArrivalWritesTheRowFirstAndCountsEachText() {
-        dao.noteSpamArrival(1, "+15550001234", SpamCause.UNKNOWN, at = 500L)
-        dao.noteSpamArrival(1, "+15550001234", SpamCause.UNKNOWN, at = 900L)
+        dao.noteSpamArrival(1, "+15550001234", SpamCause.UNKNOWN, at = 500L) { a, b -> a == b }
+        dao.noteSpamArrival(1, "+15550001234", SpamCause.UNKNOWN, at = 900L) { a, b -> a == b }
 
         val row = dao.getSpamThread(1)!!
         assertThat(row.unread).isEqualTo(2)
         assertThat(row.spamSince).isEqualTo(500L)
         assertThat(dao.isInSpam(1)).isTrue()
         assertThat(ids(dao.getMessagesList())).doesNotContain(1L)
+    }
+
+    @Test
+    fun aSpamArrivalReplacesARowOfAnotherSender() {
+        // B-7: thread 6 held another person's old row; the new text's sender gets a fresh one.
+        dao.raiseSpamUnread(6)
+        dao.noteSpamArrival(6, "+15550001239", SpamCause.UNKNOWN, at = 800L) { a, b -> a == b }
+
+        val row = dao.getSpamThread(6)!!
+        assertThat(row.sender).isEqualTo("+15550001239")
+        assertThat(row.unread).isEqualTo(1)
+        assertThat(row.spamSince).isEqualTo(800L)
+        assertThat(dao.isInSpam(6)).isTrue()
+    }
+
+    @Test
+    fun theSameSenderWrittenAnotherWayKeepsItsRowOnArrival() {
+        dao.noteSpamArrival(2, "(555) 000-1235", SpamCause.UNKNOWN, at = 800L) { a, b ->
+            a.filter(Char::isDigit).takeLast(10) == b.filter(Char::isDigit).takeLast(10)
+        }
+
+        val row = dao.getSpamThread(2)!!
+        assertThat(row.sender).isEqualTo("+15550001235")
+        assertThat(row.spamSince).isEqualTo(1L)
+        assertThat(row.unread).isEqualTo(1)
+    }
+
+    @Test
+    fun theCardCountsValidRowsSinceAMoment() {
+        dao.noteSpamArrival(1, "+15550001234", SpamCause.UNKNOWN, at = 500L) { a, b -> a == b }
+
+        assertThat(dao.countSpamSince(1L)).isEqualTo(3)
+        assertThat(dao.countSpamSince(500L)).isEqualTo(1)
+        assertThat(dao.countSpamSince(501L)).isEqualTo(0)
     }
 
     @Test

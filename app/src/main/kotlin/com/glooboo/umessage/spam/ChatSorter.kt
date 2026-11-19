@@ -3,8 +3,10 @@ package com.glooboo.umessage.spam
 import android.content.Context
 import android.util.Log
 import com.glooboo.umessage.databases.MessagesDatabase
+import com.glooboo.umessage.extensions.markThreadMessagesUnread
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
+import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.engine.SenderJudge
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
@@ -15,24 +17,28 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
+import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 
 /** What one [ChatSorter.recompute] did. */
 sealed interface SortResult {
     /**
-     * The table now equals the verdicts. [added] chats entered Spam (the "N chats are now in Spam" card counts them),
-     * [removed] left it, [changed] stayed with a new cause or a new written form of the sender. [touched] are the
-     * threads whose place changed.
+     * The table now equals the verdicts. [added] chats entered Spam, [removed] left it, [changed] stayed with a new
+     * cause or a new written form of the sender. [touched] are the threads whose place changed; [leftWithUnread]
+     * those that left Spam with spam texts not looked at (they are marked unread in Messages, B-14).
      */
     data class Applied(
         val added: Int,
         val removed: Int,
         val changed: Int,
         val touched: Set<Long> = emptySet(),
+        val leftWithUnread: Set<Long> = emptySet(),
     ) : SortResult {
         val anyChange: Boolean get() = added + removed + changed > 0
     }
@@ -51,26 +57,41 @@ sealed interface SortResult {
  * members read, F-3), or a contact lookup could not answer while contacts are readable, nothing is written. Group
  * chats always stay in Messages (R4). A thread that is not cached is never touched here, so a row written for a new
  * text before its chat row exists survives (S9 makes such a row count only once the chat is cached with that sender).
+ * A chat that leaves Spam with unread spam texts is marked unread ([markUnread], B-14, as 3.4 says for "Not spam").
  */
 class ChatSorter(
     private val db: MessagesDatabase,
     private val snapshot: () -> SenderJudge.Snapshot,
     private val contactsReadable: () -> Boolean,
+    private val markUnread: (Long) -> Unit = {},
     private val now: () -> Long = System::currentTimeMillis,
 ) {
 
     /**
-     * Sorts every cached chat, or only [threads] when given (a new chat row, a user action on one chat). Never throws:
-     * any failure is [SortResult.Failed] and leaves the table as it was.
+     * Sorts every cached chat, or only [threads] when given (a new chat row, a user action on one chat). [newRows]
+     * are chat rows not cached yet: they are cached (insert-ignore, B-20) in the same transaction as their sort, so a
+     * new row is never shown in Messages before it is sorted. Never throws: any failure is [SortResult.Failed] and
+     * leaves the table, and the cache, as they were.
      */
-    fun recompute(threads: Set<Long>? = null): SortResult {
-        return runCatching {
-            val chats = db.ConversationsDao().getSortableChats().filter { threads == null || it.threadId in threads }
+    fun recompute(threads: Set<Long>? = null, newRows: List<Conversation> = emptyList()): SortResult {
+        val result = runCatching {
+            val dao = db.ConversationsDao()
+            val cached = dao.getSortableChats()
+            val cachedIds = cached.mapTo(HashSet()) { it.threadId }
+            val extra = newRows.filter { it.threadId !in cachedIds }.distinctBy { it.threadId }
+            val asked = threads?.let { it + extra.map { row -> row.threadId } }
+            val fresh = extra.map { SortableChat(it.threadId, it.phoneNumber, it.isGroupConversation, false) }
+            val chats = (cached + fresh).filter { asked == null || it.threadId in asked }
             if (chats.isEmpty()) return SortResult.Applied(0, 0, 0)
             val snap = snapshot()
             val wanted = wantedRows(chats, snap) ?: return SortResult.Failed("contacts")
-            db.runInTransaction<SortResult.Applied> { apply(chats.map { it.threadId }, wanted, snap) }
+            db.runInTransaction<SortResult.Applied> {
+                extra.forEach { dao.insertOrIgnore(it) }
+                apply(chats.map { it.threadId }, wanted, snap)
+            }
         }.getOrElse { SortResult.Failed(it.javaClass.simpleName) }
+        if (result is SortResult.Applied) result.leftWithUnread.forEach { runCatching { markUnread(it) } }
+        return result
     }
 
     /** Thread id to its Spam row's sender and cause, for the chats that belong in Spam; null on a failed lookup. */
@@ -92,10 +113,10 @@ class ChatSorter(
     private fun apply(judged: List<Long>, wanted: Map<Long, Wanted>, snap: SenderJudge.Snapshot): SortResult.Applied {
         val dao = db.ConversationsDao()
         val stored = dao.getSpamThreads().associateBy { it.threadId }
-        var added = 0
-        var removed = 0
         var changed = 0
-        val touched = HashSet<Long>()
+        val added = HashSet<Long>()
+        val removed = HashSet<Long>()
+        val unread = HashSet<Long>()
         val at = now().coerceAtLeast(1L)
         for (threadId in judged) {
             val want = wanted[threadId]
@@ -104,13 +125,12 @@ class ChatSorter(
                 want == null && row == null -> Unit
                 want == null -> {
                     dao.deleteSpamThread(threadId)
-                    removed++
-                    touched += threadId
+                    removed += threadId
+                    if ((row?.unread ?: 0) > 0) unread += threadId
                 }
                 row == null -> {
                     dao.insertSpamThread(SpamThread(threadId, want.sender, want.cause, spamSince = at))
-                    added++
-                    touched += threadId
+                    added += threadId
                 }
                 row.sender == want.sender -> if (row.cause != want.cause) {
                     dao.updateSpamThreadCause(threadId, want.cause)
@@ -124,12 +144,11 @@ class ChatSorter(
                     // S9: the row was another person's (a rebuilt store gave the id again): a new Spam entry.
                     dao.deleteSpamThread(threadId)
                     dao.insertSpamThread(SpamThread(threadId, want.sender, want.cause, spamSince = at))
-                    added++
-                    touched += threadId
+                    added += threadId
                 }
             }
         }
-        return SortResult.Applied(added, removed, changed, touched)
+        return SortResult.Applied(added.size, removed.size, changed, added + removed, unread)
     }
 
     private data class Wanted(val sender: String, val cause: SpamCause)
@@ -157,6 +176,7 @@ class ChatSorter(
                 db = MessagesDatabase.getInstance(app),
                 snapshot = { snapshots(app).get() },
                 contactsReadable = { SpamEngine.contactChecker(app).canReadContacts() },
+                markUnread = { app.markThreadMessagesUnread(it) },
             )
         }
     }
@@ -208,18 +228,22 @@ class SnapshotCache(
 }
 
 /**
- * The app's sorting queue (step B): one background thread runs every sort and the first-run steps ([FirstRun]), one at
- * a time, so two never overlap. Requests that arrive while a job waits are merged. Nothing here runs while
- * [ProviderTruthFlag] is off.
+ * The app's sorting queue (step B): one background thread runs every queued sort and the first-run steps
+ * ([FirstRun]), one at a time, so two never overlap. Requests that arrive while a job waits are merged into one
+ * deadline (B-17): a thread sort runs as soon as it can, a full sort waits for the latest debounce asked for.
+ * Nothing here runs while [ProviderTruthFlag] is off.
  *
- * Triggers (3.2): rules, group members or the filter switches changed ([install]); contacts changed (App calls
- * [requestFull] with [CONTACTS_DELAY_MS]); a new chat row was cached ([requestThreads]); app start ([requestFull]).
- * Before the first sort is published, and while a first-run pass works, a full sort waits: it runs once the pass ends
- * ([FirstRunState.allowsFullSort], [releaseGate]), so no chat moves before the sort of 3.5.
+ * Triggers (3.2): rules (not their hit counts, B-3), group members or the filter switches changed ([install]); contacts
+ * changed (App calls [requestFull] with [CONTACTS_DELAY_MS]); a new chat row was cached ([requestThreads],
+ * [NewChatSorting]); app start ([requestFull]). Before the first sort is published, and while a first-run pass works,
+ * every queued sort waits: it runs as one full sort once the pass ends ([FirstRunState.allowsFullSort],
+ * [releaseGate]), so no chat moves before the sort of 3.5. A failed sort is tried again a little later (B-10).
  */
 object SpamSorting {
     private const val TAG = "uMessageSort"
     private const val CHANGE_DELAY_MS = 300L
+    private const val RETRY_MS = 30_000L
+    private const val MAX_RETRIES = 3
 
     /** S11: after a contacts change the sort waits this long, as the address book may still be written. */
     const val CONTACTS_DELAY_MS = 3_000L
@@ -230,8 +254,10 @@ object SpamSorting {
     private val lock = Any()
     private var fullPending = false
     private var missed = false
-    private var scheduled = false
     private val threadsPending = HashSet<Long>()
+    private var future: ScheduledFuture<*>? = null
+    private var dueAt = 0L
+    private var failures = 0
 
     @Volatile private var installed = false
 
@@ -249,13 +275,15 @@ object SpamSorting {
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
         val snapshots = ChatSorter.snapshots(app)
         scope.launch {
-            repo.rules.drop(1).collect {
-                snapshots.invalidate()
-                requestFull(app, CHANGE_DELAY_MS)
-            }
+            // B-3: a rule's hit count or last hit changes with every blocked text; that moves no chat.
+            repo.rules.map { rules -> rules.map { it.copy(hitCount = 0, lastHit = 0L) } }
+                .distinctUntilChanged().drop(1).collect {
+                    snapshots.invalidate()
+                    requestFull(app, CHANGE_DELAY_MS)
+                }
         }
         scope.launch {
-            repo.groupMembers.drop(1).collect {
+            repo.groupMembers.distinctUntilChanged().drop(1).collect {
                 snapshots.invalidate()
                 requestFull(app, CHANGE_DELAY_MS)
             }
@@ -276,18 +304,18 @@ object SpamSorting {
         }
     }
 
-    /** Every cached chat is sorted again, after [delayMs]. */
+    /** Every cached chat is sorted again, after [delayMs] (a later request moves the deadline later). */
     fun requestFull(context: Context, delayMs: Long = 0L) {
         if (!ProviderTruthFlag.enabled) return
         synchronized(lock) { fullPending = true }
-        schedule(context.applicationContext, delayMs)
+        schedule(context.applicationContext, delayMs, urgent = false)
     }
 
-    /** These chats are sorted again (a new chat row was cached, a user action on one chat). */
+    /** These chats are sorted again (a new chat row was cached, a user action on one chat), as soon as possible. */
     fun requestThreads(context: Context, threadIds: Collection<Long>) {
         if (!ProviderTruthFlag.enabled || threadIds.isEmpty()) return
         synchronized(lock) { threadsPending += threadIds }
-        schedule(context.applicationContext, 0L)
+        schedule(context.applicationContext, 0L, urgent = true)
     }
 
     /** Runs [task] on the sorting thread, after the jobs queued before it. */
@@ -295,52 +323,106 @@ object SpamSorting {
         runCatching { executor.schedule(task, delayMs, TimeUnit.MILLISECONDS) }
     }
 
-    /** On the sorting thread: one full sort, past the gate (the first run's own sort). */
-    internal fun sortNow(context: Context): SortResult {
-        val result = ChatSorter.forApp(context, fresh = true).recompute()
+    /** On the sorting thread: one full sort, past the gate (the first run's own sort), caching [newRows] with it. */
+    internal fun sortNow(context: Context, newRows: List<Conversation> = emptyList()): SortResult {
+        val result = ChatSorter.forApp(context, fresh = true).recompute(newRows = newRows)
         published(result)
         return result
     }
 
-    /** A first-run pass ended: a full sort that waited for it runs now. */
+    /** A first-run pass ended: the sorts that waited for it run now, as one full sort. */
     internal fun releaseGate(context: Context) {
         val wasMissed = synchronized(lock) { missed.also { missed = false } }
         if (wasMissed) requestFull(context)
     }
 
-    private fun schedule(app: Context, delayMs: Long) {
+    /** B-17: one deadline. A thread sort pulls it to the earliest time asked; a full sort alone pushes it later. */
+    private fun schedule(app: Context, delayMs: Long, urgent: Boolean) {
         synchronized(lock) {
-            if (scheduled) return
-            scheduled = true
+            val now = System.currentTimeMillis()
+            val wanted = now + delayMs
+            val pending = future
+            val due = when {
+                pending == null || pending.isDone -> wanted
+                urgent || threadsPending.isNotEmpty() -> minOf(dueAt, wanted)
+                else -> maxOf(dueAt, wanted)
+            }
+            if (pending != null && !pending.isDone) {
+                if (due == dueAt) return
+                pending.cancel(false)
+            }
+            dueAt = due
+            future = runCatching {
+                executor.schedule(Runnable { drain(app) }, (due - now).coerceAtLeast(0L), TimeUnit.MILLISECONDS)
+            }.getOrNull()
         }
-        execute(Runnable { drain(app) }, delayMs)
     }
 
     private fun drain(app: Context) {
         val full: Boolean
         val threads: Set<Long>
         synchronized(lock) {
-            scheduled = false
+            future = null
             full = fullPending
             threads = HashSet(threadsPending)
             fullPending = false
             threadsPending.clear()
         }
-        val state = FirstRun.state(app).value
-        val allowed = if (full) state.allowsFullSort else state.sortPublished
-        if (!allowed) {
+        if (!full && threads.isEmpty()) return
+        if (!FirstRun.state(app).value.allowsFullSort) {
             synchronized(lock) { missed = true }
             return
         }
         val result = ChatSorter.forApp(app, fresh = !full).recompute(if (full) null else threads)
-        if (result is SortResult.Failed) Log.w(TAG, "Sort failed (${result.why}); the old table stays")
+        if (result is SortResult.Failed) {
+            Log.w(TAG, "Sort failed (${result.why}); the old table stays")
+            val again = synchronized(lock) { (failures < MAX_RETRIES).also { if (it) failures++ } }
+            if (again) requestFull(app, RETRY_MS)
+        } else {
+            synchronized(lock) { failures = 0 }
+        }
         published(result)
     }
 
-    private fun published(result: SortResult) {
+    /** After a sort that changed the table: the list screen shows its saved rows again, without reading the store. */
+    internal fun published(result: SortResult) {
         if (result !is SortResult.Applied || !result.anyChange) return
         changeCount.value++
-        // A saved row of a changed chat: the list screen shows its saved rows again, without reading the store.
         result.touched.firstOrNull()?.let { refreshConversations(it) }
+    }
+}
+
+/**
+ * B-6: chat rows the list or a receiver caches for the first time, after the first run. The senders' history is
+ * checked first (a sender the user wrote to, or one with an old code, joins its group), then the rows are cached and
+ * sorted in one transaction, so a new row never shows in Messages before its sort. More than [BATCH] rows at once (a
+ * restore, a store rebuilt by another app) are cached at once and get a history check and sort pass without a card.
+ * Before the first sort, or while a pass works, the rows are cached as before and the pass sorts them.
+ */
+object NewChatSorting {
+    const val BATCH = 50
+
+    fun cacheAndSort(context: Context, rows: List<Conversation>) {
+        if (rows.isEmpty()) return
+        val app = context.applicationContext
+        val dao = MessagesDatabase.getInstance(app).ConversationsDao()
+        val ids = rows.map { it.threadId }
+        val ready = ProviderTruthFlag.enabled && FirstRun.state(app).value.allowsFullSort
+        if (!ready || rows.size > BATCH) {
+            rows.forEach { dao.insertOrUpdate(it) }
+            if (ready) FirstRun.request(app, FirstRunTrigger.NEW_CHATS) else SpamSorting.requestThreads(app, ids)
+            return
+        }
+        val history = HistoryCheck.forApp(app)
+        rows.filter { !it.isGroupConversation && !it.isScheduled }
+            .forEach { history.checkSender(it.phoneNumber, it.threadId) }
+        val result = ChatSorter.forApp(app, fresh = true).recompute(ids.toSet(), newRows = rows)
+        if (result is SortResult.Failed) {
+            // The rows are cached anyway (a failed sort must not lose a chat); the queue tries the sort again.
+            rows.forEach { dao.insertOrIgnore(it) }
+            SpamSorting.requestThreads(app, ids)
+        } else {
+            SpamSorting.published(result)
+        }
     }
 }

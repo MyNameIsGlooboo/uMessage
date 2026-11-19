@@ -22,6 +22,10 @@ interface ConversationsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrUpdate(conversation: Conversation): Long
 
+    /** B-20: a chat row the sorter caches only when the list has not cached it meanwhile. */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertOrIgnore(conversation: Conversation): Long
+
     /*
      * DL-08: the preview under a chat is the body of its newest cached message that was really sent or received:
      * scheduled messages (not sent yet) never count, and neither do messages in the recycle bin. A recycle-bin entry
@@ -114,14 +118,27 @@ interface ConversationsDao {
     fun raiseSpamUnread(threadId: Long): Int
 
     /**
-     * 6.1 (for the incoming path, step D): a text judged Spam arrives in [threadId]. The row is written first (an
-     * existing row keeps its cause and spam_since), then its unread count goes up by one, in one transaction (S9, R12).
+     * 6.1 (for the incoming path, step D): a text judged Spam arrives in [threadId]. The row is written first, then
+     * its unread count goes up by one, in one transaction (S9, R12). A row of the same sender ([sameSender]) keeps its
+     * cause and spam_since; B-7: a row of another sender (a rebuilt store gave the id again) is replaced.
      */
     @Transaction
-    fun noteSpamArrival(threadId: Long, sender: String, cause: SpamCause, at: Long) {
+    fun noteSpamArrival(
+        threadId: Long,
+        sender: String,
+        cause: SpamCause,
+        at: Long,
+        sameSender: (String, String) -> Boolean,
+    ) {
+        val row = getSpamThread(threadId)
+        if (row != null && !sameSender(row.sender, sender)) deleteSpamThread(threadId)
         insertSpamThread(SpamThread(threadId, sender, cause, spamSince = at.coerceAtLeast(1L)))
         raiseSpamUnread(threadId)
     }
+
+    /** B-12: chats shown in Spam (valid rows) that entered it at or after [since]: the card's count. */
+    @Query("SELECT COUNT(*) FROM (" + ConversationQueries.VALID_SPAM_THREADS + " AND s.spam_since >= :since)")
+    fun countSpamSince(since: Long): Int
 
     /** Opening the chat, or "Mark all as read" ([clearAllSpamUnread]). */
     @Query("UPDATE spam_threads SET unread = 0 WHERE thread_id = :threadId")

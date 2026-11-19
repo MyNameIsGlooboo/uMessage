@@ -20,6 +20,7 @@ import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.FakeSmsMmsProvider
+import com.glooboo.umessage.testing.joinAppBackgroundThreads
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
@@ -133,8 +134,10 @@ class ProviderTruthContextTest {
 
         val deleted = offMainThread { context.deleteConversation(THREAD) }
 
-        assertThat(deleted).isFalse()
-        assertThat(latestToast()).isEqualTo(context.getString(R.string.pt_delete_not_default))
+        // B-13: the result says why; the screen that asked shows it, the delete itself shows nothing.
+        assertThat(deleted).isEqualTo(DeleteResult.NOT_DEFAULT)
+        assertThat(deleted.messageRes).isEqualTo(R.string.pt_delete_not_default)
+        assertThat(latestToast()).isNull()
         assertThat(sms.smsIds().map { it.first }).containsExactly(id)
         assertThat(notes()).hasSize(1)
         offMainThread {
@@ -152,8 +155,8 @@ class ProviderTruthContextTest {
 
         val deleted = offMainThread { context.deleteConversation(THREAD) }
 
-        assertThat(deleted).isFalse()
-        assertThat(latestToast()).isEqualTo(context.getString(R.string.pt_delete_nothing))
+        assertThat(deleted).isEqualTo(DeleteResult.NOTHING_DELETED)
+        assertThat(deleted.messageRes).isEqualTo(R.string.pt_delete_nothing)
         assertThat(notes()).hasSize(1)
         offMainThread { assertThat(context.conversationsDB.getConversationWithThreadId(THREAD)).isNotNull() }
     }
@@ -166,7 +169,7 @@ class ProviderTruthContextTest {
 
         val deleted = offMainThread { context.deleteConversation(THREAD) }
 
-        assertThat(deleted).isTrue()
+        assertThat(deleted).isEqualTo(DeleteResult.DELETED)
         assertThat(sms.smsIds()).isEmpty()
         assertThat(notes()).isEmpty()
         offMainThread {
@@ -193,12 +196,14 @@ class ProviderTruthContextTest {
         install(keeping = true)
         val id = seedChat()
 
-        assertThat(offMainThread { context.deleteMessage(id, false) }).isFalse()
-        assertThat(latestToast()).isEqualTo(context.getString(R.string.pt_delete_not_default))
+        assertThat(offMainThread { context.deleteMessage(id, false) }).isEqualTo(DeleteResult.NOT_DEFAULT)
 
         beDefaultSmsApp()
-        assertThat(offMainThread { context.deleteMessage(id, false) }).isFalse()
-        assertThat(latestToast()).isEqualTo(context.getString(R.string.pt_delete_nothing))
+        assertThat(offMainThread { context.deleteMessage(id, false) }).isEqualTo(DeleteResult.NOTHING_DELETED)
+        // The role checked once by the caller of a batch: no second look.
+        assertThat(offMainThread { context.deleteMessage(id, false, isDefault = false) })
+            .isEqualTo(DeleteResult.NOT_DEFAULT)
+        assertThat(latestToast()).isNull()
         assertThat(notes()).hasSize(1)
         offMainThread { assertThat(context.messagesDB.getMessage(id, false)).isNotNull() }
     }
@@ -210,10 +215,52 @@ class ProviderTruthContextTest {
         val id = seedChat()
         offMainThread { context.contentResolver.delete(Telephony.Sms.CONTENT_URI, "_id = ?", arrayOf("$id")) }
 
-        assertThat(offMainThread { context.deleteMessage(id, false) }).isTrue()
+        assertThat(offMainThread { context.deleteMessage(id, false) }).isEqualTo(DeleteResult.DELETED)
 
         offMainThread { assertThat(context.messagesDB.getMessage(id, false)).isNull() }
         assertThat(notes()).isEmpty()
+    }
+
+    @Test
+    fun aChatOfScheduledMessagesOnlyIsForgottenWithoutAskingForTheRole() {
+        install()
+        offMainThread {
+            context.conversationsDB.insertOrUpdate(
+                Conversation(SCHEDULED_ID, "Later", 100, true, "Sam", "", false, NUMBER, isScheduled = true)
+            )
+        }
+
+        assertThat(offMainThread { context.deleteConversation(SCHEDULED_ID) }).isEqualTo(DeleteResult.DELETED)
+
+        offMainThread { assertThat(context.conversationsDB.getConversationWithThreadId(SCHEDULED_ID)).isNull() }
+    }
+
+    private fun archived(id: Long, number: String) =
+        Conversation(id, "Hi", id.toInt(), true, "Chat", "", false, number, isArchived = true)
+
+    @Test
+    fun emptyingArchivedStopsAtTheFirstChatNotDeletedAndKeepsSpamChats() {
+        // B-1: the Archived list only; "emptied" only when every chat went.
+        install()
+        offMainThread {
+            context.conversationsDB.insertOrUpdate(archived(21, OTHER_A))
+            context.conversationsDB.insertOrUpdate(archived(22, OTHER_B))
+            context.conversationsDB.insertSpamThread(SpamThread(22, OTHER_B, SpamCause.BLOCKED, spamSince = 1L))
+        }
+
+        context.removeAllArchivedConversations()
+        joinAppBackgroundThreads()
+        assertThat(latestToast()).isEqualTo(context.getString(R.string.pt_delete_not_default))
+        offMainThread { assertThat(context.conversationsDB.getConversationWithThreadId(21)).isNotNull() }
+
+        beDefaultSmsApp()
+        context.removeAllArchivedConversations()
+        joinAppBackgroundThreads()
+        assertThat(latestToast()).isEqualTo(context.getString(R.string.archive_emptied_successfully))
+        offMainThread {
+            assertThat(context.conversationsDB.getConversationWithThreadId(21)).isNull()
+            assertThat(context.conversationsDB.getConversationWithThreadId(22)).isNotNull()
+        }
     }
 
     @Test
@@ -281,6 +328,20 @@ class ProviderTruthContextTest {
     }
 
     @Test
+    fun aHeldOrQueuedRowGetsNoNotSentNotification() {
+        // B-8: the user's Retry held it again, or a re-arm queued it: nothing died, nothing may say "not sent".
+        listOf(Telephony.Sms.MESSAGE_TYPE_FAILED, Telephony.Sms.MESSAGE_TYPE_QUEUED).forEach { type ->
+            offMainThread { context.messagesDB.insertOrUpdate(scheduled(type)) }
+            offMainThread { context.holdDiedScheduledSend(scheduled(Telephony.Sms.MESSAGE_TYPE_OUTBOX)) }
+            ShadowLooper.idleMainLooper()
+            val stored = offMainThread { context.messagesDB.getScheduledMessageById(SCHEDULED_ID)?.type }
+            assertThat(stored).isEqualTo(type)
+        }
+
+        assertThat(notifications()).isEmpty()
+    }
+
+    @Test
     fun theHoldOnlyTakesARowStillInTheOutbox() {
         offMainThread {
             val dao = context.messagesDB
@@ -297,6 +358,8 @@ class ProviderTruthContextTest {
     private companion object {
         const val THREAD = 7L
         const val NUMBER = "+15550001234"
+        const val OTHER_A = "+15550001235"
+        const val OTHER_B = "+15550001236"
         const val SCHEDULED_ID = 1_500_000_001L
     }
 }

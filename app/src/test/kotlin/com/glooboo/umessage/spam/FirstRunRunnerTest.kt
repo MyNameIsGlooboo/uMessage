@@ -34,6 +34,14 @@ class FirstRunRunnerTest {
         /** Sorts that ran, kept when a test clears [calls]. */
         var sorts = 0
 
+        /** The spam_since of every row the sorts wrote, and the added_at of every HISTORY member (B-12). */
+        val table = mutableListOf<Long>()
+        val historyMembers = mutableListOf<Long>()
+
+        /** The sort commits its rows, then the app is killed before the runner saves (B-25). */
+        var killAfterCommit = false
+        private var committedBeforeKill = false
+
         private fun call(name: String) {
             if (killAt == name) {
                 killAt = null
@@ -57,6 +65,7 @@ class FirstRunRunnerTest {
                 failHistory--
                 return null
             }
+            repeat(allowed) { historyMembers += clock }
             return HistoryResult(wrote = allowed, code = 0)
         }
 
@@ -68,8 +77,21 @@ class FirstRunRunnerTest {
                 return SortResult.Failed("contacts")
             }
             published = true
-            return SortResult.Applied(added = moved, removed = 0, changed = 0)
+            // A sort repeated after a kill finds its rows written already: it adds nothing (the real diff does so too).
+            val added = if (committedBeforeKill) 0 else moved
+            committedBeforeKill = false
+            repeat(added) { table += clock }
+            if (killAfterCommit) {
+                killAfterCommit = false
+                committedBeforeKill = true
+                error("killed after the commit")
+            }
+            return SortResult.Applied(added = added, removed = 0, changed = 0)
         }
+
+        override fun countMoved(since: Long): Int = table.count { it >= since }
+
+        override fun countAllowed(since: Long): Int = historyMembers.count { it >= since }
 
         override fun cleanUps() {
             call("cleanup")
@@ -80,8 +102,9 @@ class FirstRunRunnerTest {
     private lateinit var steps: Steps
     private var clock = 5_000L
     private val seen = mutableListOf<FirstRunState>()
+    private var publishes = 0
 
-    private fun runner() = FirstRunRunner(store, steps, { clock }) { seen += it }
+    private fun runner() = FirstRunRunner(store, steps, { clock }, { publishes++ }) { seen += it }
 
     @Before
     fun setUp() {
@@ -198,6 +221,7 @@ class FirstRunRunnerTest {
         runner().request(FirstRunTrigger.UPDATE)
         steps.calls.clear()
         store.write(store.read().copy(cardPending = false, movedToSpam = 0))
+        clock = 6_000L
 
         val state = runner().request(FirstRunTrigger.SWITCH_ON)
 
@@ -256,6 +280,68 @@ class FirstRunRunnerTest {
         // The update's pages stay pending across the second pass.
         assertThat(state.whatChangedPending).isTrue()
         assertThat(state.movedToSpam).isEqualTo(6)
+    }
+
+    @Test
+    fun aPassThatMovesNothingShowsNoCard() {
+        steps.moved = 0
+
+        val state = runner().request(FirstRunTrigger.FRESH_INSTALL)
+
+        assertThat(state.cardPending).isFalse()
+        assertThat(state.movedToSpam).isEqualTo(0)
+    }
+
+    @Test
+    fun aKillBetweenTheSortsCommitAndTheSaveCountsNothingTwice() {
+        // B-12, B-25: the sort ran again after the kill; the card counts the table, not the sorts.
+        steps.killAfterCommit = true
+        val stopped = runner().request(FirstRunTrigger.UPDATE)
+        assertThat(stopped.phase).isEqualTo(FirstRunPhase.SORT)
+
+        val state = runner().resume()
+
+        assertThat(steps.sorts).isEqualTo(2)
+        assertThat(state.movedToSpam).isEqualTo(3)
+        assertThat(state.allowedAutomatically).isEqualTo(2)
+    }
+
+    @Test
+    fun cardCountsDoNotAddUpAcrossPassesUntilTheCardIsSeen() {
+        runner().request(FirstRunTrigger.UPDATE)
+        clock = 6_000L
+
+        val state = runner().request(FirstRunTrigger.SWITCH_ON)
+
+        // Still the update's card: it counts from the update's start, every row once.
+        assertThat(state.cardSince).isEqualTo(5_000L)
+        assertThat(state.movedToSpam).isEqualTo(6)
+        assertThat(steps.table).hasSize(6)
+    }
+
+    @Test
+    fun theListIsToldOnceWhenTheFirstSortIsPublished() {
+        runner().request(FirstRunTrigger.UPDATE)
+        runner().request(FirstRunTrigger.SWITCH_ON)
+
+        assertThat(publishes).isEqualTo(1)
+    }
+
+    @Test
+    fun aWaitingTriggerIsNotLostWhenTheAppIsKilledAsItsPassStarts() {
+        // B-18: the trigger leaves the pending set only after the state of its pass is saved.
+        steps.killAt = "history"
+        runner().request(FirstRunTrigger.UPDATE)
+        runner().request(FirstRunTrigger.CONTACTS_GRANTED)
+        val dying = FirstRunRunner(store, steps, { clock }) {
+            if (it.trigger == FirstRunTrigger.CONTACTS_GRANTED) error("killed")
+        }
+
+        runCatching { dying.resume() }
+
+        assertThat(store.read().trigger).isEqualTo(FirstRunTrigger.CONTACTS_GRANTED)
+        assertThat(store.pending).containsExactly(FirstRunTrigger.CONTACTS_GRANTED)
+        assertThat(runner().resume().phase).isEqualTo(FirstRunPhase.DONE)
     }
 
     @Test

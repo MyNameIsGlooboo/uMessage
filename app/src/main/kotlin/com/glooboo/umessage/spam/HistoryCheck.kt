@@ -83,12 +83,14 @@ class HistoryCheck(
 
     /**
      * R2: a text from [address] arrived while the whole check has not finished; its sender is checked now, before the
-     * text's verdict, so nothing is stored silently on a half-known history. Reads the app's cached chats of that
-     * sender only. False when a read failed (the caller then fails open).
+     * text's verdict, so nothing is stored silently on a half-known history. Reads the received texts of the app's
+     * cached chats of that sender and of [threadId], the text's own thread in the phone's store (B-5: its chat may
+     * not be cached yet). False when a read failed (the caller then fails open).
      */
-    fun checkSender(address: String): Boolean = runCatching { checkSenderChecked(address) }.getOrDefault(false)
+    fun checkSender(address: String, threadId: Long? = null): Boolean =
+        runCatching { checkSenderChecked(address, threadId) }.getOrDefault(false)
 
-    private fun checkSenderChecked(address: String): Boolean {
+    private fun checkSenderChecked(address: String, threadId: Long?): Boolean {
         val snap = snapshot()
         if (!isCandidate(snap.verdict(address))) return true
         val wrote = store.wroteTo(address)
@@ -96,7 +98,7 @@ class HistoryCheck(
         if (wrote != ContactLookup.NOT_FOUND) return wrote == ContactLookup.FOUND
         val threads = store.cachedChats()
             .filter { it.sortable && (it.phoneNumber == address || snap.readers.same(it.phoneNumber, address)) }
-            .map { it.threadId }
+            .map { it.threadId } + listOfNotNull(threadId?.takeIf { it > 0L })
         val withCode = if (threads.isEmpty()) {
             emptySet()
         } else {
@@ -112,12 +114,15 @@ class HistoryCheck(
     }
 
     companion object {
-        /** The check of this app: the phone's store, the shared snapshot (R-7) and the repository's batch join. */
-        fun forApp(context: Context): HistoryCheck {
+        /**
+         * The check of this app: the phone's store, the shared snapshot (R-7) and the repository's batch join. [chats]:
+         * the store's chats when the caller read them already (one read per pass for the check and the sort).
+         */
+        fun forApp(context: Context, chats: List<SortableChat>? = null): HistoryCheck {
             val app = context.applicationContext
             val repo = SpamEngine.repository(app)
             return HistoryCheck(
-                store = PhoneHistoryStore(app),
+                store = PhoneHistoryStore(app, chats),
                 snapshot = { ChatSorter.snapshots(app).get() },
                 join = { group, senders -> runBlocking { repo.joinGroups(group, senders, MemberSource.HISTORY) } },
             )
@@ -127,19 +132,22 @@ class HistoryCheck(
          * For the incoming paths (step D, R2): checks the sender of a text now when the first run's history check has
          * not finished yet; does nothing otherwise, or while the flag is off. False when the check failed.
          */
-        fun onTheSpot(context: Context, address: String): Boolean {
+        fun onTheSpot(context: Context, address: String, threadId: Long? = null): Boolean {
             if (!ProviderTruthFlag.enabled || !FirstRun.state(context).value.historyPending) return true
-            return forApp(context).checkSender(address)
+            return forApp(context).checkSender(address, threadId)
         }
     }
 }
 
 /** [HistoryStore] on the phone's own message store. */
-internal class PhoneHistoryStore(private val context: Context) : HistoryStore {
+internal class PhoneHistoryStore(
+    private val context: Context,
+    private val preloaded: List<SortableChat>? = null,
+) : HistoryStore {
 
-    override fun chats(): List<SortableChat>? = context.getConversationsOrNull()?.map {
-        SortableChat(it.threadId, it.phoneNumber, isGroup = it.isGroupConversation, isScheduled = false)
-    }
+    /** B-16: also the chats of numbers on Android's block list (they are judged, and never join a group). */
+    override fun chats(): List<SortableChat>? = preloaded ?: context.getConversationsOrNull(includeBlocked = true)
+        ?.map { SortableChat(it.threadId, it.phoneNumber, isGroup = it.isGroupConversation, isScheduled = false) }
 
     override fun cachedChats(): List<SortableChat> = context.conversationsDB.getSortableChats()
 

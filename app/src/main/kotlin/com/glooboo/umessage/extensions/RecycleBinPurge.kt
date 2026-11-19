@@ -2,6 +2,7 @@ package com.glooboo.umessage.extensions
 
 import android.content.Context
 import com.glooboo.umessage.helpers.MessagingCache
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.messageNotes
 import org.fossify.commons.extensions.notificationManager
 
@@ -40,6 +41,11 @@ fun Context.tidyConversationAfterBinPurge(threadId: Long) {
     }
     if (messagesDB.getNonRecycledThreadMessages(threadId).isNotEmpty()) return
 
+    // S19, B-13 (provider truth): one shared clean-up, the Spam row, draft and reminders included.
+    if (ProviderTruthFlag.enabled) {
+        forgetThread(threadId)
+        return
+    }
     conversationsDB.deleteThreadId(threadId)
     kotlinx.coroutines.runBlocking { labelsDB.removeAllFromConversation(threadId) }
     kotlinx.coroutines.runBlocking { messageNotes.onThreadDeleted(threadId) }

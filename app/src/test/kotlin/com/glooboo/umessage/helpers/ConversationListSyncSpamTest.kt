@@ -13,6 +13,7 @@ import com.glooboo.umessage.spam.FirstRun
 import com.glooboo.umessage.spam.FirstRunPhase
 import com.glooboo.umessage.spam.FirstRunState
 import com.glooboo.umessage.spam.FirstRunStore
+import com.glooboo.umessage.spam.FirstRunTrigger
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
@@ -34,8 +35,9 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 /**
- * Step B in the list sync: the Messages list leaves Spam chats out only once the first sort is published (nothing
- * moves before it, 3.5), and a thread another app deleted is forgotten with everything the app kept of it (S19).
+ * Step B in the list sync: the Messages list always leaves Spam chats out (B-4: before the first sort only texts that
+ * arrived as spam have a row, and the sort's transaction is the publish, so no state can lag behind it), and a thread
+ * another app deleted is forgotten with everything the app kept of it (S19).
  */
 @RunWith(AndroidJUnit4::class)
 class ConversationListSyncSpamTest {
@@ -92,10 +94,13 @@ class ConversationListSyncSpamTest {
     }
 
     @Test
-    fun nothingLeavesMessagesBeforeTheFirstSortIsPublished() {
+    fun aChatWithASpamRowIsOutOfMessagesBeforeDuringAndAfterTheFirstSort() {
+        // B-4, B-25: the list never waits for the runner's state, so no publish race can show a Spam chat.
         markSpam(2)
+        assertThat(listed()).containsExactly(1L, 3L, 4L)
 
-        assertThat(listed()).containsExactly(1L, 2L, 3L, 4L)
+        writeState(FirstRunState(phase = FirstRunPhase.SORT, trigger = FirstRunTrigger.UPDATE))
+        assertThat(listed()).containsExactly(1L, 3L, 4L)
 
         writeState(FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true))
         assertThat(listed()).containsExactly(1L, 3L, 4L)

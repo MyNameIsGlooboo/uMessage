@@ -9,6 +9,8 @@ import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.getConversationsOrNull
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.helpers.refreshConversations
+import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.ui.onboarding.OnboardingState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -43,6 +45,9 @@ enum class FirstRunTrigger(val phases: List<FirstRunPhase>, val showsCard: Boole
 
     /** A migration that waited has finished: its senders are checked (3.5, last point). */
     MIGRATION_FINISHED(RESORT, showsCard = false),
+
+    /** B-6: many chat rows were cached at once after the first run (a restore, a rebuilt store). */
+    NEW_CHATS(RESORT, showsCard = false),
 }
 
 private val FULL_RUN = listOf(
@@ -59,18 +64,30 @@ private val RESORT = listOf(FirstRunPhase.HISTORY, FirstRunPhase.SORT)
 data class FirstRunState(
     val phase: FirstRunPhase = FirstRunPhase.NOT_STARTED,
     val trigger: FirstRunTrigger? = null,
-    /** The first sort ended once: the lists read spam_threads from now on. Never goes back. */
+    /**
+     * The first sort ended once. Never goes back. The lists always read spam_threads (B-4: the sort's transaction is
+     * the publish); this gates full sorts, the pages, Android-blocked chats in the list, and the clean-ups.
+     */
     val sortPublished: Boolean = false,
-    /** Chats the sorts of the passes since the card was last seen moved to Spam (card count, plural string). */
+    /** B-12: chats in Spam that entered it since [cardSince] (card count, plural string); counted from the table. */
     val movedToSpam: Int = 0,
-    /** Senders the history checks allowed automatically ("What changed": "M senders allowed automatically"). */
+    /** B-12: senders the history checks allowed since [whatChangedSince] ("M senders allowed automatically"). */
     val allowedAutomatically: Int = 0,
+    /** The card shows: a pass that shows it ended with at least one chat moved, and the card was not tapped yet. */
     val cardPending: Boolean = false,
     val whatChangedPending: Boolean = false,
     /** The older-spam migration waits (not the default app); the progress page can say so. */
     val olderSpamWaiting: Boolean = false,
-    /** When the running pass started (the page shows "Continue in background" about 15 s later). */
+    /** Wall-clock start of the running pass (the page shows "Continue in background" about 15 s later). */
     val startedAt: Long = 0L,
+    /** Start of the first pass whose card is not seen yet: the card counts the chats moved since (no double count). */
+    val cardSince: Long = 0L,
+    /** Start of the update's pass, for "What changed". */
+    val whatChangedSince: Long = 0L,
+    /** The user chose "Continue in background" on the progress page (the small bar shows). */
+    val inBackground: Boolean = false,
+    /** B-22: the pass failed again and again; it waits for the next start, foreground or trigger. */
+    val waiting: Boolean = false,
 ) {
     /** A pass is running or was cut off (a kill, a failed read) and resumes. */
     val active: Boolean get() = phase != FirstRunPhase.NOT_STARTED && phase != FirstRunPhase.DONE
@@ -108,6 +125,12 @@ interface FirstRunSteps {
 
     /** Auto-delete and other clean-ups, only after the sort. */
     fun cleanUps()
+
+    /** B-12: chats shown in Spam that entered it at or after [since] (the table's spam_since). */
+    fun countMoved(since: Long): Int
+
+    /** B-12: group members the history check added at or after [since]. */
+    fun countAllowed(since: Long): Int
 }
 
 /** Step F plugs the message migration in here; until then there is nothing to move. */
@@ -129,6 +152,10 @@ class FirstRunStore(private val prefs: SharedPreferences) {
         whatChangedPending = prefs.getBoolean(KEY_WHAT_CHANGED, false),
         olderSpamWaiting = prefs.getBoolean(KEY_OLDER_WAITING, false),
         startedAt = prefs.getLong(KEY_STARTED_AT, 0L),
+        cardSince = prefs.getLong(KEY_CARD_SINCE, 0L),
+        whatChangedSince = prefs.getLong(KEY_WHAT_CHANGED_SINCE, 0L),
+        inBackground = prefs.getBoolean(KEY_IN_BACKGROUND, false),
+        waiting = prefs.getBoolean(KEY_WAITING, false),
     )
 
     /** Written at once (commit): the next start must find the step a kill interrupted. */
@@ -142,6 +169,10 @@ class FirstRunStore(private val prefs: SharedPreferences) {
         putBoolean(KEY_WHAT_CHANGED, state.whatChangedPending)
         putBoolean(KEY_OLDER_WAITING, state.olderSpamWaiting)
         putLong(KEY_STARTED_AT, state.startedAt)
+        putLong(KEY_CARD_SINCE, state.cardSince)
+        putLong(KEY_WHAT_CHANGED_SINCE, state.whatChangedSince)
+        putBoolean(KEY_IN_BACKGROUND, state.inBackground)
+        putBoolean(KEY_WAITING, state.waiting)
     }
 
     /** Triggers that came while a pass ran; they make one more pass when it ends. */
@@ -176,6 +207,10 @@ class FirstRunStore(private val prefs: SharedPreferences) {
         private const val KEY_WHAT_CHANGED = "what_changed_pending"
         private const val KEY_OLDER_WAITING = "older_spam_waiting"
         private const val KEY_STARTED_AT = "started_at"
+        private const val KEY_CARD_SINCE = "card_since"
+        private const val KEY_WHAT_CHANGED_SINCE = "what_changed_since"
+        private const val KEY_IN_BACKGROUND = "in_background"
+        private const val KEY_WAITING = "waiting"
         private const val KEY_PENDING = "pending_triggers"
         private const val KEY_INSTALL_KIND = "install_kind"
     }
@@ -186,14 +221,20 @@ class FirstRunStore(private val prefs: SharedPreferences) {
  * ended, and the sort (the only step that moves chats) comes after the history check. The state is written after
  * every step, so a pass cut off by a kill or a failed read resumes at that step. A step that fails stops the pass
  * where it is ([resume] returns with the state still active); it is tried again on the next start, foreground or
- * trigger. A waiting older-spam migration does not stop the pass (it is marked and rerun later).
+ * trigger. A waiting older-spam migration does not stop the pass (it is marked and rerun later). The card and "What
+ * changed" counts are read from the table and the members when a pass ends (B-12), so a sort repeated after a kill
+ * counts nothing twice.
  */
 class FirstRunRunner(
     private val store: FirstRunStore,
     private val steps: FirstRunSteps,
     private val clock: () -> Long = System::currentTimeMillis,
+    /** After the first save that says "published" (the list then reads Android-blocked chats too). */
+    private val onFirstPublish: () -> Unit = {},
     private val onChange: (FirstRunState) -> Unit = {},
 ) {
+    /** A pending trigger whose pass [advance] started; it leaves the pending set only after that state is saved. */
+    private var startedFromPending: FirstRunTrigger? = null
 
     /** Asks for a pass. Starts it when none runs; while one runs, it is kept for one more pass after it. */
     fun request(trigger: FirstRunTrigger): FirstRunState {
@@ -204,7 +245,7 @@ class FirstRunRunner(
         }
         // Before the first full pass, a partial trigger waits: the full pass checks and sorts everything anyway.
         if (state.phase == FirstRunPhase.NOT_STARTED && trigger.phases != FULL_RUN) return state
-        save(state.copy(phase = trigger.phases.first(), trigger = trigger, startedAt = clock()))
+        save(begin(state, trigger))
         return resume()
     }
 
@@ -212,13 +253,31 @@ class FirstRunRunner(
     fun resume(): FirstRunState {
         var state = store.read()
         while (state.active) {
+            val before = state
             val next = runCatching { step(state) }
                 .onFailure { Log.w(TAG, "First run stopped at ${state.phase}: ${it.javaClass.simpleName}") }
                 .getOrNull() ?: return state
-            state = next
+            state = next.copy(waiting = false)
             save(state)
+            // B-18: a waiting trigger leaves the pending set only once its pass is saved.
+            startedFromPending?.let { store.pending = store.pending - it }
+            startedFromPending = null
+            if (state.sortPublished && !before.sortPublished) runCatching { onFirstPublish() }
         }
         return state
+    }
+
+    /** The first state of a pass of [trigger]: where the card and "What changed" start counting. */
+    private fun begin(state: FirstRunState, trigger: FirstRunTrigger): FirstRunState {
+        val at = clock()
+        return state.copy(
+            phase = trigger.phases.first(),
+            trigger = trigger,
+            startedAt = at,
+            inBackground = false,
+            cardSince = if (trigger.showsCard && !state.cardPending) at else state.cardSince,
+            whatChangedSince = if (trigger == FirstRunTrigger.UPDATE) at else state.whatChangedSince,
+        )
     }
 
     /** Runs the step of [state]; the state after it, or null when it failed. */
@@ -226,13 +285,8 @@ class FirstRunRunner(
         FirstRunPhase.SETTINGS -> advance(state.also { steps.applySettings() })
         FirstRunPhase.RULES -> advance(state.also { steps.migrateRules() })
         FirstRunPhase.OLDER_SPAM -> advance(state.copy(olderSpamWaiting = !steps.migrateOlderSpam()))
-        FirstRunPhase.HISTORY -> steps.historyCheck()?.let {
-            advance(state.copy(allowedAutomatically = state.allowedAutomatically + it.allowed))
-        }
-        FirstRunPhase.SORT -> (steps.sort() as? SortResult.Applied)?.let { sorted ->
-            val counted = if (state.trigger?.showsCard == true) sorted.added else 0
-            advance(state.copy(sortPublished = true, movedToSpam = state.movedToSpam + counted))
-        }
+        FirstRunPhase.HISTORY -> steps.historyCheck()?.let { advance(state) }
+        FirstRunPhase.SORT -> (steps.sort() as? SortResult.Applied)?.let { advance(state.copy(sortPublished = true)) }
         FirstRunPhase.CLEANUP -> advance(state.also { steps.cleanUps() })
         FirstRunPhase.NOT_STARTED, FirstRunPhase.DONE -> state
     }
@@ -242,17 +296,24 @@ class FirstRunRunner(
         val phases = state.trigger?.phases.orEmpty()
         val next = phases.getOrNull(phases.indexOf(state.phase) + 1)
         if (next != null) return state.copy(phase = next)
-        val trigger = state.trigger
-        val ended = state.copy(
-            phase = FirstRunPhase.DONE,
-            cardPending = state.cardPending || trigger?.showsCard == true,
-            whatChangedPending = state.whatChangedPending || trigger == FirstRunTrigger.UPDATE,
-        )
+        val ended = counted(state).copy(phase = FirstRunPhase.DONE)
         // A trigger that came meanwhile makes the next pass, one trigger at a time.
-        val waiting = store.pending
-        val again = waiting.firstOrNull() ?: return ended
-        store.pending = waiting - again
-        return ended.copy(phase = again.phases.first(), trigger = again, startedAt = clock())
+        val again = store.pending.firstOrNull() ?: return ended
+        startedFromPending = again
+        return begin(ended, again)
+    }
+
+    /** B-12: the card shows only when the passes since it was last seen moved a chat; counts come from the table. */
+    private fun counted(state: FirstRunState): FirstRunState {
+        val card = state.cardPending || state.trigger?.showsCard == true
+        val moved = if (card) steps.countMoved(state.cardSince) else state.movedToSpam
+        val whatChanged = state.whatChangedPending || state.trigger == FirstRunTrigger.UPDATE
+        return state.copy(
+            movedToSpam = moved,
+            cardPending = card && moved > 0,
+            whatChangedPending = whatChanged,
+            allowedAutomatically = if (whatChanged) steps.countAllowed(state.whatChangedSince) else 0,
+        )
     }
 
     private fun save(state: FirstRunState) {
@@ -285,8 +346,12 @@ object FirstRun {
     /** The runner's state; the pages and the card follow it. */
     fun state(context: Context): StateFlow<FirstRunState> {
         if (!loaded) {
-            flow.value = store(context).read()
-            loaded = true
+            synchronized(this) {
+                if (!loaded) {
+                    flow.value = store(context).read()
+                    loaded = true
+                }
+            }
         }
         return flow.asStateFlow()
     }
@@ -305,8 +370,7 @@ object FirstRun {
     /** Reads the stored state again (tests that write it directly). */
     @VisibleForTesting
     internal fun reload(context: Context) {
-        flow.value = store(context).read()
-        loaded = true
+        publishState(store(context).read())
     }
 
     /** A trigger (3.5). The pass runs on the sorting thread. */
@@ -317,10 +381,16 @@ object FirstRun {
     }
 
     /**
-     * The card or the "What changed" page was seen (tapped): it does not show again until the next pass. Written on
-     * the sorting thread, so it never races a step's write.
+     * The card or the "What changed" page was seen (tapped): it does not show again until the next pass. With
+     * [inBackground] the progress page's "Continue in background" is kept too. Written on the sorting thread, so it
+     * never races a step's write.
      */
-    fun acknowledge(context: Context, card: Boolean, whatChanged: Boolean) {
+    fun acknowledge(
+        context: Context,
+        card: Boolean = false,
+        whatChanged: Boolean = false,
+        inBackground: Boolean? = null,
+    ) {
         val app = context.applicationContext
         SpamSorting.execute(
             Runnable {
@@ -331,9 +401,10 @@ object FirstRun {
                     movedToSpam = if (card) 0 else state.movedToSpam,
                     whatChangedPending = state.whatChangedPending && !whatChanged,
                     allowedAutomatically = if (whatChanged) 0 else state.allowedAutomatically,
+                    inBackground = inBackground ?: state.inBackground,
                 )
                 runCatching { store.write(next) }
-                flow.value = next
+                publishState(next)
             }
         )
     }
@@ -345,46 +416,72 @@ object FirstRun {
         val kind = store.installKind ?: (if (onboarded) FirstRunTrigger.UPDATE else FirstRunTrigger.FRESH_INSTALL)
             .also { store.installKind = it }
         val state = store.read()
-        when {
-            state.active -> finished(app, runner(app).resume())
-            state.phase == FirstRunPhase.NOT_STARTED && onboarded -> finished(app, runner(app).request(kind))
-        }
         val contacts = runCatching { SpamEngine.contactChecker(app).canReadContacts() }.getOrDefault(false)
         val isDefault = runCatching { DefaultSmsRole.status(app) == DefaultSmsRole.Status.Held }.getOrDefault(false)
-        val runner = runner(app)
-        if (store.lastSeen(FirstRunStore.SEEN_CONTACTS) == false && contacts) {
-            finished(app, runner.request(FirstRunTrigger.CONTACTS_GRANTED))
+        val startsFull = state.phase == FirstRunPhase.NOT_STARTED && onboarded
+        when {
+            state.active -> finished(app, runner(app).resume())
+            startsFull -> finished(app, runner(app).request(kind))
         }
-        if (store.lastSeen(FirstRunStore.SEEN_DEFAULT) == false && isDefault) {
-            finished(app, runner.request(FirstRunTrigger.DEFAULT_AGAIN))
+        // B-11: the full pass just checked and sorted everything; the phone's changes up to now are part of it.
+        if (!startsFull) {
+            val runner = runner(app)
+            if (store.lastSeen(FirstRunStore.SEEN_CONTACTS) == false && contacts) {
+                finished(app, runner.request(FirstRunTrigger.CONTACTS_GRANTED))
+            }
+            if (store.lastSeen(FirstRunStore.SEEN_DEFAULT) == false && isDefault) {
+                finished(app, runner.request(FirstRunTrigger.DEFAULT_AGAIN))
+            }
         }
         store.saveSeen(FirstRunStore.SEEN_CONTACTS, contacts)
         store.saveSeen(FirstRunStore.SEEN_DEFAULT, isDefault)
     }
 
-    /** After a pass returned: a full sort that waited may run; a stopped pass is tried again a little later. */
+    /**
+     * After a pass returned: the sorts that waited may run; a stopped pass is tried again a little later, and after
+     * [MAX_RETRIES] it is marked waiting (B-22) until the next start, foreground or trigger.
+     */
     private fun finished(app: Context, state: FirstRunState) {
-        if (!state.active) {
-            retries = 0
-            SpamSorting.releaseGate(app)
-        } else if (retries < MAX_RETRIES) {
-            retries++
-            SpamSorting.execute(Runnable { runCatching { finished(app, runner(app).resume()) } }, RETRY_MS)
+        when {
+            !state.active -> {
+                retries = 0
+                SpamSorting.releaseGate(app)
+            }
+            retries < MAX_RETRIES -> {
+                retries++
+                SpamSorting.execute(Runnable { runCatching { finished(app, runner(app).resume()) } }, RETRY_MS)
+            }
+            else -> {
+                retries = 0
+                val waiting = state.copy(waiting = true)
+                runCatching { store(app).write(waiting) }
+                publishState(waiting)
+            }
         }
+    }
+
+    private fun publishState(state: FirstRunState) {
+        flow.value = state
+        loaded = true
     }
 
     private fun runner(app: Context) = FirstRunRunner(
         store = store(app),
         steps = AppFirstRunSteps(app),
-        onChange = { flow.value = it },
+        // The list sync reads every thread again: chats of numbers on Android's block list are listed now (B-16).
+        onFirstPublish = { refreshConversations() },
+        onChange = ::publishState,
     )
 
     private fun store(context: Context) =
         FirstRunStore(context.applicationContext.getSharedPreferences(FirstRunStore.PREFS, Context.MODE_PRIVATE))
 }
 
-/** The steps of [FirstRunSteps] on the app's own stores. */
+/** The steps of [FirstRunSteps] on the app's own stores. The store's chats are read once per pass. */
 internal class AppFirstRunSteps(private val app: Context) : FirstRunSteps {
+    /** B-16: with the chats of numbers on Android's block list, which are judged like any other. */
+    private val storeChats: List<Conversation>? by lazy { app.getConversationsOrNull(includeBlocked = true) }
+
     override fun applySettings() {
         SpamEngine.applyProviderTruthMapping(app)
     }
@@ -397,23 +494,28 @@ internal class AppFirstRunSteps(private val app: Context) : FirstRunSteps {
 
     /** With a fresh snapshot: the steps before may have changed the settings and the rules a moment ago. */
     override fun historyCheck(): HistoryResult? {
+        val chats = storeChats ?: return null
         ChatSorter.snapshots(app).invalidate()
-        return HistoryCheck.forApp(app).run()
+        val sortable = chats.map { SortableChat(it.threadId, it.phoneNumber, it.isGroupConversation, false) }
+        return HistoryCheck.forApp(app, sortable).run()
     }
 
     /**
-     * The chats of the phone's store that the list has not cached yet (a fresh install, before the list opened) are
-     * cached first, so the sort and its card count see every chat. A failed read of the store fails the sort.
+     * The chats of the phone's store that the list has not cached yet (a fresh install, before the list opened; the
+     * chats of blocked numbers) are cached in the sort's own transaction, so the sort and its card see every chat and
+     * none shows in Messages before it is sorted. A failed read of the store fails the sort.
      */
     override fun sort(): SortResult {
-        val chats = app.getConversationsOrNull() ?: return SortResult.Failed("store")
-        val dao = app.conversationsDB
-        val cached = dao.getSortableChats().mapTo(HashSet()) { it.threadId }
-        chats.filter { it.threadId !in cached }.forEach { dao.insertOrUpdate(it) }
-        return SpamSorting.sortNow(app)
+        val chats = storeChats ?: return SortResult.Failed("store")
+        return SpamSorting.sortNow(app, newRows = chats)
     }
 
     override fun cleanUps() {
         SpamEngine.purgeExpired(app)
     }
+
+    override fun countMoved(since: Long): Int = app.conversationsDB.countSpamSince(since)
+
+    override fun countAllowed(since: Long): Int = SpamEngine.repository(app).groupMembership.members()
+        .count { it.source == MemberSource.HISTORY && it.addedAt >= since }
 }

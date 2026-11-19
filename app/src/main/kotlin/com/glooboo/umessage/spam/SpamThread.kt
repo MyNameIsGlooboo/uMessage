@@ -1,9 +1,15 @@
 package com.glooboo.umessage.spam
 
+import android.content.Context
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.glooboo.umessage.databases.MessagesDatabase
+import com.glooboo.umessage.spam.engine.NumberNormalizer
+import com.glooboo.umessage.spam.engine.NumberReaders
 import com.glooboo.umessage.spam.engine.SpamCause
+import com.glooboo.umessage.spam.engine.SpamEngine
+import com.glooboo.umessage.spam.engine.defaultRegion
 
 /**
  * Provider truth (3.2): one one-to-one chat shown in Spam, in conversations.db (table spam_threads, schema 16). The
@@ -36,4 +42,32 @@ data class SortableChat(
      * scheduled messages is not in the phone's store.
      */
     val sortable: Boolean get() = !isGroup && !isScheduled
+}
+
+/**
+ * The Spam rows of the app's own conversations.db for the incoming paths (step D, B-7): the sender test reads a
+ * number with the one region list (R6, S8), so "+15550001234" and "(555) 000-1234" are one sender.
+ */
+object SpamThreads {
+    /** The one reading of a sender, as the sorter and the filter read it. */
+    fun readers(context: Context): NumberReaders {
+        val app = context.applicationContext
+        return NumberReaders(NumberNormalizer { defaultRegion(app) }) { SpamEngine.simRegions(app) }
+    }
+
+    fun same(readers: NumberReaders, a: String, b: String): Boolean = a == b || readers.same(a, b)
+
+    /** A spam text from [address] arrives in [threadId]: its row first, then unread + 1 (6.1, R12, B-7). */
+    fun noteArrival(context: Context, threadId: Long, address: String, cause: SpamCause, at: Long) {
+        val readers = readers(context)
+        MessagesDatabase.getInstance(context.applicationContext).ConversationsDao()
+            .noteSpamArrival(threadId, address, cause, at) { a, b -> same(readers, a, b) }
+    }
+
+    /** R1's safety check: [threadId] has a Spam row for the sender [address] (its chat row may not be cached yet). */
+    fun isSpamThreadOf(context: Context, threadId: Long, address: String): Boolean {
+        val row = MessagesDatabase.getInstance(context.applicationContext).ConversationsDao().getSpamThread(threadId)
+            ?: return false
+        return same(readers(context), row.sender, address)
+    }
 }

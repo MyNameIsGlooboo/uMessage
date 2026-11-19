@@ -3,7 +3,9 @@ package com.glooboo.umessage.spam
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.engine.ContactChecker
 import com.glooboo.umessage.spam.engine.ContactLookup
+import com.glooboo.umessage.spam.engine.FreezableBlocklist
 import com.glooboo.umessage.spam.engine.GroupMembership
+import com.glooboo.umessage.spam.engine.LegacyBlocklist
 import com.glooboo.umessage.spam.engine.NumberNormalizer
 import com.glooboo.umessage.spam.engine.NumberReaders
 import com.glooboo.umessage.spam.engine.RuleMatcher
@@ -49,6 +51,21 @@ internal class SortingWorld(region: String = "US") {
         return contactKeys.second
     }
 
+    /** Android's own block list; [blockListReads] counts every full read of it (B-2). */
+    val androidBlocked = mutableSetOf<String>()
+    var blockListReads = 0
+
+    val legacy = object : LegacyBlocklist, FreezableBlocklist {
+        override fun isNumberBlocked(address: String): Boolean = frozenNumberCheck()(address)
+        override fun blockedKeywords(): Collection<String> = emptyList()
+        override fun blockUnknownNumbers() = false
+        override fun frozenNumberCheck(): (String) -> Boolean {
+            blockListReads++
+            val keys = androidBlocked.flatMapTo(HashSet()) { readers.senderKeys(it) }
+            return { address -> readers.senderKeys(address).any { it in keys } }
+        }
+    }
+
     val checker = object : ContactChecker {
         override fun isContact(address: String) = readers.senderKeys(address).any { it in contactKeys() }
         override fun lookup(address: String): ContactLookup = when {
@@ -69,6 +86,7 @@ internal class SortingWorld(region: String = "US") {
         contacts = checker,
         readers = readers,
         groups = GroupMembership { members.toList() },
+        legacy = legacy,
         matcher = RuleMatcher(normalizer),
     )
 

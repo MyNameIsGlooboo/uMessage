@@ -34,8 +34,11 @@ class HistoryCheckTest {
             received.getOrPut(threadId) { mutableListOf() } += texts
         }
 
+        /** Threads of the phone's store the app has not cached yet (B-5). */
+        val uncached = mutableSetOf<Long>()
+
         override fun chats(): List<SortableChat>? = chats.toList().takeUnless { chatsFail }
-        override fun cachedChats(): List<SortableChat> = chats.toList()
+        override fun cachedChats(): List<SortableChat> = chats.filter { it.threadId !in uncached }
         override fun wroteTo(address: String): ContactLookup = when {
             sentFails -> ContactLookup.UNKNOWN
             wrote.any { world.readers.same(it, address) } -> ContactLookup.FOUND
@@ -194,6 +197,19 @@ class HistoryCheckTest {
 
         assertThat(check.checkSender(SENDER)).isTrue()
 
+        assertThat(joined).containsExactly(AllowGroup.CODE to listOf(SENDER))
+    }
+
+    @Test
+    fun theSpotCheckReadsTheTextsOwnThreadEvenWhenItIsNotCached() {
+        // B-5: a fresh install, before the list cached the chat: the store's thread of the text still counts.
+        store.chat(7, SENDER, false, "Your ExampleBank code is 573920. Never share it.")
+        store.uncached += 7L
+
+        assertThat(check.checkSender(SENDER)).isTrue()
+        assertThat(joined).isEmpty()
+
+        assertThat(check.checkSender(SENDER, threadId = 7L)).isTrue()
         assertThat(joined).containsExactly(AllowGroup.CODE to listOf(SENDER))
     }
 

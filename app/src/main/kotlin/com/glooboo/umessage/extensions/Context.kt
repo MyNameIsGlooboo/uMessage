@@ -94,10 +94,12 @@ import com.glooboo.umessage.models.MessageAttachment
 import com.glooboo.umessage.models.MessageKey
 import com.glooboo.umessage.models.NamePhoto
 import com.glooboo.umessage.models.RecycleBinMessage
+import com.glooboo.umessage.helpers.SCHEDULED_ID_MIN
+import com.glooboo.umessage.spam.FirstRun
+import com.glooboo.umessage.spam.NewChatSorting
 import com.glooboo.umessage.spam.SpamSorting
+import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.spam.engine.NumberNormalizer
-import com.glooboo.umessage.spam.engine.NumberReaders
-import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.spam.engine.defaultRegion
 import org.xmlpull.v1.XmlPullParserException
 import java.io.FileNotFoundException
@@ -420,7 +422,10 @@ fun Context.getConversations(
     privateContacts: ArrayList<SimpleContact> = ArrayList(),
     limit: Int? = null,
     lookups: ConversationLookups = ConversationLookups(this, bulk = threadId == null),
-): ArrayList<Conversation> = readConversations(threadId, privateContacts, limit, lookups).first
+    /** B-16: also chats of numbers on Android's block list; null: as the lists show them now. */
+    includeBlocked: Boolean? = null,
+): ArrayList<Conversation> =
+    readConversations(threadId, privateContacts, limit, lookups, includeBlocked ?: listsShowBlocked()).first
 
 /**
  * Like [getConversations], but null when the provider could not be read completely (no cursor, or an error part
@@ -430,10 +435,20 @@ fun Context.getConversations(
 fun Context.getConversationsOrNull(
     privateContacts: ArrayList<SimpleContact> = ArrayList(),
     lookups: ConversationLookups = ConversationLookups(this, bulk = true),
+    /** B-16: also chats of numbers on Android's block list (the sorter and the history check ask for them). */
+    includeBlocked: Boolean? = null,
 ): ArrayList<Conversation>? {
-    val (conversations, complete) = readConversations(null, privateContacts, null, lookups)
+    val blocked = includeBlocked ?: listsShowBlocked()
+    val (conversations, complete) = readConversations(null, privateContacts, null, lookups, blocked)
     return conversations.takeIf { complete }
 }
+
+/**
+ * B-16: the lists show the chats of numbers on Android's block list (in Spam, as blocked) only once the first sort is
+ * published; before that, and with the flag off, they are left out as in 0.4.14.
+ */
+private fun Context.listsShowBlocked(): Boolean =
+    ProviderTruthFlag.enabled && runCatching { FirstRun.state(this).value.sortPublished }.getOrDefault(false)
 
 /** The conversations read, and whether the read finished without the provider failing. */
 private fun Context.readConversations(
@@ -441,6 +456,7 @@ private fun Context.readConversations(
     privateContacts: ArrayList<SimpleContact>,
     limit: Int?,
     lookups: ConversationLookups,
+    includeBlocked: Boolean,
 ): Pair<ArrayList<Conversation>, Boolean> {
     val archiveAvailable = config.isArchiveAvailable
     val archiveTrusted = ArchiveStore.isTrusted(this)
@@ -503,8 +519,7 @@ private fun Context.readConversations(
             val phoneNumbers = recipientIds.mapTo(ArrayList()) { lookups.phoneNumber(it) }
             // S3: a thread without recipients is always left out. 0.4.14: a group stays listed unless every member is
             // blocked; a 1:1 chat with a blocked number is left out. Provider truth lists it (it is shown in Spam).
-            val hideBlocked = !ProviderTruthFlag.enabled
-            if (isThreadHiddenByBlocks(phoneNumbers, hideBlocked) { isNumberBlocked(it, blockedNumbers) }) {
+            if (isThreadHiddenByBlocks(phoneNumbers, !includeBlocked) { isNumberBlocked(it, blockedNumbers) }) {
                 return@queryCursorUnsafe
             }
 
@@ -539,7 +554,7 @@ private fun Context.readConversations(
             && archiveAvailable
         ) {
             config.isArchiveAvailable = false
-            return readConversations(threadId, privateContacts, limit, lookups)
+            return readConversations(threadId, privateContacts, limit, lookups, includeBlocked)
         } else {
             showErrorToast(sqliteException)
         }
@@ -1012,10 +1027,20 @@ fun Context.insertNewSMS(
 fun Context.removeAllArchivedConversations(callback: (() -> Unit)? = null) {
     ensureBackgroundThread {
         try {
-            for (conversation in conversationsDB.getAllArchived()) {
-                deleteConversation(conversation.threadId)
+            if (ProviderTruthFlag.enabled) {
+                // B-1: the Archived list only (not the Spam chats), the role checked once, stopped at the first
+                // chat that is not deleted; "emptied" only when every one was.
+                val isDefault = isDefaultSmsAppNow()
+                val result = conversationsDB.getArchivedList().asSequence()
+                    .map { deleteConversation(it.threadId, isDefault) }
+                    .firstOrNull { it != DeleteResult.DELETED } ?: DeleteResult.DELETED
+                toast(result.messageRes ?: R.string.archive_emptied_successfully)
+            } else {
+                for (conversation in conversationsDB.getAllArchived()) {
+                    deleteConversation(conversation.threadId)
+                }
+                toast(R.string.archive_emptied_successfully)
             }
-            toast(R.string.archive_emptied_successfully)
             callback?.invoke()
         } catch (_: Exception) {
             toast(org.fossify.commons.R.string.unknown_error_occurred)
@@ -1024,37 +1049,66 @@ fun Context.removeAllArchivedConversations(callback: (() -> Unit)? = null) {
 }
 
 /**
- * Deletes the chat [threadId] from the phone's store, then everything the app keeps of it ([forgetThread]). True when
- * the chat is gone.
- *
- * S14 (provider truth): the store is the only copy of the messages, so the app's own data of the chat (notes, labels,
- * draft, cache) goes only once the messages are gone. When uMessage is not the default SMS app (the store then ignores
- * the delete), or the store still holds messages of the chat afterwards, nothing is removed and the user is told.
+ * What a delete did (S14, B-13). The delete functions never show a message themselves under provider truth; the
+ * screen that asked shows [messageRes].
  */
-fun Context.deleteConversation(threadId: Long): Boolean {
-    val honest = ProviderTruthFlag.enabled
-    if (honest && !isDefaultSmsAppNow()) {
-        toast(R.string.pt_delete_not_default)
-        return false
-    }
-    if (!deleteThreadFromStore(threadId)) return false
-    if (honest && storeHasThreadMessages(threadId) != false) {
-        toast(R.string.pt_delete_nothing)
-        return false
-    }
-    forgetThread(threadId)
-    return true
+enum class DeleteResult {
+    DELETED,
+
+    /** uMessage is not the default SMS app: the phone's store keeps everything, and so does the app. */
+    NOT_DEFAULT,
+
+    /** The store still holds the messages after the delete: nothing of the app's own data was removed. */
+    NOTHING_DELETED,
+
+    /** The store refused or failed. */
+    FAILED;
+
+    /** The message for the user; null when the delete worked. */
+    val messageRes: Int?
+        get() = when (this) {
+            DELETED -> null
+            NOT_DEFAULT -> R.string.pt_delete_not_default
+            NOTHING_DELETED -> R.string.pt_delete_nothing
+            FAILED -> org.fossify.commons.R.string.unknown_error_occurred
+        }
 }
 
-/** The SMS, then the MMS of [threadId] in the phone's store; false when a delete failed. */
-private fun Context.deleteThreadFromStore(threadId: Long): Boolean {
+/**
+ * Deletes the chat [threadId] from the phone's store, then everything the app keeps of it ([forgetThread]).
+ *
+ * S14, B-13 (provider truth): the store is the only copy of the messages, so the app's own data of the chat (notes,
+ * labels, draft, cache) goes only once the messages are gone. When uMessage is not the default SMS app (the store then
+ * ignores the delete), or the store still holds messages of the chat afterwards, nothing is removed and the result
+ * says why; no message is shown here, the screen that asked shows it. [isDefault]: the role, checked once by a caller
+ * that deletes many chats. A chat that holds only scheduled messages is not in the store: it is forgotten at once.
+ */
+fun Context.deleteConversation(threadId: Long, isDefault: Boolean? = null): DeleteResult {
+    val honest = ProviderTruthFlag.enabled
+    val result = when {
+        honest && isScheduledOnly(threadId) -> DeleteResult.DELETED
+        honest && !(isDefault ?: isDefaultSmsAppNow()) -> DeleteResult.NOT_DEFAULT
+        !deleteThreadFromStore(threadId, quiet = honest) -> DeleteResult.FAILED
+        honest && storeHasThreadMessages(threadId) != false -> DeleteResult.NOTHING_DELETED
+        else -> DeleteResult.DELETED
+    }
+    if (result == DeleteResult.DELETED) forgetThread(threadId)
+    return result
+}
+
+/** A chat the app made for scheduled messages only (its id is made up, or its row says so): not in the store. */
+private fun Context.isScheduledOnly(threadId: Long): Boolean = threadId >= SCHEDULED_ID_MIN ||
+    runCatching { conversationsDB.getConversationWithThreadId(threadId)?.isScheduled == true }.getOrDefault(false)
+
+/** The SMS, then the MMS of [threadId] in the phone's store; false when a delete failed. [quiet]: no error toast. */
+private fun Context.deleteThreadFromStore(threadId: Long, quiet: Boolean): Boolean {
     var uri = Sms.CONTENT_URI
     val selection = "${Sms.THREAD_ID} = ?"
     val selectionArgs = arrayOf(threadId.toString())
     try {
         contentResolver.delete(uri, selection, selectionArgs)
     } catch (e: Exception) {
-        showErrorToast(e)
+        if (!quiet) showErrorToast(e)
         // The messages are still in the provider: wiping the local copy would only bring them back later.
         return false
     }
@@ -1157,7 +1211,11 @@ private fun Context.readProviderMessage(id: Long, isMMS: Boolean): Message? = tr
 
 /** Removes for good every recycle-bin message deleted more than a month before [nowMillis]. */
 fun Context.deleteOldRecycleBinMessages(nowMillis: Long) {
-    purgeRecycleBinEntries(messagesDB.getOldRecycleBinEntries(nowMillis - MONTH_SECONDS * 1000L))
+    val entries = messagesDB.getOldRecycleBinEntries(nowMillis - MONTH_SECONDS * 1000L)
+    val threads = entries.mapNotNullTo(HashSet()) { messagesDB.getMessage(it.id, it.isMMS)?.threadId }
+    purgeRecycleBinEntries(entries)
+    // S19, B-13: a chat the bin emptied is forgotten as a deleted chat (the screens tidy their own purges).
+    if (ProviderTruthFlag.enabled) threads.forEach { runCatching { tidyConversationAfterBinPurge(it) } }
 }
 
 fun Context.emptyMessagesRecycleBin() {
@@ -1171,21 +1229,28 @@ fun Context.emptyMessagesRecycleBin() {
  * before messages were keyed by type, whether it was an SMS or an MMS is a guess, so deleting by it could remove
  * a different message.
  */
-private fun Context.purgeRecycleBinEntries(entries: List<RecycleBinMessage>) {
+private fun Context.purgeRecycleBinEntries(entries: List<RecycleBinMessage>): DeleteResult {
+    // B-13: the role is checked once for the batch; the first message not deleted stops it.
+    val isDefault = if (ProviderTruthFlag.enabled) isDefaultSmsAppNow() else null
     for (entry in entries) {
         if (messagesDB.getMessage(entry.id, entry.isMMS) != null) {
-            deleteMessage(entry.id, entry.isMMS)
+            val result = deleteMessage(entry.id, entry.isMMS, isDefault)
+            if (ProviderTruthFlag.enabled && result != DeleteResult.DELETED) return result
         } else {
             messagesDB.deleteFromRecycleBin(entry.id, entry.isMMS)
         }
     }
+    return DeleteResult.DELETED
 }
 
-fun Context.emptyMessagesRecycleBinForConversation(threadId: Long) {
+fun Context.emptyMessagesRecycleBinForConversation(threadId: Long): DeleteResult {
     val messages = messagesDB.getThreadMessagesFromRecycleBin(threadId)
+    val isDefault = if (ProviderTruthFlag.enabled) isDefaultSmsAppNow() else null
     for (message in messages) {
-        deleteMessage(message.id, message.isMMS)
+        val result = deleteMessage(message.id, message.isMMS, isDefault)
+        if (ProviderTruthFlag.enabled && result != DeleteResult.DELETED) return result
     }
+    return DeleteResult.DELETED
 }
 
 fun Context.restoreAllMessagesFromRecycleBinForConversation(threadId: Long) {
@@ -1247,16 +1312,14 @@ fun Context.updateConversationArchivedStatus(threadId: Long, archived: Boolean) 
 }
 
 /**
- * Deletes one message from the phone's store, then the app's copy, reminders and note. True when it is gone. S14
- * (provider truth): not the default SMS app, or the row still in the store after the delete: nothing of the app's own
- * data is removed and the user is told. A row that was already gone counts as deleted (the copy is stale).
+ * Deletes one message from the phone's store, then the app's copy, reminders and note. S14, B-13 (provider truth):
+ * not the default SMS app, or the row still in the store after the delete: nothing of the app's own data is removed
+ * and the result says why (no message here; the screen that asked shows it). A row that was already gone counts as
+ * deleted (the copy is stale). [isDefault]: the role, checked once by a caller that deletes many.
  */
-fun Context.deleteMessage(id: Long, isMMS: Boolean): Boolean {
+fun Context.deleteMessage(id: Long, isMMS: Boolean, isDefault: Boolean? = null): DeleteResult {
     val honest = ProviderTruthFlag.enabled
-    if (honest && !isDefaultSmsAppNow()) {
-        toast(R.string.pt_delete_not_default)
-        return false
-    }
+    if (honest && !(isDefault ?: isDefaultSmsAppNow())) return DeleteResult.NOT_DEFAULT
     val uri = if (isMMS) Mms.CONTENT_URI else Sms.CONTENT_URI
     val selection = "${Sms._ID} = ?"
     val selectionArgs = arrayOf(id.toString())
@@ -1265,17 +1328,14 @@ fun Context.deleteMessage(id: Long, isMMS: Boolean): Boolean {
     val noteKey = runCatching { messagesDB.getMessage(id, isMMS)?.let { MessageNoteKey.of(it) } }.getOrNull()
     return try {
         val deleted = contentResolver.delete(uri, selection, selectionArgs)
-        if (honest && deleted == 0 && storeHasRow(uri, id) != false) {
-            toast(R.string.pt_delete_nothing)
-            return false
-        }
+        if (honest && deleted == 0 && storeHasRow(uri, id) != false) return DeleteResult.NOTHING_DELETED
         messagesDB.delete(id, isMMS)
         cancelRemindersForMessage(MessageKey(id, isMMS))
         noteKey?.let { kotlinx.coroutines.runBlocking { messageNotes.onMessageDeleted(it) } }
-        true
+        DeleteResult.DELETED
     } catch (e: Exception) {
-        showErrorToast(e)
-        false
+        if (!honest) showErrorToast(e)
+        DeleteResult.FAILED
     }
 }
 
@@ -1629,27 +1689,36 @@ fun Context.insertOrUpdateConversation(
         val current = conversationsDB.getConversationWithThreadId(conversation.threadId) ?: cachedConv
         if (current != null) updatedConv = updatedConv.copy(isArchived = current.isArchived)
     }
+    val isNew = ProviderTruthFlag.enabled && cachedConv == null &&
+        conversationsDB.getConversationWithThreadId(updatedConv.threadId) == null
+    if (isNew) {
+        // B-6: a chat cached for the first time: its sender's history, then the row and its sort in one transaction.
+        NewChatSorting.cacheAndSort(this, listOf(updatedConv))
+        followSpamRow(updatedConv, renumbered = false)
+        return
+    }
     conversationsDB.insertOrUpdate(updatedConv)
-    if (ProviderTruthFlag.enabled) followSpamRow(updatedConv, isNew = cachedConv == null)
+    val renumbered = cachedConv != null && cachedConv.phoneNumber != updatedConv.phoneNumber
+    if (ProviderTruthFlag.enabled) followSpamRow(updatedConv, renumbered)
 }
 
 /**
  * Provider truth (S9): a Spam row written for a new text names the sender as the text had it; the cached chat may
  * write the same number another way. The row then follows the chat's number at once (its unread count and spam_since
- * stay), so the chat is in Spam as soon as its row is cached. A chat row cached for the first time is sorted (3.2).
+ * stay), so the chat is in Spam as soon as its row is cached. B-21: a cached chat whose number changed is sorted
+ * again.
  */
-private fun Context.followSpamRow(conversation: Conversation, isNew: Boolean) {
+private fun Context.followSpamRow(conversation: Conversation, renumbered: Boolean) {
     runCatching {
         val row = conversationsDB.getSpamThread(conversation.threadId)
         val number = conversation.phoneNumber
         if (row != null && row.sender != number && !conversation.isGroupConversation) {
-            val readers = NumberReaders(NumberNormalizer { defaultRegion(this) }) { SpamEngine.simRegions(this) }
-            if (readers.same(row.sender, number)) {
+            if (SpamThreads.readers(this).same(row.sender, number)) {
                 conversationsDB.updateSpamThreadSender(row.threadId, number, row.cause)
             }
         }
     }
-    if (isNew) SpamSorting.requestThreads(this, listOf(conversation.threadId))
+    if (renumbered) SpamSorting.requestThreads(this, listOf(conversation.threadId))
 }
 
 fun Context.renameConversation(conversation: Conversation, newTitle: String): Conversation {

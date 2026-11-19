@@ -33,8 +33,21 @@ class ChatSorterTest {
     private val world = SortingWorld()
     private var clock = 1_000L
 
+    private val markedUnread = mutableListOf<Long>()
+
+    /** Runs inside [ChatSorter.recompute] after the chats were read and before the transaction (a racing text). */
+    private var duringSort: () -> Unit = {}
+
     private val sorter by lazy {
-        ChatSorter(db, snapshot = { world.judge.snapshot() }, contactsReadable = { world.contactsReadable }) { clock }
+        ChatSorter(
+            db,
+            snapshot = {
+                duringSort()
+                world.judge.snapshot()
+            },
+            contactsReadable = { world.contactsReadable },
+            markUnread = { markedUnread += it },
+        ) { clock }
     }
 
     @Before
@@ -289,19 +302,99 @@ class ChatSorterTest {
 
     @Test
     fun fiveThousandChatsAreSortedWithinTheTimeBudget() {
-        // S22, 12.1: a soft bound for a big phone; the real figure is measured on the emulator in step J.
+        // S22, 12.1: a soft bound for a big phone; the real figure is measured on the emulator in step J. B-2: a real
+        // Android block list and an address book with many numbers, read once each.
         repeat(50) { world.block("+1555100${1000 + it}") }
-        repeat(20) { world.contacts += "+1555200${1000 + it}" }
+        repeat(300) { world.androidBlocked += "+1555400${1000 + it}" }
+        repeat(1_000) { world.contacts += "+1555200${1000 + it}" }
         db.runInTransaction {
             repeat(CHATS) { dao.insertOrUpdate(chat(it + 1L, "+1555${(3_000_000 + it).toString().padStart(7, '0')}")) }
+            repeat(100) { dao.insertOrUpdate(chat(CHATS + 1L + it, "+1555400${1000 + it}")) }
+            repeat(100) { dao.insertOrUpdate(chat(CHATS + 201L + it, "+1555200${1000 + it}")) }
         }
+        world.blockListReads = 0
 
         val started = System.nanoTime()
         val result = sorter.recompute() as SortResult.Applied
         val tookMs = (System.nanoTime() - started) / 1_000_000
 
-        assertThat(result.added).isEqualTo(CHATS)
+        assertThat(result.added).isEqualTo(CHATS + 100)
+        assertThat(dao.getSpamThreads().count { it.cause == SpamCause.BLOCKED }).isEqualTo(100)
+        assertThat(world.blockListReads).isEqualTo(1)
         assertThat(tookMs).isLessThan(BUDGET_MS)
+    }
+
+    @Test
+    fun androidsBlockListIsReadOncePerSnapshotAndBlocks() {
+        world.androidBlocked += SENDER
+        dao.insertOrUpdate(chat(1, SENDER))
+        dao.insertOrUpdate(chat(2, OTHER))
+        world.blockListReads = 0
+
+        sorter.recompute()
+
+        assertThat(world.blockListReads).isEqualTo(1)
+        assertThat(spamRows().getValue(1).cause).isEqualTo(SpamCause.BLOCKED)
+        assertThat(spamRows().getValue(2).cause).isEqualTo(SpamCause.UNKNOWN)
+    }
+
+    @Test
+    fun aChatThatLeavesSpamWithUnreadTextsIsMarkedUnread() {
+        // B-14: as "Not spam" does (3.4), the user must not lose the texts they have not looked at.
+        dao.insertOrUpdate(chat(1, SENDER))
+        dao.insertOrUpdate(chat(2, OTHER))
+        sorter.recompute()
+        dao.raiseSpamUnread(1)
+
+        world.contacts += SENDER
+        world.contacts += OTHER
+        val result = sorter.recompute() as SortResult.Applied
+
+        assertThat(result.removed).isEqualTo(2)
+        assertThat(result.leftWithUnread).containsExactly(1L)
+        assertThat(markedUnread).containsExactly(1L)
+    }
+
+    @Test
+    fun newRowsAreCachedInTheSortsTransactionAndACachedRowIsKept() {
+        // B-20: a row the list cached meanwhile wins; the new one is cached and sorted at once.
+        dao.insertOrUpdate(chat(1, SENDER).copy(title = "Kept title"))
+
+        val rows = listOf(chat(1, SENDER), chat(2, OTHER))
+        val result = sorter.recompute(setOf(1L), newRows = rows) as SortResult.Applied
+
+        assertThat(result.added).isEqualTo(2)
+        assertThat(dao.getConversationWithThreadId(1)?.title).isEqualTo("Kept title")
+        assertThat(dao.getConversationWithThreadId(2)).isNotNull()
+        assertThat(dao.getSpamList().map { it.threadId }).containsExactly(1L, 2L)
+        assertThat(dao.getMessagesList()).isEmpty()
+    }
+
+    @Test
+    fun aFailedSortCachesNoNewRow() {
+        world.rulesFail = true
+
+        val result = sorter.recompute(newRows = listOf(chat(2, OTHER)))
+
+        assertThat(result).isInstanceOf(SortResult.Failed::class.java)
+        assertThat(dao.getConversationWithThreadId(2)).isNull()
+    }
+
+    @Test
+    fun aSpamTextThatArrivesDuringTheSortKeepsItsCount() {
+        // R12, B-25: the incoming path writes while a rebuild is under way (after its read, before its write).
+        dao.insertOrUpdate(chat(1, SENDER))
+        duringSort = {
+            dao.noteSpamArrival(1, SENDER, SpamCause.UNKNOWN, at = 700L) { a, b -> a == b }
+            dao.noteSpamArrival(9, OTHER, SpamCause.UNKNOWN, at = 700L) { a, b -> a == b }
+            duringSort = {}
+        }
+
+        sorter.recompute()
+
+        assertThat(spamRows().getValue(1).unread).isEqualTo(1)
+        assertThat(spamRows().getValue(1).spamSince).isEqualTo(700L)
+        assertThat(spamRows().getValue(9).unread).isEqualTo(1)
     }
 
     private companion object {

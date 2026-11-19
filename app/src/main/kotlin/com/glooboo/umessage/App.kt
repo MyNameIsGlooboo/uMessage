@@ -38,6 +38,7 @@ import com.glooboo.umessage.messaging.tidyScheduledAttachments
 import com.glooboo.umessage.spam.FirstRun
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.data.PendingSmsQueue
+import com.glooboo.umessage.spam.data.RemovedMembers
 import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.ui.lock.LockActivity
 import com.glooboo.umessage.ui.lock.LockScope
@@ -64,6 +65,8 @@ class App : FossifyApp() {
         DebugStrictMode.install()
         ThemePresets.migrateIfNeeded(this)
         registerActivityLifecycleCallbacks(AppLockGuard)
+        // B-9: the senders the user removed from a group are remembered across starts.
+        RemovedMembers.install(getSharedPreferences(RemovedMembers.PREFS, MODE_PRIVATE))
         registerContactsObserver()
 
         ensureBackgroundThread {
@@ -73,7 +76,8 @@ class App : FossifyApp() {
             rescheduleAllScheduledMessages()
             rearmReminders()
             DailyChecks.arm(this)
-            DailyChecks.runIfDue(this)
+            // B-15: retention and the other daily clean-ups wait for the first run (3.5).
+            if (!ProviderTruthFlag.enabled || FirstRun.state(this).value.allowsFullSort) DailyChecks.runIfDue(this)
             failStaleOutboxMessages()
             // Provider truth (3.5): auto-delete only after the first run; until then the runner's last step does it.
             if (!ProviderTruthFlag.enabled || FirstRun.state(this).value.allowsFullSort) SpamEngine.purgeExpired(this)
