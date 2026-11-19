@@ -259,9 +259,9 @@ abstract class CheckPlayManifestTask : DefaultTask() {
 /**
  * M-B6: keeps the R8 mapping of a release build, so crash traces from builds outside Play (GitHub, F-Droid, a
  * sideloaded APK) can be decoded later. Runs after every bundle<Variant> of a release variant and writes
- * `<bundle name>-mapping.txt` twice: beside the bundle, and into [archiveDir] (app/release-mappings/, not in git),
- * which a clean does not delete. The release workflow attaches the copy beside the bundle to the GitHub release.
- * Not cached: the shared folder is an output of the foss and the gplay task alike.
+ * `<bundle name>-mapping.txt` twice: beside the bundle, and into [archiveDir] (app/release-mappings/<variant>/, not in
+ * git), which a clean does not delete. Each variant has its own folder, so no two tasks share an output. The release
+ * workflow attaches the copy beside the bundle to the GitHub release. Not cached: it only copies one file.
  */
 @org.gradle.work.DisableCachingByDefault(because = "Copies one file")
 abstract class ArchiveMappingTask : DefaultTask() {
@@ -307,7 +307,7 @@ androidComponents {
             description = "Copies the R8 mapping of ${variant.name} beside its app bundle and into release-mappings/."
             mapping.set(variant.artifacts.get(SingleArtifact.OBFUSCATION_MAPPING_FILE))
             bundle.set(variant.artifacts.get(SingleArtifact.BUNDLE))
-            archiveDir.set(layout.projectDirectory.dir("release-mappings"))
+            archiveDir.set(layout.projectDirectory.dir("release-mappings/${variant.name}"))
         }
         tasks.matching { it.name == "bundle$capitalized" }.configureEach { finalizedBy(archiveTask) }
     }
