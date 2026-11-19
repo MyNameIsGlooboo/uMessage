@@ -31,10 +31,13 @@ Log form); `READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED` (Photo and vid
 - Google may ask for: a video of the attach menu, the permission prompt, the strip showing, a tap attaching a picture.
 - Risk: **real**. Google restricts these permissions to apps whose core function needs persistent media access and
   tells apps that pick pictures occasionally to use the photo picker. An SMS app's recent photos strip may be refused.
-- Fallback: remove `READ_MEDIA_IMAGES` and `READ_MEDIA_VISUAL_USER_SELECTED` from the Play build (`tools:node="remove"`
-  in `app/src/gplay/AndroidManifest.xml`), make `RecentPhotosRow` return early in that build, and keep the system
-  photo picker. The earlier 0.4.2 work (`git log -p -- app/src/gplay` and the removed `PlayPermissions.kt`) did exactly
-  that.
+- Override, now in place: the Play (gplay) build does not request these permissions, so no Photo and video form is
+  needed for it. `app/src/gplay/AndroidManifest.xml` removes `READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED` and
+  `READ_EXTERNAL_STORAGE` (`tools:node="remove"`), `RecentPhotosFlavor.AVAILABLE` is false in the gplay source set, so
+  `RecentPhotosRow` returns early and never asks, and the system photo picker stays. The foss build keeps the row.
+  `checkPlayManifestGplayRelease` (build.gradle.kts, run before `bundleGplayRelease`, `assembleGplayRelease` and
+  `check`) fails the build if the merged gplay manifest has INTERNET, ACCESS_NETWORK_STATE or either photo permission.
+  If this form is no longer needed, leave it unanswered or declare "no photo permission" in Play Console.
 
 ## 3. Exact alarms (`SCHEDULE_EXACT_ALARM`)
 

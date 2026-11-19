@@ -1169,11 +1169,13 @@ open class ThreadActivity : ComposeSimpleActivity() {
     private fun addAttachmentsFromIntent() {
         if (intent.extras?.containsKey(THREAD_ATTACHMENT_URI) == true) {
             val uri = intent.getStringExtra(THREAD_ATTACHMENT_URI)?.toUri()
-            if (uri != null && IncomingShareGuard.isAllowed(uri, packageName)) attachmentController.add(uri)
+            if (uri != null && IncomingShareGuard.isAllowed(uri, packageName)) {
+                attachmentController.add(uri, shared = true)
+            }
         } else if (intent.extras?.containsKey(THREAD_ATTACHMENT_URIS) == true) {
             @Suppress("DEPRECATION", "UNCHECKED_CAST")
             (intent.getSerializableExtra(THREAD_ATTACHMENT_URIS) as? ArrayList<Uri>)?.forEach {
-                if (IncomingShareGuard.isAllowed(it, packageName)) attachmentController.add(it)
+                if (IncomingShareGuard.isAllowed(it, packageName)) attachmentController.add(it, shared = true)
             }
         }
     }

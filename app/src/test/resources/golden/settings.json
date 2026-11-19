@@ -1,0 +1,61 @@
+{
+  "app": "spamless",
+  "kind": "settings-backup",
+  "version": 1,
+  "exportedAt": 1700000000000,
+  "modeIncludesSwitch": true,
+  "appVersion": "0.4.14",
+  "rules": [
+    {
+      "kind": "BLOCK",
+      "type": "KEYWORD",
+      "pattern": "free prize",
+      "note": "golden",
+      "createdAt": 1
+    },
+    {
+      "kind": "BLOCK",
+      "type": "KEYWORD",
+      "pattern": "تخفیف ویژه",
+      "note": "",
+      "createdAt": 2
+    },
+    {
+      "kind": "ALLOW",
+      "type": "NUMBER",
+      "pattern": "+15555550100",
+      "note": "",
+      "createdAt": 3
+    }
+  ],
+  "forwardRules": [
+    {
+      "senderType": "NUMBER",
+      "senderPattern": "+15555550101",
+      "bodyType": "KEYWORD",
+      "bodyPattern": "code",
+      "windowStart": 480,
+      "windowEnd": 1200,
+      "targets": [
+        "+15555550100"
+      ],
+      "sendFrom": "SAME",
+      "includeCodes": true,
+      "enabled": false,
+      "note": "golden forward",
+      "createdAt": 4
+    }
+  ],
+  "blockedKeywords": [
+    "lottery"
+  ],
+  "settings": {
+    "spamMode": "SMART",
+    "purgeAfterDays": 14,
+    "notifyOnBlock": true,
+    "dailyForwardLimit": 30,
+    "maskForwardedCodes": true,
+    "sendLongAsMmsAfter": 3,
+    "signature": "golden"
+  }
+}

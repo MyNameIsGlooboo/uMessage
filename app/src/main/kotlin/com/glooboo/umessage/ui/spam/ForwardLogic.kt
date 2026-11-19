@@ -41,17 +41,16 @@ object ForwardTargets {
         return cleaned.takeIf { it.count(Char::isDigit) in MIN_DIGITS..MAX_DIGITS }
     }
 
-    private val localMobile = Regex("09\\d{9}")
-    private val localNormalizer = NumberNormalizer { "IR" }
-
     /**
-     * The target as it is stored (BR-36): a local mobile number in national format is saved with its country code
-     * (national 0 replaced by the code), so the SMS also goes out when the SIM is abroad. Anything else is stored
-     * as [clean] gives it.
+     * The target as it is stored (BR-36): a number written nationally that is a real number of [region] (the country of
+     * the SIM or phone) is saved with its country code, so the SMS also goes out when the SIM is abroad. Anything else
+     * is stored as [clean] gives it. With no [region] known nothing is rewritten: guessing a country would send the
+     * SMS abroad to a stranger.
      */
-    fun stored(raw: String): String? {
+    fun stored(raw: String, region: String? = null): String? {
         val cleaned = clean(raw) ?: return null
-        return if (localMobile.matches(cleaned)) localNormalizer.normalize(cleaned) else cleaned
+        if (region.isNullOrBlank() || cleaned.startsWith("+")) return cleaned
+        return NumberNormalizer { region }.normalize(cleaned)
     }
 
     /** Digits only, for spotting the same number typed twice. */
@@ -103,6 +102,8 @@ data class ForwardForm(
     val targets: List<String> = listOf(""),
     /** This phone's own numbers, when Android shows them; a target equal to one is refused. */
     val ownNumbers: List<String> = emptyList(),
+    /** Country of the SIM or phone, to read national numbers; null when unknown (numbers are then stored as typed). */
+    val region: String? = null,
     val sendFrom: ForwardSim = ForwardSim.SAME,
     val includeCodes: Boolean = false,
     val enabled: Boolean = true,
@@ -145,7 +146,7 @@ data class ForwardForm(
             watchedSender = senderPattern.takeIf { senderType == RuleType.NUMBER && senderError == null },
         )
     val cleanTargets: List<String>
-        get() = targets.mapNotNull { ForwardTargets.stored(it) }.distinctBy { ForwardTargets.key(it) }
+        get() = targets.mapNotNull { ForwardTargets.stored(it, region) }.distinctBy { ForwardTargets.key(it) }
     val noTargets: Boolean get() = targets.none { it.isNotBlank() }
 
     val canAddTarget: Boolean get() = targets.size < ForwardRule.MAX_TARGETS

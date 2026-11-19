@@ -1,5 +1,12 @@
 package com.glooboo.umessage.spam
 
+import java.util.concurrent.Callable
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.RejectedExecutionException
+import java.util.concurrent.SynchronousQueue
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
 import java.util.regex.Pattern
 import java.util.regex.PatternSyntaxException
 
@@ -49,21 +56,86 @@ object RegexGuard {
     /** Outcome of [search]. */
     enum class Outcome { MATCH, NO_MATCH, TIMED_OUT }
 
-    /** Matches a length-capped [body]. Any failure inside the regex engine, a timeout included, counts as "no match". */
+    /** Matches a length-capped [body]. Any failure in the regex engine, a timeout included, counts as "no match". */
     fun find(pattern: Pattern, body: String): Boolean = search(pattern, body) == Outcome.MATCH
 
     /**
      * Matches a length-capped [body] within [timeoutMillis]. [Outcome.TIMED_OUT] means the pattern is too slow and
      * should not be tried again; any other failure inside the regex engine is [Outcome.NO_MATCH].
      */
-    fun search(pattern: Pattern, body: String, timeoutMillis: Long = MAX_MATCH_MILLIS): Outcome = try {
+    fun search(pattern: Pattern, body: String, timeoutMillis: Long = MAX_MATCH_MILLIS): Outcome {
         val capped = if (body.length <= MAX_BODY_CHARS) body else body.substring(0, MAX_BODY_CHARS)
-        val input = DeadlineChars(capped, System.nanoTime() + timeoutMillis * 1_000_000L)
-        if (pattern.matcher(input).find()) Outcome.MATCH else Outcome.NO_MATCH
+        // The clock for the match starts on the worker, when it begins, so thread hand-off is not charged to the rule.
+        return runWithDeadline(timeoutMillis) {
+            matchNow(pattern, capped, System.nanoTime() + timeoutMillis * 1_000_000L)
+        }
+    }
+
+    private fun matchNow(pattern: Pattern, body: String, deadline: Long): Outcome = try {
+        if (pattern.matcher(DeadlineChars(body, deadline)).find()) Outcome.MATCH else Outcome.NO_MATCH
     } catch (_: MatchTimeout) {
         Outcome.TIMED_OUT
     } catch (_: Throwable) {
         Outcome.NO_MATCH
+    }
+
+    /** Most match threads alive at once, stuck ones included; one stuck match holds its thread until it ends. */
+    private const val MAX_WORKERS = 8
+    private const val WORKER_IDLE_SECONDS = 30L
+
+    /** Longest a task may wait for a worker to pick it up; past that it is dropped, never counted as a timeout. */
+    private const val START_WAIT_MILLIS = 2_000L
+
+    /**
+     * Daemon threads that run the matches. Android's regex engine reads its input natively, so no check inside
+     * the match can stop it; the caller waits on a real clock instead and walks away from a stuck thread.
+     *
+     * An abandoned match keeps running, and keeps its thread, until it ends by itself (accepted). This is bounded:
+     * at most [MAX_WORKERS] threads, and [RuleMatcher][com.glooboo.umessage.spam.engine.RuleMatcher] turns a rule off
+     * after 3 timeouts in a row. The pool has no queue: when every thread is stuck, a match is refused instead of
+     * piling up. One core thread stays alive so the usual match needs no thread start.
+     */
+    private val workers = ThreadPoolExecutor(
+        1,
+        MAX_WORKERS,
+        WORKER_IDLE_SECONDS,
+        TimeUnit.SECONDS,
+        SynchronousQueue(),
+    ) { task -> Thread(task, "umessage-regex").apply { isDaemon = true } }.apply { prestartCoreThread() }
+
+    /**
+     * Runs [task] on a worker and waits at most [timeoutMillis], counted from when the worker starts the task, so
+     * thread hand-off never causes a timeout. A task that does not finish in time is abandoned (its thread ends when
+     * the match does) and the result is [Outcome.TIMED_OUT]. When no worker is free, or none picks the task up within
+     * [START_WAIT_MILLIS], the task is not run and the result is [Outcome.NO_MATCH], never [Outcome.TIMED_OUT].
+     */
+    internal fun runWithDeadline(timeoutMillis: Long, task: () -> Outcome): Outcome {
+        val started = CountDownLatch(1)
+        val future = try {
+            workers.submit(
+                Callable {
+                    started.countDown()
+                    task()
+                },
+            )
+        } catch (_: RejectedExecutionException) {
+            return Outcome.NO_MATCH
+        }
+        return try {
+            if (!started.await(START_WAIT_MILLIS, TimeUnit.MILLISECONDS) && future.cancel(false)) {
+                return Outcome.NO_MATCH
+            }
+            future.get(timeoutMillis, TimeUnit.MILLISECONDS)
+        } catch (_: TimeoutException) {
+            future.cancel(false)
+            Outcome.TIMED_OUT
+        } catch (_: InterruptedException) {
+            future.cancel(false)
+            Thread.currentThread().interrupt()
+            Outcome.NO_MATCH
+        } catch (_: Throwable) {
+            Outcome.NO_MATCH
+        }
     }
 
     private class MatchTimeout : RuntimeException() {
@@ -71,8 +143,9 @@ object RegexGuard {
     }
 
     /**
-     * The regex engine reads its input only through [charAt], also while backtracking, so checking the clock there
-     * bounds the whole match. The clock is read every [CHECK_EVERY] reads to keep the overhead small.
+     * On a JVM the regex engine reads its input through [get], also while backtracking, so checking the clock there
+     * ends a stuck match and frees its thread. Android's engine never calls it; [runWithDeadline] covers that.
+     * The clock is read every [CHECK_EVERY] reads to keep the overhead small.
      */
     private class DeadlineChars(
         private val text: String,

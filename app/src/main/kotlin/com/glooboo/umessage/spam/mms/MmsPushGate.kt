@@ -113,8 +113,10 @@ object MmsPushGate {
                 placeholder = probe.copy(body = MMS_BLOCKED_BODY),
                 decision = decision,
                 transactionId = info.transactionId,
-                // Expired, or announced larger than BlockedMmsPolicy allows: nothing is downloaded, the row stays.
+                // Expired, announced larger than BlockedMmsPolicy allows or with no size, or blocked by a user rule:
+                // nothing is downloaded, the row stays.
                 contentLocation = info.contentLocation
+                    .takeIf { BlockedMmsPolicy.reasonAllowed(decision.reason) }
                     .takeIf { info.expiresAt == 0L || info.expiresAt > now }
                     .takeIf { BlockedMmsPolicy.sizeAllowed(info.messageSize) }
                     .orEmpty(),

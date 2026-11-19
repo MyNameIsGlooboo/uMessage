@@ -20,9 +20,13 @@ import java.util.concurrent.TimeUnit
  * Replaces mmslib's PushReceiver in the manifest. Looks at the WAP push (notification-ind) before anything is
  * downloaded: if the sender is blocked, nothing reaches the system inbox. A placeholder lands in the Blocked folder
  * and the MMS is downloaded into uMessage's private storage only ([BlockedMmsDownloader]), so it can be rescued.
- * Everything else is handed unchanged to the library's own PushReceiver, so allowed MMS behave exactly as before.
+ * An allowed MMS is saved and downloaded by [MmsPushDownload] (the result comes back to the manifest [MmsReceiver]);
+ * everything else is handed unchanged to the library's own PushReceiver.
  */
 class MmsPushReceiver : BroadcastReceiver() {
+
+    /** Saves a let-through notification-ind and starts its download; the result reaches the manifest [MmsReceiver]. */
+    internal var pushDownload = MmsPushDownload()
 
     override fun onReceive(context: Context, intent: Intent) {
         val pending = goAsync()
@@ -61,6 +65,9 @@ class MmsPushReceiver : BroadcastReceiver() {
         if (action is MmsPushAction.Block) {
             if (alreadyHandled(action.transactionId) || storeAndDownload(context, action)) return
         }
+        // The download result must wake the app even if it is frozen meanwhile (H8): that is [MmsPushDownload].
+        // Whatever it does not take (reports, bad data, a failure before the push is saved) goes to the library.
+        if (runCatching { pushDownload.handle(context, intent) }.getOrDefault(false)) return
         delegate(context, intent)
         awaitLibraryPushTask()
     }

@@ -26,7 +26,7 @@ Use this for every PR. Tick each box or write why it does not apply. Related doc
 - [ ] Decision order in [FILTER_PIPELINE.md](FILTER_PIPELINE.md) is respected (allow rules, block rules, contacts, unknown-sender mode). The doc is updated when the order or a rule type changes.
 - [ ] The filter fails open: any error delivers the message to the inbox.
 - [ ] Regex rules go through the regex guard; no new catastrophic patterns.
-- [ ] Blocked or held messages are never forwarded and never downloaded as MMS when blocked.
+- [ ] Blocked or held messages are never forwarded. A blocked MMS is downloaded only under `BlockedMmsPolicy` (SE-29): known size up to 1 MiB, not expired, not roaming, under 100 kept, and never when a block rule (number or sender id) blocked it.
 - [ ] New or changed rules have JVM unit tests, including a contact-exempt case and an exact-number case.
 
 ## Verification codes

@@ -20,6 +20,7 @@ import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.spam.engine.SpamEngine
+import com.glooboo.umessage.spam.engine.defaultRegion
 import com.glooboo.umessage.ui.spam.BlockingMigration
 import com.glooboo.umessage.ui.spam.ForwardOwnNumbers
 import com.glooboo.umessage.ui.theme.ThemeChoice
@@ -141,6 +142,9 @@ object SettingsBackup {
                 incoming = if (ForwardingAvailability.isAvailable(app)) content.forwardRules else emptyList(),
                 existing = SpamEngine.forwardRepository(app).currentRules(),
                 ownNumbers = ForwardOwnNumbers.load(app),
+                // The phone's country reads national numbers: SIM, network, locale country, then US. A number that is
+                // not valid there is kept as typed. No IR fallback (H5).
+                region = runCatching { defaultRegion(app) }.getOrNull(),
             )
             val spam = repo.settings.first()
             val current = collectSettings(app, spam)

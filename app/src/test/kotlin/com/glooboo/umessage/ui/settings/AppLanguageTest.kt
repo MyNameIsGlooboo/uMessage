@@ -8,11 +8,15 @@ import com.glooboo.umessage.spam.ForwardRule
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
+import android.app.LocaleManager
+import android.os.LocaleList
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.Robolectric
+import org.robolectric.annotation.Config
 
 /** B16: the in-app language choice, and B3: the restore summary text. */
 @RunWith(AndroidJUnit4::class)
@@ -24,6 +28,22 @@ class AppLanguageTest {
         assertThat(AppLanguage.fromTags("fa")).isEqualTo(AppLanguage.PERSIAN)
         assertThat(AppLanguage.fromTags("en-US,fa")).isEqualTo(AppLanguage.ENGLISH)
         assertThat(AppLanguage.fromTags("sv")).isEqualTo(AppLanguage.SYSTEM)
+    }
+
+    @Test
+    @Config(sdk = [33])
+    fun onAndroid13TheChoiceGoesThroughTheLocaleManagerWithoutAnAppCompatScreen() {
+        val activity = Robolectric.buildActivity(android.app.Activity::class.java).create().get()
+
+        AppLanguage.apply(activity, AppLanguage.PERSIAN)
+
+        val manager = activity.getSystemService(LocaleManager::class.java)
+        assertThat(manager.applicationLocales.toLanguageTags()).isEqualTo("fa")
+        assertThat(AppLanguage.current(activity)).isEqualTo(AppLanguage.PERSIAN)
+
+        AppLanguage.apply(activity, AppLanguage.SYSTEM)
+        assertThat(manager.applicationLocales).isEqualTo(LocaleList.getEmptyLocaleList())
+        assertThat(AppLanguage.current(activity)).isEqualTo(AppLanguage.SYSTEM)
     }
 
     @Test

@@ -6,6 +6,8 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 class RegexGuardTest {
 
@@ -62,6 +64,54 @@ class RegexGuardTest {
         assertTrue("took $elapsedMs ms", elapsedMs < 2_000)
         assertFalse(RegexGuard.find(pattern, "a".repeat(RegexGuard.MAX_BODY_CHARS)))
         assertEquals(RegexGuard.Outcome.MATCH, RegexGuard.search(pattern, "aax"))
+    }
+
+    @Test fun stuckMatchTimesOutOnTheWallClock() {
+        // The task never reads the input, as on Android: only a real wall-clock wait can end the call.
+        val release = CountDownLatch(1)
+        try {
+            val start = System.nanoTime()
+            val outcome = RegexGuard.runWithDeadline(50) {
+                release.await(10, TimeUnit.SECONDS)
+                RegexGuard.Outcome.MATCH
+            }
+            val elapsedMs = (System.nanoTime() - start) / 1_000_000
+            assertEquals(RegexGuard.Outcome.TIMED_OUT, outcome)
+            assertTrue("took $elapsedMs ms", elapsedMs < 2_000)
+        } finally {
+            release.countDown()
+        }
+    }
+
+    @Test fun finishedMatchReturnsItsOutcome() {
+        assertEquals(RegexGuard.Outcome.MATCH, RegexGuard.runWithDeadline(2_000) { RegexGuard.Outcome.MATCH })
+        assertEquals(RegexGuard.Outcome.NO_MATCH, RegexGuard.runWithDeadline(2_000) { RegexGuard.Outcome.NO_MATCH })
+        assertEquals(RegexGuard.Outcome.NO_MATCH, RegexGuard.runWithDeadline(2_000) { error("boom") })
+    }
+
+    @Test fun stuckMatchesCannotExhaustThreads() {
+        val release = CountDownLatch(1)
+        try {
+            // More stuck matches than the pool has threads: the extra ones are refused, not queued or started.
+            val outcomes = List(20) {
+                RegexGuard.runWithDeadline(20) {
+                    release.await(10, TimeUnit.SECONDS)
+                    RegexGuard.Outcome.MATCH
+                }
+            }
+            assertTrue(outcomes.contains(RegexGuard.Outcome.TIMED_OUT))
+            assertTrue(outcomes.contains(RegexGuard.Outcome.NO_MATCH))
+        } finally {
+            release.countDown()
+        }
+        // Once the stuck matches end, the pool serves matches again.
+        val deadline = System.nanoTime() + 5_000_000_000L
+        var outcome = RegexGuard.runWithDeadline(2_000) { RegexGuard.Outcome.MATCH }
+        while (outcome != RegexGuard.Outcome.MATCH && System.nanoTime() < deadline) {
+            Thread.sleep(10)
+            outcome = RegexGuard.runWithDeadline(2_000) { RegexGuard.Outcome.MATCH }
+        }
+        assertEquals(RegexGuard.Outcome.MATCH, outcome)
     }
 
     @Test fun compileReturnsNullForRejectedPatterns() {

@@ -7,6 +7,7 @@ import android.util.Log
 import com.android.mms.transaction.DownloadManager
 import com.google.android.mms.pdu_alt.PduHeaders
 import com.glooboo.umessage.models.Message
+import com.glooboo.umessage.receivers.MmsPushDownload
 
 private const val TAG = "uMessageReceive"
 private const val QUERY_CHUNK = 200
@@ -56,6 +57,9 @@ internal fun Context.queryPendingMms(ids: List<Long>): Map<Long, PendingMms> {
  */
 fun Context.downloadMms(messageId: Long, tracker: MmsDownloadTracker = MmsDownloadTracker.shared): MmsRetryResult {
     val app = applicationContext
+    // A download started by the push is still running: a second one would save the message twice.
+    val running = runCatching { app.queryPendingMms(listOf(messageId))[messageId]?.contentLocation }.getOrNull()
+    if (running != null && MmsPushDownload.isStarted(running)) return MmsRetryResult.AlreadyDownloading
     return retryMmsDownload(
         messageId, tracker, System.currentTimeMillis(),
         lookup = { id -> app.queryPendingMms(listOf(id))[id]?.takeIf { it.contentLocation.isNotEmpty() } },
