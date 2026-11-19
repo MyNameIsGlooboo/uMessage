@@ -257,26 +257,33 @@ abstract class CheckPlayManifestTask : DefaultTask() {
 }
 
 /**
- * M-B6: copies the R8 mapping of a release build beside its app bundle, as `<bundle name>-mapping.txt`, so crash traces
- * from builds outside Play (GitHub, F-Droid, a sideloaded APK) can be decoded later. Runs after every bundle<Variant>
- * of a release variant; the release workflow attaches the file to the GitHub release.
+ * M-B6: keeps the R8 mapping of a release build, so crash traces from builds outside Play (GitHub, F-Droid, a
+ * sideloaded APK) can be decoded later. Runs after every bundle<Variant> of a release variant and writes
+ * `<bundle name>-mapping.txt` twice: beside the bundle, and into [archiveDir] (app/release-mappings/, not in git),
+ * which a clean does not delete. The release workflow attaches the copy beside the bundle to the GitHub release.
+ * Not cached: the shared folder is an output of the foss and the gplay task alike.
  */
+@org.gradle.work.DisableCachingByDefault(because = "Copies one file")
 abstract class ArchiveMappingTask : DefaultTask() {
     @get:InputFile
     @get:PathSensitive(PathSensitivity.NONE)
     abstract val mapping: RegularFileProperty
 
-    /** Only orders this after the bundle is written; the bundle itself is not read. */
+    /** Gives the name, and orders this after the bundle is written; the bundle's content is not read. */
     @get:InputFile
-    @get:PathSensitive(PathSensitivity.NONE)
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
     abstract val bundle: RegularFileProperty
 
-    @get:OutputFile
-    abstract val archived: RegularFileProperty
+    @get:OutputDirectory
+    abstract val archiveDir: DirectoryProperty
 
     @TaskAction
     fun archive() {
-        mapping.get().asFile.copyTo(archived.get().asFile, overwrite = true)
+        val bundleFile = bundle.get().asFile
+        val name = bundleFile.nameWithoutExtension + "-mapping.txt"
+        val source = mapping.get().asFile
+        source.copyTo(File(bundleFile.parentFile, name), overwrite = true)
+        source.copyTo(archiveDir.get().file(name).asFile, overwrite = true)
     }
 }
 
@@ -295,13 +302,12 @@ fun ResolvedComponentResult.allComponentIds(): List<String> {
 androidComponents {
     onVariants(selector().withBuildType("release")) { variant ->
         val capitalized = variant.name.replaceFirstChar { it.uppercase() }
-        val bundleName = "${base.archivesName.get()}-${variant.flavorName}-${variant.buildType}"
         val archiveTask = tasks.register<ArchiveMappingTask>("archiveMapping$capitalized") {
             group = "build"
-            description = "Copies the R8 mapping of ${variant.name} beside its app bundle."
+            description = "Copies the R8 mapping of ${variant.name} beside its app bundle and into release-mappings/."
             mapping.set(variant.artifacts.get(SingleArtifact.OBFUSCATION_MAPPING_FILE))
             bundle.set(variant.artifacts.get(SingleArtifact.BUNDLE))
-            archived.set(layout.buildDirectory.file("outputs/bundle/${variant.name}/$bundleName-mapping.txt"))
+            archiveDir.set(layout.projectDirectory.dir("release-mappings"))
         }
         tasks.matching { it.name == "bundle$capitalized" }.configureEach { finalizedBy(archiveTask) }
     }

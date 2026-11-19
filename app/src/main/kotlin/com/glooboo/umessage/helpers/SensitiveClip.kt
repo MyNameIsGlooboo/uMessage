@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Build
 import android.os.PersistableBundle
 import com.glooboo.umessage.R
+import org.fossify.commons.extensions.toast
 
 /**
  * I15 and I25: copies of private text are marked sensitive (Android 13+ then hides them from the clipboard preview).
@@ -38,11 +39,22 @@ object SensitiveClip {
     }
 
     /**
-     * Marks what was just copied through another path as sensitive. The clip label is the app name, never [text]:
-     * the sensitive flag does not cover the label, and clipboard previews and managers show it (M-SEC5).
+     * Copies [text] as sensitive under [genericLabel], never [text] itself: the sensitive flag does not cover the
+     * label, and clipboard previews and managers show it (M-SEC5). This is the only write; nothing else may put
+     * [text] on the clipboard first.
      */
     fun mark(context: Context, text: String) {
         copy(context, genericLabel(context), text)
+    }
+
+    /**
+     * [mark] with a confirmation that does not repeat [text]: a generic toast below Android 13, where the system shows
+     * none; Android 13+ confirms copies itself. False if the system refused the write.
+     */
+    fun copyPrivately(context: Context, text: String, sdkInt: Int = Build.VERSION.SDK_INT): Boolean {
+        if (!copy(context, genericLabel(context), text)) return false
+        if (sdkInt < Build.VERSION_CODES.TIRAMISU) context.toast(org.fossify.commons.R.string.value_copied_to_clipboard)
+        return true
     }
 
     /** A label that says nothing about the copied text. */

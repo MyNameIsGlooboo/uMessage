@@ -216,6 +216,37 @@ class ScheduledAttachmentsTest {
         assertThat(nextRepeat.exists()).isTrue()
     }
 
+    @Test
+    fun aSendThatClaimsTheRowBetweenTheCheckAndTheWriteIsNotOverwritten() {
+        // M-P7: the tidy read the row while it was queued; a send claimed it (queued to outbox) before the write.
+        val photo = pickedPhoto()
+        val snapshot = scheduled(Uri.fromFile(photo))
+        offMainThread { context.messagesDB.insertOrUpdate(snapshot) }
+        assertThat(offMainThread { ScheduledSendClaims.claim(context, 7001L) }).isTrue()
+        // Released, so only the database guard stands between the tidy and the claimed row.
+        ScheduledSendClaims.release(7001L)
+
+        offMainThread { context.adoptScheduledAttachments(snapshot) }
+
+        val row = offMainThread { context.messagesDB.getAllScheduledMessages() }.single()
+        assertThat(row.type).isEqualTo(Telephony.Sms.MESSAGE_TYPE_OUTBOX)
+        assertThat(row.attachment!!.attachments.single().getUri()).isEqualTo(Uri.fromFile(photo))
+        assertThat(File(keptRoot, "7001").exists()).isFalse()
+    }
+
+    @Test
+    fun aRowDeletedAfterTheSnapshotIsNotCreatedAgainAndItsNewCopiesGo() {
+        // M-P7: the tidy read the row, then the send finished and deleted it.
+        val snapshot = scheduled(Uri.fromFile(pickedPhoto()))
+        offMainThread { context.messagesDB.insertOrUpdate(snapshot) }
+        offMainThread { context.messagesDB.deleteScheduledMessage(7001L) }
+
+        offMainThread { context.adoptScheduledAttachments(snapshot) }
+
+        assertThat(offMainThread { context.messagesDB.getAllScheduledMessages() }).isEmpty()
+        assertThat(File(keptRoot, "7001").exists()).isFalse()
+    }
+
     /**
      * Serves files/<path> like the app's FileProvider does for its `scheduled_attachments` root. The real one is not
      * used: its path matching expects "/" separators and fails on a Windows test machine.

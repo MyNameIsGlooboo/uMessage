@@ -125,10 +125,9 @@ fun Context.deleteScheduledAttachments(messageId: Long) {
  * each pending one is copied now while the uri may still be readable (one that is not stays as it is, and its send
  * is held with a notification when its time comes). Copies left by messages that no longer exist are deleted.
  *
- * M-P7: an alarm can send a scheduled message while this runs. A message being sent is left alone, only the
- * attachment column is written (so a row sent and deleted meanwhile is never written back), and the folders are swept
- * only when no send runs, against the ids read again just before, and never a folder that was just written: a
- * repeat's next copy gets its folder before its row is saved.
+ * M-P7: an alarm can send a scheduled message while this runs. See [adoptScheduledAttachments] for the copy; the
+ * folders are swept only when no send runs, against the ids read again just before, and never a folder that was just
+ * written: a repeat's next copy gets its folder before its row is saved.
  */
 fun Context.tidyScheduledAttachments(nowMillis: Long = System.currentTimeMillis()) {
     val scheduled = try {
@@ -138,16 +137,8 @@ fun Context.tidyScheduledAttachments(nowMillis: Long = System.currentTimeMillis(
     }
 
     scheduled
-        .filter { it.type != Telephony.Sms.MESSAGE_TYPE_FAILED && !ScheduledSendClaims.isInFlight(it.id) }
-        .filter { hasExternalScheduledAttachments(it) }
-        .forEach { message ->
-            runCatching {
-                val kept = keepScheduledAttachments(message)
-                if (messagesDB.updateScheduledAttachment(message.id, kept.attachment) == 0) {
-                    deleteScheduledAttachments(message.id) // sent or deleted meanwhile
-                }
-            }
-        }
+        .filter { it.type == Telephony.Sms.MESSAGE_TYPE_QUEUED && hasExternalScheduledAttachments(it) }
+        .forEach { message -> runCatching { adoptScheduledAttachments(message) } }
 
     if (ScheduledSendClaims.anyInFlight()) return // the next start sweeps
     val ids = try {
@@ -159,6 +150,27 @@ fun Context.tidyScheduledAttachments(nowMillis: Long = System.currentTimeMillis(
         ?.filter { it.name !in ids && nowMillis - it.lastModified() > RECENT_FOLDER_MILLIS }
         ?.forEach { it.deleteRecursively() }
 }
+
+/**
+ * Copies the attachments of [message], a snapshot of a queued scheduled row, into private storage and points the row
+ * at the copies. M-P7: a message a send owns is left alone, checked again before the copy and before the write, and
+ * the write touches only the attachment column of a row that is still queued. When it does not land (the row was
+ * claimed, held or deleted meanwhile), the copies made here are deleted again; copies the row already used stay.
+ */
+internal fun Context.adoptScheduledAttachments(message: Message) {
+    if (ScheduledSendClaims.isInFlight(message.id)) return
+    val ownBefore = keptFilesOf(message)
+    val kept = keepScheduledAttachments(message)
+    val written = !ScheduledSendClaims.isInFlight(message.id) &&
+        messagesDB.updateQueuedScheduledAttachment(message.id, kept.attachment) > 0
+    if (!written) {
+        (keptFilesOf(kept) - ownBefore).forEach { it.delete() }
+        scheduledAttachmentsDir(message.id).delete() // only when empty
+    }
+}
+
+private fun Context.keptFilesOf(message: Message): Set<File> =
+    message.attachment?.attachments.orEmpty().mapNotNull { keptFileOf(it.getUri(), message.id) }.toSet()
 
 /** A copies folder younger than this may belong to a scheduled message whose row is about to be saved. */
 private const val RECENT_FOLDER_MILLIS = 10 * 60_000L

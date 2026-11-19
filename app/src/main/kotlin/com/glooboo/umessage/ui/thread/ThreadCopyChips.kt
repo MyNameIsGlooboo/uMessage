@@ -28,7 +28,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.icons.Symbols
-import org.fossify.commons.extensions.toast
 import com.glooboo.umessage.helpers.SensitiveClip
 
 /** The value is Latin or digits inside possibly right-to-left text: isolate it so it keeps its own direction. */
@@ -94,6 +93,5 @@ internal fun CopyChips(body: String, modifier: Modifier = Modifier) {
  * itself.
  */
 internal fun copyChipValue(context: Context, value: String, sdkInt: Int = Build.VERSION.SDK_INT) {
-    if (!SensitiveClip.copy(context, SensitiveClip.genericLabel(context), value)) return
-    if (sdkInt < Build.VERSION_CODES.TIRAMISU) context.toast(org.fossify.commons.R.string.value_copied_to_clipboard)
+    SensitiveClip.copyPrivately(context, value, sdkInt)
 }
