@@ -31,6 +31,9 @@ class FirstRunRunnerTest {
         /** The table the lists read: written only by the sort. */
         var published = false
 
+        /** Sorts that ran, kept when a test clears [calls]. */
+        var sorts = 0
+
         private fun call(name: String) {
             if (killAt == name) {
                 killAt = null
@@ -48,7 +51,8 @@ class FirstRunRunnerTest {
 
         override fun historyCheck(): HistoryResult? {
             call("history")
-            assertThat(published).isFalse()
+            // Nothing is published before the first pass's sort; a later pass checks again on a published table.
+            if (sorts == 0) assertThat(published).isFalse()
             if (failHistory > 0) {
                 failHistory--
                 return null
@@ -58,6 +62,7 @@ class FirstRunRunnerTest {
 
         override fun sort(): SortResult {
             call("sort")
+            sorts++
             if (failSort > 0) {
                 failSort--
                 return SortResult.Failed("contacts")
