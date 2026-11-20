@@ -1,5 +1,6 @@
 package com.glooboo.umessage.activities
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
@@ -16,6 +17,7 @@ import com.glooboo.umessage.extensions.getPrivateContactsIfAvailable
 import com.glooboo.umessage.extensions.getSuggestedContacts
 import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.helpers.HiddenChats
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.SmsIntentParser
 import com.glooboo.umessage.helpers.THREAD_ATTACHMENT_URI
 import com.glooboo.umessage.helpers.THREAD_ATTACHMENT_URIS
@@ -26,6 +28,7 @@ import com.glooboo.umessage.helpers.THREAD_TITLE
 import com.glooboo.umessage.helpers.stripControlCharacters
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
 import com.glooboo.umessage.models.Conversation
+import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.ui.components.displayTitle
 import com.glooboo.umessage.ui.newconversation.GroupRecipient
 import com.glooboo.umessage.ui.newconversation.NewConversationScreen
@@ -93,13 +96,20 @@ class NewConversationActivity : ComposeSimpleActivity() {
         if (isShare) loadRecentChats()
     }
 
-    /** The saved chat list the main screen shows, read off the main thread; chats hidden by the lock stay out. */
+    /**
+     * The saved chat list the main screen shows, read off the main thread; chats hidden by the lock stay out. U9
+     * (provider truth): the Messages list itself, so no chat in Spam is offered as a share target.
+     */
     private fun loadRecentChats() {
         lifecycleScope.launch {
             recentChats = withContext(Dispatchers.IO) {
                 runCatching {
-                    HiddenChats.get(this@NewConversationActivity)
-                        .withoutHidden(conversationsDB.getNonArchived()) { it.threadId }
+                    val chats = if (ProviderTruthFlag.enabled) {
+                        conversationsDB.getMessagesList()
+                    } else {
+                        conversationsDB.getNonArchived()
+                    }
+                    HiddenChats.get(this@NewConversationActivity).withoutHidden(chats) { it.threadId }
                 }.onFailure { Log.w("NewConversation", "Recent chats not loaded", it) }.getOrDefault(emptyList())
             }
         }
@@ -172,7 +182,7 @@ class NewConversationActivity : ComposeSimpleActivity() {
             val loadedContacts = withContext(Dispatchers.IO) {
                 val privateContacts = getPrivateContactsIfAvailable()
                 val suggested = runCatching {
-                    getSuggestedContacts(privateContacts).filter { it.phoneNumbers.isNotEmpty() }
+                    withoutSpamSenders(getSuggestedContacts(privateContacts).filter { it.phoneNumbers.isNotEmpty() })
                 }.getOrDefault(emptyList())
                 val phoneContacts = if (canReadContacts) loadPhoneContacts(this@NewConversationActivity) else emptyList()
                 // Whole contacts, not first numbers: people sharing a landline stay separate. A private contact is
@@ -250,5 +260,19 @@ class NewConversationActivity : ComposeSimpleActivity() {
 
             startActivity(this)
         }
+    }
+}
+
+/**
+ * U9 (provider truth): the recent senders offered as suggestions leave out the senders of chats in Spam. Blocking;
+ * throws when Spam cannot be read, and then no suggestion shows.
+ */
+internal fun Context.withoutSpamSenders(suggested: List<SimpleContact>): List<SimpleContact> {
+    if (!ProviderTruthFlag.enabled || suggested.isEmpty()) return suggested
+    val senders = conversationsDB.getValidSpamThreads().map { it.sender }
+    if (senders.isEmpty()) return suggested
+    val readers = SpamThreads.readers(this)
+    return suggested.filterNot { contact ->
+        contact.phoneNumbers.any { number -> senders.any { SpamThreads.same(readers, it, number.normalizedNumber) } }
     }
 }

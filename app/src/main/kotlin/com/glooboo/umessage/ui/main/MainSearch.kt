@@ -232,6 +232,9 @@ class MainSearchState {
     /** main-22: the senders of blocked (spam) messages that hold [query]; the page lists them under "Blocked". */
     internal var blockedHits by mutableStateOf<List<BlockedHit>>(emptyList())
 
+    /** Provider truth (U9): the Spam chat each row of [blockedHits] opens, by [BlockedHit.address]. */
+    internal var spamTargets by mutableStateOf<Map<String, SearchResult>>(emptyMap())
+
     /** N11: the filter picked with a tile. It outlives the search: the inbox keeps showing it. */
     var filter by mutableStateOf(InboxFilter.All)
 
@@ -251,5 +254,6 @@ class MainSearchState {
         results = emptyList()
         noteHits = emptyList()
         blockedHits = emptyList()
+        spamTargets = emptyMap()
     }
 }

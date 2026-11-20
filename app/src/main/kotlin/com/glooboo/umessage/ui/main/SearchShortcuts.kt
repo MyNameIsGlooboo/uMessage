@@ -81,9 +81,11 @@ internal object SearchShortcuts {
             }.getOrElse { ShortcutHits(filter, loaded = true) }
         }
 
-    /** B06: the messages of [candidates] that do not belong to a hidden chat. */
-    private fun visible(app: Context, candidates: List<Message>): List<Message> =
-        HiddenChats.get(app).withoutHidden(candidates) { it.threadId }
+    /** B06: the messages of [candidates] that do not belong to a hidden chat, nor (U9) to a chat in Spam. */
+    private fun visible(app: Context, candidates: List<Message>): List<Message> {
+        val shown = HiddenChats.get(app).withoutHidden(candidates) { it.threadId }
+        return SpamReaders.without(shown, SpamReaders.threadIds(app)) { it.threadId }
+    }
 
     private fun unknown(app: Context, rows: List<ConversationRow>): ShortcutHits {
         val checker = contactChecker(app)
@@ -103,7 +105,8 @@ internal object SearchShortcuts {
 
     private suspend fun starred(app: Context, byThread: Map<Long, ConversationRow>): ShortcutHits {
         StarredMessages.relink(app)
-        val stars = HiddenChats.get(app).withoutHidden(app.starredDB.getAll()) { it.threadId }
+        val visible = HiddenChats.get(app).withoutHidden(app.starredDB.getAll()) { it.threadId }
+        val stars = SpamReaders.without(visible, SpamReaders.threadIds(app)) { it.threadId }
         val hits = stars.map { starHit(app, it, byThread[it.threadId]) }
         val threads = stars.mapTo(HashSet()) { it.threadId }
         val gone = threads.filterTo(HashSet()) { app.conversationsDB.getConversationWithThreadId(it) == null }

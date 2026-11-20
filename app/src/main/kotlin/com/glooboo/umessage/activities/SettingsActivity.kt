@@ -365,7 +365,14 @@ class SettingsActivity : ComposeSimpleActivity() {
             onOpenForwardRules = {
                 if (ForwardingAvailability.isAvailable(this)) startActivity(ForwardingActivity.intent(this))
             },
-            onOpenBlocked = { open(BlockedMessagesActivity::class.java) },
+            onOpenBlocked = {
+                // Provider truth: the old Spam list is not opened any more; Spam is the main screen's tab.
+                if (com.glooboo.umessage.helpers.ProviderTruthFlag.enabled) {
+                    startActivity(MainTabLinks.intent(this, MainTabLinks.TAB_BLOCKED))
+                } else {
+                    open(BlockedMessagesActivity::class.java)
+                }
+            },
             onOpenDecisionLog = { open(DecisionLogActivity::class.java) },
             onOpenBlockedNumbers = { open(BlockedNumbersActivity::class.java) },
             onOpenBlockedKeywords = { open(ManageBlockedKeywordsActivity::class.java) },

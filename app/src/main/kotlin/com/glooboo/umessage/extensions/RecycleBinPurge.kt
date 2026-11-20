@@ -9,21 +9,32 @@ import org.fossify.commons.extensions.notificationManager
 /**
  * "Delete forever" for chats in the Recycle Bin folder: removes only the messages of those chats that are in the bin
  * (the bin entries and their provider messages). The chat's other messages stay; the chat itself goes only when
- * nothing is left of it. B2-9: a chat whose purge stopped (not the default app) is not tidied.
+ * nothing is left of it. B2-9: a chat whose purge stopped (not the default app) is not tidied. B3-5: returns the
+ * first result that is not [DeleteResult.DELETED] (only with ProviderTruthFlag on), so the screen can say why.
  */
-fun Context.deleteRecycleBinMessagesOfConversations(threadIds: Iterable<Long>) {
+fun Context.deleteRecycleBinMessagesOfConversations(threadIds: Iterable<Long>): DeleteResult {
+    var first = DeleteResult.DELETED
     for (threadId in threadIds) {
-        if (emptyMessagesRecycleBinForConversation(threadId) == DeleteResult.DELETED) {
+        val result = emptyMessagesRecycleBinForConversation(threadId)
+        if (result == DeleteResult.DELETED) {
             tidyConversationAfterBinPurge(threadId)
+        } else if (first == DeleteResult.DELETED) {
+            first = result
         }
     }
+    return first
 }
 
-/** Empties the whole bin, then tidies the chats it emptied (see [deleteRecycleBinMessagesOfConversations]). */
-fun Context.emptyRecycleBinAndTidyConversations() {
+/**
+ * Empties the whole bin, then tidies the chats it emptied (see [deleteRecycleBinMessagesOfConversations]). B3-5:
+ * returns why it stopped, or [DeleteResult.DELETED].
+ */
+fun Context.emptyRecycleBinAndTidyConversations(): DeleteResult {
     val threadIds = messagesDB.getAllRecycleBinMessages().mapTo(HashSet()) { it.threadId }
-    if (emptyMessagesRecycleBin() != DeleteResult.DELETED) return
+    val result = emptyMessagesRecycleBin()
+    if (result != DeleteResult.DELETED) return result
     threadIds.forEach { tidyConversationAfterBinPurge(it) }
+    return result
 }
 
 /**

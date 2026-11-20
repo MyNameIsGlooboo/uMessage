@@ -15,18 +15,34 @@ data class WeeklyDigest(val held: Int, val important: Int) {
         const val WEEK_MS = 7L * 24 * 60 * 60 * 1000
 
         /** The digest of [blocked] as of [nowMillis]. Messages that arrived earlier than a week ago do not count. */
-        fun compute(blocked: List<BlockedMessageEntity>, nowMillis: Long): WeeklyDigest {
-            val recent = blocked.filter { it.receivedAt >= nowMillis - WEEK_MS && it.receivedAt <= nowMillis }
+        fun compute(blocked: List<BlockedMessageEntity>, nowMillis: Long): WeeklyDigest =
+            computeTexts(blocked.map { SpamText(it.address, it.body, it.receivedAt) }, nowMillis)
+
+        /**
+         * Provider truth (section 5): the digest of the received [texts] of the chats in Spam, as of [nowMillis]. Only
+         * texts of the last week count, and of those only the ones that arrived while their chat was in Spam
+         * ([SpamText.since]); the wording stays as it is for now (U18).
+         */
+        fun computeTexts(texts: List<SpamText>, nowMillis: Long): WeeklyDigest {
+            val recent = texts.filter {
+                it.receivedAt >= nowMillis - WEEK_MS && it.receivedAt <= nowMillis && it.receivedAt >= it.since
+            }
             return WeeklyDigest(held = recent.size, important = recent.count(::looksImportant))
         }
 
         /** Codes (also with a link) and bank alerts without a link: phishing copies the latter (see Blocked tab). */
-        private fun looksImportant(message: BlockedMessageEntity): Boolean =
-            OtpDetector.looksLikeOtp(message.body) ||
+        private fun looksImportant(text: SpamText): Boolean =
+            OtpDetector.looksLikeOtp(text.body) ||
                 (
-                    !OtpDetector.containsUrl(message.body) &&
-                        MessageCategories.classify(message.address, message.body, isContact = false) ==
+                    !OtpDetector.containsUrl(text.body) &&
+                        MessageCategories.classify(text.address, text.body, isContact = false) ==
                         MessageCategory.Transactions
                     )
     }
+
+    /**
+     * One received text the digest counts: who sent it, its text and when it arrived (milliseconds). [since] is when
+     * its chat entered Spam; a text from before does not count. Held only while the digest is counted.
+     */
+    data class SpamText(val address: String, val body: String, val receivedAt: Long, val since: Long = 0L)
 }

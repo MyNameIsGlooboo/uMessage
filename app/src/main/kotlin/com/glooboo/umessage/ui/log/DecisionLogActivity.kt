@@ -61,6 +61,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionRuleText
@@ -150,7 +151,9 @@ private fun DecisionLogRoute(onBack: () -> Unit) {
     DecisionLogScreen(
         entries = entries,
         logContext = LogContext(rules, forwardRules, sims),
-        blocked = blocked,
+        // Provider truth (section 5): spam is in the phone's store and a chat leaves Spam by "Not spam" (the row's
+        // Allow fix); the old held rows wait for their migration, so the old restore card is not offered.
+        blocked = if (ProviderTruthFlag.enabled) emptyList() else blocked,
         snackbarHostState = snackbar,
         onBack = onBack,
         onFix = { entry, allow -> scope.launch { actions.fix(entry, allow) } },

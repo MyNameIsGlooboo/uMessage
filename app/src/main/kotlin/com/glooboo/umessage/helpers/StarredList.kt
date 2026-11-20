@@ -9,6 +9,7 @@ import com.glooboo.umessage.models.MessageKey
 import com.glooboo.umessage.models.StarredListRow
 import com.glooboo.umessage.spam.TextNormalizer
 import com.glooboo.umessage.ui.components.displayTitle as formatTitle
+import com.glooboo.umessage.ui.main.SpamReaders
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -108,11 +109,15 @@ object StarredList {
         }
     }
 
-    /** Reads up to [limit] stars with their chats and notes. Stars of hidden chats stay out, like in search. */
+    /**
+     * Reads up to [limit] stars with their chats and notes. Stars of hidden chats stay out, like in search, and (U9)
+     * so do the stars of chats in Spam: they show only in their chat.
+     */
     suspend fun load(context: Context, limit: Int = PAGE): StarredPage = withContext(Dispatchers.IO) {
         val app = context.applicationContext
         val rows = app.starredDB.getListRows(limit + 1)
-        val visible = HiddenChats.get(app).withoutHidden(rows.take(limit)) { it.threadId }
+        val shown = HiddenChats.get(app).withoutHidden(rows.take(limit)) { it.threadId }
+        val visible = SpamReaders.without(shown, SpamReaders.threadIds(app)) { it.threadId }
         val chats = visible.map { it.threadId }.distinct().mapNotNull { id ->
             app.conversationsDB.getConversationWithThreadId(id)
         }.associateBy { it.threadId }

@@ -2,6 +2,7 @@ package com.glooboo.umessage.ui.spam
 
 import android.content.Context
 import android.provider.Telephony.Sms
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.SpamRule
@@ -10,6 +11,7 @@ import com.glooboo.umessage.spam.engine.RuleMatcher
 import com.glooboo.umessage.spam.engine.defaultRegion
 import com.glooboo.umessage.spam.engine.subscriptionRegion
 import com.glooboo.umessage.ui.lock.LockScope
+import com.glooboo.umessage.ui.main.SpamReaders
 import org.fossify.commons.extensions.appLockManager
 
 /**
@@ -41,6 +43,9 @@ object RuleDryRun {
     /** Newest messages tried in each place, so a big inbox never makes the preview slow. */
     const val MAX_SCAN = 100
     const val MAX_EXAMPLES = 3
+
+    /** Received texts read at most to find those of one place (Messages or Spam), so a big store stays quick. */
+    const val MAX_READ = 5_000
 
     /**
      * How many of the newest [cap] [messages] (given newest first) [rule] matches, with up to [MAX_EXAMPLES] different
@@ -92,8 +97,18 @@ object RuleDryRun {
 interface RulePreviewSource {
     fun matcher(): RuleMatcher
 
-    /** The newest received texts, newest first, at most [limit]. Empty when the inbox cannot be read. */
+    /**
+     * The newest received texts, newest first, at most [limit]. Empty when the inbox cannot be read. Provider truth
+     * (section 5): the texts of the chats in Messages only; those of Spam chats are [spam].
+     */
     fun inbox(limit: Int): List<DryRunMessage>
+
+    /**
+     * Provider truth (section 5): the newest received texts of the chats in Spam, newest first, at most [limit]; they
+     * stand for the Blocked history, since spam now lives in the phone's store. Empty while ProviderTruthFlag is off
+     * and when they cannot be read.
+     */
+    fun spam(limit: Int): List<DryRunMessage> = emptyList()
 
     /** False while the app lock covers Blocked and is locked: counts stay, example senders are not shown. */
     fun blockedSendersVisible(): Boolean
@@ -114,10 +129,26 @@ class AndroidRulePreviewSource(context: Context) : RulePreviewSource {
     )
 
     override fun inbox(limit: Int): List<DryRunMessage> = runCatching {
+        // A failed read of Spam reads nothing, so a Spam sender is never shown as an inbox example.
+        val spam = SpamReaders.threadIds(app)
+        received(limit) { it !in spam }
+    }.getOrDefault(emptyList())
+
+    override fun spam(limit: Int): List<DryRunMessage> = runCatching {
+        if (!ProviderTruthFlag.enabled) return@runCatching emptyList()
+        val spam = SpamReaders.threadIds(app)
+        if (spam.isEmpty()) emptyList() else received(limit) { it in spam }
+    }.getOrDefault(emptyList())
+
+    /**
+     * The newest received texts whose chat [keep] says yes to, newest first, at most [limit], among the newest
+     * [RuleDryRun.MAX_READ] received texts.
+     */
+    private fun received(limit: Int, keep: (threadId: Long) -> Boolean): List<DryRunMessage> {
         val out = ArrayList<DryRunMessage>()
         app.contentResolver.query(
             Sms.Inbox.CONTENT_URI,
-            arrayOf(Sms.ADDRESS, Sms.BODY, Sms.SUBSCRIPTION_ID),
+            arrayOf(Sms.ADDRESS, Sms.BODY, Sms.SUBSCRIPTION_ID, Sms.THREAD_ID),
             null,
             null,
             "${Sms.DATE} DESC",
@@ -125,14 +156,17 @@ class AndroidRulePreviewSource(context: Context) : RulePreviewSource {
             val address = cursor.getColumnIndexOrThrow(Sms.ADDRESS)
             val body = cursor.getColumnIndexOrThrow(Sms.BODY)
             val sub = cursor.getColumnIndexOrThrow(Sms.SUBSCRIPTION_ID)
-            while (out.size < limit && cursor.moveToNext()) {
+            val thread = cursor.getColumnIndexOrThrow(Sms.THREAD_ID)
+            var read = 0
+            while (out.size < limit && read++ < RuleDryRun.MAX_READ && cursor.moveToNext()) {
+                if (!keep(cursor.getLong(thread))) continue
                 out += DryRunMessage(
                     cursor.getString(address).orEmpty(), cursor.getString(body).orEmpty(), cursor.getInt(sub)
                 )
             }
         }
-        out
-    }.getOrDefault(emptyList())
+        return out
+    }
 
     override fun blockedSendersVisible(): Boolean =
         runCatching { !(LockScope.blockedLocked(app) && app.appLockManager.isLocked()) }.getOrDefault(false)

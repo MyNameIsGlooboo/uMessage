@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.HiddenChatsSession
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.SearchHistoryPrefs
 import com.glooboo.umessage.models.SearchResult
 import com.glooboo.umessage.ui.conversations.ConversationRow
@@ -155,8 +156,13 @@ internal fun MainSearchPage(
                 },
                 onOpenBlocked = { address ->
                     saveRecent(search.query)
-                    // The thread asks for the app lock itself when it covers the Blocked screens.
-                    context.startActivity(BlockedThreadActivity.intent(context, address))
+                    if (ProviderTruthFlag.enabled) {
+                        // U9, U1: the Spam chat itself; its screen asks for the app lock when that covers Spam.
+                        search.spamTargets[address]?.let(onOpenResult)
+                    } else {
+                        // The thread asks for the app lock itself when it covers the Blocked screens.
+                        context.startActivity(BlockedThreadActivity.intent(context, address))
+                    }
                 },
             )
             SearchResultsPanel(search, rows, shortcut, resultsListState, recent, simTiles, actions)
