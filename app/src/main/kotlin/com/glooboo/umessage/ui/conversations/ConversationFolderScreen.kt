@@ -117,8 +117,8 @@ enum class ConversationFolder(
 /**
  * Provider truth (4.2): what the Spam folder offers instead of "bring back". [selection] says which actions the chosen
  * chats allow (a mixed choice only Delete and Mark as read); [swipeFor] is the one swipe direction of a row ("Not spam"
- * or "Unblock" by its cause). [deleteOffReason] is the reason Delete is off now (not the default SMS app), null while
- * it works: Delete is then shown off, says why on a tap, and asks nothing (C-18).
+ * or "Unblock" by its cause). [deleteOff] is the reason Delete is off now (not the default SMS app), null while it
+ * works: Delete is then shown off, says why on a tap, and asks nothing (C-18). A value, so a change redraws (E-2).
  */
 class SpamFolderActions(
     val selection: (Set<Long>) -> SpamSelection,
@@ -126,7 +126,7 @@ class SpamFolderActions(
     val onUnblock: (Set<Long>) -> Unit,
     val onBlock: (Set<Long>) -> Unit,
     val onMarkRead: (Set<Long>) -> Unit,
-    val deleteOffReason: () -> Int?,
+    val deleteOff: Int?,
     val swipeFor: (ConversationRow) -> SwipeAction?,
 )
 
@@ -224,7 +224,7 @@ fun ConversationFolderScreen(
     val scope = rememberCoroutineScope()
     val resources = LocalResources.current
     val askDelete = { ids: Set<Long> ->
-        val off = spam?.deleteOffReason?.invoke()
+        val off = spam?.deleteOff
         if (off == null) {
             confirmDelete = ids
         } else {
@@ -330,7 +330,7 @@ private fun FolderSelectionBar(
         }
         spam?.let { SpamSelectionButtons(it, chosen, onClose) }
         // C-18: while Delete is off it looks off and says why as its state; a tap tells the reason.
-        val off = spam?.deleteOffReason?.invoke()?.let { stringResource(it) }
+        val off = spam?.deleteOff?.let { stringResource(it) }
         IconButton(
             onClick = onDelete,
             modifier = if (off == null) {

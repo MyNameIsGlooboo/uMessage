@@ -20,6 +20,7 @@ import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.BlockReceipt
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamSorting
+import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.RuleNotes
 import com.glooboo.umessage.ui.spam.SenderBlocking
@@ -179,13 +180,19 @@ internal class MessagesSpamMoves(
             }
             // C-3: a user allow rule that still names the sender keeps its chat in Messages: that block is taken back.
             val staying = receipts.filter { it.stillAllowedBy != null }
-            SenderMoves.undoBlocks(repo, staying)
+            // E-7: an Undo that throws is a failed block, never a crash with the rows hidden.
+            if (runCatching { SenderMoves.undoBlocks(repo, staying) }.isFailure) {
+                runCatching { SenderMoves.undoBlocks(repo, receipts - staying.toSet()) }
+                show(threadIds)
+                events(ConversationsEvent.Failed)
+                return@launch
+            }
             val kept = receipts - staying.toSet()
             val moved = conversations.filter { c -> kept.any { it.address == c.phoneNumber.trim() } }
             val movedIds = moved.map { it.threadId }
             show(threadIds - movedIds.toSet())
             if (moved.isEmpty()) {
-                SenderMoves.undoBlocks(repo, kept)
+                runCatching { SenderMoves.undoBlocks(repo, kept) }
                 val why = if (staying.isNotEmpty()) R.string.pt_block_still_allowed else null
                 events(why?.let { ConversationsEvent.Message(it) } ?: ConversationsEvent.Failed)
                 return@launch
@@ -194,12 +201,15 @@ internal class MessagesSpamMoves(
             withContext(Dispatchers.IO) {
                 movedIds.forEach { id ->
                     runCatching { context.notificationManager.cancel(id.hashCode()) }
+                    BlockedNotifier.cancelChat(context, id)
                     if (id in unread) runCatching { context.markThreadMessagesRead(id) }
                 }
             }
             requestSort(movedIds)
             moves[token] = BlockMove(kept, movedIds, unread.filterKeys { it in movedIds })
-            events(event(token, moved.size, threadIds.size - moved.size))
+            // E-1: only the chats a user allow rule keeps in Messages, not those whose sender could not be read.
+            val stayed = conversations.count { c -> staying.any { it.address == c.phoneNumber.trim() } }
+            events(event(token, moved.size, stayed))
         }
     }
 
@@ -290,7 +300,10 @@ internal fun deleteChats(context: Context, ids: List<Long>): Pair<Set<Long>, Int
     val results = ids.associateWith {
         runCatching {
             context.deleteConversation(it, isDefault).also { result ->
-                if (!honest || result == DeleteResult.DELETED) context.notificationManager.cancel(it.hashCode())
+                if (!honest || result == DeleteResult.DELETED) {
+                    context.notificationManager.cancel(it.hashCode())
+                    BlockedNotifier.cancelChat(context, it)
+                }
             }
         }.getOrNull()
     }

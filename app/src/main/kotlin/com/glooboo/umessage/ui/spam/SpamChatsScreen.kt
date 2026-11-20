@@ -98,7 +98,7 @@ fun SpamChatsRoute(
         OlderSpamRoute(onBack = { olderOpen = false }, modifier = modifier)
         return
     }
-    val spam = rememberSpamActions(viewModel)
+    val spam = rememberSpamActions(viewModel, state.deleteOff)
     val menu = remember(onOpenRules, onOpenSettings) {
         listOf(
             FolderMenuEntry(R.string.spam_blocked_open_settings, Symbols.Settings, onOpenSettings),
@@ -133,10 +133,10 @@ fun SpamChatsRoute(
 }
 
 @Composable
-private fun rememberSpamActions(viewModel: SpamChatsViewModel): SpamFolderActions {
+private fun rememberSpamActions(viewModel: SpamChatsViewModel, deleteOff: Int?): SpamFolderActions {
     val notSpamLabel = stringResource(R.string.ux8c_not_spam)
     val unblockLabel = stringResource(R.string.blocknum_unblock)
-    return remember(viewModel, notSpamLabel, unblockLabel) {
+    return remember(viewModel, notSpamLabel, unblockLabel, deleteOff) {
         val notSpam = SwipeAction(Symbols.Inbox, notSpamLabel) { viewModel.notSpam(setOf(it)) }
         val unblock = SwipeAction(Symbols.Shield, unblockLabel) { viewModel.unblock(setOf(it)) }
         SpamFolderActions(
@@ -145,7 +145,7 @@ private fun rememberSpamActions(viewModel: SpamChatsViewModel): SpamFolderAction
             onUnblock = viewModel::unblock,
             onBlock = viewModel::block,
             onMarkRead = viewModel::markRead,
-            deleteOffReason = viewModel::deleteOffReason,
+            deleteOff = deleteOff,
             swipeFor = { row ->
                 val cause = viewModel.state.value.causes[row.threadId] ?: SpamCause.UNKNOWN
                 if (SpamChatsPolicy.swipeUnblocks(cause)) unblock else notSpam
@@ -251,7 +251,8 @@ internal suspend fun showSpamEvent(
 ) {
     val offer = SnackbarOffer(snackbar, resources.getString(R.string.spam_undo))
     when (event) {
-        // C-1, C-2: a window whose snackbar goes away unanswered (tab left, rotation) is closed, never left open.
+        // C-1, C-2: a window whose snackbar goes away unanswered (tab left, rotation) is closed, never left open; a
+        // delete keeps its window instead and is offered again when the route starts (D-1).
         is SpamChatsEvent.Windowed ->
             commitIfCancelled({ viewModel.commit(event) }) { showWindowed(event, offer, viewModel, resources) }
         is SpamChatsEvent.MarkedAllRead -> snackbar.showSnackbar(

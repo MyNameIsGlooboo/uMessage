@@ -9,12 +9,16 @@ import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
+import com.glooboo.umessage.testing.ChatNotices
 import com.glooboo.umessage.ui.conversations.UnreadTexts
+import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.FakeSpamRepository
 import com.glooboo.umessage.ui.spam.RuleNotes
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -45,6 +49,12 @@ class DetailsSenderSwitchTest {
     )
 
     private fun rules() = runBlocking { repository.rules.first() }
+
+    @Before
+    fun setUp() = SpamChatGate.Known.clear()
+
+    @After
+    fun tearDown() = SpamChatGate.Known.clear()
 
     @Test
     fun onAndOffAgainUndoesTheBlockFully(): Unit = runBlocking {
@@ -93,6 +103,30 @@ class DetailsSenderSwitchTest {
         switch().unblock(SENDER, THREAD)
         assertThat(rules()).isEmpty()
         assertThat(restored).isNull()
+    }
+
+    @Test
+    fun aBlockCancelsTheQuietSpamNoticeAndTellsTheLockGate(): Unit = runBlocking {
+        ChatNotices.post(context, THREAD)
+        // The real notification cancel, the rest faked.
+        val details = DetailsSenderSwitch(
+            context, repository = { repository }, memory = memory, requestSort = {}, markRead = {},
+            unreadOf = { unread }, restoreUnread = { _, _ -> },
+        )
+        assertThat(details.block(SENDER, THREAD)).isEqualTo(DetailsSenderSwitch.Outcome.BLOCKED)
+        assertThat(ChatNotices.isShown(context, THREAD)).isFalse()
+        // D-8, E-3: the gate covers the chat before its next read.
+        assertThat(SpamChatGate.Known.inSpam(THREAD)).isTrue()
+    }
+
+    @Test
+    fun aBlockThatIsTakenBackNotesNothing(): Unit = runBlocking {
+        val prefixAllow = object : SpamRepository by repository {
+            override suspend fun blockAddress(address: String, note: String): BlockReceipt? =
+                repository.blockAddress(address, note)?.copy(stillAllowedBy = 9L)
+        }
+        switch(prefixAllow).block(SENDER, THREAD)
+        assertThat(SpamChatGate.Known.inSpam(THREAD)).isNull()
     }
 
     private companion object {

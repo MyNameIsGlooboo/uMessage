@@ -16,6 +16,7 @@ import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
+import com.glooboo.umessage.testing.ChatNotices
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
@@ -296,7 +297,24 @@ class SpamChatsViewModelTest {
         isDefault = false
         vm.load()
         awaitUntil { vm.state.value.deleteOff == R.string.pt_delete_not_default }
-        assertThat(vm.deleteOffReason()).isEqualTo(R.string.pt_delete_not_default)
+    }
+
+    @Test
+    fun notSpamUnblockAndBlockCancelTheQuietSpamNoticeOfTheirChats(): Unit = runBlocking {
+        listOf(1L, 2L, 3L).forEach { ChatNotices.post(app, it) }
+        vm.notSpam(setOf(1L))
+        awaitEvent<SpamChatsEvent.MovedToMessages>()
+        assertThat(ChatNotices.isShown(app, 1L)).isFalse()
+
+        repository.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = BLOCKED))
+        verdicts[BLOCKED] = SenderVerdict.Messages(DecisionReason.CONTACT)
+        vm.unblock(setOf(2L))
+        awaitEvent<SpamChatsEvent.Unblocked>()
+        assertThat(ChatNotices.isShown(app, 2L)).isFalse()
+
+        vm.block(setOf(3L))
+        awaitEvent<SpamChatsEvent.Blocked>()
+        assertThat(ChatNotices.isShown(app, 3L)).isFalse()
     }
 
     @Test

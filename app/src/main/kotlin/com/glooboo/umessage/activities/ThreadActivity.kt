@@ -128,6 +128,7 @@ import com.glooboo.umessage.ui.thread.ThreadMenuAction
 import com.glooboo.umessage.ui.thread.SenderStatus
 import com.glooboo.umessage.ui.log.DecisionLogActivity
 import com.glooboo.umessage.spam.ForwardingAvailability
+import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.ui.spam.ForwardingActivity
 import com.glooboo.umessage.ui.thread.UnknownCardController
 import com.glooboo.umessage.ui.thread.ContextThreadMessageSource
@@ -622,6 +623,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
     private fun markThreadReadInBackground(thread: Long) {
         notificationManager.cancel(thread.hashCode())
+        // Provider truth (4.6): a Spam chat that shows has its quiet notice go too.
+        BlockedNotifier.cancelChat(this, thread)
         // The chat is open: its "Message not sent" notification has done its job, the failed row has Retry (MS3).
         cancelFailedSendNotification(thread)
         ensureBackgroundThread {
@@ -635,6 +638,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
             bus?.post(Events.RefreshConversations(thread))
             // A notification posted while the chat was being read would otherwise stay.
             notificationManager.cancel(thread.hashCode())
+            BlockedNotifier.cancelChat(this, thread)
         }
     }
 

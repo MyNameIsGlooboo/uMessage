@@ -10,6 +10,7 @@ import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSorting
+import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.ui.components.showConfirmDialog
 import com.glooboo.umessage.ui.lock.SpamChatGate
@@ -91,9 +92,13 @@ internal class ThreadSpamMoves(
         }
     }
 
-    /** After the screen's own write: the shared snapshot is read again (C-17), and the chat is sorted. */
+    /**
+     * After the screen's own write: the shared snapshot is read again (C-17), and the chat is sorted. Its quiet Spam
+     * notice has done its job then (4.6: blocked, unblocked or moved).
+     */
     private fun wrote() {
         runCatching { ChatSorter.snapshots(activity).invalidate() }
+        threadId().takeIf { it > 0 }?.let { BlockedNotifier.cancelChat(activity, it) }
         sort()
     }
 

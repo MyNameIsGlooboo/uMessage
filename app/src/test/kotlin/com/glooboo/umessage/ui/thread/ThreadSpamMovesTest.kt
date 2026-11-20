@@ -13,6 +13,8 @@ import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
+import com.glooboo.umessage.testing.ChatNotices
+import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.FakeSpamRepository
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CoroutineScope
@@ -41,11 +43,14 @@ class ThreadSpamMovesTest {
     private val repository = FakeSpamRepository(initialBlocked = emptyList(), initialRules = emptyList())
     private var verdict: SenderVerdict? = null
 
-    private fun moves(repo: SpamRepository = repository) =
-        ThreadSpamMoves(activity, scope, snackbar, { repo }, threadId = { 0L }, place = { verdict })
+    private fun moves(repo: SpamRepository = repository, thread: Long = 0L) =
+        ThreadSpamMoves(activity, scope, snackbar, { repo }, threadId = { thread }, place = { verdict })
 
     @After
-    fun tearDown() = scope.cancel()
+    fun tearDown() {
+        scope.cancel()
+        SpamChatGate.Known.clear()
+    }
 
     private fun rules() = runBlocking { repository.rules.first() }
 
@@ -160,8 +165,38 @@ class ThreadSpamMovesTest {
         assertThat(shown().visuals.message).isEqualTo(text(R.string.thread_unblock_failed))
     }
 
+    @Test
+    fun aBlockCancelsTheQuietSpamNoticeAndTellsTheLockGate() {
+        SpamChatGate.Known.clear()
+        ChatNotices.post(activity, THREAD)
+        moves(thread = THREAD).block(listOf(SENDER))
+        assertThat(shown().visuals.message).isEqualTo(text(R.string.thread_block_done))
+        assertThat(ChatNotices.isShown(activity, THREAD)).isFalse()
+        // D-8, E-3: the gate covers the chat before its next read.
+        assertThat(SpamChatGate.Known.inSpam(THREAD)).isTrue()
+    }
+
+    @Test
+    fun unblockCancelsTheQuietSpamNotice() {
+        block(SENDER)
+        verdict = SenderVerdict.Messages(DecisionReason.CONTACT)
+        ChatNotices.post(activity, THREAD)
+        moves(thread = THREAD).unblock(SENDER)
+        shown()
+        assertThat(ChatNotices.isShown(activity, THREAD)).isFalse()
+    }
+
+    @Test
+    fun notSpamCancelsTheQuietSpamNotice() {
+        ChatNotices.post(activity, THREAD)
+        moves(thread = THREAD).notSpam(SENDER)
+        assertThat(shown().visuals.message).isEqualTo(text(R.string.thread_always_allow_done))
+        assertThat(ChatNotices.isShown(activity, THREAD)).isFalse()
+    }
+
     private companion object {
         const val SENDER = "+15550001234"
+        const val THREAD = 7L
         const val TIMEOUT_MS = 5_000L
     }
 }

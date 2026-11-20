@@ -20,11 +20,13 @@ import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.SpamRepository
+import com.glooboo.umessage.testing.ChatNotices
 import com.glooboo.umessage.testing.FakeSmsMmsProvider
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.conversations.UnreadTexts
+import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.FakeSpamRepository
 import com.glooboo.umessage.ui.spam.RuleNotes
 import com.google.common.truth.Truth.assertThat
@@ -58,11 +60,13 @@ class BlockSenderReceiverMoveTest {
     @Before
     fun setUp() {
         BlockSenderReceiver.sortThread = { _, id -> sorted += id }
+        SpamChatGate.Known.clear()
     }
 
     @After
     fun tearDown() {
         BlockSenderReceiver.sortThread = sortBefore
+        SpamChatGate.Known.clear()
         resetSharedMessagesDatabase()
     }
 
@@ -179,6 +183,29 @@ class BlockSenderReceiverMoveTest {
         assertThat(members().map { it.group }).containsExactly(AllowGroup.WROTE)
         assertThat(sorted).containsExactly(THREAD, THREAD)
         assertThat(shadowOf(manager).allNotifications).isEmpty()
+    }
+
+    @Test
+    fun blockCancelsTheQuietSpamNoticeAndTellsTheLockGate(): Unit = runBlocking {
+        cacheChat(read = true)
+        ChatNotices.post(context, THREAD)
+
+        handle(BlockSenderReceiver.blockIntent(context, SENDER, THREAD))
+
+        assertThat(ChatNotices.isShown(context, THREAD)).isFalse()
+        // D-8, E-3: the gate covers the chat before its next read.
+        assertThat(SpamChatGate.Known.inSpam(THREAD)).isTrue()
+    }
+
+    @Test
+    fun aBlockThatCouldNotHappenKeepsTheQuietSpamNoticeAndNotesNothing(): Unit = runBlocking {
+        val unreadable = object : SpamRepository by repository {
+            override suspend fun blockAddress(address: String, note: String): BlockReceipt? = null
+        }
+        ChatNotices.post(context, THREAD)
+        handle(BlockSenderReceiver.blockIntent(context, SENDER, THREAD), unreadable)
+        assertThat(ChatNotices.isShown(context, THREAD)).isTrue()
+        assertThat(SpamChatGate.Known.inSpam(THREAD)).isNull()
     }
 
     @Test
