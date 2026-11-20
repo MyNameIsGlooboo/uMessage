@@ -1,5 +1,6 @@
 package com.glooboo.umessage.ui.spam
 
+import com.glooboo.umessage.spam.BlockReceipt
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.ListKind
@@ -135,4 +136,65 @@ object SenderBlocking {
 
     /** Whether a uMessage block rule names [address]. Uses phone-number matching, so call it off the main thread. */
     fun isBlocked(rules: List<SpamRule>, address: String): Boolean = blockRulesFor(rules, address).isNotEmpty()
+}
+
+/**
+ * Provider truth (4.1: U5, M-SP3; 4.2): moving a sender's whole chat between Messages and Spam. Used only while
+ * ProviderTruthFlag is on; [SenderBlocking] keeps the 0.4.14 rule-only actions for the flag off.
+ */
+object SenderMoves {
+
+    /**
+     * Blocks each sender with [SpamRepository.blockAddress]: a block rule with [note], and the sender's allow rules and
+     * group memberships go, in one transaction per sender. The receipts hold what Undo ([undoBlocks]) puts back. A
+     * sender that cannot be read gives no receipt. Any failure takes back the blocks already made and is rethrown, so a
+     * failed block never leaves half the senders blocked.
+     */
+    @Suppress("TooGenericExceptionCaught") // Any failure undoes the partial change and is rethrown.
+    suspend fun blockSenders(
+        repository: SpamRepository,
+        addresses: Collection<String>,
+        note: String = SenderBlocking.NOTE,
+    ): List<BlockReceipt> {
+        val receipts = mutableListOf<BlockReceipt>()
+        try {
+            addresses.map { it.trim() }.filter { it.isNotEmpty() }.distinct().forEach { address ->
+                repository.blockAddress(address, note)?.let { receipts += it }
+            }
+        } catch (e: CancellationException) {
+            withContext(NonCancellable) { undoBlocks(repository, receipts) }
+            throw e
+        } catch (e: Exception) {
+            undoBlocks(repository, receipts)
+            throw e
+        }
+        return receipts
+    }
+
+    /** Undo of [blockSenders]: each block rule it added goes, the allow rules and memberships it removed come back. */
+    suspend fun undoBlocks(repository: SpamRepository, receipts: List<BlockReceipt>) {
+        receipts.forEach { runCatching { repository.undoBlock(it) } }
+    }
+
+    /** What "Not spam" made: only the allow rules it created, so its Undo never removes an older rule (M-SP3). */
+    data class NotSpamChange(val createdRuleIds: List<Long>)
+
+    /**
+     * "Not spam" (4.2): a user-made allow rule for each sender (both SIMs). A rule that already existed is reused and
+     * not listed in the change. Sender names are asked about by the caller first (4.4).
+     */
+    suspend fun notSpam(repository: SpamRepository, addresses: Collection<String>): NotSpamChange {
+        val before = repository.rules.first().mapTo(HashSet()) { it.id }
+        val created = mutableListOf<Long>()
+        addresses.map { it.trim() }.filter { it.isNotEmpty() }.distinct().forEach { address ->
+            val id = SenderBlocking.allow(repository, address)
+            if (id > 0 && id !in before && id !in created) created += id
+        }
+        return NotSpamChange(created)
+    }
+
+    /** Undo of [notSpam]: removes only the rules it created. */
+    suspend fun undoNotSpam(repository: SpamRepository, change: NotSpamChange) {
+        change.createdRuleIds.forEach { runCatching { repository.removeRule(it) } }
+    }
 }
