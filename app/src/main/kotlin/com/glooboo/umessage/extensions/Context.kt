@@ -430,16 +430,17 @@ fun Context.getConversations(
 /**
  * Like [getConversations], but null when the provider could not be read completely (no cursor, or an error part
  * way through). A caller that deletes cached threads missing from the result must use this: a failed read is not
- * "every conversation was deleted".
+ * "every conversation was deleted". With [threadId], only that thread (empty: the store does not list it).
  */
 fun Context.getConversationsOrNull(
+    threadId: Long? = null,
     privateContacts: ArrayList<SimpleContact> = ArrayList(),
-    lookups: ConversationLookups = ConversationLookups(this, bulk = true),
+    lookups: ConversationLookups = ConversationLookups(this, bulk = threadId == null),
     /** B-16: also chats of numbers on Android's block list (the sorter and the history check ask for them). */
     includeBlocked: Boolean? = null,
 ): ArrayList<Conversation>? {
     val blocked = includeBlocked ?: listsShowBlocked()
-    val (conversations, complete) = readConversations(null, privateContacts, null, lookups, blocked)
+    val (conversations, complete) = readConversations(threadId, privateContacts, null, lookups, blocked)
     return conversations.takeIf { complete }
 }
 
@@ -1231,14 +1232,16 @@ private fun Context.readProviderMessage(id: Long, isMMS: Boolean): Message? = tr
 fun Context.deleteOldRecycleBinMessages(nowMillis: Long) {
     val entries = messagesDB.getOldRecycleBinEntries(nowMillis - MONTH_SECONDS * 1000L)
     val threads = entries.mapNotNullTo(HashSet()) { messagesDB.getMessage(it.id, it.isMMS)?.threadId }
-    purgeRecycleBinEntries(entries)
-    // S19, B-13: a chat the bin emptied is forgotten as a deleted chat (the screens tidy their own purges).
-    if (ProviderTruthFlag.enabled) threads.forEach { runCatching { tidyConversationAfterBinPurge(it) } }
+    val result = purgeRecycleBinEntries(entries)
+    // S19, B-13: a chat the bin emptied is forgotten as a deleted chat (the screens tidy their own purges). B2-9: only
+    // when the purge deleted; a purge that stopped (not the default app) leaves every chat as it is.
+    if (ProviderTruthFlag.enabled && result == DeleteResult.DELETED) {
+        threads.forEach { runCatching { tidyConversationAfterBinPurge(it) } }
+    }
 }
 
-fun Context.emptyMessagesRecycleBin() {
-    purgeRecycleBinEntries(messagesDB.getAllRecycleBinEntries())
-}
+/** Empties the whole bin; with the flag on it stops at the first message the store did not delete. */
+fun Context.emptyMessagesRecycleBin(): DeleteResult = purgeRecycleBinEntries(messagesDB.getAllRecycleBinEntries())
 
 /**
  * DL-13: works from the bin entries themselves, so no entry is skipped. An entry with a cached copy is a message

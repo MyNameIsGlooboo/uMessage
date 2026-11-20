@@ -3,13 +3,16 @@ package com.glooboo.umessage.extensions
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.testing.FakeThreadStore
+import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -19,6 +22,9 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class RecycleBinPurgeTest {
+
+    @get:Rule
+    val flag = ProviderTruthFlagRule(enabled = false)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private lateinit var store: FakeThreadStore
@@ -121,6 +127,38 @@ class RecycleBinPurgeTest {
 
         assertThat(live()).containsExactly(1L, 2L, 3L, 5L)
         assertThat(binEntries()).containsExactly(5L)
+    }
+
+    @Test
+    fun withProviderTruthAPurgeThatStoppedLeavesTheChats() {
+        // B2-9: not the default app, so nothing is deleted; no chat is tidied away.
+        ProviderTruthFlag.enabled = true
+        addMessages(ONLY_BIN_CHAT, 10..11L)
+        cacheAndBin(10, 11)
+
+        offMainThread { context.deleteRecycleBinMessagesOfConversations(listOf(ONLY_BIN_CHAT)) }
+        offMainThread { context.emptyRecycleBinAndTidyConversations() }
+        offMainThread {
+            val now = System.currentTimeMillis()
+            context.messagesDB.insertRecycleBinEntry(
+                com.glooboo.umessage.models.RecycleBinMessage(10, false, now - 40L * 24 * 3600 * 1000)
+            )
+            context.deleteOldRecycleBinMessages(now)
+        }
+
+        assertThat(live()).containsExactly(10L, 11L)
+        assertThat(chatRows()).containsExactly(CHAT, ONLY_BIN_CHAT)
+    }
+
+    @Test
+    fun withProviderTruthAFailedStoreReadIsNotAGoneChat() {
+        // B2-9: this store's threads table has none of the list's columns, so reading the chat fails.
+        ProviderTruthFlag.enabled = true
+        cacheAndBin()
+
+        offMainThread { context.tidyConversationAfterBinPurge(ONLY_BIN_CHAT) }
+
+        assertThat(chatRows()).containsExactly(CHAT, ONLY_BIN_CHAT)
     }
 
     private companion object {
