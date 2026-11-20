@@ -28,7 +28,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.IntrinsicMeasurable
+import androidx.compose.ui.layout.IntrinsicMeasureScope
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.Measurable
+import androidx.compose.ui.layout.MeasurePolicy
+import androidx.compose.ui.layout.MeasureResult
+import androidx.compose.ui.layout.MeasureScope
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -38,6 +44,8 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.constrainHeight
+import androidx.compose.ui.unit.constrainWidth
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.UnknownSenderMode
@@ -195,10 +203,10 @@ private fun ChoiceCard(
 /**
  * The card's bold name and, when [recommended], the tag: side by side when both fit on one line, else the tag on its
  * own line under the name. Every text is measured at a fixed width so it wraps there: given a loose width, a Persian
- * name at twice the font size was laid out wider than its own box and cut (G-8).
+ * name at twice the font size was laid out wider than its own box and cut (G-8). See [ChoiceTitleMeasurePolicy].
  */
 @Composable
-private fun ChoiceTitle(titleRes: Int, recommended: Boolean) {
+internal fun ChoiceTitle(titleRes: Int, recommended: Boolean, modifier: Modifier = Modifier) {
     Layout(
         content = {
             Text(
@@ -218,27 +226,75 @@ private fun ChoiceTitle(titleRes: Int, recommended: Boolean) {
                 )
             }
         },
-        modifier = Modifier.fillMaxWidth(),
-    ) { measurables, constraints ->
-        val width = constraints.maxWidth
-        val gap = 8.dp.roundToPx()
-        val titleWidth = measurables[0].maxIntrinsicWidth(Constraints.Infinity)
-        val tagWidth = measurables.getOrNull(1)?.maxIntrinsicWidth(Constraints.Infinity)
-        if (tagWidth != null && titleWidth + gap + tagWidth <= width) {
-            val title = measurables[0].measure(Constraints.fixedWidth(titleWidth))
-            val tag = measurables[1].measure(Constraints.fixedWidth(tagWidth))
-            val height = maxOf(title.height, tag.height)
+        modifier = modifier.fillMaxWidth(),
+        measurePolicy = ChoiceTitleMeasurePolicy,
+    )
+}
+
+/**
+ * How [ChoiceTitle] lays out its name (first child) and tag (second, optional). An unbounded width (a horizontal
+ * scroll, a parent that sizes by intrinsics) puts both on one line at their own widths (R2-2). The width intrinsics
+ * are that one-line width (max) and the widest single text (min), so an intrinsic query never measures at an
+ * infinite width.
+ */
+internal object ChoiceTitleMeasurePolicy : MeasurePolicy {
+    private val gap = 8.dp
+
+    override fun MeasureScope.measure(measurables: List<Measurable>, constraints: Constraints): MeasureResult {
+        val oneLine = oneLineWidth(measurables, gap.roundToPx())
+        val width = if (constraints.hasBoundedWidth) constraints.maxWidth else constraints.constrainWidth(oneLine)
+        val fixed = { w: Int -> Constraints(minWidth = w, maxWidth = w, maxHeight = constraints.maxHeight) }
+        val tagMeasurable = measurables.getOrNull(1)
+        return if (tagMeasurable != null && oneLine <= width) {
+            val titleWidth = measurables[0].maxIntrinsicWidth(Constraints.Infinity)
+            val title = measurables[0].measure(fixed(titleWidth))
+            val tag = tagMeasurable.measure(fixed(tagMeasurable.maxIntrinsicWidth(Constraints.Infinity)))
+            val height = constraints.constrainHeight(maxOf(title.height, tag.height))
             layout(width, height) {
                 title.placeRelative(0, (height - title.height) / 2)
-                tag.placeRelative(titleWidth + gap, (height - tag.height) / 2)
+                tag.placeRelative(titleWidth + gap.roundToPx(), (height - tag.height) / 2)
             }
         } else {
-            val title = measurables[0].measure(Constraints.fixedWidth(width))
-            val tag = measurables.getOrNull(1)?.measure(Constraints.fixedWidth(width))
-            layout(width, title.height + (tag?.height ?: 0)) {
+            val title = measurables[0].measure(fixed(width))
+            val tag = tagMeasurable?.measure(fixed(width))
+            layout(width, constraints.constrainHeight(title.height + (tag?.height ?: 0))) {
                 title.placeRelative(0, 0)
                 tag?.placeRelative(0, title.height)
             }
+        }
+    }
+
+    override fun IntrinsicMeasureScope.maxIntrinsicWidth(measurables: List<IntrinsicMeasurable>, height: Int): Int =
+        oneLineWidth(measurables, gap.roundToPx())
+
+    override fun IntrinsicMeasureScope.minIntrinsicWidth(measurables: List<IntrinsicMeasurable>, height: Int): Int =
+        measurables.maxOfOrNull { it.minIntrinsicWidth(Constraints.Infinity) } ?: 0
+
+    override fun IntrinsicMeasureScope.minIntrinsicHeight(measurables: List<IntrinsicMeasurable>, width: Int): Int =
+        intrinsicHeight(measurables, width) { child, w -> child.minIntrinsicHeight(w) }
+
+    override fun IntrinsicMeasureScope.maxIntrinsicHeight(measurables: List<IntrinsicMeasurable>, width: Int): Int =
+        intrinsicHeight(measurables, width) { child, w -> child.maxIntrinsicHeight(w) }
+
+    /** The name's and the tag's one-line widths plus the gap; the name's alone without a tag. */
+    private fun oneLineWidth(measurables: List<IntrinsicMeasurable>, gapPx: Int): Int {
+        val title = measurables[0].maxIntrinsicWidth(Constraints.Infinity)
+        val tag = measurables.getOrNull(1)?.maxIntrinsicWidth(Constraints.Infinity) ?: return title
+        return title + gapPx + tag
+    }
+
+    /** The height [measure] would report at [width], with [height] as the children's intrinsic height. */
+    private fun IntrinsicMeasureScope.intrinsicHeight(
+        measurables: List<IntrinsicMeasurable>,
+        width: Int,
+        height: (IntrinsicMeasurable, Int) -> Int,
+    ): Int {
+        val oneLine = oneLineWidth(measurables, gap.roundToPx())
+        val given = if (width == Constraints.Infinity) oneLine else width
+        return if (measurables.size > 1 && oneLine <= given) {
+            measurables.maxOf { height(it, it.maxIntrinsicWidth(Constraints.Infinity)) }
+        } else {
+            measurables.sumOf { height(it, given) }
         }
     }
 }

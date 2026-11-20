@@ -1,13 +1,20 @@
 package com.glooboo.umessage.ui.main
 
 import android.app.Application
+import androidx.activity.ComponentActivity
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.StateRestorationTester
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
@@ -35,7 +42,7 @@ class FirstRunPagesTest {
     val flag = ProviderTruthFlagRule(enabled = true)
 
     @get:Rule
-    val compose = createComposeRule()
+    val compose = createAndroidComposeRule<ComponentActivity>()
 
     private val app: Application = ApplicationProvider.getApplicationContext()
     private val res = app.resources
@@ -124,6 +131,8 @@ class FirstRunPagesTest {
     @Test
     fun theProgressPageNamesTheStepsWithTheirStates() {
         val fresh = update.copy(passKind = FirstRunPassKind.FRESH_INSTALL, phase = FirstRunPhase.HISTORY)
+        // The test clock stays put: the 15 s wait must not pass while the page is checked.
+        compose.mainClock.autoAdvance = false
         compose.setContent { UMessageTheme { FirstRunProgressPage(fresh, {}, now = { start }) } }
         compose.onNodeWithText(res.getString(R.string.pt_progress_title)).assertExists()
         compose.onNodeWithText(res.getString(R.string.pt_progress_body)).assertExists()
@@ -149,6 +158,37 @@ class FirstRunPagesTest {
         }
         compose.onNodeWithTag(FIRST_RUN_BACKGROUND_TAG).performClick()
         assertThat(tapped).isTrue()
+    }
+
+    @Test
+    fun theBackgroundButtonComesAfterTheWaitEvenWhenTheClockStepsBack() {
+        var clock = start
+        compose.mainClock.autoAdvance = false
+        compose.setContent { UMessageTheme { FirstRunProgressPage(update, {}, now = { clock }) } }
+        compose.mainClock.advanceTimeBy(10_000)
+        clock = start + 10_000
+        compose.onNodeWithTag(FIRST_RUN_BACKGROUND_TAG).assertDoesNotExist()
+        // A network time fix sets the wall clock back 5 s during the wait: the wait still ends the hold (R2-1).
+        clock = start + 5_000
+        compose.mainClock.advanceTimeBy(6_000)
+        compose.onNodeWithTag(FIRST_RUN_BACKGROUND_TAG).assertExists()
+    }
+
+    @Test
+    fun aLaterStartWaitsAgain() {
+        var clock = start + 20_000
+        var progress by mutableStateOf(update)
+        compose.mainClock.autoAdvance = false
+        compose.setContent { UMessageTheme { FirstRunProgressPage(progress, {}, now = { clock }) } }
+        compose.mainClock.advanceTimeByFrame()
+        compose.onNodeWithTag(FIRST_RUN_BACKGROUND_TAG).assertExists()
+        // A retried pass starts now: its button waits its own 15 s.
+        progress = update.copy(startedAtMs = clock)
+        compose.waitForIdle()
+        compose.mainClock.advanceTimeByFrame()
+        compose.onNodeWithTag(FIRST_RUN_BACKGROUND_TAG).assertDoesNotExist()
+        compose.mainClock.advanceTimeBy(16_000)
+        compose.onNodeWithTag(FIRST_RUN_BACKGROUND_TAG).assertExists()
     }
 
     @Test
@@ -187,17 +227,30 @@ class FirstRunPagesTest {
 
     private var lastBar: Boolean? = null
 
+    /** Stands in for [AppOpens]: a new value is a new open of the app. */
+    private val opens = MutableStateFlow(1L)
+
+    private val ended = FirstRunProgress(passKind = FirstRunPassKind.UPDATE, whatChanged = WhatChanged(3, 1))
+
     private fun host(source: FirstRunProgressSource?, onReview: () -> Unit = {}) {
         if (source != null) FirstRunPagesHost.install(source)
-        compose.setContent {
-            UMessageTheme {
-                FirstRunHost(onReviewSpam = onReview, now = { start }) { bar ->
-                    lastBar = bar != null
-                    Text(MAIN)
-                    bar?.invoke()
-                }
+        compose.setContent { HostContent(onReview) }
+    }
+
+    @Composable
+    private fun HostContent(onReview: () -> Unit = {}) {
+        UMessageTheme {
+            FirstRunHost(onReviewSpam = onReview, now = { start }, opens = opens) { bar ->
+                lastBar = bar != null
+                Text(MAIN)
+                bar?.invoke()
             }
         }
+    }
+
+    private fun assertWhatChangedHidden() {
+        compose.onNodeWithText(MAIN).assertExists()
+        compose.onNodeWithText(res.getString(R.string.pt_changed_title)).assertDoesNotExist()
     }
 
     @Test
@@ -231,10 +284,43 @@ class FirstRunPagesTest {
         host(source)
         compose.onNodeWithText(MAIN).assertExists()
         // The work ends while the app is in use: no page jumps in.
-        source.state.value = FirstRunProgress(passKind = FirstRunPassKind.UPDATE, whatChanged = WhatChanged(3, 1))
+        source.state.value = ended
         compose.waitForIdle()
-        compose.onNodeWithText(MAIN).assertExists()
-        compose.onNodeWithText(res.getString(R.string.pt_changed_title)).assertDoesNotExist()
+        assertWhatChangedHidden()
+    }
+
+    @Test
+    fun whatChangedStillWaitsAfterAPauseAStopAndAResume() {
+        val source = FakeSource(update.copy(inBackground = true))
+        host(source)
+        source.state.value = ended
+        compose.waitForIdle()
+        // A permission dialog (pause), then another uMessage screen in front (stop): the app was not left.
+        compose.activityRule.scenario.moveToState(Lifecycle.State.STARTED)
+        compose.activityRule.scenario.moveToState(Lifecycle.State.RESUMED)
+        compose.waitForIdle()
+        assertWhatChangedHidden()
+        compose.activityRule.scenario.moveToState(Lifecycle.State.CREATED)
+        compose.activityRule.scenario.moveToState(Lifecycle.State.RESUMED)
+        compose.waitForIdle()
+        assertWhatChangedHidden()
+        // The app was left and opened again: now it shows.
+        opens.value++
+        compose.waitForIdle()
+        compose.onNodeWithText(res.getString(R.string.pt_changed_title)).assertExists()
+    }
+
+    @Test
+    fun whatChangedStillWaitsAfterARecreation() {
+        val source = FakeSource(update.copy(inBackground = true))
+        FirstRunPagesHost.install(source)
+        val restore = StateRestorationTester(compose)
+        restore.setContent { HostContent() }
+        compose.waitForIdle()
+        source.state.value = ended
+        compose.waitForIdle()
+        restore.emulateSavedInstanceStateRestore()
+        assertWhatChangedHidden()
     }
 
     @Test

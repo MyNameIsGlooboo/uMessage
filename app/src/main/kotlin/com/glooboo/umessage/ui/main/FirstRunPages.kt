@@ -38,6 +38,7 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,7 +53,8 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.icons.Symbols
@@ -61,6 +63,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlin.random.Random
 
 /*
  * Provider truth (3.5, 4.7, D2 A): the pages of the first run.
@@ -181,7 +184,7 @@ object FirstRunPagePolicy {
     /**
      * The page for [progress]. The full page while an UPDATE or FRESH_INSTALL pass runs, the small bar for any other
      * pass or once the user went on in the background, then "What changed" when it has something to show, unless
-     * [deferWhatChanged] (the user was using the app meanwhile: it waits for the next start or resume, G-4).
+     * [deferWhatChanged] (the user was using the app meanwhile: it waits for the next open of the app, G-4).
      * Nothing while the flag is off.
      */
     fun pageFor(
@@ -245,8 +248,8 @@ object FirstRunPagePolicy {
 
 /**
  * The main screen with the first run's pages (MainActivity): the full progress page, "What changed", or [content]
- * with the small bar to place (null when none shows). "What changed" waits for the next resume when the bar showed
- * during this one, so it never replaces the screen while the app is in use (G-4).
+ * with the small bar to place (null when none shows). "What changed" waits for the next open of the app ([opens])
+ * when the bar showed during this one, so it never replaces the screen while the app is in use (G-4, R2-3).
  */
 @Composable
 fun FirstRunHost(
@@ -254,21 +257,17 @@ fun FirstRunHost(
     modifier: Modifier = Modifier,
     host: StateFlow<FirstRunProgressSource> = FirstRunPagesHost.source,
     now: () -> Long = System::currentTimeMillis,
+    opens: StateFlow<Long> = AppOpens.current,
     content: @Composable (bar: (@Composable () -> Unit)?) -> Unit,
 ) {
     val source by host.collectAsState()
     val progress by source.progress.collectAsState()
-    // The bar showed since the last real resume. The first ON_RESUME after the screen appears is not a new resume
-    // (the observer gets it on registration, after the bar may have set this already); only one after a pause is.
-    var barShown by remember { mutableStateOf(false) }
-    var paused by remember { mutableStateOf(false) }
-    LifecycleEventEffect(Lifecycle.Event.ON_PAUSE) { paused = true }
-    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
-        if (paused) barShown = false
-        paused = false
-    }
-    val page = FirstRunPagePolicy.pageFor(progress, deferWhatChanged = barShown)
-    SideEffect { if (page == FirstRunPage.BAR) barShown = true }
+    // The open of the app the bar showed in. "What changed" waits for a later open, so a pause, a permission dialog,
+    // another uMessage screen or a recreation does not bring it in mid-use (R2-3); saved, so a recreation keeps it.
+    val open by opens.collectAsState()
+    var barShownInOpen by rememberSaveable { mutableLongStateOf(AppOpens.NONE) }
+    val page = FirstRunPagePolicy.pageFor(progress, deferWhatChanged = barShownInOpen == open)
+    SideEffect { if (page == FirstRunPage.BAR) barShownInOpen = open }
     val changed = progress.whatChanged
     when {
         page == FirstRunPage.PROGRESS ->
@@ -287,6 +286,28 @@ fun FirstRunHost(
     }
 }
 
+/**
+ * Counts the opens of the app: [current] changes each time the app's process comes to the front again after it was
+ * left (ProcessLifecycleOwner's ON_START after its ON_STOP). The process lifecycle, not the activity's: it stays
+ * started while one uMessage screen hands over to another, over a recreation and under a permission dialog, since
+ * Android stops it only some time after the last activity stopped. The first value is random, so a value saved
+ * before the process died never matches one of the new process.
+ */
+internal object AppOpens {
+    /** Never equal to [current]: no bar showed yet. */
+    const val NONE = 0L
+
+    private val opens = MutableStateFlow(Random.nextLong(1L, Long.MAX_VALUE / 2))
+    val current: StateFlow<Long> by lazy {
+        // Registered on the main thread on first use (the main screen's composition). The ON_START replayed at
+        // registration counts before anyone reads the value, so it changes nothing.
+        ProcessLifecycleOwner.get().lifecycle.addObserver(
+            LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_START) opens.value++ },
+        )
+        opens.asStateFlow()
+    }
+}
+
 /** Test tag of the "Continue in background" button. */
 internal const val FIRST_RUN_BACKGROUND_TAG = "first_run_background"
 
@@ -301,12 +322,15 @@ fun FirstRunProgressPage(
     modifier: Modifier = Modifier,
     now: () -> Long = System::currentTimeMillis,
 ) {
+    // Decided by the wait itself, not by a second clock reading: a wall clock that steps back during the wait (a
+    // network time fix) must not hide the button for good (R2-1). A new start waits again, at most 15 s.
     val clockNow by rememberUpdatedState(now)
-    var clock by remember { mutableLongStateOf(now()) }
-    LaunchedEffect(progress.startedAtMs, progress.running) {
-        val wait = FirstRunPagePolicy.msUntilBackgroundButton(progress, clockNow())
-        if (wait > 0) delay(wait)
-        clock = clockNow()
+    var due by remember(progress.startedAtMs) {
+        mutableStateOf(FirstRunPagePolicy.msUntilBackgroundButton(progress, now()) == 0L)
+    }
+    LaunchedEffect(progress.startedAtMs) {
+        delay(FirstRunPagePolicy.msUntilBackgroundButton(progress, clockNow()))
+        due = true
     }
     Surface(modifier = modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
@@ -333,7 +357,7 @@ fun FirstRunProgressPage(
                     ProgressStepRow(step, FirstRunPagePolicy.stepState(progress, step))
                 }
             }
-            if (FirstRunPagePolicy.showsBackgroundButton(progress, clock)) {
+            if (progress.running && due) {
                 Spacer(Modifier.height(8.dp))
                 OutlinedButton(
                     onClick = onContinueInBackground,

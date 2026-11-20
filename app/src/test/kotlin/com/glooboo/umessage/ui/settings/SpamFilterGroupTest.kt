@@ -13,10 +13,12 @@ import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.ui.spam.FakeSpamRepository
+import com.glooboo.umessage.ui.spam.SortChange
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeoutOrNull
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -70,5 +72,27 @@ class SpamFilterGroupTest {
         compose.onNodeWithText(res.getString(R.string.spam_cancel)).performClick()
         compose.onNodeWithText(res.getString(R.string.pt_filter_off_confirm_title)).assertDoesNotExist()
         assertThat(stored().filterOn).isTrue()
+    }
+
+    @Test
+    fun aFailedOrImpossibleWriteSaysSoAndAGoodOneDoesNot() {
+        val failing = SpamFilterSwitchViewModel(app, { error("store gone") }, moveCounter = { { 6 } })
+        val missing = SpamFilterSwitchViewModel(app, { null }, moveCounter = { { 6 } })
+        assertThat(failedAfterConfirm(failing)).isTrue()
+        assertThat(failedAfterConfirm(missing)).isTrue()
+        assertThat(failedAfterConfirm(switchModel)).isFalse()
+        assertThat(stored().filterOn).isFalse()
+    }
+
+    private fun failedAfterConfirm(model: SpamFilterSwitchViewModel): Boolean {
+        model.switches.request(SortChange.Filter(on = false))
+        shadowOf(Looper.getMainLooper()).idle()
+        model.switches.confirm()
+        shadowOf(Looper.getMainLooper()).idle()
+        return runBlocking { withTimeoutOrNull(FAILURE_WAIT_MS) { model.failureFlow.first() } } != null
+    }
+
+    private companion object {
+        const val FAILURE_WAIT_MS = 500L
     }
 }
