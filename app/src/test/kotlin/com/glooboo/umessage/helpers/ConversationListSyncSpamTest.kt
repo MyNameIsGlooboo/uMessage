@@ -159,6 +159,68 @@ class ConversationListSyncSpamTest {
         assertThat(runBlocking { context.messageNotes.exportAll() }).hasSize(1)
     }
 
+    @Test
+    fun anEmptyStoreReadForgetsNothing() {
+        // B2-1: an empty but complete read (an OEM permission layer, a store just rebuilt) is not "every chat deleted".
+        seedThreeExtras()
+
+        (1L..THREADS).forEach { provider.deleteThread(it) }
+        sync.requestFull()
+        idle()
+
+        offMainThread {
+            assertThat(context.conversationsDB.getAllRows()).isEmpty()
+            assertThat(context.conversationsDB.getSpamThread(3)).isNotNull()
+            assertThat(context.messagesDB.getThreadMessages(3)).hasSize(3)
+        }
+        assertThat(runBlocking { context.messageNotes.exportAll() }).hasSize(1)
+    }
+
+    @Test
+    fun aMassDisappearanceForgetsNothing() {
+        // B2-1: more than 20 cached chats and more than half of them gone at once: only the cached rows go.
+        addThreads(BIG_CACHE)
+        seedThreeExtras()
+
+        (3L..BIG_CACHE).forEach { provider.deleteThread(it) }
+        sync.requestFull()
+        idle()
+
+        offMainThread {
+            assertThat(context.conversationsDB.getAllRows().map { it.threadId }).containsExactly(1L, 2L)
+            assertThat(context.conversationsDB.getSpamThread(3)).isNotNull()
+        }
+        assertThat(runBlocking { context.messageNotes.exportAll() }).hasSize(1)
+    }
+
+    @Test
+    fun aChatDeletedElsewhereIsStillForgottenInABigCache() {
+        // B2-1: a few vanished chats are trusted; the one deleted by another app loses its notes as before.
+        addThreads(BIG_CACHE)
+        seedThreeExtras()
+
+        provider.deleteThread(3)
+        sync.requestFull()
+        idle()
+
+        offMainThread {
+            assertThat(context.conversationsDB.getAllRows()).hasSize(BIG_CACHE.toInt() - 1)
+            assertThat(context.conversationsDB.getSpamThread(3)).isNull()
+        }
+        assertThat(runBlocking { context.messageNotes.exportAll() }).isEmpty()
+    }
+
+    /** Threads 5 to [last] in the store, one text each, cached by a full pass. */
+    private fun addThreads(last: Long) {
+        (THREADS + 1L..last).forEach {
+            val dateMs = CountingInboxProvider.BASE_MS + it * 100_000
+            provider.addThread(it, smsId = 1_000 + it, body = "Hi", dateMs = dateMs)
+        }
+        sync.requestFull()
+        idle()
+        assertThat(offMainThread { context.conversationsDB.getAllRows() }).hasSize(last.toInt())
+    }
+
     /** Thread 3: a cached message with a note, a scheduled message and a Spam row. */
     private fun seedThreeExtras() {
         markSpam(3)
@@ -180,6 +242,7 @@ class ConversationListSyncSpamTest {
 
     private companion object {
         const val THREADS = 4
+        const val BIG_CACHE = 30L
         const val SCHEDULED_ID = 1_500_000_000L
     }
 }
