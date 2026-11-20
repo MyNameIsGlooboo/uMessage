@@ -7,7 +7,8 @@ import com.glooboo.umessage.spam.TextNormalizer
  * Heuristic one-time-password detector for SMART mode. Pure JVM.
  *
  * A body looks like an OTP when a 4-8 digit code sits next to an OTP keyword: at most a few plain words
- * between them, in either order ("Your OTP is 4821", "123456 is your login code", "رمز پویا: ۱۲۳۴۵"). A letters-and-digits
+ * between them, in either order ("Your OTP is 4821", "123456 is your login code", "رمز پویا: ۱۲۳۴۵"), or up to eight
+ * words of one sentence from a keyword that says what the number is ([WIDE_NEAR]). A letters-and-digits
  * code ("Your code is ab12cd") counts too, but only next to a keyword in its own sentence ([alphanumericCodes]).
  * The text is read through [TextNormalizer.fold] first, so Persian and Arabic digits, Arabic letter forms (ي, ك),
  * kashida and zero-width characters do not hide a code. Word edges are explicit lookarounds over letters and
@@ -16,10 +17,12 @@ import com.glooboo.umessage.spam.TextNormalizer
  * Marketing texts are not codes even when they say "code" next to a number ("promo code 2025", "کد تخفیف"),
  * a number that reads as a price or a percentage is never the code, and next to the generic word "code" a year
  * ("2025", "1403") is not one either, but only when the text also speaks of a year or a date ("valid until 2025"):
- * "Your Uber code is 1987" is a code. Words of discounts and prizes veto every match; words of gifts and offers only
- * the generic "code" ("Apple Gift Card verification code 482913" is a code). The word lists, in many languages, are
- * in [OtpKeywords].
+ * "Your Uber code is 1987" is a code. Words of discounts and prizes veto every match, except a code right next to a
+ * phrase of [OtpKeywords.codePhrases] when the word stands in another sentence (an advertising footer); words of gifts
+ * and offers only the generic "code" ("Apple Gift Card verification code 482913" is a code). The word lists, in many
+ * languages, are in [OtpKeywords].
  */
+@Suppress("TooManyFunctions") // One small reading per question the app asks; each shares the patterns above it.
 object OtpDetector {
     private const val EDGE_BEFORE = "(?<![\\p{L}\\p{N}])"
     private const val EDGE_AFTER = "(?![\\p{L}\\p{N}])"
@@ -59,11 +62,12 @@ object OtpDetector {
     internal val codeShape = "(?<!\\+)(?<!\\p{N}{3}[ -])(?<!(?:$phoneWords)[^\\p{L}\\p{N}]{0,3})(?!00[0-9]{5})" +
         "(?:[0-9]{3}[ -][0-9]{3}|[0-9]{4}[ -][0-9]{4}|[0-9]{4,8})(?![ -]\\p{N}{3})"
 
-    private val CODE = "(?<![\\p{N}$€£])$codeShape(?!\\p{N})$NOT_AFTER"
+    /** Not after a digit, a currency sign or the star of a masked card number ("****1234"). */
+    private val CODE = "(?<![\\p{N}*$€£])$codeShape(?!\\p{N})$NOT_AFTER"
 
     /** A 4-digit year, Gregorian or Persian solar (1300-1499, 1900-2099). */
     internal const val YEAR = "(?:1[34]|19|20)\\d\\d(?!\\p{N})"
-    private val CODE_NOT_YEAR = "(?<![\\p{N}$€£])(?!$YEAR)$codeShape(?!\\p{N})$NOT_AFTER"
+    private val CODE_NOT_YEAR = "(?<![\\p{N}*$€£])(?!$YEAR)$codeShape(?!\\p{N})$NOT_AFTER"
 
     /** Digits of the longest code of [codeShape]; a longer number is a code only next to a password word. */
     internal const val MAX_CODE_DIGITS = 8
@@ -74,7 +78,7 @@ object OtpDetector {
      */
     internal val longShape = "(?<!\\+)(?<!(?:$phoneWords)[^\\p{L}\\p{N}]{0,3})(?!0|98)[0-9]{9,10}"
 
-    private val LONG_CODE = "(?<![\\p{N}$€£])$longShape(?!\\p{N})$NOT_AFTER"
+    private val LONG_CODE = "(?<![\\p{N}*$€£])$longShape(?!\\p{N})$NOT_AFTER"
 
     /** Words that say a number is a password: the only words that make a long number a code. */
     internal val passwordKeywords: List<String> = OtpKeywords.password
@@ -84,13 +88,30 @@ object OtpDetector {
         Regex("$password$NEAR$LONG_CODE|$LONG_CODE$NEAR$password", RegexOption.IGNORE_CASE)
     }
 
-    /** Separator, then up to four plain words (letters only, so "SAVE20" or a phone number breaks the chain). */
-    internal const val NEAR ="[^\\p{L}\\p{N}]{1,4}(?:[\\p{L}\\p{M}]{1,15}[^\\p{L}\\p{N}]{1,4}){0,4}"
+    /**
+     * Separator, then up to four plain words (letters only, so "SAVE20" or a phone number breaks the chain). A
+     * separator is up to eight marks or spaces, so "Code:" and the number two blank lines further down still meet.
+     */
+    internal const val NEAR ="[^\\p{L}\\p{N}]{1,8}(?:[\\p{L}\\p{M}]{1,15}[^\\p{L}\\p{N}]{1,8}){0,4}"
+
+    /** A separator that stays inside one sentence: no full stop, mark or line break ([sentenceBreaks]). */
+    private const val IN_SENTENCE = "[^\\p{L}\\p{N}.!?;\\n\\r\u061F\u06D4]{1,4}"
+
+    /**
+     * What else may stand between a keyword that says what the number is and the code: up to eight words of one
+     * sentence, each starting with a letter and up to 20 characters long, digits allowed ("Shop24", "XX1234"), as in
+     * "رمز یکبار مصرف شما برای پرداخت قبض در درگاه بانک نمونه ۴۸۲۹۱۳ است". A number of its own breaks the chain, and
+     * a year-like number this far from the keyword is a year ("Your password expires at the end of December 2026").
+     */
+    private const val WIDE_NEAR = "$IN_SENTENCE(?:[\\p{L}\\p{M}][\\p{L}\\p{M}\\p{N}]{0,19}$IN_SENTENCE){0,8}"
 
     /** A keyword that says what the number is, next to a code: a code in any case, however it looks. */
     private val strongOtp: Regex = run {
         val strong = keywordPattern(strongKeywords)
-        Regex("$strong$NEAR$CODE|$CODE$NEAR$strong", RegexOption.IGNORE_CASE)
+        Regex(
+            "$strong$NEAR$CODE|$CODE$NEAR$strong|$strong$WIDE_NEAR$CODE_NOT_YEAR|$CODE_NOT_YEAR$WIDE_NEAR$strong",
+            RegexOption.IGNORE_CASE,
+        )
     }
 
     /** The generic word "code" next to a code; a year-like number does not count (see [yearContext]). */
@@ -156,6 +177,12 @@ object OtpDetector {
         RegexOption.IGNORE_CASE,
     )
 
+    /** A phrase that only a one-time code carries, next to a code ([OtpKeywords.codePhrases]). */
+    private val codePhraseOtp: Regex = run {
+        val phrase = keywordPattern(OtpKeywords.codePhrases)
+        Regex("$phrase$NEAR$CODE|$CODE$NEAR$phrase", RegexOption.IGNORE_CASE)
+    }
+
     /** Words of offers and gifts: they only count against a code next to the generic word "code". */
     private val marketingSoft = Regex(
         "(?<!\\p{L})(?:" + OtpKeywords.marketingSoft.joinToString("|") { TextNormalizer.fold(it) } + ")(?!\\p{L})",
@@ -209,6 +236,8 @@ object OtpDetector {
 
     private val strongBefore = Regex(keywordPattern(strongKeywords) + NEAR + "$", RegexOption.IGNORE_CASE)
     private val strongAfter = Regex("^" + NEAR + keywordPattern(strongKeywords), RegexOption.IGNORE_CASE)
+    private val wideBefore = Regex(keywordPattern(strongKeywords) + WIDE_NEAR + "$", RegexOption.IGNORE_CASE)
+    private val wideAfter = Regex("^" + WIDE_NEAR + keywordPattern(strongKeywords), RegexOption.IGNORE_CASE)
     private val weakBefore = Regex(keywordPattern(weakKeywords) + NEAR + "$", RegexOption.IGNORE_CASE)
     private val weakAfter = Regex("^" + NEAR + keywordPattern(weakKeywords), RegexOption.IGNORE_CASE)
     private val cjkWords = "(?:" + OtpKeywords.cjk.map { TextNormalizer.fold(it).replace(" ", "\\s?") }
@@ -223,7 +252,7 @@ object OtpDetector {
      * codes of one message ("Use 333333 to log in, or 444444 to reset") each qualify on their own.
      */
     internal fun keywordNextTo(text: String, range: IntRange, sameSentence: Boolean = false): Boolean {
-        if (marketingHard.containsMatchIn(text)) return false
+        if (marketingHard.containsMatchIn(text)) return !sameSentence && codeNextToPhrase(text, range)
         if (OtpPasswords.isLong(text.substring(range))) return OtpPasswords.nextTo(text, range, WINDOW)
         var before = text.substring(maxOf(0, range.first - WINDOW), range.first)
         var after = text.substring(range.last + 1, minOf(text.length, range.last + 1 + WINDOW))
@@ -232,11 +261,32 @@ object OtpDetector {
             val end = after.indexOfAny(sentenceBreaks)
             if (end >= 0) after = after.substring(0, end)
         }
-        if (strongBefore.containsMatchIn(before) || strongAfter.containsMatchIn(after)) return true
-        if (cjkBefore.containsMatchIn(before) || cjkAfter.containsMatchIn(after)) return true
+        val yearLike = yearOnly.matches(text.substring(range))
+        if (strongNextTo(before, after, yearLike)) return true
         if (marketingOptOut.containsMatchIn(text) || marketingSoft.containsMatchIn(text)) return false
-        val year = yearOnly.matches(text.substring(range)) && yearContext.containsMatchIn(text)
+        val year = yearLike && yearContext.containsMatchIn(text)
         return !year && (weakBefore.containsMatchIn(before) || weakAfter.containsMatchIn(after))
+    }
+
+    /**
+     * Whether a keyword that says what the number is stands in [before] or [after] a code: a few plain words away, up
+     * to eight words of the sentence away unless the code is [yearLike] ([WIDE_NEAR]), or a CJK word.
+     */
+    private fun strongNextTo(before: String, after: String, yearLike: Boolean): Boolean =
+        strongBefore.containsMatchIn(before) || strongAfter.containsMatchIn(after) ||
+            !yearLike && (wideBefore.containsMatchIn(before) || wideAfter.containsMatchIn(after)) ||
+            cjkBefore.containsMatchIn(before) || cjkAfter.containsMatchIn(after)
+
+    /**
+     * Whether a code of [text] (folded), the one at [range] if given, stands next to a phrase of
+     * [OtpKeywords.codePhrases], and the sentences from that phrase to the code hold no word of [marketingHard]: a real
+     * code in a text with an advertising footer.
+     */
+    private fun codeNextToPhrase(text: String, range: IntRange? = null): Boolean = codePhraseOtp.findAll(text).any {
+        val start = text.lastIndexOfAny(sentenceBreaks, it.range.first) + 1
+        val end = text.indexOfAny(sentenceBreaks, it.range.last + 1).takeIf { at -> at >= 0 } ?: text.length
+        val holdsCode = range == null || range.first >= it.range.first && range.last <= it.range.last
+        holdsCode && !marketingHard.containsMatchIn(text.substring(start, end))
     }
 
     /**
@@ -252,6 +302,12 @@ object OtpDetector {
             .toList()
     }
 
+    /**
+     * Whether the folded [text] holds a word of [marketingHard] ("promo", "discount", "50%") anywhere. Such a text never
+     * allows its sender ([AllowingCode]), even when it shows a code next to a phrase of [OtpKeywords.codePhrases].
+     */
+    internal fun hasAdvertisingWord(text: String): Boolean = marketingHard.containsMatchIn(text)
+
     /** Whether [text] is an advertisement ("promo", "discount", "50%"): such a text is never a code. */
     internal fun isMarketing(text: String): Boolean = TextNormalizer.fold(text).let {
         marketingHard.containsMatchIn(it) || marketingOptOut.containsMatchIn(it)
@@ -264,7 +320,7 @@ object OtpDetector {
     internal fun nearKeyword(body: String): Boolean {
         val text = TextNormalizer.fold(body)
         return when {
-            marketingHard.containsMatchIn(text) -> false
+            marketingHard.containsMatchIn(text) -> codeNextToPhrase(text)
             strongOtp.containsMatchIn(text) || cjkOtp.containsMatchIn(text) -> true
             passwordOtp.containsMatchIn(text) -> true
             alphanumericCodes(text).isNotEmpty() -> true

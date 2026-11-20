@@ -25,7 +25,9 @@ import com.glooboo.umessage.spam.TextNormalizer
  *   "کد شما: N", "کدتان N"), with no link near the code;
  * - or the text says to keep the code secret ("do not share", "در اختیار دیگران قرار ندهید"), or its last line
  *   binds the code to a site ([OtpDetector.isOriginBound], `@example.com #123456`).
- * So every text this allows is also shown as a code, never the other way round.
+ * A text with a word of an advertisement anywhere ("discount", "تخفیف", "20%": [OtpDetector.hasAdvertisingWord]) never
+ * allows, even when it shows a code next to a one-time code phrase. So every text this allows is also shown as a code,
+ * never the other way round.
  */
 object AllowingCode {
 
@@ -42,10 +44,10 @@ object AllowingCode {
         "کد تایید", "کد تأیید", "کد تائید", "کد تاییدیه", "کد اعتبارسنجی", "کد اعتبار سنجی", "رمز یکبار مصرف",
         "رمز یک بار مصرف", "یکبار مصرف", "یک بار مصرف", "رمز پویا", "رمز دوم", "رمز اینترنتی", "رمز عبور",
         "رمز ورود", "رمز شخصی", "رمز موقت", "کد ورود", "کد فعالسازی", "کد فعال سازی", "کد امنیتی", "کد احراز هویت",
-        "احراز هویت", "گذرواژه", "پسورد", "فرم ورود",
+        "احراز هویت", "گذرواژه", "پسورد", "فرم ورود", "کلمه عبور",
         // Arabic (folded like the text: Persian yeh and kaf, plain alef)
         "رمز التحقق", "رمز الدخول", "رمز التفعیل", "رمز التاکید", "کود التفعیل", "کود التحقق", "کلمه المرور",
-        "لمره واحده", "التحقق", "التفعیل", "لتاکید", "تاکید",
+        "لمره واحده", "التحقق", "التفعیل", "لتاکید", "تاکید", "الرقم السری", "رقمک السری",
         // Other languages: the compound words of OtpKeywords.strong
         "код подтверждения", "код підтвердження", "проверочный код", "код безопасности", "одноразовый",
         "одноразовий", "пароль", "пин[- ]?код", "doğrulama kodu", "onay kodu", "güvenlik kodu", "şifre",
@@ -125,6 +127,19 @@ object AllowingCode {
     private val cjkVetoBefore = Regex("$cjkVeto[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$")
     private val cjkVetoAfter = Regex("^[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$cjkVeto")
 
+    /** Marks that end a clause in Chinese, Japanese and Korean: a reference word behind one names something else. */
+    private const val CLAUSE_MARKS = "，,。；;！!？?、"
+
+    /**
+     * Fable F-1: a CJK code word closer to the code than the reference word, with a clause mark between them, wins over
+     * it: "您正在支付订单，验证码 123456" (you are paying an order; the verification code is 123456) allows, while
+     * "您的订单验证码是 573920" (the order's verification code) and "【示例快递】您的取件验证码" do not.
+     */
+    private val notVeto = "(?:(?!$cjkVeto)[^\\p{N}])"
+    private val cjkCodeAfterClause =
+        Regex("[$CLAUSE_MARKS]$notVeto*?$cjkWords$notVeto{0,${OtpKeywords.CJK_GAP}}$")
+    private val cjkClauseBeforeVeto = Regex("^$notVeto{0,${OtpKeywords.CJK_GAP}}[$CLAUSE_MARKS]")
+
     /** What the possessive code is when it is no one-time code: "Your booking code is N", "Your reference no: N". */
     private const val NOT_A_CODE = "(?:booking|reservation|reference|ref|invoice|parcel|shipment|customer|" +
         "member(?:ship)?|ticket|account|discount|promo|coupon|gift|voucher)"
@@ -160,6 +175,7 @@ object AllowingCode {
     fun isAllowingCode(body: String): Boolean = runCatching {
         if (!OtpDetector.looksLikeOtp(body)) return@runCatching false
         val text = TextNormalizer.fold(body)
+        if (OtpDetector.hasAdvertisingWord(text)) return@runCatching false
         val anywhere = secrecy.containsMatchIn(text) || OtpDetector.isOriginBound(body)
         codeRanges(body, text).any { range -> !vetoNear(text, range) && (anywhere || allowsNear(text, range)) }
     }.getOrDefault(false)
@@ -185,8 +201,10 @@ object AllowingCode {
     private fun vetoNear(text: String, range: IntRange): Boolean {
         val head = before(text, range)
         val tail = after(text, range)
+        val cjkCodeFirst = cjkBefore.containsMatchIn(head) && cjkClauseBeforeVeto.containsMatchIn(tail)
         return vetoBefore.containsMatchIn(head) || vetoAfter.containsMatchIn(tail) ||
-            cjkVetoBefore.containsMatchIn(head) || cjkVetoAfter.containsMatchIn(tail)
+            cjkVetoBefore.containsMatchIn(head) && !cjkCodeAfterClause.containsMatchIn(head) ||
+            cjkVetoAfter.containsMatchIn(tail) && !cjkCodeFirst
     }
 
     private fun allowsNear(text: String, range: IntRange): Boolean {
