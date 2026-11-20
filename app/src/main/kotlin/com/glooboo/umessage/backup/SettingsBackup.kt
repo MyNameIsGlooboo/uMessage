@@ -13,7 +13,6 @@ import com.glooboo.umessage.helpers.TextSize
 import com.glooboo.umessage.helpers.ThreadPrefs
 import com.glooboo.umessage.helpers.W3aPrefs
 import com.glooboo.umessage.helpers.W3cPrefs
-import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.FirstRun
 import com.glooboo.umessage.spam.FirstRunTrigger
 import com.glooboo.umessage.spam.ForwardingAvailability
@@ -126,7 +125,7 @@ object SettingsBackup {
             appVersion = BuildConfig.VERSION_NAME,
             blockedKeywords = BlockedKeywordsFormat.sorted(app.config.blockedKeywords),
             groupMembers = repo.groupMembers.first(),
-            removedMembers = RemovedMarks.read(app),
+            removedMembers = RemovedMarks.read(),
         )
         val text = SettingsBackupFormat.encode(content, System.currentTimeMillis())
         SafeOutput.write<Unit>(app, uri) { it.write(text.toByteArray(Charsets.UTF_8)) }
@@ -405,23 +404,13 @@ object SettingsBackup {
 }
 
 /**
- * B-9: the senders the user removed from a group rule ([RemovedMembers], preferences [RemovedMembers.PREFS]) in a
- * settings backup. They are read from those preferences, whose stored set [STORED_SET] RemovedMembersBackupTest pins,
- * and put back through [RemovedMembers.add]. A mark another build wrote that cannot be read is skipped.
+ * B-9: the senders the user removed from a group rule ([RemovedMembers]) in a settings backup: read with
+ * [RemovedMembers.entries], put back through [RemovedMembers.add].
  */
 internal object RemovedMarks {
-    /** The string set [RemovedMembers] writes its "GROUP|key" entries to. */
-    internal const val STORED_SET = "removed"
-
-    fun read(context: Context): List<RemovedGroupMark> =
-        context.getSharedPreferences(RemovedMembers.PREFS, Context.MODE_PRIVATE)
-            .getStringSet(STORED_SET, emptySet()).orEmpty()
-            .mapNotNull { entry ->
-                val group = AllowGroup.entries.firstOrNull { it.name == entry.substringBefore('|') }
-                val key = entry.substringAfter('|', "")
-                if (group == null || key.isEmpty()) null else RemovedGroupMark(group, key)
-            }
-            .sortedWith(compareBy({ it.group }, { it.key }))
+    fun read(): List<RemovedGroupMark> = RemovedMembers.entries()
+        .map { (group, key) -> RemovedGroupMark(group, key) }
+        .sortedWith(compareBy({ it.group }, { it.key }))
 
     fun restore(marks: List<RemovedGroupMark>) {
         marks.groupBy { it.group }.forEach { (group, list) -> RemovedMembers.add(group, list.map { it.key }) }

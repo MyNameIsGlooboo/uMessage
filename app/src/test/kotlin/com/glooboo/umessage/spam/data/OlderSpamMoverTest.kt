@@ -452,4 +452,18 @@ class OlderSpamMoverTest {
         assertThat(result.waiting).isFalse()
         assertThat(world.trace).containsExactly("all", "repairs?")
     }
+
+    @Test
+    fun aMovedRowTheUserHadNotOpenedCountsOnceAsUnreadInItsSpamRow() {
+        val world = OlderSpamWorld()
+        world.sms(body = "not opened", unread = true)
+        world.sms(body = "opened", at = NOW - 2 * HOUR)
+        world.killAfter = { it == "noteUnread" }
+        runCatching { world.mover().run() }
+        world.restart()
+
+        world.mover().run()
+
+        assertThat(world.unreadNoted).containsExactly(world.store.single { it.body == "not opened" }.id)
+    }
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Provider truth, step F (M-SEC2: a restore never arms scheduled sends silently). Step I moves these into the
+     shared files and translates them; until then other languages show the English text. -->
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="one">The backup has %d scheduled message</item>
+        <item quantity="other">The backup has %d scheduled messages</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="one">Sent to %d number at the set time, only if you turn this on. Nothing is sent until you choose.</item>
+        <item quantity="other">Sent to %d different numbers at the set times, only if you turn this on. Nothing is sent until you choose.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">Turn on</string>
+    <string name="pt_restore_scheduled_discard">Discard</string>
+</resources>

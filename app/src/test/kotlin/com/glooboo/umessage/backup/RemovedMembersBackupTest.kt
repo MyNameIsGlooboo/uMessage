@@ -33,13 +33,12 @@ class RemovedMembersBackupTest {
     fun tearDown() = RemovedMembers.reset()
 
     @Test
-    fun theRemovedSendersAreReadFromWhereRemovedMembersKeepsThem() {
+    fun theRemovedSendersAreReadFromRemovedMembers() {
         RemovedMembers.add(AllowGroup.CODE, listOf("+15550001234"))
         RemovedMembers.add(AllowGroup.WROTE, listOf("+15550004321", "shopname"))
 
-        // Pins the stored set this backup reads; it must follow RemovedMembers if that ever changes.
-        assertThat(prefs().getStringSet(RemovedMarks.STORED_SET, emptySet())).hasSize(3)
-        assertThat(RemovedMarks.read(context)).containsExactly(
+        assertThat(RemovedMembers.entries()).hasSize(3)
+        assertThat(RemovedMarks.read()).containsExactly(
             RemovedGroupMark(AllowGroup.CODE, "+15550001234"),
             RemovedGroupMark(AllowGroup.WROTE, "+15550004321"),
             RemovedGroupMark(AllowGroup.WROTE, "shopname"),

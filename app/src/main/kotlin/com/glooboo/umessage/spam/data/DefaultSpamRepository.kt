@@ -661,10 +661,16 @@ class DefaultSpamRepository(
         runCatching { platform.cancelBlockedNotifications(ids) }
     }
 
-    /** Deletes expired blocked messages together with their kept MMS content, and content no row refers to. */
+    /**
+     * Deletes expired blocked messages together with their kept MMS content, and content no row refers to.
+     *
+     * Provider truth (step F): with the flag on, no held row is ever deleted by age here. "Auto-delete of Spam" then
+     * acts on the phone's store (SpamAutoDelete), and a held row goes only once the message migration moved it, 30
+     * days later (SpamProviderMigration). Only the sweep of files no row refers to runs.
+     */
     override suspend fun purgeExpired() = withContext(Dispatchers.IO) {
         val days = settingsStore.get().purgeAfterDays
-        if (days > 0) {
+        if (days > 0 && !ProviderTruthFlag.enabled) {
             val before = System.currentTimeMillis() - days * DAY_MS
             val files = db.runInTransaction<List<String>> {
                 dao.mediaFilesBefore(before).also { dao.deleteBlockedBefore(before) }

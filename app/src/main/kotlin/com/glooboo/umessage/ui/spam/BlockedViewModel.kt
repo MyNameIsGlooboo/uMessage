@@ -27,6 +27,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import com.glooboo.umessage.helpers.refreshConversations
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.spam.data.SpamAutoDelete
+import com.glooboo.umessage.spam.data.SpamProviderMigration
 import kotlinx.coroutines.withContext
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.RestoreOutcome
@@ -342,6 +345,14 @@ class BlockedViewModel(
             sims.value = withContext(Dispatchers.IO) { SimDirectory.load(getApplication()) }
         }
         viewModelScope.launch {
+            // Provider truth (step F): waiting held messages are moved and auto-delete acts on the phone's store; the
+            // repository purge then deletes no held row (only the file sweep runs).
+            if (ProviderTruthFlag.enabled) {
+                withContext(Dispatchers.IO) {
+                    runCatching { SpamProviderMigration.runPending(getApplication<Application>()) }
+                    runCatching { SpamAutoDelete.run(getApplication<Application>()) }
+                }
+            }
             runCatching { repository.purgeExpired() }
             // The restored list goes with the blocked messages the purge deletes (spamui-15): its entries live no
             // longer than the purge setting, and 30 days at most.

@@ -37,6 +37,7 @@ class OlderSpamWorld {
     val deletedMedia = mutableListOf<String>()
     val cached = mutableListOf<Pair<Long, Boolean>>()
     val repaired = mutableListOf<Set<Long>>()
+    val unreadNoted = mutableListOf<Long>()
     val reports = mutableListOf<String>()
     val trace = mutableListOf<String>()
 
@@ -85,10 +86,11 @@ class OlderSpamWorld {
         body: String = "Win a prize now",
         at: Long = NOW - HOUR,
         sub: Int = 1,
+        unread: Boolean = false,
     ): BlockedMessage = add(
         BlockedMessage(
             address = address, body = body, subscriptionId = sub, isMms = false, receivedAt = at,
-            reason = DecisionReason.UNKNOWN_SENDER,
+            reason = DecisionReason.UNKNOWN_SENDER, unread = unread,
         )
     )
 
@@ -254,6 +256,11 @@ class OlderSpamWorld {
 
         override fun repair(threadIds: Set<Long>) = op("repair") {
             repaired += threadIds
+            Unit
+        }
+
+        override fun noteUnread(storeId: Long, isMms: Boolean, address: String) = op("noteUnread") {
+            unreadNoted += storeId
             Unit
         }
     }

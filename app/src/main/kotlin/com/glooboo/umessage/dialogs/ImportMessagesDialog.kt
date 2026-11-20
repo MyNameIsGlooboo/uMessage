@@ -11,15 +11,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.activities.SimpleActivity
+import com.glooboo.umessage.backup.HeldScheduledRestore
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.helpers.BackupJob
 import com.glooboo.umessage.helpers.BackupSummaryText
@@ -39,6 +43,9 @@ import org.fossify.commons.extensions.toast
  * first; a wrong password is said so and nothing is restored. The restore runs in [BackupService], so it keeps
  * going if the dialog is hidden or the app is left; the dialog shows its progress and then the summary of what was
  * added, skipped and failed.
+ *
+ * M-SEC2: when the file held scheduled messages, they were not armed by the restore. After the summary the dialog
+ * says how many there are and to how many numbers, and arms them only on "Turn on"; "Discard" drops them.
  */
 class ImportMessagesDialog(
     private val activity: SimpleActivity,
@@ -66,9 +73,15 @@ class ImportMessagesDialog(
         val job by BackupJob.state.collectAsState()
         val done = (job as? BackupJob.State.ImportDone)?.takeIf { form.started }
         val running = form.started && done == null
+        var held by remember { mutableStateOf<HeldScheduledRestore.Summary?>(null) }
         val close = {
+            val waiting = done?.scheduledHeld
             if (done != null) BackupJob.acknowledge()
-            dismiss()
+            if (waiting != null) held = waiting else dismiss()
+        }
+        held?.let { summary ->
+            HeldScheduledAsk(summary, onDone = dismiss)
+            return
         }
         AlertDialog(
             onDismissRequest = { if (!running && !form.checking) close() },
@@ -83,6 +96,45 @@ class ImportMessagesDialog(
                 ConfirmButton(form, done != null, running, close, dismiss) { start(form, scope) }
             },
             dismissButton = { DismissButton(form.checking, done != null, running, dismiss) },
+        )
+    }
+
+    /** M-SEC2: the restored scheduled messages wait; nothing is sent until the user turns them on. */
+    @Composable
+    private fun HeldScheduledAsk(summary: HeldScheduledRestore.Summary, onDone: () -> Unit) {
+        val scope = rememberCoroutineScope()
+        var busy by remember { mutableStateOf(false) }
+        val decide = { arm: Boolean ->
+            busy = true
+            scope.launch {
+                withContext(Dispatchers.IO) {
+                    runCatching {
+                        if (arm) HeldScheduledRestore.arm(activity) else HeldScheduledRestore.discard(activity)
+                    }
+                }
+                onDone()
+            }
+            Unit
+        }
+        AlertDialog(
+            // A choice is needed: leaving without one would leave the messages waiting with no way to set them.
+            onDismissRequest = {},
+            title = {
+                Text(pluralStringResource(R.plurals.pt_restore_scheduled_title, summary.messages, summary.messages))
+            },
+            text = {
+                Text(pluralStringResource(R.plurals.pt_restore_scheduled_body, summary.numbers, summary.numbers))
+            },
+            confirmButton = {
+                TextButton(onClick = { decide(true) }, enabled = !busy) {
+                    Text(stringResource(R.string.pt_restore_scheduled_arm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { decide(false) }, enabled = !busy) {
+                    Text(stringResource(R.string.pt_restore_scheduled_discard))
+                }
+            },
         )
     }
 

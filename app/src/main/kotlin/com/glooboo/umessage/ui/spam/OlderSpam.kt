@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.BlockedMessage
+import com.glooboo.umessage.spam.data.MigrationMark
 import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.displayNumber
@@ -33,13 +34,18 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
-/** U20: the older spam still kept only in uMessage: held rows the message migration has not moved yet. */
+/**
+ * U20: the older spam still kept only in uMessage: held rows the message migration has not moved yet, and rows it
+ * wrote whose verify has not passed (negative mark, see MigrationMark): their old copy is the one that counts.
+ */
 object OlderSpam {
     fun of(blocked: List<BlockedMessage>): List<BlockedMessage> =
-        blocked.filter { it.migratedMsgId == null }.sortedByDescending { it.receivedAt }
+        blocked.filter(::notMoved).sortedByDescending { it.receivedAt }
 
     /** How many held rows [of] lists, without sorting them (C-7). */
-    fun count(blocked: List<BlockedMessage>): Int = blocked.count { it.migratedMsgId == null }
+    fun count(blocked: List<BlockedMessage>): Int = blocked.count(::notMoved)
+
+    private fun notMoved(row: BlockedMessage): Boolean = !MigrationMark.isDone(row.migratedMsgId)
 }
 
 /**

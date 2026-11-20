@@ -2,6 +2,7 @@ package com.glooboo.umessage.backup
 
 import android.content.Context
 import android.net.Uri
+import com.glooboo.umessage.export.ExportTempFolder
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
@@ -72,12 +73,15 @@ class SafeOutputTest {
     @Test
     fun noTemporaryFileIsLeftBehind() {
         val (_, uri) = destination()
-        val before = context.cacheDir.listFiles { f -> f.name.startsWith("backup") }.orEmpty().size
+        // M-D3: the temporary file lives in the export temp folder.
+        val folder = ExportTempFolder.dir(context)
+        val before = folder.listFiles { f -> f.name.startsWith("backup") }.orEmpty().size
 
         runCatching { SafeOutput.write<Unit>(context, uri) { error("boom") } }
         SafeOutput.write(context, uri) { it.write(1) }
 
-        val after = context.cacheDir.listFiles { f -> f.name.startsWith("backup") }.orEmpty().size
+        val after = folder.listFiles { f -> f.name.startsWith("backup") }.orEmpty().size
         assertThat(after).isEqualTo(before)
+        assertThat(context.cacheDir.listFiles { f -> f.name.startsWith("backup") }.orEmpty()).isEmpty()
     }
 }

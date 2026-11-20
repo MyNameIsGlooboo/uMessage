@@ -25,6 +25,9 @@ encrypted by the app itself yet.
   for an unlocked phone. Android's own notification history (if the user turned it on) keeps notification text;
   the app can't opt out of that.
 - **Exports.** The export dialog now says the file is not encrypted.
+- **Temporary export file (M-D3).** A backup is first written in full to a plain temporary file in the app's
+  private cache, folder `cache/export_tmp`, and only then copied (or encrypted) to the place the user chose; the copy
+  is deleted right after. If the app is killed in between, the file is deleted at the next app start.
 - **Saved texts, SIM names and numbers.** The saved texts list (for example an address or card number the user chose
   to keep) and the nicknames and numbers typed for each SIM are plain text in the app's private preferences
   (`spamless_composer`). They are not encrypted by the app and not uploaded; the app lock does not encrypt them. The

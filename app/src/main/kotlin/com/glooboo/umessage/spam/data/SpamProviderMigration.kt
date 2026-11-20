@@ -34,7 +34,9 @@ import com.glooboo.umessage.spam.OlderSpamMigration
 import com.glooboo.umessage.spam.SpamLogEntry
 import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.spam.UMessage
+import com.glooboo.umessage.spam.engine.DefaultSpamFilter
 import com.glooboo.umessage.spam.engine.SenderAddress
+import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.mms.BlockedMmsContent
 import com.glooboo.umessage.spam.mms.BlockedMmsStore
 import com.google.android.mms.ContentType
@@ -173,6 +175,12 @@ internal interface MigrationWriter {
 
     /** After each sender: the thread dated by its newest message and the chat row cached again. */
     fun repair(threadIds: Set<Long>)
+
+    /**
+     * A moved message the user had not opened in the old Spam screen: when its sender's chat is in Spam (a one-to-one
+     * chat whose sender is judged Spam), its Spam row counts one more unread text.
+     */
+    fun noteUnread(storeId: Long, isMms: Boolean, address: String) = Unit
 }
 
 /** What a run keeps across a kill, outside spamless.db. */
@@ -383,7 +391,15 @@ internal class OlderSpamMover(
         }
         done(row.id, storeId)
         moved++
+        // After the done mark: a kill in between loses one unread count at most, it never counts one twice.
+        if (row.unread) runCatching { writer.noteUnread(storeId, kind is MoveKind.Mms, addressOf(kind)) }
         return true
+    }
+
+    private fun addressOf(kind: MoveKind): String = when (kind) {
+        is MoveKind.Text -> kind.address
+        is MoveKind.Mms -> kind.address
+        MoveKind.Nothing, MoveKind.Wait -> ""
     }
 
     /** The clean-up's clock first: a kill between the two never leaves a done row that is never cleaned up. */
@@ -473,11 +489,31 @@ object SpamProviderMigration {
      */
     fun runPending(context: Context, announce: Boolean = true): Boolean {
         if (!ProviderTruthFlag.enabled) return true
+        val state = runCatching { FirstRun.state(context).value }.getOrNull()
+        // Before the first sort, and while a pass works, the pass's own "older spam" step moves them (3.5).
+        if (state != null && !state.allowsFullSort) return !state.olderSpamWaiting
         val result = runCatching { migrate(context) }
             .onFailure { Log.w(TAG, "Older spam migration failed: ${it.javaClass.simpleName}") }
             .getOrNull() ?: return false
-        if (announce && result.moved > 0) FirstRun.request(context, FirstRunTrigger.MIGRATION_FINISHED)
+        // The pages still say "waits": a pass with the older-spam step clears that, then checks and sorts as below.
+        val stale = state?.olderSpamWaiting == true && !result.waiting
+        when {
+            !announce -> Unit
+            stale -> FirstRun.request(context, FirstRunTrigger.DEFAULT_AGAIN)
+            result.moved > 0 -> FirstRun.request(context, FirstRunTrigger.MIGRATION_FINISHED)
+        }
         return !result.waiting
+    }
+
+    /**
+     * A late result of a held MMS's private download (receivers/BlockedMmsDownloadReceiver, kept one release) was
+     * recorded on row [blockedId]. A row marked "nothing to move" meanwhile has content now and is moved again; then
+     * the waiting rows are moved. Never throws; nothing with the flag off.
+     */
+    fun lateMmsResult(context: Context, blockedId: Long) {
+        if (!ProviderTruthFlag.enabled) return
+        runCatching { AndroidMigrationRows(context.applicationContext).reopenNothingToMove(blockedId) }
+        runPending(context)
     }
 
     /** The decision log line of a stopped migration: no sender, no text, only that it stopped. */
@@ -541,6 +577,15 @@ internal class AndroidMigrationRows(
     }
 
     override fun deleteMedia(names: List<String>) = BlockedMmsStore.delete(app, names)
+
+    /** A row marked "nothing to move" whose content came late is not moved yet again. */
+    fun reopenNothingToMove(id: Long) {
+        db.runInTransaction {
+            db.openHelper.writableDatabase.execSQL(
+                "UPDATE `$TABLE` SET `$COLUMN_MARK` = NULL WHERE `id` = ? AND `$COLUMN_MARK` = 0", arrayOf<Any>(id),
+            )
+        }
+    }
 
     override fun identity(row: BlockedMessage): MmsIdentity? {
         val pdu = row.mediaFile?.let { BlockedMmsStore.pduFile(app, it) }?.takeIf { it.isFile }?.readBytes()
@@ -665,6 +710,20 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
         }
         runCatching { refreshMessages() }
         runCatching { refreshConversations() }
+    }
+
+    override fun noteUnread(storeId: Long, isMms: Boolean, address: String) {
+        if (SenderAddress.isUnreadable(address)) return
+        val message = if (isMms) {
+            app.getMMS(ContentUris.withAppendedId(Mms.CONTENT_URI, storeId))
+        } else {
+            smsMessage(storeId)
+        } ?: return
+        // Only a one-to-one chat can be in Spam (R4).
+        if (message.participants.size > 1) return
+        val judge = (UMessage.filter(app) as? DefaultSpamFilter)?.senderJudge ?: return
+        val spam = judge.verdict(address) as? SenderVerdict.Spam ?: return
+        SpamThreads.noteArrival(app, message.threadId, address, spam.cause, System.currentTimeMillis())
     }
 
     private fun smsMessage(id: Long): Message? {

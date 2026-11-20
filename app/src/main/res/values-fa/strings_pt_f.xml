@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="pt_restore_scheduled_title" tools:ignore="ImpliedQuantity">
+        <item quantity="one">توی پشتیبان %d پیام زمان‌بندی‌شده هست</item>
+        <item quantity="other">توی پشتیبان %d پیام زمان‌بندی‌شده هست</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body" tools:ignore="ImpliedQuantity">
+        <item quantity="one">فقط اگر روشنش کنید، سر وقت برای %d شماره فرستاده می‌شود. تا انتخاب نکنید، چیزی فرستاده نمی‌شود.</item>
+        <item quantity="other">فقط اگر روشنش کنید، سر وقت برای %d شماره فرستاده می‌شود. تا انتخاب نکنید، چیزی فرستاده نمی‌شود.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">روشن کن</string>
+    <string name="pt_restore_scheduled_discard">دور بریز</string>
+</resources>
