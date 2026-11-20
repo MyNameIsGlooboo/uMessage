@@ -7,7 +7,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.helpers.NotifyContext
+import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.OtpCodeExtractor
+import com.glooboo.umessage.receivers.PendingSmsRetry
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.engine.UnknownNotifyPolicy
@@ -131,7 +133,14 @@ object IncomingSmsProcessor {
                 dateSent = message.dateSent,
             )
         } catch (first: Throwable) {
-            insertRaw(context, message, first)
+            val id = insertRaw(context, message, first)
+            // Stored without the notification step: leave a marker, the replay that follows the receive posts it.
+            if (id > 0L && notify.mode != NotifyMode.NONE) {
+                NotifyDue.mark(context, id, message.date, notify, live = false)
+                // R2: and the retry alarm, should this process die before that replay. A booked one is kept.
+                runCatching { PendingSmsRetry.scheduleUnlessBooked(context) }
+            }
+            id
         }
     }
 
@@ -198,6 +207,8 @@ object PendingSmsQueue {
      */
     @Synchronized
     fun replay(context: Context, now: Long = System.currentTimeMillis()): Int {
+        // N6: notifications still owed are replayed first, so a broken database does not stop them.
+        val notifyFirst = NotifyDue.replay(context, now)
         val dao = try {
             SpamDatabase.getInstance(context).spamDao()
         } catch (t: Throwable) {
@@ -208,7 +219,10 @@ object PendingSmsQueue {
         } catch (t: Throwable) {
             return -1
         }
-        return rows.count { replayRow(context, dao, it, now) }
+        val waiting = rows.count { replayRow(context, dao, it, now) }
+        // R5: a row stored by the bare insert just now left a marker; post it in this pass, and count it.
+        val notifyWaiting = if (rows.isEmpty()) notifyFirst else NotifyDue.replay(context, now)
+        return waiting + notifyWaiting
     }
 
     /** Re-runs one row. Returns true when it is still waiting afterwards. */

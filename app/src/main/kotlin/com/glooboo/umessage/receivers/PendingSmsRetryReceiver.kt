@@ -50,6 +50,8 @@ internal object PendingSmsRetry {
 
     /** Replays the queue and books the next attempt while rows are still waiting. Blocking, off the main thread. */
     fun run(context: Context, attempt: Int) {
+        // The alarm that started this run has fired: drop its booking, so [scheduleUnlessBooked] books a new one.
+        runCatching { existing(context)?.cancel() }
         val waiting = PendingSmsQueue.replay(context)
         if (waiting != 0) schedule(context, attempt + 1)
     }
@@ -64,12 +66,10 @@ internal object PendingSmsRetry {
             return
         }
         try {
-            val intent = Intent(context, PendingSmsRetryReceiver::class.java)
-                .putExtra(PendingSmsRetryReceiver.EXTRA_ATTEMPT, attempt)
             val pendingIntent = PendingIntent.getBroadcast(
                 context,
                 0,
-                intent,
+                retryIntent(context).putExtra(PendingSmsRetryReceiver.EXTRA_ATTEMPT, attempt),
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -82,4 +82,23 @@ internal object PendingSmsRetry {
             Log.e(TAG, "Could not schedule a retry for a pending SMS", t)
         }
     }
+
+    /**
+     * Books attempt 0 only when no retry is booked yet. After a "notify due" marker: a queue retry already booked
+     * keeps its attempt count and its [MAX_ATTEMPTS] limit, and its run replays the marker as well.
+     */
+    fun scheduleUnlessBooked(context: Context) {
+        val booked = runCatching { existing(context) != null }.getOrDefault(false)
+        if (!booked) schedule(context)
+    }
+
+    /** The booked retry, or null when none is booked. Extras do not count when Android matches the intent. */
+    private fun existing(context: Context): PendingIntent? = PendingIntent.getBroadcast(
+        context,
+        0,
+        retryIntent(context),
+        PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+    )
+
+    private fun retryIntent(context: Context) = Intent(context, PendingSmsRetryReceiver::class.java)
 }

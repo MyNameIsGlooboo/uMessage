@@ -8,4 +8,6 @@
     <string name="notifications_off_body">از پیام‌های جدید باخبر نمی‌شوید.</string>
     <string name="notifications_off_fix">روشن کردن</string>
     <string name="notifications_off_dismiss">فعلاً نه</string>
+    <string name="notifications_quiet_title">اعلان‌ها بی‌صدا هستند</string>
+    <string name="notifications_quiet_body">«%1$s» صدا ندارد و پیام‌های جدید زنگ نمی‌زنند. صدا را در تنظیمات اندروید روشن کنید.</string>
 </resources>

@@ -21,16 +21,19 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.telephony.SubscriptionManager
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.app.NotificationCompat
 import androidx.core.app.Person
 import androidx.core.app.RemoteInput
 import androidx.core.content.ContextCompat
+import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
 import org.fossify.commons.extensions.notificationManager
 import org.fossify.commons.helpers.ensureBackgroundThread
+import org.fossify.commons.helpers.isOnMainThread
 import com.glooboo.umessage.R
 import com.glooboo.umessage.activities.ThreadActivity
 import com.glooboo.umessage.extensions.config
@@ -57,6 +60,45 @@ class NotificationHelper(private val context: Context) {
         .setName(context.getString(R.string.me))
         .build()
 
+    /**
+     * N5: the received-message post that cannot fail silently. The full notification first; on any error a plain one
+     * on the same channel with the same id. Blocking: call it off the main thread. Never throws. One uMessageNotify
+     * line per call.
+     */
+    fun postMessageNotification(
+        messageId: Long,
+        isMms: Boolean,
+        address: String,
+        body: String,
+        threadId: Long,
+        bitmap: Bitmap?,
+        sender: String?,
+        subscriptionId: Int = SubscriptionManager.INVALID_SUBSCRIPTION_ID,
+        notify: NotifyContext = NotifyContext(),
+    ): NotifyResult {
+        if (notify.mode == NotifyMode.NONE) return NotifyLog.record(null, threadId, NotifyResult.SKIPPED_MODE)
+        return runCatching {
+            showMessageNotification(
+                messageId = messageId,
+                isMms = isMms,
+                address = address,
+                body = body,
+                threadId = threadId,
+                bitmap = bitmap,
+                sender = sender,
+                subscriptionId = subscriptionId,
+                notify = notify,
+            )
+            // The line was written by postBuilt or the hidden branch.
+            NotifyResult.POSTED
+        }.getOrElse { error ->
+            val channelId = runCatching {
+                messageChannel(threadId, body, subscriptionId, notify.mode, MutePrefs.get(context).isMuted(threadId)).id
+            }.getOrNull()
+            plainFallback().post(PlainMessageNotification.Request(threadId, address, sender, body, channelId), error)
+        }
+    }
+
     @SuppressLint("NewApi")
     fun showMessageNotification(
         messageId: Long,
@@ -77,32 +119,22 @@ class NotificationHelper(private val context: Context) {
         // B06: a hidden chat shows "New message" and nothing else.
         if (HiddenChats.get(context).isMarked(threadId)) {
             HiddenChatNotification(context) { id, name -> createChannel(id, name) }.post(threadId, muted, alertOnlyOnce)
+            val hiddenChannel = if (muted) MutedChannel.ID else NOTIFICATION_CHANNEL_ID
+            NotifyLog.record(
+                hiddenChannel,
+                threadId,
+                if (alertOnlyOnce) NotifyResult.REPOSTED else NotifyResult.POSTED,
+                // S1: the hidden post carries no shortcut, so it rings on the parent channel.
+                delivery = NotifyLog.delivery(context, hiddenChannel),
+            )
             return
         }
-        val hasCustomNotifications =
-            context.config.customNotifications.contains(threadId.toString())
-        val otpCode = OtpCodeExtractor.extract(body)
-        // I03: an unknown sender's message goes to a low-importance channel. A code, or a conversation with its own
-        // notification settings, keeps its channel.
-        val silent = muted || (notify.mode == NotifyMode.SILENT && !hasCustomNotifications && otpCode == null)
-        // ID-26: codes get their own channel (own sound and vibration in Android settings). A conversation with its
-        // own notification settings keeps them. Per-SIM channel only on dual-SIM phones; single-SIM keeps the original.
-        val simChannel =
-            if (hasCustomNotifications || otpCode != null || silent) null else getSimChannel(subscriptionId)
-        val notificationChannelId = when {
-            muted -> MutedChannel.ensure(context)
-            hasCustomNotifications -> threadId.toString()
-            otpCode != null -> ensureCodeChannel(context)
-            silent -> ensureSilentChannel(context)
-            simChannel != null -> simChannel.first
-            else -> NOTIFICATION_CHANNEL_ID
-        }
-        if (!hasCustomNotifications && otpCode == null && !silent) {
-            createChannel(
-                notificationChannelId,
-                simChannel?.second ?: context.getString(R.string.channel_received_sms)
-            )
-        }
+        val channel = messageChannel(threadId, body, subscriptionId, notify.mode, muted)
+        val hasCustomNotifications = channel.hasCustom
+        val otpCode = channel.otpCode
+        val silent = channel.silent
+        val notificationChannelId = channel.id
+        notifyFault?.invoke(NotifyStage.BUILD)
 
         val notificationId = threadId.hashCode()
         val contentIntent = Intent(context, ThreadActivity::class.java).apply {
@@ -316,23 +348,114 @@ class NotificationHelper(private val context: Context) {
         }
 
         BubbleSupport.attach(context, builder, threadId, shownSender ?: address, silent || isNoReplySms)
-        var shortcut = context.shortcutHelper.getShortcut(threadId)
-        if (shortcut == null) {
+        val target = PostTarget(threadId, notificationId, notificationChannelId, silent, alertOnlyOnce)
+        val shortcut = runCatching { context.shortcutHelper.getShortcut(threadId) }.getOrNull()
+        if (shortcut == null && isOnMainThread()) {
+            // Making a shortcut reads contacts, so not on the main thread. Nobody catches for this thread: it guards
+            // itself.
             ensureBackgroundThread {
-                shortcut = context.shortcutHelper.createOrUpdateShortcut(threadId)
-                builder.setShortcutInfo(shortcut)
-                notificationManager.notify(notificationId, builder.build())
-                ScreenWake.maybeWake(context, silent, alertOnlyOnce)
-                context.shortcutHelper.reportReceiveMessageUsage(threadId)
+                runCatching { postBuilt(builder, target, null) }
+                    .onFailure {
+                        val request = PlainMessageNotification.Request(
+                            threadId, address, sender, body, notificationChannelId, alertOnlyOnce,
+                        )
+                        plainFallback().post(request, it)
+                    }
             }
         } else {
-            builder.setShortcutInfo(shortcut)
-            notificationManager.notify(notificationId, builder.build())
-            ScreenWake.maybeWake(context, silent, alertOnlyOnce)
-            ensureBackgroundThread {
-                context.shortcutHelper.reportReceiveMessageUsage(threadId)
-            }
+            postBuilt(builder, target, shortcut)
         }
+    }
+
+    /** Where and how a built message notification is posted. */
+    private class PostTarget(
+        val threadId: Long,
+        val notificationId: Int,
+        val channelId: String,
+        val silent: Boolean,
+        val alertOnlyOnce: Boolean,
+    )
+
+    /**
+     * Last step of a message post. Throws only when the build or `notify` itself failed; nothing after `notify` can
+     * throw.
+     */
+    private fun postBuilt(builder: NotificationCompat.Builder, target: PostTarget, known: ShortcutInfoCompat?) {
+        // N5: a shortcut problem never costs the notification.
+        val shortcut = known ?: runCatching {
+            notifyFault?.invoke(NotifyStage.SHORTCUT)
+            context.shortcutHelper.createOrUpdateShortcut(target.threadId)
+        }.getOrNull()
+        if (shortcut != null) builder.setShortcutInfo(shortcut)
+        notifyFault?.invoke(NotifyStage.NOTIFY)
+        notificationManager.notify(target.notificationId, builder.build())
+        // R11: the re-post after the user's own reply is not a received text.
+        val result = when {
+            target.alertOnlyOnce -> NotifyResult.REPOSTED
+            shortcut != null -> NotifyResult.POSTED
+            else -> NotifyResult.POSTED_NO_SHORTCUT
+        }
+        // S1: Android uses the chat's own channel only for a post that carries its shortcut.
+        val conversationId = if (shortcut != null) target.threadId.toString() else null
+        val delivery = NotifyLog.delivery(context, target.channelId, conversationId)
+        NotifyLog.record(target.channelId, target.threadId, result, delivery = delivery)
+        runCatching { ScreenWake.maybeWake(context, target.silent, target.alertOnlyOnce) }
+        ensureBackgroundThread { runCatching { context.shortcutHelper.reportReceiveMessageUsage(target.threadId) } }
+    }
+
+    private fun plainFallback() = PlainMessageNotification(context) { id, name -> createChannel(id, name) }
+
+    private class MessageChannel(val id: String, val hasCustom: Boolean, val otpCode: String?, val silent: Boolean)
+
+    /** The channel a received message posts to. Creates the channel when it is ours to create. */
+    private fun messageChannel(
+        threadId: Long,
+        body: String,
+        subscriptionId: Int,
+        mode: NotifyMode,
+        muted: Boolean,
+    ): MessageChannel {
+        val hasCustomNotifications = hasOwnChannel(threadId)
+        val otpCode = OtpCodeExtractor.extract(body)
+        val silent = isSilent(muted, mode, hasCustomNotifications, otpCode)
+        // ID-26: codes get their own channel (own sound and vibration in Android settings). A conversation with its
+        // own notification settings keeps them.
+        val notificationChannelId = when {
+            muted -> MutedChannel.ensure(context)
+            hasCustomNotifications -> threadId.toString()
+            otpCode != null -> ensureCodeChannel(context)
+            silent -> ensureSilentChannel(context)
+            else -> ensureNormalChannel(subscriptionId)
+        }
+        return MessageChannel(notificationChannelId, hasCustomNotifications, otpCode, silent)
+    }
+
+    /**
+     * I03: an unknown sender's message goes to a low-importance channel. A code, or a conversation with its own
+     * notification settings, keeps its channel.
+     */
+    private fun isSilent(muted: Boolean, mode: NotifyMode, hasCustomNotifications: Boolean, otpCode: String?) =
+        muted || (mode == NotifyMode.SILENT && !hasCustomNotifications && otpCode == null)
+
+    /**
+     * The normal channel, created when it is not there yet. Per-SIM channel only on dual-SIM phones; single-SIM keeps
+     * the original.
+     */
+    private fun ensureNormalChannel(subscriptionId: Int): String {
+        val simChannel = getSimChannel(subscriptionId)
+        val id = simChannel?.first ?: NOTIFICATION_CHANNEL_ID
+        createChannel(id, simChannel?.second ?: context.getString(R.string.channel_received_sms))
+        return id
+    }
+
+    /** N8: true when the chat has its own channel and Android still has it. A stale id is logged and forgotten. */
+    private fun hasOwnChannel(threadId: Long): Boolean {
+        val id = threadId.toString()
+        if (!context.config.customNotifications.contains(id)) return false
+        if (notificationManager.getNotificationChannel(id) != null) return true
+        NotifyLog.record(id, threadId, NotifyResult.CUSTOM_CHANNEL_MISSING)
+        runCatching { context.config.removeCustomNotificationsByThreadId(threadId) }
+        return false
     }
 
     private fun blockAction(address: String, threadId: Long, notificationId: Int): NotificationCompat.Action {
@@ -373,8 +496,7 @@ class NotificationHelper(private val context: Context) {
         // B06: a hidden chat's recipient is not named.
         val recipient =
             if (HiddenChats.get(context).isMarked(threadId)) context.getString(R.string.app_name) else recipientName
-        val hasCustomNotifications =
-            context.config.customNotifications.contains(threadId.toString())
+        val hasCustomNotifications = hasOwnChannel(threadId)
         val notificationChannelId =
             if (hasCustomNotifications) threadId.toString() else FAILED_SEND_CHANNEL_ID
         if (!hasCustomNotifications) {
@@ -723,9 +845,17 @@ private const val ADAPTIVE_SAFE_FRACTION = 72f / 108f
 /** Same proportions as the list avatar: a 0.55 silhouette and titleMedium (16sp) initials on 48dp. */
 private const val AVATAR_ICON_FRACTION = 0.55f
 private const val AVATAR_TEXT_FRACTION = 1f / 3f
-private const val SIM_CHANNEL_PREFIX = "${NOTIFICATION_CHANNEL_ID}_slot_"
+internal const val SIM_CHANNEL_PREFIX = "${NOTIFICATION_CHANNEL_ID}_slot_"
 private const val LEGACY_SIM_CHANNEL_PREFIX = "${NOTIFICATION_CHANNEL_ID}_sim_"
 
 /** Once per process is enough: nothing creates the legacy channels any more. */
 @Volatile
 private var legacySimChannelsDeleted = false
+
+/** Where a test can make the post fail. DELIVER: in the receive path, after the marker and before the post. */
+internal enum class NotifyStage { BUILD, SHORTCUT, NOTIFY, PLAIN, DELIVER }
+
+/** Tests only: called at each stage of a message post; it may throw. Null in the app. */
+@Volatile
+@VisibleForTesting
+internal var notifyFault: ((NotifyStage) -> Unit)? = null

@@ -39,15 +39,18 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.ChannelHealth
+import com.glooboo.umessage.helpers.ChannelProblem
 import com.glooboo.umessage.helpers.OemHelper
 import com.glooboo.umessage.helpers.OemStepKind
 import com.glooboo.umessage.helpers.StepState
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.main.NotificationsBlock
-import com.glooboo.umessage.ui.main.currentNotificationsBlock
+import com.glooboo.umessage.ui.main.notificationsBlock
 import com.glooboo.umessage.ui.main.notificationsFixIntent
 import com.glooboo.umessage.ui.main.openDefaultAppsSettings
 import com.glooboo.umessage.ui.onboarding.OemStepsSection
@@ -90,12 +93,15 @@ fun SetupPage(modifier: Modifier = Modifier) {
     }
     val asker = rememberPermissionAsker { refresh++ }
 
+    // R7: one read of the message channels, for the row's mark and its note.
+    val channelProblem = refresh.let { ChannelHealth.current(context) }
     val live = SetupLive(
         items = remember { permissionItems() },
         isDefault = refresh.let { OnboardingActivity.isDefaultSmsApp(context) },
         roleDenied = roleDenied,
-        block = refresh.let { context.currentNotificationsBlock() },
+        block = refresh.let { notificationsBlockOf(context, channelProblem) },
         denied = asker.denied,
+        channelProblem = channelProblem,
     )
     val actions = SetupActions(
         requestPermissions = asker::request,
@@ -105,6 +111,11 @@ fun SetupPage(modifier: Modifier = Modifier) {
     val batteryOpen = refresh.let { batteryStepOpen(context) }
     SetupBody(buildSetupRows(context, live, actions), batteryOpen, refresh, modifier)
 }
+
+/** As currentNotificationsBlock, from a channel [problem] this composition has read already. */
+private fun notificationsBlockOf(context: Context, problem: ChannelProblem?): NotificationsBlock? = runCatching {
+    notificationsBlock(NotificationManagerCompat.from(context).areNotificationsEnabled(), problem)
+}.getOrNull()
 
 /** The optional battery card is open until Android reports uMessage as unrestricted. */
 private fun batteryStepOpen(context: Context): Boolean =

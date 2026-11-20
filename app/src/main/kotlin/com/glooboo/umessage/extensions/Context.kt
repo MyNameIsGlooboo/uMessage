@@ -56,6 +56,8 @@ import com.glooboo.umessage.helpers.AttachmentUtils.parseAttachmentNames
 import com.glooboo.umessage.helpers.Config
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.NotifyContext
+import com.glooboo.umessage.helpers.NotifyLog
+import com.glooboo.umessage.helpers.NotifyResult
 import com.glooboo.umessage.helpers.stripControlCharacters
 import com.glooboo.umessage.helpers.ConversationLookups
 import com.glooboo.umessage.helpers.FILE_SIZE_NONE
@@ -1474,23 +1476,33 @@ fun Context.showReceivedMessageNotification(
     // main thread, where Room refuses queries.
     // The whole post (smart replies, avatar, shortcut, notify) runs on this background thread; none of it needs main.
     ensureBackgroundThread {
-        val alreadyRead = isMessageSavedAsRead(messageId, isMms)
-        if (alreadyRead) {
-            notificationManager.cancel(threadId.hashCode())
-            return@ensureBackgroundThread
-        }
-        notificationHelper.showMessageNotification(
-            messageId = messageId,
-            isMms = isMms,
-            address = address,
-            body = body,
-            threadId = threadId,
-            bitmap = bitmap,
-            sender = senderName,
-            subscriptionId = subscriptionId,
-            notify = notify,
+        postReceivedMessageNotification(
+            messageId, isMms, address, senderName, body, threadId, bitmap, subscriptionId, notify,
         )
     }
+}
+
+/** The same, blocking, with the outcome. Call it off the main thread. Never throws. */
+internal fun Context.postReceivedMessageNotification(
+    messageId: Long,
+    isMms: Boolean,
+    address: String,
+    senderName: String,
+    body: String,
+    threadId: Long,
+    bitmap: Bitmap?,
+    subscriptionId: Int = SubscriptionManager.INVALID_SUBSCRIPTION_ID,
+    notify: NotifyContext = NotifyContext(),
+): NotifyResult {
+    if (isMessageSavedAsRead(messageId, isMms)) {
+        runCatching { notificationManager.cancel(threadId.hashCode()) }
+        return NotifyLog.record(null, threadId, NotifyResult.SKIPPED_READ)
+    }
+    return runCatching {
+        notificationHelper.postMessageNotification(
+            messageId, isMms, address, body, threadId, bitmap, senderName, subscriptionId, notify,
+        )
+    }.getOrElse { NotifyLog.record(null, threadId, NotifyResult.FAILED, it) }
 }
 
 /** True when the saved copy of the message is already read (the chat was opened meanwhile). */

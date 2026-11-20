@@ -11,4 +11,7 @@
     <string name="notifications_off_body">You won\'t be told about new messages.</string>
     <string name="notifications_off_fix">Turn on</string>
     <string name="notifications_off_dismiss">Not now</string>
+    <!-- N7: a message channel still shows but rings no sound. %1$s is the channel name. -->
+    <string name="notifications_quiet_title">Notifications are silent</string>
+    <string name="notifications_quiet_body">“%1$s” has no sound, so new messages do not ring. Turn the sound on in Android settings.</string>
 </resources>
