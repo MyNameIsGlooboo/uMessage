@@ -15,12 +15,18 @@ import com.glooboo.umessage.spam.SortingWorld.Companion.chat
 import com.glooboo.umessage.spam.engine.ContactLookup
 import com.glooboo.umessage.ui.spam.SortChange
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * G-B3 (answer 18, U11): the switch confirm's count is a dry run of the change: the chats the sort would move with the
@@ -41,8 +47,25 @@ class SortDryRunTest {
     private val received = mutableMapOf<Long, String>()
     private var joins = 0
 
+    /** Chats of the phone's store the app did not cache yet. */
+    private val storeOnly = mutableListOf<SortableChat>()
+
+    /** Runs inside every read of the store's chats (AD-3: holds a count in its history read). */
+    @Volatile private var onRead: () -> Unit = {}
+    private val reading = AtomicInteger()
+    private val mostReadingAtOnce = AtomicInteger()
+    private var dispatcher: CoroutineDispatcher = Dispatchers.Unconfined
+
     private val store = object : HistoryStore {
-        override fun chats(): List<SortableChat> = dao.getSortableChats()
+        override fun chats(): List<SortableChat> {
+            mostReadingAtOnce.accumulateAndGet(reading.incrementAndGet(), ::maxOf)
+            try {
+                onRead()
+            } finally {
+                reading.decrementAndGet()
+            }
+            return dao.getSortableChats() + storeOnly
+        }
         override fun cachedChats(): List<SortableChat> = dao.getSortableChats()
         override fun wroteTo(address: String): ContactLookup =
             if (wrote.any { world.readers.same(it, address) }) ContactLookup.FOUND else ContactLookup.NOT_FOUND
@@ -63,7 +86,7 @@ class SortDryRunTest {
             },
             published = { published },
             removed = { group, keys -> keys.any { (group to it) in removedMarks } },
-            dispatcher = Dispatchers.Unconfined,
+            dispatcher = dispatcher,
         )
     }
 
@@ -168,9 +191,55 @@ class SortDryRunTest {
     }
 
     @Test
+    fun aChatInThePhonesStoreOnlyCountsForItsSenderButIsNotCached() {
+        world.settings = world.settings.copy(filterOn = false)
+        sorted()
+        // Chat 7 is in the phone's store only; its code allows chat 2's sender, so only chat 1 enters Spam.
+        storeOnly += SortableChat(7, OTHER, isGroup = false, isScheduled = false)
+        received[7] = "Your code is 4711"
+        val before = written()
+
+        assertThat(count(SortChange.Filter(on = true))).isEqualTo(1)
+        assertThat(dao.getSortableChats().map { it.threadId }).doesNotContain(7L)
+        assertThat(joins).isEqualTo(0)
+        assertThat(written()).isEqualTo(before)
+    }
+
+    @Test
+    fun aSecondCountWhileOneRunsReplacesItAndTheyNeverRunTogether() {
+        // AD-3: the first count is held in its history read; the second asks meanwhile and waits its turn.
+        world.settings = world.settings.copy(filterOn = false)
+        sorted()
+        dispatcher = Dispatchers.IO
+        val inRead = CountDownLatch(1)
+        val release = CountDownLatch(1)
+        onRead = {
+            onRead = {}
+            inRead.countDown()
+            release.await(WAIT_S, TimeUnit.SECONDS)
+        }
+
+        runBlocking {
+            val first = async(Dispatchers.IO) { dryRun.chatsMoving(SortChange.Filter(on = true)) }
+            assertThat(inRead.await(WAIT_S, TimeUnit.SECONDS)).isTrue()
+            val second = async(start = CoroutineStart.UNDISPATCHED) { dryRun.chatsMoving(SortChange.Filter(on = true)) }
+            release.countDown()
+
+            // The replaced count stops after its history read and answers "unknown"; the new one counts.
+            assertThat(first.await()).isNull()
+            assertThat(second.await()).isEqualTo(2)
+        }
+        assertThat(mostReadingAtOnce.get()).isEqualTo(1)
+    }
+
+    @Test
     fun aChangeThatMovesNothingCountsZero() {
         sorted()
 
         assertThat(count(SortChange.Filter(on = true))).isEqualTo(0)
+    }
+
+    private companion object {
+        const val WAIT_S = 5L
     }
 }

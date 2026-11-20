@@ -10,14 +10,20 @@ import com.glooboo.umessage.ui.main.FirstRunPagePolicy
 import com.glooboo.umessage.ui.main.FirstRunPassKind
 import com.glooboo.umessage.ui.main.WhatChanged
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalForInheritanceCoroutinesApi
+import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.coroutines.CoroutineContext
 import com.glooboo.umessage.ui.main.FirstRunPhase as PagePhase
 
 /**
@@ -36,6 +42,7 @@ class FirstRunProgressAdapterTest {
     private var onboarded = true
     private var kind: FirstRunTrigger? = null
     private val acks = mutableListOf<Pair<Boolean, Boolean>>()
+    private var now = SHOWN_AT
 
     private val adapter by lazy {
         FirstRunProgressAdapter(
@@ -44,8 +51,29 @@ class FirstRunProgressAdapterTest {
             installKind = { kind },
             acknowledge = { whatChanged, inBackground -> acks += whatChanged to inBackground },
             scope = CoroutineScope(Dispatchers.Unconfined),
-            clock = { SHOWN_AT },
+            clock = { now },
         )
+    }
+
+    private fun adapterOn(source: StateFlow<FirstRunState>, scope: CoroutineScope) = FirstRunProgressAdapter(
+        state = source,
+        onboarded = { onboarded },
+        installKind = { kind },
+        acknowledge = { _, _ -> },
+        scope = scope,
+        clock = { now },
+    )
+
+    /** A dispatcher that runs nothing until [runQueued]: the collector lags behind the state. */
+    private val queued = mutableListOf<Runnable>()
+    private val lagging = CoroutineScope(object : CoroutineDispatcher() {
+        override fun dispatch(context: CoroutineContext, block: Runnable) {
+            queued += block
+        }
+    })
+
+    private fun runQueued() {
+        while (queued.isNotEmpty()) queued.removeAt(0).run()
     }
 
     private fun page(): FirstRunPage = FirstRunPagePolicy.pageFor(adapter.progress.value)
@@ -111,6 +139,81 @@ class FirstRunProgressAdapterTest {
 
         state.value = state.value.copy(inBackground = true)
         assertThat(page()).isEqualTo(FirstRunPage.BAR)
+    }
+
+    @Test
+    fun aStalledPassOfAnotherKindIsNotRunningAndDoesNotHoldBackWhatChanged() {
+        // AD-2: the bar has no "Continue in background"; a stalled chained pass must not keep it with no way out.
+        state.value = pass(FirstRunTrigger.CONTACTS_GRANTED).copy(sortPublished = true, waiting = true)
+        assertThat(adapter.progress.value.running).isFalse()
+        assertThat(page()).isEqualTo(FirstRunPage.NONE)
+
+        state.value = state.value.copy(whatChangedPending = true, whatChangedMoved = 4)
+        assertThat(page()).isEqualTo(FirstRunPage.WHAT_CHANGED)
+
+        state.value = state.value.copy(waiting = false)
+        assertThat(page()).isEqualTo(FirstRunPage.BAR)
+    }
+
+    @Test
+    fun thePageBeforeThePassCountsTheButtonFromWhenItFirstShowed() {
+        // AD-1: a new install's welcome takes longer than 15 s; the page's time starts when it first shows.
+        onboarded = false
+        kind = FirstRunTrigger.FRESH_INSTALL
+        now = 1_000L
+        assertThat(page()).isEqualTo(FirstRunPage.NONE)
+
+        now = 40_000L
+        onboarded = true
+        adapter.refresh()
+        assertThat(adapter.progress.value.startedAtMs).isEqualTo(40_000L)
+        assertThat(FirstRunPagePolicy.showsBackgroundButton(adapter.progress.value, 40_001L)).isFalse()
+
+        // The pass starts later: the page keeps its earlier time, so the button does not go and come back.
+        now = 56_000L
+        state.value = pass(FirstRunTrigger.FRESH_INSTALL).copy(startedAt = 43_000L)
+        assertThat(adapter.progress.value.startedAtMs).isEqualTo(40_000L)
+        assertThat(FirstRunPagePolicy.showsBackgroundButton(adapter.progress.value, 56_000L)).isTrue()
+
+        // A later pass counts from its own start.
+        state.value = pass(FirstRunTrigger.UPDATE).copy(startedAt = 90_000L)
+        assertThat(adapter.progress.value.startedAtMs).isEqualTo(90_000L)
+    }
+
+    @Test
+    fun refreshAfterTheStateMovedOnShowsTheNewState() {
+        val lagged = adapterOn(state, lagging)
+        runQueued()
+        state.value = pass(FirstRunTrigger.UPDATE)
+        state.value = FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true)
+
+        lagged.refresh()
+        assertThat(lagged.progress.value.running).isFalse()
+
+        // The collector catches up later and does not bring back the pass.
+        runQueued()
+        assertThat(lagged.progress.value.running).isFalse()
+    }
+
+    @OptIn(ExperimentalForInheritanceCoroutinesApi::class)
+    @Test
+    fun aValueFromAnOlderStateNeverReplacesANewerOne() {
+        // The collector handles an older value while refresh() already showed the newer state.
+        val stale = pass(FirstRunTrigger.UPDATE)
+        val source = object : StateFlow<FirstRunState> by state {
+            override suspend fun collect(collector: FlowCollector<FirstRunState>): Nothing {
+                collector.emit(stale)
+                awaitCancellation()
+            }
+        }
+        state.value = FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true)
+        val ordered = adapterOn(source, lagging)
+        ordered.refresh()
+
+        runQueued()
+
+        assertThat(ordered.progress.value.running).isFalse()
+        assertThat(FirstRunPagePolicy.pageFor(ordered.progress.value)).isEqualTo(FirstRunPage.NONE)
     }
 
     @Test

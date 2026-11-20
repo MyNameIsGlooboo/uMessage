@@ -21,7 +21,8 @@ import com.glooboo.umessage.ui.main.FirstRunPhase as PagePhase
  * the runner's [FirstRunState] (FirstRun.state), which is stored after every step, so a killed app shows the same page.
  *
  * - A pass that works, or one that stalled ([FirstRunState.waiting]), is "running": G has no stalled state, the
- *   "Continue in background" button is the way out (lead decision).
+ *   "Continue in background" button is the way out (lead decision). AD-2: a stalled pass of any other kind shows only
+ *   the bar, which has no such button, so it is reported as not running and does not hold back "What changed".
  * - G-B4: on the first start after the update (or after a new install's welcome) the state is still NOT_STARTED until
  *   the sorting thread checked it; the pass is due, so it is reported as running already ([firstPassDue]) and the
  *   main screen does not show before the progress page.
@@ -38,25 +39,38 @@ class FirstRunProgressAdapter(
     /** Keeps the user's mark: "What changed" closed, or "Continue in background". */
     private val acknowledge: (whatChanged: Boolean, inBackground: Boolean) -> Unit,
     scope: CoroutineScope,
-    clock: () -> Long = System::currentTimeMillis,
+    private val clock: () -> Long = System::currentTimeMillis,
 ) : FirstRunProgressSource {
 
-    /** G-B4: the start of a page shown before the pass started; "Continue in background" counts its 15 s from it. */
-    private val shownAt = clock()
+    /**
+     * G-B4, AD-1: when the page before the pass started first showed (0 before); "Continue in background" counts its
+     * 15 s from it. The pass that follows keeps the earlier of this and its own start, so the button does not go away.
+     */
+    @Volatile private var shownAt = 0L
 
+    /** The start of the pass that followed the page shown before it ([shownAt]); 0 before it started. */
+    @Volatile private var followedPass = 0L
+
+    private val lock = Any()
     private val current = MutableStateFlow(progressOf(state.value))
     override val progress: StateFlow<FirstRunProgress> = current.asStateFlow()
 
     init {
-        scope.launch { state.collect { current.value = progressOf(it) } }
+        scope.launch { state.collect { publish() } }
     }
 
     /**
      * Reads again what the runner's state does not carry (the welcome flow just ended). The main screen's resume
      * calls it (App.checkFirstRun), before its first frame.
      */
-    fun refresh() {
-        current.value = progressOf(state.value)
+    fun refresh() = publish()
+
+    /**
+     * The collector and [refresh] (main thread) publish in turn, each from the latest state: a value worked out from an
+     * older state never replaces a newer one.
+     */
+    private fun publish() {
+        synchronized(lock) { current.value = progressOf(state.value) }
     }
 
     override fun continueInBackground() = acknowledge(false, true)
@@ -65,12 +79,12 @@ class FirstRunProgressAdapter(
 
     /** The pages' view of [first]. */
     internal fun progressOf(first: FirstRunState): FirstRunProgress = when {
-        first.active -> FirstRunProgress(
+        first.active && !(first.waiting && kindOf(first.trigger) == FirstRunPassKind.OTHER) -> FirstRunProgress(
             running = true,
             passKind = kindOf(first.trigger),
             phase = PagePhase.entries.firstOrNull { it.name == first.phase.name },
             olderSpamWaiting = first.olderSpamWaiting,
-            startedAtMs = first.startedAt,
+            startedAtMs = startedAtOf(first),
             inBackground = first.inBackground,
             whatChanged = whatChangedOf(first),
         )
@@ -78,10 +92,23 @@ class FirstRunProgressAdapter(
             running = true,
             passKind = kindOf(installKind() ?: FirstRunTrigger.UPDATE),
             phase = PagePhase.SETTINGS,
-            startedAtMs = shownAt,
+            startedAtMs = shownAtNow(),
             inBackground = first.inBackground,
         )
         else -> FirstRunProgress(olderSpamWaiting = first.olderSpamWaiting, whatChanged = whatChangedOf(first))
+    }
+
+    /** AD-1: [shownAt], stamped the first time the pass is reported as due. */
+    private fun shownAtNow(): Long = synchronized(lock) {
+        if (shownAt == 0L) shownAt = clock()
+        shownAt
+    }
+
+    /** AD-1: the pass that followed the page shown before it counts from the earlier of the two. */
+    private fun startedAtOf(first: FirstRunState): Long = synchronized(lock) {
+        if (shownAt == 0L) return first.startedAt
+        if (followedPass == 0L) followedPass = first.startedAt
+        if (first.startedAt == followedPass) minOf(shownAt, first.startedAt) else first.startedAt
     }
 
     /** G-B4: no pass ran yet, but the first one starts at the sorting thread's next check (FirstRun.checkNow). */

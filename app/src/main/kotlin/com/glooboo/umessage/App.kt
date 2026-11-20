@@ -11,6 +11,7 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.ContactsContract
 import android.view.WindowManager
+import androidx.annotation.VisibleForTesting
 import org.fossify.commons.FossifyApp
 import org.fossify.commons.activities.BaseComposeActivity
 import org.fossify.commons.activities.BaseSimpleActivity
@@ -120,7 +121,8 @@ class App : FossifyApp() {
      * Provider truth, flag on only: the first-run pages read the runner's state now, before the main screen's first
      * frame (G-B4), and the switch confirm counts the chats a change would move by a dry run (G-B3).
      */
-    private fun installFirstRunPages() {
+    @VisibleForTesting
+    internal fun installFirstRunPages() {
         if (!ProviderTruthFlag.enabled) return
         firstRunPages = FirstRunProgressAdapter.forApp(this).also(FirstRunPagesHost::install)
         ChatMoveCounting.counter = SortDryRun.forApp(this)

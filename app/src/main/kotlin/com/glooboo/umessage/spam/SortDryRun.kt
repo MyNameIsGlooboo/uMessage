@@ -8,7 +8,11 @@ import com.glooboo.umessage.ui.spam.SortChange
 import com.glooboo.umessage.ui.spam.applying
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import java.util.concurrent.atomic.AtomicLong
 
 /**
  * G-B3 (answer 18, U11): the [ChatMoveCounter] of the switch confirm, by a dry run of what the change would do. The
@@ -17,6 +21,9 @@ import kotlinx.coroutines.withContext
  * ([HistoryCheck.dryRun]), less those the user removed from a group (B-9), as the real join leaves them out. Nothing is
  * written: no member, no row, no snapshot kept. Off the main thread ([dispatcher]); null when a read failed, or while
  * the first sort was not published (nothing moves before it; the first run sorts every chat).
+ *
+ * AD-3: one count at a time. A new request replaces the running one: that one stops between the history read and the
+ * sort and answers null, and a request still waiting for its turn does not start.
  */
 class SortDryRun(
     private val snapshot: () -> SenderJudge.Snapshot,
@@ -28,18 +35,34 @@ class SortDryRun(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : ChatMoveCounter {
 
-    override suspend fun chatsMoving(change: SortChange): Int? = withContext(dispatcher) {
-        runCatching { count(change) }.getOrNull()
+    private val oneAtATime = Mutex()
+    private val latest = AtomicLong()
+
+    override suspend fun chatsMoving(change: SortChange): Int? {
+        val request = latest.incrementAndGet()
+        val replaced = { latest.get() != request }
+        return oneAtATime.withLock {
+            if (replaced()) return@withLock null
+            withContext(dispatcher) {
+                runCatching {
+                    count(change) {
+                        ensureActive()
+                        check(!replaced()) { "A newer count runs" }
+                    }
+                }.getOrNull()
+            }
+        }
     }
 
-    /** The count, on the caller's thread. */
-    internal fun count(change: SortChange): Int? {
+    /** The count, on the caller's thread. [goOn] throws when the count is no longer wanted (AD-3). */
+    internal fun count(change: SortChange, goOn: () -> Unit = {}): Int? {
         if (!published()) return null
         val now = snapshot()
         val after = now.changed(settings = now.settings.applying(change))
         val switchOn = change is SortChange.Filter && change.on && !now.settings.filterOn
         if (!switchOn) return sorter().countMoves(after)
         val joins = history { after }.dryRun() ?: return null
+        goOn()
         return sorter().countMoves(after.changed(moreMembers = membersOf(joins, after)))
     }
 

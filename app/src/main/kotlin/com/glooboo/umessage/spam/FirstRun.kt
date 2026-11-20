@@ -16,6 +16,7 @@ import com.glooboo.umessage.ui.onboarding.OnboardingState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import org.fossify.commons.helpers.ensureBackgroundThread
 
 /** The steps of a first run (3.5), in their fixed order. Stored by name; never rename. */
 enum class FirstRunPhase { NOT_STARTED, SETTINGS, RULES, OLDER_SPAM, HISTORY, SORT, CLEANUP, DONE }
@@ -223,10 +224,11 @@ class FirstRunStore(private val prefs: SharedPreferences) {
      * G-B1: the user saw something. [backgroundPass]: "Continue in background" for the pass that started then
      * ([FirstRunState.startedAt]; [BEFORE_START] while the first pass has not started yet). [card]: the card that
      * counts from this [FirstRunState.cardSince], seen at [at]. [whatChanged]: "What changed" of this
-     * [FirstRunState.whatChangedSince]. In memory at once and written in the background (apply): fine on the main
-     * thread, and never queued behind a pass.
+     * [FirstRunState.whatChangedSince]. In memory at once (apply): fine on the main thread, and never queued behind a
+     * pass. Then the file is written at once (an empty commit writes what is in memory) off the main thread, so a kill
+     * right after the tap keeps it; the commit puts nothing again, so it cannot bring back a mark cleared meanwhile.
      */
-    fun markSeen(backgroundPass: Long? = null, card: Long? = null, whatChanged: Long? = null, at: Long = 0L) =
+    fun markSeen(backgroundPass: Long? = null, card: Long? = null, whatChanged: Long? = null, at: Long = 0L) {
         prefs.edit {
             backgroundPass?.let { putLong(KEY_SEEN_BACKGROUND, it) }
             card?.let {
@@ -235,6 +237,8 @@ class FirstRunStore(private val prefs: SharedPreferences) {
             }
             whatChanged?.let { putLong(KEY_SEEN_WHAT_CHANGED, it) }
         }
+        ensureBackgroundThread { runCatching { prefs.edit(commit = true) {} } }
+    }
 
     /** [state] with the user's marks ([markSeen]) applied; without a mark that fits, [state] as it is. */
     fun marked(state: FirstRunState): FirstRunState {
