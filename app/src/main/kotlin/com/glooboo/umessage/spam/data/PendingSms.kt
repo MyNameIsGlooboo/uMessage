@@ -237,16 +237,21 @@ internal object ProviderTruthSms {
         if (!known) logIssue(context, message, "HISTORY_CHECK_FAILED")
         val judgement = if (known) SpamEngine.judge(context, message.toIncoming()) else null
         val placed = judgement?.let { ArrivalFacts.wroteToOnArrival(context, message.address, it) }
+        // E-4: the sent history could not be read; fail open, as the history check does.
+        if (judgement != null && placed == null) logIssue(context, message, "HISTORY_CHECK_FAILED")
         val spam = placed?.verdict as? SenderVerdict.Spam
         if (placed != null && spam != null) {
             // Reviewer: a text judged Spam is never forwarded, wherever it ends.
             val outcome = storeInSpam(context, message, threadId, placed, spam.cause)
             if (outcome == SpamOutcome.NOT_STORED) {
+                SilentMarks.clear(context, message)
                 val notify = IncomingSmsProcessor.notifyContextFor(context, message, null)
                 IncomingSmsProcessor.deliver(context, message, notify)
             }
             return
         }
+        // E-2: a mark left by an earlier attempt must not make this Messages text look silent to a later replay.
+        SilentMarks.clear(context, message)
         val decision = ArrivalFacts.messagesDecision(context, message.address, placed)
         val notify = IncomingSmsProcessor.notifyContextFor(context, message, decision)
         IncomingSmsProcessor.deliver(context, message, notify)
@@ -261,12 +266,25 @@ internal object ProviderTruthSms {
      */
     fun deliverExpired(context: Context, row: PendingSmsEntity) {
         val threadId = runCatching { context.getThreadId(row.address) }.getOrDefault(0L)
-        val place = runCatching { (UMessage.filter(context) as DefaultSpamFilter).senderJudge.verdict(row.address) }
-            .getOrNull() as? SenderVerdict.Spam
-        val outcome = place?.let { storeInSpam(context, row, threadId, Judgement(it), it.cause) }
+        val first = verdictOf(context, row.address) as? SenderVerdict.Spam
+        // E-3: only a blocked sender's text goes silently to Spam at once. An unknown sender's history is checked
+        // first (R2, B2-14, D-4); a failed check is fail open.
+        val spam = when {
+            first == null || first.cause == SpamCause.BLOCKED -> first
+            !runCatching { ArrivalFacts.historyKnown(context, row.address, threadId) }.getOrDefault(false) -> null
+            else -> verdictOf(context, row.address)
+                ?.let { ArrivalFacts.wroteToOnArrival(context, row.address, Judgement(it)) }
+                ?.verdict as? SenderVerdict.Spam
+        }
+        val outcome = spam?.let { storeInSpam(context, row, threadId, Judgement(it), it.cause) }
         if (outcome != null && outcome != SpamOutcome.NOT_STORED) return
+        SilentMarks.clear(context, row)
         IncomingSmsProcessor.deliver(context, row)
     }
+
+    /** The sender's place without writing anything; null when the filter failed. */
+    private fun verdictOf(context: Context, address: String): SenderVerdict? =
+        runCatching { (UMessage.filter(context) as DefaultSpamFilter).senderJudge.verdict(address) }.getOrNull()
 
     /** 6.1, the Spam verdict: the row first, then the text read and silent, then the safety check. */
     private fun storeInSpam(
@@ -281,12 +299,22 @@ internal object ProviderTruthSms {
         val earlier = inboxRows(context, message, threadId, BlockedLimits.DUPLICATE_WINDOW_MS)
         if (!earlier.isNullOrEmpty()) return SpamOutcome.DUPLICATE
         val placed = runCatching { SpamPlacement.place(context, threadId, message.address, cause, message.date) }
-        if (placed.getOrDefault(false) != true) {
-            return SpamOutcome.NOT_STORED.also { logIssue(context, message, "SPAM_ROW_FAILED") }
+            .getOrNull()
+        if (placed != SpamPlacement.Result.PLACED) {
+            // A chat cached under another number, or a group, is a planned outcome (not an error).
+            if (placed == null) {
+                logIssue(context, message, "SPAM_ROW_FAILED")
+            } else {
+                logIssue(context, message, placed.name, "ALLOW")
+            }
+            return SpamOutcome.NOT_STORED
         }
         // D-2: on disk before the silent insert, so a replay after a kill knows this row was written silently.
         SilentMarks.mark(context, message)
-        val id = insertSilently(context, message, threadId)
+        // E-2: a text stored nowhere needs no mark.
+        val id = runCatching { insertSilently(context, message, threadId) }
+            .onFailure { SilentMarks.clear(context, message) }
+            .getOrThrow()
         if (id <= 0L) return SpamOutcome.DUPLICATE.also { SilentMarks.clear(context, message) }
         val outcome = afterSpamInsert(context, message, threadId, id, cause)
         SilentMarks.clear(context, message)
@@ -309,8 +337,9 @@ internal object ProviderTruthSms {
         val inSpam = runCatching { SpamPlacement.inSpamNow(context, threadId, message.address) }.getOrDefault(false)
         if (SpamSafetyCheck.mustAnnounce(storedSilently = true, threadInSpam = inSpam)) {
             runCatching { SpamPlacement.dropInvalid(context, threadId) }
+            val notify = IncomingSmsProcessor.notifyContextFor(context, message, null)
             val announced = context.announceStored(
-                id, message.address, message.body, threadId, message.subscriptionId, message.date,
+                id, message.address, message.body, threadId, message.subscriptionId, message.date, notify,
             )
             // D-10: the store kept the row read: the pending row and the mark stay, the replay tries again.
             check(announced) { "A silent text outside Spam could not be made unread" }
@@ -370,13 +399,19 @@ internal object ProviderTruthSms {
         SpamEngine.judge(context, row.toIncoming(), "PENDING_REPLAY")
         if (!SilentMarks.has(context, row)) return
         val threadId = runCatching { context.getThreadId(row.address) }.getOrDefault(0L)
-        val stored = inboxRows(context, row, threadId, 0L)?.firstOrNull()
-        if (stored != null && stored.read != 0) {
+        // E-2: without the thread or the store the row is tried again by a later replay; the mark stays.
+        check(threadId > 0L) { "No thread for a text written silently" }
+        val rows = checkNotNull(inboxRows(context, row, threadId, 0L)) { "The store could not be read" }
+        // read = 0: a kill inside announceStored; its "notify due" marker, written first, posts it.
+        val stored = rows.firstOrNull()?.takeIf { it.read != 0 }
+        if (stored != null) {
             val inSpam = runCatching { SpamPlacement.inSpamNow(context, threadId, row.address) }.getOrDefault(false)
             if (SpamSafetyCheck.mustAnnounce(storedSilently = true, threadInSpam = inSpam)) {
                 runCatching { SpamPlacement.dropInvalid(context, threadId) }
-                val announced =
-                    context.announceStored(stored.id, row.address, row.body, threadId, row.subscriptionId, row.date)
+                val notify = IncomingSmsProcessor.notifyContextFor(context, row, null)
+                val announced = context.announceStored(
+                    stored.id, row.address, row.body, threadId, row.subscriptionId, row.date, notify,
+                )
                 check(announced) { "A silent text outside Spam could not be made unread" }
             } else {
                 runCatching { SpamPlacement.raiseUnread(context, threadId) }
@@ -443,13 +478,17 @@ internal object ArrivalFacts {
     /**
      * D-4 (lead decision): a text judged Spam as unknown from a number the user wrote to (a reply sent while uMessage
      * did not run, a contact deleted later) makes the number a member of "People you wrote to", with source HISTORY,
-     * so a "Remove" stays removed. Its place is then read again. Anything else, or a failure, keeps [judgement].
+     * so a "Remove" stays removed. Its place is then read again. Anything else, or a failed join, keeps [judgement];
+     * null when the sent history could not be read.
      */
-    fun wroteToOnArrival(context: Context, address: String, judgement: Judgement): Judgement {
+    fun wroteToOnArrival(context: Context, address: String, judgement: Judgement): Judgement? {
         val spam = judgement.verdict as? SenderVerdict.Spam
         if (spam?.cause != SpamCause.UNKNOWN) return judgement
+        val sent = runCatching { wroteTo(context, address) }.getOrDefault(ContactLookup.UNKNOWN)
+        // E-4: the sent history could not be read: not known (the caller fails open), as the history check does.
+        if (sent == ContactLookup.UNKNOWN) return null
+        if (sent != ContactLookup.FOUND) return judgement
         val place = runCatching {
-            if (wroteTo(context, address) != ContactLookup.FOUND) return@runCatching null
             val repo = UMessage.repository(context) as DefaultSpamRepository
             val filter = UMessage.filter(context) as DefaultSpamFilter
             val joined = runBlocking { repo.joinGroup(AllowGroup.WROTE, address, MemberSource.HISTORY) }
@@ -484,30 +523,41 @@ internal object SpamPlacement {
 
     private fun dao(context: Context) = MessagesDatabase.getInstance(context.applicationContext).ConversationsDao()
 
+    /** What [place] did. Anything but [PLACED] sends the text to Messages (unread, announced); the name is logged. */
+    enum class Result { PLACED, CHAT_OTHER_NUMBER, CHAT_IS_GROUP }
+
     /**
      * The row of a Spam text from [address] in [threadId], written before the text. A chat that is not cached yet
-     * gets a row with the text's sender (it follows the cached number later). A cached chat that is in Spam keeps its
-     * row as it is (never replaced on arrival). A cached chat in Messages gets a row with its own number when that
-     * number is the text's sender; when it is another number (two numbers in one thread, a region mismatch) or a group,
-     * no row is written and false is returned: the text goes to Messages, unread and announced.
+     * gets a row with the text's sender (it follows the cached number later); a row of the same sender written
+     * another way is kept with its unread count and spam_since (E-5). A cached chat that is in Spam keeps its row as
+     * it is (never replaced on arrival). A cached chat in Messages gets a row with its own number when that number is
+     * the text's sender; when it is another number (two numbers in one thread, a region mismatch) or a group, no row
+     * is written and a row that does not count is removed.
      */
-    fun place(context: Context, threadId: Long, address: String, cause: SpamCause, at: Long): Boolean {
+    fun place(context: Context, threadId: Long, address: String, cause: SpamCause, at: Long): Result {
         val db = MessagesDatabase.getInstance(context.applicationContext)
         val readers = SpamThreads.readers(context)
-        return db.runInTransaction<Boolean> {
+        return db.runInTransaction<Result> {
             val dao = db.ConversationsDao()
             val chat = dao.getConversationWithThreadId(threadId)
-            val sender = when {
-                chat == null -> address
-                chat.isGroupConversation -> null
-                dao.isInSpam(threadId) -> return@runInTransaction true
-                SpamThreads.same(readers, chat.phoneNumber, address) -> chat.phoneNumber
-                else -> null
-            } ?: return@runInTransaction false
             val row = dao.getSpamThread(threadId)
-            if (row != null && row.sender != sender) dao.deleteSpamThread(threadId)
-            dao.insertSpamThread(SpamThread(threadId, sender, cause, spamSince = at.coerceAtLeast(1L)))
-            true
+            val since = at.coerceAtLeast(1L)
+            when {
+                chat == null -> {
+                    if (row != null && !SpamThreads.same(readers, row.sender, address)) dao.deleteSpamThread(threadId)
+                    dao.insertSpamThread(SpamThread(threadId, address, cause, spamSince = since))
+                    Result.PLACED
+                }
+                dao.isInSpam(threadId) -> Result.PLACED
+                chat.isGroupConversation -> Result.CHAT_IS_GROUP.also { dao.deleteSpamThread(threadId) }
+                !SpamThreads.same(readers, chat.phoneNumber, address) ->
+                    Result.CHAT_OTHER_NUMBER.also { dao.deleteSpamThread(threadId) }
+                else -> {
+                    if (row != null) dao.deleteSpamThread(threadId)
+                    dao.insertSpamThread(SpamThread(threadId, chat.phoneNumber, cause, spamSince = since))
+                    Result.PLACED
+                }
+            }
         }
     }
 
@@ -581,11 +631,11 @@ private fun PendingSmsEntity.toIncoming() = IncomingMessage(
     receivedAt = date,
 )
 
-/** One error line in the decision log (it never holds the text). */
-private fun logIssue(context: Context, message: PendingSmsEntity, reason: String) {
+/** One line in the decision log, an error unless [decision] says otherwise (it never holds the text). */
+private fun logIssue(context: Context, message: PendingSmsEntity, reason: String, decision: String = "ERROR") {
     runCatching {
         UMessage.log(context).record(
-            SpamLogEntry(System.currentTimeMillis(), message.address, message.subscriptionId, "ERROR", reason, "SMS")
+            SpamLogEntry(System.currentTimeMillis(), message.address, message.subscriptionId, decision, reason, "SMS")
         )
     }
 }

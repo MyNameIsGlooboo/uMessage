@@ -11,7 +11,17 @@ import android.net.Uri
 import android.provider.Telephony
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.databases.MessagesDatabase
 import com.glooboo.umessage.extensions.config
+import com.glooboo.umessage.extensions.conversationsDB
+import com.glooboo.umessage.extensions.getThreadId
+import com.glooboo.umessage.models.Attachment
+import com.glooboo.umessage.models.Conversation
+import com.glooboo.umessage.models.MessageKey
+import com.glooboo.umessage.spam.ChatSorter
+import com.glooboo.umessage.spam.SortResult
+import com.glooboo.umessage.spam.SpamThread
+import com.glooboo.umessage.spam.data.RemovedMembers
 import com.glooboo.umessage.extensions.messagingUtils
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.messaging.OwnSentRows
@@ -67,6 +77,7 @@ class WroteToGroupTest {
     private lateinit var store: FakeMessageStore
     private lateinit var db: SpamDatabase
     private lateinit var repo: DefaultSpamRepository
+    private lateinit var filter: DefaultSpamFilter
     private val contacts = mutableSetOf<String>()
 
     /** An SMS store with the creator column and a switch that refuses inserts (nothing is saved). */
@@ -139,6 +150,7 @@ class WroteToGroupTest {
     @Before
     fun setUp() {
         ShadowRecordingSmsManager.reset()
+        RemovedMembers.reset()
         OwnSentRows.clear()
         SentRowWatch.resetForTest()
         store = FakeMessageStore.install()
@@ -154,6 +166,7 @@ class WroteToGroupTest {
             normalizer = normalizer,
             groups = repo.groupMembership,
         )
+        this.filter = filter
         UMessage.filterFactory = { filter }
         UMessage.repositoryFactory = { repo }
     }
@@ -161,6 +174,7 @@ class WroteToGroupTest {
     @After
     fun tearDown() {
         joinAppBackgroundThreads()
+        RemovedMembers.reset()
         SpamTestWiring.uninstall()
         SpamTestWiring.clearSpamDatabase()
         resetSharedMessagesDatabase()
@@ -377,15 +391,73 @@ class WroteToGroupTest {
             val id = store.addSms(STRANGER, "On my way", now, type = Telephony.Sms.MESSAGE_TYPE_SENT)
             app.contentResolver.notifyChange(smsUri(id), null)
             ShadowLooper.idleMainLooper()
-
-            val deadline = System.currentTimeMillis() + WAIT_MS
-            while (wroteTo().isEmpty() && System.currentTimeMillis() < deadline) Thread.sleep(POLL_MS)
+            SentRowWatch.drain()
 
             assertThat(wroteTo()).containsExactly(STRANGER)
         } finally {
             checker.close()
             SentRowWatch.delayMs = before
         }
+    }
+
+    @Test
+    fun aFailedSendKeepsAMemberThatExistedWhileTheGroupIsOff() {
+        // E-1: with "People you wrote to" off a member's verdict is unknown; the failed send must not remove it.
+        runBlocking { repo.joinGroup(AllowGroup.WROTE, STRANGER, MemberSource.LIVE) }
+        runBlocking { repo.updateSettings { it.copy(wroteGroupOn = false) } }
+        sendStore().refuseInserts = true
+
+        send("On my way", STRANGER)
+
+        assertThat(wroteTo()).containsExactly(STRANGER)
+    }
+
+    @Test
+    fun aFailedSendPutsBackTheRemoveMarkItsJoinCleared() {
+        val readers = com.glooboo.umessage.spam.SpamThreads.readers(app)
+        val keys = readers.senderKeys(STRANGER) + readers.senderKey(STRANGER)
+        RemovedMembers.add(AllowGroup.WROTE, keys)
+        sendStore().refuseInserts = true
+
+        send("On my way", STRANGER)
+
+        assertThat(members()).isEmpty()
+        assertThat(RemovedMembers.contains(AllowGroup.WROTE, keys)).isTrue()
+    }
+
+    @Test
+    fun aBundledResendThatSendsNothingTakesItsNewMemberBack() {
+        // Reviewer: the early return of the bundled MMS resend undoes the join too. Unreadable pictures send nothing.
+        val pictures = listOf(
+            Attachment(null, 0L, "content://nowhere/1", "image/jpeg", 0, 0, "a.jpg"),
+            Attachment(null, 0L, "content://nowhere/2", "image/jpeg", 0, 0, "b.jpg"),
+        )
+
+        val outcome = offMainThread {
+            app.sendMessageDetailed("Photos", listOf(STRANGER), null, pictures, resend = MessageKey(RESEND_ID, true))
+        }
+
+        assertThat(outcome.handedOff).isFalse()
+        assertThat(outcome.sentCount).isEqualTo(0)
+        assertThat(members()).isEmpty()
+    }
+
+    @Test
+    fun aReplyMovesASpamChatOutAtItsNextSort() {
+        val thread = offMainThread { app.getThreadId(STRANGER) }
+        offMainThread {
+            app.conversationsDB.insertOrUpdate(Conversation(thread, "Sale", 100, true, "Chat", "", false, STRANGER))
+            app.conversationsDB.insertSpamThread(SpamThread(thread, STRANGER, SpamCause.UNKNOWN, spamSince = 1L))
+        }
+
+        send("Who is this?", STRANGER)
+        val sorted = offMainThread {
+            ChatSorter(MessagesDatabase.getInstance(app), { filter.senderJudge.snapshot() }, { true })
+                .recompute(setOf(thread))
+        }
+
+        assertThat(sorted).isInstanceOf(SortResult.Applied::class.java)
+        assertThat(offMainThread { app.conversationsDB.getSpamThread(thread) }).isNull()
     }
 
     private fun flagOff() {
@@ -405,7 +477,6 @@ class WroteToGroupTest {
         /** PduHeaders.TO. */
         const val TO = 151
         const val THREAD = 7L
-        const val WAIT_MS = 5_000L
-        const val POLL_MS = 20L
+        const val RESEND_ID = 5L
     }
 }

@@ -201,8 +201,10 @@ internal fun Context.senderNameFor(address: String): String = runCatching {
 /**
  * Provider truth (R1, the safety check): SMS [messageId] was stored read and silent for Spam, but its chat is not in
  * Spam. It becomes unread, in the store and in the cache, and is announced like any new text, with its "notify due"
- * marker. D-10: false, with nothing posted, when the store did not make the row unread (the caller keeps it for the
- * replay); the post does not ask the cache whether the text was read, as that copy may still say so. Never throws.
+ * marker, written before the store is changed (E-2: a kill after the change still posts it on replay). [notify] is
+ * the caller's (the "unknown sender in Messages" setting holds). D-10: false, with nothing posted, when the store did
+ * not make the row unread (the caller keeps it for the replay); the post does not ask the cache whether the text was
+ * read, as that copy may still say so. Never throws.
  */
 internal fun Context.announceStored(
     messageId: Long,
@@ -211,8 +213,10 @@ internal fun Context.announceStored(
     threadId: Long,
     subscriptionId: Int,
     date: Long,
+    notify: NotifyContext,
 ): Boolean {
     val context = this
+    NotifyDue.mark(context, messageId, date, notify)
     val unread = ContentValues().apply {
         put(Telephony.Sms.READ, 0)
         put(Telephony.Sms.SEEN, 0)
@@ -220,14 +224,16 @@ internal fun Context.announceStored(
     val updated = runCatching {
         contentResolver.update(Telephony.Sms.CONTENT_URI, unread, "${Telephony.Sms._ID} = ?", arrayOf("$messageId"))
     }.getOrDefault(0)
-    if (updated <= 0) return false
+    if (updated <= 0) {
+        NotifyDue.settle(context, messageId, NotifyResult.SKIPPED_STALE)
+        return false
+    }
     runCatching { messagesDB.getMessage(messageId, false)?.let { messagesDB.insertOrUpdate(it.copy(read = false)) } }
     runCatching { conversationsDB.markUnread(threadId) }
     runCatching { if (shouldUnarchive()) updateConversationArchivedStatus(threadId, false) }
     runCatching { refreshMessages() }
     runCatching { refreshConversations(threadId) }
-    val notify = NotifyContext()
-    NotifyDue.mark(context, messageId, date, notify)
+    if (notify.mode == NotifyMode.NONE) return true
     runCatching { PendingSmsRetry.scheduleUnlessBooked(context) }
     val result = runCatching {
         notificationHelper.postMessageNotification(

@@ -29,14 +29,17 @@ import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.messaging.MessagingUtils
 import com.glooboo.umessage.messaging.OwnSentRows
+import com.glooboo.umessage.messaging.SendOutcome
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.ChatSorter
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ForwardFormat
 import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.SpamSorting
+import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.data.DefaultSpamRepository
+import com.glooboo.umessage.spam.data.RemovedMembers
 import com.glooboo.umessage.spam.data.SpamDatabase
 import kotlinx.coroutines.runBlocking
 import java.util.Locale
@@ -448,53 +451,83 @@ class FossifyLegacyBlocklist(private val context: Context) : LegacyBlocklist, Fr
 object WroteToGroup {
 
     /**
+     * E-1: a member one send made: [address] was not a member before, and [wasRemoved] says whether the join cleared
+     * the user's "Remove" mark (the undo puts it back).
+     */
+    class Joined(val address: String, val wasRemoved: Boolean)
+
+    /**
      * uMessage's own send, from sendToDistinctRecipients only (R10: automatic forwards and carrier reports send past
      * it). Called before the send, on the sending thread, so the member lands before the new chat is cached (B2-14).
-     * Returns the numbers this call made members ([undoSend] takes them back). A send from the main thread joins on a
+     * Returns the members this call made ([undoSend] takes them back). A send from the main thread joins on a
      * helper thread, as the rules and contacts are not read there: no caller does that today, and such a send has no
      * ordering promise (its new chat may be cached first) and no undo.
      */
-    fun onSend(context: Context, addresses: List<String>): List<String> {
-        if (!ProviderTruthFlag.enabled || addresses.isEmpty()) return emptyList()
+    fun onSend(context: Context, addresses: List<String>, groupThread: Boolean = false): List<Joined> {
+        // A group MMS thread makes no member (6.3, R11: a group sent as separate texts does).
+        if (!ProviderTruthFlag.enabled || addresses.isEmpty() || groupThread) return emptyList()
         val app = context.applicationContext
         if (isOnMainThread()) {
-            runCatching { ensureBackgroundThread { join(app, addresses) } }
+            runCatching { ensureBackgroundThread { joinNew(app, addresses) } }
             return emptyList()
         }
-        return join(app, addresses)
+        return joinNew(app, addresses)
     }
 
     /**
      * D-6: the send handed nothing off and saved nothing, so no text went to [joined]: the members this send made go
      * again (removed quietly, not as the user's "Remove"). Never throws.
      */
-    fun undoSend(context: Context, joined: List<String>) {
+    fun undoSend(context: Context, joined: List<Joined>) {
         if (joined.isEmpty()) return
         val app = context.applicationContext
         runCatching {
             val repo = UMessage.repository(app) as DefaultSpamRepository
             val dao = SpamDatabase.getInstance(app).spamDao()
-            repo.groupMembership.members()
-                .filter { it.group == AllowGroup.WROTE && it.source == MemberSource.LIVE && it.address in joined }
-                .forEach { dao.deleteMember(it.group, it.senderKey) }
+            val readers = SpamThreads.readers(app)
+            val members = repo.groupMembership.members().filter { it.group == AllowGroup.WROTE }
+            joined.forEach { made ->
+                members.filter { SpamThreads.same(readers, it.address, made.address) }
+                    .forEach { dao.deleteMember(it.group, it.senderKey) }
+                if (made.wasRemoved) RemovedMembers.add(AllowGroup.WROTE, keysOf(readers, made.address))
+            }
         }
     }
 
-    /** Blocking. Returns the numbers of [addresses] that joined now. Never throws. */
-    fun join(context: Context, addresses: Collection<String>): List<String> {
+    /** [undoSend] when [outcome] handed nothing off and sent no part. */
+    fun undoUnlessSent(context: Context, joined: List<Joined>, outcome: SendOutcome) {
+        if (!outcome.handedOff && outcome.sentCount == 0) undoSend(context, joined)
+    }
+
+    /** Blocking. Returns the numbers of [addresses] that are members now (new or not). Never throws. */
+    fun join(context: Context, addresses: Collection<String>): List<String> =
+        joinNew(context, addresses, newOnly = false).map { it.address }
+
+    /** The join of [join]; with [newOnly], only the members that were not members before. */
+    private fun joinNew(context: Context, addresses: Collection<String>, newOnly: Boolean = true): List<Joined> {
         if (!ProviderTruthFlag.enabled || addresses.isEmpty()) return emptyList()
         val app = context.applicationContext
         return runCatching {
             val filter = UMessage.filter(app) as DefaultSpamFilter
             val repo = UMessage.repository(app) as DefaultSpamRepository
             val snapshot = filter.senderJudge.snapshot()
+            val readers = SpamThreads.readers(app)
+            val before = repo.groupMembership.members().filter { it.group == AllowGroup.WROTE }
             val joined = addresses.map { it.trim() }.distinct()
                 .filter { isUnknown(snapshot.verdict(it)) }
-                .filter { runBlocking { repo.joinGroup(AllowGroup.WROTE, it, MemberSource.LIVE) } }
-            if (joined.isNotEmpty()) sortAgain(app, joined)
+                .mapNotNull { address ->
+                    val member = before.any { SpamThreads.same(readers, it.address, address) }
+                    val removed = RemovedMembers.contains(AllowGroup.WROTE, keysOf(readers, address))
+                    val made = runBlocking { repo.joinGroup(AllowGroup.WROTE, address, MemberSource.LIVE) }
+                    Joined(address, removed).takeIf { made && !(newOnly && member) }
+                }
+            if (joined.isNotEmpty()) sortAgain(app, joined.map { it.address })
             joined
         }.getOrDefault(emptyList())
     }
+
+    private fun keysOf(readers: NumberReaders, address: String): Set<String> =
+        (readers.senderKeys(address) + readers.senderKey(address)).filter { it.isNotEmpty() }.toSet()
 
     /** The same test as the history check: unknown, or in Messages only because the filter is off. */
     internal fun isUnknown(verdict: SenderVerdict): Boolean = when (verdict) {
@@ -523,6 +556,7 @@ internal object SentRowWatch {
     /** D-9: at most this many rows wait; a bulk import past it is left to the history check. */
     private const val MAX_WAITING = 300
     private const val DELAY_MS = 2_000L
+    private const val DRAIN_SECONDS = 10L
     private const val RECENT_MS = 10 * 60_000L
     private const val MAX_HANDLED = 200
     private const val MS_PER_SECOND = 1000L
@@ -623,6 +657,12 @@ internal object SentRowWatch {
         }
         // A group MMS thread makes no member (6.3).
         return recipients.distinct().takeIf { it.size == 1 }.orEmpty()
+    }
+
+    /** Tests only: waits until every row queued so far was looked at. */
+    @VisibleForTesting
+    internal fun drain() {
+        executor.schedule(Runnable {}, 0L, TimeUnit.MILLISECONDS).get(DRAIN_SECONDS, TimeUnit.SECONDS)
     }
 
     /** Tests only: forgets the rows handled so far (row ids start again in every test's store). */
