@@ -135,17 +135,20 @@ private class DueMarker(val date: Long, val createdAt: Long, val notify: NotifyC
         private const val NO_REASON = "-"
         private const val FIELDS = 5
 
+        // Field positions after the version.
+        private const val DATE = 1
+        private const val CREATED_AT = 2
+        private const val MODE = 3
+        private const val REASON = 4
+
         /** Null when [value] is not an entry of this version. */
         fun decode(value: String): DueMarker? {
-            val parts = value.split(SEPARATOR)
-            if (parts.size != FIELDS) return null
-            val (version, dateText, createdText, modeName, reasonName) = parts
-            val date = dateText.toLongOrNull()
-            val createdAt = createdText.toLongOrNull()
-            val mode = NotifyMode.entries.firstOrNull { it.name == modeName }
-            if (version != VERSION || date == null || createdAt == null || mode == null) return null
+            val parts = value.split(SEPARATOR).takeIf { it.size == FIELDS && it[0] == VERSION } ?: return null
+            val date = parts[DATE].toLongOrNull() ?: return null
+            val createdAt = parts[CREATED_AT].toLongOrNull() ?: return null
+            val mode = NotifyMode.entries.firstOrNull { it.name == parts[MODE] } ?: return null
             // A reason this version does not know (renamed later) only loses the reason, not the notification.
-            val reason = DecisionReason.entries.firstOrNull { it.name == reasonName }
+            val reason = DecisionReason.entries.firstOrNull { it.name == parts[REASON] }
             return DueMarker(date, createdAt, NotifyContext(mode, reason))
         }
     }
@@ -214,7 +217,10 @@ private object DueReplay {
 
     /** The process died after `notify` and before the marker was removed: the chat shows a newer post already. */
     private fun alreadyShown(context: Context, threadId: Long, createdAt: Long): Boolean = runCatching {
-        context.notificationManager.activeNotifications.any { it.id == threadId.hashCode() && it.postTime >= createdAt }
+        // Untagged only: tagged notices (BlockedNotifier and others) share the id space.
+        context.notificationManager.activeNotifications.any {
+            it.tag == null && it.id == threadId.hashCode() && it.postTime >= createdAt
+        }
     }.getOrDefault(false)
 
     /**

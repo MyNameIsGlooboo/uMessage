@@ -31,6 +31,18 @@ class NotifyLogTest {
     }
 
     @Test
+    fun deliveryShowsImportanceAndAppSwitch() {
+        val shown = NotifyLog.line("verification_codes", 42L, NotifyResult.POSTED, null, NotifyDelivery(4, true))
+        val dropped = NotifyLog.line(
+            NOTIFICATION_CHANNEL_ID, 42L, NotifyResult.FALLBACK, IllegalStateException(),
+            NotifyDelivery(NotifyDelivery.NO_CHANNEL, false),
+        )
+
+        assertThat(shown).matches("post ch=verification_codes t=[0-9a-f]{8} r=POSTED i=4 on=1")
+        assertThat(dropped).endsWith(" r=FALLBACK i=- on=0 e=IllegalStateException")
+    }
+
+    @Test
     fun causeIsClassNameOnly() {
         val line = NotifyLog.line(null, 1L, NotifyResult.FAILED, IllegalStateException("secret 123456"))
 

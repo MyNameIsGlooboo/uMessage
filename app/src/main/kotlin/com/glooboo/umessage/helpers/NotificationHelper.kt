@@ -119,7 +119,13 @@ class NotificationHelper(private val context: Context) {
         // B06: a hidden chat shows "New message" and nothing else.
         if (HiddenChats.get(context).isMarked(threadId)) {
             HiddenChatNotification(context) { id, name -> createChannel(id, name) }.post(threadId, muted, alertOnlyOnce)
-            NotifyLog.record(if (muted) MutedChannel.ID else NOTIFICATION_CHANNEL_ID, threadId, NotifyResult.POSTED)
+            val hiddenChannel = if (muted) MutedChannel.ID else NOTIFICATION_CHANNEL_ID
+            NotifyLog.record(
+                hiddenChannel,
+                threadId,
+                if (alertOnlyOnce) NotifyResult.REPOSTED else NotifyResult.POSTED,
+                delivery = NotifyLog.delivery(context, hiddenChannel, threadId.toString()),
+            )
             return
         }
         val channel = messageChannel(threadId, body, subscriptionId, notify.mode, muted)
@@ -382,11 +388,14 @@ class NotificationHelper(private val context: Context) {
         if (shortcut != null) builder.setShortcutInfo(shortcut)
         notifyFault?.invoke(NotifyStage.NOTIFY)
         notificationManager.notify(target.notificationId, builder.build())
-        NotifyLog.record(
-            target.channelId,
-            target.threadId,
-            if (shortcut != null) NotifyResult.POSTED else NotifyResult.POSTED_NO_SHORTCUT,
-        )
+        // R11: the re-post after the user's own reply is not a received text.
+        val result = when {
+            target.alertOnlyOnce -> NotifyResult.REPOSTED
+            shortcut != null -> NotifyResult.POSTED
+            else -> NotifyResult.POSTED_NO_SHORTCUT
+        }
+        val delivery = NotifyLog.delivery(context, target.channelId, target.threadId.toString())
+        NotifyLog.record(target.channelId, target.threadId, result, delivery = delivery)
         runCatching { ScreenWake.maybeWake(context, target.silent, target.alertOnlyOnce) }
         ensureBackgroundThread { runCatching { context.shortcutHelper.reportReceiveMessageUsage(target.threadId) } }
     }
@@ -405,28 +414,35 @@ class NotificationHelper(private val context: Context) {
     ): MessageChannel {
         val hasCustomNotifications = hasOwnChannel(threadId)
         val otpCode = OtpCodeExtractor.extract(body)
-        // I03: an unknown sender's message goes to a low-importance channel. A code, or a conversation with its own
-        // notification settings, keeps its channel.
-        val silent = muted || (mode == NotifyMode.SILENT && !hasCustomNotifications && otpCode == null)
+        val silent = isSilent(muted, mode, hasCustomNotifications, otpCode)
         // ID-26: codes get their own channel (own sound and vibration in Android settings). A conversation with its
-        // own notification settings keeps them. Per-SIM channel only on dual-SIM phones; single-SIM keeps the original.
-        val simChannel =
-            if (hasCustomNotifications || otpCode != null || silent) null else getSimChannel(subscriptionId)
+        // own notification settings keeps them.
         val notificationChannelId = when {
             muted -> MutedChannel.ensure(context)
             hasCustomNotifications -> threadId.toString()
             otpCode != null -> ensureCodeChannel(context)
             silent -> ensureSilentChannel(context)
-            simChannel != null -> simChannel.first
-            else -> NOTIFICATION_CHANNEL_ID
-        }
-        if (!hasCustomNotifications && otpCode == null && !silent) {
-            createChannel(
-                notificationChannelId,
-                simChannel?.second ?: context.getString(R.string.channel_received_sms)
-            )
+            else -> ensureNormalChannel(subscriptionId)
         }
         return MessageChannel(notificationChannelId, hasCustomNotifications, otpCode, silent)
+    }
+
+    /**
+     * I03: an unknown sender's message goes to a low-importance channel. A code, or a conversation with its own
+     * notification settings, keeps its channel.
+     */
+    private fun isSilent(muted: Boolean, mode: NotifyMode, hasCustomNotifications: Boolean, otpCode: String?) =
+        muted || (mode == NotifyMode.SILENT && !hasCustomNotifications && otpCode == null)
+
+    /**
+     * The normal channel, created when it is not there yet. Per-SIM channel only on dual-SIM phones; single-SIM keeps
+     * the original.
+     */
+    private fun ensureNormalChannel(subscriptionId: Int): String {
+        val simChannel = getSimChannel(subscriptionId)
+        val id = simChannel?.first ?: NOTIFICATION_CHANNEL_ID
+        createChannel(id, simChannel?.second ?: context.getString(R.string.channel_received_sms))
+        return id
     }
 
     /** N8: true when the chat has its own channel and Android still has it. A stale id is logged and forgotten. */
@@ -834,7 +850,7 @@ private const val LEGACY_SIM_CHANNEL_PREFIX = "${NOTIFICATION_CHANNEL_ID}_sim_"
 private var legacySimChannelsDeleted = false
 
 /** Where a test can make the post fail. */
-internal enum class NotifyStage { BUILD, SHORTCUT, NOTIFY }
+internal enum class NotifyStage { BUILD, SHORTCUT, NOTIFY, PLAIN }
 
 /** Tests only: called at each stage of a message post; it may throw. Null in the app. */
 @Volatile

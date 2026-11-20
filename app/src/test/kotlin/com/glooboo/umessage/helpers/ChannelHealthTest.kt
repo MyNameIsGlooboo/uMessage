@@ -91,6 +91,22 @@ class ChannelHealthTest {
     }
 
     @Test
+    fun everyProblemIsListedWorstFirst() {
+        val problems = ChannelHealth.problems(
+            listOf(
+                state(CODE_CHANNEL_ID, NotificationManager.IMPORTANCE_LOW),
+                state(NOTIFICATION_CHANNEL_ID, NotificationManager.IMPORTANCE_HIGH),
+                state("fossify_messages_slot_0", NotificationManager.IMPORTANCE_NONE),
+                state("fossify_messages_slot_1", NotificationManager.IMPORTANCE_LOW),
+            )
+        )
+
+        assertThat(problems.map { it.channelId }).containsExactly(
+            "fossify_messages_slot_0", CODE_CHANNEL_ID, "fossify_messages_slot_1",
+        ).inOrder()
+    }
+
+    @Test
     fun noChannelsYetIsHealthy() {
         assertThat(ChannelHealth.current(context)).isNull()
     }

@@ -28,27 +28,40 @@ internal class PlainMessageNotification(
     )
 
     /**
-     * Posts with id `threadId.hashCode()`. Returns FALLBACK, or FAILED when this throws too. Logs one line. Never
-     * throws.
+     * Posts with id `threadId.hashCode()`. Returns FALLBACK, or FAILED when this throws too or no channel can be had.
+     * Logs one line. Never throws.
      */
     fun post(request: Request, cause: Throwable): NotifyResult {
+        val threadId = request.threadId
+        // R9: Android drops a post to a channel that does not exist, without an error. FAILED keeps the marker.
         val channel = channelFor(request.channelId)
-        return runCatching {
-            context.notificationManager.notify(request.threadId.hashCode(), build(request, channel))
-        }.fold(
-            onSuccess = { NotifyLog.record(channel, request.threadId, NotifyResult.FALLBACK, cause) },
-            onFailure = { NotifyLog.record(channel, request.threadId, NotifyResult.FAILED, it) },
+            ?: return NotifyLog.record(null, threadId, NotifyResult.FAILED, cause)
+        val result = runCatching {
+            notifyFault?.invoke(NotifyStage.PLAIN)
+            context.notificationManager.notify(threadId.hashCode(), build(request, channel))
+        }
+        val delivery = NotifyLog.delivery(context, channel, threadId.toString())
+        return result.fold(
+            onSuccess = { NotifyLog.record(channel, threadId, NotifyResult.FALLBACK, cause, delivery) },
+            onFailure = { NotifyLog.record(channel, threadId, NotifyResult.FAILED, it, delivery) },
         )
     }
 
-    /** The given channel while Android still has it, otherwise the normal one (created here when it is missing). */
-    private fun channelFor(requested: String?): String {
+    /**
+     * The given channel while Android still has it, otherwise the normal one (created here when it is missing). Null
+     * when the normal one is still missing after that.
+     */
+    private fun channelFor(requested: String?): String? {
         val existing = runCatching {
             requested?.takeIf { context.notificationManager.getNotificationChannel(it) != null }
         }.getOrNull()
         if (existing != null) return existing
         runCatching { ensureChannel(NOTIFICATION_CHANNEL_ID, context.getString(R.string.channel_received_sms)) }
-        return NOTIFICATION_CHANNEL_ID
+        // A read that fails says nothing about the channel: post anyway.
+        val exists = runCatching {
+            context.notificationManager.getNotificationChannel(NOTIFICATION_CHANNEL_ID) != null
+        }.getOrDefault(true)
+        return NOTIFICATION_CHANNEL_ID.takeIf { exists }
     }
 
     private fun build(request: Request, channel: String): Notification {
@@ -62,7 +75,11 @@ internal class PlainMessageNotification(
             request.address.isNotBlank() -> request.address
             else -> appName
         }
-        val text = if (hidden) context.getString(R.string.new_message) else shownText(request.body)
+        // An MMS without text has a blank body: "New message" instead of an empty line.
+        val text = when {
+            hidden || request.body.isBlank() -> context.getString(R.string.new_message)
+            else -> shownText(request.body)
+        }
         val open = PendingIntent.getActivity(
             context,
             threadId.hashCode(),

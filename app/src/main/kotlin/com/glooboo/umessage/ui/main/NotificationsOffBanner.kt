@@ -65,17 +65,40 @@ fun Context.currentNotificationsBlock(): NotificationsBlock? = runCatching {
 internal fun quietChannelProblem(block: NotificationsBlock?, problem: ChannelProblem?): ChannelProblem? =
     problem?.takeIf { block == NotificationsBlock.CHANNEL && it.issue != ChannelIssue.BLOCKED }
 
-/** The system page that turns [block] back on. */
-fun Context.notificationsFixIntent(block: NotificationsBlock): Intent {
+/** The system page that turns [block] back on; for CHANNEL the page of [channelId] (null: the worst channel now). */
+fun Context.notificationsFixIntent(block: NotificationsBlock, channelId: String? = null): Intent {
     val intent = if (block == NotificationsBlock.CHANNEL) {
         // N7: the page of the channel with the problem. The app only opens it; it never changes a channel.
-        Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
-            .putExtra(Settings.EXTRA_CHANNEL_ID, ChannelHealth.current(this)?.channelId ?: NOTIFICATION_CHANNEL_ID)
+        val channel = channelId ?: ChannelHealth.current(this)?.channelId ?: NOTIFICATION_CHANNEL_ID
+        Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_CHANNEL_ID, channel)
     } else {
         Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
     }
     return intent.putExtra(Settings.EXTRA_APP_PACKAGE, packageName).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 }
+
+/** What the banner can name: a block and, for CHANNEL, the channel with the problem. */
+internal data class BannerIssue(val block: NotificationsBlock, val problem: ChannelProblem?) {
+    /** "APP", or "CHANNEL:<channel id>:<issue>" (N7), so a "Not now" never hides a new problem on another channel. */
+    val key: String
+        get() = if (problem != null) "${block.name}:${problem.channelId}:${problem.issue.name}" else block.name
+}
+
+/**
+ * R7: one read of the app switch and the message channels. APP alone while the app switch is off, else every channel
+ * problem, worst first. Empty when all is fine or the read failed.
+ */
+internal fun Context.bannerIssues(): List<BannerIssue> = runCatching {
+    if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+        listOf(BannerIssue(NotificationsBlock.APP, null))
+    } else {
+        ChannelHealth.currentProblems(this).map { BannerIssue(NotificationsBlock.CHANNEL, it) }
+    }
+}.getOrDefault(emptyList())
+
+/** R6: the worst issue that was not dismissed, so a "Not now" on one problem never hides another. */
+internal fun shownBannerIssue(issues: List<BannerIssue>, isDismissed: (String) -> Boolean): BannerIssue? =
+    issues.firstOrNull { !isDismissed(it.key) }
 
 /**
  * A banner on the main screen while message notifications are blocked, with a button to the setting that fixes it.
@@ -85,26 +108,22 @@ fun Context.notificationsFixIntent(block: NotificationsBlock): Intent {
 fun NotificationsOffBanner(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
-    var block by remember { mutableStateOf(context.currentNotificationsBlock()) }
-    var problem by remember { mutableStateOf(ChannelHealth.current(context)) }
+    var issues by remember { mutableStateOf(context.bannerIssues()) }
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME) {
-                block = context.currentNotificationsBlock()
-                problem = ChannelHealth.current(context)
-            }
+            if (event == Lifecycle.Event.ON_RESUME) issues = context.bannerIssues()
         }
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
-    var dismissed by remember { mutableStateOf(false) }
-    val current = block ?: return
-    val key = bannerKey(current, problem)
+    // "Not now" in this screen, per issue key.
+    var dismissedKeys by remember { mutableStateOf(emptySet<String>()) }
     // Hidden for a few weeks after "Not now"; a different kind of block, channel or issue (or the dismiss expiring)
     // shows it again.
-    if (dismissed || isBannerDismissed(context, key)) return
+    val shown = shownBannerIssue(issues) { it in dismissedKeys || isBannerDismissed(context, it) } ?: return
+    val current = shown.block
     // A channel that still shows but rings no sound gets its own texts, naming the channel.
-    val quiet = quietChannelProblem(current, problem)
+    val quiet = quietChannelProblem(current, shown.problem)
 
     Surface(
         color = MaterialTheme.colorScheme.errorContainer,
@@ -139,7 +158,7 @@ fun NotificationsOffBanner(modifier: Modifier = Modifier) {
             Column(horizontalAlignment = Alignment.End) {
                 // High contrast on the red container: the container's own on-colour as the fill, its fill as the text.
                 Button(
-                    onClick = { openNotificationSettings(context, current) },
+                    onClick = { openNotificationSettings(context, shown) },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.onErrorContainer,
                         contentColor = MaterialTheme.colorScheme.errorContainer,
@@ -149,8 +168,8 @@ fun NotificationsOffBanner(modifier: Modifier = Modifier) {
                     Text(stringResource(fixRes))
                 }
                 TextButton(onClick = {
-                    dismissBanner(context, key)
-                    dismissed = true
+                    dismissBanner(context, shown.key)
+                    dismissedKeys = dismissedKeys + shown.key
                 }) {
                     Text(stringResource(R.string.notifications_off_dismiss))
                 }
@@ -162,28 +181,27 @@ fun NotificationsOffBanner(modifier: Modifier = Modifier) {
 private const val BANNER_PREFS = "notifications_off_banner"
 private const val BANNER_DISMISS_MS = 28L * 24 * 60 * 60 * 1000
 
-/** "APP", or "CHANNEL:<channel id>:<issue>" (N7), so a "Not now" never hides a new problem on another channel. */
-private fun bannerKey(block: NotificationsBlock, problem: ChannelProblem?): String =
-    if (block == NotificationsBlock.CHANNEL && problem != null) {
-        "${block.name}:${problem.channelId}:${problem.issue.name}"
-    } else {
-        block.name
-    }
+/** R6: one dismissal per issue key. */
+private const val DISMISSED_AT = "at:"
 
-private fun isBannerDismissed(context: Context, key: String): Boolean {
+internal fun isBannerDismissed(context: Context, key: String, now: Long = System.currentTimeMillis()): Boolean {
     val prefs = context.getSharedPreferences(BANNER_PREFS, Context.MODE_PRIVATE)
-    if (prefs.getString("block", null) != key) return false
-    return System.currentTimeMillis() - prefs.getLong("at", 0L) in 0 until BANNER_DISMISS_MS
+    val at = when {
+        prefs.contains("$DISMISSED_AT$key") -> prefs.getLong("$DISMISSED_AT$key", 0L)
+        // Before R6 the one dismissal was stored as "block" and "at".
+        prefs.getString("block", null) == key -> prefs.getLong("at", 0L)
+        else -> return false
+    }
+    return now - at in 0 until BANNER_DISMISS_MS
 }
 
-private fun dismissBanner(context: Context, key: String) {
-    context.getSharedPreferences(BANNER_PREFS, Context.MODE_PRIVATE).edit()
-        .putString("block", key).putLong("at", System.currentTimeMillis()).apply()
+internal fun dismissBanner(context: Context, key: String, now: Long = System.currentTimeMillis()) {
+    context.getSharedPreferences(BANNER_PREFS, Context.MODE_PRIVATE).edit().putLong("$DISMISSED_AT$key", now).apply()
 }
 
-private fun openNotificationSettings(context: Context, block: NotificationsBlock) {
+private fun openNotificationSettings(context: Context, issue: BannerIssue) {
     try {
-        context.startActivity(context.notificationsFixIntent(block))
+        context.startActivity(context.notificationsFixIntent(issue.block, issue.problem?.channelId))
     } catch (_: ActivityNotFoundException) {
         // Some ROMs have no per-app notification page: the app details page has a notifications entry too.
         runCatching {

@@ -101,65 +101,79 @@ fun Context.deliverIncomingSms(
         dateSent = dateSent,
     )
     // N6: on disk before anything else, so a process that dies before the post leaves a notification to replay.
-    if (notify.mode != NotifyMode.NONE) NotifyDue.mark(context, newMessageId, date, notify)
+    if (notify.mode != NotifyMode.NONE) {
+        NotifyDue.mark(context, newMessageId, date, notify)
+        // R2: a process that dies before the post books nothing itself; this alarm replays the marker then. Once the
+        // post has settled, that run finds nothing waiting and books no further one.
+        runCatching { PendingSmsRetry.schedule(context) }
+    }
 
-    // From here on the SMS is safe in the provider. Nothing below may throw.
-    // The thread now carries the insert time; date it by its newest message, the time this one really arrived.
-    if (isStoredLate(date)) runCatching { context.recomputeThreadDate(threadId) }
-    runCatching {
-        context.getConversations(threadId).firstOrNull()?.let { conv ->
-            // The provider stamps the thread with the insert time. A restored ("Not spam") or replayed SMS is older
-            // than that, so keep the thread at its newest real message instead of jumping to the top of the list.
-            val messageSeconds = (date / 1000).toInt()
-            if (conv.date > messageSeconds) {
-                val cachedDate = context.conversationsDB.getConversationWithThreadId(threadId)?.date ?: 0
-                conv.date = maxOf(cachedDate, messageSeconds)
+    // R4: should a step below throw after all, the id must not stay in flight: the marker is left for the replay.
+    var settled = false
+    try {
+        // From here on the SMS is safe in the provider. Nothing below may throw.
+        // The thread now carries the insert time; date it by its newest message, the time this one really arrived.
+        if (isStoredLate(date)) runCatching { context.recomputeThreadDate(threadId) }
+        runCatching {
+            context.getConversations(threadId).firstOrNull()?.let { conv ->
+                // The provider stamps the thread with the insert time. A restored ("Not spam") or replayed SMS is older
+                // than that, so keep the thread at its newest real message instead of jumping to the top of the list.
+                val messageSeconds = (date / 1000).toInt()
+                if (conv.date > messageSeconds) {
+                    val cachedDate = context.conversationsDB.getConversationWithThreadId(threadId)?.date ?: 0
+                    conv.date = maxOf(cachedDate, messageSeconds)
+                }
+                context.insertOrUpdateConversation(conv)
             }
-            context.insertOrUpdateConversation(conv)
         }
-    }
 
-    val senderName = context.senderNameFor(address)
+        val senderName = context.senderNameFor(address)
 
-    runCatching {
-        val participant = SimpleContact(
-            rawId = 0,
-            contactId = 0,
-            name = senderName,
-            photoUri = photoUri,
-            phoneNumbers = arrayListOf(PhoneNumber(value = address, type = 0, label = "", normalizedNumber = address)),
-            birthdays = ArrayList(),
-            anniversaries = ArrayList()
-        )
+        runCatching {
+            val participant = SimpleContact(
+                rawId = 0,
+                contactId = 0,
+                name = senderName,
+                photoUri = photoUri,
+                phoneNumbers = arrayListOf(
+                    PhoneNumber(value = address, type = 0, label = "", normalizedNumber = address)
+                ),
+                birthdays = ArrayList(),
+                anniversaries = ArrayList()
+            )
 
-        val message = Message(
-            id = newMessageId,
-            body = body,
-            type = type,
-            status = status,
-            participants = arrayListOf(participant),
-            date = (date / 1000).toInt(),
-            read = read != 0,
-            threadId = threadId,
-            isMMS = false,
-            attachment = null,
-            senderPhoneNumber = address,
-            senderName = senderName,
-            senderPhotoUri = photoUri,
-            subscriptionId = subscriptionId
-        )
-        context.messagesDB.insertOrUpdate(message)
-    }
-
-    runCatching {
-        if (context.shouldUnarchive()) {
-            context.updateConversationArchivedStatus(threadId, false)
+            val message = Message(
+                id = newMessageId,
+                body = body,
+                type = type,
+                status = status,
+                participants = arrayListOf(participant),
+                date = (date / 1000).toInt(),
+                read = read != 0,
+                threadId = threadId,
+                isMMS = false,
+                attachment = null,
+                senderPhoneNumber = address,
+                senderName = senderName,
+                senderPhotoUri = photoUri,
+                subscriptionId = subscriptionId
+            )
+            context.messagesDB.insertOrUpdate(message)
         }
-    }
 
-    runCatching { refreshMessages() }
-    runCatching { refreshConversations(threadId) }
-    context.notifyDelivered(newMessageId, address, senderName, body, threadId, bitmap, subscriptionId, notify)
+        runCatching {
+            if (context.shouldUnarchive()) {
+                context.updateConversationArchivedStatus(threadId, false)
+            }
+        }
+
+        runCatching { refreshMessages() }
+        runCatching { refreshConversations(threadId) }
+        context.notifyDelivered(newMessageId, address, senderName, body, threadId, bitmap, subscriptionId, notify)
+        settled = true
+    } finally {
+        if (!settled) NotifyDue.settle(context, newMessageId, NotifyResult.FAILED)
+    }
     return newMessageId
 }
 

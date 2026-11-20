@@ -1,5 +1,6 @@
 package com.glooboo.umessage.spam.data
 
+import android.app.AlarmManager
 import android.app.Application
 import android.app.Notification
 import android.app.NotificationManager
@@ -21,6 +22,7 @@ import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.NotifyResult
 import com.glooboo.umessage.helpers.NotifyStage
 import com.glooboo.umessage.helpers.notifyFault
+import com.glooboo.umessage.receivers.PendingSmsRetryReceiver
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.testing.SpamTestWiring
@@ -52,6 +54,9 @@ class NotifyDueTest {
         /** How many of the next SMS inserts fail the way a broken provider does (insert returns null). */
         @Volatile var failNextInserts = 0
 
+        /** Reads of one message by id throw, as a provider that cannot be read does. */
+        @Volatile var failIdReads = false
+
         override fun onCreate(): Boolean {
             db = SQLiteDatabase.create(null)
             db.execSQL(
@@ -82,6 +87,7 @@ class NotifyDueTest {
             uri.authority == "mms-sms" && uri.pathSegments.firstOrNull() == "threadID" ->
                 MatrixCursor(arrayOf("_id")).apply { addRow(arrayOf<Any>(THREAD)) }
             uri.authority == "sms" -> {
+                if (failIdReads && selection?.startsWith(Telephony.Sms._ID) == true) error("provider broke")
                 val box = if (uri.pathSegments.firstOrNull() == "inbox") "type = 1" else null
                 val where = listOfNotNull(box, selection?.let { "($it)" }).joinToString(" AND ").ifEmpty { null }
                 db.query("sms", projection, where, selectionArgs, null, null, sortOrder)
@@ -124,12 +130,26 @@ class NotifyDueTest {
         resetSharedMessagesDatabase()
     }
 
-    private fun deliver(notify: NotifyContext): Long = offMainThread {
+    private fun deliver(notify: NotifyContext, read: Int = 0): Long = offMainThread {
         app.deliverIncomingSms(
             address = ADDRESS, subject = "", body = BODY, date = now, subscriptionId = -1,
-            status = Telephony.Sms.STATUS_NONE, notify = notify,
+            status = Telephony.Sms.STATUS_NONE, notify = notify, read = read,
         )
     }
+
+    /** The retry alarms booked so far. */
+    private fun retryAlarms() =
+        shadowOf(app.getSystemService(Context.ALARM_SERVICE) as AlarmManager).scheduledAlarms.filter {
+            shadowOf(it.operation).savedIntent.component?.className == PendingSmsRetryReceiver::class.java.name
+        }
+
+    private fun earlierPost(tag: String? = null) {
+        val shown = NotificationCompat.Builder(app, "test").setSmallIcon(R.drawable.ic_messenger)
+            .setContentTitle(EARLIER).build()
+        manager.notify(tag, THREAD.hashCode(), shown)
+    }
+
+    private fun Notification.title() = extras.getCharSequence(Notification.EXTRA_TITLE)?.toString()
 
     /** A marker as a process that died after the insert left it. */
     private fun markDead(id: Long, date: Long = now, notify: NotifyContext = NotifyContext(), createdAt: Long = now) =
@@ -148,6 +168,44 @@ class NotifyDueTest {
 
         assertThat(duringPost).containsExactly(id)
         assertThat(posted).hasSize(1)
+        assertThat(pending()).isEmpty()
+    }
+
+    @Test
+    fun aDeliveryBooksTheRetryAlarmRightAfterTheMarker() {
+        // R2: a process that died before the post would leave the marker to this alarm.
+        var alarmsDuringPost = -1
+        notifyFault = { if (it == NotifyStage.BUILD) alarmsDuringPost = retryAlarms().size }
+
+        deliver(NotifyContext())
+
+        assertThat(alarmsDuringPost).isEqualTo(1)
+        assertThat(posted).hasSize(1)
+        assertThat(pending()).isEmpty()
+    }
+
+    @Test
+    fun bothPostsFailingKeepsTheMarkerAndBooksTheRetry() {
+        notifyFault = { if (it == NotifyStage.BUILD || it == NotifyStage.PLAIN) error("test fault") }
+
+        val id = deliver(NotifyContext())
+
+        assertThat(posted).isEmpty()
+        assertThat(pending()).containsExactly(id)
+        assertThat(retryAlarms()).hasSize(1)
+
+        // Settled as FAILED, so no longer in flight: the next replay posts it.
+        notifyFault = null
+        assertThat(replay()).isEqualTo(0)
+        assertThat(posted).hasSize(1)
+        assertThat(pending()).isEmpty()
+    }
+
+    @Test
+    fun aMessageAlreadyReadAtDeliveryClearsTheMarker() {
+        deliver(NotifyContext(), read = 1)
+
+        assertThat(posted).isEmpty()
         assertThat(pending()).isEmpty()
     }
 
@@ -229,6 +287,44 @@ class NotifyDueTest {
         val n = posted.single()
         assertThat(n.extras.getCharSequence(Notification.EXTRA_TITLE).toString()).isEqualTo(EARLIER)
         assertThat(pending()).isEmpty()
+    }
+
+    @Test
+    fun anOlderNotificationOfTheChatDoesNotStopTheReplay() {
+        // The marker is newer than whatever clock the notification manager stamps the earlier post with.
+        val createdAt = now + HOUR_MS
+        markDead(provider.addSms(now), createdAt = createdAt)
+        earlierPost()
+
+        replay(at = createdAt + 1_000L)
+
+        assertThat(posted.single().title()).isNotEqualTo(EARLIER)
+        assertThat(pending()).isEmpty()
+    }
+
+    @Test
+    fun aTaggedNoticeWithTheSameIdDoesNotStopTheReplay() {
+        // R8: BlockedNotifier and other notices are tagged and share the id space.
+        markDead(provider.addSms(now), createdAt = 0L)
+        earlierPost(tag = "notice")
+
+        replay(at = 1_000L)
+
+        assertThat(posted).hasSize(2)
+        assertThat(pending()).isEmpty()
+    }
+
+    @Test
+    fun anUnreadableProviderKeepsTheMarkerWaiting() {
+        val id = provider.addSms(now)
+        markDead(id)
+        provider.failIdReads = true
+
+        assertThat(replay()).isEqualTo(1)
+        assertThat(offMainThread { PendingSmsQueue.replay(app, now + 1_000L) }).isGreaterThan(0)
+
+        assertThat(posted).isEmpty()
+        assertThat(pending()).containsExactly(id)
     }
 
     @Test
@@ -336,6 +432,23 @@ class NotifyDueTest {
     }
 
     @Test
+    fun aQueueRowStoredByTheBareInsertIsNotifiedInTheSamePass() {
+        // R5: the row's first insert fails, the bare one takes it and leaves a marker during this replay.
+        val row = PendingSmsEntity(
+            address = ADDRESS, subject = "", body = BODY, date = now, subscriptionId = -1,
+            status = Telephony.Sms.STATUS_NONE, createdAt = now - PendingSmsPolicy.GRACE_MS - 1_000L,
+        )
+        offMainThread { SpamDatabase.getInstance(app).spamDao().insertPending(row) }
+        provider.failNextInserts = 1
+
+        val waiting = offMainThread { PendingSmsQueue.replay(app, now) }
+
+        assertThat(waiting).isEqualTo(0)
+        assertThat(posted).hasSize(1)
+        assertThat(pending()).isEmpty()
+    }
+
+    @Test
     fun queueReplayAlsoReplaysMarkers() {
         markDead(provider.addSms(now))
 
@@ -352,5 +465,6 @@ class NotifyDueTest {
         const val EARLIER = "Earlier post"
         const val MISSING_ID = 999L
         const val EIGHT_DAYS_MS = 8L * 24 * 60 * 60 * 1000
+        const val HOUR_MS = 60L * 60 * 1000
     }
 }

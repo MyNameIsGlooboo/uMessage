@@ -18,9 +18,11 @@ import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
 import org.fossify.commons.extensions.baseConfig
 import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Shadows.shadowOf
+import org.robolectric.shadows.ShadowLog
 
 /** N5: a received message always leaves a notification: the full one, or on any error a plain one. */
 @RunWith(AndroidJUnit4::class)
@@ -30,6 +32,11 @@ class MessageNotificationFallbackTest {
     private val manager get() = app.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     private val posted get() = shadowOf(manager).allNotifications
 
+    @Before
+    fun setUp() {
+        ShadowLog.reset()
+    }
+
     @After
     fun tearDown() {
         notifyFault = null
@@ -38,7 +45,16 @@ class MessageNotificationFallbackTest {
     }
 
     private fun failAt(stage: NotifyStage) {
-        notifyFault = { if (it == stage) throw IllegalStateException("test fault") }
+        notifyFault = { if (it == stage) error("test fault") }
+    }
+
+    /** The uMessageNotify lines written so far. */
+    private fun notifyLines() = ShadowLog.getLogsForTag(NotifyLog.TAG).map { it.msg }
+
+    /** Waits for [done], for the post that runs on its own worker thread. */
+    private fun awaitUntil(done: () -> Boolean) {
+        val deadline = System.currentTimeMillis() + WAIT_MS
+        while (!done() && System.currentTimeMillis() < deadline) Thread.sleep(POLL_MS)
     }
 
     private fun post(body: String = BODY, notify: NotifyContext = NotifyContext()): NotifyResult = offMainThread {
@@ -72,6 +88,41 @@ class MessageNotificationFallbackTest {
     }
 
     @Test
+    fun aPostWritesExactlyOneContentFreeLogLine() {
+        post()
+
+        val line = notifyLines().single()
+        // R3: the effective importance and the app switch ride along.
+        assertThat(line).containsMatch("^post ch=$NOTIFICATION_CHANNEL_ID t=[0-9a-f]{8} r=POSTED(_NO_SHORTCUT)? ")
+        assertThat(line).containsMatch(" i=(\d+|-) on=1")
+        assertThat(line).doesNotContain(ADDRESS)
+        assertThat(line).doesNotContain(SENDER)
+        assertThat(line).doesNotContain(BODY)
+    }
+
+    @Test
+    fun aFallbackWritesExactlyOneLine() {
+        failAt(NotifyStage.BUILD)
+
+        post()
+
+        assertThat(notifyLines().single()).contains(" r=FALLBACK ")
+    }
+
+    @Test
+    fun theRepostAfterAReplyIsLoggedAsSuch() {
+        // R11: DirectReplyReceiver re-posts the chat with alertOnlyOnce; that is not a received text.
+        offMainThread {
+            NotificationHelper(app).showMessageNotification(
+                messageId = 1L, isMms = false, address = ADDRESS, body = BODY, threadId = THREAD, bitmap = null,
+                sender = null, alertOnlyOnce = true, offerSmartReplies = false,
+            )
+        }
+
+        assertThat(notifyLines().single()).contains(" r=REPOSTED ")
+    }
+
+    @Test
     fun plainNotificationIsPostedWhenTheBuildThrows() {
         failAt(NotifyStage.BUILD)
 
@@ -94,14 +145,55 @@ class MessageNotificationFallbackTest {
         notifyFault = {
             if (it == NotifyStage.NOTIFY && !thrown) {
                 thrown = true
-                throw IllegalStateException("test fault")
+                error("test fault")
             }
         }
 
         val result = post()
 
         assertThat(result).isEqualTo(NotifyResult.FALLBACK)
-        assertThat(posted).hasSize(1)
+        // The plain form won: no messaging style.
+        assertThat(posted.single().messagingStyle()).isNull()
+        assertThat(posted.single().title()).isEqualTo(SENDER)
+    }
+
+    @Test
+    fun onTheMainThreadAFailedNotifyStillFallsBack() {
+        failAt(NotifyStage.NOTIFY)
+
+        // Main thread and no shortcut yet: the post moves to a worker thread, which guards itself.
+        NotificationHelper(app).showMessageNotification(
+            messageId = 1L, isMms = false, address = ADDRESS, body = BODY, threadId = THREAD, bitmap = null,
+            sender = SENDER, offerSmartReplies = false,
+        )
+        awaitUntil { notifyLines().isNotEmpty() }
+
+        assertThat(notifyLines().single()).contains(" r=FALLBACK ")
+        val n = posted.single()
+        assertThat(n.messagingStyle()).isNull()
+        assertThat(n.title()).isEqualTo(SENDER)
+    }
+
+    @Test
+    fun bothPostsFailingIsFailed() {
+        notifyFault = { if (it == NotifyStage.BUILD || it == NotifyStage.PLAIN) error("test fault") }
+
+        val result = post()
+
+        assertThat(result).isEqualTo(NotifyResult.FAILED)
+        assertThat(posted).isEmpty()
+        assertThat(notifyLines().single()).contains(" r=FAILED ")
+    }
+
+    @Test
+    fun fallbackOfAnMmsWithoutTextSaysNewMessage() {
+        val result = plain().post(
+            PlainMessageNotification.Request(THREAD, ADDRESS, SENDER, "", NOTIFICATION_CHANNEL_ID),
+            IllegalStateException("test fault"),
+        )
+
+        assertThat(result).isEqualTo(NotifyResult.FALLBACK)
+        assertThat(posted.single().text()).isEqualTo(app.getString(R.string.new_message))
     }
 
     @Test
@@ -184,11 +276,23 @@ class MessageNotificationFallbackTest {
 
     @Test
     fun fallbackSurvivesAChannelError() {
+        createChannel(NOTIFICATION_CHANNEL_ID, "Received messages")
+
         val result = plain { _, _ -> error("channel broke") }
             .post(request("no_such_channel"), IllegalStateException("test fault"))
 
         assertThat(result).isEqualTo(NotifyResult.FALLBACK)
         assertThat(posted.single().channelId).isEqualTo(NOTIFICATION_CHANNEL_ID)
+    }
+
+    @Test
+    fun fallbackFailsWhenNoChannelCanBeHad() {
+        // R9: Android would drop a post to a channel that does not exist; FAILED keeps the marker for the replay.
+        val result = plain { _, _ -> error("channel broke") }
+            .post(request("no_such_channel"), IllegalStateException("test fault"))
+
+        assertThat(result).isEqualTo(NotifyResult.FAILED)
+        assertThat(posted).isEmpty()
     }
 
     @Test
@@ -207,5 +311,7 @@ class MessageNotificationFallbackTest {
         const val BODY = "See you at noon"
         const val CODE = "482913"
         const val CODE_BODY = "Your verification code is $CODE"
+        const val WAIT_MS = 5_000L
+        const val POLL_MS = 10L
     }
 }

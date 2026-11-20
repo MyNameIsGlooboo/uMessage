@@ -31,16 +31,22 @@ object ChannelHealth {
     fun idsInUse(dualSimSlots: Set<Int>): List<String> =
         listOf(CODE_CHANNEL_ID, NOTIFICATION_CHANNEL_ID) + dualSimSlots.sorted().map { "$SIM_CHANNEL_PREFIX$it" }
 
+    /** Every problem among [states] (given in the order of [idsInUse]), worst first; a tie keeps that order. */
+    fun problems(states: List<ChannelState>): List<ChannelProblem> = states
+        .mapNotNull { state -> issueOf(state)?.let { ChannelProblem(state.id, state.name, it) } }
+        .sortedBy { it.issue.ordinal }
+
     /**
      * The worst problem among [states] (given in the order of [idsInUse]); a tie goes to the earlier one.
      * Null = healthy.
      */
-    fun worst(states: List<ChannelState>): ChannelProblem? = states
-        .mapNotNull { state -> issueOf(state)?.let { ChannelProblem(state.id, state.name, it) } }
-        .minByOrNull { it.issue.ordinal }
+    fun worst(states: List<ChannelState>): ChannelProblem? = problems(states).firstOrNull()
 
     /** Reads the channels in use that exist. Null when all are fine or the read failed. */
-    fun current(context: Context): ChannelProblem? = runCatching {
+    fun current(context: Context): ChannelProblem? = currentProblems(context).firstOrNull()
+
+    /** Reads the channels in use that exist: every problem, worst first. Empty when all are fine or the read failed. */
+    fun currentProblems(context: Context): List<ChannelProblem> = runCatching {
         val manager = context.notificationManager
         // A channel that does not exist yet is skipped: Android creates it loud on first use.
         val states = idsInUse(dualSimSlots(context)).mapNotNull { id ->
@@ -48,8 +54,8 @@ object ChannelHealth {
                 ChannelState(id, it.name.toString(), it.importance, it.sound != null)
             }
         }
-        worst(states)
-    }.getOrNull()
+        problems(states)
+    }.getOrDefault(emptyList())
 
     /** The SIM slots in use when the phone is dual-SIM, as NotificationHelper.getSimChannel tells; else empty. */
     private fun dualSimSlots(context: Context): Set<Int> {
