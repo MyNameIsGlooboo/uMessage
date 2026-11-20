@@ -23,6 +23,8 @@ import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.helpers.NotifyContext
 import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.NotifyResult
+import com.glooboo.umessage.helpers.NotifyStage
+import com.glooboo.umessage.helpers.notifyFault
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.models.Message
@@ -104,8 +106,9 @@ fun Context.deliverIncomingSms(
     if (notify.mode != NotifyMode.NONE) {
         NotifyDue.mark(context, newMessageId, date, notify)
         // R2: a process that dies before the post books nothing itself; this alarm replays the marker then. Once the
-        // post has settled, that run finds nothing waiting and books no further one.
-        runCatching { PendingSmsRetry.schedule(context) }
+        // post has settled, that run finds nothing waiting and books no further one. A queue retry already booked is
+        // kept: it replays the marker too, and its attempt count stays.
+        runCatching { PendingSmsRetry.scheduleUnlessBooked(context) }
     }
 
     // R4: should a step below throw after all, the id must not stay in flight: the marker is left for the replay.
@@ -197,6 +200,8 @@ private fun Context.notifyDelivered(
 ) {
     if (notify.mode == NotifyMode.NONE) return
     NotifyDue.debugHold(this)
+    // Tests only (R4): a throw here leaves the receive path the way any unexpected one would.
+    notifyFault?.invoke(NotifyStage.DELIVER)
     val result = postReceivedMessageNotification(
         messageId = messageId,
         isMms = false,

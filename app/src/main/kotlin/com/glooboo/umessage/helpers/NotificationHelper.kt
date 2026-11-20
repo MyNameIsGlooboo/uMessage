@@ -124,7 +124,8 @@ class NotificationHelper(private val context: Context) {
                 hiddenChannel,
                 threadId,
                 if (alertOnlyOnce) NotifyResult.REPOSTED else NotifyResult.POSTED,
-                delivery = NotifyLog.delivery(context, hiddenChannel, threadId.toString()),
+                // S1: the hidden post carries no shortcut, so it rings on the parent channel.
+                delivery = NotifyLog.delivery(context, hiddenChannel),
             )
             return
         }
@@ -394,7 +395,9 @@ class NotificationHelper(private val context: Context) {
             shortcut != null -> NotifyResult.POSTED
             else -> NotifyResult.POSTED_NO_SHORTCUT
         }
-        val delivery = NotifyLog.delivery(context, target.channelId, target.threadId.toString())
+        // S1: Android uses the chat's own channel only for a post that carries its shortcut.
+        val conversationId = if (shortcut != null) target.threadId.toString() else null
+        val delivery = NotifyLog.delivery(context, target.channelId, conversationId)
         NotifyLog.record(target.channelId, target.threadId, result, delivery = delivery)
         runCatching { ScreenWake.maybeWake(context, target.silent, target.alertOnlyOnce) }
         ensureBackgroundThread { runCatching { context.shortcutHelper.reportReceiveMessageUsage(target.threadId) } }
@@ -849,8 +852,8 @@ private const val LEGACY_SIM_CHANNEL_PREFIX = "${NOTIFICATION_CHANNEL_ID}_sim_"
 @Volatile
 private var legacySimChannelsDeleted = false
 
-/** Where a test can make the post fail. */
-internal enum class NotifyStage { BUILD, SHORTCUT, NOTIFY, PLAIN }
+/** Where a test can make the post fail. DELIVER: in the receive path, after the marker and before the post. */
+internal enum class NotifyStage { BUILD, SHORTCUT, NOTIFY, PLAIN, DELIVER }
 
 /** Tests only: called at each stage of a message post; it may throw. Null in the app. */
 @Volatile

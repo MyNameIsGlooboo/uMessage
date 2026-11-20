@@ -5,7 +5,7 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.StringRes
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ChannelHealth
+import com.glooboo.umessage.helpers.ChannelProblem
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.ui.main.NotificationsBlock
 import com.glooboo.umessage.ui.main.quietChannelProblem
@@ -35,6 +35,8 @@ internal class SetupLive(
     val roleDenied: Boolean,
     val block: NotificationsBlock?,
     val denied: Set<String>,
+    /** R7: the worst message-channel problem, from the same read as [block]. */
+    val channelProblem: ChannelProblem? = null,
 )
 
 internal class SetupActions(
@@ -107,7 +109,7 @@ private fun notificationsRow(context: Context, live: SetupLive, actions: SetupAc
 /** N7: a message channel that still shows but rings no sound is named. Otherwise no note. */
 private fun notificationsNote(context: Context, live: SetupLive): String? {
     if (live.block != NotificationsBlock.CHANNEL) return null
-    val quiet = quietChannelProblem(live.block, ChannelHealth.current(context)) ?: return null
+    val quiet = quietChannelProblem(live.block, live.channelProblem) ?: return null
     return context.getString(R.string.notifications_quiet_body, quiet.channelName)
 }
 

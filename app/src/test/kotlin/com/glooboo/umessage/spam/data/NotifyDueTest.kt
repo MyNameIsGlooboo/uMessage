@@ -22,6 +22,7 @@ import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.NotifyResult
 import com.glooboo.umessage.helpers.NotifyStage
 import com.glooboo.umessage.helpers.notifyFault
+import com.glooboo.umessage.receivers.PendingSmsRetry
 import com.glooboo.umessage.receivers.PendingSmsRetryReceiver
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
@@ -35,6 +36,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.Shadows.shadowOf
+import org.robolectric.shadows.ShadowAlarmManager
 
 /** N6: a stored message whose notification was never posted is notified once by the replay, and only then. */
 @RunWith(AndroidJUnit4::class)
@@ -143,6 +145,9 @@ class NotifyDueTest {
             shadowOf(it.operation).savedIntent.component?.className == PendingSmsRetryReceiver::class.java.name
         }
 
+    private fun ShadowAlarmManager.ScheduledAlarm.attempt() =
+        shadowOf(operation).savedIntent.getIntExtra(PendingSmsRetryReceiver.EXTRA_ATTEMPT, -1)
+
     private fun earlierPost(tag: String? = null) {
         val shown = NotificationCompat.Builder(app, "test").setSmallIcon(R.drawable.ic_messenger)
             .setContentTitle(EARLIER).build()
@@ -182,6 +187,45 @@ class NotifyDueTest {
         assertThat(alarmsDuringPost).isEqualTo(1)
         assertThat(posted).hasSize(1)
         assertThat(pending()).isEmpty()
+    }
+
+    @Test
+    fun withNoRetryBookedTheMarkerBooksTheFirstAttempt() {
+        deliver(NotifyContext())
+
+        assertThat(retryAlarms().map { it.attempt() }).containsExactly(0)
+    }
+
+    @Test
+    fun theMarkerKeepsAQueueRetryThatIsAlreadyBooked() {
+        // A queued SMS waits for attempt 3; the marker must not set it back to attempt 0 and a new 6-attempt chain.
+        PendingSmsRetry.schedule(app, attempt = 3)
+        val booked = retryAlarms().single().triggerAtTime
+
+        deliver(NotifyContext())
+
+        val alarm = retryAlarms().single()
+        assertThat(alarm.attempt()).isEqualTo(3)
+        assertThat(alarm.triggerAtTime).isEqualTo(booked)
+    }
+
+    @Test
+    fun aThrowAfterTheMarkerLeavesItForTheReplay() {
+        // R4: the id leaves the in-flight set, the marker stays, and the next replay posts the message once.
+        notifyFault = { if (it == NotifyStage.DELIVER) error("test fault") }
+
+        val thrown = runCatching { deliver(NotifyContext()) }.exceptionOrNull()
+
+        assertThat(thrown).isInstanceOf(IllegalStateException::class.java)
+        assertThat(posted).isEmpty()
+        assertThat(pending()).hasSize(1)
+
+        notifyFault = null
+        assertThat(replay()).isEqualTo(0)
+        assertThat(posted).hasSize(1)
+        assertThat(pending()).isEmpty()
+        assertThat(replay()).isEqualTo(0)
+        assertThat(posted).hasSize(1)
     }
 
     @Test

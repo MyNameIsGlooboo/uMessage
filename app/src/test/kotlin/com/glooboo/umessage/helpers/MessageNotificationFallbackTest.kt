@@ -304,6 +304,19 @@ class MessageNotificationFallbackTest {
         assertThat(manager.getNotificationChannel(NOTIFICATION_CHANNEL_ID)).isNotNull()
     }
 
+    @Test
+    fun aPostWithoutShortcutLogsTheParentChannel() {
+        // S1: the plain post carries no shortcut, so a chat set to "Silent" by long-press does not apply to it.
+        createChannel(NOTIFICATION_CHANNEL_ID, "Received messages")
+        val conversation = NotificationChannel("conversation", "Chat", NotificationManager.IMPORTANCE_LOW)
+        conversation.setConversationId(NOTIFICATION_CHANNEL_ID, THREAD.toString())
+        manager.createNotificationChannel(conversation)
+
+        plain().post(request(null), IllegalStateException("test fault"))
+
+        assertThat(notifyLines().single()).contains(" r=FALLBACK i=${NotificationManager.IMPORTANCE_HIGH} ")
+    }
+
     private companion object {
         const val THREAD = 31L
         const val ADDRESS = "+15550001234"

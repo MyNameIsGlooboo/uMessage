@@ -40,7 +40,8 @@ internal class PlainMessageNotification(
             notifyFault?.invoke(NotifyStage.PLAIN)
             context.notificationManager.notify(threadId.hashCode(), build(request, channel))
         }
-        val delivery = NotifyLog.delivery(context, channel, threadId.toString())
+        // S1: no shortcut on this post, so the parent channel is the one that rings.
+        val delivery = NotifyLog.delivery(context, channel)
         return result.fold(
             onSuccess = { NotifyLog.record(channel, threadId, NotifyResult.FALLBACK, cause, delivery) },
             onFailure = { NotifyLog.record(channel, threadId, NotifyResult.FAILED, it, delivery) },

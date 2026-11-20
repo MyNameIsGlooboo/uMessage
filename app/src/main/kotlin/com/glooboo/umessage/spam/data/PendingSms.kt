@@ -137,8 +137,8 @@ object IncomingSmsProcessor {
             // Stored without the notification step: leave a marker, the replay that follows the receive posts it.
             if (id > 0L && notify.mode != NotifyMode.NONE) {
                 NotifyDue.mark(context, id, message.date, notify, live = false)
-                // R2: and the retry alarm, should this process die before that replay.
-                runCatching { PendingSmsRetry.schedule(context) }
+                // R2: and the retry alarm, should this process die before that replay. A booked one is kept.
+                runCatching { PendingSmsRetry.scheduleUnlessBooked(context) }
             }
             id
         }
