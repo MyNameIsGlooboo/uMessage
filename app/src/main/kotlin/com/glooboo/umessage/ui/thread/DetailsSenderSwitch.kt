@@ -101,7 +101,7 @@ internal class DetailsSenderSwitch(
 }
 
 /** The details screen's block that its switch can still undo fully, kept across a rotation (D-5). */
-class DetailsBlockMemory : ViewModel() {
+internal class DetailsBlockMemory : ViewModel() {
     var receipts: List<BlockReceipt> = emptyList()
     var unread = UnreadTexts()
 }

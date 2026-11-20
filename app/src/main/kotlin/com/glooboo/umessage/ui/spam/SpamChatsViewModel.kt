@@ -376,7 +376,6 @@ class SpamChatsViewModel internal constructor(
             else -> commitUnblock(event.token)
         }
     }
-    }
 
     // ---- Not spam (unknown senders) ----------------------------------------------------------------------------
 
