@@ -5,18 +5,22 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import com.glooboo.umessage.R
+import com.glooboo.umessage.spam.ChatSorter
+import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.engine.SenderVerdict
-import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.ui.components.showConfirmDialog
 import com.glooboo.umessage.ui.spam.RuleNotes
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SenderMoves
 import com.glooboo.umessage.ui.spam.SenderPlace
+import com.glooboo.umessage.ui.spam.UnblockOutcome
+import com.glooboo.umessage.ui.spam.unblockOutcome
 import com.glooboo.umessage.ui.spam.nameAllowBody
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,7 +44,7 @@ internal class ThreadSpamMoves(
     private val snackbar: SnackbarHostState,
     private val repository: () -> SpamRepository,
     private val threadId: () -> Long,
-    private val place: SenderPlace = SenderPlace.of(activity),
+    private val place: SenderPlace = SenderPlace.of(activity, fresh = true),
 ) {
     private fun sort() {
         val id = threadId()
@@ -54,23 +58,46 @@ internal class ThreadSpamMoves(
             duration = if (long) SnackbarDuration.Long else SnackbarDuration.Short,
         ) == SnackbarResult.ActionPerformed
 
-    /** Block, or "Report spam" when [report]: the whole chat moves to Spam. */
+    /**
+     * Block, or "Report spam" when [report]: the whole chat moves to Spam. C-3: when no sender could be read nothing
+     * was blocked, and when a user allow rule still names the sender the chat stays: the block is taken back and the
+     * snackbar says why, so "Blocked" is never said for a chat that did not move.
+     */
     fun block(addresses: List<String>, report: Boolean = false) {
         if (addresses.isEmpty()) return
         scope.launch {
             val note = if (report) RuleNotes.REPORTED_SPAM else SenderBlocking.NOTE
-            val receipts = runCatching { SenderMoves.blockSenders(repository(), addresses, note) }.getOrElse {
+            val repo = repository()
+            val receipts = runCatching { SenderMoves.blockSenders(repo, addresses, note) }.getOrNull()
+            if (receipts.isNullOrEmpty()) {
                 snackbar.showSnackbar(activity.getString(R.string.thread_block_failed))
                 return@launch
             }
-            sort()
+            if (receipts.all { it.stillAllowedBy != null }) {
+                SenderMoves.undoBlocks(repo, receipts)
+                val why = activity.getString(R.string.pt_block_still_allowed)
+                snackbar.showSnackbar(why, duration = SnackbarDuration.Long)
+                return@launch
+            }
+            wrote()
             if (offer(R.string.thread_block_done)) {
-                SenderMoves.undoBlocks(repository(), receipts)
-                sort()
+                SenderMoves.undoBlocks(repo, receipts)
+                wrote()
             }
         }
     }
 
+    /** After the screen's own write: the shared snapshot is read again (C-17), and the chat is sorted. */
+    private fun wrote() {
+        runCatching { ChatSorter.snapshots(activity).invalidate() }
+        sort()
+    }
+
+    /**
+     * "Unblock" (C-4): back in Messages, with Undo; still unknown, with "Not spam"; still on Android's own block list;
+     * still blocked by a rule that names more than this sender (a prefix), which is said and nothing changes; or not
+     * sure where it went, a neutral text.
+     */
     fun unblock(address: String) {
         scope.launch {
             val repo = repository()
@@ -78,27 +105,55 @@ internal class ThreadSpamMoves(
                 snackbar.showSnackbar(activity.getString(R.string.thread_unblock_failed))
                 return@launch
             }
-            sort()
+            wrote()
             val verdict = withContext(Dispatchers.IO) { place.verdict(address) }
-            val unknown = (verdict as? SenderVerdict.Spam)?.cause == SpamCause.UNKNOWN
-            when {
-                unknown -> if (offer(R.string.thread_unblock_done_filtered, R.string.ux8c_not_spam, long = true)) {
-                    notSpam(address)
+            when (unblockOutcome(verdict)) {
+                UnblockOutcome.STILL_UNKNOWN ->
+                    if (offer(R.string.thread_unblock_done_filtered, R.string.ux8c_not_spam, long = true)) {
+                        notSpam(address)
+                    }
+                UnblockOutcome.BACK_IN_MESSAGES ->
+                    undoUnblockIfAsked(repo, removed, activity.getString(R.string.thread_unblock_done))
+                UnblockOutcome.ANDROID_LIST ->
+                    undoUnblockIfAsked(repo, removed, activity.getString(R.string.thread_unblock_done_system))
+                UnblockOutcome.OTHER_RULE -> stillBlockedByRule(repo, removed, (verdict as SenderVerdict.Spam).ruleId)
+                UnblockOutcome.UNSURE -> if (removed.isEmpty()) {
+                    snackbar.showSnackbar(activity.getString(R.string.thread_unblock_failed))
+                } else {
+                    val text = activity.resources.getQuantityString(R.plurals.blocknum_unblocked, 1, 1)
+                    undoUnblockIfAsked(repo, removed, text)
                 }
-                verdict is SenderVerdict.Spam -> undoUnblockIfAsked(repo, removed, R.string.thread_unblock_done_system)
-                else -> undoUnblockIfAsked(repo, removed, R.string.thread_unblock_done)
             }
         }
     }
 
-    private suspend fun undoUnblockIfAsked(repo: SpamRepository, removed: List<SpamRule>, message: Int) {
-        val long = message == R.string.thread_unblock_done_system
+    /** A prefix (or another wide rule) still blocks the sender: what was removed goes back, and the rule is named. */
+    private suspend fun stillBlockedByRule(repo: SpamRepository, removed: List<SpamRule>, ruleId: Long?) {
+        runCatching { repo.restoreRules(removed) }
+        wrote()
+        val rule = runCatching { repo.rules.first() }.getOrNull()?.firstOrNull { it.id == ruleId }
+        val text = if (rule != null && rule.type == RuleType.PREFIX) {
+            activity.getString(R.string.spam_reason_rule_prefix, rule.pattern)
+        } else {
+            activity.getString(R.string.thread_unblock_failed)
+        }
+        snackbar.showSnackbar(text, duration = SnackbarDuration.Long)
+    }
+
+    /** The message of an unblock, with Undo only when something was removed (no Undo that does nothing). */
+    private suspend fun undoUnblockIfAsked(repo: SpamRepository, removed: List<SpamRule>, message: String) {
         if (removed.isEmpty()) {
-            // Only Android's own block list named the sender: nothing to undo.
-            snackbar.showSnackbar(activity.getString(message), duration = SnackbarDuration.Long)
-        } else if (offer(message, long = long)) {
+            snackbar.showSnackbar(message, duration = SnackbarDuration.Long)
+            return
+        }
+        val undo = snackbar.showSnackbar(
+            message = message,
+            actionLabel = activity.getString(R.string.thread_report_spam_undo),
+            duration = SnackbarDuration.Long,
+        ) == SnackbarResult.ActionPerformed
+        if (undo) {
             runCatching { repo.restoreRules(removed) }
-            sort()
+            wrote()
         }
     }
 
@@ -122,10 +177,10 @@ internal class ThreadSpamMoves(
                 snackbar.showSnackbar(activity.getString(R.string.thread_always_allow_failed))
                 return@launch
             }
-            sort()
+            wrote()
             if (change.createdRuleIds.isNotEmpty() && offer(R.string.thread_always_allow_done)) {
                 SenderMoves.undoNotSpam(repository(), change)
-                sort()
+                wrote()
             }
         }
     }

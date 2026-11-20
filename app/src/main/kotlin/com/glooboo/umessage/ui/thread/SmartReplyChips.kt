@@ -80,11 +80,8 @@ private fun SmartReplyRow(vm: ThreadViewModel, modifier: Modifier = Modifier) {
     var hiddenFor by rememberSaveable { mutableStateOf<Long?>(null) }
     var confirming by rememberSaveable { mutableStateOf<String?>(null) }
     confirming?.let { reply ->
-        ConfirmDialog(
-            message = stringResource(R.string.pt_reply_allows_confirm),
-            confirmLabel = stringResource(R.string.thread_send),
-            dismissLabel = stringResource(R.string.spam_cancel),
-            onConfirm = {
+        ReplyAllowsConfirm(
+            onSend = {
                 confirming = null
                 vm.insertAtCursor(reply)
                 vm.chatLine.sendNow()
@@ -155,4 +152,17 @@ private fun suggestionFor(
     )
     if (!SmartReplyPolicy.allows(candidate, System.currentTimeMillis())) return null
     return matcher.match(newest.body, language, newest.id)?.let { Suggestion(newest.id, it) }
+}
+
+/** D4 B2: "This allows the sender. Send?" before a suggested reply goes from a Spam chat; Cancel sends nothing. */
+@Composable
+internal fun ReplyAllowsConfirm(onSend: () -> Unit, onDismiss: () -> Unit, modifier: Modifier = Modifier) {
+    ConfirmDialog(
+        message = stringResource(R.string.pt_reply_allows_confirm),
+        confirmLabel = stringResource(R.string.thread_send),
+        dismissLabel = stringResource(R.string.spam_cancel),
+        onConfirm = onSend,
+        onDismiss = onDismiss,
+        modifier = modifier,
+    )
 }

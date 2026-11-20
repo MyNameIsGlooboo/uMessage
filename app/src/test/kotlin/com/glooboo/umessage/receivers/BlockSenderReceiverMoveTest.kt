@@ -19,6 +19,7 @@ import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
+import com.glooboo.umessage.ui.conversations.UnreadTexts
 import com.glooboo.umessage.ui.spam.FakeSpamRepository
 import com.glooboo.umessage.ui.spam.RuleNotes
 import com.google.common.truth.Truth.assertThat
@@ -97,7 +98,6 @@ class BlockSenderReceiverMoveTest {
         // The Undo button's intent, as the notification holds it.
         val undo = shadowOf(notice.actions.single().actionIntent).savedIntent
         assertThat(undo.getStringExtra(BlockSenderReceiver.EXTRA_UNDO)).isNotNull()
-        assertThat(BlockUndoCodec.decode(undo.getStringExtra(BlockSenderReceiver.EXTRA_UNDO)!!)!!.wasUnread).isTrue()
         handle(undo)
 
         assertThat(rules().map { it.id }).containsExactly(wordAllow)
@@ -123,9 +123,10 @@ class BlockSenderReceiverMoveTest {
             ),
             stillAllowedBy = 8L,
         )
-        val decoded = BlockUndoCodec.decode(BlockUndoCodec.encode(BlockUndo(receipt, wasUnread = true)))
+        val unread = UnreadTexts(sms = listOf(3L, 4L), mms = listOf(9L))
+        val decoded = BlockUndoCodec.decode(BlockUndoCodec.encode(BlockUndo(receipt, unread)))
 
-        assertThat(decoded).isEqualTo(BlockUndo(receipt, wasUnread = true))
+        assertThat(decoded).isEqualTo(BlockUndo(receipt, unread))
         assertThat(BlockUndoCodec.decode("not json")).isNull()
     }
 

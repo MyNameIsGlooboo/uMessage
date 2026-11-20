@@ -192,10 +192,13 @@ open class ThreadActivity : ComposeSimpleActivity() {
     private val refreshLock = Any()
 
     /** B06: a hidden chat asks for the app lock before it shows. */
-    private val hiddenGate: HiddenChatGate = HiddenChatGate(this, { spamGate.blocking }) { threadId }
+    private val hiddenGate: HiddenChatGate =
+        HiddenChatGate(this, { spamGate.blocking }, onPassed = { spamGate.check() }) { threadId }
 
     /** U1 (provider truth): a chat in Spam asks for the app lock while the lock covers Spam. */
-    private val spamGate: SpamChatGate = SpamChatGate(this, { threadId }, othersCover = { hiddenGate.blocking })
+    private val spamGate: SpamChatGate = SpamChatGate(
+        this, { threadId }, othersCover = { hiddenGate.blocking }, onRevealed = { markReadIfSeen() },
+    )
 
     /** Provider truth (4.3): the one line about the sender. */
     private val chatLine by lazy { ChatLineController(this, vm.chatLine, lifecycleScope) }
@@ -562,7 +565,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         hiddenGate.check()
         spamGate.check()
         // A contact may have been added meanwhile: the chat line is worked out again.
-        chatLine.follow(recipients.reportableAddress.takeIf { recipients.size == 1 }, force = true)
+        chatLine.follow(recipients.reportableAddress.takeIf { recipients.size == 1 && !isRecycleBin }, force = true)
 
         isActivityVisible = true
         // The SIM cards may have changed while the chat was in the background.
@@ -1786,7 +1789,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
                     // B2-13: the scheduled row goes before the claim is released, so a re-arm in between cannot post
                     // a false "not sent" for a message that went.
                     runCatching { scheduleController.cancel(message.id) }
-                    runOnUiThread { releaseScheduledAudioAndRefresh(message) }
+                    runOnUiThread { releaseScheduledAudioAndRefresh(shown, message) }
                 } else {
                     // Not sent: held again, so Retry stays and no alarm sends it by itself.
                     runCatching { messagesDB.updateScheduledType(message.id, Telephony.Sms.MESSAGE_TYPE_FAILED) }
@@ -1810,8 +1813,10 @@ open class ThreadActivity : ComposeSimpleActivity() {
     }
 
     /** After "Send now" went: the audio players of its attachments stop, and the chat shows it sent. */
-    private fun releaseScheduledAudioAndRefresh(message: Message) {
-        message.attachment?.attachments?.forEach { AudioPlayerManager.release(it.getUri()) }
+    private fun releaseScheduledAudioAndRefresh(shown: Message, message: Message) {
+        // The bubble's uris (as 0.4.14 released them) and those of the row read after the claim, if they differ.
+        (shown.attachment?.attachments.orEmpty() + message.attachment?.attachments.orEmpty())
+            .map { it.getUri() }.distinct().forEach { AudioPlayerManager.release(it) }
         ensureBackgroundThread { refreshMessages() }
     }
 

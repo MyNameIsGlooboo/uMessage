@@ -59,8 +59,8 @@ internal fun SpamMovedCard(moved: Int, onReview: () -> Unit, modifier: Modifier 
     }
     val container = MaterialTheme.colorScheme.surfaceContainerHigh
     val content = readableOn(container, MaterialTheme.colorScheme.onSurface)
+    // C-18: one click target for the one action, the Review button.
     Surface(
-        onClick = review,
         color = container,
         contentColor = content,
         shape = MaterialTheme.shapes.large,

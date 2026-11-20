@@ -28,6 +28,8 @@ class SpamChatGateTest {
     private var locked = true
     private var inSpam: (Long) -> Boolean = { true }
     private var othersCover = false
+    private var passed = false
+    private var revealed = 0
 
     private class Screen(val controller: ActivityController<ComponentActivity>, val gate: SpamChatGate) {
         val activity: ComponentActivity get() = controller.get()
@@ -35,15 +37,16 @@ class SpamChatGateTest {
     }
 
     /** The gate is made before the screen starts, as the activities make theirs (a result launcher needs that). */
-    private fun open(threadId: Long = THREAD): Screen {
+    private fun open(threadId: Long = THREAD, wait: Boolean = true): Screen {
         val controller = Robolectric.buildActivity(ComponentActivity::class.java).create()
         val gate = SpamChatGate(
             controller.get(), { threadId }, othersCover = { othersCover }, inSpam = { inSpam(it) }, locked = { locked },
+            recentlyPassed = { passed }, onRevealed = { revealed++ },
         )
         controller.start().resume()
         return Screen(controller, gate).also {
             it.gate.check()
-            settle()
+            if (wait) settle()
         }
     }
 
@@ -162,8 +165,60 @@ class SpamChatGateTest {
         assertThat(lockAsked(screen)).isFalse()
     }
 
+    @Test
+    fun aChatLastSeenInMessagesDoesNotFlashBlank() {
+        inSpam = { false }
+        open(threadId = OTHER_THREAD)
+        // C-10: opened again, it stays visible while it is checked again.
+        val again = open(threadId = OTHER_THREAD, wait = false)
+        assertThat(again.content.visibility).isEqualTo(View.VISIBLE)
+        settle()
+        assertThat(again.gate.blocking).isFalse()
+    }
+
+    @Test
+    fun aChatLastSeenInMessagesThatIsInSpamNowIsCoveredOnceKnown() {
+        inSpam = { false }
+        open(threadId = MOVED_THREAD)
+        inSpam = { true }
+        val again = open(threadId = MOVED_THREAD)
+        assertThat(again.gate.blocking).isTrue()
+        assertThat(again.content.visibility).isEqualTo(View.INVISIBLE)
+        assertThat(lockAsked(again)).isTrue()
+    }
+
+    @Test
+    fun passingTheLockTellsTheScreenItShows() {
+        val screen = open()
+        val request = shadowOf(screen.activity).nextStartedActivityForResult!!
+        locked = false
+        shadowOf(screen.activity).receiveResult(request.intent, Activity.RESULT_OK, null)
+
+        // C-10: the screen marks the chat read then.
+        assertThat(revealed).isEqualTo(1)
+    }
+
+    @Test
+    fun whileAHiddenChatAsksForTheLockThisGateDoesNotAskToo() {
+        othersCover = true
+        val screen = open()
+
+        assertThat(screen.gate.blocking).isTrue()
+        assertThat(lockAsked(screen)).isFalse()
+
+        // The hidden chat's lock was passed a moment ago: checked again, it counts, no second PIN.
+        othersCover = false
+        passed = true
+        screen.gate.check()
+        settle()
+        assertThat(screen.gate.blocking).isFalse()
+        assertThat(lockAsked(screen)).isFalse()
+    }
+
     private companion object {
         const val THREAD = 42L
+        const val OTHER_THREAD = 43L
+        const val MOVED_THREAD = 44L
         const val SETTLE_ROUNDS = 20
         const val SETTLE_SLEEP_MS = 10L
     }

@@ -22,6 +22,8 @@ class HiddenChatGate(
     private val activity: ComponentActivity,
     /** Another gate covers the screen (U1, [SpamChatGate]): this one never makes it visible then. */
     private val othersCover: () -> Boolean = { false },
+    /** The lock was passed for this chat (C-10: a Spam chat's gate is checked again then, without a second PIN). */
+    private val onPassed: () -> Unit = {},
     private val threadId: () -> Long,
 ) {
     /** True while the chat is covered: nothing of it may be read, marked as read or answered. */
@@ -38,6 +40,7 @@ class HiddenChatGate(
         asking = false
         if (result.resultCode == Activity.RESULT_OK) {
             reveal()
+            onPassed()
         } else {
             denied = true
             activity.finish()

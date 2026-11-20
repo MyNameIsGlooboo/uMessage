@@ -15,7 +15,6 @@ import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.markThreadMessagesRead
-import com.glooboo.umessage.extensions.markThreadMessagesUnread
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.spam.AllowGroup
@@ -29,6 +28,8 @@ import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.ui.components.displayNumber
+import com.glooboo.umessage.ui.conversations.StoreUnread
+import com.glooboo.umessage.ui.conversations.UnreadTexts
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SenderMoves
 import org.json.JSONArray
@@ -98,25 +99,59 @@ class BlockSenderReceiver : BroadcastReceiver() {
         context.notificationManager.cancel(blockedNotificationId(threadId))
     }
 
-    /** Provider truth (U5, M-SP3): the rules, the memberships and the unread state come back; the chat is sorted. */
+    /**
+     * Provider truth (U5, M-SP3): the rules, the memberships and every unread text come back; the chat is sorted.
+     * C-12: an Undo that fails keeps the notice, so it can be tried again; it never looks done.
+     */
     private suspend fun undoMove(context: Context, repository: SpamRepository, undo: BlockUndo, threadId: Long) {
-        SenderMoves.undoBlocks(repository, listOfNotNull(undo.receipt))
-        if (undo.wasUnread) runCatching { context.markThreadMessagesUnread(threadId) }
+        val receipt = undo.receipt
+        if (receipt != null && runCatching { repository.undoBlock(receipt) }.isFailure) return
+        if (threadId > 0) runCatching { StoreUnread.restore(context, threadId, undo.unread) }
         if (threadId > 0) sortThread(context, threadId)
         context.notificationManager.cancel(blockedNotificationId(threadId))
     }
 
-    /** Provider truth: the block of [SenderMoves.blockSenders], the chat read and sorted again, and the Undo notice. */
+    /**
+     * Provider truth: the block of [SenderMoves.blockSenders], the chat read and sorted again, and the Undo notice.
+     * C-3: no receipt (the sender cannot be read) shows nothing and keeps the message notification; a user allow rule
+     * that still names the sender takes the block back and says why, with no Undo.
+     */
     private suspend fun moveToSpam(context: Context, repository: SpamRepository, address: String, threadId: Long) {
-        val receipt = runCatching { SenderMoves.blockSenders(repository, listOf(address)) }.getOrNull() ?: return
+        val receipt = runCatching { SenderMoves.blockSenders(repository, listOf(address)) }.getOrNull()
+            ?.firstOrNull() ?: return
+        if (receipt.stillAllowedBy != null) {
+            SenderMoves.undoBlocks(repository, listOf(receipt))
+            showStillAllowed(context, threadId)
+            return
+        }
         context.notificationManager.cancel(threadId.hashCode())
-        val wasUnread = threadId > 0 && runCatching {
+        val unread = if (threadId > 0) StoreUnread.of(context, threadId) else UnreadTexts()
+        val wasUnread = threadId > 0 && (!unread.isEmpty || runCatching {
             context.conversationsDB.getConversationWithThreadId(threadId)?.read == false
-        }.getOrDefault(false)
+        }.getOrDefault(false))
         if (wasUnread) runCatching { context.markThreadMessagesRead(threadId) }
         if (threadId > 0) sortThread(context, threadId)
-        val undo = BlockUndoCodec.encode(BlockUndo(receipt.firstOrNull(), wasUnread))
-        showBlocked(context, address, threadId, receipt.map { it.ruleId }.filter { it > 0 }, undo)
+        val undo = BlockUndoCodec.encode(BlockUndo(receipt, unread))
+        showBlocked(context, address, threadId, listOf(receipt.ruleId).filter { it > 0 }, undo)
+    }
+
+    /** C-3: the block was taken back because a user allow rule still names the sender; the notice says so. */
+    private fun showStillAllowed(context: Context, threadId: Long) {
+        val manager = context.notificationManager
+        manager.createNotificationChannel(
+            NotificationChannel(
+                CHANNEL_ID, context.getString(R.string.notif_block_channel), NotificationManager.IMPORTANCE_LOW
+            )
+        )
+        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_messenger)
+            .setColor(currentColorScheme(context).primary.toArgb())
+            .setContentText(context.getString(R.string.pt_block_still_allowed))
+            .setCategory(NotificationCompat.CATEGORY_STATUS)
+            .setAutoCancel(true)
+            .setTimeoutAfter(UNDO_VISIBLE_MS)
+            .build()
+        manager.notify(blockedNotificationId(threadId), notification)
     }
 
     /** A quiet "Blocked <number>" notice with Undo. It stays for a while, so a wrong tap can be taken back. */
@@ -194,8 +229,8 @@ class BlockSenderReceiver : BroadcastReceiver() {
     }
 }
 
-/** What the notification's Undo puts back (provider truth): the block's receipt, and whether the chat was unread. */
-internal data class BlockUndo(val receipt: BlockReceipt?, val wasUnread: Boolean)
+/** What the notification's Undo puts back (provider truth): the block's receipt, and the chat's unread texts. */
+internal data class BlockUndo(val receipt: BlockReceipt?, val unread: UnreadTexts = UnreadTexts())
 
 /**
  * Writes a [BlockUndo] into the Undo intent and reads it back, so the Undo of a notification works after the process
@@ -204,7 +239,8 @@ internal data class BlockUndo(val receipt: BlockReceipt?, val wasUnread: Boolean
  */
 internal object BlockUndoCodec {
     fun encode(undo: BlockUndo): String = JSONObject().apply {
-        put("unread", undo.wasUnread)
+        put("sms", JSONArray(undo.unread.sms))
+        put("mms", JSONArray(undo.unread.mms))
         undo.receipt?.let { receipt ->
             put("address", receipt.address)
             put("ruleId", receipt.ruleId)
@@ -231,8 +267,10 @@ internal object BlockUndoCodec {
         } else {
             null
         }
-        BlockUndo(receipt, json.optBoolean("unread"))
+        BlockUndo(receipt, UnreadTexts(longs(json.optJSONArray("sms")), longs(json.optJSONArray("mms"))))
     }.getOrNull()
+
+    private fun longs(list: JSONArray?): List<Long> = list?.let { (0 until it.length()).map(it::getLong) }.orEmpty()
 
     private fun rule(rule: SpamRule) = JSONObject().apply {
         put("id", rule.id)
