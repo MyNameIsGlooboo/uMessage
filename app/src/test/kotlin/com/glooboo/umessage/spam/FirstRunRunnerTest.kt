@@ -24,6 +24,9 @@ class FirstRunRunnerTest {
         var failHistory = 0
         var failSort = 0
         var killAt: String? = null
+
+        /** Runs as a step starts: what the user does meanwhile (G-B1). */
+        var during: (String) -> Unit = {}
         var migrationWaits = false
         var moved = 3
         var allowed = 2
@@ -60,6 +63,7 @@ class FirstRunRunnerTest {
                 error("killed")
             }
             calls += name
+            during(name)
         }
 
         override fun applySettings() = call("settings")
@@ -402,5 +406,113 @@ class FirstRunRunnerTest {
         assertThat(reread).isEqualTo(stopped)
         assertThat(reread.startedAt).isEqualTo(5_000L)
         assertThat(seen.last()).isEqualTo(stopped)
+    }
+
+    @Test
+    fun continueInBackgroundDuringAPassIsNotUndoneByTheRunnersWrites() {
+        // G-B1: the mark is written while the pass works (here: a stalled one); the runner's own writes keep it.
+        steps.failHistory = 1
+        steps.during = { if (it == "rules") store.markSeen(backgroundPass = store.read().startedAt) }
+
+        val stalled = runner().request(FirstRunTrigger.UPDATE)
+
+        assertThat(store.read().inBackground).isTrue()
+        assertThat(store.marked(stalled).inBackground).isTrue()
+        store.write(stalled.copy(waiting = true))
+        assertThat(store.read().inBackground).isTrue()
+    }
+
+    @Test
+    fun aNewPassShowsItsPageAgainAfterAnEarlierPassWentToTheBackground() {
+        runner().request(FirstRunTrigger.UPDATE)
+        store.markSeen(backgroundPass = 5_000L)
+        clock = 6_000L
+        steps.failHistory = 1
+
+        runner().request(FirstRunTrigger.SWITCH_ON)
+
+        assertThat(store.read().inBackground).isFalse()
+    }
+
+    @Test
+    fun continueInBackgroundBeforeTheFirstPassStartedHoldsForThatPass() {
+        // G-B4: the page showed while the state was still NOT_STARTED; its button counts for the update's pass.
+        store.markSeen(backgroundPass = FirstRunStore.BEFORE_START)
+        assertThat(store.read().inBackground).isTrue()
+        steps.killAt = "history"
+
+        runner().request(FirstRunTrigger.UPDATE)
+
+        assertThat(store.read().active).isTrue()
+        assertThat(store.read().inBackground).isTrue()
+    }
+
+    @Test
+    fun theCardSeenDuringALaterPassStaysSeenAndCountsOnlyWhatMovedAfter() {
+        runner().request(FirstRunTrigger.UPDATE)
+        clock = 6_000L
+        steps.during = {
+            if (it == "history") {
+                store.markSeen(card = 5_000L, at = 6_500L)
+                clock = 7_000L
+            }
+        }
+
+        val state = runner().request(FirstRunTrigger.SWITCH_ON)
+
+        // The update's card was seen; the switch's pass moved 3 chats after that: a new card for those only.
+        assertThat(state.cardSince).isEqualTo(6_500L)
+        assertThat(state.movedToSpam).isEqualTo(3)
+        assertThat(state.cardPending).isTrue()
+        assertThat(store.read()).isEqualTo(state)
+    }
+
+    @Test
+    fun theCardSeenDuringAPassWithoutACardDoesNotComeBack() {
+        runner().request(FirstRunTrigger.UPDATE)
+        steps.during = { if (it == "history") store.markSeen(card = 5_000L, at = 5_500L) }
+
+        val state = runner().request(FirstRunTrigger.DEFAULT_AGAIN)
+
+        assertThat(state.cardPending).isFalse()
+        assertThat(store.read().cardPending).isFalse()
+    }
+
+    @Test
+    fun whatChangedClosedDuringALaterPassStaysClosed() {
+        runner().request(FirstRunTrigger.UPDATE)
+        steps.during = { if (it == "history") store.markSeen(whatChanged = 5_000L) }
+        clock = 6_000L
+
+        val state = runner().request(FirstRunTrigger.CONTACTS_GRANTED)
+
+        assertThat(state.whatChangedPending).isFalse()
+        assertThat(store.read().whatChangedPending).isFalse()
+    }
+
+    @Test
+    fun whatChangedKeepsTheUpdatesOwnNumbers() {
+        // G-B2: the card's number is zeroed when the card is seen and counted again by later passes; not this one.
+        val update = runner().request(FirstRunTrigger.UPDATE)
+        assertThat(update.whatChangedMoved).isEqualTo(3)
+        store.markSeen(card = update.cardSince, at = 5_500L)
+        clock = 6_000L
+
+        val later = runner().request(FirstRunTrigger.SWITCH_ON)
+
+        assertThat(later.movedToSpam).isEqualTo(3)
+        assertThat(later.whatChangedPending).isTrue()
+        assertThat(later.whatChangedMoved).isEqualTo(3)
+        assertThat(later.allowedAutomatically).isEqualTo(2)
+        assertThat(store.read().whatChangedMoved).isEqualTo(3)
+    }
+
+    @Test
+    fun withoutMarksTheStoredStateIsReadAsWritten() {
+        val state = FirstRunState(phase = FirstRunPhase.SORT, trigger = FirstRunTrigger.UPDATE, startedAt = 5_000L)
+        store.write(state)
+
+        assertThat(store.read()).isEqualTo(state)
+        assertThat(store.cardSeenAt(0L)).isNull()
     }
 }

@@ -71,8 +71,16 @@ data class FirstRunState(
     val sortPublished: Boolean = false,
     /** B-12: chats in Spam that entered it since [cardSince] (card count, plural string); counted from the table. */
     val movedToSpam: Int = 0,
-    /** B-12: senders the history checks allowed since [whatChangedSince] ("M senders allowed automatically"). */
+    /**
+     * B-12: senders the history checks allowed since [whatChangedSince] ("M senders allowed automatically"). G-B2:
+     * counted once, when the update's pass ends; later passes keep it.
+     */
     val allowedAutomatically: Int = 0,
+    /**
+     * G-B2: "N chats moved to Spam" of "What changed": counted once, when the update's pass ends, from
+     * [whatChangedSince]. Not the card's number (that one is zeroed when the card is seen and counted again later).
+     */
+    val whatChangedMoved: Int = 0,
     /** The card shows: a pass that shows it ended with at least one chat moved, and the card was not tapped yet. */
     val cardPending: Boolean = false,
     val whatChangedPending: Boolean = false,
@@ -147,16 +155,26 @@ fun interface OlderSpamMigration {
     fun run(context: Context): Boolean
 }
 
-/** The persisted [FirstRunState], the triggers waiting for the running pass, and the last seen phone states. */
+/**
+ * The persisted [FirstRunState], the triggers waiting for the running pass, and the last seen phone states.
+ *
+ * G-B1: what the user saw ("Continue in background", "What changed" closed, the card tapped) is kept in marks of their
+ * own, written at once from any thread ([markSeen]) and never by the runner. A mark names what it was set for (the
+ * pass's start, the card's start, the update's start), so it ends by itself when a new pass, card or page begins.
+ * [read] and [marked] apply them; the runner's own state write cannot undo them.
+ */
 class FirstRunStore(private val prefs: SharedPreferences) {
 
-    fun read(): FirstRunState = FirstRunState(
+    fun read(): FirstRunState = marked(readRaw())
+
+    private fun readRaw(): FirstRunState = FirstRunState(
         phase = prefs.getString(KEY_PHASE, null)
             .let { name -> FirstRunPhase.entries.firstOrNull { it.name == name } } ?: FirstRunPhase.NOT_STARTED,
         trigger = triggerNamed(prefs.getString(KEY_TRIGGER, null)),
         sortPublished = prefs.getBoolean(KEY_PUBLISHED, false),
         movedToSpam = prefs.getInt(KEY_MOVED, 0),
         allowedAutomatically = prefs.getInt(KEY_ALLOWED, 0),
+        whatChangedMoved = prefs.getInt(KEY_WHAT_CHANGED_MOVED, 0),
         cardPending = prefs.getBoolean(KEY_CARD, false),
         whatChangedPending = prefs.getBoolean(KEY_WHAT_CHANGED, false),
         olderSpamWaiting = prefs.getBoolean(KEY_OLDER_WAITING, false),
@@ -174,6 +192,7 @@ class FirstRunStore(private val prefs: SharedPreferences) {
         putBoolean(KEY_PUBLISHED, state.sortPublished)
         putInt(KEY_MOVED, state.movedToSpam)
         putInt(KEY_ALLOWED, state.allowedAutomatically)
+        putInt(KEY_WHAT_CHANGED_MOVED, state.whatChangedMoved)
         putBoolean(KEY_CARD, state.cardPending)
         putBoolean(KEY_WHAT_CHANGED, state.whatChangedPending)
         putBoolean(KEY_OLDER_WAITING, state.olderSpamWaiting)
@@ -200,6 +219,47 @@ class FirstRunStore(private val prefs: SharedPreferences) {
 
     fun saveSeen(key: String, value: Boolean) = prefs.edit(commit = true) { putBoolean(key, value) }
 
+    /**
+     * G-B1: the user saw something. [backgroundPass]: "Continue in background" for the pass that started then
+     * ([FirstRunState.startedAt]; [BEFORE_START] while the first pass has not started yet). [card]: the card that
+     * counts from this [FirstRunState.cardSince], seen at [at]. [whatChanged]: "What changed" of this
+     * [FirstRunState.whatChangedSince]. In memory at once and written in the background (apply): fine on the main
+     * thread, and never queued behind a pass.
+     */
+    fun markSeen(backgroundPass: Long? = null, card: Long? = null, whatChanged: Long? = null, at: Long = 0L) =
+        prefs.edit {
+            backgroundPass?.let { putLong(KEY_SEEN_BACKGROUND, it) }
+            card?.let {
+                putLong(KEY_SEEN_CARD, it)
+                putLong(KEY_SEEN_CARD_AT, at)
+            }
+            whatChanged?.let { putLong(KEY_SEEN_WHAT_CHANGED, it) }
+        }
+
+    /** [state] with the user's marks ([markSeen]) applied; without a mark that fits, [state] as it is. */
+    fun marked(state: FirstRunState): FirstRunState {
+        val cardSeen = mark(KEY_SEEN_CARD) == state.cardSince
+        val inBackground = when (val pass = mark(KEY_SEEN_BACKGROUND)) {
+            null -> false
+            // Only the first full pass can follow a page that showed before it started (G-B4).
+            BEFORE_START -> state.phase == FirstRunPhase.NOT_STARTED ||
+                (state.active && state.trigger?.phases == FULL_RUN)
+            else -> state.active && pass == state.startedAt
+        }
+        return state.copy(
+            inBackground = state.inBackground || inBackground,
+            cardPending = state.cardPending && !cardSeen,
+            movedToSpam = if (cardSeen) 0 else state.movedToSpam,
+            whatChangedPending = state.whatChangedPending && mark(KEY_SEEN_WHAT_CHANGED) != state.whatChangedSince,
+        )
+    }
+
+    /** When the card that counts from [cardSince] was seen; null when it was not. */
+    fun cardSeenAt(cardSince: Long): Long? =
+        if (mark(KEY_SEEN_CARD) == cardSince) prefs.getLong(KEY_SEEN_CARD_AT, cardSince) else null
+
+    private fun mark(key: String): Long? = if (prefs.contains(key)) prefs.getLong(key, 0L) else null
+
     private fun triggerNamed(name: String?): FirstRunTrigger? = FirstRunTrigger.entries.firstOrNull { it.name == name }
 
     companion object {
@@ -207,6 +267,9 @@ class FirstRunStore(private val prefs: SharedPreferences) {
         const val PREFS = "umessage_first_run"
         const val SEEN_CONTACTS = "seen_contacts_readable"
         const val SEEN_DEFAULT = "seen_default_sms_app"
+
+        /** The "Continue in background" mark of a page that showed before the first pass started (G-B4). */
+        const val BEFORE_START = -1L
         private const val KEY_PHASE = "phase"
         private const val KEY_TRIGGER = "trigger"
         private const val KEY_PUBLISHED = "sort_published"
@@ -222,6 +285,11 @@ class FirstRunStore(private val prefs: SharedPreferences) {
         private const val KEY_WAITING = "waiting"
         private const val KEY_PENDING = "pending_triggers"
         private const val KEY_INSTALL_KIND = "install_kind"
+        private const val KEY_WHAT_CHANGED_MOVED = "what_changed_moved"
+        private const val KEY_SEEN_BACKGROUND = "seen_background_pass"
+        private const val KEY_SEEN_CARD = "seen_card_since"
+        private const val KEY_SEEN_CARD_AT = "seen_card_at"
+        private const val KEY_SEEN_WHAT_CHANGED = "seen_what_changed_since"
     }
 }
 
@@ -313,16 +381,25 @@ class FirstRunRunner(
         return begin(ended, again)
     }
 
-    /** B-12: the card shows only when the passes since it was last seen moved a chat; counts come from the table. */
-    private fun counted(state: FirstRunState): FirstRunState {
+    /**
+     * B-12: the card shows only when the passes since it was last seen moved a chat; counts come from the table.
+     * G-B1: what the user saw during the pass counts (the marks are read again here); a card seen during the pass
+     * counts again from the moment it was seen. G-B2: "What changed" gets its own numbers, once, at the update's end.
+     */
+    private fun counted(running: FirstRunState): FirstRunState {
+        val state = store.marked(running)
         val card = state.cardPending || state.trigger?.showsCard == true
-        val moved = if (card) steps.countMoved(state.cardSince) else state.movedToSpam
-        val whatChanged = state.whatChangedPending || state.trigger == FirstRunTrigger.UPDATE
+        val cardSince = if (card) store.cardSeenAt(state.cardSince) ?: state.cardSince else state.cardSince
+        val moved = if (card) steps.countMoved(cardSince) else state.movedToSpam
+        val update = state.trigger == FirstRunTrigger.UPDATE
+        val since = state.whatChangedSince
         return state.copy(
+            cardSince = cardSince,
             movedToSpam = moved,
             cardPending = card && moved > 0,
-            whatChangedPending = whatChanged,
-            allowedAutomatically = if (whatChanged) steps.countAllowed(state.whatChangedSince) else 0,
+            whatChangedPending = state.whatChangedPending || update,
+            whatChangedMoved = if (update) steps.countMoved(since) else state.whatChangedMoved,
+            allowedAutomatically = if (update) steps.countAllowed(since) else state.allowedAutomatically,
         )
     }
 
@@ -380,7 +457,7 @@ object FirstRun {
     /** Reads the stored state again (tests that write it directly). */
     @VisibleForTesting
     internal fun reload(context: Context) {
-        publishState(store(context).read())
+        publishState(context.applicationContext, store(context).read())
     }
 
     /** A trigger (3.5). The pass runs on the sorting thread. */
@@ -392,31 +469,29 @@ object FirstRun {
 
     /**
      * The card or the "What changed" page was seen (tapped): it does not show again until the next pass. With
-     * [inBackground] the progress page's "Continue in background" is kept too. Written on the sorting thread, so it
-     * never races a step's write.
+     * [inBackground] the progress page's "Continue in background" is kept too (before the first pass started, for that
+     * pass). G-B1: kept in marks of their own at once, from any thread, also while a pass works or is stalled: never
+     * queued behind the pass on the sorting thread, and the runner's state write cannot undo them.
      */
     fun acknowledge(
         context: Context,
         card: Boolean = false,
         whatChanged: Boolean = false,
-        inBackground: Boolean? = null,
+        inBackground: Boolean = false,
     ) {
         val app = context.applicationContext
-        SpamSorting.execute(
-            Runnable {
-                val store = store(app)
-                val state = store.read()
-                val next = state.copy(
-                    cardPending = state.cardPending && !card,
-                    movedToSpam = if (card) 0 else state.movedToSpam,
-                    whatChangedPending = state.whatChangedPending && !whatChanged,
-                    allowedAutomatically = if (whatChanged) 0 else state.allowedAutomatically,
-                    inBackground = inBackground ?: state.inBackground,
-                )
-                runCatching { store.write(next) }
-                publishState(next)
-            }
-        )
+        val shown = state(app).value
+        val pass = if (shown.active) shown.startedAt else FirstRunStore.BEFORE_START
+        runCatching {
+            store(app).markSeen(
+                backgroundPass = pass.takeIf { inBackground },
+                card = shown.cardSince.takeIf { card },
+                whatChanged = shown.whatChangedSince.takeIf { whatChanged },
+                at = System.currentTimeMillis(),
+            )
+        }
+        // The state shown now, read under the lock: a step published meanwhile is not replaced by an older one.
+        synchronized(this) { publishState(app, flow.value) }
     }
 
     private fun checkNow(app: Context) {
@@ -465,13 +540,17 @@ object FirstRun {
                 retries = 0
                 val waiting = state.copy(waiting = true)
                 runCatching { store(app).write(waiting) }
-                publishState(waiting)
+                publishState(app, waiting)
             }
         }
     }
 
-    private fun publishState(state: FirstRunState) {
-        flow.value = state
+    /**
+     * G-B1: the published state carries the user's marks. Under the lock, so a runner's step and a tap that publish at
+     * the same moment cannot hide the tap again (the tap writes its mark before it publishes).
+     */
+    private fun publishState(app: Context, state: FirstRunState) = synchronized(this) {
+        flow.value = runCatching { store(app).marked(state) }.getOrDefault(state)
         loaded = true
     }
 
@@ -480,7 +559,7 @@ object FirstRun {
         steps = AppFirstRunSteps(app),
         // The list sync reads every thread again: chats of numbers on Android's block list are listed now (B-16).
         onFirstPublish = { refreshConversations() },
-        onChange = ::publishState,
+        onChange = { publishState(app, it) },
     )
 
     private fun store(context: Context) =
