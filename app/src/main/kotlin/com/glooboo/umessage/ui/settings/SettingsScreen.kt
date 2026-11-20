@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
@@ -461,6 +462,9 @@ internal fun SpamFilterGroup(
     switchModel: SpamFilterSwitchViewModel = viewModel(factory = SpamFilterSwitchViewModel.Factory),
 ) {
     val pending by switchModel.switches.pending.collectAsStateWithLifecycle()
+    val snackbar = LocalSettingsSnackbar.current
+    val failedText = stringResource(R.string.spam_snack_failed)
+    LaunchedEffect(switchModel) { switchModel.failureFlow.collect { snackbar?.showSnackbar(failedText) } }
     val shown = when {
         !spam.filterOn -> UnknownSenderMode.OFF
         !spam.codeGroupOn -> UnknownSenderMode.STRICT
