@@ -79,21 +79,38 @@ class SpamChatsPolicyTest {
         assertThat(SpamChatsPolicy.tabCount(chats, now)).isEqualTo(0)
     }
 
+    /** The newest received text, [ageMs] old (body, date in seconds). */
+    private fun received(body: String, ageMs: Long) = body to ((now - ageMs) / 1000L).toInt()
+
     @Test
     fun copyCodeShowsForTenMinutesReadOrNot() {
         val extract: (String) -> String? = { if (it.contains("4821")) "4821" else null }
-        assertThat(SpamChatsPolicy.code(chat(1, snippet = "Your code is 4821", ageMs = 60_000L), now, extract))
-            .isEqualTo("4821")
-        assertThat(SpamChatsPolicy.code(chat(1, snippet = "Your code is 4821", ageMs = 11 * 60_000L), now, extract))
-            .isNull()
-        assertThat(SpamChatsPolicy.code(chat(1, snippet = "Sale today", ageMs = 0L), now, extract)).isNull()
+        assertThat(SpamChatsPolicy.code(received("Your code is 4821", 60_000L), now, extract)).isEqualTo("4821")
+        assertThat(SpamChatsPolicy.code(received("Your code is 4821", 11 * 60_000L), now, extract)).isNull()
+        assertThat(SpamChatsPolicy.code(received("Sale today", 0L), now, extract)).isNull()
+        // C-14: no received text (only a sent one is the newest), no code.
+        assertThat(SpamChatsPolicy.code(null, now, extract)).isNull()
+    }
+
+    @Test
+    fun theCodeEndsTenMinutesAfterItArrivedAndOnlyNewChatsAreRead() {
+        val text = received("Your code is 4821", 60_000L)
+        assertThat(SpamChatsPolicy.codeEndsAt(text)).isEqualTo(text.second * 1000L + SpamChatsPolicy.CODE_MS)
+        assertThat(SpamChatsPolicy.mayHoldFreshCode(chat(1, ageMs = 60_000L), now)).isTrue()
+        assertThat(SpamChatsPolicy.mayHoldFreshCode(chat(1, ageMs = 11 * 60_000L), now)).isFalse()
     }
 
     @Test
     fun copyCodeUsesTheRealExtractorForAWeakCodeToo() {
         // Owner decision of 20 Nov: a weak code stays in Spam, and its row still offers Copy code.
-        val code = SpamChatsPolicy.code(chat(1, snippet = "Your code: 739204", ageMs = 0L), now)
+        val code = SpamChatsPolicy.code(received("Your code: 739204", 0L), now)
         assertThat(code).isEqualTo("739204")
+    }
+
+    @Test
+    fun aSenderOnAndroidsBlockListShowsItsOwnLine() {
+        assertThat(SpamChatsPolicy.causeRes(SpamCause.BLOCKED, androidListed = true))
+            .isEqualTo(R.string.e_note_system_list)
     }
 
     @Test
@@ -102,7 +119,7 @@ class SpamChatsPolicyTest {
             id = id, address = "+15550001234", body = "text $id", subscriptionId = 1, isMms = false,
             receivedAt = at, reason = DecisionReason.UNKNOWN_SENDER, migratedMsgId = moved,
         )
-        val older = SpamChatsPolicy.olderSpam(listOf(held(1, 10L), held(2, 30L), held(3, 20L, moved = 99L)))
+        val older = OlderSpam.of(listOf(held(1, 10L), held(2, 30L), held(3, 20L, moved = 99L)))
         assertThat(older.map { it.id }).containsExactly(2L, 1L).inOrder()
     }
 }

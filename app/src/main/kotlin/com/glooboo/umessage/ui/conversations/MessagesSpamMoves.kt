@@ -1,12 +1,19 @@
 package com.glooboo.umessage.ui.conversations
 
+import android.content.ContentValues
 import android.content.Context
+import android.net.Uri
+import android.provider.Telephony.Mms
+import android.provider.Telephony.Sms
+import androidx.sqlite.db.SimpleSQLiteQuery
+import com.glooboo.umessage.R
+import com.glooboo.umessage.databases.MessagesDatabase
 import com.glooboo.umessage.extensions.DeleteResult
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.deleteConversation
 import com.glooboo.umessage.extensions.markThreadMessagesRead
-import com.glooboo.umessage.extensions.markThreadMessagesUnread
 import com.glooboo.umessage.helpers.DefaultSmsRole
+import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.models.Conversation
@@ -16,8 +23,6 @@ import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.ui.spam.RuleNotes
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SenderMoves
-import com.glooboo.umessage.ui.spam.SpamChatsPolicy
-import com.glooboo.umessage.ui.spam.SpamChatsSource
 import com.glooboo.umessage.ui.spam.SpamRepositoryProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,16 +31,64 @@ import kotlinx.coroutines.withContext
 import org.fossify.commons.extensions.notificationManager
 
 /** Provider truth (U5, M-SP3): what one Block or "Report spam" from Messages changed, for its Undo. */
-internal data class BlockMove(val receipts: List<BlockReceipt>, val threadIds: List<Long>, val unread: List<Long>)
+internal data class BlockMove(
+    val receipts: List<BlockReceipt>,
+    val threadIds: List<Long>,
+    /** The unread texts each chat had in the phone's store before the block marked it read. */
+    val unread: Map<Long, UnreadTexts>,
+)
+
+/** The unread received texts of one chat in the phone's store, by row id, so an Undo makes exactly those unread. */
+internal data class UnreadTexts(val sms: List<Long> = emptyList(), val mms: List<Long> = emptyList()) {
+    val isEmpty: Boolean get() = sms.isEmpty() && mms.isEmpty()
+}
+
+/** Reads and restores [UnreadTexts] (the reviewer's "Undo restores ALL unread"). Blocking. */
+internal object StoreUnread {
+    private const val CHUNK = 500
+
+    private val smsUnread = "${Sms.THREAD_ID} = ? AND ${Sms.TYPE} = ${Sms.MESSAGE_TYPE_INBOX} AND ${Sms.READ} = 0"
+    private val mmsUnread =
+        "${Mms.THREAD_ID} = ? AND ${Mms.MESSAGE_BOX} = ${Mms.MESSAGE_BOX_INBOX} AND ${Mms.READ} = 0"
+
+    fun of(context: Context, threadId: Long): UnreadTexts = UnreadTexts(
+        sms = ids(context, Sms.CONTENT_URI, smsUnread, threadId),
+        mms = ids(context, Mms.CONTENT_URI, mmsUnread, threadId),
+    )
+
+    /** Makes [texts] unread again in the store, and the chat unread in the list. */
+    fun restore(context: Context, threadId: Long, texts: UnreadTexts) {
+        val values = ContentValues().apply {
+            put(Sms.READ, 0)
+            put(Sms.SEEN, 0)
+        }
+        listOf(Sms.CONTENT_URI to texts.sms, Mms.CONTENT_URI to texts.mms).forEach { (uri, ids) ->
+            ids.chunked(CHUNK).forEach { chunk ->
+                val marks = chunk.joinToString(",") { "?" }
+                val args = chunk.map { it.toString() }.toTypedArray()
+                runCatching { context.contentResolver.update(uri, values, "_id IN ($marks)", args) }
+            }
+        }
+        if (!texts.isEmpty) runCatching { context.conversationsDB.markUnread(threadId) }
+    }
+
+    private fun ids(context: Context, uri: Uri, selection: String, threadId: Long): List<Long> = runCatching {
+        context.contentResolver.query(uri, arrayOf("_id"), selection, arrayOf(threadId.toString()), null)?.use {
+            buildList { while (it.moveToNext()) add(it.getLong(0)) }
+        }.orEmpty()
+    }.getOrDefault(emptyList())
+}
 
 /**
  * Provider truth (4.1): Block and "Report spam" from the Messages list (swipe, selection bar). The block rule is added
  * and the sender's automatic allow rules and group memberships go ([SenderMoves.blockSenders]); the rows hide at once
- * ([rows] with true), their notifications go, the chats are marked read and sorted again, so they move to Spam. Undo
- * puts back the rules, the memberships and the unread state (U5, M-SP3). It also keeps the Spam tab's number
- * ([onCount], 3.4). Every call does nothing and returns false while ProviderTruthFlag is off. Main thread, except the
- * work it starts itself.
+ * ([hidden]), their notifications go, the chats are marked read and sorted again, so they move to Spam. Undo puts
+ * back the rules, the memberships and every unread text (U5, M-SP3). A chat that stays (a user allow rule still names
+ * the sender, C-3, or the sender cannot be read) shows again at once and is not counted as blocked. It also keeps the
+ * Spam tab's number ([onCount], 3.4). Every call does nothing and returns false while ProviderTruthFlag is off. Main
+ * thread, except the work it starts itself.
  */
+@Suppress("TooManyFunctions") // Block, Undo, commit and the tab number, each small.
 internal class MessagesSpamMoves(
     private val context: Context,
     private val scope: CoroutineScope,
@@ -63,11 +116,11 @@ internal class MessagesSpamMoves(
     fun block(conversations: List<Conversation>, token: Long, report: Boolean): Boolean {
         if (!ProviderTruthFlag.enabled) return false
         val note = if (report) RuleNotes.REPORTED_SPAM else SenderBlocking.NOTE
-        move(conversations, note, token) {
+        move(conversations, note, token) { id, count ->
             if (report) {
-                ConversationsEvent.ReportedSpam(it, conversations.size, archived = false)
+                ConversationsEvent.ReportedSpam(id, count, archived = false)
             } else {
-                ConversationsEvent.Blocked(it, conversations.size)
+                ConversationsEvent.Blocked(id, count)
             }
         }
         return true
@@ -75,7 +128,7 @@ internal class MessagesSpamMoves(
 
     /**
      * The Spam tab's number (3.4): chats of unknown senders with unread texts that came after [seenAtMs]; blocked
-     * senders never count. False (and nothing starts) while the flag is off.
+     * senders and chats hidden behind the app lock never count. False (and nothing starts) while the flag is off.
      */
     fun observeCount(seenAtMs: Long): Boolean {
         if (!ProviderTruthFlag.enabled) return false
@@ -86,41 +139,62 @@ internal class MessagesSpamMoves(
 
     @Volatile private var countSeenAt = 0L
 
+    /** Counts the reads started, so only the newest one is shown (C-13). Main thread. */
+    private var countReads = 0
+
     /** Reads the number again (a list was published, the tab was seen at [seenAtMs]). */
     fun refreshCount(seenAtMs: Long) {
         if (!ProviderTruthFlag.enabled) return
         countSeenAt = seenAtMs
+        val read = ++countReads
         scope.launch {
             val count = withContext(Dispatchers.IO) { spamTabCount(context, seenAtMs) } ?: return@launch
-            onCount(count)
+            if (read == countReads) onCount(count)
         }
     }
 
-    /** Blocks the senders of [conversations] with [note]; [event] gets the Undo token. */
+    /** Blocks the senders of [conversations] with [note]; [event] gets the Undo token and the chats that moved. */
     private fun move(
         conversations: List<Conversation>,
         note: String,
         token: Long,
-        event: (Long) -> ConversationsEvent,
+        event: (Long, Int) -> ConversationsEvent,
     ) {
         val threadIds = conversations.map { it.threadId }
-        val unread = conversations.filter { !it.read }.map { it.threadId }
         hide(threadIds)
         scope.launch {
-            val receipts = runCatching {
-                SenderMoves.blockSenders(repository(), conversations.map { it.phoneNumber }, note)
-            }.getOrElse {
-                show(threadIds)
-                events(ConversationsEvent.Failed)
+            val unread = withContext(Dispatchers.IO) {
+                conversations.filter { !it.read }.associate { it.threadId to StoreUnread.of(context, it.threadId) }
+            }
+            val repo = repository()
+            val receipts = runCatching { SenderMoves.blockSenders(repo, conversations.map { it.phoneNumber }, note) }
+                .getOrElse {
+                    show(threadIds)
+                    events(ConversationsEvent.Failed)
+                    return@launch
+                }
+            // C-3: a user allow rule that still names the sender keeps its chat in Messages: that block is taken back.
+            val staying = receipts.filter { it.stillAllowedBy != null }
+            SenderMoves.undoBlocks(repo, staying)
+            val kept = receipts - staying.toSet()
+            val moved = conversations.filter { c -> kept.any { it.address == c.phoneNumber.trim() } }
+            val movedIds = moved.map { it.threadId }
+            show(threadIds - movedIds.toSet())
+            if (moved.isEmpty()) {
+                SenderMoves.undoBlocks(repo, kept)
+                val why = if (staying.isNotEmpty()) R.string.pt_block_still_allowed else null
+                events(why?.let { ConversationsEvent.Message(it) } ?: ConversationsEvent.Failed)
                 return@launch
             }
             withContext(Dispatchers.IO) {
-                threadIds.forEach { runCatching { context.notificationManager.cancel(it.hashCode()) } }
-                unread.forEach { runCatching { context.markThreadMessagesRead(it) } }
+                movedIds.forEach { id ->
+                    runCatching { context.notificationManager.cancel(id.hashCode()) }
+                    if (id in unread) runCatching { context.markThreadMessagesRead(id) }
+                }
             }
-            requestSort(threadIds)
-            moves[token] = BlockMove(receipts, threadIds, unread)
-            events(event(token))
+            requestSort(movedIds)
+            moves[token] = BlockMove(kept, movedIds, unread.filterKeys { it in movedIds })
+            events(event(token, moved.size))
         }
     }
 
@@ -130,7 +204,7 @@ internal class MessagesSpamMoves(
         scope.launch {
             runCatching { SenderMoves.undoBlocks(repository(), move.receipts) }
             withContext(Dispatchers.IO) {
-                move.unread.forEach { runCatching { context.markThreadMessagesUnread(it) } }
+                move.unread.forEach { (id, texts) -> StoreUnread.restore(context, id, texts) }
             }
             requestSort(move.threadIds)
             show(move.threadIds)
@@ -140,8 +214,8 @@ internal class MessagesSpamMoves(
     }
 
     /**
-     * The Undo window closed. The sort has moved the chats by now; a chat that stays in Messages (a prefix the user
-     * allowed) shows again, so no chat is ever in neither list.
+     * The Undo window closed, or its snackbar went away unanswered (C-2). The sort has moved the chats by now; a chat
+     * that stays in Messages shows again, so no chat is ever in neither list.
      */
     fun commit(token: Long): Boolean {
         val move = moves.remove(token) ?: return false
@@ -163,9 +237,29 @@ internal fun liveChatIds(context: Context): Set<Long> {
     }
 }
 
-/** Provider truth (3.4): the Spam tab's number, from the Spam list; null when it could not be read. Blocking. */
-internal fun spamTabCount(context: Context, seenAtMs: Long): Int? =
-    runCatching { SpamChatsPolicy.tabCount(SpamChatsSource.load(context), seenAtMs) }.getOrNull()
+/**
+ * Provider truth (3.4, C-7, C-13): the Spam tab's number with one COUNT query: valid Spam rows (S9) of unknown
+ * senders with unread texts (uMessage's own count or the store's) whose newest text came after [seenAtMs]; chats
+ * hidden behind the app lock are left out, as in the list. Null when it could not be read. Blocking.
+ */
+internal fun spamTabCount(context: Context, seenAtMs: Long): Int? = runCatching {
+    SpamTabCount.count(MessagesDatabase.getInstance(context), seenAtMs, HiddenChats.get(context).hiddenIds())
+}.getOrNull()
+
+/** The SQL of [spamTabCount], kept apart so a test runs it on its own database. */
+internal object SpamTabCount {
+    private const val BASE = "SELECT COUNT(*) FROM spam_threads s JOIN conversations c ON c.thread_id = s.thread_id " +
+        "WHERE c.is_group_conversation = 0 AND c.phone_number = s.sender AND s.cause = 'UNKNOWN' " +
+        "AND (s.unread > 0 OR c.read = 0) AND c.date > ?"
+
+    fun count(db: MessagesDatabase, seenAtMs: Long, hidden: Set<Long>): Int {
+        val notHidden = if (hidden.isEmpty()) "" else " AND c.thread_id NOT IN (${hidden.joinToString(",")})"
+        val query = SimpleSQLiteQuery(BASE + notHidden, arrayOf<Any>(seenAtMs / MS_PER_SECOND))
+        return db.openHelper.readableDatabase.query(query).use { if (it.moveToFirst()) it.getInt(0) else 0 }
+    }
+
+    private const val MS_PER_SECOND = 1000L
+}
 
 /**
  * Deletes the chats [ids] from the phone's store. Returns the ids that went, and with ProviderTruthFlag on the message

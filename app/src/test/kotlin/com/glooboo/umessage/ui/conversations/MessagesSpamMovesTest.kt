@@ -3,6 +3,7 @@ package com.glooboo.umessage.ui.conversations
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.AllowGroup
@@ -20,6 +21,7 @@ import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
 import org.junit.After
@@ -150,6 +152,67 @@ class MessagesSpamMovesTest {
         }
         assertThat(hidden).isEmpty()
         assertThat(rules()).isEmpty()
+    }
+
+    @Test
+    fun aUserAllowRuleThatStillWinsTakesTheBlockBackAndSaysWhy(): Unit = runBlocking {
+        val prefixAllow = object : SpamRepository by repository {
+            override suspend fun blockAddress(address: String, note: String): BlockReceipt? =
+                repository.blockAddress(address, note)?.copy(stillAllowedBy = 77L)
+        }
+        coroutineScope { moves(this, prefixAllow).block(listOf(chat(7, SENDER)), token = 1L, report = false) }
+
+        // C-3: no "Blocked" for a chat that stays in Messages; the row shows again; nothing is left changed.
+        assertThat(events).containsExactly(ConversationsEvent.Message(R.string.pt_block_still_allowed))
+        assertThat(hidden).isEmpty()
+        assertThat(rules()).isEmpty()
+        assertThat(sorted).isEmpty()
+    }
+
+    @Test
+    fun aSenderThatCannotBeReadIsNotBlockedAndSaysItFailed(): Unit = runBlocking {
+        val unreadable = object : SpamRepository by repository {
+            override suspend fun blockAddress(address: String, note: String): BlockReceipt? = null
+        }
+        coroutineScope { moves(this, unreadable).block(listOf(chat(7, SENDER)), token = 1L, report = false) }
+        assertThat(events).containsExactly(ConversationsEvent.Failed)
+        assertThat(hidden).isEmpty()
+    }
+
+    @Test
+    fun aMixedChoiceCountsOnlyTheChatsThatMoved(): Unit = runBlocking {
+        val oneStays = object : SpamRepository by repository {
+            override suspend fun blockAddress(address: String, note: String): BlockReceipt? =
+                repository.blockAddress(address, note)?.let {
+                    if (address == OTHER) it.copy(stillAllowedBy = 77L) else it
+                }
+        }
+        coroutineScope {
+            moves(this, oneStays).block(listOf(chat(7, SENDER), chat(8, OTHER)), token = 1L, report = false)
+        }
+        assertThat(events).containsExactly(ConversationsEvent.Blocked(1L, 1))
+        assertThat(hidden).containsExactly(7L)
+        assertThat(rules().map { it.pattern }).containsExactly(SENDER)
+    }
+
+    @Test
+    fun aCancelledSnackbarClosesTheWindowSoNoRowStaysHidden(): Unit = runBlocking {
+        lateinit var helper: MessagesSpamMoves
+        coroutineScope {
+            helper = moves(this)
+            helper.block(listOf(chat(7, SENDER)), token = 1L, report = false)
+            awaitMove(1)
+            assertThat(hidden).containsExactly(7L)
+            // The snackbar of the event, cancelled unanswered (the tab left): C-2.
+            val shown = launch {
+                commitIfCancelled({ helper.commit(1L) }) { kotlinx.coroutines.awaitCancellation() }
+            }
+            yield()
+            shown.cancel()
+        }
+        assertThat(hidden).isEmpty()
+        // The block itself stays: the chat has moved to Spam (by the sort, not here).
+        assertThat(rules().map { it.kind }).containsExactly(ListKind.BLOCK)
     }
 
     private companion object {

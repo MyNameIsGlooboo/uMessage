@@ -574,7 +574,8 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     fun reportSpamSelected() {
         val conversations = selectedConversations().filterNot { it.isGroupConversation }
         if (conversations.isEmpty()) return
-        // Provider truth: "Report spam" equals Block; it no longer archives (4.1).
+        // Provider truth: "Report spam" equals Block; it no longer archives (4.1). C-16: the selection clears.
+        if (ProviderTruthFlag.enabled) clearSelection()
         if (spamMoves.block(conversations, nextToken++, report = true)) return
         val threadIds = conversations.map { it.threadId }
         val numbers = conversations.map { it.phoneNumber }

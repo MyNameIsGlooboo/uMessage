@@ -1,6 +1,9 @@
 package com.glooboo.umessage.ui.spam
 
 import android.app.Application
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.longClick
@@ -63,6 +66,7 @@ class SpamFolderScreenTest {
     )
 
     private val calls = mutableListOf<String>()
+    private val snackbar = SnackbarHostState()
     private var deleteAllowed = true
 
     private fun show(rows: List<ConversationRow> = this.rows, intro: Boolean = false) {
@@ -72,7 +76,7 @@ class SpamFolderScreenTest {
             onUnblock = { calls += "unblock$it" },
             onBlock = { calls += "block$it" },
             onMarkRead = { calls += "read$it" },
-            mayDelete = { deleteAllowed.also { if (!it) calls += "refused" } },
+            deleteOffReason = { if (deleteAllowed) null else R.string.pt_delete_not_default },
             swipeFor = { SwipeAction(Symbols.Inbox, "x") { } },
         )
         compose.setContent {
@@ -87,6 +91,7 @@ class SpamFolderScreenTest {
                     onDelete = { calls += "delete$it" },
                     onEmpty = {},
                     onMarkAllRead = { calls += "markAll" },
+                    snackbarHostState = snackbar,
                     intro = if (intro) {
                         {
                             SpamStrips(
@@ -156,13 +161,18 @@ class SpamFolderScreenTest {
     }
 
     @Test
-    fun deleteIsRefusedWithoutAConfirmWhileNotTheDefaultApp() {
+    fun deleteIsMarkedOffAndSaysWhyWhileNotTheDefaultApp() {
         deleteAllowed = false
+        val offReason = string(R.string.pt_delete_not_default)
         show()
         select("0001260")
-        compose.onNodeWithContentDescription(string(R.string.screens_delete)).performClick()
+        // C-18: the button says why it is off, as its state.
+        compose.onNodeWithContentDescription(string(R.string.screens_delete))
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, offReason))
+            .performClick()
         compose.onNodeWithText(string(R.string.pt_spam_delete_body)).assertDoesNotExist()
-        assertThat(calls).containsExactly("refused")
+        compose.onNodeWithText(string(R.string.pt_delete_not_default)).assertIsDisplayed()
+        assertThat(calls).isEmpty()
     }
 
     @Test

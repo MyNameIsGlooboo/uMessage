@@ -3,6 +3,7 @@ package com.glooboo.umessage.ui.conversations
 import android.app.Application
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.getValue
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -47,6 +48,7 @@ import com.glooboo.umessage.models.Events
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import org.fossify.commons.extensions.notificationManager
 import org.fossify.commons.helpers.ensureBackgroundThread
 import org.greenrobot.eventbus.EventBus
@@ -115,7 +117,7 @@ class ArchivedViewModel(application: Application) : AndroidViewModel(application
                     }
                     c.toFolderRow(app, drafts, pinned, slot, slot?.let { simNames[it] }.orEmpty())
                 }
-            _state.value = _state.value.copy(rows = rows, loading = false)
+            _state.update { it.copy(rows = rows, loading = false) }
         }
     }
 
@@ -147,7 +149,7 @@ class ArchivedViewModel(application: Application) : AndroidViewModel(application
             if (ProviderTruthFlag.enabled) {
                 // S14: the role is checked once; the first delete that did not happen says why.
                 val message = deleteChats(app, ids.toList()).second
-                if (message != null) _state.value = _state.value.copy(deleteMessage = message)
+                if (message != null) _state.update { it.copy(deleteMessage = message) }
             } else {
                 ids.forEach {
                     app.deleteConversation(it)
@@ -160,7 +162,7 @@ class ArchivedViewModel(application: Application) : AndroidViewModel(application
 
     /** The screen showed [ArchivedUiState.deleteMessage]. */
     fun deleteMessageShown() {
-        _state.value = _state.value.copy(deleteMessage = null)
+        _state.update { it.copy(deleteMessage = null) }
     }
 
     fun deleteAll() {
@@ -191,13 +193,7 @@ fun ArchivedRoute(onOpen: (ConversationRow) -> Unit, onBackToMessages: (() -> Un
         viewModel.load()
         onPauseOrDispose { }
     }
-    val deleteMessage = state.deleteMessage
-    LaunchedEffect(deleteMessage) {
-        if (deleteMessage != null) {
-            viewModel.deleteMessageShown()
-            snackbar.showSnackbar(resources.getString(deleteMessage))
-        }
-    }
+    DeleteMessageEffect(state.deleteMessage, snackbar, viewModel::deleteMessageShown)
     ConversationFolderScreen(
         folder = ConversationFolder.Archive,
         rows = state.rows,
@@ -223,6 +219,25 @@ fun ArchivedRoute(onOpen: (ConversationRow) -> Unit, onBackToMessages: (() -> Un
             { ArchivedIntro(onDismiss = { prefs.archivedIntroDismissed = true }) }
         },
     )
+}
+
+/**
+ * S14 (C-5): shows why a delete did not happen, then clears it. Cleared only after the snackbar ended, so clearing
+ * the key cannot cancel the snackbar before it showed.
+ */
+@Composable
+internal fun DeleteMessageEffect(message: Int?, snackbar: SnackbarHostState, onDone: () -> Unit) {
+    val resources = LocalResources.current
+    val done by rememberUpdatedState(onDone)
+    LaunchedEffect(message) {
+        if (message != null) {
+            try {
+                snackbar.showSnackbar(resources.getString(message))
+            } finally {
+                done()
+            }
+        }
+    }
 }
 
 @Composable

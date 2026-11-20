@@ -33,6 +33,15 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
+/** U20: the older spam still kept only in uMessage: held rows the message migration has not moved yet. */
+object OlderSpam {
+    fun of(blocked: List<BlockedMessage>): List<BlockedMessage> =
+        blocked.filter { it.migratedMsgId == null }.sortedByDescending { it.receivedAt }
+
+    /** How many held rows [of] lists, without sorting them (C-7). */
+    fun count(blocked: List<BlockedMessage>): Int = blocked.count { it.migratedMsgId == null }
+}
+
 /**
  * U20: "Older spam kept only in uMessage". While the message migration waits (uMessage is not the default SMS app),
  * the held texts that were not moved to the phone's store yet can be read here: sender, date and text. It is read
@@ -44,7 +53,7 @@ fun OlderSpamRoute(onBack: () -> Unit, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val older = remember(context) {
         runCatching { SpamRepositoryProvider.get(context).blocked }.getOrNull()
-            ?.map { SpamChatsPolicy.olderSpam(it) }
+            ?.map { OlderSpam.of(it) }
             ?.catch { emit(emptyList()) }
     }
     val messages by (older ?: flowOf(emptyList()))

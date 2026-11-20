@@ -3,7 +3,11 @@ package com.glooboo.umessage.ui.spam
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.compose.material3.SnackbarHostState
 import com.glooboo.umessage.R
+import com.glooboo.umessage.extensions.DeleteResult
+import com.glooboo.umessage.spam.BlockReceipt
+import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ListKind
@@ -68,17 +72,31 @@ class SpamChatsViewModelTest {
         chat(3, NAME, SpamCause.UNKNOWN),
     )
 
+    private val deleted: MutableList<Set<Long>> = Collections.synchronizedList(mutableListOf())
+    private var deleteResult = DeleteResult.DELETED
+    private var markedAll = 0
+    private val received = HashMap<Long, Pair<String, Int>>()
+    private val made = mutableListOf<SpamChatsViewModel>()
+
+    private fun newModel(source: List<SpamChat>) = SpamChatsViewModel(
+        app,
+        repository = { repository },
+        source = { source },
+        place = SenderPlace { verdicts[it] },
+        isDefault = { isDefault },
+        io = Dispatchers.IO,
+        requestSort = { sorted += it },
+        newestReceived = { received[it] },
+        deleter = { ids, _ ->
+            deleted.add(ids)
+            deleteResult
+        },
+        markAll = { markedAll },
+    ).also { made += it }
+
     @Before
     fun setUp() {
-        vm = SpamChatsViewModel(
-            app,
-            repository = { repository },
-            source = { chats },
-            place = SenderPlace { verdicts[it] },
-            isDefault = { isDefault },
-            io = Dispatchers.IO,
-            requestSort = { sorted += it },
-        )
+        vm = newModel(chats)
         scope.launch { vm.events.collect { events += it } }
         vm.load()
         awaitUntil { rowIds() == listOf(1L, 2L, 3L) }
@@ -87,8 +105,16 @@ class SpamChatsViewModelTest {
     @After
     fun tearDown() {
         scope.cancel()
-        EventBus.getDefault().unregister(vm)
+        made.forEach { EventBus.getDefault().unregister(it) }
         resetSharedMessagesDatabase()
+    }
+
+    /** Shows [event]'s snackbar as the route does, then cancels it unanswered (the tab left, a rotation). */
+    private fun showThenCancel(event: SpamChatsEvent) {
+        val job = scope.launch { showSpamEvent(event, SnackbarHostState(), vm, app.resources) }
+        awaitUntil { job.isActive }
+        job.cancel()
+        awaitUntil { job.isCompleted }
     }
 
     private fun rowIds() = vm.state.value.rows.map { it.threadId }
@@ -100,8 +126,8 @@ class SpamChatsViewModelTest {
         return events.filterIsInstance<T>().last()
     }
 
-    private fun awaitUntil(condition: () -> Boolean) {
-        val deadline = System.currentTimeMillis() + TIMEOUT_MS
+    private fun awaitUntil(timeoutMs: Long = TIMEOUT_MS, condition: () -> Boolean) {
+        val deadline = System.currentTimeMillis() + timeoutMs
         while (true) {
             ShadowLooper.idleMainLooper()
             if (condition()) return
@@ -230,7 +256,193 @@ class SpamChatsViewModelTest {
         awaitUntil { rowIds() == listOf(1L, 2L, 3L) }
     }
 
+    // ---- Fix round (C-1 to C-16) -------------------------------------------------------------------------------
+
+    @Test
+    fun aCancelledDeleteSnackbarDeletesAndShowsNothingHidden() {
+        vm.delete(setOf(1L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        showThenCancel(event)
+
+        // C-1: the delete happened (or the chat would be back); never hidden with no Undo.
+        awaitUntil { deleted.isNotEmpty() }
+        assertThat(deleted.single()).containsExactly(1L)
+        awaitUntil { 1L in rowIds() }
+    }
+
+    @Test
+    fun noActionLeavesAChatHiddenWhenItsSnackbarIsCancelled(): Unit = runBlocking {
+        repository.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = BLOCKED))
+        verdicts[BLOCKED] = SenderVerdict.Messages(DecisionReason.CONTACT)
+        vm.notSpam(setOf(1L))
+        showThenCancel(awaitEvent<SpamChatsEvent.MovedToMessages>())
+        vm.unblock(setOf(2L))
+        showThenCancel(awaitEvent<SpamChatsEvent.Unblocked>())
+        // The chats did not really move (the source is fixed): each shows again, in this list.
+        awaitUntil { rowIds() == listOf(1L, 2L, 3L) }
+    }
+
+    @Test
+    fun theRouteStartingClosesEveryOpenWindow() {
+        vm.notSpam(setOf(1L))
+        awaitEvent<SpamChatsEvent.MovedToMessages>()
+        assertThat(rowIds()).doesNotContain(1L)
+
+        vm.onRouteStarted()
+        awaitUntil { 1L in rowIds() }
+    }
+
+    @Test
+    fun aDeleteThatDidNotHappenSaysWhyAndTheChatShowsAgain() {
+        deleteResult = DeleteResult.NOT_DEFAULT
+        vm.delete(setOf(1L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        vm.commitDelete(event.token)
+
+        val message = awaitEvent<SpamChatsEvent.Message>()
+        assertThat(message.res).isEqualTo(R.string.pt_delete_not_default)
+        awaitUntil { 1L in rowIds() }
+    }
+
+    @Test
+    fun theMainActivityFlushCommitsAWaitingDelete() {
+        vm.delete(setOf(3L))
+        awaitEvent<SpamChatsEvent.Deleted>()
+        vm.flushPendingDeletes()
+        awaitUntil { deleted.isNotEmpty() }
+        assertThat(deleted.single()).containsExactly(3L)
+    }
+
+    @Test
+    fun markAllReadSaysHowManyChatsItRead() {
+        markedAll = 2
+        vm.markAllRead()
+        assertThat(awaitEvent<SpamChatsEvent.MarkedAllRead>().count).isEqualTo(2)
+    }
+
+    @Test
+    fun unblockOfAPrefixBlockedSenderNamesTheRuleAndChangesNothing(): Unit = runBlocking {
+        val exact = repository.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = BLOCKED))
+        val prefix = repository.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.PREFIX, pattern = "+1555"))
+        verdicts[BLOCKED] = SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE, prefix)
+
+        vm.unblock(setOf(2L))
+        val message = awaitEvent<SpamChatsEvent.Message>()
+
+        assertThat(message.res).isEqualTo(R.string.spam_reason_rule_prefix)
+        assertThat(message.arg).isEqualTo("+1555")
+        assertThat(events.none { it is SpamChatsEvent.Windowed }).isTrue()
+        // The exact rule came back: nothing changed, so there is no Undo that does nothing.
+        assertThat(rules().map { it.pattern }).containsExactly("+1555", BLOCKED)
+        assertThat(exact).isGreaterThan(0L)
+    }
+
+    @Test
+    fun unblockWhoseVerdictCannotBeReadSaysSoNeutrally(): Unit = runBlocking {
+        repository.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = BLOCKED))
+        verdicts[BLOCKED] = null
+
+        vm.unblock(setOf(2L))
+        assertThat(awaitEvent<SpamChatsEvent.UnblockedUnsure>().count).isEqualTo(1)
+        assertThat(events.none { it is SpamChatsEvent.StillOnSystemList }).isTrue()
+    }
+
+    @Test
+    fun unblockOnAndroidsListOnlyChangesNothingAndHasNoUndo() {
+        verdicts[BLOCKED] = SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE)
+
+        vm.unblock(setOf(2L))
+        assertThat(awaitEvent<SpamChatsEvent.Message>().res).isEqualTo(R.string.thread_unblock_done_system)
+        assertThat(events.none { it is SpamChatsEvent.Windowed }).isTrue()
+    }
+
+    @Test
+    fun aFailedUnblockInTheMiddlePutsBackWhatWasRemoved(): Unit = runBlocking {
+        val other = "+15550001252"
+        val twoBlocked = listOf(chat(2, BLOCKED, SpamCause.BLOCKED), chat(4, other, SpamCause.BLOCKED))
+        val failing = object : SpamRepository by repository {
+            override suspend fun removeRule(id: Long) {
+                check(rules().first { it.id == id }.pattern != other) { "disk full" }
+                repository.removeRule(id)
+            }
+        }
+        repository.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = BLOCKED))
+        repository.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = other))
+        val model = SpamChatsViewModel(
+            app, { failing }, { twoBlocked }, SenderPlace { verdicts[it] }, { true }, Dispatchers.IO, {},
+        ).also { made += it }
+        val seen = Collections.synchronizedList(mutableListOf<SpamChatsEvent>())
+        scope.launch { model.events.collect { seen += it } }
+        model.load()
+        awaitUntil { model.state.value.rows.size == 2 }
+
+        model.unblock(setOf(2L, 4L))
+        awaitUntil { seen.any { it == SpamChatsEvent.Failed } }
+        assertThat(rules().map { it.pattern }).containsExactly(BLOCKED, other)
+    }
+
+    @Test
+    fun notSpamFromTheStillUnknownSnackbarWorksBeforeTheSortRan(): Unit = runBlocking {
+        repository.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = BLOCKED))
+        verdicts[BLOCKED] = SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER)
+        vm.unblock(setOf(2L))
+        val still = awaitEvent<SpamChatsEvent.StillUnknown>()
+
+        // C-15: the saved cause is still BLOCKED; "Not spam" from the snackbar must act anyway.
+        vm.notSpam(still.ids, anyCause = true)
+        awaitEvent<SpamChatsEvent.MovedToMessages>()
+        assertThat(rules().map { it.kind to it.pattern }).containsExactly(ListKind.ALLOW to BLOCKED)
+    }
+
+    @Test
+    fun copyCodeReadsTheNewestReceivedTextAndAndroidsListGetsItsLine() {
+        received[1L] = "Your code: 739204" to (now / 1000L).toInt()
+        verdicts[BLOCKED] = SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE)
+        vm.load()
+        awaitUntil { vm.state.value.rows.first { it.threadId == 1L }.otpCode == "739204" }
+        val blockedRow = vm.state.value.rows.first { it.threadId == 2L }
+        assertThat(blockedRow.causeLine).isEqualTo(app.getString(R.string.e_note_system_list))
+        // The snippet alone (it could be the user's own text) never offers a code.
+        assertThat(vm.state.value.rows.first { it.threadId == 3L }.otpCode).isNull()
+    }
+
+    @Test
+    fun blockThatBlocksNothingSaysItFailed() {
+        val nothing = object : SpamRepository by repository {
+            override suspend fun blockAddress(address: String, note: String): BlockReceipt? = null
+        }
+        val model = SpamChatsViewModel(
+            app, { nothing }, { chats }, SenderPlace { verdicts[it] }, { true }, Dispatchers.IO, {},
+        ).also { made += it }
+        val seen = Collections.synchronizedList(mutableListOf<SpamChatsEvent>())
+        scope.launch { model.events.collect { seen += it } }
+        model.load()
+        awaitUntil { model.state.value.rows.size == 3 }
+
+        model.block(setOf(1L))
+        awaitUntil { seen.any { it == SpamChatsEvent.Failed } }
+        assertThat(seen.none { it is SpamChatsEvent.Blocked }).isTrue()
+    }
+
+    @Test
+    fun fiveThousandChatsLoadAndASwipeHidesItsRowAtOnce() {
+        val many = (1L..5_000L).map { chat(it, "+1555${it.toString().padStart(7, '0')}", SpamCause.UNKNOWN) }
+        val model = newModel(many)
+        val started = System.currentTimeMillis()
+        model.load()
+        awaitUntil(LONG_TIMEOUT_MS) { model.state.value.rows.size == 5_000 }
+        val loaded = System.currentTimeMillis() - started
+        assertThat(loaded).isLessThan(LONG_TIMEOUT_MS)
+
+        val swiped = System.currentTimeMillis()
+        model.notSpam(setOf(42L))
+        awaitUntil { model.state.value.rows.size == 4_999 }
+        assertThat(System.currentTimeMillis() - swiped).isLessThan(SWIPE_BUDGET_MS)
+    }
+
     private companion object {
+        const val LONG_TIMEOUT_MS = 20_000L
+        const val SWIPE_BUDGET_MS = 1_500L
         const val UNKNOWN = "+15550001250"
         const val BLOCKED = "+15550001251"
         const val NAME = "SHOPDEAL"

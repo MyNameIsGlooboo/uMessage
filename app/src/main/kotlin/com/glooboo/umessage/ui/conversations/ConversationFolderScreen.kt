@@ -23,13 +23,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
@@ -48,6 +53,7 @@ import com.glooboo.umessage.ui.components.localizedNumber
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.spam.SpamSelection
+import kotlinx.coroutines.launch
 
 /** Bringing chats back to Messages: icon, action label, and the confirmation's title and message ("N chats"). */
 class FolderRestore(val icon: ImageVector, val labelRes: Int, val titleRes: Int, val messageRes: Int)
@@ -111,8 +117,8 @@ enum class ConversationFolder(
 /**
  * Provider truth (4.2): what the Spam folder offers instead of "bring back". [selection] says which actions the chosen
  * chats allow (a mixed choice only Delete and Mark as read); [swipeFor] is the one swipe direction of a row ("Not spam"
- * or "Unblock" by its cause). [mayDelete] is asked before the delete confirm: false while uMessage is not the default
- * SMS app, and it then says why itself.
+ * or "Unblock" by its cause). [deleteOffReason] is the reason Delete is off now (not the default SMS app), null while
+ * it works: Delete is then shown off, says why on a tap, and asks nothing (C-18).
  */
 class SpamFolderActions(
     val selection: (Set<Long>) -> SpamSelection,
@@ -120,7 +126,7 @@ class SpamFolderActions(
     val onUnblock: (Set<Long>) -> Unit,
     val onBlock: (Set<Long>) -> Unit,
     val onMarkRead: (Set<Long>) -> Unit,
-    val mayDelete: () -> Boolean,
+    val deleteOffReason: () -> Int?,
     val swipeFor: (ConversationRow) -> SwipeAction?,
 )
 
@@ -168,6 +174,9 @@ fun Conversation.toFolderRow(
 
 private const val MAX_FOLDER_BADGE = 99
 
+/** How faint an action that is off is drawn (Material's disabled content alpha). */
+private const val DISABLED_ALPHA = 0.38f
+
 /**
  * Messages in the Recycle Bin, so its confirmations say what they delete: per chat, and in all (the whole bin,
  * hidden chats included).
@@ -209,8 +218,18 @@ fun ConversationFolderScreen(
     var confirmRestore by remember { mutableStateOf<Set<Long>?>(null) }
     var confirmEmpty by rememberSaveable { mutableStateOf(false) }
     // Rows that vanished (restored, deleted elsewhere) cannot stay selected.
-    val visibleSelection = remember(selected, rows) {
-        selected.filterTo(HashSet()) { id -> rows.any { it.threadId == id } }
+    // C-7: one set of the row ids, so the filter is not a scan of every row per chosen chat.
+    val rowIds = remember(rows) { rows.mapTo(HashSet()) { it.threadId } }
+    val visibleSelection = remember(selected, rowIds) { selected.filterTo(HashSet()) { it in rowIds } }
+    val scope = rememberCoroutineScope()
+    val resources = LocalResources.current
+    val askDelete = { ids: Set<Long> ->
+        val off = spam?.deleteOffReason?.invoke()
+        if (off == null) {
+            confirmDelete = ids
+        } else {
+            scope.launch { snackbarHostState?.showSnackbar(resources.getString(off)) }
+        }
     }
     val selecting = visibleSelection.isNotEmpty()
     BackHandler(enabled = selecting) { selected = emptySet() }
@@ -222,7 +241,7 @@ fun ConversationFolderScreen(
                 selected = if (id in visibleSelection) visibleSelection - id else visibleSelection + id
             },
             onStartSelect = { id -> selected = visibleSelection + id },
-            onDeleteOne = { id -> if (spam?.mayDelete() != false) confirmDelete = setOf(id) },
+            onDeleteOne = { id -> askDelete(setOf(id)) },
         )
     }
 
@@ -237,8 +256,8 @@ fun ConversationFolderScreen(
                     spam = spam,
                     onClose = { selected = emptySet() },
                     onRestore = { confirmRestore = visibleSelection },
-                    onDelete = { if (spam?.mayDelete() != false) confirmDelete = visibleSelection },
-                    onSelectAll = { selected = rows.mapTo(HashSet()) { it.threadId } },
+                    onDelete = { askDelete(visibleSelection) },
+                    onSelectAll = { selected = rowIds.toSet() },
                 )
             } else {
                 FolderTopBar(
@@ -310,7 +329,16 @@ private fun FolderSelectionBar(
             }
         }
         spam?.let { SpamSelectionButtons(it, chosen, onClose) }
-        IconButton(onClick = onDelete) {
+        // C-18: while Delete is off it looks off and says why as its state; a tap tells the reason.
+        val off = spam?.deleteOffReason?.invoke()?.let { stringResource(it) }
+        IconButton(
+            onClick = onDelete,
+            modifier = if (off == null) {
+                Modifier
+            } else {
+                Modifier.alpha(DISABLED_ALPHA).semantics { stateDescription = off }
+            },
+        ) {
             Icon(Symbols.Delete, contentDescription = stringResource(R.string.screens_delete))
         }
         IconButton(onClick = onSelectAll) {
