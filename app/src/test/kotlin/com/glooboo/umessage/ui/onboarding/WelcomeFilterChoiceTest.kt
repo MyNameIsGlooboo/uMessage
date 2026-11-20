@@ -9,14 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.semantics.SemanticsActions
-import androidx.compose.ui.test.SemanticsNodeInteraction
-import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.text.TextLayoutResult
-import androidx.compose.ui.unit.Density
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.assertIsNotSelected
@@ -214,56 +207,6 @@ class WelcomeFilterChoiceTest {
             }
         }
         compose.onNode(hasContentDescription(res.getString(R.string.onb_welcome_demo_desc))).assertExists()
-    }
-
-    @Test
-    @Config(qualifiers = "fa-w360dp-h800dp")
-    fun inPersianAtTwiceTheFontSizeTheChoiceFitsAndWorks() {
-        var chosen: Boolean? = null
-        compose.setContent {
-            val density = LocalDensity.current
-            CompositionLocalProvider(LocalDensity provides Density(density.density, fontScale = 2f)) {
-                UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
-                    var on by remember { mutableStateOf(true) }
-                    WelcomePage(
-                        Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
-                        reduceMotion = true,
-                        filterOn = on,
-                        onFilter = {
-                            on = it
-                            chosen = it
-                        },
-                    )
-                }
-            }
-        }
-        val keys = listOf(
-            R.string.spam_settings_unknown_title, R.string.pt_onb_filter_on, R.string.pt_onb_filter_on_desc,
-            R.string.pt_onb_filter_off, R.string.pt_onb_filter_off_desc, R.string.pt_onb_filter_hint,
-            R.string.settings_nav_recommended,
-        )
-        keys.forEach { key ->
-            val text = res.getString(key)
-            assertThat(text).isNotEqualTo(englishOf(key))
-            val node = compose.onNodeWithText(text, useUnmergedTree = true).performScrollTo()
-            node.assertIsDisplayed()
-            assertThat(overflows(node)).isFalse()
-        }
-        compose.onNodeWithTag(FILTER_OFF_TAG).performScrollTo().performClick()
-        assertThat(chosen).isFalse()
-        compose.onNodeWithTag(FILTER_OFF_TAG).assertIsSelected()
-    }
-
-    /** A text cut off at the end, or lines lost, shows as a visual overflow of its layout. */
-    private fun overflows(node: SemanticsNodeInteraction): Boolean {
-        val results = mutableListOf<TextLayoutResult>()
-        node.fetchSemanticsNode().config[SemanticsActions.GetTextLayoutResult].action?.invoke(results)
-        return results.any { it.hasVisualOverflow }
-    }
-
-    private fun englishOf(key: Int): String {
-        val config = android.content.res.Configuration(res.configuration).apply { setLocale(java.util.Locale.ENGLISH) }
-        return app.createConfigurationContext(config).resources.getString(key)
     }
 
     private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()

@@ -31,6 +31,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
@@ -257,10 +258,17 @@ fun FirstRunHost(
 ) {
     val source by host.collectAsState()
     val progress by source.progress.collectAsState()
+    // The bar showed since the last real resume. The first ON_RESUME after the screen appears is not a new resume
+    // (the observer gets it on registration, after the bar may have set this already); only one after a pause is.
     var barShown by remember { mutableStateOf(false) }
-    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { barShown = false }
+    var paused by remember { mutableStateOf(false) }
+    LifecycleEventEffect(Lifecycle.Event.ON_PAUSE) { paused = true }
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        if (paused) barShown = false
+        paused = false
+    }
     val page = FirstRunPagePolicy.pageFor(progress, deferWhatChanged = barShown)
-    if (page == FirstRunPage.BAR) LaunchedEffect(Unit) { barShown = true }
+    SideEffect { if (page == FirstRunPage.BAR) barShown = true }
     val changed = progress.whatChanged
     when {
         page == FirstRunPage.PROGRESS ->
@@ -274,8 +282,8 @@ fun FirstRunHost(
             },
             modifier = modifier,
         )
-        page == FirstRunPage.BAR -> content { FirstRunProgressBar(progress) }
-        else -> content(null)
+        // One call of the slot, so the main screen keeps its state when the bar comes and goes.
+        else -> content(if (page == FirstRunPage.BAR) ({ FirstRunProgressBar(progress) }) else null)
     }
 }
 
