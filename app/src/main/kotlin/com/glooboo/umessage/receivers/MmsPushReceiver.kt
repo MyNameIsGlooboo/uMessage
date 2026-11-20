@@ -39,7 +39,7 @@ class MmsPushReceiver : BroadcastReceiver() {
     /** Saves a let-through notification-ind and starts its download; the result reaches the manifest [MmsReceiver]. */
     internal var pushDownload = MmsPushDownload()
 
-    /** Provider truth: places notices without a chat whose download was lost (also run at app start). */
+    /** Provider truth: places notices without a chat whose download was lost (App.onCreate runs it too). */
     internal var sweep: (Context) -> Unit = { MmsDownloadFailure().sweep(it) }
 
     /** Roaming on the SIM the push came in on (provider truth: a Spam notice is then not downloaded). */

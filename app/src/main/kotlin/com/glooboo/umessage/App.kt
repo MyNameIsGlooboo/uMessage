@@ -32,6 +32,7 @@ import com.glooboo.umessage.helpers.DailyChecks
 import com.glooboo.umessage.helpers.HiddenChatsSession
 import com.glooboo.umessage.helpers.MessagingCache
 import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.messaging.MmsDownloadFailure
 import com.glooboo.umessage.messaging.failStaleOutboxMessages
 import com.glooboo.umessage.helpers.DebugStrictMode
 import com.glooboo.umessage.messaging.rearmReminders
@@ -85,6 +86,8 @@ class App : FossifyApp() {
             // B-15: retention and the other daily clean-ups wait for the first run (3.5).
             if (!ProviderTruthFlag.enabled || FirstRun.state(this).value.allowsFullSort) DailyChecks.runIfDue(this)
             failStaleOutboxMessages()
+            // Step E (E-20), flag on only: MMS notices whose download was lost get their chat.
+            MmsDownloadFailure.atAppStart(this)
             // Provider truth (3.5): auto-delete only after the first run; until then the runner's last step does it.
             if (!ProviderTruthFlag.enabled || FirstRun.state(this).value.allowsFullSort) SpamEngine.purgeExpired(this)
             // Two block lists only: old blocked words become rules, the old unknown-numbers switch becomes a mode.

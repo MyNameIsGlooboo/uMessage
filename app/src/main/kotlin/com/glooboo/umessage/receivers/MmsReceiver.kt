@@ -32,6 +32,7 @@ import com.glooboo.umessage.helpers.showMmsDownloadFailedNotification
 import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.messaging.MmsDownloadFailure
 import com.glooboo.umessage.messaging.MmsDownloadTracker
+import com.glooboo.umessage.messaging.noticeSavedAt
 import com.glooboo.umessage.messaging.storedMmsFor
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.spam.FilterDecision
@@ -50,6 +51,7 @@ import com.glooboo.umessage.spam.mms.IncomingMms
 import com.glooboo.umessage.spam.mms.MmsDecisions
 import com.glooboo.umessage.spam.mms.MmsPlace
 import com.glooboo.umessage.spam.mms.MmsSenderCheck
+import com.glooboo.umessage.spam.mms.NoticeMark
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.data.SpamSettingsStore
 import java.io.File
@@ -72,8 +74,10 @@ class MmsReceiver : BroadcastReceiver() {
     /** Provider truth: what is done with a failed download. */
     internal var failure = MmsDownloadFailure()
 
-    /** E-17: the MMS row the library stored for a download (by transaction id or location); null when none. */
-    internal var storedRow: (Context, String, String) -> Uri? = { c, id, location -> c.storedMmsFor(id, location) }
+    /** E-17: the MMS row the library stored for a download (transaction id, location, since); null when none. */
+    internal var storedRow: (Context, String, String, Long) -> Uri? = { c, id, location, since ->
+        c.storedMmsFor(id, location, since)
+    }
 
     override fun onReceive(context: Context, intent: Intent) {
         val pending = goAsync()
@@ -121,7 +125,9 @@ class MmsReceiver : BroadcastReceiver() {
     private fun afterUnreported(context: Context, intent: Intent, handler: MmsDownloadHandler) {
         val transactionId = intent.getStringExtra(MmsReceivedReceiver.EXTRA_TRANSACTION_ID).orEmpty()
         val location = intent.getStringExtra(MmsReceivedReceiver.EXTRA_LOCATION_URL).orEmpty()
-        val stored = runCatching { storedRow(context, transactionId, location) }.getOrNull()
+        val notice = IntentCompat.getParcelableExtra(intent, MmsReceivedReceiver.EXTRA_URI, Uri::class.java)
+        val since = notice?.let { runCatching { context.noticeSavedAt(it) }.getOrNull() } ?: 0L
+        val stored = runCatching { storedRow(context, transactionId, location, since) }.getOrNull()
         if (stored != null) handler.onMessageReceived(context, stored) else failure.handle(context, intent)
     }
 
@@ -220,8 +226,8 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     /** Provider truth: the chat the notice was shown in before the download, read before the library deletes it. */
     @Volatile private var noticeThread: Long? = null
 
-    /** Provider truth (E-8): the notice was read, so it was counted in its Spam chat already. */
-    @Volatile private var noticeCounted = false
+    /** Provider truth (E-8, E-22): the Spam chat the notice was counted in (its explicit mark), or null. */
+    @Volatile private var noticeCountedIn: Long? = null
 
     override fun isAddressBlocked(context: Context, address: String?): Boolean {
         worker.mark()
@@ -232,7 +238,9 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
                 runCatching { AndroidMmsSpamStore(context).noticeOf(uri) }.getOrNull()
             }
             noticeThread = notice?.threadId?.takeIf(IncomingMms::hasChat)
-            noticeCounted = noticeThread != null && notice?.read == true
+            noticeCountedIn = noticeUri?.let { uri ->
+                runCatching { AndroidMmsSpamStore(context).markOf(uri) as? NoticeMark.Counted }.getOrNull()?.threadId
+            }?.takeIf { it == noticeThread }
         }
         return false
     }
@@ -331,9 +339,11 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
             sender = sender,
             recipients = recipientsOf(mms),
             check = senderCheck(context, message, mms.threadId),
-            noticeCounted = noticeCounted && noticeThread == mms.threadId,
+            noticeCounted = noticeCountedIn == mms.threadId,
         )
-        placer.forgetNoticeChat(noticeThread, mms.threadId, noticeCounted)
+        placer.forgetNoticeChat(noticeThread, mms.threadId, noticeCountedIn)
+        // The notice is gone (the library deleted it once the MMS was stored): its mark is not needed any more.
+        noticeUri?.let { uri -> runCatching { AndroidMmsSpamStore(context).markNotice(uri, null) } }
         when (place) {
             is MmsPlace.Messages -> {
                 announce(context, mms, address, place.reason)

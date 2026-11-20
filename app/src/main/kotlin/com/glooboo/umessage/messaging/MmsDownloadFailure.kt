@@ -10,16 +10,20 @@ import androidx.core.content.IntentCompat
 import com.android.mms.transaction.DownloadManager
 import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.showMmsDownloadFailedNotification
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.receivers.MmsPushDownload
+import com.glooboo.umessage.spam.HistoryCheck
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.mms.AndroidMmsSpamStore
 import com.glooboo.umessage.spam.mms.IncomingMms
 import com.glooboo.umessage.spam.mms.MmsDecisions
 import com.glooboo.umessage.spam.mms.MmsSpamStore
+import com.glooboo.umessage.spam.mms.NoticeMark
 import com.klinker.android.send_message.MmsReceivedReceiver
 import org.fossify.commons.extensions.showErrorToast
 import java.io.File
+import java.util.concurrent.atomic.AtomicBoolean
 
 private const val TAG = "uMessageReceive"
 
@@ -42,6 +46,8 @@ internal class MmsDownloadFailure(
     private val toast: (Context) -> Unit = { it.showErrorToast(it.getString(R.string.couldnt_download_mms)) },
     private val finishLibraryDownload: (String) -> Unit = DownloadManager::finishDownload,
     private val tracker: MmsDownloadTracker = MmsDownloadTracker.shared,
+    /** E-19: the sender's history check on the spot (R2); false when it failed. */
+    private val history: (Context, String) -> Boolean = { c, sender -> HistoryCheck.onTheSpot(c, sender) },
     /** The one decision-log row of a failed MMS (decision, reason, rule). */
     private val log: (Context, IncomingMessage, String, String, Long?) -> Unit = { c, m, d, r, rule ->
         MmsDecisions.log(c, m, d, r, SOURCE, rule)
@@ -89,14 +95,23 @@ internal class MmsDownloadFailure(
     private fun keepNotice(context: Context, row: Uri, subscriptionId: Int): Kept? {
         val store = store(context)
         val notice = store.noticeOf(row) ?: return null
-        if (notice.sender.isBlank()) return null
+        if (notice.sender.isBlank()) {
+            // No chat can hold it: the sweep must not try it again and again.
+            runCatching { store.markNotice(row, NoticeMark.Skipped) }
+            return null
+        }
         val message = IncomingMessage(notice.sender, "", subscriptionId, isMms = true)
         val decision = probe(context, message)
-        val cause = (decision as? FilterDecision.Block)?.let(IncomingMms::causeOf)
-        // A read notice in its Spam chat was placed and counted already; a parked (unread) one is counted now.
-        val alreadyInSpam = cause != null && notice.read && IncomingMms.hasChat(notice.threadId) &&
+        val probed = (decision as? FilterDecision.Block)?.let(IncomingMms::causeOf)
+        // E-22: a notice counted in its Spam chat (its explicit mark) stays there and is not counted again.
+        val alreadyInSpam = probed != null && IncomingMms.hasChat(notice.threadId) &&
+            runCatching { store.markOf(row) == NoticeMark.Counted(notice.threadId) }.getOrDefault(false) &&
             runCatching { store.isSpamThreadOf(notice.threadId, notice.sender) }.getOrDefault(false)
-        val inSpam = alreadyInSpam || IncomingMms(store).revealNotice(row, notice.sender, cause)
+        if (alreadyInSpam) return Kept(message, decision, inSpam = true)
+        // E-19: the history check on the spot before a Spam row is written; failed, only a block rule holds.
+        val cause = IncomingMms.noticeCause(probed, { history(context, notice.sender) }, { probe(context, message) })
+        val ruleId = (decision as? FilterDecision.Block)?.ruleId?.takeIf { cause != null }
+        val inSpam = IncomingMms(store).revealNotice(row, notice.sender, cause, ruleId)
         return Kept(message, decision, inSpam)
     }
 
@@ -113,16 +128,33 @@ internal class MmsDownloadFailure(
     }
 
     /**
-     * E-4: notices with no chat that are older than [MIN_AGE_MS] and whose download is not running (a reboot, a force
-     * stop or a lost result) are placed as after a failed download, without a toast or a notification. Call it off
-     * the main thread, at app start and after each MMS push. Never throws.
+     * E-4, E-20: notices with no chat (a Spam notice that downloads keeps mmslib's dummy thread) saved between
+     * [MAX_AGE_MS] and [MIN_AGE_MS] ago, whose download is not running (a reboot, a force stop or a lost result), are
+     * placed as after a failed download, without a toast or a notification; at most [BATCH] per run, one run at a
+     * time. An expired notice or one without a sender is marked and left alone. Called off the main thread at app
+     * start ([atAppStart]) and after each MMS push. Never throws.
      */
     fun sweep(context: Context, now: Long = System.currentTimeMillis()) {
-        val lost = runCatching { context.chatlessNotices(before = now - MIN_AGE_MS) }.getOrDefault(emptyList())
-        lost.filterNot { MmsPushDownload.isStarted(it.location, now) }.forEach { notice ->
-            runCatching { keepNotice(context, notice.uri, notice.subscriptionId)?.let { logKept(context, it) } }
+        if (!sweeping.compareAndSet(false, true)) return
+        try {
+            val store = store(context)
+            val lost = runCatching {
+                context.chatlessNotices(before = now - MIN_AGE_MS, after = now - MAX_AGE_MS, limit = BATCH)
+            }.getOrDefault(emptyList())
+                .filterNot { MmsPushDownload.isStarted(it.location, now) }
+                .filterNot { runCatching { store.markOf(it.uri) == NoticeMark.Skipped }.getOrDefault(false) }
+            lost.forEach { notice ->
+                if (MmsDownloadRules.isExpired(notice.expirySeconds, now)) {
+                    // Gone at the carrier: not brought up as a new unread row.
+                    runCatching { store.markNotice(notice.uri, NoticeMark.Skipped) }
+                } else {
+                    runCatching { keepNotice(context, notice.uri, notice.subscriptionId)?.let { logKept(context, it) } }
+                }
+            }
+            if (lost.isNotEmpty()) Log.i(TAG, "Chatless MMS notices swept: ${lost.size}")
+        } finally {
+            sweeping.set(false)
         }
-        if (lost.isNotEmpty()) Log.i(TAG, "Chatless MMS notices placed: ${lost.size}")
     }
 
     companion object {
@@ -130,6 +162,23 @@ internal class MmsDownloadFailure(
 
         /** A notice younger than this may still be downloading. */
         const val MIN_AGE_MS = 5 * 60 * 1000L
+
+        /** E-20: an older notice is not swept (left from before the flag; most are expired anyway). */
+        const val MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000L
+
+        /** E-20: most notices placed by one sweep. */
+        const val BATCH = 20
+
+        /** One sweep at a time (two pushes, or a push and the app start). */
+        private val sweeping = AtomicBoolean(false)
+
+        /** The app-start sweep; tests replace it. */
+        @Volatile internal var startSweep: (Context) -> Unit = { MmsDownloadFailure().sweep(it) }
+
+        /** E-20: the sweep at app start, flag on only; call it off the main thread. Never throws. */
+        fun atAppStart(context: Context) {
+            if (ProviderTruthFlag.enabled) runCatching { startSweep(context.applicationContext) }
+        }
 
         /**
          * The result brought no downloaded file (missing or empty): the download failed. A result without a file path

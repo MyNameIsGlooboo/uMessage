@@ -14,7 +14,9 @@ import com.glooboo.umessage.spam.engine.Judgement
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.spam.engine.ForwardCandidate
+import com.glooboo.umessage.spam.mms.AndroidMmsSpamStore
 import com.glooboo.umessage.spam.mms.IncomingMms
+import com.glooboo.umessage.spam.mms.NoticeMark
 import com.glooboo.umessage.spam.mms.MmsSenderCheck
 import com.glooboo.umessage.spam.mms.NoticeRow
 import com.glooboo.umessage.testing.FakeMmsProvider
@@ -162,8 +164,8 @@ class MmsArrivalTest {
     fun aDownloadingNoticeOfASenderWithAMessagesChat_andAGroupResult_leavesThatChatInMessagesWithoutASpamRow() {
         store.threads[SENDER] = 20L
         store.threadsWithMessages += 20L
+        // A downloading Spam notice keeps the dummy thread (no early Spam row, nothing in the sender's chat).
         val notice = Uri.parse("content://mms/inbox/42")
-        IncomingMms(store).parkNotice(notice, SENDER)
 
         handler(probe = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER))
             .placeAndAnnounce(context, mms(40L, SENDER, OTHER), SENDER)
@@ -248,7 +250,7 @@ class MmsArrivalTest {
         var failed = 0
         var asked: Pair<String, String>? = null
         val receiver = failingReceiver { failed++ }.apply {
-            storedRow = { _, id, location -> asked = id to location; Uri.parse("content://mms/77") }
+            storedRow = { _, id, location, _ -> asked = id to location; Uri.parse("content://mms/77") }
         }
         val file = File(context.cacheDir, "download.junk2.dat").apply { writeBytes(byteArrayOf(9, 8, 7, 6)) }
 
@@ -270,7 +272,7 @@ class MmsArrivalTest {
                 finishLibraryDownload = {},
                 log = { _, _, _, _, _ -> },
             )
-            storedRow = { _, _, _ -> null }
+            storedRow = { _, _, _, _ -> null }
         }
         // A good PDU the library cannot store (Robolectric has no MMS provider): neither stored nor an error.
         val pdu = MmsPduFixtures.retrieveConf(context, "hello")
@@ -292,6 +294,46 @@ class MmsArrivalTest {
         assertThat(broadcast.awaitFinished()).isTrue()
         assertThat(failed).isEqualTo(1)
         assertThat(store.rowThread[notice]).isEqualTo(store.threads.getValue(SENDER))
+    }
+
+    @Test
+    fun e22_onlyAnExplicitlyCountedNotice_lowersTheCountOfTheChatItLeaves_andItsMarkIsThenForgotten() {
+        val provider = FakeMmsProvider.install()
+        val counted = provider.addNotice(SENDER, threadId = 55L, read = true)
+        val onlyRead = provider.addNotice(SENDER, threadId = 56L, read = true, transactionId = "T-2")
+        store.threadsWithMessages += setOf(55L, 56L)
+        store.spamRows[55L] = Triple(SENDER, SpamCause.UNKNOWN, 2)
+        store.spamRows[56L] = Triple(SENDER, SpamCause.UNKNOWN, 2)
+        val marks = AndroidMmsSpamStore(context)
+        marks.markNotice(counted, NoticeMark.Counted(55L))
+
+        listOf(counted, onlyRead).forEach { notice ->
+            handler(probe = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER))
+                .apply { noticeUri = notice }
+                .also { it.isAddressBlocked(context, SENDER) }
+                .placeAndAnnounce(context, mms(66L, SENDER, OTHER), SENDER)
+        }
+
+        assertThat(store.spamRows[55L]?.third).isEqualTo(1)
+        // Read by the user, never counted: nothing is lowered.
+        assertThat(store.spamRows[56L]?.third).isEqualTo(2)
+        assertThat(marks.markOf(counted)).isNull()
+    }
+
+    @Test
+    fun e22_aCountedNoticeInTheSameChat_isNotCountedAgainWhenItsMmsIsPlaced() {
+        val provider = FakeMmsProvider.install()
+        val notice = provider.addNotice(SENDER, threadId = 12L, read = true)
+        store.spamRows[12L] = Triple(SENDER, SpamCause.UNKNOWN, 1)
+        AndroidMmsSpamStore(context).markNotice(notice, NoticeMark.Counted(12L))
+        val spam = Judgement(SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER))
+
+        handler(judgement = spam).apply { noticeUri = notice }
+            .also { it.isAddressBlocked(context, SENDER) }
+            .placeAndAnnounce(context, mms(12L, SENDER), SENDER)
+
+        assertThat(store.spamRows[12L]?.third).isEqualTo(1)
+        assertThat(store.spamEvents).isEqualTo(0)
     }
 
     private companion object {

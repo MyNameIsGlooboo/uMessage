@@ -3,6 +3,7 @@ package com.glooboo.umessage.testing
 import android.net.Uri
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.spam.mms.MmsSpamStore
+import com.glooboo.umessage.spam.mms.NoticeMark
 import com.glooboo.umessage.spam.mms.NoticeRow
 
 /**
@@ -34,6 +35,9 @@ class FakeMmsSpamStore : MmsSpamStore {
     /** Threads with a scheduled message in the app (E-12), and chats cached and announced to the lists (E-6). */
     val scheduled = mutableSetOf<Long>()
     val shown = mutableListOf<Long>()
+
+    /** E-22: the explicit notice marks. */
+    val marks = linkedMapOf<Uri, NoticeMark>()
 
     val ruleHits = mutableListOf<Long>()
     var spamEvents = 0
@@ -111,6 +115,12 @@ class FakeMmsSpamStore : MmsSpamStore {
         ruleId?.let { ruleHits += it }
         if (inSpam) spamEvents++
     }
+
+    override fun markNotice(row: Uri, mark: NoticeMark?) {
+        if (mark == null) marks.remove(row) else marks[row] = mark
+    }
+
+    override fun markOf(row: Uri): NoticeMark? = marks[row]
 
     companion object {
         /** mmslib's DUMMY_THREAD_ID: the thread of a notice saved without a chat. */

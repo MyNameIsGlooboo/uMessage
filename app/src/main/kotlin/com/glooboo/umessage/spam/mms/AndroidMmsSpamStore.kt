@@ -83,7 +83,8 @@ class AndroidMmsSpamStore(context: Context) : MmsSpamStore {
     }
 
     override fun showChat(threadId: Long) {
-        app.getConversations(threadId).firstOrNull()?.let { app.insertOrUpdateConversation(it) }
+        // E-21: also a number on Android's block list, which the lists leave out until the first sort is published.
+        app.getConversations(threadId, includeBlocked = true).firstOrNull()?.let { app.insertOrUpdateConversation(it) }
         refreshMessages()
         refreshConversations(threadId)
     }
@@ -94,6 +95,41 @@ class AndroidMmsSpamStore(context: Context) : MmsSpamStore {
             val event = SpamEventEntity(type = SpamEventType.BLOCKED, timestamp = System.currentTimeMillis())
             SpamDatabase.getInstance(app).spamDao().insertEvent(event)
         }
+    }
+
+    override fun markNotice(row: Uri, mark: NoticeMark?) {
+        val id = row.lastPathSegment?.toLongOrNull() ?: return
+        synchronized(MARKS_LOCK) {
+            val prefs = app.getSharedPreferences(MARKS_PREFS, Context.MODE_PRIVATE)
+            val kept = prefs.getStringSet(MARKS_KEY, emptySet()).orEmpty()
+                .filterNot { it.substringBefore('=') == "$id" }
+            val value = when (mark) {
+                null -> null
+                NoticeMark.Skipped -> "$id=$SKIPPED"
+                is NoticeMark.Counted -> "$id=${mark.threadId}"
+            }
+            // Bounded: the oldest notice rows (lowest ids) go first; a mark only matters while its notice exists.
+            val all = (kept + listOfNotNull(value)).sortedBy { it.substringBefore('=').toLongOrNull() ?: 0L }
+            prefs.edit().putStringSet(MARKS_KEY, all.takeLast(MAX_MARKS).toSet()).apply()
+        }
+    }
+
+    override fun markOf(row: Uri): NoticeMark? {
+        val id = row.lastPathSegment?.toLongOrNull() ?: return null
+        val entry = app.getSharedPreferences(MARKS_PREFS, Context.MODE_PRIVATE)
+            .getStringSet(MARKS_KEY, emptySet()).orEmpty()
+            .firstOrNull { it.substringBefore('=') == "$id" } ?: return null
+        val value = entry.substringAfter('=')
+        return if (value == SKIPPED) NoticeMark.Skipped else value.toLongOrNull()?.let { NoticeMark.Counted(it) }
+    }
+
+    private companion object {
+        /** E-22: the explicit marks of notice rows ("id=threadId" or "id=skip"). */
+        const val MARKS_PREFS = "umessage_mms_notice_marks"
+        const val MARKS_KEY = "marks"
+        const val SKIPPED = "skip"
+        const val MAX_MARKS = 200
+        val MARKS_LOCK = Any()
     }
 }
 

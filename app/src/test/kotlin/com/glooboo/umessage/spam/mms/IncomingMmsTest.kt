@@ -308,21 +308,33 @@ class IncomingMmsTest {
     }
 
     @Test
-    fun aSpamNoticeThatIsNotDownloaded_countsLikeASpamMms() {
-        mms.countSpamNotice(6L)
+    fun aNoticeRevealedInSpam_countsOnce_withItsRuleAndAnExplicitMark() {
+        assertThat(mms.revealNotice(notice, SENDER, SpamCause.BLOCKED, ruleId = 6L)).isTrue()
 
+        val thread = store.threads.getValue(SENDER)
         assertThat(store.ruleHits).containsExactly(6L)
         assertThat(store.spamEvents).isEqualTo(1)
+        assertThat(store.marks[notice]).isEqualTo(NoticeMark.Counted(thread))
     }
 
-    // E-8: one message, one count
+    @Test
+    fun aNoticeRevealedInMessages_isNotCountedOrMarked() {
+        store.failSpamRow = true
+
+        mms.revealNotice(notice, SENDER, SpamCause.UNKNOWN, ruleId = 6L)
+
+        assertThat(store.ruleHits).isEmpty()
+        assertThat(store.spamEvents).isEqualTo(0)
+        assertThat(store.marks).isEmpty()
+    }
+
+    // E-8, E-22: one message, one count
 
     @Test
-    fun aParkedNoticeThenItsDownload_raisesTheSpamCountOnceAndCountsOneHit() {
+    fun aDownloadingNoticeThenItsDownload_raisesTheSpamCountOnceAndCountsOneHit() {
         store.threads[SENDER] = THREAD
         store.spamRows[THREAD] = Triple(SENDER, SpamCause.BLOCKED, 0)
 
-        mms.parkNotice(notice, SENDER)
         val place = place(Check(judgement = spam(SpamCause.BLOCKED, ruleId = 7L)))
 
         assertThat(place).isEqualTo(MmsPlace.Spam(SpamCause.BLOCKED))
@@ -333,8 +345,7 @@ class IncomingMmsTest {
 
     @Test
     fun aRevealedNoticeDownloadedLater_isNotCountedAgain() {
-        mms.revealNotice(notice, SENDER, SpamCause.BLOCKED)
-        mms.countSpamNotice(7L)
+        mms.revealNotice(notice, SENDER, SpamCause.BLOCKED, ruleId = 7L)
         val thread = store.threads.getValue(SENDER)
 
         val place = mms.placeDownloaded(
@@ -349,48 +360,52 @@ class IncomingMmsTest {
     }
 
     @Test
-    fun aCountedNoticeWhoseMmsWentToAGroup_lowersTheCountOfTheChatItKeeps() {
+    fun aCountedNoticeWhoseMmsGoesToMessages_stillCountsItsAllowedWord() {
+        val judgement = Judgement(
+            SenderVerdict.Messages(DecisionReason.ALLOW_RULE, 3L), SenderFact.AutoAllow(3L), factWritten = true,
+        )
+
+        val place = place(Check(judgement = judgement), counted = true)
+
+        assertThat(place).isEqualTo(MmsPlace.Messages(DecisionReason.ALLOW_RULE))
+        assertThat(store.ruleHits).containsExactly(3L)
+    }
+
+    @Test
+    fun aCountedNoticeWhoseMmsWentToAGroup_lowersOnlyTheCountItAddedToTheChatItKeeps() {
         store.threadsWithMessages += 55L
         store.spamRows[55L] = Triple(SENDER, SpamCause.UNKNOWN, 2)
 
-        mms.forgetNoticeChat(noticeThread = 55L, landedIn = 66L, noticeCounted = true)
+        mms.forgetNoticeChat(noticeThread = 55L, landedIn = 66L, countedIn = 55L)
+        assertThat(store.spamRows[55L]?.third).isEqualTo(1)
 
+        // A notice the user only read (no mark) added nothing: nothing is lowered.
+        mms.forgetNoticeChat(noticeThread = 55L, landedIn = 66L, countedIn = null)
         assertThat(store.spamRows[55L]?.third).isEqualTo(1)
         assertThat(store.forgotten).isEmpty()
     }
 
-    // A Spam notice that downloads now: no early Spam row
+    // E-19: the history check before a notice gets a Spam row
 
     @Test
-    fun aDownloadingNotice_ofASenderWithAMessagesChat_keepsNoChatAndWritesNoSpamRow() {
-        store.threads[SENDER] = 20L
-        store.threadsWithMessages += 20L
+    fun aNoticeCause_afterAFailedHistoryCheck_keepsOnlyABlockRule() {
+        val blocked = FilterDecision.Block(DecisionReason.BLOCK_RULE, 1L)
 
-        mms.parkNotice(notice, SENDER)
-
-        assertThat(store.rowThread).isEmpty()
-        assertThat(store.spamRows).isEmpty()
+        assertThat(IncomingMms.noticeCause(SpamCause.UNKNOWN, { false }) { blocked }).isNull()
+        assertThat(IncomingMms.noticeCause(SpamCause.BLOCKED, { false }) { null }).isEqualTo(SpamCause.BLOCKED)
+        assertThat(IncomingMms.noticeCause(null, { true }) { blocked }).isNull()
     }
 
     @Test
-    fun aDownloadingNotice_ofANewSender_getsTheEmptyChatUnread_withoutASpamRow() {
-        mms.parkNotice(notice, SENDER)
+    fun aNoticeCause_afterThePassedHistoryCheck_isAskedAgain() {
+        val allowed = FilterDecision.Allow(DecisionReason.GROUP_MEMBER)
+        val unknown = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER)
 
-        assertThat(store.rowThread[notice]).isEqualTo(store.threads.getValue(SENDER))
-        assertThat(store.rowSilent[notice]).isFalse()
-        assertThat(store.spamRows).isEmpty()
-    }
-
-    @Test
-    fun aDownloadingNotice_ofASenderInSpam_getsTheSpamChatWithoutACount() {
-        store.threads[SENDER] = 30L
-        store.threadsWithMessages += 30L
-        store.spamRows[30L] = Triple(SENDER, SpamCause.BLOCKED, 4)
-
-        mms.parkNotice(notice, SENDER)
-
-        assertThat(store.rowThread[notice]).isEqualTo(30L)
-        assertThat(store.spamRows[30L]?.third).isEqualTo(4)
+        // The check allowed the sender (a number the user wrote to): no Spam row.
+        assertThat(IncomingMms.noticeCause(SpamCause.UNKNOWN, { true }) { allowed }).isNull()
+        assertThat(IncomingMms.noticeCause(SpamCause.UNKNOWN, { true }) { unknown }).isEqualTo(SpamCause.UNKNOWN)
+        // A block rule is not asked again: history never allows a blocked sender.
+        assertThat(IncomingMms.noticeCause(SpamCause.BLOCKED, { true }) { allowed }).isEqualTo(SpamCause.BLOCKED)
     }
 
     @Test

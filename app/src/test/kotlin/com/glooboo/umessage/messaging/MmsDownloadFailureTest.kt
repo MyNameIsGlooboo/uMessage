@@ -12,6 +12,7 @@ import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.engine.SpamCause
+import com.glooboo.umessage.spam.mms.NoticeMark
 import com.glooboo.umessage.spam.mms.NoticeRow
 import com.glooboo.umessage.testing.FakeMmsProvider
 import com.glooboo.umessage.testing.FakeMmsSpamStore
@@ -50,6 +51,7 @@ class MmsDownloadFailureTest {
     private var notifications = 0
     private val finished = mutableListOf<String>()
     private val logged = mutableListOf<String>()
+    private var historyChecked = true
 
     private val failure = MmsDownloadFailure(
         store = { store },
@@ -59,6 +61,7 @@ class MmsDownloadFailureTest {
         finishLibraryDownload = { finished += it },
         tracker = tracker,
         log = { _, _, decision, _, _ -> logged += decision },
+        history = { _, _ -> historyChecked },
     )
 
     @Before
@@ -146,6 +149,7 @@ class MmsDownloadFailureTest {
     fun aNoticeAlreadyInItsSpamChat_staysThere_isNotCountedAgain_andPostsNothing() {
         decision = FilterDecision.Block(DecisionReason.BLOCK_RULE, 3L)
         store.notices[notice] = NoticeRow(threadId = 77L, sender = SENDER, read = true)
+        store.marks[notice] = NoticeMark.Counted(77L)
         store.spamRows[77L] = Triple(SENDER, SpamCause.BLOCKED, 1)
 
         failure.handle(context, result())
@@ -169,22 +173,69 @@ class MmsDownloadFailureTest {
         assertThat(store.spamRows[77L]?.third).isEqualTo(2)
         assertThat(store.rowSilent[notice]).isTrue()
         assertThat(notifications).isEqualTo(0)
+        // Counted now, once (E-22): its rule, the Spam event and the mark.
+        assertThat(store.ruleHits).containsExactly(3L)
+        assertThat(store.spamEvents).isEqualTo(1)
+        assertThat(store.marks[notice]).isEqualTo(NoticeMark.Counted(77L))
+    }
+
+    @Test
+    fun e19_aFailedHistoryCheck_keepsAnUnknownSenderOutOfSpam_unreadAndTold() {
+        historyChecked = false
+
+        failure.handle(context, result())
+
+        assertThat(store.spamRows).isEmpty()
+        assertThat(store.rowSilent[notice]).isFalse()
+        assertThat(notifications).isEqualTo(1)
+    }
+
+    @Test
+    fun e19_aFailedHistoryCheck_stillKeepsABlockRuleSenderInSpam() {
+        historyChecked = false
+        decision = FilterDecision.Block(DecisionReason.BLOCK_RULE, 3L)
+
+        failure.handle(context, result())
+
+        assertThat(store.spamRows.values.single().second).isEqualTo(SpamCause.BLOCKED)
+        assertThat(notifications).isEqualTo(0)
+    }
+
+    @Test
+    fun aNoticeWithoutSender_isMarkedSoTheSweepLeavesItAlone() {
+        store.notices[notice] = NoticeRow(threadId = FakeMmsSpamStore.NO_CHAT, sender = "")
+
+        failure.handle(context, result())
+
+        assertThat(store.marks[notice]).isEqualTo(NoticeMark.Skipped)
     }
 
     @Test
     fun theSweep_placesOldNoticesWithoutAChat_quietly_andLeavesTheRest() {
         val provider = FakeMmsProvider.install()
         val now = 1_700_000_000_000L
-        val lost = provider.addNotice(SENDER, transactionId = "T-old", location = "http://mmsc.example.com/msg/old")
+        val tenMinutesAgo = (now - 10 * 60 * 1000L) / 1000
+        val lost = provider.addNotice(
+            SENDER, transactionId = "T-old", location = "http://mmsc.example.com/msg/old", dateSeconds = tenMinutesAgo,
+        )
         val young = provider.addNotice(
             SENDER, transactionId = "T-new", location = "http://mmsc.example.com/msg/new", dateSeconds = now / 1000,
         )
-        val placed = provider.addNotice(SENDER, threadId = 5L, transactionId = "T-chat")
-        listOf(lost, young, placed).forEach { store.notices[it] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER) }
+        val placed = provider.addNotice(SENDER, threadId = 5L, transactionId = "T-chat", dateSeconds = tenMinutesAgo)
+        // E-20: left from long before (older than the age bound), and one gone at the carrier.
+        val ancient = provider.addNotice(SENDER, transactionId = "T-ancient", dateSeconds = tenMinutesAgo - 8 * 86_400)
+        val expired = provider.addNotice(
+            SENDER, transactionId = "T-expired", location = "http://mmsc.example.com/msg/expired",
+            dateSeconds = tenMinutesAgo, expirySeconds = tenMinutesAgo + 60,
+        )
+        listOf(lost, young, placed, ancient, expired).forEach {
+            store.notices[it] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        }
 
         failure.sweep(context, now)
 
         assertThat(store.rowThread.keys).containsExactly(lost)
+        assertThat(store.marks[expired]).isEqualTo(NoticeMark.Skipped)
         assertThat(store.rowSilent[lost]).isTrue()
         assertThat(toasts).isEqualTo(0)
         assertThat(notifications).isEqualTo(0)
@@ -269,7 +320,9 @@ class MmsDownloadFailureTest {
         FakeTelephonyProvider.install()
         decision = FilterDecision.Allow(DecisionReason.CONTACT)
         val saved = provider.addNotice(SENDER, read = true)
-        val real = MmsDownloadFailure(probe = { _, _ -> decision }, notify = {}, toast = {}, tracker = tracker)
+        val real = MmsDownloadFailure(
+            probe = { _, _ -> decision }, notify = {}, toast = {}, tracker = tracker, history = { _, _ -> true },
+        )
 
         real.handle(context, result(uri = saved))
 
@@ -297,6 +350,40 @@ class MmsDownloadFailureTest {
             assertThat(broadcast.awaitFinished()).isTrue()
             assertThat(handled).isEqualTo(0)
         }
+    }
+
+    @Test
+    fun e20_theAppStartSweep_runsWithTheFlagOnOnly() {
+        var swept = 0
+        val before = MmsDownloadFailure.startSweep
+        MmsDownloadFailure.startSweep = { swept++ }
+        try {
+            MmsDownloadFailure.atAppStart(context)
+            flagOff { MmsDownloadFailure.atAppStart(context) }
+        } finally {
+            MmsDownloadFailure.startSweep = before
+        }
+
+        assertThat(swept).isEqualTo(1)
+    }
+
+    @Test
+    fun e20_aSweepThatIsRunning_isNotStartedASecondTime() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val lost = provider.addNotice(SENDER, transactionId = "T-old", dateSeconds = (now - 10 * 60 * 1000L) / 1000)
+        var inner = 0
+        // The store's first read starts a second sweep, as a second push would: it must return at once.
+        val reentrant = MmsDownloadFailure(
+            store = { store.also { if (inner++ == 0) failure.sweep(context, now) } },
+            probe = { _, _ -> decision }, notify = {}, toast = {}, tracker = tracker, history = { _, _ -> true },
+            log = { _, _, d, _, _ -> logged += d },
+        )
+        store.notices[lost] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+
+        reentrant.sweep(context, now)
+
+        assertThat(logged).containsExactly("BLOCK")
     }
 
     /** The rule puts the flag back afterwards. */

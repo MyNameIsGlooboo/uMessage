@@ -35,11 +35,17 @@ sealed interface MmsPlace {
     data class Spam(val cause: SpamCause) : MmsPlace
 }
 
-/**
- * A notice row (notification-ind) of the phone's store: its chat (see [IncomingMms.hasChat]), its sender, and whether
- * it is read. A read notice in a Spam chat was counted there already (E-8): its Spam row raised the unread count once.
- */
+/** A notice row (notification-ind) of the phone's store: its chat (see [IncomingMms.hasChat]), sender and read mark. */
 data class NoticeRow(val threadId: Long, val sender: String, val read: Boolean = false)
+
+/** E-22: what the app noted about one notice row, explicitly (never inferred from `read`). */
+sealed interface NoticeMark {
+    /** The notice was counted as its message in the Spam chat [threadId]: Spam row raise, rule hit, Spam event. */
+    data class Counted(val threadId: Long) : NoticeMark
+
+    /** The notice cannot be placed (no sender, or expired): the sweep leaves it alone. */
+    data object Skipped : NoticeMark
+}
 
 /**
  * The phone's store and the Spam table, as the incoming MMS path needs them. The app's one is [AndroidMmsSpamStore];
@@ -88,6 +94,12 @@ interface MmsSpamStore {
 
     /** Counts one more message decided by the rule [ruleId] (if any) and, when [inSpam], one more Spam message. */
     fun recordHit(ruleId: Long?, inSpam: Boolean)
+
+    /** E-22: notes [mark] for the notice [row]; null forgets it (the notice is gone or placed). */
+    fun markNotice(row: Uri, mark: NoticeMark?)
+
+    /** The mark noted for the notice [row], or null. */
+    fun markOf(row: Uri): NoticeMark?
 }
 
 /** The sender checks of one downloaded MMS; the app's one is in MmsReceiver, tests use a fake. */
@@ -116,7 +128,7 @@ interface MmsSenderCheck {
  *   sender's verdict, and the safety check after it was marked read and silent: the lists must show its chat in Spam.
  *
  * Any error puts the MMS in Messages, unread, with a notification (fail open); a sender with a block rule stays in
- * Spam even when the history check failed (E-11). Each message raises a Spam count and a rule hit once (E-8).
+ * Spam even when the history check failed (E-11). Each message raises a Spam count and a rule hit once (E-8, E-22).
  */
 class IncomingMms(
     private val store: MmsSpamStore,
@@ -124,12 +136,16 @@ class IncomingMms(
 ) {
 
     /**
-     * Gives the notice [row] of [sender] its final chat, so a "Tap to download" row shows. [cause] set: the sender's
-     * chat is in Spam, so its Spam row is written first (the notice counts as the message) and the notice is read and
-     * seen; if that row cannot be written or is not there afterwards (R1), the notice shows unread (E-3). The chat is
-     * cached and the lists are told (E-6). True when it is shown in Spam.
+     * Gives the notice [row] of [sender] its final chat, so a "Tap to download" row shows. [cause] set (after the
+     * history check, see [noticeCause]): the sender's chat is in Spam, so its Spam row is written first and the notice
+     * counts as the message, once: unread raise, the rule [ruleId]'s hit, the Spam event, and an explicit mark (E-22).
+     * It is then read and seen; if that row cannot be written or is not there afterwards (R1), the notice shows unread
+     * (E-3). The chat is cached and the lists are told (E-6). True when it is shown in Spam.
+     *
+     * A Spam notice that downloads now is not revealed: it keeps mmslib's dummy thread (no early Spam row, the MMS may
+     * be a group one) until the MMS is placed, the download fails, or the sweep finds it.
      */
-    fun revealNotice(row: Uri, sender: String, cause: SpamCause?): Boolean {
+    fun revealNotice(row: Uri, sender: String, cause: SpamCause?, ruleId: Long? = null): Boolean {
         if (sender.isBlank()) return false
         val threadId = store.threadOf(sender)
         val inSpam = cause != null && runCatching {
@@ -137,31 +153,18 @@ class IncomingMms(
             store.isSpamThreadOf(threadId, sender)
         }.getOrDefault(false)
         store.setThread(row, threadId, silent = inSpam)
+        if (inSpam) {
+            runCatching { store.markNotice(row, NoticeMark.Counted(threadId)) }
+            recordHits(ruleId, MmsPlace.Spam(SpamCause.UNKNOWN))
+        }
         runCatching { store.showChat(threadId) }
         return inSpam
     }
 
     /**
-     * A Spam notice that downloads now gets no Spam row and no count at save (the download may be a group MMS): it is
-     * put in the sender's chat, unread, only when that chat already is the sender's Spam chat or is new and empty;
-     * otherwise it keeps mmslib's dummy thread until the MMS is placed (a lost result is found by the sweep).
-     */
-    fun parkNotice(row: Uri, sender: String) {
-        if (sender.isBlank()) return
-        val threadId = store.threadOf(sender)
-        val spamChat = runCatching { store.isSpamThreadOf(threadId, sender) }.getOrDefault(false)
-        if (!spamChat && store.hasMessages(threadId) != false) return
-        store.setThread(row, threadId, silent = false)
-        if (spamChat) runCatching { store.showChat(threadId) }
-    }
-
-    /** A Spam notice that is not downloaded has its final place at once: it counts like a Spam MMS (rule, event). */
-    fun countSpamNotice(ruleId: Long?) = recordHits(ruleId, MmsPlace.Spam(SpamCause.UNKNOWN))
-
-    /**
      * Places the downloaded MMS [row] of [sender], stored by the library in [threadId]. [recipients]: the recipients
      * of that chat as the lists count them; null when one of them could not be read (E-10: then a group).
-     * [noticeCounted]: the notice of this MMS was counted in this very Spam chat already (E-8).
+     * [noticeCounted]: the notice of this MMS was counted in this very Spam chat already (E-8, its explicit mark).
      */
     fun placeDownloaded(
         row: Uri,
@@ -183,22 +186,24 @@ class IncomingMms(
             MmsPlace.Messages(judgement.decision().reason)
         }
         val blockRule = (judgement.decision() as? FilterDecision.Block)?.ruleId?.takeIf { place is MmsPlace.Spam }
-        if (!noticeCounted) recordHits(judgement.wordRuleId ?: blockRule, place)
+        // E-22: a counted notice already holds this message's Spam count; a Messages place always counts its word.
+        if (!noticeCounted || place !is MmsPlace.Spam) recordHits(judgement.wordRuleId ?: blockRule, place)
         return place
     }
 
     /**
      * R4: the chat the notice was shown in ([noticeThread]) when the MMS itself landed in another one (a group). The
      * library deleted the notice; when the chat is now empty (no message in the store, no scheduled one in the app,
-     * E-12), the app's own rows of it go too. A chat that stays loses the count the notice raised ([noticeCounted]).
+     * E-12), the app's own rows of it go too. A chat that stays loses the count this notice raised there
+     * ([countedIn], its explicit mark), and nothing else.
      */
-    fun forgetNoticeChat(noticeThread: Long?, landedIn: Long, noticeCounted: Boolean = false) {
+    fun forgetNoticeChat(noticeThread: Long?, landedIn: Long, countedIn: Long? = null) {
         if (!hasChat(noticeThread) || noticeThread == landedIn) return
         val thread = noticeThread ?: return
         runCatching {
             if (store.hasMessages(thread) == false && !store.hasScheduled(thread)) {
                 store.forgetEmptyChat(thread)
-            } else if (noticeCounted) {
+            } else if (countedIn == thread) {
                 store.lowerSpamUnread(thread)
             }
         }
@@ -266,6 +271,18 @@ class IncomingMms(
 
         /** E-1: [threadId] is a real chat: not unset, not 0, not mmslib's dummy. */
         fun hasChat(threadId: Long?): Boolean = threadId != null && threadId > 0 && threadId != NO_CHAT_THREAD
+
+        /**
+         * E-19: the cause a notice is put in Spam with. The push probe ran before the sender's history was checked;
+         * [history] checks it now (R2). Passed: [probe] answers again (the check may have allowed the sender).
+         * Failed: only a block rule holds (history never allows a blocked sender, as E-11); anything else is Messages.
+         */
+        fun noticeCause(cause: SpamCause?, history: () -> Boolean, probe: () -> FilterDecision?): SpamCause? {
+            if (cause == null) return null
+            if (!runCatching(history).getOrDefault(false)) return cause.takeIf { it == SpamCause.BLOCKED }
+            if (cause == SpamCause.BLOCKED) return cause
+            return (runCatching(probe).getOrNull() as? FilterDecision.Block)?.let(::causeOf)
+        }
 
         /** The cause behind a Block of the push gate or the filter: a rule (the user's or a word's), else unknown. */
         fun causeOf(block: FilterDecision.Block): SpamCause =

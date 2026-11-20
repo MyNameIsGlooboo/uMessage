@@ -44,6 +44,7 @@ class FakeMmsProvider : ContentProvider() {
         location: String = "http://mmsc.example.com/msg/a",
         read: Boolean = false,
         dateSeconds: Long = 0,
+        expirySeconds: Long = 0,
     ): Uri {
         val id = db.insert("pdu", null, ContentValues().apply {
             put("thread_id", threadId)
@@ -53,6 +54,7 @@ class FakeMmsProvider : ContentProvider() {
             put("read", if (read) 1 else 0)
             put("seen", if (read) 1 else 0)
             put("date", dateSeconds)
+            put("exp", expirySeconds)
         })
         db.insert("addr", null, ContentValues().apply {
             put("msg_id", id)
@@ -62,10 +64,21 @@ class FakeMmsProvider : ContentProvider() {
         return Uri.parse("content://mms/inbox/$id")
     }
 
-    /** A stored MMS in [threadId] (any row that is not a notice). */
-    fun addMms(threadId: Long): Long = db.insert("pdu", null, ContentValues().apply {
+    /** A stored MMS (m-retrieve-conf) in [threadId], with the keys mmslib writes after storing it. */
+    fun addMms(
+        threadId: Long,
+        transactionId: String? = null,
+        location: String? = null,
+        dateSeconds: Long = 0,
+        read: Boolean = false,
+    ): Long = db.insert("pdu", null, ContentValues().apply {
         put("thread_id", threadId)
         put("m_type", RETRIEVE_CONF)
+        put("tr_id", transactionId)
+        put("ct_l", location)
+        put("date", dateSeconds)
+        put("read", if (read) 1 else 0)
+        put("seen", if (read) 1 else 0)
     })
 
     /** Column [column] of pdu row [id]; null when the row is gone. */
