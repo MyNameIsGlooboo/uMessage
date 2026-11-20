@@ -224,12 +224,21 @@ class SenderJudge(
      * keys of the address it was stored with, read with today's list (A-6): a SIM change does not lose a member.
      */
     inner class Snapshot internal constructor(
-        rules: List<SpamRule>,
+        private val rules: List<SpamRule>,
         internal val settings: SpamSettings,
-        members: List<AllowGroupMember>,
+        private val members: List<AllowGroupMember>,
         internal val readers: NumberReaders,
         private val blockedNumber: (String) -> Boolean,
     ) {
+        /**
+         * G-B3: the same moment with other [settings] and [moreMembers] added, for a dry run (how many chats a switch
+         * would move). Reads nothing again and writes nothing.
+         */
+        fun changed(
+            settings: SpamSettings = this.settings,
+            moreMembers: List<AllowGroupMember> = emptyList(),
+        ): Snapshot = Snapshot(rules, settings, members + moreMembers, readers, blockedNumber)
+
         internal val textRules = rules.filter { it.type in TEXT_TYPES }
 
         private val allNumberRules =

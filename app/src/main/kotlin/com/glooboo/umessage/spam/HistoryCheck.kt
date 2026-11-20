@@ -19,6 +19,9 @@ data class HistoryResult(val wrote: Int, val code: Int) {
     val allowed: Int get() = wrote + code
 }
 
+/** The senders a history check adds to "People you wrote to" ([wrote]) and to the code group ([code]). */
+data class HistoryJoins(val wrote: List<String>, val code: List<String>)
+
 /** What the history check reads from the phone. Every read that fails says so (null or UNKNOWN); none throws. */
 interface HistoryStore {
     /** Every chat of the phone's store (not the app's cache: it may not be filled yet); null when unreadable. */
@@ -59,7 +62,22 @@ class HistoryCheck(
     /** The whole check, over every chat of the phone's store. Null when a read failed. */
     fun run(): HistoryResult? = runCatching { runChecked() }.getOrNull()
 
+    /**
+     * G-B3, a dry run of [run]: the senders it would add to each group, without adding them (join is never called).
+     * Null when a read failed.
+     */
+    fun dryRun(): HistoryJoins? = runCatching { found() }.getOrNull()
+
     private fun runChecked(): HistoryResult? {
+        val found = found() ?: return null
+        return HistoryResult(
+            wrote = if (found.wrote.isEmpty()) 0 else join(AllowGroup.WROTE, found.wrote),
+            code = if (found.code.isEmpty()) 0 else join(AllowGroup.CODE, found.code),
+        )
+    }
+
+    /** The senders of [run] for each group; reads only. */
+    private fun found(): HistoryJoins? {
         val snap = snapshot()
         val chats = store.chats() ?: return null
         val threadsBySender = chats.filter { it.sortable && isCandidate(snap.verdict(it.phoneNumber)) }
@@ -75,10 +93,7 @@ class HistoryCheck(
             store.threadsWithReceived(restThreads, isCode) ?: return null
         }
         val code = rest.filter { sender -> threadsBySender.getValue(sender).any { it in withCode } }
-        return HistoryResult(
-            wrote = if (wrote.isEmpty()) 0 else join(AllowGroup.WROTE, wrote),
-            code = if (code.isEmpty()) 0 else join(AllowGroup.CODE, code),
-        )
+        return HistoryJoins(wrote = wrote, code = code)
     }
 
     /**

@@ -95,6 +95,19 @@ class ChatSorter(
         return result
     }
 
+    /**
+     * G-B3, a dry run: how many cached chats a sort with [snap] would move between Messages and Spam (a chat shown in
+     * Spam now, a valid row, that would leave it, or one that would enter it). A new cause or a new written form of the
+     * sender moves nothing. Writes nothing. Null when a read failed, as [recompute] would fail.
+     */
+    fun countMoves(snap: SenderJudge.Snapshot): Int? = runCatching {
+        val dao = db.ConversationsDao()
+        val chats = dao.getSortableChats().distinctBy { it.threadId }
+        val wanted = wantedRows(chats, snap) ?: return null
+        val shown = dao.getValidSpamThreads().mapTo(HashSet()) { it.threadId }
+        chats.count { (it.threadId in wanted) != (it.threadId in shown) }
+    }.getOrNull()
+
     /** Thread id to its Spam row's sender and cause, for the chats that belong in Spam; null on a failed lookup. */
     private fun wantedRows(chats: List<SortableChat>, snap: SenderJudge.Snapshot): Map<Long, Wanted>? {
         val readable = runCatching { contactsReadable() }.getOrDefault(false)
