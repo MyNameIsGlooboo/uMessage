@@ -39,13 +39,18 @@ import com.glooboo.umessage.spam.HistoryCheck
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.data.ForwardDelivery
+import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.spam.engine.ForwardCandidate
+import com.glooboo.umessage.spam.engine.Judgement
 import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.spam.engine.UnknownNotifyPolicy
 import com.glooboo.umessage.spam.mms.AndroidMmsSpamStore
 import com.glooboo.umessage.spam.mms.BlockedMmsStore
 import com.glooboo.umessage.spam.mms.IncomingMms
+import com.glooboo.umessage.spam.mms.MmsDecisions
 import com.glooboo.umessage.spam.mms.MmsPlace
+import com.glooboo.umessage.spam.mms.MmsSenderCheck
+import com.glooboo.umessage.ui.spam.ForwardOwnNumbers
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.data.SpamSettingsStore
 import java.io.File
@@ -60,7 +65,8 @@ import java.util.concurrent.TimeUnit
  * [LIBRARY_WORK_TIMEOUT_MS] (well inside the background broadcast limit).
  *
  * Provider truth (answer 8): a result without a downloaded file never reaches the library, which could delete the
- * notice; [MmsDownloadFailure] keeps it instead.
+ * notice; [MmsDownloadFailure] keeps it instead. The same runs when the library ended without storing the MMS and
+ * without an error (E-5), or with one (it then posts nothing itself, E-2).
  */
 class MmsReceiver : BroadcastReceiver() {
 
@@ -88,9 +94,15 @@ class MmsReceiver : BroadcastReceiver() {
         try {
             ensureBackgroundThread {
                 try {
-                    if (!handler.worker.await(LIBRARY_WORK_TIMEOUT_MS)) {
+                    val ended = handler.worker.await(LIBRARY_WORK_TIMEOUT_MS)
+                    if (!ended) {
                         Log.w(TAG, "Downloaded MMS still being handled after $LIBRARY_WORK_TIMEOUT_MS ms")
+                    } else if (ProviderTruthFlag.enabled && !handler.stored) {
+                        // E-5: the library stored nothing (a file it could not read or store): a failed download.
+                        failure.handle(context.applicationContext, intent)
                     }
+                } catch (t: Throwable) {
+                    Log.e(TAG, "Downloaded MMS could not be finished", t)
                 } finally {
                     runCatching { pending.finish() }
                 }
@@ -172,6 +184,21 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     /** Provider truth: the store and Spam table side of the placement. */
     var incomingMms: (Context) -> IncomingMms = { IncomingMms(AndroidMmsSpamStore(it)) }
 
+    /** Provider truth: the sender checks of one MMS ([AppSenderCheck]). */
+    var senderCheck: (Context, IncomingMessage, Long) -> MmsSenderCheck = { c, m, t -> AppSenderCheck(c, m, t) }
+
+    /** The user's own numbers, left out when the participants of a chat are counted. */
+    var ownNumbers: (Context) -> List<String> = { ForwardOwnNumbers.load(it) }
+
+    /** Provider truth: what is done with a placed MMS; tests replace these. */
+    var announce: (Context, Message, String, DecisionReason?) -> Unit = { c, m, a, r -> handleMmsMessage(c, m, a, r) }
+    var forwardOf: (Context, ForwardCandidate) -> Unit = { c, f -> ForwardDelivery.onInboxMessage(c, f) }
+    var updateChatOf: (Context, Message, Boolean) -> Unit = { c, m, unarchive -> updateChat(c, m, unarchive) }
+
+    /** Provider truth (E-5): the library stored the MMS ([onMessageReceived] ran). */
+    @Volatile var stored = false
+        private set
+
     private val pendingAddress = ThreadLocal<String>()
 
     /** Why the filter let this MMS in; read by [onMessageReceived], which runs on the same worker thread. */
@@ -187,9 +214,10 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         worker.mark()
         pendingAddress.set(address.orEmpty().substringBefore("/TYPE="))
         if (ProviderTruthFlag.enabled) {
+            // E-1: a notice saved for an automatic download has mmslib's dummy thread, which is no chat.
             noticeThread = noticeUri?.let { uri ->
                 runCatching { AndroidMmsSpamStore(context).noticeOf(uri)?.threadId }.getOrNull()
-            }
+            }?.takeIf(IncomingMms::hasChat)
         }
         return false
     }
@@ -250,6 +278,7 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
      */
     override fun onMessageReceived(context: Context, messageUri: Uri?) {
         worker.mark()
+        stored = true
         try {
             val mms = if (messageUri != null) {
                 context.getMMS(messageUri)
@@ -275,28 +304,27 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
      * one-to-one MMS is judged like an SMS ([IncomingMms.placeDownloaded]). Only an MMS shown in Messages is
      * announced and forwarded; any error ends in Messages, announced (fail open).
      */
-    private fun placeAndAnnounce(context: Context, mms: Message, address: String) {
+    internal fun placeAndAnnounce(context: Context, mms: Message, address: String) {
         val incoming = (received ?: IncomingMessage(address, mms.body, mms.subscriptionId, isMms = true))
             .copy(receivedAt = mms.millis())
         val sender = incoming.address.ifBlank { address }
+        val message = incoming.copy(address = sender)
         val placer = incomingMms(context)
         val place = placer.placeDownloaded(
             row = ContentUris.withAppendedId(Telephony.Mms.CONTENT_URI, mms.id),
             threadId = mms.threadId,
             sender = sender,
-            isGroup = mms.participants.size > 1,
-            probe = { SpamEngine.evaluate(context, incoming.copy(address = sender, body = ""), "MMS_GROUP") },
-            judge = { SpamEngine.judge(context, incoming.copy(address = sender), "MMS_CONTENT") },
-            historyChecked = { HistoryCheck.onTheSpot(context, sender, mms.threadId) },
+            otherParticipants = otherParticipants(context, mms, runCatching { ownNumbers(context) }.getOrNull()),
+            check = senderCheck(context, message, mms.threadId),
         )
         placer.forgetNoticeChat(noticeThread, mms.threadId)
         when (place) {
             is MmsPlace.Messages -> {
-                handleMmsMessage(context, mms, address, place.reason)
+                announce(context, mms, address, place.reason)
                 forward(context, mms, address)
             }
             // No notification, no unarchive, no forward; the chat and the lists are updated.
-            MmsPlace.QuietGroup, is MmsPlace.Spam -> updateChat(context, mms, unarchive = false)
+            MmsPlace.QuietGroup, is MmsPlace.Spam -> updateChatOf(context, mms, false)
         }
         Log.i(MmsReceiver.TAG, "Downloaded MMS placed: ${place.javaClass.simpleName}")
     }
@@ -313,7 +341,7 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
 
     /** Its text is forwarded; the pictures are not (forwards are plain SMS). */
     private fun forward(context: Context, mms: Message, address: String) {
-        ForwardDelivery.onInboxMessage(
+        forwardOf(
             context.applicationContext,
             ForwardCandidate(
                 address = address,
@@ -328,6 +356,9 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
 
     override fun onError(context: Context, error: String) {
         worker.mark()
+        // Provider truth: MmsReceiver runs the failure path once the library ended, which knows whether the notice is
+        // in a Spam chat (E-2: then nothing is posted).
+        if (ProviderTruthFlag.enabled) return
         context.showErrorToast(context.getString(R.string.couldnt_download_mms))
         // The toast is gone before anyone looks: the notification stays (I10).
         runCatching { context.showMmsDownloadFailedNotification() }
@@ -405,6 +436,36 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     private companion object {
         const val BITMAP_TIMEOUT_MS = 5_000L
     }
+}
+
+/** The participants of [mms]'s chat without the user's own numbers ([own]); null when none could be read (E-10). */
+private fun otherParticipants(context: Context, mms: Message, own: List<String>?): Int? {
+    val numbers = mms.participants.map { contact ->
+        contact.phoneNumbers.firstOrNull()?.let { it.normalizedNumber.ifBlank { it.value } }.orEmpty()
+    }
+    val readers = runCatching { SpamThreads.readers(context) }.getOrNull()
+    return IncomingMms.otherParticipants(numbers, own.orEmpty()) { a, b ->
+        a == b || (readers != null && SpamThreads.same(readers, a, b))
+    }
+}
+
+/**
+ * Provider truth: the sender checks of one downloaded MMS ([message], stored in [threadId]) on the app's filter. Only
+ * [MmsSenderCheck.judge] and [MmsSenderCheck.log] write a decision-log row, so an MMS has one (E-13).
+ */
+internal class AppSenderCheck(
+    private val context: Context,
+    private val message: IncomingMessage,
+    private val threadId: Long,
+) : MmsSenderCheck {
+    override fun probe(): FilterDecision? = MmsDecisions.probe(context, message.copy(body = ""))
+
+    override fun judge(): Judgement? = SpamEngine.judge(context, message, "MMS_CONTENT")
+
+    override fun historyChecked(): Boolean = HistoryCheck.onTheSpot(context, message.address, threadId)
+
+    override fun log(decision: String, reason: String, ruleId: Long?) =
+        MmsDecisions.log(context, message, decision, reason, "MMS_CONTENT", ruleId)
 }
 
 private fun String.isPreviewable() = isImageMimeType() || isVideoMimeType()

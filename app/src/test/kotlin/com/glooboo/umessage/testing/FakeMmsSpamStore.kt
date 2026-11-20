@@ -22,7 +22,7 @@ class FakeMmsSpamStore : MmsSpamStore {
     val rowThread = linkedMapOf<Uri, Long>()
     val rowSilent = linkedMapOf<Uri, Boolean>()
 
-    /** Notice rows the store knows. */
+    /** Notice rows the store knows; a notice without a chat has mmslib's dummy thread, [NO_CHAT] (E-1). */
     val notices = linkedMapOf<Uri, NoticeRow>()
 
     /** Threads that still have messages; others are empty. A thread in [unreadable] cannot be read. */
@@ -30,16 +30,24 @@ class FakeMmsSpamStore : MmsSpamStore {
     val unreadable = mutableSetOf<Long>()
     val forgotten = mutableListOf<Long>()
 
+    /** Threads with a scheduled message in the app (E-12), and chats cached and announced to the lists (E-6). */
+    val scheduled = mutableSetOf<Long>()
+    val shown = mutableListOf<Long>()
+
     val ruleHits = mutableListOf<Long>()
     var spamEvents = 0
 
     var failSpamRow = false
+
+    /** Every call to [threadOf] throws (the store cannot be read). */
+    var failThreads = false
 
     /** The Spam row is written but is not there afterwards (R1's safety check must catch this). */
     var spamRowVanishes = false
 
     override fun threadOf(address: String): Long {
         calls += "threadOf"
+        check(!failThreads) { "store busy" }
         return threads.getOrPut(address) { 100L + threads.size }
     }
 
@@ -55,17 +63,16 @@ class FakeMmsSpamStore : MmsSpamStore {
         return spamRows[threadId]?.first == address
     }
 
-    override fun setThread(row: Uri, threadId: Long, silent: Boolean): Boolean {
+    /** Recorded as "setSilent(x)" when the chat stays ([threadId] null), else as "setThread(silent=x)". */
+    override fun setThread(row: Uri, threadId: Long?, silent: Boolean): Boolean {
+        rowSilent[row] = silent
+        if (threadId == null) {
+            calls += "setSilent($silent)"
+            return true
+        }
         calls += "setThread(silent=$silent)"
         rowThread[row] = threadId
-        if (silent) rowSilent[row] = true
         notices[row]?.let { notices[row] = it.copy(threadId = threadId) }
-        return true
-    }
-
-    override fun setSilent(row: Uri, silent: Boolean): Boolean {
-        calls += "setSilent($silent)"
-        rowSilent[row] = silent
         return true
     }
 
@@ -74,16 +81,24 @@ class FakeMmsSpamStore : MmsSpamStore {
     override fun hasMessages(threadId: Long): Boolean? =
         if (threadId in unreadable) null else threadId in threadsWithMessages
 
+    override fun hasScheduled(threadId: Long): Boolean = threadId in scheduled
+
+    override fun showChat(threadId: Long) {
+        shown += threadId
+    }
+
     override fun forgetEmptyChat(threadId: Long) {
         forgotten += threadId
         spamRows.remove(threadId)
     }
 
-    override fun recordRuleHit(ruleId: Long) {
-        ruleHits += ruleId
+    override fun recordHit(ruleId: Long?, inSpam: Boolean) {
+        ruleId?.let { ruleHits += it }
+        if (inSpam) spamEvents++
     }
 
-    override fun recordSpamEvent() {
-        spamEvents++
+    companion object {
+        /** mmslib's DUMMY_THREAD_ID: the thread of a notice saved without a chat. */
+        const val NO_CHAT = Long.MAX_VALUE
     }
 }

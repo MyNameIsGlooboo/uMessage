@@ -13,10 +13,13 @@ import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.spam.mms.NoticeRow
+import com.glooboo.umessage.testing.FakeMmsProvider
 import com.glooboo.umessage.testing.FakeMmsSpamStore
+import com.glooboo.umessage.testing.FakeTelephonyProvider
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.WatchedBroadcast
 import com.glooboo.umessage.testing.joinAppBackgroundThreads
+import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
 import com.klinker.android.send_message.MmsReceivedReceiver
 import org.junit.After
@@ -28,7 +31,8 @@ import java.io.File
 
 /**
  * Provider truth, answer 8 (step E): a failed MMS download keeps its notice, which gets its chat (in Spam when the
- * sender's chat is there) and shows "Tap to try again". No toast for Spam; the notification names nobody and stays.
+ * sender's chat is there) and shows "Tap to try again". A failure in a Spam chat posts nothing (E-2, lead decision);
+ * in Messages a toast and the notification tell the user.
  */
 @RunWith(AndroidJUnit4::class)
 class MmsDownloadFailureTest {
@@ -58,12 +62,14 @@ class MmsDownloadFailureTest {
     @Before
     fun setUp() {
         MmsPushDownload.clearStarted()
-        store.notices[notice] = NoticeRow(threadId = 0L, sender = SENDER)
+        // E-1: a notice saved for an automatic download has mmslib's dummy thread, which is no chat.
+        store.notices[notice] = NoticeRow(threadId = FakeMmsSpamStore.NO_CHAT, sender = SENDER)
     }
 
     @After
     fun tearDown() {
         joinAppBackgroundThreads()
+        resetSharedMessagesDatabase()
         MmsPushDownload.clearStarted()
     }
 
@@ -89,15 +95,16 @@ class MmsDownloadFailureTest {
     }
 
     @Test
-    fun aFailedSpamDownload_keepsTheNoticeInItsSpamChat_readAndWithoutAToast() {
+    fun aFailedSpamDownload_keepsTheNoticeInItsSpamChat_readAndPostingNothing() {
         failure.handle(context, result())
 
         val thread = store.threads.getValue(SENDER)
         assertThat(store.rowThread[notice]).isEqualTo(thread)
         assertThat(store.rowSilent[notice]).isTrue()
         assertThat(store.spamRows[thread]?.second).isEqualTo(SpamCause.UNKNOWN)
+        assertThat(store.shown).containsExactly(thread)
         assertThat(toasts).isEqualTo(0)
-        assertThat(notifications).isEqualTo(1)
+        assertThat(notifications).isEqualTo(0)
         // The sender was probed on the SIM the MMS came in on, without text.
         val probe = probed.single()
         assertThat(probe.address).isEqualTo(SENDER)
@@ -113,7 +120,7 @@ class MmsDownloadFailureTest {
         failure.handle(context, result())
 
         assertThat(store.rowThread[notice]).isEqualTo(store.threads.getValue(SENDER))
-        assertThat(store.rowSilent[notice]).isNull()
+        assertThat(store.rowSilent[notice]).isFalse()
         assertThat(store.spamRows).isEmpty()
         assertThat(toasts).isEqualTo(1)
         assertThat(notifications).isEqualTo(1)
@@ -132,16 +139,43 @@ class MmsDownloadFailureTest {
     }
 
     @Test
-    fun aNoticeThatHasItsChatAlready_staysThere() {
+    fun aNoticeAlreadyInItsSpamChat_staysThere_isNotCountedAgain_andPostsNothing() {
+        decision = FilterDecision.Block(DecisionReason.BLOCK_RULE, 3L)
         store.notices[notice] = NoticeRow(threadId = 77L, sender = SENDER)
         store.spamRows[77L] = Triple(SENDER, SpamCause.BLOCKED, 1)
 
         failure.handle(context, result())
 
         assertThat(store.rowThread).isEmpty()
-        assertThat(probed).isEmpty()
         assertThat(store.spamRows[77L]?.third).isEqualTo(1)
         assertThat(toasts).isEqualTo(0)
+        assertThat(notifications).isEqualTo(0)
+    }
+
+    @Test
+    fun e9_aNoticeInARealChatWithoutASpamRow_isJudgedAndPutInSpam() {
+        store.notices[notice] = NoticeRow(threadId = 101L, sender = SENDER)
+        store.threads[SENDER] = 101L
+
+        failure.handle(context, result())
+
+        assertThat(store.spamRows[101L]?.second).isEqualTo(SpamCause.UNKNOWN)
+        assertThat(store.rowSilent[notice]).isTrue()
+        assertThat(notifications).isEqualTo(0)
+    }
+
+    @Test
+    fun e3_aQuietedNoticeOfASenderNowAllowed_isUnreadInMessages_andTheUserIsTold() {
+        decision = FilterDecision.Allow(DecisionReason.ALLOW_RULE, 2L)
+        store.notices[notice] = NoticeRow(threadId = 101L, sender = SENDER)
+        store.threads[SENDER] = 101L
+        store.rowSilent[notice] = true
+
+        failure.handle(context, result())
+
+        assertThat(store.rowSilent[notice]).isFalse()
+        assertThat(toasts).isEqualTo(1)
+        assertThat(notifications).isEqualTo(1)
     }
 
     @Test
@@ -156,14 +190,16 @@ class MmsDownloadFailureTest {
     }
 
     @Test
-    fun aSpamRowThatCannotBeWritten_showsTheNoticeInMessages() {
+    fun aSpamRowThatCannotBeWritten_showsTheQuietedNoticeInMessagesUnread_andTellsTheUser() {
+        store.rowSilent[notice] = true
         store.failSpamRow = true
 
         failure.handle(context, result())
 
         assertThat(store.rowThread[notice]).isEqualTo(store.threads.getValue(SENDER))
-        assertThat(store.rowSilent[notice]).isNull()
+        assertThat(store.rowSilent[notice]).isFalse()
         assertThat(toasts).isEqualTo(1)
+        assertThat(notifications).isEqualTo(1)
     }
 
     @Test
@@ -186,6 +222,25 @@ class MmsDownloadFailureTest {
         assertThat(broadcast.awaitFinished()).isTrue()
         assertThat(handled).isEqualTo(1)
         assertThat(store.rowThread[notice]).isNotNull()
+    }
+
+    @Test
+    fun e1_aNoticeSavedForAnAutomaticDownload_endsInTheSendersChatAfterAFailure_onTheRealStore() {
+        val provider = FakeMmsProvider.install()
+        FakeTelephonyProvider.install()
+        decision = FilterDecision.Allow(DecisionReason.CONTACT)
+        val saved = provider.addNotice(SENDER, read = true)
+        val real = MmsDownloadFailure(probe = { _, _ -> decision }, notify = {}, toast = {}, tracker = tracker)
+
+        real.handle(context, result(uri = saved))
+
+        val id = saved.lastPathSegment!!.toLong()
+        val thread = provider.value(id, "thread_id")
+        assertThat(thread).isNotEqualTo(Long.MAX_VALUE)
+        assertThat(thread).isGreaterThan(0L)
+        // In Messages, unread again (E-3), although it was quieted before.
+        assertThat(provider.value(id, "read")).isEqualTo(0L)
+        assertThat(provider.value(id, "seen")).isEqualTo(0L)
     }
 
     @Test

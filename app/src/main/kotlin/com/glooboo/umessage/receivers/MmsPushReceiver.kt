@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.telephony.SubscriptionManager
+import com.glooboo.umessage.spam.IncomingMessage
 import android.util.Log
 import com.android.mms.transaction.PushReceiver
 import org.fossify.commons.helpers.ensureBackgroundThread
@@ -11,6 +12,7 @@ import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.mms.BlockedMmsDownloader
 import com.glooboo.umessage.spam.mms.IncomingMms
+import com.glooboo.umessage.spam.mms.MmsDecisions
 import com.glooboo.umessage.spam.mms.MmsPushAction
 import com.glooboo.umessage.spam.mms.MmsPushGate
 import com.glooboo.umessage.spam.mms.SpamNotice
@@ -59,9 +61,9 @@ class MmsPushReceiver : BroadcastReceiver() {
     }
 
     internal fun process(context: Context, intent: Intent) {
-        val subscriptionId = runCatching { intent.receivingSubscriptionId() }
-            .getOrDefault(SubscriptionManager.INVALID_SUBSCRIPTION_ID)
+        var subscriptionId = SubscriptionManager.INVALID_SUBSCRIPTION_ID
         val action = try {
+            subscriptionId = intent.receivingSubscriptionId()
             MmsPushGate.decide(
                 pushData = intent.getByteArrayExtra(EXTRA_DATA),
                 subscriptionId = subscriptionId,
@@ -69,7 +71,9 @@ class MmsPushReceiver : BroadcastReceiver() {
             ) { probe ->
                 // MmsReceiver's content filter runs after download without the SIM; remember it per sender.
                 MmsSubscriptions.remember(probe.address, subscriptionId)
-                SpamEngine.evaluate(context, probe, source = "MMS_PUSH")
+                // E-13, provider truth: the push writes no row; the MMS's one row is written where it is placed.
+                if (ProviderTruthFlag.enabled) MmsDecisions.probe(context, probe)
+                else SpamEngine.evaluate(context, probe, source = "MMS_PUSH")
             }
         } catch (t: Throwable) {
             MmsPushAction.Deliver("gate error")
@@ -98,11 +102,20 @@ class MmsPushReceiver : BroadcastReceiver() {
      */
     private fun spamNotice(context: Context, action: MmsPushAction.Block, subscriptionId: Int): SpamNotice {
         val notRoaming = !runCatching { roaming(context, subscriptionId) }.getOrDefault(false)
-        return SpamNotice(
+        val notice = SpamNotice(
             sender = action.placeholder.address,
             cause = IncomingMms.causeOf(action.decision),
             downloads = action.withinLimits && notRoaming,
+            ruleId = action.decision.ruleId,
         )
+        // A notice that is not downloaded now has its final place here: its one decision-log row (E-13).
+        if (!notice.downloads) logPush(context, action.placeholder, action)
+        return notice
+    }
+
+    private fun logPush(context: Context, message: IncomingMessage, action: MmsPushAction.Block) {
+        val decision = action.decision
+        MmsDecisions.log(context, message, IncomingMms.BLOCK, decision.reason.name, "MMS_PUSH", decision.ruleId)
     }
 
     /**

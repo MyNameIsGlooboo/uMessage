@@ -8,6 +8,11 @@ import android.provider.Telephony.Sms
 import android.provider.Telephony.Threads
 import android.telephony.TelephonyManager
 import com.glooboo.umessage.extensions.conversationsDB
+import com.glooboo.umessage.extensions.getConversations
+import com.glooboo.umessage.extensions.insertOrUpdateConversation
+import com.glooboo.umessage.extensions.messagesDB
+import com.glooboo.umessage.helpers.refreshConversations
+import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.receivers.MmsSubscriptions
 import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.spam.data.SpamDatabase
@@ -28,16 +33,14 @@ class AndroidMmsSpamStore(context: Context) : MmsSpamStore {
     override fun isSpamThreadOf(threadId: Long, address: String): Boolean =
         SpamThreads.isSpamThreadOf(app, threadId, address)
 
-    override fun setThread(row: Uri, threadId: Long, silent: Boolean): Boolean {
+    override fun setThread(row: Uri, threadId: Long?, silent: Boolean): Boolean {
         val values = ContentValues().apply {
-            put(Mms.THREAD_ID, threadId)
-            if (silent) putSilent(true)
+            threadId?.let { put(Mms.THREAD_ID, it) }
+            // E-3: both ways, so a notice quieted earlier is unread again when it ends in Messages.
+            putSilent(silent)
         }
         return app.contentResolver.update(row, values, null, null) > 0
     }
-
-    override fun setSilent(row: Uri, silent: Boolean): Boolean =
-        app.contentResolver.update(row, ContentValues().apply { putSilent(silent) }, null, null) > 0
 
     override fun noticeOf(row: Uri): NoticeRow? {
         val id = row.lastPathSegment?.toLongOrNull() ?: return null
@@ -54,18 +57,26 @@ class AndroidMmsSpamStore(context: Context) : MmsSpamStore {
         }
     }.getOrNull()
 
+    override fun hasScheduled(threadId: Long): Boolean =
+        app.messagesDB.getScheduledThreadMessages(threadId).isNotEmpty()
+
     override fun forgetEmptyChat(threadId: Long) {
         app.conversationsDB.deleteThreadId(threadId)
         app.conversationsDB.deleteSpamThread(threadId)
     }
 
-    override fun recordRuleHit(ruleId: Long) {
-        SpamEngine.repository(app).recordWordRuleHit(ruleId)
+    override fun showChat(threadId: Long) {
+        app.getConversations(threadId).firstOrNull()?.let { app.insertOrUpdateConversation(it) }
+        refreshMessages()
+        refreshConversations(threadId)
     }
 
-    override fun recordSpamEvent() {
-        val event = SpamEventEntity(type = SpamEventType.BLOCKED, timestamp = System.currentTimeMillis())
-        SpamDatabase.getInstance(app).spamDao().insertEvent(event)
+    override fun recordHit(ruleId: Long?, inSpam: Boolean) {
+        ruleId?.let { SpamEngine.repository(app).recordWordRuleHit(it) }
+        if (inSpam) {
+            val event = SpamEventEntity(type = SpamEventType.BLOCKED, timestamp = System.currentTimeMillis())
+            SpamDatabase.getInstance(app).spamDao().insertEvent(event)
+        }
     }
 }
 

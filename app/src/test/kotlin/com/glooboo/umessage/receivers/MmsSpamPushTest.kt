@@ -19,6 +19,8 @@ import com.glooboo.umessage.spam.engine.NumberNormalizer
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.spam.mms.IncomingMms
 import com.glooboo.umessage.spam.mms.SpamNotice
+import com.glooboo.umessage.spam.mms.NoticeRow
+import com.glooboo.umessage.testing.FakeMmsProvider
 import com.glooboo.umessage.testing.FakeMmsSpamStore
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.SpamTestWiring
@@ -33,9 +35,9 @@ import java.io.ByteArrayOutputStream
 
 /**
  * Provider truth, 6.2 (step E): the push of an MMS whose sender's chat is in Spam. Nothing goes to the Blocked folder:
- * the notice is saved in the phone's store, read and seen, and downloaded like any MMS within the limits (size known,
- * at most 1 MiB, not expired, not roaming), also from a blocked sender (answer 11). Otherwise it is a "Tap to download"
- * row in the sender's Spam chat. The store is replaced by stubs (Robolectric has no MMS provider).
+ * the notice is saved in the phone's store and shown in the sender's Spam chat at once, read and seen (E-4), and
+ * downloaded like any MMS within the limits (size known, at most 1 MiB, not expired, not roaming), also from a blocked
+ * sender (answer 11). Otherwise it stays a "Tap to download" row there. A failed start in Spam posts nothing (E-2).
  */
 @RunWith(AndroidJUnit4::class)
 class MmsSpamPushTest {
@@ -118,15 +120,19 @@ class MmsSpamPushTest {
     }
 
     @Test
-    fun aSpamNoticeWithinTheLimits_isSavedReadAndDownloadedIntoTheStore_notIntoBlocked() {
+    fun aSpamNoticeWithinTheLimits_isShownInItsSpamChatAtOnceAndDownloadedIntoTheStore_notIntoBlocked() {
         receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/in")))
 
         val row = saved.keys.single()
         assertThat(startedLocations).containsExactly("http://mmsc.example.com/msg/in")
+        // E-4: in its Spam chat before the download starts, so a lost result never leaves it without one.
+        val thread = store.threads.getValue(SENDER)
+        assertThat(store.rowThread[row]).isEqualTo(thread)
         assertThat(store.rowSilent[row]).isTrue()
-        // It has no chat until the download ends: the downloaded MMS is placed then.
-        assertThat(store.rowThread).isEmpty()
-        assertThat(store.spamRows).isEmpty()
+        assertThat(store.spamRows[thread]).isEqualTo(Triple(SENDER, SpamCause.UNKNOWN, 1))
+        assertThat(store.shown).containsExactly(thread)
+        // It is counted once it is downloaded and placed, not now.
+        assertThat(store.spamEvents).isEqualTo(0)
         assertThat(db.spamDao().getAllBlocked()).isEmpty()
     }
 
@@ -203,6 +209,98 @@ class MmsSpamPushTest {
         assertThat(store.calls).isEmpty()
     }
 
+    @Test
+    fun mP5_withTheRealStoreQuery_aSecondDifferentNoticeIsKept_andARepeatIsNot() {
+        val provider = FakeMmsProvider.install()
+        val download = MmsPushDownload(
+            persist = { _, ind: NotificationInd, _ ->
+                val location = String(ind.contentLocation)
+                provider.addNotice(SENDER, transactionId = String(ind.transactionId), location = location)
+                    .also { saved[it] = String(ind.contentLocation) to String(ind.transactionId) }
+            },
+            lookup = { _, uri -> saved.getValue(uri) },
+            start = { _, location, _, _, _ -> startedLocations += location },
+            tracker = MmsDownloadTracker(),
+            incoming = { IncomingMms(store) },
+        )
+        val receiver = MmsPushReceiver().apply {
+            pushDownload = download
+            roaming = { _: Context, _: Int -> false }
+        }
+
+        receiver.process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/real-a")))
+        receiver.process(app, push(notice(SENDER, "T-2", "http://mmsc.example.com/msg/real-b")))
+        receiver.process(app, push(notice(SENDER, "T-2", "http://mmsc.example.com/msg/real-b")))
+
+        assertThat(saved).hasSize(2)
+        assertThat(startedLocations)
+            .containsExactly("http://mmsc.example.com/msg/real-a", "http://mmsc.example.com/msg/real-b").inOrder()
+    }
+
+    // reportStartFailed (E-2, E-3)
+
+    private var posted = 0
+    private val savedNotice = Uri.parse("content://mms/inbox/42")
+    private val spamNotice = SpamNotice(SENDER, SpamCause.BLOCKED, downloads = true, ruleId = 4L)
+
+    private fun reportStartFailed(spam: SpamNotice? = spamNotice) =
+        MmsPushDownload.reportStartFailed(app, savedNotice, SENDER, spam, store = { store }, notify = { posted++ })
+
+    @Test
+    fun aFailedStartOfANoticeAlreadyInItsSpamChat_postsNothingAndIsNotCountedAgain() {
+        store.notices[savedNotice] = NoticeRow(threadId = 9L, sender = SENDER)
+        store.spamRows[9L] = Triple(SENDER, SpamCause.BLOCKED, 1)
+
+        reportStartFailed()
+
+        assertThat(posted).isEqualTo(0)
+        assertThat(store.spamRows[9L]?.third).isEqualTo(1)
+        assertThat(store.rowThread).isEmpty()
+    }
+
+    @Test
+    fun aFailedStartOfASpamNoticeWithoutAChat_getsItsSpamChatAndPostsNothing() {
+        store.notices[savedNotice] = NoticeRow(threadId = FakeMmsSpamStore.NO_CHAT, sender = SENDER)
+
+        reportStartFailed()
+
+        assertThat(posted).isEqualTo(0)
+        val thread = store.threads.getValue(SENDER)
+        assertThat(store.rowThread[savedNotice]).isEqualTo(thread)
+        assertThat(store.rowSilent[savedNotice]).isTrue()
+        assertThat(store.spamRows[thread]?.second).isEqualTo(SpamCause.BLOCKED)
+    }
+
+    @Test
+    fun aFailedStartWhoseSpamRowFails_showsTheQuietedNoticeInMessagesUnreadAndTellsTheUser() {
+        store.notices[savedNotice] = NoticeRow(threadId = FakeMmsSpamStore.NO_CHAT, sender = SENDER)
+        store.rowSilent[savedNotice] = true
+        store.failSpamRow = true
+
+        reportStartFailed()
+
+        assertThat(posted).isEqualTo(1)
+        assertThat(store.rowThread[savedNotice]).isEqualTo(store.threads.getValue(SENDER))
+        assertThat(store.rowSilent[savedNotice]).isFalse()
+    }
+
+    @Test
+    fun aFailedStartWhoseStoreCannotBeRead_tellsTheUser() {
+        store.failThreads = true
+
+        reportStartFailed()
+
+        assertThat(posted).isEqualTo(1)
+    }
+
+    @Test
+    fun aFailedStartInMessages_tellsTheUser() {
+        reportStartFailed(spam = null)
+
+        assertThat(posted).isEqualTo(1)
+        assertThat(store.calls).isEmpty()
+    }
+
     private fun assertThatItIsAReadRowInTheSpamChat(cause: SpamCause) {
         val row = saved.keys.single()
         assertThat(startedLocations).isEmpty()
@@ -210,6 +308,8 @@ class MmsSpamPushTest {
         assertThat(store.rowThread[row]).isEqualTo(thread)
         assertThat(store.rowSilent[row]).isTrue()
         assertThat(store.spamRows[thread]).isEqualTo(Triple(SENDER, cause, 1))
+        // Its place is final: it counts like a Spam MMS.
+        assertThat(store.spamEvents).isEqualTo(1)
         assertThat(db.spamDao().getAllBlocked()).isEmpty()
     }
 
