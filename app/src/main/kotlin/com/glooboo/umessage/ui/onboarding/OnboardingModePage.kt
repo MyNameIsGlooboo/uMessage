@@ -4,8 +4,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,6 +28,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -38,6 +37,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.UnknownSenderMode
@@ -149,7 +149,6 @@ private fun ModeOption(
  * A radio card: the bold name with the "Recommended" tag after it (on its own line when they do not fit), and the
  * description under it. TalkBack reads the card as one radio button: name, tag and description.
  */
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun ChoiceCard(
     selected: Boolean,
@@ -179,28 +178,66 @@ private fun ChoiceCard(
             RadioButton(selected = selected, onClick = null)
             Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f)) {
-                FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    itemVerticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        stringResource(titleRes),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold,
-                    )
-                    if (recommended) {
-                        Text(
-                            stringResource(R.string.settings_nav_recommended),
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.primary,
-                        )
-                    }
-                }
+                ChoiceTitle(titleRes, recommended)
                 Text(
                     stringResource(descRes),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    softWrap = true,
+                    maxLines = Int.MAX_VALUE,
+                    modifier = Modifier.fillMaxWidth(),
                 )
+            }
+        }
+    }
+}
+
+/**
+ * The card's bold name and, when [recommended], the tag: side by side when both fit on one line, else the tag on its
+ * own line under the name. Every text is measured at a fixed width so it wraps there: given a loose width, a Persian
+ * name at twice the font size was laid out wider than its own box and cut (G-8).
+ */
+@Composable
+private fun ChoiceTitle(titleRes: Int, recommended: Boolean) {
+    Layout(
+        content = {
+            Text(
+                stringResource(titleRes),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                softWrap = true,
+                maxLines = Int.MAX_VALUE,
+            )
+            if (recommended) {
+                Text(
+                    stringResource(R.string.settings_nav_recommended),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    softWrap = true,
+                    maxLines = Int.MAX_VALUE,
+                )
+            }
+        },
+        modifier = Modifier.fillMaxWidth(),
+    ) { measurables, constraints ->
+        val width = constraints.maxWidth
+        val gap = 8.dp.roundToPx()
+        val titleWidth = measurables[0].maxIntrinsicWidth(Constraints.Infinity)
+        val tagWidth = measurables.getOrNull(1)?.maxIntrinsicWidth(Constraints.Infinity)
+        if (tagWidth != null && titleWidth + gap + tagWidth <= width) {
+            val title = measurables[0].measure(Constraints.fixedWidth(titleWidth))
+            val tag = measurables[1].measure(Constraints.fixedWidth(tagWidth))
+            val height = maxOf(title.height, tag.height)
+            layout(width, height) {
+                title.placeRelative(0, (height - title.height) / 2)
+                tag.placeRelative(titleWidth + gap, (height - tag.height) / 2)
+            }
+        } else {
+            val title = measurables[0].measure(Constraints.fixedWidth(width))
+            val tag = measurables.getOrNull(1)?.measure(Constraints.fixedWidth(width))
+            layout(width, title.height + (tag?.height ?: 0)) {
+                title.placeRelative(0, 0)
+                tag?.placeRelative(0, title.height)
             }
         }
     }
