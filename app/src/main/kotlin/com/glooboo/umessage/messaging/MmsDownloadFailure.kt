@@ -15,6 +15,7 @@ import com.glooboo.umessage.receivers.MmsPushDownload
 import com.glooboo.umessage.spam.HistoryCheck
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
+import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.spam.mms.AndroidMmsSpamStore
 import com.glooboo.umessage.spam.mms.IncomingMms
 import com.glooboo.umessage.spam.mms.MmsDecisions
@@ -101,6 +102,8 @@ internal class MmsDownloadFailure(
             return null
         }
         val message = IncomingMessage(notice.sender, "", subscriptionId, isMms = true)
+        // E-19: the history check on the spot first (it may allow the sender), then the filter is asked once.
+        val historyChecked = runCatching { history(context, notice.sender) }.getOrDefault(false)
         val decision = probe(context, message)
         val probed = (decision as? FilterDecision.Block)?.let(IncomingMms::causeOf)
         // E-22: a notice counted in its Spam chat (its explicit mark) stays there and is not counted again.
@@ -108,8 +111,8 @@ internal class MmsDownloadFailure(
             runCatching { store.markOf(row) == NoticeMark.Counted(notice.threadId) }.getOrDefault(false) &&
             runCatching { store.isSpamThreadOf(notice.threadId, notice.sender) }.getOrDefault(false)
         if (alreadyInSpam) return Kept(message, decision, inSpam = true)
-        // E-19: the history check on the spot before a Spam row is written; failed, only a block rule holds.
-        val cause = IncomingMms.noticeCause(probed, { history(context, notice.sender) }, { probe(context, message) })
+        // A failed history check leaves only a block rule (history never allows a blocked sender, as E-11).
+        val cause = if (historyChecked) probed else probed.takeIf { it == SpamCause.BLOCKED }
         val ruleId = (decision as? FilterDecision.Block)?.ruleId?.takeIf { cause != null }
         val inSpam = IncomingMms(store).revealNotice(row, notice.sender, cause, ruleId)
         return Kept(message, decision, inSpam)
