@@ -27,6 +27,7 @@ import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.lock.LockActivity
 import com.glooboo.umessage.ui.lock.LockScope
+import com.glooboo.umessage.ui.lock.LockTestApp
 import com.google.common.truth.Truth.assertThat
 import org.fossify.commons.extensions.appLockManager
 import org.fossify.commons.extensions.baseConfig
@@ -38,6 +39,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.Shadows.shadowOf
+import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowLooper
 
 /**
@@ -46,6 +48,8 @@ import org.robolectric.shadows.ShadowLooper
  * screen. Nothing of it shows, its texts stay unread, and the lock is asked for. A chat in Messages opens as before.
  */
 @RunWith(AndroidJUnit4::class)
+// The app's lock screen and its "chosen parts" rule, as the real App has them (the default test app has neither).
+@Config(application = LockTestApp::class)
 class SpamChatLockTest {
 
     @get:Rule
@@ -83,7 +87,8 @@ class SpamChatLockTest {
 
     @After
     fun tearDown() {
-        scenario?.close()
+        // A screen that finished itself (or never started) may not close cleanly; the rest must still be reset.
+        runCatching { scenario?.close() }
         app.baseConfig.isAppPasswordProtectionOn = false
         LockScope.set(app, LockScope.WholeApp)
         forgetAppLockManager()
