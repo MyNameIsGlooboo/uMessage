@@ -36,6 +36,8 @@ import com.glooboo.umessage.helpers.DebugStrictMode
 import com.glooboo.umessage.messaging.rearmReminders
 import com.glooboo.umessage.messaging.tidyScheduledAttachments
 import com.glooboo.umessage.spam.FirstRun
+import com.glooboo.umessage.spam.FirstRunProgressAdapter
+import com.glooboo.umessage.spam.SortDryRun
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.data.PendingSmsQueue
 import com.glooboo.umessage.spam.data.RemovedMembers
@@ -43,8 +45,10 @@ import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.ui.lock.LockActivity
 import com.glooboo.umessage.ui.lock.LockScope
 import com.glooboo.umessage.ui.lock.WindowProtection
+import com.glooboo.umessage.ui.main.FirstRunPagesHost
 import com.glooboo.umessage.ui.settings.AppLocale
 import com.glooboo.umessage.ui.spam.BlockingMigration
+import com.glooboo.umessage.ui.spam.ChatMoveCounting
 import com.glooboo.umessage.ui.theme.ThemePresets
 
 class App : FossifyApp() {
@@ -68,6 +72,7 @@ class App : FossifyApp() {
         // B-9: the senders the user removed from a group are remembered across starts.
         RemovedMembers.install(getSharedPreferences(RemovedMembers.PREFS, MODE_PRIVATE))
         registerContactsObserver()
+        installFirstRunPages()
 
         ensureBackgroundThread {
             PendingSmsQueue.replay(this)
@@ -107,8 +112,26 @@ class App : FossifyApp() {
     @Volatile
     private var sortingStarted = false
 
-    /** The first run's check (FirstRun.check), once sorting has started; before that, [startSorting] does it. */
+    /** The first run's pages (step G) on the runner's state; null while the flag is off (no pages, as 0.4.14). */
+    @Volatile
+    private var firstRunPages: FirstRunProgressAdapter? = null
+
+    /**
+     * Provider truth, flag on only: the first-run pages read the runner's state now, before the main screen's first
+     * frame (G-B4), and the switch confirm counts the chats a change would move by a dry run (G-B3).
+     */
+    private fun installFirstRunPages() {
+        if (!ProviderTruthFlag.enabled) return
+        firstRunPages = FirstRunProgressAdapter.forApp(this).also(FirstRunPagesHost::install)
+        ChatMoveCounting.counter = SortDryRun.forApp(this)
+    }
+
+    /**
+     * The first run's check (FirstRun.check), once sorting has started; before that, [startSorting] does it. The
+     * pages read again what the runner's state does not carry (the welcome flow just ended), at once.
+     */
     fun checkFirstRun() {
+        firstRunPages?.refresh()
         if (sortingStarted) FirstRun.check(this)
     }
 
