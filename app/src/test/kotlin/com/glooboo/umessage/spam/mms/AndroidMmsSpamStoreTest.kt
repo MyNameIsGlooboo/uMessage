@@ -89,12 +89,21 @@ class AndroidMmsSpamStoreTest {
 
     @Test
     fun e12_aChatWithOnlyAScheduledMessage_hasOne() {
-        assertThat(store.hasScheduled(30L)).isFalse()
+        // Room refuses the main thread; the store is only called from the MMS worker, so read it off main here too.
+        assertThat(offMain { store.hasScheduled(30L) }).isFalse()
 
-        context.messagesDB.insertOrUpdate(scheduled(id = 1_500_000_001L, thread = 30L))
+        offMain { context.messagesDB.insertOrUpdate(scheduled(id = 1_500_000_001L, thread = 30L)) }
 
-        assertThat(store.hasScheduled(30L)).isTrue()
-        assertThat(store.hasScheduled(31L)).isFalse()
+        assertThat(offMain { store.hasScheduled(30L) }).isTrue()
+        assertThat(offMain { store.hasScheduled(31L) }).isFalse()
+    }
+
+    private fun <T> offMain(block: () -> T): T {
+        var result: Result<T>? = null
+        val worker = Thread { result = runCatching(block) }
+        worker.start()
+        worker.join(10_000)
+        return checkNotNull(result) { "worker timed out" }.getOrThrow()
     }
 
     private fun scheduled(id: Long, thread: Long) = Message(
