@@ -37,6 +37,7 @@ import com.glooboo.umessage.helpers.smartreply.SmartReplyPolicy
 import com.glooboo.umessage.helpers.smartreply.SmartReplyTables
 import com.glooboo.umessage.helpers.smartreply.smartReplyPrefs
 import com.glooboo.umessage.models.Message
+import com.glooboo.umessage.ui.components.ConfirmDialog
 import com.glooboo.umessage.ui.icons.Symbols
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -48,6 +49,10 @@ private class Suggestion(val messageId: Long, val reply: SmartReply)
  * I59: up to three suggested replies above the text field, for the newest received text, while the switch in Settings
  * is on. A tap fills the field and never sends. The row goes when the user types, when a newer text arrives, or on
  * "hide" (kept until a newer text arrives). Nothing is shown unless [SmartReplyMatcher] is sure.
+ *
+ * Provider truth (answer 20, D4 B2): in a Spam chat of an unknown sender the replies stay visible, and a tap asks
+ * "This allows the sender. Send?" first; Send fills the field and sends at once ([ChatLineState.sendNow]), Cancel
+ * does nothing.
  */
 @Composable
 internal fun SmartReplyChips(vm: ThreadViewModel, modifier: Modifier = Modifier) {
@@ -68,10 +73,22 @@ private fun SmartReplyRow(vm: ThreadViewModel, modifier: Modifier = Modifier) {
         value = withContext(Dispatchers.Default) { SmartReplyTables.matcher(context) }
     }
     val language = LocalConfiguration.current.locales[0].language
-    val suggestion = remember(vm.items, vm.linksTrusted, vm.isGroup, matcher) {
-        matcher?.let { suggestionFor(vm, it, language) }
+    val inSpam = vm.chatLine.unknownInSpam
+    val suggestion = remember(vm.items, vm.linksTrusted, vm.isGroup, matcher, inSpam) {
+        matcher?.let { suggestionFor(vm, it, language, inSpam) }
     }
     var hiddenFor by rememberSaveable { mutableStateOf<Long?>(null) }
+    var confirming by rememberSaveable { mutableStateOf<String?>(null) }
+    confirming?.let { reply ->
+        ReplyAllowsConfirm(
+            onSend = {
+                confirming = null
+                vm.insertAtCursor(reply)
+                vm.chatLine.sendNow()
+            },
+            onDismiss = { confirming = null },
+        )
+    }
     val hidden = suggestion?.messageId == hiddenFor || vm.replyDisabled || vm.isRecycleBin
     if (suggestion == null || hidden || vm.text.text.isNotEmpty()) return
     val direction = if (suggestion.reply.rightToLeft) LayoutDirection.Rtl else LayoutDirection.Ltr
@@ -90,8 +107,12 @@ private fun SmartReplyRow(vm: ThreadViewModel, modifier: Modifier = Modifier) {
                 items(suggestion.reply.replies) { reply ->
                     SuggestionChip(
                         onClick = {
-                            vm.insertAtCursor(reply)
-                            vm.focusInput++
+                            if (inSpam) {
+                                confirming = reply
+                            } else {
+                                vm.insertAtCursor(reply)
+                                vm.focusInput++
+                            }
                         },
                         label = { Text(reply, maxLines = 1) },
                     )
@@ -110,9 +131,15 @@ private fun SmartReplyRow(vm: ThreadViewModel, modifier: Modifier = Modifier) {
 
 /**
  * The newest text, when it may be answered with chips: it was received, it is a plain text (no picture), and the
- * sender is a saved contact or someone the user has written to. Null otherwise, or when the matcher is not sure.
+ * sender is a saved contact or someone the user has written to, or ([inSpam]) an unknown sender in Spam, where a tap
+ * asks first. Null otherwise, or when the matcher is not sure.
  */
-private fun suggestionFor(vm: ThreadViewModel, matcher: SmartReplyMatcher, language: String): Suggestion? {
+private fun suggestionFor(
+    vm: ThreadViewModel,
+    matcher: SmartReplyMatcher,
+    language: String,
+    inSpam: Boolean,
+): Suggestion? {
     val texts = vm.items.filterIsInstance<Message>().filter { !it.isScheduled }
     val newest = texts.lastOrNull()?.takeIf { it.isReceivedMessage() && !it.isMMS } ?: return null
     val candidate = SmartReplyPolicy.Candidate(
@@ -121,8 +148,21 @@ private fun suggestionFor(vm: ThreadViewModel, matcher: SmartReplyMatcher, langu
         receivedMillis = newest.millis(),
         isReceived = true,
         isGroup = vm.isGroup,
-        knownSender = vm.linksTrusted || texts.any { !it.isReceivedMessage() },
+        knownSender = inSpam || vm.linksTrusted || texts.any { !it.isReceivedMessage() },
     )
     if (!SmartReplyPolicy.allows(candidate, System.currentTimeMillis())) return null
     return matcher.match(newest.body, language, newest.id)?.let { Suggestion(newest.id, it) }
+}
+
+/** D4 B2: "This allows the sender. Send?" before a suggested reply goes from a Spam chat; Cancel sends nothing. */
+@Composable
+internal fun ReplyAllowsConfirm(onSend: () -> Unit, onDismiss: () -> Unit, modifier: Modifier = Modifier) {
+    ConfirmDialog(
+        message = stringResource(R.string.pt_reply_allows_confirm),
+        confirmLabel = stringResource(R.string.thread_send),
+        dismissLabel = stringResource(R.string.spam_cancel),
+        onConfirm = onSend,
+        onDismiss = onDismiss,
+        modifier = modifier,
+    )
 }

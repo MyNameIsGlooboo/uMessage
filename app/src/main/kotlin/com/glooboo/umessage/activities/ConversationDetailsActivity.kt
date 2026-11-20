@@ -6,7 +6,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.lifecycleScope
+import com.glooboo.umessage.R
 import com.glooboo.umessage.dialogs.RenameConversationDialog
+import com.glooboo.umessage.ui.components.showConfirmDialog
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.dialNumber
@@ -15,6 +17,7 @@ import com.glooboo.umessage.extensions.getThreadParticipants
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.renameConversation
 import com.glooboo.umessage.extensions.startContactDetailsIntent
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
@@ -24,9 +27,14 @@ import com.glooboo.umessage.ui.details.ConversationDetailsScreen
 import com.glooboo.umessage.ui.details.ConversationMediaViewModel
 import com.glooboo.umessage.ui.details.ConversationSearchScreen
 import com.glooboo.umessage.ui.lock.HiddenChatGate
+import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.spam.ForwardingAvailability
+import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.ui.spam.SenderBlocking
+import com.glooboo.umessage.ui.spam.nameAllowBody
 import com.glooboo.umessage.ui.spam.SpamRepositoryProvider
+import com.glooboo.umessage.ui.thread.DetailsBlockMemory
+import com.glooboo.umessage.ui.thread.DetailsSenderSwitch
 import com.glooboo.umessage.ui.thread.ThreadPrivacyActions
 import com.glooboo.umessage.ui.thread.planSpamReport
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +42,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.fossify.commons.extensions.copyToClipboard
+import org.fossify.commons.extensions.toast
 import org.fossify.commons.helpers.ensureBackgroundThread
 import org.fossify.commons.models.SimpleContact
 
@@ -53,7 +62,11 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
     private val refreshMute: () -> Unit = { muteSummary = privacy.muteSummary() }
 
     /** B06: the details of a hidden chat ask for the app lock first, like the chat itself. */
-    private val hiddenGate = HiddenChatGate(this) { threadId }
+    private val hiddenGate: HiddenChatGate =
+        HiddenChatGate(this, { spamGate.blocking }, onPassed = { spamGate.check() }) { threadId }
+
+    /** U1 (provider truth): the details of a chat in Spam ask for the app lock while the lock covers Spam. */
+    private val spamGate: SpamChatGate = SpamChatGate(this, { threadId }, othersCover = { hiddenGate.blocking })
     private var phoneNumber by mutableStateOf("")
     private var photoUri by mutableStateOf("")
     private var isGroup by mutableStateOf(false)
@@ -184,6 +197,7 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
     override fun onResume() {
         super.onResume()
         hiddenGate.check()
+        spamGate.check()
         // The system notification settings can change both while this page is in the background.
         if (threadId != 0L) {
             customNotifications = config.customNotifications.contains(threadId.toString())
@@ -210,39 +224,69 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
         lifecycleScope.launch {
             val ok = runCatching {
                 val repository = SpamRepositoryProvider.get(this@ConversationDetailsActivity)
-                if (block) {
-                    SenderBlocking.block(repository, listOf(address))
-                } else {
-                    SenderBlocking.unblock(repository, address)
+                when {
+                    // Provider truth (4.1, C-6): the whole chat moves, read; off again undoes this block fully.
+                    // D-5: a block that did not happen says why when the switch goes back.
+                    block && ProviderTruthFlag.enabled -> senderSwitch.blockOrSay(address, threadId) { toast(it) }
+                    ProviderTruthFlag.enabled -> senderSwitch.unblock(address, threadId).let { true }
+                    block -> SenderBlocking.block(repository, listOf(address)).let { true }
+                    else -> SenderBlocking.unblock(repository, address).let { true }
                 }
-            }.isSuccess
+            }.getOrDefault(false)
             if (!ok) blocked = !block
         }
     }
 
-    /** ID-50: "Always allow this sender": an allow rule (and no block rule), or none again. */
+    /** Provider truth (C-6, D-5): the Block switch keeps its receipt across a rotation, so off undoes it fully. */
+    private val blockMemory: DetailsBlockMemory by viewModels()
+
+    private val senderSwitch by lazy {
+        DetailsSenderSwitch(this, { SpamRepositoryProvider.get(this@ConversationDetailsActivity) }, blockMemory)
+    }
+
+
+    /**
+     * ID-50: "Always allow this sender": an allow rule (and no block rule), or none again. Provider truth (4.4, C-6):
+     * a sender name asks once first, as "Not spam" does everywhere.
+     */
     private fun setAllowed(allow: Boolean) {
         val address = phoneNumber.trim()
         if (address.isEmpty()) return
-        val previousBlocked = blocked
-        allowed = allow
-        if (allow && blocked != null) blocked = false
-        lifecycleScope.launch {
-            val ok = runCatching {
-                val repository = SpamRepositoryProvider.get(this@ConversationDetailsActivity)
-                if (allow) {
-                    SenderBlocking.alwaysAllow(repository, listOf(address))
-                } else {
-                    val rules = repository.rules.first()
-                    withContext(Dispatchers.Default) { planSpamReport(rules, address) }
-                        .allowRulesToRemove.forEach { repository.removeRule(it.id) }
+        fun applyAllowed(address: String, allow: Boolean) {
+            val previousBlocked = blocked
+            allowed = allow
+            if (allow && blocked != null) blocked = false
+            lifecycleScope.launch {
+                val ok = runCatching {
+                    val repository = SpamRepositoryProvider.get(this@ConversationDetailsActivity)
+                    if (allow) {
+                        SenderBlocking.alwaysAllow(repository, listOf(address))
+                    } else {
+                        val rules = repository.rules.first()
+                        withContext(Dispatchers.Default) { planSpamReport(rules, address) }
+                            .allowRulesToRemove.forEach { repository.removeRule(it.id) }
+                    }
+                }.isSuccess
+                if (!ok) {
+                    allowed = !allow
+                    blocked = previousBlocked
                 }
-            }.isSuccess
-            if (!ok) {
-                allowed = !allow
-                blocked = previousBlocked
+                if (ProviderTruthFlag.enabled) {
+                    SpamSorting.requestThreads(this@ConversationDetailsActivity, listOf(threadId))
+                }
             }
         }
+
+        if (allow && ProviderTruthFlag.enabled && SenderBlocking.isSpoofable(address)) {
+            showConfirmDialog(
+                title = getString(R.string.nameallow_title),
+                message = nameAllowBody(resources, listOf(address)),
+                confirmLabel = getString(R.string.nameallow_allow),
+                dismissLabel = getString(R.string.spam_cancel),
+            ) { applyAllowed(address, allow = true) }
+            return
+        }
+        applyAllowed(address, allow)
     }
 
     private fun rename() {

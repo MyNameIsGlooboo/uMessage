@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
@@ -66,7 +67,12 @@ internal fun nameAllowBody(resources: Resources, names: List<String>): String {
     return resources.getString(R.string.nameallow_body_many, list)
 }
 
-/** "Always allow this name?" with the two answers. Dismissing the dialog is the same as "Not now". */
+/**
+ * "Always allow this name?" with the two answers. Dismissing the dialog is the same as "Not now".
+ *
+ * Provider truth (4.4): the question comes before "Not spam" acts, once; its second answer is Cancel, which leaves the
+ * chat in Spam.
+ */
 @Composable
 internal fun NameAllowDialog(
     names: List<String>,
@@ -81,6 +87,8 @@ internal fun NameAllowDialog(
         onDismiss = onDismiss,
         modifier = modifier,
         title = stringResource(R.string.nameallow_title),
-        dismissLabel = stringResource(R.string.nameallow_not_now),
+        dismissLabel = stringResource(
+            if (ProviderTruthFlag.enabled) R.string.spam_cancel else R.string.nameallow_not_now,
+        ),
     )
 }

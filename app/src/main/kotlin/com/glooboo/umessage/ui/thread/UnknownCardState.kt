@@ -61,13 +61,23 @@ class UnknownCardState {
  */
 internal fun unknownCardCollapsed(landscape: Boolean, keyboardUp: Boolean): Boolean = landscape && keyboardUp
 
-/** The card under the top bar of a conversation with a stranger; the buttons follow what the menu offers. */
+/**
+ * The card under the top bar of a conversation with a stranger; the buttons follow what the menu offers.
+ *
+ * Provider truth (4.3): one banner host. The chat line shows instead when there is one, and the card itself only while
+ * the spam filter is off ([ChatLineState.hidesUnknownCard]).
+ */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun UnknownCardHost(vm: ThreadViewModel, actions: ThreadActions) {
     val state = vm.unknownCard
     val landscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
-    if (!state.visible || unknownCardCollapsed(landscape, WindowInsets.isImeVisible)) return
+    if (unknownCardCollapsed(landscape, WindowInsets.isImeVisible)) return
+    vm.chatLine.line?.let { line ->
+        ChatLineCard(line, actions.onChatLine)
+        return
+    }
+    if (!state.visible || vm.chatLine.hidesUnknownCard) return
     val menu = vm.menu
     fun offer(available: Boolean, action: ThreadMenuAction): (() -> Unit)? =
         if (available) ({ actions.onMenuAction(action) }) else null

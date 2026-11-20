@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Provider truth, step C (Spam tab, chat line, card). Wording approved with the string key list (19 Nov).
+     Step I moves these into the shared files and translates them. -->
+<resources>
+    <!-- Spam tab -->
+    <string name="pt_spam_empty_body">Chats from unknown senders and from senders you block show up here.</string>
+    <string name="pt_spam_filter_off_strip">The spam filter is off</string>
+    <string name="pt_spam_filter_off_body">Only senders you blocked are listed here.</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="one">Delete %d chat from this phone?</item>
+        <item quantity="other">Delete %d chats from this phone?</item>
+    </plurals>
+    <string name="pt_spam_delete_body">The texts are deleted for every app, not only in uMessage. You can undo right after. Later you cannot.</string>
+    <plurals name="pt_snack_unblocked">
+        <item quantity="one">Unblocked. The chat is back in Messages.</item>
+        <item quantity="other">%d senders unblocked. Their chats are back in Messages.</item>
+    </plurals>
+    <string name="pt_older_spam_title">Older spam kept only in uMessage</string>
+    <string name="pt_older_spam_hint">These texts are not on the phone itself yet. They move there when uMessage is your default SMS app. Until then you can only read them here.</string>
+
+    <!-- Block that does not move the chat: a user allow rule (a prefix, say) still names the sender (C-3). -->
+    <string name="pt_block_still_allowed">Not moved to Spam: one of your allow rules still lets this sender in.</string>
+
+    <!-- Chat screen: the one line about the sender (4.3) -->
+    <string name="pt_line_code">Allowed because this sender sent a verification code.</string>
+    <string name="pt_line_wrote">Allowed because you wrote to this number.</string>
+    <string name="pt_line_word">Allowed automatically because a text had one of your allowed words.</string>
+    <string name="pt_line_blocked">You blocked this sender. New texts arrive silently in Spam.</string>
+    <string name="pt_line_blocked_word">Blocked automatically because a text had one of your blocked words.</string>
+    <string name="pt_line_unknown">Unknown sender. Texts arrive in Spam.</string>
+    <string name="pt_line_keep">Keep</string>
+    <string name="pt_reply_allows_confirm">This allows the sender. Send?</string>
+
+    <!-- Messages: the card after every first sort (U13) -->
+    <plurals name="pt_card_moved">
+        <item quantity="one">%d chat is now in Spam</item>
+        <item quantity="other">%d chats are now in Spam</item>
+    </plurals>
+    <string name="pt_card_moved_body">Unknown and blocked senders are sorted there. Nothing was deleted.</string>
+</resources>

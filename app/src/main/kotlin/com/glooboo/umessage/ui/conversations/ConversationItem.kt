@@ -202,6 +202,15 @@ fun ConversationItem(
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
             RowTitleLine(row, rowColors, align)
             RowPreviewLine(row, rowColors, align)
+            if (row.causeLine.isNotEmpty()) {
+                Text(
+                    text = row.causeLine,
+                    style = MaterialTheme.typography.bodySmall.copy(textAlign = align),
+                    color = rowColors.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
             val code = row.otpCode
             if (code != null && showCodeChip && !selecting) {
                 // The copy is the real code, marked sensitive and never cleared; the chip hides it when the user asked
@@ -364,6 +373,7 @@ private fun rowDescription(row: ConversationRow, labels: List<RowLabel>): String
     }
     if (row.hasDraft) parts += stringResource(R.string.convlist_draft)
     parts += row.snippet
+    parts += row.causeLine
     parts += row.dateLabel
     if (row.pinned) parts += stringResource(R.string.convlist_pinned)
     if (row.muted) parts += stringResource(R.string.convlist_muted)

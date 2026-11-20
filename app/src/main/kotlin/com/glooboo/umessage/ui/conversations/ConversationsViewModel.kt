@@ -29,13 +29,13 @@ import org.fossify.commons.extensions.notificationManager
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.conversationsDB
-import com.glooboo.umessage.extensions.deleteConversation
 import com.glooboo.umessage.extensions.getAllDrafts
 import com.glooboo.umessage.extensions.markThreadMessagesRead
 import com.glooboo.umessage.extensions.markThreadMessagesUnread
 import com.glooboo.umessage.extensions.renameConversation
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.helpers.ConversationListSync
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
 import java.util.Collections
 import java.util.concurrent.Executors
@@ -98,6 +98,10 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     private val reports = HashMap<Long, Pair<SenderBlocking.Change, List<Long>>>()
     private var nextToken = 1L
 
+    /** Grows each time a list was published; the Spam tab reads its rows again then (a new spam text). */
+    private val _published = MutableStateFlow(0L)
+    val published: StateFlow<Long> = _published.asStateFlow()
+
     private val rebuild = Channel<Unit>(Channel.CONFLATED)
     private val _state = MutableStateFlow(ConversationsUiState())
     val state: StateFlow<ConversationsUiState> = _state.asStateFlow()
@@ -107,6 +111,11 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     private val _effects = Channel<ConversationsEffect>(Channel.BUFFERED)
     val effects = _effects.receiveAsFlow()
+
+    /** Provider truth (4.1, U5, M-SP3, 3.4): Block and "Report spam" move chats to Spam; the Spam tab's number. */
+    private val spamMoves = MessagesSpamMoves(app, viewModelScope, hidden, ::requestRebuild, { _events.trySend(it) }) {
+        if (it != newBlockedCount) newBlockedCount = it.also { requestRebuild() }
+    }
 
     init {
         viewModelScope.launch {
@@ -133,9 +142,12 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         val now = System.currentTimeMillis()
         app.config.blockedSeenAt = now
         blockedSeenAt.value = now
+        spamMoves.refreshCount(now)
     }
 
     private fun observeBlockedCount() {
+        // Provider truth (3.4): the number is read from the Spam list, after every list publish and every sort.
+        if (spamMoves.observeCount(app.config.blockedSeenAt.also { blockedSeenAt.value = it })) return
         viewModelScope.launch {
             val repository = runCatching { SpamRepositoryProvider.get(app) }.getOrNull() ?: return@launch
             blockedSeenAt.value = app.config.blockedSeenAt
@@ -186,6 +198,8 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         archiveAvailable = app.config.isArchiveAvailable
         refreshSims()
         requestRebuild()
+        _published.value++
+        spamMoves.refreshCount(blockedSeenAt.value)
     }
 
     /** Re-reads everything derived from preferences, drafts and SIMs; called when the screen resumes. */
@@ -211,16 +225,12 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     /** SIM of each thread's newest message (sent or received), so chips show for every conversation. */
     @Volatile private var threadSims: Map<Long, Int> = emptyMap()
 
-    /** The ids of every saved chat, archived ones too, so a deleted chat's SIM entry can be dropped. */
-    private fun liveThreadIds(): Set<Long> =
-        (app.conversationsDB.getNonArchived() + app.conversationsDB.getAllArchived()).mapTo(HashSet()) { it.threadId }
-
     /** MC-18: the thread SIMs are read only with two SIMs, and then only messages newer than the last read. */
     private fun refreshSims() {
         viewModelScope.launch {
             val (freshSims, freshThreadSims) = withContext(Dispatchers.IO) {
                 val loaded = runCatching { SimDirectory.load(app) }.getOrDefault(emptyList())
-                val live = runCatching { liveThreadIds() }.getOrNull()
+                val live = runCatching { liveChatIds(app) }.getOrNull()
                 loaded to runCatching { ThreadSimCache.get(app).load(app, loaded.size, live) }.getOrDefault(emptyMap())
             }
             if (freshSims != sims || freshThreadSims != threadSims) {
@@ -488,17 +498,14 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     fun commitDelete(token: Long) {
         val ids = pendingDeletes.remove(token) ?: return
         viewModelScope.launch(Dispatchers.IO + NonCancellable) {
-            val deleted = ids.filter {
-                runCatching {
-                    app.deleteConversation(it)
-                    app.notificationManager.cancel(it.hashCode())
-                }.isSuccess
-            }
+            // S14 (provider truth): a delete that did not happen says why.
+            val (deleted, message) = deleteChats(app, ids)
             withContext(Dispatchers.Main) {
                 source = source.filterNot { it.threadId in deleted }
                 hidden -= ids.toSet()
                 requestRebuild()
-                if (deleted.size < ids.size) _events.trySend(ConversationsEvent.Failed)
+                if (message != null) _events.trySend(ConversationsEvent.Message(message))
+                else if (deleted.size < ids.size) _events.trySend(ConversationsEvent.Failed)
             }
             refreshConversations()
         }
@@ -511,7 +518,11 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
      */
     fun replayPendingUndo() {
         val queued = generateSequence { _events.tryReceive().getOrNull() }.toList()
-        queued.filterNot { it is ConversationsEvent.Deleted }.forEach { _events.trySend(it) }
+        // Provider truth (D-4): a Block whose snackbar never showed is closed now, so its row shows again if it stayed.
+        val closed = spamMoves.closeAll()
+        queued.filterNot { event ->
+            event is ConversationsEvent.Deleted || event.moveToken()?.let { it in closed } == true
+        }.forEach { _events.trySend(it) }
         pendingDeletes.forEach { (token, ids) -> _events.trySend(ConversationsEvent.Deleted(token, ids.size)) }
     }
 
@@ -546,6 +557,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     }
 
     private fun block(conversations: List<Conversation>) {
+        if (spamMoves.block(conversations, nextToken++, report = false)) return
         val numbers = conversations.map { it.phoneNumber }
         viewModelScope.launch {
             runCatching { SenderBlocking.block(SpamRepositoryProvider.get(app), numbers) }
@@ -567,6 +579,9 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     fun reportSpamSelected() {
         val conversations = selectedConversations().filterNot { it.isGroupConversation }
         if (conversations.isEmpty()) return
+        // Provider truth: "Report spam" equals Block; it no longer archives (4.1). C-16: the selection clears.
+        if (ProviderTruthFlag.enabled) clearSelection()
+        if (spamMoves.block(conversations, nextToken++, report = true)) return
         val threadIds = conversations.map { it.threadId }
         val numbers = conversations.map { it.phoneNumber }
         val archive = archiveAvailable
@@ -600,6 +615,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     }
 
     fun undoReportSpam(token: Long) {
+        if (spamMoves.undo(token)) return
         val (change, threadIds) = reports.remove(token) ?: return
         viewModelScope.launch {
             runCatching { SenderBlocking.undo(SpamRepositoryProvider.get(app), change) }
@@ -615,6 +631,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     /** The undo window closed. */
     fun commitReportSpam(token: Long) {
         reports.remove(token)
+        spamMoves.commit(token)
     }
 
     fun copyNumber() {
@@ -669,12 +686,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         if (leftovers.isNotEmpty()) {
             val context = app
             Thread {
-                runCatching {
-                    leftovers.forEach {
-                        context.deleteConversation(it)
-                        context.notificationManager.cancel(it.hashCode())
-                    }
-                }
+                runCatching { deleteChats(context, leftovers) }
                 refreshConversations()
             }.start()
         }

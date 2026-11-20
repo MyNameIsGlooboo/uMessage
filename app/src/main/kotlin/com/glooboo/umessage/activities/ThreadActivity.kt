@@ -160,6 +160,10 @@ import com.glooboo.umessage.ui.thread.isSchedulableTime
 import com.glooboo.umessage.ui.thread.ThreadMenuInput
 import com.glooboo.umessage.ui.thread.ThreadPrivacyActions
 import com.glooboo.umessage.ui.lock.HiddenChatGate
+import com.glooboo.umessage.ui.lock.SpamChatGate
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.ui.thread.ChatLineAction
+import com.glooboo.umessage.ui.thread.ChatLineController
 import com.glooboo.umessage.ui.lock.LockScope
 import com.glooboo.umessage.ui.thread.ThreadRecipients
 import com.glooboo.umessage.ui.thread.TapbackReaction
@@ -188,7 +192,16 @@ open class ThreadActivity : ComposeSimpleActivity() {
     private val refreshLock = Any()
 
     /** B06: a hidden chat asks for the app lock before it shows. */
-    private val hiddenGate = HiddenChatGate(this) { threadId }
+    private val hiddenGate: HiddenChatGate =
+        HiddenChatGate(this, { spamGate.blocking }, onPassed = { spamGate.check() }) { threadId }
+
+    /** U1 (provider truth): a chat in Spam asks for the app lock while the lock covers Spam. */
+    private val spamGate: SpamChatGate = SpamChatGate(
+        this, { threadId }, othersCover = { hiddenGate.blocking }, onRevealed = { markReadIfSeen() },
+    )
+
+    /** Provider truth (4.3): the one line about the sender. */
+    private val chatLine by lazy { ChatLineController(this, vm.chatLine, lifecycleScope) }
     @Volatile
     private var isActivityVisible = false
 
@@ -376,7 +389,21 @@ open class ThreadActivity : ComposeSimpleActivity() {
             launchForResult(photoPermission, RecentPhotosAccess.permissions(Build.VERSION.SDK_INT))
         },
         onDownloadMms = { id -> ensureBackgroundThread { downloadMmsFromChat(id) } },
+        onChatLine = { onChatLine(it) },
     )
+
+    /** Provider truth (4.3): the chat line's buttons; Block there needs no confirm, it has Undo. */
+    private fun onChatLine(action: ChatLineAction) {
+        val address = recipients.reportableAddress ?: return
+        val moves = senderActions.spamMoves
+        when (action) {
+            ChatLineAction.BLOCK -> moves.block(listOf(address))
+            ChatLineAction.KEEP -> moves.keep(address)
+            ChatLineAction.UNBLOCK -> moves.unblock(address)
+            ChatLineAction.NOT_SPAM -> moves.notSpam(address)
+            ChatLineAction.ADD_CONTACT -> handleMenuAction(ThreadMenuAction.AddToContact)
+        }
+    }
 
     /** Q40: "Tap to download". A message that is gone from the provider (downloaded meanwhile) just refreshes. */
     private fun downloadMmsFromChat(id: Long) {
@@ -410,6 +437,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         readIntentExtras()
         // onResume does not run again for a chat that is already in front: the hidden-chat cover is decided here.
         hiddenGate.check()
+        spamGate.check()
         loadConversation(isFreshLaunch = true)
         markReadIfSeen()
     }
@@ -504,6 +532,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
         readIntentExtras()
 
         setUMessageContent { ThreadScreen(vm, actions) }
+        // D4 B2: a suggested reply confirmed in a Spam chat is sent at once.
+        vm.chatLine.sendNow = { sendMessage() }
         // After the process was killed the time survives in saved state but the label does not.
         vm.scheduledMillis?.let { scheduleUi.show(it) }
 
@@ -533,6 +563,9 @@ open class ThreadActivity : ComposeSimpleActivity() {
     override fun onResume() {
         super.onResume()
         hiddenGate.check()
+        spamGate.check()
+        // A contact may have been added meanwhile: the chat line is worked out again.
+        chatLine.follow(recipients.reportableAddress.takeIf { recipients.size == 1 && !isRecycleBin }, force = true)
 
         isActivityVisible = true
         // The SIM cards may have changed while the chat was in the background.
@@ -578,7 +611,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
      * Texts that arrive while the chat sits open in the background stay unread until the user comes back to it.
      */
     private fun isSeenByUser(): Boolean =
-        isActivityVisible && hasWindowFocusNow && !hiddenGate.blocking && !LockScope.isLockedNow(this)
+        isActivityVisible && hasWindowFocusNow && !hiddenGate.blocking && !spamGate.blocking &&
+            !spamGate.deciding && !LockScope.isLockedNow(this)
 
     private fun markReadIfSeen() {
         if (!isSeenByUser()) return
@@ -595,6 +629,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
             if (!providerLoaded && !isRecycleBin) return@ensureBackgroundThread
             // A refused provider write must not skip the saved flags or the list refresh.
             runCatching { markThreadMessagesRead(thread) }
+            // Provider truth (3.4): opening a Spam chat clears uMessage's own unread count of it.
+            if (ProviderTruthFlag.enabled) runCatching { conversationsDB.clearSpamUnread(thread) }
             repository.markAllRead(thread)
             bus?.post(Events.RefreshConversations(thread))
             // A notification posted while the chat was being read would otherwise stay.
@@ -711,12 +747,14 @@ open class ThreadActivity : ComposeSimpleActivity() {
             senderName = { vm.title },
             lastReceivedSubscriptionId = { messages.lastOrNull { it.isReceivedMessage() }?.subscriptionId ?: -1 },
             onStatusChanged = { refreshMenuItems() },
+            threadId = { threadId },
         )
     }
 
     private fun refreshMenuItems() {
         vm.threadId = threadId
         senderActions.refreshIfPeopleChanged()
+        chatLine.follow(recipients.reportableAddress.takeIf { recipients.size == 1 && !isRecycleBin })
         vm.linksTrusted = recipients.size == 1 && firstNumberIsSaved
         unknownCard.refresh(
             senderIsStranger, recipients, messages.lastOrNull { it.isReceivedMessage() }, threadId,
@@ -1019,6 +1057,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         // Only scheduled messages left: they move to a temporary thread until one is sent.
         val movedToTemporaryThread = removeThreadMessages(
             messagesToRemove, toRecycleBin, fromRecycleBin, threadId, messages.toSortedMessages(), conversation, scheduleController,
+            onRefused = { res -> runOnUiThread { lifecycleScope.launch { vm.snackbar.showSnackbar(getString(res)) } } },
         )?.also { threadId = it } != null
         // Messages that went to the recycle bin can come straight back (scheduled ones were cancelled, not recycled).
         val recycled = messagesToRemove.filterNot { it.isScheduled }
@@ -1723,31 +1762,40 @@ open class ThreadActivity : ComposeSimpleActivity() {
      * It used to go through the composer, which threw away whatever the user was typing. The scheduled copy is
      * removed only once the message was handed off.
      */
-    private fun sendScheduledMessageNow(message: Message) {
-        val outgoing = OutgoingMessage(
-            text = message.body,
-            addresses = recipients.addresses,
-            subscriptionId = message.subscriptionId,
-            attachments = message.attachment?.attachments.orEmpty(),
-            resendOf = null,
-            onAttachmentHandedOff = scheduledAttachmentTracker(message),
-        )
+    private fun sendScheduledMessageNow(shown: Message) {
+        val addresses = recipients.addresses
         refreshedSinceSent = false
         ensureBackgroundThread {
             // F3: the alarm may be sending this very message; whoever claims it first sends it, the other does nothing.
-            if (!ScheduledSendClaims.claim(this, message.id, allowHeld = true)) return@ensureBackgroundThread
+            if (!ScheduledSendClaims.claim(this, shown.id, allowHeld = true)) return@ensureBackgroundThread
             try {
+                // K1 hand-over: the row is read again after the claim. The start-up tidy may have swapped its
+                // attachments to the app's own copies meanwhile, and the tracker must not write the picker uris back.
+                // A row that is gone was sent or deleted meanwhile: nothing is sent.
+                val message = runCatching { messagesDB.getScheduledMessageById(shown.id) }.getOrNull()
+                    ?: return@ensureBackgroundThread
+                val outgoing = OutgoingMessage(
+                    text = message.body,
+                    addresses = addresses,
+                    subscriptionId = message.subscriptionId,
+                    attachments = message.attachment?.attachments.orEmpty(),
+                    resendOf = null,
+                    onAttachmentHandedOff = scheduledAttachmentTracker(message),
+                )
                 val sent = sendOutgoing(outgoing, fromComposer = false, composerAtSend = "") { partial ->
                     keepUnsentOfScheduled(message, partial)
                 }
                 if (sent) {
-                    runOnUiThread { cancelScheduledMessageAndRefresh(message.id) }
+                    // B2-13: the scheduled row goes before the claim is released, so a re-arm in between cannot post
+                    // a false "not sent" for a message that went.
+                    runCatching { scheduleController.cancel(message.id) }
+                    runOnUiThread { releaseScheduledAudioAndRefresh(shown, message) }
                 } else {
                     // Not sent: held again, so Retry stays and no alarm sends it by itself.
                     runCatching { messagesDB.updateScheduledType(message.id, Telephony.Sms.MESSAGE_TYPE_FAILED) }
                 }
             } finally {
-                ScheduledSendClaims.release(message.id)
+                ScheduledSendClaims.release(shown.id)
             }
         }
     }
@@ -1762,6 +1810,14 @@ open class ThreadActivity : ComposeSimpleActivity() {
         val unsent = message.withUnsentOnly(partial).copy(type = Telephony.Sms.MESSAGE_TYPE_FAILED)
         runCatching { messagesDB.insertOrUpdate(unsent) }
         refreshMessages()
+    }
+
+    /** After "Send now" went: the audio players of its attachments stop, and the chat shows it sent. */
+    private fun releaseScheduledAudioAndRefresh(shown: Message, message: Message) {
+        // The bubble's uris (as 0.4.14 released them) and those of the row read after the claim, if they differ.
+        (shown.attachment?.attachments.orEmpty() + message.attachment?.attachments.orEmpty())
+            .map { it.getUri() }.distinct().forEach { AudioPlayerManager.release(it) }
+        ensureBackgroundThread { refreshMessages() }
     }
 
     /**

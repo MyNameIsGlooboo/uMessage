@@ -7,7 +7,6 @@ import android.os.SystemClock
 import android.provider.Settings
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -33,6 +32,7 @@ import com.glooboo.umessage.extensions.clearAllMessagesIfNeeded
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.MainTabLinks
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.NewConversationShortcut
 import com.glooboo.umessage.ui.components.PermissionRequiredDialog
 import com.glooboo.umessage.ui.conversations.ConversationsViewModel
@@ -40,6 +40,7 @@ import com.glooboo.umessage.ui.main.MainPermissionFlow
 import com.glooboo.umessage.ui.main.MainScreen
 import com.glooboo.umessage.ui.main.DefaultSmsRequiredScreen
 import com.glooboo.umessage.ui.main.FirstRunHost
+import com.glooboo.umessage.ui.spam.SpamChatsViewModel
 import com.glooboo.umessage.ui.main.NotDefaultSmsBanner
 import com.glooboo.umessage.ui.main.SmsPermissionRequiredScreen
 import com.glooboo.umessage.ui.onboarding.OnboardingActivity
@@ -115,7 +116,12 @@ class MainActivity : ComposeSimpleActivity() {
         super.onStop()
         // Close any open undo window so a pending delete is not lost when the app goes away. Not on rotation: the
         // view model survives it and the new screen offers the Undo again.
-        if (!isChangingConfigurations) conversationsViewModel.flushPendingDeletes()
+        if (!isChangingConfigurations) {
+            conversationsViewModel.flushPendingDeletes()
+            // Provider truth (C-1): a Spam delete waiting for its Undo window happens now, as in Messages.
+            // Only a model that exists: a Spam tab never opened has nothing waiting, and none is made here (D-7).
+            if (ProviderTruthFlag.enabled) SpamChatsViewModel.flushOpen()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
@@ -213,7 +219,8 @@ class MainActivity : ComposeSimpleActivity() {
                             onOpenTabHandled = { openTab = null },
                             onQueryChange = searchViewModel::onQueryChange,
                             onOpenResult = routes::openSearchResult,
-                            banner = mainBanner(flow.notDefaultSmsApp, firstRunBar),
+                            banner = mainBanner(flow.notDefaultSmsApp),
+                            firstRunBar = firstRunBar,
                         )
                     }
                     if (flow.showNotificationDialog) {
@@ -240,17 +247,9 @@ class MainActivity : ComposeSimpleActivity() {
         }
     }
 
-    /** The main screen's banner: the first run's small bar ([firstRunBar], null: none) and "not the default app". */
-    private fun mainBanner(
-        notDefault: Boolean,
-        firstRunBar: (@androidx.compose.runtime.Composable () -> Unit)?,
-    ): (@androidx.compose.runtime.Composable () -> Unit)? {
-        if (!notDefault && firstRunBar == null) return null
-        return {
-            Column {
-                firstRunBar?.invoke()
-                if (notDefault) NotDefaultSmsBanner(onFix = ::requestDefaultSmsRole)
-            }
-        }
+    /** The main screen's banner, "not the default app". The first run's bar sits above the Messages list (G-7). */
+    private fun mainBanner(notDefault: Boolean): (@androidx.compose.runtime.Composable () -> Unit)? {
+        if (!notDefault) return null
+        return { NotDefaultSmsBanner(onFix = ::requestDefaultSmsRole) }
     }
 }

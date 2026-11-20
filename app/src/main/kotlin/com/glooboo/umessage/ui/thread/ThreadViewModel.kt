@@ -416,6 +416,9 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
     /** I04: the "Not in your contacts" card. */
     val unknownCard = UnknownCardState()
 
+    /** Provider truth (4.3): the one line about the sender. */
+    val chatLine = ChatLineState()
+
     /** Snackbars shown by the thread screen (for example after "Report spam"). */
     val snackbar = SnackbarHostState()
 

@@ -52,4 +52,6 @@ data class ThreadActions(
     val onRequestPhotos: () -> Unit,
     /** Q40: "Tap to download" on a picture message that was never downloaded (the notification-ind's id). */
     val onDownloadMms: (Long) -> Unit = {},
+    /** Provider truth (4.3): a button of the chat line. */
+    val onChatLine: (ChatLineAction) -> Unit = {},
 )

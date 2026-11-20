@@ -81,6 +81,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.compose.runtime.withFrameNanos
 import com.glooboo.umessage.ui.icons.Symbols
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -149,6 +150,23 @@ fun ConversationsRoute(
     )
 }
 
+/**
+ * C-2 (provider truth): a snackbar whose screen went away (a tab switch, a rotation) is cancelled unanswered; its
+ * window is then closed with [commit], so no row stays hidden with no Undo on screen.
+ */
+internal suspend fun commitIfCancelled(commit: () -> Unit, show: suspend () -> Unit) {
+    try {
+        show()
+    } catch (e: CancellationException) {
+        commit()
+        throw e
+    }
+}
+
+/** D-5: after a Block of several chats, why some of them stayed in Messages (empty when none did). */
+private fun stayedNote(resources: android.content.res.Resources, stayed: Int): String =
+    if (stayed > 0) " " + resources.getString(R.string.pt_block_still_allowed) else ""
+
 private suspend fun showEvent(
     event: ConversationsEvent,
     snackbar: SnackbarHostState,
@@ -192,9 +210,10 @@ private suspend fun showEvent(
             )
             if (result == SnackbarResult.ActionPerformed) callbacks.onUndoMarkAllRead(event.token)
         }
-        is ConversationsEvent.Blocked -> {
+        is ConversationsEvent.Blocked -> commitIfCancelled({ callbacks.onCommitReportSpam(event.token) }) {
             val result = snackbar.showSnackbar(
-                message = resources.getQuantityString(R.plurals.convlist_blocked_done, event.count, event.count),
+                message = resources.getQuantityString(R.plurals.convlist_blocked_done, event.count, event.count) +
+                    stayedNote(resources, event.stayed),
                 actionLabel = undoLabel,
                 duration = SnackbarDuration.Long,
             )
@@ -210,17 +229,21 @@ private suspend fun showEvent(
             } else {
                 R.plurals.convlist_reported_spam
             }
-            val result = snackbar.showSnackbar(
-                message = resources.getQuantityString(text, event.count, event.count),
-                actionLabel = undoLabel,
-                duration = SnackbarDuration.Long,
-            )
-            if (result == SnackbarResult.ActionPerformed) {
-                callbacks.onUndoReportSpam(event.token)
-            } else {
-                callbacks.onCommitReportSpam(event.token)
+            commitIfCancelled({ callbacks.onCommitReportSpam(event.token) }) {
+                val result = snackbar.showSnackbar(
+                    message = resources.getQuantityString(text, event.count, event.count) +
+                        stayedNote(resources, event.stayed),
+                    actionLabel = undoLabel,
+                    duration = SnackbarDuration.Long,
+                )
+                if (result == SnackbarResult.ActionPerformed) {
+                    callbacks.onUndoReportSpam(event.token)
+                } else {
+                    callbacks.onCommitReportSpam(event.token)
+                }
             }
         }
+        is ConversationsEvent.Message -> snackbar.showSnackbar(resources.getString(event.res))
         ConversationsEvent.Failed -> snackbar.showSnackbar(failedText)
     }
 }

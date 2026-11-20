@@ -7,6 +7,8 @@ import com.glooboo.umessage.extensions.moveMessageToRecycleBin
 import com.glooboo.umessage.extensions.restoreMessageFromRecycleBin
 import com.glooboo.umessage.extensions.updateLastConversationMessage
 import com.glooboo.umessage.extensions.updateScheduledMessagesThreadId
+import com.glooboo.umessage.helpers.DefaultSmsRole
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.generateRandomId
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.models.Message
@@ -17,6 +19,9 @@ import com.glooboo.umessage.models.Message
  *
  * [remaining] are the thread's messages left on screen. When only scheduled ones are left they move to a new
  * temporary thread, whose id is returned; otherwise null. Runs in the background.
+ *
+ * S14 (provider truth): a delete for good that did not happen (not the default SMS app, nothing deleted) calls
+ * [onRefused] once with the message to show; the role is checked once.
  */
 fun Context.removeThreadMessages(
     removed: List<Message>,
@@ -26,15 +31,23 @@ fun Context.removeThreadMessages(
     remaining: List<Message>,
     conversation: Conversation?,
     schedule: ThreadScheduleController,
+    onRefused: (Int) -> Unit = {},
 ): Long? {
+    val honest = ProviderTruthFlag.enabled
+    val isDefault by lazy {
+        runCatching { DefaultSmsRole.status(this) == DefaultSmsRole.Status.Held }.getOrDefault(false)
+    }
+    var refused: Int? = null
     removed.forEach { message ->
         when {
             message.isScheduled -> schedule.cancel(message.id)
             toRecycleBin -> moveMessageToRecycleBin(message.id, message.isMMS, message)
             fromRecycleBin -> restoreMessageFromRecycleBin(message.id, message.isMMS)
+            honest -> deleteMessage(message.id, message.isMMS, isDefault).messageRes?.let { refused = refused ?: it }
             else -> deleteMessage(message.id, message.isMMS)
         }
     }
+    refused?.let(onRefused)
     updateLastConversationMessage(threadId)
 
     if (remaining.isEmpty() || !remaining.all { it.isScheduled }) return null
