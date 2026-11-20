@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Provider truth, step C (Spam tab, chat line, card). Wording approved with the string key list (19 Nov). -->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Spam tab -->
+    <string name="pt_spam_empty_body">گفتگوی فرستنده‌های ناشناس و فرستنده‌هایی که بلاک می‌کنید اینجا می‌آید.</string>
+    <string name="pt_spam_filter_off_strip">فیلتر اسپم خاموش است</string>
+    <string name="pt_spam_filter_off_body">اینجا فقط فرستنده‌هایی هستند که بلاک کرده‌اید.</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="one">%d گفتگو از این گوشی حذف شود؟</item>
+        <item quantity="other">%d گفتگو از این گوشی حذف شود؟</item>
+    </plurals>
+    <string name="pt_spam_delete_body">پیام‌ها برای همهٔ برنامه‌ها حذف می‌شوند، نه فقط در uMessage. بلافاصله بعدش می‌توانید برگردانید؛ بعداً دیگر نه.</string>
+    <!-- The count is never 0. -->
+    <plurals name="pt_snack_unblocked" tools:ignore="ImpliedQuantity">
+        <item quantity="one">آنبلاک شد. گفتگو به پیام‌ها برگشت.</item>
+        <item quantity="other">%d فرستنده آنبلاک شدند. گفتگوهایشان به پیام‌ها برگشت.</item>
+    </plurals>
+    <string name="pt_older_spam_title">اسپم‌های قدیمی که فقط در uMessage هستند</string>
+    <string name="pt_older_spam_hint">این پیام‌ها هنوز در حافظهٔ خود گوشی نیستند. وقتی uMessage برنامهٔ پیام پیش‌فرض شما شود، به آنجا می‌روند. تا آن موقع فقط می‌توانید اینجا بخوانیدشان.</string>
+
+    <!-- Chat screen: the one line about the sender (4.3) -->
+    <string name="pt_line_code">مجاز شد چون این فرستنده کد تأیید فرستاده است.</string>
+    <string name="pt_line_wrote">مجاز شد چون به این شماره پیام داده‌اید.</string>
+    <string name="pt_line_word">خودکار مجاز شد چون یکی از پیام‌هایش کلمهٔ مجاز شما را داشت.</string>
+    <string name="pt_line_blocked">این فرستنده را بلاک کرده‌اید. پیام‌های جدیدش بی‌صدا به اسپم می‌آیند.</string>
+    <string name="pt_line_blocked_word">خودکار بلاک شد چون یکی از پیام‌هایش کلمهٔ بلاک‌شدهٔ شما را داشت.</string>
+    <string name="pt_line_unknown">فرستنده ناشناس. پیام‌هایش به اسپم می‌آیند.</string>
+    <string name="pt_line_keep">بماند</string>
+    <string name="pt_reply_allows_confirm">با این کار فرستنده مجاز می‌شود. ارسال شود؟</string>
+
+    <!-- Messages: the card after every first sort (U13) -->
+    <plurals name="pt_card_moved">
+        <item quantity="one">%d گفتگو حالا در اسپم است</item>
+        <item quantity="other">%d گفتگو حالا در اسپم است</item>
+    </plurals>
+    <string name="pt_card_moved_body">فرستنده‌های ناشناس و بلاک‌شده آنجا رفته‌اند. چیزی حذف نشده است.</string>
+</resources>

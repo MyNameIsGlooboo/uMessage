@@ -221,6 +221,7 @@ private suspend fun showEvent(
                 callbacks.onCommitReportSpam(event.token)
             }
         }
+        is ConversationsEvent.Message -> snackbar.showSnackbar(resources.getString(event.res))
         ConversationsEvent.Failed -> snackbar.showSnackbar(failedText)
     }
 }

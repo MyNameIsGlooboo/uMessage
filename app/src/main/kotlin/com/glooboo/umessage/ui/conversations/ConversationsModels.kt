@@ -33,6 +33,8 @@ data class ConversationRow(
     val hasNotes: Boolean = false,
     /** A saved contact (a name, not a bare number): the block swipe asks first. Never set for a group. */
     val isContact: Boolean = false,
+    /** Provider truth (4.2): the Spam row's cause line, "Blocked by you" or "Unknown sender"; empty elsewhere. */
+    val causeLine: String = "",
 )
 
 /** What the contextual selection bar may offer, derived from the current selection. */
@@ -94,6 +96,9 @@ sealed interface ConversationsEvent {
 
     /** "Report spam" blocked [count] senders and, when [archived], archived their chats. Offers Undo. */
     data class ReportedSpam(val token: Long, val count: Int, val archived: Boolean) : ConversationsEvent
+
+    /** A plain message, such as why a delete did not happen (S14: not the default SMS app, nothing deleted). */
+    data class Message(val res: Int) : ConversationsEvent
     data object Failed : ConversationsEvent
 }
 
