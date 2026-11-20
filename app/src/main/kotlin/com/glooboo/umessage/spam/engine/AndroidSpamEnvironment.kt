@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.database.ContentObserver
+import android.database.Cursor
 import android.os.Handler
 import android.net.Uri
 import android.os.Looper
@@ -36,12 +37,14 @@ import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.data.DefaultSpamRepository
+import com.glooboo.umessage.spam.data.SpamDatabase
 import kotlinx.coroutines.runBlocking
 import java.util.Locale
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicInteger
 
 fun defaultRegion(context: Context): String {
     val telephony = context.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
@@ -447,32 +450,50 @@ object WroteToGroup {
     /**
      * uMessage's own send, from sendToDistinctRecipients only (R10: automatic forwards and carrier reports send past
      * it). Called before the send, on the sending thread, so the member lands before the new chat is cached (B2-14).
-     * A send from the main thread joins on a helper thread, as the rules and contacts are not read there.
+     * Returns the numbers this call made members ([undoSend] takes them back). A send from the main thread joins on a
+     * helper thread, as the rules and contacts are not read there: no caller does that today, and such a send has no
+     * ordering promise (its new chat may be cached first) and no undo.
      */
-    fun onSend(context: Context, addresses: List<String>) {
-        if (!ProviderTruthFlag.enabled || addresses.isEmpty()) return
+    fun onSend(context: Context, addresses: List<String>): List<String> {
+        if (!ProviderTruthFlag.enabled || addresses.isEmpty()) return emptyList()
         val app = context.applicationContext
         if (isOnMainThread()) {
             runCatching { ensureBackgroundThread { join(app, addresses) } }
-        } else {
-            join(app, addresses)
+            return emptyList()
+        }
+        return join(app, addresses)
+    }
+
+    /**
+     * D-6: the send handed nothing off and saved nothing, so no text went to [joined]: the members this send made go
+     * again (removed quietly, not as the user's "Remove"). Never throws.
+     */
+    fun undoSend(context: Context, joined: List<String>) {
+        if (joined.isEmpty()) return
+        val app = context.applicationContext
+        runCatching {
+            val repo = UMessage.repository(app) as DefaultSpamRepository
+            val dao = SpamDatabase.getInstance(app).spamDao()
+            repo.groupMembership.members()
+                .filter { it.group == AllowGroup.WROTE && it.source == MemberSource.LIVE && it.address in joined }
+                .forEach { dao.deleteMember(it.group, it.senderKey) }
         }
     }
 
-    /** Blocking. Returns how many of [addresses] joined. Never throws. */
-    fun join(context: Context, addresses: Collection<String>): Int {
-        if (!ProviderTruthFlag.enabled || addresses.isEmpty()) return 0
+    /** Blocking. Returns the numbers of [addresses] that joined now. Never throws. */
+    fun join(context: Context, addresses: Collection<String>): List<String> {
+        if (!ProviderTruthFlag.enabled || addresses.isEmpty()) return emptyList()
         val app = context.applicationContext
         return runCatching {
-            val filter = UMessage.filter(app) as? DefaultSpamFilter ?: return 0
-            val repo = UMessage.repository(app) as? DefaultSpamRepository ?: return 0
+            val filter = UMessage.filter(app) as DefaultSpamFilter
+            val repo = UMessage.repository(app) as DefaultSpamRepository
             val snapshot = filter.senderJudge.snapshot()
             val joined = addresses.map { it.trim() }.distinct()
                 .filter { isUnknown(snapshot.verdict(it)) }
                 .filter { runBlocking { repo.joinGroup(AllowGroup.WROTE, it, MemberSource.LIVE) } }
             if (joined.isNotEmpty()) sortAgain(app, joined)
-            joined.size
-        }.getOrDefault(0)
+            joined
+        }.getOrDefault(emptyList())
     }
 
     /** The same test as the history check: unknown, or in Messages only because the filter is off. */
@@ -499,7 +520,8 @@ object WroteToGroup {
  * old rows (a restore; the history check reads those).
  */
 internal object SentRowWatch {
-    /** A row is looked at a little after its change, when uMessage's own send has listed it in [OwnSentRows]. */
+    /** D-9: at most this many rows wait; a bulk import past it is left to the history check. */
+    private const val MAX_WAITING = 300
     private const val DELAY_MS = 2_000L
     private const val RECENT_MS = 10 * 60_000L
     private const val MAX_HANDLED = 200
@@ -512,12 +534,28 @@ internal object SentRowWatch {
     /** Rows already handed to [WroteToGroup] ("sms:12", "mms:7"); a row changes several times while it is sent. */
     private val handled = LinkedHashSet<String>()
 
+    private val waiting = AtomicInteger()
+
+    /** A row is looked at a little after its change, when uMessage's own send has listed it in [OwnSentRows]. */
+    @VisibleForTesting
+    @Volatile
+    internal var delayMs = DELAY_MS
+
     fun onChanged(context: Context, uri: Uri) {
         if (!ProviderTruthFlag.enabled) return
-        val app = context.applicationContext
-        runCatching {
-            executor.schedule(Runnable { runCatching { handle(app, uri) } }, DELAY_MS, TimeUnit.MILLISECONDS)
+        if (waiting.incrementAndGet() > MAX_WAITING) {
+            waiting.decrementAndGet()
+            return
         }
+        val app = context.applicationContext
+        val task = Runnable {
+            try {
+                runCatching { handle(app, uri) }
+            } finally {
+                waiting.decrementAndGet()
+            }
+        }
+        if (runCatching { executor.schedule(task, delayMs, TimeUnit.MILLISECONDS) }.isFailure) waiting.decrementAndGet()
     }
 
     /** Blocking: joins the recipient of the row [uri] names when it is a new outgoing one-to-one row. */
@@ -537,17 +575,20 @@ internal object SentRowWatch {
         WroteToGroup.join(context, recipients)
     }
 
-    /** The recipient of SMS [id] when it is outgoing, recent and not a forward; else empty. */
+    /**
+     * The recipient of SMS [id] when it is outgoing, recent, not a forward and not written by uMessage itself (D-5:
+     * its creator column, which survives a restart); else empty. All columns are read, as not every store has creator.
+     */
     private fun sentSms(context: Context, id: Long, now: Long): List<String> = context.contentResolver.query(
         Telephony.Sms.CONTENT_URI,
-        arrayOf(Telephony.Sms.ADDRESS, Telephony.Sms.TYPE, Telephony.Sms.BODY, Telephony.Sms.DATE),
+        null,
         "${Telephony.Sms._ID} = ?",
         arrayOf(id.toString()),
         null,
     )?.use { cursor ->
         fun column(name: String) = cursor.getColumnIndexOrThrow(name)
         val usable = cursor.moveToFirst() && cursor.getInt(column(Telephony.Sms.TYPE)) in OUTGOING_SMS &&
-            isRecent(cursor.getLong(column(Telephony.Sms.DATE)), now) &&
+            isRecent(cursor.getLong(column(Telephony.Sms.DATE)), now) && !isOwn(context, cursor) &&
             !ForwardFormat.isForward(cursor.getString(column(Telephony.Sms.BODY)).orEmpty())
         val address = if (usable) cursor.getString(column(Telephony.Sms.ADDRESS))?.trim().orEmpty() else ""
         if (usable && address.isNotEmpty() && MessagingUtils.ADDRESS_SEPARATOR !in address) listOf(address) else null
@@ -557,12 +598,15 @@ internal object SentRowWatch {
     private fun sentMms(context: Context, id: Long, now: Long): List<String> {
         val usable = context.contentResolver.query(
             Telephony.Mms.CONTENT_URI,
-            arrayOf(Telephony.Mms.MESSAGE_BOX, Telephony.Mms.DATE),
+            null,
             "${Telephony.Mms._ID} = ?",
             arrayOf(id.toString()),
             null,
         )?.use { cursor ->
-            cursor.moveToFirst() && cursor.getInt(0) in OUTGOING_MMS && isRecent(cursor.getLong(1) * MS_PER_SECOND, now)
+            cursor.moveToFirst() &&
+                cursor.getInt(cursor.getColumnIndexOrThrow(Telephony.Mms.MESSAGE_BOX)) in OUTGOING_MMS &&
+                isRecent(cursor.getLong(cursor.getColumnIndexOrThrow(Telephony.Mms.DATE)) * MS_PER_SECOND, now) &&
+                !isOwn(context, cursor)
         } ?: false
         if (!usable) return emptyList()
         val recipients = ArrayList<String>()
@@ -584,6 +628,12 @@ internal object SentRowWatch {
     /** Tests only: forgets the rows handled so far (row ids start again in every test's store). */
     @VisibleForTesting
     internal fun resetForTest() = synchronized(handled) { handled.clear() }
+
+    /** D-5: the row's creator column names this app (SMS and MMS share the column name). */
+    private fun isOwn(context: Context, cursor: Cursor): Boolean {
+        val index = cursor.getColumnIndex(Telephony.Sms.CREATOR)
+        return index >= 0 && cursor.getString(index) == context.packageName
+    }
 
     private fun isRecent(date: Long, now: Long): Boolean = now - date in -RECENT_MS..RECENT_MS
 

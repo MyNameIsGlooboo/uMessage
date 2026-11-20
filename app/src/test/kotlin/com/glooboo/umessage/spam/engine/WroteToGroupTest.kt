@@ -1,6 +1,12 @@
 package com.glooboo.umessage.spam.engine
 
 import android.app.Application
+import android.content.ContentProvider
+import android.content.ContentValues
+import android.content.pm.ProviderInfo
+import android.database.Cursor
+import android.database.MatrixCursor
+import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
 import android.provider.Telephony
 import androidx.test.core.app.ApplicationProvider
@@ -41,6 +47,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.Robolectric
+import org.robolectric.shadows.ShadowLooper
 
 /**
  * Step D (6.3): writing to someone allows them. uMessage's own sends (R10: sendToDistinctRecipients only), each
@@ -60,6 +68,59 @@ class WroteToGroupTest {
     private lateinit var db: SpamDatabase
     private lateinit var repo: DefaultSpamRepository
     private val contacts = mutableSetOf<String>()
+
+    /** An SMS store with the creator column and a switch that refuses inserts (nothing is saved). */
+    class SendStore : ContentProvider() {
+        private lateinit var db: SQLiteDatabase
+
+        @Volatile var refuseInserts = false
+
+        override fun onCreate(): Boolean {
+            db = SQLiteDatabase.create(null)
+            db.execSQL(
+                "CREATE TABLE sms (_id INTEGER PRIMARY KEY AUTOINCREMENT, address TEXT, body TEXT, date INTEGER, " +
+                    "date_sent INTEGER, read INTEGER, seen INTEGER, thread_id INTEGER, type INTEGER, " +
+                    "sub_id INTEGER DEFAULT -1, status INTEGER DEFAULT -1, creator TEXT)"
+            )
+            return true
+        }
+
+        fun addSent(address: String, date: Long, creator: String): Long = db.insert("sms", null, ContentValues().apply {
+            put("address", address)
+            put("body", "On my way")
+            put("date", date)
+            put("type", Telephony.Sms.MESSAGE_TYPE_SENT)
+            put("creator", creator)
+        })
+
+        override fun query(
+            uri: Uri,
+            projection: Array<out String>?,
+            selection: String?,
+            selectionArgs: Array<out String>?,
+            sortOrder: String?,
+        ): Cursor? = when (uri.authority) {
+            "mms-sms" -> MatrixCursor(arrayOf("_id")).apply { addRow(arrayOf<Any>(THREAD)) }
+            "sms" -> db.query("sms", projection, selection, selectionArgs, null, null, sortOrder)
+            else -> null
+        }
+
+        override fun insert(uri: Uri, values: ContentValues?): Uri? {
+            if (uri.authority != "sms" || refuseInserts) return null
+            val id = db.insert("sms", null, ContentValues(values))
+            return Uri.withAppendedPath(Telephony.Sms.CONTENT_URI, id.toString())
+        }
+
+        override fun update(uri: Uri, values: ContentValues?, selection: String?, args: Array<out String>?) =
+            if (uri.authority == "sms") db.update("sms", values, selection, args) else 0
+
+        override fun delete(uri: Uri, selection: String?, args: Array<out String>?) = 0
+        override fun getType(uri: Uri): String? = null
+    }
+
+    private fun sendStore(): SendStore = Robolectric.buildContentProvider(SendStore::class.java)
+        .create(ProviderInfo().apply { authority = "sms;mms-sms" })
+        .get()
 
     private object NoPlatform : SpamPlatform {
         override fun notifyBlocked(message: BlockedMessage) = Unit
@@ -272,6 +333,61 @@ class WroteToGroupTest {
         assertThat(WroteToGroup.isUnknown(SenderVerdict.Messages(DecisionReason.UNREADABLE_SENDER))).isFalse()
     }
 
+    @Test
+    fun aSendThatSavedNothingTakesItsNewMemberBack() {
+        // D-6: the store refuses the row, so nothing went out; the member this send made goes again.
+        sendStore().refuseInserts = true
+
+        val outcome = send("On my way", STRANGER)
+
+        assertThat(outcome.handedOff).isFalse()
+        assertThat(members()).isEmpty()
+    }
+
+    @Test
+    fun aSendThatSavedNothingKeepsAMemberMadeEarlier() {
+        runBlocking { repo.joinGroup(AllowGroup.WROTE, STRANGER, MemberSource.HISTORY) }
+        sendStore().refuseInserts = true
+
+        send("On my way", STRANGER)
+
+        assertThat(wroteTo()).containsExactly(STRANGER)
+    }
+
+    @Test
+    fun theObserverSkipsARowUMessageWroteItselfAlsoAfterARestart() {
+        // D-5: the creator column says so, though the in-memory list of own rows is empty (a new process).
+        val sends = sendStore()
+        val own = sends.addSent(STRANGER, now, app.packageName)
+        val carKit = sends.addSent(OTHER, now, "com.example.carkit")
+
+        SentRowWatch.handle(app, smsUri(own), now)
+        SentRowWatch.handle(app, smsUri(carKit), now)
+
+        assertThat(wroteTo()).containsExactly(OTHER)
+    }
+
+    @Test
+    fun theStoresObserverHandsANewSentRowToTheWatch() {
+        // The wiring: SystemContactChecker's observer of the message store reaches SentRowWatch.
+        val before = SentRowWatch.delayMs
+        SentRowWatch.delayMs = 0L
+        val checker = SystemContactChecker(app, NumberNormalizer { "US" })
+        try {
+            val id = store.addSms(STRANGER, "On my way", now, type = Telephony.Sms.MESSAGE_TYPE_SENT)
+            app.contentResolver.notifyChange(smsUri(id), null)
+            ShadowLooper.idleMainLooper()
+
+            val deadline = System.currentTimeMillis() + WAIT_MS
+            while (wroteTo().isEmpty() && System.currentTimeMillis() < deadline) Thread.sleep(POLL_MS)
+
+            assertThat(wroteTo()).containsExactly(STRANGER)
+        } finally {
+            checker.close()
+            SentRowWatch.delayMs = before
+        }
+    }
+
     private fun flagOff() {
         ProviderTruthFlag.enabled = false
     }
@@ -288,5 +404,8 @@ class WroteToGroupTest {
 
         /** PduHeaders.TO. */
         const val TO = 151
+        const val THREAD = 7L
+        const val WAIT_MS = 5_000L
+        const val POLL_MS = 20L
     }
 }

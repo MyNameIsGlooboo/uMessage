@@ -18,10 +18,12 @@ import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.isStoredLate
 import com.glooboo.umessage.extensions.recomputeThreadDate
 import com.glooboo.umessage.extensions.messagesDB
+import com.glooboo.umessage.extensions.notificationHelper
 import com.glooboo.umessage.extensions.postReceivedMessageNotification
 import com.glooboo.umessage.extensions.shouldUnarchive
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.helpers.NotifyContext
+import com.glooboo.umessage.helpers.NotifyLog
 import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.NotifyResult
 import com.glooboo.umessage.helpers.NotifyStage
@@ -199,7 +201,8 @@ internal fun Context.senderNameFor(address: String): String = runCatching {
 /**
  * Provider truth (R1, the safety check): SMS [messageId] was stored read and silent for Spam, but its chat is not in
  * Spam. It becomes unread, in the store and in the cache, and is announced like any new text, with its "notify due"
- * marker. Never throws.
+ * marker. D-10: false, with nothing posted, when the store did not make the row unread (the caller keeps it for the
+ * replay); the post does not ask the cache whether the text was read, as that copy may still say so. Never throws.
  */
 internal fun Context.announceStored(
     messageId: Long,
@@ -208,15 +211,16 @@ internal fun Context.announceStored(
     threadId: Long,
     subscriptionId: Int,
     date: Long,
-) {
+): Boolean {
     val context = this
-    runCatching {
-        val unread = ContentValues().apply {
-            put(Telephony.Sms.READ, 0)
-            put(Telephony.Sms.SEEN, 0)
-        }
-        contentResolver.update(Telephony.Sms.CONTENT_URI, unread, "${Telephony.Sms._ID} = ?", arrayOf("$messageId"))
+    val unread = ContentValues().apply {
+        put(Telephony.Sms.READ, 0)
+        put(Telephony.Sms.SEEN, 0)
     }
+    val updated = runCatching {
+        contentResolver.update(Telephony.Sms.CONTENT_URI, unread, "${Telephony.Sms._ID} = ?", arrayOf("$messageId"))
+    }.getOrDefault(0)
+    if (updated <= 0) return false
     runCatching { messagesDB.getMessage(messageId, false)?.let { messagesDB.insertOrUpdate(it.copy(read = false)) } }
     runCatching { conversationsDB.markUnread(threadId) }
     runCatching { if (shouldUnarchive()) updateConversationArchivedStatus(threadId, false) }
@@ -225,15 +229,14 @@ internal fun Context.announceStored(
     val notify = NotifyContext()
     NotifyDue.mark(context, messageId, date, notify)
     runCatching { PendingSmsRetry.scheduleUnlessBooked(context) }
-    var settled = false
-    runCatching {
-        try {
-            notifyDelivered(messageId, address, senderNameFor(address), body, threadId, null, subscriptionId, notify)
-            settled = true
-        } finally {
-            if (!settled) NotifyDue.settle(context, messageId, NotifyResult.FAILED)
-        }
-    }
+    val result = runCatching {
+        notificationHelper.postMessageNotification(
+            messageId, false, address, body, threadId, null, senderNameFor(address), subscriptionId, notify,
+        )
+    }.getOrElse { NotifyLog.record(null, threadId, NotifyResult.FAILED, it) }
+    NotifyDue.settle(context, messageId, result)
+    if (result == NotifyResult.FAILED) runCatching { PendingSmsRetry.schedule(context) }
+    return true
 }
 
 /** Posts the notification of a message that was just stored and settles its "notify due" marker. Never throws. */

@@ -121,7 +121,7 @@ private fun Context.sendToDistinctRecipients(
     val messageId = resend?.takeIf { it.isMMS == isMms }?.id
     // 6.3 (R10, R11): each unknown number written to joins "People you wrote to", before the send and so before its
     // chat is cached (B2-14); a group MMS thread makes no member. Never fails the send.
-    if (addresses.size == 1 || !settings.group) WroteToGroup.onSend(this, addresses)
+    val joined = if (addresses.size == 1 || !settings.group) WroteToGroup.onSend(this, addresses) else emptyList()
     if (isMms && messageId != null && attachments.size > 1) {
         return resendBundledMms(
             MessageKey(messageId, true), text, addresses, attachments, settings, onFailure, onAttachmentHandedOff,
@@ -135,6 +135,8 @@ private fun Context.sendToDistinctRecipients(
     if (progress.failed) {
         onFailure()
     }
+    // D-6: nothing reached the provider, so nobody was written to: the members this send made go again.
+    if (!progress.handedOff && progress.sentCount == 0) WroteToGroup.undoSend(this, joined)
     // M-P1: the shortcut report comes after the hand-off; whatever it does, the send's result stands.
     runCatching {
         ensureBackgroundThread {
