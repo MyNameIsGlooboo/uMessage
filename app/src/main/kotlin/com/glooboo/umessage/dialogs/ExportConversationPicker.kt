@@ -29,10 +29,10 @@ import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.export.ExportScope
 import com.glooboo.umessage.extensions.getConversations
+import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.ui.components.CheckboxRow
 import com.glooboo.umessage.ui.components.showComposeDialog
-import com.glooboo.umessage.ui.main.SpamReaders
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

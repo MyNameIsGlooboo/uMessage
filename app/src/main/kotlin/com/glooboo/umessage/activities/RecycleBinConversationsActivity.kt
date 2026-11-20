@@ -14,6 +14,7 @@ import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.restoreAllMessagesFromRecycleBinForConversation
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.IS_RECYCLE_BIN
+import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.THREAD_TITLE
 import com.glooboo.umessage.helpers.refreshConversations
@@ -24,7 +25,6 @@ import com.glooboo.umessage.ui.conversations.ConversationFolder
 import com.glooboo.umessage.ui.conversations.ConversationFolderScreen
 import com.glooboo.umessage.ui.conversations.ConversationRow
 import com.glooboo.umessage.ui.conversations.toFolderRow
-import com.glooboo.umessage.ui.main.SpamReaders
 import org.fossify.commons.extensions.notificationManager
 import org.fossify.commons.extensions.toast
 import org.fossify.commons.helpers.ensureBackgroundThread

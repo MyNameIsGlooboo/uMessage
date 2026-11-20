@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.ListKind
@@ -258,16 +259,21 @@ class RulesViewModel(
         preview.value = RulePreviewState.Loading
         val job = viewModelScope.launch {
             val outcome = runCatching {
-                val blocked = repository.blocked.first()
+                // Provider truth (section 5): spam is in the phone's store, so the Spam part reads the Spam chats.
+                val blocked = if (ProviderTruthFlag.enabled) emptyList() else repository.blocked.first()
                 withContext(io) {
                     val matcher = previewSource.matcher()
                     val inbox = RuleDryRun.scan(
                         matcher, rule, previewSource.inbox(RuleDryRun.MAX_SCAN), keepGoing = { isActive },
                     )
                     val showSenders = previewSource.blockedSendersVisible()
+                    val spamTexts = if (ProviderTruthFlag.enabled) {
+                        previewSource.spam(RuleDryRun.MAX_SCAN)
+                    } else {
+                        RuleDryRun.blockedMessages(blocked)
+                    }
                     val history = RuleDryRun.scan(
-                        matcher, rule, RuleDryRun.blockedMessages(blocked), showSenders = showSenders,
-                        keepGoing = { isActive },
+                        matcher, rule, spamTexts, showSenders = showSenders, keepGoing = { isActive },
                     )
                     RuleDryRunResult(inbox, history)
                 }

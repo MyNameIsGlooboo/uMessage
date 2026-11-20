@@ -52,6 +52,7 @@ class ShortcutHelperSpamTest {
 
     @After
     fun tearDown() {
+        ShortcutHelper.stopWatchingSpam()
         ShortcutManagerCompat.removeAllDynamicShortcuts(app)
         resetSharedMessagesDatabase()
     }
@@ -95,6 +96,18 @@ class ShortcutHelperSpamTest {
     }
 
     @Test
+    fun theWatchStartedAtAppStartSweepsAtOnce() {
+        ShortcutHelper.watchSpam(app)
+        // A second start does not start a second watch.
+        ShortcutHelper.watchSpam(app)
+
+        val deadline = System.currentTimeMillis() + WAIT_MS
+        while (shortcutIds().size > 1 && System.currentTimeMillis() < deadline) Thread.sleep(POLL_MS)
+
+        assertThat(shortcutIds()).containsExactly(SHOWN.toString())
+    }
+
+    @Test
     fun withTheFlagOffTheSweepLeavesEveryShortcut() {
         ProviderTruthFlag.enabled = false
 
@@ -106,5 +119,7 @@ class ShortcutHelperSpamTest {
     private companion object {
         const val SPAM = 81L
         const val SHOWN = 82L
+        const val WAIT_MS = 10_000L
+        const val POLL_MS = 20L
     }
 }

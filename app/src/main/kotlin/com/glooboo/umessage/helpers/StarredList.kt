@@ -9,7 +9,6 @@ import com.glooboo.umessage.models.MessageKey
 import com.glooboo.umessage.models.StarredListRow
 import com.glooboo.umessage.spam.TextNormalizer
 import com.glooboo.umessage.ui.components.displayTitle as formatTitle
-import com.glooboo.umessage.ui.main.SpamReaders
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

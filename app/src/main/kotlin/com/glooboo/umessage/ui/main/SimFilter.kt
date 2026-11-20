@@ -8,6 +8,7 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.platform.LocalContext
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.HiddenChats
+import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.ui.conversations.SimBadge
 import com.glooboo.umessage.ui.conversations.ThreadSimCache
 import com.glooboo.umessage.ui.spam.SimDirectory

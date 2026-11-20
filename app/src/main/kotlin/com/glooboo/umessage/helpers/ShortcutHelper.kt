@@ -23,9 +23,9 @@ import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.SpamSorting
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import java.util.concurrent.atomic.AtomicBoolean
 
 
 class ShortcutHelper(private val context: Context) {
@@ -259,19 +259,28 @@ class ShortcutHelper(private val context: Context) {
         @Volatile
         internal var usageReportFault: ((threadId: Long) -> Unit)? = null
 
-        private val watching = AtomicBoolean(false)
+        private var watchJob: Job? = null
 
         /**
-         * Provider truth (U9): after every sort that moved chats, the shortcuts of chats in Spam go
-         * ([removeSpamShortcuts]). Call once from App.onCreate; a second call does nothing. Nothing happens while
-         * ProviderTruthFlag is off.
+         * Provider truth (U9): at once and after every sort that moved chats, the shortcuts of chats in Spam go
+         * ([removeSpamShortcuts]), on an IO thread. Called once at app start with the flag on; a second call does
+         * nothing. Nothing is removed while ProviderTruthFlag is off.
          */
+        @Synchronized
         fun watchSpam(context: Context) {
-            if (!watching.compareAndSet(false, true)) return
+            if (watchJob != null) return
             val app = context.applicationContext
-            CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
+            watchJob = CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
                 SpamSorting.changes.collect { runCatching { ShortcutHelper(app).removeSpamShortcuts() } }
             }
+        }
+
+        /** Tests: stops the watch of [watchSpam], so the next test starts it again. */
+        @VisibleForTesting
+        @Synchronized
+        internal fun stopWatchingSpam() {
+            watchJob?.cancel()
+            watchJob = null
         }
 
         /**

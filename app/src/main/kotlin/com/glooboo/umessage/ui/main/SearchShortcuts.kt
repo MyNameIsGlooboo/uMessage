@@ -9,6 +9,7 @@ import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.LinkExtractor
+import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.helpers.StarredMessages
 import com.glooboo.umessage.helpers.isUnknownSender
 import com.glooboo.umessage.helpers.starredDB

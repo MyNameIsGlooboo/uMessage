@@ -3,6 +3,7 @@ package com.glooboo.umessage.ui.spam
 import android.content.Context
 import android.provider.Telephony.Sms
 import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.SpamRule
@@ -11,7 +12,6 @@ import com.glooboo.umessage.spam.engine.RuleMatcher
 import com.glooboo.umessage.spam.engine.defaultRegion
 import com.glooboo.umessage.spam.engine.subscriptionRegion
 import com.glooboo.umessage.ui.lock.LockScope
-import com.glooboo.umessage.ui.main.SpamReaders
 import org.fossify.commons.extensions.appLockManager
 
 /**
