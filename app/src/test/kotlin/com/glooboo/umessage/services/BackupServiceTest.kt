@@ -60,8 +60,12 @@ class BackupServiceTest {
         assertThat(store.count("sms")).isEqualTo(1)
         assertThat(BackupJob.takeInterruptedRun(context)).isNull()
 
-        val notifications = shadowOf(context.getSystemService(NotificationManager::class.java)).allNotifications
-        assertThat(notifications.map { it.extras.getString("android.title") }).contains("Restore finished")
+        // BackupJob.finish runs before postResult on the worker thread, so the summary can land a moment later.
+        val manager = shadowOf(context.getSystemService(NotificationManager::class.java))
+        val titles = { manager.allNotifications.map { it.extras.getString("android.title") } }
+        val deadline = System.currentTimeMillis() + 10_000
+        while ("Restore finished" !in titles() && System.currentTimeMillis() < deadline) Thread.sleep(20)
+        assertThat(titles()).contains("Restore finished")
     }
 
     @Test
