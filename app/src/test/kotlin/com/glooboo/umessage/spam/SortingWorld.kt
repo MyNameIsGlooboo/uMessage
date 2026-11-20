@@ -55,7 +55,8 @@ internal class SortingWorld(region: String = "US") {
     val androidBlocked = mutableSetOf<String>()
     var blockListReads = 0
 
-    val legacy = object : LegacyBlocklist, FreezableBlocklist {
+    /** Android's block list of this world: every check reads it once, as the real one does (B-2). */
+    inner class AndroidBlockList : LegacyBlocklist, FreezableBlocklist {
         override fun isNumberBlocked(address: String): Boolean = frozenNumberCheck()(address)
         override fun blockedKeywords(): Collection<String> = emptyList()
         override fun blockUnknownNumbers() = false
@@ -65,6 +66,8 @@ internal class SortingWorld(region: String = "US") {
             return { address -> readers.senderKeys(address).any { it in keys } }
         }
     }
+
+    val legacy: AndroidBlockList = AndroidBlockList()
 
     val checker = object : ContactChecker {
         override fun isContact(address: String) = readers.senderKeys(address).any { it in contactKeys() }

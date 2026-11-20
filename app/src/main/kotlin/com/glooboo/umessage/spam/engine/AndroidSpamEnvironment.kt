@@ -280,27 +280,35 @@ class SystemContactChecker(
     override fun lookup(address: String): ContactLookup {
         if (address.isBlank() || normalizer.isSenderId(address)) return ContactLookup.NOT_FOUND
         val numbers = numbers()
-        if (numbers != null && numbers.contains(address)) return ContactLookup.FOUND
-        // B-2: without the permission only the private contacts can answer; their index is read once and kept, not a
-        // cursor opened for every chat of a sort.
-        if (numbers == null && !hasContactsPermission()) {
-            val privateIndex = privateNumbers() ?: return ContactLookup.UNKNOWN
-            return if (privateIndex.contains(address)) ContactLookup.FOUND else ContactLookup.NOT_FOUND
-        }
-        if (numbers != null) {
+        return when {
+            numbers != null && numbers.contains(address) -> ContactLookup.FOUND
             // The address book was read and does not have it; only the app's private contacts are left. The system
             // PhoneLookup is not asked here: it matches on the last digits, so it took a stranger from another
             // country whose number ends like a contact's for that contact (DL-24).
-            return if (inPrivateContacts(address)) ContactLookup.FOUND else ContactLookup.NOT_FOUND
+            numbers != null -> if (inPrivateContacts(address)) ContactLookup.FOUND else ContactLookup.NOT_FOUND
+            // B-2: without the permission only the private contacts can answer; their index is read once and kept,
+            // not a cursor opened for every chat of a sort.
+            !hasContactsPermission() -> privateLookup(address)
+            else -> cursorLookup(address)
         }
+    }
+
+    /** B-2: the private contacts' index only; UNKNOWN when it could not be read. */
+    private fun privateLookup(address: String): ContactLookup {
+        val privateIndex = privateNumbers() ?: return ContactLookup.UNKNOWN
+        return if (privateIndex.contains(address)) ContactLookup.FOUND else ContactLookup.NOT_FOUND
+    }
+
+    /** The address book could not be read although it may be: one lookup with the private contacts' cursor. */
+    private fun cursorLookup(address: String): ContactLookup {
         val detail = runCatching {
             appContext.getMyContactsCursor(favoritesOnly = false, withPhoneNumbersOnly = true).use { privateCursor ->
                 SimpleContactsHelper(appContext).existsSync(address, privateCursor)
             }
         }.getOrNull()
-        return when {
-            detail == ContactLookupResult.Found -> ContactLookup.FOUND
-            detail == ContactLookupResult.NotFound -> ContactLookup.NOT_FOUND
+        return when (detail) {
+            ContactLookupResult.Found -> ContactLookup.FOUND
+            ContactLookupResult.NotFound -> ContactLookup.NOT_FOUND
             else -> ContactLookup.UNKNOWN
         }
     }

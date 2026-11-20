@@ -484,8 +484,17 @@ private fun Context.readConversations(
 
     val conversations = ArrayList<Conversation>()
     val blockedNumbers = getBlockedNumbers()
-    val unreadMap = getUnreadCountsByThread(threadId)
-    val markedUnread = config.markedUnreadThreads
+    val read = ThreadRead(
+        lookups = lookups,
+        privateContacts = privateContacts,
+        unreadMap = getUnreadCountsByThread(threadId),
+        markedUnread = config.markedUnreadThreads,
+        archiveTrusted = archiveTrusted,
+        // S3: a thread without recipients is always left out. 0.4.14: a group stays listed unless every member is
+        // blocked; a 1:1 chat with a blocked number is left out. Provider truth lists it (it is shown in Spam).
+        hideBlocked = !includeBlocked,
+        isBlocked = { isNumberBlocked(it, blockedNumbers) },
+    )
     var complete = false
     try {
         complete = queryCursorUnsafe(
@@ -496,57 +505,7 @@ private fun Context.readConversations(
             sortOrder,
             shouldStop = { limit != null && conversations.size >= limit },
         ) { cursor ->
-            val id = cursor.getLongValue(Threads._ID)
-            var snippet = cursor.getStringValue(Threads.SNIPPET) ?: ""
-            if (snippet.isEmpty()) {
-                snippet = getThreadSnippet(id)
-            }
-
-            var date = cursor.getLongValue(Threads.DATE)
-            if (date.toString().length > 10) {
-                date /= 1000
-            }
-
-            // drafts are stored locally they take priority over the original date
-            val draft = lookups.draft(id)
-            if (draft != null) {
-                date = draft.date / 1000
-            }
-
-            val rawIds = cursor.getStringValue(Threads.RECIPIENT_IDS)
-            val recipientIds =
-                rawIds.split(" ").filter { it.areDigitsOnly() }.map { it.toInt() }.toMutableList()
-            val phoneNumbers = recipientIds.mapTo(ArrayList()) { lookups.phoneNumber(it) }
-            // S3: a thread without recipients is always left out. 0.4.14: a group stays listed unless every member is
-            // blocked; a 1:1 chat with a blocked number is left out. Provider truth lists it (it is shown in Spam).
-            if (isThreadHiddenByBlocks(phoneNumbers, !includeBlocked) { isNumberBlocked(it, blockedNumbers) }) {
-                return@queryCursorUnsafe
-            }
-
-            val names = getThreadContactNames(phoneNumbers, privateContacts, lookups::name)
-            val title = joinGroupNames(names)
-            val photoUri = if (phoneNumbers.size == 1) lookups.photoUri(phoneNumbers.first()) else ""
-            val isGroupConversation = phoneNumbers.size > 1
-            // Unread means the thread has unread incoming messages. The provider's own threads.read flag is not
-            // trusted: some OEM providers (seen on Xiaomi) leave it at 0 after every message is read, and opening the
-            // thread can't clear it because there is no unread row left to update. A thread the user marked unread
-            // stays unread even with no unread incoming message (e.g. only sent messages).
-            val unreadCount = unreadMap[id] ?: 0
-            val read = unreadCount == 0 && id.toString() !in markedUnread
-            val archived = archiveTrusted && cursor.getIntValue(Threads.ARCHIVED) == 1
-            val conversation = Conversation(
-                threadId = id,
-                snippet = snippet,
-                date = date.toInt(),
-                read = read,
-                title = title,
-                photoUri = photoUri,
-                isGroupConversation = isGroupConversation,
-                phoneNumber = phoneNumbers.first(),
-                isArchived = archived,
-                unreadCount = unreadCount,
-            )
-            conversations.add(conversation)
+            conversationOf(cursor, read)?.let { conversations.add(it) }
         }
     } catch (sqliteException: SQLiteException) {
         if (
@@ -564,6 +523,65 @@ private fun Context.readConversations(
 
     conversations.sortByDescending { it.date }
     return conversations to complete
+}
+
+/** What [readConversations] reads once and every thread row needs. */
+private class ThreadRead(
+    val lookups: ConversationLookups,
+    val privateContacts: ArrayList<SimpleContact>,
+    val unreadMap: Map<Long, Int>,
+    val markedUnread: Set<String>,
+    val archiveTrusted: Boolean,
+    val hideBlocked: Boolean,
+    val isBlocked: (String) -> Boolean,
+)
+
+/** One thread row of the provider as a chat; null when the list leaves it out (no recipients, or blocked). */
+private fun Context.conversationOf(cursor: Cursor, read: ThreadRead): Conversation? {
+    val lookups = read.lookups
+    val id = cursor.getLongValue(Threads._ID)
+    var snippet = cursor.getStringValue(Threads.SNIPPET) ?: ""
+    if (snippet.isEmpty()) {
+        snippet = getThreadSnippet(id)
+    }
+
+    var date = cursor.getLongValue(Threads.DATE)
+    if (date.toString().length > 10) {
+        date /= 1000
+    }
+
+    // drafts are stored locally they take priority over the original date
+    val draft = lookups.draft(id)
+    if (draft != null) {
+        date = draft.date / 1000
+    }
+
+    val rawIds = cursor.getStringValue(Threads.RECIPIENT_IDS)
+    val recipientIds =
+        rawIds.split(" ").filter { it.areDigitsOnly() }.map { it.toInt() }.toMutableList()
+    val phoneNumbers = recipientIds.mapTo(ArrayList()) { lookups.phoneNumber(it) }
+    if (isThreadHiddenByBlocks(phoneNumbers, read.hideBlocked, read.isBlocked)) return null
+
+    val names = getThreadContactNames(phoneNumbers, read.privateContacts, lookups::name)
+    val title = joinGroupNames(names)
+    val photoUri = if (phoneNumbers.size == 1) lookups.photoUri(phoneNumbers.first()) else ""
+    // Unread means the thread has unread incoming messages. The provider's own threads.read flag is not
+    // trusted: some OEM providers (seen on Xiaomi) leave it at 0 after every message is read, and opening the
+    // thread can't clear it because there is no unread row left to update. A thread the user marked unread
+    // stays unread even with no unread incoming message (e.g. only sent messages).
+    val unreadCount = read.unreadMap[id] ?: 0
+    return Conversation(
+        threadId = id,
+        snippet = snippet,
+        date = date.toInt(),
+        read = unreadCount == 0 && id.toString() !in read.markedUnread,
+        title = title,
+        photoUri = photoUri,
+        isGroupConversation = phoneNumbers.size > 1,
+        phoneNumber = phoneNumbers.first(),
+        isArchived = read.archiveTrusted && cursor.getIntValue(Threads.ARCHIVED) == 1,
+        unreadCount = unreadCount,
+    )
 }
 
 /** False when the provider returned no cursor at all. */
