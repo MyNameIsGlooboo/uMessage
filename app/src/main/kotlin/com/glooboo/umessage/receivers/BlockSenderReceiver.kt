@@ -6,23 +6,43 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.annotation.VisibleForTesting
 import androidx.core.app.NotificationCompat
 import androidx.compose.ui.graphics.toArgb
 import kotlinx.coroutines.runBlocking
 import org.fossify.commons.extensions.notificationManager
 import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.R
+import com.glooboo.umessage.extensions.conversationsDB
+import com.glooboo.umessage.extensions.markThreadMessagesRead
+import com.glooboo.umessage.extensions.markThreadMessagesUnread
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.THREAD_ID
+import com.glooboo.umessage.spam.AllowGroup
+import com.glooboo.umessage.spam.AllowGroupMember
+import com.glooboo.umessage.spam.BlockReceipt
+import com.glooboo.umessage.spam.ListKind
+import com.glooboo.umessage.spam.MemberSource
+import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRepository
+import com.glooboo.umessage.spam.SpamRule
+import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.spam.SenderBlocking
+import com.glooboo.umessage.ui.spam.SenderMoves
+import org.json.JSONArray
+import org.json.JSONObject
 import com.glooboo.umessage.ui.theme.currentColorScheme
 
 /**
  * I06: the notification "Block" button and the "Undo" of the notice it leaves. Block adds the same uMessage rule as
  * "Block number" in the thread menu ([SenderBlocking]), so new texts from the sender go to Blocked messages and the
  * rule can be removed there or here.
+ *
+ * Provider truth (4.1, U5, M-SP3): Block also removes the sender's automatic allow rules and group memberships, marks
+ * the chat read and sorts it again, so it moves to Spam. The Undo intent carries the whole receipt ([BlockUndoCodec]),
+ * so Undo puts back the rules, the memberships and the unread state, also after the process died.
  */
 class BlockSenderReceiver : BroadcastReceiver() {
 
@@ -46,24 +66,67 @@ class BlockSenderReceiver : BroadcastReceiver() {
         val address = intent.getStringExtra(EXTRA_ADDRESS).orEmpty()
         val threadId = intent.getLongExtra(THREAD_ID, 0L)
         when (intent.action) {
-            ACTION_BLOCK -> {
-                if (address.isBlank()) return
-                val change = runCatching { SenderBlocking.block(repository, listOf(address)) }.getOrNull() ?: return
-                context.notificationManager.cancel(threadId.hashCode())
-                showBlocked(context, address, threadId, change.addedRuleIds)
+            ACTION_BLOCK -> when {
+                address.isBlank() -> Unit
+                ProviderTruthFlag.enabled -> moveToSpam(context, repository, address, threadId)
+                else -> block(context, repository, address, threadId)
             }
 
             ACTION_UNDO -> {
-                val ids = intent.getLongArrayExtra(EXTRA_RULE_IDS)?.toList().orEmpty()
-                runCatching { SenderBlocking.undo(repository, SenderBlocking.Change(ids, emptyList())) }
-                    .onFailure { return }
-                context.notificationManager.cancel(blockedNotificationId(threadId))
+                val move = intent.getStringExtra(EXTRA_UNDO)?.let(BlockUndoCodec::decode)
+                if (move != null) {
+                    undoMove(context, repository, move, threadId)
+                } else {
+                    undoRules(context, repository, intent)
+                }
             }
         }
     }
 
+    /** 0.4.14: a block rule only. */
+    private suspend fun block(context: Context, repository: SpamRepository, address: String, threadId: Long) {
+        val change = runCatching { SenderBlocking.block(repository, listOf(address)) }.getOrNull() ?: return
+        context.notificationManager.cancel(threadId.hashCode())
+        showBlocked(context, address, threadId, change.addedRuleIds)
+    }
+
+    /** 0.4.14: the Undo removes the rule ids it carries. */
+    private suspend fun undoRules(context: Context, repository: SpamRepository, intent: Intent) {
+        val threadId = intent.getLongExtra(THREAD_ID, 0L)
+        val ids = intent.getLongArrayExtra(EXTRA_RULE_IDS)?.toList().orEmpty()
+        runCatching { SenderBlocking.undo(repository, SenderBlocking.Change(ids, emptyList())) }.onFailure { return }
+        context.notificationManager.cancel(blockedNotificationId(threadId))
+    }
+
+    /** Provider truth (U5, M-SP3): the rules, the memberships and the unread state come back; the chat is sorted. */
+    private suspend fun undoMove(context: Context, repository: SpamRepository, undo: BlockUndo, threadId: Long) {
+        SenderMoves.undoBlocks(repository, listOfNotNull(undo.receipt))
+        if (undo.wasUnread) runCatching { context.markThreadMessagesUnread(threadId) }
+        if (threadId > 0) sortThread(context, threadId)
+        context.notificationManager.cancel(blockedNotificationId(threadId))
+    }
+
+    /** Provider truth: the block of [SenderMoves.blockSenders], the chat read and sorted again, and the Undo notice. */
+    private suspend fun moveToSpam(context: Context, repository: SpamRepository, address: String, threadId: Long) {
+        val receipt = runCatching { SenderMoves.blockSenders(repository, listOf(address)) }.getOrNull() ?: return
+        context.notificationManager.cancel(threadId.hashCode())
+        val wasUnread = threadId > 0 && runCatching {
+            context.conversationsDB.getConversationWithThreadId(threadId)?.read == false
+        }.getOrDefault(false)
+        if (wasUnread) runCatching { context.markThreadMessagesRead(threadId) }
+        if (threadId > 0) sortThread(context, threadId)
+        val undo = BlockUndoCodec.encode(BlockUndo(receipt.firstOrNull(), wasUnread))
+        showBlocked(context, address, threadId, receipt.map { it.ruleId }.filter { it > 0 }, undo)
+    }
+
     /** A quiet "Blocked <number>" notice with Undo. It stays for a while, so a wrong tap can be taken back. */
-    private fun showBlocked(context: Context, address: String, threadId: Long, ruleIds: List<Long>) {
+    private fun showBlocked(
+        context: Context,
+        address: String,
+        threadId: Long,
+        ruleIds: List<Long>,
+        undoReceipt: String? = null,
+    ) {
         val manager = context.notificationManager
         manager.createNotificationChannel(
             NotificationChannel(
@@ -75,6 +138,7 @@ class BlockSenderReceiver : BroadcastReceiver() {
             action = ACTION_UNDO
             putExtra(THREAD_ID, threadId)
             putExtra(EXTRA_RULE_IDS, ruleIds.toLongArray())
+            undoReceipt?.let { putExtra(EXTRA_UNDO, it) }
         }
         val undoPending = PendingIntent.getBroadcast(
             context, id, undo, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
@@ -101,7 +165,16 @@ class BlockSenderReceiver : BroadcastReceiver() {
         const val ACTION_UNDO = "com.glooboo.spamless.action.UNDO_BLOCK_SENDER"
         const val EXTRA_ADDRESS = "com.glooboo.spamless.extra.BLOCK_ADDRESS"
         const val EXTRA_RULE_IDS = "com.glooboo.spamless.extra.BLOCK_RULE_IDS"
+
+        /** Provider truth: the whole block receipt and the unread state, as [BlockUndoCodec] writes them. */
+        const val EXTRA_UNDO = "com.glooboo.spamless.extra.BLOCK_UNDO"
         const val CHANNEL_ID = "sender_blocked_undo"
+
+        /** Provider truth: the chat is sorted again after a block or its Undo (tests replace it). */
+        @VisibleForTesting
+        internal var sortThread: (Context, Long) -> Unit = { context, id ->
+            SpamSorting.requestThreads(context, listOf(id))
+        }
 
         /** How long the Undo notice stays (ms). */
         const val UNDO_VISIBLE_MS = 10L * 60 * 1000
@@ -119,4 +192,87 @@ class BlockSenderReceiver : BroadcastReceiver() {
                 putExtra(THREAD_ID, threadId)
             }
     }
+}
+
+/** What the notification's Undo puts back (provider truth): the block's receipt, and whether the chat was unread. */
+internal data class BlockUndo(val receipt: BlockReceipt?, val wasUnread: Boolean)
+
+/**
+ * Writes a [BlockUndo] into the Undo intent and reads it back, so the Undo of a notification works after the process
+ * died. Holds rules and group members only (patterns, notes, keys), never message text. A value that cannot be read
+ * gives null, and Undo then removes only the rule ids it has, as in 0.4.14.
+ */
+internal object BlockUndoCodec {
+    fun encode(undo: BlockUndo): String = JSONObject().apply {
+        put("unread", undo.wasUnread)
+        undo.receipt?.let { receipt ->
+            put("address", receipt.address)
+            put("ruleId", receipt.ruleId)
+            receipt.stillAllowedBy?.let { put("stillAllowedBy", it) }
+            put("rules", JSONArray().apply { receipt.removedRules.forEach { put(rule(it)) } })
+            put("members", JSONArray().apply { receipt.removedMembers.forEach { put(member(it)) } })
+        }
+    }.toString()
+
+    fun decode(text: String): BlockUndo? = runCatching {
+        val json = JSONObject(text)
+        val receipt = if (json.has("address")) {
+            BlockReceipt(
+                address = json.getString("address"),
+                ruleId = json.getLong("ruleId"),
+                removedRules = json.getJSONArray("rules").let { list ->
+                    (0 until list.length()).map { rule(list.getJSONObject(it)) }
+                },
+                removedMembers = json.getJSONArray("members").let { list ->
+                    (0 until list.length()).map { member(list.getJSONObject(it)) }
+                },
+                stillAllowedBy = if (json.has("stillAllowedBy")) json.getLong("stillAllowedBy") else null,
+            )
+        } else {
+            null
+        }
+        BlockUndo(receipt, json.optBoolean("unread"))
+    }.getOrNull()
+
+    private fun rule(rule: SpamRule) = JSONObject().apply {
+        put("id", rule.id)
+        put("kind", rule.kind.name)
+        put("type", rule.type.name)
+        put("pattern", rule.pattern)
+        put("note", rule.note)
+        put("createdAt", rule.createdAt)
+        put("hitCount", rule.hitCount)
+        put("lastHit", rule.lastHit)
+        put("acknowledged", rule.acknowledged)
+    }
+
+    private fun rule(json: JSONObject) = SpamRule(
+        id = json.getLong("id"),
+        kind = ListKind.valueOf(json.getString("kind")),
+        type = RuleType.valueOf(json.getString("type")),
+        pattern = json.getString("pattern"),
+        note = json.optString("note"),
+        createdAt = json.getLong("createdAt"),
+        hitCount = json.optInt("hitCount"),
+        lastHit = json.optLong("lastHit"),
+        acknowledged = json.optBoolean("acknowledged"),
+    )
+
+    private fun member(member: AllowGroupMember) = JSONObject().apply {
+        put("group", member.group.name)
+        put("key", member.senderKey)
+        put("address", member.address)
+        put("addedAt", member.addedAt)
+        put("source", member.source.name)
+        put("acknowledged", member.acknowledged)
+    }
+
+    private fun member(json: JSONObject) = AllowGroupMember(
+        group = AllowGroup.valueOf(json.getString("group")),
+        senderKey = json.getString("key"),
+        address = json.getString("address"),
+        addedAt = json.getLong("addedAt"),
+        source = MemberSource.valueOf(json.getString("source")),
+        acknowledged = json.getBoolean("acknowledged"),
+    )
 }

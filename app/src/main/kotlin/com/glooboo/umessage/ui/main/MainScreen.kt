@@ -43,6 +43,7 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel as composeViewModel
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.models.SearchResult
 import com.glooboo.umessage.ui.components.horizontalChromePadding
@@ -62,6 +63,7 @@ import com.glooboo.umessage.ui.labels.rememberInboxLabels
 import com.glooboo.umessage.ui.lock.BlockedLockGate
 import com.glooboo.umessage.ui.scheduled.rememberScheduledCount
 import com.glooboo.umessage.ui.spam.BlockedRoute
+import com.glooboo.umessage.ui.spam.SpamChatsRoute
 
 /** CL-13, N11: the inbox filters; the search page's tiles turn one on ([SearchFilterTile]). */
 enum class InboxFilter { All, Unread, Codes, Transactions, Offers, Unknown, Starred, Images, Links, Label, Sim }
@@ -114,6 +116,8 @@ fun MainScreen(
     /** A tab to open (a [com.glooboo.umessage.helpers.MainTabLinks] value), for example from Settings. */
     openTab: String? = null,
     onOpenTabHandled: () -> Unit = {},
+    /** Provider truth (D2 A): the first run's small progress bar, shown above the Messages list; null shows none. */
+    firstRunBar: (@Composable () -> Unit)? = null,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val tabsViewModel: MainTabsViewModel = composeViewModel()
@@ -195,14 +199,26 @@ fun MainScreen(
                         ),
                         onOpenBlockedTab = { callbacks.onClearSelection(); selectedTab = MainTab.Blocked },
                         onOpenArchivedTab = { callbacks.onClearSelection(); selectedTab = MainTab.Archived },
+                        firstRunBar = firstRunBar,
                     )
                     MainTab.Blocked -> BlockedLockGate {
                         BlockedSeenEffects(state.newBlockedCount, viewModel::markBlockedSeen)
-                        BlockedRoute(
-                            onBack = null,
-                            onOpenRules = navigation.onSpamRules,
-                            onOpenSettings = navigation.onSpamSettings,
-                        )
+                        if (ProviderTruthFlag.enabled) {
+                            // Provider truth (4.2): the chats in Spam, read again whenever Messages was published.
+                            val published by viewModel.published.collectAsStateWithLifecycle()
+                            SpamChatsRoute(
+                                onOpen = { navigation.onOpenThread(it.threadId, it.title) },
+                                onOpenRules = navigation.onSpamRules,
+                                onOpenSettings = navigation.onSpamSettings,
+                                reloadKey = published,
+                            )
+                        } else {
+                            BlockedRoute(
+                                onBack = null,
+                                onOpenRules = navigation.onSpamRules,
+                                onOpenSettings = navigation.onSpamSettings,
+                            )
+                        }
                     }
                     MainTab.Forwarded -> ForwardedRoute(
                         onManageRules = navigation.onManageForwardRules,
@@ -281,6 +297,7 @@ private fun MessagesTab(
     menuInputs: InboxMenuInputs = InboxMenuInputs(false, 0, false, 0),
     onOpenBlockedTab: () -> Unit = {},
     onOpenArchivedTab: () -> Unit = {},
+    firstRunBar: (@Composable () -> Unit)? = null,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val selecting = state.selecting
@@ -313,7 +330,8 @@ private fun MessagesTab(
     // B10: the card is the list's first item, so it scrolls away instead of holding half the screen.
     // U03: one at a time.
     var cardsAnswered by remember { mutableIntStateOf(0) }
-    val inboxCard = rememberInboxCard(state.newBlockedCount, cardsAnswered)
+    val spamMoved = rememberSpamMoved()
+    val inboxCard = rememberInboxCard(state.newBlockedCount, cardsAnswered, spamMoved)
     val header: @Composable () -> Unit = {
         if (!selecting) {
             InboxCardSlot(
@@ -323,6 +341,7 @@ private fun MessagesTab(
                 onOpenBlockedTab = onOpenBlockedTab,
                 onOpenForwarding = navigation.onManageForwardRules,
                 onDone = { cardsAnswered++ },
+                spamMoved = spamMoved,
             )
         }
     }
@@ -369,6 +388,8 @@ private fun MessagesTab(
                 onClear = { search.filter = InboxFilter.All },
                 labelName = labels.chipName ?: simName,
             )
+            // Provider truth (D2 A, G-7): the first run's small bar sits right above the Messages list.
+            if (!selecting) firstRunBar?.invoke()
             Box(Modifier.weight(1f).fillMaxWidth().inboxCard()) {
                 ConversationsRoute(
                     viewModel, callbacks, filter = filter, filterThreads = shortcut.threads, header = header,

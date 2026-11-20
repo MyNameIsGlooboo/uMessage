@@ -2,6 +2,7 @@ package com.glooboo.umessage.ui.conversations
 
 import android.app.Application
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.NavPrefs
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.components.showUndo
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.spam.SimDirectory
@@ -51,7 +53,12 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-data class ArchivedUiState(val rows: List<ConversationRow> = emptyList(), val loading: Boolean = true)
+data class ArchivedUiState(
+    val rows: List<ConversationRow> = emptyList(),
+    val loading: Boolean = true,
+    /** S14 (provider truth): why the last delete did not happen; null when there is nothing to say. */
+    val deleteMessage: Int? = null,
+)
 
 /** Archived conversations for the Archived tab; unarchiving or deleting keeps the proven data calls. */
 class ArchivedViewModel(application: Application) : AndroidViewModel(application) {
@@ -75,7 +82,9 @@ class ArchivedViewModel(application: Application) : AndroidViewModel(application
         if (loader.isShutdown) return
         loader.execute {
             val conversations = try {
-                app.conversationsDB.getAllArchived()
+                // S1, provider truth: archived and not in Spam (a Spam chat shows only under Spam).
+                val db = app.conversationsDB
+                if (ProviderTruthFlag.enabled) db.getArchivedList() else db.getAllArchived()
             } catch (_: Exception) {
                 emptyList()
             }
@@ -106,7 +115,7 @@ class ArchivedViewModel(application: Application) : AndroidViewModel(application
                     }
                     c.toFolderRow(app, drafts, pinned, slot, slot?.let { simNames[it] }.orEmpty())
                 }
-            _state.value = ArchivedUiState(rows = rows, loading = false)
+            _state.value = _state.value.copy(rows = rows, loading = false)
         }
     }
 
@@ -135,12 +144,23 @@ class ArchivedViewModel(application: Application) : AndroidViewModel(application
 
     fun delete(ids: Set<Long>) {
         ensureBackgroundThread {
-            ids.forEach {
-                app.deleteConversation(it)
-                app.notificationManager.cancel(it.hashCode())
+            if (ProviderTruthFlag.enabled) {
+                // S14: the role is checked once; the first delete that did not happen says why.
+                val message = deleteChats(app, ids.toList()).second
+                if (message != null) _state.value = _state.value.copy(deleteMessage = message)
+            } else {
+                ids.forEach {
+                    app.deleteConversation(it)
+                    app.notificationManager.cancel(it.hashCode())
+                }
             }
             refreshConversations()
         }
+    }
+
+    /** The screen showed [ArchivedUiState.deleteMessage]. */
+    fun deleteMessageShown() {
+        _state.value = _state.value.copy(deleteMessage = null)
     }
 
     fun deleteAll() {
@@ -170,6 +190,13 @@ fun ArchivedRoute(onOpen: (ConversationRow) -> Unit, onBackToMessages: (() -> Un
     LifecycleResumeEffect(viewModel) {
         viewModel.load()
         onPauseOrDispose { }
+    }
+    val deleteMessage = state.deleteMessage
+    LaunchedEffect(deleteMessage) {
+        if (deleteMessage != null) {
+            viewModel.deleteMessageShown()
+            snackbar.showSnackbar(resources.getString(deleteMessage))
+        }
     }
     ConversationFolderScreen(
         folder = ConversationFolder.Archive,
