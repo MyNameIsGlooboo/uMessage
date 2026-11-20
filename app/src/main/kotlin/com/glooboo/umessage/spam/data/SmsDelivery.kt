@@ -1,5 +1,6 @@
 package com.glooboo.umessage.spam.data
 
+import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.provider.Telephony
@@ -17,10 +18,12 @@ import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.isStoredLate
 import com.glooboo.umessage.extensions.recomputeThreadDate
 import com.glooboo.umessage.extensions.messagesDB
+import com.glooboo.umessage.extensions.notificationHelper
 import com.glooboo.umessage.extensions.postReceivedMessageNotification
 import com.glooboo.umessage.extensions.shouldUnarchive
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.helpers.NotifyContext
+import com.glooboo.umessage.helpers.NotifyLog
 import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.NotifyResult
 import com.glooboo.umessage.helpers.NotifyStage
@@ -47,6 +50,8 @@ fun Context.insertSmsOrThrow(
     type: Int,
     subscriptionId: Int,
     dateSent: Long = 0L,
+    /** Provider truth (3.4): 1 for a text stored in Spam (read and seen). Null leaves the provider's default. */
+    seen: Int? = null,
 ): Long {
     val id = insertNewSMS(
         address = address,
@@ -58,6 +63,7 @@ fun Context.insertSmsOrThrow(
         type = type,
         subscriptionId = subscriptionId,
         dateSent = dateSent,
+        seen = seen,
     )
     if (id <= 0L) throw SmsInsertException("Telephony provider did not store the SMS")
     return id
@@ -82,6 +88,10 @@ fun Context.deliverIncomingSms(
     read: Int = 0,
     type: Int = Telephony.Sms.MESSAGE_TYPE_INBOX,
     dateSent: Long = 0L,
+    /** Provider truth (6.1): a text stored in Spam is written read = 1 and seen = 1. */
+    seen: Int? = null,
+    /** Provider truth (6.1): a text stored in Spam does not take its chat out of the archive. */
+    unarchive: Boolean = true,
 ): Long {
     val context = this
     val photoUri = runCatching { SimpleContactsHelper(context).getPhotoUriFromPhoneNumber(address) }.getOrDefault("")
@@ -101,6 +111,7 @@ fun Context.deliverIncomingSms(
         type = type,
         subscriptionId = subscriptionId,
         dateSent = dateSent,
+        seen = seen,
     )
     // N6: on disk before anything else, so a process that dies before the post leaves a notification to replay.
     if (notify.mode != NotifyMode.NONE) {
@@ -165,7 +176,7 @@ fun Context.deliverIncomingSms(
         }
 
         runCatching {
-            if (context.shouldUnarchive()) {
+            if (unarchive && context.shouldUnarchive()) {
                 context.updateConversationArchivedStatus(threadId, false)
             }
         }
@@ -186,6 +197,53 @@ internal fun Context.senderNameFor(address: String): String = runCatching {
         getNameFromAddress(address, it)
     }
 }.getOrNull() ?: address
+
+/**
+ * Provider truth (R1, the safety check): SMS [messageId] was stored read and silent for Spam, but its chat is not in
+ * Spam. It becomes unread, in the store and in the cache, and is announced like any new text, with its "notify due"
+ * marker, written before the store is changed (E-2: a kill after the change still posts it on replay). [notify] is
+ * the caller's (the "unknown sender in Messages" setting holds). D-10: false, with nothing posted, when the store did
+ * not make the row unread (the caller keeps it for the replay); the post does not ask the cache whether the text was
+ * read, as that copy may still say so. Never throws.
+ */
+internal fun Context.announceStored(
+    messageId: Long,
+    address: String,
+    body: String,
+    threadId: Long,
+    subscriptionId: Int,
+    date: Long,
+    notify: NotifyContext,
+): Boolean {
+    val context = this
+    NotifyDue.mark(context, messageId, date, notify)
+    val unread = ContentValues().apply {
+        put(Telephony.Sms.READ, 0)
+        put(Telephony.Sms.SEEN, 0)
+    }
+    val updated = runCatching {
+        contentResolver.update(Telephony.Sms.CONTENT_URI, unread, "${Telephony.Sms._ID} = ?", arrayOf("$messageId"))
+    }.getOrDefault(0)
+    if (updated <= 0) {
+        NotifyDue.settle(context, messageId, NotifyResult.SKIPPED_STALE)
+        return false
+    }
+    runCatching { messagesDB.getMessage(messageId, false)?.let { messagesDB.insertOrUpdate(it.copy(read = false)) } }
+    runCatching { conversationsDB.markUnread(threadId) }
+    runCatching { if (shouldUnarchive()) updateConversationArchivedStatus(threadId, false) }
+    runCatching { refreshMessages() }
+    runCatching { refreshConversations(threadId) }
+    if (notify.mode == NotifyMode.NONE) return true
+    runCatching { PendingSmsRetry.scheduleUnlessBooked(context) }
+    val result = runCatching {
+        notificationHelper.postMessageNotification(
+            messageId, false, address, body, threadId, null, senderNameFor(address), subscriptionId, notify,
+        )
+    }.getOrElse { NotifyLog.record(null, threadId, NotifyResult.FAILED, it) }
+    NotifyDue.settle(context, messageId, result)
+    if (result == NotifyResult.FAILED) runCatching { PendingSmsRetry.schedule(context) }
+    return true
+}
 
 /** Posts the notification of a message that was just stored and settles its "notify due" marker. Never throws. */
 private fun Context.notifyDelivered(

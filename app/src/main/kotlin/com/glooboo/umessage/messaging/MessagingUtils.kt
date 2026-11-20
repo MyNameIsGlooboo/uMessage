@@ -9,6 +9,7 @@ import android.provider.Telephony.Sms
 import android.telephony.SmsMessage
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.VisibleForTesting
 import com.klinker.android.send_message.Message
 import com.klinker.android.send_message.Settings
 import com.klinker.android.send_message.Transaction
@@ -86,6 +87,8 @@ class MessagingUtils(val context: Context) {
         } catch (e: Exception) {
             throw SmsException(ERROR_PERSISTING_MESSAGE, e)
         }
+        // R10: the reply observer leaves uMessage's own rows alone (forwards and carrier reports make no member).
+        response?.lastPathSegment?.toLongOrNull()?.let(OwnSentRows::add)
         return response ?: throw SmsException(ERROR_PERSISTING_MESSAGE)
     }
 
@@ -345,6 +348,29 @@ class MessagingUtils(val context: Context) {
         private const val TAG = "MessagingUtils"
         private const val RECIPIENT_ROW_WINDOW_MS = 60_000L
     }
+}
+
+/**
+ * Provider truth (6.3, R3, R10): the SMS rows uMessage itself wrote for a send, so the observer of replies sent outside
+ * uMessage (SentRowWatch) skips them. A reply from uMessage made its member at the send already
+ * ([com.glooboo.umessage.spam.engine.WroteToGroup.onSend]); a forward or a carrier report must make none. In memory,
+ * the newest [MAX_ROWS] only: the observer looks at a row within seconds of its write.
+ */
+object OwnSentRows {
+    private const val MAX_ROWS = 200
+    private val ids = LinkedHashSet<Long>()
+
+    fun add(id: Long) = synchronized(ids) {
+        ids.remove(id)
+        ids.add(id)
+        while (ids.size > MAX_ROWS) ids.remove(ids.first())
+    }
+
+    fun contains(id: Long): Boolean = synchronized(ids) { id in ids }
+
+    /** Tests only: row ids start again in every test's store. */
+    @VisibleForTesting
+    internal fun clear() = synchronized(ids) { ids.clear() }
 }
 
 /**

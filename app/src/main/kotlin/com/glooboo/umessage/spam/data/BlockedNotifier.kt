@@ -20,6 +20,9 @@ object BlockedNotifier {
 
     /** Own tag, so these ids never collide with message notifications (keyed by thread id, no tag). */
     private const val TAG = "spamless_blocked"
+
+    /** Provider truth (4.6): the notices keyed by chat, one per Spam chat; own tag, as thread ids repeat held ids. */
+    private const val CHAT_TAG = "spamless_blocked_chat"
     private const val GROUP = "spamless_blocked_group"
     private const val REQUEST_OPEN_BLOCKED = 0x5B10
     private const val SUMMARY_ID = 0x5B11
@@ -51,7 +54,15 @@ object BlockedNotifier {
     /** The notification id of one blocked message; [show] posts it and [cancel] removes it by the same number. */
     internal fun notificationId(blockedId: Long): Int = blockedId.hashCode()
 
-    fun show(context: Context, message: BlockedMessage) {
+    /**
+     * The notice of [message]. Without [chatId] it is keyed by the held message (0.4.14). Provider truth (4.6, the
+     * opt-in "notify me for texts from unknown senders"): with [chatId], a text from an unknown sender was stored in
+     * that Spam chat; one quiet notice per chat, replaced by the next text of the chat. It opens Spam and is private on
+     * the lock screen. Never for a blocked sender: the caller does not ask then.
+     */
+    fun show(context: Context, message: BlockedMessage, chatId: Long? = null) {
+        val tag = if (chatId != null) CHAT_TAG else TAG
+        val id = chatId?.hashCode() ?: notificationId(message.id)
         try {
             val manager = context.getSystemService(NotificationManager::class.java) ?: return
             manager.createNotificationChannel(
@@ -95,11 +106,16 @@ object BlockedNotifier {
                 .setContentIntent(contentIntent)
                 .setGroup(GROUP)
                 .setAutoCancel(true)
-            if (code != null) builder.addAction(copyCodeAction(context, code, notificationId(message.id)))
-            manager.notify(TAG, notificationId(message.id), builder.build())
+            if (code != null) builder.addAction(copyCodeAction(context, code, id))
+            manager.notify(tag, id, builder.build())
             postSummary(context, manager, contentIntent)
         } catch (_: Exception) {
         }
+    }
+
+    /** Removes the notice of Spam chat [threadId] (it was opened, blocked, moved to Messages or deleted). */
+    fun cancelChat(context: Context, threadId: Long) {
+        runCatching { context.getSystemService(NotificationManager::class.java)?.cancel(CHAT_TAG, threadId.hashCode()) }
     }
 
     /**
@@ -107,7 +123,7 @@ object BlockedNotifier {
      * summary says nothing about the senders or the texts. The system removes it when its last notification goes.
      */
     private fun postSummary(context: Context, manager: NotificationManager, contentIntent: PendingIntent) {
-        val count = manager.activeNotifications.count { it.tag == TAG && it.id != SUMMARY_ID }
+        val count = manager.activeNotifications.count { (it.tag == TAG && it.id != SUMMARY_ID) || it.tag == CHAT_TAG }
         if (count < SUMMARY_FROM) return
         val summary = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_messenger)
@@ -136,7 +152,8 @@ object BlockedNotifier {
     fun cancelAll(context: Context) {
         runCatching {
             val manager = context.getSystemService(NotificationManager::class.java) ?: return
-            manager.activeNotifications.filter { it.tag == TAG }.forEach { manager.cancel(TAG, it.id) }
+            manager.activeNotifications.filter { it.tag == TAG || it.tag == CHAT_TAG }
+                .forEach { manager.cancel(it.tag, it.id) }
         }
     }
 

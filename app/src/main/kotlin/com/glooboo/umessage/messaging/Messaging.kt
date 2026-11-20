@@ -19,6 +19,7 @@ import com.glooboo.umessage.messaging.SmsException.Companion.ERROR_PERSISTING_ME
 import com.glooboo.umessage.messaging.SmsException.Companion.ERROR_SENDING_MESSAGE
 import com.glooboo.umessage.models.Attachment
 import com.glooboo.umessage.models.MessageKey
+import com.glooboo.umessage.spam.engine.WroteToGroup
 
 @Deprecated("TODO: Move/rewrite messaging config code into the app.")
 fun Context.getSendMessageSettings(): Settings {
@@ -118,10 +119,13 @@ private fun Context.sendToDistinctRecipients(
     // The failed message being resent is replaced only by a resend of the same type: SMS and MMS ids are separate
     // sequences, so handing an SMS id to the MMS path (or the other way round) would touch an unrelated message.
     val messageId = resend?.takeIf { it.isMMS == isMms }?.id
+    // 6.3 (R10, R11): each unknown number written to joins "People you wrote to", before the send and so before its
+    // chat is cached (B2-14); a group MMS thread makes no member. Never fails the send.
+    val joined = WroteToGroup.onSend(this, addresses, groupThread = addresses.size > 1 && settings.group)
     if (isMms && messageId != null && attachments.size > 1) {
         return resendBundledMms(
             MessageKey(messageId, true), text, addresses, attachments, settings, onFailure, onAttachmentHandedOff,
-        )
+        ).also { WroteToGroup.undoUnlessSent(this, joined, it) }
     }
     if (isMms) {
         sendMmsParts(messagingUtils, text, addresses, attachments, settings, messageId, progress, onAttachmentHandedOff)
@@ -131,11 +135,16 @@ private fun Context.sendToDistinctRecipients(
     if (progress.failed) {
         onFailure()
     }
-    ensureBackgroundThread {
-        val threadId = getThreadId(addresses.toSet())
-        shortcutHelper.reportSendMessageUsage(threadId)
+    // M-P1: the shortcut report comes after the hand-off; whatever it does, the send's result stands.
+    runCatching {
+        ensureBackgroundThread {
+            runCatching { shortcutHelper.reportSendMessageUsage(getThreadId(addresses.toSet())) }
+        }
     }
-    return SendOutcome(progress.handedOff, progress.remaining, progress.sentCount, progress.textSent)
+    val outcome = SendOutcome(progress.handedOff, progress.remaining, progress.sentCount, progress.textSent)
+    // D-6: nothing reached the provider, so nobody was written to: the members this send made go again.
+    WroteToGroup.undoUnlessSent(this, joined, outcome)
+    return outcome
 }
 
 /** What one [sendMessageDetailed] call has done so far. */
