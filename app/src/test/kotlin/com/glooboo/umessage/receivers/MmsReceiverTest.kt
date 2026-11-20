@@ -5,12 +5,14 @@ import android.content.Intent
 import android.telephony.SubscriptionManager
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.data.SpamDatabase
 import com.glooboo.umessage.testing.FakeTelephonyProvider
+import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.ShadowRecordingSmsManager
 import com.glooboo.umessage.testing.SpamTestWiring
 import com.glooboo.umessage.testing.WatchedBroadcast
@@ -19,6 +21,7 @@ import com.google.common.truth.Truth.assertThat
 import com.klinker.android.send_message.MmsReceivedReceiver
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.File
@@ -30,6 +33,8 @@ import java.io.File
  */
 @RunWith(AndroidJUnit4::class)
 class MmsReceiverTest {
+
+    @get:Rule val flag = ProviderTruthFlagRule(enabled = false)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private lateinit var spamDb: SpamDatabase
@@ -114,6 +119,33 @@ class MmsReceiverTest {
         // Not kept in Blocked, so it is delivered normally: a message is never lost to a storage failure.
         assertThat(blocked).isFalse()
         assertThat(file.exists()).isTrue()
+    }
+
+    @Test
+    fun withProviderTruth_theContentHookAlwaysLetsTheLibraryStoreTheMms() {
+        ProviderTruthFlag.enabled = true
+        val file = File(context.cacheDir, "download.provider-truth.dat").apply { writeBytes(byteArrayOf(1)) }
+        var asked = 0
+        SpamTestWiring.installFilter { asked++; FilterDecision.Block(DecisionReason.BLOCK_RULE, 3L) }
+        val handler = MmsDownloadHandler().apply { pduPath = file.path }
+
+        handler.isAddressBlocked(context, "+15550001234/TYPE=PLMN")
+        val blocked = handler.isContentBlocked(context, "spam")
+
+        // 6.2: never "blocked" (the library would delete the notice); the MMS is placed once it is stored.
+        assertThat(blocked).isFalse()
+        assertThat(asked).isEqualTo(0)
+        assertThat(spamDb.spamDao().getAllBlocked()).isEmpty()
+        assertThat(file.exists()).isTrue()
+    }
+
+    @Test
+    fun withProviderTruth_anMmsThatIsNotInTheProvider_doesNotThrow() {
+        ProviderTruthFlag.enabled = true
+
+        MmsDownloadHandler().onMessageReceived(context, null)
+
+        assertThat(ShadowRecordingSmsManager.textSends).isEmpty()
     }
 
     @Test

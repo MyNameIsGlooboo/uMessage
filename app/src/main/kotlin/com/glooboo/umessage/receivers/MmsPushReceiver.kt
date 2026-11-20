@@ -3,13 +3,20 @@ package com.glooboo.umessage.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.telephony.SubscriptionManager
 import android.util.Log
 import com.android.mms.transaction.PushReceiver
 import org.fossify.commons.helpers.ensureBackgroundThread
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.messaging.MmsDownloadFailure
 import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.mms.BlockedMmsDownloader
+import com.glooboo.umessage.spam.mms.IncomingMms
+import com.glooboo.umessage.spam.mms.MmsDecisions
 import com.glooboo.umessage.spam.mms.MmsPushAction
 import com.glooboo.umessage.spam.mms.MmsPushGate
+import com.glooboo.umessage.spam.mms.SpamNotice
+import com.glooboo.umessage.spam.mms.isRoamingOn
 import com.glooboo.umessage.spam.engine.SpamEngine
 import java.lang.reflect.Modifier
 import java.util.concurrent.ConcurrentHashMap
@@ -22,11 +29,21 @@ import java.util.concurrent.TimeUnit
  * and the MMS is downloaded into uMessage's private storage only ([BlockedMmsDownloader]), so it can be rescued.
  * An allowed MMS is saved and downloaded by [MmsPushDownload] (the result comes back to the manifest [MmsReceiver]);
  * everything else is handed unchanged to the library's own PushReceiver.
+ *
+ * Provider truth (6.2, R4, answers 8 and 11): nothing goes to the Blocked folder any more. A notice whose sender's
+ * chat is in Spam is saved in the phone's store like any other ([MmsPushDownload] with a [SpamNotice]) and, within
+ * the limits, downloaded, because a group MMS cannot be told apart before the download.
  */
 class MmsPushReceiver : BroadcastReceiver() {
 
     /** Saves a let-through notification-ind and starts its download; the result reaches the manifest [MmsReceiver]. */
     internal var pushDownload = MmsPushDownload()
+
+    /** Provider truth: places notices without a chat whose download was lost (App.onCreate runs it too). */
+    internal var sweep: (Context) -> Unit = { MmsDownloadFailure().sweep(it) }
+
+    /** Roaming on the SIM the push came in on (provider truth: a Spam notice is then not downloaded). */
+    internal var roaming: (Context, Int) -> Boolean = ::isRoamingOn
 
     override fun onReceive(context: Context, intent: Intent) {
         val pending = goAsync()
@@ -35,6 +52,8 @@ class MmsPushReceiver : BroadcastReceiver() {
             ensureBackgroundThread {
                 try {
                     process(appContext, intent)
+                    // E-4: notices left without a chat by a reboot, a force stop or a lost result are placed.
+                    if (ProviderTruthFlag.enabled) runCatching { sweep(appContext) }
                 } finally {
                     runCatching { pending.finish() }
                 }
@@ -47,8 +66,9 @@ class MmsPushReceiver : BroadcastReceiver() {
     }
 
     internal fun process(context: Context, intent: Intent) {
+        var subscriptionId = SubscriptionManager.INVALID_SUBSCRIPTION_ID
         val action = try {
-            val subscriptionId = intent.receivingSubscriptionId()
+            subscriptionId = intent.receivingSubscriptionId()
             MmsPushGate.decide(
                 pushData = intent.getByteArrayExtra(EXTRA_DATA),
                 subscriptionId = subscriptionId,
@@ -56,20 +76,46 @@ class MmsPushReceiver : BroadcastReceiver() {
             ) { probe ->
                 // MmsReceiver's content filter runs after download without the SIM; remember it per sender.
                 MmsSubscriptions.remember(probe.address, subscriptionId)
-                SpamEngine.evaluate(context, probe, source = "MMS_PUSH")
+                // E-13, provider truth: the push writes no row; the MMS's one row is written where it is placed.
+                if (ProviderTruthFlag.enabled) MmsDecisions.probe(context, probe)
+                else SpamEngine.evaluate(context, probe, source = "MMS_PUSH")
             }
         } catch (t: Throwable) {
             MmsPushAction.Deliver("gate error")
         }
 
+        var spam: SpamNotice? = null
         if (action is MmsPushAction.Block) {
-            if (alreadyHandled(action.transactionId) || storeAndDownload(context, action)) return
+            if (ProviderTruthFlag.enabled) {
+                spam = spamNotice(context, action, subscriptionId)
+            } else if (alreadyHandled(action.transactionId) || storeAndDownload(context, action)) {
+                return
+            }
         }
         // The download result must wake the app even if it is frozen meanwhile (H8): that is [MmsPushDownload].
-        // Whatever it does not take (reports, bad data, a failure before the push is saved) goes to the library.
-        if (runCatching { pushDownload.handle(context, intent) }.getOrDefault(false)) return
+        // Whatever it does not take (reports, bad data, a failure before the push is saved) goes to the library,
+        // which saves and downloads it like any MMS (provider truth: a Spam notice then fails open to Messages).
+        if (runCatching { pushDownload.handle(context, intent, spam) }.getOrDefault(false)) return
         delegate(context, intent)
         awaitLibraryPushTask()
+    }
+
+    /**
+     * Provider truth: the Spam side of a blocked notice. It downloads when within the limits and not roaming, also for
+     * a blocked sender (answer 11). Repeats are found in the phone's store by [MmsPushDownload], so a second, different
+     * notice from the same sender within seconds is kept as well (M-P5).
+     */
+    private fun spamNotice(context: Context, action: MmsPushAction.Block, subscriptionId: Int): SpamNotice {
+        val notRoaming = !runCatching { roaming(context, subscriptionId) }.getOrDefault(false)
+        // A notice that is not downloaded now gets its one decision-log row once it is saved and placed (E-13).
+        return SpamNotice(
+            sender = action.placeholder.address,
+            cause = IncomingMms.causeOf(action.decision),
+            downloads = action.withinLimits && notRoaming,
+            ruleId = action.decision.ruleId,
+            reason = action.decision.reason.name,
+            subscriptionId = subscriptionId,
+        )
     }
 
     /**

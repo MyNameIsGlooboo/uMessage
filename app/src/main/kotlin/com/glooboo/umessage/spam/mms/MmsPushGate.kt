@@ -36,6 +36,8 @@ sealed interface MmsPushAction {
         val transactionId: String,
         /** Empty when there is nothing to download from (no location, or the carrier has already expired it). */
         val contentLocation: String = "",
+        /** Provider truth: the notice may be downloaded into the store ([BlockedMmsPolicy.spamNoticeDownloads]). */
+        val withinLimits: Boolean = false,
     ) : MmsPushAction
 }
 
@@ -120,6 +122,8 @@ object MmsPushGate {
                     .takeIf { info.expiresAt == 0L || info.expiresAt > now }
                     .takeIf { BlockedMmsPolicy.sizeAllowed(info.messageSize) }
                     .orEmpty(),
+                withinLimits = info.contentLocation.isNotEmpty() &&
+                    BlockedMmsPolicy.spamNoticeDownloads(info.messageSize, info.expiresAt, now),
             )
         }
     }

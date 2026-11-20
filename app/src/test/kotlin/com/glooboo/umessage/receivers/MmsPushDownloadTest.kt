@@ -72,7 +72,7 @@ class MmsPushDownloadTest {
         persist = { _, _, sub -> persisted++; persist(sub) },
         lookup = { _, _ -> location to "T-1" },
         start = { _, loc, _, uri, sub -> started++; start(loc, uri, sub) },
-        onStartFailed = { _, _, from -> startFailures++; failedFor = from },
+        onStartFailed = { _, _, from, _ -> startFailures++; failedFor = from },
         tracker = tracker,
     )
 

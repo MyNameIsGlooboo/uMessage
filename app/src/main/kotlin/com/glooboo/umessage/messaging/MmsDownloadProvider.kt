@@ -1,6 +1,7 @@
 package com.glooboo.umessage.messaging
 
 import android.content.Context
+import android.net.Uri
 import android.provider.Telephony.Mms
 import android.telephony.SubscriptionManager
 import android.util.Log
@@ -74,3 +75,66 @@ fun Context.downloadMms(messageId: Long, tracker: MmsDownloadTracker = MmsDownlo
         },
     )
 }
+
+/** A notice (notification-ind) of the phone's store that has no chat (E-1, E-4); [expirySeconds] 0 when unknown. */
+internal data class ChatlessNotice(
+    val uri: Uri,
+    val location: String,
+    val subscriptionId: Int,
+    val expirySeconds: Long = 0,
+)
+
+/**
+ * The notices saved between [after] and [before] (ms) that have no chat (mmslib's dummy thread, 0 or none), newest
+ * first, at most [limit]. Read off the main thread.
+ */
+internal fun Context.chatlessNotices(before: Long, after: Long, limit: Int): List<ChatlessNotice> {
+    val found = ArrayList<ChatlessNotice>()
+    val selection = "${Mms.MESSAGE_TYPE} = ? AND (${Mms.THREAD_ID} IS NULL OR ${Mms.THREAD_ID} <= 0 OR " +
+        "${Mms.THREAD_ID} = ?) AND ${Mms.DATE} < ? AND ${Mms.DATE} >= ?"
+    val args = arrayOf(
+        PduHeaders.MESSAGE_TYPE_NOTIFICATION_IND.toString(), Long.MAX_VALUE.toString(),
+        (before / MILLIS_PER_SECOND).toString(), (after / MILLIS_PER_SECOND).toString(),
+    )
+    val projection = arrayOf(Mms._ID, Mms.CONTENT_LOCATION, Mms.SUBSCRIPTION_ID, Mms.EXPIRY)
+    val order = "${Mms.DATE} DESC LIMIT $limit"
+    contentResolver.query(Mms.CONTENT_URI, projection, selection, args, order)?.use { cursor ->
+        while (cursor.moveToNext()) {
+            val uri = Mms.Inbox.CONTENT_URI.buildUpon().appendPath(cursor.getLong(0).toString()).build()
+            found += ChatlessNotice(
+                uri = uri,
+                location = cursor.getString(cursor.getColumnIndexOrThrow(Mms.CONTENT_LOCATION)).orEmpty(),
+                subscriptionId = cursor.getInt(cursor.getColumnIndexOrThrow(Mms.SUBSCRIPTION_ID)),
+                expirySeconds = cursor.getLong(cursor.getColumnIndexOrThrow(Mms.EXPIRY)),
+            )
+        }
+    }
+    return found
+}
+
+/**
+ * E-17: the MMS the library stored for the download of [transactionId] / [location] although it reported nothing
+ * (it stored the row, then a later step threw). Only a row stored at or after [sinceSeconds] (the notice's own time)
+ * that nobody read or placed yet (unread, not seen); keys that are empty are not asked. Null when there is none.
+ */
+internal fun Context.storedMmsFor(transactionId: String, location: String, sinceSeconds: Long): Uri? {
+    val keys = listOfNotNull(
+        transactionId.takeIf { it.isNotEmpty() }?.let { Mms.TRANSACTION_ID to it },
+        location.takeIf { it.isNotEmpty() }?.let { Mms.CONTENT_LOCATION to it },
+    )
+    if (keys.isEmpty()) return null
+    val selection = "${Mms.MESSAGE_TYPE} = ? AND ${Mms.READ} = 0 AND ${Mms.SEEN} = 0 AND ${Mms.DATE} >= ? AND (" +
+        keys.joinToString(" OR ") { "${it.first} = ?" } + ")"
+    val args = arrayOf(PduHeaders.MESSAGE_TYPE_RETRIEVE_CONF.toString(), sinceSeconds.toString()) +
+        keys.map { it.second }
+    return contentResolver.query(Mms.CONTENT_URI, arrayOf(Mms._ID), selection, args, "${Mms._ID} DESC")?.use {
+        if (it.moveToFirst()) Mms.CONTENT_URI.buildUpon().appendPath(it.getLong(0).toString()).build() else null
+    }
+}
+
+/** The time (seconds) the notice [notice] was saved; 0 when it cannot be read. */
+internal fun Context.noticeSavedAt(notice: Uri): Long =
+    contentResolver.query(notice, arrayOf(Mms.DATE), null, null, null)
+        ?.use { if (it.moveToFirst()) it.getLong(0) else 0L } ?: 0L
+
+private const val MILLIS_PER_SECOND = 1000L
