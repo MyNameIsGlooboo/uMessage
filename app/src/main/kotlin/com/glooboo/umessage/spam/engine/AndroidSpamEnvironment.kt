@@ -11,6 +11,7 @@ import android.provider.ContactsContract
 import android.provider.Telephony
 import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
+import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import org.fossify.commons.extensions.baseConfig
 import org.fossify.commons.extensions.blockedNumberCountryIso
@@ -20,9 +21,27 @@ import org.fossify.commons.extensions.isNumberBlocked
 import org.fossify.commons.helpers.ContactLookupResult
 import org.fossify.commons.helpers.MyContactsContentProvider
 import org.fossify.commons.helpers.SimpleContactsHelper
+import org.fossify.commons.helpers.ensureBackgroundThread
+import org.fossify.commons.helpers.isOnMainThread
 import com.glooboo.umessage.extensions.config
+import com.glooboo.umessage.extensions.getThreadId
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.messaging.MessagingUtils
+import com.glooboo.umessage.messaging.OwnSentRows
+import com.glooboo.umessage.spam.AllowGroup
+import com.glooboo.umessage.spam.ChatSorter
+import com.glooboo.umessage.spam.DecisionReason
+import com.glooboo.umessage.spam.ForwardFormat
+import com.glooboo.umessage.spam.MemberSource
+import com.glooboo.umessage.spam.SpamSorting
+import com.glooboo.umessage.spam.UMessage
+import com.glooboo.umessage.spam.data.DefaultSpamRepository
+import kotlinx.coroutines.runBlocking
 import java.util.Locale
 import java.util.concurrent.ConcurrentLinkedQueue
+import java.util.concurrent.Executors
+import java.util.concurrent.ScheduledExecutorService
+import java.util.concurrent.TimeUnit
 
 fun defaultRegion(context: Context): String {
     val telephony = context.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
@@ -80,6 +99,8 @@ class SystemContactChecker(
                 // The provider notifies mms-sms for every SMS and MMS change, next to the sms or mms row itself.
                 return
             }
+            // Provider truth (R3): a reply sent outside uMessage makes its recipient a member; flag off, nothing.
+            if (uri != null) SentRowWatch.onChanged(appContext, uri)
             if (uri != null && messageRowId(uri) != null && changedMessages.size < MAX_CHANGED_MESSAGES) {
                 changedMessages.add(uri)
             } else {
@@ -412,4 +433,171 @@ class FossifyLegacyBlocklist(private val context: Context) : LegacyBlocklist, Fr
 
     override fun blockedKeywords(): Collection<String> = context.config.blockedKeywords
     override fun blockUnknownNumbers() = context.baseConfig.blockUnknownNumbers
+}
+
+/**
+ * Provider truth (6.3, D3 A): writing to someone allows them. A number the user writes to joins "People you wrote
+ * to" (source LIVE) when the sender verdict calls it unknown (in Spam as unknown, or in Messages only because the
+ * filter is off), and its chat is sorted again. A blocked number, a contact, an allowed sender, a member and a sender
+ * that cannot be read change nothing. Membership is made also while the filter is off (answer 3). Behind
+ * [ProviderTruthFlag]; a failure never fails a send.
+ */
+object WroteToGroup {
+
+    /**
+     * uMessage's own send, from sendToDistinctRecipients only (R10: automatic forwards and carrier reports send past
+     * it). Called before the send, on the sending thread, so the member lands before the new chat is cached (B2-14).
+     * A send from the main thread joins on a helper thread, as the rules and contacts are not read there.
+     */
+    fun onSend(context: Context, addresses: List<String>) {
+        if (!ProviderTruthFlag.enabled || addresses.isEmpty()) return
+        val app = context.applicationContext
+        if (isOnMainThread()) {
+            runCatching { ensureBackgroundThread { join(app, addresses) } }
+        } else {
+            join(app, addresses)
+        }
+    }
+
+    /** Blocking. Returns how many of [addresses] joined. Never throws. */
+    fun join(context: Context, addresses: Collection<String>): Int {
+        if (!ProviderTruthFlag.enabled || addresses.isEmpty()) return 0
+        val app = context.applicationContext
+        return runCatching {
+            val filter = UMessage.filter(app) as? DefaultSpamFilter ?: return 0
+            val repo = UMessage.repository(app) as? DefaultSpamRepository ?: return 0
+            val snapshot = filter.senderJudge.snapshot()
+            val joined = addresses.map { it.trim() }.distinct()
+                .filter { isUnknown(snapshot.verdict(it)) }
+                .filter { runBlocking { repo.joinGroup(AllowGroup.WROTE, it, MemberSource.LIVE) } }
+            if (joined.isNotEmpty()) sortAgain(app, joined)
+            joined.size
+        }.getOrDefault(0)
+    }
+
+    /** The same test as the history check: unknown, or in Messages only because the filter is off. */
+    internal fun isUnknown(verdict: SenderVerdict): Boolean = when (verdict) {
+        is SenderVerdict.Spam -> verdict.cause == SpamCause.UNKNOWN
+        is SenderVerdict.Messages -> verdict.reason == DecisionReason.MODE_OFF
+    }
+
+    private fun sortAgain(app: Context, joined: List<String>) {
+        runCatching { ChatSorter.snapshots(app).invalidate() }
+        val threads = joined.mapNotNull { address ->
+            runCatching { app.getThreadId(address) }.getOrNull()?.takeIf { it > 0L }
+        }
+        runCatching { SpamSorting.requestThreads(app, threads) }
+    }
+}
+
+/**
+ * Provider truth (6.3, R3): a reply that uMessage did not send itself (a car kit, a watch, an assistant, another app)
+ * still makes its recipient a member of "People you wrote to". The observer of [SystemContactChecker] hands every
+ * changed message row here; an outgoing row to one recipient, dated within [RECENT_MS], joins that recipient through
+ * [WroteToGroup]. Skipped: rows uMessage wrote itself ([OwnSentRows]: its replies joined at the send, its forwards and
+ * carrier reports must not), forward texts ([ForwardFormat.isForward]), an MMS to several people (a group thread) and
+ * old rows (a restore; the history check reads those).
+ */
+internal object SentRowWatch {
+    /** A row is looked at a little after its change, when uMessage's own send has listed it in [OwnSentRows]. */
+    private const val DELAY_MS = 2_000L
+    private const val RECENT_MS = 10 * 60_000L
+    private const val MAX_HANDLED = 200
+    private const val MS_PER_SECOND = 1000L
+
+    private val executor: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor { runnable ->
+        Thread(runnable, "sent-row-watch").apply { isDaemon = true }
+    }
+
+    /** Rows already handed to [WroteToGroup] ("sms:12", "mms:7"); a row changes several times while it is sent. */
+    private val handled = LinkedHashSet<String>()
+
+    fun onChanged(context: Context, uri: Uri) {
+        if (!ProviderTruthFlag.enabled) return
+        val app = context.applicationContext
+        runCatching {
+            executor.schedule(Runnable { runCatching { handle(app, uri) } }, DELAY_MS, TimeUnit.MILLISECONDS)
+        }
+    }
+
+    /** Blocking: joins the recipient of the row [uri] names when it is a new outgoing one-to-one row. */
+    internal fun handle(context: Context, uri: Uri, now: Long = System.currentTimeMillis()) {
+        if (!ProviderTruthFlag.enabled) return
+        val id = uri.lastPathSegment?.toLongOrNull() ?: return
+        val isMms = uri.authority == Telephony.Mms.CONTENT_URI.authority
+        val key = (if (isMms) "mms:" else "sms:") + id
+        if (synchronized(handled) { key in handled } || (!isMms && OwnSentRows.contains(id))) return
+        val recipients = runCatching { if (isMms) sentMms(context, id, now) else sentSms(context, id, now) }
+            .getOrNull().orEmpty()
+        if (recipients.isEmpty()) return
+        synchronized(handled) {
+            handled += key
+            while (handled.size > MAX_HANDLED) handled.remove(handled.first())
+        }
+        WroteToGroup.join(context, recipients)
+    }
+
+    /** The recipient of SMS [id] when it is outgoing, recent and not a forward; else empty. */
+    private fun sentSms(context: Context, id: Long, now: Long): List<String> = context.contentResolver.query(
+        Telephony.Sms.CONTENT_URI,
+        arrayOf(Telephony.Sms.ADDRESS, Telephony.Sms.TYPE, Telephony.Sms.BODY, Telephony.Sms.DATE),
+        "${Telephony.Sms._ID} = ?",
+        arrayOf(id.toString()),
+        null,
+    )?.use { cursor ->
+        fun column(name: String) = cursor.getColumnIndexOrThrow(name)
+        val usable = cursor.moveToFirst() && cursor.getInt(column(Telephony.Sms.TYPE)) in OUTGOING_SMS &&
+            isRecent(cursor.getLong(column(Telephony.Sms.DATE)), now) &&
+            !ForwardFormat.isForward(cursor.getString(column(Telephony.Sms.BODY)).orEmpty())
+        val address = if (usable) cursor.getString(column(Telephony.Sms.ADDRESS))?.trim().orEmpty() else ""
+        if (usable && address.isNotEmpty() && MessagingUtils.ADDRESS_SEPARATOR !in address) listOf(address) else null
+    }.orEmpty()
+
+    /** The recipient of MMS [id] when it is sent or in the outbox, recent and to one person; else empty. */
+    private fun sentMms(context: Context, id: Long, now: Long): List<String> {
+        val usable = context.contentResolver.query(
+            Telephony.Mms.CONTENT_URI,
+            arrayOf(Telephony.Mms.MESSAGE_BOX, Telephony.Mms.DATE),
+            "${Telephony.Mms._ID} = ?",
+            arrayOf(id.toString()),
+            null,
+        )?.use { cursor ->
+            cursor.moveToFirst() && cursor.getInt(0) in OUTGOING_MMS && isRecent(cursor.getLong(1) * MS_PER_SECOND, now)
+        } ?: false
+        if (!usable) return emptyList()
+        val recipients = ArrayList<String>()
+        context.contentResolver.query(
+            Uri.parse("content://mms/$id/addr"),
+            arrayOf(Telephony.Mms.Addr.ADDRESS),
+            "${Telephony.Mms.Addr.TYPE} IN ($PDU_TO,$PDU_CC,$PDU_BCC)",
+            null,
+            null,
+        )?.use { cursor ->
+            while (cursor.moveToNext()) {
+                cursor.getString(0)?.trim()?.takeIf { it.isNotEmpty() && it != MMS_NO_ADDRESS }?.let(recipients::add)
+            }
+        }
+        // A group MMS thread makes no member (6.3).
+        return recipients.distinct().takeIf { it.size == 1 }.orEmpty()
+    }
+
+    /** Tests only: forgets the rows handled so far (row ids start again in every test's store). */
+    @VisibleForTesting
+    internal fun resetForTest() = synchronized(handled) { handled.clear() }
+
+    private fun isRecent(date: Long, now: Long): Boolean = now - date in -RECENT_MS..RECENT_MS
+
+    private val OUTGOING_SMS = setOf(
+        Telephony.Sms.MESSAGE_TYPE_SENT,
+        Telephony.Sms.MESSAGE_TYPE_OUTBOX,
+        Telephony.Sms.MESSAGE_TYPE_QUEUED,
+        Telephony.Sms.MESSAGE_TYPE_FAILED,
+    )
+    private val OUTGOING_MMS = setOf(Telephony.Mms.MESSAGE_BOX_SENT, Telephony.Mms.MESSAGE_BOX_OUTBOX)
+
+    // PDU header field ids for the recipient lists (PduHeaders.TO / CC / BCC), as in SystemContactChecker.
+    private const val PDU_TO = 151
+    private const val PDU_CC = 130
+    private const val PDU_BCC = 129
+    private const val MMS_NO_ADDRESS = "insert-address-token"
 }
