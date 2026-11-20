@@ -94,8 +94,22 @@ class App : FossifyApp() {
     private fun startSorting() {
         if (!ProviderTruthFlag.enabled) return
         SpamSorting.install(this)
+        sortingStarted = true
+        // Also the check a contacts grant before this point asked for (B2-5).
         FirstRun.check(this)
         SpamSorting.requestFull(this)
+    }
+
+    /**
+     * B2-5: the first run is checked only once [startSorting] ran, after [BlockingMigration] and with the triggers
+     * installed; until then a check asked for (the contacts observer, the main screen's resume) is left to it.
+     */
+    @Volatile
+    private var sortingStarted = false
+
+    /** The first run's check (FirstRun.check), once sorting has started; before that, [startSorting] does it. */
+    fun checkFirstRun() {
+        if (sortingStarted) FirstRun.check(this)
     }
 
     @Volatile
@@ -109,7 +123,7 @@ class App : FossifyApp() {
         if (contactsObserverRegistered || !hasPermission(PERMISSION_READ_CONTACTS)) return
         contactsObserverRegistered = true
         // U3, R5: contacts became readable; the first run turns that into a history check and a sort.
-        FirstRun.check(this)
+        checkFirstRun()
         listOf(
             ContactsContract.Contacts.CONTENT_URI,
             ContactsContract.Data.CONTENT_URI,
@@ -148,7 +162,7 @@ internal object AppLockGuard : Application.ActivityLifecycleCallbacks {
         applyWindowProtection(activity)
         // Provider truth: the main list after the welcome flow, a new default-app or contacts grant, a return to the
         // app. Only posts a check to the sorting thread; nothing while the flag is off.
-        if (activity is MainActivity) FirstRun.check(activity)
+        if (activity is MainActivity) (activity.application as? App)?.checkFirstRun()
         // The invisible "Copy code" screen (N6) shows nothing of the app, so it never asks for the PIN.
         if (activity is LockActivity || activity is SplashActivity || activity is CopyCodeActivity) return
         // These bases already ask for the lock screen in their own onResume.
