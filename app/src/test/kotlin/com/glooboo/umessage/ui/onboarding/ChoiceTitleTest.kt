@@ -79,7 +79,7 @@ class ChoiceTitleTest {
         // One line: the tag sits within the name's line box.
         assertThat(tag.top).isAtLeast(name.top)
         assertThat(tag.bottom).isAtMost(name.bottom)
-        assertThat(titleBounds().width).isEqualTo(600.dp)
+        assertThat(titleBounds().boxWidth).isEqualTo(600.dp)
     }
 
     @Test
@@ -98,8 +98,8 @@ class ChoiceTitleTest {
         val name = nameBounds()
         val tag = tagBounds()
         assertThat(tag.top).isAtLeast(name.bottom)
-        assertThat(name.width).isEqualTo(140.dp)
-        assertThat(tag.width).isEqualTo(140.dp)
+        assertThat(name.boxWidth).isEqualTo(140.dp)
+        assertThat(tag.boxWidth).isEqualTo(140.dp)
     }
 
     @Test
@@ -110,7 +110,7 @@ class ChoiceTitleTest {
         val tag = tagBounds()
         assertThat(tag.left).isAtLeast(name.right)
         assertThat(titleBounds().right).isAtLeast(tag.right)
-        assertThat(titleBounds().width.value).isLessThan(800f)
+        assertThat(titleBounds().boxWidth.value).isLessThan(800f)
     }
 
     @Test
@@ -119,7 +119,7 @@ class ChoiceTitleTest {
         val name = nameBounds()
         val tag = tagBounds()
         assertThat(tag.left).isAtLeast(name.right)
-        assertThat(titleBounds().width.value).isLessThan(800f)
+        assertThat(titleBounds().boxWidth.value).isLessThan(800f)
     }
 
     @Test
@@ -132,3 +132,6 @@ class ChoiceTitleTest {
         const val TITLE = "choice_title"
     }
 }
+
+/** Width of a bounds rectangle (DpRect.width clashes with the width modifier import). */
+private val DpRect.boxWidth: Dp get() = right - left
