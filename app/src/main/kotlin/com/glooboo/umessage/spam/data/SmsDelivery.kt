@@ -1,6 +1,7 @@
 package com.glooboo.umessage.spam.data
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.provider.Telephony
 import org.fossify.commons.extensions.getMyContactsCursor
 import org.fossify.commons.helpers.SimpleContactsHelper
@@ -16,14 +17,16 @@ import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.isStoredLate
 import com.glooboo.umessage.extensions.recomputeThreadDate
 import com.glooboo.umessage.extensions.messagesDB
+import com.glooboo.umessage.extensions.postReceivedMessageNotification
 import com.glooboo.umessage.extensions.shouldUnarchive
-import com.glooboo.umessage.extensions.showReceivedMessageNotification
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.helpers.NotifyContext
 import com.glooboo.umessage.helpers.NotifyMode
+import com.glooboo.umessage.helpers.NotifyResult
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.models.Message
+import com.glooboo.umessage.receivers.PendingSmsRetry
 
 /** The Telephony provider did not store the SMS. Nothing was written; the caller must keep the message and retry. */
 class SmsInsertException(message: String, cause: Throwable? = null) : IllegalStateException(message, cause)
@@ -97,6 +100,8 @@ fun Context.deliverIncomingSms(
         subscriptionId = subscriptionId,
         dateSent = dateSent,
     )
+    // N6: on disk before anything else, so a process that dies before the post leaves a notification to replay.
+    if (notify.mode != NotifyMode.NONE) NotifyDue.mark(context, newMessageId, date, notify)
 
     // From here on the SMS is safe in the provider. Nothing below may throw.
     // The thread now carries the insert time; date it by its newest message, the time this one really arrived.
@@ -114,11 +119,7 @@ fun Context.deliverIncomingSms(
         }
     }
 
-    val senderName = runCatching {
-        context.getMyContactsCursor(favoritesOnly = false, withPhoneNumbersOnly = true).use {
-            context.getNameFromAddress(address, it)
-        }
-    }.getOrNull() ?: address
+    val senderName = context.senderNameFor(address)
 
     runCatching {
         val participant = SimpleContact(
@@ -158,20 +159,42 @@ fun Context.deliverIncomingSms(
 
     runCatching { refreshMessages() }
     runCatching { refreshConversations(threadId) }
-    if (notify.mode != NotifyMode.NONE) {
-        runCatching {
-            context.showReceivedMessageNotification(
-                messageId = newMessageId,
-                isMms = false,
-                address = address,
-                senderName = senderName,
-                body = body,
-                threadId = threadId,
-                bitmap = bitmap,
-                subscriptionId = subscriptionId,
-                notify = notify,
-            )
-        }
-    }
+    context.notifyDelivered(newMessageId, address, senderName, body, threadId, bitmap, subscriptionId, notify)
     return newMessageId
+}
+
+/** The contact name of [address], or [address] itself when there is none or contacts cannot be read. */
+internal fun Context.senderNameFor(address: String): String = runCatching {
+    getMyContactsCursor(favoritesOnly = false, withPhoneNumbersOnly = true).use {
+        getNameFromAddress(address, it)
+    }
+}.getOrNull() ?: address
+
+/** Posts the notification of a message that was just stored and settles its "notify due" marker. Never throws. */
+private fun Context.notifyDelivered(
+    messageId: Long,
+    address: String,
+    senderName: String,
+    body: String,
+    threadId: Long,
+    bitmap: Bitmap?,
+    subscriptionId: Int,
+    notify: NotifyContext,
+) {
+    if (notify.mode == NotifyMode.NONE) return
+    NotifyDue.debugHold(this)
+    val result = postReceivedMessageNotification(
+        messageId = messageId,
+        isMms = false,
+        address = address,
+        senderName = senderName,
+        body = body,
+        threadId = threadId,
+        bitmap = bitmap,
+        subscriptionId = subscriptionId,
+        notify = notify,
+    )
+    NotifyDue.settle(this, messageId, result)
+    // Neither form could be posted: try again on the retry alarm, not only on the next SMS or app start.
+    if (result == NotifyResult.FAILED) runCatching { PendingSmsRetry.schedule(this) }
 }

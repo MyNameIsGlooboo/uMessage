@@ -5,8 +5,10 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.StringRes
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.ChannelHealth
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.ui.main.NotificationsBlock
+import com.glooboo.umessage.ui.main.quietChannelProblem
 import com.glooboo.umessage.ui.onboarding.PermissionItem
 import com.glooboo.umessage.ui.onboarding.isGranted
 
@@ -80,7 +82,7 @@ private fun permissionRow(context: Context, item: PermissionItem, live: SetupLiv
     )
 }
 
-/** Notifications on every Android version: the permission (13+), the app switch and the messages channel. */
+/** Notifications on every Android version: the permission (13+), the app switch and the message channels. */
 private fun notificationsRow(context: Context, live: SetupLive, actions: SetupActions): SetupRowUi {
     val askable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
         !context.isGranted(listOf(Manifest.permission.POST_NOTIFICATIONS)) &&
@@ -98,7 +100,15 @@ private fun notificationsRow(context: Context, live: SetupLive, actions: SetupAc
                 actions.openNotifications(live.block)
             }
         },
+        note = notificationsNote(context, live),
     )
+}
+
+/** N7: a message channel that still shows but rings no sound is named. Otherwise no note. */
+private fun notificationsNote(context: Context, live: SetupLive): String? {
+    if (live.block != NotificationsBlock.CHANNEL) return null
+    val quiet = quietChannelProblem(live.block, ChannelHealth.current(context)) ?: return null
+    return context.getString(R.string.notifications_quiet_body, quiet.channelName)
 }
 
 private fun PermissionItem.isNotifications() = Manifest.permission.POST_NOTIFICATIONS in permissions

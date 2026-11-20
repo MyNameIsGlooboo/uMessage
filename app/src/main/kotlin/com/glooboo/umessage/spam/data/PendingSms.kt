@@ -131,7 +131,10 @@ object IncomingSmsProcessor {
                 dateSent = message.dateSent,
             )
         } catch (first: Throwable) {
-            insertRaw(context, message, first)
+            val id = insertRaw(context, message, first)
+            // Stored without the notification step: leave a marker, the replay that follows the receive posts it.
+            if (id > 0L) NotifyDue.mark(context, id, message.date, notify, live = false)
+            id
         }
     }
 
@@ -198,6 +201,8 @@ object PendingSmsQueue {
      */
     @Synchronized
     fun replay(context: Context, now: Long = System.currentTimeMillis()): Int {
+        // N6: notifications still owed are replayed first, so a broken database does not stop them.
+        val notifyWaiting = NotifyDue.replay(context, now)
         val dao = try {
             SpamDatabase.getInstance(context).spamDao()
         } catch (t: Throwable) {
@@ -208,7 +213,7 @@ object PendingSmsQueue {
         } catch (t: Throwable) {
             return -1
         }
-        return rows.count { replayRow(context, dao, it, now) }
+        return rows.count { replayRow(context, dao, it, now) } + notifyWaiting
     }
 
     /** Re-runs one row. Returns true when it is still waiting afterwards. */

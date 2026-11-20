@@ -6,6 +6,9 @@ import android.content.Context
 import android.provider.Settings
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.helpers.CODE_CHANNEL_ID
+import com.glooboo.umessage.helpers.ChannelIssue
+import com.glooboo.umessage.helpers.ChannelProblem
 import com.glooboo.umessage.helpers.NOTIFICATION_CHANNEL_ID
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -50,9 +53,33 @@ class NotificationsOffTest {
 
     @Test
     fun appSwitchWinsOverTheChannel() {
-        assertThat(notificationsBlock(appEnabled = false, channelImportance = NotificationManager.IMPORTANCE_NONE))
-            .isEqualTo(NotificationsBlock.APP)
-        assertThat(notificationsBlock(appEnabled = true, channelImportance = null)).isNull()
-        assertThat(notificationsBlock(appEnabled = true, channelImportance = NotificationManager.IMPORTANCE_HIGH)).isNull()
+        val aProblem = ChannelProblem(NOTIFICATION_CHANNEL_ID, "Received messages", ChannelIssue.BLOCKED)
+        assertThat(notificationsBlock(appEnabled = false, problem = aProblem)).isEqualTo(NotificationsBlock.APP)
+        assertThat(notificationsBlock(appEnabled = true, problem = null)).isNull()
+        assertThat(notificationsBlock(appEnabled = true, problem = aProblem)).isEqualTo(NotificationsBlock.CHANNEL)
+    }
+
+    @Test
+    fun silentCodeChannelIsDetectedAndTheFixOpensIt() {
+        manager.createNotificationChannel(
+            NotificationChannel(CODE_CHANNEL_ID, "Verification codes", NotificationManager.IMPORTANCE_LOW)
+        )
+
+        val block = context.currentNotificationsBlock()
+
+        assertThat(block).isEqualTo(NotificationsBlock.CHANNEL)
+        val intent = context.notificationsFixIntent(block!!)
+        assertThat(intent.action).isEqualTo(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
+        assertThat(intent.getStringExtra(Settings.EXTRA_CHANNEL_ID)).isEqualTo(CODE_CHANNEL_ID)
+    }
+
+    @Test
+    fun channelWithoutSoundIsDetected() {
+        val channel =
+            NotificationChannel(NOTIFICATION_CHANNEL_ID, "Received messages", NotificationManager.IMPORTANCE_HIGH)
+        channel.setSound(null, null)
+        manager.createNotificationChannel(channel)
+
+        assertThat(context.currentNotificationsBlock()).isEqualTo(NotificationsBlock.CHANNEL)
     }
 }
