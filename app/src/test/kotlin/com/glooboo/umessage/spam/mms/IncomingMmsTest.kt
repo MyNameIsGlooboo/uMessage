@@ -44,8 +44,9 @@ class IncomingMmsTest {
         }
     }
 
-    private fun place(check: Check, others: Int? = 1): MmsPlace =
-        mms.placeDownloaded(row = row, threadId = THREAD, sender = SENDER, otherParticipants = others, check = check)
+    private fun place(check: Check, others: Int? = 1, counted: Boolean = false): MmsPlace = mms.placeDownloaded(
+        row = row, threadId = THREAD, sender = SENDER, recipients = others, check = check, noticeCounted = counted,
+    )
 
     private fun spam(cause: SpamCause, ruleId: Long? = null, fact: SenderFact? = null) = Judgement(
         verdict = SenderVerdict.Spam(
@@ -105,14 +106,22 @@ class IncomingMmsTest {
     }
 
     @Test
-    fun ownNumbersAreLeftOutWhenTheParticipantsAreCounted() {
-        val same = { a: String, b: String -> a.takeLast(10) == b.takeLast(10) }
+    fun e15_recipientsAreCountedAsTheListsCountThem_andOneUnreadableMakesItUnknown() {
+        // The user's own number counts too, as in the cached chat (is_group_conversation).
+        assertThat(IncomingMms.recipients(listOf(SENDER, "+15550009999"))).isEqualTo(2)
+        assertThat(IncomingMms.recipients(listOf(SENDER))).isEqualTo(1)
+        // E-10: one blank recipient is enough to not know.
+        assertThat(IncomingMms.recipients(listOf(SENDER, " "))).isNull()
+        assertThat(IncomingMms.recipients(emptyList())).isNull()
+    }
 
-        assertThat(IncomingMms.otherParticipants(listOf(SENDER, "5550009999"), listOf("+15550009999"), same))
-            .isEqualTo(1)
-        assertThat(IncomingMms.otherParticipants(listOf(SENDER, "+15550004321"), emptyList(), same)).isEqualTo(2)
-        assertThat(IncomingMms.otherParticipants(listOf("", " "), emptyList(), same)).isNull()
-        assertThat(IncomingMms.otherParticipants(emptyList(), emptyList(), same)).isNull()
+    @Test
+    fun e15_aSpamMmsWhoseChatTheListsDoNotShowInSpam_failsTheSafetyCheck_unreadAndAnnounced() {
+        store.notListed += THREAD
+
+        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN)))).isEqualTo(MmsPlace.Messages(null))
+        assertThat(store.rowSilent[row]).isFalse()
+        assertThat(store.spamEvents).isEqualTo(0)
     }
 
     @Test
@@ -155,7 +164,7 @@ class IncomingMmsTest {
         assertThat(store.rowSilent[row]).isTrue()
         assertThat(store.spamRows[THREAD]).isEqualTo(Triple(SENDER, SpamCause.UNKNOWN, 1))
         // S9: the Spam row is written before the row is marked read and silent, and checked after (R1).
-        assertThat(store.calls).containsExactly("noteSpamArrival", "setSilent(true)", "isSpamThreadOf").inOrder()
+        assertThat(store.calls).containsExactly("noteSpamArrival", "setSilent(true)", "isListedInSpam").inOrder()
         assertThat(store.spamEvents).isEqualTo(1)
         // The judgement wrote the one row; nothing else is logged and the sender is not probed.
         assertThat(check.logged).isEmpty()
@@ -220,7 +229,7 @@ class IncomingMmsTest {
         assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN)))).isEqualTo(MmsPlace.Messages(null))
         // It was marked read and silent, then the safety check (R1) made it unread again.
         assertThat(store.calls).containsExactly(
-            "noteSpamArrival", "setSilent(true)", "isSpamThreadOf", "setSilent(false)",
+            "noteSpamArrival", "setSilent(true)", "isListedInSpam", "setSilent(false)",
         ).inOrder()
         assertThat(store.rowSilent[row]).isFalse()
         assertThat(store.spamEvents).isEqualTo(0)
@@ -304,6 +313,84 @@ class IncomingMmsTest {
 
         assertThat(store.ruleHits).containsExactly(6L)
         assertThat(store.spamEvents).isEqualTo(1)
+    }
+
+    // E-8: one message, one count
+
+    @Test
+    fun aParkedNoticeThenItsDownload_raisesTheSpamCountOnceAndCountsOneHit() {
+        store.threads[SENDER] = THREAD
+        store.spamRows[THREAD] = Triple(SENDER, SpamCause.BLOCKED, 0)
+
+        mms.parkNotice(notice, SENDER)
+        val place = place(Check(judgement = spam(SpamCause.BLOCKED, ruleId = 7L)))
+
+        assertThat(place).isEqualTo(MmsPlace.Spam(SpamCause.BLOCKED))
+        assertThat(store.spamRows[THREAD]?.third).isEqualTo(1)
+        assertThat(store.ruleHits).containsExactly(7L)
+        assertThat(store.spamEvents).isEqualTo(1)
+    }
+
+    @Test
+    fun aRevealedNoticeDownloadedLater_isNotCountedAgain() {
+        mms.revealNotice(notice, SENDER, SpamCause.BLOCKED)
+        mms.countSpamNotice(7L)
+        val thread = store.threads.getValue(SENDER)
+
+        val place = mms.placeDownloaded(
+            row = row, threadId = thread, sender = SENDER, recipients = 1,
+            check = Check(judgement = spam(SpamCause.BLOCKED, ruleId = 7L)), noticeCounted = true,
+        )
+
+        assertThat(place).isEqualTo(MmsPlace.Spam(SpamCause.BLOCKED))
+        assertThat(store.spamRows[thread]?.third).isEqualTo(1)
+        assertThat(store.ruleHits).containsExactly(7L)
+        assertThat(store.spamEvents).isEqualTo(1)
+    }
+
+    @Test
+    fun aCountedNoticeWhoseMmsWentToAGroup_lowersTheCountOfTheChatItKeeps() {
+        store.threadsWithMessages += 55L
+        store.spamRows[55L] = Triple(SENDER, SpamCause.UNKNOWN, 2)
+
+        mms.forgetNoticeChat(noticeThread = 55L, landedIn = 66L, noticeCounted = true)
+
+        assertThat(store.spamRows[55L]?.third).isEqualTo(1)
+        assertThat(store.forgotten).isEmpty()
+    }
+
+    // A Spam notice that downloads now: no early Spam row
+
+    @Test
+    fun aDownloadingNotice_ofASenderWithAMessagesChat_keepsNoChatAndWritesNoSpamRow() {
+        store.threads[SENDER] = 20L
+        store.threadsWithMessages += 20L
+
+        mms.parkNotice(notice, SENDER)
+
+        assertThat(store.rowThread).isEmpty()
+        assertThat(store.spamRows).isEmpty()
+    }
+
+    @Test
+    fun aDownloadingNotice_ofANewSender_getsTheEmptyChatUnread_withoutASpamRow() {
+        mms.parkNotice(notice, SENDER)
+
+        assertThat(store.rowThread[notice]).isEqualTo(store.threads.getValue(SENDER))
+        assertThat(store.rowSilent[notice]).isFalse()
+        assertThat(store.spamRows).isEmpty()
+    }
+
+    @Test
+    fun aDownloadingNotice_ofASenderInSpam_getsTheSpamChatWithoutACount() {
+        store.threads[SENDER] = 30L
+        store.threadsWithMessages += 30L
+        store.spamRows[30L] = Triple(SENDER, SpamCause.BLOCKED, 4)
+
+        mms.parkNotice(notice, SENDER)
+
+        assertThat(store.rowThread[notice]).isEqualTo(30L)
+        assertThat(store.spamRows[30L]?.third).isEqualTo(4)
     }
 
     @Test

@@ -4,11 +4,11 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.telephony.SubscriptionManager
-import com.glooboo.umessage.spam.IncomingMessage
 import android.util.Log
 import com.android.mms.transaction.PushReceiver
 import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.messaging.MmsDownloadFailure
 import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.mms.BlockedMmsDownloader
 import com.glooboo.umessage.spam.mms.IncomingMms
@@ -39,6 +39,9 @@ class MmsPushReceiver : BroadcastReceiver() {
     /** Saves a let-through notification-ind and starts its download; the result reaches the manifest [MmsReceiver]. */
     internal var pushDownload = MmsPushDownload()
 
+    /** Provider truth: places notices without a chat whose download was lost (also run at app start). */
+    internal var sweep: (Context) -> Unit = { MmsDownloadFailure().sweep(it) }
+
     /** Roaming on the SIM the push came in on (provider truth: a Spam notice is then not downloaded). */
     internal var roaming: (Context, Int) -> Boolean = ::isRoamingOn
 
@@ -49,6 +52,8 @@ class MmsPushReceiver : BroadcastReceiver() {
             ensureBackgroundThread {
                 try {
                     process(appContext, intent)
+                    // E-4: notices left without a chat by a reboot, a force stop or a lost result are placed.
+                    if (ProviderTruthFlag.enabled) runCatching { sweep(appContext) }
                 } finally {
                     runCatching { pending.finish() }
                 }
@@ -102,20 +107,15 @@ class MmsPushReceiver : BroadcastReceiver() {
      */
     private fun spamNotice(context: Context, action: MmsPushAction.Block, subscriptionId: Int): SpamNotice {
         val notRoaming = !runCatching { roaming(context, subscriptionId) }.getOrDefault(false)
-        val notice = SpamNotice(
+        // A notice that is not downloaded now gets its one decision-log row once it is saved and placed (E-13).
+        return SpamNotice(
             sender = action.placeholder.address,
             cause = IncomingMms.causeOf(action.decision),
             downloads = action.withinLimits && notRoaming,
             ruleId = action.decision.ruleId,
+            reason = action.decision.reason.name,
+            subscriptionId = subscriptionId,
         )
-        // A notice that is not downloaded now has its final place here: its one decision-log row (E-13).
-        if (!notice.downloads) logPush(context, action.placeholder, action)
-        return notice
-    }
-
-    private fun logPush(context: Context, message: IncomingMessage, action: MmsPushAction.Block) {
-        val decision = action.decision
-        MmsDecisions.log(context, message, IncomingMms.BLOCK, decision.reason.name, "MMS_PUSH", decision.ruleId)
     }
 
     /**

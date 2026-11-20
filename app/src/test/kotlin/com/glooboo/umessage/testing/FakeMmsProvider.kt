@@ -23,7 +23,9 @@ class FakeMmsProvider : ContentProvider() {
         db.execSQL(
             "CREATE TABLE pdu (_id INTEGER PRIMARY KEY AUTOINCREMENT, thread_id INTEGER, m_type INTEGER, " +
                 "msg_box INTEGER DEFAULT 1, read INTEGER DEFAULT 0, seen INTEGER DEFAULT 0, tr_id TEXT, ct_l TEXT, " +
-                "date INTEGER DEFAULT 0, sub_id INTEGER DEFAULT -1, exp INTEGER DEFAULT 0, st INTEGER DEFAULT 0)"
+                "date INTEGER DEFAULT 0, sub_id INTEGER DEFAULT -1, exp INTEGER DEFAULT 0, st INTEGER DEFAULT 0, " +
+                // Written by mmslib on a failed download (retrieve status, error type).
+                "retr_st INTEGER, err_type INTEGER)"
         )
         db.execSQL(
             "CREATE TABLE addr (_id INTEGER PRIMARY KEY AUTOINCREMENT, msg_id INTEGER, address TEXT, type INTEGER)"
@@ -41,6 +43,7 @@ class FakeMmsProvider : ContentProvider() {
         transactionId: String = "T-1",
         location: String = "http://mmsc.example.com/msg/a",
         read: Boolean = false,
+        dateSeconds: Long = 0,
     ): Uri {
         val id = db.insert("pdu", null, ContentValues().apply {
             put("thread_id", threadId)
@@ -49,6 +52,7 @@ class FakeMmsProvider : ContentProvider() {
             put("ct_l", location)
             put("read", if (read) 1 else 0)
             put("seen", if (read) 1 else 0)
+            put("date", dateSeconds)
         })
         db.insert("addr", null, ContentValues().apply {
             put("msg_id", id)
@@ -92,9 +96,23 @@ class FakeMmsProvider : ContentProvider() {
         return db.update(target.table, values, where, selectionArgs)
     }
 
-    override fun insert(uri: Uri, values: ContentValues?): Uri? = null
+    /** A pdu row (`content://mms`, `content://mms/inbox`): returns its uri; anything else (parts, addr) is refused. */
+    override fun insert(uri: Uri, values: ContentValues?): Uri? {
+        if (target(uri)?.let { it.table == "pdu" && it.idClause == null } != true) return null
+        val id = db.insert("pdu", null, ContentValues(values ?: ContentValues()))
+        return if (id > 0) Uri.withAppendedPath(uri, id.toString()) else null
+    }
 
-    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int = 0
+    /** Really deletes the matching rows, so a test sees when the library dropped a notice. */
+    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
+        val target = target(uri) ?: return 0
+        val where = listOfNotNull(target.idClause, selection?.takeIf { it.isNotBlank() }?.let { "($it)" })
+            .joinToString(" AND ").ifEmpty { null }
+        return db.delete(target.table, where, selectionArgs)
+    }
+
+    /** Whether pdu row [id] is still there. */
+    fun exists(id: Long): Boolean = value(id, "_id") != null
 
     override fun getType(uri: Uri): String? = null
 

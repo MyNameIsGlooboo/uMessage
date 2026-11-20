@@ -1,6 +1,7 @@
 package com.glooboo.umessage.messaging
 
 import android.content.Context
+import android.net.Uri
 import android.provider.Telephony.Mms
 import android.telephony.SubscriptionManager
 import android.util.Log
@@ -74,3 +75,43 @@ fun Context.downloadMms(messageId: Long, tracker: MmsDownloadTracker = MmsDownlo
         },
     )
 }
+
+/** A notice (notification-ind) of the phone's store that has no chat (E-1, E-4). */
+internal data class ChatlessNotice(val uri: Uri, val location: String, val subscriptionId: Int)
+
+/**
+ * The notices saved before [before] (ms) that have no chat: mmslib's dummy thread, 0 or none. Read off the main
+ * thread.
+ */
+internal fun Context.chatlessNotices(before: Long): List<ChatlessNotice> {
+    val found = ArrayList<ChatlessNotice>()
+    val selection = "${Mms.MESSAGE_TYPE} = ? AND (${Mms.THREAD_ID} IS NULL OR ${Mms.THREAD_ID} <= 0 OR " +
+        "${Mms.THREAD_ID} = ?) AND ${Mms.DATE} < ?"
+    val args = arrayOf(
+        PduHeaders.MESSAGE_TYPE_NOTIFICATION_IND.toString(), Long.MAX_VALUE.toString(),
+        (before / MILLIS_PER_SECOND).toString(),
+    )
+    val projection = arrayOf(Mms._ID, Mms.CONTENT_LOCATION, Mms.SUBSCRIPTION_ID)
+    contentResolver.query(Mms.CONTENT_URI, projection, selection, args, null)?.use { cursor ->
+        while (cursor.moveToNext()) {
+            val uri = Mms.Inbox.CONTENT_URI.buildUpon().appendPath(cursor.getLong(0).toString()).build()
+            found += ChatlessNotice(uri, cursor.getString(1).orEmpty(), cursor.getInt(2))
+        }
+    }
+    return found
+}
+
+/**
+ * E-17: the MMS the library stored for the download of [transactionId] / [location] although it reported nothing
+ * (it stored the row, then a later step threw). Null when there is none.
+ */
+internal fun Context.storedMmsFor(transactionId: String, location: String): Uri? {
+    if (transactionId.isEmpty() && location.isEmpty()) return null
+    val selection = "${Mms.MESSAGE_TYPE} = ? AND (${Mms.TRANSACTION_ID} = ? OR ${Mms.CONTENT_LOCATION} = ?)"
+    val args = arrayOf(PduHeaders.MESSAGE_TYPE_RETRIEVE_CONF.toString(), transactionId, location)
+    return contentResolver.query(Mms.CONTENT_URI, arrayOf(Mms._ID), selection, args, "${Mms._ID} DESC")?.use {
+        if (it.moveToFirst()) Mms.CONTENT_URI.buildUpon().appendPath(it.getLong(0).toString()).build() else null
+    }
+}
+
+private const val MILLIS_PER_SECOND = 1000L

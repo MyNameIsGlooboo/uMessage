@@ -68,11 +68,9 @@ class MmsArrivalTest {
     private fun handler(
         probe: FilterDecision? = FilterDecision.Allow(DecisionReason.CONTACT),
         judgement: Judgement? = Judgement(SenderVerdict.Messages(DecisionReason.CONTACT)),
-        own: List<String> = emptyList(),
     ) = MmsDownloadHandler().apply {
         incomingMms = { IncomingMms(store) }
         senderCheck = { _: Context, _: IncomingMessage, _: Long -> Check(probe, judgement) { judged++ } }
-        ownNumbers = { own }
         announce = { _, _, _, reason -> announced += reason }
         forwardOf = { _, candidate -> forwarded += candidate }
         updateChatOf = { _, _, unarchive -> updated += unarchive }
@@ -138,13 +136,42 @@ class MmsArrivalTest {
     }
 
     @Test
-    fun theUsersOwnNumberIsNotAParticipant_soTheChatIsOneToOneAndJudged() {
+    fun e15_aChatWithTheSenderAndTheUsersOwnNumber_isAGroupAsTheListsShowIt_soMessagesNeverReadAndSilent() {
+        val spam = Judgement(SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER))
+        val handler = handler(probe = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER), judgement = spam)
+
+        handler.placeAndAnnounce(context, mms(12L, SENDER, OWN), SENDER)
+
+        assertThat(judged).isEqualTo(0)
+        assertThat(announced).containsExactly(DecisionReason.UNKNOWN_SENDER)
+        assertThat(store.rowSilent).isEmpty()
+        assertThat(store.spamRows).isEmpty()
+    }
+
+    @Test
+    fun e10_oneUnreadableRecipient_makesItAGroup() {
         val spam = Judgement(SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER))
 
-        handler(judgement = spam, own = listOf(OWN)).placeAndAnnounce(context, mms(12L, SENDER, OWN), SENDER)
+        handler(judgement = spam).placeAndAnnounce(context, mms(12L, SENDER, ""), SENDER)
 
-        assertThat(judged).isEqualTo(1)
-        assertThat(announced).isEmpty()
+        assertThat(judged).isEqualTo(0)
+        assertThat(store.rowSilent).isEmpty()
+    }
+
+    @Test
+    fun aDownloadingNoticeOfASenderWithAMessagesChat_andAGroupResult_leavesThatChatInMessagesWithoutASpamRow() {
+        store.threads[SENDER] = 20L
+        store.threadsWithMessages += 20L
+        val notice = Uri.parse("content://mms/inbox/42")
+        IncomingMms(store).parkNotice(notice, SENDER)
+
+        handler(probe = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER))
+            .placeAndAnnounce(context, mms(40L, SENDER, OTHER), SENDER)
+
+        assertThat(store.spamRows).isEmpty()
+        assertThat(store.rowThread[notice]).isNull()
+        assertThat(store.forgotten).isEmpty()
+        assertThat(announced).hasSize(1)
     }
 
     @Test
@@ -175,6 +202,62 @@ class MmsArrivalTest {
         assertThat(store.forgotten).containsExactly(55L)
     }
 
+    private fun unreported(receiver: MmsReceiver, file: File, notice: Uri) {
+        val broadcast = WatchedBroadcast.attachTo(receiver)
+        receiver.onReceive(
+            context,
+            Intent(context, MmsReceiver::class.java)
+                .putExtra(MmsReceivedReceiver.EXTRA_FILE_PATH, file.path)
+                .putExtra(MmsReceivedReceiver.EXTRA_LOCATION_URL, "http://mmsc.example.com/msg/unreported")
+                .putExtra(MmsReceivedReceiver.EXTRA_TRANSACTION_ID, "T-1")
+                .putExtra(MmsReceivedReceiver.EXTRA_URI, notice)
+                .putExtra(MmsReceivedReceiver.SUBSCRIPTION_ID, 1),
+        )
+        assertThat(broadcast.awaitFinished()).isTrue()
+    }
+
+    private fun failingReceiver(onProbe: () -> Unit) = MmsReceiver().apply {
+        failure = MmsDownloadFailure(
+            store = { store },
+            probe = { _, _ -> onProbe(); null },
+            notify = {},
+            toast = {},
+            finishLibraryDownload = {},
+            log = { _, _, _, _, _ -> },
+        )
+    }
+
+    @Test
+    fun e5_aJunkFile_isAFailedDownload_andTheNoticeStays_withAnMmsProviderPresent() {
+        val provider = FakeMmsProvider.install()
+        val notice = provider.addNotice(SENDER)
+        store.notices[notice] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        var failed = 0
+        val receiver = failingReceiver { failed++ }
+        val file = File(context.cacheDir, "download.junk.dat").apply { writeBytes(byteArrayOf(1, 2, 3, 4, 5, 6)) }
+
+        unreported(receiver, file, notice)
+
+        assertThat(failed).isEqualTo(1)
+        assertThat(store.rowThread[notice]).isEqualTo(store.threads.getValue(SENDER))
+        assertThat(provider.exists(notice.lastPathSegment!!.toLong())).isTrue()
+    }
+
+    @Test
+    fun e17_anMmsTheLibraryStoredButDidNotReport_isPlaced_notFailed() {
+        var failed = 0
+        var asked: Pair<String, String>? = null
+        val receiver = failingReceiver { failed++ }.apply {
+            storedRow = { _, id, location -> asked = id to location; Uri.parse("content://mms/77") }
+        }
+        val file = File(context.cacheDir, "download.junk2.dat").apply { writeBytes(byteArrayOf(9, 8, 7, 6)) }
+
+        unreported(receiver, file, Uri.parse("content://mms/inbox/42"))
+
+        assertThat(failed).isEqualTo(0)
+        assertThat(asked).isEqualTo("T-1" to "http://mmsc.example.com/msg/unreported")
+    }
+
     @Test
     fun e5_aResultTheLibraryCouldNotStore_runsTheFailurePath() {
         var failed = 0
@@ -185,7 +268,9 @@ class MmsArrivalTest {
                 notify = {},
                 toast = {},
                 finishLibraryDownload = {},
+                log = { _, _, _, _, _ -> },
             )
+            storedRow = { _, _, _ -> null }
         }
         // A good PDU the library cannot store (Robolectric has no MMS provider): neither stored nor an error.
         val pdu = MmsPduFixtures.retrieveConf(context, "hello")

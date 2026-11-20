@@ -7,6 +7,7 @@ import android.provider.Telephony.Mms
 import android.provider.Telephony.Sms
 import android.provider.Telephony.Threads
 import android.telephony.TelephonyManager
+import com.glooboo.umessage.databases.MessagesDatabase
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.getConversations
 import com.glooboo.umessage.extensions.insertOrUpdateConversation
@@ -22,16 +23,32 @@ import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.spam.engine.SpamEngine
 
 /** [MmsSpamStore] on the phone's store and the app's own databases. Every call may throw; the caller fails open. */
+@Suppress("TooManyFunctions") // The one implementation of the port; see MmsSpamStore.
 class AndroidMmsSpamStore(context: Context) : MmsSpamStore {
     private val app = context.applicationContext
 
     override fun threadOf(address: String): Long = Threads.getOrCreateThreadId(app, address)
 
-    override fun noteSpamArrival(threadId: Long, address: String, cause: SpamCause, at: Long) =
+    override fun noteSpamArrival(threadId: Long, address: String, cause: SpamCause, at: Long, raise: Boolean) {
+        if (!raise && SpamThreads.isSpamThreadOf(app, threadId, address)) return
         SpamThreads.noteArrival(app, threadId, address, cause, at)
+    }
+
+    override fun lowerSpamUnread(threadId: Long) {
+        val dao = app.conversationsDB
+        MessagesDatabase.getInstance(app).runInTransaction(Runnable {
+            val row = dao.getSpamThread(threadId) ?: return@Runnable
+            if (row.unread <= 0) return@Runnable
+            // The DAO has no "- 1": the row is written again with its count lowered, cause and spam_since kept.
+            dao.deleteSpamThread(threadId)
+            dao.insertSpamThread(row.copy(unread = row.unread - 1))
+        })
+    }
 
     override fun isSpamThreadOf(threadId: Long, address: String): Boolean =
         SpamThreads.isSpamThreadOf(app, threadId, address)
+
+    override fun isListedInSpam(threadId: Long): Boolean = app.conversationsDB.isInSpam(threadId)
 
     override fun setThread(row: Uri, threadId: Long?, silent: Boolean): Boolean {
         val values = ContentValues().apply {
@@ -44,10 +61,10 @@ class AndroidMmsSpamStore(context: Context) : MmsSpamStore {
 
     override fun noticeOf(row: Uri): NoticeRow? {
         val id = row.lastPathSegment?.toLongOrNull() ?: return null
-        val threadId = app.contentResolver.query(row, arrayOf(Mms.THREAD_ID), null, null, null)?.use {
-            if (it.moveToFirst()) it.getLong(0) else null
+        val (threadId, read) = app.contentResolver.query(row, arrayOf(Mms.THREAD_ID, Mms.READ), null, null, null)?.use {
+            if (it.moveToFirst()) it.getLong(0) to (it.getInt(1) == 1) else null
         } ?: return null
-        return NoticeRow(threadId, MmsSubscriptions.senderOf(app, id).orEmpty())
+        return NoticeRow(threadId, MmsSubscriptions.senderOf(app, id).orEmpty(), read)
     }
 
     override fun hasMessages(threadId: Long): Boolean? = runCatching {

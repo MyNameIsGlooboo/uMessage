@@ -42,7 +42,14 @@ internal class MmsDownloadFailure(
     private val toast: (Context) -> Unit = { it.showErrorToast(it.getString(R.string.couldnt_download_mms)) },
     private val finishLibraryDownload: (String) -> Unit = DownloadManager::finishDownload,
     private val tracker: MmsDownloadTracker = MmsDownloadTracker.shared,
+    /** The one decision-log row of a failed MMS (decision, reason, rule). */
+    private val log: (Context, IncomingMessage, String, String, Long?) -> Unit = { c, m, d, r, rule ->
+        MmsDecisions.log(c, m, d, r, SOURCE, rule)
+    },
 ) {
+
+    /** Where a notice went after a failed download. */
+    private class Kept(val message: IncomingMessage, val decision: FilterDecision?, val inSpam: Boolean)
 
     fun handle(context: Context, intent: Intent) {
         val location = intent.getStringExtra(MmsReceivedReceiver.EXTRA_LOCATION_URL).orEmpty()
@@ -59,9 +66,13 @@ internal class MmsDownloadFailure(
         if (id != null) tracker.fail(id) else tracker.failAllRunning()
         val subscriptionId =
             intent.getIntExtra(MmsReceivedReceiver.SUBSCRIPTION_ID, SubscriptionManager.INVALID_SUBSCRIPTION_ID)
-        val inSpam = notice != null && runCatching { keepNotice(context, notice, subscriptionId) }
-            .onFailure { Log.w(TAG, "Failed MMS notice could not be given its chat", it) }
-            .getOrDefault(false)
+        val kept = notice?.let { row ->
+            runCatching { keepNotice(context, row, subscriptionId) }
+                .onFailure { Log.w(TAG, "Failed MMS notice could not be given its chat", it) }
+                .getOrNull()
+        }
+        val inSpam = kept?.inSpam == true
+        kept?.let { logKept(context, it) }
         Log.w(TAG, "MMS download failed; its notice is kept")
         // E-2 (lead decision): a failure in a Spam chat posts nothing, neither the toast nor the notification.
         if (!inSpam) {
@@ -75,19 +86,51 @@ internal class MmsDownloadFailure(
      * the sender's Spam chat stays there and is not counted again; otherwise it is shown in the sender's chat, in Spam
      * (read and seen) or in Messages (unread). True when it is shown in Spam.
      */
-    private fun keepNotice(context: Context, row: Uri, subscriptionId: Int): Boolean {
+    private fun keepNotice(context: Context, row: Uri, subscriptionId: Int): Kept? {
         val store = store(context)
-        val notice = store.noticeOf(row) ?: return false
-        if (notice.sender.isBlank()) return false
-        val decision = probe(context, IncomingMessage(notice.sender, "", subscriptionId, isMms = true))
+        val notice = store.noticeOf(row) ?: return null
+        if (notice.sender.isBlank()) return null
+        val message = IncomingMessage(notice.sender, "", subscriptionId, isMms = true)
+        val decision = probe(context, message)
         val cause = (decision as? FilterDecision.Block)?.let(IncomingMms::causeOf)
-        val alreadyInSpam = cause != null && IncomingMms.hasChat(notice.threadId) &&
+        // A read notice in its Spam chat was placed and counted already; a parked (unread) one is counted now.
+        val alreadyInSpam = cause != null && notice.read && IncomingMms.hasChat(notice.threadId) &&
             runCatching { store.isSpamThreadOf(notice.threadId, notice.sender) }.getOrDefault(false)
-        if (alreadyInSpam) return true
-        return IncomingMms(store).revealNotice(row, notice.sender, cause)
+        val inSpam = alreadyInSpam || IncomingMms(store).revealNotice(row, notice.sender, cause)
+        return Kept(message, decision, inSpam)
+    }
+
+    /** E-13: one row for the failed MMS, with the place it got: BLOCK in Spam, DELIVER in Messages. */
+    private fun logKept(context: Context, kept: Kept) {
+        val decision = kept.decision
+        val ruleId = (decision as? FilterDecision.Block)?.ruleId ?: (decision as? FilterDecision.Allow)?.ruleId
+        runCatching {
+            log(
+                context, kept.message, if (kept.inSpam) IncomingMms.BLOCK else IncomingMms.DELIVER,
+                decision?.reason?.name ?: "FILTER_FAILED", ruleId,
+            )
+        }
+    }
+
+    /**
+     * E-4: notices with no chat that are older than [MIN_AGE_MS] and whose download is not running (a reboot, a force
+     * stop or a lost result) are placed as after a failed download, without a toast or a notification. Call it off
+     * the main thread, at app start and after each MMS push. Never throws.
+     */
+    fun sweep(context: Context, now: Long = System.currentTimeMillis()) {
+        val lost = runCatching { context.chatlessNotices(before = now - MIN_AGE_MS) }.getOrDefault(emptyList())
+        lost.filterNot { MmsPushDownload.isStarted(it.location, now) }.forEach { notice ->
+            runCatching { keepNotice(context, notice.uri, notice.subscriptionId)?.let { logKept(context, it) } }
+        }
+        if (lost.isNotEmpty()) Log.i(TAG, "Chatless MMS notices placed: ${lost.size}")
     }
 
     companion object {
+        private const val SOURCE = "MMS_FAILED"
+
+        /** A notice younger than this may still be downloading. */
+        const val MIN_AGE_MS = 5 * 60 * 1000L
+
         /**
          * The result brought no downloaded file (missing or empty): the download failed. A result without a file path
          * is left to the library, as before.

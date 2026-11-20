@@ -49,6 +49,7 @@ class MmsDownloadFailureTest {
     private var toasts = 0
     private var notifications = 0
     private val finished = mutableListOf<String>()
+    private val logged = mutableListOf<String>()
 
     private val failure = MmsDownloadFailure(
         store = { store },
@@ -57,6 +58,7 @@ class MmsDownloadFailureTest {
         toast = { toasts++ },
         finishLibraryDownload = { finished += it },
         tracker = tracker,
+        log = { _, _, decision, _, _ -> logged += decision },
     )
 
     @Before
@@ -105,6 +107,7 @@ class MmsDownloadFailureTest {
         assertThat(store.shown).containsExactly(thread)
         assertThat(toasts).isEqualTo(0)
         assertThat(notifications).isEqualTo(0)
+        assertThat(logged).containsExactly("BLOCK")
         // The sender was probed on the SIM the MMS came in on, without text.
         val probe = probed.single()
         assertThat(probe.address).isEqualTo(SENDER)
@@ -124,6 +127,7 @@ class MmsDownloadFailureTest {
         assertThat(store.spamRows).isEmpty()
         assertThat(toasts).isEqualTo(1)
         assertThat(notifications).isEqualTo(1)
+        assertThat(logged).containsExactly("DELIVER")
     }
 
     @Test
@@ -141,15 +145,50 @@ class MmsDownloadFailureTest {
     @Test
     fun aNoticeAlreadyInItsSpamChat_staysThere_isNotCountedAgain_andPostsNothing() {
         decision = FilterDecision.Block(DecisionReason.BLOCK_RULE, 3L)
-        store.notices[notice] = NoticeRow(threadId = 77L, sender = SENDER)
+        store.notices[notice] = NoticeRow(threadId = 77L, sender = SENDER, read = true)
         store.spamRows[77L] = Triple(SENDER, SpamCause.BLOCKED, 1)
 
         failure.handle(context, result())
 
         assertThat(store.rowThread).isEmpty()
         assertThat(store.spamRows[77L]?.third).isEqualTo(1)
+        assertThat(logged).containsExactly("BLOCK")
         assertThat(toasts).isEqualTo(0)
         assertThat(notifications).isEqualTo(0)
+    }
+
+    @Test
+    fun aParkedNoticeInItsSpamChat_isCountedOnceNow_readAndPostingNothing() {
+        decision = FilterDecision.Block(DecisionReason.BLOCK_RULE, 3L)
+        store.notices[notice] = NoticeRow(threadId = 77L, sender = SENDER, read = false)
+        store.threads[SENDER] = 77L
+        store.spamRows[77L] = Triple(SENDER, SpamCause.BLOCKED, 1)
+
+        failure.handle(context, result())
+
+        assertThat(store.spamRows[77L]?.third).isEqualTo(2)
+        assertThat(store.rowSilent[notice]).isTrue()
+        assertThat(notifications).isEqualTo(0)
+    }
+
+    @Test
+    fun theSweep_placesOldNoticesWithoutAChat_quietly_andLeavesTheRest() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val lost = provider.addNotice(SENDER, transactionId = "T-old", location = "http://mmsc.example.com/msg/old")
+        val young = provider.addNotice(
+            SENDER, transactionId = "T-new", location = "http://mmsc.example.com/msg/new", dateSeconds = now / 1000,
+        )
+        val placed = provider.addNotice(SENDER, threadId = 5L, transactionId = "T-chat")
+        listOf(lost, young, placed).forEach { store.notices[it] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER) }
+
+        failure.sweep(context, now)
+
+        assertThat(store.rowThread.keys).containsExactly(lost)
+        assertThat(store.rowSilent[lost]).isTrue()
+        assertThat(toasts).isEqualTo(0)
+        assertThat(notifications).isEqualTo(0)
+        assertThat(logged).containsExactly("BLOCK")
     }
 
     @Test
@@ -238,7 +277,8 @@ class MmsDownloadFailureTest {
         val thread = provider.value(id, "thread_id")
         assertThat(thread).isNotEqualTo(Long.MAX_VALUE)
         assertThat(thread).isGreaterThan(0L)
-        // In Messages, unread again (E-3), although it was quieted before.
+        // The notice is still there (the failure path never deletes it), in Messages, unread again (E-3).
+        assertThat(provider.exists(id)).isTrue()
         assertThat(provider.value(id, "read")).isEqualTo(0L)
         assertThat(provider.value(id, "seen")).isEqualTo(0L)
     }

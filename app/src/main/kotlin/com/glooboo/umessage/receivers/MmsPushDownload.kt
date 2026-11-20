@@ -18,7 +18,9 @@ import com.glooboo.umessage.helpers.showMmsDownloadFailedNotification
 import com.glooboo.umessage.messaging.MmsDownloadRules
 import com.glooboo.umessage.messaging.MmsDownloadTracker
 import com.glooboo.umessage.spam.mms.AndroidMmsSpamStore
+import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.mms.IncomingMms
+import com.glooboo.umessage.spam.mms.MmsDecisions
 import com.glooboo.umessage.spam.mms.MmsPushGate
 import com.glooboo.umessage.spam.mms.MmsSpamStore
 import com.glooboo.umessage.spam.mms.SpamNotice
@@ -41,9 +43,9 @@ import java.util.concurrent.ConcurrentHashMap
  * Only the notification-ind is handled here; every other push (delivery and read reports, invalid data) is left to
  * the library, see [handle].
  *
- * Provider truth (6.2): a notice whose chat is in Spam ([SpamNotice]) is saved the same way and shown in the sender's
- * Spam chat at once, read and seen (E-4: it is never left without a chat). Within the limits it downloads here too;
- * otherwise it stays a "Tap to download" row.
+ * Provider truth (6.2): a notice whose chat is in Spam ([SpamNotice]) is saved the same way. Within the limits it
+ * downloads here too and gets no Spam row yet (the MMS may be a group one; it is placed when it is stored). Otherwise
+ * it is shown in the sender's Spam chat at once, read and seen, and stays a "Tap to download" row.
  */
 @Suppress("TooGenericExceptionCaught") // Fail open: on any error the library or "Tap to download" takes over.
 internal class MmsPushDownload(
@@ -66,6 +68,8 @@ internal class MmsPushDownload(
     private val tracker: MmsDownloadTracker = MmsDownloadTracker.shared,
     /** Provider truth: the store and Spam table side of a [SpamNotice]. */
     private val incoming: (Context) -> IncomingMms = { IncomingMms(AndroidMmsSpamStore(it)) },
+    /** Provider truth: the one decision-log row of a notice placed at save (decision, reason, rule). */
+    private val log: (Context, SpamNotice, String) -> Unit = { c, spam, decision -> logNotice(c, spam, decision) },
 ) {
 
     private sealed interface Saved {
@@ -88,26 +92,36 @@ internal class MmsPushDownload(
             Saved.Duplicate -> true
             Saved.Failed -> false
             is Saved.Row -> {
-                spam?.let { revealInSpam(context, saved.uri, it) }
-                if (spam == null || spam.downloads) download(context, saved.uri, indication, subscriptionId, spam)
+                when {
+                    spam == null -> download(context, saved.uri, indication, subscriptionId, null)
+                    spam.downloads -> {
+                        runCatching { incoming(context).parkNotice(saved.uri, spam.sender) }
+                        download(context, saved.uri, indication, subscriptionId, spam)
+                    }
+                    else -> revealInSpam(context, saved.uri, spam)
+                }
                 true
             }
         }
     }
 
     /**
-     * E-4: a Spam notice gets its chat in Spam at once, read and seen, whether it downloads now or not, so a lost
-     * result, a reboot or a force stop never leaves it without a chat. Without its Spam row it shows in Messages,
-     * unread (fail open); see IncomingMms.revealNotice.
+     * A Spam notice that is not downloaded now: its final place is its chat, in Spam, read and seen (counted once).
+     * Without its Spam row it shows in Messages, unread (fail open); if even that fails the user is told as for a
+     * failed start (E-16). Its one decision-log row says where it went.
      */
     private fun revealInSpam(context: Context, saved: Uri, spam: SpamNotice) {
         val placer = incoming(context)
-        runCatching { placer.revealNotice(saved, spam.sender, spam.cause) }
-            .onSuccess { inSpam ->
-                if (inSpam && !spam.downloads) placer.countSpamNotice(spam.ruleId)
-                Log.i(MmsReceiver.TAG, "Spam MMS notice kept in its chat")
-            }
+        val inSpam = runCatching { placer.revealNotice(saved, spam.sender, spam.cause) }
             .onFailure { Log.w(MmsReceiver.TAG, "Spam MMS notice could not be given its chat", it) }
+            .getOrNull()
+        if (inSpam == null) {
+            val shown = runCatching { placer.revealNotice(saved, spam.sender, null) }.isSuccess
+            if (!shown) runCatching { onStartFailed(context, saved, spam.sender, null) }
+        }
+        if (inSpam == true) placer.countSpamNotice(spam.ruleId)
+        runCatching { log(context, spam, if (inSpam == true) IncomingMms.BLOCK else IncomingMms.DELIVER) }
+        Log.i(MmsReceiver.TAG, "Spam MMS notice kept; not downloaded now")
     }
 
     private fun readPush(context: Context, intent: Intent): NotificationInd? = try {
@@ -343,11 +357,20 @@ internal class MmsPushDownload(
     }
 }
 
-/** True when the notice [saved] is shown in the sender's Spam chat (it was at save, or is now). */
+/**
+ * True when the notice [saved] is shown in the sender's Spam chat. A read notice there was placed and counted at save;
+ * a parked one (unread, not counted) is placed now.
+ */
 private fun keepSpamNotice(store: MmsSpamStore, saved: Uri, from: String, spam: SpamNotice): Boolean {
     val notice = store.noticeOf(saved)
-    if (notice != null && IncomingMms.hasChat(notice.threadId) && store.isSpamThreadOf(notice.threadId, from)) {
-        return true
-    }
+    val placed = notice != null && notice.read && IncomingMms.hasChat(notice.threadId) &&
+        store.isSpamThreadOf(notice.threadId, from)
+    if (placed) return true
     return IncomingMms(store).revealNotice(saved, from, spam.cause)
+}
+
+/** The decision-log row of a notice placed at save (E-13: written once, with the place it got). */
+private fun logNotice(context: Context, spam: SpamNotice, decision: String) {
+    val message = IncomingMessage(spam.sender, "", spam.subscriptionId, isMms = true)
+    MmsDecisions.log(context, message, decision, spam.reason, "MMS_PUSH", spam.ruleId)
 }

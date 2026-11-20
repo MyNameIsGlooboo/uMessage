@@ -9,6 +9,7 @@ import com.glooboo.umessage.spam.mms.NoticeRow
  * [MmsSpamStore] in memory, for the provider-truth MMS tests (step E). Records every call in [calls] in order, so a
  * test can check that the Spam row is written before a row is marked read and silent (S9).
  */
+@Suppress("TooManyFunctions") // The fake of the whole port.
 class FakeMmsSpamStore : MmsSpamStore {
     val calls = mutableListOf<String>()
 
@@ -51,11 +52,25 @@ class FakeMmsSpamStore : MmsSpamStore {
         return threads.getOrPut(address) { 100L + threads.size }
     }
 
-    override fun noteSpamArrival(threadId: Long, address: String, cause: SpamCause, at: Long) {
+    /** Chats the lists do not show in Spam although their row exists (a group chat by the lists' rule, E-15). */
+    val notListed = mutableSetOf<Long>()
+
+    override fun noteSpamArrival(threadId: Long, address: String, cause: SpamCause, at: Long, raise: Boolean) {
         calls += "noteSpamArrival"
         check(!failSpamRow) { "spam table busy" }
-        val unread = spamRows[threadId]?.third ?: 0
-        if (!spamRowVanishes) spamRows[threadId] = Triple(address, cause, unread + 1)
+        val row = spamRows[threadId]
+        if (!raise && row?.first == address) return
+        if (!spamRowVanishes) spamRows[threadId] = Triple(address, row?.second ?: cause, (row?.third ?: 0) + 1)
+    }
+
+    override fun lowerSpamUnread(threadId: Long) {
+        val row = spamRows[threadId] ?: return
+        spamRows[threadId] = row.copy(third = (row.third - 1).coerceAtLeast(0))
+    }
+
+    override fun isListedInSpam(threadId: Long): Boolean {
+        calls += "isListedInSpam"
+        return spamRows[threadId] != null && threadId !in notListed
     }
 
     override fun isSpamThreadOf(threadId: Long, address: String): Boolean {

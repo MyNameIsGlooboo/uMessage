@@ -35,9 +35,10 @@ import java.io.ByteArrayOutputStream
 
 /**
  * Provider truth, 6.2 (step E): the push of an MMS whose sender's chat is in Spam. Nothing goes to the Blocked folder:
- * the notice is saved in the phone's store and shown in the sender's Spam chat at once, read and seen (E-4), and
- * downloaded like any MMS within the limits (size known, at most 1 MiB, not expired, not roaming), also from a blocked
- * sender (answer 11). Otherwise it stays a "Tap to download" row there. A failed start in Spam posts nothing (E-2).
+ * the notice is saved in the phone's store and downloaded like any MMS within the limits (size known, at most 1 MiB,
+ * not expired, not roaming), also from a blocked sender (answer 11), without an early Spam row. Otherwise it is shown
+ * in the sender's Spam chat at once, read and seen, and stays a "Tap to download" row there, with one decision-log
+ * row. A failed start in Spam posts nothing (E-2).
  */
 @RunWith(AndroidJUnit4::class)
 class MmsSpamPushTest {
@@ -52,6 +53,8 @@ class MmsSpamPushTest {
     private val saved = linkedMapOf<Uri, Pair<String, String>>()
     private val startedLocations = mutableListOf<String>()
     private var startFailedWith: SpamNotice? = null
+    private var startFailures = 0
+    private val logged = mutableListOf<String>()
     private var startFails = false
 
     @Before
@@ -84,9 +87,10 @@ class MmsSpamPushTest {
             check(!startFails) { "system refused" }
             startedLocations += location
         },
-        onStartFailed = { _, _, _, spam -> startFailedWith = spam },
+        onStartFailed = { _, _, _, spam -> startFailures++; startFailedWith = spam },
         tracker = MmsDownloadTracker(),
         incoming = { IncomingMms(store) },
+        log = { _, _, decision -> logged += decision },
     )
 
     private fun receiver(isRoaming: Boolean = false) = MmsPushReceiver().apply {
@@ -120,20 +124,62 @@ class MmsSpamPushTest {
     }
 
     @Test
-    fun aSpamNoticeWithinTheLimits_isShownInItsSpamChatAtOnceAndDownloadedIntoTheStore_notIntoBlocked() {
+    fun aSpamNoticeWithinTheLimits_isDownloadedIntoTheStoreWithoutAnEarlySpamRow_notIntoBlocked() {
         receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/in")))
 
         val row = saved.keys.single()
         assertThat(startedLocations).containsExactly("http://mmsc.example.com/msg/in")
-        // E-4: in its Spam chat before the download starts, so a lost result never leaves it without one.
-        val thread = store.threads.getValue(SENDER)
-        assertThat(store.rowThread[row]).isEqualTo(thread)
-        assertThat(store.rowSilent[row]).isTrue()
-        assertThat(store.spamRows[thread]).isEqualTo(Triple(SENDER, SpamCause.UNKNOWN, 1))
-        assertThat(store.shown).containsExactly(thread)
-        // It is counted once it is downloaded and placed, not now.
+        // A new sender's empty chat holds it, unread; no Spam row, no count, no row in the log until it is placed.
+        assertThat(store.rowThread[row]).isEqualTo(store.threads.getValue(SENDER))
+        assertThat(store.rowSilent[row]).isFalse()
+        assertThat(store.spamRows).isEmpty()
         assertThat(store.spamEvents).isEqualTo(0)
+        assertThat(logged).isEmpty()
         assertThat(db.spamDao().getAllBlocked()).isEmpty()
+    }
+
+    @Test
+    fun aDownloadingNoticeOfASenderWithAMessagesChat_keepsNoChatAndWritesNoSpamRow() {
+        store.threads[SENDER] = 20L
+        store.threadsWithMessages += 20L
+
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/messages-chat")))
+
+        assertThat(startedLocations).hasSize(1)
+        assertThat(store.rowThread).isEmpty()
+        assertThat(store.spamRows).isEmpty()
+    }
+
+    @Test
+    fun aNoticeKeptAtSave_logsOneBlockRow_aRepeatLogsNone() {
+        val receiver = receiver()
+        val data = notice(SENDER, "T-1", "http://mmsc.example.com/msg/log", size = TWO_MIB)
+
+        receiver.process(app, push(data))
+        receiver.process(app, push(data))
+
+        assertThat(logged).containsExactly("BLOCK")
+    }
+
+    @Test
+    fun aNoticeKeptAtSaveThatEndsInMessages_logsDeliver() {
+        store.failSpamRow = true
+
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/deliver", size = TWO_MIB)))
+
+        assertThat(logged).containsExactly("DELIVER")
+        assertThat(store.rowSilent[saved.keys.single()]).isFalse()
+    }
+
+    @Test
+    fun e16_aNoticeKeptAtSaveThatCannotGetAnyChat_tellsTheUserAsAFailedStart() {
+        store.failThreads = true
+
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/nochat", size = TWO_MIB)))
+
+        assertThat(startFailures).isEqualTo(1)
+        assertThat(startFailedWith).isNull()
+        assertThat(logged).containsExactly("DELIVER")
     }
 
     @Test
@@ -192,7 +238,9 @@ class MmsSpamPushTest {
 
         receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/refused")))
 
-        assertThat(startFailedWith).isEqualTo(SpamNotice(SENDER, SpamCause.UNKNOWN, downloads = true))
+        val expected =
+            SpamNotice(SENDER, SpamCause.UNKNOWN, downloads = true, reason = "UNKNOWN_SENDER", subscriptionId = 1)
+        assertThat(startFailedWith).isEqualTo(expected)
     }
 
     @Test
@@ -248,7 +296,7 @@ class MmsSpamPushTest {
 
     @Test
     fun aFailedStartOfANoticeAlreadyInItsSpamChat_postsNothingAndIsNotCountedAgain() {
-        store.notices[savedNotice] = NoticeRow(threadId = 9L, sender = SENDER)
+        store.notices[savedNotice] = NoticeRow(threadId = 9L, sender = SENDER, read = true)
         store.spamRows[9L] = Triple(SENDER, SpamCause.BLOCKED, 1)
 
         reportStartFailed()
@@ -256,6 +304,19 @@ class MmsSpamPushTest {
         assertThat(posted).isEqualTo(0)
         assertThat(store.spamRows[9L]?.third).isEqualTo(1)
         assertThat(store.rowThread).isEmpty()
+    }
+
+    @Test
+    fun aFailedStartOfAParkedNoticeInItsSpamChat_isCountedNowAndPostsNothing() {
+        store.notices[savedNotice] = NoticeRow(threadId = 9L, sender = SENDER, read = false)
+        store.threads[SENDER] = 9L
+        store.spamRows[9L] = Triple(SENDER, SpamCause.BLOCKED, 1)
+
+        reportStartFailed()
+
+        assertThat(posted).isEqualTo(0)
+        assertThat(store.spamRows[9L]?.third).isEqualTo(2)
+        assertThat(store.rowSilent[savedNotice]).isTrue()
     }
 
     @Test
