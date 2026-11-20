@@ -24,7 +24,7 @@ class SenderMovesTest {
     private fun members() = runBlocking { repository.groupMembers.first() }
 
     @Test
-    fun blockRemovesTheAutomaticAllowAndTheMembershipAndUndoPutsThemBack() = runBlocking {
+    fun blockRemovesTheAutomaticAllowAndTheMembershipAndUndoPutsThemBack(): Unit = runBlocking {
         val wordAllow = repository.addRule(
             SpamRule(
                 kind = ListKind.ALLOW, type = RuleType.NUMBER, pattern = SENDER, note = RuleNotes.ALLOWED_FROM_KEYWORD,
@@ -46,7 +46,7 @@ class SenderMovesTest {
     }
 
     @Test
-    fun reportSpamUsesItsOwnNote() = runBlocking {
+    fun reportSpamUsesItsOwnNote(): Unit = runBlocking {
         SenderMoves.blockSenders(repository, listOf(SENDER), RuleNotes.REPORTED_SPAM)
         assertThat(rules().single().note).isEqualTo(RuleNotes.REPORTED_SPAM)
     }
@@ -66,7 +66,7 @@ class SenderMovesTest {
     }
 
     @Test
-    fun notSpamAddsAUserAllowRuleAndUndoRemovesIt() = runBlocking {
+    fun notSpamAddsAUserAllowRuleAndUndoRemovesIt(): Unit = runBlocking {
         val change = SenderMoves.notSpam(repository, listOf(SENDER))
 
         val allow = rules().single()
@@ -79,7 +79,7 @@ class SenderMovesTest {
     }
 
     @Test
-    fun undoOfNotSpamNeverRemovesARuleThatWasThereBefore() = runBlocking {
+    fun undoOfNotSpamNeverRemovesARuleThatWasThereBefore(): Unit = runBlocking {
         // A repository that reuses an existing rule for the same value, as the real one does.
         val deduplicating = object : SpamRepository by repository {
             override suspend fun addRule(rule: SpamRule): Long =

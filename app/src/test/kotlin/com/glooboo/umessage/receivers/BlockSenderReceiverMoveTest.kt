@@ -76,7 +76,7 @@ class BlockSenderReceiverMoveTest {
     private fun handle(intent: Intent) = offMainThread { runBlocking { receiver.handle(context, repository, intent) } }
 
     @Test
-    fun blockMovesTheChatAndUndoPutsEverythingBack() = runBlocking {
+    fun blockMovesTheChatAndUndoPutsEverythingBack(): Unit = runBlocking {
         cacheChat(read = false)
         val wordAllow = repository.addRule(
             SpamRule(
@@ -130,7 +130,7 @@ class BlockSenderReceiverMoveTest {
     }
 
     @Test
-    fun anOldUndoIntentStillRemovesItsRules() = runBlocking {
+    fun anOldUndoIntentStillRemovesItsRules(): Unit = runBlocking {
         val id = repository.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = SENDER))
         val undo = Intent(BlockSenderReceiver.ACTION_UNDO)
             .putExtra(THREAD_ID, THREAD)

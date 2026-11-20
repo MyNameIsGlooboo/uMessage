@@ -80,7 +80,7 @@ class MessagesSpamMovesTest {
     }
 
     @Test
-    fun blockHidesTheRowAtOnceAndMovesTheChat() = runBlocking {
+    fun blockHidesTheRowAtOnceAndMovesTheChat(): Unit = runBlocking {
         seedAutomaticAllow(AllowGroup.CODE)
         coroutineScope {
             assertThat(moves(this).block(listOf(chat(7, SENDER, read = false)), token = 1L, report = false)).isTrue()
@@ -95,7 +95,7 @@ class MessagesSpamMovesTest {
     }
 
     @Test
-    fun undoRestoresTheRulesTheMembershipsAndShowsTheRow() = runBlocking {
+    fun undoRestoresTheRulesTheMembershipsAndShowsTheRow(): Unit = runBlocking {
         val wordAllow = seedAutomaticAllow(AllowGroup.WROTE)
         coroutineScope {
             val helper = moves(this)
@@ -110,7 +110,7 @@ class MessagesSpamMovesTest {
     }
 
     @Test
-    fun theEndOfTheUndoWindowShowsTheRowAgain() = runBlocking {
+    fun theEndOfTheUndoWindowShowsTheRowAgain(): Unit = runBlocking {
         coroutineScope {
             val helper = moves(this)
             helper.block(listOf(chat(8, OTHER)), token = 2L, report = false)
@@ -124,14 +124,14 @@ class MessagesSpamMovesTest {
     }
 
     @Test
-    fun reportSpamEqualsBlockAndNoLongerArchives() = runBlocking {
+    fun reportSpamEqualsBlockAndNoLongerArchives(): Unit = runBlocking {
         coroutineScope { moves(this).block(listOf(chat(7, SENDER)), token = 1L, report = true) }
         assertThat(rules().single().note).isEqualTo(RuleNotes.REPORTED_SPAM)
         assertThat(events).containsExactly(ConversationsEvent.ReportedSpam(1L, 1, archived = false))
     }
 
     @Test
-    fun aFailedBlockShowsTheRowAgainAndSaysSo() = runBlocking {
+    fun aFailedBlockShowsTheRowAgainAndSaysSo(): Unit = runBlocking {
         val failing = object : SpamRepository by repository {
             override suspend fun blockAddress(address: String, note: String): BlockReceipt? = error("disk full")
         }
@@ -142,7 +142,7 @@ class MessagesSpamMovesTest {
     }
 
     @Test
-    fun withTheFlagOffNothingChanges() = runBlocking {
+    fun withTheFlagOffNothingChanges(): Unit = runBlocking {
         ProviderTruthFlag.enabled = false
         coroutineScope {
             assertThat(moves(this).block(listOf(chat(7, SENDER)), token = 1L, report = false)).isFalse()

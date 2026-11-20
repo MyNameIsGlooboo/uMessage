@@ -30,6 +30,7 @@ import com.glooboo.umessage.ui.lock.LockScope
 import com.google.common.truth.Truth.assertThat
 import org.fossify.commons.extensions.appLockManager
 import org.fossify.commons.extensions.baseConfig
+import org.fossify.commons.helpers.AppLockManager
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -67,7 +68,17 @@ class SpamChatLockTest {
         FakeSmsMmsProvider.installMms()
         app.baseConfig.isAppPasswordProtectionOn = true
         LockScope.set(app, LockScope.ChosenParts)
+        forgetAppLockManager()
         app.appLockManager.lock()
+    }
+
+    /**
+     * The commons AppLockManager is a process-wide singleton that keeps the Application (and its settings) of the
+     * first test that used it; Robolectric gives every test a new one, so a kept manager reads another test's settings
+     * ("lock off") and reports unlocked. It is dropped here, so it is made again for this test's Application.
+     */
+    private fun forgetAppLockManager() {
+        AppLockManager::class.java.getDeclaredField("instance").apply { isAccessible = true }.set(null, null)
     }
 
     @After
@@ -75,6 +86,7 @@ class SpamChatLockTest {
         scenario?.close()
         app.baseConfig.isAppPasswordProtectionOn = false
         LockScope.set(app, LockScope.WholeApp)
+        forgetAppLockManager()
         HiddenChatsSession.reset()
         resetSharedMessagesDatabase()
     }

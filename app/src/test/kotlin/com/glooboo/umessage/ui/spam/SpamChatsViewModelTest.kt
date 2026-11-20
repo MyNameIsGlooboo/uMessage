@@ -161,7 +161,7 @@ class SpamChatsViewModelTest {
     }
 
     @Test
-    fun unblockBringsTheChatBackWithUndo() = runBlocking {
+    fun unblockBringsTheChatBackWithUndo(): Unit = runBlocking {
         val rule = repository.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = BLOCKED))
         verdicts[BLOCKED] = SenderVerdict.Messages(DecisionReason.CONTACT)
 
@@ -180,7 +180,7 @@ class SpamChatsViewModelTest {
     }
 
     @Test
-    fun unblockOfASenderWhoIsStillUnknownSaysSoAndOffersNotSpam() = runBlocking {
+    fun unblockOfASenderWhoIsStillUnknownSaysSoAndOffersNotSpam(): Unit = runBlocking {
         repository.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = BLOCKED))
         verdicts[BLOCKED] = SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER)
 
