@@ -40,6 +40,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.spam.engine.effectiveUnknownSenderMode
@@ -64,9 +66,22 @@ object ContactsOffPolicy {
      * unknown numbers through, so "Unknown sender -> Spam" is not true.
      */
     fun cardMode(contactsGranted: Boolean, mode: UnknownSenderMode, legacyBlockUnknown: Boolean): UnknownSenderMode? {
-        val effective = effectiveMode(mode, legacyBlockUnknown)
+        // Provider truth: the old Fossify switch is already read into the filter switch (SpamSettingsStore).
+        val effective = if (ProviderTruthFlag.enabled) mode else effectiveMode(mode, legacyBlockUnknown)
         return if (needed(contactsGranted, effective)) null else effective
     }
+}
+
+/**
+ * The mode the screens draw (the sorting card, the contacts hint) for these settings. With [ProviderTruthFlag] on the
+ * filter is one switch: on draws as the old middle mode (codes reach Messages), on with the code group off as the
+ * strictest one (codes go to Spam too), off as Off. With the flag off it is the stored mode, as in 0.4.14.
+ */
+fun SpamSettings.shownMode(): UnknownSenderMode = when {
+    !ProviderTruthFlag.enabled -> mode
+    !filterOn -> UnknownSenderMode.OFF
+    !codeGroupOn -> UnknownSenderMode.STRICT
+    else -> UnknownSenderMode.SMART
 }
 
 private fun Context.contactsGranted(): Boolean =
@@ -94,12 +109,12 @@ fun rememberSortingCardMode(mode: UnknownSenderMode): UnknownSenderMode? {
 
 private fun Context.legacyBlockUnknown(): Boolean = runCatching { baseConfig.blockUnknownNumbers }.getOrDefault(false)
 
-/** The banner for a screen that does not hold the filter mode itself (the Messages tab). Follows the mode live. */
+/** The banner for a screen that does not hold the filter mode itself (the Messages tab). Follows the filter live. */
 @Composable
 fun ContactsOffBanner(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val mode by produceState<UnknownSenderMode?>(initialValue = null, context) {
-        runCatching { UMessage.repository(context).settings.collect { value = it.mode } }
+        runCatching { UMessage.repository(context).settings.collect { value = it.shownMode() } }
     }
     ContactsOffBanner(mode, modifier)
 }

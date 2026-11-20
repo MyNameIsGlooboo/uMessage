@@ -65,7 +65,10 @@ data class BlockedUiState(
     val stats: SpamStats = SpamStats(0, 0, 0),
     val selected: Set<String> = emptySet(),
     val sims: List<SimInfo> = emptyList(),
-    /** Current unknown-sender mode, shown on the stats card with a shortcut to the spam settings. */
+    /**
+     * Current unknown-sender mode, shown on the stats card with a shortcut to the spam settings. With the provider
+     * truth flag on it is the mode the filter switch draws as (shownMode), for the card and the contacts hint.
+     */
     val mode: UnknownSenderMode = UnknownSenderMode.SMART,
     /** Rules by id, so each blocked message can say which rule blocked it (SU-22). */
     val rules: Map<Long, SpamRule> = emptyMap(),
@@ -322,7 +325,7 @@ class BlockedViewModel(
             stats = stats,
             selected = sel intersect keys,
             sims = simList,
-            mode = aux.settings.mode,
+            mode = aux.settings.shownMode(),
             rules = aux.rules.associateBy { it.id },
             purgeAfterDays = aux.settings.purgeAfterDays,
             restored = aux.restored,

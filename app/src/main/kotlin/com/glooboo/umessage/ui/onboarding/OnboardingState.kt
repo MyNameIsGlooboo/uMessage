@@ -2,6 +2,7 @@ package com.glooboo.umessage.ui.onboarding
 
 import android.content.Context
 import androidx.core.content.edit
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 
 /** The steps of the first-run flow, in order. */
 enum class OnboardingPage { WELCOME, ALLOW, MODE, KEEP_RUNNING }
@@ -31,7 +32,11 @@ object OnboardingState {
             .edit { putBoolean(KEY_OEM_STEP_PREFIX + stepKey, marked) }
     }
 
-    /** The Allow step is left out when uMessage is already the default app and every permission is granted. */
-    fun pagesFor(allowNeeded: Boolean): List<OnboardingPage> =
-        OnboardingPage.entries.filter { allowNeeded || it != OnboardingPage.ALLOW }
+    /**
+     * The Allow step is left out when uMessage is already the default app and every permission is granted. With
+     * [ProviderTruthFlag] on the unknown-senders step is gone too: the filter choice sits on the Welcome page (4.6).
+     */
+    fun pagesFor(allowNeeded: Boolean): List<OnboardingPage> = OnboardingPage.entries.filter {
+        (allowNeeded || it != OnboardingPage.ALLOW) && !(ProviderTruthFlag.enabled && it == OnboardingPage.MODE)
+    }
 }
