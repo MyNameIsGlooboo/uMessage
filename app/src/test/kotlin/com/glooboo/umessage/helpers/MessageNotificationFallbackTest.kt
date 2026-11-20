@@ -94,7 +94,7 @@ class MessageNotificationFallbackTest {
         val line = notifyLines().single()
         // R3: the effective importance and the app switch ride along.
         assertThat(line).containsMatch("^post ch=$NOTIFICATION_CHANNEL_ID t=[0-9a-f]{8} r=POSTED(_NO_SHORTCUT)? ")
-        assertThat(line).containsMatch(" i=(\d+|-) on=1")
+        assertThat(line).containsMatch(" i=([0-9]+|-) on=1")
         assertThat(line).doesNotContain(ADDRESS)
         assertThat(line).doesNotContain(SENDER)
         assertThat(line).doesNotContain(BODY)
