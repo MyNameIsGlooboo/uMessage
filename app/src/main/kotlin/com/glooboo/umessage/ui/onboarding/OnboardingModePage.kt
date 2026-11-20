@@ -89,12 +89,16 @@ internal fun WelcomeFilterChoice(
     modifier: Modifier = Modifier,
     saveFailed: Boolean = false,
 ) {
-    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(modifier = modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        // The heading takes the whole width and wraps onto as many lines as it needs: measured at its own one-line
+        // width, the Persian heading at twice the font size was cut instead of wrapping (G-8).
         Text(
             stringResource(R.string.spam_settings_unknown_title),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.semantics { heading() },
+            softWrap = true,
+            maxLines = Int.MAX_VALUE,
+            modifier = Modifier.fillMaxWidth().semantics { heading() },
         )
         Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             ChoiceCard(
