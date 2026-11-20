@@ -283,9 +283,13 @@ internal object ProviderTruthSms {
             context.announceStored(id, message.address, message.body, threadId, message.subscriptionId, message.date)
             return SpamOutcome.ANNOUNCED
         }
-        // 4.6: "notify me for texts from unknown senders", stored under the old key notify_on_block.
-        val noticeOn = runCatching { SpamEngine.repository(context).currentSettings().notifyOnBlock }
-            .getOrDefault(false)
+        // 4.6: "notify me for texts from unknown senders", stored under the old key notify_on_block. Read from the
+        // repository the verdict was judged with (the app's one repository; SpamEngine's when none is installed).
+        val noticeOn = runCatching {
+            val repo = runCatching { UMessage.repository(context) }.getOrNull() as? DefaultSpamRepository
+                ?: SpamEngine.repository(context)
+            repo.currentSettings().notifyOnBlock
+        }.getOrDefault(false)
         if (cause == SpamCause.UNKNOWN && noticeOn) {
             val shown = BlockedMessage(
                 address = message.address, body = message.body, subscriptionId = message.subscriptionId,
