@@ -26,9 +26,9 @@ import org.junit.runner.RunWith
 /**
  * Upgrade and downgrade tests for conversations.db.
  *
- * Exported schemas exist only for versions 8 (restored from the upstream Fossify history), 11, 12, 13, 14 and 15
+ * Exported schemas exist only for versions 8 (restored from the upstream Fossify history), 11, 12, 13, 14, 15 and 16
  * (current), so the migrations 1..7 cannot be exercised here: there is no record of what those databases looked
- * like. Room's own validation after the run covers 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14 -> 15.
+ * like. Room's own validation after the run covers 8 -> 9 -> ... -> 15 -> 16 (SpamThreadsMigrationTest: 15 -> 16).
  */
 @RunWith(AndroidJUnit4::class)
 class MessagesDatabaseMigrationTest {

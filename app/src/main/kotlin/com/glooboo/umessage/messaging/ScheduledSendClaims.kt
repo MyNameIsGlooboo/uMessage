@@ -66,7 +66,9 @@ internal fun scheduledActionFor(type: Int, inFlight: Boolean): ScheduledAction =
  * opens the message's own thread, where the held message and Retry are.
  */
 fun Context.holdDiedScheduledSend(message: Message) {
-    val held = runCatching { messagesDB.updateScheduledType(message.id, Sms.MESSAGE_TYPE_FAILED) }.getOrDefault(0)
+    // K1-6, B-8: only a row still in the outbox is held; a row the user's Retry took, one held already, one queued
+    // again or one deleted after it went out changes nothing, and then nothing may say "not sent".
+    val held = runCatching { messagesDB.holdDiedScheduledRow(message.id) }.getOrDefault(0)
     if (held == 0) return
     val recipientName = message.participants.joinToString {
         it.name.ifBlank { it.phoneNumbers.firstOrNull()?.normalizedNumber.orEmpty() }

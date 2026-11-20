@@ -5,16 +5,23 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.extensions.config
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.spam.FirstRunProgressAdapter
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
+import com.glooboo.umessage.spam.SortDryRun
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.data.SpamDatabase
 import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.testing.FakeMessageStore
+import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.joinAppBackgroundThreads
 import com.glooboo.umessage.testing.migrationTestHelper
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
+import com.glooboo.umessage.ui.main.FirstRunPagesHost
+import com.glooboo.umessage.ui.main.NoFirstRun
+import com.glooboo.umessage.ui.spam.ChatMoveCounting
 import com.google.common.truth.Truth.assertThat
 import org.fossify.commons.extensions.baseConfig
 import org.junit.After
@@ -40,6 +47,9 @@ class AppStartupSmokeTest {
     @get:Rule
     val helper = migrationTestHelper(SpamDatabase::class.java)
 
+    @get:Rule
+    val flag = ProviderTruthFlagRule(enabled = false)
+
     private val app: App get() = ApplicationProvider.getApplicationContext<Application>() as App
     private val context: Context get() = app
     private val uncaught = mutableListOf<Throwable>()
@@ -55,6 +65,8 @@ class AppStartupSmokeTest {
 
     @After
     fun tearDown() {
+        FirstRunPagesHost.reset()
+        ChatMoveCounting.counter = ChatMoveCounting.UNKNOWN
         Thread.setDefaultUncaughtExceptionHandler(previousHandler)
         forgetSingletons()
     }
@@ -104,6 +116,21 @@ class AppStartupSmokeTest {
         assertThat(offMainThread { SpamDatabase.getInstance(context).openHelper.readableDatabase.version })
             .isEqualTo(SpamDatabase.VERSION)
         assertThat(context.config.rawBlockedKeywords()).isEmpty()
+    }
+
+    @Test
+    fun theFirstRunPagesAndTheSwitchCountAreInstalledWithTheFlagOnOnly() {
+        FirstRunPagesHost.reset()
+        ChatMoveCounting.counter = ChatMoveCounting.UNKNOWN
+
+        app.installFirstRunPages()
+        assertThat(FirstRunPagesHost.source.value).isSameInstanceAs(NoFirstRun)
+        assertThat(ChatMoveCounting.counter).isSameInstanceAs(ChatMoveCounting.UNKNOWN)
+
+        ProviderTruthFlag.enabled = true
+        app.installFirstRunPages()
+        assertThat(FirstRunPagesHost.source.value).isInstanceOf(FirstRunProgressAdapter::class.java)
+        assertThat(ChatMoveCounting.counter).isInstanceOf(SortDryRun::class.java)
     }
 
     @Test

@@ -11,6 +11,7 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.ContactsContract
 import android.view.WindowManager
+import androidx.annotation.VisibleForTesting
 import org.fossify.commons.FossifyApp
 import org.fossify.commons.activities.BaseComposeActivity
 import org.fossify.commons.activities.BaseSimpleActivity
@@ -23,23 +24,32 @@ import org.fossify.commons.helpers.REQUEST_APP_UNLOCK
 import kotlinx.coroutines.runBlocking
 import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.activities.CopyCodeActivity
+import com.glooboo.umessage.activities.MainActivity
 import com.glooboo.umessage.activities.SplashActivity
 import com.glooboo.umessage.extensions.rescheduleAllScheduledMessages
 import com.glooboo.umessage.helpers.CacheCleanup
 import com.glooboo.umessage.helpers.DailyChecks
 import com.glooboo.umessage.helpers.HiddenChatsSession
 import com.glooboo.umessage.helpers.MessagingCache
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.messaging.failStaleOutboxMessages
 import com.glooboo.umessage.helpers.DebugStrictMode
 import com.glooboo.umessage.messaging.rearmReminders
 import com.glooboo.umessage.messaging.tidyScheduledAttachments
+import com.glooboo.umessage.spam.FirstRun
+import com.glooboo.umessage.spam.FirstRunProgressAdapter
+import com.glooboo.umessage.spam.SortDryRun
+import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.data.PendingSmsQueue
+import com.glooboo.umessage.spam.data.RemovedMembers
 import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.ui.lock.LockActivity
 import com.glooboo.umessage.ui.lock.LockScope
 import com.glooboo.umessage.ui.lock.WindowProtection
+import com.glooboo.umessage.ui.main.FirstRunPagesHost
 import com.glooboo.umessage.ui.settings.AppLocale
 import com.glooboo.umessage.ui.spam.BlockingMigration
+import com.glooboo.umessage.ui.spam.ChatMoveCounting
 import com.glooboo.umessage.ui.theme.ThemePresets
 
 class App : FossifyApp() {
@@ -60,7 +70,10 @@ class App : FossifyApp() {
         DebugStrictMode.install()
         ThemePresets.migrateIfNeeded(this)
         registerActivityLifecycleCallbacks(AppLockGuard)
+        // B-9: the senders the user removed from a group are remembered across starts.
+        RemovedMembers.install(getSharedPreferences(RemovedMembers.PREFS, MODE_PRIVATE))
         registerContactsObserver()
+        installFirstRunPages()
 
         ensureBackgroundThread {
             PendingSmsQueue.replay(this)
@@ -69,12 +82,59 @@ class App : FossifyApp() {
             rescheduleAllScheduledMessages()
             rearmReminders()
             DailyChecks.arm(this)
-            DailyChecks.runIfDue(this)
+            // B-15: retention and the other daily clean-ups wait for the first run (3.5).
+            if (!ProviderTruthFlag.enabled || FirstRun.state(this).value.allowsFullSort) DailyChecks.runIfDue(this)
             failStaleOutboxMessages()
-            SpamEngine.purgeExpired(this)
+            // Provider truth (3.5): auto-delete only after the first run; until then the runner's last step does it.
+            if (!ProviderTruthFlag.enabled || FirstRun.state(this).value.allowsFullSort) SpamEngine.purgeExpired(this)
             // Two block lists only: old blocked words become rules, the old unknown-numbers switch becomes a mode.
             runBlocking { BlockingMigration.runOnce(this@App) }
+            startSorting()
         }
+    }
+
+    /**
+     * Provider truth (step B), flag on only: the sorting triggers, the first run (resumed after a kill, or started
+     * for an update) and the app-start sort, which waits until the first sort is published.
+     */
+    private fun startSorting() {
+        if (!ProviderTruthFlag.enabled) return
+        SpamSorting.install(this)
+        sortingStarted = true
+        // Also the check a contacts grant before this point asked for (B2-5).
+        FirstRun.check(this)
+        SpamSorting.requestFull(this)
+    }
+
+    /**
+     * B2-5: the first run is checked only once [startSorting] ran, after [BlockingMigration] and with the triggers
+     * installed; until then a check asked for (the contacts observer, the main screen's resume) is left to it.
+     */
+    @Volatile
+    private var sortingStarted = false
+
+    /** The first run's pages (step G) on the runner's state; null while the flag is off (no pages, as 0.4.14). */
+    @Volatile
+    private var firstRunPages: FirstRunProgressAdapter? = null
+
+    /**
+     * Provider truth, flag on only: the first-run pages read the runner's state now, before the main screen's first
+     * frame (G-B4), and the switch confirm counts the chats a change would move by a dry run (G-B3).
+     */
+    @VisibleForTesting
+    internal fun installFirstRunPages() {
+        if (!ProviderTruthFlag.enabled) return
+        firstRunPages = FirstRunProgressAdapter.forApp(this).also(FirstRunPagesHost::install)
+        ChatMoveCounting.counter = SortDryRun.forApp(this)
+    }
+
+    /**
+     * The first run's check (FirstRun.check), once sorting has started; before that, [startSorting] does it. The
+     * pages read again what the runner's state does not carry (the welcome flow just ended), at once.
+     */
+    fun checkFirstRun() {
+        firstRunPages?.refresh()
+        if (sortingStarted) FirstRun.check(this)
     }
 
     @Volatile
@@ -87,6 +147,8 @@ class App : FossifyApp() {
     fun registerContactsObserver() {
         if (contactsObserverRegistered || !hasPermission(PERMISSION_READ_CONTACTS)) return
         contactsObserverRegistered = true
+        // U3, R5: contacts became readable; the first run turns that into a history check and a sort.
+        checkFirstRun()
         listOf(
             ContactsContract.Contacts.CONTENT_URI,
             ContactsContract.Data.CONTENT_URI,
@@ -103,6 +165,8 @@ class App : FossifyApp() {
         override fun onChange(selfChange: Boolean, uri: Uri?) {
             MessagingCache.namePhoto.evictAll()
             MessagingCache.participantsCache.evictAll()
+            // 3.2: contacts changed; the chats are sorted again a few seconds later (S11).
+            SpamSorting.requestFull(this@App, SpamSorting.CONTACTS_DELAY_MS)
         }
     }
 }
@@ -121,6 +185,9 @@ internal object AppLockGuard : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityResumed(activity: Activity) {
         applyWindowProtection(activity)
+        // Provider truth: the main list after the welcome flow, a new default-app or contacts grant, a return to the
+        // app. Only posts a check to the sorting thread; nothing while the flag is off.
+        if (activity is MainActivity) (activity.application as? App)?.checkFirstRun()
         // The invisible "Copy code" screen (N6) shows nothing of the app, so it never asks for the PIN.
         if (activity is LockActivity || activity is SplashActivity || activity is CopyCodeActivity) return
         // These bases already ask for the lock screen in their own onResume.

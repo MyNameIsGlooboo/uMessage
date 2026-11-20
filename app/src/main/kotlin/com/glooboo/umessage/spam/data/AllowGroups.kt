@@ -1,5 +1,8 @@
 package com.glooboo.umessage.spam.data
 
+import android.content.SharedPreferences
+import androidx.annotation.VisibleForTesting
+import androidx.core.content.edit
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.MemberSource
@@ -73,9 +76,68 @@ internal class AllowGroups(
         if (keys.isNotEmpty()) dao.acknowledgeMembers(keys.toList())
     }
 
-    private fun keysOf(address: String): Set<String> = if (SenderAddress.isUnreadable(address)) {
+    /** Every key the sender of [address] may be stored under (also for [RemovedMembers]). */
+    fun keysOf(address: String): Set<String> = if (SenderAddress.isUnreadable(address)) {
         emptySet()
     } else {
         (readers.senderKeys(address) + readers.senderKey(address)).filterTo(HashSet()) { it.isNotEmpty() }
+    }
+}
+
+/**
+ * B-9: the senders the user took out of a group with "Remove". The history check never puts them back (a new code or
+ * a reply still does, and clears the mark). Kept in the app's preferences once [install]ed at app start, in memory
+ * before (tests). Keys are "<group>|<sender key>", every reading of the sender.
+ */
+object RemovedMembers {
+    private const val KEY = "removed"
+    private val memory = HashSet<String>()
+
+    @Volatile private var prefs: SharedPreferences? = null
+
+    /** New in provider truth; not a `spamless_` name. Never rename. */
+    const val PREFS = "umessage_group_removed"
+
+    fun install(prefs: SharedPreferences) {
+        this.prefs = prefs
+    }
+
+    /** Forgets every mark and the installed preferences (tests). */
+    @VisibleForTesting
+    @Synchronized
+    internal fun reset() {
+        prefs = null
+        memory.clear()
+    }
+
+    @Synchronized
+    fun add(group: AllowGroup, keys: Collection<String>) = write { it + keys.map { key -> entry(group, key) } }
+
+    @Synchronized
+    fun remove(group: AllowGroup, keys: Collection<String>) =
+        write { it - keys.map { key -> entry(group, key) }.toSet() }
+
+    @Synchronized
+    fun contains(group: AllowGroup, keys: Collection<String>): Boolean {
+        val stored = read()
+        return keys.any { entry(group, it) in stored }
+    }
+
+    private fun entry(group: AllowGroup, key: String) = "${group.name}|$key"
+
+    private fun read(): Set<String> {
+        val store = prefs ?: return memory.toSet()
+        return store.getStringSet(KEY, emptySet()).orEmpty().toSet()
+    }
+
+    private fun write(change: (Set<String>) -> Set<String>) {
+        val next = change(read())
+        val store = prefs
+        if (store == null) {
+            memory.clear()
+            memory += next
+        } else {
+            store.edit(commit = true) { putStringSet(KEY, HashSet(next)) }
+        }
     }
 }

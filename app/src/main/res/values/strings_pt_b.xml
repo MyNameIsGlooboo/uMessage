@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Provider truth, step B (honest delete, S14). Step I moves these into the shared files and translates them. -->
+<resources>
+    <string name="pt_delete_not_default">Delete is off while uMessage is not the default SMS app.</string>
+    <string name="pt_delete_nothing">Nothing was deleted. Try again.</string>
+</resources>

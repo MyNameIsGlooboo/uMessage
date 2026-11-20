@@ -53,6 +53,14 @@ fun interface SenderFactWriter {
     fun write(address: String, fact: SenderFact): Boolean
 }
 
+/**
+ * B-2: a block list that can be read once for many lookups (Android's own block list): [frozenNumberCheck] reads it
+ * now, and the check it returns reads nothing more. [SenderJudge.snapshot] reads it once per snapshot.
+ */
+interface FreezableBlocklist {
+    fun frozenNumberCheck(): (String) -> Boolean
+}
+
 /** The members of both group rules, read once per [SenderJudge.snapshot]. */
 fun interface GroupMembership {
     fun members(): List<AllowGroupMember>
@@ -145,7 +153,15 @@ class SenderJudge(
         settings = settings(),
         members = groups.members(),
         readers = readers.frozen(),
+        blockedNumber = frozenNumberCheck(),
     )
+
+    /** B-2: Android's block list and the old number list read once for the snapshot; a failure is "not blocked". */
+    private fun frozenNumberCheck(): (String) -> Boolean {
+        val frozen = (legacy as? FreezableBlocklist)?.let { runCatching { it.frozenNumberCheck() }.getOrNull() }
+            ?: return ::onLegacyNumberList
+        return { address -> runCatching { frozen(address) }.getOrDefault(false) }
+    }
 
     /** The place of [address]'s chat from the sender alone: checks 1 to 5, 8, 9 and 11. */
     fun verdict(address: String): SenderVerdict = snapshot().verdict(address)
@@ -208,11 +224,21 @@ class SenderJudge(
      * keys of the address it was stored with, read with today's list (A-6): a SIM change does not lose a member.
      */
     inner class Snapshot internal constructor(
-        rules: List<SpamRule>,
+        private val rules: List<SpamRule>,
         internal val settings: SpamSettings,
-        members: List<AllowGroupMember>,
+        private val members: List<AllowGroupMember>,
         internal val readers: NumberReaders,
+        private val blockedNumber: (String) -> Boolean,
     ) {
+        /**
+         * G-B3: the same moment with other [settings] and [moreMembers] added, for a dry run (how many chats a switch
+         * would move). Reads nothing again and writes nothing.
+         */
+        fun changed(
+            settings: SpamSettings = this.settings,
+            moreMembers: List<AllowGroupMember> = emptyList(),
+        ): Snapshot = Snapshot(rules, settings, members + moreMembers, readers, blockedNumber)
+
         internal val textRules = rules.filter { it.type in TEXT_TYPES }
 
         private val allNumberRules =
@@ -257,7 +283,7 @@ class SenderJudge(
             return when {
                 userAllow != null -> SenderVerdict.Messages(ALLOW_RULE, userAllow.id)
                 block != null -> SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE, block.id)
-                onLegacyNumberList(address) -> SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE)
+                blockedNumber(address) -> SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE)
                 else -> contactCheck(address)
             }
         }

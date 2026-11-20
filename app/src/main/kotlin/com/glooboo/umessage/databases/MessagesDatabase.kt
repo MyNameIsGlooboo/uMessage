@@ -31,6 +31,7 @@ import com.glooboo.umessage.models.MessageReminder
 import com.glooboo.umessage.models.RecycleBinMessage
 import com.glooboo.umessage.models.ScheduledRepeat
 import com.glooboo.umessage.models.StarredMessage
+import com.glooboo.umessage.spam.SpamThread
 import java.io.File
 
 @Database(
@@ -46,7 +47,8 @@ import java.io.File
         Label::class,
         ConversationLabel::class,
         MessageReminder::class,
-        MessageNote::class
+        MessageNote::class,
+        SpamThread::class,
     ],
     version = MessagesDatabase.VERSION
 )
@@ -91,7 +93,7 @@ abstract class MessagesDatabase : RoomDatabase() {
         }
 
         /** Must equal the `version` in [Database] above. */
-        internal const val VERSION = 15
+        internal const val VERSION = 16
 
         /** Builds the database exactly as the app opens it. Tests call this directly to get an unshared instance. */
         internal fun build(context: Context, name: String): MessagesDatabase {
@@ -104,7 +106,7 @@ abstract class MessagesDatabase : RoomDatabase() {
                 name = name
             )
                 // No destructive fallback on upgrade: this DB is the only copy of drafts, scheduled
-                // messages and recycle-bin entries. Every version 1..15 has a migration below, so no
+                // messages and recycle-bin entries. Every version 1..16 has a migration below, so no
                 // existing install needs one; a future bump without a migration must fail loudly in
                 // testing rather than silently wipe user data. The downgrade fallback only ever acts when
                 // moving a newer file aside failed: an empty cache beats crashing on every launch.
@@ -325,11 +327,26 @@ abstract class MessagesDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * Provider truth (3.2): the chats shown in Spam. A new table only, empty until ChatSorter's first sort; the
+         * chats and the message cache are not touched, so a 0.4.14 user sees the same lists until then. The table is
+         * rebuilt from the sender rules, so MessagesDatabaseRecovery does not copy it.
+         */
+        internal val MIGRATION_15_16 = object : Migration(15, 16) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `spam_threads` (`thread_id` INTEGER NOT NULL, " +
+                        "`sender` TEXT NOT NULL, `cause` TEXT NOT NULL, `unread` INTEGER NOT NULL, " +
+                        "`spam_since` INTEGER NOT NULL, PRIMARY KEY(`thread_id`))"
+                )
+            }
+        }
+
         /** Every migration, oldest first. Declared after them so none is still null when the array is built. */
         internal val ALL_MIGRATIONS: Array<Migration> = arrayOf(
             MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6,
             MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9, MIGRATION_9_10, MIGRATION_10_11, MIGRATION_11_12,
-            MIGRATION_12_13, MIGRATION_13_14, MIGRATION_14_15,
+            MIGRATION_12_13, MIGRATION_13_14, MIGRATION_14_15, MIGRATION_15_16,
         )
     }
 }

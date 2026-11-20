@@ -43,7 +43,9 @@ object ArchiveStore {
      */
     fun protectArchives(context: Context) {
         if (!isTrusted(context)) return
-        val appArchived = context.conversationsDB.getAllArchived().filter { !it.isScheduled }.map { it.threadId }
+        // S1: every cached row, so an archived chat that is shown in Spam still counts.
+        val appArchived = context.conversationsDB.getAllRows().filter { it.isArchived && !it.isScheduled }
+            .map { it.threadId }
         if (appArchived.isEmpty()) return
         val store = readStore(context) ?: return
         val storeHasArchived = store.values.any { it }
