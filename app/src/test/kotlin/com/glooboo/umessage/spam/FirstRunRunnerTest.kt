@@ -42,6 +42,18 @@ class FirstRunRunnerTest {
         var killAfterCommit = false
         private var committedBeforeKill = false
 
+        /** B2-2: the store's chats, read at most once per pass; every read gets the next number. */
+        private var storeReads = 0
+        private var kept: Int? = null
+        val historyRead = mutableListOf<Int>()
+        val sortRead = mutableListOf<Int>()
+
+        private fun storeChats(): Int = kept ?: (++storeReads).also { kept = it }
+
+        override fun passStarted() {
+            kept = null
+        }
+
         private fun call(name: String) {
             if (killAt == name) {
                 killAt = null
@@ -66,6 +78,7 @@ class FirstRunRunnerTest {
                 return null
             }
             repeat(allowed) { historyMembers += clock }
+            historyRead += storeChats()
             return HistoryResult(wrote = allowed, code = 0)
         }
 
@@ -77,6 +90,7 @@ class FirstRunRunnerTest {
                 return SortResult.Failed("contacts")
             }
             published = true
+            sortRead += storeChats()
             // A sort repeated after a kill finds its rows written already: it adds nothing (the real diff does so too).
             val added = if (committedBeforeKill) 0 else moved
             committedBeforeKill = false
@@ -280,6 +294,40 @@ class FirstRunRunnerTest {
         // The update's pages stay pending across the second pass.
         assertThat(state.whatChangedPending).isTrue()
         assertThat(state.movedToSpam).isEqualTo(6)
+    }
+
+    @Test
+    fun aPassChainedFromAWaitingTriggerReadsTheStoresChatsAgain() {
+        // B2-2: chats that reached the store during the first pass get the second pass's history check.
+        steps.killAt = "history"
+        runner().request(FirstRunTrigger.UPDATE)
+        runner().request(FirstRunTrigger.NEW_CHATS)
+
+        runner().resume()
+
+        assertThat(steps.calls)
+            .containsExactly("settings", "rules", "older", "history", "sort", "cleanup", "history", "sort").inOrder()
+        // Each pass's history check and sort see the same read; the chained pass reads again.
+        assertThat(steps.historyRead).containsExactly(1, 2).inOrder()
+        assertThat(steps.sortRead).containsExactly(1, 2).inOrder()
+    }
+
+    @Test
+    fun aLaterPassLetsThreadSortsThroughButHoldsFullSorts() {
+        // B2-4: once the first sort is published, a stalled later pass does not freeze a block or "Not spam".
+        assertThat(FirstRunState().allowsThreadSort).isFalse()
+        steps.failHistory = 10
+        runner().request(FirstRunTrigger.UPDATE)
+        assertThat(store.read().allowsThreadSort).isFalse()
+        steps.failHistory = 0
+        runner().resume()
+
+        steps.failHistory = 10
+        val stalled = runner().request(FirstRunTrigger.CONTACTS_GRANTED).copy(waiting = true)
+
+        assertThat(stalled.active).isTrue()
+        assertThat(stalled.allowsFullSort).isFalse()
+        assertThat(stalled.allowsThreadSort).isTrue()
     }
 
     @Test

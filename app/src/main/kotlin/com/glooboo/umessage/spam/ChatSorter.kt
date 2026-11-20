@@ -6,6 +6,7 @@ import com.glooboo.umessage.databases.MessagesDatabase
 import com.glooboo.umessage.extensions.markThreadMessagesUnread
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
+import com.glooboo.umessage.interfaces.ConversationsDao
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.engine.SenderJudge
 import com.glooboo.umessage.spam.engine.SenderVerdict
@@ -22,8 +23,8 @@ import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
+import java.util.concurrent.Future
 import java.util.concurrent.ScheduledExecutorService
-import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 
 /** What one [ChatSorter.recompute] did. */
@@ -80,7 +81,7 @@ class ChatSorter(
             val cachedIds = cached.mapTo(HashSet()) { it.threadId }
             val extra = newRows.filter { it.threadId !in cachedIds }.distinctBy { it.threadId }
             val asked = threads?.let { it + extra.map { row -> row.threadId } }
-            val fresh = extra.map { SortableChat(it.threadId, it.phoneNumber, it.isGroupConversation, false) }
+            val fresh = extra.map { SortableChat(it.threadId, it.phoneNumber, it.isGroupConversation, it.isScheduled) }
             val chats = (cached + fresh).filter { asked == null || it.threadId in asked }
             if (chats.isEmpty()) return SortResult.Applied(0, 0, 0)
             val snap = snapshot()
@@ -229,21 +230,15 @@ class SnapshotCache(
 
 /**
  * The app's sorting queue (step B): one background thread runs every queued sort and the first-run steps
- * ([FirstRun]), one at a time, so two never overlap. Requests that arrive while a job waits are merged into one
- * deadline (B-17): a thread sort runs as soon as it can, a full sort waits for the latest debounce asked for.
+ * ([FirstRun]), one at a time, so two never overlap. The queued sorts and their gate are [SortQueue].
  * Nothing here runs while [ProviderTruthFlag] is off.
  *
  * Triggers (3.2): rules (not their hit counts, B-3), group members or the filter switches changed ([install]); contacts
  * changed (App calls [requestFull] with [CONTACTS_DELAY_MS]); a new chat row was cached ([requestThreads],
- * [NewChatSorting]); app start ([requestFull]). Before the first sort is published, and while a first-run pass works,
- * every queued sort waits: it runs as one full sort once the pass ends ([FirstRunState.allowsFullSort],
- * [releaseGate]), so no chat moves before the sort of 3.5. A failed sort is tried again a little later (B-10).
+ * [NewChatSorting]); app start ([requestFull]).
  */
 object SpamSorting {
-    private const val TAG = "uMessageSort"
     private const val CHANGE_DELAY_MS = 300L
-    private const val RETRY_MS = 30_000L
-    private const val MAX_RETRIES = 3
 
     /** S11: after a contacts change the sort waits this long, as the address book may still be written. */
     const val CONTACTS_DELAY_MS = 3_000L
@@ -251,13 +246,8 @@ object SpamSorting {
     private val executor: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor { runnable ->
         Thread(runnable, "chat-sorter").apply { isDaemon = true }
     }
-    private val lock = Any()
-    private var fullPending = false
-    private var missed = false
-    private val threadsPending = HashSet<Long>()
-    private var future: ScheduledFuture<*>? = null
-    private var dueAt = 0L
-    private var failures = 0
+
+    @Volatile private var queue: SortQueue? = null
 
     @Volatile private var installed = false
 
@@ -307,15 +297,13 @@ object SpamSorting {
     /** Every cached chat is sorted again, after [delayMs] (a later request moves the deadline later). */
     fun requestFull(context: Context, delayMs: Long = 0L) {
         if (!ProviderTruthFlag.enabled) return
-        synchronized(lock) { fullPending = true }
-        schedule(context.applicationContext, delayMs, urgent = false)
+        queue(context).requestFull(delayMs)
     }
 
     /** These chats are sorted again (a new chat row was cached, a user action on one chat), as soon as possible. */
     fun requestThreads(context: Context, threadIds: Collection<Long>) {
         if (!ProviderTruthFlag.enabled || threadIds.isEmpty()) return
-        synchronized(lock) { threadsPending += threadIds }
-        schedule(context.applicationContext, 0L, urgent = true)
+        queue(context).requestThreads(threadIds)
     }
 
     /** Runs [task] on the sorting thread, after the jobs queued before it. */
@@ -331,15 +319,78 @@ object SpamSorting {
     }
 
     /** A first-run pass ended: the sorts that waited for it run now, as one full sort. */
-    internal fun releaseGate(context: Context) {
+    internal fun releaseGate(context: Context) = queue(context).releaseGate()
+
+    private fun queue(context: Context): SortQueue = queue ?: synchronized(this) {
+        queue ?: run {
+            val app = context.applicationContext
+            SortQueue(
+                scheduler = { task, delayMs -> executor.schedule(task, delayMs, TimeUnit.MILLISECONDS) },
+                gate = { FirstRun.state(app).value },
+                // A thread sort follows a fact written a moment ago (a new chat, a user action): a fresh snapshot.
+                sort = { threads -> ChatSorter.forApp(app, fresh = threads != null).recompute(threads) },
+                published = SpamSorting::published,
+            ).also { queue = it }
+        }
+    }
+
+    /** After a sort that changed the table: the list screen shows its saved rows again, without reading the store. */
+    internal fun published(result: SortResult) {
+        if (result !is SortResult.Applied || !result.anyChange) return
+        changeCount.value++
+        result.touched.firstOrNull()?.let { refreshConversations(it) }
+    }
+}
+
+/**
+ * The queued sorts of [SpamSorting]. Requests that arrive while a job waits are merged into one deadline (B-17): a
+ * thread sort runs as soon as it can, a full sort waits for the latest debounce asked for. A failed sort is tried again
+ * a little later, at most [MAX_RETRIES] times in a row (B-10).
+ *
+ * The gate ([gate]): before the first sort is published every queued sort waits, and while a first-run pass works
+ * every full sort waits; they run as one full sort once the pass ends ([releaseGate]), so no chat moves before the sort
+ * of 3.5. B2-4: once the first sort was published, a sort of single chats (a block, "Not spam", a new chat) also runs
+ * while a later pass works or is stalled ([FirstRunState.allowsThreadSort]): a stalled pass must not freeze the
+ * user's own actions.
+ */
+internal class SortQueue(
+    /** Runs the task after the delay, on the one sorting thread. */
+    private val scheduler: (task: Runnable, delayMs: Long) -> Future<*>,
+    private val gate: () -> FirstRunState,
+    /** Sorts these threads, or every cached chat when null. */
+    private val sort: (threads: Set<Long>?) -> SortResult,
+    private val published: (SortResult) -> Unit,
+    private val clock: () -> Long = System::currentTimeMillis,
+) {
+    private val lock = Any()
+    private var fullPending = false
+    private var missed = false
+    private val threadsPending = HashSet<Long>()
+    private var future: Future<*>? = null
+    private var dueAt = 0L
+    private var failures = 0
+
+    fun requestFull(delayMs: Long = 0L) {
+        synchronized(lock) { fullPending = true }
+        schedule(delayMs, urgent = false)
+    }
+
+    fun requestThreads(threadIds: Collection<Long>) {
+        if (threadIds.isEmpty()) return
+        synchronized(lock) { threadsPending += threadIds }
+        schedule(0L, urgent = true)
+    }
+
+    /** A first-run pass ended: the sorts that waited for it run now, as one full sort. */
+    fun releaseGate() {
         val wasMissed = synchronized(lock) { missed.also { missed = false } }
-        if (wasMissed) requestFull(context)
+        if (wasMissed) requestFull()
     }
 
     /** B-17: one deadline. A thread sort pulls it to the earliest time asked; a full sort alone pushes it later. */
-    private fun schedule(app: Context, delayMs: Long, urgent: Boolean) {
+    private fun schedule(delayMs: Long, urgent: Boolean) {
         synchronized(lock) {
-            val now = System.currentTimeMillis()
+            val now = clock()
             val wanted = now + delayMs
             val pending = future
             val due = when {
@@ -352,13 +403,11 @@ object SpamSorting {
                 pending.cancel(false)
             }
             dueAt = due
-            future = runCatching {
-                executor.schedule(Runnable { drain(app) }, (due - now).coerceAtLeast(0L), TimeUnit.MILLISECONDS)
-            }.getOrNull()
+            future = runCatching { scheduler(Runnable { drain() }, (due - now).coerceAtLeast(0L)) }.getOrNull()
         }
     }
 
-    private fun drain(app: Context) {
+    private fun drain() {
         val full: Boolean
         val threads: Set<Long>
         synchronized(lock) {
@@ -369,60 +418,98 @@ object SpamSorting {
             threadsPending.clear()
         }
         if (!full && threads.isEmpty()) return
-        if (!FirstRun.state(app).value.allowsFullSort) {
-            synchronized(lock) { missed = true }
-            return
-        }
-        val result = ChatSorter.forApp(app, fresh = !full).recompute(if (full) null else threads)
+        val allowed = allowed(full, threads)
+        if (allowed?.isEmpty() == true) return
+        val result = sort(allowed)
         if (result is SortResult.Failed) {
             Log.w(TAG, "Sort failed (${result.why}); the old table stays")
             val again = synchronized(lock) { (failures < MAX_RETRIES).also { if (it) failures++ } }
-            if (again) requestFull(app, RETRY_MS)
+            if (again) requestFull(RETRY_MS)
         } else {
             synchronized(lock) { failures = 0 }
         }
         published(result)
     }
 
-    /** After a sort that changed the table: the list screen shows its saved rows again, without reading the store. */
-    internal fun published(result: SortResult) {
-        if (result !is SortResult.Applied || !result.anyChange) return
-        changeCount.value++
-        result.touched.firstOrNull()?.let { refreshConversations(it) }
+    /**
+     * What may be sorted now: null for every chat, else these threads (empty: nothing). What may not run now waits
+     * for the end of the pass, as one full sort.
+     */
+    private fun allowed(full: Boolean, threads: Set<Long>): Set<Long>? {
+        val state = gate()
+        if (full && state.allowsFullSort) return null
+        val now = if (state.allowsThreadSort) threads else emptySet()
+        if (full || now.size < threads.size) synchronized(lock) { missed = true }
+        return now
+    }
+
+    companion object {
+        private const val TAG = "uMessageSort"
+        const val RETRY_MS = 30_000L
+        const val MAX_RETRIES = 3
     }
 }
 
 /**
- * B-6: chat rows the list or a receiver caches for the first time, after the first run. The senders' history is
- * checked first (a sender the user wrote to, or one with an old code, joins its group), then the rows are cached and
- * sorted in one transaction, so a new row never shows in Messages before its sort. More than [BATCH] rows at once (a
- * restore, a store rebuilt by another app) are cached at once and get a history check and sort pass without a card.
- * Before the first sort, or while a pass works, the rows are cached as before and the pass sorts them.
+ * B-6: chat rows the list or a receiver caches for the first time, after the first sort was published. The senders'
+ * history is checked first (a sender the user wrote to, or one with an old code, joins its group), then the rows are
+ * cached and sorted in one transaction, so a new row never shows in Messages before its sort. B2-3: this also holds
+ * while a later pass works, as a sort of single chats is let through then (B2-4). More than [BATCH] rows at once (a
+ * restore, a store rebuilt by another app) are cached at once and get a history check and sort pass without a card,
+ * which waits behind a running pass. Before the first sort is published the rows are cached as before and the first
+ * run sorts them.
  */
 object NewChatSorting {
     const val BATCH = 50
 
     fun cacheAndSort(context: Context, rows: List<Conversation>) {
         if (rows.isEmpty()) return
-        val app = context.applicationContext
-        val dao = MessagesDatabase.getInstance(app).ConversationsDao()
+        forApp(context.applicationContext).cacheAndSort(rows)
+    }
+
+    private fun forApp(app: Context) = NewChatSorter(
+        dao = MessagesDatabase.getInstance(app).ConversationsDao(),
+        state = { if (ProviderTruthFlag.enabled) FirstRun.state(app).value else FirstRunState() },
+        checkHistory = { rows ->
+            val history = HistoryCheck.forApp(app)
+            rows.forEach { history.checkSender(it.phoneNumber, it.threadId) }
+        },
+        sorter = { ChatSorter.forApp(app, fresh = true) },
+        requestThreads = { SpamSorting.requestThreads(app, it) },
+        requestPass = { FirstRun.request(app, FirstRunTrigger.NEW_CHATS) },
+        published = SpamSorting::published,
+    )
+}
+
+/** What [NewChatSorting] does, on the stores and queues it is given. */
+internal class NewChatSorter(
+    private val dao: ConversationsDao,
+    private val state: () -> FirstRunState,
+    /** The history check of these one-to-one chats' senders. */
+    private val checkHistory: (List<Conversation>) -> Unit,
+    private val sorter: () -> ChatSorter,
+    private val requestThreads: (Collection<Long>) -> Unit,
+    /** A history check and sort pass (NEW_CHATS); it runs after a pass that works now. */
+    private val requestPass: () -> Unit,
+    private val published: (SortResult) -> Unit,
+) {
+    fun cacheAndSort(rows: List<Conversation>) {
+        if (rows.isEmpty()) return
         val ids = rows.map { it.threadId }
-        val ready = ProviderTruthFlag.enabled && FirstRun.state(app).value.allowsFullSort
-        if (!ready || rows.size > BATCH) {
+        val ready = state().sortPublished
+        if (!ready || rows.size > NewChatSorting.BATCH) {
             rows.forEach { dao.insertOrUpdate(it) }
-            if (ready) FirstRun.request(app, FirstRunTrigger.NEW_CHATS) else SpamSorting.requestThreads(app, ids)
+            if (ready) requestPass() else requestThreads(ids)
             return
         }
-        val history = HistoryCheck.forApp(app)
-        rows.filter { !it.isGroupConversation && !it.isScheduled }
-            .forEach { history.checkSender(it.phoneNumber, it.threadId) }
-        val result = ChatSorter.forApp(app, fresh = true).recompute(ids.toSet(), newRows = rows)
+        checkHistory(rows.filter { !it.isGroupConversation && !it.isScheduled })
+        val result = sorter().recompute(ids.toSet(), newRows = rows)
         if (result is SortResult.Failed) {
             // The rows are cached anyway (a failed sort must not lose a chat); the queue tries the sort again.
             rows.forEach { dao.insertOrIgnore(it) }
-            SpamSorting.requestThreads(app, ids)
+            requestThreads(ids)
         } else {
-            SpamSorting.published(result)
+            published(result)
         }
     }
 }

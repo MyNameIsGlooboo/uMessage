@@ -104,10 +104,19 @@ data class FirstRunState(
 
     /** A full sort may run: the first sort was published and no pass is working ("nothing moves before the sort"). */
     val allowsFullSort: Boolean get() = sortPublished && !active
+
+    /**
+     * B2-4: a sort of single chats (a block, "Not spam", a new chat) may run: the first sort was published. A later
+     * pass that works or is stalled ([waiting]) does not hold it back.
+     */
+    val allowsThreadSort: Boolean get() = sortPublished
 }
 
 /** What one first-run pass does at each step. Each step may be repeated after a kill, so each is idempotent. */
 interface FirstRunSteps {
+    /** A pass starts (also one chained after another): what a step keeps for its pass is read again. */
+    fun passStarted() = Unit
+
     /** 7.1: the filter switch from the old mode, auto-delete "keep forever" (SpamEngine.applyProviderTruthMapping). */
     fun applySettings()
 
@@ -269,6 +278,7 @@ class FirstRunRunner(
 
     /** The first state of a pass of [trigger]: where the card and "What changed" start counting. */
     private fun begin(state: FirstRunState, trigger: FirstRunTrigger): FirstRunState {
+        steps.passStarted()
         val at = clock()
         return state.copy(
             phase = trigger.phases.first(),
@@ -479,8 +489,20 @@ object FirstRun {
 
 /** The steps of [FirstRunSteps] on the app's own stores. The store's chats are read once per pass. */
 internal class AppFirstRunSteps(private val app: Context) : FirstRunSteps {
-    /** B-16: with the chats of numbers on Android's block list, which are judged like any other. */
-    private val storeChats: List<Conversation>? by lazy { app.getConversationsOrNull(includeBlocked = true) }
+    /** The store's chats read for the running pass; null until read. */
+    private var kept: List<Conversation>? = null
+
+    /**
+     * B-16: with the chats of numbers on Android's block list, which are judged like any other. Read once per pass, so
+     * the history check and the sort see the same chats; B2-2: a pass chained after another reads them again. A failed
+     * read (null) is not kept.
+     */
+    private fun storeChats(): List<Conversation>? =
+        kept ?: app.getConversationsOrNull(includeBlocked = true).also { kept = it }
+
+    override fun passStarted() {
+        kept = null
+    }
 
     override fun applySettings() {
         SpamEngine.applyProviderTruthMapping(app)
@@ -494,7 +516,7 @@ internal class AppFirstRunSteps(private val app: Context) : FirstRunSteps {
 
     /** With a fresh snapshot: the steps before may have changed the settings and the rules a moment ago. */
     override fun historyCheck(): HistoryResult? {
-        val chats = storeChats ?: return null
+        val chats = storeChats() ?: return null
         ChatSorter.snapshots(app).invalidate()
         val sortable = chats.map { SortableChat(it.threadId, it.phoneNumber, it.isGroupConversation, false) }
         return HistoryCheck.forApp(app, sortable).run()
@@ -506,7 +528,7 @@ internal class AppFirstRunSteps(private val app: Context) : FirstRunSteps {
      * none shows in Messages before it is sorted. A failed read of the store fails the sort.
      */
     override fun sort(): SortResult {
-        val chats = storeChats ?: return SortResult.Failed("store")
+        val chats = storeChats() ?: return SortResult.Failed("store")
         return SpamSorting.sortNow(app, newRows = chats)
     }
 
