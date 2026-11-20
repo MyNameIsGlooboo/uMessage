@@ -192,10 +192,10 @@ open class ThreadActivity : ComposeSimpleActivity() {
     private val refreshLock = Any()
 
     /** B06: a hidden chat asks for the app lock before it shows. */
-    private val hiddenGate = HiddenChatGate(this, { spamGate.blocking }) { threadId }
+    private val hiddenGate: HiddenChatGate = HiddenChatGate(this, { spamGate.blocking }) { threadId }
 
     /** U1 (provider truth): a chat in Spam asks for the app lock while the lock covers Spam. */
-    private val spamGate = SpamChatGate(this, { threadId }, othersCover = { hiddenGate.blocking })
+    private val spamGate: SpamChatGate = SpamChatGate(this, { threadId }, othersCover = { hiddenGate.blocking })
 
     /** Provider truth (4.3): the one line about the sender. */
     private val chatLine by lazy { ChatLineController(this, vm.chatLine, lifecycleScope) }

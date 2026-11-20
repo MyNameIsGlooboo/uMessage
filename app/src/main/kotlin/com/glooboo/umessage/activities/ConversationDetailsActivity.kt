@@ -57,10 +57,10 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
     private val refreshMute: () -> Unit = { muteSummary = privacy.muteSummary() }
 
     /** B06: the details of a hidden chat ask for the app lock first, like the chat itself. */
-    private val hiddenGate = HiddenChatGate(this, { spamGate.blocking }) { threadId }
+    private val hiddenGate: HiddenChatGate = HiddenChatGate(this, { spamGate.blocking }) { threadId }
 
     /** U1 (provider truth): the details of a chat in Spam ask for the app lock while the lock covers Spam. */
-    private val spamGate = SpamChatGate(this, { threadId }, othersCover = { hiddenGate.blocking })
+    private val spamGate: SpamChatGate = SpamChatGate(this, { threadId }, othersCover = { hiddenGate.blocking })
     private var phoneNumber by mutableStateOf("")
     private var photoUri by mutableStateOf("")
     private var isGroup by mutableStateOf(false)
