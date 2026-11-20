@@ -20,6 +20,8 @@ import com.glooboo.umessage.helpers.HiddenChatsSession
  */
 class HiddenChatGate(
     private val activity: ComponentActivity,
+    /** Another gate covers the screen (U1, [SpamChatGate]): this one never makes it visible then. */
+    private val othersCover: () -> Boolean = { false },
     private val threadId: () -> Long,
 ) {
     /** True while the chat is covered: nothing of it may be read, marked as read or answered. */
@@ -72,6 +74,7 @@ class HiddenChatGate(
         blocking = !visible
         // The window hides from Recents while something locked is open (decided by what is unlocked right now).
         AppLockGuard.applyWindowProtection(activity)
-        activity.findViewById<View>(android.R.id.content)?.visibility = if (visible) View.VISIBLE else View.INVISIBLE
+        val shown = visible && !othersCover()
+        activity.findViewById<View>(android.R.id.content)?.visibility = if (shown) View.VISIBLE else View.INVISIBLE
     }
 }

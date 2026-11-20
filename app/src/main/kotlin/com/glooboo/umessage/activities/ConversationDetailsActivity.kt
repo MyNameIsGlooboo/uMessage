@@ -15,6 +15,7 @@ import com.glooboo.umessage.extensions.getThreadParticipants
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.renameConversation
 import com.glooboo.umessage.extensions.startContactDetailsIntent
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
@@ -24,8 +25,11 @@ import com.glooboo.umessage.ui.details.ConversationDetailsScreen
 import com.glooboo.umessage.ui.details.ConversationMediaViewModel
 import com.glooboo.umessage.ui.details.ConversationSearchScreen
 import com.glooboo.umessage.ui.lock.HiddenChatGate
+import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.spam.ForwardingAvailability
+import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.ui.spam.SenderBlocking
+import com.glooboo.umessage.ui.spam.SenderMoves
 import com.glooboo.umessage.ui.spam.SpamRepositoryProvider
 import com.glooboo.umessage.ui.thread.ThreadPrivacyActions
 import com.glooboo.umessage.ui.thread.planSpamReport
@@ -53,7 +57,10 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
     private val refreshMute: () -> Unit = { muteSummary = privacy.muteSummary() }
 
     /** B06: the details of a hidden chat ask for the app lock first, like the chat itself. */
-    private val hiddenGate = HiddenChatGate(this) { threadId }
+    private val hiddenGate = HiddenChatGate(this, { spamGate.blocking }) { threadId }
+
+    /** U1 (provider truth): the details of a chat in Spam ask for the app lock while the lock covers Spam. */
+    private val spamGate = SpamChatGate(this, { threadId }, othersCover = { hiddenGate.blocking })
     private var phoneNumber by mutableStateOf("")
     private var photoUri by mutableStateOf("")
     private var isGroup by mutableStateOf(false)
@@ -184,6 +191,7 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
     override fun onResume() {
         super.onResume()
         hiddenGate.check()
+        spamGate.check()
         // The system notification settings can change both while this page is in the background.
         if (threadId != 0L) {
             customNotifications = config.customNotifications.contains(threadId.toString())
@@ -210,13 +218,16 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
         lifecycleScope.launch {
             val ok = runCatching {
                 val repository = SpamRepositoryProvider.get(this@ConversationDetailsActivity)
-                if (block) {
-                    SenderBlocking.block(repository, listOf(address))
-                } else {
-                    SenderBlocking.unblock(repository, address)
+                when {
+                    // Provider truth (4.1): the sender's automatic allow rules and memberships go too.
+                    block && ProviderTruthFlag.enabled -> SenderMoves.blockSenders(repository, listOf(address))
+                    block -> SenderBlocking.block(repository, listOf(address))
+                    else -> SenderBlocking.unblock(repository, address)
                 }
             }.isSuccess
             if (!ok) blocked = !block
+            // Provider truth: the whole chat moves at once.
+            SpamSorting.requestThreads(this@ConversationDetailsActivity, listOf(threadId))
         }
     }
 
@@ -242,6 +253,7 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
                 allowed = !allow
                 blocked = previousBlocked
             }
+            SpamSorting.requestThreads(this@ConversationDetailsActivity, listOf(threadId))
         }
     }
 

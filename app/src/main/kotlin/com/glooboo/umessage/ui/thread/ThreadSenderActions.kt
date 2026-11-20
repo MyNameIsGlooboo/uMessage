@@ -6,6 +6,7 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
@@ -27,6 +28,8 @@ import org.fossify.commons.extensions.isNumberBlocked
  *
  * [recipients] gives the conversation's current people; [lastReceivedSubscriptionId] the SIM the newest received
  * message came in on (-1 when unknown); [onStatusChanged] runs when [reportedSender] or [blockedSender] changed.
+ *
+ * Provider truth: with ProviderTruthFlag on, each action moves the whole chat ([ThreadSpamMoves], for [threadId]).
  */
 class ThreadSenderActions(
     private val activity: Activity,
@@ -36,8 +39,12 @@ class ThreadSenderActions(
     private val senderName: () -> String,
     private val lastReceivedSubscriptionId: () -> Int,
     private val onStatusChanged: () -> Unit,
+    private val threadId: () -> Long = { 0L },
 ) {
     private val repository: SpamRepository get() = SpamRepositoryProvider.get(activity)
+
+    /** Provider truth (4.1, 4.3): the actions that move the whole chat, also used by the chat line. */
+    internal val spamMoves by lazy { ThreadSpamMoves(activity, scope, snackbar, { repository }, threadId) }
 
     /** Latest uMessage rules, kept so the menu can tell whether the sender is already reported. */
     private var rules: List<SpamRule>? = null
@@ -119,7 +126,7 @@ class ThreadSenderActions(
             confirmLabel = activity.getString(R.string.thread_block_confirm),
             dismissLabel = activity.getString(R.string.thread_report_spam_cancel),
         ) {
-            scope.launch { block(numbers) }
+            if (ProviderTruthFlag.enabled) spamMoves.block(numbers) else scope.launch { block(numbers) }
         }
     }
 
@@ -145,6 +152,7 @@ class ThreadSenderActions(
      */
     fun unblock() {
         val address = address() ?: return
+        if (ProviderTruthFlag.enabled) return spamMoves.unblock(address)
         scope.launch {
             val repository = repository
             val removed = runCatching { SenderBlocking.unblock(repository, address) }.getOrElse {
@@ -211,6 +219,7 @@ class ThreadSenderActions(
      */
     fun allowSender() {
         val address = address() ?: return
+        if (ProviderTruthFlag.enabled) return spamMoves.notSpam(address)
         scope.launch {
             val repository = repository
             val change = runCatching { SenderBlocking.alwaysAllow(repository, listOf(address)) }.getOrElse {
@@ -243,7 +252,12 @@ class ThreadSenderActions(
             confirmLabel = activity.getString(R.string.thread_report_spam_confirm),
             dismissLabel = activity.getString(R.string.thread_report_spam_cancel),
         ) {
-            scope.launch { reportSpam(address) }
+            // Provider truth: "Report spam" equals Block (4.1).
+            if (ProviderTruthFlag.enabled) {
+                spamMoves.block(listOf(address), report = true)
+            } else {
+                scope.launch { reportSpam(address) }
+            }
         }
     }
 

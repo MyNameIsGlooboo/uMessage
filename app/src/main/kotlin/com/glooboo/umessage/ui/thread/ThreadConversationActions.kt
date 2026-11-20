@@ -7,6 +7,7 @@ import com.glooboo.umessage.dialogs.ShareTextDialog
 import com.glooboo.umessage.extensions.getMessages
 import com.glooboo.umessage.extensions.shortcutHelper
 import com.glooboo.umessage.helpers.MESSAGES_LIMIT
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.components.ChoiceItem
 import com.glooboo.umessage.ui.components.showChoiceDialog
 import com.glooboo.umessage.extensions.conversationsDB
@@ -60,14 +61,25 @@ class ThreadConversationActions(
         activity.askYesNo(activity.getString(R.string.delete_whole_conversation_confirmation)) {
             val thread = threadId()
             val fromRecycleBin = isRecycleBin()
-            thenClose {
-                if (fromRecycleBin) activity.emptyMessagesRecycleBinForConversation(thread) else activity.deleteConversation(thread)
+            // S14, B3-5 (provider truth): a delete that did not happen says why, and the chat stays open.
+            ensureBackgroundThread {
+                val result = if (fromRecycleBin) {
+                    activity.emptyMessagesRecycleBinForConversation(thread)
+                } else {
+                    activity.deleteConversation(thread)
+                }
+                activity.runOnUiThread {
+                    refreshConversations()
+                    val message = result.messageRes.takeIf { ProviderTruthFlag.enabled }
+                    if (message == null) activity.finish() else showMessage(activity.getString(message))
+                }
             }
         }
     }
 
     fun askRestoreAll() {
-        activity.askYesNo(activity.getString(R.string.restore_confirmation)) {
+        // M-UI1: the whole-chat question; restore_confirmation has an argument ("%s") meant for a count.
+        activity.askYesNo(activity.getString(R.string.restore_whole_conversation_confirmation)) {
             val thread = threadId()
             thenClose { activity.restoreAllMessagesFromRecycleBinForConversation(thread) }
         }

@@ -1,0 +1,170 @@
+package com.glooboo.umessage.ui.lock
+
+import android.app.Activity
+import android.view.View
+import androidx.activity.ComponentActivity
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.testing.ProviderTruthFlagRule
+import com.google.common.truth.Truth.assertThat
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.Robolectric
+import org.robolectric.Shadows.shadowOf
+import org.robolectric.android.controller.ActivityController
+import org.robolectric.shadows.ShadowLooper
+
+/**
+ * Provider truth, step C (U1): a chat in Spam counts as a locked screen while the app lock covers Spam and is locked.
+ * Nothing of it shows until the lock is passed; a chat in Messages, an open lock or the flag off change nothing.
+ */
+@RunWith(AndroidJUnit4::class)
+class SpamChatGateTest {
+
+    @get:Rule
+    val flag = ProviderTruthFlagRule(enabled = true)
+
+    private var locked = true
+    private var inSpam: (Long) -> Boolean = { true }
+    private var othersCover = false
+
+    private class Screen(val controller: ActivityController<ComponentActivity>, val gate: SpamChatGate) {
+        val activity: ComponentActivity get() = controller.get()
+        val content: View get() = activity.findViewById(android.R.id.content)
+    }
+
+    /** The gate is made before the screen starts, as the activities make theirs (a result launcher needs that). */
+    private fun open(threadId: Long = THREAD): Screen {
+        val controller = Robolectric.buildActivity(ComponentActivity::class.java).create()
+        val gate = SpamChatGate(
+            controller.get(), { threadId }, othersCover = { othersCover }, inSpam = { inSpam(it) }, locked = { locked },
+        )
+        controller.start().resume()
+        return Screen(controller, gate).also {
+            it.gate.check()
+            settle()
+        }
+    }
+
+    /** Lets the gate's database read and its answer on the main thread run. */
+    private fun settle() {
+        repeat(SETTLE_ROUNDS) {
+            ShadowLooper.idleMainLooper()
+            Thread.sleep(SETTLE_SLEEP_MS)
+        }
+        ShadowLooper.idleMainLooper()
+    }
+
+    private fun lockAsked(screen: Screen): Boolean =
+        shadowOf(screen.activity).nextStartedActivityForResult?.intent?.let {
+            it.component?.className == LockActivity::class.java.name &&
+                it.getBooleanExtra(LockActivity.EXTRA_PART, false)
+        } == true
+
+    @Test
+    fun aSpamChatBehindTheLockShowsNothingAndAsksForTheLock() {
+        val screen = open()
+
+        assertThat(screen.gate.blocking).isTrue()
+        assertThat(screen.content.visibility).isEqualTo(View.INVISIBLE)
+        assertThat(lockAsked(screen)).isTrue()
+    }
+
+    @Test
+    fun aReadThatFailsCountsAsSpam() {
+        inSpam = { error("database closed") }
+        val screen = open()
+
+        assertThat(screen.gate.blocking).isTrue()
+        assertThat(lockAsked(screen)).isTrue()
+    }
+
+    @Test
+    fun aChatInMessagesIsNotCovered() {
+        inSpam = { false }
+        val screen = open()
+
+        assertThat(screen.gate.blocking).isFalse()
+        assertThat(screen.content.visibility).isEqualTo(View.VISIBLE)
+        assertThat(lockAsked(screen)).isFalse()
+    }
+
+    @Test
+    fun anOpenLockCoversNothing() {
+        locked = false
+        val screen = open()
+
+        assertThat(screen.gate.blocking).isFalse()
+        assertThat(lockAsked(screen)).isFalse()
+    }
+
+    @Test
+    fun comingBackFromRecentsAfterTheLockClosedCoversAgain() {
+        locked = false
+        val screen = open()
+        assertThat(screen.gate.blocking).isFalse()
+
+        // The lock timed out while the chat sat in "recent apps"; it comes back to the front.
+        locked = true
+        screen.controller.pause().stop().restart().start().resume()
+        screen.gate.check()
+        settle()
+
+        assertThat(screen.gate.blocking).isTrue()
+        assertThat(screen.content.visibility).isEqualTo(View.INVISIBLE)
+        assertThat(lockAsked(screen)).isTrue()
+    }
+
+    @Test
+    fun passingTheLockShowsTheChat() {
+        val screen = open()
+        val request = shadowOf(screen.activity).nextStartedActivityForResult!!
+        locked = false
+
+        shadowOf(screen.activity).receiveResult(request.intent, Activity.RESULT_OK, null)
+        settle()
+
+        assertThat(screen.gate.blocking).isFalse()
+        assertThat(screen.content.visibility).isEqualTo(View.VISIBLE)
+    }
+
+    @Test
+    fun backFromTheLockClosesTheScreen() {
+        val screen = open()
+        val request = shadowOf(screen.activity).nextStartedActivityForResult!!
+
+        shadowOf(screen.activity).receiveResult(request.intent, Activity.RESULT_CANCELED, null)
+
+        assertThat(screen.activity.isFinishing).isTrue()
+        assertThat(screen.gate.blocking).isTrue()
+    }
+
+    @Test
+    fun anotherGateThatCoversKeepsTheScreenHidden() {
+        val screen = open()
+        othersCover = true
+        locked = false
+        val request = shadowOf(screen.activity).nextStartedActivityForResult!!
+
+        shadowOf(screen.activity).receiveResult(request.intent, Activity.RESULT_OK, null)
+
+        assertThat(screen.gate.blocking).isFalse()
+        assertThat(screen.content.visibility).isEqualTo(View.INVISIBLE)
+    }
+
+    @Test
+    fun withTheFlagOffNothingIsCovered() {
+        ProviderTruthFlag.enabled = false
+        val screen = open()
+
+        assertThat(screen.gate.blocking).isFalse()
+        assertThat(lockAsked(screen)).isFalse()
+    }
+
+    private companion object {
+        const val THREAD = 42L
+        const val SETTLE_ROUNDS = 20
+        const val SETTLE_SLEEP_MS = 10L
+    }
+}
