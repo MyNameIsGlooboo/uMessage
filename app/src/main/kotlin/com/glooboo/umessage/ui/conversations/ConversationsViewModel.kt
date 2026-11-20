@@ -35,6 +35,7 @@ import com.glooboo.umessage.extensions.markThreadMessagesUnread
 import com.glooboo.umessage.extensions.renameConversation
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.helpers.ConversationListSync
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
 import java.util.Collections
 import java.util.concurrent.Executors
