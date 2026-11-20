@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
@@ -53,6 +54,12 @@ import com.glooboo.umessage.ui.settings.search.SettingsSearchField
 import com.glooboo.umessage.ui.settings.search.SettingsSearchResults
 import com.glooboo.umessage.ui.setup.SetupPage
 import com.glooboo.umessage.ui.spam.rememberSortingCardMode
+import com.glooboo.umessage.ui.spam.FilterSwitchGroup
+import com.glooboo.umessage.ui.spam.SortChange
+import com.glooboo.umessage.ui.spam.SwitchConfirmDialog
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import androidx.compose.material3.Icon
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import org.fossify.commons.R as CommonsR
@@ -330,11 +337,13 @@ private fun forwardingSummaryText(state: SettingsUiState): String = when (state.
 @Composable
 private fun spamSummaryText(spam: SpamSummary?): String {
     if (spam == null) return stringResource(R.string.settings_spam_open_settings_body)
-    return spamSummaryLine(LocalResources.current, spam, modeLabel(spam.mode))
+    // Provider truth: no mode name is left; the switch has its own line.
+    val mode = if (ProviderTruthFlag.enabled) null else modeLabel(spam.mode)
+    return spamSummaryLine(LocalResources.current, spam, mode)
 }
 
-/** The Spam protection row's summary parts, joined with [R.string.ui_separator]. */
-internal fun spamSummaryLine(resources: android.content.res.Resources, spam: SpamSummary, mode: String): String {
+/** The Spam protection row's summary parts, joined with [R.string.ui_separator]. [mode] null: the figures only. */
+internal fun spamSummaryLine(resources: android.content.res.Resources, spam: SpamSummary, mode: String?): String {
     val figures = if (spam.blockedLast7Days == spam.blockedTotal) {
         listOf(
             resources.getString(R.string.r3f_spam_summary_stopped, spam.blockedTotal),
@@ -346,7 +355,7 @@ internal fun spamSummaryLine(resources: android.content.res.Resources, spam: Spa
             resources.getString(R.string.r3f_spam_summary_total, spam.blockedTotal),
         )
     }
-    return (listOf(mode) + figures).joinToString(resources.getString(R.string.ui_separator))
+    return (listOfNotNull(mode) + figures).joinToString(resources.getString(R.string.ui_separator))
 }
 
 @Composable
@@ -391,7 +400,9 @@ private fun DefaultSimRow(state: SettingsUiState, actions: SettingsActions) {
 private fun SpamPage(state: SettingsUiState, actions: SettingsActions) {
     // P4-11: the mode is chosen right here, not two pages deeper.
     val spam = state.spam
-    if (spam != null) SpamModeGroup(spam, actions)
+    if (spam != null) {
+        if (ProviderTruthFlag.enabled) SpamFilterGroup(spam) else SpamModeGroup(spam, actions)
+    }
     // B11: the group is not named like the page above it.
     SettingsGroup(stringResource(R.string.settings_block_group)) {
         SettingsRow(
@@ -439,6 +450,30 @@ private fun SpamPage(state: SettingsUiState, actions: SettingsActions) {
             showChevron = true,
         )
     }
+}
+
+/**
+ * Provider truth (4.6): the one spam filter switch. Changing it asks first, with the number of chats that move (U11);
+ * the pending confirm lives in [switchModel], so it survives a rotation.
+ */
+@Composable
+internal fun SpamFilterGroup(
+    spam: SpamSummary,
+    switchModel: SpamFilterSwitchViewModel = viewModel(factory = SpamFilterSwitchViewModel.Factory),
+) {
+    val pending by switchModel.switches.pending.collectAsStateWithLifecycle()
+    val snackbar = LocalSettingsSnackbar.current
+    val failedText = stringResource(R.string.spam_snack_failed)
+    LaunchedEffect(switchModel) { switchModel.failureFlow.collect { snackbar?.showSnackbar(failedText) } }
+    val shown = when {
+        !spam.filterOn -> UnknownSenderMode.OFF
+        !spam.codeGroupOn -> UnknownSenderMode.STRICT
+        else -> UnknownSenderMode.SMART
+    }
+    FilterSwitchGroup(spam.filterOn, rememberSortingCardMode(shown)) { on ->
+        switchModel.switches.request(SortChange.Filter(on))
+    }
+    pending?.let { SwitchConfirmDialog(it, switchModel.switches::confirm, switchModel.switches::dismiss) }
 }
 
 /** The three unknown-sender modes. Strict also blocks verification codes, so it asks first (SE-23). */

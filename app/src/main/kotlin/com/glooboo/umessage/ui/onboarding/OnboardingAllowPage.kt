@@ -95,6 +95,9 @@ internal class DefaultSmsState(
 /** Test tag of the "Allow all" button. */
 internal const val ALLOW_ALL_TAG = "onb_allow_all"
 
+/** Test tag of the button to Android's default apps page. */
+internal const val DEFAULT_SETTINGS_TAG = "onb_default_settings"
+
 /**
  * The Allow step: one "Allow all" button on top and a compact checklist below it. A row that is not done can be
  * tapped to ask for just that item, or to open Android settings when the system will not ask again.
@@ -155,7 +158,14 @@ internal fun AllowPage(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.error,
             )
-            OutlinedButton(onClick = defaultSms.onOpenSettings, modifier = Modifier.heightIn(min = 48.dp)) {
+        }
+        // M-UI7: after a refusal Android may not show its dialog again, so Android's default apps page is offered
+        // too, as on the Setup page. Without it a second refusal left no way forward on this page.
+        if ((defaultSms.denied || defaultSms.unavailable) && !defaultSms.isDefault) {
+            OutlinedButton(
+                onClick = defaultSms.onOpenSettings,
+                modifier = Modifier.heightIn(min = 48.dp).testTag(DEFAULT_SETTINGS_TAG),
+            ) {
                 Text(stringResource(R.string.onb_default_open_settings))
             }
         }

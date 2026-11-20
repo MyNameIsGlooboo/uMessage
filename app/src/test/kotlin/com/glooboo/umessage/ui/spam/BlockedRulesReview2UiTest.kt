@@ -65,7 +65,7 @@ class BlockedRulesReview2UiTest {
         var pattern: String? = null
         val form = RuleForm(kind = ListKind.BLOCK, type = RuleType.REGEX)
         compose.setContent {
-            UMessageTheme { AddRuleSheet(form, emptyList(), RulesActions(onPattern = { pattern = it })) }
+            UMessageTheme { AddRuleSheet(form, RulesActions(onPattern = { pattern = it })) }
         }
         compose.onNodeWithText(str(R.string.ux8d_match_label)).assertExists()
         compose.onNodeWithText(str(R.string.e_pattern_link)).performClick()

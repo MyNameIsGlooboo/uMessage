@@ -253,6 +253,8 @@ class SettingsActivity : ComposeSimpleActivity() {
                     blockedTotal = stats.blockedTotal,
                     restoredTotal = stats.restoredTotal,
                     notifyOnBlock = settings.notifyOnBlock,
+                    filterOn = settings.filterOn,
+                    codeGroupOn = settings.codeGroupOn,
                 )
             }.collect { spamSummary = it }
         }

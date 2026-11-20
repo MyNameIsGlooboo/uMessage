@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
@@ -76,6 +77,7 @@ import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamStats
 import com.glooboo.umessage.spam.UnknownSenderMode
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.components.ConfirmDialog
 import com.glooboo.umessage.ui.conversations.SimBadge
 import com.glooboo.umessage.ui.components.EmptyState
@@ -448,6 +450,31 @@ internal fun resetEmptyCardPlayed() {
     emptyCardPlayed = false
 }
 
+/** The rows above the senders: the contacts hint, the mode line (0.4.14 only), the search, the tip, the filters. */
+private fun LazyListScope.blockedHeaderItems(
+    state: BlockedUiState,
+    actions: BlockedActions,
+    searching: Boolean,
+    onCloseSearch: () -> Unit,
+) {
+    item(key = "contacts-off") { ContactsOffBanner(state.mode) }
+    // Provider truth (4.6): the mode line goes with the modes; the filter switch lives in Settings.
+    if (!ProviderTruthFlag.enabled) {
+        item(key = "stats") {
+            BlockedLine(state.stats, state.mode, onOpenSettings = actions.onOpenSettings)
+        }
+    }
+    if (state.heldCount > 0 && searching) {
+        item(key = "search") { BlockedSearchField(state.query, actions.onSetQuery, onCloseSearch) }
+    }
+    if (state.heldCount > 0) {
+        item(key = "tip") { BlockedTip() }
+        if (BlockedFilters.rowShown(state.filter, state.filterCounts)) {
+            item(key = "filters") { BlockedFilterRow(state, actions.onSetFilter) }
+        }
+    }
+}
+
 @Composable
 private fun BlockedList(
     state: BlockedUiState,
@@ -462,19 +489,7 @@ private fun BlockedList(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(top = 4.dp, bottom = 96.dp + bottomInset),
     ) {
-        item(key = "contacts-off") { ContactsOffBanner(state.mode) }
-        item(key = "stats") {
-            BlockedLine(state.stats, state.mode, onOpenSettings = actions.onOpenSettings)
-        }
-        if (state.heldCount > 0 && searching) {
-            item(key = "search") { BlockedSearchField(state.query, actions.onSetQuery, onCloseSearch) }
-        }
-        if (state.heldCount > 0) {
-            item(key = "tip") { BlockedTip() }
-            if (BlockedFilters.rowShown(state.filter, state.filterCounts)) {
-                item(key = "filters") { BlockedFilterRow(state, actions.onSetFilter) }
-            }
-        }
+        blockedHeaderItems(state, actions, searching, onCloseSearch)
         when {
             // Nothing held: say what uMessage is doing, so a fresh install does not look switched off (ID-17).
             state.heldCount == 0 -> {

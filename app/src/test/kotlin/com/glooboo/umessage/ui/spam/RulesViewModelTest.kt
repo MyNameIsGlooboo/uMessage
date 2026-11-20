@@ -459,7 +459,7 @@ class RulesViewModelTest {
         assertThat(form.storedNote).isEqualTo("Blocked by you")
         assertThat(form.unchanged).isTrue()
 
-        vm.setSim(2)
+        vm.setPattern("+15550001234")
         vm.submitForm()
         awaitUntil { vm.state.value.form == null }
         assertThat(RuleNotes.codeOf(repo.rulesState.value.single().note)).isEqualTo(RuleNotes.BLOCKED_BY_YOU)

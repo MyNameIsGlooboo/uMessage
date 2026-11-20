@@ -3,6 +3,7 @@
 package com.glooboo.umessage.ui.settings.search
 
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.settings.search.SettingsIndexEntry.Needs
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.ABOUT
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.APPEARANCE
@@ -41,9 +42,16 @@ object SettingsIndex {
     private val PG_LOCK = R.string.settings_nav_app_lock
     private val PG_ABOUT = R.string.settings_nav_about_row
 
-    val entries: List<SettingsIndexEntry> = spamEntries() + forwardingEntries() + notificationEntries() +
-        typingEntries() + storageEntries() + appearanceEntries() + backupEntries() + lockEntries() + setupEntries() +
-        aboutEntries()
+    /** Read on every use: with [ProviderTruthFlag] on, the three modes and the foreign-numbers option are gone. */
+    val entries: List<SettingsIndexEntry>
+        get() = spamEntries().filter { !ProviderTruthFlag.enabled || it.titleRes !in retiredByTheSwitch } +
+            forwardingEntries() + notificationEntries() + typingEntries() + storageEntries() + appearanceEntries() +
+            backupEntries() + lockEntries() + setupEntries() + aboutEntries()
+
+    /** The rows the one spam filter switch replaced (4.6, answer 7). */
+    private val retiredByTheSwitch = setOf(
+        R.string.spam_mode_strict, R.string.spam_mode_smart, R.string.spam_mode_off, R.string.region_title,
+    )
 
     private fun spamEntries() = listOf(
         SettingsIndexEntry(R.string.settings_nav_spam_row, MAIN, SPAM, null, R.string.sks_spam),

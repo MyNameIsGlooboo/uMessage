@@ -2,8 +2,6 @@ package com.glooboo.umessage.ui.spam
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -43,27 +41,140 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.spam.AllowGroup
+import com.glooboo.umessage.spam.AllowGroupMember
+import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.DecisionRuleText
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
+import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
+import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-/** The answer shown under the Test button: the verdict and, for a rule block, which rule. */
-private data class TestOutcome(val verdict: Verdict, val ruleLabel: String?)
+/** The answer shown under the Test button: what it says and, for a rule block, which rule. */
+private data class TestOutcome(val verdict: TestVerdict, val ruleLabel: String?)
+
+/**
+ * One answer of the test sheet; [group] names the group rule of [Kind.GROUP]. With [ProviderTruthFlag] on the answers
+ * are about the sender (provider truth): a word or a code allows or blocks the sender from then on.
+ */
+internal data class TestVerdict(val kind: Kind, val group: AllowGroup? = null) {
+    enum class Kind {
+        HELD_BY_RULE, HELD_UNKNOWN_WITH_LINK, HELD_UNKNOWN, BLOCKED_WORD,
+        ALLOWED_BY_RULE, ALLOWED_CONTACT, ALLOWED_KNOWN_CONVERSATION, ALLOWED_CODE, ALLOWED_MODE_OFF,
+        ALLOWED_UNSURE, ALLOWED_OTHER, ALLOWED_WORD, GROUP,
+    }
+
+    val held: Boolean get() = kind in HELD
+
+    companion object {
+        private val HELD = setOf(Kind.HELD_BY_RULE, Kind.HELD_UNKNOWN_WITH_LINK, Kind.HELD_UNKNOWN, Kind.BLOCKED_WORD)
+        private val TEXT_TYPES = setOf(RuleType.KEYWORD, RuleType.REGEX, RuleType.DOMAIN)
+
+        /** The 0.4.14 answer, while [ProviderTruthFlag] is off. */
+        fun of(verdict: Verdict): TestVerdict = TestVerdict(
+            when (verdict) {
+                Verdict.HELD_BY_RULE -> Kind.HELD_BY_RULE
+                Verdict.HELD_UNKNOWN_WITH_LINK -> Kind.HELD_UNKNOWN_WITH_LINK
+                Verdict.HELD_UNKNOWN -> Kind.HELD_UNKNOWN
+                Verdict.ALLOWED_BY_RULE -> Kind.ALLOWED_BY_RULE
+                Verdict.ALLOWED_CONTACT -> Kind.ALLOWED_CONTACT
+                Verdict.ALLOWED_KNOWN_CONVERSATION -> Kind.ALLOWED_KNOWN_CONVERSATION
+                Verdict.ALLOWED_CODE -> Kind.ALLOWED_CODE
+                Verdict.ALLOWED_MODE_OFF -> Kind.ALLOWED_MODE_OFF
+                Verdict.ALLOWED_UNSURE -> Kind.ALLOWED_UNSURE
+                Verdict.ALLOWED_OTHER -> Kind.ALLOWED_OTHER
+            },
+        )
+
+        /**
+         * Provider truth: the answer for the filter's probe (it writes nothing). A rule that decided and is a word,
+         * pattern or website rule allows or blocks the sender from then on; a group member is named with its group,
+         * looked up in [members] among the groups switched on in [settings].
+         */
+        fun of(decision: FilterDecision, message: IncomingMessage, context: TestContext): TestVerdict =
+            when (decision) {
+                is FilterDecision.Block -> TestVerdict(
+                    when {
+                        decision.reason != DecisionReason.BLOCK_RULE && BlockedHints.hasLink(message.body) ->
+                            Kind.HELD_UNKNOWN_WITH_LINK
+                        decision.reason != DecisionReason.BLOCK_RULE -> Kind.HELD_UNKNOWN
+                        byWord(decision.ruleId, context) -> Kind.BLOCKED_WORD
+                        else -> Kind.HELD_BY_RULE
+                    },
+                )
+                is FilterDecision.Allow -> ofAllow(decision, message, context)
+            }
+
+        private fun ofAllow(decision: FilterDecision.Allow, message: IncomingMessage, context: TestContext) =
+            when (decision.reason) {
+                DecisionReason.ALLOW_RULE ->
+                    TestVerdict(if (byWord(decision.ruleId, context)) Kind.ALLOWED_WORD else Kind.ALLOWED_BY_RULE)
+                DecisionReason.GROUP_MEMBER ->
+                    memberGroupOf(context.members, context.settings, message.address)
+                        ?.let { TestVerdict(Kind.GROUP, it) } ?: TestVerdict(Kind.ALLOWED_OTHER)
+                DecisionReason.OTP_EXEMPTION -> TestVerdict(Kind.ALLOWED_CODE)
+                DecisionReason.CONTACT -> TestVerdict(Kind.ALLOWED_CONTACT)
+                DecisionReason.MODE_OFF -> TestVerdict(Kind.ALLOWED_MODE_OFF)
+                DecisionReason.CONTACTS_UNAVAILABLE -> TestVerdict(Kind.ALLOWED_UNSURE)
+                else -> TestVerdict(Kind.ALLOWED_OTHER)
+            }
+
+        /** The rule [ruleId] is a word, pattern or website rule: the filter made the fact from the text. */
+        private fun byWord(ruleId: Long?, context: TestContext): Boolean {
+            val rule = ruleId?.let { id -> context.rules.firstOrNull { it.id == id } } ?: return false
+            return rule.type in TEXT_TYPES
+        }
+    }
+}
+
+/** What the provider-truth answer reads besides the decision: the rules, the group members and the switches. */
+internal data class TestContext(
+    val rules: List<SpamRule>,
+    val members: List<AllowGroupMember> = emptyList(),
+    val settings: SpamSettings = SpamSettings(),
+)
+
+/**
+ * The group, switched on, that has [address] as a member, the code group first. A member is the typed sender when the
+ * two are the same name (case aside) or the same number (the last [SAME_NUMBER_DIGITS] digits, so "+1 555 000 1234"
+ * and "5550001234" match). Only for the test sheet's wording; the filter matches members by every number reading.
+ */
+internal fun memberGroupOf(members: List<AllowGroupMember>, settings: SpamSettings, address: String): AllowGroup? =
+    AllowGroup.entries.filter(settings::groupOn).firstOrNull { group ->
+        members.any { it.group == group && (sameSender(it.address, address) || sameSender(it.senderKey, address)) }
+    }
+
+private const val SAME_NUMBER_DIGITS = 10
+private const val MIN_NUMBER_DIGITS = 7
+
+private fun sameSender(a: String, b: String): Boolean {
+    if (a.isBlank() || b.isBlank()) return false
+    if (a.trim().equals(b.trim(), ignoreCase = true)) return true
+    val da = a.filter(Char::isDigit)
+    val db = b.filter(Char::isDigit)
+    val numbers = da.length >= MIN_NUMBER_DIGITS && db.length >= MIN_NUMBER_DIGITS &&
+        a.none(Char::isLetter) && b.none(Char::isLetter)
+    return numbers && da.takeLast(SAME_NUMBER_DIGITS) == db.takeLast(SAME_NUMBER_DIGITS)
+}
 
 private const val MAX_TEST_TEXT = 1000
 private const val MAX_SENDER = 64
 
 /**
- * ID-52, "Test a message": paste a text, a sender and a SIM and see what the real filter would do. It asks the
- * installed [com.glooboo.umessage.spam.SpamFilter] directly (`UMessage.filter(context).evaluate`), which is read-only:
- * only `SpamEngine.evaluate` writes to the decision log, and that is not used here. Nothing typed is stored or sent.
+ * ID-52, "Test a message": paste a text and a sender and see what the real filter would do. It asks the installed
+ * [com.glooboo.umessage.spam.SpamFilter] directly (`UMessage.filter(context).evaluate`, a probe with
+ * [ProviderTruthFlag] on), which is read-only: only `SpamEngine.evaluate` writes to the decision log, and that is not
+ * used here; a probe writes no fact. Nothing typed is stored or sent. Spam rules cover both SIMs (7.2), so there is no
+ * SIM field; the first SIM only says how a national number is read.
  */
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TestMessageSheet(
     sims: List<SimInfo>,
@@ -75,7 +186,7 @@ fun TestMessageSheet(
     val scope = rememberCoroutineScope()
     var sender by rememberSaveable { mutableStateOf("") }
     var text by rememberSaveable { mutableStateOf("") }
-    var simId by rememberSaveable { mutableStateOf(sims.firstOrNull()?.subscriptionId ?: -1) }
+    val simId = sims.firstOrNull()?.subscriptionId ?: -1
     var outcome by remember { mutableStateOf<TestOutcome?>(null) }
     var failed by remember { mutableStateOf(false) }
     var running by remember { mutableStateOf(false) }
@@ -125,20 +236,6 @@ fun TestMessageSheet(
                 minLines = 3,
                 maxLines = 6,
             )
-            if (sims.size >= 2) {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(stringResource(R.string.w3b_test_sim), style = MaterialTheme.typography.labelLarge)
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        sims.forEach { sim ->
-                            RuleChoiceChip(
-                                selected = simId == sim.subscriptionId,
-                                onClick = { simId = sim.subscriptionId; outcome = null; failed = false },
-                                label = stringResource(R.string.spam_sim_label, sim.slot),
-                            )
-                        }
-                    }
-                }
-            }
             Button(
                 onClick = {
                     running = true
@@ -148,14 +245,15 @@ fun TestMessageSheet(
                         val decision = withContext(Dispatchers.IO) {
                             runCatching { UMessage.filter(context).evaluate(message) }.getOrNull()
                         }
+                        val verdict = decision?.let { testVerdict(context, it, message, rules) }
                         running = false
-                        if (decision == null) {
+                        if (decision == null || verdict == null) {
                             outcome = null
                             failed = true
                         } else {
                             val ruleId = (decision as? FilterDecision.Block)?.ruleId
                             outcome = TestOutcome(
-                                Verdict.of(decision, message.body),
+                                verdict,
                                 ruleId?.let { id -> rules.firstOrNull { it.id == id } }
                                     ?.let { DecisionRuleText.label(it) },
                             )
@@ -186,7 +284,10 @@ fun TestMessageSheet(
                     ),
                 ) {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Text(stringResource(verdictText(result.verdict)), style = MaterialTheme.typography.bodyLarge)
+                        Text(
+                            verdictSentence(LocalContext.current.resources, result.verdict),
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
                         result.ruleLabel?.let { Text(it, style = MaterialTheme.typography.labelLarge) }
                     }
                 }
@@ -203,15 +304,45 @@ fun TestMessageSheet(
     }
 }
 
-internal fun verdictText(verdict: Verdict): Int = when (verdict) {
-    Verdict.HELD_BY_RULE -> R.string.w3b_verdict_held_rule
-    Verdict.HELD_UNKNOWN_WITH_LINK -> R.string.w3b_verdict_held_link
-    Verdict.HELD_UNKNOWN -> R.string.w3b_verdict_held_unknown
-    Verdict.ALLOWED_BY_RULE -> R.string.w3b_verdict_allowed_rule
-    Verdict.ALLOWED_CONTACT -> R.string.w3b_verdict_allowed_contact
-    Verdict.ALLOWED_KNOWN_CONVERSATION -> R.string.w3b_verdict_allowed_known
-    Verdict.ALLOWED_CODE -> R.string.w3b_verdict_allowed_code
-    Verdict.ALLOWED_MODE_OFF -> R.string.w3b_verdict_allowed_off
-    Verdict.ALLOWED_UNSURE -> R.string.w3b_verdict_allowed_unsure
-    Verdict.ALLOWED_OTHER -> R.string.w3b_verdict_allowed_other
+/** The answer for [decision]; with [ProviderTruthFlag] on it reads the group members and switches too. */
+private suspend fun testVerdict(
+    context: android.content.Context,
+    decision: FilterDecision,
+    message: IncomingMessage,
+    rules: List<SpamRule>,
+): TestVerdict? {
+    if (!ProviderTruthFlag.enabled) return TestVerdict.of(Verdict.of(decision, message.body))
+    val repository = runCatching { UMessage.repository(context) }.getOrNull() ?: return null
+    val members = runCatching { repository.groupMembers.first() }.getOrDefault(emptyList())
+    val settings = runCatching { repository.settings.first() }.getOrDefault(SpamSettings())
+    return TestVerdict.of(decision, message, TestContext(rules, members, settings))
+}
+
+internal fun verdictText(verdict: Verdict): Int = verdictText(TestVerdict.of(verdict))
+
+/** The sentence of an answer. [TestVerdict.Kind.GROUP] takes the group's name: use [verdictSentence]. */
+internal fun verdictText(verdict: TestVerdict): Int = when (verdict.kind) {
+    TestVerdict.Kind.HELD_BY_RULE -> R.string.w3b_verdict_held_rule
+    TestVerdict.Kind.HELD_UNKNOWN_WITH_LINK -> R.string.w3b_verdict_held_link
+    TestVerdict.Kind.HELD_UNKNOWN -> R.string.w3b_verdict_held_unknown
+    TestVerdict.Kind.BLOCKED_WORD -> R.string.pt_verdict_blocked_word
+    TestVerdict.Kind.ALLOWED_BY_RULE -> R.string.w3b_verdict_allowed_rule
+    TestVerdict.Kind.ALLOWED_CONTACT -> R.string.w3b_verdict_allowed_contact
+    TestVerdict.Kind.ALLOWED_KNOWN_CONVERSATION -> R.string.w3b_verdict_allowed_known
+    TestVerdict.Kind.ALLOWED_CODE -> R.string.w3b_verdict_allowed_code
+    TestVerdict.Kind.ALLOWED_MODE_OFF -> R.string.w3b_verdict_allowed_off
+    TestVerdict.Kind.ALLOWED_UNSURE -> R.string.w3b_verdict_allowed_unsure
+    TestVerdict.Kind.ALLOWED_OTHER -> R.string.w3b_verdict_allowed_other
+    TestVerdict.Kind.ALLOWED_WORD -> R.string.pt_verdict_allowed_word
+    TestVerdict.Kind.GROUP -> R.string.pt_verdict_group
+}
+
+/** The answer as one sentence, the group's name filled in. */
+internal fun verdictSentence(resources: android.content.res.Resources, verdict: TestVerdict): String {
+    val group = verdict.group
+    return if (verdict.kind == TestVerdict.Kind.GROUP && group != null) {
+        resources.getString(R.string.pt_verdict_group, resources.getString(groupTitle(group)))
+    } else {
+        resources.getString(verdictText(verdict))
+    }
 }

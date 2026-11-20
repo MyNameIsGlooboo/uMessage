@@ -7,6 +7,7 @@ import android.os.SystemClock
 import android.provider.Settings
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -38,6 +39,7 @@ import com.glooboo.umessage.ui.conversations.ConversationsViewModel
 import com.glooboo.umessage.ui.main.MainPermissionFlow
 import com.glooboo.umessage.ui.main.MainScreen
 import com.glooboo.umessage.ui.main.DefaultSmsRequiredScreen
+import com.glooboo.umessage.ui.main.FirstRunHost
 import com.glooboo.umessage.ui.main.NotDefaultSmsBanner
 import com.glooboo.umessage.ui.main.SmsPermissionRequiredScreen
 import com.glooboo.umessage.ui.onboarding.OnboardingActivity
@@ -199,22 +201,21 @@ class MainActivity : ComposeSimpleActivity() {
                     onClose = ::finish,
                 )
                 else -> {
-                    MainScreen(
-                        viewModel = vm,
-                        callbacks = callbacks,
-                        search = searchViewModel.state,
-                        navigation = navigation,
-                        archiveAvailable = config.isArchiveAvailable,
-                        openTab = openTab,
-                        onOpenTabHandled = { openTab = null },
-                        onQueryChange = searchViewModel::onQueryChange,
-                        onOpenResult = routes::openSearchResult,
-                        banner = if (flow.notDefaultSmsApp) {
-                            { NotDefaultSmsBanner(onFix = ::requestDefaultSmsRole) }
-                        } else {
-                            null
-                        },
-                    )
+                    // Provider truth (4.7, G-4): the first-run pages, drawn from the runner's state.
+                    FirstRunHost(onReviewSpam = { openTab = MainTabLinks.TAB_BLOCKED }) { firstRunBar ->
+                        MainScreen(
+                            viewModel = vm,
+                            callbacks = callbacks,
+                            search = searchViewModel.state,
+                            navigation = navigation,
+                            archiveAvailable = config.isArchiveAvailable,
+                            openTab = openTab,
+                            onOpenTabHandled = { openTab = null },
+                            onQueryChange = searchViewModel::onQueryChange,
+                            onOpenResult = routes::openSearchResult,
+                            banner = mainBanner(flow.notDefaultSmsApp, firstRunBar),
+                        )
+                    }
                     if (flow.showNotificationDialog) {
                         PermissionRequiredDialog(
                             text = getString(R.string.main_permission_notifications),
@@ -235,6 +236,20 @@ class MainActivity : ComposeSimpleActivity() {
                     vm.state.map { it.selecting }.distinctUntilChanged().collect { if (it) hideKeyboard() }
                 }
                 launch { vm.effects.collect(routes::handle) }
+            }
+        }
+    }
+
+    /** The main screen's banner: the first run's small bar ([firstRunBar], null: none) and "not the default app". */
+    private fun mainBanner(
+        notDefault: Boolean,
+        firstRunBar: (@androidx.compose.runtime.Composable () -> Unit)?,
+    ): (@androidx.compose.runtime.Composable () -> Unit)? {
+        if (!notDefault && firstRunBar == null) return null
+        return {
+            Column {
+                firstRunBar?.invoke()
+                if (notDefault) NotDefaultSmsBanner(onFix = ::requestDefaultSmsRole)
             }
         }
     }
