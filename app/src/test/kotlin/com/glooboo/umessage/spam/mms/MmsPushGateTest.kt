@@ -123,6 +123,41 @@ class MmsPushGateTest {
         assertEquals("", (action as MmsPushAction.Block).contentLocation)
     }
 
+    /** Provider truth (answers 8 and 11): a Spam notice downloads within the limits, also from a blocked sender. */
+    @Test
+    fun aSpamNoticeOfKnownSmallSizeThatHasNotExpired_isWithinTheLimits_alsoForAnExplicitRule() {
+        val now = System.currentTimeMillis()
+        val rule = FilterDecision.Block(DecisionReason.BLOCK_RULE, 7L)
+
+        val unknown = MmsPushGate.decide(notificationInd("+15550001234"), 1, now) { block() } as MmsPushAction.Block
+        val blocked = MmsPushGate.decide(notificationInd("+15550001234"), 1, now) { rule } as MmsPushAction.Block
+
+        assertTrue(unknown.withinLimits)
+        assertTrue(blocked.withinLimits)
+    }
+
+    @Test
+    fun aSpamNoticeOfUnknownOrTooLargeSizeOrExpired_isNotWithinTheLimits() {
+        val now = System.currentTimeMillis()
+        val noSize = notificationInd("+15550001234", size = intArrayOf(0x8E, 0x01, 0x00))
+        val twoMib = notificationInd("+15550001234", size = intArrayOf(0x8E, 0x03, 0x20, 0x00, 0x00))
+        val expired = notificationInd("+15550001234", expiry = intArrayOf(0x88, 0x03, 0x80, 0x01, 0x01))
+
+        listOf(noSize, twoMib, expired).forEach { data ->
+            val action = MmsPushGate.decide(data, 1, now) { block() } as MmsPushAction.Block
+            assertEquals(false, action.withinLimits)
+        }
+    }
+
+    @Test
+    fun theSpamNoticeLimitsAreOneMibKnownSizeAndNotExpired() {
+        assertTrue(BlockedMmsPolicy.spamNoticeDownloads(BlockedMmsPolicy.MAX_MESSAGE_BYTES, 0L, 1_000L))
+        assertEquals(false, BlockedMmsPolicy.spamNoticeDownloads(BlockedMmsPolicy.MAX_MESSAGE_BYTES + 1, 0L, 1_000L))
+        assertEquals(false, BlockedMmsPolicy.spamNoticeDownloads(0L, 0L, 1_000L))
+        assertEquals(false, BlockedMmsPolicy.spamNoticeDownloads(1_024L, 999L, 1_000L))
+        assertTrue(BlockedMmsPolicy.spamNoticeDownloads(1_024L, 1_001L, 1_000L))
+    }
+
     @Test
     fun allowDecisionDelivers() {
         val action = MmsPushGate.decide(notificationInd("+15551234567"), 1, 0L) { FilterDecision.Allow(DecisionReason.CONTACT) }

@@ -71,7 +71,8 @@ internal object MmsSubscriptions {
         }
     }
 
-    private fun senderOf(context: Context, mmsId: Long): String? {
+    /** The sender of the MMS row [mmsId] in the provider, without a `/TYPE=` suffix; null when it has none. */
+    fun senderOf(context: Context, mmsId: Long): String? {
         val uri = Mms.CONTENT_URI.buildUpon().appendPath(mmsId.toString()).appendPath("addr").build()
         return context.contentResolver.query(
             uri, arrayOf(Mms.Addr.ADDRESS), "${Mms.Addr.TYPE} = ?", arrayOf(PDU_FROM.toString()), null

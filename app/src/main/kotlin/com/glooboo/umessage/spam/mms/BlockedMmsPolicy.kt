@@ -25,6 +25,15 @@ object BlockedMmsPolicy {
      */
     fun reasonAllowed(reason: DecisionReason): Boolean = reason != DecisionReason.BLOCK_RULE
 
+    /**
+     * Provider truth (6.2, answers 8 and 11): whether a notice whose chat is in Spam is downloaded into the phone's
+     * store at once: its size is known and at most [MAX_MESSAGE_BYTES], and it has not expired ([expiresAt] 0:
+     * unknown). Also for a blocked sender, as a group MMS cannot be told apart before the download. Roaming is checked
+     * when the download starts.
+     */
+    fun spamNoticeDownloads(announcedBytes: Long, expiresAt: Long, now: Long): Boolean =
+        sizeAllowed(announcedBytes) && (expiresAt == 0L || expiresAt > now)
+
     /** Whether a download may start: never while roaming, and not once [keptFiles] reached [MAX_KEPT_FILES]. */
     fun mayDownload(roaming: Boolean, keptFiles: Int): Boolean = !roaming && keptFiles < MAX_KEPT_FILES
 }

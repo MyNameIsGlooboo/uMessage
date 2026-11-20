@@ -3,13 +3,18 @@ package com.glooboo.umessage.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.telephony.SubscriptionManager
 import android.util.Log
 import com.android.mms.transaction.PushReceiver
 import org.fossify.commons.helpers.ensureBackgroundThread
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.mms.BlockedMmsDownloader
+import com.glooboo.umessage.spam.mms.IncomingMms
 import com.glooboo.umessage.spam.mms.MmsPushAction
 import com.glooboo.umessage.spam.mms.MmsPushGate
+import com.glooboo.umessage.spam.mms.SpamNotice
+import com.glooboo.umessage.spam.mms.isRoamingOn
 import com.glooboo.umessage.spam.engine.SpamEngine
 import java.lang.reflect.Modifier
 import java.util.concurrent.ConcurrentHashMap
@@ -22,11 +27,18 @@ import java.util.concurrent.TimeUnit
  * and the MMS is downloaded into uMessage's private storage only ([BlockedMmsDownloader]), so it can be rescued.
  * An allowed MMS is saved and downloaded by [MmsPushDownload] (the result comes back to the manifest [MmsReceiver]);
  * everything else is handed unchanged to the library's own PushReceiver.
+ *
+ * Provider truth (6.2, R4, answers 8 and 11): nothing goes to the Blocked folder any more. A notice whose sender's
+ * chat is in Spam is saved in the phone's store like any other ([MmsPushDownload] with a [SpamNotice]) and, within
+ * the limits, downloaded, because a group MMS cannot be told apart before the download.
  */
 class MmsPushReceiver : BroadcastReceiver() {
 
     /** Saves a let-through notification-ind and starts its download; the result reaches the manifest [MmsReceiver]. */
     internal var pushDownload = MmsPushDownload()
+
+    /** Roaming on the SIM the push came in on (provider truth: a Spam notice is then not downloaded). */
+    internal var roaming: (Context, Int) -> Boolean = ::isRoamingOn
 
     override fun onReceive(context: Context, intent: Intent) {
         val pending = goAsync()
@@ -47,8 +59,9 @@ class MmsPushReceiver : BroadcastReceiver() {
     }
 
     internal fun process(context: Context, intent: Intent) {
+        val subscriptionId = runCatching { intent.receivingSubscriptionId() }
+            .getOrDefault(SubscriptionManager.INVALID_SUBSCRIPTION_ID)
         val action = try {
-            val subscriptionId = intent.receivingSubscriptionId()
             MmsPushGate.decide(
                 pushData = intent.getByteArrayExtra(EXTRA_DATA),
                 subscriptionId = subscriptionId,
@@ -62,14 +75,34 @@ class MmsPushReceiver : BroadcastReceiver() {
             MmsPushAction.Deliver("gate error")
         }
 
+        var spam: SpamNotice? = null
         if (action is MmsPushAction.Block) {
-            if (alreadyHandled(action.transactionId) || storeAndDownload(context, action)) return
+            if (ProviderTruthFlag.enabled) {
+                spam = spamNotice(context, action, subscriptionId)
+            } else if (alreadyHandled(action.transactionId) || storeAndDownload(context, action)) {
+                return
+            }
         }
         // The download result must wake the app even if it is frozen meanwhile (H8): that is [MmsPushDownload].
-        // Whatever it does not take (reports, bad data, a failure before the push is saved) goes to the library.
-        if (runCatching { pushDownload.handle(context, intent) }.getOrDefault(false)) return
+        // Whatever it does not take (reports, bad data, a failure before the push is saved) goes to the library,
+        // which saves and downloads it like any MMS (provider truth: a Spam notice then fails open to Messages).
+        if (runCatching { pushDownload.handle(context, intent, spam) }.getOrDefault(false)) return
         delegate(context, intent)
         awaitLibraryPushTask()
+    }
+
+    /**
+     * Provider truth: the Spam side of a blocked notice. It downloads when within the limits and not roaming, also for
+     * a blocked sender (answer 11). Repeats are found in the phone's store by [MmsPushDownload], so a second, different
+     * notice from the same sender within seconds is kept as well (M-P5).
+     */
+    private fun spamNotice(context: Context, action: MmsPushAction.Block, subscriptionId: Int): SpamNotice {
+        val notRoaming = !runCatching { roaming(context, subscriptionId) }.getOrDefault(false)
+        return SpamNotice(
+            sender = action.placeholder.address,
+            cause = IncomingMms.causeOf(action.decision),
+            downloads = action.withinLimits && notRoaming,
+        )
     }
 
     /**
