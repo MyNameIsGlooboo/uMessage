@@ -518,7 +518,11 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
      */
     fun replayPendingUndo() {
         val queued = generateSequence { _events.tryReceive().getOrNull() }.toList()
-        queued.filterNot { it is ConversationsEvent.Deleted }.forEach { _events.trySend(it) }
+        // Provider truth (D-4): a Block whose snackbar never showed is closed now, so its row shows again if it stayed.
+        val closed = spamMoves.closeAll()
+        queued.filterNot { event ->
+            event is ConversationsEvent.Deleted || event.moveToken()?.let { it in closed } == true
+        }.forEach { _events.trySend(it) }
         pendingDeletes.forEach { (token, ids) -> _events.trySend(ConversationsEvent.Deleted(token, ids.size)) }
     }
 

@@ -30,6 +30,7 @@ import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.conversations.StoreUnread
 import com.glooboo.umessage.ui.conversations.UnreadTexts
+import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SenderMoves
 import org.json.JSONArray
@@ -117,13 +118,18 @@ class BlockSenderReceiver : BroadcastReceiver() {
      * that still names the sender takes the block back and says why, with no Undo.
      */
     private suspend fun moveToSpam(context: Context, repository: SpamRepository, address: String, threadId: Long) {
-        val receipt = runCatching { SenderMoves.blockSenders(repository, listOf(address)) }.getOrNull()
-            ?.firstOrNull() ?: return
-        if (receipt.stillAllowedBy != null) {
-            SenderMoves.undoBlocks(repository, listOf(receipt))
-            showStillAllowed(context, threadId)
+        val receipt = runCatching { SenderMoves.blockSenders(repository, listOf(address)) }.getOrNull()?.firstOrNull()
+        if (receipt == null) {
+            // The sender cannot be read (or the write failed): nothing was blocked, and a short notice says so.
+            showNotice(context, threadId, R.string.thread_block_failed)
             return
         }
+        if (receipt.stillAllowedBy != null) {
+            SenderMoves.undoBlocks(repository, listOf(receipt))
+            showNotice(context, threadId, R.string.pt_block_still_allowed)
+            return
+        }
+        if (threadId > 0) SpamChatGate.Known.note(threadId, spam = true)
         context.notificationManager.cancel(threadId.hashCode())
         val unread = if (threadId > 0) StoreUnread.of(context, threadId) else UnreadTexts()
         val wasUnread = threadId > 0 && (!unread.isEmpty || runCatching {
@@ -135,8 +141,11 @@ class BlockSenderReceiver : BroadcastReceiver() {
         showBlocked(context, address, threadId, listOf(receipt.ruleId).filter { it > 0 }, undo)
     }
 
-    /** C-3: the block was taken back because a user allow rule still names the sender; the notice says so. */
-    private fun showStillAllowed(context: Context, threadId: Long) {
+    /**
+     * C-3: a quiet notice with no Undo when nothing was blocked: [text] says why (the sender cannot be read, or a user
+     * allow rule still names it and the block was taken back).
+     */
+    private fun showNotice(context: Context, threadId: Long, text: Int) {
         val manager = context.notificationManager
         manager.createNotificationChannel(
             NotificationChannel(
@@ -146,7 +155,7 @@ class BlockSenderReceiver : BroadcastReceiver() {
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_messenger)
             .setColor(currentColorScheme(context).primary.toArgb())
-            .setContentText(context.getString(R.string.pt_block_still_allowed))
+            .setContentText(context.getString(text))
             .setCategory(NotificationCompat.CATEGORY_STATUS)
             .setAutoCancel(true)
             .setTimeoutAfter(UNDO_VISIBLE_MS)

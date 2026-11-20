@@ -190,7 +190,8 @@ class MessagesSpamMovesTest {
         coroutineScope {
             moves(this, oneStays).block(listOf(chat(7, SENDER), chat(8, OTHER)), token = 1L, report = false)
         }
-        assertThat(events).containsExactly(ConversationsEvent.Blocked(1L, 1))
+        // D-5: the snackbar counts the moved chat and says why the other stayed.
+        assertThat(events).containsExactly(ConversationsEvent.Blocked(1L, 1, stayed = 1))
         assertThat(hidden).containsExactly(7L)
         assertThat(rules().map { it.pattern }).containsExactly(SENDER)
     }

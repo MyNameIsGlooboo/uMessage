@@ -7,6 +7,17 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.databases.MessagesDatabase
 import com.glooboo.umessage.interfaces.ConversationsDao
 import com.glooboo.umessage.spam.AllowGroup
+import com.glooboo.umessage.spam.RuleType
+import com.glooboo.umessage.spam.SpamRule
+import com.glooboo.umessage.ui.conversations.ConversationsEvent
+import com.glooboo.umessage.ui.conversations.MessagesSpamMoves
+import com.glooboo.umessage.ui.conversations.commitIfCancelled
+import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import com.glooboo.umessage.spam.ChatSorter
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.SortResult
@@ -14,9 +25,11 @@ import com.glooboo.umessage.spam.SortingWorld
 import com.glooboo.umessage.spam.SortingWorld.Companion.chat
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
+import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -28,6 +41,9 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class NoChatInNeitherListTest {
+
+    @get:Rule
+    val flag = ProviderTruthFlagRule(enabled = true)
 
     private lateinit var db: MessagesDatabase
     private lateinit var dao: ConversationsDao
@@ -164,5 +180,104 @@ class NoChatInNeitherListTest {
         dao.insertSpamThread(SpamThread(3, "+15550009999", SpamCause.UNKNOWN, spamSince = 1L))
         assertEveryChatInExactlyOnePlace()
         assertThat(inSpam(3)).isFalse()
+    }
+
+    // ---- Through step C's real actions (D-9) ---------------------------------------------------------------------
+
+    /** The user's actions write here, as on the phone; [syncWorld] gives the sorter the same rules and members. */
+    private val repository = FakeSpamRepository(initialBlocked = emptyList(), initialRules = emptyList())
+
+    private fun syncWorld() = runBlocking {
+        world.rules.clear()
+        world.rules.addAll(repository.rules.first())
+        world.members.clear()
+        world.members.addAll(repository.groupMembers.first())
+    }
+
+    /** The same starting state as [setUp], but held by the repository the actions write to. */
+    private fun startFromRepository() = runBlocking {
+        repository.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = blocked))
+        repository.joinGroup(AllowGroup.CODE, member)
+        syncWorld()
+        sort()
+    }
+
+    private fun causeOf(threadId: Long) = SpamChatsSource.load(dao).firstOrNull { it.threadId == threadId }?.cause
+
+    @Test
+    fun realBlockOfACodeMemberAndItsUndo(): Unit = runBlocking {
+        startFromRepository()
+        val receipts = SenderMoves.blockSenders(repository, listOf(member))
+        syncWorld()
+        sort()
+        assertThat(causeOf(2)).isEqualTo(SpamCause.BLOCKED)
+
+        SenderMoves.undoBlocks(repository, receipts)
+        syncWorld()
+        sort()
+        assertThat(causeOf(2)).isNull()
+    }
+
+    @Test
+    fun realNotSpamAndItsUndo(): Unit = runBlocking {
+        startFromRepository()
+        val change = SenderMoves.notSpam(repository, listOf(unknown))
+        syncWorld()
+        sort()
+        assertThat(causeOf(1)).isNull()
+
+        SenderMoves.undoNotSpam(repository, change)
+        syncWorld()
+        sort()
+        assertThat(causeOf(1)).isEqualTo(SpamCause.UNKNOWN)
+    }
+
+    @Test
+    fun realUnblockOfAnUnknownSenderThenItsUndo(): Unit = runBlocking {
+        startFromRepository()
+        val removed = SenderBlocking.unblock(repository, blocked)
+        syncWorld()
+        sort()
+        assertThat(causeOf(4)).isEqualTo(SpamCause.UNKNOWN)
+
+        repository.restoreRules(removed)
+        syncWorld()
+        sort()
+        assertThat(causeOf(4)).isEqualTo(SpamCause.BLOCKED)
+    }
+
+    @Test
+    fun realBlockFromMessagesWithItsWindowClosedByACancelledSnackbar(): Unit = runBlocking {
+        startFromRepository()
+        val hidden = HashSet<Long>()
+        val events = mutableListOf<ConversationsEvent>()
+        val context: Context = ApplicationProvider.getApplicationContext()
+        coroutineScope {
+            val moves = MessagesSpamMoves(
+                context, this, hidden, rebuild = {}, events = { events += it }, repository = { repository },
+                requestSort = {},
+            )
+            moves.block(listOf(dao.getConversationWithThreadId(3)!!), token = 1L, report = false)
+            repeat(MAX_YIELDS) {
+                if (events.isEmpty()) {
+                    yield()
+                    Thread.sleep(1)
+                }
+            }
+            assertThat(events).containsExactly(ConversationsEvent.Blocked(1L, 1))
+            assertThat(hidden).containsExactly(3L)
+            // The snackbar goes away unanswered (C-2): its window closes, nothing stays hidden in Messages.
+            val snackbar = launch { commitIfCancelled({ moves.commit(1L) }) { awaitCancellation() } }
+            yield()
+            snackbar.cancel()
+        }
+        assertThat(hidden).isEmpty()
+        syncWorld()
+        sort()
+        assertThat(causeOf(3)).isEqualTo(SpamCause.BLOCKED)
+    }
+
+    private companion object {
+        const val MAX_YIELDS = 5_000
     }
 }

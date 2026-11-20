@@ -1,12 +1,15 @@
 package com.glooboo.umessage.ui.thread
 
 import android.content.Context
+import androidx.lifecycle.ViewModel
+import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.markThreadMessagesRead
 import com.glooboo.umessage.spam.BlockReceipt
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.ui.conversations.StoreUnread
 import com.glooboo.umessage.ui.conversations.UnreadTexts
+import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SenderMoves
 import kotlinx.coroutines.Dispatchers
@@ -23,24 +26,42 @@ import org.fossify.commons.extensions.notificationManager
 internal class DetailsSenderSwitch(
     private val context: Context,
     private val repository: () -> SpamRepository,
+    /** Keeps this screen's block across a rotation (D-5): a view model of the screen. */
+    private val memory: DetailsBlockMemory = DetailsBlockMemory(),
     private val requestSort: (Long) -> Unit = { SpamSorting.requestThreads(context, listOf(it)) },
     private val markRead: (Long) -> Unit = { context.markThreadMessagesRead(it) },
     private val cancelNotification: (Long) -> Unit = { context.notificationManager.cancel(it.hashCode()) },
     private val unreadOf: (Long) -> UnreadTexts = { StoreUnread.of(context, it) },
     private val restoreUnread: (Long, UnreadTexts) -> Unit = { id, texts -> StoreUnread.restore(context, id, texts) },
 ) {
-    private var receipts: List<BlockReceipt> = emptyList()
-    private var unread = UnreadTexts()
+    private var receipts: List<BlockReceipt>
+        get() = memory.receipts
+        set(value) {
+            memory.receipts = value
+        }
+    private var unread: UnreadTexts
+        get() = memory.unread
+        set(value) {
+            memory.unread = value
+        }
 
-    /** Switched on. True when the chat is blocked now. */
-    suspend fun block(address: String, threadId: Long): Boolean {
-        val repo = repository()
-        val made = SenderMoves.blockSenders(repo, listOf(address))
-        if (made.isEmpty() || made.all { it.stillAllowedBy != null }) {
+    /** What switching it on did. */
+    enum class Outcome { BLOCKED, STILL_ALLOWED, NOTHING_BLOCKED }
+
+    /**
+     * Switched on. [Outcome.BLOCKED]: the chat is blocked now. Otherwise the switch goes back and the screen says why
+     * (D-5): a user allow rule still lets the sender in, or nothing could be blocked.
+     */
+    suspend fun block(address: String, threadId: Long): Outcome {
+        val repo = runCatching { repository() }.getOrNull() ?: return Outcome.NOTHING_BLOCKED
+        val made = runCatching { SenderMoves.blockSenders(repo, listOf(address)) }.getOrNull().orEmpty()
+        if (made.isEmpty()) return Outcome.NOTHING_BLOCKED
+        if (made.all { it.stillAllowedBy != null }) {
             SenderMoves.undoBlocks(repo, made)
-            return false
+            return Outcome.STILL_ALLOWED
         }
         receipts = made
+        if (threadId > 0) SpamChatGate.Known.note(threadId, spam = true)
         withContext(Dispatchers.IO) {
             unread = if (threadId > 0) unreadOf(threadId) else UnreadTexts()
             if (threadId > 0) {
@@ -49,7 +70,18 @@ internal class DetailsSenderSwitch(
             }
         }
         if (threadId > 0) requestSort(threadId)
-        return true
+        return Outcome.BLOCKED
+    }
+
+    /** [block], and when it did not happen [say] gets why (D-5). True when the chat is blocked now. */
+    suspend fun blockOrSay(address: String, threadId: Long, say: (Int) -> Unit): Boolean {
+        val why = when (block(address, threadId)) {
+            Outcome.BLOCKED -> return true
+            Outcome.STILL_ALLOWED -> R.string.pt_block_still_allowed
+            Outcome.NOTHING_BLOCKED -> R.string.thread_block_failed
+        }
+        say(why)
+        return false
     }
 
     /** Switched off: the block of this screen is undone fully, or else the sender's block rules go. */
@@ -66,4 +98,10 @@ internal class DetailsSenderSwitch(
         }
         if (threadId > 0) requestSort(threadId)
     }
+}
+
+/** The details screen's block that its switch can still undo fully, kept across a rotation (D-5). */
+class DetailsBlockMemory : ViewModel() {
+    var receipts: List<BlockReceipt> = emptyList()
+    var unread = UnreadTexts()
 }

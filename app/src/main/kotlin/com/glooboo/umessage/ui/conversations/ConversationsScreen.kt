@@ -163,6 +163,10 @@ internal suspend fun commitIfCancelled(commit: () -> Unit, show: suspend () -> U
     }
 }
 
+/** D-5: after a Block of several chats, why some of them stayed in Messages (empty when none did). */
+private fun stayedNote(resources: android.content.res.Resources, stayed: Int): String =
+    if (stayed > 0) " " + resources.getString(R.string.pt_block_still_allowed) else ""
+
 private suspend fun showEvent(
     event: ConversationsEvent,
     snackbar: SnackbarHostState,
@@ -208,7 +212,8 @@ private suspend fun showEvent(
         }
         is ConversationsEvent.Blocked -> commitIfCancelled({ callbacks.onCommitReportSpam(event.token) }) {
             val result = snackbar.showSnackbar(
-                message = resources.getQuantityString(R.plurals.convlist_blocked_done, event.count, event.count),
+                message = resources.getQuantityString(R.plurals.convlist_blocked_done, event.count, event.count) +
+                    stayedNote(resources, event.stayed),
                 actionLabel = undoLabel,
                 duration = SnackbarDuration.Long,
             )
@@ -226,7 +231,8 @@ private suspend fun showEvent(
             }
             commitIfCancelled({ callbacks.onCommitReportSpam(event.token) }) {
                 val result = snackbar.showSnackbar(
-                    message = resources.getQuantityString(text, event.count, event.count),
+                    message = resources.getQuantityString(text, event.count, event.count) +
+                        stayedNote(resources, event.stayed),
                     actionLabel = undoLabel,
                     duration = SnackbarDuration.Long,
                 )

@@ -33,6 +33,7 @@ import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.nameAllowBody
 import com.glooboo.umessage.ui.spam.SpamRepositoryProvider
+import com.glooboo.umessage.ui.thread.DetailsBlockMemory
 import com.glooboo.umessage.ui.thread.DetailsSenderSwitch
 import com.glooboo.umessage.ui.thread.ThreadPrivacyActions
 import com.glooboo.umessage.ui.thread.planSpamReport
@@ -41,6 +42,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.fossify.commons.extensions.copyToClipboard
+import org.fossify.commons.extensions.toast
 import org.fossify.commons.helpers.ensureBackgroundThread
 import org.fossify.commons.models.SimpleContact
 
@@ -224,7 +226,8 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
                 val repository = SpamRepositoryProvider.get(this@ConversationDetailsActivity)
                 when {
                     // Provider truth (4.1, C-6): the whole chat moves, read; off again undoes this block fully.
-                    block && ProviderTruthFlag.enabled -> senderSwitch.block(address, threadId)
+                    // D-5: a block that did not happen says why when the switch goes back.
+                    block && ProviderTruthFlag.enabled -> senderSwitch.blockOrSay(address, threadId) { toast(it) }
                     ProviderTruthFlag.enabled -> senderSwitch.unblock(address, threadId).let { true }
                     block -> SenderBlocking.block(repository, listOf(address)).let { true }
                     else -> SenderBlocking.unblock(repository, address).let { true }
@@ -234,10 +237,13 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
         }
     }
 
-    /** Provider truth (C-6): the Block switch keeps its receipt, so switching it off undoes the block fully. */
+    /** Provider truth (C-6, D-5): the Block switch keeps its receipt across a rotation, so off undoes it fully. */
+    private val blockMemory: DetailsBlockMemory by viewModels()
+
     private val senderSwitch by lazy {
-        DetailsSenderSwitch(this, { SpamRepositoryProvider.get(this@ConversationDetailsActivity) })
+        DetailsSenderSwitch(this, { SpamRepositoryProvider.get(this@ConversationDetailsActivity) }, blockMemory)
     }
+
 
     /**
      * ID-50: "Always allow this sender": an allow rule (and no block rule), or none again. Provider truth (4.4, C-6):

@@ -5,6 +5,7 @@ import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.SpamThread
+import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -121,5 +122,19 @@ class SpamChatsPolicyTest {
         )
         val older = OlderSpam.of(listOf(held(1, 10L), held(2, 30L), held(3, 20L, moved = 99L)))
         assertThat(older.map { it.id }).containsExactly(2L, 1L).inOrder()
+    }
+
+    @Test
+    fun unblockTellsItsFiveOutcomesApart() {
+        // C-4, D-9: where the sender's chat is after its rules went.
+        assertThat(unblockOutcome(null)).isEqualTo(UnblockOutcome.UNSURE)
+        assertThat(unblockOutcome(SenderVerdict.Messages(DecisionReason.CONTACT)))
+            .isEqualTo(UnblockOutcome.BACK_IN_MESSAGES)
+        assertThat(unblockOutcome(SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER)))
+            .isEqualTo(UnblockOutcome.STILL_UNKNOWN)
+        assertThat(unblockOutcome(SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE)))
+            .isEqualTo(UnblockOutcome.ANDROID_LIST)
+        assertThat(unblockOutcome(SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE, 7L)))
+            .isEqualTo(UnblockOutcome.OTHER_RULE)
     }
 }

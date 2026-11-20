@@ -92,10 +92,16 @@ sealed interface ConversationsEvent {
     /** "Mark all read" read [count] chats; Undo makes exactly those chats unread again ([token]). */
     data class MarkedAllRead(val token: Long, val count: Int) : ConversationsEvent
     /** Block rules were added for [count] conversations' senders. Offers Undo ([token] as for [ReportedSpam]). */
-    data class Blocked(val token: Long, val count: Int) : ConversationsEvent
+    data class Blocked(val token: Long, val count: Int, val stayed: Int = 0) : ConversationsEvent
 
     /** "Report spam" blocked [count] senders and, when [archived], archived their chats. Offers Undo. */
-    data class ReportedSpam(val token: Long, val count: Int, val archived: Boolean) : ConversationsEvent
+    data class ReportedSpam(
+        val token: Long,
+        val count: Int,
+        val archived: Boolean,
+        /** Provider truth (D-5): chats of the choice that stayed in Messages (a user allow rule still lets them in). */
+        val stayed: Int = 0,
+    ) : ConversationsEvent
 
     /** A plain message, such as why a delete did not happen (S14: not the default SMS app, nothing deleted). */
     data class Message(val res: Int) : ConversationsEvent

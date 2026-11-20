@@ -68,9 +68,6 @@ class MainActivity : ComposeSimpleActivity() {
     private val conversationsViewModel: ConversationsViewModel by viewModels()
     private val searchViewModel: MainSearchViewModel by viewModels()
     private val permissionFlow: MainPermissionFlow by viewModels()
-
-    /** The Spam tab's model (provider truth): the same one the tab's route gets from this activity. */
-    private val spamChatsViewModel: SpamChatsViewModel by viewModels()
     private val routes = MainRoutes(this)
 
     @SuppressLint("InlinedApi")
@@ -122,7 +119,8 @@ class MainActivity : ComposeSimpleActivity() {
         if (!isChangingConfigurations) {
             conversationsViewModel.flushPendingDeletes()
             // Provider truth (C-1): a Spam delete waiting for its Undo window happens now, as in Messages.
-            if (ProviderTruthFlag.enabled) spamChatsViewModel.flushPendingDeletes()
+            // Only a model that exists: a Spam tab never opened has nothing waiting, and none is made here (D-7).
+            if (ProviderTruthFlag.enabled) SpamChatsViewModel.flushOpen()
         }
     }
 

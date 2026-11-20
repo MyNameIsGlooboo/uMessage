@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions") // The Spam tab's model: one small function per action of the tab, and its Undo.
+
 package com.glooboo.umessage.ui.spam
 
 import android.app.Application
@@ -15,6 +17,7 @@ import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.models.Events
 import com.glooboo.umessage.spam.BlockReceipt
+import com.glooboo.umessage.spam.ChatSorter
 import com.glooboo.umessage.spam.FirstRun
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRepository
@@ -61,6 +64,8 @@ data class SpamChatsUiState(
     val olderSpam: Int = 0,
     /** 4.4: the sender names asked about before "Not spam" acts; null shows no question. */
     val nameConfirm: NameConfirm? = null,
+    /** Why Delete is off now (not the default SMS app), null while it works; read on each load, never in a draw. */
+    val deleteOff: Int? = null,
 ) {
     fun selection(ids: Set<Long>): SpamSelection = SpamChatsPolicy.selection(
         ids.mapNotNull { causes[it] },
@@ -137,8 +142,8 @@ class SpamChatsViewModel internal constructor(
     private val isDefault: () -> Boolean,
     private val io: CoroutineDispatcher,
     private val requestSort: (Collection<Long>) -> Unit,
-    /** The verdict right after the tab's own write (a rule removed a moment ago must count). */
-    private val freshPlace: SenderPlace = place,
+    /** Drops the shared snapshot once after the tab's own write, so [place] reads that write (D-7). */
+    private val dropSnapshot: () -> Unit = {},
     private val newestReceived: (Long) -> Pair<String, Int>? = { null },
     private val deleter: (Set<Long>, Boolean) -> DeleteResult = { ids, default ->
         deleteSpamChats(application, ids, default)
@@ -155,7 +160,7 @@ class SpamChatsViewModel internal constructor(
         isDefault = { isDefaultSmsApp(application) },
         io = Dispatchers.IO,
         requestSort = { ids -> SpamSorting.requestThreads(application, ids) },
-        freshPlace = SenderPlace.of(application, fresh = true),
+        dropSnapshot = { runCatching { ChatSorter.snapshots(application).invalidate() } },
         newestReceived = { id -> SpamChatsSource.newestReceived(MessagesDatabase.getInstance(application), id) },
     )
 
@@ -181,6 +186,9 @@ class SpamChatsViewModel internal constructor(
     private val unblocks = HashMap<Long, Triple<List<SpamRule>, Set<Long>, Set<Long>>>()
     private val blocks = HashMap<Long, List<BlockReceipt>>()
     private val pendingDeletes = LinkedHashMap<Long, Set<Long>>()
+
+    /** Chats whose delete runs now: still hidden, no Undo any more, never deleted twice (D-2). */
+    private val deleting = HashSet<Long>()
     private var nextToken = 1L
 
     /**
@@ -196,6 +204,7 @@ class SpamChatsViewModel internal constructor(
     private var codeTimer: Job? = null
 
     init {
+        open += this
         EventBus.getDefault().takeUnless { it.isRegistered(this) }?.register(this)
         viewModelScope.launch { for (ignored in loads) readChats() }
         viewModelScope.launch { SpamSorting.changes.drop(1).collect { load() } }
@@ -240,6 +249,8 @@ class SpamChatsViewModel internal constructor(
             }.getOrNull()
         } ?: return
         chats = fresh
+        val off = withContext(io) { deleteOffNow() }
+        _state.update { it.copy(deleteOff = off) }
         rebuildRows()
     }
 
@@ -269,6 +280,7 @@ class SpamChatsViewModel internal constructor(
         notSpams.values.forEach { addAll(it.second) }
         unblocks.values.forEach { addAll(it.third) }
         pendingDeletes.values.forEach { addAll(it) }
+        addAll(deleting)
     }
 
     private fun buildRows(shown: List<SpamChat>): List<ConversationRow> {
@@ -289,6 +301,10 @@ class SpamChatsViewModel internal constructor(
         return rows
     }
 
+    /** How many rows were built (not taken from the cache): a hide or show builds none (C-7, D-7). */
+    @Volatile internal var rowBuilds = 0
+        private set
+
     private fun buildRow(
         chat: SpamChat,
         key: RowKey,
@@ -297,6 +313,7 @@ class SpamChatsViewModel internal constructor(
         locale: java.util.Locale,
     ): ConversationRow {
         val unread = chat.unread
+        rowBuilds++
         return chat.conversation.toFolderRow(app, drafts, pinned).copy(
             unread = unread > 0,
             unreadCount = unread,
@@ -332,9 +349,11 @@ class SpamChatsViewModel internal constructor(
     // ---- Undo windows ------------------------------------------------------------------------------------------
 
     /**
-     * The route started (again): no snackbar of an earlier one is on screen. Every window still open is closed and
-     * the events queued for it are dropped, so no row stays hidden with no Undo on screen (C-1, C-2). Plain messages
-     * still queued are shown.
+     * The route started (again): no snackbar of an earlier one is on screen. Every Block, Unblock and "Not spam" window
+     * still open is closed and the events queued for it are dropped, so no row stays hidden with no Undo on screen
+     * (C-1, C-2; lead decision D-3). A delete waiting for its Undo window is offered again instead (D-1): a rotation,
+     * a tab switch or the Spam lock closing never deletes; leaving the app does ([flushPendingDeletes] from onStop).
+     * Plain messages still queued are shown.
      */
     fun onRouteStarted() {
         val queued = generateSequence { _events.tryReceive().getOrNull() }.toList()
@@ -342,17 +361,21 @@ class SpamChatsViewModel internal constructor(
         notSpams.keys.toList().forEach(::commitNotSpam)
         unblocks.keys.toList().forEach(::commitUnblock)
         blocks.keys.toList().forEach(::commitBlock)
-        flushPendingDeletes()
+        pendingDeletes.forEach { (token, ids) -> _events.trySend(SpamChatsEvent.Deleted(token, ids.size)) }
     }
 
-    /** Closes the window of [event] without its Undo (its snackbar went away unanswered). */
+    /**
+     * Closes the window of [event] without its Undo (its snackbar went away unanswered). A delete keeps its window:
+     * the route offers its Undo again when it starts (D-1).
+     */
     fun commit(event: SpamChatsEvent.Windowed) {
         when (event) {
             is SpamChatsEvent.MovedToMessages -> commitNotSpam(event.token)
             is SpamChatsEvent.Blocked -> commitBlock(event.token)
-            is SpamChatsEvent.Deleted -> commitDelete(event.token)
+            is SpamChatsEvent.Deleted -> Unit
             else -> commitUnblock(event.token)
         }
+    }
     }
 
     // ---- Not spam (unknown senders) ----------------------------------------------------------------------------
@@ -441,8 +464,9 @@ class SpamChatsViewModel internal constructor(
                 send(SpamChatsEvent.Failed)
                 return@launch
             }
+            dropSnapshot()
             val verdicts = withContext(io) {
-                targets.associate { it.threadId to freshPlace.verdict(it.conversation.phoneNumber) }
+                targets.associate { it.threadId to place.verdict(it.conversation.phoneNumber) }
             }
             reportUnblock(repo, targets, removed, verdicts)
         }
@@ -544,10 +568,13 @@ class SpamChatsViewModel internal constructor(
 
     // ---- Delete (U2, S14) --------------------------------------------------------------------------------------
 
-    /** Why Delete is off now (not the default SMS app), or null while it works. */
-    fun deleteOffReason(): Int? = if (isDefault()) null else R.string.pt_delete_not_default
+    /** Why Delete is off now (not the default SMS app), or null while it works. Asks the system: not in a draw. */
+    private fun deleteOffNow(): Int? = if (isDefault()) null else R.string.pt_delete_not_default
 
-    fun canDelete(): Boolean = deleteOffReason() == null
+    /** [SpamChatsUiState.deleteOff] as last read (on each load, the tab shows again): cheap, for the screen (D-7). */
+    fun deleteOffReason(): Int? = _state.value.deleteOff
+
+    fun canDelete(): Boolean = deleteOffNow() == null
 
     fun refuseDelete() = send(SpamChatsEvent.Message(R.string.pt_delete_not_default))
 
@@ -568,12 +595,16 @@ class SpamChatsViewModel internal constructor(
         if (pendingDeletes.remove(token) != null) publish()
     }
 
-    /** The Undo window closed: the texts go from the phone's store. A delete that did not happen says why (S14). */
+    /**
+     * The Undo window closed: the texts go from the phone's store. A delete that did not happen says why (S14). The
+     * token goes at once, so a second commit (a flush, then the snackbar's own end) does nothing (D-2).
+     */
     fun commitDelete(token: Long) {
-        val ids = pendingDeletes[token] ?: return
+        val ids = pendingDeletes.remove(token) ?: return
+        deleting += ids
         viewModelScope.launch(NonCancellable) {
             val result = withContext(io) { deleter(ids, isDefault()) }
-            pendingDeletes.remove(token)
+            deleting -= ids
             publish()
             result.messageRes?.let { send(SpamChatsEvent.Message(it)) }
             load()
@@ -610,6 +641,7 @@ class SpamChatsViewModel internal constructor(
     }
 
     override fun onCleared() {
+        open -= this
         EventBus.getDefault().unregister(this)
         loads.close()
         val leftovers = pendingDeletes.values.flatten().toSet()
@@ -621,10 +653,22 @@ class SpamChatsViewModel internal constructor(
         super.onCleared()
     }
 
-    private companion object {
-        const val MAX_BADGE = 99
+    companion object {
+        private const val MAX_BADGE = 99
 
-        fun isDefaultSmsApp(context: Context): Boolean =
+        /** The models alive now (weakly held): one per screen that showed the Spam tab. */
+        private val open: MutableSet<SpamChatsViewModel> =
+            java.util.Collections.synchronizedSet(java.util.Collections.newSetFromMap(java.util.WeakHashMap()))
+
+        /**
+         * C-1, D-7: the app goes to the background: every Spam delete still waiting for its Undo window happens now.
+         * Makes no model: a tab never opened has nothing waiting. Main thread.
+         */
+        fun flushOpen() {
+            open.toList().forEach { it.flushPendingDeletes() }
+        }
+
+        private fun isDefaultSmsApp(context: Context): Boolean =
             runCatching { DefaultSmsRole.status(context) == DefaultSmsRole.Status.Held }.getOrDefault(false)
     }
 }

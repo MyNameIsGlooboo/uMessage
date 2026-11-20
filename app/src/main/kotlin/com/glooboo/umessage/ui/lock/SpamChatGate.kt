@@ -48,6 +48,13 @@ class SpamChatGate(
     var blocking = false
         private set
 
+    /**
+     * D-8: true while it is read whether the chat is in Spam. Nothing may be marked read then, also when the chat
+     * stays visible (last seen in Messages); [onRevealed] runs once it is decided that it shows.
+     */
+    var deciding = false
+        private set
+
     private var asking = false
     private var denied = false
     private var checks = 0
@@ -59,6 +66,7 @@ class SpamChatGate(
         asking = false
         if (result.resultCode == Activity.RESULT_OK) {
             reveal()
+            onRevealed()
         } else {
             denied = true
             activity.finish()
@@ -71,10 +79,14 @@ class SpamChatGate(
         val run = ++checks
         when {
             denied -> cover()
-            id == 0L || isOpen() -> reveal()
+            id == 0L || isOpen() -> {
+                deciding = false
+                reveal()
+            }
             else -> {
                 // A chat known to be in Messages stays visible while that is checked again.
                 if (Known.inSpam(id) != false) cover()
+                deciding = true
                 activity.lifecycleScope.launch { decide(id, run) }
             }
         }
@@ -88,8 +100,10 @@ class SpamChatGate(
         Known.note(id, spam)
         // A newer check (another chat, the lock passed meanwhile) decides instead.
         if (run != checks) return
+        deciding = false
         if (!spam || isOpen()) {
             reveal()
+            onRevealed()
             return
         }
         cover()
@@ -114,17 +128,22 @@ class SpamChatGate(
             val shown = visible && !othersCover()
             activity.findViewById<View>(android.R.id.content)?.visibility = if (shown) View.VISIBLE else View.INVISIBLE
         }
-        if (visible && wasBlocking) onRevealed()
     }
 
-    /** What the gates last read about each chat: in Spam or not. Process-wide; only a hint, every open reads again. */
+    /**
+     * What the gates last read about each chat: in Spam or not. Process-wide; only a hint, every open reads again.
+     * D-8: every block path notes "in Spam" at once, and a hint older than [FRESH_MS] counts for nothing (a sort may
+     * have moved the chat since), so a chat that may be in Spam is covered before anything shows.
+     */
     object Known {
-        private val inSpam = ConcurrentHashMap<Long, Boolean>()
+        private const val FRESH_MS = 60_000L
+        private val seen = ConcurrentHashMap<Long, Pair<Boolean, Long>>()
 
-        fun inSpam(threadId: Long): Boolean? = inSpam[threadId]
+        fun inSpam(threadId: Long, now: Long = System.currentTimeMillis()): Boolean? =
+            seen[threadId]?.takeIf { now - it.second in 0..FRESH_MS }?.first
 
-        fun note(threadId: Long, spam: Boolean) {
-            inSpam[threadId] = spam
+        fun note(threadId: Long, spam: Boolean, now: Long = System.currentTimeMillis()) {
+            seen[threadId] = spam to now
         }
     }
 }

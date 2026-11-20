@@ -12,6 +12,7 @@ import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.ui.components.showConfirmDialog
+import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.RuleNotes
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SenderMoves
@@ -67,9 +68,10 @@ internal class ThreadSpamMoves(
         if (addresses.isEmpty()) return
         scope.launch {
             val note = if (report) RuleNotes.REPORTED_SPAM else SenderBlocking.NOTE
-            val repo = repository()
-            val receipts = runCatching { SenderMoves.blockSenders(repo, addresses, note) }.getOrNull()
-            if (receipts.isNullOrEmpty()) {
+            // D-4: a repository that cannot be had is a failed block, never a crash.
+            val repo = runCatching { repository() }.getOrNull()
+            val receipts = repo?.let { r -> runCatching { SenderMoves.blockSenders(r, addresses, note) }.getOrNull() }
+            if (repo == null || receipts == null || receipts.isEmpty()) {
                 snackbar.showSnackbar(activity.getString(R.string.thread_block_failed))
                 return@launch
             }
@@ -79,6 +81,8 @@ internal class ThreadSpamMoves(
                 snackbar.showSnackbar(why, duration = SnackbarDuration.Long)
                 return@launch
             }
+            // D-8: the lock gate's hint for this chat says Spam now, so it is covered before any read.
+            threadId().takeIf { it > 0 }?.let { SpamChatGate.Known.note(it, spam = true) }
             wrote()
             if (offer(R.string.thread_block_done)) {
                 SenderMoves.undoBlocks(repo, receipts)
@@ -100,8 +104,9 @@ internal class ThreadSpamMoves(
      */
     fun unblock(address: String) {
         scope.launch {
-            val repo = repository()
-            val removed = runCatching { SenderBlocking.unblock(repo, address) }.getOrElse {
+            val repo = runCatching { repository() }.getOrNull()
+            val removed = repo?.let { r -> runCatching { SenderBlocking.unblock(r, address) }.getOrNull() }
+            if (repo == null || removed == null) {
                 snackbar.showSnackbar(activity.getString(R.string.thread_unblock_failed))
                 return@launch
             }

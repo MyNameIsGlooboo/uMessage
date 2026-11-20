@@ -612,7 +612,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
      */
     private fun isSeenByUser(): Boolean =
         isActivityVisible && hasWindowFocusNow && !hiddenGate.blocking && !spamGate.blocking &&
-            !LockScope.isLockedNow(this)
+            !spamGate.deciding && !LockScope.isLockedNow(this)
 
     private fun markReadIfSeen() {
         if (!isSeenByUser()) return

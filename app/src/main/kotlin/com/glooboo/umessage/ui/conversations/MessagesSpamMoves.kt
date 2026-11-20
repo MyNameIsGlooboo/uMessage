@@ -20,6 +20,7 @@ import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.BlockReceipt
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamSorting
+import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.RuleNotes
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SenderMoves
@@ -116,11 +117,11 @@ internal class MessagesSpamMoves(
     fun block(conversations: List<Conversation>, token: Long, report: Boolean): Boolean {
         if (!ProviderTruthFlag.enabled) return false
         val note = if (report) RuleNotes.REPORTED_SPAM else SenderBlocking.NOTE
-        move(conversations, note, token) { id, count ->
+        move(conversations, note, token) { id, count, stayed ->
             if (report) {
-                ConversationsEvent.ReportedSpam(id, count, archived = false)
+                ConversationsEvent.ReportedSpam(id, count, archived = false, stayed = stayed)
             } else {
-                ConversationsEvent.Blocked(id, count)
+                ConversationsEvent.Blocked(id, count, stayed)
             }
         }
         return true
@@ -158,7 +159,7 @@ internal class MessagesSpamMoves(
         conversations: List<Conversation>,
         note: String,
         token: Long,
-        event: (Long, Int) -> ConversationsEvent,
+        event: (Long, Int, Int) -> ConversationsEvent,
     ) {
         val threadIds = conversations.map { it.threadId }
         hide(threadIds)
@@ -166,13 +167,16 @@ internal class MessagesSpamMoves(
             val unread = withContext(Dispatchers.IO) {
                 conversations.filter { !it.read }.associate { it.threadId to StoreUnread.of(context, it.threadId) }
             }
-            val repo = repository()
-            val receipts = runCatching { SenderMoves.blockSenders(repo, conversations.map { it.phoneNumber }, note) }
-                .getOrElse {
-                    show(threadIds)
-                    events(ConversationsEvent.Failed)
-                    return@launch
-                }
+            // D-4: a repository that cannot be had is a failed block, never a crash with the rows hidden.
+            val repo = runCatching { repository() }.getOrNull()
+            val receipts = repo?.let { r ->
+                runCatching { SenderMoves.blockSenders(r, conversations.map { it.phoneNumber }, note) }.getOrNull()
+            }
+            if (repo == null || receipts == null) {
+                show(threadIds)
+                events(ConversationsEvent.Failed)
+                return@launch
+            }
             // C-3: a user allow rule that still names the sender keeps its chat in Messages: that block is taken back.
             val staying = receipts.filter { it.stillAllowedBy != null }
             SenderMoves.undoBlocks(repo, staying)
@@ -186,6 +190,7 @@ internal class MessagesSpamMoves(
                 events(why?.let { ConversationsEvent.Message(it) } ?: ConversationsEvent.Failed)
                 return@launch
             }
+            movedIds.forEach { SpamChatGate.Known.note(it, spam = true) }
             withContext(Dispatchers.IO) {
                 movedIds.forEach { id ->
                     runCatching { context.notificationManager.cancel(id.hashCode()) }
@@ -194,7 +199,7 @@ internal class MessagesSpamMoves(
             }
             requestSort(movedIds)
             moves[token] = BlockMove(kept, movedIds, unread.filterKeys { it in movedIds })
-            events(event(token, moved.size))
+            events(event(token, moved.size, threadIds.size - moved.size))
         }
     }
 
@@ -222,6 +227,16 @@ internal class MessagesSpamMoves(
         show(move.threadIds)
         return true
     }
+
+    /** D-4: closes every open window (the list's screen starts again, no snackbar is on show). Returns their tokens. */
+    fun closeAll(): Set<Long> = moves.keys.toSet().onEach { commit(it) }
+}
+
+/** The Undo token of a Block or "Report spam" event; null for any other event. */
+internal fun ConversationsEvent.moveToken(): Long? = when (this) {
+    is ConversationsEvent.Blocked -> token
+    is ConversationsEvent.ReportedSpam -> token
+    else -> null
 }
 
 /**

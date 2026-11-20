@@ -31,9 +31,12 @@ class DetailsSenderSwitchTest {
     private var restored: UnreadTexts? = null
     private val unread = UnreadTexts(sms = listOf(5L, 6L))
 
+    private val memory = DetailsBlockMemory()
+
     private fun switch(repo: SpamRepository = repository) = DetailsSenderSwitch(
         context,
         repository = { repo },
+        memory = memory,
         requestSort = { calls += "sort$it" },
         markRead = { calls += "read$it" },
         cancelNotification = { calls += "cancel$it" },
@@ -53,11 +56,12 @@ class DetailsSenderSwitchTest {
         repository.joinGroup(AllowGroup.WROTE, SENDER)
         val details = switch()
 
-        assertThat(details.block(SENDER, THREAD)).isTrue()
+        assertThat(details.block(SENDER, THREAD)).isEqualTo(DetailsSenderSwitch.Outcome.BLOCKED)
         assertThat(calls).containsExactly("cancel$THREAD", "read$THREAD", "sort$THREAD").inOrder()
         assertThat(rules().map { it.kind }).containsExactly(ListKind.BLOCK)
 
-        details.unblock(SENDER, THREAD)
+        // D-5: the screen was recreated (a rotation): a new switch with the kept memory still undoes fully.
+        switch().unblock(SENDER, THREAD)
         assertThat(rules().map { it.id }).containsExactly(wordAllow)
         assertThat(repository.groupMembers.first().map { it.group }).containsExactly(AllowGroup.WROTE)
         assertThat(restored).isEqualTo(unread)
@@ -69,8 +73,17 @@ class DetailsSenderSwitchTest {
             override suspend fun blockAddress(address: String, note: String): BlockReceipt? =
                 repository.blockAddress(address, note)?.copy(stillAllowedBy = 9L)
         }
-        assertThat(switch(prefixAllow).block(SENDER, THREAD)).isFalse()
+        assertThat(switch(prefixAllow).block(SENDER, THREAD)).isEqualTo(DetailsSenderSwitch.Outcome.STILL_ALLOWED)
         assertThat(rules()).isEmpty()
+        assertThat(calls).isEmpty()
+    }
+
+    @Test
+    fun aSenderThatCannotBeReadSaysNothingWasBlocked(): Unit = runBlocking {
+        val unreadable = object : SpamRepository by repository {
+            override suspend fun blockAddress(address: String, note: String): BlockReceipt? = null
+        }
+        assertThat(switch(unreadable).block(SENDER, THREAD)).isEqualTo(DetailsSenderSwitch.Outcome.NOTHING_BLOCKED)
         assertThat(calls).isEmpty()
     }
 

@@ -259,15 +259,44 @@ class SpamChatsViewModelTest {
     // ---- Fix round (C-1 to C-16) -------------------------------------------------------------------------------
 
     @Test
-    fun aCancelledDeleteSnackbarDeletesAndShowsNothingHidden() {
+    fun aDeleteUndoSurvivesTheRouteGoingAwayAndIsOfferedAgain() {
         vm.delete(setOf(1L))
         val event = awaitEvent<SpamChatsEvent.Deleted>()
+        // D-1: a rotation, a tab switch or the Spam lock closing cancels the snackbar: nothing is deleted.
         showThenCancel(event)
+        assertThat(deleted).isEmpty()
+        assertThat(rowIds()).doesNotContain(1L)
 
-        // C-1: the delete happened (or the chat would be back); never hidden with no Undo.
-        awaitUntil { deleted.isNotEmpty() }
-        assertThat(deleted.single()).containsExactly(1L)
+        // The route starts again: the same delete's Undo is offered again.
+        vm.onRouteStarted()
+        awaitUntil { events.count { it == event } == 2 }
+        vm.undoDelete(event.token)
         awaitUntil { 1L in rowIds() }
+        assertThat(deleted).isEmpty()
+    }
+
+    @Test
+    fun aDeleteRunsOnceWhateverClosesItsWindowTwice() {
+        vm.delete(setOf(1L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        // D-2: onStop flushes, then the snackbar's own end commits too.
+        vm.flushPendingDeletes()
+        vm.commitDelete(event.token)
+        vm.flushPendingDeletes()
+        awaitUntil { deleted.isNotEmpty() }
+        ShadowLooper.idleMainLooper()
+        assertThat(deleted).hasSize(1)
+        // An Undo that comes too late shows nothing that is being deleted.
+        vm.undoDelete(event.token)
+        assertThat(deleted).hasSize(1)
+    }
+
+    @Test
+    fun deleteOffIsReadOnLoadNotInADraw() {
+        isDefault = false
+        vm.load()
+        awaitUntil { vm.state.value.deleteOff == R.string.pt_delete_not_default }
+        assertThat(vm.deleteOffReason()).isEqualTo(R.string.pt_delete_not_default)
     }
 
     @Test
@@ -305,10 +334,11 @@ class SpamChatsViewModelTest {
     }
 
     @Test
-    fun theMainActivityFlushCommitsAWaitingDelete() {
+    fun theMainActivityFlushCommitsAWaitingDeleteOfEveryOpenModel() {
         vm.delete(setOf(3L))
         awaitEvent<SpamChatsEvent.Deleted>()
-        vm.flushPendingDeletes()
+        // D-7: what MainActivity.onStop calls; it reaches the model that exists and makes none.
+        SpamChatsViewModel.flushOpen()
         awaitUntil { deleted.isNotEmpty() }
         assertThat(deleted.single()).containsExactly(3L)
     }
@@ -425,24 +455,24 @@ class SpamChatsViewModelTest {
     }
 
     @Test
-    fun fiveThousandChatsLoadAndASwipeHidesItsRowAtOnce() {
+    fun fiveThousandChatsBuildEachRowOnceAndASwipeBuildsNone() {
         val many = (1L..5_000L).map { chat(it, "+1555${it.toString().padStart(7, '0')}", SpamCause.UNKNOWN) }
         val model = newModel(many)
-        val started = System.currentTimeMillis()
         model.load()
         awaitUntil(LONG_TIMEOUT_MS) { model.state.value.rows.size == 5_000 }
-        val loaded = System.currentTimeMillis() - started
-        assertThat(loaded).isLessThan(LONG_TIMEOUT_MS)
+        assertThat(model.rowBuilds).isEqualTo(5_000)
 
-        val swiped = System.currentTimeMillis()
+        // C-7, D-7: a swipe hides by filtering the built rows; a read again takes every row from the cache.
         model.notSpam(setOf(42L))
         awaitUntil { model.state.value.rows.size == 4_999 }
-        assertThat(System.currentTimeMillis() - swiped).isLessThan(SWIPE_BUDGET_MS)
+        model.load()
+        awaitUntil { model.state.value.rows.size == 4_999 && !model.state.value.loading }
+        ShadowLooper.idleMainLooper()
+        assertThat(model.rowBuilds).isEqualTo(5_000)
     }
 
     private companion object {
         const val LONG_TIMEOUT_MS = 20_000L
-        const val SWIPE_BUDGET_MS = 1_500L
         const val UNKNOWN = "+15550001250"
         const val BLOCKED = "+15550001251"
         const val NAME = "SHOPDEAL"

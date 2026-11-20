@@ -3,7 +3,9 @@ package com.glooboo.umessage.receivers
 import android.app.Notification
 import android.app.NotificationManager
 import android.content.Context
+import android.content.ContentValues
 import android.content.Intent
+import android.provider.Telephony
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.extensions.conversationsDB
@@ -16,6 +18,9 @@ import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
+import com.glooboo.umessage.R
+import com.glooboo.umessage.spam.SpamRepository
+import com.glooboo.umessage.testing.FakeSmsMmsProvider
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
@@ -74,7 +79,77 @@ class BlockSenderReceiverMoveTest {
     }
 
     /** As the receiver runs it: off the main thread (it reads the cached chat). */
-    private fun handle(intent: Intent) = offMainThread { runBlocking { receiver.handle(context, repository, intent) } }
+    private fun handle(intent: Intent, repo: SpamRepository = repository) =
+        offMainThread { runBlocking { receiver.handle(context, repo, intent) } }
+
+    private fun noticeText(): String? =
+        shadowOf(manager).allNotifications.singleOrNull()?.extras?.getCharSequence(Notification.EXTRA_TEXT)?.toString()
+
+    @Test
+    fun aBlockThatAUserAllowRuleOutranksSaysSoWithNoUndo(): Unit = runBlocking {
+        val prefixAllow = object : SpamRepository by repository {
+            override suspend fun blockAddress(address: String, note: String): BlockReceipt? =
+                repository.blockAddress(address, note)?.copy(stillAllowedBy = 9L)
+        }
+        handle(BlockSenderReceiver.blockIntent(context, SENDER, THREAD), prefixAllow)
+
+        assertThat(noticeText()).isEqualTo(context.getString(R.string.pt_block_still_allowed))
+        assertThat(shadowOf(manager).allNotifications.single().actions).isNull()
+        assertThat(rules()).isEmpty()
+        assertThat(sorted).isEmpty()
+    }
+
+    @Test
+    fun aSenderThatCannotBeReadGetsAShortCouldNotBlockNotice(): Unit = runBlocking {
+        val unreadable = object : SpamRepository by repository {
+            override suspend fun blockAddress(address: String, note: String): BlockReceipt? = null
+        }
+        handle(BlockSenderReceiver.blockIntent(context, SENDER, THREAD), unreadable)
+        assertThat(noticeText()).isEqualTo(context.getString(R.string.thread_block_failed))
+        assertThat(rules()).isEmpty()
+    }
+
+    @Test
+    fun aFailedUndoKeepsTheNotice(): Unit = runBlocking {
+        handle(BlockSenderReceiver.blockIntent(context, SENDER, THREAD))
+        val undo = shadowOf(shadowOf(manager).allNotifications.single().actions.single().actionIntent).savedIntent
+        val failing = object : SpamRepository by repository {
+            override suspend fun undoBlock(receipt: BlockReceipt) {
+                error("disk full")
+            }
+        }
+        handle(undo, failing)
+
+        // C-12: the notice stays, so the Undo can be tried again; nothing looks done.
+        assertThat(shadowOf(manager).allNotifications).hasSize(1)
+        assertThat(rules().map { it.kind }).containsExactly(ListKind.BLOCK)
+    }
+
+    @Test
+    fun undoBringsBackEveryUnreadTextOfTheStore(): Unit = runBlocking {
+        val sms = FakeSmsMmsProvider.installSms()
+        FakeSmsMmsProvider.installMms()
+        val ids = listOf("Offer one", "Offer two").map { body ->
+            context.contentResolver.insert(Telephony.Sms.CONTENT_URI, ContentValues().apply {
+                put("thread_id", THREAD)
+                put("address", SENDER)
+                put("body", body)
+                put("date", 1_000L)
+                put("type", Telephony.Sms.MESSAGE_TYPE_INBOX)
+                put("read", 0)
+                put("seen", 0)
+            })!!.lastPathSegment!!.toLong()
+        }
+        cacheChat(read = false)
+
+        handle(BlockSenderReceiver.blockIntent(context, SENDER, THREAD))
+        assertThat(ids.map { sms.intColumn("sms", it, "read") }).containsExactly(1, 1)
+
+        val undo = shadowOf(shadowOf(manager).allNotifications.single().actions.single().actionIntent).savedIntent
+        handle(undo)
+        // The reviewer's point: both texts are unread again, not only the newest.
+        assertThat(ids.map { sms.intColumn("sms", it, "read") }).containsExactly(0, 0)
+    }
 
     @Test
     fun blockMovesTheChatAndUndoPutsEverythingBack(): Unit = runBlocking {
