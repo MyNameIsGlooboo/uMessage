@@ -16,6 +16,9 @@ import com.glooboo.umessage.models.NotesBackup
 import com.glooboo.umessage.models.SmsBackup
 import com.glooboo.umessage.models.WriteOutcome
 import com.glooboo.umessage.models.WriteResult
+import com.glooboo.umessage.spam.FirstRun
+import com.glooboo.umessage.spam.FirstRunTrigger
+import com.glooboo.umessage.spam.data.SpamProviderMigration
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.DecodeSequenceMode
@@ -42,6 +45,10 @@ import java.io.InputStream
  * is shown from here: the caller turns the summary into one message.
  *
  * Restoring is idempotent (see [MessagesWriter]), so running the same file again only adds what is missing.
+ *
+ * Provider truth (flag on): restored old Spam entries go into the phone's store by the message migration's probe and
+ * write steps (S16), and a restore that changed anything runs the history check and the sort
+ * ([FirstRunTrigger.RESTORE]).
  */
 @Suppress("TooManyFunctions")
 class MessagesImporter(
@@ -57,6 +64,9 @@ class MessagesImporter(
 
     private val json = Json { ignoreUnknownKeys = true }
 
+    /** Old Spam entries this run put in the held table; the migration moves them at the end (S16). */
+    private var blockedRestored = 0
+
     fun import(
         input: InputStream,
         options: Options,
@@ -64,6 +74,7 @@ class MessagesImporter(
         isCancelled: () -> Boolean = { false },
     ): ImportSummary {
         val summary = ImportSummary()
+        blockedRestored = 0
         val counting = CountingInputStream(input)
         val stream = BufferedInputStream(counting, BUFFER)
         try {
@@ -73,6 +84,7 @@ class MessagesImporter(
                 else -> summary.invalidFile = true
             }
         } finally {
+            moveRestoredSpam()
             try {
                 writer.fixConversationDates()
             } catch (_: Exception) {
@@ -82,9 +94,22 @@ class MessagesImporter(
                 // The restored messages went to the provider only; cache them for search (DL-10).
                 MessageCacheImport.restart(context)
                 refreshConversations()
+                // Provider truth (3.5): restored rules, members and sent texts change who is known; nothing with the
+                // flag off.
+                FirstRun.request(context, FirstRunTrigger.RESTORE)
             }
         }
         return summary
+    }
+
+    /**
+     * S16: with the flag on, the old Spam entries just restored go into the phone's store with the probe and write
+     * steps of the message migration; when uMessage is not the default app they wait in the held table for it. The
+     * RESTORE pass that follows checks their senders, so the migration asks for no pass of its own.
+     */
+    private fun moveRestoredSpam() {
+        if (blockedRestored == 0) return
+        SpamProviderMigration.runPending(context, announce = false)
     }
 
     /**
@@ -196,12 +221,14 @@ class MessagesImporter(
 
     /**
      * Puts a blocked message back in the Blocked folder (the kinds the user chose). It never reaches the inbox or the
-     * system store, sends nothing and shows no notification. A failure leaves the message out and goes on.
+     * system store from here, sends nothing and shows no notification (with the flag on, [moveRestoredSpam] moves it
+     * to the store at the end). A failure leaves the message out and goes on.
      */
     private fun restoreBlocked(backup: BlockedBackup, options: Options, summary: ImportSummary) {
         if (!(if (backup.isMms) options.mms else options.sms)) return
         if (runCatching { BlockedBackupSupport.of(context).restore(backup) }.getOrDefault(false)) {
             summary.appDataRestored++
+            blockedRestored++
         }
     }
 

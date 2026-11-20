@@ -2,12 +2,14 @@ package com.glooboo.umessage.backup
 
 import android.content.Context
 import android.util.Base64
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.BlockedBackup
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.MMS_PLACEHOLDER_BODY
 import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.data.BlockedLimits
 import com.glooboo.umessage.spam.data.BlockedMessageEntity
+import com.glooboo.umessage.spam.data.MigrationMark
 import com.glooboo.umessage.spam.data.SpamDao
 import com.glooboo.umessage.spam.data.SpamDatabase
 import com.glooboo.umessage.spam.mms.BlockedMmsStore
@@ -19,6 +21,11 @@ import com.glooboo.umessage.spam.mms.BlockedMmsStore
  * Restoring writes only to the Blocked folder's own table. It sends nothing, shows no notification, counts no
  * "blocked" event for the weekly digest, and never touches the inbox or the system store. A message the folder
  * already has (same sender, text, kind and time) is left alone, so restoring twice adds nothing.
+ *
+ * Provider truth (section 9, S16): the phone's store holds Spam, so a backup reads it per chat like any other
+ * message; only the held rows that are not moved yet go along as entries of their own. A restored entry is held here
+ * as today and the message migration then writes it to the store with its probe, so restoring twice writes nothing
+ * twice ([com.glooboo.umessage.helpers.MessagesImporter]).
  */
 class BlockedBackupSupport(
     private val dao: SpamDao,
@@ -29,8 +36,11 @@ class BlockedBackupSupport(
     /** Calls [emit] for each blocked message of the kinds wanted; returns how many it emitted. */
     fun collect(sms: Boolean, mms: Boolean, emit: (BlockedBackup) -> Unit): Int {
         var count = 0
+        val movedLeftOut = ProviderTruthFlag.enabled
         for (row in dao.getAllBlocked().sortedBy { it.receivedAt }) {
-            if (!(if (row.isMms) mms else sms)) continue
+            // Moved (or nothing to move): the store's copy is in the backup as a message.
+            val moved = movedLeftOut && MigrationMark.isDone(row.migratedMsgId)
+            if (!(if (row.isMms) mms else sms) || moved) continue
             val data = row.mediaFile?.takeIf { row.media == MmsMedia.STORED }?.let(readMedia)
                 ?.takeIf { it.size <= MAX_MEDIA_BYTES }
             emit(
