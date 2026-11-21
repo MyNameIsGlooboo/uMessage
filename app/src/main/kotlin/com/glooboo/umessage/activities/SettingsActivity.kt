@@ -868,5 +868,8 @@ class SettingsActivity : ComposeSimpleActivity() {
  */
 internal fun Context.openSpamTab() {
     BlockedNotifier.cancelAll(this)
-    startActivity(MainTabLinks.intent(this, MainTabLinks.TAB_BLOCKED))
+    val intent = MainTabLinks.intent(this, MainTabLinks.TAB_BLOCKED)
+    // Called from the Settings screen, but safe from any context (tests, receivers).
+    if (this !is android.app.Activity) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    startActivity(intent)
 }
