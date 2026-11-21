@@ -104,7 +104,11 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
         }
         if (!claimed) return
         try {
-            sendClaimed(context, message)
+            // K1 hand-over: the row is read again after the claim. The start-up tidy may have swapped its attachments
+            // to the app's own copies meanwhile, and the tracker must not write the picker uris back. A row that is
+            // gone (sent or deleted meanwhile) or held sends nothing.
+            val claimedMessage = dueMessage(context, messageId) ?: return
+            sendClaimed(context, claimedMessage)
         } finally {
             ScheduledSendClaims.release(messageId)
         }
