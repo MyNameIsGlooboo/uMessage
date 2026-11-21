@@ -269,7 +269,7 @@ class SettingsNavTest {
             SettingsActions(onNotifyOnBlock = { notify = it }),
             SettingsPage.Notifications,
         )
-        compose.onNodeWithText("Notify when a message is blocked").performScrollTo().performClick()
+        compose.onNodeWithText(str(R.string.spam_notify_title)).performScrollTo().performClick()
         assertEquals(true, notify)
     }
 

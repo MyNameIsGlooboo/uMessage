@@ -76,6 +76,7 @@ officialese. The 0.4.2 pass replaced the formal words below with the spoken ones
 
 Words that deliberately stay: بازیابی, ارسال, گفتگو, فرستنده, قانون, الگو, اعلان, مخاطب. The search-keyword
 strings (`sks_*`) keep the old formal words next to the new ones, so a setting is found with either word.
+A unit test (`PersianRetiredWordsTest`) fails when any other Persian string uses a word marked "Formerly" above.
 Names stay as they are: uMessage, Google Drive, SMS/MMS, GPL, Material You.
 
 ## Writing rules

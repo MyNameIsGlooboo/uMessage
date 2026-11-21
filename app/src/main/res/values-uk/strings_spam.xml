@@ -65,7 +65,6 @@
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">безкоштовний подарунок</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">Застосувати до</string>
     <string name="spam_sheet_note_label">Примітка (необов’язково)</string>
     <string name="spam_sheet_add">Додати правило</string>
     <string name="spam_sheet_clear_value">Очистити значення</string>

@@ -94,7 +94,6 @@ class RuleFormNoSimTest {
         compose.setContent { UMessageTheme { AddRuleSheet(form, RulesActions()) } }
         compose.onNodeWithText(res.getString(R.string.ux8d_more_options)).performClick()
         compose.onNodeWithText(res.getString(R.string.spam_sheet_note_label)).assertExists()
-        compose.onNodeWithText(res.getString(R.string.spam_sheet_sim_label)).assertDoesNotExist()
         compose.onNodeWithText(res.getString(R.string.spam_sim_both)).assertDoesNotExist()
     }
 

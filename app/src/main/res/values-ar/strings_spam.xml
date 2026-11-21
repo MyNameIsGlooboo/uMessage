@@ -73,7 +73,6 @@
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">هدية مجانية</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">تنطبق على</string>
     <string name="spam_sheet_note_label">ملاحظة (اختياري)</string>
     <string name="spam_sheet_add">أضف قاعدة</string>
     <string name="spam_sheet_clear_value">امسح القيمة</string>

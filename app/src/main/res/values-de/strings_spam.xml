@@ -57,7 +57,6 @@
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">Gratisgeschenk</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">Gilt für</string>
     <string name="spam_sheet_note_label">Notiz (optional)</string>
     <string name="spam_sheet_add">Regel hinzufügen</string>
     <string name="spam_sheet_clear_value">Wert löschen</string>

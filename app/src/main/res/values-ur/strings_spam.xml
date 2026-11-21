@@ -57,7 +57,6 @@
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">مفت تحفہ</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">لاگو ہوتا ہے</string>
     <string name="spam_sheet_note_label">نوٹ (اختیاری)</string>
     <string name="spam_sheet_add">اصول شامل کریں</string>
     <string name="spam_sheet_clear_value">قدر صاف کریں</string>

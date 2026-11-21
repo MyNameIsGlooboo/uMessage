@@ -72,7 +72,6 @@
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
 
     <!-- Add rule sheet -->
-    <string name="spam_sheet_sim_label">Applies to</string>
     <string name="spam_sheet_note_label">Note (optional)</string>
     <string name="spam_sheet_add">Add rule</string>
     <string name="spam_sheet_clear_value">Clear value</string>

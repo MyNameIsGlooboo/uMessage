@@ -57,7 +57,6 @@
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">मुफ़्त उपहार</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">इस पर लागू</string>
     <string name="spam_sheet_note_label">नोट (वैकल्पिक)</string>
     <string name="spam_sheet_add">नियम जोड़ें</string>
     <string name="spam_sheet_clear_value">मान हटाएं</string>

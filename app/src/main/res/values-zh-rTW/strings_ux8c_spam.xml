@@ -5,7 +5,7 @@
     <string name="ux8c_held_foreign">已攔截：其他國家的號碼</string>
     <string name="ux8c_held_rule">已被你的規則攔截</string>
     <string name="ux8c_held_other">已被篩選器攔截</string>
-    <string name="ux8c_not_spam">不是垃圾簡訊</string>
+    <string name="ux8c_not_spam">不是垃圾訊息</string>
     <string name="ux8c_delete">刪除</string>
     <string name="ux8c_tip">滑動對話即可移回「訊息」。按住即可選取。</string>
     <string name="ux8c_tip_dismiss">知道了</string>

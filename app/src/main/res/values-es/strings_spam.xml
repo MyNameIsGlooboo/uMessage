@@ -57,7 +57,6 @@
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">regalo gratis</string>
     <string name="spam_type_regex_hint">gana\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">Se aplica a</string>
     <string name="spam_sheet_note_label">Nota (opcional)</string>
     <string name="spam_sheet_add">Agregar regla</string>
     <string name="spam_sheet_clear_value">Borrar valor</string>

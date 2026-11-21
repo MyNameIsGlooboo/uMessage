@@ -53,7 +53,6 @@
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">免费礼品</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">适用于</string>
     <string name="spam_sheet_note_label">备注（选填）</string>
     <string name="spam_sheet_add">添加规则</string>
     <string name="spam_sheet_clear_value">清空内容</string>

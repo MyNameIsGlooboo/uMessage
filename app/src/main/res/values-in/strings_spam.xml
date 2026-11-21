@@ -53,7 +53,6 @@
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">hadiah gratis</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">Berlaku untuk</string>
     <string name="spam_sheet_note_label">Catatan (opsional)</string>
     <string name="spam_sheet_add">Tambah aturan</string>
     <string name="spam_sheet_clear_value">Kosongkan nilai</string>
