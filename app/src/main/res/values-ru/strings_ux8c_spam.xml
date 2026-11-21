@@ -7,7 +7,7 @@
     <string name="ux8c_held_other">Задержано фильтром</string>
     <string name="ux8c_not_spam">Не спам</string>
     <string name="ux8c_delete">Удалить</string>
-    <string name="ux8c_tip">Смахните отправителя, чтобы переместить его во входящие. Нажмите и удерживайте, чтобы выбрать.</string>
+    <string name="ux8c_tip">Проведите по чату, чтобы вернуть его в «Сообщения». Нажмите и удерживайте, чтобы выбрать.</string>
     <string name="ux8c_tip_dismiss">Понятно</string>
     <string name="ux8c_sender_title">Этот отправитель</string>
     <string name="ux8c_sender_normal">Обычный режим</string>

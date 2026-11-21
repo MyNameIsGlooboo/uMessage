@@ -61,7 +61,7 @@
     <string name="spam_type_keyword">Ключевое слово</string>
     <string name="spam_type_regex">Регулярное выражение</string>
     <string name="spam_type_keyword_help">Любое сообщение с этим текстом, даже внутри другого слова: «приз» найдется и в слове «сюрприз». Регистр букв не важен. Отправитель тоже блокируется, если его нет в ваших контактах.</string>
-    <string name="spam_type_keyword_allow_help">Любое сообщение с этим текстом обходит все ваши блокировки, независимо от отправителя. Используйте длинную и точную фразу.</string>
+    <string name="spam_type_keyword_allow_help">Сообщение с этим текстом разрешает своего отправителя: весь чат попадает в «Сообщения». Отправитель, которого вы заблокировали, остается заблокированным. Используйте длинную точную фразу.</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">бесплатный подарок</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
@@ -81,9 +81,9 @@
     <string name="spam_err_duplicate">Такое правило уже есть</string>
     <string name="spam_err_regex_unsafe">В этом регулярном выражении повторяется группа с повторением внутри. Это может привести к зависанию фильтрации сообщений. Упростите выражение.</string>
     <string name="spam_err_regex_matches_all">Это регулярное выражение совпадает с любым сообщением. Уточните его.</string>
-    <string name="spam_err_allow_keyword_short">Разрешенные слова должны содержать не менее 4 символов: любое сообщение с ними обходит все ваши блокировки</string>
+    <string name="spam_err_allow_keyword_short">Разрешенные слова должны быть не короче 4 символов, потому что сообщение с таким словом разрешает своего отправителя</string>
     <string name="spam_sheet_save_failed">Не удалось сохранить правило. Попробуйте еще раз.</string>
-    <string name="spam_warn_allow_skips_blocks">Любое сообщение с этим текстом обходит все ваши блокировки, даже если номер отправителя заблокирован.</string>
+    <string name="spam_warn_allow_skips_blocks">Любой неизвестный отправитель, чье сообщение содержит этот текст, с этого момента разрешен. Заблокированные вами отправители остаются заблокированными.</string>
     <string name="spam_warn_common_word">Это короткое или частое слово. Оно легко может встретиться в спаме.</string>
     <string name="spam_warn_broad">Это часто встречается в обычном тексте, поэтому под правило попадет много обычных сообщений.</string>
     <string name="spam_warn_allowed_conflict">Это уже есть в списке разрешенных. Правила разрешения всегда важнее, поэтому эта блокировка никогда не сработает.</string>
@@ -110,8 +110,8 @@
         <item quantity="many">и еще %d</item>
         <item quantity="other">и еще %d</item>
     </plurals>
-    <string name="spam_settings_unknown_title">Сообщения от неизвестных отправителей</string>
-    <string name="spam_settings_unknown_body">Отправители, которых нет в ваших контактах, которым вы никогда не писали и которых нет в списке разрешенных.</string>
+    <string name="spam_settings_unknown_title">Спам-фильтр</string>
+    <string name="spam_settings_unknown_body">Неизвестный отправитель — это тот, кого нет в ваших контактах и в списке разрешенных. Весь его чат без звука попадает в «Спам». Те, кому вы писали, и отправители кодов подтверждения остаются в «Сообщениях».</string>
     <string name="spam_mode_strict">Строгий</string>
     <string name="spam_mode_strict_body">Блокирует всех неизвестных отправителей, включая коды</string>
     <string name="spam_mode_smart">Умный</string>
@@ -122,8 +122,8 @@
     <string name="spam_strict_warning_body">Сообщения от банков и служб доставки, а также одноразовые коды обычно приходят от отправителей, которых нет в ваших контактах. В строгом режиме они попадают в «Спам», включая коды. Выберите умный режим, чтобы пропускать коды, или один раз разрешите этих отправителей.</string>
     <string name="spam_strict_warning_action">Посмотреть спам</string>
     <string name="spam_settings_cleanup_title">Очистка</string>
-    <string name="spam_purge_body">Старый спам удаляется автоматически.</string>
+    <string name="spam_purge_body">Выключено, пока вы не выберете число дней</string>
     <string name="spam_purge_days">%d дней</string>
     <string name="spam_purge_forever">Хранить всегда</string>
-    <string name="spam_notify_title">Уведомлять о блокировке сообщения</string>
+    <string name="spam_notify_title">Уведомлять о сообщениях от неизвестных отправителей</string>
 </resources>

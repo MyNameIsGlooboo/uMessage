@@ -47,14 +47,14 @@
         <item quantity="other">Zarchiwizowano %d rozmowy</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="one">Zablokowano. Nowe wiadomości trafią do folderu Spam</item>
-        <item quantity="few">Zablokowano %d nadawców. Nowe wiadomości trafią do folderu Spam</item>
-        <item quantity="many">Zablokowano %d nadawców. Nowe wiadomości trafią do folderu Spam</item>
-        <item quantity="other">Zablokowano %d nadawcy. Nowe wiadomości trafią do folderu Spam</item>
+        <item quantity="one">Zablokowano. Czat trafił do folderu Spam</item>
+        <item quantity="few">Zablokowano %d nadawców. Ich czaty trafiły do folderu Spam</item>
+        <item quantity="many">Zablokowano %d nadawców. Ich czaty trafiły do folderu Spam</item>
+        <item quantity="other">Zablokowano %d nadawcy. Ich czaty trafiły do folderu Spam</item>
     </plurals>
     <string name="convlist_action_failed">Coś poszło nie tak</string>
     <string name="convlist_block_title">Zablokować numer?</string>
-    <string name="convlist_block_message">Zablokować %1$s? Nowe wiadomości z tego numeru trafią do folderu Spam zamiast do Odebranych. Nadal możesz je tam czytać lub przywrócić.</string>
+    <string name="convlist_block_message">Zablokować %1$s? Cały czat trafi do folderu Spam, a nowe wiadomości będą tam przychodzić po cichu. Nadal możesz je czytać i w każdej chwili odblokować.</string>
     <string name="convlist_block_confirm">Zablokuj</string>
     <string name="convlist_rename_title">Zmień nazwę rozmowy</string>
     <string name="convlist_cancel">Anuluj</string>

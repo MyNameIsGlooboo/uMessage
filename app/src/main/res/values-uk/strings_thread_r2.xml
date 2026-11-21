@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">Причина</string>
     <string name="thread_r2_details_rule">Правило</string>
     <string name="thread_r2_details_forwarded">Переслано</string>
-    <string name="thread_r2_details_decision_restored">Заблоковано, потім відновлено у вхідних</string>
+    <string name="thread_r2_details_decision_restored">Заблоковано, потім переміщено в «Повідомлення»</string>
     <string name="thread_r2_details_copy">Копіювати %1$s</string>
     <string name="thread_r2_menu_search">Пошук у чаті</string>
     <string name="thread_r2_menu_always_forward">Завжди пересилати від цього відправника</string>

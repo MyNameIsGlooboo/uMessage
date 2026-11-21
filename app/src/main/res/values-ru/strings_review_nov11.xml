@@ -22,7 +22,7 @@
         <item quantity="many">Чаты и все их сообщения будут удалены с этого телефона. Сразу после этого удаление можно отменить на несколько секунд.</item>
         <item quantity="other">Чаты и все их сообщения будут удалены с этого телефона. Сразу после этого удаление можно отменить на несколько секунд.</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s есть в ваших контактах. Заблокировать этого отправителя? Новые сообщения от него будут попадать в «Заблокированные сообщения», а не во входящие. Сразу после этого блокировку можно отменить.</string>
+    <string name="convlist_block_contact_message">%1$s есть в ваших контактах. Заблокировать этого отправителя? Весь чат переместится в «Спам», а новые сообщения будут приходить туда без звука. Сразу после этого действие можно отменить.</string>
     <string name="i29_color_red">Красный</string>
     <string name="i29_color_orange">Оранжевый</string>
     <string name="i29_color_yellow">Желтый</string>
@@ -46,10 +46,10 @@
     <string name="rule_preview_loading">Проверяем последние сообщения…</string>
     <string name="rule_preview_failed">Не удалось проверить последние сообщения. Попробуйте еще раз.</string>
     <string name="rule_preview_nothing">Пока нет последних сообщений для проверки.</string>
-    <string name="rule_preview_inbox">Входящие: правилу соответствуют %1$d из последних %2$d сообщений</string>
-    <string name="rule_preview_inbox_empty">Входящие: нет сообщений для проверки</string>
-    <string name="rule_preview_blocked">Заблокированные: правилу соответствуют %1$d из последних %2$d сообщений</string>
-    <string name="rule_preview_blocked_empty">Заблокированные: нет сообщений для проверки</string>
+    <string name="rule_preview_inbox">Сообщения: правилу соответствуют %1$d из последних %2$d сообщений</string>
+    <string name="rule_preview_inbox_empty">Сообщения: нечего проверять</string>
+    <string name="rule_preview_blocked">Спам: правилу соответствуют %1$d из последних %2$d сообщений</string>
+    <string name="rule_preview_blocked_empty">Спам: нечего проверять</string>
     <string name="rule_preview_examples">Например: %1$s</string>
     <string name="n06_delete_confirm">Удалить этот сохраненный текст?</string>
     <string name="screens_vcard_email_action">Эл. почта</string>

@@ -7,4 +7,6 @@
     <string name="notifications_off_title">Сповіщення вимкнено</string>
     <string name="notifications_off_body">Ви не отримуватимете сповіщень про нові повідомлення.</string>
     <string name="notifications_off_fix">Увімкнути</string>
+    <string name="notifications_quiet_title">Сповіщення без звуку</string>
+    <string name="notifications_quiet_body">Канал «%1$s» не має звуку, тож нові повідомлення не дзвонять. Увімкніть звук у налаштуваннях Android.</string>
 </resources>

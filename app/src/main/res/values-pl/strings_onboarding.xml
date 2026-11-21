@@ -7,7 +7,7 @@
     <string name="onb_finish">Zacznij pisać</string>
     <string name="onb_welcome_title">Witaj w uMessage</string>
     <string name="onb_welcome_intro">Wygodne wiadomości, mniej spamu.</string>
-    <string name="onb_welcome_demo_desc">Wiadomości od osób, które znasz, trafiają do Wiadomości, od nieznajomych do Spamu, a kody weryfikacyjne nadal do Wiadomości.</string>
+    <string name="onb_welcome_demo_desc">Twoje kontakty trafiają do folderu Wiadomości. Nieznani nadawcy trafiają do folderu Spam. Nadawca, który wyśle ci kod weryfikacyjny, trafia do folderu Wiadomości.</string>
     <string name="onb_welcome_spam">Spam pod kontrolą</string>
     <string name="onb_welcome_spam_desc">Wiadomości od nieznanych nadawców czekają w Spamie i nie giną.</string>
     <string name="onb_welcome_codes">Kody jednym dotknięciem</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">Bez konta, reklam i chmury. Wszystko zostaje na twoim telefonie.</string>
     <string name="onb_welcome_start">Zaczynamy</string>
     <string name="onb_default_title">Ustaw uMessage jako aplikację do SMS-ów</string>
-    <string name="onb_default_body">Android pozwala odbierać i filtrować wiadomości tylko domyślnej aplikacji do SMS-ów. Bez tego uMessage nie może chronić odebranych wiadomości.</string>
+    <string name="onb_default_body">Android pozwala odbierać i filtrować wiadomości tylko domyślnej aplikacji do SMS-ów. Bez tego uMessage nie może filtrować za ciebie spamu.</string>
     <string name="onb_default_action">Ustaw jako domyślną</string>
     <string name="onb_default_denied">Prośba została odrzucona. Spróbuj ponownie lub przejdź dalej i ustaw to później w ustawieniach Androida.</string>
     <string name="onb_default_unavailable">Nie udało się otworzyć okna wyboru domyślnej aplikacji. Otwórz ustawienia Androida, wybierz „Aplikacje”, „Domyślne aplikacje”, „Aplikacja do SMS-ów”, a potem uMessage.</string>

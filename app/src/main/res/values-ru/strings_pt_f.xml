@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="one">В резервной копии %d запланированное сообщение</item>
+        <item quantity="few">В резервной копии %d запланированных сообщения</item>
+        <item quantity="many">В резервной копии %d запланированных сообщений</item>
+        <item quantity="other">В резервной копии %d запланированных сообщения</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="one">Будет отправлено на %d номер в назначенное время, только если вы это включите. Пока вы не решите, ничего не отправляется.</item>
+        <item quantity="few">Будут отправлены на %d разных номера в назначенное время, только если вы это включите. Пока вы не решите, ничего не отправляется.</item>
+        <item quantity="many">Будут отправлены на %d разных номеров в назначенное время, только если вы это включите. Пока вы не решите, ничего не отправляется.</item>
+        <item quantity="other">Будут отправлены на %d разных номера в назначенное время, только если вы это включите. Пока вы не решите, ничего не отправляется.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">Включить</string>
+    <string name="pt_restore_scheduled_discard">Удалить</string>
+    <string name="pt_older_spam_stuck">Некоторые из этих сообщений не удалось перенести на сам телефон. Они остаются здесь, и их можно читать.</string>
+    <string name="pt_restore_scheduled_row_body">При восстановлении они не были включены. Нажмите, чтобы включить или удалить их.</string>
+    <string name="pt_older_spam_pictures_here">Некоторые из этих сообщений уже есть на самом телефоне. Здесь, в uMessage, хранятся только их изображения.</string>
+</resources>

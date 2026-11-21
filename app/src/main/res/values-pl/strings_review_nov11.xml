@@ -22,7 +22,7 @@
         <item quantity="many">Rozmowy i wszystkie ich wiadomości zostaną usunięte z tego telefonu. Przez kilka sekund możesz to cofnąć.</item>
         <item quantity="other">Rozmowy i wszystkie ich wiadomości zostaną usunięte z tego telefonu. Przez kilka sekund możesz to cofnąć.</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s jest w Twoich kontaktach. Zablokować tego nadawcę? Nowe wiadomości od niego trafią do Zablokowanych zamiast do odebranych. Możesz to od razu cofnąć.</string>
+    <string name="convlist_block_contact_message">%1$s jest w twoich kontaktach. Zablokować tego nadawcę? Cały czat trafi do folderu Spam, a nowe wiadomości będą tam przychodzić po cichu. Możesz to cofnąć zaraz potem.</string>
     <string name="i29_color_red">Czerwony</string>
     <string name="i29_color_orange">Pomarańczowy</string>
     <string name="i29_color_yellow">Żółty</string>
@@ -46,10 +46,10 @@
     <string name="rule_preview_loading">Sprawdzanie ostatnich wiadomości…</string>
     <string name="rule_preview_failed">Nie udało się sprawdzić ostatnich wiadomości. Spróbuj ponownie.</string>
     <string name="rule_preview_nothing">Nie ma jeszcze ostatnich wiadomości do sprawdzenia.</string>
-    <string name="rule_preview_inbox">Odebrane: ta reguła pasuje do %1$d z ostatnich %2$d wiadomości</string>
-    <string name="rule_preview_inbox_empty">Odebrane: brak wiadomości do sprawdzenia</string>
-    <string name="rule_preview_blocked">Zablokowane: ta reguła pasuje do %1$d z ostatnich %2$d wiadomości</string>
-    <string name="rule_preview_blocked_empty">Zablokowane: brak wiadomości do sprawdzenia</string>
+    <string name="rule_preview_inbox">Wiadomości: ta reguła pasuje do %1$d z ostatnich %2$d wiadomości</string>
+    <string name="rule_preview_inbox_empty">Wiadomości: nie ma czego sprawdzać</string>
+    <string name="rule_preview_blocked">Spam: ta reguła pasuje do %1$d z ostatnich %2$d wiadomości</string>
+    <string name="rule_preview_blocked_empty">Spam: nie ma czego sprawdzać</string>
     <string name="rule_preview_examples">Na przykład: %1$s</string>
     <string name="n06_delete_confirm">Usunąć ten zapisany tekst?</string>
     <string name="screens_vcard_email_action">E-mail</string>

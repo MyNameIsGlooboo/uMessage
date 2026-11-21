@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">Decyzja</string>
-    <string name="thread_review_details_decision_allowed">Dozwolona: dostarczono do odebranych</string>
+    <string name="thread_review_details_decision_allowed">Dozwolona: trafiła do folderu Wiadomości</string>
     <string name="thread_review_details_type">Typ</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

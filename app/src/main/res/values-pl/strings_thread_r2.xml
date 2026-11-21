@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">Powód</string>
     <string name="thread_r2_details_rule">Reguła</string>
     <string name="thread_r2_details_forwarded">Przekazano dalej</string>
-    <string name="thread_r2_details_decision_restored">Zablokowano, a następnie przywrócono do odebranych</string>
+    <string name="thread_r2_details_decision_restored">Zablokowana, potem przeniesiona do folderu Wiadomości</string>
     <string name="thread_r2_details_copy">Kopiuj %1$s</string>
     <string name="thread_r2_menu_search">Szukaj w rozmowie</string>
     <string name="thread_r2_menu_always_forward">Zawsze przekazuj dalej od tego nadawcy</string>

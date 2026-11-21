@@ -7,7 +7,7 @@
     <string name="onb_finish">Начать общение</string>
     <string name="onb_welcome_title">Добро пожаловать в uMessage</string>
     <string name="onb_welcome_intro">Больше общения, меньше спама.</string>
-    <string name="onb_welcome_demo_desc">Сообщения от знакомых попадают в «Сообщения», от незнакомых — в «Спам», а коды подтверждения по-прежнему приходят в «Сообщения».</string>
+    <string name="onb_welcome_demo_desc">Ваши контакты попадают в «Сообщения». Неизвестные отправители попадают в «Спам». Отправитель, который прислал вам код подтверждения, попадает в «Сообщения».</string>
     <string name="onb_welcome_spam">Спам не пройдет</string>
     <string name="onb_welcome_spam_desc">Сообщения от неизвестных отправителей хранятся в разделе «Спам» и не теряются.</string>
     <string name="onb_welcome_codes">Коды в одно касание</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">Без аккаунта, рекламы и облака. Все остается на вашем телефоне.</string>
     <string name="onb_welcome_start">Начать</string>
     <string name="onb_default_title">Сделайте uMessage приложением для SMS по умолчанию</string>
-    <string name="onb_default_body">Android позволяет получать и фильтровать сообщения только приложению для SMS по умолчанию. Без этого uMessage не сможет защитить ваши входящие.</string>
+    <string name="onb_default_body">Android позволяет получать и фильтровать сообщения только приложению для SMS по умолчанию. Без этого uMessage не сможет фильтровать для вас спам.</string>
     <string name="onb_default_action">Использовать по умолчанию</string>
     <string name="onb_default_denied">Запрос отклонен. Попробуйте снова или продолжите и выберите приложение позже в настройках Android.</string>
     <string name="onb_default_unavailable">Не удалось открыть окно выбора приложения по умолчанию. Откройте настройки Android → «Приложения» → «Приложения по умолчанию» → «Приложение для SMS» и выберите uMessage.</string>

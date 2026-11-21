@@ -62,10 +62,10 @@
         <item quantity="other">Вы пожаловались на спам: %d чата. Новые сообщения этих отправителей попадут в «Спам». Чаты в архиве.</item>
     </plurals>
     <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Вы пожаловались на спам. Новые сообщения этого отправителя попадут в «Спам».</item>
-        <item quantity="few">Вы пожаловались на спам: %d чата. Новые сообщения этих отправителей попадут в «Спам».</item>
-        <item quantity="many">Вы пожаловались на спам: %d чатов. Новые сообщения этих отправителей попадут в «Спам».</item>
-        <item quantity="other">Вы пожаловались на спам: %d чата. Новые сообщения этих отправителей попадут в «Спам».</item>
+        <item quantity="one">Отправлена жалоба: %d чат. Он перемещен в «Спам».</item>
+        <item quantity="few">Отправлены жалобы: %d чата. Они перемещены в «Спам».</item>
+        <item quantity="many">Отправлены жалобы: %d чатов. Они перемещены в «Спам».</item>
+        <item quantity="other">Отправлены жалобы: %d чата. Они перемещены в «Спам».</item>
     </plurals>
     <string name="blocked_title">Спам</string>
     <string name="blocked_snack_mode">Режим для неизвестных отправителей: %1$s</string>

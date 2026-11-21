@@ -47,14 +47,14 @@
         <item quantity="other">Заархівовано %d чату</item>
     </plurals>
     <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Заблоковано. Нові повідомлення потраплятимуть до папки «Спам»</item>
-        <item quantity="few">Заблоковано %d відправники. Нові повідомлення потраплятимуть до папки «Спам»</item>
-        <item quantity="many">Заблоковано %d відправників. Нові повідомлення потраплятимуть до папки «Спам»</item>
-        <item quantity="other">Заблоковано %d відправника. Нові повідомлення потраплятимуть до папки «Спам»</item>
+        <item quantity="one">Заблоковано: %d відправник. Його чат переміщено в «Спам»</item>
+        <item quantity="few">Заблоковано: %d відправники. Їхні чати переміщено в «Спам»</item>
+        <item quantity="many">Заблоковано: %d відправників. Їхні чати переміщено в «Спам»</item>
+        <item quantity="other">Заблоковано: %d відправника. Їхні чати переміщено в «Спам»</item>
     </plurals>
     <string name="convlist_action_failed">Щось пішло не так</string>
     <string name="convlist_block_title">Заблокувати номер?</string>
-    <string name="convlist_block_message">Заблокувати %1$s? Нові повідомлення з цього номера потраплятимуть до папки «Спам» замість вхідних. Там ви зможете їх прочитати або відновити.</string>
+    <string name="convlist_block_message">Заблокувати %1$s? Увесь чат переміститься в «Спам», а нові повідомлення надходитимуть туди без звуку. Ви зможете їх читати й розблокувати будь-коли.</string>
     <string name="convlist_block_confirm">Заблокувати</string>
     <string name="convlist_rename_title">Перейменувати чат</string>
     <string name="convlist_cancel">Скасувати</string>

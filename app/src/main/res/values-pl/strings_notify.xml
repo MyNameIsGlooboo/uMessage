@@ -7,4 +7,6 @@
     <string name="notifications_off_title">Powiadomienia wyłączone</string>
     <string name="notifications_off_body">Nie otrzymasz powiadomień o nowych wiadomościach.</string>
     <string name="notifications_off_fix">Włącz</string>
+    <string name="notifications_quiet_title">Powiadomienia są wyciszone</string>
+    <string name="notifications_quiet_body">Kanał „%1$s” nie ma dźwięku, więc nowe wiadomości nie dzwonią. Włącz dźwięk w ustawieniach Androida.</string>
 </resources>

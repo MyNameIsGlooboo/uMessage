@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_delete_not_default">Удаление недоступно, пока uMessage не приложение для SMS по умолчанию.</string>
+    <string name="pt_delete_nothing">Ничего не удалено. Повторите попытку.</string>
+</resources>

@@ -5,10 +5,10 @@
     <string name="settings_deprecated">Устарело</string>
     <string name="settings_spam_stats">Заблокировано за 7 дней: %1$d, всего: %2$d, восстановлено: %3$d</string>
     <string name="settings_spam_open_settings">Настройки спама</string>
-    <string name="settings_spam_open_settings_body">Режим, срок хранения и оповещения</string>
+    <string name="settings_spam_open_settings_body">Фильтр, автоудаление и оповещения</string>
     <string name="settings_block_group">Списки блокировки</string>
     <string name="settings_block_umessage_title">Правила uMessage</string>
-    <string name="settings_block_umessage_body">Заблокированные сообщения попадают в спам. Их можно восстановить.</string>
+    <string name="settings_block_umessage_body">Чаты заблокированных отправителей попадают в «Спам». Их можно вернуть.</string>
     <string name="settings_spam_open_rules">Правила разрешения и блокировки</string>
     <string name="settings_spam_blocked_numbers_body">Номера из системного списка заблокированных</string>
     <string name="settings_spam_blocked_keywords_body">Скрывать сообщения с этими словами</string>

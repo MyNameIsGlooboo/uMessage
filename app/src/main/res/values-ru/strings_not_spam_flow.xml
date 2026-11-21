@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="nsf_snack_moved">Перемещено во входящие</string>
-    <string name="nsf_snack_moved_allowed">Перемещено во входящие. Следующие сообщения от %1$s тоже будут приходить.</string>
+    <string name="nsf_snack_moved">Перемещено в «Сообщения»</string>
+    <string name="nsf_snack_moved_allowed">Перемещено в «Сообщения». %1$s теперь всегда разрешен.</string>
     <plurals name="nsf_snack_moved_allowed_many" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Перемещено во «Входящие». Новые сообщения от %d отправителя тоже будут приходить.</item>
-        <item quantity="few">Перемещено во «Входящие». Новые сообщения от %d отправителей тоже будут приходить.</item>
-        <item quantity="many">Перемещено во «Входящие». Новые сообщения от %d отправителей тоже будут приходить.</item>
-        <item quantity="other">Перемещено во «Входящие». Новые сообщения от %d отправителя тоже будут приходить.</item>
+        <item quantity="one">Перемещено в «Сообщения». Теперь всегда разрешен %d отправитель.</item>
+        <item quantity="few">Перемещено в «Сообщения». Теперь всегда разрешены %d отправителя.</item>
+        <item quantity="many">Перемещено в «Сообщения». Теперь всегда разрешены %d отправителей.</item>
+        <item quantity="other">Перемещено в «Сообщения». Теперь всегда разрешены %d отправителя.</item>
     </plurals>
     <string name="nsf_moving">Перемещение во входящие</string>
     <string name="move_progress">Перемещение сообщений: %1$s из %2$s</string>

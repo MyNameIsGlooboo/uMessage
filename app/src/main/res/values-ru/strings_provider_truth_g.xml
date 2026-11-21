@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_onb_filter_on">Отправлять неизвестных отправителей в «Спам»</string>
+    <string name="pt_onb_filter_on_desc">Контакты, те, кому вы писали, и отправители кодов подтверждения остаются в «Сообщениях».</string>
+    <string name="pt_onb_filter_off">Оставлять всё в «Сообщениях»</string>
+    <string name="pt_onb_filter_off_desc">В «Спам» попадают только отправители, которых вы заблокируете.</string>
+    <string name="pt_onb_filter_hint">Это можно изменить позже в настройках.</string>
+    <string name="pt_onb_demo_desc_off">Все сообщения попадают в «Сообщения». В «Спам» попадают только отправители, которых вы заблокируете.</string>
+    <string name="pt_filter_on_summary">Вкл.: неизвестные отправители попадают в «Спам»</string>
+    <string name="pt_filter_off_summary">Выкл.: всё приходит в «Сообщения», кроме заблокированных вами отправителей</string>
+    <string name="pt_filter_off_confirm_title">Выключить спам-фильтр?</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="one">%d чат переместится из «Спама» в «Сообщения». Чаты заблокированных вами отправителей останутся в «Спаме».</item>
+        <item quantity="few">%d чата переместятся из «Спама» в «Сообщения». Чаты заблокированных вами отправителей останутся в «Спаме».</item>
+        <item quantity="many">%d чатов переместятся из «Спама» в «Сообщения». Чаты заблокированных вами отправителей останутся в «Спаме».</item>
+        <item quantity="other">%d чата переместятся из «Спама» в «Сообщения». Чаты заблокированных вами отправителей останутся в «Спаме».</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">Включить спам-фильтр?</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="one">%d чат от неизвестных отправителей переместится в «Спам». Ничего не удаляется.</item>
+        <item quantity="few">%d чата от неизвестных отправителей переместятся в «Спам». Ничего не удаляется.</item>
+        <item quantity="many">%d чатов от неизвестных отправителей переместятся в «Спам». Ничего не удаляется.</item>
+        <item quantity="other">%d чата от неизвестных отправителей переместятся в «Спам». Ничего не удаляется.</item>
+    </plurals>
+    <string name="pt_confirm_none_move">Сейчас ни один чат не переместится.</string>
+    <string name="pt_turn_off">Выключить</string>
+    <string name="pt_purge_warn_title">Удалять старый спам автоматически?</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="one">Сообщения, попавшие в «Спам» больше %d дня назад, удаляются с самого телефона, для всех приложений. Вернуть их нельзя. Сообщения, которые вы отправили, отметили звездой или к которым добавили заметку, останутся.</item>
+        <item quantity="few">Сообщения, попавшие в «Спам» больше %d дней назад, удаляются с самого телефона, для всех приложений. Вернуть их нельзя. Сообщения, которые вы отправили, отметили звездой или к которым добавили заметку, останутся.</item>
+        <item quantity="many">Сообщения, попавшие в «Спам» больше %d дней назад, удаляются с самого телефона, для всех приложений. Вернуть их нельзя. Сообщения, которые вы отправили, отметили звездой или к которым добавили заметку, останутся.</item>
+        <item quantity="other">Сообщения, попавшие в «Спам» больше %d дня назад, удаляются с самого телефона, для всех приложений. Вернуть их нельзя. Сообщения, которые вы отправили, отметили звездой или к которым добавили заметку, останутся.</item>
+    </plurals>
+    <string name="pt_group_code_title">Отправители кодов подтверждения</string>
+    <string name="pt_group_wrote_title">Те, кому вы писали</string>
+    <plurals name="pt_group_count">
+        <item quantity="one">%d отправитель</item>
+        <item quantity="few">%d отправителя</item>
+        <item quantity="many">%d отправителей</item>
+        <item quantity="other">%d отправителя</item>
+    </plurals>
+    <string name="pt_group_code_body">Отправитель, который прислал вам код подтверждения, с этого момента разрешен. Удалите его здесь или заблокируйте в его чате.</string>
+    <string name="pt_group_wrote_body">Номер, которому вы отправили сообщение, с этого момента разрешен. Удалите его здесь или заблокируйте в его чате.</string>
+    <string name="pt_group_member_remove">Удалить</string>
+    <string name="pt_group_member_removed">%1$s удален из списка</string>
+    <string name="pt_group_member_history">Найден в ваших старых сообщениях</string>
+    <string name="pt_group_empty">Здесь пока никого нет</string>
+    <string name="pt_group_off_title">Выключить «%1$s»?</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="one">%d чат переместится в «Спам». Отправители останутся в списке и вернутся, когда вы снова включите группу.</item>
+        <item quantity="few">%d чата переместятся в «Спам». Отправители останутся в списке и вернутся, когда вы снова включите группу.</item>
+        <item quantity="many">%d чатов переместятся в «Спам». Отправители останутся в списке и вернутся, когда вы снова включите группу.</item>
+        <item quantity="other">%d чата переместятся в «Спам». Отправители останутся в списке и вернутся, когда вы снова включите группу.</item>
+    </plurals>
+    <string name="pt_group_off_code_note">После этого код подтверждения от неизвестного отправителя тоже будет попадать в «Спам».</string>
+    <string name="pt_verdict_group">Попадет в «Сообщения»: отправитель в группе «%1$s».</string>
+    <string name="pt_verdict_allowed_word">Попадет в «Сообщения»: в тексте есть одно из ваших разрешенных слов. После этого отправитель разрешен.</string>
+    <string name="pt_verdict_blocked_word">Попадет в «Спам»: в тексте есть одно из ваших заблокированных слов. После этого отправитель заблокирован.</string>
+    <string name="pt_progress_title">Сортировка чатов</string>
+    <string name="pt_progress_body">Это делается один раз. Пока работа не закончится, ни один чат не переместится, и ничего не удаляется.</string>
+    <string name="pt_progress_step_rules">Обновление ваших правил</string>
+    <string name="pt_progress_step_older">Перенос старого спама на телефон</string>
+    <string name="pt_progress_step_history">Проверка ваших старых сообщений</string>
+    <string name="pt_progress_step_sort">Сортировка чатов</string>
+    <string name="pt_progress_background">Продолжить в фоне</string>
+    <string name="pt_changed_title">Что изменилось</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="one">%d чат перемещен в «Спам»</item>
+        <item quantity="few">%d чата перемещены в «Спам»</item>
+        <item quantity="many">%d чатов перемещено в «Спам»</item>
+        <item quantity="other">%d чата перемещены в «Спам»</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="one">%d отправитель разрешен автоматически</item>
+        <item quantity="few">%d отправителя разрешены автоматически</item>
+        <item quantity="many">%d отправителей разрешено автоматически</item>
+        <item quantity="other">%d отправителя разрешены автоматически</item>
+    </plurals>
+    <string name="pt_changed_switch">Спам-фильтр теперь — один переключатель: вкл. или выкл.</string>
+    <string name="pt_changed_sims">Ваши правила теперь действуют для обеих SIM-карт.</string>
+    <string name="pt_changed_store">Старый спам теперь хранится на самом телефоне, как и все остальные сообщения.</string>
+    <string name="pt_changed_purge">Автоудаление старого спама выключено. Его можно включить в настройках.</string>
+    <string name="pt_changed_open_spam">Посмотреть «Спам»</string>
+    <string name="pt_filter_off_confirm_rest">Чаты заблокированных вами отправителей останутся в «Спаме».</string>
+    <string name="pt_filter_on_confirm_rest">Ничего не удаляется.</string>
+    <string name="pt_group_off_rest">Отправители останутся в списке и вернутся, когда вы снова включите группу.</string>
+    <string name="pt_progress_step_running">Выполняется</string>
+    <string name="pt_progress_older_waiting">Ждет, пока uMessage станет вашим приложением для SMS по умолчанию</string>
+</resources>
