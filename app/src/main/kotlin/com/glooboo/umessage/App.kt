@@ -100,6 +100,9 @@ class App : FossifyApp() {
             // Two block lists only: old blocked words become rules, the old unknown-numbers switch becomes a mode.
             runBlocking { BlockingMigration.runOnce(this@App) }
             startSorting()
+            // Step F: held messages still waiting are moved here, off the broadcasts (F-19), and the history check owed
+            // for moved senders is asked for (F-14). Nothing with the flag off; nothing before the first sort.
+            SpamProviderMigration.runPending(this)
         }
     }
 

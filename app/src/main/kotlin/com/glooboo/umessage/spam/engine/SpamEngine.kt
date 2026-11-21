@@ -373,7 +373,7 @@ object SpamEngine {
             // Provider truth (step F): held messages that wait are moved first, then auto-delete acts on the phone's
             // store. The repository purge below deletes no held row with the flag on (only the file sweep runs).
             if (ProviderTruthFlag.enabled) {
-                SpamProviderMigration.runPending(app)
+                SpamProviderMigration.runPending(app, limit = SpamProviderMigration.RECEIVER_BATCH)
                 SpamAutoDelete.run(app)
             }
             // spam-14: a purge that failed gives the claim back, so the next message retries it, not 6 hours later.

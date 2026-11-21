@@ -15,6 +15,11 @@ import com.glooboo.umessage.backup.BlockedBackupSupport
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.BlockedBackup
 import com.glooboo.umessage.spam.DecisionReason
+import com.glooboo.umessage.spam.FirstRun
+import com.glooboo.umessage.spam.FirstRunPhase
+import com.glooboo.umessage.spam.FirstRunState
+import com.glooboo.umessage.spam.FirstRunStore
+import com.glooboo.umessage.spam.FirstRunTrigger
 import com.glooboo.umessage.spam.data.OlderSpamWorld.Companion.DAY
 import com.glooboo.umessage.spam.data.OlderSpamWorld.Companion.HOUR
 import com.glooboo.umessage.spam.data.OlderSpamWorld.Companion.NOW
@@ -42,16 +47,22 @@ class SpamProviderMigrationTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private lateinit var db: SpamDatabase
     private val before = SpamProviderMigration.moverFor
+    private val beforeRequest = SpamProviderMigration.requestPass
 
     @Before
     fun setUp() {
         db = Room.inMemoryDatabaseBuilder(context, SpamDatabase::class.java).allowMainThreadQueries().build()
         context.getSharedPreferences(PrefsMigrationJournal.PREFS, Context.MODE_PRIVATE).edit().clear().commit()
+        context.getSharedPreferences(FirstRunStore.PREFS, Context.MODE_PRIVATE).edit().clear().commit()
+        FirstRun.reload(context)
     }
 
     @After
     fun tearDown() {
         SpamProviderMigration.moverFor = before
+        SpamProviderMigration.requestPass = beforeRequest
+        context.getSharedPreferences(FirstRunStore.PREFS, Context.MODE_PRIVATE).edit().clear().commit()
+        FirstRun.reload(context)
         db.close()
     }
 
@@ -123,12 +134,103 @@ class SpamProviderMigrationTest {
     fun aStoppedMigrationLetsTheFirstRunGoOn() {
         val world = OlderSpamWorld()
         repeat(8) { world.sms(body = "Spam $it", at = NOW - it * HOUR) }
-        world.rejectedSims = setOf(1, -1)
+        world.failingChecks = 100
         SpamProviderMigration.moverFor = { world.mover() }
 
         assertThat(SpamProviderMigration.firstRunStep.run(context)).isTrue()
         assertThat(world.reports).containsExactly(OlderSpamMover.STOPPED)
         assertThat(world.blocked).hasSize(8)
+    }
+
+    @Test
+    fun aFailedWriteLetsTheFirstRunGoOnWithoutStoppingTheMigration() {
+        val world = OlderSpamWorld()
+        val row = world.sms(sub = -1)
+        world.failingWrites = 1
+        SpamProviderMigration.moverFor = { world.mover() }
+
+        assertThat(SpamProviderMigration.firstRunStep.run(context)).isTrue()
+        assertThat(world.reports).isEmpty()
+        assertThat(world.row(row.id).migrateTries).isEqualTo(0)
+    }
+
+    // runPending: when it runs and which pass it asks for (F-14)
+
+    private fun firstRun(state: FirstRunState) {
+        FirstRunStore(context.getSharedPreferences(FirstRunStore.PREFS, Context.MODE_PRIVATE)).write(state)
+        FirstRun.reload(context)
+    }
+
+    private fun capturePasses(): MutableList<FirstRunTrigger> {
+        val asked = mutableListOf<FirstRunTrigger>()
+        SpamProviderMigration.requestPass = { _, trigger -> asked += trigger }
+        return asked
+    }
+
+    @Test
+    fun aRunAfterTheFirstSortAsksForTheHistoryCheckOnceForTheMovedSenders() {
+        firstRun(FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true))
+        val world = OlderSpamWorld().apply { sms() }
+        SpamProviderMigration.moverFor = { world.mover() }
+        val asked = capturePasses()
+
+        SpamProviderMigration.runPending(context)
+        SpamProviderMigration.runPending(context)
+
+        assertThat(asked).containsExactly(FirstRunTrigger.MIGRATION_FINISHED)
+        assertThat(world.journalPassOwed()).isFalse()
+    }
+
+    @Test
+    fun aHistoryCheckOwedFromAKilledRunIsAskedForOnTheNextStart() {
+        firstRun(FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true))
+        val world = OlderSpamWorld().apply { sms() }
+        world.mover().run()
+        SpamProviderMigration.moverFor = { world.mover() }
+        val asked = capturePasses()
+
+        SpamProviderMigration.runPending(context)
+
+        assertThat(asked).containsExactly(FirstRunTrigger.MIGRATION_FINISHED)
+    }
+
+    @Test
+    fun aStaleWaitsStateAsksForAPassWithTheOlderSpamStep() {
+        firstRun(FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true, olderSpamWaiting = true))
+        val world = OlderSpamWorld().apply { sms() }
+        SpamProviderMigration.moverFor = { world.mover() }
+        val asked = capturePasses()
+
+        SpamProviderMigration.runPending(context)
+
+        assertThat(asked).containsExactly(FirstRunTrigger.DEFAULT_AGAIN)
+    }
+
+    @Test
+    fun theFirstRunsOwnStepOwesNoPassAndKeepsUnreadCountsForAfterTheSort() {
+        val world = OlderSpamWorld().apply { sms(unread = true) }
+        SpamProviderMigration.moverFor = { world.mover() }
+
+        SpamProviderMigration.firstRunStep.run(context)
+
+        assertThat(world.journalPassOwed()).isFalse()
+        assertThat(world.unreadNoted).isEmpty()
+        assertThat(world.journalPendingUnread()).hasSize(1)
+    }
+
+    @Test
+    fun noPassIsAskedForBeforeTheFirstSortOrWithoutAnnounce() {
+        val world = OlderSpamWorld().apply { sms() }
+        SpamProviderMigration.moverFor = { world.mover() }
+        val asked = capturePasses()
+
+        SpamProviderMigration.runPending(context)
+        assertThat(world.store).isEmpty()
+        firstRun(FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true))
+        SpamProviderMigration.runPending(context, announce = false)
+
+        assertThat(asked).isEmpty()
+        assertThat(world.store).hasSize(1)
     }
 
     // The marks in spamless.db
@@ -168,6 +270,11 @@ class SpamProviderMigrationTest {
             lastDoneAt = NOW - DAY
             haltedVersion = 12
             pendingRepairs = setOf(3L, 9L)
+            passOwed = true
+            pendingUnread = setOf("s:5", "m:6")
+            setKind(4, MigrationJournal.KIND_MMS)
+            setKind(5, MigrationJournal.KIND_TEXT)
+            setKind(4, MigrationJournal.KIND_TEXT)
         }
 
         val again = PrefsMigrationJournal(prefs)
@@ -176,6 +283,12 @@ class SpamProviderMigrationTest {
         assertThat(again.lastDoneAt).isEqualTo(NOW - DAY)
         assertThat(again.haltedVersion).isEqualTo(12)
         assertThat(again.pendingRepairs).containsExactly(3L, 9L)
+        assertThat(again.passOwed).isTrue()
+        assertThat(again.pendingUnread).containsExactly("s:5", "m:6")
+        assertThat(again.kindOf(4)).isEqualTo(MigrationJournal.KIND_TEXT)
+        again.forgetKinds(listOf(4L))
+        assertThat(again.kindOf(4)).isNull()
+        assertThat(again.kindOf(5)).isEqualTo(MigrationJournal.KIND_TEXT)
         again.attempt = null
         assertThat(PrefsMigrationJournal(prefs).attempt).isNull()
         assertThat(PrefsMigrationJournal(context.getSharedPreferences("other", Context.MODE_PRIVATE)).haltedVersion)
@@ -210,7 +323,7 @@ class SpamProviderMigrationTest {
 
         assertThat(store.findSms(SENDER, "Win a prize", NOW + 1)).isNull()
         assertThat(store.findSms(SENDER, "Win a prize!", NOW)).isNull()
-        assertThat(store.findSms("+15550009999", "Win a prize", NOW)).isNull()
+        assertThat(store.findSms("+15550001239", "Win a prize", NOW)).isNull()
         assertThat(store.checkSms(id, SENDER, NOW + 1000, "Win a prize".length)).isFalse()
         assertThat(store.checkSms(id, SENDER, NOW, 3)).isFalse()
         assertThat(store.checkSms(id + 1, SENDER, NOW, "Win a prize".length)).isFalse()
@@ -294,14 +407,14 @@ class SpamProviderMigrationTest {
             (0 until it.columnCount).associate { i -> it.getColumnName(i) to it.getString(i) }
         }
 
-        fun insertRaw(address: String, body: String, date: Long, type: Int) {
+        fun insertRaw(address: String, body: String, date: Long, type: Int, threadId: Long = 0): Long =
             db.insert("sms", null, ContentValues().apply {
                 put("address", address)
                 put("body", body)
                 put("date", date)
                 put("type", type)
+                put("thread_id", threadId)
             })
-        }
 
         override fun query(
             uri: Uri, projection: Array<out String>?, selection: String?, selectionArgs: Array<out String>?,

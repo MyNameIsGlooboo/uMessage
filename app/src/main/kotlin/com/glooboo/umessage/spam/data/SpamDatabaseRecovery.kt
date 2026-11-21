@@ -8,6 +8,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.glooboo.umessage.databases.DatabaseBackups
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.DecisionReason
+import com.glooboo.umessage.spam.FirstRun
+import com.glooboo.umessage.spam.FirstRunTrigger
 import com.glooboo.umessage.spam.ForwardSim
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.MemberSource
@@ -82,15 +84,45 @@ internal class SpamDatabaseRecovery(
     private fun restoreForwardRulesFromImported(db: SupportSQLiteDatabase) {
         val imported = DatabaseBackups.importedBackups(context, name, FORWARD_SINCE..SpamDatabase.VERSION)
         val newest = imported.firstOrNull() ?: return
+        var providerTruth = false
         runCatching {
             DatabaseBackups.withMigratedCopy(context, name, newest, db, migrate = ::migrateScratch) {
                 DatabaseBackups.inTransaction(db) {
                     val (table, where) = forwards(db)
                     DatabaseBackups.mergeRows(db, table, where = where)
+                    // R-4 (step F, F-17): after a trip to 0.4.14 and back, the group members and the message
+                    // migration's marks come back from the schema-9 file that build kept aside.
+                    if (hasMembers(db)) {
+                        DatabaseBackups.copyRows(db, MEMBERS.first, MEMBERS.second)
+                        providerTruth = true
+                    }
+                    reattachMarks(db)
                 }
             }
         }.onFailure { Log.e(TAG, "Restoring forward rules of $name from ${newest.name} failed", it) }
         imported.forEach { DatabaseBackups.retire(it) }
+        // The history check runs again for every chat (a RESTORE pass; nothing with the flag off).
+        if (providerTruth) runCatching { FirstRun.request(context, FirstRunTrigger.RESTORE) }
+    }
+
+    /**
+     * R-4 (F-17): a held row 0.4.14 copied back without its migration mark gets the mark of the same message (sender,
+     * text, kind, time) in the kept schema-9 file, so a message the user deleted from the store meanwhile is not
+     * moved a second time.
+     */
+    private fun reattachMarks(db: SupportSQLiteDatabase) {
+        val marked = { schema: String ->
+            DatabaseBackups.columns(db, schema, "blocked_messages").any { it.name == "migratedMsgId" }
+        }
+        if (!marked("src") || !marked("main")) return
+        val t = "main.`blocked_messages`"
+        val same = listOf("address", "body", "isMms", "receivedAt").joinToString(" AND ") { "s.`$it` IS $t.`$it`" }
+        val source = "FROM src.`blocked_messages` s WHERE $same AND s.`migratedMsgId` IS NOT NULL"
+        db.execSQL(
+            "UPDATE $t SET `migratedMsgId` = (SELECT s.`migratedMsgId` $source LIMIT 1), " +
+                "`migrateTries` = (SELECT s.`migrateTries` $source LIMIT 1) " +
+                "WHERE `migratedMsgId` IS NULL AND EXISTS (SELECT 1 $source)"
+        )
     }
 
     private fun migrateScratch(scratchName: String) {

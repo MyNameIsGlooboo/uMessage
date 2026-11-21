@@ -12,7 +12,10 @@ class Killed : Throwable("killed")
  * A made-up phone for the message migration (section 8): the held rows of spamless.db, the phone's store, the caches
  * and the journal, all in memory. [killAfter] "kills the process" right after an operation took effect: that
  * operation and every one after it throws [Killed] and changes nothing, as when the system ends the app. A second
- * mover on the same world is the next start. Every number is made up (the 555 range).
+ * mover on the same world is the next start. Every number is made up (from +15550001234).
+ *
+ * mmslib's write is not atomic here either (F-4, F-8): it writes the row (dated with the PDU's own date), then its
+ * addresses, then the time of the write; [halfWriteKill] kills between the row and its addresses.
  */
 class OlderSpamWorld {
 
@@ -29,6 +32,9 @@ class OlderSpamWorld {
         val messageId: String? = null,
         val textLength: Int = body.length,
         val inbox: Boolean = true,
+        var hasAddress: Boolean = true,
+        /** 132 a downloaded MMS, 130 a "Tap to download" notice. */
+        val messageType: Int = RETRIEVE_CONF,
     )
 
     val blocked = LinkedHashMap<Long, BlockedMessage>()
@@ -48,9 +54,27 @@ class OlderSpamWorld {
     /** The next this many verifies fail. */
     var failingChecks = 0
 
-    /** mmslib's persist fails; with [leavesPartial] it leaves the row it began. */
+    /** The next this many writes (SMS or MMS) write nothing (a full store, a provider that refused). */
+    var failingWrites = 0
+
+    /** The next this many settles fail. */
+    var failingSettles = 0
+
+    /** The next this many repairs throw. */
+    var failingRepairs = 0
+
+    /** The role goes away after this many more writes; null never. */
+    var roleLostAfterWrites: Int? = null
+
+    /** mmslib's persist fails; with [leavesPartial] it leaves a whole row it did not report. */
     var persistFails = false
     var leavesPartial = false
+
+    /** The next MMS write stops (a kill) after the row, before its addresses. */
+    var halfWriteKill = false
+
+    /** The next this many journal attempt reads throw (a store that cannot be read during the resume). */
+    var failingResumes = 0
 
     var killAfter: ((op: String) -> Boolean)? = null
     var killed = false
@@ -63,6 +87,9 @@ class OlderSpamWorld {
     private var lastDoneAt = 0L
     private var halted = -1
     private var pendingRepairs = emptySet<Long>()
+    private var passOwed = false
+    private var pendingUnread = emptySet<String>()
+    private val kinds = HashMap<Long, Char>()
 
     private fun <T> op(name: String, block: () -> T): T {
         if (killed) throw Killed()
@@ -135,8 +162,15 @@ class OlderSpamWorld {
     fun storeSms(address: String, body: String, at: Long, sub: Int = 1, read: Int = 1): StoreRow =
         StoreRow(nextStoreId++, false, address, body, at, read, read, sub).also { store += it }
 
-    fun storeMms(address: String, body: String, atSeconds: Long, messageId: String?): StoreRow =
-        StoreRow(nextStoreId++, true, address, body, atSeconds, 1, 1, 1, messageId).also { store += it }
+    fun storeMms(
+        address: String,
+        body: String,
+        atSeconds: Long,
+        messageId: String?,
+        messageType: Int = RETRIEVE_CONF,
+    ): StoreRow = StoreRow(
+        nextStoreId++, true, address, body, atSeconds, 1, 1, 1, messageId, messageType = messageType,
+    ).also { store += it }
 
     fun row(id: Long): BlockedMessage = blocked.getValue(id)
 
@@ -177,6 +211,8 @@ class OlderSpamWorld {
         override fun identity(row: BlockedMessage): MmsIdentity? = identities[row.id]
     }
 
+    private fun received(row: StoreRow) = row.mms && row.inbox && row.messageType == RETRIEVE_CONF
+
     val probe = object : MigrationProbe {
         override fun findSms(address: String, body: String, date: Long): Long? = op("findSms") {
             store.firstOrNull { !it.mms && it.inbox && it.address == address && it.body == body && it.date == date }
@@ -185,9 +221,11 @@ class OlderSpamWorld {
 
         override fun findMms(identity: MmsIdentity, address: String, dateSeconds: Long): Long? = op("findMms") {
             if (identity.messageId != null) {
-                store.firstOrNull { it.mms && it.inbox && it.messageId == identity.messageId }?.id
+                store.firstOrNull { received(it) && it.messageId == identity.messageId }?.id
             } else {
-                store.firstOrNull { it.mms && it.inbox && it.date == dateSeconds && it.address == address }?.id
+                store.firstOrNull {
+                    received(it) && it.date == dateSeconds && it.hasAddress && it.address == address
+                }?.id
             }
         }
 
@@ -197,11 +235,18 @@ class OlderSpamWorld {
             op("findMmsAfter") {
                 val started = attempt.startedAt / 1000
                 store.firstOrNull {
-                    it.mms && it.inbox && it.id > attempt.newestBefore && it.address == address &&
+                    received(it) && it.id > attempt.newestBefore && it.hasAddress && it.address == address &&
                         (identity.messageId?.let { id -> it.messageId == id }
                             ?: (it.date == identity.pduDate || it.date in (started - 60)..(started + 600)))
                 }?.id
             }
+
+        override fun findHalfWrittenMms(attempt: MmsAttempt, identity: MmsIdentity): Long? = op("findHalf") {
+            store.firstOrNull {
+                received(it) && it.id > attempt.newestBefore && !it.hasAddress &&
+                    (identity.messageId?.let { id -> it.messageId == id } ?: (it.date == identity.pduDate))
+            }?.id
+        }
 
         override fun checkSms(id: Long, address: String, date: Long, bodyLength: Int): Boolean = op("checkSms") {
             val row = store.firstOrNull { it.id == id && !it.mms }
@@ -213,34 +258,64 @@ class OlderSpamWorld {
         override fun checkMms(id: Long, address: String, dateSeconds: Long, identity: MmsIdentity): Boolean =
             op("checkMms") {
                 val row = store.firstOrNull { it.id == id && it.mms }
-                val ok = row != null && row.address == address && row.date == dateSeconds && row.inbox &&
-                    (identity.messageId == null || row.messageId == identity.messageId) &&
+                val ok = row != null && row.hasAddress && row.address == address && row.date == dateSeconds &&
+                    row.inbox && (identity.messageId == null || row.messageId == identity.messageId) &&
                     row.textLength == identity.textLength
                 ok && failingChecks-- <= 0
             }
+    }
+
+    private fun wrote() {
+        roleLostAfterWrites?.let { left ->
+            roleLostAfterWrites = left - 1
+            if (left - 1 <= 0) isDefault = false
+        }
     }
 
     val writer = object : MigrationWriter {
         override fun canWrite(): Boolean = op("canWrite") { isDefault }
 
         override fun writeSms(address: String, body: String, date: Long, subscriptionId: Int): Long = op("writeSms") {
-            if (subscriptionId in rejectedSims) return@op 0L
-            storeSms(address, body, date, subscriptionId).id
+            if (!isDefault || subscriptionId in rejectedSims) return@op 0L
+            if (failingWrites > 0) {
+                failingWrites--
+                return@op 0L
+            }
+            storeSms(address, body, date, subscriptionId).id.also { wrote() }
         }
 
-        override fun writeMms(row: BlockedMessage): Long = op("writeMms") {
+        override fun writeMms(row: BlockedMessage, subscriptionId: Int): Long = op("writeMms") {
             val identity = identities.getValue(row.id)
-            if (persistFails && !leavesPartial) return@op 0L
-            // mmslib stamps the time of the write, unread and unseen.
+            val refused = !isDefault || subscriptionId in rejectedSims
+            if (refused || (persistFails && !leavesPartial)) return@op 0L
+            if (failingWrites > 0) {
+                failingWrites--
+                return@op 0L
+            }
+            // mmslib: the row first, with the PDU's date, then the addresses, then the time of the write, unread.
             val written = StoreRow(
-                nextStoreId++, true, row.address, row.body, clock / 1000, 0, 0, row.subscriptionId,
-                identity.messageId, identity.textLength,
+                nextStoreId++, true, row.address, row.body, identity.pduDate ?: 0L, 0, 0, subscriptionId,
+                identity.messageId, identity.textLength, hasAddress = false,
             )
             store += written
+            if (halfWriteKill) {
+                halfWriteKill = false
+                killed = true
+                throw Killed()
+            }
+            written.hasAddress = true
+            written.date = clock / 1000
+            wrote()
             if (persistFails) 0L else written.id
         }
 
+        override fun deleteMms(id: Long): Boolean = op("deleteMms") { store.removeIf { it.id == id && it.mms } }
+
         override fun settleMms(id: Long, date: Long): Boolean = op("settleMms") {
+            if (failingSettles > 0) {
+                failingSettles--
+                return@op false
+            }
             store.first { it.id == id }.apply {
                 this.date = date / 1000
                 read = 1
@@ -255,11 +330,15 @@ class OlderSpamWorld {
         }
 
         override fun repair(threadIds: Set<Long>) = op("repair") {
+            if (failingRepairs > 0) {
+                failingRepairs--
+                error("repair failed")
+            }
             repaired += threadIds
             Unit
         }
 
-        override fun noteUnread(storeId: Long, isMms: Boolean, address: String) = op("noteUnread") {
+        override fun noteUnread(storeId: Long, isMms: Boolean) = op("noteUnread") {
             unreadNoted += storeId
             Unit
         }
@@ -267,7 +346,13 @@ class OlderSpamWorld {
 
     val journal = object : MigrationJournal {
         override var attempt: MmsAttempt?
-            get() = op("attempt?") { this@OlderSpamWorld.attempt }
+            get() = op("attempt?") {
+                if (failingResumes > 0 && this@OlderSpamWorld.attempt != null) {
+                    failingResumes--
+                    error("store unreadable")
+                }
+                this@OlderSpamWorld.attempt
+            }
             set(value) = op("attempt=") { this@OlderSpamWorld.attempt = value }
         override var lastDoneAt: Long
             get() = op("lastDoneAt?") { this@OlderSpamWorld.lastDoneAt }
@@ -278,6 +363,24 @@ class OlderSpamWorld {
         override var pendingRepairs: Set<Long>
             get() = op("repairs?") { this@OlderSpamWorld.pendingRepairs }
             set(value) = op("repairs=") { this@OlderSpamWorld.pendingRepairs = value }
+        override var passOwed: Boolean
+            get() = op("owed?") { this@OlderSpamWorld.passOwed }
+            set(value) = op("owed=") { this@OlderSpamWorld.passOwed = value }
+        override var pendingUnread: Set<String>
+            get() = op("unread?") { this@OlderSpamWorld.pendingUnread }
+            set(value) = op("unread=") { this@OlderSpamWorld.pendingUnread = value }
+
+        override fun kindOf(rowId: Long): Char? = kinds[rowId]
+
+        override fun setKind(rowId: Long, kind: Char) = op("kind=") {
+            kinds[rowId] = kind
+            Unit
+        }
+
+        override fun forgetKinds(rowIds: Collection<Long>) = op("kinds-") {
+            rowIds.forEach { kinds.remove(it) }
+            Unit
+        }
     }
 
     fun journalAttempt() = attempt
@@ -286,11 +389,21 @@ class OlderSpamWorld {
 
     fun journalPendingRepairs() = pendingRepairs
 
+    fun journalPassOwed() = passOwed
+
+    fun journalPendingUnread() = pendingUnread
+
+    fun journalKind(rowId: Long) = kinds[rowId]
+
     companion object {
         const val SENDER = "+15550001234"
+        const val OTHER = "+15550001235"
+        const val THIRD = "+15550001236"
         const val NOW = 1_800_000_000_000L
         const val HOUR = 60L * 60 * 1000
         const val DAY = 24 * HOUR
+        const val RETRIEVE_CONF = 132
+        const val NOTIFICATION_IND = 130
 
         fun threadOf(address: String): Long = 10L + address.hashCode().toLong().and(0xFFFF)
     }
