@@ -216,8 +216,8 @@ class SpamChatsViewModel internal constructor(
             val repo = runCatching { repository() }.getOrNull() ?: return@launch
             // F-2: every held row not verified-done is shown (waiting, given up, stopped, late MMS, restored).
             combine(repo.settings, repo.blocked) { settings, blocked ->
-                settings.filterOn to OlderSpam.count(blocked, SpamProviderMigration.picturesOnlyHere(app, blocked))
-            }.flowOn(Dispatchers.Default).catch { }.collect { (filterOn, older) ->
+                settings.filterOn to OlderSpam.count(blocked, SpamProviderMigration.keptHere(app, blocked))
+            }.flowOn(Dispatchers.IO).catch { }.collect { (filterOn, older) ->
                 _state.update { it.copy(filterOn = filterOn, olderSpam = older) }
             }
         }

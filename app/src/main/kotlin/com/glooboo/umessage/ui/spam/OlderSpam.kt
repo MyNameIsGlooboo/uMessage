@@ -79,7 +79,7 @@ fun OlderSpamRoute(onBack: () -> Unit, modifier: Modifier = Modifier) {
         runCatching { SpamRepositoryProvider.get(context).blocked }.getOrNull()
             ?.map { all ->
                 val here = SpamProviderMigration.picturesOnlyHere(context, all)
-                val listed = OlderSpam.of(all, here)
+                val listed = OlderSpam.of(all, here + SpamProviderMigration.lateFilesNotMoved(context, all))
                 val stuck = OlderSpam.someStuck(
                     listed, SpamProviderMigration.stoppedForThisVersion(context),
                     SpamProviderMigration.stuck(context, listed),

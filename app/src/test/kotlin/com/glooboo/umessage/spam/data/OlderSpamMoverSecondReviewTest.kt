@@ -147,7 +147,7 @@ class OlderSpamMoverSecondReviewTest {
     }
 
     @Test
-    fun aMatchBySenderAndSecondThatAnotherRowTookIsNotTakenForThisRow() {
+    fun aMatchBySenderAndSecondThatAnotherRowTookIsNotTakenAndTheRowIsStuckAfterThreeDays() {
         val world = OlderSpamWorld()
         // Two MMS of one sender in one second, without carrier ids.
         val first = world.keptMms(body = "One", messageId = null, at = NOW - HOUR)
@@ -157,9 +157,41 @@ class OlderSpamMoverSecondReviewTest {
         assertThat(world.row(first.id).migratedMsgId).isEqualTo(world.store.single().id)
         assertThat(world.row(second.id).migratedMsgId).isNull()
         assertThat(world.journalKind(second)).isNull()
+        assertThat(world.journalStalls(second)).isEqualTo(1)
+        repeat(2) {
+            world.clock += DAY
+            world.mover().run()
+        }
+        assertThat(world.journalStalls(second)).isEqualTo(OlderSpamMover.MAX_STALLS)
+        assertThat(world.reports).containsExactly(OlderSpamMover.ROW_STUCK)
         world.clock += 60 * DAY
         world.mover().cleanUp()
         assertThat(world.blocked).containsKey(second.id)
+        assertThat(world.store).hasSize(1)
+    }
+
+    @Test
+    fun anOpenAttemptWhoseRowCannotBeReadIsKeptAndHoldsEveryMmsUntilItIsResolved() {
+        val world = OlderSpamWorld()
+        val row = world.keptMms(messageId = null, at = NOW - 2 * HOUR)
+        val other = world.keptMms(address = OlderSpamWorld.OTHER, body = "Other", messageId = null, at = NOW - HOUR)
+        world.killAfter = { it == "writeMms" }
+        runCatching { world.mover().run() }
+        world.restart()
+        world.unreadableFiles += row.id
+
+        world.mover().run()
+
+        assertThat(world.journalAttempt()?.rowId).isEqualTo(row.id)
+        assertThat(world.row(row.id).migratedMsgId).isNull()
+        assertThat(world.row(other.id).migratedMsgId).isNull()
+        assertThat(world.store).hasSize(1)
+
+        world.unreadableFiles.clear()
+        world.mover().run()
+
+        world.assertAllMovedOnce()
+        assertThat(world.store).hasSize(2)
     }
 
     @Test

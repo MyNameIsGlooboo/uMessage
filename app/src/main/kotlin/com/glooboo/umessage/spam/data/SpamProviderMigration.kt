@@ -341,8 +341,12 @@ internal class OlderSpamMover(
     private val report: (String) -> Unit = {},
     private val clock: () -> Long = System::currentTimeMillis,
 ) {
-    /** [FILE_STALL]: the row's own kept file cannot be read (the app's disk, not the store, T3-1). */
-    private enum class Outcome { MOVED, SKIPPED, FAILED_VERIFY, ROW_STALL, FILE_STALL, STOP }
+    /**
+     * [OWN_STALL]: a stall that is the row's own and says nothing about the store (T3-1): its kept file cannot be read,
+     * or its only match is a store row another held row took by sender and second (F4-2). It never counts toward "two
+     * in a row".
+     */
+    private enum class Outcome { MOVED, SKIPPED, FAILED_VERIFY, ROW_STALL, OWN_STALL, STOP }
 
     private var moved = 0
     private var failed = 0
@@ -494,8 +498,8 @@ internal class OlderSpamMover(
             val outcome = moveSafely(row)
             if (outcome == Outcome.FAILED_VERIFY) failed++
             val pair = outcome == Outcome.ROW_STALL && lastStalled
-            if (outcome == Outcome.ROW_STALL || outcome == Outcome.FILE_STALL) stalls += row
-            if (outcome != Outcome.SKIPPED && outcome != Outcome.FILE_STALL) lastStalled = outcome == Outcome.ROW_STALL
+            if (outcome == Outcome.ROW_STALL || outcome == Outcome.OWN_STALL) stalls += row
+            if (outcome != Outcome.SKIPPED && outcome != Outcome.OWN_STALL) lastStalled = outcome == Outcome.ROW_STALL
             if (outcome == Outcome.STOP || pair || failed > MAX_FAILED_ROWS) {
                 return endRun(stalls, counted = outcome != Outcome.STOP, stopped = outcome == Outcome.STOP || pair)
             }
@@ -534,7 +538,7 @@ internal class OlderSpamMover(
         val fresh = rows.get(row.id)?.takeIf(::needsWork) ?: return@runCatching Outcome.SKIPPED
         val kind = kindOf(fresh)
         when {
-            kind == MoveKind.Unreadable -> Outcome.FILE_STALL
+            kind == MoveKind.Unreadable -> Outcome.OWN_STALL
             mmsHeld && kind is MoveKind.Mms -> Outcome.SKIPPED
             else -> move(fresh, kind)
         }
@@ -561,7 +565,7 @@ internal class OlderSpamMover(
         return when (kind) {
             MoveKind.Nothing -> done(row, MigrationMark.NOTHING_TO_MOVE)
             MoveKind.Wait -> Outcome.SKIPPED
-            MoveKind.Unreadable -> Outcome.FILE_STALL
+            MoveKind.Unreadable -> Outcome.OWN_STALL
             is MoveKind.Text -> moveText(row, kind)
             is MoveKind.Mms -> moveMms(row, kind)
         }
@@ -602,7 +606,8 @@ internal class OlderSpamMover(
     /**
      * F-23: a store row another held row of the same kind took (the same message held twice). T3-4: such a row is
      * done at once only when the match is certain (an SMS: sender, text, exact time; an MMS: its carrier id); a match
-     * by sender and second only may be another MMS, so the row is left unmoved and listed (no kind, never cleaned).
+     * by sender and second only may be another MMS, so the row is left unmoved and listed (no kind, never cleaned),
+     * and it counts as a stall of the row: stuck after three days (F4-2).
      */
     private fun takenBy(kind: MoveKind, storeId: Long, row: BlockedMessage): Outcome? {
         val isMms = kind is MoveKind.Mms
@@ -610,10 +615,10 @@ internal class OlderSpamMover(
         if (key !in takenDone && key !in takenWritten) return null
         val certain = kind !is MoveKind.Mms ||
             (kind.identity.messageId != null && probe.messageIdOf(storeId) == kind.identity.messageId)
-        return if (key in takenDone && certain) {
-            done(row, storeId, if (isMms) KIND_MMS_FOUND else KIND_TEXT)
-        } else {
-            Outcome.SKIPPED
+        return when {
+            !certain -> Outcome.OWN_STALL
+            key in takenDone -> done(row, storeId, if (isMms) KIND_MMS_FOUND else KIND_TEXT)
+            else -> Outcome.SKIPPED
         }
     }
 
@@ -686,8 +691,12 @@ internal class OlderSpamMover(
         val attempt = journal.attempt ?: return
         // T3-5: an id handed out again (a trip to 0.4.14) is another row: only the row of the attempt is resolved.
         val row = rows.get(attempt.rowId)?.takeIf { it.receivedAt == attempt.receivedAt }
-        val kind = row?.let(::kindOf) as? MoveKind.Mms
-        if (row != null && kind != null && row.migratedMsgId == null) {
+        val found = row?.takeIf { it.migratedMsgId == null }?.let(::kindOf)
+        // The row's kept file cannot be read now: the attempt cannot be resolved, so it stays (and holds every MMS of
+        // the run) until it can; clearing it would let the row be written a second time (reviewer).
+        if (found == MoveKind.Unreadable) return
+        val kind = found as? MoveKind.Mms
+        if (row != null && kind != null) {
             val whole = probe.findMmsAfter(attempt, kind.address, kind.identity)
             if (whole != null) {
                 journal.setKind(RowKey.of(row), KIND_MMS)
@@ -955,23 +964,42 @@ object SpamProviderMigration {
         val journal = journal(context)
         rows.filter {
             it.migrateTries >= OlderSpamMover.MAX_TRIES || journal.stallsOf(RowKey.of(it)) >= OlderSpamMover.MAX_STALLS
-        }.mapTo(HashSet()) { it.id }
+        }.mapTo(HashSet()) { it.id } + lateFilesNotMoved(context, rows)
     }.getOrDefault(emptySet())
 
     /**
-     * S2-2: done rows whose kept pictures are only here (the row went as text, or had nothing to move when its late
-     * download came): Older spam lists them, the clean-up keeps them. Never throws.
+     * S2-2, F4-1: rows moved as text (mark > 0, kind text) whose kept pictures came later and stay only here: Older
+     * spam lists them with a neutral line, the clean-up keeps them. The cheap checks come first; the journal is read
+     * once. Call off the main thread. Never throws.
      */
     fun picturesOnlyHere(context: Context, rows: List<BlockedMessage>): Set<Long> = runCatching {
         val app = context.applicationContext
-        val journal = journal(app)
-        rows.filter { row ->
-            val kind = journal.kindOf(RowKey.of(row))
-            MigrationMark.isDone(row.migratedMsgId) && row.isMms && !row.mediaFile.isNullOrBlank() &&
-                kind != MigrationJournal.KIND_MMS && kind != MigrationJournal.KIND_MMS_FOUND &&
-                row.mediaFile.let { BlockedMmsStore.pduFile(app, it) }?.isFile == true
+        val candidates = rows.filter { (it.migratedMsgId ?: 0L) > 0L && it.isMms && !it.mediaFile.isNullOrBlank() }
+        if (candidates.isEmpty()) return@runCatching emptySet()
+        val kinds = journal(app).kindsSnapshot()
+        candidates.filter { kinds(RowKey.of(it)) == MigrationJournal.KIND_TEXT && keptFileThere(app, it) }
+            .mapTo(HashSet()) { it.id }
+    }.getOrDefault(emptySet())
+
+    /**
+     * F4-1: rows marked "nothing to move" whose kept file came later but is not moved: a run reopens every one it can
+     * read (T3-3), so these cannot be read. Older spam lists them as stuck (red line); the clean-up keeps them. Call
+     * off the main thread. Never throws.
+     */
+    fun lateFilesNotMoved(context: Context, rows: List<BlockedMessage>): Set<Long> = runCatching {
+        val app = context.applicationContext
+        rows.filter {
+            it.migratedMsgId == MigrationMark.NOTHING_TO_MOVE && it.isMms && !it.mediaFile.isNullOrBlank() &&
+                keptFileThere(app, it)
         }.mapTo(HashSet()) { it.id }
     }.getOrDefault(emptySet())
+
+    /** Done rows Older spam still lists: [picturesOnlyHere] and [lateFilesNotMoved]. Call off the main thread. */
+    fun keptHere(context: Context, rows: List<BlockedMessage>): Set<Long> =
+        picturesOnlyHere(context, rows) + lateFilesNotMoved(context, rows)
+
+    private fun keptFileThere(app: Context, row: BlockedMessage): Boolean =
+        row.mediaFile?.let { BlockedMmsStore.pduFile(app, it) }?.isFile == true
 
     private fun journal(context: Context) = PrefsMigrationJournal(
         context.applicationContext.getSharedPreferences(PrefsMigrationJournal.PREFS, Context.MODE_PRIVATE),
@@ -1396,6 +1424,13 @@ internal class PrefsMigrationJournal(private val prefs: SharedPreferences) : Mig
         set(value) = write { putStringSet(KEY_UNREAD, HashSet(value)) }
 
     override fun kindOf(key: RowKey): Char? = valueOf(KEY_KINDS, key)?.singleOrNull()
+
+    /** Every kind, read once (the Spam tab's count reads many rows, reviewer). */
+    fun kindsSnapshot(): (RowKey) -> Char? {
+        val byKey = entries(KEY_KINDS)
+            .associate { it.substringBefore(':') to it.substringAfter(':', "").singleOrNull() }
+        return { key -> byKey[keyOf(key)] }
+    }
 
     override fun setKind(key: RowKey, kind: Char) = setValue(KEY_KINDS, key, kind.toString())
 
