@@ -14,8 +14,8 @@ import org.junit.Test
  *
  * | Shape                                  | Shown as a code                               | Allows the sender    |
  * |----------------------------------------|-----------------------------------------------|----------------------|
- * | 1. more than four words in between     | widened: 8 words of one sentence, code phrase | kept                 |
- * | 2. a word with digits or 16+ letters   | widened, same phrases                         | kept                 |
+ * | 1. more than four words in between     | widened: 8 words of one sentence, code phrase | widened, code phrase |
+ * | 2. a word with digits or 16+ letters   | widened, same phrases                         | widened, code phrase |
  * | 3. more than four marks in between     | widened: up to eight                          | widened: up to eight |
  * | 4. no mark at all ("رمز۴۸۲۹۱۳")         | kept                                          | kept                 |
  * | 5. an ad word or "%" anywhere          | widened: code phrase, ad only after its sentence | kept: never       |
@@ -25,7 +25,9 @@ import org.junit.Test
  *
  * The wide reach of shapes 1 and 2 starts only from a phrase of [OtpKeywords.codePhrases] or a password word
  * ([OtpKeywords.password]), never from "verify", "log in" or "تایید", and never takes a year, a date or a number right
- * after a reference word ("شماره", "شناسه", "tracking number"). Codes it finds are shown, not allowed (owner, B).
+ * after a reference word ("شماره", "account", "tracking number"). Codes it finds from a phrase of
+ * [OtpKeywords.codePhrases] allow their sender too, in a text without a link and with no veto word between (owner,
+ * 21 Nov); from a password word they are shown only.
  * Near a keyword only the strict reference words count ("account number", "ending in", "شماره پیگیری"), so "OTP for
  * your account is 482913" and "کد تایید شماره: 482913" are codes.
  */
@@ -55,12 +57,30 @@ class OtpDetectorCorpusTest {
         assertFalse(body, allows(body))
     }
 
+    /** Owner, 21 Nov: a code phrase eight words away in the same sentence allows too, without a link. */
     @Test fun shape1ACodePhraseReachesEightWordsOfOneSentence() {
-        assertShownOnly("کد تایید شما جهت انجام تراکنش خرید از فروشگاه نمونه: 482913", "482913")
-        assertShownOnly("رمز یکبار مصرف شما برای پرداخت قبض در درگاه بانک نمونه ۴۸۲۹۱۳ است", "482913")
-        assertShownOnly("Your verification code for signing up to the Example app is 482913", "482913")
-        // N5-4: a "do not share" line vouches only for a code a few words from its keyword.
-        assertShownOnly("Example Bank: OTP for your order at Example Shop is 448210. Never share it.", "448210")
+        listOf(
+            "کد تایید شما جهت انجام تراکنش خرید از فروشگاه نمونه: 482913",
+            "رمز یکبار مصرف شما برای پرداخت قبض در درگاه بانک نمونه ۴۸۲۹۱۳ است",
+            "Your verification code for signing up to the Example app is 482913",
+            "Example Bank: OTP for your order at Example Shop is 448210. Never share it.",
+            "رمز التحقق الخاص بك لتسجيل الدخول إلى تطبيق نمونه هو 482913",
+        ).forEach { assertTrue(it, shown(it) && allows(it)) }
+    }
+
+    /** Owner, 21 Nov: the wide allow needs no link, no veto word between, and a one-time code phrase. */
+    @Test fun shape1TheWideAllowHasItsLimits() {
+        // A link anywhere in the text: shown only.
+        assertShownOnly("کد تایید شما جهت انجام تراکنش خرید از فروشگاه نمونه: 482913\nexample.com/shop", "482913")
+        assertShownOnly("Your verification code for signing up to Example is 482913. example.com/help", "482913")
+        // A veto word between the phrase and the code: shown only.
+        assertShownOnly("کد تایید شما برای پیگیری سفارش در فروشگاه نمونه: 482913", "482913")
+        assertShownOnly("Your verification code for the tracking page of Example is 482913", "482913")
+        // A bare strong word or a password word far from the code: never allows.
+        assertFalse(allows("لطفا برای تایید حساب کاربری خود در سامانه نمونه این عدد را وارد کنید: 482913"))
+        assertFalse(allows("Your password for the new account at Example is 482913"))
+        // A sentence break between the phrase and the code: not the wide reach.
+        assertFalse(allows("کد تایید ارسال شد. لطفا آن را در صفحه ورود سامانه نمونه وارد کنید 482913"))
     }
 
     @Test fun shape1TheWideReachIsNotForThePlainWordAYearOrTheNextSentence() {
@@ -88,9 +108,9 @@ class OtpDetectorCorpusTest {
     }
 
     @Test fun shape2AWordWithDigitsDoesNotBreakTheChainOfACodePhrase() {
-        assertShownOnly("Your OTP from Shop24 is 482913", "482913")
-        assertShownOnly("کد تایید اپلیکیشن نمونه۳۶۵ شما: ۴۸۲۹۱۳", "482913")
-        assertShownOnly("Your verification code for the Examplecloudservices app is 482913", "482913")
+        assertShownAndAllows("Your OTP from Shop24 is 482913", "482913")
+        assertShownAndAllows("کد تایید اپلیکیشن نمونه۳۶۵ شما: ۴۸۲۹۱۳", "482913")
+        assertShownAndAllows("Your verification code for the Examplecloudservices app is 482913", "482913")
         assertNoCode("Use code SAVE20 to get 5000 points")
         // N5-9: "sign in" has no wide reach, so a promo word after it breaks the chain.
         assertNoCode("Sign in with SAVE20 and get 5000 points")
@@ -123,7 +143,7 @@ class OtpDetectorCorpusTest {
         ).forEach { assertShownAndAllows(it, "482913") }
         // A number right after an amount word is an amount, also next to a code phrase (review 3, R3-1).
         assertNoCode("کد تایید شما برای برداشت مبلغ: 482913")
-        assertShownOnly("Your verification code for your Example account is 482913", "482913")
+        assertShownAndAllows("Your verification code for your Example account is 482913", "482913")
         listOf(
             "پرداخت قبض شما تایید شد، شماره پیگیری 482913",
             "Your PIN for card ending 1234 is now active",
@@ -287,12 +307,12 @@ class OtpDetectorCorpusTest {
             "كلمة السر لشبكة الواي فاي 48291375",
             "کلمه عبور حساب 482913 منقضی شده است",
         ).forEach { assertFalse(it, allows(it)) }
-        assertNoCode("برای دریافت کلمه عبور با 9123456789 تماس بگیرید")
-        assertNoCode("پسورد را به شماره 9123456789 ارسال کنید")
+        assertNoCode("برای دریافت کلمه عبور با 5550001234 تماس بگیرید")
+        assertNoCode("پسورد را به شماره 5550001234 ارسال کنید")
         // R3-3: a number to send to a short code is shown, but allows nobody.
         assertTrue(shown("برای دریافت پسورد عدد 4829 را به 30001234 ارسال کنید"))
         assertFalse(allows("برای دریافت پسورد عدد 4829 را به 30001234 ارسال کنید"))
-        assertShownAndAllows("رمز عبور شما 9123456789 است", "9123456789")
+        assertShownAndAllows("رمز عبور شما 5550001234 است", "5550001234")
     }
 
     /**
@@ -381,6 +401,42 @@ class OtpDetectorCorpusTest {
     /** R3-8: an origin-bound line vouches for a labelled value without a keyword. */
     @Test fun anOriginBoundLineVouchesForALabelledValue() {
         assertShownAndAllows("pass: 482913\n@example.com #482913", "482913")
+    }
+
+    /** Review 4, R4-1: a masked account or card number in a notice allows nobody, whatever word stands before it. */
+    @Test fun aMaskedAccountInANoticeAllowsNobody() {
+        listOf(
+            "از حساب *1234 برداشت شد. رمز خود را به کسی ندهید",
+            "رمز دوم کارت شما *1234 فعال شد",
+            "رمز پویا کارت شماره *1234 فعال شد",
+            "خرید با رمز پویا از کارت بانکی *1234",
+            "OTP used on card no. *1234",
+            "OTP used on card number *1234",
+            "Password for A/C no. *1234 updated",
+            "PIN set for Credit Card No *1234. Do not share your PIN",
+            "Login to account *1234 with your password",
+            "Your password for user *4829 was reset",
+        ).forEach { assertFalse(it, allows(it)) }
+    }
+
+    /** Review 4, R4-3: a fee, a date, a time or a duration after a stepped-over number allows nobody. */
+    @Test fun aFeeDateTimeOrDurationAllowsNobody() {
+        listOf(
+            "کد تایید به شماره 05550001234 ارسال شد. اعتبار 1200 ثانیه",
+            "رمز یکبار مصرف به شماره 05550001234 ارسال گردید ساعت 1432",
+            "رمز پویا مبلغ 2500000 ریال تاریخ 14050830 ساعت 1432",
+            "OTP for USD 25 payment declined 482913",
+            "خرید با رمز پویا مبلغ 1500000 کارمزد 5000",
+            "OTP txn amount 2500 date 20261121",
+            "Dear customer, never share OTP. A/c ending 1234 credited with INR 25000 on 21Nov. Ref 482913",
+        ).forEach { assertFalse(it, allows(it)) }
+        // The same words after the code do not take its allow.
+        listOf(
+            "رمز پویا 482913 کارمزد 5000 ریال",
+            "رمز یکبار مصرف 482913 اعتبار 120 ثانیه",
+            "OTP 482913 valid for 120 seconds",
+            "کد تایید 482913 تاریخ 1405/08/30 ساعت 14:32",
+        ).forEach { assertShownAndAllows(it, "482913") }
     }
 
     /** N5-3, R2-7: a code between stars is a code, with the digits as its copy value; only a mask is none. */

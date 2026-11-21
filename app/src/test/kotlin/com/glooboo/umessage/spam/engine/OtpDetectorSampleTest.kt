@@ -23,7 +23,7 @@ import org.junit.Test
  *
  * | Group         | Samples | Shown as a code: wrong | Allows the sender: wrong |
  * |---------------|---------|------------------------|--------------------------|
- * | REAL_CODE     | 71      | 3 missed               | 7 missed                 |
+ * | REAL_CODE     | 71      | 3 missed               | 6 missed                 |
  * | REFERENCE     | 35      | 22 called a code       | 0                        |
  * | MARKETING     | 23      | 6 called a code        | 0                        |
  * | PHISHING_LINK | 9       | 7 called a code        | 2                        |
@@ -41,10 +41,10 @@ import org.junit.Test
  *   two password-change notices with a date (N-1) are no code since step N: a number that is one part of a date
  *   ("2026-11-18", "۱۴۰۵/۰۸/۲۷") is never the code.
  * - Allows the sender, misses: the three above, the code with a discount word (a text with a word of an
- *   advertisement never allows), "OTP for your order at Example Shop is 448210. Never share it." (a "do not share"
- *   line vouches only for a code a few words from its keyword), plus two codes next to the plain word only that do
- *   not say whose code it is ("کد: ۷۴۱۰", "کدتان برای ورود ۳۱۲۵ است"). Their senders' chats go to Spam, silently
- *   (owner, fix round A).
+ *   advertisement never allows), plus two codes next to the plain word only that do not say whose code it is
+ *   ("کد: ۷۴۱۰", "کدتان برای ورود ۳۱۲۵ است"). Their senders' chats go to Spam, silently (owner, fix round A).
+ *   "OTP for your order at Example Shop is 448210. Never share it." allows again since the owner's decision of
+ *   21 Nov: a code phrase eight words away in one sentence allows, without a link.
  * - Allows the sender, false hits: two phishing texts with a real code phrase and a link ("کد تایید ۴۸۲۹",
  *   "Verification code 482915"). The owner decided that a code allows its sender with or without a link.
  */
@@ -243,7 +243,6 @@ class OtpDetectorSampleTest {
         Sample(
             REAL_CODE, "Example Bank: OTP for your order at Example Shop is 448210. Never share it.",
             detectedToday = true,
-            allows = false,
         ),
         Sample(REAL_CODE, "Your sign-in code is 662013", detectedToday = true),
         Sample(REAL_CODE, "Your Example verification code is: 8812-4410", detectedToday = true),
@@ -364,7 +363,7 @@ class OtpDetectorSampleTest {
         val counts = Group.entries.associateWith { group ->
             all.filter { it.group == group }.count { allowed(it) != it.isCode }
         }
-        assertEquals(mapOf(REAL_CODE to 7, REFERENCE to 0, MARKETING to 0, PHISHING_LINK to 2, OTHER to 0), counts)
+        assertEquals(mapOf(REAL_CODE to 6, REFERENCE to 0, MARKETING to 0, PHISHING_LINK to 2, OTHER to 0), counts)
     }
 
     /** Whatever allows a sender is also shown as a code: the strict reading never disagrees the other way. */
@@ -405,7 +404,7 @@ class OtpDetectorSampleTest {
     private companion object {
         const val EXPECTED_MISSES = 3
         const val EXPECTED_FALSE_HITS = 36
-        const val EXPECTED_ALLOWING_MISSES = 7
+        const val EXPECTED_ALLOWING_MISSES = 6
         const val EXPECTED_ALLOWING_FALSE_HITS = 2
     }
 }

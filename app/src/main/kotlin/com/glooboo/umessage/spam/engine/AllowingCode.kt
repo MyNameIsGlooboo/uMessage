@@ -21,6 +21,9 @@ import com.glooboo.umessage.spam.TextNormalizer
  *   "one-time", "رمز التحقق", the CJK and Thai words of [OtpKeywords.cjk], ...) stands next to it, with at most one
  *   plain word before a generic "code" in between ("PIN reset code is 7314" yes; "Sign in today and use code 4455"
  *   no, that "code" belongs to "use code");
+ * - or a one-time code phrase ([OtpKeywords.codePhrases]) stands in the same sentence up to eight words away
+ *   ([OtpDetector.WIDE_NEAR], owner decision 21 Nov), with no veto word between them and no link in the text
+ *   ("کد تایید شما جهت انجام تراکنش خرید از فروشگاه نمونه: 482913"); never from a bare "verify", "تایید" or "رمز";
  * - or a possessive form says it is the reader's code ("Your code is N", "N is your Acme code", "Use N to verify",
  *   "کد شما: N", "کدتان N"), with no link near the code;
  * - or the text says to keep the code secret ("do not share", "در اختیار دیگران قرار ندهید") and the code has a
@@ -30,6 +33,7 @@ import com.glooboo.umessage.spam.TextNormalizer
  * allows, even when it shows a code next to a one-time code phrase. So every text this allows is also shown as a code,
  * never the other way round.
  */
+@Suppress("TooManyFunctions") // One small reading per rule of the class comment; each shares the patterns above it.
 object AllowingCode {
 
     /**
@@ -78,18 +82,17 @@ object AllowingCode {
         "tracking", "track", "customer number", "customer no", "customer id", "order number", "order no",
         "order id", "order code", "ref no", "ref number", "reference no", "reference number", "booking ref",
         "booking reference", "referral", "branch", "queue", "stock", "zip", "postal code", "postcode", "error",
-        "checkout", "toll[- ]?free", "changed",
+        "checkout", "toll[- ]?free", "changed", "flight", "gate", "terminal", "seat",
         // Persian
         "پیگیری", "رهگیری", "مرسوله", "کد سفارش", "شماره سفارش", "کد معرف", "کد معرفی", "کد شعبه", "کد نوبت",
         "شماره نوبت", "کد بورسی", "کد پستی", "کد مشتری", "شماره مشتری", "کد اشتراک", "کد ملی", "کد رزرو", "کد خطا",
-        "شناسه پرداخت", "تغییر کرد", "تغییر یافت",
-        // Arabic; "تم تغییر" (has been changed), every word with the stem of "card" ("لبطاقتك", "للبطاقة", N5-6, R2-5),
-        // "لحساب" (for the account) and "مسدود" (blocked). The bare "تغییر" is left out: it is also the Persian word in
-        // "کد تایید تغییر شماره: 482913"; so is "حسابک", as in "رمز التحقق الخاص بحسابك هو 482913".
+        "شناسه پرداخت", "تغییر کرد", "تغییر یافت", "پذیرنده",
+        // Arabic; "تم تغییر" (has been changed) and "المنتهیه" (ending in). The words of a card, an account, a blocked
+        // or expired password are [noticeWords]. The bare "تغییر" is left out: it is also the Persian word in "کد تایید
+        // تغییر شماره: 482913"; so is "حسابک", as in "رمز التحقق الخاص بحسابك هو 482913".
         "الخصم", "التتبع", "تتبع", "الشحنه", "شحنه", "الطلب", "طلبک", "مرجع", "المرجع", "الحجز", "رقم العملیه",
-        "تم تغییر", "المنتهیه",
-        // A password that is no one-time code: a wi-fi or modem password, one that has expired.
-        )
+        "تم تغییر", "المنتهیه", "المنتهی",
+    )
 
     /**
      * Words of a notice (review 3, R3-4): a card, an account, a blocked or expired password, a wi-fi or modem password.
@@ -114,7 +117,7 @@ object AllowingCode {
 
     /** A reference or masked number the chains step over ([OtpDetector.STEP]), before a word or before the code. */
     private const val STEP_ONE = "${OtpDetector.STEP}$SEP"
-    private const val STEP_LAST = "(?:$STEP_ONE)?"
+    private const val STEP_LAST = "(?:$STEP_ONE){0,2}"
 
     /** The characters either side of a code that are searched. */
     private const val WINDOW = 120
@@ -128,7 +131,7 @@ object AllowingCode {
 
     private val phrase = OtpDetector.keywordPattern(strongPhrases)
     private val weak = OtpDetector.keywordPattern(OtpKeywords.weak)
-    private val plainWord = "(?!$weak)(?:${OtpDetector.STEP}$SEP)?$WORD"
+    private val plainWord = "(?!$weak)(?:${OtpDetector.STEP}$SEP){0,2}$WORD"
 
     /** A phrase, then up to four plain words, or a generic "code" after at most one word ("PIN reset code is"). */
     private val strongBefore = Regex(
@@ -145,16 +148,21 @@ object AllowingCode {
     private val cjkAfter = Regex("^[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$cjkWords")
 
     private val veto = words(vetoWords)
-    private val vetoBefore = Regex("$veto$SEP(?:(?:$STEP_ONE)?$WORD$SEP){0,4}$STEP_LAST$", RegexOption.IGNORE_CASE)
+    private val vetoBefore = Regex("$veto$SEP(?:(?:$STEP_ONE){0,2}$WORD$SEP){0,4}$STEP_LAST$", RegexOption.IGNORE_CASE)
 
     /**
      * A word right before the number that names it a number or an amount: "رقم 1234" (number), "مبلغ: 482913"
      * (amount), "مانده", "amount", "balance". Such a number is shown, but allows nobody (R2-2, R2-5).
      */
     private val numberWordBefore = Regex(
-        "(?<![\\p{L}\\p{N}])(?:مبلغ|مانده|amount|balance|انجام شد)$SEP$",
+        "(?<![\\p{L}\\p{N}])(?:مبلغ|مانده|amount|balance|انجام شد|کارمزد|تاریخ|ساعت|اعتبار|date|fee|declined|" +
+            "credited|ref)$SEP$",
         RegexOption.IGNORE_CASE,
     )
+
+    /** A number followed by a unit of time is a duration ("اعتبار 1200 ثانیه"): it allows nobody (R4-3). */
+    private val durationAfter =
+        Regex("^$SEP(?:ثانیه|دقیقه|seconds?|secs?|minutes?|mins?)(?![\\p{L}\\p{N}])", RegexOption.IGNORE_CASE)
     private val vetoAfter = Regex("^$SEP(?:$WORD$SEP){0,4}$veto", RegexOption.IGNORE_CASE)
     private val notice = words(noticeWords)
     private val noticeBefore =
@@ -260,23 +268,61 @@ object AllowingCode {
     private fun after(text: String, range: IntRange) =
         text.substring(range.last + 1, minOf(text.length, range.last + 1 + WINDOW))
 
+    /** A single star, bullet or cross right before a number: the last digits of an account or a card (R4-1). */
+    private val loneMark = Regex("(?<![\\p{N}*\u2022\u25CF\u00D7])[*\u2022\u25CF\u00D7]$")
+    private val phraseAtMark = Regex("$phrase$SEP(?:(?:is|است|هو|شما)$SEP)?$", RegexOption.IGNORE_CASE)
+
+    /** The digits of a card or an account last: four of them after a single mark that no star closes. */
+    private const val LAST_DIGITS = 4
+
     private fun vetoNear(text: String, range: IntRange): Boolean {
         val head = before(text, range)
         val tail = after(text, range)
+        if (maskedLastDigits(head, tail, range)) return true
         val cjkCodeFirst = cjkBefore.containsMatchIn(head) && cjkClauseBeforeVeto.containsMatchIn(tail)
-        val oneTimeNear = oneTimeBefore.containsMatchIn(head) || oneTimeAfter.containsMatchIn(tail)
-        val noticeNear = !oneTimeNear && (noticeBefore.containsMatchIn(head) || noticeAfter.containsMatchIn(tail))
-        val reference = vetoBefore.containsMatchIn(head) || numberWordBefore.containsMatchIn(head) || noticeNear ||
-            sendTo.containsMatchIn(tail)
-        return reference || vetoAfter.containsMatchIn(tail) ||
+        return referenceNear(head, tail) || vetoAfter.containsMatchIn(tail) ||
             cjkVetoBefore.containsMatchIn(head) && !cjkCodeAfterClause.containsMatchIn(head) ||
             cjkVetoAfter.containsMatchIn(tail) && !cjkCodeFirst
+    }
+
+    /**
+     * R4-1: four digits after a single star, bullet or cross that no mark closes are the last digits of an account or a
+     * card ("از حساب *1234 برداشت شد"), unless a strong phrase stands right before the mark ("OTP *4829").
+     */
+    private fun maskedLastDigits(head: String, tail: String, range: IntRange): Boolean {
+        val closed = tail.isNotEmpty() && tail[0] in "*\u2022\u25CF"
+        return range.count() == LAST_DIGITS && !closed && loneMark.containsMatchIn(head) &&
+            !phraseAtMark.containsMatchIn(head)
+    }
+
+    /** A reference, an amount, a notice word, a duration or a short code to send to, next to the code. */
+    private fun referenceNear(head: String, tail: String): Boolean {
+        val oneTimeNear = oneTimeBefore.containsMatchIn(head) || oneTimeAfter.containsMatchIn(tail)
+        val noticeNear = !oneTimeNear && (noticeBefore.containsMatchIn(head) || noticeAfter.containsMatchIn(tail))
+        return vetoBefore.containsMatchIn(head) || numberWordBefore.containsMatchIn(head) || noticeNear ||
+            durationAfter.containsMatchIn(tail) || sendTo.containsMatchIn(tail)
+    }
+
+    /** A one-time code phrase up to eight words of the sentence before or after the code (owner, 21 Nov). */
+    private val codePhrase = OtpDetector.keywordPattern(OtpKeywords.codePhrases)
+    private val wideBefore = Regex("$codePhrase${OtpDetector.WIDE_NEAR}$", RegexOption.IGNORE_CASE)
+    private val wideAfter = Regex("^${OtpDetector.WIDE_NEAR}$codePhrase", RegexOption.IGNORE_CASE)
+    private val vetoBetween = Regex(veto, RegexOption.IGNORE_CASE)
+
+    /**
+     * Whether a one-time code phrase reaches the code at [head]/[tail] in the same sentence, up to eight words away,
+     * with no veto word in between, in a [text] without a link: a code the wider reach found that allows its sender.
+     */
+    private fun wideNear(text: String, head: String, tail: String): Boolean {
+        val reach = listOfNotNull(wideBefore.find(head)?.value, wideAfter.find(tail)?.value)
+        return reach.any { !vetoBetween.containsMatchIn(it) } && !OtpDetector.containsUrl(text)
     }
 
     private fun allowsNear(text: String, range: IntRange): Boolean {
         val head = before(text, range)
         val tail = after(text, range)
         if (strongBefore.containsMatchIn(head) || strongAfter.containsMatchIn(tail)) return true
+        if (wideNear(text, head, tail)) return true
         if (cjkBefore.containsMatchIn(head) || cjkAfter.containsMatchIn(tail)) return true
         val possessive = when {
             useBefore.containsMatchIn(head) -> useAfter.containsMatchIn(tail)

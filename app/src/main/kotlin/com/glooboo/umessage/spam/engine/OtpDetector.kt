@@ -73,8 +73,12 @@ object OtpDetector {
     /** What closes a code written between marks ("*482913*"); a "#" after "*1234" ends a dial code instead. */
     private const val CLOSING = "[*\u2022\u25CF]"
 
-    /** Words of a card or an account right before a masked number ("کارت *1234", "card •1234"), folded. */
-    private const val CARD_WORDS = "(?:کارت|card|a/c|بطاقه|البطاقه|للبطاقه|لبطاقه|بطاقتک|لبطاقتک|بطاقتکم|لبطاقتکم)"
+    /**
+     * Words of a card or an account right before a masked number, also with a short "no." ("کارت *1234", "card •1234",
+     * "account *1234", "A/C no. *1234"), folded: such a number is a reference the chain steps over, never the code.
+     */
+    private const val CARD_WORDS = "(?:کارت|card|a/c|account|acct|حساب|الحساب|لحساب|بطاقه|البطاقه|للبطاقه|لبطاقه|" +
+        "بطاقتک|لبطاقتک|بطاقتکم|لبطاقتکم)(?:[^\\p{L}\\p{N}]{1,2}(?:no|number|شماره))?"
 
     /**
      * Checked at the end of a number: a masked number is no code. That is a number with two mask characters, or a digit
@@ -103,14 +107,17 @@ object OtpDetector {
      * Bounded look-behinds, so Android's ICU engine accepts them.
      */
     private const val REFERENCE_WORDS = "(?:شماره کارت|شماره حساب|شماره پیگیری|شماره سفارش|به شماره|برای شماره|" +
-        "شناسه|مانده حساب|مانده|منتهی به|tracking number|account number|order number|reference number|" +
+        "حساب شماره|کارت شماره|card number|card no|شناسه|مانده حساب|مانده|منتهی به|tracking number|" +
+        "account number|order number|reference number|" +
         "account ending in|account ending|card ending|a/c ending|phone ending|number ending|mobile ending|ending in|" +
-        "balance)"
-    private const val AMOUNT_WORDS = "(?:amount|مبلغ)"
+        "ending with|balance)"
+    private const val AMOUNT_WORDS = "(?:amount|مبلغ|inr|rs\\.?|usd)"
 
     /** Not right after a reference or amount word: a number such a word names is no code. */
     internal const val REFERENCE_BEFORE = "(?<!(?<![\\p{L}])$REFERENCE_WORDS(?:\\sis)?[^\\p{L}\\p{M}\\p{N}]{1,3})" +
-        "(?<!(?<![\\p{L}])$AMOUNT_WORDS[^\\p{L}\\p{M}\\p{N}]{1,3})"
+        "(?<!(?<![\\p{L}])$AMOUNT_WORDS[^\\p{L}\\p{M}\\p{N}]{1,3})" +
+        // "#" and four or more digits after an order, a ticket or a case word: "order #4829", "Ticket #4829".
+        "(?<!(?<![\\p{L}])(?:order|ref|invoice|case|ticket)(?:\\sno\\.?)?\\s?#)"
     /**
      * A number the word chain may step over (review 3, R3-1): one a reference or amount word names ("card ending
      * 1234", "account number 12345678", "INR 2,500.00"), or a masked one ("*1234"). So in "OTP for card ending 1234 is
@@ -152,7 +159,7 @@ object OtpDetector {
      * number), or follows "+" or a phone word. It is a code only next to a password word ([passwordKeywords]).
      */
     internal val longShape = "(?<!\\+)(?<!(?:$phoneWords)[^\\p{L}\\p{N}]{0,3})(?!0|98)[0-9]{9,10}" +
-        // Nor one a phone word follows ("با 9123456789 تماس بگیرید"): a mobile number written without its 0.
+        // Nor one a phone word follows ("با 5550001234 تماس بگیرید"): a mobile number written without its 0.
         "(?! {1,3}(?:$phoneWords)(?![\\p{L}\\p{N}]))"
 
     private val LONG_CODE = "$EDGES_BEFORE$longShape$EDGES_AFTER"
@@ -181,7 +188,7 @@ object OtpDetector {
      * Neither a separator nor a word is ever cut back (possessive), and a combining mark belongs to the word only.
      */
     internal const val NEAR =
-        "$GAP(?:(?:$STEP$GAP)?$WORD$GAP){0,4}(?:$STEP$GAP)?"
+        "$GAP(?:(?:$STEP$GAP){0,2}$WORD$GAP){0,4}(?:$STEP$GAP){0,2}"
 
     /** A separator that stays inside one sentence: no full stop, mark or line break ([sentenceBreaks]). */
     private const val IN_SENTENCE = "[^\\p{L}\\p{M}\\p{N}.!?;\\n\\r\u061F\u06D4]{1,4}+"
@@ -192,9 +199,9 @@ object OtpDetector {
      * as in "رمز یکبار مصرف شما برای پرداخت قبض در درگاه بانک نمونه ۴۸۲۹۱۳ است". A number of its own breaks the chain,
      * and a year or a date this far from the phrase is no code ("Your password expires at the end of December 2026").
      */
-    private const val WIDE_NEAR =
-        "$IN_SENTENCE(?:(?:$STEP$IN_SENTENCE)?(?:[\\u0E00-\\u0EFF\\u1000-\\u109F\\u1780-\\u17FF]{1,64}+|" +
-            "[\\p{L}\\p{M}][\\p{L}\\p{M}\\p{N}]{0,19}+)$IN_SENTENCE){0,8}(?:$STEP$IN_SENTENCE)?"
+    internal const val WIDE_NEAR =
+        "$IN_SENTENCE(?:(?:$STEP$IN_SENTENCE){0,2}(?:[\\u0E00-\\u0EFF\\u1000-\\u109F\\u1780-\\u17FF]{1,64}+|" +
+            "[\\p{L}\\p{M}][\\p{L}\\p{M}\\p{N}]{0,19}+)$IN_SENTENCE){0,8}(?:$STEP$IN_SENTENCE){0,2}"
 
     /** The only words with the wide reach: not "verify", "log in" or "تایید", whose texts are often bank notices. */
     private val wideWords = keywordPattern(OtpKeywords.codePhrases + OtpKeywords.password)
