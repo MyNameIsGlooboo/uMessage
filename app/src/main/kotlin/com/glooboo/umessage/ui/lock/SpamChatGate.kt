@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.lifecycleScope
 import com.glooboo.umessage.AppLockGuard
 import com.glooboo.umessage.extensions.conversationsDB
@@ -145,5 +146,9 @@ class SpamChatGate(
         fun note(threadId: Long, spam: Boolean, now: Long = System.currentTimeMillis()) {
             seen[threadId] = spam to now
         }
+
+        /** Forgets every hint, so one test's chats never decide another's (E-3). */
+        @VisibleForTesting
+        internal fun clear() = seen.clear()
     }
 }

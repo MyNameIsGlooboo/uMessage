@@ -27,6 +27,7 @@ import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.UMessage
+import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.conversations.StoreUnread
 import com.glooboo.umessage.ui.conversations.UnreadTexts
@@ -113,9 +114,10 @@ class BlockSenderReceiver : BroadcastReceiver() {
     }
 
     /**
-     * Provider truth: the block of [SenderMoves.blockSenders], the chat read and sorted again, and the Undo notice.
-     * C-3: no receipt (the sender cannot be read) shows nothing and keeps the message notification; a user allow rule
-     * that still names the sender takes the block back and says why, with no Undo.
+     * Provider truth: the block of [SenderMoves.blockSenders], the chat read and sorted again, its notifications gone
+     * (the message and the quiet Spam notice), and the Undo notice. C-3: no receipt (the sender cannot be read, or the
+     * write failed) shows a short "could not block" notice with no Undo and keeps the message notification; a user
+     * allow rule that still names the sender takes the block back and says why, with no Undo.
      */
     private suspend fun moveToSpam(context: Context, repository: SpamRepository, address: String, threadId: Long) {
         val receipt = runCatching { SenderMoves.blockSenders(repository, listOf(address)) }.getOrNull()?.firstOrNull()
@@ -131,6 +133,7 @@ class BlockSenderReceiver : BroadcastReceiver() {
         }
         if (threadId > 0) SpamChatGate.Known.note(threadId, spam = true)
         context.notificationManager.cancel(threadId.hashCode())
+        if (threadId > 0) BlockedNotifier.cancelChat(context, threadId)
         val unread = if (threadId > 0) StoreUnread.of(context, threadId) else UnreadTexts()
         val wasUnread = threadId > 0 && (!unread.isEmpty || runCatching {
             context.conversationsDB.getConversationWithThreadId(threadId)?.read == false

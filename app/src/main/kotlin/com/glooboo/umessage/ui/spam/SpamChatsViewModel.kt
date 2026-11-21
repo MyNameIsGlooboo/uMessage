@@ -23,6 +23,7 @@ import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSorting
+import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.ui.components.localizeDigits
@@ -346,6 +347,13 @@ class SpamChatsViewModel internal constructor(
         _events.trySend(event)
     }
 
+    /**
+     * The quiet Spam notices of [ids] have done their job: the chats were blocked, unblocked or moved (4.6). Off the
+     * main thread: a choice of thousands of chats is one system call each.
+     */
+    private suspend fun cancelNotices(ids: Collection<Long>) =
+        withContext(io) { ids.forEach { BlockedNotifier.cancelChat(app, it) } }
+
     // ---- Undo windows ------------------------------------------------------------------------------------------
 
     /**
@@ -418,6 +426,7 @@ class SpamChatsViewModel internal constructor(
                 send(SpamChatsEvent.Failed)
                 return@launch
             }
+            cancelNotices(ids)
             requestSort(ids)
             val token = nextToken++
             notSpams[token] = change to ids
@@ -497,6 +506,7 @@ class SpamChatsViewModel internal constructor(
             send(nothingChangedMessage(otherRule, outcomes.values))
             return
         }
+        cancelNotices(all)
         requestSort(all)
         val token = nextToken++
         unblocks[token] = Triple(removed, all, moved)
@@ -545,6 +555,7 @@ class SpamChatsViewModel internal constructor(
             }.getOrNull()
             // No receipt: no sender could be read, nothing was blocked (C-3).
             if (receipts.isNullOrEmpty()) return@launch send(SpamChatsEvent.Failed)
+            cancelNotices(targets.map { it.threadId })
             requestSort(targets.map { it.threadId })
             val token = nextToken++
             blocks[token] = receipts
@@ -569,9 +580,6 @@ class SpamChatsViewModel internal constructor(
 
     /** Why Delete is off now (not the default SMS app), or null while it works. Asks the system: not in a draw. */
     private fun deleteOffNow(): Int? = if (isDefault()) null else R.string.pt_delete_not_default
-
-    /** [SpamChatsUiState.deleteOff] as last read (on each load, the tab shows again): cheap, for the screen (D-7). */
-    fun deleteOffReason(): Int? = _state.value.deleteOff
 
     fun canDelete(): Boolean = deleteOffNow() == null
 
@@ -679,6 +687,7 @@ internal fun deleteSpamChats(context: Context, ids: Set<Long>, isDefault: Boolea
         val result = runCatching { context.deleteConversation(id, isDefault) }.getOrDefault(DeleteResult.FAILED)
         if (result == DeleteResult.DELETED) {
             runCatching { context.notificationManager.cancel(id.hashCode()) }
+            BlockedNotifier.cancelChat(context, id)
         } else if (shown == DeleteResult.DELETED) {
             shown = result
         }

@@ -77,7 +77,7 @@ class SpamFolderScreenTest {
             onUnblock = { calls += "unblock$it" },
             onBlock = { calls += "block$it" },
             onMarkRead = { calls += "read$it" },
-            deleteOffReason = { if (deleteAllowed) null else R.string.pt_delete_not_default },
+            deleteOff = if (deleteAllowed) null else R.string.pt_delete_not_default,
             swipeFor = { SwipeAction(Symbols.Inbox, "x") { } },
         )
         compose.setContent {

@@ -20,6 +20,7 @@ import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.BlockReceipt
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamSorting
+import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.RuleNotes
 import com.glooboo.umessage.ui.spam.SenderBlocking
@@ -179,6 +180,7 @@ internal class MessagesSpamMoves(
             }
             // C-3: a user allow rule that still names the sender keeps its chat in Messages: that block is taken back.
             val staying = receipts.filter { it.stillAllowedBy != null }
+            // E-7, F-2: undoBlocks catches each Undo itself, so it never throws here (a failed one is silent).
             SenderMoves.undoBlocks(repo, staying)
             val kept = receipts - staying.toSet()
             val moved = conversations.filter { c -> kept.any { it.address == c.phoneNumber.trim() } }
@@ -194,12 +196,15 @@ internal class MessagesSpamMoves(
             withContext(Dispatchers.IO) {
                 movedIds.forEach { id ->
                     runCatching { context.notificationManager.cancel(id.hashCode()) }
+                    BlockedNotifier.cancelChat(context, id)
                     if (id in unread) runCatching { context.markThreadMessagesRead(id) }
                 }
             }
             requestSort(movedIds)
             moves[token] = BlockMove(kept, movedIds, unread.filterKeys { it in movedIds })
-            events(event(token, moved.size, threadIds.size - moved.size))
+            // E-1: only the chats a user allow rule keeps in Messages, not those whose sender could not be read.
+            val stayed = conversations.count { c -> staying.any { it.address == c.phoneNumber.trim() } }
+            events(event(token, moved.size, stayed))
         }
     }
 
@@ -290,7 +295,10 @@ internal fun deleteChats(context: Context, ids: List<Long>): Pair<Set<Long>, Int
     val results = ids.associateWith {
         runCatching {
             context.deleteConversation(it, isDefault).also { result ->
-                if (!honest || result == DeleteResult.DELETED) context.notificationManager.cancel(it.hashCode())
+                if (!honest || result == DeleteResult.DELETED) {
+                    context.notificationManager.cancel(it.hashCode())
+                    BlockedNotifier.cancelChat(context, it)
+                }
             }
         }.getOrNull()
     }

@@ -7,6 +7,7 @@ import com.glooboo.umessage.extensions.markThreadMessagesRead
 import com.glooboo.umessage.spam.BlockReceipt
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamSorting
+import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.ui.conversations.StoreUnread
 import com.glooboo.umessage.ui.conversations.UnreadTexts
 import com.glooboo.umessage.ui.lock.SpamChatGate
@@ -30,7 +31,11 @@ internal class DetailsSenderSwitch(
     private val memory: DetailsBlockMemory = DetailsBlockMemory(),
     private val requestSort: (Long) -> Unit = { SpamSorting.requestThreads(context, listOf(it)) },
     private val markRead: (Long) -> Unit = { context.markThreadMessagesRead(it) },
-    private val cancelNotification: (Long) -> Unit = { context.notificationManager.cancel(it.hashCode()) },
+    /** The chat's message notification and its quiet Spam notice (4.6). */
+    private val cancelNotification: (Long) -> Unit = {
+        context.notificationManager.cancel(it.hashCode())
+        BlockedNotifier.cancelChat(context, it)
+    },
     private val unreadOf: (Long) -> UnreadTexts = { StoreUnread.of(context, it) },
     private val restoreUnread: (Long, UnreadTexts) -> Unit = { id, texts -> StoreUnread.restore(context, id, texts) },
 ) {

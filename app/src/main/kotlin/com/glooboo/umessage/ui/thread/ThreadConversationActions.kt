@@ -4,6 +4,7 @@ import android.content.Intent
 import com.glooboo.umessage.R
 import com.glooboo.umessage.dialogs.RenameConversationDialog
 import com.glooboo.umessage.dialogs.ShareTextDialog
+import com.glooboo.umessage.extensions.DeleteResult
 import com.glooboo.umessage.extensions.getMessages
 import com.glooboo.umessage.extensions.shortcutHelper
 import com.glooboo.umessage.helpers.MESSAGES_LIMIT
@@ -21,6 +22,7 @@ import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.models.Events
+import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.ui.components.askYesNo
 import org.fossify.commons.activities.BaseSimpleActivity
 import org.fossify.commons.extensions.copyToClipboard
@@ -71,6 +73,7 @@ class ThreadConversationActions(
                 activity.runOnUiThread {
                     refreshConversations()
                     val message = result.messageRes.takeIf { ProviderTruthFlag.enabled }
+                    if (result == DeleteResult.DELETED) BlockedNotifier.cancelChat(activity, thread)
                     if (message == null) activity.finish() else showMessage(activity.getString(message))
                 }
             }

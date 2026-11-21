@@ -7,6 +7,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.google.common.truth.Truth.assertThat
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,6 +16,8 @@ import org.robolectric.Robolectric
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.android.controller.ActivityController
 import org.robolectric.shadows.ShadowLooper
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 /**
  * Provider truth, step C (U1): a chat in Spam counts as a locked screen while the app lock covers Spam and is locked.
@@ -30,6 +34,13 @@ class SpamChatGateTest {
     private var othersCover = false
     private var passed = false
     private var revealed = 0
+
+    /** E-3: the hints are process-wide; no test sees another's. */
+    @Before
+    fun setUp() = SpamChatGate.Known.clear()
+
+    @After
+    fun tearDown() = SpamChatGate.Known.clear()
 
     private class Screen(val controller: ActivityController<ComponentActivity>, val gate: SpamChatGate) {
         val activity: ComponentActivity get() = controller.get()
@@ -215,11 +226,56 @@ class SpamChatGateTest {
         assertThat(lockAsked(screen)).isFalse()
     }
 
+    @Test
+    fun aHintCountsForSixtySecondsAndNotFromAClockThatWentBack() {
+        val known = SpamChatGate.Known
+        known.note(THREAD, spam = false, now = NOTED_AT)
+
+        assertThat(known.inSpam(THREAD, now = NOTED_AT)).isFalse()
+        assertThat(known.inSpam(THREAD, now = NOTED_AT + FRESH_MS)).isFalse()
+        // D-8: older than that, or noted "in the future", it counts for nothing and the chat is covered first.
+        assertThat(known.inSpam(THREAD, now = NOTED_AT + FRESH_MS + 1)).isNull()
+        assertThat(known.inSpam(THREAD, now = NOTED_AT - 1)).isNull()
+        assertThat(known.inSpam(OTHER_THREAD, now = NOTED_AT)).isNull()
+    }
+
+    @Test
+    fun whileTheReadRunsTheChatIsDecidingAndNotRevealed() {
+        val release = CountDownLatch(1)
+        inSpam = {
+            release.await(LATCH_WAIT_S, TimeUnit.SECONDS)
+            false
+        }
+        // A chat last seen in Messages stays visible, but D-8: nothing may mark it read before the read ends.
+        SpamChatGate.Known.note(OTHER_THREAD, spam = false)
+        val screen = open(threadId = OTHER_THREAD, wait = false)
+        assertThat(screen.content.visibility).isEqualTo(View.VISIBLE)
+        assertThat(screen.gate.deciding).isTrue()
+        assertThat(revealed).isEqualTo(0)
+
+        release.countDown()
+        settle()
+        assertThat(screen.gate.deciding).isFalse()
+        assertThat(revealed).isEqualTo(1)
+        assertThat(SpamChatGate.Known.inSpam(OTHER_THREAD)).isFalse()
+    }
+
+    @Test
+    fun withTheLockOpenNothingWaitsForARead() {
+        locked = false
+        val screen = open(wait = false)
+        assertThat(screen.gate.deciding).isFalse()
+        assertThat(screen.gate.blocking).isFalse()
+    }
+
     private companion object {
         const val THREAD = 42L
         const val OTHER_THREAD = 43L
         const val MOVED_THREAD = 44L
         const val SETTLE_ROUNDS = 20
         const val SETTLE_SLEEP_MS = 10L
+        const val NOTED_AT = 1_000_000L
+        const val FRESH_MS = 60_000L
+        const val LATCH_WAIT_S = 5L
     }
 }
