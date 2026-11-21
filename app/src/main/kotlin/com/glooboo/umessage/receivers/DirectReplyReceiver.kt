@@ -14,6 +14,8 @@ import org.fossify.commons.extensions.showErrorToast
 import org.fossify.commons.helpers.SimpleContactsHelper
 import com.glooboo.umessage.extensions.*
 import com.glooboo.umessage.helpers.NotifyContext
+import com.glooboo.umessage.helpers.NotifyLog
+import com.glooboo.umessage.helpers.NotifyResult
 import com.glooboo.umessage.helpers.REPLY
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.THREAD_NUMBER
@@ -122,14 +124,22 @@ class DirectReplyReceiver : BroadcastReceiver() {
 
     /**
      * M-P3: the shade shows a spinner on a notification replied to until the app posts it again. The chat's message
-     * notification is posted again unchanged, without sound or heads-up; nothing is posted when it is gone.
+     * notification is posted again unchanged, without sound or heads-up; nothing is posted when it is gone. When it
+     * cannot be posted again it is removed, which ends the spinner too.
      */
     private fun repostOriginal(context: Context, threadId: Long) {
         if (threadId == 0L) return
         val manager = context.notificationManager
         val shown = manager.activeNotifications.firstOrNull { it.id == threadId.hashCode() && it.tag == null } ?: return
-        val again = Notification.Builder.recoverBuilder(context, shown.notification).setOnlyAlertOnce(true).build()
-        manager.notify(shown.id, again)
+        val channel = shown.notification.channelId
+        try {
+            val again = Notification.Builder.recoverBuilder(context, shown.notification).setOnlyAlertOnce(true).build()
+            manager.notify(shown.id, again)
+            NotifyLog.record(channel, threadId, NotifyResult.REPOSTED)
+        } catch (e: Exception) {
+            NotifyLog.record(channel, threadId, NotifyResult.FAILED, cause = e)
+            runCatching { manager.cancel(shown.id) }
+        }
     }
 
     /** Same SIM the thread screen would pick; null means the system default SIM. */

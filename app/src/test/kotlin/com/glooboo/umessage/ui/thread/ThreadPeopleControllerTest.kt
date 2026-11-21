@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.THREAD_TEXT
+import com.glooboo.umessage.models.AttachmentSelection
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,7 +20,7 @@ import org.robolectric.Robolectric
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.shadows.ShadowLooper
 
-/** M-UI5: "Done" in the people panel opens the other chat without a provider query on the main thread, text kept. */
+/** M-UI5: "Done" in the people panel opens the other chat without a provider query on the main thread, draft kept. */
 @RunWith(AndroidJUnit4::class)
 class ThreadPeopleControllerTest {
 
@@ -44,6 +45,8 @@ class ThreadPeopleControllerTest {
         val activity = Robolectric.buildActivity(Activity::class.java).create().get()
         val vm = ThreadViewModel()
         vm.text.setTextAndPlaceCursorAtEnd("On my way")
+        val photo = Uri.parse("content://media/external/images/media/7")
+        vm.addAttachment(AttachmentSelection(photo.toString(), photo, "image/jpeg", "photo.jpg", isPending = false))
         val people = ThreadPeopleController(
             activity = activity,
             vm = vm,
@@ -60,6 +63,7 @@ class ThreadPeopleControllerTest {
         assertThat(queriedOnMain).isFalse()
         assertThat(opened.getLongExtra(THREAD_ID, 0L)).isEqualTo(NEW_THREAD)
         assertThat(opened.getStringExtra(THREAD_TEXT)).isEqualTo("On my way")
+        assertThat(opened.getBooleanExtra(ThreadPeopleController.EXTRA_KEEP_ATTACHMENTS, false)).isTrue()
         // Moved, not copied: this chat no longer has it, so it is not saved here as a draft.
         assertThat(vm.text.text.toString()).isEmpty()
     }

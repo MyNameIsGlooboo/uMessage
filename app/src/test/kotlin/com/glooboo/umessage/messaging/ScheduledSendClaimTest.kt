@@ -104,6 +104,25 @@ class ScheduledSendClaimTest {
         assertThat(typeInDb()).isEqualTo(Telephony.Sms.MESSAGE_TYPE_OUTBOX)
     }
 
+    /** K1 hand-over: the row as claimed is sent, not as first read (the start-up tidy may change it in between). */
+    @Test
+    fun theAlarmSendsTheRowAsItIsAfterTheClaim() {
+        FakeSmsMmsProvider.installSms()
+        store(scheduled())
+
+        offMainThread {
+            ScheduledMessageReceiver().handleIntent(context, Intent().putExtra(SCHEDULED_MESSAGE_ID, ID)) { c, id ->
+                // The row changes after the receiver first read it (as the tidy swaps attachments to app copies).
+                c.messagesDB.insertOrUpdate(scheduled().copy(body = "Happy birthday, Sara!"))
+                ScheduledSendClaims.claim(c, id)
+            }
+        }
+        ShadowLooper.idleMainLooper()
+
+        val sent = ShadowRecordingSmsManager.textSends.single().parts.joinToString("")
+        assertThat(sent).isEqualTo("Happy birthday, Sara!")
+    }
+
     @Test
     fun anAlarmThatFiresTwiceSendsTheMessageOnce() {
         FakeSmsMmsProvider.installSms()

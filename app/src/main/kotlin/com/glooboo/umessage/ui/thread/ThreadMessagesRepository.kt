@@ -72,6 +72,12 @@ class ThreadMessagesRepository(
     /** True when another chat was loaded in place since [generation] was [expected]. */
     fun isStale(expected: Int): Boolean = expected != store.generation
 
+    /**
+     * M-UI3: runs [write] (a screen field set for this chat) only while the list still belongs to [expected], atomic
+     * against [reset]; returns whether it ran. See [ThreadMessageList.runIf].
+     */
+    fun ifCurrent(expected: Int, write: () -> Unit): Boolean = store.runIf(expected, write)
+
     fun reset() {
         store.clear()
         allFetched = false

@@ -47,6 +47,15 @@ class ThreadMessageList {
         (expected == generation).also { if (it) current = messages }
     }
 
+    /**
+     * Runs [write] unless the list was [clear]ed since [expected] was read; returns whether it ran. Atomic against
+     * [clear], so a screen field written here is either written before the reset that follows [clear] (and reset by
+     * it) or not at all. [write] must be short and take no other lock.
+     */
+    fun runIf(expected: Int, write: () -> Unit): Boolean = synchronized(lock) {
+        (expected == generation).also { if (it) write() }
+    }
+
     /** [update], unless the list was [clear]ed since [expected] was read; null when dropped. */
     fun updateIf(expected: Int, transform: (List<Message>) -> List<Message>): List<Message>? = synchronized(lock) {
         if (expected != generation) null else transform(current).also { current = it }

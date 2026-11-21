@@ -89,15 +89,20 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
         return message?.takeUnless { it.isHeldScheduled() }
     }
 
+    /** [claim] is [ScheduledSendClaims.claim]; a test puts work between the first read and the claim. */
     @VisibleForTesting
-    internal fun handleIntent(context: Context, intent: Intent) {
+    internal fun handleIntent(
+        context: Context,
+        intent: Intent,
+        claim: (Context, Long) -> Boolean = { c, id -> ScheduledSendClaims.claim(c, id) },
+    ) {
         val messageId = intent.getLongExtra(SCHEDULED_MESSAGE_ID, 0L)
         val message = dueMessage(context, messageId) ?: return
 
         // F3: only one sender per message. The alarm, the re-arm on app start or boot and "Send now" can all reach it
         // together; the one that claims the row sends, the others find it taken and stop.
         val claimed = try {
-            ScheduledSendClaims.claim(context, messageId)
+            claim(context, messageId)
         } catch (e: Exception) {
             e.printStackTrace()
             return

@@ -126,7 +126,8 @@ class SpamChatGate(
         blocking = !visible
         if (!visible || wasBlocking) {
             AppLockGuard.applyWindowProtection(activity)
-            val shown = visible && !othersCover()
+            // M-SEC1: never shown under the app lock; the lock screen asked for in onResume covers it until passed.
+            val shown = visible && !othersCover() && !LockScope.isLockedNow(activity)
             activity.findViewById<View>(android.R.id.content)?.visibility = if (shown) View.VISIBLE else View.INVISIBLE
         }
     }

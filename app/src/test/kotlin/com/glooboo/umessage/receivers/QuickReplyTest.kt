@@ -104,6 +104,19 @@ class QuickReplyTest {
         assertThat(reposted.extras.getCharSequence(Notification.EXTRA_TEXT)?.toString()).isEqualTo("Are you coming?")
     }
 
+    /** M-P3: a reply saved as a failed row (Retry in the chat) is not copied into the draft as well. */
+    @Test
+    fun aFailedReplyThatWasSavedLeavesNoDraft() {
+        FakeSmsMmsProvider.installSms()
+        ShadowRecordingSmsManager.failingDestinations.add("+15550001234")
+
+        offMainThread { DirectReplyReceiver().handleReply(context, "+15550001234", 78L, "On my way") }
+        ShadowLooper.idleMainLooper()
+
+        assertThat(notSentNotifications).hasSize(1)
+        assertThat(context.getSmsDraft(78L)).isEmpty()
+    }
+
     @Test
     fun failedRespondViaMessagePostsANotSentNotification() {
         FakeSmsMmsProvider.installSms()
