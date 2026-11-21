@@ -26,7 +26,7 @@
         <item quantity="other">Не удалось восстановить %d MMS-сообщения, поэтому во входящие ничего не добавлено.</item>
     </plurals>
     <plurals name="spam_snack_restore_failed" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Не удалось восстановить %d MMS-сообщение. Оно осталось здесь.</item>
+        <item quantity="one">Не восстановлено MMS-сообщений: %d. Всё осталось здесь.</item>
         <item quantity="few">Не удалось восстановить %d MMS-сообщения. Они остались здесь.</item>
         <item quantity="many">Не удалось восстановить %d MMS-сообщений. Они остались здесь.</item>
         <item quantity="other">Не удалось восстановить %d MMS-сообщения. Они остались здесь.</item>
@@ -62,7 +62,7 @@
         <item quantity="other">Вы пожаловались на спам: %d чата. Новые сообщения этих отправителей попадут в «Спам». Чаты в архиве.</item>
     </plurals>
     <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Отправлена жалоба: %d чат. Он перемещен в «Спам».</item>
+        <item quantity="one">Отправлена жалоба: %d чат. Перемещено в «Спам».</item>
         <item quantity="few">Отправлены жалобы: %d чата. Они перемещены в «Спам».</item>
         <item quantity="many">Отправлены жалобы: %d чатов. Они перемещены в «Спам».</item>
         <item quantity="other">Отправлены жалобы: %d чата. Они перемещены в «Спам».</item>

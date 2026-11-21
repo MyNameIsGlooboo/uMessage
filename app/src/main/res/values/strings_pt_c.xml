@@ -21,7 +21,7 @@
     <!-- Block that does not move the chat: a user allow rule (a prefix, say) still names the sender (C-3). -->
     <string name="pt_block_still_allowed">Not moved to Spam: one of your allow rules still lets this sender in.</string>
     <!-- Unblock refused: a prefix block rule still covers the sender (D-6). %1$s = the prefix. Action: e_view_rule. -->
-    <string name="pt_unblock_refused_prefix">Not unblocked: a rule blocks numbers starting %1$s</string>
+    <string name="pt_unblock_refused_prefix">Not unblocked: a rule blocks numbers starting with %1$s</string>
 
     <!-- Chat screen: the one line about the sender (4.3) -->
     <string name="pt_line_code">Allowed because this sender sent a verification code.</string>

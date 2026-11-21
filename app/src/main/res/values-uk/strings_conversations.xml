@@ -47,7 +47,7 @@
         <item quantity="other">Заархівовано %d чату</item>
     </plurals>
     <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Заблоковано: %d відправник. Його чат переміщено в «Спам»</item>
+        <item quantity="one">Заблоковано відправників: %d. Чати переміщено в «Спам»</item>
         <item quantity="few">Заблоковано: %d відправники. Їхні чати переміщено в «Спам»</item>
         <item quantity="many">Заблоковано: %d відправників. Їхні чати переміщено в «Спам»</item>
         <item quantity="other">Заблоковано: %d відправника. Їхні чати переміщено в «Спам»</item>

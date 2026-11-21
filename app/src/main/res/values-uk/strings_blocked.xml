@@ -62,7 +62,7 @@
         <item quantity="other">Повідомлено про спам у %d чату. Нові повідомлення від цих відправників потраплятимуть у «Спам», а чати заархівовано.</item>
     </plurals>
     <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Надіслано скаргу: %d чат. Його переміщено в «Спам».</item>
+        <item quantity="one">Надіслано скаргу: %d чат. Переміщено в «Спам».</item>
         <item quantity="few">Надіслано скарги: %d чати. Їх переміщено в «Спам».</item>
         <item quantity="many">Надіслано скарги: %d чатів. Їх переміщено в «Спам».</item>
         <item quantity="other">Надіслано скарги: %d чату. Їх переміщено в «Спам».</item>

@@ -377,7 +377,7 @@ class SpamChatsViewModelTest {
         vm.unblock(setOf(2L))
         val message = awaitEvent<SpamChatsEvent.Message>()
 
-        assertThat(message.res).isEqualTo(R.string.spam_reason_rule_prefix)
+        assertThat(message.res).isEqualTo(R.string.pt_unblock_refused_prefix)
         assertThat(message.arg).isEqualTo("+1555")
         assertThat(events.none { it is SpamChatsEvent.Windowed }).isTrue()
         // The exact rule came back: nothing changed, so there is no Undo that does nothing.

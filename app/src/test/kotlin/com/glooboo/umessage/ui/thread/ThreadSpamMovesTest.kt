@@ -16,6 +16,7 @@ import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.ChatNotices
 import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.FakeSpamRepository
+import com.glooboo.umessage.ui.spam.RulesActivity
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +28,7 @@ import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
+import org.robolectric.Shadows.shadowOf
 import org.robolectric.shadows.ShadowLooper
 
 /**
@@ -142,9 +144,26 @@ class ThreadSpamMovesTest {
         verdict = SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE, prefix)
         moves().unblock(SENDER)
         val bar = shown()
-        assertThat(bar.visuals.message).isEqualTo(activity.getString(R.string.spam_reason_rule_prefix, "+1555"))
-        assertThat(bar.visuals.actionLabel).isNull()
+        assertThat(bar.visuals.message).isEqualTo(activity.getString(R.string.pt_unblock_refused_prefix, "+1555"))
+        assertThat(bar.visuals.actionLabel).isEqualTo(text(R.string.e_view_rule))
         assertThat(rules().map { it.pattern }).containsExactly("+1555", SENDER)
+    }
+
+    @Test
+    fun viewRuleOnAPrefixRefusedUnblockOpensTheRulesScreen() {
+        block(SENDER)
+        val prefix = block("+1555", type = RuleType.PREFIX)
+        verdict = SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE, prefix)
+        moves().unblock(SENDER)
+        shown().performAction()
+        val deadline = System.currentTimeMillis() + TIMEOUT_MS
+        var started = shadowOf(activity).nextStartedActivity
+        while (started == null && System.currentTimeMillis() < deadline) {
+            ShadowLooper.idleMainLooper()
+            Thread.sleep(10)
+            started = shadowOf(activity).nextStartedActivity
+        }
+        assertThat(started?.component?.className).isEqualTo(RulesActivity::class.java.name)
     }
 
     @Test
