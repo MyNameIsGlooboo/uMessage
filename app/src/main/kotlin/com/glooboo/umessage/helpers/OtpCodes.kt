@@ -94,7 +94,9 @@ object OtpCodes {
                 .map { it.groups[1]!!.range }
                 .toList()
         } else {
-            Regex("(?<![\\p{L}\\p{N}])" + Regex.escape(value) + "(?![\\p{L}\\p{N}])")
+            // R3-7: the value was read without variation selectors ("4⃣8⃣2⃣9⃣"); the text may still hold them.
+            val written = value.map { Regex.escape(it.toString()) }.joinToString("[\\uFE00-\\uFE0F]?")
+            Regex("(?<![\\p{L}\\p{N}])$written(?![\\p{L}\\p{N}])")
                 .findAll(text).map { it.range }.toList()
         }
 

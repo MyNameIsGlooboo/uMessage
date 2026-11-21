@@ -73,14 +73,19 @@ object OtpDetector {
     /** What closes a code written between marks ("*482913*"); a "#" after "*1234" ends a dial code instead. */
     private const val CLOSING = "[*\u2022\u25CF]"
 
+    /** Words of a card or an account right before a masked number ("کارت *1234", "card •1234"), folded. */
+    private const val CARD_WORDS = "(?:کارت|card|a/c|بطاقه|البطاقه|للبطاقه|لبطاقه|بطاقتک|لبطاقتک|بطاقتکم|لبطاقتکم)"
+
     /**
      * Checked at the end of a number: a masked number is no code. That is a number with two mask characters, or a digit
      * and one, before it ("****1234", "**** 1234") unless a mask character also closes it ("**482913**" is bold), and a
-     * number followed by two mask characters ("1234****") unless one opens it. A single star is no mask ("*482913*",
-     * "OTP *482913"), except before the four last digits of a card ("از کارت *1234"), unless a star closes them.
+     * number followed by two mask characters ("1234****") unless one opens it. A single mark is no mask ("*482913*",
+     * "OTP *4829", "PIN •4829", "Your OTP is #4829", "@example.com #4829"), except a star or a bullet before the four
+     * last digits of a card ("از کارت *1234", "card •1234") and a dial code ("*1234#").
      */
-    internal const val MASK_GUARD = "(?:(?=$CLOSING)|(?<!(?:\\p{N}|$MASK)$MASK[0-9 -]{4,10})(?<!$MASK[0-9]{4}))" +
-        "(?:(?!$MASK{2})|(?<=$MASK[0-9 -]{4,10}))"
+    internal const val MASK_GUARD = "(?:(?=$CLOSING)|(?<!(?:\\p{N}|$MASK)$MASK[0-9 -]{4,10})" +
+        "(?<!$CARD_WORDS[^\\p{L}\\p{N}]{1,3}[*\u2022\u25CF][0-9]{4}))" +
+        "(?:(?!$MASK{2})|(?<=$MASK[0-9 -]{4,10}))(?:(?!#)|(?<!\\*[0-9]{4,10}))"
     /**
      * Characters that join digits into one bigger number: a date, a time, an amount ("1405/08/27", "14:32"). A hyphen
      * is not one of them, as a code is also written in groups ("4829-13"); a date written with hyphens is [HYPHEN_DATE].
@@ -98,16 +103,29 @@ object OtpDetector {
      * Bounded look-behinds, so Android's ICU engine accepts them.
      */
     private const val REFERENCE_WORDS = "(?:شماره کارت|شماره حساب|شماره پیگیری|شماره سفارش|به شماره|برای شماره|" +
-        "شناسه|مانده حساب|مانده|منتهی به|عدد|tracking number|account number|order number|reference number|" +
-        "account ending in|account ending|ending in|ending|balance)"
-    private const val REFERENCE_BEFORE = "(?<!$REFERENCE_WORDS(?:\\sis)?[^\\p{L}\\p{M}\\p{N}]{1,3})"
+        "شناسه|مانده حساب|مانده|منتهی به|tracking number|account number|order number|reference number|" +
+        "account ending in|account ending|card ending|a/c ending|phone ending|number ending|mobile ending|ending in|" +
+        "balance)"
+    private const val AMOUNT_WORDS = "(?:amount|مبلغ)"
+
+    /** Not right after a reference or amount word: a number such a word names is no code. */
+    internal const val REFERENCE_BEFORE = "(?<!(?<![\\p{L}])$REFERENCE_WORDS(?:\\sis)?[^\\p{L}\\p{M}\\p{N}]{1,3})" +
+        "(?<!(?<![\\p{L}])$AMOUNT_WORDS[^\\p{L}\\p{M}\\p{N}]{1,3})"
+    /**
+     * A number the word chain may step over (review 3, R3-1): one a reference or amount word names ("card ending
+     * 1234", "account number 12345678", "INR 2,500.00"), or a masked one ("*1234"). So in "OTP for card ending 1234 is
+     * 482913" the keyword reaches 482913. At most one step before each word, so matching stays linear.
+     */
+    internal const val STEP = "(?:(?<![\\p{L}])(?:$REFERENCE_WORDS|$AMOUNT_WORDS|inr|rs\\.?|usd)(?:\\sis)?" +
+        "[^\\p{L}\\p{M}\\p{N}]{1,3}$MASK{0,4}|" +
+        "(?<=$MASK)(?<![0-9]$MASK))[0-9][0-9,.]{1,14}(?<![,.])(?![0-9])"
 
     /**
      * Bare words that name a number only far from a keyword ([WIDE_NEAR]): "OTP for your account is 482913" and "کد
      * تایید شماره: 482913" are codes, "رمز دوم ... مانده حساب 250000" and "... sent to mobile 4829137" are not.
      */
-    private const val FAR_REFERENCE_WORDS = "(?:شماره|مبلغ|شعبه|account|amount|number|mobile)"
-    private const val FAR_REFERENCE_BEFORE = "(?<!$FAR_REFERENCE_WORDS[^\\p{L}\\p{M}\\p{N}]{1,3})"
+    private const val FAR_REFERENCE_WORDS = "(?:شماره|شعبه|عدد|account|number|mobile|ending)"
+    private const val FAR_REFERENCE_BEFORE = "(?<!(?<![\\p{L}])$FAR_REFERENCE_WORDS[^\\p{L}\\p{M}\\p{N}]{1,3})"
 
     /** Not after a digit, a currency sign or a reference word, not one part of a date or amount, not masked. */
     private const val EDGES_BEFORE =
@@ -135,7 +153,7 @@ object OtpDetector {
      */
     internal val longShape = "(?<!\\+)(?<!(?:$phoneWords)[^\\p{L}\\p{N}]{0,3})(?!0|98)[0-9]{9,10}" +
         // Nor one a phone word follows ("با 9123456789 تماس بگیرید"): a mobile number written without its 0.
-        "(?![^\\p{L}\\p{N}]{1,3}(?:$phoneWords))"
+        "(?! {1,3}(?:$phoneWords)(?![\\p{L}\\p{N}]))"
 
     private val LONG_CODE = "$EDGES_BEFORE$longShape$EDGES_AFTER"
 
@@ -154,13 +172,16 @@ object OtpDetector {
      */
     internal const val WORD = "(?:[\\u0E00-\\u0EFF\\u1000-\\u109F\\u1780-\\u17FF]{1,64}+|[\\p{L}\\p{M}]{1,15}+)"
 
+    /** A separator of [NEAR]: up to eight spaces or marks, never a combining mark, never cut back. */
+    private const val GAP = "[^\\p{L}\\p{M}\\p{N}]{1,8}+"
+
     /**
      * Separator, then up to four plain words (letters only, so "SAVE20" or a phone number breaks the chain). A
      * separator is up to eight spaces or marks, so "Code:" and the number two blank lines further down still meet.
      * Neither a separator nor a word is ever cut back (possessive), and a combining mark belongs to the word only.
      */
     internal const val NEAR =
-        "[^\\p{L}\\p{M}\\p{N}]{1,8}+(?:$WORD[^\\p{L}\\p{M}\\p{N}]{1,8}+){0,4}"
+        "$GAP(?:(?:$STEP$GAP)?$WORD$GAP){0,4}(?:$STEP$GAP)?"
 
     /** A separator that stays inside one sentence: no full stop, mark or line break ([sentenceBreaks]). */
     private const val IN_SENTENCE = "[^\\p{L}\\p{M}\\p{N}.!?;\\n\\r\u061F\u06D4]{1,4}+"
@@ -172,8 +193,8 @@ object OtpDetector {
      * and a year or a date this far from the phrase is no code ("Your password expires at the end of December 2026").
      */
     private const val WIDE_NEAR =
-        "$IN_SENTENCE(?:(?:[\\u0E00-\\u0EFF\\u1000-\\u109F\\u1780-\\u17FF]{1,64}+|" +
-            "[\\p{L}\\p{M}][\\p{L}\\p{M}\\p{N}]{0,19}+)$IN_SENTENCE){0,8}"
+        "$IN_SENTENCE(?:(?:$STEP$IN_SENTENCE)?(?:[\\u0E00-\\u0EFF\\u1000-\\u109F\\u1780-\\u17FF]{1,64}+|" +
+            "[\\p{L}\\p{M}][\\p{L}\\p{M}\\p{N}]{0,19}+)$IN_SENTENCE){0,8}(?:$STEP$IN_SENTENCE)?"
 
     /** The only words with the wide reach: not "verify", "log in" or "تایید", whose texts are often bank notices. */
     private val wideWords = keywordPattern(OtpKeywords.codePhrases + OtpKeywords.password)
@@ -350,7 +371,8 @@ object OtpDetector {
         RegexOption.IGNORE_CASE,
     )
     private val farCode = Regex("(?!$YEAR)(?!$DATE)[0-9 -]+")
-    private val farReferenceEnd = Regex("$FAR_REFERENCE_WORDS[^\\p{L}\\p{M}\\p{N}]{1,3}$", RegexOption.IGNORE_CASE)
+    private val farReferenceEnd =
+        Regex("(?<![\\p{L}])$FAR_REFERENCE_WORDS[^\\p{L}\\p{M}\\p{N}]{1,3}$", RegexOption.IGNORE_CASE)
 
     /**
      * Whether the code at [range] of [text] ([scanned]) has a keyword a few plain words before or after it, on the

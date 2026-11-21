@@ -121,7 +121,8 @@ class OtpDetectorCorpusTest {
             "کد تایید تغییر شماره: 482913",
             "رمز یکبار مصرف شماره 482913",
         ).forEach { assertShownAndAllows(it, "482913") }
-        assertShownOnly("کد تایید شما برای برداشت مبلغ: 482913", "482913")
+        // A number right after an amount word is an amount, also next to a code phrase (review 3, R3-1).
+        assertNoCode("کد تایید شما برای برداشت مبلغ: 482913")
         assertShownOnly("Your verification code for your Example account is 482913", "482913")
         listOf(
             "پرداخت قبض شما تایید شد، شماره پیگیری 482913",
@@ -288,8 +289,98 @@ class OtpDetectorCorpusTest {
         ).forEach { assertFalse(it, allows(it)) }
         assertNoCode("برای دریافت کلمه عبور با 9123456789 تماس بگیرید")
         assertNoCode("پسورد را به شماره 9123456789 ارسال کنید")
-        assertNoCode("برای دریافت پسورد عدد 4829 را به 30001234 ارسال کنید")
+        // R3-3: a number to send to a short code is shown, but allows nobody.
+        assertTrue(shown("برای دریافت پسورد عدد 4829 را به 30001234 ارسال کنید"))
+        assertFalse(allows("برای دریافت پسورد عدد 4829 را به 30001234 ارسال کنید"))
         assertShownAndAllows("رمز عبور شما 9123456789 است", "9123456789")
+    }
+
+    /**
+     * R3-1: the chain steps over a number that a reference or amount word names, or a masked one, so the code after
+     * it is found, copied and allowed, never the reference number.
+     */
+    @Test fun theChainStepsOverAReferenceNumber() {
+        listOf(
+            "OTP for card ending 1234 is 482913",
+            "Your OTP for A/c ending 1234 is 482913",
+            "Your OTP for account ending 1234 is 482913. Do not share.",
+            "Your OTP for card ending in 1234 is 482913",
+            "رمز پویا کارت منتهی به 1234: 482913",
+            "OTP for card *1234 is 482913",
+            "OTP for a/c *1234: 482913",
+            "رمز پویا برای کارت *1234: 482913",
+            "Your OTP for card **1234 is 482913",
+            "Your password reset code for account number 12345678 is 482913",
+            "Your OTP for order number 12345678 is 482913",
+            "OTP for transaction of INR 2500.00 is 482913",
+            "Your OTP for transaction amount 2500 is 482913",
+            "OTP for transaction on card ending 1234 is 482913",
+        ).forEach { assertShownAndAllows(it, "482913") }
+        assertShownAndAllows("Your Example verification code for phone ending 4829 is 771234", "771234")
+        assertEquals(
+            "Your OTP for transaction amount 2500 is ••••",
+            com.glooboo.umessage.helpers.CodeMasker.mask("Your OTP for transaction amount 2500 is 482913"),
+        )
+        // A notice whose second number follows a masked card and "انجام شد" (done) allows nobody.
+        assertFalse(allows("خرید با رمز پویا از کارت *1234 انجام شد 482913"))
+        assertFalse(allows("Password changed for account ending 1234. Case 482913"))
+    }
+
+    /** R3-6: a reference word starts a word: "sending" and "spending" are no "ending". */
+    @Test fun aReferenceWordMustStartAWord() {
+        assertShownAndAllows("We are sending 482913 as your verification code", "482913")
+        assertShownAndAllows("Sending 482913 as your OTP", "482913")
+    }
+
+    /** R3-3: "عدد" (the number) introduces a code near a keyword; far from one it names a number. */
+    @Test fun theWordForNumberIntroducesACode() {
+        listOf(
+            "کد تایید شما عدد 482913 است",
+            "کد تایید: عدد 482913",
+            "رمز یکبار مصرف شما عدد 482913 می باشد",
+            "لطفا عدد 482913 را به عنوان کد تایید وارد کنید",
+        ).forEach { assertShownAndAllows(it, "482913") }
+        assertShownAndAllows("کد فعالسازی: عدد 4829", "4829")
+    }
+
+    /**
+     * R3-4: words of a notice (wi-fi, modem, card, account) take the allow from a password or PIN only, never from a
+     * one-time code phrase; a card change or expiry still does.
+     */
+    @Test fun noticeWordsDoNotTakeTheAllowFromAOneTimeCode() {
+        listOf(
+            "Your WiFi OTP is 482913",
+            "Your Wi-Fi login code is 482913",
+            "رمز یکبار مصرف وای فای: 482913",
+            "کد ورود به وای فای نمونه: 482913",
+            "رمز یکبار مصرف ورود به پنل مودم: 482913",
+            "رمز التحقق لحساب نمونه هو 482913",
+            "رمز التحقق لتفعيل بطاقتك هو 482913",
+            "رمز التحقق لمرة واحدة لبطاقتك هو 482913",
+            "رمز التحقق رقم 482913",
+        ).forEach { assertShownAndAllows(it, "482913") }
+        listOf(
+            "پسورد وای فای 48291375",
+            "Wi-Fi password: 48291375",
+            "الرقم السري لبطاقة الصراف 1234 تم تفعيله",
+            "تم تغيير الرقم السري لبطاقتك المنتهية بـ 1234",
+            "تم تحديث كلمة السر لحسابك رقم 482913",
+        ).forEach { assertFalse(it, allows(it)) }
+    }
+
+    /** R3-5: a long password with a support line or "tell no one" after it is a code. */
+    @Test fun aLongPasswordWithASupportLineIsACode() {
+        listOf(
+            "رمز شخصی شما 1234567890. تماس با پشتیبانی 02112345678",
+            "Your password is 1234567890. Call us if you did not request it.",
+            "Your temporary password is 1234567890 tell no one",
+            "Your password is 1234567890 (telegram: @example)",
+        ).forEach { assertShownAndAllows(it, "1234567890") }
+    }
+
+    /** R3-8: an origin-bound line vouches for a labelled value without a keyword. */
+    @Test fun anOriginBoundLineVouchesForALabelledValue() {
+        assertShownAndAllows("pass: 482913\n@example.com #482913", "482913")
     }
 
     /** N5-3, R2-7: a code between stars is a code, with the digits as its copy value; only a mask is none. */
@@ -307,6 +398,9 @@ class OtpDetectorCorpusTest {
         // The last four digits of a card after one star, and a dial code, are no code.
         assertNoCode("خرید با رمز پویا از کارت *1234 انجام شد")
         assertNoCode("PIN *1234# to activate")
+        // R3-2: one "#", star or bullet before four digits without a card word is no mask.
+        listOf("Your OTP is #4829", "کد تایید: #4829", "OTP *4829", "PIN •4829", "Your verification code is: •4829")
+            .forEach { assertShownAndAllows(it, "4829") }
     }
 
     /** N5-14: a labelled value between stars is copied without them. */

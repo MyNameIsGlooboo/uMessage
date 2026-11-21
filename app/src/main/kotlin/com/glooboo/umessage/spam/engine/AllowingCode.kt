@@ -87,16 +87,34 @@ object AllowingCode {
         // "لحساب" (for the account) and "مسدود" (blocked). The bare "تغییر" is left out: it is also the Persian word in
         // "کد تایید تغییر شماره: 482913"; so is "حسابک", as in "رمز التحقق الخاص بحسابك هو 482913".
         "الخصم", "التتبع", "تتبع", "الشحنه", "شحنه", "الطلب", "طلبک", "مرجع", "المرجع", "الحجز", "رقم العملیه",
-        "تم تغییر", "المنتهیه", "\\p{L}*بطاق\\p{L}*", "لحساب", "مسدود",
+        "تم تغییر", "المنتهیه",
         // A password that is no one-time code: a wi-fi or modem password, one that has expired.
-        "وای فای", "وایفای", "wi-?fi", "مودم", "modem", "الوای فای", "الوایفای", "منقضی شد", "منقضی شده",
-        "ستنتهی قریبا",
+        )
+
+    /**
+     * Words of a notice (review 3, R3-4): a card, an account, a blocked or expired password, a wi-fi or modem password.
+     * They take the allow from a password or a PIN, never from a one-time code phrase ("Your WiFi OTP is 482913",
+     * "رمز التحقق لتفعيل بطاقتك هو 482913"); "رقم" right before the number counts as one too.
+     */
+    internal val noticeWords: List<String> = listOf(
+        "\\p{L}*بطاق\\p{L}*", "لحساب", "مسدود", "وای فای", "وایفای", "wi-?fi", "مودم", "modem", "الوای فای",
+        "الوایفای", "منقضی شد", "منقضی شده", "ستنتهی قریبا",
+    )
+
+    /** Phrases of [strongPhrases] that name a lasting secret, not a one-time code: notice words still veto them. */
+    internal val staticSecrets: List<String> = listOf(
+        "password", "pin", "passcode", "رمز عبور", "رمز شخصی", "رمز ورود", "گذرواژه", "پسورد", "کلمه عبور",
+        "کلمه ی عبور", "کلمه المرور", "الرقم السری", "رقمک السری", "کلمه السر", "الرمز السری",
     )
 
     private const val BARE_THAI_CODE = "รหัส"
     /** As in [OtpDetector.NEAR]: a mark is never a separator, and neither run is cut back, so matching stays linear. */
     private const val SEP = "[^\\p{L}\\p{M}\\p{N}]{1,8}+"
     private const val WORD = OtpDetector.WORD
+
+    /** A reference or masked number the chains step over ([OtpDetector.STEP]), before a word or before the code. */
+    private const val STEP_ONE = "${OtpDetector.STEP}$SEP"
+    private const val STEP_LAST = "(?:$STEP_ONE)?"
 
     /** The characters either side of a code that are searched. */
     private const val WINDOW = 120
@@ -110,11 +128,11 @@ object AllowingCode {
 
     private val phrase = OtpDetector.keywordPattern(strongPhrases)
     private val weak = OtpDetector.keywordPattern(OtpKeywords.weak)
-    private val plainWord = "(?!$weak)$WORD"
+    private val plainWord = "(?!$weak)(?:${OtpDetector.STEP}$SEP)?$WORD"
 
     /** A phrase, then up to four plain words, or a generic "code" after at most one word ("PIN reset code is"). */
     private val strongBefore = Regex(
-        "$phrase$SEP(?:(?:$WORD$SEP)?$weak$SEP(?:$plainWord$SEP){0,2}|(?:$plainWord$SEP){0,4})$",
+        "$phrase$SEP(?:(?:$WORD$SEP)?$weak$SEP(?:$plainWord$SEP){0,2}|(?:$plainWord$SEP){0,4})$STEP_LAST$",
         RegexOption.IGNORE_CASE,
     )
     private val strongAfter = Regex("^$SEP(?:$plainWord$SEP){0,4}$phrase", RegexOption.IGNORE_CASE)
@@ -127,17 +145,26 @@ object AllowingCode {
     private val cjkAfter = Regex("^[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$cjkWords")
 
     private val veto = words(vetoWords)
-    private val vetoBefore = Regex("$veto$SEP(?:$WORD$SEP){0,4}$", RegexOption.IGNORE_CASE)
+    private val vetoBefore = Regex("$veto$SEP(?:(?:$STEP_ONE)?$WORD$SEP){0,4}$STEP_LAST$", RegexOption.IGNORE_CASE)
 
     /**
      * A word right before the number that names it a number or an amount: "رقم 1234" (number), "مبلغ: 482913"
      * (amount), "مانده", "amount", "balance". Such a number is shown, but allows nobody (R2-2, R2-5).
      */
     private val numberWordBefore = Regex(
-        "(?<![\\p{L}\\p{N}])(?:رقم|مبلغ|مانده|amount|balance)$SEP$",
+        "(?<![\\p{L}\\p{N}])(?:مبلغ|مانده|amount|balance|انجام شد)$SEP$",
         RegexOption.IGNORE_CASE,
     )
     private val vetoAfter = Regex("^$SEP(?:$WORD$SEP){0,4}$veto", RegexOption.IGNORE_CASE)
+    private val notice = words(noticeWords)
+    private val noticeBefore =
+        Regex("(?:$notice$SEP(?:$WORD$SEP){0,4}|(?<![\\p{L}\\p{N}])رقم$SEP)$", RegexOption.IGNORE_CASE)
+    private val noticeAfter = Regex("^$SEP(?:$WORD$SEP){0,4}$notice", RegexOption.IGNORE_CASE)
+    private val oneTime = OtpDetector.keywordPattern(strongPhrases - staticSecrets.toSet())
+    private val oneTimeBefore = Regex("$oneTime$SEP(?:$WORD$SEP){0,4}$", RegexOption.IGNORE_CASE)
+    private val oneTimeAfter = Regex("^$SEP(?:$WORD$SEP){0,4}$oneTime", RegexOption.IGNORE_CASE)
+    /** "N را به 30001234 ارسال کنید": a number to send to a short code, not a code to type in. */
+    private val sendTo = Regex("^\\s?را\\s?به\\s?[0-9]{3,}")
 
     /**
      * Reference words of languages without spaces: parcel, order, express delivery, coupon, discount (R-2), and the
@@ -206,10 +233,10 @@ object AllowingCode {
         val full = TextNormalizer.fold(body)
         if (OtpDetector.hasAdvertisingWord(full)) return@runCatching false
         val text = OtpDetector.scanned(full)
-        val secret = secrecy.containsMatchIn(full)
+        val secret = secrecy.containsMatchIn(text)
         val bound = OtpDetector.isOriginBound(body)
         val near = OtpDetector.withinReach(text)
-        codeRanges(body, text).filter(near).any { range ->
+        codeRanges(body, text).filter { bound || near(it) }.any { range ->
             val vouched = bound || secret && OtpDetector.keywordClose(text, range)
             !vetoNear(text, range) && (vouched || allowsNear(text, range))
         }
@@ -237,7 +264,10 @@ object AllowingCode {
         val head = before(text, range)
         val tail = after(text, range)
         val cjkCodeFirst = cjkBefore.containsMatchIn(head) && cjkClauseBeforeVeto.containsMatchIn(tail)
-        val reference = vetoBefore.containsMatchIn(head) || numberWordBefore.containsMatchIn(head)
+        val oneTimeNear = oneTimeBefore.containsMatchIn(head) || oneTimeAfter.containsMatchIn(tail)
+        val noticeNear = !oneTimeNear && (noticeBefore.containsMatchIn(head) || noticeAfter.containsMatchIn(tail))
+        val reference = vetoBefore.containsMatchIn(head) || numberWordBefore.containsMatchIn(head) || noticeNear ||
+            sendTo.containsMatchIn(tail)
         return reference || vetoAfter.containsMatchIn(tail) ||
             cjkVetoBefore.containsMatchIn(head) && !cjkCodeAfterClause.containsMatchIn(head) ||
             cjkVetoAfter.containsMatchIn(tail) && !cjkCodeFirst

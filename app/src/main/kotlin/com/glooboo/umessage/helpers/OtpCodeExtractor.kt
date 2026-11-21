@@ -31,14 +31,14 @@ object OtpCodeExtractor {
      * amount's unit.
      */
     private val code = Regex(
-        "(?<![\\p{L}\\p{N}.$€£])(?<![\\p{N}*][$JOINERS])" +
+        "(?<![\\p{L}\\p{N}.$€£])(?<![\\p{N}*][$JOINERS])" + OtpDetector.REFERENCE_BEFORE +
             "(" + OtpDetector.codeShape + ")" +
             "(?![\\p{L}\\p{N}])(?![$JOINERS][\\p{N}*])" + OtpDetector.MASK_GUARD + OtpDetector.NOT_AFTER,
         RegexOption.IGNORE_CASE,
     )
     /** A 9-10 digit password ([OtpDetector.longShape]), bound to a password word only; same edges as [code]. */
     private val longCode = Regex(
-        "(?<![\\p{L}\\p{N}.$€£])(?<![\\p{N}*][$JOINERS])" +
+        "(?<![\\p{L}\\p{N}.$€£])(?<![\\p{N}*][$JOINERS])" + OtpDetector.REFERENCE_BEFORE +
             "(" + OtpDetector.longShape + ")" +
             "(?![\\p{L}\\p{N}])(?![$JOINERS][\\p{N}*])" + OtpDetector.MASK_GUARD + OtpDetector.NOT_AFTER,
         RegexOption.IGNORE_CASE,
