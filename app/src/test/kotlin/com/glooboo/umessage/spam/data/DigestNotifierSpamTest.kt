@@ -76,6 +76,7 @@ class DigestNotifierSpamTest {
     @After
     fun tearDown() {
         DigestNotifier.resetDueGuard()
+        DigestNotifier.readSpamTexts = { context, now -> DigestNotifier.spamTexts(context, now) }
         writeState(FirstRunState())
         resetSharedMessagesDatabase()
     }
@@ -124,11 +125,50 @@ class DigestNotifierSpamTest {
     }
 
     @Test
+    fun aFailedCountKeepsTheWeek() {
+        DigestNotifier.readSpamTexts = { _, _ -> error("cache gone") }
+        assertThat(offMainThread { DigestNotifier.postIfDue(context, now) }).isFalse()
+
+        DigestNotifier.readSpamTexts = { c, at -> DigestNotifier.spamTexts(c, at) }
+        assertThat(offMainThread { DigestNotifier.postIfDue(context, now) }).isTrue()
+    }
+
+    @Test
+    fun aCheckBeforeTheWeekIsUpReadsNothingAgainWithinTheHour() {
+        var reads = 0
+        DigestNotifier.readSpamTexts = { c, at -> reads++; DigestNotifier.spamTexts(c, at) }
+        assertThat(offMainThread { DigestNotifier.postIfDue(context, now) }).isTrue()
+        assertThat(reads).isEqualTo(1)
+
+        // The week was just claimed: this check reads once and finds it not up; the next ones within the hour do not.
+        offMainThread { DigestNotifier.postIfDue(context, now + 1_000L) }
+        offMainThread { DigestNotifier.postIfDue(context, now + 30 * 60_000L) }
+        assertThat(reads).isEqualTo(2)
+
+        offMainThread { DigestNotifier.postIfDue(context, now + 2 * 60 * 60_000L) }
+        assertThat(reads).isEqualTo(3)
+    }
+
+    @Test
+    fun theTextThatPutItsChatInSpamCounts() {
+        // H-15: spam_since is the arrival time in milliseconds, the stored text is dated in whole seconds; an MMS is
+        // dated by its own date, a few minutes before its download placed the chat.
+        val arrival = now - DAY_MS + 731L
+        val texts = listOf(
+            WeeklyDigest.SpamText(SENDER, "Cheap loans", receivedAt = arrival / 1000 * 1000, since = arrival),
+            WeeklyDigest.SpamText(SENDER, "Picture ad", receivedAt = arrival - 5 * 60_000L, since = arrival),
+            WeeklyDigest.SpamText(SENDER, "Old chat text", receivedAt = arrival - 60 * 60_000L, since = arrival),
+        )
+
+        assertThat(WeeklyDigest.computeTexts(texts, now).held).isEqualTo(2)
+    }
+
+    @Test
     fun theCountIsPureAndKeepsOnlyTextsThatArrivedInSpam() {
         val texts = listOf(
             WeeklyDigest.SpamText(SENDER, "Your verification code is 482913", now - DAY_MS, since),
             WeeklyDigest.SpamText(SENDER, "Cheap loans", receivedAt = now - DAY_MS, since = since),
-            WeeklyDigest.SpamText(SENDER, "Cheap loans", receivedAt = since - 1, since = since),
+            WeeklyDigest.SpamText(SENDER, "Cheap loans", receivedAt = since - 60 * 60_000L, since = since),
             WeeklyDigest.SpamText(SENDER, "Cheap loans", receivedAt = now + DAY_MS, since = since),
         )
 

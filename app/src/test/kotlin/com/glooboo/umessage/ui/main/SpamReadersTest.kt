@@ -9,11 +9,13 @@ import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.HiddenChatsSession
+import com.glooboo.umessage.helpers.MessageFoldBackfill
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.helpers.StarredList
 import com.glooboo.umessage.helpers.messageNotes
 import com.glooboo.umessage.helpers.starredDB
+import com.glooboo.umessage.interfaces.SearchPlace
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.StarredMessage
@@ -186,6 +188,52 @@ class SpamReadersTest {
 
         assertThat(links.map { it.threadId }).containsExactly(SHOWN)
         assertThat(oldest.map { it.id }).containsExactly(2L)
+    }
+
+    @Test
+    fun manyMessagesMatchesNeverPushTheSpamChatOutOfTheSpamSection() = runBlocking<Unit>(Dispatchers.IO) {
+        // H-1, Spam side: more than the cap of newer Messages matches, one older Spam match.
+        (100L..220L).forEach { app.messagesDB.insertOrUpdate(message(it, SHOWN, "pizza tonight $it")) }
+
+        val spam = search().searchSpamChats("pizza").single()
+
+        assertThat(spam.open.threadId).isEqualTo(SPAM)
+        assertThat(spam.row.count).isEqualTo(1)
+    }
+
+    @Test
+    fun aFoldedSearchKeepsItsPlaceAlsoForRowsNotBackfilledYet() = runBlocking<Unit>(Dispatchers.IO) {
+        // Persian letter forms in the texts, Arabic ones typed: folded on both sides (MC-15). Rows 301 and 302 have
+        // their folded column still empty, as before the backfill, so only the old SQL fold finds them.
+        MessageFoldBackfill.reset()
+        app.messagesDB.insertOrUpdate(message(300, SPAM, "سلام علی"))
+        app.messagesDB.insertOrUpdate(message(301, SPAM, "سلام علی").apply { bodyFolded = "" })
+        app.messagesDB.insertOrUpdate(message(302, SHOWN, "سلام علی").apply { bodyFolded = "" })
+        app.messagesDB.insertOrUpdate(message(303, SHOWN, "سلام علی"))
+
+        val outside = app.messagesDB.searchMessages("علي", SearchPlace.OUTSIDE_SPAM).map { it.id }
+        val inSpam = app.messagesDB.searchMessages("علي", SearchPlace.SPAM).map { it.id }
+
+        assertThat(outside).containsExactly(303L, 302L)
+        assertThat(inSpam).containsExactly(301L, 300L)
+    }
+
+    @Test
+    fun theSpamSectionGoesWhenTheAppComesBackLocked() = runBlocking<Unit>(Dispatchers.IO) {
+        // H-16: found while Spam was open; the lock locks again while the app is away.
+        val search = search()
+        val hits = search.searchSpamChats("pizza")
+        search.state.blockedHits = hits.map { it.row }
+        search.state.spamTargets = hits.associate { it.row.address to it.open }
+
+        search.onAppReturned()
+        assertThat(search.state.blockedHits).isNotEmpty()
+
+        lockSpam()
+        search.onAppReturned()
+        assertThat(search.state.blockedHits).isEmpty()
+        assertThat(search.state.spamTargets).isEmpty()
+        assertThat(search.state.shownBlockedHits(typed = true, spamLocked = true)).isEmpty()
     }
 
     @Test

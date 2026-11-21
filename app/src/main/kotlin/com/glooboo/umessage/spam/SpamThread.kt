@@ -61,10 +61,11 @@ object SpamThreads {
     /** A spam text from [address] arrives in [threadId]: its row first, then unread + 1 (6.1, R12, B-7). */
     fun noteArrival(context: Context, threadId: Long, address: String, cause: SpamCause, at: Long) {
         val readers = readers(context)
-        MessagesDatabase.getInstance(context.applicationContext).ConversationsDao()
-            .noteSpamArrival(threadId, address, cause, at) { a, b -> same(readers, a, b) }
-        // H-3 (U9): a chat in Spam has no launcher or share shortcut, also when it got there by this text.
-        ShortcutHelper.removeForSpam(context, threadId)
+        val dao = MessagesDatabase.getInstance(context.applicationContext).ConversationsDao()
+        dao.noteSpamArrival(threadId, address, cause, at) { a, b -> same(readers, a, b) }
+        // H-3 (U9): a chat in Spam has no launcher or share shortcut, also when it got there by this text. Only when
+        // the row counts for the chat (S9): a cached chat under another number, or a group, stays in Messages.
+        if (runCatching { dao.isInSpam(threadId) }.getOrDefault(false)) ShortcutHelper.removeForSpam(context, threadId)
     }
 
     /** R1's safety check: [threadId] has a Spam row for the sender [address] (its chat row may not be cached yet). */

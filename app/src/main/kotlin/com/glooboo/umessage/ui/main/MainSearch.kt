@@ -247,6 +247,12 @@ class MainSearchState {
     /** Set by the view model: stops a search still running when the user leaves search. */
     internal var onClose: (() -> Unit)? = null
 
+    /** H-16: the app lock covers Spam again: the Spam section and its targets go. */
+    internal fun hideSpamHits() {
+        blockedHits = emptyList()
+        spamTargets = emptyMap()
+    }
+
     fun close() {
         onClose?.invoke()
         active = false

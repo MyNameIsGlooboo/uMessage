@@ -93,6 +93,17 @@ object RuleDryRun {
             .toList()
 }
 
+/**
+ * H-16: the preview without the example senders of its Spam part while they may not show ([visible] false: the app
+ * lock covers Spam and is locked), so a preview made before the lock locked again does not keep them on screen.
+ */
+fun RulePreviewState.hidingSpamSenders(visible: Boolean): RulePreviewState =
+    if (this is RulePreviewState.Done && !visible && result.blocked.senders.isNotEmpty()) {
+        copy(result = result.copy(blocked = result.blocked.copy(senders = emptyList())))
+    } else {
+        this
+    }
+
 /** Where the preview reads the inbox and the matcher from. Blocking; call off the main thread. */
 interface RulePreviewSource {
     fun matcher(): RuleMatcher

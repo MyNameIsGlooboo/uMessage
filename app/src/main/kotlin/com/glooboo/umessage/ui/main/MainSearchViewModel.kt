@@ -8,6 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.messagesDB
+import com.glooboo.umessage.helpers.AppReturnWatch
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.SpamReaders
@@ -60,7 +61,11 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
 
     private fun spamIds(app: Application): Set<Long> = querySpam?.value ?: SpamReaders.threadIds(app)
 
+    /** H-16: when the app comes back and the lock covers Spam again, the Spam section goes. */
+    private val appReturn = AppReturnWatch(::onAppReturned)
+
     init {
+        appReturn.start()
         state.onClose = { searchJob?.cancel() }
         handle.get<Bundle>(KEY_SAVED)?.let { saved ->
             state.filter = InboxFilter.entries.firstOrNull { it.name == saved.getString(KEY_FILTER) } ?: InboxFilter.All
@@ -102,6 +107,16 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
                 state.blockedHits = runBlockedSearch(text.trim())
             }
         }
+    }
+
+    /** H-16: the app came back to the front; a Spam section found while it was open goes when Spam is locked now. */
+    internal fun onAppReturned() {
+        if (state.blockedHits.isNotEmpty() && SpamReaders.lockedNow(getApplication())) state.hideSpamHits()
+    }
+
+    override fun onCleared() {
+        appReturn.stop()
+        super.onCleared()
     }
 
     internal suspend fun searchDatabase(text: String): List<SearchResult> = withContext(Dispatchers.IO) {
@@ -163,7 +178,9 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
         try {
             val notes = app.messageNotes
             notes.relink()
-            val visible = HiddenChats.get(app).withoutHidden(notes.search(text)) { it.threadId }
+            // H-18: the notes of Spam chats are left out in the SQL, before the cap.
+            val inPlace = notes.search(text, SearchPlace.outsideSpam())
+            val visible = HiddenChats.get(app).withoutHidden(inPlace) { it.threadId }
             val found = SpamReaders.without(visible, spamIds(app)) { it.threadId }
             val chats = found.map { it.threadId }.distinct()
                 .mapNotNull { app.conversationsDB.getConversationWithThreadId(it) }

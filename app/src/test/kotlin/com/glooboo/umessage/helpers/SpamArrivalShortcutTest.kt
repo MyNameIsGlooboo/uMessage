@@ -87,6 +87,14 @@ class SpamArrivalShortcutTest {
     }
 
     @Test
+    fun anMmsRowThatDoesNotCountForTheChatLeavesItsShortcut() {
+        // The chat is cached under another number: the row does not count (S9), the chat stays in Messages.
+        offMainThread { SpamThreads.noteArrival(app, MMS_CHAT, "+15550001299", SpamCause.UNKNOWN, 1_000L) }
+
+        assertThat(shortcutIds()).containsExactly(SMS_CHAT.toString(), MMS_CHAT.toString())
+    }
+
+    @Test
     fun withTheFlagOffAPlacementLeavesTheShortcut() {
         ProviderTruthFlag.enabled = false
 

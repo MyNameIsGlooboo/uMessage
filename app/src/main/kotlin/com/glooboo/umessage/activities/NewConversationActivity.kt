@@ -29,6 +29,7 @@ import com.glooboo.umessage.helpers.stripControlCharacters
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.SpamThreads
+import com.glooboo.umessage.spam.engine.NumberReaders
 import com.glooboo.umessage.ui.components.displayTitle
 import com.glooboo.umessage.ui.newconversation.GroupRecipient
 import com.glooboo.umessage.ui.newconversation.NewConversationScreen
@@ -259,20 +260,33 @@ class NewConversationActivity : ComposeSimpleActivity() {
 }
 
 /**
- * U9 (provider truth): the recent senders offered as suggestions leave out the senders of chats in Spam. H-5: the
- * senders are read once into a set of their keys (every reading of the one region list, read once), and each
- * suggestion is one set lookup. Blocking; throws when Spam cannot be read, and then no suggestion shows.
+ * U9 (provider truth): the recent senders offered as suggestions leave out the senders of chats in Spam. Blocking;
+ * throws when Spam cannot be read, and then no suggestion shows.
  */
 internal fun Context.withoutSpamSenders(suggested: List<SimpleContact>): List<SimpleContact> {
     if (!ProviderTruthFlag.enabled || suggested.isEmpty()) return suggested
     val senders = conversationsDB.getValidSpamThreads().map { it.sender }
     if (senders.isEmpty()) return suggested
-    val readers = SpamThreads.readers(this).frozen()
-    val spamKeys = senders.flatMapTo(HashSet()) { readers.senderKeys(it) + it }
-    return suggested.filterNot { contact ->
-        contact.phoneNumbers.any { number ->
-            val keys = readers.senderKeys(number.normalizedNumber) + number.normalizedNumber
-            keys.any { it in spamKeys }
+    val isSpamSender = spamSenderTest(senders, SpamThreads.readers(this))
+    return suggested.filterNot { contact -> contact.phoneNumbers.any { isSpamSender(it.normalizedNumber) } }
+}
+
+/**
+ * H-5, H-17: true for a number that is one of [senders]. The senders' keys are read once (every reading of the one
+ * region list, read once) and a number is one set lookup. A number with no known country can still be a sender
+ * written another way ([SpamThreads.same] compares national digits too), so only such a number, or a sender with no
+ * known country, is compared one by one.
+ */
+internal fun spamSenderTest(senders: List<String>, readers: NumberReaders): (String) -> Boolean {
+    val frozen = readers.frozen()
+    val knownCountry = { number: String -> frozen.readers().any { it.hasCountryCode(number) } }
+    val keys = senders.flatMapTo(HashSet()) { frozen.senderKeys(it) + it }
+    val loose = senders.filterNot(knownCountry)
+    return { number ->
+        when {
+            (frozen.senderKeys(number) + number).any { it in keys } -> true
+            !knownCountry(number) -> senders.any { SpamThreads.same(frozen, it, number) }
+            else -> loose.any { SpamThreads.same(frozen, it, number) }
         }
     }
 }

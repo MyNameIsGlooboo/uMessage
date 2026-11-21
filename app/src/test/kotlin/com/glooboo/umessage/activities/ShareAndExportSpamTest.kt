@@ -9,6 +9,8 @@ import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
+import com.glooboo.umessage.spam.engine.NumberNormalizer
+import com.glooboo.umessage.spam.engine.NumberReaders
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
@@ -61,6 +63,18 @@ class ShareAndExportSpamTest {
         val shown = offMainThread { app.withoutSpamSenders(suggested) }
 
         assertThat(shown.map { it.contactId }).containsExactly(2)
+    }
+
+    @Test
+    fun aNumberWithNoKnownCountryStillMatchesItsSpamSender() {
+        // H-17: with no region known, "5550001234" is the national part of "+15550001234": no shared key, but the
+        // same sender; the plain cases are one set lookup.
+        val isSpam = spamSenderTest(listOf(SPAM_SENDER), NumberReaders(NumberNormalizer { "" }))
+
+        assertThat(isSpam("5550001234")).isTrue()
+        assertThat(isSpam(SPAM_SENDER)).isTrue()
+        assertThat(isSpam(FRIEND)).isFalse()
+        assertThat(isSpam("5550001299")).isFalse()
     }
 
     @Test

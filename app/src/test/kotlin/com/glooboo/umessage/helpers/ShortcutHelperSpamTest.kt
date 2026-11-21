@@ -53,6 +53,7 @@ class ShortcutHelperSpamTest {
     @After
     fun tearDown() {
         ShortcutHelper.stopWatchingSpam()
+        ShortcutHelper.updateShortcutsCall = { context, list -> ShortcutManagerCompat.updateShortcuts(context, list) }
         ShortcutManagerCompat.removeAllDynamicShortcuts(app)
         resetSharedMessagesDatabase()
     }
@@ -60,13 +61,31 @@ class ShortcutHelperSpamTest {
     private fun number(thread: Long) = "+155500012$thread"
 
     /** A shortcut as an earlier version (or the chat before it went to Spam) made it. */
-    private fun push(thread: Long) {
-        val shortcut = ShortcutInfoCompat.Builder(app, thread.toString())
-            .setShortLabel(number(thread))
-            .setLongLived(true)
-            .setIntent(Intent(Intent.ACTION_VIEW).setPackage(app.packageName))
-            .build()
-        ShortcutManagerCompat.pushDynamicShortcut(app, shortcut)
+    private fun push(thread: Long) = ShortcutManagerCompat.pushDynamicShortcut(app, shortcut(thread))
+
+    private fun shortcut(thread: Long) = ShortcutInfoCompat.Builder(app, thread.toString())
+        .setShortLabel(number(thread))
+        .setLongLived(true)
+        .setIntent(Intent(Intent.ACTION_VIEW).setPackage(app.packageName))
+        .build()
+
+    @Test
+    fun anUpdateTheLauncherTurnsDownStillReturnsThePublishedShortcut() {
+        // Reviewer: a rate-limited update keeps the chat's shortcut, so the notification still carries it.
+        ShortcutHelper.updateShortcutsCall = { _, _ -> false }
+
+        val published = offMainThread { helper.publish(shortcut(SHOWN)) }
+
+        assertThat(published?.id).isEqualTo(SHOWN.toString())
+        assertThat(shortcutIds()).contains(SHOWN.toString())
+    }
+
+    @Test
+    fun aSpamChatPublishesNothingAndGetsNullButWithTheFlagOffAsBefore() {
+        assertThat(offMainThread { helper.publish(shortcut(SPAM)) }).isNull()
+
+        ProviderTruthFlag.enabled = false
+        assertThat(offMainThread { helper.publish(shortcut(SPAM)) }?.id).isEqualTo(SPAM.toString())
     }
 
     private fun shortcutIds() = ShortcutManagerCompat.getDynamicShortcuts(app).map { it.id }.toSet()

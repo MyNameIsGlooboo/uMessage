@@ -81,8 +81,11 @@ class MainActivity : ComposeSimpleActivity() {
             finish()
             return
         }
-        if (savedInstanceState == null) openTab = intent?.getStringExtra(MainTabLinks.EXTRA_OPEN_TAB)
-        clearSpamNoticesFor(this, intent?.getStringExtra(MainTabLinks.EXTRA_OPEN_TAB))
+        if (savedInstanceState == null) {
+            openTab = intent?.getStringExtra(MainTabLinks.EXTRA_OPEN_TAB)
+            // H-10: only for the link itself, not again on a recreate (rotation, theme).
+            clearSpamNoticesFor(this, openTab)
+        }
         val splashSince = SystemClock.uptimeMillis()
         splash.setKeepOnScreenCondition {
             keepSplash(conversationsViewModel.state.value.loading, SystemClock.uptimeMillis() - splashSince)

@@ -140,17 +140,11 @@ class ShortcutHelper(private val context: Context) {
         return ShortcutManagerCompat.requestPinShortcut(context, buildShortcut(conv), null)
     }
 
-    /** The published shortcut of [conv]; null when none was published (a hidden chat, or one in Spam, H-11). */
-    fun createOrUpdateShortcut(conv: Conversation): ShortcutInfoCompat? {
-        val shortcut = buildShortcut(conv)
-        return shortcut.takeIf { createOrUpdateShortcut(shortcut) }
-    }
+    /** The shortcut of [conv] once it is published; null when the chat may have none (see [publish]). */
+    fun createOrUpdateShortcut(conv: Conversation): ShortcutInfoCompat? = publish(buildShortcut(conv))
 
-    /** The published shortcut of [threadId]; null when none was published (a hidden chat, or one in Spam, H-11). */
-    fun createOrUpdateShortcut(threadId: Long): ShortcutInfoCompat? {
-        val shortcut = buildShortcut(threadId)
-        return shortcut.takeIf { createOrUpdateShortcut(shortcut) }
-    }
+    /** The shortcut of [threadId] once it is published; null when the chat may have none (see [publish]). */
+    fun createOrUpdateShortcut(threadId: Long): ShortcutInfoCompat? = publish(buildShortcut(threadId))
 
     /**
      * B06: a hidden chat gets no shortcut: the launcher and the Share sheet would show its name. U9 (provider truth):
@@ -200,17 +194,25 @@ class ShortcutHelper(private val context: Context) {
         removeSpamShortcuts((cached + dynamic).map { it.id }.distinct().filter { it in ids })
     }
 
-    /** True when [shortcut] was published (pushed or updated). */
-    private fun createOrUpdateShortcut(shortcut: ShortcutInfoCompat): Boolean {
-        if (isHidden(shortcut.id.toLong())) {
-            dropIfSpam(shortcut.id.toLong())
-            return false
+    /**
+     * Pushes [shortcut], or updates it when the chat has one, and returns it. An update the launcher turns down (a rate
+     * limit) keeps the chat's existing shortcut, which is still published, so it is returned too. H-11 (provider
+     * truth): null for a hidden chat or one in Spam, which get none; with ProviderTruthFlag off such a chat returns the
+     * shortcut unpublished, as 0.4.14 did.
+     */
+    @VisibleForTesting
+    internal fun publish(shortcut: ShortcutInfoCompat): ShortcutInfoCompat? {
+        val id = shortcut.id.toLong()
+        if (isHidden(id)) {
+            dropIfSpam(id)
+            return if (ProviderTruthFlag.enabled) null else shortcut
         }
-        if (getShortcut(shortcut.id.toLong()) != null) {
-            return ShortcutManagerCompat.updateShortcuts(context, listOf(shortcut))
+        if (getShortcut(id) != null) {
+            updateShortcutsCall(context, listOf(shortcut))
+            return shortcut
         }
         ShortcutManagerCompat.pushDynamicShortcut(context, shortcut)
-        return true
+        return shortcut
     }
 
     /**
@@ -259,6 +261,12 @@ class ShortcutHelper(private val context: Context) {
         @VisibleForTesting
         @Volatile
         internal var usageReportFault: ((threadId: Long) -> Unit)? = null
+
+        /** Test seam: the launcher's update call; a test makes it answer false (a rate limit). */
+        @VisibleForTesting
+        @Volatile
+        internal var updateShortcutsCall: (Context, List<ShortcutInfoCompat>) -> Boolean =
+            { context, shortcuts -> ShortcutManagerCompat.updateShortcuts(context, shortcuts) }
 
         private var watchJob: Job? = null
 

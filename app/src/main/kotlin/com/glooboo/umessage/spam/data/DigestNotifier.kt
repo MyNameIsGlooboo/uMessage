@@ -38,6 +38,12 @@ object DigestNotifier {
     @Volatile
     private var notDueUntil = 0L
 
+    /** Test seam: the one Spam count read ([spamTexts]); a test makes it fail or counts its calls. */
+    @VisibleForTesting
+    @Volatile
+    internal var readSpamTexts: (Context, Long) -> List<WeeklyDigest.SpamText> =
+        { context, now -> spamTexts(context, now) }
+
     /** Tests: forgets [notDueUntil]. */
     @VisibleForTesting
     internal fun resetDueGuard() {
@@ -70,7 +76,7 @@ object DigestNotifier {
      */
     private fun spamDigest(context: Context, prefs: CleanupPrefs, now: Long): WeeklyDigest? {
         if (now in 0 until notDueUntil) return null
-        val texts = runCatching { spamTexts(context, now) }.getOrNull() ?: return null
+        val texts = runCatching { readSpamTexts(context, now) }.getOrNull() ?: return null
         if (prefs.claimDigest(now)) return WeeklyDigest.computeTexts(texts, now)
         notDueUntil = now + NOT_DUE_PAUSE_MS
         return null

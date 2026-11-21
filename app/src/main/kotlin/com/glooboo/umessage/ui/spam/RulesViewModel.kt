@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.glooboo.umessage.helpers.AppReturnWatch
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.AllowGroupMember
@@ -156,6 +157,9 @@ class RulesViewModel(
     val eventFlow = events.receiveAsFlow()
 
     private val preview = MutableStateFlow<RulePreviewState>(RulePreviewState.Idle)
+
+    /** H-16: when the app comes back and the lock covers Spam again, the preview's Spam senders go. */
+    private val appReturn = AppReturnWatch(::onAppReturned)
     private var previewJob: Job? = null
 
     private val openedGroup = MutableStateFlow<AllowGroup?>(null)
@@ -190,10 +194,23 @@ class RulesViewModel(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RulesUiState())
 
     init {
+        appReturn.start()
         viewModelScope.launch {
             val sims = withContext(io) { runCatching { SimDirectory.load(getApplication()) }.getOrDefault(emptyList()) }
             extras.update { it.copy(sims = sims) }
         }
+    }
+
+    /** H-16: the app came back to the front; the preview's Spam senders go while the lock covers Spam. */
+    internal fun onAppReturned() {
+        if (!ProviderTruthFlag.enabled) return
+        val visible = runCatching { previewSource.blockedSendersVisible() }.getOrDefault(false)
+        preview.update { it.hidingSpamSenders(visible) }
+    }
+
+    override fun onCleared() {
+        appReturn.stop()
+        super.onCleared()
     }
 
     fun selectTab(kind: ListKind) = view.update {

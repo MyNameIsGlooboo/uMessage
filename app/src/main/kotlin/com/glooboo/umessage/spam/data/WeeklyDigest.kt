@@ -14,6 +14,10 @@ data class WeeklyDigest(val held: Int, val important: Int) {
     companion object {
         const val WEEK_MS = 7L * 24 * 60 * 60 * 1000
 
+        /** H-15: how much earlier than its chat's spam_since a text may be dated and still count (an MMS download). */
+        const val ARRIVAL_GRACE_MS = 10L * 60 * 1000
+        private const val SECOND_MS = 1000L
+
         /** The digest of [blocked] as of [nowMillis]. Messages that arrived earlier than a week ago do not count. */
         fun compute(blocked: List<BlockedMessageEntity>, nowMillis: Long): WeeklyDigest =
             computeTexts(blocked.map { SpamText(it.address, it.body, it.receivedAt) }, nowMillis)
@@ -21,11 +25,14 @@ data class WeeklyDigest(val held: Int, val important: Int) {
         /**
          * Provider truth (section 5): the digest of the received [texts] of the chats in Spam, as of [nowMillis]. Only
          * texts of the last week count, and of those only the ones that arrived while their chat was in Spam
-         * ([SpamText.since]); the wording stays as it is for now (U18).
+         * ([SpamText.since]); the wording stays as it is for now (U18). H-15: a stored text is dated in whole seconds
+         * and an MMS by its own date, before its download put the chat in Spam, so the comparison is in seconds and
+         * allows [ARRIVAL_GRACE_MS]: the text that put its chat in Spam counts.
          */
         fun computeTexts(texts: List<SpamText>, nowMillis: Long): WeeklyDigest {
             val recent = texts.filter {
-                it.receivedAt >= nowMillis - WEEK_MS && it.receivedAt <= nowMillis && it.receivedAt >= it.since
+                it.receivedAt >= nowMillis - WEEK_MS && it.receivedAt <= nowMillis &&
+                    it.receivedAt / SECOND_MS >= (it.since - ARRIVAL_GRACE_MS) / SECOND_MS
             }
             return WeeklyDigest(held = recent.size, important = recent.count(::looksImportant))
         }

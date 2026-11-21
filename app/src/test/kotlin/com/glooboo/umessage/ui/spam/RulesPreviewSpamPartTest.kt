@@ -43,7 +43,10 @@ class RulesPreviewSpamPartTest {
         override fun matcher() = RuleMatcher(NumberNormalizer { "US" })
         override fun inbox(limit: Int): List<DryRunMessage> = emptyList()
         override fun spam(limit: Int) = listOf(DryRunMessage("+15550001234", "Win a prize now", 0))
-        override fun blockedSendersVisible() = true
+        @Volatile
+        var visible = true
+
+        override fun blockedSendersVisible() = visible
     }
 
     private fun held(id: Long) = BlockedMessage(
@@ -52,7 +55,10 @@ class RulesPreviewSpamPartTest {
     )
 
     @After
-    fun tearDown() = scope.cancel()
+    fun tearDown() {
+        Source.visible = true
+        scope.cancel()
+    }
 
     private fun previewOf(pattern: String): RuleDryRunResult {
         val repo = FakeSpamRepository(initialBlocked = listOf(held(1), held(2)), initialRules = emptyList())
@@ -86,6 +92,33 @@ class RulesPreviewSpamPartTest {
 
         assertThat(result.blocked.matched).isEqualTo(2)
         assertThat(result.blocked.senders).containsExactly("+15550001235")
+    }
+
+    @Test
+    fun theSpamSendersGoWhenTheAppComesBackLocked() {
+        // H-16: the preview ran while Spam was open; the lock locks again while the app is away.
+        assertThat(previewOf("prize").blocked.senders).isNotEmpty()
+
+        Source.visible = false
+        vm.onAppReturned()
+        awaitUntil { (vm.state.value.preview as? RulePreviewState.Done)?.result?.blocked?.senders?.isEmpty() == true }
+
+        val shown = (vm.state.value.preview as RulePreviewState.Done).result
+        assertThat(shown.blocked.senders).isEmpty()
+        assertThat(shown.blocked.matched).isEqualTo(1)
+    }
+
+    @Test
+    fun hidingTheSpamSendersKeepsTheCountsAndTheInboxExamples() {
+        val done = RulePreviewState.Done(
+            RuleDryRunResult(DryRunPart(5, 2, listOf("+15550001235")), DryRunPart(3, 1, listOf("+15550001234"))),
+        )
+
+        val hidden = done.hidingSpamSenders(visible = false) as RulePreviewState.Done
+
+        assertThat(hidden.result.inbox.senders).containsExactly("+15550001235")
+        assertThat(hidden.result.blocked).isEqualTo(DryRunPart(3, 1, emptyList()))
+        assertThat(done.hidingSpamSenders(visible = true)).isSameInstanceAs(done)
     }
 
     private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()
