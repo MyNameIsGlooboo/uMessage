@@ -41,7 +41,8 @@ internal object ThreadRedate {
     fun redate(context: Context, threadId: Long): Boolean = runCatching {
         val resolver = context.contentResolver
         val args = arrayOf("$threadId", context.packageName)
-        resolver.delete(Sms.CONTENT_URI, HELPER_WHERE, args)
+        // A leftover helper may have died after its insert marked the thread read: unread goes back first (U-1).
+        if (resolver.delete(Sms.CONTENT_URI, HELPER_WHERE, args) > 0) putUnreadBack(resolver, threadId)
         recompute(resolver, threadId)
         val newest = newestDate(resolver, threadId)
         val stamped = threadDate(resolver, threadId) ?: 0L
@@ -88,13 +89,18 @@ internal object ThreadRedate {
             put(Sms.READ, 1)
             put(Sms.SEEN, 1)
         }
-        // Refused (not the default app): nothing was written, and the date stays as the provider left it.
+        // Null: the provider failed and wrote nothing. Refused (not the default app): the provider answers with a dead
+        // URI (`content://sms/0`), the calls below change nothing, and the thread ends as "not dated" (false).
         val helper = resolver.insert(Sms.CONTENT_URI, values) ?: return true
         recompute(resolver, threadId)
-        // The draft's insert marked the thread read; an unread MMS in it makes it unread again (the read trigger).
+        putUnreadBack(resolver, threadId)
+        return resolver.delete(helper, null, null) == 1
+    }
+
+    /** The draft's insert marked the thread read; an unread MMS in it makes it unread again (the read trigger). */
+    private fun putUnreadBack(resolver: ContentResolver, threadId: Long) {
         val unread = ContentValues().apply { put(Mms.READ, 0) }
         resolver.update(Mms.CONTENT_URI, unread, "${Mms.THREAD_ID} = ? AND ${Mms.READ} = 0", arrayOf("$threadId"))
-        return resolver.delete(helper, null, null) == 1
     }
 
     /** Every SMS row of [threadId], drafts included; -1 when the store could not be asked. */

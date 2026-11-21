@@ -104,6 +104,23 @@ class ThreadRedateTest {
         assertThat(store.thread(thread)).isEqualTo(Triple(ARRIVED_S * 1000, 1, 0))
     }
 
+    /** U-1: the put-back of unread threw after the recompute; the sweep's retry makes the thread unread again. */
+    @Test
+    fun aHelperLeftAfterTheRecomputeGetsItsThreadUnreadAgain() {
+        val store = Api35Store.install()
+        val thread = store.mms(dateSeconds = ARRIVED_S, read = 0)
+        store.failMmsUpdates = 1
+
+        assertThat(ThreadRedate.redate(context, thread)).isFalse()
+        assertThat(store.smsCount()).isEqualTo(1)
+        assertThat(store.thread(thread)).isEqualTo(Triple(ARRIVED_S * 1000, 1, 1))
+
+        assertThat(ThreadRedate.sweep(context)).isTrue()
+
+        assertThat(store.smsCount()).isEqualTo(0)
+        assertThat(store.thread(thread)).isEqualTo(Triple(ARRIVED_S * 1000, 1, 0))
+    }
+
     /** T-2: the sweep takes only uMessage's own blank drafts; the same blank draft of another app stays. */
     @Test
     fun theSweepLeavesBlankDraftsOfOtherApps() {
@@ -140,6 +157,7 @@ class ThreadRedateTest {
         var smsInserts = 0
         var recomputeWorks = true
         var failSmsDeletes = false
+        var failMmsUpdates = 0
 
         override fun onCreate(): Boolean {
             db = SQLiteDatabase.create(null)
@@ -244,8 +262,15 @@ class ThreadRedateTest {
             return ContentUris.withAppendedId(Telephony.Sms.CONTENT_URI, db.insert("sms", null, values))
         }
 
-        override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?) =
-            db.update(table(uri), values, where(uri, selection), args(selectionArgs))
+        override fun update(
+            uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?,
+        ): Int {
+            if (uri.authority == "mms" && failMmsUpdates > 0) {
+                failMmsUpdates--
+                error("The store failed")
+            }
+            return db.update(table(uri), values, where(uri, selection), args(selectionArgs))
+        }
 
         override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
             if (uri.authority == "sms" && failSmsDeletes) return 0
