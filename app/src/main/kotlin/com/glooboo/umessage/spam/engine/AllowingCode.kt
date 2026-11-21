@@ -251,26 +251,38 @@ object AllowingCode {
      * (Persian "هرگز", "هیچ وقت", "هیچ کس", "نمی خواهیم") makes it one ("Never tell the agent your OTP", "will never
      * ask you to share the code with our agent", "We never call or ask you to share the OTP with our staff"). A comma,
      * a semicolon or a colon ends the clause ("Don't worry, share the code with our agent" is a request), except one
-     * right after "never", "do not" or "n't", or around an aside ("Never, ever share", "Do not, under any
-     * circumstances, share"); "If not, share the code" and "Example asks you to share the code" are requests.
+     * right after a negation that no "if", "or" or "whether" opens, or around an aside ("Never, ever share", "We will
+     * not, under any circumstances, ask", "No one, including our staff, will ask"); "If not, share the code", "If you
+     * don't, share" and "Example asks you to share the code" are requests.
+     *
+     * The requests are found first; only the [WARNING_WINDOW] characters before each one are read for a warning, so
+     * the check stays cheap on a long body (a look-behind over the whole text would cost seconds at 100 000).
      */
-    private const val WARNED_EN =
-        "(?<!(?:(?:(?<![\\p{L}])(?:never|do not)|n't)(?:,[^.!?,;:\u060C\u061B\\n]{0,30},|,)?|" +
-            "(?<![\\p{L}])(?:not|dont|no one|nobody))[^.!?,;:\u060C\u061B\\n]{0,32})"
-    private const val WARNED_FA =
-        "(?<!(?<![\\p{L}])(?:هرگز|هیچ ?وقت|هیچ ?کس|هیچ ?گاه|نمی\\s?خواه\\p{L}{0,4})[^.!?,;:\u060C\u061B\\n]{0,40})"
+    private const val CLAUSE = "[^.!?,;:\u060C\u061B\\n]"
+    private const val NEGATION_COMMA = "(?:(?<![\\p{L}])(?:never|no one)|" +
+        "(?<![\\p{L}])(?<!(?:if|or|whether) )(?<!if (?:you |we )?do )not|" +
+        "(?<![\\p{L}])(?<!if (?:you |we )?)do not|(?<!if (?:you |we )?\\p{L}{1,6})n't)"
+    private const val WARNING_EN = "(?:$NEGATION_COMMA(?:,$CLAUSE{0,30},|,)|" +
+        "(?<![\\p{L}])(?:not|never|dont|do not|no one|nobody)|n't)$CLAUSE{0,32}"
+    private const val WARNING_FA = "(?<![\\p{L}])(?:هرگز|هیچ ?وقت|هیچ ?کس|هیچ ?گاه|نمی\\s?خواه\\p{L}{0,4})$CLAUSE{0,40}"
     private const val ASK_EN = "(?:share|give|tell|read|send|provide|forward|confirm)" +
         "(?: it| this| the| your)?(?: otp| code| verification code| pin)? (?:with|to) (?:the |our |your )?"
     private const val ASK_FA_VERB = "(?:\\p{L}{1,12}\\s?){0,2}(?:اعلام کنید|اعلام نمایید|بگویید|بدهید|بفرستید|" +
         "ارسال کنید|ارائه دهید|ارائه کنید|بخوانید)"
 
+    /** How far before a request a warning is looked for: longer than the longest warning above. */
+    private const val WARNING_WINDOW = 80
+
+    /** A warning that ends right where a request begins. */
+    private val warningBefore = Regex("(?:$WARNING_EN|$WARNING_FA)$", RegexOption.IGNORE_CASE)
+
     /** To an agent, a caller, an officer or support: never from the service whose code it is. */
     private val handOverOfficial = Regex(
         "(?<![\\p{L}\\p{N}])(?:" +
-            "$WARNED_FA(?:به|برای)\\s?(?:کارشناس|اپراتور|نماینده|پشتیبان|پشتیبانی|همکار|همکاران|مامور(?!\\s?تحویل))" +
+            "(?:به|برای)\\s?(?:کارشناس|اپراتور|نماینده|پشتیبان|پشتیبانی|همکار|همکاران|مامور(?!\\s?تحویل))" +
             "(?:\\s|$)$ASK_FA_VERB|" +
-            "$WARNED_EN(?:$ASK_EN(?:agent|caller|representative|executive|officer|staff|support team|support|" +
-            "customer care|team)|tell (?:the |our |your )agent|reply with the (?:verification code|code|otp))" +
+            "$ASK_EN(?:agent|caller|representative|executive|officer|staff|support team|support|" +
+            "customer care|team)|tell (?:the |our |your )agent|reply with the (?:verification code|code|otp)" +
             ")(?![\\p{L}\\p{N}])",
         RegexOption.IGNORE_CASE,
     )
@@ -282,8 +294,8 @@ object AllowingCode {
      */
     private val handOverDelivery = Regex(
         "(?<![\\p{L}\\p{N}])(?:" +
-            "$WARNED_FA(?:به|برای)\\s?(?:پیک|راننده|سفیر|مامور\\s?تحویل)(?:\\s|$)$ASK_FA_VERB|" +
-            "$WARNED_EN$ASK_EN(?:rider|courier|driver|captain|delivery (?:agent|executive|partner|boy|person))" +
+            "(?:به|برای)\\s?(?:پیک|راننده|سفیر|مامور\\s?تحویل)(?:\\s|$)$ASK_FA_VERB|" +
+            "$ASK_EN(?:rider|courier|driver|captain|delivery (?:agent|executive|partner|boy|person))" +
             ")(?![\\p{L}\\p{N}])",
         RegexOption.IGNORE_CASE,
     )
@@ -300,10 +312,15 @@ object AllowingCode {
         RegexOption.IGNORE_CASE,
     )
 
+    /** Whether some match of [request] in the folded [full] text is a request, not a warning. */
+    private fun asks(request: Regex, full: String): Boolean = request.findAll(full).any {
+        !warningBefore.containsMatchIn(full.substring(maxOf(0, it.range.first - WARNING_WINDOW), it.range.first))
+    }
+
     /** Whether the folded [full] text asks to hand the code over, or speaks of betting ([handOverOfficial], ...). */
     private fun handOverOrBet(full: String): Boolean =
-        handOverOfficial.containsMatchIn(full) || betting.containsMatchIn(full) ||
-            handOverDelivery.containsMatchIn(full) && bankWord.containsMatchIn(full)
+        asks(handOverOfficial, full) || betting.containsMatchIn(full) ||
+            asks(handOverDelivery, full) && bankWord.containsMatchIn(full)
 
     /** Whether [body] allows its sender for good (see the class comment). Never throws. */
     fun isAllowingCode(body: String): Boolean = runCatching {

@@ -132,12 +132,17 @@ class OtpDetectorCorpusTest {
             "Your OTP is 482913. If not received, give the OTP to our agent",
             "هیچ نگرانی نیست، کد تایید را به کارشناس ما اعلام کنید 482913",
             "Don't worry; share the code with our agent 482913",
-            // "if not," is no negation of the request after it
+            // "if not," and "if you don't," are no negation of the request after them
             "Your OTP is 482913. If not, share the code with our agent",
+            "Your OTP is 482913. If you don't, share the code with our agent",
+            "Your OTP is 482913. If you can't, share the code with our agent",
+            "Your OTP is 482913. If you do not, share the code with our agent",
         ).forEach { assertShownOnly(it, "482913") }
         // A comma right after the negation, or around an aside, keeps the warning; so does a longer clause.
         listOf(
             "Your OTP is 482913. Never, ever share the code with the agent",
+            "Your OTP is 482913. We will not, under any circumstances, ask you to share the code with our agent",
+            "Your OTP is 482913. No one, including our staff, will ask you to share the code",
             "Your OTP is 482913. Do not, under any circumstances, share the code with our agent",
             "Your OTP is 482913. We never call or ask you to share the OTP with our staff",
         ).forEach { assertShownAndAllows(it, "482913") }
