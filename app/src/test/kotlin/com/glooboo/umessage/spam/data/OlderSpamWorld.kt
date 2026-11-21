@@ -108,7 +108,7 @@ internal class OlderSpamWorld {
     private var passRequestedAt = 0L
     private var pendingUnread = emptySet<String>()
     private val kinds = HashMap<RowKey, Char>()
-    private val stalls = HashMap<RowKey, Int>()
+    private val stalls = HashMap<RowKey, Pair<Int, Long>>()
     private var stallsVersion = -1
 
     private fun <T> op(name: String, block: () -> T): T {
@@ -240,6 +240,12 @@ internal class OlderSpamWorld {
             Unit
         }
 
+        override fun reopen(id: Long) = op("reopen") {
+            blocked[id]?.takeIf { it.migratedMsgId == MigrationMark.NOTHING_TO_MOVE }
+                ?.let { blocked[id] = it.copy(migratedMsgId = null) }
+            Unit
+        }
+
         override fun identity(row: BlockedMessage): KeptPdu = when {
             row.id in unreadableFiles -> KeptPdu.Unreadable
             row.id in missingFiles -> KeptPdu.Missing
@@ -289,6 +295,10 @@ internal class OlderSpamWorld {
                 received(it) && it.id > attempt.newestBefore && owned(it, identity, half = true) &&
                     it.addresses < identity.addressCount
             }?.id
+        }
+
+        override fun messageIdOf(id: Long): String? = op("messageIdOf") {
+            store.firstOrNull { it.id == id && it.mms }?.messageId?.takeIf { it.isNotEmpty() }
         }
 
         override fun checkSms(id: Long, address: String, date: Long, bodyLength: Int): Boolean = op("checkSms") {
@@ -429,10 +439,16 @@ internal class OlderSpamWorld {
             Unit
         }
 
-        override fun stallsOf(key: RowKey): Int = stalls[key] ?: 0
+        override fun stallsOf(key: RowKey): Int = stalls[key]?.first ?: 0
 
-        override fun setStalls(key: RowKey, stalls: Int) = journalWrite("stalls=") {
-            if (stalls > 0) this@OlderSpamWorld.stalls[key] = stalls else this@OlderSpamWorld.stalls.remove(key)
+        override fun stallDayOf(key: RowKey): Long = stalls[key]?.second ?: -1L
+
+        override fun setStalls(key: RowKey, stalls: Int, day: Long) = journalWrite("stalls=") {
+            if (stalls > 0) {
+                this@OlderSpamWorld.stalls[key] = stalls to day
+            } else {
+                this@OlderSpamWorld.stalls.remove(key)
+            }
             Unit
         }
 
@@ -462,7 +478,7 @@ internal class OlderSpamWorld {
 
     fun journalKind(row: BlockedMessage) = kinds[RowKey.of(row)]
 
-    fun journalStalls(row: BlockedMessage) = stalls[RowKey.of(row)] ?: 0
+    fun journalStalls(row: BlockedMessage) = stalls[RowKey.of(row)]?.first ?: 0
 
     companion object {
         const val SENDER = "+15550001234"

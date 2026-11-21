@@ -43,7 +43,7 @@ class OlderSpamMoverSecondReviewTest {
     }
 
     @Test
-    fun aRowThatAlwaysFailsIsPassedOverNewerRowsMoveAndAfterThreeRunsItIsStuck() {
+    fun aRowThatAlwaysFailsIsPassedOverNewerRowsMoveAndOnTheThirdDayItIsStuck() {
         val world = OlderSpamWorld()
         val bad = world.sms(body = "Refused every time", at = NOW - 2 * HOUR, sub = -1)
         val good = world.sms(body = "Fine", at = NOW - HOUR, sub = -1)
@@ -51,8 +51,13 @@ class OlderSpamMoverSecondReviewTest {
 
         world.mover().run()
         assertThat(world.row(good.id).migratedMsgId).isEqualTo(world.store.single().id)
+        // T3-2: runs come in bursts; a stall counts once a day.
+        repeat(5) { world.mover().run() }
+        assertThat(world.journalStalls(bad)).isEqualTo(1)
+        world.clock += DAY
         world.mover().run()
         assertThat(world.reports).isEmpty()
+        world.clock += DAY
         world.mover().run()
 
         assertThat(world.journalStalls(bad)).isEqualTo(OlderSpamMover.MAX_STALLS)
@@ -73,17 +78,107 @@ class OlderSpamMoverSecondReviewTest {
     }
 
     @Test
-    fun whenEveryRowFailsTheRunStopsAndNoRowCountsAStall() {
+    fun twoNeighbouringRowsThatAlwaysFailAreSetAsideAfterThreeDaysAndTheRowsAfterThemMove() {
+        val world = OlderSpamWorld()
+        val first = world.sms(body = "Refused one", at = NOW - 3 * HOUR, sub = -1)
+        val second = world.sms(body = "Refused two", at = NOW - 2 * HOUR, sub = -1)
+        val good = world.sms(body = "Fine", at = NOW - HOUR, sub = -1)
+        world.refusedBodies = setOf("Refused one", "Refused two")
+
+        repeat(3) { day ->
+            world.mover().run()
+            // A second run the same day counts nothing more.
+            if (day < 2) world.mover().run()
+            assertThat(world.store).isEmpty()
+            world.clock += DAY
+        }
+
+        assertThat(world.journalStalls(first)).isEqualTo(OlderSpamMover.MAX_STALLS)
+        assertThat(world.journalStalls(second)).isEqualTo(OlderSpamMover.MAX_STALLS)
+        assertThat(world.reports).containsExactly(OlderSpamMover.ROW_STUCK, OlderSpamMover.ROW_STUCK)
+        world.mover().run()
+        assertThat(world.row(good.id).migratedMsgId).isEqualTo(world.store.single().id)
+        assertThat(world.row(first.id).migratedMsgId).isNull()
+    }
+
+    @Test
+    fun whenEveryRowFailsTheRunStopsAtTheSecondRowAndAFullStoreSetsNothingAsideInADay() {
         val world = OlderSpamWorld()
         val rows = (0 until 4).map { world.sms(body = "Advert $it", at = NOW - (10 - it) * HOUR, sub = -1) }
         world.failingWrites = 100
 
         val result = world.mover().run()
+        repeat(5) { world.mover().run() }
 
         assertThat(result.stalled).isTrue()
         assertThat(result.waiting).isFalse()
+        assertThat(rows.map { world.journalStalls(it) }).containsExactly(1, 1, 0, 0).inOrder()
+        assertThat(world.reports).isEmpty()
+    }
+
+    @Test
+    fun aLostRoleCountsNoStall() {
+        val world = OlderSpamWorld()
+        val rows = (0 until 3).map { world.sms(body = "Advert $it", at = NOW - (10 - it) * HOUR, sub = -1) }
+        world.isDefault = false
+
+        world.mover().run()
+        world.clock += DAY
+        world.mover().run()
+
         assertThat(rows.map { world.journalStalls(it) }.toSet()).containsExactly(0)
-        assertThat(world.trace.count { it == "writeSms" }).isEqualTo(2)
+    }
+
+    @Test
+    fun aRowMarkedNothingToMoveIsMovedAsAnMmsWhenItsKeptFileCameLater() {
+        val world = OlderSpamWorld()
+        val row = world.placeholderMms()
+        world.mover().run()
+        assertThat(world.row(row.id).migratedMsgId).isEqualTo(MigrationMark.NOTHING_TO_MOVE)
+        // The late private download (receivers/BlockedMmsDownloadReceiver) recorded its file.
+        world.blocked[row.id] = world.row(row.id).copy(media = MmsMedia.STORED, mediaFile = "pdu-late", body = "Late")
+        world.identities[row.id] = MmsIdentity("mid-late", "Late".length, pduDate = row.receivedAt / 1000)
+
+        world.mover().run()
+
+        assertThat(world.store.single().mms).isTrue()
+        assertThat(world.row(row.id).migratedMsgId).isEqualTo(world.store.single().id)
+        assertThat(world.journalKind(row)).isEqualTo(MigrationJournal.KIND_MMS)
+    }
+
+    @Test
+    fun aMatchBySenderAndSecondThatAnotherRowTookIsNotTakenForThisRow() {
+        val world = OlderSpamWorld()
+        // Two MMS of one sender in one second, without carrier ids.
+        val first = world.keptMms(body = "One", messageId = null, at = NOW - HOUR)
+        val second = world.keptMms(body = "Two", messageId = null, at = NOW - HOUR + 300)
+        world.mover().run()
+
+        assertThat(world.row(first.id).migratedMsgId).isEqualTo(world.store.single().id)
+        assertThat(world.row(second.id).migratedMsgId).isNull()
+        assertThat(world.journalKind(second)).isNull()
+        world.clock += 60 * DAY
+        world.mover().cleanUp()
+        assertThat(world.blocked).containsKey(second.id)
+    }
+
+    @Test
+    fun aCutOffWriteOfARowWhoseIdWasHandedOutAgainIsNotAdoptedByTheNewRow() {
+        val world = OlderSpamWorld()
+        val old = world.keptMms(messageId = "mid-old")
+        world.killAfter = { it == "writeMms" }
+        runCatching { world.mover().run() }
+        world.restart()
+        // A trip to 0.4.14: the id is handed out again, to another kept MMS.
+        world.blocked.clear()
+        val again = world.add(old.copy(body = "Another", receivedAt = NOW - 5 * HOUR, mediaFile = "pdu-again"))
+        world.identities[again.id] = MmsIdentity("mid-again", "Another".length, pduDate = again.receivedAt / 1000)
+
+        world.mover().run()
+
+        val written = world.store.single { it.messageId == "mid-again" }
+        assertThat(world.row(again.id).migratedMsgId).isEqualTo(written.id)
+        assertThat(world.journalAttempt()).isNull()
     }
 
     @Test

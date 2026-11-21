@@ -37,7 +37,7 @@ class AndroidMigrationStoreMmsTest {
 
     private fun store() = AndroidMigrationStore(context)
 
-    private fun attempt(newest: Long, startedAtSeconds: Long) = MmsAttempt(1, newest, startedAtSeconds * 1000)
+    private fun attempt(newest: Long, startedAtSeconds: Long) = MmsAttempt(1, newest, startedAtSeconds * 1000, 0L)
 
     @Test
     fun theMessageIdProbeTakesOnlyADownloadedMmsInTheInbox() {

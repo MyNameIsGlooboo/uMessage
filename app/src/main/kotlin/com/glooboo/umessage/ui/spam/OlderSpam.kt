@@ -55,17 +55,15 @@ object OlderSpam {
 
     /**
      * F-2, S2-3: some listed rows will not move by themselves: the migration stopped, or rows are [stuck] (tries used
-     * up, stuck after three runs; SpamProviderMigration.stuck), or their pictures stay here ([picturesHere]).
+     * up, stuck after three days; SpamProviderMigration.stuck).
      */
-    fun someStuck(
-        messages: List<BlockedMessage>,
-        stopped: Boolean,
-        stuck: Set<Long> = emptySet(),
-        picturesHere: Set<Long> = emptySet(),
-    ): Boolean = messages.isNotEmpty() && (
-        stopped ||
-            messages.any { it.migrateTries >= OlderSpamMover.MAX_TRIES || it.id in stuck || it.id in picturesHere }
-        )
+    fun someStuck(messages: List<BlockedMessage>, stopped: Boolean, stuck: Set<Long> = emptySet()): Boolean =
+        messages.isNotEmpty() &&
+            (stopped || messages.any { it.migrateTries >= OlderSpamMover.MAX_TRIES || it.id in stuck })
+
+    /** T3-3: some listed rows are on the phone itself as text already; only their pictures are kept here. */
+    fun somePicturesHere(messages: List<BlockedMessage>, picturesHere: Set<Long>): Boolean =
+        messages.any { it.id in picturesHere }
 }
 
 /**
@@ -82,18 +80,28 @@ fun OlderSpamRoute(onBack: () -> Unit, modifier: Modifier = Modifier) {
             ?.map { all ->
                 val here = SpamProviderMigration.picturesOnlyHere(context, all)
                 val listed = OlderSpam.of(all, here)
-                listed to OlderSpam.someStuck(
+                val stuck = OlderSpam.someStuck(
                     listed, SpamProviderMigration.stoppedForThisVersion(context),
-                    SpamProviderMigration.stuck(context, listed), here,
+                    SpamProviderMigration.stuck(context, listed),
                 )
+                OlderSpamShown(listed, stuck, OlderSpam.somePicturesHere(listed, here))
             }
             ?.flowOn(Dispatchers.IO)
-            ?.catch { emit(emptyList<BlockedMessage>() to false) }
+            ?.catch { emit(OlderSpamShown()) }
     }
-    val shown by (older ?: flowOf(emptyList<BlockedMessage>() to false))
-        .collectAsStateWithLifecycle(initialValue = emptyList<BlockedMessage>() to false)
-    OlderSpamScreen(messages = shown.first, stuck = shown.second, onBack = onBack, modifier = modifier)
+    val shown by (older ?: flowOf(OlderSpamShown())).collectAsStateWithLifecycle(initialValue = OlderSpamShown())
+    OlderSpamScreen(
+        messages = shown.messages, stuck = shown.stuck, picturesHere = shown.picturesHere, onBack = onBack,
+        modifier = modifier,
+    )
 }
+
+/** What the Older spam page shows: the rows, the red "stuck" line (S2-3), the neutral pictures line (T3-3). */
+private data class OlderSpamShown(
+    val messages: List<BlockedMessage> = emptyList(),
+    val stuck: Boolean = false,
+    val picturesHere: Boolean = false,
+)
 
 @Composable
 internal fun OlderSpamScreen(
@@ -101,6 +109,7 @@ internal fun OlderSpamScreen(
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
     stuck: Boolean = false,
+    picturesHere: Boolean = false,
 ) {
     UMessageScaffold(
         modifier = modifier,
@@ -114,6 +123,16 @@ internal fun OlderSpamScreen(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
                 )
+            }
+            if (picturesHere) {
+                item(key = "pictures") {
+                    Text(
+                        stringResource(R.string.pt_older_spam_pictures_here),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+                    )
+                }
             }
             if (stuck) {
                 item(key = "stuck") {

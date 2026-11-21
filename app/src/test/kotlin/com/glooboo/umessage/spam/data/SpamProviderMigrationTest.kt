@@ -283,7 +283,7 @@ class SpamProviderMigrationTest {
     fun theJournalSurvivesARestartOfTheApp() {
         val prefs = context.getSharedPreferences(PrefsMigrationJournal.PREFS, Context.MODE_PRIVATE)
         PrefsMigrationJournal(prefs).apply {
-            attempt = MmsAttempt(rowId = 4, newestBefore = 77, startedAt = NOW)
+            attempt = MmsAttempt(rowId = 4, newestBefore = 77, startedAt = NOW, receivedAt = NOW - DAY)
             lastDoneAt = NOW - DAY
             haltedVersion = 12
             pendingRepairs = setOf(3L, 9L)
@@ -292,14 +292,14 @@ class SpamProviderMigrationTest {
             setKind(RowKey(4, 40), MigrationJournal.KIND_MMS)
             setKind(RowKey(5, 50), MigrationJournal.KIND_TEXT)
             setKind(RowKey(4, 40), MigrationJournal.KIND_TEXT)
-            setStalls(RowKey(4, 40), 2)
+            setStalls(RowKey(4, 40), 2, day = 20_000)
             passRequestedAt = 77
             stallsVersion = 3
         }
 
         val again = PrefsMigrationJournal(prefs)
 
-        assertThat(again.attempt).isEqualTo(MmsAttempt(4, 77, NOW))
+        assertThat(again.attempt).isEqualTo(MmsAttempt(4, 77, NOW, NOW - DAY))
         assertThat(again.lastDoneAt).isEqualTo(NOW - DAY)
         assertThat(again.haltedVersion).isEqualTo(12)
         assertThat(again.pendingRepairs).containsExactly(3L, 9L)
@@ -309,13 +309,15 @@ class SpamProviderMigrationTest {
         // S2-2: the same id with another arrival is another row.
         assertThat(again.kindOf(RowKey(4, 41))).isNull()
         assertThat(again.stallsOf(RowKey(4, 40))).isEqualTo(2)
+        assertThat(again.stallDayOf(RowKey(4, 40))).isEqualTo(20_000L)
+        assertThat(again.stallDayOf(RowKey(5, 50))).isEqualTo(-1L)
         assertThat(again.passRequestedAt).isEqualTo(77)
         assertThat(again.stallsVersion).isEqualTo(3)
         again.forget(listOf(RowKey(4, 40)))
         assertThat(again.kindOf(RowKey(4, 40))).isNull()
         assertThat(again.stallsOf(RowKey(4, 40))).isEqualTo(0)
         assertThat(again.kindOf(RowKey(5, 50))).isEqualTo(MigrationJournal.KIND_TEXT)
-        again.setStalls(RowKey(5, 50), 1)
+        again.setStalls(RowKey(5, 50), 1, day = 20_001)
         again.clearStalls()
         assertThat(again.stallsOf(RowKey(5, 50))).isEqualTo(0)
         again.attempt = null

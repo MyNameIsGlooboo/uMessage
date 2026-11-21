@@ -14,4 +14,5 @@
     <string name="pt_restore_scheduled_discard">Discard</string>
     <string name="pt_older_spam_stuck">Some of these texts could not be moved to the phone itself. They stay here, and you can still read them.</string>
     <string name="pt_restore_scheduled_row_body">They were not turned on by the restore. Tap to turn them on or discard them.</string>
+    <string name="pt_older_spam_pictures_here">Some of these texts are on the phone itself already. Only their pictures are kept here, in uMessage.</string>
 </resources>

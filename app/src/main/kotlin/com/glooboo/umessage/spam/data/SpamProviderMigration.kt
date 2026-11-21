@@ -121,7 +121,7 @@ internal sealed interface MoveKind {
  * An MMS write that started at [startedAt] (wall clock): the newest MMS id of the store just before it, so the row a
  * kill left can be found afterwards.
  */
-internal data class MmsAttempt(val rowId: Long, val newestBefore: Long, val startedAt: Long)
+internal data class MmsAttempt(val rowId: Long, val newestBefore: Long, val startedAt: Long, val receivedAt: Long)
 
 /** S2-2: a held row as the journal knows it: its id and its arrival, so an id handed out again is another row. */
 internal data class RowKey(val id: Long, val receivedAt: Long) {
@@ -169,6 +169,9 @@ internal interface MigrationRows {
 
     /** The kept file of [row] is on disk (S2-2: then the clean-up keeps the row unless it went as an MMS). */
     fun keptFileExists(row: BlockedMessage): Boolean
+
+    /** T3-3: a row marked "nothing to move" is not moved yet again (its kept file came late). */
+    fun reopen(id: Long)
 }
 
 /** Reads the phone's store. Every call throws when the store cannot be read (no cursor, no permission). */
@@ -198,6 +201,9 @@ internal interface MigrationProbe {
      * own date, which mmslib writes first). Only uMessage's own write can look like that.
      */
     fun findHalfWrittenMms(attempt: MmsAttempt, identity: MmsIdentity): Long?
+
+    /** The carrier message id of MMS [id] in the store; null when it has none (T3-4). */
+    fun messageIdOf(id: Long): String?
 
     /** The verify of an SMS row: sender, time, text length, received. */
     fun checkSms(id: Long, address: String, date: Long, bodyLength: Int): Boolean
@@ -268,10 +274,13 @@ internal interface MigrationJournal {
 
     fun setKind(key: RowKey, kind: Char)
 
-    /** S2-3: runs that stopped at row [key] for a cause of its own. */
+    /** S2-3: days on which a run stopped at row [key] for a cause of its own. */
     fun stallsOf(key: RowKey): Int
 
-    fun setStalls(key: RowKey, stalls: Int)
+    /** T3-2: the day (wall clock, days since 1970) of the last stall counted for row [key]; -1 when none. */
+    fun stallDayOf(key: RowKey): Long
+
+    fun setStalls(key: RowKey, stalls: Int, day: Long)
 
     /** S2-3: the app version the stall counts belong to; a new version (a fix) tries stuck rows again. */
     var stallsVersion: Int
@@ -312,10 +321,10 @@ internal interface MigrationJournal {
  * 5. Before the verify, an MMS uMessage wrote is settled (date, read, seen) again, every time until it worked (F-5).
  *    Verify by that id: sender, time, text length. A failed verify (also a settle of a row the user deleted) raises
  *    migrateTries; at most 2 per row; more than 5 failed rows stop the migration for this app version.
- * 6. A cause for every row (the role lost, the store or the journal unreadable or full: two rows in a row that
- *    fail) ends the run without a try (F-6). A cause of one row is passed over; once a later row of the run moved,
- *    it counts as a stall of that row, and a row that stalled in 3 runs is passed over for good (one decision-log line,
- *    "stuck" in Older spam, never cleaned up; S2-3). Newer rows keep moving.
+ * 6. The role lost, the store or the journal unreadable end the run without a try and count nothing (F-6). A
+ *    cause of one row is passed over and counts as a stall of that row, at most once a day; two such rows in a row
+ *    (maybe a full store) end the run but count too (T3-1, T3-2). A row that stalled on 3 days is passed over for good
+ *    (one decision-log line, "stuck" in Older spam, never cleaned up; S2-3); a new version tries it again.
  * 7. Cache row of the message (S7); after each batch, the threads are dated again and their chat rows cached.
  *
  * A row with SIM id -1, and a row with a blank or placeholder sender (written to the "Unknown" thread), go like any
@@ -332,7 +341,8 @@ internal class OlderSpamMover(
     private val report: (String) -> Unit = {},
     private val clock: () -> Long = System::currentTimeMillis,
 ) {
-    private enum class Outcome { MOVED, SKIPPED, FAILED_VERIFY, ROW_STALL, STOP }
+    /** [FILE_STALL]: the row's own kept file cannot be read (the app's disk, not the store, T3-1). */
+    private enum class Outcome { MOVED, SKIPPED, FAILED_VERIFY, ROW_STALL, FILE_STALL, STOP }
 
     private var moved = 0
     private var failed = 0
@@ -358,7 +368,8 @@ internal class OlderSpamMover(
             journal.clearStalls()
             journal.stallsVersion = appVersion
         }
-        val todo = rows.all().count(::needsWork)
+        val held = rows.all()
+        val todo = (if (reopenLatePictures(held)) rows.all() else held).count(::needsWork)
         val unreadWaits = noteUnreadNow && journal.pendingUnread.isNotEmpty()
         return when {
             todo == 0 && journal.pendingRepairs.isEmpty() && !unreadWaits -> MigrationResult(left = 0)
@@ -436,6 +447,17 @@ internal class OlderSpamMover(
         )
     }
 
+    /**
+     * T3-3: a row marked "nothing to move" whose kept file came later and can be read now is moved as an MMS: nothing
+     * was written for it, so no double is possible. A row already done as text keeps its pictures and stays listed.
+     */
+    private fun reopenLatePictures(held: List<BlockedMessage>): Boolean {
+        val late = held.filter { it.migratedMsgId == MigrationMark.NOTHING_TO_MOVE && it.hasStoredMedia }
+            .filter { rows.identity(it) is KeptPdu.Ready }
+        late.forEach { rows.reopen(it.id) }
+        return late.isNotEmpty()
+    }
+
     /** "s:<id>" or "m:<id>": SMS and MMS ids are counted apart in the store (reviewer). */
     private fun takenKey(isMms: Boolean, storeId: Long) = (if (isMms) "m:" else "s:") + storeId
 
@@ -457,10 +479,12 @@ internal class OlderSpamMover(
     }
 
     /**
-     * The rows in batches of [BATCH]; true when the run stopped for every row (F-6). A row that failed for a cause of
-     * its own is passed over and its stall counts when the run ends (S2-3); two such rows in a row are taken for a
-     * cause of every row (a full store) and end the run, and then nothing counts. It stops too after more than
-     * [MAX_FAILED_ROWS] failed verifies.
+     * The rows in batches of [BATCH]; true when the run stopped (F-6). A row that failed for a cause of its own is
+     * passed over (S2-3). Two such rows in a row may be a full store: the run ends there, but their stalls count all
+     * the same (T3-1), so a lasting pair is set aside and the rows after it move; an unreadable kept file is the row's
+     * own and never counts toward "two in a row". A stall counts at most once per row per day (T3-2: runs come in
+     * bursts), stuck at the third. The role lost or the store unreadable ends the run and counts nothing. It stops too
+     * after more than [MAX_FAILED_ROWS] failed verifies.
      */
     private fun moveBatches(work: List<BlockedMessage>): Boolean {
         val stalls = mutableListOf<BlockedMessage>()
@@ -469,29 +493,33 @@ internal class OlderSpamMover(
             if (index > 0 && index % BATCH == 0) repairTouched()
             val outcome = moveSafely(row)
             if (outcome == Outcome.FAILED_VERIFY) failed++
-            val runWide = outcome == Outcome.STOP || (outcome == Outcome.ROW_STALL && lastStalled)
-            if (outcome == Outcome.ROW_STALL) stalls += row
-            if (outcome != Outcome.SKIPPED) lastStalled = outcome == Outcome.ROW_STALL
-            if (runWide || failed > MAX_FAILED_ROWS) return endRun(stalls, runWide)
+            val pair = outcome == Outcome.ROW_STALL && lastStalled
+            if (outcome == Outcome.ROW_STALL || outcome == Outcome.FILE_STALL) stalls += row
+            if (outcome != Outcome.SKIPPED && outcome != Outcome.FILE_STALL) lastStalled = outcome == Outcome.ROW_STALL
+            if (outcome == Outcome.STOP || pair || failed > MAX_FAILED_ROWS) {
+                return endRun(stalls, counted = outcome != Outcome.STOP, stopped = outcome == Outcome.STOP || pair)
+            }
         }
-        return endRun(stalls, runWide = false)
+        return endRun(stalls, counted = true, stopped = false)
     }
 
-    /** The last batch's threads are repaired; the stalls count unless the run stopped for every row. */
-    private fun endRun(stalls: MutableList<BlockedMessage>, runWide: Boolean): Boolean {
+    /** The last batch's threads are repaired; the stalls count unless the role or the store stopped the run. */
+    private fun endRun(stalls: MutableList<BlockedMessage>, counted: Boolean, stopped: Boolean): Boolean {
         repairTouched()
-        if (!runWide) countStalls(stalls)
-        return runWide
+        if (counted) countStalls(stalls)
+        return stopped
     }
 
-    /** S2-3: the rows passed over in this run; a third stall makes the row stuck (passed over for good). */
+    /** S2-3, T3-2: the rows passed over in this run, once per row per day; a third stall makes the row stuck. */
     private fun countStalls(stalls: MutableList<BlockedMessage>) {
+        val today = clock() / DAY_MS
         for (row in stalls) {
             val key = RowKey.of(row)
+            if (journal.stallDayOf(key) == today) continue
             val count = journal.stallsOf(key) + 1
-            journal.setStalls(key, count)
+            journal.setStalls(key, count, today)
             if (count == MAX_STALLS) {
-                Log.w(TAG, "Older spam: one row stuck after $MAX_STALLS runs")
+                Log.w(TAG, "Older spam: one row stuck after $MAX_STALLS days")
                 runCatching { report(ROW_STUCK) }
             }
         }
@@ -506,7 +534,7 @@ internal class OlderSpamMover(
         val fresh = rows.get(row.id)?.takeIf(::needsWork) ?: return@runCatching Outcome.SKIPPED
         val kind = kindOf(fresh)
         when {
-            kind == MoveKind.Unreadable -> Outcome.ROW_STALL
+            kind == MoveKind.Unreadable -> Outcome.FILE_STALL
             mmsHeld && kind is MoveKind.Mms -> Outcome.SKIPPED
             else -> move(fresh, kind)
         }
@@ -533,7 +561,7 @@ internal class OlderSpamMover(
         return when (kind) {
             MoveKind.Nothing -> done(row, MigrationMark.NOTHING_TO_MOVE)
             MoveKind.Wait -> Outcome.SKIPPED
-            MoveKind.Unreadable -> Outcome.ROW_STALL
+            MoveKind.Unreadable -> Outcome.FILE_STALL
             is MoveKind.Text -> moveText(row, kind)
             is MoveKind.Mms -> moveMms(row, kind)
         }
@@ -571,20 +599,28 @@ internal class OlderSpamMover(
         }
     }
 
-    /** F-23: a store row another held row of the same kind took (the same message held twice). */
-    private fun takenBy(isMms: Boolean, storeId: Long, row: BlockedMessage): Outcome? {
+    /**
+     * F-23: a store row another held row of the same kind took (the same message held twice). T3-4: such a row is
+     * done at once only when the match is certain (an SMS: sender, text, exact time; an MMS: its carrier id); a match
+     * by sender and second only may be another MMS, so the row is left unmoved and listed (no kind, never cleaned).
+     */
+    private fun takenBy(kind: MoveKind, storeId: Long, row: BlockedMessage): Outcome? {
+        val isMms = kind is MoveKind.Mms
         val key = takenKey(isMms, storeId)
-        return when (key) {
-            in takenDone -> done(row, storeId, if (isMms) KIND_MMS_FOUND else KIND_TEXT)
-            in takenWritten -> Outcome.SKIPPED
-            else -> null
+        if (key !in takenDone && key !in takenWritten) return null
+        val certain = kind !is MoveKind.Mms ||
+            (kind.identity.messageId != null && probe.messageIdOf(storeId) == kind.identity.messageId)
+        return if (key in takenDone && certain) {
+            done(row, storeId, if (isMms) KIND_MMS_FOUND else KIND_TEXT)
+        } else {
+            Outcome.SKIPPED
         }
     }
 
     /** A store row the probe found: taken by another held row (F-23), or this row's, then verified. */
     private fun found(row: BlockedMessage, kind: MoveKind, storeId: Long): Outcome {
         val isMms = kind is MoveKind.Mms
-        return takenBy(isMms, storeId, row)
+        return takenBy(kind, storeId, row)
             ?: markWritten(row, storeId, if (isMms) KIND_MMS_FOUND else KIND_TEXT)
                 ?.let { verify(row, kind, storeId, ownWrite = false) }
             ?: Outcome.SKIPPED
@@ -630,7 +666,7 @@ internal class OlderSpamMover(
      * keeps the journal) when the store cannot be read.
      */
     private fun writeMmsOnce(row: BlockedMessage, kind: MoveKind.Mms, subscriptionId: Int): Long? {
-        val attempt = MmsAttempt(row.id, probe.newestMmsId(), clock())
+        val attempt = MmsAttempt(row.id, probe.newestMmsId(), clock(), row.receivedAt)
         journal.attempt = attempt
         val whole = writer.writeMms(row, subscriptionId).takeIf { it > 0L }
             ?: probe.findMmsAfter(attempt, kind.address, kind.identity)
@@ -648,7 +684,8 @@ internal class OlderSpamMover(
      */
     private fun resumeAttempt() {
         val attempt = journal.attempt ?: return
-        val row = rows.get(attempt.rowId)
+        // T3-5: an id handed out again (a trip to 0.4.14) is another row: only the row of the attempt is resolved.
+        val row = rows.get(attempt.rowId)?.takeIf { it.receivedAt == attempt.receivedAt }
         val kind = row?.let(::kindOf) as? MoveKind.Mms
         if (row != null && kind != null && row.migratedMsgId == null) {
             val whole = probe.findMmsAfter(attempt, kind.address, kind.identity)
@@ -739,7 +776,7 @@ internal class OlderSpamMover(
         val key = RowKey.of(row)
         kind?.let { journal.setKind(key, it) }
         rows.mark(row.id, mark)
-        if (journal.stallsOf(key) > 0) journal.setStalls(key, 0)
+        if (journal.stallsOf(key) > 0) journal.setStalls(key, 0, 0L)
         return Outcome.MOVED
     }
 
@@ -1022,6 +1059,8 @@ internal class AndroidMigrationRows(
     override fun keptFileExists(row: BlockedMessage): Boolean =
         row.mediaFile?.let { BlockedMmsStore.pduFile(app, it) }?.isFile == true
 
+    override fun reopen(id: Long) = reopenNothingToMove(id)
+
     private companion object {
         const val TABLE = "blocked_messages"
         const val COLUMN_MARK = "migratedMsgId"
@@ -1138,6 +1177,10 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
             }
         }
     }
+
+    override fun messageIdOf(id: Long): String? =
+        query(ContentUris.withAppendedId(Mms.CONTENT_URI, id), arrayOf(Mms.MESSAGE_ID))
+            .use { if (it.moveToFirst()) it.textOrNull(Mms.MESSAGE_ID)?.takeIf(String::isNotEmpty) else null }
 
     override fun checkSms(id: Long, address: String, date: Long, bodyLength: Int): Boolean =
         query(ContentUris.withAppendedId(Sms.CONTENT_URI, id), arrayOf(Sms.ADDRESS, Sms.DATE, Sms.BODY, Sms.TYPE))
@@ -1307,7 +1350,10 @@ internal class PrefsMigrationJournal(private val prefs: SharedPreferences) : Mig
 
     override var attempt: MmsAttempt?
         get() = if (prefs.contains(KEY_ROW)) {
-            MmsAttempt(prefs.getLong(KEY_ROW, 0L), prefs.getLong(KEY_NEWEST, 0L), prefs.getLong(KEY_STARTED, 0L))
+            MmsAttempt(
+                prefs.getLong(KEY_ROW, 0L), prefs.getLong(KEY_NEWEST, 0L), prefs.getLong(KEY_STARTED, 0L),
+                prefs.getLong(KEY_RECEIVED, 0L),
+            )
         } else {
             null
         }
@@ -1316,10 +1362,12 @@ internal class PrefsMigrationJournal(private val prefs: SharedPreferences) : Mig
                 remove(KEY_ROW)
                 remove(KEY_NEWEST)
                 remove(KEY_STARTED)
+                remove(KEY_RECEIVED)
             } else {
                 putLong(KEY_ROW, value.rowId)
                 putLong(KEY_NEWEST, value.newestBefore)
                 putLong(KEY_STARTED, value.startedAt)
+                putLong(KEY_RECEIVED, value.receivedAt)
             }
         }
 
@@ -1351,9 +1399,14 @@ internal class PrefsMigrationJournal(private val prefs: SharedPreferences) : Mig
 
     override fun setKind(key: RowKey, kind: Char) = setValue(KEY_KINDS, key, kind.toString())
 
-    override fun stallsOf(key: RowKey): Int = valueOf(KEY_STALLS, key)?.toIntOrNull() ?: 0
+    /** Stored as "<count>/<day>". */
+    override fun stallsOf(key: RowKey): Int = valueOf(KEY_STALLS, key)?.substringBefore('/')?.toIntOrNull() ?: 0
 
-    override fun setStalls(key: RowKey, stalls: Int) = setValue(KEY_STALLS, key, stalls.takeIf { it > 0 }?.toString())
+    override fun stallDayOf(key: RowKey): Long =
+        valueOf(KEY_STALLS, key)?.substringAfter('/', "")?.toLongOrNull() ?: -1L
+
+    override fun setStalls(key: RowKey, stalls: Int, day: Long) =
+        setValue(KEY_STALLS, key, stalls.takeIf { it > 0 }?.let { "$it/$day" })
 
     override var stallsVersion: Int
         get() = prefs.getInt(KEY_STALLS_VERSION, -1)
@@ -1396,12 +1449,16 @@ internal class PrefsMigrationJournal(private val prefs: SharedPreferences) : Mig
         private const val KEY_DONE_AT = "last_done_at"
         private const val KEY_HALTED = "halted_version"
         private const val KEY_STARTED = "attempt_started_at"
+        private const val KEY_RECEIVED = "attempt_received_at"
         private const val KEY_REPAIRS = "pending_repairs"
         private const val KEY_PASS_OWED = "pass_owed"
         private const val KEY_PASS_ASKED = "pass_requested_at"
         private const val KEY_UNREAD = "pending_unread"
 
-        /** Keyed by id and arrival (S2-2); the earlier key "row_kinds" (by id only) is not read any more. */
+        /**
+         * Keyed by id and arrival (S2-2). The earlier key "row_kinds" (by id only, only in unshipped step F builds) is
+         * not read: rows it named stay on the safe side (kept, listed); test runs start from fresh snapshots (T3-6).
+         */
         private const val KEY_KINDS = "row_kinds_v2"
         private const val KEY_STALLS = "row_stalls"
         private const val KEY_STALLS_VERSION = "row_stalls_version"
