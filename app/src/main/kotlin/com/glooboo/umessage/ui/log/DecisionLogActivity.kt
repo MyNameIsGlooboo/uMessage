@@ -94,6 +94,7 @@ import com.glooboo.umessage.ui.theme.success
 import com.glooboo.umessage.ui.thread.planSpamReport
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -109,6 +110,13 @@ class DecisionLogActivity : ComponentActivity() {
         setContent { UMessageTheme { DecisionLogRoute(onBack = ::finish) } }
     }
 }
+
+/**
+ * The held messages a log row may offer to restore. Provider truth (section 5): none: spam is in the phone's store and
+ * a chat leaves Spam by "Not spam" (the row's Allow fix); the old held rows wait for their migration.
+ */
+internal fun restoreCandidates(blocked: List<BlockedMessage>): List<BlockedMessage> =
+    if (ProviderTruthFlag.enabled) emptyList() else blocked
 
 /** Everything the rows need besides the entries: rule names, forward rules and the SIMs in the phone. */
 internal data class LogContext(
@@ -128,7 +136,11 @@ private fun DecisionLogRoute(onBack: () -> Unit) {
     var forwardRules by remember { mutableStateOf<List<ForwardRule>>(emptyList()) }
     var sims by remember { mutableStateOf<List<SimCard>>(emptyList()) }
     val rules by repository.rules.collectAsStateWithLifecycle(initialValue = emptyList())
-    val blocked by repository.blocked.collectAsStateWithLifecycle(initialValue = emptyList())
+    // Provider truth (H-14): the old held rows are not read; the restore card is not offered (see restoreCandidates).
+    val blockedRows = remember(repository) {
+        if (ProviderTruthFlag.enabled) flowOf(emptyList<BlockedMessage>()) else repository.blocked
+    }
+    val blocked by blockedRows.collectAsStateWithLifecycle(initialValue = emptyList())
     LaunchedEffect(log) {
         withContext(Dispatchers.IO) {
             // Forward entries name their rule by its note or condition; B4: SIM slots need the SIM list.
@@ -151,9 +163,7 @@ private fun DecisionLogRoute(onBack: () -> Unit) {
     DecisionLogScreen(
         entries = entries,
         logContext = LogContext(rules, forwardRules, sims),
-        // Provider truth (section 5): spam is in the phone's store and a chat leaves Spam by "Not spam" (the row's
-        // Allow fix); the old held rows wait for their migration, so the old restore card is not offered.
-        blocked = if (ProviderTruthFlag.enabled) emptyList() else blocked,
+        blocked = restoreCandidates(blocked),
         snackbarHostState = snackbar,
         onBack = onBack,
         onFix = { entry, allow -> scope.launch { actions.fix(entry, allow) } },

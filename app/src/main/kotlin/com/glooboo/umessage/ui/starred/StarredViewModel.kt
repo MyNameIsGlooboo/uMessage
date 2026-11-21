@@ -8,6 +8,7 @@ import com.glooboo.umessage.helpers.StarredMessages
 import com.glooboo.umessage.helpers.StarredPage
 import com.glooboo.umessage.helpers.starredDB
 import com.glooboo.umessage.models.MessageKey
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -38,8 +39,17 @@ class StarredViewModel(application: Application) : AndroidViewModel(application)
     init {
         viewModelScope.launch {
             StarredMessages.relink(app)
-            reads.collect { size -> _page.value = StarredList.load(app, size) }
+            reads.collect { size -> _page.value = read(size) }
         }
+    }
+
+    /** A failed read (the stars, the chats or Spam) shows an empty page, never a crash. */
+    private suspend fun read(size: Int): StarredPage = try {
+        StarredList.load(app, size)
+    } catch (e: CancellationException) {
+        throw e
+    } catch (_: Exception) {
+        StarredPage()
     }
 
     fun refresh() = refreshTick.update { it + 1 }

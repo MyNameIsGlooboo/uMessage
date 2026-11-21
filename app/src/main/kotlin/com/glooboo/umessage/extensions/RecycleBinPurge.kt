@@ -3,6 +3,7 @@ package com.glooboo.umessage.extensions
 import android.content.Context
 import com.glooboo.umessage.helpers.MessagingCache
 import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.helpers.messageNotes
 import org.fossify.commons.extensions.notificationManager
 
@@ -30,10 +31,28 @@ fun Context.deleteRecycleBinMessagesOfConversations(threadIds: Iterable<Long>): 
  * returns why it stopped, or [DeleteResult.DELETED].
  */
 fun Context.emptyRecycleBinAndTidyConversations(): DeleteResult {
+    if (ProviderTruthFlag.enabled) return emptyRecycleBinOutsideSpam()
     val threadIds = messagesDB.getAllRecycleBinMessages().mapTo(HashSet()) { it.threadId }
     val result = emptyMessagesRecycleBin()
     if (result != DeleteResult.DELETED) return result
     threadIds.forEach { tidyConversationAfterBinPurge(it) }
+    return result
+}
+
+/**
+ * H-4 (provider truth): "Empty" leaves the binned messages of chats in Spam alone (the bin does not list them; the
+ * automatic purge after 30 days still takes them). The other chats are emptied as by "Delete forever", and entries
+ * without a cached copy are dropped as before (DL-13). A failed read of Spam empties nothing.
+ */
+private fun Context.emptyRecycleBinOutsideSpam(): DeleteResult {
+    val spam = runCatching { SpamReaders.threadIds(this) }.getOrNull() ?: return DeleteResult.FAILED
+    val threadIds = messagesDB.getAllRecycleBinMessages().map { it.threadId }.distinct().filterNot { it in spam }
+    val result = deleteRecycleBinMessagesOfConversations(threadIds)
+    if (result == DeleteResult.DELETED) {
+        messagesDB.getAllRecycleBinEntries()
+            .filter { messagesDB.getMessage(it.id, it.isMMS) == null }
+            .forEach { messagesDB.deleteFromRecycleBin(it.id, it.isMMS) }
+    }
     return result
 }
 

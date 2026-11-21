@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.glooboo.umessage.databases.MessagesDatabase
+import com.glooboo.umessage.helpers.ShortcutHelper
 import com.glooboo.umessage.spam.engine.NumberNormalizer
 import com.glooboo.umessage.spam.engine.NumberReaders
 import com.glooboo.umessage.spam.engine.SpamCause
@@ -62,6 +63,8 @@ object SpamThreads {
         val readers = readers(context)
         MessagesDatabase.getInstance(context.applicationContext).ConversationsDao()
             .noteSpamArrival(threadId, address, cause, at) { a, b -> same(readers, a, b) }
+        // H-3 (U9): a chat in Spam has no launcher or share shortcut, also when it got there by this text.
+        ShortcutHelper.removeForSpam(context, threadId)
     }
 
     /** R1's safety check: [threadId] has a Spam row for the sender [address] (its chat row may not be cached yet). */

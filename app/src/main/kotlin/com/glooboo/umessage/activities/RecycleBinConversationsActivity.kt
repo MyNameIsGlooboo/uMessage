@@ -14,6 +14,7 @@ import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.restoreAllMessagesFromRecycleBinForConversation
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.IS_RECYCLE_BIN
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.THREAD_TITLE
@@ -93,7 +94,12 @@ class RecycleBinConversationsActivity : ComposeSimpleActivity() {
                     perChat = built.associate {
                         it.threadId to messagesDB.getRecycleBinMessageCountForThread(it.threadId)
                     },
-                    total = messagesDB.getRecycleBinMessageCount(),
+                    // H-4 (provider truth): the total leaves out the binned messages of chats in Spam, as the list.
+                    total = if (ProviderTruthFlag.enabled) {
+                        messagesDB.getRecycleBinMessageCountOutsideSpam()
+                    } else {
+                        messagesDB.getRecycleBinMessageCount()
+                    },
                 )
             }.getOrNull()
             runOnUiThread {

@@ -103,14 +103,9 @@ class NewConversationActivity : ComposeSimpleActivity() {
     private fun loadRecentChats() {
         lifecycleScope.launch {
             recentChats = withContext(Dispatchers.IO) {
-                runCatching {
-                    val chats = if (ProviderTruthFlag.enabled) {
-                        conversationsDB.getMessagesList()
-                    } else {
-                        conversationsDB.getNonArchived()
-                    }
-                    HiddenChats.get(this@NewConversationActivity).withoutHidden(chats) { it.threadId }
-                }.onFailure { Log.w("NewConversation", "Recent chats not loaded", it) }.getOrDefault(emptyList())
+                runCatching { shareTargetChats() }
+                    .onFailure { Log.w("NewConversation", "Recent chats not loaded", it) }
+                    .getOrDefault(emptyList())
             }
         }
     }
@@ -264,15 +259,29 @@ class NewConversationActivity : ComposeSimpleActivity() {
 }
 
 /**
- * U9 (provider truth): the recent senders offered as suggestions leave out the senders of chats in Spam. Blocking;
- * throws when Spam cannot be read, and then no suggestion shows.
+ * U9 (provider truth): the recent senders offered as suggestions leave out the senders of chats in Spam. H-5: the
+ * senders are read once into a set of their keys (every reading of the one region list, read once), and each
+ * suggestion is one set lookup. Blocking; throws when Spam cannot be read, and then no suggestion shows.
  */
 internal fun Context.withoutSpamSenders(suggested: List<SimpleContact>): List<SimpleContact> {
     if (!ProviderTruthFlag.enabled || suggested.isEmpty()) return suggested
     val senders = conversationsDB.getValidSpamThreads().map { it.sender }
     if (senders.isEmpty()) return suggested
-    val readers = SpamThreads.readers(this)
+    val readers = SpamThreads.readers(this).frozen()
+    val spamKeys = senders.flatMapTo(HashSet()) { readers.senderKeys(it) + it }
     return suggested.filterNot { contact ->
-        contact.phoneNumbers.any { number -> senders.any { SpamThreads.same(readers, it, number.normalizedNumber) } }
+        contact.phoneNumbers.any { number ->
+            val keys = readers.senderKeys(number.normalizedNumber) + number.normalizedNumber
+            keys.any { it in spamKeys }
+        }
     }
+}
+
+/**
+ * The share targets: the saved chat list the main screen shows, without the chats hidden by the lock. U9 (provider
+ * truth): the Messages list itself, so no chat in Spam is offered. Blocking.
+ */
+internal fun Context.shareTargetChats(): List<Conversation> {
+    val chats = if (ProviderTruthFlag.enabled) conversationsDB.getMessagesList() else conversationsDB.getNonArchived()
+    return HiddenChats.get(this).withoutHidden(chats) { it.threadId }
 }

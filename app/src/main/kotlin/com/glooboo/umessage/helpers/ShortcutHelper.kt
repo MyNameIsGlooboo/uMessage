@@ -140,16 +140,16 @@ class ShortcutHelper(private val context: Context) {
         return ShortcutManagerCompat.requestPinShortcut(context, buildShortcut(conv), null)
     }
 
-    fun createOrUpdateShortcut(conv: Conversation): ShortcutInfoCompat {
+    /** The published shortcut of [conv]; null when none was published (a hidden chat, or one in Spam, H-11). */
+    fun createOrUpdateShortcut(conv: Conversation): ShortcutInfoCompat? {
         val shortcut = buildShortcut(conv)
-        createOrUpdateShortcut(shortcut)
-        return shortcut
+        return shortcut.takeIf { createOrUpdateShortcut(shortcut) }
     }
 
-    fun createOrUpdateShortcut(threadId: Long): ShortcutInfoCompat {
+    /** The published shortcut of [threadId]; null when none was published (a hidden chat, or one in Spam, H-11). */
+    fun createOrUpdateShortcut(threadId: Long): ShortcutInfoCompat? {
         val shortcut = buildShortcut(threadId)
-        createOrUpdateShortcut(shortcut)
-        return shortcut
+        return shortcut.takeIf { createOrUpdateShortcut(shortcut) }
     }
 
     /**
@@ -200,16 +200,17 @@ class ShortcutHelper(private val context: Context) {
         removeSpamShortcuts((cached + dynamic).map { it.id }.distinct().filter { it in ids })
     }
 
-    private fun createOrUpdateShortcut(shortcut: ShortcutInfoCompat) {
+    /** True when [shortcut] was published (pushed or updated). */
+    private fun createOrUpdateShortcut(shortcut: ShortcutInfoCompat): Boolean {
         if (isHidden(shortcut.id.toLong())) {
             dropIfSpam(shortcut.id.toLong())
-            return
+            return false
         }
         if (getShortcut(shortcut.id.toLong()) != null) {
-            ShortcutManagerCompat.updateShortcuts(context, listOf(shortcut))
-            return
+            return ShortcutManagerCompat.updateShortcuts(context, listOf(shortcut))
         }
         ShortcutManagerCompat.pushDynamicShortcut(context, shortcut)
+        return true
     }
 
     /**
@@ -273,6 +274,15 @@ class ShortcutHelper(private val context: Context) {
             watchJob = CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
                 SpamSorting.changes.collect { runCatching { ShortcutHelper(app).removeSpamShortcuts() } }
             }
+        }
+
+        /**
+         * H-3 (provider truth): a text placed [threadId] in Spam on arrival; its launcher and share shortcuts go at
+         * once (no sort reports that move). Never throws. Nothing happens while ProviderTruthFlag is off.
+         */
+        fun removeForSpam(context: Context, threadId: Long) {
+            if (!ProviderTruthFlag.enabled) return
+            runCatching { ShortcutHelper(context.applicationContext).removeSpamShortcuts(listOf(threadId.toString())) }
         }
 
         /** Tests: stops the watch of [watchSpam], so the next test starts it again. */

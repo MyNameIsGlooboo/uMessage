@@ -162,6 +162,33 @@ class SpamReadersTest {
     }
 
     @Test
+    fun manySpamMatchesNeverPushTheMessagesMatchOutOfTheCap() = runBlocking<Unit>(Dispatchers.IO) {
+        // H-1: more than the 100-row cap of newer Spam matches, and one older Messages match.
+        (100L..220L).forEach { app.messagesDB.insertOrUpdate(message(it, SPAM, "pizza offer $it")) }
+        val search = search()
+
+        val shown = search.searchDatabase("pizza").filter { it.messageId != CONVERSATION_HIT }
+        val spam = search.searchSpamChats("pizza").single()
+
+        assertThat(shown.map { it.threadId }.toSet()).containsExactly(SHOWN)
+        assertThat(shown.map { it.messageId }).contains(2L)
+        assertThat(spam.open.threadId).isEqualTo(SPAM)
+        assertThat(spam.row.count).isEqualTo(com.glooboo.umessage.interfaces.SEARCH_RESULTS_LIMIT)
+    }
+
+    @Test
+    fun theTileAndRetentionQueriesLeaveSpamOutBeforeTheirCaps() = runBlocking<Unit>(Dispatchers.IO) {
+        // H-6, H-7: newer Spam links, and older Spam rows at the head of the retention scan.
+        (100L..120L).forEach { app.messagesDB.insertOrUpdate(message(it, SPAM, "see https://deals.example/$it")) }
+
+        val links = app.messagesDB.getLinkCandidatesOutsideSpam(1)
+        val oldest = app.messagesDB.getRetentionCandidatesOutsideSpam(before = 1_000, limit = 1, offset = 0)
+
+        assertThat(links.map { it.threadId }).containsExactly(SHOWN)
+        assertThat(oldest.map { it.id }).containsExactly(2L)
+    }
+
+    @Test
     fun aSpamRowOfAnotherSenderHidesNothing() = runBlocking<Unit>(Dispatchers.IO) {
         // S9: after a rebuilt store the row no longer names this chat's sender, so it counts for nothing.
         app.conversationsDB.updateSpamThreadSender(SPAM, "+15550009999", SpamCause.UNKNOWN)

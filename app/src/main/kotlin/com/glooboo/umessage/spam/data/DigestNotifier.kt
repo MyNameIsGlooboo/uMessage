@@ -8,6 +8,7 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.glooboo.umessage.R
 import com.glooboo.umessage.databases.MessagesDatabase
+import com.glooboo.umessage.helpers.CleanupPrefs
 import com.glooboo.umessage.helpers.MainTabLinks
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.cleanupPrefs
@@ -26,23 +27,28 @@ object DigestNotifier {
     private const val TAG = "umessage_weekly_digest"
     private const val NOTIFICATION_ID = 0x5B11
     private const val REQUEST_OPEN_BLOCKED = 0x5B11
-
-    /** The newest texts read per Spam chat: a week of one chat's spam is far less. */
-    internal const val TEXTS_PER_CHAT = 200
+    private const val MILLIS = 1000L
 
     /** Posts the digest when the switch is on, a week has passed and something was held. True when it was posted. */
     fun postIfDue(context: Context, now: Long): Boolean {
         val prefs = context.cleanupPrefs
-        if (!prefs.digestOn || !sortAllows(context) || !prefs.claimDigest(now)) return false
-        val digest = if (ProviderTruthFlag.enabled) {
-            WeeklyDigest.computeTexts(spamTexts(context, now), now)
-        } else {
-            val blocked = SpamDatabase.getInstance(context).spamDao().getBlockedBetween(now - WeeklyDigest.WEEK_MS, now)
-            WeeklyDigest.compute(blocked, now)
-        }
+        if (!prefs.digestOn || !sortAllows(context)) return false
+        val digest = dueDigest(context, prefs, now) ?: return false
         if (digest.held == 0) return false
         show(context, digest)
         return true
+    }
+
+    /** The digest when the week is up (and claimed); null when it is not, or the count failed. */
+    private fun dueDigest(context: Context, prefs: CleanupPrefs, now: Long): WeeklyDigest? {
+        if (!ProviderTruthFlag.enabled) {
+            if (!prefs.claimDigest(now)) return null
+            val blocked = SpamDatabase.getInstance(context).spamDao().getBlockedBetween(now - WeeklyDigest.WEEK_MS, now)
+            return WeeklyDigest.compute(blocked, now)
+        }
+        // H-9: counted before the week is claimed, so a failed read does not cost that week's digest.
+        val texts = runCatching { spamTexts(context, now) }.getOrNull() ?: return null
+        return if (prefs.claimDigest(now)) WeeklyDigest.computeTexts(texts, now) else null
     }
 
     private fun sortAllows(context: Context): Boolean =
@@ -50,16 +56,12 @@ object DigestNotifier {
 
     /**
      * Provider truth: the received texts of the last week in the chats now in Spam, each with the time its chat
-     * entered Spam. Blocking; throws when the cache cannot be read.
+     * entered Spam, in one query (H-9). Blocking; throws when the cache cannot be read.
      */
     internal fun spamTexts(context: Context, now: Long): List<WeeklyDigest.SpamText> {
-        val db = MessagesDatabase.getInstance(context.applicationContext)
-        val from = now - WeeklyDigest.WEEK_MS
-        return db.ConversationsDao().getValidSpamThreads().flatMap { row ->
-            db.MessagesDao().getNewestNonRecycledThreadMessages(row.threadId, TEXTS_PER_CHAT)
-                .filter { it.isReceivedMessage() && !it.isScheduled && it.millis() >= from }
-                .map { WeeklyDigest.SpamText(row.sender, it.body, it.millis(), row.spamSince) }
-        }
+        val from = ((now - WeeklyDigest.WEEK_MS) / MILLIS).toInt()
+        return MessagesDatabase.getInstance(context.applicationContext).MessagesDao().getSpamDigestRows(from)
+            .map { WeeklyDigest.SpamText(it.sender, it.body, it.date * MILLIS, it.spamSince) }
     }
 
     fun show(context: Context, digest: WeeklyDigest) {

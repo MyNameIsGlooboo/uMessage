@@ -1,5 +1,6 @@
 package com.glooboo.umessage.activities
 
+import android.content.Context
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.helpers.DEFAULT_SIM_PHONE
@@ -51,7 +52,10 @@ import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.emptyMessagesRecycleBin
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.conversationsDB
+import com.glooboo.umessage.extensions.recycleBinEntryCount
+import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.helpers.MainTabLinks
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.navPrefs
 import com.glooboo.umessage.helpers.threadPrefs
 import com.glooboo.umessage.helpers.w3aPrefs
@@ -337,7 +341,15 @@ class SettingsActivity : ComposeSimpleActivity() {
             val rules = runCatching { SpamEngine.forwardRepository(this).currentRules() }.getOrDefault(emptyList())
             forwardRuleCount = rules.size
             forwardRulesOn = rules.count { it.enabled }
-            archivedCount = runCatching { conversationsDB.getAllArchived().size }.getOrDefault(0)
+            // H-12 (provider truth): the Archived list leaves out the chats in Spam, so its count does too.
+            archivedCount = runCatching {
+                val archived = if (ProviderTruthFlag.enabled) {
+                    conversationsDB.getArchivedList()
+                } else {
+                    conversationsDB.getAllArchived()
+                }
+                archived.size
+            }.getOrDefault(0)
             runOnUiThread {
                 uiState = uiState.copy(
                     forwardRuleCount = forwardRuleCount,
@@ -350,7 +362,7 @@ class SettingsActivity : ComposeSimpleActivity() {
 
     private fun loadRecycleBinCount() {
         ensureBackgroundThread {
-            recycleBinMessages = messagesDB.getArchivedCount()
+            recycleBinMessages = recycleBinEntryCount()
             runOnUiThread { uiState = uiState.copy(recycleBinLabel = recycleBinLabel()) }
         }
     }
@@ -367,11 +379,7 @@ class SettingsActivity : ComposeSimpleActivity() {
             },
             onOpenBlocked = {
                 // Provider truth: the old Spam list is not opened any more; Spam is the main screen's tab.
-                if (com.glooboo.umessage.helpers.ProviderTruthFlag.enabled) {
-                    startActivity(MainTabLinks.intent(this, MainTabLinks.TAB_BLOCKED))
-                } else {
-                    open(BlockedMessagesActivity::class.java)
-                }
+                if (ProviderTruthFlag.enabled) openSpamTab() else open(BlockedMessagesActivity::class.java)
             },
             onOpenDecisionLog = { open(DecisionLogActivity::class.java) },
             onOpenBlockedNumbers = { open(BlockedNumbersActivity::class.java) },
@@ -852,4 +860,13 @@ class SettingsActivity : ComposeSimpleActivity() {
         private val DAILY_LIMIT_CHOICES = listOf(0, 5, 10, 20, 50)
         private const val REPOSITORY_URL = "https://github.com/MyNameIsGlooboo/uMessage"
     }
+}
+
+/**
+ * Provider truth (H-10): the Settings "Spam" row opens the Spam tab of the main screen and clears the Spam notices, as
+ * the old list did when it opened.
+ */
+internal fun Context.openSpamTab() {
+    BlockedNotifier.cancelAll(this)
+    startActivity(MainTabLinks.intent(this, MainTabLinks.TAB_BLOCKED))
 }

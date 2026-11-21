@@ -74,10 +74,11 @@ class RetentionRunner(context: Context) {
     }
 
     /** How many messages [days] of keep-time would move to the bin now (counted up to [PREVIEW_LIMIT]). */
-    fun countOld(days: Int, now: Long): Int = pickOld(days, now, PREVIEW_LIMIT).size
+    fun countOld(days: Int, now: Long): Int = if (sortAllowsCleanup()) pickOld(days, now, PREVIEW_LIMIT).size else 0
 
     /** How many read code messages [days] of keep-time would move to the bin now (counted up to [PREVIEW_LIMIT]). */
-    fun countCodes(days: Int, now: Long): Int = pickCodes(days, now, PREVIEW_LIMIT).size
+    fun countCodes(days: Int, now: Long): Int =
+        if (sortAllowsCleanup()) pickCodes(days, now, PREVIEW_LIMIT).size else 0
 
     private fun moveBatch(now: Long): Int {
         val codeDays = prefs.codeDays
@@ -136,13 +137,18 @@ class RetentionRunner(context: Context) {
     /**
      * Pages through the old messages and keeps what [pick] chooses until [limit] are found or [MAX_SCANNED] were read.
      * Nothing is moved while reading, so the pages do not shift under the offset. Messages of the chats in [spam] are
-     * never offered to [pick].
+     * never offered to [pick]; with ProviderTruthFlag on the query itself leaves the Spam chats out (H-6), so old Spam
+     * texts never fill the [MAX_SCANNED] rows.
      */
     private fun scan(cutoff: Int, limit: Int, spam: Set<Long>, pick: (List<Message>) -> List<Message>): List<Message> {
         val found = ArrayList<Message>()
         var offset = 0
         while (found.size < limit && offset < MAX_SCANNED) {
-            val page = app.messagesDB.getRetentionCandidates(cutoff, PAGE, offset)
+            val page = if (ProviderTruthFlag.enabled) {
+                app.messagesDB.getRetentionCandidatesOutsideSpam(cutoff, PAGE, offset)
+            } else {
+                app.messagesDB.getRetentionCandidates(cutoff, PAGE, offset)
+            }
             found += pick(if (spam.isEmpty()) page else page.filterNot { it.threadId in spam })
             if (page.size < PAGE) break
             offset += PAGE
