@@ -103,8 +103,11 @@ sealed interface SpamChatsEvent {
     data class Deleted(override val token: Long, val count: Int) : Windowed
     data class MarkedAllRead(val count: Int) : SpamChatsEvent
 
-    /** A plain message ([arg] fills its one placeholder): why something did not happen (S14, C-4). */
-    data class Message(val res: Int, val arg: String? = null) : SpamChatsEvent
+    /**
+     * A plain message ([arg] fills its one placeholder): why something did not happen (S14, C-4). [viewRule]: the
+     * snackbar offers "View rule", which opens the rules (D-6, an Unblock refused by a prefix rule).
+     */
+    data class Message(val res: Int, val arg: String? = null, val viewRule: Boolean = false) : SpamChatsEvent
     data object Failed : SpamChatsEvent
 }
 
@@ -523,7 +526,7 @@ class SpamChatsViewModel internal constructor(
 
     private fun nothingChangedMessage(rule: SpamRule?, outcomes: Collection<UnblockOutcome>): SpamChatsEvent = when {
         rule != null && rule.type == RuleType.PREFIX ->
-            SpamChatsEvent.Message(R.string.pt_unblock_refused_prefix, rule.pattern)
+            SpamChatsEvent.Message(R.string.pt_unblock_refused_prefix, rule.pattern, viewRule = true)
         UnblockOutcome.ANDROID_LIST in outcomes && UnblockOutcome.OTHER_RULE !in outcomes ->
             SpamChatsEvent.Message(R.string.thread_unblock_done_system)
         else -> SpamChatsEvent.Message(R.string.thread_unblock_failed)

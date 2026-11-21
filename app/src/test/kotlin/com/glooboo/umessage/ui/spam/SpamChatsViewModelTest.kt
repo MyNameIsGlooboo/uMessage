@@ -379,10 +379,38 @@ class SpamChatsViewModelTest {
 
         assertThat(message.res).isEqualTo(R.string.pt_unblock_refused_prefix)
         assertThat(message.arg).isEqualTo("+1555")
+        assertThat(message.viewRule).isTrue()
         assertThat(events.none { it is SpamChatsEvent.Windowed }).isTrue()
         // The exact rule came back: nothing changed, so there is no Undo that does nothing.
         assertThat(rules().map { it.pattern }).containsExactly("+1555", BLOCKED)
         assertThat(exact).isGreaterThan(0L)
+    }
+
+    @Test
+    fun viewRuleOnTheRefusedUnblockMessageOpensTheRules() {
+        val snackbar = SnackbarHostState()
+        var opened = 0
+        val event = SpamChatsEvent.Message(R.string.pt_unblock_refused_prefix, "+1555", viewRule = true)
+        val job = scope.launch { showSpamEvent(event, snackbar, vm, app.resources, onViewRule = { opened++ }) }
+        awaitUntil { snackbar.currentSnackbarData != null }
+        val bar = snackbar.currentSnackbarData!!
+        assertThat(bar.visuals.message).isEqualTo(app.getString(R.string.pt_unblock_refused_prefix, "+1555"))
+        assertThat(bar.visuals.actionLabel).isEqualTo(app.getString(R.string.e_view_rule))
+        bar.performAction()
+        awaitUntil { job.isCompleted }
+        assertThat(opened).isEqualTo(1)
+    }
+
+    @Test
+    fun aPlainMessageHasNoAction() {
+        val snackbar = SnackbarHostState()
+        val event = SpamChatsEvent.Message(R.string.thread_unblock_failed)
+        val job = scope.launch {
+            showSpamEvent(event, snackbar, vm, app.resources, onViewRule = { error("no action") })
+        }
+        awaitUntil { snackbar.currentSnackbarData != null }
+        assertThat(snackbar.currentSnackbarData!!.visuals.actionLabel).isNull()
+        job.cancel()
     }
 
     @Test
