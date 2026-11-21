@@ -105,6 +105,38 @@ class RegexOnDeviceTest {
         assertFalse(OtpDetector.containsUrl("Your code is 123456\n\n@www.example.com #123456"))
     }
 
+    /**
+     * Step N: the possessive runs, the bounded look-behinds (masks, reference words, dates) and the script ranges
+     * behave on ICU as on the JVM, and a run of marks stays fast.
+     */
+    @Test fun stepNPatternsBehaveAsOnTheJvm() {
+        // Wide reach from a code phrase, eight words of one sentence.
+        assertTrue(OtpDetector.looksLikeOtp("کد تایید شما جهت انجام تراکنش خرید از فروشگاه نمونه: 482913"))
+        // A code phrase with an advertising footer; an ad word in the code's sentence; a prize word anywhere.
+        assertTrue(OtpDetector.looksLikeOtp("Your verification code is 482913. Get 20% off your next ride!"))
+        assertFalse(AllowingCode.isAllowingCode("Your verification code is 482913. Get 20% off your next ride!"))
+        assertFalse(OtpDetector.looksLikeOtp("Your OTP is 482913, enjoy 20% off"))
+        assertFalse(OtpDetector.looksLikeOtp("Congratulations winner! Your OTP is 482913. Claim your prize"))
+        // Masks and stars.
+        assertFalse(OtpDetector.looksLikeOtp("Your PIN for card **** 1234 is now active"))
+        assertFalse(OtpDetector.looksLikeOtp("Your PIN for card ••••1234 is now active"))
+        assertFalse(OtpDetector.looksLikeOtp("خرید با رمز پویا از کارت *1234 انجام شد"))
+        assertTrue(AllowingCode.isAllowingCode("OTP: *482913*"))
+        assertEquals("482913", OtpCodeExtractor.extract("Your verification code is *482913*"))
+        // Reference words and dates.
+        assertTrue(AllowingCode.isAllowingCode("OTP for your account is 482913"))
+        assertFalse(OtpDetector.looksLikeOtp("پرداخت قبض شما تایید شد، شماره پیگیری 482913"))
+        assertFalse(OtpDetector.looksLikeOtp("Login at 2026-11-02 12:30"))
+        // Separators of eight, Thai clauses, an emoji with a variation selector.
+        assertTrue(AllowingCode.isAllowingCode("Verification code:\r\n\r\n482913"))
+        assertTrue(AllowingCode.isAllowingCode("OTP สำหรับเข้าสู่ระบบของคุณคือ 482913"))
+        assertTrue(AllowingCode.isAllowingCode("کد تایید ✅️482913"))
+        // Combining marks are never separators: this would run for seconds if they were.
+        val start = System.nanoTime()
+        assertFalse(OtpDetector.looksLikeOtp("OTP " + "́".repeat(200) + " 482913"))
+        assertTrue((System.nanoTime() - start) / 1_000_000 < 1_000)
+    }
+
     /** The strict reading that allows a sender (check 10) builds its own patterns on top of the detector's. */
     @Test fun allowingCodeBehavesAsOnTheJvm() {
         assertTrue(AllowingCode.isAllowingCode("Your verification code is 482915"))

@@ -83,16 +83,20 @@ object AllowingCode {
         "پیگیری", "رهگیری", "مرسوله", "کد سفارش", "شماره سفارش", "کد معرف", "کد معرفی", "کد شعبه", "کد نوبت",
         "شماره نوبت", "کد بورسی", "کد پستی", "کد مشتری", "شماره مشتری", "کد اشتراک", "کد ملی", "کد رزرو", "کد خطا",
         "شناسه پرداخت", "تغییر کرد", "تغییر یافت",
-        // Arabic; "تم تغییر" (has been changed) and the words of a card ("your card ending in 1234", N5-6). The
-        // bare "تغییر" is left out: it is also the Persian word in "کد تایید تغییر شماره: 482913".
+        // Arabic; "تم تغییر" (has been changed), every word with the stem of "card" ("لبطاقتك", "للبطاقة", N5-6, R2-5),
+        // "لحساب" (for the account) and "مسدود" (blocked). The bare "تغییر" is left out: it is also the Persian word in
+        // "کد تایید تغییر شماره: 482913"; so is "حسابک", as in "رمز التحقق الخاص بحسابك هو 482913".
         "الخصم", "التتبع", "تتبع", "الشحنه", "شحنه", "الطلب", "طلبک", "مرجع", "المرجع", "الحجز", "رقم العملیه",
-        "تم تغییر", "المنتهیه", "بطاقتک", "لبطاقتک", "البطاقه",
+        "تم تغییر", "المنتهیه", "\\p{L}*بطاق\\p{L}*", "لحساب", "مسدود",
+        // A password that is no one-time code: a wi-fi or modem password, one that has expired.
+        "وای فای", "وایفای", "wi-?fi", "مودم", "modem", "الوای فای", "الوایفای", "منقضی شد", "منقضی شده",
+        "ستنتهی قریبا",
     )
 
     private const val BARE_THAI_CODE = "รหัส"
     /** As in [OtpDetector.NEAR]: a mark is never a separator, and neither run is cut back, so matching stays linear. */
-    private const val SEP = "[^\\p{L}\\p{M}\\p{N}]{1,4}+"
-    private const val WORD = "[\\p{L}\\p{M}]{1,15}+"
+    private const val SEP = "[^\\p{L}\\p{M}\\p{N}]{1,8}+"
+    private const val WORD = OtpDetector.WORD
 
     /** The characters either side of a code that are searched. */
     private const val WINDOW = 120
@@ -124,6 +128,15 @@ object AllowingCode {
 
     private val veto = words(vetoWords)
     private val vetoBefore = Regex("$veto$SEP(?:$WORD$SEP){0,4}$", RegexOption.IGNORE_CASE)
+
+    /**
+     * A word right before the number that names it a number or an amount: "رقم 1234" (number), "مبلغ: 482913"
+     * (amount), "مانده", "amount", "balance". Such a number is shown, but allows nobody (R2-2, R2-5).
+     */
+    private val numberWordBefore = Regex(
+        "(?<![\\p{L}\\p{N}])(?:رقم|مبلغ|مانده|amount|balance)$SEP$",
+        RegexOption.IGNORE_CASE,
+    )
     private val vetoAfter = Regex("^$SEP(?:$WORD$SEP){0,4}$veto", RegexOption.IGNORE_CASE)
 
     /**
@@ -190,11 +203,13 @@ object AllowingCode {
     /** Whether [body] allows its sender for good (see the class comment). Never throws. */
     fun isAllowingCode(body: String): Boolean = runCatching {
         if (!OtpDetector.looksLikeOtp(body)) return@runCatching false
-        val text = TextNormalizer.fold(body).take(OtpDetector.MAX_SCAN)
-        if (OtpDetector.hasAdvertisingWord(text)) return@runCatching false
-        val secret = secrecy.containsMatchIn(text)
+        val full = TextNormalizer.fold(body)
+        if (OtpDetector.hasAdvertisingWord(full)) return@runCatching false
+        val text = OtpDetector.scanned(full)
+        val secret = secrecy.containsMatchIn(full)
         val bound = OtpDetector.isOriginBound(body)
-        codeRanges(body, text).any { range ->
+        val near = OtpDetector.withinReach(text)
+        codeRanges(body, text).filter(near).any { range ->
             val vouched = bound || secret && OtpDetector.keywordClose(text, range)
             !vetoNear(text, range) && (vouched || allowsNear(text, range))
         }
@@ -222,7 +237,8 @@ object AllowingCode {
         val head = before(text, range)
         val tail = after(text, range)
         val cjkCodeFirst = cjkBefore.containsMatchIn(head) && cjkClauseBeforeVeto.containsMatchIn(tail)
-        return vetoBefore.containsMatchIn(head) || vetoAfter.containsMatchIn(tail) ||
+        val reference = vetoBefore.containsMatchIn(head) || numberWordBefore.containsMatchIn(head)
+        return reference || vetoAfter.containsMatchIn(tail) ||
             cjkVetoBefore.containsMatchIn(head) && !cjkCodeAfterClause.containsMatchIn(head) ||
             cjkVetoAfter.containsMatchIn(tail) && !cjkCodeFirst
     }

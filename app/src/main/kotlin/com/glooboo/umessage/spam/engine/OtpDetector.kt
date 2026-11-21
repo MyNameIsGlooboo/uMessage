@@ -14,7 +14,8 @@ import com.glooboo.umessage.spam.TextNormalizer
  * kashida and zero-width characters do not hide a code. Word edges are explicit lookarounds over letters and
  * digits of any script, because `\b` behaves differently in the JVM and Android (ICU) regex engines. A separator
  * never holds a combining mark (`\p{M}`), and runs are possessive, so no pattern can cut one word in many ways: every
- * pattern stays linear, also for Thai, Hindi or a run of accents. Only the first [MAX_SCAN] characters are read.
+ * pattern stays linear, also for Thai, Hindi or a run of accents. The keyword patterns read only the first [MAX_SCAN]
+ * characters ([scanned]); the words of advertisements, prizes and opt-out lines are looked for in the whole text.
  *
  * Marketing texts are not codes even when they say "code" next to a number ("promo code 2025", "کد تخفیف"),
  * a number that reads as a price or a percentage is never the code, and next to the generic word "code" a year
@@ -42,7 +43,8 @@ object OtpDetector {
     /** The space inside a keyword is optional: Persian often writes "کد\u200Cتایید" with a ZWNJ, which folding drops. */
     internal fun keywordPattern(words: List<String>) = EDGE_BEFORE + "(?:" +
         words.map { TextNormalizer.fold(it).replace(" ", "\\s?") }.sortedByDescending { it.length }.joinToString("|") +
-        ")" + SUFFIX + EDGE_AFTER
+        // A combining mark on the last letter ("OTṔ") stays with the keyword: a mark is no separator.
+        ")" + SUFFIX + "\\p{M}*+" + EDGE_AFTER
 
     /** A number followed by these is an amount or a percentage, not a code. */
     internal const val NOT_AFTER =
@@ -68,14 +70,17 @@ object OtpDetector {
     /** Characters that mask a card or account number: "****1234", "••••1234", "#### 1234". */
     private const val MASK = "[*\u2022\u25CF#\u00D7]"
 
+    /** What closes a code written between marks ("*482913*"); a "#" after "*1234" ends a dial code instead. */
+    private const val CLOSING = "[*\u2022\u25CF]"
+
     /**
      * Checked at the end of a number: a masked number is no code. That is a number with two mask characters, or a digit
      * and one, before it ("****1234", "**** 1234") unless a mask character also closes it ("**482913**" is bold), and a
-     * number followed by two mask characters ("1234****") unless one opens it. A single star is no mask ("*482913*").
+     * number followed by two mask characters ("1234****") unless one opens it. A single star is no mask ("*482913*",
+     * "OTP *482913"), except before the four last digits of a card ("از کارت *1234"), unless a star closes them.
      */
-    private const val MASK_GUARD = "(?:(?=$MASK)|(?<!(?:\\p{N}|$MASK)$MASK[0-9 -]{4,10}))" +
+    internal const val MASK_GUARD = "(?:(?=$CLOSING)|(?<!(?:\\p{N}|$MASK)$MASK[0-9 -]{4,10})(?<!$MASK[0-9]{4}))" +
         "(?:(?!$MASK{2})|(?<=$MASK[0-9 -]{4,10}))"
-
     /**
      * Characters that join digits into one bigger number: a date, a time, an amount ("1405/08/27", "14:32"). A hyphen
      * is not one of them, as a code is also written in groups ("4829-13"); a date written with hyphens is [HYPHEN_DATE].
@@ -87,12 +92,22 @@ object OtpDetector {
     private const val HYPHEN_DATE_BEFORE = "(?<!\\p{N}-\\p{N}{1,2}-)"
 
     /**
-     * Words that name what a number right after them is: a number, an ID, a balance, an account ("به شماره 1234567",
-     * "شناسه 12345678", "مانده 250000", "tracking number is 48291375", "account ending in 482913"). Such a number is no
-     * code. A bounded look-behind, so Android's ICU engine accepts it.
+     * Words that name what a number right after them is, near a keyword or far from it: a card, an account, a tracking
+     * number, a balance, the last digits of a phone ("به شماره 1234567", "شناسه 12345678", "مانده 250000", "tracking
+     * number is 48291375", "account ending in 482913", "phone ending 4829", "منتهی به 4829"). Such a number is no code.
+     * Bounded look-behinds, so Android's ICU engine accepts them.
      */
-    private const val REFERENCE_BEFORE = "(?<!(?:شماره|شناسه|مانده حساب|مانده|مبلغ|tracking number|account number|" +
-        "order number|reference number|account|balance|amount|ending in)(?:\\sis)?[^\\p{L}\\p{M}\\p{N}]{1,3})"
+    private const val REFERENCE_WORDS = "(?:شماره کارت|شماره حساب|شماره پیگیری|شماره سفارش|به شماره|برای شماره|" +
+        "شناسه|مانده حساب|مانده|منتهی به|عدد|tracking number|account number|order number|reference number|" +
+        "account ending in|account ending|ending in|ending|balance)"
+    private const val REFERENCE_BEFORE = "(?<!$REFERENCE_WORDS(?:\\sis)?[^\\p{L}\\p{M}\\p{N}]{1,3})"
+
+    /**
+     * Bare words that name a number only far from a keyword ([WIDE_NEAR]): "OTP for your account is 482913" and "کد
+     * تایید شماره: 482913" are codes, "رمز دوم ... مانده حساب 250000" and "... sent to mobile 4829137" are not.
+     */
+    private const val FAR_REFERENCE_WORDS = "(?:شماره|مبلغ|شعبه|account|amount|number|mobile)"
+    private const val FAR_REFERENCE_BEFORE = "(?<!$FAR_REFERENCE_WORDS[^\\p{L}\\p{M}\\p{N}]{1,3})"
 
     /** Not after a digit, a currency sign or a reference word, not one part of a date or amount, not masked. */
     private const val EDGES_BEFORE =
@@ -109,7 +124,7 @@ object OtpDetector {
     private const val DATE = "(?:1[34]|19|20)\\d\\d(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\\d|3[01])(?!\\p{N})"
 
     /** A code far from its phrase ([WIDE_NEAR]): no year and no date. */
-    private val CODE_FAR = "$EDGES_BEFORE(?!$YEAR)(?!$DATE)$codeShape$EDGES_AFTER"
+    private val CODE_FAR = "$EDGES_BEFORE$FAR_REFERENCE_BEFORE(?!$YEAR)(?!$DATE)$codeShape$EDGES_AFTER"
 
     /** Digits of the longest code of [codeShape]; a longer number is a code only next to a password word. */
     internal const val MAX_CODE_DIGITS = 8
@@ -118,7 +133,9 @@ object OtpDetector {
      * A 9-10 digit number, a first password ("رمز شخصی شما 1234567890"). Never a number that starts with 0 or 98 (a phone
      * number), or follows "+" or a phone word. It is a code only next to a password word ([passwordKeywords]).
      */
-    internal val longShape = "(?<!\\+)(?<!(?:$phoneWords)[^\\p{L}\\p{N}]{0,3})(?!0|98)[0-9]{9,10}"
+    internal val longShape = "(?<!\\+)(?<!(?:$phoneWords)[^\\p{L}\\p{N}]{0,3})(?!0|98)[0-9]{9,10}" +
+        // Nor one a phone word follows ("با 9123456789 تماس بگیرید"): a mobile number written without its 0.
+        "(?![^\\p{L}\\p{N}]{1,3}(?:$phoneWords))"
 
     private val LONG_CODE = "$EDGES_BEFORE$longShape$EDGES_AFTER"
 
@@ -131,12 +148,19 @@ object OtpDetector {
     }
 
     /**
+     * One plain word: up to 15 letters and marks, or up to 64 in Thai, Lao, Myanmar and Khmer, which write a whole
+     * clause without spaces ("OTP สำหรับเข้าสู่ระบบของคุณคือ 482913"). Written as code points, so both engines read the
+     * blocks the same. Possessive: a word is never cut back.
+     */
+    internal const val WORD = "(?:[\\u0E00-\\u0EFF\\u1000-\\u109F\\u1780-\\u17FF]{1,64}+|[\\p{L}\\p{M}]{1,15}+)"
+
+    /**
      * Separator, then up to four plain words (letters only, so "SAVE20" or a phone number breaks the chain). A
      * separator is up to eight spaces or marks, so "Code:" and the number two blank lines further down still meet.
      * Neither a separator nor a word is ever cut back (possessive), and a combining mark belongs to the word only.
      */
     internal const val NEAR =
-        "[^\\p{L}\\p{M}\\p{N}]{1,8}+(?:[\\p{L}\\p{M}]{1,15}+[^\\p{L}\\p{M}\\p{N}]{1,8}+){0,4}"
+        "[^\\p{L}\\p{M}\\p{N}]{1,8}+(?:$WORD[^\\p{L}\\p{M}\\p{N}]{1,8}+){0,4}"
 
     /** A separator that stays inside one sentence: no full stop, mark or line break ([sentenceBreaks]). */
     private const val IN_SENTENCE = "[^\\p{L}\\p{M}\\p{N}.!?;\\n\\r\u061F\u06D4]{1,4}+"
@@ -148,7 +172,8 @@ object OtpDetector {
      * and a year or a date this far from the phrase is no code ("Your password expires at the end of December 2026").
      */
     private const val WIDE_NEAR =
-        "$IN_SENTENCE(?:[\\p{L}\\p{M}][\\p{L}\\p{M}\\p{N}]{0,19}+$IN_SENTENCE){0,8}"
+        "$IN_SENTENCE(?:(?:[\\u0E00-\\u0EFF\\u1000-\\u109F\\u1780-\\u17FF]{1,64}+|" +
+            "[\\p{L}\\p{M}][\\p{L}\\p{M}\\p{N}]{0,19}+)$IN_SENTENCE){0,8}"
 
     /** The only words with the wide reach: not "verify", "log in" or "تایید", whose texts are often bank notices. */
     private val wideWords = keywordPattern(OtpKeywords.codePhrases + OtpKeywords.password)
@@ -291,6 +316,22 @@ object OtpDetector {
     /** How much of a text is read for a code: a longer text (an MMS, a pasted page) has its code near the start. */
     internal const val MAX_SCAN = 2000
 
+    /** Emoji variation selectors (U+FE00 to U+FE0F): marks with no meaning here, so "✅️482913" is read "✅482913". */
+    private val variationSelectors = '\uFE00'..'\uFE0F'
+
+    /**
+     * What the keyword patterns read of the folded [text]: without variation selectors, and at most [MAX_SCAN]
+     * characters, cut before a number rather than inside it. Folded and cut once by the caller ([OtpCodes]), which
+     * hands the same text to every reader; the words of advertisements are looked for in the whole text instead.
+     */
+    internal fun scanned(text: String): String {
+        val plain = if (text.any { it in variationSelectors }) text.filterNot { it in variationSelectors } else text
+        if (plain.length <= MAX_SCAN) return plain
+        var end = MAX_SCAN
+        while (end > 0 && plain[end - 1].isDigit()) end--
+        return plain.substring(0, end)
+    }
+
     private val strongBefore = Regex(keywordPattern(strongKeywords) + NEAR + "$", RegexOption.IGNORE_CASE)
     private val strongAfter = Regex("^" + NEAR + keywordPattern(strongKeywords), RegexOption.IGNORE_CASE)
     private val wideBefore = Regex(wideWords + WIDE_NEAR + "$", RegexOption.IGNORE_CASE)
@@ -302,15 +343,29 @@ object OtpDetector {
     private val cjkBefore = Regex(cjkWords + "[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$", RegexOption.IGNORE_CASE)
     private val cjkAfter = Regex("^[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}" + cjkWords, RegexOption.IGNORE_CASE)
     private val yearOnly = Regex(YEAR)
+
+    /** Any keyword, strong, generic, password or CJK: where a code may be read closely ([alphanumericCodes]). */
+    private val anyKeyword = Regex(
+        keywordPattern(strongKeywords + weakKeywords + OtpKeywords.codePhrases + OtpKeywords.password) + "|" + cjkWords,
+        RegexOption.IGNORE_CASE,
+    )
     private val farCode = Regex("(?!$YEAR)(?!$DATE)[0-9 -]+")
+    private val farReferenceEnd = Regex("$FAR_REFERENCE_WORDS[^\\p{L}\\p{M}\\p{N}]{1,3}$", RegexOption.IGNORE_CASE)
 
     /**
-     * Whether the code at [range] of [text] (already folded) has a keyword a few plain words before or after it, on
-     * the same terms as [nearKeyword] (no advertisement; next to the generic word only when it is no year). Several
-     * codes of one message ("Use 333333 to log in, or 444444 to reset") each qualify on their own.
+     * Whether the code at [range] of [text] ([scanned]) has a keyword a few plain words before or after it, on the
+     * same terms as [nearKeyword] (no advertisement in the whole folded text [full]; next to the generic word only when
+     * it is no year). Several codes of one message ("Use 333333 to log in, or 444444 to reset") each qualify alone.
      */
-    internal fun keywordNextTo(text: String, range: IntRange, sameSentence: Boolean = false): Boolean {
-        if (marketingHard.containsMatchIn(text)) return !sameSentence && codeNextToPhrase(text, range)
+    internal fun keywordNextTo(
+        text: String,
+        range: IntRange,
+        sameSentence: Boolean = false,
+        full: String = text,
+        adAt: Int? = adStart(text, full),
+        offers: Boolean = hasOfferWords(full),
+    ): Boolean {
+        if (adAt != null) return !sameSentence && codeNextToPhrase(text, adAt, range)
         if (OtpPasswords.isLong(text.substring(range))) return OtpPasswords.nextTo(text, range, WINDOW)
         var before = text.substring(maxOf(0, range.first - WINDOW), range.first)
         var after = text.substring(range.last + 1, minOf(text.length, range.last + 1 + WINDOW))
@@ -320,8 +375,9 @@ object OtpDetector {
             if (end >= 0) after = after.substring(0, end)
         }
         val value = text.substring(range)
-        if (strongNextTo(before, after, farCode.matches(value))) return true
-        if (marketingOptOut.containsMatchIn(text) || marketingSoft.containsMatchIn(text)) return false
+        val far = farCode.matches(value) && !farReferenceEnd.containsMatchIn(before)
+        if (strongNextTo(before, after, far)) return true
+        if (offers) return false
         val year = yearOnly.matches(value) && yearContext.containsMatchIn(text)
         return !year && (weakBefore.containsMatchIn(before) || weakAfter.containsMatchIn(after))
     }
@@ -348,15 +404,36 @@ object OtpDetector {
     }
 
     /**
-     * Whether a code of [text] (folded), the one at [range] if given, stands next to a phrase of
-     * [OtpKeywords.codePhrases] while the text holds no prize word and no word of [marketingHard] up to the end of the
+     * Where the first word of an advertisement stands in [text] ([scanned]), read once per text and handed to every
+     * number ([keywordNextTo]): null when the whole folded text [full] has none, 0 when it has a prize word (no footer
+     * is allowed then), and the end of [text] when the word only comes after the part that is read.
+     */
+    internal fun adStart(text: String, full: String): Int? = when {
+        !marketingHard.containsMatchIn(full) -> null
+        prize.containsMatchIn(full) -> 0
+        else -> marketingHard.find(text)?.range?.first ?: text.length
+    }
+
+    /**
+     * Whether a code of [text] ([scanned]), the one at [range] if given, stands next to a phrase of
+     * [OtpKeywords.codePhrases] and the first advertising word ([adStart], at [adAt]) only comes after the end of the
      * code's sentence: a real code with an advertising footer.
      */
-    private fun codeNextToPhrase(text: String, range: IntRange? = null): Boolean =
-        !prize.containsMatchIn(text) && codePhraseOtp.findAll(text).any {
-            val holdsCode = range == null || range.first >= it.range.first && range.last <= it.range.last
-            holdsCode && !marketingHard.containsMatchIn(text.substring(0, sentenceEnd(text, it.range.last + 1)))
+    private fun codeNextToPhrase(text: String, adAt: Int, range: IntRange? = null): Boolean {
+        if (adAt == 0) return false
+        // A phrase that holds the code at [range] stands within a few hundred characters of it: only that part is read.
+        val from = range?.let { maxOf(0, it.first - PHRASE_REACH) } ?: 0
+        val to = range?.let { minOf(text.length, it.last + 1 + PHRASE_REACH) } ?: text.length
+        return codePhraseOtp.findAll(text.substring(from, to)).any {
+            val first = it.range.first + from
+            val last = it.range.last + from
+            val holdsCode = range == null || range.first >= first && range.last <= last
+            holdsCode && sentenceEnd(text, last + 1) <= adAt
         }
+    }
+
+    /** The longest a phrase, its separators and words and a code can be together ([NEAR]: four words of 64). */
+    private const val PHRASE_REACH = 400
 
     /**
      * Where the sentence that goes on at [from] ends: at a mark or line break of [sentenceBreaks], but a full stop
@@ -376,8 +453,10 @@ object OtpDetector {
      * only an advertising footer after a code phrase ([codeNextToPhrase]). A labelled password in an advertisement
      * ("Winner! password: 12345678") fails it. The old filter (flag off) lets a code through only with this.
      */
-    internal fun noAdBeforeCode(body: String): Boolean = TextNormalizer.fold(body).take(MAX_SCAN).let {
-        !marketingHard.containsMatchIn(it) || codeNextToPhrase(it)
+    internal fun noAdBeforeCode(body: String): Boolean {
+        val full = TextNormalizer.fold(body)
+        val text = scanned(full)
+        return adStart(text, full)?.let { codeNextToPhrase(text, it) } ?: true
     }
 
     /**
@@ -385,13 +464,31 @@ object OtpDetector {
      * before or after them: position and value, as written ("Your code is ab12cd" gives ab12cd). Never bare: a token
      * of this shape without a keyword, in an advertisement, or next to the generic word in a text of offers is no code.
      */
-    internal fun alphanumericCodes(text: String): List<Pair<Int, String>> {
-        if (marketingHard.containsMatchIn(text)) return emptyList()
-        return alphanumericCode.findAll(text)
-            .filter { keywordNextTo(text, it.range, sameSentence = true) }
+    internal fun alphanumericCodes(text: String, full: String = text): List<Pair<Int, String>> {
+        if (marketingHard.containsMatchIn(full)) return emptyList()
+        val tokens = alphanumericCode.findAll(text).toList()
+        if (tokens.isEmpty()) return emptyList()
+        // Keywords are found once; only a token within reach of one is read closely ("a1b2 " x 390 + "OTP").
+        val near = withinReach(text)
+        val offers = hasOfferWords(full)
+        return tokens
+            .filter { near(it.range) }
+            .filter { keywordNextTo(text, it.range, sameSentence = true, full = full, adAt = null, offers = offers) }
             .map { it.range.first to it.value }
-            .toList()
     }
+
+    /**
+     * Whether a place of [text] has any keyword (strong, generic, password or CJK) within [WINDOW] characters: only
+     * such a place can be a code. The keywords are found once, so a text with hundreds of numbers is read once.
+     */
+    internal fun withinReach(text: String): (IntRange) -> Boolean {
+        val keywords = anyKeyword.findAll(text).map { it.range }.toList()
+        return { range -> keywords.any { it.last >= range.first - WINDOW && it.first <= range.last + WINDOW } }
+    }
+
+    /** Words of opt-out lines, gifts and offers anywhere in the folded [full] text: they veto the plain word "code". */
+    internal fun hasOfferWords(full: String): Boolean =
+        marketingOptOut.containsMatchIn(full) || marketingSoft.containsMatchIn(full)
 
     /**
      * Whether the folded [text] holds a word of [marketingHard] ("promo", "discount", "50%") anywhere. Such a text never
@@ -406,19 +503,22 @@ object OtpDetector {
 
     /**
      * The keyword rule behind [looksLikeOtp]: a 4-8 digit code, or a letters-and-digits one ([alphanumericCodes]), next
-     * to an OTP keyword (a few plain words apart, either order), in a text that is not an advertisement. Labelled values are [OtpCodes]' business.
+     * to an OTP keyword (a few plain words apart, either order), in a text that is not an advertisement. [body] is
+     * read as [scanned]; the words of advertisements are looked for in all of [whole] (by default the same text).
+     * Labelled values are [OtpCodes]' business.
      */
-    internal fun nearKeyword(body: String): Boolean {
-        val text = TextNormalizer.fold(body).take(MAX_SCAN)
+    internal fun nearKeyword(body: String, whole: String = body): Boolean {
+        val text = scanned(TextNormalizer.fold(body))
+        val full = TextNormalizer.fold(whole)
         return when {
             // Every code of this rule holds a digit (folding made them ASCII): a text without one is read no further.
             text.none { it in '0'..'9' } -> false
-            marketingHard.containsMatchIn(text) -> codeNextToPhrase(text)
+            marketingHard.containsMatchIn(full) -> codeNextToPhrase(text, adStart(text, full) ?: text.length)
             strongOtp.containsMatchIn(text) || cjkOtp.containsMatchIn(text) -> true
             passwordOtp.containsMatchIn(text) -> true
-            alphanumericCodes(text).isNotEmpty() -> true
-            marketingOptOut.containsMatchIn(text) -> false
-            marketingSoft.containsMatchIn(text) -> false
+            alphanumericCodes(text, full).isNotEmpty() -> true
+            marketingOptOut.containsMatchIn(full) -> false
+            marketingSoft.containsMatchIn(full) -> false
             // Only the generic word "code": a year-like number is no code when the text speaks of a year or a date.
             else -> (if (yearContext.containsMatchIn(text)) weakOtp else weakOtpAnyNumber).containsMatchIn(text)
         }

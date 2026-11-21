@@ -25,21 +25,22 @@ object OtpCodeExtractor {
     private const val JOINERS = "\\-/:.,\u066B\u066C"
 
     /**
-     * A code as [OtpDetector.codeShape] defines it (shared with the filter). Not glued to letters, digits, `*` or a
-     * currency sign, not one part of a number joined by [JOINERS] ("1,250,000", "14:32", "5022-29**"), and not
-     * followed by an amount's unit.
+     * A code as [OtpDetector.codeShape] defines it (shared with the filter). Not glued to letters, digits or a
+     * currency sign, not one part of a number joined by [JOINERS] ("1,250,000", "14:32", "5022-29**"), not masked
+     * ([OtpDetector.MASK_GUARD]: "****1234" and "1234****" are none, "*482913*" is one), and not followed by an
+     * amount's unit.
      */
     private val code = Regex(
-        "(?<![\\p{L}\\p{N}.*$€£])(?<![\\p{N}*][$JOINERS])" +
+        "(?<![\\p{L}\\p{N}.$€£])(?<![\\p{N}*][$JOINERS])" +
             "(" + OtpDetector.codeShape + ")" +
-            "(?![\\p{L}\\p{N}*])(?![$JOINERS][\\p{N}*])" + OtpDetector.NOT_AFTER,
+            "(?![\\p{L}\\p{N}])(?![$JOINERS][\\p{N}*])" + OtpDetector.MASK_GUARD + OtpDetector.NOT_AFTER,
         RegexOption.IGNORE_CASE,
     )
     /** A 9-10 digit password ([OtpDetector.longShape]), bound to a password word only; same edges as [code]. */
     private val longCode = Regex(
-        "(?<![\\p{L}\\p{N}.*$€£])(?<![\\p{N}*][$JOINERS])" +
+        "(?<![\\p{L}\\p{N}.$€£])(?<![\\p{N}*][$JOINERS])" +
             "(" + OtpDetector.longShape + ")" +
-            "(?![\\p{L}\\p{N}*])(?![$JOINERS][\\p{N}*])" + OtpDetector.NOT_AFTER,
+            "(?![\\p{L}\\p{N}])(?![$JOINERS][\\p{N}*])" + OtpDetector.MASK_GUARD + OtpDetector.NOT_AFTER,
         RegexOption.IGNORE_CASE,
     )
     private val passwordKeywords = Regex(

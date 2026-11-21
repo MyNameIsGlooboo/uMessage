@@ -43,10 +43,16 @@ object OtpCodes {
     private const val MIN_CODE_DIGITS = 4
     private const val MAX_LONG_DIGITS = 10
 
-    /** Whether [body] holds a verification code (see the class comment). */
+    /**
+     * Whether [body] holds a verification code (see the class comment). The text is folded and cut once
+     * ([OtpDetector.scanned]) and that cut text goes to every reader; the words of advertisements are looked for in
+     * the whole folded text.
+     */
     fun looksLikeCode(body: String): Boolean {
-        val text = TextNormalizer.fold(body)
-        return OtpDetector.nearKeyword(text) || labelledValues(text).any { it.second.kind != CodeKind.Username }
+        val full = TextNormalizer.fold(body)
+        val text = OtpDetector.scanned(full)
+        return OtpDetector.nearKeyword(text, full) ||
+            labelledValues(text, full).any { it.second.kind != CodeKind.Username }
     }
 
     /**
@@ -55,10 +61,11 @@ object OtpCodes {
      */
     fun tokens(body: String): List<CodeToken> {
         if (body.length < MIN_BODY_LENGTH) return emptyList()
-        val text = TextNormalizer.fold(body)
+        val full = TextNormalizer.fold(body)
+        val text = OtpDetector.scanned(full)
         val found = LinkedHashMap<String, Pair<Int, CodeToken>>()
-        for ((position, token) in labelledValues(text)) found.putIfAbsent(token.value, position to token)
-        for ((position, value) in keywordCodes(text)) {
+        for ((position, token) in labelledValues(text, full)) found.putIfAbsent(token.value, position to token)
+        for ((position, value) in keywordCodes(text, full)) {
             val known = found[value]
             if (known == null) {
                 found[value] = position to CodeToken(CodeKind.Code, value)
@@ -76,8 +83,8 @@ object OtpCodes {
     }
 
     /** The code next to a keyword in [text] (already folded); group 1 of the match is the number. */
-    internal fun locate(text: String): MatchResult? =
-        if (OtpDetector.nearKeyword(text)) OtpCodeExtractor.locate(text) else null
+    internal fun locate(text: String, full: String = text): MatchResult? =
+        if (OtpDetector.nearKeyword(text, full)) OtpCodeExtractor.locate(text) else null
 
     /** Where [value] stands in [text] (already folded), every repeat of it: what a mask has to cover. */
     internal fun spans(text: String, value: String): List<IntRange> =
@@ -92,24 +99,28 @@ object OtpCodes {
         }
 
     /** Digit codes with a keyword next to them: position and value; the closest to a keyword when none is adjacent. */
-    private fun keywordCodes(text: String): List<Pair<Int, String>> {
-        if (!OtpDetector.nearKeyword(text)) return emptyList()
+    private fun keywordCodes(text: String, full: String): List<Pair<Int, String>> {
+        if (!OtpDetector.nearKeyword(text, full)) return emptyList()
+        val adAt = OtpDetector.adStart(text, full)
+        val offers = OtpDetector.hasOfferWords(full)
         val adjacent = (
             OtpCodeExtractor.keywordBound(text)
-                .filter { OtpDetector.keywordNextTo(text, it.groups[1]!!.range) }
+                .filter {
+                    OtpDetector.keywordNextTo(text, it.groups[1]!!.range, full = full, adAt = adAt, offers = offers)
+                }
                 .map { it.groups[1]!!.range.first to OtpCodeExtractor.digitsOf(it.groupValues[1]) }
-                .toList() + OtpDetector.alphanumericCodes(text)
+                .toList() + OtpDetector.alphanumericCodes(text, full)
             ).sortedBy { it.first }
         if (adjacent.isNotEmpty()) return adjacent
-        return listOfNotNull(locate(text))
+        return listOfNotNull(locate(text, full))
             .map { it.groups[1]!!.range.first to OtpCodeExtractor.digitsOf(it.groupValues[1]) }
     }
 
-    private fun labelledValues(text: String): List<Pair<Int, CodeToken>> {
+    private fun labelledValues(text: String, full: String): List<Pair<Int, CodeToken>> {
         val matches = labelled.findAll(text).toList()
         if (matches.isEmpty()) return emptyList()
         val shapes = OtpCodeExtractor.codeShapes(text).associateBy { it.groups[1]!!.range.first }
-        val advertisement = OtpDetector.isMarketing(text)
+        val advertisement = OtpDetector.isMarketing(full)
         return matches.mapNotNull { labelledValue(text, it, shapes, advertisement) }
     }
 

@@ -16,7 +16,7 @@ import org.junit.Test
  * |----------------------------------------|-----------------------------------------------|----------------------|
  * | 1. more than four words in between     | widened: 8 words of one sentence, code phrase | kept                 |
  * | 2. a word with digits or 16+ letters   | widened, same phrases                         | kept                 |
- * | 3. more than four marks in between     | widened: up to eight                          | kept, but see test   |
+ * | 3. more than four marks in between     | widened: up to eight                          | widened: up to eight |
  * | 4. no mark at all ("رمز۴۸۲۹۱۳")         | kept                                          | kept                 |
  * | 5. an ad word or "%" anywhere          | widened: code phrase, ad only after its sentence | kept: never       |
  * | 6. plain "code" with opt-out or gift   | kept                                          | kept                 |
@@ -26,6 +26,8 @@ import org.junit.Test
  * The wide reach of shapes 1 and 2 starts only from a phrase of [OtpKeywords.codePhrases] or a password word
  * ([OtpKeywords.password]), never from "verify", "log in" or "تایید", and never takes a year, a date or a number right
  * after a reference word ("شماره", "شناسه", "tracking number"). Codes it finds are shown, not allowed (owner, B).
+ * Near a keyword only the strict reference words count ("account number", "ending in", "شماره پیگیری"), so "OTP for
+ * your account is 482913" and "کد تایید شماره: 482913" are codes.
  */
 class OtpDetectorCorpusTest {
 
@@ -94,19 +96,83 @@ class OtpDetectorCorpusTest {
         assertNoCode("Sign in with SAVE20 and get 5000 points")
     }
 
-    /** N5-11: shape 3 pins the strict reading and the copy value too. */
+    /** N5-11, R2-1: shape 3 pins the strict reading and the copy value too; both read eight marks. */
     @Test fun shape3UpToEightMarksStandBetween() {
-        assertShownOnly("OTP -- >> 482913", "482913")
-        assertShownOnly("Verification code:\r\n\r\n482913", "482913")
-        assertShownAndAllows("کد تایید:\n\n\n\n۴۸۲۹۱۳", "482913")
-        assertShownAndAllows("Your Example verification code is:\r\n\r\n482913\r\n\r\nDo not share it.", "482913")
+        listOf(
+            "OTP -- >> 482913",
+            "Verification code:\r\n\r\n482913",
+            "Your verification code:\r\n\r\n482913",
+            "OTP:\r\n\r\n482913",
+            "Example\r\nVerification code:\r\n\r\n482913\r\nValid 5 min",
+            "کد تایید:\r\n\r\n482913",
+            "کد تایید:\n\n\n\n۴۸۲۹۱۳",
+            "Your Example verification code is:\r\n\r\n482913\r\n\r\nDo not share it.",
+        ).forEach { assertShownAndAllows(it, "482913") }
+    }
+
+    /** R2-2: near a keyword, bare "account" and "شماره" name no reference; amounts are shown but allow nobody. */
+    @Test fun nearAKeywordOnlyStrictReferenceWordsCount() {
+        listOf(
+            "OTP for your account is 482913",
+            "Verification code for your Example account: 482913",
+            "Your login code for account: 482913",
+            "Your Example account: 482913 is your verification code",
+            "کد تایید شماره: 482913",
+            "کد تایید تغییر شماره: 482913",
+            "رمز یکبار مصرف شماره 482913",
+        ).forEach { assertShownAndAllows(it, "482913") }
+        assertShownOnly("کد تایید شما برای برداشت مبلغ: 482913", "482913")
+        assertShownOnly("Your verification code for your Example account is 482913", "482913")
+        listOf(
+            "پرداخت قبض شما تایید شد، شماره پیگیری 482913",
+            "Your PIN for card ending 1234 is now active",
+            "Your verification code was sent to the number ending 4829",
+        ).forEach { assertNoCode(it) }
+        // An amount is no code to allow, wherever it stands.
+        assertFalse(allows("بانک نمونه\nخرید با رمز پویا\nمبلغ: 1500000\nمانده: 12345678"))
+    }
+
+    /** R2-8: the last digits of a phone, a mobile or a branch are no code. */
+    @Test fun theLastDigitsOfAPhoneAreNoCode() {
+        listOf(
+            "Your OTP was sent to your phone ending 4829",
+            "Your one-time password has been sent to mobile 4829137",
+            "کد تایید به تلفن همراه منتهی به 4829 ارسال شد",
+            "رمز عبور جدید به ایمیل شما ارسال شد شعبه 4829",
+        ).forEach { assertNoCode(it) }
+    }
+
+    /** R2-4: Thai, Lao and Burmese write a clause without spaces; a code after it is still found. */
+    @Test fun aCodeAfterALongThaiLaoOrBurmeseClauseIsFound() {
+        listOf(
+            "OTP สำหรับเข้าสู่ระบบของคุณคือ 482913",
+            "OTP ของคุณสำหรับการเข้าสู่ระบบแอปตัวอย่างคือ 482913",
+            "OTP ຂອງທ່ານສຳລັບການເຂົ້າສູ່ລະບົບແມ່ນ 482913",
+            "OTP သင့်အကောင့်သို့ဝင်ရောက်ရန်အတွက် 482913",
+        ).forEach { assertShownAndAllows(it, "482913") }
+    }
+
+    /** R2-6: an emoji with a variation selector glued to the code does not hide it. */
+    @Test fun anEmojiGluedToTheCodeDoesNotHideIt() {
+        listOf("Your OTP is:➡️482913", "کد تایید ✅️482913", "OTP❗️482913", "Your code 👉️ 482913")
+            .forEach { assertShownAndAllows(it, "482913") }
+    }
+
+    /** R2-3: the words of an advertisement or a prize count after the first 2000 characters too. */
+    @Test fun anAdAfterTheFirstTwoThousandCharactersStillCounts() {
+        val filler = " Thank you for choosing Example. We are glad to have you with us today.".repeat(30)
+        assertShownOnly("Your verification code is 482913.$filler Get 50% off at example.com/win", "482913")
+        assertFalse(allows("Your code is 482913.$filler promo code SAVE20"))
+        assertNoCode("Your verification code is 482913.$filler Winner! Claim your prize now")
+        assertFalse(allows("کد تایید شما 482913 است.$filler تخفیف ۵۰٪ ویژه شما"))
+        assertFalse(OtpDetector.noAdBeforeCode("Your verification code is 482913.$filler Winner! Claim your prize"))
     }
 
     /** Kept: the copy extractor needs a mark before the number ([com.glooboo.umessage.helpers.OtpCodeExtractor]). */
     @Test fun shape4AKeywordGluedToTheNumberIsStillNoCode() {
         assertNoCode("OTP482913")
         assertNoCode("رمز۴۸۲۹۱۳")
-        assertNoCode("کد‌۴۸۲۹۱۳")
+        assertNoCode("کد\u200C۴۸۲۹۱۳")
     }
 
     @Test fun shape5ACodePhraseWinsOverAnAdvertisingFooter() {
@@ -178,7 +244,7 @@ class OtpDetectorCorpusTest {
         assertShownAndAllows("رقمك السري المؤقت 482915", "482915")
         assertShownAndAllows("الرقم السري لمرة واحدة 482915", "482915")
         // N5-12: with a ZWNJ and ی, and two more Arabic words.
-        assertShownAndAllows("کلمه‌ی عبور شما: ۴۸۲۹۱۳", "482913")
+        assertShownAndAllows("کلمه\u200Cی عبور شما: ۴۸۲۹۱۳", "482913")
         assertShownAndAllows("كلمة السر الخاصة بك 482915", "482915")
         assertShownAndAllows("الرمز السري 482915", "482915")
     }
@@ -189,11 +255,22 @@ class OtpDetectorCorpusTest {
         assertNoCode("Your access token is 482913")
     }
 
-    /** N5-6: a card notice or a changed password is no reason to allow, in Arabic and Persian too. */
+    /** N5-6, R2-5: a card notice or a changed password is no reason to allow, in Arabic and Persian too. */
     @Test fun cardNoticesAndChangedPasswordsDoNotAllow() {
-        assertFalse(allows("تم تغيير الرقم السري لبطاقتك المنتهية بـ 1234"))
-        assertFalse(allows("تم تغيير الرقم السري لبطاقتك رقم 1234"))
-        assertFalse(allows("تم تغيير كلمة المرور لحسابك رقم 482913"))
+        listOf(
+            "تم تغيير الرقم السري لبطاقتك المنتهية بـ 1234",
+            "تم تغيير الرقم السري لبطاقتك رقم 1234",
+            "تم تغيير كلمة المرور لحسابك رقم 482913",
+            "الرقم السري لبطاقة الصراف 1234 تم تفعيله",
+            "الرقم السري لبطاقة رقم 1234 هو 5678",
+            "تم إعادة تعيين الرقم السري لبطاقتكم رقم 1234",
+            "لقد تم إيقاف الرقم السري للبطاقة 1234",
+            "تم انشاء الرقم السري لبطاقة مدى 1234",
+            "الرقم السري لحساب 482913 تم تحديثه",
+            "تم تحديث كلمة السر لحسابك رقم 482913",
+            "رمز عبور حساب 482913 مسدود شد",
+            "كلمة السر الخاصة بحسابك 482913 ستنتهي قريبا",
+        ).forEach { assertFalse(it, allows(it)) }
         assertNoCode("رمز عبور شما در تاریخ ۱۴۰۵/۰۸/۲۷ تغییر کرد")
         assertNoCode("Password changed on 2026-11-18 at 1432")
         // The Persian word for "change" alone is no veto, and "your account" in Arabic is none either.
@@ -201,7 +278,21 @@ class OtpDetectorCorpusTest {
         assertShownAndAllows("٧٣٩٢٠١ هو رمز الدخول لحسابك", "739201")
     }
 
-    /** N5-3: a code between stars is a code; only a mask is none. */
+    /** Second review gains checked: a wi-fi, modem or expired password allows nobody; a phone number is no code. */
+    @Test fun passwordsThatAreNoOneTimeCodeAllowNobody() {
+        listOf(
+            "پسورد وای فای 48291375",
+            "پسورد مودم 48291375",
+            "كلمة السر لشبكة الواي فاي 48291375",
+            "کلمه عبور حساب 482913 منقضی شده است",
+        ).forEach { assertFalse(it, allows(it)) }
+        assertNoCode("برای دریافت کلمه عبور با 9123456789 تماس بگیرید")
+        assertNoCode("پسورد را به شماره 9123456789 ارسال کنید")
+        assertNoCode("برای دریافت پسورد عدد 4829 را به 30001234 ارسال کنید")
+        assertShownAndAllows("رمز عبور شما 9123456789 است", "9123456789")
+    }
+
+    /** N5-3, R2-7: a code between stars is a code, with the digits as its copy value; only a mask is none. */
     @Test fun aCodeBetweenStarsIsStillACode() {
         listOf(
             "Your verification code is *482913*",
@@ -210,7 +301,12 @@ class OtpDetectorCorpusTest {
             "*482913* کد تایید شما در نمونه",
             "کد تایید شما: **482913**",
             "OTP *482913",
-        ).forEach { assertTrue(it, shown(it)) }
+            "OTP: *482913*",
+            "OTP ***482913***",
+        ).forEach { assertShownAndAllows(it, "482913") }
+        // The last four digits of a card after one star, and a dial code, are no code.
+        assertNoCode("خرید با رمز پویا از کارت *1234 انجام شد")
+        assertNoCode("PIN *1234# to activate")
     }
 
     /** N5-14: a labelled value between stars is copied without them. */
@@ -281,28 +377,33 @@ class OtpDetectorCorpusTest {
         assertTrue("$millis ms", millis < FAST_MILLIS)
     }
 
+    /** Every timing text holds a number, so the patterns are read, not skipped by the "no digit" rule. */
     @Test(timeout = TIMEOUT_MILLIS) fun marksOnlyAfterAKeywordOrACodeAreFast() {
-        assertFast("OTP " + "́".repeat(200))
-        assertFast("482913 " + "́".repeat(200))
-        assertFast("کد تایید " + ("ؐ".repeat(6) + " ").repeat(6))
+        assertFast("OTP " + "\u0301".repeat(200) + " 482913")
+        assertFast("482913 " + "\u0301".repeat(200))
+        assertFast("کد تایید " + ("\u0610".repeat(6) + " ").repeat(6) + "482913")
     }
 
     @Test(timeout = TIMEOUT_MILLIS) fun thaiAfterAKeywordOrACodeIsFast() {
         val thai = "สวัสดีครับขอบคุณที่ใช้บริการของเราที่นี่ ".repeat(10).take(300)
-        assertFast("OTP $thai")
+        assertFast("OTP $thai 482913")
         assertFast("482913 $thai")
+    }
+
+    /** R2-9: a long text with many codes and an advertising word is bounded by the one cut text. */
+    @Test(timeout = TIMEOUT_MILLIS) fun manyCodesWithAnAdAreFast() {
+        assertFast("Your verification code is 482913. ".repeat(150) + "promo")
     }
 
     @Test(timeout = TIMEOUT_MILLIS) fun aLongHindiTextIsFast() {
         val hindi = "आपका खाता सत्यापन के लिए तैयार है कृपया प्रतीक्षा करें ".repeat(40).take(1700)
-        assertFast(hindi)
-        // With a digit, so the patterns are read and not skipped.
         assertFast("$hindi 12")
+        assertFast("सत्यापन कोड 482913 $hindi")
     }
 
     @Test(timeout = TIMEOUT_MILLIS) fun accentedLettersAfterAKeywordAreFast() {
-        assertFast("OTP " + "é".repeat(24))
-        assertFast("OTP " + "é".repeat(30))
+        assertFast("OTP " + "e\u0301".repeat(24) + " 482913")
+        assertFast("OTP " + "e\u0301".repeat(30) + " 482913")
     }
 
     private companion object {
