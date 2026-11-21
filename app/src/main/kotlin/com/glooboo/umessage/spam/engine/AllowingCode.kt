@@ -83,9 +83,12 @@ object AllowingCode {
         "order id", "order code", "ref no", "ref number", "reference no", "reference number", "booking ref",
         "booking reference", "referral", "branch", "queue", "stock", "zip", "postal code", "postcode", "error",
         "checkout", "toll[- ]?free", "changed",
-        // Lead, R6-6: a physical access code (a door, a car park, a locker) allows nobody, however it is named; "your
-        // door" and "the door" are where a parcel arrives.
-        "entrance", "(?<!your.|the.)door", "gate code", "building", "parking", "garage", "locker",
+        // Lead, R6-6: a physical access code (a door, a car park, a locker) allows nobody, however it is named; "at
+        // your door" and "to the door" are where a parcel arrives (written with "." for the spaces, as words() would
+        // turn a space into an unbounded run, which a look-behind must not hold). Phrases, not bare words: "entrance
+        // exam" and "parking payment" are no access codes.
+        "(?<!at.your.|at.the.|to.your.|to.the.)door", "entrance door", "main entrance", "building entrance",
+        "parking code", "parking gate", "gate code", "garage", "locker",
         // Persian
         "پیگیری", "رهگیری", "مرسوله", "کد سفارش", "شماره سفارش", "کد معرف", "کد معرفی", "کد شعبه", "کد نوبت",
         "شماره نوبت", "کد بورسی", "کد پستی", "کد مشتری", "شماره مشتری", "کد اشتراک", "کد ملی", "کد رزرو", "کد خطا",
@@ -241,13 +244,15 @@ object AllowingCode {
 
     /**
      * Lead, R5-5, R6-2, R6-3: a request to hand the code to someone never allows its sender, nor does a text of betting
-     * or a lottery. A warning is no request: "not", "never", "n't", "no one", "nobody" or "ask you to" earlier in the
-     * sentence (Persian "هرگز", "هیچ", "نمی خواهیم") makes it one ("Never tell the agent your OTP", "will never ask you
-     * to share the code with our agent", "کد را به کارشناس اعلام نکنید").
+     * or a lottery. A warning is no request: "not", "never", "n't", "no one" or "nobody" earlier in the same clause
+     * (Persian "هرگز", "هیچ وقت", "هیچ کس", "نمی خواهیم") makes it one ("Never tell the agent your OTP", "will never
+     * ask you to share the code with our agent"). A comma ends the clause: "Don't worry, share the code with our
+     * agent" and "Example asks you to share the code" are requests.
      */
     private const val WARNED_EN =
-        "(?<!(?:(?<![\\p{L}])(?:not|never|dont|no one|nobody|asks?|asked)|n't)[^.!?\\n]{0,24})"
-    private const val WARNED_FA = "(?<!(?<![\\p{L}])(?:هرگز|هیچ|نمی\\s?خواه\\p{L}{0,4})[^.!?\\n]{0,40})"
+        "(?<!(?:(?<![\\p{L}])(?:not|never|dont|no one|nobody)|n't)[^.!?,\u060C\u061B\\n]{0,24})"
+    private const val WARNED_FA =
+        "(?<!(?<![\\p{L}])(?:هرگز|هیچ ?وقت|هیچ ?کس|هیچ ?گاه|نمی\\s?خواه\\p{L}{0,4})[^.!?,\u060C\u061B\\n]{0,40})"
     private const val ASK_EN = "(?:share|give|tell|read|send|provide|forward|confirm)" +
         "(?: it| this| the| your)?(?: otp| code| verification code| pin)? (?:with|to) (?:the |our |your )?"
     private const val ASK_FA_VERB = "(?:\\p{L}{1,12}\\s?){0,2}(?:اعلام کنید|اعلام نمایید|بگویید|بدهید|بفرستید|" +

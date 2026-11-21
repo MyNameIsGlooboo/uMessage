@@ -124,6 +124,14 @@ class OtpDetectorCorpusTest {
             "کد تایید: 482913 کارشناسان ما هرگز از شما نمی خواهند کد را به کارشناس اعلام کنید",
             "کد تایید شما 482913 است. از شما نمی خواهیم کد را به اپراتور بگویید",
         ).forEach { assertShownAndAllows(it, "482913") }
+        // "asks" alone is no warning, and a comma ends the clause of one.
+        listOf(
+            "Your OTP is 482913. Example asks you to share the code with our agent",
+            "Your OTP is 482913. As asked, give the OTP to our officer",
+            "Don't worry, share the code with our agent 482913",
+            "Your OTP is 482913. If not received, give the OTP to our agent",
+            "هیچ نگرانی نیست، کد تایید را به کارشناس ما اعلام کنید 482913",
+        ).forEach { assertShownOnly(it, "482913") }
     }
 
     /**
@@ -156,6 +164,11 @@ class OtpDetectorCorpusTest {
         val delivery = "Order number 77123: verification code for confirming the delivery at your door is 482913"
         assertShownAndAllows(delivery, "482913")
         assertShownOnly("Door code 4821 - do not share", "4821")
+        assertShownOnly("Your door code is 4821", "4821")
+        assertShownOnly("The security code for the door this month is 4829", "4829")
+        // Access words are phrases: an entrance exam or a parking payment is no door.
+        assertShownAndAllows("Your OTP for the entrance exam registration is 482913", "482913")
+        assertShownAndAllows("OTP for parking payment at Example is 482913", "482913")
         assertShownAndAllows("رمز پویا، کد تایید شما برای خرید از فروشگاه نمونه: 482913", "482913")
         assertShownAndAllows("کد تایید شما برای ورود به سامانه نمونه، 482913", "482913")
         assertShownAndAllows("Your OTP for the purchase on card no. 1234 at Example Store is 482913", "482913")
@@ -674,8 +687,11 @@ class OtpDetectorCorpusTest {
     @Test(timeout = TIMEOUT_MILLIS) fun aRepeatedBracketedDotIsFast() {
         val phrase = "Your verification code for signing up to the Example app is 482913 "
         for (length in listOf(2000, 8000, 16000)) {
-            val millis = bestMillis((phrase + "a[.]".repeat(4000)).take(length))
+            // A disguised link ("a[.]a[.]...[.]com"): the code is shown, but its sender is not allowed.
+            val body = phrase + "a[.]".repeat((length - phrase.length) / 4) + "com"
+            val millis = bestMillis(body)
             assertTrue("$length: $millis ms", millis < LINK_MILLIS)
+            assertFalse("$length", allows(body))
         }
     }
 

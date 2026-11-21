@@ -152,9 +152,10 @@ class RegexOnDeviceTest {
         // Review 6, R6-1: a bracketed dot repeated; the link pattern reads the whole body on ICU.
         val phrase = "Your verification code for signing up to the Example app is 482913 "
         for (length in listOf(2000, 8000, 16000)) {
-            val body = (phrase + "a[.]".repeat(4000)).take(length)
+            val body = phrase + "a[.]".repeat((length - phrase.length) / 4) + "com"
             val millis = bestMillis { AllowingCode.isAllowingCode(body) }
             assertTrue("a[.] x $length: $millis ms", millis < 2_000)
+            assertFalse("a[.] x $length", AllowingCode.isAllowingCode(body))
         }
         // The wide allow (owner, 21 Nov) and the hand-over veto (R5-5, R6-2, R6-3).
         assertTrue(AllowingCode.isAllowingCode("کد تایید شما جهت انجام تراکنش خرید از فروشگاه نمونه: 482913"))
