@@ -143,8 +143,8 @@ object HeldScheduledRestore {
 internal class PrefsScheduledHold(private val prefs: SharedPreferences) : ScheduledHold {
     private val serializer = ListSerializer(ScheduledBackup.serializer())
 
-    @Synchronized
-    override fun add(items: List<ScheduledBackup>) {
+    /** One lock for every instance: each restore makes its own (reviewer). */
+    override fun add(items: List<ScheduledBackup>) = synchronized(LOCK) {
         val all = (items() + items).distinctBy { Triple(it.addresses.sorted(), it.body, it.at) }
         prefs.edit(commit = true) { putString(KEY, json.encodeToString(serializer, all)) }
     }
@@ -153,9 +153,10 @@ internal class PrefsScheduledHold(private val prefs: SharedPreferences) : Schedu
         runCatching { json.decodeFromString(serializer, it) }.getOrNull()
     }.orEmpty()
 
-    fun clear() = prefs.edit(commit = true) { remove(KEY) }
+    fun clear() = synchronized(LOCK) { prefs.edit(commit = true) { remove(KEY) } }
 
     private companion object {
+        val LOCK = Any()
         const val KEY = "items"
         val json = Json { ignoreUnknownKeys = true }
     }

@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -73,14 +74,29 @@ class ImportMessagesDialog(
         val job by BackupJob.state.collectAsState()
         val done = (job as? BackupJob.State.ImportDone)?.takeIf { form.started }
         val running = form.started && done == null
-        var held by remember { mutableStateOf<HeldScheduledRestore.Summary?>(null) }
-        val close = {
-            val waiting = done?.scheduledHeld
-            if (done != null) BackupJob.acknowledge()
-            if (waiting != null) held = waiting else dismiss()
+        // F-10: held scheduled messages (from this restore or one before) are asked about first or after the summary;
+        // the question survives a rotation, and the restore is acknowledged only once the user chose.
+        var held by rememberSaveable { mutableStateOf<Pair<Int, Int>?>(null) }
+        LaunchedEffect(Unit) {
+            if (!form.started) held = withContext(Dispatchers.IO) { HeldScheduledRestore.summary(activity) }?.pair()
         }
-        held?.let { summary ->
-            HeldScheduledAsk(summary, onDone = dismiss)
+        val close: () -> Unit = {
+            val waiting = done?.scheduledHeld
+            if (waiting != null) {
+                held = waiting.pair()
+            } else {
+                if (done != null) BackupJob.acknowledge()
+                dismiss()
+            }
+        }
+        held?.let { (messages, numbers) ->
+            HeldScheduledDialog(messages, numbers) {
+                held = null
+                if (done != null) {
+                    BackupJob.acknowledge()
+                    dismiss()
+                }
+            }
             return
         }
         AlertDialog(
@@ -96,45 +112,6 @@ class ImportMessagesDialog(
                 ConfirmButton(form, done != null, running, close, dismiss) { start(form, scope) }
             },
             dismissButton = { DismissButton(form.checking, done != null, running, dismiss) },
-        )
-    }
-
-    /** M-SEC2: the restored scheduled messages wait; nothing is sent until the user turns them on. */
-    @Composable
-    private fun HeldScheduledAsk(summary: HeldScheduledRestore.Summary, onDone: () -> Unit) {
-        val scope = rememberCoroutineScope()
-        var busy by remember { mutableStateOf(false) }
-        val decide = { arm: Boolean ->
-            busy = true
-            scope.launch {
-                withContext(Dispatchers.IO) {
-                    runCatching {
-                        if (arm) HeldScheduledRestore.arm(activity) else HeldScheduledRestore.discard(activity)
-                    }
-                }
-                onDone()
-            }
-            Unit
-        }
-        AlertDialog(
-            // A choice is needed: leaving without one would leave the messages waiting with no way to set them.
-            onDismissRequest = {},
-            title = {
-                Text(pluralStringResource(R.plurals.pt_restore_scheduled_title, summary.messages, summary.messages))
-            },
-            text = {
-                Text(pluralStringResource(R.plurals.pt_restore_scheduled_body, summary.numbers, summary.numbers))
-            },
-            confirmButton = {
-                TextButton(onClick = { decide(true) }, enabled = !busy) {
-                    Text(stringResource(R.string.pt_restore_scheduled_arm))
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { decide(false) }, enabled = !busy) {
-                    Text(stringResource(R.string.pt_restore_scheduled_discard))
-                }
-            },
         )
     }
 
@@ -251,4 +228,45 @@ class ImportMessagesDialog(
             false
         }
     }
+}
+
+private fun HeldScheduledRestore.Summary.pair() = messages to numbers
+
+/**
+ * M-SEC2: the scheduled messages a restore held: [messages] of them to [numbers] numbers. Nothing is sent until the
+ * user turns them on; "Discard" drops them. A choice is needed (no outside tap), so they are never left waiting
+ * without a way to act; [onDone] after the choice. Also opened from Settings > Backup while some wait (F-10).
+ */
+@Composable
+internal fun HeldScheduledDialog(messages: Int, numbers: Int, onDone: () -> Unit) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var busy by remember { mutableStateOf(false) }
+    val decide = { arm: Boolean ->
+        busy = true
+        scope.launch {
+            withContext(Dispatchers.IO) {
+                runCatching {
+                    if (arm) HeldScheduledRestore.arm(context) else HeldScheduledRestore.discard(context)
+                }
+            }
+            onDone()
+        }
+        Unit
+    }
+    AlertDialog(
+        onDismissRequest = {},
+        title = { Text(pluralStringResource(R.plurals.pt_restore_scheduled_title, messages, messages)) },
+        text = { Text(pluralStringResource(R.plurals.pt_restore_scheduled_body, numbers, numbers)) },
+        confirmButton = {
+            TextButton(onClick = { decide(true) }, enabled = !busy) {
+                Text(stringResource(R.string.pt_restore_scheduled_arm))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = { decide(false) }, enabled = !busy) {
+                Text(stringResource(R.string.pt_restore_scheduled_discard))
+            }
+        },
+    )
 }

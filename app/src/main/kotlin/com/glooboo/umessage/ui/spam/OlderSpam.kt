@@ -25,6 +25,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.data.MigrationMark
+import com.glooboo.umessage.spam.data.OlderSpamMover
+import com.glooboo.umessage.spam.data.SpamProviderMigration
 import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.displayNumber
@@ -46,6 +48,10 @@ object OlderSpam {
     fun count(blocked: List<BlockedMessage>): Int = blocked.count(::notMoved)
 
     private fun notMoved(row: BlockedMessage): Boolean = !MigrationMark.isDone(row.migratedMsgId)
+
+    /** F-2: some listed rows will not move by themselves: their tries are used up, or the migration stopped. */
+    fun someStuck(messages: List<BlockedMessage>, stopped: Boolean): Boolean =
+        messages.isNotEmpty() && (stopped || messages.any { it.migrateTries >= OlderSpamMover.MAX_TRIES })
 }
 
 /**
@@ -64,11 +70,21 @@ fun OlderSpamRoute(onBack: () -> Unit, modifier: Modifier = Modifier) {
     }
     val messages by (older ?: flowOf(emptyList()))
         .collectAsStateWithLifecycle(initialValue = emptyList())
-    OlderSpamScreen(messages = messages, onBack = onBack, modifier = modifier)
+    val stopped = remember(context) {
+        runCatching { SpamProviderMigration.stoppedForThisVersion(context) }.getOrDefault(false)
+    }
+    OlderSpamScreen(
+        messages = messages, stuck = OlderSpam.someStuck(messages, stopped), onBack = onBack, modifier = modifier,
+    )
 }
 
 @Composable
-internal fun OlderSpamScreen(messages: List<BlockedMessage>, onBack: () -> Unit, modifier: Modifier = Modifier) {
+internal fun OlderSpamScreen(
+    messages: List<BlockedMessage>,
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    stuck: Boolean = false,
+) {
     UMessageScaffold(
         modifier = modifier,
         topBar = { UMessageTopBar(title = stringResource(R.string.pt_older_spam_title), onBack = onBack) },
@@ -81,6 +97,16 @@ internal fun OlderSpamScreen(messages: List<BlockedMessage>, onBack: () -> Unit,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
                 )
+            }
+            if (stuck) {
+                item(key = "stuck") {
+                    Text(
+                        stringResource(R.string.pt_older_spam_stuck),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+                    )
+                }
             }
             items(messages, key = { it.id }) { message ->
                 OlderSpamRow(message)

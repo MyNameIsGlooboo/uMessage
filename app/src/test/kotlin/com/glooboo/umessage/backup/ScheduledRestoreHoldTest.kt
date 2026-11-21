@@ -55,7 +55,7 @@ class ScheduledRestoreHoldTest {
         birthdays = ArrayList(), anniversaries = ArrayList(),
     )
 
-    private fun scheduled(id: Long, thread: Long, body: String, number: String = "+15550001") = Message(
+    private fun scheduled(id: Long, thread: Long, body: String, number: String = "+15550001234") = Message(
         id = id, body = body, type = Telephony.Sms.MESSAGE_TYPE_QUEUED, status = 0,
         participants = arrayListOf(contact(number)), date = ((clock + day) / 1000).toInt(), read = true,
         threadId = thread, isMMS = false, attachment = MessageAttachment(id, body, ArrayList()),
@@ -66,7 +66,7 @@ class ScheduledRestoreHoldTest {
         scheduled = { db.MessagesDao().getAllScheduledMessages() },
         repeatOf = { db.ScheduledRepeatsDao().get(it) },
         reminders = db.MessageRemindersDao(),
-        chats = ChatLookup({ setOf("+15550001") }, { 70L }),
+        chats = ChatLookup({ setOf("+15550001234") }, { 70L }),
         booker = { message, _ -> booked += message },
         arm = {},
         now = { clock },
@@ -98,8 +98,8 @@ class ScheduledRestoreHoldTest {
     @Test
     fun aRestoreHoldsTheScheduledMessagesAndArmsNothing() = runBlocking<Unit> {
         val items = listOf(
-            ScheduledBackup(listOf("+15550001"), "happy birthday", clock + day),
-            ScheduledBackup(listOf("+15550002", "+15550003"), "see you", clock + 2 * day),
+            ScheduledBackup(listOf("+15550001234"), "happy birthday", clock + day),
+            ScheduledBackup(listOf("+15550001235", "+15550001236"), "see you", clock + 2 * day),
         )
         val hold = object : ScheduledHold {
             override fun add(items: List<ScheduledBackup>) {
@@ -121,7 +121,7 @@ class ScheduledRestoreHoldTest {
     @Test
     fun withoutAHoldARestoreArmsAsBefore() = runBlocking<Unit> {
         val taken = part().restore(
-            AppDataBackup(scheduled = listOf(ScheduledBackup(listOf("+15550001"), "now armed", clock + day))),
+            AppDataBackup(scheduled = listOf(ScheduledBackup(listOf("+15550001234"), "now armed", clock + day))),
         )
 
         assertThat(taken).isEqualTo(1)
@@ -131,8 +131,8 @@ class ScheduledRestoreHoldTest {
     @Test
     fun theHoldCountsMessagesAndNumbersAndKeepsAMessageOnce() {
         val hold = HeldScheduledRestore.hold(context)
-        val one = ScheduledBackup(listOf("+15550001"), "a", clock + day)
-        hold.add(listOf(one, ScheduledBackup(listOf("+15550001", "+15550002"), "b", clock + day)))
+        val one = ScheduledBackup(listOf("+15550001234"), "a", clock + day)
+        hold.add(listOf(one, ScheduledBackup(listOf("+15550001234", "+15550001235"), "b", clock + day)))
         hold.add(listOf(one))
 
         assertThat(HeldScheduledRestore.summary(context)).isEqualTo(HeldScheduledRestore.Summary(2, 2))
@@ -143,7 +143,7 @@ class ScheduledRestoreHoldTest {
 
     @Test
     fun aFinishedRestoreSaysThatScheduledMessagesWait() {
-        HeldScheduledRestore.hold(context).add(listOf(ScheduledBackup(listOf("+15550001"), "a", clock + day)))
+        HeldScheduledRestore.hold(context).add(listOf(ScheduledBackup(listOf("+15550001234"), "a", clock + day)))
 
         BackupJob.finish(context, BackupJob.State.ImportDone(ImportSummary()))
 

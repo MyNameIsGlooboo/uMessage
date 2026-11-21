@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -289,7 +290,11 @@ class BlockedViewModel(
     private val afterAllow = mutableMapOf<Long, () -> Unit>()
 
     val state: StateFlow<BlockedUiState> = combine(
-        repository.blocked,
+        // Step F (F-1): with the flag on, a held row the message migration took (any mark) is not listed here; its
+        // message is in the phone's store, and "Not spam" refuses it.
+        repository.blocked.map { rows ->
+            if (ProviderTruthFlag.enabled) rows.filter { it.migratedMsgId == null } else rows
+        },
         repository.stats,
         combine(repository.settings, repository.rules, filter, restoredLog.entries, ::Aux),
         combine(pendingDeletes, pendingRestores, moves.state) { deletes, restores, move ->
