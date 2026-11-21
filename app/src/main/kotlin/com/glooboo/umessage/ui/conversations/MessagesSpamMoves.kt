@@ -180,19 +180,14 @@ internal class MessagesSpamMoves(
             }
             // C-3: a user allow rule that still names the sender keeps its chat in Messages: that block is taken back.
             val staying = receipts.filter { it.stillAllowedBy != null }
-            // E-7: an Undo that throws is a failed block, never a crash with the rows hidden.
-            if (runCatching { SenderMoves.undoBlocks(repo, staying) }.isFailure) {
-                runCatching { SenderMoves.undoBlocks(repo, receipts - staying.toSet()) }
-                show(threadIds)
-                events(ConversationsEvent.Failed)
-                return@launch
-            }
+            // E-7, F-2: undoBlocks catches each Undo itself, so it never throws here (a failed one is silent).
+            SenderMoves.undoBlocks(repo, staying)
             val kept = receipts - staying.toSet()
             val moved = conversations.filter { c -> kept.any { it.address == c.phoneNumber.trim() } }
             val movedIds = moved.map { it.threadId }
             show(threadIds - movedIds.toSet())
             if (moved.isEmpty()) {
-                runCatching { SenderMoves.undoBlocks(repo, kept) }
+                SenderMoves.undoBlocks(repo, kept)
                 val why = if (staying.isNotEmpty()) R.string.pt_block_still_allowed else null
                 events(why?.let { ConversationsEvent.Message(it) } ?: ConversationsEvent.Failed)
                 return@launch

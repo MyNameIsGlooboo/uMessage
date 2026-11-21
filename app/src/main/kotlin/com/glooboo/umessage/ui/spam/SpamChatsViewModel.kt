@@ -347,8 +347,12 @@ class SpamChatsViewModel internal constructor(
         _events.trySend(event)
     }
 
-    /** The quiet Spam notices of [ids] have done their job: the chats were blocked, unblocked or moved (4.6). */
-    private fun cancelNotices(ids: Collection<Long>) = ids.forEach { BlockedNotifier.cancelChat(app, it) }
+    /**
+     * The quiet Spam notices of [ids] have done their job: the chats were blocked, unblocked or moved (4.6). Off the
+     * main thread: a choice of thousands of chats is one system call each.
+     */
+    private suspend fun cancelNotices(ids: Collection<Long>) =
+        withContext(io) { ids.forEach { BlockedNotifier.cancelChat(app, it) } }
 
     // ---- Undo windows ------------------------------------------------------------------------------------------
 

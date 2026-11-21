@@ -261,7 +261,7 @@ class MessagesSpamMovesTest {
     }
 
     @Test
-    fun anUndoOfTheStayingChatsThatThrowsLeavesNoRowHidden(): Unit = runBlocking {
+    fun aFailingUndoOfAStayingChatIsSilentShowsTheRowAndSaysItIsStillAllowed(): Unit = runBlocking {
         val throwing = object : SpamRepository by repository {
             override suspend fun blockAddress(address: String, note: String): BlockReceipt? =
                 repository.blockAddress(address, note)?.copy(stillAllowedBy = 77L)
@@ -269,9 +269,9 @@ class MessagesSpamMovesTest {
             override suspend fun undoBlock(receipt: BlockReceipt): Unit = error("disk full")
         }
         coroutineScope { moves(this, throwing).block(listOf(chat(7, SENDER)), token = 1L, report = false) }
-        // E-7: no crash; the row shows again and the event says why.
+        // E-7, F-2: no crash; the row shows again and the snackbar says why it stayed.
         assertThat(hidden).isEmpty()
-        assertThat(events).hasSize(1)
+        assertThat(events).containsExactly(ConversationsEvent.Message(R.string.pt_block_still_allowed))
         assertThat(sorted).isEmpty()
     }
 

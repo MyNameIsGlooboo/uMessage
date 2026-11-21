@@ -1694,6 +1694,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
         // The notification stays while the chat is open but not seen (TU-11).
         if (isSeenByUser()) {
             notificationManager.cancel(threadId.hashCode())
+            // A text that came into this open Spam chat posted a quiet notice; it is seen already (4.6).
+            BlockedNotifier.cancelChat(this, threadId)
         }
 
         // Still loading: no recipients yet, so there is nothing to look up (an empty list would blank the thread, B13).
