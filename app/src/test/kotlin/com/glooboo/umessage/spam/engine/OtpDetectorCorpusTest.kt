@@ -68,6 +68,52 @@ class OtpDetectorCorpusTest {
         ).forEach { assertTrue(it, shown(it) && allows(it)) }
     }
 
+    /**
+     * Review 5: the wide allow starts only from a one-time code phrase before the code (R5-3, R5-4), with no comma
+     * and no veto word between (also five to eight words back), and no link anywhere in the text (R5-6).
+     */
+    @Test fun theWideAllowIsOnlyForAOneTimePhraseBeforeTheCode() {
+        listOf(
+            // R5-3: a lasting secret ("رمز عبور", "رمز ورود", "passcode") six to eight words away
+            "رمز عبور جدید حساب کاربری شما در سامانه نمونه 48291375 می باشد",
+            "رمز عبور وای فای مهمان هتل نمونه برای اتاق شما 48291375",
+            "رمز ورود درب ساختمان برای پیک و مهمان این ماه 4829",
+            "Your passcode for the building entrance door this month is 4829",
+            "Meeting passcode for the Example webinar on Friday at noon 482913",
+            // R5-4: the code first, or a comma between
+            "Press 4829 on your keypad to repeat the verification code",
+            "کد تایید ارسال شد، نوبت شما در مطب دکتر نمونه 482913",
+            "Verification code accepted, welcome to Example, your member card 482913 is active",
+            // a veto word six words before the code
+            "Your verification code for tracking your Example Shop order today is 482913",
+        ).forEach { assertFalse(it, allows(it)) }
+        val filler = " Thank you for choosing Example. We are glad to have you with us today.".repeat(30)
+        val link = "https://example.com/login"
+        assertShownOnly("Your verification code for signing up to the Example app is 482913.$filler $link", "482913")
+    }
+
+    /** Lead, R5-5: a request to hand the code to someone, and betting or lottery words, never allow. */
+    @Test fun aHandOverRequestOrBettingNeverAllows() {
+        listOf(
+            "Your OTP for bonus credit at Example Bet is 482913",
+            "Tu código de verificación para el sorteo de la tienda Ejemplo es 482913",
+            "Ihr Bestätigungscode für das Gewinnspiel im Beispiel Markt lautet 482913",
+            "حساب شما مسدود شد، کد تایید ارسالی را به کارشناس ما اعلام کنید 482913",
+            "Reply with the verification code to confirm you are the owner 482913",
+            "Order 48291 arriving today, give the OTP to the courier",
+        ).forEach { assertFalse(it, allows(it)) }
+        // "Never share it with anyone" is the opposite of a request.
+        assertShownAndAllows("Your OTP is 482913. Do not share it with the courier or anyone else", "482913")
+    }
+
+    /** Review 5, R5-2: flight, gate, terminal, seat and پذیرنده name a number only right before it. */
+    @Test fun travelAndMerchantWordsNameOnlyTheNumberRightAfterThem() {
+        assertShownOnly("Your passcode for flight 482913", "482913")
+        assertShownOnly("کد پذیرنده 482913", "482913")
+        assertShownAndAllows("Gate.io verification code: 482913", "482913")
+        assertShownAndAllows("کد تایید شارژ اعتبار: 482913", "482913")
+    }
+
     /** Owner, 21 Nov: the wide allow needs no link, no veto word between, and a one-time code phrase. */
     @Test fun shape1TheWideAllowHasItsLimits() {
         // A link anywhere in the text: shown only.
@@ -538,6 +584,16 @@ class OtpDetectorCorpusTest {
         val thai = "สวัสดีครับขอบคุณที่ใช้บริการของเราที่นี่ ".repeat(10).take(300)
         assertFast("OTP $thai 482913")
         assertFast("482913 $thai")
+    }
+
+    /** Review 5, R5-1: "rs *12" read in many ways made the chains run for seconds; every element is atomic now. */
+    @Test(timeout = TIMEOUT_MILLIS) fun aRepeatedCurrencyAndMaskIsFast() {
+        val unit = ("OTP" + " rs *12".repeat(400))
+        assertFast(unit.take(100))
+        assertFast(unit.take(160))
+        assertFast(unit.take(2000))
+        assertFast(("OTP" + " card number *1234".repeat(200)).take(2000))
+        assertFast(("رمز پویا" + " حساب شماره *1234 کارت شماره *1234".repeat(100)).take(2000))
     }
 
     /** R2-9: a long text with many codes and an advertising word is bounded by the one cut text. */

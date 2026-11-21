@@ -118,14 +118,24 @@ object OtpDetector {
         "(?<!(?<![\\p{L}])$AMOUNT_WORDS[^\\p{L}\\p{M}\\p{N}]{1,3})" +
         // "#" and four or more digits after an order, a ticket or a case word: "order #4829", "Ticket #4829".
         "(?<!(?<![\\p{L}])(?:order|ref|invoice|case|ticket)(?:\\sno\\.?)?\\s?#)"
+    /** The number of a [STEP]: digits with their thousands and decimal marks ("2,500.00"). */
+    private const val STEP_NUMBER = "[0-9][0-9,.]{1,14}(?<![,.])(?![0-9])"
+
+    /** A reference or amount word, each word named once, so a step is read in one way only (review 5, R5-1). */
+    private const val STEP_WORD = "(?<![\\p{L}])(?:$REFERENCE_WORDS|$AMOUNT_WORDS)(?:\\sis)?"
+
     /**
      * A number the word chain may step over (review 3, R3-1): one a reference or amount word names ("card ending
      * 1234", "account number 12345678", "INR 2,500.00"), or a masked one ("*1234"). So in "OTP for card ending 1234 is
-     * 482913" the keyword reaches 482913. At most one step before each word, so matching stays linear.
+     * 482913" the keyword reaches 482913. At most two steps before each word, and every chain element is atomic
+     * (`(?>...)`), so an element that has matched is never read again in another way and matching stays linear.
      */
-    internal const val STEP = "(?:(?<![\\p{L}])(?:$REFERENCE_WORDS|$AMOUNT_WORDS|inr|rs\\.?|usd)(?:\\sis)?" +
-        "[^\\p{L}\\p{M}\\p{N}]{1,3}$MASK{0,4}|" +
-        "(?<=$MASK)(?<![0-9]$MASK))[0-9][0-9,.]{1,14}(?<![,.])(?![0-9])"
+    internal const val STEP = "(?:$STEP_WORD[^\\p{L}\\p{M}\\p{N}]{1,3}$MASK{0,4}|(?<=$MASK)(?<![0-9]$MASK))$STEP_NUMBER"
+
+    /** [STEP] inside one sentence ([WIDE_NEAR]): no full stop, mark or line break between the word and its number. */
+    private const val STEP_IN_SENTENCE =
+        "(?:$STEP_WORD[^\\p{L}\\p{M}\\p{N}.!?;\\n\\r\u061B\u061F\u06D4]{0,3}$MASK{0,4}|(?<=$MASK)(?<![0-9]$MASK))" +
+            STEP_NUMBER
 
     /**
      * Bare words that name a number only far from a keyword ([WIDE_NEAR]): "OTP for your account is 482913" and "کد
@@ -188,10 +198,10 @@ object OtpDetector {
      * Neither a separator nor a word is ever cut back (possessive), and a combining mark belongs to the word only.
      */
     internal const val NEAR =
-        "$GAP(?:(?:$STEP$GAP){0,2}$WORD$GAP){0,4}(?:$STEP$GAP){0,2}"
+        "$GAP(?>(?:$STEP$GAP){0,2}$WORD$GAP){0,4}(?:$STEP$GAP){0,2}"
 
     /** A separator that stays inside one sentence: no full stop, mark or line break ([sentenceBreaks]). */
-    private const val IN_SENTENCE = "[^\\p{L}\\p{M}\\p{N}.!?;\\n\\r\u061F\u06D4]{1,4}+"
+    private const val IN_SENTENCE = "[^\\p{L}\\p{M}\\p{N}.!?;\\n\\r\u061B\u061F\u06D4]{1,4}+"
 
     /**
      * What else may stand between a phrase that names a one-time code or a password ([wideWords]) and the code: up to
@@ -200,8 +210,9 @@ object OtpDetector {
      * and a year or a date this far from the phrase is no code ("Your password expires at the end of December 2026").
      */
     internal const val WIDE_NEAR =
-        "$IN_SENTENCE(?:(?:$STEP$IN_SENTENCE){0,2}(?:[\\u0E00-\\u0EFF\\u1000-\\u109F\\u1780-\\u17FF]{1,64}+|" +
-            "[\\p{L}\\p{M}][\\p{L}\\p{M}\\p{N}]{0,19}+)$IN_SENTENCE){0,8}(?:$STEP$IN_SENTENCE){0,2}"
+        "$IN_SENTENCE(?>(?:$STEP_IN_SENTENCE$IN_SENTENCE){0,2}" +
+            "(?:[\\u0E00-\\u0EFF\\u1000-\\u109F\\u1780-\\u17FF]{1,64}+|" +
+            "[\\p{L}\\p{M}][\\p{L}\\p{M}\\p{N}]{0,19}+)$IN_SENTENCE){0,8}(?:$STEP_IN_SENTENCE$IN_SENTENCE){0,2}"
 
     /** The only words with the wide reach: not "verify", "log in" or "تایید", whose texts are often bank notices. */
     private val wideWords = keywordPattern(OtpKeywords.codePhrases + OtpKeywords.password)
@@ -260,7 +271,7 @@ object OtpDetector {
     )
 
     /** A full stop, mark or line break ends the sentence a keyword has to share with an alphanumeric code. */
-    private val sentenceBreaks = charArrayOf('.', '!', '?', '\n', '\r', ';', '؟', '۔')
+    private val sentenceBreaks = charArrayOf('.', '!', '?', '\n', '\r', ';', '؛', '؟', '۔')
 
     /** Words and marks that make a text an advertisement, whatever the strong keyword says. */
     private val marketingHard = Regex(

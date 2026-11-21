@@ -82,11 +82,11 @@ object AllowingCode {
         "tracking", "track", "customer number", "customer no", "customer id", "order number", "order no",
         "order id", "order code", "ref no", "ref number", "reference no", "reference number", "booking ref",
         "booking reference", "referral", "branch", "queue", "stock", "zip", "postal code", "postcode", "error",
-        "checkout", "toll[- ]?free", "changed", "flight", "gate", "terminal", "seat",
+        "checkout", "toll[- ]?free", "changed",
         // Persian
         "پیگیری", "رهگیری", "مرسوله", "کد سفارش", "شماره سفارش", "کد معرف", "کد معرفی", "کد شعبه", "کد نوبت",
         "شماره نوبت", "کد بورسی", "کد پستی", "کد مشتری", "شماره مشتری", "کد اشتراک", "کد ملی", "کد رزرو", "کد خطا",
-        "شناسه پرداخت", "تغییر کرد", "تغییر یافت", "پذیرنده",
+        "شناسه پرداخت", "تغییر کرد", "تغییر یافت",
         // Arabic; "تم تغییر" (has been changed) and "المنتهیه" (ending in). The words of a card, an account, a blocked
         // or expired password are [noticeWords]. The bare "تغییر" is left out: it is also the Persian word in "کد تایید
         // تغییر شماره: 482913"; so is "حسابک", as in "رمز التحقق الخاص بحسابك هو 482913".
@@ -107,7 +107,7 @@ object AllowingCode {
     /** Phrases of [strongPhrases] that name a lasting secret, not a one-time code: notice words still veto them. */
     internal val staticSecrets: List<String> = listOf(
         "password", "pin", "passcode", "رمز عبور", "رمز شخصی", "رمز ورود", "گذرواژه", "پسورد", "کلمه عبور",
-        "کلمه ی عبور", "کلمه المرور", "الرقم السری", "رقمک السری", "کلمه السر", "الرمز السری",
+        "کلمه ی عبور", "کلمه المرور", "الرقم السری", "رقمک السری", "کلمه السر", "الرمز السری", "رمز الدخول",
     )
 
     private const val BARE_THAI_CODE = "รหัส"
@@ -135,10 +135,10 @@ object AllowingCode {
 
     /** A phrase, then up to four plain words, or a generic "code" after at most one word ("PIN reset code is"). */
     private val strongBefore = Regex(
-        "$phrase$SEP(?:(?:$WORD$SEP)?$weak$SEP(?:$plainWord$SEP){0,2}|(?:$plainWord$SEP){0,4})$STEP_LAST$",
+        "$phrase$SEP(?:(?:$WORD$SEP)?$weak$SEP(?>$plainWord$SEP){0,2}|(?>$plainWord$SEP){0,4})$STEP_LAST$",
         RegexOption.IGNORE_CASE,
     )
-    private val strongAfter = Regex("^$SEP(?:$plainWord$SEP){0,4}$phrase", RegexOption.IGNORE_CASE)
+    private val strongAfter = Regex("^$SEP(?>$plainWord$SEP){0,4}$phrase", RegexOption.IGNORE_CASE)
 
     /** The CJK and Thai code words, without the bare Thai "รหัส" ("code" alone, R-2). */
     private val cjkWords = "(?:" + OtpKeywords.cjk.filter { it != BARE_THAI_CODE }
@@ -148,14 +148,15 @@ object AllowingCode {
     private val cjkAfter = Regex("^[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$cjkWords")
 
     private val veto = words(vetoWords)
-    private val vetoBefore = Regex("$veto$SEP(?:(?:$STEP_ONE){0,2}$WORD$SEP){0,4}$STEP_LAST$", RegexOption.IGNORE_CASE)
+    private val vetoBefore = Regex("$veto$SEP(?>(?:$STEP_ONE){0,2}$WORD$SEP){0,4}$STEP_LAST$", RegexOption.IGNORE_CASE)
 
     /**
      * A word right before the number that names it a number or an amount: "رقم 1234" (number), "مبلغ: 482913"
      * (amount), "مانده", "amount", "balance". Such a number is shown, but allows nobody (R2-2, R2-5).
      */
     private val numberWordBefore = Regex(
-        "(?<![\\p{L}\\p{N}])(?:مبلغ|مانده|amount|balance|انجام شد|کارمزد|تاریخ|ساعت|اعتبار|date|fee|declined|" +
+        "(?<![\\p{L}\\p{N}])(?:مبلغ|مانده|amount|balance|انجام شد|کارمزد|تاریخ|ساعت|پذیرنده|date|fee|declined|" +
+            "flight|gate|terminal|seat|" +
             "credited|ref)$SEP$",
         RegexOption.IGNORE_CASE,
     )
@@ -235,18 +236,36 @@ object AllowingCode {
 
     private val secrecy = Regex(words(secrecyPhrases), RegexOption.IGNORE_CASE)
 
+    /**
+     * Lead, R5-5: a text that asks to hand the code to someone ("کد تایید را به کارشناس ما اعلام کنید", "share the OTP
+     * with the rider", "Reply with the verification code") or speaks of betting or a lottery never allows its sender.
+     * "Never share the code with anyone" is no such request.
+     */
+    private val handOverOrBet = Regex(
+        "(?<![\\p{L}\\p{N}])(?:" +
+            "(?:به|برای)\\s?(?:کارشناس|اپراتور|مامور|نماینده|پیک)(?:\\s?\\p{L}{1,12}){0,2}\\s?" +
+            "(?:اعلام کنید|اعلام نمایید|بگویید|بدهید|بفرستید|ارسال کنید)|" +
+            "(?<!not |never |n't |dont |do not )(?:share|give|tell|read|send)" +
+            "(?: it| this| the| your)?(?: otp| code| verification code| pin)? (?:with|to) (?:the |our |your )?" +
+            "(?:agent|rider|courier|driver|caller|representative|executive)|" +
+            "tell the agent|reply with the (?:verification code|code|otp)|" +
+            "bet|betting|casino|sorteo|gewinnspiel|lucky draw|شرط ?بندی|کازینو|رهان|مراهنات" +
+            ")(?![\\p{L}\\p{N}])",
+        RegexOption.IGNORE_CASE,
+    )
+
     /** Whether [body] allows its sender for good (see the class comment). Never throws. */
     fun isAllowingCode(body: String): Boolean = runCatching {
         if (!OtpDetector.looksLikeOtp(body)) return@runCatching false
         val full = TextNormalizer.fold(body)
-        if (OtpDetector.hasAdvertisingWord(full)) return@runCatching false
+        if (OtpDetector.hasAdvertisingWord(full) || handOverOrBet.containsMatchIn(full)) return@runCatching false
         val text = OtpDetector.scanned(full)
         val secret = secrecy.containsMatchIn(text)
         val bound = OtpDetector.isOriginBound(body)
         val near = OtpDetector.withinReach(text)
         codeRanges(body, text).filter { bound || near(it) }.any { range ->
             val vouched = bound || secret && OtpDetector.keywordClose(text, range)
-            !vetoNear(text, range) && (vouched || allowsNear(text, range))
+            !vetoNear(text, range) && (vouched || allowsNear(text, range, body))
         }
     }.getOrDefault(false)
 
@@ -303,26 +322,32 @@ object AllowingCode {
             durationAfter.containsMatchIn(tail) || sendTo.containsMatchIn(tail)
     }
 
-    /** A one-time code phrase up to eight words of the sentence before or after the code (owner, 21 Nov). */
-    private val codePhrase = OtpDetector.keywordPattern(OtpKeywords.codePhrases)
+    /**
+     * A one-time code phrase up to eight words of the sentence before the code (owner, 21 Nov; lead, R5-4): never a
+     * lasting secret ([staticSecrets]: "رمز عبور", "رمز ورود", "passcode"), never the code first.
+     */
+    private val codePhrase = OtpDetector.keywordPattern(OtpKeywords.codePhrases - staticSecrets.toSet())
     private val wideBefore = Regex("$codePhrase${OtpDetector.WIDE_NEAR}$", RegexOption.IGNORE_CASE)
-    private val wideAfter = Regex("^${OtpDetector.WIDE_NEAR}$codePhrase", RegexOption.IGNORE_CASE)
     private val vetoBetween = Regex(veto, RegexOption.IGNORE_CASE)
 
+    /** A comma between the phrase and the code starts another clause ("کد تایید ارسال شد، نوبت شما ..."). */
+    private val clauseBreak = Regex("[,\u060C\u061B](?![0-9])")
+
     /**
-     * Whether a one-time code phrase reaches the code at [head]/[tail] in the same sentence, up to eight words away,
-     * with no veto word in between, in a [text] without a link: a code the wider reach found that allows its sender.
+     * Whether a one-time code phrase stands up to eight words before the code in [head], in one clause, with no veto
+     * word in between, and the whole [body] has no link: a code the wider reach found that allows its sender.
      */
-    private fun wideNear(text: String, head: String, tail: String): Boolean {
-        val reach = listOfNotNull(wideBefore.find(head)?.value, wideAfter.find(tail)?.value)
-        return reach.any { !vetoBetween.containsMatchIn(it) } && !OtpDetector.containsUrl(text)
+    private fun wideNear(body: String, head: String): Boolean {
+        val reach = wideBefore.find(head)?.value ?: return false
+        return !vetoBetween.containsMatchIn(reach) && !clauseBreak.containsMatchIn(reach) &&
+            !OtpDetector.containsUrl(body)
     }
 
-    private fun allowsNear(text: String, range: IntRange): Boolean {
+    private fun allowsNear(text: String, range: IntRange, body: String): Boolean {
         val head = before(text, range)
         val tail = after(text, range)
         if (strongBefore.containsMatchIn(head) || strongAfter.containsMatchIn(tail)) return true
-        if (wideNear(text, head, tail)) return true
+        if (wideNear(body, head)) return true
         if (cjkBefore.containsMatchIn(head) || cjkAfter.containsMatchIn(tail)) return true
         val possessive = when {
             useBefore.containsMatchIn(head) -> useAfter.containsMatchIn(tail)

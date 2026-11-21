@@ -19,7 +19,7 @@ class OtpGuardWordRealCodeTest {
     /** Each text and the one value it must offer. */
     private val realCodes = listOf(
         // Strict reference words, stepped over
-        "OTP for شماره کارت 6037991234 is 482913" to "482913",
+        "OTP for شماره کارت 5550001234 is 482913" to "482913",
         "رمز پویا شماره کارت 1234: 482913" to "482913",
         "رمز پویا شماره حساب 12345678: 482913" to "482913",
         "کد تایید شماره پیگیری 12345678: 482913" to "482913",
@@ -39,6 +39,21 @@ class OtpGuardWordRealCodeTest {
         "OTP for card ending 1234 is 482913" to "482913",
         "Your OTP for A/c ending 1234 is 482913" to "482913",
         "Your Example verification code for phone ending 4829 is 771234" to "771234",
+        // Review 5, R5-2: flight, gate, terminal, seat, پذیرنده and اعتبار in everyday code texts
+        "Gate.io verification code: 482913" to "482913",
+        "Your OTP is 482913 for flight booking with Example Air" to "482913",
+        "Example Air OTP 482913 to confirm seat change" to "482913",
+        "Your OTP 482913 for the transaction at terminal Example" to "482913",
+        "مبلغ: 1,500,000 ریال\nپذیرنده: فروشگاه نمونه\nرمز پویا: 482913" to "482913",
+        "کد تایید شارژ اعتبار: 482913" to "482913",
+        // Review 5: date, fee, declined, credited and ref after a real code
+        "OTP 482913 date 21/11/2026" to "482913",
+        "OTP 482913 fee 25 INR" to "482913",
+        "Your OTP is 482913. INR 2500 credited to a/c" to "482913",
+        "OTP 482913 ref 1234" to "482913",
+        "OTP 482913. 2 attempts declined" to "482913",
+        "Never share the verification code with anyone. Your OTP is 482913" to "482913",
+        "Your OTP is 482913. Do not share it with the courier or anyone else" to "482913",
         "Your OTP for number ending 4829 is 482913" to "482913",
         "Your OTP for mobile ending 4829 is 482913" to "482913",
         "Your OTP for card ending in 1234 is 482913" to "482913",
@@ -73,9 +88,8 @@ class OtpGuardWordRealCodeTest {
         "کارت ****1234 رمز پویا 482913" to "482913",
         "OTP 482913 for txn on card *1234" to "482913",
         "Your OTP is 482913, valid until 2026-11-21 14:30" to "482913",
-        "رمز شخصی شما 1234567890. تماس با پشتیبانی 02112345678" to "1234567890",
+        "رمز شخصی شما 1234567890. تماس با پشتیبانی +15550001234" to "1234567890",
         "Your code is 4829\n\n@example.com #4829" to "4829",
-        // Ad / prize words as a footer
         // Review 4: masked accounts, currencies, two steps, "ending with", "#" references, card number
         "Your OTP for account *1234 is 482913" to "482913",
         "OTP for acct *1234: 482913" to "482913",
