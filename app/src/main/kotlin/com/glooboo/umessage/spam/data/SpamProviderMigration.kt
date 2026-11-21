@@ -20,7 +20,6 @@ import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.extensions.insertNewSMS
 import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.messagesDB
-import com.glooboo.umessage.extensions.recomputeThreadDate
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
@@ -1286,17 +1285,16 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
         return message.threadId
     }
 
-    /** The threads were stamped with the time of the writes: dated by their newest message, their rows cached again. */
     /**
      * The threads were stamped with the time of the writes (an MMS thread also by the settle, whose date update the
-     * provider's trigger answers with "now"): the provider recomputes them, and the chat row is dated by the thread's
-     * newest message, so a migrated chat never shows at the top as "Now" (emulator run 1).
+     * provider's trigger answers with "now"): the store dates them by their newest message again ([ThreadRedate],
+     * also an MMS-only thread), and the chat row too, so a migrated chat never shows at the top as "Now".
      */
     override fun repair(threadIds: Set<Long>) {
         for (threadId in threadIds) {
-            app.recomputeThreadDate(threadId)
+            ThreadRedate.redate(app.contentResolver, threadId)
             app.getConversations(threadId).firstOrNull()?.let { conv ->
-                val newest = (newestDate(threadId) / MILLIS).toInt()
+                val newest = (ThreadRedate.newestDate(app.contentResolver, threadId) / MILLIS).toInt()
                 if (newest > 0 && conv.date > newest) conv.date = newest
                 app.insertOrUpdateConversation(conv)
             }
@@ -1308,16 +1306,6 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
     override fun threadOf(id: Long, isMms: Boolean): Long? {
         val uri = ContentUris.withAppendedId(if (isMms) Mms.CONTENT_URI else Sms.CONTENT_URI, id)
         return query(uri, arrayOf(Sms.THREAD_ID)).use { if (it.moveToFirst()) it.getLong(0) else null }
-    }
-
-    /** The newest message of [threadId] in milliseconds (MMS dates are seconds in the store); 0 when none. */
-    private fun newestDate(threadId: Long): Long {
-        val args = arrayOf("$threadId")
-        val sms = query(Sms.CONTENT_URI, arrayOf(Sms.DATE), "${Sms.THREAD_ID} = ?", args, "${Sms.DATE} DESC")
-            .use { if (it.moveToFirst()) it.getLong(0) else 0L }
-        val mms = query(Mms.CONTENT_URI, arrayOf(Mms.DATE), "${Mms.THREAD_ID} = ?", args, "${Mms.DATE} DESC")
-            .use { if (it.moveToFirst()) it.getLong(0) * MILLIS else 0L }
-        return maxOf(sms, mms)
     }
 
     override fun noteUnread(storeId: Long, isMms: Boolean) {

@@ -14,7 +14,6 @@ import com.glooboo.umessage.extensions.getConversations
 import com.glooboo.umessage.extensions.getMMS
 import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.messagesDB
-import com.glooboo.umessage.extensions.recomputeThreadDate
 import com.glooboo.umessage.extensions.shouldUnarchive
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.extensions.updateLastConversationMessage
@@ -45,7 +44,7 @@ internal object RestoredMmsDelivery {
         runCatching {
             val mms = context.getMMS(uri) ?: return@runCatching
             // The thread carries the restore time; date it by its newest message, as the chat list later will.
-            context.recomputeThreadDate(mms.threadId)
+            ThreadRedate.redate(context.contentResolver, mms.threadId)
             context.getConversations(mms.threadId).firstOrNull()?.let { conv ->
                 val messageSeconds = (message.receivedAt / 1000).toInt()
                 if (conv.date > messageSeconds) {
