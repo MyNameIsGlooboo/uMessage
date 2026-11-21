@@ -17,7 +17,7 @@ class Killed : Throwable("killed")
  * mmslib's write is not atomic here either (F-4, F-8): it writes the row (dated with the PDU's own date), then its
  * addresses, then the time of the write; [halfWriteKill] kills between the row and its addresses.
  */
-class OlderSpamWorld {
+internal class OlderSpamWorld {
 
     /** One row of the phone's store. SMS dates in milliseconds, MMS dates in seconds, as the provider keeps them. */
     data class StoreRow(
