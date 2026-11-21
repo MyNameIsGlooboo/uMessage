@@ -894,7 +894,10 @@ object SpamProviderMigration {
         passFollows: Boolean = false,
     ): MigrationResult {
         if (!ProviderTruthFlag.enabled) return MigrationResult()
-        return synchronized(lock) { runWith(moverFor(context.applicationContext), limit, noteUnreadNow, passFollows) }
+        return synchronized(lock) {
+            sweepHelpers(context)
+            runWith(moverFor(context.applicationContext), limit, noteUnreadNow, passFollows)
+        }
     }
 
     /** One run of [mover] and its clean-up; the caller holds [lock]. */
@@ -920,6 +923,7 @@ object SpamProviderMigration {
      */
     fun runPending(context: Context, announce: Boolean = true, limit: Int = Int.MAX_VALUE): Boolean {
         if (!ProviderTruthFlag.enabled) return true
+        synchronized(lock) { sweepHelpers(context) }
         val state = runCatching { FirstRun.state(context).value }.getOrNull()
         val afterSort = state == null || state.allowsFullSort ||
             (state.sortPublished && state.phase == FirstRunPhase.CLEANUP)
@@ -936,6 +940,14 @@ object SpamProviderMigration {
             .getOrNull() ?: return false
         return !result.waiting
     }
+
+    /**
+     * T-2: threads that still hold a helper draft of [ThreadRedate] (a run or a "Not spam" that died between its
+     * writes) are dated again, at the start of every run and so at app start. The caller holds [lock]. Never throws.
+     */
+    @VisibleForTesting
+    @Volatile
+    internal var sweepHelpers: (Context) -> Unit = { ThreadRedate.sweep(it.applicationContext) }
 
     /** F-14: the owed check is asked for until a pass began after that; then it is done. The caller holds [lock]. */
     private fun askForPass(context: Context, mover: OlderSpamMover, state: FirstRunState?, result: MigrationResult) {
@@ -1028,7 +1040,8 @@ object SpamProviderMigration {
         )
     }
 
-    private const val TAG = "uMessageReceive"
+    /** The migration's log tag, also [ThreadRedate]'s. */
+    internal const val TAG = "uMessageReceive"
     private const val SOURCE = "MIGRATION"
 }
 
@@ -1288,11 +1301,13 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
     /**
      * The threads were stamped with the time of the writes (an MMS thread also by the settle, whose date update the
      * provider's trigger answers with "now"): the store dates them by their newest message again ([ThreadRedate],
-     * also an MMS-only thread), and the chat row too, so a migrated chat never shows at the top as "Now".
+     * also an MMS-only thread), and the chat row too, so a migrated chat never shows at the top as "Now". Throws when
+     * a thread could not be dated, so the threads stay in the journal and the next run dates them again (T-2).
      */
     override fun repair(threadIds: Set<Long>) {
+        var dated = true
         for (threadId in threadIds) {
-            ThreadRedate.redate(app.contentResolver, threadId)
+            if (!ThreadRedate.redate(app, threadId)) dated = false
             app.getConversations(threadId).firstOrNull()?.let { conv ->
                 val newest = (ThreadRedate.newestDate(app.contentResolver, threadId) / MILLIS).toInt()
                 if (newest > 0 && conv.date > newest) conv.date = newest
@@ -1301,6 +1316,7 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
         }
         runCatching { refreshMessages() }
         runCatching { refreshConversations() }
+        check(dated) { "Moved chats not dated" }
     }
 
     override fun threadOf(id: Long, isMms: Boolean): Long? {

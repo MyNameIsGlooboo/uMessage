@@ -43,8 +43,9 @@ internal object RestoredMmsDelivery {
 
         runCatching {
             val mms = context.getMMS(uri) ?: return@runCatching
-            // The thread carries the restore time; date it by its newest message, as the chat list later will.
-            ThreadRedate.redate(context.contentResolver, mms.threadId)
+            // The thread carries the restore time; date it by its newest message, as the chat list later will. A helper
+            // draft left by a failed step is dated again by the migration's sweep at the next start (T-2).
+            ThreadRedate.redate(context, mms.threadId)
             context.getConversations(mms.threadId).firstOrNull()?.let { conv ->
                 val messageSeconds = (message.receivedAt / 1000).toInt()
                 if (conv.date > messageSeconds) {
