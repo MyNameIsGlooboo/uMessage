@@ -7,7 +7,7 @@
     <string name="onb_finish">เริ่มส่งข้อความ</string>
     <string name="onb_welcome_title">ยินดีต้อนรับสู่ uMessage</string>
     <string name="onb_welcome_intro">ส่งข้อความได้ดีขึ้น สแปมน้อยลง</string>
-    <string name="onb_welcome_demo_desc">ข้อความจากคนรู้จักจะไปที่ “ข้อความ” ข้อความจากคนแปลกหน้าจะไปที่ “สแปม” และรหัสยืนยันจะยังไปที่ “ข้อความ”</string>
+    <string name="onb_welcome_demo_desc">รายชื่อติดต่อของคุณจะไปที่ \"ข้อความ\" ผู้ส่งที่ไม่รู้จักจะไปที่ \"สแปม\" ผู้ส่งที่ส่งรหัสยืนยันมาให้คุณจะไปที่ \"ข้อความ\"</string>
     <string name="onb_welcome_spam">กันสแปมออกไป</string>
     <string name="onb_welcome_spam_desc">ข้อความจากผู้ส่งที่ไม่รู้จักจะอยู่ในสแปม ไม่หายไปไหน</string>
     <string name="onb_welcome_codes">คัดลอกรหัสในแตะเดียว</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">ไม่ต้องมีบัญชี ไม่มีโฆษณา ไม่ใช้คลาวด์ ทุกอย่างอยู่ในโทรศัพท์</string>
     <string name="onb_welcome_start">เริ่มต้นใช้งาน</string>
     <string name="onb_default_title">ใช้ uMessage เป็นแอป SMS</string>
-    <string name="onb_default_body">Android อนุญาตให้เฉพาะแอป SMS เริ่มต้นรับและกรองข้อความได้ หากไม่ได้ตั้งค่า uMessage จะปกป้องกล่องข้อความเข้าไม่ได้</string>
+    <string name="onb_default_body">Android อนุญาตให้เฉพาะแอป SMS เริ่มต้นรับและกรองข้อความได้ หากไม่ได้ตั้งค่า uMessage จะกรองสแปมให้คุณไม่ได้</string>
     <string name="onb_default_action">ตั้งเป็นแอปเริ่มต้น</string>
     <string name="onb_default_denied">คำขอถูกปฏิเสธ ลองอีกครั้งได้ หรือดำเนินการต่อแล้วตั้งค่าภายหลังในการตั้งค่า Android</string>
     <string name="onb_default_unavailable">โทรศัพท์เปิดหน้าต่างเลือกแอปเริ่มต้นไม่ได้ ไปที่การตั้งค่า Android เลือกแอป แอปเริ่มต้น แอป SMS แล้วเลือก uMessage</string>

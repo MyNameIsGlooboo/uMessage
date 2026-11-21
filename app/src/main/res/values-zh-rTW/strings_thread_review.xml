@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">判定</string>
-    <string name="thread_review_details_decision_allowed">已允許：已送達收件匣</string>
+    <string name="thread_review_details_decision_allowed">已允許：已進入「訊息」</string>
     <string name="thread_review_details_type">類型</string>
     <string name="thread_review_details_type_sms">簡訊</string>
     <string name="thread_review_details_type_mms">多媒體訊息</string>

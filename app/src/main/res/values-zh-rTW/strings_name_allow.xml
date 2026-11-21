@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nameallow_title">一律允許這個名稱？</string>
-    <string name="nameallow_body">來自%1$s的新簡訊會進入收件匣。任何人都能用任意名稱傳送簡訊，因此冒用這個名稱的假簡訊也會通過篩選。你為這個名稱設定的封鎖規則將會移除。</string>
-    <string name="nameallow_body_many">來自%1$s的新簡訊會進入收件匣。任何人都能用任意名稱傳送簡訊，因此冒用這些名稱的假簡訊也會通過篩選。你為這些名稱設定的封鎖規則將會移除。</string>
+    <string name="nameallow_title">要允許這個名稱嗎？</string>
+    <string name="nameallow_body">任何人都能用%1$s這個名稱傳送簡訊。要允許它並將對話移至「訊息」嗎？</string>
+    <string name="nameallow_body_many">任何人都能用這些名稱傳送簡訊：%1$s。要允許它們並將對話移至「訊息」嗎？</string>
     <string name="nameallow_more">%1$s及其他%2$d個名稱</string>
     <string name="nameallow_allow">一律允許</string>
     <string name="nameallow_not_now">暫時不要</string>

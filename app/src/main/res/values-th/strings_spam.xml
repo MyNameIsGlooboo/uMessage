@@ -49,7 +49,7 @@
     <string name="spam_type_keyword">คำหลัก</string>
     <string name="spam_type_regex">รูปแบบ (regex)</string>
     <string name="spam_type_keyword_help">ข้อความใดก็ตามที่มีคำนี้ แม้เป็นส่วนหนึ่งของคำที่ยาวกว่า เช่น “win” จะตรงกับ “window” ด้วย ไม่แยกตัวพิมพ์ใหญ่และเล็ก ผู้ส่งจะถูกบล็อกด้วย เว้นแต่อยู่ในรายชื่อติดต่อของคุณ</string>
-    <string name="spam_type_keyword_allow_help">ข้อความใดก็ตามที่มีคำนี้จะข้ามการบล็อกทั้งหมด ไม่ว่ามาจากผู้ส่งใด ควรใช้วลีที่ยาวและเจาะจง</string>
+    <string name="spam_type_keyword_allow_help">ข้อความที่มีคำนี้จะทำให้ผู้ส่งได้รับอนุญาต: แชตทั้งหมดจะไปที่ \"ข้อความ\" ผู้ส่งที่คุณบล็อกไว้จะยังถูกบล็อก ใช้วลีที่ยาวและตรงตัว</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">ของขวัญฟรี</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
@@ -69,9 +69,9 @@
     <string name="spam_err_duplicate">มีกฎนี้อยู่แล้ว</string>
     <string name="spam_err_regex_unsafe">รูปแบบ (regex) นี้ทำซ้ำกลุ่มที่มีการทำซ้ำอยู่แล้ว ซึ่งอาจทำให้การกรองข้อความค้าง โปรดปรับให้ง่ายขึ้น</string>
     <string name="spam_err_regex_matches_all">รูปแบบ (regex) นี้ตรงกับทุกข้อความ โปรดระบุให้เจาะจงขึ้น</string>
-    <string name="spam_err_allow_keyword_short">คำที่อนุญาตต้องมีอย่างน้อย 4 อักขระ เพราะทุกข้อความที่มีคำนี้จะข้ามการบล็อกทั้งหมด</string>
+    <string name="spam_err_allow_keyword_short">คำที่อนุญาตต้องมีอย่างน้อย 4 ตัวอักษร เพราะข้อความที่มีคำนั้นจะทำให้ผู้ส่งได้รับอนุญาต</string>
     <string name="spam_sheet_save_failed">บันทึกกฎไม่ได้ โปรดลองอีกครั้ง</string>
-    <string name="spam_warn_allow_skips_blocks">ทุกข้อความที่มีคำนี้จะข้ามการบล็อกทั้งหมด ไม่ว่ามาจากผู้ส่งใด แม้แต่หมายเลขที่บล็อกไว้</string>
+    <string name="spam_warn_allow_skips_blocks">ผู้ส่งที่ไม่รู้จักรายใดที่ส่งข้อความซึ่งมีคำนี้ จะได้รับอนุญาตนับจากนั้น ผู้ส่งที่คุณบล็อกไว้จะยังถูกบล็อก</string>
     <string name="spam_warn_common_word">คำนี้สั้นหรือใช้กันทั่วไป สแปมอาจมีคำนี้ได้ง่าย</string>
     <string name="spam_warn_broad">เงื่อนไขนี้ตรงกับข้อความทั่วไปหลายแบบ จึงอาจบล็อกข้อความปกติจำนวนมาก</string>
     <string name="spam_warn_allowed_conflict">รายการนี้อยู่ในรายการที่อนุญาต กฎการอนุญาตมีผลก่อนเสมอ การบล็อกนี้จึงจะไม่มีผล</string>
@@ -89,8 +89,8 @@
     <plurals name="spam_import_more">
         <item quantity="other">และอีก %d รายการ</item>
     </plurals>
-    <string name="spam_settings_unknown_title">ข้อความจากผู้ส่งที่ไม่รู้จัก</string>
-    <string name="spam_settings_unknown_body">ผู้ส่งที่ไม่อยู่ในรายชื่อติดต่อ ไม่เคยส่งข้อความถึง และไม่อยู่ในรายการที่อนุญาต</string>
+    <string name="spam_settings_unknown_title">ตัวกรองสแปม</string>
+    <string name="spam_settings_unknown_body">ผู้ส่งที่ไม่รู้จักคือผู้ส่งที่ไม่อยู่ในรายชื่อติดต่อและไม่อยู่ในรายการที่อนุญาต แชตทั้งหมดของผู้ส่งนั้นจะไปที่ \"สแปม\" แบบเงียบๆ คนที่คุณเคยส่งข้อความถึงและผู้ส่งรหัสยืนยันจะอยู่ใน \"ข้อความ\" ต่อไป</string>
     <string name="spam_mode_strict">เข้มงวด</string>
     <string name="spam_mode_strict_body">บล็อกผู้ส่งที่ไม่รู้จักทั้งหมด รวมถึงรหัสยืนยัน</string>
     <string name="spam_mode_smart">อัจฉริยะ</string>
@@ -101,8 +101,8 @@
     <string name="spam_strict_warning_body">ข้อความจากธนาคาร บริษัทขนส่ง และรหัสใช้ครั้งเดียวมักมาจากผู้ส่งที่ไม่อยู่ในรายชื่อติดต่อ ในโหมดเข้มงวด ข้อความเหล่านี้จะไปที่สแปม รวมถึงรหัสด้วย เลือกโหมดอัจฉริยะเพื่อให้รับรหัสได้ หรือเพิ่มผู้ส่งเหล่านั้นในรายการที่อนุญาตเพียงครั้งเดียว</string>
     <string name="spam_strict_warning_action">ตรวจสอบสแปม</string>
     <string name="spam_settings_cleanup_title">ล้างข้อมูล</string>
-    <string name="spam_purge_body">ลบสแปมเก่าโดยอัตโนมัติ</string>
+    <string name="spam_purge_body">ปิดอยู่จนกว่าคุณจะเลือกจำนวนวัน</string>
     <string name="spam_purge_days">%d วัน</string>
     <string name="spam_purge_forever">เก็บไว้ตลอด</string>
-    <string name="spam_notify_title">แจ้งเตือนเมื่อบล็อกข้อความ</string>
+    <string name="spam_notify_title">แจ้งเตือนเมื่อมีข้อความจากผู้ส่งที่ไม่รู้จัก</string>
 </resources>

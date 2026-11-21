@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">판정</string>
-    <string name="thread_review_details_decision_allowed">허용됨: 받은 메시지함으로 전달됨</string>
+    <string name="thread_review_details_decision_allowed">허용됨: 메시지 탭에 도착함</string>
     <string name="thread_review_details_type">유형</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

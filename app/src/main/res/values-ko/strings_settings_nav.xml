@@ -49,9 +49,9 @@
     <string name="settings_nav_strict_confirm_body">엄격 모드에서는 연락처에 없는 발신자의 인증 코드도 다른 메시지와 함께 스팸함으로 이동해요. 은행이나 배송업체의 메시지도 스팸함으로 이동해요.</string>
     <string name="settings_nav_strict_confirm_action">엄격 사용</string>
     <string name="settings_nav_strict_confirm_cancel">현재 모드 유지</string>
-    <string name="settings_nav_purge_row">스팸 자동 삭제 시점</string>
+    <string name="settings_nav_purge_row">오래된 스팸 자동 삭제</string>
     <string name="settings_nav_group_alerts">알림</string>
-    <string name="settings_nav_notify_body">스팸이 올 때마다 무음 알림</string>
+    <string name="settings_nav_notify_body">스팸함을 여는 무음 알림 하나를 보내요. 차단한 발신자는 알리지 않아요.</string>
     <string name="settings_nav_theme_title">화면 꾸미기</string>
     <string name="settings_nav_theme_modes">모드</string>
     <string name="settings_nav_theme_colours">색상</string>

@@ -7,4 +7,6 @@
     <string name="notifications_off_title">通知がオフになっています。</string>
     <string name="notifications_off_body">新しいメッセージが届いても通知されません。</string>
     <string name="notifications_off_fix">オンにする</string>
+    <string name="notifications_quiet_title">通知の音がオフです</string>
+    <string name="notifications_quiet_body">「%1$s」に音が設定されていないため、新しいメッセージが届いても鳴りません。Androidの設定で音をオンにしてください。</string>
 </resources>

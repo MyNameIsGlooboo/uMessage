@@ -7,7 +7,7 @@
     <string name="onb_finish">利用開始</string>
     <string name="onb_welcome_title">uMessageへようこそ</string>
     <string name="onb_welcome_intro">迷惑メッセージを減らして、もっと快適に。</string>
-    <string name="onb_welcome_demo_desc">知り合いからのメッセージは「メッセージ」に、知らない人からのメッセージは「迷惑メッセージ」に届きます。認証コードはこれまでどおり「メッセージ」に届きます。</string>
+    <string name="onb_welcome_demo_desc">連絡先は「メッセージ」に届きます。不明な送信者は「迷惑メッセージ」に届きます。認証コードを送ってきた送信者は「メッセージ」に届きます。</string>
     <string name="onb_welcome_spam">迷惑メッセージをブロック</string>
     <string name="onb_welcome_spam_desc">不明な送信者からのメッセージは「迷惑メッセージ」に保存され、失われません。</string>
     <string name="onb_welcome_codes">ワンタップで認証コードをコピー</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">アカウントも広告もクラウドもありません。すべて端末内に保存されます。</string>
     <string name="onb_welcome_start">はじめる</string>
     <string name="onb_default_title">uMessageをデフォルトのSMSアプリに設定</string>
-    <string name="onb_default_body">Androidでは、デフォルトのSMSアプリだけがメッセージを受信・フィルタリングできます。この設定がないと、uMessageは受信トレイを保護できません。</string>
+    <string name="onb_default_body">Androidでは、デフォルトのSMSアプリだけがメッセージを受信・フィルタリングできます。この設定がないと、uMessageは迷惑メッセージをフィルタリングできません。</string>
     <string name="onb_default_action">デフォルトに設定</string>
     <string name="onb_default_denied">リクエストが拒否されました。もう一度試すか、このまま進んで後でAndroidの設定から変更できます。</string>
     <string name="onb_default_unavailable">デフォルトのアプリを選ぶ画面を開けませんでした。Androidの設定で「アプリ」→「デフォルトのアプリ」→「SMSアプリ」を開き、uMessageを選んでください。</string>

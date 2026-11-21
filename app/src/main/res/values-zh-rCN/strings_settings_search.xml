@@ -5,7 +5,7 @@
     <string name="settings_search_none">未找到设置，请换个词试试。</string>
     <string name="settings_search_start">输入关键词，如主题、备份或垃圾短信。</string>
     <string name="sks_spam">垃圾短信 屏蔽 已屏蔽 垃圾短信 过滤 防护 诈骗 骚扰</string>
-    <string name="sks_unknown_sender">未知 陌生人 发件人 模式 过滤 垃圾短信 屏蔽</string>
+    <string name="sks_unknown_sender">未知 陌生人 发件人 过滤 垃圾短信 屏蔽 开关 开启 关闭 模式</string>
     <string name="sks_strict">严格 强力 屏蔽 全部 验证码</string>
     <string name="sks_smart">智能 推荐 自动 默认 过滤</string>
     <string name="sks_spam_off">关闭 停用 停止 过滤 允许 全部</string>

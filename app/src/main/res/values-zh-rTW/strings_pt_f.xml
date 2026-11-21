@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="other">這份備份含有%d則排定簡訊</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="other">只有在你開啟後，才會在設定時間傳送給%d個號碼。在你選擇之前，不會傳送任何內容。</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">開啟</string>
+    <string name="pt_restore_scheduled_discard">捨棄</string>
+    <string name="pt_older_spam_stuck">其中一些簡訊無法移至手機本身。這些簡訊會留在這裡，你仍可閱讀。</string>
+    <string name="pt_restore_scheduled_row_body">還原時未開啟這些簡訊。輕觸即可開啟或捨棄。</string>
+    <string name="pt_older_spam_pictures_here">其中一些簡訊已在手機本身中，只有圖片保存在這裡（uMessage中）。</string>
+</resources>

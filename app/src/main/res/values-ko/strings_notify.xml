@@ -7,4 +7,6 @@
     <string name="notifications_off_title">알림 꺼짐</string>
     <string name="notifications_off_body">새 메시지가 와도 알림을 받을 수 없어요.</string>
     <string name="notifications_off_fix">켜기</string>
+    <string name="notifications_quiet_title">알림 소리가 꺼져 있어요</string>
+    <string name="notifications_quiet_body">‘%1$s’에 소리가 없어서 새 문자가 와도 울리지 않아요. Android 설정에서 소리를 켜세요.</string>
 </resources>

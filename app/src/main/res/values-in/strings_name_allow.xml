@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nameallow_title">Selalu izinkan nama ini?</string>
-    <string name="nameallow_body">Pesan baru dari %1$s akan masuk ke kotak masuk Anda. Siapa pun bisa mengirim pesan dengan nama apa saja, jadi pesan palsu dengan nama ini juga akan lolos. Aturan blokir yang Anda buat untuk nama ini akan dihapus.</string>
-    <string name="nameallow_body_many">Pesan baru dari %1$s akan masuk ke kotak masuk Anda. Siapa pun bisa mengirim pesan dengan nama apa saja, jadi pesan palsu dengan nama-nama ini juga akan lolos. Aturan blokir yang Anda buat untuk nama-nama ini akan dihapus.</string>
+    <string name="nameallow_title">Izinkan nama ini?</string>
+    <string name="nameallow_body">Siapa pun bisa mengirim pesan dengan nama %1$s. Izinkan nama ini dan pindahkan chat ke Pesan?</string>
+    <string name="nameallow_body_many">Siapa pun bisa mengirim pesan dengan nama-nama ini: %1$s. Izinkan dan pindahkan chat ke Pesan?</string>
     <string name="nameallow_more">%1$s dan %2$d lainnya</string>
     <string name="nameallow_allow">Selalu izinkan</string>
     <string name="nameallow_not_now">Jangan sekarang</string>

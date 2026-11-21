@@ -5,10 +5,10 @@
     <string name="settings_deprecated">เลิกใช้แล้ว</string>
     <string name="settings_spam_stats">สกัดไว้ %1$d ใน 7 วันที่ผ่านมา ทั้งหมด %2$d กู้คืนแล้ว %3$d</string>
     <string name="settings_spam_open_settings">การตั้งค่าสแปม</string>
-    <string name="settings_spam_open_settings_body">โหมด ระยะเวลาเก็บ และการเตือน</string>
+    <string name="settings_spam_open_settings_body">ตัวกรอง การลบอัตโนมัติ และการแจ้งเตือน</string>
     <string name="settings_block_group">รายการบล็อก</string>
     <string name="settings_block_umessage_title">กฎของ uMessage</string>
-    <string name="settings_block_umessage_body">ข้อความที่บล็อกแล้วจะไปอยู่ในสแปม กู้คืนได้</string>
+    <string name="settings_block_umessage_body">แชตของผู้ส่งที่ถูกบล็อกจะไปที่ \"สแปม\" คุณย้ายกลับได้</string>
     <string name="settings_spam_open_rules">กฎการอนุญาตและบล็อก</string>
     <string name="settings_spam_blocked_numbers_body">หมายเลขที่บล็อกผ่านรายการบล็อกของระบบ</string>
     <string name="settings_spam_blocked_keywords_body">ซ่อนข้อความที่มีคำเหล่านี้</string>

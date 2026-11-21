@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="other">백업에 예약 문자가 %d개 있어요</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="other">켜는 경우에만 정해진 시간에 번호 %d개로 보내요. 선택하기 전까지는 아무것도 보내지 않아요.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">켜기</string>
+    <string name="pt_restore_scheduled_discard">삭제</string>
+    <string name="pt_older_spam_stuck">일부 문자는 휴대전화 자체로 옮기지 못했어요. 여기에 남아 있고 계속 읽을 수 있어요.</string>
+    <string name="pt_restore_scheduled_row_body">복원할 때 켜지지 않았어요. 탭해서 켜거나 삭제하세요.</string>
+    <string name="pt_older_spam_pictures_here">일부 문자는 이미 휴대전화 자체에 있어요. 사진만 여기 uMessage에 보관돼요.</string>
+</resources>

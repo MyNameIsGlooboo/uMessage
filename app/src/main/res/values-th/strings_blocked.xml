@@ -38,7 +38,7 @@
         <item quantity="other">รายงานสแปมแล้ว %d แชท ข้อความใหม่จากผู้ส่งเหล่านี้จะไปที่สแปม และแชทจะถูกเก็บถาวร</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="other">รายงานสแปมแล้ว %d แชท ข้อความใหม่จากผู้ส่งเหล่านี้จะไปที่สแปม</item>
+        <item quantity="other">รายงานแล้ว %d แชต ย้ายไปที่ \"สแปม\" แล้ว</item>
     </plurals>
     <string name="blocked_title">สแปม</string>
     <string name="blocked_snack_mode">ตั้งค่าผู้ส่งที่ไม่รู้จักเป็น %1$s แล้ว</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">判定</string>
-    <string name="thread_review_details_decision_allowed">許可済み：受信トレイに配信済み</string>
+    <string name="thread_review_details_decision_allowed">許可済み：「メッセージ」に届きました</string>
     <string name="thread_review_details_type">種類</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

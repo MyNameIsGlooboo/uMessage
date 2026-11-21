@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">เหตุผล</string>
     <string name="thread_r2_details_rule">กฎ</string>
     <string name="thread_r2_details_forwarded">ส่งต่อแล้ว</string>
-    <string name="thread_r2_details_decision_restored">บล็อกแล้ว จากนั้นกู้คืนไปยังกล่องข้อความเข้า</string>
+    <string name="thread_r2_details_decision_restored">บล็อกแล้ว จากนั้นย้ายไปที่ \"ข้อความ\"</string>
     <string name="thread_r2_details_copy">คัดลอก %1$s</string>
     <string name="thread_r2_menu_search">ค้นหาในการสนทนา</string>
     <string name="thread_r2_menu_always_forward">ส่งต่อจากผู้ส่งนี้เสมอ</string>

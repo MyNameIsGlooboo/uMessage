@@ -5,7 +5,7 @@
     <string name="settings_search_none">Setelan tidak ditemukan. Coba kata lain.</string>
     <string name="settings_search_start">Ketik kata, seperti tema, cadangkan, atau spam.</string>
     <string name="sks_spam">spam blokir diblokir sampah filter perlindungan penipuan tidak diinginkan</string>
-    <string name="sks_unknown_sender">pengirim tidak dikenal orang asing mode filter spam blokir</string>
+    <string name="sks_unknown_sender">pengirim tidak dikenal orang asing filter spam blokir tombol aktif nonaktif mode</string>
     <string name="sks_strict">ketat tegas blokir semua kode</string>
     <string name="sks_smart">cerdas disarankan otomatis default filter</string>
     <string name="sks_spam_off">nonaktif nonaktifkan hentikan filter izinkan semua</string>

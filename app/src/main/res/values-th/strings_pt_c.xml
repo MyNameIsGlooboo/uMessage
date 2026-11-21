@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_spam_empty_body">แชตจากผู้ส่งที่ไม่รู้จักและผู้ส่งที่คุณบล็อกจะแสดงที่นี่</string>
+    <string name="pt_spam_filter_off_strip">ตัวกรองสแปมปิดอยู่</string>
+    <string name="pt_spam_filter_off_body">ที่นี่มีเฉพาะผู้ส่งที่คุณบล็อกไว้</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="other">ลบ %d แชตออกจากโทรศัพท์เครื่องนี้ไหม</item>
+    </plurals>
+    <string name="pt_spam_delete_body">ข้อความจะถูกลบสำหรับทุกแอป ไม่ใช่แค่ใน uMessage คุณเลิกทำได้ทันทีหลังจากนั้น แต่ภายหลังจะทำไม่ได้</string>
+    <plurals name="pt_snack_unblocked">
+        <item quantity="other">เลิกบล็อกผู้ส่งแล้ว %d ราย แชตกลับมาที่ \"ข้อความ\" แล้ว</item>
+    </plurals>
+    <string name="pt_older_spam_title">สแปมเก่าที่เก็บไว้ใน uMessage เท่านั้น</string>
+    <string name="pt_older_spam_hint">ข้อความเหล่านี้ยังไม่อยู่ในตัวโทรศัพท์เอง ส่วนใหญ่จะย้ายไปเมื่อ uMessage เป็นแอป SMS เริ่มต้นของคุณ ระหว่างนี้คุณอ่านได้ที่นี่</string>
+    <string name="pt_block_still_allowed">ไม่ได้ย้ายไปที่ \"สแปม\": กฎอนุญาตข้อหนึ่งของคุณยังอนุญาตผู้ส่งรายนี้อยู่</string>
+    <string name="pt_unblock_refused_prefix">เลิกบล็อกไม่ได้: มีกฎที่บล็อกหมายเลขที่ขึ้นต้นด้วย %1$s</string>
+    <string name="pt_line_code">อนุญาตแล้ว เพราะผู้ส่งรายนี้ส่งรหัสยืนยันมา</string>
+    <string name="pt_line_wrote">อนุญาตแล้ว เพราะคุณเคยส่งข้อความถึงหมายเลขนี้</string>
+    <string name="pt_line_word">อนุญาตอัตโนมัติแล้ว เพราะมีข้อความที่มีคำที่คุณอนุญาตไว้</string>
+    <string name="pt_line_blocked">คุณบล็อกผู้ส่งรายนี้แล้ว ข้อความใหม่จะเข้ามาใน \"สแปม\" แบบเงียบๆ</string>
+    <string name="pt_line_blocked_word">บล็อกอัตโนมัติแล้ว เพราะมีข้อความที่มีคำที่คุณบล็อกไว้</string>
+    <string name="pt_line_unknown">ผู้ส่งที่ไม่รู้จัก ข้อความจะเข้ามาใน \"สแปม\"</string>
+    <string name="pt_line_keep">คงไว้</string>
+    <string name="pt_reply_allows_confirm">การส่งจะอนุญาตผู้ส่งรายนี้ ส่งไหม</string>
+    <plurals name="pt_card_moved">
+        <item quantity="other">ตอนนี้มี %d แชตอยู่ใน \"สแปม\"</item>
+    </plurals>
+    <string name="pt_card_moved_body">ผู้ส่งที่ไม่รู้จักและที่ถูกบล็อกจะถูกจัดไว้ที่นั่น ไม่มีสิ่งใดถูกลบ</string>
+</resources>

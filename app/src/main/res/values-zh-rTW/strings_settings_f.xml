@@ -18,8 +18,8 @@
     <string name="settings_f_appearance">外觀</string>
     <string name="settings_f_language_system">系統預設</string>
     <string name="settings_f_group_rules">規則和清單</string>
-    <string name="settings_f_spam_more">保留期限和提醒</string>
-    <string name="settings_f_spam_more_body">垃圾訊息的保留時間和提醒</string>
+    <string name="settings_f_spam_more">自動刪除和提醒</string>
+    <string name="settings_f_spam_more_body">自動刪除舊的垃圾訊息，以及提醒</string>
     <string name="settings_f_hide_lock_codes_body">驗證碼在螢幕鎖定畫面上顯示為••••</string>
     <string name="settings_f_code_alert">驗證碼提醒</string>
     <string name="settings_f_code_alert_body">驗證碼的提示音</string>

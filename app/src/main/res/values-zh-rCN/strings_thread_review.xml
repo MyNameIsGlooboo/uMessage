@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">判定结果</string>
-    <string name="thread_review_details_decision_allowed">已允许：已送达收件箱</string>
+    <string name="thread_review_details_decision_allowed">已允许：已进入“消息”</string>
     <string name="thread_review_details_type">类型</string>
     <string name="thread_review_details_type_sms">短信</string>
     <string name="thread_review_details_type_mms">彩信</string>

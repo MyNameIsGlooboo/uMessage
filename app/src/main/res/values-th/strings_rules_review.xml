@@ -6,11 +6,11 @@
     <string name="rules2_menu_export">ส่งออกกฎเป็นไฟล์</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">ยังไม่มีผู้ส่งที่อนุญาตเสมอ</string>
-    <string name="rules2_empty_allowed_body">เพิ่มหมายเลข ชื่อผู้ส่ง หรือคำที่ต้องการให้เข้ากล่องข้อความเข้าเสมอ แตะเพิ่มกฎด้านล่าง</string>
+    <string name="rules2_empty_allowed_body">เพิ่มหมายเลข ชื่อผู้ส่ง หรือคำที่ต้องเข้ามาใน \"ข้อความ\" เสมอ</string>
     <string name="rules2_empty_blocked_title">ยังไม่มีผู้ส่งที่บล็อกเสมอ</string>
     <string name="rules2_empty_blocked_body">เพิ่มหมายเลข ชื่อผู้ส่ง คำ หรือรูปแบบ (regex) เพื่อย้ายข้อความไปที่สแปม แตะเพิ่มกฎด้านล่าง</string>
     <string name="rules2_migrate_title">ย้ายมาเป็นกฎใน uMessage</string>
-    <string name="rules2_migrate_point_blocked">จากนั้นข้อความจะไปที่สแปม ซึ่งกู้คืนได้</string>
+    <string name="rules2_migrate_point_blocked">จากนั้นแชตของผู้ส่งเหล่านี้จะไปที่ \"สแปม\" ซึ่งคุณย้ายกลับได้</string>
     <string name="rules2_migrate_remove_needs_first">เลือกตัวเลือกด้านบนก่อน</string>
     <string name="rules2_migrate_nothing_selected">ยังไม่ได้เลือก</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -39,7 +39,7 @@
     <plurals name="rules2_bn_move">
         <item quantity="other">ย้าย %1$d หมายเลขมาเป็นกฎ</item>
     </plurals>
-    <string name="forward2_intro_reassure">ส่งต่อเฉพาะข้อความที่ถึงกล่องข้อความเข้า สแปมจะไม่ถูกส่งต่อ</string>
+    <string name="forward2_intro_reassure">ส่งต่อเฉพาะข้อความที่เข้ามาใน \"ข้อความ\" สแปมจะไม่ถูกส่งต่อ</string>
     <string name="forward2_empty_title">ยังไม่มีกฎส่งต่อ</string>
     <string name="forward2_empty_body">ส่งสำเนาข้อความที่ตรงกับเงื่อนไข เช่น การแจ้งเตือนจากธนาคาร ไปยังโทรศัพท์อีกเครื่อง เริ่มจากตัวเลือกเหล่านี้</string>
     <string name="forward2_template_bank">ส่งต่อการแจ้งเตือนจากธนาคาร</string>

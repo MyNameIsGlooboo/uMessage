@@ -49,9 +49,9 @@
     <string name="settings_nav_strict_confirm_body">在嚴格模式下，來自非聯絡人寄件者的驗證碼會和其他訊息一起移至「垃圾訊息」。銀行和物流公司的訊息也會被攔下。</string>
     <string name="settings_nav_strict_confirm_action">使用嚴格模式</string>
     <string name="settings_nav_strict_confirm_cancel">保留目前模式</string>
-    <string name="settings_nav_purge_row">垃圾訊息的刪除期限</string>
+    <string name="settings_nav_purge_row">自動刪除舊的垃圾訊息</string>
     <string name="settings_nav_group_alerts">提醒</string>
-    <string name="settings_nav_notify_body">每則垃圾訊息都發出一則靜音通知</string>
+    <string name="settings_nav_notify_body">一則靜音通知，輕觸即可開啟「垃圾訊息」。已封鎖的寄件者一律不通知。</string>
     <string name="settings_nav_theme_title">外觀</string>
     <string name="settings_nav_theme_modes">模式</string>
     <string name="settings_nav_theme_colours">色彩</string>

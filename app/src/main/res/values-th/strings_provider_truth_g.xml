@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_onb_filter_on">จัดผู้ส่งที่ไม่รู้จักไปที่ \"สแปม\"</string>
+    <string name="pt_onb_filter_on_desc">รายชื่อติดต่อ คนที่คุณเคยส่งข้อความถึง และผู้ส่งรหัสยืนยันจะอยู่ใน \"ข้อความ\"</string>
+    <string name="pt_onb_filter_off">เก็บทุกอย่างไว้ใน \"ข้อความ\"</string>
+    <string name="pt_onb_filter_off_desc">เฉพาะผู้ส่งที่คุณบล็อกเท่านั้นที่จะไปที่ \"สแปม\"</string>
+    <string name="pt_onb_filter_hint">คุณเปลี่ยนได้ภายหลังในการตั้งค่า</string>
+    <string name="pt_onb_demo_desc_off">ทุกข้อความไปที่ \"ข้อความ\" เฉพาะผู้ส่งที่คุณบล็อกเท่านั้นที่จะไปที่ \"สแปม\"</string>
+    <string name="pt_filter_on_summary">เปิด: ผู้ส่งที่ไม่รู้จักจะไปที่ \"สแปม\"</string>
+    <string name="pt_filter_off_summary">ปิด: ทุกอย่างเข้ามาใน \"ข้อความ\" ยกเว้นผู้ส่งที่คุณบล็อกไว้</string>
+    <string name="pt_filter_off_confirm_title">ปิดตัวกรองสแปมไหม</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="other">%d แชตจะย้ายจาก \"สแปม\" ไปที่ \"ข้อความ\" แชตของผู้ส่งที่คุณบล็อกไว้จะยังอยู่ใน \"สแปม\"</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">เปิดตัวกรองสแปมไหม</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="other">%d แชตจากผู้ส่งที่ไม่รู้จักจะย้ายไปที่ \"สแปม\" ไม่มีสิ่งใดถูกลบ</item>
+    </plurals>
+    <string name="pt_confirm_none_move">ตอนนี้ไม่มีแชตที่ต้องย้าย</string>
+    <string name="pt_turn_off">ปิด</string>
+    <string name="pt_purge_warn_title">ลบสแปมเก่าอัตโนมัติไหม</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="other">ข้อความที่เข้ามาใน \"สแปม\" นานกว่า %d วันจะถูกลบออกจากตัวโทรศัพท์เอง สำหรับทุกแอป และกู้คืนไม่ได้ ข้อความที่คุณส่ง ติดดาว หรือเพิ่มโน้ตไว้จะยังอยู่</item>
+    </plurals>
+    <string name="pt_group_code_title">ผู้ส่งรหัสยืนยัน</string>
+    <string name="pt_group_wrote_title">คนที่คุณเคยส่งข้อความถึง</string>
+    <plurals name="pt_group_count">
+        <item quantity="other">ผู้ส่ง %d ราย</item>
+    </plurals>
+    <string name="pt_group_code_body">ผู้ส่งที่ส่งรหัสยืนยันมาให้คุณจะได้รับอนุญาตนับจากนั้น นำออกได้ที่นี่ หรือบล็อกในแชตของผู้ส่งนั้น</string>
+    <string name="pt_group_wrote_body">หมายเลขที่คุณส่งข้อความถึงจะได้รับอนุญาตนับจากนั้น นำออกได้ที่นี่ หรือบล็อกในแชตของหมายเลขนั้น</string>
+    <string name="pt_group_member_remove">นำออก</string>
+    <string name="pt_group_member_removed">นำ %1$s ออกจากรายการแล้ว</string>
+    <string name="pt_group_member_history">พบในข้อความเก่าของคุณ</string>
+    <string name="pt_group_empty">ยังไม่มีใครที่นี่</string>
+    <string name="pt_group_off_title">ปิด \"%1$s\" ไหม</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="other">%d แชตจะย้ายไปที่ \"สแปม\" ผู้ส่งจะยังอยู่ในรายการและจะกลับมาเมื่อคุณเปิดอีกครั้ง</item>
+    </plurals>
+    <string name="pt_group_off_code_note">หลังจากนั้น รหัสยืนยันจากผู้ส่งที่ไม่รู้จักจะไปที่ \"สแปม\" ด้วย</string>
+    <string name="pt_verdict_group">จะไปที่ \"ข้อความ\": ผู้ส่งอยู่ใน \"%1$s\"</string>
+    <string name="pt_verdict_allowed_word">จะไปที่ \"ข้อความ\": ข้อความมีคำที่คุณอนุญาตไว้ หลังจากนั้นผู้ส่งจะได้รับอนุญาต</string>
+    <string name="pt_verdict_blocked_word">จะไปที่ \"สแปม\": ข้อความมีคำที่คุณบล็อกไว้ หลังจากนั้นผู้ส่งจะถูกบล็อก</string>
+    <string name="pt_progress_title">กำลังจัดแชตของคุณ</string>
+    <string name="pt_progress_body">ขั้นตอนนี้ทำเพียงครั้งเดียว จะไม่มีแชตใดย้ายจนกว่าจะเสร็จ และไม่มีสิ่งใดถูกลบ</string>
+    <string name="pt_progress_step_rules">กำลังอัปเดตกฎของคุณ</string>
+    <string name="pt_progress_step_older">กำลังย้ายสแปมเก่าไปยังโทรศัพท์</string>
+    <string name="pt_progress_step_history">กำลังตรวจสอบข้อความเก่าของคุณ</string>
+    <string name="pt_progress_step_sort">กำลังจัดแชต</string>
+    <string name="pt_progress_background">ทำต่อในเบื้องหลัง</string>
+    <string name="pt_changed_title">สิ่งที่เปลี่ยนไป</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="other">ย้ายไปที่ \"สแปม\" แล้ว %d แชต</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="other">อนุญาตผู้ส่งอัตโนมัติแล้ว %d ราย</item>
+    </plurals>
+    <string name="pt_changed_switch">ตอนนี้ตัวกรองสแปมเป็นสวิตช์เดียว: เปิดหรือปิด</string>
+    <string name="pt_changed_sims">ตอนนี้กฎของคุณใช้กับทั้งสอง SIM</string>
+    <string name="pt_changed_store">ตอนนี้สแปมเก่าเก็บไว้ในตัวโทรศัพท์เอง เหมือนข้อความอื่นๆ</string>
+    <string name="pt_changed_purge">การลบสแปมเก่าอัตโนมัติปิดอยู่ คุณเปิดได้ในการตั้งค่า</string>
+    <string name="pt_changed_open_spam">ดูสแปม</string>
+    <string name="pt_filter_off_confirm_rest">แชตของผู้ส่งที่คุณบล็อกไว้จะยังอยู่ใน \"สแปม\"</string>
+    <string name="pt_filter_on_confirm_rest">ไม่มีสิ่งใดถูกลบ</string>
+    <string name="pt_group_off_rest">ผู้ส่งจะยังอยู่ในรายการและจะกลับมาเมื่อคุณเปิดอีกครั้ง</string>
+    <string name="pt_progress_step_running">กำลังดำเนินการ</string>
+    <string name="pt_progress_older_waiting">รอจนกว่า uMessage จะเป็นแอป SMS เริ่มต้นของคุณ</string>
+</resources>

@@ -6,11 +6,11 @@
     <string name="rules2_menu_export">將規則匯出到檔案</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">沒有一律允許的寄件者</string>
-    <string name="rules2_empty_allowed_body">新增一律要進入收件匣的號碼、寄件者名稱或字詞。</string>
+    <string name="rules2_empty_allowed_body">新增必須一律進入「訊息」的號碼、寄件者名稱或字詞。</string>
     <string name="rules2_empty_blocked_title">沒有一律封鎖的寄件者</string>
     <string name="rules2_empty_blocked_body">新增要移至「垃圾訊息」的號碼、寄件者名稱、字詞或模式。</string>
     <string name="rules2_migrate_title">移至uMessage規則</string>
-    <string name="rules2_migrate_point_blocked">之後簡訊會移至「垃圾訊息」，你可以在那裡還原。</string>
+    <string name="rules2_migrate_point_blocked">之後對方的對話會移至「垃圾訊息」，你可以從那裡移回。</string>
     <string name="rules2_migrate_remove_needs_first">請先勾選上方的選項。</string>
     <string name="rules2_migrate_nothing_selected">未選取任何項目</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -39,7 +39,7 @@
     <plurals name="rules2_bn_move">
         <item quantity="other">將%1$d個號碼移至規則</item>
     </plurals>
-    <string name="forward2_intro_reassure">只會轉寄進入收件匣的訊息，垃圾訊息絕不會轉寄。</string>
+    <string name="forward2_intro_reassure">只會轉寄進入「訊息」的簡訊，垃圾訊息絕不會轉寄。</string>
     <string name="forward2_empty_title">尚無轉寄規則</string>
     <string name="forward2_empty_body">將符合條件的訊息（例如銀行通知）複製一份傳到另一支手機。從以下其中一項開始。</string>
     <string name="forward2_template_bank">轉寄銀行通知</string>

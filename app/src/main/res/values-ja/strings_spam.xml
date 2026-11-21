@@ -49,7 +49,7 @@
     <string name="spam_type_keyword">キーワード</string>
     <string name="spam_type_regex">パターン（正規表現）</string>
     <string name="spam_type_keyword_help">この文字列を含むメッセージが対象です。単語の一部でも一致するため、「win」は「window」にも一致します。大文字と小文字は区別しません。送信者もブロックされます。連絡先に入っている場合は除きます。</string>
-    <string name="spam_type_keyword_allow_help">この文字列を含むメッセージは、どの送信者からでもすべてのブロックを回避します。長く具体的な語句を指定してください。</string>
+    <string name="spam_type_keyword_allow_help">この語句を含むメッセージが届くと、その送信者が許可され、会話がまるごと「メッセージ」に移動します。ブロックした送信者はブロックされたままです。長く正確な語句を使ってください。</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">無料プレゼント</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
@@ -69,9 +69,9 @@
     <string name="spam_err_duplicate">このルールはすでに存在します。</string>
     <string name="spam_err_regex_unsafe">このパターン（正規表現）は繰り返しを含むグループをさらに繰り返すため、メッセージのフィルター処理が停止することがあります。単純な形にしてください。</string>
     <string name="spam_err_regex_matches_all">このパターン（正規表現）はすべてのメッセージに一致します。条件を絞ってください。</string>
-    <string name="spam_err_allow_keyword_short">許可する語句を含むメッセージはすべてのブロックを回避するため、4文字以上で入力してください。</string>
+    <string name="spam_err_allow_keyword_short">許可する語句は4文字以上にしてください。その語句を含むメッセージで送信者が許可されるためです</string>
     <string name="spam_sheet_save_failed">ルールを保存できませんでした。もう一度お試しください。</string>
-    <string name="spam_warn_allow_skips_blocks">これを含むメッセージは、ブロックした電話番号を含むどの送信者からでも、すべてのブロックを回避します。</string>
+    <string name="spam_warn_allow_skips_blocks">この語句を含むメッセージを送ってきた不明な送信者は、それ以降許可されます。ブロックした送信者はブロックされたままです。</string>
     <string name="spam_warn_common_word">短い語句、またはよく使われる語句です。迷惑メッセージにも含まれやすくなります。</string>
     <string name="spam_warn_broad">一般的な文章に広く一致するため、多くの通常のメッセージも対象になります。</string>
     <string name="spam_warn_allowed_conflict">これは許可リストにあります。許可ルールが常に優先されるため、このブロックは適用されません。</string>
@@ -89,8 +89,8 @@
     <plurals name="spam_import_more">
         <item quantity="other">ほか%d件</item>
     </plurals>
-    <string name="spam_settings_unknown_title">不明な送信者からのメッセージ</string>
-    <string name="spam_settings_unknown_body">連絡先に登録されておらず、メッセージを送ったこともなく、許可リストにもない送信者です。</string>
+    <string name="spam_settings_unknown_title">迷惑メッセージフィルタ</string>
+    <string name="spam_settings_unknown_body">不明な送信者とは、連絡先にも許可リストにもない送信者です。その会話はまるごと、通知なしで「迷惑メッセージ」に移動します。メッセージを送ったことのある相手と、認証コードの送信者は「メッセージ」に残ります。</string>
     <string name="spam_mode_strict">厳格</string>
     <string name="spam_mode_strict_body">不明な送信者からのメッセージは、認証コードも含めてすべてブロックします。</string>
     <string name="spam_mode_smart">スマート</string>
@@ -101,8 +101,8 @@
     <string name="spam_strict_warning_body">銀行や配送会社からのメッセージ、ワンタイムコードは、通常、連絡先にない送信者から届きます。厳格モードでは、認証コードも含めて「迷惑メッセージ」フォルダに入ります。認証コードを受信するには、スマートを選ぶか、送信者を一度許可してください。</string>
     <string name="spam_strict_warning_action">迷惑メッセージを確認</string>
     <string name="spam_settings_cleanup_title">整理</string>
-    <string name="spam_purge_body">古い迷惑メッセージを自動で削除します。</string>
+    <string name="spam_purge_body">日数を選ぶまではオフです</string>
     <string name="spam_purge_days">%d日</string>
     <string name="spam_purge_forever">ずっと保存</string>
-    <string name="spam_notify_title">ブロック時に通知</string>
+    <string name="spam_notify_title">不明な送信者からのメッセージを通知</string>
 </resources>

@@ -5,7 +5,7 @@
     <string name="settings_search_none">找不到設定，請換個字詞試試。</string>
     <string name="settings_search_start">輸入字詞，例如主題、備份或垃圾簡訊。</string>
     <string name="sks_spam">垃圾簡訊 封鎖 已封鎖 垃圾 篩選 防護 詐騙 騷擾</string>
-    <string name="sks_unknown_sender">未知 陌生人 寄件者 模式 篩選 垃圾簡訊 封鎖</string>
+    <string name="sks_unknown_sender">未知 陌生人 寄件者 篩選 垃圾簡訊 垃圾訊息 封鎖 開關 開啟 關閉 模式</string>
     <string name="sks_strict">嚴格 全部封鎖 驗證碼</string>
     <string name="sks_smart">智慧 建議 自動 預設 篩選</string>
     <string name="sks_spam_off">關閉 停用 停止 篩選 全部允許</string>

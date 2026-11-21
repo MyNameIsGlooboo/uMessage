@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="other">ข้อมูลสำรองนี้มีข้อความที่ตั้งเวลาไว้ %d รายการ</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="other">จะส่งถึง %d หมายเลขตามเวลาที่ตั้งไว้ เฉพาะเมื่อคุณเปิดใช้เท่านั้น จะไม่มีการส่งสิ่งใดจนกว่าคุณจะเลือก</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">เปิดใช้</string>
+    <string name="pt_restore_scheduled_discard">ทิ้ง</string>
+    <string name="pt_older_spam_stuck">ข้อความบางรายการย้ายไปยังตัวโทรศัพท์เองไม่ได้ ข้อความเหล่านั้นจะอยู่ที่นี่ และคุณยังอ่านได้</string>
+    <string name="pt_restore_scheduled_row_body">การกู้คืนไม่ได้เปิดใช้ข้อความเหล่านี้ แตะเพื่อเปิดใช้หรือทิ้ง</string>
+    <string name="pt_older_spam_pictures_here">ข้อความบางรายการอยู่ในตัวโทรศัพท์เองแล้ว เฉพาะรูปภาพเท่านั้นที่เก็บไว้ที่นี่ใน uMessage</string>
+</resources>

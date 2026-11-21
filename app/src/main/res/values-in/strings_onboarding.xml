@@ -7,7 +7,7 @@
     <string name="onb_finish">Mulai berkirim pesan</string>
     <string name="onb_welcome_title">Selamat datang di uMessage</string>
     <string name="onb_welcome_intro">Berkirim pesan lebih nyaman, spam berkurang.</string>
-    <string name="onb_welcome_demo_desc">Pesan dari orang yang Anda kenal masuk ke Pesan, pesan dari orang tidak dikenal masuk ke Spam, dan kode verifikasi tetap masuk ke Pesan.</string>
+    <string name="onb_welcome_demo_desc">Kontak Anda masuk ke Pesan. Pengirim tidak dikenal masuk ke Spam. Pengirim yang mengirimi Anda kode verifikasi masuk ke Pesan.</string>
     <string name="onb_welcome_spam">Spam tidak masuk</string>
     <string name="onb_welcome_spam_desc">Pesan dari pengirim tidak dikenal ditahan di Spam, tidak hilang.</string>
     <string name="onb_welcome_codes">Kode dengan sekali ketuk</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">Tanpa akun, iklan, atau cloud. Semuanya tetap di ponsel Anda.</string>
     <string name="onb_welcome_start">Mulai</string>
     <string name="onb_default_title">Jadikan uMessage aplikasi SMS Anda</string>
-    <string name="onb_default_body">Android hanya mengizinkan aplikasi SMS default menerima dan memfilter pesan. Tanpa ini, uMessage tidak dapat melindungi kotak masuk Anda.</string>
+    <string name="onb_default_body">Android hanya mengizinkan aplikasi SMS default menerima dan memfilter pesan. Tanpa ini, uMessage tidak dapat memfilter spam untuk Anda.</string>
     <string name="onb_default_action">Jadikan default</string>
     <string name="onb_default_denied">Permintaan ditolak. Coba lagi, atau lanjutkan dan atur nanti di setelan Android.</string>
     <string name="onb_default_unavailable">Ponsel tidak dapat membuka dialog aplikasi default. Buka setelan Android, Aplikasi, Aplikasi default, Aplikasi SMS, lalu pilih uMessage.</string>

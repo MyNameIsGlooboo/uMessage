@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nameallow_title">始终允许此名称？</string>
-    <string name="nameallow_body">来自%1$s的新短信将进入收件箱。任何人都可以使用任意名称发送短信，因此冒用此名称的虚假短信也会进入收件箱。你为此名称设置的屏蔽规则将被移除。</string>
-    <string name="nameallow_body_many">来自%1$s的新短信将进入收件箱。任何人都可以使用任意名称发送短信，因此冒用这些名称的虚假短信也会进入收件箱。你为这些名称设置的屏蔽规则将被移除。</string>
+    <string name="nameallow_title">要允许此名称吗？</string>
+    <string name="nameallow_body">任何人都可以用%1$s这个名称发送短信。要允许它并将会话移至“消息”吗？</string>
+    <string name="nameallow_body_many">任何人都可以用这些名称发送短信：%1$s。要允许它们并将会话移至“消息”吗？</string>
     <string name="nameallow_more">%1$s及另外%2$d个</string>
     <string name="nameallow_allow">始终允许</string>
     <string name="nameallow_not_now">暂不</string>

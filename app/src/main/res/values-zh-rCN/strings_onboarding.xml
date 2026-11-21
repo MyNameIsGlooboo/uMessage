@@ -7,7 +7,7 @@
     <string name="onb_finish">开始发消息</string>
     <string name="onb_welcome_title">欢迎使用uMessage</string>
     <string name="onb_welcome_intro">消息更顺畅，垃圾短信更少。</string>
-    <string name="onb_welcome_demo_desc">熟人的短信会进入“消息”，陌生人的短信会进入“垃圾短信”，验证码仍会进入“消息”。</string>
+    <string name="onb_welcome_demo_desc">联系人的短信进入“消息”。未知发件人的短信进入“垃圾短信”。给你发过验证码的发件人进入“消息”。</string>
     <string name="onb_welcome_spam">远离垃圾短信</string>
     <string name="onb_welcome_spam_desc">未知发件人的消息会保留在“垃圾短信”中，不会丢失。</string>
     <string name="onb_welcome_codes">一键复制验证码</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">无需账号，没有广告，不用云端。所有数据都留在手机上。</string>
     <string name="onb_welcome_start">开始使用</string>
     <string name="onb_default_title">将uMessage设为默认短信应用</string>
-    <string name="onb_default_body">Android仅允许默认短信应用接收和过滤消息。未设为默认短信应用时，uMessage无法保护收件箱。</string>
+    <string name="onb_default_body">Android仅允许默认短信应用接收和过滤消息。未设为默认短信应用时，uMessage无法为你过滤垃圾短信。</string>
     <string name="onb_default_action">设为默认</string>
     <string name="onb_default_denied">请求已被拒绝。可以重试，也可以继续，稍后在Android设置中更改。</string>
     <string name="onb_default_unavailable">手机无法打开默认应用对话框。请打开Android设置，依次进入“应用”“默认应用”“短信应用”，然后选择uMessage。</string>

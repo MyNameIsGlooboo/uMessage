@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_onb_filter_on">將未知寄件者歸入「垃圾訊息」</string>
+    <string name="pt_onb_filter_on_desc">聯絡人、你傳過簡訊的人和傳送驗證碼的寄件者會留在「訊息」中。</string>
+    <string name="pt_onb_filter_off">全部留在「訊息」中</string>
+    <string name="pt_onb_filter_off_desc">只有你封鎖的寄件者會移至「垃圾訊息」。</string>
+    <string name="pt_onb_filter_hint">之後可以在設定中變更。</string>
+    <string name="pt_onb_demo_desc_off">所有簡訊都會進入「訊息」。只有你封鎖的寄件者會移至「垃圾訊息」。</string>
+    <string name="pt_filter_on_summary">開啟：未知寄件者會移至「垃圾訊息」</string>
+    <string name="pt_filter_off_summary">關閉：除了你封鎖的寄件者，所有簡訊都會進入「訊息」</string>
+    <string name="pt_filter_off_confirm_title">要關閉垃圾訊息篩選嗎？</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="other">%d個對話會從「垃圾訊息」移至「訊息」。你封鎖的寄件者的對話仍會留在「垃圾訊息」中。</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">要開啟垃圾訊息篩選嗎？</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="other">來自未知寄件者的%d個對話會移至「垃圾訊息」。不會刪除任何內容。</item>
+    </plurals>
+    <string name="pt_confirm_none_move">目前沒有對話需要移動。</string>
+    <string name="pt_turn_off">關閉</string>
+    <string name="pt_purge_warn_title">要自動刪除舊的垃圾訊息嗎？</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="other">進入「垃圾訊息」超過%d天的簡訊會從手機本身刪除，所有應用程式中都會消失，而且無法復原。你傳送的、加上星號的或加了備註的簡訊會保留。</item>
+    </plurals>
+    <string name="pt_group_code_title">傳送驗證碼的寄件者</string>
+    <string name="pt_group_wrote_title">你傳過簡訊的人</string>
+    <plurals name="pt_group_count">
+        <item quantity="other">%d個寄件者</item>
+    </plurals>
+    <string name="pt_group_code_body">傳送驗證碼給你的寄件者之後會獲得允許。你可以在這裡移除，或在對方的對話中封鎖。</string>
+    <string name="pt_group_wrote_body">你傳過簡訊的號碼之後會獲得允許。你可以在這裡移除，或在對方的對話中封鎖。</string>
+    <string name="pt_group_member_remove">移除</string>
+    <string name="pt_group_member_removed">已從清單中移除%1$s</string>
+    <string name="pt_group_member_history">從你的舊簡訊中找到</string>
+    <string name="pt_group_empty">這裡還沒有任何人</string>
+    <string name="pt_group_off_title">要關閉「%1$s」嗎？</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="other">%d個對話會移至「垃圾訊息」。寄件者會保留在清單中，再次開啟時就會恢復。</item>
+    </plurals>
+    <string name="pt_group_off_code_note">之後，未知寄件者傳來的驗證碼也會移至「垃圾訊息」。</string>
+    <string name="pt_verdict_group">會進入「訊息」：寄件者在「%1$s」中。</string>
+    <string name="pt_verdict_allowed_word">會進入「訊息」：簡訊含有你允許的某個字詞。之後這個寄件者會獲得允許。</string>
+    <string name="pt_verdict_blocked_word">會移至「垃圾訊息」：簡訊含有你封鎖的某個字詞。之後這個寄件者會遭到封鎖。</string>
+    <string name="pt_progress_title">正在整理你的對話</string>
+    <string name="pt_progress_body">這個步驟只會進行一次。完成之前不會移動任何對話，也不會刪除任何內容。</string>
+    <string name="pt_progress_step_rules">正在更新你的規則</string>
+    <string name="pt_progress_step_older">正在將舊的垃圾訊息移至手機</string>
+    <string name="pt_progress_step_history">正在檢查你的舊簡訊</string>
+    <string name="pt_progress_step_sort">正在整理對話</string>
+    <string name="pt_progress_background">在背景繼續</string>
+    <string name="pt_changed_title">有哪些變更</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="other">%d個對話已移至「垃圾訊息」</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="other">已自動允許%d個寄件者</item>
+    </plurals>
+    <string name="pt_changed_switch">垃圾訊息篩選現在只有一個開關：開啟或關閉。</string>
+    <string name="pt_changed_sims">你的規則現在適用於兩張SIM卡。</string>
+    <string name="pt_changed_store">舊的垃圾訊息現在和其他簡訊一樣，儲存在手機本身。</string>
+    <string name="pt_changed_purge">自動刪除舊的垃圾訊息已關閉。你可以在設定中開啟。</string>
+    <string name="pt_changed_open_spam">查看垃圾訊息</string>
+    <string name="pt_filter_off_confirm_rest">你封鎖的寄件者的對話仍會留在「垃圾訊息」中。</string>
+    <string name="pt_filter_on_confirm_rest">不會刪除任何內容。</string>
+    <string name="pt_group_off_rest">寄件者會保留在清單中，再次開啟時就會恢復。</string>
+    <string name="pt_progress_step_running">進行中</string>
+    <string name="pt_progress_older_waiting">等待uMessage成為你的預設簡訊應用程式</string>
+</resources>

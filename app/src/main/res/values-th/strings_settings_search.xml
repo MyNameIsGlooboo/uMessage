@@ -5,7 +5,7 @@
     <string name="settings_search_none">ไม่พบการตั้งค่า ลองใช้คำอื่น</string>
     <string name="settings_search_start">พิมพ์คำ เช่น ธีม สำรองข้อมูล หรือสแปม</string>
     <string name="sks_spam">สแปม บล็อก บล็อกแล้ว ขยะ กรอง การป้องกัน หลอกลวง ไม่ต้องการ</string>
-    <string name="sks_unknown_sender">ไม่รู้จัก คนแปลกหน้า ผู้ส่ง โหมด กรอง สแปม บล็อก</string>
+    <string name="sks_unknown_sender">ไม่รู้จัก คนแปลกหน้า ผู้ส่ง กรอง ตัวกรอง สแปม บล็อก สวิตช์ เปิด ปิด โหมด</string>
     <string name="sks_strict">เข้มงวด เข้มข้น บล็อก ทุกอย่าง รหัส</string>
     <string name="sks_smart">อัจฉริยะ แนะนำ อัตโนมัติ เริ่มต้น กรอง</string>
     <string name="sks_spam_off">ปิด ปิดใช้งาน หยุด กรอง อนุญาต ทุกอย่าง</string>

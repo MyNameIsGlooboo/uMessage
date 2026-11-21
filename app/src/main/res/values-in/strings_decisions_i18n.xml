@@ -3,12 +3,12 @@
     <plurals name="decm_marked_all_read">
         <item quantity="other">%d obrolan ditandai sudah dibaca</item>
     </plurals>
-    <string name="decm_search_section_blocked">Pesan yang diblokir</string>
-    <string name="decm_blocked_search">Cari pesan yang diblokir</string>
+    <string name="decm_search_section_blocked">Spam</string>
+    <string name="decm_blocked_search">Cari di Spam</string>
     <string name="decm_blocked_search_hint">Cari berdasarkan pengirim atau teks</string>
     <string name="decm_blocked_search_close">Tutup pencarian</string>
     <string name="decm_blocked_search_none_title">Tidak ditemukan</string>
-    <string name="decm_blocked_search_none_body">Tidak ada pengirim atau pesan yang diblokir yang cocok dengan yang kamu ketik.</string>
+    <string name="decm_blocked_search_none_body">Tidak ada pengirim atau pesan di Spam yang cocok dengan yang Anda ketik.</string>
     <string name="decm_always_allow">Selalu izinkan</string>
     <string name="decisions_backup_keywords">Kata terblokir yang akan ditambahkan: %1$d. Kata yang sudah kamu punya dilewati.</string>
     <string name="thread_failed_reason_generic">Ponsel melaporkan kegagalan umum (kode %1$d)</string>

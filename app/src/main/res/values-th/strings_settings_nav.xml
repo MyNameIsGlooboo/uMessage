@@ -49,9 +49,9 @@
     <string name="settings_nav_strict_confirm_body">ในโหมดกรองเข้มงวด รหัสจากผู้ส่งที่ไม่อยู่ในรายชื่อติดต่อจะไปที่สแปมพร้อมข้อความอื่นๆ ข้อความจากธนาคารและบริษัทขนส่งก็จะถูกสกัดไว้ด้วย</string>
     <string name="settings_nav_strict_confirm_action">ใช้โหมดเข้มงวด</string>
     <string name="settings_nav_strict_confirm_cancel">ใช้โหมดปัจจุบันต่อ</string>
-    <string name="settings_nav_purge_row">ลบสแปมเมื่อครบ</string>
+    <string name="settings_nav_purge_row">ลบสแปมเก่าอัตโนมัติ</string>
     <string name="settings_nav_group_alerts">การเตือน</string>
-    <string name="settings_nav_notify_body">การแจ้งเตือนแบบเงียบสำหรับสแปมแต่ละข้อความ</string>
+    <string name="settings_nav_notify_body">การแจ้งเตือนแบบเงียบหนึ่งรายการที่เปิด \"สแปม\" ไม่แจ้งเตือนผู้ส่งที่คุณบล็อกไว้</string>
     <string name="settings_nav_theme_title">รูปลักษณ์</string>
     <string name="settings_nav_theme_modes">โหมด</string>
     <string name="settings_nav_theme_colours">สี</string>

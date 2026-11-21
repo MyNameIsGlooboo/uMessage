@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">이유</string>
     <string name="thread_r2_details_rule">규칙</string>
     <string name="thread_r2_details_forwarded">전달됨</string>
-    <string name="thread_r2_details_decision_restored">차단 후 받은 메시지함으로 복원됨</string>
+    <string name="thread_r2_details_decision_restored">차단 후 메시지 탭으로 이동함</string>
     <string name="thread_r2_details_copy">%1$s 복사</string>
     <string name="thread_r2_menu_search">대화에서 검색</string>
     <string name="thread_r2_menu_always_forward">이 발신자의 메시지 항상 전달</string>

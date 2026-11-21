@@ -7,7 +7,7 @@
     <string name="ux8c_held_other">已被篩選器攔截</string>
     <string name="ux8c_not_spam">不是垃圾簡訊</string>
     <string name="ux8c_delete">刪除</string>
-    <string name="ux8c_tip">滑動寄件者即可移至收件匣。按住即可選取。</string>
+    <string name="ux8c_tip">滑動對話即可移回「訊息」。按住即可選取。</string>
     <string name="ux8c_tip_dismiss">知道了</string>
     <string name="ux8c_sender_title">這個寄件者</string>
     <string name="ux8c_sender_normal">一般</string>

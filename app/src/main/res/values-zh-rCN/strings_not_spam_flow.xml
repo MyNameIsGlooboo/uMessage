@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nsf_snack_moved">已移至收件箱</string>
-    <string name="nsf_snack_moved_allowed">已移至收件箱。%1$s 之后的消息也会送达。</string>
+    <string name="nsf_snack_moved">已移至“消息”</string>
+    <string name="nsf_snack_moved_allowed">已移至“消息”。%1$s现已设为始终允许。</string>
     <plurals name="nsf_snack_moved_allowed_many">
-        <item quantity="other">已移至收件箱。这%d个发件人今后的消息也会进入收件箱。</item>
+        <item quantity="other">已移至“消息”。%d个发件人现已设为始终允许。</item>
     </plurals>
     <string name="nsf_moving">正在移至收件箱</string>
     <string name="move_progress">正在移动消息：%1$s/%2$s</string>

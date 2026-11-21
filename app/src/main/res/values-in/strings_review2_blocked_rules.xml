@@ -44,7 +44,7 @@
     <plurals name="e_migrate_title_numbers">
         <item quantity="other">Pindahkan %d nomor ke aturan uMessage</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• Pesan mereka akan masuk ke Spam, tempat Anda dapat membaca dan memulihkannya.</string>
+    <string name="e_migrate_point_blocked">• Chat mereka akan masuk ke Spam, tempat Anda dapat membaca dan memindahkannya kembali.</string>
     <string name="e_migrate_point_android">• Android tetap membuang pesan mereka sampai nomornya dihapus dari daftar Android.</string>
     <string name="e_migrate_calls_note">Daftar Android juga memblokir panggilan. Nomor yang Anda hapus dari daftar itu dapat menelepon Anda lagi.</string>
     <string name="e_bn_row_calls_texts">Memblokir panggilan dan pesan</string>
@@ -52,7 +52,7 @@
     <string name="e_bn_move_one">Pindahkan ke aturan uMessage</string>
     <string name="e_bn_moved">%1$s kini menjadi aturan uMessage. Pesannya masuk ke Spam, dan panggilannya tidak lagi diblokir.</string>
     <string name="e_bn_field_help">Misalnya +15550001234, atau +1555* untuk semua nomor yang diawali +1555</string>
-    <string name="e_bn_short_code_warning">Ini tampaknya nomor pendek. Android membuang pesannya sebelum diterima uMessage, jadi Anda tidak akan bisa memulihkan pesan tersebut, misalnya kode atau pemberitahuan bank.</string>
+    <string name="e_bn_short_code_warning">Ini tampaknya nomor pendek. Android membuang pesannya sebelum uMessage melihatnya, jadi Anda tidak akan pernah melihat satu pun, misalnya kode atau pemberitahuan bank.</string>
     <string name="e_bn_add_as_rule">Tambahkan sebagai aturan uMessage saja</string>
     <string name="e_bn_added_as_rule">%1$s ditambahkan sebagai aturan uMessage. Pesannya masuk ke Spam.</string>
 </resources>

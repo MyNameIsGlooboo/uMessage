@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="other">此备份包含%d条定时短信</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="other">只有在你开启后，才会在设定时间发送到%d个号码。在你选择之前，不会发送任何内容。</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">开启</string>
+    <string name="pt_restore_scheduled_discard">舍弃</string>
+    <string name="pt_older_spam_stuck">其中一些短信无法移至手机本身。它们会留在这里，你仍可阅读。</string>
+    <string name="pt_restore_scheduled_row_body">恢复时未开启这些短信。点按可开启或舍弃。</string>
+    <string name="pt_older_spam_pictures_here">其中一些短信已在手机本身中，只有它们的图片保存在这里（uMessage中）。</string>
+</resources>

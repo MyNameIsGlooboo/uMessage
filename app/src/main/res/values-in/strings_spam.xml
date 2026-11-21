@@ -49,7 +49,7 @@
     <string name="spam_type_keyword">Kata kunci</string>
     <string name="spam_type_regex">Pola (regex)</string>
     <string name="spam_type_keyword_help">Semua pesan yang memuat teks ini, termasuk dalam kata yang lebih panjang: “hadiah” juga cocok dengan “berhadiah”. Huruf besar dan kecil tidak dibedakan. Pengirim juga diblokir, kecuali ada di kontak Anda.</string>
-    <string name="spam_type_keyword_allow_help">Semua pesan yang memuat teks ini lolos dari semua blokir, dari pengirim mana pun. Gunakan frasa yang panjang dan spesifik.</string>
+    <string name="spam_type_keyword_allow_help">Pesan yang berisi teks ini mengizinkan pengirimnya: seluruh chat masuk ke Pesan. Pengirim yang Anda blokir tetap diblokir. Gunakan frasa yang panjang dan persis.</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">hadiah gratis</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
@@ -69,9 +69,9 @@
     <string name="spam_err_duplicate">Aturan ini sudah ada</string>
     <string name="spam_err_regex_unsafe">Pola (regex) ini mengulang grup yang sudah berulang sehingga pemfilteran pesan bisa macet. Sederhanakan polanya.</string>
     <string name="spam_err_regex_matches_all">Pola (regex) ini cocok dengan semua pesan. Buat lebih spesifik.</string>
-    <string name="spam_err_allow_keyword_short">Kata yang diizinkan harus minimal 4 karakter karena semua pesan yang memuatnya lolos dari semua blokir</string>
+    <string name="spam_err_allow_keyword_short">Kata yang diizinkan harus minimal 4 karakter, karena pesan yang berisi kata itu mengizinkan pengirimnya</string>
     <string name="spam_sheet_save_failed">Tidak dapat menyimpan aturan. Coba lagi.</string>
-    <string name="spam_warn_allow_skips_blocks">Semua pesan yang memuat ini lolos dari semua blokir, dari pengirim mana pun, termasuk nomor yang diblokir.</string>
+    <string name="spam_warn_allow_skips_blocks">Setiap pengirim tidak dikenal yang pesannya berisi teks ini akan diizinkan sejak saat itu. Pengirim yang Anda blokir tetap diblokir.</string>
     <string name="spam_warn_common_word">Kata ini pendek atau umum. Spam bisa dengan mudah memuatnya.</string>
     <string name="spam_warn_broad">Ini cocok dengan banyak teks umum sehingga banyak pesan biasa akan ikut terfilter.</string>
     <string name="spam_warn_allowed_conflict">Ini ada di daftar Diizinkan. Aturan diizinkan selalu diutamakan, jadi blokir ini tidak akan pernah berlaku.</string>
@@ -89,8 +89,8 @@
     <plurals name="spam_import_more">
         <item quantity="other">dan %d lainnya</item>
     </plurals>
-    <string name="spam_settings_unknown_title">Pesan dari pengirim tidak dikenal</string>
-    <string name="spam_settings_unknown_body">Pengirim yang tidak ada di kontak, belum pernah Anda kirimi pesan, dan tidak ada di daftar diizinkan.</string>
+    <string name="spam_settings_unknown_title">Filter spam</string>
+    <string name="spam_settings_unknown_body">Pengirim tidak dikenal adalah pengirim yang tidak ada di kontak dan tidak ada di daftar diizinkan. Seluruh chat-nya masuk ke Spam tanpa suara. Orang yang pernah Anda kirimi pesan dan pengirim kode verifikasi tetap di Pesan.</string>
     <string name="spam_mode_strict">Mode filter ketat</string>
     <string name="spam_mode_strict_body">Blokir semua pengirim tidak dikenal, termasuk kode</string>
     <string name="spam_mode_smart">Cerdas</string>
@@ -101,8 +101,8 @@
     <string name="spam_strict_warning_body">Pesan bank, jasa pengiriman, dan kode sekali pakai biasanya berasal dari pengirim yang tidak ada di kontak. Dalam mode filter ketat, semuanya masuk ke Spam, termasuk kode. Pilih Cerdas agar kode tetap masuk, atau cukup izinkan pengirim tersebut sekali.</string>
     <string name="spam_strict_warning_action">Tinjau Spam</string>
     <string name="spam_settings_cleanup_title">Bersihkan</string>
-    <string name="spam_purge_body">Spam lama dihapus otomatis.</string>
+    <string name="spam_purge_body">Nonaktif sampai Anda memilih jumlah hari</string>
     <string name="spam_purge_days">%d hari</string>
     <string name="spam_purge_forever">Simpan selamanya</string>
-    <string name="spam_notify_title">Beri tahu saat pesan diblokir</string>
+    <string name="spam_notify_title">Beri tahu saya untuk pesan dari pengirim tidak dikenal</string>
 </resources>

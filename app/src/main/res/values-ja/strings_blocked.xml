@@ -38,7 +38,7 @@
         <item quantity="other">%d件の会話を報告しました。今後のメッセージは「迷惑メッセージ」に入り、会話はアーカイブされます。</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="other">%d件の会話を報告しました。今後のメッセージは「迷惑メッセージ」に入ります。</item>
+        <item quantity="other">%d件の会話を報告しました。「迷惑メッセージ」に移動しました。</item>
     </plurals>
     <string name="blocked_title">迷惑メッセージ</string>
     <string name="blocked_snack_mode">不明な送信者の設定を「%1$s」に変更しました。</string>

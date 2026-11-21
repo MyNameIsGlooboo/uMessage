@@ -13,7 +13,7 @@
     <plurals name="convlist_delete_confirm_message">
         <item quantity="other">Percakapan dan semua pesannya akan dihapus dari ponsel ini. Kamu bisa membatalkannya beberapa detik setelahnya.</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s ada di kontakmu. Blokir pengirim ini? Pesan baru darinya akan masuk ke Diblokir, bukan kotak masuk. Kamu bisa langsung membatalkannya.</string>
+    <string name="convlist_block_contact_message">%1$s ada di kontak Anda. Blokir pengirim ini? Seluruh chat dipindahkan ke Spam dan pesan baru akan masuk ke sana tanpa suara. Anda bisa mengurungkannya tepat setelahnya.</string>
     <string name="i29_color_red">Merah</string>
     <string name="i29_color_orange">Oranye</string>
     <string name="i29_color_yellow">Kuning</string>
@@ -34,10 +34,10 @@
     <string name="rule_preview_loading">Memeriksa pesan terbaru…</string>
     <string name="rule_preview_failed">Tidak bisa memeriksa pesan terbaru. Coba lagi.</string>
     <string name="rule_preview_nothing">Belum ada pesan terbaru untuk diperiksa.</string>
-    <string name="rule_preview_inbox">Kotak masuk: aturan ini cocok dengan %1$d dari %2$d pesan terakhir</string>
-    <string name="rule_preview_inbox_empty">Kotak masuk: tidak ada pesan untuk diperiksa</string>
-    <string name="rule_preview_blocked">Diblokir: aturan ini cocok dengan %1$d dari %2$d pesan terakhir</string>
-    <string name="rule_preview_blocked_empty">Diblokir: tidak ada pesan untuk diperiksa</string>
+    <string name="rule_preview_inbox">Pesan: aturan ini cocok dengan %1$d dari %2$d pesan terakhir</string>
+    <string name="rule_preview_inbox_empty">Pesan: tidak ada yang perlu diperiksa</string>
+    <string name="rule_preview_blocked">Spam: aturan ini cocok dengan %1$d dari %2$d pesan terakhir</string>
+    <string name="rule_preview_blocked_empty">Spam: tidak ada yang perlu diperiksa</string>
     <string name="rule_preview_examples">Misalnya: %1$s</string>
     <string name="n06_delete_confirm">Hapus teks tersimpan ini?</string>
     <string name="screens_vcard_email_action">Email</string>

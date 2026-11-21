@@ -5,10 +5,10 @@
     <string name="settings_deprecated">已弃用</string>
     <string name="settings_spam_stats">近7天已屏蔽%1$d条，累计%2$d条，已恢复%3$d条</string>
     <string name="settings_spam_open_settings">垃圾短信设置</string>
-    <string name="settings_spam_open_settings_body">模式、保留时间和提醒</string>
+    <string name="settings_spam_open_settings_body">过滤、自动删除和提醒</string>
     <string name="settings_block_group">屏蔽列表</string>
     <string name="settings_block_umessage_title">uMessage规则</string>
-    <string name="settings_block_umessage_body">已屏蔽的短信会移至垃圾短信。你可以恢复这些短信。</string>
+    <string name="settings_block_umessage_body">已屏蔽发件人的会话会进入“垃圾短信”。你可以将其移回。</string>
     <string name="settings_spam_open_rules">允许和屏蔽规则</string>
     <string name="settings_spam_blocked_numbers_body">通过系统屏蔽列表屏蔽的号码</string>
     <string name="settings_spam_blocked_keywords_body">隐藏包含这些词的消息</string>

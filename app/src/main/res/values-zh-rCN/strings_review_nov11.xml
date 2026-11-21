@@ -13,7 +13,7 @@
     <plurals name="convlist_delete_confirm_message">
         <item quantity="other">这些会话及其所有消息将从此手机中删除。删除后的几秒内可以撤销。</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s在联系人中。要屏蔽此发件人吗？其新消息将进入“已屏蔽消息”，而不是收件箱。屏蔽后可立即撤销。</string>
+    <string name="convlist_block_contact_message">%1$s在你的联系人中。要屏蔽此发件人吗？整个会话会移至“垃圾短信”，新短信会静默送到那里。之后可立即撤销。</string>
     <string name="i29_color_red">红色</string>
     <string name="i29_color_orange">橙色</string>
     <string name="i29_color_yellow">黄色</string>
@@ -34,10 +34,10 @@
     <string name="rule_preview_loading">正在检查最近的消息…</string>
     <string name="rule_preview_failed">无法检查最近的消息。请重试。</string>
     <string name="rule_preview_nothing">暂时没有可检查的最近消息。</string>
-    <string name="rule_preview_inbox">收件箱：此规则匹配最近%2$d条消息中的%1$d条</string>
-    <string name="rule_preview_inbox_empty">收件箱：没有可检查的消息</string>
-    <string name="rule_preview_blocked">已屏蔽：此规则匹配最近%2$d条消息中的%1$d条</string>
-    <string name="rule_preview_blocked_empty">已屏蔽：没有可检查的消息</string>
+    <string name="rule_preview_inbox">消息：此规则匹配最近%2$d条短信中的%1$d条</string>
+    <string name="rule_preview_inbox_empty">消息：没有可检查的内容</string>
+    <string name="rule_preview_blocked">垃圾短信：此规则匹配最近%2$d条短信中的%1$d条</string>
+    <string name="rule_preview_blocked_empty">垃圾短信：没有可检查的内容</string>
     <string name="rule_preview_examples">例如：%1$s</string>
     <string name="n06_delete_confirm">删除此已保存的文本？</string>
     <string name="screens_vcard_email_action">电子邮件</string>

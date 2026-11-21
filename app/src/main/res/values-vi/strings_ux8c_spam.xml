@@ -7,7 +7,7 @@
     <string name="ux8c_held_other">Tạm giữ bởi bộ lọc</string>
     <string name="ux8c_not_spam">Không phải tin nhắn rác</string>
     <string name="ux8c_delete">Xóa</string>
-    <string name="ux8c_tip">Vuốt người gửi để chuyển vào hộp thư đến của bạn. Nhấn giữ để chọn.</string>
+    <string name="ux8c_tip">Vuốt một cuộc trò chuyện để chuyển lại vào mục Tin nhắn. Nhấn giữ để chọn.</string>
     <string name="ux8c_tip_dismiss">Đã hiểu</string>
     <string name="ux8c_sender_title">Người gửi này</string>
     <string name="ux8c_sender_normal">Bình thường</string>

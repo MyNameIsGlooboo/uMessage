@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="other">このバックアップには予約メッセージが%d件あります</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="other">オンにした場合だけ、予定の日時に%d件の番号へ送信されます。選ぶまでは何も送信されません。</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">オンにする</string>
+    <string name="pt_restore_scheduled_discard">破棄</string>
+    <string name="pt_older_spam_stuck">一部のメッセージはスマートフォン本体に移動できませんでした。ここに残り、引き続き読めます。</string>
+    <string name="pt_restore_scheduled_row_body">復元ではオンになっていません。タップしてオンにするか、破棄してください。</string>
+    <string name="pt_older_spam_pictures_here">一部のメッセージはすでにスマートフォン本体にあります。画像だけがここ、uMessageに保存されています。</string>
+</resources>

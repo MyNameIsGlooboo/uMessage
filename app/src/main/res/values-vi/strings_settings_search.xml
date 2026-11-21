@@ -5,7 +5,7 @@
     <string name="settings_search_none">Không tìm thấy cài đặt. Thử từ khác.</string>
     <string name="settings_search_start">Nhập một từ, như giao diện, sao lưu hoặc tin nhắn rác.</string>
     <string name="sks_spam">tin nhắn rác chặn đã chặn rác lọc bảo vệ lừa đảo không mong muốn</string>
-    <string name="sks_unknown_sender">người gửi không xác định người lạ người gửi chế độ lọc tin nhắn rác chặn</string>
+    <string name="sks_unknown_sender">người gửi không xác định người lạ người gửi lọc bộ lọc tin nhắn rác chặn công tắc bật tắt chế độ</string>
     <string name="sks_strict">nghiêm ngặt chặn chặt tất cả mã</string>
     <string name="sks_smart">thông minh đề xuất tự động mặc định lọc</string>
     <string name="sks_spam_off">tắt vô hiệu hóa dừng lọc cho phép tất cả</string>

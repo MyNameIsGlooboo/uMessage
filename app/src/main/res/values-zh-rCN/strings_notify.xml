@@ -7,4 +7,6 @@
     <string name="notifications_off_title">通知已关闭</string>
     <string name="notifications_off_body">收到新消息时不会通知你。</string>
     <string name="notifications_off_fix">开启</string>
+    <string name="notifications_quiet_title">通知没有声音</string>
+    <string name="notifications_quiet_body">“%1$s”没有提示音，因此新消息不会响铃。请在Android设置中打开声音。</string>
 </resources>

@@ -7,4 +7,6 @@
     <string name="notifications_off_title">ปิดการแจ้งเตือนอยู่</string>
     <string name="notifications_off_body">จะไม่มีการแจ้งเตือนเมื่อมีข้อความใหม่</string>
     <string name="notifications_off_fix">เปิด</string>
+    <string name="notifications_quiet_title">การแจ้งเตือนไม่มีเสียง</string>
+    <string name="notifications_quiet_body">\"%1$s\" ไม่มีเสียง ข้อความใหม่จึงไม่ดัง เปิดเสียงได้ในการตั้งค่า Android</string>
 </resources>

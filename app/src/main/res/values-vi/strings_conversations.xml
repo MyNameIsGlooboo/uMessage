@@ -38,11 +38,11 @@
         <item quantity="other">Đã lưu trữ %d cuộc trò chuyện</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="other">Đã chặn %d người gửi. Tin nhắn mới sẽ vào Tin rác</item>
+        <item quantity="other">Đã chặn %d người gửi. Cuộc trò chuyện đã chuyển vào mục Tin rác</item>
     </plurals>
     <string name="convlist_action_failed">Đã xảy ra lỗi</string>
     <string name="convlist_block_title">Chặn số?</string>
-    <string name="convlist_block_message">Chặn %1$s? Tin nhắn mới từ số này sẽ vào Tin rác thay vì hộp thư đến của bạn. Bạn vẫn có thể đọc hoặc khôi phục chúng ở đó.</string>
+    <string name="convlist_block_message">Chặn %1$s? Toàn bộ cuộc trò chuyện sẽ chuyển vào mục Tin rác và tin nhắn mới sẽ lặng lẽ đến đó. Bạn vẫn đọc được và có thể bỏ chặn bất cứ lúc nào.</string>
     <string name="convlist_block_confirm">Chặn</string>
     <string name="convlist_rename_title">Đổi tên cuộc trò chuyện</string>
     <string name="convlist_cancel">Hủy</string>

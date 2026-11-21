@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="other">Cadangan ini berisi %d pesan terjadwal</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="other">Dikirim ke %d nomor pada waktu yang ditetapkan, hanya jika Anda mengaktifkannya. Tidak ada yang dikirim sampai Anda memilih.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">Aktifkan</string>
+    <string name="pt_restore_scheduled_discard">Buang</string>
+    <string name="pt_older_spam_stuck">Beberapa pesan ini tidak bisa dipindahkan ke ponsel itu sendiri. Pesan tetap di sini, dan Anda masih bisa membacanya.</string>
+    <string name="pt_restore_scheduled_row_body">Pemulihan tidak mengaktifkannya. Ketuk untuk mengaktifkan atau membuangnya.</string>
+    <string name="pt_older_spam_pictures_here">Beberapa pesan ini sudah ada di ponsel itu sendiri. Hanya gambarnya yang disimpan di sini, di uMessage.</string>
+</resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">ผลการกรอง</string>
-    <string name="thread_review_details_decision_allowed">อนุญาตแล้ว: ส่งถึงกล่องข้อความเข้า</string>
+    <string name="thread_review_details_decision_allowed">อนุญาตแล้ว: เข้ามาใน \"ข้อความ\"</string>
     <string name="thread_review_details_type">ประเภท</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

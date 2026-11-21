@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">Quyết định</string>
-    <string name="thread_review_details_decision_allowed">Đã cho phép: chuyển đến hộp thư đến của bạn</string>
+    <string name="thread_review_details_decision_allowed">Đã cho phép: đã đến mục Tin nhắn</string>
     <string name="thread_review_details_type">Loại</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nameallow_title">อนุญาตชื่อนี้เสมอหรือไม่?</string>
-    <string name="nameallow_body">ข้อความใหม่จาก %1$s จะเข้ากล่องข้อความเข้า ใครก็ส่งข้อความโดยใช้ชื่อใดก็ได้ ข้อความปลอมที่ใช้ชื่อนี้จึงจะผ่านเข้ามาด้วย กฎบล็อกที่คุณตั้งไว้สำหรับชื่อนี้จะถูกลบ</string>
-    <string name="nameallow_body_many">ข้อความใหม่จาก %1$s จะเข้ากล่องข้อความเข้า ใครก็ส่งข้อความโดยใช้ชื่อใดก็ได้ ข้อความปลอมที่ใช้ชื่อเหล่านี้จึงจะผ่านเข้ามาด้วย กฎบล็อกที่คุณตั้งไว้สำหรับชื่อเหล่านี้จะถูกลบ</string>
+    <string name="nameallow_title">อนุญาตชื่อนี้ไหม</string>
+    <string name="nameallow_body">ใครก็ส่งข้อความโดยใช้ชื่อ %1$s ได้ อนุญาตชื่อนี้และย้ายแชตไปที่ \"ข้อความ\" ไหม</string>
+    <string name="nameallow_body_many">ใครก็ส่งข้อความโดยใช้ชื่อเหล่านี้ได้: %1$s อนุญาตชื่อเหล่านี้และย้ายแชตไปที่ \"ข้อความ\" ไหม</string>
     <string name="nameallow_more">%1$s และอีก %2$d ชื่อ</string>
     <string name="nameallow_allow">อนุญาตเสมอ</string>
     <string name="nameallow_not_now">ไว้ทีหลัง</string>

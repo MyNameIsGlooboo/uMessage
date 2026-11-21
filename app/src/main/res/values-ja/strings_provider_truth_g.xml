@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_onb_filter_on">不明な送信者を「迷惑メッセージ」に振り分ける</string>
+    <string name="pt_onb_filter_on_desc">連絡先、メッセージを送ったことのある相手、認証コードの送信者は「メッセージ」に残ります。</string>
+    <string name="pt_onb_filter_off">すべて「メッセージ」に残す</string>
+    <string name="pt_onb_filter_off_desc">ブロックした送信者だけが「迷惑メッセージ」に移動します。</string>
+    <string name="pt_onb_filter_hint">あとで設定から変更できます。</string>
+    <string name="pt_onb_demo_desc_off">すべてのメッセージが「メッセージ」に届きます。ブロックした送信者だけが「迷惑メッセージ」に移動します。</string>
+    <string name="pt_filter_on_summary">オン：不明な送信者は「迷惑メッセージ」へ</string>
+    <string name="pt_filter_off_summary">オフ：ブロックした送信者以外は、すべて「メッセージ」に届きます</string>
+    <string name="pt_filter_off_confirm_title">迷惑メッセージフィルタをオフにしますか？</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="other">%d件の会話が「迷惑メッセージ」から「メッセージ」に移動します。ブロックした送信者の会話は「迷惑メッセージ」に残ります。</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">迷惑メッセージフィルタをオンにしますか？</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="other">不明な送信者からの%d件の会話が「迷惑メッセージ」に移動します。何も削除されません。</item>
+    </plurals>
+    <string name="pt_confirm_none_move">今は移動する会話はありません。</string>
+    <string name="pt_turn_off">オフにする</string>
+    <string name="pt_purge_warn_title">古い迷惑メッセージを自動で削除しますか？</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="other">「迷惑メッセージ」に届いてから%d日を過ぎたメッセージは、スマートフォン本体から削除され、どのアプリからも見られなくなります。元に戻すことはできません。自分で送信したメッセージ、スターを付けたメッセージ、メモを付けたメッセージは残ります。</item>
+    </plurals>
+    <string name="pt_group_code_title">認証コードの送信者</string>
+    <string name="pt_group_wrote_title">メッセージを送った相手</string>
+    <plurals name="pt_group_count">
+        <item quantity="other">%d件の送信者</item>
+    </plurals>
+    <string name="pt_group_code_body">認証コードを送ってきた送信者は、それ以降許可されます。ここで削除するか、その会話でブロックしてください。</string>
+    <string name="pt_group_wrote_body">メッセージを送った番号は、それ以降許可されます。ここで削除するか、その会話でブロックしてください。</string>
+    <string name="pt_group_member_remove">削除</string>
+    <string name="pt_group_member_removed">%1$sをリストから削除しました</string>
+    <string name="pt_group_member_history">過去のメッセージから見つかりました</string>
+    <string name="pt_group_empty">まだ誰もいません</string>
+    <string name="pt_group_off_title">「%1$s」をオフにしますか？</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="other">%d件の会話が「迷惑メッセージ」に移動します。送信者はリストに残り、もう一度オンにすると戻ります。</item>
+    </plurals>
+    <string name="pt_group_off_code_note">オフにすると、不明な送信者からの認証コードも「迷惑メッセージ」に移動します。</string>
+    <string name="pt_verdict_group">「メッセージ」に届きます。送信者は「%1$s」に含まれています。</string>
+    <string name="pt_verdict_allowed_word">「メッセージ」に届きます。設定した許可語句が含まれています。以降、この送信者は許可されます。</string>
+    <string name="pt_verdict_blocked_word">「迷惑メッセージ」に届きます。設定したブロック語句が含まれています。以降、この送信者はブロックされます。</string>
+    <string name="pt_progress_title">会話を振り分けています</string>
+    <string name="pt_progress_body">この処理は一度だけです。終わるまで会話は移動せず、何も削除されません。</string>
+    <string name="pt_progress_step_rules">ルールを更新</string>
+    <string name="pt_progress_step_older">古い迷惑メッセージをスマートフォンに移動</string>
+    <string name="pt_progress_step_history">過去のメッセージを確認</string>
+    <string name="pt_progress_step_sort">会話を振り分け</string>
+    <string name="pt_progress_background">バックグラウンドで続ける</string>
+    <string name="pt_changed_title">変更点</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="other">%d件の会話を「迷惑メッセージ」に移動しました</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="other">%d件の送信者を自動で許可しました</item>
+    </plurals>
+    <string name="pt_changed_switch">迷惑メッセージフィルタは、オンかオフの1つのスイッチになりました。</string>
+    <string name="pt_changed_sims">ルールは両方のSIMに適用されるようになりました。</string>
+    <string name="pt_changed_store">古い迷惑メッセージも、ほかのメッセージと同じくスマートフォン本体に保存されるようになりました。</string>
+    <string name="pt_changed_purge">古い迷惑メッセージの自動削除はオフです。設定からオンにできます。</string>
+    <string name="pt_changed_open_spam">迷惑メッセージを確認</string>
+    <string name="pt_filter_off_confirm_rest">ブロックした送信者の会話は「迷惑メッセージ」に残ります。</string>
+    <string name="pt_filter_on_confirm_rest">何も削除されません。</string>
+    <string name="pt_group_off_rest">送信者はリストに残り、もう一度オンにすると戻ります。</string>
+    <string name="pt_progress_step_running">処理中</string>
+    <string name="pt_progress_older_waiting">uMessageがデフォルトのSMSアプリになるまで待機します</string>
+</resources>

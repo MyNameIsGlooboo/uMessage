@@ -40,16 +40,16 @@
     <plurals name="convlist_delete_confirm_message">
         <item quantity="other">這些對話及其中所有訊息都會從這支手機刪除。刪除後幾秒內可以復原。</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s是你的聯絡人。要封鎖這位寄件者嗎？對方的新訊息會移至「已封鎖訊息」，不會進入收件匣。封鎖後可以立即復原。</string>
+    <string name="convlist_block_contact_message">%1$s在你的聯絡人中。要封鎖這個寄件者嗎？整個對話會移至「垃圾訊息」，新簡訊會靜默送到那裡。之後可以立即復原。</string>
     <plurals name="convlist_archived">
         <item quantity="other">已封存%d個對話</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="other">已封鎖%d個寄件者。新訊息會移至「垃圾訊息」</item>
+        <item quantity="other">已封鎖%d個寄件者。對話已移至「垃圾訊息」</item>
     </plurals>
     <string name="convlist_action_failed">發生錯誤</string>
     <string name="convlist_block_title">要封鎖號碼嗎？</string>
-    <string name="convlist_block_message">要封鎖%1$s嗎？來自這個號碼的新訊息會移至「垃圾訊息」而不是收件匣，你仍可在那裡閱讀或還原。</string>
+    <string name="convlist_block_message">要封鎖%1$s嗎？整個對話會移至「垃圾訊息」，新簡訊會靜默送到那裡。你仍可閱讀這些簡訊，也能隨時解除封鎖。</string>
     <string name="convlist_block_confirm">封鎖</string>
     <string name="convlist_rename_title">重新命名對話</string>
     <string name="convlist_cancel">取消</string>

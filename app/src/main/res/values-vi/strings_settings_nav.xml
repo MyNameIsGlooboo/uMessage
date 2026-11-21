@@ -49,9 +49,9 @@
     <string name="settings_nav_strict_confirm_body">Ở chế độ lọc nghiêm ngặt, mã từ người gửi không có trong danh sách người liên hệ của bạn sẽ vào mục Tin rác cùng mọi tin nhắn khác. Tin nhắn từ ngân hàng và công ty giao hàng cũng bị chặn.</string>
     <string name="settings_nav_strict_confirm_action">Dùng chế độ lọc nghiêm ngặt</string>
     <string name="settings_nav_strict_confirm_cancel">Giữ chế độ hiện tại</string>
-    <string name="settings_nav_purge_row">Xóa tin nhắn rác sau</string>
+    <string name="settings_nav_purge_row">Tự động xóa tin rác cũ</string>
     <string name="settings_nav_group_alerts">Cảnh báo</string>
-    <string name="settings_nav_notify_body">Thông báo không âm thanh cho mỗi tin nhắn rác</string>
+    <string name="settings_nav_notify_body">Một thông báo im lặng mở mục Tin rác. Không bao giờ thông báo cho người gửi bạn đã chặn.</string>
     <string name="settings_nav_theme_title">Diện mạo</string>
     <string name="settings_nav_theme_modes">Chế độ</string>
     <string name="settings_nav_theme_colours">Màu sắc</string>

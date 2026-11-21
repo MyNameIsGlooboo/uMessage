@@ -13,7 +13,7 @@
     <plurals name="convlist_delete_confirm_message">
         <item quantity="other">대화와 모든 메시지가 이 휴대폰에서 삭제돼요. 삭제 후 몇 초 동안은 실행 취소할 수 있어요.</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s님은 연락처에 있어요. 이 발신자를 차단할까요? 새 메시지는 받은 메시지함 대신 차단함으로 들어가요. 바로 실행 취소할 수 있어요.</string>
+    <string name="convlist_block_contact_message">%1$s은(는) 연락처에 있어요. 이 발신자를 차단할까요? 대화 전체가 스팸함으로 이동하고 새 문자는 알림 없이 그곳에 와요. 바로 다음에 실행 취소할 수 있어요.</string>
     <string name="i29_color_red">빨강</string>
     <string name="i29_color_orange">주황</string>
     <string name="i29_color_yellow">노랑</string>
@@ -34,10 +34,10 @@
     <string name="rule_preview_loading">최근 메시지를 확인하는 중…</string>
     <string name="rule_preview_failed">최근 메시지를 확인하지 못했어요. 다시 시도해요.</string>
     <string name="rule_preview_nothing">아직 확인할 최근 메시지가 없어요.</string>
-    <string name="rule_preview_inbox">받은 메시지함: 최근 메시지 %2$d개 중 %1$d개가 이 규칙에 해당해요</string>
-    <string name="rule_preview_inbox_empty">받은 메시지함: 확인할 메시지가 없어요</string>
-    <string name="rule_preview_blocked">차단함: 최근 메시지 %2$d개 중 %1$d개가 이 규칙에 해당해요</string>
-    <string name="rule_preview_blocked_empty">차단함: 확인할 메시지가 없어요</string>
+    <string name="rule_preview_inbox">메시지: 최근 문자 %2$d개 중 %1$d개가 이 규칙에 해당해요</string>
+    <string name="rule_preview_inbox_empty">메시지: 확인할 문자가 없어요</string>
+    <string name="rule_preview_blocked">스팸: 최근 문자 %2$d개 중 %1$d개가 이 규칙에 해당해요</string>
+    <string name="rule_preview_blocked_empty">스팸: 확인할 문자가 없어요</string>
     <string name="rule_preview_examples">예: %1$s</string>
     <string name="n06_delete_confirm">저장한 문구를 삭제할까요?</string>
     <string name="screens_vcard_email_action">이메일</string>

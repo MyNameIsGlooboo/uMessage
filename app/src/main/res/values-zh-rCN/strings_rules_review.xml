@@ -6,11 +6,11 @@
     <string name="rules2_menu_export">将规则导出到文件</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">暂无始终允许的发件人</string>
-    <string name="rules2_empty_allowed_body">添加号码、发件人名称或词语，让匹配的消息始终进入收件箱。点按下方的“添加规则”。</string>
+    <string name="rules2_empty_allowed_body">添加必须始终进入“消息”的号码、发件人名称或词语。</string>
     <string name="rules2_empty_blocked_title">暂无始终屏蔽的发件人</string>
     <string name="rules2_empty_blocked_body">添加号码、发件人名称、词语或正则表达式，将匹配的消息移入“垃圾短信”。点按下方的“添加规则”。</string>
     <string name="rules2_migrate_title">移入uMessage规则</string>
-    <string name="rules2_migrate_point_blocked">之后短信会进入“垃圾短信”，可在其中恢复。</string>
+    <string name="rules2_migrate_point_blocked">之后他们的会话会进入“垃圾短信”，你可以从那里将其移回。</string>
     <string name="rules2_migrate_remove_needs_first">请先勾选上方选项</string>
     <string name="rules2_migrate_nothing_selected">未选择任何项目</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -39,7 +39,7 @@
     <plurals name="rules2_bn_move">
         <item quantity="other">将%1$d个号码移入规则</item>
     </plurals>
-    <string name="forward2_intro_reassure">仅转发进入收件箱的消息。垃圾短信绝不会被转发。</string>
+    <string name="forward2_intro_reassure">仅转发进入“消息”的短信。垃圾短信绝不会被转发。</string>
     <string name="forward2_empty_title">暂无转发规则</string>
     <string name="forward2_empty_body">将符合条件的消息（如银行提醒）转发一份到另一部手机。从以下模板中选择一个开始。</string>
     <string name="forward2_template_bank">转发银行提醒</string>
