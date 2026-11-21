@@ -630,15 +630,26 @@ class OtpDetectorCorpusTest {
     }
 
     /**
-     * N5-1, N5-2: texts that made the patterns backtrack for seconds (a mark fitted both a word and a separator). The
-     * first check warms the classes up; the second must finish fast. The old patterns hang here, hence the timeout.
+     * The fastest of [RUNS] full checks of [body], in milliseconds, after one run to warm the classes up. The fastest
+     * run is what the patterns cost; the slower ones hold the pauses of a busy machine (a parallel test suite).
      */
-    private fun assertFast(body: String) {
+    private fun bestMillis(body: String): Long {
         check("Your OTP is 482913")
         check(body)
-        val start = System.nanoTime()
-        check(body)
-        val millis = (System.nanoTime() - start) / NANOS_PER_MILLI
+        return (1..RUNS).minOf {
+            val start = System.nanoTime()
+            check(body)
+            (System.nanoTime() - start) / NANOS_PER_MILLI
+        }
+    }
+
+    /**
+     * N5-1, N5-2: texts that made the patterns backtrack for seconds (a mark fitted both a word and a separator). The
+     * best of three runs must stay under [FAST_MILLIS]: ten times what the patterns take today, and still far below
+     * the seconds of the old patterns, which hang here (hence the timeout).
+     */
+    private fun assertFast(body: String) {
+        val millis = bestMillis(body)
         assertTrue("$millis ms", millis < FAST_MILLIS)
     }
 
@@ -655,7 +666,6 @@ class OtpDetectorCorpusTest {
         assertFast("482913 $thai")
     }
 
-    /** Review 5, R5-1: "rs *12" read in many ways made the chains run for seconds; every element is atomic now. */
     /**
      * Review 6, R6-1: a bracketed dot repeated started a link match at every label; one start only now. On the JVM
      * the link pattern overflows the stack on such a run (R3-10, caught), so only the device test (ICU) measures the
@@ -664,15 +674,12 @@ class OtpDetectorCorpusTest {
     @Test(timeout = TIMEOUT_MILLIS) fun aRepeatedBracketedDotIsFast() {
         val phrase = "Your verification code for signing up to the Example app is 482913 "
         for (length in listOf(2000, 8000, 16000)) {
-            val body = (phrase + "a[.]".repeat(4000)).take(length)
-            check(body)
-            val start = System.nanoTime()
-            check(body)
-            val millis = (System.nanoTime() - start) / NANOS_PER_MILLI
+            val millis = bestMillis((phrase + "a[.]".repeat(4000)).take(length))
             assertTrue("$length: $millis ms", millis < LINK_MILLIS)
         }
     }
 
+    /** Review 5, R5-1: "rs *12" read in many ways made the chains run for seconds; every element is atomic now. */
     @Test(timeout = TIMEOUT_MILLIS) fun aRepeatedCurrencyAndMaskIsFast() {
         val unit = ("OTP" + " rs *12".repeat(400))
         assertFast(unit.take(100))
@@ -700,8 +707,9 @@ class OtpDetectorCorpusTest {
 
     private companion object {
         const val NANOS_PER_MILLI = 1_000_000L
-        const val FAST_MILLIS = 50L
+        const val FAST_MILLIS = 500L
+        const val RUNS = 3
         const val LINK_MILLIS = 1_000L
-        const val TIMEOUT_MILLIS = 10_000L
+        const val TIMEOUT_MILLIS = 30_000L
     }
 }

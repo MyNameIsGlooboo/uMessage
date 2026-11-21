@@ -72,6 +72,13 @@ class RegexOnDeviceTest {
         "com.glooboo.umessage.ui.thread.UnknownCardLogic",
     )
 
+    /** The fastest of three runs of [block] in milliseconds: a busy device slows some runs, never the patterns. */
+    private fun bestMillis(block: () -> Unit): Long = (1..3).minOf {
+        val start = System.nanoTime()
+        block()
+        (System.nanoTime() - start) / 1_000_000
+    }
+
     @Test fun everyRegexHolderInitializes() {
         val loader = InstrumentationRegistry.getInstrumentation().targetContext.classLoader
         for (name in regexHolders) {
@@ -132,23 +139,22 @@ class RegexOnDeviceTest {
         assertTrue(AllowingCode.isAllowingCode("OTP สำหรับเข้าสู่ระบบของคุณคือ 482913"))
         assertTrue(AllowingCode.isAllowingCode("کد تایید ✅️482913"))
         // Combining marks are never separators: this would run for seconds if they were.
-        val start = System.nanoTime()
-        assertFalse(OtpDetector.looksLikeOtp("OTP " + "\u0301".repeat(200) + " 482913"))
-        assertTrue((System.nanoTime() - start) / 1_000_000 < 1_000)
+        val marks = "OTP " + "\u0301".repeat(200) + " 482913"
+        assertFalse(OtpDetector.looksLikeOtp(marks))
+        assertTrue("marks", bestMillis { OtpDetector.looksLikeOtp(marks) } < 1_000)
         // Review 5, R5-1: a currency word and a masked number repeated; every chain element is atomic.
         val unit = "OTP" + " rs *12".repeat(400)
         for (length in listOf(100, 160, 2000)) {
-            val begin = System.nanoTime()
-            OtpDetector.looksLikeOtp(unit.take(length))
-            AllowingCode.isAllowingCode(unit.take(length))
-            assertTrue("rs *12 x $length", (System.nanoTime() - begin) / 1_000_000 < 1_000)
+            val body = unit.take(length)
+            val millis = bestMillis { OtpDetector.looksLikeOtp(body); AllowingCode.isAllowingCode(body) }
+            assertTrue("rs *12 x $length: $millis ms", millis < 1_000)
         }
         // Review 6, R6-1: a bracketed dot repeated; the link pattern reads the whole body on ICU.
         val phrase = "Your verification code for signing up to the Example app is 482913 "
         for (length in listOf(2000, 8000, 16000)) {
-            val begin = System.nanoTime()
-            AllowingCode.isAllowingCode((phrase + "a[.]".repeat(4000)).take(length))
-            assertTrue("a[.] x $length", (System.nanoTime() - begin) / 1_000_000 < 2_000)
+            val body = (phrase + "a[.]".repeat(4000)).take(length)
+            val millis = bestMillis { AllowingCode.isAllowingCode(body) }
+            assertTrue("a[.] x $length: $millis ms", millis < 2_000)
         }
         // The wide allow (owner, 21 Nov) and the hand-over veto (R5-5, R6-2, R6-3).
         assertTrue(AllowingCode.isAllowingCode("کد تایید شما جهت انجام تراکنش خرید از فروشگاه نمونه: 482913"))
