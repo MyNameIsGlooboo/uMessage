@@ -1,6 +1,7 @@
 package com.glooboo.umessage.ui.lock
 
 import android.app.Activity
+import android.view.View
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.AppLockGuard
@@ -52,6 +53,21 @@ class AppLockGuardTest {
         AppLockGuard.onActivityResumed(activity)
         val started = shadowOf(activity).nextStartedActivity
         assertEquals(LockActivity::class.java.name, started?.component?.className)
+    }
+
+    /** M-SEC1: not a frame of the screen is drawn under the lock screen; unlocked, the next resume shows it. */
+    @Test
+    fun `a locked screen keeps its content invisible until unlocked`() {
+        val activity = screen()
+        activity.baseConfig.isAppPasswordProtectionOn = true
+        activity.appLockManager.lock()
+        AppLockGuard.onActivityResumed(activity)
+        val content = activity.findViewById<View>(android.R.id.content)
+        assertEquals(View.INVISIBLE, content.visibility)
+
+        activity.appLockManager.unlock()
+        AppLockGuard.onActivityResumed(activity)
+        assertEquals(View.VISIBLE, content.visibility)
     }
 
     @Test
