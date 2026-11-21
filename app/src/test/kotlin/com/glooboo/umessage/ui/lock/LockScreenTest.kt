@@ -6,7 +6,9 @@ import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
@@ -16,6 +18,7 @@ import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -166,6 +169,29 @@ class LockScreenTest {
     fun `without a phone screen lock there is no forgot button`() {
         show(LockUiState(PROTECTION_PIN, screenLockAvailable = false), LockCallbacks())
         compose.onNodeWithText("Forgot it?", substring = true).assertDoesNotExist()
+    }
+
+    /** M-UI9: on a small phone with the largest fonts the pad does not fit; it scrolls, so it can still unlock. */
+    @Config(qualifiers = "w320dp-h480dp")
+    @Test
+    fun `a small phone with the largest fonts can still reach the whole keypad`() {
+        var confirmed = false
+        var asked = false
+        compose.setContent {
+            CompositionLocalProvider(LocalDensity provides Density(LocalDensity.current.density, fontScale = 2f)) {
+                UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
+                    LockContent(
+                        LockUiState(PROTECTION_PIN, screenLockAvailable = true),
+                        LockCallbacks(onConfirm = { confirmed = true }, onScreenLock = { asked = true }),
+                    )
+                }
+            }
+        }
+        compose.onNodeWithContentDescription("Confirm").performScrollTo().assertIsDisplayed().performClick()
+        compose.onNodeWithText("Forgot it? Use your phone's screen lock").performScrollTo().assertIsDisplayed()
+            .performClick()
+        assertTrue(confirmed)
+        assertTrue(asked)
     }
 
     @Config(qualifiers = "w411dp-h1200dp")

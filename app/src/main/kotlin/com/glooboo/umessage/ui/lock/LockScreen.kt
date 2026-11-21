@@ -29,7 +29,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -209,20 +211,25 @@ fun LockContent(state: LockUiState, callbacks: LockCallbacks, modifier: Modifier
             val height = maxHeight
             val sideBySide = width > height && height < 560.dp
             val shakeOffset = Modifier.offset { IntOffset(shake.value.dp.roundToPx(), 0) }
+            // M-UI9: centred when it fits, and it scrolls when it does not (a small phone with the largest fonts), so
+            // the keypad's last row and "Forgot your PIN?" can always be reached.
+            val scrolling = Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).heightIn(min = height)
             if (sideBySide) {
-                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxSize()) {
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = scrolling) {
                     Header(state, shakeOffset.weight(1f))
-                    Box(contentAlignment = Alignment.Center, modifier = Modifier.weight(1f).fillMaxHeight()) {
+                    Box(contentAlignment = Alignment.Center, modifier = Modifier.weight(1f)) {
                         Input(state, callbacks, width / 2, height)
                     }
                 }
             } else {
-                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxSize()) {
-                    Spacer(Modifier.weight(1f))
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = scrolling,
+                ) {
                     Header(state, shakeOffset)
                     Spacer(Modifier.height(32.dp))
                     Input(state, callbacks, width, height - HEADER_HEIGHT)
-                    Spacer(Modifier.weight(1f))
                 }
             }
         }
@@ -648,6 +655,13 @@ private fun PatternDarkPreview() = UMessageTheme(darkTheme = true, dynamicColor 
 @Composable
 private fun PinLandscapePreview() = UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
     LockContent(LockUiState(PROTECTION_PIN, pinLength = 5), LockCallbacks())
+}
+
+/** M-UI9: a small phone with the largest fonts; the pad scrolls instead of being cut off. */
+@Preview(name = "PIN small, font 2x", showBackground = true, widthDp = 320, heightDp = 480, fontScale = 2f)
+@Composable
+private fun PinSmallLargeFontPreview() = UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
+    LockContent(LockUiState(PROTECTION_PIN, pinLength = 2, screenLockAvailable = true), LockCallbacks())
 }
 
 @Preview(name = "Biometric light", showBackground = true, widthDp = 360, heightDp = 740)
