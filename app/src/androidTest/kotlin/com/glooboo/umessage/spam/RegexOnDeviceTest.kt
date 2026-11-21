@@ -143,10 +143,19 @@ class RegexOnDeviceTest {
             AllowingCode.isAllowingCode(unit.take(length))
             assertTrue("rs *12 x $length", (System.nanoTime() - begin) / 1_000_000 < 1_000)
         }
-        // The wide allow (owner, 21 Nov) and the hand-over veto (R5-5).
+        // Review 6, R6-1: a bracketed dot repeated; the link pattern reads the whole body on ICU.
+        val phrase = "Your verification code for signing up to the Example app is 482913 "
+        for (length in listOf(2000, 8000, 16000)) {
+            val begin = System.nanoTime()
+            AllowingCode.isAllowingCode((phrase + "a[.]".repeat(4000)).take(length))
+            assertTrue("a[.] x $length", (System.nanoTime() - begin) / 1_000_000 < 2_000)
+        }
+        // The wide allow (owner, 21 Nov) and the hand-over veto (R5-5, R6-2, R6-3).
         assertTrue(AllowingCode.isAllowingCode("کد تایید شما جهت انجام تراکنش خرید از فروشگاه نمونه: 482913"))
         assertFalse(AllowingCode.isAllowingCode("کد تایید ارسال شد، نوبت شما در مطب دکتر نمونه 482913"))
-        assertFalse(AllowingCode.isAllowingCode("Order 48291 arriving today, give the OTP to the courier"))
+        assertTrue(AllowingCode.isAllowingCode("Order 48291 arriving today, give the OTP to the courier"))
+        assertTrue(AllowingCode.isAllowingCode("Your OTP is 482913. Never tell the agent your OTP"))
+        assertFalse(AllowingCode.isAllowingCode("Your Example Bank OTP is 482913. Share it with the courier"))
     }
 
     /** The strict reading that allows a sender (check 10) builds its own patterns on top of the detector's. */

@@ -237,28 +237,65 @@ object AllowingCode {
     private val secrecy = Regex(words(secrecyPhrases), RegexOption.IGNORE_CASE)
 
     /**
-     * Lead, R5-5: a text that asks to hand the code to someone ("کد تایید را به کارشناس ما اعلام کنید", "share the OTP
-     * with the rider", "Reply with the verification code") or speaks of betting or a lottery never allows its sender.
-     * "Never share the code with anyone" is no such request.
+     * Lead, R5-5, R6-2, R6-3: a request to hand the code to someone never allows its sender, nor does a text of betting
+     * or a lottery. A warning is no request: "not", "never", "n't", "no one", "nobody" or "ask you to" earlier in the
+     * sentence (Persian "هرگز", "هیچ", "نمی خواهیم") makes it one ("Never tell the agent your OTP", "will never ask you
+     * to share the code with our agent", "کد را به کارشناس اعلام نکنید").
      */
-    private val handOverOrBet = Regex(
+    private const val WARNED_EN =
+        "(?<!(?:(?<![\\p{L}])(?:not|never|dont|no one|nobody|asks?|asked)|n't)[^.!?\\n]{0,24})"
+    private const val WARNED_FA = "(?<!(?<![\\p{L}])(?:هرگز|هیچ|نمی\\s?خواه\\p{L}{0,4})[^.!?\\n]{0,40})"
+    private const val ASK_EN = "(?:share|give|tell|read|send|provide|forward|confirm)" +
+        "(?: it| this| the| your)?(?: otp| code| verification code| pin)? (?:with|to) (?:the |our |your )?"
+    private const val ASK_FA_VERB = "(?:\\p{L}{1,12}\\s?){0,2}(?:اعلام کنید|اعلام نمایید|بگویید|بدهید|بفرستید|" +
+        "ارسال کنید|ارائه دهید|ارائه کنید|بخوانید)"
+
+    /** To an agent, a caller, an officer or support: never from the service whose code it is. */
+    private val handOverOfficial = Regex(
         "(?<![\\p{L}\\p{N}])(?:" +
-            "(?:به|برای)\\s?(?:کارشناس|اپراتور|مامور|نماینده|پیک)(?:\\s?\\p{L}{1,12}){0,2}\\s?" +
-            "(?:اعلام کنید|اعلام نمایید|بگویید|بدهید|بفرستید|ارسال کنید)|" +
-            "(?<!not |never |n't |dont |do not )(?:share|give|tell|read|send)" +
-            "(?: it| this| the| your)?(?: otp| code| verification code| pin)? (?:with|to) (?:the |our |your )?" +
-            "(?:agent|rider|courier|driver|caller|representative|executive)|" +
-            "tell the agent|reply with the (?:verification code|code|otp)|" +
-            "bet|betting|casino|sorteo|gewinnspiel|lucky draw|شرط ?بندی|کازینو|رهان|مراهنات" +
+            "$WARNED_FA(?:به|برای)\\s?(?:کارشناس|اپراتور|نماینده|پشتیبان|پشتیبانی|همکار|همکاران|مامور(?!\\s?تحویل))" +
+            "(?:\\s|$)$ASK_FA_VERB|" +
+            "$WARNED_EN(?:$ASK_EN(?:agent|caller|representative|executive|officer|staff|support team|support|" +
+            "customer care|team)|tell (?:the |our |your )agent|reply with the (?:verification code|code|otp))" +
             ")(?![\\p{L}\\p{N}])",
         RegexOption.IGNORE_CASE,
     )
+
+    /**
+     * To a driver, a rider or a courier (lead, R6-3): a ride or a delivery code ("Share this code with your driver",
+     * "این کد را به پیک بگویید"). It takes the allow only in a text about a bank, a payment, an account, a card or a
+     * login ([bankWord]): a courier never needs a bank code.
+     */
+    private val handOverDelivery = Regex(
+        "(?<![\\p{L}\\p{N}])(?:" +
+            "$WARNED_FA(?:به|برای)\\s?(?:پیک|راننده|سفیر|مامور\\s?تحویل)(?:\\s|$)$ASK_FA_VERB|" +
+            "$WARNED_EN$ASK_EN(?:rider|courier|driver|captain|delivery (?:agent|executive|partner|boy|person))" +
+            ")(?![\\p{L}\\p{N}])",
+        RegexOption.IGNORE_CASE,
+    )
+    private val bankWord = Regex(
+        "(?<![\\p{L}])(?:bank|banking|payment|account|a/c|card|login|log ?in|sign ?in|transaction|txn|upi|" +
+            "بانک|پرداخت|حساب|کارت|تراکنش|رمز پویا|بنک|البنک|بطاقه|بطاقتک|الحساب|حسابک|الدفع)(?![\\p{L}])",
+        RegexOption.IGNORE_CASE,
+    )
+
+    /** Betting and lotteries (R5-5, R6-4); "Bet365" stays a name, as "bet" needs a word edge. */
+    private val betting = Regex(
+        "(?<![\\p{L}\\p{N}])(?:bet|betting|casino|poker|sorteo|gewinnspiel|lucky draw|raffle|sweepstakes?|apostas?|" +
+            "apuestas?|bahis|казино|شرط ?بندی|پیش ?بینی|کازینو|رهان|مراهنات|السحب علی الجوائز)(?![\\p{L}\\p{N}])",
+        RegexOption.IGNORE_CASE,
+    )
+
+    /** Whether the folded [full] text asks to hand the code over, or speaks of betting ([handOverOfficial], ...). */
+    private fun handOverOrBet(full: String): Boolean =
+        handOverOfficial.containsMatchIn(full) || betting.containsMatchIn(full) ||
+            handOverDelivery.containsMatchIn(full) && bankWord.containsMatchIn(full)
 
     /** Whether [body] allows its sender for good (see the class comment). Never throws. */
     fun isAllowingCode(body: String): Boolean = runCatching {
         if (!OtpDetector.looksLikeOtp(body)) return@runCatching false
         val full = TextNormalizer.fold(body)
-        if (OtpDetector.hasAdvertisingWord(full) || handOverOrBet.containsMatchIn(full)) return@runCatching false
+        if (OtpDetector.hasAdvertisingWord(full) || handOverOrBet(full)) return@runCatching false
         val text = OtpDetector.scanned(full)
         val secret = secrecy.containsMatchIn(text)
         val bound = OtpDetector.isOriginBound(body)
@@ -322,25 +359,28 @@ object AllowingCode {
             durationAfter.containsMatchIn(tail) || sendTo.containsMatchIn(tail)
     }
 
+    /** Lead, R6-6: also the code of a door or an alarm ("کد ورود پارکینگ", "security code for the entrance"). */
+    private val narrowOnly = setOf("security code", "کد ورود")
+
     /**
      * A one-time code phrase up to eight words of the sentence before the code (owner, 21 Nov; lead, R5-4): never a
      * lasting secret ([staticSecrets]: "رمز عبور", "رمز ورود", "passcode"), never the code first.
      */
-    private val codePhrase = OtpDetector.keywordPattern(OtpKeywords.codePhrases - staticSecrets.toSet())
-    private val wideBefore = Regex("$codePhrase${OtpDetector.WIDE_NEAR}$", RegexOption.IGNORE_CASE)
+    private val codePhrase = OtpDetector.keywordPattern(OtpKeywords.codePhrases - staticSecrets.toSet() - narrowOnly)
     private val vetoBetween = Regex(veto, RegexOption.IGNORE_CASE)
 
     /** A comma between the phrase and the code starts another clause ("کد تایید ارسال شد، نوبت شما ..."). */
-    private val clauseBreak = Regex("[,\u060C\u061B](?![0-9])")
+    private val clauseBreak = Regex("[,\u060C\u061B](?![0-9])(?![^\\p{L}\\p{N}]*$)")
+    private val wideStarts = Regex("(?=($codePhrase${OtpDetector.WIDE_NEAR}$))", RegexOption.IGNORE_CASE)
 
     /**
      * Whether a one-time code phrase stands up to eight words before the code in [head], in one clause, with no veto
      * word in between, and the whole [body] has no link: a code the wider reach found that allows its sender.
      */
     private fun wideNear(body: String, head: String): Boolean {
-        val reach = wideBefore.find(head)?.value ?: return false
-        return !vetoBetween.containsMatchIn(reach) && !clauseBreak.containsMatchIn(reach) &&
-            !OtpDetector.containsUrl(body)
+        val clean = wideStarts.findAll(head).map { it.groupValues[1] }
+            .any { !vetoBetween.containsMatchIn(it) && !clauseBreak.containsMatchIn(it) }
+        return clean && !OtpDetector.containsUrl(body)
     }
 
     private fun allowsNear(text: String, range: IntRange, body: String): Boolean {

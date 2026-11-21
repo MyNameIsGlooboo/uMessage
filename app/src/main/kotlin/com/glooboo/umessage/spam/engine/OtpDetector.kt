@@ -107,7 +107,8 @@ object OtpDetector {
      * Bounded look-behinds, so Android's ICU engine accepts them.
      */
     private const val REFERENCE_WORDS = "(?:شماره کارت|شماره حساب|شماره پیگیری|شماره سفارش|به شماره|برای شماره|" +
-        "حساب شماره|کارت شماره|card number|card no|شناسه|مانده حساب|مانده|منتهی به|tracking number|" +
+        "حساب شماره|کارت شماره|card number|card no\\.?|account no\\.?|a/c no\\.?|acct no\\.?|" +
+        "شناسه|مانده حساب|مانده|منتهی به|tracking number|" +
         "account number|order number|reference number|" +
         "account ending in|account ending|card ending|a/c ending|phone ending|number ending|mobile ending|ending in|" +
         "ending with|balance)"
@@ -316,7 +317,8 @@ object OtpDetector {
     private const val DOT = "(?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\))"
     private const val URL_LABEL = "[a-z0-9][a-z0-9\\-]*"
     /** Not glued to a Latin letter or digit; a Persian or other non-Latin letter before a domain does not hide it. */
-    private const val URL_START = "(?<![a-z0-9\\u00C0-\\u024F@.\\-])"
+    private const val URL_START = "(?<![a-z0-9\\u00C0-\\u024F@.\\-])" +
+        "(?<!\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\))"
 
     private val url = Regex(
         "h[xt]{2}ps?://|www$DOT" +

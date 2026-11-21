@@ -86,7 +86,7 @@ class OtpDetectorCorpusTest {
             "Verification code accepted, welcome to Example, your member card 482913 is active",
             // a veto word six words before the code
             "Your verification code for tracking your Example Shop order today is 482913",
-        ).forEach { assertFalse(it, allows(it)) }
+        ).forEach { assertTrue(it, shown(it)); assertFalse(it, allows(it)) }
         val filler = " Thank you for choosing Example. We are glad to have you with us today.".repeat(30)
         val link = "https://example.com/login"
         assertShownOnly("Your verification code for signing up to the Example app is 482913.$filler $link", "482913")
@@ -100,10 +100,67 @@ class OtpDetectorCorpusTest {
             "Ihr Bestätigungscode für das Gewinnspiel im Beispiel Markt lautet 482913",
             "حساب شما مسدود شد، کد تایید ارسالی را به کارشناس ما اعلام کنید 482913",
             "Reply with the verification code to confirm you are the owner 482913",
-            "Order 48291 arriving today, give the OTP to the courier",
-        ).forEach { assertFalse(it, allows(it)) }
-        // "Never share it with anyone" is the opposite of a request.
-        assertShownAndAllows("Your OTP is 482913. Do not share it with the courier or anyone else", "482913")
+            // R6-4
+            "Your verification code for unblocking your account at Example Bank is 482913 provide it to our officer",
+            "کد تایید 482913 را به پشتیبان اعلام کنید",
+            "کد تایید شما در سایت پیش بینی نمونه 482913",
+            "Your verification code for the Example raffle entry is 482913",
+            "Your OTP for the Example sweepstakes entry this month is 482913",
+            "Seu código de verificação para apostas na Exemplo é 482913",
+        ).forEach { assertShownOnly(it, "482913") }
+        // "bet" inside a name is no betting word.
+        assertShownAndAllows("Your Bet365 verification code is 482913", "482913")
+    }
+
+    /** Review 6, R6-2: a warning not to hand the code over is no request; the code allows. */
+    @Test fun aWarningIsNoHandOverRequest() {
+        listOf(
+            "Your OTP is 482913. Never tell the agent your OTP",
+            "Your OTP is 482913. Example will never ask you to share the code with our agent",
+            "Your OTP is 482913. Do not share or give the code to the caller",
+            "Your OTP is 482913. Do not reply with the code",
+            "Your OTP is 482913. Do not share it with the courier or anyone else",
+            "کد تایید: 482913 این کد را به کارشناس ما اعلام نکنید",
+            "کد تایید: 482913 کارشناسان ما هرگز از شما نمی خواهند کد را به کارشناس اعلام کنید",
+            "کد تایید شما 482913 است. از شما نمی خواهیم کد را به اپراتور بگویید",
+        ).forEach { assertShownAndAllows(it, "482913") }
+    }
+
+    /**
+     * Lead, R6-3: a ride or delivery code may be shown to the driver or courier, unless the text is about a bank, a
+     * payment, an account, a card or a login; an agent, a caller, an officer or support never needs the code.
+     */
+    @Test fun aRideOrDeliveryCodeMayGoToTheDriver() {
+        assertShownAndAllows("Your Uber code is 4829. Share this code with your driver", "4829")
+        assertShownAndAllows("کد تایید تحویل: 482913 این کد را به پیک بگویید", "482913")
+        assertShownAndAllows("Share OTP 4829 with the rider to receive your order", "4829")
+        assertShownAndAllows("Order 48291 arriving today, give the OTP to the courier", "48291")
+        assertShownOnly("Your Example Bank OTP is 482913. Share it with the courier at the door", "482913")
+        assertShownOnly("Your OTP is 482913. Share it with the agent who calls you", "482913")
+    }
+
+    /** Review 6: R6-6 (door and alarm codes), R6-5 (two phrases, a comma before the code), R6-7 (notice side). */
+    @Test fun wideReachLimitsOfReviewSix() {
+        assertShownOnly("The security code for the main entrance door this month is 4829", "4829")
+        assertShownOnly("کد ورود پارکینگ ساختمان نمونه برای مهمانان این هفته 4829", "4829")
+        assertShownAndAllows("Your security code is 482913", "482913")
+        assertShownAndAllows("رمز پویا، کد تایید شما برای خرید از فروشگاه نمونه: 482913", "482913")
+        assertShownAndAllows("کد تایید شما برای ورود به سامانه نمونه، 482913", "482913")
+        assertShownAndAllows("Your OTP for the purchase on card no. 1234 at Example Store is 482913", "482913")
+        listOf("Your verification code at gate 4829", "Your OTP for terminal 4829", "Seat 4829 verification code")
+            .forEach { assertShownOnly(it, "4829") }
+    }
+
+    /**
+     * The step word may stand right before its number or carry a full stop ("Rs.2500", "USD49.99", "ending1234"):
+     * the separator of the in-sentence step may be empty.
+     */
+    @Test fun aStepWordGluedToItsNumberIsSteppedOver() {
+        listOf(
+            "OTP for txn of Rs.2500 at EXAMPLE is 482913",
+            "OTP for purchase of USD49.99 at Example Store today is 482913",
+            "Your OTP for the transaction on card ending1234 at Example is 482913",
+        ).forEach { assertShownAndAllows(it, "482913") }
     }
 
     /** Review 5, R5-2: flight, gate, terminal, seat and پذیرنده name a number only right before it. */
@@ -587,6 +644,23 @@ class OtpDetectorCorpusTest {
     }
 
     /** Review 5, R5-1: "rs *12" read in many ways made the chains run for seconds; every element is atomic now. */
+    /**
+     * Review 6, R6-1: a bracketed dot repeated started a link match at every label; one start only now. On the JVM
+     * the link pattern overflows the stack on such a run (R3-10, caught), so only the device test (ICU) measures the
+     * old cost of seconds; here the bound is one second.
+     */
+    @Test(timeout = TIMEOUT_MILLIS) fun aRepeatedBracketedDotIsFast() {
+        val phrase = "Your verification code for signing up to the Example app is 482913 "
+        for (length in listOf(2000, 8000, 16000)) {
+            val body = (phrase + "a[.]".repeat(4000)).take(length)
+            check(body)
+            val start = System.nanoTime()
+            check(body)
+            val millis = (System.nanoTime() - start) / NANOS_PER_MILLI
+            assertTrue("$length: $millis ms", millis < LINK_MILLIS)
+        }
+    }
+
     @Test(timeout = TIMEOUT_MILLIS) fun aRepeatedCurrencyAndMaskIsFast() {
         val unit = ("OTP" + " rs *12".repeat(400))
         assertFast(unit.take(100))
@@ -615,6 +689,7 @@ class OtpDetectorCorpusTest {
     private companion object {
         const val NANOS_PER_MILLI = 1_000_000L
         const val FAST_MILLIS = 50L
+        const val LINK_MILLIS = 1_000L
         const val TIMEOUT_MILLIS = 10_000L
     }
 }
