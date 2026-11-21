@@ -433,7 +433,15 @@ open class ThreadActivity : ComposeSimpleActivity() {
             return
         }
 
+        // M-UI5: "Done" in the people panel brings the composer's attachments along (its text comes as THREAD_TEXT).
+        val keptAttachments = if (intent.getBooleanExtra(ThreadPeopleController.EXTRA_KEEP_ATTACHMENTS, false)) {
+            vm.attachments
+        } else {
+            emptyList()
+        }
+        intent.removeExtra(ThreadPeopleController.EXTRA_KEEP_ATTACHMENTS)
         resetForNewConversation()
+        keptAttachments.forEach(vm::addAttachment)
         draftRestored = false
         readIntentExtras()
         // onResume does not run again for a chat that is already in front: the hidden-chat cover is decided here.

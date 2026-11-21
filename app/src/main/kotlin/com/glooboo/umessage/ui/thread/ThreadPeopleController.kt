@@ -7,10 +7,12 @@ import com.glooboo.umessage.activities.ThreadActivity
 import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.THREAD_NUMBER
+import com.glooboo.umessage.helpers.THREAD_TEXT
 import com.glooboo.umessage.ui.components.pickPhoneNumber
 import com.google.gson.Gson
 import org.fossify.commons.extensions.hideKeyboard
 import org.fossify.commons.helpers.SimpleContactsHelper
+import org.fossify.commons.helpers.ensureBackgroundThread
 import org.fossify.commons.models.SimpleContact
 
 /**
@@ -84,20 +86,45 @@ class ThreadPeopleController(
         onPeopleChanged()
     }
 
-    /** "Done": a different set of people is a different conversation, which opens in place of this one. */
+    /**
+     * "Done": a different set of people is a different conversation, which opens in place of this one. M-UI5: its
+     * thread is looked up off the main thread (a provider query), and what is typed and attached goes with it.
+     */
     fun confirm() {
         activity.hideKeyboard()
         vm.showPeople = false
         val numbers = HashSet(recipients().addresses)
-        val newThreadId = activity.getThreadId(numbers)
-        if (threadId() != newThreadId) {
-            activity.hideKeyboard()
-            Intent(activity, ThreadActivity::class.java).apply {
-                putExtra(THREAD_ID, newThreadId)
-                putExtra(THREAD_NUMBER, Gson().toJson(numbers))
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                activity.startActivity(this)
+        val current = threadId()
+        ensureBackgroundThread {
+            val newThreadId = activity.getThreadId(numbers)
+            activity.runOnUiThread {
+                // Nothing when the screen closed or another chat opened meanwhile.
+                if (activity.isFinishing || activity.isDestroyed || threadId() != current) return@runOnUiThread
+                if (current != newThreadId) open(newThreadId, numbers)
             }
         }
+    }
+
+    private fun open(newThreadId: Long, numbers: Set<String>) {
+        activity.hideKeyboard()
+        val typed = vm.text.text.toString()
+        Intent(activity, ThreadActivity::class.java).apply {
+            putExtra(THREAD_ID, newThreadId)
+            putExtra(THREAD_NUMBER, Gson().toJson(numbers))
+            if (typed.isNotEmpty()) putExtra(THREAD_TEXT, typed)
+            if (vm.attachments.isNotEmpty()) putExtra(EXTRA_KEEP_ATTACHMENTS, true)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            // The text moves to the other chat: emptied here, so this chat does not keep a copy as its draft.
+            vm.text.clearText()
+            activity.startActivity(this)
+        }
+    }
+
+    companion object {
+        /**
+         * Boolean extra (M-UI5): the chat opened in place keeps the attachments of the composer. They are the app's
+         * own files, which a shared attachment (THREAD_ATTACHMENT_URIS) may not be, so they stay in the view model.
+         */
+        const val EXTRA_KEEP_ATTACHMENTS = "thread_keep_attachments"
     }
 }
