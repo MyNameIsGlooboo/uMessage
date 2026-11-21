@@ -139,11 +139,23 @@ class OtpDetectorCorpusTest {
         assertShownOnly("Your OTP is 482913. Share it with the agent who calls you", "482913")
     }
 
-    /** Review 6: R6-6 (door and alarm codes), R6-5 (two phrases, a comma before the code), R6-7 (notice side). */
+    /**
+     * Review 6: R6-6 (login codes allow, door and car park codes do not), R6-5 (two phrases, a comma before the
+     * code), R6-7 (notice side).
+     */
     @Test fun wideReachLimitsOfReviewSix() {
+        // Lead, R6-6 as corrected: a login code allows, a physical access code (door, car park) does not.
         assertShownOnly("The security code for the main entrance door this month is 4829", "4829")
         assertShownOnly("کد ورود پارکینگ ساختمان نمونه برای مهمانان این هفته 4829", "4829")
+        assertShownOnly("کد ورود درب ساختمان برای پیک و مهمان این ماه 4829", "4829")
+        assertShownAndAllows("کد ورود شما به سامانه نمونه در این دستگاه 482913", "482913")
+        assertShownAndAllows("کد ورود به جلسه آنلاین مدرسه نمونه برای اولیا 482913", "482913")
+        assertShownAndAllows("Your security code for the Example app on this device is 482913", "482913")
         assertShownAndAllows("Your security code is 482913", "482913")
+        // "Your door" is where a parcel arrives, not a door code.
+        val delivery = "Order number 77123: verification code for confirming the delivery at your door is 482913"
+        assertShownAndAllows(delivery, "482913")
+        assertShownOnly("Door code 4821 - do not share", "4821")
         assertShownAndAllows("رمز پویا، کد تایید شما برای خرید از فروشگاه نمونه: 482913", "482913")
         assertShownAndAllows("کد تایید شما برای ورود به سامانه نمونه، 482913", "482913")
         assertShownAndAllows("Your OTP for the purchase on card no. 1234 at Example Store is 482913", "482913")

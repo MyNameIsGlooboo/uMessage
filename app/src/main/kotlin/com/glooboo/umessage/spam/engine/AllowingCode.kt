@@ -83,10 +83,13 @@ object AllowingCode {
         "order id", "order code", "ref no", "ref number", "reference no", "reference number", "booking ref",
         "booking reference", "referral", "branch", "queue", "stock", "zip", "postal code", "postcode", "error",
         "checkout", "toll[- ]?free", "changed",
+        // Lead, R6-6: a physical access code (a door, a car park, a locker) allows nobody, however it is named; "your
+        // door" and "the door" are where a parcel arrives.
+        "entrance", "(?<!your.|the.)door", "gate code", "building", "parking", "garage", "locker",
         // Persian
         "پیگیری", "رهگیری", "مرسوله", "کد سفارش", "شماره سفارش", "کد معرف", "کد معرفی", "کد شعبه", "کد نوبت",
         "شماره نوبت", "کد بورسی", "کد پستی", "کد مشتری", "شماره مشتری", "کد اشتراک", "کد ملی", "کد رزرو", "کد خطا",
-        "شناسه پرداخت", "تغییر کرد", "تغییر یافت",
+        "شناسه پرداخت", "تغییر کرد", "تغییر یافت", "درب", "در ورودی", "پارکینگ", "ساختمان", "آسانسور",
         // Arabic; "تم تغییر" (has been changed) and "المنتهیه" (ending in). The words of a card, an account, a blocked
         // or expired password are [noticeWords]. The bare "تغییر" is left out: it is also the Persian word in "کد تایید
         // تغییر شماره: 482913"; so is "حسابک", as in "رمز التحقق الخاص بحسابك هو 482913".
@@ -359,14 +362,11 @@ object AllowingCode {
             durationAfter.containsMatchIn(tail) || sendTo.containsMatchIn(tail)
     }
 
-    /** Lead, R6-6: also the code of a door or an alarm ("کد ورود پارکینگ", "security code for the entrance"). */
-    private val narrowOnly = setOf("security code", "کد ورود")
-
     /**
      * A one-time code phrase up to eight words of the sentence before the code (owner, 21 Nov; lead, R5-4): never a
      * lasting secret ([staticSecrets]: "رمز عبور", "رمز ورود", "passcode"), never the code first.
      */
-    private val codePhrase = OtpDetector.keywordPattern(OtpKeywords.codePhrases - staticSecrets.toSet() - narrowOnly)
+    private val codePhrase = OtpDetector.keywordPattern(OtpKeywords.codePhrases - staticSecrets.toSet())
     private val vetoBetween = Regex(veto, RegexOption.IGNORE_CASE)
 
     /** A comma between the phrase and the code starts another clause ("کد تایید ارسال شد، نوبت شما ..."). */
