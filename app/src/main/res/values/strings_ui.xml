@@ -25,7 +25,6 @@
 
     <!-- Settings -->
     <string name="ui_settings_system_block_list">System block list</string>
-    <string name="ui_settings_system_block_list_body">Numbers blocked for every app on this phone. uMessage also hides them.</string>
     <string name="ui_settings_blocked_words">Blocked words</string>
     <string name="ui_settings_character_counter">Show character counter</string>
     <string name="ui_settings_send_on_enter">Send with Enter key</string>

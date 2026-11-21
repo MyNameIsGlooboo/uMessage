@@ -16,7 +16,6 @@
     <string name="ui_show_dialpad">نمایش صفحهٔ شماره‌گیری</string>
     <string name="ui_show_keyboard">نمایش کیبورد</string>
     <string name="ui_settings_system_block_list">لیست بلاک سیستم</string>
-    <string name="ui_settings_system_block_list_body">شماره‌هایی که در همهٔ برنامه‌های این گوشی بلاک شده‌اند. uMessage هم آن‌ها را پنهان می‌کند.</string>
     <string name="ui_settings_blocked_words">کلمه‌های بلاک‌شده</string>
     <string name="ui_settings_character_counter">نمایش شمارندهٔ کاراکتر</string>
     <string name="ui_settings_send_on_enter">ارسال با کلید Enter</string>

@@ -21,7 +21,6 @@
     <string name="rules2_sheet_delete">删除规则</string>
     <string name="rules2_sheet_hint_empty">输入内容后继续</string>
     <string name="rules2_sheet_hint_fix">修正上方内容后继续</string>
-    <string name="rules2_sheet_sim_help">针对某张SIM的规则仅适用于该SIM收到的消息。</string>
     <string name="rules2_type_number_help">完整的电话号码，例如+15550001234或05550001234。也支持3000等短号码和波斯数字。</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">所有以此开头的号码，例如+1555或0555。</string>

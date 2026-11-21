@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">Bilinmeyen gönderen</string>
     <string name="w3b_filter_rules">Kurallarım</string>
     <string name="w3b_filter_link">Bağlantı içeriyor</string>
-    <string name="w3b_filter_sim">SIM %1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">Eşleşen bekletilmiş mesaj yok</string>
     <string name="w3b_filter_none_body">Bekletilen mesajların hiçbiri bu filtreye uymuyor. Başka bir filtre seçin veya tümünü gösterin.</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">Gönderen</string>
     <string name="w3b_test_sender_hint">Numara veya ad, örneğin +1555… veya MYBANK</string>
     <string name="w3b_test_text">Mesaj metni</string>
-    <string name="w3b_test_sim">SIM</string>
     <string name="w3b_test_run">Test edin</string>
     <string name="w3b_test_create_rule">Kural oluşturun</string>
     <string name="w3b_test_close">Kapatın</string>

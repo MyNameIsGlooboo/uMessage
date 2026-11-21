@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">ผู้ส่งที่ไม่รู้จัก</string>
     <string name="w3b_filter_rules">กฎของฉัน</string>
     <string name="w3b_filter_link">มีลิงก์</string>
-    <string name="w3b_filter_sim">SIM %1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">ไม่พบข้อความที่พักไว้ที่ตรงกัน</string>
     <string name="w3b_filter_none_body">ไม่มีข้อความที่พักไว้ตรงกับตัวกรองนี้ เลือกตัวกรองอื่น หรือแสดงทั้งหมด</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">ผู้ส่ง</string>
     <string name="w3b_test_sender_hint">หมายเลขหรือชื่อ เช่น +1555… หรือ MYBANK</string>
     <string name="w3b_test_text">เนื้อหาข้อความ</string>
-    <string name="w3b_test_sim">SIM</string>
     <string name="w3b_test_run">ทดสอบ</string>
     <string name="w3b_test_create_rule">สร้างกฎ</string>
     <string name="w3b_test_close">ปิด</string>

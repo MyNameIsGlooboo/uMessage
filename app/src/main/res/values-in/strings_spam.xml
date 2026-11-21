@@ -26,17 +26,13 @@
     <string name="spam_reason_unknown_sender">Pengirim tidak dikenal</string>
     <string name="spam_reason_other">Difilter</string>
     <string name="spam_sim_label">SIM %d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">Kedua SIM</string>
-    <string name="spam_sim_missing">SIM tidak ada di ponsel</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
     <string name="spam_rules_tab_allowed">Diizinkan</string>
     <string name="spam_rules_tab_blocked">Diblokir</string>
     <string name="spam_rules_add">Tambah aturan</string>
     <string name="spam_rules_empty_allowed_title">Belum ada aturan diizinkan</string>
-    <string name="spam_rules_empty_allowed_body">Apa pun yang diizinkan selalu masuk ke kotak masuk, bahkan dalam mode filter ketat. Tambahkan nomor, nama pengirim, atau kata kunci.</string>
     <string name="spam_rules_empty_blocked_title">Belum ada aturan blokir</string>
-    <string name="spam_rules_empty_blocked_body">Blokir nomor, awalan nomor, nama pengirim, kata kunci, atau pola (regex). Pesan mereka masuk ke Spam.</string>
     <string name="spam_rules_delete_rule">Hapus aturan %s</string>
     <string name="spam_rules_deleted">Aturan dihapus</string>
     <plurals name="spam_rules_imported">

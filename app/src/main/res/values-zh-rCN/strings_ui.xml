@@ -15,7 +15,6 @@
     <string name="ui_show_dialpad">显示拨号键盘</string>
     <string name="ui_show_keyboard">显示键盘</string>
     <string name="ui_settings_system_block_list">系统屏蔽列表</string>
-    <string name="ui_settings_system_block_list_body">这些号码在此手机的所有应用中均已屏蔽。uMessage也会隐藏这些号码的消息。</string>
     <string name="ui_settings_blocked_words">屏蔽词</string>
     <string name="ui_settings_character_counter">显示字符数</string>
     <string name="ui_settings_send_on_enter">按回车键发送</string>

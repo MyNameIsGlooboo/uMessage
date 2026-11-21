@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">Pengirim tidak dikenal</string>
     <string name="w3b_filter_rules">Aturan saya</string>
     <string name="w3b_filter_link">Ada tautan</string>
-    <string name="w3b_filter_sim">SIM %1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">Tidak ada pesan ditahan yang cocok</string>
     <string name="w3b_filter_none_body">Tidak ada pesan ditahan yang sesuai filter ini. Pilih filter lain, atau tampilkan semua.</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">Pengirim</string>
     <string name="w3b_test_sender_hint">Nomor atau nama, seperti +1555… atau MYBANK</string>
     <string name="w3b_test_text">Teks pesan</string>
-    <string name="w3b_test_sim">SIM</string>
     <string name="w3b_test_run">Uji</string>
     <string name="w3b_test_create_rule">Buat aturan</string>
     <string name="w3b_test_close">Tutup</string>

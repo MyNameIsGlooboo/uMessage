@@ -28,17 +28,13 @@
     <string name="spam_reason_unknown_sender">نامعلوم بھیجنے والا</string>
     <string name="spam_reason_other">فلٹر شدہ</string>
     <string name="spam_sim_label">SIM %d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">دونوں SIM</string>
-    <string name="spam_sim_missing">SIM فون میں نہیں</string>
     <string name="spam_sim_named">SIM %1$d، %2$s</string>
     <string name="spam_rules_tab_allowed">اجازت یافتہ</string>
     <string name="spam_rules_tab_blocked">بلاک شدہ</string>
     <string name="spam_rules_add">اصول شامل کریں</string>
     <string name="spam_rules_empty_allowed_title">اجازت کا کوئی اصول نہیں</string>
-    <string name="spam_rules_empty_allowed_body">جس چیز کی آپ اجازت دیں وہ ہمیشہ آپ کے ان باکس میں پہنچتی ہے، سخت موڈ میں بھی۔ کوئی نمبر، بھیجنے والے کا نام یا کلیدی لفظ شامل کریں۔</string>
     <string name="spam_rules_empty_blocked_title">بلاک کا کوئی اصول نہیں</string>
-    <string name="spam_rules_empty_blocked_body">کوئی نمبر، ابتدائیہ، بھیجنے والے کا نام، کلیدی لفظ یا پیٹرن بلاک کریں۔ ان کے پیغامات اسپیم میں جاتے ہیں۔</string>
     <string name="spam_rules_delete_rule">اصول %s حذف کریں</string>
     <string name="spam_rules_deleted">اصول حذف ہو گیا</string>
     <plurals name="spam_rules_imported">

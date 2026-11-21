@@ -13,11 +13,6 @@
     <string name="convlist_selected">選択済み</string>
     <string name="convlist_sim">SIM%1$d</string>
     <string name="convlist_scroll_handle">高速スクロール</string>
-    <plurals name="convlist_blocked_banner">
-        <item quantity="other">迷惑メッセージ%d件</item>
-    </plurals>
-    <string name="convlist_blocked_banner_title">迷惑メッセージ</string>
-    <string name="convlist_blocked_banner_cd">迷惑メッセージが%1$d件あります。迷惑メッセージフォルダを開きます。</string>
     <string name="convlist_archive">アーカイブ</string>
     <string name="convlist_delete">削除</string>
     <string name="convlist_pin">最上部に固定</string>

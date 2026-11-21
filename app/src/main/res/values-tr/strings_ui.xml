@@ -16,7 +16,6 @@
     <string name="ui_show_dialpad">Arama tuşlarını gösterin</string>
     <string name="ui_show_keyboard">Klavyeyi gösterin</string>
     <string name="ui_settings_system_block_list">Sistemin engellenenler listesi</string>
-    <string name="ui_settings_system_block_list_body">Bu telefondaki tüm uygulamalarda engellenen numaralar. uMessage da bunları gizler.</string>
     <string name="ui_settings_blocked_words">Engellenen kelimeler</string>
     <string name="ui_settings_character_counter">Karakter sayacını gösterin</string>
     <string name="ui_settings_send_on_enter">Enter tuşuyla gönderin</string>

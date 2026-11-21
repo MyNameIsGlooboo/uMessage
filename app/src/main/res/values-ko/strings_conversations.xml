@@ -13,11 +13,6 @@
     <string name="convlist_selected">선택됨</string>
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">빠른 스크롤</string>
-    <plurals name="convlist_blocked_banner">
-        <item quantity="other">스팸 메시지 %d건</item>
-    </plurals>
-    <string name="convlist_blocked_banner_title">스팸</string>
-    <string name="convlist_blocked_banner_cd">스팸 메시지가 %1$d건 있어요. 스팸함을 열어요.</string>
     <string name="convlist_archive">보관</string>
     <string name="convlist_delete">삭제</string>
     <string name="convlist_pin">상단 고정</string>

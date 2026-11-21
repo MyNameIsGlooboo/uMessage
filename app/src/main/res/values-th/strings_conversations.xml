@@ -13,11 +13,6 @@
     <string name="convlist_selected">เลือกแล้ว</string>
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">เลื่อนอย่างรวดเร็ว</string>
-    <plurals name="convlist_blocked_banner">
-        <item quantity="other">ข้อความสแปม %d ข้อความ</item>
-    </plurals>
-    <string name="convlist_blocked_banner_title">สแปม</string>
-    <string name="convlist_blocked_banner_cd">ข้อความสแปม %1$d ข้อความ เปิดโฟลเดอร์สแปม</string>
     <string name="convlist_archive">เก็บถาวร</string>
     <string name="convlist_delete">ลบ</string>
     <string name="convlist_pin">ปักหมุดไว้บนสุด</string>

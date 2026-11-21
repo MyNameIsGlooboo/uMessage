@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">فرستنده ناشناس</string>
     <string name="w3b_filter_rules">قانون‌های من</string>
     <string name="w3b_filter_link">لینک‌دار</string>
-    <string name="w3b_filter_sim">سیم‌کارت %1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">هیچ پیام نگه‌داشته‌شده‌ای جور نیست</string>
     <string name="w3b_filter_none_body">هیچ پیام نگه‌داشته‌شده‌ای با این فیلتر جور نیست. فیلتر دیگری انتخاب کنید یا همه را نمایش دهید.</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">فرستنده</string>
     <string name="w3b_test_sender_hint">شماره یا نام، مانند +1555… یا MYBANK</string>
     <string name="w3b_test_text">متن پیام</string>
-    <string name="w3b_test_sim">سیم‌کارت</string>
     <string name="w3b_test_run">آزمایش</string>
     <string name="w3b_test_create_rule">ساختن قانون</string>
     <string name="w3b_test_close">بستن</string>

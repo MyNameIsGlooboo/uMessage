@@ -22,7 +22,6 @@
     <string name="rules2_sheet_delete">Kuralı silin</string>
     <string name="rules2_sheet_hint_empty">Devam etmek için bir değer girin</string>
     <string name="rules2_sheet_hint_fix">Devam etmek için yukarıdaki değeri düzeltin</string>
-    <string name="rules2_sheet_sim_help">Bir SIM için belirlenen kurallar yalnızca o SIM\'e gelen mesajlara uygulanır.</string>
     <string name="rules2_type_number_help">Tam telefon numarası, örneğin +15550001234 veya 05550001234. 3000 gibi kısa numaralar da kullanılabilir. Farsça rakamlar da geçerlidir.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Bu rakamlarla başlayan tüm numaralar, örneğin +1555 veya 0555.</string>

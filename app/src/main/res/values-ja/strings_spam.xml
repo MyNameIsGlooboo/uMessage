@@ -26,17 +26,13 @@
     <string name="spam_reason_unknown_sender">不明な送信者</string>
     <string name="spam_reason_other">フィルターでブロック済み</string>
     <string name="spam_sim_label">SIM%d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">両方のSIM</string>
-    <string name="spam_sim_missing">端末にないSIM</string>
     <string name="spam_sim_named">SIM%1$d、%2$s</string>
     <string name="spam_rules_tab_allowed">許可済み</string>
     <string name="spam_rules_tab_blocked">ブロック済み</string>
     <string name="spam_rules_add">ルールを追加</string>
     <string name="spam_rules_empty_allowed_title">許可ルールはありません</string>
-    <string name="spam_rules_empty_allowed_body">許可したメッセージは、厳格モードでも必ず受信トレイに届きます。電話番号、送信者名、キーワードを追加できます。</string>
     <string name="spam_rules_empty_blocked_title">ブロックルールはありません</string>
-    <string name="spam_rules_empty_blocked_body">電話番号、先頭の番号、送信者名、キーワード、パターン（正規表現）でブロックできます。該当するメッセージは「迷惑メッセージ」フォルダに入ります。</string>
     <string name="spam_rules_delete_rule">ルール%sを削除</string>
     <string name="spam_rules_deleted">ルールを削除しました。</string>
     <plurals name="spam_rules_imported">

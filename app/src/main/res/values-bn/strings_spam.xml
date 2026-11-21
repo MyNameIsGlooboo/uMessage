@@ -28,17 +28,13 @@
     <string name="spam_reason_unknown_sender">অচেনা প্রেরক</string>
     <string name="spam_reason_other">ফিল্টারে আটকানো</string>
     <string name="spam_sim_label">SIM %d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">দুটি SIM-ই</string>
-    <string name="spam_sim_missing">ফোনে SIM নেই</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
     <string name="spam_rules_tab_allowed">অনুমতি দেওয়া</string>
     <string name="spam_rules_tab_blocked">ব্লক করা</string>
     <string name="spam_rules_add">নিয়ম যোগ করুন</string>
     <string name="spam_rules_empty_allowed_title">অনুমতি দেওয়ার কোনো নিয়ম নেই</string>
-    <string name="spam_rules_empty_allowed_body">আপনি যেগুলিকে অনুমতি দেন, সেগুলি সবসময় আপনার ইনবক্সে পৌঁছায়, এমনকি কঠোর মোডেও। একটি নম্বর, প্রেরকের নাম বা কিওয়ার্ড যোগ করুন।</string>
     <string name="spam_rules_empty_blocked_title">ব্লক করার কোনো নিয়ম নেই</string>
-    <string name="spam_rules_empty_blocked_body">একটি নম্বর, নম্বরের শুরুর অংশ, প্রেরকের নাম, কিওয়ার্ড বা প্যাটার্ন (রেগেক্স) ব্লক করুন। ওদের বার্তা স্প্যামে যায়।</string>
     <string name="spam_rules_delete_rule">%s নিয়ম মুছুন</string>
     <string name="spam_rules_deleted">নিয়ম মুছে ফেলা হয়েছে</string>
     <plurals name="spam_rules_imported" tools:ignore="ImpliedQuantity">

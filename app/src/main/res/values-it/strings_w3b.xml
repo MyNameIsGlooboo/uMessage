@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">Mittente sconosciuto</string>
     <string name="w3b_filter_rules">Le mie regole</string>
     <string name="w3b_filter_link">Con link</string>
-    <string name="w3b_filter_sim">SIM %1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">Nessun messaggio trattenuto corrisponde</string>
     <string name="w3b_filter_none_body">Nessun messaggio trattenuto corrisponde al filtro. Scegline un altro o mostra tutto.</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">Mittente</string>
     <string name="w3b_test_sender_hint">Numero o nome, ad esempio +1555… o MYBANK</string>
     <string name="w3b_test_text">Testo del messaggio</string>
-    <string name="w3b_test_sim">SIM</string>
     <string name="w3b_test_run">Prova</string>
     <string name="w3b_test_create_rule">Crea regola</string>
     <string name="w3b_test_close">Chiudi</string>

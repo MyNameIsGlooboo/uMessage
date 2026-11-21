@@ -38,7 +38,6 @@
     <string name="rules2_sheet_delete">Delete rule</string>
     <string name="rules2_sheet_hint_empty">Enter a value to continue</string>
     <string name="rules2_sheet_hint_fix">Fix the value above to continue</string>
-    <string name="rules2_sheet_sim_help">Rules for one SIM only apply to messages that arrive on that SIM.</string>
     <string name="rules2_type_number_help">An exact phone number, for example +15550001234 or 05550001234. Short codes such as 3000 work too. Persian digits are fine.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Every number that starts with this, for example +1555 or 0555.</string>

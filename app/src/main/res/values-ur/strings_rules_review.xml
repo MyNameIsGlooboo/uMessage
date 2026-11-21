@@ -22,7 +22,6 @@
     <string name="rules2_sheet_delete">اصول حذف کریں</string>
     <string name="rules2_sheet_hint_empty">جاری رکھنے کے لیے کوئی قدر درج کریں</string>
     <string name="rules2_sheet_hint_fix">جاری رکھنے کے لیے اوپر کی قدر درست کریں</string>
-    <string name="rules2_sheet_sim_help">ایک SIM کے اصول صرف اسی SIM پر آنے والے پیغامات پر لاگو ہوتے ہیں۔</string>
     <string name="rules2_type_number_help">بالکل درست فون نمبر، مثلاً +989121234567 یا 09121234567۔ 3000 جیسے شارٹ کوڈ بھی چلتے ہیں۔ اردو ہندسے بھی ٹھیک ہیں۔</string>
     <string name="rules2_type_number_hint">+989121234567</string>
     <string name="rules2_type_prefix_help">ہر وہ نمبر جو اس سے شروع ہو، مثلاً +98912 یا 0912۔</string>

@@ -28,17 +28,13 @@
     <string name="spam_reason_unknown_sender">Mittente sconosciuto</string>
     <string name="spam_reason_other">Filtrato</string>
     <string name="spam_sim_label">SIM %d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">Entrambe le SIM</string>
-    <string name="spam_sim_missing">SIM non presente nel telefono</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
     <string name="spam_rules_tab_allowed">Consentiti</string>
     <string name="spam_rules_tab_blocked">Messaggi bloccati</string>
     <string name="spam_rules_add">Aggiungi regola</string>
     <string name="spam_rules_empty_allowed_title">Nessuna regola di consenso</string>
-    <string name="spam_rules_empty_allowed_body">Tutto ciò che consenti arriva sempre in In arrivo, anche in modalità rigorosa. Aggiungi un numero, un nome mittente o una parola chiave.</string>
     <string name="spam_rules_empty_blocked_title">Nessuna regola di blocco</string>
-    <string name="spam_rules_empty_blocked_body">Blocca un numero, un prefisso, un nome mittente, una parola chiave o un\'espressione regolare. I loro messaggi finiscono in Spam.</string>
     <string name="spam_rules_delete_rule">Elimina regola %s</string>
     <string name="spam_rules_deleted">Regola eliminata</string>
     <plurals name="spam_rules_imported">

@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">Неизвестный отправитель</string>
     <string name="w3b_filter_rules">Мои правила</string>
     <string name="w3b_filter_link">Есть ссылка</string>
-    <string name="w3b_filter_sim">SIM-карта %1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">Нет подходящих заблокированных сообщений</string>
     <string name="w3b_filter_none_body">Нет заблокированных сообщений с этим фильтром. Выберите другой или покажите все.</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">Отправитель</string>
     <string name="w3b_test_sender_hint">Номер или имя, например +1555… или MYBANK</string>
     <string name="w3b_test_text">Текст сообщения</string>
-    <string name="w3b_test_sim">SIM-карта</string>
     <string name="w3b_test_run">Проверить</string>
     <string name="w3b_test_create_rule">Создать правило</string>
     <string name="w3b_test_close">Закрыть</string>

@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">Remitente desconocido</string>
     <string name="w3b_filter_rules">Mis reglas</string>
     <string name="w3b_filter_link">Con enlace</string>
-    <string name="w3b_filter_sim">SIM %1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">No hay mensajes retenidos que coincidan</string>
     <string name="w3b_filter_none_body">Ningún mensaje retenido coincide con este filtro. Elige otro o muestra todos.</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">Remitente</string>
     <string name="w3b_test_sender_hint">Número o nombre, como +1555… o MIBANCO</string>
     <string name="w3b_test_text">Texto del mensaje</string>
-    <string name="w3b_test_sim">SIM</string>
     <string name="w3b_test_run">Probar</string>
     <string name="w3b_test_create_rule">Crear regla</string>
     <string name="w3b_test_close">Cerrar</string>

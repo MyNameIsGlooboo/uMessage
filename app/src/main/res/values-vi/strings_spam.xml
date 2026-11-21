@@ -26,17 +26,13 @@
     <string name="spam_reason_unknown_sender">Người gửi không xác định</string>
     <string name="spam_reason_other">Đã lọc</string>
     <string name="spam_sim_label">SIM %d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">Cả hai SIM</string>
-    <string name="spam_sim_missing">SIM không có trong điện thoại</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
     <string name="spam_rules_tab_allowed">Đã cho phép</string>
     <string name="spam_rules_tab_blocked">Đã chặn</string>
     <string name="spam_rules_add">Thêm quy tắc</string>
     <string name="spam_rules_empty_allowed_title">Chưa có quy tắc cho phép</string>
-    <string name="spam_rules_empty_allowed_body">Tin nhắn bạn cho phép luôn vào hộp thư đến, kể cả trong chế độ lọc nghiêm ngặt. Thêm số điện thoại, tên người gửi hoặc từ khóa.</string>
     <string name="spam_rules_empty_blocked_title">Chưa có quy tắc chặn</string>
-    <string name="spam_rules_empty_blocked_body">Chặn số điện thoại, đầu số, tên người gửi, từ khóa hoặc biểu thức chính quy. Tin nhắn của họ sẽ vào thư mục Tin rác.</string>
     <string name="spam_rules_delete_rule">Xóa quy tắc %s</string>
     <string name="spam_rules_deleted">Đã xóa quy tắc</string>
     <plurals name="spam_rules_imported">

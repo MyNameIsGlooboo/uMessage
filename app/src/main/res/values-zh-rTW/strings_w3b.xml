@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">未知寄件者</string>
     <string name="w3b_filter_rules">我的規則</string>
     <string name="w3b_filter_link">含有連結</string>
-    <string name="w3b_filter_sim">SIM%1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">沒有相符的被攔截訊息</string>
     <string name="w3b_filter_none_body">沒有被攔截的訊息符合這個篩選條件。請選擇其他條件，或顯示全部。</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">寄件者</string>
     <string name="w3b_test_sender_hint">號碼或名稱，例如+98912…或MYBANK</string>
     <string name="w3b_test_text">訊息文字</string>
-    <string name="w3b_test_sim">SIM</string>
     <string name="w3b_test_run">測試</string>
     <string name="w3b_test_create_rule">建立規則</string>
     <string name="w3b_test_close">關閉</string>

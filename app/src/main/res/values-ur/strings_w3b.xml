@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">نامعلوم بھیجنے والا</string>
     <string name="w3b_filter_rules">میرے اصول</string>
     <string name="w3b_filter_link">لنک والے</string>
-    <string name="w3b_filter_sim">SIM %1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">کوئی روکا گیا پیغام مماثل نہیں</string>
     <string name="w3b_filter_none_body">کوئی روکا گیا پیغام اس فلٹر پر پورا نہیں اترتا۔ کوئی دوسرا منتخب کریں، یا سب کچھ دکھائیں۔</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">بھیجنے والا</string>
     <string name="w3b_test_sender_hint">نمبر یا نام، جیسے +98912… یا MYBANK</string>
     <string name="w3b_test_text">پیغام کا متن</string>
-    <string name="w3b_test_sim">SIM</string>
     <string name="w3b_test_run">جانچیں</string>
     <string name="w3b_test_create_rule">اصول بنائیں</string>
     <string name="w3b_test_close">بند کریں</string>

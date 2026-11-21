@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">Expéditeur inconnu</string>
     <string name="w3b_filter_rules">Mes règles</string>
     <string name="w3b_filter_link">Avec lien</string>
-    <string name="w3b_filter_sim">SIM %1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">Aucun message bloqué correspondant</string>
     <string name="w3b_filter_none_body">Aucun message bloqué ne correspond à ce filtre. Choisissez-en un autre ou affichez tout.</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">Expéditeur</string>
     <string name="w3b_test_sender_hint">Numéro ou nom, par exemple +1555… ou MYBANK</string>
     <string name="w3b_test_text">Texte du message</string>
-    <string name="w3b_test_sim">SIM</string>
     <string name="w3b_test_run">Tester</string>
     <string name="w3b_test_create_rule">Créer une règle</string>
     <string name="w3b_test_close">Fermer</string>

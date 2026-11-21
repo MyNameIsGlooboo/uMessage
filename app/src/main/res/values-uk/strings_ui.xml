@@ -18,7 +18,6 @@
     <string name="ui_show_dialpad">Показати панель набору</string>
     <string name="ui_show_keyboard">Показати клавіатуру</string>
     <string name="ui_settings_system_block_list">Системний список заблокованих</string>
-    <string name="ui_settings_system_block_list_body">Номери, заблоковані для всіх застосунків на цьому телефоні. uMessage також їх приховує.</string>
     <string name="ui_settings_blocked_words">Заблоковані слова</string>
     <string name="ui_settings_character_counter">Показувати лічильник символів</string>
     <string name="ui_settings_send_on_enter">Надсилати клавішею Enter</string>

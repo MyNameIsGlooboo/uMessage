@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">مرسل غير معروف</string>
     <string name="w3b_filter_rules">قواعدي</string>
     <string name="w3b_filter_link">تحتوي على رابط</string>
-    <string name="w3b_filter_sim">شريحة SIM %1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">لا توجد رسائل محتجزة مطابقة</string>
     <string name="w3b_filter_none_body">لا توجد رسائل محتجزة تطابق هذه التصفية. اختر تصفية أخرى أو اعرض الكل.</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">المرسل</string>
     <string name="w3b_test_sender_hint">رقم أو اسم، مثل +1555… أو MYBANK</string>
     <string name="w3b_test_text">نص الرسالة</string>
-    <string name="w3b_test_sim">شريحة SIM</string>
     <string name="w3b_test_run">اختبر</string>
     <string name="w3b_test_create_rule">أنشئ قاعدة</string>
     <string name="w3b_test_close">أغلق</string>

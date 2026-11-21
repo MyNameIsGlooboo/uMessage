@@ -13,14 +13,6 @@
     <string name="convlist_selected">Zaznaczone</string>
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">Szybkie przewijanie</string>
-    <plurals name="convlist_blocked_banner">
-        <item quantity="one">%d wiadomość ze spamem</item>
-        <item quantity="few">%d wiadomości ze spamem</item>
-        <item quantity="many">%d wiadomości ze spamem</item>
-        <item quantity="other">%d wiadomości ze spamem</item>
-    </plurals>
-    <string name="convlist_blocked_banner_title">Spam</string>
-    <string name="convlist_blocked_banner_cd">Wiadomości w Spamie: %1$d. Otwórz folder Spam.</string>
     <string name="convlist_archive">Archiwizuj</string>
     <string name="convlist_delete">Usuń</string>
     <string name="convlist_pin">Przypnij na górze</string>

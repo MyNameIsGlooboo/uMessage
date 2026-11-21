@@ -6,7 +6,6 @@
     <string name="w3b_filter_unknown">Unknown sender</string>
     <string name="w3b_filter_rules">My rules</string>
     <string name="w3b_filter_link">Has link</string>
-    <string name="w3b_filter_sim">SIM %1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">No held message matches</string>
     <string name="w3b_filter_none_body">Nothing held fits this filter. Pick another one, or show everything.</string>
@@ -40,7 +39,6 @@
     <string name="w3b_test_sender">Sender</string>
     <string name="w3b_test_sender_hint">Number or name, such as +1555… or MYBANK</string>
     <string name="w3b_test_text">Message text</string>
-    <string name="w3b_test_sim">SIM</string>
     <string name="w3b_test_run">Test</string>
     <string name="w3b_test_create_rule">Create rule</string>
     <string name="w3b_test_close">Close</string>

@@ -15,7 +15,6 @@
     <string name="ui_show_dialpad">숫자 키패드</string>
     <string name="ui_show_keyboard">키보드 표시</string>
     <string name="ui_settings_system_block_list">시스템 차단 목록</string>
-    <string name="ui_settings_system_block_list_body">이 휴대전화의 모든 앱에서 차단된 번호예요. uMessage 앱에서도 숨겨져요.</string>
     <string name="ui_settings_blocked_words">차단 단어</string>
     <string name="ui_settings_character_counter">글자 수 표시</string>
     <string name="ui_settings_send_on_enter">Enter 키로 전송</string>

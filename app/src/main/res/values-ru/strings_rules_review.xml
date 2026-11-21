@@ -24,7 +24,6 @@
     <string name="rules2_sheet_delete">Удалить правило</string>
     <string name="rules2_sheet_hint_empty">Введите значение, чтобы продолжить</string>
     <string name="rules2_sheet_hint_fix">Исправьте значение выше, чтобы продолжить</string>
-    <string name="rules2_sheet_sim_help">Правила для одной SIM-карты действуют только на сообщения, поступающие на нее.</string>
     <string name="rules2_type_number_help">Точный номер телефона, например +15550001234 или 05550001234. Короткие номера, например 3000, тоже подходят. Можно использовать персидские цифры.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Все номера, начинающиеся с этих цифр, например +1555 или 0555.</string>

@@ -15,7 +15,6 @@
     <string name="ui_show_dialpad">ダイヤルパッドを表示</string>
     <string name="ui_show_keyboard">キーボードを表示</string>
     <string name="ui_settings_system_block_list">システムのブロックリスト</string>
-    <string name="ui_settings_system_block_list_body">このスマートフォンのすべてのアプリでブロックされている番号です。uMessageでも非表示になります。</string>
     <string name="ui_settings_blocked_words">ブロックする単語</string>
     <string name="ui_settings_character_counter">文字数を表示</string>
     <string name="ui_settings_send_on_enter">Enterキーで送信</string>

@@ -22,7 +22,6 @@
     <string name="rules2_sheet_delete">Elimina regola</string>
     <string name="rules2_sheet_hint_empty">Inserisci un valore per continuare</string>
     <string name="rules2_sheet_hint_fix">Correggi il valore qui sopra per continuare</string>
-    <string name="rules2_sheet_sim_help">Le regole per una sola SIM si applicano solo ai messaggi ricevuti su quella SIM.</string>
     <string name="rules2_type_number_help">Un numero di telefono esatto, ad esempio +15550001234 o 05550001234. Vanno bene anche i numeri brevi come 3000 e le cifre persiane.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Tutti i numeri che iniziano così, ad esempio +1555 o 0555.</string>

@@ -37,10 +37,7 @@
 
     <!-- SIM -->
     <string name="spam_sim_label">SIM %d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">Both SIMs</string>
-    <!-- Shown on a rule made for a SIM that is no longer in the phone, so the rule does not apply. -->
-    <string name="spam_sim_missing">SIM not in phone</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
 
     <!-- Rules -->
@@ -48,9 +45,7 @@
     <string name="spam_rules_tab_blocked">Blocked</string>
     <string name="spam_rules_add">Add rule</string>
     <string name="spam_rules_empty_allowed_title">No allowed rules</string>
-    <string name="spam_rules_empty_allowed_body">Anything you allow always reaches your inbox, even in Strict mode. Add a number, a sender name or a keyword.</string>
     <string name="spam_rules_empty_blocked_title">No blocked rules</string>
-    <string name="spam_rules_empty_blocked_body">Block a number, a prefix, a sender name, a keyword or a pattern. Their messages land in Spam.</string>
     <string name="spam_rules_delete_rule">Delete rule %s</string>
     <string name="spam_rules_deleted">Rule deleted</string>
     <plurals name="spam_rules_imported">

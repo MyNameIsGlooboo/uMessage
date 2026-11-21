@@ -13,12 +13,6 @@
     <string name="convlist_selected">Selecionada</string>
     <string name="convlist_sim">Chip %1$d</string>
     <string name="convlist_scroll_handle">Rolagem rápida</string>
-    <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d mensagem de spam</item>
-        <item quantity="other">%d mensagens de spam</item>
-    </plurals>
-    <string name="convlist_blocked_banner_title">Spam</string>
-    <string name="convlist_blocked_banner_cd">%1$d mensagens de spam. Abra a pasta Spam.</string>
     <string name="convlist_archive">Arquive</string>
     <string name="convlist_delete">Exclua</string>
     <string name="convlist_pin">Fixe no topo</string>

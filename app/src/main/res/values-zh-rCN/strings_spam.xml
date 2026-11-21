@@ -26,17 +26,13 @@
     <string name="spam_reason_unknown_sender">未知发件人</string>
     <string name="spam_reason_other">已过滤</string>
     <string name="spam_sim_label">SIM%d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">两张SIM</string>
-    <string name="spam_sim_missing">手机中未插入此SIM</string>
     <string name="spam_sim_named">SIM%1$d，%2$s</string>
     <string name="spam_rules_tab_allowed">已允许</string>
     <string name="spam_rules_tab_blocked">已屏蔽</string>
     <string name="spam_rules_add">添加规则</string>
     <string name="spam_rules_empty_allowed_title">暂无允许规则</string>
-    <string name="spam_rules_empty_allowed_body">符合允许规则的消息始终会进入收件箱，即使在严格模式下也是如此。可添加号码、发件人名称或关键词。</string>
     <string name="spam_rules_empty_blocked_title">暂无屏蔽规则</string>
-    <string name="spam_rules_empty_blocked_body">可按号码、号码前缀、发件人名称、关键词或正则表达式屏蔽消息。这些消息会进入“垃圾短信”文件夹。</string>
     <string name="spam_rules_delete_rule">删除规则%s</string>
     <string name="spam_rules_deleted">已删除规则</string>
     <plurals name="spam_rules_imported">

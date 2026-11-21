@@ -13,12 +13,6 @@
     <string name="convlist_selected">নির্বাচিত</string>
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">দ্রুত স্ক্রল</string>
-    <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%dটি স্প্যাম বার্তা</item>
-        <item quantity="other">%dটি স্প্যাম বার্তা</item>
-    </plurals>
-    <string name="convlist_blocked_banner_title">স্প্যাম</string>
-    <string name="convlist_blocked_banner_cd">%1$dটি স্প্যাম বার্তা। স্প্যাম ফোল্ডার খুলুন।</string>
     <string name="convlist_archive">আর্কাইভ করুন</string>
     <string name="convlist_delete">মুছুন</string>
     <string name="convlist_pin">ওপরে পিন করুন</string>

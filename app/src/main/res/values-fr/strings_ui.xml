@@ -16,7 +16,6 @@
     <string name="ui_show_dialpad">Afficher le pavé numérique</string>
     <string name="ui_show_keyboard">Afficher le clavier</string>
     <string name="ui_settings_system_block_list">Liste de blocage du système</string>
-    <string name="ui_settings_system_block_list_body">Numéros bloqués dans toutes les applications de ce téléphone. uMessage les masque aussi.</string>
     <string name="ui_settings_blocked_words">Mots bloqués</string>
     <string name="ui_settings_character_counter">Afficher le compteur de caractères</string>
     <string name="ui_settings_send_on_enter">Envoyer avec la touche Entrée</string>

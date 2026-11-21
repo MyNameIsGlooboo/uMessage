@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">অচেনা প্রেরক</string>
     <string name="w3b_filter_rules">আমার নিয়ম</string>
     <string name="w3b_filter_link">লিঙ্ক আছে</string>
-    <string name="w3b_filter_sim">SIM %1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">কোনো আটকানো বার্তা মেলেনি</string>
     <string name="w3b_filter_none_body">এই ফিল্টারে কোনো আটকানো বার্তা মেলেনি। অন্য ফিল্টার বেছে নিন বা সব দেখুন।</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">প্রেরক</string>
     <string name="w3b_test_sender_hint">নম্বর বা নাম, যেমন +1555… বা MYBANK</string>
     <string name="w3b_test_text">বার্তার লেখা</string>
-    <string name="w3b_test_sim">SIM</string>
     <string name="w3b_test_run">পরীক্ষা করুন</string>
     <string name="w3b_test_create_rule">নিয়ম তৈরি করুন</string>
     <string name="w3b_test_close">বন্ধ করুন</string>

@@ -32,17 +32,13 @@
     <string name="spam_reason_unknown_sender">Невідомий відправник</string>
     <string name="spam_reason_other">Відфільтровано</string>
     <string name="spam_sim_label">SIM %d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">Обидві SIM</string>
-    <string name="spam_sim_missing">SIM немає в телефоні</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
     <string name="spam_rules_tab_allowed">Дозволено</string>
     <string name="spam_rules_tab_blocked">Заблоковані</string>
     <string name="spam_rules_add">Додати правило</string>
     <string name="spam_rules_empty_allowed_title">Немає правил дозволу</string>
-    <string name="spam_rules_empty_allowed_body">Усе, що ви дозволили, завжди потрапляє до вхідних, навіть у суворому режимі. Додайте номер, ім’я відправника або ключове слово.</string>
     <string name="spam_rules_empty_blocked_title">Немає правил блокування</string>
-    <string name="spam_rules_empty_blocked_body">Заблокуйте номер, префікс, ім’я відправника, ключове слово або регулярний вираз. Їхні повідомлення потрапляють до папки «Спам».</string>
     <string name="spam_rules_delete_rule">Видалити правило %s</string>
     <string name="spam_rules_deleted">Правило видалено</string>
     <plurals name="spam_rules_imported" tools:ignore="ImpliedQuantity">

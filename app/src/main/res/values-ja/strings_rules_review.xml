@@ -21,7 +21,6 @@
     <string name="rules2_sheet_delete">ルールを削除</string>
     <string name="rules2_sheet_hint_empty">続けるには値を入力してください。</string>
     <string name="rules2_sheet_hint_fix">続けるには上の値を修正してください。</string>
-    <string name="rules2_sheet_sim_help">特定のSIMのルールは、そのSIMで受信したメッセージにのみ適用されます。</string>
     <string name="rules2_type_number_help">+15550001234や05550001234などの電話番号を正確に入力します。3000などのショートコードも使えます。ペルシャ数字でも入力できます。</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">+1555や0555など、入力した数字で始まるすべての電話番号が対象です。</string>

@@ -15,12 +15,6 @@
     <string name="convlist_selected">Selected</string>
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">Fast scroll</string>
-    <plurals name="convlist_blocked_banner">
-        <item quantity="one">%d spam message</item>
-        <item quantity="other">%d spam messages</item>
-    </plurals>
-    <string name="convlist_blocked_banner_title">Spam</string>
-    <string name="convlist_blocked_banner_cd">%1$d spam messages. Open the Spam folder.</string>
 
     <!-- Actions -->
     <string name="convlist_archive">Archive</string>

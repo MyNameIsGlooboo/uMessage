@@ -21,7 +21,6 @@
     <string name="rules2_sheet_delete">ลบกฎ</string>
     <string name="rules2_sheet_hint_empty">ป้อนค่าเพื่อดำเนินการต่อ</string>
     <string name="rules2_sheet_hint_fix">แก้ไขค่าด้านบนเพื่อดำเนินการต่อ</string>
-    <string name="rules2_sheet_sim_help">กฎที่ระบุ SIM จะใช้กับข้อความที่รับผ่าน SIM นั้นเท่านั้น</string>
     <string name="rules2_type_number_help">หมายเลขโทรศัพท์ที่ตรงกันทุกหลัก เช่น +15550001234 หรือ 05550001234 ใช้หมายเลขสั้น เช่น 3000 ได้ และใช้เลขเปอร์เซียได้</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">ทุกหมายเลขที่ขึ้นต้นด้วยเลขนี้ เช่น +1555 หรือ 0555</string>

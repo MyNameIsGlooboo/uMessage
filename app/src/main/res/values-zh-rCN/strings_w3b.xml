@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">未知发件人</string>
     <string name="w3b_filter_rules">我的规则</string>
     <string name="w3b_filter_link">含链接</string>
-    <string name="w3b_filter_sim">SIM%1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">没有匹配的暂存消息</string>
     <string name="w3b_filter_none_body">没有符合此筛选条件的暂存消息。请选择其他条件，或显示全部。</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">发件人</string>
     <string name="w3b_test_sender_hint">号码或名称，例如+1555…或MYBANK</string>
     <string name="w3b_test_text">消息正文</string>
-    <string name="w3b_test_sim">SIM</string>
     <string name="w3b_test_run">测试</string>
     <string name="w3b_test_create_rule">创建规则</string>
     <string name="w3b_test_close">关闭</string>

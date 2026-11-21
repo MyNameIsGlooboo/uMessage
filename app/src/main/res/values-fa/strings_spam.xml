@@ -28,17 +28,13 @@
     <string name="spam_reason_unknown_sender">فرستنده ناشناس</string>
     <string name="spam_reason_other">فیلترشده</string>
     <string name="spam_sim_label">سیم‌کارت %d</string>
-    <string name="spam_sim_generic">سیم‌کارت</string>
     <string name="spam_sim_both">هر دو سیم‌کارت</string>
-    <string name="spam_sim_missing">سیم‌کارت در گوشی نیست</string>
     <string name="spam_sim_named">سیم‌کارت %1$d، %2$s</string>
     <string name="spam_rules_tab_allowed">مجاز</string>
     <string name="spam_rules_tab_blocked">بلاک‌شده‌ها</string>
     <string name="spam_rules_add">افزودن قانون</string>
     <string name="spam_rules_empty_allowed_title">قانون مجازی وجود ندارد</string>
-    <string name="spam_rules_empty_allowed_body">هر چیزی که اجازه می‌دهید، حتی در حالت سخت‌گیرانه هم به صندوق ورودی شما می‌رسد. شماره، نام فرستنده یا کلمهٔ کلیدی اضافه کنید.</string>
     <string name="spam_rules_empty_blocked_title">قانونی برای بلاک کردن وجود ندارد</string>
-    <string name="spam_rules_empty_blocked_body">شماره، پیش‌شماره، نام فرستنده، کلمهٔ کلیدی یا الگویی را بلاک کنید. پیام‌هایشان به پوشهٔ اسپم می‌روند.</string>
     <string name="spam_rules_delete_rule">حذف قانون %s</string>
     <string name="spam_rules_deleted">قانون حذف شد</string>
     <plurals name="spam_rules_imported" tools:ignore="ImpliedQuantity">

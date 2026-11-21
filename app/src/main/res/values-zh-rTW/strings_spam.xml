@@ -26,17 +26,13 @@
     <string name="spam_reason_unknown_sender">未知寄件者</string>
     <string name="spam_reason_other">已篩選</string>
     <string name="spam_sim_label">SIM%d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">兩張SIM卡</string>
-    <string name="spam_sim_missing">手機中沒有此SIM卡</string>
     <string name="spam_sim_named">SIM%1$d，%2$s</string>
     <string name="spam_rules_tab_allowed">已允許</string>
     <string name="spam_rules_tab_blocked">已封鎖</string>
     <string name="spam_rules_add">新增規則</string>
     <string name="spam_rules_empty_allowed_title">沒有允許規則</string>
-    <string name="spam_rules_empty_allowed_body">你允許的內容一律會進入收件匣，即使在嚴格模式下也一樣。新增號碼、寄件者名稱或關鍵字。</string>
     <string name="spam_rules_empty_blocked_title">沒有封鎖規則</string>
-    <string name="spam_rules_empty_blocked_body">封鎖號碼、號碼開頭、寄件者名稱、關鍵字或模式。這些訊息會移至「垃圾訊息」資料夾。</string>
     <string name="spam_rules_delete_rule">刪除規則%s</string>
     <string name="spam_rules_deleted">已刪除規則</string>
     <plurals name="spam_rules_imported">

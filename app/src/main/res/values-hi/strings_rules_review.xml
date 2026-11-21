@@ -22,7 +22,6 @@
     <string name="rules2_sheet_delete">नियम मिटाएं</string>
     <string name="rules2_sheet_hint_empty">आगे बढ़ने के लिए कुछ दर्ज करें</string>
     <string name="rules2_sheet_hint_fix">आगे बढ़ने के लिए ऊपर दर्ज जानकारी ठीक करें</string>
-    <string name="rules2_sheet_sim_help">एक सिम के नियम सिर्फ़ उसी सिम पर आने वाले मैसेज पर लागू होते हैं.</string>
     <string name="rules2_type_number_help">पूरा फ़ोन नंबर, जैसे +15550001234 या 05550001234. 3000 जैसे छोटे कोड भी इस्तेमाल कर सकते हैं. फ़ारसी अंक भी मान्य हैं.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">इससे शुरू होने वाला हर नंबर, जैसे +1555 या 0555.</string>

@@ -13,12 +13,6 @@
     <string name="convlist_selected">Seleccionada</string>
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">Desplazamiento rápido</string>
-    <plurals name="convlist_blocked_banner">
-        <item quantity="one">%d mensaje de spam</item>
-        <item quantity="other">%d mensajes de spam</item>
-    </plurals>
-    <string name="convlist_blocked_banner_title">Spam</string>
-    <string name="convlist_blocked_banner_cd">%1$d mensajes de spam. Abre la carpeta Spam.</string>
     <string name="convlist_archive">Archivar</string>
     <string name="convlist_delete">Eliminar</string>
     <string name="convlist_pin">Fijar al principio</string>

@@ -22,7 +22,6 @@
     <string name="rules2_sheet_delete">নিয়ম মুছুন</string>
     <string name="rules2_sheet_hint_empty">এগিয়ে যেতে একটি মান লিখুন</string>
     <string name="rules2_sheet_hint_fix">এগিয়ে যেতে ওপরের মান ঠিক করুন</string>
-    <string name="rules2_sheet_sim_help">একটি SIM-এর নিয়ম শুধু সেই SIM-এ আসা বার্তায় প্রযোজ্য।</string>
     <string name="rules2_type_number_help">পুরো ফোন নম্বর, যেমন +15550001234 বা 05550001234। 3000-এর মতো শর্ট কোডও চলবে। ফারসি অঙ্কও ব্যবহার করা যাবে।</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">এটি দিয়ে শুরু হওয়া সব নম্বর, যেমন +1555 বা 0555।</string>

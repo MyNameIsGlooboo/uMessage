@@ -22,7 +22,6 @@
     <string name="rules2_sheet_delete">حذف قانون</string>
     <string name="rules2_sheet_hint_empty">برای ادامه، مقداری وارد کنید</string>
     <string name="rules2_sheet_hint_fix">برای ادامه، مقدار بالا را اصلاح کنید</string>
-    <string name="rules2_sheet_sim_help">قانون‌های یک سیم‌کارت فقط روی پیام‌های دریافتی همان سیم‌کارت اعمال می‌شوند.</string>
     <string name="rules2_type_number_help">یک شماره تلفن دقیق، مانند +15550001234 یا 05550001234. شماره‌های کوتاهی مثل 3000 هم پذیرفته می‌شوند. رقم‌های فارسی هم قابل استفاده‌اند.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">هر شماره‌ای که با این مقدار شروع شود، مثلاً +1555 یا 0555.</string>

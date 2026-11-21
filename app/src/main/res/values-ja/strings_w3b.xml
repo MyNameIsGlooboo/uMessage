@@ -5,7 +5,6 @@
     <string name="w3b_filter_unknown">不明な送信者</string>
     <string name="w3b_filter_rules">自分のルール</string>
     <string name="w3b_filter_link">リンクあり</string>
-    <string name="w3b_filter_sim">SIM%1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">一致する保留中のメッセージなし</string>
     <string name="w3b_filter_none_body">この条件に合う保留中のメッセージはありません。別の条件を選ぶか、すべて表示してください。</string>
@@ -31,7 +30,6 @@
     <string name="w3b_test_sender">送信者</string>
     <string name="w3b_test_sender_hint">番号または名前（例：+1555…、MYBANK）</string>
     <string name="w3b_test_text">メッセージの本文</string>
-    <string name="w3b_test_sim">SIM</string>
     <string name="w3b_test_run">テスト</string>
     <string name="w3b_test_create_rule">ルールを作成</string>
     <string name="w3b_test_close">閉じる</string>

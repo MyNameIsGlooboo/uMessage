@@ -15,7 +15,6 @@
     <string name="ui_show_dialpad">Tampilkan papan nomor</string>
     <string name="ui_show_keyboard">Tampilkan keyboard</string>
     <string name="ui_settings_system_block_list">Daftar blokir sistem</string>
-    <string name="ui_settings_system_block_list_body">Nomor yang diblokir untuk semua aplikasi di ponsel ini. uMessage juga menyembunyikannya.</string>
     <string name="ui_settings_blocked_words">Kata yang diblokir</string>
     <string name="ui_settings_character_counter">Tampilkan penghitung karakter</string>
     <string name="ui_settings_send_on_enter">Kirim dengan tombol Enter</string>

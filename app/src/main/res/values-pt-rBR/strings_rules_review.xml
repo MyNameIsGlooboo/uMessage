@@ -22,7 +22,6 @@
     <string name="rules2_sheet_delete">Exclua regra</string>
     <string name="rules2_sheet_hint_empty">Digite um valor para continuar</string>
     <string name="rules2_sheet_hint_fix">Corrija o valor acima para continuar</string>
-    <string name="rules2_sheet_sim_help">Regras de um chip só se aplicam às mensagens recebidas nesse chip.</string>
     <string name="rules2_type_number_help">Um número de telefone exato, como +15550001234 ou 05550001234. Números curtos, como 3000, também funcionam. Algarismos persas são aceitos.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Qualquer número que comece assim, por exemplo, +1555 ou 0555.</string>

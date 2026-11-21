@@ -21,7 +21,6 @@
     <string name="rules2_sheet_delete">Xóa quy tắc</string>
     <string name="rules2_sheet_hint_empty">Nhập giá trị để tiếp tục</string>
     <string name="rules2_sheet_hint_fix">Sửa giá trị bên trên để tiếp tục</string>
-    <string name="rules2_sheet_sim_help">Quy tắc dành cho một SIM chỉ áp dụng cho tin nhắn nhận qua SIM đó.</string>
     <string name="rules2_type_number_help">Số điện thoại chính xác, ví dụ +15550001234 hoặc 05550001234. Cũng dùng được số ngắn như 3000 và chữ số Ba Tư.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Mọi số điện thoại bắt đầu bằng dãy số này, ví dụ +1555 hoặc 0555.</string>

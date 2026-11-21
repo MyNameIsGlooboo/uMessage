@@ -13,12 +13,6 @@
     <string name="convlist_selected">انتخاب‌شده</string>
     <string name="convlist_sim">سیم‌کارت %1$d</string>
     <string name="convlist_scroll_handle">پیمایش سریع</string>
-    <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d پیام اسپم</item>
-        <item quantity="other">%d پیام اسپم</item>
-    </plurals>
-    <string name="convlist_blocked_banner_title">اسپم</string>
-    <string name="convlist_blocked_banner_cd">%1$d پیام اسپم. پوشهٔ اسپم را باز کنید.</string>
     <string name="convlist_archive">آرشیو کردن</string>
     <string name="convlist_delete">حذف</string>
     <string name="convlist_pin">سنجاق کردن به بالا</string>

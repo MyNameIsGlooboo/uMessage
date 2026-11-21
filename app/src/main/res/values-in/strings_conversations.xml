@@ -13,11 +13,6 @@
     <string name="convlist_selected">Dipilih</string>
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">Gulir cepat</string>
-    <plurals name="convlist_blocked_banner">
-        <item quantity="other">%d pesan spam</item>
-    </plurals>
-    <string name="convlist_blocked_banner_title">Spam</string>
-    <string name="convlist_blocked_banner_cd">%1$d pesan spam. Buka folder Spam.</string>
     <string name="convlist_archive">Arsipkan</string>
     <string name="convlist_delete">Hapus</string>
     <string name="convlist_pin">Sematkan di atas</string>

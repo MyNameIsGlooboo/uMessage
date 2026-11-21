@@ -32,17 +32,13 @@
     <string name="spam_reason_unknown_sender">Неизвестный отправитель</string>
     <string name="spam_reason_other">Отфильтровано</string>
     <string name="spam_sim_label">SIM-карта %d</string>
-    <string name="spam_sim_generic">SIM-карта</string>
     <string name="spam_sim_both">Обе SIM-карты</string>
-    <string name="spam_sim_missing">SIM-карты нет в телефоне</string>
     <string name="spam_sim_named">SIM-карта %1$d, %2$s</string>
     <string name="spam_rules_tab_allowed">Разрешенные</string>
     <string name="spam_rules_tab_blocked">Заблокированные</string>
     <string name="spam_rules_add">Добавить правило</string>
     <string name="spam_rules_empty_allowed_title">Нет правил разрешения</string>
-    <string name="spam_rules_empty_allowed_body">Все, что вы разрешили, всегда попадает во входящие, даже в строгом режиме. Добавьте номер, имя отправителя или ключевое слово.</string>
     <string name="spam_rules_empty_blocked_title">Нет правил блокировки</string>
-    <string name="spam_rules_empty_blocked_body">Заблокируйте номер, префикс, имя отправителя, ключевое слово или регулярное выражение. Их сообщения попадают в «Спам».</string>
     <string name="spam_rules_delete_rule">Удалить правило %s</string>
     <string name="spam_rules_deleted">Правило удалено</string>
     <plurals name="spam_rules_imported" tools:ignore="ImpliedQuantity">

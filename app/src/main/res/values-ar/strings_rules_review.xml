@@ -26,7 +26,6 @@
     <string name="rules2_sheet_delete">احذف القاعدة</string>
     <string name="rules2_sheet_hint_empty">أدخل قيمة للمتابعة</string>
     <string name="rules2_sheet_hint_fix">صحّح القيمة أعلاه للمتابعة</string>
-    <string name="rules2_sheet_sim_help">قواعد شريحة SIM محددة تنطبق فقط على الرسائل التي تصل إلى تلك الشريحة.</string>
     <string name="rules2_type_number_help">رقم هاتف كامل، مثل +15550001234 أو 05550001234. يمكن أيضًا استخدام أرقام قصيرة مثل 3000. تُقبل الأرقام الفارسية.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">كل رقم يبدأ بهذه الأرقام، مثل +1555 أو 0555.</string>

@@ -13,14 +13,6 @@
     <string name="convlist_selected">Вибрано</string>
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">Швидке прокручування</string>
-    <plurals name="convlist_blocked_banner" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d спам-повідомлення</item>
-        <item quantity="few">%d спам-повідомлення</item>
-        <item quantity="many">%d спам-повідомлень</item>
-        <item quantity="other">%d спам-повідомлення</item>
-    </plurals>
-    <string name="convlist_blocked_banner_title">Спам</string>
-    <string name="convlist_blocked_banner_cd">Спам-повідомлень: %1$d. Відкрийте папку «Спам».</string>
     <string name="convlist_archive">Заархівувати</string>
     <string name="convlist_delete">Видалити</string>
     <string name="convlist_pin">Закріпити вгорі</string>

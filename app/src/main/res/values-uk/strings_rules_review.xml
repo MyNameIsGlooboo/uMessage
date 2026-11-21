@@ -24,7 +24,6 @@
     <string name="rules2_sheet_delete">Видалити правило</string>
     <string name="rules2_sheet_hint_empty">Введіть значення, щоб продовжити</string>
     <string name="rules2_sheet_hint_fix">Виправте значення вище, щоб продовжити</string>
-    <string name="rules2_sheet_sim_help">Правила для окремої SIM діють лише на повідомлення, що надходять на цю SIM.</string>
     <string name="rules2_type_number_help">Точний номер телефону, наприклад +15550001234 або 05550001234. Короткі номери, як-от 3000, теж підходять. Можна вводити перські цифри.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Усі номери, що починаються з цих цифр, наприклад +1555 або 0555.</string>
