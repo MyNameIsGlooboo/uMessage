@@ -60,6 +60,17 @@ class SpamEntriesTest {
     }
 
     @Test
+    fun openingTheSpamTabFromALinkClearsTheSpamNotices() {
+        BlockedNotifier.show(app, held, chatId = 5L)
+
+        clearSpamNoticesFor(app, MainTabLinks.TAB_ARCHIVED)
+        assertThat(shadowOf(manager).allNotifications).isNotEmpty()
+
+        clearSpamNoticesFor(app, MainTabLinks.TAB_BLOCKED)
+        assertThat(shadowOf(manager).allNotifications).isEmpty()
+    }
+
+    @Test
     fun theDecisionLogOffersNoOldRestoreCardWithTheFlagOn() {
         assertThat(restoreCandidates(listOf(held))).isEmpty()
 

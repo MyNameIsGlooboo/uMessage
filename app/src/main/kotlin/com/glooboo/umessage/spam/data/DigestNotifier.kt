@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import androidx.annotation.VisibleForTesting
 import androidx.core.app.NotificationCompat
 import com.glooboo.umessage.R
 import com.glooboo.umessage.databases.MessagesDatabase
@@ -28,6 +29,20 @@ object DigestNotifier {
     private const val NOTIFICATION_ID = 0x5B11
     private const val REQUEST_OPEN_BLOCKED = 0x5B11
     private const val MILLIS = 1000L
+    private const val NOT_DUE_PAUSE_MS = 60L * 60 * 1000
+
+    /**
+     * H-9: until when the Spam count is not read again after a check found the week not up yet; the daily checks run
+     * after every received text, so this keeps the query to about one an hour.
+     */
+    @Volatile
+    private var notDueUntil = 0L
+
+    /** Tests: forgets [notDueUntil]. */
+    @VisibleForTesting
+    internal fun resetDueGuard() {
+        notDueUntil = 0L
+    }
 
     /** Posts the digest when the switch is on, a week has passed and something was held. True when it was posted. */
     fun postIfDue(context: Context, now: Long): Boolean {
@@ -46,9 +61,19 @@ object DigestNotifier {
             val blocked = SpamDatabase.getInstance(context).spamDao().getBlockedBetween(now - WeeklyDigest.WEEK_MS, now)
             return WeeklyDigest.compute(blocked, now)
         }
-        // H-9: counted before the week is claimed, so a failed read does not cost that week's digest.
+        return spamDigest(context, prefs, now)
+    }
+
+    /**
+     * Provider truth (H-9): counted before the week is claimed, so a failed read does not cost that week's digest; a
+     * check that finds the week not up pauses the count for [NOT_DUE_PAUSE_MS].
+     */
+    private fun spamDigest(context: Context, prefs: CleanupPrefs, now: Long): WeeklyDigest? {
+        if (now in 0 until notDueUntil) return null
         val texts = runCatching { spamTexts(context, now) }.getOrNull() ?: return null
-        return if (prefs.claimDigest(now)) WeeklyDigest.computeTexts(texts, now) else null
+        if (prefs.claimDigest(now)) return WeeklyDigest.computeTexts(texts, now)
+        notDueUntil = now + NOT_DUE_PAUSE_MS
+        return null
     }
 
     private fun sortAllows(context: Context): Boolean =

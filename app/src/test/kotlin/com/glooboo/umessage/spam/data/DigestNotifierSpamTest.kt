@@ -50,6 +50,7 @@ class DigestNotifierSpamTest {
 
     @Before
     fun setUp() {
+        DigestNotifier.resetDueGuard()
         context.cleanupPrefs.digestOn = true
         context.cleanupPrefs.claimDigest(now - CleanupPrefs.DIGEST_INTERVAL_MS)
         writeState(FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true))
@@ -74,6 +75,7 @@ class DigestNotifierSpamTest {
 
     @After
     fun tearDown() {
+        DigestNotifier.resetDueGuard()
         writeState(FirstRunState())
         resetSharedMessagesDatabase()
     }
@@ -109,6 +111,16 @@ class DigestNotifierSpamTest {
         // The week was not used up by the wait.
         writeState(FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true))
         assertThat(offMainThread { DigestNotifier.postIfDue(context, now) }).isTrue()
+    }
+
+    @Test
+    fun checksRightAfterAPostedDigestPostNothingMore() {
+        assertThat(offMainThread { DigestNotifier.postIfDue(context, now) }).isTrue()
+
+        // The week was just claimed: the next checks (the second within the pause) post nothing.
+        assertThat(offMainThread { DigestNotifier.postIfDue(context, now + 1_000L) }).isFalse()
+        assertThat(offMainThread { DigestNotifier.postIfDue(context, now + 2_000L) }).isFalse()
+        assertThat(notifications).hasSize(1)
     }
 
     @Test
