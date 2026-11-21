@@ -10,7 +10,7 @@
     <!-- Welcome -->
     <string name="onb_welcome_title">Welcome to uMessage</string>
     <string name="onb_welcome_intro">Better messaging, less spam.</string>
-    <string name="onb_welcome_demo_desc">Texts from people you know go to Messages, texts from strangers go to Spam, and verification codes still reach Messages.</string>
+    <string name="onb_welcome_demo_desc">Your contacts go to Messages. Unknown senders go to Spam. A sender that sends you a verification code goes to Messages.</string>
     <string name="onb_welcome_spam">Spam stays out</string>
     <string name="onb_welcome_spam_desc">Unknown senders wait in Spam, never lost.</string>
     <string name="onb_welcome_codes">One-tap codes</string>
@@ -31,7 +31,7 @@
 
     <!-- Default SMS -->
     <string name="onb_default_title">Make uMessage your SMS app</string>
-    <string name="onb_default_body">Android only lets the default SMS app receive and filter messages. Without this, uMessage cannot protect your inbox.</string>
+    <string name="onb_default_body">Android only lets the default SMS app receive and filter messages. Without this, uMessage cannot filter spam for you.</string>
     <string name="onb_default_action">Set as default</string>
     <string name="onb_default_denied">The request was declined. You can try again, or continue and set it later in Android settings.</string>
     <string name="onb_default_unavailable">Your phone could not open the default app dialog. Open Android settings, Apps, Default apps, SMS app, and choose uMessage.</string>

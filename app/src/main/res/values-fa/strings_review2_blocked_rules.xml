@@ -8,7 +8,7 @@
     </plurals>
     <string name="e_restored_title">بازیابی‌شده‌های اخیر</string>
     <string name="e_restored_body">پیام‌هایی که در ۳۰ روز گذشته به صندوق ورودی برگردانده‌اید. برای باز کردن گفتگو، روی یکی بزنید.</string>
-    <string name="e_restored_clear">پاک کردن فهرست</string>
+    <string name="e_restored_clear">پاک کردن لیست</string>
     <string name="e_restored_empty">پیام‌هایی که از این پس به صندوق ورودی برگردانید، به‌مدت ۳۰ روز اینجا لیست می‌شوند.</string>
     <string name="e_restored_when">بردن به صندوق ورودی در %1$s</string>
     <string name="e_restored_open">باز کردن گفتگو با %1$s</string>
@@ -57,7 +57,7 @@
         <item quantity="one">بردن %d شماره به قانون‌های uMessage</item>
         <item quantity="other">بردن %d شماره به قانون‌های uMessage</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• پیام‌هایشان به اسپم می‌روند؛ آنجا می‌توانید آن‌ها را بخوانید و بازیابی کنید.</string>
+    <string name="e_migrate_point_blocked">• گفتگوهایشان به اسپم می‌رود؛ آنجا می‌توانید آن‌ها را بخوانید و برگردانید.</string>
     <string name="e_migrate_point_android">• تا وقتی که از لیست Android خارج نشوند، Android هنوز پیام‌هایشان را دور می‌اندازد.</string>
     <string name="e_migrate_calls_note">لیست Android تماس‌ها را هم بلاک می‌کند. شماره‌هایی که از آن حذف کنید، دوباره می‌توانند با شما تماس بگیرند.</string>
     <string name="e_bn_row_calls_texts">تماس‌ها و پیام‌ها را بلاک می‌کند</string>
@@ -65,7 +65,7 @@
     <string name="e_bn_move_one">بردن به قانون‌های uMessage</string>
     <string name="e_bn_moved">%1$s الان یکی از قانون‌های uMessage است. پیام‌هایش به اسپم می‌روند و تماس‌هایش دیگر بلاک نمی‌شوند.</string>
     <string name="e_bn_field_help">مثلاً +15550001234، یا +1555* برای هر شماره‌ای که با +1555 شروع می‌شود</string>
-    <string name="e_bn_short_code_warning">این یک شمارهٔ کوتاه به نظر می‌رسد. Android پیام‌هایش را قبل از رسیدن به uMessage دور می‌اندازد؛ پس هرگز نمی‌توانید آن‌ها، مثلاً یک کد یا اطلاعیهٔ بانکی، را بازیابی کنید.</string>
+    <string name="e_bn_short_code_warning">این یک شمارهٔ کوتاه به نظر می‌رسد. Android پیام‌هایش را قبل از رسیدن به uMessage دور می‌اندازد؛ پس هیچ‌کدام را، مثلاً یک کد یا اطلاعیهٔ بانکی، هرگز نمی‌بینید.</string>
     <string name="e_bn_add_as_rule">افزودن به‌عنوان قانون uMessage به‌جای آن</string>
     <string name="e_bn_added_as_rule">%1$s به‌عنوان قانون uMessage اضافه شد. پیام‌هایش به اسپم می‌روند.</string>
 </resources>

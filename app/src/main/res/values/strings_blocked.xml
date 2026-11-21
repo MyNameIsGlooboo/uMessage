@@ -60,8 +60,8 @@
         <item quantity="other">%d chats reported. New texts from them go to Spam, and the chats are archived.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="one">Reported. New texts from this sender go to Spam.</item>
-        <item quantity="other">%d chats reported. New texts from them go to Spam.</item>
+        <item quantity="one">Reported. The chat moved to Spam.</item>
+        <item quantity="other">%d chats reported. They moved to Spam.</item>
     </plurals>
 
     <!-- Blocked tab and screen, design review 2 (BR-*, P1-*). -->

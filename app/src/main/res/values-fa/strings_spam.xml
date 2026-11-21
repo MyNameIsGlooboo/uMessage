@@ -57,7 +57,7 @@
     <string name="spam_type_keyword">کلمهٔ کلیدی</string>
     <string name="spam_type_regex">الگو</string>
     <string name="spam_type_keyword_help">هر پیامی که این متن را داشته باشد، حتی درون یک کلمهٔ بلندتر: «win» با «window» هم جور درمی‌آید. بزرگی و کوچکی حروف مهم نیست. فرستنده هم بلاک می‌شود، مگر در مخاطب‌های شما باشد.</string>
-    <string name="spam_type_keyword_allow_help">هر پیامی از هر فرستنده‌ای که این متن را داشته باشد، از همهٔ بلاک‌های شما عبور می‌کند. از عبارتی بلند و دقیق استفاده کنید.</string>
+    <string name="spam_type_keyword_allow_help">پیامی که این متن را داشته باشد فرستنده‌اش را مجاز می‌کند: کل گفتگو به پیام‌ها می‌رود. فرستنده‌ای که بلاک کرده‌اید بلاک می‌ماند. از عبارتی بلند و دقیق استفاده کنید.</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">هدیهٔ رایگان</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
@@ -77,9 +77,9 @@
     <string name="spam_err_duplicate">این قانون از قبل وجود دارد</string>
     <string name="spam_err_regex_unsafe">این الگو گروهی را تکرار می‌کند که خودش تکرارشونده است و ممکن است فیلتر کردن پیام‌ها را متوقف کند. آن را ساده‌تر کنید.</string>
     <string name="spam_err_regex_matches_all">این الگو با همهٔ پیام‌ها جور درمی‌آید. آن را دقیق‌تر کنید.</string>
-    <string name="spam_err_allow_keyword_short">کلمه‌های مجاز باید حداقل ۴ کاراکتر داشته باشند، چون هر پیامی که آن‌ها را داشته باشد از همهٔ بلاک‌های شما عبور می‌کند</string>
+    <string name="spam_err_allow_keyword_short">کلمه‌های مجاز باید حداقل ۴ کاراکتر داشته باشند، چون پیامی که یکی از آن‌ها را داشته باشد فرستنده‌اش را مجاز می‌کند</string>
     <string name="spam_sheet_save_failed">ذخیرهٔ قانون نشد. دوباره تلاش کنید.</string>
-    <string name="spam_warn_allow_skips_blocks">هر پیامی که این متن را داشته باشد، از همهٔ بلاک‌های شما عبور می‌کند؛ از هر فرستنده‌ای، حتی شماره‌هایی که بلاک کرده‌اید.</string>
+    <string name="spam_warn_allow_skips_blocks">هر فرستندهٔ ناشناسی که پیامش این متن را داشته باشد از آن به بعد مجاز می‌شود. فرستنده‌هایی که بلاک کرده‌اید بلاک می‌مانند.</string>
     <string name="spam_warn_common_word">این کلمه کوتاه یا رایج است. اسپم هم به‌راحتی می‌تواند آن را داشته باشد.</string>
     <string name="spam_warn_broad">این مورد با متن‌های معمول زیادی جور درمی‌آید، پس پیام‌های عادی زیادی را هم بلاک می‌کند.</string>
     <string name="spam_warn_allowed_conflict">این مورد در لیست مجاز شماست. قانون‌های مجاز همیشه اولویت دارند، پس این بلاک هرگز اعمال نمی‌شود.</string>
@@ -100,8 +100,8 @@
         <item quantity="one">و %d مورد دیگر</item>
         <item quantity="other">و %d مورد دیگر</item>
     </plurals>
-    <string name="spam_settings_unknown_title">پیام‌های فرستنده‌های ناشناس</string>
-    <string name="spam_settings_unknown_body">فرستنده‌هایی که در مخاطب‌های شما نیستند، هرگز به آن‌ها پیام نداده‌اید و در لیست مجاز شما نیستند.</string>
+    <string name="spam_settings_unknown_title">فیلتر اسپم</string>
+    <string name="spam_settings_unknown_body">فرستنده ناشناس کسی است که در مخاطب‌ها و لیست مجاز شما نیست. کل گفتگویش بی‌صدا به اسپم می‌رود. کسانی که به آن‌ها پیام داده‌اید و فرستنده‌های کد تأیید در پیام‌ها می‌مانند.</string>
     <string name="spam_mode_strict">سخت‌گیرانه</string>
     <string name="spam_mode_strict_body">همهٔ فرستنده‌های ناشناس را بلاک می‌کند، حتی کدها را</string>
     <string name="spam_mode_smart">هوشمند</string>
@@ -112,8 +112,8 @@
     <string name="spam_strict_warning_body">پیام‌های بانک‌ها و شرکت‌های ارسال مرسوله و کدهای یک‌بارمصرف معمولاً از فرستنده‌هایی می‌آیند که در مخاطب‌های شما نیستند. در حالت سخت‌گیرانه، این پیام‌ها، حتی کدها، به پوشهٔ اسپم می‌روند. برای عبور کدها حالت هوشمند را انتخاب کنید، یا یک بار به آن فرستنده‌ها اجازه بدهید.</string>
     <string name="spam_strict_warning_action">بررسی اسپم</string>
     <string name="spam_settings_cleanup_title">پاک کردن</string>
-    <string name="spam_purge_body">اسپم‌های قدیمی خودکار حذف می‌شوند.</string>
+    <string name="spam_purge_body">تا وقتی تعداد روز انتخاب نکنید خاموش است</string>
     <string name="spam_purge_days">%d روز</string>
     <string name="spam_purge_forever">همیشه نگه دار</string>
-    <string name="spam_notify_title">اعلان وقتی پیامی بلاک می‌شود</string>
+    <string name="spam_notify_title">اعلان برای پیام فرستنده‌های ناشناس</string>
 </resources>

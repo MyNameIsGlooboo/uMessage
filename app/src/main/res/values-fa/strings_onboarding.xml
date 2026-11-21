@@ -7,7 +7,7 @@
     <string name="onb_finish">شروع پیام‌رسانی</string>
     <string name="onb_welcome_title">به uMessage خوش آمدید</string>
     <string name="onb_welcome_intro">پیام‌رسانی بهتر، اسپم کمتر.</string>
-    <string name="onb_welcome_demo_desc">پیام آدم‌هایی که می‌شناسید می‌رود توی پیام‌ها، پیام غریبه‌ها می‌رود توی اسپم، و کد تأیید هم باز به پیام‌ها می‌رسد.</string>
+    <string name="onb_welcome_demo_desc">مخاطب‌های شما می‌روند توی پیام‌ها. فرستنده‌های ناشناس می‌روند توی اسپم. فرستنده‌ای که برایتان کد تأیید بفرستد می‌رود توی پیام‌ها.</string>
     <string name="onb_welcome_spam">اسپم پشت در می‌ماند</string>
     <string name="onb_welcome_spam_desc">پیام‌های فرستنده‌های ناشناس در «اسپم» می‌مانند و گم نمی‌شوند.</string>
     <string name="onb_welcome_codes">کدها با یک لمس</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">بدون حساب، تبلیغات یا فضای ابری. همه‌چیز روی گوشی شما می‌ماند.</string>
     <string name="onb_welcome_start">شروع</string>
     <string name="onb_default_title">uMessage را برنامهٔ پیام خود کنید</string>
-    <string name="onb_default_body">Android فقط به برنامهٔ پیام پیش‌فرض اجازهٔ دریافت و فیلتر پیام‌ها را می‌دهد. بدون این تنظیم، uMessage نمی‌تواند از صندوق ورودی شما محافظت کند.</string>
+    <string name="onb_default_body">Android فقط به برنامهٔ پیام پیش‌فرض اجازهٔ دریافت و فیلتر پیام‌ها را می‌دهد. بدون این تنظیم، uMessage نمی‌تواند اسپم را برای شما فیلتر کند.</string>
     <string name="onb_default_action">تنظیم به‌عنوان پیش‌فرض</string>
     <string name="onb_default_denied">درخواست رد شد. می‌توانید دوباره تلاش کنید یا ادامه دهید و بعداً در تنظیمات Android آن را تنظیم کنید.</string>
     <string name="onb_default_unavailable">گوشی نتوانست پنجرهٔ انتخاب برنامهٔ پیش‌فرض را باز کند. در تنظیمات Android به «برنامه‌ها»، «برنامه‌های پیش‌فرض»، «برنامهٔ پیامک» بروید و uMessage را انتخاب کنید.</string>

@@ -16,10 +16,11 @@
         <item quantity="other">%d فرستنده آنبلاک شدند. گفتگوهایشان به پیام‌ها برگشت.</item>
     </plurals>
     <string name="pt_older_spam_title">اسپم‌های قدیمی که فقط در uMessage هستند</string>
-    <string name="pt_older_spam_hint">این پیام‌ها هنوز در حافظهٔ خود گوشی نیستند. وقتی uMessage برنامهٔ پیام پیش‌فرض شما شود، به آنجا می‌روند. تا آن موقع فقط می‌توانید اینجا بخوانیدشان.</string>
+    <string name="pt_older_spam_hint">این پیام‌ها هنوز در حافظهٔ خود گوشی نیستند. بیشترشان وقتی uMessage برنامهٔ پیام پیش‌فرض شما شود به آنجا می‌روند. تا آن موقع می‌توانید اینجا بخوانیدشان.</string>
 
     <!-- Block that does not move the chat: a user allow rule (a prefix, say) still names the sender (C-3). -->
     <string name="pt_block_still_allowed">به اسپم نرفت: یکی از قانون‌های مجاز شما هنوز به این فرستنده اجازه می‌دهد.</string>
+    <string name="pt_unblock_refused_prefix">آنبلاک نشد: یک قانون شماره‌هایی را که با %1$s شروع می‌شوند بلاک می‌کند</string>
 
     <!-- Chat screen: the one line about the sender (4.3) -->
     <string name="pt_line_code">مجاز شد چون این فرستنده کد تأیید فرستاده است.</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Provider truth, step F (M-SEC2: a restore never arms scheduled sends silently). Step I moves these into the
-     shared files and translates them; until then other languages show the English text. -->
+<!-- Provider truth, step F (M-SEC2: a restore never arms scheduled sends silently). Translated in step I; every
+     locale has a file of the same name. -->
 <resources>
     <plurals name="pt_restore_scheduled_title">
         <item quantity="one">The backup has %d scheduled message</item>

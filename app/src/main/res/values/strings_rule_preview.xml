@@ -4,9 +4,9 @@
     <string name="rule_preview_loading">Checking recent messages…</string>
     <string name="rule_preview_failed">Could not check recent messages. Try again.</string>
     <string name="rule_preview_nothing">There are no recent messages to check yet.</string>
-    <string name="rule_preview_inbox">Inbox: this rule matches %1$d of the last %2$d messages</string>
-    <string name="rule_preview_inbox_empty">Inbox: no messages to check</string>
-    <string name="rule_preview_blocked">Blocked: this rule matches %1$d of the last %2$d messages</string>
-    <string name="rule_preview_blocked_empty">Blocked: no messages to check</string>
+    <string name="rule_preview_inbox">Messages: this rule matches %1$d of the last %2$d texts</string>
+    <string name="rule_preview_inbox_empty">Messages: nothing to check</string>
+    <string name="rule_preview_blocked">Spam: this rule matches %1$d of the last %2$d texts</string>
+    <string name="rule_preview_blocked_empty">Spam: nothing to check</string>
     <string name="rule_preview_examples">For example: %1$s</string>
 </resources>

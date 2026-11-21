@@ -7,7 +7,7 @@
 
     <!-- Words people may type for a setting, besides its title and summary. Separate them with spaces. -->
     <string name="sks_spam">spam block blocked junk filter protection scam unwanted</string>
-    <string name="sks_unknown_sender">unknown strangers senders mode filter spam block</string>
+    <string name="sks_unknown_sender">unknown strangers senders filter spam block switch on off</string>
     <string name="sks_strict">strict hard block everything codes</string>
     <string name="sks_smart">smart recommended automatic default filter</string>
     <string name="sks_spam_off">off disable stop filter allow everything</string>

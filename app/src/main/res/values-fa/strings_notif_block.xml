@@ -3,6 +3,6 @@
     <string name="notif_block_action">بلاک کردن</string>
     <string name="notif_block_undo">برگردان</string>
     <string name="notif_block_done_title">%1$s بلاک شد</string>
-    <string name="notif_block_done_text">پیام‌های جدید به اسپم می‌روند</string>
+    <string name="notif_block_done_text">گفتگو به اسپم رفت</string>
     <string name="notif_block_channel">فرستنده‌های بلاک‌شده</string>
 </resources>

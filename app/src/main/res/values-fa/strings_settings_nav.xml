@@ -49,9 +49,9 @@
     <string name="settings_nav_strict_confirm_body">در حالت سخت‌گیرانه، کدهای فرستندگانی که در مخاطب‌های شما نیستند، همراه با بقیهٔ پیام‌ها به اسپم می‌روند. پیام‌های بانک‌ها و شرکت‌های ارسال مرسوله هم نگه داشته می‌شوند.</string>
     <string name="settings_nav_strict_confirm_action">استفاده از حالت سخت‌گیرانه</string>
     <string name="settings_nav_strict_confirm_cancel">حفظ حالت فعلی</string>
-    <string name="settings_nav_purge_row">حذف اسپم بعد از</string>
+    <string name="settings_nav_purge_row">حذف خودکار اسپم‌های قدیمی</string>
     <string name="settings_nav_group_alerts">هشدارها</string>
-    <string name="settings_nav_notify_body">اعلان بی‌صدا برای هر پیام اسپم</string>
+    <string name="settings_nav_notify_body">یک اعلان بی‌صدا که اسپم را باز می‌کند. برای فرستنده‌ای که بلاک کرده‌اید هرگز.</string>
     <string name="settings_nav_theme_title">ظاهر</string>
     <string name="settings_nav_theme_modes">حالت</string>
     <string name="settings_nav_theme_colours">رنگ‌ها</string>

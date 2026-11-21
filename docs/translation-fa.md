@@ -14,9 +14,9 @@ officialese. The 0.4.2 pass replaced the formal words below with the spoken ones
 |---|---|---|
 | Spam | اسپم | Tab and screen title: اسپم. Formerly هرزنامه. |
 | Report spam | گزارش اسپم | |
-| Not spam | اسپم نیست | Button that restores a message from Spam. |
+| Not spam | اسپم نیست | The one name of the action that allows a sender and moves its chat to Messages. |
 | Block / Blocked | بلاک کردن / بلاک‌شده | "Block sender" = بلاک کردن فرستنده. Formerly مسدود. |
-| Unblock | رفع بلاک | |
+| Unblock | آنبلاک | "Unblocked" = آنبلاک شد. The app says آنبلاک everywhere (owner, 19 Nov 2026); not رفع بلاک. |
 | Allow / Allowed | اجازه دادن / مجاز | allow list = لیست مجاز. |
 | Rule / Rules | قانون / قانون‌ها | Kept. |
 | Unknown sender | فرستنده ناشناس | Kept. |
@@ -47,7 +47,7 @@ officialese. The 0.4.2 pass replaced the formal words below with the spoken ones
 | App lock / PIN | قفل برنامه / پین | |
 | Password | رمز | Formerly گذرواژه. |
 | SIM | سیم‌کارت | |
-| Inbox | صندوق ورودی | |
+| Inbox | صندوق ورودی | Only in old strings of the old Spam list. The tab where chats live is «پیام‌ها»; new and changed texts say پیام‌ها, never صندوق ورودی. |
 | Default SMS app | برنامهٔ پیام پیش‌فرض | |
 | App | برنامه | |
 | Theme | زمینه | |

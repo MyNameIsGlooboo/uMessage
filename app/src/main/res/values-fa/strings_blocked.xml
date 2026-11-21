@@ -46,8 +46,8 @@
         <item quantity="other">%d گفتگو گزارش شد. پیام‌های جدید آن‌ها به «اسپم» می‌روند و گفتگوها آرشیو شدند.</item>
     </plurals>
     <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
-        <item quantity="one">گزارش شد. پیام‌های جدید این فرستنده به «اسپم» می‌روند.</item>
-        <item quantity="other">%d گفتگو گزارش شد. پیام‌های جدید آن‌ها به «اسپم» می‌روند.</item>
+        <item quantity="one">گزارش شد. گفتگو به اسپم رفت.</item>
+        <item quantity="other">%d گفتگو گزارش شد و به اسپم رفت.</item>
     </plurals>
     <string name="blocked_title">اسپم</string>
     <string name="blocked_snack_mode">حالت فرستنده‌های ناشناس روی %1$s تنظیم شد</string>
