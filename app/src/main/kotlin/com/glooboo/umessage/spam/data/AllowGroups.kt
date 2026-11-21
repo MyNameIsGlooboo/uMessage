@@ -123,6 +123,14 @@ object RemovedMembers {
         return keys.any { entry(group, it) in stored }
     }
 
+    /** Every removed sender as its group and sender key (the settings backup writes them, B-9). */
+    @Synchronized
+    fun entries(): List<Pair<AllowGroup, String>> = read().mapNotNull { entry ->
+        val group = AllowGroup.entries.firstOrNull { it.name == entry.substringBefore('|') }
+        val key = entry.substringAfter('|', "")
+        if (group == null || key.isEmpty()) null else group to key
+    }
+
     private fun entry(group: AllowGroup, key: String) = "${group.name}|$key"
 
     private fun read(): Set<String> {

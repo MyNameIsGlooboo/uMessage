@@ -248,15 +248,22 @@ class DefaultSpamRepository(
 
     /** [markNotSpam] without deleting kept MMS files yet, so [undoRestore] can still put the message back whole. */
     override suspend fun restore(blockedId: Long): RestoreReceipt = withContext(Dispatchers.IO) {
+        // Step F (F-1): one lock with the message migration, so the two never write the same message.
         restoreLock.withLock {
-            val stored = dao.getBlocked(blockedId)?.toModel()
-                ?: return@withLock RestoreReceipt(null, RestoreOutcome.NOT_FOUND)
-            val receipt = if (stored.hasStoredMedia) restoreKeptMms(stored) else restoreText(blockedId)
-            if (receipt.outcome != RestoreOutcome.FAILED) {
-                receipt.message?.mediaFile?.let { heldMedia += it }
-                runCatching { platform.cancelBlockedNotifications(listOf(blockedId)) }
+            synchronized(SpamProviderMigration.lock) {
+                val stored = dao.getBlocked(blockedId)?.toModel()
+                    ?: return@withLock RestoreReceipt(null, RestoreOutcome.NOT_FOUND)
+                // With the flag on, a row the migration took (written or done) is in the store already: never again.
+                if (ProviderTruthFlag.enabled && stored.migratedMsgId != null) {
+                    return@withLock RestoreReceipt(null, RestoreOutcome.NOT_FOUND)
+                }
+                val receipt = if (stored.hasStoredMedia) restoreKeptMms(stored) else restoreText(blockedId)
+                if (receipt.outcome != RestoreOutcome.FAILED) {
+                    receipt.message?.mediaFile?.let { heldMedia += it }
+                    runCatching { platform.cancelBlockedNotifications(listOf(blockedId)) }
+                }
+                receipt
             }
-            receipt
         }
     }
 
@@ -269,13 +276,15 @@ class DefaultSpamRepository(
         val undoable = receipt.outcome != RestoreOutcome.FAILED && receipt.outcome != RestoreOutcome.NOT_FOUND
         if (message == null || !undoable) return@withContext false
         restoreLock.withLock {
-            if (!takeOutOfInbox(receipt, message)) return@withLock false
-            db.runInTransaction {
-                if (dao.getBlocked(message.id) == null) dao.insertBlocked(BlockedMessageEntity.from(message))
-                if (receipt.eventId > 0) dao.deleteEvent(receipt.eventId)
+            synchronized(SpamProviderMigration.lock) {
+                if (!takeOutOfInbox(receipt, message)) return@withLock false
+                db.runInTransaction {
+                    if (dao.getBlocked(message.id) == null) dao.insertBlocked(BlockedMessageEntity.from(message))
+                    if (receipt.eventId > 0) dao.deleteEvent(receipt.eventId)
+                }
+                message.mediaFile?.let { heldMedia -= it }
+                true
             }
-            message.mediaFile?.let { heldMedia -= it }
-            true
         }
     }
 
@@ -661,10 +670,16 @@ class DefaultSpamRepository(
         runCatching { platform.cancelBlockedNotifications(ids) }
     }
 
-    /** Deletes expired blocked messages together with their kept MMS content, and content no row refers to. */
+    /**
+     * Deletes expired blocked messages together with their kept MMS content, and content no row refers to.
+     *
+     * Provider truth (step F): with the flag on, no held row is ever deleted by age here. "Auto-delete of Spam" then
+     * acts on the phone's store (SpamAutoDelete), and a held row goes only once the message migration moved it, 30
+     * days later (SpamProviderMigration). Only the sweep of files no row refers to runs.
+     */
     override suspend fun purgeExpired() = withContext(Dispatchers.IO) {
         val days = settingsStore.get().purgeAfterDays
-        if (days > 0) {
+        if (days > 0 && !ProviderTruthFlag.enabled) {
             val before = System.currentTimeMillis() - days * DAY_MS
             val files = db.runInTransaction<List<String>> {
                 dao.mediaFilesBefore(before).also { dao.deleteBlockedBefore(before) }

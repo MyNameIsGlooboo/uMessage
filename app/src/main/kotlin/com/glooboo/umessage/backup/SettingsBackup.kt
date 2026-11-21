@@ -13,6 +13,8 @@ import com.glooboo.umessage.helpers.TextSize
 import com.glooboo.umessage.helpers.ThreadPrefs
 import com.glooboo.umessage.helpers.W3aPrefs
 import com.glooboo.umessage.helpers.W3cPrefs
+import com.glooboo.umessage.spam.FirstRun
+import com.glooboo.umessage.spam.FirstRunTrigger
 import com.glooboo.umessage.spam.ForwardingAvailability
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
@@ -20,6 +22,7 @@ import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.UnknownSenderMode
+import com.glooboo.umessage.spam.data.RemovedMembers
 import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.spam.engine.defaultRegion
 import com.glooboo.umessage.ui.spam.BlockingMigration
@@ -122,6 +125,7 @@ object SettingsBackup {
             appVersion = BuildConfig.VERSION_NAME,
             blockedKeywords = BlockedKeywordsFormat.sorted(app.config.blockedKeywords),
             groupMembers = repo.groupMembers.first(),
+            removedMembers = RemovedMarks.read(),
         )
         val text = SettingsBackupFormat.encode(content, System.currentTimeMillis())
         SafeOutput.write<Unit>(app, uri) { it.write(text.toByteArray(Charsets.UTF_8)) }
@@ -181,6 +185,8 @@ object SettingsBackup {
             // D3 A, A-9: members come back with their join time, source and Keep state, in one transaction, never for
             // a sender that has a block rule (now, or from this file's rules, restored just above).
             repo.importGroupMembers(preview.content.groupMembers)
+            // B-9: the senders removed from a group on the old phone stay removed: the history check skips them.
+            RemovedMarks.restore(preview.content.removedMembers)
 
             val forwards = SpamEngine.forwardRepository(app)
             val forwardsAdded = if (ForwardingAvailability.isAvailable(app)) {
@@ -198,6 +204,8 @@ object SettingsBackup {
             )
             // An older backup's blocked words become rules at once, like on the phone they came from.
             BlockingMigration.runOnce(app)
+            // Provider truth (3.5): the rules and members that came back re-sort the chats; nothing with the flag off.
+            FirstRun.request(app, FirstRunTrigger.RESTORE)
             Result(
                 rulesAdded = rulesAdded,
                 rulesSkipped = (preview.content.rules.size - rulesAdded).coerceAtLeast(0),
@@ -392,5 +400,19 @@ object SettingsBackup {
         }
         // D13: a file saved by a Windows editor starts with a byte order mark, which the JSON reader refuses.
         return out.toString(Charsets.UTF_8.name()).removePrefix("\uFEFF")
+    }
+}
+
+/**
+ * B-9: the senders the user removed from a group rule ([RemovedMembers]) in a settings backup: read with
+ * [RemovedMembers.entries], put back through [RemovedMembers.add].
+ */
+internal object RemovedMarks {
+    fun read(): List<RemovedGroupMark> = RemovedMembers.entries()
+        .map { (group, key) -> RemovedGroupMark(group, key) }
+        .sortedWith(compareBy({ it.group }, { it.key }))
+
+    fun restore(marks: List<RemovedGroupMark>) {
+        marks.groupBy { it.group }.forEach { (group, list) -> RemovedMembers.add(group, list.map { it.key }) }
     }
 }

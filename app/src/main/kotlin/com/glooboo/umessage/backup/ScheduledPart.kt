@@ -30,6 +30,10 @@ import com.glooboo.umessage.ui.thread.isSchedulableTime
  * starts a new chat, as when it was scheduled. [booker] saves a
  * restored message and its repeat (whose message id is a placeholder to replace) and sets its alarm; a message whose
  * `threadId == id` starts a new chat, as one scheduled to new people does.
+ *
+ * M-D1: a backup that leaves chats out ([hiddenChats] not among the exported chats, "Skip hidden chats") also leaves
+ * out their scheduled messages and reminders. M-SEC2: with a [hold], a restore never arms a scheduled send silently:
+ * the messages wait in the hold until the user saw how many there are, to how many numbers, and said yes ([arm]).
  */
 class ScheduledPart(
     private val scheduled: suspend () -> List<Message>,
@@ -40,13 +44,23 @@ class ScheduledPart(
     private val arm: (MessageReminder) -> Unit,
     private val now: () -> Long = System::currentTimeMillis,
     private val newId: () -> Long = ::generateRandomId,
+    /** The chats the user hides behind the app lock (M-D1). */
+    private val hiddenChats: () -> Set<Long> = { emptySet() },
+    /** M-SEC2: where restored scheduled messages wait for the user's yes; null arms them at once. */
+    private val hold: ScheduledHold? = null,
 ) : AppDataPart {
 
     override suspend fun collect(request: AppDataRequest, base: AppDataBackup): AppDataBackup {
         if (!request.wholePhone) return base
         val time = now()
-        val messages = if (request.sms || request.mms) scheduled().mapNotNull { toBackup(it) } else emptyList()
-        val due = reminders.getAll().filter { it.remindAt > time }.mapNotNull { reminder ->
+        // M-D1: a hidden chat that is not exported keeps its scheduled messages and reminders out of the file too.
+        val leftOut = hiddenChats().filterNotTo(HashSet()) { it in request.threadIds }
+        val messages = if (request.sms || request.mms) {
+            scheduled().filter { it.threadId !in leftOut }.mapNotNull { toBackup(it) }
+        } else {
+            emptyList()
+        }
+        val due = reminders.getAll().filter { it.remindAt > time && it.threadId !in leftOut }.mapNotNull { reminder ->
             chats.addressesOf(reminder.threadId).sorted().takeIf { it.isNotEmpty() }?.let {
                 ReminderBackup(it, reminder.remindAt, reminder.snapshotBody, reminder.isMMS)
             }
@@ -72,21 +86,31 @@ class ScheduledPart(
     }
 
     override suspend fun restore(data: AppDataBackup): Int =
-        restoreScheduled(data.scheduled) + restoreReminders(data.reminders)
+        restoreScheduled(data.scheduled, holdBack = hold != null) + restoreReminders(data.reminders)
 
-    private suspend fun restoreScheduled(items: List<ScheduledBackup>): Int {
+    /** M-SEC2: arms the held scheduled messages the user said yes to; returns how many were set. */
+    suspend fun arm(items: List<ScheduledBackup>): Int = restoreScheduled(items, holdBack = false)
+
+    /** Books the messages of [items] that can still happen and are not scheduled yet, or with [holdBack] holds them. */
+    private suspend fun restoreScheduled(items: List<ScheduledBackup>, holdBack: Boolean): Int {
         if (items.isEmpty()) return 0
         val known = scheduled().mapTo(HashSet()) { identity(it.participants.getAddresses(), it.body, it.date.toLong()) }
         var taken = 0
+        val held = mutableListOf<ScheduledBackup>()
         for (item in items) {
             val people = item.addresses.map { it.trim() }.filter { it.isNotEmpty() }.distinct()
             val at = dueTime(item)
             val fresh = people.isNotEmpty() && item.body.isNotBlank() && at != null &&
                 known.add(identity(people, item.body, at / MILLIS))
             if (!fresh || at == null) continue
-            booker(build(people, item.body, at), repeatFor(item))
-            taken++
+            if (holdBack) {
+                held += item
+            } else {
+                booker(build(people, item.body, at), repeatFor(item))
+                taken++
+            }
         }
+        if (held.isNotEmpty()) hold?.add(held)
         return taken
     }
 
@@ -155,4 +179,12 @@ class ScheduledPart(
     private companion object {
         const val MILLIS = 1000L
     }
+}
+
+/**
+ * M-SEC2: the scheduled messages of a restored file that wait for the user's yes before any alarm is set. Adding the
+ * same message twice keeps it once.
+ */
+interface ScheduledHold {
+    fun add(items: List<ScheduledBackup>)
 }

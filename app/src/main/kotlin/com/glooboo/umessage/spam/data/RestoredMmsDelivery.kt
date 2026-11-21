@@ -14,7 +14,6 @@ import com.glooboo.umessage.extensions.getConversations
 import com.glooboo.umessage.extensions.getMMS
 import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.messagesDB
-import com.glooboo.umessage.extensions.recomputeThreadDate
 import com.glooboo.umessage.extensions.shouldUnarchive
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.extensions.updateLastConversationMessage
@@ -34,12 +33,7 @@ internal object RestoredMmsDelivery {
      * below may fail the restore.
      */
     fun deliver(context: Context, message: BlockedMessage): Long? {
-        val name = message.mediaFile ?: return null
-        val pdu = BlockedMmsStore.pduFile(context, name)?.takeIf { it.isFile }?.readBytes() ?: return null
-        val config = MmsConfig.Overridden(MmsConfig(context), null)
-        // Empty location / transaction id: the notification-ind is long gone, and persist() binds both in queries.
-        val uri: Uri = DownloadRequest.persist(context, pdu, config, "", "", message.subscriptionId, context.packageName)
-            ?: return null
+        val uri = persistKept(context, message) ?: return null
 
         runCatching {
             // persist() stamps the time of the restore; keep the thread in order with the time it really arrived.
@@ -49,8 +43,9 @@ internal object RestoredMmsDelivery {
 
         runCatching {
             val mms = context.getMMS(uri) ?: return@runCatching
-            // The thread carries the restore time; date it by its newest message, as the chat list later will.
-            context.recomputeThreadDate(mms.threadId)
+            // The thread carries the restore time; date it by its newest message, as the chat list later will. A helper
+            // draft left by a failed step is dated again by the migration's sweep at the next start (T-2).
+            ThreadRedate.redate(context, mms.threadId)
             context.getConversations(mms.threadId).firstOrNull()?.let { conv ->
                 val messageSeconds = (message.receivedAt / 1000).toInt()
                 if (conv.date > messageSeconds) {
@@ -64,6 +59,20 @@ internal object RestoredMmsDelivery {
         runCatching { refreshMessages() }
         runCatching { refreshConversations() }
         return ContentUris.parseId(uri)
+    }
+
+    /**
+     * Only mmslib's persist step of [deliver]: the kept PDU of [message] goes into the inbox of the thread of its real
+     * recipients (a group MMS into its group thread), as every downloaded MMS does. mmslib stamps it with the time of
+     * the call, unread and unseen; the caller dates and settles it. Null when there is no kept PDU or mmslib wrote
+     * nothing. Used by "Not spam" and by the message migration (section 8).
+     */
+    fun persistKept(context: Context, message: BlockedMessage): Uri? {
+        val name = message.mediaFile ?: return null
+        val pdu = BlockedMmsStore.pduFile(context, name)?.takeIf { it.isFile }?.readBytes() ?: return null
+        val config = MmsConfig.Overridden(MmsConfig(context), null)
+        // Empty location / transaction id: the notification-ind is long gone, and persist() binds both in queries.
+        return DownloadRequest.persist(context, pdu, config, "", "", message.subscriptionId, context.packageName)
     }
 }
 

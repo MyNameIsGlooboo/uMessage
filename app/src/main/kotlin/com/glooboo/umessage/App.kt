@@ -26,6 +26,7 @@ import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.activities.CopyCodeActivity
 import com.glooboo.umessage.activities.MainActivity
 import com.glooboo.umessage.activities.SplashActivity
+import com.glooboo.umessage.export.ExportTempFolder
 import com.glooboo.umessage.extensions.rescheduleAllScheduledMessages
 import com.glooboo.umessage.helpers.CacheCleanup
 import com.glooboo.umessage.helpers.DailyChecks
@@ -44,6 +45,7 @@ import com.glooboo.umessage.spam.SortDryRun
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.data.PendingSmsQueue
 import com.glooboo.umessage.spam.data.RemovedMembers
+import com.glooboo.umessage.spam.data.SpamProviderMigration
 import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.ui.lock.LockActivity
 import com.glooboo.umessage.ui.lock.LockScope
@@ -76,10 +78,15 @@ class App : FossifyApp() {
         RemovedMembers.install(getSharedPreferences(RemovedMembers.PREFS, MODE_PRIVATE))
         registerContactsObserver()
         installFirstRunPages()
+        // Step F (section 8): the first run's "older spam" step moves held messages into the phone's store.
+        FirstRun.olderSpamMigration = SpamProviderMigration.firstRunStep
+        // M-D3: plain export files an earlier run left behind go; a run started from now on keeps its file.
+        val startedAt = System.currentTimeMillis()
 
         ensureBackgroundThread {
             PendingSmsQueue.replay(this)
             CacheCleanup.run(this)
+            runCatching { ExportTempFolder.wipe(this, before = startedAt) }
             tidyScheduledAttachments()
             rescheduleAllScheduledMessages()
             rearmReminders()
@@ -94,6 +101,9 @@ class App : FossifyApp() {
             // Two block lists only: old blocked words become rules, the old unknown-numbers switch becomes a mode.
             runBlocking { BlockingMigration.runOnce(this@App) }
             startSorting()
+            // Step F: held messages still waiting are moved here, off the broadcasts (F-19), and the history check owed
+            // for moved senders is asked for (F-14). Nothing with the flag off; nothing before the first sort.
+            SpamProviderMigration.runPending(this)
         }
     }
 

@@ -1,6 +1,7 @@
 package com.glooboo.umessage.backup
 
 import com.glooboo.umessage.helpers.BlockedKeywordsFormat
+import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.ForwardRule
 import com.glooboo.umessage.spam.RuleType
@@ -230,7 +231,15 @@ data class BackupContent(
      * restore only ever adds members, never for a sender with a block rule.
      */
     val groupMembers: List<AllowGroupMember> = emptyList(),
+    /**
+     * B-9: the senders the user removed from a group rule, so the history check after a restore does not add them
+     * again. Files from before lack them and give an empty list; a restore only ever adds marks.
+     */
+    val removedMembers: List<RemovedGroupMark> = emptyList(),
 )
+
+/** B-9: a sender removed from [group], by the sender key the matcher uses (a normalized number or a name). */
+data class RemovedGroupMark(val group: AllowGroup, val key: String)
 
 /**
  * The versioned JSON of a settings backup (ID-38). Pure JVM. Reading is tolerant: unknown fields are ignored, an entry
@@ -264,6 +273,9 @@ object SettingsBackupFormat {
     /** D3 A: the members of the two group rules (provider truth). Older files lack it. */
     private const val GROUP_MEMBERS = "groupMembers"
 
+    /** B-9: the senders removed from a group rule (provider truth). Older files lack it. */
+    private const val REMOVED_MEMBERS = "removedMembers"
+
     private val json = Json { prettyPrint = true }
 
     fun encode(content: BackupContent, exportedAt: Long): String {
@@ -281,6 +293,21 @@ object SettingsBackupFormat {
             }
             if (content.groupMembers.isNotEmpty()) {
                 put(GROUP_MEMBERS, BackupGroupMembers.writeAll(content.groupMembers))
+            }
+            if (content.removedMembers.isNotEmpty()) {
+                put(
+                    REMOVED_MEMBERS,
+                    buildJsonArray {
+                        content.removedMembers.forEach { mark ->
+                            add(
+                                buildJsonObject {
+                                    put("group", mark.group.name)
+                                    put("key", mark.key)
+                                },
+                            )
+                        }
+                    },
+                )
             }
             put("settings", BackupJson.settings(content.settings))
         }
@@ -310,8 +337,20 @@ object SettingsBackupFormat {
             blockedKeywords = readKeywords(root),
             modeIncludesSwitch = root.bool("modeIncludesSwitch") == true,
             groupMembers = BackupGroupMembers.readAll(root.array(GROUP_MEMBERS).orEmpty()).take(MAX_GROUP_MEMBERS),
+            removedMembers = readRemoved(root),
         )
     }
+
+    /** B-9: the removed-sender marks of the file; an unusable one is skipped, at most [MAX_GROUP_MEMBERS]. */
+    private fun readRemoved(root: JsonObject): List<RemovedGroupMark> = root.array(REMOVED_MEMBERS).orEmpty()
+        .mapNotNull { element ->
+            val o = element as? JsonObject ?: return@mapNotNull null
+            val group = AllowGroup.entries.firstOrNull { it.name == o.str("group") } ?: return@mapNotNull null
+            val key = o.str("key")?.trim().orEmpty()
+            if (key.isEmpty() || key.length > BackupGroupMembers.MAX_ADDRESS) null else RemovedGroupMark(group, key)
+        }
+        .distinct()
+        .take(MAX_GROUP_MEMBERS)
 
     /** The words of the file that are valid (see [BlockedKeywordsFormat.clean]), each once, at most [MAX_KEYWORDS]. */
     private fun readKeywords(root: JsonObject): List<String> = root.array("blockedKeywords").orEmpty()

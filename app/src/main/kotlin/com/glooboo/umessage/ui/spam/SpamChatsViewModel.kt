@@ -18,12 +18,12 @@ import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.models.Events
 import com.glooboo.umessage.spam.BlockReceipt
 import com.glooboo.umessage.spam.ChatSorter
-import com.glooboo.umessage.spam.FirstRun
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.data.BlockedNotifier
+import com.glooboo.umessage.spam.data.SpamProviderMigration
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.ui.components.localizeDigits
@@ -215,10 +215,10 @@ class SpamChatsViewModel internal constructor(
     private fun observeSettings() {
         viewModelScope.launch {
             val repo = runCatching { repository() }.getOrNull() ?: return@launch
-            val firstRun = FirstRun.state(app)
-            combine(repo.settings, repo.blocked, firstRun) { settings, blocked, run ->
-                settings.filterOn to if (run.olderSpamWaiting) OlderSpam.count(blocked) else 0
-            }.flowOn(Dispatchers.Default).catch { }.collect { (filterOn, older) ->
+            // F-2: every held row not verified-done is shown (waiting, given up, stopped, late MMS, restored).
+            combine(repo.settings, repo.blocked) { settings, blocked ->
+                settings.filterOn to OlderSpam.count(blocked, SpamProviderMigration.keptHere(app, blocked))
+            }.flowOn(Dispatchers.IO).catch { }.collect { (filterOn, older) ->
                 _state.update { it.copy(filterOn = filterOn, olderSpam = older) }
             }
         }

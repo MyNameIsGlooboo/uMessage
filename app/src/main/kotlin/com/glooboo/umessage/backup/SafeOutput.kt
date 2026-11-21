@@ -2,6 +2,7 @@ package com.glooboo.umessage.backup
 
 import android.content.Context
 import android.net.Uri
+import com.glooboo.umessage.export.ExportTempFolder
 import java.io.File
 import java.io.IOException
 import java.io.OutputStream
@@ -11,7 +12,8 @@ import java.io.OutputStream
  * temporary file in the app's cache first; only when that succeeded and is not empty is it copied into the chosen
  * location, and the copy is checked. Opening the destination with a truncating mode before the data exists (what the
  * backups used to do) leaves a 0-byte file whenever the work then fails, is stopped, finds nothing, or the process
- * dies; here the destination is not touched until there is something to put in it.
+ * dies; here the destination is not touched until there is something to put in it. M-D3: the temporary file is in a
+ * folder of its own ([ExportTempFolder]), which app start empties of what a kill left behind.
  */
 object SafeOutput {
 
@@ -30,7 +32,8 @@ object SafeOutput {
         keep: (T) -> Boolean = { true },
         produce: (OutputStream) -> T,
     ): Result<T> {
-        val temp = File.createTempFile("backup", ".tmp", context.cacheDir)
+        // M-D3: in the temp folder of its own, emptied at app start of what a kill left behind.
+        val temp = ExportTempFolder.newFile(context, "backup", ".tmp")
         try {
             val value = temp.outputStream().buffered().use { stream ->
                 produce(stream).also { stream.flush() }

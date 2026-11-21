@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -27,6 +28,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import com.glooboo.umessage.helpers.refreshConversations
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.spam.data.SpamAutoDelete
+import com.glooboo.umessage.spam.data.SpamProviderMigration
 import kotlinx.coroutines.withContext
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.RestoreOutcome
@@ -286,7 +290,11 @@ class BlockedViewModel(
     private val afterAllow = mutableMapOf<Long, () -> Unit>()
 
     val state: StateFlow<BlockedUiState> = combine(
-        repository.blocked,
+        // Step F (F-1): with the flag on, a held row the message migration took (any mark) is not listed here; its
+        // message is in the phone's store, and "Not spam" refuses it.
+        repository.blocked.map { rows ->
+            if (ProviderTruthFlag.enabled) rows.filter { it.migratedMsgId == null } else rows
+        },
         repository.stats,
         combine(repository.settings, repository.rules, filter, restoredLog.entries, ::Aux),
         combine(pendingDeletes, pendingRestores, moves.state) { deletes, restores, move ->
@@ -342,6 +350,14 @@ class BlockedViewModel(
             sims.value = withContext(Dispatchers.IO) { SimDirectory.load(getApplication()) }
         }
         viewModelScope.launch {
+            // Provider truth (step F): waiting held messages are moved and auto-delete acts on the phone's store; the
+            // repository purge then deletes no held row (only the file sweep runs).
+            if (ProviderTruthFlag.enabled) {
+                withContext(Dispatchers.IO) {
+                    runCatching { SpamProviderMigration.runPending(getApplication<Application>()) }
+                    runCatching { SpamAutoDelete.run(getApplication<Application>()) }
+                }
+            }
             runCatching { repository.purgeExpired() }
             // The restored list goes with the blocked messages the purge deletes (spamui-15): its entries live no
             // longer than the purge setting, and 30 days at most.

@@ -81,7 +81,7 @@ The Google Play build may show Google's own rating card. The Play Store app show
 
 The app creates an export or backup file only when you ask for it. It is written to the place you choose and stays there. A message export is not encrypted unless you protect it with a password when you create it. Backups of your settings and rules are never encrypted. These files can contain message text and phone numbers, so keep them somewhere private and delete them when you no longer need them. uMessage does not upload them. Tapping a phone number opens the phone's dialer with the number filled in; the app does not place the call itself.
 
-When you share a chat or the decision log, or attach a photo, uMessage makes a temporary copy in its private cache. Copies older than a day are deleted automatically.
+When you share a chat or the decision log, or attach a photo, uMessage makes a temporary copy in its private cache. Copies older than a day are deleted automatically. While a backup is being made, it is first written to a temporary file in a folder of its own in the private cache and then copied to the place you chose; that file is deleted right after, and if the app is closed in between, at its next start. A backup saved to Google Drive is first put in a folder of the private cache and handed to the Drive app; that copy is deleted by the next hand-over or by the daily cache clean-up, within about two days. When you restore a backup that holds scheduled messages, they are not sent until you turn them on: until you choose, their text and numbers are kept in the app's private storage on this phone.
 
 ## Retention and deletion
 

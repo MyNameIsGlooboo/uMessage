@@ -1,6 +1,7 @@
 package com.glooboo.umessage.helpers
 
 import android.content.Context
+import com.glooboo.umessage.backup.HeldScheduledRestore
 import com.glooboo.umessage.models.ExportSummary
 import com.glooboo.umessage.models.ImportSummary
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +24,14 @@ object BackupJob {
         /** [fraction] is null while the size of the work is unknown. */
         data class Running(val kind: Kind, val count: Int, val fraction: Float?) : State
 
-        data class ImportDone(val summary: ImportSummary) : State
+        /**
+         * [scheduledHeld]: M-SEC2, the restored file's scheduled messages wait for the user's yes
+         * ([HeldScheduledRestore.arm] or [HeldScheduledRestore.discard]); null when none waits.
+         */
+        data class ImportDone(
+            val summary: ImportSummary,
+            val scheduledHeld: HeldScheduledRestore.Summary? = null,
+        ) : State
 
         /** [error] is set when the file could not be written at all. */
         data class ExportDone(val summary: ExportSummary, val error: String? = null) : State
@@ -53,7 +61,14 @@ object BackupJob {
 
     fun finish(context: Context, result: State) {
         prefs(context).edit().remove(KEY_RUNNING).apply()
-        mutableState.value = result
+        mutableState.value = withHeldScheduled(context, result)
+    }
+
+    /** M-SEC2: a finished restore says whether scheduled messages wait for the user's yes. */
+    private fun withHeldScheduled(context: Context, result: State): State {
+        if (result !is State.ImportDone || result.scheduledHeld != null) return result
+        val held = runCatching { HeldScheduledRestore.summary(context) }.getOrNull() ?: return result
+        return result.copy(scheduledHeld = held)
     }
 
     @Volatile private var stagedPassword: CharArray? = null

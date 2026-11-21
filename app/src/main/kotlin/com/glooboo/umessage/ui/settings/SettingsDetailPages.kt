@@ -7,20 +7,28 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
+import com.glooboo.umessage.backup.HeldScheduledRestore
+import com.glooboo.umessage.dialogs.HeldScheduledDialog
 import com.glooboo.umessage.ui.components.ChoiceDialog
 import com.glooboo.umessage.ui.components.SettingsGroup
 import com.glooboo.umessage.ui.components.SettingsRow
 import com.glooboo.umessage.ui.components.SettingsSwitchRow
 import com.glooboo.umessage.ui.components.TonalRows
 import com.glooboo.umessage.ui.icons.Symbols
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.fossify.commons.R as CommonsR
 
 /**
@@ -203,8 +211,23 @@ private enum class BackupKind { BACKUP, RESTORE, BACKUP_DRIVE, RESTORE_DRIVE }
 @Composable
 internal fun BackupPage(actions: SettingsActions, open: (SettingsPage) -> Unit = {}) {
     var asking by rememberSaveable { mutableStateOf<BackupKind?>(null) }
+    // M-SEC2, F-10: scheduled messages a restore held (messages to numbers) can always be turned on or discarded here.
+    val context = LocalContext.current
+    var held by remember { mutableStateOf<Pair<Int, Int>?>(null) }
+    var askingHeld by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        held = withContext(Dispatchers.IO) { HeldScheduledRestore.summary(context) }?.let { it.messages to it.numbers }
+    }
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         TonalRows(Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)) {
+            held?.let { (messages, _) ->
+                SettingsRow(
+                    title = pluralStringResource(R.plurals.pt_restore_scheduled_title, messages, messages),
+                    summary = stringResource(R.string.pt_restore_scheduled_row_body),
+                    icon = Symbols.ScheduleSend,
+                    onClick = { askingHeld = true },
+                )
+            }
             SettingsRow(
                 title = stringResource(R.string.ux8e_backup_row),
                 summary = stringResource(R.string.ux8e_backup_row_body),
@@ -245,6 +268,12 @@ internal fun BackupPage(actions: SettingsActions, open: (SettingsPage) -> Unit =
                 onClick = { open(SettingsPage.MoveFromApp) },
                 showChevron = true,
             )
+        }
+        held?.takeIf { askingHeld }?.let { (messages, numbers) ->
+            HeldScheduledDialog(messages, numbers) {
+                askingHeld = false
+                held = null
+            }
         }
         Text(
             stringResource(R.string.ux8e_backup_warning),

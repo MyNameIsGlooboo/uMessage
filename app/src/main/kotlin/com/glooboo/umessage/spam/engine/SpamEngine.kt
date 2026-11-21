@@ -19,7 +19,9 @@ import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.data.AndroidSpamPlatform
 import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.spam.data.DefaultSpamRepository
+import com.glooboo.umessage.spam.data.SpamAutoDelete
 import com.glooboo.umessage.spam.data.SpamDatabase
+import com.glooboo.umessage.spam.data.SpamProviderMigration
 import com.glooboo.umessage.spam.data.SpamSettingsStore
 
 /**
@@ -368,6 +370,12 @@ object SpamEngine {
             // The decision log has its own, shorter retention; it goes first so a failing repository purge
             // can't keep old sender numbers around.
             runCatching { UMessage.log(app).purgeExpired() }
+            // Provider truth (step F): held messages that wait are moved first, then auto-delete acts on the phone's
+            // store. The repository purge below deletes no held row with the flag on (only the file sweep runs).
+            if (ProviderTruthFlag.enabled) {
+                SpamProviderMigration.runPending(app, limit = SpamProviderMigration.RECEIVER_BATCH)
+                SpamAutoDelete.run(app)
+            }
             // spam-14: a purge that failed gives the claim back, so the next message retries it, not 6 hours later.
             try {
                 runBlocking { repository(app).purgeExpired() }
