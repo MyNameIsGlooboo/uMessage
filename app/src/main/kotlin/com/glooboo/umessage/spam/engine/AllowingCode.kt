@@ -88,8 +88,9 @@ object AllowingCode {
         // "to the door" are where a parcel arrives (written with "." for the spaces, as words() would turn a space
         // into an unbounded run, which a look-behind must not hold); an entrance exam, a parking payment, a gate
         // number and Gate.io are no access codes.
-        "(?<!(?:at|to).(?:your|the).(?:(?:front|main|back).)?)door", "entrance(?! exam)",
-        "parking(?! (?:payment|fee|fine|ticket|permit))", "building", "gate(?!\\.io)(?! (?:number|no\\.?))",
+        "(?<!(?:at|to).(?:your|the).(?:(?:front|main|back).)?)door(?! delivery)", "entrance(?! exam)",
+        "parking(?! (?:payment|fee|fine|ticket|permit|verification|login|app|account|booking))",
+        "building(?! society)", "gate(?!\\.io)(?! (?:number|no\\.?)(?![\\p{L}]))",
         "gate code", "garage", "locker",
         // Persian
         "پیگیری", "رهگیری", "مرسوله", "کد سفارش", "شماره سفارش", "کد معرف", "کد معرفی", "کد شعبه", "کد نوبت",
@@ -250,12 +251,12 @@ object AllowingCode {
      * (Persian "هرگز", "هیچ وقت", "هیچ کس", "نمی خواهیم") makes it one ("Never tell the agent your OTP", "will never
      * ask you to share the code with our agent", "We never call or ask you to share the OTP with our staff"). A comma,
      * a semicolon or a colon ends the clause ("Don't worry, share the code with our agent" is a request), except one
-     * right after the negation or around an aside ("Never, ever share", "Do not, under any circumstances, share").
-     * "Example asks you to share the code" is a request.
+     * right after "never", "do not" or "n't", or around an aside ("Never, ever share", "Do not, under any
+     * circumstances, share"); "If not, share the code" and "Example asks you to share the code" are requests.
      */
     private const val WARNED_EN =
-        "(?<!(?:(?<![\\p{L}])(?:not|never|dont|no one|nobody)|n't)(?:,[^.!?,;:\u060C\u061B\\n]{0,30},|,)?" +
-            "[^.!?,;:\u060C\u061B\\n]{0,32})"
+        "(?<!(?:(?:(?<![\\p{L}])(?:never|do not)|n't)(?:,[^.!?,;:\u060C\u061B\\n]{0,30},|,)?|" +
+            "(?<![\\p{L}])(?:not|dont|no one|nobody))[^.!?,;:\u060C\u061B\\n]{0,32})"
     private const val WARNED_FA =
         "(?<!(?<![\\p{L}])(?:هرگز|هیچ ?وقت|هیچ ?کس|هیچ ?گاه|نمی\\s?خواه\\p{L}{0,4})[^.!?,;:\u060C\u061B\\n]{0,40})"
     private const val ASK_EN = "(?:share|give|tell|read|send|provide|forward|confirm)" +

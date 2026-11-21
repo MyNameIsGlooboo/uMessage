@@ -132,6 +132,8 @@ class OtpDetectorCorpusTest {
             "Your OTP is 482913. If not received, give the OTP to our agent",
             "هیچ نگرانی نیست، کد تایید را به کارشناس ما اعلام کنید 482913",
             "Don't worry; share the code with our agent 482913",
+            // "if not," is no negation of the request after it
+            "Your OTP is 482913. If not, share the code with our agent",
         ).forEach { assertShownOnly(it, "482913") }
         // A comma right after the negation, or around an aside, keeps the warning; so does a longer clause.
         listOf(
@@ -181,6 +183,25 @@ class OtpDetectorCorpusTest {
             "Your gate PIN is 4829",
         ).forEach { assertShownOnly(it, "4829") }
         assertShownAndAllows("Your verification code for the delivery at your front door is 482913", "482913")
+        // Harmless uses of the access words: a building society, a parking app, a door delivery, a gate number.
+        listOf(
+            "Your OTP for Nationwide Building Society login is 482913",
+            "Your PayByPhone parking verification code is 482913",
+            "OTP for door delivery is 482913",
+            "Your OTP for gate number change is 482913",
+            "Gate no. OTP 482913",
+            "Gate number OTP 482913",
+            "Parking fine OTP 482913",
+            "Your OTP for parking fee payment is 482913",
+            "Your OTP for the parking fine is 482913",
+            "Your OTP for your parking ticket is 482913",
+            "Your OTP for the parking permit renewal is 482913",
+        ).forEach { assertShownAndAllows(it, "482913") }
+        // "gate now" is no gate number, and a bare gate or parking word right before the code vetoes.
+        assertShownOnly("Use the gate now with PIN 4829", "4829")
+        assertShownOnly("Gate now OTP 482913", "482913")
+        assertShownOnly("Gate OTP 482913", "482913")
+        assertShownOnly("Parking OTP 482913", "482913")
         // Access words are phrases: an entrance exam or a parking payment is no door.
         assertShownAndAllows("Your OTP for the entrance exam registration is 482913", "482913")
         assertShownAndAllows("OTP for parking payment at Example is 482913", "482913")
