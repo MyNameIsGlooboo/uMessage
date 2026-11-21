@@ -86,6 +86,25 @@ class ThreadMessagesRepositoryTest {
         assertThat(repository.current.map { it.id }).containsExactly(7L)
     }
 
+    /** M-UI3: a screen field write for a chat that another one replaced in between is not done. */
+    @Test
+    fun aWriteAfterAnotherChatOpenedIsNotDone() {
+        val repository = ThreadMessagesRepository(FakeSource()) { now }
+        val list = ThreadMessageList()
+        val oldChat = repository.generation
+        val oldList = list.generation
+        var written = 0
+
+        repository.reset() // between reading the generation and the write
+        list.clear()
+
+        assertThat(repository.ifCurrent(oldChat) { written++ }).isFalse()
+        assertThat(list.runIf(oldList) { written++ }).isFalse()
+        assertThat(written).isEqualTo(0)
+        assertThat(repository.ifCurrent(repository.generation) { written++ }).isTrue()
+        assertThat(written).isEqualTo(1)
+    }
+
     @Test
     fun newestPageLeavesOutRecycledMessages() {
         val source = FakeSource().apply {

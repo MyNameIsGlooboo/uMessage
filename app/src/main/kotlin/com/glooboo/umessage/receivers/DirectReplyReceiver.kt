@@ -2,11 +2,13 @@ package com.glooboo.umessage.receivers
 
 import android.Manifest
 import android.app.Notification
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.telephony.SmsManager
+import androidx.annotation.VisibleForTesting
 import androidx.core.app.RemoteInput
 import androidx.core.content.ContextCompat
 import org.fossify.commons.extensions.notificationManager
@@ -127,18 +129,29 @@ class DirectReplyReceiver : BroadcastReceiver() {
      * notification is posted again unchanged, without sound or heads-up; nothing is posted when it is gone. When it
      * cannot be posted again it is removed, which ends the spinner too.
      */
-    private fun repostOriginal(context: Context, threadId: Long) {
+    @VisibleForTesting
+    internal fun repostOriginal(
+        context: Context,
+        threadId: Long,
+        post: (NotificationManager, Int, Notification) -> Unit = { manager, id, notification ->
+            manager.notify(id, notification)
+        },
+    ) {
         if (threadId == 0L) return
         val manager = context.notificationManager
-        val shown = manager.activeNotifications.firstOrNull { it.id == threadId.hashCode() && it.tag == null } ?: return
-        val channel = shown.notification.channelId
+        var shownId: Int? = null
+        var channel: String? = null
         try {
+            val shown =
+                manager.activeNotifications.firstOrNull { it.id == threadId.hashCode() && it.tag == null } ?: return
+            shownId = shown.id
+            channel = shown.notification.channelId
             val again = Notification.Builder.recoverBuilder(context, shown.notification).setOnlyAlertOnce(true).build()
-            manager.notify(shown.id, again)
+            post(manager, shown.id, again)
             NotifyLog.record(channel, threadId, NotifyResult.REPOSTED)
         } catch (e: Exception) {
             NotifyLog.record(channel, threadId, NotifyResult.FAILED, cause = e)
-            runCatching { manager.cancel(shown.id) }
+            shownId?.let { id -> runCatching { manager.cancel(id) } }
         }
     }
 

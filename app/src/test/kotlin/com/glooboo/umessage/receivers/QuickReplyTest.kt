@@ -13,6 +13,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.getSmsDraft
+import com.glooboo.umessage.helpers.NotifyLog
 import com.glooboo.umessage.services.HeadlessSmsSendService
 import com.glooboo.umessage.testing.FakeSmsMmsProvider
 import com.glooboo.umessage.testing.FakeThreadStore
@@ -26,6 +27,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.Shadows.shadowOf
+import org.robolectric.shadows.ShadowLog
 import org.robolectric.shadows.ShadowLooper
 
 /** Sends that start outside the app: a reply typed into a notification, and another app's "respond via message". */
@@ -118,6 +120,24 @@ class QuickReplyTest {
 
         assertThat(notSentNotifications).hasSize(1)
         assertThat(draftOf(78L)).isEmpty()
+    }
+
+    /** M-P3: a re-post that throws removes the notification instead, so the spinner still ends; logged as FAILED. */
+    @Test
+    fun aRepostThatFailsRemovesTheNotification() {
+        ShadowLog.reset()
+        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val threadId = 79L
+        manager.notify(
+            threadId.hashCode(),
+            NotificationCompat.Builder(context, "test").setSmallIcon(R.drawable.ic_messenger)
+                .setContentTitle("+15550001234").setContentText("Are you coming?").build(),
+        )
+
+        DirectReplyReceiver().repostOriginal(context, threadId) { _, _, _ -> error("refused by the test") }
+
+        assertThat(shadowOf(manager).getNotification(threadId.hashCode())).isNull()
+        assertThat(ShadowLog.getLogsForTag(NotifyLog.TAG).map { it.msg }.single()).contains(" r=FAILED ")
     }
 
     @Test
