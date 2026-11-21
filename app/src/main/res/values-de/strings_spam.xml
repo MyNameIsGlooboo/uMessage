@@ -53,7 +53,7 @@
     <string name="spam_type_keyword">Schlüsselwort</string>
     <string name="spam_type_regex">Muster (Regex)</string>
     <string name="spam_type_keyword_help">Jede Nachricht, die diesen Text enthält, auch als Teil eines längeren Wortes: „win“ passt auch auf „window“. Groß- und Kleinschreibung ist egal. Der Absender wird ebenfalls blockiert, außer er steht in Ihren Kontakten.</string>
-    <string name="spam_type_keyword_allow_help">Jede Nachricht mit diesem Text umgeht alle deine Blockierungen, unabhängig vom Absender. Verwende eine lange, genaue Wortfolge.</string>
+    <string name="spam_type_keyword_allow_help">Eine Nachricht, die diesen Text enthält, erlaubt ihren Absender: Der ganze Chat landet in „Nachrichten“. Ein Absender, den du blockiert hast, bleibt blockiert. Verwende eine lange, genaue Wortfolge.</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">Gratisgeschenk</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
@@ -73,9 +73,9 @@
     <string name="spam_err_duplicate">Diese Regel gibt es schon</string>
     <string name="spam_err_regex_unsafe">Dieses Muster (Regex) wiederholt eine Gruppe, die sich bereits wiederholt. Dadurch kann das Filtern von Nachrichten hängen bleiben. Vereinfache es.</string>
     <string name="spam_err_regex_matches_all">Dieses Muster (Regex) passt auf jede Nachricht. Grenze es genauer ein.</string>
-    <string name="spam_err_allow_keyword_short">Erlaubte Wörter brauchen mindestens 4 Zeichen, da jede Nachricht mit diesen Wörtern alle deine Blockierungen umgeht</string>
+    <string name="spam_err_allow_keyword_short">Erlaubte Wörter brauchen mindestens 4 Zeichen, weil eine Nachricht mit einem davon ihren Absender erlaubt</string>
     <string name="spam_sheet_save_failed">Regel konnte nicht gespeichert werden. Versuche es noch einmal.</string>
-    <string name="spam_warn_allow_skips_blocks">Jede Nachricht, die dies enthält, umgeht alle deine Blockierungen, unabhängig vom Absender – auch bei blockierten Nummern.</string>
+    <string name="spam_warn_allow_skips_blocks">Jeder unbekannte Absender, dessen Nachricht diesen Text enthält, ist ab dann erlaubt. Absender, die du blockiert hast, bleiben blockiert.</string>
     <string name="spam_warn_common_word">Dies ist ein kurzes oder häufiges Wort. Es kann leicht in Spam vorkommen.</string>
     <string name="spam_warn_broad">Dies passt auf viele alltägliche Texte und erfasst daher viele normale Nachrichten.</string>
     <string name="spam_warn_allowed_conflict">Dieser Eintrag steht auf deiner Liste „Erlaubt“. Regeln zum Erlauben haben immer Vorrang. Diese Blockierung würde also nie greifen.</string>
@@ -96,8 +96,8 @@
         <item quantity="one">und %d weitere</item>
         <item quantity="other">und %d weitere</item>
     </plurals>
-    <string name="spam_settings_unknown_title">Nachrichten von unbekannten Absendern</string>
-    <string name="spam_settings_unknown_body">Absender, die nicht in deinen Kontakten sind, denen du noch nie geschrieben hast und die nicht auf deiner Liste „Erlaubt“ stehen.</string>
+    <string name="spam_settings_unknown_title">Spamfilter</string>
+    <string name="spam_settings_unknown_body">Ein unbekannter Absender ist nicht in deinen Kontakten und nicht auf deiner Liste „Erlaubt“. Sein ganzer Chat landet still in „Spam“. Personen, denen du geschrieben hast, und Absender eines Bestätigungscodes bleiben in „Nachrichten“.</string>
     <string name="spam_mode_strict">Streng</string>
     <string name="spam_mode_strict_body">Blockiert alle unbekannten Absender, auch Codes</string>
     <string name="spam_mode_smart">Intelligent</string>
@@ -108,8 +108,8 @@
     <string name="spam_strict_warning_body">Nachrichten von Banken und Lieferdiensten sowie Einmalcodes kommen meist von Absendern, die nicht in deinen Kontakten sind. Im Modus „Streng“ landen sie unter „Spam“, auch Codes. Wähle „Intelligent“, um Codes durchzulassen, oder erlaube diese Absender einmalig.</string>
     <string name="spam_strict_warning_action">Spam prüfen</string>
     <string name="spam_settings_cleanup_title">Aufräumen</string>
-    <string name="spam_purge_body">Alter Spam wird automatisch entfernt.</string>
+    <string name="spam_purge_body">Aus, bis du eine Anzahl Tage wählst</string>
     <string name="spam_purge_days">%d Tagen</string>
     <string name="spam_purge_forever">Für immer behalten</string>
-    <string name="spam_notify_title">Bei blockierter Nachricht benachrichtigen</string>
+    <string name="spam_notify_title">Bei Nachrichten von unbekannten Absendern benachrichtigen</string>
 </resources>

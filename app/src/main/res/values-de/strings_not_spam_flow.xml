@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nsf_snack_moved">In den Posteingang verschoben</string>
-    <string name="nsf_snack_moved_allowed">In den Posteingang verschoben. Künftige Nachrichten von %1$s kommen ebenfalls an.</string>
+    <string name="nsf_snack_moved">Nach „Nachrichten“ verschoben</string>
+    <string name="nsf_snack_moved_allowed">Nach „Nachrichten“ verschoben. %1$s ist jetzt immer erlaubt.</string>
     <plurals name="nsf_snack_moved_allowed_many">
-        <item quantity="one">In den Posteingang verschoben. Künftige Nachrichten von %d Absender werden auch zugestellt.</item>
-        <item quantity="other">In den Posteingang verschoben. Künftige Nachrichten von %d Absendern werden auch zugestellt.</item>
+        <item quantity="one">Nach „Nachrichten“ verschoben. %d Absender ist jetzt immer erlaubt.</item>
+        <item quantity="other">Nach „Nachrichten“ verschoben. %d Absender sind jetzt immer erlaubt.</item>
     </plurals>
     <string name="nsf_moving">Wird in den Posteingang verschoben</string>
     <string name="move_progress">Nachrichten werden verschoben: %1$s von %2$s</string>

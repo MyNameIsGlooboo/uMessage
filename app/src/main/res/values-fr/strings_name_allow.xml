@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nameallow_title">Toujours autoriser ce nom ?</string>
-    <string name="nameallow_body">Les nouveaux messages de %1$s arriveront dans votre boîte de réception. N\'importe qui peut envoyer des messages sous n\'importe quel nom. Les faux messages utilisant ce nom passeront donc aussi. Vos propres règles de blocage pour ce nom seront supprimées.</string>
-    <string name="nameallow_body_many">Les nouveaux messages de %1$s arriveront dans votre boîte de réception. N\'importe qui peut envoyer des messages sous n\'importe quel nom. Les faux messages utilisant ces noms passeront donc aussi. Vos propres règles de blocage pour ces noms seront supprimées.</string>
+    <string name="nameallow_title">Autoriser ce nom ?</string>
+    <string name="nameallow_body">N\'importe qui peut envoyer des messages sous le nom %1$s. L\'autoriser et déplacer la discussion dans Messages ?</string>
+    <string name="nameallow_body_many">N\'importe qui peut envoyer des messages sous ces noms : %1$s. Les autoriser et déplacer les discussions dans Messages ?</string>
     <string name="nameallow_more">%1$s et %2$d autres</string>
     <string name="nameallow_allow">Toujours autoriser</string>
     <string name="nameallow_not_now">Pas maintenant</string>

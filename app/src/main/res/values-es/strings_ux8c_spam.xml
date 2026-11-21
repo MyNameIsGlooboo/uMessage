@@ -7,7 +7,7 @@
     <string name="ux8c_held_other">Retenido por el filtro</string>
     <string name="ux8c_not_spam">No es spam</string>
     <string name="ux8c_delete">Eliminar</string>
-    <string name="ux8c_tip">Desliza un remitente para moverlo a tu bandeja de entrada. Mantén presionado para seleccionar.</string>
+    <string name="ux8c_tip">Desliza un chat para devolverlo a Mensajes. Mantén pulsado para seleccionar.</string>
     <string name="ux8c_tip_dismiss">Entendido</string>
     <string name="ux8c_sender_title">Este remitente</string>
     <string name="ux8c_sender_normal">Normal</string>

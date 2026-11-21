@@ -4,12 +4,12 @@
         <item quantity="one">%d chat segnata come letta</item>
         <item quantity="other">%d chat segnate come lette</item>
     </plurals>
-    <string name="decm_search_section_blocked">Messaggi bloccati</string>
-    <string name="decm_blocked_search">Cerca nei messaggi bloccati</string>
+    <string name="decm_search_section_blocked">Spam</string>
+    <string name="decm_blocked_search">Cerca in Spam</string>
     <string name="decm_blocked_search_hint">Cerca per mittente o testo</string>
     <string name="decm_blocked_search_close">Chiudi la ricerca</string>
     <string name="decm_blocked_search_none_title">Nessun risultato</string>
-    <string name="decm_blocked_search_none_body">Nessun mittente o messaggio bloccato corrisponde a quello che hai scritto.</string>
+    <string name="decm_blocked_search_none_body">Nessun mittente o messaggio in Spam corrisponde a quello che hai scritto.</string>
     <string name="decm_always_allow">Consenti sempre</string>
     <string name="decisions_backup_keywords">Parole bloccate da aggiungere: %1$d. Quelle che hai già vengono saltate.</string>
     <string name="thread_failed_reason_generic">Il telefono ha segnalato un errore generico (codice %1$d)</string>

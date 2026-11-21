@@ -4,12 +4,12 @@
         <item quantity="one">%d Chat als gelesen markiert</item>
         <item quantity="other">%d Chats als gelesen markiert</item>
     </plurals>
-    <string name="decm_search_section_blocked">Blockierte Nachrichten</string>
-    <string name="decm_blocked_search">Blockierte Nachrichten durchsuchen</string>
+    <string name="decm_search_section_blocked">Spam</string>
+    <string name="decm_blocked_search">Spam durchsuchen</string>
     <string name="decm_blocked_search_hint">Nach Absender oder Text suchen</string>
     <string name="decm_blocked_search_close">Suche schließen</string>
     <string name="decm_blocked_search_none_title">Nichts gefunden</string>
-    <string name="decm_blocked_search_none_body">Kein blockierter Absender und keine blockierte Nachricht passt zu deiner Eingabe.</string>
+    <string name="decm_blocked_search_none_body">Kein Absender und keine Nachricht in „Spam“ passt zu deiner Eingabe.</string>
     <string name="decm_always_allow">Immer erlauben</string>
     <string name="decisions_backup_keywords">Neue blockierte Wörter: %1$d. Wörter, die du schon hast, werden übersprungen.</string>
     <string name="thread_failed_reason_generic">Das Handy hat einen allgemeinen Fehler gemeldet (Code %1$d)</string>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="one">Das Backup enthält %d geplante Nachricht</item>
+        <item quantity="other">Das Backup enthält %d geplante Nachrichten</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="one">Wird zur geplanten Zeit an %d Nummer gesendet, nur wenn du es einschaltest. Nichts wird gesendet, bevor du entscheidest.</item>
+        <item quantity="other">Wird zu den geplanten Zeiten an %d verschiedene Nummern gesendet, nur wenn du es einschaltest. Nichts wird gesendet, bevor du entscheidest.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">Einschalten</string>
+    <string name="pt_restore_scheduled_discard">Verwerfen</string>
+    <string name="pt_older_spam_stuck">Einige dieser Nachrichten konnten nicht aufs Smartphone selbst verschoben werden. Sie bleiben hier, und du kannst sie weiterhin lesen.</string>
+    <string name="pt_restore_scheduled_row_body">Sie wurden beim Wiederherstellen nicht eingeschaltet. Tippe, um sie einzuschalten oder zu verwerfen.</string>
+    <string name="pt_older_spam_pictures_here">Einige dieser Nachrichten sind schon auf dem Smartphone selbst. Nur ihre Bilder liegen hier, in uMessage.</string>
+</resources>

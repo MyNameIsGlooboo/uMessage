@@ -49,9 +49,9 @@
     <string name="settings_nav_strict_confirm_body">En el modo estricto, los códigos de remitentes que no están en tus contactos van a Spam junto con todo lo demás. También se retienen los mensajes de bancos y empresas de entrega.</string>
     <string name="settings_nav_strict_confirm_action">Usar modo estricto</string>
     <string name="settings_nav_strict_confirm_cancel">Mantener el modo actual</string>
-    <string name="settings_nav_purge_row">Eliminar el spam después de</string>
+    <string name="settings_nav_purge_row">Eliminar spam antiguo automáticamente</string>
     <string name="settings_nav_group_alerts">Alertas</string>
-    <string name="settings_nav_notify_body">Una notificación silenciosa por cada mensaje de spam</string>
+    <string name="settings_nav_notify_body">Una notificación silenciosa que abre Spam. Nunca para un remitente que bloqueaste.</string>
     <string name="settings_nav_theme_title">Apariencia</string>
     <string name="settings_nav_theme_modes">Modo</string>
     <string name="settings_nav_theme_colours">Colores</string>

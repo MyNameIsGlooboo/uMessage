@@ -6,11 +6,11 @@
     <string name="rules2_menu_export">Esporta regole su file</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">Nessun mittente sempre consentito</string>
-    <string name="rules2_empty_allowed_body">Aggiungi un numero, un nome mittente o una parola da consentire sempre in In arrivo. Tocca Aggiungi regola qui sotto.</string>
+    <string name="rules2_empty_allowed_body">Aggiungi un numero, un nome mittente o una parola che deve sempre arrivare in Messaggi.</string>
     <string name="rules2_empty_blocked_title">Nessun mittente sempre bloccato</string>
     <string name="rules2_empty_blocked_body">Aggiungi un numero, un nome mittente, una parola o un\'espressione regolare per spostare i messaggi in Spam. Tocca Aggiungi regola qui sotto.</string>
     <string name="rules2_migrate_title">Sposta nelle regole di uMessage</string>
-    <string name="rules2_migrate_point_blocked">Gli SMS andranno in Spam, dove potrai ripristinarli.</string>
+    <string name="rules2_migrate_point_blocked">Le loro chat vanno poi in Spam, da dove puoi riportarle indietro.</string>
     <string name="rules2_migrate_remove_needs_first">Prima seleziona l\'opzione qui sopra.</string>
     <string name="rules2_migrate_nothing_selected">Nessun elemento selezionato</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -41,7 +41,7 @@
         <item quantity="one">Sposta %1$d numero nelle regole</item>
         <item quantity="other">Sposta %1$d numeri nelle regole</item>
     </plurals>
-    <string name="forward2_intro_reassure">Vengono inoltrati solo i messaggi che arrivano in In arrivo. Lo spam non viene mai inoltrato.</string>
+    <string name="forward2_intro_reassure">Vengono inoltrati solo i messaggi che arrivano in Messaggi. Lo spam mai.</string>
     <string name="forward2_empty_title">Nessuna regola di inoltro</string>
     <string name="forward2_empty_body">Invia a un altro telefono una copia dei messaggi che corrispondono alla regola, come gli avvisi della banca. Inizia da una di queste opzioni.</string>
     <string name="forward2_template_bank">Inoltra avvisi della banca</string>

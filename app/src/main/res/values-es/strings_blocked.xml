@@ -46,8 +46,8 @@
         <item quantity="other">%d chats denunciados. Los nuevos mensajes de sus remitentes irán a Spam y los chats se archivaron.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="one">Denuncia enviada. Los nuevos mensajes de este remitente irán a Spam.</item>
-        <item quantity="other">%d chats denunciados. Los nuevos mensajes de sus remitentes irán a Spam.</item>
+        <item quantity="one">Denunciado. El chat pasó a Spam.</item>
+        <item quantity="other">%d chats denunciados. Pasaron a Spam.</item>
     </plurals>
     <string name="blocked_title">Spam</string>
     <string name="blocked_snack_mode">Remitentes desconocidos: %1$s</string>

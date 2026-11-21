@@ -46,8 +46,8 @@
         <item quantity="other">%d conversazioni segnalate. I nuovi messaggi di questi mittenti vanno in Spam e le conversazioni sono archiviate.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="one">Segnalazione inviata. I nuovi messaggi di questo mittente vanno in Spam.</item>
-        <item quantity="other">%d conversazioni segnalate. I nuovi messaggi di questi mittenti vanno in Spam.</item>
+        <item quantity="one">Segnalato. La chat è passata in Spam.</item>
+        <item quantity="other">%d chat segnalate. Sono passate in Spam.</item>
     </plurals>
     <string name="blocked_title">Spam</string>
     <string name="blocked_snack_mode">Modalità per i mittenti sconosciuti: %1$s</string>

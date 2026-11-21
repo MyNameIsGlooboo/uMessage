@@ -7,7 +7,7 @@
     <string name="onb_finish">Nachrichten schreiben</string>
     <string name="onb_welcome_title">Willkommen bei uMessage</string>
     <string name="onb_welcome_intro">Bessere Nachrichten, weniger Spam.</string>
-    <string name="onb_welcome_demo_desc">Nachrichten von Leuten, die du kennst, landen unter „Nachrichten“, die von Unbekannten unter „Spam“. Bestätigungscodes kommen weiterhin unter „Nachrichten“ an.</string>
+    <string name="onb_welcome_demo_desc">Deine Kontakte landen in „Nachrichten“. Unbekannte Absender landen in „Spam“. Ein Absender, der dir einen Bestätigungscode schickt, landet in „Nachrichten“.</string>
     <string name="onb_welcome_spam">Spam bleibt draußen</string>
     <string name="onb_welcome_spam_desc">Unbekannte Absender landen unter „Spam“ und gehen nicht verloren.</string>
     <string name="onb_welcome_codes">Codes mit einem Tippen</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">Kein Konto, keine Werbung, keine Cloud. Alles bleibt auf deinem Smartphone.</string>
     <string name="onb_welcome_start">Loslegen</string>
     <string name="onb_default_title">Mach uMessage zu deiner SMS-App</string>
-    <string name="onb_default_body">Android lässt nur die Standard-SMS-App Nachrichten empfangen und filtern. Ohne diese Einstellung kann uMessage deinen Posteingang nicht schützen.</string>
+    <string name="onb_default_body">Android lässt nur die Standard-SMS-App Nachrichten empfangen und filtern. Ohne diese Einstellung kann uMessage keinen Spam für dich filtern.</string>
     <string name="onb_default_action">Als Standard festlegen</string>
     <string name="onb_default_denied">Die Anfrage wurde abgelehnt. Du kannst es erneut versuchen oder fortfahren und dies später in den Android-Einstellungen festlegen.</string>
     <string name="onb_default_unavailable">Dein Smartphone konnte die Auswahl der Standard-App nicht öffnen. Öffne die Android-Einstellungen unter „Apps“, „Standard-Apps“, „SMS-App“ und wähle uMessage.</string>

@@ -41,12 +41,12 @@
         <item quantity="other">%d Unterhaltungen archiviert</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="one">Blockiert. Neue Nachrichten landen unter „Spam“</item>
-        <item quantity="other">%d Absender blockiert. Neue Nachrichten landen unter „Spam“</item>
+        <item quantity="one">Blockiert. Der Chat ist jetzt in „Spam“</item>
+        <item quantity="other">%d Absender blockiert. Ihre Chats sind jetzt in „Spam“</item>
     </plurals>
     <string name="convlist_action_failed">Etwas ist schiefgelaufen</string>
     <string name="convlist_block_title">Nummer blockieren?</string>
-    <string name="convlist_block_message">%1$s blockieren? Neue Nachrichten von diesem Absender landen unter „Spam“ statt in deinem Posteingang. Dort kannst du sie weiterhin lesen oder wiederherstellen.</string>
+    <string name="convlist_block_message">%1$s blockieren? Der ganze Chat wandert nach „Spam“, und neue Nachrichten kommen dort still an. Du kannst sie weiterhin lesen und die Blockierung jederzeit aufheben.</string>
     <string name="convlist_block_confirm">Blockieren</string>
     <string name="convlist_rename_title">Unterhaltung umbenennen</string>
     <string name="convlist_cancel">Abbrechen</string>

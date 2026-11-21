@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="one">O backup tem %d mensagem agendada</item>
+        <item quantity="other">O backup tem %d mensagens agendadas</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="one">Enviada para %d número no horário definido, só se você ativar. Nada é enviado até você escolher.</item>
+        <item quantity="other">Enviadas para %d números diferentes nos horários definidos, só se você ativar. Nada é enviado até você escolher.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">Ativar</string>
+    <string name="pt_restore_scheduled_discard">Descartar</string>
+    <string name="pt_older_spam_stuck">Algumas destas mensagens não puderam ser levadas para o próprio celular. Elas ficam aqui, e você ainda pode lê-las.</string>
+    <string name="pt_restore_scheduled_row_body">A restauração não as ativou. Toque para ativá-las ou descartá-las.</string>
+    <string name="pt_older_spam_pictures_here">Algumas destas mensagens já estão no próprio celular. Só as imagens delas ficam aqui, no uMessage.</string>
+</resources>

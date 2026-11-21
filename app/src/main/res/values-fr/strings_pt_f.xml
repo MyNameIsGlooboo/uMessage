@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="one">La sauvegarde contient %d message programmé</item>
+        <item quantity="other">La sauvegarde contient %d messages programmés</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="one">Envoyé à %d numéro à l\'heure prévue, seulement si vous l\'activez. Rien n\'est envoyé tant que vous n\'avez pas choisi.</item>
+        <item quantity="other">Envoyés à %d numéros différents aux heures prévues, seulement si vous les activez. Rien n\'est envoyé tant que vous n\'avez pas choisi.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">Activer</string>
+    <string name="pt_restore_scheduled_discard">Supprimer</string>
+    <string name="pt_older_spam_stuck">Certains de ces messages n\'ont pas pu être transférés sur le téléphone lui-même. Ils restent ici, et vous pouvez toujours les lire.</string>
+    <string name="pt_restore_scheduled_row_body">La restauration ne les a pas activés. Appuyez pour les activer ou les supprimer.</string>
+    <string name="pt_older_spam_pictures_here">Certains de ces messages sont déjà sur le téléphone lui-même. Seules leurs images sont gardées ici, dans uMessage.</string>
+</resources>

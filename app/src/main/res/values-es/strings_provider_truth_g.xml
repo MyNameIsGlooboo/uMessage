@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_onb_filter_on">Llevar los remitentes desconocidos a Spam</string>
+    <string name="pt_onb_filter_on_desc">Los contactos, las personas a las que escribiste y los remitentes de un código de verificación se quedan en Mensajes.</string>
+    <string name="pt_onb_filter_off">Dejar todo en Mensajes</string>
+    <string name="pt_onb_filter_off_desc">Solo los remitentes que bloquees van a Spam.</string>
+    <string name="pt_onb_filter_hint">Puedes cambiarlo más tarde en Ajustes.</string>
+    <string name="pt_onb_demo_desc_off">Todos los mensajes van a Mensajes. Solo los remitentes que bloquees van a Spam.</string>
+    <string name="pt_filter_on_summary">Activado: los remitentes desconocidos van a Spam</string>
+    <string name="pt_filter_off_summary">Desactivado: todo llega a Mensajes, excepto los remitentes que bloqueaste</string>
+    <string name="pt_filter_off_confirm_title">¿Desactivar el filtro de spam?</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="one">%d chat pasa de Spam a Mensajes. Los chats de remitentes que bloqueaste se quedan en Spam.</item>
+        <item quantity="other">%d chats pasan de Spam a Mensajes. Los chats de remitentes que bloqueaste se quedan en Spam.</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">¿Activar el filtro de spam?</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="one">%d chat de un remitente desconocido pasa a Spam. No se elimina nada.</item>
+        <item quantity="other">%d chats de remitentes desconocidos pasan a Spam. No se elimina nada.</item>
+    </plurals>
+    <string name="pt_confirm_none_move">Ahora no se mueve ningún chat.</string>
+    <string name="pt_turn_off">Desactivar</string>
+    <string name="pt_purge_warn_title">¿Eliminar el spam antiguo automáticamente?</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="one">Los mensajes que llegaron a Spam hace más de %d día se eliminan del propio teléfono, para todas las aplicaciones. No se pueden recuperar. Los mensajes que enviaste, marcaste con estrella o a los que añadiste una nota se quedan.</item>
+        <item quantity="other">Los mensajes que llegaron a Spam hace más de %d días se eliminan del propio teléfono, para todas las aplicaciones. No se pueden recuperar. Los mensajes que enviaste, marcaste con estrella o a los que añadiste una nota se quedan.</item>
+    </plurals>
+    <string name="pt_group_code_title">Remitentes de un código de verificación</string>
+    <string name="pt_group_wrote_title">Personas a las que escribiste</string>
+    <plurals name="pt_group_count">
+        <item quantity="one">%d remitente</item>
+        <item quantity="other">%d remitentes</item>
+    </plurals>
+    <string name="pt_group_code_body">Un remitente que te envía un código de verificación queda permitido desde entonces. Quítalo aquí o bloquéalo en su chat.</string>
+    <string name="pt_group_wrote_body">Un número al que envías un mensaje queda permitido desde entonces. Quítalo aquí o bloquéalo en su chat.</string>
+    <string name="pt_group_member_remove">Quitar</string>
+    <string name="pt_group_member_removed">%1$s se quitó de la lista</string>
+    <string name="pt_group_member_history">Encontrado en tus mensajes antiguos</string>
+    <string name="pt_group_empty">Aún no hay nadie</string>
+    <string name="pt_group_off_title">¿Desactivar “%1$s”?</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="one">%d chat pasa a Spam. Los remitentes se quedan en la lista y vuelven cuando lo actives de nuevo.</item>
+        <item quantity="other">%d chats pasan a Spam. Los remitentes se quedan en la lista y vuelven cuando lo actives de nuevo.</item>
+    </plurals>
+    <string name="pt_group_off_code_note">Después, un código de verificación de un remitente desconocido también irá a Spam.</string>
+    <string name="pt_verdict_group">Iría a Mensajes: el remitente está en “%1$s”.</string>
+    <string name="pt_verdict_allowed_word">Iría a Mensajes: el mensaje tiene una de tus palabras permitidas. Después, el remitente queda permitido.</string>
+    <string name="pt_verdict_blocked_word">Iría a Spam: el mensaje tiene una de tus palabras bloqueadas. Después, el remitente queda bloqueado.</string>
+    <string name="pt_progress_title">Ordenando tus chats</string>
+    <string name="pt_progress_body">Esto se hace una sola vez. Ningún chat se mueve hasta que termine, y no se elimina nada.</string>
+    <string name="pt_progress_step_rules">Actualizando tus reglas</string>
+    <string name="pt_progress_step_older">Pasando el spam antiguo al teléfono</string>
+    <string name="pt_progress_step_history">Revisando tus mensajes antiguos</string>
+    <string name="pt_progress_step_sort">Ordenando chats</string>
+    <string name="pt_progress_background">Continuar en segundo plano</string>
+    <string name="pt_changed_title">Qué ha cambiado</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="one">%d chat pasó a Spam</item>
+        <item quantity="other">%d chats pasaron a Spam</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="one">%d remitente permitido automáticamente</item>
+        <item quantity="other">%d remitentes permitidos automáticamente</item>
+    </plurals>
+    <string name="pt_changed_switch">El filtro de spam ahora es un solo interruptor: activado o desactivado.</string>
+    <string name="pt_changed_sims">Tus reglas ahora sirven para las dos SIM.</string>
+    <string name="pt_changed_store">El spam antiguo ahora se guarda en el propio teléfono, como cualquier otro mensaje.</string>
+    <string name="pt_changed_purge">La eliminación automática del spam antiguo está desactivada. Puedes activarla en Ajustes.</string>
+    <string name="pt_changed_open_spam">Revisar Spam</string>
+    <string name="pt_filter_off_confirm_rest">Los chats de remitentes que bloqueaste se quedan en Spam.</string>
+    <string name="pt_filter_on_confirm_rest">No se elimina nada.</string>
+    <string name="pt_group_off_rest">Los remitentes se quedan en la lista y vuelven cuando lo actives de nuevo.</string>
+    <string name="pt_progress_step_running">En curso</string>
+    <string name="pt_progress_older_waiting">Espera a que uMessage sea tu aplicación de SMS predeterminada</string>
+</resources>

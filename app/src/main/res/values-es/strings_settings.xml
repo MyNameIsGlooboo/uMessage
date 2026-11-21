@@ -5,10 +5,10 @@
     <string name="settings_deprecated">Obsoleto</string>
     <string name="settings_spam_stats">%1$d bloqueados en los últimos 7 días, %2$d en total, %3$d restaurados</string>
     <string name="settings_spam_open_settings">Configuración de spam</string>
-    <string name="settings_spam_open_settings_body">Modo, conservación y alertas</string>
+    <string name="settings_spam_open_settings_body">Filtro, eliminación automática y alertas</string>
     <string name="settings_block_group">Listas de bloqueo</string>
     <string name="settings_block_umessage_title">Reglas de uMessage</string>
-    <string name="settings_block_umessage_body">Los mensajes bloqueados van a Spam. Puedes recuperarlos.</string>
+    <string name="settings_block_umessage_body">Los chats de remitentes bloqueados van a Spam. Puedes devolverlos.</string>
     <string name="settings_spam_open_rules">Reglas para permitir y bloquear</string>
     <string name="settings_spam_blocked_numbers_body">Números bloqueados mediante la lista de bloqueados del sistema</string>
     <string name="settings_spam_blocked_keywords_body">Oculta los mensajes que contienen estas palabras</string>

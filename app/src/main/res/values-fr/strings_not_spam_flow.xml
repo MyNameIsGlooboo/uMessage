@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="nsf_snack_moved">Déplacé vers la boîte de réception</string>
-    <string name="nsf_snack_moved_allowed">Déplacé vers la boîte de réception. Les prochains messages de %1$s arriveront aussi.</string>
+    <string name="nsf_snack_moved">Déplacé dans Messages</string>
+    <string name="nsf_snack_moved_allowed">Déplacé dans Messages. %1$s est désormais toujours autorisé.</string>
     <plurals name="nsf_snack_moved_allowed_many" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Déplacé vers la boîte de réception. Les prochains messages de %d expéditeur y arriveront aussi.</item>
-        <item quantity="other">Déplacé vers la boîte de réception. Les prochains messages de %d expéditeurs y arriveront aussi.</item>
+        <item quantity="one">Déplacé dans Messages. %d expéditeur est désormais toujours autorisé.</item>
+        <item quantity="other">Déplacé dans Messages. %d expéditeurs sont désormais toujours autorisés.</item>
     </plurals>
     <string name="nsf_moving">Déplacement vers la boîte de réception</string>
     <string name="move_progress">Déplacement des messages : %1$s sur %2$s</string>

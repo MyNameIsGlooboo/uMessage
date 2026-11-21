@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nameallow_title">Diesen Namen immer erlauben?</string>
-    <string name="nameallow_body">Neue Nachrichten von %1$s landen in deinem Posteingang. Jeder kann Nachrichten unter jedem beliebigen Namen senden. Deshalb würden auch gefälschte Nachrichten mit diesem Namen durchkommen. Deine eigenen Regeln zum Blockieren dieses Namens werden entfernt.</string>
-    <string name="nameallow_body_many">Neue Nachrichten von %1$s landen in deinem Posteingang. Jeder kann Nachrichten unter jedem beliebigen Namen senden. Deshalb würden auch gefälschte Nachrichten mit diesen Namen durchkommen. Deine eigenen Regeln zum Blockieren dieser Namen werden entfernt.</string>
+    <string name="nameallow_title">Diesen Namen erlauben?</string>
+    <string name="nameallow_body">Jeder kann Nachrichten unter dem Namen %1$s senden. Erlauben und den Chat nach „Nachrichten“ verschieben?</string>
+    <string name="nameallow_body_many">Jeder kann Nachrichten unter diesen Namen senden: %1$s. Erlauben und die Chats nach „Nachrichten“ verschieben?</string>
     <string name="nameallow_more">%1$s und %2$d weitere</string>
     <string name="nameallow_allow">Immer erlauben</string>
     <string name="nameallow_not_now">Jetzt nicht</string>

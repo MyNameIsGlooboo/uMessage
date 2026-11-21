@@ -41,12 +41,12 @@
         <item quantity="other">%d conversas arquivadas</item>
     </plurals>
     <plurals name="convlist_blocked_done" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Bloqueado. Novas mensagens irão para Spam</item>
-        <item quantity="other">%d remetentes bloqueados. Novas mensagens irão para Spam</item>
+        <item quantity="one">Bloqueado. A conversa foi para Spam</item>
+        <item quantity="other">%d remetentes bloqueados. As conversas deles foram para Spam</item>
     </plurals>
     <string name="convlist_action_failed">Algo deu errado</string>
     <string name="convlist_block_title">Bloquear número?</string>
-    <string name="convlist_block_message">Bloquear %1$s? Novas mensagens desse número irão para Spam em vez da caixa de entrada. Lá, você ainda poderá ler ou restaurar as mensagens.</string>
+    <string name="convlist_block_message">Bloquear %1$s? A conversa inteira vai para Spam e as novas mensagens chegam lá em silêncio. Você ainda pode lê-las e desbloquear quando quiser.</string>
     <string name="convlist_block_confirm">Bloqueie</string>
     <string name="convlist_rename_title">Renomeie a conversa</string>
     <string name="convlist_cancel">Cancele</string>

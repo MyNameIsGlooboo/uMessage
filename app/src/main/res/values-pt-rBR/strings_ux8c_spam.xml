@@ -7,7 +7,7 @@
     <string name="ux8c_held_other">Retida pelo filtro</string>
     <string name="ux8c_not_spam">Não é spam</string>
     <string name="ux8c_delete">Exclua</string>
-    <string name="ux8c_tip">Deslize um remetente para movê-lo para a caixa de entrada. Toque e segure para selecionar.</string>
+    <string name="ux8c_tip">Deslize uma conversa para devolvê-la a Mensagens. Toque e mantenha pressionado para selecionar.</string>
     <string name="ux8c_tip_dismiss">Entendi</string>
     <string name="ux8c_sender_title">Este remetente</string>
     <string name="ux8c_sender_normal">Normal</string>

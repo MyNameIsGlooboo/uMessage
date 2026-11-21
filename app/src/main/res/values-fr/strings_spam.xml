@@ -53,7 +53,7 @@
     <string name="spam_type_keyword">Mot-clé</string>
     <string name="spam_type_regex">Expression régulière</string>
     <string name="spam_type_keyword_help">Tout message contenant ce texte, même dans un mot plus long : « gain » correspond aussi à « regain ». Les majuscules et minuscules sont équivalentes. L\'expéditeur est aussi bloqué, sauf s\'il figure dans vos contacts.</string>
-    <string name="spam_type_keyword_allow_help">Tout message contenant ce texte échappe à tous vos blocages, quel que soit l\'expéditeur. Utilisez une phrase longue et précise.</string>
+    <string name="spam_type_keyword_allow_help">Un message qui contient ce texte autorise son expéditeur : toute la discussion va dans Messages. Un expéditeur que vous avez bloqué reste bloqué. Utilisez une expression longue et exacte.</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">cadeau gratuit</string>
     <string name="spam_type_regex_hint">gain\\s+\\d+</string>
@@ -73,9 +73,9 @@
     <string name="spam_err_duplicate">Cette règle existe déjà</string>
     <string name="spam_err_regex_unsafe">Cette expression régulière répète un groupe qui se répète déjà, ce qui peut figer le filtrage des messages. Simplifiez-la.</string>
     <string name="spam_err_regex_matches_all">Cette expression régulière correspond à tous les messages. Précisez-la.</string>
-    <string name="spam_err_allow_keyword_short">Les mots autorisés doivent contenir au moins 4 caractères, car tout message qui les contient échappe à tous vos blocages</string>
+    <string name="spam_err_allow_keyword_short">Les mots autorisés doivent faire au moins 4 caractères, car un message qui en contient un autorise son expéditeur</string>
     <string name="spam_sheet_save_failed">Impossible d\'enregistrer la règle. Réessayez.</string>
-    <string name="spam_warn_allow_skips_blocks">Tout message contenant ce texte échappe à tous vos blocages, quel que soit l\'expéditeur, même si vous avez bloqué son numéro.</string>
+    <string name="spam_warn_allow_skips_blocks">Tout expéditeur inconnu dont le message contient ce texte est autorisé à partir de là. Les expéditeurs que vous avez bloqués restent bloqués.</string>
     <string name="spam_warn_common_word">Ce mot est court ou courant. Un spam peut facilement le contenir.</string>
     <string name="spam_warn_broad">Ce critère correspond à de nombreux textes courants et concernera donc beaucoup de messages normaux.</string>
     <string name="spam_warn_allowed_conflict">Cet élément figure dans votre liste des autorisés. Les règles d\'autorisation sont toujours prioritaires : ce blocage ne s\'appliquerait jamais.</string>
@@ -96,8 +96,8 @@
         <item quantity="one">et %d de plus</item>
         <item quantity="other">et %d de plus</item>
     </plurals>
-    <string name="spam_settings_unknown_title">Messages d\'expéditeurs inconnus</string>
-    <string name="spam_settings_unknown_body">Expéditeurs absents de vos contacts, auxquels vous n\'avez jamais envoyé de SMS et qui ne figurent pas dans votre liste des autorisés.</string>
+    <string name="spam_settings_unknown_title">Filtre anti-spam</string>
+    <string name="spam_settings_unknown_body">Un expéditeur inconnu n\'est ni dans vos contacts ni dans votre liste des autorisés. Toute sa discussion va dans Spam, sans bruit. Les personnes à qui vous avez écrit et les expéditeurs d\'un code de validation restent dans Messages.</string>
     <string name="spam_mode_strict">Strict</string>
     <string name="spam_mode_strict_body">Bloque tous les expéditeurs inconnus, même les codes</string>
     <string name="spam_mode_smart">Intelligent</string>
@@ -108,8 +108,8 @@
     <string name="spam_strict_warning_body">Les messages des banques, des livreurs et les codes à usage unique proviennent souvent d\'expéditeurs absents de vos contacts. En mode strict, ils vont dans Spam, codes compris. Choisissez le mode intelligent pour laisser passer les codes, ou autorisez ces expéditeurs une fois pour toutes.</string>
     <string name="spam_strict_warning_action">Consulter Spam</string>
     <string name="spam_settings_cleanup_title">Nettoyage</string>
-    <string name="spam_purge_body">Le spam ancien est supprimé automatiquement.</string>
+    <string name="spam_purge_body">Désactivé tant que vous ne choisissez pas un nombre de jours</string>
     <string name="spam_purge_days">%d jours</string>
     <string name="spam_purge_forever">Garder pour toujours</string>
-    <string name="spam_notify_title">Notifier lorsqu\'un message est bloqué</string>
+    <string name="spam_notify_title">M\'avertir des messages d\'expéditeurs inconnus</string>
 </resources>

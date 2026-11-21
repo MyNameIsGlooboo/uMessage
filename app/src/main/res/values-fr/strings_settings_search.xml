@@ -5,7 +5,7 @@
     <string name="settings_search_none">Aucun paramètre trouvé. Essayez un autre mot.</string>
     <string name="settings_search_start">Saisissez un mot, comme thème, sauvegarde ou spam.</string>
     <string name="sks_spam">spam bloquer bloqué indésirable filtre protection arnaque non sollicité</string>
-    <string name="sks_unknown_sender">inconnu inconnus expéditeurs mode filtre spam bloquer</string>
+    <string name="sks_unknown_sender">inconnu inconnus expéditeurs filtre spam bloquer interrupteur activer désactiver mode</string>
     <string name="sks_strict">strict renforcé bloquer tout codes</string>
     <string name="sks_smart">intelligent recommandé automatique défaut filtre</string>
     <string name="sks_spam_off">désactivé désactiver arrêter filtre autoriser tout</string>

@@ -16,7 +16,7 @@
         <item quantity="one">La conversazione e tutti i suoi messaggi verranno eliminati da questo telefono. Puoi annullare per qualche secondo dopo.</item>
         <item quantity="other">Le conversazioni e tutti i loro messaggi verranno eliminati da questo telefono. Puoi annullare per qualche secondo dopo.</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s è nei tuoi contatti. Bloccare questo mittente? I nuovi messaggi andranno in Messaggi bloccati invece che in In arrivo. Puoi annullare subito dopo.</string>
+    <string name="convlist_block_contact_message">%1$s è nei tuoi contatti. Bloccare questo mittente? Tutta la chat passa in Spam e i nuovi messaggi arrivano lì in silenzio. Puoi annullare subito dopo.</string>
     <string name="i29_color_red">Rosso</string>
     <string name="i29_color_orange">Arancione</string>
     <string name="i29_color_yellow">Giallo</string>
@@ -38,10 +38,10 @@
     <string name="rule_preview_loading">Controllo dei messaggi recenti…</string>
     <string name="rule_preview_failed">Impossibile controllare i messaggi recenti. Riprova.</string>
     <string name="rule_preview_nothing">Non ci sono ancora messaggi recenti da controllare.</string>
-    <string name="rule_preview_inbox">In arrivo: questa regola corrisponde a %1$d degli ultimi %2$d messaggi</string>
-    <string name="rule_preview_inbox_empty">In arrivo: nessun messaggio da controllare</string>
-    <string name="rule_preview_blocked">Bloccati: questa regola corrisponde a %1$d degli ultimi %2$d messaggi</string>
-    <string name="rule_preview_blocked_empty">Bloccati: nessun messaggio da controllare</string>
+    <string name="rule_preview_inbox">Messaggi: questa regola corrisponde a %1$d degli ultimi %2$d messaggi</string>
+    <string name="rule_preview_inbox_empty">Messaggi: niente da controllare</string>
+    <string name="rule_preview_blocked">Spam: questa regola corrisponde a %1$d degli ultimi %2$d messaggi</string>
+    <string name="rule_preview_blocked_empty">Spam: niente da controllare</string>
     <string name="rule_preview_examples">Ad esempio: %1$s</string>
     <string name="n06_delete_confirm">Eliminare questo testo salvato?</string>
     <string name="screens_vcard_email_action">Email</string>

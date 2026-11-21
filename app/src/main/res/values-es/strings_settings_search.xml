@@ -5,7 +5,7 @@
     <string name="settings_search_none">No se encontró ninguna opción. Prueba con otra palabra.</string>
     <string name="settings_search_start">Escribe una palabra, como tema, copia de seguridad o spam.</string>
     <string name="sks_spam">spam bloquear bloqueado basura filtro protección estafa no deseado</string>
-    <string name="sks_unknown_sender">desconocido extraños remitentes modo filtro spam bloquear</string>
+    <string name="sks_unknown_sender">desconocido extraños remitentes filtro spam bloquear interruptor activar desactivar modo</string>
     <string name="sks_strict">estricto fuerte bloquear todo códigos</string>
     <string name="sks_smart">inteligente recomendado automático predeterminado filtro</string>
     <string name="sks_spam_off">desactivado desactivar detener filtro permitir todo</string>

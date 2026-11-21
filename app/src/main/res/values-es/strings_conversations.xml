@@ -41,12 +41,12 @@
         <item quantity="other">%d conversaciones archivadas</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="one">Bloqueado. Los mensajes nuevos irán a Spam</item>
-        <item quantity="other">%d remitentes bloqueados. Los mensajes nuevos irán a Spam</item>
+        <item quantity="one">Bloqueado. El chat pasó a Spam</item>
+        <item quantity="other">%d remitentes bloqueados. Sus chats pasaron a Spam</item>
     </plurals>
     <string name="convlist_action_failed">Algo salió mal</string>
     <string name="convlist_block_title">¿Bloquear número?</string>
-    <string name="convlist_block_message">¿Bloquear a %1$s? Sus mensajes nuevos irán a Spam en lugar de tu bandeja de entrada. Allí podrás leerlos o restaurarlos.</string>
+    <string name="convlist_block_message">¿Bloquear a %1$s? Todo el chat pasa a Spam y los mensajes nuevos llegan allí sin avisar. Podrás seguir leyéndolos y desbloquear cuando quieras.</string>
     <string name="convlist_block_confirm">Bloquear</string>
     <string name="convlist_rename_title">Cambiar nombre de la conversación</string>
     <string name="convlist_cancel">Cancelar</string>

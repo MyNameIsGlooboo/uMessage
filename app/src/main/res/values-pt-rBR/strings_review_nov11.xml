@@ -16,7 +16,7 @@
         <item quantity="one">A conversa e todas as suas mensagens serão excluídas deste celular. Você pode desfazer por alguns segundos depois.</item>
         <item quantity="other">As conversas e todas as suas mensagens serão excluídas deste celular. Você pode desfazer por alguns segundos depois.</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s está nos seus contatos. Bloquear este remetente? As novas mensagens dele irão para Bloqueados, e não para a caixa de entrada. Você pode desfazer logo em seguida.</string>
+    <string name="convlist_block_contact_message">%1$s está nos seus contatos. Bloquear este remetente? A conversa inteira vai para Spam e as novas mensagens chegam lá em silêncio. Você pode desfazer logo depois.</string>
     <string name="i29_color_red">Vermelho</string>
     <string name="i29_color_orange">Laranja</string>
     <string name="i29_color_yellow">Amarelo</string>
@@ -38,10 +38,10 @@
     <string name="rule_preview_loading">Verificando as mensagens recentes…</string>
     <string name="rule_preview_failed">Não foi possível verificar as mensagens recentes. Tente de novo.</string>
     <string name="rule_preview_nothing">Ainda não há mensagens recentes para verificar.</string>
-    <string name="rule_preview_inbox">Caixa de entrada: esta regra corresponde a %1$d das últimas %2$d mensagens</string>
-    <string name="rule_preview_inbox_empty">Caixa de entrada: nenhuma mensagem para verificar</string>
-    <string name="rule_preview_blocked">Bloqueados: esta regra corresponde a %1$d das últimas %2$d mensagens</string>
-    <string name="rule_preview_blocked_empty">Bloqueados: nenhuma mensagem para verificar</string>
+    <string name="rule_preview_inbox">Mensagens: esta regra corresponde a %1$d das últimas %2$d mensagens</string>
+    <string name="rule_preview_inbox_empty">Mensagens: nada para verificar</string>
+    <string name="rule_preview_blocked">Spam: esta regra corresponde a %1$d das últimas %2$d mensagens</string>
+    <string name="rule_preview_blocked_empty">Spam: nada para verificar</string>
     <string name="rule_preview_examples">Por exemplo: %1$s</string>
     <string name="n06_delete_confirm">Excluir este texto salvo?</string>
     <string name="screens_vcard_email_action">E-mail</string>

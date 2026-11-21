@@ -49,9 +49,9 @@
     <string name="settings_nav_strict_confirm_body">Im Filtermodus „Streng“ landen Codes von Absendern, die nicht in deinen Kontakten sind, zusammen mit allen anderen Nachrichten unter „Spam“. Auch Nachrichten von Banken und Lieferdiensten werden zurückgehalten.</string>
     <string name="settings_nav_strict_confirm_action">„Streng“ verwenden</string>
     <string name="settings_nav_strict_confirm_cancel">Aktuellen Modus beibehalten</string>
-    <string name="settings_nav_purge_row">Spam löschen nach</string>
+    <string name="settings_nav_purge_row">Alten Spam automatisch löschen</string>
     <string name="settings_nav_group_alerts">Hinweise</string>
-    <string name="settings_nav_notify_body">Eine lautlose Benachrichtigung für jede Spam-Nachricht</string>
+    <string name="settings_nav_notify_body">Eine stille Benachrichtigung, die „Spam“ öffnet. Nie für einen Absender, den du blockiert hast.</string>
     <string name="settings_nav_theme_title">Darstellung</string>
     <string name="settings_nav_theme_modes">Modus</string>
     <string name="settings_nav_theme_colours">Farben</string>

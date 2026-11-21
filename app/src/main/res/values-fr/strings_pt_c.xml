@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="pt_spam_empty_body">Les discussions des expéditeurs inconnus et de ceux que vous bloquez apparaissent ici.</string>
+    <string name="pt_spam_filter_off_strip">Le filtre anti-spam est désactivé</string>
+    <string name="pt_spam_filter_off_body">Seuls les expéditeurs que vous avez bloqués sont listés ici.</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="one">Supprimer %d discussion de ce téléphone ?</item>
+        <item quantity="other">Supprimer %d discussions de ce téléphone ?</item>
+    </plurals>
+    <string name="pt_spam_delete_body">Les messages sont supprimés pour toutes les applications, pas seulement dans uMessage. Vous pourrez annuler juste après, mais pas plus tard.</string>
+    <plurals name="pt_snack_unblocked" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Débloqué. La discussion est revenue dans Messages.</item>
+        <item quantity="other">%d expéditeurs débloqués. Leurs discussions sont revenues dans Messages.</item>
+    </plurals>
+    <string name="pt_older_spam_title">Ancien spam gardé seulement dans uMessage</string>
+    <string name="pt_older_spam_hint">Ces messages ne sont pas encore sur le téléphone lui-même. La plupart y passeront quand uMessage sera votre application SMS par défaut. En attendant, vous pouvez les lire ici.</string>
+    <string name="pt_block_still_allowed">Pas déplacé dans Spam : une de vos règles d\'autorisation laisse encore passer cet expéditeur.</string>
+    <string name="pt_unblock_refused_prefix">Pas débloqué : une règle bloque les numéros qui commencent par %1$s</string>
+    <string name="pt_line_code">Autorisé, car cet expéditeur a envoyé un code de validation.</string>
+    <string name="pt_line_wrote">Autorisé, car vous avez écrit à ce numéro.</string>
+    <string name="pt_line_word">Autorisé automatiquement, car un message contenait un de vos mots autorisés.</string>
+    <string name="pt_line_blocked">Vous avez bloqué cet expéditeur. Ses nouveaux messages arrivent sans bruit dans Spam.</string>
+    <string name="pt_line_blocked_word">Bloqué automatiquement, car un message contenait un de vos mots bloqués.</string>
+    <string name="pt_line_unknown">Expéditeur inconnu. Ses messages arrivent dans Spam.</string>
+    <string name="pt_line_keep">Garder</string>
+    <string name="pt_reply_allows_confirm">Cela autorise l\'expéditeur. Envoyer ?</string>
+    <plurals name="pt_card_moved">
+        <item quantity="one">%d discussion est maintenant dans Spam</item>
+        <item quantity="other">%d discussions sont maintenant dans Spam</item>
+    </plurals>
+    <string name="pt_card_moved_body">Les expéditeurs inconnus et bloqués y sont rangés. Rien n\'a été supprimé.</string>
+</resources>

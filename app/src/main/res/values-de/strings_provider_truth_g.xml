@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_onb_filter_on">Unbekannte Absender nach „Spam“ sortieren</string>
+    <string name="pt_onb_filter_on_desc">Kontakte, Personen, denen du geschrieben hast, und Absender eines Bestätigungscodes bleiben in „Nachrichten“.</string>
+    <string name="pt_onb_filter_off">Alles in „Nachrichten“ behalten</string>
+    <string name="pt_onb_filter_off_desc">Nur Absender, die du blockierst, landen in „Spam“.</string>
+    <string name="pt_onb_filter_hint">Du kannst das später in den Einstellungen ändern.</string>
+    <string name="pt_onb_demo_desc_off">Jede Nachricht landet in „Nachrichten“. Nur Absender, die du blockierst, landen in „Spam“.</string>
+    <string name="pt_filter_on_summary">An: Unbekannte Absender landen in „Spam“</string>
+    <string name="pt_filter_off_summary">Aus: Alles kommt in „Nachrichten“ an, außer Absendern, die du blockiert hast</string>
+    <string name="pt_filter_off_confirm_title">Spamfilter ausschalten?</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="one">%d Chat wandert von „Spam“ nach „Nachrichten“. Chats von Absendern, die du blockiert hast, bleiben in „Spam“.</item>
+        <item quantity="other">%d Chats wandern von „Spam“ nach „Nachrichten“. Chats von Absendern, die du blockiert hast, bleiben in „Spam“.</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">Spamfilter einschalten?</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="one">%d Chat von einem unbekannten Absender wandert nach „Spam“. Nichts wird gelöscht.</item>
+        <item quantity="other">%d Chats von unbekannten Absendern wandern nach „Spam“. Nichts wird gelöscht.</item>
+    </plurals>
+    <string name="pt_confirm_none_move">Jetzt wird kein Chat verschoben.</string>
+    <string name="pt_turn_off">Ausschalten</string>
+    <string name="pt_purge_warn_title">Alten Spam automatisch löschen?</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="one">Nachrichten, die vor mehr als %d Tag in „Spam“ angekommen sind, werden vom Smartphone selbst gelöscht, für jede App. Sie lassen sich nicht zurückholen. Nachrichten, die du gesendet, mit Stern markiert oder mit einer Notiz versehen hast, bleiben.</item>
+        <item quantity="other">Nachrichten, die vor mehr als %d Tagen in „Spam“ angekommen sind, werden vom Smartphone selbst gelöscht, für jede App. Sie lassen sich nicht zurückholen. Nachrichten, die du gesendet, mit Stern markiert oder mit einer Notiz versehen hast, bleiben.</item>
+    </plurals>
+    <string name="pt_group_code_title">Absender eines Bestätigungscodes</string>
+    <string name="pt_group_wrote_title">Personen, denen du geschrieben hast</string>
+    <plurals name="pt_group_count">
+        <item quantity="one">%d Absender</item>
+        <item quantity="other">%d Absender</item>
+    </plurals>
+    <string name="pt_group_code_body">Ein Absender, der dir einen Bestätigungscode schickt, ist ab dann erlaubt. Entferne ihn hier oder blockiere ihn in seinem Chat.</string>
+    <string name="pt_group_wrote_body">Eine Nummer, der du eine Nachricht schickst, ist ab dann erlaubt. Entferne sie hier oder blockiere sie in ihrem Chat.</string>
+    <string name="pt_group_member_remove">Entfernen</string>
+    <string name="pt_group_member_removed">%1$s von der Liste entfernt</string>
+    <string name="pt_group_member_history">In deinen alten Nachrichten gefunden</string>
+    <string name="pt_group_empty">Noch niemand hier</string>
+    <string name="pt_group_off_title">„%1$s“ ausschalten?</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="one">%d Chat wandert nach „Spam“. Die Absender bleiben auf der Liste und kommen zurück, wenn du es wieder einschaltest.</item>
+        <item quantity="other">%d Chats wandern nach „Spam“. Die Absender bleiben auf der Liste und kommen zurück, wenn du es wieder einschaltest.</item>
+    </plurals>
+    <string name="pt_group_off_code_note">Danach landet auch ein Bestätigungscode von einem unbekannten Absender in „Spam“.</string>
+    <string name="pt_verdict_group">Würde in „Nachrichten“ landen: Der Absender ist in „%1$s“.</string>
+    <string name="pt_verdict_allowed_word">Würde in „Nachrichten“ landen: Die Nachricht enthält eines deiner erlaubten Wörter. Der Absender ist danach erlaubt.</string>
+    <string name="pt_verdict_blocked_word">Würde in „Spam“ landen: Die Nachricht enthält eines deiner blockierten Wörter. Der Absender ist danach blockiert.</string>
+    <string name="pt_progress_title">Deine Chats werden sortiert</string>
+    <string name="pt_progress_body">Das passiert nur einmal. Bis es fertig ist, wird kein Chat verschoben, und nichts wird gelöscht.</string>
+    <string name="pt_progress_step_rules">Deine Regeln werden aktualisiert</string>
+    <string name="pt_progress_step_older">Älterer Spam wird aufs Smartphone verschoben</string>
+    <string name="pt_progress_step_history">Deine alten Nachrichten werden geprüft</string>
+    <string name="pt_progress_step_sort">Chats werden sortiert</string>
+    <string name="pt_progress_background">Im Hintergrund fortsetzen</string>
+    <string name="pt_changed_title">Was sich geändert hat</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="one">%d Chat nach „Spam“ verschoben</item>
+        <item quantity="other">%d Chats nach „Spam“ verschoben</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="one">%d Absender automatisch erlaubt</item>
+        <item quantity="other">%d Absender automatisch erlaubt</item>
+    </plurals>
+    <string name="pt_changed_switch">Der Spamfilter ist jetzt ein einziger Schalter: an oder aus.</string>
+    <string name="pt_changed_sims">Deine Regeln gelten jetzt für beide SIMs.</string>
+    <string name="pt_changed_store">Älterer Spam liegt jetzt auf dem Smartphone selbst, wie jede andere Nachricht.</string>
+    <string name="pt_changed_purge">Das automatische Löschen von altem Spam ist aus. Du kannst es in den Einstellungen einschalten.</string>
+    <string name="pt_changed_open_spam">Spam ansehen</string>
+    <string name="pt_filter_off_confirm_rest">Chats von Absendern, die du blockiert hast, bleiben in „Spam“.</string>
+    <string name="pt_filter_on_confirm_rest">Nichts wird gelöscht.</string>
+    <string name="pt_group_off_rest">Die Absender bleiben auf der Liste und kommen zurück, wenn du es wieder einschaltest.</string>
+    <string name="pt_progress_step_running">Läuft</string>
+    <string name="pt_progress_older_waiting">Wartet, bis uMessage deine Standard-SMS-App ist</string>
+</resources>

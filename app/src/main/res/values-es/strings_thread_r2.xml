@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">Motivo</string>
     <string name="thread_r2_details_rule">Regla</string>
     <string name="thread_r2_details_forwarded">Reenviado</string>
-    <string name="thread_r2_details_decision_restored">Bloqueado y luego restaurado en tu bandeja de entrada</string>
+    <string name="thread_r2_details_decision_restored">Bloqueado y luego movido a Mensajes</string>
     <string name="thread_r2_details_copy">Copiar %1$s</string>
     <string name="thread_r2_menu_search">Buscar en la conversación</string>
     <string name="thread_r2_menu_always_forward">Reenviar siempre los mensajes de este remitente</string>

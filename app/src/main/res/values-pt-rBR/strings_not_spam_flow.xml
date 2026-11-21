@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="nsf_snack_moved">Movida para a caixa de entrada</string>
-    <string name="nsf_snack_moved_allowed">Movida para a caixa de entrada. As próximas mensagens de %1$s também vão chegar.</string>
+    <string name="nsf_snack_moved">Movida para Mensagens</string>
+    <string name="nsf_snack_moved_allowed">Movida para Mensagens. %1$s agora está sempre permitido.</string>
     <plurals name="nsf_snack_moved_allowed_many" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Movido para a caixa de entrada. As próximas mensagens de %d remetente também chegarão.</item>
-        <item quantity="other">Movido para a caixa de entrada. As próximas mensagens de %d remetentes também chegarão.</item>
+        <item quantity="one">Movida para Mensagens. %d remetente agora está sempre permitido.</item>
+        <item quantity="other">Movidas para Mensagens. %d remetentes agora estão sempre permitidos.</item>
     </plurals>
     <string name="nsf_moving">Movendo para a caixa de entrada</string>
     <string name="move_progress">Movendo mensagens: %1$s de %2$s</string>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nameallow_title">Vuoi consentire sempre questo nome?</string>
-    <string name="nameallow_body">I nuovi messaggi da %1$s andranno nella cartella In arrivo. Chiunque può inviare messaggi con qualsiasi nome, quindi passeranno anche eventuali messaggi falsi con questo nome. Le tue regole di blocco per questo nome verranno rimosse.</string>
-    <string name="nameallow_body_many">I nuovi messaggi da %1$s andranno nella cartella In arrivo. Chiunque può inviare messaggi con qualsiasi nome, quindi passeranno anche eventuali messaggi falsi con questi nomi. Le tue regole di blocco per questi nomi verranno rimosse.</string>
+    <string name="nameallow_title">Consentire questo nome?</string>
+    <string name="nameallow_body">Chiunque può inviare messaggi con il nome %1$s. Consentirlo e spostare la chat in Messaggi?</string>
+    <string name="nameallow_body_many">Chiunque può inviare messaggi con questi nomi: %1$s. Consentirli e spostare le chat in Messaggi?</string>
     <string name="nameallow_more">%1$s e altri %2$d</string>
     <string name="nameallow_allow">Consenti sempre</string>
     <string name="nameallow_not_now">Non ora</string>

@@ -46,8 +46,8 @@
         <item quantity="other">%d Unterhaltungen gemeldet. Neue Nachrichten dieser Absender landen unter „Spam“. Die Unterhaltungen wurden archiviert.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="one">Gemeldet. Neue Nachrichten dieses Absenders landen unter „Spam“.</item>
-        <item quantity="other">%d Unterhaltungen gemeldet. Neue Nachrichten dieser Absender landen unter „Spam“.</item>
+        <item quantity="one">Gemeldet. Der Chat ist jetzt in „Spam“.</item>
+        <item quantity="other">%d Chats gemeldet. Sie sind jetzt in „Spam“.</item>
     </plurals>
     <string name="blocked_title">Spam</string>
     <string name="blocked_snack_mode">Unbekannte Absender: %1$s eingestellt</string>
