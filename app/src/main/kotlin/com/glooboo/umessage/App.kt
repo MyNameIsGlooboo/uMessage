@@ -32,6 +32,7 @@ import com.glooboo.umessage.helpers.DailyChecks
 import com.glooboo.umessage.helpers.HiddenChatsSession
 import com.glooboo.umessage.helpers.MessagingCache
 import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.helpers.ShortcutHelper
 import com.glooboo.umessage.messaging.MmsDownloadFailure
 import com.glooboo.umessage.messaging.failStaleOutboxMessages
 import com.glooboo.umessage.helpers.DebugStrictMode
@@ -104,6 +105,8 @@ class App : FossifyApp() {
         if (!ProviderTruthFlag.enabled) return
         SpamSorting.install(this)
         sortingStarted = true
+        // U9: after each sort the launcher and share shortcuts of chats in Spam go (the sweep runs on its own thread).
+        ShortcutHelper.watchSpam(this)
         // Also the check a contacts grant before this point asked for (B2-5).
         FirstRun.check(this)
         SpamSorting.requestFull(this)

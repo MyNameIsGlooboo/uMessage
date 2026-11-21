@@ -187,9 +187,17 @@ interface ConversationsDao {
     fun getConversationsRaw(query: SupportSQLiteQuery): List<Conversation>
 
     /** Conversations whose title contains [text], read through [TextNormalizer.fold] on both sides ("علي" finds "علی"). */
-    fun searchConversations(text: String): List<Conversation> {
-        if (!TextNormalizer.needsFold(text)) return getConversationsWithText(TextNormalizer.likeContains(text))
-        val sql = TextNormalizer.sqlFoldedLike("conversations", "thread_id", "title") + " $CONVERSATION_SEARCH_ORDER"
+    fun searchConversations(text: String, place: SearchPlace = SearchPlace.ALL): List<Conversation> {
+        // H-1 (provider truth): only the chats of [place], in the SQL, so the cap counts only that place.
+        val where = place.conversationsWhere
+        if (!TextNormalizer.needsFold(text)) {
+            val plain = TextNormalizer.likeContains(text)
+            if (place == SearchPlace.ALL) return getConversationsWithText(plain)
+            val sql = "SELECT * FROM conversations WHERE title LIKE ? ESCAPE '\\' AND $where $CONVERSATION_SEARCH_ORDER"
+            return getConversationsRaw(SimpleSQLiteQuery(sql, arrayOf(plain)))
+        }
+        val sql = TextNormalizer.sqlFoldedLike("conversations", "thread_id", "title", where) +
+            " $CONVERSATION_SEARCH_ORDER"
         return getConversationsRaw(SimpleSQLiteQuery(sql, arrayOf(TextNormalizer.likeContains(TextNormalizer.fold(text)))))
     }
 
@@ -226,7 +234,7 @@ object ConversationQueries {
         "ORDER BY messages.date DESC, messages.id DESC LIMIT 1) AS new_snippet, * FROM conversations"
 
     /** S9: the chat has a spam_threads row for its own sender and is one-to-one. */
-    private const val IN_SPAM = "(conversations.is_group_conversation = 0 AND EXISTS (SELECT 1 FROM spam_threads s " +
+    internal const val IN_SPAM = "(conversations.is_group_conversation = 0 AND EXISTS (SELECT 1 FROM spam_threads s " +
         "WHERE s.thread_id = conversations.thread_id AND s.sender = conversations.phone_number))"
 
     const val ALL_ROWS = WITH_SNIPPET
@@ -236,6 +244,10 @@ object ConversationQueries {
 
     const val VALID_SPAM_THREADS = "SELECT s.* FROM spam_threads s JOIN conversations c ON c.thread_id = s.thread_id " +
         "WHERE c.is_group_conversation = 0 AND c.phone_number = s.sender"
+
+    /** H-1, H-6, H-7: the thread ids of [VALID_SPAM_THREADS], for `thread_id [NOT] IN (...)`. */
+    const val VALID_SPAM_THREAD_IDS = "SELECT s.thread_id FROM spam_threads s JOIN conversations c " +
+        "ON c.thread_id = s.thread_id WHERE c.is_group_conversation = 0 AND c.phone_number = s.sender"
 
     private const val SHOWN_M = "m.is_scheduled = 0 AND NOT EXISTS (SELECT 1 FROM recycle_bin_messages r " +
         "WHERE r.id = m.id AND r.is_mms = m.is_mms)"

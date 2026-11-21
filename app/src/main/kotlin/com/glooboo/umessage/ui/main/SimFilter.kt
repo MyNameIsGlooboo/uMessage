@@ -8,6 +8,7 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.platform.LocalContext
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.HiddenChats
+import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.ui.conversations.SimBadge
 import com.glooboo.umessage.ui.conversations.ThreadSimCache
 import com.glooboo.umessage.ui.spam.SimDirectory
@@ -47,7 +48,8 @@ internal object SimFilter {
 
     /**
      * The threads that have a message on [subscriptionId]: those the message cache holds for it, and those whose
-     * newest message (in [newestSim], thread to subscription) used it.
+     * newest message (in [newestSim], thread to subscription) used it. [load] leaves out the hidden chats and (U9) the
+     * chats in Spam.
      */
     fun threadsOnSim(stored: Collection<Long>, newestSim: Map<Long, Int>, subscriptionId: Int): Set<Long> {
         val threads = HashSet<Long>(stored)
@@ -63,7 +65,10 @@ internal object SimFilter {
         val stored = runCatching { app.messagesDB.getThreadIdsOnSim(subscriptionId) }.getOrDefault(emptyList())
         val newest = runCatching { ThreadSimCache.get(app).load(app, MIN_SIMS) }.getOrDefault(emptyMap())
         val threads = threadsOnSim(stored, newest, subscriptionId)
-        HiddenChats.get(app).withoutHidden(threads.toList()) { it }.toSet()
+        val visible = HiddenChats.get(app).withoutHidden(threads.toList()) { it }
+        // The tile only narrows the Messages list, which never holds a Spam chat: a failed read leaves nothing out.
+        val spam = runCatching { SpamReaders.threadIds(app) }.getOrDefault(emptySet())
+        SpamReaders.without(visible, spam) { it }.toSet()
     }
 }
 

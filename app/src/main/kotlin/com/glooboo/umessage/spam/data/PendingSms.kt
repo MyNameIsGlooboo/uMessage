@@ -13,6 +13,7 @@ import com.glooboo.umessage.helpers.NotifyContext
 import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.OtpCodeExtractor
 import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.helpers.ShortcutHelper
 import com.glooboo.umessage.receivers.PendingSmsRetry
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.BlockedMessage
@@ -537,7 +538,7 @@ internal object SpamPlacement {
     fun place(context: Context, threadId: Long, address: String, cause: SpamCause, at: Long): Result {
         val db = MessagesDatabase.getInstance(context.applicationContext)
         val readers = SpamThreads.readers(context)
-        return db.runInTransaction<Result> {
+        val result = db.runInTransaction<Result> {
             val dao = db.ConversationsDao()
             val chat = dao.getConversationWithThreadId(threadId)
             val row = dao.getSpamThread(threadId)
@@ -559,6 +560,9 @@ internal object SpamPlacement {
                 }
             }
         }
+        // H-3 (U9): a chat in Spam has no launcher or share shortcut, also when it got there by this text.
+        if (result == Result.PLACED) ShortcutHelper.removeForSpam(context, threadId)
+        return result
     }
 
     /** The safety check: the cached chat is in Spam; for a chat not cached yet, its row names the sender. */

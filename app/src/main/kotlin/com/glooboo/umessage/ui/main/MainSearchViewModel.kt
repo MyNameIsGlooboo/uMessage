@@ -8,8 +8,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.messagesDB
+import com.glooboo.umessage.helpers.AppReturnWatch
 import com.glooboo.umessage.helpers.HiddenChats
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.helpers.messageNotes
+import com.glooboo.umessage.interfaces.SearchPlace
 import com.glooboo.umessage.models.SearchResult
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.displayTitle
@@ -46,9 +50,22 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
     /** Finds the blocked (spam) messages that hold the text, off the main thread. Tests replace it. */
     internal var runBlockedSearch: suspend (String) -> List<BlockedHit> = ::searchBlocked
 
+    /** Provider truth (U9): finds the Spam chats that hold the text, off the main thread. Tests replace it. */
+    internal var runSpamSearch: suspend (String) -> List<SpamChatHit> = ::searchSpamChats
+
     private var searchJob: Job? = null
 
+    /** H-8: the chats in Spam, read once per search by the first of its lookups that needs them. */
+    @Volatile
+    private var querySpam: Lazy<Set<Long>>? = null
+
+    private fun spamIds(app: Application): Set<Long> = querySpam?.value ?: SpamReaders.threadIds(app)
+
+    /** H-16: when the app comes back and the lock covers Spam again, the Spam section goes. */
+    private val appReturn = AppReturnWatch(::onAppReturned)
+
     init {
+        appReturn.start()
         state.onClose = { searchJob?.cancel() }
         handle.get<Bundle>(KEY_SAVED)?.let { saved ->
             state.filter = InboxFilter.entries.firstOrNull { it.name == saved.getString(KEY_FILTER) } ?: InboxFilter.All
@@ -78,29 +95,50 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
         }
         searchJob = viewModelScope.launch {
             delay(SEARCH_DEBOUNCE_MS) // cancelled by the next key press (MC-17)
+            val app = getApplication<Application>()
+            querySpam = lazy { SpamReaders.threadIds(app) }
             state.results = runSearch(text.trim())
             state.noteHits = runNoteSearch(text.trim())
-            state.blockedHits = runBlockedSearch(text.trim())
+            if (ProviderTruthFlag.enabled) {
+                val spam = runSpamSearch(text.trim())
+                state.spamTargets = spam.associate { it.row.address to it.open }
+                state.blockedHits = spam.map { it.row }
+            } else {
+                state.blockedHits = runBlockedSearch(text.trim())
+            }
         }
+    }
+
+    /** H-16: the app came back to the front; a Spam section found while it was open goes when Spam is locked now. */
+    internal fun onAppReturned() {
+        if (state.blockedHits.isNotEmpty() && SpamReaders.lockedNow(getApplication())) state.hideSpamHits()
+    }
+
+    override fun onCleared() {
+        appReturn.stop()
+        super.onCleared()
     }
 
     internal suspend fun searchDatabase(text: String): List<SearchResult> = withContext(Dispatchers.IO) {
         val app = getApplication<Application>()
         // B06: nothing of a hidden chat is found, by its title, its number or its text, until it is unlocked.
         val hiddenChats = HiddenChats.get(app)
+        // U9, H-1 (provider truth): nothing of a chat in Spam is found here, left out in the SQL before the cap; a
+        // failed read of Spam fails the lookup, which then finds nothing.
+        val place = SearchPlace.outsideSpam()
         // main-7: the three lookups are independent, so they run side by side.
         val (messages, byTitle, byNumber) = coroutineScope {
             val messagesJob = async {
                 // Persian/Arabic letter forms, digits and zero-width marks are folded on both sides (MC-15).
                 try {
-                    hiddenChats.withoutHidden(app.messagesDB.searchMessages(text)) { it.threadId }
+                    hiddenChats.withoutHidden(app.messagesDB.searchMessages(text, place)) { it.threadId }
                 } catch (_: Exception) {
                     emptyList()
                 }
             }
             val titleJob = async {
                 try {
-                    hiddenChats.withoutHidden(app.conversationsDB.searchConversations(text)) { it.threadId }
+                    hiddenChats.withoutHidden(app.conversationsDB.searchConversations(text, place)) { it.threadId }
                 } catch (_: Exception) {
                     emptyList()
                 }
@@ -112,9 +150,9 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
                     emptyList()
                 } else {
                     try {
-                        conversationsByNumber(
-                            hiddenChats.withoutHidden(app.conversationsDB.getAllForNumberSearch()) { it.threadId }, text
-                        )
+                        val all = app.conversationsDB.getAllForNumberSearch()
+                        val chats = hiddenChats.withoutHidden(all) { it.threadId }
+                        conversationsByNumber(SpamReaders.without(chats, spamIds(app)) { it.threadId }, text)
                     } catch (_: Exception) {
                         emptyList()
                     }
@@ -132,15 +170,18 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
     }
 
     /**
-     * The notes that hold [text], with the title of their chat. Nothing of a hidden chat is found (B06); a failing
-     * notes table gives no notes, never an error on the search page.
+     * The notes that hold [text], with the title of their chat. Nothing of a hidden chat is found (B06), nor of a chat
+     * in Spam (U9); a failing notes table gives no notes, never an error on the search page.
      */
     internal suspend fun searchNotes(text: String): List<NoteHit> = withContext(Dispatchers.IO) {
         val app = getApplication<Application>()
         try {
             val notes = app.messageNotes
             notes.relink()
-            val found = HiddenChats.get(app).withoutHidden(notes.search(text)) { it.threadId }
+            // H-18: the notes of Spam chats are left out in the SQL, before the cap.
+            val inPlace = notes.search(text, SearchPlace.outsideSpam())
+            val visible = HiddenChats.get(app).withoutHidden(inPlace) { it.threadId }
+            val found = SpamReaders.without(visible, spamIds(app)) { it.threadId }
             val chats = found.map { it.threadId }.distinct()
                 .mapNotNull { app.conversationsDB.getConversationWithThreadId(it) }
             buildNoteHits(
@@ -180,6 +221,39 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
                 hiddenSenderKeys = hiddenKeys,
                 title = { displayNumber(app, it) },
                 formatDate = { millis -> formatListTimeStyled(app, millis) },
+            )
+        } catch (e: CancellationException) {
+            throw e
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
+
+    /**
+     * Provider truth (section 5, U9): the Spam chats that hold [text] in a message, their title or their number, one
+     * hit per chat. Nothing is found while the app lock covers Spam and is locked, nor of a chat hidden behind the
+     * lock (B06). A failing read gives no hits, never an error on the page. H-1, H-8: the messages and titles are
+     * searched in Spam chats only, in the SQL (its own cap); the chats are the plain rows, without previews.
+     */
+    internal suspend fun searchSpamChats(text: String): List<SpamChatHit> = withContext(Dispatchers.IO) {
+        val app = getApplication<Application>()
+        try {
+            if (LockScope.blockedLocked(app) && app.appLockManager.isLocked()) return@withContext emptyList()
+            val hidden = HiddenChats.get(app)
+            val spam = spamIds(app).filterTo(HashSet()) { !hidden.isHidden(it) }
+            if (spam.isEmpty()) return@withContext emptyList()
+            val chatOf = app.conversationsDB.getAllForNumberSearch().filter { it.threadId in spam }
+                .associateBy { it.threadId }
+            val byTitle = app.conversationsDB.searchConversations(text, SearchPlace.SPAM)
+                .filter { it.threadId in chatOf }
+            val byNumber = if (isNumberQuery(text)) conversationsByNumber(chatOf.values.toList(), text) else emptyList()
+            buildSpamChatHits(
+                chats = mergeConversationHits(byTitle, byNumber),
+                messages = app.messagesDB.searchMessages(text, SearchPlace.SPAM).filter { it.threadId in chatOf },
+                chatOf = chatOf,
+                query = text,
+                title = { displayTitle(app, it) },
+                formatDate = { seconds -> formatListTimeStyled(app, seconds * 1000L) },
             )
         } catch (e: CancellationException) {
             throw e

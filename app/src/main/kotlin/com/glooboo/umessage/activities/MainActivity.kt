@@ -1,6 +1,7 @@
 package com.glooboo.umessage.activities
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
@@ -33,6 +34,7 @@ import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.MainTabLinks
 import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.helpers.NewConversationShortcut
 import com.glooboo.umessage.ui.components.PermissionRequiredDialog
 import com.glooboo.umessage.ui.conversations.ConversationsViewModel
@@ -79,7 +81,11 @@ class MainActivity : ComposeSimpleActivity() {
             finish()
             return
         }
-        if (savedInstanceState == null) openTab = intent?.getStringExtra(MainTabLinks.EXTRA_OPEN_TAB)
+        if (savedInstanceState == null) {
+            openTab = intent?.getStringExtra(MainTabLinks.EXTRA_OPEN_TAB)
+            // H-10: only for the link itself, not again on a recreate (rotation, theme).
+            clearSpamNoticesFor(this, openTab)
+        }
         val splashSince = SystemClock.uptimeMillis()
         splash.setKeepOnScreenCondition {
             keepSplash(conversationsViewModel.state.value.loading, SystemClock.uptimeMillis() - splashSince)
@@ -110,6 +116,7 @@ class MainActivity : ComposeSimpleActivity() {
         super.onNewIntent(intent)
         setIntent(intent)
         intent.getStringExtra(MainTabLinks.EXTRA_OPEN_TAB)?.let { openTab = it }
+        clearSpamNoticesFor(this, intent.getStringExtra(MainTabLinks.EXTRA_OPEN_TAB))
     }
 
     override fun onStop() {
@@ -252,4 +259,12 @@ class MainActivity : ComposeSimpleActivity() {
         if (!notDefault) return null
         return { NotDefaultSmsBanner(onFix = ::requestDefaultSmsRole) }
     }
+}
+
+/**
+ * H-10 (provider truth): a link that opens the Spam tab (a Spam notice, the weekly summary) clears the Spam notices,
+ * as the old list did when it opened. Nothing happens while ProviderTruthFlag is off.
+ */
+internal fun clearSpamNoticesFor(context: Context, tab: String?) {
+    if (ProviderTruthFlag.enabled && tab == MainTabLinks.TAB_BLOCKED) BlockedNotifier.cancelAll(context)
 }

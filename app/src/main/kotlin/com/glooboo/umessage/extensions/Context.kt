@@ -1242,6 +1242,13 @@ fun Context.deleteOldRecycleBinMessages(nowMillis: Long) {
     }
 }
 
+/**
+ * How many entries the recycle bin holds, for the counts in Settings and the menu. H-4 (provider truth): the entries of
+ * messages of chats in Spam are left out, as the bin list leaves those chats out.
+ */
+fun Context.recycleBinEntryCount(): Int =
+    if (ProviderTruthFlag.enabled) messagesDB.getArchivedCountOutsideSpam() else messagesDB.getArchivedCount()
+
 /** Empties the whole bin; with the flag on it stops at the first message the store did not delete. */
 fun Context.emptyMessagesRecycleBin(): DeleteResult = purgeRecycleBinEntries(messagesDB.getAllRecycleBinEntries())
 

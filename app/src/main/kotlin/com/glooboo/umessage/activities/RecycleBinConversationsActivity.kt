@@ -14,6 +14,8 @@ import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.restoreAllMessagesFromRecycleBinForConversation
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.IS_RECYCLE_BIN
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.THREAD_TITLE
 import com.glooboo.umessage.helpers.refreshConversations
@@ -25,6 +27,7 @@ import com.glooboo.umessage.ui.conversations.ConversationFolderScreen
 import com.glooboo.umessage.ui.conversations.ConversationRow
 import com.glooboo.umessage.ui.conversations.toFolderRow
 import org.fossify.commons.extensions.notificationManager
+import org.fossify.commons.extensions.toast
 import org.fossify.commons.helpers.ensureBackgroundThread
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -50,8 +53,10 @@ class RecycleBinConversationsActivity : ComposeSimpleActivity() {
                 onDelete = ::delete,
                 onEmpty = {
                     ensureBackgroundThread {
-                        emptyRecycleBinAndTidyConversations()
+                        val result = emptyRecycleBinAndTidyConversations()
                         load()
+                        // B3-5: "Empty" that removed nothing (not the default app) says so, it is never silent.
+                        result.messageRes?.let { toast(it) }
                     }
                 },
             )
@@ -72,7 +77,9 @@ class RecycleBinConversationsActivity : ComposeSimpleActivity() {
     private fun load() {
         ensureBackgroundThread {
             val conversations = try {
-                conversationsDB.getAllWithMessagesInRecycleBin()
+                // U9 (provider truth): chats in Spam are left out, like the hidden ones; a failed read lists nothing.
+                val spam = SpamReaders.threadIds(this)
+                SpamReaders.without(conversationsDB.getAllWithMessagesInRecycleBin(), spam) { it.threadId }
             } catch (_: Exception) {
                 emptyList()
             }
@@ -87,7 +94,12 @@ class RecycleBinConversationsActivity : ComposeSimpleActivity() {
                     perChat = built.associate {
                         it.threadId to messagesDB.getRecycleBinMessageCountForThread(it.threadId)
                     },
-                    total = messagesDB.getRecycleBinMessageCount(),
+                    // H-4 (provider truth): the total leaves out the binned messages of chats in Spam, as the list.
+                    total = if (ProviderTruthFlag.enabled) {
+                        messagesDB.getRecycleBinMessageCountOutsideSpam()
+                    } else {
+                        messagesDB.getRecycleBinMessageCount()
+                    },
                 )
             }.getOrNull()
             runOnUiThread {
@@ -108,9 +120,11 @@ class RecycleBinConversationsActivity : ComposeSimpleActivity() {
     private fun delete(ids: Set<Long>) {
         ensureBackgroundThread {
             // Only the messages in the bin go: the rest of each chat stays.
-            deleteRecycleBinMessagesOfConversations(ids)
+            val result = deleteRecycleBinMessagesOfConversations(ids)
             ids.forEach { notificationManager.cancel(it.hashCode()) }
             refreshConversations()
+            // B3-5: "Delete forever" that removed nothing (not the default app) says so, it is never silent.
+            result.messageRes?.let { toast(it) }
         }
     }
 

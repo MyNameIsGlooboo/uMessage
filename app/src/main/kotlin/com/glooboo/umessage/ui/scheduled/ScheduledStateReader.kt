@@ -7,6 +7,7 @@ import com.glooboo.umessage.extensions.getMessagesDB
 import com.glooboo.umessage.extensions.getThreadTitle
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.HiddenChats
+import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.R
 import com.glooboo.umessage.messaging.RepeatRule
 import com.glooboo.umessage.ui.components.displayTitle
@@ -19,7 +20,10 @@ class ScheduledStateReader(private val app: Application) {
     fun read(): ScheduledListState {
         val all = runCatching { app.messagesDB.getAllScheduledMessages() }.getOrDefault(emptyList())
         // B06: scheduled messages of a hidden chat are not listed, or counted, until it is unlocked.
-        val messages = HiddenChats.get(app).withoutHidden(all) { it.threadId }
+        val shown = HiddenChats.get(app).withoutHidden(all) { it.threadId }
+        // U9 (provider truth): nor those of a chat in Spam; they show in that chat only. A failed read lists none.
+        val messages = runCatching { SpamReaders.without(shown, SpamReaders.threadIds(app)) { it.threadId } }
+            .getOrDefault(emptyList())
         val repeats = runCatching {
             runBlocking { app.getMessagesDB().ScheduledRepeatsDao().getAllRepeating() }
         }.getOrDefault(emptyList()).associate { it.messageId to RepeatRule.fromName(it.rule) }

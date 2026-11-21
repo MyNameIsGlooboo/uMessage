@@ -70,9 +70,12 @@ internal fun buildBlockedHits(
         )
     }
 
-/** The blocked hits the page lists: only while text is typed and no tile filter is on, like the notes. */
-internal fun MainSearchState.shownBlockedHits(typed: Boolean): List<BlockedHit> =
-    if (typed && filter == InboxFilter.All) blockedHits else emptyList()
+/**
+ * The blocked hits the page lists: only while text is typed and no tile filter is on, like the notes. H-16: none while
+ * [spamLocked] (the app lock covers Spam and is locked now).
+ */
+internal fun MainSearchState.shownBlockedHits(typed: Boolean, spamLocked: Boolean = false): List<BlockedHit> =
+    if (typed && filter == InboxFilter.All && !spamLocked) blockedHits else emptyList()
 
 /** The "Blocked messages" section: heading, then one card with a row per sender. */
 internal fun LazyListScope.blockedSection(

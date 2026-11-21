@@ -2,6 +2,7 @@ package com.glooboo.umessage.helpers
 
 import android.content.Context
 import android.content.Intent
+import androidx.annotation.VisibleForTesting
 import androidx.core.app.Person
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
@@ -19,6 +20,12 @@ import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.getThreadParticipants
 import com.glooboo.umessage.extensions.toPerson
 import com.glooboo.umessage.models.Conversation
+import com.glooboo.umessage.spam.SpamSorting
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 
 class ShortcutHelper(private val context: Context) {
@@ -133,41 +140,100 @@ class ShortcutHelper(private val context: Context) {
         return ShortcutManagerCompat.requestPinShortcut(context, buildShortcut(conv), null)
     }
 
-    fun createOrUpdateShortcut(conv: Conversation): ShortcutInfoCompat {
-        val shortcut = buildShortcut(conv)
-        createOrUpdateShortcut(shortcut)
-        return shortcut
+    /** The shortcut of [conv] once it is published; null when the chat may have none (see [publish]). */
+    fun createOrUpdateShortcut(conv: Conversation): ShortcutInfoCompat? = publish(buildShortcut(conv))
+
+    /** The shortcut of [threadId] once it is published; null when the chat may have none (see [publish]). */
+    fun createOrUpdateShortcut(threadId: Long): ShortcutInfoCompat? = publish(buildShortcut(threadId))
+
+    /**
+     * B06: a hidden chat gets no shortcut: the launcher and the Share sheet would show its name. U9 (provider truth):
+     * neither does a chat in Spam, nor one that may be (see [spamState]).
+     */
+    private fun isHidden(threadId: Long) = HiddenChats.get(context).isMarked(threadId) || spamState(threadId) != false
+
+    /**
+     * Provider truth (U9, section 5): whether [threadId] is in Spam; always false while ProviderTruthFlag is off. It
+     * is a database read, so on the main thread, or when the read fails, it is not known (null) and counts as "may be".
+     */
+    private fun spamState(threadId: Long): Boolean? = when {
+        !ProviderTruthFlag.enabled -> false
+        isOnMainThread() -> null
+        else -> runCatching { context.conversationsDB.isInSpam(threadId) }.getOrNull()
     }
 
-    fun createOrUpdateShortcut(threadId: Long): ShortcutInfoCompat {
-        val shortcut = buildShortcut(threadId)
-        createOrUpdateShortcut(shortcut)
-        return shortcut
+    /** A chat that is in Spam loses the shortcut it had from before (also the cached long-lived one). */
+    private fun dropIfSpam(threadId: Long) {
+        if (spamState(threadId) == true) removeSpamShortcuts(listOf(threadId.toString()))
     }
 
-    /** B06: a hidden chat gets no shortcut: the launcher and the Share sheet would show its name. */
-    private fun isHidden(threadId: Long) = HiddenChats.get(context).isMarked(threadId)
+    private fun removeSpamShortcuts(ids: List<String>) {
+        if (ids.isEmpty()) return
+        runCatching { ShortcutManagerCompat.removeDynamicShortcuts(context, ids) }
+        // The long-lived copy Android keeps for conversations (Share sheet, bubbles) goes too.
+        runCatching { ShortcutManagerCompat.removeLongLivedShortcuts(context, ids) }
+    }
 
-    private fun createOrUpdateShortcut(shortcut: ShortcutInfoCompat) {
-        if (isHidden(shortcut.id.toLong())) return
-        if (getShortcut(shortcut.id.toLong()) != null) {
-            ShortcutManagerCompat.updateShortcuts(context, listOf(shortcut))
-            return
+    /**
+     * Provider truth (U9, section 5): removes the shortcuts of every chat in Spam, so the launcher and the Share sheet
+     * do not offer them. A pinned home-screen shortcut cannot be removed by the app (U22); it opens the chat behind its
+     * lock gate. Off the main thread. Nothing happens while ProviderTruthFlag is off.
+     */
+    fun removeSpamShortcuts() {
+        if (!ProviderTruthFlag.enabled || isOnMainThread()) return
+        val spam = runCatching { context.conversationsDB.getValidSpamThreads() }.getOrNull() ?: return
+        if (spam.isEmpty()) return
+        val ids = spam.mapTo(HashSet()) { it.threadId.toString() }
+        // The dynamic ones and the cached long-lived ones (the Share sheet keeps those after a dynamic one went).
+        val cached = runCatching {
+            ShortcutManagerCompat.getShortcuts(
+                context, ShortcutManagerCompat.FLAG_MATCH_DYNAMIC or ShortcutManagerCompat.FLAG_MATCH_CACHED,
+            )
+        }.getOrDefault(emptyList())
+        val dynamic = runCatching { getShortcuts() }.getOrDefault(emptyList())
+        removeSpamShortcuts((cached + dynamic).map { it.id }.distinct().filter { it in ids })
+    }
+
+    /**
+     * Pushes [shortcut], or updates it when the chat has one, and returns it. An update the launcher turns down (a rate
+     * limit) keeps the chat's existing shortcut, which is still published, so it is returned too. H-11 (provider
+     * truth): null for a hidden chat or one in Spam, which get none; with ProviderTruthFlag off such a chat returns the
+     * shortcut unpublished, as 0.4.14 did.
+     */
+    @VisibleForTesting
+    internal fun publish(shortcut: ShortcutInfoCompat): ShortcutInfoCompat? {
+        val id = shortcut.id.toLong()
+        if (isHidden(id)) {
+            dropIfSpam(id)
+            return if (ProviderTruthFlag.enabled) null else shortcut
+        }
+        if (getShortcut(id) != null) {
+            updateShortcutsCall(context, listOf(shortcut))
+            return shortcut
         }
         ShortcutManagerCompat.pushDynamicShortcut(context, shortcut)
+        return shortcut
     }
 
     /**
      * Report the usage of a thread. create shortcut if it doesn't exist
      */
     fun reportSendMessageUsage(threadId: Long) {
-        if (isHidden(threadId)) return
+        usageReportFault?.invoke(threadId)
+        if (isHidden(threadId)) {
+            dropIfSpam(threadId)
+            return
+        }
         val shortcut = buildShortcut(threadId, listOf("actions.intent.SEND_MESSAGE"))
         ShortcutManagerCompat.pushDynamicShortcut(context, shortcut)
     }
 
     fun reportReceiveMessageUsage(threadId: Long) {
-        if (isHidden(threadId)) return
+        usageReportFault?.invoke(threadId)
+        if (isHidden(threadId)) {
+            dropIfSpam(threadId)
+            return
+        }
         val shortcut = buildShortcut(threadId, listOf("actions.intent.RECEIVE_MESSAGE"))
         ShortcutManagerCompat.pushDynamicShortcut(context, shortcut)
     }
@@ -188,6 +254,53 @@ class ShortcutHelper(private val context: Context) {
     }
 
     companion object {
+        /**
+         * M-P1 test seam: runs first in each usage report (send and receive), so a test can make the report throw and
+         * check that the send or the notification still stands. Null in the app.
+         */
+        @VisibleForTesting
+        @Volatile
+        internal var usageReportFault: ((threadId: Long) -> Unit)? = null
+
+        /** Test seam: the launcher's update call; a test makes it answer false (a rate limit). */
+        @VisibleForTesting
+        @Volatile
+        internal var updateShortcutsCall: (Context, List<ShortcutInfoCompat>) -> Boolean =
+            { context, shortcuts -> ShortcutManagerCompat.updateShortcuts(context, shortcuts) }
+
+        private var watchJob: Job? = null
+
+        /**
+         * Provider truth (U9): at once and after every sort that moved chats, the shortcuts of chats in Spam go
+         * ([removeSpamShortcuts]), on an IO thread. Called once at app start with the flag on; a second call does
+         * nothing. Nothing is removed while ProviderTruthFlag is off.
+         */
+        @Synchronized
+        fun watchSpam(context: Context) {
+            if (watchJob != null) return
+            val app = context.applicationContext
+            watchJob = CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
+                SpamSorting.changes.collect { runCatching { ShortcutHelper(app).removeSpamShortcuts() } }
+            }
+        }
+
+        /**
+         * H-3 (provider truth): a text placed [threadId] in Spam on arrival; its launcher and share shortcuts go at
+         * once (no sort reports that move). Never throws. Nothing happens while ProviderTruthFlag is off.
+         */
+        fun removeForSpam(context: Context, threadId: Long) {
+            if (!ProviderTruthFlag.enabled) return
+            runCatching { ShortcutHelper(context.applicationContext).removeSpamShortcuts(listOf(threadId.toString())) }
+        }
+
+        /** Tests: stops the watch of [watchSpam], so the next test starts it again. */
+        @VisibleForTesting
+        @Synchronized
+        internal fun stopWatchingSpam() {
+            watchJob?.cancel()
+            watchJob = null
+        }
+
         /**
          * MC-28: a real phone number, so its chat may be suggested in Share and the launcher. International numbers
          * (+1555...) and numbers stored with spaces or dashes count; sender names such as "BANK" and empty numbers don't.

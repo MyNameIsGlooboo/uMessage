@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.config
-import com.glooboo.umessage.extensions.messagesDB
+import com.glooboo.umessage.extensions.recycleBinEntryCount
 import com.glooboo.umessage.ui.icons.Symbols
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -98,7 +98,8 @@ internal fun rememberRecycleBinCount(on: Boolean, changeKey: Int): Int {
     var count by remember { mutableIntStateOf(0) }
     LaunchedEffect(on, changeKey, resumes) {
         count = if (on) {
-            withContext(Dispatchers.IO) { runCatching { context.messagesDB.getArchivedCount() }.getOrDefault(0) }
+            // H-4 (provider truth): without the binned messages of chats in Spam, which the bin does not list.
+            withContext(Dispatchers.IO) { runCatching { context.recycleBinEntryCount() }.getOrDefault(0) }
         } else {
             0
         }

@@ -14,6 +14,7 @@ import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.models.MessageKey
 import com.glooboo.umessage.models.MessageReminder
+import com.glooboo.umessage.ui.lock.LockScope
 import com.glooboo.umessage.ui.theme.currentColorScheme
 
 private const val REMINDER_CHANNEL_ID = "umessage_reminders"
@@ -36,8 +37,9 @@ class ReminderNotification(private val context: Context) {
             NotificationManager.IMPORTANCE_DEFAULT,
         ).also { notificationManager.createNotificationChannel(it) }
 
-        // B06: the reminder of a hidden chat names neither the chat nor the message.
-        val hidden = HiddenChats.get(context).isMarked(reminder.threadId)
+        // B06: the reminder of a hidden chat names neither the chat nor the message. H-2 (provider truth): neither does
+        // the reminder of a chat in Spam while the app lock covers Spam.
+        val hidden = HiddenChats.get(context).isMarked(reminder.threadId) || lockedSpam(reminder.threadId)
         val name = if (hidden) {
             ""
         } else {
@@ -58,6 +60,15 @@ class ReminderNotification(private val context: Context) {
             )
         }
         notificationManager.notify(NotificationIds.reminder(reminder.id), builder.build())
+    }
+
+    /**
+     * The chat is in Spam and the app lock covers Spam ([LockScope.blockedLocked]); a failed read counts as "in Spam".
+     * Always false while ProviderTruthFlag is off.
+     */
+    private fun lockedSpam(threadId: Long): Boolean {
+        if (!ProviderTruthFlag.enabled || !LockScope.blockedLocked(context)) return false
+        return runCatching { context.conversationsDB.isInSpam(threadId) }.getOrDefault(true)
     }
 
     private fun title(name: String): String =

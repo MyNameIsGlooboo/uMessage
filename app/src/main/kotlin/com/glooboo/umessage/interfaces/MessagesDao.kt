@@ -11,6 +11,7 @@ import androidx.room.Transaction
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.glooboo.umessage.helpers.MessageFoldBackfill
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageAttachment
 import com.glooboo.umessage.models.RecycleBinMessage
@@ -32,6 +33,38 @@ private const val SHORTCUT_BASE = "SELECT * FROM messages WHERE $SHOWN_ONLY"
 private const val IMAGE_PREFILTER = "attachment LIKE '%image/%'"
 private const val LINK_PREFILTER = "(body LIKE '%http%' OR body LIKE '%www.%')"
 private const val SHORTCUT_ORDER = "ORDER BY date DESC, id DESC LIMIT :limit"
+
+/** Provider truth (U9): the message's chat is shown in Spam (S9: the row names the chat's own sender). */
+private const val IN_SPAM_THREAD = "thread_id IN (${ConversationQueries.VALID_SPAM_THREAD_IDS})"
+private const val NOT_IN_SPAM_THREAD = "thread_id NOT IN (${ConversationQueries.VALID_SPAM_THREAD_IDS})"
+
+/**
+ * Provider truth (section 5, U9, H-1): which chats a search reads, put in the SQL so the result cap counts only the
+ * rows of that place. [messagesWhere] narrows `messages`, [conversationsWhere] narrows `conversations`.
+ */
+enum class SearchPlace(val messagesWhere: String, val conversationsWhere: String) {
+    ALL("", ""),
+    OUTSIDE_SPAM(NOT_IN_SPAM_THREAD, "NOT ${ConversationQueries.IN_SPAM}"),
+    SPAM(IN_SPAM_THREAD, ConversationQueries.IN_SPAM),
+    ;
+
+    companion object {
+        /** The place of the Messages side: everything while ProviderTruthFlag is off. */
+        fun outsideSpam(): SearchPlace = if (ProviderTruthFlag.enabled) OUTSIDE_SPAM else ALL
+    }
+}
+
+/** What search may show ([SHOWN_ONLY]) within [place]. */
+private fun shownIn(place: SearchPlace): String =
+    if (place == SearchPlace.ALL) SHOWN_ONLY else "$SHOWN_ONLY AND ${place.messagesWhere}"
+
+/** One received text of a chat in Spam for the weekly digest (H-9): the chat's sender, the text, when, spam_since. */
+data class SpamDigestRow(
+    @ColumnInfo(name = "sender") val sender: String,
+    @ColumnInfo(name = "body") val body: String,
+    @ColumnInfo(name = "date") val date: Int,
+    @ColumnInfo(name = "spam_since") val spamSince: Long,
+)
 
 /** A message whose folded body is still to be written: its row number and body (the backfill). */
 data class UnfoldedBody(
@@ -96,6 +129,23 @@ interface MessagesDao {
      */
     @Query("SELECT * FROM messages WHERE is_scheduled = 0 AND read = 1 AND date < :before AND type IN (1, 2) AND NOT EXISTS (SELECT 1 FROM recycle_bin_messages r WHERE r.id = messages.id AND r.is_mms = messages.is_mms) ORDER BY date ASC, id ASC LIMIT :limit OFFSET :offset")
     fun getRetentionCandidates(before: Int, limit: Int, offset: Int): List<Message>
+
+    /** Provider truth (answer 6, H-6): [getRetentionCandidates] without the chats in Spam, so the pages skip them. */
+    @Query("SELECT * FROM messages WHERE is_scheduled = 0 AND read = 1 AND date < :before AND type IN (1, 2) AND $NOT_IN_SPAM_THREAD AND NOT EXISTS (SELECT 1 FROM recycle_bin_messages r WHERE r.id = messages.id AND r.is_mms = messages.is_mms) ORDER BY date ASC, id ASC LIMIT :limit OFFSET :offset")
+    fun getRetentionCandidatesOutsideSpam(before: Int, limit: Int, offset: Int): List<Message>
+
+    /**
+     * Provider truth (H-9): the received, not binned texts dated from [fromSeconds] of the chats in Spam, with each
+     * chat's sender and spam_since, in one read for the weekly digest.
+     */
+    @Query(
+        "SELECT s.sender AS sender, m.body AS body, m.date AS date, s.spam_since AS spam_since FROM messages m " +
+            "JOIN spam_threads s ON s.thread_id = m.thread_id JOIN conversations c ON c.thread_id = s.thread_id " +
+            "WHERE c.is_group_conversation = 0 AND c.phone_number = s.sender AND m.is_scheduled = 0 AND m.type = 1 " +
+            "AND m.date >= :fromSeconds AND NOT EXISTS (SELECT 1 FROM recycle_bin_messages r " +
+            "WHERE r.id = m.id AND r.is_mms = m.is_mms)"
+    )
+    fun getSpamDigestRows(fromSeconds: Int): List<SpamDigestRow>
 
     @Query("SELECT * FROM messages WHERE thread_id = :threadId")
     fun getThreadMessages(threadId: Long): List<Message>
@@ -177,6 +227,20 @@ interface MessagesDao {
     )
     fun getRecycleBinMessageCount(): Int
 
+    /** Provider truth (H-4): [getRecycleBinMessageCount] without the messages of chats in Spam. */
+    @Query(
+        "SELECT COUNT(*) FROM messages JOIN recycle_bin_messages r " +
+            "ON r.id = messages.id AND r.is_mms = messages.is_mms WHERE messages.$NOT_IN_SPAM_THREAD"
+    )
+    fun getRecycleBinMessageCountOutsideSpam(): Int
+
+    /** Provider truth (H-4): [getArchivedCount] (every bin entry) without the entries of messages of chats in Spam. */
+    @Query(
+        "SELECT COUNT(*) FROM recycle_bin_messages r WHERE NOT EXISTS (SELECT 1 FROM messages m " +
+            "WHERE m.id = r.id AND m.is_mms = r.is_mms AND m.$IN_SPAM_THREAD)"
+    )
+    fun getArchivedCountOutsideSpam(): Int
+
     /** [pattern] is a [TextNormalizer.likeContains] pattern. Newest first, at most [SEARCH_RESULTS_LIMIT]. */
     @Query("SELECT * FROM messages WHERE $SHOWN_ONLY AND body LIKE :pattern ESCAPE '\\' $SEARCH_ORDER")
     fun getMessagesWithText(pattern: String): List<Message>
@@ -232,19 +296,31 @@ interface MessagesDao {
      * MC-17: newest first by date (kept in seconds for SMS and MMS alike; ids of the two are separate counters and
      * say nothing about age), at most [SEARCH_RESULTS_LIMIT].
      */
-    fun searchMessages(text: String): List<Message> {
-        if (!TextNormalizer.needsFold(text)) return getMessagesWithText(TextNormalizer.likeContains(text))
+    fun searchMessages(text: String, place: SearchPlace = SearchPlace.ALL): List<Message> {
+        val fast = searchSavedText(text, place)
+        if (!TextNormalizer.needsFold(text) || MessageFoldBackfill.isComplete) return fast
         val pattern = TextNormalizer.likeContains(TextNormalizer.fold(text))
-        val fast = getMessagesWithFoldedText(pattern)
-        if (MessageFoldBackfill.isComplete) return fast
         // rowid, not id: SMS 57 and MMS 57 share an id (see MessageKey), but every row has its own rowid.
-        val unfolded = SHOWN_ONLY + " AND body_folded = '' AND body <> ''"
+        val unfolded = shownIn(place) + " AND body_folded = '' AND body <> ''"
         val sql = TextNormalizer.sqlFoldedLike("messages", "rowid", "body", unfolded) + " $SEARCH_ORDER"
         val old = getMessagesRaw(SimpleSQLiteQuery(sql, arrayOf(pattern)))
         if (old.isEmpty()) return fast
         return (fast + old).distinctBy { it.key }
             .sortedWith(compareByDescending<Message> { it.date }.thenByDescending { it.id })
             .take(SEARCH_RESULTS_LIMIT)
+    }
+
+    /**
+     * The part of [searchMessages] that reads the saved columns: `body` for a text that needs no folding, else
+     * `body_folded`. H-1 (provider truth): the place is part of the SQL, so the cap counts only rows of that place.
+     */
+    fun searchSavedText(text: String, place: SearchPlace): List<Message> {
+        val folded = TextNormalizer.needsFold(text)
+        val pattern = TextNormalizer.likeContains(if (folded) TextNormalizer.fold(text) else text)
+        if (place == SearchPlace.ALL) return if (folded) getMessagesWithFoldedText(pattern) else getMessagesWithText(pattern)
+        val column = if (folded) "body_folded" else "body"
+        val sql = "SELECT * FROM messages WHERE ${shownIn(place)} AND $column LIKE ? ESCAPE '\\' $SEARCH_ORDER"
+        return getMessagesRaw(SimpleSQLiteQuery(sql, arrayOf(pattern)))
     }
 
     @Query("UPDATE messages SET read = 1 WHERE id = :id AND is_mms = :isMMS")
@@ -365,12 +441,20 @@ interface MessagesDao {
     @Query("$SHORTCUT_BASE AND $IMAGE_PREFILTER $SHORTCUT_ORDER")
     fun getImageCandidates(limit: Int): List<Message>
 
+    /** Provider truth (H-7): [getImageCandidates] without the chats in Spam, before the cap. */
+    @Query("$SHORTCUT_BASE AND $NOT_IN_SPAM_THREAD AND $IMAGE_PREFILTER $SHORTCUT_ORDER")
+    fun getImageCandidatesOutsideSpam(limit: Int): List<Message>
+
     @Query("$SHORTCUT_BASE AND thread_id = :threadId AND $IMAGE_PREFILTER $SHORTCUT_ORDER")
     fun getThreadImageCandidates(threadId: Long, limit: Int): List<Message>
 
     /** Newest messages whose text may hold a web link, at most [limit]. */
     @Query("$SHORTCUT_BASE AND $LINK_PREFILTER $SHORTCUT_ORDER")
     fun getLinkCandidates(limit: Int): List<Message>
+
+    /** Provider truth (H-7): [getLinkCandidates] without the chats in Spam, before the cap. */
+    @Query("$SHORTCUT_BASE AND $NOT_IN_SPAM_THREAD AND $LINK_PREFILTER $SHORTCUT_ORDER")
+    fun getLinkCandidatesOutsideSpam(limit: Int): List<Message>
 
     @Query("$SHORTCUT_BASE AND thread_id = :threadId AND $LINK_PREFILTER $SHORTCUT_ORDER")
     fun getThreadLinkCandidates(threadId: Long, limit: Int): List<Message>

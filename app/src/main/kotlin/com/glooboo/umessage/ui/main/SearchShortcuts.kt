@@ -9,6 +9,8 @@ import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.LinkExtractor
+import com.glooboo.umessage.helpers.ProviderTruthFlag
+import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.helpers.StarredMessages
 import com.glooboo.umessage.helpers.isUnknownSender
 import com.glooboo.umessage.helpers.starredDB
@@ -65,13 +67,13 @@ internal object SearchShortcuts {
                     InboxFilter.Unknown -> unknown(app, rows)
                     InboxFilter.Starred -> starred(app, byThread)
                     InboxFilter.Images -> {
-                        val pictures = images(visible(app, app.messagesDB.getImageCandidates(CANDIDATES)))
+                        val pictures = images(visible(app, shortcutCandidates(app, links = false)))
                         fromMessages(filter, app, byThread, pictures) {
                             it.body.ifBlank { app.getString(R.string.i28_hit_picture) }
                         }
                     }
                     InboxFilter.Links -> {
-                        val linked = links(visible(app, app.messagesDB.getLinkCandidates(CANDIDATES)))
+                        val linked = links(visible(app, shortcutCandidates(app, links = true)))
                         fromMessages(filter, app, byThread, linked) {
                             extractor.extract(it.body).take(LINKS_IN_SNIPPET).joinToString("\n")
                         }
@@ -81,9 +83,11 @@ internal object SearchShortcuts {
             }.getOrElse { ShortcutHits(filter, loaded = true) }
         }
 
-    /** B06: the messages of [candidates] that do not belong to a hidden chat. */
-    private fun visible(app: Context, candidates: List<Message>): List<Message> =
-        HiddenChats.get(app).withoutHidden(candidates) { it.threadId }
+    /** B06: the messages of [candidates] that do not belong to a hidden chat, nor (U9) to a chat in Spam. */
+    private fun visible(app: Context, candidates: List<Message>): List<Message> {
+        val shown = HiddenChats.get(app).withoutHidden(candidates) { it.threadId }
+        return SpamReaders.without(shown, SpamReaders.threadIds(app)) { it.threadId }
+    }
 
     private fun unknown(app: Context, rows: List<ConversationRow>): ShortcutHits {
         val checker = contactChecker(app)
@@ -103,7 +107,8 @@ internal object SearchShortcuts {
 
     private suspend fun starred(app: Context, byThread: Map<Long, ConversationRow>): ShortcutHits {
         StarredMessages.relink(app)
-        val stars = HiddenChats.get(app).withoutHidden(app.starredDB.getAll()) { it.threadId }
+        val visible = HiddenChats.get(app).withoutHidden(app.starredDB.getAll()) { it.threadId }
+        val stars = SpamReaders.without(visible, SpamReaders.threadIds(app)) { it.threadId }
         val hits = stars.map { starHit(app, it, byThread[it.threadId]) }
         val threads = stars.mapTo(HashSet()) { it.threadId }
         val gone = threads.filterTo(HashSet()) { app.conversationsDB.getConversationWithThreadId(it) == null }
@@ -140,5 +145,19 @@ internal object SearchShortcuts {
             )
         }
         return ShortcutHits(filter, hits.mapTo(HashSet()) { it.threadId }, hits, loaded = true)
+    }
+}
+
+/**
+ * The newest link or picture candidates of the tiles. H-7 (provider truth): the chats in Spam are left out in the SQL,
+ * before the cap.
+ */
+private fun shortcutCandidates(app: Context, links: Boolean): List<Message> {
+    val db = app.messagesDB
+    val cap = SearchShortcuts.CANDIDATES
+    return when {
+        !ProviderTruthFlag.enabled -> if (links) db.getLinkCandidates(cap) else db.getImageCandidates(cap)
+        links -> db.getLinkCandidatesOutsideSpam(cap)
+        else -> db.getImageCandidatesOutsideSpam(cap)
     }
 }

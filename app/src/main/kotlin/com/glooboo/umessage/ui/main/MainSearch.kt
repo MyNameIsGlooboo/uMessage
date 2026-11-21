@@ -232,6 +232,9 @@ class MainSearchState {
     /** main-22: the senders of blocked (spam) messages that hold [query]; the page lists them under "Blocked". */
     internal var blockedHits by mutableStateOf<List<BlockedHit>>(emptyList())
 
+    /** Provider truth (U9): the Spam chat each row of [blockedHits] opens, by [BlockedHit.address]. */
+    internal var spamTargets by mutableStateOf<Map<String, SearchResult>>(emptyMap())
+
     /** N11: the filter picked with a tile. It outlives the search: the inbox keeps showing it. */
     var filter by mutableStateOf(InboxFilter.All)
 
@@ -244,6 +247,12 @@ class MainSearchState {
     /** Set by the view model: stops a search still running when the user leaves search. */
     internal var onClose: (() -> Unit)? = null
 
+    /** H-16: the app lock covers Spam again: the Spam section and its targets go. */
+    internal fun hideSpamHits() {
+        blockedHits = emptyList()
+        spamTargets = emptyMap()
+    }
+
     fun close() {
         onClose?.invoke()
         active = false
@@ -251,5 +260,6 @@ class MainSearchState {
         results = emptyList()
         noteHits = emptyList()
         blockedHits = emptyList()
+        spamTargets = emptyMap()
     }
 }

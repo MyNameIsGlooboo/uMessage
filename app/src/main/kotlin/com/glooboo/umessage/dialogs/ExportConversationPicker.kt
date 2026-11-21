@@ -1,6 +1,7 @@
 package com.glooboo.umessage.dialogs
 
 import android.app.Activity
+import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.export.ExportScope
 import com.glooboo.umessage.extensions.getConversations
+import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.ui.components.CheckboxRow
 import com.glooboo.umessage.ui.components.showComposeDialog
@@ -37,6 +39,7 @@ import kotlinx.coroutines.withContext
 /**
  * A list of the phone's conversations with a search box and a checkbox on each, for choosing what to export.
  * [onDone] gets the chosen thread ids, in the list's order; an empty answer means the user chose nothing or cancelled.
+ * Chats hidden behind the app lock and (U9, provider truth) chats in Spam are not listed.
  */
 class ExportConversationPicker(activity: Activity, initial: List<Long>, onDone: (List<Long>) -> Unit) {
     init {
@@ -64,10 +67,7 @@ private fun PickerDialog(initial: List<Long>, onConfirm: (List<Long>) -> Unit, o
     var selected by remember { mutableStateOf(initial.toSet()) }
     LaunchedEffect(Unit) {
         conversations = withContext(Dispatchers.IO) {
-            runCatching {
-                val hidden = ExportScope.hiddenIds(context)
-                context.getConversations().filterNot { it.threadId in hidden }
-            }.getOrDefault(emptyList())
+            runCatching { pickerConversations(context) }.getOrDefault(emptyList())
         }
     }
     val all = conversations
@@ -141,6 +141,18 @@ private fun PickerBody(
             }
         }
     }
+}
+
+/**
+ * The chats the picker lists: the phone's conversations ([all]) without the chats hidden behind the app lock and (U9,
+ * provider truth) without the chats in Spam. Blocking; throws when either cannot be read.
+ */
+internal fun pickerConversations(
+    context: Context,
+    all: () -> List<Conversation> = { context.getConversations() },
+): List<Conversation> {
+    val leftOut = ExportScope.hiddenIds(context) + SpamReaders.threadIds(context)
+    return all().filterNot { it.threadId in leftOut }
 }
 
 private fun Conversation.matches(query: String) =

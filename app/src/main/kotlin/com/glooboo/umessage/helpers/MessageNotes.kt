@@ -5,6 +5,7 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.glooboo.umessage.extensions.getMessagesDB
 import com.glooboo.umessage.interfaces.MessageNotesDao
 import com.glooboo.umessage.interfaces.NOTE_SEARCH_LIMIT
+import com.glooboo.umessage.interfaces.SearchPlace
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageNote
 import com.glooboo.umessage.spam.TextNormalizer
@@ -115,20 +116,31 @@ class MessageNotes(
     /** Same as [threadsWithNotes], kept up to date (restored notes appear once their chat is known). */
     fun observeThreadsWithNotes(): Flow<Set<Long>> = dao.observeThreadIds().map { it.toSet() }.distinctUntilChanged()
 
-    /** Notes whose text contains [text] (Persian and Arabic letter and digit variants match), newest first. */
-    suspend fun search(text: String): List<MessageNote> = withContext(Dispatchers.IO) {
-        val wanted = text.trim()
-        when {
-            wanted.isEmpty() -> emptyList()
-            !TextNormalizer.needsFold(wanted) -> dao.searchPlain(TextNormalizer.likeContains(wanted))
-            else -> {
-                val sql = TextNormalizer.sqlFoldedLike("message_notes", "note_key", "note") +
-                    " ORDER BY updated_at DESC LIMIT ${NOTE_SEARCH_LIMIT}"
-                val pattern = TextNormalizer.likeContains(TextNormalizer.fold(wanted))
-                dao.searchRaw(SimpleSQLiteQuery(sql, arrayOf(pattern)))
+    /**
+     * Notes whose text contains [text] (Persian and Arabic letter and digit variants match), newest first. H-18
+     * (provider truth): only the notes of [place], in the SQL, so the cap counts only that place.
+     */
+    suspend fun search(text: String, place: SearchPlace = SearchPlace.ALL): List<MessageNote> =
+        withContext(Dispatchers.IO) {
+            val wanted = text.trim()
+            val where = place.messagesWhere
+            when {
+                wanted.isEmpty() -> emptyList()
+                !TextNormalizer.needsFold(wanted) && where.isEmpty() ->
+                    dao.searchPlain(TextNormalizer.likeContains(wanted))
+                !TextNormalizer.needsFold(wanted) -> {
+                    val sql = "SELECT * FROM message_notes WHERE note LIKE ? ESCAPE '${TextNormalizer.LIKE_ESCAPE}' " +
+                        "AND $where ORDER BY updated_at DESC LIMIT $NOTE_SEARCH_LIMIT"
+                    dao.searchRaw(SimpleSQLiteQuery(sql, arrayOf(TextNormalizer.likeContains(wanted))))
+                }
+                else -> {
+                    val sql = TextNormalizer.sqlFoldedLike("message_notes", "note_key", "note", where) +
+                        " ORDER BY updated_at DESC LIMIT ${NOTE_SEARCH_LIMIT}"
+                    val pattern = TextNormalizer.likeContains(TextNormalizer.fold(wanted))
+                    dao.searchRaw(SimpleSQLiteQuery(sql, arrayOf(pattern)))
+                }
             }
         }
-    }
 
     /** Called when a message is deleted for good (not when it only moves to the recycle bin). */
     suspend fun onMessageDeleted(key: String) = withContext(Dispatchers.IO) {
