@@ -116,7 +116,11 @@ class DefaultSpamFilter(
         return effectiveUnknownSenderMode(settings().mode, legacyUnknown)
     }
 
-    private fun isExemptCode(body: String): Boolean = OtpDetector.looksLikeOtp(body)
+    /**
+     * A code lets an unknown sender through Smart mode, unless the text holds a prize word or an advertising word
+     * before or in the sentence of its code (N5-7): a code with an ad footer passes, "Winner! Your OTP is 482913" not.
+     */
+    private fun isExemptCode(body: String): Boolean = OtpDetector.looksLikeOtp(body) && OtpDetector.noAdBeforeCode(body)
 
     /**
      * I24: a number from outside the chosen home country is held, unless the user knows it. Contacts and numbers the

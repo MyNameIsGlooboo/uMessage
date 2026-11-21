@@ -40,6 +40,8 @@ object OtpCodes {
 
     private const val MIN_BODY_LENGTH = 4
     private const val MIN_VALUE_LENGTH = 3
+    private const val MIN_CODE_DIGITS = 4
+    private const val MAX_LONG_DIGITS = 10
 
     /** Whether [body] holds a verification code (see the class comment). */
     fun looksLikeCode(body: String): Boolean {
@@ -129,10 +131,22 @@ object OtpCodes {
         val label = match.groupValues[1].lowercase()
         val longAllowed = kind == CodeKind.Password || label.startsWith("رمز")
         val shape = shapes[group.range.first]?.takeIf { longAllowed || !OtpPasswords.isLong(it.groupValues[1]) }
-        val value = shape?.let { OtpCodeExtractor.digitsOf(it.groupValues[1]) }
-            ?: group.value.trimEnd { it in trailing }
-        val valid = value.length >= MIN_VALUE_LENGTH && (shape != null || !value.all { it.isDigit() })
+        val written = group.value.trimEnd { it in trailing }
+        val digits = shape?.let { OtpCodeExtractor.digitsOf(it.groupValues[1]) } ?: starredCode(written, longAllowed)
+        val value = digits ?: written
+        val valid = value.length >= MIN_VALUE_LENGTH && (digits != null || !value.all { it.isDigit() })
         return if (valid) group.range.first to CodeToken(kind, value) else null
+    }
+
+    /**
+     * N5-14: the digits of a code wrapped in stars ("*482913*", "**4829**"), copied without them: 4-8 digits, or up to
+     * 10 for a password. Null for anything else.
+     */
+    private fun starredCode(written: String, longAllowed: Boolean): String? {
+        if (written.length <= 2 || written.first() != '*' || written.last() != '*') return null
+        val digits = written.trim('*')
+        val max = if (longAllowed) MAX_LONG_DIGITS else OtpDetector.MAX_CODE_DIGITS
+        return digits.takeIf { it.all { c -> c.isDigit() } && it.length in MIN_CODE_DIGITS..max }
     }
 
     private fun kindOf(label: String): CodeKind {

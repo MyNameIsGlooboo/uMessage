@@ -9,20 +9,23 @@ import org.junit.Test
 /**
  * Step N, item 5: the eight shapes of real codes the detector missed in 0.4.14 (notification investigation, N2), each
  * read by [OtpDetector.looksLikeOtp] (shown as a code: notification, copy chip, Codes filter) and by
- * [AllowingCode.isAllowingCode] (allows the sender for good). Every text, brand and number is made up.
+ * [AllowingCode.isAllowingCode] (allows the sender for good), plus the findings of the step N review (N5-1 to N5-14).
+ * Every text, brand and number is made up.
  *
- * | Shape                                  | Shown as a code                        | Allows the sender            |
- * |----------------------------------------|----------------------------------------|------------------------------|
- * | 1. more than four words in between     | widened: up to eight, one sentence     | kept: four words, or secret  |
- * | 2. a word with digits or 16+ letters   | widened, next to a strong keyword      | kept                         |
- * | 3. more than four marks in between     | widened: up to eight                   | kept                         |
- * | 4. no mark at all ("رمز۴۸۲۹۱۳")         | kept (copy extractor cannot see it)    | kept                         |
- * | 5. an ad word or "%" anywhere          | widened: a code phrase, ad elsewhere   | kept: never with an ad word  |
- * | 6. plain "code" with opt-out or gift   | kept                                   | kept                         |
- * | 7. 3 digits, or 9+ without "password"  | kept                                   | kept                         |
- * | 8. a keyword not in the list           | widened: پسورد, کلمه عبور, الرقم السري  | widened, same words          |
+ * | Shape                                  | Shown as a code                               | Allows the sender    |
+ * |----------------------------------------|-----------------------------------------------|----------------------|
+ * | 1. more than four words in between     | widened: 8 words of one sentence, code phrase | kept                 |
+ * | 2. a word with digits or 16+ letters   | widened, same phrases                         | kept                 |
+ * | 3. more than four marks in between     | widened: up to eight                          | kept, but see test   |
+ * | 4. no mark at all ("رمز۴۸۲۹۱۳")         | kept                                          | kept                 |
+ * | 5. an ad word or "%" anywhere          | widened: code phrase, ad only after its sentence | kept: never       |
+ * | 6. plain "code" with opt-out or gift   | kept                                          | kept                 |
+ * | 7. 3 digits, or 9+ without "password"  | kept                                          | kept                 |
+ * | 8. a keyword not in the list           | widened: password words                       | widened, same words  |
  *
- * Kept means the shape is still no code (or allows nobody), on purpose; the tests pin that too.
+ * The wide reach of shapes 1 and 2 starts only from a phrase of [OtpKeywords.codePhrases] or a password word
+ * ([OtpKeywords.password]), never from "verify", "log in" or "تایید", and never takes a year, a date or a number right
+ * after a reference word ("شماره", "شناسه", "tracking number"). Codes it finds are shown, not allowed (owner, B).
  */
 class OtpDetectorCorpusTest {
 
@@ -50,12 +53,12 @@ class OtpDetectorCorpusTest {
         assertFalse(body, allows(body))
     }
 
-    @Test fun shape1AStrongKeywordReachesEightWordsOfOneSentence() {
+    @Test fun shape1ACodePhraseReachesEightWordsOfOneSentence() {
         assertShownOnly("کد تایید شما جهت انجام تراکنش خرید از فروشگاه نمونه: 482913", "482913")
         assertShownOnly("رمز یکبار مصرف شما برای پرداخت قبض در درگاه بانک نمونه ۴۸۲۹۱۳ است", "482913")
         assertShownOnly("Your verification code for signing up to the Example app is 482913", "482913")
-        // A secret line lets the strict reading allow it anyway.
-        assertShownAndAllows("Example Bank: OTP for your order at Example Shop is 448210. Never share it.", "448210")
+        // N5-4: a "do not share" line vouches only for a code a few words from its keyword.
+        assertShownOnly("Example Bank: OTP for your order at Example Shop is 448210. Never share it.", "448210")
     }
 
     @Test fun shape1TheWideReachIsNotForThePlainWordAYearOrTheNextSentence() {
@@ -64,23 +67,39 @@ class OtpDetectorCorpusTest {
         assertNoCode("Your verification is complete. Thank you for choosing Example Bank today 4821")
     }
 
-    @Test fun shape2AWordWithDigitsDoesNotBreakTheChainOfAStrongKeyword() {
+    /** N5-9: bank notices, phone numbers, dates, bill IDs and tracking numbers are no code. */
+    @Test fun shape1BankNoticesAndReferenceNumbersAreNoCode() {
+        listOf(
+            "خرید شما تایید و مبلغ از حساب کسر شد مانده 250000",
+            "واریز به حساب شما تایید شد، مانده پس از واریز 12345678",
+            "رمز دوم کارت شما فعال شد و مانده حساب 250000",
+            "ورود به حساب کاربری شما در سامانه نمونه با شماره پیگیری 48291375 انجام شد",
+            "verify your account by calling us at 5551234",
+            "Sign in to view your statement for account ending in 482913",
+            "Your password for user john1985 expires 20261231",
+            "رمز دوم خود را برای پرداخت قبض با شناسه 12345678 وارد کنید",
+            "Your one-time password request was received and your tracking number is 48291375",
+            "رمز یکبار مصرف شما برای تراکنش کارت به شماره 1234567 ارسال شد",
+            "رمز عبور جدید برای شماره 12345678 ثبت شد",
+            "Your PIN for account 1234**** is now active",
+        ).forEach { assertNoCode(it) }
+    }
+
+    @Test fun shape2AWordWithDigitsDoesNotBreakTheChainOfACodePhrase() {
         assertShownOnly("Your OTP from Shop24 is 482913", "482913")
         assertShownOnly("کد تایید اپلیکیشن نمونه۳۶۵ شما: ۴۸۲۹۱۳", "482913")
         assertShownOnly("Your verification code for the Examplecloudservices app is 482913", "482913")
         assertNoCode("Use code SAVE20 to get 5000 points")
+        // N5-9: "sign in" has no wide reach, so a promo word after it breaks the chain.
+        assertNoCode("Sign in with SAVE20 and get 5000 points")
     }
 
-    /** The known cost of shape 2: a promo word after "sign in" is shown, but allows nobody. */
-    @Test fun shape2APromoWordAfterAStrongKeywordIsShownButNeverAllows() {
-        assertShownOnly("Sign in with SAVE20 and get 5000 points", "5000")
-    }
-
+    /** N5-11: shape 3 pins the strict reading and the copy value too. */
     @Test fun shape3UpToEightMarksStandBetween() {
         assertShownOnly("OTP -- >> 482913", "482913")
-        assertTrue(shown("کد تایید:\n\n\n\n۴۸۲۹۱۳"))
-        assertTrue(shown("Verification code:\r\n\r\n482913"))
-        assertNoCode("Your PIN for card ****1234 was changed")
+        assertShownOnly("Verification code:\r\n\r\n482913", "482913")
+        assertShownAndAllows("کد تایید:\n\n\n\n۴۸۲۹۱۳", "482913")
+        assertShownAndAllows("Your Example verification code is:\r\n\r\n482913\r\n\r\nDo not share it.", "482913")
     }
 
     /** Kept: the copy extractor needs a mark before the number ([com.glooboo.umessage.helpers.OtpCodeExtractor]). */
@@ -90,7 +109,7 @@ class OtpDetectorCorpusTest {
         assertNoCode("کد‌۴۸۲۹۱۳")
     }
 
-    @Test fun shape5ACodePhraseWinsOverAnAdWordInAnotherSentence() {
+    @Test fun shape5ACodePhraseWinsOverAnAdvertisingFooter() {
         assertShownOnly("Your verification code is 482913. Get 20% off your next ride!", "482913")
         assertShownOnly("کد تایید شما ۴۸۲۹۱۳\nجشنواره پاییزه فروشگاه نمونه", "482913")
         assertShownOnly("رمز یکبار مصرف 482913\nتخفیف ۲۰٪ در خرید بعدی", "482913")
@@ -106,7 +125,34 @@ class OtpDetectorCorpusTest {
             "کد تایید ۴۸۲۹۱۳ برای شرکت در قرعه کشی",
             "Your verification code for the prize draw is 482913",
             "کد تخفیف ۲۰٪: ۴۸۲۹۱۳\nلغو۱۱",
+            // The ad word in the code's own sentence is no footer.
+            "Your OTP is 482913, enjoy 20% off",
         ).forEach { assertNoCode(it) }
+    }
+
+    /** N5-7: an ad word before the code, and a prize word anywhere, make it an advertisement. */
+    @Test fun shape5AnAdBeforeTheCodeOrAPrizeWordIsNoFooter() {
+        listOf(
+            "شما برنده قرعه کشی شدید. کد تایید: 482913. برای دریافت جایزه به example.com مراجعه کنید",
+            "Congratulations winner! Your OTP is 482913. Send it to 30001234 to claim your prize",
+            "تخفیف ۵۰٪ نمونه! کد تایید شما برای دریافت: 482913",
+        ).forEach { assertNoCode(it) }
+    }
+
+    /** N5-8: a dot inside a link or a version does not end the sentence. */
+    @Test fun shape5ADotInALinkDoesNotEndTheSentence() {
+        assertNoCode("کد تایید ۴۸۲۹۱۳ در example.com با تخفیف ۵۰٪")
+        assertNoCode("Your verification code 482913 at shop.example.com gets you 20% off")
+        assertNoCode("OTP 482913 v2.0 promo winner")
+    }
+
+    /** N5-7: what the old filter (flag off) asks before it lets a code through Smart mode. */
+    @Test fun shape5TheOldFilterSeesNoAdBeforeTheCode() {
+        assertTrue(OtpDetector.noAdBeforeCode("Your verification code is 482913. Get 20% off your next ride!"))
+        assertTrue(OtpDetector.noAdBeforeCode("Your OTP is 482913"))
+        assertFalse(OtpDetector.noAdBeforeCode("Winner! password: 12345678"))
+        assertFalse(OtpDetector.noAdBeforeCode("Congratulations winner! Your OTP is 482913. Claim your prize"))
+        assertFalse(OtpDetector.noAdBeforeCode("تخفیف ۵۰٪ نمونه! کد تایید شما برای دریافت: 482913"))
     }
 
     @Test fun shape6ThePlainWordWithTheOptOutLineOrAGiftWordStaysNoCode() {
@@ -131,6 +177,10 @@ class OtpDetectorCorpusTest {
         assertShownAndAllows("کلمه عبور موقت شما ۴۸۲۹۱۳ است", "482913")
         assertShownAndAllows("رقمك السري المؤقت 482915", "482915")
         assertShownAndAllows("الرقم السري لمرة واحدة 482915", "482915")
+        // N5-12: with a ZWNJ and ی, and two more Arabic words.
+        assertShownAndAllows("کلمه‌ی عبور شما: ۴۸۲۹۱۳", "482913")
+        assertShownAndAllows("كلمة السر الخاصة بك 482915", "482915")
+        assertShownAndAllows("الرمز السري 482915", "482915")
     }
 
     @Test fun shape8WordsLeftOutOnPurpose() {
@@ -139,14 +189,65 @@ class OtpDetectorCorpusTest {
         assertNoCode("Your access token is 482913")
     }
 
-    /** Fable F-1: a CJK code word in its own clause, closer to the code than an order word, allows. */
-    @Test fun cjkACodeWordInItsOwnClauseWinsOverAnOrderWord() {
+    /** N5-6: a card notice or a changed password is no reason to allow, in Arabic and Persian too. */
+    @Test fun cardNoticesAndChangedPasswordsDoNotAllow() {
+        assertFalse(allows("تم تغيير الرقم السري لبطاقتك المنتهية بـ 1234"))
+        assertFalse(allows("تم تغيير الرقم السري لبطاقتك رقم 1234"))
+        assertFalse(allows("تم تغيير كلمة المرور لحسابك رقم 482913"))
+        assertNoCode("رمز عبور شما در تاریخ ۱۴۰۵/۰۸/۲۷ تغییر کرد")
+        assertNoCode("Password changed on 2026-11-18 at 1432")
+        // The Persian word for "change" alone is no veto, and "your account" in Arabic is none either.
+        assertShownAndAllows("کد تایید تغییر شماره موبایل: 482913", "482913")
+        assertShownAndAllows("٧٣٩٢٠١ هو رمز الدخول لحسابك", "739201")
+    }
+
+    /** N5-3: a code between stars is a code; only a mask is none. */
+    @Test fun aCodeBetweenStarsIsStillACode() {
+        listOf(
+            "Your verification code is *482913*",
+            "Your Example code is *482913*. Don't share it.",
+            "رمز پویا *482913*",
+            "*482913* کد تایید شما در نمونه",
+            "کد تایید شما: **482913**",
+            "OTP *482913",
+        ).forEach { assertTrue(it, shown(it)) }
+    }
+
+    /** N5-14: a labelled value between stars is copied without them. */
+    @Test fun aLabelledValueBetweenStarsIsCopiedWithoutThem() {
+        assertEquals(listOf("4829"), copied("کد: *4829*"))
+        assertEquals(listOf("482913"), copied("OTP: *482913*"))
+    }
+
+    /** N5-10 and N5-4: a masked card or account number never gives a code, nor allows with a "never share" line. */
+    @Test fun aMaskedNumberIsNoCode() {
+        listOf(
+            "Your PIN for card ****1234 was changed",
+            "Your PIN for card **** 1234 is now active",
+            "Your PIN for card ••••1234 is now active",
+            "Your PIN for card #### 1234 is now active",
+            "رمز کارت **** ۱۲۳۴ فعال شد",
+            "Your PIN for card **** 1234 is now active. Never share your PIN.",
+            "verify your account by calling us at 5551234. Do not share this message",
+        ).forEach { assertNoCode(it) }
+    }
+
+    /** Fable F-1: a CJK code word in its own clause wins over an order word, but only for paying or logging in. */
+    @Test fun cjkACodeWordInAPayClauseWinsOverAnOrderWord() {
         assertTrue(allows("您正在支付订单，验证码 123456"))
         assertTrue(allows("验证码 123456，用于支付订单"))
-        assertFalse(allows("您的订单验证码是 573920"))
-        assertFalse(allows("，您的订单验证码是 573920"))
-        assertFalse(allows("【示例快递】您的取件验证码是 482915"))
-        assertFalse(allows("ご注文の確認コード：664422"))
+        listOf(
+            "您的订单验证码是 573920",
+            "，您的订单验证码是 573920",
+            "【示例快递】您的取件验证码是 482915",
+            "ご注文の確認コード：664422",
+            // N5-5: pick-up, shipped, cancelled.
+            "您的快递已到，取件验证码 482915",
+            "【示例驿站】您的快递已到，取件验证码 482915，请及时领取",
+            "您的订单已发货，验证码 482915",
+            "订单已取消。验证码 482915",
+            "주문이 완료되었습니다, 인증번호 482915",
+        ).forEach { assertFalse(it, allows(it)) }
     }
 
     /**
@@ -158,5 +259,55 @@ class OtpDetectorCorpusTest {
         assertTrue(shown(body))
         assertTrue(allows(body))
         assertEquals(emptyList<String>(), copied(body))
+    }
+
+    /** One full check: shown, allows, copy values. */
+    private fun check(body: String) {
+        shown(body)
+        allows(body)
+        copied(body)
+    }
+
+    /**
+     * N5-1, N5-2: texts that made the patterns backtrack for seconds (a mark fitted both a word and a separator). The
+     * first check warms the classes up; the second must finish fast. The old patterns hang here, hence the timeout.
+     */
+    private fun assertFast(body: String) {
+        check("Your OTP is 482913")
+        check(body)
+        val start = System.nanoTime()
+        check(body)
+        val millis = (System.nanoTime() - start) / NANOS_PER_MILLI
+        assertTrue("$millis ms", millis < FAST_MILLIS)
+    }
+
+    @Test(timeout = TIMEOUT_MILLIS) fun marksOnlyAfterAKeywordOrACodeAreFast() {
+        assertFast("OTP " + "́".repeat(200))
+        assertFast("482913 " + "́".repeat(200))
+        assertFast("کد تایید " + ("ؐ".repeat(6) + " ").repeat(6))
+    }
+
+    @Test(timeout = TIMEOUT_MILLIS) fun thaiAfterAKeywordOrACodeIsFast() {
+        val thai = "สวัสดีครับขอบคุณที่ใช้บริการของเราที่นี่ ".repeat(10).take(300)
+        assertFast("OTP $thai")
+        assertFast("482913 $thai")
+    }
+
+    @Test(timeout = TIMEOUT_MILLIS) fun aLongHindiTextIsFast() {
+        val hindi = "आपका खाता सत्यापन के लिए तैयार है कृपया प्रतीक्षा करें ".repeat(40).take(1700)
+        assertFast(hindi)
+        // With a digit, so the patterns are read and not skipped.
+        assertFast("$hindi 12")
+    }
+
+    @Test(timeout = TIMEOUT_MILLIS) fun accentedLettersAfterAKeywordAreFast() {
+        assertFast("OTP " + "é".repeat(24))
+        assertFast("OTP " + "é".repeat(30))
+    }
+
+    private companion object {
+        const val NANOS_PER_MILLI = 1_000_000L
+        const val FAST_MILLIS = 50L
+        const val TIMEOUT_MILLIS = 10_000L
     }
 }

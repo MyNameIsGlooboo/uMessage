@@ -23,8 +23,9 @@ import com.glooboo.umessage.spam.TextNormalizer
  *   no, that "code" belongs to "use code");
  * - or a possessive form says it is the reader's code ("Your code is N", "N is your Acme code", "Use N to verify",
  *   "کد شما: N", "کدتان N"), with no link near the code;
- * - or the text says to keep the code secret ("do not share", "در اختیار دیگران قرار ندهید"), or its last line
- *   binds the code to a site ([OtpDetector.isOriginBound], `@example.com #123456`).
+ * - or the text says to keep the code secret ("do not share", "در اختیار دیگران قرار ندهید") and the code has a
+ *   keyword a few plain words away ([OtpDetector.keywordClose]: no phone number eight words from "verify"), or its
+ *   last line binds the code to a site ([OtpDetector.isOriginBound], `@example.com #123456`).
  * A text with a word of an advertisement anywhere ("discount", "تخفیف", "20%": [OtpDetector.hasAdvertisingWord]) never
  * allows, even when it shows a code next to a one-time code phrase. So every text this allows is also shown as a code,
  * never the other way round.
@@ -44,10 +45,11 @@ object AllowingCode {
         "کد تایید", "کد تأیید", "کد تائید", "کد تاییدیه", "کد اعتبارسنجی", "کد اعتبار سنجی", "رمز یکبار مصرف",
         "رمز یک بار مصرف", "یکبار مصرف", "یک بار مصرف", "رمز پویا", "رمز دوم", "رمز اینترنتی", "رمز عبور",
         "رمز ورود", "رمز شخصی", "رمز موقت", "کد ورود", "کد فعالسازی", "کد فعال سازی", "کد امنیتی", "کد احراز هویت",
-        "احراز هویت", "گذرواژه", "پسورد", "فرم ورود", "کلمه عبور",
+        "احراز هویت", "گذرواژه", "پسورد", "فرم ورود", "کلمه عبور", "کلمه ی عبور",
         // Arabic (folded like the text: Persian yeh and kaf, plain alef)
         "رمز التحقق", "رمز الدخول", "رمز التفعیل", "رمز التاکید", "کود التفعیل", "کود التحقق", "کلمه المرور",
-        "لمره واحده", "التحقق", "التفعیل", "لتاکید", "تاکید", "الرقم السری", "رقمک السری",
+        "لمره واحده", "التحقق", "التفعیل", "لتاکید", "تاکید", "الرقم السری", "رقمک السری", "کلمه السر",
+        "الرمز السری",
         // Other languages: the compound words of OtpKeywords.strong
         "код подтверждения", "код підтвердження", "проверочный код", "код безопасности", "одноразовый",
         "одноразовий", "пароль", "пин[- ]?код", "doğrulama kodu", "onay kodu", "güvenlik kodu", "şifre",
@@ -81,13 +83,16 @@ object AllowingCode {
         "پیگیری", "رهگیری", "مرسوله", "کد سفارش", "شماره سفارش", "کد معرف", "کد معرفی", "کد شعبه", "کد نوبت",
         "شماره نوبت", "کد بورسی", "کد پستی", "کد مشتری", "شماره مشتری", "کد اشتراک", "کد ملی", "کد رزرو", "کد خطا",
         "شناسه پرداخت", "تغییر کرد", "تغییر یافت",
-        // Arabic
+        // Arabic; "تم تغییر" (has been changed) and the words of a card ("your card ending in 1234", N5-6). The
+        // bare "تغییر" is left out: it is also the Persian word in "کد تایید تغییر شماره: 482913".
         "الخصم", "التتبع", "تتبع", "الشحنه", "شحنه", "الطلب", "طلبک", "مرجع", "المرجع", "الحجز", "رقم العملیه",
+        "تم تغییر", "المنتهیه", "بطاقتک", "لبطاقتک", "البطاقه",
     )
 
     private const val BARE_THAI_CODE = "รหัส"
-    private const val SEP = "[^\\p{L}\\p{N}]{1,4}"
-    private const val WORD = "[\\p{L}\\p{M}]{1,15}"
+    /** As in [OtpDetector.NEAR]: a mark is never a separator, and neither run is cut back, so matching stays linear. */
+    private const val SEP = "[^\\p{L}\\p{M}\\p{N}]{1,4}+"
+    private const val WORD = "[\\p{L}\\p{M}]{1,15}+"
 
     /** The characters either side of a code that are searched. */
     private const val WINDOW = 120
@@ -121,8 +126,14 @@ object AllowingCode {
     private val vetoBefore = Regex("$veto$SEP(?:$WORD$SEP){0,4}$", RegexOption.IGNORE_CASE)
     private val vetoAfter = Regex("^$SEP(?:$WORD$SEP){0,4}$veto", RegexOption.IGNORE_CASE)
 
-    /** Reference words of languages without spaces: parcel, order, express delivery, coupon, discount (R-2). */
-    internal val cjkVetoWords = listOf("พัสดุ", "สั่งซื้อ", "订单", "訂單", "快递", "快遞", "注文", "주문", "쿠폰", "优惠", "優惠")
+    /**
+     * Reference words of languages without spaces: parcel, order, express delivery, coupon, discount (R-2), and the
+     * pick-up of a parcel (N5-5: "取件验证码" is a parcel locker's code).
+     */
+    internal val cjkVetoWords = listOf(
+        "พัสดุ", "สั่งซื้อ", "订单", "訂單", "快递", "快遞", "注文", "주문", "쿠폰", "优惠", "優惠", "取件", "提货", "取货", "自提",
+        "수령", "픽업",
+    )
     private val cjkVeto = "(?:" + cjkVetoWords.joinToString("|") + ")"
     private val cjkVetoBefore = Regex("$cjkVeto[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$")
     private val cjkVetoAfter = Regex("^[^\\p{N}]{0,${OtpKeywords.CJK_GAP}}$cjkVeto")
@@ -130,15 +141,20 @@ object AllowingCode {
     /** Marks that end a clause in Chinese, Japanese and Korean: a reference word behind one names something else. */
     private const val CLAUSE_MARKS = "，,。；;！!？?、"
 
+    /** Words of paying and logging in: a clause about one names what the code is for (F-1). */
+    private const val PAY_OR_LOGIN = "(?:支付|付款|登录|登錄|登入|結帳|结账|支払|ログイン|결제|로그인)"
+
     /**
      * Fable F-1: a CJK code word closer to the code than the reference word, with a clause mark between them, wins over
-     * it: "您正在支付订单，验证码 123456" (you are paying an order; the verification code is 123456) allows, while
-     * "您的订单验证码是 573920" (the order's verification code) and "【示例快递】您的取件验证码" do not.
+     * it, but only when that clause speaks of paying or logging in: "您正在支付订单，验证码 123456" (you are paying an
+     * order; the verification code is 123456) allows, while "您的订单已发货，验证码 482915" (the order has shipped),
+     * "您的订单验证码是 573920" (the order's verification code) and "您的快递已到，取件验证码" (pick-up) do not.
      */
     private val notVeto = "(?:(?!$cjkVeto)[^\\p{N}])"
     private val cjkCodeAfterClause =
-        Regex("[$CLAUSE_MARKS]$notVeto*?$cjkWords$notVeto{0,${OtpKeywords.CJK_GAP}}$")
-    private val cjkClauseBeforeVeto = Regex("^$notVeto{0,${OtpKeywords.CJK_GAP}}[$CLAUSE_MARKS]")
+        Regex("$PAY_OR_LOGIN[^\\p{N}]*?[$CLAUSE_MARKS]$notVeto*?$cjkWords$notVeto{0,${OtpKeywords.CJK_GAP}}$")
+    private val cjkClauseBeforeVeto =
+        Regex("^$notVeto{0,${OtpKeywords.CJK_GAP}}[$CLAUSE_MARKS]$notVeto{0,${OtpKeywords.CJK_GAP}}$PAY_OR_LOGIN")
 
     /** What the possessive code is when it is no one-time code: "Your booking code is N", "Your reference no: N". */
     private const val NOT_A_CODE = "(?:booking|reservation|reference|ref|invoice|parcel|shipment|customer|" +
@@ -174,10 +190,14 @@ object AllowingCode {
     /** Whether [body] allows its sender for good (see the class comment). Never throws. */
     fun isAllowingCode(body: String): Boolean = runCatching {
         if (!OtpDetector.looksLikeOtp(body)) return@runCatching false
-        val text = TextNormalizer.fold(body)
+        val text = TextNormalizer.fold(body).take(OtpDetector.MAX_SCAN)
         if (OtpDetector.hasAdvertisingWord(text)) return@runCatching false
-        val anywhere = secrecy.containsMatchIn(text) || OtpDetector.isOriginBound(body)
-        codeRanges(body, text).any { range -> !vetoNear(text, range) && (anywhere || allowsNear(text, range)) }
+        val secret = secrecy.containsMatchIn(text)
+        val bound = OtpDetector.isOriginBound(body)
+        codeRanges(body, text).any { range ->
+            val vouched = bound || secret && OtpDetector.keywordClose(text, range)
+            !vetoNear(text, range) && (vouched || allowsNear(text, range))
+        }
     }.getOrDefault(false)
 
     /**

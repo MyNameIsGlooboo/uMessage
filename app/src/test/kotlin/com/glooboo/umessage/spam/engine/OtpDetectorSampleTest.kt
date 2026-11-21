@@ -23,11 +23,11 @@ import org.junit.Test
  *
  * | Group         | Samples | Shown as a code: wrong | Allows the sender: wrong |
  * |---------------|---------|------------------------|--------------------------|
- * | REAL_CODE     | 71      | 3 missed               | 6 missed                 |
+ * | REAL_CODE     | 71      | 3 missed               | 7 missed                 |
  * | REFERENCE     | 35      | 22 called a code       | 0                        |
  * | MARKETING     | 23      | 6 called a code        | 0                        |
  * | PHISHING_LINK | 9       | 7 called a code        | 2                        |
- * | OTHER         | 22      | 3 called a code        | 0                        |
+ * | OTHER         | 22      | 1 called a code        | 0                        |
  *
  * - Shown as a code, misses: a code with no keyword; "Enter 4321 to confirm"; and "Your temporary password is
  *   9876543210", missed because a long number that starts with 98 reads as a phone number (the phone guard of
@@ -37,11 +37,14 @@ import org.junit.Test
  * - Shown as a code, false hits: order, parcel, customer, referral, branch, queue, broker and zip numbers next to the
  *   word "code" (کد, code, رمز), also "Your booking code is N" and parcel, order and coupon codes in Chinese, Japanese,
  *   Korean and Thai; ads whose discount word the detector does not know ("at checkout", "free",
- *   "كود الخصم", "Sign in today and use code 4455"); "Error code" and a time written without a colon after a password
- *   word (N-1); and every phishing text that names a code.
+ *   "كود الخصم", "Sign in today and use code 4455"); "Error code"; and every phishing text that names a code. The
+ *   two password-change notices with a date (N-1) are no code since step N: a number that is one part of a date
+ *   ("2026-11-18", "۱۴۰۵/۰۸/۲۷") is never the code.
  * - Allows the sender, misses: the three above, the code with a discount word (a text with a word of an
- *   advertisement never allows), plus two codes next to the plain word only that do not say whose code it is
- *   ("کد: ۷۴۱۰", "کدتان برای ورود ۳۱۲۵ است"). Their senders' chats go to Spam, silently (owner, fix round A).
+ *   advertisement never allows), "OTP for your order at Example Shop is 448210. Never share it." (a "do not share"
+ *   line vouches only for a code a few words from its keyword), plus two codes next to the plain word only that do
+ *   not say whose code it is ("کد: ۷۴۱۰", "کدتان برای ورود ۳۱۲۵ است"). Their senders' chats go to Spam, silently
+ *   (owner, fix round A).
  * - Allows the sender, false hits: two phishing texts with a real code phrase and a link ("کد تایید ۴۸۲۹",
  *   "Verification code 482915"). The owner decided that a code allows its sender with or without a link.
  */
@@ -152,7 +155,7 @@ class OtpDetectorSampleTest {
         Sample(OTHER, "سلام، ساعت ۸ جلسه داریم؟", detectedToday = false),
         Sample(OTHER, "قرار ما ساعت ۱۹:۳۰ جلوی سینما", detectedToday = false),
         Sample(OTHER, "برای دریافت رمز با 09060000000 تماس بگیرید", detectedToday = false),
-        Sample(OTHER, "رمز عبور شما در تاریخ ۱۴۰۵/۰۸/۲۷ ساعت ۱۴۳۲ تغییر کرد", detectedToday = true),
+        Sample(OTHER, "رمز عبور شما در تاریخ ۱۴۰۵/۰۸/۲۷ ساعت ۱۴۳۲ تغییر کرد", detectedToday = false),
         Sample(OTHER, "رمز کارت شما ۳ بار اشتباه وارد شد", detectedToday = false),
         // Fix round A-1: more real formats.
         Sample(REAL_CODE, "کد تاییدیه شما: 662281", detectedToday = true),
@@ -216,7 +219,7 @@ class OtpDetectorSampleTest {
         Sample(
             OTHER,
             "Password changed on 2026-11-18 at 1432. If this was not you, contact support.",
-            detectedToday = true,
+            detectedToday = false,
         ),
         Sample(OTHER, "Your PIN was changed. Not you? Call +15550001234", detectedToday = false),
         // Fix round A-1: plain English codes and bank texts with "Dear Customer", "order", "Ref no", "Free Msg".
@@ -240,6 +243,7 @@ class OtpDetectorSampleTest {
         Sample(
             REAL_CODE, "Example Bank: OTP for your order at Example Shop is 448210. Never share it.",
             detectedToday = true,
+            allows = false,
         ),
         Sample(REAL_CODE, "Your sign-in code is 662013", detectedToday = true),
         Sample(REAL_CODE, "Your Example verification code is: 8812-4410", detectedToday = true),
@@ -335,7 +339,7 @@ class OtpDetectorSampleTest {
                 REFERENCE to (35 to 22),
                 MARKETING to (23 to 6),
                 PHISHING_LINK to (9 to 7),
-                OTHER to (22 to 3),
+                OTHER to (22 to 1),
             ),
             counts,
         )
@@ -360,7 +364,7 @@ class OtpDetectorSampleTest {
         val counts = Group.entries.associateWith { group ->
             all.filter { it.group == group }.count { allowed(it) != it.isCode }
         }
-        assertEquals(mapOf(REAL_CODE to 6, REFERENCE to 0, MARKETING to 0, PHISHING_LINK to 2, OTHER to 0), counts)
+        assertEquals(mapOf(REAL_CODE to 7, REFERENCE to 0, MARKETING to 0, PHISHING_LINK to 2, OTHER to 0), counts)
     }
 
     /** Whatever allows a sender is also shown as a code: the strict reading never disagrees the other way. */
@@ -389,19 +393,19 @@ class OtpDetectorSampleTest {
     }
 
     /**
-     * N-1: two of the OTHER false hits are a time written without a colon ("ساعت ۱۴۳۲", "at 1432") after a password
-     * word. They are shown as a code, but allow nobody ("changed" and "تغییر کرد" veto).
+     * N-1: two OTHER texts are password-change notices with a date and a time written without a colon ("ساعت ۱۴۳۲",
+     * "at 1432"). They were shown as a code (the year of the date); since step N a part of a date is no code.
      */
-    @Test fun timesWithoutAColonAreShownButDoNotAllow() {
+    @Test fun passwordChangesWithADateAreNoCode() {
         val times = all.filter { it.group == OTHER && "1432" in OtpDetector.normalizeDigits(it.body) }
         assertEquals(2, times.size)
-        assertTrue(bodies(times), times.all { detected(it) && !allowed(it) })
+        assertTrue(bodies(times), times.none { detected(it) || allowed(it) })
     }
 
     private companion object {
         const val EXPECTED_MISSES = 3
-        const val EXPECTED_FALSE_HITS = 38
-        const val EXPECTED_ALLOWING_MISSES = 6
+        const val EXPECTED_FALSE_HITS = 36
+        const val EXPECTED_ALLOWING_MISSES = 7
         const val EXPECTED_ALLOWING_FALSE_HITS = 2
     }
 }
