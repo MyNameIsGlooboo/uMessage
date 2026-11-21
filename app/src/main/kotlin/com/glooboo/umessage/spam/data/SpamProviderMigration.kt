@@ -832,14 +832,20 @@ object SpamProviderMigration {
         passFollows: Boolean = false,
     ): MigrationResult {
         if (!ProviderTruthFlag.enabled) return MigrationResult()
-        val app = context.applicationContext
-        return synchronized(lock) {
-            val mover = moverFor(app)
-            val result = mover.run(limit, noteUnreadNow)
-            runCatching { mover.cleanUp() }
-            if (passFollows) mover.passHandled()
-            result
-        }
+        return synchronized(lock) { runWith(moverFor(context.applicationContext), limit, noteUnreadNow, passFollows) }
+    }
+
+    /** One run of [mover] and its clean-up; the caller holds [lock]. */
+    private fun runWith(
+        mover: OlderSpamMover,
+        limit: Int,
+        noteUnreadNow: Boolean,
+        passFollows: Boolean,
+    ): MigrationResult {
+        val result = mover.run(limit, noteUnreadNow)
+        runCatching { mover.cleanUp() }
+        if (passFollows) mover.passHandled()
+        return result
     }
 
     /**
@@ -855,17 +861,22 @@ object SpamProviderMigration {
         val state = runCatching { FirstRun.state(context).value }.getOrNull()
         val afterSort = state == null || state.allowsFullSort ||
             (state.sortPublished && state.phase == FirstRunPhase.CLEANUP)
-        if (!afterSort) return state?.olderSpamWaiting != true
-        val result = runCatching { migrate(context, limit, noteUnreadNow = true) }
-            .onFailure { Log.w(TAG, "Older spam migration failed: ${it.javaClass.simpleName}") }
+        if (!afterSort) return !state.olderSpamWaiting
+        // One mover for the run and the pass it may owe, under one lock.
+        val result = runCatching {
+            synchronized(lock) {
+                val mover = moverFor(context.applicationContext)
+                runWith(mover, limit, noteUnreadNow = true, passFollows = false).also { result ->
+                    if (announce) runCatching { askForPass(context, mover, state, result) }
+                }
+            }
+        }.onFailure { Log.w(TAG, "Older spam migration failed: ${it.javaClass.simpleName}") }
             .getOrNull() ?: return false
-        if (announce) runCatching { askForPass(context, state, result) }
         return !result.waiting
     }
 
-    /** F-14: the owed check is asked for until a pass began after that; then it is done. */
-    private fun askForPass(context: Context, state: FirstRunState?, result: MigrationResult) = synchronized(lock) {
-        val mover = moverFor(context.applicationContext)
+    /** F-14: the owed check is asked for until a pass began after that; then it is done. The caller holds [lock]. */
+    private fun askForPass(context: Context, mover: OlderSpamMover, state: FirstRunState?, result: MigrationResult) {
         val asked = mover.passRequestedAt()
         val ranSince = state != null && !state.active && asked > 0L && state.startedAt >= asked
         val stale = state?.olderSpamWaiting == true && !result.waiting
@@ -921,7 +932,7 @@ object SpamProviderMigration {
             val kind = journal.kindOf(RowKey.of(row))
             MigrationMark.isDone(row.migratedMsgId) && row.isMms && !row.mediaFile.isNullOrBlank() &&
                 kind != MigrationJournal.KIND_MMS && kind != MigrationJournal.KIND_MMS_FOUND &&
-                row.mediaFile?.let { BlockedMmsStore.pduFile(app, it) }?.isFile == true
+                row.mediaFile.let { BlockedMmsStore.pduFile(app, it) }?.isFile == true
         }.mapTo(HashSet()) { it.id }
     }.getOrDefault(emptySet())
 
