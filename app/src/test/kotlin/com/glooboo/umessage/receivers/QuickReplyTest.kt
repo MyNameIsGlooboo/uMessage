@@ -42,6 +42,9 @@ class QuickReplyTest {
     @Before
     fun setUp() = ShadowRecordingSmsManager.reset()
 
+    /** Room refuses main-thread reads, and getSmsDraft turns the refusal into "": read on a worker. */
+    private fun draftOf(threadId: Long): String = offMainThread { context.getSmsDraft(threadId) }
+
     @After
     fun tearDown() = resetSharedMessagesDatabase()
 
@@ -98,7 +101,7 @@ class QuickReplyTest {
         ShadowLooper.idleMainLooper()
 
         assertThat(notSentNotifications).hasSize(1)
-        assertThat(context.getSmsDraft(threadId)).isEqualTo("On my way")
+        assertThat(draftOf(threadId)).isEqualTo("On my way")
         val reposted = shadowOf(manager).getNotification(threadId.hashCode())
         assertThat(reposted.flags and Notification.FLAG_ONLY_ALERT_ONCE).isNotEqualTo(0)
         assertThat(reposted.extras.getCharSequence(Notification.EXTRA_TEXT)?.toString()).isEqualTo("Are you coming?")
@@ -114,7 +117,7 @@ class QuickReplyTest {
         ShadowLooper.idleMainLooper()
 
         assertThat(notSentNotifications).hasSize(1)
-        assertThat(context.getSmsDraft(78L)).isEmpty()
+        assertThat(draftOf(78L)).isEmpty()
     }
 
     @Test
