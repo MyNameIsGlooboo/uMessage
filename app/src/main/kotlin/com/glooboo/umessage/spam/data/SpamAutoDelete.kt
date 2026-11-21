@@ -8,6 +8,7 @@ import android.provider.Telephony.Sms
 import android.util.Log
 import androidx.annotation.VisibleForTesting
 import com.glooboo.umessage.extensions.conversationsDB
+import com.glooboo.umessage.extensions.draftsDB
 import com.glooboo.umessage.extensions.forgetThread
 import com.glooboo.umessage.extensions.getMMS
 import com.glooboo.umessage.extensions.getMMSSender
@@ -72,7 +73,9 @@ internal class SpamAutoDeleter(
         val cutoff = clock() - days * DAY_MS
         var deleted = 0
         for (thread in source.spamThreads()) {
-            val since = thread.spamSince.coerceAtLeast(1L)
+            // F-11: spam_since is never 0; a value of 0 or 1 is unknown, and then nothing of the chat goes.
+            if (thread.spamSince <= 1L) continue
+            val since = thread.spamSince
             val gone = source.cached(thread.threadId)
                 .filter { it.isDue(since, cutoff) && !source.isKept(it) && source.storeMatches(it, thread) }
                 .count { runCatching { source.delete(it) }.getOrDefault(false) }
@@ -82,11 +85,13 @@ internal class SpamAutoDeleter(
         return deleted
     }
 
+    /** F-13: compared in whole seconds, as the cache keeps the date, so the text that put the chat in Spam counts. */
     private fun Message.isDue(since: Long, cutoff: Long): Boolean =
-        type == Sms.MESSAGE_TYPE_INBOX && !isScheduled && millis() >= since && millis() < cutoff
+        type == Sms.MESSAGE_TYPE_INBOX && !isScheduled && millis() >= since / MILLIS * MILLIS && millis() < cutoff
 
     private companion object {
         const val DAY_MS = 24L * 60 * 60 * 1000
+        const val MILLIS = 1000L
     }
 }
 
@@ -161,9 +166,12 @@ internal class AndroidAutoDeleteSource(private val app: Context) : AutoDeleteSou
     }
 
     override fun afterThread(threadId: Long) {
-        if (storeIsEmpty(threadId)) {
+        // F-12: the chat's scheduled messages and draft are the app's only copy; a chat that has one is not forgotten.
+        val keepsOwnData = app.messagesDB.getScheduledThreadMessages(threadId).isNotEmpty() ||
+            app.draftsDB.getDraftById(threadId) != null
+        if (!keepsOwnData && storeIsEmpty(threadId)) {
             // B3-2: a chat the delete emptied is forgotten here, so the mass-disappearance guard keeps nothing of it.
-            app.forgetThread(threadId)
+            app.forgetThread(threadId, vanished = true)
         } else {
             app.updateLastConversationMessage(threadId)
         }

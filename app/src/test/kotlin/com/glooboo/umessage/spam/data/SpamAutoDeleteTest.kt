@@ -116,9 +116,22 @@ class SpamAutoDeleteTest {
     }
 
     @Test
-    fun aZeroSpamSinceIsReadAsTheStartOfTimeNeverAsAllTexts() {
-        val zero = thread.copy(spamSince = 0)
-        val source = FakeSource(listOf(zero), mutableListOf(text(1, now - 40 * day), text(2, now - day)))
+    fun aSpamSinceOfZeroOrOneIsUnknownAndNothingOfTheChatIsDeleted() {
+        for (since in listOf(0L, 1L)) {
+            val unknown = thread.copy(spamSince = since)
+            val source = FakeSource(listOf(unknown), mutableListOf(text(1, now - 40 * day), text(2, now - day)))
+
+            SpamAutoDeleter(source) { now }.run(days = 30)
+
+            assertThat(source.deleted).isEmpty()
+        }
+    }
+
+    @Test
+    fun theTextThatPutTheChatInSpamCountsAlthoughTheCacheKeepsWholeSeconds() {
+        // spam_since in milliseconds, the cached date cut to the second: the same arrival.
+        val since = now - 40 * day + 789
+        val source = FakeSource(listOf(thread.copy(spamSince = since)), mutableListOf(text(1, since)))
 
         SpamAutoDeleter(source) { now }.run(days = 30)
 

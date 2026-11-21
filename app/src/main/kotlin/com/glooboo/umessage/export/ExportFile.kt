@@ -38,8 +38,17 @@ object ExportTempFolder {
 
     /**
      * Deletes every file in the folder last changed before [before] (the start of this process: a run that started
-     * since keeps its file). Returns how many were deleted. Call off the main thread.
+     * since keeps its file), and the `backup*.tmp` files older builds left in the cache itself. Returns how many were
+     * deleted. Call off the main thread.
      */
-    fun wipe(context: Context, before: Long): Int = File(context.cacheDir, DIR).listFiles().orEmpty()
-        .count { it.isFile && it.lastModified() < before && it.delete() }
+    fun wipe(context: Context, before: Long): Int {
+        val own = File(context.cacheDir, DIR).listFiles().orEmpty().toList()
+        val older = context.cacheDir.listFiles { f -> f.name.startsWith(OLD_PREFIX) && f.name.endsWith(OLD_SUFFIX) }
+            .orEmpty().toList()
+        return (own + older).count { it.isFile && it.lastModified() < before && it.delete() }
+    }
+
+    /** What SafeOutput named its temporary file in the cache itself before this folder existed. */
+    private const val OLD_PREFIX = "backup"
+    private const val OLD_SUFFIX = ".tmp"
 }

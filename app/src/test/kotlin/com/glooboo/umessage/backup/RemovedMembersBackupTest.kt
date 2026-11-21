@@ -35,12 +35,12 @@ class RemovedMembersBackupTest {
     @Test
     fun theRemovedSendersAreReadFromRemovedMembers() {
         RemovedMembers.add(AllowGroup.CODE, listOf("+15550001234"))
-        RemovedMembers.add(AllowGroup.WROTE, listOf("+15550004321", "shopname"))
+        RemovedMembers.add(AllowGroup.WROTE, listOf("+15550001235", "shopname"))
 
         assertThat(RemovedMembers.entries()).hasSize(3)
         assertThat(RemovedMarks.read()).containsExactly(
             RemovedGroupMark(AllowGroup.CODE, "+15550001234"),
-            RemovedGroupMark(AllowGroup.WROTE, "+15550004321"),
+            RemovedGroupMark(AllowGroup.WROTE, "+15550001235"),
             RemovedGroupMark(AllowGroup.WROTE, "shopname"),
         )
     }

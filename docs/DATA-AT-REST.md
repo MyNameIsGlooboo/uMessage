@@ -28,6 +28,14 @@ encrypted by the app itself yet.
 - **Temporary export file (M-D3).** A backup is first written in full to a plain temporary file in the app's
   private cache, folder `cache/export_tmp`, and only then copied (or encrypted) to the place the user chose; the copy
   is deleted right after. If the app is killed in between, the file is deleted at the next app start.
+- **Google Drive hand-over copy.** "Save to Google Drive" writes the backup file to `cache/drive_backups` and
+  hands it to the Drive app. The copy stays until the next hand-over replaces it or the daily cache clean-up
+  removes it (older than a day, so it can stay 24 to 48 hours). It is encrypted only when the user set a password.
+- **Scheduled messages held by a restore (M-SEC2).** A restore does not arm scheduled sends. Until the user turns
+  them on or discards them, their text and numbers wait in plain app-private preferences
+  (`umessage_scheduled_hold`). Settings > Backup and the restore dialog ask about them.
+- **Message migration journal.** `umessage_older_spam` (app-private preferences) keeps the migration's progress
+  across a kill: row and message ids, times, how each row was written, and thread ids. No text, no number.
 - **Saved texts, SIM names and numbers.** The saved texts list (for example an address or card number the user chose
   to keep) and the nicknames and numbers typed for each SIM are plain text in the app's private preferences
   (`spamless_composer`). They are not encrypted by the app and not uploaded; the app lock does not encrypt them. The
