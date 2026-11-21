@@ -83,12 +83,14 @@ object AllowingCode {
         "order id", "order code", "ref no", "ref number", "reference no", "reference number", "booking ref",
         "booking reference", "referral", "branch", "queue", "stock", "zip", "postal code", "postcode", "error",
         "checkout", "toll[- ]?free", "changed",
-        // Lead, R6-6: a physical access code (a door, a car park, a locker) allows nobody, however it is named; "at
-        // your door" and "to the door" are where a parcel arrives (written with "." for the spaces, as words() would
-        // turn a space into an unbounded run, which a look-behind must not hold). Phrases, not bare words: "entrance
-        // exam" and "parking payment" are no access codes.
-        "(?<!at.your.|at.the.|to.your.|to.the.)door", "entrance door", "main entrance", "building entrance",
-        "parking code", "parking gate", "gate code", "garage", "locker",
+        // Lead, R6-6: a physical access code (a door, a gate, a car park, a locker) allows nobody, however it is
+        // named ("Entrance PIN 4829", "Your building access code"). Not the harmless uses: "at your (front) door" and
+        // "to the door" are where a parcel arrives (written with "." for the spaces, as words() would turn a space
+        // into an unbounded run, which a look-behind must not hold); an entrance exam, a parking payment, a gate
+        // number and Gate.io are no access codes.
+        "(?<!(?:at|to).(?:your|the).(?:(?:front|main|back).)?)door", "entrance(?! exam)",
+        "parking(?! (?:payment|fee|fine|ticket|permit))", "building", "gate(?!\\.io)(?! (?:number|no\\.?))",
+        "gate code", "garage", "locker",
         // Persian
         "پیگیری", "رهگیری", "مرسوله", "کد سفارش", "شماره سفارش", "کد معرف", "کد معرفی", "کد شعبه", "کد نوبت",
         "شماره نوبت", "کد بورسی", "کد پستی", "کد مشتری", "شماره مشتری", "کد اشتراک", "کد ملی", "کد رزرو", "کد خطا",
@@ -246,13 +248,16 @@ object AllowingCode {
      * Lead, R5-5, R6-2, R6-3: a request to hand the code to someone never allows its sender, nor does a text of betting
      * or a lottery. A warning is no request: "not", "never", "n't", "no one" or "nobody" earlier in the same clause
      * (Persian "هرگز", "هیچ وقت", "هیچ کس", "نمی خواهیم") makes it one ("Never tell the agent your OTP", "will never
-     * ask you to share the code with our agent"). A comma ends the clause: "Don't worry, share the code with our
-     * agent" and "Example asks you to share the code" are requests.
+     * ask you to share the code with our agent", "We never call or ask you to share the OTP with our staff"). A comma,
+     * a semicolon or a colon ends the clause ("Don't worry, share the code with our agent" is a request), except one
+     * right after the negation or around an aside ("Never, ever share", "Do not, under any circumstances, share").
+     * "Example asks you to share the code" is a request.
      */
     private const val WARNED_EN =
-        "(?<!(?:(?<![\\p{L}])(?:not|never|dont|no one|nobody)|n't)[^.!?,\u060C\u061B\\n]{0,24})"
+        "(?<!(?:(?<![\\p{L}])(?:not|never|dont|no one|nobody)|n't)(?:,[^.!?,;:\u060C\u061B\\n]{0,30},|,)?" +
+            "[^.!?,;:\u060C\u061B\\n]{0,32})"
     private const val WARNED_FA =
-        "(?<!(?<![\\p{L}])(?:هرگز|هیچ ?وقت|هیچ ?کس|هیچ ?گاه|نمی\\s?خواه\\p{L}{0,4})[^.!?,\u060C\u061B\\n]{0,40})"
+        "(?<!(?<![\\p{L}])(?:هرگز|هیچ ?وقت|هیچ ?کس|هیچ ?گاه|نمی\\s?خواه\\p{L}{0,4})[^.!?,;:\u060C\u061B\\n]{0,40})"
     private const val ASK_EN = "(?:share|give|tell|read|send|provide|forward|confirm)" +
         "(?: it| this| the| your)?(?: otp| code| verification code| pin)? (?:with|to) (?:the |our |your )?"
     private const val ASK_FA_VERB = "(?:\\p{L}{1,12}\\s?){0,2}(?:اعلام کنید|اعلام نمایید|بگویید|بدهید|بفرستید|" +

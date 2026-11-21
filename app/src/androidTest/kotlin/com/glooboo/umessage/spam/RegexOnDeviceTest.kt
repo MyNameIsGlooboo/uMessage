@@ -155,6 +155,7 @@ class RegexOnDeviceTest {
             val body = phrase + "a[.]".repeat((length - phrase.length) / 4) + "com"
             val millis = bestMillis { AllowingCode.isAllowingCode(body) }
             assertTrue("a[.] x $length: $millis ms", millis < 2_000)
+            assertTrue("a[.] x $length", OtpDetector.looksLikeOtp(body))
             assertFalse("a[.] x $length", AllowingCode.isAllowingCode(body))
         }
         // The wide allow (owner, 21 Nov) and the hand-over veto (R5-5, R6-2, R6-3).

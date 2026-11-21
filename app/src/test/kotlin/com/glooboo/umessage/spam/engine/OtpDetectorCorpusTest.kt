@@ -131,7 +131,14 @@ class OtpDetectorCorpusTest {
             "Don't worry, share the code with our agent 482913",
             "Your OTP is 482913. If not received, give the OTP to our agent",
             "هیچ نگرانی نیست، کد تایید را به کارشناس ما اعلام کنید 482913",
+            "Don't worry; share the code with our agent 482913",
         ).forEach { assertShownOnly(it, "482913") }
+        // A comma right after the negation, or around an aside, keeps the warning; so does a longer clause.
+        listOf(
+            "Your OTP is 482913. Never, ever share the code with the agent",
+            "Your OTP is 482913. Do not, under any circumstances, share the code with our agent",
+            "Your OTP is 482913. We never call or ask you to share the OTP with our staff",
+        ).forEach { assertShownAndAllows(it, "482913") }
     }
 
     /**
@@ -166,6 +173,14 @@ class OtpDetectorCorpusTest {
         assertShownOnly("Door code 4821 - do not share", "4821")
         assertShownOnly("Your door code is 4821", "4821")
         assertShownOnly("The security code for the door this month is 4829", "4829")
+        listOf(
+            "Your building access code is 4829",
+            "Entrance PIN 4829",
+            "Your parking access code is 4829",
+            "Parking PIN: 4829",
+            "Your gate PIN is 4829",
+        ).forEach { assertShownOnly(it, "4829") }
+        assertShownAndAllows("Your verification code for the delivery at your front door is 482913", "482913")
         // Access words are phrases: an entrance exam or a parking payment is no door.
         assertShownAndAllows("Your OTP for the entrance exam registration is 482913", "482913")
         assertShownAndAllows("OTP for parking payment at Example is 482913", "482913")
@@ -691,6 +706,7 @@ class OtpDetectorCorpusTest {
             val body = phrase + "a[.]".repeat((length - phrase.length) / 4) + "com"
             val millis = bestMillis(body)
             assertTrue("$length: $millis ms", millis < LINK_MILLIS)
+            assertTrue("$length", shown(body))
             assertFalse("$length", allows(body))
         }
     }
