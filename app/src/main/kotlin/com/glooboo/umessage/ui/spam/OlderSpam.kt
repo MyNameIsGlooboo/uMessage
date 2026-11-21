@@ -33,25 +33,39 @@ import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.formatListTimeStyled
 import com.glooboo.umessage.ui.components.isolateNumbers
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
 /**
- * U20: the older spam still kept only in uMessage: held rows the message migration has not moved yet, and rows it
- * wrote whose verify has not passed (negative mark, see MigrationMark): their old copy is the one that counts.
+ * U20: the older spam still kept only in uMessage: held rows the message migration has not moved yet, rows it wrote
+ * whose verify has not passed (negative mark, see MigrationMark): their old copy is the one that counts, and (S2-2)
+ * done rows whose kept pictures did not go to the store ([picturesHere], SpamProviderMigration.picturesOnlyHere).
  */
 object OlderSpam {
-    fun of(blocked: List<BlockedMessage>): List<BlockedMessage> =
-        blocked.filter(::notMoved).sortedByDescending { it.receivedAt }
+    fun of(blocked: List<BlockedMessage>, picturesHere: Set<Long> = emptySet()): List<BlockedMessage> =
+        blocked.filter { notMoved(it) || it.id in picturesHere }.sortedByDescending { it.receivedAt }
 
     /** How many held rows [of] lists, without sorting them (C-7). */
-    fun count(blocked: List<BlockedMessage>): Int = blocked.count(::notMoved)
+    fun count(blocked: List<BlockedMessage>, picturesHere: Set<Long> = emptySet()): Int =
+        blocked.count { notMoved(it) || it.id in picturesHere }
 
     private fun notMoved(row: BlockedMessage): Boolean = !MigrationMark.isDone(row.migratedMsgId)
 
-    /** F-2: some listed rows will not move by themselves: their tries are used up, or the migration stopped. */
-    fun someStuck(messages: List<BlockedMessage>, stopped: Boolean): Boolean =
-        messages.isNotEmpty() && (stopped || messages.any { it.migrateTries >= OlderSpamMover.MAX_TRIES })
+    /**
+     * F-2, S2-3: some listed rows will not move by themselves: the migration stopped, or rows are [stuck] (tries used
+     * up, stuck after three runs; SpamProviderMigration.stuck), or their pictures stay here ([picturesHere]).
+     */
+    fun someStuck(
+        messages: List<BlockedMessage>,
+        stopped: Boolean,
+        stuck: Set<Long> = emptySet(),
+        picturesHere: Set<Long> = emptySet(),
+    ): Boolean = messages.isNotEmpty() && (
+        stopped ||
+            messages.any { it.migrateTries >= OlderSpamMover.MAX_TRIES || it.id in stuck || it.id in picturesHere }
+        )
 }
 
 /**
@@ -65,17 +79,20 @@ fun OlderSpamRoute(onBack: () -> Unit, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val older = remember(context) {
         runCatching { SpamRepositoryProvider.get(context).blocked }.getOrNull()
-            ?.map { OlderSpam.of(it) }
-            ?.catch { emit(emptyList()) }
+            ?.map { all ->
+                val here = SpamProviderMigration.picturesOnlyHere(context, all)
+                val listed = OlderSpam.of(all, here)
+                listed to OlderSpam.someStuck(
+                    listed, SpamProviderMigration.stoppedForThisVersion(context),
+                    SpamProviderMigration.stuck(context, listed), here,
+                )
+            }
+            ?.flowOn(Dispatchers.IO)
+            ?.catch { emit(emptyList<BlockedMessage>() to false) }
     }
-    val messages by (older ?: flowOf(emptyList()))
-        .collectAsStateWithLifecycle(initialValue = emptyList())
-    val stopped = remember(context) {
-        runCatching { SpamProviderMigration.stoppedForThisVersion(context) }.getOrDefault(false)
-    }
-    OlderSpamScreen(
-        messages = messages, stuck = OlderSpam.someStuck(messages, stopped), onBack = onBack, modifier = modifier,
-    )
+    val shown by (older ?: flowOf(emptyList<BlockedMessage>() to false))
+        .collectAsStateWithLifecycle(initialValue = emptyList<BlockedMessage>() to false)
+    OlderSpamScreen(messages = shown.first, stuck = shown.second, onBack = onBack, modifier = modifier)
 }
 
 @Composable

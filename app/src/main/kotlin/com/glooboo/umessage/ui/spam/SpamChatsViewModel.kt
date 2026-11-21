@@ -22,6 +22,7 @@ import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSorting
+import com.glooboo.umessage.spam.data.SpamProviderMigration
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.ui.components.localizeDigits
@@ -215,7 +216,7 @@ class SpamChatsViewModel internal constructor(
             val repo = runCatching { repository() }.getOrNull() ?: return@launch
             // F-2: every held row not verified-done is shown (waiting, given up, stopped, late MMS, restored).
             combine(repo.settings, repo.blocked) { settings, blocked ->
-                settings.filterOn to OlderSpam.count(blocked)
+                settings.filterOn to OlderSpam.count(blocked, SpamProviderMigration.picturesOnlyHere(app, blocked))
             }.flowOn(Dispatchers.Default).catch { }.collect { (filterOn, older) ->
                 _state.update { it.copy(filterOn = filterOn, olderSpam = older) }
             }

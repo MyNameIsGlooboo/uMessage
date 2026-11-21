@@ -47,7 +47,24 @@ class AndroidMigrationStoreMmsTest {
         val real = mms.add(SENDER, date = 100, messageId = "mid-1")
 
         assertThat(store().findMms(MmsIdentity("mid-1", 0), SENDER, 100)).isEqualTo(real)
+        // Another carrier message of the same sender and second is not this one.
         assertThat(store().findMms(MmsIdentity("mid-2", 0), SENDER, 100)).isNull()
+    }
+
+    @Test
+    fun aRestoredMmsWithoutItsMessageIdIsFoundBySenderAndTimeAndPassesTheVerify() {
+        val mms = MmsStore.install()
+        // S2-1: a backup does not carry m_id, so the restored copy has none.
+        val restored = mms.add(SENDER, date = 300)
+        mms.part(restored, "text/plain", "Look")
+        val identity = MmsIdentity("mid-held", "Look".length, pduDate = 295)
+
+        assertThat(store().findMms(identity, SENDER, 300)).isEqualTo(restored)
+        assertThat(store().findMms(identity, OTHER, 300)).isNull()
+        assertThat(store().checkMms(restored, SENDER, 300, identity)).isTrue()
+        // The same date sent by the carrier counts too (a copy dated otherwise).
+        val sent = mms.add(SENDER, date = 999, dateSent = 295)
+        assertThat(store().findMms(identity.copy(messageId = null), SENDER, 301)).isEqualTo(sent)
     }
 
     @Test
@@ -73,20 +90,25 @@ class AndroidMigrationStoreMmsTest {
     }
 
     @Test
-    fun aWholeCutOffWriteIsFoundAndAHalfOneOnlyByThePdusOwnDate() {
+    fun aWholeCutOffWriteIsFoundByThePdusOwnDateAndAHalfOneByItsMissingAddresses() {
         val mms = MmsStore.install()
         val before = mms.add(SENDER, date = 50)
-        val identity = MmsIdentity(null, 0, pduDate = 1_000)
-        // A whole write of the attempt: mmslib's time of the write.
-        val whole = mms.add(SENDER, date = 5_010)
+        // A group PDU: FROM and two TO rows.
+        val identity = MmsIdentity(null, 0, pduDate = 1_000, addressCount = 3)
+        // A whole write of the attempt: mmslib's time of the write, the PDU's date as date_sent.
+        val whole = mms.add(SENDER, date = 5_010, dateSent = 1_000, moreAddresses = 2)
         assertThat(store().findMmsAfter(attempt(before, 5_000), SENDER, identity)).isEqualTo(whole)
         mms.delete(whole)
+        // S2-5: a later MMS of the same sender near the write's time but with its own date is not it.
+        val later = mms.add(SENDER, date = 5_020, dateSent = 5_000, moreAddresses = 2)
+        assertThat(store().findMmsAfter(attempt(before, 5_000), SENDER, identity)).isNull()
+        mms.delete(later)
 
         // A real download of the same sender, still being written (no address yet, its own date): not uMessage's.
         mms.add(null, date = 5_020)
         assertThat(store().findHalfWrittenMms(attempt(before, 5_000), identity)).isNull()
-        // uMessage's half write: no address, the PDU's own date.
-        val half = mms.add(null, date = 1_000)
+        // uMessage's half write cut between its addresses (S2-4): the PDU's own date, two of three addresses.
+        val half = mms.add(SENDER, date = 1_000, moreAddresses = 1)
         assertThat(store().findHalfWrittenMms(attempt(before, 5_000), identity)).isEqualTo(half)
         assertThat(store().findMmsAfter(attempt(before, 5_000), SENDER, identity)).isNull()
 
@@ -104,11 +126,15 @@ class AndroidMigrationStoreMmsTest {
         mms.part(id, "application/smil", "<smil/>")
 
         assertThat(store().checkMms(id, SENDER, 1_700, identity)).isFalse()
-        assertThat(store().settleMms(id, 1_700_000L)).isTrue()
+        assertThat(store().settleMms(id, 1_700_000L)).isEqualTo(Settle.DONE)
+        assertThat(store().settleMms(id + 99, 1_700_000L)).isEqualTo(Settle.GONE)
         assertThat(mms.row(id)).containsAtLeast("date", "1700", "read", "1", "seen", "1")
         assertThat(store().checkMms(id, SENDER, 1_700, identity)).isTrue()
         assertThat(store().checkMms(id, OTHER, 1_700, identity)).isFalse()
         assertThat(store().checkMms(id, SENDER, 1_700, identity.copy(textLength = 3))).isFalse()
+        val other = mms.add(SENDER, date = 1_700, messageId = "mid-other")
+        mms.part(other, "text/plain", "Hello there")
+        assertThat(store().checkMms(other, SENDER, 1_700, identity.copy(messageId = "mid-mine"))).isFalse()
     }
 
     @Test
@@ -183,7 +209,8 @@ class AndroidMigrationStoreMmsTest {
             db = SQLiteDatabase.create(null)
             db.execSQL(
                 "CREATE TABLE pdu (_id INTEGER PRIMARY KEY AUTOINCREMENT, thread_id INTEGER, msg_box INTEGER, " +
-                    "m_type INTEGER, m_id TEXT, date INTEGER, read INTEGER, seen INTEGER, sub_id INTEGER)"
+                    "m_type INTEGER, m_id TEXT, date INTEGER, date_sent INTEGER, read INTEGER, seen INTEGER, " +
+                    "sub_id INTEGER)"
             )
             db.execSQL(
                 "CREATE TABLE addr (_id INTEGER PRIMARY KEY AUTOINCREMENT, msg_id INTEGER, address TEXT, type INTEGER)"
@@ -195,7 +222,8 @@ class AndroidMigrationStoreMmsTest {
             return true
         }
 
-        /** An MMS from [sender] (null: no address yet, a write cut off). Returns its id. */
+        /** An MMS from [sender] (null: no address yet, a write cut off) with [moreAddresses] TO rows. Its id. */
+        @Suppress("LongParameterList")
         fun add(
             sender: String?,
             date: Long,
@@ -203,23 +231,29 @@ class AndroidMigrationStoreMmsTest {
             box: Int = Telephony.Mms.MESSAGE_BOX_INBOX,
             type: Int = RETRIEVE_CONF,
             read: Int = 1,
+            dateSent: Long = 0,
+            moreAddresses: Int = 0,
         ): Long {
             val id = db.insert("pdu", null, ContentValues().apply {
                 put("msg_box", box)
                 put("m_type", type)
                 put("m_id", messageId)
                 put("date", date)
+                put("date_sent", dateSent)
                 put("read", read)
                 put("seen", read)
             })
-            sender?.let {
-                db.insert("addr", null, ContentValues().apply {
-                    put("msg_id", id)
-                    put("address", it)
-                    put("type", FROM)
-                })
-            }
+            sender?.let { address(id, it, FROM) }
+            repeat(moreAddresses) { address(id, "+1555000124$it", TO) }
             return id
+        }
+
+        private fun address(id: Long, address: String, type: Int) {
+            db.insert("addr", null, ContentValues().apply {
+                put("msg_id", id)
+                put("address", address)
+                put("type", type)
+            })
         }
 
         fun part(id: Long, type: String, text: String) {
@@ -300,5 +334,6 @@ class AndroidMigrationStoreMmsTest {
         const val RETRIEVE_CONF = 132
         const val NOTICE = 130
         const val FROM = 137
+        const val TO = 151
     }
 }

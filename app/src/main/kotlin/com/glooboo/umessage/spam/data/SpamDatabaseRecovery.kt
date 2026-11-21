@@ -84,25 +84,39 @@ internal class SpamDatabaseRecovery(
     private fun restoreForwardRulesFromImported(db: SupportSQLiteDatabase) {
         val imported = DatabaseBackups.importedBackups(context, name, FORWARD_SINCE..SpamDatabase.VERSION)
         val newest = imported.firstOrNull() ?: return
-        var providerTruth = false
         runCatching {
             DatabaseBackups.withMigratedCopy(context, name, newest, db, migrate = ::migrateScratch) {
                 DatabaseBackups.inTransaction(db) {
                     val (table, where) = forwards(db)
                     DatabaseBackups.mergeRows(db, table, where = where)
-                    // R-4 (step F, F-17): after a trip to 0.4.14 and back, the group members and the message
-                    // migration's marks come back from the schema-9 file that build kept aside.
+                }
+            }
+        }.onFailure { Log.e(TAG, "Restoring forward rules of $name from ${newest.name} failed", it) }
+        val providerTruth = restoreProviderTruthFromImported(db, newest)
+        imported.forEach { DatabaseBackups.retire(it) }
+        // The history check runs again for every chat (a RESTORE pass; nothing with the flag off).
+        if (providerTruth) runCatching { FirstRun.request(context, FirstRunTrigger.RESTORE) }
+    }
+
+    /**
+     * R-4 (step F, F-17): after a trip to 0.4.14 and back, the group members and the message migration's marks come
+     * back from the schema-9 file that build kept aside: in a transaction of their own, after the forward rules, so a
+     * failure here keeps those. True when the file had the members table (a RESTORE pass is owed).
+     */
+    private fun restoreProviderTruthFromImported(db: SupportSQLiteDatabase, newest: File): Boolean {
+        var members = false
+        runCatching {
+            DatabaseBackups.withMigratedCopy(context, name, newest, db, migrate = ::migrateScratch) {
+                DatabaseBackups.inTransaction(db) {
                     if (hasMembers(db)) {
                         DatabaseBackups.copyRows(db, MEMBERS.first, MEMBERS.second)
-                        providerTruth = true
+                        members = true
                     }
                     reattachMarks(db)
                 }
             }
-        }.onFailure { Log.e(TAG, "Restoring forward rules of $name from ${newest.name} failed", it) }
-        imported.forEach { DatabaseBackups.retire(it) }
-        // The history check runs again for every chat (a RESTORE pass; nothing with the flag off).
-        if (providerTruth) runCatching { FirstRun.request(context, FirstRunTrigger.RESTORE) }
+        }.onFailure { Log.e(TAG, "Restoring group members and marks of $name from ${newest.name} failed", it) }
+        return members
     }
 
     /**

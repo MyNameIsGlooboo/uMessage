@@ -175,10 +175,27 @@ class SpamProviderMigrationTest {
         val asked = capturePasses()
 
         SpamProviderMigration.runPending(context)
+        assertThat(world.journalPassOwed()).isTrue()
+        // The pass that was asked for began (reviewer: only then is the check done).
+        firstRun(FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true, startedAt = Long.MAX_VALUE / 2))
         SpamProviderMigration.runPending(context)
 
         assertThat(asked).containsExactly(FirstRunTrigger.MIGRATION_FINISHED)
         assertThat(world.journalPassOwed()).isFalse()
+    }
+
+    @Test
+    fun anOwedHistoryCheckIsAskedForAgainUntilAPassBegan() {
+        firstRun(FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true))
+        val world = OlderSpamWorld().apply { sms() }
+        SpamProviderMigration.moverFor = { world.mover() }
+        val asked = capturePasses()
+
+        SpamProviderMigration.runPending(context)
+        SpamProviderMigration.runPending(context)
+
+        assertThat(asked).containsExactly(FirstRunTrigger.MIGRATION_FINISHED, FirstRunTrigger.MIGRATION_FINISHED)
+        assertThat(world.journalPassOwed()).isTrue()
     }
 
     @Test
@@ -272,9 +289,12 @@ class SpamProviderMigrationTest {
             pendingRepairs = setOf(3L, 9L)
             passOwed = true
             pendingUnread = setOf("s:5", "m:6")
-            setKind(4, MigrationJournal.KIND_MMS)
-            setKind(5, MigrationJournal.KIND_TEXT)
-            setKind(4, MigrationJournal.KIND_TEXT)
+            setKind(RowKey(4, 40), MigrationJournal.KIND_MMS)
+            setKind(RowKey(5, 50), MigrationJournal.KIND_TEXT)
+            setKind(RowKey(4, 40), MigrationJournal.KIND_TEXT)
+            setStalls(RowKey(4, 40), 2)
+            passRequestedAt = 77
+            stallsVersion = 3
         }
 
         val again = PrefsMigrationJournal(prefs)
@@ -285,10 +305,19 @@ class SpamProviderMigrationTest {
         assertThat(again.pendingRepairs).containsExactly(3L, 9L)
         assertThat(again.passOwed).isTrue()
         assertThat(again.pendingUnread).containsExactly("s:5", "m:6")
-        assertThat(again.kindOf(4)).isEqualTo(MigrationJournal.KIND_TEXT)
-        again.forgetKinds(listOf(4L))
-        assertThat(again.kindOf(4)).isNull()
-        assertThat(again.kindOf(5)).isEqualTo(MigrationJournal.KIND_TEXT)
+        assertThat(again.kindOf(RowKey(4, 40))).isEqualTo(MigrationJournal.KIND_TEXT)
+        // S2-2: the same id with another arrival is another row.
+        assertThat(again.kindOf(RowKey(4, 41))).isNull()
+        assertThat(again.stallsOf(RowKey(4, 40))).isEqualTo(2)
+        assertThat(again.passRequestedAt).isEqualTo(77)
+        assertThat(again.stallsVersion).isEqualTo(3)
+        again.forget(listOf(RowKey(4, 40)))
+        assertThat(again.kindOf(RowKey(4, 40))).isNull()
+        assertThat(again.stallsOf(RowKey(4, 40))).isEqualTo(0)
+        assertThat(again.kindOf(RowKey(5, 50))).isEqualTo(MigrationJournal.KIND_TEXT)
+        again.setStalls(RowKey(5, 50), 1)
+        again.clearStalls()
+        assertThat(again.stallsOf(RowKey(5, 50))).isEqualTo(0)
         again.attempt = null
         assertThat(PrefsMigrationJournal(prefs).attempt).isNull()
         assertThat(PrefsMigrationJournal(context.getSharedPreferences("other", Context.MODE_PRIVATE)).haltedVersion)

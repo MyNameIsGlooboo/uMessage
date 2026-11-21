@@ -32,27 +32,6 @@ class OlderSpamMoverTest {
         placeholderMms(at = NOW - 30 * 60 * 1000)
     }
 
-    /** Every row moved once: its store copy exists exactly once, read, seen and dated when it arrived. */
-    private fun OlderSpamWorld.assertAllMovedOnce() {
-        for (row in blocked.values) {
-            if (!row.isMms || row.hasText || row.media == MmsMedia.STORED) {
-                val copies = copiesOf(row)
-                assertThat(copies).hasSize(1)
-                val copy = copies.single()
-                assertThat(copy.read).isEqualTo(1)
-                assertThat(copy.seen).isEqualTo(1)
-                assertThat(copy.hasAddress).isTrue()
-                assertThat(copy.date).isEqualTo(if (copy.mms) row.receivedAt / 1000 else row.receivedAt)
-                assertThat(row.migratedMsgId).isEqualTo(copy.id)
-            } else {
-                assertThat(row.migratedMsgId).isEqualTo(MigrationMark.NOTHING_TO_MOVE)
-            }
-            assertThat(row.migrateTries).isEqualTo(0)
-        }
-        assertThat(journalAttempt()).isNull()
-        assertThat(journalPendingRepairs()).isEmpty()
-    }
-
     @Test
     fun everyKindOfHeldRowIsMovedOnceReadSeenAndDatedWhenItArrived() {
         val world = OlderSpamWorld().apply { seedMixed() }
@@ -96,18 +75,22 @@ class OlderSpamMoverTest {
 
     @Test
     fun aKillInsideMmslibsWriteLeavesAHalfMmsThatIsDeletedAndWrittenOnceWhole() {
-        for (messageId in listOf("mid-half", null)) {
+        // A plain MMS cut before its first address, and a group MMS (FROM and two TO) cut between its addresses.
+        for ((messageId, addresses, killAfter) in listOf(
+            Triple("mid-half", 2, 0), Triple(null, 2, 0), Triple("mid-group", 3, 1), Triple(null, 3, 2),
+        )) {
             val world = OlderSpamWorld()
-            world.keptMms(messageId = messageId)
-            world.halfWriteKill = true
+            world.keptMms(messageId = messageId, addresses = addresses)
+            world.halfWriteKillAfter = killAfter
             runCatching { world.mover().run() }
-            assertThat(world.store.single().hasAddress).isFalse()
+            assertThat(world.store.single().whole).isFalse()
             world.restart()
 
             world.mover().run()
 
             world.assertAllMovedOnce()
             assertThat(world.store).hasSize(1)
+            assertThat(world.store.single().addresses).isEqualTo(addresses)
             assertThat(world.trace).contains("deleteMms")
         }
     }
@@ -170,27 +153,6 @@ class OlderSpamMoverTest {
     }
 
     @Test
-    fun aFailedWriteEndsTheRunWithoutATryAndTheNextRunMovesTheRow() {
-        val world = OlderSpamWorld()
-        // Without a SIM: no second try without one hides the failed write.
-        val rows = (0 until 8).map { world.sms(body = "Advert $it", at = NOW - (10 - it) * HOUR, sub = -1) }
-        world.failingWrites = 1
-
-        val stalled = world.mover().run()
-
-        assertThat(stalled.stalled).isTrue()
-        assertThat(stalled.waiting).isFalse()
-        assertThat(stalled.halted).isFalse()
-        assertThat(world.blocked.values.sumOf { it.migrateTries }).isEqualTo(0)
-        assertThat(world.store).isEmpty()
-
-        world.mover().run()
-
-        assertThat(world.store).hasSize(8)
-        assertThat(rows.map { world.row(it.id).migratedMsgId }).doesNotContain(null)
-    }
-
-    @Test
     fun aRoleLostDuringTheRunEndsItAsWaitingWithoutTriesAndNothingIsHalted() {
         val world = OlderSpamWorld()
         repeat(10) { world.sms(body = "Advert $it", at = NOW - (20 - it) * HOUR) }
@@ -216,12 +178,12 @@ class OlderSpamMoverTest {
         val row = world.keptMms(messageId = null)
         world.failingSettles = 1
 
-        val first = world.mover().run()
+        world.mover().run()
 
-        assertThat(first.stalled).isTrue()
         assertThat(MigrationMark.isWritten(world.row(row.id).migratedMsgId)).isTrue()
         assertThat(world.row(row.id).migrateTries).isEqualTo(0)
         assertThat(world.store.single().read).isEqualTo(0)
+        assertThat(world.journalStalls(row)).isEqualTo(1)
 
         world.mover().run()
 
@@ -352,24 +314,27 @@ class OlderSpamMoverTest {
         world.killAfter = { it == "attempt=" }
         runCatching { world.mover().run() }
         world.restart()
-        // The kill came before mmslib wrote; hours later the same sender's real MMS arrives.
+        // The kill came before mmslib wrote. The same sender's real MMS arrives 30 s later (S2-5: no time window)
+        // and another hours later; neither carries the held PDU's date.
+        val soon = world.storeMms(SENDER, "Another", world.clock / 1000 + 30, null, dateSent = world.clock / 1000 + 20)
         world.clock += 5 * HOUR
-        val real = world.storeMms(SENDER, "A new picture", world.clock / 1000, null)
+        val later = world.storeMms(SENDER, "A new picture", world.clock / 1000, null)
 
         world.mover().run()
 
-        assertThat(world.store).hasSize(2)
-        assertThat(real.date).isEqualTo(world.clock / 1000)
-        assertThat(world.row(row.id).migratedMsgId).isNotEqualTo(real.id)
+        assertThat(world.store).hasSize(3)
+        assertThat(soon.read).isEqualTo(1)
+        assertThat(later.date).isEqualTo(world.clock / 1000)
+        assertThat(world.row(row.id).migratedMsgId).isNotIn(listOf(soon.id, later.id))
     }
 
     @Test
-    fun howARowWasWrittenIsKeptSoALateMmsResultDoesNotChangeItsVerify() {
+    fun howARowWentIsKeptSoALateMmsResultDoesNotChangeItsVerifyAndItsPicturesStay() {
         val world = OlderSpamWorld()
         val row = world.textOnlyMms(body = "Text first", media = MmsMedia.MISSING)
         world.failingChecks = 1
         world.mover().run()
-        assertThat(world.journalKind(row.id)).isEqualTo(MigrationJournal.KIND_TEXT)
+        assertThat(world.journalKind(row)).isEqualTo(MigrationJournal.KIND_TEXT)
         // The private download comes in late: the row now names a kept PDU.
         world.blocked[row.id] = world.row(row.id).copy(media = MmsMedia.STORED, mediaFile = "pdu-late")
         world.identities[row.id] = MmsIdentity("mid-late", "Text first".length)
@@ -378,6 +343,11 @@ class OlderSpamMoverTest {
 
         assertThat(world.row(row.id).migratedMsgId).isEqualTo(world.store.single().id)
         assertThat(world.store.single().mms).isFalse()
+        // S2-2: its pictures went nowhere, so the clean-up keeps the row and its file.
+        world.clock += 60 * DAY
+        assertThat(world.mover().cleanUp()).isEqualTo(0)
+        assertThat(world.blocked).containsKey(row.id)
+        assertThat(world.deletedMedia).isEmpty()
     }
 
     @Test
@@ -603,7 +573,7 @@ class OlderSpamMoverTest {
         assertThat(world.blocked.keys).containsExactly(waiting.id)
         assertThat(world.deletedMedia).containsExactly(moved.mediaFile)
         assertThat(world.blocked).doesNotContainKey(nothing.id)
-        assertThat(world.journalKind(moved.id)).isNull()
+        assertThat(world.journalKind(moved)).isNull()
     }
 
     @Test
@@ -676,6 +646,7 @@ class OlderSpamMoverTest {
         val result = world.mover().run()
 
         assertThat(result.waiting).isFalse()
-        assertThat(world.trace).containsExactly("all", "unread?", "repairs?")
+        // The stall counts of a new version are reset; nothing of the store is read or written.
+        assertThat(world.trace).containsExactly("stalls-", "stallsVersion=", "all", "unread?", "repairs?").inOrder()
     }
 }
