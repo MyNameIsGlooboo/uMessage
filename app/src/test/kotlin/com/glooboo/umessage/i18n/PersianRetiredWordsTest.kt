@@ -63,23 +63,29 @@ class PersianRetiredWordsTest {
         val files = File(appRes, "values-fa")
             .listFiles { f -> f.name.startsWith("strings") && f.name.endsWith(".xml") }.orEmpty()
         assertTrue("no Persian string files", files.isNotEmpty())
-        val out = mutableListOf<Pair<String, String>>()
-        for (file in files.sortedBy { it.name }) {
-            val nodes = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file).documentElement.childNodes
-            for (i in 0 until nodes.length) {
-                val e = nodes.item(i) as? Element ?: continue
-                if (e.getAttribute("translatable") == "false") continue
-                val name = e.getAttribute("name")
-                when (e.tagName) {
-                    "string" -> out += name to e.textContent
-                    "plurals", "string-array" -> {
-                        val items = e.getElementsByTagName("item")
-                        for (j in 0 until items.length) out += name to items.item(j).textContent
-                    }
-                }
-            }
+        return files.sortedBy { it.name }.flatMap { file -> elementsOf(file).flatMap(::textsOf) }
+    }
+
+    /** The translatable top-level elements of one resource file. */
+    private fun elementsOf(file: File): List<Element> {
+        val nodes = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file).documentElement.childNodes
+        return (0 until nodes.length).mapNotNull { nodes.item(it) as? Element }
+            .filter { it.getAttribute("translatable") != "false" }
+    }
+
+    /** A string gives its text; plurals and arrays give one entry per item. */
+    private fun textsOf(e: Element): List<Pair<String, String>> {
+        val name = e.getAttribute("name")
+        return when (e.tagName) {
+            "string" -> listOf(name to e.textContent)
+            "plurals", "string-array" -> itemTexts(e).map { name to it }
+            else -> emptyList()
         }
-        return out
+    }
+
+    private fun itemTexts(e: Element): List<String> {
+        val items = e.getElementsByTagName("item")
+        return (0 until items.length).map { items.item(it).textContent }
     }
 
     @Test
