@@ -48,10 +48,13 @@ class SpamProviderMigrationTest {
     private lateinit var db: SpamDatabase
     private val before = SpamProviderMigration.moverFor
     private val beforeRequest = SpamProviderMigration.requestPass
+    private val beforeAfterPass = SpamProviderMigration.afterPass
 
     @Before
     fun setUp() {
         db = Room.inMemoryDatabaseBuilder(context, SpamDatabase::class.java).allowMainThreadQueries().build()
+        // The run after a first-run pass would go to the sorting thread; the tests that need it call it themselves.
+        SpamProviderMigration.afterPass = {}
         context.getSharedPreferences(PrefsMigrationJournal.PREFS, Context.MODE_PRIVATE).edit().clear().commit()
         context.getSharedPreferences(FirstRunStore.PREFS, Context.MODE_PRIVATE).edit().clear().commit()
         FirstRun.reload(context)
@@ -61,6 +64,7 @@ class SpamProviderMigrationTest {
     fun tearDown() {
         SpamProviderMigration.moverFor = before
         SpamProviderMigration.requestPass = beforeRequest
+        SpamProviderMigration.afterPass = beforeAfterPass
         context.getSharedPreferences(FirstRunStore.PREFS, Context.MODE_PRIVATE).edit().clear().commit()
         FirstRun.reload(context)
         db.close()
@@ -224,15 +228,25 @@ class SpamProviderMigrationTest {
     }
 
     @Test
-    fun theFirstRunsOwnStepOwesNoPassAndKeepsUnreadCountsForAfterTheSort() {
+    fun theFirstRunsOwnStepOwesNoPassAndNotesItsUnreadCountsOnceThePassHasSorted() {
         val world = OlderSpamWorld().apply { sms(unread = true) }
         SpamProviderMigration.moverFor = { world.mover() }
+        val afterPass = mutableListOf<Context>()
+        SpamProviderMigration.afterPass = { afterPass += it }
 
         SpamProviderMigration.firstRunStep.run(context)
 
         assertThat(world.journalPassOwed()).isFalse()
         assertThat(world.unreadNoted).isEmpty()
         assertThat(world.journalPendingUnread()).hasSize(1)
+        assertThat(afterPass).hasSize(1)
+
+        // The pass ended (DONE, sorted): the run that follows notes the count and empties the journal.
+        firstRun(FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true))
+        SpamProviderMigration.runPending(context, announce = false)
+
+        assertThat(world.unreadNoted).containsExactly(world.store.single().id)
+        assertThat(world.journalPendingUnread()).isEmpty()
     }
 
     @Test

@@ -333,4 +333,23 @@ class OlderSpamMoverSecondReviewTest {
         assertThat(world.store.count { it.mms }).isEqualTo(1)
         assertThat(world.journalKind(again)).isEqualTo(MigrationJournal.KIND_MMS)
     }
+
+    @Test
+    fun theThreadOfAMovedMmsIsReDatedAlsoWhenItsCacheRowFailedOrItsSettleCameOnALaterRun() {
+        val world = OlderSpamWorld()
+        world.keptMms(messageId = "mid-thread")
+        world.failingCache = true
+
+        world.mover().run()
+
+        assertThat(world.repaired.flatten()).containsExactly(OlderSpamWorld.threadOf(SENDER))
+
+        val later = OlderSpamWorld()
+        later.keptMms(address = OlderSpamWorld.OTHER, messageId = "mid-later")
+        later.failingSettles = 1
+        later.mover().run()
+        assertThat(later.repaired).isEmpty()
+        later.mover().run()
+        assertThat(later.repaired.flatten()).containsExactly(OlderSpamWorld.threadOf(OlderSpamWorld.OTHER))
+    }
 }

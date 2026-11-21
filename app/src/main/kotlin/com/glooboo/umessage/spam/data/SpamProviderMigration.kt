@@ -34,6 +34,7 @@ import com.glooboo.umessage.spam.FirstRunTrigger
 import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.OlderSpamMigration
 import com.glooboo.umessage.spam.SpamLogEntry
+import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.engine.DefaultSpamFilter
@@ -234,6 +235,9 @@ internal interface MigrationWriter {
 
     /** S7: the cache row of the moved message, so search, the digest and the row preview see it. Its thread id. */
     fun cache(id: Long, isMms: Boolean): Long?
+
+    /** The thread of store row [id], read from the store itself (the repair must not depend on the cache row). */
+    fun threadOf(id: Long, isMms: Boolean): Long? = null
 
     /** After each sender: the thread dated by its newest message and the chat row cached again. */
     fun repair(threadIds: Set<Long>)
@@ -737,10 +741,12 @@ internal class OlderSpamMover(
             MoveKind.Nothing, MoveKind.Wait, MoveKind.Unreadable -> false
         }
         if (!ok) return failedVerify(row)
-        // S7 and the thread's repair before the done mark: a kill in between repeats them, never skips them.
-        runCatching { writer.cache(storeId, kind is MoveKind.Mms) }.getOrNull()?.let { threadId ->
-            if (threads.add(threadId)) journal.pendingRepairs = threads.toSet()
-        }
+        // S7 and the thread's repair before the done mark: a kill in between repeats them, never skips them. The
+        // thread comes from the store first, so a cache row that could not be built never skips the re-dating of an
+        // MMS thread (emulator run 1: mmslib and the settle stamp an MMS thread with the time of the write).
+        val cachedThread = runCatching { writer.cache(storeId, kind is MoveKind.Mms) }.getOrNull()
+        val threadId = runCatching { writer.threadOf(storeId, kind is MoveKind.Mms) }.getOrNull() ?: cachedThread
+        if (threadId != null && threads.add(threadId)) journal.pendingRepairs = threads.toSet()
         val isMms = kind is MoveKind.Mms
         done(row, storeId)
         takenWritten -= takenKey(isMms, storeId)
@@ -867,7 +873,18 @@ object SpamProviderMigration {
      * so no pass is owed for it. Set as [FirstRun.olderSpamMigration] at app start.
      */
     val firstRunStep = OlderSpamMigration { context ->
-        !migrate(context, noteUnreadNow = false, passFollows = true).waiting
+        val result = migrate(context, noteUnreadNow = false, passFollows = true)
+        // The unread counts it kept are noted once the pass that runs this step has sorted (emulator run 1: 67 entries
+        // stayed until a later run). The sorting thread runs the pass to its end first.
+        runCatching { afterPass(context.applicationContext) }
+        !result.waiting
+    }
+
+    /** After the first run's pass: a run that notes the kept unread counts and empties the journal of them. */
+    @VisibleForTesting
+    @Volatile
+    internal var afterPass: (Context) -> Unit = { app ->
+        SpamSorting.execute(Runnable { runPending(app, announce = false, limit = RECEIVER_BATCH) })
     }
 
     /** One run; see [OlderSpamMover]. With the flag off nothing happens. Throws when spamless.db cannot be read. */
@@ -1270,13 +1287,37 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
     }
 
     /** The threads were stamped with the time of the writes: dated by their newest message, their rows cached again. */
+    /**
+     * The threads were stamped with the time of the writes (an MMS thread also by the settle, whose date update the
+     * provider's trigger answers with "now"): the provider recomputes them, and the chat row is dated by the thread's
+     * newest message, so a migrated chat never shows at the top as "Now" (emulator run 1).
+     */
     override fun repair(threadIds: Set<Long>) {
         for (threadId in threadIds) {
             app.recomputeThreadDate(threadId)
-            app.getConversations(threadId).firstOrNull()?.let { app.insertOrUpdateConversation(it) }
+            app.getConversations(threadId).firstOrNull()?.let { conv ->
+                val newest = (newestDate(threadId) / MILLIS).toInt()
+                if (newest > 0 && conv.date > newest) conv.date = newest
+                app.insertOrUpdateConversation(conv)
+            }
         }
         runCatching { refreshMessages() }
         runCatching { refreshConversations() }
+    }
+
+    override fun threadOf(id: Long, isMms: Boolean): Long? {
+        val uri = ContentUris.withAppendedId(if (isMms) Mms.CONTENT_URI else Sms.CONTENT_URI, id)
+        return query(uri, arrayOf(Sms.THREAD_ID)).use { if (it.moveToFirst()) it.getLong(0) else null }
+    }
+
+    /** The newest message of [threadId] in milliseconds (MMS dates are seconds in the store); 0 when none. */
+    private fun newestDate(threadId: Long): Long {
+        val args = arrayOf("$threadId")
+        val sms = query(Sms.CONTENT_URI, arrayOf(Sms.DATE), "${Sms.THREAD_ID} = ?", args, "${Sms.DATE} DESC")
+            .use { if (it.moveToFirst()) it.getLong(0) else 0L }
+        val mms = query(Mms.CONTENT_URI, arrayOf(Mms.DATE), "${Mms.THREAD_ID} = ?", args, "${Mms.DATE} DESC")
+            .use { if (it.moveToFirst()) it.getLong(0) * MILLIS else 0L }
+        return maxOf(sms, mms)
     }
 
     override fun noteUnread(storeId: Long, isMms: Boolean) {

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <plurals name="pt_restore_scheduled_title" tools:ignore="ImpliedQuantity">
-        <item quantity="one">توی پشتیبان %d پیام زمان‌بندی‌شده هست</item>
-        <item quantity="other">توی پشتیبان %d پیام زمان‌بندی‌شده هست</item>
+        <item quantity="one">این پشتیبان %d پیام زمان‌بندی‌شده دارد</item>
+        <item quantity="other">این پشتیبان %d پیام زمان‌بندی‌شده دارد</item>
     </plurals>
     <plurals name="pt_restore_scheduled_body" tools:ignore="ImpliedQuantity">
         <item quantity="one">فقط اگر روشنش کنید، سر وقت برای %d شماره فرستاده می‌شود. تا انتخاب نکنید، چیزی فرستاده نمی‌شود.</item>
         <item quantity="other">فقط اگر روشنش کنید، سر وقت برای %d شماره فرستاده می‌شود. تا انتخاب نکنید، چیزی فرستاده نمی‌شود.</item>
     </plurals>
     <string name="pt_restore_scheduled_arm">روشن کن</string>
-    <string name="pt_restore_scheduled_discard">دور بریز</string>
+    <string name="pt_restore_scheduled_discard">حذف کن</string>
     <string name="pt_older_spam_stuck">بعضی از این پیام‌ها به خود گوشی منتقل نشدند. همین‌جا می‌مانند و باز هم می‌توانید بخوانیدشان.</string>
-    <string name="pt_restore_scheduled_row_body">با بازگردانی روشن نشدند. بزنید تا روشنشان کنید یا دورشان بریزید.</string>
+    <string name="pt_restore_scheduled_row_body">با بازگردانی روشن نشدند. بزنید تا روشنشان کنید یا حذفشان کنید.</string>
     <string name="pt_older_spam_pictures_here">بعضی از این پیام‌ها خودشان روی گوشی هستند. فقط عکس‌هایشان این‌جا در uMessage نگه داشته شده.</string>
 </resources>

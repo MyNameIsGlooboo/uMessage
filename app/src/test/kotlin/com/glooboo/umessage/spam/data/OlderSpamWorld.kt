@@ -76,6 +76,9 @@ internal class OlderSpamWorld {
     /** The next this many repairs throw. */
     var failingRepairs = 0
 
+    /** The cache row cannot be built (the thread is still found in the store). */
+    var failingCache = false
+
     /** The next this many journal writes do not reach the disk (S2-6). */
     var failingJournalWrites = 0
 
@@ -380,7 +383,12 @@ internal class OlderSpamWorld {
             Settle.DONE
         }
 
+        override fun threadOf(id: Long, isMms: Boolean): Long? = op("threadOf") {
+            store.firstOrNull { it.id == id && it.mms == isMms }?.let { threadOf(it.address) }
+        }
+
         override fun cache(id: Long, isMms: Boolean): Long? = op("cache") {
+            if (failingCache) error("cache row not built")
             cached += id to isMms
             threadOf(store.first { it.id == id && it.mms == isMms }.address)
         }
