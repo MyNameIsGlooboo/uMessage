@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nameallow_title">Bu ada her zaman izin verilsin mi?</string>
-    <string name="nameallow_body">%1$s adıyla gelen yeni mesajlar gelen kutunuza gider. Herkes istediği adla mesaj gönderebilir, bu yüzden bu adı kullanan sahte mesajlar da size ulaşır. Bu ad için oluşturduğunuz engelleme kuralları kaldırılır.</string>
-    <string name="nameallow_body_many">%1$s adlarıyla gelen yeni mesajlar gelen kutunuza gider. Herkes istediği adla mesaj gönderebilir, bu yüzden bu adları kullanan sahte mesajlar da size ulaşır. Bu adlar için oluşturduğunuz engelleme kuralları kaldırılır.</string>
+    <string name="nameallow_title">Bu ada izin verilsin mi?</string>
+    <string name="nameallow_body">Herkes %1$s adıyla mesaj gönderebilir. Bu ada izin verilip sohbet Mesajlar\'a taşınsın mı?</string>
+    <string name="nameallow_body_many">Herkes şu adlarla mesaj gönderebilir: %1$s. Bu adlara izin verilip sohbetler Mesajlar\'a taşınsın mı?</string>
     <string name="nameallow_more">%1$s ve %2$d ad daha</string>
     <string name="nameallow_allow">Her zaman izin verin</string>
     <string name="nameallow_not_now">Şimdi değil</string>

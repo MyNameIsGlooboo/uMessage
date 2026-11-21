@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_spam_empty_body">Bilinmeyen gönderenlerden ve engellediğiniz gönderenlerden gelen sohbetler burada görünür.</string>
+    <string name="pt_spam_filter_off_strip">Spam filtresi kapalı</string>
+    <string name="pt_spam_filter_off_body">Burada yalnızca engellediğiniz gönderenler listelenir.</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="one">%d sohbet bu telefondan silinsin mi?</item>
+        <item quantity="other">%d sohbet bu telefondan silinsin mi?</item>
+    </plurals>
+    <string name="pt_spam_delete_body">Mesajlar yalnızca uMessage\'da değil, tüm uygulamalar için silinir. Hemen ardından geri alabilirsiniz, daha sonra alamazsınız.</string>
+    <plurals name="pt_snack_unblocked">
+        <item quantity="one">Engelleme kaldırıldı. Sohbet Mesajlar\'a döndü.</item>
+        <item quantity="other">%d gönderenin engellemesi kaldırıldı. Sohbetleri Mesajlar\'a döndü.</item>
+    </plurals>
+    <string name="pt_older_spam_title">Yalnızca uMessage\'da tutulan eski spam</string>
+    <string name="pt_older_spam_hint">Bu mesajlar henüz telefonun kendisinde değil. Çoğu, uMessage varsayılan SMS uygulamanız olduğunda oraya taşınır. O zamana kadar onları burada okuyabilirsiniz.</string>
+    <string name="pt_block_still_allowed">Spam\'e taşınmadı: izin kurallarınızdan biri bu gönderene hâlâ izin veriyor.</string>
+    <string name="pt_unblock_refused_prefix">Engelleme kaldırılmadı: bir kural %1$s ile başlayan numaraları engelliyor</string>
+    <string name="pt_line_code">Bu gönderen bir doğrulama kodu gönderdiği için izin verildi.</string>
+    <string name="pt_line_wrote">Bu numaraya mesaj yazdığınız için izin verildi.</string>
+    <string name="pt_line_word">Bir mesaj izin verdiğiniz kelimelerden birini içerdiği için otomatik izin verildi.</string>
+    <string name="pt_line_blocked">Bu göndereni engellediniz. Yeni mesajlar sessizce Spam\'e gelir.</string>
+    <string name="pt_line_blocked_word">Bir mesaj engellediğiniz kelimelerden birini içerdiği için otomatik engellendi.</string>
+    <string name="pt_line_unknown">Bilinmeyen gönderen. Mesajlar Spam\'e gelir.</string>
+    <string name="pt_line_keep">Kalsın</string>
+    <string name="pt_reply_allows_confirm">Bu, gönderene izin verir. Gönderilsin mi?</string>
+    <plurals name="pt_card_moved">
+        <item quantity="one">%d sohbet artık Spam\'de</item>
+        <item quantity="other">%d sohbet artık Spam\'de</item>
+    </plurals>
+    <string name="pt_card_moved_body">Bilinmeyen ve engellenen gönderenler oraya ayrılır. Hiçbir şey silinmedi.</string>
+</resources>

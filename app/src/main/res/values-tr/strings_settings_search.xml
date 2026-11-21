@@ -5,7 +5,7 @@
     <string name="settings_search_none">Ayar bulunamadı. Başka bir kelime deneyin.</string>
     <string name="settings_search_start">Tema, yedekleme veya spam gibi bir kelime yazın.</string>
     <string name="sks_spam">spam engelleyin engellendi gereksiz filtre koruma dolandırıcılık istenmeyen</string>
-    <string name="sks_unknown_sender">bilinmeyen yabancılar gönderenler mod filtre spam engelleyin</string>
+    <string name="sks_unknown_sender">bilinmeyen yabancılar gönderenler filtre spam engelleyin anahtar açık kapalı mod</string>
     <string name="sks_strict">sıkı katı engelleyin her şey kodlar</string>
     <string name="sks_smart">akıllı önerilen otomatik varsayılan filtre</string>
     <string name="sks_spam_off">kapalı devre dışı durdur filtre izin verin her şey</string>

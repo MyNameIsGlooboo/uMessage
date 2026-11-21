@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="one">Yedekte %d planlanmış mesaj var</item>
+        <item quantity="other">Yedekte %d planlanmış mesaj var</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="one">Yalnızca bunu açarsanız, belirlenen saatte %d numaraya gönderilir. Siz seçene kadar hiçbir şey gönderilmez.</item>
+        <item quantity="other">Yalnızca bunu açarsanız, belirlenen saatlerde %d farklı numaraya gönderilir. Siz seçene kadar hiçbir şey gönderilmez.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">Açın</string>
+    <string name="pt_restore_scheduled_discard">Silin</string>
+    <string name="pt_older_spam_stuck">Bu mesajlardan bazıları telefonun kendisine taşınamadı. Burada kalırlar ve onları okumaya devam edebilirsiniz.</string>
+    <string name="pt_restore_scheduled_row_body">Geri yükleme bunları açmadı. Açmak veya silmek için dokunun.</string>
+    <string name="pt_older_spam_pictures_here">Bu mesajlardan bazıları zaten telefonun kendisinde. Yalnızca resimleri burada, uMessage\'da tutuluyor.</string>
+</resources>

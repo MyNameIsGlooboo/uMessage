@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">القرار</string>
-    <string name="thread_review_details_decision_allowed">مسموح بها: وصلت إلى الرسائل الواردة</string>
+    <string name="thread_review_details_decision_allowed">مسموح بها: وصلت إلى «الرسائل»</string>
     <string name="thread_review_details_type">النوع</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

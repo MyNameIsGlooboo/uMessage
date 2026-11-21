@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">कारण</string>
     <string name="thread_r2_details_rule">नियम</string>
     <string name="thread_r2_details_forwarded">फ़ॉरवर्ड किया गया</string>
-    <string name="thread_r2_details_decision_restored">ब्लॉक किया गया, फिर आपके इनबॉक्स में वापस लाया गया</string>
+    <string name="thread_r2_details_decision_restored">ब्लॉक किया गया, फिर मैसेज टैब में ले जाया गया</string>
     <string name="thread_r2_details_copy">%1$s कॉपी करें</string>
     <string name="thread_r2_menu_search">बातचीत में खोजें</string>
     <string name="thread_r2_menu_always_forward">इस भेजने वाले के मैसेज हमेशा फ़ॉरवर्ड करें</string>

@@ -7,7 +7,7 @@
     <string name="onb_finish">پیغامات شروع کریں</string>
     <string name="onb_welcome_title">uMessage میں خوش آمدید</string>
     <string name="onb_welcome_intro">بہتر پیغام رسانی، کم اسپیم۔</string>
-    <string name="onb_welcome_demo_desc">آپ کے جاننے والوں کے پیغامات، پیغامات میں آتے ہیں، اجنبیوں کے پیغامات اسپیم میں جاتے ہیں، اور تصدیقی کوڈ بھی پیغامات میں آتے رہتے ہیں۔</string>
+    <string name="onb_welcome_demo_desc">آپ کے رابطے پیغامات میں جاتے ہیں۔ نامعلوم بھیجنے والے اسپیم میں جاتے ہیں۔ جو بھیجنے والا آپ کو تصدیقی کوڈ بھیجے، وہ پیغامات میں جاتا ہے۔</string>
     <string name="onb_welcome_spam">اسپیم باہر رہتا ہے</string>
     <string name="onb_welcome_spam_desc">نامعلوم بھیجنے والے اسپیم میں انتظار کرتے ہیں، کبھی گم نہیں ہوتے۔</string>
     <string name="onb_welcome_codes">ایک ٹیپ میں کوڈ</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">نہ اکاؤنٹ، نہ اشتہار، نہ کلاؤڈ۔ سب کچھ آپ کے فون پر رہتا ہے۔</string>
     <string name="onb_welcome_start">شروع کریں</string>
     <string name="onb_default_title">uMessage کو اپنی SMS ایپ بنائیں</string>
-    <string name="onb_default_body">Android صرف ڈیفالٹ SMS ایپ کو پیغامات وصول اور فلٹر کرنے دیتا ہے۔ اس کے بغیر uMessage آپ کے ان باکس کی حفاظت نہیں کر سکتا۔</string>
+    <string name="onb_default_body">Android صرف ڈیفالٹ SMS ایپ کو پیغامات وصول اور فلٹر کرنے دیتا ہے۔ اس کے بغیر uMessage آپ کے لیے اسپیم فلٹر نہیں کر سکتا۔</string>
     <string name="onb_default_action">ڈیفالٹ بنائیں</string>
     <string name="onb_default_denied">درخواست مسترد ہو گئی۔ آپ دوبارہ کوشش کر سکتے ہیں، یا جاری رکھیں اور بعد میں Android سیٹنگز میں سیٹ کریں۔</string>
     <string name="onb_default_unavailable">آپ کا فون ڈیفالٹ ایپ کا ڈائیلاگ نہیں کھول سکا۔ Android سیٹنگز، ایپس، ڈیفالٹ ایپس، SMS ایپ کھولیں اور uMessage منتخب کریں۔</string>

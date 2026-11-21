@@ -6,11 +6,11 @@
     <string name="rules2_menu_export">اصول فائل میں ایکسپورٹ کریں</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">کسی بھیجنے والے کو ہمیشہ اجازت نہیں</string>
-    <string name="rules2_empty_allowed_body">کوئی نمبر، بھیجنے والے کا نام یا لفظ شامل کریں جو ہمیشہ آپ کے ان باکس میں پہنچے۔</string>
+    <string name="rules2_empty_allowed_body">کوئی نمبر، بھیجنے والے کا نام یا لفظ شامل کریں جو ہمیشہ پیغامات میں پہنچے۔</string>
     <string name="rules2_empty_blocked_title">کوئی بھیجنے والا ہمیشہ بلاک نہیں</string>
     <string name="rules2_empty_blocked_body">اسپیم میں بھیجنے کے لیے کوئی نمبر، بھیجنے والے کا نام، لفظ یا پیٹرن شامل کریں۔</string>
     <string name="rules2_migrate_title">uMessage کے اصولوں میں منتقل کریں</string>
-    <string name="rules2_migrate_point_blocked">پھر پیغامات اسپیم میں جائیں گے، جہاں آپ انہیں بحال کر سکتے ہیں۔</string>
+    <string name="rules2_migrate_point_blocked">اس کے بعد ان کی چیٹس اسپیم میں جاتی ہیں، جہاں سے آپ انہیں واپس لا سکتے ہیں۔</string>
     <string name="rules2_migrate_remove_needs_first">پہلے اوپر والا آپشن منتخب کریں۔</string>
     <string name="rules2_migrate_nothing_selected">کچھ منتخب نہیں</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -41,7 +41,7 @@
         <item quantity="one">%1$d نمبر اصولوں میں منتقل کریں</item>
         <item quantity="other">%1$d نمبر اصولوں میں منتقل کریں</item>
     </plurals>
-    <string name="forward2_intro_reassure">صرف وہ پیغامات فارورڈ ہوتے ہیں جو آپ کے ان باکس میں پہنچیں۔ اسپیم کبھی نہیں۔</string>
+    <string name="forward2_intro_reassure">صرف وہ پیغامات فارورڈ ہوتے ہیں جو پیغامات میں پہنچیں۔ اسپیم کبھی نہیں۔</string>
     <string name="forward2_empty_title">ابھی فارورڈ کا کوئی اصول نہیں</string>
     <string name="forward2_empty_body">ملتے جلتے پیغامات، جیسے بینک الرٹس، کی کاپی کسی اور فون پر بھیجیں۔ ان میں سے کسی ایک سے شروع کریں۔</string>
     <string name="forward2_template_bank">بینک الرٹس فارورڈ کریں</string>

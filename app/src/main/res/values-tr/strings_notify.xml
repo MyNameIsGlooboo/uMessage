@@ -7,4 +7,6 @@
     <string name="notifications_off_title">Bildirimler kapalı</string>
     <string name="notifications_off_body">Yeni mesajlardan haberdar olmayacaksınız.</string>
     <string name="notifications_off_fix">Açın</string>
+    <string name="notifications_quiet_title">Bildirimler sessiz</string>
+    <string name="notifications_quiet_body">“%1$s” için ses yok, bu yüzden yeni mesajlar çalmaz. Sesi Android ayarlarından açın.</string>
 </resources>

@@ -5,10 +5,10 @@
     <string name="settings_deprecated">Kullanımdan kaldırıldı</string>
     <string name="settings_spam_stats">Son 7 günde %1$d durduruldu, toplam %2$d durduruldu, %3$d geri yüklendi</string>
     <string name="settings_spam_open_settings">Spam ayarları</string>
-    <string name="settings_spam_open_settings_body">Mod, saklama süresi ve uyarılar</string>
+    <string name="settings_spam_open_settings_body">Filtre, otomatik silme ve uyarılar</string>
     <string name="settings_block_group">Engelleme listeleri</string>
     <string name="settings_block_umessage_title">uMessage kuralları</string>
-    <string name="settings_block_umessage_body">Engellenen mesajlar Spam klasörüne gider. Bunları geri yükleyebilirsiniz.</string>
+    <string name="settings_block_umessage_body">Engellenen gönderenlerin sohbetleri Spam\'e gider. Bunları geri taşıyabilirsiniz.</string>
     <string name="settings_spam_open_rules">İzin verme ve engelleme kuralları</string>
     <string name="settings_spam_blocked_numbers_body">Sistemin engellenenler listesi üzerinden engellenen numaralar</string>
     <string name="settings_spam_blocked_keywords_body">Bu kelimeleri içeren mesajları gizleyin</string>

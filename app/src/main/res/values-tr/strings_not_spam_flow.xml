@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nsf_snack_moved">Gelen kutusuna taşındı</string>
-    <string name="nsf_snack_moved_allowed">Gelen kutusuna taşındı. %1$s numarasından gelecek iletiler de ulaşacak.</string>
+    <string name="nsf_snack_moved">Mesajlar\'a taşındı</string>
+    <string name="nsf_snack_moved_allowed">Mesajlar\'a taşındı. %1$s artık her zaman izinli.</string>
     <plurals name="nsf_snack_moved_allowed_many">
-        <item quantity="one">Gelen kutusuna taşındı. %d gönderenden gelecek mesajlar da ulaşacak.</item>
-        <item quantity="other">Gelen kutusuna taşındı. %d gönderenden gelecek mesajlar da ulaşacak.</item>
+        <item quantity="one">Mesajlar\'a taşındı. %d gönderen artık her zaman izinli.</item>
+        <item quantity="other">Mesajlar\'a taşındı. %d gönderen artık her zaman izinli.</item>
     </plurals>
     <string name="nsf_moving">Gelen kutusuna taşınıyor</string>
     <string name="move_progress">Mesajlar taşınıyor: %1$s / %2$s</string>

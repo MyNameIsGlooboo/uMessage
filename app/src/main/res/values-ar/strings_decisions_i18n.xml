@@ -8,12 +8,12 @@
         <item quantity="many">عُلِّمت %d محادثة كمقروءة</item>
         <item quantity="other">عُلِّمت %d محادثة كمقروءة</item>
     </plurals>
-    <string name="decm_search_section_blocked">الرسائل المحظورة</string>
-    <string name="decm_blocked_search">البحث في الرسائل المحظورة</string>
+    <string name="decm_search_section_blocked">غير المرغوب فيها</string>
+    <string name="decm_blocked_search">البحث في «غير المرغوب فيها»</string>
     <string name="decm_blocked_search_hint">ابحث بالمرسل أو النص</string>
     <string name="decm_blocked_search_close">إغلاق البحث</string>
     <string name="decm_blocked_search_none_title">لم يُعثر على شيء</string>
-    <string name="decm_blocked_search_none_body">لا يوجد مرسل أو رسالة محظورة تطابق ما كتبته.</string>
+    <string name="decm_blocked_search_none_body">لا يوجد في «غير المرغوب فيها» مرسل أو رسالة تطابق ما كتبته.</string>
     <string name="decm_always_allow">السماح دائمًا</string>
     <string name="decisions_backup_keywords">الكلمات المحظورة التي ستُضاف: %1$d. الكلمات الموجودة عندك أصلًا تُتخطّى.</string>
     <string name="thread_failed_reason_generic">أبلغ الهاتف عن فشل عام (الرمز %1$d)</string>

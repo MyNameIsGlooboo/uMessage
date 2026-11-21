@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="one">ব্যাকআপে %dটি নির্ধারিত বার্তা আছে</item>
+        <item quantity="other">ব্যাকআপে %dটি নির্ধারিত বার্তা আছে</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="one">শুধু আপনি চালু করলে, ঠিক করা সময়ে %dটি নম্বরে পাঠানো হবে। আপনি বেছে না নেওয়া পর্যন্ত কিছুই পাঠানো হয় না।</item>
+        <item quantity="other">শুধু আপনি চালু করলে, ঠিক করা সময়ে %dটি আলাদা নম্বরে পাঠানো হবে। আপনি বেছে না নেওয়া পর্যন্ত কিছুই পাঠানো হয় না।</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">চালু করুন</string>
+    <string name="pt_restore_scheduled_discard">বাতিল করুন</string>
+    <string name="pt_older_spam_stuck">এর মধ্যে কিছু বার্তা ফোনে সরানো যায়নি। সেগুলো এখানেই থাকবে, এবং আপনি পড়তে পারবেন।</string>
+    <string name="pt_restore_scheduled_row_body">ব্যাকআপ ফেরানোর সময় এগুলো চালু হয়নি। চালু বা বাতিল করতে ট্যাপ করুন।</string>
+    <string name="pt_older_spam_pictures_here">এর মধ্যে কিছু বার্তা আগে থেকেই ফোনে আছে। শুধু সেগুলোর ছবি এখানে, uMessage-এ রাখা আছে।</string>
+</resources>

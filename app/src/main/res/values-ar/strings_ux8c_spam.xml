@@ -7,7 +7,7 @@
     <string name="ux8c_held_other">محتجزة بواسطة التصفية</string>
     <string name="ux8c_not_spam">ليست غير مرغوب فيها</string>
     <string name="ux8c_delete">احذف</string>
-    <string name="ux8c_tip">اسحب المرسل لنقله إلى الرسائل الواردة. اضغط مطولًا للتحديد.</string>
+    <string name="ux8c_tip">اسحب محادثة لإعادتها إلى «الرسائل». المس مع الاستمرار للتحديد.</string>
     <string name="ux8c_tip_dismiss">فهمت</string>
     <string name="ux8c_sender_title">هذا المرسل</string>
     <string name="ux8c_sender_normal">عادي</string>

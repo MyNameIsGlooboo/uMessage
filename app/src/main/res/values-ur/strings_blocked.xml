@@ -46,8 +46,8 @@
         <item quantity="other">%d چیٹس کی اطلاع دے دی گئی۔ ان کے نئے پیغامات اسپیم میں جائیں گے، اور چیٹس آرکائیو ہو گئیں۔</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="one">اطلاع دے دی گئی۔ اس بھیجنے والے کے نئے پیغامات اسپیم میں جائیں گے۔</item>
-        <item quantity="other">%d چیٹس کی اطلاع دے دی گئی۔ ان کے نئے پیغامات اسپیم میں جائیں گے۔</item>
+        <item quantity="one">رپورٹ ہو گیا۔ چیٹ اسپیم میں چلی گئی۔</item>
+        <item quantity="other">%d چیٹس رپورٹ کی گئیں۔ وہ اسپیم میں چلی گئیں۔</item>
     </plurals>
     <string name="blocked_title">اسپیم</string>
     <string name="blocked_snack_mode">نامعلوم بھیجنے والے %1$s پر سیٹ</string>

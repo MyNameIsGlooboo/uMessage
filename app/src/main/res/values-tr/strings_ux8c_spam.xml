@@ -7,7 +7,7 @@
     <string name="ux8c_held_other">Filtre nedeniyle bekletildi</string>
     <string name="ux8c_not_spam">Spam değil</string>
     <string name="ux8c_delete">Silin</string>
-    <string name="ux8c_tip">Bir göndereni gelen kutunuza taşımak için kaydırın. Seçmek için basılı tutun.</string>
+    <string name="ux8c_tip">Bir sohbeti Mesajlar\'a geri taşımak için kaydırın. Seçmek için basılı tutun.</string>
     <string name="ux8c_tip_dismiss">Anladım</string>
     <string name="ux8c_sender_title">Bu gönderen</string>
     <string name="ux8c_sender_normal">Normal</string>

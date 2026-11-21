@@ -49,9 +49,9 @@
     <string name="settings_nav_strict_confirm_body">Sıkı modda, kişilerinizde olmayan gönderenlerden gelen kodlar da diğer mesajlarla birlikte Spam\'e gider. Bankaların ve kargo şirketlerinin mesajları da bekletilir.</string>
     <string name="settings_nav_strict_confirm_action">Sıkı modu kullanın</string>
     <string name="settings_nav_strict_confirm_cancel">Mevcut modu koruyun</string>
-    <string name="settings_nav_purge_row">Spam\'i silme süresi</string>
+    <string name="settings_nav_purge_row">Eski spam\'i otomatik sil</string>
     <string name="settings_nav_group_alerts">Uyarılar</string>
-    <string name="settings_nav_notify_body">Her spam mesajı için sessiz bir bildirim</string>
+    <string name="settings_nav_notify_body">Spam\'i açan tek bir sessiz bildirim. Engellediğiniz bir gönderen için asla.</string>
     <string name="settings_nav_theme_title">Görünüm</string>
     <string name="settings_nav_theme_modes">Mod</string>
     <string name="settings_nav_theme_colours">Renkler</string>

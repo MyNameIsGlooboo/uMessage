@@ -5,10 +5,10 @@
     <string name="settings_deprecated">अब इस्तेमाल में नहीं</string>
     <string name="settings_spam_stats">पिछले 7 दिनों में %1$d रोके गए, कुल %2$d, %3$d वापस लाए गए</string>
     <string name="settings_spam_open_settings">स्पैम की सेटिंग</string>
-    <string name="settings_spam_open_settings_body">मोड, रखने की अवधि और अलर्ट</string>
+    <string name="settings_spam_open_settings_body">फ़िल्टर, अपने-आप मिटाना और अलर्ट</string>
     <string name="settings_block_group">ब्लॉक करने की सूचियां</string>
     <string name="settings_block_umessage_title">uMessage के नियम</string>
-    <string name="settings_block_umessage_body">ब्लॉक किए गए मैसेज स्पैम में जाते हैं. आप उन्हें वापस ला सकते हैं.</string>
+    <string name="settings_block_umessage_body">ब्लॉक किए गए भेजने वालों की चैट स्पैम में जाती हैं. आप उन्हें वापस ला सकते हैं.</string>
     <string name="settings_spam_open_rules">अनुमति देने और ब्लॉक करने के नियम</string>
     <string name="settings_spam_blocked_numbers_body">सिस्टम की ब्लॉक सूची से ब्लॉक किए गए नंबर</string>
     <string name="settings_spam_blocked_keywords_body">इन शब्दों वाले मैसेज छिपाएं</string>

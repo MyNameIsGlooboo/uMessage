@@ -46,8 +46,8 @@
         <item quantity="other">%dটি চ্যাট রিপোর্ট করা হয়েছে। তাঁদের নতুন বার্তা স্প্যামে যাবে, আর চ্যাটগুলো আর্কাইভ করা হয়েছে।</item>
     </plurals>
     <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
-        <item quantity="one">রিপোর্ট করা হয়েছে। এই প্রেরকের নতুন বার্তা স্প্যামে যাবে।</item>
-        <item quantity="other">%dটি চ্যাট রিপোর্ট করা হয়েছে। তাঁদের নতুন বার্তা স্প্যামে যাবে।</item>
+        <item quantity="one">রিপোর্ট করা হয়েছে। চ্যাট স্প্যামে চলে গেছে।</item>
+        <item quantity="other">%dটি চ্যাট রিপোর্ট করা হয়েছে। সেগুলো স্প্যামে চলে গেছে।</item>
     </plurals>
     <string name="blocked_title">স্প্যাম</string>
     <string name="blocked_snack_mode">অচেনা প্রেরকের জন্য %1$s মোড বেছে নেওয়া হয়েছে</string>

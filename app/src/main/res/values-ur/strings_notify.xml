@@ -8,4 +8,6 @@
     <string name="notifications_off_body">آپ کو نئے پیغامات کی خبر نہیں ملے گی۔</string>
     <string name="notifications_off_fix">آن کریں</string>
     <string name="notifications_off_dismiss">ابھی نہیں</string>
+    <string name="notifications_quiet_title">اطلاعات خاموش ہیں</string>
+    <string name="notifications_quiet_body">“%1$s” کی کوئی آواز نہیں، اس لیے نئے پیغامات پر گھنٹی نہیں بجتی۔ Android کی ترتیبات میں آواز آن کریں۔</string>
 </resources>

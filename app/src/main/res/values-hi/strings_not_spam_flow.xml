@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="nsf_snack_moved">इनबॉक्स में ले जाया गया</string>
-    <string name="nsf_snack_moved_allowed">इनबॉक्स में ले जाया गया। %1$s के आगे के संदेश भी आएंगे।</string>
+    <string name="nsf_snack_moved">मैसेज टैब में ले जाया गया</string>
+    <string name="nsf_snack_moved_allowed">मैसेज टैब में ले जाया गया. %1$s को अब हमेशा अनुमति है.</string>
     <plurals name="nsf_snack_moved_allowed_many" tools:ignore="ImpliedQuantity">
-        <item quantity="one">इनबॉक्स में भेज दिया गया. आगे भी %d भेजने वाले के मैसेज आएंगे.</item>
-        <item quantity="other">इनबॉक्स में भेज दिया गया. आगे भी %d भेजने वालों के मैसेज आएंगे.</item>
+        <item quantity="one">मैसेज टैब में ले जाया गया. %d भेजने वाले को अब हमेशा अनुमति है.</item>
+        <item quantity="other">मैसेज टैब में ले जाया गया. %d भेजने वालों को अब हमेशा अनुमति है.</item>
     </plurals>
     <string name="nsf_moving">इनबॉक्स में ले जाया जा रहा है</string>
     <string name="move_progress">मैसेज ले जाए जा रहे हैं: %2$s में से %1$s</string>

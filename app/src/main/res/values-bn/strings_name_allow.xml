@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nameallow_title">এই নামের জন্য সবসময় অনুমতি দেবেন?</string>
-    <string name="nameallow_body">%1$s থেকে আসা নতুন বার্তা আপনার ইনবক্সে যাবে। যে কেউ যেকোনো নামে বার্তা পাঠাতে পারেন, তাই এই নামে পাঠানো ভুয়া বার্তাও ঢুকবে। এই নাম ব্লক করার জন্য আপনার তৈরি নিয়ম সরিয়ে দেওয়া হবে।</string>
-    <string name="nameallow_body_many">%1$s থেকে আসা নতুন বার্তা আপনার ইনবক্সে যাবে। যে কেউ যেকোনো নামে বার্তা পাঠাতে পারেন, তাই এই নামগুলোতে পাঠানো ভুয়া বার্তাও ঢুকবে। এই নামগুলো ব্লক করার জন্য আপনার তৈরি নিয়ম সরিয়ে দেওয়া হবে।</string>
+    <string name="nameallow_title">এই নামকে অনুমতি দেবেন?</string>
+    <string name="nameallow_body">%1$s নামে যে কেউ বার্তা পাঠাতে পারেন। এটিকে অনুমতি দিয়ে চ্যাটটি বার্তা ট্যাবে সরাবেন?</string>
+    <string name="nameallow_body_many">এই নামগুলোতে যে কেউ বার্তা পাঠাতে পারেন: %1$s। এগুলোকে অনুমতি দিয়ে চ্যাটগুলো বার্তা ট্যাবে সরাবেন?</string>
     <string name="nameallow_more">%1$s এবং আরও %2$d</string>
     <string name="nameallow_allow">সবসময় অনুমতি দিন</string>
     <string name="nameallow_not_now">এখন নয়</string>

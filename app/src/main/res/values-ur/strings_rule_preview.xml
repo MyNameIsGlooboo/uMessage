@@ -4,9 +4,9 @@
     <string name="rule_preview_loading">حالیہ پیغامات کی جانچ ہو رہی ہے…</string>
     <string name="rule_preview_failed">حالیہ پیغامات کی جانچ نہیں ہو سکی۔ دوبارہ کوشش کریں۔</string>
     <string name="rule_preview_nothing">ابھی جانچنے کے لیے کوئی حالیہ پیغامات نہیں ہیں۔</string>
-    <string name="rule_preview_inbox">ان باکس: یہ اصول آخری %2$d پیغامات میں سے %1$d پر لاگو ہوتا ہے</string>
-    <string name="rule_preview_inbox_empty">ان باکس: جانچنے کے لیے کوئی پیغامات نہیں</string>
-    <string name="rule_preview_blocked">بلاک شدہ: یہ اصول آخری %2$d پیغامات میں سے %1$d پر لاگو ہوتا ہے</string>
-    <string name="rule_preview_blocked_empty">بلاک شدہ: جانچنے کے لیے کوئی پیغامات نہیں</string>
+    <string name="rule_preview_inbox">پیغامات: یہ اصول آخری %2$d پیغامات میں سے %1$d پر لاگو ہوتا ہے</string>
+    <string name="rule_preview_inbox_empty">پیغامات: جانچنے کے لیے کچھ نہیں</string>
+    <string name="rule_preview_blocked">اسپیم: یہ اصول آخری %2$d پیغامات میں سے %1$d پر لاگو ہوتا ہے</string>
+    <string name="rule_preview_blocked_empty">اسپیم: جانچنے کے لیے کچھ نہیں</string>
     <string name="rule_preview_examples">مثلاً: %1$s</string>
 </resources>

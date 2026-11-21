@@ -53,7 +53,7 @@
     <string name="spam_type_keyword">کلیدی لفظ</string>
     <string name="spam_type_regex">پیٹرن</string>
     <string name="spam_type_keyword_help">ہر وہ پیغام جس میں یہ متن ہو، کسی لمبے لفظ کے اندر بھی: «انعام» سے «انعامات» بھی میل کھاتا ہے۔ بڑے چھوٹے حروف سے فرق نہیں پڑتا۔ بھیجنے والا بھی بلاک ہو جاتا ہے، سوائے اس کے کہ وہ آپ کے رابطوں میں ہو۔</string>
-    <string name="spam_type_keyword_allow_help">ہر وہ پیغام جس میں یہ متن ہو، کسی بھی بھیجنے والے سے، آپ کے تمام بلاک سے بچ جاتا ہے۔ لمبا اور بالکل درست جملہ استعمال کریں۔</string>
+    <string name="spam_type_keyword_allow_help">جس پیغام میں یہ متن ہو، وہ اپنے بھیجنے والے کو اجازت دے دیتا ہے: پوری چیٹ پیغامات میں چلی جاتی ہے۔ آپ کا بلاک کیا گیا بھیجنے والا بلاک ہی رہتا ہے۔ لمبا اور بالکل درست جملہ استعمال کریں۔</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">مفت تحفہ</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
@@ -73,9 +73,9 @@
     <string name="spam_err_duplicate">یہ اصول پہلے سے موجود ہے</string>
     <string name="spam_err_regex_unsafe">یہ پیٹرن ایسے گروپ کو دہراتا ہے جو پہلے سے دہرایا جا رہا ہے، جس سے پیغامات کی فلٹرنگ رک سکتی ہے۔ اسے آسان بنائیں۔</string>
     <string name="spam_err_regex_matches_all">یہ پیٹرن ہر پیغام سے میل کھاتا ہے۔ اسے مزید مخصوص بنائیں۔</string>
-    <string name="spam_err_allow_keyword_short">اجازت یافتہ الفاظ کم از کم 4 حرف کے ہونے چاہییں، کیونکہ جس پیغام میں یہ ہوں وہ آپ کے تمام بلاک سے بچ جاتا ہے</string>
+    <string name="spam_err_allow_keyword_short">اجازت یافتہ الفاظ میں کم از کم 4 حروف ہونے چاہئیں، کیونکہ ایسا لفظ رکھنے والا پیغام اپنے بھیجنے والے کو اجازت دے دیتا ہے</string>
     <string name="spam_sheet_save_failed">اصول محفوظ نہیں ہو سکا۔ دوبارہ کوشش کریں۔</string>
-    <string name="spam_warn_allow_skips_blocks">ہر وہ پیغام جس میں یہ ہو، کسی بھی بھیجنے والے سے، آپ کے تمام بلاک سے بچ جاتا ہے، آپ کے بلاک کیے گئے نمبروں سے بھی۔</string>
+    <string name="spam_warn_allow_skips_blocks">جس نامعلوم بھیجنے والے کے پیغام میں یہ ہو، اسے اس کے بعد سے اجازت مل جاتی ہے۔ آپ کے بلاک کیے گئے بھیجنے والے بلاک ہی رہتے ہیں۔</string>
     <string name="spam_warn_common_word">یہ ایک چھوٹا یا عام لفظ ہے۔ اسپیم میں یہ آسانی سے آ سکتا ہے۔</string>
     <string name="spam_warn_broad">یہ بہت سے عام متن سے میل کھاتا ہے، اس لیے بہت سے عام پیغامات پکڑ لے گا۔</string>
     <string name="spam_warn_allowed_conflict">یہ آپ کی اجازت یافتہ فہرست میں ہے۔ اجازت کے اصول ہمیشہ غالب رہتے ہیں، اس لیے یہ بلاک کبھی لاگو نہیں ہوگا۔</string>
@@ -96,8 +96,8 @@
         <item quantity="one">اور %d مزید</item>
         <item quantity="other">اور %d مزید</item>
     </plurals>
-    <string name="spam_settings_unknown_title">نامعلوم بھیجنے والوں کے پیغامات</string>
-    <string name="spam_settings_unknown_body">وہ بھیجنے والے جو آپ کے رابطوں میں نہیں، جنہیں آپ نے کبھی پیغام نہیں بھیجا، اور جو آپ کی اجازت یافتہ فہرست میں نہیں۔</string>
+    <string name="spam_settings_unknown_title">اسپیم فلٹر</string>
+    <string name="spam_settings_unknown_body">نامعلوم بھیجنے والا وہ ہے جو نہ آپ کے رابطوں میں ہے اور نہ اجازت یافتہ فہرست میں۔ اس کی پوری چیٹ خاموشی سے اسپیم میں چلی جاتی ہے۔ جنہیں آپ نے پیغام بھیجا ہے اور تصدیقی کوڈ بھیجنے والے پیغامات میں ہی رہتے ہیں۔</string>
     <string name="spam_mode_strict">سخت</string>
     <string name="spam_mode_strict_body">تمام نامعلوم بھیجنے والے بلاک، کوڈ بھی</string>
     <string name="spam_mode_smart">اسمارٹ</string>
@@ -108,8 +108,8 @@
     <string name="spam_strict_warning_body">بینک، ڈیلیوری کمپنیاں اور ایک بار کے کوڈ عموماً ایسے بھیجنے والوں سے آتے ہیں جو آپ کے رابطوں میں نہیں۔ سخت موڈ میں یہ اسپیم میں چلے جاتے ہیں، کوڈ بھی۔ کوڈ آنے دینے کے لیے اسمارٹ منتخب کریں، یا ان بھیجنے والوں کو ایک بار اجازت دے دیں۔</string>
     <string name="spam_strict_warning_action">اسپیم دیکھیں</string>
     <string name="spam_settings_cleanup_title">صفائی</string>
-    <string name="spam_purge_body">پرانا اسپیم خود بخود ہٹا دیا جاتا ہے۔</string>
+    <string name="spam_purge_body">جب تک آپ دنوں کی تعداد نہ چنیں، بند رہتا ہے</string>
     <string name="spam_purge_days">%d دن</string>
     <string name="spam_purge_forever">ہمیشہ رکھیں</string>
-    <string name="spam_notify_title">پیغام بلاک ہونے پر اطلاع دیں</string>
+    <string name="spam_notify_title">نامعلوم بھیجنے والوں کے پیغامات کی اطلاع دیں</string>
 </resources>

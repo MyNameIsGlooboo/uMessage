@@ -16,7 +16,7 @@
         <item quantity="one">কথোপকথন ও এর সব বার্তা এই ফোন থেকে মুছে যাবে। পরে কয়েক সেকেন্ড আপনি এটি ফিরিয়ে আনতে পারবেন।</item>
         <item quantity="other">কথোপকথনগুলো ও এগুলোর সব বার্তা এই ফোন থেকে মুছে যাবে। পরে কয়েক সেকেন্ড আপনি এটি ফিরিয়ে আনতে পারবেন।</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s আপনার পরিচিতিতে আছে। এই প্রেরককে ব্লক করবেন? তার নতুন বার্তা ইনবক্সের বদলে ব্লক করা বার্তায় যাবে। সঙ্গে সঙ্গে আপনি এটি ফিরিয়ে আনতে পারবেন।</string>
+    <string name="convlist_block_contact_message">%1$s আপনার পরিচিতিতে আছেন। এই প্রেরককে ব্লক করবেন? পুরো চ্যাট স্প্যামে চলে যাবে এবং নতুন বার্তা নিঃশব্দে সেখানে আসবে। ঠিক পরেই আপনি এটি আগের অবস্থায় ফেরাতে পারবেন।</string>
     <string name="i29_color_red">লাল</string>
     <string name="i29_color_orange">কমলা</string>
     <string name="i29_color_yellow">হলুদ</string>
@@ -38,10 +38,10 @@
     <string name="rule_preview_loading">সাম্প্রতিক বার্তা দেখা হচ্ছে…</string>
     <string name="rule_preview_failed">সাম্প্রতিক বার্তা দেখা যায়নি। আবার চেষ্টা করুন।</string>
     <string name="rule_preview_nothing">দেখার মতো সাম্প্রতিক বার্তা এখনো নেই।</string>
-    <string name="rule_preview_inbox">ইনবক্স: এই নিয়ম শেষ %2$dটির মধ্যে %1$dটি বার্তার সঙ্গে মেলে</string>
-    <string name="rule_preview_inbox_empty">ইনবক্স: দেখার মতো কোনো বার্তা নেই</string>
-    <string name="rule_preview_blocked">ব্লক করা: এই নিয়ম শেষ %2$dটির মধ্যে %1$dটি বার্তার সঙ্গে মেলে</string>
-    <string name="rule_preview_blocked_empty">ব্লক করা: দেখার মতো কোনো বার্তা নেই</string>
+    <string name="rule_preview_inbox">বার্তা: এই নিয়ম শেষ %2$dটির মধ্যে %1$dটি বার্তার সঙ্গে মেলে</string>
+    <string name="rule_preview_inbox_empty">বার্তা: যাচাই করার কিছু নেই</string>
+    <string name="rule_preview_blocked">স্প্যাম: এই নিয়ম শেষ %2$dটির মধ্যে %1$dটি বার্তার সঙ্গে মেলে</string>
+    <string name="rule_preview_blocked_empty">স্প্যাম: যাচাই করার কিছু নেই</string>
     <string name="rule_preview_examples">যেমন: %1$s</string>
     <string name="n06_delete_confirm">এই সেভ করা লেখা মুছবেন?</string>
     <string name="screens_vcard_email_action">ইমেইল</string>

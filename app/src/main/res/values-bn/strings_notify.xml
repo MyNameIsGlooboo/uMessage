@@ -7,4 +7,6 @@
     <string name="notifications_off_title">বিজ্ঞপ্তি বন্ধ আছে</string>
     <string name="notifications_off_body">নতুন বার্তা এলে আপনাকে জানানো হবে না।</string>
     <string name="notifications_off_fix">চালু করুন</string>
+    <string name="notifications_quiet_title">বিজ্ঞপ্তি নিঃশব্দ</string>
+    <string name="notifications_quiet_body">“%1$s”-এর কোনো শব্দ নেই, তাই নতুন বার্তায় রিং হয় না। Android সেটিংসে শব্দ চালু করুন।</string>
 </resources>

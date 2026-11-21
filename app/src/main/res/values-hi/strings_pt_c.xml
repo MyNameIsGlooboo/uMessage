@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="pt_spam_empty_body">अनजान भेजने वालों और आपके ब्लॉक किए गए भेजने वालों की चैट यहां दिखती हैं.</string>
+    <string name="pt_spam_filter_off_strip">स्पैम फ़िल्टर बंद है</string>
+    <string name="pt_spam_filter_off_body">यहां सिर्फ़ आपके ब्लॉक किए गए भेजने वाले हैं.</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="one">इस फ़ोन से %d चैट मिटाएं?</item>
+        <item quantity="other">इस फ़ोन से %d चैट मिटाएं?</item>
+    </plurals>
+    <string name="pt_spam_delete_body">मैसेज हर ऐप के लिए मिटाए जाते हैं, सिर्फ़ uMessage में नहीं. तुरंत बाद आप इसे पहले जैसा कर सकते हैं, बाद में नहीं.</string>
+    <plurals name="pt_snack_unblocked" tools:ignore="ImpliedQuantity">
+        <item quantity="one">अनब्लॉक किया गया. चैट मैसेज टैब में वापस आ गई.</item>
+        <item quantity="other">%d भेजने वाले अनब्लॉक किए गए. उनकी चैट मैसेज टैब में वापस आ गईं.</item>
+    </plurals>
+    <string name="pt_older_spam_title">पुराना स्पैम जो सिर्फ़ uMessage में है</string>
+    <string name="pt_older_spam_hint">ये मैसेज अभी फ़ोन में नहीं हैं. जब uMessage आपका डिफ़ॉल्ट एसएमएस ऐप बनेगा, तो इनमें से ज़्यादातर वहां चले जाएंगे. तब तक आप इन्हें यहां पढ़ सकते हैं.</string>
+    <string name="pt_block_still_allowed">स्पैम में नहीं गया: आपके अनुमति देने का कोई नियम अब भी इस भेजने वाले को आने देता है.</string>
+    <string name="pt_unblock_refused_prefix">अनब्लॉक नहीं हुआ: एक नियम %1$s से शुरू होने वाले नंबरों को ब्लॉक करता है</string>
+    <string name="pt_line_code">अनुमति दी गई, क्योंकि इस भेजने वाले ने पुष्टि करने का कोड भेजा था.</string>
+    <string name="pt_line_wrote">अनुमति दी गई, क्योंकि आपने इस नंबर पर मैसेज भेजा था.</string>
+    <string name="pt_line_word">अपने-आप अनुमति दी गई, क्योंकि एक मैसेज में आपका अनुमति वाला कोई शब्द था.</string>
+    <string name="pt_line_blocked">आपने इस भेजने वाले को ब्लॉक किया है. नए मैसेज बिना आवाज़ के स्पैम में आते हैं.</string>
+    <string name="pt_line_blocked_word">अपने-आप ब्लॉक किया गया, क्योंकि एक मैसेज में आपका ब्लॉक किया गया कोई शब्द था.</string>
+    <string name="pt_line_unknown">अनजान भेजने वाला. मैसेज स्पैम में आते हैं.</string>
+    <string name="pt_line_keep">रहने दें</string>
+    <string name="pt_reply_allows_confirm">इससे भेजने वाले को अनुमति मिल जाएगी. भेजें?</string>
+    <plurals name="pt_card_moved">
+        <item quantity="one">%d चैट अब स्पैम में है</item>
+        <item quantity="other">%d चैट अब स्पैम में हैं</item>
+    </plurals>
+    <string name="pt_card_moved_body">अनजान और ब्लॉक किए गए भेजने वाले वहां छांटे जाते हैं. कुछ भी नहीं मिटाया गया.</string>
+</resources>

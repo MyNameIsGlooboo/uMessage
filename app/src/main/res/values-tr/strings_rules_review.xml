@@ -6,11 +6,11 @@
     <string name="rules2_menu_export">Kuralları dosyaya dışa aktarın</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">Her zaman izin verilen gönderen yok</string>
-    <string name="rules2_empty_allowed_body">Her zaman gelen kutunuza ulaşması gereken bir numara, gönderen adı veya kelime ekleyin. Aşağıdaki Kural ekleyin seçeneğine dokunun.</string>
+    <string name="rules2_empty_allowed_body">Her zaman Mesajlar\'a gelmesi gereken bir numara, gönderen adı veya kelime ekleyin.</string>
     <string name="rules2_empty_blocked_title">Her zaman engellenen gönderen yok</string>
     <string name="rules2_empty_blocked_body">Spam bölümüne yönlendirmek için bir numara, gönderen adı, kelime veya düzenli ifade ekleyin. Aşağıdaki Kural ekleyin seçeneğine dokunun.</string>
     <string name="rules2_migrate_title">uMessage kurallarına taşıyın</string>
-    <string name="rules2_migrate_point_blocked">Mesajlar artık Spam bölümüne gider. Buradan mesajları geri yükleyebilirsiniz.</string>
+    <string name="rules2_migrate_point_blocked">Sohbetleri daha sonra Spam\'e gider; oradan geri taşıyabilirsiniz.</string>
     <string name="rules2_migrate_remove_needs_first">Önce yukarıdaki seçeneği işaretleyin.</string>
     <string name="rules2_migrate_nothing_selected">Hiçbir şey seçilmedi</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -41,7 +41,7 @@
         <item quantity="one">%1$d numarayı kurallara taşıyın</item>
         <item quantity="other">%1$d numarayı kurallara taşıyın</item>
     </plurals>
-    <string name="forward2_intro_reassure">Yalnızca gelen kutunuza ulaşan mesajlar iletilir. Spam asla iletilmez.</string>
+    <string name="forward2_intro_reassure">Yalnızca Mesajlar\'a gelen mesajlar iletilir. Spam asla iletilmez.</string>
     <string name="forward2_empty_title">Henüz iletme kuralı yok</string>
     <string name="forward2_empty_body">Banka bildirimleri gibi eşleşen mesajların bir kopyasını başka bir telefona gönderin. Bu seçeneklerden biriyle başlayın.</string>
     <string name="forward2_template_bank">Banka bildirimlerini iletin</string>

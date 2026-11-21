@@ -7,7 +7,7 @@
     <string name="onb_finish">Mesajlaşmaya başlayın</string>
     <string name="onb_welcome_title">uMessage\'a hoş geldiniz</string>
     <string name="onb_welcome_intro">Daha iyi mesajlaşma, daha az spam.</string>
-    <string name="onb_welcome_demo_desc">Tanıdıklarınızdan gelen mesajlar Mesajlar\'a, tanımadıklarınızdan gelenler Spam\'e gider; doğrulama kodları ise yine Mesajlar\'a ulaşır.</string>
+    <string name="onb_welcome_demo_desc">Kişileriniz Mesajlar\'a gider. Bilinmeyen gönderenler Spam\'e gider. Size doğrulama kodu gönderen bir gönderen Mesajlar\'a gider.</string>
     <string name="onb_welcome_spam">Spam dışarıda kalır</string>
     <string name="onb_welcome_spam_desc">Bilinmeyen gönderenler Spam bölümünde bekler, kaybolmaz.</string>
     <string name="onb_welcome_codes">Tek dokunuşla kodlar</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">Hesap yok, reklam yok, bulut yok. Her şey telefonunuzda kalır.</string>
     <string name="onb_welcome_start">Başlayın</string>
     <string name="onb_default_title">uMessage\'ı SMS uygulamanız yapın</string>
-    <string name="onb_default_body">Android, yalnızca varsayılan SMS uygulamasının mesaj almasına ve filtrelemesine izin verir. Bu olmadan uMessage gelen kutunuzu koruyamaz.</string>
+    <string name="onb_default_body">Android, yalnızca varsayılan SMS uygulamasının mesaj almasına ve filtrelemesine izin verir. Bu olmadan uMessage sizin için spam filtreleyemez.</string>
     <string name="onb_default_action">Varsayılan olarak ayarlayın</string>
     <string name="onb_default_denied">İstek reddedildi. Tekrar deneyebilir veya devam edip daha sonra Android ayarlarından ayarlayabilirsiniz.</string>
     <string name="onb_default_unavailable">Telefonunuz varsayılan uygulama penceresini açamadı. Android ayarlarında Uygulamalar, Varsayılan uygulamalar, SMS uygulaması yolunu izleyip uMessage\'ı seçin.</string>
