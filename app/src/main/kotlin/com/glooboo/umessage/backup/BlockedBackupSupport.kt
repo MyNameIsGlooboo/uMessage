@@ -11,6 +11,7 @@ import com.glooboo.umessage.spam.data.BlockedMessageEntity
 import com.glooboo.umessage.spam.data.MigrationMark
 import com.glooboo.umessage.spam.data.SpamDao
 import com.glooboo.umessage.spam.data.SpamDatabase
+import com.glooboo.umessage.spam.engine.SenderAddress
 import com.glooboo.umessage.spam.mms.BlockedMmsStore
 
 /**
@@ -61,16 +62,23 @@ class BlockedBackupSupport(
     private fun withoutMedia(row: BlockedMessageEntity) =
         if (row.isMms) MmsMedia.MISSING else MmsMedia.NONE
 
-    /** Puts [entry] in the Blocked folder; false when it was already there or is not usable. */
+    /**
+     * Puts [entry] in the Blocked folder; false when it was already there or is not usable. An entry without a
+     * readable sender is kept under the "Unknown" placeholder, the address the message migration writes such a row to
+     * (S17), so it reaches the store's "Unknown" chat once like any other; a held row of the same message under its
+     * old blank address counts as already there.
+     */
     fun restore(entry: BlockedBackup): Boolean {
-        if (entry.address.isBlank() || entry.receivedAt <= 0) return false
-        val address = BlockedLimits.limitAddress(entry.address)
+        if (entry.receivedAt <= 0) return false
+        val given = BlockedLimits.limitAddress(entry.address)
+        val address = if (SenderAddress.isUnreadable(entry.address)) SenderAddress.UNKNOWN_PLACEHOLDER else given
         val body = BlockedLimits.limitBody(
             if (entry.isMms && entry.body.isBlank()) MMS_PLACEHOLDER_BODY else entry.body,
         )
-        if (dao.findDuplicateBlocked(address, body, entry.isMms, entry.receivedAt, entry.receivedAt) != null) {
-            return false
+        val held = setOf(address, given).any {
+            dao.findDuplicateBlocked(it, body, entry.isMms, entry.receivedAt, entry.receivedAt) != null
         }
+        if (held) return false
         val pdu = entry.mediaData?.let { runCatching { Base64.decode(it, Base64.DEFAULT) }.getOrNull() }
         val file = if (entry.isMms && pdu != null) saveMedia(pdu) else null
         val media = when {

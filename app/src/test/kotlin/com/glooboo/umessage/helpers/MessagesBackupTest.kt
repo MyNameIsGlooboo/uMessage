@@ -108,6 +108,58 @@ class MessagesBackupTest {
     }
 
     @Test
+    fun groupMmsOnThePhone_isNotRestoredAgain_whenThePhoneDoesNotTellItsOwnNumber() {
+        // Run 12: the phone stored the group picture without its own number (+15550002); the restoring phone does
+        // not know that number, so the backup's recipients name a conversation of three that does not exist.
+        val store = FakeMessageStore.install()
+        val group = store.threadIdFor("+15550001", "+15550003")
+        store.addMms(
+            group, 1_000, Mms.MESSAGE_BOX_INBOX, "look", photo,
+            listOf("+15550001" to PduHeaders.FROM, "+15550002" to PduHeaders.TO, "+15550003" to PduHeaders.TO),
+        )
+        val threads = store.count("threads")
+
+        val first = writer(own = emptyList()).writeMmsMessage(mms())
+        val second = writer(own = emptyList()).writeMmsMessage(mms())
+
+        assertThat(first.outcome).isEqualTo(WriteOutcome.DUPLICATE)
+        assertThat(second.outcome).isEqualTo(WriteOutcome.DUPLICATE)
+        assertThat(store.count("pdu")).isEqualTo(1)
+        assertThat(store.count("part")).isEqualTo(2)
+        assertThat(store.rows("pdu").single()["thread_id"]).isEqualTo(group)
+        // No empty conversation of three, dated at restore time, is made for it either.
+        assertThat(store.count("threads")).isEqualTo(threads)
+    }
+
+    @Test
+    fun groupMmsRestoredWithItsOwnNumberKnown_isNotRestoredAgainWhenItIsNot() {
+        val store = FakeMessageStore.install()
+        assertThat(writer(own = listOf("+15550002")).writeMmsMessage(mms()).outcome).isEqualTo(WriteOutcome.ADDED)
+
+        val unknown = writer(own = emptyList()).writeMmsMessage(mms())
+        val another = writer(own = listOf("+15550001234")).writeMmsMessage(mms())
+
+        assertThat(unknown.outcome).isEqualTo(WriteOutcome.DUPLICATE)
+        assertThat(another.outcome).isEqualTo(WriteOutcome.DUPLICATE)
+        assertThat(store.count("pdu")).isEqualTo(1)
+    }
+
+    @Test
+    fun theSameTextAtTheSameTimeFromAnotherSender_isStillAdded() {
+        val store = FakeMessageStore.install()
+        writer().writeMmsMessage(mms())
+        val other = listOf(
+            MmsAddress("+15550001234", PduHeaders.FROM, 106),
+            MmsAddress("+15550002", PduHeaders.TO, 106),
+            MmsAddress("+15550003", PduHeaders.TO, 106),
+        )
+
+        assertThat(writer().writeMmsMessage(mms(addresses = other)).outcome).isEqualTo(WriteOutcome.ADDED)
+        assertThat(writer().writeMmsMessage(mms(addresses = other)).outcome).isEqualTo(WriteOutcome.DUPLICATE)
+        assertThat(store.count("pdu")).isEqualTo(2)
+    }
+
+    @Test
     fun oneToOneMms_staysWithTheSender() {
         val store = FakeMessageStore.install()
         val addresses = listOf(MmsAddress("+15550001", PduHeaders.FROM, 106), MmsAddress("+15559999", PduHeaders.TO, 106))
