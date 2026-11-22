@@ -19,6 +19,6 @@
     <string name="pt_restore_scheduled_arm">شغّلها</string>
     <string name="pt_restore_scheduled_discard">احذف</string>
     <string name="pt_older_spam_stuck">تعذّر نقل بعض هذه الرسائل إلى الهاتف نفسه. ستبقى هنا، ويمكنك قراءتها.</string>
-    <string name="pt_restore_scheduled_row_body">لم تُشغَّل عند الاستعادة. انقر لتشغيلها أو تجاهلها.</string>
+    <string name="pt_restore_scheduled_row_body">لم تُشغَّل عند الاستعادة. انقر لتشغيلها أو حذفها.</string>
     <string name="pt_older_spam_pictures_here">بعض هذه الرسائل موجودة على الهاتف نفسه بالفعل. صورها فقط محفوظة هنا، في uMessage.</string>
 </resources>
