@@ -273,25 +273,6 @@ internal class MmsPushDownload(
             started[location]?.let { now - it < MmsDownloadRules.DOWNLOAD_TIMEOUT_MS } == true
 
         /**
-         * mmslib 1.0.1 (PushReceiver.isDuplicateNotification) looks for an earlier row with the same transaction id.
-         * The content location (after the transaction id was appended) is checked as well, because carriers re-send
-         * the same notification-ind.
-         */
-        private fun isDuplicateNotification(context: Context, indication: NotificationInd): Boolean {
-            val transactionId = indication.transactionId?.let { String(it) }
-            val location = indication.contentLocation?.let { String(it) }
-            val (selection, args) = when {
-                transactionId != null && location != null ->
-                    "tr_id = ? OR ct_l = ?" to arrayOf(transactionId, location)
-                transactionId != null -> "tr_id = ?" to arrayOf(transactionId)
-                location != null -> "ct_l = ?" to arrayOf(location)
-                else -> return false
-            }
-            return context.contentResolver.query(Telephony.Mms.CONTENT_URI, arrayOf("_id"), selection, args, null)
-                ?.use { it.count > 0 } ?: false
-        }
-
-        /**
          * Tells the user the MMS did not download and gives the saved row a thread, so it shows in a chat. A [spam]
          * notice keeps (or gets) its chat in Spam, read and seen, and then posts nothing (E-2); if it ends in
          * Messages it is unread (E-3) and the user is told.
@@ -407,6 +388,25 @@ internal class MmsPushDownload(
         fun pendingFlags(): Int = PendingIntent.FLAG_CANCEL_CURRENT or
             (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0)
     }
+}
+
+/**
+ * mmslib 1.0.1 (PushReceiver.isDuplicateNotification) looks for an earlier row with the same transaction id.
+ * The content location (after the transaction id was appended) is checked as well, because carriers re-send
+ * the same notification-ind.
+ */
+private fun isDuplicateNotification(context: Context, indication: NotificationInd): Boolean {
+    val transactionId = indication.transactionId?.let { String(it) }
+    val location = indication.contentLocation?.let { String(it) }
+    val (selection, args) = when {
+        transactionId != null && location != null ->
+            "tr_id = ? OR ct_l = ?" to arrayOf(transactionId, location)
+        transactionId != null -> "tr_id = ?" to arrayOf(transactionId)
+        location != null -> "ct_l = ?" to arrayOf(location)
+        else -> return false
+    }
+    return context.contentResolver.query(Telephony.Mms.CONTENT_URI, arrayOf("_id"), selection, args, null)
+        ?.use { it.count > 0 } ?: false
 }
 
 /**
