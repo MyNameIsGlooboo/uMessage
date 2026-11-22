@@ -40,10 +40,7 @@ import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.HistoryCheck
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.MmsMedia
-import com.glooboo.umessage.spam.data.DefaultSpamRepository
 import com.glooboo.umessage.spam.data.ForwardDelivery
-import com.glooboo.umessage.spam.UMessage
-import com.glooboo.umessage.spam.engine.DefaultSpamFilter
 import com.glooboo.umessage.spam.engine.ForwardCandidate
 import com.glooboo.umessage.spam.engine.Judgement
 import com.glooboo.umessage.spam.engine.SpamEngine
@@ -520,17 +517,8 @@ internal class AppSenderCheck(
 
     override fun judge(): Judgement? = SpamEngine.judge(context, message, "MMS_CONTENT")
 
-    /** J3-1: as [judge] (facts first), without the decision-log row. Null when the filter failed. */
-    override fun judgeQuietly(): Judgement? = runCatching {
-        val app = context.applicationContext
-        val filter = UMessage.filter(app) as? DefaultSpamFilter
-        val repo = UMessage.repository(app) as? DefaultSpamRepository
-        if (filter == null || repo == null) {
-            null
-        } else {
-            filter.senderJudge.judge(message) { address, fact -> repo.writeSenderFact(address, fact) }
-        }
-    }.getOrNull()
+    /** J3-1: as [judge] (facts first), without the decision-log row. */
+    override fun judgeQuietly(): Judgement? = SpamEngine.judge(context, message, "MMS_CONTENT", writeLog = false)
 
     override fun historyChecked(): Boolean = HistoryCheck.onTheSpot(context, message.address, threadId)
 
