@@ -194,6 +194,31 @@ class RegexOnDeviceTest {
         assertFalse(AllowingCode.isAllowingCode("Your code is 482913 -example.com"))
     }
 
+    /** Review 9: the possessive link loop, a bracket before a hyphen, no-break spaces and the plural receivers. */
+    @Test fun reviewNinePatternsBehaveAsOnTheJvm() {
+        // R3-10: a long run of labels; the link loop keeps no state per label.
+        for (unit in listOf("a.", "a[.]", "a-1.")) {
+            val run = "OTP " + unit.repeat(5_000)
+            assertFalse(unit, OtpDetector.containsUrl(run))
+            assertTrue(unit, OtpDetector.containsUrl(run + "com"))
+            assertTrue(unit, OtpDetector.containsUrl(run + "zz/path"))
+            assertTrue(unit, bestMillis { OtpDetector.containsUrl(run + "com") } < 1_000)
+        }
+        assertTrue(OtpDetector.containsUrl("Visit a.b.example.com."))
+        assertTrue(OtpDetector.containsUrl("Visit a.b.secure-bank.help"))
+        assertFalse(OtpDetector.containsUrl("Visit a.b.help-x"))
+        // R9-3: an opening bracket before a hyphen.
+        assertTrue(OtpDetector.containsUrl("Your code is 482913 (-example.com)"))
+        // R2-10: a no-break space reads as a plain space.
+        assertTrue(AllowingCode.isAllowingCode("کد\u00A0تایید 482913"))
+        assertFalse(OtpDetector.looksLikeOtp("OTP 482913\u00A0%"))
+        // R9-1, R9-3: "teams" is no receiver; a plural code and three Persian adverbs make a request.
+        assertTrue(AllowingCode.isAllowingCode("Your OTP is 482913. Share it with our teams"))
+        assertFalse(AllowingCode.isAllowingCode("Your OTP is 482913. Share codes with our staff"))
+        assertFalse(AllowingCode.isAllowingCode("کد تایید 482913 را به کارشناس ما لطفا سریعا اعلام کنید"))
+        assertFalse(AllowingCode.isAllowingCode("Your OTP is 482913. Never mind the delay share the OTP with the agent"))
+    }
+
     /** The strict reading that allows a sender (check 10) builds its own patterns on top of the detector's. */
     @Test fun allowingCodeBehavesAsOnTheJvm() {
         assertTrue(AllowingCode.isAllowingCode("Your verification code is 482915"))

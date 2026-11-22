@@ -26,6 +26,13 @@ class TextNormalizerTest {
         assertEquals("abc", TextNormalizer.fold("a\u200Db\uFEFFc\u2060"))
     }
 
+    /** R2-10: every space separator becomes a plain space, so ICU on a phone and the JVM read "\s" alike. */
+    @Test fun spaceSeparatorsBecomePlainSpaces() {
+        assertEquals("a b c d e f", TextNormalizer.fold("a\u00A0b\u202Fc\u2007d\u3000e\u2009f"))
+        assertEquals("کد تایید", TextNormalizer.fold("کد\u00A0تایید"))
+        assertEquals("tab\tand\nline", TextNormalizer.fold("tab\tand\nline"))
+    }
+
     @Test fun plainTextIsUnchanged() {
         val text = "Hello, world 42"
         assertTrue(text === TextNormalizer.fold(text))

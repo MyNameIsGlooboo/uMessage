@@ -315,26 +315,41 @@ object OtpDetector {
      * Android's ICU regex engine rejects a bare "}" (and desktop Java does not), which broke this whole object on phones.
      */
     private const val DOT = "(?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\))"
-    private const val URL_LABEL = "[a-z0-9][a-z0-9\\-]*"
+    private const val URL_LABEL = "[a-z0-9][a-z0-9\\-]*+"
     /**
      * Not glued to a Latin letter or digit; a Persian or other non-Latin letter before a domain does not hide it. A
      * label right after a dot starts no match only when a label stands before that dot (one start per run, so matching
      * stays linear), so "[.]example.com" and "تست[.]example.com" are links (R7-5). A hyphen stops a start the same
      * way, only with something before it: "-example.com" and "-.example.com" are links, "a-b.example.com" one (R8-7).
+     * An opening bracket before the hyphen is nothing: "(-example.com)" is a link (R9-3).
      */
-    private const val URL_START = "(?<![a-z0-9\\u00C0-\\u024F@])(?<![^\\s]-)" +
+    private const val URL_START = "(?<![a-z0-9\\u00C0-\\u024F@])(?<![^\\s(\\[{]-)" +
         "(?<![a-z0-9](?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\)))" +
-        "(?<![^\\s]-(?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\)))"
+        "(?<![^\\s(\\[{]-(?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\)))"
+
+    /** The end of a domain followed by a path. */
+    private const val URL_TAIL_PATH = "$URL_LABEL$DOT[a-z]{2,}/"
+
+    /** The end of a domain whose last label has letters and a hyphen or digit. */
+    private const val URL_TAIL_ANY = "(?=[a-z0-9\\-]*[a-z])(?=[a-z0-9\\-]*[\\-0-9])" +
+        "$URL_LABEL$DOT[a-z]{2,24}(?![\\p{L}\\p{N}\\-])"
+    private val urlTailTld = "$URL_LABEL$DOT(?:${tlds.joinToString("|")})(?![\\p{L}\\p{N}\\-])"
+
+    /**
+     * The labels before the end [tail] of a domain: a possessive loop of atomic steps that stops at the first label
+     * where [tail] matches. The greedy loop it replaces overflowed the JVM stack on "OTP " + "a." x 900 (R3-10); this
+     * one finds the same domains, needs no JVM stack per label and about half the ICU stack of the old loop.
+     */
+    private fun urlLabels(tail: String) = "$URL_START(?:(?>(?!$tail)$URL_LABEL$DOT))*+$tail"
 
     private val url = Regex(
         "h[xt]{2}ps?://|www$DOT" +
             // Any domain followed by a path.
-            "|$URL_START$URL_LABEL(?:$DOT$URL_LABEL)*$DOT[a-z]{2,}/" +
+            "|${urlLabels(URL_TAIL_PATH)}" +
             // A bare domain with a common top-level domain.
-            "|$URL_START$URL_LABEL(?:$DOT$URL_LABEL)*$DOT(?:${tlds.joinToString("|")})(?![\\p{L}\\p{N}\\-])" +
+            "|${urlLabels(urlTailTld)}" +
             // A last label with letters and a hyphen or digit, with any top-level domain ("secure-bank.help").
-            "|$URL_START(?:$URL_LABEL$DOT)*(?=[a-z0-9\\-]*[a-z])(?=[a-z0-9\\-]*[\\-0-9])" +
-            "$URL_LABEL$DOT[a-z]{2,24}(?![\\p{L}\\p{N}\\-])" +
+            "|${urlLabels(URL_TAIL_ANY)}" +
             // An IP address with a path or a port.
             "|(?<![\\p{N}.])\\d{1,3}(?:\\.\\d{1,3}){3}[/:]",
         RegexOption.IGNORE_CASE,

@@ -282,32 +282,34 @@ object AllowingCode {
     /**
      * R7-3, R8-3: also "nobody", "under no circumstance", "neither", "anyone who asks", "fraudsters ... ask", "beware
      * of", "unsafe to", and a longer clause after "never". R8-4: "not", "nor", "never" end at a word edge ("note").
+     * R9-3: "never mind" is no warning.
      */
     private const val WARNING_EN = "(?:$NEGATION_COMMA(?:,$CLAUSE{0,30},|,)|" +
         "(?<![\\p{L}])(?:$NOT_IF(?:not|dont)(?![\\p{L}])$NOT_URGE|nobody|under no circumstance|at no time|neither|" +
         "nor(?![\\p{L}])|(?:anyone|someone)(?: who| that)? ask|(?:fraudsters?|scammers?)(?: \\p{L}{1,10}){0,2} ask|" +
         "beware of|unsafe to)|(?<!$IF_CLAUSE\\p{L}{1,6})n't$NOT_URGE)$CLAUSE{0,32}|" +
-        "(?<![\\p{L}])(?:never|no one)(?![\\p{L}])$CLAUSE{0,60}"
+        "(?<![\\p{L}])(?:never(?! mind(?![\\p{L}]))|no one)(?![\\p{L}])$CLAUSE{0,60}"
     private const val WARNING_FA = "(?<![\\p{L}])(?:هرگز|هیچ ?وقت|هیچ ?کس|هیچ ?گاه|هیچ ?وجه|هیچ ?عنوان|هیچ ?یک|" +
         "نباید|نمی\\s?خواه\\p{L}{0,4}|نخواه\\p{L}{0,6}|نمی\\s?کن\\p{L}{0,3}|کلاهبردار(?:ان|\\s?ها))$CLAUSE_FA{0,40}"
     private const val ASK_VERB = "(?:share|give|tell|read|send|provide|forward|confirm)"
-    private const val ASK_CODE = "(?: otp| code| verification code| pin)"
+    private const val ASK_CODE = "(?: otps?| codes?| verification codes?| pins?)"
     private const val ASK_EN = "$ASK_VERB(?: it| this| the| your)?$ASK_CODE? (?:with|to) (?:the |our |your )?"
 
     /**
      * R7-8: support, a team or staff are a receiver only when the code is named and they are not the reader's own
      * ("share it with our support team"; not "forward to our support team" or "Share it with your team"). The article
-     * before the code is optional ("Share OTP with our support team", R8-1).
+     * before the code is optional ("Share OTP with our support team", R8-1). No plural: "Share it with our teams" and
+     * "Send it to Teams" are no request (R9-1); a plural code is one ("Share codes with our staff", R9-3).
      */
     private const val ASK_EN_NAMED =
         "$ASK_VERB(?: it| this$ASK_CODE?|(?: the| your)?$ASK_CODE) (?:with|to) (?:the |our )?"
 
     /**
      * R7-2, R8-5: only a word of the receiver, who is calling or an adverb may stand between it and the verb ("به
-     * کارشناس ما اعلام کنید", "به اپراتور حتما بگویید").
+     * کارشناس ما اعلام کنید", "به اپراتور حتما بگویید"), up to three of them ("ما لطفا سریعا", R9-3).
      */
     private const val ASK_FA_VERB = "(?:(?:ما|مان|خود|شما|بانک|شرکت|تلفنی|مربوطه|محترم|پشتیبانی|" +
-        "سریعا|فورا|حتما|لطفا|تماس گیرنده|پشت خط)\\s?){0,2}" +
+        "سریعا|فورا|حتما|لطفا|تماس گیرنده|پشت خط)\\s?){0,3}" +
         "(?:اعلام کنید|اعلام نمایید|بگویید|بدهید|بفرستید|ارسال کنید|ارائه دهید|ارائه کنید|بخوانید)"
 
     /** How far before a request a warning is looked for: longer than the longest warning above. */
@@ -322,7 +324,7 @@ object AllowingCode {
             "(?:به|برای)\\s?(?:کارشناس|اپراتور|نماینده|پشتیبان|پشتیبانی|همکار|همکاران|" +
             "مامور(?!\\s?(?:تحویل|پست)))(?:ان|\\s?ها(?:ی)?)?(?:\\s|$)$ASK_FA_VERB|" +
             "$ASK_EN(?:(?:agent|caller|representative|executive|officer)s?|customer care)|" +
-            "$ASK_EN_NAMED(?:staff|support team|support|team)s?|" +
+            "$ASK_EN_NAMED(?:staff|support team|support|team)|" +
             "tell (?:the |our |your )agent|reply with the (?:verification code|code|otp)" +
             ")(?![\\p{L}\\p{N}])",
         RegexOption.IGNORE_CASE,

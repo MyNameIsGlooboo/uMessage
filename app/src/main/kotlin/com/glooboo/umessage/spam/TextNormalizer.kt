@@ -8,6 +8,8 @@ package com.glooboo.umessage.spam
  * - the hamza forms of alef (أ إ آ ٱ → ا), waw with hamza (ؤ → و) and teh marbuta (ة → ه) are folded too, so a
  *   rule typed "اعلان" also matches "إعلان" (the search fold is built from the same table);
  * - curly single quotes (’ ‘) become the straight apostrophe, so "don’t share" reads as "don't share";
+ * - every space separator (no-break, narrow, figure, ideographic, ...) becomes a plain space, so a pattern reads
+ *   it the same in Android's ICU and in desktop Java;
  * - every Unicode decimal digit (Persian ۱۲۳, Arabic-Indic ١٢٣, ...) becomes the ASCII digit;
  * - zero-width characters (ZWNJ, ZWJ, ZWSP, word joiner, BOM, soft hyphen), the kashida (ـ) and Arabic
  *   diacritics (harakat, superscript alef) are dropped.
@@ -22,6 +24,10 @@ package com.glooboo.umessage.spam
  */
 object TextNormalizer {
 
+    /** The Unicode space separators (category Zs) other than the plain space. */
+    private const val SPACES = "\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A" +
+        "\u202F\u205F\u3000"
+
     /** Characters that [fold] replaces with another character. */
     val REPLACEMENTS: Map<Char, Char> = buildMap {
         put('\u064A', '\u06CC') // ي Arabic yeh -> ی
@@ -35,6 +41,9 @@ object TextNormalizer {
         put('\u0629', '\u0647') // ة teh marbuta -> ه
         put('\u2019', '\'') // ’ right single quotation mark (the curly apostrophe of "don’t") -> '
         put('\u2018', '\'') // ‘ left single quotation mark -> '
+        // R2-10: every other space separator (no-break U+00A0, figure U+2007, narrow no-break U+202F, ideographic
+        // U+3000, ...) becomes a plain space. Android's ICU reads them as "\s" and desktop Java does not.
+        for (c in SPACES) put(c, ' ')
         for (i in 0..9) {
             put('\u06F0' + i, '0' + i) // Persian digits
             put('\u0660' + i, '0' + i) // Arabic-Indic digits
