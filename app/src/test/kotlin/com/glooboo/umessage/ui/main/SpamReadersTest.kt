@@ -30,6 +30,7 @@ import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.lock.LockScope
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.fossify.commons.extensions.appLockManager
@@ -65,6 +66,8 @@ class SpamReadersTest {
 
     @After
     fun tearDown() {
+        models.clear()
+        ProcessReturn.leave()
         app.baseConfig.isAppPasswordProtectionOn = false
         LockScope.set(app, LockScope.WholeApp)
         HiddenChats.get(app).unhide(SPAM)
@@ -99,7 +102,17 @@ class SpamReadersTest {
         app.conversationsDB.insertSpamThread(SpamThread(SPAM, number(SPAM), SpamCause.UNKNOWN, spamSince = 1L))
     }
 
-    private fun search() = MainSearchViewModel(app, SavedStateHandle())
+    /** J4-5: holds the models, so their return watches are taken off the process lifecycle after each test. */
+    private val models = ViewModelStore()
+    private var made = 0
+
+    private val factory = object : ViewModelProvider.Factory {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T = MainSearchViewModel(app, SavedStateHandle()) as T
+    }
+
+    /** A new search model, cleared after the test. */
+    private fun search() = ViewModelProvider(models, factory)["search-${made++}", MainSearchViewModel::class.java]
 
     private fun lockSpam() {
         app.baseConfig.isAppPasswordProtectionOn = true
@@ -300,27 +313,126 @@ class SpamReadersTest {
     @Test
     fun theAppReturnWatchOfTheModelHidesTheSpamSection() {
         // H-21: the model's watch is on the process lifecycle; a real return to the front runs onAppReturned.
-        val store = ViewModelStore()
-        val factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                MainSearchViewModel(app, SavedStateHandle()) as T
-        }
-        try {
-            val search = ViewModelProvider(store, factory)[MainSearchViewModel::class.java]
-            showSpamHits(search)
-            ProcessReturn.comeBack()
-            assertThat(search.state.blockedHits).isNotEmpty()
+        val search = search()
+        showSpamHits(search)
+        ProcessReturn.leave()
+        ProcessReturn.comeBack()
+        assertThat(search.state.blockedHits).isNotEmpty()
 
-            lockSpam()
-            ProcessReturn.comeBack()
+        ProcessReturn.leave()
+        lockSpam()
+        // Going to the background alone hides nothing; the return does.
+        assertThat(search.state.blockedHits).isNotEmpty()
+        ProcessReturn.comeBack()
 
-            assertThat(search.state.blockedHits).isEmpty()
-            assertThat(search.state.spamTargets).isEmpty()
-        } finally {
-            store.clear()
-            idleMain()
+        assertThat(search.state.blockedHits).isEmpty()
+        assertThat(search.state.spamTargets).isEmpty()
+    }
+
+    /** The first Spam search of [search] waits for [gate] and finds nothing; the next ones search for real. */
+    private fun gatedSpamSearch(search: MainSearchViewModel, gate: CompletableDeferred<Unit>): MutableList<String> {
+        val asked = mutableListOf<String>()
+        search.runSpamSearch = { text ->
+            asked += text
+            if (asked.size == 1) {
+                gate.await()
+                emptyList()
+            } else {
+                search.searchSpamChats(text)
+            }
         }
+        return asked
+    }
+
+    private fun typeAndWait(search: MainSearchViewModel, text: String) {
+        search.onQueryChange(text)
+        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(SEARCH_DEBOUNCE_MS))
+    }
+
+    @Test
+    fun anUnlockWhileASearchRunsSearchesSpamOnceMoreAsItEnds() {
+        // J4-2: the page saw Spam open while the search ran, after that search had read the lock.
+        val search = search()
+        val gate = CompletableDeferred<Unit>()
+        val asked = gatedSpamSearch(search, gate)
+        search.state.spamHidden = true
+        typeAndWait(search, "pizza")
+        awaitUntil { asked.size == 1 }
+
+        search.state.spamUnlocked()
+        gate.complete(Unit)
+        awaitUntil { search.state.blockedHits.isNotEmpty() }
+
+        assertThat(asked).containsExactly("pizza", "pizza")
+        assertThat(search.state.spamTargets.values.map { it.threadId }).containsExactly(SPAM)
+    }
+
+    @Test
+    fun spamOpenedWhileASearchRanIsSearchedOnceMore() {
+        // J4-2: the lock was read as the search started (locked) and is open as it ends.
+        lockSpam()
+        val search = search()
+        val gate = CompletableDeferred<Unit>()
+        val asked = gatedSpamSearch(search, gate)
+        typeAndWait(search, "pizza")
+        awaitUntil { asked.size == 1 }
+
+        app.appLockManager.unlock()
+        gate.complete(Unit)
+        awaitUntil { search.state.blockedHits.isNotEmpty() }
+
+        assertThat(asked).hasSize(2)
+        assertThat(search.state.spamHidden).isFalse()
+    }
+
+    @Test
+    fun typingDuringTheSpamSearchAgainCancelsItAndTheNewQueryWins() {
+        val search = search()
+        showSpamHits(search)
+        search.state.hideSpamHits()
+        val gate = CompletableDeferred<Unit>()
+        val asked = gatedSpamSearch(search, gate)
+        search.state.spamUnlocked()
+        idleMain()
+        assertThat(asked).containsExactly("pizza")
+
+        typeAndWait(search, "nine")
+        awaitUntil { search.state.blockedHits.isNotEmpty() }
+        gate.complete(Unit)
+        idleMain()
+
+        assertThat(asked).containsExactly("pizza", "nine").inOrder()
+        assertThat(search.state.blockedHits.single().snippet).contains("nine")
+    }
+
+    @Test
+    fun aShortQueryAndClosingForgetTheLeftOutSpamSection() {
+        val search = search()
+        search.state.hideSpamHits()
+        search.onQueryChange("p")
+        assertThat(search.state.spamHidden).isFalse()
+
+        search.state.hideSpamHits()
+        search.state.close()
+        assertThat(search.state.spamHidden).isFalse()
+    }
+
+    @Test
+    fun withTheFlagOffAnUnlockSearchesNothing() {
+        ProviderTruthFlag.enabled = false
+        val search = search()
+        var calls = 0
+        search.runSpamSearch = {
+            calls++
+            emptyList()
+        }
+        search.state.query = "pizza"
+        search.state.hideSpamHits()
+
+        search.state.spamUnlocked()
+        idleMain()
+
+        assertThat(calls).isEqualTo(0)
     }
 
     @Test

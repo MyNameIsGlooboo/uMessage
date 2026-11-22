@@ -34,7 +34,9 @@ object DigestNotifier {
 
     /**
      * H-20: an MMS is dated by its own date, and its download can come long after it (no data, roaming) and only
-     * then put its chat in Spam; so an MMS counts when it is dated up to this long before its chat entered Spam.
+     * then put its chat in Spam. So the newest MMS of a chat dated before its chat entered Spam (J4-4: the only one
+     * whose download can have done that) counts when it is dated up to this long before, plus
+     * [WeeklyDigest.ARRIVAL_GRACE_MS]: 24 h 10 min in all. Spam MMS are stored read, so the read flag cannot tell.
      */
     internal const val MMS_DOWNLOAD_GRACE_MS = 24L * 60 * 60 * 1000
 
@@ -102,9 +104,9 @@ object DigestNotifier {
             .map { WeeklyDigest.SpamText(it.sender, it.body, it.date * MILLIS, sinceFor(it)) }
     }
 
-    /** When [row] counts from: its chat's spam_since, for an MMS moved back by [MMS_DOWNLOAD_GRACE_MS] (H-20). */
+    /** When [row] counts from: its chat's spam_since, for a late MMS moved back by [MMS_DOWNLOAD_GRACE_MS] (H-20). */
     private fun sinceFor(row: SpamDigestRow): Long =
-        if (row.isMms) (row.spamSince - MMS_DOWNLOAD_GRACE_MS).coerceAtLeast(0L) else row.spamSince
+        if (row.lateMms) (row.spamSince - MMS_DOWNLOAD_GRACE_MS).coerceAtLeast(0L) else row.spamSince
 
     fun show(context: Context, digest: WeeklyDigest) {
         val manager = context.getSystemService(NotificationManager::class.java) ?: return

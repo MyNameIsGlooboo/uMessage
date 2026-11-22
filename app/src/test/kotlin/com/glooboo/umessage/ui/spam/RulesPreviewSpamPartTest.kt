@@ -2,6 +2,9 @@ package com.glooboo.umessage.ui.spam
 
 import android.app.Application
 import android.os.Looper
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.helpers.ProviderTruthFlag
@@ -39,6 +42,9 @@ class RulesPreviewSpamPartTest {
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
     private lateinit var vm: RulesViewModel
 
+    /** J4-5: holds the models, so their return watches are taken off the process lifecycle after each test. */
+    private val models = ViewModelStore()
+
     /** One Spam-chat text and nothing in the inbox. */
     private object Source : RulePreviewSource {
         override fun matcher() = RuleMatcher(NumberNormalizer { "US" })
@@ -68,11 +74,18 @@ class RulesPreviewSpamPartTest {
         Source.visible = true
         Source.lockDuringScan = false
         scope.cancel()
+        models.clear()
+        ProcessReturn.leave()
     }
 
     private fun previewOf(pattern: String): RuleDryRunResult {
         val repo = FakeSpamRepository(initialBlocked = listOf(held(1), held(2)), initialRules = emptyList())
-        vm = RulesViewModel(app, repo, previewSource = Source)
+        val factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T =
+                RulesViewModel(app, repo, previewSource = Source) as T
+        }
+        vm = ViewModelProvider(models, factory)[RulesViewModel::class.java]
         scope.launch { vm.state.collect { } }
         awaitUntil { !vm.state.value.loading }
         vm.selectTab(ListKind.BLOCK)
@@ -135,6 +148,9 @@ class RulesPreviewSpamPartTest {
         assertThat(previewOf("prize").blocked.senders).isNotEmpty()
 
         Source.visible = false
+        ProcessReturn.leave()
+        // Going to the background alone drops nothing; the return does.
+        assertThat((vm.state.value.preview as RulePreviewState.Done).result.blocked.senders).isNotEmpty()
         ProcessReturn.comeBack()
         awaitUntil { (vm.state.value.preview as? RulePreviewState.Done)?.result?.blocked?.senders?.isEmpty() == true }
 

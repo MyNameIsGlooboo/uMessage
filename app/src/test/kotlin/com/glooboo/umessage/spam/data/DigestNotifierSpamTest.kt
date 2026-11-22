@@ -163,18 +163,36 @@ class DigestNotifierSpamTest {
         assertThat(WeeklyDigest.computeTexts(texts, now).held).isEqualTo(2)
     }
 
+    private fun heldWith(vararg extra: Message): Int {
+        offMainThread { extra.forEach { context.messagesDB.insertOrUpdate(it) } }
+        val texts = offMainThread { DigestNotifier.spamTexts(context, now) }
+        return WeeklyDigest.computeTexts(texts, now).held
+    }
+
+    private fun mms(id: Long, at: Long) = text(id, at).copy(isMMS = true)
+
     @Test
     fun anMmsDownloadedLongAfterItsDateCounts() {
-        // H-20: dated by its own date, downloaded hours later, and that download put the chat in Spam. One dated
-        // more than a day before the chat went to Spam was there before and does not count.
-        offMainThread {
-            context.messagesDB.insertOrUpdate(text(6, since - 3 * 60 * 60_000L).copy(isMMS = true))
-            context.messagesDB.insertOrUpdate(text(7, since - 2 * DAY_MS).copy(isMMS = true))
-        }
+        // H-20: dated by its own date, downloaded hours later, and that download put the chat in Spam. It is stored
+        // read, as every Spam MMS is.
+        assertThat(heldWith(mms(6, since - 3 * HOUR_MS))).isEqualTo(3)
+    }
 
-        val texts = offMainThread { DigestNotifier.spamTexts(context, now) }
+    @Test
+    fun anSmsFromBeforeTheChatWentToSpamDoesNotCount() {
+        assertThat(heldWith(text(6, since - 3 * HOUR_MS))).isEqualTo(2)
+    }
 
-        assertThat(WeeklyDigest.computeTexts(texts, now).held).isEqualTo(3)
+    @Test
+    fun anMmsDatedMoreThanTheGraceBeforeDoesNotCount() {
+        // 24 h plus the 10 min arrival grace; 25 h is outside.
+        assertThat(heldWith(mms(6, since - 25 * HOUR_MS))).isEqualTo(2)
+    }
+
+    @Test
+    fun onlyTheNewestMmsBeforeTheChatWentToSpamGetsTheGrace() {
+        // J4-4: only the newest can have put the chat in Spam; an older one the user saw in Messages does not count.
+        assertThat(heldWith(mms(6, since - 5 * HOUR_MS), mms(7, since - 3 * HOUR_MS))).isEqualTo(3)
     }
 
     @Test
@@ -193,5 +211,6 @@ class DigestNotifierSpamTest {
         const val SPAM = 71L
         const val SENDER = "+15550001234"
         const val DAY_MS = 24L * 60 * 60 * 1000
+        const val HOUR_MS = 60L * 60 * 1000
     }
 }
