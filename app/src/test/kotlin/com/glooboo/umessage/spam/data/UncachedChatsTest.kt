@@ -28,7 +28,7 @@ import java.util.Collections
 class UncachedChatsTest : ProviderTruthSmsFixture() {
 
     private val refreshed: MutableList<Long?> = Collections.synchronizedList(mutableListOf())
-    private val events = ConversationRefreshEvents(onRefresh = { refreshed += it })
+    private val events = ConversationRefreshEvents(onRefresh = { threadId, _ -> refreshed += threadId })
 
     @Before
     fun registerEvents() {

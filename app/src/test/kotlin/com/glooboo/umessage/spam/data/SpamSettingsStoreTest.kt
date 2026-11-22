@@ -20,6 +20,8 @@ class SpamSettingsStoreTest {
     @Test
     fun defaultsThenUpdate() = runTest {
         assertThat(store.get()).isEqualTo(SpamSettings())
+        // S5: auto-delete reads "keep forever" until the one-time step ran.
+        store.applyProviderTruthMapping()
 
         store.update { it.copy(mode = UnknownSenderMode.STRICT, purgeAfterDays = 7) }
 

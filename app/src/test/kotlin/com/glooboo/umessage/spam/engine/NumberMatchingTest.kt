@@ -6,7 +6,6 @@ import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
-import com.glooboo.umessage.spam.UnknownSenderMode
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -170,12 +169,13 @@ class NumberMatchingTest {
 
     // --- through the filter -----------------------------------------------------------------------
 
+    /** The filter switch is off, so only the rule can block; the SIM's country is read first, then [default]. */
     private fun filter(rule: SpamRule, default: String = "US", sim: String? = "GB") = DefaultSpamFilter(
         { listOf(rule) },
-        { SpamSettings(mode = UnknownSenderMode.OFF) },
+        { SpamSettings(filterOn = false) },
         NoContacts,
         NumberNormalizer { default },
-        regionForSubscription = { sim },
+        simRegions = { listOfNotNull(sim) },
     )
 
     private object NoContacts : ContactChecker {

@@ -9,7 +9,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
-import com.glooboo.umessage.spam.MMS_PLACEHOLDER_BODY
 import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.data.AndroidSpamPlatform
@@ -27,15 +26,11 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.shadow.api.Shadow
-import org.robolectric.shadows.ShadowSmsManager
-import java.io.ByteArrayOutputStream
 import java.io.File
 
 /**
- * SE-29: a blocked MMS is kept (downloaded into app-private storage, never into the inbox) so Not spam can restore
- * it with its pictures, on both blocking paths: the push gate (sender blocked before download) and the content filter
- * (blocked after mmslib downloaded it).
+ * SE-29: a held MMS is kept (downloaded into app-private storage, never into the inbox) so Not spam can restore it
+ * with its pictures. Provider truth puts no new MMS there; these cover late results of downloads started before.
  */
 @RunWith(AndroidJUnit4::class)
 class BlockedMmsReceiveTest {
@@ -60,19 +55,6 @@ class BlockedMmsReceiveTest {
     }
 
     private fun rows(): List<BlockedMessage> = db.spamDao().getAllBlocked().map { it.toModel() }
-
-    @Test
-    fun aSenderBlockedAtThePushIsDownloadedIntoPrivateStorageNotTheInbox() {
-        MmsPushReceiver().process(app, pushIntent(notificationInd("+15551234567", "T-push-1")))
-
-        val row = rows().single()
-        assertThat(row.media).isEqualTo(MmsMedia.DOWNLOADING)
-        assertThat(row.body).isEqualTo(MMS_PLACEHOLDER_BODY)
-        val shadow = Shadow.extract<ShadowSmsManager>(com.klinker.android.send_message.SmsManagerFactory.createSmsManager(1))
-        val download = shadow.lastDownloadedMultimediaMessageParams
-        assertThat(download.locationUrl).isEqualTo(LOCATION)
-        assertThat(download.contentUri.authority).isEqualTo("${app.packageName}.MmsFileProvider")
-    }
 
     @Test
     fun aFinishedDownloadKeepsThePicturesAndTheText() {
@@ -123,47 +105,6 @@ class BlockedMmsReceiveTest {
         assertThat(rows().single().media).isEqualTo(MmsMedia.MISSING)
     }
 
-    /** Content filter path: mmslib downloaded it, the text is blocked, and the PDU is kept instead of dropped. */
-    @Test
-    fun anMmsBlockedForItsContentIsKeptWithItsPictures() {
-        val libraryFile = File(app.cacheDir, "download.123.dat")
-            .apply { writeBytes(MmsPduFixtures.retrieveConf(app, "WIN A PRIZE", MmsPduFixtures.png())) }
-        val handler = MmsDownloadHandler().apply { pduPath = libraryFile.path }
-
-        handler.isAddressBlocked(app, "+15551234567/TYPE=PLMN")
-        assertThat(handler.isContentBlocked(app, "WIN A PRIZE")).isTrue()
-
-        val row = rows().single()
-        assertThat(row.media).isEqualTo(MmsMedia.STORED)
-        assertThat(row.body).isEqualTo("WIN A PRIZE")
-        assertThat(row.hasStoredMedia).isTrue()
-        assertThat(libraryFile.exists()).isFalse()
-    }
-
-    @Test
-    fun anMmsBlockedForItsContentWithoutAFileStillLandsInBlocked() {
-        val handler = MmsDownloadHandler().apply { pduPath = File(app.cacheDir, "missing.dat").path }
-        handler.isAddressBlocked(app, "+15551234567")
-        assertThat(handler.isContentBlocked(app, "spam text")).isTrue()
-        val row = rows().single()
-        assertThat(row.media).isEqualTo(MmsMedia.MISSING)
-        assertThat(row.body).isEqualTo("spam text")
-    }
-
-    @Test
-    fun autoPurgeDeletesTheKeptPictures() {
-        val id = storeDownloading(receivedAt = 1_000L)
-        val file = downloadFile(id, MmsPduFixtures.retrieveConf(app, "old", MmsPduFixtures.png()))
-        BlockedMmsDownloadReceiver.handle(app, resultIntent(id, file), Activity.RESULT_OK)
-        val name = rows().single().mediaFile!!
-
-        runBlocking { repo.purgeExpired() }
-
-        assertThat(rows()).isEmpty()
-        assertThat(BlockedMmsStore.pduFile(app, name)!!.exists()).isFalse()
-        assertThat(BlockedMmsStore.thumbnailFile(app, name)!!.exists()).isFalse()
-    }
-
     /** A downgrade backup may still name kept files the live database does not: the sweep leaves them alone. */
     @Test
     fun sweepKeepsFilesWhileADowngradeBackupWaitsToBeMerged() {
@@ -198,29 +139,4 @@ class BlockedMmsReceiveTest {
         .putExtra(BlockedMmsDownloader.EXTRA_BLOCKED_ID, id)
         .putExtra(BlockedMmsDownloader.EXTRA_FILE, file.path)
 
-    private fun pushIntent(data: ByteArray) = Intent("android.provider.Telephony.WAP_PUSH_DELIVER")
-        .putExtra("data", data)
-        .putExtra("subscription", 1)
-
-    private fun notificationInd(from: String, transactionId: String): ByteArray {
-        val o = ByteArrayOutputStream()
-        fun bytes(vararg b: Int) = b.forEach { o.write(it) }
-        fun text(s: String) {
-            o.write(s.toByteArray(Charsets.ISO_8859_1)); o.write(0)
-        }
-        bytes(0x8C, 0x82)
-        bytes(0x98); text(transactionId)
-        bytes(0x8D, 0x90)
-        val enc = from.toByteArray(Charsets.ISO_8859_1)
-        bytes(0x89, enc.size + 2, 0x80); o.write(enc); o.write(0)
-        bytes(0x8A, 0x80)
-        bytes(0x8E, 0x02, 0x04, 0x00)
-        bytes(0x88, 0x04, 0x81, 0x02, 0xFF, 0xFF)
-        bytes(0x83); text(LOCATION)
-        return o.toByteArray()
-    }
-
-    private companion object {
-        const val LOCATION = "http://mmsc.example.com/msg/abc"
-    }
 }

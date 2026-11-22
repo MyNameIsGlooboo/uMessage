@@ -264,17 +264,6 @@ class DefaultSpamRepositoryTest {
         assertTrue(dao.getAllBlocked().isEmpty())
     }
 
-    @Test fun autoPurgeDeletesKeptPicturesAndSweepsLeftovers() = runTest {
-        val old = repo.storeBlocked(keptMms(receivedAt = 1_000L))
-        val recent = repo.storeBlocked(keptMms(file = OTHER_FILE, receivedAt = System.currentTimeMillis()))
-        repo.purgeExpired()
-
-        assertEquals(null, dao.getBlocked(old))
-        assertEquals(listOf(FILE), platform.deletedMedia)
-        assertEquals(setOf(OTHER_FILE), platform.sweptKeeping)
-        assertEquals(OTHER_FILE, dao.getBlocked(recent)!!.mediaFile)
-    }
-
     @Test fun theSameMmsTwiceKeepsOnlyTheFirstCopysPictures() = runTest {
         val first = repo.storeBlocked(keptMms())
         val second = repo.storeBlocked(keptMms(file = OTHER_FILE, receivedAt = 1_000_500L))

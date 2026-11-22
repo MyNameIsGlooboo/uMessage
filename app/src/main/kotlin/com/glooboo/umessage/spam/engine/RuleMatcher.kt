@@ -1,6 +1,5 @@
 package com.glooboo.umessage.spam.engine
 
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.KeywordMatch
 import com.glooboo.umessage.spam.ListKind
@@ -23,8 +22,8 @@ class RuleMatcher(
     /** The guarded regex search; replaced in tests. */
     private val search: (Pattern, String) -> RegexGuard.Outcome = RegexGuard::search,
     /**
-     * R6, S8: the countries of every SIM. With [ProviderTruthFlag] on, numbers are read with this one list
-     * ([NumberReaders]) whatever SIM a text arrived on; null keeps the 0.4.14 reading (the receiving SIM first).
+     * R6, S8: the countries of every SIM. Numbers are read with this one list ([NumberReaders]) whatever SIM a text
+     * arrived on; null keeps the 0.4.14 reading (the receiving SIM first).
      */
     private val simRegions: (() -> List<String>)? = null,
 ) {
@@ -36,7 +35,7 @@ class RuleMatcher(
 
     /** The receiving SIM's region first, then the default region, so rules match in either reading. */
     fun numberReaders(subscriptionId: Int): List<NumberNormalizer> {
-        if (ProviderTruthFlag.enabled) simRegions?.let { return NumberReaders(normalizer, it).readers() }
+        simRegions?.let { return NumberReaders(normalizer, it).readers() }
         val region = runCatching { regionForSubscription(subscriptionId) }.getOrNull()?.trim()?.uppercase()
         if (region.isNullOrEmpty()) return listOf(normalizer)
         return listOf(normalizer.withRegion(region), normalizer)

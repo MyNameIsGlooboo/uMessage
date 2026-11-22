@@ -1,7 +1,6 @@
 package com.glooboo.umessage.spam
 
 import android.content.Context
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.main.FirstRunPassKind
 import com.glooboo.umessage.ui.main.FirstRunProgress
 import com.glooboo.umessage.ui.main.FirstRunProgressSource
@@ -113,8 +112,7 @@ class FirstRunProgressAdapter(
 
     /** G-B4: no pass ran yet, but the first one starts at the sorting thread's next check (FirstRun.checkNow). */
     private fun firstPassDue(first: FirstRunState): Boolean =
-        ProviderTruthFlag.enabled && first.phase == FirstRunPhase.NOT_STARTED &&
-            runCatching { onboarded() }.getOrDefault(false)
+        first.phase == FirstRunPhase.NOT_STARTED && runCatching { onboarded() }.getOrDefault(false)
 
     private fun kindOf(trigger: FirstRunTrigger?): FirstRunPassKind = when (trigger) {
         FirstRunTrigger.UPDATE -> FirstRunPassKind.UPDATE

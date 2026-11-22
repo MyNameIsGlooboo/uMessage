@@ -11,7 +11,6 @@ import androidx.core.content.IntentCompat
 import com.bumptech.glide.Glide
 import com.klinker.android.send_message.MmsReceivedReceiver
 import org.fossify.commons.extensions.getMyContactsCursor
-import org.fossify.commons.extensions.showErrorToast
 import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.getMMS
@@ -24,12 +23,9 @@ import com.glooboo.umessage.extensions.showReceivedMessageNotification
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.helpers.NotifyContext
 import com.glooboo.umessage.helpers.OtpCodeExtractor
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
-import com.glooboo.umessage.helpers.showMmsDownloadFailedNotification
 import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.messaging.MmsDownloadFailure
-import com.glooboo.umessage.messaging.MmsDownloadTracker
 import com.glooboo.umessage.messaging.noticeSavedAt
 import com.glooboo.umessage.messaging.storedMmsFor
 import com.glooboo.umessage.models.Message
@@ -37,14 +33,12 @@ import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.HistoryCheck
 import com.glooboo.umessage.spam.IncomingMessage
-import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.data.ForwardDelivery
 import com.glooboo.umessage.spam.engine.ForwardCandidate
 import com.glooboo.umessage.spam.engine.Judgement
 import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.spam.engine.UnknownNotifyPolicy
 import com.glooboo.umessage.spam.mms.AndroidMmsSpamStore
-import com.glooboo.umessage.spam.mms.BlockedMmsStore
 import com.glooboo.umessage.spam.mms.IncomingMms
 import com.glooboo.umessage.spam.mms.MmsDecisions
 import com.glooboo.umessage.spam.mms.MmsPlace
@@ -53,7 +47,6 @@ import com.glooboo.umessage.spam.mms.NoticeMark
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.data.SpamSettingsStore
 import com.glooboo.umessage.spam.data.UncachedChats
-import java.io.File
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
@@ -80,15 +73,12 @@ class MmsReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val pending = goAsync()
-        if (ProviderTruthFlag.enabled && MmsDownloadFailure.isFailed(intent)) {
+        if (MmsDownloadFailure.isFailed(intent)) {
             keepFailedNotice(context.applicationContext, intent, pending)
             return
         }
         val handler = MmsDownloadHandler()
-        handler.pduPath = intent.getStringExtra(MmsReceivedReceiver.EXTRA_FILE_PATH)
-        if (ProviderTruthFlag.enabled) {
-            handler.noticeUri = IntentCompat.getParcelableExtra(intent, MmsReceivedReceiver.EXTRA_URI, Uri::class.java)
-        }
+        handler.noticeUri = IntentCompat.getParcelableExtra(intent, MmsReceivedReceiver.EXTRA_URI, Uri::class.java)
         try {
             handler.onReceive(context, intent)
         } catch (t: Throwable) {
@@ -102,7 +92,7 @@ class MmsReceiver : BroadcastReceiver() {
                     val ended = handler.worker.await(LIBRARY_WORK_TIMEOUT_MS)
                     if (!ended) {
                         Log.w(TAG, "Downloaded MMS still being handled after $LIBRARY_WORK_TIMEOUT_MS ms")
-                    } else if (ProviderTruthFlag.enabled && !handler.stored) {
+                    } else if (!handler.stored) {
                         afterUnreported(context.applicationContext, intent, handler)
                     }
                 } catch (t: Throwable) {
@@ -193,9 +183,6 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
 
     val worker = WorkerThreadTracker()
 
-    /** The downloaded PDU mmslib is handling (its cache file), so a blocked MMS can be kept for "Not spam". */
-    @Volatile var pduPath: String? = null
-
     /** Provider truth: the notice row this download belongs to (the library deletes it once the MMS is stored). */
     @Volatile var noticeUri: Uri? = null
 
@@ -216,9 +203,6 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
 
     private val pendingAddress = ThreadLocal<String>()
 
-    /** Why the filter let this MMS in; read by [onMessageReceived], which runs on the same worker thread. */
-    @Volatile private var allowReason: DecisionReason? = null
-
     /** Provider truth: sender, text and SIM of the MMS, for [onMessageReceived] (same worker thread). */
     @Volatile private var received: IncomingMessage? = null
 
@@ -234,17 +218,15 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     override fun isAddressBlocked(context: Context, address: String?): Boolean {
         worker.mark()
         pendingAddress.set(address.orEmpty().substringBefore("/TYPE="))
-        if (ProviderTruthFlag.enabled) {
-            // E-1: a notice saved for an automatic download has mmslib's dummy thread, which is no chat.
-            val notice = noticeUri?.let { uri ->
-                runCatching { AndroidMmsSpamStore(context).noticeOf(uri) }.getOrNull()
-            }
-            noticeThread = notice?.threadId?.takeIf(IncomingMms::hasChat)
-            val mark = noticeUri?.let { uri -> runCatching { AndroidMmsSpamStore(context).markOf(uri) } }
-            noticeUnmarked = mark != null && mark.isSuccess &&
-                mark.getOrNull().let { it == null || it is NoticeMark.Failed }
-            noticeCountedIn = (mark?.getOrNull() as? NoticeMark.Counted)?.threadId?.takeIf { it == noticeThread }
+        // E-1: a notice saved for an automatic download has mmslib's dummy thread, which is no chat.
+        val notice = noticeUri?.let { uri ->
+            runCatching { AndroidMmsSpamStore(context).noticeOf(uri) }.getOrNull()
         }
+        noticeThread = notice?.threadId?.takeIf(IncomingMms::hasChat)
+        val mark = noticeUri?.let { uri -> runCatching { AndroidMmsSpamStore(context).markOf(uri) } }
+        noticeUnmarked = mark != null && mark.isSuccess &&
+            mark.getOrNull().let { it == null || it is NoticeMark.Failed }
+        noticeCountedIn = (mark?.getOrNull() as? NoticeMark.Counted)?.threadId?.takeIf { it == noticeThread }
         return false
     }
 
@@ -261,41 +243,10 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
             subscriptionId = MmsSubscriptions.find(appContext, address),
             isMms = true,
         )
-        if (ProviderTruthFlag.enabled) {
-            // 6.2: always false. The library must store the MMS; where it is shown is decided once it is stored and
-            // its recipients are known (a group stays in the group), in [onMessageReceived].
-            received = incoming
-            return false
-        }
-        val decision = SpamEngine.evaluate(appContext, incoming, source = "MMS_CONTENT")
-        val block = decision as? FilterDecision.Block ?: run {
-            allowReason = (decision as? FilterDecision.Allow)?.reason
-            SpamEngine.allowSenderOfKeyword(appContext, incoming, decision)
-            return false
-        }
-        return storeBlocked(appContext, incoming, block)
-    }
-
-    /**
-     * Keeps the downloaded MMS in app-private storage with the blocked row (SE-29), so "Not spam" can restore its
-     * pictures. On a block mmslib deletes the notification-ind and leaves its cache file behind; once the MMS is safely
-     * kept that file is deleted too. False (deliver normally) only when the row itself could not be stored.
-     */
-    private fun storeBlocked(context: Context, incoming: IncomingMessage, block: FilterDecision.Block): Boolean {
-        val file = pduPath?.let(::File)
-        val pdu = runCatching { file?.takeIf { it.isFile }?.readBytes() }.getOrNull()
-        val name = pdu?.let { BlockedMmsStore.save(context, it) }
-        val id = SpamEngine.storeBlockedId(
-            context, incoming, block,
-            media = if (name != null) MmsMedia.STORED else MmsMedia.MISSING,
-            mediaFile = name,
-        )
-        if (id == null) {
-            name?.let { BlockedMmsStore.delete(context, listOf(it)) }
-            return false
-        }
-        runCatching { file?.delete() }
-        return true
+        // 6.2: always false. The library must store the MMS; where it is shown is decided once it is stored and
+        // its recipients are known (a group stays in the group), in [onMessageReceived].
+        received = incoming
+        return false
     }
 
     /**
@@ -313,13 +264,7 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
             } ?: return
 
             val address = mms.getSender()?.phoneNumbers?.firstOrNull()?.normalizedNumber ?: mms.senderPhoneNumber
-            if (ProviderTruthFlag.enabled) {
-                placeAndAnnounce(context.applicationContext, mms, address)
-            } else {
-                handleMmsMessage(context, mms, address, legacyReason(context, address))
-                // A blocked MMS never gets here (isContentBlocked kept it out of the inbox).
-                forward(context, mms, address)
-            }
+            placeAndAnnounce(context.applicationContext, mms, address)
         } catch (t: Throwable) {
             Log.e(MmsReceiver.TAG, "Downloaded MMS could not be announced", t)
         }
@@ -374,16 +319,6 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         Log.i(MmsReceiver.TAG, "Downloaded MMS placed: ${place.javaClass.simpleName}")
     }
 
-    /** Why a 0.4.14 MMS was let in, for its notification: a number written to before counts as known. */
-    private fun legacyReason(context: Context, address: String): DecisionReason? {
-        val reason = allowReason
-        return if (reason == DecisionReason.MODE_OFF && SpamEngine.hasWrittenTo(context, address)) {
-            DecisionReason.KNOWN_CONVERSATION
-        } else {
-            reason
-        }
-    }
-
     /** Its text is forwarded; the pictures are not (forwards are plain SMS). */
     private fun forward(context: Context, mms: Message, address: String) {
         forwardOf(
@@ -403,13 +338,6 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         worker.mark()
         // Provider truth: MmsReceiver runs the failure path once the library ended, which knows whether the notice is
         // in a Spam chat (E-2: then nothing is posted).
-        if (ProviderTruthFlag.enabled) return
-        context.showErrorToast(context.getString(R.string.couldnt_download_mms))
-        // The toast is gone before anyone looks: the notification stays (I10).
-        runCatching { context.showMmsDownloadFailedNotification() }
-        // Q40: the "Downloading" rows in an open chat turn into "Tap to try again" (the error names no message).
-        MmsDownloadTracker.shared.failAllRunning()
-        MmsPushDownload.clearStarted()
     }
 
     private fun handleMmsMessage(

@@ -23,7 +23,6 @@ import com.glooboo.umessage.spam.mms.NoticeRow
 import com.glooboo.umessage.testing.FakeMmsProvider
 import com.glooboo.umessage.testing.FakeMmsSpamStore
 import com.glooboo.umessage.testing.MmsPduFixtures
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.WatchedBroadcast
 import com.glooboo.umessage.testing.joinAppBackgroundThreads
 import com.google.common.truth.Truth.assertThat
@@ -32,7 +31,6 @@ import org.fossify.commons.models.PhoneNumber
 import org.fossify.commons.models.SimpleContact
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.File
@@ -45,8 +43,6 @@ import java.io.File
  */
 @RunWith(AndroidJUnit4::class)
 class MmsArrivalTest {
-
-    @get:Rule val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val store = FakeMmsSpamStore()

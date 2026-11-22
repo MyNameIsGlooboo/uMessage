@@ -4,7 +4,6 @@ import android.content.Context
 import android.provider.Telephony.Sms
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.getConversationsOrNull
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.engine.AllowingCode
 import com.glooboo.umessage.spam.engine.ContactLookup
 import com.glooboo.umessage.spam.engine.SenderJudge
@@ -145,10 +144,10 @@ class HistoryCheck(
 
         /**
          * For the incoming paths (step D, R2): checks the sender of a text now when the first run's history check has
-         * not finished yet; does nothing otherwise, or while the flag is off. False when the check failed.
+         * not finished yet; does nothing otherwise. False when the check failed.
          */
         fun onTheSpot(context: Context, address: String, threadId: Long? = null): Boolean {
-            if (!ProviderTruthFlag.enabled || !FirstRun.state(context).value.historyPending) return true
+            if (!FirstRun.state(context).value.historyPending) return true
             return forApp(context).checkSender(address, threadId)
         }
     }

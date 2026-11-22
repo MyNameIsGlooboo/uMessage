@@ -12,7 +12,6 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.backup.BlockedBackupSupport
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.BlockedBackup
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FirstRun
@@ -24,25 +23,20 @@ import com.glooboo.umessage.spam.data.OlderSpamWorld.Companion.DAY
 import com.glooboo.umessage.spam.data.OlderSpamWorld.Companion.HOUR
 import com.glooboo.umessage.spam.data.OlderSpamWorld.Companion.NOW
 import com.glooboo.umessage.spam.data.OlderSpamWorld.Companion.SENDER
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 
 /**
- * The message migration on this app's own parts (section 8, 12.1): the flag (S20), the first-run step, the marks in a
- * real spamless.db, the journal, the SMS side of the phone's store, and a restore of old Spam entries twice (S16).
+ * The message migration on this app's own parts (section 8, 12.1): the first-run step, the marks in a real
+ * spamless.db, the journal, the SMS side of the phone's store, and a restore of old Spam entries twice (S16).
  * Every number and text is made up.
  */
 @RunWith(AndroidJUnit4::class)
 class SpamProviderMigrationTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private lateinit var db: SpamDatabase
@@ -75,43 +69,7 @@ class SpamProviderMigrationTest {
         reason = DecisionReason.UNKNOWN_SENDER, ruleId = null, migratedMsgId = mark,
     )
 
-    // The flag (S20) and the first-run step
-
-    @Test
-    fun withTheFlagOffNothingRunsAndNothingIsBuilt() {
-        var built = 0
-        SpamProviderMigration.moverFor = { built++; OlderSpamWorld().apply { sms() }.mover() }
-        flagOff()
-
-        assertThat(SpamProviderMigration.migrate(context)).isEqualTo(MigrationResult())
-        assertThat(SpamProviderMigration.runPending(context)).isTrue()
-        assertThat(SpamProviderMigration.firstRunStep.run(context)).isTrue()
-        assertThat(built).isEqualTo(0)
-    }
-
-    @Test
-    fun theFlagTurnedOffAfterTenSpamTextsStopsTheMigrationAndTurnedOnAgainWritesNothingTwice() {
-        val world = OlderSpamWorld()
-        repeat(10) { world.sms(body = "Spam $it", at = NOW - it * HOUR) }
-        world.isDefault = false
-        SpamProviderMigration.moverFor = { world.mover() }
-        SpamProviderMigration.migrate(context)
-        assertThat(world.store).isEmpty()
-
-        // Off: a stop, not a way back. Nothing moves, nothing already held is touched.
-        flagOff()
-        world.isDefault = true
-        SpamProviderMigration.migrate(context)
-        assertThat(world.store).isEmpty()
-        assertThat(world.blocked.values.map { it.migratedMsgId }.toSet()).containsExactly(null)
-
-        // On again: each text is written once, and a second run writes nothing.
-        flagOn()
-        SpamProviderMigration.migrate(context)
-        SpamProviderMigration.migrate(context)
-        assertThat(world.store).hasSize(10)
-        assertThat(world.trace.count { it == "writeSms" }).isEqualTo(10)
-    }
+    // The first-run step
 
     @Test
     fun theFirstRunStepWaitsWhileUMessageIsNotTheDefaultApp() {
@@ -423,14 +381,6 @@ class SpamProviderMigrationTest {
         assertThat(result.waiting).isTrue()
         assertThat(world.store).isEmpty()
         assertThat(rows.all().single().migratedMsgId).isNull()
-    }
-
-    private fun flagOff() {
-        ProviderTruthFlag.enabled = false
-    }
-
-    private fun flagOn() {
-        ProviderTruthFlag.enabled = true
     }
 
     /** The SMS table of the phone's store, as the migration reads and writes it (Robolectric has none). */

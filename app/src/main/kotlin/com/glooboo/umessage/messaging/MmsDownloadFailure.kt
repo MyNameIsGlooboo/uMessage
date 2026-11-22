@@ -10,7 +10,6 @@ import androidx.core.content.IntentCompat
 import com.android.mms.transaction.DownloadManager
 import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.showMmsDownloadFailedNotification
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.receivers.MmsPushDownload
 import com.glooboo.umessage.spam.HistoryCheck
 import com.glooboo.umessage.spam.FilterDecision
@@ -248,9 +247,9 @@ internal class MmsDownloadFailure(
         /** The app-start sweep; tests replace it. */
         @Volatile internal var startSweep: (Context) -> Unit = { MmsDownloadFailure().sweep(it) }
 
-        /** E-20: the sweep at app start, flag on only; call it off the main thread. Never throws. */
+        /** E-20: the sweep at app start; call it off the main thread. Never throws. */
         fun atAppStart(context: Context) {
-            if (ProviderTruthFlag.enabled) runCatching { startSweep(context.applicationContext) }
+            runCatching { startSweep(context.applicationContext) }
         }
 
         /**
