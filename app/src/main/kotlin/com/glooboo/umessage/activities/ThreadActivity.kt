@@ -1168,6 +1168,9 @@ open class ThreadActivity : ComposeSimpleActivity() {
             messagesToRemove, toRecycleBin, fromRecycleBin, threadId, messages.toSortedMessages(), conversation, scheduleController,
             onRefused = { res -> runOnUiThread { lifecycleScope.launch { vm.snackbar.showSnackbar(getString(res)) } } },
         )?.also { threadId = it } != null
+        // R3-2: the chat is empty now. Only a full pass forgets a thread the store no longer lists (and, with
+        // provider truth, what the app kept of it); a thread event would keep the saved row. Posted after the deletes.
+        if (!hasMessages && !movedToTemporaryThread) refreshConversations()
         // Messages that went to the recycle bin can come straight back (scheduled ones were cancelled, not recycled).
         val recycled = messagesToRemove.filterNot { it.isScheduled }
         val undoable = toRecycleBin && !movedToTemporaryThread

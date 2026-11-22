@@ -38,6 +38,7 @@ import com.glooboo.umessage.models.Events
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.testing.FakeSmsMmsProvider
 import com.glooboo.umessage.testing.FakeTelephonyProvider
+import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.components.showConfirmDialog
 import com.glooboo.umessage.ui.lock.LockScope
@@ -331,9 +332,9 @@ class ThreadLockWindowsTest {
         assertThat(listRefreshes.toSet()).containsExactly(THREAD)
     }
 
-    /** J5-10: an export whose dialog the leave closed stops, and says so once the chat is back. */
+    /** J5-10, R3-6: an export whose dialog the leave closed stops, and says so once the chat shows again. */
     @Test
-    fun anExportStoppedByALeaveSaysSoOnTheWayBack() {
+    fun anExportStoppedByALeaveSaysSoOnceTheChatShows() {
         openChat()
         val shown = Collections.synchronizedList(ArrayList<String>())
         val export = exportController(shown)
@@ -346,10 +347,42 @@ class ThreadLockWindowsTest {
         assertThat(idleUntil { run.done.value }).isTrue()
         assertThat(shown).isEmpty()
 
+        // Away past the timeout: the return puts the lock screen in front, the chat's content hidden. No note yet.
+        app.appLockManager.lock()
+        scenario!!.moveToState(Lifecycle.State.CREATED)
+        scenario!!.moveToState(Lifecycle.State.RESUMED)
+        ShadowLooper.idleMainLooper()
+        assertThat(contentVisible()).isFalse()
+        assertThat(shown).isEmpty()
+
+        // The lock screen was passed: the chat shows, and the note with it.
+        app.appLockManager.unlock()
+        scenario!!.moveToState(Lifecycle.State.STARTED)
         scenario!!.moveToState(Lifecycle.State.RESUMED)
         ShadowLooper.idleMainLooper()
 
+        assertThat(contentVisible()).isTrue()
         assertThat(shown).containsExactly(app.getString(R.string.export_conv_stopped))
+    }
+
+    /** R3-2: deleting a chat's last message for good asks the list for a full pass, the one that forgets a thread. */
+    @Test
+    fun deletingTheLastMessageAsksForAFullPass() {
+        app.baseConfig.isAppPasswordProtectionOn = false
+        openChat()
+        val only = vm().items.filterIsInstance<Message>().single { it.body == TEXT }
+        lateinit var screen: ThreadActivity
+        scenario!!.onActivity { screen = it }
+        EventBus.getDefault().register(this)
+
+        offMainThread {
+            ThreadActivity::class.java.getDeclaredMethod(
+                "deleteMessages", List::class.java, Boolean::class.javaPrimitiveType, Boolean::class.javaPrimitiveType,
+            ).apply { isAccessible = true }.invoke(screen, listOf(only), false, false)
+        }
+        ShadowLooper.idleMainLooper()
+
+        assertThat(listRefreshes).contains(null)
     }
 
     /** J5-10: an earlier export that ends late leaves the progress and the Cancel button of a later one alone. */

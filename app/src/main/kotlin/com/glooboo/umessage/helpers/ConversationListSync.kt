@@ -300,7 +300,9 @@ class ConversationListSync(
             }
         }
         step { if (round.republish && readsStarted == before) publishSaved("republish") }
-        step { if (round.bump) bump() }
+        // R3-1: a chat event also moves its chat up when a newer saved message exists (a sent text saved after the
+        // return's bump). One query; it publishes only on a change.
+        step { if (round.bump || round.threads.isNotEmpty()) bump() }
         step { shown?.let(::clearExpiredScheduled) }
         if (round.full) {
             step { timedFullPass() }

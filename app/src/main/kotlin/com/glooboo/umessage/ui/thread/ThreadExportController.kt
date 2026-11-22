@@ -1,6 +1,7 @@
 package com.glooboo.umessage.ui.thread
 
 import android.content.Intent
+import android.view.View
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.AlertDialog
@@ -21,6 +22,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.glooboo.umessage.R
 import com.glooboo.umessage.export.ConversationExportJob
 import com.glooboo.umessage.ui.components.showComposeDialog
+import com.glooboo.umessage.ui.lock.LockScope
 import org.fossify.commons.activities.BaseSimpleActivity
 import org.fossify.commons.helpers.ensureBackgroundThread
 import java.util.concurrent.atomic.AtomicBoolean
@@ -104,20 +106,28 @@ class ThreadExportController(
         com.glooboo.umessage.helpers.CacheCleanup.deleteAfterShare(done.file)
     }
 
-    /** J5-10: a stopped export is told about once the chat is in front again, not while it is away. */
+    /**
+     * J5-10, R3-6: a stopped export is told about once the chat shows again: in front, past the app lock, and not
+     * covered by a gate (a hidden or Spam chat). Not on the resume that puts the lock screen in front.
+     */
     private fun whenBack(block: () -> Unit) {
-        val lifecycle = activity.lifecycle
-        if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+        if (chatShows()) {
             block()
             return
         }
-        lifecycle.addObserver(object : DefaultLifecycleObserver {
+        activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
+                if (!chatShows()) return
                 owner.lifecycle.removeObserver(this)
                 block()
             }
         })
     }
+
+    /** The screen is resumed and its content is drawn: the lock's cover and the gates hide the content view. */
+    private fun chatShows(): Boolean =
+        activity.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED) && !LockScope.isLockedNow(activity) &&
+            activity.findViewById<View>(android.R.id.content)?.visibility == View.VISIBLE
 
     private fun showProgress(run: ExportRun) {
         val cancelled = run.cancelled

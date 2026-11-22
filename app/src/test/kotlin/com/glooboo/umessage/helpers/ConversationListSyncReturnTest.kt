@@ -104,6 +104,24 @@ class ConversationListSyncReturnTest {
         assertThat(published.last().map { it.threadId }).contains(NEW_THREAD)
     }
 
+    /** R3-1: the chat saves its sent text after the return's bump; the sent report's chat event moves the chat up. */
+    @Test
+    fun aTextSavedAfterTheReturnMovesItsChatUpOnTheChatEvent() {
+        val before = saved().single { it.threadId == 11L }
+        sync.requestAway()
+        sync.requestReturn()
+        idle()
+        offMainThread { context.messagesDB.insertOrUpdate(sent(thread = 11, date = before.date + 60)) }
+
+        sync.requestThread(11)
+        idle()
+
+        assertThat(provider.totalQueries()).isEqualTo(0)
+        val row = published.last().single { it.threadId == 11L }
+        assertThat(row.date).isEqualTo(before.date + 60)
+        assertThat(row.snippet).isEqualTo("Sent from the chat")
+    }
+
     /** R2-2: a new screen after the list was away bumps a sent text up, with no full pass held. */
     @Test
     fun aNewScreenAfterTheListWasAwayBumpsWithNothingHeld() {

@@ -20,6 +20,7 @@ import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.deleteMessage
 import com.glooboo.umessage.extensions.getThreadParticipants
 import com.glooboo.umessage.extensions.notificationHelper
+import com.glooboo.umessage.extensions.updateLastConversationMessage
 import com.glooboo.umessage.helpers.cancelFailedSendNotification
 import com.glooboo.umessage.helpers.hasFailedSendNotification
 import com.glooboo.umessage.helpers.refreshConversations
@@ -78,10 +79,13 @@ class MmsSentReceiver : SendStatusReceiver() {
 
     override fun updateAppDatabase(context: Context, intent: Intent, receiverResultCode: Int) {
         refreshMessages()
-        // J2-4, J2-5: this chat only. A first text to a new number has no saved row yet; the list reads that one
-        // thread from the store, at once and also while the list is away. Unknown thread: a full pass, as before.
+        // J2-4, J2-5: this chat only. R3-1: its saved row is read again from the store first (snippet, date, a new
+        // chat's row; a resend's deleted original), as the chat screen may not have saved it. Unknown thread: a full
+        // pass, as before.
         val uri = intent.getStringExtra(EXTRA_CONTENT_URI)?.toUri()
-        refreshConversations(uri?.let { threadIdOf(context, it) }?.takeIf { it > 0 })
+        val thread = uri?.let { threadIdOf(context, it) }?.takeIf { it > 0 }
+        if (thread != null) context.updateLastConversationMessage(thread)
+        refreshConversations(thread)
     }
 
     /** Like a failed SMS: the toast is easy to miss after leaving the app, so a notification says it too. */
