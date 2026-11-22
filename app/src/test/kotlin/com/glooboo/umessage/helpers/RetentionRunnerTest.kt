@@ -9,6 +9,10 @@ import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageReminder
 import com.glooboo.umessage.models.StarredMessage
+import com.glooboo.umessage.spam.FirstRun
+import com.glooboo.umessage.spam.FirstRunPhase
+import com.glooboo.umessage.spam.FirstRunState
+import com.glooboo.umessage.spam.FirstRunStore
 import com.glooboo.umessage.testing.RETENTION_CODE_BODY
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
@@ -35,10 +39,20 @@ class RetentionRunnerTest {
         context.config.useRecycleBin = true
         context.cleanupPrefs.codeDays = 0
         context.cleanupPrefs.oldMessageDays = 0
+        // 3.5: the clean-ups run only once the first sort is published.
+        writeState(FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true))
     }
 
     @After
-    fun tearDown() = resetSharedMessagesDatabase()
+    fun tearDown() {
+        writeState(FirstRunState())
+        resetSharedMessagesDatabase()
+    }
+
+    private fun writeState(state: FirstRunState) {
+        FirstRunStore(context.getSharedPreferences(FirstRunStore.PREFS, Context.MODE_PRIVATE)).write(state)
+        FirstRun.reload(context)
+    }
 
     private fun store(vararg messages: Message) =
         offMainThread { messages.forEach { context.messagesDB.insertOrUpdate(it) } }

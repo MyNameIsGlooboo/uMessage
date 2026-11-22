@@ -103,13 +103,11 @@ class RetentionRunner(context: Context) {
 
     /** Provider truth (3.5): clean-ups wait until the first sort is published and no first-run pass works. */
     private fun sortAllowsCleanup(): Boolean =
-        !ProviderTruthFlag.enabled || runCatching { FirstRun.state(app).value.allowsFullSort }.getOrDefault(false)
+        runCatching { FirstRun.state(app).value.allowsFullSort }.getOrDefault(false)
 
     /** Provider truth (answer 6): the chats in Spam, which no clean-up touches; null when they cannot be read. */
-    private fun spamThreads(): Set<Long>? {
-        if (!ProviderTruthFlag.enabled) return emptySet()
-        return runCatching { app.conversationsDB.getValidSpamThreads().mapTo(HashSet()) { it.threadId } }.getOrNull()
-    }
+    private fun spamThreads(): Set<Long>? =
+        runCatching { app.conversationsDB.getValidSpamThreads().mapTo(HashSet()) { it.threadId } }.getOrNull()
 
     /** F6: the messages that carry a private note or a reminder, looked up once per scan. */
     private fun keptLookup(): (Message) -> Boolean {
@@ -137,18 +135,14 @@ class RetentionRunner(context: Context) {
     /**
      * Pages through the old messages and keeps what [pick] chooses until [limit] are found or [MAX_SCANNED] were read.
      * Nothing is moved while reading, so the pages do not shift under the offset. Messages of the chats in [spam] are
-     * never offered to [pick]; with ProviderTruthFlag on the query itself leaves the Spam chats out (H-6), so old Spam
-     * texts never fill the [MAX_SCANNED] rows.
+     * never offered to [pick]; the query itself leaves the Spam chats out (H-6), so old Spam texts never fill the
+     * [MAX_SCANNED] rows.
      */
     private fun scan(cutoff: Int, limit: Int, spam: Set<Long>, pick: (List<Message>) -> List<Message>): List<Message> {
         val found = ArrayList<Message>()
         var offset = 0
         while (found.size < limit && offset < MAX_SCANNED) {
-            val page = if (ProviderTruthFlag.enabled) {
-                app.messagesDB.getRetentionCandidatesOutsideSpam(cutoff, PAGE, offset)
-            } else {
-                app.messagesDB.getRetentionCandidates(cutoff, PAGE, offset)
-            }
+            val page = app.messagesDB.getRetentionCandidatesOutsideSpam(cutoff, PAGE, offset)
             found += pick(if (spam.isEmpty()) page else page.filterNot { it.threadId in spam })
             if (page.size < PAGE) break
             offset += PAGE

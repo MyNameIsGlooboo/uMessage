@@ -68,7 +68,6 @@ import com.glooboo.umessage.helpers.MessageNoteKey
 import com.glooboo.umessage.helpers.messageNotes
 import com.glooboo.umessage.helpers.MessagingCache
 import com.glooboo.umessage.helpers.NotificationHelper
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.ShortcutHelper
 import com.glooboo.umessage.helpers.generateRandomId
 import com.glooboo.umessage.interfaces.AttachmentsDao
@@ -448,10 +447,10 @@ fun Context.getConversationsOrNull(
 
 /**
  * B-16: the lists show the chats of numbers on Android's block list (in Spam, as blocked) only once the first sort is
- * published; before that, and with the flag off, they are left out as in 0.4.14.
+ * published; before that they are left out as in 0.4.14.
  */
 private fun Context.listsShowBlocked(): Boolean =
-    ProviderTruthFlag.enabled && runCatching { FirstRun.state(this).value.sortPublished }.getOrDefault(false)
+    runCatching { FirstRun.state(this).value.sortPublished }.getOrDefault(false)
 
 /** The conversations read, and whether the read finished without the provider failing. */
 private fun Context.readConversations(
@@ -1048,20 +1047,13 @@ fun Context.insertNewSMS(
 fun Context.removeAllArchivedConversations(callback: (() -> Unit)? = null) {
     ensureBackgroundThread {
         try {
-            if (ProviderTruthFlag.enabled) {
-                // B-1: the Archived list only (not the Spam chats), the role checked once, stopped at the first
-                // chat that is not deleted; "emptied" only when every one was.
-                val isDefault = isDefaultSmsAppNow()
-                val result = conversationsDB.getArchivedList().asSequence()
-                    .map { deleteConversation(it.threadId, isDefault) }
-                    .firstOrNull { it != DeleteResult.DELETED } ?: DeleteResult.DELETED
-                toast(result.messageRes ?: R.string.archive_emptied_successfully)
-            } else {
-                for (conversation in conversationsDB.getAllArchived()) {
-                    deleteConversation(conversation.threadId)
-                }
-                toast(R.string.archive_emptied_successfully)
-            }
+            // B-1: the Archived list only (not the Spam chats), the role checked once, stopped at the first chat that
+            // is not deleted; "emptied" only when every one was.
+            val isDefault = isDefaultSmsAppNow()
+            val result = conversationsDB.getArchivedList().asSequence()
+                .map { deleteConversation(it.threadId, isDefault) }
+                .firstOrNull { it != DeleteResult.DELETED } ?: DeleteResult.DELETED
+            toast(result.messageRes ?: R.string.archive_emptied_successfully)
             callback?.invoke()
         } catch (_: Exception) {
             toast(org.fossify.commons.R.string.unknown_error_occurred)
@@ -1105,12 +1097,11 @@ enum class DeleteResult {
  * that deletes many chats. A chat that holds only scheduled messages is not in the store: it is forgotten at once.
  */
 fun Context.deleteConversation(threadId: Long, isDefault: Boolean? = null): DeleteResult {
-    val honest = ProviderTruthFlag.enabled
     val result = when {
-        honest && isScheduledOnly(threadId) -> DeleteResult.DELETED
-        honest && !(isDefault ?: isDefaultSmsAppNow()) -> DeleteResult.NOT_DEFAULT
-        !deleteThreadFromStore(threadId, quiet = honest) -> DeleteResult.FAILED
-        honest && storeHasThreadMessages(threadId) != false -> DeleteResult.NOTHING_DELETED
+        isScheduledOnly(threadId) -> DeleteResult.DELETED
+        !(isDefault ?: isDefaultSmsAppNow()) -> DeleteResult.NOT_DEFAULT
+        !deleteThreadFromStore(threadId) -> DeleteResult.FAILED
+        storeHasThreadMessages(threadId) != false -> DeleteResult.NOTHING_DELETED
         else -> DeleteResult.DELETED
     }
     if (result == DeleteResult.DELETED) forgetThread(threadId)
@@ -1121,15 +1112,14 @@ fun Context.deleteConversation(threadId: Long, isDefault: Boolean? = null): Dele
 private fun Context.isScheduledOnly(threadId: Long): Boolean = threadId >= SCHEDULED_ID_MIN ||
     runCatching { conversationsDB.getConversationWithThreadId(threadId)?.isScheduled == true }.getOrDefault(false)
 
-/** The SMS, then the MMS of [threadId] in the phone's store; false when a delete failed. [quiet]: no error toast. */
-private fun Context.deleteThreadFromStore(threadId: Long, quiet: Boolean): Boolean {
+/** The SMS, then the MMS of [threadId] in the phone's store; false when a delete failed. No error toast. */
+private fun Context.deleteThreadFromStore(threadId: Long): Boolean {
     var uri = Sms.CONTENT_URI
     val selection = "${Sms.THREAD_ID} = ?"
     val selectionArgs = arrayOf(threadId.toString())
     try {
         contentResolver.delete(uri, selection, selectionArgs)
-    } catch (e: Exception) {
-        if (!quiet) showErrorToast(e)
+    } catch (_: Exception) {
         // The messages are still in the provider: wiping the local copy would only bring them back later.
         return false
     }
@@ -1237,7 +1227,7 @@ fun Context.deleteOldRecycleBinMessages(nowMillis: Long) {
     val result = purgeRecycleBinEntries(entries)
     // S19, B-13: a chat the bin emptied is forgotten as a deleted chat (the screens tidy their own purges). B2-9: only
     // when the purge deleted; a purge that stopped (not the default app) leaves every chat as it is.
-    if (ProviderTruthFlag.enabled && result == DeleteResult.DELETED) {
+    if (result == DeleteResult.DELETED) {
         threads.forEach { runCatching { tidyConversationAfterBinPurge(it) } }
     }
 }
@@ -1247,9 +1237,9 @@ fun Context.deleteOldRecycleBinMessages(nowMillis: Long) {
  * messages of chats in Spam are left out, as the bin list leaves those chats out.
  */
 fun Context.recycleBinEntryCount(): Int =
-    if (ProviderTruthFlag.enabled) messagesDB.getArchivedCountOutsideSpam() else messagesDB.getArchivedCount()
+    messagesDB.getArchivedCountOutsideSpam()
 
-/** Empties the whole bin; with the flag on it stops at the first message the store did not delete. */
+/** Empties the whole bin; it stops at the first message the store did not delete. */
 fun Context.emptyMessagesRecycleBin(): DeleteResult = purgeRecycleBinEntries(messagesDB.getAllRecycleBinEntries())
 
 /**
@@ -1261,11 +1251,11 @@ fun Context.emptyMessagesRecycleBin(): DeleteResult = purgeRecycleBinEntries(mes
  */
 private fun Context.purgeRecycleBinEntries(entries: List<RecycleBinMessage>): DeleteResult {
     // B-13: the role is checked once for the batch; the first message not deleted stops it.
-    val isDefault = if (ProviderTruthFlag.enabled) isDefaultSmsAppNow() else null
+    val isDefault = isDefaultSmsAppNow()
     for (entry in entries) {
         if (messagesDB.getMessage(entry.id, entry.isMMS) != null) {
             val result = deleteMessage(entry.id, entry.isMMS, isDefault)
-            if (ProviderTruthFlag.enabled && result != DeleteResult.DELETED) return result
+            if (result != DeleteResult.DELETED) return result
         } else {
             messagesDB.deleteFromRecycleBin(entry.id, entry.isMMS)
         }
@@ -1275,10 +1265,10 @@ private fun Context.purgeRecycleBinEntries(entries: List<RecycleBinMessage>): De
 
 fun Context.emptyMessagesRecycleBinForConversation(threadId: Long): DeleteResult {
     val messages = messagesDB.getThreadMessagesFromRecycleBin(threadId)
-    val isDefault = if (ProviderTruthFlag.enabled) isDefaultSmsAppNow() else null
+    val isDefault = isDefaultSmsAppNow()
     for (message in messages) {
         val result = deleteMessage(message.id, message.isMMS, isDefault)
-        if (ProviderTruthFlag.enabled && result != DeleteResult.DELETED) return result
+        if (result != DeleteResult.DELETED) return result
     }
     return DeleteResult.DELETED
 }
@@ -1348,8 +1338,7 @@ fun Context.updateConversationArchivedStatus(threadId: Long, archived: Boolean) 
  * deleted (the copy is stale). [isDefault]: the role, checked once by a caller that deletes many.
  */
 fun Context.deleteMessage(id: Long, isMMS: Boolean, isDefault: Boolean? = null): DeleteResult {
-    val honest = ProviderTruthFlag.enabled
-    if (honest && !(isDefault ?: isDefaultSmsAppNow())) return DeleteResult.NOT_DEFAULT
+    if (!(isDefault ?: isDefaultSmsAppNow())) return DeleteResult.NOT_DEFAULT
     val uri = if (isMMS) Mms.CONTENT_URI else Sms.CONTENT_URI
     val selection = "${Sms._ID} = ?"
     val selectionArgs = arrayOf(id.toString())
@@ -1358,13 +1347,12 @@ fun Context.deleteMessage(id: Long, isMMS: Boolean, isDefault: Boolean? = null):
     val noteKey = runCatching { messagesDB.getMessage(id, isMMS)?.let { MessageNoteKey.of(it) } }.getOrNull()
     return try {
         val deleted = contentResolver.delete(uri, selection, selectionArgs)
-        if (honest && deleted == 0 && storeHasRow(uri, id) != false) return DeleteResult.NOTHING_DELETED
+        if (deleted == 0 && storeHasRow(uri, id) != false) return DeleteResult.NOTHING_DELETED
         messagesDB.delete(id, isMMS)
         cancelRemindersForMessage(MessageKey(id, isMMS))
         noteKey?.let { kotlinx.coroutines.runBlocking { messageNotes.onMessageDeleted(it) } }
         DeleteResult.DELETED
-    } catch (e: Exception) {
-        if (!honest) showErrorToast(e)
+    } catch (_: Exception) {
         DeleteResult.FAILED
     }
 }
@@ -1729,7 +1717,7 @@ fun Context.insertOrUpdateConversation(
         val current = conversationsDB.getConversationWithThreadId(conversation.threadId) ?: cachedConv
         if (current != null) updatedConv = updatedConv.copy(isArchived = current.isArchived)
     }
-    val isNew = ProviderTruthFlag.enabled && cachedConv == null &&
+    val isNew = cachedConv == null &&
         conversationsDB.getConversationWithThreadId(updatedConv.threadId) == null
     if (isNew) {
         // B-6: a chat cached for the first time: its sender's history, then the row and its sort in one transaction.
@@ -1739,7 +1727,7 @@ fun Context.insertOrUpdateConversation(
     }
     conversationsDB.insertOrUpdate(updatedConv)
     val renumbered = cachedConv != null && cachedConv.phoneNumber != updatedConv.phoneNumber
-    if (ProviderTruthFlag.enabled) followSpamRow(updatedConv, renumbered)
+    followSpamRow(updatedConv, renumbered)
 }
 
 /**

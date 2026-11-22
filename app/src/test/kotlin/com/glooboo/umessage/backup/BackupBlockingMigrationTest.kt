@@ -83,17 +83,10 @@ class BackupBlockingMigrationTest {
     }
 
     @Test
-    fun anExportStatesWhatThePhoneActsAs() {
-        assertThat(SettingsBackup.exportedMode(UnknownSenderMode.OFF, true)).isEqualTo(UnknownSenderMode.STRICT)
-        assertThat(SettingsBackup.exportedMode(UnknownSenderMode.OFF, false)).isEqualTo(UnknownSenderMode.OFF)
-        assertThat(SettingsBackup.exportedMode(UnknownSenderMode.SMART, true)).isEqualTo(UnknownSenderMode.SMART)
-    }
-
-    @Test
     fun theModeAFileRoundTripsWithIsTheOneARestoreApplies() {
         val content = BackupContent(
             emptyList(), emptyList(),
-            BackupSettings(spamMode = SettingsBackup.exportedMode(UnknownSenderMode.OFF, true)),
+            BackupSettings(spamMode = UnknownSenderMode.STRICT),
         )
         val back = SettingsBackupFormat.decode(SettingsBackupFormat.encode(content, 1))
         assertThat(back.settings.spamMode).isEqualTo(UnknownSenderMode.STRICT)

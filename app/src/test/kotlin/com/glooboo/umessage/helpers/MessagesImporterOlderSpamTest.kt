@@ -13,14 +13,12 @@ import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.data.OlderSpamWorld
 import com.glooboo.umessage.spam.data.SpamDatabase
 import com.glooboo.umessage.spam.data.SpamProviderMigration
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.json.Json
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.concurrent.CountDownLatch
@@ -28,14 +26,11 @@ import java.util.concurrent.TimeUnit
 
 /**
  * S16: with provider truth a restored old Spam entry is held as before and then moved to the phone's store by the
- * message migration at the end of the restore; with the flag off, and for a file without such entries, the migration
- * is not asked. Every number is made up.
+ * message migration at the end of the restore; for a file without such entries the migration is not asked. Every
+ * number is made up.
  */
 @RunWith(AndroidJUnit4::class)
 class MessagesImporterOlderSpamTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val json = Json { encodeDefaults = true }
@@ -91,16 +86,6 @@ class MessagesImporterOlderSpamTest {
         import(file(oldSpam))
 
         assertThat(runs).isEqualTo(1)
-    }
-
-    @Test
-    fun withTheFlagOffTheMigrationIsNotAsked() {
-        countRuns()
-        ProviderTruthFlag.enabled = false
-
-        import(file(oldSpam))
-
-        assertThat(runs).isEqualTo(0)
     }
 
     @Test

@@ -11,13 +11,11 @@ import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.spam.engine.SpamCause
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -27,9 +25,6 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class ShortcutHelperSpamTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
     private val helper get() = ShortcutHelper(app)
@@ -83,11 +78,8 @@ class ShortcutHelperSpamTest {
     }
 
     @Test
-    fun aSpamChatPublishesNothingAndGetsNullButWithTheFlagOffAsBefore() {
+    fun aSpamChatPublishesNothingAndGetsNull() {
         assertThat(offMainThread { helper.publish(shortcut(SPAM)) }).isNull()
-
-        ProviderTruthFlag.enabled = false
-        assertThat(offMainThread { helper.publish(shortcut(SPAM)) }?.id).isEqualTo(SPAM.toString())
     }
 
     private fun shortcutIds() = ShortcutManagerCompat.getDynamicShortcuts(app).map { it.id }.toSet()
@@ -165,15 +157,6 @@ class ShortcutHelperSpamTest {
         while (shortcutIds().size > 1 && System.currentTimeMillis() < deadline) Thread.sleep(POLL_MS)
 
         assertThat(shortcutIds()).containsExactly(SHOWN.toString())
-    }
-
-    @Test
-    fun withTheFlagOffTheSweepLeavesEveryShortcut() {
-        ProviderTruthFlag.enabled = false
-
-        offMainThread { helper.removeSpamShortcuts() }
-
-        assertThat(shortcutIds()).containsExactly(SPAM.toString(), SHOWN.toString())
     }
 
     private companion object {

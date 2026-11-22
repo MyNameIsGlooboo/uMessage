@@ -14,13 +14,11 @@ import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.spam.data.SpamPlacement
 import com.glooboo.umessage.spam.engine.SpamCause
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Shadows.shadowOf
@@ -33,9 +31,6 @@ import org.robolectric.shadows.ShadowLog
  */
 @RunWith(AndroidJUnit4::class)
 class SpamArrivalShortcutTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
 
@@ -90,15 +85,6 @@ class SpamArrivalShortcutTest {
     fun anMmsRowThatDoesNotCountForTheChatLeavesItsShortcut() {
         // The chat is cached under another number: the row does not count (S9), the chat stays in Messages.
         offMainThread { SpamThreads.noteArrival(app, MMS_CHAT, "+15550001299", SpamCause.UNKNOWN, 1_000L) }
-
-        assertThat(shortcutIds()).containsExactly(SMS_CHAT.toString(), MMS_CHAT.toString())
-    }
-
-    @Test
-    fun withTheFlagOffAPlacementLeavesTheShortcut() {
-        ProviderTruthFlag.enabled = false
-
-        offMainThread { SpamThreads.noteArrival(app, MMS_CHAT, number(MMS_CHAT), SpamCause.UNKNOWN, 1_000L) }
 
         assertThat(shortcutIds()).containsExactly(SMS_CHAT.toString(), MMS_CHAT.toString())
     }
