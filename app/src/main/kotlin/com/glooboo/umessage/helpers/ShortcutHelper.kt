@@ -159,12 +159,15 @@ class ShortcutHelper(private val context: Context) {
     private fun spamState(threadId: Long): Boolean? = when {
         !ProviderTruthFlag.enabled -> false
         isOnMainThread() -> null
-        else -> runCatching { context.conversationsDB.isInSpam(threadId) }.getOrNull()
+        else -> runCatching { inSpamRead(context, threadId) }.getOrNull()
     }
 
-    /** A chat that is in Spam loses the shortcut it had from before (also the cached long-lived one). */
+    /**
+     * A chat that is in Spam loses the shortcut it had from before (also the cached long-lived one). H-20: so does one
+     * whose Spam read failed, as it may be in Spam; on the main thread nothing is read, so nothing goes.
+     */
     private fun dropIfSpam(threadId: Long) {
-        if (spamState(threadId) == true) removeSpamShortcuts(listOf(threadId.toString()))
+        if (!isOnMainThread() && spamState(threadId) != false) removeSpamShortcuts(listOf(threadId.toString()))
     }
 
     private fun removeSpamShortcuts(ids: List<String>) {
@@ -268,6 +271,12 @@ class ShortcutHelper(private val context: Context) {
         internal var updateShortcutsCall: (Context, List<ShortcutInfoCompat>) -> Boolean =
             { context, shortcuts -> ShortcutManagerCompat.updateShortcuts(context, shortcuts) }
 
+        /** Test seam: the one read of whether a chat is in Spam ([spamState]); a test makes it fail. */
+        @VisibleForTesting
+        @Volatile
+        internal var inSpamRead: (Context, Long) -> Boolean =
+            { context, threadId -> context.conversationsDB.isInSpam(threadId) }
+
         private var watchJob: Job? = null
 
         /**
@@ -291,6 +300,16 @@ class ShortcutHelper(private val context: Context) {
         fun removeForSpam(context: Context, threadId: Long) {
             if (!ProviderTruthFlag.enabled) return
             runCatching { ShortcutHelper(context.applicationContext).removeSpamShortcuts(listOf(threadId.toString())) }
+        }
+
+        /**
+         * H-3, J4-1: a spam text arrived in [threadId]; its shortcuts go when the chat is in Spam, or may be (the
+         * read failed). Never throws. Nothing happens while ProviderTruthFlag is off.
+         */
+        fun removeIfMaybeSpam(context: Context, threadId: Long) {
+            if (!ProviderTruthFlag.enabled) return
+            val app = context.applicationContext
+            if (runCatching { inSpamRead(app, threadId) }.getOrDefault(true)) removeForSpam(app, threadId)
         }
 
         /** Tests: stops the watch of [watchSpam], so the next test starts it again. */

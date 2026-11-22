@@ -65,7 +65,8 @@ object SpamThreads {
         dao.noteSpamArrival(threadId, address, cause, at) { a, b -> same(readers, a, b) }
         // H-3 (U9): a chat in Spam has no launcher or share shortcut, also when it got there by this text. Only when
         // the row counts for the chat (S9): a cached chat under another number, or a group, stays in Messages.
-        if (runCatching { dao.isInSpam(threadId) }.getOrDefault(false)) ShortcutHelper.removeForSpam(context, threadId)
+        // J4-1: a failed read counts as "in Spam", so the shortcut goes.
+        ShortcutHelper.removeIfMaybeSpam(context, threadId)
     }
 
     /** R1's safety check: [threadId] has a Spam row for the sender [address] (its chat row may not be cached yet). */

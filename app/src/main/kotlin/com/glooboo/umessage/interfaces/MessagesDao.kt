@@ -58,12 +58,17 @@ enum class SearchPlace(val messagesWhere: String, val conversationsWhere: String
 private fun shownIn(place: SearchPlace): String =
     if (place == SearchPlace.ALL) SHOWN_ONLY else "$SHOWN_ONLY AND ${place.messagesWhere}"
 
-/** One received text of a chat in Spam for the weekly digest (H-9): the chat's sender, the text, when, spam_since. */
+/**
+ * One received text of a chat in Spam for the weekly digest (H-9): its chat's sender, text, date and spam_since.
+ * [lateMms]: it is the newest MMS of its chat dated before spam_since, the only one whose late download can have put
+ * the chat in Spam (H-20, J4-4).
+ */
 data class SpamDigestRow(
     @ColumnInfo(name = "sender") val sender: String,
     @ColumnInfo(name = "body") val body: String,
     @ColumnInfo(name = "date") val date: Int,
     @ColumnInfo(name = "spam_since") val spamSince: Long,
+    @ColumnInfo(name = "late_mms") val lateMms: Boolean = false,
 )
 
 /** A message whose folded body is still to be written: its row number and body (the backfill). */
@@ -136,10 +141,13 @@ interface MessagesDao {
 
     /**
      * Provider truth (H-9): the received, not binned texts dated from [fromSeconds] of the chats in Spam, with each
-     * chat's sender and spam_since, in one read for the weekly digest.
+     * chat's sender and spam_since and [SpamDigestRow.lateMms], in one read for the weekly digest.
      */
     @Query(
-        "SELECT s.sender AS sender, m.body AS body, m.date AS date, s.spam_since AS spam_since FROM messages m " +
+        "SELECT s.sender AS sender, m.body AS body, m.date AS date, s.spam_since AS spam_since, " +
+            "(m.is_mms = 1 AND m.date < s.spam_since / 1000 AND NOT EXISTS (SELECT 1 FROM messages n " +
+            "WHERE n.thread_id = m.thread_id AND n.is_mms = 1 AND n.type = 1 AND n.is_scheduled = 0 " +
+            "AND n.date > m.date AND n.date < s.spam_since / 1000)) AS late_mms FROM messages m " +
             "JOIN spam_threads s ON s.thread_id = m.thread_id JOIN conversations c ON c.thread_id = s.thread_id " +
             "WHERE c.is_group_conversation = 0 AND c.phone_number = s.sender AND m.is_scheduled = 0 AND m.type = 1 " +
             "AND m.date >= :fromSeconds AND NOT EXISTS (SELECT 1 FROM recycle_bin_messages r " +

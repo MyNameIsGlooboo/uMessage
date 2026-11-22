@@ -55,6 +55,9 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
 
     private var searchJob: Job? = null
 
+    /** J4-2: Spam was unlocked while a search ran; its Spam part runs once more. Main thread only. */
+    private var spamAgain = false
+
     /** H-8: the chats in Spam, read once per search by the first of its lookups that needs them. */
     @Volatile
     private var querySpam: Lazy<Set<Long>>? = null
@@ -67,6 +70,7 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
     init {
         appReturn.start()
         state.onClose = { searchJob?.cancel() }
+        state.onSpamUnlocked = ::searchSpamAgain
         handle.get<Bundle>(KEY_SAVED)?.let { saved ->
             state.filter = InboxFilter.entries.firstOrNull { it.name == saved.getString(KEY_FILTER) } ?: InboxFilter.All
             state.labelId = saved.getLong(KEY_LABEL, NO_LABEL)
@@ -91,6 +95,7 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
             state.results = emptyList()
             state.noteHits = emptyList()
             state.blockedHits = emptyList()
+            state.spamHidden = false
             return
         }
         searchJob = viewModelScope.launch {
@@ -100,12 +105,46 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
             state.results = runSearch(text.trim())
             state.noteHits = runNoteSearch(text.trim())
             if (ProviderTruthFlag.enabled) {
-                val spam = runSpamSearch(text.trim())
-                state.spamTargets = spam.associate { it.row.address to it.open }
-                state.blockedHits = spam.map { it.row }
+                searchSpam(app, text.trim())
             } else {
                 state.blockedHits = runBlockedSearch(text.trim())
             }
+        }
+    }
+
+    /**
+     * Provider truth (U9): the Spam section for [text]. H-20, J4-2: noted as left out when the lock covered Spam as
+     * the search started; when Spam opened while it ran (or [searchSpamAgain] came meanwhile), it runs once more.
+     */
+    private suspend fun searchSpam(app: Application, text: String) {
+        spamAgain = false
+        var lockedBefore = SpamReaders.lockedNow(app)
+        var spam = runSpamSearch(text)
+        if (spamAgain || (lockedBefore && !SpamReaders.lockedNow(app))) {
+            spamAgain = false
+            lockedBefore = SpamReaders.lockedNow(app)
+            spam = runSpamSearch(text)
+        }
+        state.spamTargets = spam.associate { it.row.address to it.open }
+        state.blockedHits = spam.map { it.row }
+        state.spamHidden = spam.isEmpty() && lockedBefore
+    }
+
+    /**
+     * H-20: Spam was unlocked after its section went (or a search ran while it was locked): the query in the field
+     * searches Spam again, without retyping. A search still running searches Spam once more as it ends (J4-2).
+     */
+    private fun searchSpamAgain() {
+        if (!ProviderTruthFlag.enabled || !isSearchable(state.query)) return
+        if (searchJob?.isActive == true) {
+            spamAgain = true
+            return
+        }
+        val text = state.query.trim()
+        searchJob = viewModelScope.launch {
+            val app = getApplication<Application>()
+            querySpam = lazy { SpamReaders.threadIds(app) }
+            searchSpam(app, text)
         }
     }
 

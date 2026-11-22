@@ -9,6 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.SpamThread
+import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
@@ -54,6 +55,7 @@ class ShortcutHelperSpamTest {
     fun tearDown() {
         ShortcutHelper.stopWatchingSpam()
         ShortcutHelper.updateShortcutsCall = { context, list -> ShortcutManagerCompat.updateShortcuts(context, list) }
+        ShortcutHelper.inSpamRead = { context, thread -> context.conversationsDB.isInSpam(thread) }
         ShortcutManagerCompat.removeAllDynamicShortcuts(app)
         resetSharedMessagesDatabase()
     }
@@ -104,6 +106,45 @@ class ShortcutHelperSpamTest {
 
         offMainThread { helper.reportSendMessageUsage(SPAM) }
         assertThat(shortcutIds()).containsExactly(SHOWN.toString())
+    }
+
+    @Test
+    fun aFailedSpamReadRemovesTheShortcutAndMakesNone() {
+        // H-20: the chat may be in Spam, so its old shortcut goes, as for a chat that is.
+        ShortcutHelper.inSpamRead = { _, _ -> error("table gone") }
+
+        offMainThread { helper.reportReceiveMessageUsage(SHOWN) }
+        assertThat(shortcutIds()).containsExactly(SPAM.toString())
+
+        assertThat(offMainThread { helper.publish(shortcut(SHOWN)) }).isNull()
+        assertThat(shortcutIds()).containsExactly(SPAM.toString())
+    }
+
+    @Test
+    fun aSpamArrivalWhoseSpamReadFailsRemovesTheShortcut() {
+        // J4-1: the read after the arrival's write fails; the chat may be in Spam, so its shortcut goes. The row is of
+        // another sender, so the real read would say "not in Spam": only the failed read removes it.
+        ShortcutHelper.inSpamRead = { _, _ -> error("table gone") }
+
+        offMainThread { SpamThreads.noteArrival(app, SHOWN, "+15550009999", SpamCause.UNKNOWN, 5L) }
+
+        assertThat(shortcutIds()).containsExactly(SPAM.toString())
+    }
+
+    @Test
+    fun aSpamArrivalOutsideSpamKeepsTheShortcut() {
+        offMainThread { SpamThreads.noteArrival(app, SHOWN, "+15550009999", SpamCause.UNKNOWN, 5L) }
+
+        assertThat(shortcutIds()).containsExactly(SPAM.toString(), SHOWN.toString())
+    }
+
+    @Test
+    fun onTheMainThreadAFailingReadRemovesNothing() {
+        ShortcutHelper.inSpamRead = { _, _ -> error("table gone") }
+
+        helper.reportReceiveMessageUsage(SHOWN)
+
+        assertThat(shortcutIds()).containsExactly(SPAM.toString(), SHOWN.toString())
     }
 
     @Test

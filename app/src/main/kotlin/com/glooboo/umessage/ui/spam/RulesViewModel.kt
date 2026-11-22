@@ -207,9 +207,12 @@ class RulesViewModel(
     /** H-16: the app came back to the front; the preview's Spam senders go while the lock covers Spam. */
     internal fun onAppReturned() {
         if (!ProviderTruthFlag.enabled) return
-        val visible = runCatching { previewSource.blockedSendersVisible() }.getOrDefault(false)
-        preview.update { it.hidingSpamSenders(visible) }
+        preview.update { it.hidingSpamSenders(spamSendersVisible()) }
     }
+
+    /** H-16: whether the preview may show Spam senders now; always true while ProviderTruthFlag is off. */
+    private fun spamSendersVisible(): Boolean =
+        !ProviderTruthFlag.enabled || runCatching { previewSource.blockedSendersVisible() }.getOrDefault(false)
 
     override fun onCleared() {
         appReturn.stop()
@@ -299,7 +302,12 @@ class RulesViewModel(
                 }
             }
             if (!isActive) return@launch
-            preview.value = outcome.fold({ RulePreviewState.Done(it) }, { RulePreviewState.Failed })
+            // H-19: the lock may have locked again while the scan ran (a return seen while it was Loading).
+            val visible = spamSendersVisible()
+            preview.value = outcome.fold(
+                { RulePreviewState.Done(it).hidingSpamSenders(visible) },
+                { RulePreviewState.Failed },
+            )
         }
         previewJob = job
     }

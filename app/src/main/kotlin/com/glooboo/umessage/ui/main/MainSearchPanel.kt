@@ -45,11 +45,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.LifecycleResumeEffect
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.helpers.ProviderTruthFlag
-import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.models.SearchResult
 import org.fossify.commons.extensions.toast
 import com.glooboo.umessage.ui.components.rememberCodeHidden
@@ -126,8 +124,8 @@ private fun SearchPanelBody(
     // Notes are searched in all messages, so a tile that narrows the list leaves them out, like the contacts.
     val notes = search.shownNoteHits(typed)
     // main-22: blocked messages are searched in all messages too; they are left out under a tile, like the notes.
-    // H-16: the lock is checked again on every resume and whenever the hits change.
-    val blocked = search.shownBlockedHits(typed, rememberSpamLocked(search.blockedHits))
+    // H-16: the lock is checked again on every resume and whenever the hits change; H-20: unlocked, Spam comes back.
+    val blocked = search.shownBlockedHits(typed, rememberSpamLockWatch(search))
     Column(Modifier.fillMaxSize()) {
         when {
             filter == InboxFilter.All && !typed -> SearchTilesPage(search, simTiles, recent, bottomPadding, actions)
@@ -386,16 +384,4 @@ internal fun SearchResultRow(result: SearchResult, count: Int, query: String, on
             }
         }
     }
-}
-
-/** H-16: true while the app lock covers Spam and is locked; read again on each resume and when [key] changes. */
-@Composable
-private fun rememberSpamLocked(key: Any): Boolean {
-    val context = LocalContext.current
-    var resumes by remember { mutableIntStateOf(0) }
-    LifecycleResumeEffect(Unit) {
-        resumes++
-        onPauseOrDispose { }
-    }
-    return remember(resumes, key) { SpamReaders.lockedNow(context) }
 }

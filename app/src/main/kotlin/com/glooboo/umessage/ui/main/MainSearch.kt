@@ -247,10 +247,27 @@ class MainSearchState {
     /** Set by the view model: stops a search still running when the user leaves search. */
     internal var onClose: (() -> Unit)? = null
 
+    /**
+     * H-20: the Spam section is left out because the app lock covered Spam (it went, or the search ran while
+     * locked); it is searched again once Spam is unlocked ([spamUnlocked]).
+     */
+    internal var spamHidden = false
+
+    /** Set by the view model: searches Spam again for the query in the field (H-20). */
+    internal var onSpamUnlocked: (() -> Unit)? = null
+
     /** H-16: the app lock covers Spam again: the Spam section and its targets go. */
     internal fun hideSpamHits() {
         blockedHits = emptyList()
         spamTargets = emptyMap()
+        spamHidden = true
+    }
+
+    /** H-20: the lock no longer covers Spam; a Spam section left out while it did comes back. */
+    internal fun spamUnlocked() {
+        if (!spamHidden) return
+        spamHidden = false
+        onSpamUnlocked?.invoke()
     }
 
     fun close() {
@@ -261,5 +278,6 @@ class MainSearchState {
         noteHits = emptyList()
         blockedHits = emptyList()
         spamTargets = emptyMap()
+        spamHidden = false
     }
 }
