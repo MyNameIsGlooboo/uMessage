@@ -95,6 +95,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -118,8 +119,9 @@ import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.SelectionTopBar
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.GroupShape
-import com.glooboo.umessage.ui.components.displayNumber
-import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.isolateLtr
+import com.glooboo.umessage.ui.components.readsLeftToRight
+import com.glooboo.umessage.ui.components.ruleValueText
 
 @Immutable
 class RulesActions(
@@ -742,7 +744,7 @@ private fun RuleRowText(rule: SpamRule, overridden: Boolean, modifier: Modifier 
     val colors = MaterialTheme.colorScheme
     Column(modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(
-            if (rule.type == RuleType.NUMBER) isolateNumbers(displayNumber(rule.pattern)) else rule.pattern,
+            ruleValueText(rule.type, rule.pattern),
             style = MaterialTheme.typography.titleMedium,
             fontFamily = if (rule.type == RuleType.REGEX) FontFamily.Monospace else null,
             maxLines = 2,
@@ -790,8 +792,17 @@ private fun typeHelp(kind: ListKind, type: RuleType): String = stringResource(
     },
 )
 
+/**
+ * The text style of a rule's value field, shared with the forward editor: a pattern in monospace; F-5: a typed number
+ * or prefix runs left to right, so it keeps its + in front in a right-to-left sheet.
+ */
+internal fun ruleValueStyle(base: TextStyle, type: RuleType?): TextStyle = base
+    .let { if (type == RuleType.REGEX) it.copy(fontFamily = FontFamily.Monospace) else it }
+    .let { if (type?.readsLeftToRight == true) it.copy(textDirection = TextDirection.Ltr) else it }
+
+/** The example in the empty value field; F-5: a number or prefix example reads as written in right-to-left text. */
 @Composable
-private fun typeHint(type: RuleType): String = stringResource(
+internal fun typeHint(type: RuleType): String = stringResource(
     when (type) {
         RuleType.NUMBER -> R.string.rules2_type_number_hint
         RuleType.PREFIX -> R.string.rules2_type_prefix_hint
@@ -800,7 +811,7 @@ private fun typeHint(type: RuleType): String = stringResource(
         RuleType.REGEX -> R.string.spam_type_regex_hint
         RuleType.DOMAIN -> R.string.rdec_type_domain_hint
     },
-)
+).let { if (type.readsLeftToRight) isolateLtr(it) else it }
 
 /** The message for a failed validation; shared with the forward editor. */
 @Composable
@@ -1028,9 +1039,7 @@ private fun RuleValueField(form: RuleForm, error: RuleValidation.Invalid?, onPat
         singleLine = true,
         isError = error != null,
         supportingText = { Text(if (error != null) errorText(error) else typeHelp(form.kind, form.type)) },
-        textStyle = MaterialTheme.typography.bodyLarge.let {
-            if (form.type == RuleType.REGEX) it.copy(fontFamily = FontFamily.Monospace) else it
-        },
+        textStyle = ruleValueStyle(MaterialTheme.typography.bodyLarge, form.type),
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.None,
             autoCorrectEnabled = false,

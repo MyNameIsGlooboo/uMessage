@@ -62,6 +62,7 @@ import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.formatClockTime
 import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.ruleValueText
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.components.localizedNumber
 import com.glooboo.umessage.ui.components.uiLocale
@@ -313,10 +314,11 @@ private fun RetryAllDialog(state: ForwardedUiState, onRetryAll: () -> Unit, onDi
 }
 
 @Composable
-private fun ruleLine(rule: ForwardRule?): String {
+internal fun ruleLine(rule: ForwardRule?): String {
     if (rule == null) return stringResource(R.string.nav_fwd_rule_deleted)
     val sender = if (rule.senderType != null) {
-        stringResource(R.string.nav_fwd_rule_sender, isolateNumbers(rule.senderPattern))
+        // P-4, F-4: a prefix is isolated whole however short, a number by its digits, a sender name not at all.
+        stringResource(R.string.nav_fwd_rule_sender, ruleValueText(rule.senderType, rule.senderPattern))
     } else {
         stringResource(R.string.nav_fwd_rule_any_sender)
     }

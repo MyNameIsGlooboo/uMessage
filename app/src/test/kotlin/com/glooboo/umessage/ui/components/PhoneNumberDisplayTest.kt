@@ -29,6 +29,30 @@ class PhoneNumberDisplayTest {
     }
 
     @Test
+    fun arabicGroupsKeepTheirOrder() {
+        // G-1: Arabic-Indic digits are weak right-to-left, so a mark after each separator holds the groups in order.
+        val arabic = Locale.forLanguageTag("ar")
+        val shown = displayNumber("+15550001234", arabic) { "+1 555-000-1234" }
+        assertEquals("+\u0661 \u200E\u0665\u0665\u0665-\u200E\u0660\u0660\u0660-\u200E\u0661\u0662\u0663\u0664", shown)
+        // The marks belong to the number: it is still isolated as one run.
+        val expected = "\u2066+\u0661 \u200E" +
+            "\u0665\u0665\u0665-\u200E\u0660\u0660\u0660-\u200E\u0661\u0662\u0663\u0664\u2069"
+        assertEquals(expected, isolateNumbers(shown))
+        // Persian digits and Latin digits need no mark.
+        assertEquals("+۱ ۵۵۵-۰۰۰-۱۲۳۴", displayNumber("+15550001234", persian) { "+1 555-000-1234" })
+        assertEquals("+1 555-000-1234", displayNumber("+15550001234", english) { "+1 555-000-1234" })
+    }
+
+    @Test
+    fun anArabicNumberKeepsItsOpeningBracketInsideTheIsolate() {
+        // H-1: a mark right after "(" left the bracket outside the isolate, so it showed at the far end.
+        val arabic = Locale.forLanguageTag("ar")
+        val shown = displayNumber("5550001234", arabic) { "(555) 000-1234" }
+        assertEquals("(٥٥٥)‎ ‎٠٠٠-‎١٢٣٤", shown)
+        assertEquals("⁦$shown⁩", isolateNumbers(shown))
+    }
+
+    @Test
     fun namesAndSenderIdsAreLeftAlone() {
         val never = { _: String -> "formatted" }
         assertEquals("Sara Ahmadi", displayNumber("Sara Ahmadi", persian, never))

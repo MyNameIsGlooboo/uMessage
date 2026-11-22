@@ -1,11 +1,13 @@
 package com.glooboo.umessage.ui.spam
 
+import android.content.Context
 import android.content.res.Resources
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
+import com.glooboo.umessage.ui.components.ruleValueText
 import kotlin.math.ceil
 
 /** Longest rule text shown in a reason chip; longer patterns are cut with an ellipsis. */
@@ -16,9 +18,10 @@ private const val DAY_MS = 24L * 60 * 60 * 1000
 /**
  * Why [message] was blocked, as the chip on the Blocked screen shows it (SU-22): the rule's own text for a rule
  * block ("Rule: keyword "free""), otherwise the reason. Null for reasons that have no rule text; the caller then
- * shows the plain reason chip.
+ * shows the plain reason chip. [context] gives the app's language and the phone's number grouping.
  */
-fun ruleReasonText(resources: Resources, message: BlockedMessage, rules: Map<Long, SpamRule>): String? {
+fun ruleReasonText(context: Context, message: BlockedMessage, rules: Map<Long, SpamRule>): String? {
+    val resources = context.resources
     if (message.reason != DecisionReason.BLOCK_RULE) return null
     val id = message.ruleId ?: return null
     val rule = rules[id] ?: return resources.getString(R.string.spam_reason_rule_removed)
@@ -31,7 +34,8 @@ fun ruleReasonText(resources: Resources, message: BlockedMessage, rules: Map<Lon
         RuleType.SENDER_ID -> R.string.spam_reason_rule_sender
         RuleType.DOMAIN -> R.string.spam_reason_rule_domain
     }
-    return resources.getString(res, text)
+    // P-2: a prefix is isolated whole however short, a number grouped and isolated by its digit runs.
+    return resources.getString(res, ruleValueText(context, rule.type, text))
 }
 
 /**

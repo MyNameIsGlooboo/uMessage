@@ -1,6 +1,7 @@
 package com.glooboo.umessage.dialogs
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.telephony.SubscriptionInfo
 import android.text.format.DateFormat
 import androidx.compose.foundation.clickable
@@ -25,11 +26,14 @@ import com.glooboo.umessage.extensions.subscriptionManagerCompat
 import com.glooboo.umessage.helpers.DateStyle
 import com.glooboo.umessage.helpers.w3cPrefs
 import com.glooboo.umessage.models.Message
+import com.glooboo.umessage.spam.DecisionRuleText
+import com.glooboo.umessage.spam.SpamLogEntry
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.ui.components.InfoDialog
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.ruleLabelText
 import com.glooboo.umessage.ui.components.listSeparator
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.components.showComposeDialog
@@ -56,6 +60,20 @@ private data class Property(val label: Int, val value: String, val copyValue: St
 internal fun formatContactInfo(name: String, phoneNumber: String, display: (String) -> String = { it }): String {
     val number = isolateNumbers(display(phoneNumber))
     return if (name != phoneNumber) "${isolateNumbers(display(name))} ($number)" else number
+}
+
+/**
+ * F-1, G-2: the Details dialog's rule line for [entry]. With a logged rule id the label and its type come from that
+ * one rule (or the label stored with the entry once the rule is gone); an older allow entry without an id names the
+ * allow rule that matches [sender] now, shown as a rule of unknown type. A prefix or number reads as written in
+ * right-to-left text.
+ */
+internal fun detailsRuleText(context: Context, entry: SpamLogEntry, sender: String, rules: List<SpamRule>): String? {
+    val id = entry.ruleId ?: return MessageDecisions.ruleLabel(entry, sender, rules)?.let {
+        ruleLabelText(context, it, null)
+    }
+    val label = DecisionRuleText.ruleLabel(entry, rules) ?: return null
+    return ruleLabelText(context, label, rules.firstOrNull { it.id == id }?.type)
 }
 
 /** TH-16: a label over its value; a copyable row has a copy icon and copies the whole value on a tap. */
@@ -152,7 +170,7 @@ class MessageDetailsDialog(val activity: BaseSimpleActivity, val message: Messag
                 MessageDecisions.reasonLabel(decision.reason)?.let {
                     add(Property(R.string.thread_r2_details_reason, activity.getString(it)))
                 }
-                MessageDecisions.ruleLabel(decision, sender, rules)?.let {
+                detailsRuleText(activity, decision, sender, rules)?.let {
                     add(Property(R.string.thread_r2_details_rule, it))
                 }
             }

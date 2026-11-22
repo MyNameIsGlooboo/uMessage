@@ -82,6 +82,7 @@ import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.components.localizedNumber
+import com.glooboo.umessage.ui.components.ruleLabelText
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.settings.SimCard
@@ -456,9 +457,10 @@ internal fun rememberRowText(group: LogRowGroup, logContext: LogContext): RowTex
             stringResource(decisionLabel(entry.decision))
         },
         reason = if (forward) {
-            ForwardLogText.ruleLabel(resources, entry.reason, logContext.forwardRules)
+            ForwardLogText.ruleLabel(context, entry.reason, logContext.forwardRules)
         } else {
-            DecisionRuleText.byRule(resources, entry, logContext.rules) { isolateNumbers(displayNumber(context, it)) }
+            val type = logContext.rules.firstOrNull { it.id == entry.ruleId }?.type
+            DecisionRuleText.byRule(resources, entry, logContext.rules) { ruleLabelText(context, it, type) }
                 ?: reasonLabel(entry.reason)
         },
         source = stringResource(sourceLabel(entry.source)),

@@ -152,6 +152,15 @@ class RulesUiTest {
     }
 
     @Test
+    fun aPrefixRuleRowIsIsolatedWhole() {
+        // P-1, T-1: the row "View rule" opens shows a short prefix with its + in front in right-to-left text.
+        val prefix = SpamRule(3, ListKind.BLOCK, RuleType.PREFIX, "+1")
+        showRules(RulesUiState(loading = false, tab = ListKind.BLOCK, blocked = sampleRules + prefix))
+        compose.onNodeWithText("\u2066+1\u2069").assertExists()
+        compose.onNodeWithText(shownNumber("+447121234567")).assertExists()
+    }
+
+    @Test
     fun pickingShowsTheCountAndBulkActions() {
         showRules(RulesUiState(loading = false, tab = ListKind.BLOCK, blocked = sampleRules, selected = setOf(1L)))
         val count = ApplicationProvider.getApplicationContext<android.content.Context>().resources

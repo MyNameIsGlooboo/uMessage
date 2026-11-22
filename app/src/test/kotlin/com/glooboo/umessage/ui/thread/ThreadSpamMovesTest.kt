@@ -2,7 +2,9 @@ package com.glooboo.umessage.ui.thread
 
 import androidx.activity.ComponentActivity
 import androidx.compose.material3.SnackbarData
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.BlockReceipt
@@ -24,6 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Test
@@ -168,6 +171,27 @@ class ThreadSpamMovesTest {
         assertThat(started?.component?.className).isEqualTo(RulesActivity::class.java.name)
         // M-1: on the block list, where the refusing prefix rule is.
         assertThat(started?.getStringExtra(RulesActivity.EXTRA_TAB)).isEqualTo(ListKind.BLOCK.name)
+    }
+
+    @Test
+    fun thePrefixReasonClosesAnUndoSnackbarThatIsStillOpen() {
+        // L-7: "View rule" shows at once, not after an earlier Undo window runs out.
+        var undo: SnackbarResult? = null
+        val open = scope.launch {
+            undo = snackbar.showSnackbar("Undo window", actionLabel = "Undo", duration = SnackbarDuration.Indefinite)
+        }
+        assertThat(shown().visuals.message).isEqualTo("Undo window")
+        block(SENDER)
+        val prefix = block("+1555", type = RuleType.PREFIX)
+        verdict = SenderVerdict.Spam(SpamCause.BLOCKED, DecisionReason.BLOCK_RULE, prefix)
+        moves().unblock(SENDER)
+        val deadline = System.currentTimeMillis() + TIMEOUT_MS
+        while (!open.isCompleted && System.currentTimeMillis() < deadline) {
+            ShadowLooper.idleMainLooper()
+            Thread.sleep(10)
+        }
+        assertThat(undo).isEqualTo(SnackbarResult.Dismissed)
+        assertThat(shown().visuals.actionLabel).isEqualTo(text(R.string.e_view_rule))
     }
 
     @Test

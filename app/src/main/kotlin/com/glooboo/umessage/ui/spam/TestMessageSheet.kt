@@ -1,5 +1,6 @@
 package com.glooboo.umessage.ui.spam
 
+import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -52,6 +53,7 @@ import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
+import com.glooboo.umessage.ui.components.ruleValueText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -59,6 +61,11 @@ import kotlinx.coroutines.withContext
 
 /** The answer shown under the Test button: what it says and, for a rule block, which rule. */
 private data class TestOutcome(val verdict: TestVerdict, val ruleLabel: String?)
+
+/** The rule under the Test sheet's answer; F-2: a prefix or number rule reads as written in right-to-left text. */
+internal fun testRuleText(context: Context, ruleId: Long?, rules: List<SpamRule>): String? =
+    ruleId?.let { id -> rules.firstOrNull { it.id == id } }
+        ?.let { ruleValueText(context, it.type, DecisionRuleText.label(it)) }
 
 /**
  * One answer of the test sheet; [group] names the group rule of [Kind.GROUP]. With [ProviderTruthFlag] on the answers
@@ -252,11 +259,7 @@ fun TestMessageSheet(
                             failed = true
                         } else {
                             val ruleId = (decision as? FilterDecision.Block)?.ruleId
-                            outcome = TestOutcome(
-                                verdict,
-                                ruleId?.let { id -> rules.firstOrNull { it.id == id } }
-                                    ?.let { DecisionRuleText.label(it) },
-                            )
+                            outcome = TestOutcome(verdict, testRuleText(context, ruleId, rules))
                         }
                     }
                 },
