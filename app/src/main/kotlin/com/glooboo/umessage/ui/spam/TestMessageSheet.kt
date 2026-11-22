@@ -42,7 +42,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.DecisionReason
@@ -68,13 +67,13 @@ internal fun testRuleText(context: Context, ruleId: Long?, rules: List<SpamRule>
         ?.let { ruleValueText(context, it.type, DecisionRuleText.label(it)) }
 
 /**
- * One answer of the test sheet; [group] names the group rule of [Kind.GROUP]. With [ProviderTruthFlag] on the answers
- * are about the sender (provider truth): a word or a code allows or blocks the sender from then on.
+ * One answer of the test sheet; [group] names the group rule of [Kind.GROUP]. The answers are about the sender
+ * (provider truth): a word or a code allows or blocks the sender from then on.
  */
 internal data class TestVerdict(val kind: Kind, val group: AllowGroup? = null) {
     enum class Kind {
         HELD_BY_RULE, HELD_UNKNOWN_WITH_LINK, HELD_UNKNOWN, BLOCKED_WORD,
-        ALLOWED_BY_RULE, ALLOWED_CONTACT, ALLOWED_KNOWN_CONVERSATION, ALLOWED_CODE, ALLOWED_MODE_OFF,
+        ALLOWED_BY_RULE, ALLOWED_CONTACT, ALLOWED_CODE, ALLOWED_MODE_OFF,
         ALLOWED_UNSURE, ALLOWED_OTHER, ALLOWED_WORD, GROUP,
     }
 
@@ -83,22 +82,6 @@ internal data class TestVerdict(val kind: Kind, val group: AllowGroup? = null) {
     companion object {
         private val HELD = setOf(Kind.HELD_BY_RULE, Kind.HELD_UNKNOWN_WITH_LINK, Kind.HELD_UNKNOWN, Kind.BLOCKED_WORD)
         private val TEXT_TYPES = setOf(RuleType.KEYWORD, RuleType.REGEX, RuleType.DOMAIN)
-
-        /** The 0.4.14 answer, while [ProviderTruthFlag] is off. */
-        fun of(verdict: Verdict): TestVerdict = TestVerdict(
-            when (verdict) {
-                Verdict.HELD_BY_RULE -> Kind.HELD_BY_RULE
-                Verdict.HELD_UNKNOWN_WITH_LINK -> Kind.HELD_UNKNOWN_WITH_LINK
-                Verdict.HELD_UNKNOWN -> Kind.HELD_UNKNOWN
-                Verdict.ALLOWED_BY_RULE -> Kind.ALLOWED_BY_RULE
-                Verdict.ALLOWED_CONTACT -> Kind.ALLOWED_CONTACT
-                Verdict.ALLOWED_KNOWN_CONVERSATION -> Kind.ALLOWED_KNOWN_CONVERSATION
-                Verdict.ALLOWED_CODE -> Kind.ALLOWED_CODE
-                Verdict.ALLOWED_MODE_OFF -> Kind.ALLOWED_MODE_OFF
-                Verdict.ALLOWED_UNSURE -> Kind.ALLOWED_UNSURE
-                Verdict.ALLOWED_OTHER -> Kind.ALLOWED_OTHER
-            },
-        )
 
         /**
          * Provider truth: the answer for the filter's probe (it writes nothing). A rule that decided and is a word,
@@ -176,9 +159,9 @@ private const val MAX_SENDER = 64
 
 /**
  * ID-52, "Test a message": paste a text and a sender and see what the real filter would do. It asks the installed
- * [com.glooboo.umessage.spam.SpamFilter] directly (`UMessage.filter(context).evaluate`, a probe with
- * [ProviderTruthFlag] on), which is read-only: only `SpamEngine.evaluate` writes to the decision log, and that is not
- * used here; a probe writes no fact. Nothing typed is stored or sent. Spam rules cover both SIMs (7.2), so there is no
+ * [com.glooboo.umessage.spam.SpamFilter] directly (`UMessage.filter(context).evaluate`, a probe), which is
+ * read-only: only `SpamEngine.evaluate` writes to the decision log, and that is not used here; a probe writes no
+ * fact. Nothing typed is stored or sent. Spam rules cover both SIMs (7.2), so there is no
  * SIM field; the first SIM only says how a national number is read.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -307,21 +290,18 @@ fun TestMessageSheet(
     }
 }
 
-/** The answer for [decision]; with [ProviderTruthFlag] on it reads the group members and switches too. */
+/** The answer for [decision]; it reads the group members and switches too. */
 private suspend fun testVerdict(
     context: android.content.Context,
     decision: FilterDecision,
     message: IncomingMessage,
     rules: List<SpamRule>,
 ): TestVerdict? {
-    if (!ProviderTruthFlag.enabled) return TestVerdict.of(Verdict.of(decision, message.body))
     val repository = runCatching { UMessage.repository(context) }.getOrNull() ?: return null
     val members = runCatching { repository.groupMembers.first() }.getOrDefault(emptyList())
     val settings = runCatching { repository.settings.first() }.getOrDefault(SpamSettings())
     return TestVerdict.of(decision, message, TestContext(rules, members, settings))
 }
-
-internal fun verdictText(verdict: Verdict): Int = verdictText(TestVerdict.of(verdict))
 
 /** The sentence of an answer. [TestVerdict.Kind.GROUP] takes the group's name: use [verdictSentence]. */
 internal fun verdictText(verdict: TestVerdict): Int = when (verdict.kind) {
@@ -331,7 +311,6 @@ internal fun verdictText(verdict: TestVerdict): Int = when (verdict.kind) {
     TestVerdict.Kind.BLOCKED_WORD -> R.string.pt_verdict_blocked_word
     TestVerdict.Kind.ALLOWED_BY_RULE -> R.string.w3b_verdict_allowed_rule
     TestVerdict.Kind.ALLOWED_CONTACT -> R.string.w3b_verdict_allowed_contact
-    TestVerdict.Kind.ALLOWED_KNOWN_CONVERSATION -> R.string.w3b_verdict_allowed_known
     TestVerdict.Kind.ALLOWED_CODE -> R.string.w3b_verdict_allowed_code
     TestVerdict.Kind.ALLOWED_MODE_OFF -> R.string.w3b_verdict_allowed_off
     TestVerdict.Kind.ALLOWED_UNSURE -> R.string.w3b_verdict_allowed_unsure

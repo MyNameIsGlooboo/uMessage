@@ -17,7 +17,6 @@ import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.SpamSettings
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.theme.UMessageTheme
@@ -44,9 +43,6 @@ import java.util.Collections
 @RunWith(AndroidJUnit4::class)
 @Config(qualifiers = "w411dp-h891dp")
 class AllowGroupRowsTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     @get:Rule
     val compose = createComposeRule()
@@ -85,7 +81,6 @@ class AllowGroupRowsTest {
             SpamSettings(codeGroupOn = false, wroteGroupOn = true),
             open = null,
             confirm = null,
-            shown = true,
         )
         assertThat(state.rows.map { it.group }).containsExactly(AllowGroup.CODE, AllowGroup.WROTE).inOrder()
         assertThat(state.rows[0].on).isFalse()
@@ -93,13 +88,6 @@ class AllowGroupRowsTest {
         // Newest first.
         assertThat(state.rows[0].members.map { it.address }).containsExactly("Shop", "AcmeBank").inOrder()
         assertThat(state.rows[1].count).isEqualTo(1)
-    }
-
-    @Test
-    fun withTheFlagOffThereAreNoGroupRows() {
-        val state = AllowGroupsState.of(listOf(codeMember), SpamSettings(), null, null, shown = false)
-        assertThat(state.shown).isFalse()
-        assertThat(state.rows).isEmpty()
     }
 
     @Test
@@ -171,7 +159,7 @@ class AllowGroupRowsTest {
     }
 
     private fun groupsState(open: AllowGroup? = null) = AllowGroupsState.of(
-        listOf(codeMember, wroteMember), SpamSettings(), open, null, shown = true,
+        listOf(codeMember, wroteMember), SpamSettings(), open, null,
     )
 
     @Test
@@ -232,7 +220,7 @@ class AllowGroupRowsTest {
 
     @Test
     fun anEmptyGroupSaysSo() {
-        val empty = AllowGroupsState.of(emptyList(), SpamSettings(), AllowGroup.CODE, null, shown = true)
+        val empty = AllowGroupsState.of(emptyList(), SpamSettings(), AllowGroup.CODE, null)
         compose.setContent {
             UMessageTheme {
                 RulesScreen(RulesUiState(loading = false, groups = empty), SnackbarHostState(), RulesActions())

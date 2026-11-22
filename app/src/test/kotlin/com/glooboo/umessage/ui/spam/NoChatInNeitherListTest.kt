@@ -25,11 +25,9 @@ import com.glooboo.umessage.spam.SortingWorld
 import com.glooboo.umessage.spam.SortingWorld.Companion.chat
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -41,9 +39,6 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class NoChatInNeitherListTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private lateinit var db: MessagesDatabase
     private lateinit var dao: ConversationsDao

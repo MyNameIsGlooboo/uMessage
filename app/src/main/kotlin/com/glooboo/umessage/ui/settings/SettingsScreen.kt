@@ -36,14 +36,11 @@ import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.components.SettingsGroup
-import com.glooboo.umessage.ui.components.SettingsRadioRow
 import com.glooboo.umessage.ui.components.SettingsRow
 import com.glooboo.umessage.ui.components.SettingsSwitchRow
-import com.glooboo.umessage.ui.components.ConfirmDialog
 import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.TonalRows
-import com.glooboo.umessage.ui.onboarding.SortingCard
 import androidx.compose.foundation.layout.PaddingValues
 import com.glooboo.umessage.ui.icons.ShortcutIcons
 import com.glooboo.umessage.ui.icons.Symbols
@@ -59,7 +56,6 @@ import com.glooboo.umessage.ui.spam.SortChange
 import com.glooboo.umessage.ui.spam.SwitchConfirmDialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import androidx.compose.material3.Icon
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import org.fossify.commons.R as CommonsR
@@ -331,19 +327,18 @@ private fun forwardingSummaryText(state: SettingsUiState): String = when (state.
 }
 
 /**
- * One line: the mode and the figures. When the 7-day and total counts are equal only one is shown (SE-02). The parts
- * are joined with the app's separator (" · ", or the Persian comma), like the other summaries (owner notes r3).
+ * One line: the figures. When the 7-day and total counts are equal only one is shown (SE-02). The parts are joined
+ * with the app's separator (" · ", or the Persian comma), like the other summaries (owner notes r3). No mode name is
+ * left; the switch has its own line.
  */
 @Composable
 private fun spamSummaryText(spam: SpamSummary?): String {
     if (spam == null) return stringResource(R.string.settings_spam_open_settings_body)
-    // Provider truth: no mode name is left; the switch has its own line.
-    val mode = if (ProviderTruthFlag.enabled) null else modeLabel(spam.mode)
-    return spamSummaryLine(LocalResources.current, spam, mode)
+    return spamSummaryLine(LocalResources.current, spam)
 }
 
-/** The Spam protection row's summary parts, joined with [R.string.ui_separator]. [mode] null: the figures only. */
-internal fun spamSummaryLine(resources: android.content.res.Resources, spam: SpamSummary, mode: String?): String {
+/** The Spam protection row's summary parts (the figures), joined with [R.string.ui_separator]. */
+internal fun spamSummaryLine(resources: android.content.res.Resources, spam: SpamSummary): String {
     val figures = if (spam.blockedLast7Days == spam.blockedTotal) {
         listOf(
             resources.getString(R.string.r3f_spam_summary_stopped, spam.blockedTotal),
@@ -355,17 +350,8 @@ internal fun spamSummaryLine(resources: android.content.res.Resources, spam: Spa
             resources.getString(R.string.r3f_spam_summary_total, spam.blockedTotal),
         )
     }
-    return (listOfNotNull(mode) + figures).joinToString(resources.getString(R.string.ui_separator))
+    return figures.joinToString(resources.getString(R.string.ui_separator))
 }
-
-@Composable
-private fun modeLabel(mode: UnknownSenderMode): String = stringResource(
-    when (mode) {
-        UnknownSenderMode.STRICT -> R.string.spam_mode_strict
-        UnknownSenderMode.SMART -> R.string.spam_mode_smart
-        UnknownSenderMode.OFF -> R.string.spam_mode_off
-    },
-)
 
 /** The single SIM row of a dual-SIM phone: the SIM new conversations start on, with a short value. */
 @Composable
@@ -398,11 +384,9 @@ private fun DefaultSimRow(state: SettingsUiState, actions: SettingsActions) {
 
 @Composable
 private fun SpamPage(state: SettingsUiState, actions: SettingsActions) {
-    // P4-11: the mode is chosen right here, not two pages deeper.
+    // P4-11: the filter is switched right here, not two pages deeper.
     val spam = state.spam
-    if (spam != null) {
-        if (ProviderTruthFlag.enabled) SpamFilterGroup(spam) else SpamModeGroup(spam, actions)
-    }
+    if (spam != null) SpamFilterGroup(spam)
     // B11: the group is not named like the page above it.
     SettingsGroup(stringResource(R.string.settings_block_group)) {
         SettingsRow(
@@ -474,60 +458,6 @@ internal fun SpamFilterGroup(
         switchModel.switches.request(SortChange.Filter(on))
     }
     pending?.let { SwitchConfirmDialog(it, switchModel.switches::confirm, switchModel.switches::dismiss) }
-}
-
-/** The three unknown-sender modes. Strict also blocks verification codes, so it asks first (SE-23). */
-@Composable
-private fun SpamModeGroup(spam: SpamSummary, actions: SettingsActions) {
-    var confirmStrict by rememberSaveable { mutableStateOf(false) }
-    val cardMode = rememberSortingCardMode(spam.mode)
-    val choose: (UnknownSenderMode) -> Unit = { mode ->
-        if (mode == UnknownSenderMode.STRICT && spam.mode != UnknownSenderMode.STRICT) {
-            confirmStrict = true
-        } else if (mode != spam.mode) {
-            actions.onSpamMode(mode)
-        }
-    }
-    SettingsGroup(
-        title = stringResource(R.string.spam_settings_unknown_title),
-        description = spamSummaryText(spam),
-        descriptionExtra = cardMode?.let { shown ->
-            { SortingCard(mode = shown, containerColor = MaterialTheme.colorScheme.surface) }
-        },
-    ) {
-        SettingsRadioRow(
-            title = stringResource(R.string.spam_mode_strict),
-            summary = stringResource(R.string.spam_mode_strict_body),
-            selected = spam.mode == UnknownSenderMode.STRICT,
-            onSelect = { choose(UnknownSenderMode.STRICT) },
-        )
-        SettingsRadioRow(
-            title = stringResource(R.string.spam_mode_smart),
-            summary = stringResource(R.string.spam_mode_smart_body),
-            selected = spam.mode == UnknownSenderMode.SMART,
-            onSelect = { choose(UnknownSenderMode.SMART) },
-            badge = stringResource(R.string.settings_nav_recommended),
-        )
-        SettingsRadioRow(
-            title = stringResource(R.string.spam_mode_off),
-            summary = stringResource(R.string.spam_mode_off_body),
-            selected = spam.mode == UnknownSenderMode.OFF,
-            onSelect = { choose(UnknownSenderMode.OFF) },
-        )
-    }
-    if (confirmStrict) {
-        ConfirmDialog(
-            title = stringResource(R.string.settings_nav_strict_confirm_title),
-            message = stringResource(R.string.settings_nav_strict_confirm_body),
-            confirmLabel = stringResource(R.string.settings_nav_strict_confirm_action),
-            dismissLabel = stringResource(R.string.settings_nav_strict_confirm_cancel),
-            onConfirm = {
-                confirmStrict = false
-                actions.onSpamMode(UnknownSenderMode.STRICT)
-            },
-            onDismiss = { confirmStrict = false },
-        )
-    }
 }
 
 @Composable

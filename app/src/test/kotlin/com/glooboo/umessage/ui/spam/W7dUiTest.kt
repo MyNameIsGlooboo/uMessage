@@ -10,8 +10,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.helpers.BankCardPrefs
 import com.glooboo.umessage.spam.ForwardRule
-import com.glooboo.umessage.spam.SpamStats
-import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.forwarded.ForwardedUiState
 import com.glooboo.umessage.ui.forwarded.StatusCard
 import com.glooboo.umessage.ui.theme.UMessageTheme
@@ -45,28 +43,6 @@ class W7dUiTest {
         show { StatusCard(ForwardedUiState(loading = false, paused = true), { changes += it }, {}) }
         compose.onNodeWithContentDescription("Forwarding").assertIsOff().performClick()
         assertEquals(listOf(false), changes)
-    }
-
-    @Test
-    fun `the blocked line shows the level word, the count and opens the protection page`() {
-        var opened = 0
-        show {
-            BlockedLine(
-                stats = SpamStats(blockedTotal = 30, blockedLast7Days = 12, restoredTotal = 0),
-                mode = UnknownSenderMode.SMART,
-                onOpenSettings = { opened++ },
-            )
-        }
-        compose.onNodeWithText("Smart \u00B7 12 stopped this week").assertExists().performClick()
-        assertEquals(1, opened)
-        compose.onNodeWithContentDescription("Smart protection, 12 stopped this week").assertExists()
-    }
-
-    @Test
-    fun `the blocked line says when nothing was stopped`() {
-        show { BlockedLine(SpamStats(0, 0, 0), UnknownSenderMode.OFF, onOpenSettings = {}) }
-        compose.onNodeWithText("Off \u00B7 Nothing stopped this week").assertExists()
-        compose.onNodeWithContentDescription("Protection off, Nothing stopped this week").assertExists()
     }
 
     @Test

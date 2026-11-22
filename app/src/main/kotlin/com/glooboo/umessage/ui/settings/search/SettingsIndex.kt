@@ -3,7 +3,6 @@
 package com.glooboo.umessage.ui.settings.search
 
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.settings.search.SettingsIndexEntry.Needs
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.ABOUT
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.APPEARANCE
@@ -42,28 +41,19 @@ object SettingsIndex {
     private val PG_LOCK = R.string.settings_nav_app_lock
     private val PG_ABOUT = R.string.settings_nav_about_row
 
-    /** Read on every use: with [ProviderTruthFlag] on, the three modes and the foreign-numbers option are gone. */
+    /** Every entry, page by page. */
     val entries: List<SettingsIndexEntry>
-        get() = spamEntries().filter { !ProviderTruthFlag.enabled || it.titleRes !in retiredByTheSwitch } +
+        get() = spamEntries() +
             forwardingEntries() + notificationEntries() + typingEntries() + storageEntries() + appearanceEntries() +
             backupEntries() + lockEntries() + setupEntries() + aboutEntries()
-
-    /** The rows the one spam filter switch replaced (4.6, answer 7). */
-    private val retiredByTheSwitch = setOf(
-        R.string.spam_mode_strict, R.string.spam_mode_smart, R.string.spam_mode_off, R.string.region_title,
-    )
 
     private fun spamEntries() = listOf(
         SettingsIndexEntry(R.string.settings_nav_spam_row, MAIN, SPAM, null, R.string.sks_spam),
         SettingsIndexEntry(R.string.spam_settings_unknown_title, PG_SPAM, SPAM, R.string.spam_settings_unknown_body, R.string.sks_unknown_sender),
-        SettingsIndexEntry(R.string.spam_mode_strict, PG_SPAM, SPAM, R.string.spam_mode_strict_body, R.string.sks_strict),
-        SettingsIndexEntry(R.string.spam_mode_smart, PG_SPAM, SPAM, R.string.spam_mode_smart_body, R.string.sks_smart),
-        SettingsIndexEntry(R.string.spam_mode_off, PG_SPAM, SPAM, R.string.spam_mode_off_body, R.string.sks_spam_off),
         SettingsIndexEntry(R.string.settings_block_umessage_title, PG_SPAM, SPAM_RULES, R.string.settings_block_umessage_body, R.string.sks_rules),
         SettingsIndexEntry(R.string.rules2_bn_title, PG_SPAM, BLOCKED_NUMBERS, R.string.settings_nav_android_block_list_body, R.string.sks_blocked_numbers),
         SettingsIndexEntry(R.string.settings_nav_decision_log, PG_SPAM, DECISION_LOG, R.string.settings_nav_decision_log_body, R.string.sks_decision_log, Needs.DECISION_LOG),
         SettingsIndexEntry(R.string.settings_nav_purge_row, PG_SPAM, SPAM_SETTINGS, R.string.spam_purge_body, R.string.sks_purge),
-        SettingsIndexEntry(R.string.region_title, PG_SPAM, SPAM_SETTINGS, R.string.region_summary, R.string.sks_region),
         SettingsIndexEntry(R.string.i07_lock_title, PG_SPAM, SPAM_SETTINGS, R.string.i07_lock_summary, R.string.sks_links),
         SettingsIndexEntry(R.string.carrier_report_row_title, PG_SPAM, SPAM_SETTINGS, R.string.carrier_report_row_summary, R.string.sks_carrier_report),
         SettingsIndexEntry(R.string.unotify_title, PG_SPAM, SPAM_SETTINGS, R.string.unotify_summary, R.string.sks_unknown_notify),

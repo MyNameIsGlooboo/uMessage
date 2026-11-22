@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ListKind
@@ -15,7 +14,6 @@ import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.engine.NumberNormalizer
 import com.glooboo.umessage.spam.engine.RuleMatcher
 import com.glooboo.umessage.testing.ProcessReturn
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +21,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.junit.After
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Shadows.shadowOf
@@ -34,9 +31,6 @@ import org.robolectric.Shadows.shadowOf
  */
 @RunWith(AndroidJUnit4::class)
 class RulesPreviewSpamPartTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
@@ -105,16 +99,6 @@ class RulesPreviewSpamPartTest {
         assertThat(result.blocked.scanned).isEqualTo(1)
         assertThat(result.blocked.matched).isEqualTo(1)
         assertThat(result.blocked.senders).containsExactly("+15550001234")
-    }
-
-    @Test
-    fun withTheFlagOffTheSpamPartReadsTheHeldRows() {
-        ProviderTruthFlag.enabled = false
-
-        val result = previewOf("prize")
-
-        assertThat(result.blocked.matched).isEqualTo(2)
-        assertThat(result.blocked.senders).containsExactly("+15550001235")
     }
 
     @Test

@@ -1,6 +1,5 @@
 package com.glooboo.umessage.ui.spam
 
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.SpamSettings
@@ -18,7 +17,7 @@ data class AllowGroupRow(
 }
 
 /**
- * The group rules part of the Rules screen. [shown] is false while [ProviderTruthFlag] is off (the 0.4.14 screen).
+ * The group rules part of the Rules screen. [shown] is false until the groups are read.
  * [open] is the group whose member list is showing; [confirm] the group switch waiting for its confirm.
  */
 data class AllowGroupsState(
@@ -27,7 +26,7 @@ data class AllowGroupsState(
     val open: AllowGroup? = null,
     val confirm: SwitchConfirm? = null,
 ) {
-    /** The row of the open member list, or null when none is open (or the flag is off). */
+    /** The row of the open member list, or null when none is open. */
     val openRow: AllowGroupRow? get() = rows.firstOrNull { it.group == open }
 
     companion object {
@@ -37,9 +36,7 @@ data class AllowGroupsState(
             settings: SpamSettings,
             open: AllowGroup?,
             confirm: SwitchConfirm?,
-            shown: Boolean = ProviderTruthFlag.enabled,
         ): AllowGroupsState {
-            if (!shown) return AllowGroupsState()
             val rows = AllowGroup.entries.map { group ->
                 AllowGroupRow(
                     group = group,

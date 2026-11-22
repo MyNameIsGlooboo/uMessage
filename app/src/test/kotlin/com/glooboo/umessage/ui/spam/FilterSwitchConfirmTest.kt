@@ -7,7 +7,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.SpamSettings
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +17,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Shadows.shadowOf
@@ -29,9 +27,6 @@ import org.robolectric.Shadows.shadowOf
  */
 @RunWith(AndroidJUnit4::class)
 class FilterSwitchConfirmTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
     private val res = app.resources
@@ -200,15 +195,6 @@ class FilterSwitchConfirmTest {
 
         vm.setPurgeDays(0)
         awaitUntil { stored().purgeAfterDays == 0 }
-        assertThat(vm.state.value.purgeWarning).isNull()
-    }
-
-    @Test
-    fun withTheFlagOffDaysAreWrittenAtOnceAsIn0414() {
-        com.glooboo.umessage.helpers.ProviderTruthFlag.enabled = false
-        start(settings = SpamSettings(purgeAfterDays = 30))
-        vm.setPurgeDays(7)
-        awaitUntil { stored().purgeAfterDays == 7 }
         assertThat(vm.state.value.purgeWarning).isNull()
     }
 

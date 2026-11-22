@@ -4,18 +4,15 @@ import android.app.Application
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.extensions.conversationsDB
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.FakeMessageStore
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -26,9 +23,6 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class RulePreviewSpamTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
     private lateinit var store: FakeMessageStore
@@ -60,17 +54,6 @@ class RulePreviewSpamTest {
 
         assertThat(inbox.map { it.address }).containsExactly(FRIEND)
         assertThat(spam.map { it.address }).containsExactly(SPAM_SENDER)
-    }
-
-    @Test
-    fun withTheFlagOffTheInboxIsWholeAndThereIsNoSpamPart() {
-        ProviderTruthFlag.enabled = false
-
-        val inbox = offMainThread { source.inbox(RuleDryRun.MAX_SCAN) }
-        val spam = offMainThread { source.spam(RuleDryRun.MAX_SCAN) }
-
-        assertThat(inbox.map { it.address }).containsExactly(SPAM_SENDER, FRIEND).inOrder()
-        assertThat(spam).isEmpty()
     }
 
     @Test

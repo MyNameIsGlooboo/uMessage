@@ -33,16 +33,10 @@ class ContactsOffBanner042Test {
     }
 
     @Test fun cardIsHiddenWithoutContactsInSmartAndStrictAndKeptInOffOrWhenGranted() {
-        assertEquals(null, ContactsOffPolicy.cardMode(false, UnknownSenderMode.SMART, false))
-        assertEquals(null, ContactsOffPolicy.cardMode(false, UnknownSenderMode.STRICT, false))
-        assertEquals(UnknownSenderMode.OFF, ContactsOffPolicy.cardMode(false, UnknownSenderMode.OFF, false))
-        assertEquals(UnknownSenderMode.SMART, ContactsOffPolicy.cardMode(true, UnknownSenderMode.SMART, false))
-    }
-
-    @Test fun oldSwitchMakesAnOffFilterStrictForTheCard() {
-        assertEquals(UnknownSenderMode.STRICT, ContactsOffPolicy.cardMode(true, UnknownSenderMode.OFF, true))
-        assertEquals(null, ContactsOffPolicy.cardMode(false, UnknownSenderMode.OFF, true))
-        assertEquals(UnknownSenderMode.SMART, ContactsOffPolicy.cardMode(true, UnknownSenderMode.SMART, true))
+        assertEquals(null, ContactsOffPolicy.cardMode(false, UnknownSenderMode.SMART))
+        assertEquals(null, ContactsOffPolicy.cardMode(false, UnknownSenderMode.STRICT))
+        assertEquals(UnknownSenderMode.OFF, ContactsOffPolicy.cardMode(false, UnknownSenderMode.OFF))
+        assertEquals(UnknownSenderMode.SMART, ContactsOffPolicy.cardMode(true, UnknownSenderMode.SMART))
     }
 
     @Test fun bannerShowsTitleBodyAndAllowButtonWithoutThePermission() {

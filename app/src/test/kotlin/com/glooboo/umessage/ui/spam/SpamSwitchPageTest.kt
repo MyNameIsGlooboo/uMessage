@@ -9,9 +9,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
 import com.glooboo.umessage.backup.BackupSettings
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.SpamSettings
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.ui.settings.RestoreSummary
 import com.glooboo.umessage.ui.settings.search.SettingsIndex
 import com.glooboo.umessage.ui.theme.UMessageTheme
@@ -30,9 +28,6 @@ import org.robolectric.annotation.Config
 class SpamSwitchPageTest {
 
     @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
-
-    @get:Rule
     val compose = createComposeRule()
 
     private fun str(id: Int) = ApplicationProvider.getApplicationContext<android.app.Application>().getString(id)
@@ -48,9 +43,6 @@ class SpamSwitchPageTest {
         // G-16: "Spam filter" is read once, as the heading; the switch says what it does.
         compose.onAllNodesWithText(str(R.string.spam_settings_unknown_title), useUnmergedTree = true)
             .assertCountEquals(1)
-        compose.onNodeWithText(str(R.string.spam_mode_strict)).assertDoesNotExist()
-        compose.onNodeWithText(str(R.string.spam_mode_smart)).assertDoesNotExist()
-        compose.onNodeWithText(str(R.string.region_title)).assertDoesNotExist()
         compose.onNodeWithText(str(R.string.settings_nav_purge_row)).assertExists()
     }
 
@@ -103,14 +95,9 @@ class SpamSwitchPageTest {
     }
 
     @Test
-    fun theSearchFindsTheSwitchButNotTheOldModes() {
+    fun theSearchFindsTheSwitch() {
         val titles = SettingsIndex.entries.map { it.titleRes }
         assertThat(titles).contains(R.string.spam_settings_unknown_title)
-        assertThat(titles).containsNoneOf(
-            R.string.spam_mode_strict, R.string.spam_mode_smart, R.string.spam_mode_off, R.string.region_title,
-        )
-        ProviderTruthFlag.enabled = false
-        assertThat(SettingsIndex.entries.map { it.titleRes }).contains(R.string.spam_mode_smart)
     }
 
     @Test

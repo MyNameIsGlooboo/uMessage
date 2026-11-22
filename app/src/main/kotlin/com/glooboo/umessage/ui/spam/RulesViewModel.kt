@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -23,7 +22,6 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.glooboo.umessage.helpers.AppReturnWatch
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.ListKind
@@ -206,13 +204,12 @@ class RulesViewModel(
 
     /** H-16: the app came back to the front; the preview's Spam senders go while the lock covers Spam. */
     internal fun onAppReturned() {
-        if (!ProviderTruthFlag.enabled) return
         preview.update { it.hidingSpamSenders(spamSendersVisible()) }
     }
 
-    /** H-16: whether the preview may show Spam senders now; always true while ProviderTruthFlag is off. */
+    /** H-16: whether the preview may show Spam senders now. */
     private fun spamSendersVisible(): Boolean =
-        !ProviderTruthFlag.enabled || runCatching { previewSource.blockedSendersVisible() }.getOrDefault(false)
+        runCatching { previewSource.blockedSendersVisible() }.getOrDefault(false)
 
     override fun onCleared() {
         appReturn.stop()
@@ -283,18 +280,13 @@ class RulesViewModel(
         val job = viewModelScope.launch {
             val outcome = runCatching {
                 // Provider truth (section 5): spam is in the phone's store, so the Spam part reads the Spam chats.
-                val blocked = if (ProviderTruthFlag.enabled) emptyList() else repository.blocked.first()
                 withContext(io) {
                     val matcher = previewSource.matcher()
                     val inbox = RuleDryRun.scan(
                         matcher, rule, previewSource.inbox(RuleDryRun.MAX_SCAN), keepGoing = { isActive },
                     )
                     val showSenders = previewSource.blockedSendersVisible()
-                    val spamTexts = if (ProviderTruthFlag.enabled) {
-                        previewSource.spam(RuleDryRun.MAX_SCAN)
-                    } else {
-                        RuleDryRun.blockedMessages(blocked)
-                    }
+                    val spamTexts = previewSource.spam(RuleDryRun.MAX_SCAN)
                     val history = RuleDryRun.scan(
                         matcher, rule, spamTexts, showSenders = showSenders, keepGoing = { isActive },
                     )

@@ -17,7 +17,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.engine.SpamCause
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.ui.conversations.ConversationFolder
 import com.glooboo.umessage.ui.conversations.ConversationFolderScreen
 import com.glooboo.umessage.ui.conversations.ConversationRow
@@ -46,9 +45,6 @@ class SpamFolderScreenTest {
 
     @get:Rule
     val compose = createComposeRule()
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
 

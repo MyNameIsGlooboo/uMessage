@@ -139,8 +139,8 @@ object SenderBlocking {
 }
 
 /**
- * Provider truth (4.1: U5, M-SP3; 4.2): moving a sender's whole chat between Messages and Spam. Used only while
- * ProviderTruthFlag is on; [SenderBlocking] keeps the 0.4.14 rule-only actions for the flag off.
+ * Provider truth (4.1: U5, M-SP3; 4.2): moving a sender's whole chat between Messages and Spam. [SenderBlocking] keeps
+ * the rule-only helpers.
  */
 object SenderMoves {
 

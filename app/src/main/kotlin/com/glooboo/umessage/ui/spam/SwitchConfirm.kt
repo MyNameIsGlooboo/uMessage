@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.SpamSettings
 
@@ -94,16 +93,15 @@ fun SpamSettings.applying(change: SortChange): SpamSettings = when (change) {
 }
 
 /**
- * Auto-delete days wait for the warning (4.6): with [ProviderTruthFlag] on, a number of days deletes texts from the
- * phone itself, so [request] holds it until [confirm]; "keep forever", or the value already set, is written at once
- * through [write].
+ * Auto-delete days wait for the warning (4.6): a number of days deletes texts from the phone itself, so [request]
+ * holds it until [confirm]; "keep forever", or the value already set, is written at once through [write].
  */
 class PurgeWarning(private val write: (Int) -> Unit) {
     private val pendingState = MutableStateFlow<Int?>(null)
     val pending: StateFlow<Int?> = pendingState.asStateFlow()
 
     fun request(days: Int, currentDays: Int) {
-        if (ProviderTruthFlag.enabled && days != 0 && days != currentDays) pendingState.value = days else write(days)
+        if (days != 0 && days != currentDays) pendingState.value = days else write(days)
     }
 
     /** The warning was accepted: the chosen days are written. */
