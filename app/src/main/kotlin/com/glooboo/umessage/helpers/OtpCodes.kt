@@ -49,7 +49,7 @@ object OtpCodes {
      * the whole folded text.
      */
     fun looksLikeCode(body: String): Boolean {
-        val full = TextNormalizer.fold(body)
+        val full = TextNormalizer.foldForMatching(body)
         val text = OtpDetector.scanned(full)
         return OtpDetector.nearKeyword(text, full) ||
             labelledValues(text, full).any { it.second.kind != CodeKind.Username }
@@ -61,7 +61,7 @@ object OtpCodes {
      */
     fun tokens(body: String): List<CodeToken> {
         if (body.length < MIN_BODY_LENGTH) return emptyList()
-        val full = TextNormalizer.fold(body)
+        val full = TextNormalizer.foldForMatching(body)
         val text = OtpDetector.scanned(full)
         val found = LinkedHashMap<String, Pair<Int, CodeToken>>()
         for ((position, token) in labelledValues(text, full)) found.putIfAbsent(token.value, position to token)

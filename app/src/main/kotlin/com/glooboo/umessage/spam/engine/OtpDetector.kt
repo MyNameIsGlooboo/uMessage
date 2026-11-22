@@ -517,7 +517,7 @@ object OtpDetector {
      * ("Winner! password: 12345678") fails it. The old filter (flag off) lets a code through only with this.
      */
     internal fun noAdBeforeCode(body: String): Boolean {
-        val full = TextNormalizer.fold(body)
+        val full = TextNormalizer.foldForMatching(body)
         val text = scanned(full)
         return adStart(text, full)?.let { codeNextToPhrase(text, it) } ?: true
     }
@@ -560,7 +560,7 @@ object OtpDetector {
     internal fun hasAdvertisingWord(text: String): Boolean = marketingHard.containsMatchIn(text)
 
     /** Whether [text] is an advertisement ("promo", "discount", "50%"): such a text is never a code. */
-    internal fun isMarketing(text: String): Boolean = TextNormalizer.fold(text).let {
+    internal fun isMarketing(text: String): Boolean = TextNormalizer.foldForMatching(text).let {
         marketingHard.containsMatchIn(it) || marketingOptOut.containsMatchIn(it)
     }
 
@@ -571,8 +571,8 @@ object OtpDetector {
      * Labelled values are [OtpCodes]' business.
      */
     internal fun nearKeyword(body: String, whole: String = body): Boolean {
-        val text = scanned(TextNormalizer.fold(body))
-        val full = TextNormalizer.fold(whole)
+        val text = scanned(TextNormalizer.foldForMatching(body))
+        val full = TextNormalizer.foldForMatching(whole)
         return when {
             // Every code of this rule holds a digit (folding made them ASCII): a text without one is read no further.
             text.none { it in '0'..'9' } -> false
@@ -600,10 +600,11 @@ object OtpDetector {
      */
     fun containsUrl(body: String): Boolean {
         val text = if (isOriginBound(body)) body.trimEnd().substringBeforeLast('\n', "") else body
-        return url.containsMatchIn(TextNormalizer.fold(text))
+        return url.containsMatchIn(TextNormalizer.foldForMatching(text))
     }
 
-    private fun lastLine(body: String): String = TextNormalizer.fold(body.trimEnd().substringAfterLast('\n').trim())
+    private fun lastLine(body: String): String =
+        TextNormalizer.foldForMatching(body.trimEnd().substringAfterLast('\n').trim())
 
     /** Replaces every Unicode decimal digit (Persian, Arabic-Indic, ...) with its ASCII digit. */
     fun normalizeDigits(text: String): String {

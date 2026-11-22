@@ -8,11 +8,12 @@ package com.glooboo.umessage.spam
  * - the hamza forms of alef (أ إ آ ٱ → ا), waw with hamza (ؤ → و) and teh marbuta (ة → ه) are folded too, so a
  *   rule typed "اعلان" also matches "إعلان" (the search fold is built from the same table);
  * - curly single quotes (’ ‘) become the straight apostrophe, so "don’t share" reads as "don't share";
- * - every space separator (no-break, narrow, figure, ideographic, ...) becomes a plain space, so a pattern reads
- *   it the same in Android's ICU and in desktop Java;
  * - every Unicode decimal digit (Persian ۱۲۳, Arabic-Indic ١٢٣, ...) becomes the ASCII digit;
  * - zero-width characters (ZWNJ, ZWJ, ZWSP, word joiner, BOM, soft hyphen), the kashida (ـ) and Arabic
  *   diacritics (harakat, superscript alef) are dropped.
+ *
+ * [foldForMatching] is [fold] with every space separator read as a plain space, for the code detector and keyword
+ * rules only (R2-10).
  *
  * It keeps every other character, so a folded text is never longer than the input. Case is left as it is: matching
  * ignores case for every script (Kotlin `ignoreCase`, regex `UNICODE_CASE`), and [lower] is there for callers that
@@ -24,9 +25,9 @@ package com.glooboo.umessage.spam
  */
 object TextNormalizer {
 
-    /** The Unicode space separators (category Zs) other than the plain space. */
-    private const val SPACES = "\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A" +
-        "\u202F\u205F\u3000"
+    /** The Unicode space separators (category Zs) other than the plain space: no-break, narrow, figure, ideographic. */
+    private val SPACES: Set<Char> = ("\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A" +
+        "\u202F\u205F\u3000").toSet()
 
     /** Characters that [fold] replaces with another character. */
     val REPLACEMENTS: Map<Char, Char> = buildMap {
@@ -41,9 +42,6 @@ object TextNormalizer {
         put('\u0629', '\u0647') // ة teh marbuta -> ه
         put('\u2019', '\'') // ’ right single quotation mark (the curly apostrophe of "don’t") -> '
         put('\u2018', '\'') // ‘ left single quotation mark -> '
-        // R2-10: every other space separator (no-break U+00A0, figure U+2007, narrow no-break U+202F, ideographic
-        // U+3000, ...) becomes a plain space. Android's ICU reads them as "\s" and desktop Java does not.
-        for (c in SPACES) put(c, ' ')
         for (i in 0..9) {
             put('\u06F0' + i, '0' + i) // Persian digits
             put('\u0660' + i, '0' + i) // Arabic-Indic digits
@@ -81,6 +79,20 @@ object TextNormalizer {
         }
         return out.toString()
     }
+
+    /** [text] with every space separator other than the plain space read as a plain space; same length. */
+    fun foldSpaces(text: String): String {
+        if (text.none { it in SPACES }) return text
+        return buildString(text.length) { for (c in text) append(if (c in SPACES) ' ' else c) }
+    }
+
+    /**
+     * R2-10: [fold], then [foldSpaces]. Android's ICU reads a no-break or narrow space as "\s" and desktop Java does
+     * not; this makes both read a plain space. For the code detector and keyword rules only: search, notes, the saved
+     * `body_folded` and the SQL fold of [sqlFoldedLike] stay on [fold], whose table must not grow (SQLite's parser
+     * overflows on a deeper REPLACE chain).
+     */
+    fun foldForMatching(text: String): String = foldSpaces(fold(text))
 
     /** [fold], then lower case for every script (Locale-independent, so a Turkish phone still gets "i"). */
     fun lower(text: String): String = fold(text).lowercase(java.util.Locale.ROOT)
@@ -148,8 +160,8 @@ object TextNormalizer {
 
     /** Whether [text] contains [keyword] once both are folded, ignoring case in every script. */
     fun containsFolded(text: String, keyword: String): Boolean {
-        val wanted = fold(keyword)
-        return wanted.isNotEmpty() && fold(text).contains(wanted, ignoreCase = true)
+        val wanted = foldForMatching(keyword)
+        return wanted.isNotEmpty() && foldForMatching(text).contains(wanted, ignoreCase = true)
     }
 
     /**

@@ -92,7 +92,7 @@ object OtpCodeExtractor {
     }
 
     /** Whether any code-shaped number in [body] has a code keyword anywhere in the text: a deliberately wide net. */
-    internal fun hasKeywordNearNumber(body: String): Boolean = locate(TextNormalizer.fold(body)) != null
+    internal fun hasKeywordNearNumber(body: String): Boolean = locate(TextNormalizer.foldForMatching(body)) != null
 
     /** Every code-shaped number of the folded [text] (no keyword needed), for masking repeats of the same code. */
     internal fun codeShapes(text: String): Sequence<MatchResult> = code.findAll(text) + longCode.findAll(text)

@@ -23,7 +23,7 @@ object CodeMasker {
      * ("Code: ****82"). A code of four digits keeps its last two as well, so use that setting with care.
      */
     fun mask(body: String, keepLastTwo: Boolean = false, mark: String = BULLETS): String {
-        val folded = TextNormalizer.fold(body)
+        val folded = TextNormalizer.foldForMatching(body)
         val best = OtpCodes.primary(body) ?: return body
         // Where each folded character stands in the original (the fold only drops characters, never adds any).
         val origin = IntArray(folded.length)

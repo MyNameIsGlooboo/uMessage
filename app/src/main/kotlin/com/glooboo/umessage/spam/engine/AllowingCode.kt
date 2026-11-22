@@ -372,7 +372,7 @@ object AllowingCode {
     /** Whether [body] allows its sender for good (see the class comment). Never throws. */
     fun isAllowingCode(body: String): Boolean = runCatching {
         if (!OtpDetector.looksLikeOtp(body)) return@runCatching false
-        val full = TextNormalizer.fold(body)
+        val full = TextNormalizer.foldForMatching(body)
         if (OtpDetector.hasAdvertisingWord(full) || handOverOrBet(full)) return@runCatching false
         val text = OtpDetector.scanned(full)
         val secret = secrecy.containsMatchIn(text)
