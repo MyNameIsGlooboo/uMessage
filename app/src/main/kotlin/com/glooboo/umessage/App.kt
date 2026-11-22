@@ -10,7 +10,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.ContactsContract
+import android.util.Log
 import android.view.WindowManager
+import java.util.concurrent.CopyOnWriteArrayList
 import androidx.annotation.VisibleForTesting
 import org.fossify.commons.FossifyApp
 import org.fossify.commons.activities.BaseComposeActivity
@@ -83,7 +85,7 @@ class App : FossifyApp() {
         val startedAt = System.currentTimeMillis()
 
         val steps = startupSteps(startedAt)
-        ensureBackgroundThread { steps.forEach { (_, run) -> run() } }
+        ensureBackgroundThread { runStartupSteps(steps) }
     }
 
     /** The start-up work of [onCreate], in the order it runs on one background thread, each with a name for tests. */
@@ -197,6 +199,30 @@ class App : FossifyApp() {
         /** Names of two [startupSteps] whose order matters (E-26). */
         const val BLOCKING_MIGRATION = "blocking migration"
         const val MMS_SWEEP = "mms sweep"
+
+        /** Log tag of the start-up work. */
+        private const val TAG = "uMessageStart"
+
+        /** The names of the start-up steps that threw, oldest first; tests check it stays empty. */
+        @VisibleForTesting
+        internal val failedSteps: MutableList<String> = CopyOnWriteArrayList()
+
+        /**
+         * Runs [steps] in their order. A step that throws an exception is logged (its name and the exception class
+         * only), recorded in [failedSteps], and the next one still runs, so one failure cannot skip a migration or a
+         * clean-up until the next start. An Error (out of memory and the like) is not caught.
+         */
+        @Suppress("TooGenericExceptionCaught") // Any exception of a step must not stop the steps after it.
+        internal fun runStartupSteps(steps: List<Pair<String, () -> Unit>>) {
+            for ((name, run) in steps) {
+                try {
+                    run()
+                } catch (e: Exception) {
+                    failedSteps += name
+                    Log.w(TAG, "Start-up step $name failed: ${e.javaClass.simpleName}")
+                }
+            }
+        }
     }
 }
 

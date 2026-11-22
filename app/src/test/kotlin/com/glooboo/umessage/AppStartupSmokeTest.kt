@@ -88,9 +88,12 @@ class AppStartupSmokeTest {
 
     /** What the next launch does: App.onCreate, then everything its background thread starts. */
     private fun startUp() {
+        App.failedSteps.clear()
         app.onCreate()
         joinAppBackgroundThreads()
         assertThat(synchronized(uncaught) { uncaught.toList() }).isEmpty()
+        // Each step's failure is caught so the next one runs (J13); it must still fail this test.
+        assertThat(App.failedSteps).isEmpty()
     }
 
     private fun rules() = offMainThread { SpamEngine.repository(context).currentRules() }
