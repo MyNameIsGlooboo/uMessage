@@ -7,12 +7,16 @@ import android.provider.Telephony.Sms
 import android.provider.Telephony.Threads
 import android.telephony.PhoneNumberUtils
 import android.util.Base64
+import android.util.Log
 import com.glooboo.umessage.extensions.updateLastConversationMessage
 import com.glooboo.umessage.models.MmsBackup
 import com.glooboo.umessage.models.MmsPart
 import com.glooboo.umessage.models.SmsBackup
 import com.glooboo.umessage.models.WriteOutcome
 import com.glooboo.umessage.models.WriteResult
+import com.glooboo.umessage.spam.engine.NumberNormalizer
+import com.glooboo.umessage.spam.engine.SenderAddress
+import com.glooboo.umessage.spam.engine.defaultRegion
 import com.glooboo.umessage.ui.settings.SimCards
 import com.google.android.mms.pdu_alt.PduHeaders
 
@@ -23,12 +27,15 @@ import com.google.android.mms.pdu_alt.PduHeaders
  * after it was interrupted or after some attachments failed, and it only adds what is missing.
  *
  * - An SMS is a duplicate when its conversation already has one with the same time, type and text. The conversation
- *   comes from the system's thread lookup, which treats "+1555..." and "0555..." as the same person.
+ *   comes from the system's thread lookup, which treats "+1555..." and "0555..." as the same person. An SMS without a
+ *   readable sender goes to the "Unknown" conversation, as the receiver and the Spam migration keep it (S17).
  * - An MMS goes into the conversation the system would have put it in: the sender plus every other recipient, so a
  *   group picture message stays in its group. It is the same message when the store already has one, in any
- *   conversation, with the same time, box, transaction id, text and sender (a received one) or a shared recipient (a
- *   sent one); or when its conversation has one with the same time, box, transaction id and text. The first check
- *   does not need the conversation, which depends on this phone's own number, and many phones do not tell it. Its
+ *   conversation, with the same time, box, transaction id, text and the very same addresses (each of the same type);
+ *   or when its conversation has one with the same time, box, transaction id and text. The first check does not need
+ *   the conversation, which depends on this phone's own number, and many phones do not tell it. A message with
+ *   nobody to compare (no usable sender) is only looked for in its conversation, and when two stored messages fit,
+ *   the one with the same transaction id or in the same conversation is taken, else the message is written. Its
  *   attachments and addresses are then compared one by one, with missing values compared as missing (not as the
  *   text "null"), and only the missing ones are added. An attachment that failed to write before is written again.
  *
@@ -57,20 +64,33 @@ class MessagesWriter(
     /** An MMS of the store, as the duplicate check needs it. */
     private class StoredMms(val id: Long, val threadId: Long, val transactionId: String?)
 
-    /** Every MMS of the store by time and box, read at the first MMS; empty when the store cannot be listed. */
+    /**
+     * Every MMS of the store by time and box, read at the first MMS. Empty when the store cannot be listed: then only
+     * the conversation's own check runs, as before, and one line without message data says so.
+     */
     private val storedMms: HashMap<String, MutableList<StoredMms>> by lazy {
-        runCatching { listStoredMms() }.getOrDefault(HashMap())
+        runCatching { listStoredMms() }.getOrElse {
+            Log.w(TAG, "MMS list not read (${it.javaClass.simpleName}); duplicates are checked per conversation")
+            HashMap()
+        }
     }
 
+    /** The app's number key: E.164 when the country is known, else the digits ([NumberNormalizer.comparableKey]). */
+    private val numbers: NumberNormalizer by lazy { NumberNormalizer { defaultRegion(context) }.frozen() }
+
     fun writeSmsMessage(smsBackup: SmsBackup): WriteResult {
-        if (smsBackup.address.isBlank()) return WriteResult(WriteOutcome.FAILED, REASON_NO_ADDRESS)
-        val threadId = threadIdFor(setOf(smsBackup.address))
+        val sms = if (SenderAddress.isUnreadable(smsBackup.address)) {
+            smsBackup.copy(address = SenderAddress.UNKNOWN_PLACEHOLDER)
+        } else {
+            smsBackup
+        }
+        val threadId = threadIdFor(setOf(sms.address))
             ?: return WriteResult(WriteOutcome.FAILED, REASON_NO_THREAD)
         val keys = smsKeys(threadId)
-        val key = SmsKey(smsBackup.date, smsBackup.type, smsBackup.body)
+        val key = SmsKey(sms.date, sms.type, sms.body)
         if (key in keys) return WriteResult(WriteOutcome.DUPLICATE)
 
-        val values = smsBackup.toContentValues().apply { put(Sms.THREAD_ID, threadId) }
+        val values = sms.toContentValues().apply { put(Sms.THREAD_ID, threadId) }
         val uri = try {
             contentResolver.insert(Sms.CONTENT_URI, values)
         } catch (e: Exception) {
@@ -105,7 +125,7 @@ class MessagesWriter(
         val recipients = mmsRecipients(backup)
         if (recipients.isEmpty()) return WriteResult(WriteOutcome.FAILED, REASON_NO_ADDRESS)
         // Already in the store, in whatever conversation: it gets no second copy and no new conversation.
-        val stored = findStoredMms(backup)
+        val stored = findStoredMms(backup, recipients)
         val threadId = stored?.threadId ?: threadIdFor(recipients)
             ?: return WriteResult(WriteOutcome.FAILED, REASON_NO_THREAD)
 
@@ -245,32 +265,67 @@ class MessagesWriter(
 
     /**
      * The same MMS anywhere in the store: same time, box, transaction id (when both have one) and text, and the same
-     * sender (received) or a shared recipient (sent). The conversation is not compared: which one the message is in
+     * addresses of the same types both ways. The conversation is not compared at first: which one the message is in
      * depends on whether this phone knows its own number, and a second copy in a new conversation must never be made.
+     * A message with nobody to compare is left to its conversation's check. When more than one fits, the one with the
+     * same transaction id or in this conversation is taken; if that does not decide, none is, so the message is
+     * written rather than merged into another.
      */
-    private fun findStoredMms(backup: MmsBackup): StoredMms? {
-        val candidates = storedMms[mmsKey(backup.date, backup.messageBox)].orEmpty().filter {
-            it.transactionId == null || backup.transactionId == null || it.transactionId == backup.transactionId
+    private fun findStoredMms(backup: MmsBackup, recipients: Set<String>): StoredMms? {
+        val wanted = usableAddresses(backup.addresses.map { AddressKey(it.type, it.address) })
+        val candidates = if (keyPeople(backup.messageBox, wanted).isEmpty()) {
+            emptyList()
+        } else {
+            storedMms[mmsKey(backup.date, backup.messageBox)].orEmpty().filter {
+                it.transactionId == null || backup.transactionId == null || it.transactionId == backup.transactionId
+            }
         }
         if (candidates.isEmpty()) return null
         val wantedText = textOf(backup.parts.map { it.contentType to (it.text ?: it.data) })
-        return candidates.firstOrNull { stored ->
+        val matches = candidates.filter { stored ->
             textOf(existingParts(stored.id).map { it.contentType to it.text }) == wantedText &&
-                samePeople(backup, existingAddresses(stored.id))
+                sameAddresses(wanted, usableAddresses(existingAddresses(stored.id)))
         }
+        return pickStoredMms(matches, backup, recipients)
     }
 
-    /** The sender of a received MMS, or one shared recipient of a sent one; two messages without anyone also match. */
-    private fun samePeople(backup: MmsBackup, stored: Set<AddressKey>): Boolean {
-        val types = if (backup.messageBox == Mms.MESSAGE_BOX_INBOX) {
+    /** One match, or the one with the same transaction id, or the one in this conversation; else none. */
+    private fun pickStoredMms(matches: List<StoredMms>, backup: MmsBackup, recipients: Set<String>): StoredMms? {
+        if (matches.size <= 1) return matches.firstOrNull()
+        val sameTransaction = backup.transactionId?.let { trId -> matches.singleOrNull { it.transactionId == trId } }
+        return sameTransaction
+            ?: threadIdFor(recipients)?.let { thread -> matches.singleOrNull { it.threadId == thread } }
+    }
+
+    private fun usableAddresses(addresses: Collection<AddressKey>): List<AddressKey> =
+        addresses.filter { usableAddress(it.address) }.map { AddressKey(it.type, it.address.trim()) }
+
+    /** Who tells a message apart: the sender of a received MMS, the recipients of a sent one. */
+    private fun keyPeople(box: Int, addresses: List<AddressKey>): List<AddressKey> {
+        val types = if (box == Mms.MESSAGE_BOX_INBOX) {
             setOf(PduHeaders.FROM)
         } else {
             setOf(PduHeaders.TO, PduHeaders.CC, PduHeaders.BCC)
         }
-        val wanted = backup.addresses.filter { it.type in types && usableAddress(it.address) }.map { it.address.trim() }
-        val have = stored.filter { it.type in types && usableAddress(it.address) }.map { it.address.trim() }
-        if (wanted.isEmpty() || have.isEmpty()) return wanted.isEmpty() && have.isEmpty()
-        return wanted.any { address -> have.any { PhoneNumberUtils.compare(it, address) } }
+        return addresses.filter { it.type in types }
+    }
+
+    /** Every address of each side is on the other side with the same type. */
+    private fun sameAddresses(wanted: List<AddressKey>, stored: List<AddressKey>): Boolean {
+        fun covers(a: List<AddressKey>, b: List<AddressKey>) =
+            a.all { x -> b.any { y -> x.type == y.type && sameAddress(x.address, y.address) } }
+        return covers(wanted, stored) && covers(stored, wanted)
+    }
+
+    /**
+     * One address, strictly: a name without digits only as the same text (case aside), a number only by the app's
+     * number key, never by the last 7 digits.
+     */
+    private fun sameAddress(a: String, b: String): Boolean {
+        if (a.equals(b, ignoreCase = true)) return true
+        if (a.none(Char::isDigit) || b.none(Char::isDigit)) return false
+        val key = runCatching { numbers.comparableKey(a) }.getOrDefault("")
+        return key.isNotEmpty() && key == runCatching { numbers.comparableKey(b) }.getOrDefault("")
     }
 
     private fun findMms(backup: MmsBackup, threadId: Long): Long? {
@@ -380,6 +435,7 @@ class MessagesWriter(
     }
 
     companion object {
+        private const val TAG = "uMessageRestore"
         private const val CACHED_THREADS = 32
         private const val MMS_NO_ADDRESS = "insert-address-token"
 

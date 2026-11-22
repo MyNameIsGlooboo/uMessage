@@ -186,6 +186,54 @@ class BlockedBackupTest {
     }
 
     @Test
+    fun everyBlankFormOfTheSenderIsOneUnknownRow() {
+        val entry = BlockedBackup(address = " ", body = "x", receivedAt = 5, reason = "NO_MATCH")
+
+        val first = support(fresh).restore(entry)
+        val again = listOf("", "\t", "unknown", "UNKNOWN", "Unknown").count {
+            support(fresh).restore(entry.copy(address = it))
+        }
+
+        assertThat(first).isTrue()
+        assertThat(again).isEqualTo(0)
+        assertThat(fresh.spamDao().getAllBlocked().map { it.address }).containsExactly("Unknown")
+    }
+
+    @Test
+    fun aHeldRowUnderAnotherBlankFormCountsAsAlreadyThere() {
+        listOf(" ", "\t", "unknown").forEachIndexed { i, held ->
+            old.spamDao().insertBlocked(
+                BlockedMessageEntity(
+                    address = held, body = "held $i", subscriptionId = 1, isMms = false, receivedAt = 9,
+                    reason = DecisionReason.UNKNOWN_SENDER, ruleId = null,
+                )
+            )
+        }
+
+        val again = (0..2).count {
+            support(old).restore(BlockedBackup(address = "", body = "held $it", receivedAt = 9, reason = "NO_MATCH"))
+        }
+
+        assertThat(again).isEqualTo(0)
+        assertThat(old.spamDao().getAllBlocked()).hasSize(3)
+    }
+
+    @Test
+    fun anMmsEntryWithoutASenderIsKeptUnderUnknownOnce() {
+        val entry = BlockedBackup(
+            address = "", body = "", isMms = true, receivedAt = 7, reason = "UNKNOWN_SENDER",
+            media = MmsMedia.MISSING.name,
+        )
+
+        assertThat(support(fresh).restore(entry)).isTrue()
+        assertThat(support(fresh).restore(entry.copy(address = " "))).isFalse()
+        val row = fresh.spamDao().getAllBlocked().single()
+        assertThat(row.address).isEqualTo("Unknown")
+        assertThat(row.body).isEqualTo(MMS_PLACEHOLDER_BODY)
+        assertThat(row.media).isEqualTo(MmsMedia.MISSING)
+    }
+
+    @Test
     fun anEntryWithoutASenderIsAlreadyThereWhenItsRowIsHeldUnderTheBlankAddress() {
         old.spamDao().insertBlocked(
             BlockedMessageEntity(
