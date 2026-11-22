@@ -358,9 +358,7 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
             check = unlogged ?: senderCheck(context, message, mms.threadId),
             noticeCounted = noticeCountedIn == mms.threadId,
         )
-        // R3-2: the sweep's BLOCK row stands for the MMS only when it ends in Spam in the chat the notice was counted
-        // in; anywhere else (a group, Messages, a failed check) the placement's own rows are written.
-        if (place !is MmsPlace.Spam || noticeCountedIn != mms.threadId) unlogged?.flush()
+        unlogged?.flushUnless(sweepRowHolds(place, noticeCountedIn, mms.threadId))
         placer.forgetNoticeChat(noticeThread, mms.threadId, noticeCountedIn)
         // The notice is gone (the library deleted it once the MMS was stored): its mark is not needed any more.
         noticeUri?.let { uri -> runCatching { AndroidMmsSpamStore(context).markNotice(uri, null) } }
@@ -486,7 +484,7 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
 
 /**
  * J3-1: the sender checks of an MMS whose notice the sweep placed, counted and logged. R3-2: its decision-log rows are
- * held, not dropped: [flush] writes them (the MMS ended elsewhere than the sweep's row says); otherwise they go.
+ * held, not dropped: [flushUnless] writes them (the MMS ended elsewhere than the sweep's row says); else they go.
  */
 private class Unlogged(private val check: MmsSenderCheck) : MmsSenderCheck by check {
     private val held = mutableListOf<Triple<String, String, Long?>>()
@@ -498,8 +496,9 @@ private class Unlogged(private val check: MmsSenderCheck) : MmsSenderCheck by ch
         held += Triple(decision, reason, ruleId)
     }
 
-    /** Writes the held rows, in order, once. */
-    fun flush() {
+    /** Writes the held rows, in order, once, unless [sweepRowHolds] (they are dropped then). */
+    fun flushUnless(sweepRowHolds: Boolean) {
+        if (sweepRowHolds) return
         held.forEach { (decision, reason, ruleId) -> runCatching { check.log(decision, reason, ruleId) } }
         held.clear()
     }
@@ -522,6 +521,13 @@ private class Unlogged(private val check: MmsSenderCheck) : MmsSenderCheck by ch
         const val FILTER_FAILED = "FILTER_FAILED"
     }
 }
+
+/**
+ * R3-2: the sweep's BLOCK row stands for the MMS only when it ended ([place]) in Spam in the chat the notice was
+ * counted in ([countedIn]); anywhere else (a group, Messages, a failed check) the placement's own rows are written.
+ */
+private fun sweepRowHolds(place: MmsPlace, countedIn: Long?, threadId: Long): Boolean =
+    place is MmsPlace.Spam && countedIn == threadId
 
 /** J3-1: the Spam chat the notice [uri] was counted in (its explicit mark), or null. */
 private fun countedChatOf(context: Context, uri: Uri): Long? =

@@ -4,8 +4,13 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.helpers.ConversationRefreshEvents
 import com.glooboo.umessage.models.Conversation
+import com.glooboo.umessage.spam.ListKind
+import com.glooboo.umessage.spam.RuleType
+import com.glooboo.umessage.spam.SpamRule
+import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.offMainThread
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -41,10 +46,15 @@ class UncachedChatsTest : ProviderTruthSmsFixture() {
 
     @Test
     fun aSpamTextsChatTheStoreListsNow_isCachedListedInSpam_andTheListsAreTold() {
+        // A block rule, not "unknown sender": caching a new chat sorts it with the app's own filter (SpamEngine),
+        // whose contact checker cannot read contacts here, so a stranger would be judged Messages (contacts
+        // unavailable) there, unlike with the fixture's filter. In the app both are the same filter.
+        runBlocking { repo.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = STRANGER)) }
         val thread = store.threadOf(STRANGER)
         receive(TEXT)
         // Stored for Spam while its chat could not be cached: asked for, in no list yet.
         assertThat(spamRow()?.sender).isEqualTo(STRANGER)
+        assertThat(spamRow()?.cause).isEqualTo(SpamCause.BLOCKED)
         assertThat(spamList()).doesNotContain(thread)
         assertThat(askedToCache.toList()).contains(thread)
 
@@ -54,6 +64,7 @@ class UncachedChatsTest : ProviderTruthSmsFixture() {
         assertThat(offMainThread { app.conversationsDB.getConversationWithThreadId(thread) }).isNotNull()
         assertThat(spamList()).contains(thread)
         assertThat(messagesList()).doesNotContain(thread)
+        assertThat(spamRow()?.sender).isEqualTo(STRANGER)
         assertThat(refreshed.toList()).contains(thread)
     }
 
