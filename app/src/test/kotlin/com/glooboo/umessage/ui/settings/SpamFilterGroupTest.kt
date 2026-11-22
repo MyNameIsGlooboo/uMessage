@@ -11,7 +11,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UnknownSenderMode
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.ui.spam.FakeSpamRepository
 import com.glooboo.umessage.ui.spam.SortChange
 import com.glooboo.umessage.ui.theme.UMessageTheme
@@ -29,9 +28,6 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(qualifiers = "w411dp-h891dp")
 class SpamFilterGroupTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     @get:Rule
     val compose = createComposeRule()

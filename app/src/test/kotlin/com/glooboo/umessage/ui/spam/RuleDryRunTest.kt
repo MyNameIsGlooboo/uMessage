@@ -1,7 +1,5 @@
 package com.glooboo.umessage.ui.spam
 
-import com.glooboo.umessage.spam.BlockedMessage
-import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
@@ -74,18 +72,5 @@ class RuleDryRunTest {
         var calls = 0
         val part = RuleDryRun.scan(matcher, keyword("a"), List(10) { msg("S", "a") }, keepGoing = { ++calls <= 3 })
         assertEquals(3, part.scanned)
-    }
-
-    @Test
-    fun blockedMessagesAreNewestFirstCappedAndTextOnly() {
-        fun blocked(id: Long, at: Long, body: String) = BlockedMessage(
-            id = id, address = "S$id", body = body, subscriptionId = 1, isMms = false, receivedAt = at,
-            reason = DecisionReason.BLOCK_RULE,
-        )
-        val list = RuleDryRun.blockedMessages(
-            listOf(blocked(1, 10, "old"), blocked(2, 30, "new"), blocked(3, 20, " "), blocked(4, 25, "mid")),
-            cap = 2,
-        )
-        assertEquals(listOf("S2", "S4"), list.map { it.address })
     }
 }

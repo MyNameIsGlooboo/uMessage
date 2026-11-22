@@ -44,7 +44,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.components.rememberReduceMotion
 import com.glooboo.umessage.ui.icons.Symbols
@@ -66,13 +65,12 @@ internal fun WelcomeAnimation(
 ) = SortingCard(modifier, mode = mode, startAtMs = 0, reduceMotion = reduceMotion)
 
 /**
- * The one sentence TalkBack reads for the card, or null when each row reads its own labels. Smart mode has one; with
- * [ProviderTruthFlag] on "filter off" (Off) has one too ("Every text goes to Messages..."), so both Welcome choices
- * are described (U12).
+ * The one sentence TalkBack reads for the card, or null when each row reads its own labels. Smart mode has one;
+ * "filter off" (Off) has one too ("Every text goes to Messages..."), so both Welcome choices are described (U12).
  */
 internal fun sortingCardSentence(mode: UnknownSenderMode): Int? = when {
     mode == UnknownSenderMode.SMART -> R.string.onb_welcome_demo_desc
-    ProviderTruthFlag.enabled && mode == UnknownSenderMode.OFF -> R.string.pt_onb_demo_desc_off
+    mode == UnknownSenderMode.OFF -> R.string.pt_onb_demo_desc_off
     else -> null
 }
 

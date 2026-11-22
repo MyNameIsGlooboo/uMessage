@@ -15,7 +15,7 @@ import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
 
-/* Provider truth, the Spam tab (4.2: U19, U4, D1, "Mark all as read"). Used only while ProviderTruthFlag is on. */
+/* Provider truth, the Spam tab (4.2: U19, U4, D1, "Mark all as read"). */
 
 /**
  * What a choice of Spam chats can do (4.2). Unknown senders: "Not spam" and Block; blocked senders: "Unblock"; a mixed

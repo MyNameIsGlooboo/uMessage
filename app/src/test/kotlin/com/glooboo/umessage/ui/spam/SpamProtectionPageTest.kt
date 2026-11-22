@@ -28,10 +28,10 @@ class SpamProtectionPageTest {
     }
 
     @Test
-    fun theOnePageHasTheModeTheRulesAndNamedSwitches() {
+    fun theOnePageHasTheSwitchTheRulesAndNamedSwitches() {
         show(SettingsActions())
         compose.onNodeWithText(str(R.string.settings_nav_spam_page_title)).assertExists()
-        compose.onNodeWithText(str(R.string.spam_mode_smart)).assertExists()
+        compose.onNodeWithText(str(R.string.pt_filter_on_summary)).assertExists()
         compose.onNodeWithText(str(R.string.settings_block_umessage_title)).assertExists()
         compose.onNodeWithText(str(R.string.i07_lock_title)).assertExists()
         compose.onNodeWithText(str(R.string.notif_open_link_title)).assertExists()

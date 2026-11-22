@@ -2,9 +2,7 @@ package com.glooboo.umessage.ui.spam
 
 import android.content.Context
 import android.provider.Telephony.Sms
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.SpamReaders
-import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.engine.NumberNormalizer
@@ -83,14 +81,6 @@ object RuleDryRun {
             matcher.matches(rule, IncomingMessage(message.address, message.body, message.subscriptionId))
         }.getOrDefault(false)
     }
-
-    fun blockedMessages(blocked: List<BlockedMessage>, cap: Int = MAX_SCAN): List<DryRunMessage> =
-        blocked.asSequence()
-            .filter { it.hasText }
-            .sortedByDescending { it.receivedAt }
-            .take(cap)
-            .map { DryRunMessage(it.address, it.body, it.subscriptionId) }
-            .toList()
 }
 
 /**
@@ -116,8 +106,7 @@ interface RulePreviewSource {
 
     /**
      * Provider truth (section 5): the newest received texts of the chats in Spam, newest first, at most [limit]; they
-     * stand for the Blocked history, since spam now lives in the phone's store. Empty while ProviderTruthFlag is off
-     * and when they cannot be read.
+     * stand for the Blocked history, since spam now lives in the phone's store. Empty when they cannot be read.
      */
     fun spam(limit: Int): List<DryRunMessage> = emptyList()
 
@@ -146,7 +135,6 @@ class AndroidRulePreviewSource(context: Context) : RulePreviewSource {
     }.getOrDefault(emptyList())
 
     override fun spam(limit: Int): List<DryRunMessage> = runCatching {
-        if (!ProviderTruthFlag.enabled) return@runCatching emptyList()
         val spam = SpamReaders.threadIds(app)
         if (spam.isEmpty()) emptyList() else received(limit) { it in spam }
     }.getOrDefault(emptyList())

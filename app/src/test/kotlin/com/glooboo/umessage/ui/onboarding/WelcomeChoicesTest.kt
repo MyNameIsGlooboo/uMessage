@@ -3,9 +3,6 @@ package com.glooboo.umessage.ui.onboarding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -22,7 +19,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
-/** Welcome page language chip (and no Restore), and the "keep blocked messages" row. */
+/** Welcome page language chip (and no Restore). */
 @RunWith(AndroidJUnit4::class)
 @Config(qualifiers = "w411dp-h891dp")
 class WelcomeChoicesTest {
@@ -75,22 +72,5 @@ class WelcomeChoicesTest {
         welcome(onLanguage = {})
         compose.onNodeWithText("Switching to uMessage?").assertDoesNotExist()
         compose.onNodeWithText("Restore a backup").assertDoesNotExist()
-    }
-
-    @Test
-    fun `the purge row shows the days, lists the five choices and reports a pick`() {
-        var days by mutableIntStateOf(30)
-        compose.setContent {
-            UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
-                PurgeRow(days = days, onDays = { days = it })
-            }
-        }
-        compose.onNodeWithText("Keep spam for").assertIsDisplayed()
-        compose.onNodeWithText("30 days").performClick()
-        listOf("7 days", "14 days", "90 days", "Keep forever")
-            .forEach { compose.onNodeWithText(it).assertIsDisplayed() }
-        compose.onNodeWithText("Keep forever").performClick()
-        assertEquals(0, days)
-        compose.onNodeWithText("Keep forever").assertIsDisplayed()
     }
 }

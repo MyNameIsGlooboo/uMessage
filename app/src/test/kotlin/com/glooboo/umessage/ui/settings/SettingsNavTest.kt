@@ -9,7 +9,6 @@ import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.isToggleable
 import androidx.test.core.app.ApplicationProvider
 import com.glooboo.umessage.R
-import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import com.glooboo.umessage.spam.UnknownSenderMode
@@ -173,28 +172,16 @@ class SettingsNavTest {
     @Test
     fun `spam summary joins its parts with the separator`() {
         show(SettingsUiState(spam = SpamSummary(UnknownSenderMode.SMART, 17, 17, 11)))
-        compose.onNodeWithText("Smart · 17 stopped · 11 restored").assertExists()
+        compose.onNodeWithText("17 stopped · 11 restored").assertExists()
         val resources = androidx.test.core.app.ApplicationProvider
             .getApplicationContext<android.content.Context>().resources
         assertEquals(
-            "Smart · 2 stopped in 7 days · 30 in total",
-            spamSummaryLine(resources, SpamSummary(UnknownSenderMode.SMART, 2, 30, 0), "Smart"),
+            "2 stopped in 7 days · 30 in total",
+            spamSummaryLine(resources, SpamSummary(UnknownSenderMode.SMART, 2, 30, 0)),
         )
     }
 
-    // P4-11: the mode is chosen on the Spam protection page; Strict asks first (SE-23).
-    @Test
-    fun `spam page chooses the mode and confirms strict`() {
-        val chosen = mutableListOf<UnknownSenderMode>()
-        show(SettingsUiState(spam = spam), SettingsActions(onSpamMode = { chosen += it }), SettingsPage.Spam)
-        compose.onNodeWithText("Off").performClick()
-        compose.onNodeWithText("Strict").performClick()
-        assertEquals(listOf(UnknownSenderMode.OFF), chosen)
-        compose.onNodeWithText("Use Strict").performClick()
-        assertEquals(listOf(UnknownSenderMode.OFF, UnknownSenderMode.STRICT), chosen)
-    }
-
-    // The "i" beside the unknown-sender header opens the text with the sorting card in the current mode.
+    // The "i" beside the filter header opens the text with the sorting card the switch draws.
     @Test
     fun `the info icon on the spam page opens a dialog with the sorting card`() {
         grantContacts()
@@ -205,24 +192,22 @@ class SettingsNavTest {
 
     // Without Contacts the filter lets unknown numbers through, so the card would be false: it is not shown.
     @Test
-    fun `the dialog has no sorting card while contacts are denied in smart`() = assertNoCardWithoutContacts(
-        UnknownSenderMode.SMART,
-    )
+    fun `the dialog has no sorting card while contacts are denied with the filter on`() =
+        assertNoCardWithoutContacts(spam)
 
     @Test
-    fun `the dialog has no sorting card while contacts are denied in strict`() = assertNoCardWithoutContacts(
-        UnknownSenderMode.STRICT,
-    )
+    fun `the dialog has no sorting card while contacts are denied with the code group off`() =
+        assertNoCardWithoutContacts(spam.copy(codeGroupOn = false))
 
-    private fun assertNoCardWithoutContacts(mode: UnknownSenderMode) {
-        show(SettingsUiState(spam = spam.copy(mode = mode)), page = SettingsPage.Spam)
+    private fun assertNoCardWithoutContacts(summary: SpamSummary) {
+        show(SettingsUiState(spam = summary), page = SettingsPage.Spam)
         compose.onNodeWithTag("info_icon").performClick()
         compose.onNodeWithText("Unknown sender", useUnmergedTree = true).assertDoesNotExist()
     }
 
     @Test
-    fun `the dialog keeps the sorting card in off mode without contacts`() {
-        show(SettingsUiState(spam = spam.copy(mode = UnknownSenderMode.OFF)), page = SettingsPage.Spam)
+    fun `the dialog keeps the sorting card with the filter off without contacts`() {
+        show(SettingsUiState(spam = spam.copy(filterOn = false)), page = SettingsPage.Spam)
         compose.onNodeWithTag("info_icon").performClick()
         compose.onNodeWithText("Unknown sender", useUnmergedTree = true).assertExists()
     }
@@ -232,12 +217,6 @@ class SettingsNavTest {
             .grantPermissions(Manifest.permission.READ_CONTACTS)
     }
 
-    // B7: "Recommended" only once, as the chip.
-    @Test
-    fun `smart mode says recommended once`() {
-        show(SettingsUiState(spam = spam), page = SettingsPage.Spam)
-        compose.onAllNodesWithText("Recommended", substring = true).assertCountEquals(1)
-    }
 
     // SE-16, U09: one Backup page with two verbs; each asks what: messages, or rules and settings.
     @Test

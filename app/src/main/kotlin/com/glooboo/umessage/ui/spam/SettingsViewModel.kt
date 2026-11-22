@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UnknownInboxNotify
-import com.glooboo.umessage.spam.UnknownSenderMode
 
 data class SettingsUiState(
     val loading: Boolean = true,
@@ -57,18 +56,15 @@ class SettingsViewModel(
         SettingsUiState(loading = false, settings = s, switchConfirm = c, purgeWarning = p)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SettingsUiState())
 
-    fun setMode(mode: UnknownSenderMode) = update { it.copy(mode = mode) }
-
     /**
-     * Auto-delete. With the provider-truth flag on, a number of days deletes texts from the phone itself, so that
-     * choice is warned about first; "keep forever", or the value already set, is written at once.
+     * Auto-delete. A number of days deletes texts from the phone itself, so that choice is warned about first; "keep
+     * forever", or the value already set, is written at once.
      */
     fun setPurgeDays(days: Int) = purge.request(days, state.value.settings.purgeAfterDays)
 
     fun setNotifyOnBlock(enabled: Boolean) = update { it.copy(notifyOnBlock = enabled) }
     fun setUnknownInboxNotify(choice: UnknownInboxNotify) = update { it.copy(unknownInboxNotify = choice) }
     fun setOpenLinkAction(enabled: Boolean) = update { it.copy(openLinkAction = enabled) }
-    fun setBlockOutsideRegion(region: String) = update { it.copy(blockOutsideRegion = region) }
 
     private fun update(transform: (SpamSettings) -> SpamSettings) {
         viewModelScope.launch { write(transform) }

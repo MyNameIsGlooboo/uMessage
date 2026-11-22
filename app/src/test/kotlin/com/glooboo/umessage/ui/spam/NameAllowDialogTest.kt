@@ -48,11 +48,11 @@ class NameAllowDialogTest {
     }
 
     @Test
-    fun notNowCallsDismissOnly() {
+    fun cancelCallsDismissOnly() {
         var allowed = 0
         var dismissed = 0
         show(listOf(NAME), onAllow = { allowed++ }, onDismiss = { dismissed++ })
-        compose.onNodeWithText(app.getString(R.string.nameallow_not_now)).performClick()
+        compose.onNodeWithText(app.getString(R.string.spam_cancel)).performClick()
         assertThat(dismissed).isEqualTo(1)
         assertThat(allowed).isEqualTo(0)
     }

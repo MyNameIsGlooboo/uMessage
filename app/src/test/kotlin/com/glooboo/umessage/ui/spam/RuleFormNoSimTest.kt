@@ -18,7 +18,6 @@ import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UnknownSenderMode
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CoroutineScope
@@ -42,9 +41,6 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(qualifiers = "w411dp-h2000dp")
 class RuleFormNoSimTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     @get:Rule
     val compose = createComposeRule()
@@ -187,16 +183,7 @@ class RuleFormNoSimTest {
         assertThat(SpamSettings(filterOn = false, mode = UnknownSenderMode.STRICT).shownMode())
             .isEqualTo(UnknownSenderMode.OFF)
         // The old Fossify switch is already read into the filter switch.
-        assertThat(ContactsOffPolicy.cardMode(true, UnknownSenderMode.OFF, legacyBlockUnknown = true))
-            .isEqualTo(UnknownSenderMode.OFF)
-    }
-
-    @Test
-    fun withTheFlagOffTheModeIsDrawnAsIn0414() {
-        com.glooboo.umessage.helpers.ProviderTruthFlag.enabled = false
-        assertThat(SpamSettings(mode = UnknownSenderMode.STRICT, filterOn = false).shownMode())
-            .isEqualTo(UnknownSenderMode.STRICT)
-        assertThat(RulesOrder.DEFAULT.apply(listOf(own, auto)).map { it.id }).containsExactly(20L, 21L).inOrder()
+        assertThat(ContactsOffPolicy.cardMode(true, UnknownSenderMode.OFF)).isEqualTo(UnknownSenderMode.OFF)
     }
 
     // endregion

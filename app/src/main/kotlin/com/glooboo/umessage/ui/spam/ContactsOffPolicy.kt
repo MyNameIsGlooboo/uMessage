@@ -40,13 +40,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.UnknownSenderMode
-import com.glooboo.umessage.spam.engine.effectiveUnknownSenderMode
 import com.glooboo.umessage.ui.icons.Symbols
-import org.fossify.commons.extensions.baseConfig
 
 /**
  * F4: without the Contacts permission the filter cannot tell a friend from a stranger, so it lets every number
@@ -57,28 +54,21 @@ object ContactsOffPolicy {
     fun needed(contactsGranted: Boolean, mode: UnknownSenderMode?): Boolean =
         !contactsGranted && mode != null && mode != UnknownSenderMode.OFF
 
-    /** The mode the filter really runs in: the filter's own rule, shared so the two cannot drift. */
-    fun effectiveMode(mode: UnknownSenderMode, legacyBlockUnknown: Boolean): UnknownSenderMode =
-        effectiveUnknownSenderMode(mode, legacyBlockUnknown)
-
     /**
      * The mode for the "how it sorts" card, or null when the card would be false: without Contacts the filter lets
-     * unknown numbers through, so "Unknown sender -> Spam" is not true.
+     * unknown numbers through, so "Unknown sender -> Spam" is not true. The old Fossify switch is already read into
+     * the filter switch (SpamSettingsStore).
      */
-    fun cardMode(contactsGranted: Boolean, mode: UnknownSenderMode, legacyBlockUnknown: Boolean): UnknownSenderMode? {
-        // Provider truth: the old Fossify switch is already read into the filter switch (SpamSettingsStore).
-        val effective = if (ProviderTruthFlag.enabled) mode else effectiveMode(mode, legacyBlockUnknown)
-        return if (needed(contactsGranted, effective)) null else effective
-    }
+    fun cardMode(contactsGranted: Boolean, mode: UnknownSenderMode): UnknownSenderMode? =
+        if (needed(contactsGranted, mode)) null else mode
 }
 
 /**
- * The mode the screens draw (the sorting card, the contacts hint) for these settings. With [ProviderTruthFlag] on the
- * filter is one switch: on draws as the old middle mode (codes reach Messages), on with the code group off as the
- * strictest one (codes go to Spam too), off as Off. With the flag off it is the stored mode, as in 0.4.14.
+ * The mode the screens draw (the sorting card, the contacts hint) for these settings. The filter is one switch: on
+ * draws as the old middle mode (codes reach Messages), on with the code group off as the strictest one (codes go to
+ * Spam too), off as Off.
  */
 fun SpamSettings.shownMode(): UnknownSenderMode = when {
-    !ProviderTruthFlag.enabled -> mode
     !filterOn -> UnknownSenderMode.OFF
     !codeGroupOn -> UnknownSenderMode.STRICT
     else -> UnknownSenderMode.SMART
@@ -93,21 +83,15 @@ fun rememberSortingCardMode(mode: UnknownSenderMode): UnknownSenderMode? {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     var granted by remember { mutableStateOf(context.contactsGranted()) }
-    var legacy by remember { mutableStateOf(context.legacyBlockUnknown()) }
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME) {
-                granted = context.contactsGranted()
-                legacy = context.legacyBlockUnknown()
-            }
+            if (event == Lifecycle.Event.ON_RESUME) granted = context.contactsGranted()
         }
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
-    return ContactsOffPolicy.cardMode(granted, mode, legacy)
+    return ContactsOffPolicy.cardMode(granted, mode)
 }
-
-private fun Context.legacyBlockUnknown(): Boolean = runCatching { baseConfig.blockUnknownNumbers }.getOrDefault(false)
 
 /** The banner for a screen that does not hold the filter mode itself (the Messages tab). Follows the filter live. */
 @Composable
