@@ -44,6 +44,7 @@ class RegexOnDeviceTest {
         "com.glooboo.umessage.spam.KeywordMatch",
         "com.glooboo.umessage.spam.RegexGuard",
         "com.glooboo.umessage.spam.TextNormalizer",
+        "com.glooboo.umessage.spam.TextNormalizerKt",
         "com.glooboo.umessage.spam.engine.AllowingCode",
         "com.glooboo.umessage.spam.engine.DomainMatch",
         "com.glooboo.umessage.spam.engine.OtpDetector",
@@ -212,6 +213,11 @@ class RegexOnDeviceTest {
         // R2-10: a no-break space reads as a plain space.
         assertTrue(AllowingCode.isAllowingCode("کد\u00A0تایید 482913"))
         assertFalse(OtpDetector.looksLikeOtp("OTP 482913\u00A0%"))
+        // J7-4: a line separator reads as a line break, as "\s" on the phone already does.
+        assertTrue(AllowingCode.isAllowingCode("log\u2028in 482913"))
+        // J7-1, J7-7: a request across two spaces and a line break; a hyphen after a quote.
+        assertFalse(AllowingCode.isAllowingCode("Your OTP is 482913. Share it with  our\nagent"))
+        assertTrue(OtpDetector.containsUrl("Your code is 482913 \"-example.com\""))
         // R9-1, R9-3: "teams" is no receiver; a plural code and three Persian adverbs make a request.
         assertTrue(AllowingCode.isAllowingCode("Your OTP is 482913. Share it with our teams"))
         assertFalse(AllowingCode.isAllowingCode("Your OTP is 482913. Share codes with our staff"))

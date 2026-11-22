@@ -10,12 +10,13 @@ import com.glooboo.umessage.spam.TextNormalizer
  * between them, in either order ("Your OTP is 4821", "123456 is your login code", "رمز پویا: ۱۲۳۴۵"), or up to eight
  * words of one sentence from a phrase that names a one-time code or a password ([WIDE_NEAR]). A letters-and-digits
  * code ("Your code is ab12cd") counts too, but only next to a keyword in its own sentence ([alphanumericCodes]).
- * The text is read through [TextNormalizer.fold] first, so Persian and Arabic digits, Arabic letter forms (ي, ك),
- * kashida and zero-width characters do not hide a code. Word edges are explicit lookarounds over letters and
- * digits of any script, because `\b` behaves differently in the JVM and Android (ICU) regex engines. A separator
- * never holds a combining mark (`\p{M}`), and runs are possessive, so no pattern can cut one word in many ways: every
- * pattern stays linear, also for Thai, Hindi or a run of accents. The keyword patterns read only the first [MAX_SCAN]
- * characters ([scanned]); the words of advertisements, prizes and opt-out lines are looked for in the whole text.
+ * The text is read through [TextNormalizer.foldForMatching] first, so Persian and Arabic digits, Arabic letter
+ * forms (ي, ك), kashida, zero-width characters and no-break spaces do not hide a code. Word edges are explicit
+ * lookarounds over letters and digits of any script, because `\b` behaves differently in the JVM and Android (ICU)
+ * regex engines. A separator never holds a combining mark (`\p{M}`), and runs are possessive, so no pattern can cut
+ * one word in many ways: every pattern stays linear, also for Thai, Hindi or a run of accents. The keyword patterns
+ * read only the first [MAX_SCAN] characters ([scanned]); the words of advertisements, prizes and opt-out lines are
+ * looked for in the whole text.
  *
  * Marketing texts are not codes even when they say "code" next to a number ("promo code 2025", "کد تخفیف"),
  * a number that reads as a price or a percentage is never the code, and next to the generic word "code" a year
@@ -58,7 +59,7 @@ object OtpDetector {
     /**
      * What a code looks like, shared by the filter and the "Copy code" extractor ([OtpCodeExtractor]) so they cannot
      * drift apart: 4-8 digits in one run, or two groups joined by one space or hyphen ("123 456", "123-456",
-     * "1234 5678"). The text must be folded ([TextNormalizer.fold]), so every digit is ASCII.
+     * "1234 5678"). The text must be folded ([TextNormalizer.foldForMatching]): every digit is ASCII.
      *
      * Digits that belong to a phone number or a longer number are no code: a run after "+", a run starting with "00"
      * and 7+ digits long, a run next to another group of 3+ digits ("0800 123 4567"), and a run after a word such as
@@ -321,11 +322,12 @@ object OtpDetector {
      * label right after a dot starts no match only when a label stands before that dot (one start per run, so matching
      * stays linear), so "[.]example.com" and "تست[.]example.com" are links (R7-5). A hyphen stops a start the same
      * way, only with something before it: "-example.com" and "-.example.com" are links, "a-b.example.com" one (R8-7).
-     * An opening bracket before the hyphen is nothing: "(-example.com)" is a link (R9-3).
+     * Only a label character before the hyphen counts: "(-example.com)", "'-example.com'" and "«-example.com»" are
+     * links (R9-3, J7-7).
      */
-    private const val URL_START = "(?<![a-z0-9\\u00C0-\\u024F@])(?<![^\\s(\\[{]-)" +
+    private const val URL_START = "(?<![a-z0-9\\u00C0-\\u024F@])(?<![a-z0-9\\-\\u00C0-\\u024F@]-)" +
         "(?<![a-z0-9](?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\)))" +
-        "(?<![^\\s(\\[{]-(?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\)))"
+        "(?<![a-z0-9\\-\\u00C0-\\u024F@]-(?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\)))"
 
     /** The end of a domain followed by a path. */
     private const val URL_TAIL_PATH = "$URL_LABEL$DOT[a-z]{2,}/"
@@ -596,11 +598,12 @@ object OtpDetector {
     /**
      * A link in the body, ignoring an origin-bound last line ([isOriginBound]). SMART mode does not auto-allow an
      * OTP-like message with a link (phishing), unless it is origin-bound. Bare domains ("mybank-secure.com"), short
-     * links ("bit.ly") and disguised dots ("example[.]com") count as links.
+     * links ("bit.ly") and disguised dots ("example[.]com") count as links. A text the link pattern cannot read
+     * counts as one with a link (J7-3): ICU runs out of stack on a run of some 300 000 characters of labels.
      */
     fun containsUrl(body: String): Boolean {
         val text = if (isOriginBound(body)) body.trimEnd().substringBeforeLast('\n', "") else body
-        return url.containsMatchIn(TextNormalizer.foldForMatching(text))
+        return runCatching { url.containsMatchIn(TextNormalizer.foldForMatching(text)) }.getOrDefault(true)
     }
 
     private fun lastLine(body: String): String =

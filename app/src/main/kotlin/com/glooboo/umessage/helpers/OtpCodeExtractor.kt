@@ -9,9 +9,9 @@ import com.glooboo.umessage.spam.engine.OtpDetector
  * the text: keywords must be whole words ("pin" must not match "shipping", "code" must not match "barcode") and when
  * several numbers qualify the one closest to a keyword wins.
  *
- * The body is read through [TextNormalizer.fold], so Persian and Arabic digits come back as ASCII digits and the
- * keywords of [OtpDetector] ("رمز پویا", "کد تایید", "کدتان") are found. Word edges are explicit lookarounds, as
- * `\b` differs between the JVM and Android's ICU regex engine.
+ * The body is read through [TextNormalizer.foldForMatching], so Persian and Arabic digits come back as ASCII digits
+ * and the keywords of [OtpDetector] ("رمز پویا", "کد تایید", "کدتان") are found. Word edges are explicit lookarounds,
+ * as `\b` differs between the JVM and Android's ICU regex engine.
  *
  * A number is never the code when it is an amount (followed by ریال, تومان, %, a currency, or written with thousands
  * separators), part of a masked card or account number ("5022-29**-****-4417", "****1234"), a time or a date
@@ -54,9 +54,10 @@ object OtpCodeExtractor {
     fun extract(body: String): String? = OtpCodes.primary(body)?.value
 
     /**
-     * The number closest to any code keyword in [text], which must already be folded by [TextNormalizer.fold]; group 1
-     * is the code. This is the raw locator without the detector's vetoes and distance rule: [OtpCodes.locate] is the
-     * one the app uses, and forwarding keeps this one as its fail-closed hint ([hasKeywordNearNumber]).
+     * The number closest to any code keyword in [text], which must already be folded by
+     * [TextNormalizer.foldForMatching]; group 1 is the code. This is the raw locator without the detector's vetoes and
+     * distance rule: [OtpCodes.locate] is the one the app uses, and forwarding keeps this one as its fail-closed hint
+     * ([hasKeywordNearNumber]).
      */
     internal fun locate(text: String): MatchResult? {
         val strong = strongKeywords.findAll(text).map { it.range }.toList()

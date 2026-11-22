@@ -77,10 +77,11 @@ object TextNormalizer {
     }
 
     /**
-     * R2-10: [fold], then every other space separator read as a plain space. Android's ICU reads a no-break or narrow space as "\s" and desktop Java does
-     * not; this makes both read a plain space. For the code detector and keyword rules only: search, notes, the saved
-     * `body_folded` and the SQL fold of [sqlFoldedLike] stay on [fold], whose table must not grow (SQLite's parser
-     * overflows on a deeper REPLACE chain).
+     * R2-10: [fold], then every other space separator read as a plain space, and next-line and the line and
+     * paragraph separators (U+0085, U+2028, U+2029) read as a line break (J7-4). Android's ICU reads them as "\s" and
+     * desktop Java does not; this makes both read the same. For the code detector and keyword rules only: search,
+     * notes, the saved `body_folded` and the SQL fold of [sqlFoldedLike] stay on [fold], whose table must not grow
+     * (SQLite's parser overflows on a deeper REPLACE chain).
      */
     fun foldForMatching(text: String): String = foldSpaces(fold(text))
 
@@ -193,10 +194,23 @@ object TextNormalizer {
 private val SPACES: Set<Char> = ("\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A" +
     "\u202F\u205F\u3000").toSet()
 
-/** [text] with every space separator other than the plain space read as a plain space; same length. */
+/** The line separators that ICU's "\s" reads and the JVM's does not: next line, line and paragraph separator. */
+private val LINE_BREAKS: Set<Char> = setOf('\u0085', '\u2028', '\u2029')
+
+/** [text] with every other space separator read as a plain space and [LINE_BREAKS] as a line break; same length. */
 private fun foldSpaces(text: String): String {
-    if (text.none { it in SPACES }) return text
-    return buildString(text.length) { for (c in text) append(if (c in SPACES) ' ' else c) }
+    if (text.none { it in SPACES || it in LINE_BREAKS }) return text
+    return buildString(text.length) {
+        for (c in text) {
+            append(
+                when (c) {
+                    in SPACES -> ' '
+                    in LINE_BREAKS -> '\n'
+                    else -> c
+                },
+            )
+        }
+    }
 }
 
 /**

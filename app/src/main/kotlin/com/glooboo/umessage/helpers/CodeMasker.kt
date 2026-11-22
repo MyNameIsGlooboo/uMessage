@@ -7,9 +7,9 @@ import com.glooboo.umessage.spam.TextNormalizer
  * every other character as it was written: Persian digits, invisible marks and line breaks of the rest of the text
  * stay. Used for the lock-screen version of a notification and for forwards that carry a code.
  *
- * The code is found in the folded text ([TextNormalizer.fold]) and each match is mapped back to its place in the
- * original, so the replaced part is exactly the code as the sender wrote it. Every other occurrence of the same code
- * in the message is hidden too. A message without a recognised code comes back unchanged.
+ * The code is found in the folded text ([TextNormalizer.foldForMatching]) and each match is mapped back to its place
+ * in the original, so the replaced part is exactly the code as the sender wrote it. Every other occurrence of the
+ * same code in the message is hidden too. A message without a recognised code comes back unchanged.
  */
 object CodeMasker {
     /** For notifications, which show any Unicode. */
