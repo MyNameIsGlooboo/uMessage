@@ -53,10 +53,15 @@ class SpamMessageRowsMigrationTest {
         (listOf<Any?>(NUMBER) + row).toTypedArray(),
     )
 
-    private fun SupportSQLiteDatabase.insertPending() = execSQL(
-        "INSERT INTO pending_sms (id, address, subject, body, date, subscriptionId, status, createdAt, dateSent, " +
-            "approved) VALUES (1, ?, '', 'queued text', 5000, 1, 0, 5001, 4999, 1)",
-        arrayOf<Any?>(NUMBER),
+    /** Queued incoming texts in the column order of [PENDING_COLUMNS]: one approved, one not, other statuses. */
+    private val pending: List<List<Any?>> = listOf(
+        listOf(1L, NUMBER, "", "queued text", 5_000L, 1, 0, 5_001L, 4_999L, 1),
+        listOf(2L, NUMBER, "a subject", "second text", 6_000L, -1, 2, 6_001L, 0L, 0),
+    )
+
+    private fun SupportSQLiteDatabase.insertPending(row: List<Any?>) = execSQL(
+        "INSERT INTO pending_sms ($PENDING_COLUMNS) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        row.toTypedArray(),
     )
 
     private fun seedVersion8() {
@@ -67,7 +72,7 @@ class SpamMessageRowsMigrationTest {
                 arrayOf<Any?>(NUMBER),
             )
             held.forEach { db.insertHeld(it) }
-            db.insertPending()
+            pending.forEach { db.insertPending(it) }
         }
     }
 
@@ -85,7 +90,8 @@ class SpamMessageRowsMigrationTest {
             }
             assertThat(rows).containsExactlyElementsIn(held).inOrder()
             db.query("SELECT COUNT(*) FROM blocked_messages WHERE address = ?", arrayOf<Any?>(NUMBER)).use {
-                assertThat(it.moveToFirst() && it.getInt(0) == held.size).isTrue()
+                assertThat(it.moveToFirst()).isTrue()
+                assertThat(it.getInt(0)).isEqualTo(held.size)
             }
         }
     }
@@ -106,19 +112,19 @@ class SpamMessageRowsMigrationTest {
         }
     }
 
+    private fun Cursor.readPending(): List<Any?> = listOf(
+        getLong(0), getString(1), getString(2), getString(3), getLong(4), getInt(5), getInt(6), getLong(7),
+        getLong(8), getInt(9),
+    )
+
     @Test
-    fun aQueuedIncomingTextSurvives() {
+    fun queuedIncomingTextsSurviveColumnByColumn() {
         seedVersion8()
         helper.runMigrationsAndValidate(TEST_DB, 9, true, *SpamDatabase.ALL_MIGRATIONS).use { db ->
-            db.query("SELECT address, body, date, subscriptionId, createdAt, dateSent, approved FROM pending_sms")
-                .use { c ->
-                    assertThat(c.moveToNext()).isTrue()
-                    assertThat(c.getString(0)).isEqualTo(NUMBER)
-                    assertThat(c.getString(1)).isEqualTo("queued text")
-                    assertThat(listOf(c.getLong(2), c.getLong(3), c.getLong(4), c.getLong(5), c.getLong(6)))
-                        .containsExactly(5000L, 1L, 5001L, 4999L, 1L).inOrder()
-                    assertThat(c.moveToNext()).isFalse()
-                }
+            val rows = db.query("SELECT $PENDING_COLUMNS FROM pending_sms ORDER BY id").use { c ->
+                buildList { while (c.moveToNext()) add(c.readPending()) }
+            }
+            assertThat(rows).containsExactlyElementsIn(pending).inOrder()
         }
     }
 
@@ -139,6 +145,8 @@ class SpamMessageRowsMigrationTest {
     private companion object {
         const val TEST_DB = "message-rows-migration-test.db"
         const val NUMBER = "+15550001234"
+        const val PENDING_COLUMNS =
+            "id, address, subject, body, date, subscriptionId, status, createdAt, dateSent, approved"
         const val HELD_COLUMNS = "id, body, subscriptionId, isMms, receivedAt, reason, ruleId, media, mediaFile, unread"
     }
 }

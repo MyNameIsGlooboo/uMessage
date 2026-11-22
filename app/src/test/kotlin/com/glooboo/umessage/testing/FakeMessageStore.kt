@@ -38,6 +38,12 @@ class FakeMessageStore : ContentProvider() {
     /** How many times a query reached this provider. */
     @Volatile var queries = 0
 
+    /** One `content://mms-sms/threadID` lookup: the recipients it named, and the name of the thread that asked. */
+    data class ThreadLookup(val recipients: List<String>, val askedOn: String)
+
+    /** Every thread-id lookup, in order. The MMS library asks one for each MMS it stores, on the sending thread. */
+    val threadLookups: MutableList<ThreadLookup> = java.util.Collections.synchronizedList(ArrayList())
+
     override fun onCreate(): Boolean {
         db = SQLiteDatabase.create(null)
         partDir = File(context!!.cacheDir, "fake-parts-${System.nanoTime()}").apply { mkdirs() }
@@ -184,7 +190,9 @@ class FakeMessageStore : ContentProvider() {
 
             MMS_SMS -> when (segments.firstOrNull()) {
                 "threadID" -> MatrixCursor(arrayOf("_id")).apply {
-                    addRow(arrayOf(threadId(uri.getQueryParameters("recipient"))))
+                    val recipients = uri.getQueryParameters("recipient")
+                    threadLookups += ThreadLookup(recipients.toList(), Thread.currentThread().name)
+                    addRow(arrayOf(threadId(recipients)))
                 }
 
                 "conversations" -> db.query("threads_view", projection, selection, selectionArgs?.toArgs(), null, null, sortOrder)

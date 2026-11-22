@@ -20,17 +20,20 @@ import java.io.File
 
 /**
  * M-T5, the SMS-or-MMS choice of [sendMessageDetailed] beyond SendDispatchTest: one number written two ways goes out
- * once, whichever road the settings pick, and a picture never goes out as an SMS. The number is made up.
+ * once, whichever road the settings pick, also inside a real group. The SMS road is seen at the radio and in the
+ * store. The MMS road is seen in the thread-id lookup the MMS library makes, on the sending thread, for each MMS it
+ * stores: one lookup, with each person once. The numbers are made up.
  */
 @RunWith(AndroidJUnit4::class)
 class SendRecipientSpellingTest {
 
     private val app: Application = ApplicationProvider.getApplicationContext()
+    private lateinit var store: FakeMessageStore
 
     @Before
     fun setUp() {
         ShadowRecordingSmsManager.reset()
-        FakeMessageStore.install()
+        store = FakeMessageStore.install()
         app.config.sendGroupMessageMMS = false
         app.config.sendLongAsMmsAfterParts = LongTextMms.NEVER
     }
@@ -50,6 +53,19 @@ class SendRecipientSpellingTest {
 
     private fun destinations() = ShadowRecordingSmsManager.textSends.map { it.destination }
 
+    /** The recipients of each MMS the library stored from this test's thread (the shortcut report asks elsewhere). */
+    private fun mmsRecipients(): List<Set<String>> {
+        val sender = Thread.currentThread().name
+        return store.threadLookups.filter { it.askedOn == sender }.map { it.recipients.toSet() }
+    }
+
+    /** No SMS went out or was stored; exactly one MMS was stored, to [recipients]. */
+    private fun assertOneMmsTo(vararg recipients: String) {
+        assertThat(ShadowRecordingSmsManager.textSends).isEmpty()
+        assertThat(smsRows()).isEqualTo(0)
+        assertThat(mmsRecipients()).containsExactly(recipients.toSet())
+    }
+
     private fun picture(): Attachment {
         val file = File(app.cacheDir, "picture.jpg").apply { writeBytes(ByteArray(16) { it.toByte() }) }
         return Attachment(
@@ -63,6 +79,7 @@ class SendRecipientSpellingTest {
         send("Hello", listOf(NUMBER, LOCAL_SPELLING))
 
         assertThat(destinations()).containsExactly(NUMBER)
+        assertThat(smsRows()).isEqualTo(1)
     }
 
     @Test
@@ -73,6 +90,7 @@ class SendRecipientSpellingTest {
         send("Hello", listOf(LOCAL_SPELLING, NUMBER))
 
         assertThat(destinations()).containsExactly(LOCAL_SPELLING)
+        assertThat(smsRows()).isEqualTo(1)
     }
 
     @Test
@@ -81,36 +99,53 @@ class SendRecipientSpellingTest {
 
         assertThat(ShadowRecordingSmsManager.textSends).hasSize(1)
         assertThat(destinations()).containsExactly(NUMBER)
+        assertThat(smsRows()).isEqualTo(1)
     }
 
     @Test
-    fun aLongTextToOneNumberInTwoSpellingsIsNotSentAsSmsFromTheChosenParts() {
+    fun aGroupWithOnePersonTwiceIsTwoSmsWithGroupMmsOff() {
+        send("Hello", listOf(NUMBER, OTHER, LOCAL_SPELLING))
+
+        assertThat(destinations()).containsExactly(NUMBER, OTHER)
+        // One row for each of the two, and the group's summary row.
+        assertThat(smsRows()).isEqualTo(3)
+    }
+
+    @Test
+    fun aGroupWithOnePersonTwiceIsOneGroupMmsOfTwoWithGroupMmsOn() {
+        app.config.sendGroupMessageMMS = true
+
+        send("Hello", listOf(NUMBER, OTHER, LOCAL_SPELLING))
+
+        assertOneMmsTo(NUMBER, OTHER)
+    }
+
+    @Test
+    fun aLongTextToOneNumberInTwoSpellingsIsOneMmsFromTheChosenParts() {
         app.config.sendLongAsMmsAfterParts = 2
 
         send("a".repeat(161), listOf(NUMBER, LOCAL_SPELLING))
 
-        assertThat(ShadowRecordingSmsManager.textSends).isEmpty()
-        assertThat(smsRows()).isEqualTo(0)
+        assertOneMmsTo(NUMBER)
     }
 
     @Test
-    fun aPictureIsNeverSentAsSms() {
+    fun aPictureIsOneMmsNotAnSms() {
         send("Look", listOf(NUMBER), attachments = listOf(picture()))
 
-        assertThat(ShadowRecordingSmsManager.textSends).isEmpty()
-        assertThat(smsRows()).isEqualTo(0)
+        assertOneMmsTo(NUMBER)
     }
 
     @Test
-    fun aPictureToOneNumberInTwoSpellingsIsNeverSentAsSms() {
+    fun aPictureToOneNumberInTwoSpellingsIsOneMmsToOnePerson() {
         send("", listOf(NUMBER, LOCAL_SPELLING), attachments = listOf(picture()))
 
-        assertThat(ShadowRecordingSmsManager.textSends).isEmpty()
-        assertThat(smsRows()).isEqualTo(0)
+        assertOneMmsTo(NUMBER)
     }
 
     private companion object {
         const val NUMBER = "+15550001234"
         const val LOCAL_SPELLING = "5550001234"
+        const val OTHER = "+15550001235"
     }
 }
