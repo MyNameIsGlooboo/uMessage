@@ -21,7 +21,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -30,12 +29,10 @@ import org.fossify.commons.extensions.notificationManager
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.conversationsDB
-import com.glooboo.umessage.extensions.getAllDrafts
 import com.glooboo.umessage.extensions.markThreadMessagesRead
 import com.glooboo.umessage.extensions.markThreadMessagesUnread
 import com.glooboo.umessage.extensions.renameConversation
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
-import com.glooboo.umessage.databases.MessagesDatabase
 import com.glooboo.umessage.helpers.ConversationListSync
 import com.glooboo.umessage.helpers.ListTiming
 import com.glooboo.umessage.helpers.ProviderTruthFlag
@@ -51,7 +48,6 @@ import com.glooboo.umessage.helpers.messageNotes
 import com.glooboo.umessage.helpers.stripControlCharacters
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
 import com.glooboo.umessage.models.Conversation
-import com.glooboo.umessage.ui.spam.SimDirectory
 import com.glooboo.umessage.helpers.ConversationRefreshEvents
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SimInfo
@@ -68,8 +64,10 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     // Main-thread owned inputs. Every change calls requestRebuild(), which is conflated.
     private var source: List<Conversation> = emptyList()
-    private var drafts: Map<Long, String> = emptyMap()
-    private var sims: List<SimInfo> = emptyList()
+
+    /** Drafts and SIM chips (J2: read again only when their source changed). */
+    private val extras = DraftsAndSims(app, viewModelScope) { requestRebuild() }
+
     private var selected: Set<Long> = emptySet()
     private var newBlockedCount = 0
 
@@ -78,13 +76,6 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     @Volatile
     private var noteThreads: Set<Long> = emptySet()
-
-    /** J2: watches the drafts table ([watchDrafts]); declared before init, which starts it. */
-    private var draftsJob: Job? = null
-
-    /** True while [watchDrafts] hears every change of the drafts table; then a resume does not read them again. */
-    @Volatile
-    private var draftsWatched = false
 
     private var firstRowsLogged = false
     private val blockedSeenAt = MutableStateFlow(0L)
@@ -133,7 +124,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         viewModelScope.launch {
             for (ignored in rebuild) {
                 val snapshot = Snapshot(
-                    source, drafts, sims, selected, hidden.toSet(),
+                    source, extras.drafts, extras.sims, selected, hidden.toSet(),
                     Status(newBlockedCount, archiveAvailable, hasData, importing, confirmDeleteIds.size),
                 )
                 _state.value = withContext(Dispatchers.Default) { build(snapshot) }
@@ -142,8 +133,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         }
         observeBlockedCount()
         observeNoteThreads()
-        refreshSims()
-        watchDrafts()
+        extras.start()
     }
 
     private fun requestRebuild() {
@@ -207,7 +197,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
      */
     internal fun stopObservingNotes() {
         notesJob?.cancel()
-        draftsJob?.cancel()
+        extras.stop()
     }
 
     // ---- Inputs from the host --------------------------------------------------------------------------
@@ -221,86 +211,16 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         hasData = true
         importing = cached && firstRun && conversations.isEmpty()
         archiveAvailable = app.config.isArchiveAvailable
-        refreshThreadSims()
+        extras.afterPublish()
         requestRebuild()
         _published.value++
         spamMoves.refreshCount(blockedSeenAt.value)
     }
 
-    /**
-     * Re-reads everything derived from preferences, drafts and SIMs; called when the screen resumes. J2: the drafts
-     * only when they are not watched ([watchDrafts]).
-     */
+    /** Re-reads everything derived from preferences, drafts and SIMs; called when the screen resumes. */
     fun refresh() {
-        if (!draftsWatched) refreshDrafts()
-        refreshSims()
+        extras.refresh()
         requestRebuild()
-    }
-
-    /**
-     * J2: the drafts are read once, then again only when the drafts table changed (the chat screen saves them), not on
-     * every resume. When the watch fails, each resume reads them as before.
-     */
-    private fun watchDrafts() {
-        draftsJob = viewModelScope.launch {
-            try {
-                val tracker = withContext(Dispatchers.IO) { MessagesDatabase.getInstance(app).invalidationTracker }
-                tracker.createFlow(DRAFTS_TABLE)
-                    .flowOn(Dispatchers.IO)
-                    .collect {
-                        draftsWatched = true
-                        refreshDrafts()
-                    }
-            } catch (e: CancellationException) {
-                throw e
-            } catch (_: Exception) {
-                draftsWatched = false
-                refreshDrafts()
-            }
-        }
-    }
-
-    /** Reloads drafts; on a change of the drafts table, or on resume when they are not watched. */
-    fun refreshDrafts() {
-        viewModelScope.launch {
-            val fresh = withContext(Dispatchers.IO) {
-                runCatching { app.getAllDrafts().toMap() }.getOrDefault(emptyMap())
-            }
-            if (fresh != drafts) {
-                drafts = fresh
-                requestRebuild()
-            }
-        }
-    }
-
-    /** SIM of each thread's newest message (sent or received), so chips show for every conversation. */
-    @Volatile private var threadSims: Map<Long, Int> = emptyMap()
-
-    /** MC-18: the thread SIMs are read only with two SIMs, and then only messages newer than the last read. */
-    private fun refreshSims() = loadSims(reloadSims = true)
-
-    /**
-     * J2: after a publish only the thread SIMs, and only with two SIMs. The SIM list is kept from the last start or
-     * resume, and deleted chats leave the kept map then too (that reads every saved row).
-     */
-    private fun refreshThreadSims() {
-        if (sims.size >= 2) loadSims(reloadSims = false)
-    }
-
-    private fun loadSims(reloadSims: Boolean) {
-        val known = sims
-        viewModelScope.launch {
-            val (freshSims, freshThreadSims) = withContext(Dispatchers.IO) {
-                val loaded = if (reloadSims) runCatching { SimDirectory.load(app) }.getOrDefault(emptyList()) else known
-                val live: () -> Set<Long>? = { if (reloadSims) runCatching { liveChatIds(app) }.getOrNull() else null }
-                loaded to runCatching { ThreadSimCache.get(app).load(app, loaded.size, live) }.getOrDefault(emptyMap())
-            }
-            if (freshSims != sims || freshThreadSims != threadSims) {
-                sims = freshSims
-                threadSims = freshThreadSims
-                requestRebuild()
-            }
-        }
     }
 
     // ---- Sync with the phone's message store -----------------------------------------------------------
@@ -818,7 +738,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         val rows = sorted.map { c ->
             val draft = s.drafts[c.threadId]
             val simSlot = if (showSim && !c.isGroupConversation) {
-                val subscription = threadSims[c.threadId] ?: config.getUseSIMIdAtNumber(c.phoneNumber)
+                val subscription = extras.threadSims[c.threadId] ?: config.getUseSIMIdAtNumber(c.phoneNumber)
                 SimBadge.slotToShow(subscription, s.sims)
             } else {
                 null
@@ -927,9 +847,6 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     private companion object {
         const val MAX_BADGE = 99
         const val MINUTE_MS = 60_000L
-
-        /** The Room table of [com.glooboo.umessage.models.Draft]. */
-        const val DRAFTS_TABLE = "drafts"
 
         /** A code chip is shown for this long after the message arrived (ten minutes). */
         const val OTP_CHIP_MS = 10 * 60 * 1000L
