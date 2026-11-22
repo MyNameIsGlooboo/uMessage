@@ -1,15 +1,22 @@
 # uMessage user guide
 
-uMessage is a messaging app for SMS and MMS that keeps spam out of your inbox. This guide explains how it decides what is spam and how to change that.
+uMessage is a messaging app for SMS and MMS that keeps spam out of your Messages list. This guide explains how it decides what is spam and how to change that.
 
 ## Getting started
 
-The first-run setup has up to four steps:
+The first-run setup has up to three steps:
 
-1. **Welcome.** The only control is a language chip at the top. Pick your language here, or keep the phone's language; you can change it later with the Language row in Settings. Tap **Get started**.
-2. **Allow.** Make uMessage your default SMS app, and allow Messages (SMS), Contacts, Phone state and Notifications; **Allow all** asks for them in one go. uMessage can only receive and filter messages while it is your default SMS app. Contacts access is how uMessage knows who you know. Without it, uMessage does not block unknown phone numbers at all, so that it never hides messages from family and friends. This step is left out when uMessage already is the default app and everything is allowed.
-3. **Unknown senders.** Choose Strict, Smart or Off (see below) and how long to keep spam. The **Get delivery reports** switch is also here. It is on by default and shows when your messages are delivered. Some carriers may charge for delivery reports, so switch it off there if yours does. You can change it later in Settings > Typing and sending > Sending > **Get delivery reports**.
-4. **Keep uMessage running.** On Xiaomi, Redmi and Poco phones turn on **Autostart** and set **Battery saver** to "No restrictions" for uMessage. On Samsung, remove it from "Sleeping apps". Otherwise the phone may delay incoming messages.
+1. **Welcome.** A language chip sits at the top. Pick your language here, or keep the phone's language; you can change it later with the Language row in Settings. Below it, choose what happens to unknown senders: **Sort unknown senders into Spam** (recommended) or **Keep everything in Messages**. The card above the choice shows how chats are sorted. You can change this later in Settings. Tap **Get started**.
+2. **Allow.** Make uMessage your default SMS app, and allow Messages (SMS), Contacts, Phone state and Notifications; **Allow all** asks for them in one go. uMessage can only receive and silence messages while it is your default SMS app. Contacts access is how uMessage knows who you know. Without it, uMessage does not move unknown phone numbers to Spam at all, so that it never hides messages from family and friends. This step is left out when uMessage already is the default app and everything is allowed.
+3. **Keep uMessage running.** On Xiaomi, Redmi and Poco phones turn on **Autostart** and set **Battery saver** to "No restrictions" for uMessage. On Samsung, remove it from "Sleeping apps". Otherwise the phone may delay incoming messages.
+
+Delivery reports are on by default and show when your messages are delivered. Some carriers may charge for them; switch them off in Settings > Typing and sending > Sending > **Get delivery reports**.
+
+### The first sort
+
+After you install or update uMessage, it sorts your chats once. A progress page shows the steps: your rules, older spam, a check of your old messages, and the sort itself. No chat moves before it is finished, and nothing is deleted. After about 15 seconds you can tap **Continue in background**; a small bar then shows above Messages until it is done.
+
+When it is done, a card on Messages says how many chats are now in Spam, with **Review**. If you updated from an older version, a **What changed** page also shows once.
 
 ## Finding your way around
 
@@ -27,42 +34,78 @@ Under the newest message you sent to a group, the line that says Sent, Delivered
 
 Settings > About has **Send feedback**, which opens your email app with a message to the developer already addressed, and, in the Google Play build only, **Rate uMessage**, which opens the Play Store.
 
-## Who counts as known
+## Where a chat goes
 
-A sender is **known** if:
+uMessage sorts whole chats, not single messages. Every chat is either in **Messages** or in **Spam**, never split. Every message, spam included, is kept in the phone's own message store, so other SMS apps can see it too.
 
+A sender is **known**, and their chat stays in Messages, if:
+
+- you made an allow rule for them, or
 - they are in your contacts, or
-- they are a number you have sent a text to before.
+- they are on one of the two automatic lists (see below): **People you wrote to** or **Senders of a verification code**.
 
-Messages from known senders always go to your inbox (unless you have blocked them with a rule). Everyone else is an **unknown sender**, and the unknown-sender mode decides what happens.
+A sender you **block** goes to Spam, whole chat, even from a contact. Only an allow rule you made yourself beats a block.
 
-## Unknown-sender modes
+Everyone else is an **unknown sender**. With the spam filter on, their chat goes to Spam, silently.
 
-Change the mode in Settings > Spam protection (Messages from unknown senders), or from the Spam tab ("Change").
+Group chats always stay in Messages. A text from a blocked member arrives there without a sound.
 
-| Mode | Unknown senders | Verification codes from unknown senders |
-|---|---|---|
-| **Smart** (default) | Spam | Delivered, also when the message has a link |
-| **Strict** | Spam | Spam too |
-| **Off** | Delivered | Delivered |
+## The spam filter
 
-Smart is the right choice for most people: banks, delivery services and login codes usually come from numbers that are not in your contacts, and Smart still lets their codes through. A code message arrives even if it also contains a link. The catch: a scam shaped like "your code is 123456, tap this link" from an unknown sender now reaches your inbox too, so do not tap links you did not expect. Choose Strict if you prefer to hold every unknown sender, codes included.
+The spam filter is one switch: Settings > Spam protection > **Spam filter**. The old modes (Strict, Smart and Off) are gone.
 
-Your own allow and block rules apply in every mode, including Off.
+- **On** (default): unknown senders go to Spam. Contacts, people you wrote to and senders of a verification code stay in Messages.
+- **Off**: everything arrives in Messages, except senders you blocked.
+
+Changing the switch asks first and says how many chats will move. Nothing is deleted.
+
+### The two automatic lists
+
+Two lists sit at the top of your allowed rules (Settings > Spam protection > **Rules**):
+
+- **People you wrote to.** A number you send a text to is allowed from then on. This also counts for a reply sent from your car or watch, a "STOP" reply, and a scheduled message once it is sent. It does not unblock a sender you blocked.
+- **Senders of a verification code.** A sender that sends you a verification code is allowed from then on, so its later texts arrive in Messages too. A text that only looks a bit like a code (for example a tracking or order number) does not count.
+
+Each list has its own switch and shows how many senders it holds. Tap it to see them; **Remove** takes a sender off, with Undo. Turning a list off asks first and says how many chats will move; the senders stay on the list and come back when you turn it on again. Turning **Senders of a verification code** off means a code from an unknown sender goes to Spam too, like the old Strict mode.
+
+When a sender was allowed this way, its chat shows a line that says why ("Allowed because you wrote to this number", for example), with **Block** and **Keep**. Keep hides the line. A block always wins over these lists.
+
+Be careful with codes: a scam shaped like "your code is 123456, tap this link" from an unknown sender can reach Messages, so do not tap links you did not expect.
 
 ## The Spam tab
 
-Spam does not reach your inbox and does not make a sound. It waits in the **Spam** tab at the bottom of the screen; the tab shows how many arrived since you last looked. You can turn on a notification for spam in Settings > Spam protection > Retention and alerts.
+Spam does not reach Messages and does not make a sound. It waits in the **Spam** tab at the bottom of the screen. The tab shows how many chats from unknown senders have new texts; opening the tab clears that number. Spam texts are kept in the phone's own message store, marked read.
 
-For each message in Spam you can:
+The Spam tab is a list of chats. Each row shows the newest text and why the chat is there: **Blocked by you** or **Unknown sender**. You can open a chat, read it and reply. Replying to an unknown sender allows them and moves the chat to Messages; a suggested reply asks first ("This allows the sender. Send?").
 
-- **Not spam**: moves the messages to your inbox and allows the sender from now on, in one step. A snackbar offers Undo. From a chat in Spam it opens the normal chat so you can reply at once. For sender names that anyone can fake (for example `ACME-BANK`) no allow rule is added; the messages only move. To stop allowing a sender, delete the rule in Settings > Rules.
-- **Block sender**: adds a block rule for the sender and removes their messages from Spam.
-- **Delete** the message.
+For a chat in Spam you can:
 
-Each message shows why it was blocked (for example "Unknown sender" or the rule that matched). Settings > Spam protection > **Recent activity** lists the last decisions for all incoming messages, including allowed ones.
+- **Not spam** (unknown sender): allows the sender with a rule and moves the whole chat to Messages. A snackbar offers Undo. For a sender name that anyone can fake (for example `ACME-BANK`), uMessage asks once before it allows the name. To stop allowing a sender, delete the rule in Settings > Spam protection > Rules.
+- **Unblock** (blocked sender): removes your block rule. If the sender is still unknown after that, the chat stays in Spam and the snackbar offers **Not spam**.
+- **Block** (unknown sender): adds a block rule, so the chat stays in Spam for good.
+- **Delete**: asks first, then deletes the chat from the phone itself, for every app. You can undo right after; later you cannot. Delete works only while uMessage is your default SMS app. There is no "Delete all".
 
-Spam is deleted automatically after 30 days. You can change the period, or keep them until you delete them, in Settings > Spam protection > Retention and alerts. A picture message that could not be downloaded (no mobile data, say) shows "Picture message not downloaded" in the chat; tap **Tap to download** to try again. Picture messages (MMS) held as spam are not downloaded, so they cost no mobile data; restoring one allows the sender but cannot bring back the picture.
+A swipe on a row does **Not spam** or **Unblock**, with Undo. The menu has **Mark all as read**. When the newest text in a Spam chat holds a verification code, the row shows **Copy code** for ten minutes. This is how you reach a code from a blocked sender: a blocked sender never gets a notification, not even for a code.
+
+### Blocking a chat
+
+Block a sender from Messages with a left swipe, the selection bar, the chat menu or the **Block** button on a notification. **Report spam** does the same. The whole chat moves to Spam at once, its notification goes away and it is marked read. New texts from that sender arrive silently in Spam. A snackbar offers Undo. If one of your own allow rules still lets the sender in, the chat stays in Messages and the snackbar says so.
+
+### Alerts and auto-delete
+
+By default spam makes no notification. Settings > Spam protection > **Auto-delete and alerts** has **Notify me for texts from unknown senders**: it posts one quiet notification that opens Spam and hides the sender and text on the lock screen. It is never posted for a sender you blocked.
+
+Spam is kept until you delete it. **Auto-delete old spam** (same page) is off until you choose a number of days. It then deletes texts that arrived in Spam more than that many days ago, from the phone itself, for every app, and they cannot be brought back. Texts you sent, starred or added a note to stay.
+
+Settings > Spam protection > **Recent activity** lists the last decisions for all incoming messages, including allowed ones.
+
+### Picture messages in Spam
+
+A picture message (MMS) in Spam is downloaded like any other, also from a blocked sender, if it is at most 1 MiB and your phone is not roaming. This is because a group picture message cannot be told apart before the download, and a group chat must not be lost. A larger one stays as **Tap to download** in its chat. A picture message that could not be downloaded (no mobile data, say) shows "Picture message not downloaded"; tap it to try again.
+
+### Older spam
+
+Older versions kept spam only inside uMessage. The first sort moves those texts to the phone itself, into the sender's chat. This needs uMessage to be your default SMS app; until then they are listed read-only under **Older spam kept only in uMessage** in the Spam tab.
 
 ## Rules
 
@@ -75,26 +118,27 @@ Open Settings > Spam protection > **Rules**. A rule is either **allowed** or **b
 | Sender name | A sender shown as a name instead of a number | `VM-HDFCBK`, or `HDFCBK` for any prefix |
 | Keyword | Any message that contains the word or phrase | `lottery` |
 | Pattern | A regular expression, for advanced users | `win.*prize` |
+| Website | A link to that site or one of its subdomains | `example.com` |
 
-How rules combine:
+Every rule acts on the sender, so it moves the sender's whole chat. How rules combine:
 
-1. **Allowed rules always win.** If a message matches an allowed rule, it is delivered, even if it also matches a blocked rule.
-2. Then blocked rules: a match is blocked, even from a contact.
-3. Then known senders, then the mode.
+1. **Your allowed rules win.** A sender named by an allow rule you made (number, prefix or sender name) stays in Messages, even if a block rule also matches.
+2. Then blocked rules: the sender's chat goes to Spam, even from a contact.
+3. Then contacts, then the two automatic lists, then the spam filter switch.
 
-A keyword or pattern rule applies to the sender in both directions: when a blocked keyword blocks a message, its sender is blocked too, and when an allowed keyword lets a message through, its sender is allowed too (contacts and senders that already have their own rule are left alone).
+A keyword, pattern or website rule reads the text but acts on the sender: when a blocked keyword is in a text, its sender is blocked; when an allowed keyword is in a text, its sender is allowed, for good. Contacts and senders with an allow rule you made are not blocked by a keyword. A sender allowed by a keyword shows a line in its chat with **Block**, and a block wins over it.
 
-Be careful with allowed keywords: a message from anyone that contains the keyword skips every block. uMessage asks you to confirm allowed keywords and patterns, and refuses very short ones. Keywords also match inside longer words (`win` matches "window").
+Be careful with allowed keywords: anyone who sends a text with the keyword is allowed from then on. uMessage asks you to confirm allowed keywords and patterns, and refuses very short ones. Keywords also match inside longer words (`win` matches "window").
 
-On phones with two SIMs, each rule can apply to SIM 1, SIM 2 or both.
+Every allow and block rule covers both SIMs. (Forward rules still have their own SIM choice.)
 
 You can export your rules to a file and import them on another phone. Import shows what it will add before it changes anything, and you can undo it afterwards.
 
 ## App lock
 
-Settings > **App lock** asks for a PIN, a pattern or your fingerprint/face before uMessage opens. After too many wrong tries you have to wait before trying again. If you forget the PIN there is no recovery from inside the app.
+Settings > **App lock** asks for a PIN, a pattern or your fingerprint/face before uMessage opens. After too many wrong tries you have to wait before trying again. If you forget the PIN, tap **Forgot your PIN?**: it accepts your phone's own screen lock instead, opens the app and your hidden chats, and skips the wait. So anyone who knows your phone's screen lock can open uMessage too.
 
-**What to lock** (on the same page) is Whole app, or Only chosen parts: uMessage then opens without the PIN, and only the Spam tab and your hidden chats ask for it.
+**What to lock** (on the same page) is Whole app, or Only chosen parts: uMessage then opens without the PIN, and only the Spam tab and your hidden chats ask for it. A chat that is in Spam then also asks for the lock when it is opened from a shortcut, a notification or recent apps.
 
 **Hide this chat** (thread menu) needs an app lock. A hidden chat leaves the chat list, search, Recent codes, stars, pictures and links, and launcher shortcuts, and its notifications say only "New message". Tap **Hidden chats** under the last conversation and enter your lock to see them; they hide again when you leave uMessage (after the lock time chosen in Settings).
 
@@ -104,7 +148,7 @@ Notification privacy is a separate setting: choose whether the lock screen shows
 
 ## Forwarding (optional)
 
-Forwarding is optional and off until you create a rule. It runs on your phone, sends by SMS on your own mobile plan and goes through no server. Settings > **Forwarding** opens the forward rules, which send a copy of matching inbox messages by SMS to up to three numbers. Each forward is a paid SMS. Spam is never forwarded, and verification codes only when a rule's switch for codes is on.
+Forwarding is optional and off until you create a rule. It runs on your phone, sends by SMS on your own mobile plan and goes through no server. Settings > **Forwarding** opens the forward rules, which send a copy of matching incoming messages by SMS to up to three numbers. Each forward is a paid SMS. Only texts that land in Messages are forwarded: spam is never forwarded. Verification codes are forwarded only when a rule's switch for codes is on.
 
 The **Daily forward limit** (on the Forwarding options page) is off by default. You can set it to 5, 10, 20 or 50 forwards a day; when it is reached, nothing more is forwarded for the rest of the day and uMessage shows a notification. Each rule also has its own hourly cap. The full list of safeguards is in the [README](../README.md#forwarding).
 
@@ -121,7 +165,7 @@ Each message can carry one private note, for example to remember what a bank-tra
 
 ## Backup and restore
 
-uMessage is **not** included in Android or Google cloud backups, by design: your spam and settings never leave the phone that way. Your normal (allowed) messages are in Android's own SMS storage.
+uMessage is **not** included in Android or Google cloud backups, by design: your rules and settings never leave the phone that way. All your messages, spam included, are in Android's own SMS storage, so a backup made by your phone or another SMS app may include spam texts too.
 
 To move messages to a new phone:
 
@@ -139,7 +183,7 @@ Settings > **Backup and restore** > **Move from another app** explains the steps
 2. Save the backup to Google Drive or to a file on your phone.
 3. In uMessage, open that screen and tap **Import messages**, then pick the file. uMessage reads the XML files made by SMS Backup & Restore, as well as its own backups.
 
-A backup of all your chats also holds what uMessage keeps beside the messages: spam (the Spam folder), the recycle bin, drafts, muted chats, hidden chats, saved texts, scheduled messages and reminders, private notes, stars, labels and archived chats. Restoring puts the Spam folder's messages back in the Spam folder only, never in the inbox, and it never sends or shows anything. Messages scheduled for a time that has already passed are not brought back, except repeating ones, which continue at their next time; scheduled messages with attachments and the filter decision log are not in the backup. A backup of only some chats leaves out the Blocked folder, saved texts, scheduled messages and reminders. Hidden chats stay out of sight only while the app lock is on; the lock's PIN is never in a backup. When you back up all your chats while the app lock is on and your hidden chats are locked, uMessage first asks: **Unlock** (your lock screen opens, and the hidden chats go into the backup) or **Skip hidden chats** (they are left out, and the result says how many). If the unlock fails or is cancelled you can try again or skip. With the lock off, or the hidden chats already unlocked, they are included without asking. A backup of chosen chats never holds hidden ones.
+A backup of all your chats also holds what uMessage keeps beside the messages: the recycle bin, drafts, muted chats, hidden chats, saved texts, scheduled messages and reminders, private notes, stars, labels and archived chats. Spam chats are backed up like every other chat. After a restore, each chat is sorted again by your rules and contacts, so restore your rules and settings too if you want blocked senders to stay blocked. Older spam that is still kept only in uMessage goes into the backup as its own entries; restoring them puts them back with the older spam, and they then move to the phone itself like the rest. A restore never sends or shows anything. When the file holds scheduled messages, uMessage says how many, and to how many numbers, and asks before it turns them on. Messages scheduled for a time that has already passed are not brought back, except repeating ones, which continue at their next time; scheduled messages with attachments and the filter decision log are not in the backup. A backup of only some chats leaves out the older spam, saved texts, scheduled messages and reminders. Hidden chats stay out of sight only while the app lock is on; the lock's PIN is never in a backup. When you back up all your chats while the app lock is on and your hidden chats are locked, uMessage first asks: **Unlock** (your lock screen opens, and the hidden chats go into the backup) or **Skip hidden chats** (they are left out, and the result says how many). If the unlock fails or is cancelled you can try again or skip. With the lock off, or the hidden chats already unlocked, they are included without asking. A backup of chosen chats never holds hidden ones.
 
 Exported files are not encrypted. Anyone who can open the file can read your messages, so keep it somewhere private and delete it when you are done.
 

@@ -23,10 +23,10 @@ Use this for every PR. Tick each box or write why it does not apply. Related doc
 
 ## Filter pipeline
 
-- [ ] Decision order in [FILTER_PIPELINE.md](FILTER_PIPELINE.md) is respected (allow rules, block rules, contacts, unknown-sender mode). The doc is updated when the order or a rule type changes.
-- [ ] The filter fails open: any error delivers the message to the inbox.
+- [ ] Decision order in [FILTER_PIPELINE.md](FILTER_PIPELINE.md) is respected (the 11 checks: user allow rules, block rules, contacts, text facts, group rules, the filter switch, codes, unknown sender). Rules act on the sender and a chat moves whole. The doc is updated when the order or a rule type changes.
+- [ ] The filter fails open: any error delivers the message to Messages, unread, with a notification.
 - [ ] Regex rules go through the regex guard; no new catastrophic patterns.
-- [ ] Blocked or held messages are never forwarded. A blocked MMS is downloaded only under `BlockedMmsPolicy` (SE-29): known size up to 1 MiB, not expired, not roaming, under 100 kept, and never when a block rule (number or sender id) blocked it.
+- [ ] Spam is never forwarded and never notifies a blocked sender. Spam is written to the phone's store with read = 1 and seen = 1; nothing new goes into `blocked_messages`. A Spam MMS, also from a blocked sender, is downloaded into the phone's store only within the limits (SE-29, `BlockedMmsPolicy.spamNoticeDownloads`): known size up to 1 MiB, not expired, not roaming. Otherwise it stays a "Tap to download" row.
 - [ ] New or changed rules have JVM unit tests, including a contact-exempt case and an exact-number case.
 
 ## Verification codes

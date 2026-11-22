@@ -6,8 +6,9 @@ encrypted by the app itself yet.
 
 ## What protects the data today
 
-- **Android file-based encryption.** `conversations.db`, `spamless.db` (blocked messages and their kept MMS
-  content), `files/spamless_decisions.log` and the shared prefs live in credential-encrypted app storage. On
+- **Android file-based encryption.** `conversations.db` (the message cache and `spam_threads`, the list of chats
+  shown in Spam), `spamless.db` (rules, the two automatic allow lists, and older spam not yet moved),
+  `files/spamless_decisions.log` and the shared prefs live in credential-encrypted app storage. On
   phones with file-based encryption (required for phones that ship with Android 10 or later; uMessage runs from
   Android 8) these files are encrypted with a key that only exists after the user unlocks the phone once after
   boot, so a stolen phone that is off, or has not been unlocked since boot, gives nothing away. Older phones use
@@ -34,8 +35,20 @@ encrypted by the app itself yet.
 - **Scheduled messages held by a restore (M-SEC2).** A restore does not arm scheduled sends. Until the user turns
   them on or discards them, their text and numbers wait in plain app-private preferences
   (`umessage_scheduled_hold`). Settings > Backup and the restore dialog ask about them.
+- **Where spam is kept.** New spam is written to Android's own SMS database, marked read and seen, like every other
+  text; uMessage keeps only the list of chats shown in Spam (`spam_threads`: thread id, sender, cause, unread count,
+  date it entered Spam). Nothing new goes into `blocked_messages`. A spam MMS is downloaded into the SMS database too
+  (up to 1 MiB, not while roaming).
+- **Older spam.** Spam that versions before provider truth kept only in `spamless.db` (`blocked_messages`, with text)
+  and in `noBackupFilesDir/blocked_mms/` (kept MMS files) is moved to Android's SMS database once uMessage is the
+  default SMS app. The old copies are deleted 30 days after the last row moved. Rows that could not be moved stay as
+  the only copy and are listed under "Older spam kept only in uMessage".
 - **Message migration journal.** `umessage_older_spam` (app-private preferences) keeps the migration's progress
   across a kill: row and message ids, times, how each row was written, and thread ids. No text, no number.
+- **Automatic allow lists.** The members of "People you wrote to" and "Senders of a verification code" are rows in
+  `spamless.db` (`allow_group_members`: sender number or name, date, source). Senders the user removed from a list
+  are kept in plain app-private preferences (`umessage_group_removed`), so the history check does not add them back.
+  No message text.
 - **Saved texts, SIM names and numbers.** The saved texts list (for example an address or card number the user chose
   to keep) and the nicknames and numbers typed for each SIM are plain text in the app's private preferences
   (`spamless_composer`). They are not encrypted by the app and not uploaded; the app lock does not encrypt them. The
@@ -49,15 +62,15 @@ encrypted by the app itself yet.
   and is deleted with it, and is not in backups.
 
 What this does **not** cover: a phone that is rooted or exploited *while unlocked* can read any app's files, and
-Android's SMS database (where allowed messages live) is outside the app anyway, so app-level encryption would only
-cover the copies in uMessage's own databases.
+Android's SMS database (where every message lives, spam included) is outside the app anyway, so app-level encryption
+would only cover the copies in uMessage's own databases.
 
 ## Option: encrypt the databases (SQLCipher)
 
 | | |
 |---|---|
-| Protection gained | Only against reading copied files on a rooted/exploited unlocked phone. The key would sit in Android Keystore, which the same attacker can usually use while the phone is unlocked, so the gain is small. Allowed messages stay readable in the system SMS database. |
-| Migration | Each existing `conversations.db` and `spamless.db` must be exported into an encrypted copy (`sqlcipher_export`) on first start, with the backup/recovery code (`DatabaseBackups`, `MessagesDatabaseRecovery`, `SpamDatabaseRecovery`) taught to handle both formats. A failed migration risks blocked messages and scheduled messages, the data the app exists to keep. |
+| Protection gained | Only against reading copied files on a rooted/exploited unlocked phone. The key would sit in Android Keystore, which the same attacker can usually use while the phone is unlocked, so the gain is small. All messages, spam included, stay readable in the system SMS database. |
+| Migration | Each existing `conversations.db` and `spamless.db` must be exported into an encrypted copy (`sqlcipher_export`) on first start, with the backup/recovery code (`DatabaseBackups`, `MessagesDatabaseRecovery`, `SpamDatabaseRecovery`) taught to handle both formats. A failed migration risks older spam not yet moved and scheduled messages, data the app holds the only copy of. |
 | Key handling | Keystore-wrapped key; a Keystore reset (some OEMs after a lock-screen change) would make the databases unreadable, so a recovery story is needed. |
 | Performance | SQLCipher costs roughly 5-15% on queries and a slower first open (key derivation), on the SMS receive path where time is limited. |
 | APK size | About +3-7 MB of native libraries per ABI. |
@@ -68,9 +81,9 @@ cover the copies in uMessage's own databases.
 Do not add database encryption now. Android's file-based encryption plus the sandbox already cover the realistic
 cases (lost or stolen phone, other apps, USB, backups), and the remaining case (a rooted or exploited unlocked
 phone) is only partly helped by SQLCipher because the key is usable on that same phone. The migration risk to
-blocked and scheduled messages, the receive-path slowdown, APK size and the F-Droid build cost outweigh that.
+older spam and scheduled messages, the receive-path slowdown, APK size and the F-Droid build cost outweigh that.
 
 Revisit if uMessage starts keeping message copies outside credential-encrypted storage (for example direct-boot
 aware storage so it can filter before the first unlock), or if users ask for a separate app-only passphrase. In
-that case, encrypt only the blocked-message bodies with a Keystore key (field-level, no SQLCipher), which avoids
-the database migration and native libraries.
+that case, encrypt only the message text uMessage keeps itself (the cache, stars, notes, scheduled messages) with a
+Keystore key (field-level, no SQLCipher), which avoids the database migration and native libraries.
