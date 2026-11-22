@@ -16,11 +16,14 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.glooboo.umessage.activities.MainActivity
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.receivers.SmsReceiver
+import com.glooboo.umessage.spam.FirstRun
+import com.glooboo.umessage.spam.FirstRunPhase
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.testing.DeviceTest
 import com.glooboo.umessage.testing.NoForwarding
 import com.glooboo.umessage.testing.SmsRole
 import com.glooboo.umessage.testing.TestRules
+import com.glooboo.umessage.ui.main.FirstRunPagesHost
 import com.glooboo.umessage.ui.onboarding.OnboardingState
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -41,6 +44,10 @@ import java.util.TimeZone
  * on the main screen and announced (one notification for its chat); the one from a blocked sender is stored read,
  * listed in Spam only and silent (no notification for its chat). Forwarding is paused for the test and the test stops
  * when a forward rule is on, so the allowed text can never be forwarded.
+ *
+ * On a fresh install the end of the onboarding makes the first run's pass due, and while it is due or runs the main
+ * screen shows the full progress page instead of the lists (FirstRunPagePolicy: FRESH_INSTALL). So the test starts
+ * that pass and waits until it is done before it launches the app; with the step F seed it takes about a minute.
  *
  * Instrumented tests run on the debug build (`connectedFossDebugAndroidTest`); the minified daily build cannot be the
  * instrumented target, so M-T5 on the daily build stays a manual check (plan 4.4). Needs the SMS role (taken for the
@@ -75,7 +82,26 @@ class AppStartReceiveDeviceTest {
         DeviceTest.forgetChats(SENDERS)
         rules.add(ListKind.ALLOW, ALLOWED)
         rules.add(ListKind.BLOCK, BLOCKED)
+        finishFirstRun()
     }
+
+    /**
+     * The first run's pass is started as the end of the welcome flow starts it (App.checkFirstRun: the pages read the
+     * onboarding again, the runner checks), and waited for.
+     */
+    private fun finishFirstRun() {
+        (app as App).checkFirstRun()
+        FirstRun.check(app)
+        assertTrue(
+            "the first run's pass did not finish",
+            DeviceTest.waitFor(timeoutMs = FIRST_RUN_TIMEOUT_MS) {
+                FirstRun.state(app).value.phase == FirstRunPhase.DONE && !firstRunPageUp()
+            },
+        )
+    }
+
+    /** Whether the main screen shows a first-run page (progress, or the pass is due) instead of the lists. */
+    private fun firstRunPageUp(): Boolean = FirstRunPagesHost.source.value.progress.value.running
 
     @After
     fun tearDown() {
@@ -120,7 +146,8 @@ class AppStartReceiveDeviceTest {
                 DeviceTest.waitFor { dao.getMessagesList().any { it.threadId == helloRow.thread } },
             )
             assertFalse("allowed text: not in Spam", dao.isInSpam(helloRow.thread))
-            assertTrue("allowed text: on the main screen", DeviceTest.waitFor(timeoutMs = 20_000L) { shows(hello) })
+            val shown = DeviceTest.waitFor(timeoutMs = 20_000L) { shows(hello) }
+            assertTrue("allowed text: on the main screen (first-run page up: ${firstRunPageUp()})", shown)
 
             val advertRow = storedRow(BLOCKED, advert)
             threads += advertRow.thread
@@ -180,6 +207,7 @@ class AppStartReceiveDeviceTest {
             .putExtra("format", "3gpp")
 
     private companion object {
+        const val FIRST_RUN_TIMEOUT_MS = 240_000L
         const val ALLOWED = "+15550004121"
         const val BLOCKED = "+15550004122"
         val SENDERS = listOf(ALLOWED, BLOCKED)
