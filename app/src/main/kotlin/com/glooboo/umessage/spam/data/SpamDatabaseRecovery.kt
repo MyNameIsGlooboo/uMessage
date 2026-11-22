@@ -7,6 +7,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.glooboo.umessage.databases.DatabaseBackups
+import com.glooboo.umessage.databases.RecoveryAttempts
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FirstRun
@@ -82,32 +83,42 @@ internal class SpamDatabaseRecovery(
      * A build of schema 3 that opened a schema-4 file copied every table it knows and renamed the file `-imported`,
      * leaving the forward rules behind in it. Back on schema 4 or later, they are merged back from there (rows already
      * here are skipped), and the file is renamed `-restored` so this happens once.
+     *
+     * J14-3: only when both steps worked. A failed try keeps the file for the next open (both steps skip what is
+     * already here, so a second try adds nothing twice); after [RecoveryAttempts.MAX_FAILURES] failed tries it is
+     * kept as `-failed` and not tried again.
      */
     private fun restoreForwardRulesFromImported() {
         val imported = DatabaseBackups.importedBackups(context, name, FORWARD_SINCE..SpamDatabase.VERSION)
         val newest = imported.firstOrNull() ?: return
-        runCatching {
+        val forwardRules = runCatching {
             DatabaseBackups.withMigratedCopy(context, name, newest, migrate = ::migrateScratch) { db ->
                 DatabaseBackups.inTransaction(db) {
                     val (table, where) = forwards(db)
                     DatabaseBackups.mergeRows(db, table, where = where)
                 }
             }
-        }.onFailure { Log.e(TAG, "Restoring forward rules of $name from ${newest.name} failed", it) }
-        val providerTruth = restoreProviderTruthFromImported(newest)
-        imported.forEach { DatabaseBackups.retire(it) }
+        }.onFailure { Log.e(TAG, "Restoring forward rules of $name from ${newest.name} failed", it) }.isSuccess
+        val members = restoreProviderTruthFromImported(newest)
+        if (forwardRules && members != null) {
+            imported.forEach { DatabaseBackups.retire(it) }
+            runCatching { RecoveryAttempts.succeeded(context, newest) }
+        } else {
+            runCatching { RecoveryAttempts.failed(context, newest) }
+        }
         // The history check runs again for every chat (a RESTORE pass).
-        if (providerTruth) runCatching { FirstRun.request(context, FirstRunTrigger.RESTORE) }
+        if (members == true) runCatching { FirstRun.request(context, FirstRunTrigger.RESTORE) }
     }
 
     /**
      * R-4 (step F, F-17): after a trip to 0.4.14 and back, the group members and the message migration's marks come
      * back from the schema-9 file that build kept aside: in a transaction of their own, after the forward rules, so a
-     * failure here keeps those. True when the file had the members table (a RESTORE pass is owed).
+     * failure here keeps those. True when the file had the members table (a RESTORE pass is owed), null when this
+     * step failed.
      */
-    private fun restoreProviderTruthFromImported(newest: File): Boolean {
+    private fun restoreProviderTruthFromImported(newest: File): Boolean? {
         var members = false
-        runCatching {
+        return runCatching {
             DatabaseBackups.withMigratedCopy(context, name, newest, migrate = ::migrateScratch) { db ->
                 DatabaseBackups.inTransaction(db) {
                     if (hasMembers(db)) {
@@ -118,7 +129,7 @@ internal class SpamDatabaseRecovery(
                 }
             }
         }.onFailure { Log.e(TAG, "Restoring group members and marks of $name from ${newest.name} failed", it) }
-        return members
+            .map { members }.getOrNull()
     }
 
     /**

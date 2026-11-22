@@ -37,7 +37,7 @@ internal object DatabaseBackups {
     fun fileVersion(file: File): Int? {
         if (!file.exists()) return null
         return runCatching {
-            SQLiteDatabase.openDatabase(file.path, null, SQLiteDatabase.OPEN_READONLY).use { it.version }
+            SQLiteDatabase.openDatabase(file.path, null, SQLiteDatabase.OPEN_READONLY, KEEP_FILES).use { it.version }
         }.getOrNull()
     }
 
@@ -165,16 +165,18 @@ internal object DatabaseBackups {
      * which closes the pool's connection and opens a new one. That drops the old connection's temp schema, and with
      * it Room's invalidation table (`room_table_modification_log`, made in Room's own onOpen, before the callbacks),
      * so the first observed query after the restore crashed with "no such table". This connection is closed here, so
-     * Room's stays as Room set it up.
+     * Room's stays as Room set it up. Closing the connection detaches `src`.
+     *
+     * The open logs "Could not change the database journal mode" once: this connection asks for the default
+     * rollback mode, and SQLite refuses because Room holds the file in WAL. That is expected; opening with the WAL
+     * flag would not help (the ATTACH turns it off again). This is only safe while Room uses the framework SQLite:
+     * with a bundled driver (BundledSQLiteDriver) two SQLite libraries would share one file in one process, which
+     * can corrupt it.
      */
     fun <T> withAttached(live: File, file: File, block: (db: SQLiteDatabase) -> T): T =
         SQLiteDatabase.openDatabase(live.path, null, SQLiteDatabase.OPEN_READWRITE, KEEP_FILES).use { db ->
             db.execSQL("ATTACH DATABASE ? AS src", arrayOf<Any>(file.path))
-            try {
-                block(db)
-            } finally {
-                db.execSQL("DETACH DATABASE src")
-            }
+            block(db)
         }
 
     data class Column(val name: String, val notNull: Boolean, val hasDefault: Boolean, val primaryKey: Boolean)
