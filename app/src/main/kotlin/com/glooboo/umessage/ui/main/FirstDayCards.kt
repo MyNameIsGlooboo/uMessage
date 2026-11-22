@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -39,14 +38,12 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.ui.components.localizedNumber
-import com.glooboo.umessage.ui.components.readableOn
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.theme.success
@@ -186,7 +183,6 @@ private fun ChecklistHeader(
     }
 }
 
-
 @StringRes
 internal fun actionLabel(step: ChecklistStep, roleRefused: Boolean = false): Int = when {
     step == ChecklistStep.DefaultSms && roleRefused -> R.string.onb_perm_open_settings
@@ -255,77 +251,6 @@ private fun StepRow(label: String, done: Boolean, action: String, onAction: (() 
         )
         if (!done && onAction != null) {
             TextButton(onClick = onAction) { Text(action) }
-        }
-    }
-}
-
-/**
- * ID-11: shown once, the first time a message is held. Says what happened and that nothing is lost: it waits in
- * Blocked, where it can be reviewed or restored. [newBlocked] is the count of held messages not yet looked at.
- */
-@Composable
-fun FirstBlockReceipt(
-    newBlocked: Int,
-    onReview: () -> Unit,
-    modifier: Modifier = Modifier,
-    onDone: () -> Unit = {},
-) {
-    val context = LocalContext.current
-    val prefs = remember(context) { W3cPrefs.get(context) }
-    var answered by remember { mutableStateOf(prefs.firstBlockReceiptShown) }
-    if (answered || newBlocked <= 0) return
-    val finish = {
-        prefs.firstBlockReceiptShown = true
-        answered = true
-        onDone()
-    }
-    val review = {
-        finish()
-        onReview()
-    }
-    // U03: the same quiet surface as the other cards; the shield alone says what it is about.
-    val container = MaterialTheme.colorScheme.surfaceContainerHigh
-    // B7: text and buttons take the card's own on-colour (checked against the fill), not the page's primary, which was
-    // light blue on a pale card in dark mode.
-    val content = readableOn(container, MaterialTheme.colorScheme.onSurface)
-    val buttonColors = ButtonDefaults.textButtonColors(contentColor = content)
-    // B7: the title says "tap to review", so the whole card opens Blocked.
-    Surface(
-        onClick = review,
-        color = container,
-        contentColor = content,
-        shape = MaterialTheme.shapes.large,
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-    ) {
-        Column(Modifier.padding(start = 16.dp, end = 8.dp, top = 12.dp, bottom = 4.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Icon(
-                    Symbols.Shield,
-                    contentDescription = null,
-                    tint = readableOn(container, MaterialTheme.colorScheme.primary),
-                    modifier = Modifier.size(24.dp),
-                )
-                Text(
-                    stringResource(R.string.w3c_receipt_title),
-                    style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier.semantics { heading() },
-                )
-            }
-            Text(
-                stringResource(R.string.w3c_receipt_body),
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(top = 4.dp, end = 8.dp),
-            )
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                TextButton(onClick = finish, colors = buttonColors) {
-                    Text(stringResource(R.string.w3c_receipt_got_it))
-                }
-                TextButton(onClick = review, colors = buttonColors) {
-                    Text(stringResource(R.string.w3c_receipt_review), fontWeight = FontWeight.SemiBold)
-                }
-            }
         }
     }
 }

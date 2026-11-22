@@ -8,7 +8,6 @@ import com.glooboo.umessage.extensions.DeleteResult
 import com.glooboo.umessage.extensions.getMessages
 import com.glooboo.umessage.extensions.shortcutHelper
 import com.glooboo.umessage.helpers.MESSAGES_LIMIT
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.components.ChoiceItem
 import com.glooboo.umessage.ui.components.showChoiceDialog
 import com.glooboo.umessage.extensions.conversationsDB
@@ -72,7 +71,7 @@ class ThreadConversationActions(
                 }
                 activity.runOnUiThread {
                     refreshConversations()
-                    val message = result.messageRes.takeIf { ProviderTruthFlag.enabled }
+                    val message = result.messageRes
                     if (result == DeleteResult.DELETED) BlockedNotifier.cancelChat(activity, thread)
                     if (message == null) activity.finish() else showMessage(activity.getString(message))
                 }

@@ -6,20 +6,20 @@ import org.junit.Test
 
 /**
  * Provider truth, step C (U13, answer 15): "N chats are now in Spam" has the top priority of the one inbox card,
- * replaces the "Spam held" card, counts every moved chat and stays until tapped (the runner's cardPending).
+ * counts every moved chat and stays until tapped (the runner's cardPending).
  */
 class InboxCardMovedTest {
 
     @Test
     fun theMovedCardComesBeforeEveryOtherCard() {
-        val card = InboxCardPolicy.pick(spamHeldDue = true, checklistDue = true, cleanupDue = true, spamMovedDue = true)
+        val card = InboxCardPolicy.pick(checklistDue = true, cleanupDue = true, spamMovedDue = true)
         assertEquals(InboxCard.SpamMoved, card)
     }
 
     @Test
     fun withoutItTheOldOrderStays() {
-        assertEquals(InboxCard.SpamHeld, InboxCardPolicy.pick(true, true, true, spamMovedDue = false))
-        assertEquals(InboxCard.Checklist, InboxCardPolicy.pick(false, true, true))
+        assertEquals(InboxCard.Checklist, InboxCardPolicy.pick(true, true, spamMovedDue = false))
+        assertEquals(InboxCard.CodeCleanup, InboxCardPolicy.pick(false, true))
     }
 
     @Test

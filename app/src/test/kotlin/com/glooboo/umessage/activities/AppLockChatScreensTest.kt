@@ -23,7 +23,6 @@ import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.FakeSmsMmsProvider
 import com.glooboo.umessage.testing.FakeTelephonyProvider
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.lock.LockScope
@@ -53,9 +52,6 @@ class AppLockChatScreensTest {
 
     @get:Rule
     val compose = createEmptyComposeRule()
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
     private var scenario: ActivityScenario<out Activity>? = null

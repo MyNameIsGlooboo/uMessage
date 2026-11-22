@@ -14,7 +14,6 @@ import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.HiddenChatsSession
 import com.glooboo.umessage.helpers.MessageFoldBackfill
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.helpers.StarredList
 import com.glooboo.umessage.helpers.messageNotes
@@ -26,7 +25,6 @@ import com.glooboo.umessage.models.StarredMessage
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.ProcessReturn
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.lock.LockScope
 import com.google.common.truth.Truth.assertThat
@@ -38,7 +36,6 @@ import org.fossify.commons.extensions.baseConfig
 import org.fossify.commons.helpers.AppLockManager
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Shadows.shadowOf
@@ -51,9 +48,6 @@ import java.time.Duration
  */
 @RunWith(AndroidJUnit4::class)
 class SpamReadersTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
 
@@ -126,13 +120,6 @@ class SpamReadersTest {
 
         assertThat(search.searchDatabase("pizza").map { it.threadId }.toSet()).containsExactly(SHOWN)
         assertThat(search.searchDatabase("00012").map { it.threadId }.toSet()).containsExactly(SHOWN)
-    }
-
-    @Test
-    fun withTheFlagOffSearchStillFindsEveryChat() = runBlocking<Unit>(Dispatchers.IO) {
-        ProviderTruthFlag.enabled = false
-
-        assertThat(search().searchDatabase("pizza").map { it.threadId }.toSet()).containsExactly(SPAM, SHOWN)
     }
 
     @Test
@@ -418,24 +405,6 @@ class SpamReadersTest {
     }
 
     @Test
-    fun withTheFlagOffAnUnlockSearchesNothing() {
-        ProviderTruthFlag.enabled = false
-        val search = search()
-        var calls = 0
-        search.runSpamSearch = {
-            calls++
-            emptyList()
-        }
-        search.state.query = "pizza"
-        search.state.hideSpamHits()
-
-        search.state.spamUnlocked()
-        idleMain()
-
-        assertThat(calls).isEqualTo(0)
-    }
-
-    @Test
     fun aFoldedNotesSearchKeepsItsPlace() = runBlocking<Unit>(Dispatchers.IO) {
         // H-21: Arabic letter forms typed, Persian ones in the notes (MC-15); the place is kept in the folded SQL.
         val notes = app.messageNotes
@@ -455,13 +424,6 @@ class SpamReadersTest {
 
         assertThat(SpamReaders.threadIds(app)).isEmpty()
         assertThat(search().searchDatabase("pizza").map { it.threadId }.toSet()).containsExactly(SPAM, SHOWN)
-    }
-
-    @Test
-    fun withTheFlagOffThereAreNoSpamChatsToLeaveOut() {
-        ProviderTruthFlag.enabled = false
-
-        assertThat(SpamReaders.threadIds(app)).isEmpty()
     }
 
     private companion object {

@@ -155,9 +155,9 @@ class ConversationsViewModelTest {
         awaitUntil { rowIds() == listOf(mom.threadId) && vm.state.value.confirmDeleteCount == 0 }
     }
 
-    /** MC-37: Report spam blocks the sender with a uMessage rule and archives the chat; Undo takes both back. */
+    /** MC-37, provider truth (4.1): Report spam blocks the sender, so the chat leaves Messages; Undo takes it back. */
     @Test
-    fun reportSpamBlocksTheSenderAndArchivesTheChat() {
+    fun reportSpamBlocksTheSenderAndMovesTheChat() {
         vm.submit(listOf(dad, mom), cached = false, firstRun = false)
         awaitUntil { rowIds().size == 2 }
         vm.startSelect(dad.threadId)
@@ -166,18 +166,18 @@ class ConversationsViewModelTest {
         vm.reportSpamSelected()
         awaitUntil { events.any { it is ConversationsEvent.ReportedSpam } }
         val event = events.single { it is ConversationsEvent.ReportedSpam } as ConversationsEvent.ReportedSpam
-        assertThat(event.archived).isTrue()
         assertThat(rowIds()).containsExactly(mom.threadId)
         val repository = SpamRepositoryProvider.get(app)
         assertThat(SenderBlocking.isBlocked(rules(repository), dad.phoneNumber)).isTrue()
 
         vm.undoReportSpam(event.token)
         awaitUntil { !SenderBlocking.isBlocked(rules(repository), dad.phoneNumber) }
+        awaitUntil { rowIds() == listOf(dad.threadId, mom.threadId) }
     }
 
-    /** MC-23: Block keeps the chat in the list, adds a uMessage rule and offers Undo, which removes the rule. */
+    /** MC-23, provider truth (4.1): Block adds a uMessage rule and moves the chat; Undo removes the rule again. */
     @Test
-    fun blockKeepsTheChatAndCanBeUndone() {
+    fun blockMovesTheChatAndCanBeUndone() {
         vm.submit(listOf(dad, mom), cached = false, firstRun = false)
         awaitUntil { rowIds().size == 2 }
         vm.startSelect(mom.threadId)
@@ -186,12 +186,13 @@ class ConversationsViewModelTest {
         vm.blockSelected()
         awaitUntil { events.any { it is ConversationsEvent.Blocked } }
         val event = events.single { it is ConversationsEvent.Blocked } as ConversationsEvent.Blocked
-        assertThat(rowIds()).containsExactly(dad.threadId, mom.threadId)
+        assertThat(rowIds()).containsExactly(dad.threadId)
         val repository = SpamRepositoryProvider.get(app)
         assertThat(SenderBlocking.isBlocked(rules(repository), mom.phoneNumber)).isTrue()
 
         vm.undoReportSpam(event.token)
         awaitUntil { !SenderBlocking.isBlocked(rules(repository), mom.phoneNumber) }
+        awaitUntil { rowIds() == listOf(dad.threadId, mom.threadId) }
     }
 
     @Test

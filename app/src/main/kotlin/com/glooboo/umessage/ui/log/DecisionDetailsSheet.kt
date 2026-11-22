@@ -13,7 +13,6 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -27,7 +26,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
-import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.SpamLog
 import com.glooboo.umessage.ui.components.localizedNumber
 import com.glooboo.umessage.ui.components.uiLocale
@@ -35,7 +33,7 @@ import com.glooboo.umessage.ui.spam.SenderBlocking
 
 /**
  * SE-38 / SE-39 / ID-40: the sheet a log row opens. It explains the decision (with the rule's name, for allow rules
- * too), shows the message while it is still in Blocked with "Restore message", and offers the sender fixes.
+ * too) and offers the sender fixes.
  * [text] is the row's already-resolved wording, so the sheet and the row always agree.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,7 +41,6 @@ import com.glooboo.umessage.ui.spam.SenderBlocking
 internal fun DecisionDetailsSheet(
     group: LogRowGroup,
     text: RowText,
-    blockedMessage: BlockedMessage?,
     onDismiss: () -> Unit,
     actions: DecisionSheetActions,
 ) {
@@ -72,9 +69,6 @@ internal fun DecisionDetailsSheet(
             )
             DecisionFacts(group, text)
             FixState(group.fix)
-            if (blockedMessage != null) {
-                BlockedMessageCard(onRestore = { actions.onRestore(blockedMessage) }, message = blockedMessage)
-            }
             if (canFix(entry)) {
                 FixButtons(actions.onFix, entry.sender.trim(), wasAllowed = entry.decision == "ALLOW")
             }
@@ -122,30 +116,6 @@ private fun FixState(fix: String) {
     Text(stringResource(res), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
 }
 
-@Composable
-private fun BlockedMessageCard(onRestore: () -> Unit, message: BlockedMessage) {
-    Surface(color = MaterialTheme.colorScheme.surfaceContainerHigh, shape = MaterialTheme.shapes.medium) {
-        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(
-                stringResource(R.string.declog_blocked_message),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            if (message.hasText) {
-                Text(
-                    message.body,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = PREVIEW_LINES,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            }
-            FilledTonalButton(onClick = onRestore, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
-                Text(stringResource(R.string.declog_restore))
-            }
-        }
-    }
-}
-
 /** The sender fixes. The button that reverses the decision comes first; rules for spoofable names get a warning. */
 @Composable
 private fun FixButtons(onFix: (allow: Boolean) -> Unit, sender: String, wasAllowed: Boolean) {
@@ -174,5 +144,3 @@ private fun FixButtons(onFix: (allow: Boolean) -> Unit, sender: String, wasAllow
         }
     }
 }
-
-private const val PREVIEW_LINES = 3

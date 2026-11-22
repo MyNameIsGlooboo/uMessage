@@ -55,7 +55,6 @@ import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.recycleBinEntryCount
 import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.helpers.MainTabLinks
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.navPrefs
 import com.glooboo.umessage.helpers.threadPrefs
 import com.glooboo.umessage.helpers.w3aPrefs
@@ -91,7 +90,6 @@ import com.glooboo.umessage.ui.settings.SimCards
 import com.glooboo.umessage.ui.settings.SimMessagesDialog
 import com.glooboo.umessage.ui.settings.SpamSummary
 import com.glooboo.umessage.ui.log.DecisionLogActivity
-import com.glooboo.umessage.ui.spam.BlockedMessagesActivity
 import com.glooboo.umessage.ui.spam.BlockedNumbersActivity
 import com.glooboo.umessage.spam.ForwardingAvailability
 import com.glooboo.umessage.ui.spam.ForwardGatePolicy
@@ -342,14 +340,7 @@ class SettingsActivity : ComposeSimpleActivity() {
             forwardRuleCount = rules.size
             forwardRulesOn = rules.count { it.enabled }
             // H-12 (provider truth): the Archived list leaves out the chats in Spam, so its count does too.
-            archivedCount = runCatching {
-                val archived = if (ProviderTruthFlag.enabled) {
-                    conversationsDB.getArchivedList()
-                } else {
-                    conversationsDB.getAllArchived()
-                }
-                archived.size
-            }.getOrDefault(0)
+            archivedCount = runCatching { conversationsDB.getArchivedList().size }.getOrDefault(0)
             runOnUiThread {
                 uiState = uiState.copy(
                     forwardRuleCount = forwardRuleCount,
@@ -377,10 +368,8 @@ class SettingsActivity : ComposeSimpleActivity() {
             onOpenForwardRules = {
                 if (ForwardingAvailability.isAvailable(this)) startActivity(ForwardingActivity.intent(this))
             },
-            onOpenBlocked = {
-                // Provider truth: the old Spam list is not opened any more; Spam is the main screen's tab.
-                if (ProviderTruthFlag.enabled) openSpamTab() else open(BlockedMessagesActivity::class.java)
-            },
+            // Provider truth: the old Spam list is not opened any more; Spam is the main screen's tab.
+            onOpenBlocked = { openSpamTab() },
             onOpenDecisionLog = { open(DecisionLogActivity::class.java) },
             onOpenBlockedNumbers = { open(BlockedNumbersActivity::class.java) },
             onOpenBlockedKeywords = { open(ManageBlockedKeywordsActivity::class.java) },
