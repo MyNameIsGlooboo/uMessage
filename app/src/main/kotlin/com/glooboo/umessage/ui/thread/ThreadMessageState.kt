@@ -25,6 +25,41 @@ class ThreadMessageList {
     fun update(transform: (List<Message>) -> List<Message>): List<Message> = synchronized(lock) {
         transform(current).also { current = it }
     }
+
+    /**
+     * M-UI3: bumped by [clear] when another chat is loaded in place. A load that began before it carries the old
+     * number, and [setIf] and [updateIf] drop what it brings, so it cannot merge one chat's messages into another.
+     */
+    @Volatile
+    var generation = 0
+        private set
+
+    /** Empties the list for another chat; changes begun before this are dropped. */
+    fun clear() {
+        synchronized(lock) {
+            generation++
+            current = emptyList()
+        }
+    }
+
+    /** [set], unless the list was [clear]ed since [expected] was read; returns whether it was set. */
+    fun setIf(expected: Int, messages: List<Message>): Boolean = synchronized(lock) {
+        (expected == generation).also { if (it) current = messages }
+    }
+
+    /**
+     * Runs [write] unless the list was [clear]ed since [expected] was read; returns whether it ran. Atomic against
+     * [clear], so a screen field written here is either written before the reset that follows [clear] (and reset by
+     * it) or not at all. [write] must be short and take no other lock.
+     */
+    fun runIf(expected: Int, write: () -> Unit): Boolean = synchronized(lock) {
+        (expected == generation).also { if (it) write() }
+    }
+
+    /** [update], unless the list was [clear]ed since [expected] was read; null when dropped. */
+    fun updateIf(expected: Int, transform: (List<Message>) -> List<Message>): List<Message>? = synchronized(lock) {
+        if (expected != generation) null else transform(current).also { current = it }
+    }
 }
 
 /**

@@ -2,10 +2,18 @@ package com.glooboo.umessage.receivers
 
 import android.app.Notification
 import android.app.NotificationManager
+import android.content.ContentProvider
+import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
+import android.net.Uri
+import android.provider.Telephony
+import androidx.core.app.NotificationCompat
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
+import com.glooboo.umessage.extensions.getSmsDraft
+import com.glooboo.umessage.helpers.NotifyLog
 import com.glooboo.umessage.services.HeadlessSmsSendService
 import com.glooboo.umessage.testing.FakeSmsMmsProvider
 import com.glooboo.umessage.testing.FakeThreadStore
@@ -19,6 +27,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.Shadows.shadowOf
+import org.robolectric.shadows.ShadowLog
 import org.robolectric.shadows.ShadowLooper
 
 /** Sends that start outside the app: a reply typed into a notification, and another app's "respond via message". */
@@ -34,6 +43,9 @@ class QuickReplyTest {
 
     @Before
     fun setUp() = ShadowRecordingSmsManager.reset()
+
+    /** Room refuses main-thread reads, and getSmsDraft turns the refusal into "": read on a worker. */
+    private fun draftOf(threadId: Long): String = offMainThread { context.getSmsDraft(threadId) }
 
     @After
     fun tearDown() = resetSharedMessagesDatabase()
@@ -77,6 +89,57 @@ class QuickReplyTest {
         assertThat(notSentNotifications).hasSize(1)
     }
 
+    /** M-P3: a reply that never reached the provider stays as the chat's draft, and the spinner ends. */
+    @Test
+    fun failedQuickReplyKeepsTheTextAndEndsTheSpinner() {
+        Robolectric.setupContentProvider(RefusingSmsProvider::class.java, Telephony.Sms.CONTENT_URI.authority)
+        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val threadId = 77L
+        val original = NotificationCompat.Builder(context, "test").setSmallIcon(R.drawable.ic_messenger)
+            .setContentTitle("+15550001234").setContentText("Are you coming?").build()
+        manager.notify(threadId.hashCode(), original)
+
+        offMainThread { DirectReplyReceiver().handleReply(context, "+15550001234", threadId, "On my way") }
+        ShadowLooper.idleMainLooper()
+
+        assertThat(notSentNotifications).hasSize(1)
+        assertThat(draftOf(threadId)).isEqualTo("On my way")
+        val reposted = shadowOf(manager).getNotification(threadId.hashCode())
+        assertThat(reposted.flags and Notification.FLAG_ONLY_ALERT_ONCE).isNotEqualTo(0)
+        assertThat(reposted.extras.getCharSequence(Notification.EXTRA_TEXT)?.toString()).isEqualTo("Are you coming?")
+    }
+
+    /** M-P3: a reply saved as a failed row (Retry in the chat) is not copied into the draft as well. */
+    @Test
+    fun aFailedReplyThatWasSavedLeavesNoDraft() {
+        FakeSmsMmsProvider.installSms()
+        ShadowRecordingSmsManager.failingDestinations.add("+15550001234")
+
+        offMainThread { DirectReplyReceiver().handleReply(context, "+15550001234", 78L, "On my way") }
+        ShadowLooper.idleMainLooper()
+
+        assertThat(notSentNotifications).hasSize(1)
+        assertThat(draftOf(78L)).isEmpty()
+    }
+
+    /** M-P3: a re-post that throws removes the notification instead, so the spinner still ends; logged as FAILED. */
+    @Test
+    fun aRepostThatFailsRemovesTheNotification() {
+        ShadowLog.reset()
+        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val threadId = 79L
+        manager.notify(
+            threadId.hashCode(),
+            NotificationCompat.Builder(context, "test").setSmallIcon(R.drawable.ic_messenger)
+                .setContentTitle("+15550001234").setContentText("Are you coming?").build(),
+        )
+
+        DirectReplyReceiver().repostOriginal(context, threadId) { _, _, _ -> error("refused by the test") }
+
+        assertThat(shadowOf(manager).getNotification(threadId.hashCode())).isNull()
+        assertThat(ShadowLog.getLogsForTag(NotifyLog.TAG).map { it.msg }.single()).contains(" r=FAILED ")
+    }
+
     @Test
     fun failedRespondViaMessagePostsANotSentNotification() {
         FakeSmsMmsProvider.installSms()
@@ -88,4 +151,14 @@ class QuickReplyTest {
 
         assertThat(notSentNotifications).hasSize(1)
     }
+}
+
+/** An SMS provider that saves nothing, as when the phone's message store refuses a write. */
+class RefusingSmsProvider : ContentProvider() {
+    override fun onCreate() = true
+    override fun query(uri: Uri, p: Array<out String>?, s: String?, a: Array<out String>?, o: String?): Cursor? = null
+    override fun insert(uri: Uri, values: ContentValues?): Uri? = null
+    override fun update(uri: Uri, values: ContentValues?, s: String?, a: Array<out String>?) = 0
+    override fun delete(uri: Uri, s: String?, a: Array<out String>?) = 0
+    override fun getType(uri: Uri): String? = null
 }

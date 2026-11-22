@@ -27,6 +27,7 @@ import com.glooboo.umessage.messaging.canReadScheduledAttachments
 import com.glooboo.umessage.messaging.unreadableScheduledAttachments
 import com.glooboo.umessage.messaging.deleteScheduledRepeat
 import com.glooboo.umessage.messaging.deleteScheduledAttachments
+import com.glooboo.umessage.messaging.holdDiedScheduledSend
 import com.glooboo.umessage.messaging.ScheduledSendClaims
 import com.glooboo.umessage.messaging.scheduledAttachmentTracker
 import com.glooboo.umessage.messaging.sendMessageDetailed
@@ -89,22 +90,36 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
         return message?.takeUnless { it.isHeldScheduled() }
     }
 
+    /** [claim] is [ScheduledSendClaims.claim]; a test puts work between the first read and the claim. */
     @VisibleForTesting
-    internal fun handleIntent(context: Context, intent: Intent) {
+    internal fun handleIntent(
+        context: Context,
+        intent: Intent,
+        claim: (Context, Long) -> Boolean = { c, id -> ScheduledSendClaims.claim(c, id) },
+    ) {
         val messageId = intent.getLongExtra(SCHEDULED_MESSAGE_ID, 0L)
         val message = dueMessage(context, messageId) ?: return
 
         // F3: only one sender per message. The alarm, the re-arm on app start or boot and "Send now" can all reach it
         // together; the one that claims the row sends, the others find it taken and stop.
         val claimed = try {
-            ScheduledSendClaims.claim(context, messageId)
+            claim(context, messageId)
         } catch (e: Exception) {
             e.printStackTrace()
             return
         }
         if (!claimed) return
         try {
-            sendClaimed(context, message)
+            // K1 hand-over: the row is read again after the claim. The start-up tidy may have swapped its attachments
+            // to the app's own copies meanwhile, and the tracker must not write the picker uris back. A row that is
+            // gone (sent or deleted meanwhile) or held sends nothing. K2-5: a read that failed leaves the claimed row
+            // in the outbox, so it is held with Retry; a row that is gone or held already is left as it is.
+            val claimedMessage = dueMessage(context, messageId) ?: run {
+                context.holdDiedScheduledSend(message)
+                refreshMessages()
+                return
+            }
+            sendClaimed(context, claimedMessage)
         } finally {
             ScheduledSendClaims.release(messageId)
         }

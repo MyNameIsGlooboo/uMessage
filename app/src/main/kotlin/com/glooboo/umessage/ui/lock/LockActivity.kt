@@ -58,7 +58,7 @@ class LockActivity : FragmentActivity() {
     override fun attachBaseContext(newBase: Context) = super.attachBaseContext(AppLocale.wrap(newBase))
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        fadeIn()
+        openWithoutFade()
         applyUMessageWindow()
         super.onCreate(savedInstanceState)
         setContent {
@@ -108,13 +108,17 @@ class LockActivity : FragmentActivity() {
         }
     }
 
-    private fun fadeIn() {
+    /**
+     * M-SEC1: the lock screen appears at once, with no fade in over the screen it covers (a fade let that screen show
+     * through for a few frames). It still fades out when it closes.
+     */
+    private fun openWithoutFade() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, android.R.anim.fade_in, android.R.anim.fade_out)
+            overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, 0, 0)
             overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, android.R.anim.fade_in, android.R.anim.fade_out)
         } else {
             @Suppress("DEPRECATION")
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            overridePendingTransition(0, 0)
         }
     }
 

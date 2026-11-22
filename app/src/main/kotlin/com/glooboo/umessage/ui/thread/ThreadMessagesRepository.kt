@@ -63,8 +63,23 @@ class ThreadMessagesRepository(
     /** Everything is scheduled: the thread exists only in the app until its first message is sent. */
     fun hasOnlyScheduled(): Boolean = current.let { it.isNotEmpty() && it.all { m -> m.isScheduled } }
 
+    /**
+     * M-UI3: which chat the list belongs to; [reset] bumps it. A background load reads it when it starts and passes
+     * it on, so what it loaded is dropped once another chat replaced this one meanwhile.
+     */
+    val generation: Int get() = store.generation
+
+    /** True when another chat was loaded in place since [generation] was [expected]. */
+    fun isStale(expected: Int): Boolean = expected != store.generation
+
+    /**
+     * M-UI3: runs [write] (a screen field set for this chat) only while the list still belongs to [expected], atomic
+     * against [reset]; returns whether it ran. See [ThreadMessageList.runIf].
+     */
+    fun ifCurrent(expected: Int, write: () -> Unit): Boolean = store.runIf(expected, write)
+
     fun reset() {
-        store.set(emptyList())
+        store.clear()
         allFetched = false
         loadingOlder = false
     }
@@ -72,36 +87,39 @@ class ThreadMessagesRepository(
     fun update(transform: (List<Message>) -> List<Message>): List<Message> = store.update(transform)
 
     /** Shows the app's cached copy: expired scheduled messages are dropped, and at most one page is kept. */
-    fun loadCached(threadId: Long, recycleBin: Boolean): List<Message> {
+    fun loadCached(threadId: Long, recycleBin: Boolean, expected: Int = generation): List<Message> {
         var cached = runCatching { source.cached(threadId, recycleBin) }.getOrDefault(emptyList())
         source.clearExpiredScheduled(threadId, cached)
         cached = cached.filterNot { it.isExpiredScheduled(now()) }.toSortedMessages()
         if (cached.size > MESSAGES_LIMIT) cached = cached.takeLast(MESSAGES_LIMIT)
-        store.set(cached)
+        store.setIf(expected, cached)
         return cached
     }
 
     /** Replaces the list with the provider's newest page, without messages waiting in the recycle bin. */
-    fun loadNewest(threadId: Long): List<Message> {
+    fun loadNewest(threadId: Long, expected: Int = generation): List<Message> {
         var fresh = source.newest(threadId)
         if (source.useRecycleBin) {
             val recycled = source.recycled(threadId)
             fresh = fresh.filterNotInByKey(recycled) { it.getStableId() }
         }
-        return fresh.toSortedMessages().also { store.set(it) }
+        return fresh.toSortedMessages().also { store.setIf(expected, it) }
     }
 
     /**
      * Pages in the messages before [cutoff]. An empty page marks the history as complete only when the provider
      * confirms nothing older exists, so a provider hiccup is retried on the next scroll.
      */
-    fun fetchOlder(threadId: Long, cutoff: Int): List<Message> {
+    fun fetchOlder(threadId: Long, cutoff: Int, expected: Int = generation): List<Message> {
         val older = source.older(threadId, cutoff, current)
         if (older.isEmpty()) {
-            allFetched = isHistoryExhausted(pageSize = 0, probeHasOlder = source.hasOlder(threadId, cutoff))
+            val exhausted = isHistoryExhausted(pageSize = 0, probeHasOlder = source.hasOlder(threadId, cutoff))
+            if (!isStale(expected)) allFetched = exhausted
             return older
         }
-        store.update { loaded -> (older.filterNotInByKey(loaded) { it.getStableId() } + loaded).toSortedMessages() }
+        store.updateIf(expected) { loaded ->
+            (older.filterNotInByKey(loaded) { it.getStableId() } + loaded).toSortedMessages()
+        }
         return older
     }
 
@@ -121,16 +139,16 @@ class ThreadMessagesRepository(
      * After a new message or a delivery report: merges [fresh] (the provider's newest page, without scheduled
      * messages) with the scheduled ones, keeping older history already paged in, and drops recycled messages.
      */
-    fun refresh(threadId: Long, fresh: List<Message>): List<Message> {
+    fun refresh(threadId: Long, fresh: List<Message>, expected: Int = generation): List<Message> {
         allFetched = false
         val freshIsWholeThread = fresh.size < MESSAGES_LIMIT
         val scheduled = source.scheduled(threadId).filterNot { it.isExpiredScheduled(now()) }
         val recycled = if (source.useRecycleBin) source.recycled(threadId).mapTo(HashSet()) { it.key } else emptySet()
-        return store.update { loaded ->
+        return store.updateIf(expected) { loaded ->
             mergeRefreshedMessages(loaded, fresh + scheduled, freshIsWholeThread)
                 .filterNot { it.key in recycled }
                 .toSortedMessages()
-        }
+        } ?: current
     }
 
     /** Adds [message], or replaces the loaded one with the same key. */
@@ -142,8 +160,10 @@ class ThreadMessagesRepository(
     }
 
     /** Adds messages that moved into this thread (scheduled ones adopted from a temporary thread). */
-    fun addAll(messages: List<Message>) {
-        store.update { loaded -> (loaded.filterNotInByKey(messages) { it.getStableId() } + messages).toSortedMessages() }
+    fun addAll(messages: List<Message>, expected: Int = generation) {
+        store.updateIf(expected) { loaded ->
+            (loaded.filterNotInByKey(messages) { it.getStableId() } + messages).toSortedMessages()
+        }
     }
 
     fun remove(messages: Collection<Message>): List<Message> {

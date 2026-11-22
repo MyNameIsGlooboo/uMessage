@@ -65,6 +65,46 @@ class ThreadMessagesRepositoryTest {
         assertThat(loaded.last().id).isEqualTo(901L)
     }
 
+    /** M-UI3: a notification opened another chat in place; loads begun for the old one are dropped, not merged. */
+    @Test
+    fun loadsBegunBeforeAnotherChatOpenedAreDropped() {
+        val source = FakeSource().apply { newest = listOf(message(7, 70)) }
+        val repository = ThreadMessagesRepository(source) { now }
+        val oldChat = repository.generation
+
+        repository.reset() // the other chat is loaded in place
+        repository.loadNewest(THREAD + 1)
+
+        source.newest = listOf(message(1, 10), message(2, 20)) // what the old chat's load read
+        repository.loadNewest(THREAD, oldChat)
+        repository.refresh(THREAD, listOf(message(3, 30)), oldChat)
+        repository.addAll(listOf(message(4, 40)), oldChat)
+        source.olderPages.add(listOf(message(5, 5)))
+        repository.fetchOlder(THREAD, cutoff = 10, expected = oldChat)
+
+        assertThat(repository.isStale(oldChat)).isTrue()
+        assertThat(repository.current.map { it.id }).containsExactly(7L)
+    }
+
+    /** M-UI3: a screen field write for a chat that another one replaced in between is not done. */
+    @Test
+    fun aWriteAfterAnotherChatOpenedIsNotDone() {
+        val repository = ThreadMessagesRepository(FakeSource()) { now }
+        val list = ThreadMessageList()
+        val oldChat = repository.generation
+        val oldList = list.generation
+        var written = 0
+
+        repository.reset() // between reading the generation and the write
+        list.clear()
+
+        assertThat(repository.ifCurrent(oldChat) { written++ }).isFalse()
+        assertThat(list.runIf(oldList) { written++ }).isFalse()
+        assertThat(written).isEqualTo(0)
+        assertThat(repository.ifCurrent(repository.generation) { written++ }).isTrue()
+        assertThat(written).isEqualTo(1)
+    }
+
     @Test
     fun newestPageLeavesOutRecycledMessages() {
         val source = FakeSource().apply {

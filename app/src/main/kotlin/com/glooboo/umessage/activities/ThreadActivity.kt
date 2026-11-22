@@ -433,7 +433,15 @@ open class ThreadActivity : ComposeSimpleActivity() {
             return
         }
 
+        // M-UI5: "Done" in the people panel brings the composer's attachments along (its text comes as THREAD_TEXT).
+        val keptAttachments = if (intent.getBooleanExtra(ThreadPeopleController.EXTRA_KEEP_ATTACHMENTS, false)) {
+            vm.attachments
+        } else {
+            emptyList()
+        }
+        intent.removeExtra(ThreadPeopleController.EXTRA_KEEP_ATTACHMENTS)
         resetForNewConversation()
+        keptAttachments.forEach(vm::addAttachment)
         draftRestored = false
         readIntentExtras()
         // onResume does not run again for a chat that is already in front: the hidden-chat cover is decided here.
@@ -484,10 +492,11 @@ open class ThreadActivity : ComposeSimpleActivity() {
     /** Clears everything that belongs to the previous conversation before another one is loaded in place. */
     private fun resetForNewConversation() {
         AudioPlayerManager.release()
+        // M-UI3: first, so a load still running for the old chat stops before it writes into the fields below.
+        repository.reset()
         conversation = null
         recipients = ThreadRecipients()
         privateContacts = ArrayList()
-        repository.reset()
         lookups.clear()
         threadItems = emptyList()
         refreshedSinceSent = false
@@ -513,6 +522,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
         vm.showPeople = false
         vm.showAttachSheet = false
         vm.showEmojiPanel = false
+        // K2-1: a bank or code chat turned the input off; the new chat's participants decide again.
+        vm.replyDisabled = false
         vm.closeSearch()
         vm.people = emptyList()
         refreshMenuItems()
@@ -574,23 +585,26 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
         scheduleUi.onResume()
 
+        // M-UI3: what this read finds belongs to the chat open now; another chat loaded meanwhile drops it.
+        val generation = repository.generation
+        val thread = threadId
         ensureBackgroundThread {
-            val newConv = conversationsDB.getConversationWithThreadId(threadId)
-            if (newConv != null) {
-                conversation = newConv
+            val newConv = conversationsDB.getConversationWithThreadId(thread)
+            if (newConv != null && repository.ifCurrent(generation) { conversation = newConv }) {
                 runOnUiThread {
+                    if (repository.isStale(generation)) return@runOnUiThread
                     setupThreadTitle()
                     // "Conversation details" and the other entries that need the saved conversation.
                     refreshMenuItems()
                 }
             }
 
-            val smsDraft = getSmsDraft(threadId)
+            val smsDraft = getSmsDraft(thread)
             if (smsDraft.isNotEmpty()) {
                 runOnUiThread {
                     // Once per open, and merged with what is already in the composer (B8): a shared text, or text
                     // typed before this read finished, is kept; coming back from the camera never rewinds it.
-                    if (!draftRestored) {
+                    if (!draftRestored && !repository.isStale(generation)) {
                         draftRestored = true
                         vm.text.setTextAndPlaceCursorAtEnd(DraftText.restore(vm.text.text.toString(), smsDraft))
                     }
@@ -832,13 +846,18 @@ open class ThreadActivity : ComposeSimpleActivity() {
     }
 
     private fun setupCachedMessages(callback: () -> Unit) {
+        val generation = repository.generation
+        val thread = threadId
         ensureBackgroundThread {
-            repository.loadCached(threadId, isRecycleBin)
+            repository.loadCached(thread, isRecycleBin, generation)
+            // M-UI3: another chat was loaded in place meanwhile; this load is for the old one.
+            if (repository.isStale(generation)) return@ensureBackgroundThread
 
-            setupParticipants()
-            setupAdapter()
+            setupParticipants(generation)
+            setupAdapter(generation)
 
             runOnUiThread {
+                if (repository.isStale(generation)) return@runOnUiThread
                 if (messages.isEmpty() && !isSpecialNumber()) {
                     window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
                     vm.focusInput++
@@ -864,19 +883,24 @@ open class ThreadActivity : ComposeSimpleActivity() {
             return
         }
         val privateCursor = getMyContactsCursor(favoritesOnly = false, withPhoneNumbersOnly = true)
+        // M-UI3: each step below stops once another chat was loaded in place (a notification opened it meanwhile).
+        // Fields are written through ifCurrent, atomic against the reset of another chat.
+        val generation = repository.generation
+        val thread = threadId
+        fun stale() = repository.isStale(generation)
         ensureBackgroundThread {
-            privateContacts = MyContactsContentProvider.getSimpleContacts(this, privateCursor)
+            val contactsRead = MyContactsContentProvider.getSimpleContacts(this, privateCursor)
+            if (!repository.ifCurrent(generation) { privateContacts = contactsRead }) return@ensureBackgroundThread
 
             val cachedMessagesCode = messages.hashCode()
             val cachedBefore = messages
-            if (!isRecycleBin) repository.loadNewest(threadId)
-            providerLoaded = true
+            if (!isRecycleBin) repository.loadNewest(thread, generation)
+            if (!repository.ifCurrent(generation) { providerLoaded = true }) return@ensureBackgroundThread
             // The first mark-read attempt may have come before the messages were loaded. When the user already
             // saw the chat but left before this point, nobody would ask again: mark it now.
-            val loadedThread = threadId
-            if (shownToUser) markThreadReadInBackground(loadedThread) else runOnUiThread { markReadIfSeen() }
+            if (shownToUser) markThreadReadInBackground(thread) else runOnUiThread { markReadIfSeen() }
 
-            val providerParticipantsChanged = reconcileProviderParticipants()
+            val providerParticipantsChanged = reconcileProviderParticipants(generation)
             val hasParticipantWithoutName = recipients.contacts.any { contact ->
                 contact.phoneNumbers.map { it.normalizedNumber }.contains(contact.name)
             }
@@ -884,14 +908,15 @@ open class ThreadActivity : ComposeSimpleActivity() {
             try {
                 if (canReuseLoadedThread(providerParticipantsChanged, cachedMessagesCode, hasParticipantWithoutName)) {
                     adoptWaitingScheduledMessages()
-                    setupAdapter()
-                    runOnUiThread { callback() }
+                    setupAdapter(generation)
+                    runOnUiThread { if (!stale()) callback() }
                     return@ensureBackgroundThread
                 }
             } catch (ignored: Exception) {
             }
 
-            setupParticipants()
+            if (stale()) return@ensureBackgroundThread
+            setupParticipants(generation)
 
             // check if no participant came from a privately stored contact in Simple Contacts
             if (privateContacts.isNotEmpty()) {
@@ -923,9 +948,11 @@ open class ThreadActivity : ComposeSimpleActivity() {
                     finish()
                     return@ensureBackgroundThread
                 }
-                recipients = ThreadRecipients.fromNumbers(numbers, name)
+                val fromIntent = ThreadRecipients.fromNumbers(numbers, name)
+                if (!repository.ifCurrent(generation) { recipients = fromIntent }) return@ensureBackgroundThread
             }
 
+            if (stale()) return@ensureBackgroundThread
             adoptWaitingScheduledMessages()
 
             if (!isRecycleBin) {
@@ -935,8 +962,9 @@ open class ThreadActivity : ComposeSimpleActivity() {
                 }
             }
 
-            setupAdapter()
+            setupAdapter(generation)
             runOnUiThread {
+                if (stale()) return@runOnUiThread
                 setupThreadTitle()
                 setupSIMSelector()
                 callback()
@@ -968,8 +996,11 @@ open class ThreadActivity : ComposeSimpleActivity() {
         return messages.hashCode() == cachedMessagesCode
     }
 
-    /** Rebuilds the thread items from [messages] and hands them to the Compose list. */
-    private fun setupAdapter() {
+    /**
+     * Rebuilds the thread items from [messages] and hands them to the Compose list; not when another chat was loaded
+     * in place since [generation] (M-UI3).
+     */
+    private fun setupAdapter(generation: Int = repository.generation) {
         val latestThreadItems = getThreadItems()
         // Saved picture sizes are read before the rows are shown, so photo bubbles start at their size (TU-25).
         if (Looper.myLooper() != Looper.getMainLooper()) MediaSizes.warm(this, messages)
@@ -982,6 +1013,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         }
 
         runOnUiThread {
+            if (repository.isStale(generation)) return@runOnUiThread
             publishItems(latestThreadItems)
             refreshMenuItems()
             if (vm.firstUnreadId != null && !vm.unreadScrolled) {
@@ -1086,12 +1118,13 @@ open class ThreadActivity : ComposeSimpleActivity() {
     /** Takes [restored] out of the recycle bin again and shows them in the chat. */
     private fun undoDelete(restored: List<Message>) {
         val thread = threadId
+        val generation = repository.generation
         ensureBackgroundThread {
             restored.forEach { restoreMessageFromRecycleBin(it.id, it.isMMS) }
             updateLastConversationMessage(thread)
-            repository.addAll(restored)
+            repository.addAll(restored, generation)
             val latestThreadItems = getThreadItems()
-            runOnUiThread { publishItems(latestThreadItems) }
+            runOnUiThread { if (!repository.isStale(generation)) publishItems(latestThreadItems) }
             refreshConversations()
         }
     }
@@ -1112,25 +1145,25 @@ open class ThreadActivity : ComposeSimpleActivity() {
             return
         }
 
+        if (repository.loadingOlder) {
+            // Another page load is running: try again when it is done instead of dropping the jump.
+            window?.decorView?.postDelayed({ if (!isFinishing) jumpToMessage(target) }, JUMP_RETRY_MS)
+            return
+        }
+        // M-UI3: set here on the main thread, before another chat's reset can clear them, never after it.
+        repository.loadingOlder = true
+        isJumpingToMessage = true
+        val generation = repository.generation
+        val thread = threadId
         ensureBackgroundThread {
-            if (repository.loadingOlder) {
-                // Another page load is running: try again when it is done instead of dropping the jump.
-                runOnUiThread {
-                    window?.decorView?.postDelayed({ if (!isFinishing) jumpToMessage(target) }, JUMP_RETRY_MS)
-                }
-                return@ensureBackgroundThread
-            }
-            repository.loadingOlder = true
-            isJumpingToMessage = true
-
             var cutoff = repository.oldestDate() ?: Int.MAX_VALUE
             var found = false
             var loops = 0
 
             // not the best solution, but this will do for now.
             runCatching {
-                while (!found && !repository.allFetched) {
-                    if (repository.fetchOlder(threadId, cutoff).isEmpty() || loops >= 1000) break
+                while (!found && !repository.allFetched && !repository.isStale(generation)) {
+                    if (repository.fetchOlder(thread, cutoff, generation).isEmpty() || loops >= 1000) break
                     val messageSnapshot = messages.toSortedMessages()
                     cutoff = messageSnapshot.first().date
                     found = messageSnapshot.any { it.key == target }
@@ -1140,6 +1173,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
             val latestThreadItems = getThreadItems()
             runOnUiThread {
+                // M-UI3: another chat is open now; its reset already cleared the paging flags.
+                if (repository.isStale(generation)) return@runOnUiThread
                 publishItems(latestThreadItems)
                 repository.loadingOlder = false
                 if (messages.any { it.key == target }) {
@@ -1157,11 +1192,14 @@ open class ThreadActivity : ComposeSimpleActivity() {
         if (repository.allFetched || repository.loadingOlder) return
         repository.loadingOlder = true
         val thread = threadId
+        val generation = repository.generation
         ensureBackgroundThread {
             // A failure must not leave loadingOlder set: that stopped paging until the chat was reopened.
-            val loaded = runCatching { repository.fetchOlder(thread, cutoff) }.isSuccess
+            val loaded = runCatching { repository.fetchOlder(thread, cutoff, generation) }.isSuccess
             val latestThreadItems = if (loaded) getThreadItems() else null
             runOnUiThread {
+                // M-UI3: another chat is open now; its reset already cleared loadingOlder.
+                if (repository.isStale(generation)) return@runOnUiThread
                 latestThreadItems?.let { publishItems(it) }
                 repository.loadingOlder = false
             }
@@ -1183,8 +1221,12 @@ open class ThreadActivity : ComposeSimpleActivity() {
     }
 
     private fun setupConversation() {
+        val generation = repository.generation
+        val thread = threadId
         ensureBackgroundThread {
-            conversation = conversationsDB.getConversationWithThreadId(threadId)
+            val found = conversationsDB.getConversationWithThreadId(thread)
+            // M-UI3: read for a chat that another one replaced meanwhile.
+            if (!repository.ifCurrent(generation) { conversation = found }) return@ensureBackgroundThread
             // The menu may have been built before the conversation was read (no "Conversation details" then).
             runOnUiThread { refreshMenuItems() }
         }
@@ -1253,12 +1295,13 @@ open class ThreadActivity : ComposeSimpleActivity() {
         return getThreadParticipants(threadId, null).takeIf { it.isNotEmpty() }?.let { ThreadRecipients(it) }
     }
 
-    private fun reconcileProviderParticipants(): Boolean {
+    private fun reconcileProviderParticipants(generation: Int): Boolean {
         // A refresh must not overwrite recipients the user is still editing in the people panel.
         if (vm.showPeople) return false
         val providerParticipants = getProviderThreadParticipants() ?: return false
         val participantsChanged = !recipients.sameAddressesAs(providerParticipants)
-        recipients = providerParticipants
+        // M-UI3: not into another chat loaded in place meanwhile.
+        if (!repository.ifCurrent(generation) { recipients = providerParticipants }) return false
 
         if (participantsChanged) {
             runOnUiThread {
@@ -1269,14 +1312,18 @@ open class ThreadActivity : ComposeSimpleActivity() {
         return participantsChanged
     }
 
-    private fun setupParticipants() {
+    private fun setupParticipants(generation: Int) {
         if (recipients.isEmpty()) {
-            recipients = if (messages.isEmpty()) {
+            // M-UI3: one read of the list; another chat loaded in place empties it between two reads, and the result
+            // is not written into that chat.
+            val loaded = messages
+            val found = if (loaded.isEmpty()) {
                 val intentNumbers = getPhoneNumbersFromIntent()
                 ThreadRecipients(ThreadRecipients.withIntentNumbers(getThreadParticipants(threadId, null), intentNumbers))
             } else {
-                getProviderThreadParticipants() ?: ThreadRecipients(messages.first().participants)
+                getProviderThreadParticipants() ?: ThreadRecipients(loaded.first().participants)
             }
+            if (!repository.ifCurrent(generation) { recipients = found }) return
             runOnUiThread {
                 maybeDisableShortCodeReply()
             }
@@ -1701,24 +1748,19 @@ open class ThreadActivity : ComposeSimpleActivity() {
         // Still loading: no recipients yet, so there is nothing to look up (an empty list would blank the thread, B13).
         if (recipients.isEmpty()) return
 
+        // M-UI3: a refresh for the chat open when it began; another chat loaded in place meanwhile stops it.
+        val generation = repository.generation
         val messageSnapshot = messages.toSortedMessages()
         val lastMaxId = messageSnapshot.filterNot { it.isScheduled }.maxByOrNull { it.id }?.id ?: 0L
-        val providerParticipantsChanged = reconcileProviderParticipants()
+        val providerParticipantsChanged = reconcileProviderParticipants(generation)
         // The provider is asked for the thread only while this chat has none of its own yet (scheduled messages in a
         // temporary thread, or no messages): asking every time created an empty provider thread (B13).
         val newThreadId = providerThreadIdFor(messageSnapshot)
         val newMessages = repository.newestFromProvider(newThreadId)
-        if (messageSnapshot.isNotEmpty() && messageSnapshot.all { it.isScheduled } && newMessages.isNotEmpty()) {
-            // update scheduled messages with real thread id
-            threadId = newThreadId
-            updateScheduledMessagesThreadId(
-                messages = messageSnapshot.filter { it.threadId != threadId },
-                newThreadId = threadId
-            )
-        }
+        val thread = threadForRefresh(messageSnapshot, newThreadId, newMessages, generation) ?: return
 
         // A full page means older messages exist; the ones already paged in are kept (see mergeRefreshedMessages).
-        repository.refresh(threadId, newMessages)
+        repository.refresh(thread, newMessages, generation)
 
         messages.filter { !it.isScheduled && !it.isReceivedMessage() && it.id > lastMaxId }
             .forEach { latestMessage ->
@@ -1726,14 +1768,48 @@ open class ThreadActivity : ComposeSimpleActivity() {
             }
 
         // A new conversation (a group just started here) is saved with its first text; the menu needs it.
-        if (conversation == null) conversation = conversationsDB.getConversationWithThreadId(threadId)
-        setupAdapter()
+        if (conversation == null) adoptSavedConversation(thread, generation)
+        setupAdapter(generation)
         runOnUiThread {
             if (providerParticipantsChanged) {
                 setupThreadTitle()
             }
             setupSIMSelector()
         }
+    }
+
+    /**
+     * The thread a refresh reads: [newThreadId] once a chat of scheduled messages only got its real provider thread
+     * (the scheduled rows move there), else the chat's own. M-UI3: null, and nothing is written, once another chat was
+     * loaded in place since [generation].
+     */
+    private fun threadForRefresh(
+        messageSnapshot: List<Message>,
+        newThreadId: Long,
+        newMessages: List<Message>,
+        generation: Int,
+    ): Long? {
+        val gotRealThread =
+            messageSnapshot.isNotEmpty() && messageSnapshot.all { it.isScheduled } && newMessages.isNotEmpty()
+        var thread = 0L
+        val current = repository.ifCurrent(generation) {
+            if (gotRealThread) threadId = newThreadId
+            thread = threadId
+        }
+        if (!current) return null
+        if (gotRealThread) {
+            updateScheduledMessagesThreadId(
+                messages = messageSnapshot.filter { it.threadId != thread },
+                newThreadId = thread,
+            )
+        }
+        return thread
+    }
+
+    /** The conversation saved with a new chat's first text, kept unless another chat was loaded in place (M-UI3). */
+    private fun adoptSavedConversation(thread: Long, generation: Int) {
+        val saved = conversationsDB.getConversationWithThreadId(thread) ?: return
+        repository.ifCurrent(generation) { if (conversation == null) conversation = saved }
     }
 
     private fun providerThreadIdFor(messageSnapshot: List<Message>): Long =

@@ -7,6 +7,7 @@ import android.content.Intent
 import android.provider.Telephony
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.databases.MessagesDatabase
 import com.glooboo.umessage.extensions.clearExpiredScheduledMessages
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.rescheduleAllScheduledMessages
@@ -102,6 +103,52 @@ class ScheduledSendClaimTest {
 
         assertThat(ShadowRecordingSmsManager.textSends).isEmpty()
         assertThat(typeInDb()).isEqualTo(Telephony.Sms.MESSAGE_TYPE_OUTBOX)
+    }
+
+    /** K1 hand-over: the row as claimed is sent, not as first read (the start-up tidy may change it in between). */
+    @Test
+    fun theAlarmSendsTheRowAsItIsAfterTheClaim() {
+        FakeSmsMmsProvider.installSms()
+        store(scheduled())
+
+        offMainThread {
+            ScheduledMessageReceiver().handleIntent(context, Intent().putExtra(SCHEDULED_MESSAGE_ID, ID)) { c, id ->
+                // The row changes after the receiver first read it (as the tidy swaps attachments to app copies).
+                c.messagesDB.insertOrUpdate(scheduled().copy(body = "Happy birthday, Sara!"))
+                ScheduledSendClaims.claim(c, id)
+            }
+        }
+        ShadowLooper.idleMainLooper()
+
+        val sent = ShadowRecordingSmsManager.textSends.single().parts.joinToString("")
+        assertThat(sent).isEqualTo("Happy birthday, Sara!")
+    }
+
+    /** K2-5: when the read after a won claim fails, the row is held with Retry, not left in the outbox. */
+    @Test
+    fun aFailedReadAfterTheClaimHoldsTheMessage() {
+        FakeSmsMmsProvider.installSms()
+        store(scheduled())
+        val db = MessagesDatabase.getInstance(context).openHelper
+
+        offMainThread {
+            ScheduledMessageReceiver().handleIntent(context, Intent().putExtra(SCHEDULED_MESSAGE_ID, ID)) { c, id ->
+                val won = ScheduledSendClaims.claim(c, id)
+                // The row can no longer be read: the second read throws, as a database error does.
+                db.writableDatabase.execSQL("UPDATE messages SET participants = 'broken' WHERE id = $id")
+                won
+            }
+        }
+        ShadowLooper.idleMainLooper()
+
+        assertThat(ShadowRecordingSmsManager.textSends).isEmpty()
+        val type = offMainThread {
+            db.readableDatabase.query("SELECT type FROM messages WHERE id = $ID").use { it.moveToFirst(); it.getInt(0) }
+        }
+        assertThat(type).isEqualTo(Telephony.Sms.MESSAGE_TYPE_FAILED)
+        val notifications =
+            shadowOf(context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).allNotifications
+        assertThat(notifications).hasSize(1)
     }
 
     @Test
