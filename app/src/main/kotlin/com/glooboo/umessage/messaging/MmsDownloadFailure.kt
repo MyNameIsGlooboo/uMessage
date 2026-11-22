@@ -91,7 +91,8 @@ internal class MmsDownloadFailure(
     /**
      * Gives the notice [row] its place after a failed download. The sender is judged again (E-9): a notice already in
      * the sender's Spam chat stays there and is not counted again; otherwise it is shown in the sender's chat, in Spam
-     * (read and seen) or in Messages (unread). True when it is shown in Spam.
+     * (read and seen) or in Messages (unread). Null when there is nothing to show: no notice, no sender, or the notice
+     * went while it was placed (J3-2: its MMS was placed and logged by its result).
      */
     private fun keepNotice(context: Context, row: Uri, subscriptionId: Int): Kept? {
         val store = store(context)
@@ -114,7 +115,7 @@ internal class MmsDownloadFailure(
         // A failed history check leaves only a block rule (history never allows a blocked sender, as E-11).
         val cause = if (historyChecked) probed else probed.takeIf { it == SpamCause.BLOCKED }
         val ruleId = (decision as? FilterDecision.Block)?.ruleId?.takeIf { cause != null }
-        val inSpam = IncomingMms(store).revealNotice(row, notice.sender, cause, ruleId)
+        val inSpam = IncomingMms(store).revealNotice(row, notice.sender, cause, ruleId) ?: return null
         return Kept(message, decision, inSpam)
     }
 
@@ -156,6 +157,7 @@ internal class MmsDownloadFailure(
                     runCatching { store.markNotice(notice.uri, NoticeMark.Skipped) }
                 } else {
                     runCatching { keepNotice(context, notice.uri, notice.subscriptionId)?.let { logKept(context, it) } }
+                        .onFailure { noteFailedTry(store, notice.uri) }
                 }
             }
             if (lost.isNotEmpty()) Log.i(TAG, "Chatless MMS notices swept: ${lost.size}")
@@ -164,8 +166,25 @@ internal class MmsDownloadFailure(
         }
     }
 
+    /**
+     * A notice whose placing threw counts one try (its mark); after [MAX_TRIES] it is Skipped, so notices that keep
+     * failing cannot fill every batch. A notice already counted or skipped keeps its mark.
+     */
+    private fun noteFailedTry(store: MmsSpamStore, row: Uri) {
+        Log.w(TAG, "Chatless MMS notice could not be placed")
+        runCatching {
+            val mark = store.markOf(row)
+            if (mark != null && mark !is NoticeMark.Failed) return@runCatching
+            val tries = ((mark as? NoticeMark.Failed)?.times ?: 0) + 1
+            store.markNotice(row, if (tries >= MAX_TRIES) NoticeMark.Skipped else NoticeMark.Failed(tries))
+        }
+    }
+
     companion object {
         private const val SOURCE = "MMS_FAILED"
+
+        /** Tries of one notice that end in an error before the sweep leaves it alone. */
+        const val MAX_TRIES = 3
 
         /** A notice younger than this may still be downloading. */
         const val MIN_AGE_MS = 5 * 60 * 1000L

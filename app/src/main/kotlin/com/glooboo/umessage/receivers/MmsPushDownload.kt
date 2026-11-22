@@ -20,12 +20,12 @@ import com.glooboo.umessage.messaging.MmsDownloadTracker
 import com.glooboo.umessage.spam.mms.AndroidMmsSpamStore
 import com.glooboo.umessage.spam.HistoryCheck
 import com.glooboo.umessage.spam.IncomingMessage
-import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.spam.mms.IncomingMms
 import com.glooboo.umessage.spam.mms.MmsDecisions
 import com.glooboo.umessage.spam.mms.MmsPushGate
 import com.glooboo.umessage.spam.mms.MmsSpamStore
 import com.glooboo.umessage.spam.mms.NoticeMark
+import com.glooboo.umessage.spam.mms.NoticeVerdict
 import com.glooboo.umessage.spam.mms.SpamNotice
 import com.google.android.mms.pdu_alt.NotificationInd
 import com.google.android.mms.pdu_alt.PduParser
@@ -77,14 +77,22 @@ internal class MmsPushDownload(
     private val incoming: (Context) -> IncomingMms = { IncomingMms(AndroidMmsSpamStore(it)) },
     /** Provider truth: the one decision-log row of a notice placed at save (decision, reason, rule). */
     private val log: (Context, SpamNotice, String) -> Unit = { c, spam, decision -> logNotice(c, spam, decision) },
-    /** E-19: the cause a notice is put in Spam with, after the sender's history check on the spot. */
-    private val recheck: (Context, SpamNotice) -> SpamCause? = { c, spam -> recheckedCause(c, spam) },
+    /** E-19: where a notice goes after the sender's history check on the spot (J3-4: with the reason). */
+    private val recheck: (Context, SpamNotice) -> NoticeVerdict = { c, spam -> recheckedVerdict(c, spam) },
 ) {
 
     private sealed interface Saved {
         data object Duplicate : Saved
         data object Failed : Saved
         data class Row(val uri: Uri) : Saved
+    }
+
+    /** A Spam notice that is not downloaded now, after the history check: [Kept] in Spam, or [Allowed] (Messages). */
+    private sealed interface AtSave {
+        val notice: SpamNotice
+
+        data class Kept(override val notice: SpamNotice) : AtSave
+        data class Allowed(override val notice: SpamNotice) : AtSave
     }
 
     /**
@@ -101,17 +109,10 @@ internal class MmsPushDownload(
             Saved.Duplicate -> true
             Saved.Failed -> false
             is Saved.Row -> {
-                // E-19: a notice kept at save is put in Spam only after the sender's history check; a sender the check
-                // allows is a Messages MMS and is downloaded like any.
-                val kept = spam?.takeIf { !it.downloads }?.let { notice ->
-                    if (notice.sender.isBlank()) return@let notice
-                    runCatching { recheck(context, notice) }.getOrDefault(notice.cause)?.let { notice.copy(cause = it) }
-                }
-                when {
-                    kept != null -> revealInSpam(context, saved.uri, kept)
-                    spam != null && !spam.downloads ->
-                        downloadAllowed(context, saved.uri, indication, subscriptionId, spam)
-                    else -> download(context, saved.uri, indication, subscriptionId, spam)
+                when (val atSave = spam?.takeIf { !it.downloads }?.let { recheckAtSave(context, it) }) {
+                    null -> download(context, saved.uri, indication, subscriptionId, spam)
+                    is AtSave.Kept -> revealInSpam(context, saved.uri, atSave.notice)
+                    is AtSave.Allowed -> downloadAllowed(context, saved.uri, indication, subscriptionId, atSave.notice)
                 }
                 true
             }
@@ -126,9 +127,15 @@ internal class MmsPushDownload(
     private fun revealInSpam(context: Context, saved: Uri, spam: SpamNotice) {
         val placer = incoming(context)
         // A blank sender has no chat to show it in: told as a failed start (it notifies), never retried.
-        val inSpam = if (spam.sender.isBlank()) null else runCatching {
+        val outcome = if (spam.sender.isBlank()) null else runCatching {
             placer.revealNotice(saved, spam.sender, spam.cause, spam.ruleId)
-        }.onFailure { Log.w(MmsReceiver.TAG, "Spam MMS notice could not be given its chat", it) }.getOrNull()
+        }.onFailure { Log.w(MmsReceiver.TAG, "Spam MMS notice could not be given its chat", it) }
+        if (outcome != null && outcome.isSuccess && outcome.getOrNull() == null) {
+            // J3-2: the notice went meanwhile: nothing to show, count or log.
+            Log.i(MmsReceiver.TAG, "Spam MMS notice gone before it was kept")
+            return
+        }
+        val inSpam = outcome?.getOrNull()
         if (inSpam == null) {
             val shown = spam.sender.isNotBlank() &&
                 runCatching { placer.revealNotice(saved, spam.sender, null) }.isSuccess
@@ -139,9 +146,21 @@ internal class MmsPushDownload(
     }
 
     /**
+     * E-19: a notice kept at save is put in Spam only after the sender's history check; a sender the check allows is
+     * a Messages MMS and is downloaded like any. J3-4: [AtSave.Allowed] carries the reason it was let in (the fresh
+     * probe's, or HISTORY_CHECK_FAILED), and no rule. A recheck that throws keeps the push's cause.
+     */
+    private fun recheckAtSave(context: Context, notice: SpamNotice): AtSave {
+        if (notice.sender.isBlank()) return AtSave.Kept(notice)
+        val verdict = runCatching { recheck(context, notice) }.getOrDefault(NoticeVerdict(notice.cause, notice.reason))
+        val cause = verdict.cause ?: return AtSave.Allowed(notice.copy(reason = verdict.reason, ruleId = null))
+        return AtSave.Kept(notice.copy(cause = cause))
+    }
+
+    /**
      * E-19: a Spam notice kept at save whose sender the history check allows is downloaded as a Messages MMS. Its one
-     * decision-log row is written where the MMS is placed; E-28: when the start fails it is written here (DELIVER),
-     * as the notice then stays in Messages.
+     * decision-log row is written where the MMS is placed; E-28: when the start fails it is written here (DELIVER,
+     * with the reason it was let in), as the notice then stays in Messages.
      */
     private fun downloadAllowed(
         context: Context,
@@ -151,7 +170,7 @@ internal class MmsPushDownload(
         spam: SpamNotice,
     ) {
         if (download(context, saved, indication, subscriptionId, null)) return
-        runCatching { log(context, spam.copy(ruleId = null), IncomingMms.DELIVER) }
+        runCatching { log(context, spam, IncomingMms.DELIVER) }
     }
 
     private fun readPush(context: Context, intent: Intent): NotificationInd? = try {
@@ -275,7 +294,7 @@ internal class MmsPushDownload(
         /**
          * Tells the user the MMS did not download and gives the saved row a thread, so it shows in a chat. A [spam]
          * notice keeps (or gets) its chat in Spam, read and seen, and then posts nothing (E-2); if it ends in
-         * Messages it is unread (E-3) and the user is told.
+         * Messages it is unread (E-3) and the user is told. J3-5: a [spam] notice gets its one decision-log row here.
          */
         internal fun reportStartFailed(
             context: Context,
@@ -284,15 +303,11 @@ internal class MmsPushDownload(
             spam: SpamNotice?,
             store: () -> MmsSpamStore = { AndroidMmsSpamStore(context) },
             notify: () -> Unit = { context.showMmsDownloadFailedNotification() },
-            recheck: () -> SpamCause? = { spam?.let { recheckedCause(context, it) } },
+            recheck: () -> NoticeVerdict = { spam?.let { recheckedVerdict(context, it) } ?: NoticeVerdict(null, "") },
+            log: (SpamNotice, String) -> Unit = { notice, decision -> logNotice(context, notice, decision) },
         ) {
             if (spam != null && from.isNotEmpty()) {
-                val inSpam = runCatching { keepSpamNotice(store(), saved, from, spam, recheck) }
-                    .onFailure { Log.w(MmsReceiver.TAG, "Spam MMS notice could not be given its chat", it) }
-                    .getOrNull()
-                if (inSpam != true) runCatching(notify)
-                // Still no chat: as below, unread.
-                if (inSpam == null) runCatching { store().run { setThread(saved, threadOf(from), silent = false) } }
+                reportSpamStartFailed(SpamStartFailed(store, saved, from, spam, notify, recheck, log))
                 return
             }
             runCatching(notify)
@@ -409,27 +424,73 @@ private fun isDuplicateNotification(context: Context, indication: NotificationIn
         ?.use { it.count > 0 } ?: false
 }
 
+/** A failed start of the Spam notice [saved] of [from], with what [reportSpamStartFailed] needs. */
+private class SpamStartFailed(
+    val store: () -> MmsSpamStore,
+    val saved: Uri,
+    val from: String,
+    val spam: SpamNotice,
+    val notify: () -> Unit,
+    val recheck: () -> NoticeVerdict,
+    val log: (SpamNotice, String) -> Unit,
+)
+
 /**
- * True when the notice [saved] is shown in the sender's Spam chat. A notice counted there (its explicit mark, E-22)
- * stays; otherwise it is placed now, with the cause after the history check ([recheck], E-19), and counted once.
+ * The Spam side of [MmsPushDownload.reportStartFailed]: the notice is kept in Spam (posts nothing) or ends in Messages
+ * unread (tells the user), and gets its one decision-log row (J3-5): BLOCK in Spam, DELIVER in Messages; none when it
+ * was counted, and so logged, before, or when it is gone (J3-2).
+ */
+private fun reportSpamStartFailed(failed: SpamStartFailed): Unit = with(failed) {
+    val kept = runCatching { keepSpamNotice(store(), saved, from, spam, recheck) }
+        .onFailure { Log.w(MmsReceiver.TAG, "Spam MMS notice could not be given its chat", it) }
+        .getOrNull()
+    if (kept == SpamKept.Gone) return@with
+    val placed = kept as? SpamKept.Placed
+    if (placed?.inSpam != true) runCatching(notify)
+    // Still no chat: as for a Messages notice, unread.
+    if (placed == null) runCatching { store().run { setThread(saved, threadOf(from), silent = false) } }
+    val row = if (placed == null) spam.copy(ruleId = null) to IncomingMms.DELIVER else placed.row
+    if (row != null) runCatching { log(row.first, row.second) }
+}
+
+/** Where [keepSpamNotice] put a notice. */
+private sealed interface SpamKept {
+    /** J3-2: the notice went meanwhile. */
+    data object Gone : SpamKept
+
+    /** [row]: its decision-log row (notice, decision); null when it was counted, and so logged, before. */
+    data class Placed(val inSpam: Boolean, val row: Pair<SpamNotice, String>?) : SpamKept
+}
+
+/**
+ * The notice [saved] in the sender's chat. A notice counted in its Spam chat (its explicit mark, E-22) stays;
+ * otherwise it is placed now, with the cause after the history check ([recheck], E-19), and counted once.
  */
 private fun keepSpamNotice(
     store: MmsSpamStore,
     saved: Uri,
     from: String,
     spam: SpamNotice,
-    recheck: () -> SpamCause?,
-): Boolean {
+    recheck: () -> NoticeVerdict,
+): SpamKept {
     val notice = store.noticeOf(saved)
     val counted = notice != null && IncomingMms.hasChat(notice.threadId) &&
         store.markOf(saved) == NoticeMark.Counted(notice.threadId) && store.isSpamThreadOf(notice.threadId, from)
-    if (counted) return true
-    val cause = recheck()
-    return IncomingMms(store).revealNotice(saved, from, cause, spam.ruleId.takeIf { cause != null })
+    if (counted) return SpamKept.Placed(inSpam = true, row = null)
+    val verdict = recheck()
+    val cause = verdict.cause
+    val inSpam = IncomingMms(store).revealNotice(saved, from, cause, spam.ruleId.takeIf { cause != null })
+        ?: return SpamKept.Gone
+    val row = when {
+        inSpam -> spam.copy(cause = cause ?: spam.cause) to IncomingMms.BLOCK
+        cause == null -> spam.copy(reason = verdict.reason, ruleId = null) to IncomingMms.DELIVER
+        else -> spam.copy(ruleId = null) to IncomingMms.DELIVER
+    }
+    return SpamKept.Placed(inSpam, row)
 }
 
-/** E-19: [spam]'s cause after the sender's history check on the spot, with the filter asked again. */
-private fun recheckedCause(context: Context, spam: SpamNotice): SpamCause? = IncomingMms.noticeCause(
+/** E-19, J3-4: [spam]'s place after the sender's history check on the spot, with the filter asked again. */
+private fun recheckedVerdict(context: Context, spam: SpamNotice): NoticeVerdict = IncomingMms.noticeVerdict(
     spam.cause,
     history = { HistoryCheck.onTheSpot(context, spam.sender) },
     probe = { MmsDecisions.probe(context, IncomingMessage(spam.sender, "", spam.subscriptionId, isMms = true)) },

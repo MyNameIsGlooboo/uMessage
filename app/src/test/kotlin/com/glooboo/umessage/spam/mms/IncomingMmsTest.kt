@@ -321,17 +321,62 @@ class IncomingMmsTest {
     }
 
     @Test
-    fun e26_aNoticeGoneBeforeItsChatIsWritten_isNotCountedMarkedOrRecorded() {
+    fun e26_aNoticeGoneBeforeItsChatIsWritten_isNotCountedMarkedOrRecorded_andItsEmptyChatGoes() {
         // A late result placed (and counted) its MMS and the library deleted the notice while the sweep placed it.
         store.goneRows += notice
 
-        mms.revealNotice(notice, SENDER, SpamCause.BLOCKED, ruleId = 6L)
+        val result = mms.revealNotice(notice, SENDER, SpamCause.BLOCKED, ruleId = 6L)
 
+        // J3-2: "gone", so the caller writes no decision-log row; the Spam row this call made goes with the empty chat.
+        assertThat(result).isNull()
         val thread = store.threads.getValue(SENDER)
-        assertThat(store.spamRows[thread]?.third).isEqualTo(0)
+        assertThat(store.forgotten).containsExactly(thread)
+        assertThat(store.spamRows).isEmpty()
         assertThat(store.ruleHits).isEmpty()
         assertThat(store.spamEvents).isEqualTo(0)
         assertThat(store.marks).isEmpty()
+        assertThat(store.shown).isEmpty()
+    }
+
+    @Test
+    fun j3_2_aGoneNoticeInAChatWithMessages_keepsTheChat_andTakesItsRaiseBack() {
+        store.threads[SENDER] = THREAD
+        store.threadsWithMessages += THREAD
+        store.spamRows[THREAD] = Triple(SENDER, SpamCause.UNKNOWN, 1)
+        store.goneRows += notice
+
+        assertThat(mms.revealNotice(notice, SENDER, SpamCause.UNKNOWN)).isNull()
+
+        assertThat(store.forgotten).isEmpty()
+        assertThat(store.spamRows[THREAD]?.third).isEqualTo(1)
+    }
+
+    @Test
+    fun j3_aWriteThatThrows_takesTheRaiseBack_andTheCallerFailsOpen() {
+        store.threads[SENDER] = THREAD
+        store.spamRows[THREAD] = Triple(SENDER, SpamCause.UNKNOWN, 1)
+        store.failSetThread = true
+
+        val thrown = runCatching { mms.revealNotice(notice, SENDER, SpamCause.UNKNOWN) }
+
+        assertThat(thrown.isFailure).isTrue()
+        assertThat(store.spamRows[THREAD]?.third).isEqualTo(1)
+        assertThat(store.marks).isEmpty()
+    }
+
+    @Test
+    fun j3_4_theNoticeVerdict_saysWhyANoticeIsDelivered() {
+        val allowed = FilterDecision.Allow(DecisionReason.KNOWN_CONVERSATION)
+        val blocked = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER)
+
+        assertThat(IncomingMms.noticeVerdict(SpamCause.UNKNOWN, { true }) { allowed })
+            .isEqualTo(NoticeVerdict(null, "KNOWN_CONVERSATION"))
+        assertThat(IncomingMms.noticeVerdict(SpamCause.UNKNOWN, { false }) { blocked })
+            .isEqualTo(NoticeVerdict(null, "HISTORY_CHECK_FAILED"))
+        assertThat(IncomingMms.noticeVerdict(SpamCause.UNKNOWN, { true }) { null })
+            .isEqualTo(NoticeVerdict(null, "FILTER_FAILED"))
+        assertThat(IncomingMms.noticeVerdict(SpamCause.UNKNOWN, { true }) { blocked }.cause)
+            .isEqualTo(SpamCause.UNKNOWN)
     }
 
     @Test

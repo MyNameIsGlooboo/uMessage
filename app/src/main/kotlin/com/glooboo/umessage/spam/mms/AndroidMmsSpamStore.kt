@@ -107,6 +107,7 @@ class AndroidMmsSpamStore(context: Context) : MmsSpamStore {
                 null -> null
                 NoticeMark.Skipped -> "$id=$SKIPPED"
                 is NoticeMark.Counted -> "$id=${mark.threadId}"
+                is NoticeMark.Failed -> "$id=$FAILED${mark.times}"
             }
             // Bounded: the oldest notice rows (lowest ids) go first; a mark only matters while its notice exists.
             val all = (kept + listOfNotNull(value)).sortedBy { it.substringBefore('=').toLongOrNull() ?: 0L }
@@ -120,14 +121,19 @@ class AndroidMmsSpamStore(context: Context) : MmsSpamStore {
             .getStringSet(MARKS_KEY, emptySet()).orEmpty()
             .firstOrNull { it.substringBefore('=') == "$id" } ?: return null
         val value = entry.substringAfter('=')
-        return if (value == SKIPPED) NoticeMark.Skipped else value.toLongOrNull()?.let { NoticeMark.Counted(it) }
+        return when {
+            value == SKIPPED -> NoticeMark.Skipped
+            value.startsWith(FAILED) -> value.removePrefix(FAILED).toIntOrNull()?.let { NoticeMark.Failed(it) }
+            else -> value.toLongOrNull()?.let { NoticeMark.Counted(it) }
+        }
     }
 
     private companion object {
-        /** E-22: the explicit marks of notice rows ("id=threadId" or "id=skip"). */
+        /** E-22: the explicit marks of notice rows ("id=threadId", "id=skip" or "id=failN"). */
         const val MARKS_PREFS = "umessage_mms_notice_marks"
         const val MARKS_KEY = "marks"
         const val SKIPPED = "skip"
+        const val FAILED = "fail"
         const val MAX_MARKS = 200
         val MARKS_LOCK = Any()
     }

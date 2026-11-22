@@ -68,10 +68,15 @@ class MmsArrivalTest {
     }
 
     /** M-T5: a filter that throws on every call; [blockRule] answers the probe instead when set. */
-    private class BrokenFilter(val history: Boolean = true, val blockRule: FilterDecision? = null) : MmsSenderCheck {
+    private class BrokenFilter(
+        val history: Boolean? = true,
+        val blockRule: FilterDecision? = null,
+    ) : MmsSenderCheck {
         override fun probe(): FilterDecision? = blockRule ?: error("filter broken")
         override fun judge(): Judgement? = error("filter broken")
-        override fun historyChecked(): Boolean = history
+
+        /** [history] null: the history check throws too. */
+        override fun historyChecked(): Boolean = history ?: error("history check broken")
         override fun log(decision: String, reason: String, ruleId: Long?) = Unit
     }
 
@@ -155,8 +160,22 @@ class MmsArrivalTest {
 
         assertThat(announced).containsExactly(null)
         assertThat(forwarded).hasSize(1)
-        assertThat(store.rowSilent.values).doesNotContain(true)
+        // Unread as the library stored it: a fail-open place writes nothing to the row (J3-7).
+        assertThat(store.rowSilent).isEmpty()
+        assertThat(store.calls).doesNotContain("setSilent(true)")
+        assertThat(store.calls).isEmpty()
         assertThat(store.spamRows).isEmpty()
+    }
+
+    @Test
+    fun j3_7_aHistoryCheckAndAFilterThatBothThrow_endInMessages_announcedAndForwardedOnce() {
+        handler(BrokenFilter(history = null)).placeAndAnnounce(context, mms(12L, SENDER), SENDER)
+
+        assertThat(announced).containsExactly(null)
+        assertThat(forwarded).hasSize(1)
+        assertThat(store.rowSilent).isEmpty()
+        assertThat(store.spamRows).isEmpty()
+        assertThat(store.spamEvents).isEqualTo(0)
     }
 
     @Test
@@ -166,6 +185,8 @@ class MmsArrivalTest {
         assertThat(announced).containsExactly(null)
         assertThat(forwarded).hasSize(1)
         assertThat(store.rowSilent).isEmpty()
+        assertThat(store.calls).isEmpty()
+        assertThat(store.spamRows).isEmpty()
     }
 
     @Test
@@ -189,6 +210,7 @@ class MmsArrivalTest {
         assertThat(announced).containsExactly(null)
         assertThat(forwarded).isEmpty()
         assertThat(store.rowSilent.values).containsExactly(false)
+        assertThat(store.calls).doesNotContain("setSilent(true)")
     }
 
     @Test
@@ -388,6 +410,41 @@ class MmsArrivalTest {
 
         assertThat(store.spamRows[12L]?.third).isEqualTo(1)
         assertThat(store.spamEvents).isEqualTo(0)
+    }
+
+    @Test
+    fun j3_1_aNoticeTheSweepCountedWhileTheLibraryStoredItsMms_isNotCountedAgain() {
+        val provider = FakeMmsProvider.install()
+        // A downloading Spam notice: mmslib's dummy thread, no mark when the result arrives.
+        val notice = provider.addNotice(SENDER)
+        val spam = Judgement(SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER))
+        val handler = handler(judgement = spam).apply { noticeUri = notice }
+        handler.isAddressBlocked(context, SENDER)
+        // Meanwhile the sweep places the notice in the sender's Spam chat and counts it there.
+        store.spamRows[12L] = Triple(SENDER, SpamCause.UNKNOWN, 1)
+        AndroidMmsSpamStore(context).markNotice(notice, NoticeMark.Counted(12L))
+
+        handler.placeAndAnnounce(context, mms(12L, SENDER), SENDER)
+
+        assertThat(store.spamRows[12L]?.third).isEqualTo(1)
+        assertThat(store.spamEvents).isEqualTo(0)
+        assertThat(announced).isEmpty()
+    }
+
+    @Test
+    fun j3_1_aNoticeTheSweepCountedWhoseMmsLandsInAGroup_leavesNoCountInTheSendersChat() {
+        val provider = FakeMmsProvider.install()
+        val notice = provider.addNotice(SENDER)
+        val handler = handler(probe = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER)).apply { noticeUri = notice }
+        handler.isAddressBlocked(context, SENDER)
+        store.spamRows[12L] = Triple(SENDER, SpamCause.UNKNOWN, 1)
+        AndroidMmsSpamStore(context).markNotice(notice, NoticeMark.Counted(12L))
+
+        handler.placeAndAnnounce(context, mms(40L, SENDER, OTHER), SENDER)
+
+        // The sender's chat held only the notice: it is empty now, so the app's rows of it go (R4).
+        assertThat(store.forgotten).containsExactly(12L)
+        assertThat(store.spamRows[12L]).isNull()
     }
 
     private companion object {

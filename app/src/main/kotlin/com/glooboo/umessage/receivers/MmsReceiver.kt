@@ -229,6 +229,9 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     /** Provider truth (E-8, E-22): the Spam chat the notice was counted in (its explicit mark), or null. */
     @Volatile private var noticeCountedIn: Long? = null
 
+    /** J3-1: the notice was not counted when first read (no mark, or a failed try), so a later mark is new. */
+    @Volatile private var noticeUnmarked = false
+
     override fun isAddressBlocked(context: Context, address: String?): Boolean {
         worker.mark()
         pendingAddress.set(address.orEmpty().substringBefore("/TYPE="))
@@ -238,9 +241,10 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
                 runCatching { AndroidMmsSpamStore(context).noticeOf(uri) }.getOrNull()
             }
             noticeThread = notice?.threadId?.takeIf(IncomingMms::hasChat)
-            noticeCountedIn = noticeUri?.let { uri ->
-                runCatching { AndroidMmsSpamStore(context).markOf(uri) as? NoticeMark.Counted }.getOrNull()?.threadId
-            }?.takeIf { it == noticeThread }
+            val mark = noticeUri?.let { uri -> runCatching { AndroidMmsSpamStore(context).markOf(uri) } }
+            noticeUnmarked = mark != null && mark.isSuccess &&
+                mark.getOrNull().let { it == null || it is NoticeMark.Failed }
+            noticeCountedIn = (mark?.getOrNull() as? NoticeMark.Counted)?.threadId?.takeIf { it == noticeThread }
         }
         return false
     }
@@ -334,6 +338,15 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         val sender = incoming.address.ifBlank { address }
         val message = incoming.copy(address = sender)
         val placer = incomingMms(context)
+        // J3-1: the sweep may have placed and counted the notice while the library stored the MMS (after
+        // isAddressBlocked read no mark): read the mark again, so the MMS is not counted a second time, and the chat
+        // it was counted in is the notice's chat (lowered or forgotten when the MMS lands elsewhere).
+        if (noticeUnmarked && noticeCountedIn == null) {
+            noticeUri?.let { countedChatOf(context, it) }?.let { thread ->
+                noticeCountedIn = thread
+                noticeThread = noticeThread ?: thread
+            }
+        }
         val place = placer.placeDownloaded(
             row = ContentUris.withAppendedId(Telephony.Mms.CONTENT_URI, mms.id),
             threadId = mms.threadId,
@@ -465,6 +478,10 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         const val BITMAP_TIMEOUT_MS = 5_000L
     }
 }
+
+/** J3-1: the Spam chat the notice [uri] was counted in (its explicit mark), or null. */
+private fun countedChatOf(context: Context, uri: Uri): Long? =
+    runCatching { AndroidMmsSpamStore(context).markOf(uri) as? NoticeMark.Counted }.getOrNull()?.threadId
 
 /**
  * E-15: the recipients of [mms]'s chat as the lists count them (is_group_conversation: more than one, the user's own

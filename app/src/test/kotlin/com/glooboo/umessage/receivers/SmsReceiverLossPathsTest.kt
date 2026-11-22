@@ -129,6 +129,10 @@ class SmsReceiverLossPathsTest {
         SmsReceiver().handle(context, goodIntent("Your code is 4821"))
 
         assertThat(inbox()).containsExactly("Your code is 4821")
+        // J3-6: never silent: the text is unread and unseen in Messages.
+        val row = telephony.smsRows().single()
+        assertThat(row["read"]).isEqualTo(0L)
+        assertThat(row["seen"]).isEqualTo(0L)
     }
 
     @Test

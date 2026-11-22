@@ -274,6 +274,82 @@ class MmsDownloadFailureTest {
     }
 
     @Test
+    fun j3_3_aSweepPlacesAtMostOneBatch_newestFirst_andTheNextSweepTheRest() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val tenMinutesAgo = (now - 10 * 60 * 1000L) / 1000
+        // Oldest first: lost[0] is the oldest, the last one the newest.
+        val lost = (0 until MmsDownloadFailure.BATCH + 5).map {
+            provider.addNotice(
+                SENDER, transactionId = "T-lost-$it", location = "http://mmsc.example.com/msg/lost-$it",
+                dateSeconds = tenMinutesAgo - 100 + it,
+            ).also { uri -> store.notices[uri] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER) }
+        }
+
+        failure.sweep(context, now)
+
+        val newest = lost.takeLast(MmsDownloadFailure.BATCH)
+        assertThat(store.rowThread.keys).containsExactlyElementsIn(newest)
+        // The real store now has them in their chat, so the next sweep no longer sees them.
+        val inAChat = ContentValues().apply { put("thread_id", 5L) }
+        newest.forEach { context.contentResolver.update(it, inAChat, null, null) }
+
+        failure.sweep(context, now)
+
+        assertThat(store.rowThread.keys).containsExactlyElementsIn(lost)
+        assertThat(logged).hasSize(lost.size)
+    }
+
+    @Test
+    fun j3_2_aNoticeGoneWhileTheSweepPlacesIt_getsNoLogRowAndPostsNothing() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val gone = provider.addNotice(SENDER, transactionId = "T-gone", dateSeconds = (now - 10 * 60 * 1000L) / 1000)
+        store.notices[gone] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        store.goneRows += gone
+
+        failure.sweep(context, now)
+
+        assertThat(logged).isEmpty()
+        assertThat(store.spamEvents).isEqualTo(0)
+        assertThat(store.spamRows).isEmpty()
+        assertThat(toasts).isEqualTo(0)
+        assertThat(notifications).isEqualTo(0)
+    }
+
+    @Test
+    fun j3_aNoticeWhosePlacingKeepsFailing_isTriedAFewTimes_thenLeftAlone() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val failing = provider.addNotice(SENDER, transactionId = "T-fail", dateSeconds = (now - 10 * 60 * 1000L) / 1000)
+        store.notices[failing] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        store.failThreads = true
+
+        failure.sweep(context, now)
+        assertThat(store.marks[failing]).isEqualTo(NoticeMark.Failed(1))
+        repeat(MmsDownloadFailure.MAX_TRIES - 1) { failure.sweep(context, now) }
+
+        assertThat(store.marks[failing]).isEqualTo(NoticeMark.Skipped)
+        assertThat(logged).isEmpty()
+    }
+
+    @Test
+    fun j3_aNoticeThatFailedOnce_isPlacedOnTheNextTry_andCountedOnce() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val again = provider.addNotice(SENDER, transactionId = "T-again", dateSeconds = (now - 10 * 60 * 1000L) / 1000)
+        store.notices[again] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        store.marks[again] = NoticeMark.Failed(1)
+
+        failure.sweep(context, now)
+
+        val thread = store.threads.getValue(SENDER)
+        assertThat(store.marks[again]).isEqualTo(NoticeMark.Counted(thread))
+        assertThat(store.spamRows[thread]?.third).isEqualTo(1)
+        assertThat(logged).containsExactly("BLOCK")
+    }
+
+    @Test
     fun e25_aStoreThatRefusesTheQuery_isLogged_andTheQueryHasNoLimitInItsSortOrder() {
         val provider = Robolectric.buildContentProvider(RefusingMmsProvider::class.java)
             .create(ProviderInfo().apply { authority = "mms" })
