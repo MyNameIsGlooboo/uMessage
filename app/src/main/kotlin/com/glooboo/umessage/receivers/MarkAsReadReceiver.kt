@@ -19,7 +19,8 @@ class MarkAsReadReceiver : BroadcastReceiver() {
                 runInBackground("MarkAsReadReceiver") {
                     context.markThreadMessagesRead(threadId)
                     context.conversationsDB.markRead(threadId)
-                    refreshConversations()
+                    // J2-4: the saved row is read already; the list shows this chat again, no full pass.
+                    refreshConversations(threadId.takeIf { it > 0 })
                 }
             }
         }

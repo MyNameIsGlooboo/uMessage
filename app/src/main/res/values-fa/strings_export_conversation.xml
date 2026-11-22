@@ -13,6 +13,7 @@
     <string name="export_conv_preparing">در حال آماده‌سازی فایل…</string>
     <string name="export_conv_nothing">در این بازه پیامی وجود ندارد</string>
     <string name="export_conv_failed">فایل ساخته نشد</string>
+    <string name="export_conv_stopped">خروجی گرفتن متوقف شد</string>
     <string name="export_conv_subject">خروجی گفتگو</string>
     <string name="export_conv_share_text">گفتگو با %1$s، %2$s. SHA-256 متن پیام: %3$s</string>
     <string name="export_conv_attachment_label">[پیوست]</string>

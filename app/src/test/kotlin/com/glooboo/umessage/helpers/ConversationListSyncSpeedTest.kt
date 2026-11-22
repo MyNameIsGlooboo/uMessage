@@ -42,7 +42,6 @@ class ConversationListSyncSpeedTest {
 
     @Before
     fun setUp() {
-        ConversationListSync.clearUrgent()
         provider = CountingInboxProvider.install()
         provider.seed(threads = THREADS, messagesPerThread = 2)
         sync = newSync()
@@ -360,8 +359,7 @@ class ConversationListSyncSpeedTest {
     @Test
     fun anUrgentFullPassRunsWhileTheListIsAway() {
         sync.requestAway()
-        ConversationListSync.markUrgent()
-        sync.requestFull()
+        sync.requestFull(urgent = true)
         idle()
 
         assertThat(provider.queryCount("threads")).isEqualTo(2)

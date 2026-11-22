@@ -18,6 +18,7 @@ import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.messagingUtils
 import com.glooboo.umessage.extensions.notificationHelper
+import com.glooboo.umessage.extensions.updateLastConversationMessage
 import com.glooboo.umessage.helpers.cancelFailedSendNotification
 import com.glooboo.umessage.helpers.hasFailedSendNotification
 import com.glooboo.umessage.helpers.refreshConversations
@@ -89,7 +90,7 @@ class SmsStatusSentReceiver : SendStatusReceiver() {
             groupUri?.let { messageIdOf(it) }?.let { context.messagesDB.updateType(it, isMMS = false, type = type) }
         }
         refreshMessages()
-        refreshConversations()
+        refreshChats(context, intent.data, groupUri)
         // Once per message, however many of its parts failed.
         if (outcome == SentParts.Outcome.FAILED_FIRST) {
             runCatching { logFailedForward(context, intent) }
@@ -104,6 +105,28 @@ class SmsStatusSentReceiver : SendStatusReceiver() {
         this == SentParts.Outcome.FAILED_FIRST || this == SentParts.Outcome.FAILED_AGAIN
 
     private fun groupRowUri(intent: Intent): Uri? = intent.getStringExtra(EXTRA_GROUP_ROW_URI)?.toUri()
+
+    /**
+     * J2-4, J2-5: the chats of the sent row and of a group text's summary row only. R3-1, R3-3: their saved rows are
+     * read again from the store first (snippet, date, a new chat's row), as nothing else may have saved them: a send
+     * from outside the chat screen ("respond via message", a carrier report), or a Back before the chat saved its
+     * copy. When neither thread can be read, a full pass as before.
+     */
+    private fun refreshChats(context: Context, messageUri: Uri?, groupUri: Uri?) {
+        val threads = listOfNotNull(messageUri, groupUri).mapNotNull { threadIdOf(context, it) }.distinct()
+        if (threads.isEmpty()) {
+            refreshConversations()
+            return
+        }
+        context.updateLastConversationMessage(threads)
+        threads.forEach { refreshConversations(it) }
+    }
+
+    private fun threadIdOf(context: Context, uri: Uri): Long? = runCatching {
+        context.contentResolver.query(uri, arrayOf(Sms.THREAD_ID), null, null, null)?.use {
+            if (it.moveToFirst()) it.getLong(0) else null
+        }
+    }.getOrNull()?.takeIf { it > 0 }
 
     /** The chat the notification is about: a group text's own chat, else the chat of the recipient's copy. */
     private fun threadOf(context: Context, messageId: Long, groupUri: Uri?): Long? {

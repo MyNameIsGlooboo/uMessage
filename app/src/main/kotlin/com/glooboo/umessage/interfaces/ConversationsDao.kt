@@ -204,7 +204,8 @@ interface ConversationsDao {
     @Query("UPDATE conversations SET read = 1, unread_count = 0 WHERE thread_id = :threadId")
     fun markRead(threadId: Long)
 
-    @Query("UPDATE conversations SET read = 0 WHERE thread_id = :threadId")
+    /** Unread, with a count of at least one, so the row's unread badge and the unread filters see it too. */
+    @Query("UPDATE conversations SET read = 0, unread_count = MAX(unread_count, 1) WHERE thread_id = :threadId")
     fun markUnread(threadId: Long)
 
     /** Moves a chat up to its newest saved message without rewriting the rest of the row (it may be read by now). */

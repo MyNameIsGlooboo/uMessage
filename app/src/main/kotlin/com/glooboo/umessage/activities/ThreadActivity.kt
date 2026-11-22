@@ -596,6 +596,9 @@ open class ThreadActivity : ComposeSimpleActivity() {
         ownScreenAskedMs = NO_TIME
         hiddenGate.check()
         spamGate.check()
+        // J5-9: a hidden or Spam chat locked again (a picker trip does not count for them) shows nothing that a trip
+        // of the chat's own kept open; closed in the same pass as the cover, so no frame shows it.
+        if (hiddenGate.blocking || spamGate.blocking) closeWindows()
         // A contact may have been added meanwhile: the chat line is worked out again.
         chatLine.follow(recipients.reportableAddress.takeIf { recipients.size == 1 && !isRecycleBin }, force = true)
 
@@ -680,7 +683,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
     override fun onPause() {
         super.onPause()
         saveDraftMessage()
-        bus?.post(Events.RefreshConversations())
+        // J2-4: this chat only; the list shows its saved rows and moves sent texts up itself on return.
+        bus?.post(Events.RefreshConversations(threadId.takeIf { it > 0 }))
         isActivityVisible = false
         leaveUnderLock()
     }
@@ -1049,7 +1053,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
         val adopted = adoptScheduledMessages(thread, recipients.addresses)
         if (adopted.isEmpty()) return
         repository.addAll(adopted, generation)
-        bus?.post(Events.RefreshConversations())
+        // J2-4: the moved rows are saved already (the temporary chats gone, this one kept).
+        bus?.post(Events.RefreshConversations(thread))
     }
 
     private fun canReuseLoadedThread(
@@ -1163,6 +1168,9 @@ open class ThreadActivity : ComposeSimpleActivity() {
             messagesToRemove, toRecycleBin, fromRecycleBin, threadId, messages.toSortedMessages(), conversation, scheduleController,
             onRefused = { res -> runOnUiThread { lifecycleScope.launch { vm.snackbar.showSnackbar(getString(res)) } } },
         )?.also { threadId = it } != null
+        // R3-2: the chat is empty now. Only a full pass forgets a thread the store no longer lists (and, with
+        // provider truth, what the app kept of it); a thread event would keep the saved row. Posted after the deletes.
+        if (!hasMessages && !movedToTemporaryThread) refreshConversations()
         // Messages that went to the recycle bin can come straight back (scheduled ones were cancelled, not recycled).
         val recycled = messagesToRemove.filterNot { it.isScheduled }
         val undoable = toRecycleBin && !movedToTemporaryThread
@@ -1498,7 +1506,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         if (result.newlyRead.isNotEmpty()) {
             result.newlyRead.forEach { markMessageRead(it.id, it.isMMS) }
             conversationsDB.markRead(threadId)
-            bus?.post(Events.RefreshConversations())
+            bus?.post(Events.RefreshConversations(threadId))
         }
         return result.items
     }
@@ -1710,9 +1718,11 @@ open class ThreadActivity : ComposeSimpleActivity() {
             })
         }
         val composerAtSend = vm.text.text.toString()
+        // J5-11: the chat tapped in; its sent row never lands in another chat loaded in place during the send.
+        val target = SendTarget(threadId, repository.generation)
         ensureBackgroundThread {
             try {
-                onDone(sendOutgoing(outgoing, fromComposer, composerAtSend, onPartial))
+                onDone(sendOutgoing(outgoing, target, fromComposer, composerAtSend, onPartial))
             } finally {
                 if (fromComposer) composerSend.finish()
             }
@@ -1722,6 +1732,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
     /** The blocking part of [sendNormalMessage]; runs on a worker thread. True when the message was handed off. */
     private fun sendOutgoing(
         outgoing: OutgoingMessage,
+        target: SendTarget,
         fromComposer: Boolean,
         composerAtSend: String,
         onPartial: (SendOutcome) -> Unit = {},
@@ -1733,9 +1744,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
         }
         if (result.completed) {
             // A failed send that left a row in the provider still shows up below, with its Retry button.
-            val thread = threadId
-            repository.newProviderRows(thread, limit = maxOf(1, outgoing.attachments.size))
-                .forEach { insertOrUpdateMessage(it) }
+            repository.newProviderRows(target.thread, limit = maxOf(1, outgoing.attachments.size))
+                .forEach { insertOrUpdateMessage(it, target.generation) }
         }
         runOnUiThread {
             // Not when the user already typed something else meanwhile.
@@ -1765,7 +1775,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
     }
 
     /** Saves [message] and shows it, unless another chat was loaded in place since [expected] (M-UI3, J5-4). */
-    private fun insertOrUpdateMessage(message: Message, expected: Int = repository.generation) {
+    private fun insertOrUpdateMessage(message: Message, expected: Int) {
         if (repository.upsert(message, expected) != null) {
             val newItems = getThreadItems()
             runOnUiThread {
@@ -1930,6 +1940,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
     private fun sendScheduledMessageNow(shown: Message) {
         val addresses = recipients.addresses
         refreshedSinceSent = false
+        val target = SendTarget(threadId, repository.generation)
         ensureBackgroundThread {
             // F3: the alarm may be sending this very message; whoever claims it first sends it, the other does nothing.
             if (!ScheduledSendClaims.claim(this, shown.id, allowHeld = true)) return@ensureBackgroundThread
@@ -1947,7 +1958,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
                     resendOf = null,
                     onAttachmentHandedOff = scheduledAttachmentTracker(message),
                 )
-                val sent = sendOutgoing(outgoing, fromComposer = false, composerAtSend = "") { partial ->
+                val sent = sendOutgoing(outgoing, target, fromComposer = false, composerAtSend = "") { partial ->
                     keepUnsentOfScheduled(message, partial)
                 }
                 if (sent) {
@@ -2006,3 +2017,6 @@ open class ThreadActivity : ComposeSimpleActivity() {
         const val EXTRA_OPEN_SEARCH = "com.glooboo.spamless.extra.OPEN_THREAD_SEARCH"
     }
 }
+
+/** J5-11: the chat a send was tapped in, and the load of it then (M-UI3); read on the main thread at the tap. */
+private class SendTarget(val thread: Long, val generation: Int)
