@@ -377,6 +377,11 @@ class IncomingMmsTest {
             .isEqualTo(NoticeVerdict(null, "FILTER_FAILED"))
         assertThat(IncomingMms.noticeVerdict(SpamCause.UNKNOWN, { true }) { blocked }.cause)
             .isEqualTo(SpamCause.UNKNOWN)
+        // R2-4: a block rule holds either way, with the reason of the way it held.
+        assertThat(IncomingMms.noticeVerdict(SpamCause.BLOCKED, { false }) { allowed })
+            .isEqualTo(NoticeVerdict(SpamCause.BLOCKED, "HISTORY_CHECK_FAILED"))
+        assertThat(IncomingMms.noticeVerdict(SpamCause.BLOCKED, { true }) { allowed })
+            .isEqualTo(NoticeVerdict(SpamCause.BLOCKED, "BLOCK_RULE"))
     }
 
     @Test

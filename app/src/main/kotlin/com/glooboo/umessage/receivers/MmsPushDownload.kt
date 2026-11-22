@@ -127,21 +127,21 @@ internal class MmsPushDownload(
     private fun revealInSpam(context: Context, saved: Uri, spam: SpamNotice) {
         val placer = incoming(context)
         // A blank sender has no chat to show it in: told as a failed start (it notifies), never retried.
-        val outcome = if (spam.sender.isBlank()) null else runCatching {
+        val first = if (spam.sender.isBlank()) null else runCatching {
             placer.revealNotice(saved, spam.sender, spam.cause, spam.ruleId)
         }.onFailure { Log.w(MmsReceiver.TAG, "Spam MMS notice could not be given its chat", it) }
-        if (outcome != null && outcome.isSuccess && outcome.getOrNull() == null) {
-            // J3-2: the notice went meanwhile: nothing to show, count or log.
-            Log.i(MmsReceiver.TAG, "Spam MMS notice gone before it was kept")
-            return
+        val inSpam = if (first != null && first.isSuccess) {
+            first.getOrNull()
+        } else {
+            failOpenAtSave(placer, saved, spam) { onStartFailed(context, saved, spam.sender, null) }
         }
-        val inSpam = outcome?.getOrNull()
-        if (inSpam == null) {
-            val shown = spam.sender.isNotBlank() &&
-                runCatching { placer.revealNotice(saved, spam.sender, null) }.isSuccess
-            if (!shown) runCatching { onStartFailed(context, saved, spam.sender, null) }
+        // One row: BLOCK in Spam; ERROR without a rule when it failed open to Messages (as placeUnchecked); none when
+        // the notice is gone (J3-2: its MMS was placed and logged by its result).
+        when (inSpam) {
+            true -> runCatching { log(context, spam, IncomingMms.BLOCK) }
+            false -> runCatching { log(context, spam.copy(ruleId = null), IncomingMms.ERROR) }
+            null -> Log.i(MmsReceiver.TAG, "Spam MMS notice gone before it was kept")
         }
-        runCatching { log(context, spam, if (inSpam == true) IncomingMms.BLOCK else IncomingMms.DELIVER) }
         Log.i(MmsReceiver.TAG, "Spam MMS notice kept; not downloaded now")
     }
 
@@ -424,6 +424,17 @@ private fun isDuplicateNotification(context: Context, indication: NotificationIn
         ?.use { it.count > 0 } ?: false
 }
 
+/**
+ * A notice kept at save that could not be put in Spam: unread in its sender's chat, or, without one, told as a failed
+ * start ([toldAsFailedStart]). False then (Messages); null when the notice is gone.
+ */
+private fun failOpenAtSave(placer: IncomingMms, saved: Uri, spam: SpamNotice, toldAsFailedStart: () -> Unit): Boolean? {
+    val shown = if (spam.sender.isBlank()) null else runCatching { placer.revealNotice(saved, spam.sender, null) }
+    if (shown != null && shown.isSuccess && shown.getOrNull() == null) return null
+    if (shown?.isSuccess != true) runCatching(toldAsFailedStart)
+    return false
+}
+
 /** A failed start of the Spam notice [saved] of [from], with what [reportSpamStartFailed] needs. */
 private class SpamStartFailed(
     val store: () -> MmsSpamStore,
@@ -437,8 +448,9 @@ private class SpamStartFailed(
 
 /**
  * The Spam side of [MmsPushDownload.reportStartFailed]: the notice is kept in Spam (posts nothing) or ends in Messages
- * unread (tells the user), and gets its one decision-log row (J3-5): BLOCK in Spam, DELIVER in Messages; none when it
- * was counted, and so logged, before, or when it is gone (J3-2).
+ * unread (tells the user), and gets its one decision-log row (J3-5): BLOCK in Spam, DELIVER in Messages when the
+ * history check let it in, ERROR when it failed open; none when it was counted, and so logged, before, or when it is
+ * gone (J3-2).
  */
 private fun reportSpamStartFailed(failed: SpamStartFailed): Unit = with(failed) {
     val kept = runCatching { keepSpamNotice(store(), saved, from, spam, recheck) }
@@ -449,7 +461,8 @@ private fun reportSpamStartFailed(failed: SpamStartFailed): Unit = with(failed) 
     if (placed?.inSpam != true) runCatching(notify)
     // Still no chat: as for a Messages notice, unread.
     if (placed == null) runCatching { store().run { setThread(saved, threadOf(from), silent = false) } }
-    val row = if (placed == null) spam.copy(ruleId = null) to IncomingMms.DELIVER else placed.row
+    // Not placed (the store failed): failed open to Messages, so ERROR without a rule.
+    val row = if (placed == null) spam.copy(ruleId = null) to IncomingMms.ERROR else placed.row
     if (row != null) runCatching { log(row.first, row.second) }
 }
 
@@ -484,7 +497,8 @@ private fun keepSpamNotice(
     val row = when {
         inSpam -> spam.copy(cause = cause ?: spam.cause) to IncomingMms.BLOCK
         cause == null -> spam.copy(reason = verdict.reason, ruleId = null) to IncomingMms.DELIVER
-        else -> spam.copy(ruleId = null) to IncomingMms.DELIVER
+        // Judged Spam, but its Spam row failed: fail open, as placeUnchecked logs it.
+        else -> spam.copy(ruleId = null) to IncomingMms.ERROR
     }
     return SpamKept.Placed(inSpam, row)
 }

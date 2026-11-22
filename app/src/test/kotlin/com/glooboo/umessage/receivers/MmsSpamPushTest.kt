@@ -265,13 +265,28 @@ class MmsSpamPushTest {
     }
 
     @Test
-    fun aNoticeKeptAtSaveThatEndsInMessages_logsDeliver() {
+    fun aNoticeKeptAtSaveThatFailsOpenToMessages_logsErrorWithoutARule() {
+        SpamTestWiring.installFilter { FilterDecision.Block(DecisionReason.BLOCK_RULE, 4L) }
         store.failSpamRow = true
 
         receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/deliver", size = TWO_MIB)))
 
-        assertThat(logged).containsExactly("DELIVER")
+        // As placeUnchecked: a notice judged Spam that ends in Messages is an ERROR row, and it names no rule.
+        assertThat(logged).containsExactly("ERROR")
+        assertThat(loggedNotices.single().ruleId).isNull()
         assertThat(store.rowSilent[saved.keys.single()]).isFalse()
+    }
+
+    @Test
+    fun j3_aNoticeKeptAtSaveWhoseFallbackFindsItGone_logsNothingAndPostsNothing() {
+        // The first write throws; the fallback finds the notice gone (its MMS was placed by its result).
+        store.failNextSetThreads = 1
+        store.goneRows += Uri.parse("content://mms/inbox/40")
+
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/fallback", size = TWO_MIB)))
+
+        assertThat(logged).isEmpty()
+        assertThat(startFailures).isEqualTo(0)
     }
 
     @Test
@@ -282,7 +297,7 @@ class MmsSpamPushTest {
 
         assertThat(startFailures).isEqualTo(1)
         assertThat(startFailedWith).isNull()
-        assertThat(logged).containsExactly("DELIVER")
+        assertThat(logged).containsExactly("ERROR")
     }
 
     @Test
@@ -481,8 +496,9 @@ class MmsSpamPushTest {
         assertThat(posted).isEqualTo(1)
         assertThat(store.rowThread[savedNotice]).isEqualTo(store.threads.getValue(SENDER))
         assertThat(store.rowSilent[savedNotice]).isFalse()
+        // Judged Spam but failed open to Messages: ERROR, without the rule (as placeUnchecked).
         val (decision, notice) = startLogged.single()
-        assertThat(decision).isEqualTo("DELIVER")
+        assertThat(decision).isEqualTo("ERROR")
         assertThat(notice.ruleId).isNull()
     }
 
@@ -493,7 +509,8 @@ class MmsSpamPushTest {
         reportStartFailed()
 
         assertThat(posted).isEqualTo(1)
-        assertThat(startLogged.map { it.first }).containsExactly("DELIVER")
+        assertThat(startLogged.map { it.first }).containsExactly("ERROR")
+        assertThat(startLogged.single().second.ruleId).isNull()
     }
 
     @Test

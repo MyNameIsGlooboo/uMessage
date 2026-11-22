@@ -123,6 +123,9 @@ interface MmsSenderCheck {
     /** The text checks with facts first and the verdict (one-to-one); writes its own decision-log row. */
     fun judge(): Judgement?
 
+    /** J3-1: [judge] without its decision-log row, for an MMS whose row was written already. */
+    fun judgeQuietly(): Judgement? = judge()
+
     /** R2: the sender's history was checked on the spot; false when that failed. */
     fun historyChecked(): Boolean
 

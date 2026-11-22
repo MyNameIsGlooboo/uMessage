@@ -9,27 +9,35 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * M-T5, J3-6: a text from a sender the real filter judges Spam, while the queue write fails (spamless.db closed), with
- * provider truth on. The text is never lost and never silent by mistake: it is stored once, either read in the
- * sender's Spam chat (listed there) or unread in Messages with a notification. It is never forwarded.
+ * M-T5, J3-6, R2-2: a text the filter judges Spam while the pending-queue write fails, with provider truth on. Only the
+ * queue is broken (a trigger refuses inserts into pending_sms), so the real filter, with its rules and settings, gives
+ * the Spam verdict. A stub filter cannot: the provider-truth path judges with SpamEngine.judge, which needs the real
+ * filter and treats any other as failed (Messages). The text is stored once, read in its Spam chat, silent, and not
+ * forwarded.
  */
 @RunWith(AndroidJUnit4::class)
 class SmsReceiverSpamLossTest : ProviderTruthSmsFixture() {
 
     @Test
-    fun aSpamTextWhoseQueueWriteFails_isStoredOnce_inSpamOrAnnouncedUnread_andNotForwarded() {
+    fun aSpamTextWhoseQueueWriteFails_isStoredOnceInItsSpamChat_silent_andNotForwarded() {
         forwardTo(TARGET)
-        db.close()
+        offMainThread {
+            db.openHelper.writableDatabase.execSQL(
+                "CREATE TRIGGER refuse_pending BEFORE INSERT ON pending_sms BEGIN SELECT RAISE(ABORT, 'refused'); END"
+            )
+        }
 
         offMainThread {
             SmsReceiver().handle(app, SmsPdus.deliverIntent(SmsPdus.deliverPdu(STRANGER, TEXT)), housekeeping = false)
         }
 
+        // The queue write did fail: nothing is queued.
+        assertThat(offMainThread { db.spamDao().getPending() }).isEmpty()
         val row = inbox().single()
         assertThat(row["body"]).isEqualTo(TEXT)
-        val inSpam = row.int("read") == 1 && spamList().contains(store.threadOf(STRANGER))
-        val announced = row.int("read") == 0 && posted.size == 1
-        assertThat(inSpam || announced).isTrue()
+        assertThat(row.int("read")).isEqualTo(1)
+        assertThat(spamList()).contains(store.threadOf(STRANGER))
+        assertThat(posted).isEmpty()
         assertThat(forwards()).isEmpty()
     }
 

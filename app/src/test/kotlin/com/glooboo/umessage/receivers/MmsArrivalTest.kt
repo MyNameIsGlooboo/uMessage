@@ -80,6 +80,21 @@ class MmsArrivalTest {
         override fun log(decision: String, reason: String, ruleId: Long?) = Unit
     }
 
+    /** A sender check that records its rows and whether it was judged with or without a row (J3-1). */
+    private class RecordingCheck(val judgement: Judgement?, val answer: FilterDecision? = null) : MmsSenderCheck {
+        val rows = mutableListOf<String>()
+        var loudJudges = 0
+        var quietJudges = 0
+
+        override fun probe(): FilterDecision? = answer
+        override fun judge(): Judgement? = judgement.also { loudJudges++ }
+        override fun judgeQuietly(): Judgement? = judgement.also { quietJudges++ }
+        override fun historyChecked(): Boolean = true
+        override fun log(decision: String, reason: String, ruleId: Long?) {
+            rows += decision
+        }
+    }
+
     private fun handler(check: MmsSenderCheck) = handler().apply {
         senderCheck = { _: Context, _: IncomingMessage, _: Long -> check }
     }
@@ -429,6 +444,74 @@ class MmsArrivalTest {
         assertThat(store.spamRows[12L]?.third).isEqualTo(1)
         assertThat(store.spamEvents).isEqualTo(0)
         assertThat(announced).isEmpty()
+    }
+
+    @Test
+    fun j3_1_whenTheSweepLoggedTheNotice_thePlacementWritesNoSecondRow() {
+        val provider = FakeMmsProvider.install()
+        val notice = provider.addNotice(SENDER)
+        val check = RecordingCheck(Judgement(SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER)))
+        val handler = handler(check).apply { noticeUri = notice }
+        handler.isAddressBlocked(context, SENDER)
+        store.spamRows[12L] = Triple(SENDER, SpamCause.UNKNOWN, 1)
+        AndroidMmsSpamStore(context).markNotice(notice, NoticeMark.Counted(12L))
+
+        handler.placeAndAnnounce(context, mms(12L, SENDER), SENDER)
+
+        // Judged with its facts as always, but without a decision-log row: the sweep's row is this message's one.
+        assertThat(check.quietJudges).isEqualTo(1)
+        assertThat(check.loudJudges).isEqualTo(0)
+        assertThat(check.rows).isEmpty()
+    }
+
+    @Test
+    fun j3_1_withoutASweepInBetween_thePlacementWritesItsOwnRow() {
+        val provider = FakeMmsProvider.install()
+        val notice = provider.addNotice(SENDER)
+        val check = RecordingCheck(Judgement(SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER)))
+        val handler = handler(check).apply { noticeUri = notice }
+        handler.isAddressBlocked(context, SENDER)
+
+        handler.placeAndAnnounce(context, mms(12L, SENDER), SENDER)
+
+        assertThat(check.loudJudges).isEqualTo(1)
+        assertThat(check.quietJudges).isEqualTo(0)
+    }
+
+    @Test
+    fun r2_4_aNoticeWithAFailedTryAtTheFirstRead_thatTheSweepCountsMeanwhile_isNotCountedAgain() {
+        val provider = FakeMmsProvider.install()
+        val notice = provider.addNotice(SENDER)
+        // An earlier sweep failed on it once.
+        AndroidMmsSpamStore(context).markNotice(notice, NoticeMark.Failed(1))
+        val spam = Judgement(SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER))
+        val handler = handler(judgement = spam).apply { noticeUri = notice }
+        handler.isAddressBlocked(context, SENDER)
+        store.spamRows[12L] = Triple(SENDER, SpamCause.UNKNOWN, 1)
+        AndroidMmsSpamStore(context).markNotice(notice, NoticeMark.Counted(12L))
+
+        handler.placeAndAnnounce(context, mms(12L, SENDER), SENDER)
+
+        assertThat(store.spamRows[12L]?.third).isEqualTo(1)
+        assertThat(store.spamEvents).isEqualTo(0)
+    }
+
+    @Test
+    fun r2_4_aCountedMarkOfAnotherChatAtTheFirstRead_isNotReadAgain() {
+        val provider = FakeMmsProvider.install()
+        // Counted in chat 77, but the notice has no chat now: that mark is stale, and no second read takes it.
+        val notice = provider.addNotice(SENDER)
+        AndroidMmsSpamStore(context).markNotice(notice, NoticeMark.Counted(77L))
+        val spam = Judgement(SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER))
+        val handler = handler(judgement = spam).apply { noticeUri = notice }
+        handler.isAddressBlocked(context, SENDER)
+        store.spamRows[12L] = Triple(SENDER, SpamCause.UNKNOWN, 1)
+
+        handler.placeAndAnnounce(context, mms(12L, SENDER), SENDER)
+
+        // Counted here as a new message.
+        assertThat(store.spamRows[12L]?.third).isEqualTo(2)
+        assertThat(store.spamEvents).isEqualTo(1)
     }
 
     @Test

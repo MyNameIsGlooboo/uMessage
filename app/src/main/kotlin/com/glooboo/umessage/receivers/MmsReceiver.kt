@@ -40,7 +40,10 @@ import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.HistoryCheck
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.MmsMedia
+import com.glooboo.umessage.spam.data.DefaultSpamRepository
 import com.glooboo.umessage.spam.data.ForwardDelivery
+import com.glooboo.umessage.spam.UMessage
+import com.glooboo.umessage.spam.engine.DefaultSpamFilter
 import com.glooboo.umessage.spam.engine.ForwardCandidate
 import com.glooboo.umessage.spam.engine.Judgement
 import com.glooboo.umessage.spam.engine.SpamEngine
@@ -341,18 +344,22 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         // J3-1: the sweep may have placed and counted the notice while the library stored the MMS (after
         // isAddressBlocked read no mark): read the mark again, so the MMS is not counted a second time, and the chat
         // it was counted in is the notice's chat (lowered or forgotten when the MMS lands elsewhere).
+        var sweepLogged = false
         if (noticeUnmarked && noticeCountedIn == null) {
             noticeUri?.let { countedChatOf(context, it) }?.let { thread ->
                 noticeCountedIn = thread
                 noticeThread = noticeThread ?: thread
+                sweepLogged = true
             }
         }
+        // The sweep wrote this message's decision-log row when it placed the notice: the placement writes none.
+        val check = senderCheck(context, message, mms.threadId).let { if (sweepLogged) Unlogged(it) else it }
         val place = placer.placeDownloaded(
             row = ContentUris.withAppendedId(Telephony.Mms.CONTENT_URI, mms.id),
             threadId = mms.threadId,
             sender = sender,
             recipients = recipientsOf(mms),
-            check = senderCheck(context, message, mms.threadId),
+            check = check,
             noticeCounted = noticeCountedIn == mms.threadId,
         )
         placer.forgetNoticeChat(noticeThread, mms.threadId, noticeCountedIn)
@@ -479,6 +486,13 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     }
 }
 
+/** J3-1: the sender checks of an MMS whose notice the sweep placed and logged: no second decision-log row. */
+private class Unlogged(private val check: MmsSenderCheck) : MmsSenderCheck by check {
+    override fun judge(): Judgement? = check.judgeQuietly()
+
+    override fun log(decision: String, reason: String, ruleId: Long?) = Unit
+}
+
 /** J3-1: the Spam chat the notice [uri] was counted in (its explicit mark), or null. */
 private fun countedChatOf(context: Context, uri: Uri): Long? =
     runCatching { AndroidMmsSpamStore(context).markOf(uri) as? NoticeMark.Counted }.getOrNull()?.threadId
@@ -505,6 +519,18 @@ internal class AppSenderCheck(
     override fun probe(): FilterDecision? = MmsDecisions.probe(context, message.copy(body = ""))
 
     override fun judge(): Judgement? = SpamEngine.judge(context, message, "MMS_CONTENT")
+
+    /** J3-1: as [judge] (facts first), without the decision-log row. Null when the filter failed. */
+    override fun judgeQuietly(): Judgement? = runCatching {
+        val app = context.applicationContext
+        val filter = UMessage.filter(app) as? DefaultSpamFilter
+        val repo = UMessage.repository(app) as? DefaultSpamRepository
+        if (filter == null || repo == null) {
+            null
+        } else {
+            filter.senderJudge.judge(message) { address, fact -> repo.writeSenderFact(address, fact) }
+        }
+    }.getOrNull()
 
     override fun historyChecked(): Boolean = HistoryCheck.onTheSpot(context, message.address, threadId)
 

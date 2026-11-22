@@ -59,9 +59,16 @@ class MmsDownloadFailureTest {
     private val logged = mutableListOf<String>()
     private var historyChecked = true
 
+    /** The filter throws (the store and the rest still work), so a sweep's try fails. */
+    private var probeFails = false
+
     private val failure = MmsDownloadFailure(
         store = { store },
-        probe = { _, message -> probed += message; decision },
+        probe = { _, message ->
+            probed += message
+            check(!probeFails) { "filter broken" }
+            decision
+        },
         notify = { notifications++ },
         toast = { toasts++ },
         finishLibraryDownload = { finished += it },
@@ -318,19 +325,89 @@ class MmsDownloadFailureTest {
     }
 
     @Test
-    fun j3_aNoticeWhosePlacingKeepsFailing_isTriedAFewTimes_thenLeftAlone() {
+    fun r2_1_aNoticeWhosePlacingKeepsFailing_endsVisibleInItsSendersChat_unreadWithAnErrorRow() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val failing = provider.addNotice(SENDER, transactionId = "T-fail", dateSeconds = (now - 10 * 60 * 1000L) / 1000)
+        store.notices[failing] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        probeFails = true
+
+        repeat(MmsDownloadFailure.MAX_TRIES - 1) { failure.sweep(context, now) }
+        assertThat(store.marks[failing]).isEqualTo(NoticeMark.Failed(MmsDownloadFailure.MAX_TRIES - 1))
+        assertThat(store.rowThread).isEmpty()
+
+        failure.sweep(context, now)
+
+        // Fail open: in the sender's chat, unread and not silent, the lists told, one ERROR row; no Spam count.
+        val thread = store.threads.getValue(SENDER)
+        assertThat(store.rowThread[failing]).isEqualTo(thread)
+        assertThat(store.rowSilent[failing]).isFalse()
+        assertThat(store.shown).contains(thread)
+        assertThat(store.spamRows).isEmpty()
+        assertThat(logged).containsExactly("ERROR")
+        assertThat(store.marks[failing]).isNull()
+    }
+
+    @Test
+    fun r2_1_aNoticeThatCannotEvenFailOpen_isNeverGivenUp_andIsTriedAgain() {
         val provider = FakeMmsProvider.install()
         val now = 1_700_000_000_000L
         val failing = provider.addNotice(SENDER, transactionId = "T-fail", dateSeconds = (now - 10 * 60 * 1000L) / 1000)
         store.notices[failing] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
         store.failThreads = true
 
-        failure.sweep(context, now)
-        assertThat(store.marks[failing]).isEqualTo(NoticeMark.Failed(1))
-        repeat(MmsDownloadFailure.MAX_TRIES - 1) { failure.sweep(context, now) }
+        repeat(MmsDownloadFailure.MAX_TRIES + 2) { failure.sweep(context, now) }
 
-        assertThat(store.marks[failing]).isEqualTo(NoticeMark.Skipped)
+        assertThat(store.marks[failing]).isEqualTo(NoticeMark.Failed(MmsDownloadFailure.MAX_TRIES + 2))
         assertThat(logged).isEmpty()
+
+        // Once the store works again, the next sweep places it.
+        store.failThreads = false
+        failure.sweep(context, now)
+
+        assertThat(store.rowThread.keys).containsExactly(failing)
+    }
+
+    @Test
+    fun r2_1_noticesThatFailedBefore_goAfterTheUntriedOnes_inABatch() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val tenMinutesAgo = (now - 10 * 60 * 1000L) / 1000
+        val untried = (0 until MmsDownloadFailure.BATCH).map {
+            provider.addNotice(SENDER, transactionId = "T-new-$it", dateSeconds = tenMinutesAgo - 100 + it)
+                .also { uri -> store.notices[uri] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER) }
+        }
+        // The newest of all, but it failed before.
+        val failedBefore = provider.addNotice(SENDER, transactionId = "T-failed", dateSeconds = tenMinutesAgo)
+        store.notices[failedBefore] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        store.marks[failedBefore] = NoticeMark.Failed(1)
+
+        failure.sweep(context, now)
+
+        assertThat(store.rowThread.keys).containsExactlyElementsIn(untried)
+    }
+
+    @Test
+    fun r2_3_aFailedResultWhoseNoticeGoesWhileItIsPlaced_postsNothingAndLogsNothing() {
+        store.goneRows += notice
+
+        failure.handle(context, result())
+
+        assertThat(toasts).isEqualTo(0)
+        assertThat(notifications).isEqualTo(0)
+        assertThat(logged).isEmpty()
+        assertThat(store.spamEvents).isEqualTo(0)
+    }
+
+    @Test
+    fun r2_3_aGoneNoticeOfAMessagesSender_postsNothingEither() {
+        decision = FilterDecision.Allow(DecisionReason.CONTACT)
+        store.goneRows += notice
+
+        failure.handle(context, result())
+
+        assertThat(toasts).isEqualTo(0)
+        assertThat(notifications).isEqualTo(0)
     }
 
     @Test
