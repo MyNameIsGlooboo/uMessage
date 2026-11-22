@@ -12,13 +12,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.assertIsFocused
+import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.isPopup
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.test.core.app.ActivityScenario
@@ -200,7 +204,9 @@ class ThreadLockWindowsTest {
         val message = vm().items.filterIsInstance<Message>().first()
         vm().reactions = mapOf(message.getStableId() to listOf(TapbackReaction(TapbackKind.Liked, 1, listOf(ORIGINAL))))
         compose.waitForIdle()
-        compose.onNodeWithContentDescription(TapbackKind.Liked.emoji).performClick()
+        // The chip's own click action, as TalkBack runs it; an injected touch did not open it under Robolectric.
+        compose.onNode(hasContentDescription(TapbackKind.Liked.emoji) and hasClickAction())
+            .performSemanticsAction(SemanticsActions.OnClick)
         compose.waitForIdle()
         compose.onNodeWithText(ORIGINAL).assertExists()
 

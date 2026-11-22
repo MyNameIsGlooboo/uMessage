@@ -1,5 +1,6 @@
 package com.glooboo.umessage.ui.thread
 
+import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.ui.lock.LockedLeave
@@ -16,6 +17,8 @@ class ExactAlarmDialogTest {
     @Test
     fun closedByTheChatItCountsAsNotAnswered() {
         val activity = Robolectric.buildActivity(ComponentActivity::class.java).setup().get()
+        // A content view, as every screen has: it gives the view tree the lifecycle a hosted dialog composes in.
+        activity.setContentView(FrameLayout(activity))
         var unanswered = 0
         var answered = 0
         activity.showExactAlarmDialog(
