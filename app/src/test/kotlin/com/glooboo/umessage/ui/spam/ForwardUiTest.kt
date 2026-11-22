@@ -23,6 +23,7 @@ import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.spam.ForwardRule
 import com.glooboo.umessage.spam.RuleType
+import com.glooboo.umessage.ui.forwarded.ruleLine
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
@@ -258,5 +259,30 @@ class ForwardUiTest {
         compose.onNodeWithText(str(R.string.forward_no_lock_title)).assertExists()
         compose.onNodeWithText(str(R.string.forward_no_lock_set_up)).performClick()
         assertThat(setUp).isTrue()
+    }
+
+    @Test
+    fun aForwardRuleShowsAPrefixWholeAndASenderNameAsItIs() {
+        // P-4, F-4, T-1: the rules list's condition line and the Forwarded tab's rule line.
+        fun rule(id: Long, type: RuleType, pattern: String) =
+            ForwardRule(id = id, senderType = type, senderPattern = pattern, targets = listOf("5554999"))
+        val prefix = rule(1, RuleType.PREFIX, "+1")
+        var shown = emptyList<String>()
+        compose.setContent {
+            UMessageTheme {
+                shown = listOf(
+                    conditionLines(prefix).first(),
+                    ruleLine(prefix),
+                    ruleLine(rule(2, RuleType.SENDER_ID, "AX-650012")),
+                    ruleLine(rule(3, RuleType.NUMBER, "+15550001234")),
+                )
+            }
+        }
+        compose.waitForIdle()
+        val isolated = "\u2066+1\u2069"
+        assertThat(shown[0]).isEqualTo(str(R.string.forward_row_from, "${str(R.string.spam_type_prefix)} $isolated"))
+        assertThat(shown[1]).contains(str(R.string.nav_fwd_rule_sender, isolated))
+        assertThat(shown[2]).contains(str(R.string.nav_fwd_rule_sender, "AX-650012"))
+        assertThat(shown[3]).contains(str(R.string.nav_fwd_rule_sender, shownNumber("+15550001234")))
     }
 }

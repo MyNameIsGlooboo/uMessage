@@ -85,8 +85,8 @@ class MainNavigation(
      * a caller cannot silently open the Allow tab instead.
      */
     val onSpamBlockRules: () -> Unit,
-    /** "Manage rules" in the Forwarded tab: the rules screen on its Forward tab. */
-    val onManageForwardRules: () -> Unit = onSpamRules,
+    /** "Manage rules" in the Forwarded tab: the forwarding screen. T-2: no default, the same as [onSpamBlockRules]. */
+    val onManageForwardRules: () -> Unit,
     val onSpamSettings: () -> Unit = {},
     val onOpenArchived: (ConversationRow) -> Unit = {},
     val onOpenThread: (threadId: Long, title: String) -> Unit = { _, _ -> },
@@ -96,6 +96,12 @@ class MainNavigation(
     /** The recycle bin's conversations (U04). */
     val onRecycleBin: () -> Unit = {},
 )
+
+/** T-2: the Spam tab's two rule links. Its menu opens the rules screen as it opens; "View rule" the block list (D-6). */
+internal class SpamRuleLinks(navigation: MainNavigation) {
+    val onOpenRules: () -> Unit = navigation.onSpamRules
+    val onViewRule: () -> Unit = navigation.onSpamBlockRules
+}
 
 /**
  * The app's home: an M3 navigation bar with Messages, Blocked, Forwarded and Archived. Forwarded shows only once a
@@ -211,10 +217,11 @@ fun MainScreen(
                         if (ProviderTruthFlag.enabled) {
                             // Provider truth (4.2): the chats in Spam, read again whenever Messages was published.
                             val published by viewModel.published.collectAsStateWithLifecycle()
+                            val links = SpamRuleLinks(navigation)
                             SpamChatsRoute(
                                 onOpen = { navigation.onOpenThread(it.threadId, it.title) },
-                                onOpenRules = navigation.onSpamRules,
-                                onViewRule = navigation.onSpamBlockRules,
+                                onOpenRules = links.onOpenRules,
+                                onViewRule = links.onViewRule,
                                 onOpenSettings = navigation.onSpamSettings,
                                 reloadKey = published,
                             )

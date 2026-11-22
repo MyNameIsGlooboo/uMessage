@@ -240,7 +240,8 @@ private suspend fun showBlockedNumbersEvent(
     when (event) {
         is BlockedNumbersEvent.MovedToRules -> {
             val result = snackbar.showSnackbar(
-                message = resources.getString(R.string.e_bn_moved, event.number),
+                // F-3: the number or prefix reads as written in right-to-left text, as in e_bn_added_as_rule.
+                message = resources.getString(R.string.e_bn_moved, isolateLtr(event.number)),
                 actionLabel = undoLabel,
                 duration = SnackbarDuration.Long,
             )
@@ -457,8 +458,9 @@ private fun BlockedNumberRow(
     modifier: Modifier = Modifier,
 ) {
     val colors = MaterialTheme.colorScheme
-    // A wildcard is not a bare number, so displayNumber leaves it as typed.
-    val shownNumber = isolateNumbers(displayNumber(item.number))
+    // A wildcard is not a bare number, so displayNumber leaves it as typed; F-3: isolated whole, "+1555*" keeps its
+    // star at the end in right-to-left text.
+    val shownNumber = if (item.isPattern) isolateLtr(item.number) else isolateNumbers(displayNumber(item.number))
     val title = item.contactName ?: shownNumber
     // Every row says something (SE-30): the number under a contact, what a wildcard covers, or what the entry does.
     val supporting = when {

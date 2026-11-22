@@ -8,6 +8,8 @@ import com.glooboo.umessage.spam.ForwardRule
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamLog
 import com.glooboo.umessage.spam.SpamLogEntry
+import com.glooboo.umessage.ui.components.displayNumber
+import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.log.ForwardLogText.Outcome
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -18,13 +20,15 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 class ForwardLogTextTest {
 
-    private val res: Resources get() = ApplicationProvider.getApplicationContext<Context>().resources
+    private val context: Context get() = ApplicationProvider.getApplicationContext()
+    private val res: Resources get() = context.resources
 
     private val rules = listOf(
         ForwardRule(id = 1, senderType = RuleType.NUMBER, senderPattern = "07121234567", targets = listOf("5554999"), note = "Bank alerts"),
         ForwardRule(id = 2, senderType = null, bodyType = RuleType.KEYWORD, bodyPattern = "deposit", targets = listOf("5554999")),
         ForwardRule(id = 3, senderType = RuleType.SENDER_ID, senderPattern = "HDFCBK", targets = listOf("5554999")),
         ForwardRule(id = 4, senderType = RuleType.PREFIX, senderPattern = "+1", targets = listOf("5554999")),
+        ForwardRule(id = 5, senderType = RuleType.NUMBER, senderPattern = "+15550001234", targets = listOf("5554999")),
     )
 
     @Test
@@ -58,13 +62,16 @@ class ForwardLogTextTest {
 
     @Test
     fun ruleIsNamedByItsNoteOrCondition() {
-        assertThat(ForwardLogText.ruleLabel(res, "#1 → 5554999 SENT", rules)).isEqualTo("Rule: Bank alerts")
-        assertThat(ForwardLogText.ruleLabel(res, "#2 CODE_EXCLUDED", rules)).isEqualTo("Rule: Text: deposit")
-        assertThat(ForwardLogText.ruleLabel(res, "#3 LOOP_FORWARD", rules)).isEqualTo("Rule: From: HDFCBK")
-        assertThat(ForwardLogText.ruleLabel(res, "#9 SENT", rules)).isEqualTo("Rule: a deleted rule")
+        assertThat(ForwardLogText.ruleLabel(context, "#1 → 5554999 SENT", rules)).isEqualTo("Rule: Bank alerts")
+        assertThat(ForwardLogText.ruleLabel(context, "#2 CODE_EXCLUDED", rules)).isEqualTo("Rule: Text: deposit")
+        assertThat(ForwardLogText.ruleLabel(context, "#3 LOOP_FORWARD", rules)).isEqualTo("Rule: From: HDFCBK")
+        assertThat(ForwardLogText.ruleLabel(context, "#9 SENT", rules)).isEqualTo("Rule: a deleted rule")
         // P-4: a prefix sender is isolated whole, however short.
-        assertThat(ForwardLogText.ruleLabel(res, "#4 SENT", rules)).isEqualTo("Rule: From: ⁦+1⁩")
-        assertThat(ForwardLogText.ruleLabel(res, "→ 5554999 RADIO_FAILED", rules)).isNull()
+        assertThat(ForwardLogText.ruleLabel(context, "#4 SENT", rules)).isEqualTo("Rule: From: \u2066+1\u2069")
+        // A number sender without a note: grouped and in local digits, as the rule row shows it, and isolated.
+        assertThat(ForwardLogText.ruleLabel(context, "#5 SENT", rules))
+            .isEqualTo("Rule: From: ${isolateNumbers(displayNumber(context, "+15550001234"))}")
+        assertThat(ForwardLogText.ruleLabel(context, "→ 5554999 RADIO_FAILED", rules)).isNull()
     }
 
     @Test
@@ -74,7 +81,7 @@ class ForwardLogTextTest {
         assertThat(sent).contains("5554999")
         assertThat(sent).contains("فوروارد")
         assertThat(ForwardLogText.sentence(res, "#1 CODE_EXCLUDED")).startsWith("فوروارد نشد")
-        assertThat(ForwardLogText.ruleLabel(res, "#1 SENT", rules)).isEqualTo("قانون: Bank alerts")
+        assertThat(ForwardLogText.ruleLabel(context, "#1 SENT", rules)).isEqualTo("قانون: Bank alerts")
     }
 
     @Test

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.glooboo.umessage.ui.theme.applyUMessageWindow
 
@@ -30,7 +31,8 @@ class BlockedThreadActivity : ComponentActivity() {
                 BlockedThreadRoute(
                     address = address,
                     onBack = ::finish,
-                    onOpenRules = { startActivity(Intent(this, RulesActivity::class.java)) },
+                    // The reason badge names a block rule: open the block list, where it is (D-6).
+                    onOpenRules = { startActivity(RulesActivity.intent(this, ListKind.BLOCK)) },
                 )
             }
         }

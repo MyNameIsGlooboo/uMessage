@@ -83,6 +83,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
@@ -102,6 +103,8 @@ import com.glooboo.umessage.ui.components.InfoIconButton
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.formatClockTime
 import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.isolateLtr
+import com.glooboo.umessage.ui.components.readsLeftToRight
 import com.glooboo.umessage.ui.components.ruleValueText
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.components.localizedNumber
@@ -223,9 +226,9 @@ private fun groupShapeOf(index: Int, size: Int): RoundedCornerShape {
 
 /** What a rule reacts to, e.g. "From: +1555…" and "Text: bank". */
 @Composable
-private fun conditionLines(rule: ForwardRule): List<String> = buildList {
+internal fun conditionLines(rule: ForwardRule): List<String> = buildList {
     if (rule.senderType != null) {
-        val sender = ruleValueText(rule.senderType, rule.senderPattern, displayNumber(rule.senderPattern))
+        val sender = ruleValueText(rule.senderType, rule.senderPattern)
         add(stringResource(R.string.forward_row_from, "${ruleTypeLabel(rule.senderType)} $sender"))
     } else {
         add(stringResource(R.string.forward_row_any_sender))
@@ -451,6 +454,7 @@ fun ForwardDialogs(state: ForwardUiState, actions: ForwardActions, snackbarHostS
     state.form?.let { ForwardSheet(it, state.sims, actions) }
 }
 
+/** The example in the empty value field; F-5: a number or prefix example reads as written in right-to-left text. */
 @Composable
 private fun conditionHint(type: RuleType): String = stringResource(
     when (type) {
@@ -461,7 +465,7 @@ private fun conditionHint(type: RuleType): String = stringResource(
         RuleType.REGEX -> R.string.spam_type_regex_hint
         RuleType.DOMAIN -> R.string.rdec_type_domain_hint
     },
-)
+).let { if (type.readsLeftToRight) isolateLtr(it) else it }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -502,6 +506,9 @@ private fun ConditionPicker(
                 supportingText = shownError?.let { { Text(errorText(it)) } },
                 textStyle = MaterialTheme.typography.bodyLarge.let {
                     if (selected == RuleType.REGEX) it.copy(fontFamily = FontFamily.Monospace) else it
+                }.let {
+                    // F-5: a typed number or prefix keeps its + in front in a right-to-left sheet.
+                    if (selected.readsLeftToRight) it.copy(textDirection = TextDirection.Ltr) else it
                 },
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.None,

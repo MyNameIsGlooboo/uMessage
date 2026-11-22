@@ -314,12 +314,11 @@ private fun RetryAllDialog(state: ForwardedUiState, onRetryAll: () -> Unit, onDi
 }
 
 @Composable
-private fun ruleLine(rule: ForwardRule?): String {
+internal fun ruleLine(rule: ForwardRule?): String {
     if (rule == null) return stringResource(R.string.nav_fwd_rule_deleted)
     val sender = if (rule.senderType != null) {
-        // P-4: a prefix is isolated whole, however short; numbers in any other sender keep their isolates.
-        val value = isolateNumbers(ruleValueText(rule.senderType, rule.senderPattern))
-        stringResource(R.string.nav_fwd_rule_sender, value)
+        // P-4, F-4: a prefix is isolated whole however short, a number by its digits, a sender name not at all.
+        stringResource(R.string.nav_fwd_rule_sender, ruleValueText(rule.senderType, rule.senderPattern))
     } else {
         stringResource(R.string.nav_fwd_rule_any_sender)
     }

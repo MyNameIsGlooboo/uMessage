@@ -52,6 +52,7 @@ import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
+import com.glooboo.umessage.ui.components.ruleValueText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -254,8 +255,9 @@ fun TestMessageSheet(
                             val ruleId = (decision as? FilterDecision.Block)?.ruleId
                             outcome = TestOutcome(
                                 verdict,
+                                // F-2: a prefix or number rule reads as written in right-to-left text.
                                 ruleId?.let { id -> rules.firstOrNull { it.id == id } }
-                                    ?.let { DecisionRuleText.label(it) },
+                                    ?.let { ruleValueText(context, it.type, DecisionRuleText.label(it)) },
                             )
                         }
                     }

@@ -30,6 +30,7 @@ import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.ui.components.InfoDialog
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.ruleLabelText
 import com.glooboo.umessage.ui.components.listSeparator
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.components.showComposeDialog
@@ -152,8 +153,10 @@ class MessageDetailsDialog(val activity: BaseSimpleActivity, val message: Messag
                 MessageDecisions.reasonLabel(decision.reason)?.let {
                     add(Property(R.string.thread_r2_details_reason, activity.getString(it)))
                 }
-                MessageDecisions.ruleLabel(decision, sender, rules)?.let {
-                    add(Property(R.string.thread_r2_details_rule, it))
+                MessageDecisions.ruleLabel(decision, sender, rules)?.let { label ->
+                    // F-1: a prefix or number rule reads as written in right-to-left text, also once it is deleted.
+                    val type = rules.firstOrNull { it.id == decision.ruleId }?.type
+                    add(Property(R.string.thread_r2_details_rule, ruleLabelText(activity, label, type)))
                 }
             }
             found.forwards.forEach {

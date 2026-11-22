@@ -1,5 +1,6 @@
 package com.glooboo.umessage.ui.log
 
+import android.content.Context
 import android.content.res.Resources
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.ForwardRule
@@ -60,17 +61,19 @@ object ForwardLogText {
 
     /**
      * "Rule: Bank alerts" from the rule's note, else its condition ("Rule: From: Number 0555…"). Null when the entry
-     * names no rule; "a deleted rule" when it is gone.
+     * names no rule; "a deleted rule" when it is gone. [context] gives the app's language and number grouping.
      */
-    fun ruleLabel(resources: Resources, reason: String, rules: List<ForwardRule>): String? {
+    fun ruleLabel(context: Context, reason: String, rules: List<ForwardRule>): String? {
+        val resources = context.resources
         val id = parse(reason).ruleId ?: return null
         val rule = rules.firstOrNull { it.id == id }
         val name = when {
             rule == null -> resources.getString(R.string.declog_fwd_rule_deleted)
             rule.note.isNotBlank() -> rule.note
-            // P-4: a prefix sender is isolated whole, a number by its digit runs.
-            rule.senderType != null ->
-                resources.getString(R.string.forward_row_from, ruleValueText(rule.senderType, rule.senderPattern))
+            // P-4: a prefix sender is isolated whole, a number grouped and isolated by its digit runs.
+            rule.senderType != null -> resources.getString(
+                R.string.forward_row_from, ruleValueText(context, rule.senderType, rule.senderPattern),
+            )
             else -> resources.getString(R.string.forward_row_text, rule.bodyPattern)
         }
         return resources.getString(R.string.declog_fwd_rule, name)

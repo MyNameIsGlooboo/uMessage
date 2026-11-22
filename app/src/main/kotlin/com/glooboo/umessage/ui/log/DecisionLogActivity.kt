@@ -67,7 +67,6 @@ import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionRuleText
 import com.glooboo.umessage.spam.ForwardRule
 import com.glooboo.umessage.spam.RestoreOutcome
-import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamLog
 import com.glooboo.umessage.spam.SpamLogEntry
 import com.glooboo.umessage.spam.SpamRepository
@@ -81,11 +80,9 @@ import com.glooboo.umessage.ui.components.UMessageFilterChip
 import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.displayNumber
-import com.glooboo.umessage.ui.components.isBareNumber
-import com.glooboo.umessage.ui.components.isolateLtr
 import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.components.localizedNumber
-import com.glooboo.umessage.ui.components.ruleValueText
+import com.glooboo.umessage.ui.components.ruleLabelText
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.settings.SimCard
@@ -445,16 +442,6 @@ internal data class RowText(
     val count: String?,
 )
 
-/**
- * P-3: a rule's label in the log. A prefix is isolated whole however short ("+1"), and so is a bare number whose rule
- * is gone (the stored label may be a prefix); any other label is grouped, its numbers isolated.
- */
-private fun logRuleValue(context: Context, label: String, type: RuleType?): String = when {
-    type == RuleType.PREFIX -> ruleValueText(RuleType.PREFIX, label)
-    type == null && isBareNumber(label) -> isolateLtr(displayNumber(context, label))
-    else -> isolateNumbers(displayNumber(context, label))
-}
-
 @Composable
 internal fun rememberRowText(group: LogRowGroup, logContext: LogContext): RowText {
     val entry = group.newest
@@ -470,10 +457,10 @@ internal fun rememberRowText(group: LogRowGroup, logContext: LogContext): RowTex
             stringResource(decisionLabel(entry.decision))
         },
         reason = if (forward) {
-            ForwardLogText.ruleLabel(resources, entry.reason, logContext.forwardRules)
+            ForwardLogText.ruleLabel(context, entry.reason, logContext.forwardRules)
         } else {
             val type = logContext.rules.firstOrNull { it.id == entry.ruleId }?.type
-            DecisionRuleText.byRule(resources, entry, logContext.rules) { logRuleValue(context, it, type) }
+            DecisionRuleText.byRule(resources, entry, logContext.rules) { ruleLabelText(context, it, type) }
                 ?: reasonLabel(entry.reason)
         },
         source = stringResource(sourceLabel(entry.source)),

@@ -676,9 +676,10 @@ fun ReasonBadge(
 @Composable
 internal fun reasonText(message: BlockedMessage, rules: Map<Long, SpamRule>): String {
     val resources = LocalResources.current
+    val context = LocalContext.current
     return when (message.reason) {
         DecisionReason.BLOCK_RULE ->
-            remember(message, rules, resources) { ruleReasonText(resources, message, rules) }
+            remember(message, rules, resources) { ruleReasonText(context, message, rules) }
                 ?: stringResource(R.string.spam_reason_block_rule)
         DecisionReason.UNKNOWN_SENDER -> stringResource(
             if (BlockedHints.hasLink(message.body)) {
