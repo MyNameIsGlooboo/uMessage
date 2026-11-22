@@ -28,6 +28,9 @@ object BlockedNotifier {
     /** Provider truth (4.6): the notices keyed by chat, one per Spam chat; own tag, as thread ids repeat held ids. */
     private const val CHAT_TAG = "spamless_blocked_chat"
     private const val GROUP = "spamless_blocked_group"
+
+    /** J1: own tag for the summary, so no held message (keyed by its id under [TAG]) can replace it. */
+    private const val SUMMARY_TAG = "spamless_blocked_summary"
     private const val REQUEST_OPEN_BLOCKED = 0x5B10
     private const val SUMMARY_ID = 0x5B11
     private const val COPY_CODE_SALT = 0x5B12
@@ -128,7 +131,7 @@ object BlockedNotifier {
      */
     private fun postSummary(context: Context, manager: NotificationManager, contentIntent: PendingIntent) {
         val active = manager.activeNotifications
-        val count = active.count { (it.tag == TAG && it.id != SUMMARY_ID) || it.tag == CHAT_TAG }
+        val count = active.count { (it.tag == TAG || it.tag == CHAT_TAG) && !isSummary(it) }
         // J1: posted once. Posting it again for a new count lifts the whole bundle, every older notice with it.
         if (count < SUMMARY_FROM || active.any { isSummary(it) }) return
         val summary = NotificationCompat.Builder(context, CHANNEL_ID)
@@ -142,11 +145,12 @@ object BlockedNotifier {
             .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN)
             .setAutoCancel(true)
             .build()
-        manager.notify(TAG, SUMMARY_ID, summary)
+        manager.notify(SUMMARY_TAG, SUMMARY_ID, summary)
     }
 
-    private fun isSummary(n: StatusBarNotification): Boolean =
-        n.tag == TAG && n.id == SUMMARY_ID && n.notification.flags and Notification.FLAG_GROUP_SUMMARY != 0
+    /** Ours, or one an older version posted under [TAG] before the update. */
+    private fun isSummary(n: StatusBarNotification): Boolean = (n.tag == SUMMARY_TAG || n.tag == TAG) &&
+        n.id == SUMMARY_ID && n.notification.flags and Notification.FLAG_GROUP_SUMMARY != 0
 
     /** I5: removes the notifications of blocked messages that were restored, deleted, or opened in their thread. */
     fun cancel(context: Context, blockedIds: Collection<Long>) {
@@ -161,7 +165,7 @@ object BlockedNotifier {
     fun cancelAll(context: Context) {
         runCatching {
             val manager = context.getSystemService(NotificationManager::class.java) ?: return
-            manager.activeNotifications.filter { it.tag == TAG || it.tag == CHAT_TAG }
+            manager.activeNotifications.filter { it.tag == TAG || it.tag == CHAT_TAG || it.tag == SUMMARY_TAG }
                 .forEach { manager.cancel(it.tag, it.id) }
         }
     }

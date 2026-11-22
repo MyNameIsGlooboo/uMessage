@@ -29,7 +29,8 @@ class BlockedNotifier042Test {
 
     private fun children() = manager.activeNotifications.filter { it.tag == "spamless_blocked" && !isSummary(it) }
 
-    private fun summaries() = manager.activeNotifications.filter { it.tag == "spamless_blocked" && isSummary(it) }
+    private fun summaries() =
+        manager.activeNotifications.filter { it.tag == "spamless_blocked_summary" && isSummary(it) }
 
     @Test fun aBurstIsOneGroupWithOneSummary() {
         for (id in 1L..5L) BlockedNotifier.show(app, message(id))
@@ -70,6 +71,6 @@ class BlockedNotifier042Test {
 
         BlockedNotifier.cancelAll(app)
 
-        assertThat(manager.activeNotifications.filter { it.tag == "spamless_blocked" }).isEmpty()
+        assertThat(manager.activeNotifications.filter { it.tag?.startsWith("spamless_blocked") == true }).isEmpty()
     }
 }

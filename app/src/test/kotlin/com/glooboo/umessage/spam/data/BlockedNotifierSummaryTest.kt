@@ -5,8 +5,10 @@ import android.app.Notification
 import android.app.NotificationManager
 import android.content.Context
 import android.service.notification.StatusBarNotification
+import androidx.core.app.NotificationCompat
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
@@ -36,7 +38,8 @@ class BlockedNotifierSummaryTest {
 
     private fun isSummary(n: StatusBarNotification) = n.notification.flags and Notification.FLAG_GROUP_SUMMARY != 0
 
-    private fun summaries() = manager.activeNotifications.filter { it.tag == "spamless_blocked" && isSummary(it) }
+    private fun summaries() =
+        manager.activeNotifications.filter { it.tag == "spamless_blocked_summary" && isSummary(it) }
 
     /** Every notification object in the shade; a post replaces the object, so an unchanged one was not posted. */
     private fun shown(): Set<Notification> = manager.activeNotifications.map { it.notification }.toSet()
@@ -68,6 +71,29 @@ class BlockedNotifierSummaryTest {
     }
 
     @Test
+    fun heldMessage23313AndTheSummaryDoNotReplaceEachOther() {
+        // J1: the summary had tag spamless_blocked and id 0x5B11 (23313), the key of held message 23313's notice.
+        for (id in listOf(1L, 2L, SUMMARY_NUMBER)) BlockedNotifier.show(app, message(id))
+
+        val children = manager.activeNotifications.filter { it.tag == "spamless_blocked" && !isSummary(it) }
+        assertThat(children.map { it.id }).containsExactly(1, 2, BlockedNotifier.notificationId(SUMMARY_NUMBER))
+        assertThat(summaries()).hasSize(1)
+    }
+
+    @Test
+    fun anOldSummaryLeftByTheUpdateIsNotCountedAndNotDoubled() {
+        // A summary posted by the version before, under the held messages' tag.
+        val old = NotificationCompat.Builder(app, "spamless_blocked")
+            .setSmallIcon(R.drawable.ic_messenger)
+            .setGroup("spamless_blocked_group").setGroupSummary(true).build()
+        manager.notify("spamless_blocked", SUMMARY_NUMBER.toInt(), old)
+
+        for (id in 1L..2L) BlockedNotifier.show(app, message(id))
+
+        assertThat(manager.activeNotifications.count { isSummary(it) }).isEqualTo(1)
+    }
+
+    @Test
     fun theSummaryComesWithTheSecondNotice() {
         BlockedNotifier.show(app, message(1L))
         assertThat(summaries()).isEmpty()
@@ -85,5 +111,10 @@ class BlockedNotifierSummaryTest {
         for (id in 3L..4L) BlockedNotifier.show(app, message(id))
 
         assertThat(summaries()).hasSize(1)
+    }
+
+    private companion object {
+        /** The summary's old id, 0x5B11, as a held message id. */
+        const val SUMMARY_NUMBER = 23_313L
     }
 }
