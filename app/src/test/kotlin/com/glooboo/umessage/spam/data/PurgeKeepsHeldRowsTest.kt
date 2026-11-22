@@ -27,7 +27,8 @@ import org.junit.runner.RunWith
 /**
  * Step F hand-over 1 (blocking): with provider truth no purge ever deletes a held row by age, also with auto-delete
  * days set; the purge moves waiting rows and runs auto-delete on the phone's store instead. Also: the migration
- * outside a pass waits for the first sort, a late MMS result reopens a "nothing to move" row, and the older-spam list shows rows that are written but not verified. Numbers are made up.
+ * outside a pass waits for the first sort, a late MMS result reopens a "nothing to move" row, and the older-spam list
+ * shows rows that are written but not verified. Numbers are made up.
  */
 @RunWith(AndroidJUnit4::class)
 class PurgeKeepsHeldRowsTest {

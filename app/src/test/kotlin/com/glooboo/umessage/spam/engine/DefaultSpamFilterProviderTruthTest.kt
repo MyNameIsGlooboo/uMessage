@@ -14,7 +14,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
- * [DefaultSpamFilter.evaluate] is the probe of the sender order of section 2.1 and writes nothing. Every number and text is made up.
+ * [DefaultSpamFilter.evaluate] is the probe of the sender order of section 2.1 and writes nothing. Every number and
+ * text is made up.
  */
 class DefaultSpamFilterProviderTruthTest {
 
