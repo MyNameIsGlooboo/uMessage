@@ -13,6 +13,7 @@ import com.glooboo.umessage.ui.onboarding.OnboardingState
 import com.glooboo.umessage.ui.spam.BlockingMigration
 import com.glooboo.umessage.ui.spam.BlockingMigrationStore
 import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth.assertWithMessage
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -150,6 +151,28 @@ class ReleasedSettingsUpgradeTest {
 
         assertThat(settings.get().mode).isEqualTo(UnknownSenderMode.STRICT)
         assertThat(settings.get().filterOn).isTrue()
+    }
+
+    /**
+     * A released install whose user never opened the spam settings: `spamless_spam_settings` was never written. With
+     * the old Fossify switch off and on, the filter is on, the mode Smart and auto-delete "keep forever", before and
+     * after the one-time step.
+     */
+    @Test
+    fun anInstallThatNeverWroteSpamSettingsGetsTheDefaults() {
+        for (legacySwitch in listOf(false, true)) {
+            prefs(SPAM_PREFS).edit().clear().commit()
+            assertThat(prefs(SPAM_PREFS).all).isEmpty()
+
+            for (step in listOf("before", "after")) {
+                if (step == "after") assertThat(store(legacySwitch).applyProviderTruthMapping()).isTrue()
+                val settings = store(legacySwitch).get()
+                val label = "switch $legacySwitch, $step the mapping"
+                assertWithMessage(label).that(settings.filterOn).isTrue()
+                assertWithMessage(label).that(settings.mode).isEqualTo(UnknownSenderMode.SMART)
+                assertWithMessage(label).that(settings.purgeAfterDays).isEqualTo(0)
+            }
+        }
     }
 
     @Test

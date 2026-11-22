@@ -111,6 +111,8 @@ class ReleasedSpamSchemasUpgradeTest {
                 "VALUES (1, '$FRIEND', '', 'On my way', 5000, 1, 0, 5001)"
         )
         if (version >= DATE_SENT_SINCE) db.execSQL("UPDATE pending_sms SET dateSent = 4990 WHERE id = 1")
+        // Schema 8: a text the user restored from Blocked waits approved (it skips the filter on replay).
+        if (version >= RULE_STATS_SINCE) db.execSQL("UPDATE pending_sms SET approved = 1 WHERE id = 1")
         db.execSQL(
             "INSERT INTO forward_rules (id, senderType, senderPattern, bodyType, bodyPattern, windowStart, " +
                 "windowEnd, subscriptionId, targets, sendFrom, includeCodes, enabled, note, createdAt) VALUES (1, " +
@@ -146,8 +148,9 @@ class ReleasedSpamSchemasUpgradeTest {
 
         assertThat(rows(db, "SELECT type, timestamp FROM spam_events")).containsExactly("BLOCKED|1000", "RESTORED|2000")
         val dateSent = if (version >= DATE_SENT_SINCE) 4990 else 0
+        val approved = if (version >= RULE_STATS_SINCE) 1 else 0
         assertThat(rows(db, "SELECT body, dateSent, approved FROM pending_sms"))
-            .containsExactly("On my way|$dateSent|0")
+            .containsExactly("On my way|$dateSent|$approved")
         assertThat(rows(db, "SELECT senderPattern, subscriptionId, targets, enabled FROM forward_rules"))
             .containsExactly("MYBANK|2|$TARGET|1")
         assertThat(rows(db, "SELECT ruleId, target, status FROM forward_log")).containsExactly("1|$TARGET|SENT")
@@ -170,7 +173,9 @@ class ReleasedSpamSchemasUpgradeTest {
         assertThat(held.getValue(2).hasStoredMedia).isTrue()
         assertThat(held.values.map { it.migratedMsgId }.toSet()).containsExactly(null)
 
-        assertThat(dao.getPending().map { it.body }).containsExactly("On my way")
+        val pending = dao.getPending().single()
+        assertThat(pending.body).isEqualTo("On my way")
+        assertThat(pending.approved).isEqualTo(version >= RULE_STATS_SINCE)
         val forward = db.forwardDao().getAll().single()
         assertThat(forward.subscriptionId).isEqualTo(2)
         assertThat(forward.toModel().targets).containsExactly(TARGET)

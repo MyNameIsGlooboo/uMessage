@@ -1,6 +1,7 @@
 package com.glooboo.umessage.backup
 
 import android.app.Application
+import android.content.Context
 import android.net.Uri
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -96,6 +97,10 @@ class ReleasedBackupFormatsRestoreTest {
 
     @Test
     fun aSettingsBackupOf030To046Restores() {
+        // The phone already ran the one-time step and the user chose 3 days; the file says 14.
+        SpamSettingsStore(app).applyProviderTruthMapping()
+        SpamSettingsStore(app).update { it.copy(purgeAfterDays = 3) }
+
         val result = restore(OLDEST_SETTINGS)
 
         assertThat(result.ok).isTrue()
@@ -112,8 +117,10 @@ class ReleasedBackupFormatsRestoreTest {
         assertThat(settings.notifyOnBlock).isTrue()
         assertThat(settings.unknownInboxNotify).isEqualTo(UnknownInboxNotify.SILENT)
         assertThat(settings.openLinkAction).isTrue()
-        // I4/Q38: auto-delete is never taken from a file.
-        assertThat(settings.purgeAfterDays).isEqualTo(0)
+        // I4/Q38: auto-delete is never taken from a file: the phone's 3 days stay, also in the stored value.
+        assertThat(settings.purgeAfterDays).isEqualTo(3)
+        val stored = app.getSharedPreferences("spamless_spam_settings", Context.MODE_PRIVATE)
+        assertThat(stored.getInt("purge_after_days", -1)).isEqualTo(3)
         // H1: a forward rule comes back switched off and without a SIM, so nothing is forwarded unasked.
         val forward = SpamEngine.forwardRepository(app).currentRules().single()
         assertThat(forward.targets).containsExactly(TARGET)
@@ -217,14 +224,17 @@ class ReleasedBackupFormatsRestoreTest {
             }
         """.trimIndent()
 
-        /** 0.4.13 and 0.4.14: the mode says what blocks (the old switch was folded into it). */
+        /**
+         * 0.4.13 and 0.4.14: the mode says what blocks (the old switch was folded into it). `fromALaterVersion` is a
+         * deliberate unknown field (no release wrote it): readers must skip what they do not know.
+         */
         val NEWEST_SETTINGS = """
             {
                 "app": "spamless", "kind": "settings-backup", "version": 1, "exportedAt": 1731900000000,
                 "modeIncludesSwitch": true, "appVersion": "0.4.14",
                 "rules": [
                     { "kind": "BLOCK", "type": "NUMBER", "pattern": "$SPAMMER", "note": "", "createdAt": 100,
-                      "hitCount": 4 },
+                      "fromALaterVersion": 4 },
                     { "kind": "BLOCK", "type": "DOMAIN", "pattern": "win", "note": "", "createdAt": 200 }
                 ],
                 "forwardRules": [],

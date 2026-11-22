@@ -103,6 +103,7 @@ class ReleasedInstallStartupTest {
 
     /** The first launch after the update: App.onCreate, its start-up thread, then the first run's check. */
     private fun startUp() {
+        App.failedSteps.clear()
         app.onCreate()
         joinAppBackgroundThreads()
         val idle = CountDownLatch(1)
@@ -110,6 +111,8 @@ class ReleasedInstallStartupTest {
         assertThat(idle.await(SORT_WAIT_S, TimeUnit.SECONDS)).isTrue()
         joinAppBackgroundThreads()
         assertThat(synchronized(uncaught) { uncaught.toList() }).isEmpty()
+        // No start-up step (migrations, sweeps, the held-message move) may fail on the old data.
+        assertThat(App.failedSteps).isEmpty()
     }
 
     private fun SupportSQLiteDatabase.rule(id: Long, kind: String, type: String, pattern: String, sim: Int?) =
@@ -138,9 +141,14 @@ class ReleasedInstallStartupTest {
         }
     }
 
-    private fun seedPrefs(mode: String) {
+    /** [installMarker]: InstallDefaults' marker, which every start of 0.4.3 and later left behind. */
+    private fun seedPrefs(mode: String, installMarker: Boolean) {
         context.getSharedPreferences("spamless_onboarding", Context.MODE_PRIVATE).edit()
             .putBoolean("completed", true).commit()
+        if (installMarker) {
+            context.getSharedPreferences("umessage_install", Context.MODE_PRIVATE).edit()
+                .putBoolean("defaults_applied", true).commit()
+        }
         context.getSharedPreferences(SPAM_PREFS, Context.MODE_PRIVATE).edit()
             .putString("mode", mode)
             .putInt("purge_after_days", 30)
@@ -185,7 +193,7 @@ class ReleasedInstallStartupTest {
     fun anOffUserOf0414StartsAsAnUpdateAndKeepsEverything() {
         seedSpamDatabase(version = 8)
         seedMessagesDatabase(version = 15)
-        seedPrefs(mode = "OFF")
+        seedPrefs(mode = "OFF", installMarker = true)
 
         startUp()
 
@@ -197,7 +205,7 @@ class ReleasedInstallStartupTest {
     fun aStrictUserOf030StartsAsAnUpdateAndKeepsEverything() {
         seedSpamDatabase(version = 5)
         seedMessagesDatabase(version = 13)
-        seedPrefs(mode = "STRICT")
+        seedPrefs(mode = "STRICT", installMarker = false)
 
         startUp()
 
