@@ -124,7 +124,8 @@ object BlockedNotifier {
     fun cancelChat(context: Context, threadId: Long) {
         runCatching {
             val manager = context.getSystemService(NotificationManager::class.java) ?: return
-            val active = manager.activeNotifications
+            // J1-10: a failed read of the shade must never stop the cancel itself.
+            val active = runCatching { manager.activeNotifications }.getOrDefault(emptyArray())
             manager.cancel(CHAT_TAG, threadId.hashCode())
             dropLoneSummary(manager, active, setOf(CHAT_TAG to threadId.hashCode()))
         }
@@ -184,7 +185,7 @@ object BlockedNotifier {
         if (blockedIds.isEmpty()) return
         runCatching {
             val manager = context.getSystemService(NotificationManager::class.java) ?: return
-            val active = manager.activeNotifications
+            val active = runCatching { manager.activeNotifications }.getOrDefault(emptyArray())
             // J1: a summary of the version before has held message 23313's key; cancelling it would clear the group.
             val keys = blockedIds.map { TAG to notificationId(it) }
                 .filterNot { key -> active.any { Kind.isSummary(it) && it.tag == key.first && it.id == key.second } }
