@@ -13,7 +13,7 @@ import org.junit.Assume.assumeTrue
 
 /**
  * Shared steps of the instrumented tests of step J10 (spec 12.2). They run on emulator-5554 only: they write to the
- * phone's message store and take the SMS role for a while. Made-up numbers only (the 555 range).
+ * phone's message store and take the SMS role. Made-up numbers only (the 555 range).
  */
 object DeviceTest {
 
@@ -65,44 +65,21 @@ object DeviceTest {
 
 /**
  * The SMS role for the app under test, the way the step F emulator run gave it (`cmd role add-role-holder`), here
- * through UiAutomation's shell. [take] remembers the holder before; [Taken.restore] gives the role back to it. Both
- * pass the flag "don't kill the app" (RoleManager.MANAGE_HOLDERS_FLAG_DONT_KILL_APP = 1): the app's process is the
- * test's process.
+ * through UiAutomation's shell. It is never given back during the run: taking the role away revokes the SMS
+ * permissions, and Android then kills the app's process, which is the test's process (J10 emulator run: "permissions
+ * revoked"; the "don't kill" flag does not stop it). The uninstall at the end of the instrumented run gives the role
+ * back to the app that held it before. No J10 class needs the role to be absent.
  */
 object SmsRole {
     private const val ROLE = "android.app.role.SMS"
-    private const val DONT_KILL_APP = 1
-
-    /** What [take] found and did. */
-    class Taken internal constructor(private val previous: String, private val changed: Boolean) {
-        /** Gives the role back to the app that held it before (or to no app). Never throws. */
-        fun restore() {
-            if (!changed) return
-            val pkg = DeviceTest.context.packageName
-            runCatching {
-                if (previous.isNotEmpty() && previous != pkg) {
-                    DeviceTest.shell("cmd role add-role-holder $ROLE $previous $DONT_KILL_APP")
-                } else {
-                    DeviceTest.shell("cmd role remove-role-holder $ROLE $pkg $DONT_KILL_APP")
-                }
-            }
-        }
-    }
 
     fun isHeld(): Boolean =
         runCatching { DefaultSmsRole.status(DeviceTest.context) == DefaultSmsRole.Status.Held }.getOrDefault(false)
 
-    /** Makes the app the default SMS app; check [isHeld] afterwards, the grant may be refused. */
-    fun take(): Taken {
-        if (isHeld()) return Taken(previous = "", changed = false)
-        val previous = runCatching { holder() }.getOrDefault("")
-        val pkg = DeviceTest.context.packageName
-        runCatching { DeviceTest.shell("cmd role add-role-holder $ROLE $pkg $DONT_KILL_APP") }
+    /** Makes the app the default SMS app unless it is already; check [isHeld] afterwards, the grant may be refused. */
+    fun take() {
+        if (isHeld()) return
+        runCatching { DeviceTest.shell("cmd role add-role-holder $ROLE ${DeviceTest.context.packageName}") }
         DeviceTest.waitFor(timeoutMs = 5_000L) { isHeld() }
-        return Taken(previous, changed = true)
     }
-
-    /** The current holder's package, empty for none. `get-role-holders` prints them separated by ';'. */
-    private fun holder(): String =
-        DeviceTest.shell("cmd role get-role-holders $ROLE").trim().split(';', '\n').firstOrNull()?.trim().orEmpty()
 }

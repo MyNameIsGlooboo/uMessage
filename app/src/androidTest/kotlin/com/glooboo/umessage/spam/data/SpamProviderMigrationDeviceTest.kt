@@ -35,7 +35,8 @@ import java.io.ByteArrayOutputStream
  * placeholder writes nothing. A second run changes nothing.
  *
  * The file has its own name and the journal its own preferences, so the app's live spamless.db and journal are not
- * touched. Needs the SMS role (taken for the test, given back after). Emulator only. Every number is made up.
+ * touched. Needs the SMS role (taken for the test and kept until the uninstall). Emulator only. Every number is
+ * made up.
  */
 @RunWith(AndroidJUnit4::class)
 class SpamProviderMigrationDeviceTest {
@@ -44,7 +45,6 @@ class SpamProviderMigrationDeviceTest {
     val helper = MigrationTestHelper(InstrumentationRegistry.getInstrumentation(), SpamDatabase::class.java)
 
     private val app: Context = DeviceTest.context
-    private var role: SmsRole.Taken? = null
     private var db: SpamDatabase? = null
     private val keptFiles = mutableListOf<String>()
 
@@ -76,7 +76,7 @@ class SpamProviderMigrationDeviceTest {
     @Before
     fun setUp() {
         DeviceTest.assumeEmulator()
-        role = SmsRole.take()
+        SmsRole.take()
         assumeTrue("uMessage must be the default SMS app to write to the store", SmsRole.isHeld())
         DeviceTest.forgetChats(SENDERS)
         app.deleteDatabase(TEST_DB)
@@ -91,7 +91,6 @@ class SpamProviderMigrationDeviceTest {
         app.deleteSharedPreferences(TEST_JOURNAL)
         runCatching { BlockedMmsStore.delete(app, keptFiles) }
         DeviceTest.forgetChats(SENDERS)
-        role?.restore()
     }
 
     private fun seedVersion8() {

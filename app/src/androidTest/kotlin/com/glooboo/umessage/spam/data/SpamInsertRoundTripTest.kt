@@ -25,19 +25,18 @@ import org.junit.runner.RunWith
  * sender has a block rule goes the incoming path ([IncomingSmsProcessor.process]); the store keeps it read = 1 and
  * seen = 1 in the sender's own thread, and the app's list readers put that chat in Spam and not in Messages.
  *
- * Needs the SMS role (taken for the test, given back after). Emulator only. The sender is made up.
+ * Needs the SMS role (taken for the test and kept until the uninstall). Emulator only. The sender is made up.
  */
 @RunWith(AndroidJUnit4::class)
 class SpamInsertRoundTripTest {
 
     private val app = DeviceTest.context
-    private var role: SmsRole.Taken? = null
     private var ruleId = 0L
 
     @Before
     fun setUp() {
         DeviceTest.assumeEmulator()
-        role = SmsRole.take()
+        SmsRole.take()
         assumeTrue("uMessage must be the default SMS app to write to the store", SmsRole.isHeld())
         DeviceTest.forgetChats(listOf(SENDER))
         ruleId = runBlocking {
@@ -50,7 +49,6 @@ class SpamInsertRoundTripTest {
     fun tearDown() {
         DeviceTest.forgetChats(listOf(SENDER))
         if (ruleId > 0L) runCatching { runBlocking { SpamEngine.repository(app).removeRule(ruleId) } }
-        role?.restore()
     }
 
     @Test

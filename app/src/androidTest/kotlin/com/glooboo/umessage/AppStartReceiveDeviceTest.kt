@@ -44,20 +44,19 @@ import java.util.TimeZone
  *
  * Instrumented tests run on the debug build (`connectedFossDebugAndroidTest`); the minified daily build cannot be the
  * instrumented target, so M-T5 on the daily build stays a manual check (plan 4.4). Needs the SMS role (taken for the
- * test, given back after). Emulator only. Both senders are made up.
+ * test and kept until the uninstall). Emulator only. Both senders are made up.
  */
 @RunWith(AndroidJUnit4::class)
 class AppStartReceiveDeviceTest {
 
     private val app = DeviceTest.context
-    private var role: SmsRole.Taken? = null
     private var onboardingDone = false
     private val ruleIds = mutableListOf<Long>()
 
     @Before
     fun setUp() {
         DeviceTest.assumeEmulator()
-        role = SmsRole.take()
+        SmsRole.take()
         assumeTrue("uMessage must be the default SMS app to write to the store", SmsRole.isHeld())
         DeviceTest.forgetChats(SENDERS)
         // Past the Welcome pages, as after a finished onboarding; given back after the test.
@@ -83,7 +82,6 @@ class AppStartReceiveDeviceTest {
         runCatching { runBlocking { SpamEngine.repository(app).removeRules(ruleIds) } }
         runCatching { app.getSystemService(NotificationManager::class.java).cancelAll() }
         OnboardingState.setCompleted(app, onboardingDone)
-        role?.restore()
     }
 
     private fun grantIfMissing(permission: String) {
