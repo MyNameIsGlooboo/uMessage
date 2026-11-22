@@ -13,7 +13,7 @@ import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.spam.engine.SenderVerdict
-import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.isolateLtr
 import com.glooboo.umessage.ui.components.showConfirmDialog
 import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.RuleNotes
@@ -153,7 +153,7 @@ internal class ThreadSpamMoves(
             return
         }
         val view = snackbar.showSnackbar(
-            message = activity.getString(R.string.pt_unblock_refused_prefix, isolateNumbers(rule.pattern)),
+            message = activity.getString(R.string.pt_unblock_refused_prefix, isolateLtr(rule.pattern)),
             actionLabel = activity.getString(R.string.e_view_rule),
             duration = SnackbarDuration.Long,
         ) == SnackbarResult.ActionPerformed

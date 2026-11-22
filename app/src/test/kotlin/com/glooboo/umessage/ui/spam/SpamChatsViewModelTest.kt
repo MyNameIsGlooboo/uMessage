@@ -19,7 +19,7 @@ import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.ChatNotices
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
-import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.isolateLtr
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -380,7 +380,7 @@ class SpamChatsViewModelTest {
 
         assertThat(message.res).isEqualTo(R.string.pt_unblock_refused_prefix)
         // M-2: the prefix keeps its order in a right-to-left sentence.
-        assertThat(message.arg).isEqualTo(isolateNumbers("+1555"))
+        assertThat(message.arg).isEqualTo(isolateLtr("+1555"))
         assertThat(message.arg).isNotEqualTo("+1555")
         assertThat(message.viewRule).isTrue()
         assertThat(events.none { it is SpamChatsEvent.Windowed }).isTrue()

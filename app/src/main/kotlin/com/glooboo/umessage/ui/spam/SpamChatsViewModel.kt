@@ -26,7 +26,7 @@ import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.spam.data.SpamProviderMigration
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
-import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.isolateLtr
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.components.localizedNumber
 import com.glooboo.umessage.ui.components.uiLocale
@@ -527,7 +527,7 @@ class SpamChatsViewModel internal constructor(
 
     private fun nothingChangedMessage(rule: SpamRule?, outcomes: Collection<UnblockOutcome>): SpamChatsEvent = when {
         rule != null && rule.type == RuleType.PREFIX ->
-            SpamChatsEvent.Message(R.string.pt_unblock_refused_prefix, isolateNumbers(rule.pattern), viewRule = true)
+            SpamChatsEvent.Message(R.string.pt_unblock_refused_prefix, isolateLtr(rule.pattern), viewRule = true)
         UnblockOutcome.ANDROID_LIST in outcomes && UnblockOutcome.OTHER_RULE !in outcomes ->
             SpamChatsEvent.Message(R.string.thread_unblock_done_system)
         else -> SpamChatsEvent.Message(R.string.thread_unblock_failed)

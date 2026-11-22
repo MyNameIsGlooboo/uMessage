@@ -16,7 +16,7 @@ import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.ChatNotices
 import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.FakeSpamRepository
-import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.isolateLtr
 import com.glooboo.umessage.ui.spam.RulesActivity
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CoroutineScope
@@ -146,7 +146,7 @@ class ThreadSpamMovesTest {
         moves().unblock(SENDER)
         val bar = shown()
         assertThat(bar.visuals.message)
-            .isEqualTo(activity.getString(R.string.pt_unblock_refused_prefix, isolateNumbers("+1555")))
+            .isEqualTo(activity.getString(R.string.pt_unblock_refused_prefix, isolateLtr("+1555")))
         assertThat(bar.visuals.actionLabel).isEqualTo(text(R.string.e_view_rule))
         assertThat(rules().map { it.pattern }).containsExactly("+1555", SENDER)
     }
