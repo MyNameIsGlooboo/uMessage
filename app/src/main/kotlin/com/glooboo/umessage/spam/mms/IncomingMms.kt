@@ -56,7 +56,10 @@ sealed interface NoticeMark {
     /** The notice cannot be placed (no sender, or expired): the sweep leaves it alone. */
     data object Skipped : NoticeMark
 
-    /** The sweep tried to place the notice [times] times and failed with an error; it is Skipped after a few. */
+    /**
+     * The sweep tried to place the notice [times] times and failed with an error. It is never Skipped for that (R2-1):
+     * the sweep sorts failed notices after untried ones and, from MmsDownloadFailure.MAX_TRIES on, fails open.
+     */
     data class Failed(val times: Int) : NoticeMark
 }
 

@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.provider.Telephony
+import android.util.Log
 import org.fossify.commons.extensions.getMyContactsCursor
 import org.fossify.commons.helpers.SimpleContactsHelper
 import org.fossify.commons.models.PhoneNumber
@@ -27,6 +28,7 @@ import com.glooboo.umessage.helpers.NotifyLog
 import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.NotifyResult
 import com.glooboo.umessage.helpers.NotifyStage
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.notifyFault
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
@@ -128,7 +130,7 @@ fun Context.deliverIncomingSms(
         // From here on the SMS is safe in the provider. Nothing below may throw.
         // The thread now carries the insert time; date it by its newest message, the time this one really arrived.
         if (isStoredLate(date)) runCatching { context.recomputeThreadDate(threadId) }
-        runCatching {
+        val cached = runCatching {
             context.getConversations(threadId).firstOrNull()?.let { conv ->
                 // The provider stamps the thread with the insert time. A restored ("Not spam") or replayed SMS is older
                 // than that, so keep the thread at its newest real message instead of jumping to the top of the list.
@@ -138,8 +140,11 @@ fun Context.deliverIncomingSms(
                     conv.date = maxOf(cachedDate, messageSeconds)
                 }
                 context.insertOrUpdateConversation(conv)
-            }
-        }
+            } != null
+        }.getOrDefault(false)
+        // R3-1: the lists show cached chats only, so a text stored read for Spam would be in neither list until the
+        // next full pass. The chat is cached again at once, also when no list is open.
+        if (!cached && ProviderTruthFlag.enabled) UncachedChats.request(context, threadId)
 
         val senderName = context.senderNameFor(address)
 
@@ -189,6 +194,38 @@ fun Context.deliverIncomingSms(
         if (!settled) NotifyDue.settle(context, newMessageId, NotifyResult.FAILED)
     }
     return newMessageId
+}
+
+/**
+ * R3-1: a message was stored in a thread whose chat could not be cached (the store listed no such thread, or the read
+ * failed). The lists show cached chats only, so a text stored read for Spam would be in neither list until the next
+ * full pass. [request] caches the chat from the store at once, on a thread of its own, whether or not a list is open,
+ * and then tells the lists with the thread id (the same event a new message sends). A chat cached meanwhile is left
+ * alone; when the store still lists nothing the next full pass caches it.
+ */
+internal object UncachedChats {
+    private const val TAG = "uMessageReceive"
+
+    /** Where [request] caches a chat; tests record the thread ids instead. */
+    @Volatile
+    internal var lane: (Context, Long) -> Unit = { context, threadId -> Thread { cache(context, threadId) }.start() }
+
+    /** Never throws. */
+    fun request(context: Context, threadId: Long) {
+        if (threadId <= 0L) return
+        runCatching { lane(context.applicationContext, threadId) }
+            .onFailure { Log.w(TAG, "Uncached chat could not be asked for", it) }
+    }
+
+    /** The chat [threadId] from the phone's store, as the list sync reads a missing one. */
+    private fun cache(context: Context, threadId: Long) {
+        runCatching {
+            if (context.conversationsDB.getConversationWithThreadId(threadId) != null) return@runCatching
+            val fresh = context.getConversations(threadId = threadId).firstOrNull() ?: return@runCatching
+            context.insertOrUpdateConversation(fresh, null)
+            refreshConversations(threadId)
+        }.onFailure { Log.w(TAG, "Uncached chat could not be cached", it) }
+    }
 }
 
 /** The contact name of [address], or [address] itself when there is none or contacts cannot be read. */

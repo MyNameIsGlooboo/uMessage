@@ -526,6 +526,20 @@ class MmsSpamPushTest {
     }
 
     @Test
+    fun j3b_aFailedStartWhoseFallbackFindsTheNoticeGone_postsNothingAndLogsNothing() {
+        store.notices[savedNotice] = NoticeRow(threadId = FakeMmsSpamStore.NO_CHAT, sender = SENDER)
+        // Keeping it in Spam throws at its write; the fallback write then finds it gone (its MMS was placed).
+        store.failNextSetThreads = 1
+        store.goneRows += savedNotice
+
+        reportStartFailed()
+
+        assertThat(store.calls).contains("setThread(gone)")
+        assertThat(posted).isEqualTo(0)
+        assertThat(startLogged).isEmpty()
+    }
+
+    @Test
     fun aFailedStartInMessages_tellsTheUser() {
         reportStartFailed(spam = null)
 

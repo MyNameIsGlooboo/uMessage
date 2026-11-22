@@ -479,6 +479,41 @@ class MmsArrivalTest {
     }
 
     @Test
+    fun r3_2_whenTheSweepLoggedTheNotice_anMmsThatEndsInMessages_writesItsOwnRow() {
+        val provider = FakeMmsProvider.install()
+        val notice = provider.addNotice(SENDER)
+        // The sender is let in now (a contact): the sweep's BLOCK row does not say where this MMS went.
+        val check = RecordingCheck(Judgement(SenderVerdict.Messages(DecisionReason.CONTACT)))
+        val handler = handler(check).apply { noticeUri = notice }
+        handler.isAddressBlocked(context, SENDER)
+        store.spamRows[12L] = Triple(SENDER, SpamCause.UNKNOWN, 1)
+        AndroidMmsSpamStore(context).markNotice(notice, NoticeMark.Counted(12L))
+
+        handler.placeAndAnnounce(context, mms(12L, SENDER), SENDER)
+
+        assertThat(announced).containsExactly(DecisionReason.CONTACT)
+        // Judged quietly (facts once), then the row the judge would have written.
+        assertThat(check.quietJudges).isEqualTo(1)
+        assertThat(check.loudJudges).isEqualTo(0)
+        assertThat(check.rows).containsExactly("ALLOW")
+    }
+
+    @Test
+    fun r3_2_whenTheSweepLoggedTheNotice_anMmsThatLandsInAGroup_writesThePlacementsRow() {
+        val provider = FakeMmsProvider.install()
+        val notice = provider.addNotice(SENDER)
+        val check = RecordingCheck(null, answer = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER))
+        val handler = handler(check).apply { noticeUri = notice }
+        handler.isAddressBlocked(context, SENDER)
+        store.spamRows[12L] = Triple(SENDER, SpamCause.UNKNOWN, 1)
+        AndroidMmsSpamStore(context).markNotice(notice, NoticeMark.Counted(12L))
+
+        handler.placeAndAnnounce(context, mms(40L, SENDER, OTHER), SENDER)
+
+        assertThat(check.rows).containsExactly("DELIVER")
+    }
+
+    @Test
     fun r2_4_aNoticeWithAFailedTryAtTheFirstRead_thatTheSweepCountsMeanwhile_isNotCountedAgain() {
         val provider = FakeMmsProvider.install()
         val notice = provider.addNotice(SENDER)

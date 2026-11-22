@@ -450,7 +450,7 @@ private class SpamStartFailed(
  * The Spam side of [MmsPushDownload.reportStartFailed]: the notice is kept in Spam (posts nothing) or ends in Messages
  * unread (tells the user), and gets its one decision-log row (J3-5): BLOCK in Spam, DELIVER in Messages when the
  * history check let it in, ERROR when it failed open; none when it was counted, and so logged, before, or when it is
- * gone (J3-2).
+ * gone (J3-2, also when only the fallback finds it gone).
  */
 private fun reportSpamStartFailed(failed: SpamStartFailed): Unit = with(failed) {
     val kept = runCatching { keepSpamNotice(store(), saved, from, spam, recheck) }
@@ -458,9 +458,13 @@ private fun reportSpamStartFailed(failed: SpamStartFailed): Unit = with(failed) 
         .getOrNull()
     if (kept == SpamKept.Gone) return@with
     val placed = kept as? SpamKept.Placed
+    // Still no chat: as for a Messages notice, unread. Gone by then (its MMS was placed and logged by its result):
+    // nothing is posted and no row is written.
+    if (placed == null) {
+        val written = runCatching { store().run { setThread(saved, threadOf(from), silent = false) } }.getOrNull()
+        if (written == false) return@with
+    }
     if (placed?.inSpam != true) runCatching(notify)
-    // Still no chat: as for a Messages notice, unread.
-    if (placed == null) runCatching { store().run { setThread(saved, threadOf(from), silent = false) } }
     // Not placed (the store failed): failed open to Messages, so ERROR without a rule.
     val row = if (placed == null) spam.copy(ruleId = null) to IncomingMms.ERROR else placed.row
     if (row != null) runCatching { log(row.first, row.second) }
