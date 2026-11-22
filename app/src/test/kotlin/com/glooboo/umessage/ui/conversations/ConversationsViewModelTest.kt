@@ -6,6 +6,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
 import android.os.Looper
+import androidx.lifecycle.viewModelScope
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.extensions.config
@@ -62,6 +63,8 @@ class ConversationsViewModelTest {
     fun tearDown() {
         scope.cancel()
         vm.stopObservingNotes()
+        // The model is never cleared here: its Spam count would otherwise read the next test's database.
+        vm.viewModelScope.cancel()
         // The list model watches the notes table, so it opens the shared messages database.
         resetSharedMessagesDatabase()
     }
@@ -166,7 +169,8 @@ class ConversationsViewModelTest {
         vm.reportSpamSelected()
         awaitUntil { events.any { it is ConversationsEvent.ReportedSpam } }
         val event = events.single { it is ConversationsEvent.ReportedSpam } as ConversationsEvent.ReportedSpam
-        assertThat(rowIds()).containsExactly(mom.threadId)
+        // The list is rebuilt off the main thread, so the event can come first.
+        awaitUntil { rowIds() == listOf(mom.threadId) }
         val repository = SpamRepositoryProvider.get(app)
         assertThat(SenderBlocking.isBlocked(rules(repository), dad.phoneNumber)).isTrue()
 
@@ -186,7 +190,7 @@ class ConversationsViewModelTest {
         vm.blockSelected()
         awaitUntil { events.any { it is ConversationsEvent.Blocked } }
         val event = events.single { it is ConversationsEvent.Blocked } as ConversationsEvent.Blocked
-        assertThat(rowIds()).containsExactly(dad.threadId)
+        awaitUntil { rowIds() == listOf(dad.threadId) }
         val repository = SpamRepositoryProvider.get(app)
         assertThat(SenderBlocking.isBlocked(rules(repository), mom.phoneNumber)).isTrue()
 

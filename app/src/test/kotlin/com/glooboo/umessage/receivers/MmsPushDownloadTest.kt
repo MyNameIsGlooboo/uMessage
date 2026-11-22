@@ -9,6 +9,7 @@ import android.os.Build
 import android.provider.Telephony
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.messaging.MmsDownloadFailure
 import com.glooboo.umessage.messaging.MmsDownloadTracker
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
@@ -210,7 +211,9 @@ class MmsPushDownloadTest {
         download().handle(app, pushIntent())
         assertThat(MmsPushDownload.isStarted(location)).isTrue()
 
-        MmsDownloadHandler().onError(app, "download failed")
+        // The failed result reaches MmsDownloadFailure (no notice row here, so nothing is placed).
+        val result = Intent(app, MmsReceiver::class.java).putExtra(MmsReceivedReceiver.EXTRA_LOCATION_URL, location)
+        MmsDownloadFailure(notify = {}, toast = {}, finishLibraryDownload = {}, tracker = tracker).handle(app, result)
 
         assertThat(MmsPushDownload.isStarted(location)).isFalse()
     }
@@ -233,7 +236,7 @@ class MmsPushDownloadTest {
         location = "http://mmsc.example.com/msg/result"
         download().handle(app, pushIntent())
 
-        // MmsDownloadHandler.onError does exactly this when the system reports a failed download.
+        // MmsDownloadFailure does this when the failed result names no notice row.
         tracker.failAllRunning()
 
         assertThat(tracker.state.value[42L]).isEqualTo(MmsDownloadTracker.Entry.Failed)

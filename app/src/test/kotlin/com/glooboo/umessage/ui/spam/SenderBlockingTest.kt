@@ -7,7 +7,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.receivers.SmsReceiver
 import com.glooboo.umessage.spam.BlockedMessage
-import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
@@ -42,8 +41,9 @@ import org.robolectric.Shadows.shadowOf
 import java.util.Collections
 
 /**
- * CM-06: "Block number" adds a uMessage block rule instead of a system block-list entry, so later texts from the
- * number land in Blocked messages (and can be restored) rather than being thrown away by Android.
+ * CM-06: "Block number" adds a uMessage block rule instead of a system block-list entry, so Android never throws
+ * later texts from the number away. Where those texts go (the sender's chat in Spam) is pinned by
+ * ProviderTruthSmsTest.
  */
 @RunWith(AndroidJUnit4::class)
 class SenderBlockingTest {
@@ -71,7 +71,7 @@ class SenderBlockingTest {
         SpamTestWiring.resetPendingLeases()
         val normalizer = NumberNormalizer { "US" }
         repo = DefaultSpamRepository(NoPlatform, db, SpamSettingsStore(app), normalizer)
-        // Unknown senders are allowed, so only a rule can send a text to Blocked.
+        // The filter is off, so only a rule can send a text to Spam.
         runBlocking { repo.updateSettings { it.copy(mode = UnknownSenderMode.OFF) } }
         val filter = DefaultSpamFilter(repo::currentRules, repo::currentSettings, NoContacts, normalizer)
         UMessage.repositoryFactory = { repo }
@@ -103,26 +103,14 @@ class SenderBlockingTest {
         assertThat(events.filterIsInstance<ConversationsEvent.Blocked>().map { it.count }).containsExactly(1)
         assertThat(blockRules().map { it.type }).containsExactly(RuleType.NUMBER)
         assertThat(telephony.systemBlockInserts).isEqualTo(0)
-
-        receive(SENDER, "Hello again")
-
-        assertThat(telephony.smsRows()).isEmpty()
-        val blocked = db.spamDao().getAllBlocked()
-        assertThat(blocked.map { it.body }).containsExactly("Hello again")
-        assertThat(blocked.single().reason).isEqualTo(DecisionReason.BLOCK_RULE)
     }
 
     @Test
-    fun blockFromThread_sendsLaterTextsToBlocked() = runBlocking<Unit> {
+    fun block_addsOneNumberRuleAndNoSystemEntry() = runBlocking<Unit> {
         SenderBlocking.block(repo, listOf(SENDER))
 
         assertThat(blockRules().map { it.type to it.kind }).containsExactly(RuleType.NUMBER to ListKind.BLOCK)
         assertThat(telephony.systemBlockInserts).isEqualTo(0)
-
-        receive(SENDER, "Still there")
-
-        assertThat(telephony.smsRows()).isEmpty()
-        assertThat(db.spamDao().getAllBlocked().single().reason).isEqualTo(DecisionReason.BLOCK_RULE)
     }
 
     @Test
@@ -174,40 +162,15 @@ class SenderBlockingTest {
     }
 
     @Test
-    fun afterUnblock_unknownSenderInSmartModeIsStillFiltered() = runBlocking<Unit> {
-        repo.updateSettings { it.copy(mode = UnknownSenderMode.SMART) }
+    fun alwaysAllow_addsAnAllowRuleThatLetsTheSenderThrough() = runBlocking<Unit> {
         SenderBlocking.block(repo, listOf(SENDER))
         SenderBlocking.unblock(repo, SENDER)
 
-        assertThat(SenderBlocking.reachesInbox(UMessage.filter(app), SENDER, 1)).isFalse()
-        receive(SENDER, "Hello friend")
-        assertThat(db.spamDao().getAllBlocked().single().reason).isEqualTo(DecisionReason.UNKNOWN_SENDER)
-    }
-
-    @Test
-    fun afterUnblock_contactOrOffModeReachesInbox() = runBlocking<Unit> {
-        repo.updateSettings { it.copy(mode = UnknownSenderMode.SMART) }
-        assertThat(SenderBlocking.reachesInbox(UMessage.filter(app), CONTACT, 1)).isTrue()
-
-        repo.updateSettings { it.copy(mode = UnknownSenderMode.OFF) }
-        assertThat(SenderBlocking.reachesInbox(UMessage.filter(app), SENDER, 1)).isTrue()
-    }
-
-    @Test
-    fun alwaysAllow_letsAnUnknownSenderThroughAndUndoRemovesIt() = runBlocking<Unit> {
-        repo.updateSettings { it.copy(mode = UnknownSenderMode.STRICT) }
-        SenderBlocking.block(repo, listOf(SENDER))
-        SenderBlocking.unblock(repo, SENDER)
-
-        val id = SenderBlocking.allow(repo, SENDER)
+        SenderBlocking.allow(repo, SENDER)
 
         assertThat(rules().map { it.kind to it.type }).containsExactly(ListKind.ALLOW to RuleType.NUMBER)
-        assertThat(SenderBlocking.reachesInbox(UMessage.filter(app), SENDER, 1)).isTrue()
         receive(SENDER, "Hello friend")
         assertThat(telephony.smsRows().map { it["body"] }).containsExactly("Hello friend")
-
-        repo.removeRule(id)
-        assertThat(SenderBlocking.reachesInbox(UMessage.filter(app), SENDER, 1)).isFalse()
     }
 
     private fun rules() = repo.currentRules()

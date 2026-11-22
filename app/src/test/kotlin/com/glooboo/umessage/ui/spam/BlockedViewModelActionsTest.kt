@@ -10,6 +10,7 @@ import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
+import com.glooboo.umessage.spam.SpamSettings
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +39,8 @@ class BlockedViewModelActionsTest {
             message(1, NUMBER), message(2, NUMBER), message(3, SENDER_ID),
         ),
         initialRules = listOf(SpamRule(7, ListKind.BLOCK, RuleType.KEYWORD, "free")),
+        // Not the default (0, keep forever), so the state is seen to carry the stored days.
+        initialSettings = SpamSettings(purgeAfterDays = 30),
     )
     private lateinit var vm: BlockedViewModel
 

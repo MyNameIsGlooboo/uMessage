@@ -73,7 +73,7 @@ data class BlockedUiState(
     /** Rules by id, so each blocked message can say which rule blocked it (SU-22). */
     val rules: Map<Long, SpamRule> = emptyMap(),
     /** Blocked messages older than this many days are deleted; 0 keeps them (SU-23). */
-    val purgeAfterDays: Int = 30,
+    val purgeAfterDays: Int = 0,
     /** The chip chosen under the banner (ID-14); [groups] only holds what it lets through. */
     val filter: BlockedFilter = BlockedFilter.All,
     /** The text typed in the search box (spamui-20); [groups] only holds the senders that answer it. */

@@ -40,8 +40,9 @@ fun ruleReasonText(context: Context, message: BlockedMessage, rules: Map<Long, S
 
 /**
  * Whole days until the auto-delete removes a message received at [receivedAt] (SU-23), or null when blocked
- * messages are kept ([purgeAfterDays] 0). 0 means it goes the next time the purge runs. Matches
- * [com.glooboo.umessage.spam.SpamRepository.purgeExpired], which deletes messages older than [purgeAfterDays].
+ * messages are kept ([purgeAfterDays] 0). 0 means it goes the next time the auto-delete runs. Provider truth: no held
+ * row is deleted by age any more ([com.glooboo.umessage.spam.SpamRepository.purgeExpired] only sweeps files), and the
+ * days default to 0, so this is null unless a user chose a number of days.
  */
 fun daysUntilPurge(receivedAt: Long, now: Long, purgeAfterDays: Int): Int? {
     if (purgeAfterDays <= 0) return null

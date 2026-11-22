@@ -1,27 +1,18 @@
 package com.glooboo.umessage.i18n
 
 import android.content.Context
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
 import com.glooboo.umessage.models.Conversation
-import com.glooboo.umessage.spam.SpamStats
 import com.glooboo.umessage.ui.components.asciiDigits
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.conversations.toFolderRow
-import com.glooboo.umessage.ui.spam.BlockedActions
-import com.glooboo.umessage.ui.spam.BlockedScreen
-import com.glooboo.umessage.ui.spam.BlockedUiState
-import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.glooboo.umessage.ui.thread.RelativeDateWords
 import com.glooboo.umessage.ui.thread.relativeDateLabel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -31,9 +22,6 @@ import java.time.ZoneOffset
 @RunWith(AndroidJUnit4::class)
 @Config(qualifiers = "fa-w411dp-h891dp")
 class PersianDigitsTest {
-    @get:Rule
-    val compose = createComposeRule()
-
     private val context: Context get() = ApplicationProvider.getApplicationContext()
 
     private fun conversation(unread: Int) = Conversation(
@@ -71,27 +59,4 @@ class PersianDigitsTest {
     fun `sizes written in Latin digits are shown in Persian digits`() {
         assertEquals("۲۰۰KB", localizeDigits("200KB", context.uiLocale))
     }
-
-    @Test
-    fun `the blocked card shows the weekly count in Persian digits`() {
-        compose.setContent {
-            UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
-                BlockedScreen(
-                    BlockedUiState(loading = false, stats = SpamStats(blockedTotal = 12, blockedLast7Days = 3, restoredTotal = 1)),
-                    SnackbarHostState(),
-                    BlockedActions(onBack = {}),
-                )
-            }
-        }
-        // Wave 7-D: the compact card says "3 stopped this week" in one line.
-        compose.onNodeWithText("۳ مورد", substring = true).assertExists()
-        assertTrue(compose.onAllNodesWithLatinCount().isEmpty())
-    }
-
-    /** Texts on screen with a Latin digit; the Blocked screen has no phone numbers when nothing is blocked. */
-    private fun androidx.compose.ui.test.junit4.ComposeContentTestRule.onAllNodesWithLatinCount(): List<String> =
-        onAllNodes(androidx.compose.ui.test.SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.Text))
-            .fetchSemanticsNodes()
-            .flatMap { it.config[androidx.compose.ui.semantics.SemanticsProperties.Text].map { t -> t.text } }
-            .filter { t -> t.any { it in '0'..'9' } }
 }

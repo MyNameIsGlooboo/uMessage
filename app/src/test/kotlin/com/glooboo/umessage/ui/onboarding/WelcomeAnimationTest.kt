@@ -173,10 +173,13 @@ class WelcomeAnimationTest {
     }
 
     @Test
-    fun `in Off the card shows Messages three times and no Spam`() {
+    fun `in Off the card is read as its one sentence`() {
+        // U12: the filter-off card is read as one sentence ("Every text goes to Messages..."), not row by row.
+        // WelcomeTimelineTest pins that no Off row goes to Spam.
         showCard(UnknownSenderMode.OFF)
-        compose.onAllNodesWithText("Messages").assertCountEquals(3)
-        compose.onAllNodesWithText("Spam").assertCountEquals(0)
+        val off = ApplicationProvider.getApplicationContext<Context>().getString(R.string.pt_onb_demo_desc_off)
+        compose.onAllNodesWithContentDescription(off).assertCountEquals(1)
+        compose.onAllNodesWithText("Messages").assertCountEquals(0)
     }
 
     @Test
