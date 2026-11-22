@@ -54,8 +54,17 @@ class PersianTranslationTest {
 
     private fun pluralName(key: String) = key.takeIf { it.endsWith("]") }?.substringBefore('[')
 
-    private fun problems(resDir: File, requireComplete: Boolean): List<String> {
-        val english = strings(File(resDir, "values"))
+    /**
+     * [overridden]: English strings of a library whose Persian text the app overrides in its own values-fa
+     * (values-fa/strings_commons_overrides.xml); they are checked against that English and not required.
+     */
+    private fun problems(
+        resDir: File,
+        requireComplete: Boolean,
+        overridden: Map<String, String> = emptyMap(),
+    ): List<String> {
+        val own = strings(File(resDir, "values"))
+        val english = overridden + own
         val persian = strings(File(resDir, "values-fa"))
         val problems = mutableListOf<String>()
         for ((key, fa) in persian) {
@@ -71,7 +80,7 @@ class PersianTranslationTest {
             if ("$name[one]" !in persian || "$name[other]" !in persian) problems += "$name: needs quantities one and other"
         }
         if (requireComplete) {
-            english.keys.filter { it !in englishOnly }.forEach { key ->
+            own.keys.filter { it !in englishOnly }.forEach { key ->
                 val wanted = pluralName(key)?.let { "$it[other]" } ?: key
                 if (wanted !in persian) problems += "$key: no Persian translation"
             }
@@ -81,7 +90,7 @@ class PersianTranslationTest {
 
     @Test
     fun `app Persian strings match English and are complete`() {
-        val problems = problems(appRes, requireComplete = true)
+        val problems = problems(appRes, requireComplete = true, overridden = strings(File(commonsRes, "values")))
         assertTrue(problems.joinToString("\n"), problems.isEmpty())
     }
 

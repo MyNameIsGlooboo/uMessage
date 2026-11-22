@@ -28,7 +28,7 @@
     <string name="sks_notifications">notification notifications alert sound ringtone vibration vibrate tone silent mute</string>
     <string name="sks_android_notifications">android system channel sound ringtone vibration importance popup</string>
     <string name="sks_code_alert">code otp verification channel sound popup alert</string>
-    <string name="sks_block_alert">blocked message alert notify spam notification</string>
+    <string name="sks_block_alert">blocked message alert notify spam notification unknown senders strangers</string>
     <string name="sks_digest">weekly summary report digest week</string>
     <string name="sks_wake">wake screen turn on light display</string>
     <string name="sks_bubbles">bubbles floating chat heads popup</string>

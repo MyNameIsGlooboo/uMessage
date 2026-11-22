@@ -43,8 +43,8 @@
     </plurals>
     <string name="spam_rules_import_skipped">%d خط رد شد (نامعتبر یا قبلاً اضافه‌شده)</string>
     <plurals name="spam_rules_exported" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d قانون صادر شد</item>
-        <item quantity="other">%d قانون صادر شد</item>
+        <item quantity="one">از %d قانون خروجی گرفته شد</item>
+        <item quantity="other">از %d قانون خروجی گرفته شد</item>
     </plurals>
     <string name="spam_rules_tab_count">%1$s, %2$d</string>
     <string name="spam_type_number">شماره</string>

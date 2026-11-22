@@ -26,7 +26,7 @@
     <string name="sks_notifications">إشعار إشعارات تنبيه صوت نغمة رنين اهتزاز اهتز نغمة صامت كتم</string>
     <string name="sks_android_notifications">Android نظام قناة صوت نغمة رنين اهتزاز أهمية نافذة منبثقة</string>
     <string name="sks_code_alert">رمز رمز لمرة واحدة رمز التحقق قناة صوت نافذة منبثقة تنبيه</string>
-    <string name="sks_block_alert">رسالة محظورة تنبيه إخطار رسائل غير مرغوب فيها إشعار</string>
+    <string name="sks_block_alert">رسالة محظورة تنبيه إخطار رسائل غير مرغوب فيها إشعار المرسلين غير المعروفين</string>
     <string name="sks_digest">أسبوعي ملخص تقرير موجز أسبوع</string>
     <string name="sks_wake">إيقاظ شاشة تشغيل إضاءة عرض</string>
     <string name="sks_bubbles">فقاعات عائمة رؤوس دردشة نافذة منبثقة</string>

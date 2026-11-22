@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    M-UI11: Persian texts of vendored commons strings that the app shows, in the words of docs/translation-fa.md.
+    The English text and the other languages stay in third_party/commons; only the Persian is overridden here.
+    PersianRetiredWordsTest checks these keys.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+    <string name="recycle_bin">سطل زباله</string>
+    <string name="move_to_recycle_bin_confirmation">مطمئنید می‌خواهید %s را به سطل زباله منتقل کنید؟</string>
+    <string name="no_access_to_contacts">برنامه به مخاطب‌های شما دسترسی ندارد</string>
+    <string name="exporting_successful">خروجی گرفته شد</string>
+    <string name="exporting_failed">خروجی گرفته نشد</string>
+    <string name="no_entries_for_exporting">چیزی برای خروجی گرفتن پیدا نشد</string>
+    <string name="invalid_name">نام کاراکترهای نامعتبر دارد</string>
+</resources>

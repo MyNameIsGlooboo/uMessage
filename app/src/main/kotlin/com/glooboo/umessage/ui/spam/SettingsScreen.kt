@@ -190,7 +190,7 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
             // SE-25: one dropdown-style row instead of chips that wrap onto a second line.
             SettingsRow(
                 title = stringResource(R.string.settings_nav_purge_row),
-                summary = stringResource(R.string.spam_purge_body),
+                summary = purgeSummary(settings.purgeAfterDays)?.let { stringResource(it) },
                 value = purgeLabel(settings.purgeAfterDays),
                 onClick = { purgeDialog = true },
                 showChevron = true,
@@ -494,6 +494,9 @@ private fun unknownNotifyLabel(choice: UnknownInboxNotify): String = stringResou
         UnknownInboxNotify.NONE -> R.string.unotify_none
     },
 )
+
+/** L-4: "Off until you choose a number of days" only while no days are chosen; then the value alone says them. */
+internal fun purgeSummary(days: Int): Int? = if (days == 0) R.string.spam_purge_body else null
 
 @Composable
 private fun purgeLabel(days: Int): String =

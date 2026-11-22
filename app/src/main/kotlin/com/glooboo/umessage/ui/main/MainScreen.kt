@@ -80,6 +80,8 @@ enum class MainTab(val labelRes: Int, val icon: ImageVector) {
 class MainNavigation(
     val onSettings: () -> Unit = {},
     val onSpamRules: () -> Unit = {},
+    /** "View rule" of a refused Unblock on the Spam tab: the rules screen on its block list (D-6). */
+    val onSpamBlockRules: () -> Unit = onSpamRules,
     /** "Manage rules" in the Forwarded tab: the rules screen on its Forward tab. */
     val onManageForwardRules: () -> Unit = onSpamRules,
     val onSpamSettings: () -> Unit = {},
@@ -209,6 +211,7 @@ fun MainScreen(
                             SpamChatsRoute(
                                 onOpen = { navigation.onOpenThread(it.threadId, it.title) },
                                 onOpenRules = navigation.onSpamRules,
+                                onViewRule = navigation.onSpamBlockRules,
                                 onOpenSettings = navigation.onSpamSettings,
                                 reloadKey = published,
                             )

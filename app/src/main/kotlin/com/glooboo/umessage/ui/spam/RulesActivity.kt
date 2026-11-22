@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.glooboo.umessage.spam.ForwardingAvailability
+import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.glooboo.umessage.ui.theme.applyUMessageWindow
 
@@ -54,6 +55,16 @@ class RulesActivity : ComponentActivity() {
 
         /** String extra kept for older callers; the same key as [ForwardingActivity.EXTRA_FORWARD_SENDER]. */
         const val EXTRA_FORWARD_SENDER = ForwardingActivity.EXTRA_FORWARD_SENDER
+
+        /** String extra, a [ListKind] name: the tab the screen opens on (D-6: "View rule" opens the block list). */
+        const val EXTRA_TAB = "com.glooboo.spamless.extra.RULES_TAB"
+
+        /** The rules screen, on [tab] when given, else on its first tab. */
+        fun intent(context: Context, tab: ListKind? = null): Intent =
+            Intent(context, RulesActivity::class.java).apply { tab?.let { putExtra(EXTRA_TAB, it.name) } }
+
+        /** The tab named by an [EXTRA_TAB] value; null for none or an unknown name. */
+        internal fun tabOf(name: String?): ListKind? = ListKind.entries.firstOrNull { it.name == name }
 
         /** True when [intent] asked for the old Forward tab or for a forward rule editor. */
         internal fun opensForwarding(intent: Intent?): Boolean {

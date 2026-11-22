@@ -1,18 +1,19 @@
 package com.glooboo.umessage.ui.thread
 
 import android.app.Activity
-import android.content.Intent
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.ChatSorter
+import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.spam.engine.SenderVerdict
+import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.components.showConfirmDialog
 import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.RuleNotes
@@ -152,11 +153,11 @@ internal class ThreadSpamMoves(
             return
         }
         val view = snackbar.showSnackbar(
-            message = activity.getString(R.string.pt_unblock_refused_prefix, rule.pattern),
+            message = activity.getString(R.string.pt_unblock_refused_prefix, isolateNumbers(rule.pattern)),
             actionLabel = activity.getString(R.string.e_view_rule),
             duration = SnackbarDuration.Long,
         ) == SnackbarResult.ActionPerformed
-        if (view) activity.startActivity(Intent(activity, RulesActivity::class.java))
+        if (view) activity.startActivity(RulesActivity.intent(activity, ListKind.BLOCK))
     }
 
     /** The message of an unblock, with Undo only when something was removed (no Undo that does nothing). */

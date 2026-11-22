@@ -26,7 +26,7 @@
     <string name="sks_notifications">اطلاع اطلاعات الرٹ آواز رنگ ٹون وائبریشن وائبریٹ ٹون خاموش میوٹ</string>
     <string name="sks_android_notifications">Android سسٹم چینل آواز رنگ ٹون وائبریشن اہمیت پاپ اپ</string>
     <string name="sks_code_alert">کوڈ OTP تصدیق چینل آواز پاپ اپ الرٹ</string>
-    <string name="sks_block_alert">بلاک شدہ پیغام الرٹ اطلاع اسپیم</string>
+    <string name="sks_block_alert">بلاک شدہ پیغام الرٹ اطلاع اسپیم نامعلوم بھیجنے والے</string>
     <string name="sks_digest">ہفتہ وار خلاصہ رپورٹ ہفتہ</string>
     <string name="sks_wake">جگائیں اسکرین آن روشنی ڈسپلے</string>
     <string name="sks_bubbles">ببلز تیرتے چیٹ ہیڈز پاپ اپ</string>

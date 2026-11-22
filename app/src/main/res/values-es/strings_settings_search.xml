@@ -26,7 +26,7 @@
     <string name="sks_notifications">notificación notificaciones alerta sonido tono de llamada vibración vibrar tono silencio silenciar</string>
     <string name="sks_android_notifications">Android sistema canal sonido tono de llamada vibración importancia ventana emergente</string>
     <string name="sks_code_alert">código OTP verificación canal sonido ventana emergente alerta</string>
-    <string name="sks_block_alert">bloqueado mensaje alerta avisar spam notificación</string>
+    <string name="sks_block_alert">bloqueado mensaje alerta avisar spam notificación remitentes desconocidos</string>
     <string name="sks_digest">semanal resumen informe recopilación semana</string>
     <string name="sks_wake">activar pantalla encender iluminar visualización</string>
     <string name="sks_bubbles">burbujas flotantes chat ventana emergente</string>

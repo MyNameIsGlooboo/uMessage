@@ -26,7 +26,7 @@
     <string name="sks_notifications">notifica notifiche avviso suono suoneria vibrazione vibra tono silenzioso silenzia</string>
     <string name="sks_android_notifications">Android sistema canale suono suoneria vibrazione importanza popup</string>
     <string name="sks_code_alert">codice OTP verifica canale suono popup avviso</string>
-    <string name="sks_block_alert">messaggio bloccato avviso notifica spam</string>
+    <string name="sks_block_alert">messaggio bloccato avviso notifica spam mittenti sconosciuti</string>
     <string name="sks_digest">settimanale riepilogo resoconto sintesi settimana</string>
     <string name="sks_wake">riattiva schermo accendi luce display</string>
     <string name="sks_bubbles">bolle mobili chat popup</string>

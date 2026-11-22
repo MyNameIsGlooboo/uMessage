@@ -11,6 +11,6 @@
     <string name="pt_restore_scheduled_arm">روشن کن</string>
     <string name="pt_restore_scheduled_discard">حذف کن</string>
     <string name="pt_older_spam_stuck">بعضی از این پیام‌ها به خود گوشی منتقل نشدند. همین‌جا می‌مانند و باز هم می‌توانید بخوانیدشان.</string>
-    <string name="pt_restore_scheduled_row_body">با بازگردانی روشن نشدند. بزنید تا روشنشان کنید یا حذفشان کنید.</string>
-    <string name="pt_older_spam_pictures_here">بعضی از این پیام‌ها خودشان روی گوشی هستند. فقط عکس‌هایشان این‌جا در uMessage نگه داشته شده.</string>
+    <string name="pt_restore_scheduled_row_body">با بازیابی روشن نشدند. بزنید تا روشنشان کنید یا حذفشان کنید.</string>
+    <string name="pt_older_spam_pictures_here">بعضی از این پیام‌ها خودشان روی گوشی هستند. فقط عکس‌هایشان اینجا در uMessage نگه داشته شده.</string>
 </resources>

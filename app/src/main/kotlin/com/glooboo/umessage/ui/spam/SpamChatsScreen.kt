@@ -58,12 +58,14 @@ private var spamCardPlayed = false
  * Provider truth, the Spam tab (4.2): the chats in Spam on the shared folder screen, with "Not spam", "Unblock", Block,
  * Delete and Mark as read; the first-time tip; the strip while the filter is off; the sorting card while it is empty;
  * and, while the message migration waits, the entry to the older spam kept only in uMessage (U20). [reloadKey]
- * changes whenever the Messages list was published, so a new spam text shows here too.
+ * changes whenever the Messages list was published, so a new spam text shows here too. [onViewRule] is the "View rule"
+ * of a refused Unblock: the rules screen on its block list (D-6).
  */
 @Composable
 fun SpamChatsRoute(
     onOpen: (ConversationRow) -> Unit,
     onOpenRules: () -> Unit,
+    onViewRule: () -> Unit,
     onOpenSettings: () -> Unit,
     modifier: Modifier = Modifier,
     reloadKey: Any? = null,
@@ -78,13 +80,13 @@ fun SpamChatsRoute(
         onPauseOrDispose { }
     }
     LaunchedEffect(reloadKey) { viewModel.load() }
-    val openRules by rememberUpdatedState(onOpenRules)
+    val viewRule by rememberUpdatedState(onViewRule)
     LaunchedEffect(viewModel) {
         // No snackbar of an earlier screen is on show: its open windows close (C-1, C-2).
         viewModel.onRouteStarted()
         // Each event in its own job: a new snackbar dismisses the one before, which then commits its action.
         viewModel.events.collect { event ->
-            launch { showSpamEvent(event, snackbar, viewModel, resources, onViewRule = { openRules() }) }
+            launch { showSpamEvent(event, snackbar, viewModel, resources, onViewRule = { viewRule() }) }
         }
     }
     state.nameConfirm?.let { ask ->
@@ -252,7 +254,7 @@ internal suspend fun showSpamEvent(
     snackbar: SnackbarHostState,
     viewModel: SpamChatsViewModel,
     resources: Resources,
-    onViewRule: () -> Unit = {},
+    onViewRule: () -> Unit,
 ) {
     val offer = SnackbarOffer(snackbar, resources.getString(R.string.spam_undo))
     when (event) {
@@ -281,6 +283,8 @@ private suspend fun showMessage(
         snackbar.showSnackbar(text)
         return
     }
+    // L-7: the reason shows at once, not after an Undo window that is still open.
+    snackbar.currentSnackbarData?.dismiss()
     val result = snackbar.showSnackbar(
         text,
         actionLabel = resources.getString(R.string.e_view_rule),

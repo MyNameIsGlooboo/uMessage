@@ -18,6 +18,7 @@ import com.glooboo.umessage.ui.conversations.ConversationsEffect
 import com.glooboo.umessage.ui.conversations.ConversationsViewModel
 import com.glooboo.umessage.ui.main.MainNavigation
 import com.glooboo.umessage.spam.ForwardingAvailability
+import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.ui.spam.ForwardingActivity
 import com.glooboo.umessage.ui.spam.RulesActivity
 import com.glooboo.umessage.ui.spam.SpamSettingsActivity
@@ -34,6 +35,7 @@ class MainRoutes(private val activity: BaseSimpleActivity) {
     fun navigation() = MainNavigation(
         onSettings = ::openSettings,
         onSpamRules = { activity.startActivity(Intent(activity, RulesActivity::class.java)) },
+        onSpamBlockRules = { activity.startActivity(RulesActivity.intent(activity, ListKind.BLOCK)) },
         onManageForwardRules = {
             if (ForwardingAvailability.isAvailable(activity)) {
                 activity.startActivity(ForwardingActivity.intent(activity))

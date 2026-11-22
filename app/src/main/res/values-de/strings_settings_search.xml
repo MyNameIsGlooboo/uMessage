@@ -26,7 +26,7 @@
     <string name="sks_notifications">Benachrichtigung Benachrichtigungen Hinweis Ton Klingelton Vibration vibrieren Signalton lautlos stummschalten</string>
     <string name="sks_android_notifications">Android System Kanal Ton Klingelton Vibration Wichtigkeit Pop-up</string>
     <string name="sks_code_alert">Code Einmalcode Bestätigung Kanal Ton Pop-up Hinweis</string>
-    <string name="sks_block_alert">blockiert Nachricht Hinweis benachrichtigen Spam Benachrichtigung</string>
+    <string name="sks_block_alert">blockiert Nachricht Hinweis benachrichtigen Spam Benachrichtigung unbekannte Absender</string>
     <string name="sks_digest">wöchentlich Zusammenfassung Bericht Übersicht Woche</string>
     <string name="sks_wake">aktivieren Bildschirm einschalten Licht Display</string>
     <string name="sks_bubbles">Bubbles schwebend Chatblasen Pop-up</string>

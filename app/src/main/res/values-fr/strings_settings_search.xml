@@ -26,7 +26,7 @@
     <string name="sks_notifications">notification notifications alerte son sonnerie vibration vibrer tonalité silencieux muet</string>
     <string name="sks_android_notifications">Android système canal son sonnerie vibration importance fenêtre contextuelle</string>
     <string name="sks_code_alert">code code à usage unique validation canal son fenêtre contextuelle alerte</string>
-    <string name="sks_block_alert">bloqué message alerte avertir spam notification</string>
+    <string name="sks_block_alert">bloqué message alerte avertir spam notification expéditeurs inconnus</string>
     <string name="sks_digest">hebdomadaire résumé rapport récapitulatif semaine</string>
     <string name="sks_wake">réveiller écran allumer lumière affichage</string>
     <string name="sks_bubbles">bulles flottantes conversation fenêtres contextuelles</string>

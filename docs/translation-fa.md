@@ -87,7 +87,7 @@ Names stay as they are: uMessage, Google Drive, SMS/MMS, GPL, Material You.
 - Keep placeholders (`%1$s`, `%d`, `%%`), HTML tags, `\n` and `\'` exactly as in English. The unit test
   checks that every Persian string has the same placeholders as the English one.
 - Digits: counts, times and sizes show Persian digits (۰-۹). `%d` placeholders get them from the app's
-  locale; a number written into a Persian string ("پس از ۳۰ ثانیه") uses Persian digits too; code that
+  locale; a number written into a Persian string ("بعد از ۳۰ ثانیه") uses Persian digits too; code that
   builds a number label uses `localizedNumber` / `localizeDigits` (ui/components/LocalizedNumbers.kt),
   never `toString()`. A phone number or number-only sender shown on screen (list, Archive, search,
   thread header, Details) goes through `displayNumber` (ui/components/PhoneNumberDisplay.kt), which

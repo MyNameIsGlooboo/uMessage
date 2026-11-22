@@ -26,7 +26,7 @@
     <string name="sks_notifications">notificação notificações alerta som toque vibração vibre tom silencioso silencie</string>
     <string name="sks_android_notifications">Android sistema canal som toque vibração importância janela</string>
     <string name="sks_code_alert">código OTP verificação canal som janela alerta</string>
-    <string name="sks_block_alert">bloqueado mensagem alerta notifique spam notificação</string>
+    <string name="sks_block_alert">bloqueado mensagem alerta notifique spam notificação remetentes desconhecidos</string>
     <string name="sks_digest">semanal resumo relatório compilação semana</string>
     <string name="sks_wake">ative tela ligue acenda visor</string>
     <string name="sks_bubbles">bolhas flutuantes conversa janela</string>

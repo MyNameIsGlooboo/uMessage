@@ -26,7 +26,7 @@
     <string name="sks_notifications">การแจ้งเตือน การแจ้งเตือน เตือน เสียง เสียงเรียกเข้า การสั่น สั่น เสียงเตือน เงียบ ปิดเสียง</string>
     <string name="sks_android_notifications">Android ระบบ ช่อง เสียง เสียงเรียกเข้า การสั่น ความสำคัญ ป๊อปอัป</string>
     <string name="sks_code_alert">รหัส OTP การยืนยัน ช่อง เสียง ป๊อปอัป เตือน</string>
-    <string name="sks_block_alert">บล็อกแล้ว ข้อความ เตือน แจ้งเตือน สแปม การแจ้งเตือน</string>
+    <string name="sks_block_alert">บล็อกแล้ว ข้อความ เตือน แจ้งเตือน สแปม การแจ้งเตือน ผู้ส่งที่ไม่รู้จัก</string>
     <string name="sks_digest">รายสัปดาห์ สรุป รายงาน สรุปย่อ สัปดาห์</string>
     <string name="sks_wake">ปลุก หน้าจอ เปิด สว่าง จอแสดงผล</string>
     <string name="sks_bubbles">บับเบิล ลอย หัวแชท ป๊อปอัป</string>

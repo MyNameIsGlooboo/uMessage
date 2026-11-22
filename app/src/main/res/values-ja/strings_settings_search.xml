@@ -26,7 +26,7 @@
     <string name="sks_notifications">通知 お知らせ アラート 音 着信音 バイブレーション 振動 通知音 サイレント ミュート</string>
     <string name="sks_android_notifications">Android システム チャンネル 音 着信音 バイブレーション 重要度 ポップアップ</string>
     <string name="sks_code_alert">認証コード OTP 認証 チャンネル 音 ポップアップ アラート</string>
-    <string name="sks_block_alert">ブロック済み メッセージ アラート 通知する 迷惑メッセージ 通知</string>
+    <string name="sks_block_alert">ブロック済み メッセージ アラート 通知する 迷惑メッセージ 通知 不明な送信者</string>
     <string name="sks_digest">毎週 まとめ レポート ダイジェスト 週</string>
     <string name="sks_wake">スリープ解除 画面 点灯 明るさ ディスプレイ</string>
     <string name="sks_bubbles">バブル フローティング チャットヘッド ポップアップ</string>

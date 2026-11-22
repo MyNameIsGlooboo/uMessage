@@ -26,7 +26,7 @@
     <string name="sks_notifications">powiadomienie powiadomienia alert dźwięk dzwonek wibracje wibruj ton cichy wycisz</string>
     <string name="sks_android_notifications">Android system kanał dźwięk dzwonek wibracje ważność wyskakujące</string>
     <string name="sks_code_alert">kod OTP weryfikacyjny kanał dźwięk wyskakujące alert</string>
-    <string name="sks_block_alert">zablokowane wiadomość alert powiadom spam powiadomienie</string>
+    <string name="sks_block_alert">zablokowane wiadomość alert powiadom spam powiadomienie nieznani nadawcy</string>
     <string name="sks_digest">tygodniowe podsumowanie raport zestawienie tydzień</string>
     <string name="sks_wake">wybudź ekran włącz podświetlenie wyświetlacz</string>
     <string name="sks_bubbles">dymki pływające rozmowa okienka wyskakujące</string>

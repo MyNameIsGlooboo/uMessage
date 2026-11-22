@@ -26,7 +26,7 @@
     <string name="sks_notifications">通知 提醒 音效 鈴聲 震動 提示音 靜音</string>
     <string name="sks_android_notifications">Android 系統 通知類別 音效 鈴聲 震動 重要性 彈出</string>
     <string name="sks_code_alert">驗證碼 OTP 驗證 通知類別 音效 彈出 提醒</string>
-    <string name="sks_block_alert">已封鎖 訊息 提醒 通知 垃圾簡訊</string>
+    <string name="sks_block_alert">已封鎖 訊息 提醒 通知 垃圾簡訊 未知寄件者</string>
     <string name="sks_digest">每週 摘要 報告 週報 一週</string>
     <string name="sks_wake">喚醒 螢幕 開啟 亮起 顯示</string>
     <string name="sks_bubbles">對話框 浮動 聊天泡泡 彈出</string>

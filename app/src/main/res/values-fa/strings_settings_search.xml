@@ -28,7 +28,7 @@
     <string name="sks_notifications">اعلان اعلان‌ها هشدار صدا زنگ لرزش ویبره بی‌صدا سکوت</string>
     <string name="sks_android_notifications">اندروید سیستم کانال صدا زنگ لرزش اهمیت پنجره</string>
     <string name="sks_code_alert">کد رمز یک‌بارمصرف تأیید کانال صدا هشدار</string>
-    <string name="sks_block_alert">پیام بلاک هشدار اعلان اسپم مسدود هرزنامه</string>
+    <string name="sks_block_alert">پیام بلاک هشدار اعلان اسپم مسدود هرزنامه فرستنده‌های ناشناس</string>
     <string name="sks_digest">خلاصه هفتگی گزارش هفته</string>
     <string name="sks_wake">روشن شدن صفحه بیدار نمایشگر</string>
     <string name="sks_bubbles">حباب شناور چت پنجره</string>

@@ -26,7 +26,7 @@
     <string name="sks_notifications">сповіщення сповіщення сигнал звук мелодія вібрація вібрувати тон беззвучно вимкнути звук</string>
     <string name="sks_android_notifications">Android система канал звук мелодія вібрація важливість спливні</string>
     <string name="sks_code_alert">код одноразовий код підтвердження канал звук спливні сповіщення</string>
-    <string name="sks_block_alert">заблоковано повідомлення сигнал сповістити спам сповіщення</string>
+    <string name="sks_block_alert">заблоковано повідомлення сигнал сповістити спам сповіщення невідомі відправники</string>
     <string name="sks_digest">щотижневий підсумок звіт огляд тиждень</string>
     <string name="sks_wake">пробудити екран увімкнути підсвічування дисплей</string>
     <string name="sks_bubbles">бульбашки плаваючі чати значки спливні</string>

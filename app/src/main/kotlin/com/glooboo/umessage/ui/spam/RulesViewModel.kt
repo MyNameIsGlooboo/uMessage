@@ -3,6 +3,7 @@ package com.glooboo.umessage.ui.spam
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -134,6 +135,8 @@ class RulesViewModel(
     private val previewSource: RulePreviewSource = NoRulePreviewSource,
     private val orderStore: RulesOrderStore = MemoryRulesOrderStore(),
     moveCounter: () -> ChatMoveCounter = { ChatMoveCounting.counter },
+    /** The tab shown first, from [RulesActivity.EXTRA_TAB] (D-6). */
+    initialTab: ListKind = ListKind.ALLOW,
 ) : AndroidViewModel(application) {
 
     private data class View(
@@ -150,7 +153,7 @@ class RulesViewModel(
         val migration: MigrationDialog? = null,
     )
 
-    private val view = MutableStateFlow(View(order = orderStore.load()))
+    private val view = MutableStateFlow(View(tab = initialTab, order = orderStore.load()))
     private val form = MutableStateFlow<RuleForm?>(null)
     private val extras = MutableStateFlow(Extras())
     private val events = Channel<RulesEvent>(Channel.BUFFERED)
@@ -611,6 +614,8 @@ class RulesViewModel(
                     app, SpamRepositoryProvider.get(app), AndroidLegacyBlockStore(app),
                     previewSource = AndroidRulePreviewSource(app),
                     orderStore = AndroidRulesOrderStore(app),
+                    initialTab = RulesActivity.tabOf(createSavedStateHandle().get<String>(RulesActivity.EXTRA_TAB))
+                        ?: ListKind.ALLOW,
                 )
             }
         }
