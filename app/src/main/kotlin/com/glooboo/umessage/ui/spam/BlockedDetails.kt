@@ -6,6 +6,7 @@ import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
+import com.glooboo.umessage.ui.components.ruleValueText
 import kotlin.math.ceil
 
 /** Longest rule text shown in a reason chip; longer patterns are cut with an ellipsis. */
@@ -31,7 +32,8 @@ fun ruleReasonText(resources: Resources, message: BlockedMessage, rules: Map<Lon
         RuleType.SENDER_ID -> R.string.spam_reason_rule_sender
         RuleType.DOMAIN -> R.string.spam_reason_rule_domain
     }
-    return resources.getString(res, text)
+    // P-2: a prefix is isolated whole however short, a number by its digit runs.
+    return resources.getString(res, ruleValueText(rule.type, text))
 }
 
 /**

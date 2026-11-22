@@ -24,6 +24,7 @@ class ForwardLogTextTest {
         ForwardRule(id = 1, senderType = RuleType.NUMBER, senderPattern = "07121234567", targets = listOf("5554999"), note = "Bank alerts"),
         ForwardRule(id = 2, senderType = null, bodyType = RuleType.KEYWORD, bodyPattern = "deposit", targets = listOf("5554999")),
         ForwardRule(id = 3, senderType = RuleType.SENDER_ID, senderPattern = "HDFCBK", targets = listOf("5554999")),
+        ForwardRule(id = 4, senderType = RuleType.PREFIX, senderPattern = "+1", targets = listOf("5554999")),
     )
 
     @Test
@@ -61,6 +62,8 @@ class ForwardLogTextTest {
         assertThat(ForwardLogText.ruleLabel(res, "#2 CODE_EXCLUDED", rules)).isEqualTo("Rule: Text: deposit")
         assertThat(ForwardLogText.ruleLabel(res, "#3 LOOP_FORWARD", rules)).isEqualTo("Rule: From: HDFCBK")
         assertThat(ForwardLogText.ruleLabel(res, "#9 SENT", rules)).isEqualTo("Rule: a deleted rule")
+        // P-4: a prefix sender is isolated whole, however short.
+        assertThat(ForwardLogText.ruleLabel(res, "#4 SENT", rules)).isEqualTo("Rule: From: ⁦+1⁩")
         assertThat(ForwardLogText.ruleLabel(res, "→ 5554999 RADIO_FAILED", rules)).isNull()
     }
 

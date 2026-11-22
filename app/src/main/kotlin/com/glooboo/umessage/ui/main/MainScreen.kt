@@ -80,8 +80,11 @@ enum class MainTab(val labelRes: Int, val icon: ImageVector) {
 class MainNavigation(
     val onSettings: () -> Unit = {},
     val onSpamRules: () -> Unit = {},
-    /** "View rule" of a refused Unblock on the Spam tab: the rules screen on its block list (D-6). */
-    val onSpamBlockRules: () -> Unit = onSpamRules,
+    /**
+     * "View rule" of a refused Unblock on the Spam tab: the rules screen on its block list (D-6). N-4: no default, so
+     * a caller cannot silently open the Allow tab instead.
+     */
+    val onSpamBlockRules: () -> Unit,
     /** "Manage rules" in the Forwarded tab: the rules screen on its Forward tab. */
     val onManageForwardRules: () -> Unit = onSpamRules,
     val onSpamSettings: () -> Unit = {},

@@ -96,6 +96,7 @@ import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.rememberReduceMotion
 import com.glooboo.umessage.ui.components.displayNumber
+import com.glooboo.umessage.ui.components.isolateLtr
 import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.theme.UMessageTheme
@@ -259,7 +260,7 @@ private suspend fun showBlockedNumbersEvent(
 }
 
 /** The line of an event that has no Undo. */
-private fun blockedNumbersEventText(resources: android.content.res.Resources, event: BlockedNumbersEvent): String =
+internal fun blockedNumbersEventText(resources: android.content.res.Resources, event: BlockedNumbersEvent): String =
     when (event) {
         is BlockedNumbersEvent.Imported -> {
             val added = resources.getQuantityString(R.plurals.blocknum_imported, event.count, event.count)
@@ -279,7 +280,9 @@ private fun blockedNumbersEventText(resources: android.content.res.Resources, ev
             resources.getQuantityString(R.plurals.blocknum_exported, event.count, event.count)
         BlockedNumbersEvent.ExportEmpty -> resources.getString(R.string.blocknum_export_empty)
         BlockedNumbersEvent.ExportFailed -> resources.getString(R.string.blocknum_export_failed)
-        is BlockedNumbersEvent.AddedAsRule -> resources.getString(R.string.e_bn_added_as_rule, event.number)
+        // P-5: the rule's value is a number or a prefix, read left to right as a whole in any language.
+        is BlockedNumbersEvent.AddedAsRule ->
+            resources.getString(R.string.e_bn_added_as_rule, isolateLtr(event.number))
         // Shown with Undo by showBlockedNumbersEvent.
         BlockedNumbersEvent.Failed, is BlockedNumbersEvent.MovedToRules, is BlockedNumbersEvent.Unblocked ->
             resources.getString(R.string.blocknum_failed)

@@ -3,6 +3,7 @@ package com.glooboo.umessage.ui.log
 import android.content.res.Resources
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.ForwardRule
+import com.glooboo.umessage.ui.components.ruleValueText
 
 /**
  * Readable text for the forward entries of the decision log. The log keeps the compact codes ForwardDelivery writes
@@ -67,7 +68,9 @@ object ForwardLogText {
         val name = when {
             rule == null -> resources.getString(R.string.declog_fwd_rule_deleted)
             rule.note.isNotBlank() -> rule.note
-            rule.senderType != null -> resources.getString(R.string.forward_row_from, rule.senderPattern)
+            // P-4: a prefix sender is isolated whole, a number by its digit runs.
+            rule.senderType != null ->
+                resources.getString(R.string.forward_row_from, ruleValueText(rule.senderType, rule.senderPattern))
             else -> resources.getString(R.string.forward_row_text, rule.bodyPattern)
         }
         return resources.getString(R.string.declog_fwd_rule, name)

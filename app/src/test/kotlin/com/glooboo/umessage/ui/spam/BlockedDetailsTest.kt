@@ -3,6 +3,7 @@ package com.glooboo.umessage.ui.spam
 import android.content.res.Resources
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ListKind
@@ -30,8 +31,28 @@ class BlockedDetailsTest {
     @Test
     fun ruleBlockNamesTheRule() {
         assertThat(ruleReasonText(resources, message(DecisionReason.BLOCK_RULE, 7), rules)).isEqualTo("Rule: keyword \"free\"")
-        assertThat(ruleReasonText(resources, message(DecisionReason.BLOCK_RULE, 8), rules)).isEqualTo("Rule: numbers starting +91140")
+        // P-2: the prefix is isolated whole, so it keeps its + in front in a right-to-left line.
+        assertThat(ruleReasonText(resources, message(DecisionReason.BLOCK_RULE, 8), rules))
+            .isEqualTo("Rule: numbers starting ⁦+91140⁩")
         assertThat(ruleReasonText(resources, message(DecisionReason.BLOCK_RULE, 9), rules)).isEqualTo("Rule: sender AX-PROMOS")
+    }
+
+    @Test
+    fun shortPrefixAndNumberRulesAreIsolated() {
+        val more = mapOf(
+            11L to SpamRule(11, ListKind.BLOCK, RuleType.PREFIX, "+1"),
+            12L to SpamRule(12, ListKind.BLOCK, RuleType.NUMBER, "+15550001234"),
+        )
+        assertThat(ruleReasonText(resources, message(DecisionReason.BLOCK_RULE, 11), more)).endsWith("⁦+1⁩")
+        assertThat(ruleReasonText(resources, message(DecisionReason.BLOCK_RULE, 12), more))
+            .endsWith("⁦+15550001234⁩")
+    }
+
+    @Test
+    fun theAddedAsRuleMessageIsolatesTheValue() {
+        // P-5: a number or a prefix (an entry that ended in *), read left to right in any language.
+        val text = blockedNumbersEventText(resources, BlockedNumbersEvent.AddedAsRule("+1555"))
+        assertThat(text).isEqualTo(resources.getString(R.string.e_bn_added_as_rule, "⁦+1555⁩"))
     }
 
     @Test
