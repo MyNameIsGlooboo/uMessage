@@ -2,6 +2,7 @@ package com.glooboo.umessage.backup
 
 import android.content.Context
 import androidx.core.content.edit
+import com.glooboo.umessage.helpers.ConversationListSync
 import com.glooboo.umessage.helpers.StarredMessages
 import com.glooboo.umessage.helpers.toSecondsInt
 import com.glooboo.umessage.interfaces.MessagesDao
@@ -61,6 +62,8 @@ class PendingRecycled(context: Context) {
         val all = stored().toMutableMap()
         items.forEach { all.putIfAbsent(json.encodeToString(RecycledBackup.serializer(), it), nowMillis) }
         write(all.entries.sortedByDescending { it.value }.take(MAX_ITEMS).associate { it.key to it.value })
+        // J2: the full pass that applies this is not held while the main list is out of sight.
+        if (items.isNotEmpty()) ConversationListSync.markUrgent()
     }
 
     /** Puts the waiting messages that are cached now in the bin; returns how many it moved. */

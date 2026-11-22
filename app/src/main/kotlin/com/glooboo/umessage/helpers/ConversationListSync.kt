@@ -5,7 +5,6 @@ import android.os.Process
 import android.os.SystemClock
 import android.provider.Telephony.Threads
 import android.util.Log
-import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
 import com.glooboo.umessage.BuildConfig
 import com.glooboo.umessage.backup.PendingArchive
@@ -24,6 +23,9 @@ import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.NewChatSorting
 import com.glooboo.umessage.spam.SpamSorting
 import java.util.concurrent.Executor
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Keeps the saved conversation list in step with the phone's message store and hands every new list to [publish].
@@ -36,9 +38,12 @@ import java.util.concurrent.Executor
  * already, so this is a read of the saved list; the phone's store is read for that one thread only when the row is
  * missing. Only [requestFull] reads every thread.
  *
- * J2 (list speed): in each job the steps that read the saved rows only (cached list, single chats, bump, republish)
- * run before the full pass. While a job runs, a republish or a single chat is also shown at once from a second
- * thread, and every publish reads the rows inside one lock, so the MC-03 order still holds.
+ * J2 (list speed): in each job the steps that read the saved rows only (cached list, single chats, republish, bump)
+ * run before the full pass, and the bump runs once more after it. While a job runs, a republish or a single chat is
+ * also shown at once from one second thread ([quickExecutor]); every publish reads the rows inside one lock, so the
+ * MC-03 order still holds. Such a publish can land in the middle of a full pass (a placeholder chat just replaced, rows
+ * written one by one); the pass's own last publish is right again. Until the first full pass has published, every list
+ * is handed on as cached, so a first run keeps showing "importing" instead of an empty list.
  */
 class ConversationListSync(
     private val context: Context,
@@ -57,11 +62,11 @@ class ConversationListSync(
     },
 ) {
     /**
-     * J2: where the saved rows are shown while a job holds [executor] (a full pass can take seconds). Not a constructor
-     * parameter: callers pass [importMessages] as a trailing lambda. Tests swap it for one they can wait for.
+     * J2: the one thread where the saved rows are shown while a job holds [executor] (a full pass can take seconds).
+     * The view model sets its own and shuts it down with [executor]. Not a constructor parameter: callers pass
+     * [importMessages] as a trailing lambda.
      */
-    @VisibleForTesting
-    internal var quickExecutor: Executor = Executor { Thread(it, "conversation-list-quick").start() }
+    internal var quickExecutor: Executor = sharedQuickLane
 
     private val lock = Any()
     private var running = false
@@ -80,15 +85,25 @@ class ConversationListSync(
     /** J2: every publish reads the saved rows inside this lock, so a list is never handed on after a newer one. */
     private val publishLock = Any()
 
+    /** J2: grows when a publish starts reading the saved rows (inside [publishLock]). */
     @Volatile
-    private var publishCount = 0
+    private var readsStarted = 0
 
-    /** J2: when the list was opened or came back, for the timing lines ([ListTiming]). */
+    /** J2-3: the first full pass has published; before that every list is handed on as cached. */
     @Volatile
-    private var markAt = SystemClock.uptimeMillis()
+    private var firstFullPublished = false
+
+    /** For tests: how often a full pass was asked for, held or not. */
+    private val fullRequests = AtomicInteger()
 
     /** Threads refreshed before the full pass; a bit more than a screenful. */
     private val firstPassSize = 50
+
+    /** For tests of the screen's wiring: the list counts as out of sight. */
+    internal val isAway: Boolean get() = synchronized(lock) { away }
+
+    /** For tests of the screen's wiring: full passes asked for so far. */
+    internal val fullRequestCount: Int get() = fullRequests.get()
 
     /**
      * Shows the saved list, then reads every thread once. Later calls do nothing: the list a rotated or recreated
@@ -101,25 +116,28 @@ class ConversationListSync(
             cachedPending = true
             fullPending = true
         }
-        markAt = SystemClock.uptimeMillis()
+        ListTiming.mark()
         ListTiming.line(context) { "start; process up ${ListTiming.sinceProcessStart()} ms" }
         schedule()
     }
 
     /**
      * Something may have changed anywhere: deleted chats, settings, a restore. Reads every thread; while the list is
-     * away (J2), once when it is shown again.
+     * away (J2), once when it is shown again, unless [refreshNow] asked for it.
      */
     fun requestFull() {
+        fullRequests.incrementAndGet()
+        val urgent = urgentFulls.getAndSet(0) > 0
         val held = synchronized(lock) {
-            if (away) fullHeld = true else fullPending = true
-            away
+            val hold = away && !urgent
+            if (hold) fullHeld = true else fullPending = true
+            hold
         }
-        ListTiming.line(context) { "full pass asked; held=$held" }
+        ListTiming.line(context) { "full pass asked; held=$held urgent=$urgent" }
         if (!held) schedule()
     }
 
-    /** One chat changed (a message arrived, was sent or was read). Never a full pass. */
+    /** One chat changed (a message arrived, was sent or was read). Never a full pass, never held. */
     fun requestThread(threadId: Long) {
         synchronized(lock) { threadsPending += threadId }
         publishQuickIfBusy()
@@ -149,7 +167,7 @@ class ConversationListSync(
      * ([requestRepublish]), the bump ([requestBump]) and last a full pass held while the list was away.
      */
     fun requestReturn() {
-        markAt = SystemClock.uptimeMillis()
+        ListTiming.mark()
         val held = synchronized(lock) {
             republishPending = true
             bumpPending = true
@@ -160,9 +178,20 @@ class ConversationListSync(
         schedule()
     }
 
-    /** J2: a new screen shows the list (a rotation while it was away); a full pass held meanwhile runs now. */
+    /**
+     * J2: a new screen shows the list (a rotation while it was away). A full pass held meanwhile runs now, after the
+     * saved rows and the bump (J2-6); before [start] nothing is published.
+     */
     fun requestShown() {
-        if (synchronized(lock) { releaseHeld() }) schedule()
+        val held = synchronized(lock) {
+            releaseHeld().also {
+                if (it && started) {
+                    republishPending = true
+                    bumpPending = true
+                }
+            }
+        }
+        if (held) schedule()
     }
 
     /** Under [lock]: the list is in sight; true when a held full pass is now pending. */
@@ -188,8 +217,9 @@ class ConversationListSync(
     }
 
     /**
-     * J2: while a job runs, the saved rows are shown at once from [quickExecutor] instead of after it. Reads the saved
-     * rows only and writes nothing, so it cannot undo what the job writes; [publishLock] keeps the order.
+     * J2: while a job runs, the saved rows are shown at once on [quickExecutor] instead of after it. At most one such
+     * publish waits while one runs. Reads the saved rows only and writes nothing, so it cannot undo what the job
+     * writes; [publishLock] keeps the order.
      */
     private fun publishQuickIfBusy() {
         synchronized(lock) {
@@ -201,7 +231,8 @@ class ConversationListSync(
                 synchronized(lock) { quickPending = false }
                 step { publishSaved("quick") }
             }
-        } catch (e: Exception) {
+        } catch (_: Throwable) {
+            // A shut-down lane (the screen is gone) or no thread to be had: the job publishes these rows anyway.
             synchronized(lock) { quickPending = false }
         }
     }
@@ -250,10 +281,12 @@ class ConversationListSync(
 
     /**
      * J2: the cheap steps first, all from the saved rows, so the list shows at once; the full read of the phone's store
-     * comes last. With a full pass in the same round, a chat without a saved row is left to it (no store read twice).
+     * comes last, and a bump after it (J2-1: the pass writes the store's date over a bumped row). With a full pass in
+     * the same round, a chat without a saved row is left to it (no store read twice). A republish is left out only
+     * when a publish of this round started reading after the round was taken.
      */
     private fun runRound(round: Round) {
-        val before = publishCount
+        val before = readsStarted
         var shown: List<Conversation>? = null
         if (round.cached) step { shown = showCached() }
         step {
@@ -262,10 +295,13 @@ class ConversationListSync(
                 publishSaved("thread")
             }
         }
+        step { if (round.republish && readsStarted == before) publishSaved("republish") }
         step { if (round.bump) bump() }
-        step { if (round.republish && publishCount == before) publishSaved("republish") }
         step { shown?.let(::clearExpiredScheduled) }
-        step { if (round.full) timedFullPass() }
+        if (round.full) {
+            step { timedFullPass() }
+            step { bump() }
+        }
     }
 
     private fun nothingPending() =
@@ -299,10 +335,10 @@ class ConversationListSync(
     /** Reads and hands on one list inside [publishLock]; [kind] only names the step in the timing line. */
     private inline fun publishRows(kind: String, cached: Boolean, read: () -> ArrayList<Conversation>) =
         synchronized(publishLock) {
+            readsStarted++
             val rows = read()
-            publish(rows, cached)
-            publishCount++
-            ListTiming.line(context) { "publish $kind: ${rows.size} rows, ${SystemClock.uptimeMillis() - markAt} ms" }
+            publish(rows, cached || !firstFullPublished)
+            ListTiming.line(context) { "publish $kind: ${rows.size} rows, ${ListTiming.sinceMark()} ms" }
             rows
         }
 
@@ -319,7 +355,15 @@ class ConversationListSync(
         val byThread = runCatching { context.messagesDB.getAllScheduledMessages() }.getOrNull()
             ?.groupBy { it.threadId } ?: return
         conversations.filter { it.isScheduled || it.threadId in byThread }.forEach {
-            runCatching { context.clearExpiredScheduledMessages(it.threadId, byThread[it.threadId].orEmpty()) }
+            // J2-9: a placeholder chat with nothing in the snapshot reads its own messages again before it goes.
+            val messages = byThread[it.threadId]
+            runCatching {
+                if (messages == null) {
+                    context.clearExpiredScheduledMessages(it.threadId)
+                } else {
+                    context.clearExpiredScheduledMessages(it.threadId, messages)
+                }
+            }
         }
     }
 
@@ -384,6 +428,7 @@ class ConversationListSync(
         // cached list. Keep the cache as it is and try again on the next refresh.
         val conversations = context.getConversationsOrNull(privateContacts = privateContacts, lookups = lookups)
         if (conversations == null) {
+            firstFullPublished = true
             publishSaved("unread store")
             return
         }
@@ -435,6 +480,7 @@ class ConversationListSync(
         // Messages a restore put back in the recycle bin once their cached copies exist (see PendingRecycled).
         runCatching { PendingRecycled(context).applyTo(context.messagesDB) }
 
+        firstFullPublished = true
         publishSaved("full")
 
         // DL-10 / MC-16: every message of every thread goes into the cache search reads, resuming where an earlier
@@ -529,11 +575,38 @@ class ConversationListSync(
         if (changed) publishSaved("bump")
     }
 
-    private companion object {
-        const val TAG = "ConversationListSync"
+    companion object {
+        private const val TAG = "ConversationListSync"
 
         /** B2-1: fewer vanished chats than this in one pass are always trusted (a few chats deleted elsewhere). */
-        const val MASS_VANISH_MIN = 20
+        private const val MASS_VANISH_MIN = 20
+
+        /** J2: the quick lane of a sync whose owner sets none (tests): one thread for the whole process. */
+        internal val sharedQuickLane: ExecutorService by lazy {
+            Executors.newSingleThreadExecutor { Thread(it, "conversation-list-quick-shared").apply { isDaemon = true } }
+        }
+
+        /** J2: full passes asked for by [refreshNow] or [markUrgent] that are not held while the list is away. */
+        private val urgentFulls = AtomicInteger()
+
+        /**
+         * J2: a full refresh that runs at once even while the list is out of sight: a restore from the recycle bin,
+         * an import, the app-data restore. Same event as [refreshConversations].
+         */
+        fun refreshNow() {
+            markUrgent()
+            refreshConversations()
+        }
+
+        /** J2: the next full pass asked for is not held while the list is away (it applies a restore). */
+        fun markUrgent() {
+            urgentFulls.incrementAndGet()
+        }
+
+        /** Tests: forgets urgent requests another test left behind (the counter is process-wide). */
+        internal fun clearUrgent() {
+            urgentFulls.set(0)
+        }
     }
 }
 
@@ -549,6 +622,28 @@ internal object ListTiming {
 
     @Volatile
     private var enabled: Boolean? = null
+
+    /** When the list was opened or came back. */
+    @Volatile
+    private var markAt = SystemClock.uptimeMillis()
+
+    @Volatile
+    private var builtSinceMark = false
+
+    /** The list was opened or came back: the clock of the lines below starts again. */
+    fun mark() {
+        markAt = SystemClock.uptimeMillis()
+        builtSinceMark = false
+    }
+
+    fun sinceMark(): Long = SystemClock.uptimeMillis() - markAt
+
+    /** J2-12: one line for the first rows built after each [mark], so the warm number covers the row build too. */
+    fun rowsBuilt(context: Context, rows: Int) {
+        if (builtSinceMark || rows == 0) return
+        builtSinceMark = true
+        line(context) { "rows built: $rows rows, ${sinceMark()} ms" }
+    }
 
     fun line(context: Context, text: () -> String) {
         val on = enabled ?: (BuildConfig.DEBUG || context.packageName.endsWith(DEBUG_SUFFIX)).also { enabled = it }

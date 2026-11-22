@@ -106,16 +106,28 @@ internal class DraftsAndSims(
     /** MC-18: the thread SIMs are read only with two SIMs, and then only messages newer than the last read. */
     private fun refreshSims() = loadSims(reloadSims = true)
 
+    /** The running SIM load, and whether it reloads the SIM list; main thread only. */
+    private var simsJob: Job? = null
+    private var simsJobReloads = false
+
+    /**
+     * One load at a time: a new one cancels the running one, so an older result never lands after a newer one. A
+     * cancelled SIM list reload is taken over by the new load. Only a reload writes [sims] (J2-8).
+     */
     private fun loadSims(reloadSims: Boolean) {
+        val reload = reloadSims || (simsJobReloads && simsJob?.isActive == true)
+        simsJob?.cancel()
+        simsJobReloads = reload
         val known = sims
-        scope.launch {
+        simsJob = scope.launch {
             val (freshSims, freshThreadSims) = withContext(Dispatchers.IO) {
-                val loaded = if (reloadSims) runCatching { SimDirectory.load(app) }.getOrDefault(emptyList()) else known
-                val live: () -> Set<Long>? = { if (reloadSims) runCatching { liveChatIds(app) }.getOrNull() else null }
+                val loaded = if (reload) runCatching { SimDirectory.load(app) }.getOrDefault(emptyList()) else known
+                val live: () -> Set<Long>? = { if (reload) runCatching { liveChatIds(app) }.getOrNull() else null }
                 loaded to runCatching { ThreadSimCache.get(app).load(app, loaded.size, live) }.getOrDefault(emptyMap())
             }
-            if (freshSims != sims || freshThreadSims != threadSims) {
-                sims = freshSims
+            val simsChanged = reload && freshSims != sims
+            if (simsChanged || freshThreadSims != threadSims) {
+                if (reload) sims = freshSims
                 threadSims = freshThreadSims
                 onChange()
             }

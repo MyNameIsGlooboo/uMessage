@@ -143,6 +143,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     /** J2: one timing line when the list first has rows to draw (counts and milliseconds only). */
     private fun logFirstRows() {
         val rows = _state.value.rows.size
+        ListTiming.rowsBuilt(app, rows)
         if (firstRowsLogged || rows == 0) return
         firstRowsLogged = true
         ListTiming.line(app) { "first rows ready: $rows rows, process up ${ListTiming.sinceProcessStart()} ms" }
@@ -227,12 +228,15 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     private val syncExecutor = Executors.newSingleThreadExecutor()
 
+    /** J2-2: the sync's one quick lane, shut down with [syncExecutor]. */
+    private val quickExecutor = Executors.newSingleThreadExecutor { Thread(it, "conversation-list-quick") }
+
     /** Lives as long as this view model, so a rotated screen keeps it and does not read every thread again. */
     private val sync = ConversationListSync(app, syncExecutor, publish = { conversations, cached ->
         viewModelScope.launch(Dispatchers.Main) {
             submit(conversations, cached, firstRun = app.config.appRunCount == 1)
         }
-    })
+    }).also { it.quickExecutor = quickExecutor }
 
     /** Refresh events from the rest of the app, heard from [startSync] until the view model is cleared. */
     private val refreshEvents = ConversationRefreshEvents(onRefresh = ::syncChanged)
@@ -264,6 +268,12 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     /** J2: the list went out of sight (another screen or app in front, not a rotation). */
     fun syncLeft() = sync.requestAway()
+
+    /** For tests of the screen's wiring: the list counts as out of sight. */
+    internal val syncIsAway: Boolean get() = sync.isAway
+
+    /** For tests of the screen's wiring: full passes asked for so far. */
+    internal val syncFullRequests: Int get() = sync.fullRequestCount
 
     // ---- Selection -------------------------------------------------------------------------------------
 
@@ -671,6 +681,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         stopObservingNotes()
         refreshEvents.unregister()
         syncExecutor.shutdown()
+        quickExecutor.shutdown()
         // Finish deletions whose undo window was still open; the scope is gone, so run them detached.
         val leftovers = pendingDeletes.values.flatten()
         pendingDeletes.clear()

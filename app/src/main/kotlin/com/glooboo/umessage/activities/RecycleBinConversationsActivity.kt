@@ -12,6 +12,7 @@ import com.glooboo.umessage.extensions.emptyRecycleBinAndTidyConversations
 import com.glooboo.umessage.extensions.getAllDrafts
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.restoreAllMessagesFromRecycleBinForConversation
+import com.glooboo.umessage.helpers.ConversationListSync
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.IS_RECYCLE_BIN
 import com.glooboo.umessage.helpers.ProviderTruthFlag
@@ -113,7 +114,8 @@ class RecycleBinConversationsActivity : ComposeSimpleActivity() {
     private fun restore(ids: Set<Long>) {
         ensureBackgroundThread {
             ids.forEach { restoreAllMessagesFromRecycleBinForConversation(it) }
-            refreshConversations()
+            // J2: the main list reads the restored chats at once, also while it is out of sight.
+            ConversationListSync.refreshNow()
         }
     }
 

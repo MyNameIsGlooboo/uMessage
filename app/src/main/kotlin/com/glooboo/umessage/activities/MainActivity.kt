@@ -61,7 +61,7 @@ class MainActivity : ComposeSimpleActivity() {
 
     private val MAKE_DEFAULT_APP_REQUEST = 1
 
-    private var resumedBefore = false
+    private var startedBefore = false
     private var reviewJob: Job? = null
 
     /** A tab another screen asked for (Settings rows), consumed by the main screen. */
@@ -99,16 +99,21 @@ class MainActivity : ComposeSimpleActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         // MC-19: chats with newer saved messages move up, from the saved list only (no thread is read in full).
-        // J2: on the first resume of a screen only the list counts as shown again (it may be new after a rotation).
-        if (resumedBefore) {
+        // J2-7: from onStart on the list is in sight (also behind a translucent screen), so held full passes run now.
+        // The first start of a screen only counts as shown again (it may be new after a rotation while away).
+        if (startedBefore) {
             conversationsViewModel.syncResumed()
         } else {
-            resumedBefore = true
+            startedBefore = true
             conversationsViewModel.syncShown()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
         recheckPermissionFlow()
 
         conversationsViewModel.refresh()
