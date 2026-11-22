@@ -28,11 +28,12 @@ import com.google.android.mms.pdu_alt.PduHeaders
  *
  * - An SMS is a duplicate when its conversation already has one with the same time, type and text. The conversation
  *   comes from the system's thread lookup, which treats "+1555..." and "0555..." as the same person. An SMS without a
- *   readable sender goes to the "Unknown" conversation, as the receiver and the Spam migration keep it (S17).
+ *   readable sender goes to the "Unknown" conversation, as the receiver and the Spam migration keep it (S17); it is
+ *   a duplicate too when the store has the same time, type and text without a readable sender in any conversation.
  * - An MMS goes into the conversation the system would have put it in: the sender plus every other recipient, so a
- *   group picture message stays in its group. It is the same message when the store already has one, in any
- *   conversation, with the same time, box, transaction id, text and the very same addresses (each of the same type);
- *   or when its conversation has one with the same time, box, transaction id and text. The first check does not need
+ *   group picture message stays in its group; a received one without a readable sender goes to "Unknown". It is
+ *   the same message when the store already has one, in any conversation, with the same time, box, transaction id,
+ *   text and the very same addresses (each of the same type); or when its conversation has one with the same time, box, transaction id and text. The first check does not need
  *   the conversation, which depends on this phone's own number, and many phones do not tell it. A message with
  *   nobody to compare (no usable sender) is only looked for in its conversation, and when two stored messages fit,
  *   the one with the same transaction id or in the same conversation is taken, else the message is written. Its
@@ -79,11 +80,10 @@ class MessagesWriter(
     private val numbers: NumberNormalizer by lazy { NumberNormalizer { defaultRegion(context) }.frozen() }
 
     fun writeSmsMessage(smsBackup: SmsBackup): WriteResult {
-        val sms = if (SenderAddress.isUnreadable(smsBackup.address)) {
-            smsBackup.copy(address = SenderAddress.UNKNOWN_PLACEHOLDER)
-        } else {
-            smsBackup
-        }
+        val unreadable = SenderAddress.isUnreadable(smsBackup.address)
+        val sms = if (unreadable) smsBackup.copy(address = SenderAddress.UNKNOWN_PLACEHOLDER) else smsBackup
+        // J15-10: a text without a sender may be stored under a blank address, in any conversation.
+        if (unreadable && storedWithoutSender(sms)) return WriteResult(WriteOutcome.DUPLICATE)
         val threadId = threadIdFor(setOf(sms.address))
             ?: return WriteResult(WriteOutcome.FAILED, REASON_NO_THREAD)
         val keys = smsKeys(threadId)
@@ -100,6 +100,20 @@ class MessagesWriter(
         keys += key
         modifiedThreadIds += threadId
         return WriteResult(WriteOutcome.ADDED)
+    }
+
+    /** The store has this text (time, type, text) with no readable sender (null, blank or "Unknown"), anywhere. */
+    private fun storedWithoutSender(sms: SmsBackup): Boolean {
+        val body = if (sms.body == null) "${Sms.BODY} IS NULL" else "${Sms.BODY} = ?"
+        val selection = "${Sms.DATE} = ? AND ${Sms.TYPE} = ? AND $body AND (${Sms.ADDRESS} IS NULL OR " +
+            "TRIM(${Sms.ADDRESS}, ?) = '' OR LOWER(TRIM(${Sms.ADDRESS}, ?)) = ?)"
+        val args = listOfNotNull(
+            sms.date.toString(), sms.type.toString(), sms.body, BLANKS, BLANKS,
+            SenderAddress.UNKNOWN_PLACEHOLDER.lowercase(),
+        ).toTypedArray()
+        return runCatching {
+            contentResolver.query(Sms.CONTENT_URI, arrayOf(Sms._ID), selection, args, null)?.use { it.moveToFirst() }
+        }.getOrNull() == true
     }
 
     private fun smsKeys(threadId: Long): MutableSet<SmsKey> = smsKeysByThread.getOrPut(threadId) {
@@ -122,7 +136,7 @@ class MessagesWriter(
     }
 
     private fun writeMms(backup: MmsBackup): WriteResult {
-        val recipients = mmsRecipients(backup)
+        val recipients = mmsRecipients(backup).ifEmpty { unknownSender(backup) }
         if (recipients.isEmpty()) return WriteResult(WriteOutcome.FAILED, REASON_NO_ADDRESS)
         // Already in the store, in whatever conversation: it gets no second copy and no new conversation.
         val stored = findStoredMms(backup, recipients)
@@ -231,6 +245,17 @@ class MessagesWriter(
             }
         }
         return recipients
+    }
+
+    /**
+     * S17: a received MMS without a readable sender, sent to this phone alone, goes to the "Unknown" chat as such an
+     * SMS does. One without any To address is not a message the phone received and stays refused.
+     */
+    private fun unknownSender(backup: MmsBackup): Set<String> {
+        val received = backup.messageBox == Mms.MESSAGE_BOX_INBOX
+        val noSender = backup.addresses.none { it.type == PduHeaders.FROM && usableAddress(it.address) }
+        val toThisPhone = backup.addresses.any { it.type == PduHeaders.TO }
+        return if (received && noSender && toThisPhone) setOf(SenderAddress.UNKNOWN_PLACEHOLDER) else emptySet()
     }
 
     private fun threadIdFor(recipients: Set<String>): Long? = threadIds[recipients] ?: try {
@@ -438,6 +463,9 @@ class MessagesWriter(
         private const val TAG = "uMessageRestore"
         private const val CACHED_THREADS = 32
         private const val MMS_NO_ADDRESS = "insert-address-token"
+
+        /** What TRIM removes from an address before it counts as blank. */
+        private const val BLANKS = " \t\r\n"
 
         // Reasons are stable keys; the summary screen turns them into text.
         const val REASON_NO_ADDRESS = "no_address"

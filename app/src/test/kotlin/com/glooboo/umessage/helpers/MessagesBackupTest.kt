@@ -1,7 +1,9 @@
 package com.glooboo.umessage.helpers
 
+import android.content.ContentValues
 import android.content.Context
 import android.provider.Telephony.Mms
+import android.provider.Telephony.Sms
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.models.ImportSummary
@@ -322,6 +324,54 @@ class MessagesBackupTest {
         assertThat(lines).hasSize(2)
         assertThat(lines.joinToString()).doesNotContain("look")
         assertThat(lines.joinToString()).doesNotContain("+1555")
+    }
+
+    @Test
+    fun anSmsWithoutASender_isAlreadyThereWhenStoredWithABlankSenderInAnyConversation() {
+        // J15-10: the store keeps such texts under null, blank or "Unknown", in whatever conversation.
+        val store = FakeMessageStore.install()
+        store.addSms("", "blank", date = 1_000, threadId = store.threadIdFor("+15550001234"))
+        store.addSms(" Unknown ", "placeholder", date = 2_000, threadId = store.threadIdFor("+15550001"))
+        context.contentResolver.insert(
+            Sms.CONTENT_URI,
+            ContentValues().apply {
+                putNull(Sms.ADDRESS); put(Sms.BODY, "null sender"); put(Sms.DATE, 3_000L); put(Sms.TYPE, 1)
+                put(Sms.THREAD_ID, store.threadIdFor("+15550002"))
+            },
+        )
+
+        val again = listOf(
+            sms(address = "", body = "blank", date = 1_000),
+            sms(address = "\t", body = "placeholder", date = 2_000),
+            sms(address = "unknown", body = "null sender", date = 3_000),
+        ).map { writer().writeSmsMessage(it).outcome }
+        val other = writer().writeSmsMessage(sms(address = "", body = "blank", date = 1_000, type = 2)).outcome
+
+        assertThat(again).containsExactly(WriteOutcome.DUPLICATE, WriteOutcome.DUPLICATE, WriteOutcome.DUPLICATE)
+        // Another type is another message.
+        assertThat(other).isEqualTo(WriteOutcome.ADDED)
+        assertThat(store.count("sms")).isEqualTo(4)
+    }
+
+    @Test
+    fun aReceivedMmsWithoutASender_goesToTheUnknownChatOnce() {
+        val store = FakeMessageStore.install()
+        val noSender = listOf(
+            MmsAddress("insert-address-token", PduHeaders.FROM, 106),
+            MmsAddress("+15550002", PduHeaders.TO, 106),
+        )
+
+        val first = writer().writeMmsMessage(mms(addresses = noSender))
+        val again = writer().writeMmsMessage(mms(addresses = noSender))
+        val withoutFrom = writer().writeMmsMessage(mms(text = "other", addresses = noSender.drop(1)))
+
+        assertThat(first.outcome).isEqualTo(WriteOutcome.ADDED)
+        assertThat(again.outcome).isEqualTo(WriteOutcome.DUPLICATE)
+        assertThat(withoutFrom.outcome).isEqualTo(WriteOutcome.ADDED)
+        assertThat(store.count("pdu")).isEqualTo(2)
+        store.rows("pdu").forEach {
+            assertThat(store.threadRecipients(it["thread_id"] as Long)).containsExactly("Unknown")
+        }
     }
 
     @Test
