@@ -156,6 +156,7 @@ fun OnboardingScreen(
     val filterSaveFailed by viewModel.filterSaveFailed.collectAsStateWithLifecycle()
     val notifyOn by viewModel.notifyOnBlock.collectAsStateWithLifecycle()
     val digestOn by viewModel.digestOn.collectAsStateWithLifecycle()
+    val notifySaveFailed by viewModel.notifySaveFailed.collectAsStateWithLifecycle()
 
     // Raised after the default-app dialog closes during "Allow all"; handled once the screen is resumed again.
     var continueAllowAll by remember { mutableStateOf(false) }
@@ -256,6 +257,7 @@ fun OnboardingScreen(
                         onNotify = viewModel::setNotifyOnBlock,
                         digestOn = digestOn,
                         onDigest = viewModel::setDigestOn,
+                        notifySaveFailed = notifySaveFailed,
                     )
 
                     OnboardingPage.ALLOW -> AllowPage(
@@ -469,6 +471,7 @@ internal fun WelcomePage(
     onNotify: ((Boolean) -> Unit)? = null,
     digestOn: Boolean = true,
     onDigest: ((Boolean) -> Unit)? = null,
+    notifySaveFailed: Boolean = false,
 ) {
     val alpha by animateFloatAsState(
         targetValue = 1f,
@@ -484,7 +487,9 @@ internal fun WelcomePage(
             mode = if (onFilter == null || filterOn) UnknownSenderMode.SMART else UnknownSenderMode.OFF,
         )
         if (onFilter != null) WelcomeFilterChoice(filterOn, onFilter, saveFailed = filterSaveFailed)
-        if (onNotify != null && onDigest != null) WelcomeSpamNotices(notifyOn, onNotify, digestOn, onDigest)
+        if (onNotify != null && onDigest != null) {
+            WelcomeSpamNotices(notifyOn, onNotify, digestOn, onDigest, notifySaveFailed = notifySaveFailed)
+        }
         var more by rememberSaveable { mutableStateOf(false) }
         val top = welcomeTopTitles()
         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {

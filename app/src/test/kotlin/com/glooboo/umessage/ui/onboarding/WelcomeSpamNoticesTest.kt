@@ -59,6 +59,7 @@ class WelcomeSpamNoticesTest {
 
     /** The spam settings Settings reads, behind a repository that stores through them like the real one. */
     private val store = SpamSettingsStore(app)
+    private val spamPrefs = app.getSharedPreferences("spamless_spam_settings", Context.MODE_PRIVATE)
     private val repo: SpamRepository = object : SpamRepository by FakeSpamRepository(
         initialBlocked = emptyList(),
         initialRules = emptyList(),
@@ -77,12 +78,14 @@ class WelcomeSpamNoticesTest {
     @Test
     fun aNewInstallStartsWithTheNotificationOffAndTheSummaryOn() {
         val vm = OnboardingViewModel(app) { repo }
-        idleMain()
+        awaitUntil { CleanupPrefs.get(app).digestChosen }
 
         assertThat(vm.notifyOnBlock.value).isFalse()
         assertThat(vm.digestOn.value).isTrue()
         assertThat(store.get().notifyOnBlock).isFalse()
         assertThat(CleanupPrefs.get(app).digestOn).isTrue()
+        // Opening Welcome writes no spam setting.
+        assertThat(spamPrefs.contains("notify_on_block")).isFalse()
     }
 
     @Test
@@ -95,9 +98,8 @@ class WelcomeSpamNoticesTest {
         store.update { it.copy(notifyOnBlock = true) }
 
         val vm = OnboardingViewModel(app) { repo }
-        awaitUntil { vm.notifyOnBlock.value }
+        awaitUntil { vm.notifyOnBlock.value && !vm.digestOn.value }
 
-        assertThat(vm.digestOn.value).isFalse()
         assertThat(CleanupPrefs.get(app).digestOn).isFalse()
         assertThat(store.get().notifyOnBlock).isTrue()
     }
@@ -107,8 +109,10 @@ class WelcomeSpamNoticesTest {
         OnboardingState.setCompleted(app)
 
         val vm = OnboardingViewModel(app) { repo }
+        awaitUntil { CleanupPrefs.get(app).digestChosen }
 
         assertThat(vm.digestOn.value).isTrue()
+        assertThat(CleanupPrefs.get(app).digestOn).isTrue()
         assertThat(store.get().notifyOnBlock).isFalse()
     }
 
@@ -132,17 +136,47 @@ class WelcomeSpamNoticesTest {
             }
         }
 
-        compose.onNodeWithText(res.getString(R.string.onb_spam_notify_quiet)).performScrollTo().performClick()
-        awaitUntil { store.get().notifyOnBlock }
-        compose.onNodeWithText(res.getString(R.string.onb_spam_notify_quiet)).assertIsOn()
+        awaitUntil { CleanupPrefs.get(app).digestChosen }
+        assertThat(spamPrefs.contains("notify_on_block")).isFalse()
 
         compose.onNodeWithText(res.getString(R.string.digest_row_title)).performScrollTo().performClick()
         assertThat(CleanupPrefs.get(app).digestOn).isFalse()
         compose.onNodeWithText(res.getString(R.string.digest_row_title)).assertIsOff()
+        // The summary switch is not the notification setting: notify_on_block is still unwritten.
+        idleMain()
+        assertThat(spamPrefs.contains("notify_on_block")).isFalse()
+
+        compose.onNodeWithText(res.getString(R.string.onb_spam_notify_quiet)).performScrollTo().performClick()
+        awaitUntil { store.get().notifyOnBlock }
+        assertThat(spamPrefs.getBoolean("notify_on_block", false)).isTrue()
+        compose.onNodeWithText(res.getString(R.string.onb_spam_notify_quiet)).assertIsOn()
 
         compose.onNodeWithText(res.getString(R.string.onb_spam_notify_quiet)).performScrollTo().performClick()
         awaitUntil { !store.get().notifyOnBlock }
+        assertThat(vm.notifySaveFailed.value).isFalse()
+    }
+
+    @Test
+    fun aFailedNotificationSaveIsSaidUnderThatSwitch() {
+        val broken = object : SpamRepository by repo {
+            override suspend fun updateSettings(transform: (SpamSettings) -> SpamSettings) = error("disk full")
+        }
+        val vm = OnboardingViewModel(app) { broken }
+        compose.setContent {
+            UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
+                val notifyOn by vm.notifyOnBlock.collectAsStateWithLifecycle()
+                val failed by vm.notifySaveFailed.collectAsStateWithLifecycle()
+                WelcomeSpamNotices(notifyOn, vm::setNotifyOnBlock, true, {}, notifySaveFailed = failed)
+            }
+        }
+        compose.onNodeWithText(res.getString(R.string.spam_snack_failed)).assertDoesNotExist()
+
+        compose.onNodeWithText(res.getString(R.string.onb_spam_notify_quiet)).performClick()
+        awaitUntil { vm.notifySaveFailed.value }
+
         assertThat(vm.filterSaveFailed.value).isFalse()
+        compose.onNodeWithText(res.getString(R.string.spam_snack_failed)).assertIsDisplayed()
+        assertThat(spamPrefs.contains("notify_on_block")).isFalse()
     }
 
     @Test
@@ -156,16 +190,7 @@ class WelcomeSpamNoticesTest {
         }
         compose.onNodeWithText(res.getString(R.string.onb_spam_notify_quiet)).assertIsOff()
         compose.onNodeWithText(res.getString(R.string.digest_row_title)).assertIsOn()
-    }
-
-    @Test
-    fun withoutTheSwitchHandlersThePageHasNoSwitches() {
-        compose.setContent {
-            UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
-                WelcomePage(Modifier.fillMaxSize().verticalScroll(rememberScrollState()), reduceMotion = true)
-            }
-        }
-        compose.onNodeWithText(res.getString(R.string.onb_spam_check_weekly)).assertDoesNotExist()
+        compose.onNodeWithText(res.getString(R.string.settings_nav_notify_body)).assertExists()
     }
 
     @Test

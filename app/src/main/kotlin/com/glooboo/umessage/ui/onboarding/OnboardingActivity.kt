@@ -17,11 +17,13 @@ import androidx.activity.compose.setContent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import com.glooboo.umessage.R
 import com.glooboo.umessage.activities.MainActivity
 import com.glooboo.umessage.helpers.CleanupPrefs
@@ -137,7 +139,7 @@ class OnboardingActivity : ComponentActivity() {
 class OnboardingViewModel @JvmOverloads constructor(
     app: Application,
     // Creating the Config applies the install defaults (InstallDefaults) first, so a new install reads the summary on.
-    private val cleanupPrefs: () -> CleanupPrefs = {
+    cleanupPrefs: () -> CleanupPrefs = {
         Config.newInstance(app)
         CleanupPrefs.get(app)
     },
@@ -150,12 +152,20 @@ class OnboardingViewModel @JvmOverloads constructor(
     private val _notifyOnBlock = MutableStateFlow(SpamSettings().notifyOnBlock)
     val notifyOnBlock: StateFlow<Boolean> = _notifyOnBlock.asStateFlow()
 
-    private val _digestOn = MutableStateFlow(cleanupPrefs().digestOn)
+    /** Built once, off the main thread by the init read (or by the first tap, whichever comes first). */
+    private val cleanup: CleanupPrefs by lazy(cleanupPrefs)
+
+    // A new install's value until the stored one is read in init.
+    private val _digestOn = MutableStateFlow(true)
     val digestOn: StateFlow<Boolean> = _digestOn.asStateFlow()
 
-    /** A Welcome setting could not be stored; the page says so, and the next tap tries again. */
+    /** The Welcome choice could not be stored; the page says so, and the next tap tries again. */
     private val _filterSaveFailed = MutableStateFlow(false)
     val filterSaveFailed: StateFlow<Boolean> = _filterSaveFailed.asStateFlow()
+
+    /** The notification switch could not be stored; the page says so under it, and the next tap tries again. */
+    private val _notifySaveFailed = MutableStateFlow(false)
+    val notifySaveFailed: StateFlow<Boolean> = _notifySaveFailed.asStateFlow()
 
     /** Set by the first tap, so the settings read that finishes later does not undo the choice (G-10). */
     @Volatile
@@ -163,6 +173,9 @@ class OnboardingViewModel @JvmOverloads constructor(
 
     @Volatile
     private var notifyChosen = false
+
+    @Volatile
+    private var digestChosen = false
 
     init {
         viewModelScope.launch {
@@ -172,6 +185,10 @@ class OnboardingViewModel @JvmOverloads constructor(
                 if (!notifyChosen) _notifyOnBlock.value = it.notifyOnBlock
             }
         }
+        viewModelScope.launch {
+            val stored = withContext(Dispatchers.IO) { runCatching { cleanup.digestOn }.getOrNull() }
+            if (stored != null && !digestChosen) _digestOn.value = stored
+        }
     }
 
     /** J16: the quiet notification for texts that go to Spam, the `notifyOnBlock` setting. */
@@ -180,14 +197,15 @@ class OnboardingViewModel @JvmOverloads constructor(
         _notifyOnBlock.value = on
         viewModelScope.launch {
             val saved = runCatching { repository().updateSettings { it.copy(notifyOnBlock = on) } }.isSuccess
-            _filterSaveFailed.value = !saved
+            _notifySaveFailed.value = !saved
         }
     }
 
     /** J16: the weekly Spam summary, the switch Settings > Notifications shows. */
     fun setDigestOn(on: Boolean) {
+        digestChosen = true
         _digestOn.value = on
-        cleanupPrefs().digestOn = on
+        cleanup.digestOn = on
     }
 
     /** The Welcome choice, written at once like the other steps; the old mode follows it (SpamSettingsStore). */
