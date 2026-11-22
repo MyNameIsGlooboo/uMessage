@@ -14,6 +14,9 @@ import org.junit.runner.RunWith
  * the Spam verdict. A stub filter cannot: the provider-truth path judges with SpamEngine.judge, which needs the real
  * filter and treats any other as failed (Messages). The text is stored once, read in its Spam chat, silent, and not
  * forwarded.
+ *
+ * The chat is cached first, as the app does from the phone's store: the Spam list shows only cached chats, and the
+ * fixture's stand-in store has no conversation query, so the app cannot cache it here by itself.
  */
 @RunWith(AndroidJUnit4::class)
 class SmsReceiverSpamLossTest : ProviderTruthSmsFixture() {
@@ -21,6 +24,8 @@ class SmsReceiverSpamLossTest : ProviderTruthSmsFixture() {
     @Test
     fun aSpamTextWhoseQueueWriteFails_isStoredOnceInItsSpamChat_silent_andNotForwarded() {
         forwardTo(TARGET)
+        val thread = store.threadOf(STRANGER)
+        cache(STRANGER, thread)
         offMainThread {
             db.openHelper.writableDatabase.execSQL(
                 "CREATE TRIGGER refuse_pending BEFORE INSERT ON pending_sms BEGIN SELECT RAISE(ABORT, 'refused'); END"
@@ -36,7 +41,8 @@ class SmsReceiverSpamLossTest : ProviderTruthSmsFixture() {
         val row = inbox().single()
         assertThat(row["body"]).isEqualTo(TEXT)
         assertThat(row.int("read")).isEqualTo(1)
-        assertThat(spamList()).contains(store.threadOf(STRANGER))
+        assertThat(spamRow()?.sender).isEqualTo(STRANGER)
+        assertThat(spamList()).contains(thread)
         assertThat(posted).isEmpty()
         assertThat(forwards()).isEmpty()
     }
