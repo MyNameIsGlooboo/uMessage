@@ -250,7 +250,6 @@ class SettingsActivity : ComposeSimpleActivity() {
         runCatching {
             repository.settings.combine(repository.stats) { settings, stats ->
                 SpamSummary(
-                    mode = settings.mode,
                     blockedLast7Days = stats.blockedLast7Days,
                     blockedTotal = stats.blockedTotal,
                     restoredTotal = stats.restoredTotal,
@@ -379,7 +378,6 @@ class SettingsActivity : ComposeSimpleActivity() {
             onLockScreen = ::showLockScreenDialog,
             onTheme = { startActivity(Intent(this, ThemePresetsActivity::class.java)) },
             onLanguage = ::showLanguageDialog,
-            onSpamMode = { mode -> updateSpamSettings { it.copy(mode = mode) } },
             onNotifyOnBlock = { on -> updateSpamSettings { it.copy(notifyOnBlock = on) } },
             onCodeAlert = ::openCodeChannelSettings,
             onCharacterCounter = { config.showCharacterCounter = it; refreshState() },

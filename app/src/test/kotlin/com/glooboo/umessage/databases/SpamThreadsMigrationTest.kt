@@ -81,7 +81,7 @@ class SpamThreadsMigrationTest {
             offMainThread {
                 val dao = db.ConversationsDao()
                 assertThat(dao.getMessagesList().map { it.threadId }).containsExactlyElementsIn(
-                    dao.getNonArchived().map { it.threadId }
+                    dao.getAllRows().filterNot { it.isArchived }.map { it.threadId }
                 )
                 assertThat(dao.getArchivedList().map { it.threadId }).containsExactly(2L)
                 assertThat(dao.getSpamList()).isEmpty()

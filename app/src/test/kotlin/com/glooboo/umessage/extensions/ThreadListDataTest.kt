@@ -167,7 +167,7 @@ class ThreadListDataTest {
 
         context.emptyMessagesRecycleBin()
 
-        assertThat(context.messagesDB.getArchivedCount()).isEqualTo(0)
+        assertThat(context.messagesDB.getAllRecycleBinEntries()).isEmpty()
     }
 
     private fun backdateBinEntries(byMillis: Long) {

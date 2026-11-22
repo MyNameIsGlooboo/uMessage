@@ -27,7 +27,7 @@ import org.robolectric.Shadows.shadowOf
 
 /**
  * Provider truth, step H (section 5): "Test this rule" counts the Spam part from the texts of the chats in Spam
- * ([RulePreviewSource.spam]), not from the old held rows. With the flag off it still counts the held rows.
+ * ([RulePreviewSource.spam]), not from the old held rows.
  */
 @RunWith(AndroidJUnit4::class)
 class RulesPreviewSpamPartTest {

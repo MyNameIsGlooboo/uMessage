@@ -160,8 +160,7 @@ private const val MAX_SENDER = 64
 /**
  * ID-52, "Test a message": paste a text and a sender and see what the real filter would do. It asks the installed
  * [com.glooboo.umessage.spam.SpamFilter] directly (`UMessage.filter(context).evaluate`, a probe), which is
- * read-only: only `SpamEngine.evaluate` writes to the decision log, and that is not used here; a probe writes no
- * fact. Nothing typed is stored or sent. Spam rules cover both SIMs (7.2), so there is no
+ * read-only: a probe writes no decision-log row and no fact. Nothing typed is stored or sent. Spam rules cover both SIMs (7.2), so there is no
  * SIM field; the first SIM only says how a national number is read.
  */
 @OptIn(ExperimentalMaterial3Api::class)

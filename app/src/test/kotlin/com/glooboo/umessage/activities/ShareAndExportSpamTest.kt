@@ -22,7 +22,7 @@ import org.junit.runner.RunWith
 
 /**
  * Provider truth, step H (section 5, U9): the new-conversation suggestions and the export picker do not offer a chat
- * in Spam. With the flag off they offer everything, as before. Fake numbers only.
+ * in Spam. Fake numbers only.
  */
 @RunWith(AndroidJUnit4::class)
 class ShareAndExportSpamTest {

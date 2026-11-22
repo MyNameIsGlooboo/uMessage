@@ -39,8 +39,7 @@ import com.glooboo.umessage.ui.theme.currentColorScheme
 
 /**
  * I06: the notification "Block" button and the "Undo" of the notice it leaves. Block adds the same uMessage rule as
- * "Block number" in the thread menu ([SenderBlocking]), so new texts from the sender go to Blocked messages and the
- * rule can be removed there or here.
+ * "Block number" in the thread menu, so the sender's chat goes to Spam; Undo here takes it back.
  *
  * Provider truth (4.1, U5, M-SP3): Block also removes the sender's automatic allow rules and group memberships, marks
  * the chat read and sorts it again, so it moves to Spam. The Undo intent carries the whole receipt ([BlockUndoCodec]),

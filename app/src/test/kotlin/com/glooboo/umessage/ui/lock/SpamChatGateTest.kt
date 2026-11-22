@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 
 /**
  * Provider truth, step C (U1): a chat in Spam counts as a locked screen while the app lock covers Spam and is locked.
- * Nothing of it shows until the lock is passed; a chat in Messages, an open lock or the flag off change nothing.
+ * Nothing of it shows until the lock is passed; a chat in Messages or an open lock change nothing.
  */
 @RunWith(AndroidJUnit4::class)
 class SpamChatGateTest {

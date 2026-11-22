@@ -30,36 +30,9 @@ interface ConversationsDao {
      * DL-08: the preview under a chat is the body of its newest cached message that was really sent or received:
      * scheduled messages (not sent yet) never count, and neither do messages in the recycle bin. A recycle-bin entry
      * is matched by id and type together (MessageKey), since SMS 57 and MMS 57 are different messages. Equal dates
-     * are broken by id so the choice is stable.
-     */
-
-    @Query(
-        "SELECT (SELECT body FROM messages WHERE messages.thread_id = conversations.thread_id " +
-            "AND messages.is_scheduled = 0 AND NOT EXISTS (SELECT 1 FROM recycle_bin_messages r " +
-            "WHERE r.id = messages.id AND r.is_mms = messages.is_mms) " +
-            "ORDER BY messages.date DESC, messages.id DESC LIMIT 1) AS new_snippet, * FROM conversations WHERE archived = 0"
-    )
-    fun getNonArchivedWithLatestSnippet(): List<ConversationWithSnippetOverride>
-
-    fun getNonArchived(): List<Conversation> {
-        return getNonArchivedWithLatestSnippet().map { it.toConversation() }
-    }
-
-    @Query(
-        "SELECT (SELECT body FROM messages WHERE messages.thread_id = conversations.thread_id " +
-            "AND messages.is_scheduled = 0 AND NOT EXISTS (SELECT 1 FROM recycle_bin_messages r " +
-            "WHERE r.id = messages.id AND r.is_mms = messages.is_mms) " +
-            "ORDER BY messages.date DESC, messages.id DESC LIMIT 1) AS new_snippet, * FROM conversations WHERE archived = 1"
-    )
-    fun getAllArchivedWithLatestSnippet(): List<ConversationWithSnippetOverride>
-
-    fun getAllArchived(): List<Conversation> {
-        return getAllArchivedWithLatestSnippet().map { it.toConversation() }
-    }
-
-    /*
-     * S1, provider truth: the four chat lists. Every caller picks one. [getNonArchived] and [getAllArchived] above keep
-     * their 0.4.14 meaning (every non-archived or archived row, Spam chats included) until their callers move over.
+     * are broken by id so the choice is stable ([ConversationQueries]).
+     *
+     * S1, provider truth: the four chat lists. Every caller picks one.
      */
 
     /** Every cached chat, Spam chats included: for the list sync, the SIM cache and the archive store. */

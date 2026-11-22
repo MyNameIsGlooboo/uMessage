@@ -104,7 +104,7 @@ class SystemContactChecker(
                 // The provider notifies mms-sms for every SMS and MMS change, next to the sms or mms row itself.
                 return
             }
-            // Provider truth (R3): a reply sent outside uMessage makes its recipient a member; flag off, nothing.
+            // Provider truth (R3): a reply sent outside uMessage makes its recipient a member.
             if (uri != null) SentRowWatch.onChanged(appContext, uri)
             if (uri != null && messageRowId(uri) != null && changedMessages.size < MAX_CHANGED_MESSAGES) {
                 changedMessages.add(uri)

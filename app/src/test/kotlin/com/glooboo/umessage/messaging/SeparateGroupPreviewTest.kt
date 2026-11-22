@@ -59,7 +59,7 @@ class SeparateGroupPreviewTest {
         }
 
         assertThat(ShadowRecordingSmsManager.textSends.map { it.destination }).containsExactly("111", "222")
-        val list = offMainThread { context.conversationsDB.getNonArchived() }
+        val list = offMainThread { context.conversationsDB.getAllRows().filterNot { it.isArchived } }
         threads.forEach { thread ->
             assertThat(list.single { it.threadId == thread }.snippet).isEqualTo("Dinner at 8?")
         }

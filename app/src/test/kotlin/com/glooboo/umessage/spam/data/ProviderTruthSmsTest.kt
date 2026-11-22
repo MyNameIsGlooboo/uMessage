@@ -65,7 +65,7 @@ import org.robolectric.Shadows.shadowOf
 import java.util.Locale
 
 /**
- * Step D (6.1): an incoming SMS under the provider-truth flag. Spam is written to the phone's store read, seen and
+ * Step D (6.1): an incoming SMS under provider truth. Spam is written to the phone's store read, seen and
  * silent, with its spam_threads row first; Messages texts stay unread and announced; the safety check (R1) never
  * leaves a read and silent text outside Spam. The store is in memory; the filter and repository are the real ones on
  * an in-memory spamless.db. Every number is made up (555 range).

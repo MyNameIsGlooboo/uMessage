@@ -355,7 +355,6 @@ class OtpDetectorCorpusTest {
         assertFalse(allows("Your code is 482913.$filler promo code SAVE20"))
         assertNoCode("Your verification code is 482913.$filler Winner! Claim your prize now")
         assertFalse(allows("کد تایید شما 482913 است.$filler تخفیف ۵۰٪ ویژه شما"))
-        assertFalse(OtpDetector.noAdBeforeCode("Your verification code is 482913.$filler Winner! Claim your prize"))
     }
 
     /** Kept: the copy extractor needs a mark before the number ([com.glooboo.umessage.helpers.OtpCodeExtractor]). */
@@ -400,15 +399,6 @@ class OtpDetectorCorpusTest {
         assertNoCode("کد تایید ۴۸۲۹۱۳ در example.com با تخفیف ۵۰٪")
         assertNoCode("Your verification code 482913 at shop.example.com gets you 20% off")
         assertNoCode("OTP 482913 v2.0 promo winner")
-    }
-
-    /** N5-7: what the old filter (flag off) asks before it lets a code through Smart mode. */
-    @Test fun shape5TheOldFilterSeesNoAdBeforeTheCode() {
-        assertTrue(OtpDetector.noAdBeforeCode("Your verification code is 482913. Get 20% off your next ride!"))
-        assertTrue(OtpDetector.noAdBeforeCode("Your OTP is 482913"))
-        assertFalse(OtpDetector.noAdBeforeCode("Winner! password: 12345678"))
-        assertFalse(OtpDetector.noAdBeforeCode("Congratulations winner! Your OTP is 482913. Claim your prize"))
-        assertFalse(OtpDetector.noAdBeforeCode("تخفیف ۵۰٪ نمونه! کد تایید شما برای دریافت: 482913"))
     }
 
     @Test fun shape6ThePlainWordWithTheOptOutLineOrAGiftWordStaysNoCode() {

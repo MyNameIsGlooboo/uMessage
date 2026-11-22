@@ -11,7 +11,6 @@ import androidx.test.core.app.ApplicationProvider
 import com.glooboo.umessage.R
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
-import com.glooboo.umessage.spam.UnknownSenderMode
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -166,18 +165,18 @@ class SettingsNavTest {
         compose.onNodeWithText(str(R.string.digest_row_title)).performScrollTo().assertExists()
     }
 
-    private val spam = SpamSummary(UnknownSenderMode.SMART, blockedLast7Days = 1, blockedTotal = 1, restoredTotal = 0)
+    private val spam = SpamSummary(blockedLast7Days = 1, blockedTotal = 1, restoredTotal = 0)
 
     // Owner notes r3: the spam row's parts are joined with the separator, never a comma.
     @Test
     fun `spam summary joins its parts with the separator`() {
-        show(SettingsUiState(spam = SpamSummary(UnknownSenderMode.SMART, 17, 17, 11)))
+        show(SettingsUiState(spam = SpamSummary(17, 17, 11)))
         compose.onNodeWithText("17 stopped · 11 restored").assertExists()
         val resources = androidx.test.core.app.ApplicationProvider
             .getApplicationContext<android.content.Context>().resources
         assertEquals(
             "2 stopped in 7 days · 30 in total",
-            spamSummaryLine(resources, SpamSummary(UnknownSenderMode.SMART, 2, 30, 0)),
+            spamSummaryLine(resources, SpamSummary(2, 30, 0)),
         )
     }
 

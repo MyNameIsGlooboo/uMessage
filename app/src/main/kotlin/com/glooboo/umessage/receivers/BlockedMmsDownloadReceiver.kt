@@ -16,7 +16,7 @@ import org.fossify.commons.helpers.ensureBackgroundThread
  * Result of a [BlockedMmsDownloader] download (not exported; only the system's PendingIntent reaches it). Keeps the
  * downloaded MMS in app-private storage and records it on the blocked row, or records that it could not be
  * downloaded, so the Blocked screen and "Not spam" can tell the user the truth. Kept one release after provider
- * truth: with the flag on, a late result is then moved to the phone's store by the message migration.
+ * truth: a late result is then moved to the phone's store by the message migration.
  */
 class BlockedMmsDownloadReceiver : BroadcastReceiver() {
 
@@ -58,7 +58,7 @@ class BlockedMmsDownloadReceiver : BroadcastReceiver() {
                     // Restored or deleted while it was downloading, or the database failed: keep nothing.
                     name?.let { BlockedMmsStore.delete(context, listOf(it)) }
                 } else {
-                    // Provider truth (step F, flag on only): the late result goes to the phone's store with the row.
+                    // Provider truth (step F): the late result goes to the phone's store with the row.
                     SpamProviderMigration.lateMmsResult(context, blockedId)
                 }
             } catch (t: Throwable) {

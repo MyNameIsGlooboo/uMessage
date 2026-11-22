@@ -44,7 +44,7 @@ import java.time.Duration
 /**
  * Provider truth, step H (section 5, U9): no chat in Spam is seen outside Spam. Search (messages, titles, numbers and
  * notes), the Links tile, the stars and the SIM tile leave it out; in search it is found only in the Spam section, and
- * only while the app lock does not cover Spam. With the flag off nothing changes. Fake numbers only.
+ * only while the app lock does not cover Spam. Fake numbers only.
  */
 @RunWith(AndroidJUnit4::class)
 class SpamReadersTest {

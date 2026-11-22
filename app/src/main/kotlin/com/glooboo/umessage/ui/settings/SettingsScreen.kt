@@ -748,7 +748,7 @@ private fun LicenseItem(
 // region Previews
 
 private val previewState = SettingsUiState(
-    spam = SpamSummary(UnknownSenderMode.SMART, blockedLast7Days = 12, blockedTotal = 148, restoredTotal = 3),
+    spam = SpamSummary(blockedLast7Days = 12, blockedTotal = 148, restoredTotal = 3),
     sims = listOf(
         SimCard(1, 1, "Jio", "+91 98765 43210", isDefaultSms = true),
         SimCard(2, 2, "Airtel", null, isDefaultSms = false),

@@ -33,7 +33,7 @@ private const val TAG = "uMessageReceive"
  *
  * mmslib 1.0.1 handles a failed result by deleting the notice on HTTP 400 or 404, and otherwise leaves a notice that
  * may have no chat at all (an automatic download saves it with mmslib's dummy thread, E-1), so the user could not
- * retry. Under the flag [com.glooboo.umessage.receivers.MmsReceiver] hands a result without a downloaded file here
+ * retry. [com.glooboo.umessage.receivers.MmsReceiver] hands a result without a downloaded file here
  * instead of to the library, and also a result the library could not store (E-5): the notice stays, gets its chat
  * (in Spam when the sender's chat is there, E-9), the row turns "Tap to try again", and the user is told, by a toast
  * and the notification, except in Spam (E-2: a Spam chat never notifies). The library's own download record is
@@ -235,7 +235,7 @@ internal class MmsDownloadFailure(
         /** A notice younger than this may still be downloading. */
         const val MIN_AGE_MS = 5 * 60 * 1000L
 
-        /** E-20: an older notice is not swept (left from before the flag; most are expired anyway). */
+        /** E-20: an older notice is not swept (left from before provider truth; most are expired anyway). */
         const val MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000L
 
         /** E-20: most notices placed by one sweep. */

@@ -62,7 +62,7 @@ class ConversationListSyncTest {
         importer.submit {}.get(120, TimeUnit.SECONDS)
     }
 
-    private fun saved(): List<Conversation> = offMainThread { context.conversationsDB.getNonArchived() }
+    private fun saved(): List<Conversation> = offMainThread { context.conversationsDB.getAllRows().filterNot { it.isArchived } }
 
     @Test
     fun startFillsTheSavedListFromTheProvider() {

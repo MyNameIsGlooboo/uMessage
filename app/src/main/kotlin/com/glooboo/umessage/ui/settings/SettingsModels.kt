@@ -10,12 +10,10 @@ import android.os.Build
 import android.telephony.SubscriptionManager
 import androidx.compose.runtime.Immutable
 import androidx.core.content.ContextCompat
-import com.glooboo.umessage.spam.UnknownSenderMode
 
 /** Spam protection headline for the top card. */
 @Immutable
 data class SpamSummary(
-    val mode: UnknownSenderMode,
     val blockedLast7Days: Int,
     val blockedTotal: Int,
     val restoredTotal: Int,
@@ -139,8 +137,6 @@ class SettingsActions(
     val onLockScreen: () -> Unit = {},
     val onTheme: () -> Unit = {},
     val onLanguage: () -> Unit = {},
-    /** P4-11: the unknown-sender mode, chosen on the Spam protection page (Strict is confirmed there first). */
-    val onSpamMode: (UnknownSenderMode) -> Unit = {},
     /** SE-09: "Notify when a message is blocked". */
     val onNotifyOnBlock: (Boolean) -> Unit = {},
     /** ID-26: opens Android's settings of the verification-code notification channel. */

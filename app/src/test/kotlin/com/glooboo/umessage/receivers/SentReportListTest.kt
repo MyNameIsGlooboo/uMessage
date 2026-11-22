@@ -40,7 +40,7 @@ class SentReportListTest {
     @After
     fun tearDown() = resetSharedMessagesDatabase()
 
-    private fun saved(): List<Conversation> = offMainThread { context.conversationsDB.getNonArchived() }
+    private fun saved(): List<Conversation> = offMainThread { context.conversationsDB.getAllRows().filterNot { it.isArchived } }
 
     @Test
     fun aSentReportMovesAnOldRowUpWithTheNewText() {

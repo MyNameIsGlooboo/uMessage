@@ -152,7 +152,7 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
         val hiddenChats = HiddenChats.get(app)
         // U9, H-1 (provider truth): nothing of a chat in Spam is found here, left out in the SQL before the cap; a
         // failed read of Spam fails the lookup, which then finds nothing.
-        val place = SearchPlace.outsideSpam()
+        val place = SearchPlace.OUTSIDE_SPAM
         // main-7: the three lookups are independent, so they run side by side.
         val (messages, byTitle, byNumber) = coroutineScope {
             val messagesJob = async {
@@ -206,7 +206,7 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
             val notes = app.messageNotes
             notes.relink()
             // H-18: the notes of Spam chats are left out in the SQL, before the cap.
-            val inPlace = notes.search(text, SearchPlace.outsideSpam())
+            val inPlace = notes.search(text, SearchPlace.OUTSIDE_SPAM)
             val visible = HiddenChats.get(app).withoutHidden(inPlace) { it.threadId }
             val found = SpamReaders.without(visible, spamIds(app)) { it.threadId }
             val chats = found.map { it.threadId }.distinct()

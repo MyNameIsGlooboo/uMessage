@@ -34,8 +34,8 @@ import java.util.concurrent.TimeUnit
  * [NewChatSorting] as the app wires it (B-6; NewChatSorterTest covers [NewChatSorter] on fakes): the app's own
  * stores, first-run state, history check, fresh sender judge, published count and sort queue. After the first sort a
  * blocked sender's new chat is cached with its Spam row, and an unknown number the user wrote to joins "People you
- * wrote to" and stays in Messages; before it the row is only cached and the queued sort runs once the gate opens; with
- * the flag off the row is only cached. More than [NewChatSorting.BATCH] rows are covered on fakes only. The numbers
+ * wrote to" and stays in Messages; before it the row is only cached and the queued sort runs once the gate opens.
+ * More than [NewChatSorting.BATCH] rows are covered on fakes only. The numbers
  * are made up.
  */
 @RunWith(AndroidJUnit4::class)

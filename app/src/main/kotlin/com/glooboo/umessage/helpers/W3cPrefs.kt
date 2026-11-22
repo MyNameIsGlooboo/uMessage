@@ -110,11 +110,6 @@ class W3cPrefs private constructor(
         get() = prefs.getBoolean(KEY_BLOCKED_VISITED, false)
         set(value) = prefs.edit { putBoolean(KEY_BLOCKED_VISITED, value) }
 
-    /** The one-time note about the first held message was answered. */
-    var firstBlockReceiptShown: Boolean
-        get() = prefs.getBoolean(KEY_FIRST_BLOCK_SHOWN, false)
-        set(value) = prefs.edit { putBoolean(KEY_FIRST_BLOCK_SHOWN, value) }
-
     /** When the first-day checklist card was first shown (epoch millis); 0 until then. */
     var checklistFirstShown: Long
         get() = prefs.getLong(KEY_CHECKLIST_FIRST_SHOWN, 0L)
@@ -150,7 +145,6 @@ class W3cPrefs private constructor(
         private const val KEY_SHOW_TAPBACKS = "show_tapbacks"
         private const val KEY_CHECKLIST_DISMISSED = "checklist_dismissed"
         private const val KEY_BLOCKED_VISITED = "blocked_tab_visited"
-        private const val KEY_FIRST_BLOCK_SHOWN = "first_block_receipt_shown"
         private const val KEY_UNREAD_FIRST = "unread_first"
         private const val KEY_CHECKLIST_FIRST_SHOWN = "checklist_first_shown"
         private const val KEY_ASKED_PERMISSIONS = "asked_permissions"

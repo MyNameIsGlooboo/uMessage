@@ -66,7 +66,7 @@ class MmsPushReceiver : BroadcastReceiver() {
                 subscriptionId = subscriptionId,
                 now = System.currentTimeMillis(),
             ) { probe ->
-                // MmsReceiver's content filter runs after download without the SIM; remember it per sender.
+                // The downloaded MMS names no SIM; MmsReceiver looks it up here, per sender.
                 MmsSubscriptions.remember(probe.address, subscriptionId)
                 // E-13, provider truth: the push writes no row; the MMS's one row is written where it is placed.
                 MmsDecisions.probe(context, probe)

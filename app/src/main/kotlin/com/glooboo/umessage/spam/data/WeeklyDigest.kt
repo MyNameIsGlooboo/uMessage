@@ -5,7 +5,7 @@ import com.glooboo.umessage.helpers.MessageCategory
 import com.glooboo.umessage.spam.engine.OtpDetector
 
 /**
- * I08: the numbers of the weekly summary. [held] is how many messages wait in Blocked that arrived in the last week,
+ * I08: the numbers of the weekly summary. [held] is how many texts reached the chats in Spam in the last week,
  * [important] how many of those look like a verification code or a bank alert, the kinds of text a person would not
  * want to miss. Counts only: the summary never carries a message text or a number. Pure JVM.
  */
@@ -17,10 +17,6 @@ data class WeeklyDigest(val held: Int, val important: Int) {
         /** H-15: how much earlier than its chat's spam_since a text may be dated and still count (an MMS download). */
         const val ARRIVAL_GRACE_MS = 10L * 60 * 1000
         private const val SECOND_MS = 1000L
-
-        /** The digest of [blocked] as of [nowMillis]. Messages that arrived earlier than a week ago do not count. */
-        fun compute(blocked: List<BlockedMessageEntity>, nowMillis: Long): WeeklyDigest =
-            computeTexts(blocked.map { SpamText(it.address, it.body, it.receivedAt) }, nowMillis)
 
         /**
          * Provider truth (section 5): the digest of the received [texts] of the chats in Spam, as of [nowMillis]. Only

@@ -45,12 +45,6 @@ enum class SearchPlace(val messagesWhere: String, val conversationsWhere: String
     ALL("", ""),
     OUTSIDE_SPAM(NOT_IN_SPAM_THREAD, "NOT ${ConversationQueries.IN_SPAM}"),
     SPAM(IN_SPAM_THREAD, ConversationQueries.IN_SPAM),
-    ;
-
-    companion object {
-        /** The place of the Messages side. */
-        fun outsideSpam(): SearchPlace = OUTSIDE_SPAM
-    }
 }
 
 /** What search may show ([SHOWN_ONLY]) within [place]. */
@@ -130,11 +124,8 @@ interface MessagesDao {
     /**
      * I02, I45: read, received or sent messages dated before [before] (seconds) that are not in the recycle bin,
      * oldest first, [limit] rows from [offset]. The automatic cleanup pages through them and picks in memory.
+     * Provider truth (answer 6, H-6): without the chats in Spam, so the pages skip them.
      */
-    @Query("SELECT * FROM messages WHERE is_scheduled = 0 AND read = 1 AND date < :before AND type IN (1, 2) AND NOT EXISTS (SELECT 1 FROM recycle_bin_messages r WHERE r.id = messages.id AND r.is_mms = messages.is_mms) ORDER BY date ASC, id ASC LIMIT :limit OFFSET :offset")
-    fun getRetentionCandidates(before: Int, limit: Int, offset: Int): List<Message>
-
-    /** Provider truth (answer 6, H-6): [getRetentionCandidates] without the chats in Spam, so the pages skip them. */
     @Query("SELECT * FROM messages WHERE is_scheduled = 0 AND read = 1 AND date < :before AND type IN (1, 2) AND $NOT_IN_SPAM_THREAD AND NOT EXISTS (SELECT 1 FROM recycle_bin_messages r WHERE r.id = messages.id AND r.is_mms = messages.is_mms) ORDER BY date ASC, id ASC LIMIT :limit OFFSET :offset")
     fun getRetentionCandidatesOutsideSpam(before: Int, limit: Int, offset: Int): List<Message>
 
@@ -217,9 +208,6 @@ interface MessagesDao {
     @Query("SELECT * FROM messages WHERE thread_id = :threadId AND id = :messageId AND is_scheduled = 1")
     fun getScheduledMessageWithId(threadId: Long, messageId: Long): Message
 
-    @Query("SELECT COUNT(*) FROM recycle_bin_messages")
-    fun getArchivedCount(): Int
-
     /** Messages of [threadId] that are in the recycle bin. */
     @Query(
         "SELECT COUNT(*) FROM messages JOIN recycle_bin_messages r " +
@@ -227,21 +215,17 @@ interface MessagesDao {
     )
     fun getRecycleBinMessageCountForThread(threadId: Long): Int
 
-    /** Recycle-bin messages the bin can show and delete: those with a cached copy. */
-    @Query(
-        "SELECT COUNT(*) FROM messages JOIN recycle_bin_messages r " +
-            "ON r.id = messages.id AND r.is_mms = messages.is_mms"
-    )
-    fun getRecycleBinMessageCount(): Int
-
-    /** Provider truth (H-4): [getRecycleBinMessageCount] without the messages of chats in Spam. */
+    /**
+     * Recycle-bin messages the bin can show and delete: those with a cached copy. Provider truth (H-4): without the
+     * messages of chats in Spam.
+     */
     @Query(
         "SELECT COUNT(*) FROM messages JOIN recycle_bin_messages r " +
             "ON r.id = messages.id AND r.is_mms = messages.is_mms WHERE messages.$NOT_IN_SPAM_THREAD"
     )
     fun getRecycleBinMessageCountOutsideSpam(): Int
 
-    /** Provider truth (H-4): [getArchivedCount] (every bin entry) without the entries of messages of chats in Spam. */
+    /** Provider truth (H-4): every bin entry, without the entries of messages of chats in Spam. */
     @Query(
         "SELECT COUNT(*) FROM recycle_bin_messages r WHERE NOT EXISTS (SELECT 1 FROM messages m " +
             "WHERE m.id = r.id AND m.is_mms = r.is_mms AND m.$IN_SPAM_THREAD)"
@@ -444,22 +428,20 @@ interface MessagesDao {
     )
     fun deleteCachedMessages()
 
-    /** Newest messages that may hold a picture (their attachment text names an image type), at most [limit]. */
-    @Query("$SHORTCUT_BASE AND $IMAGE_PREFILTER $SHORTCUT_ORDER")
-    fun getImageCandidates(limit: Int): List<Message>
-
-    /** Provider truth (H-7): [getImageCandidates] without the chats in Spam, before the cap. */
+    /**
+     * Newest messages that may hold a picture (their attachment text names an image type), at most [limit].
+     * Provider truth (H-7): without the chats in Spam, before the cap.
+     */
     @Query("$SHORTCUT_BASE AND $NOT_IN_SPAM_THREAD AND $IMAGE_PREFILTER $SHORTCUT_ORDER")
     fun getImageCandidatesOutsideSpam(limit: Int): List<Message>
 
     @Query("$SHORTCUT_BASE AND thread_id = :threadId AND $IMAGE_PREFILTER $SHORTCUT_ORDER")
     fun getThreadImageCandidates(threadId: Long, limit: Int): List<Message>
 
-    /** Newest messages whose text may hold a web link, at most [limit]. */
-    @Query("$SHORTCUT_BASE AND $LINK_PREFILTER $SHORTCUT_ORDER")
-    fun getLinkCandidates(limit: Int): List<Message>
-
-    /** Provider truth (H-7): [getLinkCandidates] without the chats in Spam, before the cap. */
+    /**
+     * Newest messages whose text may hold a web link, at most [limit]. Provider truth (H-7): without the chats in
+     * Spam, before the cap.
+     */
     @Query("$SHORTCUT_BASE AND $NOT_IN_SPAM_THREAD AND $LINK_PREFILTER $SHORTCUT_ORDER")
     fun getLinkCandidatesOutsideSpam(limit: Int): List<Message>
 

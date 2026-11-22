@@ -68,7 +68,6 @@ object SpamEngine {
                 contacts = contactChecker(app),
                 normalizer = normalizer,
                 legacy = FossifyLegacyBlocklist(app),
-                regionForSubscription = { subscriptionRegion(app, it) },
                 groups = repo.groupMembership,
                 simRegions = { simRegions(app) },
             ).also { filter = it }

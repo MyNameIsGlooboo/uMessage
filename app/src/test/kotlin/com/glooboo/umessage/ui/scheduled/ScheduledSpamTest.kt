@@ -20,7 +20,7 @@ import org.junit.runner.RunWith
 
 /**
  * Provider truth, step H (U9): the scheduled list (and its count in the menu) leaves out the scheduled messages of a
- * chat in Spam; they show in that chat only. With the flag off every scheduled message is listed. Fake numbers only.
+ * chat in Spam; they show in that chat only. Fake numbers only.
  */
 @RunWith(AndroidJUnit4::class)
 class ScheduledSpamTest {

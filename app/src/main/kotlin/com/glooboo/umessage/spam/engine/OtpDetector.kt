@@ -514,17 +514,6 @@ object OtpDetector {
     }
 
     /**
-     * Whether the folded or raw [body] has no word of an advertisement before its code: no word of [marketingHard], or
-     * only an advertising footer after a code phrase ([codeNextToPhrase]). A labelled password in an advertisement
-     * ("Winner! password: 12345678") fails it. The old filter (flag off) lets a code through only with this.
-     */
-    internal fun noAdBeforeCode(body: String): Boolean {
-        val full = TextNormalizer.foldForMatching(body)
-        val text = scanned(full)
-        return adStart(text, full)?.let { codeNextToPhrase(text, it) } ?: true
-    }
-
-    /**
      * The letters-and-digits codes of [text] (already folded) with a keyword in the same sentence, a few plain words
      * before or after them: position and value, as written ("Your code is ab12cd" gives ab12cd). Never bare: a token
      * of this shape without a keyword, in an advertisement, or next to the generic word in a text of offers is no code.

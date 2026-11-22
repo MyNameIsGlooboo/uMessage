@@ -124,7 +124,7 @@ class FirstRunProgressAdapter(
         if (first.whatChangedPending) WhatChanged(first.whatChangedMoved, first.allowedAutomatically) else null
 
     companion object {
-        /** The adapter of this app, on FirstRun's state; App installs it with FirstRunPagesHost (flag on only). */
+        /** The adapter of this app, on FirstRun's state; App installs it with FirstRunPagesHost. */
         fun forApp(context: Context): FirstRunProgressAdapter {
             val app = context.applicationContext
             val store = FirstRunStore(app.getSharedPreferences(FirstRunStore.PREFS, Context.MODE_PRIVATE))
