@@ -792,9 +792,17 @@ private fun typeHelp(kind: ListKind, type: RuleType): String = stringResource(
     },
 )
 
+/**
+ * The text style of a rule's value field, shared with the forward editor: a pattern in monospace; F-5: a typed number
+ * or prefix runs left to right, so it keeps its + in front in a right-to-left sheet.
+ */
+internal fun ruleValueStyle(base: TextStyle, type: RuleType?): TextStyle = base
+    .let { if (type == RuleType.REGEX) it.copy(fontFamily = FontFamily.Monospace) else it }
+    .let { if (type?.readsLeftToRight == true) it.copy(textDirection = TextDirection.Ltr) else it }
+
 /** The example in the empty value field; F-5: a number or prefix example reads as written in right-to-left text. */
 @Composable
-private fun typeHint(type: RuleType): String = stringResource(
+internal fun typeHint(type: RuleType): String = stringResource(
     when (type) {
         RuleType.NUMBER -> R.string.rules2_type_number_hint
         RuleType.PREFIX -> R.string.rules2_type_prefix_hint
@@ -1031,12 +1039,7 @@ private fun RuleValueField(form: RuleForm, error: RuleValidation.Invalid?, onPat
         singleLine = true,
         isError = error != null,
         supportingText = { Text(if (error != null) errorText(error) else typeHelp(form.kind, form.type)) },
-        textStyle = MaterialTheme.typography.bodyLarge.let {
-            if (form.type == RuleType.REGEX) it.copy(fontFamily = FontFamily.Monospace) else it
-        }.let {
-            // F-5: a typed number or prefix keeps its + in front in a right-to-left sheet.
-            if (form.type.readsLeftToRight) it.copy(textDirection = TextDirection.Ltr) else it
-        },
+        textStyle = ruleValueStyle(MaterialTheme.typography.bodyLarge, form.type),
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.None,
             autoCorrectEnabled = false,

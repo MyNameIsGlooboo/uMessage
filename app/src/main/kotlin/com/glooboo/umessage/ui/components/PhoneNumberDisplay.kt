@@ -7,6 +7,7 @@ import android.util.LruCache
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalContext
+import java.text.DecimalFormatSymbols
 import java.util.Locale
 
 /*
@@ -47,7 +48,31 @@ fun displayNumber(text: String, locale: Locale, group: (String) -> String?): Str
     } else {
         trimmed
     }
-    return localizeDigits(grouped, locale)
+    return keepGroupOrder(localizeDigits(grouped, locale), locale)
+}
+
+/** Left-to-right mark, see [keepGroupOrder]. */
+private const val LRM = '\u200E'
+
+/** The zero of the Arabic-Indic digits, which the Arabic UI uses. */
+private const val ARABIC_INDIC_ZERO = '\u0660'
+
+/** What stands between two groups of a grouped number. */
+private const val GROUP_SEPARATORS = " -.()"
+
+/**
+ * G-1: Arabic-Indic digits are weak right-to-left (bidi class AN), so a space or dash between two groups took the
+ * right-to-left direction even inside a left-to-right isolate, and "+١ ٥٥٥-٠٠٠-١٢٣٤" showed as "+١٢٣٤-٠٠٠-٥٥٥ ١". A
+ * left-to-right mark after each separator keeps the groups in order. Persian (EN) and Latin digits need none.
+ */
+private fun keepGroupOrder(text: String, locale: Locale): String {
+    if (DecimalFormatSymbols.getInstance(locale).zeroDigit != ARABIC_INDIC_ZERO) return text
+    return buildString(text.length + text.length / 2) {
+        text.forEach { c ->
+            append(c)
+            if (c in GROUP_SEPARATORS) append(LRM)
+        }
+    }
 }
 
 /** [displayNumber] with the phone's country grouping and the app's language. */

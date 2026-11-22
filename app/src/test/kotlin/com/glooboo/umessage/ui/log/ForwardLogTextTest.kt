@@ -82,6 +82,12 @@ class ForwardLogTextTest {
         assertThat(sent).contains("فوروارد")
         assertThat(ForwardLogText.sentence(res, "#1 CODE_EXCLUDED")).startsWith("فوروارد نشد")
         assertThat(ForwardLogText.ruleLabel(context, "#1 SENT", rules)).isEqualTo("قانون: Bank alerts")
+        // T-4: literal texts, not built with the code under test. A prefix in Persian digits, isolated whole.
+        assertThat(ForwardLogText.ruleLabel(context, "#4 SENT", rules)).isEqualTo("قانون: از: \u2066+\u06F1\u2069")
+        // A number sender in Persian digits whatever the grouping, with no Latin digit left.
+        val number = ForwardLogText.ruleLabel(context, "#5 SENT", rules)!!
+        assertThat(number).contains("\u06F1")
+        assertThat(number.none { it in '0'..'9' }).isTrue()
     }
 
     @Test

@@ -31,8 +31,7 @@ class BlockedThreadActivity : ComponentActivity() {
                 BlockedThreadRoute(
                     address = address,
                     onBack = ::finish,
-                    // The reason badge names a block rule: open the block list, where it is (D-6).
-                    onOpenRules = { startActivity(RulesActivity.intent(this, ListKind.BLOCK)) },
+                    onOpenRules = { startActivity(rulesIntent(this)) },
                 )
             }
         }
@@ -44,5 +43,8 @@ class BlockedThreadActivity : ComponentActivity() {
 
         fun intent(context: Context, address: String): Intent =
             Intent(context, BlockedThreadActivity::class.java).putExtra(EXTRA_ADDRESS, address)
+
+        /** The reason badge names a block rule: the rules screen on the block list, where it is (D-6). */
+        internal fun rulesIntent(context: Context): Intent = RulesActivity.intent(context, ListKind.BLOCK)
     }
 }

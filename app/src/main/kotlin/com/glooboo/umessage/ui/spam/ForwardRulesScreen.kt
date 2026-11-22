@@ -80,10 +80,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
@@ -504,12 +502,7 @@ private fun ConditionPicker(
                 singleLine = true,
                 isError = shownError != null,
                 supportingText = shownError?.let { { Text(errorText(it)) } },
-                textStyle = MaterialTheme.typography.bodyLarge.let {
-                    if (selected == RuleType.REGEX) it.copy(fontFamily = FontFamily.Monospace) else it
-                }.let {
-                    // F-5: a typed number or prefix keeps its + in front in a right-to-left sheet.
-                    if (selected.readsLeftToRight) it.copy(textDirection = TextDirection.Ltr) else it
-                },
+                textStyle = ruleValueStyle(MaterialTheme.typography.bodyLarge, selected),
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.None,
                     autoCorrectEnabled = false,

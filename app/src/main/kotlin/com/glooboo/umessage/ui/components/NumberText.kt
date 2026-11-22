@@ -16,8 +16,9 @@ private const val PDI = '⁩'
  * A phone number or an amount as people write it: an optional +, digits in any script, spaces, dashes, dots and
  * brackets. B1: a group separator (`,` `٬` `٫` `'`) counts too when a digit follows it at once, so "۱,۲۵۰,۰۰۰" is one
  * run; split into one isolate per digit group, a right-to-left line laid the groups out backwards ("۰۰۰,۲۵۰,۱").
+ * G-1: the left-to-right marks that `displayNumber` puts between Arabic-Indic groups belong to the run too.
  */
-private val NUMBER_RUN = Regex("""\+?\(?\p{Nd}(?:[\p{Nd} ().\-]|[,٬٫'](?=\p{Nd}))*\p{Nd}\)?""")
+private val NUMBER_RUN = Regex("""\+?\(?\p{Nd}(?:[\p{Nd} ().\-\u200E]|[,٬٫'](?=\p{Nd}))*\p{Nd}\)?""")
 
 /** Fewer digits than this is a count or a time, not a number to protect. */
 private const val MIN_DIGITS = 3

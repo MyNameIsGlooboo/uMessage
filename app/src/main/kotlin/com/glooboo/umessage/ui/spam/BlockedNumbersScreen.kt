@@ -2,7 +2,9 @@ package com.glooboo.umessage.ui.spam
 
 import org.fossify.commons.extensions.appLockManager
 import android.content.ClipData
+import androidx.annotation.StringRes
 import android.content.ClipboardManager
+import android.content.res.Resources
 import android.os.Build
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -98,9 +100,12 @@ import com.glooboo.umessage.ui.components.rememberReduceMotion
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.isolateLtr
 import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.localizeDigits
+import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @Immutable
 class BlockedNumbersActions(
@@ -228,6 +233,13 @@ private fun rememberMigrationActions(rulesViewModel: RulesViewModel) = remember(
     )
 }
 
+/**
+ * P-5, F-3: a message that names the new rule's value, a number or a prefix. It is written in the language's digits and
+ * isolated whole, so it reads as typed in right-to-left text, as the rule row shows a prefix.
+ */
+internal fun ruleValueMessage(resources: Resources, @StringRes res: Int, value: String): String =
+    resources.getString(res, isolateLtr(localizeDigits(value, resources.configuration.locales[0])))
+
 /** Shows one event of the list as a snackbar, with Undo for a move or an unblock. */
 private suspend fun showBlockedNumbersEvent(
     snackbar: SnackbarHostState,
@@ -240,8 +252,7 @@ private suspend fun showBlockedNumbersEvent(
     when (event) {
         is BlockedNumbersEvent.MovedToRules -> {
             val result = snackbar.showSnackbar(
-                // F-3: the number or prefix reads as written in right-to-left text, as in e_bn_added_as_rule.
-                message = resources.getString(R.string.e_bn_moved, isolateLtr(event.number)),
+                message = ruleValueMessage(resources, R.string.e_bn_moved, event.number),
                 actionLabel = undoLabel,
                 duration = SnackbarDuration.Long,
             )
@@ -281,13 +292,19 @@ internal fun blockedNumbersEventText(resources: android.content.res.Resources, e
             resources.getQuantityString(R.plurals.blocknum_exported, event.count, event.count)
         BlockedNumbersEvent.ExportEmpty -> resources.getString(R.string.blocknum_export_empty)
         BlockedNumbersEvent.ExportFailed -> resources.getString(R.string.blocknum_export_failed)
-        // P-5: the rule's value is a number or a prefix, read left to right as a whole in any language.
-        is BlockedNumbersEvent.AddedAsRule ->
-            resources.getString(R.string.e_bn_added_as_rule, isolateLtr(event.number))
+        is BlockedNumbersEvent.AddedAsRule -> ruleValueMessage(resources, R.string.e_bn_added_as_rule, event.number)
         // Shown with Undo by showBlockedNumbersEvent.
         BlockedNumbersEvent.Failed, is BlockedNumbersEvent.MovedToRules, is BlockedNumbersEvent.Unblocked ->
             resources.getString(R.string.blocknum_failed)
     }
+
+/**
+ * A row's number as shown: [number] (the entry through `displayNumber`) with its digits isolated. F-3: a wildcard is
+ * not a bare number, so `displayNumber` leaves it as typed; it is written in the language's digits and isolated whole,
+ * so "+1555*" keeps its star at the end in right-to-left text.
+ */
+internal fun blockedEntryText(item: BlockedNumberItem, locale: Locale, number: String): String =
+    if (item.isPattern) isolateLtr(localizeDigits(item.number, locale)) else isolateNumbers(number)
 
 @Composable
 fun BlockedNumbersScreen(
@@ -458,9 +475,7 @@ private fun BlockedNumberRow(
     modifier: Modifier = Modifier,
 ) {
     val colors = MaterialTheme.colorScheme
-    // A wildcard is not a bare number, so displayNumber leaves it as typed; F-3: isolated whole, "+1555*" keeps its
-    // star at the end in right-to-left text.
-    val shownNumber = if (item.isPattern) isolateLtr(item.number) else isolateNumbers(displayNumber(item.number))
+    val shownNumber = blockedEntryText(item, uiLocale(), displayNumber(item.number))
     val title = item.contactName ?: shownNumber
     // Every row says something (SE-30): the number under a contact, what a wildcard covers, or what the entry does.
     val supporting = when {

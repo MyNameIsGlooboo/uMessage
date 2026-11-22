@@ -13,7 +13,7 @@ import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.spam.engine.SenderVerdict
-import com.glooboo.umessage.ui.components.isolateLtr
+import com.glooboo.umessage.ui.components.ruleValueText
 import com.glooboo.umessage.ui.components.showConfirmDialog
 import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.RuleNotes
@@ -155,7 +155,10 @@ internal class ThreadSpamMoves(
         // L-7: the reason shows at once, not after an Undo window that is still open.
         snackbar.currentSnackbarData?.dismiss()
         val view = snackbar.showSnackbar(
-            message = activity.getString(R.string.pt_unblock_refused_prefix, isolateLtr(rule.pattern)),
+            // A prefix in the language's digits, isolated whole, as the rule row shows it.
+            message = activity.getString(
+                R.string.pt_unblock_refused_prefix, ruleValueText(activity, rule.type, rule.pattern),
+            ),
             actionLabel = activity.getString(R.string.e_view_rule),
             duration = SnackbarDuration.Long,
         ) == SnackbarResult.ActionPerformed
