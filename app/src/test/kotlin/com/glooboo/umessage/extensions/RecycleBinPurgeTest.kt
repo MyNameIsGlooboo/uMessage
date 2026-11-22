@@ -82,8 +82,9 @@ class RecycleBinPurgeTest {
     }
 
     @Test
-    fun deleteForeverRemovesEveryBinnedMessageOfTheChat() {
+    fun deleteForeverRemovesTheChatWhenOnlyBinnedMessagesWereLeft() {
         beDefaultSmsApp()
+        store.listColumns = true
         addMessages(ONLY_BIN_CHAT, 10..11L)
         cacheAndBin(10, 11)
 
@@ -91,11 +92,14 @@ class RecycleBinPurgeTest {
 
         assertThat(live()).isEmpty()
         assertThat(binEntries()).isEmpty()
+        // The store reads the chat with no message left: it is forgotten.
+        assertThat(chatRows()).doesNotContain(ONLY_BIN_CHAT)
     }
 
     @Test
-    fun emptyingTheBinKeepsLiveMessages() {
+    fun emptyingTheBinKeepsLiveMessagesAndDropsOnlyEmptiedChats() {
         beDefaultSmsApp()
+        store.listColumns = true
         addMessages(CHAT, 1..5L)
         addMessages(ONLY_BIN_CHAT, 10..11L)
         cacheAndBin(4, 5, 10, 11)
@@ -104,7 +108,7 @@ class RecycleBinPurgeTest {
 
         assertThat(live()).containsExactly(1L, 2L, 3L)
         assertThat(binEntries()).isEmpty()
-        assertThat(chatRows()).contains(CHAT)
+        assertThat(chatRows()).containsExactly(CHAT)
     }
 
     @Test

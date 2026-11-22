@@ -39,9 +39,8 @@ class DigestNotifierSpamTest {
     private val now = 50 * CleanupPrefs.DIGEST_INTERVAL_MS
     private val since = now - 3 * DAY_MS
 
-    private val notifications
-        get() = shadowOf(context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
-            .allNotifications
+    private val manager get() = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private val notifications get() = shadowOf(manager).allNotifications
 
     @Before
     fun setUp() {
@@ -95,6 +94,52 @@ class DigestNotifierSpamTest {
         assertThat(notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString()).contains("2")
         val open = shadowOf(notification.contentIntent).savedIntent
         assertThat(open.getStringExtra(MainTabLinks.EXTRA_OPEN_TAB)).isEqualTo(MainTabLinks.TAB_BLOCKED)
+    }
+
+    /** I08: one quiet notification; on the lock screen only its title shows, never a count or a text. */
+    @Test
+    fun theLockScreenShowsNoCountAndTheChannelIsQuiet() {
+        assertThat(offMainThread { DigestNotifier.postIfDue(context, now) }).isTrue()
+
+        val notification = notifications.single()
+        assertThat(notification.channelId).isEqualTo(DigestNotifier.CHANNEL_ID)
+        val text = notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString()
+        assertThat(text).contains("2")
+        assertThat(text).doesNotContain("loans")
+        assertThat(notification.visibility).isEqualTo(Notification.VISIBILITY_PRIVATE)
+        assertThat(notification.publicVersion.extras.getCharSequence(Notification.EXTRA_TEXT)).isNull()
+        assertThat(manager.getNotificationChannel(DigestNotifier.CHANNEL_ID).importance)
+            .isEqualTo(NotificationManager.IMPORTANCE_LOW)
+    }
+
+    /** I08: a week in which no text arrived in Spam posts nothing. */
+    @Test
+    fun nothingIsPostedWhenNothingWasCounted() {
+        // Only texts that do not count: one from before its chat went to Spam, one older than a week.
+        DigestNotifier.readSpamTexts = { _, _ ->
+            listOf(
+                WeeklyDigest.SpamText(SENDER, "Cheap loans", receivedAt = since - DAY_MS, since = since),
+                WeeklyDigest.SpamText(SENDER, "Cheap loans", receivedAt = now - 9 * DAY_MS, since = 1L),
+            )
+        }
+
+        assertThat(offMainThread { DigestNotifier.postIfDue(context, now) }).isFalse()
+        assertThat(notifications).isEmpty()
+    }
+
+    /** I08: with the summary switched off nothing is read or posted, and the week waits for the switch. */
+    @Test
+    fun nothingIsPostedWithTheSwitchOff() {
+        var reads = 0
+        DigestNotifier.readSpamTexts = { c, at -> reads++; DigestNotifier.spamTexts(c, at) }
+        context.cleanupPrefs.digestOn = false
+
+        assertThat(offMainThread { DigestNotifier.postIfDue(context, now) }).isFalse()
+        assertThat(notifications).isEmpty()
+        assertThat(reads).isEqualTo(0)
+
+        context.cleanupPrefs.digestOn = true
+        assertThat(offMainThread { DigestNotifier.postIfDue(context, now) }).isTrue()
     }
 
     @Test
