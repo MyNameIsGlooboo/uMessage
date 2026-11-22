@@ -166,6 +166,34 @@ class RegexOnDeviceTest {
         assertFalse(AllowingCode.isAllowingCode("Your Example Bank OTP is 482913. Share it with the courier"))
     }
 
+    /** Reviews 7 and 8: the look-behinds with optional parts (an if-clause, "n't", a link start) run on ICU. */
+    @Test fun reviewSevenAndEightPatternsBehaveAsOnTheJvm() {
+        // R7-4: "not" or "n't" inside an if-clause is no warning; a real warning after one still allows.
+        listOf(
+            "If you do not share the code with our agent your account will be blocked. OTP 482913",
+            "If you don't share the OTP with our executive your account will be suspended. OTP 482913",
+            // R8-3, R8-4: a warning word inside a request, and words that only begin like a negation.
+            "To protect you from fraudsters share the OTP with our agent. OTP 482913",
+            "Kindly note share the OTP with our executive to complete KYC. OTP 482913",
+            "برای جلوگیری از کلاهبرداری کد تایید 482913 را به کارشناس اعلام کنید",
+            // R8-1: a request without an article.
+            "Your OTP is 482913. Share OTP with our support team",
+        ).forEach { assertFalse(it, AllowingCode.isAllowingCode(it)) }
+        listOf(
+            "Your OTP is 482913. If you did not request it do not share it with the caller",
+            "Your OTP is 482913. Note: never share it with our staff",
+            // R8-2: "code for <name>" is no access code.
+            "Your verification code for Gate is 482913",
+        ).forEach { assertTrue(it, AllowingCode.isAllowingCode(it)) }
+        // R7-5, R8-7: a link right after a bracketed dot or a hyphen.
+        assertTrue(OtpDetector.containsUrl("Visit [.]example.com"))
+        assertTrue(OtpDetector.containsUrl("تست[.]example.com"))
+        assertTrue(OtpDetector.containsUrl("Visit -example.com"))
+        assertTrue(OtpDetector.containsUrl("Visit -[.]example.com"))
+        assertTrue(OtpDetector.containsUrl("Visit a-b.example.com"))
+        assertFalse(AllowingCode.isAllowingCode("Your code is 482913 -example.com"))
+    }
+
     /** The strict reading that allows a sender (check 10) builds its own patterns on top of the detector's. */
     @Test fun allowingCodeBehavesAsOnTheJvm() {
         assertTrue(AllowingCode.isAllowingCode("Your verification code is 482915"))

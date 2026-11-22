@@ -319,10 +319,12 @@ object OtpDetector {
     /**
      * Not glued to a Latin letter or digit; a Persian or other non-Latin letter before a domain does not hide it. A
      * label right after a dot starts no match only when a label stands before that dot (one start per run, so matching
-     * stays linear), so "[.]example.com" and "تست[.]example.com" are links (R7-5).
+     * stays linear), so "[.]example.com" and "تست[.]example.com" are links (R7-5). A hyphen stops a start the same
+     * way, only with something before it: "-example.com" and "-.example.com" are links, "a-b.example.com" one (R8-7).
      */
-    private const val URL_START = "(?<![a-z0-9\\u00C0-\\u024F@\\-])" +
-        "(?<![a-z0-9\\-](?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\)))"
+    private const val URL_START = "(?<![a-z0-9\\u00C0-\\u024F@])(?<![^\\s]-)" +
+        "(?<![a-z0-9](?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\)))" +
+        "(?<![^\\s]-(?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\)))"
 
     private val url = Regex(
         "h[xt]{2}ps?://|www$DOT" +

@@ -88,8 +88,9 @@ object AllowingCode {
         // entrance", "کد ورود ساختمان"). The bare words are also names ("【Gate】", "Digi Locker", "Example
         // Parking"), so alone they veto nothing.
         "$ACCESS_NOUN(?: (?:access|entry|lock))? (?:code|pin|passcode|password)",
-        "(?:code|pin|passcode|password) (?:for|to|of|at) (?:the |your |our )?" +
-            "(?:(?:main|front|back|side|parcel|car) )?$ACCESS_NOUN",
+        "(?:code|pin|passcode|password) (?:for|to|of|at) " +
+            "(?:(?:the|your|our) (?:(?:main|front|back|side|parcel|car) )?|(?:main|front|back|side|parcel|car) )" +
+            "$ACCESS_NOUN",
         // Persian
         "پیگیری", "رهگیری", "مرسوله", "کد سفارش", "شماره سفارش", "کد معرف", "کد معرفی", "کد شعبه", "کد نوبت",
         "شماره نوبت", "کد بورسی", "کد پستی", "کد مشتری", "شماره مشتری", "کد اشتراک", "کد ملی", "کد رزرو", "کد خطا",
@@ -266,6 +267,7 @@ object AllowingCode {
      * the check stays cheap on a long body (a look-behind over the whole text would cost seconds at 100 000).
      */
     private const val CLAUSE = "[^.!?,;:\u060C\u061B\\n]"
+    private const val CLAUSE_FA = "[^.!?,;:\u060C\u061B\\n0-9]"
     private const val NEGATION_COMMA = "(?:(?<![\\p{L}])(?:never|no one)|" +
         "(?<![\\p{L}])(?<!(?:if|or|whether) )(?<!if (?:you |we )?do )not|" +
         "(?<![\\p{L}])(?<!if (?:you |we )?)do not|(?<!if (?:you |we )?\\p{L}{1,6})n't)"
@@ -277,26 +279,35 @@ object AllowingCode {
     /** "Do not delay", "Don't wait": an urge, no warning (R7-4). */
     private const val NOT_URGE = "(?! (?:delay|wait|hesitate|forget)(?![\\p{L}]))"
 
-    /** R7-3: also "nobody", "under no", "neither", "fraudsters", "unsafe", and a longer clause after "never". */
+    /**
+     * R7-3, R8-3: also "nobody", "under no circumstance", "neither", "anyone who asks", "fraudsters ... ask", "beware
+     * of", "unsafe to", and a longer clause after "never". R8-4: "not", "nor", "never" end at a word edge ("note").
+     */
     private const val WARNING_EN = "(?:$NEGATION_COMMA(?:,$CLAUSE{0,30},|,)|" +
-        "(?<![\\p{L}])(?:$NOT_IF(?:not|dont)$NOT_URGE|nobody|under no|at no time|neither|nor|anyone|someone|" +
-        "fraudsters?|scammers?|beware|unsafe)|(?<!$IF_CLAUSE\\p{L}{1,6})n't$NOT_URGE)$CLAUSE{0,32}|" +
-        "(?<![\\p{L}])(?:never|no one)$CLAUSE{0,60}"
+        "(?<![\\p{L}])(?:$NOT_IF(?:not|dont)(?![\\p{L}])$NOT_URGE|nobody|under no circumstance|at no time|neither|" +
+        "nor(?![\\p{L}])|(?:anyone|someone)(?: who| that)? ask|(?:fraudsters?|scammers?)(?: \\p{L}{1,10}){0,2} ask|" +
+        "beware of|unsafe to)|(?<!$IF_CLAUSE\\p{L}{1,6})n't$NOT_URGE)$CLAUSE{0,32}|" +
+        "(?<![\\p{L}])(?:never|no one)(?![\\p{L}])$CLAUSE{0,60}"
     private const val WARNING_FA = "(?<![\\p{L}])(?:هرگز|هیچ ?وقت|هیچ ?کس|هیچ ?گاه|هیچ ?وجه|هیچ ?عنوان|هیچ ?یک|" +
-        "نباید|نمی\\s?خواه\\p{L}{0,4}|نخواه\\p{L}{0,6}|نمی\\s?کن\\p{L}{0,3}|کلاهبردار\\p{L}{0,3})$CLAUSE{0,40}"
+        "نباید|نمی\\s?خواه\\p{L}{0,4}|نخواه\\p{L}{0,6}|نمی\\s?کن\\p{L}{0,3}|کلاهبردار(?:ان|\\s?ها))$CLAUSE_FA{0,40}"
     private const val ASK_VERB = "(?:share|give|tell|read|send|provide|forward|confirm)"
     private const val ASK_CODE = "(?: otp| code| verification code| pin)"
     private const val ASK_EN = "$ASK_VERB(?: it| this| the| your)?$ASK_CODE? (?:with|to) (?:the |our |your )?"
 
     /**
      * R7-8: support, a team or staff are a receiver only when the code is named and they are not the reader's own
-     * ("share it with our support team"; not "forward to our support team" or "Share it with your team").
+     * ("share it with our support team"; not "forward to our support team" or "Share it with your team"). The article
+     * before the code is optional ("Share OTP with our support team", R8-1).
      */
     private const val ASK_EN_NAMED =
-        "$ASK_VERB(?: it| this$ASK_CODE?| (?:the|your)$ASK_CODE) (?:with|to) (?:the |our )?"
+        "$ASK_VERB(?: it| this$ASK_CODE?|(?: the| your)?$ASK_CODE) (?:with|to) (?:the |our )?"
 
-    /** R7-2: only a word of the receiver may stand between it and the verb ("به کارشناس ما اعلام کنید"). */
-    private const val ASK_FA_VERB = "(?:(?:ما|مان|خود|شما|بانک|شرکت|تلفنی|مربوطه|محترم|پشتیبانی)\\s?){0,2}" +
+    /**
+     * R7-2, R8-5: only a word of the receiver, who is calling or an adverb may stand between it and the verb ("به
+     * کارشناس ما اعلام کنید", "به اپراتور حتما بگویید").
+     */
+    private const val ASK_FA_VERB = "(?:(?:ما|مان|خود|شما|بانک|شرکت|تلفنی|مربوطه|محترم|پشتیبانی|" +
+        "سریعا|فورا|حتما|لطفا|تماس گیرنده|پشت خط)\\s?){0,2}" +
         "(?:اعلام کنید|اعلام نمایید|بگویید|بدهید|بفرستید|ارسال کنید|ارائه دهید|ارائه کنید|بخوانید)"
 
     /** How far before a request a warning is looked for: longer than the longest warning above. */
@@ -309,7 +320,7 @@ object AllowingCode {
     private val handOverOfficial = Regex(
         "(?<![\\p{L}\\p{N}])(?:" +
             "(?:به|برای)\\s?(?:کارشناس|اپراتور|نماینده|پشتیبان|پشتیبانی|همکار|همکاران|" +
-            "مامور(?!\\s?(?:تحویل|پست)))(?:ان|\\s?ها)?(?:\\s|$)$ASK_FA_VERB|" +
+            "مامور(?!\\s?(?:تحویل|پست)))(?:ان|\\s?ها(?:ی)?)?(?:\\s|$)$ASK_FA_VERB|" +
             "$ASK_EN(?:(?:agent|caller|representative|executive|officer)s?|customer care)|" +
             "$ASK_EN_NAMED(?:staff|support team|support|team)s?|" +
             "tell (?:the |our |your )agent|reply with the (?:verification code|code|otp)" +
@@ -337,11 +348,12 @@ object AllowingCode {
 
     /**
      * Betting and lotteries (R5-5, R6-4); "Bet365" stays a name, as "bet" needs a word edge. A betting site is
-     * "سایت پیش بینی"; the bare "پیش بینی" is also a weather forecast (R7-7).
+     * "سایت پیش بینی" or "پیش بینی فوتبال"; the bare "پیش بینی" is also a weather forecast (R7-7, R8-6).
      */
     private val betting = Regex(
         "(?<![\\p{L}\\p{N}])(?:bet|betting|casino|poker|sorteo|gewinnspiel|lucky draw|raffle|sweepstakes?|apostas?|" +
-            "apuestas?|bahis|казино|شرط ?بندی|سایت ?پیش ?بینی|کازینو|رهان|مراهنات|السحب علی الجوائز)(?![\\p{L}\\p{N}])",
+            "apuestas?|bahis|казино|شرط ?بندی|سایت ?پیش ?بینی|پیش ?بینی (?:فوتبال|ورزشی|مسابقات)|کازینو|رهان|" +
+            "مراهنات|السحب علی الجوائز)(?![\\p{L}\\p{N}])",
         RegexOption.IGNORE_CASE,
     )
 
