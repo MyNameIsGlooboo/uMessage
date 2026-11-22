@@ -5,7 +5,7 @@ language is Persian; layouts mirror to right-to-left on their own.
 
 ## Glossary
 
-Use these terms everywhere, in the app's own strings and in the vendored commons strings. The tone is the
+Use these terms everywhere, in the app's own strings and in the commons strings the app shows. The tone is the
 everyday spoken Persian of popular apps (Telegram, WhatsApp, Instagram): short, plain, common loanwords are
 welcome ("بلاک"، "لینک"، "بک‌آپ"). Address the user with the polite plural verb ("کنید") and avoid stiff
 officialese. The 0.4.2 pass replaced the formal words below with the spoken ones (732 strings).
