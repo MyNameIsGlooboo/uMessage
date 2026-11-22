@@ -13,12 +13,14 @@ internal object OtpKeywords {
     val strong = listOf(
         // English
         "otp", "passcode", "password", "pin", "verification", "verify", "one[- ]?time", "authenticat\\p{L}*",
-        "security code", "login code", "2fa", "passcodes", "log[- ]?in", "sign[- ]?in",
+        "security code", "login code", "2fa", "passcodes", "log[- ]?in", "sign[- ]?in", "verification code",
         // Persian
         "رمز", "رمز پویا", "رمز عبور", "رمز یکبار مصرف", "گذرواژه", "کد تایید", "کد تأیید", "کد فعالسازی",
-        "کد ورود", "فرم ورود", "ورود به حساب", "تایید", "تأیید", "تائید", "یکبار مصرف", "یک بار مصرف",
+        "کد ورود", "فرم ورود", "ورود به حساب", "تایید", "تأیید", "تائید", "یکبار مصرف", "یک بار مصرف", "پسورد",
+        "کلمه عبور", "کلمه ی عبور",
         // Arabic (written with Persian yeh and kaf, as the text is folded the same way)
-        "الرمز", "رمز التحقق", "رمز التفعیل", "کلمة المرور", "التحقق", "التفعیل",
+        "الرمز", "رمز التحقق", "رمز التفعیل", "کلمة المرور", "التحقق", "التفعیل", "الرقم السری", "رقمک السری",
+        "کلمه السر", "الرمز السری",
         // Russian and Ukrainian
         "пароль", "код подтверждения", "код підтвердження", "проверочный код", "код безопасности", "одноразовый",
         "одноразовий", "подтверждения", "підтвердження", "пин[- ]?код", "пин",
@@ -47,9 +49,14 @@ internal object OtpKeywords {
 
     /**
      * Words for a password. Only these make a 9-10 digit number a code ("رمز شخصی شما 1234567890"); the other strong
-     * words ("تایید", "verify") do not, as a long number next to them is usually a tracking or account number.
+     * words ("تایید", "verify") do not, as a long number next to them is usually a tracking or account number. With
+     * [codePhrases] they are also the only words a code may stand up to eight words from ([OtpDetector]'s wide reach).
+     * "کلمه ی عبور" also reads "کلمه‌ی عبور", as folding drops the ZWNJ.
      */
-    val password = listOf("رمز", "رمز عبور", "رمز پویا", "رمز یکبار مصرف", "گذرواژه", "پسورد", "password", "passcode")
+    val password = listOf(
+        "رمز", "رمز عبور", "رمز پویا", "رمز یکبار مصرف", "گذرواژه", "پسورد", "کلمه عبور", "کلمه ی عبور", "password",
+        "passcode", "الرقم السری", "رقمک السری", "کلمه السر", "الرمز السری",
+    )
 
     /** Generic words ("code", "کد", "код"): a number next to one is a code unless it reads as a year. */
     val weak = listOf(
@@ -95,6 +102,35 @@ internal object OtpKeywords {
      * "کد 9878 را در فرم ورود ... وارد کنید. لغو11" says what the number is.
      */
     val optOut = listOf("لغو ?11")
+
+    /**
+     * Phrases that only a one-time code carries. A code right next to one of them is a code even in a text with a word
+     * of [marketingHard], as long as that word stands in another sentence ("Your verification code is 482913. Get 20%
+     * off your next ride!"): an advertising footer does not hide the code. Never the generic words ("code", "کد",
+     * "verify"), so "Winner! Verify with 123456" and "50% off, code SALE20" stay advertisements.
+     */
+    val codePhrases = listOf(
+        // English
+        "otp", "one[- ]?time password", "one[- ]?time passcode", "one[- ]?time code", "verification code",
+        "security code", "login code", "log[- ]?in code", "sign[- ]?in code", "passcode", "authentication code",
+        // Persian
+        "کد تایید", "کد تأیید", "کد تائید", "رمز یکبار مصرف", "رمز یک بار مصرف", "رمز پویا", "کد ورود",
+        "کد فعالسازی", "کد فعال سازی", "رمز عبور", "رمز ورود",
+        // Arabic
+        "رمز التحقق", "رمز التفعیل", "رمز الدخول", "کود التفعیل", "کود التحقق",
+        // Other languages
+        "код подтверждения", "проверочный код", "doğrulama kodu", "onay kodu", "código de verificación",
+        "código de verificação", "codice di verifica", "code de vérification", "bestätigungscode",
+        "verifizierungscode", "kod weryfikacyjny", "kode verifikasi", "mã xác nhận", "mã xác minh",
+    )
+
+    /**
+     * Words of prizes and lotteries, all of them also in [marketingHard]. A text with one is never a code, not even
+     * with a code phrase and the word in another sentence: "Congratulations winner! Your OTP is 482913" is a scam.
+     */
+    val prize = listOf(
+        "prize", "lottery", "jackpot", "winner", "جایزه", "برنده", "قرعه کشی", "قرعه\u200Cکشی", "جائزة",
+    )
 
     /** Marketing words of languages without spaces between words: matched anywhere in the text, without word edges. */
     val marketingCjk = listOf("优惠", "優惠", "折扣", "割引", "セール", "할인", "ส่วนลด")

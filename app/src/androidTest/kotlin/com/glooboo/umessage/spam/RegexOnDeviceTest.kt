@@ -72,6 +72,13 @@ class RegexOnDeviceTest {
         "com.glooboo.umessage.ui.thread.UnknownCardLogic",
     )
 
+    /** The fastest of three runs of [block] in milliseconds: a busy device slows some runs, never the patterns. */
+    private fun bestMillis(block: () -> Unit): Long = (1..3).minOf {
+        val start = System.nanoTime()
+        block()
+        (System.nanoTime() - start) / 1_000_000
+    }
+
     @Test fun everyRegexHolderInitializes() {
         val loader = InstrumentationRegistry.getInstrumentation().targetContext.classLoader
         for (name in regexHolders) {
@@ -103,6 +110,88 @@ class RegexOnDeviceTest {
 
         assertTrue(OtpDetector.isOriginBound("Your code is 123456\n\n@example.com #123456"))
         assertFalse(OtpDetector.containsUrl("Your code is 123456\n\n@www.example.com #123456"))
+    }
+
+    /**
+     * Step N: the possessive runs, the bounded look-behinds (masks, reference words, dates) and the script ranges
+     * behave on ICU as on the JVM, and a run of marks stays fast.
+     */
+    @Test fun stepNPatternsBehaveAsOnTheJvm() {
+        // Wide reach from a code phrase, eight words of one sentence.
+        assertTrue(OtpDetector.looksLikeOtp("کد تایید شما جهت انجام تراکنش خرید از فروشگاه نمونه: 482913"))
+        // A code phrase with an advertising footer; an ad word in the code's sentence; a prize word anywhere.
+        assertTrue(OtpDetector.looksLikeOtp("Your verification code is 482913. Get 20% off your next ride!"))
+        assertFalse(AllowingCode.isAllowingCode("Your verification code is 482913. Get 20% off your next ride!"))
+        assertFalse(OtpDetector.looksLikeOtp("Your OTP is 482913, enjoy 20% off"))
+        assertFalse(OtpDetector.looksLikeOtp("Congratulations winner! Your OTP is 482913. Claim your prize"))
+        // Masks and stars.
+        assertFalse(OtpDetector.looksLikeOtp("Your PIN for card **** 1234 is now active"))
+        assertFalse(OtpDetector.looksLikeOtp("Your PIN for card ••••1234 is now active"))
+        assertFalse(OtpDetector.looksLikeOtp("خرید با رمز پویا از کارت *1234 انجام شد"))
+        assertTrue(AllowingCode.isAllowingCode("OTP: *482913*"))
+        assertEquals("482913", OtpCodeExtractor.extract("Your verification code is *482913*"))
+        // Reference words and dates.
+        assertTrue(AllowingCode.isAllowingCode("OTP for your account is 482913"))
+        assertFalse(OtpDetector.looksLikeOtp("پرداخت قبض شما تایید شد، شماره پیگیری 482913"))
+        assertFalse(OtpDetector.looksLikeOtp("Login at 2026-11-02 12:30"))
+        // Separators of eight, Thai clauses, an emoji with a variation selector.
+        assertTrue(AllowingCode.isAllowingCode("Verification code:\r\n\r\n482913"))
+        assertTrue(AllowingCode.isAllowingCode("OTP สำหรับเข้าสู่ระบบของคุณคือ 482913"))
+        assertTrue(AllowingCode.isAllowingCode("کد تایید ✅️482913"))
+        // Combining marks are never separators: this would run for seconds if they were.
+        val marks = "OTP " + "\u0301".repeat(200) + " 482913"
+        assertFalse(OtpDetector.looksLikeOtp(marks))
+        assertTrue("marks", bestMillis { OtpDetector.looksLikeOtp(marks) } < 1_000)
+        // Review 5, R5-1: a currency word and a masked number repeated; every chain element is atomic.
+        val unit = "OTP" + " rs *12".repeat(400)
+        for (length in listOf(100, 160, 2000)) {
+            val body = unit.take(length)
+            val millis = bestMillis { OtpDetector.looksLikeOtp(body); AllowingCode.isAllowingCode(body) }
+            assertTrue("rs *12 x $length: $millis ms", millis < 1_000)
+        }
+        // Review 6, R6-1: a bracketed dot repeated; the link pattern reads the whole body on ICU.
+        val phrase = "Your verification code for signing up to the Example app is 482913 "
+        for (length in listOf(2000, 8000, 16000)) {
+            val body = phrase + "a[.]".repeat((length - phrase.length) / 4) + "com"
+            val millis = bestMillis { AllowingCode.isAllowingCode(body) }
+            assertTrue("a[.] x $length: $millis ms", millis < 2_000)
+            assertTrue("a[.] x $length", OtpDetector.looksLikeOtp(body))
+            assertFalse("a[.] x $length", AllowingCode.isAllowingCode(body))
+        }
+        // The wide allow (owner, 21 Nov) and the hand-over veto (R5-5, R6-2, R6-3).
+        assertTrue(AllowingCode.isAllowingCode("کد تایید شما جهت انجام تراکنش خرید از فروشگاه نمونه: 482913"))
+        assertFalse(AllowingCode.isAllowingCode("کد تایید ارسال شد، نوبت شما در مطب دکتر نمونه 482913"))
+        assertTrue(AllowingCode.isAllowingCode("Order 48291 arriving today, give the OTP to the courier"))
+        assertTrue(AllowingCode.isAllowingCode("Your OTP is 482913. Never tell the agent your OTP"))
+        assertFalse(AllowingCode.isAllowingCode("Your Example Bank OTP is 482913. Share it with the courier"))
+    }
+
+    /** Reviews 7 and 8: the look-behinds with optional parts (an if-clause, "n't", a link start) run on ICU. */
+    @Test fun reviewSevenAndEightPatternsBehaveAsOnTheJvm() {
+        // R7-4: "not" or "n't" inside an if-clause is no warning; a real warning after one still allows.
+        listOf(
+            "If you do not share the code with our agent your account will be blocked. OTP 482913",
+            "If you don't share the OTP with our executive your account will be suspended. OTP 482913",
+            // R8-3, R8-4: a warning word inside a request, and words that only begin like a negation.
+            "To protect you from fraudsters share the OTP with our agent. OTP 482913",
+            "Kindly note share the OTP with our executive to complete KYC. OTP 482913",
+            "برای جلوگیری از کلاهبرداری کد تایید 482913 را به کارشناس اعلام کنید",
+            // R8-1: a request without an article.
+            "Your OTP is 482913. Share OTP with our support team",
+        ).forEach { assertFalse(it, AllowingCode.isAllowingCode(it)) }
+        listOf(
+            "Your OTP is 482913. If you did not request it do not share it with the caller",
+            "Your OTP is 482913. Note: never share it with our staff",
+            // R8-2: "code for <name>" is no access code.
+            "Your verification code for Gate is 482913",
+        ).forEach { assertTrue(it, AllowingCode.isAllowingCode(it)) }
+        // R7-5, R8-7: a link right after a bracketed dot or a hyphen.
+        assertTrue(OtpDetector.containsUrl("Visit [.]example.com"))
+        assertTrue(OtpDetector.containsUrl("تست[.]example.com"))
+        assertTrue(OtpDetector.containsUrl("Visit -example.com"))
+        assertTrue(OtpDetector.containsUrl("Visit -[.]example.com"))
+        assertTrue(OtpDetector.containsUrl("Visit a-b.example.com"))
+        assertFalse(AllowingCode.isAllowingCode("Your code is 482913 -example.com"))
     }
 
     /** The strict reading that allows a sender (check 10) builds its own patterns on top of the detector's. */
