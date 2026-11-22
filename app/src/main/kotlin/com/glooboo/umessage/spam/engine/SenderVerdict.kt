@@ -305,7 +305,7 @@ class SenderJudge(
             val probe = IncomingMessage(address = address, body = "", subscriptionId = NO_SIM)
             val numbers = readers.readers()
             // R-6: one matcher semantics. Two numbers with a known country match exactly when a key is shared, so the
-            // index is enough for them; a number without a country (a short code, "98906..." without +, a reader with
+            // index is enough for them; a number without a country (a short code, "44770..." without +, a reader with
             // no region) is read by RuleMatcher, as the repository does: against every NUMBER rule when the sender has
             // no country, else against the rules that have none.
             val loose = when {

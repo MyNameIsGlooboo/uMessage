@@ -420,20 +420,20 @@ class SenderVerdictTest {
 
     /** The SIM a text arrived on does not change the reading of the sender (R6, S8). */
     @Test fun r1_aRegionMismatchBetweenSimsDoesNotSplitASender() {
-        val world = World(region = "US", simRegions = listOf("IR", "GB"))
-        world.receive(IR_NATIONAL, "کد تایید شما: ۴۸۲۹۱۵", sub = 2)
-        listOf(IR_NATIONAL, IR_PLUS, IR_00).forEach { shape ->
+        val world = World(region = "US", simRegions = listOf("GB", "DE"))
+        world.receive(REGION2_NATIONAL, "کد تایید شما: ۴۸۲۹۱۵", sub = 2)
+        listOf(REGION2_NATIONAL, REGION2_PLUS, REGION2_00).forEach { shape ->
             assertMessages(DecisionReason.GROUP_MEMBER, world.receive(shape, "سلام", sub = 1))
             assertMessages(DecisionReason.GROUP_MEMBER, world.receive(shape, "سلام", sub = 2))
         }
     }
 
-    /** A-6: a member stored under an older SIM list (key +98...) is still found when the list changed. */
+    /** A-6: a member stored under an older SIM list (key +44...) is still found when the list changed. */
     @Test fun aMemberIsFoundAfterTheSimRegionListChanged() {
-        val world = World(region = "US", simRegions = listOf("GB"))
-        world.stored += AllowGroupMember(AllowGroup.CODE, IR_PLUS, IR_NATIONAL, 1L, MemberSource.LIVE, true)
-        assertMessages(DecisionReason.GROUP_MEMBER, world.receive(IR_NATIONAL))
-        assertMessages(DecisionReason.GROUP_MEMBER, world.receive(IR_PLUS))
+        val world = World(region = "US", simRegions = listOf("DE"))
+        world.stored += AllowGroupMember(AllowGroup.CODE, REGION2_PLUS, REGION2_NATIONAL, 1L, MemberSource.LIVE, true)
+        assertMessages(DecisionReason.GROUP_MEMBER, world.receive(REGION2_NATIONAL))
+        assertMessages(DecisionReason.GROUP_MEMBER, world.receive(REGION2_PLUS))
     }
 
     /** A-11: a failed allowed-word fact is logged as FACT_FAILED, not as the word's allow. */
@@ -449,7 +449,7 @@ class SenderVerdictTest {
 
     /** A-3: one snapshot sorts many chats; 5,000 verdicts stay well inside a soft bound on the JVM. */
     @Test fun fiveThousandVerdictsFromOneSnapshot() {
-        val world = World(simRegions = listOf("IR"))
+        val world = World(simRegions = listOf("GB"))
         repeat(200) { world.rule(ListKind.BLOCK, RuleType.NUMBER, "+1555%07d".format(it)) }
         world.rule(ListKind.BLOCK, RuleType.PREFIX, "+1555999")
         world.rule(ListKind.ALLOW, RuleType.SENDER_ID, "MYBANK")
@@ -487,14 +487,14 @@ class SenderVerdictTest {
 
     /**
      * R-6: the snapshot reads a NUMBER rule exactly as RuleMatcher does, also for short codes, a reader with no region
-     * and "98906..." written without + under a US-only list.
+     * and "44770..." written without + under a US-only list.
      */
     @Test fun theSnapshotAndRuleMatcherAgreeOnNumberRules() {
         val cases = listOf(
             Triple("US", "30001234", listOf("30001234", "+130001234", "130001234")),
             Triple("", "+15550001234", listOf("5550001234", "05550001234", "+15550001234", "15550001234")),
-            Triple("US", IR_PLUS, listOf("989061234567", IR_00, IR_NATIONAL, "+15550001234")),
-            Triple("US", "989061234567", listOf(IR_PLUS, "989061234567")),
+            Triple("US", REGION2_PLUS, listOf("447700900123", REGION2_00, REGION2_NATIONAL, "+15550001234")),
+            Triple("US", "447700900123", listOf(REGION2_PLUS, "447700900123")),
         )
         for ((region, pattern, addresses) in cases) {
             val world = World(region = region)
@@ -536,8 +536,8 @@ class SenderVerdictTest {
         const val WARM_UP = 200
         const val SOFT_BOUND_MS = 6_000L
         const val OTHER = "+15550005678"
-        const val IR_NATIONAL = "09061234567"
-        const val IR_PLUS = "+989061234567"
-        const val IR_00 = "00989061234567"
+        const val REGION2_NATIONAL = "07700900123"
+        const val REGION2_PLUS = "+447700900123"
+        const val REGION2_00 = "00447700900123"
     }
 }

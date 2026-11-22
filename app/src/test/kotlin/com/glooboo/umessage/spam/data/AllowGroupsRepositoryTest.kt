@@ -39,7 +39,7 @@ class AllowGroupsRepositoryTest {
     private lateinit var repo: DefaultSpamRepository
 
     private val dao get() = db.spamDao()
-    private val readers = NumberReaders(NumberNormalizer { "US" }) { listOf("IR") }
+    private val readers = NumberReaders(NumberNormalizer { "US" }) { listOf("GB") }
 
     @Before fun setUp() {
         db = Room.inMemoryDatabaseBuilder(app, SpamDatabase::class.java).allowMainThreadQueries().build()
@@ -56,7 +56,7 @@ class AllowGroupsRepositoryTest {
             blockedFromMessageNote = { RuleNotes.BLOCKED_FROM_MESSAGE },
             blockedFromKeywordNote = { RuleNotes.BLOCKED_FROM_KEYWORD },
             allowedFromKeywordNote = { RuleNotes.ALLOWED_FROM_KEYWORD },
-            simRegions = { listOf("IR") },
+            simRegions = { listOf("GB") },
             legacyBlocked = { it == ANDROID_BLOCKED },
         )
     }
@@ -103,10 +103,10 @@ class AllowGroupsRepositoryTest {
     }
 
     @Test fun aCodeJoinsTheCodeGroupOnceUnderEveryShape() {
-        assertTrue(repo.writeSenderFact(IR_NATIONAL, SenderFact.JoinCodeGroup))
-        assertTrue(repo.writeSenderFact(IR_PLUS, SenderFact.JoinCodeGroup))
+        assertTrue(repo.writeSenderFact(REGION2_NATIONAL, SenderFact.JoinCodeGroup))
+        assertTrue(repo.writeSenderFact(REGION2_PLUS, SenderFact.JoinCodeGroup))
         assertEquals(1, dao.getMembers().size)
-        assertEquals(setOf(AllowGroup.CODE), groupsOf("00989061234567"))
+        assertEquals(setOf(AllowGroup.CODE), groupsOf("00447700900123"))
         assertEquals(MemberSource.LIVE, dao.getMembers().single().source)
         assertFalse(dao.getMembers().single().acknowledged)
     }
@@ -201,12 +201,12 @@ class AllowGroupsRepositoryTest {
 
     /** A-8: Block from the Spam screen reads the sender like blockAddress and says when a prefix still allows it. */
     @Test fun blockSenderUsesTheSameReadingAndTheReceiptNamesAWinningAllow() = runTest {
-        repo.addRule(SpamRule(kind = ListKind.ALLOW, type = RuleType.NUMBER, pattern = IR_PLUS))
-        repo.joinGroup(AllowGroup.WROTE, IR_PLUS)
-        val id = repo.storeBlocked(held(IR_NATIONAL))
+        repo.addRule(SpamRule(kind = ListKind.ALLOW, type = RuleType.NUMBER, pattern = REGION2_PLUS))
+        repo.joinGroup(AllowGroup.WROTE, REGION2_PLUS)
+        val id = repo.storeBlocked(held(REGION2_NATIONAL))
         repo.blockSender(id)
-        assertTrue(rulesFor(IR_PLUS).all { it.kind == ListKind.BLOCK })
-        assertTrue(groupsOf(IR_PLUS).isEmpty())
+        assertTrue(rulesFor(REGION2_PLUS).all { it.kind == ListKind.BLOCK })
+        assertTrue(groupsOf(REGION2_PLUS).isEmpty())
 
         val prefix = repo.addRule(SpamRule(kind = ListKind.ALLOW, type = RuleType.PREFIX, pattern = "+1555000"))
         val receipt = repo.blockAddress(SENDER, RuleNotes.BLOCKED_BY_YOU)!!
@@ -243,7 +243,7 @@ class AllowGroupsRepositoryTest {
         assertEquals(0, repo.importGroupMembers(file.take(1)))
     }
 
-    /** A-6: a member stored under an older SIM list (key +98...) is found again under today's list. */
+    /** A-6: a member stored under an older SIM list (key +44...) is found again under today's list. */
     @Test fun aMemberStoredUnderAnOlderSimListIsStillFound() = runTest {
         val otherSims = DefaultSpamRepository(
             object : SpamPlatform {
@@ -254,12 +254,14 @@ class AllowGroupsRepositoryTest {
                 override fun deleteMedia(names: Collection<String>) = Unit
                 override fun sweepMedia(keep: Set<String>) = Unit
             },
-            db, SpamSettingsStore(app), NumberNormalizer { "US" }, simRegions = { listOf("GB") },
+            db, SpamSettingsStore(app), NumberNormalizer { "US" }, simRegions = { listOf("DE") },
         )
-        dao.insertMember(AllowGroupMemberEntity(AllowGroup.CODE, IR_PLUS, IR_NATIONAL, 1L, MemberSource.LIVE, true))
-        assertTrue(otherSims.joinGroup(AllowGroup.CODE, IR_NATIONAL))
+        dao.insertMember(
+            AllowGroupMemberEntity(AllowGroup.CODE, REGION2_PLUS, REGION2_NATIONAL, 1L, MemberSource.LIVE, true),
+        )
+        assertTrue(otherSims.joinGroup(AllowGroup.CODE, REGION2_NATIONAL))
         assertEquals(1, dao.getMembers().size)
-        assertEquals(1, otherSims.blockAddress(IR_NATIONAL, RuleNotes.BLOCKED_BY_YOU)!!.removedMembers.size)
+        assertEquals(1, otherSims.blockAddress(REGION2_NATIONAL, RuleNotes.BLOCKED_BY_YOU)!!.removedMembers.size)
     }
 
     /** R-3: the history check's bulk join: one member per sender whatever its shape, none for a blocked sender. */
@@ -268,7 +270,10 @@ class AllowGroupsRepositoryTest {
         repo.joinGroup(AllowGroup.WROTE, SENDER)
         val joined = repo.joinGroups(
             AllowGroup.WROTE,
-            listOf(SENDER, IR_NATIONAL, IR_PLUS, "00989061234567", OTHER, ANDROID_BLOCKED, "Unknown", "ExampleShop"),
+            listOf(
+                SENDER, REGION2_NATIONAL, REGION2_PLUS, "00447700900123",
+                OTHER, ANDROID_BLOCKED, "Unknown", "ExampleShop",
+            ),
         )
         assertEquals(2, joined)
         val members = dao.getMembers()
@@ -296,7 +301,7 @@ class AllowGroupsRepositoryTest {
         const val OTHER_SHORT = "+15559990000"
         const val SENDER = "+15550001234"
         const val OTHER = "+15550005678"
-        const val IR_NATIONAL = "09061234567"
-        const val IR_PLUS = "+989061234567"
+        const val REGION2_NATIONAL = "07700900123"
+        const val REGION2_PLUS = "+447700900123"
     }
 }

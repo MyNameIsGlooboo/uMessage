@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-- Updated the phone number library (libphonenumber 9.0.44), so newer number ranges such as mobile numbers starting 0904 are recognised
+- Updated the phone number library (libphonenumber 9.0.44), so newer mobile ranges are recognised
 
 ## [0.4.14] - 2026-11-18
 ### Fixed

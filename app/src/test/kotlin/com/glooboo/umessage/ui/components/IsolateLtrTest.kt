@@ -13,15 +13,15 @@ class IsolateLtrTest {
 
     @Test
     fun aShortCountryPrefixIsIsolated() {
-        // N-1 (step I Fable review 2): isolateNumbers leaves runs under three digits alone, so "+98" showed as "98+".
-        assertEquals("\u2066+98\u2069", isolateLtr("+98"))
+        // N-1 (step I Fable review 2): isolateNumbers leaves runs under three digits alone, so "+44" showed as "44+".
+        assertEquals("\u2066+44\u2069", isolateLtr("+44"))
         assertEquals("\u2066+1\u2069", isolateLtr("+1"))
     }
 
     @Test
     fun emptyAndIsolatedTextIsLeftAlone() {
         assertEquals("", isolateLtr(""))
-        assertEquals("\u2066+98\u2069", isolateLtr("\u2066+98\u2069"))
+        assertEquals("\u2066+44\u2069", isolateLtr("\u2066+44\u2069"))
     }
 
     @Test

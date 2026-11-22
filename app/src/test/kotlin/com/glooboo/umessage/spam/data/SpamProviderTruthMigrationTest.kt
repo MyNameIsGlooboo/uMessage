@@ -20,8 +20,8 @@ import org.junit.runner.RunWith
 /**
  * spamless.db 8 to 9 (provider truth, 7.2; S15, U15) on a real schema-8 file: rules for one SIM and for both, the
  * same pattern on two SIMs, a user rule merged with an automatic one, an allow on one SIM against a block on the
- * other, a made-up Iranian prefix on two SIMs, held messages that name merged rules, and a forward rule for one SIM.
- * Every number is made up (the 555 range; 0906 for the Iranian shape).
+ * other, a made-up prefix of a second region on two SIMs, held messages that name merged rules, and a forward rule
+ * for one SIM. Every number is made up (the 555 range; the UK drama range 07700 for the second region).
  */
 @RunWith(AndroidJUnit4::class)
 class SpamProviderTruthMigrationTest {
@@ -68,9 +68,9 @@ class SpamProviderTruthMigrationTest {
             // A word on one SIM only, and an allow on one SIM against the block of rules 1 to 3 on the other.
             db.rule(7, "BLOCK", "KEYWORD", "lottery", 2, "")
             db.rule(8, "ALLOW", "NUMBER", NUMBER, 2, "@spamless:allowed_by_you")
-            // A made-up Iranian prefix on both SIMs, the older one with the higher count.
-            db.rule(9, "BLOCK", "PREFIX", "0906", 1, "", createdAt = 50, hits = 9, lastHit = 10)
-            db.rule(10, "BLOCK", "PREFIX", "0906", 2, "", createdAt = 40, hits = 1, lastHit = 20)
+            // A made-up prefix of a second region on both SIMs, the older one with the higher count.
+            db.rule(9, "BLOCK", "PREFIX", "07700", 1, "", createdAt = 50, hits = 9, lastHit = 10)
+            db.rule(10, "BLOCK", "PREFIX", "07700", 2, "", createdAt = 40, hits = 1, lastHit = 20)
             db.held(1, ruleId = 2)
             db.held(2, ruleId = 3)
             db.held(3, ruleId = 7)
@@ -112,7 +112,7 @@ class SpamProviderTruthMigrationTest {
                 listOf(7L, "BLOCK", "KEYWORD", "lottery", null, "", 700L, 0, 0L, 0),
                 listOf(8L, "ALLOW", "NUMBER", NUMBER, null, "@spamless:allowed_by_you", 800L, 0, 0L, 0),
                 // Oldest id (9) stays with the oldest creation time of the two (40).
-                listOf(9L, "BLOCK", "PREFIX", "0906", null, "", 40L, 10, 20L, 0),
+                listOf(9L, "BLOCK", "PREFIX", "07700", null, "", 40L, 10, 20L, 0),
             ).inOrder()
 
             // Held messages that named a merged rule name the kept one.
@@ -161,7 +161,7 @@ class SpamProviderTruthMigrationTest {
             val rules = dao.getRules().map { it.toRule() }
             assertThat(rules.map { it.subscriptionId }.toSet()).containsExactly(null)
             assertThat(rules.single { it.id == 6L }.acknowledged).isTrue()
-            assertThat(dao.findRule(ListKind.BLOCK, RuleType.PREFIX, "0906")?.id).isEqualTo(9L)
+            assertThat(dao.findRule(ListKind.BLOCK, RuleType.PREFIX, "07700")?.id).isEqualTo(9L)
 
             dao.insertMember(
                 AllowGroupMemberEntity(AllowGroup.CODE, NUMBER, NUMBER, 5L, MemberSource.LIVE, acknowledged = false)
