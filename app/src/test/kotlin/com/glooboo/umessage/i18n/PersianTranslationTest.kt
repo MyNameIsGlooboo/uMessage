@@ -79,14 +79,15 @@ class PersianTranslationTest {
         persian.keys.mapNotNull { pluralName(it) }.toSet().forEach { name ->
             if ("$name[one]" !in persian || "$name[other]" !in persian) problems += "$name: needs quantities one and other"
         }
-        if (requireComplete) {
-            own.keys.filter { it !in englishOnly }.forEach { key ->
-                val wanted = pluralName(key)?.let { "$it[other]" } ?: key
-                if (wanted !in persian) problems += "$key: no Persian translation"
-            }
-        }
+        if (requireComplete) problems += missing(own.keys, persian.keys)
         return problems.distinct()
     }
+
+    private fun missing(english: Set<String>, persian: Set<String>): List<String> =
+        english.filter { it !in englishOnly }.mapNotNull { key ->
+            val wanted = pluralName(key)?.let { "$it[other]" } ?: key
+            if (wanted !in persian) "$key: no Persian translation" else null
+        }
 
     @Test
     fun `app Persian strings match English and are complete`() {
