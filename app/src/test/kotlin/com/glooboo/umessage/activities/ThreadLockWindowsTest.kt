@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.test.assertCountEquals
-import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
@@ -22,7 +21,6 @@ import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performSemanticsAction
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.test.core.app.ActivityScenario
@@ -41,7 +39,6 @@ import com.glooboo.umessage.ui.lock.LockScope
 import com.glooboo.umessage.ui.lock.LockTestApp
 import com.glooboo.umessage.ui.thread.AttachKind
 import com.glooboo.umessage.ui.thread.TapbackKind
-import com.glooboo.umessage.ui.thread.TapbackReaction
 import com.glooboo.umessage.ui.thread.ThreadViewModel
 import com.google.common.truth.Truth.assertThat
 import org.fossify.commons.extensions.appLockManager
@@ -200,13 +197,14 @@ class ThreadLockWindowsTest {
     /** J5-7: a dialog kept in a composable's own state closes too: the reactions dialog. */
     @Test
     fun theReactionsDialogClosesWithTheWindows() {
+        // An iPhone reaction text after the message it names: the chat shows it as a chip on that bubble. Set by
+        // hand, vm.reactions would not last: every publish of the list (the first page load of older messages
+        // too) puts back what the thread's own texts give.
+        receive(THREAD, SENDER, ORIGINAL, ageMs = 30_000L)
         openChat()
-        val message = vm().items.filterIsInstance<Message>().first()
-        vm().reactions = mapOf(message.getStableId() to listOf(TapbackReaction(TapbackKind.Liked, 1, listOf(ORIGINAL))))
+        assertThat(idleUntil { vm().reactions.isNotEmpty() }).isTrue()
         compose.waitForIdle()
-        // The chip's own click action, as TalkBack runs it; an injected touch did not open it under Robolectric.
-        compose.onNode(hasContentDescription(TapbackKind.Liked.emoji) and hasClickAction())
-            .performSemanticsAction(SemanticsActions.OnClick)
+        compose.onNode(hasContentDescription(TapbackKind.Liked.emoji) and hasClickAction()).performClick()
         compose.waitForIdle()
         compose.onNodeWithText(ORIGINAL).assertExists()
 
@@ -285,12 +283,12 @@ class ThreadLockWindowsTest {
         compose.onNode(hasSetTextAction()).assertIsFocused()
     }
 
-    private fun receive(thread: Long, address: String, body: String) {
+    private fun receive(thread: Long, address: String, body: String, ageMs: Long = 60_000L) {
         app.contentResolver.insert(Telephony.Sms.CONTENT_URI, ContentValues().apply {
             put("thread_id", thread)
             put("address", address)
             put("body", body)
-            put("date", System.currentTimeMillis() - 60_000L)
+            put("date", System.currentTimeMillis() - ageMs)
             put("type", Telephony.Sms.MESSAGE_TYPE_INBOX)
             put("read", 1)
             put("seen", 1)
